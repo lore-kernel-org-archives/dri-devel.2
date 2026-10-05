@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE6A6CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6DC3CA5FFC
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2796C10E2E1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4458310F1EC;
 	Tue,  6 Oct 2026 07:24:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GHcH8wVs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ys4M1yi0";
 	dkim-atps=neutral
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com
- [74.125.228.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F341B10E245
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:55:58 +0000 (UTC)
-Received: by mail-ed2-f35.google.com with SMTP id
- 4fb4d7f45d1cf-6aa135d6e97so1937457a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 02:55:58 -0700 (PDT)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB3FD10EA18
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:56:02 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-c2dc8cb0decso159272466b.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 02:56:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791194157; x=1791798957; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eUFnmfD1HFrO7M7fDEPhPzh1SVWIHE0Jg9iipMSxbpU=;
- b=GHcH8wVskqXMx1lEXv5pUiqq5aAQ3MwL+QWEvp5iLLFNq1nNeBWapMOYzSe1jx4F0d
- gjMO6ecne9hF8FxshYlA0EBcztukP8Hlx0XcqnQURPG3523U0qFQo1LEei5TywornHS2
- 4aoCixNfiZFbE90mz4eMTjzBtikMreLK/gcW3N8y55USwyCCyNiV2CduMf00QaZlC1Wv
- lYOx57GAMFViXU6jYM1IPTG4+6PatHCFp/DM6Ph/lxOV1csI7jSKyHdGwrlgo3riL5QO
- IrSSjTz801RcN7kyA9rhMLs55n9J632e3YQcrgVSgj4KLYBpttzn6B08YLTmS9cFIkLS
- rwcA==
+ d=gmail.com; s=20251104; t=1791194161; x=1791798961; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=U0Fn4xuYRvi/Ep3my+xCHICO0ZIL+WrDmVGVP+HJwXw=;
+ b=Ys4M1yi041AlM/3b2MRLXwY0Pv9mwhT2qjtmDq4Vo1UrafCWnJrfya0R9icpSYopAr
+ qKBX5qycxVHBBh4Pp57o0mosDfAw5paCTMFZ4R4ILURSuzPMt4nLuRMQd1TN2M0uq/z2
+ 4ndfdPFmTHwYohHN9cDO6GyOPtBexj4lfvbIhnYuEjJrZ6btaCPi5si82FKEC3Z/OwSI
+ Aw+BhbtM159dHFkbsVjQDyh+jxr2TfOulJWfTWzgON+HCOgTJkix+RaVNPwo7wofBqaU
+ ZrlHaY/bI0bVLtMNtOFGxaaKLn7IJgZDCpAxLfwLtbYzY5kiZFJZfhk+JF5LVxqMGhB0
+ zvBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791194157; x=1791798957;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=eUFnmfD1HFrO7M7fDEPhPzh1SVWIHE0Jg9iipMSxbpU=;
- b=d4uLXVrrVXdRJXUSYL0pyCJsVAyPIeW3nS8XrwzBqSxm5AsMetuphcCvo1bryygjXr
- mIxPU5urJ7fPy/QCsp2iIVH/b33+f8gg6rGSNPGD8cgJo5fYYeSZXa/RGVj+xxnkPcja
- EWsZbhi4yUzksKEtIpp0Fxmv9fFervV8qgW9zzbDvFZqThlAzwILHf3yBf+mE/Hl6YMm
- 6Pg5p5d3OHHQXbCojMRIRKl++GzZKSf6gmb779anHNl2DtB8LiioxYPTyKC9YeH6O3hP
- EcG7zk+zrASBdvHpCgWPa+tPtfTezIdJXiuUzAMzX8Wix6SN1sUjhvvQRlzuAFQ7zLo7
- FAdw==
+ d=1e100.net; s=20260707; t=1791194161; x=1791798961;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=U0Fn4xuYRvi/Ep3my+xCHICO0ZIL+WrDmVGVP+HJwXw=;
+ b=urUuhErbURqYpEpUJKwGvdl+KA9zXAMJNfJ3NOgaV/4oSruouVcqMaOqdknFQwbq7F
+ 8qCOZ31a7MsbYCnnlUM48VCsiE66AP0QGAkwLfT+CUw+ZJWnE/tKFzQRe63XqzlDH08d
+ JEpSS5C5XbgGPtXVX//p016ZocXuHGr4Zxtzxg6E58l+bmgRq2uhi0wyjtg+beKJ1NoF
+ f6f1XczK2o6Mb1R2K2CPlVsMBc3SYEGfLrm0sVxaYHolu4Hheal0dx1OXJp68jtazEYQ
+ YDUskWhhlLjgXZffLleBvWliNOH6fwvF45qsDnOSQaARsC02eRMPrmunCJWNWS8EWYB0
+ jrXA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBynDt9i89oPALqiJWEUHwhruZ7WTM2XXwEyoxOn9eWriTOjRe9QzshpmhXAEwi9++yY4G5UKBHHe1s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kz68WGHNQgXQxCGv9zjXZ/Ms+u0xFgX042sj3Qcg6gLXgUK4TO
- qAzbxlGK65tqpm3h2hh9bJTTAnI6nlZkTN1kzeXkCcgSnRrsfYZQ2KzJ
-X-Gm-Gg: AYBFou12DZ7rEjacJ92qHgfGRvVwNWD0AcR4wxamFcbh7jvCHY+8Y5/+G9Ml7tKeq1r
- gPI3ruCc9s33wjsMle1G9l85+rOo8cbfd2i7gwkbI8VJnMFeE66DqJuCPIYDthhlHMgKFAh/Kec
- atfKNuZxwOdr5jZKGMdob8K9MMmPki/Dxc+TgeQYeEcqvyh7GmK4HeEwvYrV8zzDB8QlN7GVck4
- Z7csy01cmqQBs25u3jM975/vbMxJwwXgi66sVUxdOKtVnUp3lc4r0bcKrN2/+enf5xyxBAgXhiK
- T8LB+Ia/OSztQOcsi2LdMiXlMxwDssyFEKGqNmI4LP+ZMHOOkbZ72JEgVBN/p510o7+HsdzazcT
- WrdxCAPgruab0b70oQ8x7tbJwEBzF6RLACHza3UzqRyFHVHu4nHWpBp74ik1ZjkuZojZ9kP4huc
- HfKqnbI/JnSOdK/Ev3lDohDw52gffTmUo5FJx2NUFRcRV04SduPbHGF9wIDV7/pj63w+ppmfmEH
- TLnmdJuaTxTF4zJSNs+Zn8pwDkM4hPdyvjb7hVlMU1xuVK63dm1y+RbrdSa5r6wTd3kTMPP9s92
- PKdKHGeRFSGLk5GiGpBEQMCFRYKxXbauGAI=
-X-Received: by 2002:a17:907:9612:b0:c2b:7672:8e29 with SMTP id
- a640c23a62f3a-c2e4ad13e61mr823688566b.16.1791194156824; 
- Mon, 05 Oct 2026 02:55:56 -0700 (PDT)
+ AKwUvBzzmECyvNyI3XI5+dXZjTkVHfQDjkKIFb7GUqMilXJa5UyoYwLQP3cRMZ/ph+M+cwb0WQOyUAN1/rA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nNEjWyzCz7Vcs6NVD7wHpnbry64qNmiv5dlbbgUEhiUNITlw7S
+ 11zEGSAyCSql2pLJM4LfpbEyoJv1UbzDMof0NkFjU9sHo4CzdA+Amucs
+X-Gm-Gg: AYBFou3DkMFhvc3rEu6mw3F7M0j6UaaABTUpdX6QqM7S56xvXkMaD16RFUVZbtj4pOB
+ C3QrCysjJpLmYtIOF3kdFJTK6BoPuM6qWWRY9hFujjI6BURA/b5ezGv4/K6jShb6yR/O157xuWl
+ keevTkx1BZKTsoDdW725D2HyIf0n2PnIjrSGW6tRgf3P6pC1DgsxJy7u2fx410xU4DDy8Hkoxar
+ EazVqpe9ONNFgKEYgKCaxNs3zCq6aHYayggDUH/84v7FHfGvCffcHsE17J7U9zYA/ortFvdPn3T
+ frdi2MixzXAzdhIDQRAcwbOJ4DxTAr1Q9PmfU6CwQDgsmhYV2f0ytSTEV+QYiCMJrLlwf7Q1NRl
+ FTsDTvdgK3Fjprl/tUu+3eFcJP0qAolDKdsvTBiQyxLxHcr8SGDuY2DHm7SNauFkeNB0EbO5ClG
+ zTLvgNis3ZWhFev1t0y9F2S3H74WWkcVvizrdGuxow2eKSes6hqb5cHJuVo4gN8DsI2IEPPa9nP
+ WYCgJravqMvfscOuxh1ieQOGrsBHC8dzraR8TMwD1w8aRjcJz7y4yv1+um/t+pgAHX5ys9x0GrD
+ 2PK0DfI0IK+8OG8nDCJbS5dkxdHGvXMAnbg=
+X-Received: by 2002:a17:907:3da8:b0:c2e:34b7:8899 with SMTP id
+ a640c23a62f3a-c2e6edfb51dmr545128866b.30.1791194160845; 
+ Mon, 05 Oct 2026 02:56:00 -0700 (PDT)
 Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com
  (54-240-197-234.amazon.com. [54.240.197.234])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c31562aba16sm50753266b.23.2026.10.05.02.55.55
+ a640c23a62f3a-c31562aba16sm50753266b.23.2026.10.05.02.55.59
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 05 Oct 2026 02:55:56 -0700 (PDT)
+ Mon, 05 Oct 2026 02:56:00 -0700 (PDT)
 From: Fred Griffoul <griffoul@gmail.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
@@ -88,14 +89,15 @@ Cc: David Woodhouse <dwmw2@infradead.org>,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, x86@kernel.org
-Subject: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run
-Date: Mon,  5 Oct 2026 09:55:48 +0000
-Message-ID: <20261005095552.52748-3-griffoul@gmail.com>
+Subject: [RFC PATCH 5/6] KVM: guest_memfd: Add dma-buf backing
+Date: Mon,  5 Oct 2026 09:55:51 +0000
+Message-ID: <20261005095552.52748-6-griffoul@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261005095552.52748-1-griffoul@gmail.com>
 References: <20260720111259.122911-1-dwmw2@infradead.org>
  <20261005095552.52748-1-griffoul@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 06 Oct 2026 07:24:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -115,636 +117,449 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-iommufd and KVM write physical addresses into their own page tables.
-To do so, they must ask the exporter which frames back an offset of a
-dma-buf, whether that memory is RAM or MMIO, and whether it may be
-written.
+A memory owner that exports a dma-buf should be able to use that one
+object for both guest stage-2 mappings and device IOMMU mappings. A
+second, KVM-specific backing interface would duplicate the description
+of the memory layout and the rules for invalidating it.
 
-Add a get_phys() operation. The importer passes an offset and a maximum
-length. The exporter reports one run: the frames that start at the
-offset, are backed and physically contiguous, and share one attribute
-word. The run never exceeds the length. The exporter may end it early,
-so importers must not assume that it is the longest possible run.
+Add GUEST_MEMFD_FLAG_USE_DMABUF and a dmabuf_fd field to
+KVM_CREATE_GUEST_MEMFD. This backing has its own kvm_gmem_ops.
+guest_memfd attaches to the buffer as a revocable importer without a
+device. At creation, it asks for the run at offset 0 and refuses MMIO
+or unknown attributes, so a buffer that KVM can never map fails early.
+Offset 0 may be unbacked.
 
-get_phys() returns -ENOENT when the byte at the offset is not backed,
-and -ENODEV when the buffer is revoked. The caller holds the
-reservation, and either pins the attachment or handles revocation. A
-reported frame stays valid until an invalidation that covers it
-returns.
+On a fault, guest_memfd takes the reservation once. It asks get_phys()
+about the PUD-sized, PMD-sized and page-sized blocks around the faulting
+page, in that order, and maps the first block that one aligned RAM run
+covers. If the page is not backed or the run is not supported, the
+fault returns -EFAULT. A READONLY run is mapped without stage-2 write
+permission.
 
-The attribute word holds the memory type and a READONLY flag. Zero
-means writable RAM. Importers refuse unknown types, reserved bits and
-unknown flags, so attributes added later fail safely. Two flag bits are
-reserved: one for holes and one for confidential memory.
+The invalidation callback only runs KVM's invalidation over the
+affected range. It does not allocate memory or call the exporter. A
+fault that read the layout during the change sees mmu_invalidate_seq
+move and retries.
 
-Convert vfio-pci, the iommufd selftest exporter and the KVM sample.
-iommufd behaves as before: it maps a buffer only when one writable run
-covers all of it.
+Callbacks can start as soon as guest_memfd attaches. A dma-buf-backed
+file is therefore added to the inode's list of guest_memfd files under
+filemap_invalidate_lock.
+
+mmap() uses the exporter's dma-buf mmap. fallocate() and populate are
+not supported. Import the DMA_BUF symbol namespace so that a
+CONFIG_KVM=m build passes modpost.
 
 Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
 ---
- drivers/dma-buf/dma-buf.c               |  47 +++++++++++
- drivers/iommu/iommufd/iommufd_private.h |   8 --
- drivers/iommu/iommufd/iommufd_test.h    |  16 ++++
- drivers/iommu/iommufd/pages.c           |  74 ++++-------------
- drivers/iommu/iommufd/selftest.c        | 106 ++++++++++++++++++++----
- drivers/vfio/pci/vfio_pci_dmabuf.c      |  58 ++++++-------
- include/linux/dma-buf.h                 |  54 ++++++++++++
- include/linux/vfio_pci_core.h           |   3 -
- samples/kvm/gmem_provider.c             |  39 ++++-----
- 9 files changed, 267 insertions(+), 138 deletions(-)
+ include/linux/kvm_host.h       |   1 +
+ include/uapi/linux/kvm.h       |   6 +-
+ tools/include/uapi/linux/kvm.h |   6 +-
+ virt/kvm/Kconfig               |   1 +
+ virt/kvm/guest_memfd.c         | 239 +++++++++++++++++++++++++++++++--
+ 5 files changed, 243 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc29..66b85d53ed22 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1389,6 +1389,53 @@ void dma_buf_invalidate_mappings(struct dma_buf *dmabuf)
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_invalidate_mappings, "DMA_BUF");
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index f84f3ab44acf..0158dc46580b 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -834,6 +834,7 @@ static inline u64 kvm_gmem_get_supported_flags(struct kvm *kvm)
  
-+/**
-+ * dma_buf_get_phys - describe the run that starts at an offset
-+ * @attach: attachment to query
-+ * @offset: first buffer byte to describe
-+ * @len: maximum number of bytes to describe
-+ * @phys: physical address and length of the run
-+ * @attr: DMA_BUF_PHYS_ATTR_* word of the run
-+ *
-+ * A run is the longest stretch of backed bytes starting at @offset whose
-+ * frames are physically contiguous and share one attribute word. On success
-+ * *@phys starts at the byte at @offset and covers at most @len bytes; it may
-+ * be shorter than the run.
-+ *
-+ * The dma-buf reservation must be held. The attachment must be pinned or have
-+ * revocable importer operations. A frame remains valid until a covering
-+ * invalidation callback returns; the exporter must invalidate a changed range
-+ * before reusing its old frames.
-+ *
-+ * Returns:
-+ *
-+ * 0 on success, -ENOENT if the byte at @offset is not backed, -ENODEV if the
-+ * buffer is revoked, -EOPNOTSUPP if the exporter cannot describe itself this
-+ * way, or another negative error code.
-+ */
-+int dma_buf_get_phys(struct dma_buf_attachment *attach, u64 offset, u64 len,
-+		     struct phys_vec *phys, u32 *attr)
-+{
-+	u64 end;
-+	int ret;
-+
-+	if (WARN_ON_ONCE(!attach || !attach->dmabuf || !phys || !attr))
-+		return -EINVAL;
-+	if (!len || check_add_overflow(offset, len, &end) ||
-+	    end > attach->dmabuf->size)
-+		return -EINVAL;
-+
-+	dma_resv_assert_held(attach->dmabuf->resv);
-+	if (!attach->dmabuf->ops->get_phys)
-+		return -EOPNOTSUPP;
-+
-+	ret = attach->dmabuf->ops->get_phys(attach, offset, len, phys, attr);
-+	if (!ret && WARN_ON_ONCE(!phys->len || phys->len > len))
-+		return -EIO;
-+	return ret;
+ 	if (!kvm || kvm_arch_supports_gmem_init_shared(kvm))
+ 		flags |= GUEST_MEMFD_FLAG_INIT_SHARED;
++	flags |= GUEST_MEMFD_FLAG_USE_DMABUF;
+ 
+ 	return flags;
+ }
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index 419011097fa8..f8c83013773d 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -1654,11 +1654,15 @@ struct kvm_memory_attributes {
+ #define KVM_CREATE_GUEST_MEMFD	_IOWR(KVMIO,  0xd4, struct kvm_create_guest_memfd)
+ #define GUEST_MEMFD_FLAG_MMAP		(1ULL << 0)
+ #define GUEST_MEMFD_FLAG_INIT_SHARED	(1ULL << 1)
++#define GUEST_MEMFD_FLAG_USE_DMABUF	(1ULL << 2)
+ 
+ struct kvm_create_guest_memfd {
+ 	__u64 size;
+ 	__u64 flags;
+-	__u64 reserved[6];
++	/* With USE_DMABUF, memory comes from this dma-buf's leading bytes. */
++	__s32 dmabuf_fd;
++	__u32 pad;
++	__u64 reserved[5];
+ };
+ 
+ #define KVM_PRE_FAULT_MEMORY	_IOWR(KVMIO, 0xd5, struct kvm_pre_fault_memory)
+diff --git a/tools/include/uapi/linux/kvm.h b/tools/include/uapi/linux/kvm.h
+index d0c0c8605976..ebeb2bc353ed 100644
+--- a/tools/include/uapi/linux/kvm.h
++++ b/tools/include/uapi/linux/kvm.h
+@@ -1644,11 +1644,15 @@ struct kvm_memory_attributes {
+ #define KVM_CREATE_GUEST_MEMFD	_IOWR(KVMIO,  0xd4, struct kvm_create_guest_memfd)
+ #define GUEST_MEMFD_FLAG_MMAP		(1ULL << 0)
+ #define GUEST_MEMFD_FLAG_INIT_SHARED	(1ULL << 1)
++#define GUEST_MEMFD_FLAG_USE_DMABUF	(1ULL << 2)
+ 
+ struct kvm_create_guest_memfd {
+ 	__u64 size;
+ 	__u64 flags;
+-	__u64 reserved[6];
++	/* With USE_DMABUF, memory comes from this dma-buf's leading bytes. */
++	__s32 dmabuf_fd;
++	__u32 pad;
++	__u64 reserved[5];
+ };
+ 
+ #define KVM_PRE_FAULT_MEMORY	_IOWR(KVMIO, 0xd5, struct kvm_pre_fault_memory)
+diff --git a/virt/kvm/Kconfig b/virt/kvm/Kconfig
+index 794976b88c6f..7ac4c8a371eb 100644
+--- a/virt/kvm/Kconfig
++++ b/virt/kvm/Kconfig
+@@ -105,6 +105,7 @@ config KVM_GENERIC_MEMORY_ATTRIBUTES
+ 
+ config KVM_GUEST_MEMFD
+        select XARRAY_MULTI
++       select DMA_SHARED_BUFFER
+        bool
+ 
+ config HAVE_KVM_ARCH_GMEM_PREPARE
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 0f4bf2cc5e8e..f401cc560eb4 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -1,4 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
++#include <linux/dma-buf.h>
++#include <linux/dma-resv.h>
++#include <linux/module.h>
+ #include <linux/anon_inodes.h>
+ #include <linux/backing-dev.h>
+ #include <linux/falloc.h>
+@@ -44,6 +47,8 @@ struct gmem_inode {
+ 	struct list_head gmem_file_list;
+ 
+ 	u64 flags;
++	struct dma_buf *dmabuf;
++	struct dma_buf_attachment *attach;
+ };
+ 
+ static __always_inline struct gmem_inode *GMEM_I(struct inode *inode)
+@@ -477,21 +482,37 @@ static const struct vm_operations_struct kvm_gmem_vm_ops = {
+ #endif
+ };
+ 
+-static int kvm_gmem_native_mmap(struct file *file, struct vm_area_struct *vma)
++static int kvm_gmem_validate_mmap(struct file *file,
++				  struct vm_area_struct *vma)
+ {
+ 	if (!kvm_gmem_supports_mmap(file_inode(file)))
+ 		return -ENODEV;
+-
+ 	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) !=
+-	    (VM_SHARED | VM_MAYSHARE)) {
++	    (VM_SHARED | VM_MAYSHARE))
+ 		return -EINVAL;
+-	}
++	return 0;
 +}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_get_phys, "DMA_BUF");
-+
- /**
-  * DOC: cpu access
-  *
-diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
-index 43fbc5bed8de..5cded585c227 100644
---- a/drivers/iommu/iommufd/iommufd_private.h
-+++ b/drivers/iommu/iommufd/iommufd_private.h
-@@ -716,8 +716,6 @@ bool iommufd_should_fail(void);
- int __init iommufd_test_init(void);
- void iommufd_test_exit(void);
- bool iommufd_selftest_is_mock_dev(struct device *dev);
--int iommufd_test_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
--				     struct phys_vec *phys);
- #else
- static inline void iommufd_test_syz_conv_iova_id(struct iommufd_ucmd *ucmd,
- 						 unsigned int ioas_id,
-@@ -739,11 +737,5 @@ static inline bool iommufd_selftest_is_mock_dev(struct device *dev)
- {
- 	return false;
+ 
+-	vma->vm_ops = &kvm_gmem_vm_ops;
++static int kvm_gmem_native_mmap(struct file *file, struct vm_area_struct *vma)
++{
++	int ret = kvm_gmem_validate_mmap(file, vma);
+ 
++	if (ret)
++		return ret;
++	vma->vm_ops = &kvm_gmem_vm_ops;
+ 	return 0;
  }
--static inline int
--iommufd_test_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
--				 struct phys_vec *phys)
--{
--	return -EOPNOTSUPP;
--}
- #endif
- #endif
-diff --git a/drivers/iommu/iommufd/iommufd_test.h b/drivers/iommu/iommufd/iommufd_test.h
-index 52b78cbcc920..28fd9c43edc4 100644
---- a/drivers/iommu/iommufd/iommufd_test.h
-+++ b/drivers/iommu/iommufd/iommufd_test.h
-@@ -31,6 +31,8 @@ enum {
- 	IOMMU_TEST_OP_PASID_CHECK_HWPT,
- 	IOMMU_TEST_OP_DMABUF_GET,
- 	IOMMU_TEST_OP_DMABUF_REVOKE,
-+	IOMMU_TEST_OP_MD_CHECK_MAPPED,
-+	IOMMU_TEST_OP_MD_IOVA_TO_PHYS,
- };
  
- enum {
-@@ -193,6 +195,20 @@ struct iommu_test_cmd {
- 			__s32 dmabuf_fd;
- 			__u32 revoked;
- 		} dmabuf_revoke;
-+		struct {
-+			/*
-+			 * 1: every page in [iova, iova+length) must be mapped;
-+			 * 0: none of them may be. Mixed is an error.
-+			 */
-+			__u32 mapped;
-+			__u32 __reserved;
-+			__aligned_u64 iova;
-+			__aligned_u64 length;
-+		} check_mapped;
-+		struct {
-+			__aligned_u64 iova;
-+			__aligned_u64 out_phys;	/* 0 if unmapped */
-+		} iova_to_phys;
- 	};
- 	__u32 last;
- };
-diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-index f9b2ae6d7e96..196d1bb330c2 100644
---- a/drivers/iommu/iommufd/pages.c
-+++ b/drivers/iommu/iommufd/pages.c
-@@ -1463,68 +1463,12 @@ static const struct dma_buf_attach_ops iopt_dmabuf_attach_revoke_ops = {
- 	.invalidate_mappings = iopt_revoke_notify,
- };
++static int kvm_gmem_dmabuf_mmap(struct file *file, struct vm_area_struct *vma)
++{
++	struct dma_buf *dmabuf = GMEM_I(file_inode(file))->dmabuf;
++	int ret = kvm_gmem_validate_mmap(file, vma);
++
++	if (ret)
++		return ret;
++	return dma_buf_mmap(dmabuf, vma, vma->vm_pgoff);
++}
++
+ /* File-op dispatchers — thin: they all go through the backing's ops table. */
  
--/*
-- * iommufd and vfio have a circular dependency. Future work for a phys
-- * based private interconnect will remove this.
-- */
--/*
-- * Look up the exporter's phys accessor for iommufd's private-interconnect
-- * path.  Also fills *is_cpu_ram: true if the exporter's memory is normal
-- * cache-coherent RAM (needs BATCH_CPU_MEMORY / IOMMU_CACHE), false for MMIO
-- * (needs BATCH_MMIO / IOMMU_MMIO).  This will be replaced by a formal
-- * exporter op that returns phys + memory type together.
-- */
--static int
--sym_vfio_pci_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
--				 struct phys_vec *phys, bool *is_cpu_ram)
--{
--	typeof(&vfio_pci_dma_buf_iommufd_map) fn;
--	int rc;
--
--	rc = iommufd_test_dma_buf_iommufd_map(attachment, phys);
--	if (rc != -EOPNOTSUPP) {
--		*is_cpu_ram = false;	/* test hook mimics VFIO MMIO */
--		return rc;
--	}
--
--	/*
--	 * Prototype: try the sample gmem provider's dma-buf exporter.  This
--	 * mirrors the vfio-pci private-interconnect hook, and (like it) is
--	 * meant to be replaced by a formal negotiated exporter op returning
--	 * phys + memory type.  The provider serves RAM, so mark it CPU_RAM.
--	 */
--	{
--		extern int gmem_provider_dma_buf_iommufd_map(
--			struct dma_buf_attachment *, struct phys_vec *);
--		typeof(&gmem_provider_dma_buf_iommufd_map) gfn;
--
--		gfn = symbol_get(gmem_provider_dma_buf_iommufd_map);
--		if (gfn) {
--			rc = gfn(attachment, phys);
--			symbol_put(gmem_provider_dma_buf_iommufd_map);
--			if (rc != -EOPNOTSUPP) {
--				*is_cpu_ram = true;
--				return rc;
--			}
--		}
--	}
--
--	if (!IS_ENABLED(CONFIG_VFIO_PCI_DMABUF))
--		return -EOPNOTSUPP;
--
--	fn = symbol_get(vfio_pci_dma_buf_iommufd_map);
--	if (!fn)
--		return -EOPNOTSUPP;
--	rc = fn(attachment, phys);
--	symbol_put(vfio_pci_dma_buf_iommufd_map);
--	*is_cpu_ram = false;	/* VFIO PCI dma-buf carries BAR (MMIO) memory */
--	return rc;
--}
--
- static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
- 			   struct dma_buf *dmabuf)
- {
- 	struct dma_buf_attachment *attach;
+ static int kvm_gmem_fops_release(struct inode *inode, struct file *file)
+@@ -617,6 +638,172 @@ bool __weak kvm_arch_supports_gmem_init_shared(struct kvm *kvm)
+ 	return true;
+ }
+ 
++/* ---- a dma-buf behind the file ----------------------------------------- */
++
++/*
++ * Refuse a buffer whose first run guest_memfd can never map, such as MMIO,
++ * at creation rather than on every fault. A gap at offset 0 is legal. This
++ * is advisory: each fault checks the run it uses.
++ */
++static int gmem_dmabuf_check(struct dma_buf_attachment *attach, u64 size)
++{
 +	struct phys_vec pv;
 +	u32 attr;
- 	int rc;
- 
- 	attach = dma_buf_dynamic_attach(dmabuf, iommufd_global_device(),
-@@ -1546,10 +1490,20 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
- 	if (rc)
- 		goto err_detach;
- 
--	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys,
--					      &pages->dmabuf.is_cpu_ram);
-+	/* One backed, writable run covering the buffer: refuse the rest. */
-+	rc = dma_buf_get_phys(attach, 0, dmabuf->size, &pv, &attr);
-+	if (rc == -ENOENT)
-+		rc = -EOPNOTSUPP;
- 	if (rc)
- 		goto err_unpin;
-+	if (pv.len != dmabuf->size || !dma_buf_phys_attr_known(attr) ||
-+	    (attr & DMA_BUF_PHYS_ATTR_FLAGS_MASK)) {
-+		rc = -EOPNOTSUPP;
-+		goto err_unpin;
-+	}
-+	pages->dmabuf.phys = pv;
-+	pages->dmabuf.is_cpu_ram =
-+		dma_buf_phys_attr_type(attr) == DMA_BUF_PHYS_ATTR_RAM;
- 
- 	dma_resv_unlock(dmabuf->resv);
- 
-diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
-index af07c642a526..0899272d1e66 100644
---- a/drivers/iommu/iommufd/selftest.c
-+++ b/drivers/iommu/iommufd/selftest.c
-@@ -1962,32 +1962,31 @@ static void iommufd_test_dma_buf_release(struct dma_buf *dmabuf)
- 	kfree(priv);
- }
- 
--static const struct dma_buf_ops iommufd_test_dmabuf_ops = {
--	.attach = iommufd_test_dma_buf_attach,
--	.detach = iommufd_test_dma_buf_detach,
--	.map_dma_buf = iommufd_test_dma_buf_map,
--	.release = iommufd_test_dma_buf_release,
--	.unmap_dma_buf = iommufd_test_dma_buf_unmap,
--};
--
--int iommufd_test_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
--				     struct phys_vec *phys)
-+static int iommufd_test_dma_buf_get_phys(struct dma_buf_attachment *attachment,
-+					 u64 offset, u64 len,
-+					 struct phys_vec *phys, u32 *attr)
- {
- 	struct iommufd_test_dma_buf *priv = attachment->dmabuf->priv;
- 
- 	dma_resv_assert_held(attachment->dmabuf->resv);
--
--	if (attachment->dmabuf->ops != &iommufd_test_dmabuf_ops)
--		return -EOPNOTSUPP;
--
- 	if (priv->revoked)
- 		return -ENODEV;
- 
--	phys->paddr = virt_to_phys(priv->memory);
--	phys->len = priv->length;
-+	phys->paddr = virt_to_phys(priv->memory) + offset;
-+	phys->len = len;
-+	*attr = DMA_BUF_PHYS_ATTR_MMIO;
- 	return 0;
- }
- 
-+static const struct dma_buf_ops iommufd_test_dmabuf_ops = {
-+	.attach = iommufd_test_dma_buf_attach,
-+	.detach = iommufd_test_dma_buf_detach,
-+	.map_dma_buf = iommufd_test_dma_buf_map,
-+	.release = iommufd_test_dma_buf_release,
-+	.unmap_dma_buf = iommufd_test_dma_buf_unmap,
-+	.get_phys = iommufd_test_dma_buf_get_phys,
++	int ret;
++
++	dma_resv_lock(attach->dmabuf->resv, NULL);
++	ret = dma_buf_get_phys(attach, 0, size, &pv, &attr);
++	dma_resv_unlock(attach->dmabuf->resv);
++	if (ret == -ENOENT)
++		return 0;
++	if (ret)
++		return ret;
++	if (!dma_buf_phys_attr_known(attr) ||
++	    dma_buf_phys_attr_type(attr) != DMA_BUF_PHYS_ATTR_RAM)
++		return -EOPNOTSUPP;
++	return 0;
++}
++
++static void gmem_dmabuf_invalidate_range(struct dma_buf_attachment *attach,
++					 unsigned long offset,
++					 unsigned long len)
++{
++	struct inode *inode = attach->importer_priv;
++	pgoff_t npages = i_size_read(inode) >> PAGE_SHIFT;
++	pgoff_t start = offset >> PAGE_SHIFT;
++	pgoff_t end = min_t(pgoff_t, DIV_ROUND_UP(offset + len, PAGE_SIZE),
++			    npages);
++
++	if (start >= end)
++		return;
++	/* Lock order: dma-buf reservation, file invalidation, then mmu_lock. */
++	filemap_invalidate_lock(inode->i_mapping);
++	kvm_gmem_invalidate_start(inode, start, end);
++	kvm_gmem_invalidate_end(inode, start, end);
++	filemap_invalidate_unlock(inode->i_mapping);
++}
++
++static void gmem_dmabuf_invalidate(struct dma_buf_attachment *attach)
++{
++	struct inode *inode = attach->importer_priv;
++
++	gmem_dmabuf_invalidate_range(attach, 0, i_size_read(inode));
++}
++
++static const struct dma_buf_attach_ops gmem_dmabuf_attach_ops = {
++	.allow_peer2peer	= true,
++	.invalidate_mappings	= gmem_dmabuf_invalidate,
++	.invalidate_mappings_range = gmem_dmabuf_invalidate_range,
 +};
 +
- static int iommufd_test_dmabuf_get(struct iommufd_ucmd *ucmd,
- 				   unsigned int open_flags,
- 				   size_t len)
-@@ -2031,6 +2030,73 @@ static int iommufd_test_dmabuf_get(struct iommufd_ucmd *ucmd,
- 	return rc;
- }
- 
-+/*
-+ * Report the physical address the mock domain resolves @iova to, or 0 if
-+ * it is unmapped.  Lets a test check that two IOVAs share one frame (a
-+ * scratch substitution) without knowing the frame in advance.
-+ */
-+static int iommufd_test_md_iova_to_phys(struct iommufd_ucmd *ucmd,
-+					unsigned int mockpt_id,
-+					unsigned long iova)
++static int kvm_gmem_dmabuf_attach(struct inode *inode, int dmabuf_fd)
 +{
-+	struct iommu_test_cmd *cmd = ucmd->cmd;
-+	struct iommufd_hw_pagetable *hwpt;
-+	struct mock_iommu_domain *mock;
-+	unsigned int page_size;
-+	int rc;
++	struct gmem_inode *gi = GMEM_I(inode);
++	struct dma_buf_attachment *attach;
++	struct dma_buf *dmabuf;
++	int ret;
 +
-+	hwpt = get_md_pagetable(ucmd, mockpt_id, &mock);
-+	if (IS_ERR(hwpt))
-+		return PTR_ERR(hwpt);
-+
-+	page_size = 1 << __ffs(mock->domain.pgsize_bitmap);
-+	if (iova % page_size) {
-+		rc = -EINVAL;
-+		goto out_put;
++	dmabuf = dma_buf_get(dmabuf_fd);
++	if (IS_ERR(dmabuf))
++		return PTR_ERR(dmabuf);
++	if (dmabuf->size < i_size_read(inode)) {
++		ret = -EINVAL;
++		goto put;
 +	}
-+	cmd->iova_to_phys.out_phys =
-+		mock->domain.ops->iova_to_phys(&mock->domain, iova);
-+	rc = iommufd_ucmd_respond(ucmd, sizeof(*cmd));
-+out_put:
-+	iommufd_put_object(ucmd->ictx, &hwpt->obj);
-+	return rc;
++
++	gi->dmabuf = dmabuf;
++	attach = dma_buf_dynamic_attach(dmabuf, NULL, &gmem_dmabuf_attach_ops,
++					inode);
++	if (IS_ERR(attach)) {
++		ret = PTR_ERR(attach);
++		goto clear_put;
++	}
++	gi->attach = attach;
++	ret = gmem_dmabuf_check(attach, i_size_read(inode));
++	if (ret)
++		goto detach;
++	return 0;
++
++detach:
++	dma_buf_detach(dmabuf, attach);
++	gi->attach = NULL;
++clear_put:
++	gi->dmabuf = NULL;
++put:
++	dma_buf_put(dmabuf);
++	return ret;
 +}
 +
-+static int iommufd_test_md_check_mapped(struct iommufd_ucmd *ucmd,
-+					unsigned int mockpt_id,
-+					unsigned long iova, size_t length,
-+					bool mapped)
++static void kvm_gmem_dmabuf_release(struct inode *inode)
 +{
-+	struct iommufd_hw_pagetable *hwpt;
-+	struct mock_iommu_domain *mock;
-+	unsigned int page_size;
-+	int rc = 0;
++	struct gmem_inode *gi = GMEM_I(inode);
 +
-+	hwpt = get_md_pagetable(ucmd, mockpt_id, &mock);
-+	if (IS_ERR(hwpt))
-+		return PTR_ERR(hwpt);
-+
-+	page_size = 1 << __ffs(mock->domain.pgsize_bitmap);
-+	if (iova % page_size || length % page_size || !length) {
-+		rc = -EINVAL;
-+		goto out_put;
-+	}
-+
-+	for (; length; length -= page_size, iova += page_size) {
-+		bool is_mapped =
-+			mock->domain.ops->iova_to_phys(&mock->domain, iova) != 0;
-+
-+		if (is_mapped != mapped) {
-+			rc = -ENOENT;
-+			goto out_put;
-+		}
-+	}
-+
-+out_put:
-+	iommufd_put_object(ucmd->ictx, &hwpt->obj);
-+	return rc;
++	if (!gi->dmabuf)
++		return;
++	dma_buf_detach(gi->dmabuf, gi->attach);
++	dma_buf_put(gi->dmabuf);
++	gi->attach = NULL;
++	gi->dmabuf = NULL;
 +}
 +
- static int iommufd_test_dmabuf_revoke(struct iommufd_ucmd *ucmd, int fd,
- 				      bool revoked)
- {
-@@ -2143,6 +2209,14 @@ int iommufd_test(struct iommufd_ucmd *ucmd)
- 		return iommufd_test_dmabuf_revoke(ucmd,
- 						  cmd->dmabuf_revoke.dmabuf_fd,
- 						  cmd->dmabuf_revoke.revoked);
-+	case IOMMU_TEST_OP_MD_CHECK_MAPPED:
-+		return iommufd_test_md_check_mapped(ucmd, cmd->id,
-+						    cmd->check_mapped.iova,
-+						    cmd->check_mapped.length,
-+						    cmd->check_mapped.mapped);
-+	case IOMMU_TEST_OP_MD_IOVA_TO_PHYS:
-+		return iommufd_test_md_iova_to_phys(ucmd, cmd->id,
-+						    cmd->iova_to_phys.iova);
- 	default:
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index c16f460c01d6..381c3d338e8c 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -99,46 +99,46 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
- 	kfree(priv);
- }
- 
--static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
--	.attach = vfio_pci_dma_buf_attach,
--	.map_dma_buf = vfio_pci_dma_buf_map,
--	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
--	.release = vfio_pci_dma_buf_release,
--};
--
- /*
-- * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
-- * It allows the two co-operating drivers to exchange the physical address of
-- * the BAR. This is to be replaced with a formal DMABUF system for negotiated
-- * interconnect types.
-+ * Report the BAR's physical range for importers which program it into their own
-+ * translation tables, such as iommufd. A BAR is MMIO, never cache-coherent RAM.
-  *
-- * If this function succeeds the following are true:
-- *  - There is one physical range and it is pointing to MMIO
-- *  - When move_notify is called it means revoke, not move, vfio_dma_buf_map
-- *    will fail if it is currently revoked
-+ * When move_notify is called it means revoke, not move, so this fails while
-+ * revoked and vfio_dma_buf_map() does the same.
-  */
--int vfio_pci_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
--				 struct phys_vec *phys)
-+static int vfio_pci_dma_buf_get_phys(struct dma_buf_attachment *attachment,
-+				     u64 offset, u64 len,
-+				     struct phys_vec *phys, u32 *attr)
- {
--	struct vfio_pci_dma_buf *priv;
-+	struct vfio_pci_dma_buf *priv = attachment->dmabuf->priv;
-+	u32 i;
- 
- 	dma_resv_assert_held(attachment->dmabuf->resv);
--
--	if (attachment->dmabuf->ops != &vfio_pci_dmabuf_ops)
--		return -EOPNOTSUPP;
--
--	priv = attachment->dmabuf->priv;
- 	if (priv->revoked)
- 		return -ENODEV;
- 
--	/* More than one range to iommufd will require proper DMABUF support */
--	if (priv->nr_ranges != 1)
--		return -EOPNOTSUPP;
--
--	*phys = priv->phys_vec[0];
-+	/* Report from @offset to the end of the BAR range containing it. */
-+	for (i = 0; i < priv->nr_ranges; i++) {
-+		if (offset < priv->phys_vec[i].len)
-+			break;
-+		offset -= priv->phys_vec[i].len;
++static int gmem_dmabuf_get_pfn(struct file *file, struct kvm *kvm,
++			       struct kvm_memory_slot *slot, gfn_t gfn,
++			       kvm_pfn_t *pfn, struct page **page,
++			       int *max_order, bool *writable)
++{
++	static const int orders[] = { PUD_ORDER, PMD_ORDER, 0 };
++	struct gmem_inode *gi = GMEM_I(file_inode(file));
++	struct gmem_file *f = gmem_file_of(file);
++	pgoff_t index = kvm_gmem_get_index(slot, gfn);
++	pgoff_t npages = i_size_read(file_inode(file)) >> PAGE_SHIFT;
++	unsigned int oi;
++	int ret = -EFAULT;
++
++	if (file != READ_ONCE(slot->gmem.file))
++		return -EFAULT;
++	if (xa_load(&f->bindings, index) != slot)
++		return -EIO;
++
++	/* A block maps at an order only if one aligned RAM run covers it. */
++	dma_resv_lock(gi->dmabuf->resv, NULL);
++	for (oi = max_order ? 0 : ARRAY_SIZE(orders) - 1;
++	     oi < ARRAY_SIZE(orders); oi++) {
++		int order = orders[oi];
++		pgoff_t bs = ALIGN_DOWN(index, 1UL << order);
++		u64 blen = (u64)PAGE_SIZE << order;
++		struct phys_vec pv;
++		u32 attr;
++
++		if (bs + (1UL << order) > npages)
++			continue;
++		if (dma_buf_get_phys(gi->attach, (u64)bs << PAGE_SHIFT, blen,
++				     &pv, &attr) ||
++		    pv.len != blen || !IS_ALIGNED(pv.paddr, blen) ||
++		    !dma_buf_phys_attr_known(attr) ||
++		    dma_buf_phys_attr_type(attr) != DMA_BUF_PHYS_ATTR_RAM)
++			continue;
++
++		*pfn = PHYS_PFN(pv.paddr) + (index - bs);
++		*page = NULL;
++		if (max_order)
++			*max_order = order;
++		if (writable && (attr & DMA_BUF_PHYS_ATTR_READONLY))
++			*writable = false;
++		ret = 0;
++		break;
 +	}
-+	if (i == priv->nr_ranges)
++	dma_resv_unlock(gi->dmabuf->resv);
++	return ret;
++}
++
++static int kvm_gmem_dmabuf_populate(struct file *file, struct kvm *kvm,
++				    struct kvm_memory_slot *slot, gfn_t gfn,
++				    kvm_pfn_t *pfn, struct page *src_page,
++				    int order)
++{
++	return -EOPNOTSUPP;
++}
++
+ static int  kvm_gmem_native_bind(struct file *file, struct kvm *kvm,
+ 				 struct kvm_memory_slot *slot, loff_t offset);
+ static void kvm_gmem_native_unbind(struct file *slot_file, struct kvm *kvm,
+@@ -654,7 +841,17 @@ static const struct kvm_gmem_ops kvm_gmem_native_ops = {
+ 	.fallocate = kvm_gmem_native_fallocate,
+ };
+ 
+-static int __kvm_gmem_create(struct kvm *kvm, loff_t size, u64 flags)
++static const struct kvm_gmem_ops kvm_gmem_dmabuf_ops = {
++	.bind      = kvm_gmem_native_bind,
++	.unbind    = kvm_gmem_native_unbind,
++	.get_pfn   = gmem_dmabuf_get_pfn,
++	.populate  = kvm_gmem_dmabuf_populate,
++	.release   = kvm_gmem_native_release,
++	.mmap      = kvm_gmem_dmabuf_mmap,
++};
++
++static int __kvm_gmem_create(struct kvm *kvm, loff_t size, u64 flags,
++			     int dmabuf_fd)
+ {
+ 	static const char *name = "[kvm-gmem]";
+ 	struct gmem_file *f;
+@@ -695,6 +892,12 @@ static int __kvm_gmem_create(struct kvm *kvm, loff_t size, u64 flags)
+ 
+ 	GMEM_I(inode)->flags = flags;
+ 
++	if (flags & GUEST_MEMFD_FLAG_USE_DMABUF) {
++		err = kvm_gmem_dmabuf_attach(inode, dmabuf_fd);
++		if (err)
++			goto err_inode;
++	}
++
+ 	file = alloc_file_pseudo(inode, kvm_gmem_mnt, name, O_RDWR, &kvm_gmem_fops);
+ 	if (IS_ERR(file)) {
+ 		err = PTR_ERR(file);
+@@ -703,12 +906,17 @@ static int __kvm_gmem_create(struct kvm *kvm, loff_t size, u64 flags)
+ 
+ 	file->f_flags |= O_LARGEFILE;
+ 	file->private_data = &f->backing;
+-	f->backing.ops = &kvm_gmem_native_ops;
++	f->backing.ops = flags & GUEST_MEMFD_FLAG_USE_DMABUF ?
++			 &kvm_gmem_dmabuf_ops : &kvm_gmem_native_ops;
+ 
+ 	kvm_get_kvm(kvm);
+ 	f->kvm = kvm;
+ 	xa_init(&f->bindings);
++	if (flags & GUEST_MEMFD_FLAG_USE_DMABUF)
++		filemap_invalidate_lock(inode->i_mapping);
+ 	list_add(&f->entry, &GMEM_I(inode)->gmem_file_list);
++	if (flags & GUEST_MEMFD_FLAG_USE_DMABUF)
++		filemap_invalidate_unlock(inode->i_mapping);
+ 
+ 	fd_install(fd, file);
+ 	return fd;
+@@ -734,8 +942,11 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
+ 
+ 	if (size <= 0 || !PAGE_ALIGNED(size))
+ 		return -EINVAL;
++	if (args->pad ||
++	    (!(flags & GUEST_MEMFD_FLAG_USE_DMABUF) && args->dmabuf_fd))
 +		return -EINVAL;
-+	phys->paddr = priv->phys_vec[i].paddr + offset;
-+	phys->len = min_t(u64, priv->phys_vec[i].len - offset, len);
-+	*attr = DMA_BUF_PHYS_ATTR_MMIO;
- 	return 0;
+ 
+-	return __kvm_gmem_create(kvm, size, flags);
++	return __kvm_gmem_create(kvm, size, flags, args->dmabuf_fd);
  }
--EXPORT_SYMBOL_FOR_MODULES(vfio_pci_dma_buf_iommufd_map, "iommufd");
-+
-+static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
-+	.attach = vfio_pci_dma_buf_attach,
-+	.map_dma_buf = vfio_pci_dma_buf_map,
-+	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
-+	.release = vfio_pci_dma_buf_release,
-+	.get_phys = vfio_pci_dma_buf_get_phys,
-+};
-+
  
- int vfio_pci_core_fill_phys_vec(struct phys_vec *phys_vec,
- 				struct vfio_region_dma_range *dma_ranges,
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d1203da56fc5..b223962e20c2 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -13,6 +13,7 @@
- #ifndef __DMA_BUF_H__
- #define __DMA_BUF_H__
+ /*
+@@ -1211,6 +1422,8 @@ static struct inode *kvm_gmem_alloc_inode(struct super_block *sb)
+ 	mpol_shared_policy_init(&gi->policy, NULL);
  
-+#include <linux/bitfield.h>
- #include <linux/iosys-map.h>
- #include <linux/file.h>
- #include <linux/err.h>
-@@ -23,6 +24,7 @@
- #include <linux/dma-fence.h>
- #include <linux/wait.h>
- #include <linux/pci-p2pdma.h>
-+#include <linux/types.h>
+ 	gi->flags = 0;
++	gi->dmabuf = NULL;
++	gi->attach = NULL;
+ 	INIT_LIST_HEAD(&gi->gmem_file_list);
+ 	return &gi->vfs_inode;
+ }
+@@ -1225,11 +1438,19 @@ static void kvm_gmem_free_inode(struct inode *inode)
+ 	kmem_cache_free(kvm_gmem_inode_cachep, GMEM_I(inode));
+ }
  
- struct device;
- struct dma_buf;
-@@ -182,6 +184,29 @@ struct dma_buf_ops {
- 			      struct sg_table *,
- 			      enum dma_data_direction);
- 
-+	/**
-+	 * @get_phys:
-+	 *
-+	 * Describe the run that starts at @offset, for an importer that
-+	 * programs its own translation tables. A run is the longest stretch
-+	 * of backed bytes whose frames are physically contiguous and share
-+	 * one attribute word. Report it in *@phys, starting at the byte at
-+	 * @offset and clipped at @offset + @len, with its DMA_BUF_PHYS_ATTR_*
-+	 * word in *@attr. The exporter may stop before the end of the run;
-+	 * importers must not assume the reported run is maximal.
-+	 *
-+	 * Return 0 on success, -ENOENT if the byte at @offset is not backed,
-+	 * -ENODEV if the buffer is revoked, or another negative error. Do not
-+	 * wait for memory to become available.
-+	 *
-+	 * The dma-buf reservation is held. The attachment must be pinned or
-+	 * have revocable importer operations. A reported frame remains valid
-+	 * until a covering invalidation callback returns; an exporter must
-+	 * invalidate every change before reusing an old frame.
-+	 */
-+	int (*get_phys)(struct dma_buf_attachment *attach, u64 offset, u64 len,
-+			struct phys_vec *phys, u32 *attr);
-+
- 	/* TODO: Add try_map_dma_buf version, to return immed with -EBUSY
- 	 * if the call would block.
- 	 */
-@@ -576,6 +601,35 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
- 				enum dma_data_direction);
- void dma_buf_invalidate_mappings(struct dma_buf *dma_buf);
- bool dma_buf_attach_revocable(struct dma_buf_attachment *attach);
-+/* bits 0-7: memory type (a value, not flags) */
-+#define DMA_BUF_PHYS_ATTR_TYPE_MASK	GENMASK(7, 0)
-+#define DMA_BUF_PHYS_ATTR_RAM		0x00	/* cache-coherent system RAM */
-+#define DMA_BUF_PHYS_ATTR_MMIO		0x01	/* device MMIO, uncached */
-+/* bits 8-15: reserved for a second value field; must be zero */
-+#define DMA_BUF_PHYS_ATTR_RSVD_MASK	GENMASK(15, 8)
-+/* bits 16-31: flags; undefined bits must be zero */
-+#define DMA_BUF_PHYS_ATTR_READONLY	BIT(16)
-+/* BIT(17): reserved (hole, for importers that walk across gaps) */
-+/* BIT(18): reserved (private, for confidential computing) */
-+#define DMA_BUF_PHYS_ATTR_FLAGS_MASK	(DMA_BUF_PHYS_ATTR_READONLY)
-+
-+static inline u32 dma_buf_phys_attr_type(u32 attrs)
++static void kvm_gmem_evict_inode(struct inode *inode)
 +{
-+	return FIELD_GET(DMA_BUF_PHYS_ATTR_TYPE_MASK, attrs);
++	kvm_gmem_dmabuf_release(inode);
++	truncate_inode_pages_final(&inode->i_data);
++	clear_inode(inode);
 +}
 +
-+static inline bool dma_buf_phys_attr_known(u32 attrs)
-+{
-+	return dma_buf_phys_attr_type(attrs) <= DMA_BUF_PHYS_ATTR_MMIO &&
-+	       !(attrs & DMA_BUF_PHYS_ATTR_RSVD_MASK) &&
-+	       !(attrs & ~(DMA_BUF_PHYS_ATTR_TYPE_MASK |
-+			  DMA_BUF_PHYS_ATTR_RSVD_MASK |
-+			  DMA_BUF_PHYS_ATTR_FLAGS_MASK));
-+}
-+
-+int dma_buf_get_phys(struct dma_buf_attachment *attach, u64 offset, u64 len,
-+		     struct phys_vec *phys, u32 *attr);
-+
- int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
- 			     enum dma_data_direction dir);
- int dma_buf_end_cpu_access(struct dma_buf *dma_buf,
-diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-index 9a1674c152aa..2a1d13abdb0c 100644
---- a/include/linux/vfio_pci_core.h
-+++ b/include/linux/vfio_pci_core.h
-@@ -257,7 +257,4 @@ vfio_pci_core_get_iomap(struct vfio_pci_core_device *vdev, unsigned int bar)
- 	return vdev->barmap[bar];
+ static const struct super_operations kvm_gmem_super_operations = {
+ 	.statfs		= simple_statfs,
+ 	.alloc_inode	= kvm_gmem_alloc_inode,
+ 	.destroy_inode	= kvm_gmem_destroy_inode,
+ 	.free_inode	= kvm_gmem_free_inode,
++	.evict_inode	= kvm_gmem_evict_inode,
+ };
+ 
+ static int kvm_gmem_init_fs_context(struct fs_context *fc)
+@@ -1292,3 +1513,5 @@ void kvm_gmem_exit(void)
+ 	rcu_barrier();
+ 	kmem_cache_destroy(kvm_gmem_inode_cachep);
  }
- 
--int vfio_pci_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
--				 struct phys_vec *phys);
--
- #endif /* VFIO_PCI_CORE_H */
-diff --git a/samples/kvm/gmem_provider.c b/samples/kvm/gmem_provider.c
-index 75197c088762..b6824fe5d228 100644
---- a/samples/kvm/gmem_provider.c
-+++ b/samples/kvm/gmem_provider.c
-@@ -487,35 +487,30 @@ static void gmem_dma_buf_release(struct dma_buf *dmabuf)
- 	kfree(priv);
- }
- 
--static const struct dma_buf_ops gmem_dma_buf_ops = {
--	.attach		= gmem_dma_buf_attach,
--	.map_dma_buf	= gmem_dma_buf_map,
--	.unmap_dma_buf	= gmem_dma_buf_unmap,
--	.release	= gmem_dma_buf_release,
--};
--
--/*
-- * Private interconnect for iommufd (mirrors vfio_pci_dma_buf_iommufd_map).
-- * Returns the single contiguous phys range for the exported region so iommufd
-- * can program the IOMMU directly, bypassing the DMA API.
-- */
--int gmem_provider_dma_buf_iommufd_map(struct dma_buf_attachment *attach,
--				      struct phys_vec *phys);
--int gmem_provider_dma_buf_iommufd_map(struct dma_buf_attachment *attach,
--				      struct phys_vec *phys)
-+/* Report this flat sample region through the generic dma-buf operation. */
-+static int gmem_dma_buf_get_phys(struct dma_buf_attachment *attach,
-+				 u64 offset, u64 len,
-+				 struct phys_vec *phys, u32 *attr)
- {
--	struct gmem_dmabuf *priv;
-+	struct gmem_dmabuf *priv = attach->dmabuf->priv;
- 
- 	dma_resv_assert_held(attach->dmabuf->resv);
--	if (attach->dmabuf->ops != &gmem_dma_buf_ops)
--		return -EOPNOTSUPP;
--	priv = attach->dmabuf->priv;
- 	if (priv->revoked)
- 		return -ENODEV;
--	*phys = priv->phys;
 +
-+	phys->paddr = priv->phys.paddr + offset;
-+	phys->len = len;
-+	*attr = DMA_BUF_PHYS_ATTR_RAM;
- 	return 0;
- }
--EXPORT_SYMBOL_FOR_MODULES(gmem_provider_dma_buf_iommufd_map, "iommufd");
-+
-+static const struct dma_buf_ops gmem_dma_buf_ops = {
-+	.attach		= gmem_dma_buf_attach,
-+	.map_dma_buf	= gmem_dma_buf_map,
-+	.unmap_dma_buf	= gmem_dma_buf_unmap,
-+	.release	= gmem_dma_buf_release,
-+	.get_phys	= gmem_dma_buf_get_phys,
-+};
- 
- /* Called with info->dmabufs_lock held on the revoke path. */
- static void gmem_dma_buf_revoke_all(struct gmem_info *info)
++MODULE_IMPORT_NS("DMA_BUF");
 -- 
 2.47.3
 
