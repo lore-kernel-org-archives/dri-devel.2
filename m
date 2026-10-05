@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2469BCA5FF5
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 00:38:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF32CA5FFC
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 00:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB3A10E55C;
-	Mon,  5 Oct 2026 00:38:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09A9F10E53F;
+	Mon,  5 Oct 2026 00:38:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="DRl0+KrW";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MedLEFLp";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E10A310E0DB
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 00:38:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 632E310E0DB
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 00:38:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791160728;
- bh=c0R0feFeJ5rmGlGgUcOfE4gsdcUy/yoARnD+nAT5VIA=;
+ s=mail; t=1791160729;
+ bh=TYdyiMCMQ8jJzb3Pp/1WSpEtutPZs8fJOVBWQ6/Qyao=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=DRl0+KrW2BDVoHKglShd/rVrMG20pKgfq76lQ/TQJcgE6ULUfOb/cevZQPmIfJEjQ
- vW/EKZtKrA8Vl0l46jmANtaZTKzSghHtO6yw1CP4fZY9OkhD3RU9PaWc3KAhcQy3lA
- 64WnD7K5kLTh/IV98rpGVnUmQWhudODqEFVj+dx1HDardruEznb+ylrdOK+URTj+Xz
- si1KZeeFjYuCN29CSM0tXj79JBfpl1oHva4ZOLvSsFdQPTP8TDw8CYC9yASo29v84S
- lyY+/wSAgRqiZjIGXGiu86tlLvQr3OQMJCUNQVjyvETPXDjP4Xcw4r5ppoOSJxfmNC
- AIFbC1z9hQgxw==
+ b=MedLEFLp1Gv4gvJFwzGUsHyS7vo3mmF+8kFFQsEnuJMAf5i9iKvUli6NwAiDXVonS
+ RiTSCaQv7yWkiCvZOH1FeJcbxUfi51gQxcRoa/AY+0ZbWQIeWHAlJAx3i46SeelNoZ
+ mH3eVb+MTb5CSq022IxyWPBxeGX5tIJmDfTn2jLvEEjYCnM3VjZyBkf6p8C9GLEBdz
+ Rcav3ar0eLEM8rw/9XSS6/C8sJuMGW8dv85XkHJ6a+WbfcVlf4e0fM3iLuAE+4QFs4
+ jqrCIsg9lBiHqfKzswJkYA2OPa8eGLaCC+3UY4yJj24gsGyasiz3sfoBmrLAVMqHul
+ 4861k1a4/6Whg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 52A9917E0D5D;
- Mon, 05 Oct 2026 02:38:48 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 120CF17E0D84;
+ Mon, 05 Oct 2026 02:38:49 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 05 Oct 2026 03:38:05 +0300
-Subject: [PATCH v12 04/16] drm/bridge: dw-hdmi-qp: Add HDMI 2.0 scrambling
- support
+Date: Mon, 05 Oct 2026 03:38:06 +0300
+Subject: [PATCH v12 05/16] drm/bridge: dw-hdmi-qp: Provide
+ dw_hdmi_qp_hpd_notify() helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-dw-hdmi-qp-scramb-v12-4-195157ba0b40@collabora.com>
+Message-Id: <20261005-dw-hdmi-qp-scramb-v12-5-195157ba0b40@collabora.com>
 References: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 In-Reply-To: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -77,162 +77,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for SCDC scrambling and the high TMDS clock ratio required
-by HDMI 2.0 modes with TMDS character rates above 340 MHz, such as
-4K@60Hz.
+Export dw_hdmi_qp_hpd_notify() for platform drivers to report hot-plug
+detection events.  Unlike drm_helper_hpd_irq_event() which polls all
+connectors, this helper targets only the affected connector and ensures
+.detect_ctx() is invoked on reconnection events to trigger SCDC state
+recovery.
 
-Hook the bridge into the DRM HDMI connector scrambling helpers so the
-sink-side SCDC state and the controller scrambler are updated together
-as part of the atomic enable and disable paths.  This allows the driver
-to advertise HDMI 2.0 support when HPD is available.
+Track the connector in use in curr_conn, set and cleared by the atomic
+enable/disable hooks.  Since the helper runs asynchronously from
+IRQ/work context, hold a reference on that connector for as long as the
+bridge is enabled, so that the pointer is always safe to dereference.
+Otherwise validity would rest on the platform glue quiescing HPD before
+the DRM-managed connector is freed during teardown, risking a
+use-after-free on a late HPD event.
 
-Keep no-HPD configurations limited to HDMI 1.4, since SCDC access
-requires a connected HDMI sink.
+The helper must take its own temporary reference while running, because
+the long-lived reference above only guarantees the pointer is valid at
+the time it is read, not that the connector survives a concurrent
+atomic_disable dropping that reference while the helper is still using
+it.  Moreover, reading the pointer and acquiring the temporary reference
+must be atomic with respect to atomic_disable, otherwise a window exists
+where drm_connector_get() is called on a connector whose refcount
+already reached zero, hence guard curr_conn with a mutex for this
+purpose.  Holding the mutex across the whole helper instead is not an
+option, as it takes modeset locks while atomic_disable is called with
+them held.
 
-Modes above the HDMI 2.0 600 MHz TMDS character-rate limit are now
-implicitly rejected by the DRM HDMI connector/bridge infrastructure,
-making the dw_hdmi_qp_bridge_tmds_char_rate_valid() callback redundant.
-Drop it.
+Also note that this helper may sleep, so it must only be called from a
+threaded HPD interrupt handler or a work function.
 
 Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
-Acked-by: Heiko Stuebner <heiko@sntech.de>
 Tested-by: Robin Räber <robin.raebi@gmail.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 60 ++++++++++++++++++----------
- 1 file changed, 39 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 59 ++++++++++++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h              |  1 +
+ 2 files changed, 60 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 4b55bed42ab7..14723ee5cb05 100644
+index 14723ee5cb05..54181b052fe2 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -2,6 +2,7 @@
- /*
-  * Copyright (c) 2021-2022 Rockchip Electronics Co., Ltd.
-  * Copyright (c) 2024 Collabora Ltd.
-+ * Copyright (c) 2025 Amazon.com, Inc. or its affiliates.
-  *
-  * Author: Algea Cao <algea.cao@rock-chips.com>
-  * Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-@@ -536,6 +537,7 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 	struct drm_connector_state *conn_state;
- 	struct drm_connector *connector;
- 	unsigned int op_mode;
-+	int ret;
+@@ -28,6 +28,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
  
- 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
- 	if (WARN_ON(!connector))
-@@ -546,14 +548,20 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
+ #include <media/cec.h>
  
- 	if (connector->display_info.is_hdmi) {
--		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u\n", __func__,
--			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
--			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc);
- 		op_mode = 0;
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
-+
-+		ret = drm_connector_hdmi_enable_scrambling(connector, conn_state);
-+		if (ret)
-+			dev_warn(hdmi->dev, "Failed to enable scrambling: %d\n", ret);
-+
-+		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u scramb=%d\n", __func__,
-+			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
-+			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc,
-+			connector->hdmi.scrambler_enabled);
- 	} else {
--		dev_dbg(hdmi->dev, "%s mode=DVI\n", __func__);
- 		op_mode = OPMODE_DVI;
-+		dev_dbg(hdmi->dev, "%s mode=DVI\n", __func__);
+@@ -81,6 +82,9 @@ struct dw_hdmi_qp {
+ 	struct regmap *regm;
+ 	int main_irq;
+ 
++	/* Guards curr_conn between atomic hooks and HPD notify readers */
++	struct mutex mutex;
++	struct drm_connector *curr_conn;
+ 	unsigned long tmds_char_rate;
+ 	bool no_hpd;
+ };
+@@ -564,6 +568,10 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 		dev_dbg(hdmi->dev, "%s mode=DVI\n", __func__);
  	}
  
++	drm_connector_get(connector);
++	scoped_guard(mutex, &hdmi->mutex)
++		hdmi->curr_conn = connector;
++
  	hdmi->phy.ops->init(hdmi, hdmi->phy.data);
-@@ -568,9 +576,13 @@ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
- 					     struct drm_atomic_commit *state)
- {
+ 
+ 	dw_hdmi_qp_mod(hdmi, HDCP2_BYPASS, HDCP2_BYPASS, HDCP2LOGIC_CONFIG0);
+@@ -578,6 +586,13 @@ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
  	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+	struct drm_connector *connector;
+ 	struct drm_connector *connector;
  
- 	hdmi->tmds_char_rate = 0;
- 
-+	connector = drm_atomic_get_old_connector_for_encoder(state, bridge->encoder);
-+	drm_connector_hdmi_disable_scrambling(connector);
-+
- 	hdmi->phy.ops->disable(hdmi, hdmi->phy.data);
- }
- 
-@@ -605,24 +617,24 @@ dw_hdmi_qp_bridge_edid_read(struct drm_bridge *bridge,
- 	return drm_edid;
- }
- 
--static enum drm_mode_status
--dw_hdmi_qp_bridge_tmds_char_rate_valid(const struct drm_bridge *bridge,
--				       const struct drm_display_mode *mode,
--				       unsigned long long rate)
-+static int dw_hdmi_qp_bridge_scrambler_enable(struct drm_bridge *bridge)
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
--	/*
--	 * TODO: when hdmi->no_hpd is 1 we must not support modes that
--	 * require scrambling, including every mode with a clock above
--	 * HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ.
--	 */
--	if (rate > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ) {
--		dev_dbg(hdmi->dev, "Unsupported TMDS char rate: %lld\n", rate);
--		return MODE_CLOCK_HIGH;
--	}
-+	dw_hdmi_qp_write(hdmi, 1, SCRAMB_CONFIG0);
-+	dev_dbg(hdmi->dev, "scrambler enabled\n");
- 
--	return MODE_OK;
-+	return 0;
-+}
-+
-+static int dw_hdmi_qp_bridge_scrambler_disable(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+
-+	dw_hdmi_qp_write(hdmi, 0, SCRAMB_CONFIG0);
-+	dev_dbg(hdmi->dev, "scrambler disabled\n");
-+
-+	return 0;
- }
- 
- static int dw_hdmi_qp_bridge_clear_avi_infoframe(struct drm_bridge *bridge)
-@@ -998,7 +1010,8 @@ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
- 	.hpd_enable = dw_hdmi_qp_bridge_hpd_enable,
- 	.hpd_disable = dw_hdmi_qp_bridge_hpd_disable,
- 	.edid_read = dw_hdmi_qp_bridge_edid_read,
--	.hdmi_tmds_char_rate_valid = dw_hdmi_qp_bridge_tmds_char_rate_valid,
-+	.hdmi_scrambler_enable = dw_hdmi_qp_bridge_scrambler_enable,
-+	.hdmi_scrambler_disable = dw_hdmi_qp_bridge_scrambler_disable,
- 	.hdmi_clear_avi_infoframe = dw_hdmi_qp_bridge_clear_avi_infoframe,
- 	.hdmi_write_avi_infoframe = dw_hdmi_qp_bridge_write_avi_infoframe,
- 	.hdmi_clear_hdmi_infoframe = dw_hdmi_qp_bridge_clear_hdmi_infoframe,
-@@ -1126,13 +1139,18 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
- 			   DRM_BRIDGE_OP_HDMI_AUDIO |
- 			   DRM_BRIDGE_OP_HDMI_HDR_DRM_INFOFRAME |
- 			   DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME;
--	if (!hdmi->no_hpd)
--		hdmi->bridge.ops |= DRM_BRIDGE_OP_HPD;
- 	hdmi->bridge.of_node = pdev->dev.of_node;
- 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 	hdmi->bridge.vendor = "Synopsys";
- 	hdmi->bridge.product = "DW HDMI QP TX";
- 
-+	if (hdmi->no_hpd) {
-+		hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_1_4;
-+	} else {
-+		hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_2_0;
-+		hdmi->bridge.ops |= DRM_BRIDGE_OP_HPD;
++	scoped_guard(mutex, &hdmi->mutex) {
++		if (hdmi->curr_conn) {
++			drm_connector_put(hdmi->curr_conn);
++			hdmi->curr_conn = NULL;
++		}
 +	}
 +
- 	if (plat_data->supported_formats)
- 		hdmi->bridge.supported_formats = plat_data->supported_formats;
+ 	hdmi->tmds_char_rate = 0;
  
+ 	connector = drm_atomic_get_old_connector_for_encoder(state, bridge->encoder);
+@@ -1099,6 +1114,10 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ 	if (IS_ERR(hdmi))
+ 		return ERR_CAST(hdmi);
+ 
++	ret = devm_mutex_init(dev, &hdmi->mutex);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	hdmi->dev = dev;
+ 
+ 	regs = devm_platform_ioremap_resource(pdev, 0);
+@@ -1194,6 +1213,46 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ }
+ EXPORT_SYMBOL_GPL(dw_hdmi_qp_bind);
+ 
++/**
++ * dw_hdmi_qp_hpd_notify() - Notify a hot-plug detection event
++ * @hdmi: pointer to the DW HDMI QP controller
++ *
++ * Platform drivers should call this from their threaded IRQ handler or work
++ * function to notify the bridge of a connection status change.
++ * The bridge's .read_hpd() phy_ops callback is used to read the current
++ * connection status.
++ */
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi)
++{
++	enum drm_connector_status status;
++	struct drm_connector *conn;
++
++	scoped_guard(mutex, &hdmi->mutex) {
++		conn = hdmi->curr_conn;
++		if (conn)
++			drm_connector_get(conn);
++	}
++
++	status = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++	dev_dbg(hdmi->dev, "%s status=%d\n", __func__, status);
++
++	/*
++	 * When the display pipeline has been already active, switch to
++	 * drm_connector_helper_hpd_irq_event() to ensure .detect_ctx()
++	 * gets invoked, i.e. via drm_helper_probe_detect(), because
++	 * drm_bridge_hpd_notify() defers to a delayed hotplug path in
++	 * this case.
++	 */
++	if (conn && status == connector_status_connected)
++		drm_connector_helper_hpd_irq_event(conn);
++	else
++		drm_bridge_hpd_notify(&hdmi->bridge, status);
++
++	if (conn)
++		drm_connector_put(conn);
++}
++EXPORT_SYMBOL_GPL(dw_hdmi_qp_hpd_notify);
++
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi)
+ {
+ 	disable_irq(hdmi->main_irq);
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index b80fceffc315..b4fb1c578a5b 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -36,6 +36,7 @@ struct dw_hdmi_qp_plat_data {
+ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ 				   struct drm_encoder *encoder,
+ 				   const struct dw_hdmi_qp_plat_data *plat_data);
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_resume(struct device *dev, struct dw_hdmi_qp *hdmi);
+ #endif /* __DW_HDMI_QP__ */
 
 -- 
 2.55.0
