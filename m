@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14DEBCA5FF0
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 11:43:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 997F5CA5FCE
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 11:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 759E210E5C3;
-	Mon,  5 Oct 2026 11:43:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD19A10E8C2;
+	Mon,  5 Oct 2026 11:45:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uvrs/1oE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oU64JPYK";
 	dkim-atps=neutral
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
- [74.125.225.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4CD10E5C3
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 11:43:19 +0000 (UTC)
-Received: by mail-wr2-f34.google.com with SMTP id
- ffacd0b85a97d-48b01c41135so1073586f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 04:43:19 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4300B10E8C2
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 11:45:01 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-48b0ef9c76eso1479460f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 04:45:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791200598; x=1791805398; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791200699; x=1791805499; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=25uBlo4GDqcGkj4VAPKdolkwb50w3Is4u8TLMjz2GGs=;
- b=Uvrs/1oEOAHSnDE9GkFGm/lMnROS0wgw1YZLJLJk/w83ZwIdnI4CtyjP5WcH3Wy6ya
- 5ozMuJWjgcOc1IbuHcYBgLB/NhvY9wON9TOB8/wDiEq0G64rI1qT0FFbn3yym2Uhgi+l
- KN7KiWTzuenl+q5BpC2JjELoJknCrjoNgzfyP+3uZf/5ciZDujFbd01PfJQR/w/0yh2h
- jJjzMHRyGGyp3El70bOY9oYCHZPLdWT13gjqbmk+xRIHttvKMw42q7UAWUULd5WzwVna
- cM5JZdUPzaef7DbRQOh/q97PsQ1YDCioW47wy5hWFlbN23DHZ67dOndX6w/jO/MnGpbo
- HW0Q==
+ :content-type; bh=ZTSRnK/72f03OAFyRZNcD9D1Hs2QM4XwAkI8vZWB3T4=;
+ b=oU64JPYKX53nACzqJdQhxT4K4zdfZMLcslBfZ4ehLW5CaAOSUgWoissCOtzUlhqnPk
+ ygAhowYY+sozXuHeiTmFHmaPQHw5Bw1Gny1Q1UNm4hFG2Z8feilGVqQsaL4m5KN7hMbu
+ 1VbTjRKxx31WojolpVg0cZV+4i0sqwT2fO4JqggJPraGCqFggmmbQq1jZMnRT8S/eOPg
+ gGQwEPtHYZOw5Uc572xoyd8rUevyncdEiO9OGxtnngXOHtntQfeCmKH1YiFBVY/AR1vU
+ pTG5pjxf/Fp3B3TMFfTXgLdMgriLeNJhRGVsDfibffpvEBLGjUfBa3fYN34ngc1eKvy+
+ BGgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791200598; x=1791805398;
+ d=1e100.net; s=20260707; t=1791200699; x=1791805499;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=25uBlo4GDqcGkj4VAPKdolkwb50w3Is4u8TLMjz2GGs=;
- b=RETNaoKjGa7C2GajJy0mWUZQi54ganrSV+gED21PM0KbaSu+Ky+rU1Unnk2M+82/1m
- bVgPreqtMK/VlN4WGSLRKZuOwawW98/r6az6oVPAH6UUVH4769GUF68sNxc+Is7MjkTe
- KHLDaXvsshWmEcjYo1OJDLgdT4qsiHsPHJxnPsEy3os7dHAD9kX8cl3loaN2gaOmS5vt
- epOZjHjVgvcy6ArsoE6qCaXUCxEWmLBXIwtF534Er4eLkJ+G3UNV6HxVlVsFZJi+p03o
- PbFT1kSuzUJM+qrd4jOsmBIBf1KD2NL6LeHZr0hukb2ANfiIfTFq467Zm71vlLkfp9ZT
- KfDw==
+ bh=ZTSRnK/72f03OAFyRZNcD9D1Hs2QM4XwAkI8vZWB3T4=;
+ b=jM+QW7ZR6wOwUPoQFH9gAS1IrLGycj9w0gxyYY9aaQPasK5PncATbZnke972B5HJqA
+ IV40W+Xd4fso013rTCwxNsIuKpQs7bKfokQVqRQOQJzp8+iDgc2jGaY5TJ3ZzaAEHHR2
+ MDeJmFV8WZ65gcmYN7Uh5ACcHYeGy3mvS8a4EQNJWNvTC+lEPwHr9a7Pf1KkyqzP+qB/
+ fyP71n+i8XwCgcITtQvWAznPRLEMwgWI/gThC8TNFYEq019EeqFzhfXx//HZYk0W/R53
+ OXF6BNm3rPhtfFt+42KuhiyqaC1YSBVTNHBSNAS/i1cFAe3c7fW7XSVF5kNh2ORq0820
+ w9AQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByV9LnRVqYOcnAk412skvYxwaeRWxWuE0HP0EyyX00Ze/nTxaaPauq10YAx2f3JSto3RFzvbp9A8ok=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJV02Ns7chdTOJG9Ova64/xLUUC+tLSWoeirKJHx2PEyyEbGFjR
- euH2Ssa7hKDBI8NUfFbfNQlJ7fFAIecNQhpAh9v4ksWm6g7MJfn8Secn
-X-Gm-Gg: AYBFou2L+DhgtLWP48DQ9C/2FK97d71B+cjXb4wsptODV0OzVaXLZGOBLclf7LdMqZY
- mDq/Zeyd1Qd18aW6xEy8mxKJb7C66vE4mJT6It5BSFpujVUE7AgzMNidr9TxmLzQNnpeUKnjnCj
- K/EQvLk3aaZ9IC6Q3J4MNcplUwTtAyu8bSaVG+e6Dq5V0UCAcn9NuDWTHaqGZL549b4Wo75vNA2
- 0G4AMoxcPH49DuXd1EqZT/DWy9UemvR4yaUTmOvp5NK0WXVSf/FRkG8Qdwawr1rocRwE42Y01xY
- lH1bvvJs5eh4zUCFYAy65yxqMF04USmomCaKCcK9Rw+VwGWGFxZueWOR08dMVN7euOMygxtKd8w
- 64E/+leTT1+e0/DVXaZFijQ1ZCzruzae6DwvIVRLfoeZOToG4nfyx2sl06HdQLESSG61BrA0vuo
- tLCkB9Fnf26AW5doMxheaOrMuLv213uUML91vAowxOTmwEzdd/gQZlYmAhgsWGDRHBofbOUg7l9
- ulCSYlLpzMn0ZYcv/QYe8v9I7cYKYdOIZXSgmJK+wZklC5MbBETumz1Eq5zYtygKeq/k70YW0c=
-X-Received: by 2002:a05:6000:40de:b0:48b:d2d:2fcc with SMTP id
- ffacd0b85a97d-48b1272d0c6mr17543670f8f.9.1791200597696; 
- Mon, 05 Oct 2026 04:43:17 -0700 (PDT)
+ AKwUvBxjGdkRArwfidEaeFb0ssCYOhwW9SmMrlqgMdrEqsDuORPLQ1vPQyOVNJOEQoKaRIoA0quem911pMo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ/Q3ecJOBPwIFkWqMo1c931fS/jjFHvFR/tUZUNRUruwnIGOWQ
+ cFBT7oX6PGqeP/Q7CdgqneMBfrmMwALN3sbVUcGeQ39lxhsSE5P+aMk8
+X-Gm-Gg: AYBFou1jct6Kek3g8CN980R/cjwICztJmY20FxmsPc2mHhT26tuFLFaXe6zcBIjjte6
+ 6kaiRKUz3vuZsCuWBxL+tolCmRnZ3pat1HZ0CR+Ec3qUFgk5w+GLiusfWyxRif7PtTQ3IJq6wcP
+ 68si7uATzr7ibbwQnsaGnixU9gJvhlTW3RJtHZyXy8n58HzlqUIaaDrIJh+vQ5+JgmaHVdIwkc1
+ zRnGl/dObn1QTkzaqwl15a5TUOa+S5RQof3r/yqAC6CpQHq1tR2Je+CwybXVrFC1I9aGjEgk2Tx
+ OtD9TWfkzOmy0l4/NCbhmdO+YvbxUwym/WrOpl97tbn/C5NMf9jSzk5M+2btc8/1J2fv7Sn3R+T
+ nWpNIEjzS39wSmnDfQYGsSUmJH0RxP0yM0/g6XhI2ccZyfQNjhCso+UqZ7K1waZBKHC6HUAZy2g
+ V4sRNcuHN9S1y78EAU3ijFxyVStN3inz/KiczCdEEhCbnY/0E7Cq7+0r79TsEdbxP6Vc5MrVHZx
+ c3dnKFmRR0wLfjxlNZU20iAVFWYC04dggbyyj5hFRTSrBCSSNBNynRi3PL4kIV2uTu7/ds0xb0=
+X-Received: by 2002:a05:6000:186a:b0:48b:6bd:1af6 with SMTP id
+ ffacd0b85a97d-48c48000099mr10478688f8f.40.1791200699411; 
+ Mon, 05 Oct 2026 04:44:59 -0700 (PDT)
 Received: from [10.41.30.1] ([161.12.45.16]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48c622704a5sm6943895f8f.15.2026.10.05.04.43.16
+ ffacd0b85a97d-48c62270751sm3087877f8f.13.2026.10.05.04.44.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Oct 2026 04:43:17 -0700 (PDT)
-Message-ID: <be0012e5-872f-42f3-bace-5066a09cd9e6@gmail.com>
-Date: Mon, 5 Oct 2026 12:43:14 +0100
+ Mon, 05 Oct 2026 04:44:58 -0700 (PDT)
+Message-ID: <fb0ec34e-deca-4365-8802-23d5688612e6@gmail.com>
+Date: Mon, 5 Oct 2026 12:44:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 05/13] block: add dma-buf support for raw bdev
+Subject: Re: [PATCH v7 02/13] iov_iter: add iterator type for dmabuf maps
 To: Christoph Hellwig <hch@lst.de>
 Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -87,11 +87,11 @@ Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  Mikulas Patocka <mpatocka@redhat.com>,
  Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
 References: <cover.1790602223.git.asml.silence@gmail.com>
- <a6b81e65b1f09b6ed1f71f294e5a94896ea1ead7.1790602223.git.asml.silence@gmail.com>
- <20261005091111.GB10727@lst.de>
+ <74a9d65f5c4f9acce5f57ad5921a9fadc6eda712.1790602223.git.asml.silence@gmail.com>
+ <20261005091008.GA10727@lst.de>
 Content-Language: en-US
 From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261005091111.GB10727@lst.de>
+In-Reply-To: <20261005091008.GA10727@lst.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,22 +109,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/5/26 10:11, Christoph Hellwig wrote:
-> On Mon, Sep 28, 2026 at 02:32:21PM +0100, Pavel Begunkov wrote:
->> Add a simple proxy implementation of init_dma_buf_io_ctx() forwarding
->> the call to a new struct block_device_operations operation. Also reject
->> dma-buf backed iterators for buffered IO.
+On 10/5/26 10:10, Christoph Hellwig wrote:
+> On Mon, Sep 28, 2026 at 02:32:18PM +0100, Pavel Begunkov wrote:
+>> Introduce a new iterator type for dmabuf maps. The map in an opaque
+>> object with internals and format specific to the subsystem / driver, and
+>> only it can use that subsystem / driver for issuing IO. The task of the
+>> middle layers is to pass the map / iterator further down, maybe doing
+>> basic splitting and length checking. The iterator can only be used by
+>> operations of the file the associated map was created for.
 >>
+>> Suggested-by: Keith Busch <kbusch@kernel.org>
 >> Reviewed-by: Christoph Hellwig <hch@lst.de>
->> [pavel: reject dma-buf without O_DIRECT]
 >> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 > 
-> The Sashiko report about the errno on fallback here looks real,
-> and is probably easily fixed by setting a proper errno.
+> FYI, I think the Sashiko complaint about iterate_and_advance2
+> is correct here.  We don't really hit that in the series, but leaving
+> iov_iter methods partially implemented and fall through to others
+> seems dangerous.  At minimum that needs a WARN_ON to catch that case.
 
-I'm going to move the check into blkdev_buffered_write(),
-this should cover both paths. direct_write_fallback() will
-see -EOPNOTSUPP and fail appropriately.
+v7 already covers iterate_and_advance2(). It complains about
+iterate_and_advance_kernel() but there are many types this one
+doesn't support.
 
 -- 
 Pavel Begunkov
