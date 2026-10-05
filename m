@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D68DCA5FFC
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 15:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E0BBCA5FFC
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 15:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF2CA10EDBC;
-	Mon,  5 Oct 2026 15:37:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A587110E05E;
+	Mon,  5 Oct 2026 15:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MIuVTQeL";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="SyU2QJaY";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D46710EDBC
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 15:37:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E00F610E05E
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 15:48:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791214668;
- bh=A77lRtij3jyuzXv8DuCKc6btPgHKD5vhUgGG20sM+lM=;
+ s=mail; t=1791215311;
+ bh=s9oZ2zVxhNcUAC1WPQkD6zpHTkJ3iYRAqKqgEgNsA98=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=MIuVTQeLjEjOjuKc2mvl1nFIbWUSiVX9gPBcogQVFX7lP0w8d8u74/gCurD6sF5lO
- iTla52yoE09QYgLqjG7l9jh5XFoi5Qbui64LneJa45wQELWFEqlxBIDlu/SiG6mFA4
- 40ekiXbIpIlhZBNbiUWxywqvZ0zR+hW/OPccy6QCKODtQt8kyx/fgwiUbJemQ3Wa1l
- 4wV9ADJE4Z1y2nQsqE2z+sAhtw3nBk5hsSBYwWMuNUQHLx+gbndBTNAQnPyjVc9nYJ
- VPB1jmOXKuyu3EtkAbBunTmjiX2G1A2ofP4xQOt59HRkhZNT+QjHUrhkfg4j/sTMeo
- G677/yzNKrLcA==
+ b=SyU2QJaY5ctWOGIpsxSJ0srXy/lznwOxng9YzETQ+yGldPAjWnBj2w0+eNaAfHHDU
+ 7Y5m3FCX96jsFz8n7UkoQn5coIo8D9nOcZJQReX9jdnQ510Lj8onFfNIq+RoLAkad6
+ sG1jKm2KqZq4NzuKkhtMM0kgKXHpezI5I4kNTawIytgBBLQagmjz1ZNfs/l7w9X6As
+ HKpLpOVsOR/L6xdO4YXq2UPprZ5Plc6uqvjrezMsgyE/S38s54YBdh/XwaytYtaAy+
+ 4QcUhASfQpF6dShs0/WDFBM7+orrHLITkUFv7VeCBLC1jR2iX3a6fnP+1tQCa38MyU
+ RtKCPNc3Yc1GQ==
 Received: from fedora-61.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 43F5817E0074;
- Mon, 05 Oct 2026 17:37:48 +0200 (CEST)
-Date: Mon, 5 Oct 2026 17:37:41 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 07DD817E043C;
+ Mon, 05 Oct 2026 17:48:30 +0200 (CEST)
+Date: Mon, 5 Oct 2026 17:48:27 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
-Cc: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>, Rob
- Herring <robh@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
- when enabling perfcnt
-Message-ID: <20261005173741.445715f0@fedora-61.home>
-In-Reply-To: <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
- <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
- <20261005103855.655f8199@fedora-61.home>
- <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?B?QWRyacOhbg==?= Larumbe
+ <adrian.larumbe@collabora.com>, Akash Goel <akash.goel@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] drm/panthor: Actually check huge-page mapping on
+ sparse regions
+Message-ID: <20261005174827.4541b816@fedora-61.home>
+In-Reply-To: <5b0254d0-1be2-4dad-b6ce-368d341dd319@arm.com>
+References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
+ <20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
+ <678b9346-a53d-49bd-9c90-fa63e6c81169@arm.com>
+ <20261005135312.43d132cf@fedora-61.home>
+ <5b0254d0-1be2-4dad-b6ce-368d341dd319@arm.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,124 +71,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 5 Oct 2026 16:06:02 +0100
+On Mon, 5 Oct 2026 16:31:09 +0100
 Steven Price <steven.price@arm.com> wrote:
 
-> On 05/10/2026 09:38, Boris Brezillon wrote:
-> > On Fri, 2 Oct 2026 16:14:38 +0100
+> On 05/10/2026 12:53, Boris Brezillon wrote:
+> > On Mon, 5 Oct 2026 12:03:26 +0100
 > > Steven Price <steven.price@arm.com> wrote:
-> >  =20
-> >> On 29/09/2026 04:44, Adri=C3=A1n Larumbe wrote: =20
-> >>> The GPU cache flush/invalidate operation is unnecessary. First off, t=
-he
-> >>> GPU doesn't read off the perfcnt sample buffer, only writes into it, =
-so   =20
+> >   
+> >> On 24/09/2026 12:04, Boris Brezillon wrote:  
+> >>> With the recent changes to iova_mapped_as_huge_page(), the check for
+> >>> huge-page mapping of sparse BOs is actually simple:
+> >>>
+> >>> - for a sparse mapping, we know the BO offset any VA in this regions is
+> >>>   va & (SZ_2M - 1)
+> >>> - the VA we're searching the BO offset for is the 2M-aligned
+> >>>   aligned_va value
+> >>>
+> >>> This guarantees that the BO offset to check is always zero in that case.
+> >>>
+> >>> This is simple enough to let the code check if page 0 is a huge page
+> >>> and save the unmap+map dance when the dummy BO is not backed by a
+> >>> a huge page. So let's do that and kill the comment that says it's too
+> >>> complicated.
+> >>>
+> >>> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> >>> Reviewed-by: Akash Goel <akash.goel@arm.com>
+> >>> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>    
 > >>
-> >> I don't think this is entirely true. The GPU performance counter unit
-> >> only writes the counters that are enabled, counters that share a cache
-> >> line but are not enabled are not written by the performance counter
-> >> unit, but if the L2 contains that cache line then the write can hit in
-> >> the L2 and dirty the entire line including stale data where the
-> >> unwritten cache line is. =20
-> >=20
-> > I don't think this can happen though, because _enable_locked() is
-> > creating a BO (and its GPU mapping) just before enabling the perfcnt
-> > block, meaning the buffer is known to have no dirty cacheline pointing
-> > to it until the first dump happens. And we do flush and invalidate GPU
-> > caches after each dump, so again, we should be covered. =20
->=20
-> The situation isn't actually a dirty cache line at the start, but a
-> stale one. We start off with the memory matching a clean line in the
-> GPU's cache. But because we don't have coherency the clean line can stay
-> even if it's inconsistent with everything else.
->=20
-> CPU		|	GPU		| Memory
-> ----------------+-----------------------+--------------------
->                 | clean line            | matches GPU cache
-> ----------------+-----------------------+--------------------
->    CPU allocates new buffer and writes zeros
-> ----------------+-----------------------+--------------------
-> Dirty cache line| stale clean line      | unknown (cache line
->                 |                       | might be evicted)
-> ----------------+-----------------------+--------------------
->    CPU cleans its own cache to memory
-> ----------------+-----------------------+--------------------
-> Potential clean | stale clean line      | Matches CPU
-> cache line      |                       |
-> ----------------+-----------------------+--------------------
->    Start dump without invaliding GPU
-> ----------------+-----------------------+--------------------
-> Potential clean | GPU writes data, and  | Unknown
-> cache line      | hits in the clean line|
->                 | even though it's stale|
-> ----------------+-----------------------+--------------------
->    CPU flushes the GPU's cache and invalidates it's own
-> ----------------+-----------------------+--------------------
-> No-cache line   | writes out clean line | Matches GPU
->=20
->=20
-> Of course for the GPU to have ended up with that stale clean cache line
-> means that the physical memory was previously used for something else on
-> the GPU, so the newly allocated BO has to reuse memory from a previous
-> BO that the GPU has accessed. And it's all "unlikely" due to the small
-> size of the GPU's cache.
+> >> In itself I can't see anything wrong with this change, so:
+> >>
+> >> Reviewed-by: Steven Price <steven.price@arm.com>
+> >>
+> >> However...
+> >>  
+> >>> ---
+> >>>  drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
+> >>>  1 file changed, 8 insertions(+), 7 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> >>> index d2897099763e..01564d250adf 100644
+> >>> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> >>> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> >>> @@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+> >>>  
+> >>>  		return false;
+> >>>  	} else {
+> >>> -		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+> >>>  		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
+> >>>  		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+> >>> +		const struct page *pg;
+> >>>  
+> >>> -		/* If the unmapped VMA stands for a sparse mapping, always
+> >>> -		 * assume the backing storage is a THP, since the overhead of
+> >>> -		 * unmapping 2MiB worth of 4KiB pages and remapping some of
+> >>> -		 * them is offset by the logic of working out whether it's
+> >>> -		 * the opposite case right below.
+> >>> +		/* BO offset on a sparse mapping is chosen so that 2M-aligned
+> >>> +		 * VAs point to the start of the BO. Since aligned_va (the
+> >>> +		 * address we check huge-page against) is 2M-aligned, the BO
+> >>> +		 * offset is guaranteed to be zero.
+> >>> +		 * Check panthor_fix_sparse_map_offset() for more details.
+> >>>  		 */
+> >>>  		if (is_sparse)
+> >>> -			return true;
+> >>> +			bo_offset = 0;
+> >>>  
+> >>>  		/* In case of shmem backing, we know we can only have a huge
+> >>>  		 * mapping if the bo_offset is 2M aligned, meaning we can skip
+> >>> @@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+> >>>  		if (!IS_ALIGNED(bo_offset, SZ_2M))
+> >>>  			return false;
+> >>>  
+> >>> +		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+> >>>  		return folio_size(page_folio(pg)) >= SZ_2M;    
+> >>
+> >> ... this seems like it could be problematic. On the mapping side we use
+> >> the scatter list to decide whether the region is huge page mapped or
+> >> not. The scatter list code can merge segments that are contiguous (see
+> >> pages_are_mergeable()), so if we have a region which has small folios we
+> >> fail this check even though the pages might have been mapped as huge pages.
+> >>
+> >> This is a problem on the non-sparse path as well (hence not really
+> >> related to this patch). I'm not really sure how to test this though - I
+> >> may well have overlooked something here.  
+> > 
+> > So, this is based on the assumption that shmem backing is allocated
+> > with the buddy allocator, and because of how this allocator splits
+> > bigger order blocks to service smaller allocations, it's my
+> > understanding that two consecutive folios of the same size/order can't
+> > be physically contiguous.  
+> 
+> Yes, you'd expect the buddy allocator to combine the folios back into a
+> larger one if they were contiguous. I guess we should be safe, at least
+> for now. I still feel it's unnecessarily fragile and complex trying to
+> work out whether we've mapped as a huge page or not. But I don't
+> actually have a better solution at the moment, and this series is at
+> least improving things. I'll put it on my todo list to look at later.
 
-Hm, I'd say it's actually impossible because every unmap operation is
-followed by a flush+inval of the GPU L2 and LSC, so for this stale
-clean line to exist on the GPU side when a physical page is GPU-mapped
-again, it would take a bug in the unmap logic or in the MMU HW, I
-think. Am I missing something?
+One way to make that consistent would be to have the same logic on the
+map_pages() side, where we'd use the pages array to check for physical
+contiguity in addition to the dma_addr/size-based checks we already
+have. This being said, this might be moot if we consider moving to
+our own PT implementation with full sub-tree updates (see how [1]
+doesn't have a get_pgsize() anymore). In the meantime, I can add a
+comment explaining the assumptions at play here.
 
->=20
->=20
-> >>
-> >> The upshot is that if the CPU has cleared a block of memory which the
-> >> GPU happens to have cached, then the "unused" counters may end up
-> >> showing the old data before the CPU cleared it (if they share a cache
-> >> line with an active counter). =20
-> >=20
-> > I agree, but that's not a case we can hit in the enable path. I think I
-> > mentioned the commit message was misleading, and that we should instead
-> > talk about the fact the GPU is not supposed to have cached anything up
-> > until the first SAMPLE following a the ENABLE step.
-> >  =20
-> >>
-> >> I have to admit it's probably somewhat academic given that Panfrost
-> >> doesn't expose the ability to control which counters are enabled...
-> >>
-> >> Is there a good reason for this patch (i.e. have you seen a performance
-> >> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
-> >> safe route rather than trying to over optimise cache maintenance. =20
-> >=20
-> > I think I was the one suggesting dropping this flush so that
-> > panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
-> > operation. Besides, I find it confusing to have a cache flush+inval in
-> > a path where the GPU is not supposed to have accessed the buffer yet
-> > (or later on, when we re-enable after a RESET, in a path where the GPU
-> > has been reset and the caches are known to be empty). =20
->=20
-> So I agree this Should Be Safe=E2=84=A2 because of how the driver is curr=
-ently
-> using the performance counters. If we really want to drop the invalidate
-> then I think we need a comment explaining the logic. My worry is that
-> someone extends this in the future (e.g. allow selecting which counters
-> to enable) and breaks assumptions without them being documented.
->=20
-> We normally do perform an invalidate when the GPU first touches a buffer
-> (e.g. for a BO) - it's just normally more implicit because it's done as
-> part of the job manager(/command stream).
->=20
-> Also "caches known to be empty" is a dangerous thing to assume on
-> anything that could involve speculation - AFAIK Mali doesn't really
-> perform any form of speculation, but I'm not 100% sure on that.
-> Certainly with CPUs you don't get such a luxury of knowing what it might
-> have populated in the caches.
-
-I suppose speculation pre-populating the caches with stale data would be
-covered by the flush+inval we do after a map operation (this is
-currently done in the unlock path regardless of the VM op, so both map
-and unmap get it). I don't know, maybe the goal is to relax the flushing
-policy around VM modifications in the future, but if things stay as
-they are now, we can assume that a fresh BO being GPU-mapped guarantees
-that no cacheline points to it until the first GPU access. But maybe
-I'm missing something else...
+[1]https://gitlab.freedesktop.org/bbrezillon/linux/-/commits/b4/panthor-part-ways-with-iopgtbl?ref_type=heads
