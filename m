@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFCFCCA5FF0
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 22:47:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 548EBCA5FF5
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 22:49:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29E9210E1B3;
-	Mon,  5 Oct 2026 22:47:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95F7F10E1C3;
+	Mon,  5 Oct 2026 22:49:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="BXEDuZi6";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="bUgjn8iQ";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5590410E1B3
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 22:47:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791240452; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7AE10E1C3
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 22:49:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791240584; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=X11IIrfVm/W6vJNHgNGmMI3FAg8acPtfYHLjLzAfW6mpqTmFWqT6eUpg05wFriIEjBZk4RlAvUrSYlrouvpjj/u50L7yPoU4/NdBuJAD57GQpKYP0H5J9Tcn16NoZGH64VzCPQ04d2bG2LYReNzj7sFXCF4jzvHYAWQ57Mfh7Tg=
+ b=RcYwHBqWZ15+iEM5RiLujJWlBVELidKGw3sXMC7t+M++X2uQrORaKDeMANPrDRgOUzqGwdvZ2LXrS6sbVTjixCizJQhRQPOg+knfzdeYUJY9rUbfaatXMqDQTiJVJdiNstACQi10AfLRSIzl7bLm+yPtA6unytDlAVqg4PxtSmk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791240452;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aDPLd6m9eaalIuU0euZ4duF8q18K96/gVEz/CFzsn0A=; 
- b=Z0btMJ+uLUFkNgO958Usz1ssRX063i/YtURPBBb/LNYMvLpquTN/t9dkUbzNLRJ2lXvsFT1MeUev/x4iE7ic7rCE3nKHODFNNrc1VyT5md65CwZcpLCR0qM3E+8dtfjNBQjXIulT9gNuHpSd1jzvKc2qAC2UULofOYiXlnm5efw=
+ s=zohoarc; t=1791240584;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=KbgkUmImB3gJ/Dbx30iIP/KkThXAz28Dg0j80jo2Deg=; 
+ b=QbUumb3KsAzMa3CmAT8aLJjkUct5suvA7HAwx9JQBkyRe1gxKCEvuqXb49CB9H6YIOT75yskmpfo7t3bh+Ra5yX82rvacZYBr7YHzrdhBLlN+xNBVWrvj7WmyaFWewe6+ktDx4aTM3uuwFhVT1hN/Lo/5lipo1Gy8qwVW2ISZOc=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791240452; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791240584; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=aDPLd6m9eaalIuU0euZ4duF8q18K96/gVEz/CFzsn0A=;
- b=BXEDuZi6Iea1wSlWGLMW/6HR+gxwHv5oW9L/ajt5MGOsR8HNv0t4iiWekyS8FL6i
- S/qrvhpfQ57mlna6V2ElB/+NltSm4uNdqpcr4plD+y8BavgtEf81m0VsGVX5EiyxqNX
- 8tKW4h0xD8xdyCo9tfQG4s6ieE6oobLQDGoa7vJs=
-Received: by smtp.zohomail.com with SMTPS id 1791240450336816.4858411504894;
- Mon, 5 Oct 2026 15:47:30 -0700 (PDT)
-Date: Mon, 5 Oct 2026 15:47:29 -0700
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=KbgkUmImB3gJ/Dbx30iIP/KkThXAz28Dg0j80jo2Deg=;
+ b=bUgjn8iQ8aiQnhTY/6FCDgwrnStJJnQWpl8dzBNrDiRZiDet0FTyXsae2FDVlIAG
+ g9JmI4Jpy1+VLvzYb61B/JkLNPNiqFAgWi1EKTuGttaxyCEmeKnbq6ZY84M1j/QYljW
+ /cdmwbSGqw1fNj2m58CbStEp+/aV5PylejjN0fZQ=
+Received: by smtp.zohomail.com with SMTPS id 179124058317319.807065784842052; 
+ Mon, 5 Oct 2026 15:49:43 -0700 (PDT)
+Date: Mon, 5 Oct 2026 15:49:42 -0700
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -52,14 +53,20 @@ Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
-Message-ID: <asQpARWOjeJRjhq3@um790>
+Message-ID: <asQphgGWe9KmQa5r@um790>
 References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
  <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
  <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
+ <DLPE0D8F96DE.91C7E0MAERDS@kernel.org>
+ <DLPJT1IUSKQO.1CAWHDECQAFPO@garyguo.net>
+ <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
+ <DLPNFF0JNNOQ.14JE7RL8LT79Q@garyguo.net>
+ <CANiq72kvkAWmJEgOathMVwuXFzUURK1dVN=OWmczykVWpSTv6A@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72kvkAWmJEgOathMVwuXFzUURK1dVN=OWmczykVWpSTv6A@mail.gmail.com>
 X-Zoho-Virus-Status: 1
 X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.236.60
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,80 +84,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 26, 2026 at 04:50:37PM +0100, Gary Guo wrote:
-> On Sat Sep 26, 2026 at 1:26 AM BST, Deborah Brouwer wrote:
-> > Make the zerocopy and zerocopy_derive crates available for use when
-> > building the UAPI crate and its tests. Then attempt to derive most of
-> > the zerocopy traits for struct drm_panthor_gpu_info when generating its
-> > binding. This will be used by the Tyr driver that needs the traits
-> > IntoBytes and Immutable to safely copy the struct byte-for-byte to
-> > userspace.
+On Sun, Sep 27, 2026 at 02:08:36AM +0200, Miguel Ojeda wrote:
+> On Sun, Sep 27, 2026 at 1:49 AM Gary Guo <gary@garyguo.net> wrote:
 > >
-> > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> > ---
-> >  rust/Makefile           | 12 +++++++++---
-> >  rust/bindgen_parameters |  3 +++
-> >  2 files changed, 12 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/rust/Makefile b/rust/Makefile
-> > index da1a7409d984..bf02a1efd6f3 100644
-> > --- a/rust/Makefile
-> > +++ b/rust/Makefile
-> > @@ -365,8 +365,11 @@ rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_ini
-> >  rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
-> >  	+$(call if_changed,rustc_test_library)
-> >  
-> > -rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init
-> > -rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
-> > +rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init \
-> > +	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
-> > +	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
-> > +rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init \
-> > +	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
-> >  	+$(call if_changed,rustc_test_library)
-> >  
-> >  quiet_cmd_rustdoc_test = RUSTDOC T $<
-> > @@ -782,11 +785,14 @@ $(obj)/bindings.o: $(src)/bindings/lib.rs \
-> >      $(obj)/bindings/bindings_helpers_generated.rs FORCE
-> >  	+$(call if_changed_rule,rustc_library)
-> >  
-> > -$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init
-> > +$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init \
-> > +	--extern zerocopy --extern zerocopy_derive
-> >  $(obj)/uapi.o: private skip_gendwarfksyms = 1
-> >  $(obj)/uapi.o: $(src)/uapi/lib.rs \
-> >      $(obj)/ffi.o \
-> >      $(obj)/pin_init.o \
-> > +    $(obj)/zerocopy.o \
-> > +    $(obj)/$(libzerocopy_derive_name) \
+> > I think the skip-on-error default was added in a version newer than what we've
+> > vendored.
 > 
-> Please add these to `bindings` crate as well to avoid have it diverging with
-> `uapi`.
+> I was going to update, so that shouldn't be a big problem.
+> 
 
-Ack.
+The skip_on_error() method is available in the kernel’s vendored copy of zerocopy-derive
+v0.8.54 and it doesn’t change in the latest version so I don’t think that updating to
+0.8.59 would help us here if that's what you mean?
 
-> 
-> >      $(obj)/uapi/uapi_generated.rs FORCE
-> >  	+$(call if_changed_rule,rustc_library)
-> >  
-> > diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-> > index 8402b0c93545..332bc8d6a9f7 100644
-> > --- a/rust/bindgen_parameters
-> > +++ b/rust/bindgen_parameters
-> > @@ -71,3 +71,6 @@
-> >  # Structs should implement `Zeroable` when all of their fields do.
-> >  --with-derive-custom-struct .*=MaybeZeroable
-> >  --with-derive-custom-union .*=MaybeZeroable
-> > +
-> > +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
-> > +--with-derive-custom-struct '^drm_panthor_gpu_info$'=zerocopy_derive::most_traits
-> 
-> This is Tyr specific change and should be in patch 2.
+The problem is that skip_on_error() has a small scope; it only skips errors when
+generating the implementation blocks for these traits. (For example if it’s a binding
+for an unsupported representation type.) Otherwise, zerocopy-derive will generate impl
+blocks with trait bound requirements (e.g. on struct fields) which only fail later at
+compile-time type checking.
 
-Ack, will update in next verion.
+For example, when I tried deriving most_traits for all of the generated structs I got
+about 300 compile errors due to unions inside structs that did not implement KnownLayout
+When I derived most_traits for unions as well, I got an error that deriving IntoBytes
+for unions needs a special cfg to enable because its soundness is still under discussion.
+  error: requires --cfg zerocopy_derive_union_into_bytes;
+  please let us know you use this feature: https://github.com/google/zerocopy/discussions/1802
 
-> 
-> Best,
-> Gary
-> 
-> 
+Also, I get about 200 compile errors complaining that KnownLayout can’t currently be
+implemented for bindgen’s incomplete array field helper.
+
+So I do think it’s reasonable to implement these traits using zerocopy-derive on a
+case-by-case basis.
+
+> Cheers,
+> Miguel
