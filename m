@@ -4,81 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7017FCA5FCE
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 07:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 880D4CA5FCE
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 07:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A38CC10E9FC;
-	Mon,  5 Oct 2026 07:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D86BD10EBAE;
+	Mon,  5 Oct 2026 07:24:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e+ctMgOT";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wt2dRDyT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aqd19pKQ";
 	dkim-atps=neutral
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
- [209.85.160.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3D5810E08C
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 21:24:08 +0000 (UTC)
-Received: by mail-qt1-f175.google.com with SMTP id
- d75a77b69052e-5351d76e1baso7024491cf.1
- for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 14:24:08 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A7C10EBB5
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 07:24:40 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 695102tV1410759
+ for <dri-devel@lists.freedesktop.org>; Mon, 5 Oct 2026 07:24:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=Azp63sWT2CMgHHs8K2ACf9
+ MkCZDugyXiO1aUWelBT2o=; b=Wt2dRDyTnkF+pdHOpaKGQBWxScFEJqRY3lwpAD
+ 1jHwEZ0QfGRqWNy99WW7bBc3uaZouzQPTZ+VQG5SE/LLFg3fo2/wspwmsAzBhldL
+ NBYO7iFuKfxbDebVwPPnujTns3qu2PcssM2Gwx9TIehCgHfR/cVTLnjHgdCoGRDx
+ LAyrykYEDSKJ6fYL3d2DED9xadNBzqR16xo2KVQjHZ0P2Pi6t5pfIVB/af8NSwxm
+ UkZC7+X7bcjpj6yT2IzIwkjtS/wItinIJ0C5JfhzWo7VoVhKffRK6csuQyp11ibG
+ QH4sMu1NZcmjgvSCHD/DYoZO2KmUGi44+AIq4paeSWFTZVww==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sr6cvyd-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 07:24:39 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-3a4a0017549so2304451a91.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 00:24:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791149048; x=1791753848; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=4FDDBOjHId45sAPhEMEOKQ193Q3Lv9uy6bGqIfQK4UI=;
- b=e+ctMgOTymF+Tscj1W1FIFRqI4Dwy+XM8Pk6k79X7E8/VxJvQOHYK1uR/bktDOSGwb
- njE1y5c9Q/iv5GUGKQkTPB7hhccDliwgVaiZLJkNxQ/EYqWa9Pg6DlV8qfCj8BvPkUfk
- KSqdy6kZ5uXdfedyqKLIE/hIFckfgS0L2UXTzf44/CsLe3nWMrVkCzWk9+8I4Sw3L153
- 9JmaMMNyXEk1nzC206aO7ISquC4l1m+wV0KswhYJyFPKqMK+v+fFaVC8sWEuu58WkzDz
- Md7N2CU+Q1lR2MeTBPbciEEzG9MpVYAktZTf+2zXfPFnSpAIjf9SdeqYfr+LftWIrkQi
- ud7w==
+ d=oss.qualcomm.com; s=google; t=1791185078; x=1791789878;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=Azp63sWT2CMgHHs8K2ACf9MkCZDugyXiO1aUWelBT2o=;
+ b=aqd19pKQDi69lEJzUCcKuMG4W4X8VLCL8Z7RnII1mdA+Sqvhg211JbBVt3oJeFnT8r
+ NxGIRaEQ0PyCJs/fDc/7jKlCDeFW31cRvvSO44G99tDi5l/Gl2zkvWklUVN2d881hleL
+ 5qTQOm3JpDyUhOyLUSAdSI7B3tk5hglnouqXeDBC0imaOyNAjy4f9lZRH1h6o6rIEKkD
+ U5sTS9QRQmnLDH+igUJsVBzB9EkCDktmWkhqhSAdAQHJooX4Dz5B3tf52I8rGmQip2dK
+ IPgfsMZY+JdBJQhv+WBfJ4xu4geyL4uxvjujQzOY7jJY0eRK0zd7R2KI6FAqY/nOrvKz
+ sYNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791149048; x=1791753848;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4FDDBOjHId45sAPhEMEOKQ193Q3Lv9uy6bGqIfQK4UI=;
- b=I6K/u4GqxuAMo5O7PAeKmKhlCrR7TEJNvttthmJme74R37+OHyu/paa+LVwfO3b+2M
- R8ZD+2lttXiHZRW1oged8nXRxuEg0EEWTa+JhHX+J5CHWk5QABlP9Kbo9EGiermwEui5
- 4JoBwyy3mLs0Z1mFhiDBR2UAhfG/sIHudrdb5MXn8e9QN0Uyga4KcY9s+Uz/HHboWTmF
- P0iU92w3akOX84scSPcw66OAFk2VA96HNmujE1DU0LT6vPx/LO2y65wD3Fg5lwuj0iA0
- YpZqW0jigqrf8znCSIxi7kRqvR+xOhnrj+ekJcRF/i98hQgaEnzY8NzlmntTSc6Nz0EN
- C1Mw==
+ d=1e100.net; s=20260707; t=1791185078; x=1791789878;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Azp63sWT2CMgHHs8K2ACf9MkCZDugyXiO1aUWelBT2o=;
+ b=zttZreDN6qblvcIs3iGJDVGxKKaDKry+zXQIVCG0DAbXJ4svmddnSiya30SSrVNbYP
+ 0WIG/m5HvHVZpiaI67EOSsPhCz0s51keXho3Yn4UZtnAbW+SWuocJgRhbl1o1l7g2woP
+ 4sPDWDpsHa6zi0Vmp0iDJcbtZ4TWUY3r/hWEyfPHP18WVP42QgmKg2cqTBCgPiKAH0G1
+ 0fYa34/fvzckkFyJrOqI+kHSi/NUOGsidnymjx70XVxbBrjYkv6E5gCZOWVNIYYvBtIs
+ CTZiLKYG+Odtu2JyODQDt03puTIAxNmo/tEn1JOms51pGzLYZbACk34JM2+4Cr82PqK7
+ enAw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwkSKUe1S7w8sfDYlvVWTooDTzV+paKZcYvZHtAp89doaV59AUf5f9S1htK/FePHxLtXg/n6+xtL+U=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++neoB7co8bKJ8y2sT90nIRFRwVItXaHY7wT54kLe+lxGkrZxRfQ
- QeCqJOwn/M79RsHIZ629ykX+Vil3DlEmywDs+Oo2N4f3U9Whd016Wqzs
-X-Gm-Gg: AYBFou21g0QUWr9twkzx4Z0p2VRMk5mvrW+81UQFgpGRSemZLTdHizMt+caFDD125z5
- bFTlYftWqw3geQq412uRetJ20zmPZiYHvEHWfZyMHA3Z4upDJYolzavLrPTHJ1RyuoHjU5vw7dB
- PIeXAwmACH490kX9oxHu7bnnN5zB3PBvnbW72u6xa/Pax7upNjQdfYyhvwNTCjyiVu2b9wB0n2o
- ZD94PA8RCqnARW4ZiugPAlOG0WWpef8hdNh1z+SgvF6aQTnAgBsqBonVDfV7tgT4rQwaNjYgNUE
- mQ1yateYE4mtO2pfKenbjiWySVzGIKEtocdNRzEW8Fc6lwWSl8xZ7cNe9J1enTw9QE5geE2KuHX
- cTpVJSkFQYCWvLokhuYIrffuXPn8/mRHsfvlACmwpit64QytqgyY2qqBZCk/rH5ZTGdA3AsyvYJ
- qBfOZIpGYBco+MsBn6EFxSk2kVfLRBK6tJN9l+y6lyx6a8ySqlUAAq4EigIiBV2LszSVS8aylyU
- YEjjJvqf///TlzS6YhkPQ==
-X-Received: by 2002:a05:622a:653:b0:535:1924:d211 with SMTP id
- d75a77b69052e-5351924d301mr81314081cf.1.1791149047944; 
- Sun, 04 Oct 2026 14:24:07 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+ AKwUvBxbJ/NzwOWnnV0UEjrli4gcZDGITzgL1WcYB+6LhQXS8xr42MI+5ZigyLu4GUhiTInUcjDjU9ENo/I=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKwyPpnWcSfhwzViGW1COaHAYDXRGz/h047yTRpoOSUpK1uIC99
+ hlOPjLWxwHCHqeLijXkxDucRTAtJC0wynSE7WoXcZSNEip1axfbhPDqASoWFge6GI0NNZYi6ZMo
+ UbRD4asqlKCIS4i+GPyGI3qXCquxgU+19H0o1rFsysiagxNNIF653tAUuIMLSc1giqhVBeuw=
+X-Gm-Gg: AYBFou2SQMg2mjcNuZWKQLU8va9Ct621Ao7asVGahpZdQOgDVw3zxGMO0CnKmcms619
+ xYDA2PTfRwGG81egDvlj09X14xR3D4qxxFanyBgheEz0IFKWoLYsM2hCldZINZCl3MI0FD0qTCH
+ fb0w/Qsd/pWaB4Y+035o805MsK/JMYKP89jPsZF0ORGFSjdIEZQ9hwhKBMU0AsIhzuDAzpb7QER
+ JxaDznhg232v0fXKf8EC/8Qmrtuw/JxkZHz81PpRZ/zpUUo9f37mRgRLd6moxt1knr1r1+a3CLW
+ Pj9+c2Xr9cDl6YPU1v1gzoIOfg62c0FbgD68trMkbkWqdFyK2WmB5PI3EpWsmBuckZMWnUFoIV4
+ kNJYlBt4jDWVAVSRZuq3fgzBtzl2aDjoGNIM=
+X-Received: by 2002:a17:90b:3843:b0:3a0:a259:c67d with SMTP id
+ 98e67ed59e1d1-3a6ce6ca70bmr8637871a91.20.1791185078557; 
+ Mon, 05 Oct 2026 00:24:38 -0700 (PDT)
+X-Received: by 2002:a17:90b:3843:b0:3a0:a259:c67d with SMTP id
+ 98e67ed59e1d1-3a6ce6ca70bmr8637862a91.20.1791185078128; 
+ Mon, 05 Oct 2026 00:24:38 -0700 (PDT)
+Received: from hu-bkalkond-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-5339883034csm81689241cf.3.2026.10.04.14.24.05
+ 98e67ed59e1d1-3a78e4f3911sm9901421a91.15.2026.10.05.00.24.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Oct 2026 14:24:07 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Xiaolin Zhang <xiaolin.zhang@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yuho Choi <oss.patchbox@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is still in
- use
-Date: Sun,  4 Oct 2026 17:22:39 -0400
-Message-ID: <20261004212403.208681-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Mon, 05 Oct 2026 00:24:37 -0700 (PDT)
+From: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+Subject: [PATCH 0/5] arm64: dts: qcom: kaanapali: Enable DisplayPort
+Date: Mon, 05 Oct 2026 12:54:25 +0530
+Message-Id: <20261005-kaanapali_dp-v1-0-6faeac3a6d59@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 05 Oct 2026 07:24:17 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKlQw2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAwNT3ezExLzEgsSczPiUAt00sxQzC2NLc2PDtCQloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAjdVQvnAAAAA=
+X-Change-ID: 20261005-kaanapali_dp-f6d6839731fb
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791185070; l=1855;
+ i=balaji.kalkonda@oss.qualcomm.com; s=20261001; h=from:subject:message-id;
+ bh=PB2fJ2NPkTsLvE1rgds9beFGAFlS+6IeewjHF7IqqAA=;
+ b=ZMRkJEBRxbn++DECTU2DBJxRTOxV1Zf422DCROr+2zMMUeZ7a43VwmL0EndjE+8+8i8LQuuks
+ A6jKmG5MAbtDyFpRhiEQbsytABeLC1k/y/uS617BRIW3JwE+D1UbYMM
+X-Developer-Key: i=balaji.kalkonda@oss.qualcomm.com; a=ed25519;
+ pk=U+unGox551qPLS2mzIlN+b5cHksxTMGPnDwePd6KEnI=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAyOCBTYWx0ZWRfXzyrih8+54Bvu
+ tiT/me25Wxi3yGX3urwxbtqZWiOaNcK2LLZ7u/MI5Y+rJ2i1NfnqcqwQ22sq5PRjPcnjkonsS/8
+ V0g+mRfPLk3Esh1bWTriDermPdVs/s0=
+X-Authority-Analysis: v=2.4 cv=NaBzRGD4 c=1 sm=1 tr=0 ts=6ac350b8 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=sU2yQpN9xp1-T3Bds64A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: 6Gtc9uTVdKtgfVxfRpZhPeSV_QVG5yQ-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyOCBTYWx0ZWRfX+uy1TnnBFzA+
+ DZW6llHHyG9pu8FbUrnOQ0HWUXMhztfNRJZDmlAWWznE3D4X/plhPbzBG8JVxsWldwbn+vwFsco
+ ZOr2KTRUW1ZP0Htxu4VTrJpf16tsLVLp/NNnmwG/lVjeLs3Vrrw4ChpXi+Jd8z6E0X16Q2OChkt
+ MixNMD/WQIIG74we3zB0YWV+fVDTeIRjedg91N5p+Mevp/k59U2vOtLAMF+7kn1AdmZzdOewThE
+ s/X5A1bM7llZbgqrmgvb+j5BCto7r98iwFGsfGGtXlf6dqt3Z8RqYSQEn8rms1CCTfA3KVBCW97
+ zShumayU05m6izre4lmBhPxwJ1AM2qa8MLSrzTVV7LSrqy7h9OCbRxx51poabIuVin7MPDYMG5A
+ q2Zkui2dBe5ym2wV/iwomeY6FKsdOyNKE5SaKg7QPZ7FitxBcskSnOtb1xCIqDn6kGz2HvEg2Gr
+ hbwGI6d4mtB8XM6hHug==
+X-Proofpoint-ORIG-GUID: 6Gtc9uTVdKtgfVxfRpZhPeSV_QVG5yQ-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
+ clxscore=1011 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610050028
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,62 +167,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_gvt_dma_map_guest_page() unmaps and frees the cache entry of a
-gfn when it is requested with a different size, and maps the page again.
-The entry is still referenced: shadow GTT entries and dma-bufs keep
-using its DMA address after the page is unpinned and the DMA mapping is
-torn down. When the new mapping gets the same DMA address, their later
-intel_gvt_dma_unmap_guest_page() calls also drop the references of the
-new entry.
+This series adds DisplayPort support for the Qualcomm Kaanapali SoC and
+enables it on the MTP board.
 
-Keep the existing entry instead. A 2M mapping covers a 4K request for
-its first page, so take a reference on it. If the entry is smaller than
-the request, fail and let the caller split the 2M entry into 4K pages,
-as it already does when a 2M mapping cannot be set up.
+Kaanapali has a single DisplayPort controller reusing the SM8750 IP
+revision, routed through the combo USB/DP QMP PHY. The series:
 
-Fixes: 7366aeb77cd8 ("drm/i915/gvt: fix incorrect cache entry for guest page mapping")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+ - Documents the new "qcom,kaanapali-dp" compatible in the DP controller
+   and Kaanapali MDSS bindings.
+ - Adds the Kaanapali descriptor to the DP driver.
+ - Describes the DisplayPort controller node in kaanapali.dtsi, including
+   its OPP table, clocks, and power domain, and wires it to the DPU and
+   the USB/DP QMP PHY.
+ - Enables USB-C audio support on the MTP board (WCD939x USBSS Type-C mux)
+   as a prerequisite for exercising DP alt mode over the same Type-C port.
+ - Enables the DisplayPort controller on MTP and advertises the supported
+   link frequencies for DisplayPort over USB-C.
+
+Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 ---
-Compile-tested only (x86_64 defconfig + DRM_I915_GVT_KVMGT, W=1, sparse).
+Balaji Kalkonda (5):
+      dt-bindings: display/msm: dp-controller: Add Kaanapali
+      drm/msm/dp: Add DisplayPort controller for Kaanapali
+      arm64: dts: qcom: kaanapali: Add DisplayPort controller
+      arm64: dts: qcom: kaanapali-mtp: Enable USB headset and Type-C accessory mode
+      arm64: dts: qcom: kaanapali-mtp: Enable DisplayPort over USB
 
- drivers/gpu/drm/i915/gvt/kvmgt.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+ .../bindings/display/msm/dp-controller.yaml        |  1 +
+ .../bindings/display/msm/qcom,kaanapali-mdss.yaml  |  6 ++
+ arch/arm64/boot/dts/qcom/kaanapali-mtp.dts         | 59 +++++++++++++++
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            | 87 +++++++++++++++++++++-
+ drivers/gpu/drm/msm/dp/dp_display.c                |  6 ++
+ 5 files changed, 157 insertions(+), 2 deletions(-)
+---
+base-commit: f0406245cb9855e6318335a8a223551354291a46
+change-id: 20261005-kaanapali_dp-f6d6839731fb
 
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index ec62db5cc3675..9a3e305253469 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -1626,19 +1626,15 @@ int intel_gvt_dma_map_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
- 		if (ret)
- 			goto err_unmap;
--	} else if (entry->size != size) {
--		/* the same gfn with different size: unmap and re-map */
--		gvt_dma_unmap_page(vgpu, gfn, entry->dma_addr, entry->size);
--		__gvt_cache_remove_entry(vgpu, entry);
--
--		ret = gvt_dma_map_page(vgpu, gfn, dma_addr, size);
--		if (ret)
--			goto err_unlock;
--
--		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
--		if (ret)
--			goto err_unmap;
-+	} else if (entry->size < size) {
-+		/*
-+		 * The smaller mapping may still be in use, so don't replace
-+		 * it. Fail and let the caller map the range in smaller pages.
-+		 */
-+		ret = -EBUSY;
-+		goto err_unlock;
- 	} else {
-+		/* A mapping of the same or a larger size covers the request */
- 		kref_get(&entry->ref);
- 		*dma_addr = entry->dma_addr;
- 	}
-
-base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
--- 
-2.43.0
+Best regards,
+--  
+Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 
