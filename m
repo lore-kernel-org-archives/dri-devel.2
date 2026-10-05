@@ -4,100 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7018CA5FFD
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 19:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0E8DCA5FCE
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 19:58:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B4810E20A;
-	Mon,  5 Oct 2026 19:46:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B43110EE82;
+	Mon,  5 Oct 2026 19:58:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3pGGocrW";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DI5jJjDE";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013063.outbound.protection.outlook.com
- [40.93.201.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E89410E20A;
- Mon,  5 Oct 2026 19:46:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gU9msaBPnKuNsq6WQBxz6PkQsyL9gQFTZyoe9wMcReuLrwpzB8n1nictezqM/VAqD37ecfv4aWPeTR/Buz5eVl3F2TnTmU1kGfHGtFkV1TW3pXXj4IXbXQ7VraaLJdwAocadgg66dLhm2UmuzeeeoGKwewfDm5eKxMasa2Cfh1ILYZREW9suIw7nQSBmBZ370bAwI9UDNb/UQM5hIKqhQ9oNSbw5gWE6yK62p1SaQnUJSGe95quFjkG6PyBbbFC6krLDV+zrW2Rh5edlwuKVSNJ8ZK7B3fCCf/8RNfgjhh5n8hupWX75R0RMNJZl+a9rGVX45L+xMDLBj1Bdj4vSjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XR89lu3tuOqauMwnlbX9GtagJtGIUe/Rt7OovjzOldY=;
- b=oGrhXP3dMe7Zvhlmf2XmVN66pKLonjeT/HEqXN1rtre7x5yfgoFIf25lGRNWH+d9wnsLCvXADmWD5iUyrortDV4SYtNRZmjdTnMGYz2mIDv+KQXHwxMOScKXpplj18VV5kdcVU4TlGNbE1K5Nj3Sie8EH0hKp7PCOgduBenJnJnLAgtmVWHKsZ/aVAj6GvIgusBRw/SjKZ8AANuN0Dve3BIDDAtXSCXFjpYIBY5Y5v8OoeWqMxUTfSBPY8Glv+y0bmlXZLZ71sHeRMFUg0dR7QrzXriZnpRZKXZr21fWhyBTFriBO8zZFIv1slN4vD7WuNgJunHmqhJijs49AB9lRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XR89lu3tuOqauMwnlbX9GtagJtGIUe/Rt7OovjzOldY=;
- b=3pGGocrW0VRlu4Ubq78CHU4d5SRlz/tN0hcEsGKF/JRsCx3JIqnnwR1TJVXnSekR8wnKNNkd+BiCydyALm24UJq9istmIpBMy6SoYYgUNfpi94PX/kpvAAnVzEWPFlr+x7CSAhmrjtxMCE78uB5oT3QbIGnR+YXxQQ+YfC9Gm0Q=
-Received: from DM6PR04CA0028.namprd04.prod.outlook.com (2603:10b6:5:334::33)
- by LV8PR12MB9450.namprd12.prod.outlook.com (2603:10b6:408:202::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
- 2026 19:46:00 +0000
-Received: from DM3PEPF000265C3.namprd03.prod.outlook.com
- (2603:10b6:5:334:cafe::23) by DM6PR04CA0028.outlook.office365.com
- (2603:10b6:5:334::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 19:46:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DM3PEPF000265C3.mail.protection.outlook.com (10.167.23.184) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 19:46:00 +0000
-Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 14:45:58 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>, Curtis Vogt
- <curtis.vogt@gmail.com>
-Subject: [PATCH v2 1/2] drm/edid: Add a connector-specific DDC probe callback
-Date: Mon, 5 Oct 2026 14:45:45 -0500
-Message-ID: <20261005194546.1712792-2-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005194546.1712792-1-mario.limonciello@amd.com>
-References: <20261005194546.1712792-1-mario.limonciello@amd.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFFA210EE82
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 19:58:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1791230331;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=qkAznBj0YywD0+o+tAJxW26YenTQuqhgBWYuJ8S0ThE=;
+ b=DI5jJjDE4ZWz+5mEGt5xvcPlg3W1eg0s+xJWBAs9rsYL6yckDIxovRqDe9QzyNPko4gaq1
+ IfE6d7yAj79tK/pGzPwp1I+xitHXDZxt7CmHOqQU8/php6GYDZE29soq6TR6xWrR0bdpPZ
+ Hh+vmzTg5nvG3cYo72E3LDAfn3Q+oEs=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-564-hHboCxL-Oy-_cKgR77Oxig-1; Mon,
+ 05 Oct 2026 15:58:46 -0400
+X-MC-Unique: hHboCxL-Oy-_cKgR77Oxig-1
+X-Mimecast-MFC-AGG-ID: hHboCxL-Oy-_cKgR77Oxig_1791230325
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 900CF195395C; Mon,  5 Oct 2026 19:58:44 +0000 (UTC)
+Received: from ashelat-thinkpadp1gen5.redhat.corp
+ (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 68EC73001D2F; Mon,  5 Oct 2026 19:58:42 +0000 (UTC)
+From: Anubhav Shelat <ashelat@redhat.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Anubhav Shelat <ashelat@redhat.com>
+Subject: [PATCH v2] drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t
+ from spinlock_t
+Date: Mon,  5 Oct 2026 15:56:58 -0400
+Message-ID: <20261005195658.732657-2-ashelat@redhat.com>
 MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: -N4yZ0Tzg1U7ZSQ_4SBlpKtyUC7s8NSKUZ13FnaW0aI_1791230325
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265C3:EE_|LV8PR12MB9450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0224751c-0717-4dda-7bf9-08df2319485e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|22082099003|3023799007|10067099003|11063799006|56012099006|260925021911599003|260925021311599003|260925022911599003|18002099003;
-X-Microsoft-Antispam-Message-Info: wnzN+6aI759QXQA9SCeiRBYXybPs2LAH2OMRSmuUg5E6f2MiVso88PHp+MMqiaRDkdUQlEonQ/CPpu0EFzOjFnZ6+jAdK/RqJjJrghNmJbFcGJ8sG3wmfzMI99gXYczqx2IWw60SBgF7okLZlBg4hwbwEDrfkKtiDeqlibRxTxeZLbG/oFkkitsRhJv7pzoDeYSj3oEs3N+kkLzjK3xIx0yxz6O3JeugMvNjkvv6PhJwmuyceIU+E5hTJAgFtnRKAEqtnnNeO2z63VSCbQ5XtqxS85ErbN148vIZG0lXNZPZVA5rnmRjwgi/O4mIRnahuKHW2Q/2eUM3cxGhLGr5Bz6+1oS1zw+vwcGUKSdZ7cY5Lbgv0FH8kNYIkuoPj0PAvoiMJC2sqeGegH8rQeiXwZUBOmUxjmgW2+tRN2H8wIWfkFkaqBWARuwL2O9/xMSDh5yombR7bIBrqIIAryrzKd+NGsIMs/FDll8a9zLVM9YGbgNA+2T/CdbRCvlLyvNv4sKOHlWe+uykZKmS2ZTSAN2JNTnVSOl2BUdW6ddKZ6sL1vrfMgE2HosO9C9bzDFkQ8iAiOM1tIHmlGCLo8PEloiFHqRFbkwyyL6tHL6eyQhvL8xXgVBZZ/5JTk3YwDQf6vK47JLPPC07sUH93B9R1cq0z14ZeF8fhvG62u9VYwX6CSZ0nxgrzMJWgazpcSLOtwdktVKI+blagS19nBchpw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(22082099003)(3023799007)(10067099003)(11063799006)(56012099006)(260925021911599003)(260925021311599003)(260925022911599003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 8s5lG6yWXb8Y/PFW3HZH3X0OWeh4JVxQo1m4x0TAAcxUxlFWGuVwtdazuzUfMumHrzpnAXoAY43fqJtiz2ytFCvV79HuTgM2Z6xtEbvZYsz2ZDFxX8tPGIX+wnYgV8b93/AD8gp8WcyBvo6XPofvQOmKvdTDeEUHMoAG4Iwys/j+aJG4K6dZjbr+vX20H+f+yHiJ+txVeITtMFUX6YDHj/M+qEkc935jl2hG0bHn0FgfidCVH1MScbkVPTFPaCxLFPlpCXSGELity+7yXUHzX4lhHefgScRJUZBkTAEZKjy4r3OmxNosvNMA019980jKx5n/45sJr/TgtiaAdXcyQxccV1YjKf/lwpe4RvrckYDye5p+brXK7Qdrtt5b+CS8GL8MNEMgxX7o28X7M8Y22cEc2hlGyQlGijrDaLUFFEmWRkbyWt4Yo6M5RKnIaq/h
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 19:46:00.4366 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0224751c-0717-4dda-7bf9-08df2319485e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C3.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9450
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,92 +76,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The EDID helpers probe DDC before consulting debugfs or firmware
-overrides. This preserves connector-detection semantics for drivers that
-use a successful DDC probe as presence evidence, but it prevents drivers
-with independent presence detection from using an override when DDC is
-unresponsive.
+When perf runs event operations, it calls event_function() which takes a
+raw_spinlock_t. This can eventually lead to i915_pmu_enable() taking a
+spinlock_t, which causes lockdep to throw "Bug: Invalid wait context".
+The call chain:
 
-Add an optional connector callback that replaces drm_probe_ddc() in
-drm_get_edid() and drm_edid_read_ddc(). Drivers can report presence using
-their own reliable detection while retaining the unified override and
-firmware EDID handling in DRM core.
+ event_function()
+    __perf_ctx_lock()
+      raw_spin_lock(&ctx->lock)
+    __perf_event_enable()                     // efs->func()
+      ctx_resched()
+        perf_event_sched_in()
+          ctx_sched_in()
+            __pmu_ctx_sched_in()
+              merge_sched_in()
+                group_sched_in()
+                  event_sched_in()
+                    event->pmu->add()         // = i915_pmu_event_add()
+                      i915_pmu_event_start()
+                        i915_pmu_enable()
+                          spin_lock_irqsave(&pmu->lock)
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+On systems running an RT kernel, spinlock_t can sleep which can cause a
+sleep-in-atomic error.
+
+Fix this by using raw_spinlock_t for i915_pmu->lock instead of
+spinlock_t. As a result, in i915_pmu_gt_parked(), we need to call and
+store the return value of get_rc6(), because its call chain will take
+a spinlock_t. This requires modifying park_rc6() to include it as an
+argument.
+
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Anubhav Shelat <ashelat@redhat.com>
 ---
-Cc: Curtis Vogt <curtis.vogt@gmail.com>
- drivers/gpu/drm/drm_edid.c  | 15 +++++++++++++--
- include/drm/drm_connector.h | 17 +++++++++++++++++
- 2 files changed, 30 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 31 +++++++++++++++++--------------
+ drivers/gpu/drm/i915/i915_pmu.h |  2 +-
+ 2 files changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 3148038747b6e..c0e73ead308d3 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2643,6 +2643,15 @@ drm_probe_ddc(struct i2c_adapter *adapter)
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 1c3bafda9c70..31630e8f80c7 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -232,7 +232,7 @@ static u64 get_rc6(struct intel_gt *gt)
+ 		intel_gt_pm_put_async(gt, wakeref);
+ 	}
+ 
+-	spin_lock_irqsave(&pmu->lock, flags);
++	raw_spin_lock_irqsave(&pmu->lock, flags);
+ 
+ 	if (wakeref) {
+ 		store_sample(pmu, gt_id, __I915_SAMPLE_RC6, val);
+@@ -253,7 +253,7 @@ static u64 get_rc6(struct intel_gt *gt)
+ 	else
+ 		store_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED, val);
+ 
+-	spin_unlock_irqrestore(&pmu->lock, flags);
++	raw_spin_unlock_irqrestore(&pmu->lock, flags);
+ 
+ 	return val;
  }
- EXPORT_SYMBOL(drm_probe_ddc);
+@@ -278,11 +278,11 @@ static void init_rc6(struct i915_pmu *pmu)
+ 	}
+ }
  
-+static bool drm_connector_probe_ddc(struct drm_connector *connector,
-+				    struct i2c_adapter *adapter)
-+{
-+	if (connector->funcs->probe_ddc)
-+		return connector->funcs->probe_ddc(connector);
+-static void park_rc6(struct intel_gt *gt)
++static void park_rc6(struct intel_gt *gt, u64 val)
+ {
+ 	struct i915_pmu *pmu = &gt->i915->pmu;
+ 
+-	store_sample(pmu, gt->info.id, __I915_SAMPLE_RC6, __get_rc6(gt));
++	store_sample(pmu, gt->info.id, __I915_SAMPLE_RC6, val);
+ 	pmu->sleep_last[gt->info.id] = ktime_get_raw();
+ }
+ 
+@@ -300,13 +300,16 @@ static void __i915_pmu_maybe_start_timer(struct i915_pmu *pmu)
+ void i915_pmu_gt_parked(struct intel_gt *gt)
+ {
+ 	struct i915_pmu *pmu = &gt->i915->pmu;
++	u64 val;
+ 
+ 	if (!pmu->registered)
+ 		return;
+ 
+-	spin_lock_irq(&pmu->lock);
++	val = __get_rc6(gt);
 +
-+	return drm_probe_ddc(adapter);
-+}
-+
- /**
-  * drm_get_edid - get EDID data, if available
-  * @connector: connector we're probing
-@@ -2661,7 +2670,8 @@ struct edid *drm_get_edid(struct drm_connector *connector,
- 	if (connector->force == DRM_FORCE_OFF)
- 		return NULL;
++	raw_spin_lock_irq(&pmu->lock);
  
--	if (connector->force == DRM_FORCE_UNSPECIFIED && !drm_probe_ddc(adapter))
-+	if (connector->force == DRM_FORCE_UNSPECIFIED &&
-+	    !drm_connector_probe_ddc(connector, adapter))
- 		return NULL;
+-	park_rc6(gt);
++	park_rc6(gt, val);
  
- 	edid = _drm_do_get_edid(connector, drm_do_probe_ddc_edid, adapter, NULL);
-@@ -2742,7 +2752,8 @@ const struct drm_edid *drm_edid_read_ddc(struct drm_connector *connector,
- 	if (connector->force == DRM_FORCE_OFF)
- 		return NULL;
+ 	/*
+ 	 * Signal sampling timer to stop if only engine events are enabled and
+@@ -316,7 +319,7 @@ void i915_pmu_gt_parked(struct intel_gt *gt)
+ 	if (pmu->unparked == 0)
+ 		pmu->timer_enabled = false;
  
--	if (connector->force == DRM_FORCE_UNSPECIFIED && !drm_probe_ddc(adapter))
-+	if (connector->force == DRM_FORCE_UNSPECIFIED &&
-+	    !drm_connector_probe_ddc(connector, adapter))
- 		return NULL;
+-	spin_unlock_irq(&pmu->lock);
++	raw_spin_unlock_irq(&pmu->lock);
+ }
  
- 	drm_edid = drm_edid_read_custom(connector, drm_do_probe_ddc_edid, adapter);
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 2ee7c59329aae..185cefe6e292f 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1640,6 +1640,23 @@ struct drm_connector_hdmi_funcs {
-  * etc.
-  */
- struct drm_connector_funcs {
-+	/**
-+	 * @probe_ddc:
-+	 *
-+	 * Optional connector-specific replacement for drm_probe_ddc(). Drivers
-+	 * may use this to report connector presence when they have a reliable
-+	 * detection method other than probing the DDC bus.
-+	 *
-+	 * This callback is used by drm_get_edid() and drm_edid_read_ddc() before
-+	 * retrieving an override or reading the EDID. If it is not implemented,
-+	 * the helpers fall back to drm_probe_ddc().
-+	 *
-+	 * RETURNS:
-+	 *
-+	 * True if a sink is connected, false otherwise.
-+	 */
-+	bool (*probe_ddc)(struct drm_connector *connector);
-+
+ void i915_pmu_gt_unparked(struct intel_gt *gt)
+@@ -326,7 +329,7 @@ void i915_pmu_gt_unparked(struct intel_gt *gt)
+ 	if (!pmu->registered)
+ 		return;
+ 
+-	spin_lock_irq(&pmu->lock);
++	raw_spin_lock_irq(&pmu->lock);
+ 
+ 	/*
+ 	 * Re-enable sampling timer when GPU goes active.
+@@ -336,7 +339,7 @@ void i915_pmu_gt_unparked(struct intel_gt *gt)
+ 
+ 	pmu->unparked |= BIT(gt->info.id);
+ 
+-	spin_unlock_irq(&pmu->lock);
++	raw_spin_unlock_irq(&pmu->lock);
+ }
+ 
+ static void
+@@ -742,7 +745,7 @@ static void i915_pmu_enable(struct perf_event *event)
+ 	if (bit == -1)
+ 		goto update;
+ 
+-	spin_lock_irqsave(&pmu->lock, flags);
++	raw_spin_lock_irqsave(&pmu->lock, flags);
+ 
+ 	/*
+ 	 * Update the bitmask of enabled events and increment
+@@ -784,7 +787,7 @@ static void i915_pmu_enable(struct perf_event *event)
+ 		engine->pmu.enable_count[sample]++;
+ 	}
+ 
+-	spin_unlock_irqrestore(&pmu->lock, flags);
++	raw_spin_unlock_irqrestore(&pmu->lock, flags);
+ 
+ update:
+ 	/*
+@@ -805,7 +808,7 @@ static void i915_pmu_disable(struct perf_event *event)
+ 	if (bit == -1)
+ 		return;
+ 
+-	spin_lock_irqsave(&pmu->lock, flags);
++	raw_spin_lock_irqsave(&pmu->lock, flags);
+ 
+ 	if (is_engine_event(event)) {
+ 		u8 sample = engine_event_sample(event);
+@@ -838,7 +841,7 @@ static void i915_pmu_disable(struct perf_event *event)
+ 		pmu->timer_enabled &= pmu_needs_timer(pmu);
+ 	}
+ 
+-	spin_unlock_irqrestore(&pmu->lock, flags);
++	raw_spin_unlock_irqrestore(&pmu->lock, flags);
+ }
+ 
+ static void i915_pmu_event_start(struct perf_event *event, int flags)
+@@ -1156,7 +1159,7 @@ void i915_pmu_register(struct drm_i915_private *i915)
+ 	};
+ 	int ret = -ENOMEM;
+ 
+-	spin_lock_init(&pmu->lock);
++	raw_spin_lock_init(&pmu->lock);
+ 	hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+ 	init_rc6(pmu);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
+index 5826cc81858c..52d4b602310a 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.h
++++ b/drivers/gpu/drm/i915/i915_pmu.h
+@@ -71,7 +71,7 @@ struct i915_pmu {
  	/**
- 	 * @dpms:
- 	 *
+ 	 * @lock: Lock protecting enable mask and ref count handling.
+ 	 */
+-	spinlock_t lock;
++	raw_spinlock_t lock;
+ 	/**
+ 	 * @unparked: GT unparked mask.
+ 	 */
 -- 
-2.43.0
+2.55.0
 
