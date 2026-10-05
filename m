@@ -4,67 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71C7CCA5FF0
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 11:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14DEBCA5FF0
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 11:43:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 853CE10E131;
-	Mon,  5 Oct 2026 11:39:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 759E210E5C3;
+	Mon,  5 Oct 2026 11:43:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="YUpg1W2C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uvrs/1oE";
 	dkim-atps=neutral
-Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C86E510E5C3
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 11:39:57 +0000 (UTC)
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com
- [74.125.230.169]) (Authenticated sender: zamundaaa)
- by letterbox.kde.org (Postfix) with ESMTPSA id 4753733F25C
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 12:39:56 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
- t=1791200396; bh=3XJn2mVSdIQylxqa0RU54rxgqj0u+ROWTib96AVY9mw=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=YUpg1W2CSfMCJhgk/d8IOHMCW3/8rgj3s8OnTP4BOgCzH71K2Qoh7Q0leQ8nMQnZv
- M84dwOVchdD2jKUzN1JkeI0kbGsHpNlRoGE5FusgaXXBfXfHZN4I83YsM7vUcq/kJM
- rZO+Dar3oesKE6ObFYfkTQI70cYXso99BbPKDCPOflV458s6IyIQxZ12xdNZ5zJthi
- AYPBBdLfznIWG3irzSia/EK27q4Bg8RhebgM7TC8Dl4stnGs+KpGu6X+DNb8kwvNnf
- Ref7Qmew4lPYquOWYE5EjYuJ6WNB/clASTg0zqBeSvCzyQMlonp/s/+j2+aq1eqhCH
- pKrQikqnc8knw==
-Received: by mail-qv2-f41.google.com with SMTP id
- 6a1803df08f44-91786b004f2so19153466d6.1
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 04:39:56 -0700 (PDT)
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4CD10E5C3
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 11:43:19 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48b01c41135so1073586f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 04:43:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791200598; x=1791805398; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=25uBlo4GDqcGkj4VAPKdolkwb50w3Is4u8TLMjz2GGs=;
+ b=Uvrs/1oEOAHSnDE9GkFGm/lMnROS0wgw1YZLJLJk/w83ZwIdnI4CtyjP5WcH3Wy6ya
+ 5ozMuJWjgcOc1IbuHcYBgLB/NhvY9wON9TOB8/wDiEq0G64rI1qT0FFbn3yym2Uhgi+l
+ KN7KiWTzuenl+q5BpC2JjELoJknCrjoNgzfyP+3uZf/5ciZDujFbd01PfJQR/w/0yh2h
+ jJjzMHRyGGyp3El70bOY9oYCHZPLdWT13gjqbmk+xRIHttvKMw42q7UAWUULd5WzwVna
+ cM5JZdUPzaef7DbRQOh/q97PsQ1YDCioW47wy5hWFlbN23DHZ67dOndX6w/jO/MnGpbo
+ HW0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791200598; x=1791805398;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=25uBlo4GDqcGkj4VAPKdolkwb50w3Is4u8TLMjz2GGs=;
+ b=RETNaoKjGa7C2GajJy0mWUZQi54ganrSV+gED21PM0KbaSu+Ky+rU1Unnk2M+82/1m
+ bVgPreqtMK/VlN4WGSLRKZuOwawW98/r6az6oVPAH6UUVH4769GUF68sNxc+Is7MjkTe
+ KHLDaXvsshWmEcjYo1OJDLgdT4qsiHsPHJxnPsEy3os7dHAD9kX8cl3loaN2gaOmS5vt
+ epOZjHjVgvcy6ArsoE6qCaXUCxEWmLBXIwtF534Er4eLkJ+G3UNV6HxVlVsFZJi+p03o
+ PbFT1kSuzUJM+qrd4jOsmBIBf1KD2NL6LeHZr0hukb2ANfiIfTFq467Zm71vlLkfp9ZT
+ KfDw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByLmXSkorsH5Rw0GF6h9GenuN2Nv5gFmr7RU2LR8vkVog/72QReJXksKBpsiE1wSt4QMhB/IX+yhAs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kLscOcAgWdMqPqZxz5C2l+vS2WqbPXanV4pxD0ttsvqTL1w64M
- HpqxFN/qFR8P+5EGnasXbS7CXYlV8fNu0mBsvHpYSLr40B/Mv6VQ8I6ZwWt+/8fIxnDn8s6kDAi
- V3Nbbpop9uMdW8Cf8fMovAupe2jmaxMA=
-X-Received: by 2002:a05:6214:19ea:b0:919:82c5:43ad with SMTP id
- 6a1803df08f44-91982c544b1mr4394986d6.13.1791200394616; Mon, 05 Oct 2026
- 04:39:54 -0700 (PDT)
+ AKwUvByV9LnRVqYOcnAk412skvYxwaeRWxWuE0HP0EyyX00Ze/nTxaaPauq10YAx2f3JSto3RFzvbp9A8ok=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJV02Ns7chdTOJG9Ova64/xLUUC+tLSWoeirKJHx2PEyyEbGFjR
+ euH2Ssa7hKDBI8NUfFbfNQlJ7fFAIecNQhpAh9v4ksWm6g7MJfn8Secn
+X-Gm-Gg: AYBFou2L+DhgtLWP48DQ9C/2FK97d71B+cjXb4wsptODV0OzVaXLZGOBLclf7LdMqZY
+ mDq/Zeyd1Qd18aW6xEy8mxKJb7C66vE4mJT6It5BSFpujVUE7AgzMNidr9TxmLzQNnpeUKnjnCj
+ K/EQvLk3aaZ9IC6Q3J4MNcplUwTtAyu8bSaVG+e6Dq5V0UCAcn9NuDWTHaqGZL549b4Wo75vNA2
+ 0G4AMoxcPH49DuXd1EqZT/DWy9UemvR4yaUTmOvp5NK0WXVSf/FRkG8Qdwawr1rocRwE42Y01xY
+ lH1bvvJs5eh4zUCFYAy65yxqMF04USmomCaKCcK9Rw+VwGWGFxZueWOR08dMVN7euOMygxtKd8w
+ 64E/+leTT1+e0/DVXaZFijQ1ZCzruzae6DwvIVRLfoeZOToG4nfyx2sl06HdQLESSG61BrA0vuo
+ tLCkB9Fnf26AW5doMxheaOrMuLv213uUML91vAowxOTmwEzdd/gQZlYmAhgsWGDRHBofbOUg7l9
+ ulCSYlLpzMn0ZYcv/QYe8v9I7cYKYdOIZXSgmJK+wZklC5MbBETumz1Eq5zYtygKeq/k70YW0c=
+X-Received: by 2002:a05:6000:40de:b0:48b:d2d:2fcc with SMTP id
+ ffacd0b85a97d-48b1272d0c6mr17543670f8f.9.1791200597696; 
+ Mon, 05 Oct 2026 04:43:17 -0700 (PDT)
+Received: from [10.41.30.1] ([161.12.45.16]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48c622704a5sm6943895f8f.15.2026.10.05.04.43.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Oct 2026 04:43:17 -0700 (PDT)
+Message-ID: <be0012e5-872f-42f3-bace-5066a09cd9e6@gmail.com>
+Date: Mon, 5 Oct 2026 12:43:14 +0100
 MIME-Version: 1.0
-References: <20260331-atomic-v11-0-6a1df7ec5af8@intel.com>
- <20260331-atomic-v11-1-6a1df7ec5af8@intel.com>
- <e9be1ef8-9884-4117-9eed-ba179248ffc6@suse.de>
-In-Reply-To: <e9be1ef8-9884-4117-9eed-ba179248ffc6@suse.de>
-From: Xaver Hugl <xaver.hugl@kde.org>
-Date: Mon, 5 Oct 2026 13:39:42 +0200
-X-Gmail-Original-Message-ID: <CAFZQkGzSkUZTodjUudhLsYtset=EqviZeqrfv6gj6XmG+ZJOPQ@mail.gmail.com>
-X-Gm-Features: AclHuK9JKTC03NA4ozxQo1TQRCH1D3FyK2zi18UQWiM7SR2tFBvD2G16KXT3IGI
-Message-ID: <CAFZQkGzSkUZTodjUudhLsYtset=EqviZeqrfv6gj6XmG+ZJOPQ@mail.gmail.com>
-Subject: Re: [PATCH v11 1/7] drm: Define user readable error codes for atomic
- ioctl
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Arun R Murthy <arun.r.murthy@intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- harry.wentland@amd.com, uma.shankar@intel.com, louis.chauvet@bootlin.com, 
- naveen1.kumar@intel.com, ramya.krishna.yella@intel.com, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Suraj Kandpal <suraj.kandpal@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 05/13] block: add dma-buf support for raw bdev
+To: Christoph Hellwig <hch@lst.de>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+References: <cover.1790602223.git.asml.silence@gmail.com>
+ <a6b81e65b1f09b6ed1f71f294e5a94896ea1ead7.1790602223.git.asml.silence@gmail.com>
+ <20261005091111.GB10727@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20261005091111.GB10727@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,75 +109,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Mo., 5. Okt. 2026 um 11:08 Uhr schrieb Thomas Zimmermann
-<tzimmermann@suse.de>:
-> I have serious doubts about these failure codes. The core issue to me is
-> that when the kernel driver detects an impossible commit, it probably
-> knows best how to fix it.
-There's lots of different ways you could fix any specific error, with
-different tradeoffs and it all depends a lot on what the compositor is
-actually trying to do. The kernel can't make those kinds of policy
-decisions.
+On 10/5/26 10:11, Christoph Hellwig wrote:
+> On Mon, Sep 28, 2026 at 02:32:21PM +0100, Pavel Begunkov wrote:
+>> Add a simple proxy implementation of init_dma_buf_io_ctx() forwarding
+>> the call to a new struct block_device_operations operation. Also reject
+>> dma-buf backed iterators for buffered IO.
+>>
+>> Reviewed-by: Christoph Hellwig <hch@lst.de>
+>> [pavel: reject dma-buf without O_DIRECT]
+>> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+> 
+> The Sashiko report about the errno on fallback here looks real,
+> and is probably easily fixed by setting a proper errno.
 
-> > + * @DRM_MODE_ATOMIC_UNSPECIFIED_ERROR: this is the default/unspecified error.
->
-> This one does not give a hint to what happens. Should userspace abort or
-> fall back to TEST_ONLY?
-That's up to userspace. It's the same as ret=-EINVAL today.
+I'm going to move the check into blkdev_buffered_write(),
+this should cover both paths. direct_write_fallback() will
+see -EOPNOTSUPP and fail appropriately.
 
-> > + * @DRM_MODE_ATOMIC_INVALID_API_USAGE: invallid API usage(DRM_ATOMIC not
-> > + *                                  enabled, invalid falg, page_flip event
-> > + *                                  with test-only, etc)
->
-> I've seen this being used in the i915 patch for a async flip.  Could
-> mean anything there (format, driver specifics).
-Its purpose is to catch anything that the compositor is supposed to
-know it can't do - using unsupported formats, invalid combinations of
-properties (crtc active=1 without a connector), that sort of thing. It
-should never be anything driver specific though.
+-- 
+Pavel Begunkov
 
-> > + * @DRM_MODE_ATOMIC_ASYNC_PROP_CHANGED: Property changed in async flip
-> > + * @DRM_MODE_ATOMIC_SCANOUT_BW: For a given resolution, refresh rate and the
-> > + *                              color depth cannot be accomodated. Resolution
-> > + *                              is to lower the refresh rate or color depth.
-> > + * @DRM_MODE_ATOMIC_CONNECTOR_BW: Refers to the limitation on the link rate on
-> > + *                                a given connector.
-> > + * @DRM_MODE_ATOMIC_PIPE_BW: Limitation on the pipe, either pipe not available
-> > + *                           or the pipe scaling factor limitation.
-> > + * @DRM_MODE_ATOMIC_MEMORY_DOMAIN: Any other memory/bandwidth related limitation
-> > + *                                 other then the ones specified above.
-> > + * @DRM_MODE_ATOMIC_SPEC_VIOLOATION: Limitation of a particular feature on that
-> > + *                                   hardware. To get to know the feature, the
-> > + *                                   property/object causing this is being sent
-> > + *                                   back to user @failure_objs_ptr in the
-> > + *                                   struct drm_mode_atomic_err_code
->
-> There codes don't seem actionable to me.
-Scanout and connector bandwidth are very directly actionable. I agree
-about the others though, adding these error codes should wait until
-there's a compositor actually using them for something.
-
-> > +     char failure_string[DRM_MODE_ATOMIC_FAILURE_STRING_LEN];
->
-> I'd don't think we should return error strings from the kernel. If we
-> do, these strings will become uAPI. And I guarantee that someone will
-> start parsing them for information. We'll be in a situation where we
-> cannot ever change the strings.
->
-> For error logging, we can put messages directly in the kernel log
-The error string is half the reason we need the API: When things fail
-on an end user system, we need to be able to find out what happened
-after the fact, without the user needing to have drm debug logging
-enabled and without them having to trigger the bug again (which can be
-very difficult to do).
-
-I think making the error string something more abstract like the file
-+ line number of the failure would also be okay, if that solves the
-concerns about uAPI. We just need some way to figure out what happened
-after something goes wrong, which would usually involve diving through
-kernel sources anyways.
-
-> or you can build them in user space from within libdrm.
-libdrm doesn't have any of the information returned in the error string.
-
-- Xaver
