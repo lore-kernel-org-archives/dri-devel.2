@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1F82CA5FF0
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 10:54:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 399E7CA5FCE
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 10:55:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 207A210E18F;
-	Mon,  5 Oct 2026 10:54:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8582410E24C;
+	Mon,  5 Oct 2026 10:55:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZaeausFF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="om8EkMFz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29C6610E18F
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 10:54:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAC0910E24C
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 10:55:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A02AF6022E;
- Mon,  5 Oct 2026 10:54:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCE51F000FF;
- Mon,  5 Oct 2026 10:54:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5CFB440E22;
+ Mon,  5 Oct 2026 10:55:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D1C1F000FF;
+ Mon,  5 Oct 2026 10:55:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791197691;
- bh=4aOphlxRPVBxuWoEocxLm5Po9OeaVNbNJM8xAl/MU5I=;
+ s=k20260515; t=1791197747;
+ bh=kPu4cTAyFijp/5LzJz2S7ETVefd0fKnlMAA7BPnhczw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ZaeausFFJYnLsWIPauJzCjGNEytEx2XpHyKTPBa+6hq1wC5ouXkOvcOq0qKPvtpsC
- QKw1NrbPto94WEc3DypNPEZDz2NPGyQkfAwxyIqnhZ6/ul+8si2C9W+U3ImMuxZwI0
- tWtkivT/kY+1fEYuHawJ4JqoQDvMW0bZgtj8wNanLhb0YqnzeSb6HejFkcMlHbZaRA
- DpcOawhFZfu1O26eGAKZmlzkGKd/+pEs0gKQ76aO/c10vf+Z6Hb7vI05D5+7tiL5m2
- nyYA/ysEShT3est/VhxLpoG+3QDldT+Jfo0Q63pAZaRjsOCZD7AUF5amKiYJXzABfN
- 7Largm3793xkw==
-Date: Mon, 5 Oct 2026 11:54:45 +0100
+ b=om8EkMFzf78sjtstoiKOqliBN1xBT1Uf3lRvA/+SK7ToDK9R4IH+WbXFnHFV5kGci
+ ZcML1a5WBi898HacD8CGokYWdrD6QKIFa1JB3UBpCelLUu1Ref9HE9Kt6i3cbGgi56
+ r/dMh7vyXeYPBNWvUgR+ssgABZsbO5/jOdz1RPrpyiWHug7yYHTR5T++/1e12zf0y8
+ pcSsoUXSiPtWIve4kI57oHjZHwdahbWSvv7KaeiCJ3dMrMucZrJ87FGEng9gZZ4k6G
+ QEXJx+0t1HdgpKs5Y259PZ+60u5bzxce5tgLq0YyY6DPwWPWcP6orbFtX4Fv2KkMvJ
+ 6XmiSvjIW2fMg==
+Date: Mon, 5 Oct 2026 11:55:41 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>,
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -44,17 +44,17 @@ Cc: Luca Weiss <luca.weiss@fairphone.com>,
  ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: himax, hx83112a: Tighten
+Subject: Re: [PATCH 2/2] dt-bindings: display: panel: himax, hx83112b: Tighten
  compatible matching
-Message-ID: <asOB9azB6OCN5fYH@squawk>
+Message-ID: <asOCLYbmmiuqmd3n@squawk>
 References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
- <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
- <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
+ <20261002-hx83112-compatible-contains-v1-2-d558635ab7fc@fairphone.com>
+ <DLWSX9ZHDC8K.1KXUAR8VSMNND@fairphone.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="RIqa/r0/keXy6YTE"
+ protocol="application/pgp-signature"; boundary="HV8m08xHwAClXTgt"
 Content-Disposition: inline
-In-Reply-To: <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
+In-Reply-To: <DLWSX9ZHDC8K.1KXUAR8VSMNND@fairphone.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,22 +70,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---RIqa/r0/keXy6YTE
+--HV8m08xHwAClXTgt
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---RIqa/r0/keXy6YTE
+--HV8m08xHwAClXTgt
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasOB9QAKCRB4tDGHoIJi
-0ioTAQCm9zEIddkeZKgrUFGRAvTEXyK9EGR5tMTlusa2quGuuAD7BHGyTr47xeBU
-y2PDNwtEgnc2DyFZx2ys0wU/gewdpAY=
-=pQsR
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasOCLQAKCRB4tDGHoIJi
+0uhgAP9qcGH7w9LpSSRHkLL99d3mDpw6YcqXgX3/+/KeYBQuswEAhVOGqnpwvhWq
+M/cWo1qYH8QCbVFjGr7KaGfVW+qmpQE=
+=ZH+k
 -----END PGP SIGNATURE-----
 
---RIqa/r0/keXy6YTE--
+--HV8m08xHwAClXTgt--
