@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02913CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A30AFCA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 238F310E160;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3529110E1DC;
 	Tue,  6 Oct 2026 07:24:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sd+7DsSR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="afI3bcwM";
 	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF4310E245
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:55:55 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-6acbdbc1725so2086667a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 02:55:55 -0700 (PDT)
+Received: from mail-ej2-f30.google.com (mail-ej2-f30.google.com
+ [74.125.228.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B7D010E245
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:56:00 +0000 (UTC)
+Received: by mail-ej2-f30.google.com with SMTP id
+ a640c23a62f3a-c2a4fbc5586so273124766b.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 02:55:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791194154; x=1791798954; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791194158; x=1791798958; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=y5KZiX26aqwUyZIYbya9tfV4Mvg5MCMOLcvC9aKPc0E=;
- b=sd+7DsSRiFLdyeQgZudatCzOG45xKjOZOBOacs52idFeVrEKVrMsoEVr7QzfR4Rt1j
- yagVaEA5Omu6/5a/GRIChmY95cskng4Y7h34BEGkaI/WpzBmP2wpIdtSOgj1bOVKG6RS
- NBSZ1aepvl9SzNMkEPV1E2sdyxzW4NL2YZtxGW5j+uiVyL2w3eBGNL9xYgLnSLD+vCJk
- WeQ8PBnKPwP/EVPr5pQ8sSyxlJHHbOHhAcMGtBREdJqzQYvAEyLDC1tUJgIzLjZ92lMN
- e67gPJUkjCyS+2YxBu1oPF7dMr7ZFQc7y/e95cA4gxnu0oof5fP3++wgU9Yg1dbRHKPq
- LCMQ==
+ bh=lD6pTqRDMSfKXNqb4UUFNdsEKglv/1NbFFOX0KLFSbY=;
+ b=afI3bcwMyADXlh1qp3RD1ioSrI3DsKtYQJau9v1gYZQwnxFihsy9FQhTiCAwYD9X65
+ yLVTVBZuxOQdHD/RFFNPSr2XIXezPb4d2V+I2i+bxT13bqwxjQBZ198NRLzxOiKzkPrd
+ TL+L2jzFFeVrrDEv7cqnQ2tMrz7P7mqrOAJ6CCYSb4YHIIdHqZ9s86rAr+c4t2H9tI/b
+ sOUP3Gtsgs/1utc9/XpiGYo2nRR8VjoZKClBvI8cGX0gqKWj7D861jmwZYSn8Ec1Ibxd
+ nRdhvYSMCNctZC7xCzYpXWcRdIDDFcJUPoCfgd4TpluNGfLATmLewU5cq2fCDe31Qosh
+ PgYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791194154; x=1791798954;
+ d=1e100.net; s=20260707; t=1791194158; x=1791798958;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=y5KZiX26aqwUyZIYbya9tfV4Mvg5MCMOLcvC9aKPc0E=;
- b=d/TaTAKCg8wlyYgI3Zs8JECEu4D02/s/n6Wo60IpQuDmLJpi6HloTCu/ANHDL1Owj+
- dIhczoEAoTW7D4Dgx/VYZXuy140YXD/6W8cn3SsycHy5SdmssONzZUE6xtXzqp+M5PyE
- W2jyG91nYxinJRIXK/cOLG3wtctu24M6JGOMKR2X5ZAhqz+4XObyFJ0Oesk1YqJ7jLos
- oTcypxr1VmC7I4C2WW5udJPNu/Ka9OmGxHLl19skWYM2KMblcUKpudbXOjs5jDOyduD6
- HYyXbR2eMwYiW4uaTnG84AmnGhoLfSxxYxPd4kKFTNAoPGMwwNkJwLwL4p65bU5T8I0o
- ILDw==
+ bh=lD6pTqRDMSfKXNqb4UUFNdsEKglv/1NbFFOX0KLFSbY=;
+ b=V2cSaJaCOIMjOUB6FAxTFLgy7+YuWS1uIncGEEuf2dMlUv5HXB8VdXCm5uYfk2EAPR
+ avErIoPbvZinVNBE0l/DCTtH7OMGTd4LpkcXsZQwTB+xKIRfYfDBiTg0Eu66jsWlY46z
+ jVWAI4MR+iQA/dtHsdxMwgqxiUKg3eKENAFL8I92JRvvnxzoPi8Z/gMtLxs989PtO9kv
+ NF0spwwRv/JXyxz8MpJH00szRYCNaslF1G0gV4Reu3xqOPddQ+ZzL8Wj6rQtzdzP/cKT
+ zF0imjPf6gizBNfx0eFMjBlUHB4lPYRG4fVKWbX4BJAAz8T5vNeY+D2yHCKFdQx3RSA2
+ f1aA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxojujcdaoT/ZK2TYP8VsTSURRs9U2KDz6RfSTw1cCBqQxBNLftplWsls6pBrir+fB09EXiIJailV4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kLZ+4R0LJos7iggwoV1mXsft6SK5nNm2Jp00AkWsZMgNe6NF0+
- 8H4Q+/1jnfmHFsbtxoA5s9DaTAwkN1xqiwPeF6fulsrg+dxQucf3DFja
-X-Gm-Gg: AYBFou2RC5JP6foQbK5xxCPXppOmUZaSJbBl4xfvMDMtE/0fhR5fnBLcsy42+qJy3bW
- yPi7eFtei7TCuaHXP9mRKpditIgJHsmHv3XpND4mAfb6mSgXU0R3CPW4rU0Cl+j0Nu2NpVHY2V2
- QkFFVO9FITK6YmlnyNlZS4n6s93IKTSAK6cCYgdwG2XhjmwpEJow2xRLFVcSBBJrXTtMY8Fhwcr
- 1byR4T4Mj/KmJMHtnhVF4rPze0cR5xWq/OV9nGqBtu3/HdGL9LNSaAsweFboyuuApTVBGOlRXq/
- sEtjTqiLxKBMGt35VYM1+dw7zbMWjTERmlew0fSNgb2ggR6/3NW8iB4awx+pfqMXcXDk8lLk8om
- V8R1pTVciNpdcTMx5LuemFlfY0i1DDOcH8LYHtaKUfMd+jlabLh8PJN+Yx1Sbyzxne5WzeN2q5W
- aghV1s66KGkrZu0WABqO+1C+DyzgWioEmYO43KNOPqfIvgTqOaNUsMwttkCt1YhZqiWj0QaAbjG
- X6WWRVC5HdZ2FGmGxDPI/2/Cx0E6g6hLrTG8MwBSh7oIwp38qFAo1N1u3iDeVEm4ckuYV7d/fCm
- EZAyBYUQDHb5vZJiH/27YffwvjyuaoAcT3I=
-X-Received: by 2002:a17:907:7b8c:b0:c2d:fc0b:551a with SMTP id
- a640c23a62f3a-c2e6e7ce8femr537001966b.0.1791194153808; 
- Mon, 05 Oct 2026 02:55:53 -0700 (PDT)
+ AKwUvByAELNzQJFvPNNXmCoyBRFQZLe0SzpArNirnr0I7eWJ8TyVUCXr9CRndoYAJH/USn4fjrDhf20lDtE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK4432uME6d4ph6an3NgBkCARu4dAxzt7QdTSr+e7x6QtOvgK4N
+ 5yJEJb0xkf+7OSjaJqTy36QO8dEehCnZZqhVLWQX95Orfb1ptHpt5Mru
+X-Gm-Gg: AYBFou3QI4HDjRTGIcMQnRqzg6vB4DAR6/HGmHQ+LanO1N51whUKTT7bnLtl7Rm7Osq
+ HWrIikRHdkFGiP2mIiUg94FYy9/jZIDrbREyCOQDjlcEg4TcJR4YzXOcltdNcgOG/ss2p/R9DTM
+ IRG7Ib0YhFxFDCAhhWWARnuGp0YWRdQdmJr4c3F8o2SG9IGQnUMHyZWy1O/G0us9jyHfc/PIRdl
+ kMap3IcygyT4DyEtzGsRVGXl/euQ/Yh1U6DwHC1uVIo/yZvvTLn5CmwKg73rlcBc3Q5m0CQULe2
+ kEcanyegwXBvCppBKM5Ozqa4kpjlaBpWNbstlg50JRB1zMMzK1ufEioaQKG/BCBq/gLCmlEY6UQ
+ qP8knP1Mzi9uK7xaIQr1Lm93tafSrb69hvxqXGrj+lXE62N1a+YzJrfH4GR1OgWaxWAoBN1EdDf
+ sGn3ExZTrB6I5PAoIkl9VvXr0MUSAVwM5QEbNrytuxvGRu5GwtCY3ZtIsecpTSDFF3GXSGyZoUi
+ mISsKDKMG3CW5vuSW62lQZCEGYCsfEjpPGgMlN4IJm7yv8S7dg5YsDfLX+xnkMWsMccW4iqOIyO
+ y88uYUKInUc2I+C4mwjWRTPCiPxwuaClUKE=
+X-Received: by 2002:a17:907:3da3:b0:c2e:7fe7:288e with SMTP id
+ a640c23a62f3a-c2e7fe736eamr411177566b.32.1791194158114; 
+ Mon, 05 Oct 2026 02:55:58 -0700 (PDT)
 Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com
  (54-240-197-234.amazon.com. [54.240.197.234])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c31562aba16sm50753266b.23.2026.10.05.02.55.52
+ a640c23a62f3a-c31562aba16sm50753266b.23.2026.10.05.02.55.56
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 05 Oct 2026 02:55:53 -0700 (PDT)
+ Mon, 05 Oct 2026 02:55:57 -0700 (PDT)
 From: Fred Griffoul <griffoul@gmail.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
@@ -88,13 +88,13 @@ Cc: David Woodhouse <dwmw2@infradead.org>,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, x86@kernel.org
-Subject: [RFC PATCH 0/6] KVM: guest_memfd: back guest_memfd with an imported
- dma-buf
-Date: Mon,  5 Oct 2026 09:55:46 +0000
-Message-ID: <20261005095552.52748-1-griffoul@gmail.com>
+Subject: [RFC PATCH 3/6] dma-buf: Add ranged mapping invalidation
+Date: Mon,  5 Oct 2026 09:55:49 +0000
+Message-ID: <20261005095552.52748-4-griffoul@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260720111259.122911-1-dwmw2@infradead.org>
+In-Reply-To: <20261005095552.52748-1-griffoul@gmail.com>
 References: <20260720111259.122911-1-dwmw2@infradead.org>
+ <20261005095552.52748-1-griffoul@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 06 Oct 2026 07:24:11 +0000
@@ -115,108 +115,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-This extends David Woodhouse's "KVM: Allow alternative providers of
-guest_memfd backed by PFNMAP memory" RFC (v2) to let guest_memfd import
-a dma-buf as its page source:
+dma_buf_invalidate_mappings() tells every importer that the whole
+buffer changed. An exporter that changes one part of its memory cannot
+say which bytes changed, so importers throw away mappings that are
+still valid.
 
-  https://lore.kernel.org/kvm/20260720111259.122911-1-dwmw2@infradead.org/
+Add an exporter helper that invalidates a byte range, and an importer
+callback that receives it. The callback means that the address, the
+attributes or the backing of the range changed. If part of the range is
+no longer backed, get_phys() returns -ENOENT for it. Importers must stop
+using their old answer before the callback returns. Importers that do
+not implement the callback still receive a whole-buffer invalidation.
 
-The memory owner is a plain dma-buf exporter, linking against neither
-KVM nor iommufd. guest_memfd imports it for the guest (stage-2) plane
-and iommufd imports the same buffer for the device (DMA) plane, so one
-object and one invalidation protocol serve both. This is a concrete
-answer to the "how do we plug into iommufd without masquerading as a
-dma-buf" question from David's cover: the provider does not pretend to
-be anything; the dma-buf is the shared object.
+Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
+---
+ drivers/dma-buf/dma-buf.c | 30 ++++++++++++++++++++++++++++++
+ include/linux/dma-buf.h   | 16 ++++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-Applies on top of David's v2 series.
-
-Patches:
-
- 1 KVM: guest_memfd: Add a writable result to get_pfn()
-   Give get_pfn() a writable out-param so a backing can map a page
-   present but read-only (KVM_MEM_READONLY is rejected on guest_memfd
-   slots). A guest write then exits as a memory fault. Stage-2 only;
-   KVM's own host-mapped accesses are unaffected.
-
- 2 dma-buf: Add get_phys() to describe a physical run
-   New exporter op: for an offset+len, return one physically contiguous
-   backed run and an attribute word (RAM/MMIO, plus READONLY). -ENOENT
-   for an unbacked byte, -ENODEV when revoked. Lets a page-table-building
-   importer ask where the memory is instead of taking a scatterlist.
-   Converts vfio-pci, the iommufd selftest exporter and the sample;
-   iommufd behaviour is unchanged.
-
- 3 dma-buf: Add ranged mapping invalidation
-   Invalidate a byte range rather than the whole buffer. The callback
-   means "re-query this range" and covers loss, replacement and
-   read-only flips. Importers without the callback still get a
-   whole-buffer invalidation.
-
- 4 dma-buf: Allow dynamic attach without a device
-   Allow a dynamic importer with no struct device, for a consumer (KVM)
-   that only needs the physical layout and builds its own tables. Such
-   an importer must not map the attachment for DMA.
-
- 5 KVM: guest_memfd: Add dma-buf backing
-   Add GUEST_MEMFD_FLAG_USE_DMABUF and a dmabuf_fd to
-   KVM_CREATE_GUEST_MEMFD. guest_memfd attaches as a revocable importer
-   without a device, serves faults from get_phys() (largest aligned RAM
-   run, read-only honoured), and zaps the range on the invalidation
-   callback.
-
- 6 samples/kvm, selftests/kvm: Exercise dma-buf backing
-   Turn the sample into a dma-buf exporter (a toy memory owner: one root
-   region, a child per VM, move/donate/reclaim, absent and read-only
-   pages, a scratch page, per-child ioctl allowlists) and move the
-   selftests to feed one dma-buf fd to both guest_memfd and iommufd.
-
-Scope: non-confidential VMs, RAM backings only; iommufd keeps its
-single-range import for now. As with David's series, this is largely
-AI-assisted and is posted to get the interface shape reviewed.
-
-Fred Griffoul (6):
-  KVM: guest_memfd: Add a writable result to get_pfn()
-  dma-buf: Add get_phys() to describe a physical run
-  dma-buf: Add ranged mapping invalidation
-  dma-buf: Allow dynamic attach without a device
-  KVM: guest_memfd: Add dma-buf backing
-  samples/kvm, selftests/kvm: Exercise dma-buf backing
-
- arch/arm64/kvm/mmu.c                          |   13 +-
- arch/arm64/kvm/nested.c                       |   10 +-
- arch/x86/kvm/mmu/mmu.c                        |   18 +-
- arch/x86/kvm/svm/sev.c                        |    4 +-
- drivers/dma-buf/dma-buf.c                     |   92 +-
- drivers/iommu/iommufd/iommufd_private.h       |    8 -
- drivers/iommu/iommufd/iommufd_test.h          |   16 +
- drivers/iommu/iommufd/pages.c                 |   74 +-
- drivers/iommu/iommufd/selftest.c              |  106 +-
- drivers/vfio/pci/vfio_pci_dmabuf.c            |   58 +-
- include/linux/dma-buf.h                       |   70 +
- include/linux/kvm_host.h                      |   12 +-
- include/linux/vfio_pci_core.h                 |    3 -
- include/trace/events/dma_buf.h                |    2 +-
- include/uapi/linux/kvm.h                      |    6 +-
- samples/kvm/gmem_provider.c                   | 1311 ++++++++++-------
- samples/kvm/gmem_provider.h                   |  144 +-
- tools/include/uapi/linux/kvm.h                |    6 +-
- tools/testing/selftests/kvm/Makefile.kvm      |    3 +-
- .../kvm/gmem_provider_nvme_dma_test.c         |   28 +-
- .../testing/selftests/kvm/include/kvm_util.h  |   25 +-
- .../testing/selftests/kvm/x86/gmem_poc_test.c |  824 +++++++++++
- .../kvm/x86/gmem_provider_hugepage_test.c     |   30 +-
- .../kvm/x86/gmem_provider_iommufd_test.c      |   42 +-
- .../kvm/x86/gmem_provider_readonly_test.c     |  172 +++
- .../kvm/x86/gmem_provider_revoke_test.c       |   34 +-
- .../selftests/kvm/x86/gmem_provider_test.c    |  190 +--
- .../kvm/x86/gmem_provider_vfio_test.c         |   45 +-
- virt/kvm/Kconfig                              |    1 +
- virt/kvm/guest_memfd.c                        |  252 +++-
- 30 files changed, 2703 insertions(+), 896 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/x86/gmem_poc_test.c
- create mode 100644 tools/testing/selftests/kvm/x86/gmem_provider_readonly_test.c
-
---
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 66b85d53ed22..e7010163eb2f 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1389,6 +1389,36 @@ void dma_buf_invalidate_mappings(struct dma_buf *dmabuf)
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_invalidate_mappings, "DMA_BUF");
+ 
++/**
++ * dma_buf_invalidate_mappings_range - notify attachments that a range changed
++ * @dmabuf: buffer whose layout changed
++ * @offset: first changed byte
++ * @length: number of changed bytes
++ *
++ * Importers with a ranged callback stop using their old mappings of the range
++ * before returning. Other importers receive the existing whole-buffer
++ * callback, which is correct but coarser. The reservation lock must be held.
++ */
++void dma_buf_invalidate_mappings_range(struct dma_buf *dmabuf,
++				       unsigned long offset,
++				       unsigned long length)
++{
++	struct dma_buf_attachment *attach;
++
++	dma_resv_assert_held(dmabuf->resv);
++	list_for_each_entry(attach, &dmabuf->attachments, node) {
++		const struct dma_buf_attach_ops *ops = attach->importer_ops;
++
++		if (!ops)
++			continue;
++		if (ops->invalidate_mappings_range)
++			ops->invalidate_mappings_range(attach, offset, length);
++		else if (ops->invalidate_mappings)
++			ops->invalidate_mappings(attach);
++	}
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_invalidate_mappings_range, "DMA_BUF");
++
+ /**
+  * dma_buf_get_phys - describe the run that starts at an offset
+  * @attach: attachment to query
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index b223962e20c2..55c3fe60a0ba 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -485,6 +485,19 @@ struct dma_buf_attach_ops {
+ 	 * required behavior.
+ 	 */
+ 	void (*invalidate_mappings)(struct dma_buf_attachment *attach);
++
++	/**
++	 * @invalidate_mappings_range: [optional] a byte range changed
++	 *
++	 * The exporter changed the address, attributes or backing of
++	 * [@offset, @offset + @length). The importer must stop using its old
++	 * answer for that range before returning.
++	 * Importers without this callback receive @invalidate_mappings for
++	 * the whole buffer instead.
++	 */
++	void (*invalidate_mappings_range)(struct dma_buf_attachment *attach,
++					  unsigned long offset,
++					  unsigned long length);
+ };
+ 
+ /**
+@@ -600,6 +613,9 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
+ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+ 				enum dma_data_direction);
+ void dma_buf_invalidate_mappings(struct dma_buf *dma_buf);
++void dma_buf_invalidate_mappings_range(struct dma_buf *dma_buf,
++				       unsigned long offset,
++				       unsigned long length);
+ bool dma_buf_attach_revocable(struct dma_buf_attachment *attach);
+ /* bits 0-7: memory type (a value, not flags) */
+ #define DMA_BUF_PHYS_ATTR_TYPE_MASK	GENMASK(7, 0)
+-- 
 2.47.3
 
