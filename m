@@ -4,115 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0A1ACA5FCE
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 09:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FCF2CA5FFC
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 09:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3297F10E91E;
-	Mon,  5 Oct 2026 09:27:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5D810EC3E;
+	Mon,  5 Oct 2026 09:28:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jEPXtRqO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J+wln9TF";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24DE010E91E
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:27:56 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49e79a408deso8636985e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 02:27:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1791192474; x=1791797274; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=8rLD6lFejoN0T8xG1+fKNKHQcEvhqJXDjenF0dJEnUA=;
- b=jEPXtRqOH4MhLSlea8uhaaL+7i1UIn56svDZ2DicpOFDk7/9kG0Jb/l8XCg5jYQr9s
- b7VeTR5S3tS2qmRqMBEgb/P+DSwpqbyqrCIzntlfS4q2KyPJCJUGQBLdzyk72JWvnk9m
- MQLIQqDeHfIAZUDO+OovGfUWjFA3rQrUlzhk2mPS2gqCKDjdpYkgSFA/x0FLIxDHqBkq
- 7M4lkoXlzbp8q5sYOuJ87LrlG9VVDxJKgq2/X+sVPYJdSOl5eqOJEfUrIe6h9qQFuXmv
- x7ABPifA69uHB/2OdarRN34wgqsF8b6ucY3qQrlYfvydJZjgirq6+b0/u/9emyaUp7yZ
- dylQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791192474; x=1791797274;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=8rLD6lFejoN0T8xG1+fKNKHQcEvhqJXDjenF0dJEnUA=;
- b=KY1iNY9ibDqBjvBkY/b/ouXiqRVrOrA7kSGQZBSL8C5E7Vbq/OzcT8mRTUPGuBfkZ6
- BtPl9ac8kHzZSCCzU7b6eTPqmz8/X0mLvvRqoio3f1rWi8dvUWhHPJzUcdq53g+vemSA
- 5Ha5jvQ7twv5tVtSwjyNOnvLO8u8/gEqsfwIowPJUoeVCWTqzCEekX8FDK8yRGPp2gsG
- Q8ZchTjK+Pf1e7vUwPYFZjkxNApbuWTvVrD48DrBlyUvv7oVPqTAdrwLaHql2kaabARR
- +z5pRRDT8SP2NQ+yChsliFWXgnlMVSEb6PA6vXWp79Vkxz+PZVMg16OEwVkPnX2PdxXU
- I9ZQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBygF6naUsMhA+9UeFKRnimP9UzTdCDgStwUWN3BJ2CZHLqdIAL/S2+D6eGMZL42ypl53xiTEUdXjzg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k57ZCX1riolVm6iSPnzUY5vIaVH1Iw7HTgSrjOYDPBsOPUN7Jc
- nHSPDqMFSnPWlJGSpJBskpvfuXSBtlvluWg2dAokjLvMqhakH1zJuU36VN7qi5U4YnU=
-X-Gm-Gg: AYBFou18udND2Kxm2Ja/TZeoVkWZyeVjGEAZK9VfWC3WqCJ1c0QBmgIrN11ZeApjhsx
- fxGZss+uU41X7qEnk3DJMuxO0ChqJWiSwatrN6kUL1tV4s0LBN2aaz76dsZ8zJB3K1DT8JyF5pO
- fARhjdbquvra00GecbWc+mQWa1uSRl3fvyH7hLsIw9lzNpWdEV3QxvESWM6a6uFSaSr1b7yhp9n
- /4Rkw9GAQIbJF3GYxplO1PlUIVAZceeLzZpl2dHgzXqaOzxzsHg+LPBkkchdNknTdP4K5UpBb56
- WRw1ktaNdGUDP082Z1TAluz2/9wB95OppvY2cvypN3aX1r1th707t4tNj9ZY3inVmbj92fMEJOp
- FRMfH9ERjgoRwNruxvBAmPZlky9D0mplIv2A8HXPwhBut9+OKiQ6Seg9VLoVvy+mskFa2ap0bXm
- puXjE6Z3y35pO/9hBxnOVZ/WfJJS22Cqry3Agu4y9Rm9Lq7U8ZqVDtm6ISRDwhDZ5+V20iIK0GL
- TgRvSGc40yI7h8MCprnnBkskNrBAzI=
-X-Received: by 2002:a05:600c:468d:b0:4a1:7093:409a with SMTP id
- 5b1f17b1804b1-4a1709341bbmr63938175e9.27.1791192474107; 
- Mon, 05 Oct 2026 02:27:54 -0700 (PDT)
-Received: from [192.168.151.46] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a16620dbdfsm221932725e9.0.2026.10.05.02.27.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Oct 2026 02:27:53 -0700 (PDT)
-Message-ID: <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
-Date: Mon, 5 Oct 2026 11:27:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: himax, hx83112a: Tighten
- compatible matching
-To: Luca Weiss <luca.weiss@fairphone.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca@lucaweiss.eu>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
- <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1197D10EC3E
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:28:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 410EF6022E;
+ Mon,  5 Oct 2026 09:28:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC511F000FF;
+ Mon,  5 Oct 2026 09:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791192506;
+ bh=uJOTMVr6JIHo8Q8ETbx8Ett7aDV6pwSHA9X67nSRYn4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=J+wln9TFy25WnLdfviMdK3McpOc/DfKZRASqxGW0dgs/F0DPt/fPEhQMS7EufrYfe
+ UB28EdIyeN7HEEHrhsFESnJpoNKqLYAK6M9fzeP6uVcZRR8IP3Kcrmpn4eaYFHc7Pv
+ l8Vto0mdx2eee3PVFOfFSfPKuCssuIs1ueWMI/97c0uamSJ+Di1O5V5UEHIlu1omzQ
+ sCEiGbuclwBMhyy9eXO0Vmfx07WsOI9k7a70LvlgKIL9WryL2escvC8J7rTvdzG37M
+ ID04aaM1lEL8zCq7Hxz03H5D2zYnC4TGxLTSQ7Fl2+57cda8TtgTJCKt/7fEEczwZg
+ x2+d5lB5/yYuQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] soundwire: amd: Add BRA/BPT firmware download
+ support
+To: "Syed Saba Kareem" <syed.sabakareem@amd.com>
+Cc: bpf@vger.kernel.org, dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20261005091620.1390916-5-syed.sabakareem@amd.com>
+References: <20261005091620.1390916-1-syed.sabakareem@amd.com>
+ <20261005091620.1390916-5-syed.sabakareem@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 09:28:25 +0000
+Message-Id: <20261005092825.BFC511F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,40 +54,100 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] soundwire: uninitialized pointer dereference of acp_bra_wedged
+--
 
-On 10/2/26 16:49, Luca Weiss wrote:
-> The compatible was defined too wide, we just want "djn,9a-3r063-1102b"
-> and nothing else.
+commit bce4ebb14d16cc86a99aa8e0be380048484eab35
+Author: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-Can you add Fixes tags ?
+soundwire: amd: Add BRA/BPT firmware download support
 
-Thanks,
-Neil
+This commit adds Bulk Register Access (BRA) and Bulk Payload Transport
+(BPT) support for AMD SoundWire platforms. This enables high-speed
+firmware download to SoundWire peripherals via DP0, using the ACP BRA
+DMA engine.
 
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->   Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
-> index 2c60d0cd704e..3dd9b25ff13f 100644
-> --- a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
-> @@ -18,8 +18,7 @@ allOf:
->   
->   properties:
->     compatible:
-> -    contains:
-> -      const: djn,9a-3r063-1102b
-> +    const: djn,9a-3r063-1102b
->   
->     reg:
->       maxItems: 1
-> 
+> diff --git a/drivers/soundwire/amd_init.c b/drivers/soundwire/amd_init.c
+> index 8e419ddfa5161..00f4a87da7cbc 100644
+> --- a/drivers/soundwire/amd_init.c
+> +++ b/drivers/soundwire/amd_init.c
+> @@ -120,6 +120,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(s=
+truct sdw_amd_res *res)
+> =20
+>  		sdw_pdata[index].instance =3D index;
+>  		sdw_pdata[index].acp_sdw_lock =3D res->acp_lock;
+> +		sdw_pdata[index].acp_bra_lock =3D res->acp_bra_lock;
+>  		sdw_pdata[index].acp_rev =3D res->acp_rev;
+>  		pdevinfo[index].name =3D "amd_sdw_manager";
+>  		pdevinfo[index].id =3D index;
 
+[Severity: High]
+Does this code miss initializing the acp_bra_wedged field in sdw_pdata?
+
+Since sdw_pdata is allocated on the stack and not zero-initialized, this le=
+aves
+the acp_bra_wedged pointer containing stack garbage.
+
+> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_mana=
+ger.c
+> index a3316efdf8ac2..078e13b01ac97 100644
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+[ ... ]
+> +static u32 amd_sdw_bra_configure_pte(struct amd_sdw_manager *amd_manager,
+> +				     dma_addr_t dma_addr, size_t size)
+> +{
+> +	u32 num_pages =3D (u32)(PAGE_ALIGN(size) >> PAGE_SHIFT);
+> +	u32 low, high, val;
+> +	u16 page_idx;
+> +	dma_addr_t addr =3D dma_addr;
+> +
+> +	if (*amd_manager->acp_bra_wedged) {
+
+[Severity: High]
+Can this dereference an uninitialized pointer and cause a kernel oops or pa=
+nic?
+
+When a BRA firmware download transfer is requested via amd_sdw_bpt_wait(), =
+it
+calls amd_sdw_bra_configure_pte() where *amd_manager->acp_bra_wedged is
+dereferenced.=20
+
+Because the field wasn't initialized in sdw_amd_probe_controller(), this wi=
+ll
+dereference an invalid stack address.
+
+> +		dev_err(amd_manager->dev,
+> +			"BRA engine previously wedged; refusing to reprogram shared ATU PTEs\=
+n");
+> +		return 0;
+> +	}
+[ ... ]
+> @@ -1081,11 +2359,16 @@ static int amd_sdw_manager_probe(struct platform_=
+device *pdev)
+>  	amd_manager->mmio =3D amd_manager->acp_mmio +
+>  			    (amd_manager->instance * SDW_MANAGER_REG_OFFSET);
+>  	amd_manager->acp_sdw_lock =3D pdata->acp_sdw_lock;
+> +	amd_manager->acp_bra_lock =3D pdata->acp_bra_lock;
+> +	amd_manager->acp_bra_wedged =3D pdata->acp_bra_wedged;
+
+[Severity: High]
+This assigns the uninitialized stack garbage from pdata to
+amd_manager->acp_bra_wedged.=20
+
+Should sdw_amd_probe_controller() be updated to properly initialize=20
+sdw_pdata[index].acp_bra_wedged before copying it here?
+
+>  	amd_manager->acp_rev =3D pdata->acp_rev;
+>  	amd_manager->cols_index =3D sdw_find_col_index(AMD_SDW_DEFAULT_COLUMNS);
+>  	amd_manager->rows_index =3D sdw_find_row_index(AMD_SDW_DEFAULT_ROWS);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005091620.1390=
+916-2-syed.sabakareem@amd.com?part=3D4
