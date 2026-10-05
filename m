@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 938D6CA5FFC
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 07:30:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CF38CA5FFC
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 07:35:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D53DB10EBC8;
-	Mon,  5 Oct 2026 07:30:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4DC310EBDC;
+	Mon,  5 Oct 2026 07:35:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a6bX2wkZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZCQ3JEmI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47B8610EBC8
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 07:30:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 718C810EBE7
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 07:35:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1192040047;
- Mon,  5 Oct 2026 07:30:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55801F000FF;
- Mon,  5 Oct 2026 07:30:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2DD164359F;
+ Mon,  5 Oct 2026 07:35:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10011F000FF;
+ Mon,  5 Oct 2026 07:35:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791185456;
- bh=B67tVQ7h6pfh19O8cSKSRT4hoyZ6AtWBqomZfcAhMmo=;
+ s=k20260515; t=1791185729;
+ bh=3F3QHfpvLBv4kZLQcz5gHkGDwleXMbGboGQTya8oXK8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=a6bX2wkZg1smFBjHK4WAOyYxkmGz0ph3A2FmST3qm8r5VvoWy83qeINu+3LoyYCdO
- FVKJ4exyj6pqY2xIhcLbNhrhWo62nHks88CtXHLUJTPn7yf2nsejEWLWOBdOhVZjML
- fy+d/9pWeXnEH7ll4r4o3IoYznoVUSTpnpKGS5uHlrx0uVjxtfTX9ZJm7r+l9A9gQW
- J/ciJ3tZALzf8Rp3X2RdmBKSQzi2LHqBfV5peNrGl5CLmP4kcq6+KMbPEiPDfttC+8
- 1ENfCqyCZZkBkp6Cs0ygG1/VP793Y1lfDjJoW6lfNeW4zyYMuIHFUMw9XRX6t85Kmi
- zxUmTi/8N8Jgw==
+ b=ZCQ3JEmIOCvqazhigP4NF6jCN4XgJOeMYiF8b/WsPdMzmqjquq+HfdqpFfhtVEicZ
+ LHB4J3I/30P2DYK0fMt1+GMi1MN7krnrhtdKO+D7CoDnVIapm1mk8/973+vhnsDjcG
+ FTS6ZIafYh2ZIScPToIaII0r/N+I2T15Elwjsh7K/YPUaZ7dNCd3uc+L6gnruJSwpB
+ rTPyP/U4vi+iO8SagrzTPqfjbm5rCuDaFgsfMOLMz8Fn6TOKV4HhTmG+iQpaHyrAw5
+ WycP/AkSqRKXQQ5YqCueImQ57HqUWkwYe17eGNJjDeIKz6xCRCRuYIxRSkozC+Wo7w
+ Xdqry551kBf6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: display/msm: dp-controller: Add Kaanapali
+Subject: Re: [PATCH 3/5] arm64: dts: qcom: kaanapali: Add DisplayPort
+ controller
 To: "Balaji Kalkonda" <balaji.kalkonda@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20261005-kaanapali_dp-v1-1-6faeac3a6d59@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261005-kaanapali_dp-v1-3-6faeac3a6d59@oss.qualcomm.com>
 References: <20261005-kaanapali_dp-v1-0-6faeac3a6d59@oss.qualcomm.com>
- <20261005-kaanapali_dp-v1-1-6faeac3a6d59@oss.qualcomm.com>
+ <20261005-kaanapali_dp-v1-3-6faeac3a6d59@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 07:30:55 +0000
-Message-Id: <20261005073056.A55801F000FF@smtp.kernel.org>
+Date: Mon, 05 Oct 2026 07:35:28 +0000
+Message-Id: <20261005073528.C10011F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +61,57 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: display/msm: dp-controller: missing conditional constr=
-aints for Kaanapali
+- [High] dts: qcom: mdss_dp0 incorrectly uses MX power domain instead of MM=
+CX
 --
 
-commit 120c2a5db230d526e6a48bd35eae767dbf9663c7
+commit 553dc7a911ae71f6e7c738ff40500145e878f936
 Author: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 
-dt-bindings: display/msm: dp-controller: Add Kaanapali
+arm64: dts: qcom: kaanapali: Add DisplayPort controller
 
-Add DisplayPort controller for Qualcomm Kaanapali SoC which so far looks
-fully compatible with earlier SM8650 variant.
+This commit adds the device node for the DisplayPort controller on the
+kaanapali platform. It configures the OPP table, clocks, power domain,
+and connects it to the DPU and USB/DP QMP PHY.
 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.=
-yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 094a6383bb779..8bb0f6e15942f 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -19,6 +19,7 @@ properties:
->      oneOf:
->        - enum:
->            - qcom,glymur-dp
-> +          - qcom,kaanapali-dp
->            - qcom,sa8775p-dp
->            - qcom,sc7180-dp
->            - qcom,sc7280-dp
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
+s/qcom/kaanapali.dtsi
+> index e48a179d07220..155c590c8eb60 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+[ ... ]
+> @@ -3851,6 +3854,86 @@ mdss_dsi0_phy: phy@9ac1000 {
+> =20
+>  				status =3D "disabled";
+>  			};
+> +
+> +			mdss_dp0: displayport-controller@9ad2000 {
+> +				compatible =3D "qcom,kaanapali-dp";
+[ ... ]
+> +				operating-points-v2 =3D <&dp_opp_table>;
+> +
+> +				power-domains =3D <&rpmhpd RPMHPD_MX>;
 
-[Severity: Low]
-Does this new compatible string cause a regression by bypassing the stricter
-hardware constraints defined for the SM8650 variant?
+[Severity: High]
+Should this power domain be RPMHPD_MMCX instead of RPMHPD_MX?
 
-The commit message states the Kaanapali SoC looks fully compatible with the
-earlier SM8650 variant. However, qcom,kaanapali-dp is added as a standalone
-enum item without being added to the existing conditional constraints.
+When the mdss_dp0 DisplayPort controller is active and changes link rates,
+its performance state votes will scale the MX (memory) voltage rail instead
+of the MMCX (multimedia) rail.
 
-Should qcom,kaanapali-dp also be included in the allOf conditional block for
-qcom,sm8650-dp to enforce the reg property constraints:
+Since the display hardware physically resides on the MMCX rail, could this
+misrouting cause the MMCX rail to be starved of the required voltage? This
+appears like it could lead to under-voltage, silent hardware hangs, and
+display corruption, while unnecessarily elevating the memory domain voltage.
+Sibling display subsystem components like mdss_mdp and mdss_dsi0 typically
+use RPMHPD_MMCX.
 
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - qcom,sm8650-dp
-    then:
-      properties:
-        reg:
-          minItems: 5
-
-Without being added to this enum array, running make dt_binding_check on a
-device tree containing qcom,kaanapali-dp with fewer than the required 5 reg
-items or 6 clocks could silently pass schema validation.
+> +
+> +				phys =3D <&usb_dp_qmpphy QMP_USB43DP_DP_PHY>;
+> +				phy-names =3D "dp";
+> +
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-kaanapali_=
-dp-v1-0-6faeac3a6d59@oss.qualcomm.com?part=3D1
+dp-v1-0-6faeac3a6d59@oss.qualcomm.com?part=3D3
