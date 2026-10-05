@@ -4,135 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B96BCA5FFE
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 06:55:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02913CA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9D410E1FB;
-	Tue,  6 Oct 2026 06:55:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 238F310E160;
+	Tue,  6 Oct 2026 07:24:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="B7X+CnpF";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZmCfiDHf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sd+7DsSR";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17CE010E1FB
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 06:55:13 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6966eFLP3661549
- for <dri-devel@lists.freedesktop.org>; Tue, 6 Oct 2026 06:55:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- sbn3DjeD0b28+scrBbrQHJZ8dt/yHM5fg8UpcUfPY8A=; b=B7X+CnpFMN2kF6O4
- 2LuaNFhGeQdGse7uwpFrdvs+okvMGfOYi/qOHGpdv69pcgAgZS78ZdMtb4gK6go+
- 664uyhvbbfRBULAIg6ojlU4hjZKjnnuA2raYkcF1Z5pWdoJJAFtrb8ZzDoW7d0ck
- BnlKEj9UpzgrWQ34V2AfdY35PD9esRKMD+vF2Vgxw3A9KFOTveA9WiY3TnS097Hc
- w55ev774PB2AMt3kCf2hiH6NU1+cvRhBMDH/cHJav8wNfqc8+DZlgvN//5D0CCrK
- AdLps5Cw3FN/j/Ybv8fKgtOSh+JZUaEZ7YTjwim0sIZtftfM8PHeElOoj0tRT6Ar
- +xBqUg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4j1nt3vr-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 06:55:12 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-7c1216e7d2dso2380268137.2
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 23:55:12 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF4310E245
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:55:55 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-6acbdbc1725so2086667a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 02:55:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791269711; x=1791874511;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=sbn3DjeD0b28+scrBbrQHJZ8dt/yHM5fg8UpcUfPY8A=;
- b=ZmCfiDHf/BA5BYmwcJVRFC4zDcSncHQrZh7mXa+o7dY4fE+L4/jxqqX8ekKdTuUL4H
- HaDqPF0VTtH65q2iLKKKApW+wXiR+Jo4koCSwnAnN54/cgbSDDATnNGc25Q8ckk2xwb2
- 6N/fiEpZg6D5AMVFvfDAA4e9zWsR8dzqyg4fR49kLUbO25Oy1FZzpiGl1NaeUBQ914Yo
- 8JtYWGe4ln9eQI+QKCV651nLLD77vSSbA+HlJTUZF07oXXtbLk6NTWkc6vOLv2iXRQK7
- cufl/Ft5glJJ/QvMWy9bdCNDPUSLsPJ8P5e6pDaZmYYvVAZ76IOUjHa+qUwKZaPuEvSY
- ZePw==
+ d=gmail.com; s=20251104; t=1791194154; x=1791798954; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=y5KZiX26aqwUyZIYbya9tfV4Mvg5MCMOLcvC9aKPc0E=;
+ b=sd+7DsSRiFLdyeQgZudatCzOG45xKjOZOBOacs52idFeVrEKVrMsoEVr7QzfR4Rt1j
+ yagVaEA5Omu6/5a/GRIChmY95cskng4Y7h34BEGkaI/WpzBmP2wpIdtSOgj1bOVKG6RS
+ NBSZ1aepvl9SzNMkEPV1E2sdyxzW4NL2YZtxGW5j+uiVyL2w3eBGNL9xYgLnSLD+vCJk
+ WeQ8PBnKPwP/EVPr5pQ8sSyxlJHHbOHhAcMGtBREdJqzQYvAEyLDC1tUJgIzLjZ92lMN
+ e67gPJUkjCyS+2YxBu1oPF7dMr7ZFQc7y/e95cA4gxnu0oof5fP3++wgU9Yg1dbRHKPq
+ LCMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791269711; x=1791874511;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=sbn3DjeD0b28+scrBbrQHJZ8dt/yHM5fg8UpcUfPY8A=;
- b=ibyO2XKzhIKJVU0272ABFyGTnxDAbdNDfom70515FuPu37R07Jewq+OeNG6WMu6WhK
- krUhlq0W/afZ55HsJgGRCn+rlm7xX/MknZeaWrnXEEfJnDu6B06z8RS+fWxgqd8sa4CF
- nj/wclc/1SWPIpU2PzSOvnSTTKYlxihueOGfCTHVkoTHQL1XkuFc2SpyILHGJt9zaptp
- e1JEBbZ3AGqlIoQHQvUuJkx1oBVz8hz0SFvpT8w7OTjhgkImwQciPVM2s7X3BmxDQdif
- pjuKvLJa2oeGdFJA8DztkxWPWefEiONZDEscdWxefI6K/1q9RYv3/KTgL3/EqFHC7ivS
- XLDw==
-X-Gm-Message-State: AFq9FYKnGCHdQEhjEKewVtzF7Bd9eh/UB4BFwEIDUEX/cuE+DzSwwVq/
- p9drGHyBB/M07dmjTi/HDoou6nNSPVq3NQKEMfix4jS5Xk8PXlqM6mK4NDM0jQIUfqkkvufDzl8
- iTj1j904JVGvUpwF0YUJzerr7AXXadYEX/afIYV/gWtFgfRugQw7iEW4kL+AHGvjl87deR8QdGb
- yKsEjeOg==
-X-Gm-Gg: AYBFou1f78QuaKIsmD+ihidmcsJnzUW1xheccN2QTXc5L6MzdiXEb0r9JEk8DRvDueQ
- JJg9VDJwLIgsMcztGc+s2Ig6SzuzzdjY6t1mXg6ZsydfUfPrd/5tQ6q2anHJJITXIaVae8aFSDs
- 34uzC7UWcHD1tNQJsPnq4kVdaoHhhKYiRVyNdn6iZnF3QhGck7ezDrMHB9YQH3vg5Ox6TqU//AP
- dSr7MgKryoH3tI9iKcz9QmZpmjUi/sUvOqEFUzxcfHUNYMTtzY7F3CKjsfOCRBVUy0ZPKby/Yqx
- IS04tcy+3O2HKBxqJA/+ohA1SoD+vQsTdGoaMbci+O4DEBCwkn/y4T0nAjtuFDYu9y/z6TifpQn
- fuzvs95W2VKKO5Qx9YNZUU4CHcPbnbEsf/6k5v+KDtbb+m0g+EQR9RN8FR7kDqcD8jqvAkqd5Xj
- ivR1awg9QLkbP+
-X-Received: by 2002:a05:6102:dd1:b0:7c2:14fe:33cc with SMTP id
- ada2fe7eead31-7c87c945cb2mr82061137.31.1791269711493; 
- Mon, 05 Oct 2026 23:55:11 -0700 (PDT)
-X-Received: by 2002:a05:6102:dd1:b0:7c2:14fe:33cc with SMTP id
- ada2fe7eead31-7c87c945cb2mr82051137.31.1791269711089; 
- Mon, 05 Oct 2026 23:55:11 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ d=1e100.net; s=20260707; t=1791194154; x=1791798954;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=y5KZiX26aqwUyZIYbya9tfV4Mvg5MCMOLcvC9aKPc0E=;
+ b=d/TaTAKCg8wlyYgI3Zs8JECEu4D02/s/n6Wo60IpQuDmLJpi6HloTCu/ANHDL1Owj+
+ dIhczoEAoTW7D4Dgx/VYZXuy140YXD/6W8cn3SsycHy5SdmssONzZUE6xtXzqp+M5PyE
+ W2jyG91nYxinJRIXK/cOLG3wtctu24M6JGOMKR2X5ZAhqz+4XObyFJ0Oesk1YqJ7jLos
+ oTcypxr1VmC7I4C2WW5udJPNu/Ka9OmGxHLl19skWYM2KMblcUKpudbXOjs5jDOyduD6
+ HYyXbR2eMwYiW4uaTnG84AmnGhoLfSxxYxPd4kKFTNAoPGMwwNkJwLwL4p65bU5T8I0o
+ ILDw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxojujcdaoT/ZK2TYP8VsTSURRs9U2KDz6RfSTw1cCBqQxBNLftplWsls6pBrir+fB09EXiIJailV4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kLZ+4R0LJos7iggwoV1mXsft6SK5nNm2Jp00AkWsZMgNe6NF0+
+ 8H4Q+/1jnfmHFsbtxoA5s9DaTAwkN1xqiwPeF6fulsrg+dxQucf3DFja
+X-Gm-Gg: AYBFou2RC5JP6foQbK5xxCPXppOmUZaSJbBl4xfvMDMtE/0fhR5fnBLcsy42+qJy3bW
+ yPi7eFtei7TCuaHXP9mRKpditIgJHsmHv3XpND4mAfb6mSgXU0R3CPW4rU0Cl+j0Nu2NpVHY2V2
+ QkFFVO9FITK6YmlnyNlZS4n6s93IKTSAK6cCYgdwG2XhjmwpEJow2xRLFVcSBBJrXTtMY8Fhwcr
+ 1byR4T4Mj/KmJMHtnhVF4rPze0cR5xWq/OV9nGqBtu3/HdGL9LNSaAsweFboyuuApTVBGOlRXq/
+ sEtjTqiLxKBMGt35VYM1+dw7zbMWjTERmlew0fSNgb2ggR6/3NW8iB4awx+pfqMXcXDk8lLk8om
+ V8R1pTVciNpdcTMx5LuemFlfY0i1DDOcH8LYHtaKUfMd+jlabLh8PJN+Yx1Sbyzxne5WzeN2q5W
+ aghV1s66KGkrZu0WABqO+1C+DyzgWioEmYO43KNOPqfIvgTqOaNUsMwttkCt1YhZqiWj0QaAbjG
+ X6WWRVC5HdZ2FGmGxDPI/2/Cx0E6g6hLrTG8MwBSh7oIwp38qFAo1N1u3iDeVEm4ckuYV7d/fCm
+ EZAyBYUQDHb5vZJiH/27YffwvjyuaoAcT3I=
+X-Received: by 2002:a17:907:7b8c:b0:c2d:fc0b:551a with SMTP id
+ a640c23a62f3a-c2e6e7ce8femr537001966b.0.1791194153808; 
+ Mon, 05 Oct 2026 02:55:53 -0700 (PDT)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com
+ (54-240-197-234.amazon.com. [54.240.197.234])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a87e303fabsm52162651fa.21.2026.10.05.23.55.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Oct 2026 23:55:10 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org,
- Vignesh Raman <vignesh.raman@collabora.com>
-Cc: daniels@collabora.com, helen.fornazier@gmail.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, lumag@kernel.org, robin.clark@oss.qualcomm.com,
- valentine.burley@collabora.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v3 0/2] drm/ci: retire limozeen job and add
- wormdingler-rev1-boe
-Date: Tue,  6 Oct 2026 09:55:05 +0300
-Message-ID: <179126968605.1110179.12812564062301444314.b4-ty@b4>
+ a640c23a62f3a-c31562aba16sm50753266b.23.2026.10.05.02.55.52
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 05 Oct 2026 02:55:53 -0700 (PDT)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+ Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, x86@kernel.org
+Subject: [RFC PATCH 0/6] KVM: guest_memfd: back guest_memfd with an imported
+ dma-buf
+Date: Mon,  5 Oct 2026 09:55:46 +0000
+Message-ID: <20261005095552.52748-1-griffoul@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260616115410.325837-1-vignesh.raman@collabora.com>
-References: <20260616115410.325837-1-vignesh.raman@collabora.com>
+In-Reply-To: <20260720111259.122911-1-dwmw2@infradead.org>
+References: <20260720111259.122911-1-dwmw2@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAyNyBTYWx0ZWRfX4GO9LULgLY+0
- 6rwt6ihXPsMgsfBh9Oh5XM1TNL0fb4fk6SPiMjSdjUQPjOxg3avuSK6XZ+2aFlYPGAVTVdUoln3
- Mfar6QWd2naiR8Vy90vudZh5B/6tLUo=
-X-Proofpoint-ORIG-GUID: C7mMTXifVsYxDfWqyG4OkLWMfLxO4vkI
-X-Proofpoint-GUID: C7mMTXifVsYxDfWqyG4OkLWMfLxO4vkI
-X-Authority-Analysis: v=2.4 cv=F4fC5ahN c=1 sm=1 tr=0 ts=6ac49b50 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=e5mUnYsNAAAA:8
- a=fbh3NUXcjvyNh3hXOmsA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAyNyBTYWx0ZWRfX/EjDeZje/trG
- fT+v6VlRZE9MXLF1xb2aMQpMpW0LyvUlneSlAbZQTM7GR6p4N1sw5nSzHS4cOOlh5RDeJhue6H0
- 5XUW86rko6yiYW2Bh5/5BP98O7KYhbkDplAovpz+1zgaD1FGUL+7bN76tRH1KsTus+W9Hw/ieuv
- FjxUqSW2Zdu1jFWEN9Q60ayLjOutzF+Ct0yN1/JPlPB+eJF3GXoxNdDNyGHVbk7rcF4iPIizYtv
- Of6rIgl8EsTQ7qpt2DE7J8CMYpJHqdOJ5DN3DtRNi8d+92rejlnXAbt3ev0KU0v9SjYnNJKeyoy
- oF7F6ZySWmfW4KLDSXkYUjInHGVHRdvFm9poaKpZofa/pB/M+7mBpxkeUEKo4nb9jkxgNnTRW0i
- svVlugRrPxOOXK/OaPUS8+gjE/vG94YK8gyOjbxsFj5lmiIvm7BzfaptpQ92xtT805OVwLZmV7s
- b2fZV+jheOYcTAq1vuA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 priorityscore=1501 malwarescore=0 spamscore=0
- phishscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060027
+X-Mailman-Approved-At: Tue, 06 Oct 2026 07:24:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,26 +113,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 16 Jun 2026 17:24:03 +0530, Vignesh Raman wrote:
-> This series updates CI coverage for trogdor-based sc7180 devices by,
-> 
-> - Removing sc7180-trogdor-lazor-limozeen job, as most devices in the LAVA lab
->   have been experiencing stability issues.
-> - Adding a new sc7180-trogdor-wormdingler-rev1-boe job.
-> 
-> MR: https://gitlab.freedesktop.org/drm/msm/-/merge_requests/221
-> Pipeline: https://gitlab.freedesktop.org/vigneshraman/msm/-/pipelines/1687201
-> 
-> [...]
+From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-Applied to msm-next, thanks!
+This extends David Woodhouse's "KVM: Allow alternative providers of
+guest_memfd backed by PFNMAP memory" RFC (v2) to let guest_memfd import
+a dma-buf as its page source:
 
-[1/2] drm/ci: Remove sc7180-trogdor-lazor-limozeen job
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/ca9ee204e12e
+  https://lore.kernel.org/kvm/20260720111259.122911-1-dwmw2@infradead.org/
 
-Best regards,
--- 
-With best wishes
-Dmitry
+The memory owner is a plain dma-buf exporter, linking against neither
+KVM nor iommufd. guest_memfd imports it for the guest (stage-2) plane
+and iommufd imports the same buffer for the device (DMA) plane, so one
+object and one invalidation protocol serve both. This is a concrete
+answer to the "how do we plug into iommufd without masquerading as a
+dma-buf" question from David's cover: the provider does not pretend to
+be anything; the dma-buf is the shared object.
 
+Applies on top of David's v2 series.
+
+Patches:
+
+ 1 KVM: guest_memfd: Add a writable result to get_pfn()
+   Give get_pfn() a writable out-param so a backing can map a page
+   present but read-only (KVM_MEM_READONLY is rejected on guest_memfd
+   slots). A guest write then exits as a memory fault. Stage-2 only;
+   KVM's own host-mapped accesses are unaffected.
+
+ 2 dma-buf: Add get_phys() to describe a physical run
+   New exporter op: for an offset+len, return one physically contiguous
+   backed run and an attribute word (RAM/MMIO, plus READONLY). -ENOENT
+   for an unbacked byte, -ENODEV when revoked. Lets a page-table-building
+   importer ask where the memory is instead of taking a scatterlist.
+   Converts vfio-pci, the iommufd selftest exporter and the sample;
+   iommufd behaviour is unchanged.
+
+ 3 dma-buf: Add ranged mapping invalidation
+   Invalidate a byte range rather than the whole buffer. The callback
+   means "re-query this range" and covers loss, replacement and
+   read-only flips. Importers without the callback still get a
+   whole-buffer invalidation.
+
+ 4 dma-buf: Allow dynamic attach without a device
+   Allow a dynamic importer with no struct device, for a consumer (KVM)
+   that only needs the physical layout and builds its own tables. Such
+   an importer must not map the attachment for DMA.
+
+ 5 KVM: guest_memfd: Add dma-buf backing
+   Add GUEST_MEMFD_FLAG_USE_DMABUF and a dmabuf_fd to
+   KVM_CREATE_GUEST_MEMFD. guest_memfd attaches as a revocable importer
+   without a device, serves faults from get_phys() (largest aligned RAM
+   run, read-only honoured), and zaps the range on the invalidation
+   callback.
+
+ 6 samples/kvm, selftests/kvm: Exercise dma-buf backing
+   Turn the sample into a dma-buf exporter (a toy memory owner: one root
+   region, a child per VM, move/donate/reclaim, absent and read-only
+   pages, a scratch page, per-child ioctl allowlists) and move the
+   selftests to feed one dma-buf fd to both guest_memfd and iommufd.
+
+Scope: non-confidential VMs, RAM backings only; iommufd keeps its
+single-range import for now. As with David's series, this is largely
+AI-assisted and is posted to get the interface shape reviewed.
+
+Fred Griffoul (6):
+  KVM: guest_memfd: Add a writable result to get_pfn()
+  dma-buf: Add get_phys() to describe a physical run
+  dma-buf: Add ranged mapping invalidation
+  dma-buf: Allow dynamic attach without a device
+  KVM: guest_memfd: Add dma-buf backing
+  samples/kvm, selftests/kvm: Exercise dma-buf backing
+
+ arch/arm64/kvm/mmu.c                          |   13 +-
+ arch/arm64/kvm/nested.c                       |   10 +-
+ arch/x86/kvm/mmu/mmu.c                        |   18 +-
+ arch/x86/kvm/svm/sev.c                        |    4 +-
+ drivers/dma-buf/dma-buf.c                     |   92 +-
+ drivers/iommu/iommufd/iommufd_private.h       |    8 -
+ drivers/iommu/iommufd/iommufd_test.h          |   16 +
+ drivers/iommu/iommufd/pages.c                 |   74 +-
+ drivers/iommu/iommufd/selftest.c              |  106 +-
+ drivers/vfio/pci/vfio_pci_dmabuf.c            |   58 +-
+ include/linux/dma-buf.h                       |   70 +
+ include/linux/kvm_host.h                      |   12 +-
+ include/linux/vfio_pci_core.h                 |    3 -
+ include/trace/events/dma_buf.h                |    2 +-
+ include/uapi/linux/kvm.h                      |    6 +-
+ samples/kvm/gmem_provider.c                   | 1311 ++++++++++-------
+ samples/kvm/gmem_provider.h                   |  144 +-
+ tools/include/uapi/linux/kvm.h                |    6 +-
+ tools/testing/selftests/kvm/Makefile.kvm      |    3 +-
+ .../kvm/gmem_provider_nvme_dma_test.c         |   28 +-
+ .../testing/selftests/kvm/include/kvm_util.h  |   25 +-
+ .../testing/selftests/kvm/x86/gmem_poc_test.c |  824 +++++++++++
+ .../kvm/x86/gmem_provider_hugepage_test.c     |   30 +-
+ .../kvm/x86/gmem_provider_iommufd_test.c      |   42 +-
+ .../kvm/x86/gmem_provider_readonly_test.c     |  172 +++
+ .../kvm/x86/gmem_provider_revoke_test.c       |   34 +-
+ .../selftests/kvm/x86/gmem_provider_test.c    |  190 +--
+ .../kvm/x86/gmem_provider_vfio_test.c         |   45 +-
+ virt/kvm/Kconfig                              |    1 +
+ virt/kvm/guest_memfd.c                        |  252 +++-
+ 30 files changed, 2703 insertions(+), 896 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/x86/gmem_poc_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/gmem_provider_readonly_test.c
+
+--
+2.47.3
 
