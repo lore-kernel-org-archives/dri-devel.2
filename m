@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FBF5CA5FF0
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 00:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 396D8CA5FFE
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 00:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C98B10E57B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 783F610E591;
 	Mon,  5 Oct 2026 00:38:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="c6g58vfN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CL2M6mKZ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1246A10E53F
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 00:38:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7269710E53F
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 00:38:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791160729;
- bh=owHsNVM0dvIItDRqvO4tVUDptJq+19rU1q/eyPIbg64=;
+ s=mail; t=1791160731;
+ bh=CEmFIxcW5jMhb33b5/3+j7ej/shN2i0E61ZoLgFe8A0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=c6g58vfN7hnIOEw6K8Dsr74QkZ5Ik1Ukn0Uge6+vCozNWP8CvQRgNo8oUDw/7fXGC
- /v7gmnI/sS+7xYzazzZlACqEzFsVHLy1mUFQoxhFY9ifS/pyZ+2GUFt/1Y2SoGNiVf
- kiB2Whi/ZQ0Pom8rlzZ5tX9L9jy656hBiQDnuGIiXn9mxB2Wm8LbOsM4c47nZoZ+Fx
- Xstu8EgFk6BQunPluog5V17Ixeg4iLzRG8U0Fv4eWGr0pbiKCkAppL6IhVmrVPZlyP
- 4YAVPuIQyPUa70bJC1Bf7ktZyz5se3cHXtQyE9Ah+qqm+0dN9MOXmtO8E/zJntQlxH
- hB+NmcoMEgzWA==
+ b=CL2M6mKZMdxcxjfmoGMz69ZGdZRldZy3JNytW3rPTaF8WLtSuEzvu3SlowAXOUZzD
+ VGPYDNrcEkV24orRFzim+rbd+Bys6gGxSwz6Lr7/iQ8y9H66gZIrtyAqRXd4M/kHPC
+ NaTkXB+4Yhr9kdfQkCRl80R5S6k/RITuqN1iCTEb/A0hXq7nI0DN33efLTRS7JJu1n
+ 3xMz0d8Ph4okw69o5TfT/6AzMojIdfYyM4ZQym1keVLW3S6gRj9kyHCtQsRuSRc2YZ
+ ukj72B/Dww+VMOBp5LQI0BGAsJCoOxsCgVyP/stqXYRBkcHkl7T9+00ISK/QnQvwmD
+ fyQl9NifVTqoA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BA0FB17E0FB7;
- Mon, 05 Oct 2026 02:38:49 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1FC3517E1023;
+ Mon, 05 Oct 2026 02:38:51 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 05 Oct 2026 03:38:07 +0300
-Subject: [PATCH v12 06/16] drm/rockchip: dw_hdmi_qp: Fix invalid drvdata
- access in PM ops
+Date: Mon, 05 Oct 2026 03:38:09 +0300
+Subject: [PATCH v12 08/16] drm/rockchip: dw_hdmi_qp: Add missing newlines
+ in dev_err_probe() messages
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-dw-hdmi-qp-scramb-v12-6-195157ba0b40@collabora.com>
+Message-Id: <20261005-dw-hdmi-qp-scramb-v12-8-195157ba0b40@collabora.com>
 References: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 In-Reply-To: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -56,7 +56,9 @@ To: Sandy Huang <hjc@rock-chips.com>,
  Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Sashiko <sashiko-bot@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, 
+ Maud Spierings <maud_spierings@hotmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
  =?utf-8?q?Robin_R=C3=A4ber?= <robin.raebi@gmail.com>, 
  Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
@@ -75,88 +77,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The system-sleep PM callbacks fetch the driver state via
-dev_get_drvdata() and dereference it unconditionally.  However, the
-platform device is bound by ->probe(), which merely registers a
-component, hence the callbacks may well run when no valid state is
-available:
+Add the missing trailing newlines to a couple of dev_err_probe() calls
+in dw_hdmi_qp_rockchip_bind().
 
-- Before the aggregate driver calls ->bind(), e.g. when the system
-  suspends while probing is still deferred waiting for the VOP,
-  dev_get_drvdata() returns NULL.
-
-- After ->unbind(), or when ->bind() fails past platform_set_drvdata(),
-  drvdata is left pointing to memory obtained via drmm_kzalloc(), which
-  is released together with the DRM device, while this platform device
-  remains bound and PM-capable.
-
-Publish the driver data only after ->bind() completes successfully, and
-clear it in ->unbind().  This ensures that a non-NULL drvdata always
-represents live state, allowing each PM callback to rely on a single
-NULL check.
-
-Fixes: 128a9bf8ace2 ("drm/rockchip: Add basic RK3588 HDMI output support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260702151550.8E14D1F000E9@smtp.kernel.org/
-Closes: https://lore.kernel.org/all/20260723014811.1F9F01F000E9@smtp.kernel.org/
+Fixes: b6736a4ea3fa ("drm/rockchip: dw_hdmi_qp: Improve error handling with dev_err_probe()")
+Fixes: e1f7b7cbd74c ("drm/rockchip: dw_hdmi_qp: Switch to drmm_encoder_init()")
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Tested-by: Robin Räber <robin.raebi@gmail.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 9c4cf68d79d5..646a4cb96830 100644
+index 42f2627e1a05..df0e2bb1eedc 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -683,8 +683,6 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+@@ -681,12 +681,12 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
+ 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
  	if (ret)
- 		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
+-		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
++		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
  
--	platform_set_drvdata(pdev, hdmi);
--
  	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
  	if (IS_ERR(hdmi->hdmi))
  		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
-@@ -695,6 +693,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
- 				     "Failed to init bridge connector\n");
+-				     "Failed to bind dw-hdmi-qp");
++				     "Failed to bind dw-hdmi-qp\n");
  
-+	platform_set_drvdata(pdev, hdmi);
-+
- 	return 0;
- }
- 
-@@ -704,6 +704,8 @@ static void dw_hdmi_qp_rockchip_unbind(struct device *dev,
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
- 
-+	dev_set_drvdata(dev, NULL);
-+
- 	cancel_delayed_work_sync(&hdmi->hpd_work);
- }
- 
-@@ -726,7 +728,8 @@ static int __maybe_unused dw_hdmi_qp_rockchip_suspend(struct device *dev)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
- 
--	dw_hdmi_qp_suspend(dev, hdmi->hdmi);
-+	if (hdmi)
-+		dw_hdmi_qp_suspend(dev, hdmi->hdmi);
- 
- 	return 0;
- }
-@@ -735,6 +738,9 @@ static int __maybe_unused dw_hdmi_qp_rockchip_resume(struct device *dev)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
- 
-+	if (!hdmi)
-+		return 0;
-+
- 	hdmi->ctrl_ops->io_init(hdmi);
- 
- 	dw_hdmi_qp_resume(dev, hdmi->hdmi);
+ 	connector = drm_bridge_connector_init(drm, encoder);
+ 	if (IS_ERR(connector))
 
 -- 
 2.55.0
