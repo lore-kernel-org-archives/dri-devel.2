@@ -4,65 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D099CA5FF0
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9175CA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3395A10F1F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B465C10F1F9;
 	Tue,  6 Oct 2026 07:24:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=laposte.net header.i=@laposte.net header.b="eoPGvHZ4";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ajOnJFa3";
 	dkim-atps=neutral
-Received: from smtp-outgoing-1802.laposte.net (smtp-outgoing-1802.laposte.net
- [160.92.124.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1EA910ED97
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 15:15:18 +0000 (UTC)
-X-mail-filterd: {"version":"1.9.7","queueID":"4hz0Gw3wsSz10MQN","contextId":
- "58004f09-b087-40cd-8ed9-1a0dd6434d7b"}
-Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
- by mlpnf0120.laposte.net (SMTP Server) with ESMTP id 4hz0Gw3wsSz10MQN;
- Mon,  5 Oct 2026 15:14:48 +0200 (CEST)
-X-mail-filterd: {"version":"1.9.7","queueID":"4hz0Gw00kMz10MQ4","contextId":
- "83529e5d-be3a-4842-bd6e-95de7938f786"}
-X-lpn-mailing: LEGIT
-X-lpn-spamrating: 36
-X-lpn-spamlevel: not-spam
-Received: from PAR-95296130.bcg.com (unknown [147.161.232.172])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mlpnf0120.laposte.net (SMTP Server) with ESMTPSA id 4hz0Gw00kMz10MQ4;
- Mon,  5 Oct 2026 15:14:47 +0200 (CEST)
-From: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
-To: linux-arm-msm@vger.kernel.org
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>, Saim Shujah <saimzst@gmail.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Jean-Francois Bobier <jean-francois.bobier@laposte.net>
-Subject: [PATCH 3/3] drm/msm/dp: validate modes against the trained link,
- not the sink's claim
-Date: Mon,  5 Oct 2026 15:14:32 +0200
-Message-ID: <20261005131432.22840-4-jean-francois.bobier@laposte.net>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C74FA10E0D2;
+ Mon,  5 Oct 2026 10:27:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=7z
+ kyvSIZb7yzsrgnBf3y3sUB/QOaKW72wUX6zt/1eFM=; b=ajOnJFa3ozvKO9D3HO
+ zKJYE7Ps5dVqZyG4cJ596ymb8NSbeIYWSlv/NY7NQmRYMugdxKnoGrpq8l6imBrd
+ lEwOVSUTDZ9CEglOcbFSXN4NsIsuTZROHFzX7g2MeeK4gJFy3tmswdx9O/u4gZTq
+ urJrnoB/o1keszUXsFdJ9LRY4=
+Received: from 163.com (unknown [])
+ by gzsmtp2 (Coremail) with SMTP id PSgvCgBnX6_tesNql_rOCg--.32055S2;
+ Mon, 05 Oct 2026 18:24:45 +0800 (CST)
+From: Xizhe Tang <xizheTang2005@163.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, ankit.k.nautiyal@intel.com, stable@vger.kernel.org
+Subject: [PATCH v3 0/3] drm/i915: stop sending a fake Adaptive-Sync SDP
+Date: Mon,  5 Oct 2026 18:24:42 +0800
+Message-ID: <20261005102445.12710-1-xizheTang2005@163.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261005131432.22840-1-jean-francois.bobier@laposte.net>
-References: <20261005131432.22840-1-jean-francois.bobier@laposte.net>
+In-Reply-To: <20260923195200.21362-1-xizheTang2005@163.com>
+References: <20260923195200.21362-1-xizheTang2005@163.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd;
- t=1791213317; bh=Wy6Pwvx+2GcjwjAr6PbOh13jEziZTD8nOUStgJm2acI=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
- b=eoPGvHZ4jUc8Bs6NYn5YMUwzAKuX0uJUvEay2XCETXuZFL/yP8nsspEMCo8zCx159E78YswmQTAFzAPuPAroPBJ40AqGN0ZFtPsMmrhAdFd22RGicZgv+5IsQHfkx/68eZEI7RD56npiWW2zMmrNg0dzYDP4M1tUieqd9KQR3CxTZmwegCyDXjoqLWYUAPyzauVRfwsNx90SUPHUDA8kdcdt+fUC59D6XoAbiZWSMASh0h0MlPbKsy3pdSM4joxcvOhjVKvtSgtFpkKCCkuixHfGuCDsLI9cYsl5mJ6MROyApB643HZVOh5IY1T0aKz9IgwpWNG2lvb1wrZFwNYoPQ==;
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PSgvCgBnX6_tesNql_rOCg--.32055S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1kCw4UCF1xGr4rtw48tFb_yoW5uF4xpa
+ 1xuF1rKw48JFyIqrWxu3WIyFy5Jws3J3yrG3sxK3sFvas8Ar9rJr4Svw4jgayDuFs2g3WY
+ qrn3XFyjkw4UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jY-e5UUUUU=
+X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
+X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6g9lvGrDeu8JMgAA37
 X-Mailman-Approved-At: Tue, 06 Oct 2026 07:24:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,111 +60,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-msm_dp_display_mode_valid() sizes every mode against
-panel->link_info, which is what the sink advertises in DPCD. That is not
-necessarily what the link carries. msm_dp_ctrl_on_link() walks the rate
-down HBR3 -> HBR2 -> HBR -> RBR and then reduces the lane count until
-training succeeds, so a cable with two unusable lanes trains at half the
-bandwidth the sink claims.
+v2 gated intel_dp_needs_as_sdp() on vrr.enable || cmrr.enable. Ville
+pointed out that this function is also how we size the optimized VRR
+guardband, and that looking at vrr.enable there forces a full modeset
+when userspace toggles Adaptive Sync.
 
-The validator does not know that, so it keeps advertising modes sized for
-the sink's maximum. Userspace picks one, training "succeeds" at the
-reduced parameters, the mode does not fit in them, and the sink shows a
-black screen -- with nothing in the log to explain it, because from the
-driver's point of view everything worked.
+That coupling is the bug, not the send predicate. Split it:
 
-Observed on an sm8250 phone with a 4K monitor whose cable only carries
-two lanes: the connector offers 3840x2160, the link trains at 2 lanes
-HBR2 (8.6 Gbps after 8b/10b against the 12.5 Gbps the mode needs at 24
-bpp, more at 30), and the screen stays black until the user picks
-2560x1440 by hand.
+  1/3  intel_dp_sdp_min_guardband(..., true) reserves AS SDP lines on
+       HAS_AS_SDP platforms even when the packet is not enabled. After
+       this, toggling vrr.enable does not change crtc_vblank_start.
 
-link->link_params holds the trained values and is reset to the sink's
-maximum at the top of every msm_dp_ctrl_on_link(), so taking the lower of
-the two is accurate after a fallback and a no-op before the first
-training. The change can only ever remove modes from the list, never add
-one, so it cannot cause the link to attempt anything it was not already
-attempting.
+  2/3  Send the packet only when VRR or CMRR is actually running.
+       Predicate is vrr.enable || vrr.cmrr.enable to match drm-tip's
+       nested cmrr (v2 used the older sibling cmrr.enable). Now safe
+       because 1/3 already reserved the guardband. This is the 7.2
+       regression: intel_vrr_possible() is flipline != 0, and fixed-RR
+       timings program flipline, so we transmit DP_AS_SDP_AVT_FIXED_VTOTAL
+       on a constant refresh. Panel Replay aux-less without async video
+       timing still takes the early return in intel_dp_needs_as_sdp()
+       from 6a1712052859 and still gets that packet; this machine does
+       not hit that path. A 7.2 stable backport needs the sibling
+       crtc_state->cmrr.enable spelling.
 
-This does not by itself make userspace re-probe after a fallback -- that
-needs the link-status property, which cannot be set from
-msm_dp_bridge_atomic_enable() because the modeset locks are held, and is
-the deferred work the existing TODO there refers to. What it does ensure
-is that any probe after a fallback offers only modes the link can
-actually drive.
+  3/3  On this panel, Adaptive Sync = Always still streaks on s2idle
+       resume after 1+2 (operation mode 0, not the mode-1 packet). Write
+       the SDP in intel_ddi_enable() after intel_vrr_transcoder_enable()
+       and before intel_enable_transcoder(). Fastset still updates the
+       packet from intel_ddi_update_pipe_dp() so a runtime Adaptive Sync
+       toggle does not become a full modeset.
 
-Also log the rejection at debug level; a mode silently disappearing from
-the list is otherwise hard to account for.
+1+2 are the regression fix. 3/3 is the Always resume path on this eDP;
+drop it if you want only the Never/Automatic half.
 
-Signed-off-by: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 38 +++++++++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 2 deletions(-)
+Why not vrr.in_range (series 174831 1/3): this panel's EDID range is
+30-120 Hz. 60 Hz and 120 Hz with Adaptive Sync = Never stay in_range,
+so that patch still sends AVT_FIXED_VTOTAL here. Reported at
+https://lore.kernel.org/r/RxSA9gIRRBSaKwxlF7t96Q@163.com
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-index bce641d7d..634d825aa 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -750,8 +750,10 @@ enum drm_mode_status msm_dp_display_mode_valid(struc=
-t msm_dp *dp,
- {
- 	const u32 num_components =3D 3, default_bpp =3D 24;
- 	struct msm_dp_display_private *msm_dp_display;
-+	const struct msm_dp_link_info *trained;
- 	struct msm_dp_link_info *link_info;
- 	u32 mode_rate_khz =3D 0, supported_rate_khz =3D 0, mode_bpp =3D 0;
-+	unsigned int num_lanes, rate;
- 	int mode_pclk_khz =3D mode->clock;
- 	int link_pclk_khz;
- 	bool is_yuv_420;
-@@ -789,10 +791,42 @@ enum drm_mode_status msm_dp_display_mode_valid(stru=
-ct msm_dp *dp,
- 			mode_bpp, link_pclk_khz);
-=20
- 	mode_rate_khz =3D link_pclk_khz * mode_bpp;
--	supported_rate_khz =3D link_info->num_lanes * link_info->rate * 8;
-=20
--	if (mode_rate_khz > supported_rate_khz)
-+	/*
-+	 * link_info is what the sink advertises in DPCD, which is not
-+	 * necessarily what we managed to train. msm_dp_ctrl_on_link() walks
-+	 * the rate down HBR3 -> HBR2 -> HBR -> RBR and then halves the lane
-+	 * count until training succeeds, so a cable with two unusable lanes
-+	 * ends up carrying half the bandwidth the sink claims.
-+	 *
-+	 * Sizing modes against the sink's maximum then advertises modes the
-+	 * link cannot carry: training "succeeds" at the reduced parameters,
-+	 * the mode does not fit in them, and the sink shows a black screen
-+	 * with nothing in the log to say why.
-+	 *
-+	 * link->link_params holds the trained values, and is reset to the
-+	 * sink's maximum at the top of every msm_dp_ctrl_on_link(), so taking
-+	 * the lower of the two is accurate after a fallback and a no-op
-+	 * before the first training.
-+	 */
-+	num_lanes =3D link_info->num_lanes;
-+	rate =3D link_info->rate;
-+
-+	trained =3D &msm_dp_display->link->link_params;
-+	if (trained->num_lanes && trained->num_lanes < num_lanes)
-+		num_lanes =3D trained->num_lanes;
-+	if (trained->rate && trained->rate < rate)
-+		rate =3D trained->rate;
-+
-+	supported_rate_khz =3D num_lanes * rate * 8;
-+
-+	if (mode_rate_khz > supported_rate_khz) {
-+		drm_dbg_dp(dp->drm_dev,
-+			   "mode %s rejected: needs %u kHz, link carries %u kHz (%u lanes @ %=
-u)\n",
-+			   mode->name, mode_rate_khz, supported_rate_khz,
-+			   num_lanes, rate);
- 		return MODE_BAD;
-+	}
-=20
- 	return MODE_OK;
- }
---=20
-2.55.0
+Not Closes: #9252. 1+2 do not fix Always. 3/3 does.
+
+These patches are against drm-tip, not 7.2.8.
+
+Machine: Lenovo ThinkBook 14 G8+ IPH (21VG), PTL 8086:b080, eDP
+3072x1920, EDID 30-120 Hz. Tested by rebuilding xe.ko on
+7.2.8-200.fc44.x86_64, and on a full drm-tip kernel. Same results
+on both:
+
+  Never / Automatic, boot and lid s2idle: clean with 1+2 (and with 1+2+3).
+  Always, lid s2idle: still streaks with 1+2; clean with 1+2+3.
+  Runtime Never <-> Always on an already-lit panel: already clean.
+
+Ville in_range, delayed send, and never-send were tried earlier; the
+first two still streak, never-send is clean on both policies but is
+not upstreamable.
+
+v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
+v2: https://lore.kernel.org/r/20260923195200.21362-1-xizheTang2005@163.com
+
+Xizhe Tang (3):
+  drm/i915/dp: Reserve AS SDP guardband even when VRR is off
+  drm/i915/dp: Send AS SDP only when VRR or CMRR is enabled
+  drm/i915/ddi: Program AS SDP before enabling the transcoder
+
+ drivers/gpu/drm/i915/display/intel_ddi.c |  4 ++++
+ drivers/gpu/drm/i915/display/intel_dp.c  | 35 ++++++++++++++++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_dp.h  |  2 ++
+ 3 files changed, 37 insertions(+), 4 deletions(-)
+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
 
