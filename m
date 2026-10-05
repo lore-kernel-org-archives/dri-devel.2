@@ -4,63 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F34ADCA5FF0
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 09:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9FF8CA5FCE
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 09:50:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FED510EC3B;
-	Mon,  5 Oct 2026 09:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B9F310EC53;
+	Mon,  5 Oct 2026 09:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eOmETh0u";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="GiX/fnpM";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2735110E1E8;
- Mon,  5 Oct 2026 09:39:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791193168;
- bh=O6YBEBOgxU2xPbzAN0XEomFzmcuWs7cjwFLomcSls14=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=eOmETh0ucLVcoEAOdMbhTfYydfCSTpA69TNPABDhvieR8E7Wm1iMZe1f3mDefxmsY
- Ao+GvEIAXv3HwwwmbA8fKhFC/WWlTwq4GBTNTIbI4fPAzcWQKRl6FnXyyAkfIKrBNl
- syv9jHwAEw0zfNM6kqfSDODm/gdXLV9ZvFJX/LLZQyh20vGyZiAaccT9ZAyEX2P/nl
- RYhL4nBdmyaEMB8Gtqlr+g3KfAtOYRoA+RpM7OmSbgWtb+UbfIUkqAz2yVcIAank19
- y6iFyldyp+H0IGtl6Cd8yaxv/cs8zwp+Zej9gvNlO7e5vnk8kZ4uQOfm3cWFf7ajs4
- QPlMUjELoNfEA==
-Received: from fedora-61.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B374D17E01C2;
- Mon, 05 Oct 2026 11:39:27 +0200 (CEST)
-Date: Mon, 5 Oct 2026 11:39:24 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, Abhinav
- Kumar <abhinav.kumar@linux.dev>, Alice Ryhl <aliceryhl@google.com>, Anna
- Maniscalco <anna.maniscalco2000@gmail.com>, Antonino Maniscalco
- <antomani103@gmail.com>, Danilo Krummrich <dakr@kernel.org>, David Airlie
- <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Liviu Dudau
- <liviu.dudau@arm.com>, Lyude Paul <lyude@redhat.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maxime Ripard <mripard@kernel.org>, Randy
- Dunlap <rdunlap@infradead.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>, Shuah
- Khan <skhan@linuxfoundation.org>, Simona Vetter <simona@ffwll.ch>, Steven
- Price <steven.price@arm.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
- <thomas.hellstrom@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v3 3/8] drm/panthor: lock the resident BOs of a submit last
-Message-ID: <20261005113924.37276be0@fedora-61.home>
-In-Reply-To: <20261001220632.3190896-4-matthew.brost@intel.com>
-References: <20261001220632.3190896-1-matthew.brost@intel.com>
- <20261001220632.3190896-4-matthew.brost@intel.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36E210E7DC
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:50:17 +0000 (UTC)
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+ by mail11.truemail.it (Postfix) with ESMTPA id 4F0EB1FC35;
+ Mon,  5 Oct 2026 11:50:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1791193815;
+ bh=JEGPocbhabTmG9JnP0it9oQn8qUEYKbqSsbZyc3hfr4=; h=From:To:Subject;
+ b=GiX/fnpMMtR20Mo8hBpj/2dvtW01C4IwPdHEyvyhF96+RdiRqllIxBHcmwA9X18kJ
+ CLcm/JlEDrNRFZAxf7OZf7aOOxU4WX8TDWNOZSak+m+kuo3Og5fOGwA3Y/Pm6zmd3L
+ 2icwxNEliViG+JDHuM10h/QvGNriQhzucDZHKrrx8anr6exFKRzUUBPZhAFGsWZoF8
+ uT5LwEyVkOKvQ3D99U+BCzPe+w/i6OKCwS5BMnqyLp1svoUqAYzCMW4DXOaqoGxP55
+ B02e2Z3ZE+FKBdTNYYryQDJbVMaHb4w5+K2clEUNxsgZwjs4lEm8gflBjZSh8+wAF0
+ q7g40Z1Om6o9Q==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Francesco Dolcini <francesco@dolcini.it>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 0/4] drm/bridge: Add Thine THC63LVD827 LVDS encoder and
+ 10inch LVDS panel on Colibri iMX7
+Date: Mon,  5 Oct 2026 11:50:00 +0200
+Message-ID: <20261005095006.20290-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,185 +69,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu,  1 Oct 2026 15:06:27 -0700
-Matthew Brost <matthew.brost@intel.com> wrote:
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-> panthor_vm_prepare_mapped_bos_resvs() locks every external object mapped
-> in the VM and then validates the evicted ones. Validation here means
-> panthor_vm_bo_validate(), which swaps the BO's pages back in and restores
-> its VMAs. That is slow, and an external object is one which can be shared
-> with another process, so the whole of it happens while holding dma-resv
-> locks other processes may be waiting on.
->=20
-> Nothing is gained by holding those. A resident object needs no swapping
-> in; only the evicted ones do. Split the locking into the two passes
-> gpuvm now understands: the early pass takes just the evicted external
-> objects and swaps them in, and the late pass takes the ones which were
-> resident and are therefore normally ready to use as they are. Private
-> objects are covered by the VM resv, which is held from the start, so
-> evicted ones are still validated in the early pass.
->=20
-> The split is only worth it when there is something to validate, so
-> drm_gpuvm_exec_pass_needs_split() decides, and a submit with nothing
-> evicted keeps doing exactly what it does today in a single pass.
->=20
-> Both passes run in the same drm_exec transaction, so nothing is unlocked
-> in between and the late pass only ever adds locks. They take disjoint
-> sets of objects, so passing slot_count to both still reserves it exactly
-> once per object.
->=20
-> The early pass reads the evicted state without the object's dma-resv,
-> that being the lock it is trying not to take. The race is benign: an
-> object evicted right after the early pass skipped it is picked up by the
-> late pass instead, which is why that pass still validates.
->=20
-> Validation here allocates pages, which can recurse into panthor's own
-> shrinker, so it is worth being explicit about what the early pass can
-> evict. There is no deadlock: drm_gem_lru_scan() acquires the resv with
-> ww_mutex_trylock() and skips what it cannot get. VM-exclusive BOs share
-> the VM resv, which is held across both passes, so those are always
-> skipped. External objects are not held by the early pass, though, so
-> reclaim can evict one while the early pass validates something else.
->=20
-> That is handled, and is why the late pass validates rather than only
-> locking: it picks up anything evicted after the early pass looked at it.
-> The cost is that the swapin for such a BO happens under the full set of
-> locks, i.e. it degrades to the current behaviour for that one object.
->=20
-> Xe avoids this by refusing to evict BOs bound to a VM the current task is
-> validating (xe_bo_eviction_valuable() and xe_vm_is_validating()). Panthor
-> has no equivalent guard. Adding one would make the split more effective
-> under memory pressure, but it is not needed for correctness, so it is left
-> as a follow up.
->=20
-> Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-> Cc: Alice Ryhl <aliceryhl@google.com>
-> Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> Cc: Antonino Maniscalco <antomani103@gmail.com>
-> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+This series adds support for the Thine THC63LVD827 DPI to LVDS encoder and
+afterward uses it to add DT overlays to enable the Toradex 10inch LVDS panel
+on Colibri iMX6ULL / iMX7 with the Iris v2 carrier board.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+v2:
+ - address review comment on the binding (Frank), document the power
+   supplies
+ - driver: add power supplies support, enforce the input sampling edge
+   via atomic_check, use bridge.next_bridge with
+   of_drm_get_bridge_by_endpoint(), drop unused code
+ - move the common part of the Colibri iMX7 overlay to a dtsi shared
+   between Colibri iMX6ULL and iMX7, minor cleanups to the overlay and
+   the Makefile
+ - new patch adding the Colibri iMX6ULL overlay
 
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Dmitry Baryshkov <lumag@kernel.org>
-> Cc: Jessica Zhang <jesszhan0024@gmail.com>
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Steven Price <steven.price@arm.com>
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> Assisted-by: LLM
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> ---
-> v3:
->  - Follow the drm_gpuvm_exec_pass_ function renames (Danilo)
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 55 ++++++++++++++++++++++++++-
->  1 file changed, 53 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
-hor/panthor_mmu.c
-> index d75d575473da..d4b968ab094e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -3258,6 +3258,26 @@ int panthor_vm_unmap_range(struct panthor_vm *vm, =
-u64 va, u64 size)
->   * need to reserve a slot on all BOs mapped to a VM and update this slot=
- with
->   * the job fence after its submission.
->   *
-> + * When something is evicted the locks are taken in two passes; when not=
-hing
-> + * is, a single pass is used, as before. The early pass only takes the e=
-xternal
-> + * objects which actually need validating, i.e. the evicted ones, and sw=
-aps
-> + * them back in. Private objects are covered by the VM resv, which is he=
-ld
-> + * from the start, so they are validated here too. The late pass then ta=
-kes
-> + * the external objects the early pass left out, which were resident and=
- so
-> + * normally need no swapping in; it still validates, since one of them m=
-ay
-> + * have been evicted in the meantime.
-> + *
-> + * The point is that panthor_vm_bo_validate() swaps pages back in, which=
- is
-> + * slow, and an external object is one which can be shared with another
-> + * process. Doing that while holding the resv of a resident shared BO wo=
-uld
-> + * stall whoever else needs it, for no benefit, since a resident object =
-is
-> + * ready to use as it is.
-> + *
-> + * Both passes run in the same drm_exec transaction: nothing is unlocked=
- in
-> + * between and the late pass only ever adds locks. The passes take disjo=
-int
-> + * sets of objects, so reserving @slot_count in each still reserves it
-> + * exactly once per object.
-> + *
->   * Return: 0 on success, a negative error code otherwise.
->   */
->  int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec, struct pa=
-nthor_vm *vm,
-> @@ -3270,11 +3290,42 @@ int panthor_vm_prepare_mapped_bos_resvs(struct dr=
-m_exec *exec, struct panthor_vm
->  	if (ret)
->  		return ret;
-> =20
-> -	ret =3D drm_gpuvm_prepare_objects(&vm->base, exec, slot_count);
-> +	/*
-> +	 * With nothing evicted there is no validation to keep the resident
-> +	 * objects unlocked for, so do not pay for the second walk.
-> +	 */
-> +	if (!drm_gpuvm_exec_pass_needs_split(&vm->base)) {
-> +		ret =3D drm_gpuvm_prepare_objects(&vm->base, exec, slot_count);
-> +		if (ret)
-> +			return ret;
-> +
-> +		return drm_gpuvm_validate(&vm->base, exec);
-> +	}
-> +
-> +	ret =3D drm_gpuvm_exec_pass_prepare_objects(&vm->base, exec,
-> +						  slot_count,
-> +						  DRM_GPUVM_EXEC_PASS_EARLY);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D drm_gpuvm_exec_pass_validate(&vm->base, exec,
-> +					   DRM_GPUVM_EXEC_PASS_EARLY);
->  	if (ret)
->  		return ret;
-> =20
-> -	return drm_gpuvm_validate(&vm->base, exec);
-> +	ret =3D drm_gpuvm_exec_pass_prepare_objects(&vm->base, exec,
-> +						  slot_count,
-> +						  DRM_GPUVM_EXEC_PASS_LATE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Objects the early pass skipped were resident then, but another
-> +	 * process may have evicted one since. Now that everything is locked,
-> +	 * pick up whatever is left.
-> +	 */
-> +	return drm_gpuvm_exec_pass_validate(&vm->base, exec,
-> +					    DRM_GPUVM_EXEC_PASS_LATE);
->  }
-> =20
->  unsigned long
+v1: https://lore.kernel.org/all/20260908100230.83796-1-francesco@dolcini.it/
+
+Francesco Dolcini (4):
+  dt-bindings: display: bridge: Add THine THC63LVD827
+  drm/bridge: Add THine THC63LVD827 LVDS encoder
+  ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 10"
+    LVDS
+  ARM: dts: imx6ull-colibri-emmc: Add Toradex Capacitive Touch Display
+    10" LVDS
+
+ .../display/bridge/thine,thc63lvd827.yaml     | 138 +++++++++++
+ MAINTAINERS                                   |   6 +
+ arch/arm/boot/dts/nxp/imx/Makefile            |  13 +
+ ...emmc-iris-panel-cap-touch-10inch-lvds.dtso |  49 ++++
+ ...ibri-iris-panel-cap-touch-10inch-lvds.dtsi |  70 ++++++
+ ...emmc-iris-panel-cap-touch-10inch-lvds.dtso |  47 ++++
+ drivers/gpu/drm/bridge/Kconfig                |  11 +
+ drivers/gpu/drm/bridge/Makefile               |   1 +
+ drivers/gpu/drm/bridge/thc63lvd827.c          | 228 ++++++++++++++++++
+ 9 files changed, 563 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-imx7-colibri-iris-panel-cap-touch-10inch-lvds.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 drivers/gpu/drm/bridge/thc63lvd827.c
+
+-- 
+2.47.3
 
