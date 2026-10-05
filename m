@@ -4,75 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8A32CA5FCE
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 09:20:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0A1ACA5FCE
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 09:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07BAF10EC33;
-	Mon,  5 Oct 2026 09:20:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3297F10E91E;
+	Mon,  5 Oct 2026 09:27:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jw/IvOO1";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jEPXtRqO";
 	dkim-atps=neutral
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
  [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8744B10EC33
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:20:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24DE010E91E
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 09:27:56 +0000 (UTC)
 Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-4a11603310fso14311175e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 02:20:52 -0700 (PDT)
+ 5b1f17b1804b1-49e79a408deso8636985e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 02:27:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1791192051; x=1791796851; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1791192474; x=1791797274; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=T+t0/bgbwIAHS/RitDSg2WZrM92RV4Q4lP3kwWM+IQU=;
- b=jw/IvOO1Z9Hb0P2RYjqQHiRnqGWG/3C1QWtl4dPWt9xUZhH/RHa6v6GcKQTwgepoSL
- mXktIVZt9TUCGlF1kZwa/l8Z8z/r5UjCYXdafeTo/0HO70vJd21+aFPgsd94LucxukoF
- LyShNlaV+b3yWO5tjPQWt2ygvRN2/J+PU+qYQZL475gtm026vFfvZKtcRpb6wxqfBuZ/
- ULxync7S32XsSegOf+crr7+s/gD+BhYzYLFnQuL6XKsvgWjRBO9rrJLjqMDRQUWf7eSy
- OneuBtrK0Xcnvu4VSuBoQQy4euymyB3np19Mum4bQZZhRyrrra23GCSU/05aInXDFpMn
- pblA==
+ bh=8rLD6lFejoN0T8xG1+fKNKHQcEvhqJXDjenF0dJEnUA=;
+ b=jEPXtRqOH4MhLSlea8uhaaL+7i1UIn56svDZ2DicpOFDk7/9kG0Jb/l8XCg5jYQr9s
+ b7VeTR5S3tS2qmRqMBEgb/P+DSwpqbyqrCIzntlfS4q2KyPJCJUGQBLdzyk72JWvnk9m
+ MQLIQqDeHfIAZUDO+OovGfUWjFA3rQrUlzhk2mPS2gqCKDjdpYkgSFA/x0FLIxDHqBkq
+ 7M4lkoXlzbp8q5sYOuJ87LrlG9VVDxJKgq2/X+sVPYJdSOl5eqOJEfUrIe6h9qQFuXmv
+ x7ABPifA69uHB/2OdarRN34wgqsF8b6ucY3qQrlYfvydJZjgirq6+b0/u/9emyaUp7yZ
+ dylQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791192051; x=1791796851;
+ d=1e100.net; s=20260707; t=1791192474; x=1791797274;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=T+t0/bgbwIAHS/RitDSg2WZrM92RV4Q4lP3kwWM+IQU=;
- b=aBDxek2m+N4lId6uTOXHb4p6H7hbOGXryyU1125z9HHXGsQnC0kzS8G32wzAyx6COl
- mNzS5eZWesc+ULi+18cnwSA0ss5LvIa4EmL40zecFDz8p+571Ob9wZCGegI79uMi0kEE
- cy26dd/gRvw5Z6tMeFjC/poeT2g8f2a1y0ww353BIdpZiIW/PlM+KxRT/yUMuJSh/VS6
- zyF46ULVFzg0qhXU86bo6GsxwRJkWc+e5Fbq92xPCaaYN4umQ5YpEMJl0gSpSPoD/LR2
- pRHvXNoducZ/4XQ0JpY9Ozuk9nyXfq5HoEDhStBDyBxbfDiDDLtmfBmownPTI/d35fcL
- SC6A==
-X-Gm-Message-State: AFuF++k1xpX9INFiTmfNiig6PS9jIIEKBg8nFgQWChEDrHW25iXvwMzP
- bwjGWVdLgv9rccYmWAL4Ya7/w/+Mn9iX6Zsl6u0EEBuGl90kO1enjc4CX9BB5eRCUIQ=
-X-Gm-Gg: AYBFou3dd2KJP1U3+2L+GbMnGhfxtW4UwhY4kGSbW82bwdtpMd2koSVbGLVD6JWo77n
- WEoerKpf+R+1LtsFD0ZAN/A/WUEBuWQNw88EmnYR3av4IPjnEGqcuGiQ+fSqgGmWfUwgXuR8r7l
- HUfLtqwjEr0m/ST64UmyYylT6REZcCGjEWuVasiun2joAE5nB/QMAE4qCbJhTZd8IVgyDeNsbTs
- cmKcji554XrTBUh5DLPa6VpfSgcXnF5ZfbVX0/i4X2EAWMR7VzVzvQAIIEwlSArI27Oe/+r1LVk
- r9vo5vfb1NWe04eRJYcrUr1TY+Wm4nXvJQWsD4deFEallV9P8HVZVrtbLbxiTD3d5mTkH7VUVle
- LY+rUk7uqAqOUa9Jumfv89JpWe9Fm7KWXQMywwwDqV8t3d8UGVBuFiKz99yJvv79GNHLSALiofV
- H977732p0XuYmE+298e8GPPLx+bRhxqxsqnOHW6aiJLx2nrC0KozK1dMjWps+6hNCNvxOCsTcuo
- r7FLxvxiVY1tFPa0CMEzoL/2r7lHt0=
-X-Received: by 2002:a05:600c:a010:b0:4a0:251f:a726 with SMTP id
- 5b1f17b1804b1-4a02759badbmr165494515e9.24.1791192050671; 
- Mon, 05 Oct 2026 02:20:50 -0700 (PDT)
+ bh=8rLD6lFejoN0T8xG1+fKNKHQcEvhqJXDjenF0dJEnUA=;
+ b=KY1iNY9ibDqBjvBkY/b/ouXiqRVrOrA7kSGQZBSL8C5E7Vbq/OzcT8mRTUPGuBfkZ6
+ BtPl9ac8kHzZSCCzU7b6eTPqmz8/X0mLvvRqoio3f1rWi8dvUWhHPJzUcdq53g+vemSA
+ 5Ha5jvQ7twv5tVtSwjyNOnvLO8u8/gEqsfwIowPJUoeVCWTqzCEekX8FDK8yRGPp2gsG
+ Q8ZchTjK+Pf1e7vUwPYFZjkxNApbuWTvVrD48DrBlyUvv7oVPqTAdrwLaHql2kaabARR
+ +z5pRRDT8SP2NQ+yChsliFWXgnlMVSEb6PA6vXWp79Vkxz+PZVMg16OEwVkPnX2PdxXU
+ I9ZQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBygF6naUsMhA+9UeFKRnimP9UzTdCDgStwUWN3BJ2CZHLqdIAL/S2+D6eGMZL42ypl53xiTEUdXjzg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k57ZCX1riolVm6iSPnzUY5vIaVH1Iw7HTgSrjOYDPBsOPUN7Jc
+ nHSPDqMFSnPWlJGSpJBskpvfuXSBtlvluWg2dAokjLvMqhakH1zJuU36VN7qi5U4YnU=
+X-Gm-Gg: AYBFou18udND2Kxm2Ja/TZeoVkWZyeVjGEAZK9VfWC3WqCJ1c0QBmgIrN11ZeApjhsx
+ fxGZss+uU41X7qEnk3DJMuxO0ChqJWiSwatrN6kUL1tV4s0LBN2aaz76dsZ8zJB3K1DT8JyF5pO
+ fARhjdbquvra00GecbWc+mQWa1uSRl3fvyH7hLsIw9lzNpWdEV3QxvESWM6a6uFSaSr1b7yhp9n
+ /4Rkw9GAQIbJF3GYxplO1PlUIVAZceeLzZpl2dHgzXqaOzxzsHg+LPBkkchdNknTdP4K5UpBb56
+ WRw1ktaNdGUDP082Z1TAluz2/9wB95OppvY2cvypN3aX1r1th707t4tNj9ZY3inVmbj92fMEJOp
+ FRMfH9ERjgoRwNruxvBAmPZlky9D0mplIv2A8HXPwhBut9+OKiQ6Seg9VLoVvy+mskFa2ap0bXm
+ puXjE6Z3y35pO/9hBxnOVZ/WfJJS22Cqry3Agu4y9Rm9Lq7U8ZqVDtm6ISRDwhDZ5+V20iIK0GL
+ TgRvSGc40yI7h8MCprnnBkskNrBAzI=
+X-Received: by 2002:a05:600c:468d:b0:4a1:7093:409a with SMTP id
+ 5b1f17b1804b1-4a1709341bbmr63938175e9.27.1791192474107; 
+ Mon, 05 Oct 2026 02:27:54 -0700 (PDT)
 Received: from [192.168.151.46] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48c622bb17esm2201537f8f.45.2026.10.05.02.20.50
+ 5b1f17b1804b1-4a16620dbdfsm221932725e9.0.2026.10.05.02.27.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Oct 2026 02:20:50 -0700 (PDT)
-Message-ID: <0d4c9c46-18e5-4c16-855b-14f4ae64a1d6@linaro.org>
-Date: Mon, 5 Oct 2026 11:20:49 +0200
+ Mon, 05 Oct 2026 02:27:53 -0700 (PDT)
+Message-ID: <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
+Date: Mon, 5 Oct 2026 11:27:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: xR-related properties
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jun Nie <jun.nie@linaro.org>
-Cc: dri-devel@lists.freedesktop.org
-References: <uyj25irtugtgmcr7xwt4n36ovi6tohawohqaf2mzga2iweuoqm@l2flbkpplzot>
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: himax, hx83112a: Tighten
+ compatible matching
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca@lucaweiss.eu>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
+ <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -99,7 +110,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <uyj25irtugtgmcr7xwt4n36ovi6tohawohqaf2mzga2iweuoqm@l2flbkpplzot>
+In-Reply-To: <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -120,52 +131,34 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On 10/5/26 05:09, Dmitry Baryshkov wrote:
-> Hi,
-> 
-> During your presentation at the XDC this year you mentoned that the
-> kernel needs to describe the attached panel to the userspace and that it
-> should also describe optical characteristics of the system.
-> 
-> Having played with the Google Cardboard and other kits implementing the
-> same idea, I'd have a controversial proposal as a reponse. What if let
-> the kernel describe only the actual panel(s) being used in the device
-> and let userspace describe the optics (in a way similar to libinput
-> determining and applying device-specific quirks in userspace).
-> 
-> As I wrote, this comes from the Carboard-like devices. Users can use
-> them to transform the phone into the poor man's xR headset. The kernel
-> knows nothing about the attached kit, so it won't be able to export any
-> information (only the phone's panel). Similarly, I think, using
-> prescription lenses with the actual xR headsets would affect optical
-> characteristics. Finally, devices like Snap Specs will have some, but
-> not all properties (e.g. there will be FoV, distance to the screen and
-> inter-display distance, but, I guess, nothing else).
-> 
-> Having all of that in mind, I think, the params of the device should go
-> to the userspace.
+On 10/2/26 16:49, Luca Weiss wrote:
+> The compatible was defined too wide, we just want "djn,9a-3r063-1102b"
+> and nothing else.
 
-I mean, yes they are for userspace, kernel would have no use of those
-properties (until there's some hardware able to do the rendering), but
-we need a common way to share those properties.
+Can you add Fixes tags ?
 
-You're using an edge use case (Google cardboard) which has barely nothing
-to do with devices crafted for XR which has per-device calibration tables.
-
-Some will come from DT, some would come from tables in filesystem, the idea
-is to perhaps standardize a well-define blob format which could hold all
-those parameters you could gather from the DRM interface. So any
-system (DT, ACPI, ...) could define those in an unified way.
-
-> 
-> At the same time, if the kernel grows up support for the response
-> measures (e.g. performing CAC or waveguide demura), we would need to
-> describe necessary properties _to_ the kernel, which mean userspace
-> descibing optical characteristics to the kernel driver rather than the
-> other way around.
-> 
-
-For CAC, the parameters would need to be set from user-space, no doubt on this.
-Our questioning is how to handle the variety of ways to handle CAC in HW.
-
+Thanks,
 Neil
+
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
+>   Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+> index 2c60d0cd704e..3dd9b25ff13f 100644
+> --- a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+> @@ -18,8 +18,7 @@ allOf:
+>   
+>   properties:
+>     compatible:
+> -    contains:
+> -      const: djn,9a-3r063-1102b
+> +    const: djn,9a-3r063-1102b
+>   
+>     reg:
+>       maxItems: 1
+> 
+
