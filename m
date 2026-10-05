@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2AA5CA5FFE
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA16DCA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 511C510F207;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A165810F20B;
 	Tue,  6 Oct 2026 07:24:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=laposte.net header.i=@laposte.net header.b="D7DlN6na";
+	dkim=pass (2048-bit key; unprotected) header.d=laposte.net header.i=@laposte.net header.b="SkEGoMHf";
 	dkim-atps=neutral
 Received: from smtp-outgoing-1802.laposte.net (smtp-outgoing-1802.laposte.net
  [160.92.124.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43B7510E243
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 15:16:17 +0000 (UTC)
-X-mail-filterd: {"version":"1.9.7","queueID":"4hz0JF2Kjxz10MQ4","contextId":
- "b50483b3-7d83-4a0a-97f7-941ae70e4e73"}
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D6B810E243
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 15:15:18 +0000 (UTC)
+X-mail-filterd: {"version":"1.9.7","queueID":"4hz0Gv1kZfz10MQR","contextId":
+ "775944a0-e23f-4087-bb77-5e4c87d0348a"}
 Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
- by mlpnf0120.laposte.net (SMTP Server) with ESMTP id 4hz0JF2Kjxz10MQ4;
- Mon,  5 Oct 2026 15:15:57 +0200 (CEST)
-X-mail-filterd: {"version":"1.9.7","queueID":"4hz0JD05tVz10MQQ","contextId":
- "02ec6e50-2b08-4dd9-bba8-c0611820d82d"}
+ by mlpnf0120.laposte.net (SMTP Server) with ESMTP id 4hz0Gv1kZfz10MQR;
+ Mon,  5 Oct 2026 15:14:47 +0200 (CEST)
+X-mail-filterd: {"version":"1.9.7","queueID":"4hz0Gt4y5Cz10MQN","contextId":
+ "407ccb37-f746-4378-8a4c-0d794e65b55c"}
 X-lpn-mailing: LEGIT
 X-lpn-spamrating: 36
 X-lpn-spamlevel: not-spam
@@ -30,42 +30,39 @@ Received: from PAR-95296130.bcg.com (unknown [147.161.232.172])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mlpnf0120.laposte.net (SMTP Server) with ESMTPSA id 4hz0JD05tVz10MQQ;
- Mon,  5 Oct 2026 15:15:55 +0200 (CEST)
+ by mlpnf0120.laposte.net (SMTP Server) with ESMTPSA id 4hz0Gt4y5Cz10MQN;
+ Mon,  5 Oct 2026 15:14:46 +0200 (CEST)
 From: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
-To: dri-devel@lists.freedesktop.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Clark <robin.clark@oss.qualcomm.com>,
+To: linux-arm-msm@vger.kernel.org
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
+ Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
  Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>, Saim Shujah <saimzst@gmail.com>,
  Shawn Guo <shengchao.guo@oss.qualcomm.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
- Saim Shujah <saimzst@gmail.com>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
  Jean-Francois Bobier <jean-francois.bobier@laposte.net>
-Subject: [PATCH] drm/display: let a bridge configure sink audio from hw_params
-Date: Mon,  5 Oct 2026 15:15:45 +0200
-Message-ID: <20261005131545.23219-1-jean-francois.bobier@laposte.net>
+Subject: [PATCH 2/3] drm/msm/dp: don't log an expected link-training fallback
+ as errors
+Date: Mon,  5 Oct 2026 15:14:31 +0200
+Message-ID: <20261005131432.22840-3-jean-francois.bobier@laposte.net>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261005131432.22840-1-jean-francois.bobier@laposte.net>
+References: <20261005131432.22840-1-jean-francois.bobier@laposte.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd;
- t=1791213376; bh=mwSqGECjjzYeCK3h1RVZUOGsE2Dq5MbWntTGq4wdKZc=;
- h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Transfer-Encoding;
- b=D7DlN6napMBZT37/XEFl1NtgQv9shaTNV76q0fUEuA2+7ZWePMg1Qmf/v/gBZwdK16a21EjI59YeLgnaH9YywlkljyNMi75//1tmdn4tOB6wOKrIlLwAqo0IuVsaVu9KqAwhXN9F4v7P0BYEz0eZPa5aTyRry67y4dbl04BAJEh5KoBcaApC9sjAOICrs5OR4eI9hEuZQG34nS0h+PyYOT/lZGHCMTB0H2KOBKkZ9A58eYgCsuqgJ3JtuelUlhVYiJ/ym8gN0Nyzcv1jD1zrgtc3UCVGHTQOpidAz/OdoonAahAeh/mjf21XYu7d0oGn7Jh3LiVN2+XClpMumprPYg==;
+ t=1791213316; bh=vQgNfaifqJBfWvhAJLZYmdCmSToBEbMrsQb5xsLkevc=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+ b=SkEGoMHfx4iXME3kup16D4NvPELxSMo3k6+2QaSUDJMTnct6+U8sjO9qmvCZeN/xqN08wySgiIjRrLwyLdjmwsRgHgQXYTyriBUPvPvTl04vh4KD2eMtJ6o+k9BwVcgUcb7PBNxlumdr5S+qbekQRFQtAcoUYG/JGF+Jfs94Go4gA3g03HSK4iHP09bdhLd7gDipO3JGU+v+1StJ0lyCvGTPqS0YtteDJ0dljyH/hrVEZW5CTpBnyOH3vkyq44CYGmTLHHGGUXKqzLG1bME+IR2Y/Qd2I9JnDXEw+Opei6dm8okuNZplMeqa4PE29DnUM1IrpiMFIvXByjgiKeLwsw==;
 X-Mailman-Approved-At: Tue, 06 Oct 2026 07:24:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,198 +79,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_connector_hdmi_audio_ops implements .prepare and not .hw_params, so
-every bridge using the HDMI audio helper configures its sink's audio path
-from the codec DAI's prepare callback.
+msm_dp_ctrl_on_link() implements DP link fallback: it retries
+msm_dp_ctrl_setup_main_link() up to five times, stepping the link rate
+down HBR3 -> HBR2 -> HBR -> RBR and then reducing the lane count, and
+breaks as soon as training succeeds. Every step of that search is
+therefore expected to fail before the one that works.
 
-That is too late when the CPU side of the DAI link cannot start until the
-sink's audio clock is already running. ASoC's snd_soc_pcm_dai_prepare()
-walks CPU DAIs before codec DAIs and returns on the first error, so such
-a CPU DAI fails and aborts the loop before the bridge's prepare is
-reached -- the clock it was waiting for is enabled by a callback that the
-failure prevents from running.
+Each failed attempt currently logs at error level, from four places:
 
-Qualcomm's LPASS is one such CPU side. On an sm8250 board with the
-DisplayPort controller bound to the DISPLAY_PORT_RX AFE port, starting
-playback gives:
+  max v_level reached
+  link training #1 on phy %d failed. ret=3D%d
+  link training #2 on phy %d failed. ret=3D%d
+  link training on sink failed. ret=3D%d
 
-  qcom-q6afe: AFE enable for port 0x6020 failed -110
-  q6afe-dai: ASoC error (-110): at snd_soc_dai_prepare() on DISPLAY_PORT_=
-RX_0
+A monitor that settles on two lanes after three attempts prints nine
+error lines on a completely successful attach -- which is how a cable
+that merely has two bad lanes looks identical in the log to a sink that
+never trains at all.
 
-and an ftrace of the attempt shows msm_dp_audio_prepare() is never
-called at all -- only msm_dp_audio_shutdown(), from the teardown path.
+Nothing is lost by demoting them. When the retry loop really does
+exhaust itself, msm_dp_ctrl_on_link() returns the error and
+msm_dp_display_process_hpd_high() already reports it once, at error
+level, as "Failed link training (rc=3D%d)" -- which is the correct place,
+because it is the only one that knows the search is over.
 
-Add a .hw_params to the helper that runs the same configuration, and a
-drm_bridge flag to select it. hw_params runs for every DAI in the link
-before any of them is prepared, so the clock is up by the time the CPU
-DAI starts its port. Both callbacks receive identical parameters, so the
-configuration itself is unchanged.
+Demote the per-attempt messages to drm_dbg_dp() so they remain available
+with drm.debug, and keep the final verdict where it is.
 
-The flag defaults to off: a bridge that does not set it keeps being
-configured from prepare exactly as before, and the new hw_params returns
-without touching it. Note that providing .hw_params at all means
-hdmi_codec_hw_params() no longer returns early for these connectors, so
-it now runs hdmi_codec_fill_codec_params() and the IEC958 channel status
-fill before the (inert) callback. Both are computed into an on-stack
-hdmi_codec_params that is then discarded, and the one shared value it
-writes, daifmt->bit_fmt, is set by hdmi_codec_prepare() to the same value
-immediately afterwards.
-
-One more side effect worth disclosing: hdmi_codec_fill_codec_params()
-also writes hcp->chmap_idx, which is not on-stack -- it persists on the
-hdmi-codec device and is reused by the next call to
-hdmi_codec_get_ch_alloc_table_idx(). hdmi_codec_prepare() recomputes it
-immediately afterwards from the same channel count, so the value itself
-does not go stale. But hdmi_codec_hw_params() now reaching this code at
-all means that a channel count the sink's ELD does not advertise -- the
-error path in hdmi_codec_get_ch_alloc_table_idx() -- is reported from
-hw_params() instead of prepare(), for every bridge sharing
-drm_connector_hdmi_audio_ops, not only the ones that set
-hdmi_audio_prepare_early. That changes when a bad channel count is
-reported, not whether it is, but it is a change to seven bridges this
-patch has no other reason to touch, and worth a maintainer's opinion.
+Also demote the unsolicited AUX interrupt message. msm_dp_aux_isr()
+returns IRQ_NONE when no AUX transaction is outstanding, which is the
+whole of the correct response for an interrupt that is not ours -- the
+AUX block shares its interrupt and sinks raise AUX status asynchronously
+around hotplug, so this fires twice on a normal DisplayPort attach.
 
 Signed-off-by: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
 ---
- .../gpu/drm/display/drm_bridge_connector.c    |  3 +++
- .../gpu/drm/display/drm_hdmi_audio_helper.c   | 23 +++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_drm.c               |  8 +++++++
- include/drm/drm_bridge.h                      | 17 ++++++++++++++
- include/drm/drm_connector.h                   |  8 +++++++
- 5 files changed, 59 insertions(+)
+ drivers/gpu/drm/msm/dp/dp_aux.c  |  9 ++++++++-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 15 ++++++++++-----
+ 2 files changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
-/drm/display/drm_bridge_connector.c
-index 8b54069fa..51293181b 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -1048,6 +1048,9 @@ struct drm_connector *drm_bridge_connector_init(str=
-uct drm_device *drm,
- 						    bridge->hdmi_audio_dai_port);
- 		if (ret)
- 			return ERR_PTR(ret);
-+
-+		connector->hdmi_audio.prepare_early =3D
-+			bridge->hdmi_audio_prepare_early;
- 	}
+diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_=
+aux.c
+index 3825a2fb4..2c0bc719a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_aux.c
++++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+@@ -458,7 +458,14 @@ irqreturn_t msm_dp_aux_isr(struct drm_dp_aux *msm_dp=
+_aux, u32 isr)
+ 	aux =3D container_of(msm_dp_aux, struct msm_dp_aux_private, msm_dp_aux)=
+;
 =20
- 	if (bridge_connector->bridge_hdmi_cec &&
-diff --git a/drivers/gpu/drm/display/drm_hdmi_audio_helper.c b/drivers/gp=
-u/drm/display/drm_hdmi_audio_helper.c
-index 7d78b02c1..3ed5d73f1 100644
---- a/drivers/gpu/drm/display/drm_hdmi_audio_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_audio_helper.c
-@@ -34,6 +34,28 @@ static int drm_connector_hdmi_audio_prepare(struct dev=
-ice *dev, void *data,
- 	const struct drm_connector_hdmi_audio_funcs *funcs =3D
- 		connector->hdmi_audio.funcs;
-=20
-+	if (connector->hdmi_audio.prepare_early)
-+		return 0;
-+
-+	return funcs->prepare(connector, fmt, hparms);
-+}
-+
-+/*
-+ * Only used by connectors that asked for it; everyone else keeps being
-+ * configured from prepare() and this returns without doing anything. Se=
-e
-+ * &drm_bridge.hdmi_audio_prepare_early for why a connector would want i=
-t.
-+ */
-+static int drm_connector_hdmi_audio_hw_params(struct device *dev, void *=
-data,
-+					      struct hdmi_codec_daifmt *fmt,
-+					      struct hdmi_codec_params *hparms)
-+{
-+	struct drm_connector *connector =3D data;
-+	const struct drm_connector_hdmi_audio_funcs *funcs =3D
-+		connector->hdmi_audio.funcs;
-+
-+	if (!connector->hdmi_audio.prepare_early)
-+		return 0;
-+
- 	return funcs->prepare(connector, fmt, hparms);
- }
-=20
-@@ -130,6 +152,7 @@ EXPORT_SYMBOL(drm_connector_hdmi_audio_plugged_notify=
-);
-=20
- static const struct hdmi_codec_ops drm_connector_hdmi_audio_ops =3D {
- 	.audio_startup =3D drm_connector_hdmi_audio_startup,
-+	.hw_params =3D drm_connector_hdmi_audio_hw_params,
- 	.prepare =3D drm_connector_hdmi_audio_prepare,
- 	.audio_shutdown =3D drm_connector_hdmi_audio_shutdown,
- 	.mute_stream =3D drm_connector_hdmi_audio_mute_stream,
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_=
-drm.c
-index c1e4147bf..52c90937f 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -327,6 +327,14 @@ int msm_dp_bridge_init(struct msm_dp *msm_dp_display=
-, struct drm_device *dev,
- 		bridge->hdmi_audio_dev =3D &msm_dp_display->pdev->dev;
- 		bridge->hdmi_audio_max_i2s_playback_channels =3D 8;
- 		bridge->hdmi_audio_dai_port =3D -1;
+ 	if (!aux->cmd_busy) {
+-		DRM_ERROR("Unexpected DP AUX IRQ %#010x when not busy\n", isr);
 +		/*
-+		 * The LPASS/ADSP side of the DAI link will not start its AFE
-+		 * port until this controller's audio clock is running, and
-+		 * ASoC prepares CPU DAIs before codec DAIs, so configuring
-+		 * from prepare() is too late -- the CPU DAI times out and
-+		 * aborts the link before we are called at all.
++		 * Not ours: the AUX block shares its interrupt, and sinks
++		 * raise AUX status asynchronously around hotplug. Returning
++		 * IRQ_NONE is the whole of the correct response, so this is
++		 * a trace point and not a fault.
 +		 */
-+		bridge->hdmi_audio_prepare_early =3D 1;
++		drm_dbg_dp(msm_dp_aux->drm_dev,
++			   "Unexpected DP AUX IRQ %#010x when not busy\n", isr);
+ 		return IRQ_NONE;
  	}
 =20
- 	rc =3D devm_drm_bridge_add(dev->dev, bridge);
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 58fff047f..e8fb944f3 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1128,6 +1128,23 @@ struct drm_bridge {
- 	 */
- 	unsigned int hdmi_audio_spdif_playback : 1;
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
+_ctrl.c
+index d6219d87d..ccc6cf63d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1534,7 +1534,8 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_c=
+trl_private *ctrl,
 =20
-+	/**
-+	 * @hdmi_audio_prepare_early: configure the sink's audio path from the
-+	 * ASoC hw_params callback rather than from prepare.
-+	 *
-+	 * Both callbacks receive identical parameters, so for most bridges it
-+	 * makes no difference and the default (prepare) is right. It matters
-+	 * when the CPU side of the DAI link cannot start until the sink's
-+	 * audio clock is already running: ASoC walks CPU DAIs before codec
-+	 * DAIs and stops at the first error, so a CPU DAI that fails waiting
-+	 * for that clock aborts the loop before this bridge's prepare is ever
-+	 * reached. Qualcomm's LPASS/ADSP is one such CPU side.
-+	 *
-+	 * Setting this moves the configuration to hw_params, which runs for
-+	 * every DAI in the link before any of them is prepared.
-+	 */
-+	unsigned int hdmi_audio_prepare_early : 1;
-+
- 	/**
- 	 * @hdmi_audio_dai_port: sound DAI port for either of
- 	 * @DRM_BRIDGE_OP_HDMI_AUDIO and @DRM_BRIDGE_OP_DP_AUDIO, -1 if it is
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index a0cf0268d..ae3d1382f 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2027,6 +2027,14 @@ struct drm_connector_hdmi_audio {
- 	 * The port in DT that is used for the Codec DAI.
- 	 */
- 	int dai_port;
-+
-+	/**
-+	 * @prepare_early:
-+	 *
-+	 * Call @funcs->prepare from the ASoC hw_params callback instead of
-+	 * from prepare. See &drm_bridge.hdmi_audio_prepare_early.
-+	 */
-+	bool prepare_early;
- };
+ 		if (ctrl->link->phy_params.v_level >=3D
+ 			DP_TRAIN_LEVEL_MAX) {
+-			DRM_ERROR_RATELIMITED("max v_level reached\n");
++			drm_dbg_dp(ctrl->drm_dev,
++				   "max v_level reached, retrying at a lower rate or lane count\n");
+ 			return -EAGAIN;
+ 		}
 =20
- /*
+@@ -1681,14 +1682,16 @@ static int msm_dp_ctrl_link_train_1_2(struct msm_=
+dp_ctrl_private *ctrl,
+=20
+ 	ret =3D msm_dp_ctrl_link_train_1(ctrl, panel, training_step, dp_phy);
+ 	if (ret) {
+-		DRM_ERROR("link training #1 on phy %d failed. ret=3D%d\n", dp_phy, ret=
+);
++		drm_dbg_dp(ctrl->drm_dev,
++			   "link training #1 on phy %d failed. ret=3D%d\n", dp_phy, ret);
+ 		return ret;
+ 	}
+ 	drm_dbg_dp(ctrl->drm_dev, "link training #1 on phy %d successful\n", dp=
+_phy);
+=20
+ 	ret =3D msm_dp_ctrl_link_train_2(ctrl, panel, training_step, dp_phy);
+ 	if (ret) {
+-		DRM_ERROR("link training #2 on phy %d failed. ret=3D%d\n", dp_phy, ret=
+);
++		drm_dbg_dp(ctrl->drm_dev,
++			   "link training #2 on phy %d failed. ret=3D%d\n", dp_phy, ret);
+ 		return ret;
+ 	}
+ 	drm_dbg_dp(ctrl->drm_dev, "link training #2 on phy %d successful\n", dp=
+_phy);
+@@ -1739,13 +1742,15 @@ static int msm_dp_ctrl_link_train(struct msm_dp_c=
+trl_private *ctrl,
+ 	}
+=20
+ 	if (ret) {
+-		DRM_ERROR("link training of LTTPR(s) failed. ret=3D%d\n", ret);
++		drm_dbg_dp(ctrl->drm_dev,
++			   "link training of LTTPR(s) failed. ret=3D%d\n", ret);
+ 		goto end;
+ 	}
+=20
+ 	ret =3D msm_dp_ctrl_link_train_1_2(ctrl, panel, training_step, DP_PHY_D=
+PRX);
+ 	if (ret) {
+-		DRM_ERROR("link training on sink failed. ret=3D%d\n", ret);
++		drm_dbg_dp(ctrl->drm_dev,
++			   "link training on sink failed. ret=3D%d\n", ret);
+ 		goto end;
+ 	}
+=20
 --=20
 2.55.0
 
