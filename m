@@ -4,69 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0995ACA5FCE
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 12:11:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED3B4CA5FFF
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 12:22:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F42910E168;
-	Mon,  5 Oct 2026 12:11:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBDBB10E255;
+	Mon,  5 Oct 2026 12:22:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="mA1o2DKB";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Dk+P2gWs";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wMNXPLPo";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hLH2jarL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VzToTQEr";
 	dkim-atps=neutral
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Mon, 05 Oct 2026 12:11:50 UTC
-Received: from mta0.migadu.com (out-244.mta0.migadu.com [91.218.175.244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03CA210E168
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 12:11:49 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=acbEeQhquoGSRxYyHz2eRogK/T8TZ+zuOZdfsYzddOE=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791202308; v=1; x=1791807108;
- b=mA1o2DKBwafz4GYI5R3aiDRaEaaDC+/HpHhMpx+2/P323S1pjyMEUc9PfrHQiKQk9vjHlSL+
- vrJODzKqMSdxiUx5ioLazNWYT7dHPOYuVu+lZultEqHQDRJz09sAB+xJi8SN8/+1DCQQSRdEZqh
- 5NWgdSwadM8iHOGYNpaHAwO8=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 12c376e05a24411f;
- Mon, 05 Oct 2026 12:05:43 +0000
-X-Mizu-Trace-ID: 12c376e05a24411f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b8ab667c-8de2-47db-8fac-49faddd18f1a@linux.dev>
-Date: Mon, 5 Oct 2026 14:04:01 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD2AF10E214;
+ Mon,  5 Oct 2026 12:22:34 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7DEF921C82;
+ Mon,  5 Oct 2026 12:22:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791202948; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1DfoM88+GeNeAzj4WsEuHFVheFhQrQ9ggax+D31QNAk=;
+ b=Dk+P2gWsXXzPQY3Nf/3cxhLNv3G0MK8X0sCaw6roDfTmbBRWKtQj1leoizmdz3cSpFznON
+ i7+4YpE6Yw8FidxM93oi7iMvzgMII1fkQRdQvSRhsZR6gu28h4N0Jkb6gwZ1WbvSn5TKDT
+ J1OiS9G3NnPke471IgPsvJiVAy+A+1Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791202948;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1DfoM88+GeNeAzj4WsEuHFVheFhQrQ9ggax+D31QNAk=;
+ b=wMNXPLPoXVqCyRGrtVVkha1PRpaqAr6c8TAblP+wLGFrxm4cd6ysyv4iqRKOq6r74EwlLG
+ 4A6hfZFmvnPhAxCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791202944; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1DfoM88+GeNeAzj4WsEuHFVheFhQrQ9ggax+D31QNAk=;
+ b=hLH2jarLE9Ve6NyqnzszcIyyo9WDrbHk5wT/Y0kBE9qYgkpZb3UF9HxQoOrz89F/WUIpYk
+ e3yKfVVauUfwjlKYMhveTuuf+EFBAffee2D6kb9p7AKP7rEos2LC6VXICJ2Mmwq4jfec96
+ 43pdnkNFCB4TaA5qZOcFG9NONrIYQ+Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791202944;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1DfoM88+GeNeAzj4WsEuHFVheFhQrQ9ggax+D31QNAk=;
+ b=VzToTQEr6YpnWbCc8b9STFBY6PT0Wl7CXjjMMK99dE6YZbhm4fhNaFgl1IZapUlim+WO49
+ N+9ya0jx9mYjGSAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C897C13A53;
+ Mon,  5 Oct 2026 12:22:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id nMwDG3+Ww2ruJQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 05 Oct 2026 12:22:23 +0000
+Message-ID: <636a3dc2-fe17-463e-806a-056818656692@suse.de>
+Date: Mon, 5 Oct 2026 14:22:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] soundwire: amd: Add BRA/BPT firmware download
- support
-To: Syed Saba Kareem <syed.sabakareem@amd.com>, vkoul@kernel.org
-Cc: broonie@kernel.org, Sunil-kumar.Dommati@amd.com,
- vijendar.mukunda@amd.com, Mario.Limonciello@amd.com,
- venkataprasad.potturu@amd.com, yung-chuan.liao@linux.intel.com,
- anson.tsao@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Simon Trimmer <simont@opensource.cirrus.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- "open list:SOUNDWIRE SUBSYSTEM" <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
- <sound-open-firmware@alsa-project.org>,
- "open list:BPF [MISC]:Keyword:(?:\\b|_)bpf(?:\\b|_)" <bpf@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <linux-media@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <dri-devel@lists.freedesktop.org>, moderated "list:DMA" BUFFER SHARING
- "FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <linaro-mm-sig@lists.linaro.org>
-References: <20261005091620.1390916-1-syed.sabakareem@amd.com>
- <20261005091620.1390916-5-syed.sabakareem@amd.com>
+Subject: Re: [PATCH v11 1/7] drm: Define user readable error codes for atomic
+ ioctl
+To: Xaver Hugl <xaver.hugl@kde.org>
+Cc: Arun R Murthy <arun.r.murthy@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, harry.wentland@amd.com,
+ uma.shankar@intel.com, louis.chauvet@bootlin.com, naveen1.kumar@intel.com,
+ ramya.krishna.yella@intel.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+References: <20260331-atomic-v11-0-6a1df7ec5af8@intel.com>
+ <20260331-atomic-v11-1-6a1df7ec5af8@intel.com>
+ <e9be1ef8-9884-4117-9eed-ba179248ffc6@suse.de>
+ <CAFZQkGzSkUZTodjUudhLsYtset=EqviZeqrfv6gj6XmG+ZJOPQ@mail.gmail.com>
 Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20261005091620.1390916-5-syed.sabakareem@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAFZQkGzSkUZTodjUudhLsYtset=EqviZeqrfv6gj6XmG+ZJOPQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[intel.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,ursulin.net,amd.com,bootlin.com,lists.freedesktop.org];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,355 +151,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-general comment: this patch is quite complex, with code needed for the
-BTP side as well as the DMA side, only interleaved. Is there a way to
-have a 'cleaner' split between DMA functionality on the ACP side and BPT
-on the SoundWire bus side?
+Hi
 
-Likewise the parts dealing with contiguous and non-contiguous parts of
-the firmware should be handled at a higher level using DMA/BTP support
-lower-level routines.
+Am 05.10.26 um 13:39 schrieb Xaver Hugl:
+> Am Mo., 5. Okt. 2026 um 11:08 Uhr schrieb Thomas Zimmermann
+> <tzimmermann@suse.de>:
+>> I have serious doubts about these failure codes. The core issue to me is
+>> that when the kernel driver detects an impossible commit, it probably
+>> knows best how to fix it.
+> There's lots of different ways you could fix any specific error, with
+> different tradeoffs and it all depends a lot on what the compositor is
+> actually trying to do. The kernel can't make those kinds of policy
+> decisions.
 
-> +static int amd_sdw_execute_bra_transfer(struct amd_sdw_manager *amd_manager,
-> +					struct sdw_slave *slave,
-> +					bool *dma_unsafe)
-> +{
-> +	struct sdw_bus *bus = &amd_manager->bus;
-> +	u32 i2s_err_offset;
-> +	u32 saved_intr_mask;
-> +	u32 reg_addr, len;
-> +	u32 val;
-> +	int ret, ret_disable;
-> +
-> +	/* Read descriptor regs before enabling the DMA engine. */
-> +	reg_addr = readl(amd_manager->mmio + ACP_SW_BPT_PORT_FIRST_BYTE_ADDR);
-> +	len = readl(amd_manager->mmio + ACP_SW_BRA_TRANSFER_SIZE);
-> +
-> +	i2s_err_offset = (amd_manager->instance == 0) ?
-> +			 ACP_SW_I2S_ERROR_REASON : ACP_P1_SW_I2S_ERROR_REASON;
-> +
-> +	/*
-> +	 * Save and disable the error interrupt mask for manual error
-> +	 * checking.  acp_bra_lock is held across the whole BPT sequence by
-> +	 * amd_sdw_bpt_wait(), which serialises this shared-register
-> +	 * read-modify-write against the other manager instance.
-> +	 */
-> +	saved_intr_mask = readl(amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-> +	writel(0, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-> +	writel(0, amd_manager->acp_mmio + i2s_err_offset);
-> +	writel(0, amd_manager->mmio + ACP_SW_ERROR_REASON1);
-> +
-> +	/* Arm the ACP BPT DMA engine */
-> +	writel(1, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
-> +
-> +	/*
-> +	 * Use the framework's sdw_enable_stream() to write CHANNELEN and
-> +	 * perform a bank switch.  The ACP BPT hardware uses the bank switch
-> +	 * as the trigger to start the DMA transfer.  The framework manages
+That's not a policy decision. User space is free to do what ever it 
+wants.  What I have in mind is a hint from the kernel what to do next.
 
-do you mean to say
-a) the DMA transfer was armed and started ealier, and the bank switch
-unblocks it, ob
-b) the DMA starts fetching data from memory when the bank switch happens?
 
-the latter case would be quite racy and dependent on the time needed to
-access memory..
+>
+>>> + * @DRM_MODE_ATOMIC_UNSPECIFIED_ERROR: this is the default/unspecified error.
+>> This one does not give a hint to what happens. Should userspace abort or
+>> fall back to TEST_ONLY?
+> That's up to userspace. It's the same as ret=-EINVAL today.
 
-> +	 * bank state consistently, eliminating the need for a manual bank
-> +	 * switch or DP0 bank mirror.
-> +	 */
-> +	dev_dbg(amd_manager->dev,
-> +		"BPT: pre-enable: curr_bank=%u next_bank=%u BPT_EN_STATUS=0x%x stream_state=%d\n",
-> +		bus->params.curr_bank, bus->params.next_bank,
-> +		readl(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS),
-> +		bus->bpt_stream->state);
-> +
-> +	ret = sdw_enable_stream(bus->bpt_stream);
-> +	if (ret < 0) {
-> +		dev_err(amd_manager->dev,
-> +			"BPT: sdw_enable_stream failed: %d\n", ret);
-> +		/*
-> +		 * Disarm the engine and wait for the port to quiesce before
-> +		 * returning: the caller (amd_sdw_bra_transfer()) then deconfigures
-> +		 * the BRA descriptor unconditionally, zeroing BASE_ADDRESS and
-> +		 * TRANSFER_SIZE, so the port must be idle first -- mirrors the
-> +		 * disable path below.
-> +		 */
-> +		writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
-> +		ret_disable = readl_poll_timeout(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS,
-> +						 val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT);
-> +		if (ret_disable < 0) {
-> +			dev_err(amd_manager->dev, "BPT: PORT_EN disable timeout\n");
-> +			*dma_unsafe = true;
-> +		}
-> +		goto restore_intr;
-> +	}
-> +
-> +	dev_dbg(amd_manager->dev,
-> +		"BPT: DMA started: curr_bank=%u next_bank=%u BPT_EN_STATUS=0x%x stream_state=%d\n",
-> +		bus->params.curr_bank, bus->params.next_bank,
-> +		readl(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS),
-> +		bus->bpt_stream->state);
-> +
-> +	/* Poll DMA_BUSY until transfer completes */
-> +	{
-> +		unsigned long timeout;
-> +
-> +		timeout = jiffies + msecs_to_jiffies(BRA_DMA_TIMEOUT_MS);
-> +		do {
-> +			val = readl(amd_manager->mmio + ACP_SW_BRA_DMA_BUSY);
-> +			/*
-> +			 * Side-effectful read: reading ACP_SW_BRA_CURRENT_TRANSFER_SIZE
-> +			 * advances the BRA DMA engine to the next frame.  The value is
-> +			 * intentionally discarded (hence the (void) cast); removing this
-> +			 * read stalls multi-frame transfers, which then time out.
-> +			 */
-> +			(void)readl(amd_manager->mmio + ACP_SW_BRA_CURRENT_TRANSFER_SIZE);
-> +			if (!(val & 0x01))
-> +				break;
-> +			if (time_after(jiffies, timeout)) {
-> +				/*
-> +				 * Re-sample the busy bit before declaring a
-> +				 * timeout. cond_resched() below can park this
-> +				 * thread for longer than BRA_DMA_TIMEOUT_MS, in
-> +				 * which window the DMA may have completed; without
-> +				 * this final read a finished transfer would be
-> +				 * reported as a false timeout.
-> +				 */
-> +				val = readl(amd_manager->mmio + ACP_SW_BRA_DMA_BUSY);
-> +				if (!(val & 0x01))
-> +					break;
-> +				dev_err(amd_manager->dev,
-> +					"BPT: DMA timeout: periph=0x%08x len=%u EN_STATUS=0x%x RESP=0x%x I2S_ERR=0x%08x\n",
-> +					reg_addr, len,
-> +					readl(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS),
-> +					readl(amd_manager->mmio + ACP_SW_BRA_RESP),
-> +					readl(amd_manager->acp_mmio + i2s_err_offset));
-> +				ret = -ETIMEDOUT;
-> +				break;
-> +			}
-> +			/*
-> +			 * Runs in process context. Yield the CPU so a
-> +			 * multi-frame transfer cannot busy-spin for up to
-> +			 * BRA_DMA_TIMEOUT_MS and trip the soft lockup
-> +			 * watchdog on non-preemptible kernels. cond_resched()
-> +			 * keeps the poll cadence tight -- reading
-> +			 * ACP_SW_BRA_CURRENT_TRANSFER_SIZE every iteration is
-> +			 * required to advance the DMA engine between frames,
-> +			 * so usleep_range() (which would space out the reads)
-> +			 * is deliberately not used here.
-> +			 */
-> +			cond_resched();
-> +		} while (1);
-> +	}
-> +
-> +	/* Check for I2S/BRA errors */
-> +	val = readl(amd_manager->acp_mmio + i2s_err_offset);
-> +	if (val & AMD_SDW_BRA_I2S_ERROR_MASK) {
-> +		dev_err(amd_manager->dev,
-> +			"BPT: BRA failed I2S_ERROR_REASON=0x%08x (NAK=%u Clash=%u HdrResp=%u FtrResp=%u CRC=%u DMA=%u Cmd=%u)\n",
-> +			val,
-> +			!!(val & BIT(18)), !!(val & BIT(19)),
-> +			!!(val & BIT(26)), !!(val & BIT(27)),
-> +			!!(val & BIT(28)), !!(val & BIT(29)), !!(val & BIT(30)));
-> +		writel(0, amd_manager->acp_mmio + i2s_err_offset);
-> +		if (!ret)
-> +			ret = -EIO;
-> +	} else if (!ret) {
-> +		dev_dbg(amd_manager->dev,
-> +			"BPT: DMA done: periph=0x%08x len=%u\n", reg_addr, len);
-> +	}
-> +
-> +	/*
-> +	 * On an aborted or timed-out transfer the ACP BPT DMA engine can still
-> +	 * be armed (PORT_EN=1, DMA_BUSY=1). sdw_disable_stream() below performs
-> +	 * a bank switch, which is the BPT DMA start trigger, so disarm the engine
-> +	 * first -- otherwise the bank switch could (re)start a DMA write into
-> +	 * dma_buf, which amd_sdw_bpt_wait() frees as soon as this transfer
-> +	 * returns. On the success path the DMA has already completed, so this
-> +	 * early clear is a no-op.
-> +	 */
-> +	if (ret < 0)
-> +		writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
-> +
-> +	/*
-> +	 * Disable the stream via framework (writes CHANNELEN=0 + bank switch).
-> +	 * This cleanly stops the port and keeps bank state consistent.
-> +	 * Propagate a disable failure: it leaves the stream in
-> +	 * SDW_STREAM_ENABLED, and sdw_enable_stream() returns 0 early for an
-> +	 * already-ENABLED stream without the bank switch that triggers the BRA
-> +	 * DMA, so the next section would be silently skipped rather than
-> +	 * transferred.  Report the failure to the caller so it stops instead of
-> +	 * chaining a section whose DMA never starts.
-> +	 */
-> +	ret_disable = sdw_disable_stream(bus->bpt_stream);
-> +	if (ret_disable < 0) {
-> +		dev_err(amd_manager->dev, "BPT: sdw_disable_stream failed: %d\n",
-> +			ret_disable);
-> +		if (!ret)
-> +			ret = ret_disable;
-> +	}
-> +
-> +	dev_dbg(amd_manager->dev,
-> +		"BPT: post-disable: curr_bank=%u next_bank=%u stream_state=%d\n",
-> +		bus->params.curr_bank, bus->params.next_bank,
-> +		bus->bpt_stream->state);
-> +
-> +	/*
-> +	 * Disarm the ACP BPT DMA engine and wait for the port to quiesce.
-> +	 * Like the manager enable/disable sequence (ACP_SW_EN paired with
-> +	 * ACP_SW_EN_STATUS), ACP_SW_BPT_PORT_EN_STATUS reflects the real port
-> +	 * state, so polling it here guarantees a non-contiguous transfer's next
-> +	 * section cannot re-arm PORT_EN before the current one has torn down.
-> +	 */
-> +	writel(0, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
-> +	ret_disable = readl_poll_timeout(amd_manager->mmio + ACP_SW_BPT_PORT_EN_STATUS,
-> +					 val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT);
-> +	if (ret_disable < 0) {
-> +		dev_err(amd_manager->dev, "BPT: PORT_EN disable timeout\n");
-> +		if (!ret)
-> +			ret = ret_disable;
-> +		*dma_unsafe = true;
-> +	}
-> +	writel(0, amd_manager->acp_mmio + i2s_err_offset);
-> +	writel(0, amd_manager->mmio + ACP_SW_ERROR_REASON1);
-> +	/*
-> +	 * Clearing the immediate-command response-valid status races with the
-> +	 * immediate-command path (amd_sdw_send_cmd_get_resp()), which polls and
-> +	 * clears the same ACP_SW_IMM_CMD_STS bit under bus->msg_lock. The BPT DMA
-> +	 * poll loop above drops all locks, so a concurrent slave enumeration or
-> +	 * register access (amd_sdw_work / IRQ thread / codec regmap) can be
-> +	 * mid-command here. Take msg_lock so this teardown clear cannot erase a
-> +	 * response the command path has not yet consumed, which would make that
-> +	 * command time out. This msg_lock nests inside acp_bra_lock and bpt_lock,
-> +	 * both already held by the enclosing amd_sdw_bpt_wait(), preserving the
-> +	 * bpt_lock -> acp_bra_lock -> msg_lock order. do_bank_switch() inside
-> +	 * sdw_enable_stream()/sdw_disable_stream() only takes msg_lock for
-> +	 * multi-link managers, so this single-link manager establishes that order
-> +	 * via the explicit msg_lock here and in the non-contiguous
-> +	 * sdw_nwrite_no_pm()/sdw_nread_no_pm() fallback.
-> +	 */
-> +	mutex_lock(&bus->msg_lock);
-> +	writel(AMD_SDW_IMM_RES_VALID, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
-> +	mutex_unlock(&bus->msg_lock);
-> +
-> +restore_intr:
-> +	writel(saved_intr_mask, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-> +	return ret;
-> +}
+IMHO most of these errors are fancy variants of EINVAL; except for 
+NEED_FULL_MODESET.
 
-[...]
 
-> +static int amd_sdw_bpt_wait(struct sdw_bus *bus,
-> +			    struct sdw_slave *slave,
-> +			    struct sdw_bpt_msg *msg)
-> +{
-> +	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
-> +	bool is_write = (msg->flags & SDW_MSG_FLAG_WRITE);
-> +	struct amd_bra_params prep_params = {0};
-> +	u32 acp_sys_addr;
-> +	dma_addr_t dma_addr = 0;
-> +	u8 *dma_buf = NULL;
-> +	size_t offset = 0;
-> +	size_t total_len = 0;
-> +	int ret = 0;
-> +	int i;
-> +	bool dma_unsafe = false;
-> +
-> +	for (i = 0; i < msg->sections; i++) {
-> +		if (msg->sec[i].len > SDW_BPT_MSG_MAX_BYTES - total_len) {
-> +			dev_err(amd_manager->dev,
-> +				"BPT msg length exceeds maximum %d bytes\n",
-> +				SDW_BPT_MSG_MAX_BYTES);
-> +			return -EINVAL;
-> +		}
-> +		total_len += msg->sec[i].len;
-> +	}
-> +
-> +	if (total_len < AMD_BPT_MSG_BYTE_MIN) {
-> +		dev_err(amd_manager->dev,
-> +			"BPT msg length %zu < minimum %d bytes\n",
-> +			total_len, AMD_BPT_MSG_BYTE_MIN);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * Take the runtime-PM reference that keeps the bus clock alive before
-> +	 * acquiring bpt_lock, not after.  When the manager is runtime
-> +	 * suspended, pm_runtime_get_sync() runs amd_resume_runtime()
-> +	 * synchronously in this task, and that callback acquires bpt_lock to
-> +	 * clear bpt_disabled.  Taking the reference while already holding
-> +	 * bpt_lock would therefore deadlock against ourselves.
-> +	 */
-> +	ret = pm_runtime_get_sync(amd_manager->dev);
-> +	/*
-> +	 * -EACCES only occurs when runtime PM is disabled, which for this
-> +	 * device happens across the system suspend/resume window.  amd_suspend()
-> +	 * sets bpt_disabled before the clock is stopped and amd_resume_runtime()
-> +	 * clears it only once the clock is back, so the bpt_disabled check below
-> +	 * rejects the transfer with -ESHUTDOWN before any BRA access whenever the
-> +	 * clock could be down.  A merely runtime-suspended manager (clock stopped,
-> +	 * PM still enabled) is resumed by the get above and returns success, not
-> +	 * -EACCES; tolerating -EACCES therefore never drives the BRA engine on a
-> +	 * stopped clock.
-> +	 */
-> +	if (ret < 0 && ret != -EACCES) {
-> +		pm_runtime_put_noidle(amd_manager->dev);
-> +		dev_err(amd_manager->dev, "BPT: pm_runtime_get failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * The ACP BRA engine is a single shared resource.  Serialise all BPT
-> +	 * transfers so concurrent slave probes do not race over the hardware.
-> +	 */
-> +	mutex_lock(&amd_manager->bpt_lock);
-> +
-> +	/*
-> +	 * Refuse the transfer if the bus is being (or has been) clock-stopped
-> +	 * for system suspend.  Driving the BRA/command channel while the clock
-> +	 * is stopping wedges the channel and leaves the peripheral unable to
-> +	 * re-enumerate on resume; the codec retries once it re-attaches.
-> +	 */
-> +	if (amd_manager->bpt_disabled) {
-> +		mutex_unlock(&amd_manager->bpt_lock);
-> +		pm_runtime_mark_last_busy(amd_manager->dev);
-> +		pm_runtime_put_autosuspend(amd_manager->dev);
-> +		return -ESHUTDOWN;
-> +	}
-> +
-> +	/* BRA always uses all available data columns (1..NC-1). */
-> +	amd_manager->bra_hstart = 1;
-> +	amd_manager->bra_hstop  = bus->params.col - 1;
-> +
-> +	/*
-> +	 * Open the BPT stream so the framework stream state machine tracks the
-> +	 * transfer.  Slave DP0 is prepared below before bra_transfer().
-> +	 */
-> +	ret = amd_sdw_bpt_open_stream(amd_manager, slave, msg);
-> +	if (ret < 0)
-> +		goto close_stream;
-> +
-> +	/* Allocate single DMA buffer for entire BPT message */
-> +	dma_buf = dma_alloc_coherent(amd_manager->dev->parent, total_len,
-> +				     &dma_addr, GFP_KERNEL);
-> +	if (!dma_buf) {
-> +		ret = -ENOMEM;
-> +		goto close_stream;
-> +	}
-> +
-> +	/*
-> +	 * The ATU GRP_1 and scratch PTE registers programmed here are
-> +	 * ACP-global and shared by both SoundWire manager instances, as is the
-> +	 * BRA DMA engine that reads through them.  bpt_lock is per-manager and
-> +	 * does not serialise across instances, so hold the ACP-wide
-> +	 * acp_bra_lock across the whole configure -> transfer -> deconfigure
-> +	 * sequence to stop the other instance reprogramming the shared PTEs
-> +	 * mid-transfer.
+>
+>>> + * @DRM_MODE_ATOMIC_INVALID_API_USAGE: invallid API usage(DRM_ATOMIC not
+>>> + *                                  enabled, invalid falg, page_flip event
+>>> + *                                  with test-only, etc)
+>> I've seen this being used in the i915 patch for a async flip.  Could
+>> mean anything there (format, driver specifics).
+> Its purpose is to catch anything that the compositor is supposed to
+> know it can't do - using unsupported formats, invalid combinations of
+> properties (crtc active=1 without a connector), that sort of thing. It
+> should never be anything driver specific though.
 
-In that case, what is the point of having a per-instance btp_lock as well?
+I don't see how this could be useful except for the prototype that come 
+with this series.  It's so broad in meaning that it's almost meaningless.
 
-It seems from the comment that only *one* BTP transfer can take place
-across all manager instances, which defeats the purpose of a
-per-instance lock, no?
-What I am missing?
+And error codes don't have to be driver specific to be meaningful. I 
+already brought up DRM's mode-status code as example. They are not 
+specific to any mode, display or hardware. Yet they clearly state what 
+went wrong with the mode.
+
+
+>
+>>> + * @DRM_MODE_ATOMIC_ASYNC_PROP_CHANGED: Property changed in async flip
+>>> + * @DRM_MODE_ATOMIC_SCANOUT_BW: For a given resolution, refresh rate and the
+>>> + *                              color depth cannot be accomodated. Resolution
+>>> + *                              is to lower the refresh rate or color depth.
+>>> + * @DRM_MODE_ATOMIC_CONNECTOR_BW: Refers to the limitation on the link rate on
+>>> + *                                a given connector.
+>>> + * @DRM_MODE_ATOMIC_PIPE_BW: Limitation on the pipe, either pipe not available
+>>> + *                           or the pipe scaling factor limitation.
+>>> + * @DRM_MODE_ATOMIC_MEMORY_DOMAIN: Any other memory/bandwidth related limitation
+>>> + *                                 other then the ones specified above.
+>>> + * @DRM_MODE_ATOMIC_SPEC_VIOLOATION: Limitation of a particular feature on that
+>>> + *                                   hardware. To get to know the feature, the
+>>> + *                                   property/object causing this is being sent
+>>> + *                                   back to user @failure_objs_ptr in the
+>>> + *                                   struct drm_mode_atomic_err_code
+>> There codes don't seem actionable to me.
+> Scanout and connector bandwidth are very directly actionable. I agree
+
+Fair point.
+
+
+> about the others though, adding these error codes should wait until
+> there's a compositor actually using them for something.
+>
+>>> +     char failure_string[DRM_MODE_ATOMIC_FAILURE_STRING_LEN];
+>> I'd don't think we should return error strings from the kernel. If we
+>> do, these strings will become uAPI. And I guarantee that someone will
+>> start parsing them for information. We'll be in a situation where we
+>> cannot ever change the strings.
+>>
+>> For error logging, we can put messages directly in the kernel log
+> The error string is half the reason we need the API: When things fail
+> on an end user system, we need to be able to find out what happened
+> after the fact, without the user needing to have drm debug logging
+> enabled and without them having to trigger the bug again (which can be
+> very difficult to do).
+
+You could to this with detailed and precise error codes plus the object 
+on which it failed.
+
+If the error cannot be expressed in abstract terms then users will begin 
+parsing the error string, which is a no-go IMHO.
+
+
+>
+> I think making the error string something more abstract like the file
+> + line number of the failure would also be okay, if that solves the
+> concerns about uAPI. We just need some way to figure out what happened
+> after something goes wrong, which would usually involve diving through
+> kernel sources anyways.
+
+Filename + line is even worse.  None of this is even close to stable. 
+I'll nak this as much as possible.
+
+I also don't buy the argument about diving through kernel sources. Not 
+doing that should be the goal here because it is what we currently do.
+
+
+I don't want to leave it at this for this series, so here's my suggestion.
+
+Pick 5 common mode-setting failures and go through all of the kernel 
+drivers and report them as detailed as possible. This will give a good 
+understanding of the characteristics of the errors involved and what 
+could be done in the kernel. The simple i915 patch doesn't seem to grasp 
+the effects of this change.
+
+You may also want to play with an in-kernel interface that does the 
+actual testing. Something like this.
+
+   int drm_check_crtc_max_pixel_bandwidth(...)
+   {
+       // do the test and encode the error if any
+   }
+
+   if (!drm_check_crtc_max_pixel_(crtc, 
+SOME_EXTRA_HINT_WHAT_WE_RE_DOING, (value < max_value))
+       return -EINVAL.
+
+do the same for other DRM objects and try to find a good API. Because if 
+we're not careful, we'll end up with different kernel drivers 
+implementing the failure reporting in different ways. It wouldn't be the 
+first time.
+
+Best regards
+Thomas
+
+
+>
+>> or you can build them in user space from within libdrm.
+> libdrm doesn't have any of the information returned in the error string.
+>
+> - Xaver
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
