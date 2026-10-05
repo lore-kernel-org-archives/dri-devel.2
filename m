@@ -4,145 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 743D4CA5FFC
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 15:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E1DCA5FF0
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 15:06:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4EB10E5DC;
-	Mon,  5 Oct 2026 15:00:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 336CD10E1BF;
+	Mon,  5 Oct 2026 15:06:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YE8sU5l7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fZ7rlSL3";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="K0qLDVYo";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60B0910E5DC
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 15:00:21 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 695EPKnt2215472
- for <dri-devel@lists.freedesktop.org>; Mon, 5 Oct 2026 15:00:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=51kUxIfyqGzRB5WXfz8/XC+10ItkLiZvc3aGWbygSrs=; b=YE
- 8sU5l7IAF96xl0Nrw13i0ylLsRAFo6DRYA7ZyvdcAZHI2ryrZYG+CYCj/2vd6w5v
- UGiCLiPzpXR/fkTBNpZ7Q4BVKTs0jzrNI6M0p0CQrfVidNFV4r0Ss5qfgtLz3BAs
- tCDXO4F9eTCfKSAdic8nd4Skf3fZbrgahLWVXhtbWO3Z2C/BcKVPhGnT63OcW5AP
- UN8JyBsWIHYY97RC3PGfTlPv1x/x1ryFjHT/jz4r1tgv6jF4eFrxQ3DuuG4D21L4
- /IGSGbL4PZ+/eNNQVkvqN2xbK2fGulKgbAVNVnTRd4AGefp2ldJT+vyiDa6jGzVt
- B9X5cllJxLnhQlxy6qIw==
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
- [209.85.161.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xgytqnx-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 15:00:20 +0000 (GMT)
-Received: by mail-oo1-f72.google.com with SMTP id
- 006d021491bc7-6e1d90fcee3so1593966eaf.2
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 08:00:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791212420; cv=none;
- d=google.com; s=arc-20260327;
- b=Y+wKLmj60JBfQ9y919R38XAnuVzskmprpYUq1PvZKEh82UBLd1vAl2DbyDvQfBSB67
- FpubTcFPw/U/ul5D2NeW/X8d3zeDQ2LBbP4fbSi4iQuBSvcvL10eqFIkkDUEZH3jxZLK
- nPWROHBiZgb+iwCGigoP9ySJ8VPviIJNe3iPlvZI71kXSlrlp3vaD0ljiqf6nzZ4+cBK
- 60dsQySu7Gk1/83DqCar9PsZDqf2kkiJYbLLc5A97z6Liu8iicKFZH9ynjCdMbDHQ2L9
- dJjS9Lk0E0xLiZnn/AFD3MlnzAEvDGqvVXuNi7s3Z5eNlrKzfXtRy3JnAcM/F0LwXobK
- vIWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=51kUxIfyqGzRB5WXfz8/XC+10ItkLiZvc3aGWbygSrs=;
- fh=22FEy3E3oWLfconu7YbfLME6uL+AtQiK4MdxnoUND/E=;
- b=ApsLW9kizLONW5CT4d0rDBarJK9XdGWIiunFKT3nSWR5ldOzqiKbVq9XYzQiMbC2B4
- XpKBctMNB5gj1PGj1if6T4Fciv5xCmEjWUrX2nrLKWJT+Gl/q7Rf/AKC0ltGqJlPK9zZ
- 9CeIiIeSd6n+/0kPjxAnH6KfQIIEtPf/WiL/UObaUqfumelstAah3fJiu65afzM3Vgtm
- ZUzq55WApOYQlE32L9PO6W0gzL8aD81cAsZf3cRUbSrpgsnFjGMmdiJqgZ45GvGJEKSv
- EcCYYyDtIQeOvpCKvW9j9InUss94tjvtzW3NUp2jKAxwUVk09lO9D/S3l5GY3NAQGEpZ
- Ve9A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791212420; x=1791817220;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=51kUxIfyqGzRB5WXfz8/XC+10ItkLiZvc3aGWbygSrs=;
- b=fZ7rlSL3ktPP6fmjXp5pzo/OgXmEZUcmFejEip1L+G+6NRg8DAuTu1Xzh6XKUqLEe0
- sxfqdI9Oy0FiaIBnWlsBZ2ZmQZWrPRA+V4MkvlQAJJFIwa0kzl4tm43VpXtqgzg7hXW2
- WffTwq45plBjt7V01IOKa6/4e7Y7tc4fWbwBP1ILquxFX26YkeLmMCnl/Kum6VaY0TBZ
- b2cqz+Q0+na+cZWf3dTF8E3+3ek8yHmClfwGWuUtg9xP0qbYXrwTWwk/Y0WVKSN/6UtG
- wUe/JD8wlch7BBKgLrATHL6vSUbfrzU6hwNiz2MG4X745wJV5SSfMiivERxUTC3UByES
- 3lZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791212420; x=1791817220;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=51kUxIfyqGzRB5WXfz8/XC+10ItkLiZvc3aGWbygSrs=;
- b=11WbA0wUpNwGen2azueSgRY2UbFTruArgCeSrSpuJbSFMcMMWS8Q9QyXMdeaLtQFIq
- pm23XOATKBJaVR1LJha9dnuxFRLWmfhCuV6v/Hd7uGiWDVjE7/epON7BI6LC3M4R2o+n
- NxDaISHBgNBCR9c4BhACkI2JVyQ7hSSrPhaEXYU4lpa2FcH1UTb+rUSxiIeya+XAWAUO
- RafMtr7AiER4j/KACq/CqLqhJV0HwkJj5mUxfGwdloLK42jLRopY6QiOGE3nFtPSawJf
- Xricfc4nViPMc/FEpPqbxjIBO+VR0tUVYsW/EiV3HvCPmgw3p5C6WAI8U2n4RClkEyaT
- arWw==
-X-Gm-Message-State: AFuF++n+q15SaCXEHDHhfuj7hEcemAFpBjJwYV0uwSqc8xG87eLyOmH6
- R/g4upNnSoCHFAdOArKxtwuxD0eInYud8a8M/ApfI3qBoxBnmOed14LAZAEhLgNd3ZSWZCGUkjI
- 7MPELJpXZC9pe0+6XGvyhwbErS3pmBFamtfb3NObQ1QVz9sc2VtK+A2McSkRsq2r/iwtWBA5+8h
- fT4HLB90r05jvHb9Vwjb1m0KRq9m8Y3dcmoCHIrfNhef6ThA==
-X-Gm-Gg: AYBFou1gkQaO9ck4Tk1hUcGxivkOGf/r6q7Lf1anUNDBY4c+ASed/ULVjdPdCoNwjAq
- Av96FwWLMLydH3dOuiLRDC9fLWgFbTuoH9pNOYbEFkhrA3nfr0GZA5VDvlP3x92th4qU6RLg4HL
- BFPKPqglRoNPSNRWY1k5nZv4tAcfN5p3K+FthUgL3x2YgPiCejPPXylVLb
-X-Received: by 2002:a05:6820:1897:b0:6d7:a13d:fd8f with SMTP id
- 006d021491bc7-6df2f9f94damr8297357eaf.9.1791212419843; 
- Mon, 05 Oct 2026 08:00:19 -0700 (PDT)
-X-Received: by 2002:a05:6820:1897:b0:6d7:a13d:fd8f with SMTP id
- 006d021491bc7-6df2f9f94damr8297324eaf.9.1791212419314; Mon, 05 Oct 2026
- 08:00:19 -0700 (PDT)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6512610E1BF
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 15:06:09 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 713B4152B;
+ Mon,  5 Oct 2026 08:06:05 -0700 (PDT)
+Received: from [10.57.78.53] (unknown [10.57.78.53])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0D16D3F66F;
+ Mon,  5 Oct 2026 08:06:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1791212768; bh=y9TI2AeCoQgiK0DIEHzqAgYKX4pPfMXwXFj7TLXbA3g=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=K0qLDVYota0WRpIDvyw9iR+AR6lGswf2sx7f2iwEFzJde1/JHCDGFclq8JW7gznRG
+ sPwSvrFsK2rI/Nm6nDDnmyF6DSS4Fgob/gzIXoWjvhLco+r+keSWpkhASVwUPs4o+d
+ IXRbi82MbuuU0WU5SgQdjtOJExPqX57od/DdDCOo=
+Message-ID: <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+Date: Mon, 5 Oct 2026 16:06:02 +0100
 MIME-Version: 1.0
-References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
- <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
- <20260822090757.624751F000E9@smtp.kernel.org>
-In-Reply-To: <20260822090757.624751F000E9@smtp.kernel.org>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 5 Oct 2026 08:00:07 -0700
-X-Gm-Features: AclHuK-VYGgmAV2KgLsEUw30s74ElUKdRVK2vDHdrY2Jy3Wcwh4cD4DhCwav8jM
-Message-ID: <CACSVV018ggaw_V+7GxGY9ZQrfg8UEfhHfHWiS9NoVe6LJkw2Eg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/msm: don't tear down shared VM mappings on handle
- close
-To: sashiko-reviews@lists.linux.dev,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: 7w5-b3mgYAJKFtcdOzAhDfn7VZB9_Tk2
-X-Proofpoint-ORIG-GUID: 7w5-b3mgYAJKFtcdOzAhDfn7VZB9_Tk2
-X-Authority-Analysis: v=2.4 cv=A6b5rKWG c=1 sm=1 tr=0 ts=6ac3bb84 cx=c_pps
- a=wURt19dY5n+H4uQbQt9s7g==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
- a=q_WjrjqfJ9ZDdrt45nIA:9 a=QEXdDO2ut3YA:10 a=-UhsvdU3ccFDOXFxFb4l:22
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1OCBTYWx0ZWRfX1sPDUIlluahx
- AjHe0afgWXU+PgtUAvI411M6ZxnhtKXS2AvgZJI8dmWnqzDnEU3WB29ysDcBhkPKsTm2ZDcKCCQ
- T6WIBI/5im+iBkZ8BKOxs8jhNV2SjYIUhjrE0Fd8clMxCSkEC/r7CJJjpZvP6ZuUb/nOYmf8aYn
- 6Dnr+pQNcpASs7XmrOAv9IGfM/rEVOtIGjWIZbH+VMN+r2a1LhHyxutP7nn0FPMRNfb/ygJepnM
- TxrFKi9FKjvEm2kEO/hkdh1UBsup6WNRWhg8K+xRAa5u1/JAZZdBNUc21tkX+e+jggvVMMN2iMY
- QzrSBHw11FmvlN6NSFIMdajYHcfZQ86lwhzR2I9MuPgWEcpyq8ZlX1DMQwm9nyhgqGfwRqhdr3b
- wl7Ij8icd9USXpeG5Wh08/+mQ7+6pSn1aYM3XMqwtQnbqYShB60bE60ysbA/dFHY7wfaeDZYH1G
- vET9dX2XHSE/b60Yz1A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1OCBTYWx0ZWRfXzXzmIjUw/6xP
- qTKhuqVKQ3I2uhR3MehWK9VVdw3V1dLq1np6g5MwH9mpZwLP7I1uM2K2hn/k/6e3hwuEhZcP0LE
- oqTBJkOVbcOkvgrENeT9GxQor6fMSYU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050058
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate when
+ enabling perfcnt
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+ <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+ <20261005103855.655f8199@fedora-61.home>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261005103855.655f8199@fedora-61.home>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,127 +67,157 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Aug 22, 2026 at 2:08=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [High] Sleeping in atomic context
-> - [High] Deferred teardown TOCTOU race via flink name re-opening causing =
-IOVA Use-After-Free
-> --
->
-> --- Patch [2]: [PATCH 2/2] drm/msm: don't tear down shared VM mappings on=
- handle close ---
-> commit c4a550033efcf938dc9587175385266d18df3979
-> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->
-> drm/msm: don't tear down shared VM mappings on handle close
->
-> This patch defers the teardown of shared GPU VM mappings until the vma_re=
-f
-> count drops to zero. This aims to prevent pulling the buffer out from und=
-er
-> other files that still have it open when sharing a global VM address spac=
-e
-> on targets without per-process pgtables.
->
-> Fixes: 111fdd2198e6 ("drm/msm: drm_gpuvm conversion")
->
-> > diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_ge=
-m.c
-> > index 8b979d84bb958..f17ecd97b72a3 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem.c
-> [ ... ]
-> > @@ -109,6 +114,12 @@ void msm_gem_vma_put(struct drm_gem_object *obj)
-> >       if (atomic_dec_return(&to_msm_bo(obj)->vma_ref))
-> >               return;
-> >
-> > +     if (priv->gpu && priv->gpu->vm_shared) {
-> > +             dma_resv_wait_timeout(obj->resv, DMA_RESV_USAGE_BOOKKEEP,=
- false,
-> > +                                   MAX_SCHEDULE_TIMEOUT);
-> > +             put_iova_spaces(obj, priv->gpu->vm, true, "vma_put");
-> > +     }
-> > +
->
-> [Severity: High]
-> This is a pre-existing issue, but can this lockless vma_ref check lead to=
- an
-> IOVA use-after-free if a GEM handle is concurrently closed and re-opened =
-via
-> flink?
->
-> If Thread A closes the last handle, atomic_dec_return() drops vma_ref to =
-0
-> and it proceeds to unmap the buffer. However, the flink name remains vali=
-d
-> until drm_gem_object_handle_put_unlocked() runs. If Thread B calls
-> DRM_IOCTL_GEM_OPEN concurrently, msm_gem_open() can increment vma_ref bac=
-k to
-> 1 and submit a job using the IOVA. Thread A then acquires locks in
-> put_iova_spaces() and unconditionally unmaps the buffer via
-> put_iova_spaces_locked() without re-verifying vma_ref:
+On 05/10/2026 09:38, Boris Brezillon wrote:
+> On Fri, 2 Oct 2026 16:14:38 +0100
+> Steven Price <steven.price@arm.com> wrote:
+> 
+>> On 29/09/2026 04:44, Adrián Larumbe wrote:
+>>> The GPU cache flush/invalidate operation is unnecessary. First off, the
+>>> GPU doesn't read off the perfcnt sample buffer, only writes into it, so  
+>>
+>> I don't think this is entirely true. The GPU performance counter unit
+>> only writes the counters that are enabled, counters that share a cache
+>> line but are not enabled are not written by the performance counter
+>> unit, but if the L2 contains that cache line then the write can hit in
+>> the L2 and dirty the entire line including stale data where the
+>> unwritten cache line is.
+> 
+> I don't think this can happen though, because _enable_locked() is
+> creating a BO (and its GPU mapping) just before enabling the perfcnt
+> block, meaning the buffer is known to have no dirty cacheline pointing
+> to it until the first dump happens. And we do flush and invalidate GPU
+> caches after each dump, so again, we should be covered.
 
-This is already invalid, the flink name doesn't hold a ref to the obj.
-The exporter must hold the obj live (by not closing the handle) of an
-flink exported BO.
+The situation isn't actually a dirty cache line at the start, but a
+stale one. We start off with the memory matching a clean line in the
+GPU's cache. But because we don't have coherency the clean line can stay
+even if it's inconsistent with everything else.
 
->
-> drivers/gpu/drm/msm/msm_gem.c:put_iova_spaces_locked() {
->     ...
->     drm_gpuvm_bo_for_each_va_safe (vma, vmatmp, vm_bo) {
->         msm_gem_vma_unmap(vma, reason);
->         if (close)
->             msm_gem_vma_close(vma);
->     }
-> }
->
-> Will this destroy Thread B's mapping while its job is running, freeing th=
-e
-> IOVA for immediate reuse?
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does adding these blocking
-> calls cause a scheduling while atomic panic when tearing down a writeback
-> connector?
->
-> The drm core function drm_writeback_connector_cleanup() holds a spinlock =
-with
-> IRQs disabled when tearing down pending jobs:
->
-> drivers/gpu/drm/drm_writeback.c:drm_writeback_connector_cleanup() {
->     spin_lock_irqsave(&wb_connector->job_lock, flags);
->     list_for_each_entry_safe(pos, n, &wb_connector->job_queue, list_entry=
-) {
->         list_del(&pos->list_entry);
->         drm_writeback_cleanup_job(pos);
->     }
-> }
+CPU		|	GPU		| Memory
+----------------+-----------------------+--------------------
+                | clean line            | matches GPU cache
+----------------+-----------------------+--------------------
+   CPU allocates new buffer and writes zeros
+----------------+-----------------------+--------------------
+Dirty cache line| stale clean line      | unknown (cache line
+                |                       | might be evicted)
+----------------+-----------------------+--------------------
+   CPU cleans its own cache to memory
+----------------+-----------------------+--------------------
+Potential clean | stale clean line      | Matches CPU
+cache line      |                       |
+----------------+-----------------------+--------------------
+   Start dump without invaliding GPU
+----------------+-----------------------+--------------------
+Potential clean | GPU writes data, and  | Unknown
+cache line      | hits in the clean line|
+                | even though it's stale|
+----------------+-----------------------+--------------------
+   CPU flushes the GPU's cache and invalidates it's own
+----------------+-----------------------+--------------------
+No-cache line   | writes out clean line | Matches GPU
 
-Hmm, someone should look at this.. maybe we could move to an on-stack
-list under a lock, and then do cleanup outside of the lock?
 
-BR,
--R
+Of course for the GPU to have ended up with that stale clean cache line
+means that the physical memory was previously used for something else on
+the GPU, so the newly allocated BO has to reuse memory from a previous
+BO that the GPU has accessed. And it's all "unlikely" due to the small
+size of the GPU's cache.
 
->
-> This calls into msm_gem_vma_put() through the teardown path
-> (dpu_wb_conn_cleanup_job -> dpu_encoder_cleanup_wb_job ->
-> dpu_encoder_phys_wb_cleanup_wb_job -> msm_framebuffer_cleanup ->
-> msm_gem_vma_put).
->
-> Since dma_resv_wait_timeout() can wait indefinitely and put_iova_spaces()
-> acquires ww_mutexes via drm_exec, could this result in sleeping while hol=
-ding
-> a spinlock with IRQs disabled?
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822-msm-fix-=
-export-v1-0-917b3cbedd43@oss.qualcomm.com?part=3D2
+
+>>
+>> The upshot is that if the CPU has cleared a block of memory which the
+>> GPU happens to have cached, then the "unused" counters may end up
+>> showing the old data before the CPU cleared it (if they share a cache
+>> line with an active counter).
+> 
+> I agree, but that's not a case we can hit in the enable path. I think I
+> mentioned the commit message was misleading, and that we should instead
+> talk about the fact the GPU is not supposed to have cached anything up
+> until the first SAMPLE following a the ENABLE step.
+> 
+>>
+>> I have to admit it's probably somewhat academic given that Panfrost
+>> doesn't expose the ability to control which counters are enabled...
+>>
+>> Is there a good reason for this patch (i.e. have you seen a performance
+>> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
+>> safe route rather than trying to over optimise cache maintenance.
+> 
+> I think I was the one suggesting dropping this flush so that
+> panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
+> operation. Besides, I find it confusing to have a cache flush+inval in
+> a path where the GPU is not supposed to have accessed the buffer yet
+> (or later on, when we re-enable after a RESET, in a path where the GPU
+> has been reset and the caches are known to be empty).
+
+So I agree this Should Be Safe™ because of how the driver is currently
+using the performance counters. If we really want to drop the invalidate
+then I think we need a comment explaining the logic. My worry is that
+someone extends this in the future (e.g. allow selecting which counters
+to enable) and breaks assumptions without them being documented.
+
+We normally do perform an invalidate when the GPU first touches a buffer
+(e.g. for a BO) - it's just normally more implicit because it's done as
+part of the job manager(/command stream).
+
+Also "caches known to be empty" is a dangerous thing to assume on
+anything that could involve speculation - AFAIK Mali doesn't really
+perform any form of speculation, but I'm not 100% sure on that.
+Certainly with CPUs you don't get such a luxury of knowing what it might
+have populated in the caches.
+
+Thanks,
+Steve
+
+>>
+>> Obviously in the fully coherent case the invalidate could be skipped (as
+>> in the next patch).
+>>
+>> Thanks,
+>> Steve
+>>
+>>> an invalidate doesn't make a difference. Then flushing GPU caches after
+>>> each sample has been written is enough for the CPU to see updated values.
+>>>
+>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+>>> ---
+>>>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
+>>>  1 file changed, 2 insertions(+), 13 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+>>> index f71534e741b6..ffc77121070e 100644
+>>> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+>>> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+>>> @@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
+>>>  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+>>>  
+>>>  	/*
+>>> -	 * Invalidate the cache and clear the counters to start from a fresh
+>>> -	 * state.
+>>> +	 * Clear the counters to start from a fresh state.
+>>>  	 */
+>>> -	reinit_completion(&pfdev->perfcnt->dump_comp);
+>>> -	gpu_write(pfdev, GPU_INT_CLEAR,
+>>> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+>>> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+>>> +	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+>>>  	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+>>> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+>>> -	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
+>>> -					  msecs_to_jiffies(1000));
+>>> -	if (!ret) {
+>>> -		ret = -ETIMEDOUT;
+>>> -		goto err_vunmap;
+>>> -	}
+>>>  
+>>>  	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+>>>  	if (ret < 0)
+>>>   
+>>
+> 
+
