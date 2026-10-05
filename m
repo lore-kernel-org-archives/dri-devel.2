@@ -4,154 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AF57CA5FCE
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 07:25:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A1ACA5FFD
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 07:27:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4B2A10EBB7;
-	Mon,  5 Oct 2026 07:25:19 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V5CGdhm8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GNspDe2X";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB8610EBBD
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 07:25:18 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6950xvJT4060136
- for <dri-devel@lists.freedesktop.org>; Mon, 5 Oct 2026 07:25:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- +0ADLN4tmjKk8N9WUyV0L4KRQPHIhMO2nAEzDRj/GbM=; b=V5CGdhm8k58mrLcI
- Wo24SlRivtai3j96ezyMNQl2BSjodo1XjTa+B5w3X74frlm/Yyb5vgPfOpq7OYs+
- 2rfFfGVgQ3ofPpg7K1L2iXGVncBwyoFCDLorDtktYN8ZRdLzyXvlwTsqdDu2gKTe
- m6Tt5+2z8pGZZiCZ8HB7XuksZ8WtQqhP7fdb2uKWNV4bazEpJmg4NJW/HyPCWMFa
- hci3quG3pcw2Xa7DLotfrl6i90t+g8XhbUImiOuLAM2PxVuYXHVXvDsuEVQ3Pkba
- 56MX4wFL9vog4bwGSATidxRMpsi+JXl10RqbByQi/zEkuLTwVHQHguXC8nyZ5VEz
- jQEIWA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h41gn8u3j-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 07:25:18 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-395543dc382so1359807a91.0
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 00:25:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791185117; x=1791789917;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=+0ADLN4tmjKk8N9WUyV0L4KRQPHIhMO2nAEzDRj/GbM=;
- b=GNspDe2Xok9uREF9REgFAt0QRM5mN1i4VjJxPRxYSeg/lvToHllMbz00SPC7rJc0qq
- aMttNoLXXPLZ3eFkxJowqzmK7G+j4cqDiUs6BbSLUq4e1rEp8ngI48l95b0dqbyHlm7K
- ilKkPCJZSSwzGvAmsi9/BAcCWgJpEqSLpuXHbHzE9m6WAgl27ppidtA2tb2gJxOLdyI0
- 7sZDizNdjylCBT+/HJ07dreLHxo8ITtnVkkCkAPjC5u3XJelyrE4lrNIVjj0aaeGuSCi
- vSznN9F31emz9QpSwIq/IGdRJlBTkZqLjlG7kvBjst1p1BEuq5/P0781Ajznf7LfofUR
- yXjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791185117; x=1791789917;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=+0ADLN4tmjKk8N9WUyV0L4KRQPHIhMO2nAEzDRj/GbM=;
- b=VcLAjiQ56jHJn8f9ANx+PJeLkARssq9t8dDQBUdSWmiCqW+lQWmoXpj/HJBYkHkIhA
- MaYXnX2jvJlln+uPAh23M3TX8qt9ztAfcnl/rdhfOSSLfTuKmJSsVaGUS9IxuPvNyj61
- uG4D+w5ixN79uxINtpfi4SupBuy3CXQdYulDo/4SBiNG8cErWlBi26FFRTcAQA0KOVOy
- 94UkSpiO5X3+z+x5T6YsgawPx4tMpR+VkORzG60GmF/RO5Mnf1CzZjC5A1v2HhAAwTyN
- lfQ+CcZTd9I4AcP4oosa3Ps7EhpdSWIdMLzAanKzD2JkY51nQ8ozis13uoQpns0pNpyK
- 6Gdw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxIivamnU97SWzl2KE27M/wtn2Pn4rwsGLg713rFjyjd0sq9Kqoid15h8cpgibLk/jTwVDlpCrnv88=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLpGSRtwqFTYpYrmx0t0rplW9VXcZT0TmcZukKfBF5h6PwERjcd
- DBrxPdGC/LKDUQcDHdzuGSPAsXO7STjqqIv24/3WKJn589+reiFg5K4Q4cD5Sa85UxPHMH9y2jX
- 8cZRQ3BsmAgLUKc732idXoNcnXC5Qj0BhDNjQLoX8SUY8buy/0Gl9zX2okYEqs2xbuWCFsf8=
-X-Gm-Gg: AYBFou0BHqYP4Wai2m7drAsqVHtmAwTEKBhz+DKskcs0fH7Nf/mBxYWvWmxs52GokAo
- L9JsGslKgv92djtqHPHRqduUtI3CyUT6k9Kk8iyATdtK0jbceMkZCi1+IL7ukdzHBC3N3QXHHfu
- 9IF8iiIp5AbWUTMgyk/m3zoytC8MNfP3HKT8DnaxJw5gHJEoxpWAe+FvdBuGFKHutp/aDOYX0Zz
- zsXimb06HyhA2jynSZzvBC6S+u9asAwUGBFTDI5NHC78ass/+LzkN2hMdKdaT9EUW5iAyZ8XjDG
- 5hYm1wLIhPYa2EDF6HLhJWP8uQCAxa4xLQPRGPVlQ+G0/BL6yiy7++NFI4MIJmX2rfAEd66IhHJ
- o1CcZmhUj9dQBorKoD3WGTyCADxxJUuLDW2g=
-X-Received: by 2002:a17:90b:4d0c:b0:3a7:a463:54bf with SMTP id
- 98e67ed59e1d1-3a7a463570emr1941189a91.33.1791185117398; 
- Mon, 05 Oct 2026 00:25:17 -0700 (PDT)
-X-Received: by 2002:a17:90b:4d0c:b0:3a7:a463:54bf with SMTP id
- 98e67ed59e1d1-3a7a463570emr1941150a91.33.1791185116922; 
- Mon, 05 Oct 2026 00:25:16 -0700 (PDT)
-Received: from hu-bkalkond-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a78e4f3911sm9901421a91.15.2026.10.05.00.25.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Oct 2026 00:25:16 -0700 (PDT)
-From: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-Date: Mon, 05 Oct 2026 12:54:30 +0530
-Subject: [PATCH 5/5] arm64: dts: qcom: kaanapali-mtp: Enable DisplayPort
- over USB
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF8A10EBBD;
+	Mon,  5 Oct 2026 07:27:39 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0AAB10EBBD
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 07:27:37 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.54])
+ by APP-01 (Coremail) with SMTP id qwCowAAX6u1IUcNqyUDqCQ--.9868S2;
+ Mon, 05 Oct 2026 15:27:07 +0800 (CST)
+Message-ID: <b22705108be21d1b267fa5964e6c084a08c1fba1.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Michal Wilczynski <m.wilczynski@samsung.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,  Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet	 <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, 	linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Chaoyi
+ Chen	 <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <u.kleine-koenig@baylibre.com>
+Date: Mon, 05 Oct 2026 15:27:04 +0800
+In-Reply-To: <3c5c15d9-ea7e-49a2-adae-ec3e3c72594b@samsung.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+ <20260917-mutant-chamois-of-competence-46ca77@quoll>
+ <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+ <6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
+ <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+ <3ee91c92-4e3a-4bac-85cf-923f5d77ceff@kernel.org>
+ <3c5c15d9-ea7e-49a2-adae-ec3e3c72594b@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-kaanapali_dp-v1-5-6faeac3a6d59@oss.qualcomm.com>
-References: <20261005-kaanapali_dp-v1-0-6faeac3a6d59@oss.qualcomm.com>
-In-Reply-To: <20261005-kaanapali_dp-v1-0-6faeac3a6d59@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791185070; l=773;
- i=balaji.kalkonda@oss.qualcomm.com; s=20261001; h=from:subject:message-id;
- bh=H/ngu2NtKM0XR9OEviez25RT11Pu6dH3Orddp07YVTY=;
- b=D+xf16u7uxuQGu/DAQZ8gv6a68ZQIUfSSSOn6ayBSuo43khwowC8y4fM1svWyJdiebAe5xzBG
- yUJfp/uy3LCDY6ghTGnBTNWaIER8u4JC3fwO8PU4lULQmrIgUNGl4JA
-X-Developer-Key: i=balaji.kalkonda@oss.qualcomm.com; a=ed25519;
- pk=U+unGox551qPLS2mzIlN+b5cHksxTMGPnDwePd6KEnI=
-X-Proofpoint-ORIG-GUID: Jm4RFYE0JhtSqjbJhIOKQ7WJ7wB9RB-J
-X-Proofpoint-GUID: Jm4RFYE0JhtSqjbJhIOKQ7WJ7wB9RB-J
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyOCBTYWx0ZWRfX8rVJCmAW5dmz
- uACwterzpK806LvkkS+eqZTOaUa/cYD/zMnyeawi0IyWN3GScWKc3XAMSXg0IYQinbSarWiry7O
- 4ZT0zPGMkSOGZ9dAaskgxAXrAZmLJE0rsDbT4lyICalILM3/AlG26P2lLJUjMzlWZQYHZJttJIA
- 11zO2LOHFHz46MU2U5dUfyoomQ6dR20l1ZpyxXanFnHOSKjSholZmvhHxM9HCef/gaDyqKAZU9I
- PqkOYtDUciHPy1Ybq1pcsZdO1dikbyYdELjaShCkuMg7mAwBTF6QT4beovsKSjdt9f3KprS4S9p
- 7rLkm1oQK1G2Y/K+QVQ1viN48bk1UTMjf1tuSbMUhWLb5J3cJCR0q8ZFgM1tOemF2v7IagGYxeQ
- 7Vq5fMLGSRTgXtMTbbjbCF1/7aGbtj5FQXFWQ7bhDeDRocVYl4ASoCh8tUhR5TYzWadykSPhjPE
- XeoCCjLixoy6SAu5X7A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAyOCBTYWx0ZWRfX/wnnzmZUxCRn
- 1/ELVg3rmYCkAUR/OD7LKSoPj9vaSAnLbq9C4AD+VURkFRJXPKEp98SxVhSoHPHCVYTm13ZNNyW
- mblA0TKiGGYdwHO/Yd6AeCsbbhoFs/E=
-X-Authority-Analysis: v=2.4 cv=P9WvFSAu c=1 sm=1 tr=0 ts=6ac350de cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=5UEAqLcyi3SyoXtcnFMA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 suspectscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050028
+X-CM-TRANSID: qwCowAAX6u1IUcNqyUDqCQ--.9868S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF13Cr4furW8WrWkJFy3twb_yoW7Kw1xpr
+ 18ta4UJryDZr18Xr1jqr1UXFy5tw1DA3W5Xr15JF18Jrn8tryIqF1UXr1jgFyDJrs7Aw17
+ tryUXrZrZr1DArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+ C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+ F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+ 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
+ xwCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
+ W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+ 1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+ C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+ 6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+ 73UjIFyTuYvjxU-HqcUUUUU
+X-Originating-IP: [112.94.101.54]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,33 +95,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hook up DisplayPort parts over Type-C USB on MTP.
+=E5=9C=A8 2026-10-04=E6=97=A5=E7=9A=84 00:35 +0200=EF=BC=8CMichal Wilczynsk=
+i=E5=86=99=E9=81=93=EF=BC=9A
+>=20
+>=20
+> On 10/3/26 22:45, Krzysztof Kozlowski wrote:
+> > On 03/10/2026 17:36, Michal Wilczynski wrote:
+> > >=20
+> > >=20
+> > > On 9/30/26 13:01, Krzysztof Kozlowski wrote:
+> > > > On 25/09/2026 23:05, Michal Wilczynski wrote:
+> > > > > > > +=C2=A0 clocks:
+> > > > > > > +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > > > > > > +=C2=A0=C2=A0=C2=A0 description: Reference oscillator.
+> > > > > >=20
+> > > > > > This barely counts as a resource, so usual question: no
+> > > > > > resources here?
+> > > > > > no MMIO? Even the user of this phy is the block itself.
+> > > > > >=20
+> > > > > > This makes me wonder if this should be a device node in the
+> > > > > > first place
+> > > > > > (instead folded into the parent).
+> > > > >=20
+> > > > > The PHY has no reg because the reg is shared with the
+> > > > > controller and
+> > > > > owned by the parent - patch 9 lets the bridge take its regmap
+> > > > > from
+> > > > > there.
+> > > > >=20
+> > > > > The user of the PHY is not only the block itself. It is the
+> > > > > pixel clock
+> > > > > provider for the whole display subsystem, voutcrg takes
+> > > > > hdmitx0_pixelclk
+> > > > > as the parent of its DC8200 pixel MUXes, and while HDMI
+> > > > > output is active
+> > > > > it is the only intended source for that clock. The parent has
+> > > > > to be
+> > > > > assigned explicitly so the general PLL does not end up
+> > > > > driving the pixel
+> > > > > clock, and so a DSI user does not reach the HDMI PHY clock
+> > > > > generator.
+> > > > >=20
+> > > > > So it has to be its own node. The HDMI block has two
+> > > > > independent
+> > > >=20
+> > > > I do not see the logic which lead to this conclusion. Pixel
+> > > > clock
+> > > > provider, so a clock controller, cannot be a user of a phy.
+> > > > Clock
+> > > > controller does not have a physical layer.
+> > >=20
+> > > Sorry I think the wording was not perfect. I meant the PHY node
+> > > is a
+> > > pixel clock provider. voutcrg consumes a clock not a PHY.
+> > >=20
+> > > voutcrg: clock-controller@295c0000 {
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks =3D <&syscrg =
+...>, <&hdmi_phy>;
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names =3D ...,=
+"hdmitx0_pixelclk";
+> > > };
+> > >=20
+> > > The consumer of the PHY is only the hdmi controller.
+> > >=20
+> > > What matters for the node layout is where that clock goes.
+> > > voutcrg is the
+> > > SoC display clock controller - it is not part of the HDMI block:
+> > >=20
+> > > hdmi_phy -- pixel clock -> voutcrg
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - pclk/mclk/bclk -> hdmi_controller
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - pix0/pix1 -> dc8200
+> > >=20
+> > > hdmi_phy and hdmi_controller are the same register block with one
+> > > reg
+> > > owned by the parent. So if that block is described as a single
+> > > node:
+> > >=20
+> > > hdmi_node - pixel clock -> voutcrg
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 ^=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 --- pclk/mclk/bclk --------
+> > >=20
+> > > the node provides a clock to voutcrg and consumes three clocks
+> > > from
+> > > voutcrg. That is a cycle in the device tree description.
+> >=20
+> > There is no cycle. Internal signals to the block are not
+> > represented in DT.
+> >=20
+> > What you have is a driver problem and you create some sort of DT
+> > structure to solve that. DT purpose is NOT to solve your driver
+> > dependencies or circular connections.
+>=20
+> The structure is not something I added. The voutcrg binding has
+> required
+> an input clock named hdmitx0_pixelclk since it was merged in 2023
+> a097a5ec14df ("dt-bindings: clock: Add StarFive JH7110 Video-Output
+> clock and reset generator") and this series does not touch that file:
+>=20
+> Documentation/devicetree/bindings/clock/starfive,jh7110-voutcrg.yaml
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: hdmitx0_pixelclk
+>=20
+> Mainline satisfies it with a placeholder, because so far nothing
+> provided the
+> real clock:
+>=20
+> hdmitx0_pixelclk: hdmitx0-pixel-clock {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compat=
+ible =3D "fixed-
+> clock";=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-=
+output-names =3D "hdmitx0_pixelclk";
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #clock=
+-cells =3D <0>;
+> };
+>=20
+> All this series does is point that existing input at the device that
+> actually
+> generates it.
+>=20
+> TRM [1] table 5-3=C2=A0 on page 529 lists the display CRG's input clocks.
+> Most come from
+> dom_vout_top, but three come from IP blocks inside the subsystem:
+>=20
+> clk_hdmitx0_pixelclk=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 297 MHz=C2=
+=A0=C2=A0 u0_hdmi_tx.clk_pix
+> clk_mipitx_dphy_rxesc=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 10 MHz=C2=
+=A0=C2=A0 u0_mipitx_dphy.clk_rxesc
+> clk_mipitx_dphy_txbytehs=C2=A0=C2=A0=C2=A0 297 MHz=C2=A0=C2=A0 u0_mipitx_=
+dphy.clk_txbytehs
+>=20
+> and on page 530 the CRG offers clk_hdmitx0_pixelclk as Source1 for:
+>=20
+> u0_dc8200.clk_pix0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Source0 clk_dc8200_pix0=
+=C2=A0 Source1
+> clk_hdmitx0_pixelclk
+> u0_dc8200.clk_pix1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Source0 clk_dc8200_pix0=
+=C2=A0 Source1
+> clk_hdmitx0_pixelclk
+> u0_cdns_dsiTx.clk_dpi=C2=A0=C2=A0 Source0 clk_dc8200_pix0=C2=A0 Source1
+> clk_hdmitx0_pixelclk
+>=20
+> The DC8200 and the DSI TX are separate devices, so the pixel clock
+> crosses two block boundaries to reach them.
+>=20
+> That is also why the DT has to be able to name it. Those MUXes have
+> two
+> parents and the selection is made in DT:
+>=20
+> &dc8200 {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 assigned-clocks =
+=3D <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>,
+> ...;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 assigned-clock-par=
+ents =3D <&hdmi_phy>, <&hdmi_phy>;
+> };
+>=20
+> and voutcrg takes it as an input clock because that is what the
+> hardware
+> does. If the PHY is folded into the HDMI node, that input phandle
+> points at
+> a node which also consumes pclk/mclk/bclk from voutcrg. That is where
+> the
+> cycle comes from - the hardware topology not the driver.
 
-Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+I think the common clock framework has a "orphaned clock" feature to
+solve this kind of cyclic clock dependency, although this could be a
+pandora's box if not properly used.
 
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-index 16f4dd041649..ff5d5c2fafba 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-@@ -1015,6 +1015,14 @@ &mdss_dsi0_phy {
- 	status = "okay";
- };
- 
-+&mdss_dp0 {
-+	status = "okay";
-+};
-+
-+&mdss_dp0_out {
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+};
-+
- &pcie0 {
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
+Thanks,
+Icenowy
 
--- 
-2.34.1
+>=20
+> [1] -
+> https://doc-en.rvspace.org/JH7110/PDF/JH7110_TRM_StarFive_Preliminary_V2.=
+pdf
+>=20
+> >=20
+> > Best regards,
+> > Krzysztof
+> >=20
+>=20
+> Best regards,
 
