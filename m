@@ -4,139 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C7A0CA5FCE
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 03:25:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C9AECA5FE2
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 03:43:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DFAD10E21D;
-	Mon,  5 Oct 2026 03:25:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D7A10E222;
+	Mon,  5 Oct 2026 03:43:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nm8Lq3TI";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WDLA/klB";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OlVcNXEE";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fJ/lz8Uq";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E835810E21D
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 03:25:26 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6076B10E222
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 03:43:02 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 695103OA1464827
- for <dri-devel@lists.freedesktop.org>; Mon, 5 Oct 2026 03:25:26 GMT
+ 69510JV3931004
+ for <dri-devel@lists.freedesktop.org>; Mon, 5 Oct 2026 03:43:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=hTYxHI2g7XScWCuVufXL3ZLK
- 7k293CtuFnd4R0QnRjA=; b=Nm8Lq3TI5O0+0rLN4BPnewiBSGcXSJ8lOZ2MIb8j
- 4rrMDrcWbduP/EWehSDwTQIza8RRFOAZ/YZawkzwfsJnWIa1Z0oguCa3H+GFBmXz
- uf8XdLazMazoRN2mCRLQmnw4KYURim3B4FwmFDBvXeBthA6QzQFIeySb0QAuuQeJ
- f361UKrPaWn7LtV41BWYM4ml6pQTWOo0tUqi9Ja+mt2gMY7YQ9pXofpzCwgnLXcK
- ZBMgaDQqxdwJGZXkvYR6mXJesSbUsHFk519R8rQcdZeYz6ZOiOx3KxK7UuGPTKfy
- n2bBjyTSTxCD6zi5CIJ/zPNx/s72zPiyT53fuxv6fiCdEA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
- [209.85.217.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sssm94q-1
+ :references:subject:to; s=qcppdkim1; bh=EbPg2aQdB3WJiIm4v4Ostya5
+ 4S6FCqAcPPGhfO25FV4=; b=OlVcNXEEDPZC2iM3iL/LN1OWZVcT2ngczKHLkmPp
+ CoxkL7w8EmQZMS92I0lg5SE8VBbnX9j9g5/OB0VkHGZC2qaGtdcNqYPOOP2YmguW
+ LwN+ReFfCutdNl2LzNHtsPudZDOyDFNxKmqL+Lt9QN7dSd62sk/W9cCS0Ihj3wRS
+ Lpa7W5hcuyzOWSI4I5bO5DEBMamjNPt4UNV3bvtmfsjK2ZmDqL8P0LGhHftk3TKl
+ r+Vc8a7sSdN3+F4dF2l8nancbYyCvzVZov8Bil6HyJOocqNKY8b9iMdh1J51DvoK
+ ymqNTsGppFQruLihreDpQRMPOejwRRdkdl3EIeJrZAht+Q==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sq8vbhh-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 03:25:26 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id
- ada2fe7eead31-7c39a674d83so892823137.1
- for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 20:25:26 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 03:43:01 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-7c039041433so1411951137.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 20:43:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791170724; x=1791775524;
+ d=oss.qualcomm.com; s=google; t=1791171780; x=1791776580;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=hTYxHI2g7XScWCuVufXL3ZLK7k293CtuFnd4R0QnRjA=;
- b=WDLA/klBdfDN0Shla5dCNOyR7c3eMSsdDTaMQO6Gui4K5yK5SQBQpzfpEGL6U/9dCt
- L375pgDTnOp2qioXpvOWkYaDDSHpX7DqllldPGR7d4qya2Jc4JxJYLSBu7cgfWs5n6Ln
- lgsd/qIZOxGCGAoDVZRuNHjtBl4flMtJde/SlOAphDQ0sjJmqkSrcIhaxhsYB5q9Hfgf
- FQeLrJg9A8lgsBXHe3wX6Z1YRDo1OWP/bmw8XcV2QSoMALJ5OI1LgtlvyiNRUHH7fHCI
- U1BeQCZMN0jAmcatypuNcjBA1SsG7hdXYLzu1Blp2vhSDQJOLOiG+8+Vfgd4bNI2tv6M
- rIHw==
+ bh=EbPg2aQdB3WJiIm4v4Ostya54S6FCqAcPPGhfO25FV4=;
+ b=fJ/lz8Uq+iCkES1sPhuYDg85/DjLWxVMkhaPhR2kKzjjnZIBh7D+G8kM+dsQa1/S+x
+ gi++W6Bc2zRWPIGxSxcuJFekNGQmbQ213W4/0mD9VNClGXBrOyFTsn8Xtmj80YYrevKb
+ BHuRSFUZfAFoL/mTZ8UH4m4DXOpmp4iYOWUj/kXWeKpV9bydFHQ/UFnlFsO/xvRJF9Ug
+ hT2N5fAyJMCSh0oNvOoAt3kBnhidckb2cZBNYvmvmTlP9hrNwOYT3W57YF9NlYENkpnV
+ Fl47oL1ILAByucDdjbtyazEVpijwoz7Kv5yLT4N/iyod5sMqQjaS8mehl5uXIYd6tNyY
+ fbsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791170724; x=1791775524;
+ d=1e100.net; s=20260707; t=1791171780; x=1791776580;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=hTYxHI2g7XScWCuVufXL3ZLK7k293CtuFnd4R0QnRjA=;
- b=tg+Eralo2LHlJSF1BT1pVXggWt8I85yxNz0p5o4/c9daFtK3CkDD58QOnCvg2k8jsZ
- 4TUb/19h+7oH1PdBcAlm4uduYUaZfEtiiWWkpiuLxLKgsUwtHSDGUKyQ4o9ouSgmBOQV
- NqU6eJ9rpXt7wRex5JMrQf4isNhevpM2pFbk4Rxvs4WAjJ5CmcUbt8C3S8ANCdgZFxRi
- 9A74OOebT/e9+E8b/zfTzKXmoNzaQl2VS0Vkmc4ejqlFV7rCkf+2NWSN9pECZsOYNJ4E
- HjezmWk4Wix/KzBW/3VLCk1/xU35PpZVkY/VzD8mafODIJQOWEGhu6jaKcTwXI91u7XH
- 5B+g==
+ bh=EbPg2aQdB3WJiIm4v4Ostya54S6FCqAcPPGhfO25FV4=;
+ b=Qva4oGd3TCwhjx8koLqhEnEOQpQR5Jg1ygR+jdlhMTJVWnWHsd0Im1SfzWY61bHXWI
+ zbQ/PJ8VQy6bHDIjiorNyHMITc+C1FtcjW7K201Ejl6ZdnrppmWOovZRrykMFqL4HCKI
+ 1jmNteYqb1npzLFXjfJNa/bWkzZDuURHXWK0Zrfsu111f+4/KxSrqXJl/hYPuncW0s/U
+ G4m6PgzwX/OtbIgJM4LsIClRdTol8mAAVy+nBKHvYVqwQLx4UyjuEMH6qBjw3BcoX13M
+ il5poeJAtEp2qtbSzOX1e81G5AC5JwxyRmTIC7NoMtAI/kjh0xd8eoAnNgTRgBc+b6KB
+ BSnw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBypswlKPpP6IqVfaaEPwRxHktIv+39D8fC7T/nbj2UOSt7WiP5GLzbhPoBjXDfbCfLp4GSjNPk4LjQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLlPr9Xv3BYuymw6/J236RRuYG1N7SHDd5tDBW3Gzlra8eHDwur
- 2RaoGxA5TPeg9PfY4vhGV1813j/uC9PWIuyPnBfJ8fXddLvsFN1H71Lm3JVy5SYGX1DhjbeADEg
- /Yd2dzU8TLiuZR3a/7s8dwAAKEXZOG9VAeS9LR9agxzBedoDT1QaBaQlwFGGXwkOYwX6J17A=
-X-Gm-Gg: AYBFou3J+yjFY3wttRie1Q3QfvujDZBTDWpjE2v+pak7aMmzq/hW/CYPQAYMlHf9y3x
- q8KLwU26GmdApMyilPiv9FjyZ74aRz7HcsWRdLrpEpGE/GChV7rry3aj0825WnHgSXNaSvO1ho9
- EpMScB4tja0/++x4+A6BtonN7Lz2oTKmWbHm1J52gmszCuas6zZI+PdC1vu+cnREz1h/5IvvUCt
- DpHRh2euO6vr7BFmRJ2wHoBFI2occbqf/+qZD0H1WKm83HqeeYhHIxhod2o3JmIz7ITdr/RuIuI
- WlFE8Tlad59HL7ks4VJXBObJ8YrCMDAbEuYFxBWxVcOklAYaf5GsfVwy5/YENrSUUir2nBPj8CL
- aWNeaoW6Ud3lgP9b1fpjKs8N2iYQqXh5B7TTgA1hxypNyfxfZmXQxGe8t6rsUK7Ljd1lzR1rNO7
- SKZlP2oDMnSqzn
-X-Received: by 2002:a05:6102:354b:b0:7b3:5b2f:7030 with SMTP id
- ada2fe7eead31-7bf80c9bc7fmr2346113137.4.1791170723856; 
- Sun, 04 Oct 2026 20:25:23 -0700 (PDT)
-X-Received: by 2002:a05:6102:354b:b0:7b3:5b2f:7030 with SMTP id
- ada2fe7eead31-7bf80c9bc7fmr2346105137.4.1791170723392; 
- Sun, 04 Oct 2026 20:25:23 -0700 (PDT)
+ AKwUvByuHfUN06cY7i1SAtnegotTjx+2vnTDztazy+5VlpO3zYDKmRqYjyWpR5dEpmOyS33ItL4jS6VvU5U=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKBJtcZX7Dm2aYTLBRiMrUW0WaWmjYNfI8MB+ywhbMG+xiZo6ob
+ g8DITWfS2DnuHnGr5/Ok/DinsDRdmj5tFCaKf7Ukk5kHJhJkOYsX0if3jt9atwD4cWmYZgnZaQd
+ eV+kNq71BLttQ5XNdTyhmpKjtZclkMLqVTq1Ou9jfnMvRzaG3oZxPhDMGF4p5CStTaExnPTQ=
+X-Gm-Gg: AYBFou2gvlbayjJgObS+HFoKnf+obZcejwj7x+FOz72X+ChNMWO+pTr1xzT/nq+tiyy
+ rHfKLS3UKHcYSxnE1OEFCvGmlV7vk+0zjQtXDrX+N/QZeXuAeRwu4Nl2PQCyMqXb6Rnl6aG6LN3
+ bIGjaszlFI+Sr+l72bB/o1W0hqL97heLBqepx2oFfMoYnja/CmgTYZD3em1X1szH5AeQB+jiigd
+ 02uyTbFgF+q8+9/iGtjfziN56j5iB/O1vV+oX9F8JOpCjrWoMiONzloUg4TXMVu0z+j5jF8GSZv
+ VcKFrUdvuyskKfqdPecms1rfROpUehkyHZxXQD20DRIG+ArC0yvOLxlDf8sQwuYu5AZTsri5wst
+ MCbTeAEJV4qNvIVbGSJnLHkXfunugJyLduRS7Nww8SsclVycn8ztSo0eMA6xhJf5LAzvP4UapAp
+ FfIGz0h2rl5JOp
+X-Received: by 2002:a05:6102:32cd:b0:7a3:4e75:d1f0 with SMTP id
+ ada2fe7eead31-7c2457ce32amr1571279137.23.1791171780354; 
+ Sun, 04 Oct 2026 20:43:00 -0700 (PDT)
+X-Received: by 2002:a05:6102:32cd:b0:7a3:4e75:d1f0 with SMTP id
+ ada2fe7eead31-7c2457ce32amr1571268137.23.1791171779894; 
+ Sun, 04 Oct 2026 20:42:59 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a87e3235d5sm36670991fa.34.2026.10.04.20.25.20
+ 38308e7fff4ca-3a87e3235d5sm36801331fa.34.2026.10.04.20.42.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Oct 2026 20:25:22 -0700 (PDT)
-Date: Mon, 5 Oct 2026 06:25:19 +0300
+ Sun, 04 Oct 2026 20:42:58 -0700 (PDT)
+Date: Mon, 5 Oct 2026 06:42:57 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jun Nie <jun.nie@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
- Pengyu Luo <mitltlatltl@gmail.com>, Alexander Koskovich <akoskovich@pm.me>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: round up the compressed INTF width
-Message-ID: <rcmt7bnqgu2kmwnr6mliytpjscnnknbm4qrfva77abozwwgraz@3r7giwxnzy43>
-References: <20261004102758.84436-1-26rote@gmail.com>
+To: Piyush Raj Chouhan <pc1598@mainlining.org>
+Cc: srini@kernel.org, gregkh@linuxfoundation.org, robin@snyders.xyz,
+ ekansh.gupta@oss.qualcomm.com, andersson@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/1] misc: fastrpc: Allocate message buffer from
+ remote heap for sensors PD
+Message-ID: <rz6rhmd46qcuaxrajxxaqudkoqj6ere5gdlb7frnvd6hjwapuq@kj3ldploadu6>
+References: <20261003150559.6926-1-pc1598@mainlining.org>
+ <20261003150559.6926-2-pc1598@mainlining.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261004102758.84436-1-26rote@gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAxMyBTYWx0ZWRfX+agGwT+ztiaT
- Ms/JU3cpZGiG620mDrVN9Txn+TnpDf71nqqxaOYrOHSPKgenAxq+jA3MtDbVdvuhHgFGdr18rSa
- WtHpVGpL8lx2lDIkaGfrbO65Nf9Gd3g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAxMyBTYWx0ZWRfXxJ+hkJJiKQS4
- 9s375OYY9/Q9T2MTsJvJOhvoiAtL8VoTDnz9fHeQIKMu02I9U514Y3qfQM+/LbRbmfe5J2exYxV
- a46FOO4GCNbABFb1+yubyNWONzHVm3Pg1pdmnd9mGrzdRX+AUa5Z34Div2Y20sQTRraxj/oip87
- CjneLBGiHvOEtXR6YuvH+UQbNQ3IwvNRRqh8MKYwfSIZALemk9bEdqAGLi7vmG3tBKyfbCXDsHH
- thULMaasPK77iAukB/3G4zJrKzBpZQ9p3KD9INa2uC2DGkqwUyV3gMV4THYucq6JZqY3GRJvOd0
- zLgRTpHGCCEsOfgqhOfH8UZ47Rx8P9BFMbBik8Rs1qRFwJZ7y4k8K0593b8605O6PkSMh6nJAg2
- DuDcBss7T6qtbzfRojJFgFn7TDJWHgPYM+AnGDG95gMb3uYqR9pgCPaMPJwqbHRM9z57uBDTDVK
- 9DpMtR+MKdfTw27VPVA==
-X-Proofpoint-GUID: jU2dIMaWtpSmmoQGVmYiuKak2rO4PeJR
-X-Authority-Analysis: v=2.4 cv=HqjjiETS c=1 sm=1 tr=0 ts=6ac318a6 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20261003150559.6926-2-pc1598@mainlining.org>
+X-Proofpoint-GUID: V2hI75KZ_T0JqmQehSAAt_5mmkbZvC44
+X-Proofpoint-ORIG-GUID: V2hI75KZ_T0JqmQehSAAt_5mmkbZvC44
+X-Authority-Analysis: v=2.4 cv=TKzQ2Fla c=1 sm=1 tr=0 ts=6ac31cc5 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=q6ksuDL_9lF9NV4zmMMA:9 a=CjuIK1q_8ugA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-ORIG-GUID: jU2dIMaWtpSmmoQGVmYiuKak2rO4PeJR
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=OsHF4jKAAAAA:8
+ a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=4qQ1mRuE16t6AV9Sk90A:9 a=CjuIK1q_8ugA:10
+ a=gYDTvv6II1OnSo0itH1n:22 a=aAwnOj5LE8VeXseigifb:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAxNCBTYWx0ZWRfXwg6R2hflxxLv
+ x3njJzGKw3IM11nWwrIX64tGf1eajxXAdw3qJHmvGhy/cVlvyfG/RauR7QFT08JuVRN5VmVcgIq
+ RtxBdwwk8lHTquS/lfHVKMml9W+9CcxRwS95Wp7fBcAF2G1jDaSq4TPsbLMpyWiugAprAeUEvT2
+ OYgGrsh+J3BLRIubz5f2fP7+EQLmdt3Z83T9CKtTV0VpkpbjYoB2IYN08NKI3xBijawgLSbxUVR
+ nQujv8Tn+L5b63r2EZSlWxuHcpvXgUussanaKQdXpuuHm70cHGxNczm01Qp3qCAa3gPBnpiws+v
+ cvNKyN53FG6XAvFY35bSGWKho0IQ9JRZCV2qHYqbOg7hpMHJ8/V9OedoQjVyiv04z2/PP/Xlx0b
+ jjhOK7dqi18G0b+g+hA4cbQjocNZLk+iD5LRXYpj4iWVSUazkheKKQBSKyINlooYjIO5CwrZxEw
+ nBuIb/tzoZYhYi9lSVg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAxNCBTYWx0ZWRfX/dO1rYtpawNB
+ bnt3bpjd7ZG5OMLcjZkqZRgOGeQSJ5tULe5EtNnVvHQAmGVG6QGYOE+/Sp5EZQlzr+m828x1/sO
+ AydTpSa1MgVw/36bIFLdwm0uyPbZuy0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 bulkscore=0 adultscore=0
- impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ impostorscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 malwarescore=0 priorityscore=1501 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050013
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050014
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,37 +147,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Oct 04, 2026 at 07:27:58PM +0900, Joonhoe Kim wrote:
-> For DSI with DSC, drm_mode_to_intf_timing_params() scales the INTF
-> active width by bpp / (3 * bits_per_component) and rounds down. The DSI
-> host computes the same width with DIV_ROUND_UP, both for the pixel clock
-> (dsi_adjust_pclk_for_compression()) and for the active width it programs
-> (dsi_timing_setup(), from bytes per line). When the division is not
-> exact the INTF line is one pclk shorter than the DSI line, and the DSI
-> FIFO overflows.
+On Sat, Oct 03, 2026 at 08:35:59PM +0530, Piyush Raj Chouhan wrote:
+> From: Robin Snyders <robin@snyders.xyz>
 > 
-> Example: a bonded DSI video-mode panel, 952 pixels per link, DSC 8 bpp at
-> 10 bpc: 952 * 8 / 30 = 253.87, so the INTF uses 253 and the DSI 254.
+> The sensors protection domain reaches the message buffer directly rather
+> than through its context bank, so it requires an allocation from the
+> reserved remote heap memory pool. Using a context-bank buffer allocation
+> leaves the DSP addressing memory that is not mapped in its address space,
+> triggering an SMMU context fault (e.g. 0x1fffff000) or bus stall.
 > 
-> Round up, as the DSI host does. Qualcomm's downstream SDE driver also
-> rounds this width up, and Pengyu Luo needed the same rounding on the
-> Legion Y700 gen 4 [1].
+> Ensure the remote heap is used for SENSORS_PD invocations even when
+> a stream ID (sid) is present.
 > 
-> Tested on a Lenovo Legion Tab Y700 gen 5 (SM8850) with that panel, with a
-> module parameter selecting the rounding: rounding down, DPMS off/on gives
-> no vblank and 14000-17000 DSI FIFO error interrupts per second
-> (dsi_err_worker: status=4); rounding up, the picture comes back and there
-> are no errors. Only tested on this device.
-> 
-> Link: https://lore.kernel.org/all/CAH2e8h6oinKxN1ndcvHCSc+=bFLXVVDZVAVF0cQHoiaMvEwhPQ@mail.gmail.com/ [1]
-> Fixes: f9ce482d7dc0 ("drm/msm/dpu: fix video mode DSC for DSI")
-> Assisted-by: LLM
-> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+> Signed-off-by: Robin Snyders <robin@snyders.xyz>
+> Signed-off-by: Piyush Raj Chouhan <pc1598@mainlining.org>
 > ---
+>  drivers/misc/fastrpc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> 
 
 -- 
 With best wishes
