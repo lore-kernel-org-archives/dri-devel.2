@@ -4,80 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD057CA5FF0
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 00:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80CB9CA5FFF
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 00:51:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3A3B10E282;
-	Tue,  6 Oct 2026 00:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D32D910E24B;
+	Tue,  6 Oct 2026 00:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="R7MKzo8w";
+	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="xHoS5FoX";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="aIMEQInV";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75E1810E079
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 00:50:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791247843; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DUfs9VhUulxGNrli5hvMdWtiUVQGoeS0jMvqNoz2Xhe+SryXlPnO40uT8LqpZ5kIUiO5AkxOJLddGe/dnVBO2b+7twtJIcrSfBUqc33SoFaRcBJflry6ZLKhNVh9zbb83aPtoA5psvhIhh01f99cVBWnV20p06ZgdMyKOo1LrxE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791247843;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=v6NslssOJv8k7P+fxyeLKDx9iI1Cxv9dxkN6Y+YwHDE=; 
- b=Fx4ndkX+rJVEXBv/eU2X9cZPMyfjzNOpkYuaIzXiL+ok38jQ9+r4Tk4VdW9hmqOBNkGpxHKXEE8tAZmxB/aV1xXE7sN7LsqrO2oMu0e2nKfZMmHcTwHAtugfJkR1Bl5IopgfNfaoX444oIBhZzsKHn0fowhl8GVSjmvWTg6DX2I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791247843; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
- bh=v6NslssOJv8k7P+fxyeLKDx9iI1Cxv9dxkN6Y+YwHDE=;
- b=R7MKzo8wGdk5hL9HYsM/YzYJKLKefrrGo08Dv+fwKMp0T/+HIQxH0xBBtyWu5X3D
- cUj6UcqUkDKXwBEG/pLZUcxIY+JUAJ1X0DyAiVcj0uO2ZC+RWcs1L+p7Dbm6LOooZhM
- /TGTc0hZ7GlSabS+lIjz2TVkYxhk0RjLFY3A4qRI=
-Received: by smtp.zohomail.com with SMTPS id 1791247842722359.9365337907491;
- Mon, 5 Oct 2026 17:50:42 -0700 (PDT)
+X-Greylist: delayed 572 seconds by postgrey-1.36 at gabe;
+ Tue, 06 Oct 2026 00:51:12 UTC
+Received: from fhigh-b4-smtp.messagingengine.com
+ (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A67710E24B
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 00:51:12 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 058907A012B
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 20:41:39 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Mon, 05 Oct 2026 20:41:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:from:from:in-reply-to:message-id
+ :mime-version:reply-to:subject:subject:to:to; s=fm1; t=
+ 1791247298; x=1791333698; bh=qUjwN6cVWimq4YGkDnD9OApHHc6tso2lhN6
+ DEzPEgHk=; b=xHoS5FoX4e3YYYobIQQN2o8oCyjJ4ojXWcayRZh1tPsjZ3VmzmW
+ i1GoceGKdzy67LzbU1C4bXEVODLYHIHSMZeCOc8ObW6EppXgqDX7QYOdHBKqNsGz
+ ku2wpqm8VsKAONnyOcQxrLoSDMM6glWfXCsQx6l6MLXEPpuDLA4PdTGuipsMseQG
+ +b9mVgWu36ZQxZXg3AlJX4ok9yCH1ehMoA7qtnUbm3UccrPLnNahtlBLR0Fc47Mk
+ uj+aOEFS7+JhdbmRDGZQQ3hPBfBjRWqM1CThv5CPfPRyn0Nr8ZxmLCADUpebUlaH
+ 7XFybN1qHlbyUkmTRYKcDL0Sd0F+4Tgy1Yw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1791247298; x=1791333698; bh=qUjwN6cVWimq4YGkDnD9OApHHc6tso2lhN6
+ DEzPEgHk=; b=aIMEQInVSQVHFj5VHejKIc/XmKqx+XqIAOqpT9+9kpk+q9w5i8B
+ XzBzexpF6wx9o9zBH9+PbhtLylzxQQjF2yajYI3G9cKsi8cmdkp56Jz0yYnGXe4P
+ 4PWVlaETNc9MCjr0UJkiMdNF5n5FrlGXvi1CKC3Znz7Ev1bNa3KN+Kwq+NeKmY9M
+ MwkLnbLcOgBXg7avs65jKlTCIH83p0zw93XIF8pdH1UKXiNp8uaB2rj0YW+IYbMG
+ KJmjfkM4qGnyulzvLt/nErPEgoi6PFpMdJWBaU/+ugS7EJPdmTSQowSaAuK3YPEm
+ xwRJWV4Ubvy+cmIrEplfEOoJCrBqzaz4XlA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+ repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+ action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791247298; d=invisiblethingslab.com;
+ mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm1:rsa-sha256:sOEiC0uqxvhUv3ODMvcGtMsvlYw8d8928FWGLSsWLEufLoR
+ v8fuzV5mPHccW1uYxY9WpeXGbc4xZEdXqK05BEkRxsCw0gff8IQJ0izAHvu7xkrS
+ b0x8wmwZH9kt54BlTdHxGbOIswDpfdCuf2ShYNaQeD8NrmWtnUwaWkPZTDRvJGgv
+ KQx7cUR8Cbv6VyRcpx8uzNpgague4fAuJeAVkRCrlM8K+LyW9581GAt8G37ZKrl6
+ sZ1peU62Pk304axY1FeFXrkCp0WpzlxCNmmImq4SonToCUoKw+tU750HtHaFlDff
+ dCK2PLz/xNt92bgFHk94aexJm7Xt43tLM8BXGzQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+ repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+ action=mi-m=1; hc=9;
+ hn=cc,content-transfer-encoding,date,feedback-id,from,
+ message-id,mime-version,subject,to;
+Message-Instance: m=1;
+ h=sha256:VXGmOAcHE+COIr+Ugk47dsMGRRfa4TSxLqKmM5gRJlg=:/JKKG9OWHsEXY2DgUq3Osook2NoOxoMNSVYoBMcJ0Us=;
+X-ME-Sender: <xms:wUPEakJPHm4tN2jJLC1tSYxAFsy_-9WFuBhcDardYcd-H2-q3Q8jSQ>
+ <xme:wUPEagiL1auyRq8Ray9OJ2T9uInjW3YEQs-rIVytXsWiOQjMnfG_r2KJqDTZdaIPF
+ mJG9uSIoZj6lP1coM71QHpLkxQ-ygDX6leJ-AMNSd9z6sVcbg>
+X-ME-Received: <xmr:wUPEapLz8GKfYXNweGhHuFJRluUtsiSQMhKtvEtJ8bTpJvvALHdVMRZu_serq6jCvQOvTSGjRIOvkdZ1D_e4xVxkbu4kaDijLn0Qn8L9Yj8XOi55JHmVY2TsK9__gA>
+X-ME-Proxy-Cause: dmFkZTEghPExglsMQAefHWpXnSoQaFUzwamSACfKtu18jVVn7YsaobEf1oB3Cblr20uVmj
+ Rbcy7X1THMQvdvnO+0a74l/r04m00V8rlcpN2nFCpsY8rtnwVOcT42yEhbNomVHAyzwQla
+ IZp8Tjnc7lGuUBZYF+2zK7/nex4iWmeJr3ZBkDYa6MxmN7gWHV2YZGrELddNoZdkxS250L
+ 67TYwR6yXz0D4jgR8ukTX0AQlE5F3dpvSlLp2CXWCkvC1O68uR5blx6j7df6Q7fQyTtNK/
+ EWM6j/dSzW9HSzHIhdcnJiIvhwV6N5ZZKp3y49k9omvdX7jfwS/6m6QaVZ+lEmW/GuUBVj
+ Sh624997kl7RH+d0txrybDPHg6SV0VQQl+Zy3re6pgq/QMzlNMdscinCEEAgh2rtZR5zLE
+ 0bd9YpfNdv1S2DL5jZ5meFAuxswrCBbBXA9ydQE22p6AUj6eForvyPmlVw5a3D84SKL9JC
+ Bk2TkhVG0oMYlrcc8Mj+AmQhq8xlhYt7rIRUn0FCk74lhJ9E4CCbMzEB/t790vM4FKmPSg
+ paohVATps/zukDW6/uj1+UnMnl8aplA/MuZeTB6BPKk2N2jASx2zXDOCXyn6MIiGvmU7dB
+ cWLTU0Ipzfci9cjJr4oW1BHugm+Z8WIYvDAO2WCRtzplfluM99i6YE2Jvztw
+X-ME-Proxy: <xmx:wUPEavj1OUl9MiHPGg9qoQio3sskCMnRZGTxVGX54Go7cdWwaNzbdg>
+ <xmx:wUPEan0qEb7KZXH6GgeViKeVXI4LdoHkXD0QxojTo94tx1z3zzCluQ>
+ <xmx:wUPEaliJHgY0tk844L-FAGA5OE6f-bOwKolwlrnGolGAZyZr_9CQjQ>
+ <xmx:wUPEao-PsItpWjuuazUdeqwaASS8819v9QjdbUrHubfORPQxHpb-Yg>
+ <xmx:wkPEauJ6_g0_uducp_PemI5u4-SVAKWM8Hv89N51XC6GU5Qxa3QrTxoB>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 5 Oct 2026 20:41:34 -0400 (EDT)
+From: Val Packett <val@invisiblethingslab.com>
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Sergio Lopez <slp@redhat.com>
+Cc: Val Packett <val@invisiblethingslab.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/virtio: do not enforce blob_alignment in cross-domain
+ contexts
+Date: Mon,  5 Oct 2026 21:34:09 -0300
+Message-ID: <20261006004044.2242154-1-val@invisiblethingslab.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v12 03/15] drm/panfrost: Move debugfs initialisation to
- relevant subsystems
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <0d1ce769-3371-44c5-a6d9-e9a27d9e7cee@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-3-62beb08de207@collabora.com>
- <0d1ce769-3371-44c5-a6d9-e9a27d9e7cee@arm.com>
-Date: Tue, 06 Oct 2026 01:50:36 +0100
-Message-Id: <179124783676.1018806.9234646464163859519.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2318;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=n1KJjRw87lG1pDc10+5L7QJjt3rvVLAj/Fx8iESoCDA=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxEXcYajdbpd7dU0NPiyy/pUNJgtLHckn7+aia
- 3MVQjXmg7mJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasRF3AAKCRAOJn5M7lND
- PdCQC/9MYYWMBekLUwR5bh+h/dntrDLNAK5x2BVyJr+JX81ab1ER6lqflNYBK10bhcNE9l9W82o
- 95zPxeibQiveYHcqHgtmiJYW6ghMa2mkhotcQWCKY33IVJ6V/tAqLxs3yJuuehSAG9wAXYhdiv6
- 9LNdPJupaZwhDQvLmDFJJsG1ARLlE4xB1Ejn9k8kZeK9CzVeIHjrSyKkmZLVNU/F/FupvObl5ri
- JRWVBzDLhxc5bfK0tQOHG2mcQi5GmdUqm3O4AVzgHtPklNIyHq4NVakoAGca04kM642JLSRWiHU
- iQA3SvmwawaUkebhxgZnjIJ3yDS/HCXIu/ISVncf68O0Db/YDKn28nmcafJP6mZ7FkxXjylXS+Z
- dUloGaCB5N1ezehuGlEILuMKygbN1JgyuFY4B9cc7pjj4O7Ln+Oge+AfKxA9rhrdjmSD8Y5G61M
- Gxbm/8Wf+eNgn8pgOPs5kpJl0qGvcygB9Kii5MJiXexHyrnK3Pf9u9BY5u3b6NJfdLp4w=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,53 +121,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-10-02 15:10:07+01:00, Steven Price wrote:
-> On 29/09/2026 04:44, Adrián Larumbe wrote:
-> 
-> > Because debugfs knobs are a device interface, and also the different knobs
-> > deal with specific subsystems, it's best to move their initialisations away
-> > from panfrost_drv.c and into the subsystem they provide information about.
-> > 
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_device.c |   8 ++
-> >  drivers/gpu/drm/panfrost/panfrost_device.h |   4 +
-> >  drivers/gpu/drm/panfrost/panfrost_drv.c    | 129 +----------------------------
-> >  drivers/gpu/drm/panfrost/panfrost_gem.c    |  29 ++++++-
-> >  drivers/gpu/drm/panfrost/panfrost_gem.h    |   3 +-
-> >  drivers/gpu/drm/panfrost/panfrost_job.c    |  99 ++++++++++++++++++++++
-> >  drivers/gpu/drm/panfrost/panfrost_job.h    |   4 +
-> >  7 files changed, 144 insertions(+), 132 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > index c1a2e93a2b9b..5bf528f41278 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > @@ -561,3 +561,11 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
-> >  	RUNTIME_PM_OPS(panfrost_device_runtime_suspend, panfrost_device_runtime_resume, NULL)
-> >  	SYSTEM_SLEEP_PM_OPS(panfrost_device_suspend, panfrost_device_resume)
-> >  };
-> > +
-> > +#ifdef CONFIG_DEBUG_FS
-> > +void panfrost_device_debugfs_init(struct drm_minor *minor)
-> > +{
-> > +	panfrost_gem_debugfs_init(minor);
-> > +	panfrost_sched_debugfs_init(minor);
-> > +}
-> > +#endif // CONFIG_DEBUG_FS
-> 
-> NIT: I'd usually try to avoid #ifdefs like this by making the header
-> files define a no-op dummy inline function when !CONFIG_DEBUG_FS. It
-> saves polluting the code with a potentially large number of #ifdefs.
-> 
-> But I have to admit this isn't too bad and a definite improvement, so
-> it's up to you - either way:
-> 
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> 
-> Thanks,
-> Steve
+VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
+however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
+created under cross-domain contexts are arbitrary shared system memory
+files, which includes unusual things like Wayland keymaps received
+from the host compositor. Do not enforce alignment requirements there.
 
-I see most libraries doing this and agree it would help at removing some clutter.
-However, I think I'd rather take care of this in a future patch series.
+Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
+Signed-off-by: Val Packett <val@invisiblethingslab.com>
+---
+
+That took its time to be discovered since devices didn't start offering
+blob_alignment until now e.g. https://github.com/libkrun/libkrun/pull/886
+
+It would also be fine to just revert 47248e0d8264 but I guess this way
+no one would question why "there's an alignment and we aren't enforcing it"..
+
+Thanks,
+~val
+
+---
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+index 01a5f17cb22b..d493f04b9993 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
++++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+@@ -551,6 +551,8 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+ 	params->blob_hints = rc_blob->blob_hints;
+ 
+ 	if (vgdev->has_blob_alignment &&
++	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
++	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
+ 	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+ 		return -EINVAL;
+ 
+-- 
+2.55.0
+
