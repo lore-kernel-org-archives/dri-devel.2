@@ -4,70 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C92CA6004
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:51:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FC2CA5FFC
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:51:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7974110F5DB;
-	Wed,  7 Oct 2026 13:51:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB51610F5D9;
+	Wed,  7 Oct 2026 13:51:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="DMAleC8e";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H0sJ/KTU";
 	dkim-atps=neutral
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [208.88.110.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08FF710E3F1
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 18:42:27 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mail.savoirfairelinux.com (Postfix) with ESMTP id B6ABE3D8189B;
- Tue,  6 Oct 2026 14:36:17 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id 5OAxWsRJn-R7; Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.savoirfairelinux.com (Postfix) with ESMTP id 8E3763D8181A;
- Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 8E3763D8181A
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F3F610E397
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 22:14:21 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-3a75f960be4so8531241fa.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 15:14:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791324859; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ZsO4n93evcBRJHyYGO/pr1uU1Jz0NRPG/rMc2Gb2oKfidq+kfONcPXDBGnXimrDkrk
+ s6w6n/4ZYNPZUjZbOSBEX0XV9rDVnvkVPJwBlreGAwlHAxpgLhlyHG2oPnTREs7ANk6o
+ I+82UFsiBb+2JX3/oRWcam9d6f2In8tZCqWNEkGYEXuFLYuinz9Tg/gv0RIIgKkG0qOQ
+ 1dZOgyoWc1ekZtIh3QZ4f+PWECXfykjx9N5MZpzx1IdndK7jFn2qfP23AXHRX6ATjCgk
+ XjSXBod14KSPQIcwLA/SvIxDc6kJrwhZbwkTn6SbMJx8yUwtgvMKgNj10s0oAuZAyz++
+ KycA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
+ fh=ThARES5xqMmACv6nCD2M3tIyrnPGcr9jK+yOx5fdMio=;
+ b=qz2KqZm7WBMDJ2vyWLdqb0KRIC5Exm08l9DNY/7X/+v+amvNkp4PnsCRuCQoq53689
+ 5J+YkbUR8ExW+IZGpiPtFED3l1PNLbGZUa4skhjSe3XM2T5RBrDPoQFnAFGGT1aA3fDy
+ AKQSzNl7LvmVJ5AGovQvrqh3NpEGzsnTVHreMzN/XJHHx0aUZCMfxUoZviazLQGJYZv3
+ 78neWCRJV6Aj55KDlo8cVZCqS/Z1soTaWpDpkRE2XhflFfr3DfV8oaWsAQ5dBgqAaY87
+ 4d0bsG1rh8nVlZmILfSYVQ/kClmeYz8VkK7Fhwtd23v8sVyr8p5iPsxsrg1BGX3HmVUu
+ cVlA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
- t=1791311775; bh=pPwds9orn0zywC9UcxF6DhLudXbpgrTYR5kJrji9dy0=;
- h=From:To:Date:Message-Id:MIME-Version;
- b=DMAleC8esKLeub/wpChxTdvAyQ/mgAlVsj+QQS24lp4xasjPNT/++HcMkr2Ea5nur
- Vvg0zh1ZpRK/3YgLzzSmebOHKLxSuWBnVOEVern/TyFpnzPcZ9aastPvS8lHg/9X/+
- soobk/7nYdpExpIBlcf6W7Hxg3hgKlE4O94aJO8kjisz0WY/jHvH1fNkjoXLN6BecW
- gAw/tcUOcmf0RO1tBfC9oC+5alRmQZKLbXpffzGlKL9qttbZ2bLfusqYX1H2eInpVO
- VzgGngnSh/VDDMwB2oqsG/DFY9DDd8/Kkv7gnvp+JD9tn3QnioCWst3xBg8JVqmuAe
- +NX4MkwFTy1Mg==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id ma4RZqOj-GXA; Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
-Received: from localhost (unknown [192.168.51.254])
- by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 3AF573D81665;
- Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
-From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
- Felix Boucher <felix.boucher@savoirfairelinux.com>,
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-Subject: [PATCH 2/2] drm/panel: ilitek-ili9881c: Add DCLTek 300249 5.5in
- display
-Date: Tue,  6 Oct 2026 14:34:55 -0400
-Message-Id: <20261006183455.2350966-3-marc-olivier.champagne@savoirfairelinux.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261006183455.2350966-1-marc-olivier.champagne@savoirfairelinux.com>
-References: <20261006183455.2350966-1-marc-olivier.champagne@savoirfairelinux.com>
+ d=gmail.com; s=20251104; t=1791324859; x=1791929659; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
+ b=H0sJ/KTUVwg/ILyiB3enmAoFbFguvrD+UYaZ4X+QOFULlPBT+Fk++TndkBb01RpzS+
+ R2tCHpRZTIbKuy41uQhNzmoS/2A5Q4/MxLWVvkzxYFeKtzcOVfUApqF19YjSSXFUU2qE
+ /gsZjmymUsOeGkfe1oKTFMBCxYpK+wKPt5cOo6fAD9bOPgH0iB592WCfW4q8SbnnZin6
+ Qd17kQZplKSOp4BtAkRB1Gw2KmmnmxAoMf8h12Jpag0PmRnSlMsp5Icnk54WfZOmBUVm
+ mEC9ye2Guy/7mxMb3qwNsWtME1227mxZvUoB7TX5EMF2arzgqHbXn8YwyGNH3ny8IDB8
+ 6tDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791324859; x=1791929659;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
+ b=yG2ryVF5Lc9QYG6KFUgaleggaDPs/DkJt2rA/UGfGLXIVFzdPJ000KlPmpqRWQPs4U
+ bKefiMfneTaFQwzzB6dYWx9Dn+0wUL+1EOTMnF6/mThcFzG5DNfswZsXBvwKx9iv97aM
+ 0Ga8QWrzRHR8JnQyAwmP7SmZA+GkF811TodiZJH/apWH2R0qWFMUNZjzgxCypUnPDe8/
+ yYE7jGsKJATyj3S/+REn3EgSt/JBn/oPIJ15KLfz4/MpLqFeK5Q+3ueqntFW3HFlZ57x
+ MhLbscAI5lh0tvLCMTv58kpxN2k+2ASR02mSEw5rBQmfMdAxxRNnlJAzGB50EFHFvJOH
+ 4+mQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxMR+yLOlTLacGr6YMYGtwI5LPZocjeod0T4esKVkNgjZjvLqmw6rmgFh+8alG9NJ0STTLhDMnn1OI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKwQ+S5iaJVKvKWFW8qcXyFGMn3s6u4jHKohERkHr6CTed9n4gY
+ hrbk0iOEfGVVQiso9nEB/czUBWfAu6Sz/n3bssDR4FJc+mf3vesmZxZaYe4ehhsST6ldUTTj7JP
+ KFEI1ztpr0DzH9Z9OusT2RsXnbBlfwCs=
+X-Gm-Gg: AYBFou3kS6Bjz/y4XdLqZvMxum5gL5e5XoQQfc46icXAcw6uc/5chbzzjBZoLHIIE92
+ DPMqbrM7cFusiTWn7/3i+BO1NRJ+zqkOD2vz+v+Su8RZQKoX9MvYccADVyzrC0+X10KZ8VnkyJt
+ R4DdSSAqwPBOjeJ/inFXOThgv512pCmL1WDv9xaPHt680COcWiqqXt2kcZFsVr0QI0fDhTarDrL
+ RWEJEFYN4Q95tbaGaoaQgznMjC5IpolVs32NS1BDDpjr/jEtBfrsQL5ctj07e5ihUz5oDiytm0O
+ cqV8jRYj9aFIiNQmqxRFhI+njBi4jMuqUAlFeMD3qwTCEAu43mdXl9M=
+X-Received: by 2002:a2e:be84:0:b0:3a9:7160:e83e with SMTP id
+ 38308e7fff4ca-3a9a2cc1e75mr696691fa.8.1791324858938; Tue, 06 Oct 2026
+ 15:14:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+References: <20261004212403.208681-1-oss.patchbox@gmail.com>
+ <5e03928e7817104f062e27f0b14d180549f209c2@intel.com>
+In-Reply-To: <5e03928e7817104f062e27f0b14d180549f209c2@intel.com>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Tue, 6 Oct 2026 18:14:07 -0400
+X-Gm-Features: AclHuK-H1P6XAfW5WOEyeLge3myteWvfLBr0lYFKR2exJpjCcMV3nLYXUK8SvaY
+Message-ID: <CAGG=RgCoBZwks5CR9GK0+xk8kexj_wWZf23WwmSTLZBu1hW=eg@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
+ still in use
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin Zhang <xiaolin.zhang@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 07 Oct 2026 13:51:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,268 +110,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DCLTek dt300249 is an LCD panel using the Ilitek ILI9881C controller.
-Add the panel to the driver.
+Thank you for reviewing.
 
-Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
-linux.com>
----
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 216 ++++++++++++++++++
- 1 file changed, 216 insertions(+)
+On Tue, 6 Oct 2026 at 03:41, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>
+> IOW, you're not hitting the issue yourself? How did you find the issue?
+> Did you use LLM to write the patch?
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/=
-drm/panel/panel-ilitek-ili9881c.c
-index 7bf38e96678a..acc560dc5ea5 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -2198,6 +2198,195 @@ static const struct ili9881c_instr waveshare_7inc=
-h_a_init[] =3D {
- 	ILI9881C_COMMAND_INSTR(0x36, 0x00),
- };
-=20
-+static const struct ili9881c_instr dt300249_init[] =3D {
-+	ILI9881C_SWITCH_PAGE_INSTR(3),
-+	ILI9881C_COMMAND_INSTR(0x01, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x02, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x03, 0x72),
-+	ILI9881C_COMMAND_INSTR(0x04, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x05, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x06, 0x09),
-+	ILI9881C_COMMAND_INSTR(0x07, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x08, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x09, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x0a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0c, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x0d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0f, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x10, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x11, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x12, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x13, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x14, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x15, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x16, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x17, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x18, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x19, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1e, 0x40),
-+	ILI9881C_COMMAND_INSTR(0x1f, 0x80),
-+	ILI9881C_COMMAND_INSTR(0x20, 0x05),
-+	ILI9881C_COMMAND_INSTR(0x21, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x22, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x23, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x24, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x25, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x26, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x27, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x28, 0x33),
-+	ILI9881C_COMMAND_INSTR(0x29, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x2a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2f, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x30, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x31, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x32, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x33, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x34, 0x04),
-+	ILI9881C_COMMAND_INSTR(0x35, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x36, 0x2a),
-+	ILI9881C_COMMAND_INSTR(0x37, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x38, 0x3c),
-+	ILI9881C_COMMAND_INSTR(0x39, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3a, 0x40),
-+	ILI9881C_COMMAND_INSTR(0x3b, 0x40),
-+	ILI9881C_COMMAND_INSTR(0x3c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3f, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x40, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x41, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x42, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x43, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x44, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x50, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x51, 0x23),
-+	ILI9881C_COMMAND_INSTR(0x52, 0x45),
-+	ILI9881C_COMMAND_INSTR(0x53, 0x67),
-+	ILI9881C_COMMAND_INSTR(0x54, 0x89),
-+	ILI9881C_COMMAND_INSTR(0x55, 0xab),
-+	ILI9881C_COMMAND_INSTR(0x56, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x57, 0x23),
-+	ILI9881C_COMMAND_INSTR(0x58, 0x45),
-+	ILI9881C_COMMAND_INSTR(0x59, 0x67),
-+	ILI9881C_COMMAND_INSTR(0x5a, 0x89),
-+	ILI9881C_COMMAND_INSTR(0x5b, 0xab),
-+	ILI9881C_COMMAND_INSTR(0x5c, 0xcd),
-+	ILI9881C_COMMAND_INSTR(0x5d, 0xef),
-+	ILI9881C_COMMAND_INSTR(0x5e, 0x11),
-+	ILI9881C_COMMAND_INSTR(0x5f, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x60, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x61, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x62, 0x14),
-+	ILI9881C_COMMAND_INSTR(0x63, 0x0e),
-+	ILI9881C_COMMAND_INSTR(0x64, 0x0f),
-+	ILI9881C_COMMAND_INSTR(0x65, 0x0c),
-+	ILI9881C_COMMAND_INSTR(0x66, 0x0d),
-+	ILI9881C_COMMAND_INSTR(0x67, 0x06),
-+	ILI9881C_COMMAND_INSTR(0x68, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x69, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6a, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6b, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6c, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6d, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6e, 0x07),
-+	ILI9881C_COMMAND_INSTR(0x6f, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x70, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x71, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x72, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x73, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x74, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x75, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x76, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x77, 0x14),
-+	ILI9881C_COMMAND_INSTR(0x78, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x79, 0x0e),
-+	ILI9881C_COMMAND_INSTR(0x7a, 0x0f),
-+	ILI9881C_COMMAND_INSTR(0x7b, 0x0c),
-+	ILI9881C_COMMAND_INSTR(0x7c, 0x0d),
-+	ILI9881C_COMMAND_INSTR(0x7d, 0x06),
-+	ILI9881C_COMMAND_INSTR(0x7e, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x7f, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x80, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x81, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x82, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x83, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x84, 0x07),
-+	ILI9881C_COMMAND_INSTR(0x85, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x86, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x87, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x88, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x89, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x8a, 0x02),
-+	ILI9881C_SWITCH_PAGE_INSTR(4),
-+	ILI9881C_COMMAND_INSTR(0x6c, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x6e, 0x2a),
-+	ILI9881C_COMMAND_INSTR(0x6f, 0x33),
-+	ILI9881C_COMMAND_INSTR(0x3a, 0x94),
-+	ILI9881C_COMMAND_INSTR(0x8d, 0x1a),
-+	ILI9881C_COMMAND_INSTR(0x87, 0xba),
-+	ILI9881C_COMMAND_INSTR(0x26, 0x76),
-+	ILI9881C_COMMAND_INSTR(0xb2, 0xd1),
-+	ILI9881C_COMMAND_INSTR(0xb5, 0x06),
-+	ILI9881C_SWITCH_PAGE_INSTR(1),
-+	ILI9881C_COMMAND_INSTR(0x22, 0x0a),
-+	ILI9881C_COMMAND_INSTR(0x31, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x53, 0x84),
-+	ILI9881C_COMMAND_INSTR(0x55, 0x8f),
-+	ILI9881C_COMMAND_INSTR(0x50, 0xae),
-+	ILI9881C_COMMAND_INSTR(0x51, 0xae),
-+	ILI9881C_COMMAND_INSTR(0x60, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xa0, 0x0f),
-+	ILI9881C_COMMAND_INSTR(0xa1, 0x1b),
-+	ILI9881C_COMMAND_INSTR(0xa2, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xa3, 0x12),
-+	ILI9881C_COMMAND_INSTR(0xa4, 0x15),
-+	ILI9881C_COMMAND_INSTR(0xa5, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xa6, 0x1b),
-+	ILI9881C_COMMAND_INSTR(0xa7, 0x1e),
-+	ILI9881C_COMMAND_INSTR(0xa8, 0x79),
-+	ILI9881C_COMMAND_INSTR(0xa9, 0x1b),
-+	ILI9881C_COMMAND_INSTR(0xaa, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xab, 0x69),
-+	ILI9881C_COMMAND_INSTR(0xac, 0x19),
-+	ILI9881C_COMMAND_INSTR(0xad, 0x18),
-+	ILI9881C_COMMAND_INSTR(0xae, 0x4c),
-+	ILI9881C_COMMAND_INSTR(0xaf, 0x21),
-+	ILI9881C_COMMAND_INSTR(0xb0, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xb1, 0x52),
-+	ILI9881C_COMMAND_INSTR(0xb2, 0x65),
-+	ILI9881C_COMMAND_INSTR(0xb3, 0x3f),
-+	ILI9881C_COMMAND_INSTR(0xc0, 0x04),
-+	ILI9881C_COMMAND_INSTR(0xc1, 0x1b),
-+	ILI9881C_COMMAND_INSTR(0xc2, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xc3, 0x13),
-+	ILI9881C_COMMAND_INSTR(0xc4, 0x15),
-+	ILI9881C_COMMAND_INSTR(0xc5, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xc6, 0x1c),
-+	ILI9881C_COMMAND_INSTR(0xc7, 0x1e),
-+	ILI9881C_COMMAND_INSTR(0xc8, 0x79),
-+	ILI9881C_COMMAND_INSTR(0xc9, 0x1a),
-+	ILI9881C_COMMAND_INSTR(0xca, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xcb, 0x69),
-+	ILI9881C_COMMAND_INSTR(0xcc, 0x1a),
-+	ILI9881C_COMMAND_INSTR(0xcd, 0x18),
-+	ILI9881C_COMMAND_INSTR(0xce, 0x4c),
-+	ILI9881C_COMMAND_INSTR(0xcf, 0x21),
-+	ILI9881C_COMMAND_INSTR(0xd0, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xd1, 0x52),
-+	ILI9881C_COMMAND_INSTR(0xd2, 0x65),
-+	ILI9881C_COMMAND_INSTR(0xd3, 0x3f),
-+};
-+
- static inline struct ili9881c *panel_to_ili9881c(struct drm_panel *panel=
-)
- {
- 	return container_of(panel, struct ili9881c, panel);
-@@ -2493,6 +2682,23 @@ static const struct drm_display_mode waveshare_7in=
-ch_a_mode =3D {
- 	.height_mm	=3D 154,
- };
-=20
-+static const struct drm_display_mode dt300249_default_mode =3D {
-+	.clock		=3D 62000,
-+
-+	.hdisplay	=3D 720,
-+	.hsync_start	=3D 720 + 10,	/* HFP =3D 10 */
-+	.hsync_end	=3D 720 + 10 + 20,	/* HSYNC =3D 20 */
-+	.htotal		=3D 720 + 10 + 20 + 20,	/* HBP =3D 20, htotal =3D 770 */
-+
-+	.vdisplay	=3D 1280,
-+	.vsync_start	=3D 1280 + 10,	/* VFP =3D 10 */
-+	.vsync_end	=3D 1280 + 10 + 10,	/* VSYNC =3D 10 */
-+	.vtotal		=3D 1280 + 10 + 10 + 20,	/* VBP =3D 20, vtotal =3D 1320 */
-+
-+	.width_mm	=3D 68,
-+	.height_mm	=3D 121,
-+};
-+
- static int ili9881c_get_modes(struct drm_panel *panel,
- 			      struct drm_connector *connector)
- {
-@@ -2698,9 +2904,19 @@ static const struct ili9881c_desc waveshare_7inch_=
-a_desc =3D {
- 	.lanes =3D 2,
- };
-=20
-+static const struct ili9881c_desc dt300249_desc =3D {
-+	.init =3D dt300249_init,
-+	.init_length =3D ARRAY_SIZE(dt300249_init),
-+	.mode =3D &dt300249_default_mode,
-+	.mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+		      MIPI_DSI_MODE_LPM,
-+	.lanes =3D 4,
-+};
-+
- static const struct of_device_id ili9881c_of_match[] =3D {
- 	{ .compatible =3D "bananapi,lhr050h41", .data =3D &lhr050h41_desc },
- 	{ .compatible =3D "bestar,bsd1218-a101kl68", .data =3D &bsd1218_a101kl6=
-8_desc },
-+	{ .compatible =3D "dcltek,dt300249", .data =3D &dt300249_desc },
- 	{ .compatible =3D "feixin,k101-im2byl02", .data =3D &k101_im2byl02_desc=
- },
- 	{ .compatible =3D "startek,kd050hdfia020", .data =3D &kd050hdfia020_des=
-c },
- 	{ .compatible =3D "tdo,tl050hdv35", .data =3D &tl050hdv35_desc },
---=20
-2.34.1
+As part of security research, I am reviewing how virtualization code manages
+the lifetime of resources it shares with guests and devices.
 
+> Did you use LLM to write the patch?
+
+While preparing this patch, I asked an AI assistant questions to confirm my
+understanding of how the driver works. So technically yes, an LLM was used
+in making this patch. I should have disclosed this in the submission; v2 will
+carry it.
