@@ -4,105 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80CB9CA5FFF
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 00:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9A05CA5FF0
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 00:51:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D32D910E24B;
-	Tue,  6 Oct 2026 00:51:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDF510E262;
+	Tue,  6 Oct 2026 00:51:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="xHoS5FoX";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="aIMEQInV";
+	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="OxLZv8Tz";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="PM4JXWyL";
 	dkim-atps=neutral
-X-Greylist: delayed 572 seconds by postgrey-1.36 at gabe;
- Tue, 06 Oct 2026 00:51:12 UTC
-Received: from fhigh-b4-smtp.messagingengine.com
- (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A67710E24B
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 00:51:12 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 058907A012B
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 20:41:39 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Mon, 05 Oct 2026 20:41:40 -0400
+Received: from fout-b8-smtp.messagingengine.com
+ (fout-b8-smtp.messagingengine.com [202.12.124.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11BDE10E262
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 00:51:22 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.stl.internal (Postfix) with ESMTP id 77CED1D000A6
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 20:51:21 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Mon, 05 Oct 2026 20:51:21 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  invisiblethingslab.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:from:from:in-reply-to:message-id
  :mime-version:reply-to:subject:subject:to:to; s=fm1; t=
- 1791247298; x=1791333698; bh=qUjwN6cVWimq4YGkDnD9OApHHc6tso2lhN6
- DEzPEgHk=; b=xHoS5FoX4e3YYYobIQQN2o8oCyjJ4ojXWcayRZh1tPsjZ3VmzmW
- i1GoceGKdzy67LzbU1C4bXEVODLYHIHSMZeCOc8ObW6EppXgqDX7QYOdHBKqNsGz
- ku2wpqm8VsKAONnyOcQxrLoSDMM6glWfXCsQx6l6MLXEPpuDLA4PdTGuipsMseQG
- +b9mVgWu36ZQxZXg3AlJX4ok9yCH1ehMoA7qtnUbm3UccrPLnNahtlBLR0Fc47Mk
- uj+aOEFS7+JhdbmRDGZQQ3hPBfBjRWqM1CThv5CPfPRyn0Nr8ZxmLCADUpebUlaH
- 7XFybN1qHlbyUkmTRYKcDL0Sd0F+4Tgy1Yw==
+ 1791247880; x=1791334280; bh=tRmGBPddwRXIEIkuPN35f35fGROq9M41+zS
+ XYOhRKVM=; b=OxLZv8TzQnJsApYqfcRLiFoDtaZz7z3fuC4g0PvVjV0PXoeUa37
+ lGccsQdmpd/IrAb/8Cc8w0Oi5tG8NPPQQQdSrh2O/NexetpRZLGf/T4Ueg2+xlpa
+ SesEjf48ilsGa5ggjjniRNq3boeJa8l803Ff5TTLnxoGNzRfRCsuGyFf2tGG30zM
+ jUwsBjq5EXBGGzB2wTy2oBZfFc5UBd/XC1o0jug6LqjydDFWrSsgVJXSTytWPcoI
+ IvTStnK/IVXJhXiiplee8uiu/70qj7bwqi/B/UrDrqHxkmWbBmeEakojZJn8z0m0
+ Q+LvvUtr7rzdA3sZ5YPlyRxPKFrfIuJ53vQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
  :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1791247298; x=1791333698; bh=qUjwN6cVWimq4YGkDnD9OApHHc6tso2lhN6
- DEzPEgHk=; b=aIMEQInVSQVHFj5VHejKIc/XmKqx+XqIAOqpT9+9kpk+q9w5i8B
- XzBzexpF6wx9o9zBH9+PbhtLylzxQQjF2yajYI3G9cKsi8cmdkp56Jz0yYnGXe4P
- 4PWVlaETNc9MCjr0UJkiMdNF5n5FrlGXvi1CKC3Znz7Ev1bNa3KN+Kwq+NeKmY9M
- MwkLnbLcOgBXg7avs65jKlTCIH83p0zw93XIF8pdH1UKXiNp8uaB2rj0YW+IYbMG
- KJmjfkM4qGnyulzvLt/nErPEgoi6PFpMdJWBaU/+ugS7EJPdmTSQowSaAuK3YPEm
- xwRJWV4Ubvy+cmIrEplfEOoJCrBqzaz4XlA==
+ 1791247880; x=1791334280; bh=tRmGBPddwRXIEIkuPN35f35fGROq9M41+zS
+ XYOhRKVM=; b=PM4JXWyLOgavv4Ys8VgoNmdCyNG8yv99fshlaCPDiDwsyPTzQqC
+ TxwsqY8XkUUYYFrWYIDZ26nvhM5TD1dw2o2dd4zdNoGf6xZkr1f8RclAV+8Lyeqa
+ rEH+5bbnw3Bb8/rpgqbn1ZkehX9JNonU67hPrRnSJXQytJORHjwc2m/SvVMk920e
+ 1rEl0CnPPufiV8CE47UUo6md9tHlJVbiB1YVVIrGizUlyjOJdKn7Nc+uHOr92IQh
+ Uo5Wt62TEoJpHRGmw+8VphYrVZVV8qbOhldGNy6Q+CGmqXGsI9V0rZY+jYdci0m6
+ 4HTBiYHYx4/pNkQ2GJyRF8Hsnl3KY/1Eldw==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
- repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+ repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
  action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791247298; d=invisiblethingslab.com;
+DKIM2-Signature: i=1; m=1; t=1791247880; d=invisiblethingslab.com;
  mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
  rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:sOEiC0uqxvhUv3ODMvcGtMsvlYw8d8928FWGLSsWLEufLoR
- v8fuzV5mPHccW1uYxY9WpeXGbc4xZEdXqK05BEkRxsCw0gff8IQJ0izAHvu7xkrS
- b0x8wmwZH9kt54BlTdHxGbOIswDpfdCuf2ShYNaQeD8NrmWtnUwaWkPZTDRvJGgv
- KQx7cUR8Cbv6VyRcpx8uzNpgague4fAuJeAVkRCrlM8K+LyW9581GAt8G37ZKrl6
- sZ1peU62Pk304axY1FeFXrkCp0WpzlxCNmmImq4SonToCUoKw+tU750HtHaFlDff
- dCK2PLz/xNt92bgFHk94aexJm7Xt43tLM8BXGzQ==;
+ s=fm1:rsa-sha256:KK3WBAi2JPqwF/rA8luU0VLClhi7/TfrTz04lyuIhrXcHJ7
+ fiHN1YgofM+Z4mRTYgmIS4zTIMd1eQ9NJX8GtsGBdpOnE8WIlAFnEoEUr/vaBbvB
+ yjqs1MDBbF1VRitip54E/TqbKVL94zH9lxUlpFh9NCuoXQQ0oOvrXsDwYTmkLfBv
+ q7MddZ8FLQPrsKmR9F/io9SBsrW75a/lLZssa+Ry3MHtHRpaLe3e3KsgeN5usQE7
+ 8PPCmUwU5QXqv212KurHirQ6UFSKY2ZmeJ4j64R8JCncQ+mvyPXFhi/aK1eiwDkM
+ kguel7VSvL+RRCchOqP3f/YEA5zAKQdpgTiEb0A==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
- repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+ repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
  action=mi-m=1; hc=9;
  hn=cc,content-transfer-encoding,date,feedback-id,from,
  message-id,mime-version,subject,to;
 Message-Instance: m=1;
- h=sha256:VXGmOAcHE+COIr+Ugk47dsMGRRfa4TSxLqKmM5gRJlg=:/JKKG9OWHsEXY2DgUq3Osook2NoOxoMNSVYoBMcJ0Us=;
-X-ME-Sender: <xms:wUPEakJPHm4tN2jJLC1tSYxAFsy_-9WFuBhcDardYcd-H2-q3Q8jSQ>
- <xme:wUPEagiL1auyRq8Ray9OJ2T9uInjW3YEQs-rIVytXsWiOQjMnfG_r2KJqDTZdaIPF
- mJG9uSIoZj6lP1coM71QHpLkxQ-ygDX6leJ-AMNSd9z6sVcbg>
-X-ME-Received: <xmr:wUPEapLz8GKfYXNweGhHuFJRluUtsiSQMhKtvEtJ8bTpJvvALHdVMRZu_serq6jCvQOvTSGjRIOvkdZ1D_e4xVxkbu4kaDijLn0Qn8L9Yj8XOi55JHmVY2TsK9__gA>
-X-ME-Proxy-Cause: dmFkZTEghPExglsMQAefHWpXnSoQaFUzwamSACfKtu18jVVn7YsaobEf1oB3Cblr20uVmj
- Rbcy7X1THMQvdvnO+0a74l/r04m00V8rlcpN2nFCpsY8rtnwVOcT42yEhbNomVHAyzwQla
- IZp8Tjnc7lGuUBZYF+2zK7/nex4iWmeJr3ZBkDYa6MxmN7gWHV2YZGrELddNoZdkxS250L
- 67TYwR6yXz0D4jgR8ukTX0AQlE5F3dpvSlLp2CXWCkvC1O68uR5blx6j7df6Q7fQyTtNK/
- EWM6j/dSzW9HSzHIhdcnJiIvhwV6N5ZZKp3y49k9omvdX7jfwS/6m6QaVZ+lEmW/GuUBVj
- Sh624997kl7RH+d0txrybDPHg6SV0VQQl+Zy3re6pgq/QMzlNMdscinCEEAgh2rtZR5zLE
- 0bd9YpfNdv1S2DL5jZ5meFAuxswrCBbBXA9ydQE22p6AUj6eForvyPmlVw5a3D84SKL9JC
- Bk2TkhVG0oMYlrcc8Mj+AmQhq8xlhYt7rIRUn0FCk74lhJ9E4CCbMzEB/t790vM4FKmPSg
- paohVATps/zukDW6/uj1+UnMnl8aplA/MuZeTB6BPKk2N2jASx2zXDOCXyn6MIiGvmU7dB
- cWLTU0Ipzfci9cjJr4oW1BHugm+Z8WIYvDAO2WCRtzplfluM99i6YE2Jvztw
-X-ME-Proxy: <xmx:wUPEavj1OUl9MiHPGg9qoQio3sskCMnRZGTxVGX54Go7cdWwaNzbdg>
- <xmx:wUPEan0qEb7KZXH6GgeViKeVXI4LdoHkXD0QxojTo94tx1z3zzCluQ>
- <xmx:wUPEaliJHgY0tk844L-FAGA5OE6f-bOwKolwlrnGolGAZyZr_9CQjQ>
- <xmx:wUPEao-PsItpWjuuazUdeqwaASS8819v9QjdbUrHubfORPQxHpb-Yg>
- <xmx:wkPEauJ6_g0_uducp_PemI5u4-SVAKWM8Hv89N51XC6GU5Qxa3QrTxoB>
+ h=sha256:2bupfxoc7c/W78shAkUTwaYLOwOELTJM7wttvyVs7wM=:DbE2ljPHR9RLBxRiQC0D1Il93+Qii2jUhAcHu4S2aWA=;
+X-ME-Sender: <xms:B0bEauEqVdfeXFKs-e7g2ZZTYSriScAMcJyzvfpHWU-iWAAbb4tOMg>
+ <xme:B0bEanh4p5sOf8R3qsLUSmoIShXj8yn2hqaYeI6ywrB3v4N3ZTuD0AG6z_Zl2CYtn
+ pspJtAV2Xl4lUyHouNxKHmVXObB1-nIxO6OVfzm5ss8LnlmBvo>
+X-ME-Received: <xmr:B0bEajvdpGScqynbwxTWB59fUXCdzLuViDx2h-uHl-HXS5iCkS7rDbs-D75_EjDzVpgHrqw22BAYuFwwLU_JRcqsCZ21RMA14uOQbHN6YnicziOgT8UYPyQrQdDKkw>
+X-ME-Proxy-Cause: dmFkZTGDeGecfuOBqBR+BQhzcXn/vNYPPEmBB26O+qh7FZR7AUWqdQtYPjhC6dsLaDuBea
+ IeTTQ8cmgK80NNnBDqKATqjtVF4/aX3CSonUXyU8NmWyhcyIhTs/9zvqYDF0sB+7+ZIQdM
+ 9BowT4dTsQLooVUdU9xViDIHD23gTeHkjfPMGpOvGX4nslU+OWiL1aI8E3CWpnfnx3JzSv
+ 2Mfm2NUZXTHi96BFZEOZzjtluW7L83Db8YedS+pGUpiqrYrNSUgOfmbo7kLzifDvFwePml
+ 3SyuoIORcUukCr/0RuDX7tj9pdkGzDL4n/3wFyh0IdxaaedWq8etqdwyR9PF8lKHDgYuP0
+ JqX6/erQXDHZNY28l0+SxIWThsa633lKoUdWDbeHfliIx4PBhJX553VLMcZ6QjnySIWH9f
+ MCctceavToVfBDwR80C7wEAbrqgadx4IShdfXGfXppcC7rsUE/caKhn8OD4fa7LLwMPKxV
+ cPGtmqHqosDZw4eaBKVIjyYhxJE3YniwbA9HJcsZcOrUPwYph25aVe0K7qEDZzF4l2RoMP
+ c/NMssbwZInDhFt38or4vj7DMByUMWp4m/lsO8flGPn8JAC+I7U/fcc/pF5zUqgJS5AnfK
+ 5bOV+BI5cxaEor1igM/TmaO5VNjIA61w/g2QIlboIVeR6vdR6cswUpgKyd0A
+X-ME-Proxy: <xmx:B0bEaiu60XcoIr3amhSs1wBVqPsOwV5CYC8qOQLlWx5WK4EYc01q-g>
+ <xmx:B0bEagEqgVLC9LGHWjWOsSaLJZbg7e_ka-dzkSP1qPS7nKUGQCAWXA>
+ <xmx:B0bEalObjLpfT5Oo3e6Id77xmP9zZQUhaM2htVp07bN_osf6r5G74w>
+ <xmx:B0bEanLPubuPUz9h6iTkBRPP4Q0IzP4ltDPuVkbvCuKE_s12tWf0Cw>
+ <xmx:CEbEal7VrXbZHnEm8MDnRY7wWC0yzRqgQKL2ebMONKeDyx3ffT82Mg03>
 Feedback-ID: i001e48d0:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Oct 2026 20:41:34 -0400 (EDT)
+ 5 Oct 2026 20:51:17 -0400 (EDT)
 From: Val Packett <val@invisiblethingslab.com>
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Sergio Lopez <slp@redhat.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>
 Cc: Val Packett <val@invisiblethingslab.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/virtio: do not enforce blob_alignment in cross-domain
- contexts
-Date: Mon,  5 Oct 2026 21:34:09 -0300
-Message-ID: <20261006004044.2242154-1-val@invisiblethingslab.com>
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] udmabuf: Disable the list length limit by default
+Date: Mon,  5 Oct 2026 21:48:53 -0300
+Message-ID: <20261006005053.2245156-1-val@invisiblethingslab.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -121,42 +116,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
-however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
-created under cross-domain contexts are arbitrary shared system memory
-files, which includes unusual things like Wayland keymaps received
-from the host compositor. Do not enforce alignment requirements there.
+Shared memory buffers for software-rendered GUI applications are often
+large and highly fragmented in memory. To get a shareable handle to such
+a buffer from a guest VM, a virtio-gpu device backend can use the
+UDMABUF_CREATE_LIST ioctl with the memfds backing guest RAM and the list
+of guest physical pages sent by the guest driver. That list reaches 80K
+entries for a maximized window on a 4K display!
 
-Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
+Like 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+did for the size limit, change the default to INT_MAX since the amount
+of protection provided by this limit seems dubious.
+
 Signed-off-by: Val Packett <val@invisiblethingslab.com>
 ---
+ drivers/dma-buf/udmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-That took its time to be discovered since devices didn't start offering
-blob_alignment until now e.g. https://github.com/libkrun/libkrun/pull/886
-
-It would also be fine to just revert 47248e0d8264 but I guess this way
-no one would question why "there's an alignment and we aren't enforcing it"..
-
-Thanks,
-~val
-
----
- drivers/gpu/drm/virtio/virtgpu_ioctl.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index 01a5f17cb22b..d493f04b9993 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -551,6 +551,8 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
- 	params->blob_hints = rc_blob->blob_hints;
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd0046242..589031133588 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -16,9 +16,9 @@
+ #include <linux/vmalloc.h>
+ #include <linux/iosys-map.h>
  
- 	if (vgdev->has_blob_alignment &&
-+	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
-+	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
- 	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
- 		return -EINVAL;
+-static int list_limit = 1024;
++static int list_limit = INT_MAX;
+ module_param(list_limit, int, 0644);
+-MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
++MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is INT_MAX.");
  
+ static int size_limit_mb = INT_MAX;
+ module_param(size_limit_mb, int, 0644);
 -- 
 2.55.0
 
