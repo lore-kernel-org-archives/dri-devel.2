@@ -4,44 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8255ECA5FFF
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 00:53:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ED98CA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 03:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82B1F10E1D5;
-	Tue,  6 Oct 2026 00:53:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFACA10E2CE;
+	Tue,  6 Oct 2026 03:43:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QdLv2lDk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kseey+5s";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D77A810E1D5
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 00:53:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 03918601F1;
- Tue,  6 Oct 2026 00:53:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E821F000FF;
- Tue,  6 Oct 2026 00:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791248032;
- bh=nZyWsuZ29X2XjD5qUL3PY1cLlVg7igHjAZzuJpMN4rU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QdLv2lDk/b4OVrPWre/WwQ+NPyhC1mAgJJjxNUsce5T61RC9G/rT7yfTsBasaFTfX
- LqTG9iZdyPdPZzrgMX5Pnx9nacRQCBz7J+n3GhItqB2aPH2KFrfsxn91wgM6tA+dbT
- i62Klv6xYIJrYSVo+QSbvkTvpzAMIqn3xMSG4OnB3sCRdiFubx1XHP4ud9LnaZ8Lvc
- KxcKqSt/yzRrGAgFA6HLVQjHnz0ZuH9OHJlDbYQDHZl1BVowxPu26kyn2i6GiQR1/w
- lCSDLSzbEoDTwZT7ruypdExqtVqbZk/HVwl4bizP8v+0cDlANsgQL3LUaDPNMXoGzg
- doepAKHknnSPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/virtio: do not enforce blob_alignment in
- cross-domain contexts
-To: "Val Packett" <val@invisiblethingslab.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261006004044.2242154-1-val@invisiblethingslab.com>
-References: <20261006004044.2242154-1-val@invisiblethingslab.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 00:53:52 +0000
-Message-Id: <20261006005352.77E821F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0730110E2CE
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 03:43:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791258230; x=1822794230;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=3tgkAQgFnZ1KpY58GWODV6fxFp7Qx3kbvjbBmjjBKTM=;
+ b=kseey+5sK5x4/yCKtoAEZ5jj7I5OJx+PoiTTPySS59QLxGZhMzmyIhsO
+ W0qFHdaIFtgnYa8MiTw3gUz8/T6o9BqEbosWMGp5FslU8EfJi/K5cfrWI
+ eHCGjqwL/H46tEmaFwOJu7g81WSJXqacSWZFUvNGuk7kbVWtuN/9sLDFF
+ Ws/85xAtr3RqOVGaNbU1FBmui1gs5sJdoXcP3gKXrsyf5Xt7Tjdw1alds
+ /HMDx0E9kTPpF9hrpzzD2bla58xXAVoPHrEwW/6FfI0sBm5cIgr7n68C3
+ ykNvWmMLchewhmSWOufpkHipMl8S+BMRelmIMGyzmFVplDAIvuzbZ1r1J w==;
+X-CSE-ConnectionGUID: o3KUFpAQRSWewVFJSgz6ig==
+X-CSE-MsgGUID: xRsz72JAQ8u9rhTYKS8atw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94812292"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="94812292"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2026 20:43:49 -0700
+X-CSE-ConnectionGUID: kPfbZEwwRryQKtQgZMlbLA==
+X-CSE-MsgGUID: rCb0w7q3R9Ccc2zH61qK/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="276530544"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa007.fm.intel.com with ESMTP; 05 Oct 2026 20:43:45 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xDw5e-0000000017k-15jA;
+ Tue, 06 Oct 2026 03:43:42 +0000
+Date: Tue, 6 Oct 2026 11:42:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
+Message-ID: <202610061119.aQ5vg3Ez-lkp@intel.com>
+References: <20261004163114.181800-5-clamor95@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004163114.181800-5-clamor95@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,69 +79,40 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] drm/virtio: NULL pointer dereference in verify_blob() when 3D =
-features are disabled
-- [Medium] drm/virtio: data race when reading vfpriv->context_init in verif=
-y_blob()
+Hi Svyatoslav,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next linus/master v7.3-rc6 next-20261005]
+[cannot apply to tegra/for-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/drm-tegra-dc-Expand-available-registers-layouts/20261004-193108
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261004163114.181800-5-clamor95%40gmail.com
+patch subject: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
+config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20261006/202610061119.aQ5vg3Ez-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061119.aQ5vg3Ez-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061119.aQ5vg3Ez-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   hppa-linux-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_driver_init':
+>> (.init.text+0x10): multiple definition of `init_module'; drivers/gpu/drm/tegra/drm.o:(.init.text+0x10): first defined here
+   hppa-linux-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_driver_exit':
+>> (.exit.text+0x0): multiple definition of `cleanup_module'; drivers/gpu/drm/tegra/drm.o:(.exit.text+0x0): first defined here
+
 --
-
-commit e614dba4f51f24b9effac7458783e310e89be777
-Author: Val Packett <val@invisiblethingslab.com>
-drm/virtio: do not enforce blob_alignment in cross-domain contexts
-
-The commit prevents enforcing blob_alignment requirements in cross-domain
-contexts, as resources created there are arbitrary shared system memory fil=
-es
-like Wayland keymaps.
-
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/vir=
-tio/virtgpu_ioctl.c
-> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> @@ -540,6 +540,8 @@ static int verify_blob(struct virtio_gpu_device *vgde=
-v,
->  	params->blob_hints =3D rc_blob->blob_hints;
-> =20
->  	if (vgdev->has_blob_alignment &&
-> +	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=3D
-> +	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
-
-[Severity: Critical]
-If a virtio-gpu device advertises VIRTIO_GPU_F_RESOURCE_BLOB and
-VIRTIO_GPU_F_BLOB_ALIGNMENT but not VIRTIO_GPU_F_VIRGL, could this cause a
-NULL pointer dereference?
-
-In this scenario, virtio_gpu_driver_open() returns successfully but leaves
-file->driver_priv (which is passed as vfpriv) as NULL. When userspace then
-calls DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB with VIRTGPU_BLOB_MEM_GUEST,
-verify_blob() is reached without aborting on the has_virgl_3d check.
-
-This newly added code will then unconditionally dereference
-vfpriv->context_init because vgdev->has_blob_alignment is true, causing a
-kernel panic. Is there a way to verify vfpriv is not NULL before accessing
-context_init?
-
-[Severity: Medium]
-Does this introduce a data race when reading context_init?
-
-This accesses the lock-protected context_init field without acquiring
-vfpriv->context_lock. A lockless read of context_init could read a partially
-written bitmask if updated concurrently, leading to incorrectly enforcing or
-bypassing blob alignment checks and returning spurious -EINVAL to userspace.
-
-This could happen if userspace calls DRM_IOCTL_VIRTGPU_CONTEXT_INIT and
-DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB concurrently on the same file
-descriptor.
-
->  	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
->  		return -EINVAL;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006004044.2242=
-154-1-val@invisiblethingslab.com?part=3D1
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
