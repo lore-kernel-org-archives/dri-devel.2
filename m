@@ -4,43 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A738CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C45D2CA5FF0
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:21:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ACAC10E3EC;
-	Tue,  6 Oct 2026 13:19:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 239A010E6E3;
+	Tue,  6 Oct 2026 13:21:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X/6+jtri";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdQe8ZD7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AD4310E3EC
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:19:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BCF410E6E3
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:21:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A3AE5418B7;
- Tue,  6 Oct 2026 13:19:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6870D1F000FF;
- Tue,  6 Oct 2026 13:19:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AC49C601E4;
+ Tue,  6 Oct 2026 13:21:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB3A1F000FF;
+ Tue,  6 Oct 2026 13:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791292760;
- bh=SPGEuxVRGc0U6ugcz8kluCuYJtEw43OvlJlFhYe1sPE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X/6+jtriD9jJxB4M3GuaO80rZpsGB9k5Tv2AcpJG9PZNXs3sSuVuAVj8tjaVHqWFo
- hOy987ymV1jYz8rSDFxgtw9m48EAhwFDbe04LF/QtG8FYAePHSTOMvIeh94dnYMvWX
- TlAEWmPvpwSifpTwdwsS8dEqEZurnemik7ZMnVXAV+05GzBUlj0OsxWt0bjXFQkcwI
- 1oNOtqXSrJ0a611YA7CVKLEh4irQ/wIw3dnNCCPZNDBapcukEAknyqiN/WNo2VNUvp
- kVcnywAwVfF8pzUR1Qx195RNdCCJgo8G7pWF1PiXYjBbBO7qgFzj+b/8+z5t42GnSg
- +k2qC9S1lKsQg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFT 3/5] drm/msm: Extract out map/unmap helpers
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261006131000.81501-4-robin.clark@oss.qualcomm.com>
-References: <20261006131000.81501-1-robin.clark@oss.qualcomm.com>
- <20261006131000.81501-4-robin.clark@oss.qualcomm.com>
+ s=k20260515; t=1791292882;
+ bh=ve6FyCySopgjKeMpIP/0QU8qxdOqPiBfDjjpOehpCoY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=VdQe8ZD7EPqTDHxtueMopqyaA1HhJuYlOfkK5y35AbXr7QAEUOVHdzh02IY0Ui1sS
+ dTmdQ2Wqr/EJ9L500f7BIdOdngJN8ypO5dwzdm9U4V4xc1ZozSS/Z0+DJ1npqgwDWN
+ CLLY3/r6Pe9nVzsx4VPzR1fcFViQfNV7ATamTawPejNpLVkCDAoVKHge+ujnFUTIoS
+ o8oRA8gLvsrOM3JdZIy3gPrfNiNDr0IrGpRPZQZocUpVHpCa8s43/eNkWQZGUExh5G
+ o11rGxaWa5eVuns9oAa9KUMbn3A9UkiiXgTdvDIXe69dUfMG7ktRxa1Dkao+9iTntX
+ kckAQe/EUYfSg==
+Date: Tue, 6 Oct 2026 15:21:18 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@kernel.org>, Lee Jones <lee@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dmaengine@vger.kernel.org, Frank Li <Frank.li@oss.nxp.com>
+Subject: Re: [PATCH v3 15/18] dmaengine: ste_dma40: Use power domain for LCLA
+ SRAM
+Message-ID: <asT1zuk9WNJU4p9M@parshuram>
+References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
+ <20260921-ux500-power-domains-v7-1-v3-15-9352be6b86b1@kernel.org>
+ <CAPx+jO_KJJ6ORKuw6VJmtZAOEnzVz0+bq3bEFupAK_4UROKBAA@mail.gmail.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 13:19:19 +0000
-Message-Id: <20261006131920.6870D1F000FF@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPx+jO_KJJ6ORKuw6VJmtZAOEnzVz0+bq3bEFupAK_4UROKBAA@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,95 +68,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/msm: missing IOTLB flush on pagetable map error path
---
+On 24-09-26, 15:26, Ulf Hansson wrote:
+> On Mon, Sep 21, 2026 at 12:49 AM Linus Walleij <linusw@kernel.org> wrote:
+> >
+> > Replace the LCLA ESRAM regulator with runtime PM.
+> >
+> > Use the SRAM device that owns the ESRAM34 power domain.
+> >
+> > Hold that domain while DMA transfers are active. The DMA controller is
+> > runtime PM IRQ-safe, so keep taking explicit LCLA runtime PM references
+> > from the descriptor preparation path instead of relying on a runtime PM
+> > device link from the atomic transfer path.
+> 
+> A bit of an orthogonal problem, but related to the above. The irqsafe
+> thing have been discussed in the past for DMA controller drivers.
+> 
+> Would it possible to get rid of the irqsafe configuration for the dma
+> controller device, altogether?
+> 
+> I don't recall exactly, but not the entire consumer DMA API is allowed
+> to be called in atomic context, but perhaps that is not sufficient to
+> allow us to drop the irqsafe configuration for the DMA controller
+> device?
+> 
+> If not, I wonder if the consumer of the DMA (like an mmc controller)
+> should be assigned as a consumer device (using device links and
+> DL_FLAG_PM_RUNTIME) of the DMA controller device. In this way, the
+> consumer (mmc) would be able to control the supplier (DMA) through the
+> device link directly using runtime PM. This could potentially avoid
+> the requirement of having to use irqsafe for the DMA controller
+> device. Maybe someone already tried this?
+> 
+> If the irqsafe configuration can be dropped, in some way or the other,
+> this patch could become less intrusive, as all that would be needed is
+> to create a device link to sram device using DL_FLAG_PM_RUNTIME.
 
-commit 7d5e2545b852417f316f5873d935ec2b95998bbf
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
+That is a consequence of dmaengine work running in tasklet and thus
+softirq mode. The dmaengine tasks need to run with a higher priority to
+enable higher dmaengine throughput. We have plans to move to WQ_BH [1], but
+I think that runs in softirq mode as well...
 
-drm/msm: Extract out map/unmap helpers
-
-This commit extracts `__do_map()` and `__do_unmap()` helpers from
-`msm_iommu_pagetable_map()` and `msm_iommu_pagetable_unmap()` respectively.
-It aims to reuse these helpers without any functional changes.
-
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_io=
-mmu.c
-> index da6782fca6bd2..a658493f80072 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-[ ... ]
-> @@ -204,10 +169,9 @@ static int msm_iommu_pagetable_map(struct msm_mmu *m=
-mu, u64 iova,
->  			size_t pgsize, count, mapped =3D 0;
->  			int ret;
-> =20
-> -			pgsize =3D calc_pgsize(pagetable, addr, phys, size, &count);
-> +			pgsize =3D calc_pgsize(pgsize_bitmap, addr, phys, size, &count);
-> =20
-> -			ret =3D ops->map_pages(ops, addr, phys, pgsize, count,
-> -					     prot, GFP_KERNEL, &mapped);
-> +			ret =3D map(arg, phys, addr, pgsize, count, prot, &mapped);
-> =20
->  			/* map_pages could fail after mapping some of the pages,
->  			 * so update the counters before error handling.
-> @@ -218,7 +182,7 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mm=
-u, u64 iova,
->  			len  -=3D mapped;
-> =20
->  			if (ret) {
-> -				msm_iommu_pagetable_unmap(mmu, iova, addr - iova);
-> +				__do_unmap(pgsize_bitmap, iova, addr - iova, arg, unmap);
->  				return -EINVAL;
->  			}
-
-[Severity: High]
-Does this error path miss an IOTLB flush?
-
-Before this commit, a failure in the mapping loop would call
-msm_iommu_pagetable_unmap(), which flushes the IOTLB after unmapping.
-
-Now, the refactored __do_map() calls the new __do_unmap() helper directly.
-Because __do_unmap() skips the IOTLB flush, the error rollback leaves stale
-virtual-to-physical address translations for partially mapped pages in the
-TLB, which can lead to rogue DMA and memory corruption (use-after-free).
-
-[ ... ]
-> @@ -227,6 +191,78 @@ static int msm_iommu_pagetable_map(struct msm_mmu *m=
-mu, u64 iova,
->  	return 0;
->  }
-> =20
-> +static size_t
-> +__unmap_pgtable(void *arg, u64 iova, size_t pgsize, size_t pgcount)
-[ ... ]
-> +static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
-> +				   struct sg_table *sgt, size_t off, size_t len,
-> +				   int prot)
-> +{
-> +	struct msm_iommu_pagetable *pagetable =3D to_pagetable(mmu);
-> +	struct io_pgtable_ops *ops =3D pagetable->pgtbl_ops;
-> +
-> +	if (!sgt)
-> +		return msm_iommu_pagetable_map_prr(mmu, iova, len, prot);
-> +
-> +	return __do_map(pagetable->pgsize_bitmap, iova, sgt, off, len, prot,
-> +			ops, __map_pgtable, __unmap_pgtable);
-> +}
-
-[Severity: High]
-Can this propagate the error from __do_map() without flushing the IOTLB?
-
-When __do_map() hits an error and returns, msm_iommu_pagetable_map() passes
-the error up the stack without initiating a TLB flush, cementing the
-missing flush bug from the __do_map() failure path.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006131000.8150=
-1-4-robin.clark@oss.qualcomm.com?part=3D1
+[1]: cover.1786384168.git.allen.lkml@gmail.com
+-- 
+~Vinod
