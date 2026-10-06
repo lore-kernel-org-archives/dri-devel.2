@@ -4,52 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32850CA5FFF
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 19:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23052CA5FFF
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 19:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F16210E3C6;
-	Tue,  6 Oct 2026 19:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5230910E145;
+	Tue,  6 Oct 2026 19:29:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="sz3xgxAO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bcJS+scZ";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00ECF10E3C6
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 19:15:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1791314147;
- bh=hpl97+ku9fipOaiPOPhX4/9bl6wOTB5ubcj+qYtRS40=;
- h=Date:From:To:Subject:Cc:From;
- b=sz3xgxAO1/OyAXR5gzHkfii1Hzxo4EH9gOxnOmdBRJKHiDROvpMYYui3ujA/HfCj7
- GEJkfEzR0YM0x8W3XwmkE2+WQlagh5Fsen7yXnYD6lPJDQp3OXsJiCRqstWbPqWa5y
- JzkmweQQc3CdnnQv76uNS93gmbu9T9M0y2nmWCQynVV6YwTq0wPPS0GtnpHNsYygtG
- 13QPp5UbrwJUp9nzhNwCVknRhFp/nETplXtlICHNZ7Ink2y1MBtCXUPkhKD65jsuxK
- gbTWB04UKVcc+xzZ1sFtTdQU8ptMamTtUx/bxPNZVVyz8qccWBGJKldy1QW+j2oi6R
- T03H9gEUTFX3g==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hzmDs3Fksz4w2b;
- Wed, 07 Oct 2026 06:15:41 +1100 (AEDT)
-Message-ID: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
-Date: Tue, 6 Oct 2026 20:15:26 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA45C10E145
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 19:29:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6AB8F40400;
+ Tue,  6 Oct 2026 19:29:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231CB1F0089B;
+ Tue,  6 Oct 2026 19:29:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791314997;
+ bh=E3R9izeh7FIJECvgCCVpi1mo2nxrzOBff+skIfgO+Rs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=bcJS+scZy/6Ervd4affik0znYY7JZa8yo9ks/hJ/Wi8kEV6e/KSbN6DLhH4cvTpEi
+ iv1i3WiOGk68dleHJ296gqU0BhMCEJVAVOZytyc3QKyrYEr2/tnG/0UFyIPfrIj3tg
+ SItyEr00wVeaV0//cgD/K4SQvOZOLnemHSI1OJAFgTEBCV+hiT1KtsppspX2evocA7
+ ZCQ0Wl20EzvOsu1/yNFVx6Xg4cGeVs0hzCrznBNfgOi0wFN/Avs81GC98fmWJ7AFoR
+ B0uvsH9pjMZFUorJQnadwi8SHKWnKBdfcOjggeubITjVyfME5vEDwO1ixmFyhMjfNP
+ GU6veX6QcYM6Q==
+Date: Tue, 6 Oct 2026 14:29:55 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 00/18] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261006192955.GA703309@bhelgaas>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Thomas Hellstrom <thellstrom@vmware.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: [PATCH] dma-buf: Annul dmabuf->file on file release
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,101 +71,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dmabuf release path is split between file and dentry release:
-dma_buf_file_release() is called shortly before the file is freed, and
-dma_buf_release() calls an exporter's dmabuf->ops->release when the
-dentry is freed.  However, the dentry can outlive the file (for
-example, if opened with O_PATH), meaning .release might be called some
-time after the file is freed.
+On Thu, Oct 01, 2026 at 02:55:08PM +0300, Leon Romanovsky wrote:
+> PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+> This misclassifies asymmetric and nested switches, and reports one answer
+> for every kind of TLP.
+> 
+> Three ACS controls act on TLP attributes the client chooses rather than
+> on the topology: Translation Blocking and Direct Translated P2P act on
+> a Request's Address Type, and Completion Redirect skips Completions carrying
+> Relaxed Ordering.
+> 
+> Evaluate each direction at the path divergence, decide every class from the
+> one walk, and treat a client with ATS enabled as translating unless its
+> driver declares per-mapping ATS.
+> 
+> This completes the P2PDMA side; dma-buf and mlx5 follow separately.
+> ...
 
-This presents a window, when closing a DMABUF file, in which
-dmabuf->file points to freed memory yet .release op has not yet been
-called.
+> Leon Romanovsky (18):
+>       PCI/P2PDMA: Document the TLP attribute assumptions
+>       PCI/P2PDMA: Derive routing from directional ACS controls
+>       PCI: Reject unreadable ACS controls in isolation checks
+>       PCI/P2PDMA: Evaluate ACS controls at the path divergence
+>       PCI/P2PDMA: Document directional ACS routing
+>       PCI/P2PDMA: Collect the path's ACS controls before deciding
+>       PCI/P2PDMA: Answer routing per TLP class
+>       PCI/P2PDMA: Route Relaxed Ordering Completions directly
+>       PCI/P2PDMA: Reject Translated Requests blocked by Translation Blocking
+>       PCI/P2PDMA: Route Translated Requests under Direct Translated P2P
+>       PCI/P2PDMA: Log detailed ACS routing diagnostics
+>       PCI/P2PDMA: Add KUnit tests for the ACS routing decisions
+>       PCI/P2PDMA: Test the ACS P2P routing walk
+>       PCI: Add KUnit coverage for ACS isolation checks
+>       PCI/P2PDMA: Document TLP-class routing
+>       PCI/P2PDMA: Let a client declare that it selects ATS per mapping
+>       PCI/P2PDMA: Evaluate the ATS path for clients with ATS enabled
+>       PCI/P2PDMA: Test the routing of clients with ATS enabled
+> 
+>  Documentation/admin-guide/kernel-parameters.txt |  15 +-
+>  Documentation/driver-api/pci/p2pdma.rst         |  80 +++
+>  drivers/pci/Kconfig                             |  15 +
+>  drivers/pci/Makefile                            |   1 +
+>  drivers/pci/p2pdma.c                            | 719 ++++++++++++++++++--
+>  drivers/pci/pci.c                               |   7 +-
+>  drivers/pci/pci.h                               |  58 ++
+>  drivers/pci/pci_acs_test.c                      | 860 ++++++++++++++++++++++++
+>  drivers/pci/quirks.c                            |   6 +-
+>  include/linux/pci-p2pdma.h                      |  12 +-
+>  10 files changed, 1687 insertions(+), 86 deletions(-)
+> ---
+> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> change-id: 20260821-fix-p2p-acs-v4-0-e72455e3a261
+> prerequisite-message-id: <20260830-batch-p2p-fixes-v1-0-5044e8dfbe2e@nvidia.com>
+> prerequisite-patch-id: 6b25c7fcf164cdfc14e9fac5b908d97fcf6509d7
+> prerequisite-patch-id: 0d083c281001365aae4b35544cf28891a6ab9a96
+> prerequisite-patch-id: bfd9dabf271f3cc9a3a61f46387d20c20311363d
+> prerequisite-patch-id: fad0275efc722830fc591509506c0a5e4f581073
+> prerequisite-patch-id: 0c83bee688fec1f6d1564654df7c630fa6a4a978
 
-For VFIO, if a buffer's .release has not been called it's considered
-still active and subject to move/cleanup.  If so, it attempts to
-get_file_active() on dmabuf->file: a file close with dentry held open
-will call this function with a stale pointer, a UAF.
+This seems like material for the PCI tree, but I'm not sure how to
+apply it.  It doesn't apply cleanly on the current pci/p2pdma
+(https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/log/?h=p2pdma),
+which does contain your series from
+20260830-batch-p2p-fixes-v1-0-5044e8dfbe2e@nvidia.com.
 
-To make this pattern safe, set dmabuf->file to NULL in
-dma_buf_file_release() to reflect that the associated file is now dead
-even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-sequence concurrent with a file close will only execute as one of:
+I could probably fix the conflicts but I don't know why there should
+be conflicts, since the only commits on pci/p2pdma other than yours
+are a few trivial allow-list updates.
 
-  - Gets the file before file_ref_put() (dmabuf->file valid)
-  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
-  - Observes dmabuf->file = NULL (no file)
-
-Originally, drivers could assume dmabuf->file was valid until .release
-was called from fops->release.  This assumption was no longer valid
-after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-dentry_ops"), which moved the callback to the dentry release (by which
-point the file might have been freed).  With this commit, drivers must
-still consider that dmabuf->file could be NULL before .release.
-
-Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-Signed-off-by: Matt Evans <matt@ozlabs.org>
----
-
-Hi,
-
-This issue was found (by Claude Opus 5.5) in the context of VFIO's
-DMABUF export path.  VFIO iterates live DMABUFs with a
-get_file_active()/fput() block, which now becomes safe if the file is
-closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
-
-However, there are a couple of other places that directly use
-dmabuf->file and seem able to race a closing file (i.e. without holding
-the file reference)?  If this is so, they'd be a UAF today; with this
-patch that goes away, but instead of a stale pointer dmabuf->file could
-be NULL:
-
-1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
-
-  file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
-
-The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
-this might be more subtle than replacing it with a get_file() variant
-(so as to accept a NULL file *).
-
-2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
-
-  gvt_dbg_dpy(... file_count(dmabuf->file) ...);
-
-
-Respective vmwgfx & i915 maintainers, what is your view?
-Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
-
-Thanks,
-
-
-Matt
-
-
-  drivers/dma-buf/dma-buf.c | 6 +++++-
-  1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 4c9add51f9ef..726639130477 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
-  
-  static int dma_buf_file_release(struct inode *inode, struct file *file)
-  {
-+	struct dma_buf *dmabuf = file->private_data;
-+
-  	if (!is_dma_buf_file(file))
-  		return -EINVAL;
-  
--	__dma_buf_list_del(file->private_data);
-+	__dma_buf_list_del(dmabuf);
-  
-+	/* Must be observed by __get_file_rcu() before file_free() */
-+	smp_store_mb(dmabuf->file, NULL);
-  	return 0;
-  }
-  
--- 
-2.47.3
-
+Bjorn
