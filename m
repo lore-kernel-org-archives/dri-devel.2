@@ -4,114 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39480CA5FF0
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0531BCA5FF0
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7654910E043;
-	Tue,  6 Oct 2026 13:02:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D88310E087;
+	Tue,  6 Oct 2026 13:04:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="K8QKIWCk";
+	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="fgZ2Hbel";
 	dkim-atps=neutral
-Received: from sonic304-24.consmr.mail.gq1.yahoo.com
- (sonic304-24.consmr.mail.gq1.yahoo.com [98.137.68.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9E6010E043
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:02:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1791291753; bh=9E3OCWXprX0RJaktFxM/8n6uIVZDAaRTP/3rY7uLJ9I=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=K8QKIWCkGW9PqiNCq9FkGHkov/Bn8+geh8r+MTQrcwatBjOQR5+uUWPpiICVvOmddJ19koHXdPJY2jJqPw/2IjPRbGmcpZxx6Zl7K8OUW2XwPv7AMY0kIIogtbOFuBfbc5SgxfEJ5ZsxLL6Mpjspife8ae2xDOPRfkOkAGWFXKraT1VJLQdpb0grZGTLox2GfYoHvhdxoSK1VW9PboBn942x3Iic9Ex9V8IUbqPKb8VeDGfUzLWcfKTa7I+EEOwwPy2ysqOFlov9V+hntsSUOhJEuGMb8H6z6SgbAOseLvaapEzBlEY5tsbhQtFWvh06A8+x9PsJ8wpJBVlev9cPhA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1791291753; bh=q9Vn28JI/zLn58bgG/79fhL7Ws9V+oCmbKH+FbwO8RY=;
- h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
- b=mQmz2MtEWIb+REqUa/KlJcKaDieiNdE+ogtmP5Wtjyd9JzappGnxNPhpUEL7sdky/oYX8Bdk54eIW/hbjcZZ5RE8EXcKBKR7wiz9ra3ywm8s46j24+8d24//pzGQAMoHuCzc1WdAT3euxGTdYfS0eiCrWgSrhRCcbGst6WUAx1UO4+sT2F+RXKsSt6fjjapieLiq55sfEayy5Y1pWDgS6hhuL8mLgFm1EvL50+cxRfDgyL9piAjObFJ/2nI/3aYLSC9HCBeTkZfov+2N6d9gNMl4JKfiKibB+pvxRiILsvY4V3m2IzJpWYhrZzfjPbvV1RSiCVn9CY/BHfyA9Z3jfg==
-X-YMail-OSG: ccu42_4VM1mIvNDPR3peCwxwHT0RzwS0PuunkhaK_liYGkqzU2dIPw1SaINJElN
- eimk9CmHTQ7MM3B2DWE8O2f2MuWM_pRaJwIKiIxhrhSDGMm2enzDagMBgTKoyfh4PHGVSXJOwNVB
- 4ee9P_ZVTOsTwrA4pipn4Bvzy_BZmIMTrWnzJwZ2oS5DK_db2qukKstPuvGe.x7xjZqmQABcZDpL
- 6f9uP44jOi1u7UwY104t_PLEBu4.EY1VRX5oLKUSri856v9hZR7ShDtkVurURZFwIce.GC5S5rvH
- th0NDS8shVv1amhq9PsMHVsVn4v6fgkGUjKWVVBH2jCQTD9D.76nqVWIyMWwOzgUc0xs8o3ccXxO
- MdNEoDl5Y4KsruYFMxoo__ohGs7Fp9.RHmX8Uu4JMhmIdSk8PfQ.AA8kgVfLQ6qdLa5XWtHM0stp
- v__.y.65_9z75_vGsRJPytilbP0ESPOGYaXQXLxP8pSzaLmJ4lQBA8F9NNwM8wxNdRIcbdmeCmti
- 4kSehuNU6mpRk5WiXaMCiF4.8ScRTHqiai9WVeLwJjuujkLaZ0D5dLmAYi988ChPWt0WlglH5fTw
- 8B6Lu97RKLNDRW7ns2qv8MXCpIFAd5b4HIfS4tacB0WNivoqpZA_HUt8fND9IskrkwGEsGxpn_Vg
- lNpv4WvX7nHFrYtlHak8mYGMtlyOWNdSLCk1odyaSDaHxbB645cOXodP.h3k_BieylIvnPk.wxQ9
- pn7dQ5S01UlizdYktl6VNAguReSapnsVExIHr0o9LTPVx6V.3nFNmczaKPg24LagkfFSFROgrOwb
- g.jFXNGUXHxDoefzUcH6PiQdIpsOXnoccmLH_wZ_DEbLxLkGNuieoIF.VDMR5hrlLvPrPtHqpVZ4
- QgzFSwtdTCca1cH1qkgrxSopbO1qtOJx4IKxU27Dn.8k5mEtx94LowcLZwq77EPZWXFshH2m5WAX
- YlIWFS7tCwj49oZp.QMG1wmmNO1L5wZCzIasyhlKy8MPs4Xcpu6iybwLBhBlXaOY.ht7M0H_CqMz
- gG1CN_ElhCuseHjeD8huGHllyjHhOnnjNxRScRWap70Akwxejnush1u1BejN5nRVLSvTQ1LuknfW
- cZ4cCtqvYPLxsdHx786dgJ6CL2ZZPHAldpGrldyJ12BV2O3XtW.pilMCuM4_GdWyWB334MY35pdh
- gUQUnM1M_gStuGJG.WvG1.tCZOxTnPpzmb4EswN7BzD3JbdXENU2jEog6ulFTwlT28PzguwWzlzw
- WvXRRLQlmrXRraP8ruO0bkTuuw6jRdNRJfWCHQp1uJhSW3LCDuzUzaqvYxsFLvuxkiCXM95S7G15
- _vwGUXxlxz7FBot.Wp81xoL9DwMRD1YMMJqN3qMpUSCWkDgFtNXjUDns_N_6F897dt4FKSC2XrZo
- f83UlotehmdwwS1E6ujja0oWqNnkR302_iAfC7K5xkWlqcIdKiP1N9yv51XCWJ5cuNLp8.JnKAgv
- 6DQt6Gfbn6YWwYeakpU1fjlqt8VarycYvEt5ZmIFDEN1AlV7rwGTMkRNpFfnbeIVaFNf_5NztfAL
- QjTBa0RfkPdOtEpursDA60jPxv4HQI6dwrgZkRf8Xvaq6pZyyPwx9jPxu4OK1FQbSBD6KcsCLIhW
- wr4pgGe59JDA9dbCkIb7XR30.frfdgRdiB56ENYw4aoXok2DtARr1JEZqPK9HsRQDLd82RjX7w2Y
- OjalCU6YjMPyN9Ow5p8YLFPYAMssqesOxBxDmn8S.H34LYBEoltOCbxNaDejWVwefFtYwA4NYNls
- vEgwfhjACAeim5E_FHsygF01bIAHGB3JRozNMzzsHX5h9fyL0hazsFbPeedwwL2YEomSINhE6QMJ
- _YO_mIsVZqCoPkDpMTbrfcIu_AzI16Djz556YltyptZLDcQxKiZMHT5aaLV4evGAUflOQJT9z5Ye
- fJ4peUVAsg95PL.qxa19a1O8Vadt34JpJtmgl_74ExkbjEe22jvegpUUgZtOETCBb1ptsp.wd5DI
- SFS.54GtO2PG_VWrQwWHpthGG4IHG5FcZkgNY1tFHrBdmhu9s5n9yAMos6ijMhUfAHyqW_76.dYn
- 0hO0tgBA2lXyjIjv_KKREHHibxtEdOlnITXz8k7hL2yn0tJzu41TcJTPajcv7D8wnHsMiT2Dxdj7
- pbRmx9jbmhpU6oGb3r4Q9fO9.DwaVtelQB4_wggEZYLjg8AL6Liai6v.ESrBtctPyXA96Yn3th_Y
- 5GrO.RaqoalYOA3DqIiS_uiP52CB7hErPsjeqVUV7mtv6J5c0Q3Nm2TUZfCueBkDSDVKsivDNKyQ
- e
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 4a8950ea-8a68-4480-a32d-903fbcca4f86
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic304.consmr.mail.gq1.yahoo.com with HTTP; Tue, 6 Oct 2026 13:02:33 +0000
-Received: by hermes--production-ir2-5dd9bf4598-hrqwh (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID e54da0c57641f9e2d2552a0febb4bdc0; 
- Tue, 06 Oct 2026 13:02:27 +0000 (UTC)
-Message-ID: <714216ad03c9189426d92646d28b1872301d83b1.camel@aol.com>
-Subject: Re: [PATCH] drm/gud: fix bulk_len divide-by-zero, connector bitmap
- OOB, and short USB reads
-From: Ruben Wauters <rubenru09@aol.com>
-To: Hui Peng <benquike@gmail.com>, tzimmermann@suse.de, simona@ffwll.ch, 
- airlied@redhat.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Tue, 06 Oct 2026 14:02:24 +0100
-In-Reply-To: <20260919223510.3888975-1-benquike@gmail.com>
-References: <20260919223510.3888975-1-benquike@gmail.com>
-Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
- keydata=mQINBGQqWbcBEADD5YXfvC27D1wjh1hOmjTjSwAFjQDGynLtrhBBZpJ+NBsfu++ffR7HF
- d/AaSJ+hqJni6HBNr/DMxWYMC8fOAr6zCSAX6fD2Rvy6rq6emuLaGOFkAIWDyuFWw40anlSCPZN+f
- fXTKJvARo45ZpC9PcfNu9/iRl/CpzSdiB5U4O2YtggXPWyOm9ev+bysmn6sjS1d+IZ7iTs9Ef0O4v
- I+1VFXvZMaY0YzG7EoYnKfeeUD7IGLpI4EEkNqLaU4onLN/qkXUwjT+YTw/VtTxNCmtTVFf57RAg2
- toscC85JjcrOeGSXdpP3J9CPdcIDMpOlnE//KuJIA3QMkckPQgnYtRw3ZhbiVxLNNJSUYm7PuRd9L
- LyObX7dpi0YfsUhxmD2+grw+Yvh2YlPWFybBDBgzRIcSMMSw0ertL64hBof06aVIlT8+TBf1Sq7O+
- obGYoXUi2q6qAuz+0y11spGk0YOffx4ChGPMQGGGaXGaCcjRMuJ050MF4dtwep/mSWH/p8EJtIKY8
- LfP/2c6G8leikMddtb+wKSNUuGYE6ctgcUtlltssRt74ls/ajYE00K52dlhCiaKxd2y0KpYEfWXPE
- pfiQ8yd/P/6fZCaOleY4k8Y2/JmlVUfwfVcVmb3mKWxKQXaHhT3cEvv8yuFDZgkTvZInINKtxxzly
- 1i3TlY/nn5mwwARAQABtCFSdWJlbiBXYXV0ZXJzIDxydWJlbnJ1MDlAYW9sLmNvbT6JAlQEEwEIAD
- 4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTehs0109D1XkJCLZjSflDAUK4M4QUCaPU
- lLgIZAQAKCRDSflDAUK4M4bK/D/wOugk+nS1PVpk5XkoSB3BXpW0yEuu55EjxXuFfN7mGdtRDq6kn
- WIunzqN9vb7qBFcfz1uG9OxEQpiEhGTW7aIkgCCDbyCk//bb2uRKRy7nVHA9E8p6Zya+974iY0+LV
- LkzIN/CgDavmljWIKQvyPL280KU9PjH2blbH5g6skwAc6MU9pCp6H5W00DYFjMW1j5NCBk5d6UDQ9
- OLukHTU5lHURNB4y0EMZg1eHRjqPk/bxXQA7dAz6BtMKhY+ZY8qDd8XC0sA6Zjsr5r8Os4/mDIn8I
- mzcpVNBKiLU0wpZ58TOUuB0s8wUwXZgwyAkG0sMDqasrQAHx5aVZUfb62p3DosMALacVjHrnW4Kwp
- rwfV9lKxfxPyDoGxtcwCAEdA58fG1FsqFqDxB/qkhyvF/4fzEtcOAHcgEAXR9W5G4PU6KInEidNX1
- 1B9IuXRV+5NX6pQ0JAYN10WP7TI5SVzx1ebu6+bdLM0etdLU/0urUJjrnIgfQlRItq091/Qb5k4x5
- WTTeD0Y5Ko5/LSUX95R9z06ZffKWKqrl3QpZbAJrOI9PmDwbV8E5PNsIFE84+O2iqfF01j2rXaj+I
- dRhLIkp2jnabmNTFJtCy/N0Yrx16Gd8FnbOxZkbAER8F49MAm1JBQWoIPRbjRrXKJdkAtJr43RCkS
- VabceKfcvFR7bPf9z7QdcmVkMDMxMDAwIDxydWJlbnJ1MDlAYW9sLmNvbT6JAlEEEwEIADsCGwMFC
- wkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTehs0109D1XkJCLZjSflDAUK4M4QUCaPUlJwAKCR
- DSflDAUK4M4YOiD/0au/ik0WOM0fwVYY6+PQbU9QeHAJ5kuVesCNA57Zwhe2eAeLvAkmh67hmUzTK
- XD46kqeu81cRYG4WlECv2pYUaEkPni9vmpSMTPpmXvpkekaVNrX1qgBVSd2vfP1xG3QmuQXcGiWZw
- gzPDbN/rCjs4iUqwjDrUpnb1c5va2bTfsqATAUfz4MKobkt+NGlJ7wpTY/TE2noeT2Q8v4NWcNkbM
- MMDkACUut0kyzrgeLxu5u8AS2d5TnWHaZwi5hy8egbGTe2FW/fz8GT4ZgOEExshNt2vs2Ay7CGyhm
- v8SJfsvoUQFoIjAKfQ+KLrjCL3nT27Cl1g0Xj6c16f6qH0/ns9uym6SisNr6FzxN4RauMCQsHBeRZ
- qFhJ5WYXaBBziPfa46Jrdnd385KvsQ7V5cGitM6mBx4tDo3cN0jzYqosuBVrwyiOewklRLYrf0go0
- wh31YtoJXeJ0ObH65oHINmT2gqyaii5ZHe+avPwnKE03W5pHwenGCbgSnOndy5eGeamSD7AgwKw4V
- j5r2FeK8K7tU8rpONWu0pkDqq3tMVOcDguTPufXIBFgLDQy4OoC7dHoJRplg8ull5wMjI9ERR0oaP
- 8IVIXxGcFRph02eKbZfqK51lMtns3kTe5DgHao5vrE+2GseLnEWE37cWnBQDhYgjwxIWtjGVp6KG7
- eIvzsqg==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-gNRPWEAJ3y4bweuDeAF6"
-User-Agent: Evolution 3.60.2 
+X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
+ Tue, 06 Oct 2026 13:04:17 UTC
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5782510E087
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1791291857; x=1822827857;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=cC3V0/pX1MGQHaQL3/2zjT6wMupt2ITWzQZDAVfxVf0=;
+ b=fgZ2HbelJrUGXouw1khIdwc6PVG0QYkzMwtSXH1jqcbZaTQBxEUIcaSH
+ j0fC0F1H0g8emu8dAWo+B3t+/IdKSxRbOUXZOCCyS6RqcvoIQf1t/vjqG
+ W3UrIKG9ie4ePP7EuCRoKaP3JOqkpibcuwNGC9Of4etUUKJ7gKB39hQUw
+ CA5XexkkeZ8SLhU+JU8xyRU3Bc7dDPfkcsjxmgihCXFhjT2VrsiNY8Oya
+ bPf9aHJziHZecMUInbHTg1UWycr4nlQgwAn2ZZhashJrKU2KZJG+Fo0/v
+ sZoEOqCO0XCRxkOxxFGMzhlQr82JN9JsSVwq9Du3WFsnqnHsxcCUf7rq7 A==;
+X-CSE-ConnectionGUID: Jdv3J9axSG2H9yYBsabhPw==
+X-CSE-MsgGUID: M9Jp7LnMTI+cS22yFgKRHg==
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="231739343"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2026 05:57:10 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Tue, 6 Oct 2026 05:57:10 -0700
+Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 6 Oct 2026 05:57:05 -0700
+From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
+Subject: [PATCH v9 0/5] drm/microchip: add GFX2D support for SAM9X60 and
+ SAM9X75
+Date: Tue, 6 Oct 2026 14:56:32 +0200
+Message-ID: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26668
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XR20rDQBAG4Fcpe21kZvbcK99DRDZ7aBZsEpISK
+ iXv7qagDZjo5T8w3z8wNzbGIceRHQ83NsQpj7lrS7BPB+Yb155ilUPJjIAkWMTK9/nim9hWZ5f
+ bj9zG91O6UqiU4hgtl+SSZmW7H2LK17v8+lZyk8dLN3zeiyZcpv+bE1ZQBZ1cjY4bjPHlnP3Q+
+ Sb3z747s8WdaG2ZfYuKpXxy3gapFNKWxX8sRBL7Fl8s0Ml4AZqM2rLEt6WgYPuWKFYiBBDoAhd
+ 8y5Jri+9bsljWB1eb5JS19ZalVhbBvqWKhQ6VDxg01GbL0g+LwO5buljgkaISDqyELcs8LEN//
+ NEUi2vDtZDSav7rrnmevwAUGt6E1gIAAA==
+X-Change-ID: 20250911-cpitchen-mainline_gfx2d-6631e9352af7
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ Cyrille Pitchen <cyrille.pitchen@microchip.com>, Conor Dooley
+ <conor.dooley@microchip.com>, Manikandan Muralidharan
+ <manikandan.m@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9009;
+ i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
+ bh=cC3V0/pX1MGQHaQL3/2zjT6wMupt2ITWzQZDAVfxVf0=;
+ b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9aRD5IKNw4d3/3A/cmv79PrsnRC7gsn1V6/dzDRJLKnN
+ 2mJ8qSlHaUsDGJcDLJiiiyH3mztzTz+6rHdK1EpmDmsTCBDGLg4BWAiLisYGY7LHS9w6lufdHj9
+ 25yFcz6q9sbm9c3gi14n8mtfS1RevzQjwzE7zvjouoerjCV8chv+XFdInKR8Xmii3rlJhhutizI
+ e8AAA
+X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
+ fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,242 +96,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi all,
 
---=-gNRPWEAJ3y4bweuDeAF6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This series of patches adds GFX2D support.
+The GFX2D is a 2D GPU embedded in some Microchip SoCs such as the
+SAM9X60 and SAM9X75.
 
-On Sat, 2026-09-19 at 22:35 +0000, Hui Peng wrote:
-> In drivers/gpu/drm/gud/ (gud_drv.c, gud_pipe.c, gud_connector.c), ensure
-> gdrm->bulk_len >=3D max_pitch so lines =3D bulk_len / pitch cannot be 0 i=
-n
-> gud_flush_damage(), cap num_connectors to GUD_CONNECTORS_MAX, and reject
-> short USB control transfers in gud_usb_get().
->=20
-> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gu=
-d_connector.c
-> index 8141c3a1e30a..1bf0495bf43f 100644
-> --- a/drivers/gpu/drm/gud/gud_connector.c
-> +++ b/drivers/gpu/drm/gud/gud_connector.c
-> @@ -569,7 +569,7 @@ static int gud_connector_add_properties(struct gud_de=
-vice *gdrm, struct gud_conn
->  			continue; /* not a DRM property */
-> =20
->  		property =3D gud_connector_property_lookup(connector, prop);
-> -		if (drm_WARN_ON(drm, IS_ERR(property)))
-> +		if (drm_WARN_ON(drm, IS_ERR_OR_NULL(property)))
->  			continue;
-> =20
->  		state_val =3D gud_connector_tv_state_val(prop, &gconn->initial_tv_stat=
-e);
-> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.=
-c
-> index 3a1b9e2a2eaa..f69b0e6e2ee0 100644
-> --- a/drivers/gpu/drm/gud/gud_drv.c
-> +++ b/drivers/gpu/drm/gud/gud_drv.c
-> @@ -328,7 +328,7 @@ static int gud_stats_debugfs(struct seq_file *m, void=
- *data)
->  		seq_puts(m, " none");
->  	seq_puts(m, "\n");
-> =20
-> -	if (gdrm->compression) {
-> +	if (gdrm->compression && gdrm->stats_actual_length) {
->  		u64 remainder;
->  		u64 ratio =3D div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_len=
-gth,
->  					  &remainder);
-> @@ -427,6 +427,8 @@ static void gud_free_buffers_and_mutex(void *data)
->  {
->  	struct gud_device *gdrm =3D data;
-> =20
-> +	vfree(gdrm->shadow_buf);
-> +	gdrm->shadow_buf =3D NULL;
->  	vfree(gdrm->compress_buf);
->  	gdrm->compress_buf =3D NULL;
->  	sg_free_table(&gdrm->bulk_sgt);
-> @@ -443,7 +445,7 @@ static int gud_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  	struct usb_endpoint_descriptor *bulk_out;
->  	struct gud_display_descriptor_req desc;
->  	struct device *dev =3D &intf->dev;
-> -	size_t max_buffer_size =3D 0;
-> +	size_t max_buffer_size =3D 0, max_pitch =3D 0;
->  	struct gud_device *gdrm;
->  	struct drm_device *drm;
->  	struct device *dma_dev;
-> @@ -495,6 +497,10 @@ static int gud_probe(struct usb_interface *intf, con=
-st struct usb_device_id *id)
->  		put_device(dma_dev);
->  	} else {
->  		dev_warn(dev, "buffer sharing not supported"); /* not an error */
-> +	if (!drm->mode_config.min_width || !drm->mode_config.min_height ||
-> +	    drm->mode_config.max_width < drm->mode_config.min_width ||
-> +	    drm->mode_config.max_height < drm->mode_config.min_height)
-> +		return -EINVAL;
->  	}
-> =20
->  	/* Mode config init */
-> @@ -523,7 +529,7 @@ static int gud_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  	num_formats_dev =3D ret;
->  	for (i =3D 0; i < num_formats_dev; i++) {
->  		const struct drm_format_info *info;
-> -		size_t fmt_buf_size;
-> +		size_t fmt_buf_size, fmt_pitch;
->  		u32 format;
-> =20
->  		format =3D gud_to_fourcc(formats_dev[i]);
-> @@ -562,8 +568,9 @@ static int gud_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  			break;
->  		}
-> =20
-> -		fmt_buf_size =3D drm_format_info_min_pitch(info, 0, drm->mode_config.m=
-ax_width) *
-> -			       drm->mode_config.max_height;
-> +		fmt_pitch =3D drm_format_info_min_pitch(info, 0, drm->mode_config.max_=
-width);
-> +		fmt_buf_size =3D fmt_pitch * drm->mode_config.max_height;
-> +		max_pitch =3D max(max_pitch, fmt_pitch);
->  		max_buffer_size =3D max(max_buffer_size, fmt_buf_size);
-> =20
->  		if (format =3D=3D GUD_DRM_FORMAT_R1 || format =3D=3D GUD_DRM_FORMAT_XR=
-GB1111)
-> @@ -588,9 +595,13 @@ static int gud_probe(struct usb_interface *intf, con=
-st struct usb_device_id *id)
-> =20
->  	if (desc.max_buffer_size)
->  		max_buffer_size =3D le32_to_cpu(desc.max_buffer_size);
-> +	if (max_buffer_size < max_pitch)
-> +		max_buffer_size =3D max_pitch;
->  	/* Prevent a misbehaving device from allocating loads of RAM. 4096x4096=
-@XRGB8888 =3D 64 MB */
->  	if (max_buffer_size > SZ_64M)
->  		max_buffer_size =3D SZ_64M;
-> +	if (max_buffer_size < max_pitch)
-> +		return -EINVAL;
-This feels like it can just be changed to a check for max_pitch >
-SZ_64M || max_buffer_size > SZ_64M? Comparing max_buffer_size against
-max_pitch twice seems... odd
-> =20
->  	gdrm->bulk_pipe =3D usb_sndbulkpipe(interface_to_usbdev(intf), usb_endp=
-oint_num(bulk_out));
->  	gdrm->bulk_len =3D max_buffer_size;
-> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pip=
-e.c
-> index 5ef887d8485a..1f08226b23b2 100644
-> --- a/drivers/gpu/drm/gud/gud_pipe.c
-> +++ b/drivers/gpu/drm/gud/gud_pipe.c
-> @@ -156,10 +156,14 @@ static int gud_prep_flush(struct gud_device *gdrm, =
-struct drm_framebuffer *fb,
->  			  struct drm_format_conv_state *fmtcnv_state)
->  {
->  	u8 compression =3D gdrm->compression;
-> +	unsigned int block_width =3D drm_format_info_block_width(format, 0);
->  	struct iosys_map dst;
->  	void *vaddr, *buf;
->  	size_t pitch, len;
-> =20
-> +	if (block_width > 1)
-> +		rect->x1 =3D ALIGN_DOWN(rect->x1, block_width);
-> +
->  	pitch =3D drm_format_info_min_pitch(format, 0, drm_rect_width(rect));
->  	len =3D pitch * drm_rect_height(rect);
->  	if (len > gdrm->bulk_len)
-> @@ -327,7 +331,7 @@ static void gud_flush_damage(struct gud_device *gdrm,=
- struct drm_framebuffer *fb
->  {
->  	struct drm_format_conv_state fmtcnv_state =3D DRM_FORMAT_CONV_STATE_INI=
-T;
->  	const struct drm_format_info *format;
-> -	unsigned int i, lines;
-> +	unsigned int i, lines, block_width;
->  	size_t pitch;
->  	int ret;
-> =20
-> @@ -335,12 +339,21 @@ static void gud_flush_damage(struct gud_device *gdr=
-m, struct drm_framebuffer *fb
->  	if (format->format =3D=3D DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulati=
-on_format)
->  		format =3D gdrm->xrgb8888_emulation_format;
-> =20
-> +	block_width =3D drm_format_info_block_width(format, 0);
-> +	if (block_width > 1)
-> +		damage->x1 =3D ALIGN_DOWN(damage->x1, block_width);
-> +
->  	/* Split update if it's too big */
->  	pitch =3D drm_format_info_min_pitch(format, 0, drm_rect_width(damage));
->  	lines =3D drm_rect_height(damage);
-> =20
-> +	if (!pitch || !lines)
-> +		return;
-> +
->  	if (gdrm->bulk_len < lines * pitch)
->  		lines =3D gdrm->bulk_len / pitch;
-> +	if (!lines)
-> +		return;
-This also feels a bit odd, checking !lines twice, it shouldn't be
-possible at this point for pitch < gdrm->bulk_len due to your changes
-to max_pitch above, given that max_pitch should always be at least
-min_pitch for all the formats.
-> =20
->  	for (i =3D 0; i < DIV_ROUND_UP(drm_rect_height(damage), lines); i++) {
->  		struct drm_rect rect =3D *damage;
-> @@ -399,6 +412,13 @@ static int gud_fb_queue_damage(struct gud_device *gd=
-rm, struct drm_framebuffer *
-> =20
->  	mutex_lock(&gdrm->damage_lock);
-> =20
-> +	if (gdrm->shadow_buf && gdrm->fb &&
-> +	    (fb->pitches[0] !=3D gdrm->fb->pitches[0] || fb->height !=3D gdrm->=
-fb->height)) {
-> +		vfree(gdrm->shadow_buf);
-> +		gdrm->shadow_buf =3D NULL;
-> +		gud_clear_damage(gdrm);
-> +	}
-> +
->  	if (!gdrm->shadow_buf) {
->  		gdrm->shadow_buf =3D vcalloc(fb->pitches[0], fb->height);
->  		if (!gdrm->shadow_buf) {
-> @@ -562,8 +582,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
->  			goto out;
->  		}
-> =20
-> -		req->properties[num_properties + i].prop =3D cpu_to_le16(prop);
-> -		req->properties[num_properties + i].val =3D cpu_to_le64(val);
-> +		req->properties[num_properties].prop =3D cpu_to_le16(prop);
-> +		req->properties[num_properties].val =3D cpu_to_le64(val);
-Please rebase your patch, this has already been fixed upstream
+Patches have been developped on top the 'linux-6.12-mchp' branch of the
+https://github.com/linux4microchip/linux.git repository and tested on
+mainly on a sam9x75-curiosity board and also on a sam9x60-ek board.
 
-Ruben
->  		num_properties++;
->  	}
-> =20
+Later, the patches have also been rebased on the 'linux-6.18-mchp'
+branch of the https://github.com/linux4microchip/linux.git repository
+then tested on a sam9x75-curiosity board.
 
---=-gNRPWEAJ3y4bweuDeAF6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Finally, they have been rebased on top of the 'drm-misc-next' branch
+of the https://gitlab.freedesktop.org/drm/misc/kernel.git repository
+for mainlining. Hence, they have been tested on a sam9x75-curiosity
+board running a linux4microchip 26.04 image where the kernel + DTB
+have been replaced with the new kernel compiled from the 'drm-misc-next'
+branch (currently based on linux 7.3.0-rc4).
 
------BEGIN PGP SIGNATURE-----
+About the tests, the GFX2D driver was used with the M2D (Multi 2D)
+library: https://github.com/linux4sam/libm2d
 
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmrE8WAbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzha9kQAKnqmimlz9QU+TualnIu
-Ct71/9CNST7ptTA5gaPomV/jQOGP3sOW+YtgQy1eavkcktDddk9vyH5EECcetTEM
-BWCqWHSRtonDTPBhJCUY6fdTVPLDRU6XzIlfsDk8/fyzvBDrV44AYSFDROINkjJK
-NLYKGWAJ7FhU5aYW3jJ7bE9bBRmtow4Nv1Et8yeRPrvPuHvkqAk1yCOLVkBLb5aP
-NEi0bkcS8iYllEM36moh48eE1FJ7w3xZzKzlzBHOBUYedsQNNtEP9PdRKKWqfQmy
-e4beuMSoNl/fauxVouZFOT+i18YYBH8FYGB+SbmAyeJFl5hKqO8pzg9okucPsW9g
-OqAHUZn7uHNEfwXlP/QF6Z+o2fD+uqPn8Qy9sM0PmeZKo+uOXD1sfSkzewdXkaIv
-ZoHvtcIfFopM8mx9CMyT8Z3rpiD81bzRBJnnGlSdffzNTtSORiPX7aC429YL5A7O
-lLUck4x41Bat8UzStl9pHY+PpMECFmvSVcHc+bNG1KThr/rAQcf6GqxJP1nHQYAr
-MER0ni11JYyrdiG/g7HsQzXrj9dH/bIb4uU6ObalpkQwzoG3X18c8JucWEvDUNqu
-XRqFMIKqSFPKGh9ACcBCiLAq7IoW3+ba5ik1X3Za60SZJUBOYjJN0LSPZJVCnMwC
-1ljKwwuw9i2e08zHc/75qARx
-=cbxp
------END PGP SIGNATURE-----
+This is an open source library that abstracts 2D GPUs like the Microchip
+GFX2D and the Vivante GC520UL, providing graphics applications or
+libraries with a unified API, inspired from OpenGL but focused on 2D GPUs.
+The libm2d library itself relies on the libdrm library to send commands to
+the relevant DRM driver in the Linux kernel.
+The libm2d library has not been designed to be thread-safe. Indeed, it is
+intended to be used by a single thread for better performances.
 
---=-gNRPWEAJ3y4bweuDeAF6--
+M2D comes with a m2d_test program to run basic unitary tests.
+In addition, libm2d has been integrated to two graphics frameworks:
+- EGT: https://github.com/linux4sam/egt
+- LVGL: https://github.com/lvgl/lvgl/pull/8729
+
+Tested the system suspend with the 'systemctl suspend' command.
+Tested the runtime pm with the 'egt_boards' application.
+
+BR,
+
+Cyrille
+
+Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
+---
+Changes in v9:
+- Rebased onto the 'drm-misc-next' branch on 2026-10-06.
+- Reworked patch 2 mainly based on sashiko comments:
+  + Used 'struct drm_gem_dma_object' as the new base for 'struct
+    mchp_gfx2d_gem_object'.
+  + Removed useless initialization of 'ret' in mchp_gfx2d_schedule().
+  + Changed type of 'struct drm_mchp_gfx2d_submit.num_rectangles' from
+    '__kernel_size_t' to '__u32'.
+  + Added missing support of special blend functions in blend commands.
+  + Added helper functions to {en,de}queue commands in the running list.
+  + Enabled the EXEND interrupt when partial or pending commands are
+    scheduled to make sure such commands can actually progress.
+  + Replaced pm_runtime_resume_and_get() with pm_runtime_get_noresume()
+    in mchp_gfx2d_thread().
+  + Added a comment about the 'BLEND_SREG' GPU internal register that
+    could be overwritten on SAM9X60 SoCs.
+  + Fixed integer truncation of the ROP mode in
+    mchp_gfx2d_set_rop_params() to prevent userspace from bypassing mask
+    validation.
+  + Added upper bound check for the number of rectangles in SUBMIT ioctl.
+  + Fixed mchp_gfx2d_cleanup_command_queue() to access hardware
+    registers only if the peripheral clock is enabled.
+  + Fixed potential corrumption of 'priv->wlist' by concurrent WAIT ioctls
+    on the same GEM object.
+  + Kept imported surface metadata immutable after first import.
+  + Changed type of 'next_id' from 'static uint32_t' to 'static
+    atomic_t' to avoid potential races.
+  + Replaced atomic_dec() with atomic_dec_return() in
+    mchp_gfx2d_gem_unref().
+  + Fixed potential corruption of the shared per-file 'rectangles' buffer
+    by concurrent SUBMIT ioctls on the same file descriptor.
+  + Fixed the potential Use-After-Free of GEM object in
+    mchp_gfx2d_ioctl_alloc_buffer().
+  + Made mchp_gfx2d_ioctl_sync_for_cpu() invalidate the CPU cache for
+    non-coherent buffers by calling dma_sync_single_for_cpu().
+  + Made mchp_gfx2d_ioctl_sync_for_gpu() clean the CPU cache for
+    non-coherent buffers by calling dma_sync_single_for_device().
+  + Replaced flush_cache_range() with flush_cache_mm() in
+    mchp_gfx2d_ioctl_sync_for_gpu() to manage the cache aliasing issue
+    on SAM9 (ARM926) without copying a 'struct vm_area_struct'.
+- Link to v8: https://lore.kernel.org/r/20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com
+
+Changes in v8:
+- Rebased onto the 'drm-misc-next' branch on 2026-08-28.
+- Collected Reviewed-by tags from Manikandan Muralidharan on patches 3
+  and 4
+- Replaced kzalloc() with kzalloc_obj() in patch 2 as suggested by
+  checkpatch.pl.
+- Link to v7: https://lore.kernel.org/r/20260209-cpitchen-mainline_gfx2d-v7-0-0c12e64a0950@microchip.com
+
+Changes in v7:
+- Rebased onto the 'drm-misc-next' branch on 2026-02-09.
+- Rewored patch 2:
+  + Reworked the former valid_pixel_format() function into the new
+    mchp_gfx2d_valid_buffer_params() function, which is called from both
+    the mchp_gfx2d_ioctl_{alloc,import}_buffer() functions and now checks
+    the `width` and `stride` parameters in addition to the `format` one.
+  + Added the mchp_gfx2d_valid_size() function, which is called from both
+    the mchp_gfx2d_ioctl_{alloc,import}_buffer() functions and checks
+    (`stride` * `height`) against `size` as suggested by Daniel Stone.
+- Link to v6: https://lore.kernel.org/r/20260120-cpitchen-mainline_gfx2d-v6-0-1a16cd1d70b8@microchip.com
+
+Changes in v6:
+- Shrank the size of the register set in the device tree from 0x4000
+  down to 0x100 (patches 1, 3 and 4).
+- Collected Reviewed-by and Acked-by tags from Nicolas Ferre on patches
+  1 and 5.
+- Rebased onto the 'drm-misc-next' branch on 2026-01-20.
+- Link to v5: https://lore.kernel.org/r/20260113-cpitchen-mainline_gfx2d-v5-0-9cdab8fa699b@microchip.com
+
+Changes in v5:
+- Fixed compilation issues in patch 2:
+  + Included <drm/drm_print.h> from mchp_gfx2d_cmd.c, mchp_gfx2d_drv.c
+    and mchp_gfx2d_gem.c.
+  + Replaced '.remove_new' with '.remove' in definition of 'struct
+    platform_driver mchp_gfx2d_platform_driver' to match the latest
+    definition of 'struct platform_driver'.
+  + Removed the '.date' member from the definition of 'struct drm_driver
+    mchp_gfx2d_drm_driver' since this 'date' member has been removed from
+    'struct drm_driver'.
+- Fixed typos in doxygen documentations of two functions:
+  + mchp_gfx2d_process_completed_commands()
+  + mchp_gfx2d_init_command_queue()
+- Link to v4: https://lore.kernel.org/r/20260112-cpitchen-mainline_gfx2d-v4-0-f210041ad343@microchip.com
+
+Changes in v4:
+- Rebased onto the 'drm-misc-next' branch on 2026-01-12.
+- Link to v3: https://lore.kernel.org/r/20251124-cpitchen-mainline_gfx2d-v3-0-607f8c407286@microchip.com
+
+Changes in v3:
+- Collected Acked-by tag from Conor Dooley on patch 1
+- Rebased onto the 'drm-misc-next' branch on 2025-11-24.
+- Link to v2: https://lore.kernel.org/r/20250918-cpitchen-mainline_gfx2d-v2-0-6cfac9d56612@microchip.com
+
+Changes in v2:
+- Renamed microchip,gfx2d.yaml into microchip,sam9x60-gfx2d.yaml.
+- Removed the 'clock-names' property from the DT bindings.
+- Renamed the GPU node from 'gfx2d' to 'gpu' in sam9x{60,7}.dtsi files.
+- Link to v1: https://lore.kernel.org/r/20250911-cpitchen-mainline_gfx2d-v1-0-d7fab1a381ee@microchip.com
+
+---
+Cyrille Pitchen (5):
+      dt-bindings: gpu: add bindings for the Microchip GFX2D GPU
+      drm/microchip: add a driver for the Microchip GFX2D GPU
+      ARM: dts: microchip: sam9x60: Add GFX2D GPU
+      ARM: dts: microchip: sam9x7: Add GFX2D GPU
+      ARM: configs: at91_dt_defconfig: enable GFX2D driver
+
+ .../bindings/gpu/microchip,sam9x60-gfx2d.yaml      |   46 +
+ MAINTAINERS                                        |   10 +
+ arch/arm/boot/dts/microchip/sam9x60.dtsi           |    8 +
+ arch/arm/boot/dts/microchip/sam9x7.dtsi            |    8 +
+ arch/arm/configs/at91_dt_defconfig                 |    1 +
+ drivers/gpu/drm/Kconfig                            |    1 +
+ drivers/gpu/drm/Makefile                           |    1 +
+ drivers/gpu/drm/microchip/Kconfig                  |   22 +
+ drivers/gpu/drm/microchip/Makefile                 |    8 +
+ drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c         | 1925 ++++++++++++++++++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_cmd.h         |  181 ++
+ drivers/gpu/drm/microchip/mchp_gfx2d_drv.c         |  363 ++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_drv.h         |  134 ++
+ drivers/gpu/drm/microchip/mchp_gfx2d_gem.c         |  178 ++
+ drivers/gpu/drm/microchip/mchp_gfx2d_gem.h         |   78 +
+ drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c       |  334 ++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.h       |   17 +
+ include/uapi/drm/microchip_drm.h                   |  286 +++
+ 18 files changed, 3601 insertions(+)
+---
+base-commit: 4f2fb106c459e6b96ddfa542de40e517b5274c44
+change-id: 20250911-cpitchen-mainline_gfx2d-6631e9352af7
+
+Best regards,
+-- 
+Cyrille Pitchen <cyrille.pitchen@microchip.com>
+
