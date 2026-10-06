@@ -4,113 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44CC0CA5FFC
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 23:19:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13714CA5FFC
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 23:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE3410E261;
-	Tue,  6 Oct 2026 23:19:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F46B10E49F;
+	Tue,  6 Oct 2026 23:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Bv2ZRxva";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="T/DLcsoN";
 	dkim-atps=neutral
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A85F10E261
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 23:19:46 +0000 (UTC)
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-150f88d22aeso2234746c88.0
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 16:19:46 -0700 (PDT)
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 099E510E49F
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 23:19:51 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-33bf40b0c8bso1912729eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 16:19:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1791328786; x=1791933586;
+ d=chromium.org; s=google; t=1791328790; x=1791933590;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=L71GPMsk4GSIdxEygBnLFVf0LVf2CMTomc/BzDysxCo=;
- b=Bv2ZRxvak2ots59evESEfcejEUgmNkocnE7qAxRyRqJ1OM4gvu3cHe9Y8gxIDxEStc
- 0QnpmmgsG0LF55yn5Let2ub6lbGw5Hj08pjPQ+FLiGKwCCR1bSCquPaVuY6n7tylq7Op
- GK+W72aIUDAqelMhSCiD7EVjw9RbOIcZ1twjo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791328786; x=1791933586;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=L71GPMsk4GSIdxEygBnLFVf0LVf2CMTomc/BzDysxCo=;
- b=DGuEsO8XJEV/qOIUGrFW3DHVM/qbg6tQcM15VwGJ5+RUiFOmF+GBMuFZguNjsj91Tt
- 0Cx6xu0DqEZD5jAxlKZTtrl2YMleTWMTm1OQ805B8Rq9TWR++E/zl873q2/71vsAgLnh
- 9ArOLpMZ+r5tqEeF04pQpQr9RfafDpNhSZ68U84mox4R0OOKQTgPWlm7qZ0tY2Z7N7PK
- BQAgqPhv+Df2ZpSwmMslxtnoly7FeVemgxB3RzuhtUdoPyQ1Aq1v5dkRslPvn2jhZofy
- mAuR9JFPg79++B/hn9Xt87kNVHg57gSoBcmu3+zUV7vsapMA3sA6QnVD4yKNbz+CKK4I
- o/cg==
+ bh=69yN0Ial5JtjSpn2ZK2Zu1JwU36ThXT4fMCp+kgmyIE=;
+ b=T/DLcsoNZHQSMDcGarltRh0wOabsliy0BUY0ya1gX+xk0lMciSUrBdgWOMO0rT2t1x
+ D+gkAPyH0GGhDPGzzQ6U+XN5bAgNB+Tg/wVyAvHcODPl6q7bAwUfExDJxk9f9hgigsr1
+ earnSKH53Wl9TFLF88BUpp1kh+8j5aPlVbS58=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791328790; x=1791933590;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=69yN0Ial5JtjSpn2ZK2Zu1JwU36ThXT4fMCp+kgmyIE=;
+ b=ZEhz1t83Bqm+tvsYWHcP5GoWHtOriZfJZvAM8WFDd2fQXbST81+Zd6hpxc+L0Cc/sg
+ 5tM8Y8Sy2VX7rZKrh6araIY3XP25jQCjEK4PVtb2+t5WPfOAF4+LoWXhAVZvJl/VKl2H
+ wLDOwpf1o4Ah19A1q1ite9hGAW+ZggTyyvcOJ+rIJO34cJpp+rPR7npru0pu16PVV/a6
+ 5khbPba/m8peOizetdA8hcfD6c80eYbPfVzjjzG0HOIya6G1B0jC9LbtRXfSsnNWiLXn
+ Dq0y/yMqfAms6GZVBvShUBByaeIHULpDos5omcXCKTD9Tm74QzCNIJxpaGH/JBdz8feq
+ 5DYA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByBuWacrjOVM8u958W5g+ipdnTyLvcj2l8s59Jk4ADMRN9ro3UREItIZuE8srd0M2I54pDo/TvnULs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++klirFYl+mV08H/FyuhEAv3hN9s5PAuDtJ7jD/21fzSpRhMajdw
- 3iHQ23qRdq8BW/z7i1z4Fz6pn8z7Sx2XfJPMLsy8M3QTw80DsC3h3U4yIDGSrjTF0Q==
-X-Gm-Gg: AYBFou1pTP8aSeUP9iyEcn25zt9Zbx+PJPsgf8h7Bj3TAHctFsuqLijEf90i2HLr/76
- YXvMYdSNEMyDhh9SHCy6u3zCxilxuNi373SALYOy0FGCbAeKVqBE+kEZMAqWEti9eipbPv5KJu1
- ELqAOUV98ONnUfSlKltK+jVUmdT7kxn2Aw3iOaymOMbbg15ayO7dPmFJQNK7SfgtSpanDFY2aU9
- tdXAG/hdloiCgs3uqypq+TpBqiTLUHR6VEO6bwWtp3QvC+wHb1m3nw2NoxBanXW4W8B8GuUQL8x
- xIb6CvCw2cmfL4XO0YIdEDPRd3+YoEkU16er7t9cEPWGvb6+XasAIZ8NUGWM45OeCsMAiFVfsDV
- nFHy19wo6IVgyWF8NK4TwfW8M7BPYgUI1voGd5BhqdZbIpOrLOkqz5xRhSAQsm1UVMeWVGSci/s
- PyLBQmsUNThlS8RnAZvSmWrkCR9zomp6NAZrGctSD4eQwWPJnNgErvysNJp6aM8PYzrkUNPcczq
- FIWc/I9oblaUHiQjawEuEoi54/9KjFmPdC33w==
-X-Received: by 2002:a05:701b:4553:10b0:151:7831:e401 with SMTP id
- a92af1059eb24-162045b8dcfmr323314c88.15.1791328785498; 
- Tue, 06 Oct 2026 16:19:45 -0700 (PDT)
+ AKwUvBy6onj+5jDXExdieBslmf6LBqNxk7ZibCTexabor6E1oSJDhcau3SimVTHsGMic1soy4EsBVj0MoLk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++njmhErwnWyqSUk4XSEJXBpZiow13DqkhftOgW0uPZhMJO2Fh0D
+ tYRhOiIx3cV6C7buAqHAT/miCadJCRrP36xtY/3RY+DqTZnsSaWi8L887d26EEip5w==
+X-Gm-Gg: AYBFou3hKzQeA13/AGxwHoG1UjIplZzXjXED0Ry1wrOaV2CBcAHhQHn3QmaONx7EJtm
+ TbxNT0L/q3J7k+jDHd6pw2nMC0n4AI3KCqMvq9QFjI9Al5s1w+tsWW6qucXbTurE48/RTWA44Gd
+ jlQ+I63bX542YkbwuJyXeBZuXtUrYm1sA1OZsR8zvoeNIc8qOths3uhEQABPyrxZtFLonUsK0uX
+ JTCKa1t8/D5iYvAP6/+fzwnEd9W49xxOHBBQzVxa7/pteaci/kO4mL7TymXAe+kg7JvkEXwevVb
+ 9KeQgt/OuDgX5uonG4hCxmgl7y7meE3PMccng0P6XM1IYHJaB7DyZBX8iMJQW74hVcamYCdKi79
+ +ZVHF1RSNeYfqXqT6qo6uysVnMm5razBpAUSmyUBqQeAsICNz7aQCNVilJzOZhpVL9JPP2Oxhgd
+ 5gpetb1A2oYXYqxDmVlnL34Tef6BdtlX8XB5GGpgU+qh60fxhWpT2/FMWbY/icxrrvCC2zgqJjs
+ CdE5JcmsRQuxRdLM2bqlakMsJkNQA9zg9B87A==
+X-Received: by 2002:a05:693c:87d7:20b0:34b:d400:e999 with SMTP id
+ 5a478bee46e88-3515db9c5efmr355962eec.5.1791328789999; 
+ Tue, 06 Oct 2026 16:19:49 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:63eb:e7f9:1d47:7d47])
  by smtp.gmail.com with UTF8SMTPSA id
- a92af1059eb24-161680e191esm1583634c88.11.2026.10.06.16.19.42
+ 5a478bee46e88-3515abb5389sm1959671eec.2.2026.10.06.16.19.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Oct 2026 16:19:44 -0700 (PDT)
+ Tue, 06 Oct 2026 16:19:49 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: linux-pm@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
  linux-kernel@vger.kernel.org, Brian Norris <briannorris@chromium.org>,
- "Bryan O'Donoghue" <bod@kernel.org>,
  =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Alex Elder <elder@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- David Lechner <dlechner@baylibre.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hadar Gat <hadar.gat@arm.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- Jaroslav Kysela <perex@perex.cz>, Jessica Zhang <jesszhan0024@gmail.com>,
- Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Linus Walleij <linusw@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
  Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Olivia Mackall <olivia@selenic.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Rui Miguel Silva <rmfrfs@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>, Takashi Iwai <tiwai@suse.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, greybus-dev@lists.linaro.org,
- linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-staging@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: [PATCH 00/13] PM: runtime: Convert pm_runtime_put_autosuspend() and
- friends to a void function
-Date: Tue,  6 Oct 2026 16:13:28 -0700
-Message-ID: <20261006231900.3230373-1-briannorris@chromium.org>
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 02/13] drm: Discard pm_runtime_put_autosuspend() return values
+Date: Tue,  6 Oct 2026 16:13:30 -0700
+Message-ID: <20261006161337.2.If1822f9a34be06cf5939be44ac6465c543087c75@changeid>
 X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
+In-Reply-To: <20261006231900.3230373-1-briannorris@chromium.org>
+References: <20261006231900.3230373-1-briannorris@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -129,106 +98,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Similar to this effort:
+Several DRM drivers use or propagate the pm_runtime_put_autosuspend()
+return value, which is not particularly useful.
 
-  Subject: [PATCH v1 00/23] PM: runtime: Convert pm_runtime_put() to a void function
-  https://lore.kernel.org/all/6245770.lOV4Wx5bFT@rafael.j.wysocki/
+Returning an error code from pm_runtime_put_autosuspend() merely means
+that it has not queued up a timer or work item to check whether or not
+the device can be suspended and there are many perfectly valid
+situations in which that can happen, like after writing "on" to the
+device's runtime PM "control" attribute in sysfs for one example.
 
-i.e., commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-type to void") and friends.
+For this reason, modify these drivers to simply discard the
+pm_runtime_put_autosuspend() return value, and change the return type of
+v3d_pm_runtime_put() (whose return value is never used) to void.  Also
+drop the redundant pm_runtime_mark_last_busy() calls right before
+pm_runtime_put_autosuspend().
 
-As with pm_runtime_put(), there is very little value in return-code
-checking for any of the other async __pm_runtime_suspend() and
-__pm_runtime_idle() APIs:
+This will facilitate a planned change of the
+pm_runtime_put_autosuspend() return type to void in the future, similar
+to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+type to void").
 
-  pm_runtime_put_autosuspend()
-  pm_request_idle()
-  pm_request_autosuspend()
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+---
+This patch is independent of the rest of the series, except for the end
+(changing the return type). I expect it can be applied by individual
+maintainers, and we pick up the end once the dust is settled.
 
-Checking the return code is more likely to
-produce a race condition (fighting with user space writing "on" to the
-"control" attribute) than to tell a consumer useful info.
+ drivers/gpu/drm/panel/panel-simple.c | 8 +-------
+ drivers/gpu/drm/tidss/tidss_drv.c    | 7 +------
+ drivers/gpu/drm/v3d/v3d_drv.h        | 4 ++--
+ 3 files changed, 4 insertions(+), 15 deletions(-)
 
-Nobody outside KUnit tests checks pm_request_idle() or
-pm_request_autosuspend() return codes, but there are a number of
-pm_runtime_put_autosuspend() callers that check its return code. Thus,
-this series largely deals with pm_runtime_put_autosuspend().
-
-Patches 1-11 are independent of each other, and similarly to the last
-series, I expect the respective maintainers can pick them up. We can
-apply patch 12 later. Patch 13 is also independent, but included in this
-topic for completeness. It can be applied any time.
-
-This touches a lot of trees/maintainers, so I tried to keep CC's only
-for the relevant patch(es), plus the cover letter. I hope that's not too
-noisy.
-
-- Brian
-
-
-Brian Norris (13):
-  hwrng: cctrng: Discard pm_runtime_put_autosuspend() return value
-  drm: Discard pm_runtime_put_autosuspend() return values
-  iio: Discard pm_runtime_put_autosuspend() return values
-  media: venus: Discard pm_runtime_put_autosuspend() return values
-  pinctrl: qcom: lpass-lpi: Discard pm_runtime_put_autosuspend() return
-    values
-  spi: ti-qspi: Discard pm_runtime_put_autosuspend() return value
-  greybus: Discard pm_runtime_put_autosuspend() return value
-  ALSA: hda: Discard pm_runtime_put_autosuspend() return value
-  ASoC: codecs: lpass: Discard pm_runtime_put_autosuspend() return
-    values
-  ASoC: intel: atom: Discard pm_runtime_put_autosuspend() return value
-  ASoC: SOF: Discard pm_runtime_put_autosuspend() return values
-  PM: runtime: Drop pm_runtime_put_autosuspend() return code
-  PM: runtime: Drop pm_request_{idle,autosuspend}() return codes
-
- drivers/base/power/runtime-test.c             |  8 ---
- drivers/char/hw_random/cctrng.c               |  6 +-
- drivers/gpu/drm/panel/panel-simple.c          |  8 +--
- drivers/gpu/drm/tidss/tidss_drv.c             |  7 +--
- drivers/gpu/drm/v3d/v3d_drv.h                 |  4 +-
- drivers/iio/accel/bmc150-accel-core.c         | 14 ++---
- drivers/iio/accel/fxls8962af-core.c           | 11 +---
- drivers/iio/accel/kxcjk-1013.c                | 15 ++---
- drivers/iio/accel/mma8452.c                   | 15 +++--
- drivers/iio/accel/mma9551_core.c              | 15 +++--
- drivers/iio/adc/rcar-gyroadc.c                |  4 +-
- drivers/iio/adc/ti-ads1015.c                  |  8 +--
- drivers/iio/chemical/atlas-sensor.c           |  4 +-
- .../common/hid-sensors/hid-sensor-trigger.c   | 14 ++---
- drivers/iio/gyro/bmg160_core.c                | 17 +++--
- drivers/iio/gyro/fxas21002c_core.c            | 12 ++--
- drivers/iio/imu/kmx61.c                       | 17 +++--
- drivers/iio/light/apds9960.c                  |  2 +-
- drivers/iio/light/isl29028.c                  | 15 +----
- drivers/iio/light/pa12203001.c                |  3 +-
- drivers/iio/light/rpr0521.c                   | 15 +++--
- drivers/iio/light/tsl2583.c                   | 27 ++------
- drivers/iio/light/us5182d.c                   |  3 +-
- drivers/media/platform/qcom/venus/vdec.c      | 10 ++-
- drivers/media/platform/qcom/venus/venc.c      | 10 ++-
- drivers/pinctrl/qcom/pinctrl-lpass-lpi.c      | 16 +++--
- drivers/spi/spi-ti-qspi.c                     |  6 +-
- drivers/staging/greybus/power_supply.c        |  8 +--
- include/linux/greybus/bundle.h                | 12 +---
- include/linux/pm_runtime.h                    | 63 +++----------------
- include/sound/hdaudio.h                       |  8 +--
- sound/hda/core/device.c                       | 13 ++--
- sound/soc/codecs/lpass-rx-macro.c             |  4 +-
- sound/soc/codecs/lpass-tx-macro.c             |  4 +-
- sound/soc/codecs/lpass-va-macro.c             | 17 ++---
- sound/soc/codecs/lpass-wsa-macro.c            |  8 +--
- sound/soc/intel/atom/sst/sst.h                |  2 +-
- sound/soc/intel/atom/sst/sst_drv_interface.c  |  4 +-
- sound/soc/intel/atom/sst/sst_pvt.c            |  9 +--
- sound/soc/sof/control.c                       |  6 +-
- sound/soc/sof/sof-client-ipc-flood-test.c     |  5 +-
- .../soc/sof/sof-client-ipc-kernel-injector.c  |  4 +-
- sound/soc/sof/sof-client-ipc-msg-injector.c   |  6 +-
- sound/soc/sof/sof-client-probes.c             | 18 ++----
- 44 files changed, 152 insertions(+), 325 deletions(-)
-
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index c95964ba25a9..193d1b2b0ba5 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -318,12 +318,7 @@ static int panel_simple_suspend(struct device *dev)
+ 
+ static int panel_simple_unprepare(struct drm_panel *panel)
+ {
+-	int ret;
+-
+-	pm_runtime_mark_last_busy(panel->dev);
+-	ret = pm_runtime_put_autosuspend(panel->dev);
+-	if (ret < 0)
+-		return ret;
++	pm_runtime_put_autosuspend(panel->dev);
+ 
+ 	return 0;
+ }
+@@ -389,7 +384,6 @@ static int panel_simple_get_modes(struct drm_panel *panel,
+ 
+ 		num += drm_edid_connector_add_modes(connector);
+ 
+-		pm_runtime_mark_last_busy(panel->dev);
+ 		pm_runtime_put_autosuspend(panel->dev);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+index 1c8cc18bc53c..44b0b009c29a 100644
+--- a/drivers/gpu/drm/tidss/tidss_drv.c
++++ b/drivers/gpu/drm/tidss/tidss_drv.c
+@@ -40,12 +40,7 @@ int tidss_runtime_get(struct tidss_device *tidss)
+ 
+ void tidss_runtime_put(struct tidss_device *tidss)
+ {
+-	int r;
+-
+-	pm_runtime_mark_last_busy(tidss->dev);
+-
+-	r = pm_runtime_put_autosuspend(tidss->dev);
+-	WARN_ON(r < 0);
++	pm_runtime_put_autosuspend(tidss->dev);
+ }
+ 
+ static int __maybe_unused tidss_pm_runtime_suspend(struct device *dev)
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index 29fa14be130b..eb002048ae9c 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -669,9 +669,9 @@ static __always_inline int v3d_pm_runtime_get(struct v3d_dev *v3d)
+ 	return pm_runtime_resume_and_get(v3d->drm.dev);
+ }
+ 
+-static __always_inline int v3d_pm_runtime_put(struct v3d_dev *v3d)
++static __always_inline void v3d_pm_runtime_put(struct v3d_dev *v3d)
+ {
+-	return pm_runtime_put_autosuspend(v3d->drm.dev);
++	pm_runtime_put_autosuspend(v3d->drm.dev);
+ }
+ 
+ /* v3d_sched.c */
 -- 
 2.56.0.360.g66cac248cb-goog
 
