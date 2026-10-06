@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BEDECA5FFF
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 09:59:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2BEFCA5FF0
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 09:59:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09C1010E351;
-	Tue,  6 Oct 2026 09:59:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1A2310F25A;
+	Tue,  6 Oct 2026 09:59:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CHHvZmfL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wg8qjB0p";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B462F10E341;
- Tue,  6 Oct 2026 09:59:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23AA810F25D;
+ Tue,  6 Oct 2026 09:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791280744; x=1822816744;
+ t=1791280747; x=1822816747;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=cJVQ+GO2oxFTlT6uez9H/TIxgijMrpL/bxw1lcRBMwA=;
- b=CHHvZmfL2ZL/PYNWJKg/N6ZOrxvtkl6iYerzZOIP+pyh285lFmYMaYLb
- rZjmN6p9aMNt9iormwgYbl6S2BHbndrP8riOAwQgCK5ZG112l7Zq77Dx5
- sldcmLSWsbyZW/V+Ifm4Z4EgwGHtb3BwmMmQQJAKOjsDZcXRzqbtGDBkt
- oeUh+Tooblzcy7eZlo6sgOMB3Trz/8UuN3IWuuBmgLB3iAGf/pI9pXsBQ
- 4g0k01kG+pFwa4G+OwsodERt4nFlZbgsymwDkHFBYLGMloyFBIbK/cQCM
- R7oVkMsrFfc9JOzFwPfp2SvPJsKBQ2FenTEBNfKBwqPdtIL3wgSi8l/Tm Q==;
-X-CSE-ConnectionGUID: BMAjIz4iTKiIDFKVudW7Qg==
-X-CSE-MsgGUID: C9ZPnnRASwGxnYkUar6pyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="16108"
+ bh=yPobatKZfcEul/FLZ3X8OlLEcLCU6zfmKTt5VYpQYEA=;
+ b=Wg8qjB0pWOziOjZ2TFxTNUsa9NHHpk+Q6D0xEevTOGrTNK5Nkze2qBY8
+ Bd61VX9yj1U2O5q7EXo88CrE/sL49SZnq2vqXR2QXubjVDMxbCsAjQ9VL
+ o+qPDdjh8Yf4R6OD/3QrsNLDdjFHZimrzEw20Y5SvMIyURSraWSTHgwV3
+ ACDyxaJOgel76qCKBz7zJdVMW5WjbZmXjmWei/bn8K354lUHSzlBEgkLH
+ T73cVf0jRP3GQygIjigTD+c/DQoErZ8zE2kfDqRMWZMBmt2L/bmWeBQHb
+ 6edV6z7JBKMHRdqU2MUyK45RdMqI1nJkssKi91sFJvXvb0pZfZypRAJWY g==;
+X-CSE-ConnectionGUID: 1Hb+hRYzQNubxMQmlyh7tw==
+X-CSE-MsgGUID: /7kukGENQ12H0EVhMPzwow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="16113"
 X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="16108"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
+   d="scan'208";a="16113"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2026 02:59:04 -0700
-X-CSE-ConnectionGUID: SuE4C/SXRWacrVf5EBz3UQ==
-X-CSE-MsgGUID: bw2r0aCVT9CYHqg+7X4m2g==
+ 06 Oct 2026 02:59:07 -0700
+X-CSE-ConnectionGUID: t6mKirgYQDeTlCVz/8zsfA==
+X-CSE-MsgGUID: 8YX9nuNSRUm0q42v3V2vKw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="277218501"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2026 02:59:04 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="306590849"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2026 02:59:07 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 02:59:03 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ 15.2.2562.49; Tue, 6 Oct 2026 02:59:06 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 02:59:03 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.16) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 02:59:06 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.52) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 02:59:03 -0700
+ 15.2.2562.49; Tue, 6 Oct 2026 02:59:05 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M2CfvKjL4gt34Xr7mce9kQz7eG/UM1DCfcpCcMcJER+1rW50m+RbRN2YXBCOk+twWNmK+8WJNqF2CQLRGEVOL6znntsrKWUK3QnXeebXwQm4YyU/9RYB9ArZSdO+WNixTRxWjty+fBIHncqy6AEt5ZefbREPdxTxXVv1w4O2ihHRQRp3sbXQ+/+D/ld4Zs5q9/8rK+whe3iUWW0Di3quEJQGxkA/rpkUszUmdU46z2jKt5yT1bKODcnd/rUaXosCgGicSnHNTGeSnddE71ZBRdzwZ9G1FsA5mtW6QGaHu8HL7ixoIDfRcGluNQgnxojbDPj4zBe9T84KEKeiAGHJ1g==
+ b=MHRmicT0cJdJZCZzUc/V58nJgLPLkBMRAuTfAnBGgUtUV6F7bIsuCnM53BLE6u+Vp8uJJVo9+DSkTc5QUY2pzatZ0IM1PuoorgOLQMDdnLGJl0/7KB2qjo/qf+wJg6e2lSM6CuUUtGDw3w3Uz2Cf2+eZ1sPnHKjVpDEo6eTCSGqDreycGNgGqF5BefB77fFN0rgMBMM5PnBRMzXZHHvYjpFSZGMggw0vQQd4/AyXguC7w5uOyfZ/Ze8BFEB/Uv5AjzOuS4NDKV5NDQXPRcNfj73kJ8MKnHuGKegSaK15fj8v7Og5slswS2MPMCGtvGjjG9eVgSO4aywdAl84qePMng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wGQnZwhYjsT5pkFWj3mNPyIkNhnzAOvkHwFH9V9/X3Q=;
- b=k+5uzYKnFPWnM4xFhXOnCtJZpC0Xn2/B5EHuV/3lcfM6C0js6Ab2EbXW/gLMHi45F//Dl0jUkIPP9EfZDfWeQRipvnD3G03whAQnmf+92Vz8DPJJhq06ybhUTR1cJunvyvVUkL6vPDNkj8OJAZy9f2EHA/43CTHE4v2elcgKzQzNJIIeEiVLaKYz+ranTSyvzghz44XCO3xNe/jHqiMJ9A/a0dc/jJIw1Ickj+2GAHZ4WH6Oa+FyZXR2slVPiJCggAfTagmvxlBZY2ccBHmTxkMUpSKFgMgyyEX5Yrk7Z5mTUdIj/9GunkYvy8+Z4lF+KcrgCA3UQaniIOq/FGJ6BQ==
+ bh=4Lu0qyfHQmNDJ9VziDEzRJ2X+z5Tl0DGESJOhQu9sUE=;
+ b=S03zcLxsVpc498BR0aJL69f/IQlrQOVW5GGmWL+s7uubkuywij00r91ZlNMZ6VplK9uGeRTxrSqnNIUQP/umdGoOTeAQA64zeFLQ795sd9LBnj/IJ2va8movM6G8c+ADngXpK+W+C27vsO2ejfj/Z6wlpfCOb2NM56dnKha6dmPz9B6YTZDCeZWpoQumfzY/Y1bgloI/C7/xlsJQSoXtOkhVqjhsPKAW7q9RgFNWcJpCIF9Bb5UBfFx3DZAVqeOFfXezDW8FqDJWJTc3iDQLTrYNKXkXFLLtouPI3VGD2tLPBkKe3/CUzJFi0GOqQ3ukKeerlUGcILbyteROw2GDJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -70,11 +70,11 @@ Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
  by PH7PR11MB6721.namprd11.prod.outlook.com (2603:10b6:510:1ad::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
- 2026 09:59:00 +0000
+ 2026 09:59:02 +0000
 Received: from PH0PR11MB7424.namprd11.prod.outlook.com
  ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
  ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0472.015; Tue, 6 Oct 2026
- 09:59:00 +0000
+ 09:59:02 +0000
 From: Krzysztof Karas <krzysztof.karas@intel.com>
 To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
 CC: Andi Shyti <andi.shyti@linux.intel.com>, =?UTF-8?q?Micha=C5=82=20Grzelak?=
@@ -82,10 +82,10 @@ CC: Andi Shyti <andi.shyti@linux.intel.com>, =?UTF-8?q?Micha=C5=82=20Grzelak?=
  <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
  <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
  <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>,
- Andi Shyti <andi.shyti@kernel.org>
-Subject: [PATCH v7 1/6] drm/i915/shmem: Validate max_segment
-Date: Tue, 6 Oct 2026 09:58:40 +0000
-Message-ID: <20261006095845.451212-2-krzysztof.karas@intel.com>
+ <stable@vger.kernel.org>
+Subject: [PATCH v7 2/6] drm/i915/gem: Count mapped pages in a folio
+Date: Tue, 6 Oct 2026 09:58:41 +0000
+Message-ID: <20261006095845.451212-3-krzysztof.karas@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261006095845.451212-1-krzysztof.karas@intel.com>
 References: <20261006095845.451212-1-krzysztof.karas@intel.com>
@@ -97,56 +97,56 @@ X-ClientProxiedBy: DB8P191CA0020.EURP191.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|PH7PR11MB6721:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f60a062-1875-4231-3990-08df239071a8
+X-MS-Office365-Filtering-Correlation-Id: 05321ad0-eb6a-419f-e5a0-08df23907339
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|11063799006|5023799004|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Nzhm9NBXnu8rUpEzmwNJ+wksda0MpyeSajSz2noJmO5Si6hXr3Jl4B0HTMEDxGHZOcsW4ARV7XNqfXYONrr6rNOzx+Y9TX92ayrtUFT2fWaD0KLZ9nNOdItIL9WTRYKgcygMETaZsy0WMz5XDQK03Gc4EcPhBDz/Ya275dm9ZpM+JJVe4lXwQPRX10FjRUMcjr0f2F4SCsntr/zo/ob5Js1MMuuJ2ipq1S00b0CCAdsOck2TayKNvgWjEiQRV7FMNB7gmlVknzAeAIdQtjkRKJ4nyz61rjQCxDs9Nm8nTQIlmC0Gqt7YRd974cETf4Ifh1W5UIieIhasUNgEGAkAJlyu2ur2fY8gFOF7uWIS+r9ZDN10K0/bDMpVcBYZUev1L0QS39G8SFlLe4XDtQz9ZTTWzcwlElUe8pH7v2u2ydJ9UOZAi5CqmOy0o2zB+xfxZZcb4VIg+3MnhjSrfI8Xgar7uq2LpXuSkBic/Y7Zi4d2QdxpFpDadBQB9rQuhAVZdNBttC6LeSaedUo3AOOqLPhhgXa6NVFIZvRM4IRLJf+ho8Zkfy7YmK4/QVW4YCIj6tsSwrGexmQAT/Nl+A5+ATrswKZV4xB2o3ZpmaoDJGhoZFtYJLwZHf3VYCEX5nJvBuzAzpaMuzw3TEKthpo0mjkWiS1bDhkYlHhQYRAnjKI=
+ ARA:13230040|376014|23010399003|1800799024|366016|11063799006|6133799003|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 1C+UkA5n8ee4ehmv90qQafhx1mKWyMuaFgevQ+yW1JtAOPW586Gs0iEdUHUO6l8eCx3jJ5mcedQumV0es5K9ElHUy633It3/0GhPb1X8D1cyCNLju2B90bhN9iZZe9f8iMWX1dUoH/wNUbc2gEuhvithlKBDA5IGsoIxVTcUifgMcdiXW5JYCqTGK0OhkmtCMhTokK38WVA3u4yLN89i7TSq0wEOOp1Bcqu7cDWeHI1Vn34t/Q53DrNizH3w6tlEd2LXb8/pqbYvtBdPbHmxhJB/c82M56NO59TrL8kALeZ/NzK5fgYNCklAN5gUBPYlVIho9+oYnW4X23k+CV2fqarxXBEUWSJanDOAjd5/Ls0KIg7/7Qv7ajZL51yGygZDOTrh/fAtra4VaQ4hsro3v/9FzXcvMWECvBsJvoaKFVsp4LjyYXFHXnSmR3FnZMJBsKSZY3wrbB9i0uH+pmAqehF2kWBQ9fWKUqhy79Dwa2OiN1yw7Ql2g+5jR31wN3VH4OTZKRIAQa35p9Cf40E0QjFoIde7GkCS22wri8/ot/1iDBxFEeYUx7v6ydwq1whslKmq6bWxY0PSz0ohY6Q1f9/jptmu8az8sOAe+qY+DtxJZKWS2InxbDie44MDoM29
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(6133799003)(56012099006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Jc9LfXyNw3zhUO1snILR13nDWbCycdTw3zRhPbE5Fj4HuZFZMEvqJGbSt7Dc?=
- =?us-ascii?Q?thPl/VCYwko8sxILsTDEgKezKnOczY2epGz3b5+ZZbqbPs3/rBAeWv//VoSM?=
- =?us-ascii?Q?6D9zZyyKb+bkwPGMQvlF6a5lpWAL/azuVPYFrdk2tyRlKE8lYKyOToolIMwK?=
- =?us-ascii?Q?yEv97r9z37VwFMYKtBfmf4Zlucou1m2rDVLqogpYLXTJQiKnYAvqk16zTIFc?=
- =?us-ascii?Q?c+J8FRHhaS6aRKx1+rFer5ScAWtqCliAtvohwSm6HZtDsahIhmh6aAzfh/Tx?=
- =?us-ascii?Q?y6Yolk2FH2iSS0suOg7vAj9sYvIi3YozWFVmIyqyZ3qhJjRPrxm0q6vt07yF?=
- =?us-ascii?Q?iRO/lhaOc5Mqw99fetyqzzR45M3iiMjVxhGUu6gtb51F38EJ5R44ysLEESPX?=
- =?us-ascii?Q?wgdtkdQxVWprgMK6ngGDvofXSaVx862xuM0YnCnoqJcVTpIhwU0/nk2K7Cvm?=
- =?us-ascii?Q?C0zbrrXpm3nKyNVaTalhd7SwRVsqpQB9Y3cAnVHTJh6S8b0pfz+enKcDrUaG?=
- =?us-ascii?Q?yvvDpq6rtIVBJxB9yjWlTF6esyyAD3TNWIieC3PlgRgfIu2OSQcQS55b+pP1?=
- =?us-ascii?Q?sK3AlDvQloBdaAQPav+FXA5Olh4hjdJfbGbrqAYAWMSoLUZrtYnF8Ji/WIJ7?=
- =?us-ascii?Q?F2nkjWiyg4smM/33HN45Tp0ncp94UhxA1zSdaWYFEeUSidzVQFDHx59bud9q?=
- =?us-ascii?Q?LWh81Ioqx8aN25tOAUlKjxsm1pnDhRStPbqn/KvFIPXlFhC9l/pfY/L+DH6M?=
- =?us-ascii?Q?nZoAftTgdngrZGZswy/HHk57lud1Y7QAjioQ84REFPycrNj4K8X0JwhnvGjO?=
- =?us-ascii?Q?1Vl0D6BwEtCvaQARJPF9xW7HuLRAJ0Gr0QW9BaaYR7lAnZWkDxi6Nv2okH0i?=
- =?us-ascii?Q?KIKBBxCuK4LCLBn8T3zLN1Vp9/t0JhDAg6XAXb1X/ITXqj+JUwqn0Z4E7El9?=
- =?us-ascii?Q?gHV+Kp7tOavBKI+YIieVQVPP0v8xBqM0Ox9jhDFEs+C/3rGFFkEbUaw+WpEQ?=
- =?us-ascii?Q?piOVh9WSem2hPrHLakKVyQ7O3GP2GOLhIJhyHUAcLC5nveaeTpxwRDNf+8I6?=
- =?us-ascii?Q?eIs+XhLy9foZxv0axXY7a+r57H2rgJ5vgDOhzh3OjDAPJBuanJ8NJI7Ei5B5?=
- =?us-ascii?Q?x+UZVOpc57cKyYiyJK2topaXkZwrL1SpPJ2VxS/Lc/NMQzSz6ExVRPMd1g4u?=
- =?us-ascii?Q?8XFUlK0/QDQoJV+g5UpNPGTLL+ghGLjM0xOvnQ2GgjVnRH+lmNWszF04/NP5?=
- =?us-ascii?Q?eGiEFMxUtWVS3xbqkUWCHKj8hwB4hLiBW9KaSoJse8K6EpFK+xoQWu6DtvZY?=
- =?us-ascii?Q?v8u8CfJQTGXnAgwl6mxR931QMkc0rPN4qpgUTdA86OyGJ75K8a6hJ8AeWUKQ?=
- =?us-ascii?Q?HCjqPBv9HX1w4JxUNhXdpAMZT6FS2bpHFg7zRjaMKWVItKs8fQt1xQqDkrmo?=
- =?us-ascii?Q?+lot7FSJ46enI9ej++NO7CCzYXgZDIGti4Efpqtlj/fbXpery9HMVV82YdlO?=
- =?us-ascii?Q?XOjZf766rEwN2RwhhM49f/SJUGbsIyfYeASwG0hb6+8lAfbWG96S5ki1Us7+?=
- =?us-ascii?Q?oz17UB7AbcdVIoNkRm3+VSiHlPcu6aK8lgg9ekSKUMlLw9bRmvMBAbj9iMdF?=
- =?us-ascii?Q?pNqEo5WPnmMR1+GslwZDogaSeD48w/6MpKes8QczoOoZ7w2Pp+ehsWtwv+Z+?=
- =?us-ascii?Q?BE04Jofa57xtFEoEP4NFk5j6oXpKUWZbeSHLFvaBqhSYjbW4JVfbHYBaeTXP?=
- =?us-ascii?Q?4WeXgEBx9nIKzTHXgU9OfPC4T+TnYCg=3D?=
-X-Exchange-RoutingPolicyChecked: gFqgBvSVAoKFL7QXzy1odstrsbOit0O+zFdQxZh40SOFVSRnb1TRNW/oPxv8w44e5YP7buA0/beL7mcD1AYIx4o/V79UYxsylMhd23XJg+Y+bmPXx0/InLaS5JbxdF21Mwn9t+cL6RVVI9im/V8xH1AYBAJgWazUQZ5Xx8Wn/apF/tvs6rTIj7g876j2tV8tbZyezRNmMiBRwbcnLQsblBNdyH9h2toLxi7kn+O3ErmrWSoT6Z0fWTl60WBPVYzWE6ZWJ2Oxzmax7xVDMH+wOz7PhAy5+e4FO/hTKrcFl0xdSHljzghwaL4CtChQjBalKOjPkEi4ZbbvI4Im43izdw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f60a062-1875-4231-3990-08df239071a8
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?B0CqT0UJQwISGl6jwi/zJOG7RRRfjYbOnLRJhz46wWsLlztzkhUkv2yzgsqH?=
+ =?us-ascii?Q?S0+TAwgzWeg8PcbcqvDWB9Oj3Z/Z9bc/1iTGM+jmb4DVQ2n0+9+YY5X+suXb?=
+ =?us-ascii?Q?G4PSdG86FP0/jlJG3EvTxGCxaGS31V8/N7f5Z/mBSjJnkpcXgJsyKfV62fBM?=
+ =?us-ascii?Q?siMCi+Jpf7YEkw8O7KhzvO4Q8UNh+CVn/eaMc/mjL61EIdiDoOW8Dqre3+Ow?=
+ =?us-ascii?Q?5kcLd8hh6HI/xLTZ68kWh7hacMRDrjZTXyM0SN36wL5QaJH6wFmbk3yFDUJX?=
+ =?us-ascii?Q?kceGC5ovJTB3WGvd7AprogF0vqJK+gNzP4CpmFefTPj4BwllBue/djBVokXs?=
+ =?us-ascii?Q?TFSGg5iIBFU6Mh2nu7Zspksh5T1eqZITMInGhjJwebbTFyN4ezKjv+yFtvYV?=
+ =?us-ascii?Q?sm2PMg5zpRack6hpjT1BAW3R5PG9hEbcF7bgW3foTxeBEpPTONFHS19McCKq?=
+ =?us-ascii?Q?g2QiSTkj2rfQR7QzKsrH5uyR7NVhbao5MHNvcR4k/5eh2sjM+qh2tbUvG3cz?=
+ =?us-ascii?Q?83YEKFoWUb6JxhsspyMHb2c/EjtivfrXmHd83X6QYWoXEy/XbhOItloZkim0?=
+ =?us-ascii?Q?MyEJTNHvjyAlpUx+NECgGG/KCQ4sCERx1nRMYDq+aMZu2Rb1kGZbduTva6IN?=
+ =?us-ascii?Q?yLP0novVoDu73GMysDTRmMp9al969jIVJLHzMwZ4IKHU948lxdB4iRwCVezd?=
+ =?us-ascii?Q?KYaImnc2TW7uFuf/8qu3kM6tZ72Yqn14gLugrgrLVx4CxmVg4G9FHjH2K2Yi?=
+ =?us-ascii?Q?4rgyBj7Qvp4RNk37detP4YTWzNL8l6OJg0HXr9DnnyfN1lbaqJZfveaGSraU?=
+ =?us-ascii?Q?NmeYYqXt7VF36aKsTORkmBZlTD5JjFh8gJ70yeLuKn6dg1wvxHdk01k3AI9M?=
+ =?us-ascii?Q?/7+wnb3/m5+tWyK5o82TjqMFqz6c+CI+uL1GDG5Z9/K+QjlxaeTR1Ooc/+Vu?=
+ =?us-ascii?Q?3LK6hDL4vRldC9sPB0PGrWwQiC324ni9ecCJCx63FiqoW78LsxW2003iCWPq?=
+ =?us-ascii?Q?/qI6A/k29I9Xv5/lj3mw8vWnRxVsxBfCXvXFD5msZthheLV5Kek+GzLxo0Tz?=
+ =?us-ascii?Q?zJOZxkY98UOVeumlRReqcWi1hlwnml9zcq9oXIUMdloPgWjH44ypJ4dL/I1q?=
+ =?us-ascii?Q?b/en2nr5eN6UhuY6qwovFkhtuLx/n9BlnOBb7XwAVoqqPeoLvbSWQeWiB4m/?=
+ =?us-ascii?Q?K/TMCFtVKW3/ZKlJwSzlX4C0OJc1XzdYD0eMMUV55ncRT+Exz0GIj/RTdQlm?=
+ =?us-ascii?Q?GHEIUs2ur+jwQZggAcFz/8WgKwjq0oSFNBsafxFjd+jMO61KpZU4qUb/eWnV?=
+ =?us-ascii?Q?s2yCmYqx1btzGdMiTAxEmSDxRAhr6LoJ5BB0ZJYgkyW/rFz2NJuKGHcWr+n9?=
+ =?us-ascii?Q?knGGJ58zyrieA8EhARs+n0WT99EeOc8WKdMvzzmgwOZzj2Ij8DBGYG03om+Z?=
+ =?us-ascii?Q?rLKfkfbdLwXIIwAQLA3cToTLhvBqR6AJ8kc5JiQoK5PH9SmPkNnQHVoyxkkV?=
+ =?us-ascii?Q?B8mkur9+RVD4q75XqScKyKxCeZ6dhT/USGud9qLtwdMqCU0DJeD0XOE2s8to?=
+ =?us-ascii?Q?k00KbwLY/T4RqOq9qI6M4bcEXVXH8cKecVqodBkmZJxC/hfPB7o9msFHc74+?=
+ =?us-ascii?Q?aEP0zeDVVD3zwlQdsj0QTM6fytazpe/6H8jzoOPl8HftZ7Z3X0oewbsrDq+J?=
+ =?us-ascii?Q?uXSbNTtTs0PpjF7nJpZSEvveELAMTMOkg2DBpi8G8NxFd8pxVP+UkIX7BX5/?=
+ =?us-ascii?Q?wP32CiNiuAwQoTNtd4cgjpYNKFrj97c=3D?=
+X-Exchange-RoutingPolicyChecked: 4tDFyMaz1hzZdw06/P9KquYsK4jRKZ0SjjE1R3pEj4O4a2mzOlfC+Zhato2iGjtzMPzgOeczcdHfZJdyCVVI9rL+Laxv+qPMFQMRHx25kWEE2iC6a43sC1UE9NouUeFBPcLPjz3BPFLmb0BP8/0482Xh60Z2GKk/HEe3fQuFLDynvdhaV56qaV/DP4pG3STyVROTn1bJPF1AEQFAeFEtDu1/m4RwbravuNWau4iXIEWBUbHl62o3f4pQuD09qXqmGsEXo0/cKfv0miI9INMzSewuidpoXf8nglssPgkg1RwgrfNhUdxr/ASYePqHLOXY5gTCoahDikV388WYH1JQuQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05321ad0-eb6a-419f-e5a0-08df23907339
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 09:59:00.1746 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 09:59:02.6665 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 62gHnZdfWEvSWRFvfjalHyEi0mYG0WAA8yvJZLRpdhBTT2y6nnEmI5Hhq/ztmYzlYfsSaIOCb3Qe00RGamZBM96t1ITx0cqpn7EZwX9srdU=
+X-MS-Exchange-CrossTenant-UserPrincipalName: aamei8CxoItqV76SeAuqb2DO8YewTCGGrl7GylWKlheWZPIa0weF7XatQ7phbOvZxoioga4niweHFqYEtsaJsJoOk+qhrFO2LHktp5u0Vao=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6721
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -164,38 +164,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There is nothing preventing user of shmem_sg_alloc_table() from
-passing max_segment smaller than PAGE_SIZE, which would result
-in nr_pages = max_segment / PAGE_SIZE == 0 and cause a
-non-terminating loop.
-Also, ensure that this value io page-aligned.
+Before addition of commit 029ae067431a
+("drm/i915: Fix potential overflow of shmem scatterlist length")
+and after folios were introduced complete folios were always
+allocated, possibly overloading the scatterlist capacity which
+was never truly limited to PAGE_SIZE when requested via
+max_segment. The above commit addressed scatterlist overloading,
+but unintentionally disabled PAGE_SIZE as a valid max_segment
+value and failed to take care of remaining pages from folios
+above max_segment boundary.
+This created a state, where multitude of scatterlists were used
+for the same folio, but never counting enough of its pages to
+jump to the next folio.
 
-Suggested-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Suggested-by: Andi Shyti <andi.shyti@kernel.org>
+Furthermore, current do-while loop goes over the same folio
+multiple times, increasing the refcount each time, and breaks
+get/put symmetry: many shmem_read_folio_gfp() gets and only one
+put in i915_gem_object_put_pages_shmem() per folio.
+
+Track how many pages have already been counted in a folio and
+use that number as an offset on consecutive allocations from the
+same folio to ensure it is fully covered before reading next
+folio.
+
+Fixes: 029ae067431a ("drm/i915: Fix potential overflow of shmem scatterlist length")
+Cc: stable@vger.kernel.org
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15816
 Assisted-by: LLM
 Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
 ---
 v7:
- * Also reject max_segment values that are not
-   PAGE_SIZE-aligned. (Andi)
+ * Derive the page offset within the current folio from
+   next_pfn. (Janusz)
+ * Update next_pfn using that offset and clarify its role in
+   merging contiguous physical pages. (Andi)
 
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 108 +++++++++++++---------
+ 1 file changed, 63 insertions(+), 45 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index bf9e7480f0f5..e35ee4bd456f 100644
+index e35ee4bd456f..645da248e25d 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -85,6 +85,9 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 	if (size > resource_size(&mr->region))
- 		return -ENOMEM;
+@@ -70,7 +70,9 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+ 	unsigned int page_count; /* restricted by sg_alloc_table */
+ 	unsigned long i;
+ 	struct scatterlist *sg;
+-	unsigned long next_pfn = 0;	/* suppress gcc warning */
++	/* suppress gcc warnings */
++	unsigned long next_pfn = 0;
++	struct folio *folio;
+ 	gfp_t noreclaim;
+ 	int ret;
  
-+	if (max_segment < PAGE_SIZE || !PAGE_ALIGNED(max_segment))
-+		return -EINVAL;
+@@ -104,7 +106,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+ 	sg = st->sgl;
+ 	st->nents = 0;
+ 	for (i = 0; i < page_count; i++) {
+-		struct folio *folio;
++		unsigned long folio_page_index;
+ 		unsigned long nr_pages;
+ 		const unsigned int shrink[] = {
+ 			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
+@@ -112,51 +114,61 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+ 		}, *s = shrink;
+ 		gfp_t gfp = noreclaim;
+ 
+-		do {
+-			cond_resched();
+-			folio = shmem_read_folio_gfp(mapping, i, gfp);
+-			if (!IS_ERR(folio))
+-				break;
+-
+-			if (!*s) {
+-				ret = PTR_ERR(folio);
+-				goto err_sg;
+-			}
+-
+-			i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
+-
+-			/*
+-			 * We've tried hard to allocate the memory by reaping
+-			 * our own buffer, now let the real VM do its job and
+-			 * go down in flames if truly OOM.
+-			 *
+-			 * However, since graphics tend to be disposable,
+-			 * defer the oom here by reporting the ENOMEM back
+-			 * to userspace.
+-			 */
+-			if (!*s) {
+-				/* reclaim and warn, but no oom */
+-				gfp = mapping_gfp_mask(mapping);
++		if (!i || (next_pfn >= folio_pfn(folio) + folio_nr_pages(folio))) {
++			/* Grab the next folio if we exhausted the current one. */
++			do {
++				cond_resched();
++				folio = shmem_read_folio_gfp(mapping, i, gfp);
++				folio_page_index = 0;
++				if (!IS_ERR(folio))
++					break;
 +
- 	if (sg_alloc_table(st, page_count, GFP_KERNEL | __GFP_NOWARN))
- 		return -ENOMEM;
++				if (!*s) {
++					ret = PTR_ERR(folio);
++					goto err_sg;
++				}
++
++				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
  
+ 				/*
+-				 * Our bo are always dirty and so we require
+-				 * kswapd to reclaim our pages (direct reclaim
+-				 * does not effectively begin pageout of our
+-				 * buffers on its own). However, direct reclaim
+-				 * only waits for kswapd when under allocation
+-				 * congestion. So as a result __GFP_RECLAIM is
+-				 * unreliable and fails to actually reclaim our
+-				 * dirty pages -- unless you try over and over
+-				 * again with !__GFP_NORETRY. However, we still
+-				 * want to fail this allocation rather than
+-				 * trigger the out-of-memory killer and for
+-				 * this we want __GFP_RETRY_MAYFAIL.
++				 * We've tried hard to allocate the memory by reaping
++				 * our own buffer, now let the real VM do its job and
++				 * go down in flames if truly OOM.
++				 *
++				 * However, since graphics tend to be disposable,
++				 * defer the oom here by reporting the ENOMEM back
++				 * to userspace.
+ 				 */
+-				gfp |= __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
+-			}
+-		} while (1);
++				if (!*s) {
++					/* reclaim and warn, but no oom */
++					gfp = mapping_gfp_mask(mapping);
++
++					/*
++					 * Our bo are always dirty and so we require
++					 * kswapd to reclaim our pages (direct reclaim
++					 * does not effectively begin pageout of our
++					 * buffers on its own). However, direct reclaim
++					 * only waits for kswapd when under allocation
++					 * congestion. So as a result __GFP_RECLAIM is
++					 * unreliable and fails to actually reclaim our
++					 * dirty pages -- unless you try over and over
++					 * again with !__GFP_NORETRY. However, we still
++					 * want to fail this allocation rather than
++					 * trigger the out-of-memory killer and for
++					 * this we want __GFP_RETRY_MAYFAIL.
++					 */
++					gfp |= __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
++				}
++			} while (1);
++		} else {
++			/*
++			 * Otherwise, we are still inside the same folio,
++			 * so just update its page index.
++			 */
++			folio_page_index = next_pfn - folio_pfn(folio);
++		}
+ 
+-		nr_pages = min3(folio_nr_pages(folio),
++		nr_pages = min3(folio_nr_pages(folio) - folio_page_index,
+ 				page_count - i, max_segment / PAGE_SIZE);
+ 
+ 		if (!i ||
+@@ -166,13 +178,19 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+ 				sg = sg_next(sg);
+ 
+ 			st->nents++;
+-			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
++			sg_set_page(sg, folio_page(folio, folio_page_index),
++				    nr_pages * PAGE_SIZE, 0);
+ 		} else {
+ 			nr_pages = min(nr_pages, (max_segment - sg->length) / PAGE_SIZE);
+ 
+ 			sg->length += nr_pages * PAGE_SIZE;
+ 		}
+-		next_pfn = folio_pfn(folio) + nr_pages;
++
++		/*
++		 * Store the next PFN, so contiguous physical pages
++		 * can be merged into the same SG entry.
++		 */
++		next_pfn = folio_pfn(folio) + folio_page_index + nr_pages;
+ 		i += nr_pages - 1;
+ 
+ 		/* Check that the i965g/gm workaround works. */
 -- 
 2.34.1
 
