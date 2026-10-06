@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C1C0CA6004
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 20:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE324CA6006
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 20:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86BF710F3C0;
-	Tue,  6 Oct 2026 20:25:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2127B10F3CA;
+	Tue,  6 Oct 2026 20:25:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="l2hKmePc";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="aOE7rXgB";
 	dkim-atps=neutral
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com
- [209.85.161.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D7C110F3C0
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 20:25:46 +0000 (UTC)
-Received: by mail-oo1-f54.google.com with SMTP id
- 006d021491bc7-6de08b2e447so497346eaf.3
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 13:25:46 -0700 (PDT)
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
+ [209.85.161.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FEBC10F3C0
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 20:25:48 +0000 (UTC)
+Received: by mail-oo1-f49.google.com with SMTP id
+ 006d021491bc7-6e560e00a86so634213eaf.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 13:25:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1791318346; x=1791923146;
+ d=baylibre.com; s=google; t=1791318348; x=1791923148;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=TuMJ7m5Vcv+rXpqn/K7pApUYeSmPWZZlEhNlSrC3ot4=;
- b=l2hKmePcMNiw+DeS6vZAc2oPvFFEwAl7KxZRKGNhNm3oDb7wiWISGnUeAdCl6zH9t+
- Y3loJwJ0hdJbq/vVXxpw02eknxsnODdhE1+THuguj9utPWMeyvP+zItYS6/PYW3b1bd9
- UOFk7PecOrukVeDdBlRKMauM88sPhqZuFaSzRUffifXY3oB3tBgIw+Inp1dP2oGt7x8e
- sA17wej2n0xwke00u9Fni++egsjLHsCP5HcJLOXoUhyuSV0dwor9wmHKQdi7RcaSVE/L
- O0ussAaNLL3su1552Ftr7C2iWstkUwGtt4ncupI+SM16NL0Nlk/A8ZhjLFW44a85ObUb
- etpQ==
+ bh=d7tY7hVtYcSGrMabWy9Irpy+9KqMZ8OzQ5ThjhxFTYM=;
+ b=aOE7rXgB2br2OoW5ElmQqCK/MIDI/hJpXz2l6eFtrsM/HoK7H7YLeyIPLtTQoqnnA9
+ Mp/cn4whcC8wJYhVM61fZOHejlqKt9bEjGQ07soQ8vxogs2uumJSj8s1HUx0/BkkEPH3
+ kvxF6gGEJE8d70clvNv/oM6mOmqKjImg2vGn4DYuI7xlVgPBDCV9bW9AbJbSG1lVGhtD
+ i0P2MUJtL3KE99GZMop+Fr0OEHhLPz5Bagld0HF9E9omCHSKZ6YpVMwE8cl0a+IUp2cu
+ L1/SZreNR60cEqfeB+7NCjB6KLxKIgZFtKV20hmeiHXrg/BqpUIVGIh8WdnoSUyG9/2r
+ V33g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791318346; x=1791923146;
+ d=1e100.net; s=20260707; t=1791318348; x=1791923148;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=TuMJ7m5Vcv+rXpqn/K7pApUYeSmPWZZlEhNlSrC3ot4=;
- b=ltXZllGy6esqG+ZE0hvoQuTbLXUskhRyOOeFShsNon3QbSr3ICtsK3mymGiScEi7jw
- LCEfVsJ85GX8ahAw8ZA9baGjCGLKSmZpBpqIVYhrJX17wM8KfIUsTfxRbXAN0N/rxQhT
- fq5yvGy1t2fGoQxDjPNDSy6skF3JmDWuGNimWQs0AX3tbKXQ1XKXAjlu6Jbte7tFGFbq
- OgEjzcPnWr7/G0KoXKBm8qYlKvB0uJYz4+z2ebXuWp4T5aZmH0fn+rfIKOYJ6B/OSgtc
- 4oWPIBdPXsnkl31ghuGkarUNv6yG/+NUrkBpuqG0xFqkjz/s1xHBwYzjJYFyXv1J6nLU
- lhzQ==
-X-Gm-Message-State: AFuF++nBjNJM4W1qNChfPh7jdUyPDKitTFMw35EMS+dfTcR+r9X36Q2d
- 9uYv2J0Tu7AEIJ+5LxsdEv4lZdPDc3mzrIrHmteOx9OrGNN6/ZvxAsZeZXs4M+ncKcI=
-X-Gm-Gg: AYBFou3CRknZuDWhsDkVf8WhGKEbwwpMqpVbzAo8q1JnQxfzmLCwON+SJ3BElt7vE2x
- R1ky7lcYq7GsfunfFybgHk0YzFYJRb3aWZB+yabz/GwAxprGsBz16wQPxakBu+gYOGkslnf5cls
- Dm8ary6eXzRFHBC1kCh0eJdcDVmJdrF2IQXvGp2uFohMUped9U/zIN4EkjDIL7CRxQdyABO+bcb
- ENcKfTeIfwVvTzZ6wo9bVORgDwx1f6ps+9DBIXxxpfNyckBAJyvY59ZynMurJmzppzdhRTGnZDv
- aj6eQ5G7P3L/OmMNvZ3+8tW3EuLTkAU83DsB+wKvp2rkE6G4IuhQyQCbyWxHmcRxHav53r4AVjc
- 8RjXUWJeKN7z0NJQN3kHC9MMuxe5xhLC0n5ur5G08ZXCF0b1nI49CNP5mNyUVgyRglNNOtMJ87I
- QrC9TRZlrkpI0Ywt9liooYuQcumAqTHCagvxxvw5n0mLxCjsUb6t1xutP27PkRgrP2GjK3jRSiW
- Q==
-X-Received: by 2002:a05:6820:1996:b0:6df:961a:af2f with SMTP id
- 006d021491bc7-6e7ac5151d7mr253655eaf.85.1791318345779; 
- Tue, 06 Oct 2026 13:25:45 -0700 (PDT)
+ bh=d7tY7hVtYcSGrMabWy9Irpy+9KqMZ8OzQ5ThjhxFTYM=;
+ b=Oz4/Uo1ad/7W3Ep1LgDoP8U57ewHX+S0/jreCg+iv+aSuFEB9XWNJXJac3izCcNl7q
+ bgTu7xum3qv8E6+JZNt6rxvvZnGhBl4LZM7Szly5yoS26TZcsXWw8vXnJ7DQxZudb8jD
+ 8s+zRvGPZbp63mMa/s+ZsAYDP5HV5Lw0mU/EIPO0FXr631ICqqmI83BMbOpYofQ/mpYt
+ iDvpavI3thH2SK7BjEPIRPTbRrQCcuB0OS2S08VZS1vkSwdg1/Ogi2ABUIOu44TkCdwO
+ D8+Ch7BQ+ao+c9tJpWCSgxONf6gv4iYvgODJhL22BvoBatp2ezNmoASuCxGwO4lPJEbv
+ vg9A==
+X-Gm-Message-State: AFuF++kF79i1kqse83dzwnTCgAH657OuBTN0BRJ5c+2cMyxG4hblTPk4
+ 9TRqwZuyy30DVU0qcdaF4mVq2EWAjaaf6FhYbUWWrxo9Rn542SBRUMDFQWuBMLFzey0=
+X-Gm-Gg: AYBFou3lDoH7afxP1WmeV1VWbIF5dSaEasQ/XCl+PEL2ntC6B9J8MTpHcE53+5v3bc7
+ 8fGUMEuqv3QhuYoN1w1IvExZOHndh3tOro7Mo095LoVoPTwswZ1dfLe8zpeMBSOyzcTXmOQW9tu
+ kQp8+RtufEuk2RwkgWlg/JXDiBwq938TA6Lg5XueSmVYQDc01bgeIo2vllRtpWDX1K8IkI2Lh++
+ aCRFbE4mdkK7XvDV/R4sLkNv7qs4Lzs05+LQyQUz0PW8n0BFVlItzFCZgd+XgjbVnqhkCPMVCja
+ wkZxpaJBeb74yN56YvBwF2hVZI7hJaDnqHFWNJzrKRCKXdn2ruwP/HJjz+JOPeuke6W+x91Xsm6
+ B80BY8vcHE07xU99wFsD6X5hFBv+7e8M56ZS49gb+dYDP6IqfG4Hn271uNQh2WFtxYN9qnxP0Bj
+ lDQxGUJnbAjTwUrrGOfUvt/3ZdLPlTRM3xLuAjJ0dfbgOhmrLmF583SbZ7NF+YuswEohineCZ2z
+ g==
+X-Received: by 2002:a05:6820:a28f:20b0:6da:82a6:3a13 with SMTP id
+ 006d021491bc7-6e7a7c16529mr202545eaf.28.1791318347829; 
+ Tue, 06 Oct 2026 13:25:47 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:372:3180:ce34:1fe7])
  by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-6e793f68bf6sm463442eaf.8.2026.10.06.13.25.43
+ 006d021491bc7-6e793f68bf6sm463442eaf.8.2026.10.06.13.25.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2026 13:25:45 -0700 (PDT)
+ Tue, 06 Oct 2026 13:25:46 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Tue, 06 Oct 2026 15:25:02 -0500
-Subject: [PATCH 2/4] drm/panel: himax-hx8279: add the VDDP supply
+Date: Tue, 06 Oct 2026 15:25:03 -0500
+Subject: [PATCH 3/4] arm64: dts: mediatek: mt8390-genio-common: add the
+ panel vddp-supply
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-panel-himax-hx8279-vddp-v1-2-50d884b42aae@baylibre.com>
+Message-Id: <20261006-panel-himax-hx8279-vddp-v1-3-50d884b42aae@baylibre.com>
 References: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
 In-Reply-To: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -85,16 +86,16 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-mediatek@lists.infradead.org, David Lechner <dlechner@baylibre.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1424; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=950; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=NyTgz/hgDxQKSuA5Ck4SyFt9fR3sfL/MexR3R/H3dxg=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqxVksNR5t/ywYjewlDcdi0ghHLOdJJIGqzYu4S
- 0FRGFjsMxSJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCasVZLAAKCRDCzCAB/wGP
- wCSBB/4nAAPLD1Yv3Td1SgrZyG8pm0J+BxnvcD4ztUnuid/60B8XkFmMjr6FQkqLK1d/baXFatE
- cbGI8eGxXtN9EELfUFzkaiI6pbFo9vOfFbKfurBWmbBbZqfRPcn2p1P/KwOT8e9ERwN3pJBgDtw
- IJnA7ofvPQwKGq+hg/++URBXqdhW+mxUBDmxQ5lrxAKGaRxYsDnjzMf9aLhuEGGceSHp46P1zX7
- guK6fHdEksNWYX+mLcopg1bP6zp2KmcaUalp9b1hlPC3s2Xtoq75Qas1m+fWyast2NbbU+XFCNI
- OcROe3ts3gEeZSCMkm8yhiT4SXC0JamLJMaY4PxVT7cnbLG/
+ bh=eCeuXuHqvmP/UFOQEKWmqU216/ZSkndN2WvM0HwWpA4=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqxVkzFqTYwMskBqktBAGaQIkw6mYPOB0k1bRHJ
+ +8urKmt18yJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCasVZMwAKCRDCzCAB/wGP
+ wI7sB/0QM+uNZLoX1Jp8NLb2nJn7ClzLVCDOZXUqzT1od9Q9IR+Mai0hZvJJPbZyLWuWg+QKTGS
+ NYg/wSz3bQw/6axBFVzO78Kh1bFlH+KP3j23zjsC9zt961U7k9ASdv0XJvU5UxSFoRHafe288eh
+ yn68IMEfzt9Vm2sisR7roDYZpx6Aky7yIseJ/bRXhrXBhTQK+GY0OsZJnJUYrkmA08FBm58ZpFn
+ lEEDS9l/yFPMFVQbVyrf1uNSe7s5UopCm0G94dDiFSohYZCxVZaohT81NiK3hOyVB9/fldAJvue
+ uJUY7G7Yg3bPSW5541+85rKJzL/TEonFNaAps1j54drOKSST
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,41 +113,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Get and enable the vddp-supply along with VDD and IOVCC.
+Add the vddp-supply of the Startek KD070FHFID078 panel, now required by
+the himax,hx8279 binding.
 
-The Startek KD070FHFID078 panel has a VDDP power input, which the
-MediaTek Genio 520 and 720 EVKs switch with a regulator of its own, so
-the driver has to enable it for the panel to be powered on those boards.
-
-On boards that do not describe vddp-supply, the regulator core provides
-a dummy regulator, so they only see a "using dummy regulator" message.
+On the Genio 510 and 700 EVKs, the panel's VDDP input is on the always-on
+vsys_lcm1 rail, the regulator that vdd-supply already points at.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/gpu/drm/panel/panel-himax-hx8279.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-himax-hx8279.c b/drivers/gpu/drm/panel/panel-himax-hx8279.c
-index 9e443c719843..fe665cd3a3d2 100644
---- a/drivers/gpu/drm/panel/panel-himax-hx8279.c
-+++ b/drivers/gpu/drm/panel/panel-himax-hx8279.c
-@@ -112,7 +112,7 @@
- struct hx8279 {
- 	struct drm_panel panel;
- 	struct mipi_dsi_device *dsi[2];
--	struct regulator_bulk_data vregs[2];
-+	struct regulator_bulk_data vregs[3];
- 	struct gpio_desc *enable_gpio;
- 	struct gpio_desc *reset_gpio;
- 	const struct hx8279_panel_desc *desc;
-@@ -769,6 +769,7 @@ static int hx8279_init_vregs(struct hx8279 *hx, struct device *dev)
+diff --git a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+index 669eaec662f3..449af8014769 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+@@ -324,6 +324,7 @@ panel@0 {
+ 		reset-gpios = <&pio 25 GPIO_ACTIVE_HIGH>;
+ 		iovcc-supply = <&lcm1_iovcc>;
+ 		vdd-supply = <&lcm1_vddp>;
++		vddp-supply = <&lcm1_vddp>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&panel_default_pins>;
  
- 	hx->vregs[0].supply = "vdd";
- 	hx->vregs[1].supply = "iovcc";
-+	hx->vregs[2].supply = "vddp";
- 	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(hx->vregs),
- 				      hx->vregs);
- 	if (ret < 0)
 
 -- 
 2.53.0
