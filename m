@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C81CCA5FF0
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:04:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 335B3CA5FF0
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:04:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B3F610E313;
-	Tue,  6 Oct 2026 13:04:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 929FE10E31F;
+	Tue,  6 Oct 2026 13:04:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="CsNTUxUX";
+	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="0nuhLgXs";
 	dkim-atps=neutral
-X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
- Tue, 06 Oct 2026 13:04:31 UTC
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F46110E313
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:04:31 +0000 (UTC)
+ [68.232.154.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3065410E34C
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:04:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1791291871; x=1822827871;
+ t=1791291874; x=1822827874;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=+u2grcbCdhxCd975l0htRzcuvftDxE2QAvyE3v3OQ9Y=;
- b=CsNTUxUX00bxMi1/DTCsMA0oCGWwigd6oLkC4qJvb2d1E+8z61YT8G7f
- OtnViqI155BhQpiMWYZ0pdFMEFeCIYzgodAWimWawjMr+mpF19CptAFcj
- sJsT7n9H1HjGKyO5nz0rKwzpQtC4FBJg6iKgFNkMZQZGVJkT3wZCZO2ih
- oo+T8hh5I0k1YxbqbjnDlWVWxVSsyjijHdpZ6vbfJnZEcQQYedXiWFcmB
- cpDsK7vFy4+8TbUqfU4Ktaenz21s35VWPhmjnICCxb6y8oHI/kKlEBT4S
- HEbiSrIVeKnmi2xn1sO/II2CVxHQDFg6bdv4ZtIZGhG99RoJ7BumBA7S+ A==;
-X-CSE-ConnectionGUID: 7vzj3izRSM27lgKYwypH5A==
-X-CSE-MsgGUID: 7s+UZdmyQuGI9rQHoJhhjg==
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="296057287"
+ bh=90E4Y3iv3wZWZ7rk6RLZc9iA+z4ETFdFADS8b0uLgEQ=;
+ b=0nuhLgXs6NQx849Yn/cPBB2usXLo9endu6sGb3VUDC3DL9s9StEaQUbW
+ rwkXC+q8ef6Dl3JnA66HtRNy1H/uT3jfK0q3ffrWtrRW2MJk4ruv5ntmr
+ 9RvFLSCS9jkf28kiCK/UXuYZk5K4Wljh4rOXqSOS+PXyPb2Uhr8w4yQTX
+ U9cvE5f+jzMgHTFwAvOhms/f2+jehXrVMjLQ3VaO+9s062QTGMdO3+892
+ v5/4kzMuenjoXJp7N42cu9v8HXhFHvGuBtV8HVkstZOzRUKO71AoWHFU5
+ ZwbULJ7C1Sw81s1wOjI9sRQf5qn0LA8pC1i2cK4pEJfsiDgbD7w7mhkSD w==;
+X-CSE-ConnectionGUID: oTYxfA/dRDOOO6oih+iojw==
+X-CSE-MsgGUID: KuMQzZxvT1CZRRjiYGAdsA==
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="63701587"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 06 Oct 2026 05:57:25 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2026 05:57:28 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 6 Oct 2026 05:57:23 -0700
+ 15.2.2562.49; Tue, 6 Oct 2026 05:57:28 -0700
 Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 6 Oct 2026 05:57:19 -0700
+ 15.1.2507.58 via Frontend Transport; Tue, 6 Oct 2026 05:57:24 -0700
 From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-Date: Tue, 6 Oct 2026 14:56:35 +0200
-Subject: [PATCH v9 3/5] ARM: dts: microchip: sam9x60: Add GFX2D GPU
+Date: Tue, 6 Oct 2026 14:56:36 +0200
+Subject: [PATCH v9 4/5] ARM: dts: microchip: sam9x7: Add GFX2D GPU
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261006-cpitchen-mainline_gfx2d-v9-3-74bd3df2e183@microchip.com>
+Message-ID: <20261006-cpitchen-mainline_gfx2d-v9-4-74bd3df2e183@microchip.com>
 References: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
 In-Reply-To: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -65,13 +63,13 @@ CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
  Cyrille Pitchen <cyrille.pitchen@microchip.com>, Manikandan Muralidharan
  <manikandan.m@microchip.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=993;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1002;
  i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
- bh=+u2grcbCdhxCd975l0htRzcuvftDxE2QAvyE3v3OQ9Y=;
- b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9aRDwo5fabldndCpzzZJ1bJfqUtS/8SQ3zQNVEPHSW9r
- x1P9s7rKGVhEONikBVTZDn0Zmtv5vFXj+1eiUrBzGFlAhnCwMUpABNJcGRkOMjYdOgC+9fJ0+L3
- OEvZujnOfcBwMeOWtefe5vspWY1TdBn+J3R6f1aPe57CdUI+hdMsqW7TnT8VvtbPDpR/+Fa4xEu
- JAwA=
+ bh=90E4Y3iv3wZWZ7rk6RLZc9iA+z4ETFdFADS8b0uLgEQ=;
+ b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9aRDwpuYn1KRlcjNqQxnLKa3+oZFFrrEvOJzS0idZPx/
+ eYpJ3Z3lLIwiHExyIopshx6s7U38/irx3avRKVg5rAygQxh4OIUgIkc283IcKunUDRgt4X5vwTf
+ i+8dzqd16vUkfQmXcat1qTywwiyln5Hh5MRSyTMKtntZS7atYS7c8fUHc9GRR8mJLaeLnoZmT+D
+ iAwA=
 X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
  fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,28 +93,28 @@ Reviewed-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
 ---
- arch/arm/boot/dts/microchip/sam9x60.dtsi | 8 ++++++++
+ arch/arm/boot/dts/microchip/sam9x7.dtsi | 8 ++++++++
  1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm/boot/dts/microchip/sam9x60.dtsi b/arch/arm/boot/dts/microchip/sam9x60.dtsi
-index e708b3df4ccd..1155f4f997f8 100644
---- a/arch/arm/boot/dts/microchip/sam9x60.dtsi
-+++ b/arch/arm/boot/dts/microchip/sam9x60.dtsi
-@@ -351,6 +351,14 @@ AT91_XDMAC_DT_PERID(26))>,
- 				status = "disabled";
- 			};
+diff --git a/arch/arm/boot/dts/microchip/sam9x7.dtsi b/arch/arm/boot/dts/microchip/sam9x7.dtsi
+index c680a5033b6b..5450fddf89dd 100644
+--- a/arch/arm/boot/dts/microchip/sam9x7.dtsi
++++ b/arch/arm/boot/dts/microchip/sam9x7.dtsi
+@@ -292,6 +292,14 @@ AT91_XDMAC_DT_PERID(26))>,
+ 			status = "disabled";
+ 		};
  
-+			gpu: gpu@f0018000 {
-+				compatible = "microchip,sam9x60-gfx2d";
-+				reg = <0xf0018000 0x100>;
-+				interrupts = <36 IRQ_TYPE_LEVEL_HIGH 0>;
-+				clocks = <&pmc PMC_TYPE_PERIPHERAL 36>;
-+				status = "disabled";
-+			};
++		gpu: gpu@f0018000 {
++			compatible = "microchip,sam9x7-gfx2d";
++			reg = <0xf0018000 0x100>;
++			interrupts = <36 IRQ_TYPE_LEVEL_HIGH 0>;
++			clocks = <&pmc PMC_TYPE_PERIPHERAL 36>;
++			status = "disabled";
++		};
 +
- 			i2s: i2s@f001c000 {
- 				compatible = "microchip,sam9x60-i2smcc";
- 				reg = <0xf001c000 0x100>;
+ 		i2s: i2s@f001c000 {
+ 			compatible = "microchip,sam9x7-i2smcc", "microchip,sam9x60-i2smcc";
+ 			reg = <0xf001c000 0x100>;
 
 -- 
 2.53.0
