@@ -4,106 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950EDCA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 17:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9132BCA5FFC
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 17:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBCFB10E0AC;
-	Tue,  6 Oct 2026 17:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E17D210E002;
+	Tue,  6 Oct 2026 17:18:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xJ714r4h";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="HOlGHupv";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013026.outbound.protection.outlook.com
- [40.93.201.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5279F10E0AC
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 17:01:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tKHfsMs+SbcwmhYEtuBSbzdgTRJwsgkkiZE99UELzGNqb5DYKSI5ZKDu6DVgMRRFdNU0t7U3FoNrPeasAqzEvw973Zv7WHbd01wn8U5WVmcuDNdNRcllQv1GyHhrb4qGqtOR5A73tgvKCAVnCOEd5ofw6V4lLVuWggM0jy1R8+PzClGB1P6rcBkIhlYufzQDFJLbHJbk+ronxjnFFG+w2dbX9MBrGeYkV8sq4MOGis712KrIqWQ51jcnQtSYZjQWRddIfzKsa3RwgOQ8QutW82og6UFTA95UEXu9a92bhzTY5O5V4bqrH0lkcTBZ7OUNAwSmV5C10A0IRxz7kXrxkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EN7Hx46Siv23gguu2ZtvuYlYiK5i2XjMf7kTziYHdYA=;
- b=J5zg+bgLzRIx/6sKHotMNeA2J4U235gfhObX/BGlel+KLX6uwrg3fMSk+4MZjthD6cHJ4qjuKhhitl68nUiYGkwZy0m3fysX1t+2W5WVp730rDI4IEKZE1bInYMlBdE5oRdi2HVQEttMjvVIPbC9u5+iSVDJAUJ7YcGFsumvpHZzC3HjuQBfQd9ugLcQ4f/s+tl3zaTlOKJPi85r/wtd79RpSaDK0CnZPVV58uqr4M8iAPiYpNn+rMbHY+ULsD1EokGHqV/jgdhSITui61yCEVkl3mo2dxrkEroihxu5Uy1T3objQ4AhUk7uqkO4OwPqEnro9+rMxYGOI3/kIYTRyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EN7Hx46Siv23gguu2ZtvuYlYiK5i2XjMf7kTziYHdYA=;
- b=xJ714r4hrOe5RYQkTK+s399eoGDKfelOIcdSeGYXXO3xWoM2M8IA3OEj85BCiEyq1XJkhpX7YTsIg7rhqfL1M26CPP7mfXNB3D/x23i27p3LsuAc8RsQFsBvzIxGv+4u9x7XSam9nCqPuuYsz48ndBAQUnpxtMDvdrM9/5eskVA=
-Received: from CH0PR04CA0016.namprd04.prod.outlook.com (2603:10b6:610:76::21)
- by CY5PR12MB6035.namprd12.prod.outlook.com (2603:10b6:930:2d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
- 2026 17:01:11 +0000
-Received: from BN7PEPF0000009F.namprd04.prod.outlook.com
- (2603:10b6:610:76:cafe::1) by CH0PR04CA0016.outlook.office365.com
- (2603:10b6:610:76::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 6
- Oct 2026 17:01:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN7PEPF0000009F.mail.protection.outlook.com (10.167.248.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 17:01:10 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 12:01:09 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 6 Oct 2026 12:01:08 -0500
-Message-ID: <8900270a-064a-fc3b-5686-e37ff58c5335@amd.com>
-Date: Tue, 6 Oct 2026 10:01:09 -0700
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11AEF10E002
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 17:18:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791307096; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=hB62AdVTW3x1ecqefvoG2W/JW41ycYHB40LUiQ8GXGthlU5XqE+zPmV10dcW+KX944xbtu70B9bjByqqq5HhaflPnc+kz20Ggtjmi6MwSFmukXVNaLrAy566t7OqjVVifdeHxmsBUSIf2FbmYJKLNoL0qziIuIo9tLZQ2R0bugk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791307096;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=iS1yf3CNwcl80VFN3tKnDuJ+FW28sI/p4KBTK3BXXMU=; 
+ b=YUjWQtNIxXqsRIpr+ItlK8Z4Jo6mRJmjjm3q+btJZkAAbI/aB/xKscYNjOHSncXOyZJTpFR4SI2bBnnT5fBopvbXDRgmE0fghzOIh8PhMg/CeAX/mQXWsk3tSptL/a7NbgVnLk0MLxdT5F7rMA5OSzgva8eWDaDJKYDi/hf7IdE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791307096; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
+ bh=iS1yf3CNwcl80VFN3tKnDuJ+FW28sI/p4KBTK3BXXMU=;
+ b=HOlGHupv0PAVAXR5ZVGpLM4ESoejT7ewfW0/m8TIC2+bFeFHQ+eKaifWn/el9y5K
+ /P2IbqlP+MDw8uquzwWU42Leo8MkNVV//KnzwiOPymYTVg4iPVTyoWiUyySrLSOytra
+ 26MaTwSDAyMXBa0nc4ag5z8bFcQ1LX6KvS0WCCGw=
+Received: by smtp.zohomail.com with SMTPS id 1791307095879578.8132568543292;
+ Tue, 6 Oct 2026 10:18:15 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V2 16/20] accel/amdxdna: Finalize runtime PM before
- acquiring dev_lock on removal
-Content-Language: en-US
-To: Eva Crystal <0xiviel@gmail.com>, <yidong.zhang@amd.com>,
- <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
- <max.zhen@amd.com>, <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <20261006042230.547807-17-yidong.zhang@amd.com>
- <20261006071310.198186-1-0xiviel@gmail.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261006071310.198186-1-0xiviel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009F:EE_|CY5PR12MB6035:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40f3cc42-5a69-4c5a-31dc-08df23cb6bf1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|22082099003|18002099003|11063799006|4143699003|6133799003|56012099006|10067099003|5023799004;
-X-Microsoft-Antispam-Message-Info: Ze1VbWaTSxD7t92r2HiVkxLY9t3wHsr9jb+1Em6RbmJgbHIR7CSAWjZ+ZGAHXKb7Az/v06nI3G6sZ8Lfx5TTtHdz3IwO/9su5mp9LUOK2C6RoJQdFaTI4wuorfEiuIWxQDMB23GPC5JSMz931OEErPSHAeokHVwE117TrbCO9jAteYDkX0zlzLFuY38Os47u/e/MgzQ70NFpqbZrMDqMxvXd6fk7GJx4AbJOz7CuvbHmMFjM0xRdxqkdxPm1nCr8M2tlXVlIo3VuYTa5tVO8Djz8w2POcCHaVsRGU+S0+3710tHgVY7e0qLJFJediz31UDm7hGspNdx954deJKCxQPAQ7zPVnCcNIorOePhw0hMAg0X3Eh2YQSiAbL8/KTDZwciEXhFrerKz/PV7Pmza2gXxWff+qKdfX3lYskJxKnnbHh4uggXoslX0f/j4ZnrFlY+mr7+p5z4WZEFs+K5X58UVrKBfAa8YnARbHPoNoK4KiVlBOOHt70BbBgqNn4KCMVfHNemJi8XYMzhJXnxZ+eN5EBq8DvAqa1QFSKogDVSzAyczrVwqYGHke6ZGBuhfTz96cVXwctqPmyUNDjcKlR2KltT2mPNkI7qZ2oK/yTFfalX0tXC81tA58Fe2zduTyAxBOwk9nRKtOq2gTvtIUw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(22082099003)(18002099003)(11063799006)(4143699003)(6133799003)(56012099006)(10067099003)(5023799004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: qv0ZyqLaEck5voC9KT7AW9QRQCIt564ki11ulfN11dxbmhnmu+FNhJyYcLmsFmpZ6Dal9Em5annjrdy9SJsDM7QU5BUGT15QFuSmH1rwlANpKAOvGdNjyrFGOxFf1xQyUqfqK6tpQQ2gegoDsodecS9ZiDuzga5cbHqKIrXDbiQiWQCiEDGgmo/QxDmRsCxLb4KKs2Arb80+U38ncLCkckF06U73FryRRN/gCfinkR//Imfrl4i76wmtfhfILXN21jGDsBeorw3rSBNPBKq4paa5qKrNvywtFnzKC5uoUaw/yhySEcANcxgUn6aq5QnHa92HHc6Tyu1qSvKK4TSjikDt4bKd/OwE360c4fv8g7puWx0lXMVt5NZTBAnAp0C6+cx+vUx5VmWGafne+pUHwCbOqcU5C0msEV13exvhL9lZ5ihRTkN64g7BJbOlxp0q
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 17:01:10.5766 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40f3cc42-5a69-4c5a-31dc-08df23cb6bf1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF0000009F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6035
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
+ when enabling perfcnt
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Rob Herring <robh@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+ <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+ <20261005103855.655f8199@fedora-61.home>
+ <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+Date: Tue, 06 Oct 2026 18:18:10 +0100
+Message-Id: <179130709099.1018806.10936869787038535987.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5063;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=KH6ZKcJBkF+E3qcs6J1FuVg8hcjrj4CvuWvbn7rmvi0=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxS1TaUUGJgIw/uGz2vGNewjkbRtHcbSaI0pau
+ En7BlrDSJuJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasUtUwAKCRAOJn5M7lND
+ PbAAC/9daAfZfkD39wUdWvyKDydoDKLe+sHRVtmGFOKwpkx2wL5xedeLfa2ywdWNamnElfgKBIa
+ IEh8Muo4+Q0oUzWs3XsfEEV0cqdJpIdiIBpTwhS8otjHqdSj9mJlgp1ptf0L5SP9iTvzzFP4Kyi
+ l/xCK0wOr8p27BjU/oL6js5ah+UHl+mHeIfUbBL4WWaPmeRGk1nyG75OGsaq1jqaOSbokvmI/3+
+ mZxfbI6vp7tSVjhuPnapE33o+vGdVyAbC32ffctU0F8Z/C67cz+fSEIQOc2WJBnCT25v660rKq4
+ 07omGogXa6gmui9b5mei3LUH1JirJtnCRgIAWZRFqK4hP/WbCWIkms0x/jsQQJAOssuiTtu/Bit
+ MVghZ8P6WonkZxGN5756C3ld1dU8dcU2y8e2gBqXZnJJ/UEE2QqsuGU23oqz7f4t5o47iji7x/f
+ xsycNQJaGXfwxtPMITRVt4pODB9u6vPH7t1rdiSfZi05UiWRqMQHXy2tEeQ672tnl6fKY=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,44 +95,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 2026-10-05 16:06:02+01:00, Steven Price wrote:
+> On 05/10/2026 09:38, Boris Brezillon wrote:
+> 
+> > On Fri, 2 Oct 2026 16:14:38 +0100
+> > Steven Price <steven.price@arm.com> wrote:
+> > 
+> > 
+> > I don't think this can happen though, because _enable_locked() is
+> > creating a BO (and its GPU mapping) just before enabling the perfcnt
+> > block, meaning the buffer is known to have no dirty cacheline pointing
+> > to it until the first dump happens. And we do flush and invalidate GPU
+> > caches after each dump, so again, we should be covered.
+> 
+> The situation isn't actually a dirty cache line at the start, but a
+> stale one. We start off with the memory matching a clean line in the
+> GPU's cache. But because we don't have coherency the clean line can stay
+> even if it's inconsistent with everything else.
+> 
+> CPU		|	GPU		| Memory
+> ----------------+-----------------------+--------------------
+>                 | clean line            | matches GPU cache
+> ----------------+-----------------------+--------------------
+>    CPU allocates new buffer and writes zeros
+> ----------------+-----------------------+--------------------
+> Dirty cache line| stale clean line      | unknown (cache line
+>                 |                       | might be evicted)
+> ----------------+-----------------------+--------------------
+>    CPU cleans its own cache to memory
 
-On 10/6/26 00:13, Eva Crystal wrote:
-> On Mon, Oct 05, 2026 at 09:22:26PM -0700, David Zhang wrote:
->
->> When the device is runtime-suspended, pm_runtime_forbid() synchronously
->> resumes the device via rpm_resume(), which invokes
->> amdxdna_pm_runtime_resume(). Because amdxdna_pm_runtime_resume()
->> acquires dev_lock, calling amdxdna_pm_fini() inside ops->fini() while
->> holding dev_lock in amdxdna_remove() causes a deadlock.
->> -	amdxdna_pm_fini(xdna);
->>   	aie2_hw_stop(xdna);
->>   	aie2_hwctx_sched_fini(xdna->dev_handle);
-> This is worth more than its position in the series suggests: the deadlock is already live on shipping AIE2 parts, not only on the new AIE4 path.
->
-> On current drm-misc-next, amdxdna_remove() holds dev_lock across ops->fini(xdna) (drivers/accel/amdxdna/amdxdna_pci_drv.c:457 and drivers/accel/amdxdna/amdxdna_pci_drv.c:463 at 34e9ab018249), and aie2_fini() opens with amdxdna_pm_fini() (drivers/accel/amdxdna/aie2_pci.c:640 at the same commit). pm_runtime_forbid() then calls rpm_resume(dev, 0) synchronously (drivers/base/power/runtime.c:1672), which lands in amdxdna_pm_resume() and its guard(mutex)(&xdna->dev_lock) on the same task. The base wires RUNTIME_PM_OPS(amdxdna_pm_suspend, amdxdna_pm_resume, NULL) and aie2_ops supplies .suspend and .resume, so runtime PM is active on aie2 before this series adds .runtime_suspend. With amdxdna_pm_init() setting a 5000 ms autosuspend delay then pm_runtime_allow(), an unbind or rmmod more than five seconds after the last NPU access hangs holding dev_lock.
-On the remove path, pm_runtime_forbid() does not call 
-amdxdna_pm_resume(). The PCI core has already resumed the device.
+We're not doing this explicitly for BO memory from the CPU. AFAIK the only way to
+do that manually is calling dma_sync_single_for_device() on physical addresses. I
+suppose this means the reason why the CPU can see up-to-date dump data is because
+a GPU cache flush also invalidates CPU caches for the same lines?
 
-pci_device_remove() calls pm_runtime_get_sync() and pm_runtime_barrier() 
-before amdxdna_remove(). That get resumes a runtime-suspended device, 
-and the usage count stays elevated through aie2_fini(). 
-pm_runtime_forbid() then enters rpm_resume() with status RPM_ACTIVE, 
-which returns immediately and does not run ->runtime_resume()
+> ----------------+-----------------------+--------------------
+> Potential clean | stale clean line      | Matches CPU
+> cache line      |                       |
+> ----------------+-----------------------+--------------------
+>    Start dump without invaliding GPU
+> ----------------+-----------------------+--------------------
+> Potential clean | GPU writes data, and  | Unknown
+> cache line      | hits in the clean line|
+>                 | even though it's stale|
+> ----------------+-----------------------+--------------------
+>    CPU flushes the GPU's cache and invalidates it's own
+> ----------------+-----------------------+--------------------
+> No-cache line   | writes out clean line | Matches GPU
+> 
+> 
+> Of course for the GPU to have ended up with that stale clean cache line
+> means that the physical memory was previously used for something else on
+> the GPU, so the newly allocated BO has to reuse memory from a previous
+> BO that the GPU has accessed. And it's all "unlikely" due to the small
+> size of the GPU's cache.
+> 
+> >>
+> > 
+> > I agree, but that's not a case we can hit in the enable path. I think I
+> > mentioned the commit message was misleading, and that we should instead
+> > talk about the fact the GPU is not supposed to have cached anything up
+> > until the first SAMPLE following a the ENABLE step.
+> > 
+> > 
+> > I think I was the one suggesting dropping this flush so that
+> > panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
+> > operation. Besides, I find it confusing to have a cache flush+inval in
+> > a path where the GPU is not supposed to have accessed the buffer yet
+> > (or later on, when we re-enable after a RESET, in a path where the GPU
+> > has been reset and the caches are known to be empty).
+> 
+> So I agree this Should Be Safe™ because of how the driver is currently
+> using the performance counters. If we really want to drop the invalidate
+> then I think we need a comment explaining the logic. My worry is that
+> someone extends this in the future (e.g. allow selecting which counters
+> to enable) and breaks assumptions without them being documentead.
+
+Perfcnt ioctl's are currently marked as unstable, but even so, adding the
+initial flush/invalidate back in case anyone ever wanted to redefine the
+uAPI to add support for fine-grained selection of counters shouldn't be
+much of an issue. It's just that, as things stand now, it simplifies error
+handling quite a bit, and I guess it's a reasonable trade-off.
+
+I'll add a comment explaining why it's safe not to do the initial
+flush/invalidate in a new revision.
+
+> We normally do perform an invalidate when the GPU first touches a buffer
+> (e.g. for a BO) - it's just normally more implicit because it's done as
+> part of the job manager(/command stream).
+
+Does this mean instructions that are part of the command stream passed to the
+submit ioctl can trigger a flush/invalidate without CPU intervention?
+
+> 
+> Also "caches known to be empty" is a dangerous thing to assume on
+> anything that could involve speculation - AFAIK Mali doesn't really
+> perform any form of speculation, but I'm not 100% sure on that.
+> Certainly with CPUs you don't get such a luxury of knowing what it might
+> have populated in the caches.
+> 
+> Thanks,
+> Steve
 
 
-Lizhi
-
->
-> Three things that would help it travel:
->
-> * Fixes: 1aa82181a3c2 ("accel/amdxdna: Fix dead lock for suspend and resume") looks right. amdxdna_pm.c had no dev_lock when 063db451832b created it, and 1aa82181a3c2 adds exactly the two guards the base still carries.
-> * Cc: stable@vger.kernel.org is warranted, since 1aa82181a3c2 is in v7.0 and later.
-> * Could this be split out to drm-misc-fixes on its own? At position 16 of a 20 patch AIE4 series it is unlikely to be picked up as a fix, and splitting it stops the fixes cadence holding up the feature work.
->
-> One question: amdxdna_pm_fini() now runs after drm_dev_unplug(), so pm_runtime_forbid() resumes hardware on a device already unregistered with its user mappings torn down. Intended?
->
-> Eva Crystal (0xiviel)
-> XSource Security
-> https://xsourcesec.com
->
->
