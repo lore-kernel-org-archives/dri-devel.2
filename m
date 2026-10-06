@@ -4,115 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B59CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 12:20:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D9FCA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 12:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2E5010E129;
-	Tue,  6 Oct 2026 12:20:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0ECA10E153;
+	Tue,  6 Oct 2026 12:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="gilhD+fD";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="H2N9jvG/";
 	dkim-atps=neutral
-Received: from sonic302-21.consmr.mail.gq1.yahoo.com
- (sonic302-21.consmr.mail.gq1.yahoo.com [98.137.68.147])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A80010E129
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 12:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1791289208; bh=VsaSHlXqrmr/etCWdlCTiPDjrmJy0QmLkERhO8rj0bE=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=gilhD+fD+aiTo7omG1+R9+xIFL/a6d8qRew9CRn7qea8RcJIj359vX+qwZAO9Z1+N2PH2O2aKLQPNZv7o1fEEl2jJcx/Jk7jhEna9JGbGFdBxXW/Fi3COmf7L2NwFOY0NaIu7ywAqFffyGTaiSTuHJhTx1YV8ZD9LSojuNTn57aBt6/DwIo1PtMksF+5QJmWyAAsFDBqxDe18zQT3qwVQCTBz1lNfpEho/m+91FMdWQDlMkvU1Zdn/Y6g49Ran+IyCmfZsEGIAnvM8WAo9Zt01Mw/MavI9OuPFcJ8LAQULZZEQEszOnl1/lFLQOb2+zjEU5STBHuiaMIq2uyDwdaSw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1791289208; bh=jFa8fe39cXMvXRscTtzPtGktMAPZ0kchXp4f1K49xLf=;
- h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
- b=cQPmJtV1Y93oolufHDDpWCspADlXbMB+s6MzxycCxiy7pFNUs1UUusifj0mr69kC2RhpK3ermkFtlVCB0j1lCJ52Ghmtx204ULVTBBzCbqRsl0RRG1ekos3zXE6gzjYcksZP48EvMIcjpHHDCyYIYL53V87GKv6/57hiQ1NdBMkiUyq4pu2Jir2O2qQ23NMuRfAC5bHjCzs9YBECO4O6umAp/VsVj+PO0OgQhKSYKE6+ucJQSzLyh1HRUaK2x2j6xDWWpZF581uus7CBFj97i2n8FEe2lTGaZ+BBLGP3JSn0iniVC7rXI/1IbkxLsNp/++gsgvWl9EEOBl3fuVYcEQ==
-X-YMail-OSG: kXZSJhQVM1l4cnthdPQvdKfRMdzfcWIKI9mzt.AlUusrsu6yFByIDERgVGIqf5b
- .ZpnmN48l0KV8HBNP0tsehOi79SaEq5fr6T93DYPacwgD5eJgVOjbddK86v9djpFKPdUGIk4PzIX
- yFDhX12Ugh7ElnVZVKFhaGtlrZdCVHWUagHIQEn2LQE6uJ8IyvbCqTZQhcNMCK1uGxcDTwAOXaDO
- bdRg10St3dzYynnD8KNQqEI2I5RpBxxD1W5UiNwMS9JDBveix9lysluM0AJ3yZPhzS_xr2ezLkFo
- 4JG5rtL2X.SrlcQlIqS1uFwuEhlbtd8czom..RhAd9jmN_jAJiWSrgsnO3H_Dy9E1E1gD5tRuRnO
- PwCgbFb10I8CED97l5QtY_7xu3dj0sdpY5fMejx1f8Ldk6m6C8kT1XXyM4QNxf7ci5ZM..3H6fww
- ny43jnGL6.TBNXK62r0SJ5bPv0uRTsl3jMrdhrfhMe4.ym_w9nazLaqt9DLbEAu7Jo7Bmu3vcDbb
- d0LBqpLSlt9CYpS14TUaldyE4_7hS1MDvCgWgwHfEdzCtFroLD76UT00rxC63.KTY8wQC.M.bynL
- EsDsggYqK3Wxdc6xJG1QdKT061NDTRL0q0.DDhE12_gt7bx50vmEYtvJBUoOFcnW14pM3_qp.JNT
- lf2e5bjanCGsA_opzcV9G52kCUWO_bBNHOrGAgU0UIQut_KIzQkc1epXDju6fHgQ9e3_rca0OcTx
- 0F9AcC_ZGNYUGottr_mK2phE8bWvgKlw2dLnrAowdxOsnRaEFd55m2nbbxUHSOicqo1KmsvTI0sR
- iIYDQOTdx_eYZdF21lUDKaoKBHo.zuWw11_xWhTWE60QlP6Y7OPt3ttPc4z1MkCmZfcEXdw8lCd4
- sc0nmS15MaM8XZdq13PnHtcSpPWMJzLbR3EXAqneD3XpZ6nM6Xrw9v8ekesv0vfnp_mB6nafGq4k
- xy7mrDkmZnOzKoJwtKvhayC6OFhLJd_lfSGJfLrMA0VRqUUT4hpKZPks1nmpBKJ7L0P47kCXrd0H
- Wu85ed.B19K861B8B7ki8vRC1WMkutBqRmipMtbbaTihdEuKhalxRW_1enqZbAttu2VhbZma0BRw
- 6eWfErzRohn0ty0lm.Bp_5iJPx0vIan.RSzwd05DMxOO9ByW_Xw1yopBznJiaHNgCfPILcsO.UVo
- XRc6kfEzIbpcCjJdKsWh71Z1yN1ijggTUDDMgUf5ZnO51tzd4BMDcMAoIXgRm7SKnvsM9vk2nxCL
- vgYWSdHoFmzeLj9b.uOr83GXATj2ZYCMzcZHYYXE4Gbkntz7fL.syGy1tgf.UxlM4CvdJMbcvj8x
- 59afHAxHQj4uDo853_6DI8IsE9U9qjrjWDMOhhGFqGDcYPlTWpiFrgp7ldSQzyPyr4cMQEv7Pqok
- a6mxg4ZaWWLtm4_qJJNeEGvYcbEp6XuGQWag1ozgJ1GjBYiyRcL3RrGnMyGQBiG20Q4ZDwN55ZlL
- xdWAL3gtFh355wtApU.dpnKhIb9wHYy6h2zUpFOZQ.bfTahLLOu6dfs3goEoMEQio7CM5L60c_TI
- qXWqm0iawfu5p5xp_XE0Ief6qoHtULPdhPBFPQ2clO_c6jGq1PZt6Z06pivwP_FXPmi2_UHkzlxn
- 18gE2oRc_0QUAdWBfxzy0MXI2RVCpgCp7vvxnvfYLD3ulpiVpQS1owAMncm4aO1E_1pdugqVaiBS
- .bNnvpOBchYI3739JVpcXE20.nRFa2rX9Jlj1_Hrz3tUjSX7J40iPdHXHg5.2IxwP.KSBLMe6vG8
- Tpe7Lo0JJrljRjKpE1j5VbhooZT1uaBAu6SOMVabhctJ1h6ZoLRsHxGyBdWqZn1jdK4sWgmdLhZH
- rRqzU18NXJDLB9f8vIKv025q0oLplZc2dBOug_dghM85gzAvhLBkORA7.KQJHewg0.txpF49.4ic
- hKi8YZYXk47caGPZKQN8.MDyQjV8y7MsfiukQ3YL3q50AjxEPIUoLQOj9IZrhaqr47jhBhf7Z_oX
- 5mdfzGmvHBVsEi8g.BDk6SCfze9shDuN1ONJT8WwgKJBrOQVGSdUq3mr9nmGaW5wwpBsWKem32oM
- 6LYuFqZFE.nbR64SVn4RERlQRWSb1NC.KWJ1h4UGmMVwPwgQItm_pLXPCJ0eZB5l6o4v5RRGSkw_
- IB0oEib1C30A4CJpLM16qPXquFguNCxS0DfUt.wvUVoC5NdQLFZ3YR4FanMw_3Qm_ocM.gMO6sV2
- okzaxldWYVTjh53GH7rJLRVIIE9bILq1UaEP8.Gk3ybiaAcY3HKkYvcxetAE5
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 3f2ca717-a9ce-414e-8118-5766e604d46f
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic302.consmr.mail.gq1.yahoo.com with HTTP; Tue, 6 Oct 2026 12:20:08 +0000
-Received: by hermes--production-ir2-5dd9bf4598-vvk7z (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID e59c3c356c4555e72f269c6939591e4a; 
- Tue, 06 Oct 2026 12:20:04 +0000 (UTC)
-Message-ID: <23f062e2e497a58821003115176d71183f5c06b0.camel@aol.com>
-Subject: Re: [PATCH] drm/gud: don't keep a connector without a CRTC as
- connector_state
-From: Ruben Wauters <rubenru09@aol.com>
-To: Sajal Gupta <sajal2005gupta@gmail.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
- noralf@tronnes.org, 	dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sashiko	 <sashiko-bot@kernel.org>
-Date: Tue, 06 Oct 2026 13:20:01 +0100
-In-Reply-To: <20260922084026.15481-1-sajal2005gupta@gmail.com>
-References: <20260922084026.15481-1-sajal2005gupta@gmail.com>
-Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
- keydata=mQINBGQqWbcBEADD5YXfvC27D1wjh1hOmjTjSwAFjQDGynLtrhBBZpJ+NBsfu++ffR7HF
- d/AaSJ+hqJni6HBNr/DMxWYMC8fOAr6zCSAX6fD2Rvy6rq6emuLaGOFkAIWDyuFWw40anlSCPZN+f
- fXTKJvARo45ZpC9PcfNu9/iRl/CpzSdiB5U4O2YtggXPWyOm9ev+bysmn6sjS1d+IZ7iTs9Ef0O4v
- I+1VFXvZMaY0YzG7EoYnKfeeUD7IGLpI4EEkNqLaU4onLN/qkXUwjT+YTw/VtTxNCmtTVFf57RAg2
- toscC85JjcrOeGSXdpP3J9CPdcIDMpOlnE//KuJIA3QMkckPQgnYtRw3ZhbiVxLNNJSUYm7PuRd9L
- LyObX7dpi0YfsUhxmD2+grw+Yvh2YlPWFybBDBgzRIcSMMSw0ertL64hBof06aVIlT8+TBf1Sq7O+
- obGYoXUi2q6qAuz+0y11spGk0YOffx4ChGPMQGGGaXGaCcjRMuJ050MF4dtwep/mSWH/p8EJtIKY8
- LfP/2c6G8leikMddtb+wKSNUuGYE6ctgcUtlltssRt74ls/ajYE00K52dlhCiaKxd2y0KpYEfWXPE
- pfiQ8yd/P/6fZCaOleY4k8Y2/JmlVUfwfVcVmb3mKWxKQXaHhT3cEvv8yuFDZgkTvZInINKtxxzly
- 1i3TlY/nn5mwwARAQABtCFSdWJlbiBXYXV0ZXJzIDxydWJlbnJ1MDlAYW9sLmNvbT6JAlQEEwEIAD
- 4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTehs0109D1XkJCLZjSflDAUK4M4QUCaPU
- lLgIZAQAKCRDSflDAUK4M4bK/D/wOugk+nS1PVpk5XkoSB3BXpW0yEuu55EjxXuFfN7mGdtRDq6kn
- WIunzqN9vb7qBFcfz1uG9OxEQpiEhGTW7aIkgCCDbyCk//bb2uRKRy7nVHA9E8p6Zya+974iY0+LV
- LkzIN/CgDavmljWIKQvyPL280KU9PjH2blbH5g6skwAc6MU9pCp6H5W00DYFjMW1j5NCBk5d6UDQ9
- OLukHTU5lHURNB4y0EMZg1eHRjqPk/bxXQA7dAz6BtMKhY+ZY8qDd8XC0sA6Zjsr5r8Os4/mDIn8I
- mzcpVNBKiLU0wpZ58TOUuB0s8wUwXZgwyAkG0sMDqasrQAHx5aVZUfb62p3DosMALacVjHrnW4Kwp
- rwfV9lKxfxPyDoGxtcwCAEdA58fG1FsqFqDxB/qkhyvF/4fzEtcOAHcgEAXR9W5G4PU6KInEidNX1
- 1B9IuXRV+5NX6pQ0JAYN10WP7TI5SVzx1ebu6+bdLM0etdLU/0urUJjrnIgfQlRItq091/Qb5k4x5
- WTTeD0Y5Ko5/LSUX95R9z06ZffKWKqrl3QpZbAJrOI9PmDwbV8E5PNsIFE84+O2iqfF01j2rXaj+I
- dRhLIkp2jnabmNTFJtCy/N0Yrx16Gd8FnbOxZkbAER8F49MAm1JBQWoIPRbjRrXKJdkAtJr43RCkS
- VabceKfcvFR7bPf9z7QdcmVkMDMxMDAwIDxydWJlbnJ1MDlAYW9sLmNvbT6JAlEEEwEIADsCGwMFC
- wkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTehs0109D1XkJCLZjSflDAUK4M4QUCaPUlJwAKCR
- DSflDAUK4M4YOiD/0au/ik0WOM0fwVYY6+PQbU9QeHAJ5kuVesCNA57Zwhe2eAeLvAkmh67hmUzTK
- XD46kqeu81cRYG4WlECv2pYUaEkPni9vmpSMTPpmXvpkekaVNrX1qgBVSd2vfP1xG3QmuQXcGiWZw
- gzPDbN/rCjs4iUqwjDrUpnb1c5va2bTfsqATAUfz4MKobkt+NGlJ7wpTY/TE2noeT2Q8v4NWcNkbM
- MMDkACUut0kyzrgeLxu5u8AS2d5TnWHaZwi5hy8egbGTe2FW/fz8GT4ZgOEExshNt2vs2Ay7CGyhm
- v8SJfsvoUQFoIjAKfQ+KLrjCL3nT27Cl1g0Xj6c16f6qH0/ns9uym6SisNr6FzxN4RauMCQsHBeRZ
- qFhJ5WYXaBBziPfa46Jrdnd385KvsQ7V5cGitM6mBx4tDo3cN0jzYqosuBVrwyiOewklRLYrf0go0
- wh31YtoJXeJ0ObH65oHINmT2gqyaii5ZHe+avPwnKE03W5pHwenGCbgSnOndy5eGeamSD7AgwKw4V
- j5r2FeK8K7tU8rpONWu0pkDqq3tMVOcDguTPufXIBFgLDQy4OoC7dHoJRplg8ull5wMjI9ERR0oaP
- 8IVIXxGcFRph02eKbZfqK51lMtns3kTe5DgHao5vrE+2GseLnEWE37cWnBQDhYgjwxIWtjGVp6KG7
- eIvzsqg==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-7lZk0vyErrpYnufwA6aj"
-User-Agent: Evolution 3.60.2 
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013038.outbound.protection.outlook.com [52.101.72.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27EC510E153
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 12:23:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wi5qS11g13ctl5l6Lbil26otggyuHEUGWULFETofYbVpH2a7Q/eoLa/bxSzQZibuzRqujUxFpPp7GO1laQi5p86Xh+nvuamBfDqdupj3wJVCRPlT0PbMfwXmmStryktVR09ito2nhcLk+cU9CVCNwz0FnM//HLG9Vdnc1H4vTJwKDJ9m+XdA6QUnj0ULFzWK8sB0hAdPMO0cDb6dNQMY3+bF9E0DgOPnEULZ3eXt2st9K8yXkJ/BQHDEFK/omwTRQ6nHA8wYtcwUsUXcdwjN7isfWe3PQmgbW1/dFUg3k6mgdpdkURinKSIz9yf2xkfVllnVlr5st5AMx/niOCANoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zUoNcyigMJhUE2QXdy8PajZf0ZY59hMxOjb5tFrFllM=;
+ b=pXY9qXa1Bopp/a+FLTwNGSF1g5Pz20OdhPHSBGnbRqQh94JCtgCHcKGqJx8O2UNxc/8w2Xx137l5hiUtNEAWqEySidA0sKG0dmaUDrrSKvpozgzjePBqxeWxlUfW9rdR3ArdMzWxX1PXJe/HMAsPUgApdXDiPcE2zYEFuE/KrP7M2PNCvcShMCLryFHXnvx7NcMszA3yIgLXIs/1f2YY3H6LSaZdF+ZEwuW7guKfR+zSRPrrWJj8q3wpisPh0lWTa8Lk8evnt1eUG5M119+3ZJQcF3CD9l8Hd2gqBHCnVc/MbVr4+8Cfg66KFypRl6k+xFj+zoByFBvzv2qqAoeQ+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zUoNcyigMJhUE2QXdy8PajZf0ZY59hMxOjb5tFrFllM=;
+ b=H2N9jvG/pmHDo4N6J8k2mI6HMmLncrPOZHYMPj5FnHwvmLL7lBf2WQsACLh6apq8zBobOflk5tGEpBRrA/BSJDYcpZ6CmvGPTkjWSeXnEY65QEI3foZDd6lfIGVt+ysPQsAl7cSVhPqxMCIQKdIGzVPe6AK20kw6eHK9eM5FjtNvv9P94Tcpke/Z7vIrQfgoJy8m/M1dsri17wbHxLAjwVOcE6tTYdngEFgzGgwTLRCIcd0klRRByluSAqOpSGBqAeU3WffoPPbB8opruSlnebvKpriE1gJBjnBVTgbKdgstK5w3wR5XTBRJ4mxGkcTepE3ubAvvY1rgjM8+8aRi9w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by DU4PR04MB10742.eurprd04.prod.outlook.com
+ (2603:10a6:10:58c::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 12:23:09 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
+ 12:23:09 +0000
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Ying Liu <victor.liu@nxp.com>, Frank Li <frank.li@oss.nxp.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Abel Vesa <abelvesa@kernel.org>,
+ Peng Fan <peng.fan@nxp.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Marek Vasut <marex@denx.de>
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-clk@vger.kernel.org,
+ imx@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v10 0/9] Add support for i.MX94 DCIF
+Date: Tue,  6 Oct 2026 12:21:55 +0000
+Message-ID: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
+X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260602-dcif-upstreaming-fb177f3c9351
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0062.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::11) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26668
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|DU4PR04MB10742:EE_
+X-MS-Office365-Filtering-Correlation-Id: a23b7fed-9ec3-4df6-bdd7-08df23a494cd
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|19092799006|366016|7416014|376014|18002099003|921020|6133799003|10067099003|3023799007|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: ZmALVgCUNAE2qGFl4yKsXR4q26YMaaG91JTnQAN/p9QsVQhnlksvZamhnNqLC/6SQLuP4KAubrkHD4NBQml94T4/Onqx5VaI9Qzz4AoAOaXy6CtfYwj+yy3Gow0Hqc/vvjLkKxjhyYLhx8YSMKVOACQWoxAne43Q/Nz3F3oqAB5xVLMcgDttf15m9roO4RLG6UxI/X3EBOpJsPLhEi1QtwpG2CGwLreivYsrAl86R7mMOerrL9W7xz4TFRwvBqhpgVHMfiO1ozZgy81Xz07VWfs75iqJ/BwliFj0CMUk6B5ed346ar00smet7pMmVGGb5sRwejrC/rrHFYBXNwhTZllcPIFm1wtnZ4pMtnwUkM0d/vDdeq2tTT1Tr7ZZ8eQMJ8gDA8LcOsrg9c37OspzZz9TGYe++Yc1GWhudd14c32Yu8CMzoRhDgmosBgjEdXcoFN5KM7jiUm28e/V5pMp/vPcczzspWivzENW6l1l8og1vrCW1KJoBjz6wqMfXruqn0yv/jdGyHCfDJewWYnKN4pwqfXdjxq9KC5+0RZmvSCFxzzy9eOZmqrQcBwpLuKXu8X4BykNiPwaH3MFoUWhBNBwF7/ezlOMymOvFTrh+bIGGBXqBNfXezbyZvca6/DR7eu5ohJy2ygL7+1mF4WJm/20aTBzDhN6PXwqJPv98hU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(19092799006)(366016)(7416014)(376014)(18002099003)(921020)(6133799003)(10067099003)(3023799007)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEd1QVVrNEx5UU5PUElOZHdIT0QxcjNaMXR3cWxmWjlWRHUxblptek1wbWpM?=
+ =?utf-8?B?Sk1UREVTd0ZMNDRVQ0tiTUZicnNwWnJLclpSUXZUUXo5R3JIK2F1Wi9iOCsv?=
+ =?utf-8?B?R1BjTVFUd05WMWw1bE5ySHdpU1ZYcE4wT01zZitQdWlYQjRTWSt2M1NRNEFC?=
+ =?utf-8?B?REFMbDdPdUt5RndtZUkzMWNzc0psVFNKZzFqazg4aDRiM1dCbnlkZzJqUlZ3?=
+ =?utf-8?B?VjZvRkN5d2xLSUtibWd1bHVtRGx1OU1WeU4yajNrRnhYYWgvMkVhNlFCSFRC?=
+ =?utf-8?B?WXN1UFpjRmRzTndhR0FPb1BYYWVrRUhmdVNsd1p5SFN0dmhJbi9Ja0FtMTdt?=
+ =?utf-8?B?MGd6bEZxQmRaQTdGNnpXQlF1WkYwSGJqSS9Xd1NZdjFIWTRxSSswU2Z4UGQr?=
+ =?utf-8?B?K1JXci85SW5kYndMeGJSaVRMT1RrbDVTMXY3VG9ocHhWSExBbmJKSmxQbFZC?=
+ =?utf-8?B?cXdPYnpYeTBFQS9mVkY5STRqeXNhMk1kV0l4Mm1WS3I0Qmg4VFQ1Y1QwclFs?=
+ =?utf-8?B?VWJ3dXl0enBlcmt4Sk4wS3VWQWtVNFhnRzhXVzFodVhyOHo0akdRUytLTUV1?=
+ =?utf-8?B?SGFVb2VVWEI1UW4vbGRSclAzWUF2Z3pRTXZ1bnJ0aExrb2NNd2ZOOFptWnp1?=
+ =?utf-8?B?WTJHMzk4bHVtRE05UHVBS1kvK1M5aktLQ2NHZnRPc1RINzRZdk8xb1RMSE5H?=
+ =?utf-8?B?bVpmVWM0aHRXem0zejFqb1k2UGY3VzQyUHpPWkZRTGM5QkxRQVBzNlQ5ejFW?=
+ =?utf-8?B?N2hRUnpld3JPa3MvejZ0UzQydU4xWEUybFNSUHJPSGlvcHQxRE53ejZnVEF1?=
+ =?utf-8?B?b09yZEZmN1duR203bFBCcnpDQWo1VFNoOHRMb2o1UGlueWJLck1UdDVTMFZP?=
+ =?utf-8?B?c2xQMTZPRlc2czFhcWNNNFphNWo3NU9qUW1oSlV3M2s3N3Z0a0pmTDc5ZDJN?=
+ =?utf-8?B?WnlONDYybndWNHN4L1lsbkdONHJDMDJMMk5zQm1DY0diMW9yajIzMHRwL0Q1?=
+ =?utf-8?B?WlAyc3BBV25lTkFIbGF4SGRIY1VOZnlwTlltNnErSWM2OGh3ck0xa24rNkxo?=
+ =?utf-8?B?ajg5Z2JGYmZ4Ri9OQTZTYitxYVJaTWQ3QnlqL3RxcEpDQTdnWEhvM3BPb3Bk?=
+ =?utf-8?B?UVBBdXlKTitpenlYQ1RDT2Q5eWhLTEc4RVBDRVNPK2tDYzJuUWNkZkI1WUxn?=
+ =?utf-8?B?ekF5ZXBHYjQrd0NrY0MrWHp1T0xRdmNYRmFRNGZ6L1czeWUrUkdDUmYzeE1E?=
+ =?utf-8?B?MERXVlJvZUlTQnNIaTNLOGs0eVkrekUvVjlUY2FsZGdoV3hKMTNPMjVQczEy?=
+ =?utf-8?B?MmI0UVVFSVhJU2VTaEptRGxJTFJ3L2hJdml1NERuaGVWdlRmTHpybTB5NDNw?=
+ =?utf-8?B?Qk1GNUNKcFhYZ0V3cng3L21obVA0ckpZSVFRME5NYThGMVRrZmNTRGNkYlha?=
+ =?utf-8?B?SkxBV29QelMxZUNMck1WRmwvUXpSbnFyM2xkMEJ0Tll6aW5lcnhqSkFWWG5B?=
+ =?utf-8?B?citvc0JmYWNUbnU0WnZSeTN2TTV5Vkp1TFozekdiMkpzZ0xTQ05MS1Vmd3Az?=
+ =?utf-8?B?aUVzWENUMERsUFMzKzZzMUl4WFdXcXFmZGw1REtTM0RoaGF3b1FXcXZ4VDJs?=
+ =?utf-8?B?TXF6TXFab0pGUEVpeXRadEhaVzhlME9ib2ZYdUtwUzVKam41MG92anI0c1NT?=
+ =?utf-8?B?VnZYem05WlAxS24wU210S1JLVHI0eWsvODlubHdvMElObEpicmhkc2lZYlBJ?=
+ =?utf-8?B?UG9TeUIyZzdoZTFLNmNiOXhDUlRzbzNaWlRFcWFwR0NhRGJEV01rL3JQQ2RY?=
+ =?utf-8?B?bzlmODZhOXJXQWYzSjNVeVdDVmNTSkVTZEdoUUhYcTNsWXJ3WFRCc3U1N3M0?=
+ =?utf-8?B?TEJZcHhBRC9wa0NxalhySXBzQjNLVjdvWmltcVdvZ0hNVkdhQyt2eGR6RTYr?=
+ =?utf-8?B?eWJRMTZrRnNBVDU4ZTBCRXZydlJ4blJpb1hQMkM5RmNyRHdwdDNicTlpZGhx?=
+ =?utf-8?B?K0hIN1BRc2U4Yk52bE4vYW1JUlg0c3FvZUFpcGxvM2cvbk9vNlhoR0dzVVp1?=
+ =?utf-8?B?S2VPU2QxY1hMcUt1dUtDdWhQdEtCbThrSkExbGpOTDVMMnF5RG9CSm1YdkpB?=
+ =?utf-8?B?UDZSVGQremVtTmRBUGtzNllYdy90KzhaLzQySnU0aW0vMllUTmwzajhESDZF?=
+ =?utf-8?B?U2p3TThnYm5RMGtmZTV0djFJbEo1UmZadzgvSm1Ld0xzWG5xSHNGTGZvTFZY?=
+ =?utf-8?B?dGgraEpkbUVOQVNSekQ3bDlCUmxvUEtWYjhWZGNsMnFmWjl3UmlkYTJQWFZT?=
+ =?utf-8?B?VGZqUzlHdldKQm1RNHlZU3plVDBSeE0ydlkxK0V4bmxEYzZSZi9NZHlxRTk1?=
+ =?utf-8?Q?B4ZqmOrNKomj4Cgo=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a23b7fed-9ec3-4df6-bdd7-08df23a494cd
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:23:09.1476 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qyAcOXh/3QAK0j/44S+TgSlejVch3ESHQvfmmunKKqWJrag3SBjT+BHoaQLLib/JRhOaHqGdjHHyN9HyrQ3SIQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10742
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,71 +157,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
---=-7lZk0vyErrpYnufwA6aj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This patch-set adds support for the i.MX94 Display Control Interface.
 
-On Tue, 2026-09-22 at 14:10 +0530, Sajal Gupta wrote:
-> If the 'for_each_new_connector_in_state()' loop finishes without
-> hitting the break, connector_state is left pointing at the last
-> connector visited, which has no CRTC, instead of
-> staying NULL.
->=20
-> That skips the "if (!connector_state)" fallback below the loop, which
-> looks up the active connector when the state contains none. The
-> function then carries on with a connector that is not driven.
->=20
-> Fix by resetting connector_state to NULL for each connector visited that
-> has no CRTC, so that it is NULL when none was found and the fallback runs=
-.
->=20
-> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260902123254.36987-1-sajal2005gupt=
-a@gmail.com?part=3D1
-> Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
-Acked-by: Ruben Wauters <rubenru09@aol.com>
-> ---
->  drivers/gpu/drm/gud/gud_pipe.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pip=
-e.c
-> index aa7792966287..5aa5ac2f3727 100644
-> --- a/drivers/gpu/drm/gud/gud_pipe.c
-> +++ b/drivers/gpu/drm/gud/gud_pipe.c
-> @@ -507,6 +507,7 @@ int gud_plane_atomic_check(struct drm_plane *plane,
->  	for_each_new_connector_in_state(state, connector, connector_state, i) {
->  		if (connector_state->crtc)
->  			break;
-> +		connector_state =3D NULL;
->  	}
->=20
->  	/*
-> --
-> 2.55.0
+Also, included in the patch-set is patch that the DCIF driver depends on
+for functioning properly:
+ * 1/9 - 3/9 : add support for i.MX94 to fsl-ldb driver. It also
+               contains a patch (2/9) from Liu Ying that was already reviewed
+               and was part of another patch-set ([1]), but was never merged;
 
---=-7lZk0vyErrpYnufwA6aj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Thanks,
+Laurentiu
 
------BEGIN PGP SIGNATURE-----
+[1] https://lkml.org/lkml/2024/11/14/262
 
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmrE53EbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhYAwQALRHQCEzAJLWrKgQ6OVr
-UoemwL5sHR9PHETv9Ic/YJ2J81b9p8A30QsGkn6c+4m/rXt0nj595b/8V0uxajca
-CD4YvWsH/19aoFEvCYznKM4nNiLPkf0jOuI7RPy5o/akBfAjSrRzSWJ7YkXN9rJL
-E3C3lfZAxXJOR0yK78Jkpog2Ledj2nxBNDG8CCrSzrVsi/SfHAczjM/l4o8a6+8u
-ggyqwPi0N40iebdxyVWiQbs55ibMUw6b0lg469DjiFlrfi4Bf6M2OvM460k1zIfg
-HmCBgiKv5+Mg/kLUtvHJHy+CWqFPuDMCToS6gXlMl2w/lW/MhuOYd88LXPqpyvaE
-0QfgsROW4jC7LeKOlePoag88S4ZFRIE+wYUN+VSe+sLQjUbyzdH70cX+3RqZo7JL
-JdZqzV6V7Kn1k+QeqLhI5WC6OoZ1HUarl+tbIQYYuJL/l8ohGIyIH/JK3TeVYAfe
-JzYgEwp0pJlMUYXJouJ19Cp3zNg88ThS/uzKxqZzDBudJOS+c7oxTsEGXFwdFl42
-+Fk6Ws0jW4C9hQVZidQJmipZGkGmaX9lLesR1kbtPucf0c3SuTyTyTKb88coBdQ/
-N+3VTN/HYynRIg7NgG7QMw+fvXMK/Hk9HYNckVG1hiNgPc1rjertsSjh1HtZere4
-x3N4TAcELiYxYbJrfPhT+iSq
-=gwXS
------END PGP SIGNATURE-----
+---
+Changes in v10:
+- Rebased to latest linux-next (next-20261005);
+- 1/9: No functional change;
+- 2/9: Switch to using of_drm_get_bridge_by_endpoint() helper for
+  fetching the next bridge;
+- 3/9: No functional change;
+- 4/9: No functional change;
+- 5/9: Fixed a pixel-clock unit mismatch bug, ROI now derived from mode
+  at program time, CRC reprogrammed on ROI/source change, bus-format
+  validated with a whitelist, forced modeset on CRTC activation
+  (dcif_atomic_check), vblank event flushed on disable to avoid hangs,
+  dropped PREMULTI blend support since PREMULTI is not mandatory anymore
+  and the display controller does not support it, probe error paths
+  checked, shared dcif_set_csc()/dcif_plane_disable_layer() helpers
+  introduced;
+- 6/9: restructured to reuse the existing conditional schema pattern for
+  the new nxp,imx94-lvds-csr compatible, instead of unconditional
+  properties. Dropped Krzysztof r-b tag as it needs reviewed;
+- 7/9: No functional change (context shift);
+- 8/9: regulator nodes relocated/renamed (reg_1v8_ext/reg_3v3_ext ->
+  reg_1p8v_ext/reg_3p3v_ext) to match existing naming convention;
+- 9/9: No functional change (context shift);
+- Link to v9: https://patch.msgid.link/20260612-dcif-upstreaming-v9-0-8d0ff89aa3c5@oss.nxp.com
 
---=-7lZk0vyErrpYnufwA6aj--
+Changes in v9:
+- Rebased to latest linux-next (next-20260611);
+- 2/9: Reworked to store the next bridge in fsl_ldb->bridge.next_bridge
+  (taking a reference with drm_bridge_get()) instead of adding a new
+  dedicated field. Removed the r-b tags for this patch since it needs a
+  fresh review;
+- 3/9: Fixed the i.MX94 LDB max_clk_khz limit (165 MHz -> 148.5 MHz) to
+  match the actual hardware limit. Removed the r-b tags for this patch
+  since it needs a fresh review;
+- 4/9: Added a 'required:' properties list to the binding. Removed
+  Krzysztof's r-b tag for this patch since it needs a fresh review;
+- 5/9: Renamed the CRC source helpers (dcif_crc_source_*) and made them
+  unconditionally available, dropping the CONFIG_DEBUG_FS stubs;
+  improved CRC source parsing (auto ROI for the full-frame source,
+  unsigned params, safer string handling); rebased onto the
+  drm_atomic_state -> drm_atomic_commit rename in linux-next; reworked
+  CRC/modeset gating with new has_crc and crtc_pm_enabled flags and
+  proper PM error handling; switched event_lock to spinlock_irq; removed
+  a redundant connector-attach call and fixed an error format string;
+  added new pixel formats and full alpha/blend-mode support;
+- 6/9: YAML quoting style fix only, no functional change;
+- 7/9: Combined the former "arm64: dts: imx943: Add LVDS/DISPLAY CSR
+  nodes" prerequisite and the "arm64: dts: imx943: Add display pipeline
+  nodes" patch into a single new patch targeting the shared imx94.dtsi
+  instead of imx943.dtsi, removing the dependency on Peng Fan's
+  not-yet-merged patch;
+- 8/9: Renamed the IT6263 bridge node to 'hdmi@4c' and fixed its
+  reset-gpios polarity to GPIO_ACTIVE_LOW;
+- Link to v8: https://lore.kernel.org/r/20260304-dcif-upstreaming-v8-0-bec5c047edd4@oss.nxp.com
+
+Changes in v8:
+- Rebased to latest linux-next (next-20260303). Patch 2/9 had a minor
+  conflict bacause of a patch introduced recently;
+- 8/9: Fixed CHECK_DTBS errors reported by Rob's bot due to missing
+  regulators. Removed the r-b tag for this patch because it needs a
+  fresh review;
+- Link to v7: https://lore.kernel.org/r/20260122-dcif-upstreaming-v7-0-19ea17eb046f@oss.nxp.com
+
+Changes in v7:
+- Rebased to latest linux-next;
+- Addressed some new checkpatch warnings: kzalloc -> kzalloc_obj;
+- Fixed a couple of static check warnings in probe();
+- Added Luca's r-b tag for bridge refcounting;
+- Link to v6: https://lore.kernel.org/r/20251103-dcif-upstreaming-v6-0-76fcecfda919@oss.nxp.com
+
+Changes in v6:
+- 2/9: Collected r-b tag from Francesco;
+- 3/9: Removed ch_max_clk_khz variable as suggested by Luca and added
+  his r-b tag;
+- 4/9: Collected r-b tag;
+- 5/9: Call drm_bridge_put() automatically in
+  dcif_crtc_query_output_bus_format() by using a cleanup action (Luca);
+- 6/9: Moved allOf: block after required: block (Krzysztof). Collected
+  r-b tag;
+- Link to v5: https://lore.kernel.org/r/20250911-dcif-upstreaming-v5-0-a1e8dab8ae40@oss.nxp.com
+
+Changes in v5:
+- 4/9: Removed "bindings for" from the title, changed the port
+  definition and simplified the example;
+- 6/9: Fixed the way 'ldb' child node is declared: declare the
+  'ldb' child node out of if:then: block and set the property
+  to false for compatibles other than nxp,imx94-lvds-csr;
+- Link to v4: https://lore.kernel.org/r/20250903123332.2569241-1-laurentiu.palcu@oss.nxp.com
+
+Changes in v4:
+- Addressed remaining DCIF driver comments from Frank;
+- Limit the 'ldb' child node only to CSRs compatible with 'nxp,imx94-lvds-csr'
+  in the binding file. Since LVDS CSRs are a minority, I chose to
+  use the if:then: construct instead of if:not:then:;
+- Remove the '#address-cells' and '#size-cells' from the ldb node, in
+  imx94.dtsi, as they're not needed;
+- Link to v3: https://lore.kernel.org/r/20250806150521.2174797-1-laurentiu.palcu@oss.nxp.com
+
+Changes in v3:
+- Removed the BLK CTL patches and created a separate patch set [2] for them;
+- Collected r-b tags for 1/9, 2/9, 3/9 and 9/9;
+- Removed the DCIF QoS functionality until I find a better way to
+  implement it through syscon. QoS functionality will be added in
+  subsequent patches. Also, used devm_clk_bulk_get_all() and used
+  dev_err_probe() as suggested;
+- Addressed Frank's and Krzysztof's comments on the DCIF bindings;
+- Addressed Frank's comments on dtsi and dts files;
+- Added a new binding patch, 6/9, for adding 'ldb' optional property to
+  nxp,imx95-blk-ctl.yaml;
+- Link to v2: https://lore.kernel.org/r/20250716081519.3400158-1-laurentiu.palcu@oss.nxp.com
+
+Changes in v2:
+- reworked the BLK_CTL patch and split in 2 to make it easier for
+  review;
+- split the dts and dtsi patch in 2 separate ones;
+- addressed Frank's comments in DCIF driver;
+- addressed Rob's comments for the bindings files;
+- addressed a couple of checkpatch issues;
+- Link to v1: https://lore.kernel.org/r/20250709122332.2874632-1-laurentiu.palcu@oss.nxp.com
+
+---
+Laurentiu Palcu (7):
+      dt-bindings: display: fsl,ldb: Add i.MX94 LDB
+      drm/bridge: fsl-ldb: Add support for i.MX94
+      dt-bindings: display: imx: Add i.MX94 DCIF
+      dt-bindings: clock: nxp,imx95-blk-ctl: Add ldb child node
+      arm64: dts: imx94: Add display pipeline nodes
+      arm64: dts: imx943-evk: Add display support using IT6263
+      MAINTAINERS: Add entry for i.MX94 DCIF driver
+
+Liu Ying (1):
+      drm/bridge: fsl-ldb: Get the next non-panel bridge
+
+Sandor Yu (1):
+      drm/imx: Add support for i.MX94 DCIF
+
+ .../bindings/clock/nxp,imx95-blk-ctl.yaml          |  24 +-
+ .../bindings/display/bridge/fsl,ldb.yaml           |   2 +
+ .../bindings/display/imx/nxp,imx94-dcif.yaml       |  90 +++
+ MAINTAINERS                                        |   9 +
+ arch/arm64/boot/dts/freescale/imx94.dtsi           |  82 +++
+ arch/arm64/boot/dts/freescale/imx943-evk.dts       |  86 +++
+ drivers/gpu/drm/bridge/fsl-ldb.c                   |  38 +-
+ drivers/gpu/drm/imx/Kconfig                        |   1 +
+ drivers/gpu/drm/imx/Makefile                       |   1 +
+ drivers/gpu/drm/imx/dcif/Kconfig                   |  16 +
+ drivers/gpu/drm/imx/dcif/Makefile                  |   5 +
+ drivers/gpu/drm/imx/dcif/dcif-crc.c                | 221 ++++++
+ drivers/gpu/drm/imx/dcif/dcif-crc.h                |  54 ++
+ drivers/gpu/drm/imx/dcif/dcif-crtc.c               | 763 +++++++++++++++++++++
+ drivers/gpu/drm/imx/dcif/dcif-drv.c                | 238 +++++++
+ drivers/gpu/drm/imx/dcif/dcif-drv.h                |  91 +++
+ drivers/gpu/drm/imx/dcif/dcif-kms.c                | 115 ++++
+ drivers/gpu/drm/imx/dcif/dcif-plane.c              | 300 ++++++++
+ drivers/gpu/drm/imx/dcif/dcif-reg.h                | 267 +++++++
+ 19 files changed, 2390 insertions(+), 13 deletions(-)
+---
+base-commit: 15551282e82db772bfc862f96a8abf14a60f4ea5
+change-id: 20260602-dcif-upstreaming-fb177f3c9351
+
+Best regards,
+--  
+Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
