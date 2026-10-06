@@ -4,103 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9A05CA5FF0
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 00:51:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8255ECA5FFF
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 00:53:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBDF510E262;
-	Tue,  6 Oct 2026 00:51:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82B1F10E1D5;
+	Tue,  6 Oct 2026 00:53:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="OxLZv8Tz";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="PM4JXWyL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QdLv2lDk";
 	dkim-atps=neutral
-Received: from fout-b8-smtp.messagingengine.com
- (fout-b8-smtp.messagingengine.com [202.12.124.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11BDE10E262
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 00:51:22 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfout.stl.internal (Postfix) with ESMTP id 77CED1D000A6
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 20:51:21 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Mon, 05 Oct 2026 20:51:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- invisiblethingslab.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:from:from:in-reply-to:message-id
- :mime-version:reply-to:subject:subject:to:to; s=fm1; t=
- 1791247880; x=1791334280; bh=tRmGBPddwRXIEIkuPN35f35fGROq9M41+zS
- XYOhRKVM=; b=OxLZv8TzQnJsApYqfcRLiFoDtaZz7z3fuC4g0PvVjV0PXoeUa37
- lGccsQdmpd/IrAb/8Cc8w0Oi5tG8NPPQQQdSrh2O/NexetpRZLGf/T4Ueg2+xlpa
- SesEjf48ilsGa5ggjjniRNq3boeJa8l803Ff5TTLnxoGNzRfRCsuGyFf2tGG30zM
- jUwsBjq5EXBGGzB2wTy2oBZfFc5UBd/XC1o0jug6LqjydDFWrSsgVJXSTytWPcoI
- IvTStnK/IVXJhXiiplee8uiu/70qj7bwqi/B/UrDrqHxkmWbBmeEakojZJn8z0m0
- Q+LvvUtr7rzdA3sZ5YPlyRxPKFrfIuJ53vQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1791247880; x=1791334280; bh=tRmGBPddwRXIEIkuPN35f35fGROq9M41+zS
- XYOhRKVM=; b=PM4JXWyLOgavv4Ys8VgoNmdCyNG8yv99fshlaCPDiDwsyPTzQqC
- TxwsqY8XkUUYYFrWYIDZ26nvhM5TD1dw2o2dd4zdNoGf6xZkr1f8RclAV+8Lyeqa
- rEH+5bbnw3Bb8/rpgqbn1ZkehX9JNonU67hPrRnSJXQytJORHjwc2m/SvVMk920e
- 1rEl0CnPPufiV8CE47UUo6md9tHlJVbiB1YVVIrGizUlyjOJdKn7Nc+uHOr92IQh
- Uo5Wt62TEoJpHRGmw+8VphYrVZVV8qbOhldGNy6Q+CGmqXGsI9V0rZY+jYdci0m6
- 4HTBiYHYx4/pNkQ2GJyRF8Hsnl3KY/1Eldw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
- repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
- action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791247880; d=invisiblethingslab.com;
- mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:KK3WBAi2JPqwF/rA8luU0VLClhi7/TfrTz04lyuIhrXcHJ7
- fiHN1YgofM+Z4mRTYgmIS4zTIMd1eQ9NJX8GtsGBdpOnE8WIlAFnEoEUr/vaBbvB
- yjqs1MDBbF1VRitip54E/TqbKVL94zH9lxUlpFh9NCuoXQQ0oOvrXsDwYTmkLfBv
- q7MddZ8FLQPrsKmR9F/io9SBsrW75a/lLZssa+Ry3MHtHRpaLe3e3KsgeN5usQE7
- 8PPCmUwU5QXqv212KurHirQ6UFSKY2ZmeJ4j64R8JCncQ+mvyPXFhi/aK1eiwDkM
- kguel7VSvL+RRCchOqP3f/YEA5zAKQdpgTiEb0A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
- repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
- action=mi-m=1; hc=9;
- hn=cc,content-transfer-encoding,date,feedback-id,from,
- message-id,mime-version,subject,to;
-Message-Instance: m=1;
- h=sha256:2bupfxoc7c/W78shAkUTwaYLOwOELTJM7wttvyVs7wM=:DbE2ljPHR9RLBxRiQC0D1Il93+Qii2jUhAcHu4S2aWA=;
-X-ME-Sender: <xms:B0bEauEqVdfeXFKs-e7g2ZZTYSriScAMcJyzvfpHWU-iWAAbb4tOMg>
- <xme:B0bEanh4p5sOf8R3qsLUSmoIShXj8yn2hqaYeI6ywrB3v4N3ZTuD0AG6z_Zl2CYtn
- pspJtAV2Xl4lUyHouNxKHmVXObB1-nIxO6OVfzm5ss8LnlmBvo>
-X-ME-Received: <xmr:B0bEajvdpGScqynbwxTWB59fUXCdzLuViDx2h-uHl-HXS5iCkS7rDbs-D75_EjDzVpgHrqw22BAYuFwwLU_JRcqsCZ21RMA14uOQbHN6YnicziOgT8UYPyQrQdDKkw>
-X-ME-Proxy-Cause: dmFkZTGDeGecfuOBqBR+BQhzcXn/vNYPPEmBB26O+qh7FZR7AUWqdQtYPjhC6dsLaDuBea
- IeTTQ8cmgK80NNnBDqKATqjtVF4/aX3CSonUXyU8NmWyhcyIhTs/9zvqYDF0sB+7+ZIQdM
- 9BowT4dTsQLooVUdU9xViDIHD23gTeHkjfPMGpOvGX4nslU+OWiL1aI8E3CWpnfnx3JzSv
- 2Mfm2NUZXTHi96BFZEOZzjtluW7L83Db8YedS+pGUpiqrYrNSUgOfmbo7kLzifDvFwePml
- 3SyuoIORcUukCr/0RuDX7tj9pdkGzDL4n/3wFyh0IdxaaedWq8etqdwyR9PF8lKHDgYuP0
- JqX6/erQXDHZNY28l0+SxIWThsa633lKoUdWDbeHfliIx4PBhJX553VLMcZ6QjnySIWH9f
- MCctceavToVfBDwR80C7wEAbrqgadx4IShdfXGfXppcC7rsUE/caKhn8OD4fa7LLwMPKxV
- cPGtmqHqosDZw4eaBKVIjyYhxJE3YniwbA9HJcsZcOrUPwYph25aVe0K7qEDZzF4l2RoMP
- c/NMssbwZInDhFt38or4vj7DMByUMWp4m/lsO8flGPn8JAC+I7U/fcc/pF5zUqgJS5AnfK
- 5bOV+BI5cxaEor1igM/TmaO5VNjIA61w/g2QIlboIVeR6vdR6cswUpgKyd0A
-X-ME-Proxy: <xmx:B0bEaiu60XcoIr3amhSs1wBVqPsOwV5CYC8qOQLlWx5WK4EYc01q-g>
- <xmx:B0bEagEqgVLC9LGHWjWOsSaLJZbg7e_ka-dzkSP1qPS7nKUGQCAWXA>
- <xmx:B0bEalObjLpfT5Oo3e6Id77xmP9zZQUhaM2htVp07bN_osf6r5G74w>
- <xmx:B0bEanLPubuPUz9h6iTkBRPP4Q0IzP4ltDPuVkbvCuKE_s12tWf0Cw>
- <xmx:CEbEal7VrXbZHnEm8MDnRY7wWC0yzRqgQKL2ebMONKeDyx3ffT82Mg03>
-Feedback-ID: i001e48d0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Oct 2026 20:51:17 -0400 (EDT)
-From: Val Packett <val@invisiblethingslab.com>
-To: Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>
-Cc: Val Packett <val@invisiblethingslab.com>, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] udmabuf: Disable the list length limit by default
-Date: Mon,  5 Oct 2026 21:48:53 -0300
-Message-ID: <20261006005053.2245156-1-val@invisiblethingslab.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D77A810E1D5
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 00:53:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 03918601F1;
+ Tue,  6 Oct 2026 00:53:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E821F000FF;
+ Tue,  6 Oct 2026 00:53:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791248032;
+ bh=nZyWsuZ29X2XjD5qUL3PY1cLlVg7igHjAZzuJpMN4rU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QdLv2lDk/b4OVrPWre/WwQ+NPyhC1mAgJJjxNUsce5T61RC9G/rT7yfTsBasaFTfX
+ LqTG9iZdyPdPZzrgMX5Pnx9nacRQCBz7J+n3GhItqB2aPH2KFrfsxn91wgM6tA+dbT
+ i62Klv6xYIJrYSVo+QSbvkTvpzAMIqn3xMSG4OnB3sCRdiFubx1XHP4ud9LnaZ8Lvc
+ KxcKqSt/yzRrGAgFA6HLVQjHnz0ZuH9OHJlDbYQDHZl1BVowxPu26kyn2i6GiQR1/w
+ lCSDLSzbEoDTwZT7ruypdExqtVqbZk/HVwl4bizP8v+0cDlANsgQL3LUaDPNMXoGzg
+ doepAKHknnSPA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/virtio: do not enforce blob_alignment in
+ cross-domain contexts
+To: "Val Packett" <val@invisiblethingslab.com>
+Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261006004044.2242154-1-val@invisiblethingslab.com>
+References: <20261006004044.2242154-1-val@invisiblethingslab.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 00:53:52 +0000
+Message-Id: <20261006005352.77E821F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,41 +54,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Shared memory buffers for software-rendered GUI applications are often
-large and highly fragmented in memory. To get a shareable handle to such
-a buffer from a guest VM, a virtio-gpu device backend can use the
-UDMABUF_CREATE_LIST ioctl with the memfds backing guest RAM and the list
-of guest physical pages sent by the guest driver. That list reaches 80K
-entries for a maximized window on a 4K display!
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] drm/virtio: NULL pointer dereference in verify_blob() when 3D =
+features are disabled
+- [Medium] drm/virtio: data race when reading vfpriv->context_init in verif=
+y_blob()
+--
 
-Like 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-did for the size limit, change the default to INT_MAX since the amount
-of protection provided by this limit seems dubious.
+commit e614dba4f51f24b9effac7458783e310e89be777
+Author: Val Packett <val@invisiblethingslab.com>
+drm/virtio: do not enforce blob_alignment in cross-domain contexts
 
-Signed-off-by: Val Packett <val@invisiblethingslab.com>
----
- drivers/dma-buf/udmabuf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The commit prevents enforcing blob_alignment requirements in cross-domain
+contexts, as resources created there are arbitrary shared system memory fil=
+es
+like Wayland keymaps.
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd0046242..589031133588 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -16,9 +16,9 @@
- #include <linux/vmalloc.h>
- #include <linux/iosys-map.h>
- 
--static int list_limit = 1024;
-+static int list_limit = INT_MAX;
- module_param(list_limit, int, 0644);
--MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
-+MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is INT_MAX.");
- 
- static int size_limit_mb = INT_MAX;
- module_param(size_limit_mb, int, 0644);
--- 
-2.55.0
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/vir=
+tio/virtgpu_ioctl.c
+> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> @@ -540,6 +540,8 @@ static int verify_blob(struct virtio_gpu_device *vgde=
+v,
+>  	params->blob_hints =3D rc_blob->blob_hints;
+> =20
+>  	if (vgdev->has_blob_alignment &&
+> +	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=3D
+> +	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
 
+[Severity: Critical]
+If a virtio-gpu device advertises VIRTIO_GPU_F_RESOURCE_BLOB and
+VIRTIO_GPU_F_BLOB_ALIGNMENT but not VIRTIO_GPU_F_VIRGL, could this cause a
+NULL pointer dereference?
+
+In this scenario, virtio_gpu_driver_open() returns successfully but leaves
+file->driver_priv (which is passed as vfpriv) as NULL. When userspace then
+calls DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB with VIRTGPU_BLOB_MEM_GUEST,
+verify_blob() is reached without aborting on the has_virgl_3d check.
+
+This newly added code will then unconditionally dereference
+vfpriv->context_init because vgdev->has_blob_alignment is true, causing a
+kernel panic. Is there a way to verify vfpriv is not NULL before accessing
+context_init?
+
+[Severity: Medium]
+Does this introduce a data race when reading context_init?
+
+This accesses the lock-protected context_init field without acquiring
+vfpriv->context_lock. A lockless read of context_init could read a partially
+written bitmask if updated concurrently, leading to incorrectly enforcing or
+bypassing blob alignment checks and returning spurious -EINVAL to userspace.
+
+This could happen if userspace calls DRM_IOCTL_VIRTGPU_CONTEXT_INIT and
+DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB concurrently on the same file
+descriptor.
+
+>  	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+>  		return -EINVAL;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006004044.2242=
+154-1-val@invisiblethingslab.com?part=3D1
