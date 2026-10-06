@@ -4,45 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E837FCA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 04:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EC58CA6002
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 05:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B1B510F08F;
-	Tue,  6 Oct 2026 04:43:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A34C10E093;
+	Tue,  6 Oct 2026 05:40:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RPRGNuZp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vn37lnp2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C84710F08F
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 04:43:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3DE4741B04;
- Tue,  6 Oct 2026 04:43:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 015DB1F000FF;
- Tue,  6 Oct 2026 04:43:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791261820;
- bh=a4djcaj1z3So799Wrs6651ME3Nx95KfGyqUVZ5P/WXk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RPRGNuZp/V+vSGN9kqWRebgvH3d+URFevnjkEfA2KDI7YkvFURaOhTs+AkDCRHsoI
- deQzpClyNo84YmYOKiCunNoVjz3S20pV52T64JUyqzwxdUnpwnYSV4A486Z7kGrgSG
- LalTekHFXZw2lhyWWChKrW3MOLqjUuyBZcatZq4ML2yljxbGSehbMRDKV8PfZZi8wz
- 4Gl6MSZXbCcIruGUmQte6S+pxt/mJSk5DEXXqmgWC/Uf1OUEKp4cYNJFp3rqDt73wN
- eTFFQgS2j5YFPaRrLahxxCy7MJTiJy/D8gH+1BPV0V0PVr/kZOgCMNo+HTRolTf2c+
- TFrtpUs0UuyLA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 19/20] accel/amdxdna: Implement runtime suspend and
- resume support
-To: "David Zhang" <yidong.zhang@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261006042230.547807-20-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261006042230.547807-1-yidong.zhang@amd.com>
- <20261006042230.547807-20-yidong.zhang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 04:43:39 +0000
-Message-Id: <20261006044340.015DB1F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5344810E030;
+ Tue,  6 Oct 2026 05:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791265216; x=1822801216;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=LDj7dUSyBwhHjEEdlxV1nwl8/S1LnLk2ncMdqYP/LnY=;
+ b=Vn37lnp2D3AlqwQnzlH4aI3tNFfkxuB5yj2VkG4UFG0KWmxO3J2DrkWm
+ yQuNMM2odiP4qu/YMvEDCCW34tPPMte92X1ChexObCzII7t7jAcZMKnJd
+ gAVGXy2vUeoQUc2WBfRwvLLD7pgkmZBNhyXcjR0LA/0/ncq2fy6NYmtSW
+ R7VNJWjhOY7TSfIUI4IcR2RtzDPGs2ZbTWyqE2Saa9GlkirQ77j3H90ip
+ sYaPA+X4qc8lvtRjNhs8HyMi5xsHM/cYLsnbDxXHb4Ejm8+SQQHUXIKad
+ jw9Q2xZVqxX2bCA0ysdByRAh4tbxu1+lTSlLRwukBSw6O+xWDmBmpcgSR w==;
+X-CSE-ConnectionGUID: 7yg10b+HRE+PShAizpj+/g==
+X-CSE-MsgGUID: g191H6oDQBmsQIm93dvUPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="109434279"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="109434279"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2026 22:40:16 -0700
+X-CSE-ConnectionGUID: 1EIPOtKrSJO3bMNNmzJ2ug==
+X-CSE-MsgGUID: 89LnyumfTyqe08rZaXcE7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="285160492"
+Received: from pranay-x299-aorus-gaming-3-pro.iind.intel.com ([10.223.74.54])
+ by fmviesa005-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 22:40:14 -0700
+From: Pranay Samala <pranay.samala@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: chaitanya.kumar.borah@intel.com, sameer.lattannavar@intel.com,
+ pranay.samala@intel.com
+Subject: [PATCH v2 0/2] Expose HDR status in debugfs
+Date: Tue,  6 Oct 2026 11:10:02 +0530
+Message-ID: <20261006054004.285744-1-pranay.samala@intel.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,142 +64,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] accel/amdxdna: VF device link removed on unbind causes PF to suspe=
-nd
-- [Medium] pm: returning -EOPNOTSUPP from runtime_suspend bricks PM state m=
-achine
-- [Low] accel/amdxdna: runtime suspend deferral spams kernel log for passth=
-rough VFs
---
+i915_display_info currently doesn't show whether HDR is active on a
+connector. This series adds per-connector HDR details in three parts:
+sink capability (from the EDID), whether userspace has set
+HDR_OUTPUT_METADATA, and whether the driver has actually enabled HDR
+output.
 
-commit 9c2d41f547122e82068d6c644e6875d8381ac627
-Author: David Zhang <yidong.zhang@amd.com>
-Subject: accel/amdxdna: Implement runtime suspend and resume support
+Patch 1 adds a small hdmi_eotf_get_name() helper to video/hdmi so the
+EOTF can be printed by name. Patch 2 adds the debugfs output.
 
-This commit adds runtime PM support to the AIE4 driver. It wraps the
-device PM operations and implements runtime suspend/resume callbacks
-for the PF and VF. It also detects passthrough VFs to prevent the PF
-from suspending when VFs are in use.
+v2:
+- Move the EOTF name helper to the common hdmi code (Jani)
+- Use drm_printer for indentation instead of manual tabs (Jani)
+- Treat any non-SDR EOTF as HDR capable
+- Print the EDID luminance only when present, in nits
+- Add units to the HDR output luminance values
 
-> diff --git a/drivers/accel/amdxdna/aie4_sriov.c b/drivers/accel/amdxdna/a=
-ie4_sriov.c
-> index 3cad0526087db..c89bb033bb167 100644
-> --- a/drivers/accel/amdxdna/aie4_sriov.c
-> +++ b/drivers/accel/amdxdna/aie4_sriov.c
-[ ... ]
-> +/* Check if a VF is actively running workloads or in passthrough. */
-> +static int aie4_check_vf_alive(struct amdxdna_dev *xdna, struct pci_dev =
-*pdev_vf)
-> +{
-> +	struct device *pf_dev =3D xdna->ddev.dev;
-> +	struct device_driver *drv;
-> +	bool busy =3D false;
-> +
-> +	if (!device_trylock(&pdev_vf->dev)) {
-> +		XDNA_WARN(xdna, "VF:%s is busy (locked)", pci_name(pdev_vf));
-> +		return -EBUSY;
-> +	}
-> +
-> +	drv =3D pdev_vf->dev.driver;
-> +	if (!drv) {
-> +		device_unlock(&pdev_vf->dev);
-> +		return 0;
-> +	}
+Pranay Samala (2):
+  video/hdmi: Add hdmi_eotf_get_name()
+  drm/i915/debugfs: Add HDR status to i915_display_info
 
-[Severity: High]
-Does returning 0 here allow the PF to suspend prematurely when a VF is
-unbound?
+ .../drm/i915/display/intel_display_debugfs.c  | 90 +++++++++++++++++++
+ drivers/video/hdmi.c                          | 23 +++++
+ include/linux/hdmi.h                          |  2 +
+ 3 files changed, 115 insertions(+)
 
-In aie4_link_vf(), the device link between the PF and VF is created with
-DL_FLAG_AUTOREMOVE_CONSUMER. When the user unbinds the host driver to
-prepare for passthrough (e.g., to vfio-pci), this device link drops.
+-- 
+2.53.0
 
-Since the VF temporarily has no driver during this transition, returning 0
-here allows the PM core to successfully runtime-suspend the PF.
-
-When vfio-pci later binds to the VF, it wakes the VF, but because the PM
-link to the PF no longer exists, the PF remains suspended. The guest VM will
-then attempt to use the VF with the underlying hardware powered off.
-
-Could this lead to PCIe AER, host freezes, or MMIO faults?
-
-> +
-> +	/* VF bound to a driver other than the PF's (amdxdna) is passthrough. */
-> +	if (drv !=3D pf_dev->driver) {
-> +		XDNA_WARN(xdna, "VF:%s is in passthrough", pci_name(pdev_vf));
-> +		busy =3D true;
-> +	} else if (!pm_runtime_suspended(&pdev_vf->dev)) {
-> +		XDNA_WARN(xdna, "VF:%s is busy", pci_name(pdev_vf));
-> +		busy =3D true;
-> +	}
-> +
-> +	device_unlock(&pdev_vf->dev);
-> +	return busy ? -EBUSY : 0;
-> +}
-> +
-> +int aie4_vfs_alive(struct amdxdna_dev *xdna)
-> +{
-> +	if (pci_vfs_assigned(to_pci_dev(xdna->ddev.dev))) {
-> +		XDNA_WARN(xdna, "VF devices are being used in VMs, cannot suspend");
-> +		return -EBUSY;
-> +	}
-
-[Severity: Low]
-Will using XDNA_WARN here flood the kernel log during normal passthrough
-operation?
-
-Returning -EBUSY to defer suspend is correct, but the PM core re-evaluates
-auto-suspend upon every pm_runtime_get/put cycle (e.g., from sysfs reads or
-background tasks).
-
-Because passthrough or VM assignment is a normal, expected state, returning
--EBUSY repeatedly will spam the log with these warnings.
-
-Should these expected state deferrals use XDNA_DBG instead?
-
-> diff --git a/drivers/accel/amdxdna/amdxdna_pm.c b/drivers/accel/amdxdna/a=
-mdxdna_pm.c
-> index 9c030b7836fbb..2b4ce301bb96f 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pm.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pm.c
-[ ... ]
-> +int amdxdna_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct amdxdna_dev *xdna =3D to_xdna_dev(dev_get_drvdata(dev));
-> +	int ret =3D -EOPNOTSUPP;
-> +
-> +	guard(mutex)(&xdna->dev_lock);
-> +	if (xdna->dev_info->ops->runtime_suspend)
-> +		ret =3D xdna->dev_info->ops->runtime_suspend(xdna);
-
-[Severity: Medium]
-Can returning -EOPNOTSUPP here permanently break the PM state machine for
-devices without a runtime_suspend callback?
-
-The Linux PM core (specifically rpm_suspend() in drivers/base/power/runtime=
-.c)
-treats any return value from the runtime_suspend callback other than 0,
--EAGAIN, or -EBUSY as a fatal error.
-
-This triggers the PM core to set dev->power.runtime_error =3D 1, which bloc=
-ks
-all future runtime PM operations (get, put, suspend, resume) for that
-device until manually cleared.
-
-If a device variant does not implement the callback, shouldn't this wrapper
-return 0 so the PM core can safely transition?
-
-> +
-> +	XDNA_DBG(xdna, "Runtime suspend done ret %d", ret);
-> +	return ret;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006042230.5478=
-07-1-yidong.zhang@amd.com?part=3D19
