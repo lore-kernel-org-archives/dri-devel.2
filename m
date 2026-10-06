@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 394BCCA5FF0
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 04:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B07CCA5FF0
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 04:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8617C10F02C;
-	Tue,  6 Oct 2026 04:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 991D610F039;
+	Tue,  6 Oct 2026 04:35:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jbr7OBMb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="euGI0ySc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7573510F029
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 04:35:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ADC510F038
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 04:35:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5DF5C406A6;
- Tue,  6 Oct 2026 04:35:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1713C1F000FF;
- Tue,  6 Oct 2026 04:35:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 14DA5406A6;
+ Tue,  6 Oct 2026 04:35:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1EE91F000FF;
+ Tue,  6 Oct 2026 04:35:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791261319;
- bh=g/xVIyVXm0qR4IAjs4bF8UOgEzlR5EgYDSJHbs0hlpg=;
+ s=k20260515; t=1791261325;
+ bh=0yj6jEEjeTdozq2tPWLTyYlfzzb4v+wI4teanG5rvK4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Jbr7OBMbWqvaLxkQlv4UfBEOC+6uDYXvAB3esyrwK5aLP4Qt+e278HwthnZPJtZC6
- lC0/HIfOUtdZhk0gUewlirUuIvxff+Tvz+Rmky5Q8p7e8/bs+gnfhQuR0/1D3zKqwJ
- Qxn2ZW1S3HJ2SQGrgAQr96JrcKg7LHrA5HxsBvkIbuQTexrDKnhOq8M6G6EqHvuo42
- QO7SoOrvIS689cjNy1tHvQE4/Z8x7P5Ru3OV50IkwrFxxsTDpnmZYKkoydLaQGUF9p
- 6Thy+OGAtbi574eYc271fDiEjAq4ntETLHXaZJY/32HKMbre3+DsPdw1QLZwQB3qsD
- +uttBmZCsxuFA==
+ b=euGI0yScRh5UsoXIf9sisPvudrthqqqD/EiWn2PeinLBEMSTXWIoEeiFnQtkliZUa
+ gneGJwJzBy95zNQ+030Pm1gs7dTAGnAFfXRPM+vnUnQnPtAmh3mSRv4b2JjdNjZtQd
+ ljvxCJ04V/sbEqwdh/4/jSypBeRCrRUtsyexejYAvHACXXR/9EMez+D7/1dde9d1Tz
+ exc6Z8lQDnMnbV3uGcdCS8AqotUOHbBy0RkKNLvcQnbPUjb3ZwkGJT7rCrSEARcd+P
+ 1G6G21Eyi06E2rFO2/W523Cj6XkmIY8r7SsAkDtIgeVlYPGJgr6+18G+KMDhGg2zD1
+ dZayNWVueNhiQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 18/20] accel/amdxdna: Link SR-IOV VFs for power
- management sequencing
+Subject: Re: [PATCH V2 09/20] accel/amdxdna: Add context switch hysteresis
+ with debugfs control
 To: "David Zhang" <yidong.zhang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261006042230.547807-19-yidong.zhang@amd.com>
+In-Reply-To: <20261006042230.547807-10-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
  <20261006042230.547807-1-yidong.zhang@amd.com>
- <20261006042230.547807-19-yidong.zhang@amd.com>
+ <20261006042230.547807-10-yidong.zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 04:35:18 +0000
-Message-Id: <20261006043519.1713C1F000FF@smtp.kernel.org>
+Date: Tue, 06 Oct 2026 04:35:24 +0000
+Message-Id: <20261006043524.C1EE91F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,70 +61,66 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] PM device link between PF and VF is lost on VF driver unbind
+- [Medium] amdxdna: unaligned memory access in aie4_set_runtime_cfg()
 --
 
-commit e5da3c2c28df6a2bd8639c6fb55cd8abc88ea7e5
+commit 1c7fe2fcd8c5df7169f8d7c14de7898318de0123
 Author: David Zhang <yidong.zhang@amd.com>
 
-accel/amdxdna: Link SR-IOV VFs for power management sequencing
+accel/amdxdna: Add context switch hysteresis with debugfs control
 
-This commit adds PM device links between Physical Function (PF) supplier
-and Virtual Function (VF) consumers via device_link_add() upon SR-IOV
-enablement. The intent is to ensure the PM core enforces proper sequencing
-between the PF and VFs.
+This commit adds aie4_set_ctx_hysteresis() to configure the AIE4 context
+switch hysteresis timeout. It also exposes a debugfs node to change the
+timeout at runtime.
 
-> diff --git a/drivers/accel/amdxdna/aie4_sriov.c b/drivers/accel/amdxdna/a=
-ie4_sriov.c
-> index 0eea28f626763..3cad0526087db 100644
-> --- a/drivers/accel/amdxdna/aie4_sriov.c
-> +++ b/drivers/accel/amdxdna/aie4_sriov.c
-
+> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna=
+/aie4_message.c
+> index 7112b0bc3725a..5720aa88e6d6d 100644
+> --- a/drivers/accel/amdxdna/aie4_message.c
+> +++ b/drivers/accel/amdxdna/aie4_message.c
 [ ... ]
-
-> @@ -56,9 +56,74 @@ int aie4_sriov_stop(struct amdxdna_dev_hdl *ndev)
-
-[ ... ]
-
-> +static int aie4_link_vf(struct amdxdna_dev *xdna, struct pci_dev *pdev_v=
-f)
+> @@ -262,3 +262,46 @@ int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *=
+ndev, u8 power_mode)
+> =20
+>  	return ret;
+>  }
+> +
+> +int aie4_set_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type,
+> +			 const void *data, size_t size)
 > +{
-> +	struct pci_dev *pdev_pf =3D to_pci_dev(xdna->ddev.dev);
-> +	struct device_link *link;
-> +
-> +	/*
-> +	 * The link is removed when the VF driver unbinds. To rebind VF
-> +	 * drivers, re-enable SR-IOV via sriov_numvfs (0, then N).
-> +	 */
-> +	link =3D device_link_add(&pdev_vf->dev,   /* consumer =3D VF */
-> +			       &pdev_pf->dev,   /* supplier =3D PF */
-> +			       DL_FLAG_PM_RUNTIME | DL_FLAG_AUTOREMOVE_CONSUMER);
+> +	DECLARE_AIE_MSG(aie4_msg_set_runtime_cfg, AIE4_MSG_OP_SET_RUNTIME_CONFI=
+G);
+> +	u8 buf[sizeof(req.type) + AIE4_RUNTIME_CFG_MAX_DATA_SIZE] =3D { 0 };
 
-[Severity: High]
-Does this flag choice break subsequent binds like vfio-pci passthrough?
+[Severity: Medium]
+Could this lead to unaligned memory access? The payload buffer is declared =
+as
+a byte array with no alignment guarantees, meaning its start address on the
+stack might not be 4-byte aligned.
 
-Using DL_FLAG_AUTOREMOVE_CONSUMER causes the PM device link between the PF
-and VF to be permanently deleted when the VF driver is unbound via sysfs.
-If the PF is then allowed to enter runtime suspend and the VF is later
-rebound to a driver like vfio-pci for virtualization passthrough, the PM
-core will not automatically resume the PF. The VF driver will then probe
-while the PF hardware is suspended, which can lead to a system crash or
-hang.
+Later in this function, buf is assigned to msg.send_data and passed to
+aie_send_mgmt_msg_wait(). When the mailbox code processes this message, it
+does:
 
-While the comment notes that rebinding is not supported, any root user
-or virtualization management daemon (like libvirt) can still trigger
-this standard SR-IOV passthrough use-case because the driver does not set
-suppress_bind_attrs =3D true to block sysfs unbind/bind operations.
+drivers/accel/amdxdna/amdxdna_mailbox.c:xdna_mailbox_send_msg() {
+    ...
+    if (unlikely(((u32 *)msg->send_data)[0] =3D=3D TOMBSTONE)) {
+    ...
+}
 
-> +	if (!link) {
-> +		XDNA_ERR(xdna, "Failed to link VF %s", pci_name(pdev_vf));
-> +		return -EINVAL;
-> +	}
-> +
-> +	XDNA_DBG(xdna, "Linked VF %s", pci_name(pdev_vf));
-> +	return 0;
-> +}
+Dereferencing a potentially unaligned pointer via a u32 pointer cast is
+undefined behavior. While x86_64 hardware typically handles unaligned reads
+gracefully, the compiler is permitted to optimize assuming the pointer is
+strictly 4-byte aligned, which can lead to miscompilation. Furthermore, this
+will trigger Undefined Behavior Sanitizer (UBSAN) warnings during runtime
+testing.
+
+Could the buffer be aligned, perhaps by using __aligned(4) or an appropriat=
+ely
+typed struct?
+
+> +	int ret;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006042230.5478=
-07-1-yidong.zhang@amd.com?part=3D18
+07-1-yidong.zhang@amd.com?part=3D9
