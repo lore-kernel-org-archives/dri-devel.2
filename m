@@ -4,152 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB07ACA5FFE
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 05:56:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B90D2CA5FFC
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 06:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2298110E1C7;
-	Tue,  6 Oct 2026 05:56:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDF9B10E069;
+	Tue,  6 Oct 2026 06:10:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y61x/0ZR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gyrlammo";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="N7sObxPV";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEF010E069
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 05:56:52 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6963AAC0628328
- for <dri-devel@lists.freedesktop.org>; Tue, 6 Oct 2026 05:56:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=F7B4QuK2fsk9nNke4mivA/qr
- +54QLFDs3FrqTwcKT1Y=; b=Y61x/0ZRXG/nXIIAcpxskMTNmmCWOFxX9YTMHF4X
- CgAFOl88pHZacSEDWP7jzICjRcTNjo/YouoTdBOxgY5OD5x+N3gxzWnvOG9g17mc
- 72WN66mVVKjoFUfznL3iGeTZBGhyoVk9JRIl6B+1DS8tR9uoj/VNtZvbGxw2whzV
- WHjvExSXWZC9oLAvB5EJF/dOyQ6E2F2kykJbhsRYnj1rpRAT5RgP5ma2fWUUXbiC
- BTYjIT5luVRlyJsVI0Sk3MG/5tyuAxLNIYkKYrLRD1yZjuSA6QsJUx10Wisggx1j
- PU1C8Jt8Gd4DJN8emt8iZe1EcI1lUxkeC0/LTk569T7SdA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4cuu3a2x-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 05:56:51 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93ce7a85f04so452697885a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 22:56:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791266210; x=1791871010;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=F7B4QuK2fsk9nNke4mivA/qr+54QLFDs3FrqTwcKT1Y=;
- b=Gyrlammo9PUk7DteYiv24uSBiYGxZ3C7o19gOt7/752f/S3EINPjVwYUa0Dl4aM/3m
- SJkJ2Ttd2mvPjA3d7P0hY/KLiVlNAAz/i+0LWvlGCSmM27ja+8D0sa2SlhJGV/5Eqd8a
- 5mlRVavjn7RjGjtuHCiT7fnja8g4cqWlfclMZgUBIzOGfS2zn37/0Xa4KOA8k45hNC6H
- yBacri+wMYjBsZSVjyj6MyGACioRuducqPJbROHp52Ur1No2wEOIQLDoaDs0FjGvNk5X
- /WR939Xwm/KoysfWkH9VHEkUM6gRCiG9RkTvEW6OdQIYZtirfSKmoVW01/ZUdAqgAc4A
- X0fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791266210; x=1791871010;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=F7B4QuK2fsk9nNke4mivA/qr+54QLFDs3FrqTwcKT1Y=;
- b=l3Si//is1+LpCbjbnw8FjYNbcWXd4clsJU+7Wnkc1xnH4l+ynxXiVATzKI506/Hsfa
- uUqYBtOO7qoB8V84cLmlI+2z2JNcddKsnNtTldi+erf2eiUpnL+ZOiXo3x25IIk5vm5j
- QMTt2CPmFrrPjQ5OCrOvuaiJnVgwJZ9vHyKlY+dE3OuRp5cVAFy8cpcPSkcx8na+cy2u
- iKX5DQhAR+TSrDVFmQIpD0CQgUQqPG3CuOOHn+1hIXcHLPqgOdRNBB12kZIVZPzhMzyr
- w+R5MrTriInr6Tgc9U2j/7AWpqxOvXYP1ncSlSc/HRiv2Q4j8cMwN1EY92WeyR12nn4U
- TITg==
-X-Gm-Message-State: AFuF++mFiHR1I9oIx2Jbd/2Ji2OfxlL7arYvrxIyltnOqRJqS22jIi2h
- NSZ+f8hRsaMtG7OiFT4+/bKTkvibt3hmhB3SZvNOw6m5NhuMEKnqgNpDqmciE6z6ZWDuG94rwvh
- IIPMvhPGx+QFDi6SZJ0Aq//fwTWscC7v/omrjdQ8QNPXDJ9tOr4MPzJ2QEkQuWr0TmZPDjdFg9G
- qATfCx9A==
-X-Gm-Gg: AYBFou1Yw98NNIWaznYsAxan9SiQ015kRc5KLyDas2YBMvspY/UjFDkh2w/XlfvaeV9
- rB2SKYKYJRg3SEadrNISnRz4vlWBccqb2LI4Z7acGvFb4LzH+jqo3HHuEOYwkgj7wvEAHupl/lE
- evgHLF/SW/G0yg+lRWJ6FboH8j4B6Btu5S1uxi3Vnbis+vdU6psbJBQ67GtUPzyWa+7HIwgXfJo
- 07brNEh7FwThJIZ7FBuySiKpg8Q9kcY5h1EkqYcl1apyzEtR0n76xoHulknkV3afjvGKzuy0Bgn
- IS87gosTHkPAeL0EYI9F1eBqeSRFA9jHZIbSa7JWkGYm7to9Dhkmd1nsHFVcsJdeoHqNhCfoH8j
- +Kkd1f8IlAqqSj/Hwwj4YxPuj5MngpeqLh2NOxDUnifRkf3Cz/uvTHrtGYLAwG7PJm6SFR0WGQt
- +i5c0buEzOFiEo
-X-Received: by 2002:a05:620a:c42:b0:93e:4833:82e7 with SMTP id
- af79cd13be357-93e8f4e77ddmr71045685a.46.1791266210033; 
- Mon, 05 Oct 2026 22:56:50 -0700 (PDT)
-X-Received: by 2002:a05:620a:c42:b0:93e:4833:82e7 with SMTP id
- af79cd13be357-93e8f4e77ddmr71041485a.46.1791266209460; 
- Mon, 05 Oct 2026 22:56:49 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bcbc7a1428sm1877753e87.32.2026.10.05.22.56.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Oct 2026 22:56:46 -0700 (PDT)
-Date: Tue, 6 Oct 2026 08:56:41 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
-Cc: dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Saim Shujah <saimzst@gmail.com>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v2] drm/display: let a bridge configure sink audio from
- hw_params
-Message-ID: <42emyzl5p3kpvq7e3b7npaaghl62r4skrpdflszk7v3jagexal@6jdg6h27eofw>
-References: <20261005131545.23219-1-jean-francois.bobier@laposte.net>
- <20261005161824.36445-1-jean-francois.bobier@laposte.net>
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013068.outbound.protection.outlook.com
+ [40.93.196.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB3FC10E069
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 06:10:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=diZ9Kkd/8LxuQ1FH03Lva3+bpA+XOulqD8lqJakQo2i1WGb4cpjw0qY58bYtyPpEUX0OCfYRxLzHL35dEapjZl6SO7srHboJjW+Ds/jzEs5G+SMZonETI/s6u3GBzAtNkOZM1k/hK60pTBcJD/b9wkptLwTqdGCb75xpGKP4+PczCWr3GJs0QFqMNBsUA8COxs35gDLRMcSEDcPN6aM4Y4HnTUJIuEcj17VVfI0k+UDq0IvGbdF5w74yerecJ0xWvF5SX4IHYP/2hBrH2DIWt4DOiB4XN0gTMGbkotobVEyMJFTJ2B+SNylVVYjc/DLuiEEVcIk8PaYzO2Ive8aRhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oj++YW5ntYZ7SOzeeINeIDSxf/8cbhA4KdkSINDFhdk=;
+ b=AMn/MMHdvPGZzmLjbXHHmqmvd0rkAiIF5/46OQhfisrn6wsPYGZhlwPSjFws2jU5ZkRtyU6ZzbEexhxgoihl6Ee38HII6H/tJgs4MHj+szWb8Wyz/rxW2WWgXW7KAxq1164t8yRLV3yuVsxEQsmUtjOQGv8kuTN5+tDKdauDVswSQZfhsutdOkcYydBNyp7Z3shKzRJKFUFeigNIIRawYQ1bR8aCUiU4MQN4itrkfZrHWpdIFxgsNCvA8wIbwQtzQsLs2LvtaBjVmY/CQq8YFvKniCNSj1/QMIGDIkF6nA2HO+gn2x+Zy6h4sTirZrFqChqofVJmxFeRIKWIxrZNmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oj++YW5ntYZ7SOzeeINeIDSxf/8cbhA4KdkSINDFhdk=;
+ b=N7sObxPVaVvjHDxoaMOotmTWHuVI7LeHNZQQtD3FJLSRKm7SrehxBQBKqIg7FQuYtA0xwwuuiiPZs3Y7yvr2aYgkvmrI7xvk9UtVI0McEWU8aF6vYdcqfgetuNf20RHd8pEnvwPENT2t/gvvzbNy6KaIlAppMspZAWpaw2Bxrx6HRPZANx5VoaC61MuHGiApJPCM+oZHBSVPAOc53fmRI7lR4OodlHoeAZx3OyeMvrK9ekaW/7RmVXY4MdIEByLgqb8OKXaerHofAHRFE40C96aXr/Ynhe3Uk35H09AsmnEF3eAT/DhokYaS9DBNt5ouGDDQjlci5a/8D7IPjj7o4Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by EAYPR12MB999179.namprd12.prod.outlook.com (2603:10b6:303:2bf::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 06:10:40 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
+ 06:10:40 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 06 Oct 2026 15:10:37 +0900
+Message-Id: <DLXJ64SVRMFW.NX53HBMT16K@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v3 2/8] rust: alloc: add Vec::push_init
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-2-f04504c262c2@nvidia.com>
+In-Reply-To: <20260928-b4-nvkv-v3-2-f04504c262c2@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0262.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:455::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005161824.36445-1-jean-francois.bobier@laposte.net>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAyMyBTYWx0ZWRfXxWo19XtHHt7/
- xpB6kHWKvhmbMJdXm2UwaJsqMF3U9SKZH+Ggmqx38PRZ30C6orQmKbLku8UKQ86UgHMd/Jsouea
- WNiRVrorpYZoYh9i9hZRItm9RDLVfQ0=
-X-Authority-Analysis: v=2.4 cv=aKRlOr9m c=1 sm=1 tr=0 ts=6ac48da3 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=AVbMHacnAAAA:8
- a=rEcrq_ABPuTkkkh6-BUA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
- a=Z8w8RPyABVWp4NBWd0ke:22
-X-Proofpoint-ORIG-GUID: 1MkJezBg6sUUD3y4MUrXUkvMSt0EsELy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAyMyBTYWx0ZWRfX44Gtmc9E2egR
- i1R8nPG9e4zt8vAWDtdWWSGzNBUzNoYC3o/Z9v2IJRKUeUqr9b1hTg2zwSxbO4ixhAz8cGn98un
- P2eJDkfs6jbuUhhyjXrd9IYKlDlCrpE52vU02NPHQ2UfA6qgpTMQ+ZQqdM7f8Gw4hNuI7hcd3XO
- gocEuqZMsLZwRrynRhyxHlqCgQ3IBP5XrZ0sMgYOe/1GePHbdAv5IWC4ZvGquxpZwEMbP0yvmex
- 6BUT4Yso6/pF1F7ktaNbF62AYp5jy3MbvEBIJnjzSxjaMb8KX60Pfjqok4HmcqxwHdDGbshyyzG
- 3db0UMUsafpGEbJ4qSLwmQ9pwmAjk09IWjxUYNul314LtS0DF4fUAeLkW1b7ABmR2lYX+FaTZ+s
- Ojk7QrdskDlLFDcaM+gjDcSNaOcs4qjlLH7mFK2HLJkrxANA2aaqw7IqDKgtdZQ6EMHZTBhckYP
- m7z/Z9QRGF01mErtu8w==
-X-Proofpoint-GUID: 1MkJezBg6sUUD3y4MUrXUkvMSt0EsELy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_01,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060023
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|EAYPR12MB999179:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2edcf0ac-4751-4de9-d0dc-08df23708bc9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|10070799003|376014|23010399003|7416014|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 8IJMHO1qGXv9yx3Lw42hJmdfcY/cTArNmgrnpEeHtCwYiFJ3Z6DY4InsjJwrlIveYZabXAvB8BXEUlQRa33UyRpWt5p0A5cxmuk61f6kcn4XNBjWpLQfZXETFeT4Rwr0C+UVy/ojlKeuNjern7C+4fNq57yYY5DODQdbU2E+DUfgpHZQtSO4tMmDIBWs7F2CMY9ZItBVnlhUL8H7nuh08aAFFpIsVM5R1wImxUm4E7zsyQgGmUsuzLHWiESiIPknxm/vOGT6/wHR6wp+hPhkADMDpK/p28yZ5aX7VLsnoJ8H5UgM0OvjoteAuXBzIQsZXF2rcV25r2rbS4hD8eP1DDVf05OoWNUigqTtJEURwUYVOfrWHMh8yNQMqDeNwyfPJK5RGjaw9lwYpPQpEcEVWxFuHVvecRIx7fW5i4kixZGZqAtN9toZO4vaa/rmp632zR2XTQSV5er2yB7Xr/s5jh25vuZL9chziY6ud+51Ofd+EqOVcae0X9SEeIVyU7kkU01lJ2jOHuTiruEUrggfhHIAk6QWRCIKepJvRYR+Kx0FjYS96dFNAxYyV1mVfumHBaRjvJ5g1z8+z+PVN80cX8QFmUADTdzti78Dlmme1M45yyGj7AUDyeyYTSlOCQ70QdEfSDiDlC028nPrcZyVtsTXprWikjd5GUVR7Zq980k=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(7416014)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWtLaWgwQ2c0bUNhRmUwUUFPMU9iNnhJdXpDKzRXZEdNaTBpTnhPWXh0dUZY?=
+ =?utf-8?B?SDIyTFB6dmRJSGl2Y3dkRUtacTRtTlRkY3l5Wmwxak5HUzV1elJRWlcxQ21p?=
+ =?utf-8?B?aThCT1lOcG12WFJqZjB5RFJ5UUVNandTcFZnYitzVWpMYnJUVjN4ak4rT3JI?=
+ =?utf-8?B?aXZoL3RPYTRVb3pKei82TEdhOThXQkxFek9PZUxTcE9WNlZnRXBZeFVuenBa?=
+ =?utf-8?B?UDJjSnNNdldzS2ZianlmeVZGMHJNdndqTDg1Z1lPbEtaSDlWOUlXNzZWNHBF?=
+ =?utf-8?B?UFZWRjlYa0tRZVkvbzZjS0JVUEZIQ2xCbGxobTRWWVprMTh1YmhOaFpRRXZs?=
+ =?utf-8?B?T1NVUVdJUFFnRGMycVZzRWdCZ2NHWDRCN2s3Rm1jUmZEVlBrcGFJRjRWQStv?=
+ =?utf-8?B?Uk5ueGxpZ1YxT0ZFTEJmU0RIZVhwc3VhcEhRQlNiSE9mQ1BWTGpPazBOWUpX?=
+ =?utf-8?B?d3c0V1NNMTlERmxPTGNZMlNMYXVsOHJwcndxM01KNXJLWnV2ZjRDQk9hb3Q1?=
+ =?utf-8?B?c0Fuem9MMDdsSlhIL3plY0ZtN2xOU05aenhkVXJkYUlJWVplQTNCa2I0UEQ2?=
+ =?utf-8?B?Y1hQQk1GRUFCWDU4S3Jua3Jrai9GRnNDTXpnS1RXWDN6LzhqQm9MaDJjaUlz?=
+ =?utf-8?B?eTZHZ01jVWRtRVhtaktLTnRTbUhRd1g2aS9XQ0ZwMGNFMXBZeTRkRmIxZVFt?=
+ =?utf-8?B?RjROck12aytwY3orbUlOWlVQQmZMRHBzY0tPeittVXZBTmFnSjJqV1lTY1pN?=
+ =?utf-8?B?Nkx2bG8rRTg1UjU0UGZ6MytxSHlwZVQ2UWhWNXVYR1EwZWVIZ01nN2tvOWZE?=
+ =?utf-8?B?MGxIbGliaDZWSnNqaWcrYk1OZmpOVCtoTVViWjdseUgrZzhjMGNuNkJFcTI2?=
+ =?utf-8?B?UytMSzd1cmQwOHR5b1Z5bUZ5bmg0TUhsSEJUckxnd0JFSGZISGErK0FiUVhW?=
+ =?utf-8?B?cWpKL0UyVk5uVTRRWkNRWEkwcE81cCtsSElXenFocTFNN3BteHg3eUpQNy9o?=
+ =?utf-8?B?czFwSCtkUkRZYkRGMnRIejI4TS9WRHJrcFB2OXQyTXIveXloYWpPamNTUDVB?=
+ =?utf-8?B?RGNtdmY1TnZNcjFvWml5NzhyMVZtdGdXZEthRlhQdmF6T2JwQ3JzSG9KZ2Na?=
+ =?utf-8?B?Q3lxNWlJbmpOVTNScFV3a2U1RHQ5OTRLMXlzdSsvUDFJY3Y3dGZpQlQvaTM4?=
+ =?utf-8?B?S1VEeFhYSmtZUGgrNUhReEF3a1RsSkFmVURtS0Ryb2d1ZXdYbVYyZVZQSGZz?=
+ =?utf-8?B?L0YvY2FOZHFZck9hWVdWYVNWVkltejkyVkJGZ256KzNYNDJnSnk2aVdudGZl?=
+ =?utf-8?B?ZE9TMkFBTGRuK00xVEI4VTZwa0lMR2ljVHNwYzU2YTRYRUt2OExnRFlIazds?=
+ =?utf-8?B?eTNyOWY3NEZGNzR4N2RDU2t1c3lnZWh0WjNPTEEralBVeUZCU1doTXZTc0VM?=
+ =?utf-8?B?TVY4TXJIWGNucmdXQXRCYzRrUGZOMFV3Nmtnd2FrTVE3eFRyTnZwMHFyd1hR?=
+ =?utf-8?B?V21lazlFVDVoZDQ3aTdJdzFYUGR6YW56N1RxNzZHUHdSZXZCOVQyd3ZxRlFx?=
+ =?utf-8?B?VEg5MFJEVXBScE56VXZKaHprcUdvWlRPcHNqbk5mNGpYdTl4b3Nvcm5RWXU3?=
+ =?utf-8?B?UTRFWEpSUVk2NXVQYzBtUVN0bHY0ckR1c1BzZXJtUVhqQkhNL2pqSWxFa3BU?=
+ =?utf-8?B?R0Fudi9WTEFkbDBJOGJMdzQ0ekFLMTRFL09CdytsSVFqRW1uYzZtVVZ3WXFL?=
+ =?utf-8?B?MkJMdUN6Yko0VTZENm42ZEVtcSsxYktyTDIydHZwSGVYTzUzNGkyd3BBWU9F?=
+ =?utf-8?B?WEg3L0tlZC9CUVFJK2drN3ZwbTd6bUdnRStYNXQ4S2syV1pZaG9wQ2UvOWho?=
+ =?utf-8?B?NmhnYmhWVlZRbElnbTQvRzlRR2YvY05IKzREdkxsQlNFbnpjbW5yQ0F1bGVZ?=
+ =?utf-8?B?U2NPOW5sZkFKa243UVlaSzlpM0FmYmF1bVc3Nm55MTdQR1NaM052WHBVaDEv?=
+ =?utf-8?B?UDZhZVZvcjVadkNRSmJrd2IrZ3hTZDNXN1g0NHd6QXd4Z3BXSFBYQ1BDUVA4?=
+ =?utf-8?B?aXRNVlVGTVo1Q2tnM0g0cmsyNDRVS3hFSXladWdrUmhFNHNMaGFnRXRNTGhY?=
+ =?utf-8?B?VnZ0MHhaemlxL2tNNDR0bHNzQ0ViYzhuV1M1amR0bTRYamJGT0NoTDdTTnBo?=
+ =?utf-8?B?c1d0NGUzbzFCeDBpZU9qTWtMZVhoR3VHS2lFYVNNVWRlVGFZYml3N0lMd3lC?=
+ =?utf-8?B?Z2ZEb21JaWdjam1zYlZJVjFpWVBaejRQdlNqYzZ6QUlZNzhsNmZrSEIvMWRZ?=
+ =?utf-8?B?Nkl4UktQT0lUTk5EZjNLYTRhMzNEMkQxWjkvYnBJN3dQYWorRW5Hcm5vK3F4?=
+ =?utf-8?Q?s/2qJjEkdfJReD3G2PQmy/3UYQfqhp6L2kLL9FG1U3hGA?=
+X-MS-Exchange-AntiSpam-MessageData-1: RiVWC7ehl/LNSA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2edcf0ac-4751-4de9-d0dc-08df23708bc9
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 06:10:40.0445 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nJ/F3eJ/3HbenyJTZyAJB3LE/lBO49s7CwcL4dSXpKNNnjGUnYO5oxZ3mO7NAPObThXkEQllToQL60NKTZZM7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999179
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,84 +151,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 05, 2026 at 06:18:24PM +0200, Jean-Francois Bobier wrote:
-> drm_connector_hdmi_audio_ops implements .prepare and not .hw_params, so
-> every bridge using the HDMI audio helper configures its sink's audio path
-> from the codec DAI's prepare callback.
-> 
-> That is too late when the CPU side of the DAI link cannot start until the
-> sink's audio clock is already running. ASoC's snd_soc_pcm_dai_prepare()
-> walks CPU DAIs before codec DAIs and returns on the first error, so such
-> a CPU DAI fails and aborts the loop before the bridge's prepare is
-> reached -- the clock it was waiting for is enabled by a callback that the
-> failure prevents from running.
-> 
-> Qualcomm's LPASS is one such CPU side. On an sm8250 board with the
-> DisplayPort controller bound to the DISPLAY_PORT_RX AFE port, starting
-> playback gives:
-> 
->   qcom-q6afe: AFE enable for port 0x6020 failed -110
->   q6afe-dai: ASoC error (-110): at snd_soc_dai_prepare() on DISPLAY_PORT_RX_0
-> 
-> and an ftrace of the attempt shows msm_dp_audio_prepare() is never
-> called at all -- only msm_dp_audio_shutdown(), from the teardown path.
-> 
-> Add a .hw_params to the helper that runs the same configuration, and a
-> drm_bridge flag to select it. hw_params runs for every DAI in the link
-> before any of them is prepared, so the clock is up by the time the CPU
-> DAI starts its port. Both callbacks receive identical parameters, so the
-> configuration itself is unchanged.
+On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+> Add `Vec::push_init` which is the init-infallible version of
+> `try_push_init`.
+>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  rust/kernel/alloc/kvec.rs | 19 ++++++++++++++++++-
+>  1 file changed, 18 insertions(+), 1 deletion(-)
 
-Similar changes were proposed several times already. The IEC958 status
-bits are usually set by the userspace after the .hw_params callback has
-been called. With your approach the hardware will never receive correct
-status bits.
-
-If my understanding is correct, a more apropriate fix is to make the
-a6afe driver to emit AFE enables at the .trigger point instead (maybe
-together with other commands) or to split the DP audio init, moving the
-necessary bits from the dp_audio_prepare to the dp_audio_startup
-callback.
-
-> 
-> The flag defaults to off: a bridge that does not set it keeps being
-> configured from prepare exactly as before. For one that does, prepare
-> skips calling the sink's configuration again only for the specific call
-> hw_params already did it for -- tracked per-connector, consumed on use --
-> because ASoC reaches .prepare with no .hw_params ahead of it on XRUN
-> recovery and on resume from suspend, and the sink still needs configuring
-> then. Skipping unconditionally would have left it silently unconfigured
-> after either.
-> 
-> Note that providing .hw_params at all means hdmi_codec_hw_params() no
-> longer returns early for these connectors, so it now runs
-> hdmi_codec_fill_codec_params() and the IEC958 channel status fill before
-> the (inert, when nothing needs doing) callback. Both are computed into an
-> on-stack hdmi_codec_params that is then discarded, and the one shared
-> value written, daifmt->bit_fmt, is set by hdmi_codec_prepare() to the
-> same value immediately afterwards.
-> 
-> One more side effect worth disclosing: hdmi_codec_fill_codec_params()
-> also writes hcp->chmap_idx, which is not on-stack -- it persists on the
-> hdmi-codec device and is reused by the next call to
-> hdmi_codec_get_ch_alloc_table_idx(). hdmi_codec_prepare() recomputes it
-> immediately afterwards from the same channel count, so the value itself
-> does not go stale. But hdmi_codec_hw_params() now reaching this code at
-> all means that a channel count the sink's ELD does not advertise is
-> reported from hw_params() instead of prepare(), for every bridge sharing
-> drm_connector_hdmi_audio_ops, not only the ones that set
-> hdmi_audio_prepare_early. That changes when a bad channel count is
-> reported, not whether it is, but it is a change to seven bridges this
-> patch has no other reason to touch, and worth a maintainer's opinion.
-> 
-> Signed-off-by: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
-
-Please take a look at Documentation/process/submitting-patches.rst and
-likely Documentation/process/coding-assistants.rst. For example, don't
-send the new version of the patch as a response to the previous
-revision.
-
-
--- 
-With best wishes
-Dmitry
+This patch can probably be folded into patch 1 without making things
+harder to review.
