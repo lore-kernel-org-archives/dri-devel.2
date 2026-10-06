@@ -4,76 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C89C2CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 18:48:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32850CA5FFF
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 19:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 227D810E070;
-	Tue,  6 Oct 2026 18:48:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F16210E3C6;
+	Tue,  6 Oct 2026 19:15:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MGpurnpJ";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="sz3xgxAO";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 380CE10E070
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 18:48:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=PBhPGHM3H5YMCfWnb8Woct2TK8TsNUryiGGa4HNcke8=; b=MGpurnpJfTINoiGOqysYeO3pMC
- 41zjdsvjaVfZI5RRCloPL+BW/H+HopUPQZy4cwmQ9ZoFztC3hYQkXpOKdDtB+y9nxA4O7ym6MXaEg
- Nxm4hC8TqED0cz7SCYV7RtJIzMcwQdGcjxjhd9JRyT1iISryZH8tf9ACa3TMP00SDPAuvTZU0WgPO
- KOIAGHTgjn+GZnV2FhLSdWKwNyfBhZPcLIC3WWPuauxq2VqWGEexnlaRIVSdnncKQBEP2uk1okB1c
- 9IjqoXJar07r1mY9wSkzo99ijrUJNS/wytNJP2IW34d+RmrzaMZH4iq25caZBNH+XDHOonj/HvKId
- 1UWUUnCw==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xEACY-00DZne-5z; Tue, 06 Oct 2026 20:47:46 +0200
-Message-ID: <0bb880c5-2f40-4d63-bc4c-0e4a1c5b4fa6@igalia.com>
-Date: Tue, 6 Oct 2026 15:47:39 -0300
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00ECF10E3C6
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 19:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1791314147;
+ bh=hpl97+ku9fipOaiPOPhX4/9bl6wOTB5ubcj+qYtRS40=;
+ h=Date:From:To:Subject:Cc:From;
+ b=sz3xgxAO1/OyAXR5gzHkfii1Hzxo4EH9gOxnOmdBRJKHiDROvpMYYui3ujA/HfCj7
+ GEJkfEzR0YM0x8W3XwmkE2+WQlagh5Fsen7yXnYD6lPJDQp3OXsJiCRqstWbPqWa5y
+ JzkmweQQc3CdnnQv76uNS93gmbu9T9M0y2nmWCQynVV6YwTq0wPPS0GtnpHNsYygtG
+ 13QPp5UbrwJUp9nzhNwCVknRhFp/nETplXtlICHNZ7Ink2y1MBtCXUPkhKD65jsuxK
+ gbTWB04UKVcc+xzZ1sFtTdQU8ptMamTtUx/bxPNZVVyz8qccWBGJKldy1QW+j2oi6R
+ T03H9gEUTFX3g==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4hzmDs3Fksz4w2b;
+ Wed, 07 Oct 2026 06:15:41 +1100 (AEDT)
+Message-ID: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+Date: Tue, 6 Oct 2026 20:15:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm: use dmaengine API instead of raw function
- pointers
-To: Frank.Li@oss.nxp.com, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- "open list:DRM DRIVERS FOR TI OMAP" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Cc: vkoul@kernel.org, imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-References: <20261002200620.230735-1-Frank.Li@oss.nxp.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261002200620.230735-1-Frank.Li@oss.nxp.com>
+Content-Language: en-GB
+From: Matt Evans <matt@ozlabs.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thomas Hellstrom <thellstrom@vmware.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: [PATCH] dma-buf: Annul dmabuf->file on file release
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,64 +65,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Frank,
+The dmabuf release path is split between file and dentry release:
+dma_buf_file_release() is called shortly before the file is freed, and
+dma_buf_release() calls an exporter's dmabuf->ops->release when the
+dentry is freed.  However, the dentry can outlive the file (for
+example, if opened with O_PATH), meaning .release might be called some
+time after the file is freed.
 
-On 02/10/26 17:06, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Replace direct calls through dma_async_tx_descriptor and
-> dma_device function pointers with the proper dmaengine API
-> wrappers in vc4_dsi and omap_dmm_tiler.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+This presents a window, when closing a DMABUF file, in which
+dmabuf->file points to freed memory yet .release op has not yet been
+called.
 
-For VC4:
+For VFIO, if a buffer's .release has not been called it's considered
+still active and subject to move/cleanup.  If so, it attempts to
+get_file_active() on dmabuf->file: a file close with dentry held open
+will call this function with a stale pointer, a UAF.
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
+To make this pattern safe, set dmabuf->file to NULL in
+dma_buf_file_release() to reflect that the associated file is now dead
+even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+sequence concurrent with a file close will only execute as one of:
 
-Best regards,
-- Maíra
-> ---
->   drivers/gpu/drm/omapdrm/omap_dmm_tiler.c | 2 +-
->   drivers/gpu/drm/vc4/vc4_dsi.c            | 8 +++-----
->   2 files changed, 4 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-> index a2c702b831a7c..c5dd350f937f4 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-> @@ -87,7 +87,7 @@ static int dmm_dma_copy(struct dmm *dmm, dma_addr_t src, dma_addr_t dst)
->   		return -EIO;
->   	}
->   
-> -	cookie = tx->tx_submit(tx);
-> +	cookie = dmaengine_submit(tx);
->   	if (dma_submit_error(cookie)) {
->   		dev_err(dmm->dev, "Failed to do DMA tx_submit\n");
->   		return -EIO;
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index 0148f2befed14..b1626c2d3a582 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -628,16 +628,14 @@ dsi_dma_workaround_write(struct vc4_dsi *dsi, u32 offset, u32 val)
->   
->   	*dsi->reg_dma_mem = val;
->   
-> -	tx = chan->device->device_prep_dma_memcpy(chan,
-> -						  dsi->reg_paddr + offset,
-> -						  dsi->reg_dma_paddr,
-> -						  4, 0);
-> +	tx = dmaengine_prep_dma_memcpy(chan, dsi->reg_paddr + offset,
-> +				       dsi->reg_dma_paddr, 4, 0);
->   	if (!tx) {
->   		drm_err(drm, "Failed to set up DMA register write\n");
->   		return;
->   	}
->   
-> -	cookie = tx->tx_submit(tx);
-> +	cookie = dmaengine_submit(tx);
->   	ret = dma_submit_error(cookie);
->   	if (ret) {
->   		drm_err(drm, "Failed to submit DMA: %d\n", ret);
+  - Gets the file before file_ref_put() (dmabuf->file valid)
+  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+  - Observes dmabuf->file = NULL (no file)
+
+Originally, drivers could assume dmabuf->file was valid until .release
+was called from fops->release.  This assumption was no longer valid
+after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+dentry_ops"), which moved the callback to the dentry release (by which
+point the file might have been freed).  With this commit, drivers must
+still consider that dmabuf->file could be NULL before .release.
+
+Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
+Signed-off-by: Matt Evans <matt@ozlabs.org>
+---
+
+Hi,
+
+This issue was found (by Claude Opus 5.5) in the context of VFIO's
+DMABUF export path.  VFIO iterates live DMABUFs with a
+get_file_active()/fput() block, which now becomes safe if the file is
+closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
+
+However, there are a couple of other places that directly use
+dmabuf->file and seem able to race a closing file (i.e. without holding
+the file reference)?  If this is so, they'd be a UAF today; with this
+patch that goes away, but instead of a stale pointer dmabuf->file could
+be NULL:
+
+1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
+
+  file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
+
+The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
+this might be more subtle than replacing it with a get_file() variant
+(so as to accept a NULL file *).
+
+2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
+
+  gvt_dbg_dpy(... file_count(dmabuf->file) ...);
+
+
+Respective vmwgfx & i915 maintainers, what is your view?
+Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
+
+Thanks,
+
+
+Matt
+
+
+  drivers/dma-buf/dma-buf.c | 6 +++++-
+  1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 4c9add51f9ef..726639130477 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
+  
+  static int dma_buf_file_release(struct inode *inode, struct file *file)
+  {
++	struct dma_buf *dmabuf = file->private_data;
++
+  	if (!is_dma_buf_file(file))
+  		return -EINVAL;
+  
+-	__dma_buf_list_del(file->private_data);
++	__dma_buf_list_del(dmabuf);
+  
++	/* Must be observed by __get_file_rcu() before file_free() */
++	smp_store_mb(dmabuf->file, NULL);
+  	return 0;
+  }
+  
+-- 
+2.47.3
 
