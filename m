@@ -4,43 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC28CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 18:16:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C89C2CA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 18:48:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 384F610E167;
-	Tue,  6 Oct 2026 18:16:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 227D810E070;
+	Tue,  6 Oct 2026 18:48:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SxDTbkdD";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MGpurnpJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9E1910E167;
- Tue,  6 Oct 2026 18:16:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 082606053A;
- Tue,  6 Oct 2026 18:16:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C46B1F0089C;
- Tue,  6 Oct 2026 18:16:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791310603;
- bh=LUkFej9CircDzB8pJwgWGZENuQU7pBYRmcOHIJvMojo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SxDTbkdD/eqbDiF9Lk5XkaNF7zke2lzXKygudK60fjs8TvATLR5MjJa0qbO4uHzMB
- I5schnFmx4D0V0sSgLGo+xkUUbevqybQcDbtPYuUrJj7F1+qR0gdVexXohDU62uGs+
- 4l5jBpK8dibH4E4FJ8hCkgJUQ3U+TJ14uMXyECaXoZ7UvV9gzhXbQkjsJ8yRDh59Dn
- GrcadvSGcUOPg+5q4/HGHX4YGyQbXyPFJnTRcxwT8ir4Vq3JNQBtABGerGTGRldtnZ
- cwP//H1ddQgiXomBSp6HZeV1r6nWaEt7I0yOUo9HCXOXglbuqwB+IZO0u1VKxTNK8J
- lCEE93YKJ/2FQ==
-Message-ID: <sashiko-outbox-162325@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] RFC: drm/xe: Prevent pinned_link double add
-To: "FNU VISHWANATHA" <fnu.vishwanatha@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20261006175741.3582911-2-fnu.vishwanatha@intel.com>
-References: <20261006175741.3582911-1-fnu.vishwanatha@intel.com>
- <20261006175741.3582911-2-fnu.vishwanatha@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 18:16:43 +0000
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 380CE10E070
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 18:48:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=PBhPGHM3H5YMCfWnb8Woct2TK8TsNUryiGGa4HNcke8=; b=MGpurnpJfTINoiGOqysYeO3pMC
+ 41zjdsvjaVfZI5RRCloPL+BW/H+HopUPQZy4cwmQ9ZoFztC3hYQkXpOKdDtB+y9nxA4O7ym6MXaEg
+ Nxm4hC8TqED0cz7SCYV7RtJIzMcwQdGcjxjhd9JRyT1iISryZH8tf9ACa3TMP00SDPAuvTZU0WgPO
+ KOIAGHTgjn+GZnV2FhLSdWKwNyfBhZPcLIC3WWPuauxq2VqWGEexnlaRIVSdnncKQBEP2uk1okB1c
+ 9IjqoXJar07r1mY9wSkzo99ijrUJNS/wytNJP2IW34d+RmrzaMZH4iq25caZBNH+XDHOonj/HvKId
+ 1UWUUnCw==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xEACY-00DZne-5z; Tue, 06 Oct 2026 20:47:46 +0200
+Message-ID: <0bb880c5-2f40-4d63-bc4c-0e4a1c5b4fa6@igalia.com>
+Date: Tue, 6 Oct 2026 15:47:39 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] drm: use dmaengine API instead of raw function
+ pointers
+To: Frank.Li@oss.nxp.com, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ "open list:DRM DRIVERS FOR TI OMAP" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: vkoul@kernel.org, imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
+References: <20261002200620.230735-1-Frank.Li@oss.nxp.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20261002200620.230735-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,88 +86,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/xe: Masked list corruption causes system suspend failure
---
+Hi Frank,
 
-commit 2ec4b5f1ac44438a30593cce5cd58f19ac02f193
-Author: Kornel Dul=C4=99ba <korneld@google.com>
+On 02/10/26 17:06, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Replace direct calls through dma_async_tx_descriptor and
+> dma_device function pointers with the proper dmaengine API
+> wrappers in vc4_dsi and omap_dmm_tiler.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-RFC: drm/xe: Prevent pinned_link double add
+For VC4:
 
-The commit attempts to fix a list double-add by checking if the pinned link
-is empty and adding a warning. It resolves kernel crashes on memory
-constrained devices running CtsCameraTestCases.
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
 
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 98c7c17cc46cc..a5af53b36a5f2 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -3166,7 +3166,14 @@ int xe_bo_pin_external(struct xe_bo *bo, bool in_p=
-lace, struct drm_exec *exec)
->  		}
-> =20
->  		spin_lock(&xe->pinned.lock);
-> -		list_add_tail(&bo->pinned_link, &xe->pinned.late.external);
-> +		if (list_empty(&bo->pinned_link)) {
-> +			list_add_tail(&bo->pinned_link,
-> +				      &xe->pinned.late.external);
-> +		} else {
-> +			WARN_ONCE(true,
-> +				  "pinned_link already added to a list, bo->ttm.pin_count: %d\n",
-> +				  bo->ttm.pin_count);
-> +		}
+Best regards,
+- Maíra
+> ---
+>   drivers/gpu/drm/omapdrm/omap_dmm_tiler.c | 2 +-
+>   drivers/gpu/drm/vc4/vc4_dsi.c            | 8 +++-----
+>   2 files changed, 4 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
+> index a2c702b831a7c..c5dd350f937f4 100644
+> --- a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
+> +++ b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
+> @@ -87,7 +87,7 @@ static int dmm_dma_copy(struct dmm *dmm, dma_addr_t src, dma_addr_t dst)
+>   		return -EIO;
+>   	}
+>   
+> -	cookie = tx->tx_submit(tx);
+> +	cookie = dmaengine_submit(tx);
+>   	if (dma_submit_error(cookie)) {
+>   		dev_err(dmm->dev, "Failed to do DMA tx_submit\n");
+>   		return -EIO;
+> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+> index 0148f2befed14..b1626c2d3a582 100644
+> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+> @@ -628,16 +628,14 @@ dsi_dma_workaround_write(struct vc4_dsi *dsi, u32 offset, u32 val)
+>   
+>   	*dsi->reg_dma_mem = val;
+>   
+> -	tx = chan->device->device_prep_dma_memcpy(chan,
+> -						  dsi->reg_paddr + offset,
+> -						  dsi->reg_dma_paddr,
+> -						  4, 0);
+> +	tx = dmaengine_prep_dma_memcpy(chan, dsi->reg_paddr + offset,
+> +				       dsi->reg_dma_paddr, 4, 0);
+>   	if (!tx) {
+>   		drm_err(drm, "Failed to set up DMA register write\n");
+>   		return;
+>   	}
+>   
+> -	cookie = tx->tx_submit(tx);
+> +	cookie = dmaengine_submit(tx);
+>   	ret = dma_submit_error(cookie);
+>   	if (ret) {
+>   		drm_err(drm, "Failed to submit DMA: %d\n", ret);
 
-[Severity: High]
-Does this list_empty() check mask the root cause of a desynchronized
-lifecycle when a buffer object is pinned by multiple subsystems, such as
-external and display?
-
-If xe_bo_unpin_external() is called while the buffer object is still pinned
-elsewhere, the pin_count is greater than 1, and it skips removing the
-buffer object from xe->pinned.late.external:
-
-drivers/gpu/drm/xe/xe_bo.c:xe_bo_unpin_external() {
-    ...
-	if (bo->ttm.pin_count =3D=3D 1 && !list_empty(&bo->pinned_link))
-		list_del_init(&bo->pinned_link);
-    ...
-}
-
-If a subsequent display unpin happens, it calls ttm_bo_unpin() directly and
-drops the pin_count to 0, completely bypassing the external pinned list
-removal:
-
-drivers/gpu/drm/xe/display/xe_fb_pin.c:__xe_unpin_fb_vma() {
-    ...
-	ttm_bo_unpin(&vma->bo->ttm);
-    ...
-}
-
-This leaves the unpinned buffer object stranded on the pinned list. During
-system suspend, power management eviction encounters this stranded unpinned
-buffer object, triggering a warning and returning -EINVAL:
-
-drivers/gpu/drm/xe/xe_bo.c:xe_bo_evict_pinned() {
-    ...
-		if (WARN_ON(!xe_bo_is_pinned(bo))) {
-			ret =3D -EINVAL;
-			break;
-		}
-    ...
-}
-
-Will this cause power management eviction to abort and break system suspend?
-
->  		spin_unlock(&xe->pinned.lock);
->  	}
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006175741.3582=
-911-1-fnu.vishwanatha@intel.com?part=3D2
