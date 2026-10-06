@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BDABCA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 11:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F683CA5FFF
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 11:07:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45B1210E14A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 513DD10E319;
 	Tue,  6 Oct 2026 11:07:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="mcqmA4rb";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="PD7kWjoh";
 	dkim-atps=neutral
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
  [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E68810E314;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC5910E14A;
  Tue,  6 Oct 2026 11:07:00 +0000 (UTC)
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
  by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 696A6eXU1790091; Tue, 6 Oct 2026 12:06:54 +0100
+ 696A6F0i1789230; Tue, 6 Oct 2026 12:06:52 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=v
- gTTFKevrVAkjO9I5ivRvfHK3WPX4M8LG/KLEVIhoNI=; b=mcqmA4rbc+ktqwM8t
- U66wE7lygGiwGpsAB+KTBBB8ZkRfFMjgB7IIrgNkupo/rMHT0y7NdW3zsQ8vTnrU
- 2dKSy695kzMvriWO/RJyFskpe5F63dKBqdGnqBSjoV5WR7YuXVGVVCwOT1fEWgqu
- JitI70+Z6hNhz1LmBNoEBOrr1p3BA3TUrtTmH9ecOOzjxdgUa9ie9GMZ+dh+OarD
- S2yAmps4ysc8XSEcb3Qdk3FA4YE+FvuU1gFkFxnAKEIzdj75idTJcQw6Moe6pvn7
- Ci82w1eU2AG8TyxsVTDjEDd/EQwoq9LZXmorjLDCICxhesXqQRCqKkHetEzmrIek
- caiiA==
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=BHeFL0547uIwcPh6b59O/21
+ 1jEa2gY7m7J42DWOkKu8=; b=PD7kWjohYJTSbjRW6tfOj1C+HyJ10vSprkemDiv
+ vbYh4mvH1lOrh5rsorOTunRnOjcQuUybECq5nGSb/1EzioYaYUmgoyklzFzFnJM/
+ C9cIgcXeJ3Wth464WZqYRSLHvbTOFTcB0IJsuKCTJwgvbveBMgFDWsAJQnJMrZsI
+ EsPuTvouqPk37OQJZ7obPZ0+jAv/I3iwC6RPDF2JouVZcSNh7tnnkcKqPXZEVyLu
+ Wk1nEGxj2L0bhDdtejsc+ostNZeXgzlqsl20ELqQY3lC7nqQIiCJ+0pJrb1gIiIC
+ +7eht2v6TMY8YpnOmMG53Wz5FrWBdO21x5OiC2Qb8Eylk7Q==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4h4brugugr-1
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4h4brugugn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 06 Oct 2026 12:06:54 +0100 (BST)
+ Tue, 06 Oct 2026 12:06:52 +0100 (BST)
 Received: from [127.0.1.1] (172.25.5.23) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 12:06:47 +0100
+ 2026 12:06:44 +0100
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 6 Oct 2026 14:06:38 +0300
-Subject: [PATCH 2/2] drm/imagination: Add utility function to write and
- read back register
+Subject: [PATCH 0/2] drm/imagination: Miscellaneous improvements and
+ utility functions
+Date: Tue, 6 Oct 2026 14:06:36 +0300
+Message-ID: <20261006-b4-utility-function-to-rw-regs-v1-0-a9faca685c4c@imgtec.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261006-b4-utility-function-to-rw-regs-v1-2-a9faca685c4c@imgtec.com>
-References: <20261006-b4-utility-function-to-rw-regs-v1-0-a9faca685c4c@imgtec.com>
-In-Reply-To: <20261006-b4-utility-function-to-rw-regs-v1-0-a9faca685c4c@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIADzWxGoC/yXN0QrCMAyF4VcZuTaQTlnVVxEvbM1mRDpJWjcZe
+ 3erXn5w+M8CxipscGwWUH6JyZgq3KaBeLukgVGu1dBS2zmiDsMOS5aH5Df2JcVc95hH1AmVB0P
+ y3kfnt3sKB6iRp3Iv8+/gdP7bSrhzzN8qrOsHmDvLh4IAAAA=
+X-Change-ID: 20261006-b4-utility-function-to-rw-regs-0777c17380b9
 To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
  <luigi.santivetti@imgtec.com>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
@@ -58,33 +59,33 @@ To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
 CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791284810; l=4840;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791284810; l=829;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=QJQ3JLtReACHU8Nq8bSp8snKZThuBwcSu1XjWsOFZpo=;
- b=cU1gUrd4sG7gzLN9PT94zsXRV9VB1xss7vCGw3OkR7O9mT8eWF7VfcajT8SYfMQt/2i0KQLCe
- U0wOEnt+uldCUuR1mq2K2+0lcvbof3f086b816tDKAI/g0PBKd4HumH
+ bh=3nhZfXo5heb41pnfB1a8sdD8K7IduU1fbMVXZcm/0IM=;
+ b=Cno7cnecRrhqkn3KC569JCdlvqrI87ptXYarc/t+k//gZirPTSvaNLyRHi1krNGkS30pCu1h5
+ ZBmqj7oEheBCW2e1n2dBz4ibEeVnTtKBd7aQbG5IcSGCV0ZsYNbhIP0
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
 X-Originating-IP: [172.25.5.23]
-X-Authority-Analysis: v=2.4 cv=FNOOVOos c=1 sm=1 tr=0 ts=6ac4d64e cx=c_pps
+X-Authority-Analysis: v=2.4 cv=FNOOVOos c=1 sm=1 tr=0 ts=6ac4d64c cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=Vfs-8JXWiL0A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=RihMtEClj2EdTCFu1X4A:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=wUyF9Ky_tyQg0tXWGVYA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA0NCBTYWx0ZWRfX2jav+18pl11Y
- IeG2zsw/6g67+DHSMxhBtywKJMHU5DNQK7ZQ70goapLA3nEvwC19x9JsnY1Nx5eKh3hwcABCIFq
- WNUBtR3uPi2L0TeUbE1eepokOWntre8=
-X-Proofpoint-ORIG-GUID: wDMN0YJXyvfk_uhiIa5VXbPXKLajWEMo
-X-Proofpoint-GUID: wDMN0YJXyvfk_uhiIa5VXbPXKLajWEMo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA0NCBTYWx0ZWRfX8AF+GJadNsLG
- WbOu2LOvzisJ1M3F9tRzsF3jw7i/BLCrZinkLcXlTjiwfZx1Rc5uAImYqGBpWXfICtJgBcXe6qN
- z3MdICe52QBQ2f202dmr7kXIV7p79rDKlQ8oUkTcU14ahN1OWvP3IuelHjOYifHrRWnEdAVYSfJ
- PZ37uf1Wc8Lau5aGMpHqlvkWx3fDbOrU4wuKT8rmqUg4e7qgjNGYxTESHuN9lnA0xgrYGuv8Aq9
- 6KxgvoJsW92J3diN27Q+IXsep65Jx6ykRDt8zx9fofHrWYD32A+dD91SDCId4KJ77EOxTHOVuj0
- 1+nxAeyCf+q+XJdi1Bz1g7YeuI5UHN3HEg/IpTJIWdkFVxMj8svTKYQHSlqtzTyc4N6MnpePO9M
- 77syTA/OnAsZ9JVwLeN/6dFFvYmcsGRgAO/s9ChLJvnf3rBhxPyPCJXvZoIC8TGlZ27J9Bo81/h
- 4i9D7Tp1LiyFRi8JZAw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA0NCBTYWx0ZWRfX4zpLF9oZckwq
+ jRrKkGrF1VOSW+4nD6qMvFHXJd8zd3s5P1O2jfiBTyEGqx7zv6SNcUGOuBjkRM0yH6LNJbeRqma
+ bE6Z/nkd5wQT7D3UXGJm0SNudfsMCXA=
+X-Proofpoint-ORIG-GUID: wLxU2x4XdHhjHRmvu4aPzRaae1MdVJ5S
+X-Proofpoint-GUID: wLxU2x4XdHhjHRmvu4aPzRaae1MdVJ5S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA0NCBTYWx0ZWRfXyS4PFd0QZ11d
+ mYQarnfiWNOC0ywqyjfmMuzxR91GPAmYBujwe176pLlMW2g3S2oHA3SFeUVoi17qIjDFXIJtd4B
+ XFbJMg8hcLKitLBBTrp/b6XIMkvmjPSot3rEe93SS2lOQ83FdGL7lOjN3t7Jk27YFUxxx5ktJ67
+ GfWgsJsgeOhdwZj33xwsW9MDyYZy0aOQQ1EuUINLUju2dRWQn8aK/6a+hRSyqZ1UwFHUJ7JN05y
+ Ur6muBmPuStW+ZFdglneRKIn/u+ts9SnAWIAcx+2tqp9Bo4KeONm3WCMmWvC36knWY5vd9NW2r/
+ RYSvgUMJHLzqVw10BaT0fic1cDiVfLFr3ymk+vJZvb8VfJCrJQw+hqFRLl9ndSfdR23Yw4ie4jX
+ cnUnQ0eh8OfA95OJhBxAY0zw+Mq2YtqHMO7AJrQJxtOMuhjmiMiVaC9MEjP1IKzr23osKv7Yzb+
+ 1uKpXYJd+hf76GhwilQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,123 +101,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+Code cleanup - wrong soft reset code removed from startup.
+Utiity function - added function to write and read back registers.
 
-Used to avoid repeating the same pattern multiple times.
-
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_device.h       | 28 ++++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_fw_meta.c      |  5 ++---
- drivers/gpu/drm/imagination/pvr_fw_startstop.c | 21 ++++++-------------
- 3 files changed, 36 insertions(+), 18 deletions(-)
+Alessio Belle (2):
+      drm/imagination: Remove wrong soft reset code from GPU start sequence
+      drm/imagination: Add utility function to write and read back register
 
-diff --git a/drivers/gpu/drm/imagination/pvr_device.h b/drivers/gpu/drm/imagination/pvr_device.h
-index d51c57cf9332..c246122b4caf 100644
---- a/drivers/gpu/drm/imagination/pvr_device.h
-+++ b/drivers/gpu/drm/imagination/pvr_device.h
-@@ -606,6 +606,34 @@ pvr_cr_write64(struct pvr_device *pvr_dev, u32 reg, u64 val)
- 	iowrite64(val, pvr_dev->regs + reg);
- }
- 
-+/**
-+ * pvr_cr_write_fenced32() - Write to a 32-bit register in a PowerVR device and fence the write
-+ * @pvr_dev: Target PowerVR device.
-+ * @reg: Target register.
-+ * @val: Value to write.
-+ */
-+static __always_inline void
-+pvr_cr_write_fenced32(struct pvr_device *pvr_dev, u32 reg, u32 val)
-+{
-+	pvr_cr_write32(pvr_dev, reg, val);
-+	/* Read back register to fence previous write in order to clear the SOCIF pipeline */
-+	(void)pvr_cr_read32(pvr_dev, reg);
-+}
-+
-+/**
-+ * pvr_cr_write_fenced64() - Write to a 64-bit register in a PowerVR device and fence the write
-+ * @pvr_dev: Target PowerVR device.
-+ * @reg: Target register.
-+ * @val: Value to write.
-+ */
-+static __always_inline void
-+pvr_cr_write_fenced64(struct pvr_device *pvr_dev, u32 reg, u64 val)
-+{
-+	pvr_cr_write64(pvr_dev, reg, val);
-+	/* Read back register to fence previous write in order to clear the SOCIF pipeline */
-+	(void)pvr_cr_read64(pvr_dev, reg);
-+}
-+
- /**
-  * pvr_cr_poll_reg32() - Wait for a 32-bit register to match a given value by
-  *                       polling
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-index 84f568b5510f..38a91dcb66cb 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-@@ -48,9 +48,8 @@ pvr_meta_cr_read32(struct pvr_device *pvr_dev, u32 reg_addr, u32 *reg_value_out)
- 		return err;
- 
- 	/* Issue a Read. */
--	pvr_cr_write32(pvr_dev, ROGUE_CR_META_SP_MSLVCTRL0,
--		       reg_addr | ROGUE_CR_META_SP_MSLVCTRL0_RD_EN);
--	(void)pvr_cr_read32(pvr_dev, ROGUE_CR_META_SP_MSLVCTRL0); /* Fence write. */
-+	pvr_cr_write_fenced32(pvr_dev, ROGUE_CR_META_SP_MSLVCTRL0,
-+			      reg_addr | ROGUE_CR_META_SP_MSLVCTRL0_RD_EN);
- 
- 	/* Wait for Slave Port to be Ready. */
- 	err = pvr_cr_poll_reg32(pvr_dev, ROGUE_CR_META_SP_MSLVCTRL1,
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_startstop.c b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-index 34c757267a22..7db7f16e62fd 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-@@ -126,29 +126,21 @@ pvr_fw_start(struct pvr_device *pvr_dev)
- 		 * Disable the default sys_bus_secure protection to perform
- 		 * minimal setup.
- 		 */
--		pvr_cr_write32(pvr_dev, ROGUE_CR_SYS_BUS_SECURE, 0);
--		(void)pvr_cr_read32(pvr_dev, ROGUE_CR_SYS_BUS_SECURE); /* Fence write */
-+		pvr_cr_write_fenced32(pvr_dev, ROGUE_CR_SYS_BUS_SECURE, 0);
- 	}
- 
- 	if (pvr_dev->fw_dev.processor_type == PVR_FW_PROCESSOR_TYPE_RISCV)
- 		pvr_cr_write32(pvr_dev, ROGUE_CR_FWCORE_BOOT, 0);
- 
- 	/* Set Rogue in soft-reset. */
--	pvr_cr_write64(pvr_dev, ROGUE_CR_SOFT_RESET, soft_reset_mask);
--
--	/* Read soft-reset to fence previous write in order to clear the SOCIF pipeline. */
--	(void)pvr_cr_read64(pvr_dev, ROGUE_CR_SOFT_RESET);
-+	pvr_cr_write_fenced64(pvr_dev, ROGUE_CR_SOFT_RESET, soft_reset_mask);
- 
- 	/* Take Rascal and Dust out of reset. */
--	pvr_cr_write64(pvr_dev, ROGUE_CR_SOFT_RESET,
--		       soft_reset_mask ^ ROGUE_CR_SOFT_RESET_RASCALDUSTS_EN);
--
--	(void)pvr_cr_read64(pvr_dev, ROGUE_CR_SOFT_RESET);
-+	pvr_cr_write_fenced64(pvr_dev, ROGUE_CR_SOFT_RESET,
-+			      soft_reset_mask ^ ROGUE_CR_SOFT_RESET_RASCALDUSTS_EN);
- 
- 	/* Take everything out of reset but the FW processor. */
--	pvr_cr_write64(pvr_dev, ROGUE_CR_SOFT_RESET, ROGUE_CR_SOFT_RESET_GARTEN_EN);
--
--	(void)pvr_cr_read64(pvr_dev, ROGUE_CR_SOFT_RESET);
-+	pvr_cr_write_fenced64(pvr_dev, ROGUE_CR_SOFT_RESET, ROGUE_CR_SOFT_RESET_GARTEN_EN);
- 
- 	err = rogue_slc_init(pvr_dev);
- 	if (err)
-@@ -168,8 +160,7 @@ pvr_fw_start(struct pvr_device *pvr_dev)
- 	/* Need to wait for at least 16 cycles before taking the FW processor out of reset ... */
- 	udelay(3);
- 
--	pvr_cr_write64(pvr_dev, ROGUE_CR_SOFT_RESET, 0x0);
--	(void)pvr_cr_read64(pvr_dev, ROGUE_CR_SOFT_RESET);
-+	pvr_cr_write_fenced64(pvr_dev, ROGUE_CR_SOFT_RESET, 0x0);
- 
- 	/* ... and afterwards. */
- 	udelay(3);
+ drivers/gpu/drm/imagination/pvr_device.h       | 28 +++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_fw_meta.c      |  5 ++--
+ drivers/gpu/drm/imagination/pvr_fw_startstop.c | 37 +++++++-------------------
+ 3 files changed, 39 insertions(+), 31 deletions(-)
+---
+base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+change-id: 20261006-b4-utility-function-to-rw-regs-0777c17380b9
 
--- 
-2.43.0
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
