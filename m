@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4430DCA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 04:35:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 394BCCA5FF0
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 04:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ADA810F024;
-	Tue,  6 Oct 2026 04:35:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8617C10F02C;
+	Tue,  6 Oct 2026 04:35:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L86+To96";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jbr7OBMb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00C7810F024
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 04:35:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7573510F029
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 04:35:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A7D0B40623;
- Tue,  6 Oct 2026 04:35:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF721F000FF;
- Tue,  6 Oct 2026 04:35:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5DF5C406A6;
+ Tue,  6 Oct 2026 04:35:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1713C1F000FF;
+ Tue,  6 Oct 2026 04:35:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791261308;
- bh=tEwz+aDuPhE64u16sIjdjjV378uTvnN5LAmwV5Iv4Ow=;
+ s=k20260515; t=1791261319;
+ bh=g/xVIyVXm0qR4IAjs4bF8UOgEzlR5EgYDSJHbs0hlpg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=L86+To96lPamefZr/GQQyfS7OIM0CVPi/kqO/z5yFaxjDwJP1C71kHnAkuMGvWedI
- XesZxKksO8uNdNlxOcS/S7CNCXkHZ4lRl/a0Ra71ck05pi0T+0wxlg1J6Wmz1hmenj
- KNQSlZ3BpuDpwzrEuU1+GZfm7Z/JbMO1bF4J0cmZYNY77xtSi231EWgCmJTy5Bna4C
- h7LsHGI2tea8+ohKDJFbP7i0crwk3J0WJ5z9bJGhMMN9LR5+P7h3Yrs/GY5mJgwtyR
- hx5MUJDas+3gFhwB9opp4iHrKHWSdn1tXChyxKPAncBbU/lOZwb/H+j9yDqVyaDHse
- 0JHZ7sWuTqJUg==
+ b=Jbr7OBMbWqvaLxkQlv4UfBEOC+6uDYXvAB3esyrwK5aLP4Qt+e278HwthnZPJtZC6
+ lC0/HIfOUtdZhk0gUewlirUuIvxff+Tvz+Rmky5Q8p7e8/bs+gnfhQuR0/1D3zKqwJ
+ Qxn2ZW1S3HJ2SQGrgAQr96JrcKg7LHrA5HxsBvkIbuQTexrDKnhOq8M6G6EqHvuo42
+ QO7SoOrvIS689cjNy1tHvQE4/Z8x7P5Ru3OV50IkwrFxxsTDpnmZYKkoydLaQGUF9p
+ 6Thy+OGAtbi574eYc271fDiEjAq4ntETLHXaZJY/32HKMbre3+DsPdw1QLZwQB3qsD
+ +uttBmZCsxuFA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 13/20] accel/amdxdna: Prepare for AIE4 command
- submission
+Subject: Re: [PATCH V2 18/20] accel/amdxdna: Link SR-IOV VFs for power
+ management sequencing
 To: "David Zhang" <yidong.zhang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261006042230.547807-14-yidong.zhang@amd.com>
+In-Reply-To: <20261006042230.547807-19-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
  <20261006042230.547807-1-yidong.zhang@amd.com>
- <20261006042230.547807-14-yidong.zhang@amd.com>
+ <20261006042230.547807-19-yidong.zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 04:35:07 +0000
-Message-Id: <20261006043508.5FF721F000FF@smtp.kernel.org>
+Date: Tue, 06 Oct 2026 04:35:18 +0000
+Message-Id: <20261006043519.1713C1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,77 +61,70 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] amdxdna: monotonic regression in get_read_index() due to lockles=
-s update
+- [High] PM device link between PF and VF is lost on VF driver unbind
 --
 
-commit 556cf69a63f5758be4c65cd88bedd02f3117e2ca
+commit e5da3c2c28df6a2bd8639c6fb55cd8abc88ea7e5
 Author: David Zhang <yidong.zhang@amd.com>
 
-accel/amdxdna: Prepare for AIE4 command submission
+accel/amdxdna: Link SR-IOV VFs for power management sequencing
 
-This commit prepares data structures and completion wait helpers for AIE4
-command submission. It extends the amdxdna_job_priv structure and implements
-an ordered retry mechanism in get_read_index() when a torn read is detected.
+This commit adds PM device links between Physical Function (PF) supplier
+and Virtual Function (VF) consumers via device_link_add() upon SR-IOV
+enablement. The intent is to ensure the PM core enforces proper sequencing
+between the PF and VFs.
 
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie=
-4_ctx.c
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
-
-[ ... ]
-
->  static u64 get_read_index(struct amdxdna_hwctx *hwctx)
->  {
+> diff --git a/drivers/accel/amdxdna/aie4_sriov.c b/drivers/accel/amdxdna/a=
+ie4_sriov.c
+> index 0eea28f626763..3cad0526087db 100644
+> --- a/drivers/accel/amdxdna/aie4_sriov.c
+> +++ b/drivers/accel/amdxdna/aie4_sriov.c
 
 [ ... ]
 
+> @@ -56,9 +56,74 @@ int aie4_sriov_stop(struct amdxdna_dev_hdl *ndev)
+
+[ ... ]
+
+> +static int aie4_link_vf(struct amdxdna_dev *xdna, struct pci_dev *pdev_v=
+f)
+> +{
+> +	struct pci_dev *pdev_pf =3D to_pci_dev(xdna->ddev.dev);
+> +	struct device_link *link;
+> +
 > +	/*
-> +	 * Cache valid sample as fallback for torn reads. Lockless on purpose:
-> +	 * a racing caller may store an older value, which only delays seeing
-> +	 * a completion until the next wakeup, never reports one early.
+> +	 * The link is removed when the VF driver unbinds. To rebind VF
+> +	 * drivers, re-enable SR-IOV via sriov_numvfs (0, then N).
 > +	 */
-> +	WRITE_ONCE(priv->last_read_index, ri);
+> +	link =3D device_link_add(&pdev_vf->dev,   /* consumer =3D VF */
+> +			       &pdev_pf->dev,   /* supplier =3D PF */
+> +			       DL_FLAG_PM_RUNTIME | DL_FLAG_AUTOREMOVE_CONSUMER);
 
-[Severity: Medium]
-Can this lockless assignment allow concurrent get_read_index() callers to
-overwrite a newer completion index with an older one?
+[Severity: High]
+Does this flag choice break subsequent binds like vfio-pci passthrough?
 
-For example, if Thread A reads ri=3D10, and Thread B reads ri=3D11 and writ=
-es
-last_read_index=3D11, could Thread A then execute this assignment and write
-last_read_index=3D10? This appears to cause last_read_index to go backward.
+Using DL_FLAG_AUTOREMOVE_CONSUMER causes the PM device link between the PF
+and VF to be permanently deleted when the VF driver is unbound via sysfs.
+If the PF is then allowed to enter runtime suspend and the VF is later
+rebound to a driver like vfio-pci for virtualization passthrough, the PM
+core will not automatically resume the PF. The VF driver will then probe
+while the PF hardware is suspended, which can lead to a system crash or
+hang.
 
->  	return ri;
->  }
+While the comment notes that rebinding is not supported, any root user
+or virtualization management daemon (like libvirt) can still trigger
+this standard SR-IOV passthrough use-case because the driver does not set
+suppress_bind_attrs =3D true to block sysfs unbind/bind operations.
 
-[ ... ]
-
->  int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
->  {
-
-[ ... ]
-
-> -	if (!ret)
-> +	if (!ret) {
->  		ret =3D -ETIME;
-> +	} else if (ret > 0 && !check_cert_comp_linked(hwctx, cert_comp) &&
-> +		   get_read_index(hwctx) <=3D seq) {
-
-[Severity: Medium]
-If last_read_index went backward as described above, could this check
-falsely evaluate to true?
-
-If a torn read falls back to the stale last_read_index while the device
-disconnects or suspends, it seems a successfully completed command might
-incorrectly fail and return -EAGAIN.
-
-> +		/* Disconnect (suspend or TDR) before the command completed. */
-> +		ret =3D -EAGAIN;
+> +	if (!link) {
+> +		XDNA_ERR(xdna, "Failed to link VF %s", pci_name(pdev_vf));
+> +		return -EINVAL;
 > +	}
-> =20
->  	aie4_put_cert_comp(cert_comp);
+> +
+> +	XDNA_DBG(xdna, "Linked VF %s", pci_name(pdev_vf));
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006042230.5478=
-07-1-yidong.zhang@amd.com?part=3D13
+07-1-yidong.zhang@amd.com?part=3D18
