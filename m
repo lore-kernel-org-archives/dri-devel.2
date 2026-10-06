@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3ABACA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 19:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49FBFCA5FFC
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 19:54:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 365BD10E455;
-	Tue,  6 Oct 2026 19:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F3510E392;
+	Tue,  6 Oct 2026 19:54:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NlfE12ko";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RMe8LXiP";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A97A10E455
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 19:53:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36F9C10E392
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 19:54:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2878343B6D;
- Tue,  6 Oct 2026 19:53:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB2F1F0089B;
- Tue,  6 Oct 2026 19:53:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1F5F343C60;
+ Tue,  6 Oct 2026 19:54:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B401F0089B;
+ Tue,  6 Oct 2026 19:54:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791316398;
- bh=0hmkFwt9p2NisZAv7OaJv3bc/TXSWBRTiUQhA7DyGsk=;
+ s=k20260515; t=1791316444;
+ bh=Vv6Qv2Zd14cuUvTpGz9PFT061NDmDnhaheMn60GzFgM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NlfE12kovdalabd3rXaub0z1DL7mYW+xBlsTCsUdCN+jWEo92UR89X2NJGxys3Ayq
- JOQyQMkrBnZS4nwFEWsFcXOMPddTPTbOo6X2zcDgndIr0X1RBmbAxwfwt0VxPY+wXH
- gTmt5ceH0bnmzS0JeJ7GCdSLsia5AQHlYYUIjCoMN+/bzAg6LgnNdgSliy2M7JWQm9
- AyyQNC4cYP57sngQnIyu4zbwJCwtMFhmZVfrrsIjIPzBPmTq1M3VJW6oSPG3zwcxga
- pA9fvOU9XUtzHo87QOO5mTlWW0hSfrZ2nvcx5eo2TPrRfB/gpgflGEebzt2qs8bjP/
- JVO08kMzfHGKg==
-Message-ID: <sashiko-outbox-162413@kernel.org>
+ b=RMe8LXiPL7BK60CHY4YFlIyFMVe41xs9+21zwReairAasrz5KS62xLI+DJNRaBJ0l
+ BTA9svO2vBur5rSP8I5i+Xui8cyigMCOkPen8ZVDRy7zSOJpIQPHMfO8OA0MMBZlKv
+ odokdYQ1b8vc6pOY3lQZi+W+enItkGrDIHq+7EXqfbBt+ZBcGw0LCrwrffiUw4PB90
+ hIa9o8lE62zZ+RUMFoe0AX8Sf2Gl8Jhph3aUQHkTeNHKnGbVVCaSjK9Ot5OEoTL+We
+ ukMPbGAb028zmBvMigEMdBhjRbYl5xQ4W0toR8rRwLt7p/WZ2vqbzD8yGUzj5wQzE9
+ JWWBCp5Z/6hjw==
+Message-ID: <sashiko-outbox-162414@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/9] vfio/pci: Add a helper to create a DMABUF for a
- BAR-map VMA
+Subject: Re: [PATCH v8 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
 To: "Matt Evans" <matt@ozlabs.org>
-Cc: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
- media-ci@linuxtv.org, kvm@vger.kernel.org
-In-Reply-To: <20261006193643.76330-6-matt@ozlabs.org>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kvm@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261006193643.76330-9-matt@ozlabs.org>
 References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-6-matt@ozlabs.org>
+ <20261006193643.76330-9-matt@ozlabs.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 19:53:17 +0000
+Date: Tue, 06 Oct 2026 19:54:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,22 +58,26 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> This helper, vfio_pci_core_mmap_prep_dmabuf(), creates a single-range
-> DMABUF for the purpose of mapping a PCI BAR.  This is used in a future
-> commit by VFIO's ordinary mmap() path.
+> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
+> support for mmap() of this fd.  This provides another route for a
+> process to map BARs, in which the process can only map a specific
+> subset of a BAR represented by the exported DMABUF.
 >=20
-> This function transfers ownership of the VFIO device fd to the
-> DMABUF, which fput()s when it's released.
+> mmap() support enables userspace drivers to safely delegate BAR
+> sub-ranges to other processes by sharing a DMABUF fd, without having
+> to share the (omnipotent) VFIO device fd with them.
 >=20
-> Refactor the existing vfio_pci_core_feature_dma_buf() to split out
-> export code common to the two paths, VFIO_DEVICE_FEATURE_DMA_BUF and
-> this new VFIO_BAR mmap().
+> Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap() reuses
+> the existing vm_ops.
 >=20
-> By exchanging the VMA file, we lose the original device path in
-> /proc/<pid>/maps, lsof, etc.  Generate a debug-oriented synthetic
-> 'filename' for BAR mappings based on the BDF, plus resource index.
-> (This does not apply to explicitly-exported DMABUFs which are named by
-> DMA_BUF_SET_NAME.)
+> The lifecycle of an exported DMABUF remains decoupled from that of the
+> device fd it came from, i.e. the device fd could be closed with DMABUF
+> VMAs present, meaning a fault on a VMA could happen concurrently with
+> vfio_pci_dma_buf_cleanup().
+>=20
+> To deal with this scenario, the fault handler now temporarily takes a
+> VFIO device registration to ensure the vdev remains valid, and then
+> vdev locks can be taken.
 >=20
 > Signed-off-by: Matt Evans <matt@ozlabs.org>
 
@@ -82,5 +85,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006193643.7633=
-0-1-matt@ozlabs.org?part=3D5
+0-1-matt@ozlabs.org?part=3D8
 
