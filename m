@@ -4,104 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29B01CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36967CA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8C210E3F0;
-	Tue,  6 Oct 2026 13:35:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC2F10F2EF;
+	Tue,  6 Oct 2026 13:38:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dVWMmzD1";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="iPe/dLYf";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 438A310E3F0;
- Tue,  6 Oct 2026 13:35:47 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 696DUOrg131055; Tue, 6 Oct 2026 13:35:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=KvsNYuYYOqkLZkjs0Ht8Or
- XOsRjlllFCxL/rYEtnlT4=; b=dVWMmzD1X8rKNhkRiGlmRJIc4skfUe6newZ7wT
- umoTYjb+jOId6Oxlsm9NB1Q4Bnqc92L5ygJ5E2uqdj2zLhGwWOwjgF7X3GfopQZk
- BTlDTKTIHjxUXyfI+LPn81TwyphUYbwADkSSoBZNxCE8n48LsJGWjBfEeqAUf5rq
- 6Ll0npWzAD7+BfOvtbVoKc1TVHOAuM4DFde2xcly4RpzvTnLXq9yrDrXACH0tAPg
- yV3bHUORwZqRDILVRTws21FjDK6RQv0rvKF3X92ylx23VQLEK902TqNCDGmgpSej
- /c9fn2Qg7Z/IZqouawxRKhkg4rnJXIwhviDYkWS/q23gLiqA==
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4vmrs8ut-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Tue, 06 Oct 2026 13:35:37 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 696DE57G990643; Tue, 6 Oct 2026 13:14:05 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com
- [10.147.248.17])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 696DE56b990635
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Tue, 06 Oct 2026 13:14:05 +0000 (GMT)
-Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
- by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id 15334647;
- Tue,  6 Oct 2026 18:44:04 +0530 (+0530)
-From: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Date: Tue, 06 Oct 2026 18:43:53 +0530
-Subject: [PATCH] drm/msm/dsi: fix AHB clock staying enabled across suspend
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F24210E32B
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:38:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791293889; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ctIWeVt6Bo1DSvLZW9bcj3koiiOjn/pk97R7w73/ImEmZlmSD1g4IjRmsnQi6ADrCRQfO2sboCxg9o+SvvJrs1tbYO9TdLHopC+cw8pq3nbIMPO6xsbPXVKxV9JM0vX/fM5sQH9piqDvtvZwlqyC6M5IaphdOps6wEntjb8AkaY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791293889;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=VxANVvaudC9ucdAgKK1Ve2w93u03mD0/qfWlUqbCtCo=; 
+ b=k7uEv4XxZI7LOm6Dl4URLVIpeOzXFQthaBGjf6mB0Kp7YRPbmPilsl8t3OMFj5NTCXGpqUGXpKtunlrmR9acOK2/wPwoAo8UYNYvwe2wBgnKc/9tn8j9YO3/X1KzZXLChDYatH3moo+y4clXYKsTlnJMIlhqCQ0y9OO6mvAEq5M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791293889; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
+ bh=VxANVvaudC9ucdAgKK1Ve2w93u03mD0/qfWlUqbCtCo=;
+ b=iPe/dLYfSxIrdSGL1c+9/uyD1t4BmGMcf16vZbbgQzeXE+Td9zENZrZ7anKC1Bpn
+ KpZyryv1KNUXfu32RJErpCgbfYACzZC7FtfnU/yns7Vt229+lYarGJO8+w/YYbzs5rl
+ 7QkQvVft9jc063MIq6pz/zCuxK82mSl95hi15huk=
+Received: by smtp.zohomail.com with SMTPS id 1791293887679226.9185627884126;
+ Tue, 6 Oct 2026 06:38:07 -0700 (PDT)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIABD0xGoC/x2MSQqAMAwAvyI5G2iLC/oV8aBp1KBUaVAE8e8Wj
- zMw84ByFFZoswciX6KyhwQ2z4CWIcyM4hODM66yxlToVXBYRqRtRT314OBxkhtLS97VDRGNBaT
- 6iJz0f+769/0Ax8pt3WkAAAA=
-X-Change-ID: 20261006-dsi-ahb-clk-suspend-fix-51cd279cccb4
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mahadevan.p@oss.qualcomm.com, rajeevny@qti.qualcomm.com,
- Arpit Saini <arpit.saini@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791292444; l=7036;
- i=arpit.saini@oss.qualcomm.com; s=20260929; h=from:subject:message-id;
- bh=cRWG+AciFntQ62/nkAseUlx4YrFF//l9QVdkplVv8zM=;
- b=Bn+ch57H03oCMgIjFFv+QOQ0+uYzYA2DNZYUu6Cpax8o/iLfkLHUxn8bO/sqI86mdBehSV7FR
- m0vJMSuiE3ZCI76rtcRhLNKxept69jazrVcrk1m18gXYSexA6krdyUW
-X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
- pk=hAgg8uNgzV2UIXcMolGFuWsdQLeg5F/siao+So2kbBc=
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=XZ4cX455 c=1 sm=1 tr=0 ts=6ac4f929 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=0UUxXAEebRRMa4xcU8YA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: VrZXiXrhrf5LdfbyPco4QjeQnshBwdsj
-X-Proofpoint-ORIG-GUID: VrZXiXrhrf5LdfbyPco4QjeQnshBwdsj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1NCBTYWx0ZWRfX1nhBJax/yP5m
- +vqVCgUACbvewg1oxYx7LqcQxrFafFhB5jjGqMjeqYKdb3upwITrAPLrQ83isJR/3UuYki1D51x
- 9VHKicqBU6F0odbpjGDxei8v8xYOG+i5M6NMUJUiE5vktbV8ykoaf3SS9n4tsdTuSQbl8G3SB8X
- 0dOprvO9O7h5OkYDNrlBUPlpvA9yFnfvYXp4LGALlruC3zaDUxnjuzzU0f8wWuhUYSC5R7ohqyg
- o4VmCRNi0ZxT0MTVTdeYeRW37hPJJvp1ge2JAaF21BEvY8q4PegoLe3AiYRoIawMZcOesPDcPlk
- 1YEcT1LrThXVHupIkezZtSndO0mxhd3arkWWlPFun9D2QtUDDU15P8UrXbp1GiXzS0ke4SapA+I
- uF/NOcpklZhy1u8vLONYVy6M+ghbGJH7e2PDl2JikLmDIjDYxF8qsvJb1EoWkKAS647SrllU8Rz
- aem5a8U7yswSpAwLHqQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1NCBTYWx0ZWRfXznRl7bJmLs8O
- BenJjdhu1WXQ4qneWOKoFBxhzCKKhjvM2xgNg/rNGWMOxlK71XUhnvJU2IQpP5L/Jm3ibQsWtBY
- N5rJH97i5gGTGiCIlm6DBwv2reamBEc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_04,2026-10-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501 adultscore=0
- suspectscore=0 impostorscore=0 bulkscore=0 clxscore=1011 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060054
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v12 10/15] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
+ <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
+Date: Tue, 06 Oct 2026 14:38:02 +0100
+Message-Id: <179129388241.1018806.5773521934450351426.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3187;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=PDKCA2LqDdwF75BRjCYuu/t8MaYkMS6lP/2EM+xeVV0=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxPm6DovXbI5ZpmdK2vim4PJNQas5ZU7DY6iND
+ x0013jaf8iJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasT5ugAKCRAOJn5M7lND
+ PRIxC/4hmPoz8MGU4IVr5nNMT/V8sHBIHuWf1KTg8QfEzlyh0l7rEKICS8MCyPoLD6pYUnCHn2h
+ OEDtvrjT8UbOZa/vY37iec+onmLrLD98g2mh3HS3o+MH9fZ0Jf7SN7Dd75NP5ftZ2eP31vNvORg
+ iz+NEyGwgkOx+xaJwfrhWrVyWW7DUfOncHNsa9t1Ud0N8xXWcQWRcWPSuTdYDNpWtptzmdJ0gpp
+ TBRKfF4Vyb6O31QvkzJc1q00sZIOgarFAtIYNKnBBROP1kxItcOvi6LM98Y4h2wSz6UOvK4QRwS
+ wRZsf5G8IeM8DuMJlwYqKC30WmRgzO7vOmpyRdUGkkFNmmuTnxXLEqZyUUUqixca1bgyN1oxtgy
+ VLL/kSsaDf9NVzx8CMJCzQ/AAdO3JgAirhS038bHg0ut5KgH7tiuYNk79HRforFjIr+MNg9IWOO
+ a75l96yI4X9pmbuCniSKMWnx7fkgKko3G3XzA57YEeC+KKSAoKMSo4ywE6bgVfdVO8nmM=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,236 +93,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pm_clk_suspend()/resume() only call clk_disable()/clk_enable() for the
-AHB ("iface") clock, never clk_unprepare(), so prepare_count never
-reaches 0. The clock (and its source) stays reported as enabled
-through s2idle suspend even though the display stack is fully
-suspended:
+On 2026-10-02 16:10:43+01:00, Steven Price wrote:
+> On 29/09/2026 04:44, Adrián Larumbe wrote:
+> 
+> > This will be of great help when testing potential races between the GPU
+> > reset sequence and other parts of the code accessing HW registers.
+> > 
+> > We must also disable the reset work item rather than simply cancelling
+> > it, to prevent the knob from triggering another reset when the device
+> > is being removed.
+> > 
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c | 42 ++++++++++++++++++++++++++++++
+> >  drivers/gpu/drm/panfrost/panfrost_job.c    |  2 +-
+> >  2 files changed, 43 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index 09a5752a3f40..94d2de341838 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -2,6 +2,7 @@
+> >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+> >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+> >  
+> > +#include <linux/debugfs.h>
+> >  #include <linux/clk.h>
+> >  #include <linux/reset.h>
+> >  #include <linux/platform_device.h>
+> > @@ -595,9 +596,50 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+> >  };
+> >  
+> >  #ifdef CONFIG_DEBUG_FS
+> > +static int reset_get(void *data, u64 *val)
+> > +{
+> > +	struct panfrost_device *pfdev =
+> > +		container_of(data, struct panfrost_device, base);
+> > +
+> > +	*val = atomic_read(&pfdev->reset.pending);
+> > +	return 0;
+> > +}
+> > +
+> > +static int reset_set(void *data, u64 val)
+> > +{
+> > +	struct panfrost_device *pfdev =
+> > +		container_of(data, struct panfrost_device, base);
+> > +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
+> > +
+> > +	if (!ret)
+> > +		return 0;
+> > +
+> > +	panfrost_device_schedule_reset(pfdev);
+> > +	flush_work(&pfdev->reset.work);
+> > +
+> > +	/* ret < 0 means runtime PM for the device is disabled, so we
+> > +	 * only need to return the PM reference in the opposite case
+> > +	 */
+> > +	if (ret > 0)
+> > +		pm_runtime_put(pfdev->base.dev);
+> > +
+> > +	return 0;
+> > +}
+> 
+> NIT: If this wasn't debugfs I'd be complaining that you're ignoring
+> 'val' and so this isn't very extensible. But hey, it's debugfs... so:
+> 
+> Reviewed-by: Steven Price <steven.price@arm.com>
 
-  disp_cc_mdss_ahb_clk [19200000] ->
-    disp_cc_mdss_ahb_clk_src [19200000] ->
-    bi_tcxo [19200000] -> xo-board [76800000]
-  disp_cc_mdss_ahb_clk_src [19200000] ->
-    bi_tcxo [19200000] -> xo-board [76800000]
+I looked into the available debugfs attribute definition macros and none of them provide
+a wrapper that avoid passing the input value when the attribute is to be understood as
+an action rather than a device property. My understanding is that because debugfs doesn't
+become part of the device's uAPI, we can do pretty much whatever we want with it.
+However, on a second thought, maybe in the future we'll want to extend the knob so that
+it performs resets in different ways, and would want to keep backwards compatibility with
+UM binaries that expect certain input values to stand for specific actions.
 
-Calling clk_prepare_enable()/clk_disable_unprepare() directly from the
-PHY's runtime_suspend/runtime_resume is not safe either, since it can
-deadlock against the PHY's own PLL clocks taking the global CCF
-prepare_lock during clk_prepare()/clk_unprepare().
+I'll change it so that all value other than '1' are returned with -EINVAL.
 
-Fix this by moving clk_prepare()/clk_unprepare() out of the runtime PM
-path. clk_enable()/clk_disable() (spinlock only) stay in
-runtime_suspend/runtime_resume. clk_prepare()/clk_unprepare() move to
-suspend_late/resume_early, avoiding the prepare_lock collision and
-actually dropping prepare_count to 0. DPM_FLAG_NO_DIRECT_COMPLETE
-ensures these hooks always run on sleep.
-
-Fixes: 0b3ccb76b95b ("drm/msm/dsi: Fix 14nm DSI PHY PLL Lock issue")
-Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 132 +++++++++++++++++++++++++++++++---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h |   4 ++
- 2 files changed, 127 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 1fb3899b88bf..3a8b5e23f601 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -3,9 +3,9 @@
-  * Copyright (c) 2015, The Linux Foundation. All rights reserved.
-  */
- 
-+#include <linux/clk.h>
- #include <linux/clk-provider.h>
- #include <linux/platform_device.h>
--#include <linux/pm_clock.h>
- #include <linux/pm_runtime.h>
- #include <dt-bindings/phy/phy.h>
- 
-@@ -610,6 +610,105 @@ static int dsi_phy_get_id(struct msm_dsi_phy *phy)
- 	return -EINVAL;
- }
- 
-+static int dsi_phy_prepare_ahb_clk(struct msm_dsi_phy *phy)
-+{
-+	int ret;
-+
-+	if (clk_is_enabled_when_prepared(phy->ahb_clk) || phy->ahb_clk_prepared)
-+		return 0;
-+
-+	ret = clk_prepare(phy->ahb_clk);
-+	if (!ret)
-+		phy->ahb_clk_prepared = true;
-+
-+	return ret;
-+}
-+
-+static void dsi_phy_unprepare_ahb_clk(struct msm_dsi_phy *phy)
-+{
-+	if (phy->ahb_clk_prepared) {
-+		clk_unprepare(phy->ahb_clk);
-+		phy->ahb_clk_prepared = false;
-+	}
-+}
-+
-+static int dsi_phy_runtime_suspend(struct device *dev)
-+{
-+	struct msm_dsi_phy *phy = dev_get_drvdata(dev);
-+
-+	if (phy->ahb_clk_enabled) {
-+		clk_disable(phy->ahb_clk);
-+		phy->ahb_clk_enabled = false;
-+	}
-+
-+	if (clk_is_enabled_when_prepared(phy->ahb_clk))
-+		dsi_phy_unprepare_ahb_clk(phy);
-+
-+	return 0;
-+}
-+
-+static int dsi_phy_runtime_resume(struct device *dev)
-+{
-+	struct msm_dsi_phy *phy = dev_get_drvdata(dev);
-+	int ret;
-+
-+	if (clk_is_enabled_when_prepared(phy->ahb_clk)) {
-+		ret = clk_prepare_enable(phy->ahb_clk);
-+		if (ret)
-+			return ret;
-+
-+		phy->ahb_clk_prepared = true;
-+	} else {
-+		/* Do not enable an unprepared clock after a failed system resume. */
-+		if (!phy->ahb_clk_prepared)
-+			return -EIO;
-+
-+		ret = clk_enable(phy->ahb_clk);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	phy->ahb_clk_enabled = true;
-+
-+	return 0;
-+}
-+
-+static int dsi_phy_suspend_late(struct device *dev)
-+{
-+	struct msm_dsi_phy *phy = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = pm_runtime_force_suspend(dev);
-+	if (ret)
-+		return ret;
-+
-+	/* Runtime PM is quiesced, so it is safe to release preparation now. */
-+	dsi_phy_unprepare_ahb_clk(phy);
-+
-+	return 0;
-+}
-+
-+static int dsi_phy_resume_early(struct device *dev)
-+{
-+	struct msm_dsi_phy *phy = dev_get_drvdata(dev);
-+	int ret, resume_ret;
-+
-+	ret = dsi_phy_prepare_ahb_clk(phy);
-+	/* Balance force_suspend even if restoring preparation failed. */
-+	resume_ret = pm_runtime_force_resume(dev);
-+
-+	return ret ?: resume_ret;
-+}
-+
-+static void dsi_phy_release_ahb_clk(void *data)
-+{
-+	struct msm_dsi_phy *phy = data;
-+
-+	/* Runtime PM is either not enabled yet or has already been quiesced. */
-+	dsi_phy_runtime_suspend(&phy->pdev->dev);
-+	dsi_phy_unprepare_ahb_clk(phy);
-+}
-+
- static int dsi_phy_driver_probe(struct platform_device *pdev)
- {
- 	struct msm_dsi_phy *phy;
-@@ -683,17 +782,31 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, phy);
- 
--	ret = devm_pm_runtime_enable(dev);
-+	phy->ahb_clk = msm_clk_get(pdev, "iface");
-+	if (IS_ERR(phy->ahb_clk))
-+		return dev_err_probe(dev, PTR_ERR(phy->ahb_clk),
-+				     "Unable to get iface clk\n");
-+
-+	/*
-+	 * As a clock provider, the PHY can be runtime-resumed with the CCF
-+	 * prepare_lock held. Keep clocks with separate enable operations
-+	 * prepared across runtime PM, and only unprepare them during system
-+	 * sleep (dsi_phy_suspend_late()/dsi_phy_resume_early()).
-+	 */
-+	ret = dsi_phy_prepare_ahb_clk(phy);
- 	if (ret)
--		return ret;
-+		return dev_err_probe(dev, ret, "Unable to prepare iface clk\n");
- 
--	ret = devm_pm_clk_create(dev);
-+	ret = devm_add_action_or_reset(dev, dsi_phy_release_ahb_clk, phy);
- 	if (ret)
- 		return ret;
- 
--	ret = pm_clk_add(dev, "iface");
--	if (ret < 0)
--		return dev_err_probe(dev, ret, "Unable to get iface clk\n");
-+	/* Even a runtime-suspended PHY must release preparation for sleep. */
-+	dev_pm_set_driver_flags(dev, DPM_FLAG_NO_DIRECT_COMPLETE);
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
- 
- 	if (phy->cfg->ops.pll_init) {
- 		ret = phy->cfg->ops.pll_init(phy);
-@@ -712,7 +825,8 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- }
- 
- static const struct dev_pm_ops dsi_phy_pm_ops = {
--	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
-+	RUNTIME_PM_OPS(dsi_phy_runtime_suspend, dsi_phy_runtime_resume, NULL)
-+	LATE_SYSTEM_SLEEP_PM_OPS(dsi_phy_suspend_late, dsi_phy_resume_early)
- };
- 
- static struct platform_driver dsi_phy_platform_driver = {
-@@ -720,7 +834,7 @@ static struct platform_driver dsi_phy_platform_driver = {
- 	.driver     = {
- 		.name   = "msm_dsi_phy",
- 		.of_match_table = dsi_phy_dt_match,
--		.pm = &dsi_phy_pm_ops,
-+		.pm = pm_ptr(&dsi_phy_pm_ops),
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-index f5d3e806f8fd..77ae08dcff4b 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-@@ -106,6 +106,10 @@ struct msm_dsi_phy {
- 	phys_addr_t lane_size;
- 	int id;
- 
-+	struct clk *ahb_clk;
-+	bool ahb_clk_prepared;
-+	bool ahb_clk_enabled;
-+
- 	struct regulator_bulk_data *supplies;
- 
- 	struct msm_dsi_dphy_timing timing;
-
----
-base-commit: 22430ae5d90ab288b0ee2ad99ae941f4a666b694
-change-id: 20261006-dsi-ahb-clk-suspend-fix-51cd279cccb4
-
-Best regards,
--- 
-Arpit Saini <arpit.saini@oss.qualcomm.com>
 
