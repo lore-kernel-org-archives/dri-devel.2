@@ -4,45 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBEA4CA5FF0
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7760CA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2155E10E359;
-	Tue,  6 Oct 2026 13:11:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E03A10E3AD;
+	Tue,  6 Oct 2026 13:17:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kj584qAZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iAJVq+Fd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78AE210E359
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:11:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 93FFF6022C;
- Tue,  6 Oct 2026 13:11:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F2D1F000FF;
- Tue,  6 Oct 2026 13:11:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791292315;
- bh=XyzpIdZ169f+bYLUduLxbD03IjA+J5BpiwHLMJRjoF0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Kj584qAZTArUpJCBcSfoqW6jS+mU2WWzDvOHnwPkNPLKk/O6s7ZgmVlQDAfb7Cy2F
- OWAW0zAkkCTqxHXnkammPUOvgDKBPY+GTv5RDnTNWFhGTFf1yilKUbbZdDd4uYgduV
- 9vRjxs6M26V3EF97cnq9V9FR7PhCRIuIuARWcJObkq9/b5RxhSGQgxkgyw79WSks9S
- 13PtXfxj1ECA7ArPoqIjngbIG3K/XbNk1prOLcLUIHIbgBK7RjqZWOmTyb3FUhs0B9
- GV2/3YnAIoseWZmUSJS/cVdLRDqR/faZqh5U0X8BN96JIC9KuAfmtAqau0Z+Tam6X2
- gmY5Bx39vNmWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/5] drm/microchip: add a driver for the Microchip
- GFX2D GPU
-To: "Cyrille Pitchen" <cyrille.pitchen@microchip.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20261006-cpitchen-mainline_gfx2d-v9-2-74bd3df2e183@microchip.com>
-References: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
- <20261006-cpitchen-mainline_gfx2d-v9-2-74bd3df2e183@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 13:11:54 +0000
-Message-Id: <20261006131155.04F2D1F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D94410E3AD;
+ Tue,  6 Oct 2026 13:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791292639; x=1822828639;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=0GLA4yWImMsRq/Awpf4QYjFLuvEEobTHqHFu7j1G+70=;
+ b=iAJVq+FdT1geHPsNTRx3IeqiyEVhhuG6xE/AZlEHW2XMUQ2df4l1gm6o
+ orkyATcBYLTI//q4ukMcvXeZ6ZsGIlaLgJt4SvElqvKuy8a5P/6GI1Bzn
+ txWIuwA/AL05ps4QkaL2NJH5duILs6ZBOA/0Whi/c8Gv5Ds6QTywY1IzM
+ b4FyuV/KRGO5mMAfkTP44XT0ftlWbytn1yU8zfc/M/hqEq8qmSwRwOdN4
+ BovsUrnuLeW1sORwHvfwt9AuLHTa+2GPw2CdPdt+dtaX4StHBLBNTtLSL
+ nqVtN3+DmjMcX+gD/NUaY/DVgdxI+x6BNm6yiG5qvEBIZTwY4jIeGR2Qo g==;
+X-CSE-ConnectionGUID: l3FJ+GbhR7eU6g//pygmEA==
+X-CSE-MsgGUID: vGK6UwFdTAu/uDzawhfvpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102651566"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="102651566"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2026 06:17:18 -0700
+X-CSE-ConnectionGUID: 53K0haA4SLKTvvfugoRH9Q==
+X-CSE-MsgGUID: kjcGpTULQh+NxVBYraEWAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="285252455"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2026 06:17:18 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 06:17:18 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 06:17:18 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.22) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 06:17:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k6RgnsUCdPEcrKxidR7fGLgty2yitd3M+tjNBp/lBT0kKteP03+QOoRi/6MwcL3ZeizT99GZl8ckvxgFJbmDUhHcwfv1HsOI1Av1r9NoYcLpJPX1+HqOzMQIb9SCQec8Dug3F9x7LXTYV+YsGUv8TsSVqID5fuJNHxVDmVNVp2Yd9wTHuBL+zcN0FrKKZsxSuzrH5LYoxtFgL1lHLca0vWL/MJFfuNMK2ZHxK/cFtOJWiyu+zcML0QTw8wIYktbpdxw7W5CkEFbiehGgeS6AtLku4YidEYfana3I+7UEj78Rsq6hawlHH5xPBBvRIXtCKas/E17b//DCkVLPuccy1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eksLqiRDj+eyEn8YV4bTIfmYMya/a3wCf7mOhUB8OMQ=;
+ b=ixOd8Ouoeih92cm93W56oY+1SgWWqW2H4DXucUArBGT3/kdXea6IiHyQEZ+TN1xVJp+5XH0ihg9Dl7KK+NOexCSPKe4laz+wu55mWST102ZFqzuVgSMvCAcE9jDpAL/6CYDXMAmdO/a9IbqP7Pgi0l0cOW78yCIXM7D7lCT8gtshSpMYWJ1bwfMK6TkoDP0+BUVhIJBXHDk0JXyN20VdpIllXxxx5242f37x4iIYis34IrZ7L6MJDtcIb3sFbOvTYA6Fwgbb+u3R1l96TOCvdabstsu98dkjbU29fOsvmKihTIsxiZrJSmhGp4CVQKSvvPZT5xJkenyXL01Cw+SQ5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
+ by PH7PR11MB6608.namprd11.prod.outlook.com (2603:10b6:510:1b3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 6 Oct
+ 2026 13:17:14 +0000
+Received: from CH3PR11MB7180.namprd11.prod.outlook.com
+ ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
+ ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0451.026; Tue, 6 Oct 2026
+ 13:17:14 +0000
+Date: Tue, 6 Oct 2026 09:16:58 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+CC: Raag Jadav <raag.jadav@intel.com>, Fan Wu <fanwu01@zju.edu.cn>,
+ <lucas.demarchi@intel.com>, <matthew.brost@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] drm/xe/i2c: cancel the client work on remove
+Message-ID: <asT0yrAaAFThUudZ@intel.com>
+References: <20260928013030.612592-1-fanwu01@zju.edu.cn>
+ <artYHzEMGPu26x3r@black.igk.intel.com>
+ <ar5hcBKGhZDcNSKz@black.igk.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <ar5hcBKGhZDcNSKz@black.igk.intel.com>
+X-ClientProxiedBy: SI2PR02CA0035.apcprd02.prod.outlook.com
+ (2603:1096:4:195::22) To CH3PR11MB7180.namprd11.prod.outlook.com
+ (2603:10b6:610:148::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|PH7PR11MB6608:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1e6a3e3-6051-4ab9-e27d-08df23ac2264
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: oXheRPZvBai52tZiujvf+GJmf7Wh3O9Cbw3MuhCezG2GW9P9eNiCR5LNBd4PpvliFR00otQUJ2Zb1QDVCXvKVuH4RW8qn34uthqkreiz+aVVF+5ddiB/JWcDDlCZkNZMiCiWKDehcTQso8Z5VzCHJslSFlAs0oeNh8hyjyrwzIwJ7QPsY6uz6Bdho4rptGKSFUaOrYWMjkNamPMwouu00WcnKI4iPmGuVLb7zN5ImxQhmqJUUzRO9APKIOWG+9sGz1ZdyWeg5cPNYBW6/zz2AvQqKoPpQ+CDj80d+jKQhEUA0c84UYCXI36YK5XLKoQLvDM5E4mv56NexN87lRk1URrn94gnKZFZN499zWxRDUVzF5vyEdfKrCv9APoilr+7dyNh1sejR9jXHLKJuFrjvm6u5P4ltZpxjUH//aTvFNNpeFyHViqUp20TEJlJ0FdC0nuwOnYSPGVhqflgBjgfMfXjv9214IRNcRwJLYH04TPB3qdp4oU3oC1o9HWPr/aeW4rzHX9mBgeZnHVL6O2hG5L6Rym8tWf+V6d615eO/lESWLsmkUgR0g1kPcfgc58Mc7lJRT5lIgRnXmsH/oVncnXpT8ZDFNcphZmXaWD/cpnKZGclzaLB69BQJOk9kYSN
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR11MB7180.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?q3yPKp64PebFPkVdeUDE5hgjPiid6jWzXH+xyzrRBpJq69KqY/nOtcTJbTYQ?=
+ =?us-ascii?Q?yVjwZaqC9Dr/tWFMOnXypKXWQIrRxb8CV5xQ06VAhdxN4VTHw+jHNqLYnYmh?=
+ =?us-ascii?Q?pEhY+xyEv1R2vqC1zAXG6LELlDI7pMwDl2KPyA58b6MFnVgDsV6hq6vjIiGf?=
+ =?us-ascii?Q?5V2RvpRL3o4uKgmL8CW0cerJtTPNc6km+oSkqH0QFM8NIW1MCuUESd5b0Pi1?=
+ =?us-ascii?Q?bHOlPtitICANVgLGqyhJ0yyIFVcZEi5NRCL9r/USixtM7YKFmoaNmnAgD+7z?=
+ =?us-ascii?Q?WINrzt7+QubE1sM/7U02o7aLtZUENqApf+TZfQt0uzK77BcXic8rwzXhQwt4?=
+ =?us-ascii?Q?1BWA1FChu9rftSDKSbUaqa0+dTxvTTL1t86eMFcgVhIh72nruo3/II0GeS/6?=
+ =?us-ascii?Q?ctK8ttx2YM3yXapALvbPQeY29x5eBKGU7abk5pVA/Qbgtr9XlZmYebu3sgdP?=
+ =?us-ascii?Q?CA8/c8WhROuMrV8gyxrWGkw/BrhVyTSiIZYNRIO6nUGr79uMHbIHMGp/iKzr?=
+ =?us-ascii?Q?pFhv3gTx4QxZ35Ps9GxK1Zs1A6Dy6OmEO+FzuP3u1+TAx7iXisAoNBT4RTD8?=
+ =?us-ascii?Q?wyb+mwp06qtA6jwpYSLs1fGs9gGfCFpl6OJXm/PHNtid3WkIQjZWbbPEcr9V?=
+ =?us-ascii?Q?gNI3htWuvd7sO7P0HfLpZi8E+MV0BytUFXKJ2X86hysSeXfA5B+kruFXfZYT?=
+ =?us-ascii?Q?aasqaSWMVXqTX6xxHfchFT3oMGvmVimU0XVaTl0BSvK0KYJLPMvuml1RGhK5?=
+ =?us-ascii?Q?PchmSP5VzKKfP4ZTblSjq29ejyeLTNQcgYgp5CUh5Q+/Axhyqzzqte3OtIzB?=
+ =?us-ascii?Q?o8QrQSs24TvOcMDS6gYxm3ELpGQMXxbhz7h3ob5E49jNMrwa0zLNV+/wrnnI?=
+ =?us-ascii?Q?bY54cshO2U65TXsj3pzuj5okc+z+LOieLC988yj5+jL+2tl5YNL6KVPh5cFS?=
+ =?us-ascii?Q?kQtw4gRAbOW1KpmyIgOSa1Z8muU/c5GtI1+j4UwxQVsyQWGX2Y4IYPg1w2DC?=
+ =?us-ascii?Q?18hQZQq+ukF06Xgktsd8aXZSmgssTSwjXDAzsybeqBdG104FmbhsD1RdE3zq?=
+ =?us-ascii?Q?oTTXRf7CH4Z0yRge9U73DMwyvaEkbwBDLOhtwuDiGW6aklEMjeu6vpWSnPWU?=
+ =?us-ascii?Q?zkzbeAL3yAa2Hv3tJtb2xFiahBX6q2JJwxTqYrLVYmEGnEWMzfqn2O09U3xJ?=
+ =?us-ascii?Q?Gry9RppmZd3SJ6C5Fm+V5yAemp82GjiSeK2hIKKwYKrX/Y6B56+vcd4WxXLO?=
+ =?us-ascii?Q?W03xgvxxBg40CRhi4PGw9OzKmoEe+HGCXWkMFzy20HhqR4A7mPHb9RfKrJpb?=
+ =?us-ascii?Q?bxfZVhiMoSXnWRUzPDYMN8N5jQZ8b2BcQMh/dPlHmTRgwjoe53knSeq1PpRj?=
+ =?us-ascii?Q?6WHYUjfaVguw2vbNBHuyl48El1n9JBH9/rRKHcIeCj0jFrFB2LDQSXOt/isV?=
+ =?us-ascii?Q?LV2w5rtmvN5Gt9PNXgBlTUwFaTeyu8RTCRxds1x0cGTCpSw77axvUp4kmf/h?=
+ =?us-ascii?Q?qimEpvcXW89PAA+oB6AsfjbHDTSVcKtdvOfVEip48/tUqoyYb7d7JVi9+yHa?=
+ =?us-ascii?Q?WhtHnv7m2ttxrezuNNOATk75GimQsHQDizd8LtoSUXdmtyK1NQbGOLLNXonR?=
+ =?us-ascii?Q?TwLBf38Xj9fAuG9kfNiNVsDPI3W3gYcg/jM05fwn/Fj/P/Lk8Isyo2h2O8T0?=
+ =?us-ascii?Q?2NlyZLkI6cpJcMRK6Ay665L3abUgqxjbQVJIv2+6sA3PGKonYEfH84VU7v89?=
+ =?us-ascii?Q?LCMadEJsz5Ad6g3ifxzWEZ1qYgDmMmU=3D?=
+X-Exchange-RoutingPolicyChecked: Fzdt3PLOuu0SrTzlVkKGjVb8lvKZBJvAXllwRYMter9F4cxDSfiAMBnQihKUzbKPr/ZL0rAPfTh12FlWkLIQg5CYgT6IPyDCP5N41CAdtwiKqhRUz1chW/4V4bqIrNNxdPup8arysEuI6/QVypGUlB5VBu9fbczNoy3EEwV+apIGxWTf+lu3YbNSzIN9jVMu33fRVreZ7FUQnLqcAwAdVfPR2cQ005DncdBjYteMkNkUMSr7uCAERorrHlaz33Ni/Pwawc9naPdXGIQ9SVXgRT2pVnrO4bfcCArcYJgjep3T8YukxKm6TnBe1IabINydeFi3O9rTLzdoruaLkex3eg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1e6a3e3-6051-4ab9-e27d-08df23ac2264
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 13:17:13.9304 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GHAQxFhfQDVUVNydObldAEQruy0F4wVdiScsiAlv0CjQ7bj6ObhMpCZbDweFINxICYTmmZ37NHVyycdH34xh2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6608
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,378 +160,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] pm: unsafe hardware register access in IRQ handlers when device is=
- runtime suspended
-- [High] irq: use-after-free and crash due to missing IRQ synchronization o=
-n teardown
-- [High] irq: hardware access crash due to requesting IRQ before enabling p=
-eripheral clock
-- [High] drm: double free of command rectangles and GEM objects in free_cmd=
-list cleanup
-- [Medium] uapi: structures use compiler-dependent enum types and contain i=
-mplicit padding holes
-- [Medium] mm: layering violation and API misuse via manual flush_cache_mm()
-- [Medium] drm: GEM handle and object reference leak in mchp_gfx2d_ioctl_im=
-port_buffer error path
-- [Medium] pm: PM runtime usage count leak for running commands during tear=
-down
---
+On Thu, Oct 01, 2026 at 03:34:40PM +0200, Heikki Krogerus wrote:
+> On Tue, Sep 29, 2026 at 08:18:07AM +0200, Raag Jadav wrote:
+> > + Heikki to comment on this.
+> > 
+> > On Mon, Sep 28, 2026 at 01:30:30AM +0000, Fan Wu wrote:
+> > > xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
+> > > schedules i2c->work when the adapter is registered under the xe I2C
+> > > platform device, and xe_i2c_client_work() then instantiates the AMC
+> > > client device on that adapter.
+> > > 
+> > > xe_i2c_remove() tears down the AMC, unregisters the client devices,
+> > > the bus notifier and the adapter platform device, but it never drains
+> > > i2c->work. A work item that is still queued or running when the
+> > > adapter is unregistered dereferences i2c->adapter in
+> > > i2c_new_client_device() after platform_device_unregister() has
+> > > released the adapter. The work item is also embedded in the
+> > > devm-allocated struct xe_i2c, so a work item still queued after the
+> > > drm device devm unwind frees that allocation runs its callback on
+> > > freed memory.
+> > > 
+> > > The bus notifier is the only thing that schedules this work, and it is
+> > > unregistered after the client devices. An instance that is still queued
+> > > when the teardown runs can therefore write
+> > > i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
+> > > clearing the same array, and an AMC client it instantiates late is only
+> > > cleaned up by the adapter's own child sweep in i2c_del_adapter().
+> > > 
+> > > Move bus_unregister_notifier() in front of the client teardown loop
+> > > and cancel the work right after it, so no new instance can be
+> > > scheduled and a queued instance is drained before the client array is
+> > > touched. A running instance still finds a live adapter, since the
+> > > adapter is unregistered later.
+> > > 
+> > > This issue was found by an in-house static analysis tool.
+> > > 
+> > > Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
+> > > Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: Codex:gpt-5.6
+> > > Co-developed-by: Song Li <songl@zju.edu.cn>
+> > > Signed-off-by: Song Li <songl@zju.edu.cn>
+> > > Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> 
+> LGTM
+> 
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-commit 22d96d52a44db473414b78bd380f4a039a0bb91a
-Author: Cyrille Pitchen <cyrille.pitchen@microchip.com>
+pushed to drm-xe-next after passing CI.
 
-drm/microchip: add a driver for the Microchip GFX2D GPU
+thank you all
 
-The Microchip GFX2D is a 2D GPU, which supports very basic graphics
-instructions.
-
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c b/drivers/gpu/drm=
-/microchip/mchp_gfx2d_cmd.c
-> index 0000000000000..b84c11c3511d5 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c
-[ ... ]
-> @@ -1577,15 +1577,15 @@ void mchp_gfx2d_cleanup_command_queue(struct mchp=
-_gfx2d_device *priv,
->  				      bool is_clk_enabled)
->  {
->  	struct device *dev =3D priv->drm.dev;
->  	struct mchp_gfx2d_command *cmd, *tmp;
->  	uint32_t i;
-> =20
->  	if (is_clk_enabled) {
->  		writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
->  		writel(GFX2D_GD_DISABLE, priv->regs + GFX2D_GD);
->  	}
-> =20
->  	mutex_lock(&priv->cmdlist_mutex);
->  	list_for_each_entry_safe(cmd, tmp, &priv->running_cmdlist, cmd_node) {
->  		list_del(&cmd->cmd_node);
->  		mchp_gfx2d_release_command(priv, cmd, false);
->  		kmem_cache_free(priv->cmd_cache, cmd);
->  	}
-
-[Severity: Medium]
-Does this leak PM runtime usage counts for the running commands?
-
-When commands are added to running_cmdlist, pm_runtime_get_noresume()
-increments the usage count (in mchp_gfx2d_queue_running()). This loop
-removes commands without dropping their associated PM runtime references
-via pm_runtime_put_noidle(), permanently leaking the usage counter and
-preventing runtime suspend.
-
-> =20
->  	list_for_each_entry_safe(cmd, tmp, &priv->pending_cmdlist, cmd_node) {
->  		list_del(&cmd->cmd_node);
->  		mchp_gfx2d_release_command(priv, cmd, false);
->  		kmem_cache_free(priv->cmd_cache, cmd);
->  	}
->  	mutex_unlock(&priv->cmdlist_mutex);
-> =20
->  	mutex_lock(&priv->free_cmdlist_mutex);
->  	list_for_each_entry_safe(cmd, tmp, &priv->free_cmdlist, cmd_node) {
->  		list_del(&cmd->cmd_node);
->  		mchp_gfx2d_release_command(priv, cmd, false);
->  		kmem_cache_free(priv->cmd_cache, cmd);
->  	}
->  	mutex_unlock(&priv->free_cmdlist_mutex);
-
-[Severity: High]
-Does this cause a double-free of command rectangles and GEM objects?
-
-When a command completes normally, mchp_gfx2d_release_command() frees
-its rectangles and drops GEM references, then places the command on
-priv->free_cmdlist without clearing the pointers. This loop in
-mchp_gfx2d_cleanup_command_queue() blindly re-releases commands that
-have already been completely released, causing use-after-free and double-fr=
-ee
-issues that corrupt the slab allocator and DRM core state.
-
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c b/drivers/gpu/drm=
-/microchip/mchp_gfx2d_drv.c
-> index 0000000000000..d415bd94110bc 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c
-[ ... ]
-> @@ -71,15 +71,15 @@ static irqreturn_t mchp_gfx2d_interrupt(int irq, void=
- *dev_id)
->  {
->  	struct mchp_gfx2d_device *priv =3D dev_id;
->  	u32 status, mask, pending;
-> =20
->  	status =3D readl(priv->regs + GFX2D_IS);
->  	mask =3D readl(priv->regs + GFX2D_IM);
-
-[Severity: High]
-Does this code crash with a synchronous external abort if the peripheral
-clock is disabled?
-
-The hard IRQ handler unconditionally accesses hardware registers (GFX2D_IS)
-without verifying if the device is runtime active. Spurious interrupts can
-trigger this path when the device is suspended and the clock is off. As
-mandated by the subsystem guide, IRQ handlers must use
-pm_runtime_get_if_active() before accessing hardware registers.
-
-[ ... ]
-> @@ -89,15 +89,15 @@ static irqreturn_t mchp_gfx2d_thread(int irq, void *d=
-ev_id)
->  {
->  	struct mchp_gfx2d_device *priv =3D dev_id;
->  	struct mchp_gfx2d_gem_object *gfx2d_obj;
->  	struct device *dev =3D priv->drm.dev;
->  	bool is_suspended =3D false;
->  	bool enable_exend =3D false;
-> =20
->  	drm_dbg(&priv->drm, "enter IRQ thread\n");
-> =20
->  	pm_runtime_get_noresume(dev);
-> =20
->  	writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
-
-[Severity: High]
-Is it safe to use pm_runtime_get_noresume() here before blindly accessing
-registers?
-
-This function increments the usage counter but does not resume the device,
-meaning it may still be suspended when writel() is called. This can cause
-a kernel panic if the clock is disabled.
-
-[ ... ]
-> @@ -182,15 +182,15 @@ static int mchp_gfx2d_probe(struct platform_device =
-*pdev)
->  	if (irq < 0) {
->  		dev_err(&pdev->dev, "failed to get the IRQ\n");
->  		ret =3D irq;
->  		goto err_exit;
->  	}
-> =20
->  	ret =3D devm_request_threaded_irq(&pdev->dev, irq,
->  					mchp_gfx2d_interrupt,
->  					mchp_gfx2d_thread,
->  					0, dev_name(&pdev->dev), priv);
-
-[Severity: High]
-Could this crash if an interrupt fires immediately?
-
-The IRQ handler is registered via devm_request_threaded_irq() before the
-peripheral clock is fetched and enabled via clk_prepare_enable(). If an
-interrupt line is asserted (e.g., from a previous boot or spurious event), =
-the
-hard IRQ handler will execute and read from a hardware register while the c=
-lock
-is still off.
-
-[ ... ]
-> @@ -245,15 +245,15 @@ static void mchp_gfx2d_remove(struct platform_devic=
-e *pdev)
->  {
->  	struct mchp_gfx2d_device *priv =3D platform_get_drvdata(pdev);
->  	int ret;
-> =20
->  	drm_dev_unregister(&priv->drm);
-> =20
->  	ret =3D pm_runtime_resume_and_get(&pdev->dev);
->  	mchp_gfx2d_cleanup_command_queue(priv, !ret);
->  	if (ret) {
->  		dev_warn(&pdev->dev, "Failed to resume device on remove\n");
->  	} else {
->  		pm_runtime_put_noidle(&pdev->dev);
->  		clk_disable(priv->pclk);
->  	}
-> =20
->  	pm_runtime_disable(&pdev->dev);
-> =20
->  	clk_unprepare(priv->pclk);
->  }
-
-[Severity: High]
-Does this sequence create a use-after-free window for the IRQ thread?
-
-Resources are manually torn down and the clock disabled while the devres-ma=
-naged
-IRQ thread is still permitted to run. Since devm_request_threaded_irq() def=
-ers
-IRQ teardown until after remove() returns, the IRQ thread can execute
-concurrently, accessing freed memory (like priv->mbx freed in
-mchp_gfx2d_cleanup_command_queue()) and unclocked registers.
-
-[ ... ]
-> @@ -265,15 +265,15 @@ static int __maybe_unused mchp_gfx2d_runtime_suspen=
-d(struct device *dev)
->  	struct mchp_gfx2d_device *priv =3D dev_get_drvdata(dev);
->  	unsigned long to;
-> =20
->  	mutex_lock(&priv->cmdlist_mutex);
->  	priv->is_suspended =3D true;
->  	reinit_completion(&priv->running_cmdlist_empty);
->  	mutex_unlock(&priv->cmdlist_mutex);
-> =20
->  	(void)mchp_gfx2d_progress(priv);
->  	to =3D msecs_to_jiffies(GFX2D_PM_RUNTIME_SUSPEND_DELAY);
->  	if (!wait_for_completion_timeout(&priv->running_cmdlist_empty, to)) {
->  		mutex_lock(&priv->cmdlist_mutex);
->  		priv->is_suspended =3D false;
->  		pm_runtime_mark_last_busy(dev);
->  		mutex_unlock(&priv->cmdlist_mutex);
->  		writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_IE);
->  		return -EBUSY;
->  	}
-> =20
->  	clk_disable(priv->pclk);
-
-[Severity: High]
-Can this tear down hardware access underneath the threaded IRQ handler?
-
-The suspend path disables the clock the moment the completion is signaled. =
-This
-could race with the threaded IRQ handler still executing, causing a synchro=
-nous
-external abort.
-
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c b/drivers/gpu/d=
-rm/microchip/mchp_gfx2d_ioctl.c
-> index 0000000000000..a989d63db7b52 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c
-[ ... ]
-> @@ -187,15 +187,15 @@ static int mchp_gfx2d_ioctl_import_buffer(struct dr=
-m_device *dev, void *data,
->  	/* Is it the first import of this object? (gfx2d_obj->width =3D=3D 0 me=
-ans it is) */
->  	if (!gfx2d_obj->width) {
->  		if (!mchp_gfx2d_valid_size(args->stride, args->height, obj->size)) {
->  			drm_gem_handle_delete(file_priv, args->handle);
->  			ret =3D -EINVAL;
->  			goto unlock;
->  		}
-> =20
->  		gfx2d_obj->width =3D args->width;
->  		gfx2d_obj->height =3D args->height;
->  		gfx2d_obj->stride =3D args->stride;
->  		gfx2d_obj->format =3D args->format;
->  		/*
->  		 * Leave 'gfx2d_obj->direction' unchanged (hence set to 'DMA_NONE') as
->  		 * imported buffers (from the atmel-hlcdc driver) always use coherent
->  		 * memory (allocated with dma_alloc_wc()).
->  		 */
->  	} else {
->  		if (gfx2d_obj->width !=3D args->width ||
->  		    gfx2d_obj->height !=3D args->height ||
->  		    gfx2d_obj->stride !=3D args->stride ||
->  		    gfx2d_obj->format !=3D args->format)
->  			ret =3D -EINVAL;
->  	}
-> =20
->  unlock:
->  	mutex_unlock(&gfx2d_obj->mutex);
-
-[Severity: Medium]
-Does this error path leak the GEM handle and object reference?
-
-If the buffer was already imported but the new parameters do not match, the=
- code
-sets ret =3D -EINVAL and jumps to unlock. It misses the
-drm_gem_handle_delete(file_priv, args->handle) call that is correctly prese=
-nt
-in the other error path, leaking a GEM object reference and an allocated DRM
-GEM handle.
-
-[ ... ]
-> @@ -301,15 +301,15 @@ static int mchp_gfx2d_ioctl_sync_for_gpu(struct drm=
-_device *dev, void *data,
->  					 struct drm_file *file_priv)
->  {
->  	struct mchp_gfx2d_device *priv =3D drm_to_dev(dev);
->  	struct drm_mchp_gfx2d_sync_for_gpu *args =3D data;
->  	struct mchp_gfx2d_gem_object *gfx2d_obj;
->  	enum dma_data_direction dir;
->  	struct drm_gem_object *obj;
-> =20
->  	obj =3D drm_gem_object_lookup(file_priv, args->handle);
->  	if (!obj)
->  		return -ENOENT;
-> =20
->  	gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
-> =20
->  	dir =3D gfx2d_obj->direction;
->  	if (valid_dma_direction(dir)) {
->  		dma_sync_single_for_device(dev->dev, gfx2d_obj->base.dma_addr,
->  					   obj->size, dir);
-> =20
->  		if (priv->caps->has_cache_aliasing && current->mm)
->  			flush_cache_mm(current->mm);
-
-[Severity: Medium]
-Is it appropriate to bypass standard DMA coherence primitives here?
-
-Directly calling flush_cache_mm(current->mm) performs an inefficient
-whole-address-space cache flush and uses a low-level mm API which may not
-be exported for loadable modules or behave uniformly across architectures.
-The driver should rely on standard dma_sync_single_for_device() or DRM
-cache helpers.
-
-> diff --git a/include/uapi/drm/microchip_drm.h b/include/uapi/drm/microchi=
-p_drm.h
-> index 0000000000000..c7c4436276387 100644
-> --- /dev/null
-> +++ b/include/uapi/drm/microchip_drm.h
-[ ... ]
-> @@ -148,15 +148,15 @@ struct drm_mchp_gfx2d_rop {
->  	__u32 mask_handle;
->  	enum drm_mchp_gfx2d_rop_mode mode;
->  	__u8 high;
->  	__u8 low;
->  };
-> =20
->  struct drm_mchp_gfx2d_submit {
->  	__u64 rectangles;
->  	__u32 num_rectangles;
->  	__u32 target_handle;
->  	struct drm_mchp_gfx2d_source sources[2];
->  	enum drm_mchp_gfx2d_operation operation;
->  	union {
->  		struct drm_mchp_gfx2d_fill fill;
->  		struct drm_mchp_gfx2d_blend blend;
->  		struct drm_mchp_gfx2d_rop rop;
->  	};
->  };
-
-[Severity: Medium]
-Are these structures safe for the Application Binary Interface (ABI)?
-
-The UAPI structure drm_mchp_gfx2d_submit uses a C enum type which has an
-implementation-defined size, and the union results in 4 bytes of implicit
-padding at the end of the structure due to leading __u64 alignment. This
-can cause incompatibility between 32-bit and 64-bit userspace or across
-different compiler flags. UAPI structures must use explicitly sized types
-like __u32.
-
-[ ... ]
-> @@ -224,15 +224,15 @@ struct drm_mchp_gfx2d_alloc_buffer {
->  	__u32 size;     /* in bytes for mmap() */
->  	__u16 width;
->  	__u16 height;
->  	__u16 stride;
->  	enum drm_mchp_gfx2d_pixel_format format;
->  	enum drm_mchp_gfx2d_direction direction;
-> =20
->  	__u32 handle;
->  	__u64 offset;
->  };
-
-[Severity: Medium]
-Does this UAPI structure also contain implicit padding holes and enum types?
-
-There is a 2-byte implicit padding hole after the __u16 stride field, and
-enum types are used for format and direction. Explicit padding fields
-and explicitly sized types should be used.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-cpitchen-m=
-ainline_gfx2d-v9-0-74bd3df2e183@microchip.com?part=3D2
+> 
+> > > ---
+> > > 
+> > > Changes in v3:
+> > > - rebase onto drm-xe-next, after "drm/xe/i2c: Disable IRQ on unbind"
+> > > - discussion: Link: above points at the v2 thread
+> > > - unregister the bus notifier before the client teardown loop and
+> > >   cancel the work before the loop as well: v2 cancelled the work only
+> > >   after the loop, so an event arriving during the loop could still
+> > >   schedule the work to race with the array teardown and leak a freshly
+> > >   instantiated AMC client
+> > >  drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
+> > >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+> > > index f4f3819..b82caaf 100644
+> > > --- a/drivers/gpu/drm/xe/xe_i2c.c
+> > > +++ b/drivers/gpu/drm/xe/xe_i2c.c
+> > > @@ -324,12 +324,15 @@ static void xe_i2c_remove(void *data)
+> > >  	xe_i2c_irq_reset(xe);
+> > >  	xe_amc_exit(i2c);
+> > >  
+> > > +	/* Stop the notifier from arming the client work before teardown. */
+> > > +	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+> > > +	cancel_work_sync(&i2c->work);
+> > > +
+> > >  	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
+> > >  		i2c_unregister_device(i2c->client[i]);
+> > >  		i2c->client[i] = NULL;
+> > >  	}
+> > >  
+> > > -	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+> > >  	xe_i2c_unregister_adapter(i2c);
+> > >  	xe->i2c = NULL;
+> > >  }
+> > > 
+> 
+> -- 
+> heikki
