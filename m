@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68BBFCA5FFC
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 20:25:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C1C0CA6004
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 20:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 800C310F3AC;
-	Tue,  6 Oct 2026 20:25:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86BF710F3C0;
+	Tue,  6 Oct 2026 20:25:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="GmUWBh6+";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="l2hKmePc";
 	dkim-atps=neutral
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
- [209.85.161.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920B910F3AC
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 20:25:44 +0000 (UTC)
-Received: by mail-oo1-f42.google.com with SMTP id
- 006d021491bc7-6d68de53053so446150eaf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 13:25:44 -0700 (PDT)
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com
+ [209.85.161.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D7C110F3C0
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 20:25:46 +0000 (UTC)
+Received: by mail-oo1-f54.google.com with SMTP id
+ 006d021491bc7-6de08b2e447so497346eaf.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 13:25:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1791318344; x=1791923144;
+ d=baylibre.com; s=google; t=1791318346; x=1791923146;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=B7d8+d8Jg6e4zgR7b55B5I4HUSkrjz23uBlGgAf5rGA=;
- b=GmUWBh6+pmwPIBtmB3q4KE1yWTIPwAOaQdEadsuaKuFIOlZdNIlmIuLuUiOkm8qVcf
- tux/jiZvXsTBnHsRvAqqaFkygPOBKCErcEduaBqOdzlvsUcTTlru9PUdD2+fGRIPtcXo
- zu1HGpgq3Q3jCabCXDMuZlr+ldOgB2sR4wbhYBKKjop0+o/taoBpPgGH9M5TNQtzGinA
- Rtnb8uodV5sWNLP8q0aF+7fVxteRA4xbcwErBq0no+BdXV97WXe75icbQITDwpf08KxU
- vKhmFjLM4jpO3rAfKpCRPlNTOFMUyU+TBjEpekm5yjtX0LYQ69bcZ5/RIKUrEk6pU0vH
- LZ3w==
+ bh=TuMJ7m5Vcv+rXpqn/K7pApUYeSmPWZZlEhNlSrC3ot4=;
+ b=l2hKmePcMNiw+DeS6vZAc2oPvFFEwAl7KxZRKGNhNm3oDb7wiWISGnUeAdCl6zH9t+
+ Y3loJwJ0hdJbq/vVXxpw02eknxsnODdhE1+THuguj9utPWMeyvP+zItYS6/PYW3b1bd9
+ UOFk7PecOrukVeDdBlRKMauM88sPhqZuFaSzRUffifXY3oB3tBgIw+Inp1dP2oGt7x8e
+ sA17wej2n0xwke00u9Fni++egsjLHsCP5HcJLOXoUhyuSV0dwor9wmHKQdi7RcaSVE/L
+ O0ussAaNLL3su1552Ftr7C2iWstkUwGtt4ncupI+SM16NL0Nlk/A8ZhjLFW44a85ObUb
+ etpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791318344; x=1791923144;
+ d=1e100.net; s=20260707; t=1791318346; x=1791923146;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=B7d8+d8Jg6e4zgR7b55B5I4HUSkrjz23uBlGgAf5rGA=;
- b=pewUbP7l1PgkQKo2NrMXBsA5U+/rB+YaOgP36tuyAM1UvLPLQqUrS/zU/tdS7LeKG8
- wravB/OGRvmmM/zdB/QqFKajMf/3VJJtwhGSbfcB+VNv6MciZjjHMNFB5tUQn7Mjqa1l
- cNWdC0RPk0VCTkHMX1zBIukYrOf9ACXo1HOKp7I2Qy4v6Gy2AHimZ3o2PSz2vL+eIDIg
- NW1vHNwQbZa23qYhxoX4V+EP6JVRbfebZlWBcSUcBnLaGlhN31vEEsE+FEtHlkhBDnFn
- tTqXaxiJvkCZqXCw7ByG4jUN6MMpuHQ9+9ptc7+32zonqVbxmdQbzYusuYmXodyjDb9+
- e6cg==
-X-Gm-Message-State: AFuF++nrRK5rqzttP4bTgLvLbxVHnB5bfUo1IOsJx3UyIftcd181HGhJ
- rQcSCgrdASniJ2Jx+a8OaIkRZEXpyvtnCbD+qyslXI30ha+Ot+Dl4OHjswTzFE+dypg=
-X-Gm-Gg: AYBFou1vmvA5C+SoRaY5Bk2YlmV2dGsdbRDuROmzMzFa36d/Oe0T8V4rigyhymxb0Wj
- 7tNAL+EvnfvD3XWygnLgjoJND3Z4Sc0UEUk9OP68zA3Gb4SiSkAJbYLwo/ItlqGussiGMZojzyi
- vQ8OLs6r7EhRfp21+fNPxiZ5/tXInHsqF8pS4CnhqTOhAtGfwfx8jQTXVkHnVIMfQcJMAN68SAk
- Ic3qb6Ej6C5vHoZbIHk6hVOuLsnYjk3sFegS3WCnan1fBMwpXth6AEgtlnGW8ZoUaFP1sGpmz+7
- q3GOSmWt49oYKVDZaCzEiGCHkvuwR7NWV333i4aCPyClgWkfjwU9A7mib4FpMbiP++/pZQ3MfbB
- AwX2SwOij6Te9CZR5nqBUz1tan/YYQsPUqP72F0kSp81BNcP42lXmYvPpJZaUCc5rcscs9FJw07
- wCNfj0d4mmscYEkiWd0E2OAf01avN6rZZU3hlduVoOJzuh/9JP3BtM88OiGi0jicdVS8qBa74Md
- Nw=
-X-Received: by 2002:a05:6820:c89:b0:6e0:8fc2:84a3 with SMTP id
- 006d021491bc7-6e7a9125036mr295388eaf.39.1791318343680; 
- Tue, 06 Oct 2026 13:25:43 -0700 (PDT)
+ bh=TuMJ7m5Vcv+rXpqn/K7pApUYeSmPWZZlEhNlSrC3ot4=;
+ b=ltXZllGy6esqG+ZE0hvoQuTbLXUskhRyOOeFShsNon3QbSr3ICtsK3mymGiScEi7jw
+ LCEfVsJ85GX8ahAw8ZA9baGjCGLKSmZpBpqIVYhrJX17wM8KfIUsTfxRbXAN0N/rxQhT
+ fq5yvGy1t2fGoQxDjPNDSy6skF3JmDWuGNimWQs0AX3tbKXQ1XKXAjlu6Jbte7tFGFbq
+ OgEjzcPnWr7/G0KoXKBm8qYlKvB0uJYz4+z2ebXuWp4T5aZmH0fn+rfIKOYJ6B/OSgtc
+ 4oWPIBdPXsnkl31ghuGkarUNv6yG/+NUrkBpuqG0xFqkjz/s1xHBwYzjJYFyXv1J6nLU
+ lhzQ==
+X-Gm-Message-State: AFuF++nBjNJM4W1qNChfPh7jdUyPDKitTFMw35EMS+dfTcR+r9X36Q2d
+ 9uYv2J0Tu7AEIJ+5LxsdEv4lZdPDc3mzrIrHmteOx9OrGNN6/ZvxAsZeZXs4M+ncKcI=
+X-Gm-Gg: AYBFou3CRknZuDWhsDkVf8WhGKEbwwpMqpVbzAo8q1JnQxfzmLCwON+SJ3BElt7vE2x
+ R1ky7lcYq7GsfunfFybgHk0YzFYJRb3aWZB+yabz/GwAxprGsBz16wQPxakBu+gYOGkslnf5cls
+ Dm8ary6eXzRFHBC1kCh0eJdcDVmJdrF2IQXvGp2uFohMUped9U/zIN4EkjDIL7CRxQdyABO+bcb
+ ENcKfTeIfwVvTzZ6wo9bVORgDwx1f6ps+9DBIXxxpfNyckBAJyvY59ZynMurJmzppzdhRTGnZDv
+ aj6eQ5G7P3L/OmMNvZ3+8tW3EuLTkAU83DsB+wKvp2rkE6G4IuhQyQCbyWxHmcRxHav53r4AVjc
+ 8RjXUWJeKN7z0NJQN3kHC9MMuxe5xhLC0n5ur5G08ZXCF0b1nI49CNP5mNyUVgyRglNNOtMJ87I
+ QrC9TRZlrkpI0Ywt9liooYuQcumAqTHCagvxxvw5n0mLxCjsUb6t1xutP27PkRgrP2GjK3jRSiW
+ Q==
+X-Received: by 2002:a05:6820:1996:b0:6df:961a:af2f with SMTP id
+ 006d021491bc7-6e7ac5151d7mr253655eaf.85.1791318345779; 
+ Tue, 06 Oct 2026 13:25:45 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:372:3180:ce34:1fe7])
  by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-6e793f68bf6sm463442eaf.8.2026.10.06.13.25.41
+ 006d021491bc7-6e793f68bf6sm463442eaf.8.2026.10.06.13.25.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2026 13:25:43 -0700 (PDT)
+ Tue, 06 Oct 2026 13:25:45 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Tue, 06 Oct 2026 15:25:01 -0500
-Subject: [PATCH 1/4] dt-bindings: display: panel: himax,hx8279: add vddp-supply
+Date: Tue, 06 Oct 2026 15:25:02 -0500
+Subject: [PATCH 2/4] drm/panel: himax-hx8279: add the VDDP supply
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-panel-himax-hx8279-vddp-v1-1-50d884b42aae@baylibre.com>
+Message-Id: <20261006-panel-himax-hx8279-vddp-v1-2-50d884b42aae@baylibre.com>
 References: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
 In-Reply-To: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -85,16 +85,16 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-mediatek@lists.infradead.org, David Lechner <dlechner@baylibre.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2205; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1424; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=+6mowQPvO5/qbWu07+JM4tpqCNNR0Oy6FVUyr6NCfh4=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqxVklqqKz9ZZ5EYTPs3b/ghtQnZoefwxQSM+W0
- GisMCHkGeSJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCasVZJQAKCRDCzCAB/wGP
- wOHSCACcvVmVgg5xUxBOP/pHIgPMZ2Lhcfg4VZwwLRNcQLQE+uS/SQ4GV4kNd5pon4GVAyGLWMA
- hluJJJ+r7f4HXO+LMEXHe4siAm4FrOxhHWzzfvdZbpAes5TzM2ZzBI35cytFG01QQjODNLk31Ju
- ok2s6QEW3pyKLzVkkCJX1n4NCk4D0Tpcxu+wDjeWatZ49EPobpXz/MDhRyCL5eucimvRxWQkN+c
- q+XA6vMhr3/TSrVZwvozFK8v9/O75FHHxwIqe3DrzkJYxxRzxfNfE1s3Vh2BidaQN4hdgc0/qc3
- 88m33Uam4PLXxnMeUHzrcdShGxwdILR/UCB3o87IYotFEd3M
+ bh=NyTgz/hgDxQKSuA5Ck4SyFt9fR3sfL/MexR3R/H3dxg=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqxVksNR5t/ywYjewlDcdi0ghHLOdJJIGqzYu4S
+ 0FRGFjsMxSJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCasVZLAAKCRDCzCAB/wGP
+ wCSBB/4nAAPLD1Yv3Td1SgrZyG8pm0J+BxnvcD4ztUnuid/60B8XkFmMjr6FQkqLK1d/baXFatE
+ cbGI8eGxXtN9EELfUFzkaiI6pbFo9vOfFbKfurBWmbBbZqfRPcn2p1P/KwOT8e9ERwN3pJBgDtw
+ IJnA7ofvPQwKGq+hg/++URBXqdhW+mxUBDmxQ5lrxAKGaRxYsDnjzMf9aLhuEGGceSHp46P1zX7
+ guK6fHdEksNWYX+mLcopg1bP6zp2KmcaUalp9b1hlPC3s2Xtoq75Qas1m+fWyast2NbbU+XFCNI
+ OcROe3ts3gEeZSCMkm8yhiT4SXC0JamLJMaY4PxVT7cnbLG/
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,68 +112,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a vddp-supply property and make it required for the Startek
-KD070FHFID078 panel.
+Get and enable the vddp-supply along with VDD and IOVCC.
 
-The Startek KD070FHFID078 panel has a separate VDDP power input, which
-feeds its DC-DC converter, in addition to VDD and IOVCC. On the MediaTek
-Genio 520 and 720 EVKs, VDDP is switched by its own GPIO-controlled
-regulator, and on the Genio 1200 EVK it comes from its own PMIC LDO.
-In both cases it is separate from the other two supplies, so it needs to
-be described to power the panel.
+The Startek KD070FHFID078 panel has a VDDP power input, which the
+MediaTek Genio 520 and 720 EVKs switch with a regulator of its own, so
+the driver has to enable it for the panel to be powered on those boards.
 
-Making it required means existing device trees with this panel without
-it no longer validate. This is ok since the Linux driver will still work
-with them because the regulator core uses a dummy regulator for any
-missing supply. And anyone who sees the warning about the missing
-supply should add it to their device tree.
-
-It stays optional for the Aoly SL101PM1794FOG-V15 panel, as it is not
-known whether that panel has a VDDP input.
+On boards that do not describe vddp-supply, the regulator core provides
+a dummy regulator, so they only see a "using dummy regulator" message.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- .../devicetree/bindings/display/panel/himax,hx8279.yaml     | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/drm/panel/panel-himax-hx8279.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx8279.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx8279.yaml
-index f619aea82bdf..c79056c39037 100644
---- a/Documentation/devicetree/bindings/display/panel/himax,hx8279.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/himax,hx8279.yaml
-@@ -37,6 +37,9 @@ properties:
-   vdd-supply:
-     description: Panel power supply
+diff --git a/drivers/gpu/drm/panel/panel-himax-hx8279.c b/drivers/gpu/drm/panel/panel-himax-hx8279.c
+index 9e443c719843..fe665cd3a3d2 100644
+--- a/drivers/gpu/drm/panel/panel-himax-hx8279.c
++++ b/drivers/gpu/drm/panel/panel-himax-hx8279.c
+@@ -112,7 +112,7 @@
+ struct hx8279 {
+ 	struct drm_panel panel;
+ 	struct mipi_dsi_device *dsi[2];
+-	struct regulator_bulk_data vregs[2];
++	struct regulator_bulk_data vregs[3];
+ 	struct gpio_desc *enable_gpio;
+ 	struct gpio_desc *reset_gpio;
+ 	const struct hx8279_panel_desc *desc;
+@@ -769,6 +769,7 @@ static int hx8279_init_vregs(struct hx8279 *hx, struct device *dev)
  
-+  vddp-supply:
-+    description: Panel DC-DC converter power supply (VDDP)
-+
- required:
-   - compatible
-   - reg
-@@ -45,6 +48,15 @@ required:
-   - iovcc-supply
-   - vdd-supply
- 
-+if:
-+  properties:
-+    compatible:
-+      contains:
-+        const: startek,kd070fhfid078
-+then:
-+  required:
-+    - vddp-supply
-+
- unevaluatedProperties: false
- 
- examples:
-@@ -63,6 +75,7 @@ examples:
-             reset-gpios = <&pio 45 GPIO_ACTIVE_HIGH>;
-             iovcc-supply = <&vreg_lcm_vio>;
-             vdd-supply = <&vreg_lcm_vdd>;
-+            vddp-supply = <&vreg_lcm_vddp>;
- 
-             port {
-                 panel_in: endpoint {
+ 	hx->vregs[0].supply = "vdd";
+ 	hx->vregs[1].supply = "iovcc";
++	hx->vregs[2].supply = "vddp";
+ 	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(hx->vregs),
+ 				      hx->vregs);
+ 	if (ret < 0)
 
 -- 
 2.53.0
