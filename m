@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B51CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40222CA5FFC
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 13:10:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 181D010E399;
-	Tue,  6 Oct 2026 13:10:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0EC10E24D;
+	Tue,  6 Oct 2026 13:10:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="p1/5W5uy";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yty70ngI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nKZihoeb";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q4/O01Jd";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14D3E10E24D
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:10:12 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D271810E37C
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 13:10:13 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 696BPPup535571
- for <dri-devel@lists.freedesktop.org>; Tue, 6 Oct 2026 13:10:11 GMT
+ 696BPE1e680829
+ for <dri-devel@lists.freedesktop.org>; Tue, 6 Oct 2026 13:10:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=XHpXieFsXX6
- qHFJWj6txetKx05HnT6IpWTUeLEfybns=; b=p1/5W5uyBDgI05jG1sFDsqFBTr9
- 5iA6VJffEobuUpQ70jKlpKhYend3vN2yG0EQxoR7k4ZsEaJ4YBat6bNOrG98q6n+
- j9pzmgg1nPv8L1XjQRVDyEV/y522cqIJS5SxRMVAXnX9++uou0uIgxNDl9L5teXB
- 9pWlhxnuUwoLgOaNfG4tHShmjVXZjddXQV5HCU2eOo2XUEfTfP8t3YWRerrG3GSd
- zqNkFyrghPtjjw4fwmTk7zeQSlFXYPQJO/zm6rlDSdD/ed2F5D2nb/uM4jJpdSzN
- R12BgKTLzF7yxlyvL5c6GGJQvyasDolVR76yOVjvbI5wCiBLd9y5cX1a2yQ==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4gr0bns0-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=+0zJukh9QSz
+ /GMbZNJuCTb3x7RaCsJro6coTIz2KI2c=; b=nKZihoebcqKvrFChvxXlIKhcs/y
+ jRpo91KJZ8VHWpGbaZNqG9EWlMfAAyzd9vB+Ok4IY0L/eCsSxCQ9GLyInoXAurWl
+ bPlKt2RG4QKDOn+QS9CmWepfi1S2BB9qSEhTREa6pGm8vR9bFxOvvvt+GyUknYt9
+ e5j/YV/KHYrHXoPfUbN+zzyC6eqoZ+Th6MDNfwvtbPHQI8sL8XgogvZht4MoMAaI
+ 2PaoBIHujQysYKl+9ptKosNkcjW5CAQvmvCDtfHlCB5JfE+b5fIdMtpEKHEm80Ij
+ FgsaNGFu3k1K5SbEB1q+SmymNv+3SGjjold4WbYHgQG7eN+kB219maXQcuw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xc9rpvf-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 13:10:11 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-88bbc27f85cso3666150b3a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 06:10:10 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 13:10:12 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-398dcfabbf8so4516880a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 06:10:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791292210; x=1791897010;
+ d=oss.qualcomm.com; s=google; t=1791292212; x=1791897012;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=XHpXieFsXX6qHFJWj6txetKx05HnT6IpWTUeLEfybns=;
- b=Yty70ngItZ+vWAzvupsu4+s7yY0BVO9tjJ4dqBewPsjniGZ/kb/e+zpT7nvJdc/Qk2
- /249KL+n4H0aOc1br1TT223dMCEZGZF3lF69ulcaaZR53hlbIbD6BFWlBBX4YARJwMls
- 4AVsXR13ivL14WymFsrLh9peFUbbQ/fhEogD7iciiW7aCBLO3mouMtMLZaAFYCXvQwxa
- SDBwNxuDlsHiwbDu5vt6bCHNbsNocmBwEmH/l2vIc2viC2wCyVluaYcLLPfBlc+J7Qrb
- W67nhTAYQX4P/DoRh3BRLcv8feSfrtluh0mzzPdoGjKfjVUa2CqPp1PWlFlqbJTwHkyc
- xp3A==
+ bh=+0zJukh9QSz/GMbZNJuCTb3x7RaCsJro6coTIz2KI2c=;
+ b=Q4/O01JdCFKWYg380+pznqxD8kdRsa+LYovmb+IcFR6oiEaec7CZapfXBQAuhoXeZh
+ flZ5bWpR/jKqSao3121Fs+EFOZYZCj/39mLNmnfIOOiJsu+RPA3Te0AdK3w/nVmyPWr+
+ qHOVLwdNjwHG7PErNAtywYhFj2QmJjlVLnS7io4QX5Qg4Wk6feqC32mKyym8e5PRb5uv
+ x7r7+TgMEdTMzLsCB/NyvV00AgXvNSRaJMRz+dZAtgVZYvtc+yVQ3y5tGTyEFlEd8K7G
+ hcFSWaZ0L8rktDdC51t4Vf3NWOzt58Of7sumQIIl4iYabg5yN9pxEDn/259dOP6T5eD5
+ fcIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791292210; x=1791897010;
+ d=1e100.net; s=20260707; t=1791292212; x=1791897012;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=XHpXieFsXX6qHFJWj6txetKx05HnT6IpWTUeLEfybns=;
- b=gEMj9E97i2Gjd9y3waZ2hKI6CC0/nU4QjXqmr/nSsxaLRlWXssz6dUTq3tfglm3uRu
- tFoJjs56KdH5DfxGrudb3VgNb+Rlx8sT8QGe4YJ05AHA+wA7y8wT4ER2U38RLusbmE+0
- HkeQ4aNdYKM9UcT9lTByD9f0TOT5L7JtkCcsu8tVFNgGSakdnEXxeQYvADruENn0Fz+H
- eun2tlqAGcx4npu2E+2QjCUcpdms765Ez9aoM6EUErfojkesByZwjSotLD9yroSEgruD
- J+l9PbiD9SaCkbUT+Mw+69t9qSV1HBetIqFjtLz8tZ3dkmURaVXL+TMAJ4ZvtdS5qC4w
- qevw==
-X-Gm-Message-State: AFuF++lC4j4Kx8oZncZePYjMIzbHZMUwBUdIsFd61q4csZYsmLm+Ovxi
- sWUSbQ9gs5fyGVFiICQq6RvoLQHy8Dlo9ZhVSTcoax1pHjoU9Kncvv4NYZ58U8PWOSpcbdj2tHi
- krDvWnBSHGbRBZZwLsOZv/WZoycFSqJc4tq1tnko4l331YymTewTRuEYEb0esCd6UWC/97TVu/N
- UC/64=
-X-Gm-Gg: AYBFou0QsCvNVnpWHM/7awj9iV6R6TvlOK6D15weOrwfDE5TeXMK6CIA4nIdYclUfey
- NHztzIQlU36An1bLwh78OTseD23P8ebcid2RzH1surn2EIXOzgPNxYya5eQ7+hFUXQ78BgHmvR6
- A5V1jQUZIgXfNbLCtaZf2u6ubGLKs4/ji3uC8YaOuo1o9GzOTWBxiSB9AbZZk0gtkS7UGwsfcel
- Qse258yxxY6SR90R7KH+YrQ48eEaFiWvSk6OZ0osgbAu7VqjsSu5aXnLeEOthMss+85LmSd0ZAd
- EblDtQ4LKXt4UC1/KmI9VaDBJIUmFFPdGpDCoznrwtbXxw97iG5gHhMq2+yfciRbGiq+cC77J7E
- HhOWT99ND3aSQYd8j0oz4DD566CAb/oE0/vXGk9OS0qkN1g==
-X-Received: by 2002:a05:6a00:4b52:b0:874:706d:856f with SMTP id
- d2e1a72fcca58-890debc9693mr1171595b3a.32.1791292209905; 
- Tue, 06 Oct 2026 06:10:09 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4b52:b0:874:706d:856f with SMTP id
- d2e1a72fcca58-890debc9693mr1171559b3a.32.1791292209441; 
- Tue, 06 Oct 2026 06:10:09 -0700 (PDT)
+ bh=+0zJukh9QSz/GMbZNJuCTb3x7RaCsJro6coTIz2KI2c=;
+ b=pGlYIXy+N54yEqAp0Ken+pxy5Hc999WrgQhPtDqa83RGMsPPxIIT+T4qFpUlWJWFP3
+ yrf+bvGVI3XupQHSTZVGtP7vV5UeV1QAElUm7FsBPtOtmTp/vYyZPsBHY07Uc9adTVNX
+ b1e67WtXdc97D8JFjPwCXdP5WBmFvF6dVxvLAkmJdYHVGKzt9WxV/9SEtXZTrNKTVcjj
+ ynIxHwJeHIVmqdu/sKkAbmv+PEBxw1lLQlXQz53B5ieZqgZo3tnahSyYBePeAP5qKkOa
+ h7XIokHorw9YkD/KRtbK5Y/y3vYDsxzqU3FLNImAMzHB0nNLXYQ+qQGvVwEO89x+wskV
+ nVVQ==
+X-Gm-Message-State: AFq9FYKRgH0h4sNJ1lBKAoAG5+5Udg1PX8JAYY0Q0kCkAEUJiInbZWfu
+ 8lO13xIi6NKrw7JsxIXJAihSc9ugtd7cFOjEwNkawFgNLpoboQPxrz6DdzykEJ+vgY9PeKYq16F
+ tk4NgF2FKRhfJa2X1ixWNRkuG6+SxChS+0DAiqheEGEsu/LIlbqzZw+IxeHHWOb/X6a03APZtry
+ vmzuo=
+X-Gm-Gg: AYBFou3GXYLjkL2F2IXAW8gsAh1td0fPJmkHsujBGt36Mljags/kjZ+iLC4SGvTrvFx
+ iVOqJYVbW8hLwKYR40XfP5Z6uSp+ALHzgfbVhrP0roTbV1EamaDCvmOqZ0a+Hm3/F+PcGtkW7nS
+ jAGytmUrpDhN7SeALmJTvUicWPuVlAciHclITVO2XeKmWfQFX6M0oGnSsz9s0l5l7ZTWDQFTCL4
+ LyPVwWdbgHB72WXpmbh1giaq/eJ95BXGzmE8UCcNi8T9GJhALrBQIjnOYD+0QN29YLtuyICg3h3
+ cs9ftkFGpBPMOQLJlhTXfWjQGd3zNZfIE8mIttMHGdnzB/Lxuq2rt69yLnDZjqen3z38CsR3nUX
+ MP6ClPPXUmfjv/d7BmGSWMsrbIaJGoNtUfjlgvLInbg95dA==
+X-Received: by 2002:a17:90b:3f8c:b0:3a4:7730:33dd with SMTP id
+ 98e67ed59e1d1-3a78776199bmr8709901a91.58.1791292212046; 
+ Tue, 06 Oct 2026 06:10:12 -0700 (PDT)
+X-Received: by 2002:a17:90b:3f8c:b0:3a4:7730:33dd with SMTP id
+ 98e67ed59e1d1-3a78776199bmr8709876a91.58.1791292211586; 
+ Tue, 06 Oct 2026 06:10:11 -0700 (PDT)
 Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-88b0c3a4498sm4744401b3a.31.2026.10.06.06.10.08
+ d9443c01a7336-2e5a5ef5b60sm21992595ad.73.2026.10.06.06.10.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2026 06:10:09 -0700 (PDT)
+ Tue, 06 Oct 2026 06:10:10 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -96,38 +96,38 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [RFT 1/5] drm/msm: Cleanup if pages_to_sg() fails
-Date: Tue,  6 Oct 2026 06:09:52 -0700
-Message-ID: <20261006131000.81501-2-robin.clark@oss.qualcomm.com>
+Subject: [RFT 2/5] drm/msm/gem: dma_map/unmap_sgtable()
+Date: Tue,  6 Oct 2026 06:09:53 -0700
+Message-ID: <20261006131000.81501-3-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261006131000.81501-1-robin.clark@oss.qualcomm.com>
 References: <20261006131000.81501-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1MiBTYWx0ZWRfXzffu2/zQ2B4Y
- eIBA0snwoYPHn/h1sHCcEnJvVleecbA/oBfdPsLw07xkWKN+kUJjfI0u/LmR1FRKZXz5P3WHvHF
- nRfuG7WD7yoF+Gjyf4c5oAWAGstPWJNFrrLDfZ3epf6QXbjTNHdAgbPxdjKjuD1UTVMsrS30B7A
- DQ9t2l9xCxg9cD3VYkEE6xFjpVEqbrVo9xXiwJYzQLgz0xmoZNfCBOeQYT12WZEV1dQM0UEwGVd
- nzLmbOEYCkvAR79SnsrgJP0obt0rOGkBGtCNBnUUcZUeq4bfqWZpzsxe74ofQiMv/N65wqdyNdH
- JL7gFjfyUaWKF82pOsPmH7TBLgMb6fiswbXESMJeCFP5ZEbJ/Wy+Fd66+g/sktnB9cq3JoiRU3d
- U2dPlDEBscmPH8W8DNxYxDZY5jm5TBzl72R5VY57FhgydKVWWFkixVtxWq4VqRK2QNgepdOZ31h
- ItlOqoWJ79jhyf+YSwg==
-X-Proofpoint-GUID: RVeP-3G3n9015YMuOwaRXinOzzVbwK5C
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1MiBTYWx0ZWRfX6Y7KBkS8JP5h
- wJc0zAhcGqnKB+HSoRxbVZ5KUSsSuxw70BAL+FHTKIPZXebIXgRHuKSJKu/sAAiHWfDT9GCxCjo
- WbBLsdT8lWKUUjo1hSoRu5yqcyr0d9o=
-X-Proofpoint-ORIG-GUID: RVeP-3G3n9015YMuOwaRXinOzzVbwK5C
-X-Authority-Analysis: v=2.4 cv=BrQIUoX5 c=1 sm=1 tr=0 ts=6ac4f333 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
+X-Authority-Analysis: v=2.4 cv=ctMOAF4i c=1 sm=1 tr=0 ts=6ac4f334 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=aq7xQ8hs3DLR8BDoFBQA:9 a=2VI0MkxyNR6bbpdq8BZq:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=isCY8TonHXl0-fnU9HAA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1MiBTYWx0ZWRfX4XaFZcyYaiWJ
+ WpEhwwLovs++aHAyN7U0M2vu2maae1SvErKyUSzDEVieVYa/UbLlblFZ0ibmD+uryrSlFMN0Tv9
+ pXKNT8XCatj+pzweNNAg7H++ZDTiLjs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1MiBTYWx0ZWRfXxEJERZASYI9a
+ +73DqnTboLH3gZaquQdCX3FJifp1DqGjE3MgrsZn131gGHvJHBm9CPCsIRy2dy8pXgijHfi7WKU
+ ivJ/ibmG4FKr0YHIEjcWbXfXsuNlOkpajeCq9i91dM/a2+dZFE8oMikPooWqnJvOyAcMjfpDrYc
+ HkiuwqcAwwEPQCcRntugfCwKFVEC2kCIdwpMQpb9TxpgNGX+n7xFrbRxpQqHyep+QySFlJlcLf4
+ 9jWs41pNM2pP7Qcw1JCpHiIZxTeeog16MorD14e6ky6E0TS5GlCGe+JwkM4uCQ9sFZL/WWHFUs3
+ mFdeohr+C2j2T2Q8sYoSpSkyugXom75KZSnW80VJ/9oi97L3tGzo9qaGCyPJcHpz10B5SUJoezw
+ lI05wxTFyHrUTp67LfAvb3eZKTSHdEiPJ7PxbmczZOa3/8nl1SgHa8hFMz5RkE1Dr1+1CGe8bWT
+ hA9AFbs4nptMopt2Myg==
+X-Proofpoint-ORIG-GUID: Iw0CMd3LtW14Sc9e15h_iAvbVKp-aum2
+X-Proofpoint-GUID: Iw0CMd3LtW14Sc9e15h_iAvbVKp-aum2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-06_03,2026-10-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501
- malwarescore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
+ bulkscore=0 suspectscore=0 spamscore=0 malwarescore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060052
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -145,94 +145,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We never really handled this.  But in practice mapping to smmu would
-have failed without an sgt, which would have been pretty obvious.
+This should functionally be a no-op for us, since we are managing our
+SMMU directly (dma_map_ops is NULL), but it populates the dma_len/
+dma_address's so that we can use them for setting up pgtable mappings.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_gem.c | 41 ++++++++++++++++++++---------------
- 1 file changed, 23 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 130ae27ee00b..181b9ad32672 100644
+index 181b9ad32672..72e3cd8bb1e7 100644
 --- a/drivers/gpu/drm/msm/msm_gem.c
 +++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -190,6 +190,7 @@ static void update_lru(struct drm_gem_object *obj)
- static struct page **get_pages(struct drm_gem_object *obj)
- {
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+	int ret = 0;
- 
- 	msm_gem_assert_locked(obj);
- 
-@@ -209,19 +210,17 @@ static struct page **get_pages(struct drm_gem_object *obj)
- 			return p;
+@@ -219,6 +219,15 @@ static struct page **get_pages(struct drm_gem_object *obj)
+ 			goto error;
  		}
  
--		update_device_mem(dev->dev_private, obj->size);
--
- 		msm_obj->pages = p;
- 
- 		msm_obj->sgt = drm_prime_pages_to_sg(obj->dev, p, npages);
- 		if (IS_ERR(msm_obj->sgt)) {
--			void *ptr = ERR_CAST(msm_obj->sgt);
--
- 			DRM_DEV_ERROR(dev->dev, "failed to allocate sgt\n");
--			msm_obj->sgt = NULL;
--			return ptr;
-+			ret = PTR_ERR(msm_obj->sgt);
++		ret = dma_map_sgtable(drm_dev_dma_dev(obj->dev),
++				      msm_obj->sgt,
++				      DMA_BIDIRECTIONAL,
++				      DMA_ATTR_SKIP_CPU_SYNC);
++		if (ret) {
++			DRM_DEV_ERROR(dev->dev, "could not map sgtable: %d\n", ret);
 +			goto error;
- 		}
- 
-+		update_device_mem(dev->dev_private, obj->size);
++		}
 +
+ 		update_device_mem(dev->dev_private, obj->size);
+ 
  		/* For non-cached buffers, ensure the new pages are clean
- 		 * because display controller, GPU, etc. are not coherent:
- 		 */
-@@ -232,6 +231,14 @@ static struct page **get_pages(struct drm_gem_object *obj)
- 	}
- 
+@@ -233,6 +242,8 @@ static struct page **get_pages(struct drm_gem_object *obj)
  	return msm_obj->pages;
-+
-+error:
-+	msm_obj->sgt = NULL;
-+
-+	drm_gem_put_pages(obj, msm_obj->pages, false, false);
-+	msm_obj->pages = NULL;
-+
-+	return ERR_PTR(ret);
- }
  
- static void put_pages(struct drm_gem_object *obj)
-@@ -246,18 +253,16 @@ static void put_pages(struct drm_gem_object *obj)
- 		drm_gpuvm_bo_gem_evict(obj, true);
+ error:
++	if (!IS_ERR(msm_obj->sgt))
++		drm_prime_gem_destroy(obj, msm_obj->sgt);
+ 	msm_obj->sgt = NULL;
  
- 	if (msm_obj->pages) {
--		if (msm_obj->sgt) {
--			/* For non-cached buffers, ensure the new
--			 * pages are clean because display controller,
--			 * GPU, etc. are not coherent:
--			 */
--			if (msm_obj->flags & MSM_BO_WC)
--				sync_for_cpu(msm_obj);
--
--			sg_free_table(msm_obj->sgt);
--			kfree(msm_obj->sgt);
--			msm_obj->sgt = NULL;
--		}
-+		/* For non-cached buffers, ensure the new
-+		 * pages are clean because display controller,
-+		 * GPU, etc. are not coherent:
-+		 */
-+		if (msm_obj->flags & MSM_BO_WC)
-+			sync_for_cpu(msm_obj);
+ 	drm_gem_put_pages(obj, msm_obj->pages, false, false);
+@@ -260,6 +271,11 @@ static void put_pages(struct drm_gem_object *obj)
+ 		if (msm_obj->flags & MSM_BO_WC)
+ 			sync_for_cpu(msm_obj);
+ 
++		dma_unmap_sgtable(drm_dev_dma_dev(obj->dev),
++				  msm_obj->sgt,
++				  DMA_BIDIRECTIONAL,
++				  DMA_ATTR_SKIP_CPU_SYNC);
 +
-+		sg_free_table(msm_obj->sgt);
-+		kfree(msm_obj->sgt);
-+		msm_obj->sgt = NULL;
- 
- 		update_device_mem(obj->dev->dev_private, -obj->size);
- 
+ 		sg_free_table(msm_obj->sgt);
+ 		kfree(msm_obj->sgt);
+ 		msm_obj->sgt = NULL;
 -- 
 2.55.0
 
