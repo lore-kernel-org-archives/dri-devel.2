@@ -4,61 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3555CA5FED
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 16:50:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950EDCA5FED
+	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 17:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A53510E25D;
-	Tue,  6 Oct 2026 16:50:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBCFB10E0AC;
+	Tue,  6 Oct 2026 17:01:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Y1uJerDA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xJ714r4h";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8EECE10E161
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 16:50:54 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BC4351477
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 09:50:50 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- D97753F66F
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 09:50:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1791305454; bh=w6yofi2hb9AiVsVr8lzwC1eqMrd95HITpUYDUSg8J/0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Y1uJerDAFRoQfEtYkLl+CgIIZAsjeufpi3mbvEwi7PSd50MEoIc8eSPHZtpcw1FAi
- piwF50+x4ozDtU9pj+WyJlJn0FN44ndyMkaUMe/lsuZQVGRfQ4z8ZIc/HgL6WAUFLX
- m/zZFE1qFw0TJcBShSDeyVkO1mGGIkvrqe1LmUh8=
-Date: Tue, 6 Oct 2026 17:50:50 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Alice Ryhl <aliceryhl@google.com>,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>, Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maxime Ripard <mripard@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
- Shuah Khan <skhan@linuxfoundation.org>, Simona Vetter <simona@ffwll.ch>,
- Steven Price <steven.price@arm.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v3 7/8] drm/nouveau: use DRM_GPUVM_RESV_PROTECTED
-Message-ID: <asUm6j1GD6yxeBvy@e142607>
-References: <20261001220632.3190896-1-matthew.brost@intel.com>
- <20261001220632.3190896-8-matthew.brost@intel.com>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013026.outbound.protection.outlook.com
+ [40.93.201.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5279F10E0AC
+ for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 17:01:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tKHfsMs+SbcwmhYEtuBSbzdgTRJwsgkkiZE99UELzGNqb5DYKSI5ZKDu6DVgMRRFdNU0t7U3FoNrPeasAqzEvw973Zv7WHbd01wn8U5WVmcuDNdNRcllQv1GyHhrb4qGqtOR5A73tgvKCAVnCOEd5ofw6V4lLVuWggM0jy1R8+PzClGB1P6rcBkIhlYufzQDFJLbHJbk+ronxjnFFG+w2dbX9MBrGeYkV8sq4MOGis712KrIqWQ51jcnQtSYZjQWRddIfzKsa3RwgOQ8QutW82og6UFTA95UEXu9a92bhzTY5O5V4bqrH0lkcTBZ7OUNAwSmV5C10A0IRxz7kXrxkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EN7Hx46Siv23gguu2ZtvuYlYiK5i2XjMf7kTziYHdYA=;
+ b=J5zg+bgLzRIx/6sKHotMNeA2J4U235gfhObX/BGlel+KLX6uwrg3fMSk+4MZjthD6cHJ4qjuKhhitl68nUiYGkwZy0m3fysX1t+2W5WVp730rDI4IEKZE1bInYMlBdE5oRdi2HVQEttMjvVIPbC9u5+iSVDJAUJ7YcGFsumvpHZzC3HjuQBfQd9ugLcQ4f/s+tl3zaTlOKJPi85r/wtd79RpSaDK0CnZPVV58uqr4M8iAPiYpNn+rMbHY+ULsD1EokGHqV/jgdhSITui61yCEVkl3mo2dxrkEroihxu5Uy1T3objQ4AhUk7uqkO4OwPqEnro9+rMxYGOI3/kIYTRyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EN7Hx46Siv23gguu2ZtvuYlYiK5i2XjMf7kTziYHdYA=;
+ b=xJ714r4hrOe5RYQkTK+s399eoGDKfelOIcdSeGYXXO3xWoM2M8IA3OEj85BCiEyq1XJkhpX7YTsIg7rhqfL1M26CPP7mfXNB3D/x23i27p3LsuAc8RsQFsBvzIxGv+4u9x7XSam9nCqPuuYsz48ndBAQUnpxtMDvdrM9/5eskVA=
+Received: from CH0PR04CA0016.namprd04.prod.outlook.com (2603:10b6:610:76::21)
+ by CY5PR12MB6035.namprd12.prod.outlook.com (2603:10b6:930:2d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
+ 2026 17:01:11 +0000
+Received: from BN7PEPF0000009F.namprd04.prod.outlook.com
+ (2603:10b6:610:76:cafe::1) by CH0PR04CA0016.outlook.office365.com
+ (2603:10b6:610:76::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 6
+ Oct 2026 17:01:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN7PEPF0000009F.mail.protection.outlook.com (10.167.248.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 17:01:10 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
+ 2026 12:01:09 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Tue, 6 Oct 2026 12:01:08 -0500
+Message-ID: <8900270a-064a-fc3b-5686-e37ff58c5335@amd.com>
+Date: Tue, 6 Oct 2026 10:01:09 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261001220632.3190896-8-matthew.brost@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V2 16/20] accel/amdxdna: Finalize runtime PM before
+ acquiring dev_lock on removal
+Content-Language: en-US
+To: Eva Crystal <0xiviel@gmail.com>, <yidong.zhang@amd.com>,
+ <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+ <max.zhen@amd.com>, <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
+References: <20261006042230.547807-17-yidong.zhang@amd.com>
+ <20261006071310.198186-1-0xiviel@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261006071310.198186-1-0xiviel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF0000009F:EE_|CY5PR12MB6035:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40f3cc42-5a69-4c5a-31dc-08df23cb6bf1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|22082099003|18002099003|11063799006|4143699003|6133799003|56012099006|10067099003|5023799004;
+X-Microsoft-Antispam-Message-Info: Ze1VbWaTSxD7t92r2HiVkxLY9t3wHsr9jb+1Em6RbmJgbHIR7CSAWjZ+ZGAHXKb7Az/v06nI3G6sZ8Lfx5TTtHdz3IwO/9su5mp9LUOK2C6RoJQdFaTI4wuorfEiuIWxQDMB23GPC5JSMz931OEErPSHAeokHVwE117TrbCO9jAteYDkX0zlzLFuY38Os47u/e/MgzQ70NFpqbZrMDqMxvXd6fk7GJx4AbJOz7CuvbHmMFjM0xRdxqkdxPm1nCr8M2tlXVlIo3VuYTa5tVO8Djz8w2POcCHaVsRGU+S0+3710tHgVY7e0qLJFJediz31UDm7hGspNdx954deJKCxQPAQ7zPVnCcNIorOePhw0hMAg0X3Eh2YQSiAbL8/KTDZwciEXhFrerKz/PV7Pmza2gXxWff+qKdfX3lYskJxKnnbHh4uggXoslX0f/j4ZnrFlY+mr7+p5z4WZEFs+K5X58UVrKBfAa8YnARbHPoNoK4KiVlBOOHt70BbBgqNn4KCMVfHNemJi8XYMzhJXnxZ+eN5EBq8DvAqa1QFSKogDVSzAyczrVwqYGHke6ZGBuhfTz96cVXwctqPmyUNDjcKlR2KltT2mPNkI7qZ2oK/yTFfalX0tXC81tA58Fe2zduTyAxBOwk9nRKtOq2gTvtIUw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(22082099003)(18002099003)(11063799006)(4143699003)(6133799003)(56012099006)(10067099003)(5023799004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: qv0ZyqLaEck5voC9KT7AW9QRQCIt564ki11ulfN11dxbmhnmu+FNhJyYcLmsFmpZ6Dal9Em5annjrdy9SJsDM7QU5BUGT15QFuSmH1rwlANpKAOvGdNjyrFGOxFf1xQyUqfqK6tpQQ2gegoDsodecS9ZiDuzga5cbHqKIrXDbiQiWQCiEDGgmo/QxDmRsCxLb4KKs2Arb80+U38ncLCkckF06U73FryRRN/gCfinkR//Imfrl4i76wmtfhfILXN21jGDsBeorw3rSBNPBKq4paa5qKrNvywtFnzKC5uoUaw/yhySEcANcxgUn6aq5QnHa92HHc6Tyu1qSvKK4TSjikDt4bKd/OwE360c4fv8g7puWx0lXMVt5NZTBAnAp0C6+cx+vUx5VmWGafne+pUHwCbOqcU5C0msEV13exvhL9lZ5ihRTkN64g7BJbOlxp0q
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 17:01:10.5766 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40f3cc42-5a69-4c5a-31dc-08df23cb6bf1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF0000009F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6035
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,192 +119,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 01, 2026 at 03:06:31PM -0700, Matthew Brost wrote:
-> nouveau creates its drm_gpuvm without DRM_GPUVM_RESV_PROTECTED, so the
-> extobj and evicted lists are protected by internal spinlocks. Every
-> nouveau path but three already touches them with the VM's resv held:
-> drm_gpuvm_exec_lock() and drm_gpuvm_validate() on exec, and TTM moves of
-> private BOs, which share the VM's resv. The remaining three are:
-> 
->  - nouveau_uvmm_bind_job_submit() adds the vm_bo of a MAP op to the
->    extobj list holding no resv at all. Move that into
->    bind_lock_validate(), which now locks the VM's resv as well.
-> 
->  - bind_link_gpuvas() unlinks the GPUVAs of UNMAP and REMAP ops, which
->    can drop the last reference of their vm_bo. It runs within the bind
->    job's drm_exec transaction, which the above makes hold the VM's resv.
-> 
->  - nouveau_uvmm_bind_job_cleanup() and nouveau_uvmm_fini() can drop the
->    last reference of a vm_bo holding only the object's resv. Lock the
->    VM's resv along with it, through a new
->    nouveau_uvmm_lock_vm_and_obj().
-> 
-> The bind job's fence now always lands in the VM's resv, as BOOKKEEP.
-> This already happened whenever a bind job mapped a private BO.
-> 
-> With that the internal spinlocks buy nothing, so set
-> DRM_GPUVM_RESV_PROTECTED. This is also what two-pass locking in
-> drm_gpuvm requires, which a following patch makes use of.
-> 
-> Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-> Cc: Alice Ryhl <aliceryhl@google.com>
-> Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> Cc: Antonino Maniscalco <antomani103@gmail.com>
-> Cc: Boris Brezillon <boris.brezillon@collabora.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Dmitry Baryshkov <lumag@kernel.org>
-> Cc: Jessica Zhang <jesszhan0024@gmail.com>
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Steven Price <steven.price@arm.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> Assisted-by: LLM
-> ---
-> v3:
->  - New patch (Danilo)
 
-Bit confused about this. If Danilo contributed this patch should it not carry his S-o-b as well?
+On 10/6/26 00:13, Eva Crystal wrote:
+> On Mon, Oct 05, 2026 at 09:22:26PM -0700, David Zhang wrote:
+>
+>> When the device is runtime-suspended, pm_runtime_forbid() synchronously
+>> resumes the device via rpm_resume(), which invokes
+>> amdxdna_pm_runtime_resume(). Because amdxdna_pm_runtime_resume()
+>> acquires dev_lock, calling amdxdna_pm_fini() inside ops->fini() while
+>> holding dev_lock in amdxdna_remove() causes a deadlock.
+>> -	amdxdna_pm_fini(xdna);
+>>   	aie2_hw_stop(xdna);
+>>   	aie2_hwctx_sched_fini(xdna->dev_handle);
+> This is worth more than its position in the series suggests: the deadlock is already live on shipping AIE2 parts, not only on the new AIE4 path.
+>
+> On current drm-misc-next, amdxdna_remove() holds dev_lock across ops->fini(xdna) (drivers/accel/amdxdna/amdxdna_pci_drv.c:457 and drivers/accel/amdxdna/amdxdna_pci_drv.c:463 at 34e9ab018249), and aie2_fini() opens with amdxdna_pm_fini() (drivers/accel/amdxdna/aie2_pci.c:640 at the same commit). pm_runtime_forbid() then calls rpm_resume(dev, 0) synchronously (drivers/base/power/runtime.c:1672), which lands in amdxdna_pm_resume() and its guard(mutex)(&xdna->dev_lock) on the same task. The base wires RUNTIME_PM_OPS(amdxdna_pm_suspend, amdxdna_pm_resume, NULL) and aie2_ops supplies .suspend and .resume, so runtime PM is active on aie2 before this series adds .runtime_suspend. With amdxdna_pm_init() setting a 5000 ms autosuspend delay then pm_runtime_allow(), an unbind or rmmod more than five seconds after the last NPU access hangs holding dev_lock.
+On the remove path, pm_runtime_forbid() does not call 
+amdxdna_pm_resume(). The PCI core has already resumed the device.
 
-Best regards,
-Liviu
+pci_device_remove() calls pm_runtime_get_sync() and pm_runtime_barrier() 
+before amdxdna_remove(). That get resumes a runtime-suspended device, 
+and the usage count stays elevated through aie2_fini(). 
+pm_runtime_forbid() then enters rpm_resume() with status RPM_ACTIVE, 
+which returns immediately and does not run ->runtime_resume()
 
-> ---
->  drivers/gpu/drm/nouveau/nouveau_uvmm.c | 49 ++++++++++++++++++++++----
->  1 file changed, 42 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> index 2026fe6b48c6..dae612e56d91 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> @@ -1187,6 +1187,27 @@ bind_validate_region(struct nouveau_job *job)
->  	return 0;
->  }
->  
-> +/*
-> + * Lock the VM's common dma-resv together with the one of @obj, as needed to
-> + * drop what may be the last reference of a &drm_gpuvm_bo.
-> + */
-> +static void
-> +nouveau_uvmm_lock_vm_and_obj(struct nouveau_uvmm *uvmm, struct drm_exec *exec,
-> +			     struct drm_gem_object *obj)
-> +{
-> +	int ret;
-> +
-> +	drm_exec_init(exec, DRM_EXEC_IGNORE_DUPLICATES, 2);
-> +	drm_exec_until_all_locked(exec) {
-> +		ret = drm_exec_lock_obj(exec, drm_gpuvm_resv_obj(&uvmm->base));
-> +		if (!ret)
-> +			ret = drm_exec_lock_obj(exec, obj);
-> +		drm_exec_retry_on_contention(exec);
-> +		if (drm_WARN_ON(uvmm->base.drm, ret))
-> +			break;
-> +	}
-> +}
-> +
->  static void
->  bind_link_gpuvas(struct bind_job_op *bop)
->  {
-> @@ -1224,12 +1245,24 @@ bind_lock_validate(struct nouveau_job *job, struct drm_exec *exec,
->  		   unsigned int num_fences)
->  {
->  	struct nouveau_uvmm_bind_job *bind_job = to_uvmm_bind_job(job);
-> +	struct nouveau_uvmm *uvmm = nouveau_cli_uvmm(job->cli);
->  	struct bind_job_op *op;
->  	int ret;
->  
-> +	/* The VM's dma-resv protects its extobj and evicted lists, and must be
-> +	 * held by bind_link_gpuvas() in case it drops the last reference of a
-> +	 * &drm_gpuvm_bo.
-> +	 */
-> +	ret = drm_gpuvm_prepare_vm(&uvmm->base, exec, num_fences);
-> +	if (ret)
-> +		return ret;
-> +
->  	list_for_each_op(op, &bind_job->ops) {
->  		struct drm_gpuva_op *va_op;
->  
-> +		if (op->op == OP_MAP)
-> +			drm_gpuvm_bo_extobj_add(op->vm_bo);
-> +
->  		if (!op->ops)
->  			continue;
->  
-> @@ -1288,8 +1321,6 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
->  			dma_resv_unlock(obj->resv);
->  			if (IS_ERR(op->vm_bo))
->  				return PTR_ERR(op->vm_bo);
-> -
-> -			drm_gpuvm_bo_extobj_add(op->vm_bo);
->  		}
->  
->  		ret = bind_validate_op(job, op);
-> @@ -1603,9 +1634,11 @@ nouveau_uvmm_bind_job_cleanup(struct nouveau_job *job)
->  			drm_gpuva_ops_free(&uvmm->base, op->ops);
->  
->  		if (!IS_ERR_OR_NULL(op->vm_bo)) {
-> -			dma_resv_lock(obj->resv, NULL);
-> +			struct drm_exec exec;
-> +
-> +			nouveau_uvmm_lock_vm_and_obj(uvmm, &exec, obj);
->  			drm_gpuvm_bo_put(op->vm_bo);
-> -			dma_resv_unlock(obj->resv);
-> +			drm_exec_fini(&exec);
->  		}
->  
->  		if (obj)
-> @@ -1941,7 +1974,8 @@ nouveau_uvmm_ioctl_vm_init(struct drm_device *dev,
->  	mt_init_flags(&uvmm->region_mt, MT_FLAGS_LOCK_EXTERN);
->  	mt_set_external_lock(&uvmm->region_mt, &uvmm->mutex);
->  
-> -	drm_gpuvm_init(&uvmm->base, cli->name, 0, drm, r_obj,
-> +	drm_gpuvm_init(&uvmm->base, cli->name, DRM_GPUVM_RESV_PROTECTED,
-> +		       drm, r_obj,
->  		       NOUVEAU_VA_SPACE_START,
->  		       NOUVEAU_VA_SPACE_END,
->  		       init->kernel_managed_addr,
-> @@ -1978,6 +2012,7 @@ nouveau_uvmm_fini(struct nouveau_uvmm *uvmm)
->  	struct nouveau_uvma_region *reg;
->  	struct nouveau_cli *cli = uvmm->vmm.cli;
->  	struct drm_gpuva *va, *next;
-> +	struct drm_exec exec;
->  
->  	nouveau_uvmm_lock(uvmm);
->  	drm_gpuvm_for_each_va_safe(va, next, &uvmm->base) {
-> @@ -1989,9 +2024,9 @@ nouveau_uvmm_fini(struct nouveau_uvmm *uvmm)
->  
->  		drm_gpuva_remove(va);
->  
-> -		dma_resv_lock(obj->resv, NULL);
-> +		nouveau_uvmm_lock_vm_and_obj(uvmm, &exec, obj);
->  		drm_gpuva_unlink(va);
-> -		dma_resv_unlock(obj->resv);
-> +		drm_exec_fini(&exec);
->  
->  		nouveau_uvma_unmap(uvma);
->  		nouveau_uvma_vmm_put(uvma);
-> -- 
-> 2.34.1
-> 
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Lizhi
+
+>
+> Three things that would help it travel:
+>
+> * Fixes: 1aa82181a3c2 ("accel/amdxdna: Fix dead lock for suspend and resume") looks right. amdxdna_pm.c had no dev_lock when 063db451832b created it, and 1aa82181a3c2 adds exactly the two guards the base still carries.
+> * Cc: stable@vger.kernel.org is warranted, since 1aa82181a3c2 is in v7.0 and later.
+> * Could this be split out to drm-misc-fixes on its own? At position 16 of a 20 patch AIE4 series it is unlikely to be picked up as a fix, and splitting it stops the fixes cadence holding up the feature work.
+>
+> One question: amdxdna_pm_fini() now runs after drm_dev_unplug(), so pm_runtime_forbid() resumes hardware on a device already unregistered with its user mappings torn down. Intended?
+>
+> Eva Crystal (0xiviel)
+> XSource Security
+> https://xsourcesec.com
+>
+>
