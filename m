@@ -4,45 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F20EACA5FFF
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 20:33:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 889E2CA6004
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 20:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61E9310E697;
-	Wed,  7 Oct 2026 20:33:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2A5110E6AF;
+	Wed,  7 Oct 2026 20:40:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hrbpl84Z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bEztegUJ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2783710E697
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 20:32:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE3CF10E6AF
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 20:40:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0F9D660A89;
- Wed,  7 Oct 2026 20:32:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1CB1F000FF;
- Wed,  7 Oct 2026 20:32:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C940760A6D;
+ Wed,  7 Oct 2026 20:40:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579791F000FF;
+ Wed,  7 Oct 2026 20:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791405177;
- bh=EvmHFXSoFmxGfczNgvdD0YwJkvmzBnIzkx20xRy7USo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Hrbpl84ZOz/yKQzqW39VOarlrE6phWBnrWAwKvco0Eq/Bk3brv2PDMUS8lVp57B/+
- QH7NktqpHc/Atb8mGdyW4w6PTe4XJB6kfmf0K3rEa/dmiB/Rr4QgSVKbr0d/VYpJeX
- vCk99IGAteJbS4yFXAu6yc1CSb/eYTUrAJ3bjBUMeBBwMx3JBBN68wDVHTcBat+wmo
- BXAPoUfFj4NNrmeD/B1m0qtd41LFRcRt66Q4rJ7343eHXjy7HHeRP2J0v9TF3JpJk6
- u5HGKvbrZPA5AxXQOys7jIlY+YW33rWBkIn42KILc3EqYT1s+/iBzgDf1RTn5RNHcS
- +vjz0Oufp0ejg==
-Message-ID: <sashiko-outbox-163341@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
- DSI to HDMI driver
-To: mohit.dsor@oss.qualcomm.com
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261008-lt9611c-v7-v17-2-1e8f5f2b2f19@oss.qualcomm.com>
-References: <20261008-lt9611c-v7-v17-0-1e8f5f2b2f19@oss.qualcomm.com>
- <20261008-lt9611c-v7-v17-2-1e8f5f2b2f19@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 20:32:56 +0000
+ s=k20260515; t=1791405646;
+ bh=kIL0379uMErOZpka3nNnDXupdVWzslK/iRT392K2mcA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=bEztegUJ/jb06V3m54mJa5QV70JRbLqwFFy/J1Am+YZAcn2k7in4nR26lMmiRI5Zq
+ gG2wK3B4Ut42R5EN3wVjxX/fcf6oV9bcGWAd0UzcnHiYL3nD+5e6NHL9xz4oH47LNN
+ Amt3mcBaOCVozGi6JgNqVVIu3IIWUbB2TKF0tKCz40Bi/GdfVIaRbFKjUlc/BxZFDY
+ WPCMCm9f14u2jUPtmeEPJFGtg4nS7N0xxRnnPMBCozMnEqFWoha81lPtWKP9R1qv6w
+ BlyxrtR1QIIKC3szXlEwBb6e7+Czdrq2weWjI3H+CvK3+nTIt3GZAp4Tm/WyyeO9B6
+ Rekr3PkxtSULw==
+Date: Wed, 7 Oct 2026 15:40:45 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+Message-ID: <20261007204045.GA783967@bhelgaas>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007063227.GC7822@unreal>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,151 +69,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] drm: build failure due to non-existent .atomic_create_state ho=
-ok in drm_bridge_funcs
-- [Critical] drm: type mismatch and memory corruption in atomic_enable hook=
- signature
-- [High] drm: missing mandatory initialization for HDMI bridge operations
-- [High] sysfs: NULL pointer dereference in firmware attributes due to regi=
-stration race
-- [Medium] drm/bridge: missing atomic_disable leaves LT9611C hardware power=
-ed on
---
+On Wed, Oct 07, 2026 at 09:32:27AM +0300, Leon Romanovsky wrote:
+> On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
+> > On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
+> > > From: Leon Romanovsky <leonro@nvidia.com>
+> > > 
+> > > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
+> > > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
+> > > direction can unnecessarily force P2PDMA through the host bridge.
+> > 
+> > Does "the reverse TLP direction" refer to Completions?
+> 
+> In general, the P2P code treats TLPs flowing from device A to device B the
+> same as TLPs flowing from device B to device A.
+> 
+> However, in the context of this commit message, yes: completions flow in the
+> opposite direction from the device's perspective.
 
-commit 0482492a2bb6e8ef5381a82384662e6858358155
-Author: Sunyun Yang <syyang@lontium.com>
+And I guess asymmetric fabrics must mean fabrics where Request
+Redirect and Completion Redirect are not set the same way?
 
-drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+> > > Evaluate Request Redirect for client Requests and Completion Redirect for
+> > > provider read Completions. Continue treating enabled Egress Control
+> > > conservatively as a Request redirect.
+> > 
+> > Completion Redirect is intended to avoid ordering rule violations
+> > between Completions and Requests when Requests are redirected (PCIe
+> > r7.0, sec 6.12.1.1).  I assume this patch preserves the ordering rule,
+> > but does the commit log need to say something about that?  I don't
+> > know enough about P2P DMA for it to be obvious to me.
+> 
+> I don't think so, i didn't change anything related to ordering.
 
-This commit adds support for the Lontium LT9611C series MIPI DSI to HDMI
-bridge chip. It supports configuring single or dual port DSI inputs and
-provides HDMI output functionality along with audio and sysfs firmware
-update support.
+I don't think there's anything in this whole series that changes any
+ACS settings, so I shouldn't have wondered about *preserving* the
+ordering rule.
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
-ridge/lontium-lt9611c.c
-> new file mode 100644
-> index 0000000000000..6082c89b388bf
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-[ ... ]
-> +static void lt9611c_bridge_atomic_enable(struct drm_bridge *bridge,
-> +					 struct drm_atomic_commit *state)
-> +{
-> +	struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
-> +	struct drm_connector *connector;
-> +	struct drm_connector_state *conn_state;
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_display_mode *mode;
-> +	int ret;
-> +
-> +	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
-ncoder);
+But I asked about ordering because it sounds like this patch expects
+to encounter asymmetric fabrics where Request Redirect and Completion
+Redirect may not be set the same way, and the spec implies that
+asymmetry may result in ordering violations.
 
-[Severity: Critical]
-Does the signature of this atomic_enable hook match what the DRM core expec=
-ts?
+> > Not really a question for this series, but p2pdma.c and p2pdma.rst
+> > refer to "clients" and "providers", neither of which are mentioned in
+> > the PCIe spec.  In this case it sounds like a client is a Requester
+> > and a provider is a Completer in spec terms.  Is that always the case?
+> > If so, "client" and "provider" in this paragraph are not adding any
+> > information.
+> > 
+> > If "client" is not the same concept as "Requester" and "provider" not
+> > the same as "Completer", maybe p2pdma.rst could explain the
+> > difference?
+> 
+> Client vs. provider are actual target vs. initiator. They express the
+> device role in the flow.
 
-The atomic_enable hook in drm_bridge_funcs expects the second argument to be
-a struct drm_bridge_state pointer for the old bridge state. Treating this
-argument as the top-level struct drm_atomic_commit pointer and passing it to
-drm_atomic_get_new_connector_for_encoder() casts the bridge state to a comm=
-it
-state, which can cause out-of-bounds memory access when dereferencing the
-state arrays.
+I'd rather use "Requester" and "Completer" when possible because they
+have specific meanings in the PCI spec and they correspond to the ACS
+control bits.  Client, provider, target, initiator are all from the
+outer world that makes use of PCIe constructs, but they don't mean
+anything inside the PCIe world.
 
-[ ... ]
-> +static const struct drm_bridge_funcs lt9611c_bridge_funcs =3D {
-> +	.attach =3D lt9611c_bridge_attach,
-> +	.detect =3D lt9611c_bridge_detect,
-> +	.edid_read =3D lt9611c_bridge_edid_read,
-> +	.atomic_enable =3D lt9611c_bridge_atomic_enable,
-> +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
-
-[Severity: Medium]
-Is an atomic_disable hook needed here to properly power down the bridge?
-
-The driver implements atomic_enable to set up video timings and dual DSI
-ports, but lacks a corresponding atomic_disable. During display blanking
-or system DPMS off, the hardware might remain active, wasting power or
-potentially locking up when the upstream DSI host stops its clock.
-
-> +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
-
-[Severity: Critical]
-Does this compile against the current drm_bridge_funcs definition?
-
-The struct drm_bridge_funcs does not contain an atomic_create_state member,
-and the assigned helper drm_atomic_helper_bridge_create_state does not exis=
-t.
-The correct hook for resetting bridge state is atomic_reset, pointing to
-drm_atomic_helper_bridge_reset. Without a valid reset hook, atomic state
-allocation for the bridge will fail.
-
-[ ... ]
-> +static ssize_t firmware_store(struct device *dev, struct device_attribut=
-e *attr,
-> +				      const char *buf, size_t len)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	dev_warn(dev, "starting firmware upgrade =E2=80=94 display will be disr=
-upted\n");
-> +
-> +	ret =3D lt9611c_firmware_upgrade(lt9611c);
-
-[Severity: High]
-Can lt9611c be NULL here if the sysfs file is accessed before probe complet=
-es?
-
-The sysfs group is registered via lt9611c_driver.driver.dev_groups, which
-means the files are created by the driver core before probe runs. If usersp=
-ace
-accesses this before i2c_set_clientdata() is called, dev_get_drvdata(dev)
-will return NULL, causing an immediate crash when it is passed to
-lt9611c_firmware_upgrade().
-
-[ ... ]
-> +static ssize_t firmware_show(struct device *dev, struct device_attribute=
- *attr, char *buf)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +
-> +	return sysfs_emit(buf, "0x%04x\n", READ_ONCE(lt9611c->fw_version));
-> +}
-
-[Severity: High]
-Similar to firmware_store, this will dereference a NULL lt9611c pointer if
-the sysfs attribute is read before the client data is set in probe, or if
-probe fails.
-
-[ ... ]
-> +	lt9611c->bridge.of_node =3D client->dev.of_node;
-> +	lt9611c->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
-> +			DRM_BRIDGE_OP_EDID |
-> +			DRM_BRIDGE_OP_HPD |
-> +			DRM_BRIDGE_OP_HDMI |
-> +			DRM_BRIDGE_OP_HDMI_AUDIO;
-> +	lt9611c->bridge.type =3D DRM_MODE_CONNECTOR_HDMIA;
-
-[Severity: High]
-Since this driver sets the DRM_BRIDGE_OP_HDMI flag, does it also need to
-initialize supported_hdmi_ver, supported_formats, and max_bpc?
-
-When DRM_BRIDGE_OP_HDMI is set, leaving these uninitialized (zero) causes
-drm_bridge_add() to log a warning for an unknown HDMI version. The HDMI sta=
-te
-helpers will also reject display modes because no valid color formats or
-depths are advertised, which prevents display modesetting.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-lt9611c-v7=
--v17-0-1e8f5f2b2f19@oss.qualcomm.com?part=3D2
+Bjorn
