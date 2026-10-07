@@ -4,96 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37BB9CA5FFF
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 12:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A84CA5FF1
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 12:17:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 859EA10F537;
-	Wed,  7 Oct 2026 12:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 122BB10F541;
+	Wed,  7 Oct 2026 12:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EuqJ+im6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="beYNtYWz";
 	dkim-atps=neutral
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5E8A10EEF7
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:17:17 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-8ab43af5e97so21663397b3.1
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 05:17:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791375436; cv=none;
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7517D10EEF7
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:17:19 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-888cbacf70eso26219537b3.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 05:17:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791375438; cv=none;
  d=google.com; s=arc-20260327;
- b=beUyXe2sAcSKd9f1XqtZZjVks4aUhMqGUFLE8OGGoeJM+11pmmEb1b2WRiYm8BZIEg
- +QjYyH6c+LBZZpzXXuvfrpHVOP3Y9XjSYx1QBwJL0tbhV/AtcWU9zgMM98f7iHzVRJNp
- tRa/HaaOlAd1qOoV+Eh6LACij9WR2pbJ991MP9dmR5O0DfrOORKanp8wJndTd6TAVPjF
- IYYEBwmJ/hBiu1j9HTGDWbDStUae1GrT60+uk25A3qgK7e7afgqRKoiDAH6BWr8UZBSI
- 3okuPnwcgKAJ+rsnh0eB0GW96u0YLEbpR4lcxlC75g2EMyyGVThbMk4ETmQNSG94GySP
- 0AsQ==
+ b=hM0oNxNLn4egAEsNoQX4qIqNhX2kdnljDOjCdQ/UWo5dZV5k5DwS6HQdDtBh/TOfb4
+ 8mjrQMmDNofJcvavLuNITv5u1WH4e7cC7CWXFVodwxyRhGEAd4dL1O1HfSlZBDksgGbK
+ Mb4C0z5klMlmLIqwCXrAEjcoO2EaKgijoLP8LATWqulFMNKuB2R1YRAkm2jXOc01d2Ae
+ ++jKuEreTsN7ASqM6VygPLcpcBdXYSSuklMP1RxAjwrwnZjnixPu4ix23Y37BCXmWrG9
+ L4fy+m71aC5PwuHiXml+4PAszG6E8pJBidOnLWWY1puYLxPZn0iaVQRPUigPitsg2ghp
+ XVgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
  :from:dkim-signature;
- bh=jwU7kHtSmq1rXGOPFEDTY5oLYrfzMia4r39p7RElK7E=;
- fh=h2gO+9F+msVmw5XdlZOBMG/83BLrUru9hig3XocwVus=;
- b=D2EumcCR2xwGTgLTQItDXwqdROmG8J1l+/7cv/j3pXIQBPdgzsSp2sRrozvXirIHjs
- phQsy4eyDy8+D2AqQFMF2Oe2vaS+RdE02EL5PVpUZMki6HzJD+K97WehtavHg7S8VJMd
- Fv5FF6FWg7MqlJH0p/lTxYQ/DMZEKMlxcz0FY71PQKQk2tq5R4tRNtKs8+sYjpFt/0Pp
- 3ChEOx+P4sTX40hkLXd0GcA4x4KWC0n7BvqpT40n9r8tcRT1wUyj+KekULZ+GLe9KS/o
- 2C/JotgRqFq97rqz5JRIWtbe01dJy5GPPML8n9HZwZIvy8Yjkvg09XQfVXTeJdNelbJg
- kCqw==; darn=lists.freedesktop.org
+ bh=G3hIYvO6rofR6yiVxkZZs211kr6wt7mGWtePbRp507o=;
+ fh=nPsyXw9BE60uconoaVxi2X5OwwE+8C1yJ+NFhcw4pf0=;
+ b=adyevnds+mLmM3z/+mYhLG1Qmgztw5Y9f3X9Kcp62YVYuEtcZEuMdl1K2Wgnsyp3G+
+ HaibRjYB+kDa3GernzN3urqzKJTbUQYDKhL4tzq9gYloWSLuDG/VFPoRTmYH9w/VRyF8
+ g49wd+tA9Mx0yz1oFW/JlKFi7JZsYdyzuHfSC7x3L6az8Y39Z8qqCBkqrJdLVXTGPkZp
+ +sErkMaJgasC0xrnEB0Xx3CDsAHmzOFqj6vWBqf+lBddSYzTssnLvVVoyox6rQpIP2ar
+ gMj0dDNcL95QpgJlnG2M+a2mK9A4N+oWM8IVOSOamSLMOyeQyzTV6gq2sVJF3NX30peC
+ ie4g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791375436; x=1791980236; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791375438; x=1791980238; darn=lists.freedesktop.org;
  h=content-type:cc:to:subject:message-id:date:mime-version:references
  :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jwU7kHtSmq1rXGOPFEDTY5oLYrfzMia4r39p7RElK7E=;
- b=EuqJ+im6/xfV5dI/ehBp7lVit/mnY4N1GxYusXGzrImSH42wNwlsoH2FAfD1ya0Swp
- UcdUgIabhp7OAqukRD3EvYJMvlaGd8HqH/uFF83oIuGQzQlb7CvWOErUEWEwk3jEEhdF
- Dp0DeAOF/vCMrvwija0fyJ6NChJksPfQJ2viEyaqgUshVDhgFAMHzUBjPZ6PQyYWSYYI
- g5CeujUifsoR1/zld/YHCeFOQupRdgidgaVuc3lYPd5wvAl7r075MB47e8c6i95CrZR7
- 0akoqLM914II/pqY27WasF0D7wKKQaDYm5T0TcAK9I/QAM+bt9P6WLIsswgV4RLCWciC
- +vMQ==
+ :content-type; bh=G3hIYvO6rofR6yiVxkZZs211kr6wt7mGWtePbRp507o=;
+ b=beYNtYWzPdh7R1SK3/Rua+/Pr9BAYqbfl4WVzglXrg17gqhLitnJhrr3qnJMECbtpD
+ 5A2iKd4vg+OC0LT9+kKfANYyjLWaL9ceaizRIy8PihvvLGMp7XsXoKbd3J0ukGNwCy2s
+ L0atSOpo0+QljC2Vt1Nk/yvuWozRoUSNwbV803afrJlaV6eQ70F4zxhXEPliSr7X2eZZ
+ 9lfh94/A4a8aoL7yD+NPpjw3G7u7Xs2R2/3iz782aP4J1t5rn/nX5iG4FBrK7lLW35oi
+ e5RQS19wB5HOllmPx7VZpurdXf8hM+YIwbPkzX1MAzqZBeaRbtn08upbEaamF+I/9Eh4
+ wzRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791375436; x=1791980236;
+ d=1e100.net; s=20260707; t=1791375438; x=1791980238;
  h=content-type:cc:to:subject:message-id:date:mime-version:references
  :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=jwU7kHtSmq1rXGOPFEDTY5oLYrfzMia4r39p7RElK7E=;
- b=wLK3u5G8MKVq8XDE6RhwWskRMz4YjYDVhBFg6/qJPv6S/FdD25+yFN7hYu8LuZ/zGc
- UJR0WmSzOADgH008GJ0Yl6RX95AEOz7nziKFgnxlFClWdgRtxbJvEYO37ERFfRzRbomm
- orJZjn3EfnO7Rt30tI3xvzH0IYh4Nfx4rGV6OI87KDr6+d/XdD7bN8lbBDXlxWU5KLnm
- mknGYNAwhBcNU3SLWDlNC5zkEsCQ+2lVuEdPpbxwZDU0zVMdgFQ6aNPGDSUHnVVygka4
- Sq5bdKCmM7zxfehxV8PuYfRO7eI/LPyNKpWDZMeyGbBAg6Ge0Ay2A0rzf+xGcuzaufBl
- 5UaA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz8smxf35g3u7AsbUfrU2544USotTj/2u/RuqNYsxQm8pzmN1uRWJ53oaw+PlNupxDJG+Rznq8QQao=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l8TdhQEztQ35x9eH15+XKUXha15tnkhLp70g3qgHtvW4uJMfMj
- wmixlD+UfWP3qWFxVBc9wv1OY9jVbSb6FW37uIMsmaln7kHx5TgWr91Ol1evrgV/glZ1GMSC3Nz
- Gbsl2SzqJItPq4AuzrG0+g0Rf/Sp+G2g=
-X-Gm-Gg: AYBFou1Yu3YOnt9G6dwPKPLugX5kagHEWYzdvxMFy09w0ELSDgqmACuZzV3RxEE9051
- whq3Xzv7kOsHkiYaKfSOzOoRJPIgM4ihIWM8oCaolo1lSxXF+JNP6oCqoITYA03jA7YMxu9ARJ2
- 24zZlvl61jbA98JDVoB4k0utWyw/c8GTWLVW1SrudcJw4NFKWkJSP1W9h7xJ3IFTG57pQPafu7B
- v6AoiRLKo1Z8gDydgSTx6iPLKrsXrkFFkebpRMurB6nxhTVKZZic52agBq337I0X4FukEtlrHtd
- BPWK/6PGgwUudMIjDDWHWYWP+SxQ5rs7MLY6Cb/i+Ma1g2+8VDa5+2pdmZJZhAK1v02/+8N0C01
- JTekFZ6WF
-X-Received: by 2002:a05:690c:60c5:b0:8a9:a1e9:2665 with SMTP id
- 00721157ae682-8af71ffb501mr36883327b3.6.1791375436501; Wed, 07 Oct 2026
- 05:17:16 -0700 (PDT)
+ bh=G3hIYvO6rofR6yiVxkZZs211kr6wt7mGWtePbRp507o=;
+ b=z+/UFebpriiL4qRTdIS5KU/Lba6GsJeS0upOUxt75E6RqrHQ86gc74e+YOh/kY8yRX
+ 72E/9XHrIu1VI+ciFUw7mxbkpsCdcy90q3Ac7th0aYs999kL2dH7QujK3mVO5y3Qh4oQ
+ SHDd0UbFCkGhe+jEbXvkQAaqJaXEolegqGbcJ2LyLJ5xiVAyBwAT0FShqq2dDfRONyP8
+ X9m5p9v9MMSnMh3tkQ3rUC+kakwXo8CDY6XZEgSBkkQwRQRjQWtbZuUzcE52RzBIPT2d
+ KXf3CAEJ/DKh5DAnqYjKV9kb2Yz1LeQAowWYDqIjhdDhGeo4gNqFwlrvCtEgMFkkAzmz
+ GG3g==
+X-Gm-Message-State: AFq9FYIH4o0hPAmAJn6cCcHjeKVCd2XmQhb6sV/2ULN+4EX+bAvofGnz
+ mUYGfZ5WUK7HVp/BjW1UG9CUmLU/YyU4czEARq4leCmj/vtje1iqanwOY+UJv1NPPiWK5b85qLd
+ fOIiCS/JcmW5GK3JBIZ3yC6MrSJbqP14o5taTFRM=
+X-Gm-Gg: AYBFou2NaC+oB85d5y/c+GHLwpR9KVfpMGLg9gzJCP9HUmaQg0nE1PZcXegxHEnsljh
+ wamydAKouUBnBAZsG+crWVdqMt/xtmeHHhBtb4jfObIMETxSY8x57rt9q7AILcaM5DqjNJn+OTT
+ n9hn3ZBxbhkrm6IEiivP9cNv/Fdu8+H3YHw+Z1o8Tana0gh77dtN798bfOLLJZITtP1Un47CgpQ
+ r43Koy37tX6KBxWlPB8ypO5j/bcSmYB7fC9Rwu8puo7iK84MjEliRkQfX16sWOMjBLdd4xt7ffJ
+ wgXzRu6qH3UBUPqK6eLeGv9Y/z+u8y4ffDzkJMI22rvGgu144l6j84VgkworVVNbAEsXLJnxjkL
+ ctMZV0DA=
+X-Received: by 2002:a05:690c:6604:b0:8a6:1901:30d9 with SMTP id
+ 00721157ae682-8b05b070098mr14444897b3.37.1791375438354; Wed, 07 Oct 2026
+ 05:17:18 -0700 (PDT)
 Received: from 101988054943 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 7 Oct 2026 05:17:16 -0700
+ HTTPREST; Wed, 7 Oct 2026 07:17:17 -0500
 Received: from 101988054943 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 7 Oct 2026 05:17:15 -0700
+ HTTPREST; Wed, 7 Oct 2026 05:17:17 -0700
 From: Aldo Ariel <qwe.aldo@gmail.com>
-In-Reply-To: <20260923115839.3363885-1-qwe.aldo@gmail.com>
-References: <20260923115839.3363885-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260923134952.1750600-1-qwe.aldo@gmail.com>
+References: <20260923134952.1750600-1-qwe.aldo@gmail.com>
 MIME-Version: 1.0
-Date: Wed, 7 Oct 2026 05:17:15 -0700
-X-Gm-Features: AclHuK_bufy_aCspoZGFicsjFc-5jJxlrZXBY2WNsa-dRhlfj-JmrFrY_evlL44
-Message-ID: <CAP48Hfvm9oJxsQZP5OzFvuf3_dFNiGhwvqW-fehtSi8JpGW0vQ@mail.gmail.com>
-Subject: Re: [PATCH v2 RESEND] drm/vmwgfx: return an error when a shared GB
- surface has no backup buffer
-To: zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: multipart/alternative; boundary="0000000000008d5870065d3f1803"
+Date: Wed, 7 Oct 2026 07:17:17 -0500
+X-Gm-Features: AclHuK-whEsKYznu3QH-_btnyvcnHGgYyZGFkLrAUxAWU2MoQ8yHbn7rl_DfUYY
+Message-ID: <CAP48HfuRRZozM0BZOBEGANMbPKXCvGfyS7TjnGnobEYMNCFKow@mail.gmail.com>
+Subject: Re: [PATCH] drm/qxl: remove double page-size scaling in kmap fallback
+ paths
+To: airlied@redhat.com, kraxel@redhat.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, sashiko-bot@kernel.org
+Content-Type: multipart/alternative; boundary="000000000000a9a08f065d3f18b7"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,7 +108,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000008d5870065d3f1803
+--000000000000a9a08f065d3f18b7
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -118,170 +117,152 @@ Gentle ping =E2=80=94 any feedback on this patch?
 thanks,
 Aldo
 
-On Wed, Sep 23, 2026 08:58 AM, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+On Wed, Sep 23, 2026 10:50 AM, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 wrote:
 
-> vmw_gb_surface_reference_internal() rejects a surface that has no backup
-> buffer by logging an error and jumping to out_bad_resource, but it never
-> sets ret on that path. ret is still 0 from the earlier successful
-> vmw_surface_handle_reference(), so the ioctl returns success while
-> leaving the reply structure uninitialised. drm_ioctl() then copies the
-> 72-byte reply back to user space; on a CONFIG_INIT_STACK_NONE build that
-> is an information leak of stale stack contents, and on every build user
-> space is handed a "successful" reply that was never produced.
-> DRM_VMW_GB_SURFACE_REF is DRM_RENDER_ALLOW, so an unprivileged local
-> user can reach it.
+> qxl_bo_kmap_atomic_page() takes a page_offset parameter that callers
+> compute as a byte offset aligned to a page boundary:
 >
-> Set ret to -EINVAL and, on the error paths, drop the reference that
-> vmw_surface_handle_reference() took; once the ioctl fails user space no
-> longer releases it via DRM_VMW_UNREF_SURFACE. The unref is guarded by
-> ret so the shared success fall-through keeps the reference the caller
-> still owns, and it also plugs the same leak on the drm_gem_handle_create(=
-)
-> failure path.
+>     reloc_page =3D qxl_bo_kmap_atomic_page(qdev, info->dst_bo,
+>                                          info->dst_offset & PAGE_MASK);
 >
-> Fixes: 14b1c33e8429 ("drm/vmwgfx: Add new ioctl for GB surface create and
-> reference")
+> The VRAM/PRIV path adds it directly to the mapping base (both in
+> bytes), which is correct:
+>
+>     offset =3D bo->tbo.resource->start << PAGE_SHIFT;
+>     return io_mapping_map_atomic_wc(map, offset + page_offset);
+>
+> But the two system-memory fallback paths multiply it by PAGE_SIZE
+> again:
+>
+>     rptr =3D bo->kptr + (page_offset * PAGE_SIZE);
+>
+> For page_offset =3D 0x5000 (page 5), this computes
+> 0x5000 * 0x1000 =3D 0x5000000, a 80 MiB offset instead of 20 KiB,
+> producing a massive out-of-bounds access into kernel memory.
+>
+> Remove the spurious multiplication so the fallback paths use the
+> same byte-offset semantics as the io_mapping path.
+>
+> Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
 > Cc: stable@vger.kernel.org
-> Suggested-by: Zack Rusin <zack.rusin@broadcom.com>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
 > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 > ---
-> v2:
->  - Shortened the commit message (Zack Rusin).
->  - Also drop the reference taken by vmw_surface_handle_reference() on the
->    error paths; with the ioctl now returning an error, user space no
->    longer releases it via DRM_VMW_UNREF_SURFACE (Zack Rusin). This also
->    plugs the same pre-existing leak on the drm_gem_handle_create() path.
+>  drivers/gpu/drm/qxl/qxl_object.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> v1: https://lore.kernel.org/all/20260808231002.67559-1-qwe.aldo@gmail.com=
-/
->
->  drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> index bd0563741e..164886a3e6 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> @@ -1720,6 +1720,7 @@ vmw_gb_surface_reference_internal(struct drm_device
-> *dev,
->         srf =3D &user_srf->srf;
->         if (!srf->res.guest_memory_bo) {
->                 DRM_ERROR("Shared GB surface is missing a backup
-> buffer.\n");
-> +               ret =3D -EINVAL;
->                 goto out_bad_resource;
+> diff --git a/drivers/gpu/drm/qxl/qxl_object.c
+> b/drivers/gpu/drm/qxl/qxl_object.c
+> index XXXXXXX..YYYYYYY 100644
+> --- a/drivers/gpu/drm/qxl/qxl_object.c
+> +++ b/drivers/gpu/drm/qxl/qxl_object.c
+> @@ -223,7 +223,7 @@ void *qxl_bo_kmap_atomic_page(struct qxl_device *qdev=
+,
+>         return io_mapping_map_atomic_wc(map, offset + page_offset);
+>  fallback:
+>         if (bo->kptr) {
+> -               rptr =3D bo->kptr + (page_offset * PAGE_SIZE);
+> +               rptr =3D bo->kptr + page_offset;
+>                 return rptr;
 >         }
->         metadata =3D &srf->metadata;
-> @@ -1758,6 +1759,9 @@ vmw_gb_surface_reference_internal(struct drm_device
-> *dev,
->         rep->creq.must_be_zero =3D 0;
 >
->  out_bad_resource:
-> +       if (ret)
-> +               ttm_ref_object_base_unref(vmw_fpriv(file_priv)->tfile,
-> +                                         base->handle);
->         ttm_base_object_unref(&base);
+> @@ -232,7 +232,7 @@ void *qxl_bo_kmap_atomic_page(struct qxl_device *qdev=
+,
+>                 return NULL;
+>         rptr =3D bo_map.vaddr; /* TODO: Use mapping abstraction properly =
+*/
 >
->         return ret;
+> -       rptr +=3D page_offset * PAGE_SIZE;
+> +       rptr +=3D page_offset;
+>         return rptr;
+>  }
+>
 > --
 > 2.43.0
 >
->
 
---0000000000008d5870065d3f1803
+--000000000000a9a08f065d3f18b7
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <html><body><div dir=3D"auto">Gentle ping =E2=80=94 any feedback on this pa=
 tch?<br><br>thanks,<br>Aldo</div></body></html><br><div class=3D"gmail_extr=
-a"><div>On Wed, Sep 23, 2026 08:58 AM, Aldo Ariel Panzardo &lt;<a href=3D"m=
+a"><div>On Wed, Sep 23, 2026 10:50 AM, Aldo Ariel Panzardo &lt;<a href=3D"m=
 ailto:qwe.aldo@gmail.com">qwe.aldo@gmail.com</a>&gt; wrote:<br><blockquote =
 class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid=
-;padding-left:1ex">vmw_gb_surface_reference_inter<wbr>nal() rejects a surfa=
-ce that has no backup<br>
-buffer by logging an error and jumping to out_bad_resource, but it never<br=
->
-sets ret on that path. ret is still 0 from the earlier successful<br>
-vmw_surface_handle_reference()<wbr>, so the ioctl returns success while<br>
-leaving the reply structure uninitialised. drm_ioctl() then copies the<br>
-72-byte reply back to user space; on a CONFIG_INIT_STACK_NONE build that<br=
->
-is an information leak of stale stack contents, and on every build user<br>
-space is handed a &quot;successful&quot; reply that was never produced.<br>
-DRM_VMW_GB_SURFACE_REF is DRM_RENDER_ALLOW, so an unprivileged local<br>
-user can reach it.<br>
+;padding-left:1ex">qxl_bo_kmap_atomic_page() takes a page_offset parameter =
+that callers<br>
+compute as a byte offset aligned to a page boundary:<br>
 <br>
-Set ret to -EINVAL and, on the error paths, drop the reference that<br>
-vmw_surface_handle_reference() took; once the ioctl fails user space no<br>
-longer releases it via DRM_VMW_UNREF_SURFACE. The unref is guarded by<br>
-ret so the shared success fall-through keeps the reference the caller<br>
-still owns, and it also plugs the same leak on the drm_gem_handle_create()<=
-br>
-failure path.<br>
+=C2=A0 =C2=A0 reloc_page =3D qxl_bo_kmap_atomic_page(qdev, info-&gt;dst_bo,=
 <br>
-Fixes: 14b1c33e8429 (&quot;drm/vmwgfx: Add new ioctl for GB surface create =
-and reference&quot;)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0in=
+fo-&gt;dst_offset &amp; PAGE_MASK);<br>
+<br>
+The VRAM/PRIV path adds it directly to the mapping base (both in<br>
+bytes), which is correct:<br>
+<br>
+=C2=A0 =C2=A0 offset =3D bo-&gt;tbo.resource-&gt;start &lt;&lt; PAGE_SHIFT;=
+<br>
+=C2=A0 =C2=A0 return io_mapping_map_atomic_wc(map, offset + page_offset);<b=
+r>
+<br>
+But the two system-memory fallback paths multiply it by PAGE_SIZE<br>
+again:<br>
+<br>
+=C2=A0 =C2=A0 rptr =3D bo-&gt;kptr + (page_offset * PAGE_SIZE);<br>
+<br>
+For page_offset =3D 0x5000 (page 5), this computes<br>
+0x5000 * 0x1000 =3D 0x5000000, a 80 MiB offset instead of 20 KiB,<br>
+producing a massive out-of-bounds access into kernel memory.<br>
+<br>
+Remove the spurious multiplication so the fallback paths use the<br>
+same byte-offset semantics as the io_mapping path.<br>
+<br>
+Fixes: f64122c1f6ad (&quot;drm: add new QXL driver. (v1.4)&quot;)<br>
 Cc: <a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank">stable@vger=
 .kernel.org</a><br>
-Suggested-by: Zack Rusin &lt;<a href=3D"mailto:zack.rusin@broadcom.com" tar=
-get=3D"_blank">zack.rusin@broadcom.com</a>&gt;<br>
+Reported-by: Sashiko &lt;<a href=3D"mailto:sashiko-bot@kernel.org" target=
+=3D"_blank">sashiko-bot@kernel.org</a>&gt;<br>
 Signed-off-by: Aldo Ariel Panzardo &lt;<a href=3D"mailto:qwe.aldo@gmail.com=
 " target=3D"_blank">qwe.aldo@gmail.com</a>&gt;<br>
 ---<br>
-v2:<br>
-=C2=A0- Shortened the commit message (Zack Rusin).<br>
-=C2=A0- Also drop the reference taken by vmw_surface_handle_reference() on =
-the<br>
-=C2=A0 =C2=A0error paths; with the ioctl now returning an error, user space=
- no<br>
-=C2=A0 =C2=A0longer releases it via DRM_VMW_UNREF_SURFACE (Zack Rusin). Thi=
-s also<br>
-=C2=A0 =C2=A0plugs the same pre-existing leak on the drm_gem_handle_create(=
-) path.<br>
+=C2=A0drivers/gpu/drm/qxl/qxl_objec<wbr>t.c | 4 ++--<br>
+=C2=A01 file changed, 2 insertions(+), 2 deletions(-)<br>
 <br>
-v1: <a href=3D"https://lore.kernel.org/all/20260808231002.67559-1-qwe.aldo@=
-gmail.com/" rel=3D"noreferrer" target=3D"_blank">https://lore.kernel.org/al=
-l/20<wbr>260808231002.67559-1-qwe.aldo@<wbr>gmail.com/</a><br>
-<br>
-=C2=A0drivers/gpu/drm/vmwgfx/<wbr>vmwgfx_surface.c | 4 ++++<br>
-=C2=A01 file changed, 4 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgf<wbr>x_surface.c b/drivers/gpu/drm=
-/vmwgfx/vmwgf<wbr>x_surface.c<br>
-index bd0563741e..164886a3e6 100644<br>
---- a/drivers/gpu/drm/vmwgfx/vmwgf<wbr>x_surface.c<br>
-+++ b/drivers/gpu/drm/vmwgfx/vmwgf<wbr>x_surface.c<br>
-@@ -1720,6 +1720,7 @@ vmw_gb_surface_reference_inter<wbr>nal(struct drm_dev=
-ice *dev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 srf =3D &amp;user_srf-&gt;srf;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!srf-&gt;res.guest_memory_bo) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DRM_ERROR(&quot;Sha=
-red GB surface is missing a backup buffer.\n&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D -EINVAL;<br=
->
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto out_bad_resour=
-ce;<br>
+diff --git a/drivers/gpu/drm/qxl/qxl_obje<wbr>ct.c b/drivers/gpu/drm/qxl/qx=
+l_obje<wbr>ct.c<br>
+index XXXXXXX..YYYYYYY 100644<br>
+--- a/drivers/gpu/drm/qxl/qxl_obje<wbr>ct.c<br>
++++ b/drivers/gpu/drm/qxl/qxl_obje<wbr>ct.c<br>
+@@ -223,7 +223,7 @@ void *qxl_bo_kmap_atomic_page(struc<wbr>t qxl_device *q=
+dev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return io_mapping_map_atomic_wc(map, offset + p=
+age_offset);<br>
+=C2=A0fallback:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (bo-&gt;kptr) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rptr =3D bo-&gt;kpt=
+r + (page_offset * PAGE_SIZE);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rptr =3D bo-&gt;kpt=
+r + page_offset;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return rptr;<br>
 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 metadata =3D &amp;srf-&gt;metadata;<br>
-@@ -1758,6 +1759,9 @@ vmw_gb_surface_reference_inter<wbr>nal(struct drm_dev=
-ice *dev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 rep-&gt;creq.must_be_zero =3D 0;<br>
 <br>
-=C2=A0out_bad_resource:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ttm_ref_object_base=
-_unref(<wbr>vmw_fpriv(file_priv)-&gt;tfile,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ba=
-se-&gt;handle);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 ttm_base_object_unref(&amp;base);<br>
+@@ -232,7 +232,7 @@ void *qxl_bo_kmap_atomic_page(struc<wbr>t qxl_device *q=
+dev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return NULL;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 rptr =3D bo_map.vaddr; /* TODO: Use mapping abs=
+traction properly */<br>
 <br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br>
--- <br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0rptr +=3D page_offset * PAGE_SIZE;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0rptr +=3D page_offset;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return rptr;<br>
+=C2=A0}<br>
+<br>
+--<br>
 2.43.0<br>
-<br>
 </blockquote></div></div>
 
---0000000000008d5870065d3f1803--
+--000000000000a9a08f065d3f18b7--
