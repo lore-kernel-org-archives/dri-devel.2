@@ -4,92 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A6F4CA5FED
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 01:43:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81273CA6007
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 01:43:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE90410F43A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB3F410F439;
 	Wed,  7 Oct 2026 01:43:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T20r9tmL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R7VmuL1t";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58A0610F13C
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 01:43:15 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4998b5a63e2so33268805e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 18:43:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791337394; x=1791942194; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BooWm7URUcyrH2E2qkRWxlx7KQoz7GWFpr53v56Fl9k=;
- b=T20r9tmLEFGKshgdZ573bkq95hkRPX6p0b6MDfcCeTYWeuox65Yxlwq6wgjSFGd0H7
- wEuCUlnw7ajGjUx5tKUiXpPJSenmgs4i50Vpeu5zEb3CxAaIB5UbqLwHCbPYKFF6ZKrQ
- xRg2kiKbe2gk9V0CUHT5cdwO+QkIQ7GHAqpabWuLVw4YEUy1gUnPuiqi4c1NeHqdmc5Y
- hBHT8CUZSM/s2lnbXbCPqxbHUyVvxG45recVoYLWPYA15xeUpqA1qkQ+LxGIx4ejltZl
- XFEg5DgkwhUeuU1qzbDtTExmSouX+Il8uurl+hc/Q4dZSa1TTK7c6zjjG+DFTM7/NZVO
- IZkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791337394; x=1791942194;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=BooWm7URUcyrH2E2qkRWxlx7KQoz7GWFpr53v56Fl9k=;
- b=WXXI2AiGRDSkrSKqlPbsiXTDXRMmciESfOWDSdwyULyhxokmcxoUTZvQU7smsh9Uch
- kMzQ8YDHCkRdxEkqQmECRR1HoPhWd5z+I7VzQxwISupROK+ZBt+sAZdXyCO8tbsbsT2n
- ucfBxPgi2i/uG+aH8bKsEBdHqAKW4RWjSwnudqNxPNrFi4lzH17bG7M1EiK0SYEHo2Jk
- 4Mg3hNefO/wFmlUVGL1PcjXMBuVfo2U5l9AJ+mZ1n56Q0JWUWIZzcqQhv3QKtbv6NtRG
- zPasm3jMYQE7AahG4Z+6tRLirb7DIB51qBXuDNdAO92fBru+xHrOgJSqRBwqcidOG2EE
- sBeA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxnuS345aOuqnNDTNmxPRMtdLFw5XEo5MipE3zoiEgVMPbSvamd5/ATpnTxVtk564DhvGiLCAgZI7A=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lpyFQBGj5xFeN1p6NDHVyf3t2Dv90CAwigYMnRRdZ4jcMyZvZO
- 9Zsq48BlV16pAJ6dAreKD1zXKzVzKZ5vOuUGGXqHOm+mfASjaZxoeCUK
-X-Gm-Gg: AYBFou0lwFCrHktrLtxIaoC7iaZiAzMm4ucbkZoS5bOx5QmBmx7zYz8l/vm4Tlz0Hjc
- F80lnOSup5Rqz7bl1toslm7kSVJCuIp4sQjpKd83aLiKw6j3gcKSMRhpqhUQWBQEADPU4aOex3Y
- IuBFGVrax92mfRGdPd0HCzUwhWN2gDsPZUuPXZiRD/8iTUpsjfmf/6/3RTzGDJDm5GTnZGgiFmr
- aFm1B0MxPvGqnhacIdjDKSrh/aPn5mXnR8XzZPrGAA5qJLDpaytBk4C9oFxdbb3IbXeRFiU+Azm
- SvucYmYUmavSXCXKx8Ov+4X87cSstkhcRkAnkFskNtz4MQt28riCLKlCSRXbv71FLYD5iQzo0wy
- F2Wuj+hHfz3NFaHZNRSSEkgq8UOvpKI68asIkgRKYnuIdlBgFhj+FNPAe58/sHonTh+EoEUHJ3c
- rF7Xr892ojMzuiSnbmz8911b+lruGo5ybyv5tISF3YTA0AlfbRoU9JSE3dIRxQbPcfoLE9DE1cn
- I/xMgd1lQEBnESTALPPkODnsIqH2Qa+qlioYDnxEprOGSpb6Kv6J6oMP+3PH81SHTAbpgosdgWe
- CWIfFbmkf7g=
-X-Received: by 2002:a05:600c:6097:b0:4a0:1f90:594b with SMTP id
- 5b1f17b1804b1-4a18064cf5bmr6446075e9.22.1791337393761; 
- Tue, 06 Oct 2026 18:43:13 -0700 (PDT)
-Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a17f653d7csm26423895e9.14.2026.10.06.18.43.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2026 18:43:13 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: linux-block@vger.kernel.org
-Cc: asml.silence@gmail.com, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-Subject: [PATCH v9 03/13] block: always adjust bi_offset on bio_advance_iter
-Date: Wed,  7 Oct 2026 02:42:46 +0100
-Message-ID: <beec7303891dac21cd620d2a47842f843b391192.1791336930.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1791336930.git.asml.silence@gmail.com>
-References: <cover.1791336930.git.asml.silence@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DACFA10F13C
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 01:43:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BB70D601FA;
+ Wed,  7 Oct 2026 01:43:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550E31F0089F;
+ Wed,  7 Oct 2026 01:43:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791337392;
+ bh=zCpT1oYSWOGuEbUgEmNgVp+mzKCkjhi/fOh4r09QWYI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=R7VmuL1tSwpT9+MYznMfYh1EjR/qCMFjnEyU08SkmFfwZQbfR5lSF4zysCGAErc+t
+ ADWao41RbKX+5w3BBr+vZhhvM5TA8kpiaxP27FLfTLuoDylYdm/Slv3q/o845GnQnO
+ IDxzmh53sa2qy01AsRXPW+daBEms+plS/Y20/RvS+f9xh0M70dqoHfa5YgAkrIqfOT
+ PGk/K+6C2+B9n8p16HImAPoLVYzn/PTjOtMNRzziQzpE4/H9K7EPJWWiode0ZHfdDT
+ 281tMZ17eGXyUMRp9eLbXTggA7nMqCzJcss5i8aE4CRheUknD1unT9dASvdEtLpERi
+ 4zAKMbdT5e3QQ==
+Message-ID: <sashiko-outbox-162564@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 03/13] block: add dma-buf support for raw bdev
+To: "Pavel Begunkov" <asml.silence@gmail.com>
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <af2b48a490186edf38f1d4a5dfd9513574f7a350.1791336002.git.asml.silence@gmail.com>
+References: <cover.1791336002.git.asml.silence@gmail.com>
+ <af2b48a490186edf38f1d4a5dfd9513574f7a350.1791336002.git.asml.silence@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 07 Oct 2026 01:43:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,76 +53,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Extend bio_no_advance_iter() iteration to also increment the offset.
-It's not currently needed because the currently listed request types
-don't have a buffer, but will be useful once we add bios backed by
-dma-buf, which don't have a bvec but work with a single range.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] vfs: build failure due to missing init_dma_buf_io_ctx and iov_iter_=
+is_dmabuf_map definitions
+--
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
----
- drivers/md/dm-io-rewind.c |  6 ++++--
- include/linux/bio.h       | 12 ++++++++----
- 2 files changed, 12 insertions(+), 6 deletions(-)
+commit d99a726724959c24584b1b7d60b6cbfd1f565d00
+Author: Pavel Begunkov <asml.silence@gmail.com>
 
-diff --git a/drivers/md/dm-io-rewind.c b/drivers/md/dm-io-rewind.c
-index 04f3fc8aeb6f..b22719c6411c 100644
---- a/drivers/md/dm-io-rewind.c
-+++ b/drivers/md/dm-io-rewind.c
-@@ -113,10 +113,12 @@ static inline void dm_bio_rewind_iter(const struct bio *bio,
- 	iter->bi_sector -= bytes >> 9;
- 
- 	/* No advance means no rewind */
--	if (bio_no_advance_iter(bio))
-+	if (bio_no_advance_iter(bio)) {
- 		iter->bi_size += bytes;
--	else
-+		iter->bi_offset -= bytes;
-+	} else {
- 		dm_bvec_iter_rewind(bio->bi_io_vec, iter, bytes);
-+	}
- }
- 
- /**
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 17944e44b584..892ca469c570 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -113,11 +113,13 @@ static inline void bio_advance_iter(const struct bio *bio,
- {
- 	iter->bi_sector += bytes >> 9;
- 
--	if (bio_no_advance_iter(bio))
-+	if (bio_no_advance_iter(bio)) {
- 		iter->bi_size -= bytes;
--	else
-+		iter->bi_offset += bytes;
-+	} else {
- 		bvec_iter_advance(bio->bi_io_vec, iter, bytes);
- 		/* TODO: It is reasonable to complete bio with error here. */
-+	}
- }
- 
- /* @bytes should be less or equal to bvec[i->bi_idx].bv_len */
-@@ -127,10 +129,12 @@ static inline void bio_advance_iter_single(const struct bio *bio,
- {
- 	iter->bi_sector += bytes >> 9;
- 
--	if (bio_no_advance_iter(bio))
-+	if (bio_no_advance_iter(bio)) {
- 		iter->bi_size -= bytes;
--	else
-+		iter->bi_offset += bytes;
-+	} else {
- 		bvec_iter_advance_single(bio->bi_io_vec, iter, bytes);
-+	}
- }
- 
- void __bio_advance(struct bio *, unsigned bytes);
--- 
-2.54.0
+block: add dma-buf support for raw bdev
 
+This commit adds a proxy implementation of init_dma_buf_io_ctx() that forwa=
+rds
+the call to a new block_device_operations operation. It also rejects dma-buf
+backed iterators for buffered IO.
+
+> diff --git a/block/fops.c b/block/fops.c
+> index 40a8ceeec1940..79aee87c66010 100644
+> --- a/block/fops.c
+> +++ b/block/fops.c
+> @@ -731,6 +731,9 @@ blkdev_direct_write(struct kiocb *iocb, struct iov_it=
+er *from)
+> =20
+>  static ssize_t blkdev_buffered_write(struct kiocb *iocb, struct iov_iter=
+ *from)
+>  {
+> +	if (unlikely(iov_iter_is_dmabuf_map(from)))
+
+[Severity: Low]
+Is this regression caused by a missing prerequisite patch? The function
+iov_iter_is_dmabuf_map() appears to be undeclared in the kernel headers,
+which results in an implicit declaration error during the build.
+
+> +		return -EOPNOTSUPP;
+> +
+>  	return iomap_file_buffered_write(iocb, from, &blkdev_iomap_ops, NULL,
+>  			NULL);
+>  }
+
+[ ... ]
+
+> @@ -977,6 +998,7 @@ const struct file_operations def_blk_fops =3D {
+>  	.fallocate	=3D blkdev_fallocate,
+>  	.uring_cmd	=3D blkdev_uring_cmd,
+>  	.fop_flags	=3D FOP_BUFFER_RASYNC | FOP_DONTCACHE,
+> +	.init_dma_buf_io_ctx =3D blkdev_init_dma_buf_io_ctx,
+
+[Severity: Low]
+Does struct file_operations include init_dma_buf_io_ctx in this tree? It
+seems this member does not exist, which causes a build regression due to
+the initialization of a non-existent member.
+
+>  };
+> =20
+>  static __init int blkdev_init(void)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791336002.gi=
+t.asml.silence@gmail.com?part=3D3
