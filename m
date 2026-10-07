@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C58CA5FFC
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:26:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65016CA5FF1
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:27:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDF9610E5B3;
-	Wed,  7 Oct 2026 13:26:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9447210E5BB;
+	Wed,  7 Oct 2026 13:26:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iyuTOvzV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kYRzPaBO";
 	dkim-atps=neutral
-Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
- [209.85.208.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 125DE10E5FE
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 13:26:37 +0000 (UTC)
-Received: by mail-lj1-f195.google.com with SMTP id
- 38308e7fff4ca-3a20f06cce6so27176551fa.1
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 06:26:36 -0700 (PDT)
+Received: from mail-lr2-f3.google.com (mail-lr2-f3.google.com [74.125.230.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02B5D10E5BB
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 13:26:58 +0000 (UTC)
+Received: by mail-lr2-f3.google.com with SMTP id
+ 38308e7fff4ca-3a77df9781eso23106241fa.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 06:26:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791379595; x=1791984395; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791379616; x=1791984416; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:message-id:date
  :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=NfnoS6laDtDOjlhPtBWxVPWGkEBbm6NCgizgXhR32xk=;
- b=iyuTOvzVVBIJ8xK4M+83Crw+yoOt3rWdVRN0QCi20WYE8YwTvWoA3TlW5I/cfVZ48E
- 13tMFsdicRE3rUxtm3O4iwkf14X+mtSR0982aafInYH1FfJ8Dr8lxEFcVaT2fDcDK5ZG
- aYVOIRTUmntAlW+EQh8e2sbHwOORzVJjMaWZvBkMLNcRcRvEDOWBrGZU8hEVmdvHYI4k
- ijMBCaZqpz/SQ/BCXld7q1ANd0alqLexSobWABiU+3H0p5oJCpccuEwTPOjiluKRinvV
- S0Fmv9veSIS8L93vUPD4IWs6TZ61AoAkUxAcvbSLbmty12e3qVfEi0kBCL35Ela594Uc
- IW3g==
+ :content-type; bh=GDQwNh3Y7ViZN9kSjBt6rSxx3bjORoWLA033ou0tHZw=;
+ b=kYRzPaBOsCSKqRQS2vizyZ55efSCQN4loX0skpAstw2U6ZzNey5M06/6QYaEtF1M4m
+ +Xbjr8e2pRtiHW2jYY7A/jmVeqt1J3USVCyKtZndNO6QDDV0D+bObGUsKrXeVJm+kqkO
+ l2Wf9oidP8YtSuhdRNj7iYl1FeLxwcSkZLWLxWMoKvwjX8h787KaOQBU5zxvH4o2CJw8
+ Z+6YKAfSx++zHlsKiRNN2y5Cfah4UMQbawpOJkw9HlknDC/5/qa5CGfcrSdiDfA8nC2S
+ puMSRKOyadqnKx5w7XMh9woZs2+xlAO80bbsM5LeqoEQxJCDRoIeeHbIyB/8qSJvsJa7
+ rHhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791379595; x=1791984395;
+ d=1e100.net; s=20260707; t=1791379616; x=1791984416;
  h=content-transfer-encoding:content-type:mime-version:message-id:date
  :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=NfnoS6laDtDOjlhPtBWxVPWGkEBbm6NCgizgXhR32xk=;
- b=GcE2+bYhN464pMY1v6U/UEgkt80qZXjui0me7IB4qESlJWdY0gNrXwtGEoDFVpS0st
- uyOwZzrvaYwc9GEDa48+3X/C000LEag2SaWDXSeuhiQxzcHj3QYyfgiu2Jx4qQ0b+YYn
- 7EuuA/rPUvJBehgcCHC7D2iz578NhSyxXm9aGnxpBgC4B0ganWcr+DoiC/Vn2iLVIfLH
- TUAWasKr/5p3jRdx9SIsXHzt6saBOt4CctAGrrvJVY3lx/H1YjTppKA79G/E7dgtnuKg
- aI+teY3YoOsUDpwfHMyB+ab23HJJF4nVtZYNWKCcPgQ/3N52sKb93SullYujzY8tiw/Y
- CYFw==
+ bh=GDQwNh3Y7ViZN9kSjBt6rSxx3bjORoWLA033ou0tHZw=;
+ b=MZPaJL7glfkrNcEhadWFxuaHBUJGNSbhikpFOpEQ/vGZQiZnCZ2wio0IM8urUbYqLz
+ GMtfoFkjTfNqM1dDRItkh00M5bPpar7QJl0OGaJwB7TZwWzpqDfWwMptAV6x6uVT7u+I
+ J2V2IiJYViVfFcIPvQrlr7fo4mhprVA+5oZFsBD3wLUjmjvgqFIB+8sgHqKjpQC3hisz
+ /tdT9hKxQzhJhi0ewgut37om9XK864LlcbjnUGLzaYyGutcCChzRG3QS3TdnJe0dKoci
+ by7zA5003R1RqRFu6MgQL+gJA0t1zTKloeIXTnTdCBnQT2tESyioEK2VG9LXWCozRUsc
+ Eb2A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx0WZVPu65Vic7BENttSRTNJ4+QtFStY5xmvs/FkhVHvepVT6VYfcSsAryLOhsqsqi5gExTthxcm2I=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLuT4EPTPYKi2X7YlnrSA35cyDUdw5IAmQ6NnzDuM9LW+yjp34G
- hIsFYubldvDiDkXRe+18BGb4AKI47d80XwmjEqQUAzH7yar23fK0F86g
-X-Gm-Gg: AYBFou24fOMOEVFaGE596IlcDoO+o7WOt03EPCiWchaAkPmjCQZyrJNjvGqXTb0tCT4
- bY9iiJHXnd9Ie8XwTXdoMTwEKw70gUm1joOiNxBVgnSgIoLb7q4frUawetk9DgrxoHxuzAnsGTQ
- Gm6J0cjATGqADMuf+A7X4i5m182DMyEPcuKEZ2rIjNZT86pkhxusFp7ryEr3FicUQc6xRB4feBB
- 5OTJPlJ/YVvgt3xzJgq8UQERTnq7E8jzN/Lt/+42TcDm12es9FTnO60GIbr9KQkzKzMMWzDhcz6
- xfNuAnVV5bPsBxyjijTWHtLNtG0cmvEedAEmxI1dxYbcDehno8rf7Q4pOOtVXlY6a6p3m9YYudV
- reJcaakz0fBlS3wNvEmN/p0vwMqxXMsSk9AmqjxLjJV5ERwl+4Udz3jT4k/MMUXPP9m4R0r/MP9
- m1Kpn+K1EUeYtrvH62NggBNf4PBC5Yj7x0E60Pp5Ry1us77pm1qz2YtaAsS1BJju7Xb20MGD2KL
- gXUOXmIjxFx+pVy9sxXlKrTE+4=
-X-Received: by 2002:a05:651c:b12:b0:3a6:5c8f:857 with SMTP id
- 38308e7fff4ca-3a9941d9654mr13497871fa.8.1791379595005; 
- Wed, 07 Oct 2026 06:26:35 -0700 (PDT)
+ AKwUvBysjK5syzo/yMT2oBMBmoND/i3zbaiBAgWU8x0lUWYErf5e02iwGxeHzvKFgShh/1PI5faNUCobevQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJRp+20FiJTiG/14tHLRouLcITzDtQCnDopSZw+lTsoHYM7jG5P
+ 6H6XTcoWT4BSdLjSMWACugoFYUXmOcHo8YAqbX4q3VJ2Fo2iqhQjMnsq
+X-Gm-Gg: AYBFou0o2pR0GtRp3CPwDjy6laY9JzqaxnLN9zEXukDwNt1J+falETFPUquEzdCIngZ
+ D7fAKfDUhB7ETYCLegxRq09QKnQTC32DB5XGa6zzOXnY4OSm/XGGWI5RGP7KjGvMrPE76F3bzOw
+ qxrp0d5/dR3YORUx5VTjJJ4w3rmVTvZoVDJdCXPdXvDbxoiSm3lFxiocYwHVq926Z6Ux81t07sw
+ aVzSFW+F6k5uXQs5EvJvreHEFyeXrBi/QINCRrUiXzK5oxc0yzrhoRJ2xjA/K8BYzb3CgSa09AH
+ vbS0Kfj9yhTnemnBrJO6sHuKnjnvETSQGujkWJfeju0mxvByJt4TpbPdTDBSZIfqz+xLOlulZfU
+ lSyDB4cfmOgKGRsNAld17BoRzhXWl+PqXLTxQZygMuPqh8PfVI0umhDEM6l0dALbGW90ZrDR4Z/
+ 4CHat4Kavpj7Z6qzmHZy120gEaF2JDNCACwJohgC+Ewbs4y2E31sP2u7qCAXYQfwwpaMNQ5Sjji
+ NdHFVBHylZ9N/1v
+X-Received: by 2002:a05:6512:3a87:b0:5bc:b962:ccb2 with SMTP id
+ 2adb3069b0e04-5bcd074b8f1mr877734e87.63.1791379616009; 
+ Wed, 07 Oct 2026 06:26:56 -0700 (PDT)
 Received: from localhost.localdomain ([78.40.184.2])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a9a1d33f1asm6191851fa.11.2026.10.07.06.26.32
+ 2adb3069b0e04-5bcd3083558sm32201e87.39.2026.10.07.06.26.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 06:26:32 -0700 (PDT)
+ Wed, 07 Oct 2026 06:26:52 -0700 (PDT)
 From: Roman Demidov <roman.demidov.nn@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -73,9 +72,9 @@ Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  lvc-project@linuxtesting.org, Yinjie Yao <yinjie.yao@amd.com>,
  Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10] drm/amdgpu/jpeg: set no_user_fence for JPEG v2.5 ring
-Date: Wed,  7 Oct 2026 16:26:18 +0300
-Message-ID: <20261007132619.121324-1-roman.demidov.nn@gmail.com>
+Subject: [PATCH 5.15/6.1] drm/amdgpu/jpeg: set no_user_fence for JPEG v2.5 ring
+Date: Wed,  7 Oct 2026 16:26:46 +0300
+Message-ID: <20261007132647.121360-1-roman.demidov.nn@gmail.com>
 X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -109,25 +108,31 @@ Signed-off-by: Yinjie Yao <yinjie.yao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 (cherry picked from commit 3216a7f4e2642bda5fd14f57586e835ae9202587)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-[ Roman: Version 5.10 does not yet support JPEG2.6, so the fix is being
-applied only to JPEG2.5 ]
 Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
 Backport fix for CVE-2026-63847
 
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index 8c84e35c2719..dfb96f052f6d 100644
+index f87d0f6ffc93..a094dd138c0d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -566,6 +566,7 @@ static const struct amd_ip_funcs jpeg_v2_5_ip_funcs = {
+@@ -641,6 +641,7 @@ static const struct amd_ip_funcs jpeg_v2_6_ip_funcs = {
  static const struct amdgpu_ring_funcs jpeg_v2_5_dec_ring_vm_funcs = {
  	.type = AMDGPU_RING_TYPE_VCN_JPEG,
  	.align_mask = 0xf,
 +	.no_user_fence = true,
  	.vmhub = AMDGPU_MMHUB_1,
+ 	.get_rptr = jpeg_v2_5_dec_ring_get_rptr,
+ 	.get_wptr = jpeg_v2_5_dec_ring_get_wptr,
+@@ -671,6 +672,7 @@ static const struct amdgpu_ring_funcs jpeg_v2_5_dec_ring_vm_funcs = {
+ static const struct amdgpu_ring_funcs jpeg_v2_6_dec_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_JPEG,
+ 	.align_mask = 0xf,
++	.no_user_fence = true,
+ 	.vmhub = AMDGPU_MMHUB_0,
  	.get_rptr = jpeg_v2_5_dec_ring_get_rptr,
  	.get_wptr = jpeg_v2_5_dec_ring_get_wptr,
 -- 
