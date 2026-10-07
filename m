@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B9F0CA5FFC
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:13:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAF2ACA5FF1
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:13:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFFEC10E763;
-	Wed,  7 Oct 2026 13:13:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA1910EAE2;
+	Wed,  7 Oct 2026 13:13:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hcE7D5d5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tEn2dD1P";
 	dkim-atps=neutral
-Received: from mail-lr2-f3.google.com (mail-lr2-f3.google.com [74.125.230.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD8810EAE2
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 13:13:42 +0000 (UTC)
-Received: by mail-lr2-f3.google.com with SMTP id
- 38308e7fff4ca-3a77df9781eso23053081fa.1
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 06:13:42 -0700 (PDT)
+Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com
+ [74.125.230.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 787E210F589
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 13:13:55 +0000 (UTC)
+Received: by mail-lr2-f10.google.com with SMTP id
+ 38308e7fff4ca-3a88780168dso2453841fa.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 06:13:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791378820; x=1791983620; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791378834; x=1791983634; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=7raFCL+DaDHQ/Xzt3dKVl/XyqPmVrA37jhza1G8kvFU=;
- b=hcE7D5d5rY3mdBlpPcR8hqimcoL4wxmxXaYjcEkpOw+NOEVKtoex3bHIQoWba1Hlwn
- zDnLoCvAuEJaxhfYhcIQ+4Wgig/m96Hx61QBGRhQPF82hgRZJZrCMaslMJ490txTst7C
- zNCmw0DIDv5DoRXrX4RGqMJ3xyLVHjVBQeb3u8nauqydYw9MGtYmOyWyedeDWGsq0y6I
- 5bsjSIkxUGb7pghWwo2FuBWZ4stQDT+S5oFB9TV+xqmPHhg0OTk/D7+HaSWEPBQqHX+O
- 0WSTLVnKZZvVw4zuof5Wd69Q71Wd9RmjYMOvoz4GaB3Pzg2CujBIsaMcIJPU5JdTkVi+
- z60g==
+ bh=/eJt26JNJaGGd2UXwu5+cQQ5n63otBhQmpzqf8cor98=;
+ b=tEn2dD1Pl1ShclV3r/g9JXWqcaDUYo3n7OXnJTcRZyjbMe5PgbncS3TRoKJaZS1z6/
+ 0p1OmfRQ9/9G1U8ABHpp7stJkF0NJ/Sk3fY/D5uGRK003VGL5EbowrXEfIClMltdDnJZ
+ 3yfsi/2jI8d6lUAL79niaaUbKemWMNLiW/K9hlKLuhY7VOS7Yr4DNZ4myzho+YsE5MYW
+ 5Y2vYerEfd38M8BpDuE664qqvVztjGfcxq6iuMC4haQypilG172LR2t4dxgJC/2GHpUQ
+ vHJLWAHzx5cHDtQ/7WXpYvHASq+QP2skYwlG+O7cq5uWHjKQq+u2/WTKD55VPbiCDbqm
+ gk4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791378820; x=1791983620;
+ d=1e100.net; s=20260707; t=1791378834; x=1791983634;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=7raFCL+DaDHQ/Xzt3dKVl/XyqPmVrA37jhza1G8kvFU=;
- b=bI5kxQrMp7gu16Zlyld7kF9EvmjwSfRi/nxx2PDqZZQXv7ly8dYQCQkV9k8wu6Tvkh
- Lmibj718xqI556QJUN1PqF/QPd/oj7e2QAMBA8HUwAJrSzgF0vkAmXKF/TYE7xuCqcfO
- HKSU++msfPC0Tva6MtlZX+PpDl/QNtwolKRPi7X8rmGKDPZRLV3TBkhX5JI4Lim9JMQ4
- fI+W/4Uzcl3Zhv7uGGkG6RPD0DogJ3Esdor7QtdYeH13VbiXSfmWC2bDIP8oymAW+Xzl
- xAdEkjfcS35OKhJVSp8tkIWGtK/idhArCHoSaKzeY2TSMmOhhzTAPkDUJu9kf14QNttb
- n5Ug==
+ bh=/eJt26JNJaGGd2UXwu5+cQQ5n63otBhQmpzqf8cor98=;
+ b=ti2ZUGq/z+IBlq+WXGArrXxWMom/VgFJmnGuXf6VgJxo9ig2zC+4wqlTVZjusdxSoE
+ OQIlaPWqPraVtjuQFF3pwitT52bNQ9mJ2x+y2l8PDI/kO32GkIMeiIhBxiTFeQ3R6Z44
+ fn7BnFiEXxWVG561PfXqpuqgg+c5owThceqM7Uz+HifCF5qawIR4xOW+7YyGKOwQE3iv
+ Ykasiq6iRKD0R6dpINLv0I0GChz2sLUAsNvUN2mgLAAlHMadOyV/mMHVboN6vhunQ3oM
+ i0zMJF6VvP2tiJTrfsZNcCJdqI5cE/VGm60WDGO8L++DJxfT13K204bnDSMV7AwNj1l+
+ fzdg==
 X-Forwarded-Encrypted: i=1;
- AKwUvByRzCQd2TfBSWNGFu+JPba920JLRZGLkiusM6yMmQEEaOlRnnn5lWX3UdQGuNd0QIxECU31n4Xq5W4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLURcploFBdtxDKcPFUl69T53JN6DTWn43ZHULqOIkXn+gHCTcx
- u82QVWXw5+yKZrFSrtWwgVKLhw6jJYCLOe+tkPXSOhFK8sv1vRxT63da
-X-Gm-Gg: AYBFou1LatO0rFInepZfhfbC38YxvYKQ5GTokhKkaf+lTVfV4Qsvy9+T4/ZkXgOmC1L
- ekrD8ozu5Bb7K90M5Hwk1ju5rWfmLJBxnk//hCLVCqBybuUYDgzxnG9B9GH6Il6k2CslEC7Mhqv
- hkkvOz+IY6eBHme+yMw2RaEkQRVmV8yyevVwPML19tUHiQk9FQoVoCl1lmTEwONxK6K0S5chu/y
- XkX30JZNB+aFP+XV2PgL6nkrtJm7Mn/95ju8b8N9sBgzXemDQMV4KW7vd/ZzmLQ8WrxKD/vYmgt
- enJl5Hvdn8TonD9v8PDYb327aYrN0FoujIg2d7dxliqRIKMlOosDcoHw+xFizDwEjT7Kxrqpaes
- sLCJePZ+2V3otwLqp4VWocwa7Dt2rAFC+6aEnUZCZsnnl3SsQ7bj7oT3xijYsGrBcAEc9gu3PdW
- ft2OEb5h7v6ayy7XnO+olfM7ljswk9MJyzPFa2i8V5zxze01bxIlERd49j7QwHCb9AWrzsUevmP
- dhWktidpA11i7JP
-X-Received: by 2002:a05:6512:4027:b0:5bc:c63f:7004 with SMTP id
- 2adb3069b0e04-5bcd072ddc7mr896476e87.48.1791378820139; 
- Wed, 07 Oct 2026 06:13:40 -0700 (PDT)
+ AKwUvBycmU9vqOuB3jhqH1qnJgdnJihOocQ6lJYIUDQe+VBr8Vg7U/6HOSWtDm0tkyxY+hB4iGKBwqF88YQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIHC8vlb1TfP16GXqyRgeVQvh2Xhy0Lsk/GU2p9tfzLFoVp1Qpv
+ 2hR6aKA+JZwIb7IIqQgK9P+e3Y34zqzxXyZDIfYkDINMVSLYLUPuVNw1pfOZ6D92
+X-Gm-Gg: AYBFou19sLa2/F7dYuVDtLzvLf96OVXUdRg4KnwpmuG/rPTudV1dVnyHA9+jI2mrR1r
+ 1iZtiyx8byHp2siyySOOUrhq+rBerfI/DCurKqKtYpeBzPgIJhsUQH1+AGg5rsKLvzIYWVuO6IG
+ 1cGTCbzabQittKW4LXExbzP3Bo9rsMDyTKoAlu3xAJiLNKPkXamWBsTcCQ1W37u9aqnEke5LXC/
+ zVPYaNuiNngr571EiiKerb5HFj9OWMoAjA3j7Q2deOjJ9yBqp9YgUfvn2TLiPw1zxyz23/zOAhY
+ Yzh+ov3Q9GsvrS/qnW8iJlTcqXdKWJr7bEXD9mzAqPTLvIisQUfspjGbXUTZpVv18VHIJ1ImGoB
+ UZkuqHnDEJCUekf2QjQzAzqi2BtR8NvbCJStQYgUVO9eDOzuDzhe1nVUDi7GHGLN6qZIVg8rZoN
+ 02YM4M808tW8iJ6Rf58KiOn/bCq7HdqnTrhaePTuBy8ST1O39lv2zSvbb6dIn+wcEtLu9F5kk8+
+ VAhKM6YoGvS7aXW
+X-Received: by 2002:a05:6512:3d02:b0:5bc:b84a:9c1c with SMTP id
+ 2adb3069b0e04-5bcd072c698mr891760e87.48.1791378833512; 
+ Wed, 07 Oct 2026 06:13:53 -0700 (PDT)
 Received: from localhost.localdomain ([78.40.184.2])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bcd309149asm21640e87.53.2026.10.07.06.13.38
+ 2adb3069b0e04-5bcd30a8494sm15055e87.81.2026.10.07.06.13.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 06:13:39 -0700 (PDT)
+ Wed, 07 Oct 2026 06:13:52 -0700 (PDT)
 From: Roman Demidov <roman.demidov.nn@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -72,10 +73,10 @@ Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
  Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
-Subject: [PATCH 6.1] drm/amd/display: Fix out-of-bounds read in
+Subject: [PATCH 6.12] drm/amd/display: Fix out-of-bounds read in
  dp_get_eq_aux_rd_interval()
-Date: Wed,  7 Oct 2026 16:13:33 +0300
-Message-ID: <20261007131333.120389-1-roman.demidov.nn@gmail.com>
+Date: Wed,  7 Oct 2026 16:13:47 +0300
+Message-ID: <20261007131348.120412-1-roman.demidov.nn@gmail.com>
 X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -122,17 +123,17 @@ Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
 Backport fix for CVE-2026-53330
 
- drivers/gpu/drm/amd/display/dc/dc_types.h | 2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 6050a3469a57..579a38478d0f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -403,7 +403,7 @@ struct dc_lttpr_caps {
- 	uint8_t max_ext_timeout;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index 223c3d55544b..b128f1da98c9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -1112,7 +1112,7 @@ struct dc_lttpr_caps {
  	union dp_main_link_channel_coding_lttpr_cap main_link_channel_coding;
  	union dp_128b_132b_supported_lttpr_link_rates supported_128b_132b_rates;
+ 	union dp_alpm_lttpr_cap alpm;
 -	uint8_t aux_rd_interval[MAX_REPEATER_CNT - 1];
 +	uint8_t aux_rd_interval[MAX_REPEATER_CNT];
  };
