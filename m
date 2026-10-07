@@ -4,75 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4078CA6004
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 21:21:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84EAFCA6004
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 21:45:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBB7B10F7D5;
-	Wed,  7 Oct 2026 21:21:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B513510E6A6;
+	Wed,  7 Oct 2026 21:45:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z24Iugdw";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="ZQJER1hU";
 	dkim-atps=neutral
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
- [209.85.221.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE00510F7D5
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 21:21:21 +0000 (UTC)
-Received: by mail-vk1-f170.google.com with SMTP id
- 71dfb90a1353d-5dedc4e5cf4so3510985e0c.1
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 14:21:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791408080; x=1792012880; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=e14mQQiltcvPeO/AMh2B9KgoOUXPqFLUs2pJsfGY66Q=;
- b=Z24IugdwqzxhfguEdJOWHNB5LwzpEIDpfjIAT7MSDO+cqdwYuavgld9GXKbd8Pqo13
- S1/1t9wDcipEjTibAC//71VyY4P9HcPE367ePJd3RsRcQ8aUeAWW0So/A9BN+jIerqW6
- JuqUMoxr3bMLPIE+Q+WJiWSWUey5+iNzRMZho1z0/+qqBGMvaV3g6R1x0tk57C86pmeb
- Yf+CWaKr6ddGzLvODWCBSW53030dfIxaIFg5UQAay+HmibenSz7J/kye8nNFMJwVCbc9
- KGqbl4dsGVuCg+Y92jL05BsN4rSg9Ew6PZu9yOfeIjEqOxXPRMi94SodFnYJq9sMFm+B
- yzVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791408080; x=1792012880;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=e14mQQiltcvPeO/AMh2B9KgoOUXPqFLUs2pJsfGY66Q=;
- b=XovygSX1s5nhqacGWaJN8IPEiMtFQFCioVTmio06C9SPE13JrViUfpclt/En9+XGGy
- qqQClCX0PXnqf/O0h1X6PaHEQWgqN2OjjUCOa/3/dyqG7tndkWsj+agx3wGiwlHsVgrJ
- HTD7Uezb1RDLRIhYPwqXYC2xBpjAbJVYJp66/DNEbTFHlVZxLOkBx8vqkKpEmncoNPzG
- CtC3qrWjqUF2/8kidDemKbFsonBRkLY24im0RQjW+0tqdzufZXvrrzQzEt6D9Lpd7IQ5
- W/RIYzqhPBgPna7UcxeQyuNpJqv0LL7+tH4l+oPlOp+Fg+924pkGaUkOoBN9YG0KdWGw
- 9feg==
-X-Gm-Message-State: AFq9FYILgaTvtUFWzoQM2C7kcIOexSG4QqyQcLb/ab/zvnLdCVughuU2
- ACxRvMsgfTL7ARAgXlTtSK0q2Upkc70K/q20Lsw6YppSom5kQcWkYEu2
-X-Gm-Gg: AYBFou2MrvTgC1JHKjejbh+XfYiTM9EA0C1gDA3h6WUIJe1U935FqPNlBUkUsKEzYEE
- riq7qhJnXCUkWRnBz+Tq0eJQ775e4wBNdJSdxMft8LwC7+GwuhTbiCQOoRVjkOa5kUJPqtVU0PF
- qUnpf6bnOb0KqilJP7tt0H0OHizQZmLyXGVnjJ49ih0/vpSedrXNcZuyWXTLuhiL7lRLv46BmDb
- TEgRPgEYB89HDa42DeWyeGV29h/BopPmKY5b3IqmJyfApf2kFpsZF8lLsGbyj3F/etkJjFYqNjg
- OKjTUbmZ21aQQe2dqX9D4W9mID/p5ZIIq8DRy9bksWvCPrzPO2zMMxJDTIVbPnJ9i5/fesGYt2d
- X3rtWfH5yc7E70IkBFV+zdCsgsEu+AJyDyDe+GeqSsgkj5OjUKBAEXWxItR2eyv4700lWLSsPhp
- zX3VqBTmyTTHmN2Bs9R2v8ZSFeqqhvnped9MuDNybpRkKxh4SC3AXQ14fmR95tpXE=
-X-Received: by 2002:a05:6122:390f:b0:5c9:c60e:5cf6 with SMTP id
- 71dfb90a1353d-5e6d3701681mr1419054e0c.20.1791408080617; 
- Wed, 07 Oct 2026 14:21:20 -0700 (PDT)
-Received: from beelink.. ([187.13.30.250]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5e6c4d62704sm3115891e0c.10.2026.10.07.14.21.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 14:21:20 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: zack.rusin@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, maaz.mombasawala@broadcom.com,
- stable@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
- Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2 2/2] drm/vmwgfx: close TOCTOU on guest_memory_bo in surface
- reference ioctl
-Date: Wed,  7 Oct 2026 18:20:49 -0300
-Message-ID: <20261007212051.2574235-3-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261007212051.2574235-1-qwe.aldo@gmail.com>
-References: <20261007212051.2574235-1-qwe.aldo@gmail.com>
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0F8F10E6A6
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 21:45:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791409482; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=VmLYWhSzgnezPjGJ4M9d9Rb5GHvw+4+TblzvznrsbQX5MloUM21hCzBhtbMDXDddLQS8xUEl/VNOAryu2//yQcXqCb85tl0p36tjKryb3fGS+GNaQPzhnPsLC57a0tNPHEf0EPxJuMrni/uD2BUvU8L8tFA0u1t335iCzndA76s=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791409482;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=kGvUDiLie0dPMCDwrW6Vkkj/cP8ggVC9Hknrr+6OM28=; 
+ b=jLonqA0kH/5mo4SVt/L8rrQMvJtIp8D1PqZR6/pdF+21BipE1SCBRBKgN9E0qU3bQkmPGk/iROJK5XDCi5txB4D6JiH4HvUfn6Qr5pOBje9/FXSkXDV3jDGZc+u4oiGYSNV05IUhFZQ1In5zOi5fTp043Dei0cp5yag4Thw8D7U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791409482; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=kGvUDiLie0dPMCDwrW6Vkkj/cP8ggVC9Hknrr+6OM28=;
+ b=ZQJER1hU6AXDyit5wU9gfobSu6mZNV5z741FIzNSkqRjaO5xXdmhkRkE819HQDt+
+ Kp+LSdD+XxJVFBVnEfTaF0/UUmHIw+0cO7XDXPgOETUwBoD144mMFtWb4MJxfqC4qDc
+ Gj4q2UFK9GY5IinEFOw839Yv2r5UJ5aVt2wAgwLI=
+Received: by smtp.zohomail.com with SMTPS id 1791409480437494.77731485644426; 
+ Wed, 7 Oct 2026 14:44:40 -0700 (PDT)
+Message-ID: <ce72b2f5-1343-44e9-89fe-e2de4efb7e9c@collabora.com>
+Date: Thu, 8 Oct 2026 00:44:34 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] drm/virtio: expose GEM memory statistics through
+ fdinfo
+To: shechenglong <shechenglong@xfusion.com>, David Airlie
+ <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stone.xulei@xfusion.com,
+ chenjialong@xfusion.com
+References: <20260922094455.1799-1-shechenglong@xfusion.com>
+ <20260928133635.1835-1-shechenglong@xfusion.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260928133635.1835-1-shechenglong@xfusion.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,79 +76,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vmw_gb_surface_reference_internal() checks srf->res.guest_memory_bo
-for NULL and reads its vma_node offset and base.size outside the
-cmdbuf_mutex scope that protects the backup pointer.
+On 9/28/26 16:36, shechenglong wrote:
+> virtio-gpu does not expose per-client GEM memory usage through DRM
+> fdinfo, leaving monitoring tools unable to account for buffers owned by a
+> client.
+> 
+> Wire up the DRM fdinfo helpers and use drm_show_memory_stats() to report
+> the standard drm-total-memory, drm-shared-memory and drm-active-memory
+> fields for GEM objects referenced by each DRM file.
+> 
+> Tested on a QEMU/KVM guest with virtio-gpu. After running:
+> 
+>   modetest -M virtio_gpu -s 40:1024x768
+> 
+> the DRM file descriptor of the modetest process shows the following in
+> /proc/<pid>/fdinfo/<fd>:
+> 
+>   drm-driver:         virtio_gpu
+>   drm-client-id:      8
+>   drm-pdev:           0000:00:02.0
+>   drm-total-memory:   3 MiB
+>   drm-shared-memory:  3 MiB
+> 
+> Signed-off-by: shechenglong <shechenglong@xfusion.com>
+> Signed-off-by: chenjialong <chenjialong@xfusion.com>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_drv.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> index 2aaa7cb0808..d43d7ddac60 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -323,7 +323,17 @@ MODULE_AUTHOR("Dave Airlie <airlied@redhat.com>");
+>  MODULE_AUTHOR("Gerd Hoffmann <kraxel@redhat.com>");
+>  MODULE_AUTHOR("Alon Levy");
+> 
+> -DEFINE_DRM_GEM_FOPS(virtio_gpu_driver_fops);
+> +static void virtio_gpu_show_fdinfo(struct drm_printer *p,
+> +                                  struct drm_file *file)
+> +{
+> +       drm_show_memory_stats(p, file);
+> +}
+> +
+> +static const struct file_operations virtio_gpu_driver_fops = {
+> +       .owner = THIS_MODULE,
+> +       DRM_GEM_FOPS,
+> +       .show_fdinfo = drm_show_fdinfo,
+> +};
+> 
+>  static const struct drm_driver driver = {
+>         /*
+> @@ -347,6 +357,7 @@ static const struct drm_driver driver = {
+> 
+>         .gem_create_object = virtio_gpu_create_object,
+>         .fops = &virtio_gpu_driver_fops,
+> +       .show_fdinfo = virtio_gpu_show_fdinfo,
+> 
+>         .ioctls = virtio_gpu_ioctls,
+>         .num_ioctls = DRM_VIRTIO_NUM_IOCTLS,
+> --
+> 2.43.0
 
-A concurrent backup switch, e.g. from SVGA_3D_CMD_BIND_GB_SURFACE
-via vmw_resource_unreserve(), drops its reference to the old buffer
-and installs a new one under cmdbuf_mutex. The unlocked check in
-the surface reference ioctl can see a transient NULL. The reads
-after the unlock can return another buffer's offset and size; a
-further switch can drop that buffer's last reference and free it
-while the ioctl reads from it.
+Usefulness of this change is dubious. VirtIO-GPU has different types of
+RAM, I'd expect them all represented properly instead of only shmem.
 
-Move the NULL check inside the mutex, and read buffer_map_handle
-and buffer_size while still holding it.
-
-Fixes: a97e21923b42 ("drm/vmwgfx: Hook up guest-backed surfaces")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-index 97966d849583..291e3efad9ad 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-@@ -1718,23 +1718,32 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
- 
- 	user_srf = container_of(base, struct vmw_user_surface, prime.base);
- 	srf = &user_srf->srf;
-+	metadata = &srf->metadata;
-+
-+	mutex_lock(&dev_priv->cmdbuf_mutex);
-+
- 	if (!srf->res.guest_memory_bo) {
-+		mutex_unlock(&dev_priv->cmdbuf_mutex);
- 		DRM_ERROR("Shared GB surface is missing a backup buffer.\n");
- 		ret = -EINVAL;
- 		goto out_bad_resource;
- 	}
--	metadata = &srf->metadata;
- 
--	mutex_lock(&dev_priv->cmdbuf_mutex); /* Protect res->backup */
- 	ret = drm_gem_handle_create(file_priv, &srf->res.guest_memory_bo->tbo.base,
- 				    &backup_handle);
--	mutex_unlock(&dev_priv->cmdbuf_mutex);
- 	if (ret != 0) {
-+		mutex_unlock(&dev_priv->cmdbuf_mutex);
- 		drm_err(dev, "Wasn't able to create a backing handle for surface sid = %u.\n",
- 			req->sid);
- 		goto out_bad_resource;
- 	}
- 
-+	rep->crep.buffer_map_handle =
-+		drm_vma_node_offset_addr(&srf->res.guest_memory_bo->tbo.base.vma_node);
-+	rep->crep.buffer_size = srf->res.guest_memory_bo->tbo.base.size;
-+
-+	mutex_unlock(&dev_priv->cmdbuf_mutex);
-+
- 	rep->creq.base.svga3d_flags = SVGA3D_FLAGS_LOWER_32(metadata->flags);
- 	rep->creq.base.format = metadata->format;
- 	rep->creq.base.mip_levels = metadata->mip_levels[0];
-@@ -1747,9 +1756,6 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
- 	rep->crep.handle = user_srf->prime.base.handle;
- 	rep->crep.backup_size = srf->res.guest_memory_size;
- 	rep->crep.buffer_handle = backup_handle;
--	rep->crep.buffer_map_handle =
--		drm_vma_node_offset_addr(&srf->res.guest_memory_bo->tbo.base.vma_node);
--	rep->crep.buffer_size = srf->res.guest_memory_bo->tbo.base.size;
- 
- 	rep->creq.version = drm_vmw_gb_surface_v1;
- 	rep->creq.svga3d_flags_upper_32_bits =
 -- 
-2.43.0
-
+Best regards,
+Dmitry
