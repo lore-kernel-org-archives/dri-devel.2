@@ -4,43 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53F39CA600E
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:38:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2267ACA6007
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:42:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A98F610FCC3;
-	Thu,  8 Oct 2026 07:38:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 823F510FCCA;
+	Thu,  8 Oct 2026 07:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ELEynV8v";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LCoC+8Vo";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12A7F10FCC3
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 07:38:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 68B456025A;
- Thu,  8 Oct 2026 07:38:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFF01F00893;
- Thu,  8 Oct 2026 07:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791445118;
- bh=OeGWmsd1zkwW2li9C1wPCg8/T3CMhCzW8z90h+6vsYs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ELEynV8v1gO6bH9uXfwAjZEoAZxLm9R0vc52HDcaniqSv5kQeex2XT16Rvzk4yzgV
- 8aKoKebPfAbi1TxW/3q9dCjeqX495pIuDR1Tqb6yqB0F+ZFSMSec6vxug6xN7KTWkL
- IrCainOeRUBKShx9pEOBg9i6thaXSJTTeSNdQDHDERH10pn3OU7HtK5b2WUAmtfE1r
- 1ZIdKsi9Yj/H7PHO/IMJ4cj0yDgZI/uc8MKLmoQ5NAyETeVR1YXp9epkkalhIklWQA
- MtCaUikKqyMUjKV/hzE1FXMxLUWxUumuBWJVVh0S7ccw7CgDXuYKpu5kXTLBS39UkM
- evxafaseWXPcQ==
-Message-ID: <sashiko-outbox-163773@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: Don't ignore dc_commit_streams() failures
-To: 2564278112@qq.com
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <tencent_34284E790157CA20C27C9260A7A32C08C10A@qq.com>
-References: <20261008071700.552056-1-2564278112@qq.com>
- <tencent_34284E790157CA20C27C9260A7A32C08C10A@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 07:38:37 +0000
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7770A10E693
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 21:18:49 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4a16c399641so23001025e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 14:18:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791407928; x=1792012728; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=gCOgnzxgPsldEawW4qaR+rRqfBySYiXshFn8/j+fwrI=;
+ b=LCoC+8Vov2TAfTOd6XgH84Zg25Jr0NamhmeUEHqKu65RNU9HZJSJebxYTrsrVq3waT
+ nkHCpOl/LU3vPTmq7BS/qw5spZS7q0bWyvxxktH8M0hhlTB4/6eZjW1L6Smv4yVsKepi
+ sm2fesucW6uyoR7DvN194dRrtsFITMP6A44yyf/nTVCYpHrIINGiXlKyYxVfwYrC6vJB
+ aicmfmFmfgpcqPQrtpRObzCBsWZsuj9OKWwf4z/mOMQB7KDHmi5HaAmBcgEMEE4QCgma
+ YM2q8g6xjRMSE/xb9k7PEbgouR+/mcEzBLwT8d2/hFC1dEjQRYvgxn9h7lf0APzPNZuy
+ bazA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791407928; x=1792012728;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gCOgnzxgPsldEawW4qaR+rRqfBySYiXshFn8/j+fwrI=;
+ b=zcPS4+6IfwM1XYhh+3RzWv+FAdn0e/DubQw+KKlBouKjNkQg/3xYAutGYD/7yWn2oV
+ nZ+77MzFNYszx27WJjdS0xpZZNCy/NUQ5GDzED8RJ43rnVmqNo0TXoJGK7Mzy96TkQQV
+ HDhYCHQviOQDH/170I5kqgINryB9D3dhXhj7ZXfrDMrYO+z53ZDOm/opdMYSfHnpjVix
+ cS2HDXdz/Zsa34jESpZkO0cdiccU9COntGi36O2sibUx3W36NGrSJQDeDpayodxKdgGG
+ lksmiqLRbx5jPquo1nPG0awPnG2yPgqf0KyD3wkiXt+MDyj7MozzivimzvzzigjRAcV4
+ Qh8A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByj19ftWG6c8fvhGm4t3s4nna+q1yKYEMSUW+YWDVlr1DJ3ek/6AqrizxSc+SyspEXlUOf+6/8Q2QM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mYRu23JRZduh4Hq416UkHYb+rhqNZ130/7fr1e1nw85ZnG8TJ4
+ nNde80pU5+5cxEIkt1TUfzcd5hpHYrkbYzy8P6v/u5hkm9uAYHngelVg
+X-Gm-Gg: AYBFou1dxlowcvKmfaDjUOhB62LPrWSvvJOBV76gsrMh47MyQYU/gz8Rn8M8vppRp3/
+ K2KLbRlZpkA2mYaehDa+R+7fz7+n12qscBbK5zqBdha72JFgqprFq3wGkOBSG+7U52JT9zlV8r7
+ +fWV7/axQnSZIUldz8ER/xJE9chUSWxj0m8M+5pyg3iDXkS9zaCf3RzIrsc2FpPaOc9HxkRSVHN
+ 1yUgpAX/m9L0P/bVn4MMinfcnjwIMoJAg+DM2YVQXYs0BcPiUK24zGmx/PpX4A65tbFOCbT8vNr
+ bedF5+JieVT6Qry5u53nuTzV/eJwXHxeeq0Ccu1AYf5DGhbTLe2n25P7xFuYF/7wn/TTzvxb/DM
+ Y19xutsezC/+sZmsyajNzRaO+cLzHiox/MVEEEAStHegiYFPTdAYDdQ+FZObD/G5L1RhUuZzGuS
+ SfpfqpQhNFTZj1HLp/yD67DG+72l7x7GhjBZJdQA4mE0WDuWuyY/KRwA0YsOWTUq/CeZyjf3m62
+ WsNPpTBbDW5Ws9QWP7UF5MYZLFjpdy/o9u5huaKQt5gon58RBc=
+X-Received: by 2002:a05:600c:4e45:b0:4a1:6c3d:cdcc with SMTP id
+ 5b1f17b1804b1-4a18043b382mr55914275e9.15.1791407927690; 
+ Wed, 07 Oct 2026 14:18:47 -0700 (PDT)
+Received: from sp1der-OptiPlex-7080.epfl.ch (dhcp-122-dist-b-107.epfl.ch.
+ [128.178.122.107]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a17f446d51sm57964705e9.0.2026.10.07.14.18.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Oct 2026 14:18:47 -0700 (PDT)
+From: spidermana <xuyiwen14@gmail.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>
+Cc: spidermana <xuyiwen14@gmail.com>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] rust: drm: ioctl: wrap `Device::from_raw` in an `unsafe` block
+Date: Wed,  7 Oct 2026 23:17:40 +0200
+Message-ID: <20261007211751.2428111-1-xuyiwen14@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 08 Oct 2026 07:42:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,101 +96,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/amd: incomplete fix, plane programming still executes after co=
-mmit failure
-- [Medium] drm/amd/display: hdmi_frl_status_polling_work leaks on commit fa=
-ilure
+`declare_drm_ioctls!` generates an `unsafe extern "C" fn` per ioctl. Inside
+it, four unsafe operations are performed, while the call to `Device::from_raw()` relies on the enclosing
+`unsafe fn` body instead.
+
+Both forms are legal, but the kernel builds all Rust code with `-Dunsafe_op_in_unsafe_fn`, which asks for the explicit block.
+The lint does not fire here because the macro is defined in the `kernel` crate and expanded in the
+driver crates, and rustc suppresses lints for code coming from another crate's macro.
+
+The patch is to wrap the call in an unsafe block, keeping the existing SAFETY comment. No functional change.
+
+Signed-off-by: spidermana <xuyiwen14@gmail.com>
+---
+ rust/kernel/drm/ioctl.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
+index 64af9eacc306..5a2e2f4f0e91 100644
+--- a/rust/kernel/drm/ioctl.rs
++++ b/rust/kernel/drm/ioctl.rs
+@@ -152,7 +152,7 @@ macro_rules! declare_drm_ioctls {
+                             // dev/file match the current driver these ioctls are being declared
+                             // for, and it's not clear how to enforce this within the type system.
+                             let dev: &$crate::drm::device::Device<_, $crate::drm::Ioctl> =
+-                                $crate::drm::device::Device::from_raw(raw_dev);
++                                unsafe { $crate::drm::device::Device::from_raw(raw_dev) };
+
+                             // Type-inference anchor: the closure is never called but ties `dev`'s
+                             // type to `$func`'s first parameter, which the compiler cannot infer
 --
-
-commit 5df85d959754dc46c8ae54787ba1fc6639162940
-Author: Wang Jiang <jiangwang@kylinos.cn>
-
-drm/amd/display: Don't ignore dc_commit_streams() failures
-
-This patch modifies the AMD DRM driver to stop ignoring failures from
-dc_commit_streams(). It logs the failure and adds an early return in
-amdgpu_dm_commit_streams() to avoid programming plane state against a
-half-committed stream list. It also logs failures in the reset recovery
-path in dm_resume().
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-
-[ ... ]
-
-> @@ -4735,7 +4740,18 @@ static void amdgpu_dm_commit_streams(struct drm_at=
-omic_commit *state,
->  	dm_enable_per_frame_crtc_master_sync(dc_state);
->  	mutex_lock(&dm->dc_lock);
->  	dc_exit_ips_for_hw_access(dm->dc);
-> -	WARN_ON(!dc_commit_streams(dm->dc, &params));
-> +	if (dc_commit_streams(dm->dc, &params) !=3D DC_OK) {
-> +		mutex_unlock(&dm->dc_lock);
-> +		/*
-> +		 * DC refused the stream list, so the hardware and the DC state
-> +		 * no longer agree. Bail out instead of programming more
-> +		 * stream/plane state for a half committed stream list (this
-> +		 * used to be a silently ignored WARN_ON()).
-> +		 */
-> +		drm_err(dev, "DC failed to commit %u stream(s)\n",
-> +			(unsigned int)params.stream_count);
-> +		return;
-
-[Severity: High]
-Will this early return successfully stop the plane programming?
-
-Since amdgpu_dm_commit_streams() returns void, it cannot propagate this
-failure state back to its caller. Looking at the caller
-amdgpu_dm_atomic_commit_tail():
-
-amdgpu_dm_atomic_commit_tail() {
-        ...
-        if (dm_state && dm_state->context) {
-                dc_state =3D dm_state->context;
-                amdgpu_dm_commit_streams(state, dc_state);
-        }
-        ...
-        if (dm_new_crtc_state->stream)
-                amdgpu_dm_commit_planes(state, dev, dm, crtc, wait_for_vbla=
-nk);
-}
-
-Because the tail continues unconditionally, won't it still program the
-planes against the rejected stream list, resulting in the exact crash
-this patch intended to prevent?
-
-[Severity: Medium]
-Does this early return cause the HDMI FRL status polling work to leak?
-
-By returning early, we bypass the subsequent block that manages the FRL
-polling work:
-
-        if (frl_stream_found) {
-                queue_delayed_work(...)
-        } else {
-                if (cancel_delayed_work_sync(&dm->hdmi_frl_status_polling_w=
-ork))
-                        ...
-        }
-
-Looking at hdmi_frl_status_polling_work(), the handler unconditionally
-re-arms itself by calling queue_delayed_work() at the end of its execution.
-If we fail the stream commit and return early, doesn't it leave the delayed
-work to run and wake up the CPU indefinitely on a recoverable failure path?
-
-> +	}
-> =20
->  	bool frl_stream_found =3D false;
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_34284E79015=
-7CA20C27C9260A7A32C08C10A@qq.com?part=3D1
+2.43.0
