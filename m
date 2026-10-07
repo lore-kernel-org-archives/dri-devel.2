@@ -4,132 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BADA2CA5FFF
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 08:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8DDCCA600B
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 08:51:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D65C10E555;
-	Wed,  7 Oct 2026 08:45:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86E0D10E523;
+	Wed,  7 Oct 2026 08:51:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pPtTSZib";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D7tppqmi";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ssbjsw4T";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="v2wavRSp";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jmUXs98v";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6tIaY+la";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2E210E555
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 08:45:09 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6977kN3N3812847
- for <dri-devel@lists.freedesktop.org>; Wed, 7 Oct 2026 08:45:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=22/EzgF3eNH
- k3tF3ZBt8AlBMV+Qj6qZL9Uo0C5iD4e0=; b=pPtTSZibPL4np4OcArWt5IJ5USQ
- OtGrAURpfc6cVrcHCBbWznYzpat0zVft44H7L3obzge5yDPoGBdvWOuXOKUHKr5Z
- e11AlAf0RwNmwPLJXc0DUTT9eiB5PD9DXAjSr7/09s6iJGjM6SHL+TnQ2ohkyQjK
- 7Ms1l/RrjHp6DaY0Cd7iZXXEPbKtsk5I7elcObHMYwLHvOKDHCrtzhhqK9KsfAqU
- kZAgEeYf3irLEAiYkJ5xS2Bqt1LS0oxMW8G/PUcqxi6S+7EcGJeNQsPFzPalGVJp
- ZvcbIyl9phP5wzbrwrU3JXhIxAhkVKlpP3N8WnA8LrhzpkeZE21J2gCPCcg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5gvrre59-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 08:45:08 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-cd0cf3b1c70so445784a12.3
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 01:45:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791362707; x=1791967507;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=22/EzgF3eNHk3tF3ZBt8AlBMV+Qj6qZL9Uo0C5iD4e0=;
- b=D7tppqmi5yVIdFTlBQwAeESg8oMbspnBGKpvPFvsF+J8FBIYqdO+4PbCbOgH/VF+LK
- dUd7AStRoDV6g8egWSw+xVQDowqrr9K01LWBTh8XNaSKeqvj23z4tXphMklkeym2Z6ps
- NFxU0genlnc5pz4cWvVvB+VKd/z27uLb0eKYEtS1Aa7DM8BlZMEW2oOoTC1MBKj4o704
- n7789MQK24Xkr1EB1uBqqrfBSahg1zAqcsu7D9jm5lGxz+xXS4wKFZoa+qOamk5KX0+6
- tCqPcJ1vy1Nt0ThLWzI57VSCxcSmUctuj4ZpmLVg0EqL3UQpvhcYN4lUgZMl2tIzuTPw
- DAjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791362707; x=1791967507;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=22/EzgF3eNHk3tF3ZBt8AlBMV+Qj6qZL9Uo0C5iD4e0=;
- b=QEdF0ZWkaz/Mk8T9fXlw1tMHiLkITVbKkFQ6IsEPwfmqX2SNBe4fMx7kRMViuMCfhi
- oUFQGcNPhvzQy7plfPOx4TdZq/323jYskaGcaivzz937WkcznMptz+g27gYWRwhTsT+l
- +QY6Y3JEonTr+jFwS822y/07zWOVqyqB3QrpF4mwllTgcZIYUWbOuU/w3e9rodqzxBVt
- UeYgbXi+r0wWYd7oWGdIphfU5v8Xr0YaLBlB+OyuFLuMlVceynKjdJ6Luab2A4rYmlF/
- HMdP+P5T2Cywndz2tjlBMvMrWWwmyYAC0X7+80O3luzLV6epRdDmgivG3sXqz46lSPgw
- gxhw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzUBdFiAY4n6tZg5pnyopgRXDYMh5BmjLZAGY2eSU1JnrxERFh4uaOUaRcdSjPzuK0vUbtyKPPUo7c=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kRIwFC5viGKY4evCeSkOzL5gCpVsmlklUpaZ13vUlN0V9tAXVJ
- VbJBWk82MixQLYk0uV/fTYdzCI7a2dLeERdN5LLpmWa9QPLypFnkxol76ERMxAj7OD2CdOq1wYV
- Geo0XStGX1nBk3ggvCX8sAQDx2NhCcXQk8t1QRpxSw0V1r4aKaKTag2da1lJj9itPaCrYb5kOSe
- YrUG4=
-X-Gm-Gg: AYBFou0YjN/sl31P9SkoA5KhQivu/hKxgdSAQDjae68izZePUjbjE9HxgXh+JxYFK5l
- IJDz1Boan+jRqHo1/ctR0jINCerjCfovGYhUR7qIUxpz2pRh+UWW7fbfAbqto5BzASsdhgwBaFd
- tu+y3jnWLVxPfUOz7bAdaY/yQTk+dXdmmO1p6zvC2IunJ/UcnXFnrzrl0jpSPrxljuCatFUFjtj
- 5gdZcmmqTTQ/lKjkZQeqUtEPXbX+9Uo23F3k2FyFbeXx3FpMs30CvE/2mjQ1N30n9cF2DosGcGX
- YqXvtAsfiJVih6gftzUhFR4lN5kq7qXatkQGhjmGwT6buD37u4FoYKpLIbZkRkj2tm87c+VHZV5
- siQ8rh5E6FUdWjKNFvVEDUZg9XiVRMbv3LZt1daRx7qe6vyx9EP1I8eOnhbzCk9+Z1ZUkeMg=
-X-Received: by 2002:a05:6a21:6b0f:b0:3da:5eda:d167 with SMTP id
- adf61e73a8af0-3e133db9c3bmr1118660637.5.1791362707350; 
- Wed, 07 Oct 2026 01:45:07 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6b0f:b0:3da:5eda:d167 with SMTP id
- adf61e73a8af0-3e133db9c3bmr1118640637.5.1791362706877; 
- Wed, 07 Oct 2026 01:45:06 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com
- (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cd0a8b0616esm1075091a12.6.2026.10.07.01.45.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 01:45:06 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Escande <thierry.escande@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com
-Subject: [PATCH v1 3/3] misc: fastrpc: drain in-flight invokes before tearing
- down context banks
-Date: Wed,  7 Oct 2026 16:44:47 +0800
-Message-Id: <20261007084447.922-4-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261007084447.922-1-jianping.li@oss.qualcomm.com>
-References: <20261007084447.922-1-jianping.li@oss.qualcomm.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEE2D10E508;
+ Wed,  7 Oct 2026 08:51:53 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0274821FAE;
+ Wed,  7 Oct 2026 08:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791363108; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6zE9QU63Kyd2BQKaCH+tCvre/v3mOuovgWohNizg+yU=;
+ b=Ssbjsw4TgygKdjms8a5/tvjkTw7Nu5Nr1J0TuZsmB7oqH02WALlMJk5Ouge3FRqOsKw7bd
+ TUDd9SJbNX9UvnsSHK2WifJJ0V8664n7mJzLmQI3qjYLUhlRpRVQpkncO2FFJpoVJrZS9C
+ PFy2XfCL/zF2j6o3a/t3vui54uTc8g0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791363108;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6zE9QU63Kyd2BQKaCH+tCvre/v3mOuovgWohNizg+yU=;
+ b=v2wavRSpoPDafERuVsh8m9L3IZGzso7lyI/OxTU27hqCJ7/9OJIYOUouCmFmd29nzshO5M
+ rOo9IGu4Enpb3/Dw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791363104; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6zE9QU63Kyd2BQKaCH+tCvre/v3mOuovgWohNizg+yU=;
+ b=jmUXs98v6rIN5E03lzJF7C6a1hOyQrxrGZf40c1wklDdzK5PcHP4HSHmi3QOQ0tNQpPh0S
+ i8rQJ3AmQCFF7kqi7iR4ireTr0H/VrTlVbdTcAItS4zUms94t3vxZXTmfnXmGpABF2Vwpw
+ uL45J8YWmTE0gp6fcyhXqNJlb9bKRWk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791363104;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6zE9QU63Kyd2BQKaCH+tCvre/v3mOuovgWohNizg+yU=;
+ b=6tIaY+lacV31th/x2Ymv0XumjtxeJOcN/1OJlnDMu59kIRNBDi7hq5FvRpLABc1GOLIQLJ
+ /7POS14CxLJujEBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 64EC713354;
+ Wed,  7 Oct 2026 08:51:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id jIzVBh8Ixmo5XQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 07 Oct 2026 08:51:43 +0000
+Message-ID: <597b27c0-ceec-451e-8f68-ae48031939cb@suse.de>
+Date: Wed, 7 Oct 2026 10:51:42 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 0/7] User readable error codes on atomic_ioctl failure
+To: Arun R Murthy <arun.r.murthy@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, xaver.hugl@kde.org,
+ harry.wentland@amd.com, uma.shankar@intel.com, louis.chauvet@bootlin.com,
+ naveen1.kumar@intel.com, ramya.krishna.yella@intel.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Suraj Kandpal <suraj.kandpal@intel.com>
+References: <20260331-atomic-v11-0-6a1df7ec5af8@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260331-atomic-v11-0-6a1df7ec5af8@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=W66txhWk c=1 sm=1 tr=0 ts=6ac60694 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=XraR69nYKyiK7xGMLcsA:9 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: Z7b-dNPP-IlRdtHn1L3_fZyjVM7Auery
-X-Proofpoint-GUID: Z7b-dNPP-IlRdtHn1L3_fZyjVM7Auery
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNCBTYWx0ZWRfX7dixTwXFsTGv
- sZJKubur8whi9ujfmHgMGrM2GdLkGep/riJdrhi0Yx1qH9Hc8cdzbhWbeWyeSnMuCdVJsA8tc26
- HA/6Z4b6TmrWwcynHTKVJaU3j4y4PdIJA0SbGrHqMKedF23XrvuiFVOZqqhgsze1duawnNXvcun
- DQptyO5ry2vCDf9KhgJVy5002nvPmQ3umd/xyqeuIJLoWoOdLFnRx8IZY14KI0O/21okb3K87zp
- Cp+qMzCQX0paWzSnpteskC96tXZE6+xmVu1oSmIewYeIKrADgl7yOyHwHeIRNI2b8ITK6N+bJ0m
- oSL/qfoTEPREe4SJIRfF0f+VKlO8GdcHC85V2l+BHShDPe3fwctn7gwdBPOetg2f7iJqSigDX8d
- 0zDcMTFrgKhp0kYvcVJhD96G2zsmco+u3QHNDqPZL/5VGiApEqQG27AfOuIw+BuYtk2vogXkCin
- sRW89IfsBVRwolpwE4A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNCBTYWx0ZWRfX+Ujo+wayeN2f
- iQZGlo6IyiX+09wV2U2xSZ/BmdHi+juWny2XRGr6MJjCUKPVcu4+ntj/P98LOQGiDF5rBqGDvsf
- AKvuCzS8ee5WaTU6Yek+xusOUGigesU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 spamscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 impostorscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070034
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[intel.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,ursulin.net,kde.org,amd.com,bootlin.com];
+ RCPT_COUNT_TWELVE(0.00)[19]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[lists.freedesktop.org:email, amd.com:email,
+ ursulin.net:email, bootlin.com:email, patchwork.freedesktop.org:url,
+ ffwll.ch:email, kde.org:url, kde.org:email, intel.com:email,
+ imap1.dmz-prg2.suse.org:helo, suse.de:mid, suse.de:email,
+ gitlab.freedesktop.org:url, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,181 +149,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-fastrpc_rpmsg_remove() clears cctx->rpdev, wakes every pending invoke
-with -EPIPE through fastrpc_notify_users(), and then goes straight on to
-of_platform_depopulate() the context bank devices, with nothing
-synchronising the two:
+Hi
 
- - The only thing stopping new work is the unlocked rpdev check at the
-   top of fastrpc_internal_invoke(). A thread can observe a valid rpdev,
-   get preempted, and resume in the middle of the teardown.
+Am 31.03.26 um 11:03 schrieb Arun R Murthy:
+> The series focuses on providing a user readable error value on a failure
+> in drm_atomic_ioctl(). Usually -EINVAL is returned in most of the error
+> cases and it is difficult for the user to decode the error and get to
+> know the real cause for the error. If user gets to know the reason for
+> the error then corrective measurements can be taken up.
 
- - Invokes that were already admitted are woken and head for the bail:
-   label, where fastrpc_context_put() releases ctx->buf through
-   dma_free_coherent(). If the depopulate wins, the call runs against an
-   unbound context bank and falls through to dma_direct_free(), which
-   treats the IOVA as a physical address.
+I'm missing some comments on related work. Other subsystems (filesystems 
+IIRC) have explored various ideas for extending errno codes. But nothing 
+was deemed acceptable. I'd like to know why this works with DRM, but not 
+other subsystems.
 
-Close both windows under cctx->lock:
+Best regards
+Thomas
 
- - Add cctx->teardown, set at the start of fastrpc_rpmsg_remove().
-   fastrpc_internal_invoke() checks it and, in the same critical
-   section, increments cctx->invoke_cnt, so an invoke is either rejected
-   or counted. The count is dropped on every return path.
+>
+> User will have to check for the capability
+> DRM_CAP_ATOMIC_ERROR_REPORTING before using this feature so as to ensure
+> that the driver supports failure reporting.
+>
+> TODO: driver specific error codes are to be added and will be done in
+> the follow-up patches.
+>
+> TODO: Once the series is merged the element 'reserved' used for sending
+> the failure code in struct drm_mode_atomic is to changed to err_code.
+>
+> The IGT related changes are pushed for review @
+> https://patchwork.freedesktop.org/series/153330/
+>
+> [RFC] changes for libdrm pushed for review @
+> https://gitlab.freedesktop.org/mesa/libdrm/-/merge_requests/450
+>
+> [DRAFT] KWin changes are pushed for review @
+> https://invent.kde.org/plasma/kwin/-/merge_requests/8991
+>
+>      To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>      To: suraj.kandpal@intel.com>
+>      To: Maxime Ripard <mripard@kernel.org>
+>      To: Thomas Zimmermann <tzimmermann@suse.de>
+>      To: David Airlie <airlied@gmail.com>
+>      To: Simona Vetter <simona@ffwll.ch>
+>      To: Jani Nikula <jani.nikula@linux.intel.com>
+>      To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>      To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>      To: Tvrtko Ursulin <tursulin@ursulin.net>
+>      To: xaver.hugl@kde.org
+>      To: harry.wentland@amd.com
+>      To: uma.shankar@intel.com
+>      To: louis.chauvet@bootlin.com
+>      To: naveen1.kumar@intel.com
+>      To: ramya.krishna.yella@intel.com
+>      Cc: dri-devel@lists.freedesktop.org
+>      Cc: intel-gfx@lists.freedesktop.org
+>      Cc: intel-xe@lists.freedesktop.org
+>      Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+>
+> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+> ---
+> Changes in v9:
+> - EDITME: describe what is new in this series revision.
+> - EDITME: use bulletpoints and terse descriptions.
+> - Link to v8: https://lore.kernel.org/r/20260129-atomic-v8-0-4cb7b0faa051@intel.com
+>
+> ---
+> Arun R Murthy (7):
+>        drm: Define user readable error codes for atomic ioctl
+>        drm/atomic: Add error_code element in atomic_state
+>        drm/atomic: Call complete_signaling only if prepare_signaling is done
+>        drm/atomic: Allocate atomic_state at the beginning of atomic_ioctl
+>        drm/atomic: Return user readable error in atomic_ioctl
+>        drm/i915/display: Error codes for async flip failures
+>        drm: Introduce DRM_CAP_ATOMIC_ERROR_REPORTING
+>
+>   drivers/gpu/drm/drm_atomic.c                 | 31 ++++++++++
+>   drivers/gpu/drm/drm_atomic_uapi.c            | 89 ++++++++++++++++++++--------
+>   drivers/gpu/drm/drm_ioctl.c                  |  3 +
+>   drivers/gpu/drm/i915/display/intel_display.c | 25 ++++----
+>   include/drm/drm_atomic.h                     | 10 ++++
+>   include/uapi/drm/drm.h                       |  7 +++
+>   include/uapi/drm/drm_mode.h                  | 56 +++++++++++++++++
+>   7 files changed, 184 insertions(+), 37 deletions(-)
+> ---
+> base-commit: 65b94118bc585aefc7095c0e9554c3bb12d98a69
+> change-id: 20250728-atomic-c9713fd357e4
+>
+> Best regards,
 
- - fastrpc_rpmsg_remove() waits for invoke_cnt to reach zero before
-   clearing rpdev and before touching any other channel resource.
-
-The gate lives in fastrpc_internal_invoke() rather than in the ioctl
-dispatcher so that it also covers fastrpc_device_release() ->
-fastrpc_release_current_dsp_process(), which sends INIT_RELEASE outside
-of any ioctl.
-
-Teardown is kept separate from rpdev because the two have different
-lifetimes: the gate must close immediately, whereas rpdev has to stay
-valid until the admitted invokes have finished rpmsg_send(). Clearing
-rpdev up front, as the code does today, lets an invoke that was sleeping
-in an allocation dereference a NULL rpdev:
-
-  Unable to handle kernel NULL pointer dereference at virtual address
-0000000000000358
-  CPU: 2 UID: 0 PID: 2003 Comm: adsprpcd
-  pc : fastrpc_internal_invoke+0xb40/0x1398 [fastrpc]
-  Call trace:
-    fastrpc_internal_invoke [fastrpc]
-    fastrpc_device_release [fastrpc]
-    __fput
-    __arm64_sys_close
-
-The faulting address is the offset of ept within struct rpmsg_device,
-i.e. the cctx->rpdev->ept dereference in rpmsg_send().
-
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 60 +++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 56 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index c54c450cb571..3036925632d0 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -328,6 +328,15 @@ struct fastrpc_channel_ctx {
- 	atomic_t ctx_seq;
- 	u64 dma_mask;
- 	const struct fastrpc_soc_data *soc_data;
-+	/*
-+	 * Set once fastrpc_rpmsg_remove() starts tearing the channel down.
-+	 * Checked under @lock so that no new invoke can begin afterwards.
-+	 */
-+	atomic_t teardown;
-+	/* Number of in-flight invokes; guarded by @lock */
-+	int invoke_cnt;
-+	/* Woken whenever @invoke_cnt drops to zero */
-+	wait_queue_head_t ssr_wait_queue;
- };
- 
- struct fastrpc_device {
-@@ -1350,12 +1359,23 @@ static int fastrpc_wait_for_completion(struct fastrpc_invoke_ctx *ctx,
- 	return fastrpc_wait_for_response(ctx, kernel);
- }
- 
-+/* Caller must hold cctx->lock */
-+static void fastrpc_channel_update_invoke_cnt(struct fastrpc_channel_ctx *cctx,
-+					      bool enter)
-+{
-+	if (enter)
-+		cctx->invoke_cnt++;
-+	else if (--cctx->invoke_cnt == 0)
-+		wake_up(&cctx->ssr_wait_queue);
-+}
-+
- static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 				   u32 handle, u32 sc,
- 				   struct fastrpc_invoke_args *args)
- {
- 	struct fastrpc_invoke_ctx *ctx = NULL;
- 	struct fastrpc_buf *buf, *b;
-+	unsigned long flags;
- 
- 	int err = 0;
- 
-@@ -1365,14 +1385,25 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 	if (!fl->cctx->rpdev)
- 		return -EPIPE;
- 
-+	spin_lock_irqsave(&fl->cctx->lock, flags);
-+	if (atomic_read(&fl->cctx->teardown)) {
-+		spin_unlock_irqrestore(&fl->cctx->lock, flags);
-+		return -EPIPE;
-+	}
-+	fastrpc_channel_update_invoke_cnt(fl->cctx, true);
-+	spin_unlock_irqrestore(&fl->cctx->lock, flags);
-+
- 	if (handle == FASTRPC_INIT_HANDLE && !kernel) {
- 		dev_warn_ratelimited(fl->sctx->dev, "user app trying to send a kernel RPC message (%d)\n",  handle);
--		return -EPERM;
-+		err = -EPERM;
-+		goto out;
- 	}
- 
- 	ctx = fastrpc_context_alloc(fl, kernel, sc, args);
--	if (IS_ERR(ctx))
--		return PTR_ERR(ctx);
-+	if (IS_ERR(ctx)) {
-+		err = PTR_ERR(ctx);
-+		goto out;
-+	}
- 
- 	err = fastrpc_get_args(kernel, ctx);
- 	if (err)
-@@ -1428,6 +1459,10 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 
- 	if (err)
- 		dev_dbg(fl->sctx->dev, "Error: Invoke Failed %d\n", err);
-+out:
-+	spin_lock_irqsave(&fl->cctx->lock, flags);
-+	fastrpc_channel_update_invoke_cnt(fl->cctx, false);
-+	spin_unlock_irqrestore(&fl->cctx->lock, flags);
- 
- 	return err;
- }
-@@ -2635,6 +2670,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
- 	spin_lock_init(&data->lock);
- 	idr_init(&data->ctx_idr);
-+	atomic_set(&data->teardown, 0);
-+	data->invoke_cnt = 0;
-+	init_waitqueue_head(&data->ssr_wait_queue);
- 	data->domain_id = domain_id;
- 	data->rpdev = rpdev;
- 	dev_set_drvdata(&rpdev->dev, data);
-@@ -2678,11 +2716,25 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 
- 	/* No invocations past this point */
- 	spin_lock_irqsave(&cctx->lock, flags);
--	cctx->rpdev = NULL;
-+	atomic_set(&cctx->teardown, 1);
- 	list_for_each_entry(user, &cctx->users, user)
- 		fastrpc_notify_users(user);
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 
-+	/*
-+	 * Wait for every invoke that was already past the gate to finish.
-+	 * They have all just been woken with -EPIPE, and no new one can be
-+	 * counted, so this is guaranteed to make progress.
-+	 */
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	while (cctx->invoke_cnt > 0) {
-+		spin_unlock_irqrestore(&cctx->lock, flags);
-+		wait_event(cctx->ssr_wait_queue, cctx->invoke_cnt == 0);
-+		spin_lock_irqsave(&cctx->lock, flags);
-+	}
-+	cctx->rpdev = NULL;
-+	spin_unlock_irqrestore(&cctx->lock, flags);
-+
- 	if (cctx->fdevice)
- 		misc_deregister(&cctx->fdevice->miscdev);
- 
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
