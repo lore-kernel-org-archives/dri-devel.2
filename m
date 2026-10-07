@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F3E5CA5FF1
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 08:57:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD087CA5FFF
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 08:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E43D910E179;
-	Wed,  7 Oct 2026 08:57:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3584110E644;
+	Wed,  7 Oct 2026 08:59:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e/uvN36L";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZNqzEOH0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC1710E179
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 08:57:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76B0E10E644
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 08:59:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3E063438AB;
- Wed,  7 Oct 2026 08:57:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7E31F0089B;
- Wed,  7 Oct 2026 08:57:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A84DD600C8;
+ Wed,  7 Oct 2026 08:59:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369C61F0089C;
+ Wed,  7 Oct 2026 08:59:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791363449;
- bh=G8wJj6PpFoyCMnP7Xrc4LxnvQSKftWT9LkrDs6SeMZQ=;
+ s=k20260515; t=1791363565;
+ bh=8Aoign/A8gvRlhla4RqN/wknasQxvdxrjpxw4WzkJvs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=e/uvN36LsH8T64FrM/VHNId++VIL9PwtWPKtrnzAD25oB1KjR+gKL1vpEdyBmuY4u
- aSnKe3tsUeTF4DvK4uJ4p8keNeJpVWxHkkQI8FL6WgEKOn3+TUWN3/sHu0ojqoMh22
- c4FAe3N1PUrWb/9gtBwhhBJkWxXzVS61l5Si0r8FtgT3Ono2WFp14sguV72YwhvBfv
- qpjSrszsTDevtP9xbKMschUDh5M/rnhBRETl7YzK/MwERF4+x9NNah8nY54eJ1x2xQ
- FOc4qHL5Kiem8on6IYjKx2g5oeSmVsVXGV6aZIEyqDmlJURMBQwBXKZu0B0b33o8DQ
- sGyT1Rt4jovPg==
-Message-ID: <sashiko-outbox-162762@kernel.org>
+ b=ZNqzEOH0d8165rkh0u85P1SbZhyiKvPyuiw34IPIahb2WX5C7ZFB7pWewDVnD4wAR
+ eR8gOENu9Vb41CwuiA+Crj5nqt8waidag7RCTNwBDTeL9EkrxBz2qv55C/brBvGrLY
+ Nix7HK0UZ75YfA7copFCgIzv6Pyy5csHs4NSK/5Fwh5kSfw6DnJJxWr2IeawXD0NO8
+ 8Yl3+GUxTO5WG6hpuYmZpRaI+1GvM0XgrJYZxupY1/AxAhaai98zIv+5mVS/VDebgh
+ X9e2iLwd2ZJGiTywomXrYLpEHdBO41mUCytNCMdkPAppWC82CMHAaZe6JpKDKLQrHe
+ 9fyDn3+B7EZUw==
+Message-ID: <sashiko-outbox-162764@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/3] misc: fastrpc: wake poll-mode waiters on SSR
+Subject: Re: [PATCH v1 1/3] misc: fastrpc: initialise channel refcount
+ before exposing the misc device
 To: "Jianping Li" <jianping.li@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261007084447.922-3-jianping.li@oss.qualcomm.com>
+In-Reply-To: <20261007084447.922-2-jianping.li@oss.qualcomm.com>
 References: <20261007084447.922-1-jianping.li@oss.qualcomm.com>
- <20261007084447.922-3-jianping.li@oss.qualcomm.com>
+ <20261007084447.922-2-jianping.li@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 08:57:28 +0000
+Date: Wed, 07 Oct 2026 08:59:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,64 +58,91 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] misc/fastrpc: missing memory barrier and data race on ctx->is_wo=
-rk_done allows stale error codes
+- [High] misc: fastrpc: uninitialized spin_lock access due to premature reg=
+istration
+- [High] misc: fastrpc: UAF on probe error path due to direct kfree
+- [High] misc: fastrpc: UAF in fastrpc_rpmsg_probe error path due to raw kf=
+ree
 --
 
-commit ec0bf5065c708ee8356d5c1feae24849edc520bd
+commit 7fb377963b47742ec8445ae7a99aea90b1ae5375
 Author: Jianping Li <jianping.li@oss.qualcomm.com>
 
-misc: fastrpc: wake poll-mode waiters on SSR
+misc: fastrpc: initialise channel refcount before exposing the misc device
 
-This commit updates fastrpc_notify_users() to set ctx->is_work_done along
-with ctx->retval. This ensures that threads spinning in polling mode will
-observe the termination and exit, instead of waiting for a timeout when the
-DSP goes down.
+This patch moves kref_init() before fastrpc_device_register() to fix a
+refcount warning when userspace opens the misc device concurrently during
+probe.
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 05b2e7e4ad3b7..c54c450cb5714 100644
+> index af18ff1992eed..05b2e7e4ad3b7 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
-> @@ -2663,6 +2663,7 @@ static void fastrpc_notify_users(struct fastrpc_use=
-r *user)
->  	spin_lock(&user->lock);
->  	list_for_each_entry(ctx, &user->pending, node) {
->  		ctx->retval =3D -EPIPE;
-> +		ctx->is_work_done =3D true;
+> @@ -2599,6 +2599,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
+*rpdev)
+>  	data->poll_mode_supported =3D soc_data->poll_mode_supported ||
+>  		of_machine_get_match(fastrpc_poll_supported_machines);
+> =20
+> +	kref_init(&data->refcount);
+>  	switch (domain_id) {
+>  	case ADSP_DOMAIN_ID:
+>  	case MDSP_DOMAIN_ID:
 
-[Severity: Medium]
-Is there a missing write memory barrier here?
+[ ... ]
 
-If the stores to ctx->retval and ctx->is_work_done are reordered by the
-compiler or the CPU, a concurrent thread executing poll_for_remote_response=
-()
-might read ctx->is_work_done as true but read a stale value for ctx->retval,
-such as the initialization value -1 or -EPERM.
-
-In poll_for_remote_response(), a concurrent thread evaluates this locklessl=
-y:
-
-        ...
-        (val =3D=3D FASTRPC_POLL_RESPONSE) || ctx->is_work_done
-
-Even if the polling thread uses dma_rmb() before reading ctx->retval, that
-only ensures read-read hardware ordering. It does not prevent this writer
-thread from reordering the stores. Would it be safer to use
-smp_store_release() for ctx->is_work_done here and smp_load_acquire() in the
-polling loop?
-
-Additionally, does this introduce a plain C data race?
-
-poll_for_remote_response() appears to locklessly write to ctx->is_work_done
-on DSP polling completion. This could cause undefined behavior when racing
-with the lockless reads and this new write in fastrpc_notify_users().
-
->  		complete(&ctx->work);
+> @@ -2626,7 +2627,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
+*rpdev)
+>  		goto err_free_data;
 >  	}
->  	spin_unlock(&user->lock);
+> =20
+> -	kref_init(&data->refcount);
+>  	atomic_set(&data->ctx_seq, 0);
+> =20
+>  	rdev->dma_mask =3D &data->dma_mask;
+
+[Severity: High]
+Does exposing the device to userspace before initializing the spinlock resu=
+lt
+in a fatal crash if the device is opened immediately?
+
+In fastrpc_rpmsg_probe(), spin_lock_init(&data->lock) is called further dow=
+n,
+after the switch statement. If userspace opens the device immediately after
+fastrpc_device_register(), the open path calls fastrpc_session_alloc(), whi=
+ch
+attempts to acquire the uninitialized lock:
+
+fastrpc_device_open()
+   fastrpc_session_alloc()
+      spin_lock_irqsave(&cctx->lock, flags);
+
+[Severity: High]
+Does the probe error path cause a use-after-free if userspace has successfu=
+lly
+opened the device?
+
+Since kref_init() now executes before the device registration, an early open
+can successfully acquire a reference via fastrpc_channel_ctx_get().
+
+If a subsequent probe step fails (such as the second fastrpc_device_registe=
+r()
+call for CDSP/GDSP, or of_platform_populate()), the probe error path direct=
+ly
+frees the channel context:
+
+err_free_data:
+	kfree(data);
+	return err;
+
+This unconditional kfree() bypasses the kref lifecycle. When userspace later
+closes the file descriptor, fastrpc_device_release() calls
+fastrpc_channel_ctx_put(), which will dereference the freed memory.
+
+Should the error path use fastrpc_channel_ctx_put() once the kref has been
+initialized, instead of calling kfree() directly?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007084447.922-=
-1-jianping.li@oss.qualcomm.com?part=3D2
+1-jianping.li@oss.qualcomm.com?part=3D1
