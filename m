@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69D93CA6004
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 21:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4078CA6004
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 21:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89A4D10E6A8;
-	Wed,  7 Oct 2026 21:21:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBB7B10F7D5;
+	Wed,  7 Oct 2026 21:21:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GxTVdq//";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z24Iugdw";
 	dkim-atps=neutral
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com
- [209.85.221.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A78B10E6A8
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 21:21:16 +0000 (UTC)
-Received: by mail-vk1-f180.google.com with SMTP id
- 71dfb90a1353d-5df34e70a50so33113e0c.1
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 14:21:16 -0700 (PDT)
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
+ [209.85.221.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE00510F7D5
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 21:21:21 +0000 (UTC)
+Received: by mail-vk1-f170.google.com with SMTP id
+ 71dfb90a1353d-5dedc4e5cf4so3510985e0c.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 14:21:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791408075; x=1792012875; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=LOpZSgzRV4NwYdKLmYPXK96b+o+B6wygQfoMMD57LmQ=;
- b=GxTVdq//eSsGp7aPYJeFsYOa7t4OQFOw7xY+mTwp5LKNox1+gIfWXSqW/Olh4dG9BZ
- UQWqpPIeSPNOtvoZMUhV6mPQ3Cle8Fq603YbLApwhEPy1JQPE//Wk3Yjk+9KU/e202i+
- o95XFUhzDu6/+dSCD07GbOtAV/fZn5xusgSOE5FoNqsDp5CfXdmchKYcTzKZxOOav8hA
- WZSEtG9WkJJ6UxQi5x6r4sBzmqHWmn8uRC5emlgB68qQNO2pLc/4b+tl3CSyMHyUkeW5
- tYNEg9VCdYegvRgGvNfStA7tgNlAVC0/u4CCgkr8lcbhGcLQ99qNgTq+4ZpHY+T4v9gh
- K4gg==
+ d=gmail.com; s=20251104; t=1791408080; x=1792012880; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=e14mQQiltcvPeO/AMh2B9KgoOUXPqFLUs2pJsfGY66Q=;
+ b=Z24IugdwqzxhfguEdJOWHNB5LwzpEIDpfjIAT7MSDO+cqdwYuavgld9GXKbd8Pqo13
+ S1/1t9wDcipEjTibAC//71VyY4P9HcPE367ePJd3RsRcQ8aUeAWW0So/A9BN+jIerqW6
+ JuqUMoxr3bMLPIE+Q+WJiWSWUey5+iNzRMZho1z0/+qqBGMvaV3g6R1x0tk57C86pmeb
+ Yf+CWaKr6ddGzLvODWCBSW53030dfIxaIFg5UQAay+HmibenSz7J/kye8nNFMJwVCbc9
+ KGqbl4dsGVuCg+Y92jL05BsN4rSg9Ew6PZu9yOfeIjEqOxXPRMi94SodFnYJq9sMFm+B
+ yzVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791408075; x=1792012875;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=LOpZSgzRV4NwYdKLmYPXK96b+o+B6wygQfoMMD57LmQ=;
- b=DU7D6n4ebKarAV8UZUpx5hM9ruz2rypFt9AAhWr0Wp982xuHfsH4ZP7hRa4Etuy+XA
- yREIKjU+OFoRLPzaQyH1dbjJuiWTq9Uj7MAZHcWqs3BTZzVsWaUXbeKAD7AygfQ4Gr9+
- SWme62P2U0CYz+oou4wMzsNh90lMzd7feZOKhmqXzUbZ1mVzpwRvxeGdUnCrBVsJZOH6
- +I35lSJvFCY9VACPG3Q/9fwnGfOPjBSh7SCLx8doPkf7D9U6ffa02FFxY2Q6h3XwrxCW
- NqdFHaWyQDYGaTTzJh3ZEDUqTvIOhEuLnIVu68eBVvD6/KtTEJVE5Hmr4DdgHgF9RDBa
- kVhg==
-X-Gm-Message-State: AFq9FYLAwfzVm0K96XmJADF5u+lsq+dpmaVRZpxV/XvwZV3Vja89Q/6s
- khK94WUycfG72krz8dqf6zEvLxH5vQxWUk08779mi0ZZUQaeFWgBkmLn
-X-Gm-Gg: AYBFou1aTjtvJOiIdH5iB0VW9YEQf8dgfjyE2mrZKQhNf/9zinkcrt339BQgXTKdWtG
- 1pdccgYjVFej1Qd/kJtQWM90ETcDJvSBj5HtFlzy2Ip/RSOJ5h81hjLyonEMx+woj4jBj1ygIIf
- Tt558cYcoDax4Ykhzck7Z0P9Q9/Riq0gxXTQg2PtsaultJsFwwx9k/bKfZZIM3BIwYlTBji8pjG
- FUtwmHIZ1S57eHecmQyiCsfn+le+k3KPsDZZG8JcEZldmNQSMFzGoZmxMmxXoxPQipGEFhIYgkq
- Z4C9l09IFroIWaG6vBTGL9aU4oNaDBZHCey4576kKGGr66W53SPbLz2kxLQf3Nk0oPEu7enD6IT
- 6gUMaS6KQYsiZiat0MbV61o7sYK3jS/RQOM4upoAU9RxLl8+z6IS2NmG9uXjOwGgRlcmlZGJXsq
- 2GS4wkhpi5y+2xSha6Sy6qnvpMWfOdgQIkVW+yMegyXLGIQlR7HEl/Vv2gXmPpY2E=
-X-Received: by 2002:a05:6122:6849:10b0:5cd:4fdc:4c30 with SMTP id
- 71dfb90a1353d-5e82a137713mr88297e0c.8.1791408075168; 
- Wed, 07 Oct 2026 14:21:15 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1791408080; x=1792012880;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=e14mQQiltcvPeO/AMh2B9KgoOUXPqFLUs2pJsfGY66Q=;
+ b=XovygSX1s5nhqacGWaJN8IPEiMtFQFCioVTmio06C9SPE13JrViUfpclt/En9+XGGy
+ qqQClCX0PXnqf/O0h1X6PaHEQWgqN2OjjUCOa/3/dyqG7tndkWsj+agx3wGiwlHsVgrJ
+ HTD7Uezb1RDLRIhYPwqXYC2xBpjAbJVYJp66/DNEbTFHlVZxLOkBx8vqkKpEmncoNPzG
+ CtC3qrWjqUF2/8kidDemKbFsonBRkLY24im0RQjW+0tqdzufZXvrrzQzEt6D9Lpd7IQ5
+ W/RIYzqhPBgPna7UcxeQyuNpJqv0LL7+tH4l+oPlOp+Fg+924pkGaUkOoBN9YG0KdWGw
+ 9feg==
+X-Gm-Message-State: AFq9FYILgaTvtUFWzoQM2C7kcIOexSG4QqyQcLb/ab/zvnLdCVughuU2
+ ACxRvMsgfTL7ARAgXlTtSK0q2Upkc70K/q20Lsw6YppSom5kQcWkYEu2
+X-Gm-Gg: AYBFou2MrvTgC1JHKjejbh+XfYiTM9EA0C1gDA3h6WUIJe1U935FqPNlBUkUsKEzYEE
+ riq7qhJnXCUkWRnBz+Tq0eJQ775e4wBNdJSdxMft8LwC7+GwuhTbiCQOoRVjkOa5kUJPqtVU0PF
+ qUnpf6bnOb0KqilJP7tt0H0OHizQZmLyXGVnjJ49ih0/vpSedrXNcZuyWXTLuhiL7lRLv46BmDb
+ TEgRPgEYB89HDa42DeWyeGV29h/BopPmKY5b3IqmJyfApf2kFpsZF8lLsGbyj3F/etkJjFYqNjg
+ OKjTUbmZ21aQQe2dqX9D4W9mID/p5ZIIq8DRy9bksWvCPrzPO2zMMxJDTIVbPnJ9i5/fesGYt2d
+ X3rtWfH5yc7E70IkBFV+zdCsgsEu+AJyDyDe+GeqSsgkj5OjUKBAEXWxItR2eyv4700lWLSsPhp
+ zX3VqBTmyTTHmN2Bs9R2v8ZSFeqqhvnped9MuDNybpRkKxh4SC3AXQ14fmR95tpXE=
+X-Received: by 2002:a05:6122:390f:b0:5c9:c60e:5cf6 with SMTP id
+ 71dfb90a1353d-5e6d3701681mr1419054e0c.20.1791408080617; 
+ Wed, 07 Oct 2026 14:21:20 -0700 (PDT)
 Received: from beelink.. ([187.13.30.250]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5e6c4d62704sm3115891e0c.10.2026.10.07.14.21.12
+ 71dfb90a1353d-5e6c4d62704sm3115891e0c.10.2026.10.07.14.21.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 14:21:14 -0700 (PDT)
+ Wed, 07 Oct 2026 14:21:20 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: zack.rusin@broadcom.com
 Cc: dri-devel@lists.freedesktop.org, maaz.mombasawala@broadcom.com,
- stable@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v2 1/2] drm/vmwgfx: return an error when a shared GB surface
- has no backup buffer
-Date: Wed,  7 Oct 2026 18:20:48 -0300
-Message-ID: <20261007212051.2574235-2-qwe.aldo@gmail.com>
+ stable@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+ Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2 2/2] drm/vmwgfx: close TOCTOU on guest_memory_bo in surface
+ reference ioctl
+Date: Wed,  7 Oct 2026 18:20:49 -0300
+Message-ID: <20261007212051.2574235-3-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261007212051.2574235-1-qwe.aldo@gmail.com>
 References: <20261007212051.2574235-1-qwe.aldo@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,51 +88,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vmw_gb_surface_reference_internal() rejects a surface that has no backup
-buffer by logging an error and jumping to out_bad_resource, but it never
-sets ret on that path. ret is still 0 from the earlier successful
-vmw_surface_handle_reference(), so the ioctl returns success while
-leaving the reply structure unfilled — user space is handed a
-"successful" reply that was never produced. DRM_VMW_GB_SURFACE_REF is
-DRM_RENDER_ALLOW, so an unprivileged local user can reach it.
+vmw_gb_surface_reference_internal() checks srf->res.guest_memory_bo
+for NULL and reads its vma_node offset and base.size outside the
+cmdbuf_mutex scope that protects the backup pointer.
 
-Set ret to -EINVAL and, on the error paths, drop the reference that
-vmw_surface_handle_reference() took; once the ioctl fails user space no
-longer releases it via DRM_VMW_UNREF_SURFACE. The unref is guarded by
-ret so the shared success fall-through keeps the reference the caller
-still owns, and it also plugs the same leak on the drm_gem_handle_create()
-failure path.
+A concurrent backup switch, e.g. from SVGA_3D_CMD_BIND_GB_SURFACE
+via vmw_resource_unreserve(), drops its reference to the old buffer
+and installs a new one under cmdbuf_mutex. The unlocked check in
+the surface reference ioctl can see a transient NULL. The reads
+after the unlock can return another buffer's offset and size; a
+further switch can drop that buffer's last reference and free it
+while the ioctl reads from it.
 
-Fixes: 14b1c33e8429 ("drm/vmwgfx: Add new ioctl for GB surface create and reference")
+Move the NULL check inside the mutex, and read buffer_map_handle
+and buffer_size while still holding it.
+
+Fixes: a97e21923b42 ("drm/vmwgfx: Hook up guest-backed surfaces")
 Cc: stable@vger.kernel.org
-Suggested-by: Zack Rusin <zack.rusin@broadcom.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-index bd0563741e89..97966d849583 100644
+index 97966d849583..291e3efad9ad 100644
 --- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
 +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-@@ -1720,6 +1720,7 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
+@@ -1718,23 +1718,32 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
+ 
+ 	user_srf = container_of(base, struct vmw_user_surface, prime.base);
  	srf = &user_srf->srf;
++	metadata = &srf->metadata;
++
++	mutex_lock(&dev_priv->cmdbuf_mutex);
++
  	if (!srf->res.guest_memory_bo) {
++		mutex_unlock(&dev_priv->cmdbuf_mutex);
  		DRM_ERROR("Shared GB surface is missing a backup buffer.\n");
-+		ret = -EINVAL;
+ 		ret = -EINVAL;
  		goto out_bad_resource;
  	}
- 	metadata = &srf->metadata;
-@@ -1758,6 +1759,9 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
- 	rep->creq.must_be_zero = 0;
+-	metadata = &srf->metadata;
  
- out_bad_resource:
-+	if (ret)
-+		ttm_ref_object_base_unref(vmw_fpriv(file_priv)->tfile,
-+					 base->handle);
- 	ttm_base_object_unref(&base);
+-	mutex_lock(&dev_priv->cmdbuf_mutex); /* Protect res->backup */
+ 	ret = drm_gem_handle_create(file_priv, &srf->res.guest_memory_bo->tbo.base,
+ 				    &backup_handle);
+-	mutex_unlock(&dev_priv->cmdbuf_mutex);
+ 	if (ret != 0) {
++		mutex_unlock(&dev_priv->cmdbuf_mutex);
+ 		drm_err(dev, "Wasn't able to create a backing handle for surface sid = %u.\n",
+ 			req->sid);
+ 		goto out_bad_resource;
+ 	}
  
- 	return ret;
++	rep->crep.buffer_map_handle =
++		drm_vma_node_offset_addr(&srf->res.guest_memory_bo->tbo.base.vma_node);
++	rep->crep.buffer_size = srf->res.guest_memory_bo->tbo.base.size;
++
++	mutex_unlock(&dev_priv->cmdbuf_mutex);
++
+ 	rep->creq.base.svga3d_flags = SVGA3D_FLAGS_LOWER_32(metadata->flags);
+ 	rep->creq.base.format = metadata->format;
+ 	rep->creq.base.mip_levels = metadata->mip_levels[0];
+@@ -1747,9 +1756,6 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
+ 	rep->crep.handle = user_srf->prime.base.handle;
+ 	rep->crep.backup_size = srf->res.guest_memory_size;
+ 	rep->crep.buffer_handle = backup_handle;
+-	rep->crep.buffer_map_handle =
+-		drm_vma_node_offset_addr(&srf->res.guest_memory_bo->tbo.base.vma_node);
+-	rep->crep.buffer_size = srf->res.guest_memory_bo->tbo.base.size;
+ 
+ 	rep->creq.version = drm_vmw_gb_surface_v1;
+ 	rep->creq.svga3d_flags_upper_32_bits =
 -- 
 2.43.0
 
