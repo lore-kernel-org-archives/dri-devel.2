@@ -4,77 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE20DCA5FFF
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 12:47:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A750CA5FFC
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 12:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FAE810E574;
-	Wed,  7 Oct 2026 12:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F152110E5A2;
+	Wed,  7 Oct 2026 12:51:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GqfI5SiN";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="uB4aqCXj";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8508110E5A2
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:47:01 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-48441a2ba1bso2344392f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 05:47:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791377220; x=1791982020; darn=lists.freedesktop.org;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Pw9oOm89VS3pKxM7huEG/FH/rlcTt1EJ1qu86BiIZks=;
- b=GqfI5SiNHpDoYJvMOQbnRZxr3+jY6pYopJLoAP/AabJZfbxrxP3ZwbKE008Gj8ZI72
- 3KgyWqsMbuspA3wjfMfsGTfJjNhWPpiphFL7JD/WBFVaaqYOYywVJNn6ZUCuv202XABl
- y+fqiVjMMh2U6pJjBCyu6rKjKdqE1uy/fWsvkFJyGA4uuHo1rczljH1BvJt+1OoDMJQj
- YN3ehsyJxHN8wJRAOxix0IPzx1m9fa74tywCQzJBr/TUoE+tU8eHD3VepSXXG11AlGIL
- vSLT+mVo119X+eJTc6ze/v4g3KufoicPDQOj7HVZG8DabAjsoCnTGAnDoH7B/jbH0/fw
- eT4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791377220; x=1791982020;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Pw9oOm89VS3pKxM7huEG/FH/rlcTt1EJ1qu86BiIZks=;
- b=fKubYSNNhr2xWHVofhxXdWZNQpk4urvACGjZOtj5ofX/NGvMZQu/fMagODD64q5e9k
- 07Lrf0fjpLNbLlWJ66e0xKWLG4tvE7iufbZ80pETR3ioA0EFQ2ph84EIGOp0E5p5nTGt
- tNG6ALhypgiBkK7trP+2NB2tcUmzHhuRRfwad4QDNlp59n1eyHRTal6seDGgFtKbymIj
- eaIYxQp3UIcx7lYuQ+TeWGzr3fkXP3WlIS4bXkA4h5pFBkYypV3LpIt7AlrwKx6YH+TX
- 7KEDUVfN7eWqpUX/b0u9ckJeG7NxTSKyC+A0r99UhYFeSDLnxP9SIk1gUdMkG0t38jiW
- xOPA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByCDjGEhSiAlvAPNY5FxeZnEftRbti5SWhPJGVbKoItGiQvvaIV69sCeTcSZDwn0qXry9GIpNI5ngg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJE+yUraeU8fJ3rd1HLKv6YOjxH4KNDVjGYePmNd6iGAWQCn7vM
- 0cCfPNML48otAKGqn2KfwAs0qI8BcU3c45BQI6xAhRB7le9+vPQfUZJt
-X-Gm-Gg: AYBFou1Q7tDejpPWmU14NOErIwSWolcL9NkTkmrfVy1IwlNflK/Bd0ERkdTy/Y+z5Xh
- 2lq8SV6gqBNXBY8+1kacGqbElAT2Dnhx6QhW3M9fkDuw6OTKQvtOeIVX6a8SCoBuegdZDMBFWzR
- BcIxeMHvxlpmFSB9JNmZ6WU5fHyiKVvDwPcXTcHHaHHfURc1pJNZ93Y+7hsuwvMmKeaw2YC0/nW
- PzBcHRFOPEIg65mQ+uiHGGT+bUKVlNifwb3PhP7NBsJi3Epp7OB7tCiB/WDaJLyMwxFndY3HVFs
- 6R/nUtkGjPiPxZCgOQq+v5l2sdTL1u6QDm5dsbYxM8hmNmWB1zm2RhHUg9wKmYH4NuB5qn/F/jp
- lBBG0g/pD2a6QHZBcTjtudt+jFH65CKcNSx/f1gWSOjScjgWB0iZ3bl8iIOOcrTMndmjb75pQ/k
- lu5F5p36EpSL6jYocFiKQjKQvMT2o1E+6RF4aRhblLuX6u6A/QmydXUv5agNIanVbuFBbpL7U0n
- S2f9JV6bn0=
-X-Received: by 2002:a05:6000:25c2:b0:48b:ec8:b0d8 with SMTP id
- ffacd0b85a97d-48c72896f2bmr4602766f8f.32.1791377219486; 
- Wed, 07 Oct 2026 05:46:59 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:150a:df00:dcdc:55f8:fa06:622a])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48c71d3050asm5011285f8f.50.2026.10.07.05.46.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 05:46:58 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: vitaly.prosyak@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/exec: don't immediately add prelocked obj to array of
- locked objs
-Date: Wed,  7 Oct 2026 14:46:57 +0200
-Message-ID: <20261007124657.9664-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7B22E10E5A2
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:51:23 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8661D1595;
+ Wed,  7 Oct 2026 05:51:19 -0700 (PDT)
+Received: from [10.57.75.203] (unknown [10.57.75.203])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7DB3C3F763;
+ Wed,  7 Oct 2026 05:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1791377482; bh=5pMbPdR4/kDddHC0N4iWazZ6mHvKQ770DGB9VgRAW0Y=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=uB4aqCXj2ql1Nxh4CfVDpX94fNSzudZALvn/ODs2uAdyT7EfFdG4VFGWBtVd3FvcO
+ SD8fU2Jxs+LdKI4ZShvMOnZel8zNsYOQdBpZc0KyshBuiR+N4qho42bPdRCIvrXu1f
+ MsIw3ipkFzHfdMbH0rEsLCzeAGxM+x57ld853mW4=
+Message-ID: <5bd07106-e9dd-487a-be85-8e6a73c67967@arm.com>
+Date: Wed, 7 Oct 2026 13:51:17 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 09/15] drm/panfrost: Add warning messages to fatal
+ error conditions
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-9-62beb08de207@collabora.com>
+ <2ea16821-fcd8-4f35-b371-7c7e57f76e7c@arm.com>
+ <179129938072.1018806.14660127756555690690.b4-reply@b4>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <179129938072.1018806.14660127756555690690.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -89,202 +67,105 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a contention is detected the drm_exec object grabs a reference to
-the contended object, unlocks all other objects and pre-locks the
-contended one before anything else.
+On 06/10/2026 16:09, Adrián Larumbe wrote:
+> On 2026-10-02 15:59:20+01:00, Steven Price wrote:
+>> On 29/09/2026 04:44, Adrián Larumbe wrote:
+>>
+>>> Rather than just failing silently, let's warn the user of device remove not
+>>> being able to take an PM reference or the PM suspend path still reporting
+>>> inflight jobs. Neither situation should ever happen.
+>>>
+>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+>>> ---
+>>>  drivers/gpu/drm/panfrost/panfrost_device.c | 5 +++--
+>>>  1 file changed, 3 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+>>> index c6bf3d0663df..09a5752a3f40 100644
+>>> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+>>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+>>> @@ -9,6 +9,7 @@
+>>>  #include <linux/pm_runtime.h>
+>>>  #include <linux/regulator/consumer.h>
+>>>  #include <drm/drm_drv.h>
+>>> +#include <drm/drm_print.h>
+>>>  
+>>>  #include "panfrost_device.h"
+>>>  #include "panfrost_devfreq.h"
+>>> @@ -357,7 +358,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+>>>  
+>>>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>>>  {
+>>> -	pm_runtime_get_sync(pfdev->base.dev);
+>>> +	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
+>>
+>> This seems fine.
+>>
+>>>  	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>>>  	pm_runtime_disable(pfdev->base.dev);
+>>> @@ -516,7 +517,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
+>>>  {
+>>>  	struct panfrost_device *pfdev = dev_get_drvdata(dev);
+>>>  
+>>> -	if (!panfrost_jm_is_idle(pfdev))
+>>> +	if (drm_WARN_ON(&pfdev->base, !panfrost_jm_is_idle(pfdev)))
+>>
+>> I'm a bit wary that this might be something that user space can trigger.
+>> My AI says:
+>>
+>> The runtime-suspend WARN can be reached by ordinary userspace job
+>> submissions. The DRM scheduler increments credit_count before calling
+>> Panfrost’s job runner (drivers/gpu/drm/scheduler/sched_main.c:1044).
+>> Panfrost takes the job’s PM reference later in hardware submission
+>> (drivers/gpu/drm/panfrost/panfrost_job.c:213). If autosuspend runs in
+>> that interval, the new WARN
+>> (drivers/gpu/drm/panfrost/panfrost_device.c:525) sees the credit and
+>> fires, even though this is a timing race rather than a broken job.
+>> Repeated submissions near the autosuspend boundary could therefore
+>> produce repeated stack traces. The PM core treats the resulting -EBUSY
+>> as a transient failure.
+>>
+>> Now I have to admit I don't trust it that much - but I'd want a
+>> convincing argument on why panfrost_jm_is_idle() will never be false here.
+> 
+> You're right. I was in the belief that autosuspend kicking in was proof of no
+> inflight or pending jobs present in the scheduler queues, so I came to treat
+> this check as things having gone awry.
+> 
+> I guess its value lies in the ability of the PM runtime suspend handler
+> to cancel itself at an autosuspend event, like you said.
+> 
+> However, it just made me wonder: what would happen in the event that autosuspend
+> kicks in and runs panfrost_device_runtime_suspend() right at the same time that
+> a scheduler job is picked up by drm_sched_run_job_work(), but hasn't yet reached
+> the statement where it does an atomic increment on the credit_count? I guess
+> nothing, because panfrost_job_hw_submit() is getting a PM reference before
+> accessing any HW registers, and that should take care of dealing with any
+> ongoing autosuspend events.
+> 
+> In that case I'll just delete that warning. However, I'd say it's bad practice
+> to have DRM drivers access the internal state of the DRM scheduler. At present,
+> only Panfrost and Etnaviv poke it in their RPM suspend handlers, and I've been
+> wondering whether we should get rid of this check altogether, or else maybe ask
+> the scheduler maintainers whether it makes sense to have a non-racy way to
+> query the presence of pending jobs in their queues?
 
-The problem is that it is possible that this pre-locked object was about
-to be destroyed and drm_exec is now holding the last reference to it.
+Yes, I'm not sure whether we actually need that check. As you say
+there's still a race where panfrost_jm_is_idle() returns true, but
+afterwards credit_count is incremented. I think this is safe -
+panfrost_job_hw_submit() takes a PM reference which will cause the GPU
+to be woken up again. So we could just drop the panfrost_jm_is_idle()
+function completely.
 
-So we never actually see this pre-locked object again to be explicitly
-locked and so also never reserve a slot for a dma_fence object on it.
+Whether that has any performance impact - i.e. do we often race the
+autosuspend operation? - I've no idea. Presumably you didn't hit it when
+you had the WARN in place. So if you'd prefer to just remove the code
+then that's fine by me.
 
-Should the driver now use drm_exec_for_each_locked_object() to add a new
-fence to all locked objects we eventually see a warning or even a
-BUG_ON() to prevent random memory corruption.
-
-Fix this by keeping the prelocked object of the array of locked objs
-until it was explicitly mentioned by the driver again.
-
-Should the prelocked object never been mentioned again by the driver
-just unlock and drop the reference at the end of the locking loop.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reported-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Fixes: 09593216bff1 ("drm: execution context for GEM buffers v7")
-CC: stable@vger.kernel.org # v6.6+
----
- drivers/gpu/drm/drm_exec.c | 73 ++++++++++++++++++++++----------------
- include/drm/drm_exec.h     | 15 ++++----
- 2 files changed, 52 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-index 2453ec41360f4..a910b0ad17ce4 100644
---- a/drivers/gpu/drm/drm_exec.c
-+++ b/drivers/gpu/drm/drm_exec.c
-@@ -48,6 +48,16 @@
-  * See struct dma_exec for more details.
-  */
- 
-+/* Unlock and put the prelocked obj */
-+static void drm_exec_drop_prelocked(struct drm_exec *exec)
-+{
-+	if (exec->prelocked) {
-+		dma_resv_unlock(exec->prelocked->resv);
-+		drm_gem_object_put(exec->prelocked);
-+		exec->prelocked = NULL;
-+	}
-+}
-+
- /* Unlock all objects and drop references */
- static void drm_exec_unlock_all(struct drm_exec *exec)
- {
-@@ -58,8 +68,7 @@ static void drm_exec_unlock_all(struct drm_exec *exec)
- 		drm_gem_object_put(obj);
- 	}
- 
--	drm_gem_object_put(exec->prelocked);
--	exec->prelocked = NULL;
-+	drm_exec_drop_prelocked(exec);
- }
- 
- /**
-@@ -118,6 +127,14 @@ EXPORT_SYMBOL(drm_exec_fini);
- bool drm_exec_cleanup(struct drm_exec *exec)
- {
- 	if (likely(!exec->contended)) {
-+
-+		/*
-+		 * The contended and prelocked object might never given to
-+		 * drm_exec_lock_obj() again. This can happen when the object
-+		 * is about to be cleaned up and we now hold the last reference
-+		 * to it. Make sure that we don't unecessarily keep it around.
-+		 */
-+		drm_exec_drop_prelocked(exec);
- 		ww_acquire_done(&exec->ticket);
- 		return false;
- 	}
-@@ -175,16 +192,16 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
- 		dma_resv_lock_slow(obj->resv, &exec->ticket);
- 	}
- 
--	ret = drm_exec_obj_locked(exec, obj);
--	if (unlikely(ret))
--		goto error_unlock;
-+	/*
-+	 * It is perfectly possible that we see another contention before the
-+	 * first one is fully handled.
-+	 */
-+	drm_exec_drop_prelocked(exec);
- 
-+	/* We move the reference from contended to prelocked here */
- 	exec->prelocked = obj;
- 	return 0;
- 
--error_unlock:
--	dma_resv_unlock(obj->resv);
--
- error_dropref:
- 	drm_gem_object_put(obj);
- 	return ret;
-@@ -212,35 +229,31 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
- 	if (exec->prelocked == obj) {
- 		drm_gem_object_put(exec->prelocked);
- 		exec->prelocked = NULL;
--		return 0;
--	}
-+	} else {
-+		if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
-+			ret = dma_resv_lock_interruptible(obj->resv,
-+							  &exec->ticket);
-+		else
-+			ret = dma_resv_lock(obj->resv, &exec->ticket);
-+
-+		if (unlikely(ret == -EDEADLK)) {
-+			drm_gem_object_get(obj);
-+			exec->contended = obj;
-+			return -EDEADLK;
-+		}
- 
--	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
--		ret = dma_resv_lock_interruptible(obj->resv, &exec->ticket);
--	else
--		ret = dma_resv_lock(obj->resv, &exec->ticket);
-+		if (unlikely(ret == -EALREADY) &&
-+		    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
-+			return 0;
- 
--	if (unlikely(ret == -EDEADLK)) {
--		drm_gem_object_get(obj);
--		exec->contended = obj;
--		return -EDEADLK;
-+		if (unlikely(ret))
-+			return ret;
- 	}
- 
--	if (unlikely(ret == -EALREADY) &&
--	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
--		return 0;
--
--	if (unlikely(ret))
--		return ret;
--
- 	ret = drm_exec_obj_locked(exec, obj);
- 	if (ret)
--		goto error_unlock;
--
--	return 0;
-+		dma_resv_unlock(obj->resv);
- 
--error_unlock:
--	dma_resv_unlock(obj->resv);
- 	return ret;
- }
- EXPORT_SYMBOL(drm_exec_lock_obj);
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index cc2937185a9f7..c92d69a2c793d 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -73,13 +73,15 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
- 
- /* Helper for drm_exec_for_each_locked_object(). Internal use only. */
- #define __drm_exec_for_each_locked_object(exec, obj, __index)		\
--	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); ++__index)
-+	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); \
-+	     ++__index)
- /**
-  * drm_exec_for_each_locked_object - iterate over all the locked objects
-  * @exec: drm_exec object
-  * @obj: the current GEM object
-  *
-- * Iterate over all the locked GEM objects inside the drm_exec object.
-+ * Iterate over all the explicitly locked GEM objects inside the drm_exec
-+ * container, except for the contended and implicit prelocked one.
-  */
- #define drm_exec_for_each_locked_object(exec, obj)			\
- 	__drm_exec_for_each_locked_object(exec, obj, __UNIQUE_ID(drm_exec))
-@@ -94,12 +96,13 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
-  * @exec: drm_exec object
-  * @obj: the current GEM object
-  *
-- * Iterate over all the locked GEM objects inside the drm_exec object in
-- * reverse locking order. Note that the internal index may wrap around,
-- * but that will be caught by drm_exec_obj(), returning a NULL object.
-+ * Iterate over all the explicitly locked GEM objects inside the drm_exec
-+ * container in reverse locking order. Note that the internal index may wrap
-+ * around, but that will be caught by drm_exec_obj(), returning a NULL object.
-  */
- #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
--	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
-+	__drm_exec_for_each_locked_object_reverse(exec, obj,		\
-+						  __UNIQUE_ID(drm_exec))
- 
- /**
-  * drm_exec_until_all_locked - loop until all GEM objects are locked
--- 
-2.43.0
+Thanks,
+Steve
 
