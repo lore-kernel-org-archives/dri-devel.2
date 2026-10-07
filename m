@@ -4,96 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FC2CA5FFC
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:51:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15437CA6004
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB51610F5D9;
-	Wed,  7 Oct 2026 13:51:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31C8810F5DD;
+	Wed,  7 Oct 2026 13:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H0sJ/KTU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T46J/Hqq";
 	dkim-atps=neutral
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F3F610E397
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 22:14:21 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-3a75f960be4so8531241fa.2
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 15:14:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791324859; cv=none;
- d=google.com; s=arc-20260327;
- b=ZsO4n93evcBRJHyYGO/pr1uU1Jz0NRPG/rMc2Gb2oKfidq+kfONcPXDBGnXimrDkrk
- s6w6n/4ZYNPZUjZbOSBEX0XV9rDVnvkVPJwBlreGAwlHAxpgLhlyHG2oPnTREs7ANk6o
- I+82UFsiBb+2JX3/oRWcam9d6f2In8tZCqWNEkGYEXuFLYuinz9Tg/gv0RIIgKkG0qOQ
- 1dZOgyoWc1ekZtIh3QZ4f+PWECXfykjx9N5MZpzx1IdndK7jFn2qfP23AXHRX6ATjCgk
- XjSXBod14KSPQIcwLA/SvIxDc6kJrwhZbwkTn6SbMJx8yUwtgvMKgNj10s0oAuZAyz++
- KycA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
- fh=ThARES5xqMmACv6nCD2M3tIyrnPGcr9jK+yOx5fdMio=;
- b=qz2KqZm7WBMDJ2vyWLdqb0KRIC5Exm08l9DNY/7X/+v+amvNkp4PnsCRuCQoq53689
- 5J+YkbUR8ExW+IZGpiPtFED3l1PNLbGZUa4skhjSe3XM2T5RBrDPoQFnAFGGT1aA3fDy
- AKQSzNl7LvmVJ5AGovQvrqh3NpEGzsnTVHreMzN/XJHHx0aUZCMfxUoZviazLQGJYZv3
- 78neWCRJV6Aj55KDlo8cVZCqS/Z1soTaWpDpkRE2XhflFfr3DfV8oaWsAQ5dBgqAaY87
- 4d0bsG1rh8nVlZmILfSYVQ/kClmeYz8VkK7Fhwtd23v8sVyr8p5iPsxsrg1BGX3HmVUu
- cVlA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7756410E3DD
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 09:33:37 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-ccce967aa8dso1584612a12.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 02:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791324859; x=1791929659; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
- b=H0sJ/KTUVwg/ILyiB3enmAoFbFguvrD+UYaZ4X+QOFULlPBT+Fk++TndkBb01RpzS+
- R2tCHpRZTIbKuy41uQhNzmoS/2A5Q4/MxLWVvkzxYFeKtzcOVfUApqF19YjSSXFUU2qE
- /gsZjmymUsOeGkfe1oKTFMBCxYpK+wKPt5cOo6fAD9bOPgH0iB592WCfW4q8SbnnZin6
- Qd17kQZplKSOp4BtAkRB1Gw2KmmnmxAoMf8h12Jpag0PmRnSlMsp5Icnk54WfZOmBUVm
- mEC9ye2Guy/7mxMb3qwNsWtME1227mxZvUoB7TX5EMF2arzgqHbXn8YwyGNH3ny8IDB8
- 6tDA==
+ d=gmail.com; s=20251104; t=1791365617; x=1791970417; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=Vy63mdqIPndIk85N+xwyTXgE3amsDxjtRy55K/v9EX0=;
+ b=T46J/HqqA/kIf+HJLRwzHvk9o4iShIR4XcBCEcjIinMiIsN1CN7/4IFL1p8po2OWXf
+ culzApp4tIhNXaJmkQFvKwL3xSLUfoJrZqAmL/2CNYRG5eptEWPSaYBC0/Lrhp9XvC4t
+ 7WNRef8wPLjARUryTxO6tFnes0wnwS0FvzZa2k315djIw4yI1nS7KyW9P63z50LTaAOM
+ Sot2q7iaeySog6fiBqpo6zjrXhpJNZI4GNj/x3SdFfVfaGYOEOx+Er4QzmuwCkzFpVP9
+ p0/tNt7kPi1+2gI/eBszJtcLawZ++2NVkLK2rPCj21p2NHKlmYCu4pSzW7aptjTJrIlI
+ ZK0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791324859; x=1791929659;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
- b=yG2ryVF5Lc9QYG6KFUgaleggaDPs/DkJt2rA/UGfGLXIVFzdPJ000KlPmpqRWQPs4U
- bKefiMfneTaFQwzzB6dYWx9Dn+0wUL+1EOTMnF6/mThcFzG5DNfswZsXBvwKx9iv97aM
- 0Ga8QWrzRHR8JnQyAwmP7SmZA+GkF811TodiZJH/apWH2R0qWFMUNZjzgxCypUnPDe8/
- yYE7jGsKJATyj3S/+REn3EgSt/JBn/oPIJ15KLfz4/MpLqFeK5Q+3ueqntFW3HFlZ57x
- MhLbscAI5lh0tvLCMTv58kpxN2k+2ASR02mSEw5rBQmfMdAxxRNnlJAzGB50EFHFvJOH
- 4+mQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxMR+yLOlTLacGr6YMYGtwI5LPZocjeod0T4esKVkNgjZjvLqmw6rmgFh+8alG9NJ0STTLhDMnn1OI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKwQ+S5iaJVKvKWFW8qcXyFGMn3s6u4jHKohERkHr6CTed9n4gY
- hrbk0iOEfGVVQiso9nEB/czUBWfAu6Sz/n3bssDR4FJc+mf3vesmZxZaYe4ehhsST6ldUTTj7JP
- KFEI1ztpr0DzH9Z9OusT2RsXnbBlfwCs=
-X-Gm-Gg: AYBFou3kS6Bjz/y4XdLqZvMxum5gL5e5XoQQfc46icXAcw6uc/5chbzzjBZoLHIIE92
- DPMqbrM7cFusiTWn7/3i+BO1NRJ+zqkOD2vz+v+Su8RZQKoX9MvYccADVyzrC0+X10KZ8VnkyJt
- R4DdSSAqwPBOjeJ/inFXOThgv512pCmL1WDv9xaPHt680COcWiqqXt2kcZFsVr0QI0fDhTarDrL
- RWEJEFYN4Q95tbaGaoaQgznMjC5IpolVs32NS1BDDpjr/jEtBfrsQL5ctj07e5ihUz5oDiytm0O
- cqV8jRYj9aFIiNQmqxRFhI+njBi4jMuqUAlFeMD3qwTCEAu43mdXl9M=
-X-Received: by 2002:a2e:be84:0:b0:3a9:7160:e83e with SMTP id
- 38308e7fff4ca-3a9a2cc1e75mr696691fa.8.1791324858938; Tue, 06 Oct 2026
- 15:14:18 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1791365617; x=1791970417;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=Vy63mdqIPndIk85N+xwyTXgE3amsDxjtRy55K/v9EX0=;
+ b=Moc3o9bO+mQf6XDNFSC0id0yAtG64u6c2KMv4ouAGcUJ3GAYQGD5iDL5KMjT7Gaw0W
+ pNqWUIAL4QFqh4AriQ6Wc03eV5bk+9Pr8SAVTF0r7k4r99Frsc/Of3kMGXcWhpC+xMsI
+ OM2kBU0czs0c0NJ7NCup9xipxTdPtuzPAq8aId6DHjFjfNFpVlHd9icc2YOX+jXLklLW
+ 1LviZwKpi8tObp4cZx1qLcM530kTRicX92vQYc2+zRjJ+Fq1mtUFxidhzNEUFhz43swV
+ qg+8z8Y9wLCWuMfupa2t3I/3LBqFwREbvkaAobSsJ4UCzUzfbCu3M/GAprSZ2ChTUOrB
+ m8Zg==
+X-Gm-Message-State: AFq9FYK3/zq3YvwUP8d+C4v7TOY+vGRBPDHvSxyTFHQ3H0cDCjh71irv
+ xkncIfyRYMbaYixO+ngNGQ5j32YKGDrBfoQ+l2HmVD0VgQk5sp70nFSs
+X-Gm-Gg: AYBFou2VBTKZSFagi/w2TtXmwHXeFoael9ZzUrMs5LeXH5K5Oeheik+CtHE6vOS88c9
+ QZPDcEz7WClaeaZGgZNFlOdcu1yjlG0hhdsGIlOl4flMJA/VZH0EKPC6LUPURbHl85qOV0fCmu6
+ M0yMKRypg/X2D1jENmEJ1ex0OVsXVyMGC8ZzHYuNGb7/T2YzKvRKlCu1v6YemElafUkMm9y2TDK
+ LaP7LNU/HJBdMtjkTD5o5ix7D9N48TQkdNAa1FLI6R6WblTEQJLI+tbqhkgFallbiNgy0kX0CF7
+ uwQOP+Wx2Ih5Y2R7AoVmXix5sqm7oOWQzK23LNZbXLhzGE8HN5bHvqL+29pxmtoqJ6apj/TfMzZ
+ UqNs6x6AvcSYX9ivTFaSPMurwVRflzGgb79HPEsUPJwS25UXqqQN9GpF8xTmgTvn4cPN7rKl78u
+ s10pZ04LrqUFKaI36R3xti3See4ZZ7WdrX9GHTq9FCl2OLVWIJGeikKZkQan7sZdVGqu/FCyNAH
+ 0z9Uo5MzvF4n4JCkGHicGaM5kkJl7NSZ8Dqdt0aSOuX/m1ObsXwx8505kYAL2aBpHKiiSY9Ss7b
+ ym4+5Am0b04Q8JKx9lAXlY1fLC4Wh20lUpbUZfnYD4ax61NLNf8Ig2azmg==
+X-Received: by 2002:a17:90b:4a86:b0:3a7:f64f:6473 with SMTP id
+ 98e67ed59e1d1-3a8a1be69d6mr1440644a91.50.1791365616910; 
+ Wed, 07 Oct 2026 02:33:36 -0700 (PDT)
+Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a853e662a5sm9119994a91.4.2026.10.07.02.33.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Oct 2026 02:33:36 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+Date: Wed, 07 Oct 2026 19:33:19 +1000
+Subject: [PATCH v3] drm/fourcc: Add Apple Interchange layout format
+ modifier
 MIME-Version: 1.0
-References: <20261004212403.208681-1-oss.patchbox@gmail.com>
- <5e03928e7817104f062e27f0b14d180549f209c2@intel.com>
-In-Reply-To: <5e03928e7817104f062e27f0b14d180549f209c2@intel.com>
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Tue, 6 Oct 2026 18:14:07 -0400
-X-Gm-Features: AclHuK-H1P6XAfW5WOEyeLge3myteWvfLBr0lYFKR2exJpjCcMV3nLYXUK8SvaY
-Message-ID: <CAGG=RgCoBZwks5CR9GK0+xk8kexj_wWZf23WwmSTLZBu1hW=eg@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
- still in use
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin Zhang <xiaolin.zhang@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-apple-interchange-modifier-v3-1-721fc44abf6b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4V0bU2nBURX/odxAe0UxvBKi0RD+
+ HcLPuKK5bm5OWdiHh2hZ6doYg5H8tS1AdQuYrrK2xI5mcBMCpmKTAme930dxnZA9zk0nSFL6Lg
+ utFYAOlOJYUHQO7T0WOWX65v9vbihHhbj8qjID517rvURlt83BFuhETjwxKQoD/ZolcjOZZNTv
+ dddw5bQKH8qECLeVMmgikHkyogkBpv+q+Z5fgEOhUYuIQEAAA==
+X-Change-ID: 20260830-apple-interchange-modifier-cbcc311c835d
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, Oliver Bestmann <oliver.bestmann@googlemail.com>, 
+ sofus <sofus.c@icloud.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>, 
+ Janne Grunau <j@jannau.net>, Alyssa Rosenzweig <alyssa@rosenz.ca>, 
+ James Calligeros <jcalligeros99@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2877;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=C3V4UXgsMyjfls0kAgGHGbnZQnqSrUwTQ3JG/daKfzg=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnHBF/88+VblZ+1TMx8yeJ83+NmB837n12arO/f7q3Vm
+ Xw0OO9/x0QWBjEuBksxRZYNTUIes43YbvaLVO6FmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ jXSMdYwYuDgFYKpZKhj+Wbsab5+a0sgcHXn+o20uo7j+PPcyxQCZoK4qtZzv6cc5GBnuqXKZ597
+ SvBPqMTfAw9O9rLVdyZO9I/oda4RefVNvDSMA
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 X-Mailman-Approved-At: Wed, 07 Oct 2026 13:51:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,19 +109,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for reviewing.
+Apple Interchange is a tiled and compressed image layout used
+for buffer exchange between Apple hardware blocks. It is
+similar to the already-supported GPU_TILED_COMPRESSED layout.
 
-On Tue, 6 Oct 2026 at 03:41, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->
-> IOW, you're not hitting the issue yourself? How did you find the issue?
-> Did you use LLM to write the patch?
+Add a format modifier for Apple Interchange so that it can be
+used for buffer exchange.
 
-As part of security research, I am reviewing how virtualization code manages
-the lifetime of resources it shares with guests and devices.
+Reviewed-by: Alyssa Rosenzweig <alyssa@rosenz.ca>
+Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+---
+Changes in v3:
+- Explicitly mention lack of stride and single-plane treatment
+- Pick up Alyssa's R-b
+- Link to v2: https://patch.msgid.link/20261004-apple-interchange-modifier-v2-1-410a3d0541f6@gmail.com
 
-> Did you use LLM to write the patch?
+Changes in v2:
+- Fix typo
+- Link to v1: https://patch.msgid.link/20260831-apple-interchange-modifier-v1-1-5d6e27f9f308@gmail.com
 
-While preparing this patch, I asked an AI assistant questions to confirm my
-understanding of how the driver works. So technically yes, an LLM was used
-in making this patch. I should have disclosed this in the submission; v2 will
-carry it.
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ include/uapi/drm/drm_fourcc.h | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+index a103fdc0b3a3..0bb049f91524 100644
+--- a/include/uapi/drm/drm_fourcc.h
++++ b/include/uapi/drm/drm_fourcc.h
+@@ -1626,6 +1626,30 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
+ #define DRM_FORMAT_MOD_APPLE_GPU_TILED fourcc_mod_code(APPLE, 1)
+ #define DRM_FORMAT_MOD_APPLE_GPU_TILED_COMPRESSED fourcc_mod_code(APPLE, 2)
+ 
++/*
++ * Apple Interchange layout
++ *
++ * Apple Interchange is a compressed framebuffer format used exclusively for
++ * sharing buffers between hardware blocks (GPU, display controller, video
++ * codecs) on Apple platforms. It is similar to and uses the same compression
++ * scheme as GPU_TILED_COMPRESSED. There is no known uncompressed variant
++ * of Apple Interchange.
++ *
++ * Unlike the GPU layouts, tile size is not dependent on bit depth. RGB
++ * images and the chroma components of YUV images use 16x16 tiles. The
++ * luma component of YUV images uses 32x32 tiles. Compression tiles
++ * are once again 16x16 with 8 bytes of metadata per compression subtile.
++ *
++ * Following the example set by GPU_TILED_{,COMPRESSED}, Interchange images
++ * are treated as a single plane by software and do not have a meaningful
++ * stride.
++ *
++ * AGX has limited support for Apple Interchange. It cannot be used for Z/S
++ * buffers or array images, for example. It is intended for scanout buffer
++ * sharing only.
++ */
++#define DRM_FORMAT_MOD_APPLE_INTERCHANGE fourcc_mod_code(APPLE, 3)
++
+ /*
+  * AMD modifiers
+  *
+
+---
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+change-id: 20260830-apple-interchange-modifier-cbcc311c835d
+
+Best regards,
+--  
+James Calligeros <jcalligeros99@gmail.com>
+
