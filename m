@@ -4,126 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DA88CA6002
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 22:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41300CA6009
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 23:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C15710E60E;
-	Wed,  7 Oct 2026 22:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C4E110E6DA;
+	Wed,  7 Oct 2026 23:43:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PEWAzmTV";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="B8pwdTgW";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011015.outbound.protection.outlook.com [40.107.208.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 030D110E60E
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 22:54:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VjEnhNJ+JNsZxLBX6krSKsuiYF3lllK6TwQtWtX8/OoICLsoF4o8EBM3WanR7cH8O6Zq8J7bRBtg54O6oR1BfLAu0oHrTX1CNfrTs/t7OJ8zkiRxMn8GNUComJ+Wr6kXsTGh1RdeC/W+481MnieS4T4i+36iTAj2tNDOa86XQuO/fPLETnuLjyfr8n4oWGw2gJmlu+1S/Y2ect9jzZGh0ywIUGQjEg29dcdk1szZoSNm7xI33gXqQt90B+tqu5Hx8Sd3J81H1MCf40C0feXag9Jg2N1YaYaMhmd60jYmN4wWnGLSL1zkpMcgHVhke4/mPxqUS9aymJZ+CDlHCeqOug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lVWMVmPC1+rtgb86s3LNrhdE0iCl1BR74LWikVSRZW8=;
- b=HGZxNYY7uiCXAzFie+wW9u9xL0fGVqXskW4jbKujx9yXn5XVlD0w+X20tjwwl/wHWDa3z0PA3IpLWw1h6VwtZ68k+bJsc6BFr84RJwQFX/W8ZWNG+bboBY8jyVHuDbasjrF/kCILyPpPwfOBS0MjPq5bQJszvI0+t9KLn7eeE8CcvHzr1+sFLFZta2y/k80I/IAo0dEx0kq1rsQvI+SVxUS3CpUKQLRnHV/MR0bn3IPHa+7jUcS7UpOUJ1xYLBdezqyIbJVjSFieUseyVPZklzJAurmudHslvYEEmqVIq2s5w9afKJXrBq5iMlqRb+FsQbjy2LTjl+LX/uL5uoiguQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lVWMVmPC1+rtgb86s3LNrhdE0iCl1BR74LWikVSRZW8=;
- b=PEWAzmTVseGZSr6Bt+XBum1FTMGsLKwPHvtKkkPAkk6VBj8Zh+qpsi3RBB2IJLhjqCHfktz/207AfxRkkDbAW+Tbt2gD747fdgTPXisFhrit9oRM6XDK7N2rmaZ4ivBFDvxsRSGwsE9qFwItsNSNK38qnOU8RzXsm+82702YIOU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB9062.namprd12.prod.outlook.com (2603:10b6:208:3aa::14)
- by CY5PR12MB6526.namprd12.prod.outlook.com (2603:10b6:930:31::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
- 2026 22:54:21 +0000
-Received: from IA1PR12MB9062.namprd12.prod.outlook.com
- ([fe80::28c6:3cbd:6e97:5257]) by IA1PR12MB9062.namprd12.prod.outlook.com
- ([fe80::28c6:3cbd:6e97:5257%6]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
- 22:54:21 +0000
-Message-ID: <c97f9acf-79e3-4e02-9e54-1f0db0a72fc4@amd.com>
-Date: Wed, 7 Oct 2026 15:54:17 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 14/20] accel/amdxdna: Implement AIE4 command packet
- building and submission
-To: Eva Crystal <0xiviel@gmail.com>, quic_jhugo@quicinc.com,
- karol.wachowski@linux.intel.com, max.zhen@amd.com, lizhi.hou@amd.com,
- ogabbay@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: sonal.santan@amd.com, mario.limonciello@amd.com, wendy.liang@amd.com
-References: <20261006042230.547807-15-yidong.zhang@amd.com>
- <20261006071245.197376-1-0xiviel@gmail.com>
-Content-Language: en-US
-From: "Zhang, Yidong (David)" <yidong.zhang@amd.com>
-In-Reply-To: <20261006071245.197376-1-0xiviel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0106.namprd13.prod.outlook.com
- (2603:10b6:a03:2c5::21) To IA1PR12MB9062.namprd12.prod.outlook.com
- (2603:10b6:208:3aa::14)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0616110E6DA
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 23:43:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791416578; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Y64dmnk95ugUvZiYElTHYaBY0k4J3Hzs0w4PwlWkpyasXl8mAQJUkigtGtqwECvH5SOKYhsBAvAVUgdImhrBsydW8DWfUtjmqyiERkR1Whuam4lRekQQdfpCPVbAaNQ0nIg6HYzNmPRToJeSpTFYDOZ2DmkKO7KkBtcGe0tgGiQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791416578;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=n8Fv8XDmxXg4pqLDHY0HLfQuNq6N2h13d7iAZjrLEAg=; 
+ b=hBF07YCB8tkin53ZISCVonnwnErc5MHAKfpRo4OLTXBWxxLfZLkebJjhSL0QsuvtSUR1Iqapv/vYMUomPZSr4kncFQsMXLQ0N1d0/yVKModo4XKJFvZgF81EWkL3d8MvFZt1oRfVTq2llHsOo2KghneXSEs1M3vmq3FBiBfkE6o=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791416578; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=n8Fv8XDmxXg4pqLDHY0HLfQuNq6N2h13d7iAZjrLEAg=;
+ b=B8pwdTgWG2Cz9h3ObCgrb7w8OWF/pXjNPdPb0KyziCSXQqju4huzdqSJhVeKD/gc
+ iTKfEWPlR54ScTK3Yv0Jpj8CXM4iEaPhkaJEdvMoTsw62hcVPHNEVr6Rc4ClnwRiF3M
+ K9K9XvsZjI74nzDZAcqVTw/2L6xQemnhhlGrAlQo=
+Received: by smtp.zohomail.com with SMTPS id 179141657767428.515278840649785; 
+ Wed, 7 Oct 2026 16:42:57 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v13 00/15] Collection of fixes for Panfrost: Perfcnt, RPM,
+ refactorings
+Date: Thu, 08 Oct 2026 00:42:43 +0100
+Message-Id: <20261008-claude-fixes-v13-0-d6a493185860@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB9062:EE_|CY5PR12MB6526:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1cede6e8-5dc5-499b-598e-08df24c5ecec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|5023799004|11063799006|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: AqdbNWjRN/FAJM8jqB5eBrOti5fH0wQ4Bcfmwd2Rw7Fs2fa2r+M+an8+XOZ+biZdAV9aBmg2IFkCQYxw3TB5mMj+476pNbMa447Ra+7l0KLtfMnXEqcah+uG8n0QO6ZkZtWP3CSiT4sWs/+DJV934STmAhGFuVpN8VgebedTw71IpLirs/92uwVR1cPzekajMTgrBvCGNtW0rWHhx3CmZjhUiol37Ioyle2bU/Ri5OmHtQB4gAiFteq4bpkiCgp0ZIiCgfxE9AywL/NG8Uu8BOpbn9xwZkrU3kiOcmdx6JTZVIV/OyqaPwxbdihpcmkGGVC9oqn/DWtnXx364k6BA4X0QPOJgfpVhbkmwsp5TcdBxcoMxgF5izEZKINUACxJ4rS3qRvofMl6yNkcVRhUZpqoQzAATAmhsE5MNwtmJBt7kU5SLvQJBeUTnMtHZcGF39gXOw5YPhOKSd+A4fqiKrDKIpaItAuBi/cq7D4Ld2U8uW3OvOHLdUU14YEwgm+instoM3VaYJ+2mB/Luq88rb0yNZp2wI6Cwjcn1pfHOvfXKZLcqqqiZXu4inrCs4xYG3rm4q6RXWH9B/KyYuKu85JVNH1j11+p2AwQwI9rimA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB9062.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(5023799004)(11063799006)(4143699003)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SUdLUng4UHNRZ3IxclVyUmwwRmtOcy9Bd1pDSTFKMEdSNVdzODREemNVS0N2?=
- =?utf-8?B?UDRYUzJ6c3ZMZXRvWVdzc3cwMkpmWkdvRlZNamlwVUFvbDZUWVIvOG5XYmdo?=
- =?utf-8?B?VktsNFFuMkFndWN6NFEyTlNWWXdEcWM1S3poSTRWNlJXelAzQ0RaV2c4bHZh?=
- =?utf-8?B?TXpvSWE2R0VkYkYzNWlFZnVVMGd2dzRDdDNpSkdTNjJvRzBmY1RBSEh0Z0k4?=
- =?utf-8?B?VVZITkFVaUFoRXRLdy9ma2lVc2E2UXhYdm1vZEdXcHBMNWc1S3JzcmJpK1lq?=
- =?utf-8?B?cDA0N2RDTnAwdHR4NmdKN2w2cTkyUlh5VkhJL0JjNjNNODFHcVN2RDYxUWFx?=
- =?utf-8?B?VXNsRithS0Q5WUJrUy91YzBNTUVOYmNDYjJXZkpDbEV2YVIrZVpWL0J5TXJ2?=
- =?utf-8?B?STMvVVNOTFB6TTBFbFMvRVN3OGdZZCtMeG9tZlFyNUdLWTJFb0dGbXVjdklH?=
- =?utf-8?B?RU40azFYUlVqVWZBVWlQNkVLb1hlMEVIT09paWlLNzIvcjV6cHZEWDB4Nm9G?=
- =?utf-8?B?Uk5NVmhmVUQzbzVtcWhMYmcwbCtlN01xTTllV1d6Tm94bUxTV0hNQjVsS3Bi?=
- =?utf-8?B?czdrQzRFSnRmait0SmN5V3hjYks0cmEzRW1mWm4rODVaYm1GZDlieE1aVU5z?=
- =?utf-8?B?dzJ4TzEwWU9rd0Y0YXBRT09jYXZ6N3o4TFM4YUpKNEo3N20ydFBMVTJNVTVq?=
- =?utf-8?B?OXgzbVZPd25sQ1RSaWVpd2ovdnNlaGxMV3FMRWpFYnIrdFFjdFpBbjlhNWJk?=
- =?utf-8?B?Y2tGaU42M0JWZmM2Tm1xeTUyMjEwaWp6UjQ0MlpiL3B4ZVN4ZEY5NnFkSEpa?=
- =?utf-8?B?RncxNjUySjlmdkE3MFM0bDAyYkMvTWJCRFpKaUFoN2N0bnM1b2FYRk1xN3JI?=
- =?utf-8?B?YUllSlRRUFZFb3VWcXNmU2FTR1k1bFptbFEyeTRRQnAyMHZYKzVVZTBkVlY4?=
- =?utf-8?B?cHVHMUNZSFZaOGRONEJkU25CN2lLT2tSZ25jOW9nZHlwZHJrU0krVS9WRDEx?=
- =?utf-8?B?QSs5Wmt3dXRiazZxMUFQYmxaNERWQ3FudmtwemJjQWRKb3hWVDQ0a05SSXUz?=
- =?utf-8?B?dFRDWHQ2N1V5QWl4MlpvWFR0UTBGQ29HWEU0cGozUU1uZDFpc2ZnbDQ1d1Ir?=
- =?utf-8?B?TDNqYUR6SlByWlhuN1dxNkhnRGFaZVU1RDNOOGRjYUJVTVNoTkhhdFc4Ukhu?=
- =?utf-8?B?WjlQM3VZYWlqMmsvS3J2UHpGcVBPeEdoWVNKU0hTSlVYblRZaGFwdE1nYWUr?=
- =?utf-8?B?WW9MaWR6YnJ1SVd5bGZNNlhkVkdGZlpEeXo5Y2RPN29LcXBBWWgybmFvUjls?=
- =?utf-8?B?eXJJbFk2L25CRnpGcU4xMFF6bXJ1QSt2Q0NpRG56Z2NOSkVkd05VWHVnV3pV?=
- =?utf-8?B?ZW1hYUQ4TktTLzRCRVF6SXNPcHNoOGJkWG9tUmxjNGFkY2JVZ0QzRXg2Q2dN?=
- =?utf-8?B?VmtRTmxwZ21mb3kraGJNbGM2dUpjeU42bndKcTJmU0N3MmltWlAvTUNUNyt2?=
- =?utf-8?B?OVk4akhaMHhnQVZpVVJ0RWtSb3Zhc2hwTDZ5YlNsTTAzVlFONkplYkg4azRj?=
- =?utf-8?B?U25xalNhV1pCVmhwS1NYeWNFbGpYQ1c3VEwvazNsdkthMm5JS0ZIYlBDdGc0?=
- =?utf-8?B?RnMwMGd0VlM5eW5TNW8vMGJkMThRRTBVVjYyMWw0M0RsUG4zM29uZENGREpS?=
- =?utf-8?B?VWJpRTd1WkZSNHozVEg5eE1Obko0dHhQR0xxbnZ4NjBObmpVTXB2ZjZjOTNk?=
- =?utf-8?B?a1BqYUw0Tzg2Y2FEQ2QrUzZKVEhXdlpob0FtblFPSmxpa1cxUngxWWVIdWtG?=
- =?utf-8?B?SVkxQzVKVFVIUGtNY0gvSElkLzJsNFFFcy9zVWZIWDNzMXozNWtuV3ptUFN6?=
- =?utf-8?B?M2lsdFpUWTV5WHc4bTRESmNad2JsZUh6cUdhcm1sWXdDU21udEs2ZWhkSm16?=
- =?utf-8?B?ZXBoTGdTMnVsSTRnZURodktTOGRtOXVQT0pPRENPaWNqZTRyNFFSRGdhSzhC?=
- =?utf-8?B?SEF4UlowOTE5R2RzRkYzVFhTUFlUbVV0UXpqMTJoVkltM1VPY1BoMkNBbEM0?=
- =?utf-8?B?bzRQdHRmcytpdDh6S1B4Yng3cWVudUtVZGpPelBNam5MVUF0bW94Qy9UUlcx?=
- =?utf-8?B?MktKUE1GaExLeHU3emdyakIwWW9neUx6STBZRk5hUmkrZ21CQStJME9iV0hy?=
- =?utf-8?B?MUhCQ1hhTHY5elg5YWVLc1laYjRDNDc5cHZDeXRlRUNiYTczNDVDZ0hja1ly?=
- =?utf-8?B?SDE1YlBueXJEOXhJN0hmUy90S09NdFkrQXNYRXpZcjhmSWtmaDlRUEh3cXM3?=
- =?utf-8?B?L0tTSkJIMStlSDdFaDRIWTdpUnRCNWNYWmZDL0Q3VXJ3dkVmRkhDdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cede6e8-5dc5-499b-598e-08df24c5ecec
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9062.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 22:54:21.4624 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V+eIfr5OPq7LweWDBtawk2NGOiuX438XWnL3FIGnw5cZtHK23R8JNtK4Mf3WeMJ77cAPGHuuAX6YyIE+9hsOxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6526
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23SzU7DMAwH8FeZeqYodr458R6IQ+K6rGisqN0q0
+ LR3JxlCLVmOSexflPh/aWaeBp6bp92lmXgZ5mE8pgXIh11D+3B843bo0kaDAo3QKFs6hHPHbT9
+ 88dw6jEIGkCo4alLL58S3g9Tx8vq7ns/xnemUjVyxH+bTOH3fLlwg1/3R5j+9QCtaMOyRQ1Be+
+ WcaD4cQxyk80vjRZH7BFTBCFQAmQFsysVMERusaIFfAYgnIDCgMvYEQO9HXALUFfAGoBAjwxvX
+ IZG2oAXoFHEAB6ATIzngkz94R1gCzAe4+0STAJteHXgnPtgbYLeAKwGYA04gjEqDuaoBbAS9sA
+ bgEEEaKmh2CUzXAbwDAAvAJYO1cn3JggKtTALER7uYIIj9Ca48+SiKoRglgS+iSyGkUXex10I4
+ tcZXALVGGAXIeDUaOwnWM4m4W1+v1ByVTBOKQAwAA
+X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8592;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=ahsJrbK1aLCsieVhyH11LRQQan3Vv7RubShcHAx5fKc=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxtj0AX8tRkbkG3Jt3rFrBg2kxu2v+azKmCD24
+ lqxH1cBsaWJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasbY9AAKCRAOJn5M7lND
+ PWDiC/4j2AKb1FfpmD3qqh5n+1/N1mzC/56tH0UFqFqyVEJg5pkp1dfNzho3smclUlgFXFyJsPt
+ +ZqLMkl6reNSE1zfm7lI5TN4g+HL7inDj7bNMNbrSJyv/CIMOnJVkJQWqr013LQiZ1YnTyVxC97
+ nSsnREFYcKpGak4SpK7SK/d18wM12V6cNYkhpMB7ho5gOx1fv9Gsb8LuST3lTGoP9QWiZ2Q2vUE
+ MxDC+/YnoKgnT6d85FXD0gbsR4Ga7mmolKOy1oUvP0nnt6zQ71xUqJDw+EK2DX0L0Jdw3MLL8jw
+ 7bYCShurmZH+N0e8/Y9z+2ofD3Buqi1PWllaT3Uf5iJJNN9ID30kYH7f4PpXT4r3BOzznfsO5u2
+ pUomhq29EfekhiT6Wbm+NW8oLOdF/Sj2RAMmn248ZFuXxYdmo8ClWPydJV9YLUHD7zwJEgrI7Yp
+ PGGghb3fC+jSlSqbI1BXF4xi9mrQKVVhC13SUMU20Mp4abbQwPnJfbrCDPFewBFSzoQGU=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,61 +96,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This patch series began as an assortment of small fixes for some issues
+uncovered by Claude. Over time, it has evolved to include many other
+fixes for further problems revealed by Sashiko in successive revisions,
+and also refactorings and improvements suggested by maintainer
+discussions.
 
-On 10/6/2026 12:12 AM, Eva Crystal wrote:
-> On Mon, Oct 05, 2026 at 09:22:24PM -0700, David Zhang wrote:
->
->> +/* Job timeout detection (TDR) will guarantee the fence signalling */
->> +static void job_worker(struct work_struct *work)
->> +{
->> +	struct amdxdna_hwctx_priv *priv =
->> +		container_of(work, struct amdxdna_hwctx_priv, job_work);
->> +	struct amdxdna_hwctx *hwctx = priv->hwctx;
->> +	struct amdxdna_sched_job *job;
->> +
->> +	while ((job = peek_running_job(hwctx))) {
->> +		wait_till_seq_completed(hwctx, job->seq);
->> +		if (get_read_index(hwctx) > job->seq) {
->> +			dequeue_running_job(hwctx, job);
->> +			/* Abort partially submitted jobs; complete fully submitted ones. */
->> +			if (job->aie4_job_state != AIE4_JOB_STATE_SUBMITTED)
->> +				job_abort(job);
->> +			else
->> +				job_complete(job);
->> +static void job_done(struct amdxdna_sched_job *job)
->> +{
->> +	job->aie4_job_state = AIE4_JOB_STATE_DONE;
->> +	dma_fence_signal(job->fence);
->> +	/* Release submitter mm reference taken at submit. */
->> +	mmput_async(job->mm);
->> +	kref_put(&job->refcnt, aie4_job_release);
->> +}
-> The get_read_index(hwctx) > job->seq test here reads a value userspace can write, and this patch is the first to let it release resources rather than just end a wait.
->
-> priv->umq_read_index = &qhdr->read_index is already in drm-misc-next (drivers/accel/amdxdna/aie4_ctx.c:212 at 34e9ab018249), but there its only consumer was check_cmd_done() from aie4_cmd_wait() and aie4_vf_ops had no .cmd_submit, so forging it only ended your own wait early. Here it decides dma_fence_signal(), mmput_async() and the BO reference drops in aie4_job_release().
->
-> The queue is userspace's own BO: hwctx->umq_bo_hdl is args->umq_bo from CREATE_HWCTX (drivers/accel/amdxdna/amdxdna_ctx.c:252) and is mmappable read-write (drivers/accel/amdxdna/amdxdna_gem.c:1409), so the submitter shares the pages the driver vmaps. valid_queue_index() bounds it only against the kernel copy priv->write_index, so any value in [write_index - 32, write_index] passes and one store retires every outstanding job. Nothing else is consulted: cert_comp_isr() (drivers/accel/amdxdna/aie4_pci.c:114) only calls wake_up_all(), and aie4 has no per-job mailbox handler.
->
-> I may be overstating the impact. I found no kernel memory corruption: no driver allocation's free is gated on a job fence, and the queue BO reference drops in aie4_hwctx_fini(), after hwctx_stop() has done the synchronous aie4_msg_destroy_context(). User pages look covered, since SVA is the default and the core invalidates device TLBs on every mm invalidation (drivers/iommu/iommu-sva.c:341). What is left is cross-process integrity: job->out_fence sits in every argument BO's reservation as DMA_RESV_USAGE_WRITE and those export as dma-buf (drivers/accel/amdxdna/amdxdna_gem.c:680), so an importer is told the NPU is done when it is not. I cannot tell from source whether CERT keeps executing packets it already fetched once the host moves read_index past them; if it stops, this is self inflicted only. You have the hardware.
->
-> Would a driver owned completion word work, device mapped but not user mapped? Or could CERT report the count in a register or mailbox message the ISR reads?
-Hi Eva,
+A subset of patches submitted in previous revisions was already merged
+after they had been reviewed, to avoid this series growing to unmanageable
+extents.
 
-The forging read_index only signals that process's own job fences, the 
-impact is self-inflicted.
-We cannot change the hw/fw at this moment. The CERT fw access memory 
-with user space address, thus the memory need to be user mapped.
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+Changes in v13:
+- Added initial clk prepares to avoid clocks being unprepared in the suspend path.
+- Remove warning around scheduler's credit count in the RPM suspend path. 
+- Reject all values other than '1' in the debugfs reset knob.
+- Cleaned the error reporting protocol for perfcnt reset conditions.
+- Fixed even more Sashiko issues in perfcnt reset sequence.
+- Refined commit message for initial perfcnt cache clean removal patch.
+- Link to v12: https://patch.msgid.link/20260929-claude-fixes-v12-0-62beb08de207@collabora.com
 
->
-> Separately: abo->mem.map_invalid is set in the MMU notifier (drivers/accel/amdxdna/amdxdna_gem.c:247) and at mmap time for imported BOs (drivers/accel/amdxdna/amdxdna_gem.c:505), but cleared only in aie2_populate_range() (drivers/accel/amdxdna/aie2_ctx.c:1145), static and called only from aie2_cmd_submit(). On aie4 it is never cleared, so aie4_cmd_submit() returns -EINVAL for that BO's remaining life. An imported dma-buf argument BO that userspace mmapped starts with the flag set and can never be submitted.
+Changes in v12:
+- Fixed perfcnt and driver init bugs uncovered by Sashiko in v11.
+- Fixed stale commit message for PM fixes.
+- Link to v11: https://patch.msgid.link/20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com
 
-I missed merge one patch which rename the aie2_populate_range to 
-amdxdna_populate_range. I got this patch in V3 that both aie2 and aie4 
-both call this common API.
+Changes in v11:
+- Fixed bugs about user_count and PM device status at driver init and remove time.
+- Documented new uAPI for perfcnt dump ioctl that depends on reset status.
+- Fixed issues about internal perfcnt bookkeeping in case of reset.
+- Link to v10: https://patch.msgid.link/20260924-claude-fixes-v10-0-755929b3cc19@collabora.com
 
-/David
+Changes in v10:
+- Improved the logic for the debugfs reset knob.
+- Changed perfcnt reset race commit message to reflect true HW behaviour.
+- Improved logic of perfcnt reset handling with a state variable instead of booleans.
+- Added comments explaning how we handle PM status and references at device init time.
+- Fix RM resume clock disable bug uncovered by Sashiko and also changed function naming.
+- Link to v9: https://patch.msgid.link/20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com
 
-> Eva Crystal (0xiviel)
-> XSource Security
-> https://xsourcesec.com
->
+Changes in v9:
+- Extended clk_(enable|disable) consolidation into other runtime callbacks.
+- Fixed uAPI and perfcnt/reset interaction errors uncovered by Sashiko.
+- Link to v8: https://patch.msgid.link/20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com
+
+Changes in v8:
+- Applied fixes for issues brought up by Sashiko.
+- Rolled back some additions from v7: job stopping, IRQ consolidation.
+- Applied RPM fixes before moving most driver init code into panfrost_device.c
+- Brought back v6 patch that enables MMU IRQs before device is registered.
+- Simplified perfcnt reset handling procedure, so that no retry is done in the kernel.
+- Link to v7: https://patch.msgid.link/20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com
+
+Changes in v7:
+- Again fixed some minor issues reported by Sashiko.
+- Made sure the new debugfs reset knob works even when runtime PM isn't enabled.
+- Added new patch that handles job termination at driver teardown time.
+- Link to v6: https://patch.msgid.link/20260826-claude-fixes-v6-0-78119af409e7@collabora.com
+
+Changes in v6:
+- Grafted trivial already-reviwed patches from previous revisions into
+their own series so that they could be merged into drm-misc-next.
+- Added commits with multiple refactorings, code rearrangements and simplifications.
+- Addressed all issues brought up by reviwers and Sashiko in the previous revision.
+- Link to v5: https://patch.msgid.link/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+
+Changes in v5:
+- Addressed more issues uncovered by Sashiko.
+- Discarded two patches to avoid dealing with too many pre-existing issues at once.
+- Biggest change is the re-arrangement of the start sequence, made to look like Panthor.
+- Link to v4: https://patch.msgid.link/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com
+
+Changes in v4:
+- Fixed errors and issues uncovered by Sashiko in the previous revision.
+- Changed the way RPM checks whether the device is initialised when resuming.
+- Simplified perfcnt treatment of potential resets.
+- Link to v3: https://patch.msgid.link/20260724-claude-fixes-v3-0-542af61abd0f@collabora.com
+
+Changes in v3:
+- Applied some minor suggestions for the first couple of patches in the series.
+- Moved shrinker initialisation into gem initialisation.
+- Fixed RPM bugs by moving all clock and power initialisation into RPM resume.
+- Added patch for reset sequence fixes and also a userspace knob to trigger it.
+- Reworked perfcnt fix by having the reset sequence restore its initial state.
+- Link to v2: https://patch.msgid.link/20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com
+
+Changes in v2:
+- Fixed race conditions introduced by the previous revision, in the RPM and
+HWPerf commits specifically. These can be consulted at [1]
+- Don't attempt to suspend the device unconditionally at the end of
+probe(), and do it through autosuspend instead.
+- Broke the RPM patch into one that fixes PM refcnt proper and another one
+for MMU enablement at device init time.
+- Moved perfcnt GPU disable helper into its own commmit. Same for
+transplating shrinker initialisation and unplug.
+- Added 'Fixes' and 'Reported-by' tags to all the relevant commits
+- [1] https://sashiko.dev/#/patchset/20260526-claude-fixes-v1-0-16e92eaa4949%40collabora.com
+- Link to v1: https://patch.msgid.link/20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com
+
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Faith Ekstrand <faith.ekstrand@collabora.com>
+To: "Marty E. Plummer" <hanetzer@startmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Eric Anholt <eric@anholt.net>
+To: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+To: Robin Murphy <robin.murphy@arm.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+
+---
+Adrián Larumbe (15):
+      drm/panfrost: Move shrinker initialization and unplug one level down
+      drm/panfrost: Move lock and modparam initialisations into their subsystems
+      drm/panfrost: Move debugfs initialisation to relevant subsystems
+      drm/panfrost: Skip NULL checks for clock enable/disabling
+      drm/panfrost: Consolidate device clock management and reset
+      drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
+      drm/panfrost: Explicitly enable MMU interrupts at device init
+      drm/panfrost: Move all DRM device initialisation into device_init()
+      drm/panfrost: Warn of RPM get failure at device remove time
+      drm/panfrost: Add debugfs knob for manually triggering a GPU reset
+      drm/panfrost: Move perfcnt GPU disable sequence into a helper
+      drm/panfrost: Skip cache flush/invalidate when enabling perfcnt
+      drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent systems
+      drm/panfrost: Introduce a reset lock
+      drm/panfrost: Fix races between perfcnt and reset sequence
+
+ drivers/gpu/drm/panfrost/panfrost_device.c       | 247 +++++++++++++-----
+ drivers/gpu/drm/panfrost/panfrost_device.h       |   5 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c          | 198 +-------------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          |   9 -
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  64 ++++-
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  10 +-
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |   9 +-
+ drivers/gpu/drm/panfrost/panfrost_gpu.c          |   2 +
+ drivers/gpu/drm/panfrost/panfrost_job.c          | 103 +++++++-
+ drivers/gpu/drm/panfrost/panfrost_job.h          |   4 +
+ drivers/gpu/drm/panfrost/panfrost_mmu.c          |  14 +-
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c      | 314 +++++++++++++++--------
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.h      |   1 +
+ include/uapi/drm/panfrost_drm.h                  |  29 ++-
+ 14 files changed, 606 insertions(+), 403 deletions(-)
+---
+base-commit: 3ab04dcce43cd4fdaed94f08f4e6289be4921ea4
+change-id: 20260523-claude-fixes-82b03a134a8c
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
+
