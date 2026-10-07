@@ -4,89 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98542CA5FFF
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 19:29:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C64A0CA5FFF
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 19:31:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB2F910E636;
-	Wed,  7 Oct 2026 19:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D44F10E68F;
+	Wed,  7 Oct 2026 19:31:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="Ke7JpZnj";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="e2KgytYu";
 	dkim-atps=neutral
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com
- [209.85.215.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8CD010E636
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 19:29:56 +0000 (UTC)
-Received: by mail-pg1-f227.google.com with SMTP id
- 41be03b00d2f7-cc52c1b8286so1440625a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 12:29:56 -0700 (PDT)
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com
+ [209.85.216.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 474C610E68F
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 19:31:45 +0000 (UTC)
+Received: by mail-pj1-f99.google.com with SMTP id
+ 98e67ed59e1d1-38d489b6b71so1095661a91.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 12:31:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791401396; x=1792006196;
+ d=1e100.net; s=20260707; t=1791401505; x=1792006305;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=p5YPbGOwm3PEJlk1n06RfKzDjsB4Op/U9Mo0IRSYSBs=;
- b=WZi0D44cyUX3mSxXORWfnvhqK85YA9zkqX2QKvGdm8nwc3jspAN/6LqUM1ykLOOEXt
- BxQU+LsHI8jtXLObYSe8yQUzlFivaqW9+qR+1DQbI4ZDWAdp1stsL8zGG8ztvmB9gBQ3
- qyy/qPhgiNkJi3ALDGMseTCmSVVhfZEiNE1FrHkRUpZDVv/pNDpNdU2DzoSXV5ukM9VI
- a1HM9kJVCs20PU+gU02VeGmSiNnF3jNbb8c+w9i8UZHAUona+Z2EVZTxy8/KBE6uBNnz
- Fv2sQSElCrxap3w2x0u3kIscJeh5QMbdVKblWdqiAnCOPh6SkR1vr7uZEwLLpIIzT3Q0
- RBrw==
+ bh=5t2C4K+aTg5OZIemkOI6jCIK7Q7KAX4MDyIjU9YB6Og=;
+ b=bs1+6/iqrL3MM8v8fI2H4xj4gmm6NHrZvFciPgSgz+pdXPXQEyWXQbHJHEZm5uAAcR
+ FLPdblRrog2rBAzeB1JhA5TEI8WLUupfrEyFHJbaTNMuG8bwm/9Jjal+sBr31ASE8r92
+ KThD+ErUqlMRxnL/om7n/2js6fmV4XFZNoiCHBTdy6J1oDTTpvVrix1KApCJ/LfFYFj3
+ Ff8cQTy5OxMRRr7mrCmf0kPhGVu5dZR5+NDuqfFeU2WKRA+zEPEgwwFa9dDUTjVdo9dr
+ +o5dWX3iaTfjgN7DgweTtHfJoG2wm5H4SsKZu+o2ZElALw9DF6Sts+CUbc2EBEfct/NS
+ eUHQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByWNMcmXhp/rOeKgQ1mDToGfd08BahJqbZJrwJnjnfkfHes//LtvcOVATIAdvdLO5KwkWuwf49QQZk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lSdILtUjAfXCqiByo9K1STGTTUHpAgSfw0mRb8IIbA8Ch3TH3+
- T/vzFOBUmRtjYycBYb2SeDtIUKunUJGjszfNtaS+dfOQrrboSr+mAiqC43h/kMT+a3UGGQk+2Tz
- D88Uon0e5qETBlnyAigXtu1ihlIVmSE8JO1UjN++5SCfTZTQ1535ym7YtqXI0U0PMPH9hrDlCiC
- 7jYzUteN8oXsAlIUYQqbL7unQnPQqQLMOWZ7G5I5qtu2rqrf2lW7o0PgMzZcxu+mtKkpvat673Z
- XRI9YNMVdiaGVSBGFTn
-X-Gm-Gg: AYBFou2wXYd3FRsqmP6EAJY5zkmidNHuUmB+bUGfnp2QK2WUkbEhYam0OUZNWEvFY2i
- /AUhdlVMRJRr/tPnfrxNft7QqS+toDUKMtgZDcYUZdPfT7htrwjF3KijCHp5Je8azJdfYg5k5Ry
- OUo5ER3119MMp8sBZQ64eTYZ+VKfowqv8Hqiwab47W3ken0L9dLS9pQWzbUzA3oCMx5779b8B1G
- fBc2y+8w+MEzKlEGa41XkpJdAVyzSdiFo1gByKfJQa8gn04jXZtafMoNWgTUDC6zj5Fhk3bPuof
- oB7/9CP7sNLA7xphiWTB72dBKdDMNm1hXyapV4Kky7c2eqhMDphNuX5XVPe8ihN/nIdmvv7cvkl
- xTLNei2/9cqOUI3MCcL2TUxHLF53mjVOpqW9EBeb9fmZRW5SkLNYk94Qd3C1XXWJ9R357Mssegf
- 942wO2XvaZgH4yBCJE3F52/ap+0+wHjp149/g=
-X-Received: by 2002:a05:6a21:115:b0:3e0:edc3:856a with SMTP id
- adf61e73a8af0-3e14c1ac55amr101932637.24.1791401395883; 
- Wed, 07 Oct 2026 12:29:55 -0700 (PDT)
+ AKwUvByhWfniy/xQuvYgVRa6sAjb346/z+oqGKtAFl+p7yeuF0+nRvEghpb/AviCzx0TfqkM6y9kths/zWs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK02pnYBtF4c0xrrS0zv8wm3zGOzc6RHhedaWHXuX2Kw2cRADpO
+ PN1wAiZ2gG4RML2kscIWtYlSA1+DYlocxvqh57shp9SiX6nq+EcwVGW0YccLEnAnTRS6X+L2+jN
+ Ps5eeXwEM7M3HhZeord5MTkZdjzVEo0hEN2CEphQCa/ssVhEK0MOYVDl4sJf2D9ml0I1sbzAm1w
+ +L4JJLTLBJfmji5woN0IsqW6T8PaG1TAYzK+PlxQmyMMMk2R5sm8YV1Ka+cfCtya+8mGYXo1q+L
+ 7SoAlPez4dIpBmLObS3
+X-Gm-Gg: AYBFou3ztuqQszBhdKOlIobOZFmXlri1NLWS27hpP58nOhjVsAlU3h1vAFPABLjjiKl
+ xyIF7L5oU1TZ80siT0hfYx57zmCB8bo+iP3C5+O613yH9ZuiGk/oKXEwjfg2V9iXOU68DMMI9sP
+ 9oO0Xzgkmbi/Q4VWR6/uzCG+vkh2kktqgCh8PgRAfmqV06GZhVcHEm2wqN1kAHv437YkvL/4Ylq
+ ATtFPiYwawfogiLxtQBjAurRzBOkJK0rLFF+jTSdWks/MuM/qu7zE81wQfENgIZFA71m4CRtltW
+ UNmNLcCJ6HFvrFSJuwfAeva683yIKMUVSMFh3ZFkNSq3DrVv6vgM3udC1ciGrBib6XijYq5iojH
+ jLlxTAaloFR6UXK1z/BKV+u2YAO5CkbzkJD8yPo2tulZOBZ23jNK97lVoH2VE5NHbH2jtnUP9Tq
+ RIk7Zn/Edx8WmLwyqqLLvi5Me8P+Yw+tSr4eE=
+X-Received: by 2002:a17:90b:58c4:b0:3a7:9ec3:e9f8 with SMTP id
+ 98e67ed59e1d1-3a8a0ba2239mr2138149a91.27.1791401504581; 
+ Wed, 07 Oct 2026 12:31:44 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-124.dlp.protect.broadcom.com. [144.49.247.124])
+ (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
  by smtp-relay.gmail.com with ESMTPS id
- 41be03b00d2f7-cd1da5e63f9sm67471a12.20.2026.10.07.12.29.55
+ 98e67ed59e1d1-3a9f1aacadesm235468a91.2.2026.10.07.12.31.43
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 07 Oct 2026 12:29:55 -0700 (PDT)
+ Wed, 07 Oct 2026 12:31:44 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-5ba3f707a6fso1941260e87.0
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 12:29:54 -0700 (PDT)
+Received: by mail-lf1-f72.google.com with SMTP id
+ 2adb3069b0e04-5bb7920e5aaso1925767e87.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 12:31:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1791401393; x=1792006193;
+ d=broadcom.com; s=google; t=1791401502; x=1792006302;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=p5YPbGOwm3PEJlk1n06RfKzDjsB4Op/U9Mo0IRSYSBs=;
- b=Ke7JpZnjCy8G56Z7TXjxmcsIOKqo9K4IVwxI/GRcA9kyARjCaTs4CYjOTDXHC4Flgx
- 8irXkmpmnjQ0yldhjaQatOSYl9LfKX6mOLTMyQcLin6p0y/BeQe9ZqVpxLufdWyAsfkh
- fH24fiXKGptviQ6BLF5W0CSM71BVAbCwmppg0=
+ :content-type; bh=5t2C4K+aTg5OZIemkOI6jCIK7Q7KAX4MDyIjU9YB6Og=;
+ b=e2KgytYuWRVopKyGtkOWByUVcor7NKUWsE9KsqM85kVY/OaORkSL1qMKWMSsA2EDgW
+ Mhwb8Of7DiHi2w1Edwjb46ADsMMmR0v8FjDBl65qbAbECGvIFImqiHk2uc3IJLoZvOqy
+ 0ImmCtfXrhz3gSxmGHUhTVx9jK4NSGj6o3/aw=
 X-Forwarded-Encrypted: i=1;
- AKwUvByQH2zGQyt/jwg6Qc9zoUE4ahG4lt0I+8PdV0M9gVVXcNfvOuy2J9sCWmdpHShE5CtOpxodxnk21gk=@lists.freedesktop.org
-X-Received: by 2002:a05:6512:ac8:b0:5b6:19c9:d7b7 with SMTP id
- 2adb3069b0e04-5bcd06ad842mr1106524e87.26.1791401393443; 
- Wed, 07 Oct 2026 12:29:53 -0700 (PDT)
-X-Received: by 2002:a05:6512:ac8:b0:5b6:19c9:d7b7 with SMTP id
- 2adb3069b0e04-5bcd06ad842mr1106509e87.26.1791401392877; Wed, 07 Oct 2026
- 12:29:52 -0700 (PDT)
+ AKwUvBzH6NvEkEOMmcRCBGg98dykIUY0ScFCQffrvXt5N7LEqC9r3Tvcd3pomxOBL6zTNMasdlgmNbGRl5c=@lists.freedesktop.org
+X-Received: by 2002:a05:6512:6696:20b0:5bc:d39d:99a7 with SMTP id
+ 2adb3069b0e04-5bcd39d9a1dmr111699e87.35.1791401502435; 
+ Wed, 07 Oct 2026 12:31:42 -0700 (PDT)
+X-Received: by 2002:a05:6512:6696:20b0:5bc:d39d:99a7 with SMTP id
+ 2adb3069b0e04-5bcd39d9a1dmr111686e87.35.1791401501965; Wed, 07 Oct 2026
+ 12:31:41 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260910165221.7558-1-michaltoma@sicoop.com>
- <20260910165221.7558-3-michaltoma@sicoop.com>
-In-Reply-To: <20260910165221.7558-3-michaltoma@sicoop.com>
+ <20260910165221.7558-4-michaltoma@sicoop.com>
+In-Reply-To: <20260910165221.7558-4-michaltoma@sicoop.com>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 7 Oct 2026 15:29:40 -0400
-X-Gm-Features: AclHuK9szXVhXziyRSH3KZ3-xYzz3YLU8TTvRktN3bkH9vjXnH8pBTxlZjP70b0
-Message-ID: <CABQX2QMOJs24-YL8vD5oiFy3sZj0DkbZPy++z-HYeOi-OApy9g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] drm/vmwgfx: Release PRIME import in the BO destroy
- path
+Date: Wed, 7 Oct 2026 15:31:29 -0400
+X-Gm-Features: AclHuK_p60bvym_o76BpD0hlyr7UPkU5DEwSb2zlk7Wvj7QoYLhaMk-u3APgIZY
+Message-ID: <CABQX2QOKv_E=Yq9z=eMPp+5kHZR4rXw=S_HtuBGmF2jnOvsTfw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] drm/vmwgfx: Don't leak a GEM handle when
+ referencing a surface by fd
 To: Michal TOMA <michaltoma@sicoop.com>
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com, 
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
@@ -96,7 +96,7 @@ Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
  linaro-mm-sig@lists.linaro.org, stable@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000ba4cc5065d452375"
+ micalg=sha-256; boundary="000000000000386358065d452aa0"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,144 +112,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000ba4cc5065d452375
+--000000000000386358065d452aa0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Thu, Sep 10, 2026 at 12:52=E2=80=AFPM Michal TOMA <michaltoma@sicoop.com=
 > wrote:
->
-> drm_gem_prime_import_dev() attaches to a foreign dma-buf, takes a
-> reference with get_dma_buf(), maps the attachment and, once
-> vmw_prime_import_sg_table() has created the TTM buffer object, stores
-> the attachment in obj->import_attach. Drivers that import this way have
-> to undo it by calling drm_prime_gem_destroy() when the object is freed.
->
-> vmwgfx never does. The TTM destroy callback, vmw_bo_free(), only calls
-> drm_gem_object_release() and kfree(). For every imported dma-buf, the
-> sg mapping, the attachment and the dma-buf reference are leaked when
-> the last GEM reference goes away, and the exporter's backing pages stay
-> pinned until reboot.
->
-> Any process that can open the vmwgfx render node can hit this by
-> importing a dma-buf from another exporter, for example with
-> DRM_IOCTL_PRIME_FD_TO_HANDLE. It showed up as a memory drain on a
-> VirtualBox VMSVGA guest running a Plasma 6.7 Wayland session with the
-> host's 3D acceleration off. KWin 6.7 wraps wl_shm client buffers in
-> udmabufs and imports them through EGL on llvmpipe, and it keeps many of
-> those imports referenced while it runs, which is a separate userspace
-> problem. Restarting the compositor did not give the memory back,
-> though: with about 1.5 GiB of client buffers imported, killing KWin
-> left 211 udmabufs in /sys/kernel/debug/dma_buf/bufinfo with a refcount
-> of 1, still attached to the vmwgfx device, after every userspace
-> reference was gone. Their pages are no longer mapped or in any page
-> cache, so reclaim and swap cannot free them.
->
-> Call drm_prime_gem_destroy() for imported objects before
-> drm_gem_object_release(), as amdgpu, radeon and nouveau do in their TTM
-> destroy callbacks, and include <drm/drm_prime.h> for it. The check is
-> safe on the import error path: drm_gem_prime_import_dev() only sets
-> obj->import_attach after gem_prime_import_sg_table() succeeded, so a
-> buffer object destroyed before that point is not unmapped, detached or
-> put a second time. ttm_bo_release() tears down the TTM backing and
-> drops the reservation lock before calling the destroy callback, which
-> fits the _unlocked unmap done by drm_prime_gem_destroy().
->
-> The leak was found by walking /proc/kpageflags, which attributed the
-> missing memory to orphaned shmem pages. Those matched the udmabuf
-> objects in dma_buf/bufinfo, and the remaining reference was traced to
-> the missing PRIME teardown. It was confirmed without a compositor using
-> a small reproducer: create a memfd, wrap it with UDMABUF_CREATE, import
-> it with DRM_IOCTL_PRIME_FD_TO_HANDLE on the vmwgfx render node, close
-> the GEM handle and every file descriptor, then check bufinfo.
->
-> Build tested on drm-misc-fixes (4600b4d1a9ee) with the openSUSE 7.2.3
-> config and W=3D1: drivers/gpu/drm/vmwgfx/ builds without warnings before
-> and after the change, and checkpatch.pl --strict is clean. Runtime
-> tested on a VirtualBox 7.2 VMSVGA guest with kernel 7.2.3, whose vmwgfx
-> sources for the files involved are identical to drm-misc-fixes, using a
-> vmwgfx.ko built from them with this change. With the reproducer, all 8
-> imported udmabufs stayed pinned without the change and none with it,
-> with 3D acceleration both on and off. With KWin on llvmpipe, killing
-> the compositor now released 84 of 92 udmabufs (610 MiB) within 10
-> seconds, where the same test on the unpatched driver released none.
->
-> Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
-> Cc: stable@vger.kernel.org # v6.6+
-> Assisted-by: LLM
-> Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
-> ---
-> Reproducer (results and environment are in the cover letter). Compare
-> the 4 MiB udmabuf entries in /sys/kernel/debug/dma_buf/bufinfo before
-> and after: without this patch all 8 remain, with count 1 and still
-> attached to the vmwgfx device.
->
-> #!/usr/bin/env python3
-> import fcntl, os, struct
-> N, SIZE =3D 8, 4 * 1024 * 1024
-> UDMABUF_CREATE     =3D 0x40187542  # _IOW('u', 0x42, struct udmabuf_creat=
-e)
-> PRIME_FD_TO_HANDLE =3D 0xC00C642E  # DRM_IOWR(0x2e, struct drm_prime_hand=
-le)
-> GEM_CLOSE          =3D 0x40086409  # DRM_IOW(0x09, struct drm_gem_close)
-> render =3D os.open('/dev/dri/renderD128', os.O_RDWR | os.O_CLOEXEC)
-> udm =3D os.open('/dev/udmabuf', os.O_RDWR | os.O_CLOEXEC)
-> for i in range(N):
->     mfd =3D os.memfd_create(f'prime-leak-{i}', os.MFD_ALLOW_SEALING)
->     os.ftruncate(mfd, SIZE)
->     fcntl.fcntl(mfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
->     create =3D bytearray(struct.pack('IIQQ', mfd, 1, 0, SIZE))
->     dfd =3D fcntl.ioctl(udm, UDMABUF_CREATE, create)
->     ph =3D bytearray(struct.pack('IIi', 0, 0, dfd))
->     fcntl.ioctl(render, PRIME_FD_TO_HANDLE, ph)
->     handle =3D struct.unpack('IIi', ph)[0]
->     fcntl.ioctl(render, GEM_CLOSE, bytearray(struct.pack('II', handle, 0)=
-))
->     os.close(dfd)
->     os.close(mfd)
-> os.close(udm)
-> os.close(render)
->
-> The same loop without the PRIME_FD_TO_HANDLE/GEM_CLOSE step frees
-> every udmabuf, so the leak is specific to the vmwgfx import.
->
->  drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/=
-vmwgfx_bo.c
-> index 9c7a73c0b..56bc94edc 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-> @@ -30,6 +30,7 @@
->  #include "vmwgfx_drv.h"
->  #include "vmwgfx_resource_priv.h"
->
-> +#include <drm/drm_prime.h>
->  #include <drm/ttm/ttm_placement.h>
->
->  /**
-> @@ -69,6 +70,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
->                 vmw_surface_unreference(&vbo->dumb_surface);
->         }
->         WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
-> +       if (drm_gem_is_imported(&vbo->tbo.base))
-> +               drm_prime_gem_destroy(&vbo->tbo.base, vbo->tbo.sg);
->         drm_gem_object_release(&vbo->tbo.base);
->         WARN_ON(vbo->dirty);
->         kfree(vbo);
-> --
-> 2.55.0
->
+> For a dma-buf from another exporter, such as udmabuf, this is an
+> actual import: drm_gem_prime_fd_to_handle() attaches to the dma-buf,
+> maps it and creates a new GEM object. The surface lookup then always
+> fails, because such a buffer never has a surface.
 
-This looks right to me, but it must not be backported on its own:
-without patch 1 and the unbind fix above, releasing the import turns
-the leak into a crash. Please spell that dependency out here, not just
-in patch 1.
+It can have one. In the same file:
+
+  PRIME_FD_TO_HANDLE(fd)                 -> handle H
+  GB_SURFACE_CREATE_EXT(buffer_handle=3DH) -> surface S
+  GB_SURFACE_REF_EXT(fd, HANDLE_PRIME)   -> S
+
+The last call works today because drm_gem_prime_fd_to_handle() returns
+the cached H, and the surface is on that BO's detached_resources.
+
+> +       /*
+> +        * Only buffers exported by this device can have a user surface.
+> +        * Look the buffer up through the dma-buf, which holds a referenc=
+e
+> +        * to it, instead of importing the fd into file_priv: the GEM han=
+dle
+> +        * that would create is never returned to userspace, so nothing
+> +        * would release it (or a foreign dma-buf) until the file is clos=
+ed.
+> +        */
+> +       if (!drm_gem_is_prime_exported_dma_buf(&dev_priv->drm, dma_buf)) =
+{
+> +               ret =3D -EINVAL;
+> +               goto out;
+>         }
+
+This makes that last call fail. For foreign dma-bufs, could you look
+for an existing import in the caller's file instead, e.g. walk
+file_priv->object_idr under table_lock for an object whose
+import_attach->dmabuf matches, and fail if there isn't one? A fresh
+import can't have a surface, so that loses nothing and still never
+creates a handle.
+
+Also, the commit message says every call leaves a handle behind, but
+the per-file PRIME cache means repeated calls with the same dma-buf
+reuse one. It's fresh dma-bufs that leak. The WARN_ON removal and the
+base ref fix look good.
 
 z
 
---000000000000ba4cc5065d452375
+--000000000000386358065d452aa0
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -341,13 +254,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIOJP
-C24vtsqdlKUwkuWmyUYl4NFvR6EkTGETdyaZ23MWMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAwNzE5Mjk1M1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIDgY
+XMLoisLF0OgqxQGtwy8nSuhrB1bhysCmIG4stWEvMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAwNzE5MzE0MlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFwB5xHsqoeJHOhxqFAzZMbcIX6wlg+V8n7zdy1G
-dxHtLuFBO5FeSdvSlRU95r2AUmBLHRyBUZP1Nfiq92D6p/8CLeWEkR4MJK6akCmBP+WVtI1plzkg
-LQwDJBTMP7uTVFpBJofDvwhNSn5hpJ6PN0Y5+UNvzUgkikulEYtoudDGe8uwyQPRVohhho0I72Tq
-j6aBWgh8ubMqtNXn9M1u4H0wnejYvcFn7aEfO9jxxwCIR8m0TypfcY8LcHpRcDau4AfINZKjH7Hu
-PGmK79Jxwq0tgn7F0QbhvGrEiQ37lQPcPQtRQhhUS3jRLu37VCmL4jxWOj2klQWEjhQd6ffEy6M=
---000000000000ba4cc5065d452375--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAJLYiEv6fXaf4f4agM5cAMBNrCPRP+6b+Xr1Gg3I
+YBrUO//ClEjHSH4xzLZTmMwPZyxotxIrVVkORroJmI3f2/eDiJW+KdjIfZCrwQUxphA4b+IjbmbQ
+CChITYVchzBMwLQz1BtVEcWsb5X10fQvHUleU9EW3zNenmlaBf8tLEidAss0sbj06FY1kWDTe+OH
+28x80hrvESQFPMq3rpqWZc96XieWCVyMKH55aFwFt2OCpoJOZDq+lgPWq0x5TPiD1v9BdJbfVzv7
+mkF3QJx7ckbhICqFznxYbPcEl9USxNiNE2jjMqE9OvEZmpnfj+lEpTF2CLVUFu8I6D/Q8bYkfN0=
+--000000000000386358065d452aa0--
