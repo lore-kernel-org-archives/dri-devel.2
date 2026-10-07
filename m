@@ -4,56 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B58ACA5FFC
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 16:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F33ACA6002
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 16:30:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80CDA10E60A;
-	Wed,  7 Oct 2026 16:19:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9BDF10E3FA;
+	Wed,  7 Oct 2026 16:30:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hxpoQGKz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TMsi2snt";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FFD310E60A
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 16:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791389945; x=1822925945;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=TlhZd+Ha4wr09+5yECc2qPRaEBj99E1h8ZaNYFuvvWo=;
- b=hxpoQGKzQaotJAQtbo4Qonh9pZZTm10q/emVY7jabufJWCdlfM20kFnL
- m+BJWsfEjICIP9MxoNR5Iv8ROYucQnXS7i102L/mcjfmQt0fX7IAbIu8Z
- AI6BSvJdUvSyqJs8PraKoTIxiDBy7wy3XvAX3RHXNCWf+1G4+7O6po4L3
- daBviB+XZBkmUmwda0IrMpLFNA0jkorApc1/l4QE+mytb+vAAkHmsr7SV
- MsWf9FJZjT6U8sH1y9TVX6omnw7idLc788ssW26raXRBUmY2BFBywlSkS
- jt69b0bbJeuTwOXaz7aC+1uV0MsG5raMYQaKFqP16U6Togyw/Vk3RHqed A==;
-X-CSE-ConnectionGUID: EhPxCxzBRzykbgVbbP8W4g==
-X-CSE-MsgGUID: nLeXlz9mTpmNV32AueqRvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="39767"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="39767"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 09:19:04 -0700
-X-CSE-ConnectionGUID: 8pCH8h0tRyOrpWycpMbvTA==
-X-CSE-MsgGUID: lD65SaJpRSanqzgeFJnF2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; d="scan'208";a="275268632"
-Received: from akacprow-dev3.igk.intel.com ([10.91.220.47])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 09:19:02 -0700
-From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Subject: [PATCH v2] accel/ivpu: Improve IVPU_TEST_MODE_FW_TEST handling
-Date: Wed,  7 Oct 2026 18:13:23 +0200
-Message-ID: <20261007161323.2737682-1-andrzej.kacprowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2A3810E3FA
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 16:30:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8B4064187A;
+ Wed,  7 Oct 2026 16:30:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3A31F000FF;
+ Wed,  7 Oct 2026 16:30:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791390639;
+ bh=TrxUyJ+WfSrScHNMWeI4SIXn8SHwIk1so/sbQiBhSZM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TMsi2sntB8G86S/EyXGONlhLriW1jCb/lqWV9HF34LAQoz1l3C5UwnfXUkrpRF/RX
+ ADME13bat1l2bYwj3UOAbRY8O3ae5Qf4SDChvZ0xONzm/6+AXj67s173S8uXPNImFy
+ sKGlXZiiW+RCkoxfUWukjuGcg2HMKQ+HIy/nxjfj3Do7MZ79d4izBx/3z3In1VhLh8
+ k9uE0siCl/6u+ANm1t17ePrDTZz/koU3Qg3jlx3wvVWq3a3tWI7xt5rqnxP7aOWvaw
+ rZpJvWSenynFnjHVarvE0Ldf+Q8yofFnnLnVRon0DToPkhgAwyr9g8/sPruu/th+BI
+ nq1dcPqUKO9FQ==
+Message-ID: <sashiko-outbox-163195@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] accel/ivpu: Improve IVPU_TEST_MODE_FW_TEST handling
+To: "Andrzej Kacprowski" <andrzej.kacprowski@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261007161323.2737682-1-andrzej.kacprowski@linux.intel.com>
+References: <20261007161323.2737682-1-andrzej.kacprowski@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 07 Oct 2026 16:30:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,37 +52,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In IVPU_TEST_MODE_FW_TEST mode the driver triggers a firmware boot but
-does not wait for boot completion. Because it never waits for the boot
-to finish, it cannot send a message and expect a response from the
-firmware.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] accel/ivpu: PM runtime autosuspend loop in FW_TEST mode
+--
 
-Exit ivpu_boot() early in this mode, bypassing ivpu_hw_sched_init() and
-the rest of the post-boot initialization. ivpu_hw_sched_init() was
-sending a message that timed out and failed the boot sequence.
+commit e12f731149f041dc1d9f11e61a8bd4c155f14399
+Author: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
 
-Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
----
- drivers/accel/ivpu/ivpu_drv.c | 3 +++
- 1 file changed, 3 insertions(+)
+accel/ivpu: Improve IVPU_TEST_MODE_FW_TEST handling
 
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 8c1c87e69f91..538179dcd316 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -485,6 +485,9 @@ int ivpu_boot(struct ivpu_device *vdev)
- 	ivpu_ipc_enable(vdev);
- 
- 	if (!ivpu_fw_is_warm_boot(vdev)) {
-+		if (ivpu_test_mode & IVPU_TEST_MODE_FW_TEST)
-+			return 0;
-+
- 		ret = ivpu_pm_dct_init(vdev);
- 		if (ret)
- 			goto err_disable_ipc;
--- 
-2.43.0
+This commit modifies ivpu_boot() to exit early when IVPU_TEST_MODE_FW_TEST
+is enabled, bypassing post-boot initialization. This avoids sending an IPC
+message that was timing out since the firmware boot is not fully waited for
+in this mode.
 
+> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+> index 0f215392d42de..fee1dde0b7467 100644
+> --- a/drivers/accel/ivpu/ivpu_drv.c
+> +++ b/drivers/accel/ivpu/ivpu_drv.c
+> @@ -498,6 +498,9 @@ int ivpu_boot(struct ivpu_device *vdev)
+>  	ivpu_ipc_enable(vdev);
+> =20
+>  	if (!ivpu_fw_is_warm_boot(vdev)) {
+> +		if (ivpu_test_mode & IVPU_TEST_MODE_FW_TEST)
+> +			return 0;
+> +
+
+[Severity: High]
+Does this early return shift the IPC timeout into the runtime PM autosuspend
+path?
+
+If driver probe succeeds because of this early return, PM runtime autosuspe=
+nd
+will be enabled. After the autosuspend delay, won't
+ivpu_pm_runtime_suspend_cb() unconditionally attempt to send an IPC message?
+
+drivers/accel/ivpu/ivpu_pm.c:ivpu_pm_runtime_suspend_cb() {
+    ...
+	ret_d0i3 =3D ivpu_jsm_pwr_d0i3_enter(vdev);
+	if (ret_d0i3)
+		ivpu_err(vdev, "Failed to prepare for d0i3: %d\n", ret_d0i3);
+    ...
+	if (!is_idle || ret_d0i3) {
+		ivpu_err(vdev, "Forcing cold boot due to previous errors\n");
+		atomic_inc(&vdev->pm->reset_counter);
+		ivpu_dev_coredump(vdev);
+		ivpu_pm_prepare_cold_boot(vdev);
+	}
+    ...
+}
+
+Since the firmware is unresponsive in IVPU_TEST_MODE_FW_TEST mode, this
+IPC message will inevitably time out. Could this lead to an inescapable
+background loop of timeouts, coredumps, and resets?
+
+>  		ret =3D ivpu_pm_dct_init(vdev);
+>  		if (ret)
+>  			goto err_disable_ipc;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007161323.2737=
+682-1-andrzej.kacprowski@linux.intel.com?part=3D1
