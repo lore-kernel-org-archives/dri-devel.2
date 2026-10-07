@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEFCCCA600A
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:42:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E38FDCA600E
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:42:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5DA10FCCF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F60810FCD9;
 	Thu,  8 Oct 2026 07:42:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="bLjIkqmw";
+	dkim=pass (2048-bit key; unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="e/aJHkPZ";
 	dkim-atps=neutral
 Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
  [208.88.110.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC2410E6BE
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF65A10E6BD
  for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 20:19:06 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by mail.savoirfairelinux.com (Postfix) with ESMTP id 956473D81859;
- Wed,  7 Oct 2026 16:19:04 -0400 (EDT)
+ by mail.savoirfairelinux.com (Postfix) with ESMTP id 318FC3D81851;
+ Wed,  7 Oct 2026 16:19:05 -0400 (EDT)
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id FAHxZy_K0anC; Wed,  7 Oct 2026 16:19:03 -0400 (EDT)
+ with ESMTP id oEEistIXMrW8; Wed,  7 Oct 2026 16:19:03 -0400 (EDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.savoirfairelinux.com (Postfix) with ESMTP id 3759B3D81880;
+ by mail.savoirfairelinux.com (Postfix) with ESMTP id B45473D8187E;
  Wed,  7 Oct 2026 16:19:03 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 3759B3D81880
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com B45473D8187E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
- t=1791404343; bh=hdtt8MhbXQb4LxNLiyobHl1+PchkMqXLkaPVYvHbrWc=;
+ t=1791404343; bh=smx0DskrKC46rYvmhES7EUHN2vwiKNJHN3tiZFLC92A=;
  h=From:To:Date:Message-Id:MIME-Version;
- b=bLjIkqmwDsD8/r85WcDvyT6OkLarXaZXsHFpC4P4l1Q4keaNvZny13WBk99BBeYJG
- Ygybtf3eBXOqt0EpRixUXrmRBiq9oEVhXXUj1UAVn2JKQMY9LDCmUwSeJQYY/CuYAE
- +TPmYy4C1ujoQvpftHetolw5U7R2ih1vTYIzJzD+IpkNnhgoyVSqPa4uXw2JmFoNFS
- 2hMP0upZjHpa3LhEefd2GjcjHDVG0S5+8dEH4p9j0LwbY2KtAFvMeh3IyBG3eD38zD
- ajZSVJ9DpQSSQ1gt/TZ2MDAORtWbHeRidztnQhRfUN37F4adeyuP7TAYERheh7rYW6
- OumNK9YE9dD0g==
+ b=e/aJHkPZ4PF9yV0VaFrpGeGLOVUpOuNkIcUg05oQsp80cocAY2zRQ10RLDy8/IVJq
+ wJ5uGJkX9GAyUkpaG6SY5bbD4pddYchHACbPwmF0fq6U8MF8O1Yx2n7tMFhReJysgX
+ j9hQKyKIsmH35L9ph6gdHRm/R9ZRUFc/Zr0mCDo4fx53J5v+hIVfpH5jyh+4ERFhNM
+ XOi371VZr+YqiyKDWqbWtat1I9k8P8jOtQsUFVJbxpA95c13Ez2tyfXFdiDgWAfR+O
+ qg9OI/HlPK7Xx1rcpI0qfuvRaLhMypYYeT13D9sHiAgu1cLl2I42sitf4Wylr0lhEe
+ 9H0h2op55MOnA==
 X-Virus-Scanned: amavis at mail.savoirfairelinux.com
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id P-KWwN537t8p; Wed,  7 Oct 2026 16:19:02 -0400 (EDT)
+ with ESMTP id kx2w-qYr-YC6; Wed,  7 Oct 2026 16:19:03 -0400 (EDT)
 Received: from localhost (unknown [192.168.51.254])
- by mail.savoirfairelinux.com (Postfix) with ESMTPSA id CB3083D81851;
- Wed,  7 Oct 2026 16:19:02 -0400 (EDT)
+ by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 502453D8182D;
+ Wed,  7 Oct 2026 16:19:03 -0400 (EDT)
 From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -61,9 +61,10 @@ Cc: Ondrej Jirman <megi@xff.cz>, Purism Kernel Team <kernel@puri.sm>,
  Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
  Felix Boucher <felix.boucher@savoirfairelinux.com>,
  Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-Subject: [PATCH 1/4] drm/panel: st7703: set prepare_prev_first
-Date: Wed,  7 Oct 2026 16:18:56 -0400
-Message-Id: <20261007201859.3709656-2-marc-olivier.champagne@savoirfairelinux.com>
+Subject: [PATCH 3/4] dt-bindings: display: panel: add compatible for DCLTek
+ 300248 10.25in panel
+Date: Wed,  7 Oct 2026 16:18:58 -0400
+Message-Id: <20261007201859.3709656-4-marc-olivier.champagne@savoirfairelinux.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
 References: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
@@ -85,30 +86,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DSI host must be enabled for the panel to be initialized in
-prepare(). Set the prepare_prev_first flag to guarantee this.
+The DCLTek dt300248 is a panel using the Sitronix ST7703 controller.
+Add a new compatible for it.
 
 Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
 linux.com>
 ---
- drivers/gpu/drm/panel/panel-sitronix-st7703.c | 2 ++
+ .../devicetree/bindings/display/panel/rocktech,jh057n00900.yaml | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/=
-drm/panel/panel-sitronix-st7703.c
-index 70f7282471e6..368c57591817 100644
---- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-+++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-@@ -973,6 +973,8 @@ static int st7703_probe(struct mipi_dsi_device *dsi)
- 	if (ret < 0)
- 		return dev_err_probe(&dsi->dev, ret, "Failed to get orientation\n");
-=20
-+	ctx->panel.prepare_prev_first =3D true;
-+
- 	ret =3D drm_panel_of_backlight(&ctx->panel);
- 	if (ret)
- 		return ret;
+diff --git a/Documentation/devicetree/bindings/display/panel/rocktech,jh0=
+57n00900.yaml b/Documentation/devicetree/bindings/display/panel/rocktech,=
+jh057n00900.yaml
+index 91e06d6a6819..b05f3e8cfcd4 100644
+--- a/Documentation/devicetree/bindings/display/panel/rocktech,jh057n0090=
+0.yaml
++++ b/Documentation/devicetree/bindings/display/panel/rocktech,jh057n0090=
+0.yaml
+@@ -24,6 +24,8 @@ properties:
+       - anbernic,rg353v-panel-v2
+       # AYANEO Pocket DS lower 5.0" 1024x768 IPS LCD panel
+       - ayaneo,pocket-ds-lower-panel
++      # DCLTek DT300248 10.25" 440x1920 LCD panel
++      - dcltek,dt300248
+       # GameForce Chi 3.5" 640x480 TFT LCD panel
+       - gameforce,chi-panel
+       # Powkiddy RGB10MAX3 5.0" 720x1280 TFT LCD panel
 --=20
 2.34.1
 
