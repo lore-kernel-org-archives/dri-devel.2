@@ -4,78 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0AEBCA600F
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:42:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E99CA600E
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:42:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF4D510FCDD;
-	Thu,  8 Oct 2026 07:42:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE7F10FCDF;
+	Thu,  8 Oct 2026 07:42:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WfzDtIA7";
+	dkim=pass (2048-bit key; unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="XRpf/lzU";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A39D910E618
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 15:58:54 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2e541dc9cb9so10693465ad.3
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 08:58:54 -0700 (PDT)
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [208.88.110.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C2EA10E6BD
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 20:19:07 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.savoirfairelinux.com (Postfix) with ESMTP id E05803D81880;
+ Wed,  7 Oct 2026 16:19:05 -0400 (EDT)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id QwxMLK_a_tUf; Wed,  7 Oct 2026 16:19:04 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.savoirfairelinux.com (Postfix) with ESMTP id 04B3F3D8182D;
+ Wed,  7 Oct 2026 16:19:04 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 04B3F3D8182D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791388734; x=1791993534; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Y0+BzHHJX5mfmFv3lfMeqEtJTStmMvjEmJulVgkK3Po=;
- b=WfzDtIA7auOr8cssYZbSbxOm6EJ/mJKTzgKuvNrGQOr/ZYd98AesAVGCe6UTRwCEjX
- 4eLkb6HsOMXT04PRuuHJRFf+4R98uedd0kkhBv/l0gEdOfS0As3cp3AHzO45v5l7VkmP
- xF7xD/ZDhvAXVyp13GANZS4QonwseATGwZDjPrYODA97lohAPgC4HzVQN8S0zNcmTD7D
- KlU2uckjARNND0dJe1JsHp/kCIFrVyzOJdjqSXSlI7dSWoSEokZniPwvXAJQN+nd2cXF
- YNTVTJ+oPV678xDM/RK96zp2OIWFKX/lyLxyRkqvAstHVtO1eye9BcMdGEBpRjcF6QTH
- Csyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791388734; x=1791993534;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Y0+BzHHJX5mfmFv3lfMeqEtJTStmMvjEmJulVgkK3Po=;
- b=RrIivVjmIoGotQeYFp9dS5vTNW7mg8yXBC/CMbzgsFgmJ0DH8z3P3NGb9qMHY4+cg2
- 1SAsUcE9fq3eLhqfUUrVipBGWvvndqv4A+JukYIqBpVMaCGf/NOMegtWCyCzfUW6F8Ki
- /AZhg6goi+ue7K8zZ50N7c/JcxETmrE/NmlV++3qE2zxeJ5CeiF54WCbk9au2snDHJJP
- 9J/cKMV+Ap6pIOdQVHhLRyEnFSA5DKMHLb6DZ9YHLdmGqqAu3fbDICWL0fQvww5+9YBx
- hQ24ijnd/zfffZr8Cw8dtipMJhrkUKHNlKwblYOYzGhVkA4Sx1xofKULEDc6Z3bxC7Tt
- EnJQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxSa1k/G+CkrRjQEhzB76BPhxxXg4Gvho6GdcklCc7yJ70JkLZOieUiWW2mch6yZqDDQgsz2zumeyc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLxoDzwVNTlm4vfHbYBIVsEPWeOPSZPihPzNmZtJv2LuGODmIEu
- u0K1bdZ/+pauT1SrkUANZofBfWpiw3wjH6dl4DQj9ZA1BxSGOSwxfQAG
-X-Gm-Gg: AYBFou0WGO1hzK1an28fpNy1N8bUwuYVxC5MYGgaZpqcyzl56mRfbIc4IHujbOpSAM7
- umwGxZM4lnpN0X9kFSJvSYfydxDW8Q7k1jNqC2Lvo2TRtj0D+m8TNIIBIcXu0CoQnbWClSZ+HVP
- /LXtpOT4vmvvaq+F0Mw/DCWXjtMkg5WV6CHauzNM1dp26fyhNue4Ez2yCnbQM/3mrET8nZPovRB
- 8fS8GC2ObVXsipPrgWYq5v7dJadLa9WbCjXmfqGUM7kND+154cShumoPoGMaugFjyhyJHcoKZkm
- N3/Tg+Ez20GKsHiUYNnP4R7vvjDozPinkpAW5JOeIldSFAjEzFnSzh2Fzz4sZ3XhUk7LgcNEcVg
- RpN40EvjXzb+mrWCfrZTI5/EXVm9NkZtZeXinFM9xgDaf9jHTKG4AIFIT0MwIVDbLh5IJuEq3ai
- tBRSDuiXDI2xhE7xdHGk5usZf8whYR7lfhytdiGwtRVEu246adwqWedfSQCbSwci/iz5J8sDoLS
- HITun93rm/RfQ==
-X-Received: by 2002:a17:903:2cb:b0:2dd:ad74:6d16 with SMTP id
- d9443c01a7336-2e6004e58f8mr21696275ad.28.1791388734016; 
- Wed, 07 Oct 2026 08:58:54 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2e6046fe0c1sm13631695ad.21.2026.10.07.08.58.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 08:58:53 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: robin.clark@oss.qualcomm.com,
-	lumag@kernel.org
-Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- yongxing.mou@oss.qualcomm.com, val@packett.cool,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/msm/dp: hold one runtime PM reference per plugged state
-Date: Thu,  8 Oct 2026 00:58:48 +0900
-Message-ID: <20261007155848.106-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+ d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+ t=1791404344; bh=pesBVhJa36Z9odWhO8ZlZqjh+VKIb/JO1NtpxS2F2Cw=;
+ h=From:To:Date:Message-Id:MIME-Version;
+ b=XRpf/lzUzxXkFLDl+tqtJDWk9DTnC6vdP828pElDMJkzzif8BcCAgC9PlrB0Yuv8b
+ cb+0Z6QLjXB23v8WNWOLhRK71w0lOhGk3wV5x9cCo9tJN6sqcdx3wnmqDaFA7TXBaL
+ HfLqigJWbsQYeGqfc7L1ednaF47Xx5NXFpmLc4PPN/wX15HOq0oi1re+XWzLMJ9SKd
+ ZjqlNrCgnNdMn9uKYy1ZWq59Lr9TL4sN6P3RkqiK0JyKf23Tmoc1+s2D7LcSUBGcgs
+ qm5VERSG8obaVnCFUCyRKs+WJnJ3tvQGDQfzj8uABBDoi1ypsw5iVDoqeoQf/E3+66
+ Ys5WPOh2VD3MQ==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id FB-jFHNDLHRD; Wed,  7 Oct 2026 16:19:03 -0400 (EDT)
+Received: from localhost (unknown [192.168.51.254])
+ by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 9AD4D3D81851;
+ Wed,  7 Oct 2026 16:19:03 -0400 (EDT)
+From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
+Cc: Ondrej Jirman <megi@xff.cz>, Purism Kernel Team <kernel@puri.sm>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
+ Felix Boucher <felix.boucher@savoirfairelinux.com>,
+ Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
+Subject: [PATCH 4/4] drm/panel: st7703: Add DCLTek 300248 10.25in display
+Date: Wed,  7 Oct 2026 16:18:59 -0400
+Message-Id: <20261007201859.3709656-5-marc-olivier.champagne@savoirfairelinux.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
+References: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 08 Oct 2026 07:42:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,92 +85,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The plug handler takes a runtime PM reference every time it runs and
-sets dp->plugged; the unplug handler drops a single reference when
-dp->plugged is set. msm_dp_bridge_detect() also takes a reference and
-marks the sink plugged, and keeps that reference as well -- on every
-detect while the sink stays connected. On top of that, in the current
-tree the plug handler runs more than once per plug:
-drm_bridge_connector_detect() calls .detect() and then .hpd_notify(),
-and pmic_glink altmode reports an IRQ_HPD as "connected" too. Every
-extra reference is leaked on unplug.
+The DCLTek dt300248 is an LCD panel using the Sitronix ST7703
+controller. Add the panel to the driver.
 
-On a Lenovo TB323FU (SM8850, DP over the USB-C port via pmic_glink
-altmode) the DP controller's usage count reached 28-34 after a few
-plugs (rpm_usage tracepoint), so the controller never runtime-suspended
-after the display was unplugged. It in turn kept the MDSS core GDSC on
-while all displays were off.
-
-Make the plugged state own exactly one reference: the plug handler
-only takes it when the sink was not plugged yet, and detect() returns
-its own reference when the plugged state already holds one, or drops
-both when it finds the sink gone.
-
-With this the count stays at 1-3 while a display is connected, the
-controller suspends 3-4 s after unplug, MDSS suspends and its GDSC
-powers off on DPMS off, and replugging (quickly or after 20 s) still
-brings the picture back. Only tested on this device.
-
-Fixes: 3ea2d1c3d154 ("drm/msm/dp: turn link_ready into plugged")
-Assisted-by: LLM
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
+linux.com>
 ---
-Changes in v2:
-- Drop the plugged state's reference once, after the if/else, instead
-  of in both branches [Val]
-- Drop the comments
-- Link to v1: https://lore.kernel.org/all/20260929130627.959-1-26rote@gmail.com/
+ drivers/gpu/drm/panel/panel-sitronix-st7703.c | 97 +++++++++++++++++++
+ 1 file changed, 97 insertions(+)
 
- drivers/gpu/drm/msm/dp/dp_display.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 6abe30bdff12..4059cb9dba64 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -412,10 +412,12 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
- 
- 	guard(mutex)(&dp->plugged_lock);
- 
--	ret = pm_runtime_resume_and_get(&pdev->dev);
--	if (ret) {
--		DRM_ERROR("failed to pm_runtime_resume\n");
--		return ret;
-+	if (!dp->plugged) {
-+		ret = pm_runtime_resume_and_get(&pdev->dev);
-+		if (ret) {
-+			DRM_ERROR("failed to pm_runtime_resume\n");
-+			return ret;
-+		}
- 	}
- 
- 	msm_dp_aux_enable_xfers(dp->aux, true);
-@@ -897,6 +899,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
- 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
- 	struct drm_dp_desc desc;
- 	bool phy_deinit;
-+	bool was_plugged;
- 	int ret;
- 
- 	dp = to_dp_bridge(bridge)->msm_dp_display;
-@@ -910,6 +913,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
- 		return status;
- 	}
- 
-+	was_plugged = priv->plugged;
- 	phy_deinit = msm_dp_display_host_phy_init(priv);
- 
- 	msm_dp_aux_enable_xfers(priv->aux, true);
-@@ -962,6 +966,9 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
- 		pm_runtime_put_sync(&dp->pdev->dev);
- 	}
- 
-+	if (was_plugged)
-+		pm_runtime_put_sync(&dp->pdev->dev);
+diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/=
+drm/panel/panel-sitronix-st7703.c
+index f4635a7327de..b3abfe8c9ed9 100644
+--- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
++++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
+@@ -768,6 +768,102 @@ static const struct st7703_panel_desc ayaneo_pocket=
+_ds_lower_desc =3D {
+ 	.init_sequence =3D ayaneo_pocket_ds_lower_init_sequence,
+ };
+=20
++static void dcltek_dt300248_init_sequence(struct mipi_dsi_multi_context =
+*dsi_ctx)
++{
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETEXTC, 0xf1, 0x12, 0=
+x87);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETDISP, 0xe0, 0x05, 0=
+xf8);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETRGBIF, 0x10, 0x10, =
+0x28,
++				     0x28, 0x03, 0xff, 0x00, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETCYC, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETBGP, 0x0d, 0x0b);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETVCOM, 0x6d, 0x6d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPOWER_EXT, 0x25, 0x=
+62,
++				     0x20, 0x03);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETMIPI,
++				     0x33, 0x81, 0x05, 0xf9, 0x0e, 0x0e, 0x20, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x44, 0x25,
++				     0x00, 0x91, 0x0a, 0x00, 0x00, 0x01, 0x4f, 0x01,
++				     0x00, 0x00, 0x37);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETVDC, 0x47);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_BF,
++				     0x02, 0x10, 0x00, 0x80, 0x04);
 +
- 	return status;
- }
- 
--- 
-2.43.0
++	mipi_dsi_msleep(dsi_ctx, 20);
++
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETSCR,
++				     0x73, 0x73, 0x50, 0x50, 0xa0, 0x00, 0x12, 0x53,
++				     0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPOWER,
++				     0x25, 0x00, 0x32, 0x32, 0x77, 0xe4, 0x77, 0x77,
++				     0xcc, 0xcc, 0xff, 0xff, 0x11, 0x11, 0x00, 0x00,
++				     0x32);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETIO,
++				     0x10, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0xed, 0xc5, 0x00, 0xa5);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETCABC,
++				     0x10, 0x40, 0x1e, 0x03);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPANEL, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGAMMA,
++				     0x00, 0x13, 0x1a, 0x2c, 0x34, 0x3f, 0x4f, 0x3f,
++				     0x06, 0x0c, 0x0d, 0x14, 0x15, 0x13, 0x13, 0x11,
++				     0x19, 0x00, 0x13, 0x1a, 0x2c, 0x34, 0x3f, 0x4f,
++				     0x3f, 0x06, 0x0c, 0x0d, 0x14, 0x15, 0x13, 0x13,
++				     0x11, 0x19);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_E1,
++				     0x11, 0x11, 0x91, 0x00, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETEQ,
++				     0x07, 0x07, 0x0b, 0x0b, 0x0b, 0x0b, 0x00, 0x00,
++				     0x00, 0x00, 0x2f, 0x04, 0xc0, 0x10);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGIP1,
++				     0xc8, 0x10, 0x0a, 0x10, 0x0e, 0x80, 0x38, 0x12,
++				     0x31, 0x23, 0x4f, 0x86, 0x80, 0x38, 0x47, 0x08,
++				     0x00, 0x0c, 0x04, 0x00, 0x00, 0x00, 0x00, 0x0c,
++				     0x04, 0x00, 0x00, 0x00, 0x8f, 0x44, 0x60, 0x28,
++				     0xba, 0x02, 0x88, 0x88, 0x88, 0x88, 0x88, 0x8f,
++				     0x45, 0x71, 0x38, 0xba, 0x13, 0x88, 0x88, 0x88,
++				     0x88, 0x88, 0x00, 0x00, 0x00, 0x01, 0x00, 0x80,
++				     0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGIP2,
++				     0x96, 0x18, 0x00, 0x00, 0x00, 0xb4, 0x01, 0x0b,
++				     0x41, 0x01, 0x02, 0x00, 0xf8, 0x43, 0x17, 0x58,
++				     0xba, 0x31, 0x88, 0x88, 0x88, 0x88, 0x88, 0xf8,
++				     0x42, 0x06, 0x48, 0xba, 0x20, 0x88, 0x88, 0x88,
++				     0x88, 0x88, 0x23, 0x00, 0x00, 0x00, 0xd7, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x07, 0x8b, 0x00, 0x00, 0x40, 0x80,
++				     0x81, 0x40, 0x80, 0x81, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_EF,
++				     0xff, 0xff, 0x01);
++}
++
++static const struct drm_display_mode dcltek_dt300248_mode =3D {
++	.clock		=3D (440 + 8 + 32 + 40) * (1920 + 41 + 8 + 6) * 60 / 1000,
++
++	.hdisplay	=3D 440,
++	.hsync_start	=3D 440 + 8,
++	.hsync_end	=3D 440 + 8 + 32,
++	.htotal		=3D 440 + 8 + 32 + 40,
++
++	.vdisplay	=3D 1920,
++	.vsync_start	=3D 1920 + 41,
++	.vsync_end	=3D 1920 + 41 + 8,
++	.vtotal		=3D 1920 + 41 + 8 + 6,
++
++	.width_mm	=3D 58,
++	.height_mm	=3D 253,
++	.flags		=3D DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
++};
++
++static const struct st7703_panel_desc dcltek_dt300248_desc =3D {
++	.mode =3D &dcltek_dt300248_mode,
++	.lanes =3D 4,
++	.mode_flags =3D MIPI_DSI_MODE_VIDEO |
++		MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
++		MIPI_DSI_MODE_LPM,
++	.format =3D MIPI_DSI_FMT_RGB888,
++	.init_sequence =3D dcltek_dt300248_init_sequence,
++};
++
+ static int st7703_enable(struct drm_panel *panel)
+ {
+ 	struct st7703 *ctx =3D panel_to_st7703(panel);
+@@ -1026,6 +1122,7 @@ static void st7703_remove(struct mipi_dsi_device *d=
+si)
+ static const struct of_device_id st7703_of_match[] =3D {
+ 	{ .compatible =3D "anbernic,rg353v-panel-v2", .data =3D &rg353v2_desc }=
+,
+ 	{ .compatible =3D "ayaneo,pocket-ds-lower-panel", .data =3D &ayaneo_poc=
+ket_ds_lower_desc },
++	{ .compatible =3D "dcltek,dt300248", .data =3D &dcltek_dt300248_desc },
+ 	{ .compatible =3D "gameforce,chi-panel", .data =3D &gameforcechi_desc }=
+,
+ 	{ .compatible =3D "powkiddy,rgb10max3-panel", .data =3D &rgb10max3_pane=
+l_desc },
+ 	{ .compatible =3D "powkiddy,rgb30-panel", .data =3D &rgb30panel_desc },
+--=20
+2.34.1
 
