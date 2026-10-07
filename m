@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 350B5CA5FFC
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 16:12:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2F4ECA5FFC
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 16:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61D2010E4D0;
-	Wed,  7 Oct 2026 16:12:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C8010E611;
+	Wed,  7 Oct 2026 16:18:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZzWHWu4W";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jhPZgAs6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9579B10E4D0
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 16:12:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 485BD44247;
- Wed,  7 Oct 2026 16:12:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E961F00893;
- Wed,  7 Oct 2026 16:12:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791389537;
- bh=5BH2XZ+jf2PtMYVX3zGI/6PpAROM9jNmKQkgQVCw1yg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZzWHWu4WEfG5AnSROMNWy7KfcplPNFqaKjL6kk6HT0VCg3OC3bIgxFzHpjAmR1Wal
- 8iE4UpuH2BADQyC6ihRfmn3qnHTIszefv7X2iKqzjyiBa76UXbIhJaxgWkm07PmCbS
- aShxhHnGsoPVWd8VCpTuI6aqKKQiXebDwweH5WoRiy92AwD1C6X2mCj6Ogj3Wuckm/
- GxKSqsVmzh764pcBnIAGcApz1pjje26LP7dS1oqjlJiYaaU5GRm2HGN6uoBc/1nJu8
- 7zSvV5PFSOL0hXrz0GUmKhltW3nEP5cOaDwv3K7LuQUp2qQcMdTAZQ9QBrWsCaoElx
- SPog4jV1rQFxg==
-Message-ID: <sashiko-outbox-163186@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/msm/dp: hold one runtime PM reference per
- plugged state
-To: "Joonhoe Kim" <26rote@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB6FB10E407
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 16:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791389881; x=1822925881;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=QoUzk8J5g1hjckbO218Bq/04HkLzeJUa0Q5nUI1QfU8=;
+ b=jhPZgAs6S9BJx1Wd70bAot/rMWCYKFgyUy5owIrpbl67YtxryKd2EpPT
+ 8p2FK+lm+ySqzuSx7Hfc+ncUNyCMSW0m7dc2Qe68m7XHeZc9xbJWukNiT
+ rWFo8M4FRhWzltD38Wjha7/Im5otbE6w1z4iOHhZY+FgXZV4DkCtYxLkd
+ 7sacgQdNQcEiPAP4DJTi+klPDlUIV2GbmZjEELhRLCSsvyQ4D/dInS47d
+ RVPhKzDwcMJ+FkMGOOG0bXOLiC8kJ+YV0DFl/UzPqivld0lhCfSJiCXYS
+ ZiXK0l9RGhLr7ZZ0oruuG2c0t3r7m49oMWtot/p5iFPrwu/7f9MZDE3et w==;
+X-CSE-ConnectionGUID: trod3ZeETUeqR3YprIeX4A==
+X-CSE-MsgGUID: o5HxMZPOQ2WM0KrRWmTvEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="165965"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="165965"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 09:18:01 -0700
+X-CSE-ConnectionGUID: 8AEPxnKqQ4qLJzptFxz1ow==
+X-CSE-MsgGUID: RMI+MXeYSt6Ml15UXMUMkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; d="scan'208";a="282297087"
+Received: from orewaldx-mobl.ger.corp.intel.com (HELO [10.245.113.139])
+ ([10.245.113.139])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 09:17:59 -0700
+Message-ID: <f3030543-45f3-4719-b8a9-4fd6226263e6@linux.intel.com>
+Date: Wed, 7 Oct 2026 18:17:46 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: Improve IVPU_TEST_MODE_FW_TEST handling
+To: sashiko-reviews@lists.linux.dev
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261007155848.106-1-26rote@gmail.com>
-References: <20261007155848.106-1-26rote@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 16:12:16 +0000
+References: <20261007102414.2661045-1-andrzej.kacprowski@linux.intel.com>
+ <sashiko-outbox-162864@kernel.org>
+Content-Language: en-US
+From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+In-Reply-To: <sashiko-outbox-162864@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,81 +69,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/msm/dp: unplug teardown bypassed when detect() clears priv->pl=
-ugged
---
-
-commit 6677860d1d5222553e73900478155ec25c55e88b
-Author: Joonhoe Kim <26rote@gmail.com>
-
-drm/msm/dp: hold one runtime PM reference per plugged state
-
-This commit adjusts PM runtime references in the DisplayPort driver to hold
-exactly one reference per plugged state. It takes a reference on plug and
-drops it when detect() notices the sink is gone or when the unplug handler
-runs.
-
-Link: https://lore.kernel.org/all/20260929130627.959-1-26rote@gmail.com/
-
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index 6abe30bdff120..4059cb9dba64b 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-[ ... ]
-> @@ -910,6 +913,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct=
- drm_bridge *bridge,
->  		return status;
->  	}
-> =20
-> +	was_plugged =3D priv->plugged;
->  	phy_deinit =3D msm_dp_display_host_phy_init(priv);
-> =20
->  	msm_dp_aux_enable_xfers(priv->aux, true);
-[ ... ]
-> @@ -962,6 +966,9 @@ enum drm_connector_status msm_dp_bridge_detect(struct=
- drm_bridge *bridge,
->  		pm_runtime_put_sync(&dp->pdev->dev);
->  	}
-> =20
-> +	if (was_plugged)
-> +		pm_runtime_put_sync(&dp->pdev->dev);
-> +
->  	return status;
->  }
-
-[Severity: High]
-Does this cement a hardware teardown bypass on unplug?
-
-When a physical unplug occurs, msm_dp_bridge_detect() fails to read DPCD
-caps and sets priv->plugged =3D false. By dropping the PM runtime reference
-here using the newly added was_plugged flag, it completes the state
-transition early.
-
-The DRM core subsequently calls .hpd_notify() which invokes
-msm_dp_hpd_unplug_handle(). Because the plugged flag was already cleared in
-detect(), the unplug handler immediately early-returns:
-
-msm_dp_hpd_unplug_handle() {
-        guard(mutex)(&dp->plugged_lock);
-        if (!dp->plugged)
-                return 0;
-        // Teardown code is skipped
-        ...
-}
-
-This entirely bypasses drm_edid_connector_update(..., NULL),
-drm_dp_set_subconnector_property(), and
-msm_dp_display_handle_plugged_change(..., false). As a result, the EDID is
-left stale, and the audio subsystem is never notified of the unplug (unless
-an active audio stream was running).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007155848.106-=
-1-26rote@gmail.com?part=3D1
+On 07-Oct-26 12:38 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] accel/ivpu: IRQ disable depth leak in FW_TEST mode due to unbalanced disable_irq()
+> --
+> 
+> commit 03c00af9f26af13756e29777951597b1aedc577d
+> Author: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+> 
+> accel/ivpu: Improve IVPU_TEST_MODE_FW_TEST handling
+> 
+> When driver is operating in IVPU_TEST_MODE_FW_TEST debug mode
+> it should boot the firmware, but skip communication with
+> the firmware. There is no need to enable interrupts or send messages.
+> The output of the firmware test will be available in the
+> firmware log.
+> 
+>> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+>> index 647684219e9d3..d66abf645e7b9 100644
+>> --- a/drivers/accel/ivpu/ivpu_drv.c
+>> +++ b/drivers/accel/ivpu/ivpu_drv.c
+> 
+> [ ... ]
+> 
+>> @@ -487,6 +484,9 @@ int ivpu_boot(struct ivpu_device *vdev)
+>>   		return ret;
+>>   	}
+>>   
+>> +	if (ivpu_test_mode & IVPU_TEST_MODE_FW_TEST)
+>> +		return 0;
+>> +
+> 
+> [Severity: High]
+> Does this early return cause an IRQ disable depth leak?
+> 
+> Since ivpu_boot() skips the call to enable_irq() when IVPU_TEST_MODE_FW_TEST
+> is enabled, it breaks the enable/disable symmetry.
+> 
+> Later, during teardown paths like ivpu_prepare_for_reset(), disable_irq()
+> is called unconditionally:
+> 
+> drivers/accel/ivpu/ivpu_drv.c:ivpu_prepare_for_reset() {
+>      ...
+>      disable_irq(vdev->irq);
+>      ...
+> }
+> 
+> Calling disable_irq() without a matching enable_irq() increments the disable
+> depth on each suspend/resume cycle. If the user dynamically disables FW_TEST
+> mode via sysfs, subsequent enable_irq() calls will only decrement the
+> accumulated depth by 1, leaving the physical interrupt permanently disabled.
+> 
+>>   	ret = ivpu_wait_for_ready(vdev);
+>>   	if (ret) {
+>>   		ivpu_err(vdev, "Failed to boot the firmware: %d\n", ret);
+> 
+Will be addressed in v2 patch.
