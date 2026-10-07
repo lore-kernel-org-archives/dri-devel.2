@@ -4,137 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3EEDCA5FF1
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 12:05:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D93D8CA5FF1
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 12:08:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261F710E45B;
-	Wed,  7 Oct 2026 12:05:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ECC210E55E;
+	Wed,  7 Oct 2026 12:08:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DMdTr2MF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="Jh5wCmqd";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012016.outbound.protection.outlook.com [40.107.209.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60BEC10E45B
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:05:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fcrqr8r+3i2kMLnHZdO2q0SFnwebBdeyT78gm0KT05Ha6DOruwdaH+GBs3tHG2JjEvfw+dqMq6QJf0T25/1TowMidR/MPL+7zSljL9bh/ydVvSRlg0HVJ6F45EYukF3UBsNG0o38cYKCcQ5y0uJaWD448tNCh/ZsM7wkRBoWcPSHIDt848FL569DfGjkvcNrpMvEoYj2Ik8xiKBbRChvZo7Env80bBRc3rIYPlyhrjj29zLRtNOq/mnUSyQhiRz+8CdRdKdGyXE+1b1gZa2o34sisSwosSRZgot8AzjFIqA3IU1vzUUK1uC+i7Y+Ok+ljl5DnW+k1anKCkU/umE32Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E196s1UkZHTTn7POnkAishoEP0BvtZJxKx4aBw4xJrI=;
- b=U4wW5dChNex2IlrNnxOP4PXduZ/tjjTFhkHBp0VmNocBj4D/NZ8xJZ0QPvi9SAakVlG6JGm2VWPg021Jpv8kRExjS4eKe4jU3/pAhLtZIye/SjJUSSzYkmoWfDVpdMnztVCpf2gPgZs7ZeNjwmT6dgiyJ6ZxqBTr15wCYs72Y7y4AGTxcV/J1Pt5TGrecIJPmBubSQqUA5ZSTX68tKq5cOkK7dTf8R3mJnINFJ+lDi7gskl1b24zNxlu0cT7g3rPTV8Mgm4+isaKB+/ZoTS1uSXliTztq+Ps8RuQoFz77tqShrMpWY5ZZUXi+pIwLWstQac4Ajvy5fSxPdYWftGbbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E196s1UkZHTTn7POnkAishoEP0BvtZJxKx4aBw4xJrI=;
- b=DMdTr2MFVfvb8VnpJh3BlKR8BDLe2IEaoaiE9+qKth3Qxwn2e9ssetEiklQoCwLRnvpyTeAMoP8ya6i+YNzciyIAxO98e+tk/HRqdKEljcoI1QPdx0CTA4wwboJvIkqcVuKobXAAYYPflw548hymMd1jaYoYQGZrmJqGGyYXcrEWZsqzKA16B9TLODQfXnW3EZKQpD9UCknd2wCkQeFpszrmH+X4n0Y3iuUFwvVWo5I2tCvWIWVs6cMjp4DnO8dYbohEs1aL9tdFIIrRWTgTXC71kNL0GFEh3E35sArgVQ906mw87kvmmY0BDOB0/obZfhmYCi5/GFogPoLC1wIBAA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CHAPR12MB999248.namprd12.prod.outlook.com (2603:10b6:610:2ff::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 12:05:31 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
- 12:05:31 +0000
+X-Greylist: delayed 365 seconds by postgrey-1.36 at gabe;
+ Wed, 07 Oct 2026 12:08:47 UTC
+Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51F3910E55E
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:08:47 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=I3I2EGwEvdd1xzorZSyj7Ywj415M3xlCNnegKaql7J0=; 
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791374925; v=1; x=1791979725;
+ b=Jh5wCmqd39m4d8kziPvZbpltj6dFGeORaGW1UYX5N9XqBt016RPOoWwKmD6uZiUAro9UoBnZ
+ Xn67Ns5KplJce2QUE6Eg9PF7a76Bsyto/dBEhYoGuC++IbsInJEvsjPDCLFIZdjYLwvKUBrjn64
+ Pz6McjKEYZRVV1bN45lKhnY+nXISGGC6UVdqQYrsy8zEgO/wncyanTkQDnVoitYSlRieYQUZTvM
+ o8G40lYbwPDJ1STcFZpm2wjLzeG91CZ55gzvI2XNL4wMuTFJzeliNd0FnB5DCEVZpF2hfFZvaMG
+ BQHUrYgHX+1it5CG7OgdBBIG1vP/N2QKFN5LSmm1JNLMA==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 0df9cfd24733c53d;
+ Wed, 07 Oct 2026 12:02:40 +0000
+X-Mizu-Trace-ID: 0df9cfd24733c53d
+X-Migadu-Flow: FLOW_OUT
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Oct 2026 21:05:28 +0900
-Message-Id: <DLYLCD5IPKGZ.2DMT37GPHPP74@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 7/8] gpu: nova-core: add NVKV typed decoding
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
-In-Reply-To: <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
-X-ClientProxiedBy: OS3P286CA0119.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:1f7::15) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CHAPR12MB999248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f474cc4-fa6b-4c49-8d01-08df246b48b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|10070799003|7416014|23010399003|376014|56012099006|5023799004|4143699003|11063799006|22082099003|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: 6/eWntS5paoyfBokQMVLc5C87HobF//bM4ycfS78/iPs5wDNtQG7EsnmB/nIJ/gJDb5dB3prbsbusxwg/6uArAGWz0UsSiNk41c1BawGhTm/+HrGd6VZ1cts5HcATYKCbDIAQwnYni29arGcKHfoqSL+YjYLEUwtVvU0pCeDL2/XZARaW/s8+j+INcMvGJarXLEUSI6lGjaczcUqjs12ExaHdSEWGkp0MbCNMt749unRQUBUonzPYAcnaJMX/i1vJWzcFfgk4mmDN8xh9HmaQsEURD8KudWVYHPfLpK3Pce/psx3dKWWxY4tbVhPZPgQFn9VZGwDc8veO7zmGhkTDaBcDhwbmHXmLwid+vZK2prTZ7ajdFFK5VRN0zd62G6JLGln/pKe6k+Tf97WpOE5eFZ8GgUAl3rLUfgo4QJ96JpkAoc1jaOsDTnF8t1mt9UI1ZjzogNsWM+9dtRnxRPz2oDKPKmPyDF+3v1FUXCO4DeC6NHV2DGwKSkt8s6vD7mDlrHilJG1G/AMoV/VVe5TAiuzj3Flr7pvsvanHeWg/LnvtBno43X1nxr/ZEoenbOJMv4e6kVbwacsZNELSW8YaykpGACL0nTiUFPF3fRcdFxnQZvOSoCDY1V3Q0l3DecavxBcdQyNWLXNNS2M0THwON2SbNAUGmEesOHNg56NuKs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(23010399003)(376014)(56012099006)(5023799004)(4143699003)(11063799006)(22082099003)(10067099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFR1emN3MjdJYUUxWndRL2VTd0pVeUlVZkZVZyt6UjhoUm9Mb3BJTC9sN3NN?=
- =?utf-8?B?MkZDeVBOdlBQQVNOUWpGV2hQYzNRa3JpQVRWOGY2VmZYTm0zcXdSeDBLMk9X?=
- =?utf-8?B?TjJrSFV3Mk13dm5ielBxeDgyL3ZYUDNZaUJHTU96M1JRWEovbGJJekIxdTRL?=
- =?utf-8?B?VVBMVW5xUHpvRlN1RUUrcVJMOW91aUpCVldIa2xqWkNubjFJNk1IcHEvQm5C?=
- =?utf-8?B?clVod2xESXRUNjJ3dmdsMTNwZk5VeHNndkU2Sis5S0tIOEkyTUE4S2lJYXZN?=
- =?utf-8?B?Q1FuQ1pJclY2WFZmZ0N4Z29Oekx2ZmRGY0FSZDFRdkRJTjNBOWlTYk1vcVNH?=
- =?utf-8?B?VGJJb2FHa0hUYzh4OStpcmtjbUlXS09BOXVueXJ3Z1BQbUVNeTBQT1hoSkpP?=
- =?utf-8?B?ei9LUzRCSmtWT0RuaEFkRnN5OW95a3RTRytCOUFmaE9UNVhFMFZPVmlGcEhh?=
- =?utf-8?B?NThBNm1TSjZ5WVhRazVVa0YxelltcjVnaVZGbkt4SWV0YThVSCswdGJEWWgv?=
- =?utf-8?B?dEZiR2hmOThkMDloS01KdmpjZkM3dzl3U3J4WGN0MGM5bUVxZ3g5SUkyTDBV?=
- =?utf-8?B?VFZMb3ZPL0ZJSGJJUng5V0N5SW0vVlljRkR4MEQ0MGZ6ckhjbWd0WWlpNFMx?=
- =?utf-8?B?d3RwMnhuaDh4NDFtd0t4RFovSit3Q0ZMMTN0Nkw1VEt5SkJGTVlxbUVGMlZq?=
- =?utf-8?B?ZmMwU0N5aHBFZnZLeXZKdkpIbTNXeWhWSUFtS3lNS2FJdStpTjNkNTJOV1ow?=
- =?utf-8?B?VktlVi9id3BBdG9aeWJmL3BUL0tvaCtyNUVwcmp3ZXFKL0FnVXp2anI3dXFW?=
- =?utf-8?B?cXZPamk0QkVwWG0veDhmc2VqWkFTaWV4czhEazU2SVhadVNjQ1QzYkxVNjB4?=
- =?utf-8?B?d1BTM1ZVbitpWjVITzNrSjdLQ09SVUQ2Slp5TkVIU1JnbHpURmlWS2pjNER5?=
- =?utf-8?B?TEpXb3BxVlFzcURNOVRZNUwwbjlQcVEvOUM5TU1hUDBzZlI4N053SGkrS0Jh?=
- =?utf-8?B?bmNQTndJb25QMzFwN3dSWkw3N0IxMmNRUjdlKzU2SXpTVWxhWTlNaG5IMU9J?=
- =?utf-8?B?dHo1RVp6NEN1VEJTTkNNTGxGYTRHSlBRNThNMzFRS0RhT1pMNGNYbTVPQXF0?=
- =?utf-8?B?c1dSRWNlVXBSRDFzc1N2bXNNYmJvYm1DbUJ2dGU1bEVna25acG43a0FiZGNS?=
- =?utf-8?B?WG1VeUllWm1NYW1aRDlENzZ2WFFLbGRBN1VTNjFDMjdEVHZLVzhVdVJmWWlx?=
- =?utf-8?B?dXJlZWdPK09uYUFBeUpxdHZHeWIrSlhabFdnaHI5TGdmMjlnNTJ1UVgzbG53?=
- =?utf-8?B?NTYzSmIxNXk0Wm84bUFrcXhGRjgyWDBtK21UNCtSNXhSaTNuOUVhWEpHQ1hP?=
- =?utf-8?B?d29ObDN6dDVDdWR2V3NvSVVTSS9FMGVFTjJncDBWbFM4WE1YZnNUckVEQVZQ?=
- =?utf-8?B?K0JxTUoyNlRWWHVpcWpvSENFREl2cGRqYzFIVGRleld5SVIxeldqV0NoNlVQ?=
- =?utf-8?B?Zm5raDJWNDdaVU1HeUo2eVUyN3B1UTQwM1ZtNUE0R2Fzc0RqOEliaWVEZUNz?=
- =?utf-8?B?aTFTcDFma09wVldvbFZtb2U5QUdoZFlEY0wxdUtkckFIdVBvTldEdWtUNGdU?=
- =?utf-8?B?a3V0WDY4MmZIU284TnJRWGYzajJvSURtVG1BZnBkRUVVSE9YWmRmdHpHTU5x?=
- =?utf-8?B?SlRwR1ZHbVZaMDhrWTdFbXltaFd3OVYzWUtXV0FpMFRnUUprNlg2NUNkZG5k?=
- =?utf-8?B?UERLSTBXL3JQaFpvdEJNU0Q3RWkyYUJaakpITXVCSGJnVzJyWFZ0SzRHUEt3?=
- =?utf-8?B?dTBhVjFZbGJWZ0RDSDFobXpWQi9uOGdxNDdGYjl3TnpSd3VTcWxnSzdtSkZW?=
- =?utf-8?B?Z1dmcE8rMEE4VHhBNUFoaTlNaXhObWhwNXFuUXdzMC95TG1IUWVyejJlVE1P?=
- =?utf-8?B?cnZ3enA2Zk53M3BBVWRNQk9Pb2JJNG9idXgwK21SVExrZHladkdtMjAva01N?=
- =?utf-8?B?UjBhTTBlSi9TaUwzbUsvV3VadTJHam04VUx1SDM5ZnJtRExQMTU3WVhJaHNX?=
- =?utf-8?B?eG5nZVdTTkk3M0lKUG82S3N1Z0QyeTRhZ1ZhN215djRJcVdIUnhtblpJa3Ba?=
- =?utf-8?B?R2VuZU1IK0JnOVZSWDlNZ2V0ckErNEhDM2daMGllZHRwMlpiSm95VEl2RWNK?=
- =?utf-8?B?ZTY2WFVicVF3OWpjMExMaTNjYUNsckJYMy9ZVVJ4MGRkNWd4dW5MdGQ4aEVV?=
- =?utf-8?B?U3BOd2MwdzVMbDVOVWlSNHFUeDhuZ2grL05iaEdWYzFXT3VBTFJ0OTB2eGJ1?=
- =?utf-8?B?ODVmanVMZ2luMGM5bEhEZHZEZlorVHl4WmltdmxnWjUwdEN1cVJYWWtFMC9B?=
- =?utf-8?Q?Y6xcV0UJ/Y84LUDtXPc4cdsveXHLQVingUnEas61i7LqC?=
-X-MS-Exchange-AntiSpam-MessageData-1: aB0xEfqsEhJ92Q==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f474cc4-fa6b-4c49-8d01-08df246b48b2
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 12:05:31.1532 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kG3CDLURbMHzUI+SEbvAdp/PxA7YCgQLRhJt5RG9uK0/IWdlGyG5HRZEgyms2PTlsO28Ug50MzRY93T20whoeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999248
+Date: Wed, 07 Oct 2026 14:02:31 +0200
+Message-Id: <DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com>
+Cc: "Andrew Morton" <akpm@linux-foundation.org>, "Jason Gunthorpe"
+ <jgg@nvidia.com>, "Rob Clark" <rob.clark@oss.qualcomm.com>, "Jianfeng Liu"
+ <liujianfeng1994@gmail.com>, "Diederik de Haas" <diederik@cknow-tech.com>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>, "Vinod Koul"
+ <vkoul@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 2/3] dma-buf: add a warn-only mode to DMABUF_DEBUG
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+X-Mailer: aerc 0.22.0-31-g5c1c510d2b65
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+ <20261005064133.7305-3-kmehltretter@gmail.com>
+In-Reply-To: <20261005064133.7305-3-kmehltretter@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,142 +68,473 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Sorry, some follow-up comments after my previous review.
+Hi,
 
-On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
-> Similar to the typed encoding layer, add some decoding type machinery.
-> Add a simple macro `nvkv_decode!` which implements `Schema` for a struct
-> by composing visit calls to each member. Add some common `Schema` kinds,
-> such as `Array` which collects an array value into a fixed maximum size
-> array, and `Required` which fails a decode if the value is not sent.
+On Mon Oct 5, 2026 at 8:41 AM CEST, Karl Mehltretter wrote:
+> DMABUF_DEBUG hands importers a copy of the exporter's sg_table without
+> the struct pages. An importer that uses them then fails, often far from
+> the cause and without a message that points at it. Where sg_dma_len()
+> is sg->length, the copy cannot hide the length either.
 >
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> Add DMABUF_DEBUG_WARN. With it the copy keeps the CPU side of the
+> exporter's table: page, offset and length of all orig_nents entries,
+> and the exporter's nents and orig_nents. A table without a CPU side
+> (orig_nents =3D=3D 0) stays that way. Every entry of the copy is marked
+> with a new dma_flags bit, SG_DMA_DMABUF_DEBUG.
+>
+> sg_page(), sg_nents_for_len() and sg_split() test the bit and print a
+> rate limited message with a stack trace. sg_page() is mostly reached
+> through DMA and scatterlist helpers, so the trace is what names the
+> importer. These CPU-side accesses can continue after the report instead
+> of failing because the fields were cleared.
+>
+> The report is not a WARN(). It does not taint the kernel and does not
+> trigger panic_on_warn.
+>
+> Reads of sg->offset and sg->length that do not go through these
+> helpers are not seen. The option adds a test to every sg_page() and
+> selects NEED_SG_DMA_FLAGS.
+>
+> Strict mode remains the default and continues to remove the CPU-side
+> fields.
+
+Thanks for this patch set!
+
+I build a 7.3-rc6 based kernel with this patch set included.
+And I (ofc) enabled DMABUF_DEBUG and DMABUF_DEBUG_WARN.
+
+I then tested it on my NanoPC-T6 Plus (RK3588 SoC) connected to my 1080p
+monitor and also on my NanoPC-T6 LTS (RK3588) connected to my 4K TV (which
+is HDMI 2.0, not 2.1, capable).
+On both devices I got an identical call trace.
+I did get a new (identical) one every time I resized the video window,
+ie going from windowed to full-screen and back again.
+
+```sh
+[ 1091.981354] rc rc3: two consecutive events of type space
+[ 1104.670513] input: EDIFIER e235 (AVRCP) as /devices/virtual/input/input1=
+2
+[ 1172.090231] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1189.403278] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1206.309295] input: EDIFIER e235 (AVRCP) as /devices/virtual/input/input1=
+3
+[ 1268.968696] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1268.968710] CPU: 6 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1268.968715] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1268.968717] Call trace:
+[ 1268.968719]  show_stack+0x20/0x38 (C)
+[ 1268.968726]  dump_stack_lvl+0x60/0x80
+[ 1268.968730]  sg_dmabuf_cpu_access_warn.part.0+0x24/0x30
+[ 1268.968734]  sg_dmabuf_cpu_access_warn+0x34/0x38
+[ 1268.968739]  iommu_map_sg+0xc8/0x1e0
+[ 1268.968745]  rockchip_gem_iommu_map+0x8c/0x128 [rockchipdrm]
+[ 1268.968757]  rockchip_gem_prime_import_sg_table+0x58/0x160 [rockchipdrm]
+[ 1268.968761]  drm_gem_prime_import_dev+0xa8/0x1d0 [drm]
+[ 1268.968776]  drm_gem_prime_fd_to_handle+0x1a4/0x280 [drm]
+[ 1268.968786]  drm_prime_fd_to_handle_ioctl+0x40/0x58 [drm]
+[ 1268.968796]  drm_ioctl_kernel+0xc8/0x140 [drm]
+[ 1268.968806]  drm_ioctl+0x254/0x558 [drm]
+[ 1268.968816]  __arm64_sys_ioctl+0xac/0x118
+[ 1268.968821]  invoke_syscall.constprop.0+0xac/0x110
+[ 1268.968825]  el0_svc_common.constprop.0+0x40/0xf0
+[ 1268.968829]  do_el0_svc+0x24/0x40
+[ 1268.968832]  el0_svc+0x40/0x260
+[ 1268.968836]  el0t_64_sync_handler+0xa0/0xe8
+[ 1268.968838]  el0t_64_sync+0x198/0x1a0
+[ 1290.531300] sg_dmabuf_cpu_access_warn: 36 callbacks suppressed
+[ 1290.531310] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1290.531319] CPU: 5 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1290.531323] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1290.531325] Call trace:
+[ 1290.531327]  show_stack+0x20/0x38 (C)
+[ 1290.531335]  dump_stack_lvl+0x60/0x80
+[ 1290.531338]  sg_dmabuf_cpu_access_warn.part.0+0x24/0x30
+[ 1290.531342]  sg_dmabuf_cpu_access_warn+0x34/0x38
+[ 1290.531347]  iommu_map_sg+0xc8/0x1e0
+[ 1290.531352]  rockchip_gem_iommu_map+0x8c/0x128 [rockchipdrm]
+[ 1290.531364]  rockchip_gem_prime_import_sg_table+0x58/0x160 [rockchipdrm]
+[ 1290.531368]  drm_gem_prime_import_dev+0xa8/0x1d0 [drm]
+[ 1290.531384]  drm_gem_prime_fd_to_handle+0x1a4/0x280 [drm]
+[ 1290.531394]  drm_prime_fd_to_handle_ioctl+0x40/0x58 [drm]
+[ 1290.531404]  drm_ioctl_kernel+0xc8/0x140 [drm]
+[ 1290.531414]  drm_ioctl+0x254/0x558 [drm]
+[ 1290.531424]  __arm64_sys_ioctl+0xac/0x118
+[ 1290.531429]  invoke_syscall.constprop.0+0xac/0x110
+[ 1290.531433]  el0_svc_common.constprop.0+0x40/0xf0
+[ 1290.531437]  do_el0_svc+0x24/0x40
+[ 1290.531439]  el0_svc+0x40/0x260
+[ 1290.531444]  el0t_64_sync_handler+0xa0/0xe8
+[ 1290.531446]  el0t_64_sync+0x198/0x1a0
+[ 1294.197699] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1313.464098] sg_dmabuf_cpu_access_warn: 149 callbacks suppressed
+[ 1313.464121] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1313.464144] CPU: 2 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1313.464156] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1313.464163] Call trace:
+[ 1313.464168]  show_stack+0x20/0x38 (C)
+...
+```
+
+Full dmesg output is posted here:
+https://paste.sr.ht/~diederik/3d0020b4f3b0e8547397c20d5c10387d88d32341
+
+Hopefully this helps fixing the underlaying issue.
+
+Cheers,
+  Diederik
+
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
->  drivers/gpu/nova-core/gsp/nvkv.rs        |  11 +-
->  drivers/gpu/nova-core/gsp/nvkv/decode.rs | 622 +++++++++++++++++++++++++=
-+++++-
->  2 files changed, 628 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gs=
-p/nvkv.rs
-> index 7ac3a459a98b..5791df07a7fa 100644
-> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
-> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
-> @@ -9,7 +9,7 @@
->  //! function calls will map to some struct - for example, f(GPU_NAME_STR=
-ING_KEY, 0, b"some gpu")
->  //! naturally maps to storing a &str with the GPU name.
+> Notes:
+>     Tested on v7.3-rc4-70-gfe2ec83746e5 with GCC 15.2.0.
+>    =20
+>     Builds, without warnings:
+>    =20
+>     - x86_64 with DMABUF_DEBUG_WARN=3Dy, full build
+>     - arm64 defconfig with DMABUF_DEBUG_WARN=3Dy: Image, and the msm and
+>       rockchip DRM drivers
+>     - ARM926 (SAM9X75) with DMABUF_DEBUG_WARN=3Dy and without
+>       NEED_SG_DMA_LENGTH, full build
+>     - ARM926 with DMABUF_DEBUG=3Dn and without NEED_SG_DMA_FLAGS, full bu=
+ild.
+>       dma-buf.o and lib/scatterlist.o disassemble as on the base commit,
+>       except for __LINE__ constants.
+>     - x86_64 with SG_SPLIT, W=3D1, the objects touched here: with
+>       DMABUF_DEBUG_WARN=3Dy, with DMABUF_DEBUG=3Dy alone, and with
+>       DMABUF_DEBUG=3Dn
+>    =20
+>     Runtime, both in QEMU with local device models, not on hardware.
+>    =20
+>     Zynq with an AXI ADC, IIO DMABUF capture into udmabuf buffers,
+>     NEED_SG_DMA_LENGTH=3Dy. The IIO dmaengine buffer calls sg_nents_for_l=
+en()
+>     on the attachment's table. With DMABUF_DEBUG=3Dy alone the capture fa=
+ils:
+>    =20
+>       DMABUF_ENQUEUE failed: Device or resource busy
+>    =20
+>     With DMABUF_DEBUG_WARN=3Dy all 16 blocks arrive with the right data, =
+the
+>     kernel is not tainted, and the log has one report:
+>    =20
+>       DMA-BUF: importer used the CPU side of an exporter's sg_table
+>       CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VO=
+LUNTARY
+>       Hardware name: Xilinx Zynq Platform
+>       Call trace:
+>        unwind_backtrace from show_stack+0x10/0x14
+>        show_stack from dump_stack_lvl+0x54/0x68
+>        dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
+>        sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
+>        iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block=
+.part.0+0x5c/0x104
+>        iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dma=
+buf+0x68/0xa0
+>        iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0=
+x9a4
+>        iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
+>        sys_ioctl from ret_fast_syscall+0x0/0x4c
+>    =20
+>     x86_64 with intel-iommu, xHCI and a SUR40, capture into udmabuf
+>     buffers. This kernel had a one-line test-only change in sur40 that
+>     makes the vb2 queue use the USB controller's DMA device. There was no
+>     report during boot. The capture gives one, from sg_page() in
+>     iommu_dma_map_sg():
+>    =20
+>       DMA-BUF: importer used the CPU side of an exporter's sg_table
+>       CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted 7.3.0-rc4+ #5 PR=
+EEMPT(lazy)
+>       Workqueue: events_freezable input_dev_poller_work
+>       Call Trace:
+>        <TASK>
+>        dump_stack_lvl+0x4d/0x70
+>        iommu_dma_map_sg+0x4c0/0x1010
+>        __dma_map_sg_attrs+0x254/0x3b0
+>        dma_map_sg_attrs+0xe/0x20
+>        usb_hcd_map_urb_for_dma+0x7e0/0x1620
+>        usb_hcd_submit_urb+0x162/0x1af0
+>        usb_sg_wait+0x17c/0x550
+>        sur40_poll+0xb3e/0xff0
+>        input_dev_poller_work+0x54/0x90
+>        process_one_work+0x692/0xf90
+>        [...]
+>    =20
+>     The capture did not finish in this setup. The guest stalled in
+>     xhci_queue_bulk_tx() after the report, so this run only shows the
+>     report.
+>    =20
+>     The SG_DMA_* defines move up in scatterlist.h because sg_page() needs
+>     the new one.
+>
+>  drivers/dma-buf/Kconfig     | 23 +++++++++++++++++++
+>  drivers/dma-buf/dma-buf.c   | 44 ++++++++++++++++++++++++++++++++++++-
+>  include/linux/scatterlist.h | 26 +++++++++++++++++++---
+>  lib/scatterlist.c           | 22 +++++++++++++++++++
+>  lib/sg_split.c              |  2 ++
+>  5 files changed, 113 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+> index e4f078a326a4..06177465091a 100644
+> --- a/drivers/dma-buf/Kconfig
+> +++ b/drivers/dma-buf/Kconfig
+> @@ -49,6 +49,29 @@ config DMABUF_DEBUG
+>  	  exporters. Specifically it validates that importers do not peek at th=
+e
+>  	  underlying struct page when they import a buffer.
 > =20
-> -#![expect(unused_imports)]
-> +#![cfg_attr(not(CONFIG_KUNIT), expect(unused_imports))]
->  #![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
+> +config DMABUF_DEBUG_WARN
+> +	bool "Warn instead of hiding the pages from DMA-BUF importers"
+> +	depends on DMABUF_DEBUG
+> +	select NEED_SG_DMA_FLAGS
+> +	help
+> +	  DMABUF_DEBUG normally hands importers a copy of the exporter's
+> +	  sg_table without the struct page pointers, so that an importer which
+> +	  uses them fails early.
+> +
+> +	  With this option the copy keeps the pages, offsets and lengths and is
+> +	  only marked. sg_page() and the helpers built on it, sg_nents_for_len(=
+)
+> +	  and sg_split() then print a rate limited message with a stack trace
+> +	  when they are used on such a table. The access itself continues
+> +	  instead of failing because the fields were cleared. The message is
+> +	  not a WARN(): it does not taint the kernel or trigger panic_on_warn.
+> +
+> +	  Importers that read sg->offset or sg->length directly are not
+> +	  noticed. The option adds a test to every sg_page() call. It selects
+> +	  NEED_SG_DMA_FLAGS, which adds dma_flags and may increase the size of
+> +	  struct scatterlist.
+> +
+> +	  If unsure, say N.
+> +
+>  config DMABUF_KUNIT_TEST
+>  	tristate "KUnit tests for DMA-BUF" if !KUNIT_ALL_TESTS
+>  	depends on KUNIT
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index b3d311acb883..bd82b6b7f5ff 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -57,6 +57,7 @@
+>  struct dma_buf_sg_table_wrapper {
+>  	struct sg_table *original;
+>  	struct sg_table wrapper;
+> +	unsigned int alloc_nents;
+>  };
 > =20
->  use core::{
-> @@ -23,7 +23,8 @@
->  use kernel::{
->      alloc::{
->          allocator::KVmalloc,
-> -        Allocator, //
-> +        Allocator,
-> +        ArrayVec, //
->      },
->      bitfield,
->      num::Bounded,
-> @@ -148,6 +149,12 @@ fn default() -> Self {
->      }
+>  static inline int is_dma_buf_file(struct file *);
+> @@ -874,11 +875,42 @@ void dma_buf_put(struct dma_buf *dmabuf)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
+> =20
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +/*
+> + * Warn mode: the importer also gets the CPU side of the exporter's tabl=
+e,
+> + * marked so that sg_page() and friends can report who uses it.
+> + */
+> +static void dma_buf_wrap_cpu_side(struct sg_table *to, struct sg_table *=
+from)
+> +{
+> +	struct scatterlist *to_sg, *from_sg;
+> +	int i;
+> +
+> +	for_each_sgtable_sg(to, to_sg, i)
+> +		to_sg->dma_flags |=3D SG_DMA_DMABUF_DEBUG;
+> +
+> +	to_sg =3D to->sgl;
+> +	for_each_sgtable_sg(from, from_sg, i) {
+> +		sg_assign_page(to_sg, sg_page(from_sg));
+> +		to_sg->offset =3D from_sg->offset;
+> +		to_sg->length =3D from_sg->length;
+> +		to_sg =3D sg_next(to_sg);
+> +	}
+> +
+> +	to->nents =3D from->nents;
+> +	to->orig_nents =3D from->orig_nents;
+> +}
+> +#else
+> +static void dma_buf_wrap_cpu_side(struct sg_table *to, struct sg_table *=
+from)
+> +{
+> +}
+> +#endif
+> +
+>  static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
+>  {
+>  	struct scatterlist *to_sg, *from_sg;
+>  	struct sg_table *from =3D *sg_table;
+>  	struct dma_buf_sg_table_wrapper *to;
+> +	unsigned int nents =3D from->nents;
+>  	int i, ret;
+> =20
+>  	if (!IS_ENABLED(CONFIG_DMABUF_DEBUG))
+> @@ -888,14 +920,21 @@ static int dma_buf_wrap_sg_table(struct sg_table **=
+sg_table)
+>  	 * To catch abuse of the underlying struct page by importers copy the
+>  	 * sg_table without copying the page_link and give only the copy back t=
+o
+>  	 * the importer.
+> +	 *
+> +	 * With DMABUF_DEBUG_WARN the copy keeps the CPU side, which can have
+> +	 * more entries than the DMA side.
+>  	 */
+>  	to =3D kzalloc_obj(*to);
+>  	if (!to)
+>  		return -ENOMEM;
+> =20
+> -	ret =3D sg_alloc_table(&to->wrapper, from->nents, GFP_KERNEL);
+> +	if (IS_ENABLED(CONFIG_DMABUF_DEBUG_WARN))
+> +		nents =3D max(nents, from->orig_nents);
+> +
+> +	ret =3D sg_alloc_table(&to->wrapper, nents, GFP_KERNEL);
+>  	if (ret)
+>  		goto free_to;
+> +	to->alloc_nents =3D nents;
+> =20
+>  	to_sg =3D to->wrapper.sgl;
+>  	for_each_sgtable_dma_sg(from, from_sg, i) {
+> @@ -910,6 +949,7 @@ static int dma_buf_wrap_sg_table(struct sg_table **sg=
+_table)
+>  #endif
+>  		to_sg =3D sg_next(to_sg);
+>  	}
+> +	dma_buf_wrap_cpu_side(&to->wrapper, from);
+> =20
+>  	to->original =3D from;
+>  	*sg_table =3D &to->wrapper;
+> @@ -929,6 +969,8 @@ static void dma_buf_unwrap_sg_table(struct sg_table *=
+*sg_table)
+> =20
+>  	copy =3D container_of(*sg_table, typeof(*copy), wrapper);
+>  	*sg_table =3D copy->original;
+> +	/* sg_free_table() needs the number of allocated entries */
+> +	copy->wrapper.orig_nents =3D copy->alloc_nents;
+>  	sg_free_table(&copy->wrapper);
+>  	kfree(copy);
+>  }
+> diff --git a/include/linux/scatterlist.h b/include/linux/scatterlist.h
+> index 6de1a2434299..5dc8c134ca4c 100644
+> --- a/include/linux/scatterlist.h
+> +++ b/include/linux/scatterlist.h
+> @@ -21,6 +21,13 @@ struct scatterlist {
+>  #endif
+>  };
+> =20
+> +/* Bits in dma_flags, see below. sg_page() needs SG_DMA_DMABUF_DEBUG. */
+> +#ifdef CONFIG_NEED_SG_DMA_FLAGS
+> +#define SG_DMA_BUS_ADDRESS	(1 << 0)
+> +#define SG_DMA_SWIOTLB		(1 << 1)
+> +#define SG_DMA_DMABUF_DEBUG	(1 << 2)
+> +#endif
+> +
+>  /*
+>   * These macros should be used after a dma_map_sg call has been done
+>   * to get bus addresses of each of the SG entries and their lengths.
+> @@ -188,11 +195,27 @@ static inline void sg_set_folio(struct scatterlist =
+*sg, struct folio *folio,
+>  	sg->length =3D len;
 >  }
 > =20
-> +/// A schema field for an array value under the NVKV key `KEY_ID`.
-> +#[repr(transparent)]
-
-I see that `#[repr(transparent)]` is used several times in this series,
-but is there a need for it? Same for the many `#[inline]`s, here I feel
-like letting the compiler arrange things as it wants might be the better
-call. I know I suggested downgrading from always-inline to just inline,
-so maybe we should go all the way here. These are very likely to be
-inlined anyway, and worst case I don't think a function call would
-induce a big cost.
-
-<...>
-> +impl<T: Default, const KEY_ID: KeyId> Schema for Key<T, KEY_ID> {
-> +    type Target =3D T;
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +void sg_dmabuf_cpu_access_warn(void);
 > +
-> +    #[inline]
-> +    fn init() -> impl Init<Self> {
-> +        Self::default()
-> +    }
-> +
-> +    #[inline]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        Ok(core::mem::take(&mut self.0))
-> +    }
+> +/* Report use of the CPU side of a table that a DMA-BUF importer was giv=
+en */
+> +static inline void sg_dmabuf_cpu_access_check(struct scatterlist *sg)
+> +{
+> +	if (unlikely(sg->dma_flags & SG_DMA_DMABUF_DEBUG))
+> +		sg_dmabuf_cpu_access_warn();
 > +}
-
-Both methods return the built value on the stack, which is fine when we
-only deal with scalars but technically we could also store larger
-values. How about a `const_assert!` ensuring we don't go beyond, say, 32
-bytes for the size of `T` and `Target`?
-
-<...>
-> +/// A schema field for a key that must be present.
-> +///
-> +/// `finish` fails with `EINVAL` if no value arrived for the key.
-> +#[repr(transparent)]
-> +pub(crate) struct Required<T, const KEY_ID: KeyId>(Key<Option<T>, KEY_ID=
->);
+> +#else
+> +static inline void sg_dmabuf_cpu_access_check(struct scatterlist *sg)
+> +{
+> +}
+> +#endif
 > +
-> +impl<T, const KEY_ID: KeyId> Schema for Required<T, KEY_ID> {
-> +    type Target =3D T;
+>  static inline struct page *sg_page(struct scatterlist *sg)
+>  {
+>  #ifdef CONFIG_DEBUG_SG
+>  	BUG_ON(sg_is_chain(sg));
+>  #endif
+> +	sg_dmabuf_cpu_access_check(sg);
+>  	return (struct page *)((sg)->page_link & ~SG_PAGE_LINK_MASK);
+>  }
+> =20
+> @@ -303,9 +326,6 @@ static inline void sg_unmark_end(struct scatterlist *=
+sg)
+>   */
+>  #ifdef CONFIG_NEED_SG_DMA_FLAGS
+> =20
+> -#define SG_DMA_BUS_ADDRESS	(1 << 0)
+> -#define SG_DMA_SWIOTLB		(1 << 1)
+> -
+>  /**
+>   * sg_dma_is_bus_address - Return whether a given segment was marked
+>   *			   as a bus address
+> diff --git a/lib/scatterlist.c b/lib/scatterlist.c
+> index 6ea40d2e6247..55a3697df881 100644
+> --- a/lib/scatterlist.c
+> +++ b/lib/scatterlist.c
+> @@ -12,6 +12,27 @@
+>  #include <linux/bvec.h>
+>  #include <linux/uio.h>
+>  #include <linux/folio_queue.h>
+> +#include <linux/printk.h>
+> +#include <linux/ratelimit.h>
 > +
-> +    #[inline]
-> +    fn init() -> impl Init<Self> {
-> +        Self(None.into())
-> +    }
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +/*
+> + * Not a WARN(): a wrong importer must not taint the kernel or trigger
+> + * panic_on_warn. sg_page() is mostly reached through DMA or scatterlist
+> + * helpers, so the stack trace is what identifies the importer.
+> + */
+> +void sg_dmabuf_cpu_access_warn(void)
+> +{
+> +	static DEFINE_RATELIMIT_STATE(rs, DEFAULT_RATELIMIT_INTERVAL, 1);
 > +
-> +    #[inline]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        (self.0).0.take().ok_or(EINVAL)
+> +	if (!__ratelimit(&rs))
+> +		return;
+> +
+> +	pr_warn("DMA-BUF: importer used the CPU side of an exporter's sg_table\=
+n");
+> +	dump_stack_lvl(KERN_WARNING);
+> +}
+> +EXPORT_SYMBOL(sg_dmabuf_cpu_access_warn);
+> +#endif
+> =20
+>  /**
+>   * sg_nents - return total count of entries in scatterlist
+> @@ -54,6 +75,7 @@ int sg_nents_for_len(struct scatterlist *sg, u64 len)
+>  		return 0;
+> =20
+>  	for (nents =3D 0, total =3D 0; sg; sg =3D sg_next(sg)) {
+> +		sg_dmabuf_cpu_access_check(sg);
+>  		nents++;
+>  		total +=3D sg->length;
+>  		if (total >=3D len)
+> diff --git a/lib/sg_split.c b/lib/sg_split.c
+> index 24e8f5e48e63..cbbc7f9a206d 100644
+> --- a/lib/sg_split.c
+> +++ b/lib/sg_split.c
+> @@ -33,6 +33,8 @@ static int sg_calculate_split(struct scatterlist *in, i=
+nt nents, int nb_splits,
+>  	}
+> =20
+>  	for_each_sg(in, sg, nents, i) {
+> +		if (!mapped)
+> +			sg_dmabuf_cpu_access_check(sg);
+>  		sglen =3D mapped ? sg_dma_len(sg) : sg->length;
+>  		if (skip > sglen) {
+>  			skip -=3D sglen;
 
-I've experimented a bit with my earlier suggestion of having a wrapping
-`Required` type because I wasn't so sure it would work, but it seems to
-be indeed doable! Here is my draft implementation:
 
-pub(crate) struct Required<S: Schema> {
-    inner: S,
-    parsed: bool,
-}
-
-impl<S: Schema> Schema for Required<S> {
-    type Target =3D S::Target;
-
-    fn init() -> impl Init<Self> {
-        init!(Self { inner <- S::init(), parsed: false })
-    }
-
-    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-        // Reset `self.parsed` to make the schema empty again per the metho=
-d contract.
-        let parsed =3D core::mem::take(&mut self.parsed);
-        self.inner
-            .finish()
-            .chain(move |_| if parsed { Ok(()) } else { Err(EINVAL) })
-    }
-}
-
-impl<'data, S: Schema + Visit<'data>> Visit<'data> for Required<S> {
-    fn visit(&mut self, key: KeyId, index: Index, value: DecoderValue<'data=
->) -> Result<bool> {
-        let consumed =3D self.inner.visit(key, index, value)?;
-        self.parsed |=3D consumed;
-        Ok(consumed)
-    }
-}
-
-You need to convert all the `Required<T, ...>` into `Required<Key<T,
-...>>`, but this reads more logically I think, and now you can combine
-`Required` with more types. I believe you could also implement
-`Optional` in a similar way.
-
-(you will also need to add a `#[derive(Default)]` to `FbRegionFlags` on
-the next patch, but that's not a big deal since it wraps a primitive
-type anyway)
