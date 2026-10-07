@@ -4,57 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68978CA5FF1
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:09:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68FF6CA5FF1
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C7D810E107;
-	Wed,  7 Oct 2026 13:09:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92A6510E593;
+	Wed,  7 Oct 2026 13:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="oMaLe9yj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VRtCQ22f";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8752B10E58E
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 13:09:40 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8AD8C1595;
- Wed,  7 Oct 2026 06:09:36 -0700 (PDT)
-Received: from [10.57.75.203] (unknown [10.57.75.203])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 596A73F66F;
- Wed,  7 Oct 2026 06:09:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1791378579; bh=UTZVBvMKVq9bHDX2yhf6FOlhWljTZm8XMVowKeG9ev8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=oMaLe9yjQREpK2+YoSuF0iz/+8bAYiu1vGiBIQTLnMVlcf5uBqgKl1Zy/SoIM3mdW
- tdTjJaVEAzRbhgnwjbxXi/sHjy6Se6ShriAlVDd2ltFfQimA5/h3EqxRs8QUa+iUsf
- 26BYbCCvx/5SMBcm9i/X7ENeXCvI16xbNzXJC584=
-Message-ID: <00bd53b9-c6b6-4d84-aaeb-aeade3ffb3fb@arm.com>
-Date: Wed, 7 Oct 2026 14:09:35 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF26F10F59B
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 13:11:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 458454029E;
+ Wed,  7 Oct 2026 13:11:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5373B1F0089B;
+ Wed,  7 Oct 2026 13:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791378692;
+ bh=fU1GuLIm19BVy56Ks7brnn3nS8NIyYYLHC3fc8g43AI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=VRtCQ22fEbfQ1dlzLF708OiRR5/rHAgOdNCo/U46SgQRZ9EkrZqbOU9n2X9qWbrD3
+ D4PaJQNjeeGJRhpreBG072Pwo74Kzuemtww48AAWJUv7sP+9Rj8D8tZzEtxrzmKeXx
+ 1Vtd2/6Koyu+TUW2GmdadK4GOjIcKagf3kCpDqm1UVFSzQN5lxetDMp5W9trtkk9iC
+ +zLjDdrEfiu6De5/INIcOCYGbA3ZwCeqbomaDfAFfOS2Mguqkp8D2MD4zUjO4E1dpR
+ uwIDO+yEAOtxLJgiWYmEOlpWK/m9qoWzUmULSGIVvLK8hekazRyw7jgfR38rPyazQn
+ 74lxNHZi+8Kaw==
+Date: Wed, 7 Oct 2026 14:11:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, Frank.Li@kernel.org,
+ imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ linux-clk@vger.kernel.org
+Subject: Re: [PATCH v10 6/9] dt-bindings: clock: nxp,imx95-blk-ctl: Add ldb
+ child node
+Message-ID: <20261007-e9f7f08f98c153f0d0c97c91@squawk>
+References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
+ <20261006-dcif-upstreaming-v10-6-bcfb28de0aae@oss.nxp.com>
+ <20261006123500.94C911F00893@smtp.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate when
- enabling perfcnt
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
- <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
- <179130511905.1018806.3717655233851799587.b4-reply@b4>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <179130511905.1018806.3717655233851799587.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="rYN3Tj1AuBnBbp+q"
+Content-Disposition: inline
+In-Reply-To: <20261006123500.94C911F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,62 +63,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 06/10/2026 17:45, Adrián Larumbe wrote:
-> On 2026-10-02 16:14:38+01:00, Steven Price wrote:
->> On 29/09/2026 04:44, Adrián Larumbe wrote:
->>
->>> The GPU cache flush/invalidate operation is unnecessary. First off, the
->>> GPU doesn't read off the perfcnt sample buffer, only writes into it, so
->>
->> I don't think this is entirely true. The GPU performance counter unit
->> only writes the counters that are enabled, counters that share a cache
->> line but are not enabled are not written by the performance counter
->> unit, but if the L2 contains that cache line then the write can hit in
->> the L2 and dirty the entire line including stale data where the
->> unwritten cache line is.
-> 
-> From the perspective of UM, is it bad if offsets into the perfcnt buffer
-> that stand for counters they did not enable contain undefined values?
+--rYN3Tj1AuBnBbp+q
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-There's two things to consider here:
+On Tue, Oct 06, 2026 at 12:34:59PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] dt-bindings: missing LDB constraints for nxp,imx95-lvds-csr va=
+riant
+> --
+>=20
+> commit ef256d56e7840a3d6a825d4ac33adad77eacd513
+> Author: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+>=20
+> dt-bindings: clock: nxp,imx95-blk-ctl: Add ldb child node
+>=20
+> Since the BLK CTL registers, like the LVDS CSR, can be used to control the
+> LVDS Display Bridge controllers, add 'ldb' child node to handle
+> these use cases.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.=
+yaml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> > index fbbf1b3f17904..97fe816a38f94 100644
+> > --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> [ ... ]
+> > @@ -63,7 +67,9 @@ allOf:
+> >        properties:
+> >          compatible:
+> >            contains:
+> > -            const: nxp,imx95-camera-csr
+> > +            enum:
+> > +              - nxp,imx94-lvds-csr
+> > +              - nxp,imx95-camera-csr
+> >      then:
+> >        required:
+> >          - '#address-cells'
+>=20
+> [Severity: Medium]
+> Could this introduce a regression where device tree validation incorrectl=
+y fails
+> for i.MX95 devices that define an ldb child node under the LVDS CSR?
 
-* Does the UM care? The UM could write canary values to check that the
-GPU has actually filled in the counters. Replacing them with "undefined"
-values would break this behaviour. I'm not sure whether this is done -
-but it can be used to check that the hardware is actually writing the
-counter as expected.
+This ldb child is new, how could there be a regression like this?
 
-* Is it a security hole? If the GPU cache was from when this BO was used
-by another context then this is obviously bad. As Boris pointed out this
-shouldn't be possible in the current driver if we're invalidating on unmap.
+>=20
+> This change restricts #address-cells and #size-cells to these two strings,
+> forcing them to false for nxp,imx95-lvds-csr. Should nxp,imx95-lvds-csr a=
+lso
+> be included in this enum?
+>=20
+> [ ... ]
+> > @@ -72,8 +78,24 @@ allOf:
+> >        properties:
+> >          '#address-cells': false
+> >          '#size-cells': false
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          not:
+> > +            contains:
+> > +              const: nxp,imx95-camera-csr
+> > +    then:
+> >        patternProperties:
+> >          '^formatter@[0-9a-f]+$': false
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          not:
+> > +            contains:
+> > +              const: nxp,imx94-lvds-csr
+> > +    then:
+> > +      patternProperties:
+> > +        '^ldb@[0-9a-f]+$': false
+>=20
+> [Severity: Medium]
+> Does this introduce a regression by preventing nxp,imx95-lvds-csr from
+> declaring an ldb child node?
+>=20
+> This explicitly forbids the ldb child node for anything other than
+> nxp,imx94-lvds-csr, thereby silently prohibiting it for nxp,imx95-lvds-cs=
+r.
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20261006-dcif-upstre=
+aming-v10-0-bcfb28de0aae@oss.nxp.com?part=3D6
 
->> The upshot is that if the CPU has cleared a block of memory which the
->> GPU happens to have cached, then the "unused" counters may end up
->> showing the old data before the CPU cleared it (if they share a cache
->> line with an active counter).
->>
->> I have to admit it's probably somewhat academic given that Panfrost
->> doesn't expose the ability to control which counters are enabled...
->>
->> Is there a good reason for this patch (i.e. have you seen a performance
->> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
->> safe route rather than trying to over optimise cache maintenance.
-> 
-> Like Boris said in a later reply, it was mostly about simplifying error handling
-> in the perfcnt enable path. We saw this initial clean being done and thought it
-> wasn't necessary.
+--rYN3Tj1AuBnBbp+q
+Content-Type: application/pgp-signature; name=signature.asc
 
-I think we need at least a comment explaining why this is safe. It does
-seem that as things currently stand we don't actually need it though.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Steve
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZE/wAKCRB4tDGHoIJi
+0pxvAPoDgU95rPok0uGP0uVoh/Yksvh22uL6LGRHfp/ZfKppLAD8CGqFqi59wvXk
+5Bc26aOCnBFpESmlYWFOdNfSqL0pRwI=
+=NzJU
+-----END PGP SIGNATURE-----
 
->> Obviously in the fully coherent case the invalidate could be skipped (as
->> in the next patch).
->>
->> Thanks,
->> Steve
-> 
-> 
-
+--rYN3Tj1AuBnBbp+q--
