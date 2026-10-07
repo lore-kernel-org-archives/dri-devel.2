@@ -4,85 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13714CA5FFC
-	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 23:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78E16CA5FFC
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 00:33:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F46B10E49F;
-	Tue,  6 Oct 2026 23:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D9D710E0B6;
+	Wed,  7 Oct 2026 00:33:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="T/DLcsoN";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ckjfA/wV";
 	dkim-atps=neutral
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 099E510E49F
- for <dri-devel@lists.freedesktop.org>; Tue,  6 Oct 2026 23:19:51 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-33bf40b0c8bso1912729eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 16:19:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1791328790; x=1791933590;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=69yN0Ial5JtjSpn2ZK2Zu1JwU36ThXT4fMCp+kgmyIE=;
- b=T/DLcsoNZHQSMDcGarltRh0wOabsliy0BUY0ya1gX+xk0lMciSUrBdgWOMO0rT2t1x
- D+gkAPyH0GGhDPGzzQ6U+XN5bAgNB+Tg/wVyAvHcODPl6q7bAwUfExDJxk9f9hgigsr1
- earnSKH53Wl9TFLF88BUpp1kh+8j5aPlVbS58=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791328790; x=1791933590;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=69yN0Ial5JtjSpn2ZK2Zu1JwU36ThXT4fMCp+kgmyIE=;
- b=ZEhz1t83Bqm+tvsYWHcP5GoWHtOriZfJZvAM8WFDd2fQXbST81+Zd6hpxc+L0Cc/sg
- 5tM8Y8Sy2VX7rZKrh6araIY3XP25jQCjEK4PVtb2+t5WPfOAF4+LoWXhAVZvJl/VKl2H
- wLDOwpf1o4Ah19A1q1ite9hGAW+ZggTyyvcOJ+rIJO34cJpp+rPR7npru0pu16PVV/a6
- 5khbPba/m8peOizetdA8hcfD6c80eYbPfVzjjzG0HOIya6G1B0jC9LbtRXfSsnNWiLXn
- Dq0y/yMqfAms6GZVBvShUBByaeIHULpDos5omcXCKTD9Tm74QzCNIJxpaGH/JBdz8feq
- 5DYA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy6onj+5jDXExdieBslmf6LBqNxk7ZibCTexabor6E1oSJDhcau3SimVTHsGMic1soy4EsBVj0MoLk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++njmhErwnWyqSUk4XSEJXBpZiow13DqkhftOgW0uPZhMJO2Fh0D
- tYRhOiIx3cV6C7buAqHAT/miCadJCRrP36xtY/3RY+DqTZnsSaWi8L887d26EEip5w==
-X-Gm-Gg: AYBFou3hKzQeA13/AGxwHoG1UjIplZzXjXED0Ry1wrOaV2CBcAHhQHn3QmaONx7EJtm
- TbxNT0L/q3J7k+jDHd6pw2nMC0n4AI3KCqMvq9QFjI9Al5s1w+tsWW6qucXbTurE48/RTWA44Gd
- jlQ+I63bX542YkbwuJyXeBZuXtUrYm1sA1OZsR8zvoeNIc8qOths3uhEQABPyrxZtFLonUsK0uX
- JTCKa1t8/D5iYvAP6/+fzwnEd9W49xxOHBBQzVxa7/pteaci/kO4mL7TymXAe+kg7JvkEXwevVb
- 9KeQgt/OuDgX5uonG4hCxmgl7y7meE3PMccng0P6XM1IYHJaB7DyZBX8iMJQW74hVcamYCdKi79
- +ZVHF1RSNeYfqXqT6qo6uysVnMm5razBpAUSmyUBqQeAsICNz7aQCNVilJzOZhpVL9JPP2Oxhgd
- 5gpetb1A2oYXYqxDmVlnL34Tef6BdtlX8XB5GGpgU+qh60fxhWpT2/FMWbY/icxrrvCC2zgqJjs
- CdE5JcmsRQuxRdLM2bqlakMsJkNQA9zg9B87A==
-X-Received: by 2002:a05:693c:87d7:20b0:34b:d400:e999 with SMTP id
- 5a478bee46e88-3515db9c5efmr355962eec.5.1791328789999; 
- Tue, 06 Oct 2026 16:19:49 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:63eb:e7f9:1d47:7d47])
- by smtp.gmail.com with UTF8SMTPSA id
- 5a478bee46e88-3515abb5389sm1959671eec.2.2026.10.06.16.19.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Oct 2026 16:19:49 -0700 (PDT)
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: linux-pm@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
- linux-kernel@vger.kernel.org, Brian Norris <briannorris@chromium.org>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 02/13] drm: Discard pm_runtime_put_autosuspend() return values
-Date: Tue,  6 Oct 2026 16:13:30 -0700
-Message-ID: <20261006161337.2.If1822f9a34be06cf5939be44ac6465c543087c75@changeid>
-X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
-In-Reply-To: <20261006231900.3230373-1-briannorris@chromium.org>
-References: <20261006231900.3230373-1-briannorris@chromium.org>
-MIME-Version: 1.0
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012055.outbound.protection.outlook.com
+ [40.93.195.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC22810E0B6
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 00:33:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yH/fZpBN8eR/S6OaRrk6mQ/SM3FIQIYFp7WAaN5l2WRHgFggk2OpzOOXecj1bJQRrLFlzDShQKgUCb5s5XyEUKbAX0bz7PadIDtaus9+HjPY2v+LbVPK+XczjS5fw5N35/6Hwsvj14N5YUJeuIEkTfsXMy8jV3X463wD/yHjXigYJyX/WuCJOqh9embgKD47qLp5xRhx4PRfKsYhV8kP9clvOFfDRaPA6g7JnAmnyCaBY3I3CWNbSO/W2X3RUL7p3ZLMJWoxOOOfYdSVv6i2s+1CLwRlFOmVgf5OUzB6sL72HFWAif82yxqHoqIFmZgJIpHPrWSfhTY5S3VQnfQNRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rd+bMjE0DDCkBvQTgij1RpIWzQe7HGJCLubdS6c30Hw=;
+ b=pjUmw2Eq1WBfH6/iTnorTvI8umaJ2cTtk2kilNmp4hwHEyjCuvqvQz+LdL4jA65j2GXULB1gLrhhhBWR9UX2t42Ku6enOcnC6zyjSIJ0/usCVJ/lxDV7pBC2bugn5m4RH/zFAl74gXJCOyhcSveLN/2yGdiWVm0zgvlFCXevJ32tUvleaKMxPIJft9yObhQ2NDPkd8He0DAidr2JKvpFHpZ5sTtUskKI+FFY8TYSAYiHpfKiOqUWwz2i1anw3hhGE7QEsXlVEPHt+88vfkdxColSgBjdxmSzV10ilSQJL3+ksWxQWx7HyOs518YWStDFp5BQHr6CoqrbSBSdR5V/KQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rd+bMjE0DDCkBvQTgij1RpIWzQe7HGJCLubdS6c30Hw=;
+ b=ckjfA/wVORwSt2PRzpVzfxTYJ9v6irqnhhyfijL3h0lv62/tgbdtx7Hp7t0DLe5kli7+UzVGNr/UHCprvy063A2h00h5CPyrcIC+GB2yLlXLSA7bsVTAm2LAR4ukLHZxwgLD37gDwaRl3XDZRbqAHXqy2SYoDdKAkFLfyMkoYEpCfp6JGgS3973TbWAUzkU8EYPXwhVonrik6Tm8f2tlTE4h1Ne5UWDuHOSrWdQP38kbI3Co3LwjzVl48sRvEiLaTWwfJ5v+Ht1zrNoyC1rJZAPBFV0048KYmMWHccjRXZq6ujgF1389W0c9RkggeYa1fuDLTAx2MbVDrtDb8jDYEg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SN7PR12MB6912.namprd12.prod.outlook.com (2603:10b6:806:26d::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 7 Oct
+ 2026 00:33:18 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
+ 00:33:18 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Wed, 07 Oct 2026 09:33:15 +0900
+Message-Id: <DLY6MDDAUDFL.142WKY7PWTNDU@nvidia.com>
+Cc: "Thorsten Blum" <blum@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Gary Guo" <gary@garyguo.net>, "Timur Tabi" <ttabi@nvidia.com>, "Robin
+ Murphy" <robin.murphy@arm.com>, "Tim Kovalenko" <tim.kovalenko@proton.me>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: firmware: fwsec: use zeroed() to
+ zero-pad buffers
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261006100442.80432-3-blum@kernel.org>
+ <DLY3SJLA1YG0.1YBCCD2CAH2IC@kernel.org>
+In-Reply-To: <DLY3SJLA1YG0.1YBCCD2CAH2IC@kernel.org>
+X-ClientProxiedBy: TY4P286CA0121.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37c::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SN7PR12MB6912:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9acb22e-76a0-4329-6d0a-08df240a9536
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|23010399003|366016|10070799003|22082099003|18002099003|10067099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: 2d1ndEOhCO04/M/arfT2dKJPUDztSu2ATV/+WClYbhKd/7w1JVF4QwXDv8C+EuwvtodkS50uIgjR4MI+hvir9llxmUnjDkaaSI8pIx9wZgGlQDRNM27GhPwS8JVWGRwoogGj0mXtlHE1SsVzjjkX97WktK1pL8IHTJIK4TQZfwvl2Kgm2D1cwjgiQ+lcLwylUXzKYEtO4TOJmZevaWBkPtlz+gWz4v4Hzps0PGhS1R3QmrbUQqURpEKtSBdKOHuyek3NPDHkRSlEbMKrQJTte+9tJWH0T6K5sjSQPg/K476UUCT/h69Vwp0InZiT/QF5G35rjY18QEfMKUo/o2MJ5D7MG5TabWHo576Qh/Xf5UmY/7oW/SHkaEeORC+36OGpYaOuOzDgVFE5yvLEj0uKiPwcH9HF90A3TQX6xFPnvTa7CXYk/r/9nlY/fqO6h0lZwvf+GPsU2ArK+sYe1PBx+WE748P4dPKd1cGnptP7uJvNAcgnDYLh+pg4hefkxJ0Ox+4GKUhTR2i4o8Ibi+R8yiRFdZ1Bz4robRDD8gWHZmSaCZ4TR7wIp8gA5J8xKQQgDrSQoDY8WVHsj6kUSjEHNiI4Bia+5x3JqZe6van0C7fCp3B2uEWYXDlXRB4mOYu2IDIYBUTNsbJprFoNEfPdl9Fx0hP5dFKAN1nFzADyBJs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10070799003)(22082099003)(18002099003)(10067099003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUtVOHl5M2VFSU9VSWV4WEY5ZDRTS0FnT1hrM1E5OEFsNFlEbzQ2ZksvWkUz?=
+ =?utf-8?B?WVpmNUROV2duK3ZhM1VDeUFRK0taUk5zNWllQWd3MXNkR0pObjVKSWtZcFI1?=
+ =?utf-8?B?MVFWazRvU21tV2t0ZEsydWlhRXRQYXFDb1NMYlR4V2k3R3gxckJrQWtwdCtl?=
+ =?utf-8?B?SnFFMktkVzRFZnBzZi9DN00vYm14RXZxWkxXdHJHRVlmMDRGLzJ4OFRIcGRC?=
+ =?utf-8?B?ai8rc1RuVVBtcVQxazZmRTc1U3JudVN4K3hYalF4WFdpOVVmeXdJRWZ4ZE45?=
+ =?utf-8?B?OVk2UjlPT05VaWZFZ3pTNnNUOGFNZWhkUDhSNFQ3aS9PWWZocUZhSUkxelBv?=
+ =?utf-8?B?bGJsRm5uSFAzdFR2Szh4NkRIV2o3UlcxRlV4ZFlLSStzK3ZTSVpKRFRSanc1?=
+ =?utf-8?B?WHgxZGg1bjRYc0EyN2pRTUVpS0NDZ2thd1luQlRyR0F2aWthTVhNTTVnQmsz?=
+ =?utf-8?B?SW55OEdsYXBYSFNMMEhPU1lmbzJ3cDlIcFh6R3V1YzVXVzNuYWgxRFhRTUJu?=
+ =?utf-8?B?WHhIOW11Wm9ORnV4REh5L2g3TDJZWXVxMjk2ZTVuNENBTXNpdE81djVxS2Fq?=
+ =?utf-8?B?ZVRUR1dLR0ZZMU9XTHk1ZGp3Q2diQUI0U2UvUWg2eWNuM1RCbnFqaGR3dnpq?=
+ =?utf-8?B?dXYzNE4ycWNhdVIzWDFOZHc4Qy9xZUFvZldCUzdvUjU4UFNUdlhobmE1SmNY?=
+ =?utf-8?B?S0U3VTVEM2pVS2ErbVpKa0MzcXV4VXpKR254N2RZVnVMRXN5U0pXWjFaN09J?=
+ =?utf-8?B?aU12UStkYmFtYzRGNlZHUmlXb3V1VXNhZzMxOWZtb1lwa2NxQTh5VEZkek4r?=
+ =?utf-8?B?REt0MFhMK2FPNllHM0Q0S2pEYTNoaUtQTzNZcDFPSlZCRTZUUmhVSTU2bmZp?=
+ =?utf-8?B?NS9qUXRQWjdQSFFTbUFoK1Q5OXFmYjIzTnR4Q3dFLzhwUnFZcTRWc0xSNlpW?=
+ =?utf-8?B?TG9UU0F0cTRuVjYzcXd5cWNRQTNqZXlGbEt2WXZoNmtDMEhZTkFvK2JUdTdu?=
+ =?utf-8?B?c29UeEJadC9kelpyczkyTkl2blY0cEJZcEVtbjNSL3Y5M1pHc1ZDeEJxR0h6?=
+ =?utf-8?B?c0piUmxJaEQ3U0Q3MHBpTWV3Wjg3Umg3ck9uWU5OS01GZVdMSTRnRTRkQ1JB?=
+ =?utf-8?B?dXN6S3lSKy9mdjZINVhOdytRWHZMaXFEWC9EMlBIUGlNbm15OW5xM0pvalNF?=
+ =?utf-8?B?YjJCQVVKeW1TTTdxams3YlMrY2NWQktMbVZpMFVVWUJGMDFoeGZJVEdpTEpH?=
+ =?utf-8?B?WXhtaE9BL2ljcHV1RnJ3TE96Zm1kczR3MjhQSXRiZWZkN1NxdGhGbzVaS09K?=
+ =?utf-8?B?ODZoSm9VbzVZZ0VwbHVBTVUxN2F5QnhWU3kzNlYzbTZpSCsxMEZiWlRxYkpL?=
+ =?utf-8?B?QkVRWWgrMHBZT2lla2lPZXdKek02eVU1aTF5a1NKM0pZUjV4UVZGS2U3ZEdV?=
+ =?utf-8?B?S0dkb3liQVBEVkl0aS85aXowRGVOMGZScXRBTHNFczFya0orT3lDcDZqLzRo?=
+ =?utf-8?B?VFNwTkM4cmxuQWNYWU9aVnpZckxmMDNKZEZydGZZc2FwaUpRUnRFdUtnb1BD?=
+ =?utf-8?B?S3ZJYTYyRUVTb2E0QXpEbFBQeFViN1A4cklmL3FvVzlSUjMwMmZiVHEyZ3Rk?=
+ =?utf-8?B?Z2JQbUQvbXdDd2JDZGw2SUtBRHdJaExvbExZWjNZTnUvT3BRb05Eck5kbEpR?=
+ =?utf-8?B?VEdQUGRKVFZMeEdHb1V5YVQ2ZkxHYXBvY1Z0STRPNEwzQUUzL1J5b0p5RGRt?=
+ =?utf-8?B?azlpSlZxd3dHemRPemZqK3JCdk9EaW85M0dBaFBCV3VLUEgwVXllaUd2L0Rs?=
+ =?utf-8?B?RGpYL1ZRMjRDY0lXTDB5SlZYVlFmWFpQSVNjdzc2c2plMEdZSC9pWjVmYkpI?=
+ =?utf-8?B?eTNjUjV2OUZYUWZycVhIVlRRVzFvcGgwc2hyMTdsWUg5VTJrbjdIemJzOFRX?=
+ =?utf-8?B?UVRIR2ZKUHVvczVkcFJieVVpUG02VHNCT2EyN0VucTN6RWF0S2dWQTVla3pR?=
+ =?utf-8?B?K3d3NW9OUEIvUE1lNEgyV2tCbWhPMlRCTjVHOG5sZDJFbHpES1JXaFdiTVU3?=
+ =?utf-8?B?aFNsSzIvWmdGLzExVS84b1h1TDdEM3FRUkdidXZUM3ovVExvNW40bWRxTjIr?=
+ =?utf-8?B?YmlaMm42M2FLU2NMdVB3MnFzZXQ3bDZKMmoyTm5XSnB4bm9SVzBvWUNzYU91?=
+ =?utf-8?B?Q1lZemtTTitLdkRZdmdIK2tUV2pFUFE4TUN3QjIwM290SVpKcEdibm9oOE9F?=
+ =?utf-8?B?RmhEQkVDRzJ6OFFzWlFveTFlU1lWeG5JSU5TQjJIWVh1NEozSmppRHFJQkU3?=
+ =?utf-8?B?Y3o0ZDgvVkxxMGVUaTZhL0VTZi9kS05FVlhMek8xV3FrRENudFIwcWN0S1Zu?=
+ =?utf-8?Q?CmnMg0IRJVGjk6TZIPG66k9AitoFUKF5pMOq2oO/ZI8hi?=
+X-MS-Exchange-AntiSpam-MessageData-1: mMPQeWEBPlwINA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9acb22e-76a0-4329-6d0a-08df240a9536
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 00:33:18.2779 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QDcUjDnuit8xDZOKt462Lj7Bni2FVhMR8qJqfMpbdImopV/qOg/lXzOvqLKPj5waFg2xfKi25MhgEXb3x1idqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6912
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,97 +143,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Several DRM drivers use or propagate the pm_runtime_put_autosuspend()
-return value, which is not particularly useful.
+On Wed Oct 7, 2026 at 7:20 AM JST, Danilo Krummrich wrote:
+> On Tue Oct 6, 2026 at 12:04 PM CEST, Thorsten Blum wrote:
+>> -            let mut ucode =3D KVec::with_capacity(aligned_code_size, GF=
+P_KERNEL)?;
+>> -            ucode.extend_from_slice(code, GFP_KERNEL)?;
+>> -            ucode.resize(aligned_code_size, 0, GFP_KERNEL)?;
+>> -
+>> +            let mut ucode =3D KVec::zeroed(aligned_code_size, GFP_KERNE=
+L)?;
+>> +            ucode[..code.len()].copy_from_slice(code);
+>
+> I kinda dislike that this is now a potential panic, but it does better ex=
+press
+> the intent.
 
-Returning an error code from pm_runtime_put_autosuspend() merely means
-that it has not queued up a timer or work item to check whether or not
-the device can be suspended and there are many perfectly valid
-situations in which that can happen, like after writing "on" to the
-device's runtime PM "control" attribute in sysfs for one example.
-
-For this reason, modify these drivers to simply discard the
-pm_runtime_put_autosuspend() return value, and change the return type of
-v3d_pm_runtime_put() (whose return value is never used) to void.  Also
-drop the redundant pm_runtime_mark_last_busy() calls right before
-pm_runtime_put_autosuspend().
-
-This will facilitate a planned change of the
-pm_runtime_put_autosuspend() return type to void in the future, similar
-to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-type to void").
-
-Signed-off-by: Brian Norris <briannorris@chromium.org>
----
-This patch is independent of the rest of the series, except for the end
-(changing the return type). I expect it can be applied by individual
-maintainers, and we pick up the end once the dust is settled.
-
- drivers/gpu/drm/panel/panel-simple.c | 8 +-------
- drivers/gpu/drm/tidss/tidss_drv.c    | 7 +------
- drivers/gpu/drm/v3d/v3d_drv.h        | 4 ++--
- 3 files changed, 4 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index c95964ba25a9..193d1b2b0ba5 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -318,12 +318,7 @@ static int panel_simple_suspend(struct device *dev)
- 
- static int panel_simple_unprepare(struct drm_panel *panel)
- {
--	int ret;
--
--	pm_runtime_mark_last_busy(panel->dev);
--	ret = pm_runtime_put_autosuspend(panel->dev);
--	if (ret < 0)
--		return ret;
-+	pm_runtime_put_autosuspend(panel->dev);
- 
- 	return 0;
- }
-@@ -389,7 +384,6 @@ static int panel_simple_get_modes(struct drm_panel *panel,
- 
- 		num += drm_edid_connector_add_modes(connector);
- 
--		pm_runtime_mark_last_busy(panel->dev);
- 		pm_runtime_put_autosuspend(panel->dev);
- 	}
- 
-diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
-index 1c8cc18bc53c..44b0b009c29a 100644
---- a/drivers/gpu/drm/tidss/tidss_drv.c
-+++ b/drivers/gpu/drm/tidss/tidss_drv.c
-@@ -40,12 +40,7 @@ int tidss_runtime_get(struct tidss_device *tidss)
- 
- void tidss_runtime_put(struct tidss_device *tidss)
- {
--	int r;
--
--	pm_runtime_mark_last_busy(tidss->dev);
--
--	r = pm_runtime_put_autosuspend(tidss->dev);
--	WARN_ON(r < 0);
-+	pm_runtime_put_autosuspend(tidss->dev);
- }
- 
- static int __maybe_unused tidss_pm_runtime_suspend(struct device *dev)
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 29fa14be130b..eb002048ae9c 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -669,9 +669,9 @@ static __always_inline int v3d_pm_runtime_get(struct v3d_dev *v3d)
- 	return pm_runtime_resume_and_get(v3d->drm.dev);
- }
- 
--static __always_inline int v3d_pm_runtime_put(struct v3d_dev *v3d)
-+static __always_inline void v3d_pm_runtime_put(struct v3d_dev *v3d)
- {
--	return pm_runtime_put_autosuspend(v3d->drm.dev);
-+	pm_runtime_put_autosuspend(v3d->drm.dev);
- }
- 
- /* v3d_sched.c */
--- 
-2.56.0.360.g66cac248cb-goog
-
+IMHO the original code expresses the intent just as well, and avoids
+writing the area covered by `code` twice, on top of not introducing a
+potential panic site.
