@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1497DCA5FFF
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 05:19:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CBCACA5FFF
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 05:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D81310E49D;
-	Wed,  7 Oct 2026 05:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B77C10E47B;
+	Wed,  7 Oct 2026 05:23:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jtV1kCHM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dcuvSz99";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B306D10E448
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 05:19:33 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4a021c809e3so14160415e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 22:19:33 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF2310E47B
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 05:23:37 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4a0e1b0681bso9723135e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 22:23:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791350372; x=1791955172; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791350615; x=1791955415; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=pEBGEIuvQXUOhw2qs60K5A3Yyo97btH1M39qmx8g1LA=;
- b=jtV1kCHMmJipHS2m6T7GdAJpcezMXt39ock5wH/G1ew8w6W0KS2TFCsC5VGWAw2y6/
- /UUAfxEQbl9Fuqnwd4MeYHmlkAa44e402LXy4BchMiFG6xN8ZQzaPJ9cgH4MWz4al2iq
- nMulZsJs+laQuU5b3iDo4bvuD/l73Aj7vI0LApYAV2eNbATeWuw+wekMOZX/NO/mLsJ6
- GBaOjr4W6TPSn6QnpSMRPQzbR/dmdLGzG7cq6jeqy++bC+lK2vqionLtmOMYkOpXZ6rg
- OzaVt6fj8QTDLmr5l3zC3k+0VrD+pITBaiuBiSXmiL++ZiJw5yzFqx580xTZDpEUg+ID
- rqBg==
+ bh=x/R+pCgI2rA8DLvVd3Hp39WUeD8ue9hp8M4OoGV9/5s=;
+ b=dcuvSz99ozBLUY1U7Ay5jbMdsb7cL+0D9HvQeohmIS4/m5NL5wclxTEfkRLO2SyNsZ
+ QTpBQus3A/6tFNSyhLEdRVCjnSXQDVXBS4z/eHRXbqBSqeu6avBxIHYQtSWjB/MoAIvt
+ aTdsYcDazNZvkEhHMmAlM3QE+IcYE12t7RaTxBiD8YfuZHLI/iIyPEg+Pu8h4s474pNi
+ 3ATfWVxL0RnBF4ylX6kcnK6V3lCYYtSmzbkh+gkGzrLh7KoVPD6MDmNcjyt3sifpyPa8
+ gkXMODdGEVYMZpR8SzbWmJX8VbkpFvK+zOEyfQsGOPiNHrvX4rw437Erpf1n9qd2S47t
+ LkPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791350372; x=1791955172;
+ d=1e100.net; s=20260707; t=1791350615; x=1791955415;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=pEBGEIuvQXUOhw2qs60K5A3Yyo97btH1M39qmx8g1LA=;
- b=KrFFheViWI3m7pQD7LKx1vjzSdsRLCzer1fJrhncqMC+H+nW9gxJeurNv8QvsFk3Jg
- TQ4w81v92lrdVg5gAc8PgUNfC6jQXsr4ypwIIMd/ER/BM2b+83Xu93wn4F1aY9a+VskZ
- cY5OnHt+9ezPwkAJxMB6EFTSgAwNXfqv8aatUpuACUEKW12xSq0Yb1dk3fnuQdDQwloj
- E6Um0+BmFC7ZKL9TprYrNi1XWTFE4oZW73E61L0wnTt0mG2WeV1r/iTtKUbhRnem1Xff
- 5Xv04EkENaJxPp2tOCa0vtEE5eOYswevls38nxwLSPnw6sc5CqVU0ijsvoHvWseOFnqP
- MG6g==
+ bh=x/R+pCgI2rA8DLvVd3Hp39WUeD8ue9hp8M4OoGV9/5s=;
+ b=JeJ5hCvwc0NiqwUr+IwdTEFqSqfGU41sf9sS4rNPoRtwWbJPKVg+yectv94mVOnnE9
+ SkKMxFLkXoeoeRLWFsGuXTJLn2+CUgrnQJWhVB4wnNoZpYRpkvY5D0/N8fbi1JHDocE6
+ YIvqFlzrsLVRP4S12xKd3lWfpEn6HmZWYO/X83nb2mEga3PsNqx6Z5sMmCW6LVUFBPDx
+ 04eHy8IEc9bnJS7p/yZJ9JIZ96pxuwQvn3aIOOdEzxkoPQ5RpBcgZex1Zb7OHko7bhHD
+ W3YjE7j1aO6kD6nujI5isM7Ccbrgek24wcC3jpYHAGM41CDSzUrEOl7iVo6EqrT2eUmI
+ qNPw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxYplXQ/bkiJ52mmjn3KeiGyOF23SDOYqaawpaaFZHHk+G7qcxb4MrN2oz3KQMfx7o3Hm+7pm2fhGM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n+lpWAgpXTIYYYe7D2eehnj8h126efOy2fUhCawfeOQaEgaeSa
- tVJm/iJPZ+Xtnsvaj1CvnChSy7SiBk1Xm/VfEMC50yHvewVXb0o9Eovd
-X-Gm-Gg: AYBFou2iSLy80d36ntgXisqPYCpu7gFzTFVQ0P4dPTJVhieIB9K0X16SRr6qEWRaapV
- vR9pLauj30Khe4HmXLsUV0jdwK5IKs32aSI8VcCohuwr+YzbttDb74F3vFU889ZEr+siGnmsaPn
- jDyWVPgfpwcHYJeheMyB4C6jcTlL01OpjUBXR0Whnp98RVfqtuFHbs7n4NXWTOKd/emdkdlbsnW
- rwVfXa66Ca33my+tQXNC4UjePiNVgiLx4rIJoBLns87FfF1G1pXF/iVk/c6g0OBVPfQ4bMDAA3M
- JU3QfbLTO34ra+t23gdkeHYtmS6xt/LhqGASie7pcBnznWWGpy8Tbr6J0eJs8fBvBfb0Vn65DoR
- bM8hrY7RopOtUWCNLHUplJNWJs2TBObuw0kRtUs46nvSfdjg4ijwUc8XoLlkeyov4m+6KJ/wWzT
- s99/h71ggjEhOOYJg5RrG2F8e1J1I1GBf8+UeSdnE5itzY+yoOkOLjhzl2MPxQtlLFFMx6tebX3
- 9KFdLfL24EGr13LW23JrAgjnC0LF/9CrUDCH2f3JFnwqFrIW4sxdQ0jVR6SIWT8vEre55g/KBWg
- bghrwlYdp57IfmWFGdAFGEv2tSkwBDL9v6gF2CSxyW2GwubA5hDihfpG4Lwa6BnodW5ox2+JCVu
- xb/6vFBE=
-X-Received: by 2002:a05:600c:8105:b0:4a0:20c7:6d4c with SMTP id
- 5b1f17b1804b1-4a180085f90mr13193475e9.0.1791350371849; 
- Tue, 06 Oct 2026 22:19:31 -0700 (PDT)
+ AKwUvBxyo4otCHKdWnW+oBGU/FJPmzPzhPl0553sKjxW40Ew9z6wOB0GyOdgDBLh6wHtbbS3Zs4qKnfTw4E=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kOeZAwuLZWkkt71ykeYBU8FdR/OYhbS0UKWWJHolfjcNQjMu6Y
+ xvwSLpPt7uZt4eNKqrZ9wztS7WHdW76JvpJo+Sny/hvQs3lcKXolgptL
+X-Gm-Gg: AYBFou1UQYJ+VZbkSegfEVRr+86AnQtEYvKoUhqCXZvj11yaEgUDZ7EGr8Qr7rhNy9w
+ iXHKn+jLZxrvdMe6yqid8taOSHLtpPP2IPU0z4/BzU+iFrruj4tTgrnzUiJil4q7QLDz4/dHwe+
+ 7gmDOXiss4bc0prFdjuCxiwBqjMfPpJUDkER9TtGvVAQtFq1ORczDHfwi0xpin0tT8tFxOkblTZ
+ 3Mv84Wuwl+dDZG5wWvCtRVxAmvxkhxFWnPueWkrQIQn/IxpxbRWBGblacVV1/Xi1YKUw4aA77iB
+ lXDyqRaiAhJyeUCCwYMyjOofUTIQ2/+avDXCMbOpopZFUoCIB6e/2silzK8OSV6dvFtzDJAjLoQ
+ 5pxOXprrI4nLMrOvP/UlEqgiKdkdn6ueoO+WFZhZipb2NGAZfb+khWksJY8/UDa5HvJuCKl+A4d
+ hTxnmS5GcCX4bN3MZoaLs3S9s93E3J2K5IbkCSn0zXsIi6AJm1AFzc+IvYhp746sazMnshb8kGc
+ wM3hl1zFWQZcUkepN+VsArOLP1i8Q2FufAVY4LjMpcP8GiEVyoQOpa+r5iJ93RIjA2u1Hc1yLkC
+ qmhQw8HQb7476TMjHopmgrOga5Y+bDwehzaqGCl+2m0rfYbDiBLC/4DHJ+0ybWSKL7kt5igYLFI
+ RsECrngE=
+X-Received: by 2002:a05:600c:c16d:b0:4a1:7bd4:d07d with SMTP id
+ 5b1f17b1804b1-4a18067f68cmr11531475e9.34.1791350615217; 
+ Tue, 06 Oct 2026 22:23:35 -0700 (PDT)
 Received: from localhost.localdomain
  (dynamic-2a02-3100-a1e1-2201-60f4-32e0-4d59-5772.310.pool.telefonica.de.
  [2a02:3100:a1e1:2201:60f4:32e0:4d59:5772])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a178a175aesm156822265e9.2.2026.10.06.22.19.30
+ 5b1f17b1804b1-4a17f54a55esm34907585e9.3.2026.10.06.22.23.33
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 06 Oct 2026 22:19:31 -0700 (PDT)
+ Tue, 06 Oct 2026 22:23:34 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: sashiko-reviews@lists.linux.dev
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
@@ -80,14 +80,14 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org
-Subject: Re: [RFT 3/5] drm/msm: Extract out map/unmap helpers
-Date: Wed,  7 Oct 2026 07:19:24 +0200
-Message-Id: <20261007051924.39963-1-kmehltretter@gmail.com>
+Subject: Re: [RFT 4/5] drm/msm: Convert iommu map/unmap to helpers
+Date: Wed,  7 Oct 2026 07:23:30 +0200
+Message-Id: <20261007052330.39998-1-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261006131920.6870D1F000FF@smtp.kernel.org>
+In-Reply-To: <20261006132545.8BFD51F000FF@smtp.kernel.org>
 References: <20261006131000.81501-1-robin.clark@oss.qualcomm.com>
- <20261006131000.81501-4-robin.clark@oss.qualcomm.com>
- <20261006131920.6870D1F000FF@smtp.kernel.org>
+ <20261006131000.81501-5-robin.clark@oss.qualcomm.com>
+ <20261006132545.8BFD51F000FF@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -105,23 +105,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Does this error path miss an IOTLB flush?
+> By passing NULL for iotlb_gather, does this bypass the IOMMU driver's TLB
+> gathering and flushing mechanism?
 
-Yes. msm_iommu_pagetable_unmap() called iommu_flush_iotlb_all() after
-rollback. __do_map() now calls __do_unmap() directly and loses that
-flush.
+Yes. On arm64 QEMU/SMMUv3, unmap_pages(..., NULL) returned 4096 after
+device DMA populated the IOTLB, but the next DMA still reached the old
+page. It faulted after an explicit IOTLB flush.
 
-An arm64 QEMU/SMMUv3 test:
+Using iommu_unmap() invalidated the translation:
 
-- mapped one 4 KiB page,
-- hit -EEXIST on the second page, and
-- verified that rollback removed the first PTE.
+	return iommu_unmap(domain, iova, pgsize * pgcount);
 
-No stale translation was observed because the device had not accessed
-the mapping. This tested the low-level IOMMU sequence, not the MSM driver
-or Qualcomm hardware.
+> It appears this replaces iommu_map_sgtable() with a call to __do_map(),
+> but there is no declaration or definition of __do_map() available.
+>
+> [...]
+>
+> Similar to the mapping path, is __do_unmap() actually defined?
 
-Restoring iommu_flush_iotlb_all() on this error path preserves the old
-behavior.
+Patch 3 defines both helpers. msm_iommu.o builds with all five patches.
 
 Karl
