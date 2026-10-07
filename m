@@ -4,78 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70DC3CA5FFF
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 04:47:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88D35CA5FFF
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 04:51:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBDE010E1F8;
-	Wed,  7 Oct 2026 04:47:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7AA10E32E;
+	Wed,  7 Oct 2026 04:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WqNa1bCn";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aWEUbpJU";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2586610E1F8
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 04:47:20 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-48af27fe287so1025970f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 06 Oct 2026 21:47:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791348438; x=1791953238; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eqc6mxaf3QovS0qWXiMMBe5aT88X2sI+XIt/8qYVFkU=;
- b=WqNa1bCnaH3vCYNx8ogtxMjkZDbeOm5fvPbhWsHUJFxT16siPBgoDfd7fW4I1LAoGr
- +qFfcWK8zxGtsgmMgOSN7LbWCnRaQwYLZlboi7r9lzCCpOcEE/d2qj4RmDwyG0O2j2Rv
- QxPUrspxn9A+MIsUck8hVvoYxRRCcy9hwVaNfz4J714PTbDe46UqsycliKF/1O+9iqeN
- qLmBsmdrR9znEwfC+83utjuRhpCMX5HxOth+ByQjjGaSZXRoz9xJRThvoFOn79JStO+1
- gIDght0jsY00U8dGDCrQC1R2G9HY8dydseZYYDaoJGM3Y9p9VSDElK8TbUY2Ra9V2kWy
- Eg2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791348438; x=1791953238;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=eqc6mxaf3QovS0qWXiMMBe5aT88X2sI+XIt/8qYVFkU=;
- b=zgNwK/5uj3z9sqPvSwr+XgGrpnlSY9+GSEb/bJ4qtzU5uHbxupTvKkYBj6UWleKb1o
- V48XotPIEmwXDkSRaD8F6aJKnOgAFoO58RSM4afY3pSf7nShgPeSZt5Te+WAmMvpSO/B
- g44SDlRxAbeepqbm4Pl4nF+zXpcymYNOvuaXAXUl9khi6yhsLKueKlndayJjkxJ4XpH7
- wxDLvWjGNxUogFm/QgtbWcbBF5GnlzBO2axHtr40p2ovi3Hf5MvBcweQNJ4uJogiVRe9
- lmEW97XjEgMrnvAeqUHz4XXuZX9tjyTMka9jQ7153nH3E8aUzMnjbQixRd1UMproP8Fc
- Gl+g==
-X-Forwarded-Encrypted: i=1;
- AKwUvByLj9ueX0CNEiaSPY3M3xbfi0/sRm/QoBDr5mHoU2APM/aMldFagn4l7vXPsNWHy+8Ve3JmWKGllLU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIVzjk/q7Uzc2PGs7OpL7lFF1/qtjeHdkfPlp574skjcPJaGbHv
- hnjrJ25Xs3dtgnMAVTVFlLQad5tRtgvsPhxrYA0epzKvA3kpuFp2daYR/GeNQ8oVGlPhK+S8
-X-Gm-Gg: AYBFou0Dd9Ulo6jczhV8MkBfJ6KyjKR1wCljS2S9mpNFjzRRyX203BRNKokYQm7k3jE
- D0M6CH6AZlSaIIQ97+oFynhJhYrNKZev5/KGRmw2uf2KQdclrT3k+WbeAg3nzfO4OztAj4nyRku
- Z6sUY1dSoVOATUdrJwTVSBLHE06FBdKF7Roszm/wuFnmZ9HOwMzARuJ1/Vn7SYfDqx0U2OaZWcO
- uk3iEkAHsgjuKcAK6mOExxupR2k0UUT50MWCPaN7s+0d2ZQFhrdvEbBhg3/AV6T5qpjfkpLgGna
- lhfS619wxoxfZoRKAueucO5jsPL5A8Zrc7TDamZUwaKhDSrW4TVXLRyDQRfPB4D/5rNc07FzwYf
- IBMLviOkfKSiu89g2rkppweQFU0I+xI02AbM+Sm7LOCFxYr2E2kBu/wYMUWsvE+d4HotkD4N/lS
- 7wHPGE46bN3xsEHK9/B09quf3Jx/KMdidhOXbAoHROXfHRgaip20PUznaozgDyXpP7
-X-Received: by 2002:a05:6000:26c6:b0:48c:6958:ad6b with SMTP id
- ffacd0b85a97d-48c72893c35mr1649780f8f.44.1791348438189; 
- Tue, 06 Oct 2026 21:47:18 -0700 (PDT)
-Received: from beelink.. ([212.23.215.232]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48c7202fa0bsm2836538f8f.3.2026.10.06.21.47.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2026 21:47:17 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: maaz.mombasawala@broadcom.com,
-	zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/vmwgfx: do not hand the embedded sg_table to the
- PRIME core [IGT full log - FIXED vmwgfx]
-Date: Wed,  7 Oct 2026 01:47:07 -0300
-Message-ID: <20261007044707.2171896-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <DLX6J39ZERYJ.377I7R20BGISX@broadcom.com>
-References: <DLX6J39ZERYJ.377I7R20BGISX@broadcom.com>
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010023.outbound.protection.outlook.com
+ [52.101.193.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE7C10E32E
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 04:51:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m8U8Mb5v7kZTr9UqNuIxpD+dzZx1oebW24+XI1Hce6U3sQtlcYbEmlZa/+PHXjaciQuU3iHmYFlUc1OSXd6TWR/PD8QIREP5Sc8ZvPFp31s1Z2n80iuRXgOhDI3ZgIOXwKxmZ5EWKR7p7LMEw2HdawuXXsW7Mz/xDTDdhoYjfWT3dOJLmrY7itbcRy5pTZQeqsEUlPvXXZQypTHYec8D3nytfyEVHRjN2PJcwx46vmIE8ZForedHRFNIlFpv4gWbBQbC6Z0y90Pg9LZioBOZMug1ghoUWUdK7TO4YvoOvxlc1y14tfkgCLZ4uTFzKU9WyqAoWs7vYC3faZaIgc4EFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Frym2XaPUgfaeGJdXzXTWM1J5372eBmN4bu7oBmoOQ8=;
+ b=UVs2cmtm3IFPMCVCzZDCTd1HRRegzrRazG5YgpY7kF7IpFgnpz4uoIBXwUQhd/M9aTod4n43uIo+6JMi46V8oUj9p25n33nKeDd0pymsSH23T9Ie+O80YwpDzAaQIXfXCELhSryb6lUUeyPCON7NUTZ7enE//vBaAYeKW2T0sL4cKgMJqCWUlDMwqOXYl9pfvt/y6Jd5aL5yGLYG86x0Zo+bLdGfeZFrM2c/45y3nw2URcQVhVHknyHwX/yhkFg6c+As3PXmZcaMvXWenP3NzRWyAQxiwG+YxtilUZNPFde/xQKKyWs1Xf2XSOUNHhMP+dNsCG1EnMqUVmcfjpWFrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Frym2XaPUgfaeGJdXzXTWM1J5372eBmN4bu7oBmoOQ8=;
+ b=aWEUbpJUSKsuefvWMhpurWYnyczbe6SJh8hTdImOWdMor01xA8KdL8Jau6oldBRJHtlNNaUpwiXviO7R/D59zTZeGsBH4vUXWbsTT/Mfaj2enKmOoWaiWL4Blwh4QGbRpK33cvoOutL0S7fExooes/KS2u2Barv3l7CKODanOH/ootVhZqk4ErDz1JUzFHw928uSh/JaOp0Nl18jv9ZhDjp9NeCM0R8Qhho3WrxCRMmmRpF8jAapTciUAXgeW+KLumPPxSmEWkc+jrkY1CiVa3K6jnI34Gs1t6w0MkXi3CY1ONNc5gAceOyVlQYcgqYMlEJEVA9K5isIoqJozvBT9A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DS2PR12MB880722.namprd12.prod.outlook.com (2603:10b6:8:404::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 04:51:07 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
+ 04:51:06 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 13:51:03 +0900
+Message-Id: <DLYC3REXSZIE.2LU3UFZP93SJ0@nvidia.com>
+Subject: Re: [PATCH v3 5/8] gpu: nova-core: add NVKV decoder
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-5-f04504c262c2@nvidia.com>
+In-Reply-To: <20260928-b4-nvkv-v3-5-f04504c262c2@nvidia.com>
+X-ClientProxiedBy: TY4PR01CA0019.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bf::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS2PR12MB880722:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd6c969b-0721-4964-17ff-08df242e9912
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|7416014|366016|376014|23010399003|10067099003|56012099006|5023799004|11063799006|4143699003|3023799007|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 1W8t9qoqRA3xs3rgYPD4p0kRJbu7JbgJZIbIbCDG2qdaFNm52kh4gBhgMJc5sKHvorrE6HGPZx2fxYIbiDp9gHZNa5GtYiiQ0ontCO8BKxRIEepq0MpW1nY6NSiQGA1jO48GW2dnKXqq65YjT60Sboh8eYdnrJDBHDCwhnfT3ycVlUnvUrab3IIQYqe7Ty5e2fKen2BC59eJmefpn8OhrmwPBB7YzfyY6NsXNmPwagcKvEs6fmkw2pV0WzZ9ghpnDP1nQ/TyQU9di8dertc7XxIcc48V/Fil7424jZXuw0J0fZhdA09TEbFwvJuveEraGhR0VMhRe5gy3D2Pc61DcGlJ+oBwVBqSaGYqMKToyuTeCskNZu2ZByTSnhYjCDJyKkAo1MbYJDCAUhZ0OZWRq+20D964B8FJULvU2rWF00JFVZ7ZBbFCQM/lnXDSlMu06JZBgpRd+s5oYGK/NUmJDqEQKucfNfhhKF3L0AMmkyAPUEvk17lwW4hg9haAkgW8XaqNuk4L+jYVS7vtJ9oRykDpzyyfOHhfHr4rTcNlxxqu5NnSoph24RiJrJmx0v/d8ROKAYcsAOImZIbwxcjESRuBtg3p0HuP0Z8T8eyo7ble3PhfibkgpYLoZQa+xrfFFtaihMwNZZKuLYY0GSAJRfjSlHtaApM/u/2OO9jxNuk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(7416014)(366016)(376014)(23010399003)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(3023799007)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVNIUVhnSDJERTNpUFZDd2ZhQnhmM3dncGV1aUg5ZEtaRkdCUFdwbmc1VlIx?=
+ =?utf-8?B?WW1qbGpFWWhCbkw0U1RZU1B0OVFjSWs0dklGblNIU1NwTWx0WkFmbVhkcXUy?=
+ =?utf-8?B?bk56czdKQStxd0dPZlYvQ251NzBpZGxDeW9aVnpTbXdKZU4yNE1UV1BMYXYx?=
+ =?utf-8?B?NEdOM3daRUU5akx4NWd2OWQ4RzhxQWt4V3hXcjJlWGlGR04vRm9Nanp1M3dM?=
+ =?utf-8?B?ZmhMUzZDYkVoUVluWkR0bU9NbnUwNm9CWmpVMmNPeldLRnJWY2JQNUhBV0Uy?=
+ =?utf-8?B?ak5HQ3U5aWUxdGdzRVhvaGVtdnA3L29BUDZ3QXd5bHB4am9MTkp0d3hDUXhZ?=
+ =?utf-8?B?dU9qNHdXREZxcXhHOEl6c1AxSTFadFE5aHprZnJRRVR2YlBhUHAwSDdTV2Ur?=
+ =?utf-8?B?V0NvUElrOFI2WkNad25NcUlJZnY4Yy9sYkJaUFpDWHhEaXVZc1pZR3Z5REFO?=
+ =?utf-8?B?UW9mTUdMSHFOMlQ5RC9lbUNRZWw1TlI5N2RYSE1XeStHNXBzZklmR2lSelZV?=
+ =?utf-8?B?U0dEYUlFRjYzWCt0bm1uNWZ2TUVQSGhabUVJM0djK05aVWZuT3BBckJnOHFQ?=
+ =?utf-8?B?UFpiTjI1REppcUEvcjRLM3h1Nll1YVowcFRCaks0NVBEYXFabG1MeUg2YitU?=
+ =?utf-8?B?RFVBa0hvRk9TUENydVlVYUpQaVYzamI0ZlhUT2ZWTXJOZkp0UHpqd3Z4dkND?=
+ =?utf-8?B?T29nZUZzTzY5TGhkTjBEQWtMU21McDI5Vy9McVFiSDBzMUpDbmVZK3g1Q1FW?=
+ =?utf-8?B?ZkIzS0lJOFp1cVMyS0YvWWVIalBaTHNMOHYwT3ZxNzQ3VVNvenZwU2pLSkQ5?=
+ =?utf-8?B?c3MzTldKQzFGUExCaW1FbzlkQVQzRnFpUWFtNTBXeVJhQlNScCtKWkliU25H?=
+ =?utf-8?B?dzFxcUNwZXFVTExlUCsvZ1l0Tnl3TmtwblpnRlR1NUJocHhWMXBTWjN6WE9a?=
+ =?utf-8?B?Tk53SUhTVThBenVockdGZWtuOVQwTWtuUTlCZTNGWEVkc2E4dWxiQXdsMG5v?=
+ =?utf-8?B?a1JKaUpmTEFSS1FtMDR2eFpLSVM0NGxTYy9iRGdUMlc0aFVBMVRyVm5abHYw?=
+ =?utf-8?B?RFBFT08rdjU4T1NjSTd5QytCTDJaL0pRR0gyWlNPdjhkK1cxamd3WFZ0SVpU?=
+ =?utf-8?B?VHVubnBCb2FTNWp2VVpqTFR6MVJ2V0VJRXUvNGhTbWtSNWJTMWptY2FBWkFI?=
+ =?utf-8?B?MnBNVFM5blorVFdkQWlUMGwwYTFvVUdMWmY2dTJ5MVhMckRIZXRsbnpqalZW?=
+ =?utf-8?B?TVRHck1nYTdiSmpiZ0ZkbzdFS0ZieVdhejNGK2VMRXRNNURFWGEzdC8xZW11?=
+ =?utf-8?B?M09aR0tvUENmSXVRRWdPN0VHSHhkN1h2NnVzOWtVdmpIQ2hYNTFoMFNjR1c1?=
+ =?utf-8?B?ekF5Y1BSeHpGeHhDY0I0dzJ2eDhwU0NwVVczNWZqdk9YNXdEaUlkdGVDY282?=
+ =?utf-8?B?bHpaSkhETFFsQ2orVUYzRVRJTVhuZEVXY0M2SjRsRnpLdDJxMXRBNTlJWUhv?=
+ =?utf-8?B?RG5Ib1BBbC9Ld0ljd0xpbU5jV1JSSjFHdUpIay9DUmlYVW9wYXMzRXEwVUwz?=
+ =?utf-8?B?c0t0aXRkdmlxcm1CK29JWmFUMVloQWxNYjhUcGoreFVNdTVzZjg1cHhrSjk1?=
+ =?utf-8?B?QUpOSkNaRGo4MjVvUmxpV3YwWk0vR0hHeWlUK1c5RThyWHNLZksydWxaTkVx?=
+ =?utf-8?B?UjFHbHdEaXpQY0JTZzJ0UTJ3QlhnZkhJR2xpWCt5OGZJYUYySnIrUXRsblZ0?=
+ =?utf-8?B?c0Vmc0ZaM1UrODVvYjkyRWVrNnFRU09ScG44bmNmU01YS2hMbWVOekdTYzdq?=
+ =?utf-8?B?clpGYUMrZ3l5ZUQvbkc3SzFwQ1VFWU8ySFM1TitKYW9pOTJHRGxzTUVCT2Va?=
+ =?utf-8?B?cVJWSnNtQzNaOXFkOUovQkdHdzRGQ2xrV3l6amxMeXoxZTNZMGRRNXUzRGox?=
+ =?utf-8?B?NnRLaS9QSE05eHJWUy9UWnUxVFA5b3J0ZHBxK2h6djhKNzNLY3dVb1VJR1RH?=
+ =?utf-8?B?SCs5N2NqQUtPamUvanoxdzcvVEh1bDFZNkpWbnNQb3RnTE9oWENKWFhJc0lh?=
+ =?utf-8?B?U21CNGJBcE40T0srb2dQTll2VGl5aWZGc1ZFQ203ajZJc2dDU2hhcVdLZ1Zw?=
+ =?utf-8?B?TTJYb0xGbWp5ZFZYbnZPN1NJbTVEeEtGVmJmQ3ZwNWd6Y1EwVzlDWi9mQkY0?=
+ =?utf-8?B?akNHdVRkMWZaL3lrUHlJU3BKOFBXSUNLSWZPK294WmczaUNDMzlENEhtajQ3?=
+ =?utf-8?B?cHBaQmVRMjlVTGhLVytMTTdrL2Rtb2JkdXcyTE1VMmV3YStQeDFiQlp2V3lw?=
+ =?utf-8?B?S2pKTEZVQWhBNEV3dXUrd3hObGdpSDc3d0I3Uk05dVF4bVdVcWp0U3lOcDBQ?=
+ =?utf-8?Q?7Kn8tdQ2NkdxakjkI3j85HKuO0o2vnaumFedlNk6XJIqG?=
+X-MS-Exchange-AntiSpam-MessageData-1: 5Zds/VDZ1RasGw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd6c969b-0721-4964-17ff-08df242e9912
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 04:51:06.6979 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FbqB1OEyB4MfBxag+hM3vtxtzl+mASTidnFGcsC1loGlQt1L0F34/RGiDYiOSyZCb+3h/qzr4kBWXrMJsIiDuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB880722
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,607 +151,497 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=== IGT FULL LOG - FIXED vmwgfx (kernel 7.3.0-rc4+) ===
-=== Kernel commit: 6edd14dd67d76d39a518ad3bf1a98363690a5a62 ===
+On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+> Add a decoder for NVKV. This is for receiving messages from GSP for
+> GMCAPI calls. The NVKV format essentially encodes a sequence of function
+> calls f(key, index, value). This decoder reads an encoded stream and
+> invokes a type implementing the new `Schema` and `Visit` trait. The
+> `Visit` trait can either consume the value or not, which is useful for
+> composing schemas. If a (key, index, value) is not consumed, error out
+> depending on `UnknownKeyPolicy`. Whether ignoring unknown keys is ok or
+> not is per each GMCAPI call.
+>
+> Add kunit tests for the decoder.
+>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/nvkv.rs        |   3 +
+>  drivers/gpu/nova-core/gsp/nvkv/decode.rs | 487 +++++++++++++++++++++++++=
+++++++
+>  2 files changed, 490 insertions(+)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gs=
+p/nvkv.rs
+> index 0957dce92f96..10f7a16ffc23 100644
+> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
+> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+> @@ -29,6 +29,9 @@
+>  mod encode;
+>  pub(crate) use encode::*;
+> =20
+> +mod decode;
+> +pub(crate) use decode::*;
+> +
+>  /// The allocator backing [`EncodedStream`].
+>  type StreamAllocator =3D KVmalloc;
+> =20
+> diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova-=
+core/gsp/nvkv/decode.rs
+> new file mode 100644
+> index 000000000000..c4c24fe1108e
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
+> @@ -0,0 +1,487 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFIL=
+IATES. All rights reserved.
+> +
+> +#![cfg_attr(not(CONFIG_KUNIT), expect(dead_code))]
+> +
+> +use kernel::prelude::*;
+> +
+> +use crate::{
+> +    gsp::nvkv::{
+> +        Index,
+> +        KeyId,
+> +        Op,
+> +        Opcode, //
+> +    },
+> +    num, //
+> +};
+> +
+> +/// A decoded NVKV value.
+> +#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+> +pub(crate) enum DecoderValue<'a> {
+> +    Scalar32(u32),
+> +    Scalar64(u64),
+> +    Array8(&'a [u8]),
+> +    Array32(&'a [u32]),
+> +    Array64(&'a [u64]),
+> +}
+> +
+> +/// Implements `TryFrom` from the given `DecoderValue` variant to the gi=
+ven type.
+> +///
+> +/// `TryFrom` is used by the `Schema` implementations in this file to co=
+nvert from the
+> +/// `DecoderValue`s into the types to store. Provide the implementations=
+ for basic types here.
 
-===== vmw_execution_buffer =====
-IGT-Version: 2.6-NO-GIT (x86_64) (Linux: 7.3.0-rc4+ x86_64)
-Using IGT_SRANDOM=1791339044 for randomisation
-Opened device: /dev/dri/renderD128
-Starting subtest: mob-create-map
-Subtest mob-create-map: SUCCESS (0.000s)
-Starting subtest: buffer-create
-Subtest buffer-create: SUCCESS (0.000s)
-Starting subtest: execution-buffer-submit-sync
-Subtest execution-buffer-submit-sync: SUCCESS (0.032s)
+nit: proper doclinks for referenced types (recurring problem throughout
+the file).
 
-===== vmw_mob_stress =====
-IGT-Version: 2.6-NO-GIT (x86_64) (Linux: 7.3.0-rc4+ x86_64)
-Using IGT_SRANDOM=1791339044 for randomisation
-Opened device: /dev/dri/renderD128
-Starting subtest: max_mob_mem_stress
-[1812.758600] (vmw_mob_stress:579) igt_vmwgfx-CRITICAL: Test assertion failure function vmw_triangle_assert_values, file ../lib/igt_vmwgfx.c:1309:
-[1812.758617] (vmw_mob_stress:579) igt_vmwgfx-CRITICAL: Failed assertion: out_pixel[0] == 127
-[1812.758621] (vmw_mob_stress:579) igt_vmwgfx-CRITICAL: Last errno: 2, No such file or directory
-[1812.758623] (vmw_mob_stress:579) igt_vmwgfx-CRITICAL: error: 128 != 127
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../lib/igt_vmwgfx.c:1331 vmw_triangle_assert_values()
-  #2 ../tests/vmwgfx/vmw_mob_stress.c:44 __igt_unique____real_main48()
-  #3 ../tests/vmwgfx/vmw_mob_stress.c:48 main()
-  #4 [__libc_init_first+0x8a]
-  #5 [__libc_start_main+0x85]
-  #6 [_start+0x21]
-Subtest max_mob_mem_stress failed.
-**** DEBUG ****
-[1812.754433] (vmw_mob_stress:579) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.754493] (vmw_mob_stress:579) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.755365] (vmw_mob_stress:579) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.758600] (vmw_mob_stress:579) igt_vmwgfx-CRITICAL: Test assertion failure function vmw_triangle_assert_values, file ../lib/igt_vmwgfx.c:1309:
-[1812.758617] (vmw_mob_stress:579) igt_vmwgfx-CRITICAL: Failed assertion: out_pixel[0] == 127
-[1812.758621] (vmw_mob_stress:579) igt_vmwgfx-CRITICAL: Last errno: 2, No such file or directory
-[1812.758623] (vmw_mob_stress:579) igt_vmwgfx-CRITICAL: error: 128 != 127
-[1812.759007] (vmw_mob_stress:579) igt_core-INFO: Stack trace:
-[1812.760091] (vmw_mob_stress:579) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1812.760277] (vmw_mob_stress:579) igt_core-INFO:   #1 ../lib/igt_vmwgfx.c:1331 vmw_triangle_assert_values()
-[1812.760409] (vmw_mob_stress:579) igt_core-INFO:   #2 ../tests/vmwgfx/vmw_mob_stress.c:44 __igt_unique____real_main48()
-[1812.760416] (vmw_mob_stress:579) igt_core-INFO:   #3 ../tests/vmwgfx/vmw_mob_stress.c:48 main()
-[1812.761941] (vmw_mob_stress:579) igt_core-INFO:   #4 [__libc_init_first+0x8a]
-[1812.762251] (vmw_mob_stress:579) igt_core-INFO:   #5 [__libc_start_main+0x85]
-[1812.762389] (vmw_mob_stress:579) igt_core-INFO:   #6 [_start+0x21]
-****  END  ****
-Subtest max_mob_mem_stress: FAIL (0.008s)
+> +macro_rules! impl_try_from_decoder_value {
+> +    ($ty:ty, $variant:ident) =3D> {
+> +        impl<'a> TryFrom<DecoderValue<'a>> for $ty {
+> +            type Error =3D Error;
+> +
+> +            fn try_from(value: DecoderValue<'a>) -> Result<Self> {
+> +                if let DecoderValue::$variant(v) =3D value {
+> +                    Ok(v)
+> +                } else {
+> +                    Err(EINVAL)
+> +                }
+> +            }
+> +        }
+> +    };
+> +}
+> +
+> +impl_try_from_decoder_value!(u32, Scalar32);
+> +impl_try_from_decoder_value!(u64, Scalar64);
+> +impl_try_from_decoder_value!(&'a [u8], Array8);
+> +impl_try_from_decoder_value!(&'a [u32], Array32);
+> +impl_try_from_decoder_value!(&'a [u64], Array64);
+> +
+> +/// A visitor that consumes decoded NVKV and produces a `Target`.
+> +pub(crate) trait Schema {
+> +    type Target;
+> +
+> +    /// Returns an initializer that creates an empty schema in place.
+> +    ///
+> +    /// Use [`KBox::init`] for the heap or `stack_pin_init!` for the sta=
+ck (if sure that the value
+> +    /// is small enough to fit).
+> +    fn init() -> impl Init<Self>
+> +    where
+> +        Self: Sized;
+> +
+> +    /// Returns an initializer that makes the decoded `Target`.
+> +    ///
+> +    /// After the returned initializer runs, the schema should be empty =
+again.
+> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_;
+> +}
+> +
+> +/// A visitor that consumes decoded NVKV from a stream.
 
-===== vmw_ref_count =====
-IGT-Version: 2.6-NO-GIT (x86_64) (Linux: 7.3.0-rc4+ x86_64)
-Using IGT_SRANDOM=1791339044 for randomisation
-Opened device: /dev/dri/renderD128
-Starting subtest: surface_prime_transfer_explicit_mob
-Subtest surface_prime_transfer_explicit_mob: SUCCESS (0.000s)
-Starting subtest: surface_prime_transfer_implicit_mob
-Subtest surface_prime_transfer_implicit_mob: SUCCESS (0.000s)
-Starting subtest: surface_prime_transfer_fd_dup
-Subtest surface_prime_transfer_fd_dup: SUCCESS (0.000s)
-Starting subtest: surface_prime_transfer_two_surfaces
-Subtest surface_prime_transfer_two_surfaces: SUCCESS (0.000s)
-Starting subtest: surface_prime_transfer_single_surface_multiple_handle
-Subtest surface_prime_transfer_single_surface_multiple_handle: SUCCESS (0.000s)
-Starting subtest: mob_repeated_unref
-Subtest mob_repeated_unref: SUCCESS (0.000s)
-Starting subtest: surface_repeated_unref
-Subtest surface_repeated_unref: SUCCESS (0.000s)
-Starting subtest: surface_alloc_ref_unref
-Subtest surface_alloc_ref_unref: SUCCESS (0.000s)
-Starting subtest: surface_buffer_ref
-Subtest surface_buffer_ref: SUCCESS (0.001s)
-Starting subtest: surface_prime_refs
-Subtest surface_prime_refs: SUCCESS (0.001s)
-Starting subtest: surface_buffer_prime_refs
-Subtest surface_buffer_prime_refs: SUCCESS (0.001s)
+Note that `Schema` is also defined as a "visitor that consumes decoded
+NVKV", which makes things a bit confusing. I guess that's because both
+traits implement different aspects of what a typical visitor does, but
+clarifying their relationship (and the reason for splitting) would be
+helpful.
 
-===== vmw_surface_copy =====
-IGT-Version: 2.6-NO-GIT (x86_64) (Linux: 7.3.0-rc4+ x86_64)
-Using IGT_SRANDOM=1791339044 for randomisation
-Opened device: /dev/dri/renderD128
-Starting subtest: test_invalid_copies
-vmw_ioctl_command error Invalid argument.
-vmw_ioctl_command error Invalid argument.
-Subtest test_invalid_copies: SUCCESS (0.049s)
-Starting subtest: test_invalid_copies_3d
-Subtest test_invalid_copies_3d: SUCCESS (0.001s)
+> +///
+> +/// A schema that doesn't need to borrow data from the stream can implem=
+ent this for all `'data`
+> +/// lifetimes, avoiding having to carry the lifetime parameter. A schema=
+ that borrows from the
+> +/// stream directly should implements it for its own lifetime only.
+> +pub(crate) trait Visit<'data> {
 
-===== vmw_tri =====
-IGT-Version: 2.6-NO-GIT (x86_64) (Linux: 7.3.0-rc4+ x86_64)
-Using IGT_SRANDOM=1791339044 for randomisation
-Opened device: /dev/dri/renderD128
-Starting subtest: tri
-[1812.916602] (vmw_tri:588) igt_vmwgfx-CRITICAL: Test assertion failure function vmw_triangle_assert_values, file ../lib/igt_vmwgfx.c:1309:
-[1812.916625] (vmw_tri:588) igt_vmwgfx-CRITICAL: Failed assertion: out_pixel[0] == 127
-[1812.916629] (vmw_tri:588) igt_vmwgfx-CRITICAL: Last errno: 2, No such file or directory
-[1812.916631] (vmw_tri:588) igt_vmwgfx-CRITICAL: error: 128 != 127
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../lib/igt_vmwgfx.c:1331 vmw_triangle_assert_values()
-  #2 ../tests/vmwgfx/vmw_tri.c:51 __igt_unique____real_main183()
-  #3 ../tests/vmwgfx/vmw_tri.c:183 main()
-  #4 [__libc_init_first+0x8a]
-  #5 [__libc_start_main+0x85]
-  #6 [_start+0x21]
-Subtest tri failed.
-**** DEBUG ****
-[1812.907494] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(drm_fd)
-[1812.907562] (vmw_tri:588) DEBUG: Test requirement passed: cid != SVGA3D_INVALID_ID
-[1812.907571] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.907669] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.908847] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.916602] (vmw_tri:588) igt_vmwgfx-CRITICAL: Test assertion failure function vmw_triangle_assert_values, file ../lib/igt_vmwgfx.c:1309:
-[1812.916625] (vmw_tri:588) igt_vmwgfx-CRITICAL: Failed assertion: out_pixel[0] == 127
-[1812.916629] (vmw_tri:588) igt_vmwgfx-CRITICAL: Last errno: 2, No such file or directory
-[1812.916631] (vmw_tri:588) igt_vmwgfx-CRITICAL: error: 128 != 127
-[1812.917125] (vmw_tri:588) igt_core-INFO: Stack trace:
-[1812.918079] (vmw_tri:588) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1812.918265] (vmw_tri:588) igt_core-INFO:   #1 ../lib/igt_vmwgfx.c:1331 vmw_triangle_assert_values()
-[1812.918410] (vmw_tri:588) igt_core-INFO:   #2 ../tests/vmwgfx/vmw_tri.c:51 __igt_unique____real_main183()
-[1812.918442] (vmw_tri:588) igt_core-INFO:   #3 ../tests/vmwgfx/vmw_tri.c:183 main()
-[1812.919944] (vmw_tri:588) igt_core-INFO:   #4 [__libc_init_first+0x8a]
-[1812.920259] (vmw_tri:588) igt_core-INFO:   #5 [__libc_start_main+0x85]
-[1812.920399] (vmw_tri:588) igt_core-INFO:   #6 [_start+0x21]
-****  END  ****
-Subtest tri: FAIL (0.013s)
-Starting subtest: tri-no-sync-coherent
-[1812.925114] (vmw_tri:588) igt_vmwgfx-CRITICAL: Test assertion failure function vmw_triangle_assert_values, file ../lib/igt_vmwgfx.c:1309:
-[1812.925129] (vmw_tri:588) igt_vmwgfx-CRITICAL: Failed assertion: out_pixel[0] == 127
-[1812.925132] (vmw_tri:588) igt_vmwgfx-CRITICAL: error: 128 != 127
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../lib/igt_vmwgfx.c:1331 vmw_triangle_assert_values()
-  #2 ../tests/vmwgfx/vmw_tri.c:172 __igt_unique____real_main183()
-  #3 ../tests/vmwgfx/vmw_tri.c:183 main()
-  #4 [__libc_init_first+0x8a]
-  #5 [__libc_start_main+0x85]
-  #6 [_start+0x21]
-Subtest tri-no-sync-coherent failed.
-**** DEBUG ****
-[1812.920885] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(drm_fd)
-[1812.920936] (vmw_tri:588) DEBUG: Test requirement passed: cid != SVGA3D_INVALID_ID
-[1812.920937] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.920991] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.921887] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.921947] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.922284] (vmw_tri:588) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.925114] (vmw_tri:588) igt_vmwgfx-CRITICAL: Test assertion failure function vmw_triangle_assert_values, file ../lib/igt_vmwgfx.c:1309:
-[1812.925129] (vmw_tri:588) igt_vmwgfx-CRITICAL: Failed assertion: out_pixel[0] == 127
-[1812.925132] (vmw_tri:588) igt_vmwgfx-CRITICAL: error: 128 != 127
-[1812.925466] (vmw_tri:588) igt_core-INFO: Stack trace:
-[1812.926399] (vmw_tri:588) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1812.926832] (vmw_tri:588) igt_core-INFO:   #1 ../lib/igt_vmwgfx.c:1331 vmw_triangle_assert_values()
-[1812.926938] (vmw_tri:588) igt_core-INFO:   #2 ../tests/vmwgfx/vmw_tri.c:172 __igt_unique____real_main183()
-[1812.926964] (vmw_tri:588) igt_core-INFO:   #3 ../tests/vmwgfx/vmw_tri.c:183 main()
-[1812.927527] (vmw_tri:588) igt_core-INFO:   #4 [__libc_init_first+0x8a]
-[1812.929069] (vmw_tri:588) igt_core-INFO:   #5 [__libc_start_main+0x85]
-[1812.929202] (vmw_tri:588) igt_core-INFO:   #6 [_start+0x21]
-****  END  ****
-Subtest tri-no-sync-coherent: FAIL (0.009s)
-Starting subtest: tri-2d
-Subtest tri-2d: SUCCESS (0.005s)
+Should this be named `Visitor` instead of `Visit`? Trait names should be
+nouns rather than verbs, and this would make the `Decoder::visit`
+method's prototype read more clearly imho. If you intended to use
+`Visit` as a noun, I don't think that works either since the `visit`
+method is potentially called many times (so it is not a single visit).
 
-===== vmw_prime =====
-IGT-Version: 2.6-NO-GIT (x86_64) (Linux: 7.3.0-rc4+ x86_64)
-Using IGT_SRANDOM=1791339044 for randomisation
-Opened device: /dev/dri/card0
-Opened device: /dev/dri/renderD128
-Starting subtest: tri-map-gem
-vmw_ioctl_surface_ref Failed
-vmw_ioctl_command error Invalid argument.
-vmw_ioctl_command error Invalid argument.
-vmw_ioctl_fence_finish Failed
-vmw_ioctl_command error Invalid argument.
-vmw_ioctl_fence_finish Failed
-vmw_ioctl_mob_map: Map failed.
-[1813.009742] (vmw_prime:593) CRITICAL: Test assertion failure function draw_triangle_map_gem, file ../tests/vmwgfx/vmw_prime.c:123:
-[1813.009744] (vmw_prime:593) CRITICAL: Failed assertion: save_status
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../tests/vmwgfx/vmw_prime.c:500 __igt_unique____real_main508()
-  #2 ../tests/vmwgfx/vmw_prime.c:508 main()
-  #3 [__libc_init_first+0x8a]
-  #4 [__libc_start_main+0x85]
-  #5 [_start+0x21]
-Subtest tri-map-gem failed.
-**** DEBUG ****
-[1812.968183] (vmw_prime:593) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1812.968228] (vmw_prime:593) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1813.009532] (vmw_prime:593) igt_vmwgfx-INFO: vmw_ioctl_command error Invalid argument.
-[1813.009576] (vmw_prime:593) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1813.009612] (vmw_prime:593) igt_vmwgfx-INFO: vmw_ioctl_command error Invalid argument.
-[1813.009659] (vmw_prime:593) igt_vmwgfx-INFO: vmw_ioctl_command error Invalid argument.
-[1813.009742] (vmw_prime:593) CRITICAL: Test assertion failure function draw_triangle_map_gem, file ../tests/vmwgfx/vmw_prime.c:123:
-[1813.009744] (vmw_prime:593) CRITICAL: Failed assertion: save_status
-[1813.010076] (vmw_prime:593) igt_core-INFO: Stack trace:
-[1813.011065] (vmw_prime:593) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1813.011213] (vmw_prime:593) igt_core-INFO:   #1 ../tests/vmwgfx/vmw_prime.c:500 __igt_unique____real_main508()
-[1813.011231] (vmw_prime:593) igt_core-INFO:   #2 ../tests/vmwgfx/vmw_prime.c:508 main()
-[1813.012855] (vmw_prime:593) igt_core-INFO:   #3 [__libc_init_first+0x8a]
-[1813.013162] (vmw_prime:593) igt_core-INFO:   #4 [__libc_start_main+0x85]
-[1813.013308] (vmw_prime:593) igt_core-INFO:   #5 [_start+0x21]
-****  END  ****
-Subtest tri-map-gem: FAIL (0.046s)
-Starting subtest: tri-map-dmabuf
-vmw_ioctl_surface_ref Failed
-vmw_ioctl_command error Invalid argument.
-vmw_ioctl_command error Invalid argument.
-vmw_ioctl_fence_finish Failed
-vmw_ioctl_command error Invalid argument.
-vmw_ioctl_fence_finish Failed
-vmw_ioctl_mob_map: Map failed.
-[1813.052296] (vmw_prime:593) CRITICAL: Test assertion failure function draw_triangle_map_dmabuf, file ../tests/vmwgfx/vmw_prime.c:160:
-[1813.052298] (vmw_prime:593) CRITICAL: Failed assertion: save_status
-[1813.052300] (vmw_prime:593) CRITICAL: Last errno: 22, Invalid argument
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../tests/vmwgfx/vmw_prime.c:520 __igt_unique____real_main508()
-  #2 ../tests/vmwgfx/vmw_prime.c:508 main()
-  #3 [__libc_init_first+0x8a]
-  #4 [__libc_start_main+0x85]
-  #5 [_start+0x21]
-Subtest tri-map-dmabuf failed.
-**** DEBUG ****
-[1813.014001] (vmw_prime:593) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1813.014040] (vmw_prime:593) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1813.052087] (vmw_prime:593) igt_vmwgfx-INFO: vmw_ioctl_command error Invalid argument.
-[1813.052111] (vmw_prime:593) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(fd)
-[1813.052200] (vmw_prime:593) igt_vmwgfx-INFO: vmw_ioctl_command error Invalid argument.
-[1813.052245] (vmw_prime:593) igt_vmwgfx-INFO: vmw_ioctl_command error Invalid argument.
-[1813.052296] (vmw_prime:593) CRITICAL: Test assertion failure function draw_triangle_map_dmabuf, file ../tests/vmwgfx/vmw_prime.c:160:
-[1813.052298] (vmw_prime:593) CRITICAL: Failed assertion: save_status
-[1813.052300] (vmw_prime:593) CRITICAL: Last errno: 22, Invalid argument
-[1813.052581] (vmw_prime:593) igt_core-INFO: Stack trace:
-[1813.053203] (vmw_prime:593) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1813.053343] (vmw_prime:593) igt_core-INFO:   #1 ../tests/vmwgfx/vmw_prime.c:520 __igt_unique____real_main508()
-[1813.053361] (vmw_prime:593) igt_core-INFO:   #2 ../tests/vmwgfx/vmw_prime.c:508 main()
-[1813.053911] (vmw_prime:593) igt_core-INFO:   #3 [__libc_init_first+0x8a]
-[1813.054225] (vmw_prime:593) igt_core-INFO:   #4 [__libc_start_main+0x85]
-[1813.054351] (vmw_prime:593) igt_core-INFO:   #5 [_start+0x21]
-****  END  ****
-Subtest tri-map-dmabuf: FAIL (0.041s)
-Starting subtest: draw-dumb-buffer
-vmw_ioctl_surface_ref Failed
-[1813.093153] (vmw_prime:593) CRITICAL: Test assertion failure function prepare_crtc_surface, file ../tests/vmwgfx/vmw_prime.c:250:
-[1813.093156] (vmw_prime:593) CRITICAL: Failed assertion: (__kms_addfb(gpu->fb.fd, gpu->fb_surface->base.handle, gpu->fb.width, gpu->fb.height, gpu->fb.drm_format, gpu->fb.modifier, gpu->fb.strides, gpu->fb.offsets, gpu->fb.num_planes, 0, &gpu->fb.fb_id)) == 0
-[1813.093158] (vmw_prime:593) CRITICAL: Last errno: 22, Invalid argument
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../tests/vmwgfx/vmw_prime.c:242 __igt_unique____real_main508()
-  #2 ../tests/vmwgfx/vmw_prime.c:508 main()
-  #3 [__libc_init_first+0x8a]
-  #4 [__libc_start_main+0x85]
-  #5 [_start+0x21]
-Subtest draw-dumb-buffer failed.
-**** DEBUG ****
-[1813.054730] (vmw_prime:593) igt_vmwgfx-DEBUG: Test requirement passed: vmw_supports_3d(drm_fd)
-[1813.054777] (vmw_prime:593) igt_kms-DEBUG: display: Virtual-1: set_crtc(A)
-[1813.054837] (vmw_prime:593) igt_kms-DEBUG: display: Virtual-1: Selecting CRTC A
-[1813.054850] (vmw_prime:593) igt_fb-DEBUG: igt_create_fb_with_bo_size(width=1280, height=800, format=XR24(0x34325258), modifier=0x0, size=0)
-[1813.054914] (vmw_prime:593) igt_fb-DEBUG: igt_create_fb_with_bo_size(handle=2, pitch=5120)
-[1813.054917] (vmw_prime:593) ioctl_wrappers-DEBUG: Test requirement passed: igt_has_fb_modifiers(fd)
-[1813.054959] (vmw_prime:593) igt_fb-DEBUG: Test requirement passed: cairo_surface_status(fb->cairo_surface) == CAIRO_STATUS_SUCCESS
-[1813.093153] (vmw_prime:593) CRITICAL: Test assertion failure function prepare_crtc_surface, file ../tests/vmwgfx/vmw_prime.c:250:
-[1813.093156] (vmw_prime:593) CRITICAL: Failed assertion: (__kms_addfb(gpu->fb.fd, gpu->fb_surface->base.handle, gpu->fb.width, gpu->fb.height, gpu->fb.drm_format, gpu->fb.modifier, gpu->fb.strides, gpu->fb.offsets, gpu->fb.num_planes, 0, &gpu->fb.fb_id)) == 0
-[1813.093158] (vmw_prime:593) CRITICAL: Last errno: 22, Invalid argument
-[1813.093417] (vmw_prime:593) igt_core-INFO: Stack trace:
-[1813.094067] (vmw_prime:593) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1813.094204] (vmw_prime:593) igt_core-INFO:   #1 ../tests/vmwgfx/vmw_prime.c:242 __igt_unique____real_main508()
-[1813.094222] (vmw_prime:593) igt_core-INFO:   #2 ../tests/vmwgfx/vmw_prime.c:508 main()
-[1813.094804] (vmw_prime:593) igt_core-INFO:   #3 [__libc_init_first+0x8a]
-[1813.095127] (vmw_prime:593) igt_core-INFO:   #4 [__libc_start_main+0x85]
-[1813.095286] (vmw_prime:593) igt_core-INFO:   #5 [_start+0x21]
-****  END  ****
-Subtest draw-dumb-buffer: FAIL (0.041s)
-Starting subtest: buffer-surface-fb-sharing-sync-readback
-[1813.100669] (vmw_prime:593) igt_pipe_crc-CRITICAL: Test assertion failure function igt_pipe_crc_start, file ../lib/igt_pipe_crc.c:416:
-[1813.100685] (vmw_prime:593) igt_pipe_crc-CRITICAL: Failed assertion: write(pipe_crc->ctl_fd, src, strlen(src)) == strlen(src)
-[1813.100687] (vmw_prime:593) igt_pipe_crc-CRITICAL: Last errno: 22, Invalid argument
-[1813.100689] (vmw_prime:593) igt_pipe_crc-CRITICAL: error: -1 != 4
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../lib/igt_pipe_crc.c:422 igt_pipe_crc_start()
-  #2 ../lib/igt_pipe_crc.c:627 igt_pipe_crc_collect_crc()
-  #3 ../tests/vmwgfx/vmw_prime.c:307 draw_triangle_3d()
-  #4 ../tests/vmwgfx/vmw_prime.c:545 __igt_unique____real_main508()
-  #5 ../tests/vmwgfx/vmw_prime.c:508 main()
-  #6 [__libc_init_first+0x8a]
-  #7 [__libc_start_main+0x85]
-  #8 [_start+0x21]
-Subtest buffer-surface-fb-sharing-sync-readback failed.
-**** DEBUG ****
-[1813.096322] (vmw_prime:593) igt_kms-DEBUG: display: Virtual-1: set_crtc(A)
-[1813.096375] (vmw_prime:593) igt_kms-DEBUG: display: Virtual-1: Selecting CRTC A
-[1813.096389] (vmw_prime:593) igt_fb-DEBUG: igt_create_fb_with_bo_size(width=1280, height=800, format=XR24(0x34325258), modifier=0x0, size=0)
-[1813.096550] (vmw_prime:593) igt_fb-DEBUG: igt_create_fb_with_bo_size(handle=3, pitch=5120)
-[1813.096553] (vmw_prime:593) ioctl_wrappers-DEBUG: Test requirement passed: igt_has_fb_modifiers(fd)
-[1813.096576] (vmw_prime:593) igt_fb-DEBUG: Test requirement passed: cairo_surface_status(fb->cairo_surface) == CAIRO_STATUS_SUCCESS
-[1813.099306] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099307] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099309] (vmw_prime:593) igt_kms-DEBUG: display: A.0: plane_set_fb(113)
-[1813.099311] (vmw_prime:593) igt_kms-DEBUG: display: A.0: plane_set_size (1280x800)
-[1813.099312] (vmw_prime:593) igt_kms-DEBUG: display: A.0: fb_set_position(0,0)
-[1813.099313] (vmw_prime:593) igt_kms-DEBUG: display: A.0: fb_set_size(1280x800)
-[1813.099316] (vmw_prime:593) igt_kms-DEBUG: display: commit {
-[1813.099351] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099352] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099354] (vmw_prime:593) igt_kms-DEBUG: display:     Virtual-1: SetCrtc pipe A, fb 113, src (0, 0), mode 1280x800
-[1813.099665] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099668] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099669] (vmw_prime:593) igt_kms-DEBUG: display:     SetCursor pipe A, disabling
-[1813.099712] (vmw_prime:593) igt_kms-DEBUG: display:     MoveCursor pipe A, (0, 0)
-[1813.099762] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099763] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099765] (vmw_prime:593) igt_kms-DEBUG: display:     SetCrtc pipe B, disabling
-[1813.099796] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099797] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099797] (vmw_prime:593) igt_kms-DEBUG: display:     SetCursor pipe B, disabling
-[1813.099814] (vmw_prime:593) igt_kms-DEBUG: display:     MoveCursor pipe B, (0, 0)
-[1813.099848] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099849] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099850] (vmw_prime:593) igt_kms-DEBUG: display:     SetCrtc pipe C, disabling
-[1813.099875] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099876] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099876] (vmw_prime:593) igt_kms-DEBUG: display:     SetCursor pipe C, disabling
-[1813.099896] (vmw_prime:593) igt_kms-DEBUG: display:     MoveCursor pipe C, (0, 0)
-[1813.099929] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099929] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099930] (vmw_prime:593) igt_kms-DEBUG: display:     SetCrtc pipe D, disabling
-[1813.099954] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.099955] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.099955] (vmw_prime:593) igt_kms-DEBUG: display:     SetCursor pipe D, disabling
-[1813.100141] (vmw_prime:593) igt_kms-DEBUG: display:     MoveCursor pipe D, (0, 0)
-[1813.100175] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.100175] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.100176] (vmw_prime:593) igt_kms-DEBUG: display:     SetCrtc pipe E, disabling
-[1813.100199] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.100200] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.100201] (vmw_prime:593) igt_kms-DEBUG: display:     SetCursor pipe E, disabling
-[1813.100216] (vmw_prime:593) igt_kms-DEBUG: display:     MoveCursor pipe E, (0, 0)
-[1813.100252] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.100252] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.100253] (vmw_prime:593) igt_kms-DEBUG: display:     SetCrtc pipe F, disabling
-[1813.100277] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.100278] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.100278] (vmw_prime:593) igt_kms-DEBUG: display:     SetCursor pipe F, disabling
-[1813.100299] (vmw_prime:593) igt_kms-DEBUG: display:     MoveCursor pipe F, (0, 0)
-[1813.100333] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.100334] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.100335] (vmw_prime:593) igt_kms-DEBUG: display:     SetCrtc pipe G, disabling
-[1813.100359] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.100360] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.100360] (vmw_prime:593) igt_kms-DEBUG: display:     SetCursor pipe G, disabling
-[1813.100376] (vmw_prime:593) igt_kms-DEBUG: display:     MoveCursor pipe G, (0, 0)
-[1813.100409] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.100409] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.100410] (vmw_prime:593) igt_kms-DEBUG: display:     SetCrtc pipe H, disabling
-[1813.100457] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.100458] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.100459] (vmw_prime:593) igt_kms-DEBUG: display:     SetCursor pipe H, disabling
-[1813.100478] (vmw_prime:593) igt_kms-DEBUG: display:     MoveCursor pipe H, (0, 0)
-[1813.100497] (vmw_prime:593) igt_kms-DEBUG: display: }
-[1813.100669] (vmw_prime:593) igt_pipe_crc-CRITICAL: Test assertion failure function igt_pipe_crc_start, file ../lib/igt_pipe_crc.c:416:
-[1813.100685] (vmw_prime:593) igt_pipe_crc-CRITICAL: Failed assertion: write(pipe_crc->ctl_fd, src, strlen(src)) == strlen(src)
-[1813.100687] (vmw_prime:593) igt_pipe_crc-CRITICAL: Last errno: 22, Invalid argument
-[1813.100689] (vmw_prime:593) igt_pipe_crc-CRITICAL: error: -1 != 4
-[1813.100982] (vmw_prime:593) igt_core-INFO: Stack trace:
-[1813.101587] (vmw_prime:593) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1813.101705] (vmw_prime:593) igt_core-INFO:   #1 ../lib/igt_pipe_crc.c:422 igt_pipe_crc_start()
-[1813.101768] (vmw_prime:593) igt_core-INFO:   #2 ../lib/igt_pipe_crc.c:627 igt_pipe_crc_collect_crc()
-[1813.101901] (vmw_prime:593) igt_core-INFO:   #3 ../tests/vmwgfx/vmw_prime.c:307 draw_triangle_3d()
-[1813.101917] (vmw_prime:593) igt_core-INFO:   #4 ../tests/vmwgfx/vmw_prime.c:545 __igt_unique____real_main508()
-[1813.101921] (vmw_prime:593) igt_core-INFO:   #5 ../tests/vmwgfx/vmw_prime.c:508 main()
-[1813.102482] (vmw_prime:593) igt_core-INFO:   #6 [__libc_init_first+0x8a]
-[1813.102807] (vmw_prime:593) igt_core-INFO:   #7 [__libc_start_main+0x85]
-[1813.102930] (vmw_prime:593) igt_core-INFO:   #8 [_start+0x21]
-****  END  ****
-Subtest buffer-surface-fb-sharing-sync-readback: FAIL (0.007s)
-Starting subtest: buffer-surface-fb-sharing-sync
-[1813.106531] (vmw_prime:593) igt_pipe_crc-CRITICAL: Test assertion failure function igt_pipe_crc_start, file ../lib/igt_pipe_crc.c:416:
-[1813.106544] (vmw_prime:593) igt_pipe_crc-CRITICAL: Failed assertion: write(pipe_crc->ctl_fd, src, strlen(src)) == strlen(src)
-[1813.106547] (vmw_prime:593) igt_pipe_crc-CRITICAL: Last errno: 22, Invalid argument
-[1813.106549] (vmw_prime:593) igt_pipe_crc-CRITICAL: error: -1 != 4
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../lib/igt_pipe_crc.c:422 igt_pipe_crc_start()
-  #2 ../lib/igt_pipe_crc.c:627 igt_pipe_crc_collect_crc()
-  #3 ../tests/vmwgfx/vmw_prime.c:307 draw_triangle_3d()
-  #4 ../tests/vmwgfx/vmw_prime.c:552 __igt_unique____real_main508()
-  #5 ../tests/vmwgfx/vmw_prime.c:508 main()
-  #6 [__libc_init_first+0x8a]
-  #7 [__libc_start_main+0x85]
-  #8 [_start+0x21]
-Subtest buffer-surface-fb-sharing-sync failed.
-**** DEBUG ****
-[1813.103307] (vmw_prime:593) igt_kms-DEBUG: display: Virtual-1: set_crtc(A)
-[1813.103351] (vmw_prime:593) igt_kms-DEBUG: display: Virtual-1: Selecting CRTC A
-[1813.103361] (vmw_prime:593) igt_fb-DEBUG: igt_create_fb_with_bo_size(width=1280, height=800, format=XR24(0x34325258), modifier=0x0, size=0)
-[1813.103455] (vmw_prime:593) igt_fb-DEBUG: igt_create_fb_with_bo_size(handle=4, pitch=5120)
-[1813.103457] (vmw_prime:593) ioctl_wrappers-DEBUG: Test requirement passed: igt_has_fb_modifiers(fd)
-[1813.103481] (vmw_prime:593) igt_fb-DEBUG: Test requirement passed: cairo_surface_status(fb->cairo_surface) == CAIRO_STATUS_SUCCESS
-[1813.106221] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106222] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106223] (vmw_prime:593) igt_kms-DEBUG: display: A.0: plane_set_fb(114)
-[1813.106224] (vmw_prime:593) igt_kms-DEBUG: display: A.0: plane_set_size (1280x800)
-[1813.106224] (vmw_prime:593) igt_kms-DEBUG: display: A.0: fb_set_position(0,0)
-[1813.106225] (vmw_prime:593) igt_kms-DEBUG: display: A.0: fb_set_size(1280x800)
-[1813.106227] (vmw_prime:593) igt_kms-DEBUG: display: commit {
-[1813.106228] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106228] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106229] (vmw_prime:593) igt_kms-DEBUG: display:     Virtual-1: SetCrtc pipe A, fb 114, src (0, 0), mode 1280x800
-[1813.106399] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106400] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106401] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106401] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106402] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106403] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106404] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106404] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106405] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106405] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106406] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106406] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106407] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106407] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106408] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106409] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106409] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106410] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106411] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106412] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106413] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106413] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106414] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106414] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106415] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106415] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106416] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106416] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106418] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.106418] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.106419] (vmw_prime:593) igt_kms-DEBUG: display: }
-[1813.106531] (vmw_prime:593) igt_pipe_crc-CRITICAL: Test assertion failure function igt_pipe_crc_start, file ../lib/igt_pipe_crc.c:416:
-[1813.106544] (vmw_prime:593) igt_pipe_crc-CRITICAL: Failed assertion: write(pipe_crc->ctl_fd, src, strlen(src)) == strlen(src)
-[1813.106547] (vmw_prime:593) igt_pipe_crc-CRITICAL: Last errno: 22, Invalid argument
-[1813.106549] (vmw_prime:593) igt_pipe_crc-CRITICAL: error: -1 != 4
-[1813.106808] (vmw_prime:593) igt_core-INFO: Stack trace:
-[1813.107348] (vmw_prime:593) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1813.107488] (vmw_prime:593) igt_core-INFO:   #1 ../lib/igt_pipe_crc.c:422 igt_pipe_crc_start()
-[1813.107546] (vmw_prime:593) igt_core-INFO:   #2 ../lib/igt_pipe_crc.c:627 igt_pipe_crc_collect_crc()
-[1813.107896] (vmw_prime:593) igt_core-INFO:   #3 ../tests/vmwgfx/vmw_prime.c:307 draw_triangle_3d()
-[1813.107933] (vmw_prime:593) igt_core-INFO:   #4 ../tests/vmwgfx/vmw_prime.c:552 __igt_unique____real_main508()
-[1813.107946] (vmw_prime:593) igt_core-INFO:   #5 ../tests/vmwgfx/vmw_prime.c:508 main()
-[1813.108807] (vmw_prime:593) igt_core-INFO:   #6 [__libc_init_first+0x8a]
-[1813.109133] (vmw_prime:593) igt_core-INFO:   #7 [__libc_start_main+0x85]
-[1813.109257] (vmw_prime:593) igt_core-INFO:   #8 [_start+0x21]
-****  END  ****
-Subtest buffer-surface-fb-sharing-sync: FAIL (0.006s)
-Starting subtest: buffer-surface-fb-sharing
-[1813.117148] (vmw_prime:593) igt_pipe_crc-CRITICAL: Test assertion failure function igt_pipe_crc_start, file ../lib/igt_pipe_crc.c:416:
-[1813.117160] (vmw_prime:593) igt_pipe_crc-CRITICAL: Failed assertion: write(pipe_crc->ctl_fd, src, strlen(src)) == strlen(src)
-[1813.117163] (vmw_prime:593) igt_pipe_crc-CRITICAL: Last errno: 22, Invalid argument
-[1813.117164] (vmw_prime:593) igt_pipe_crc-CRITICAL: error: -1 != 4
-Stack trace:
-  #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-  #1 ../lib/igt_pipe_crc.c:422 igt_pipe_crc_start()
-  #2 ../lib/igt_pipe_crc.c:627 igt_pipe_crc_collect_crc()
-  #3 ../tests/vmwgfx/vmw_prime.c:307 draw_triangle_3d()
-  #4 ../tests/vmwgfx/vmw_prime.c:557 __igt_unique____real_main508()
-  #5 ../tests/vmwgfx/vmw_prime.c:508 main()
-  #6 [__libc_init_first+0x8a]
-  #7 [__libc_start_main+0x85]
-  #8 [_start+0x21]
-Subtest buffer-surface-fb-sharing failed.
-**** DEBUG ****
-[1813.109649] (vmw_prime:593) igt_kms-DEBUG: display: Virtual-1: set_crtc(A)
-[1813.109692] (vmw_prime:593) igt_kms-DEBUG: display: Virtual-1: Selecting CRTC A
-[1813.109702] (vmw_prime:593) igt_fb-DEBUG: igt_create_fb_with_bo_size(width=1280, height=800, format=XR24(0x34325258), modifier=0x0, size=0)
-[1813.109822] (vmw_prime:593) igt_fb-DEBUG: igt_create_fb_with_bo_size(handle=5, pitch=5120)
-[1813.109824] (vmw_prime:593) ioctl_wrappers-DEBUG: Test requirement passed: igt_has_fb_modifiers(fd)
-[1813.109846] (vmw_prime:593) igt_fb-DEBUG: Test requirement passed: cairo_surface_status(fb->cairo_surface) == CAIRO_STATUS_SUCCESS
-[1813.116870] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.116872] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.116872] (vmw_prime:593) igt_kms-DEBUG: display: A.0: plane_set_fb(115)
-[1813.116873] (vmw_prime:593) igt_kms-DEBUG: display: A.0: plane_set_size (1280x800)
-[1813.116875] (vmw_prime:593) igt_kms-DEBUG: display: A.0: fb_set_position(0,0)
-[1813.116875] (vmw_prime:593) igt_kms-DEBUG: display: A.0: fb_set_size(1280x800)
-[1813.116876] (vmw_prime:593) igt_kms-DEBUG: display: commit {
-[1813.116877] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.116878] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.116878] (vmw_prime:593) igt_kms-DEBUG: display:     Virtual-1: SetCrtc pipe A, fb 115, src (0, 0), mode 1280x800
-[1813.117048] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117049] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117050] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117051] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117051] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117052] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117053] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117053] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117054] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117055] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117055] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117056] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117057] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117057] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117058] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117058] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117059] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117059] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117060] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117060] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117062] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117062] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117063] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117063] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117063] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117064] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117065] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117065] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117066] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: plane_idx >= 0 && plane_idx < crtc->n_planes
-[1813.117066] (vmw_prime:593) igt_kms-DEBUG: Test requirement passed: crtc->planes[plane_idx].type == plane_type
-[1813.117067] (vmw_prime:593) igt_kms-DEBUG: display: }
-[1813.117148] (vmw_prime:593) igt_pipe_crc-CRITICAL: Test assertion failure function igt_pipe_crc_start, file ../lib/igt_pipe_crc.c:416:
-[1813.117160] (vmw_prime:593) igt_pipe_crc-CRITICAL: Failed assertion: write(pipe_crc->ctl_fd, src, strlen(src)) == strlen(src)
-[1813.117163] (vmw_prime:593) igt_pipe_crc-CRITICAL: Last errno: 22, Invalid argument
-[1813.117164] (vmw_prime:593) igt_pipe_crc-CRITICAL: error: -1 != 4
-[1813.117417] (vmw_prime:593) igt_core-INFO: Stack trace:
-[1813.117947] (vmw_prime:593) igt_core-INFO:   #0 ../lib/igt_core.c:2146 __igt_fail_assert()
-[1813.118041] (vmw_prime:593) igt_core-INFO:   #1 ../lib/igt_pipe_crc.c:422 igt_pipe_crc_start()
-[1813.118085] (vmw_prime:593) igt_core-INFO:   #2 ../lib/igt_pipe_crc.c:627 igt_pipe_crc_collect_crc()
-[1813.118199] (vmw_prime:593) igt_core-INFO:   #3 ../tests/vmwgfx/vmw_prime.c:307 draw_triangle_3d()
-[1813.118203] (vmw_prime:593) igt_core-INFO:   #4 ../tests/vmwgfx/vmw_prime.c:557 __igt_unique____real_main508()
-[1813.118209] (vmw_prime:593) igt_core-INFO:   #5 ../tests/vmwgfx/vmw_prime.c:508 main()
-[1813.118737] (vmw_prime:593) igt_core-INFO:   #6 [__libc_init_first+0x8a]
-[1813.119016] (vmw_prime:593) igt_core-INFO:   #7 [__libc_start_main+0x85]
-[1813.119146] (vmw_prime:593) igt_core-INFO:   #8 [_start+0x21]
-****  END  ****
-Subtest buffer-surface-fb-sharing: FAIL (0.010s)
-Opened device: /dev/dri/card1
-Starting subtest: basic-vgem
-Subtest basic-vgem: SUCCESS (0.001s)
+> +    /// Visits one decoded pair. Returns `Ok(true)` if the schema consum=
+ed it.
+> +    fn visit(&mut self, key: KeyId, index: Index, value: DecoderValue<'d=
+ata>) -> Result<bool>;
+> +}
+> +
+> +/// A read position in an NVKV stream.
+> +struct Cursor<'a> {
+> +    data: &'a [u64],
+> +}
+> +
+> +impl<'a> Cursor<'a> {
+> +    /// Creates a cursor at the start of `data`.
+> +    fn new(data: &'a [u64]) -> Self {
+> +        Self { data }
+> +    }
+> +
+> +    /// Returns `true` if no `u64` values remain.
+> +    fn is_empty(&self) -> bool {
+> +        self.data.is_empty()
+> +    }
+> +
+> +    /// Takes the next `u64`.
+> +    fn take_u64(&mut self) -> Result<u64> {
+> +        // PANIC: `take_u64s(1)` returns exactly one element on success.
+> +        Ok(self.take_u64s(1)?[0])
+> +    }
+> +
+> +    /// Takes `count` bytes. If `count` is not a multiple of 8 (`u64` si=
+ze), bytes are discarded up
+> +    /// to the next multiple.
+> +    fn take_u8s(&mut self, count: usize) -> Result<&'a [u8]> {
+> +        let values =3D self.take_u64s(count.div_ceil(8))?;
 
-=== New IGT subtest (vmw_prime_sgtable) with dmesg ===
+s/8/size_of::<u64>()
 
-IGT-Version: 2.6-NO-GIT (x86_64) (Linux: 7.3.0-rc4+ x86_64)
-Using IGT_SRANDOM=1791345857 for randomisation
-Starting subtest: sgtable-invalid-free
-Subtest sgtable-invalid-free: SUCCESS (0.001s)
-=== DMESG AFTER FIXED TEST (cleared before) ===
-[   34.274292] Console: switching to colour dummy device 80x25
-[   34.274341] [IGT] vmw_prime_sgtable: executing
-[   34.284281] [IGT] vmw_prime_sgtable: starting subtest sgtable-invalid-free
-[   34.284814] ------------[ cut here ]------------
-[   34.284821] Command buffer error.
-[   34.284824] WARNING: vmwgfx_cmdbuf.c:403 at vmw_cmdbuf_ctx_process+0x1bb/0x7a0 [vmwgfx], CPU#0: irq/16-vmwgfx/328
-[   34.284884] [IGT] vmw_prime_sgtable: finished subtest sgtable-invalid-free, SUCCESS
-[   34.288247] Modules linked in: vgem(OE) drm_shmem_helper(OE) vmwgfx(OE) drm_client_lib(OE) drm_ttm_helper(OE) ttm(OE) drm_kms_helper(OE) e1000(E)
-[   34.289491] CPU: 0 UID: 0 PID: 328 Comm: irq/16-vmwgfx Tainted: G           OE       7.3.0-rc4+ #17 PREEMPT(lazy) 
-[   34.290495] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-[   34.291008] Hardware name: VMware, Inc. VMware Virtual Platform/440BX Desktop Reference Platform, BIOS 6.00 02/17/2026
-[   34.292043] RIP: 0010:vmw_cmdbuf_ctx_process+0x1bb/0x7a0 [vmwgfx]
-[   34.292663] Code: 30 01 83 fd 04 0f 84 56 03 00 00 0f 87 3d 02 00 00 83 fd 01 0f 84 27 02 00 00 83 fd 03 0f 85 12 02 00 00 48 8d 3d 55 65 e3 ff <67> 48 0f b9 3a 4c 89 f0 48 c1 e8 03 80 3c 18 00 0f 85 91 04 00 00
-[   34.294411] RSP: 0018:ffff8881025efbd8 EFLAGS: 00010246
-[   34.294894] RAX: ffff888119b73870 RBX: dffffc0000000000 RCX: 0000000000000000
-[   34.295562] RDX: 1ffff1102336e748 RSI: 0000000000000246 RDI: ffffffffc0150a60
-[   34.296246] RBP: 0000000000000003 R08: 0000000000000000 R09: ffffed10204bdf69
-[   34.296891] R10: 0000000000000003 R11: ffff8881f7243858 R12: ffff8881077cfe00
-[   34.297548] R13: ffff8881077cfc00 R14: ffff8881077cfe08 R15: ffff8881077cfe18
-[   34.298198] FS:  0000000000000000(0000) GS:ffff888253a0a000(0000) knlGS:0000000000000000
-[   34.298923] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   34.299475] CR2: 00005570bddc1690 CR3: 0000000105e8c006 CR4: 0000000000770ef0
-[   34.300174] PKRU: 55555554
-[   34.300454] Call Trace:
-[   34.300699]  <TASK>
-[   34.300915]  vmw_cmdbuf_man_process+0xe1/0x2b0 [vmwgfx]
-[   34.301417]  ? __pfx_vmw_cmdbuf_man_process+0x10/0x10 [vmwgfx]
-[   34.301970]  ? _raw_spin_lock+0x81/0xe0
-[   34.302340]  ? __pfx__raw_spin_lock+0x10/0x10
-[   34.302750]  ? __pfx___schedule+0x10/0x10
-[   34.303126]  vmw_cmdbuf_irqthread+0x21/0x30 [vmwgfx]
-[   34.303628]  vmw_thread_fn+0xcb/0xf0 [vmwgfx]
-[   34.304075]  ? __pfx_vmw_thread_fn+0x10/0x10 [vmwgfx]
-[   34.304565]  irq_thread_fn+0x87/0x150
-[   34.304916]  irq_thread+0x394/0x600
-[   34.305262]  ? __pfx_irq_thread_fn+0x10/0x10
-[   34.305673]  ? __pfx_irq_thread+0x10/0x10
-[   34.306057]  ? __pfx_irq_thread_dtor+0x10/0x10
-[   34.306484]  ? __kthread_parkme+0x8d/0x170
-[   34.306868]  ? __pfx_irq_thread+0x10/0x10
-[   34.307248]  ? __pfx_irq_thread+0x10/0x10
-[   34.307658]  kthread+0x325/0x420
-[   34.307980]  ? recalc_sigpending+0x15d/0x1e0
-[   34.308399]  ? __pfx_kthread+0x10/0x10
-[   34.308753]  ret_from_fork+0x3de/0x770
-[   34.309110]  ? __pfx_ret_from_fork+0x10/0x10
-[   34.309530]  ? __switch_to+0x3ad/0xd80
-[   34.309894]  ? __pfx_kthread+0x10/0x10
-[   34.310264]  ret_from_fork_asm+0x1a/0x30
-[   34.310653]  </TASK>
-[   34.310876] ---[ end trace 0000000000000000 ]---
-[   34.311666] [IGT] vmw_prime_sgtable: exiting, ret=0
-[   34.312097] Console: switching to colour frame buffer device 160x50
-=== END ===
+> +        values.as_bytes().get(..count).ok_or(EINVAL)
+> +    }
+> +
+> +    /// Takes `count` 32-bit values. If `count` is not a multiple of 2 (=
+`u64` size), bytes are
+> +    /// discarded up to the next multiple.
+> +    fn take_u32s(&mut self, count: usize) -> Result<&'a [u32]> {
+> +        let values =3D self.take_u64s(count.div_ceil(2))?;
+
+... and maybe `size_of::<u64>() / size_of::<u32>()` here?
+
+> +        <[u32]>::ref_from_prefix_with_elems(values.as_bytes(), count)
+> +            .map(|(elems, _)| elems)
+> +            .map_err(|_| EINVAL)
+> +    }
+> +
+> +    /// Takes `count` `u64` values, or fails with `EINVAL` if fewer rema=
+in.
+> +    fn take_u64s(&mut self, count: usize) -> Result<&'a [u64]> {
+> +        let (prefix, suffix) =3D self.data.split_at_checked(count).ok_or=
+(EINVAL)?;
+> +        self.data =3D suffix;
+> +        Ok(prefix)
+> +    }
+> +}
+> +
+> +/// A decoder for an NVKV stream.
+> +pub(crate) struct Decoder<'a> {
+> +    data: &'a [u64],
+> +    policy: UnknownKeyPolicy,
+> +}
+> +
+> +impl<'a> Decoder<'a> {
+> +    /// Creates a decoder for `data` that handles unknown keys per `poli=
+cy`.
+> +    pub(crate) fn new(data: &'a [u64], policy: UnknownKeyPolicy) -> Self=
+ {
+> +        Self { data, policy }
+> +    }
+> +
+> +    fn visit<S: Visit<'a>>(
+
+Although private this method would benefit from having a short documentatio=
+n.
+
+> +        &self,
+> +        schema: &mut S,
+> +        key: KeyId,
+> +        index: Index,
+> +        value: DecoderValue<'a>,
+> +    ) -> Result {
+> +        let consumed =3D schema.visit(key, index, value)?;
+> +        if !consumed && self.policy =3D=3D UnknownKeyPolicy::Error {
+> +            Err(EINVAL)
+> +        } else {
+> +            Ok(())
+> +        }
+> +    }
+> +
+> +    fn seq_key(base: KeyId, offset: usize) -> Result<KeyId> {
+
+Same here.
+
+> +        base.checked_add(KeyId::try_from(offset)?).ok_or(EINVAL)
+> +    }
+> +
+> +    /// Decodes every pair into `schema` and returns the result of [`Sch=
+ema::finish`].
+> +    pub(crate) fn decode<'s, S: Schema + Visit<'a>>(
+> +        &self,
+> +        schema: &'s mut S,
+> +    ) -> Result<impl Init<S::Target, Error> + 's> {
+> +        let mut cursor =3D Cursor::new(self.data);
+> +        while !cursor.is_empty() {
+> +            let op: Op =3D cursor.take_u64()?.into();
+> +
+> +            let key =3D op.key().into();
+
+Tip: you should be able to declare the `key` field as follows
+
+    15:0 key =3D> KeyId
+
+... and obtain a `KeyId` directly, making the call to `into` unnecessary.
+
+> +            let index =3D op.index();
+> +            let op_value: u32 =3D op.value().into();
+
+Same here with `u32`.
+
+> +            match op.opcode()? {
+> +                Opcode::Imm32 =3D> {
+> +                    self.visit(schema, key, index, DecoderValue::Scalar3=
+2(op_value))?;
+> +                }
+> +                Opcode::Seq32 =3D> {
+> +                    let values =3D cursor.take_u32s(num::u32_as_usize(op=
+_value))?;
+
+nit: let's use the `IntoSafeCast` trait instead since this code does not
+run in const context.
+
+> +                    for (i, &value) in values.iter().enumerate() {
+> +                        let key =3D Self::seq_key(key, i)?;
+> +                        self.visit(schema, key, index, DecoderValue::Sca=
+lar32(value))?;
+> +                    }
+> +                }
+> +                Opcode::Seq64 =3D> {
+> +                    let values =3D cursor.take_u64s(num::u32_as_usize(op=
+_value))?;
+> +                    for (i, &value) in values.iter().enumerate() {
+> +                        let key =3D Self::seq_key(key, i)?;
+> +                        self.visit(schema, key, index, DecoderValue::Sca=
+lar64(value))?;
+> +                    }
+> +                }
+> +                Opcode::Array8 =3D> {
+> +                    let value =3D cursor.take_u8s(num::u32_as_usize(op_v=
+alue))?;
+> +                    self.visit(schema, key, index, DecoderValue::Array8(=
+value))?;
+> +                }
+> +                Opcode::Array32 =3D> {
+> +                    let value =3D cursor.take_u32s(num::u32_as_usize(op_=
+value))?;
+> +                    self.visit(schema, key, index, DecoderValue::Array32=
+(value))?;
+> +                }
+> +                Opcode::Array64 =3D> {
+> +                    let value =3D cursor.take_u64s(num::u32_as_usize(op_=
+value))?;
+> +                    self.visit(schema, key, index, DecoderValue::Array64=
+(value))?;
+> +                }
+> +            };
+> +        }
+> +        Ok(schema.finish())
+> +    }
+> +}
+> +
+> +/// This is defined per call.
+> +#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+> +pub(crate) enum UnknownKeyPolicy {
+> +    Ignore,
+> +    Error,
+> +}
+
+Documentation explaining the effect of each variant would be nice.
+
+> +
+> +#[kunit_tests(nova_core_nvkv_decode)]
+> +mod tests {
+> +    use super::*;
+> +
+> +    use crate::gsp::nvkv::Encoder;
+> +
+> +    // Tests that basic decoding into a manually implemented `Schema` wo=
+rks correctly.
+> +    #[test]
+> +    fn decode_raw_schema() -> Result {
+> +        // Decodes an IMM32 pair and a SEQ64 pair (the encoder emits a u=
+64 as a single-element
+> +        // SEQ64) with a hand written `Schema`. Keys and value constants=
+ chosen to distinguish e.g.
+> +        // saving the wrong value to the wrong location.
+> +        const SCALAR32_KEY: KeyId =3D 0x1001;
+> +        const SCALAR64_KEY: KeyId =3D 0x1002;
+> +        const UNKNOWN_KEY: KeyId =3D 0x2001;
+> +
+> +        const SCALAR32_VALUE: u32 =3D 0x1111_2222;
+> +        const SCALAR64_VALUE: u64 =3D 0x3333_4444_5555_6666;
+> +
+> +        // The output type of the hand written `Schema`. In this case, w=
+e can have it also implement
+> +        // `Schema` on itself rather than having a separate carrier type=
+, since the `Schema`
+> +        // implementation is completely stateless.
+> +        #[derive(Default)]
+> +        struct RawSchema {
+> +            scalar32: u32,
+> +            scalar64: u64,
+> +        }
+> +
+> +        impl Schema for RawSchema {
+> +            type Target =3D Self;
+> +
+> +            fn init() -> impl Init<Self> {
+> +                Self::default()
+> +            }
+> +
+> +            fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ =
+{
+> +                Ok(core::mem::take(self))
+> +            }
+> +        }
+> +
+> +        impl<'d> Visit<'d> for RawSchema {
+> +            fn visit(&mut self, key: KeyId, index: Index, value: Decoder=
+Value<'d>) -> Result<bool> {
+> +                if index !=3D Index::new::<0>() {
+> +                    return Err(EINVAL);
+> +                }
+> +                match key {
+> +                    SCALAR32_KEY =3D> self.scalar32 =3D value.try_into()=
+?,
+> +                    SCALAR64_KEY =3D> self.scalar64 =3D value.try_into()=
+?,
+> +                    _ =3D> return Ok(false),
+> +                }
+> +                Ok(true)
+> +            }
+> +        }
+> +
+> +        let mut encoder =3D Encoder::new();
+> +        encoder.encode_u32(SCALAR32_KEY, Index::new::<0>(), SCALAR32_VAL=
+UE)?;
+> +        encoder.encode_u64(SCALAR64_KEY, Index::new::<0>(), SCALAR64_VAL=
+UE)?;
+> +        let serialized =3D encoder.finish();
+> +
+> +        let decoder =3D Decoder::new(&serialized, UnknownKeyPolicy::Erro=
+r);
+> +        let mut schema =3D KBox::init(RawSchema::init(), GFP_KERNEL)?;
+> +        let decoded =3D KBox::try_init(decoder.decode(&mut *schema)?, GF=
+P_KERNEL)?;
+> +
+> +        assert_eq!(decoded.scalar32, SCALAR32_VALUE);
+> +        assert_eq!(decoded.scalar64, SCALAR64_VALUE);
+
+Nice test!
+
+> +
+> +        // An unknown key should fail with under `UnknownKeyPolicy::Erro=
+r` and be skipped under
+> +        // `UnknownKeyPolicy::Ignore`.
+> +        let mut encoder =3D Encoder::new();
+> +        encoder.encode_u32(UNKNOWN_KEY, Index::new::<0>(), 1)?;
+> +
+> +        let serialized =3D encoder.finish();
+> +        let decoder =3D Decoder::new(&serialized, UnknownKeyPolicy::Erro=
+r);
+> +        let mut schema =3D KBox::init(RawSchema::init(), GFP_KERNEL)?;
+> +        assert!(decoder.decode(&mut *schema).is_err());
+> +
+> +        let decoder =3D Decoder::new(&serialized, UnknownKeyPolicy::Igno=
+re);
+> +        let mut schema =3D KBox::init(RawSchema::init(), GFP_KERNEL)?;
+> +        let decoded =3D KBox::try_init(decoder.decode(&mut *schema)?, GF=
+P_KERNEL)?;
+> +        assert_eq!(decoded.scalar32, 0);
+
+... this part looks like it should be its own test though. That's
+trivial to achieve if you declare `RawSchema` at the module-level
+instead of inside the method.
+
+(also nit: let's assert `scalar64` as well, or none of the values at all
+- I'd lean towards none since that part is already covered by the
+  regular decoding test).
+
+> +
+> +        Ok(())
+> +    }
+> +
+> +    /// Records each visit as (key, index, value), for tests on hand-bui=
+lt streams.
+
+nit: `(key, index, value)`
+
+> +    #[derive(Default)]
+> +    struct Recorder<'d> {
+> +        visits: KVVec<(KeyId, u64, DecoderValue<'d>)>,
+> +    }
+> +
+> +    impl<'d> Schema for Recorder<'d> {
+> +        type Target =3D KVVec<(KeyId, u64, DecoderValue<'d>)>;
+> +
+> +        fn init() -> impl Init<Self> {
+> +            Self::default()
+> +        }
+> +
+> +        fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
+> +            Ok(core::mem::take(&mut self.visits))
+> +        }
+> +    }
+> +
+> +    impl<'d> Visit<'d> for Recorder<'d> {
+> +        fn visit(&mut self, key: KeyId, index: Index, value: DecoderValu=
+e<'d>) -> Result<bool> {
+> +            self.visits.push((key, index.get(), value), GFP_KERNEL)?;
+> +            Ok(true)
+> +        }
+> +    }
+> +
+> +    // Tests the decoder on hand-built `u64` values that the encoder doe=
+s not produce: SEQ32,
+> +    // multi-value SEQ64, zero counts, a non-zero index and padded array=
+s.
+> +    #[test]
+> +    fn decode_raw_u64s() -> Result {
+> +        const SEQ32_KEY: KeyId =3D 0x2000;
+> +        const SEQ64_KEY: KeyId =3D 0x2010;
+> +        const EMPTY_SEQ64_KEY: KeyId =3D 0x2020;
+> +        const EMPTY_SEQ32_KEY: KeyId =3D 0x2021;
+> +        const EMPTY_ARRAY8_KEY: KeyId =3D 0x2030;
+> +        const EMPTY_ARRAY32_KEY: KeyId =3D 0x2031;
+> +        const EMPTY_ARRAY64_KEY: KeyId =3D 0x2032;
+> +        const ARRAY8_KEY: KeyId =3D 0x2040;
+> +        const ARRAY32_KEY: KeyId =3D 0x2041;
+> +
+> +        let index3 =3D Index::new::<3>();
+
+nit: variable only used once, can be created inline.
+
+I really like how testing coverage has improved in this revision!
