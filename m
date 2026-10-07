@@ -4,78 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EE72CA5FF1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC73BCA6007
 	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 13:51:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 867F810F5E3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5B110F5DE;
 	Wed,  7 Oct 2026 13:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nkQsipDX";
+	dkim=pass (2048-bit key; unprotected) header.d=laposte.net header.i=@laposte.net header.b="o+Dyv09M";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC4110E574
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:39:54 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-cc7cc8aafe6so846130a12.3
- for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 05:39:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791376794; x=1791981594; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=stbPCEVKk5/43mdbhizGdpTlS+biXo1nBfE8ir7ZWR8=;
- b=nkQsipDXfWqpHJrSsFffeEgVCClO3k00Lx8GsGlHL/OBzHiDlLafAeTcl4IHAb7OKN
- 7ELPiLa3hwdRzUAF8dUYbNXaVjgpsIrPjhPOphvXc2VIhBqBCLzf/cf/N4HRq/8X7ZNr
- ezX/ZxTGtT3wamoI6xgoEvzMNoayJ/GDuH12qC4VLDC87HupdSefp3DSej3tf+2gZaaY
- FPcR1R2PgPfWts2JD9vUdPa9DcjBCRsyA3M0N7PItGDbcVoYNWO8Fh3B/AAZ4D2Msl3G
- Le/28yL9uuM87dclfGXS4ayBBEXoYmnn1jcf/xibAoGZYFLBq7FZ3bRSnbeqU2hp/M4x
- 60yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791376794; x=1791981594;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=stbPCEVKk5/43mdbhizGdpTlS+biXo1nBfE8ir7ZWR8=;
- b=2llYjfqWLR+peLyKVqFIXm3rXGbwjE7w+4CqUrSsEnkamVQ5OEmg0TN6PgTX1130V2
- XL6tC7DTSltEF0UKN2rzsGs4j4C/W9BH867b5EoGkpqkPcCDSkX1vY/q6+ycctHoQeUZ
- ZhzOsg3joE78qOhPqp5R1dxcqjYeemlt/EIw0kEHkSSHVCBVVEz/VtSfYaYDT5XO/9zh
- BWgausmpWWcDk+0AaIPzDOPkxAAQvwG+97n2pGXWBp53gceXzxPzb2iyLPtnaWSIC02e
- igdmeEGqV0aXJCAGpNy5nzvYl7FAF4XLiKXhV5dy0GVyZO+bsmrJ9HLd4rs745oGMC8J
- v8RQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwBS4nnoDkga8KkNSWcwJ/0eTa/u/H79D4m4x+7EzUpTj03YyFvC8Zqgfb0hG/vQosVy7iZm6RrCqk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJjaCSS4Dbg8Ykyz+KWiYXP84VlqMVj/Bb2risPED077mbUKA/c
- Q/bUR+dk14C3kN6EL5PXvv6+CsyvReN1KqBAWes5RI+KQ6P5hfSf93ko5I11HSvcbl0=
-X-Gm-Gg: AYBFou1fgJdoEIuv+kozOzCvT73tYeVIAiGbcA9qYdYuL57/S3GnrshGgM7KUoZppgx
- 3i6M17ly27zVvBwyX73X01kEMeCrHHvI3BfKYc5nR5QXoJ/M6TLVczs8Rhuvimg309ncdLlciPD
- 2ydRMFsMM3ay+y9yCVRa5pVwGRDP+W6h2U0WvNRPPSeme70Qe4csxE0fW4yF2vYPnrrE69F2uyN
- MpvZbz5kuFCNL4AF1+GsyTYF+2VFvqTzUixMl3PpSm4jafQyksJ6rhl3EzY43GdW6NTD9fxxvlR
- 9BVYNXbdxu+zW4/8SF6LqHX2LlHBLbDA2KxMBchFDPpKaH25h5rhgX/MW9+lkQeRnn+HvnXooVX
- +ZohXqyTVPTuf6VfGTwzBHOfDYesdn7K5isTIPz+Ow2HReK6R7eB4AOuGSiY0C2HKPVh6We7mD3
- RRKRSVa4ooqBqeLu7FifJJ5TutZRLE5xzJz6V0SCXUwY5FvcGmUurEJaea+7MNxdqnW8smUo+U4
- duk28NN2r4Ou7s=
-X-Received: by 2002:a17:90a:da84:b0:3a0:cbe2:9e0c with SMTP id
- 98e67ed59e1d1-3a8a1c84418mr1597807a91.63.1791376793729; 
- Wed, 07 Oct 2026 05:39:53 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a8c46a2f9bsm650899a91.2.2026.10.07.05.39.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 05:39:53 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: robin.clark@oss.qualcomm.com,
-	lumag@kernel.org
-Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- yongxing.mou@oss.qualcomm.com, yuanjie.yang@oss.qualcomm.com,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dpu: add the SSPP rec0/rec1 blocks to the snapshot
-Date: Wed,  7 Oct 2026 21:39:45 +0900
-Message-ID: <20261007123945.1694-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+Received: from smtp-outgoing-1802.laposte.net (smtp-outgoing-1802.laposte.net
+ [160.92.124.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 384CA10F4C3
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 08:46:22 +0000 (UTC)
+X-mail-filterd: {"version":"1.9.7","queueID":"4j06D95YcfzjWvm","contextId":
+ "3557f273-6794-4e9e-939d-a89cbadc7e2a"}
+Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
+ by mlpnf0116.laposte.net (SMTP Server) with ESMTP id 4j06D95YcfzjWvm;
+ Wed,  7 Oct 2026 10:46:17 +0200 (CEST)
+X-mail-filterd: {"version":"1.9.7","queueID":"4j06D771qjzjWvW","contextId":
+ "57e1faad-1bd3-450b-9ee0-ae141f1d44de"}
+X-lpn-mailing: LEGIT
+X-lpn-spamrating: 36
+X-lpn-spamlevel: not-spam
+Received: from [10.199.41.192] (unknown [165.225.20.187])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mlpnf0116.laposte.net (SMTP Server) with ESMTPSA id 4j06D771qjzjWvW;
+ Wed,  7 Oct 2026 10:46:15 +0200 (CEST)
+Message-ID: <41e65625-fb55-4440-825c-a47ed24800b0@laposte.net>
+Date: Wed, 7 Oct 2026 10:46:06 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/display: let a bridge configure sink audio from
+ hw_params
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Saim Shujah
+ <saimzst@gmail.com>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Srinivas Kandagatla <srini@kernel.org>
+References: <20261005131545.23219-1-jean-francois.bobier@laposte.net>
+ <20261005161824.36445-1-jean-francois.bobier@laposte.net>
+ <42emyzl5p3kpvq7e3b7npaaghl62r4skrpdflszk7v3jagexal@6jdg6h27eofw>
+Content-Language: fr
+From: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
+In-Reply-To: <42emyzl5p3kpvq7e3b7npaaghl62r4skrpdflszk7v3jagexal@6jdg6h27eofw>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd;
+ t=1791362780; bh=SpLsBqXRCfy4Rr6a3bJko71zXaFjAnrzF9A7JEZryaI=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+ b=o+Dyv09MsMySJEDWxRbBWyZIVdK6tsOiB10+POt7A4mTA8yaFcbstcejWgoyTk8GOyd4v2tKqeJkdVEbVIs0XXeUr50EgN/6WQivXhQZievu0Cpf0f6olb1+D0r3RmMFY+X6sd7C9Ij4exH9IDeRa7+24z6lFy/AUhOktZhccZyG5n1lDjmL6YVdWdjVi7igCWIng7hV02YUatzmVEDFr9kCihYw31jo5lSxcYm9LqBnqOp3xccnsn6G7Q6MqvEkoE1RUIwedztPzT+6hYUAbxhk7q4A14k1aRBivS4ftclKgTiuAdw9KZKId+pMlSd0X5TClRiigy24961IaWre/A==;
 X-Mailman-Approved-At: Wed, 07 Oct 2026 13:51:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,50 +88,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On DPU 13 the SSPP block is only 0x84 long and the fetch registers
-(source address, size, format, multirect) live in the rec0/rec1
-sub-blocks at 0x1000 and 0x3000. The snapshot dumps the SSPP block and
-its scaler and CSC sub-blocks, but not rec0/rec1, so the plane fetch
-state is missing from the devcoredump and from debugfs dri/N/kms.
+On Mon, Oct 05, 2026 at 06:18:24PM +0200, Jean-Francois Bobier wrote:
+[...]
 
-Add the rec0/rec1 sub-blocks to the snapshot.
+ > Similar changes were proposed several times already. The IEC958 status
+ > bits are usually set by the userspace after the .hw_params callback has
+ > been called. With your approach the hardware will never receive correct
+ > status bits.
 
-Tested on a Lenovo Legion Tab Y700 gen 5 (SM8850).
+That's a real concern in general, but I don't think it applies to the
+case this patch is actually fixing. hdmi_codec_iec958_default_put()
+is optional -- hcp->iec_status already has a sane default from
+snd_pcm_create_iec958_consumer_default() at init, and both
+hdmi_codec_hw_params() and hdmi_codec_prepare() fill it from that same
+baseline. Userspace only needs to override it for passthrough of
+compressed formats, where IEC958_AES0_NONAUDIO has to be set correctly
+before the stream opens.
 
-Fixes: 688c7734002a ("drm/msm/dpu: Add Kaanapali SSPP sub-block support")
-Assisted-by: LLM
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+For ordinary PCM playback -- which is the only thing DP/HDMI audio on
+this board does -- nothing in the userspace stack ever touches that
+control. I checked our actual UCM profile rather than assume: the HDMI
+device there is a plain mixer enable and PlaybackChannels 2, nothing
+IEC958-related. So the ordering you're describing matters for
+passthrough users, but doesn't affect the case I have hardware for.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index da3556eb6ecc..dba8a07d34bb 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1006,6 +1006,20 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
- 						    base + cat->sspp[i].sblk->csc_blk.base,
- 						    "%s_%s", cat->sspp[i].name,
- 						    cat->sspp[i].sblk->csc_blk.name);
-+
-+		if (cat->sspp[i].sblk && cat->sspp[i].sblk->sspp_rec0_blk.len > 0)
-+			msm_disp_snapshot_add_block(disp_state,
-+						    cat->sspp[i].sblk->sspp_rec0_blk.len,
-+						    base + cat->sspp[i].sblk->sspp_rec0_blk.base,
-+						    "%s_%s", cat->sspp[i].name,
-+						    cat->sspp[i].sblk->sspp_rec0_blk.name);
-+
-+		if (cat->sspp[i].sblk && cat->sspp[i].sblk->sspp_rec1_blk.len > 0)
-+			msm_disp_snapshot_add_block(disp_state,
-+						    cat->sspp[i].sblk->sspp_rec1_blk.len,
-+						    base + cat->sspp[i].sblk->sspp_rec1_blk.base,
-+						    "%s_%s", cat->sspp[i].name,
-+						    cat->sspp[i].sblk->sspp_rec1_blk.name);
- 	}
- 
- 	/* dump LM sub-blocks HW regs info */
+ > If my understanding is correct, a more apropriate fix is to make the
+ > a6afe driver to emit AFE enables at the .trigger point instead (maybe
+ > together with other commands) or to split the DP audio init, moving the
+ > necessary bits from the dp_audio_prepare to the dp_audio_startup
+ > callback.
 
-base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
--- 
-2.43.0
+I looked at q6afe-dai.c before replying. It doesn't implement .trigger
+at all today, for any of its port types -- HDMI/DP, SLIMBUS, MI2S, TDM,
+WSA codec DMA, USB all go through the same q6afe_dai_prepare(). Adding
+.trigger there to fix DP timing would change behavior for every one of
+those, on hardware I have no way to test.
 
+The startup/prepare split is narrower, but I don't think it's free
+either: .startup/.shutdown are tied to device open/close, not to each
+hw_params/prepare cycle, so I'm not sure it actually survives a
+suspend/resume any better than what this patch does -- it may just
+relocate the same question rather than close it. Possibly worth
+someone who knows this driver better confirming either way.
+
+Given that, I'd rather not drop this while something that actually
+works waits on a rewrite of a shared CPU DAI driver that doesn't exist
+yet. Happy to be told I'm wrong about either of the above if I'm
+missing something.
+
+ > Please take a look at Documentation/process/submitting-patches.rst and
+ > likely Documentation/process/coding-assistants.rst. For example, don't
+ > send the new version of the patch as a response to the previous
+ > revision.
+
+Noted on the threading -- that's on me, I'll send revisions as fresh
+threads with a link to the prior version instead. I'm not used to 
+mail-based workflows like this in my work :(
+
+Please let me know what you think - the patch does work on my board and 
+brought up DP audio 100% working, but I would understand if it's not 
+worth upstreaming given architectural impacts. (The bot seems to have 
+found other gotchas on my v2 patch already so I will hold off until it's 
+confirmed it's worth upstreaming at all).
+
+Jean-Francois
