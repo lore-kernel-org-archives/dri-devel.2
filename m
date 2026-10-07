@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A750CA5FFC
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 12:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18520CA5FFC
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 12:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F152110E5A2;
-	Wed,  7 Oct 2026 12:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54E5B10E49B;
+	Wed,  7 Oct 2026 12:55:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="uB4aqCXj";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="UvVLNXow";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7B22E10E5A2
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:51:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id DDBDF10E49B
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 12:55:04 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8661D1595;
- Wed,  7 Oct 2026 05:51:19 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E8DDB1595;
+ Wed,  7 Oct 2026 05:55:00 -0700 (PDT)
 Received: from [10.57.75.203] (unknown [10.57.75.203])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7DB3C3F763;
- Wed,  7 Oct 2026 05:51:19 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9CDC23F763;
+ Wed,  7 Oct 2026 05:55:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1791377482; bh=5pMbPdR4/kDddHC0N4iWazZ6mHvKQ770DGB9VgRAW0Y=;
+ t=1791377704; bh=SSWZdtrdsZxmDgfG4fuiuGi1BNumHXdCgfUzd/V3Vdo=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=uB4aqCXj2ql1Nxh4CfVDpX94fNSzudZALvn/ODs2uAdyT7EfFdG4VFGWBtVd3FvcO
- SD8fU2Jxs+LdKI4ZShvMOnZel8zNsYOQdBpZc0KyshBuiR+N4qho42bPdRCIvrXu1f
- MsIw3ipkFzHfdMbH0rEsLCzeAGxM+x57ld853mW4=
-Message-ID: <5bd07106-e9dd-487a-be85-8e6a73c67967@arm.com>
-Date: Wed, 7 Oct 2026 13:51:17 +0100
+ b=UvVLNXowNrVRYz2maj3a9hLTrvHDX3Nf5+3YoF6tby0e7AAiHHPA9i1+/GSFgS5Q6
+ bGu3T7XdGKTww+lF+FLnLPCuJ6BLZn4yGWHAL6R0uF/u3aFonixhdOuh23Pj1JOlTH
+ CUAqqlthf3/N6P9Fz6W2Rupkp5lJAyDvbTnHf7fc=
+Message-ID: <72338d88-ece1-49ac-af01-ba1e363d53d7@arm.com>
+Date: Wed, 7 Oct 2026 13:54:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 09/15] drm/panfrost: Add warning messages to fatal
- error conditions
+Subject: Re: [PATCH v12 10/15] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
 To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
 Cc: Boris Brezillon <boris.brezillon@collabora.com>,
  Rob Herring <robh@kernel.org>,
@@ -47,12 +47,12 @@ Cc: Boris Brezillon <boris.brezillon@collabora.com>,
  Collabora Kernel Team <kernel@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
 References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-9-62beb08de207@collabora.com>
- <2ea16821-fcd8-4f35-b371-7c7e57f76e7c@arm.com>
- <179129938072.1018806.14660127756555690690.b4-reply@b4>
+ <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
+ <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
+ <179129388241.1018806.5773521934450351426.b4-reply@b4>
 From: Steven Price <steven.price@arm.com>
 Content-Language: en-GB
-In-Reply-To: <179129938072.1018806.14660127756555690690.b4-reply@b4>
+In-Reply-To: <179129388241.1018806.5773521934450351426.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,101 +70,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 06/10/2026 16:09, Adrián Larumbe wrote:
-> On 2026-10-02 15:59:20+01:00, Steven Price wrote:
+On 06/10/2026 14:38, Adrián Larumbe wrote:
+> On 2026-10-02 16:10:43+01:00, Steven Price wrote:
 >> On 29/09/2026 04:44, Adrián Larumbe wrote:
 >>
->>> Rather than just failing silently, let's warn the user of device remove not
->>> being able to take an PM reference or the PM suspend path still reporting
->>> inflight jobs. Neither situation should ever happen.
+>>> This will be of great help when testing potential races between the GPU
+>>> reset sequence and other parts of the code accessing HW registers.
+>>>
+>>> We must also disable the reset work item rather than simply cancelling
+>>> it, to prevent the knob from triggering another reset when the device
+>>> is being removed.
 >>>
 >>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 >>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 >>> ---
->>>  drivers/gpu/drm/panfrost/panfrost_device.c | 5 +++--
->>>  1 file changed, 3 insertions(+), 2 deletions(-)
+>>>  drivers/gpu/drm/panfrost/panfrost_device.c | 42 ++++++++++++++++++++++++++++++
+>>>  drivers/gpu/drm/panfrost/panfrost_job.c    |  2 +-
+>>>  2 files changed, 43 insertions(+), 1 deletion(-)
 >>>
 >>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
->>> index c6bf3d0663df..09a5752a3f40 100644
+>>> index 09a5752a3f40..94d2de341838 100644
 >>> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 >>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
->>> @@ -9,6 +9,7 @@
->>>  #include <linux/pm_runtime.h>
->>>  #include <linux/regulator/consumer.h>
->>>  #include <drm/drm_drv.h>
->>> +#include <drm/drm_print.h>
+>>> @@ -2,6 +2,7 @@
+>>>  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+>>>  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
 >>>  
->>>  #include "panfrost_device.h"
->>>  #include "panfrost_devfreq.h"
->>> @@ -357,7 +358,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+>>> +#include <linux/debugfs.h>
+>>>  #include <linux/clk.h>
+>>>  #include <linux/reset.h>
+>>>  #include <linux/platform_device.h>
+>>> @@ -595,9 +596,50 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+>>>  };
 >>>  
->>>  void panfrost_device_fini(struct panfrost_device *pfdev)
->>>  {
->>> -	pm_runtime_get_sync(pfdev->base.dev);
->>> +	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
+>>>  #ifdef CONFIG_DEBUG_FS
+>>> +static int reset_get(void *data, u64 *val)
+>>> +{
+>>> +	struct panfrost_device *pfdev =
+>>> +		container_of(data, struct panfrost_device, base);
+>>> +
+>>> +	*val = atomic_read(&pfdev->reset.pending);
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +static int reset_set(void *data, u64 val)
+>>> +{
+>>> +	struct panfrost_device *pfdev =
+>>> +		container_of(data, struct panfrost_device, base);
+>>> +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
+>>> +
+>>> +	if (!ret)
+>>> +		return 0;
+>>> +
+>>> +	panfrost_device_schedule_reset(pfdev);
+>>> +	flush_work(&pfdev->reset.work);
+>>> +
+>>> +	/* ret < 0 means runtime PM for the device is disabled, so we
+>>> +	 * only need to return the PM reference in the opposite case
+>>> +	 */
+>>> +	if (ret > 0)
+>>> +		pm_runtime_put(pfdev->base.dev);
+>>> +
+>>> +	return 0;
+>>> +}
 >>
->> This seems fine.
+>> NIT: If this wasn't debugfs I'd be complaining that you're ignoring
+>> 'val' and so this isn't very extensible. But hey, it's debugfs... so:
 >>
->>>  	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->>>  	pm_runtime_disable(pfdev->base.dev);
->>> @@ -516,7 +517,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
->>>  {
->>>  	struct panfrost_device *pfdev = dev_get_drvdata(dev);
->>>  
->>> -	if (!panfrost_jm_is_idle(pfdev))
->>> +	if (drm_WARN_ON(&pfdev->base, !panfrost_jm_is_idle(pfdev)))
->>
->> I'm a bit wary that this might be something that user space can trigger.
->> My AI says:
->>
->> The runtime-suspend WARN can be reached by ordinary userspace job
->> submissions. The DRM scheduler increments credit_count before calling
->> Panfrost’s job runner (drivers/gpu/drm/scheduler/sched_main.c:1044).
->> Panfrost takes the job’s PM reference later in hardware submission
->> (drivers/gpu/drm/panfrost/panfrost_job.c:213). If autosuspend runs in
->> that interval, the new WARN
->> (drivers/gpu/drm/panfrost/panfrost_device.c:525) sees the credit and
->> fires, even though this is a timing race rather than a broken job.
->> Repeated submissions near the autosuspend boundary could therefore
->> produce repeated stack traces. The PM core treats the resulting -EBUSY
->> as a transient failure.
->>
->> Now I have to admit I don't trust it that much - but I'd want a
->> convincing argument on why panfrost_jm_is_idle() will never be false here.
+>> Reviewed-by: Steven Price <steven.price@arm.com>
 > 
-> You're right. I was in the belief that autosuspend kicking in was proof of no
-> inflight or pending jobs present in the scheduler queues, so I came to treat
-> this check as things having gone awry.
+> I looked into the available debugfs attribute definition macros and none of them provide
+> a wrapper that avoid passing the input value when the attribute is to be understood as
+> an action rather than a device property. My understanding is that because debugfs doesn't
+> become part of the device's uAPI, we can do pretty much whatever we want with it.
+> However, on a second thought, maybe in the future we'll want to extend the knob so that
+> it performs resets in different ways, and would want to keep backwards compatibility with
+> UM binaries that expect certain input values to stand for specific actions.
 > 
-> I guess its value lies in the ability of the PM runtime suspend handler
-> to cancel itself at an autosuspend event, like you said.
-> 
-> However, it just made me wonder: what would happen in the event that autosuspend
-> kicks in and runs panfrost_device_runtime_suspend() right at the same time that
-> a scheduler job is picked up by drm_sched_run_job_work(), but hasn't yet reached
-> the statement where it does an atomic increment on the credit_count? I guess
-> nothing, because panfrost_job_hw_submit() is getting a PM reference before
-> accessing any HW registers, and that should take care of dealing with any
-> ongoing autosuspend events.
-> 
-> In that case I'll just delete that warning. However, I'd say it's bad practice
-> to have DRM drivers access the internal state of the DRM scheduler. At present,
-> only Panfrost and Etnaviv poke it in their RPM suspend handlers, and I've been
-> wondering whether we should get rid of this check altogether, or else maybe ask
-> the scheduler maintainers whether it makes sense to have a non-racy way to
-> query the presence of pending jobs in their queues?
+> I'll change it so that all value other than '1' are returned with -EINVAL.
 
-Yes, I'm not sure whether we actually need that check. As you say
-there's still a race where panfrost_jm_is_idle() returns true, but
-afterwards credit_count is incremented. I think this is safe -
-panfrost_job_hw_submit() takes a PM reference which will cause the GPU
-to be woken up again. So we could just drop the panfrost_jm_is_idle()
-function completely.
-
-Whether that has any performance impact - i.e. do we often race the
-autosuspend operation? - I've no idea. Presumably you didn't hit it when
-you had the WARN in place. So if you'd prefer to just remove the code
-then that's fine by me.
+That would be my preference, but like you say this is debugfs so we
+don't consider it part of uAPI. Mostly it seems a bit odd that you could
+read the value, get 0 (i.e. no reset), write it back and that would
+trigger a reset. But equally this isn't the sort of file which you'd
+expect a read-modify-write operation to work on, so it's not a big deal.
 
 Thanks,
 Steve
