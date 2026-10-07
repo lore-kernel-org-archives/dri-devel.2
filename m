@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC499CA5FFC
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 14:36:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B3BCCA6007
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 14:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C2D410F640;
-	Wed,  7 Oct 2026 14:36:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCE5410E483;
+	Wed,  7 Oct 2026 14:43:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=mary.zone header.i=@mary.zone header.b="UIpphGnW";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="iDj1cgYt";
 	dkim-atps=neutral
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Wed, 07 Oct 2026 14:36:47 UTC
-Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02F6810F638
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 14:36:46 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=k9AnQ5XvJt8ZcIfhZU8VWP5jz5T3cT4ex6UF/oaPJlM=; 
- c=simple/simple; d=mary.zone;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791383804; v=1; x=1791988604;
- b=UIpphGnWxKVlAunh5O6OzUZu5I+NMIONF5UJX+TD3uxn71CVgMWyJbdQIs0pADA9xyo0/Tz7
- hVOpxcPOUSA/mgo9YmRFY17HdQXC/3Ak48Q5fsGG4ZaioQ74UX3uZs2sbkiIrAlPDzdqFxnVvGr
- ieTY7SEoKHJuvy+/T/5QSNafsW8TEcckHIzPouLTTo6gHdWSqMg/5ZyiD8SqyeC7b96Qo3x5nw7
- HSQJctsSKd8MUmJqWhTLKIS5ksNzbJWyb7MWtJ7NtlLYieHGUqLShzJe7S1qOTL3GNRnw4e7hLy
- wOz09FFV9sueHsJJXajnrbcnw8VdJWZh9hd5HFCpKAEzg==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id c8ba96c4795c968d;
- Wed, 07 Oct 2026 14:30:33 +0000
-X-Mizu-Trace-ID: c8ba96c4795c968d
-X-Migadu-Flow: FLOW_OUT
-From: Mary Guillemard <mary@mary.zone>
-Date: Wed, 07 Oct 2026 16:30:15 +0200
-Subject: [PATCH] drm/nouveau: Skip the Turing CE workaround object for
- non-GR channels
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22DEF10E483
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 14:43:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1791384182;
+ bh=Vy/SqPR2iRJy+qH2zNvd5P2288DBcyzZTTebwGhXmmo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=iDj1cgYt3A0i04M2ayQrIeQD8r2hmTUox//NvpuJMBgb9DAJGJgDjG+45BDvpKfAn
+ YGWxBZIr+jOJGuGraDsDKknuoYlTQXy/MvRh+NRtDQlpY3fBJIndRDaWMOWrODf5YK
+ +uZlsuORBlsm7MgvchZvA88okEqAQn8quST5REy2c6jn705dZR8ytJwAUsBocB7BeU
+ MiZw0J79WZOWR2fmJb+e9wJULTpZkCvH0J6cR3rJR7390Yz/j3S2sWKOiQZCCaRkCw
+ hfK+kSaXQl4TWkQWHbBxytFYU3JeT/A7DO5xRVzinzMDiZ2R2+BfnFLTHJpjXMjAeZ
+ 2DdvZFRErtdkA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519) (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4j0G7j0fjYz4wKm;
+ Thu, 08 Oct 2026 01:42:56 +1100 (AEDT)
+Message-ID: <88a14307-37a2-4081-b5b1-039d4f64a6da@ozlabs.org>
+Date: Wed, 7 Oct 2026 15:42:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
+Content-Language: en-GB
+To: Alex Mastro <amastro@fb.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, Alex Williamson <alex@shazbot.org>
+References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+ <asYOmaPqwUOBdz0x@devgpu015.cco6.facebook.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <asYOmaPqwUOBdz0x@devgpu015.cco6.facebook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-turing-async-ce-fix-v1-1-12ee6ccd1a3c@mary.zone>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7bkFFkvpKdBDdbC8WWlGEf086z
- sDMC4UyU4FRvJDp4sJbaqA6AX51KRJyaAxa6l5JafE4M6eIrjzJoydc+EajSdmBtA3GQSv3TE3
- /12mu9QNVwD9XZQAAAA==
-X-Change-ID: 20261007-turing-async-ce-fix-42e179e27d4a
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Mary Guillemard <mary@mary.zone>
-X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,37 +67,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This workaround is here for the old Gallium driver and predate async CE
-and NVDEC.  Instead of only skipping it for NVDEC, let's only apply it
-in case of GR channels.
+Hi Alex,
 
-This should make async CE work properly on Turing by stopping the assign
-of a GRCE. (here CE0)
+On 07/10/2026 10:19, Alex Mastro wrote:
+> On Tue, Oct 06, 2026 at 08:15:26PM +0100, Matt Evans wrote:
+>>  static int dma_buf_file_release(struct inode *inode, struct file *file)
+>>  {
+>> +	struct dma_buf *dmabuf = file->private_data;
+> 
+> I think dmabuf can be NULL here if the dmabuf allocation fails during
+> dma_buf_export().
+> 
+>> +
+>>  	if (!is_dma_buf_file(file))
+>>  		return -EINVAL;
+>> -	__dma_buf_list_del(file->private_data);
+>> +	__dma_buf_list_del(dmabuf);
+>> +	/* Must be observed by __get_file_rcu() before file_free() */
+>> +	smp_store_mb(dmabuf->file, NULL);
+> 
+> Resulting in NULL deref here -- guard with null check?
 
-Signed-off-by: Mary Guillemard <mary@mary.zone>
----
- drivers/gpu/drm/nouveau/nouveau_abi16.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Oof, yes!  Thanks for catching this.  __dma_buf_list_del() protects
+itself against a NULL arg.  Done.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-index e907c1d07887..e876f154963d 100644
---- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-@@ -488,7 +488,7 @@ nouveau_abi16_ioctl_channel_alloc(ABI16_IOCTL_ARGS)
- 			goto done;
- 		break;
- 	case NV_DEVICE_INFO_V0_TURING:
--		if (engine != NV_DEVICE_HOST_RUNLIST_ENGINES_NVDEC) {
-+		if (engine == NV_DEVICE_HOST_RUNLIST_ENGINES_GR) {
- 			ret = nvif_object_ctor(&chan->chan->user, "abi16CeWar",
- 					       0, TURING_DMA_COPY_A, NULL, 0,
- 					       &chan->ce);
 
----
-base-commit: 70456f05d4b6396b22048c4b8cd3cb98ecf9f9e3
-change-id: 20261007-turing-async-ce-fix-42e179e27d4a
+Thanks,
 
-Best regards,
--- 
-Mary Guillemard <mary@mary.zone>
+Matt
+
+> 
+>>  	return 0;
+>>  }
+> 
+> via this path
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index d504c636dc29..557cd7a4c971 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -725,6 +725,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+>  	if (!try_module_get(exp_info->owner))
+>  		return ERR_PTR(-ENOENT);
+>  
+> +	// succeeds
+>  	file = dma_buf_getfile(exp_info->size, exp_info->flags);
+>  	if (IS_ERR(file)) {
+>  		ret = PTR_ERR(file);
+> @@ -739,6 +740,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+>  	dmabuf = kzalloc(alloc_size, GFP_KERNEL);
+>  	if (!dmabuf) {
+>  		ret = -ENOMEM;
+> +		// go here
+>  		goto err_file;
+>  	}
+>  
+> @@ -771,6 +773,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+>  	return dmabuf;
+>  
+>  err_file:
+> +	// ends up calling dma_buf_file_release()
+>  	fput(file);
+>  err_module:
+>  	module_put(exp_info->owner);
+> 
 
