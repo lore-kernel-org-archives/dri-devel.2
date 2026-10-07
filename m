@@ -4,42 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18563CA6002
-	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 17:55:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5720DCA6002
+	for <dri-devel@archiver.kernel.org>; Wed,  7 Oct 2026 18:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BEFE10E63B;
-	Wed,  7 Oct 2026 17:55:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FCEA10E4B7;
+	Wed,  7 Oct 2026 18:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DwbvhZwd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GcgX8m8O";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F23A910E63B
- for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 17:55:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9C3E5429E2;
- Wed,  7 Oct 2026 17:55:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55CED1F000FF;
- Wed,  7 Oct 2026 17:55:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791395711;
- bh=41wy7CT/757MsEz93ApksEaRZyPHGEDMhqtFWTQh2K4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DwbvhZwdA18StROV7tUOJhTr8xhZyVyfe3jo6Nl9FCs5qH2TUuhR/7Dl1jAlBlBM8
- ghOCVylQOgI4NyUl+/IwKpJsVSNKPay+urmkoRFZVITNP3zttPGWfmYS6xtvcpo5BF
- FxXVSO2ULFpmPynvZgqnhzCLLN0Os14sZ1gYwKl6ued4EJzhs5BBo+YuEUDQg/NQul
- 4R1CKFF77HH0kmnUtHRe8PpnQGUIAJ5YdrZFY57NBGmdYn6mjv3J1UO4OuRUZ4JWc7
- b3TpZAe16TxDCC0PYKhRa+4A4JsE8K3qy9+JPci9gSh8V7VqskX1yNl6+4SlvFzBQC
- qhVpBa9xT+0DA==
-Message-ID: <sashiko-outbox-163272@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: fix NULL deref when opening a closed DDC
-To: "Arthur Liberman" <arthur_liberman@hotmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
-References: <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 17:55:10 +0000
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D739310E4B7
+ for <dri-devel@lists.freedesktop.org>; Wed,  7 Oct 2026 18:12:35 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4a021c809e3so21678275e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 07 Oct 2026 11:12:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791396754; x=1792001554; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=SmdRitxTTgFdGJeHgGQ6RNQbSBJ7pC2HNIG3s7QSzuM=;
+ b=GcgX8m8OAv2rLUUFH1v+Pos/l09tp/pIiZGxLqAGP4lW1IEB6pT35F0YFRR84zjrFP
+ BgyjXmCfWUcjIxX3VcuKbdDt/Q7pX6v+i4nU4CEIKNjJ5bGCQl2UQsmHCzUuu1D1xkzo
+ 3yE1zPOKSNTq+xQ55tEPhiZMCu0wdOeho24vp+pSNaQ255wlRVIB5T6XIRodMHp/cMJS
+ LtA17avXjOPQTEFNfxCBU7XtSLkiL2SBbigIpESONet16bTN+Vxp61P9CO4XKXtE5Thn
+ 9BJNfhES8vm2a6PBVtp5QsknLp/ZinFcMF3KGZ0MlsbxQgeH0AQc0fXcqV6uh51G0RBN
+ 2Njw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791396754; x=1792001554;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SmdRitxTTgFdGJeHgGQ6RNQbSBJ7pC2HNIG3s7QSzuM=;
+ b=hJrB4d0EAa8RIXGxX7HlDJeDdmIdlu5a4rrsIofu1x9g3D70/7kTfgH4TxMPZWOcCp
+ 2ZOr/D26F8EH1PbxCC/TJBl5OJDIPMLmGAtPIdAne9qvpLnidZee2M5kwMu8mhqYZTDY
+ wLgyWl2yYnEvnyEnwayHhWZTuIEn+LYVvukFryaFNfMIXtTNEQ+F5EgVHsLlJ4e/Rj4W
+ UgaDuKUB79uTgzLw44xnDwm2PBKKEAzAYWTw1Eh0ukXq1rsfrGRN1/9VrimVtgx+hNO9
+ VGwc9qGoP2DfslP70hfYTGGaBqVU+Qes2vDlw96CbF40Z/zAeAoMmyjwiqaxD2wgOotA
+ K0sw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzi+Kb72WkAORP1HXMAow478MAD6V3XtNpODtKqsOh28/5bz5HxNUW2NfBumH4d/rgDY317JWQzhvg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mnN0NNs/QLZfjgZQf595diNE6jdHt79JImmsx17Bl8jj6MuDnR
+ 8RAcESEaXQhqzQAoU6PbQzzLlkPSfkIVLxgWrrzBflInrC22PGtETBXx
+X-Gm-Gg: AYBFou167JenQL9XUQURvqpJeI88iU2wd0gi3Ie4xV6wU1WWVJSZ39qmOZuKadGLTNo
+ Lwi+8EIJUw2BeEVbEStW0K2FaJ4Niud6Ns8ed8ZZDX06PmzN+FLd6WDoAfAuuFTkTGWFsCoHhrw
+ u0q5yjl2ftf2XPYHuXobEXfoPb7RAioTQUP37woauRnTYAe64UNmKAR+Bu2sY7NCJRiOjcfNXmA
+ RIf6ZBtt+lrhWZSc8/kzJXW626c311ImsYVxqZ0WWayfM7YCRcR4XfRz9LMxoszTBZvbBUql5Ly
+ zZsVb4PCoNia7+S6oSGYYINCvns8jtrkM0d8cAwqOQkowWO6KZFAzuvxDky8+4ItIyfNA8q8yQv
+ j5VTAuOqOs5bXX2OwZGKegdI7QufMRuIOnD4+5r+TMZCbYJDDRDuDZDsCRcKXTb5IF+ygMv8PQa
+ Ml9bP9DAHg4AAh2rnHmPCtrcTHXjXdsytE7YHhh+kZrEudc9YQELM1OXWnLjmN8BPC09O8uznOg
+ XvRc8MRFiICv3ymwHh1ZsRKATNNopAEfQ==
+X-Received: by 2002:a05:600c:6749:b0:4a0:251f:a726 with SMTP id
+ 5b1f17b1804b1-4a180455d47mr54022405e9.24.1791396754013; 
+ Wed, 07 Oct 2026 11:12:34 -0700 (PDT)
+Received: from osama ([2a02:908:182:d1a0:b456:28a3:bd59:abb6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a1843e3356sm7115815e9.14.2026.10.07.11.12.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Oct 2026 11:12:33 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>,
+ Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED check
+ and erase
+Date: Wed,  7 Oct 2026 20:12:19 +0200
+Message-ID: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,95 +92,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dc/gpio: TOCTOU race and double-close in dal_ddc_open lockless fix
---
+panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
+xa_erase() without holding the xarray lock across both. If the handle is
+destroyed by another thread in between, and a concurrent GROUP_CREATE
+reuses the freed ID, the first destroy erases and releases the new,
+still-initializing group, leading to a use-after-free in
+panthor_group_create().
 
-commit ad94ac206173ba28053892dd31bd38232f256278
-Author: Arthur Liberman <arthur_liberman@hotmail.com>
+Do the mark check and erase atomically under xa_lock().
 
-drm/amd/display: fix NULL deref when opening a closed DDC
+Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-The patch aims to fix a NULL pointer dereference in dal_ddc_open() by
-adding a lockless check to see if either pin was closed by a concurrent
-HPD teardown thread. It returns an error if a pin is missing rather
-than trying to serialize the two threads.
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 0493858e55d7..a343c5180e01 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
+ 	struct panthor_group_pool *gpool = pfile->groups;
+ 	struct panthor_device *ptdev = pfile->ptdev;
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
+-	struct panthor_group *group;
++	struct panthor_group *group = NULL;
+ 
+-	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+-		return -EINVAL;
++	/*
++	 * Check the mark and erase the entry atomically, so a concurrent
++	 * destroy + create can't make us erase a group that's still being
++	 * initialized and happens to reuse the same handle.
++	 */
++	xa_lock(&gpool->xa);
++	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
++		group = __xa_erase(&gpool->xa, group_handle);
++	xa_unlock(&gpool->xa);
+ 
+-	group = xa_erase(&gpool->xa, group_handle);
+ 	if (!group)
+ 		return -EINVAL;
+ 
+-- 
+2.53.0
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers=
-/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> index 95f8b7c7d657a..a3145cd82d8bd 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> @@ -577,6 +577,17 @@ enum gpio_result dal_ddc_open(
->  		goto failure;
->  	}
-> =20
-> +	/*
-> +	 * dal_gpio_service_open() installs gpio->pin, and close clears it.
-> +	 * MST bring-up can AUX-read for DSC while HPD teardown closes the
-> +	 * same DDC. pin is NULL again in that window; do not dereference it.
-> +	 */
-> +	if (!ddc->pin_data->pin || !ddc->pin_clock->pin) {
-> +		dal_gpio_close(ddc->pin_clock);
-> +		dal_gpio_close(ddc->pin_data);
-
-[Severity: High]
-Does this error path introduce a concurrent double-close?
-
-If the check detects one pin is NULL while the other is not (because the HPD
-thread is closing them sequentially), calling dal_gpio_close() on both
-pins races with the HPD thread's own close operations.
-
-Could this cause unsynchronized MMIO writes in the hardware teardown paths?
-
-> +		return GPIO_RESULT_NULL_HANDLE;
-> +	}
-> +
->  	/* DDC clock and data pins should belong
->  	 * to the same DDC block id,
->  	 * we use the data pin to set the pad mode. */
-
-[Severity: High]
-Since this does not serialize the threads and the pointers are not cached
-via READ_ONCE(), can the compiler re-read the pointers from memory further
-down in dal_ddc_open()?
-
-drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c:dal_ddc_open() {
-    ...
-	hw_data =3D FROM_HW_GPIO_PIN(ddc->pin_data->pin);
-	hw_clock =3D FROM_HW_GPIO_PIN(ddc->pin_clock->pin);
-
-	config_data.config.ddc.data_en_bit_present =3D hw_data->store.en !=3D 0;
-    ...
-}
-
-If the HPD thread sets the pointer to NULL between the earlier check and th=
-is
-read, hw_data would become NULL, and hw_data->store.en !=3D 0 would oops
-at offset 0x28, defeating the fix.
-
-[Severity: High]
-Does dal_gpio_set_config(), which is called right after, repeat the same
-check-then-dereference pattern?
-
-drivers/gpu/drm/amd/display/dc/gpio/gpio_base.c:dal_gpio_set_config() {
-    ...
-	if (!gpio->pin) {
-		BREAK_TO_DEBUGGER();
-		return GPIO_RESULT_NULL_HANDLE;
-	}
-
-	return gpio->pin->funcs->set_config(gpio->pin, config_data);
-}
-
-If the pin is cleared after the check but before the funcs dereference,
-will this oops as well?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/DB9PR03MB73881C96FE=
-86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com?part=3D1
