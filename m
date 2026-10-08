@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3542CA5FFD
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 03:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA866CA5FFD
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 03:56:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D1CC10E735;
-	Thu,  8 Oct 2026 03:52:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06BB010E718;
+	Thu,  8 Oct 2026 03:56:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nXbAyxQ7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EtVbMEQ9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A04910E735
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 03:51:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40E5610E718
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 03:56:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E645060261;
- Thu,  8 Oct 2026 03:51:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C1A1F000FF;
- Thu,  8 Oct 2026 03:51:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0BBA140990;
+ Thu,  8 Oct 2026 03:56:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96AD1F000FF;
+ Thu,  8 Oct 2026 03:56:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791431516;
- bh=QHzyaC8NC/bQSyYPlZ2lrL8VIgjYOe0rCEU6OS3OeZU=;
+ s=k20260515; t=1791431795;
+ bh=XCdDq9vjbWKx/oBkNIipksgr3LdPCjUuTALj3FtHXns=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nXbAyxQ70vMNzK6N8Z63JpbORWAk9+ebSvYYdsm+00Tj1O8Z8ScKTKCfn2/TMg7Z6
- coMohzDFR8/rihgUBLxTw3VOrcMMkAKe3H6fgDJzPiGlB3Pr7KMrftEN2TsjOPA5en
- uQm6kU/b+EceTr9ZqYBJF01ITsG1tkgeohAZH9ExO66yF0gZUek1p3PrIcpIux3a3D
- S64OAWQx4Jdf6ZXk6JvT0Ez/jHRkpsmp7MHdJtX5Be6Z00N53+YNpjoiGc6o1dUdKg
- az9agg9gxOf9ILNP2To6TE0MgBwZKouhVJrP4T/RZTWI9TbzWDu48gnQztPev8YMMT
- R70dabrHam00w==
-Message-ID: <sashiko-outbox-163589@kernel.org>
+ b=EtVbMEQ9bnpn0j4Z0KPAP6FzmbUDGRmZL6u7mV6dbRFLeqDWm+f5lfUiStGtGTxHe
+ /YG8rbxU6KXHEkLkuQsfwx5sAF4OEy3CayeFQ4vbqETrnguRHElP5oQyE40l0lq4Wk
+ khxzlI2YF7PRFapoXfPqcpBclzoca2FyWTwTmKnOmAEWhRFWov4FTQMm8kgmf+uqlW
+ 5YhK/Kbm2WtuoCvUxQ1f5or7zCk9UoI1U1mkrh1d8Xh0YNvtlnn2S8iovFXGIXkhkR
+ MKol5i+3k7XR7Xow+iYRsK/ahtCoWECSTl1hQI4pcXQqaFtxg2wt6JHQCiLL/D7UQ/
+ yV0YZJ1rPrqJw==
+Message-ID: <sashiko-outbox-163595@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V3 11/19] accel/amdxdna: Decouple AIE4 doorbell and
- MSI-X notify transport hooks
+Subject: Re: [PATCH V3 14/19] accel/amdxdna: Move HMM invalidate wait into
+ common GEM code
 To: "David Zhang" <yidong.zhang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261008032348.2044667-12-yidong.zhang@amd.com>
+In-Reply-To: <20261008032348.2044667-15-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
  <20261008032348.2044667-1-yidong.zhang@amd.com>
- <20261008032348.2044667-12-yidong.zhang@amd.com>
+ <20261008032348.2044667-15-yidong.zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 03:51:55 +0000
+Date: Thu, 08 Oct 2026 03:56:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,73 +61,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] cleanup: mixing goto-based error handling with guard()
+- [High] amdxdna: hardware DMA into freed memory due to interruptible wait =
+in hmm_invalidate
 --
 
-commit 24bec1792936c12968d8086392604ffa71c7cce1
+commit c5bcbac3bd594f37cab09ce7ecaa29fea4a1e25a
 Author: David Zhang <yidong.zhang@amd.com>
 
-accel/amdxdna: Decouple AIE4 doorbell and MSI-X notify transport hooks
+accel/amdxdna: Move HMM invalidate wait into common GEM code
 
-This commit separates PCI-specific doorbell and interrupt notification hand=
-ling
-from the transport-neutral context code.
+This commit moves the HMM invalidate wait for user mappings into the common
+GEM code within amdxdna_hmm_invalidate(). Devices that don't attach fences
+to user BOs will return from the wait immediately.
 
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie=
-4_ctx.c
-> index 5eb918e1d58c7..5a2fc19bad206 100644
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
+amdxdna_gem.c
+> index f4832337ec31d..eebd93b6f2c31 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+
 [ ... ]
-> @@ -51,32 +42,27 @@ static struct cert_comp *aie4_lookup_cert_comp(struct=
- amdxdna_dev_hdl *ndev, u32
-[ ... ]
-> -	ret =3D request_irq(cert_comp->irq, cert_comp_isr, 0, "xdna_hsa", cert_=
-comp);
-> +	/* Transport-specific: PCI wires an MSI-X irq, platform an IPI callback=
-. */
-> +	ret =3D aie4_request_notification(cert_comp);
->  	if (ret) {
-> -		XDNA_ERR(xdna, "request irq %d failed %d", cert_comp->irq, ret);
-> +		XDNA_ERR(xdna, "request notification for msix idx %u failed %d", msix_=
-idx, ret);
->  		goto free_cert_comp;
->  	}
+
+> @@ -249,8 +251,12 @@ static bool amdxdna_hmm_invalidate(struct mmu_interv=
+al_notifier *mni,
+>  	mmu_interval_set_seq(&mapp->notifier, cur_seq);
+>  	up_write(&xdna->notifier_lock);
 > =20
->  	ret =3D xa_err(xa_store(&ndev->cert_comp_xa, msix_idx, cert_comp, GFP_K=
-ERNEL));
->  	if (ret) {
-> -		XDNA_ERR(xdna, "store cert_comp for msix idx %d failed %d", msix_idx, =
-ret);
-> +		XDNA_ERR(xdna, "store cert_comp for msix idx %u failed %d", msix_idx, =
-ret);
->  		goto free_irq;
->  	}
+> -	if (xdna->dev_info->ops->hmm_invalidate)
+> -		xdna->dev_info->ops->hmm_invalidate(abo, cur_seq);
+> +	ret =3D dma_resv_wait_timeout(to_gobj(abo)->resv, DMA_RESV_USAGE_BOOKKE=
+EP,
+> +				    true, MAX_SCHEDULE_TIMEOUT);
+> +	if (!ret)
+> +		XDNA_ERR(xdna, "Failed to wait for bo, ret %ld", ret);
+> +	else if (ret =3D=3D -ERESTARTSYS)
+> +		XDNA_DBG(xdna, "Wait for bo interrupted by signal");
 > =20
->  	return cert_comp;
-> =20
->  free_irq:
-> -	free_irq(cert_comp->irq, cert_comp);
-> +	aie4_free_notification(cert_comp);
->  free_cert_comp:
->  	kfree(cert_comp);
->  	return NULL;
+>  	if (range->event =3D=3D MMU_NOTIFY_UNMAP) {
+>  		down_write(&xdna->notifier_lock);
 
-[Severity: Low]
-Is it safe to continue using goto-based error handling here?
+[Severity: High]
+Does this interruptible wait allow hardware to DMA into freed memory?
 
-Looking earlier in aie4_lookup_cert_comp(), a scope-based lock is declared:
+amdxdna_hmm_invalidate() is called by the OS memory subsystem when unmapping
+or reclaiming memory. The driver is expected to wait for the hardware to
+finish accessing the pages before returning true.
 
-	guard(mutex)(&ndev->cert_comp_lock);
+However, dma_resv_wait_timeout() is called with intr=3Dtrue, which makes the
+wait interruptible by signals. If the process receives a signal, the wait
+aborts early and returns -ERESTARTSYS. The callback logs a debug message
+but then proceeds to return true, which tells the OS that the device is no
+longer accessing the memory.
 
-The kernel cleanup subsystem guidelines recommend that goto statements and
-scope-based cleanup helpers like guard() should never be mixed in the same
-function. Mixing them creates confusing ownership semantics and increases
-the risk of double-free bugs or resource leaks during future modifications.
+Since the hardware job is still executing when the OS frees the physical
+pages, can this lead to memory corruption when the hardware DMAs into those
+pages?
 
-Could we either convert all resources in aie4_lookup_cert_comp() to
-scope-based cleanup, or avoid using guard() in this function entirely?
+Should this wait use intr=3Dfalse to be uninterruptible in this context?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008032348.2044=
-667-1-yidong.zhang@amd.com?part=3D11
+667-1-yidong.zhang@amd.com?part=3D14
