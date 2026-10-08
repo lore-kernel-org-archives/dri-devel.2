@@ -4,50 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 894A7CA600C
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 19:30:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6871CA600D
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 19:43:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFA4A10FB27;
-	Thu,  8 Oct 2026 19:30:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BDD710E972;
+	Thu,  8 Oct 2026 19:43:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UZN4l6sn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="boTpVs5s";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C854110FB27
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 19:30:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=3XFkn3NBUR6YE2BST10jSbVhsx/r84jeVgiKXYbvzaM=; b=UZN4l6snwxd3BZaebvtx99VRbS
- sWdaXm8bP8SOfjd9b5z9muGIkl81570uh+6IWuuSPe1gL3QgZR1QlQRbT1+RwmPT8ZgVviYNg57ps
- Vx7bPd2cKOvrxmojBHt2TamRUdbQUBlhJFtKk3t+Eya5xoVo6oqudDMcBH1n+MH6q8289BT3c2vQa
- Jf69KfX640bwXM1iUQZ3YGrxQHh+hEUeiee6mVOBgtbYhFARthUVrMVgcHFxgj5WYxGkIGSQjCgG5
- XltpsSHRbaNbpxpiislhPwJA+6/7bHGX+EJSNsevjue5j8+92WNcA2lDajDqxl7jOaVUF0wXo7Ic9
- 1VC+Jd3g==;
-Received: from [179.105.94.163] (helo=prince)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xEtp5-00EcnV-FB; Thu, 08 Oct 2026 21:30:36 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Iago Toral <itoral@igalia.com>,
- Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D0B10E972
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 19:43:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A77B260DAD;
+ Thu,  8 Oct 2026 19:43:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EAE91F000FF;
+ Thu,  8 Oct 2026 19:43:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791488600;
+ bh=NZwiRd4JpA+xTYM34D1mENI6YZR63Qw0QaDPwvT4gzE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=boTpVs5sF+REI2wKV5fSoTw2NWmn+MTdUsV/8j/fV/Nw4dRGKlsFHFR0Nx4LJ16NZ
+ Ax/cHogE88gT4jo3fgQzHeM2vkhUtNyRCQEEYcdLoZa4FNOJI9fKe27kqopb2p6Bo4
+ VGohsikO1syqPowOqLywR3Nr1y7HWZc5JVKSOM16OVjwm3ctohb1H56/TTVp0txYUn
+ eYs8Iux1PisgmhrQnC4XHe29eFEI8WK+NnK3nV9Zsnyqs8bhMgBArCNvC4WLpcIWQu
+ oI3ND69q7obsnboE6+ghfIPaguaZODFJH3Bf6YT3qmctBiEknkMucYol8qwhMmmBRk
+ 8Ph/den9jgvrA==
+Date: Thu, 8 Oct 2026 14:43:18 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Primoz Fiser <primoz.fiser@norik.com>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Simona Vetter <simona@ffwll.ch>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
+ devicetree@vger.kernel.org, upstream@lists.phytec.de,
+ linux-arm-kernel@lists.infradead.org, David Airlie <airlied@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Sam Ravnborg <sam@ravnborg.org>, Frank Li <Frank.Li@nxp.com>,
  Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org,
-	kernel-dev@igalia.com
-Subject: Re: [PATCH] drm/vc4: Fix binner slot allocation failing on an idle GPU
-Date: Thu,  8 Oct 2026 16:29:48 -0300
-Message-ID: <179148775854.3140809.16570032123389144341.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930182204.1877361-1-mcanal@igalia.com>
-References: <20260930182204.1877361-1-mcanal@igalia.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel-simple: Allow
+ "data-mapping" for "auo,g104sn02"
+Message-ID: <179148859709.884257.1016647053232080228.robh@kernel.org>
+References: <20261008053850.2941955-1-primoz.fiser@norik.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008053850.2941955-1-primoz.fiser@norik.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,21 +72,23 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Wed, 30 Sep 2026 15:20:44 -0300, Maíra Canal wrote:
-> A job's binner slots are returned to bin_alloc_used by vc4_complete_exec(),
-> which runs from the job_done workqueue, but the seqno
-> vc4_v3d_get_bin_slot() waits on is incremented earlier, in the function
-> vc4_irq_finish_render_job(). Therefore, a waiter can wake, retry, and still
-> find the pool full because the worker has not run. By then, the job might
-> have left the render_job_list, so no seqno remains to wait on and the
-> allocation fails returning -ENOMEM.
+On Thu, 08 Oct 2026 07:38:49 +0200, Primoz Fiser wrote:
+> As per the AUO G104SN02 datasheet, section 6.4.1 "SEL68", this panel's
+> SEL68 pin selects between 6 bits (SEL68 low/NC) and 8 bits (SEL68 high)
+> per color over LVDS, i.e. an 18-bit or a 24-bit input format.
 > 
-> [...]
+> Currently, the auo_g104sn02 panel_desc only allows for the 24-bit
+> configuration by default. Boards wired for the 18-bit configuration need
+> the override introduced by commit 1cd3ea3e4b12 ("drm/panel-simple: allow
+> LVDS format override")) to describe that instead.
+> 
+> Thus allow "data-mapping" override for "auo,g104sn02" in the schema.
+> 
+> Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+> ---
+>  .../devicetree/bindings/display/panel/panel-simple.yaml          | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-Applied, thanks!
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-[1/1] drm/vc4: Fix binner slot allocation failing on an idle GPU
-      commit: cca01232d94adcb10f7c8c5bb8ce072b045fcb58
-
-Best regards,
-- Maíra
