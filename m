@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00747CA600C
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 19:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B78F0CA600D
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 19:30:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5666310EA49;
-	Thu,  8 Oct 2026 19:24:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20EBB10FB23;
+	Thu,  8 Oct 2026 19:30:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PzkQPal1";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="r13YZpHg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1705B10EA1E
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 19:24:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F3B2441A6B;
- Thu,  8 Oct 2026 19:24:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3C71F000FF;
- Thu,  8 Oct 2026 19:24:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791487490;
- bh=WWMld5exAZyPa0TOFgh8+ncEtCLh50FA3ZcYga1irsA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PzkQPal1GiC3cQVu4fgrD4XADrcHStIlMWe7nKklDnqIhx5SePeuIfGch+PhDLr37
- PJjqdK1zJ86LCZWiPljVGgXMQAUmJagugyWD0arT8y2JjVqlsydhrxEdzLzkU/qnmK
- X26sp8XtN7ZwxTRhIwoh1rjOa+/Gpd7QHDGiJWbwa3jiREfVob6N3tVMnKXwXlyh3P
- wZbwSnz4ugLauUhIjDcwRPMEmIsg2DOVU1I/7zFXUABtygRv0XAsF9AU/hjMvpE8Xt
- EsDq8IBPjD8SrWu0xeb8W/qgXGWKDql+K2veQGUAN6X9cOhWGqCUJU8JUznfoR9vNj
- U3/+SLcihigmg==
-Message-ID: <sashiko-outbox-164513@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6.6.y 2/2] fbdev: hyperv_fb: Allow graceful removal of
- framebuffer
-To: "Artem Dinaburg" <artem@trailofbits.com>
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org
-In-Reply-To: <20261008191309.98263-3-artem@trailofbits.com>
-References: <20261008191309.98263-1-artem@trailofbits.com>
- <20261008191309.98263-3-artem@trailofbits.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 19:24:50 +0000
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 202B410FB23
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 19:30:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=0pAmSkx/IkCTjnV05jW/ucJc7NU/LDqoXPGS7Bhh430=; b=r13YZpHgTWDy8YH++bKT7DZKz3
+ 5kg0zkMrrM+ni+z1NFgdidlLCfBjyS9cFBfawAHjVQyhc4OVd8giIj0CXpQg3sBpPW9qDFTUVFtL2
+ WeVJCCiQvVQlb/GkX0sssbWFWVoj5aNO6YrCUM73ISRNeKD9FO5+aageIKg4C6e6quVLRhM63ljyp
+ tNmYwLaFy+1vB04sigks6sIjowRIxDaKueo5hOUVULO7D9mv2JYojPqO75RBpWKxfJX4AzXiFhCX3
+ NH07IHeaIFqKRHrTmfMssVH6GpTZ9q1Giu135w/iKKzDDlNInT36rrpr+ioP35GQh+kpQaNCf6JvY
+ PVaw9D7Q==;
+Received: from [179.105.94.163] (helo=prince)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xEtp1-00EcnV-72; Thu, 08 Oct 2026 21:30:31 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org,
+	kernel-dev@igalia.com
+Subject: Re: [PATCH] drm/vc4: Disable the V3D interrupt across runtime suspend
+Date: Thu,  8 Oct 2026 16:29:47 -0300
+Message-ID: <179148775854.3140809.7760119335243213315.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260925191318.541938-1-mcanal@igalia.com>
+References: <20260925191318.541938-1-mcanal@igalia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,112 +58,30 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] workqueue: UAF of delayed work due to re-arming during teardown
-- [High] vmbus: NULL pointer dereference on closed channel during fbdev ioc=
-tl
-- [High] fbdev: UAF of parent device pointer in hvfb_destroy()
---
 
-commit 0b97ae630048a0b4a041222965b966a2373daa70
-Author: Saurabh Sengar <ssengar@linux.microsoft.com>
+On Fri, 25 Sep 2026 16:10:19 -0300, Maíra Canal wrote:
+> vc4_irq_disable() masks the V3D interrupt sources and then calls
+> synchronize_irq() before the V3D is powered down. However, by itself,
+> this is not enough to quiesce the interrupt handler.
+> 
+> synchronize_irq() waits for handlers that have already set
+> IRQD_IRQ_INPROGRESS, and for irqchips reporting IRQCHIP_STATE_ACTIVE.
+> A GIC interrupt chip is able to mark an interrupt active as soon as a
+> CPU acknowledges it, so there these checks cover the whole dispatch path.
+> On RPi 0-3, however, the interrupt controller is ARMCTRL, which has no
+> active state. A CPU that has read the hwirq out of the pending register
+> but has not yet reached handle_level_irq() stays invisible to
+> synchronize_irq().
+> 
+> [...]
 
-fbdev: hyperv_fb: Allow graceful removal of framebuffer
+Applied, thanks!
 
-This commit defers the release of the framebuffer memory to the fb_ops
-fb_destroy callback to prevent warnings when unbinding an in-use
-framebuffer. It also moves the unregister_framebuffer call to the end of
-hvfb_remove() and places it after vmbus_close().
+[1/1] drm/vc4: Disable the V3D interrupt across runtime suspend
+      commit: 6abc8e4dcfbc1d26a94c0ac037dfb3716f686b1f
 
-Link: https://lore.kernel.org/r/1740845791-19977-3-git-send-email-ssengar@l=
-inux.microsoft.com
-
-> diff --git a/drivers/video/fbdev/hyperv_fb.c b/drivers/video/fbdev/hyperv=
-_fb.c
-> index 80e6d96821795..e0d68953aa1ac 100644
-> --- a/drivers/video/fbdev/hyperv_fb.c
-> +++ b/drivers/video/fbdev/hyperv_fb.c
-[ ... ]
-> @@ -887,6 +889,17 @@ static void hvfb_cfb_imageblit(struct fb_info *p,
->  					       image->width, image->height);
->  }
-> =20
-> +/*
-> + * fb_ops.fb_destroy is called by the last put_fb_info() call at the end
-> + * of unregister_framebuffer() or fb_release(). Do any cleanup related to
-> + * framebuffer here.
-> + */
-> +static void hvfb_destroy(struct fb_info *info)
-> +{
-> +	hvfb_putmem(info);
-
-[Severity: High]
-Is it safe to defer hvfb_putmem() to the fb_destroy callback?
-
-hvfb_putmem() calls hvfb_release_phymem(info->device, ...), but info->device
-points to the hdev->device. The VMBus core unregisters and frees the hv_dev=
-ice
-(hdev) when hvfb_remove() completes.
-
-If userspace keeps the framebuffer file descriptor open, hvfb_destroy() will
-execute later. Does this mean info->device will be a dangling pointer when
-passed to dma_free_coherent() in hvfb_release_phymem(), causing a
-Use-After-Free?
-
-> +	framebuffer_release(info);
-> +}
-> +
->  static const struct fb_ops hvfb_ops =3D {
->  	.owner =3D THIS_MODULE,
->  	.fb_check_var =3D hvfb_check_var,
-[ ... ]
-> @@ -1246,14 +1260,11 @@ static void hvfb_remove(struct hv_device *hdev)
-> =20
->  	fb_deferred_io_cleanup(info);
-> =20
-> -	unregister_framebuffer(info);
->  	cancel_delayed_work_sync(&par->dwork);
-
-[Severity: High]
-Since unregister_framebuffer() is called after this point, is it possible f=
-or
-concurrent fbcon console updates or user operations to re-arm the work item?
-
-For instance, could a call to hvfb_cfb_fillrect() ->
-hvfb_ondemand_refresh_throttle() unconditionally re-arm the delayed work wh=
-ile
-the device is shutting down, leading to a Use-After-Free of the par structu=
-re
-when the delayed work eventually executes?
-
-> =20
->  	vmbus_close(hdev->channel);
-
-[Severity: High]
-Does moving vmbus_close() before unregister_framebuffer() expose a race
-condition where the VMBus channel and its ring buffers are freed while the
-framebuffer interface is still fully active?
-
-A concurrent user ioctl(FBIOPUT_VSCREENINFO) or active fbcon operation could
-invoke synthvid_send() -> vmbus_sendpacket(). If vmbus_sendpacket() tries to
-access the closed channel and its NULL ring_buffer structure, would this re=
-sult
-in a NULL pointer dereference?
-
->  	hv_set_drvdata(hdev, NULL);
-> -
-> -	hvfb_putmem(info);
-> -	framebuffer_release(info);
-> +	unregister_framebuffer(info);
->  }
-> =20
->  static int hvfb_suspend(struct hv_device *hdev)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008191309.9826=
-3-1-artem@trailofbits.com?part=3D2
+Best regards,
+- Maíra
