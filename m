@@ -4,145 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3613CA6013
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 22:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C0BCA6017
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 23:24:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2556610E450;
-	Thu,  8 Oct 2026 22:46:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB8110E11F;
+	Thu,  8 Oct 2026 23:24:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mqrc8TwM";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aFNI26/K";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1FMigVHa";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACD2610E450
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 22:46:37 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 698L0NVk3386994
- for <dri-devel@lists.freedesktop.org>; Thu, 8 Oct 2026 22:46:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4EGqHukNt5V7Y76f6G9i3/IwoGjUVi0GuztY4nSPuAQ=; b=mqrc8TwMhoJE2j+/
- 7Cu9dWE8NeLSat2Eu6H7ULzcXbc7R5lVI7MV8Uro1BiS/s9jyTla3VR2lgSzEwRw
- bdt/8Xt16rMWkFyidQhEIdaIHg9Sh8q7O2Fc6KyB2im+zGYeuGFCBMhl+XjwZG7F
- ek7Lfb9rHG388asSnKw7cNrXQrgxDslV9nai+5lWONP1bId3qHoilHlktY6bTTQa
- bCUzAPBSv57dti4B0mQHlF348S8xH8R+3jlTyARTMRe0U7I6M/ySldkajLCn51hY
- p2SO0ILRCfdjVQHEZJUi6cDK0sQG9fm+Krpdeap41H8Fe5yNVmEX/mvBhXGmxSPh
- aJjMtg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxrrxmv-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 22:46:36 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-934956beec8so1244329785a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 15:46:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791499596; x=1792104396;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=4EGqHukNt5V7Y76f6G9i3/IwoGjUVi0GuztY4nSPuAQ=;
- b=aFNI26/KsnZ0oj+/qJArmPebXIp1YrdK37WiGpMRhTc+FVfA1PIeWW7fY5xBBm9lvo
- jzWCX5haO67w7CNhrGB1QcSBJWvgmbmg1tadg+hQ206V0NQXigP92kHapu0Lb4muKfEf
- VY3hSlYS+ZWXvNcY2XvKFE6EjNgTBoQT7wBU+lx/s822I6PMewZNYLoexCUxTH0W4qhG
- 7ZqfLoKveTo3nwWA04pj5MidV/qRDWj4s9kenvXplYZJ3Mtyx9n0UbjdSP8R2smrB8g1
- SjoGy+BRdui9P8KuP9kkXG0MGLZlOKZb05x4cxMLVd2803//HGXugyGa1CsYzRrXLXq0
- ZKqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791499596; x=1792104396;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=4EGqHukNt5V7Y76f6G9i3/IwoGjUVi0GuztY4nSPuAQ=;
- b=Y+9T1VT20zgkkEKCEbH2HTh2saqHe7l3eJ1s17WE0XH4jomum7UBKsSCfNgk902fl5
- VkP6RZOLXOfokiE3S8fjnshfKx3ZXBqN/auGSV81/wvtwGeMGB7pQsHRguk8l7SlDp93
- uu5I5Tun3aqxxtqMkwxJLOCzsde8UDnYoOp8J5/xwREIxOJ+0/Bw82+tC0wUF7fAL5Yv
- 8Ur6IMPv/pORH9i+M3gIgqVBGoEW8GhkFLtOTeZjjikJwp+w0QYPNr5biaMSEwEcU2J+
- Mo5N6Lii4im6aQzMGQUDGsq3GgJIJgPNnDD6STeAZbk/b67vFZ1m1/ptDXWIw1pnG96S
- FUdQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz4FgBd0djoSvn2Nl7youEid3FfzqkEYTDCkE2PCng7dH5cTjvioKGUz+GnGPoKkVYv9wFewL4dOf4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n6neFmoQSO40Y6KG4y2sASU5MCJICgE0e6YD/wL0VPBfjpv09t
- 8Y577Gysg1me3FXFugfEBuYBXlI4epfaVbqAhMgAntNGvDU+ZjU13d/OBt0ryc/w58k1H8vDbUj
- CbB1SHnSwJzi9TDxkCfNXdv9H0TBQIuiB1RKlBMY5tF2fNQ5SYwXDPYtmlsYHnAIO8g5ceHw=
-X-Gm-Gg: AYBFou2tKe0NQzYlmfQ8cxNLITLq23g7myCaH2769gvqJUcdH99HU7FU0rfPlxTsWjR
- tox246dfYLXjjTQtjuHr+YKSI0mJchkIoC1xU10NJ9nGD6llZyferKGQY0Vlg5zzQAwPCNT0kgb
- sRYmTU6+d49STTz7It0tlkKOxWvY4meGts3fZRNKtL8DkzuUT0PbN4wESOnAlCZxMJAvXDWkTz0
- 9eqxbMXMmRVnY1tZ4Dy8Bo0xtumyk/nEYfm813KqqXsL3LAfsQmdkOaPldFDzMvQgKw4Q7EZG4K
- RhSzWlmWPhCo6eznM2gHex6YHTFq9xarZ6gjRX7smaHg+nAyy1n4nNCBbySPdDR5bSXBXm7Hs5v
- cbLtp3lyAuxU0c9tU/BgxQbjRCZQn2C92tqfuLRUvxewziJxQeU8GmGBfX10rhhq/Ozv8q9mBKC
- zrT5SQJZrC321T
-X-Received: by 2002:a05:620a:6606:b0:93c:5958:9de9 with SMTP id
- af79cd13be357-93ebd24d6f1mr9897585a.33.1791499595889; 
- Thu, 08 Oct 2026 15:46:35 -0700 (PDT)
-X-Received: by 2002:a05:620a:6606:b0:93c:5958:9de9 with SMTP id
- af79cd13be357-93ebd24d6f1mr9894685a.33.1791499595402; 
- Thu, 08 Oct 2026 15:46:35 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a9c3befebcsm1390371fa.1.2026.10.08.15.46.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2026 15:46:34 -0700 (PDT)
-Date: Fri, 9 Oct 2026 01:46:31 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: me@dawidwrobel.com
-Cc: Jianhua Lu <lujianhua000@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8250: add device tree for the
- Xiaomi Mi Pad 5 Pro 5G
-Message-ID: <6bi4ywt45f6lhyvxkbp7vtzxtoxxlorwhnwizooz5jysubr7sa@krybqpl7e5m7>
-References: <20260908-sm8250-xiaomi-enuma-v3-0-0198c3bf954a@dawidwrobel.com>
- <20260908-sm8250-xiaomi-enuma-v3-3-0198c3bf954a@dawidwrobel.com>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012002.outbound.protection.outlook.com [52.101.48.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC6F410E11F
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 23:24:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z+OIsHXbK7LnDNEPHBuhxdbH6Fp4V1K3n6NYyCs7DWgzor7kb1mHsSGTVWYEKCPQxPwLBYyyrs8L20tVICIX/UlRFyg7CoVe6nabb8skf53X/tDsHhFQBhEgx4Afm4B2mkNipfbxJd8MQur1sqRtrCrqhKfjVxtJ56mY//T16iKSa700QBKEm4jDCLiC265sOpn95vIvNP8quJOqH0HrK700QCHChWlVNuFdRXPW/xjrTvhqmgRj9WBpzJhHW1hjVA7CQheQ6Q/Hw7fnouM8simdFvSm4t23hcH2tKiLOR4zJW6Deyp98vZfOWHfgq6QpqwtW4zwwDBKMLch+vjkBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y62j6lcAZyTVN01jVSyEcTwPcUxyW1Uzd+mAoRuXpCY=;
+ b=gNn2BvqWtHPBlC/Wka+yssqkrkUyxNqJNUhz5ticP/S91sgiT4/kpglByLkdN8fhLlArLUx5zUNTFCeOAqkmiTaWXo/e2XTOZ2F19Dg1JS65L/OrmVnYjh9A9j4RXkwY7B/xDhxknmp3LO4mzyJEyRlTZ4g2UHJKaWSaOIvKuSrWh71hd0LS0OOmJRCLqlWRszoeIY4YjJZCUrObw22s3KFErQ/sjB9QEh67rfJh9ZWyB77a/6nQHmqDQD5kvNsL0uqp881nB9A9HU1kY+VA4/fAPrRgqUV6PZOMZcOt3DwucigsG7NrMkDLsJF+OgPbNl64scEdbQ+Nx23rSmYQ+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y62j6lcAZyTVN01jVSyEcTwPcUxyW1Uzd+mAoRuXpCY=;
+ b=1FMigVHaj9xFcBla4d1GSmn+MdYaUacZCZKggh8m8AhONmWB3Cpck90a6RdUiG+e5RLyRe/mptVynx76Ap1YIARvSDp+9Kyc/1KphZRv1m9R7Rm5/stxm6OHqJjJobq9TVvaY/M4kzOWIlhTk8xhnEMgd5LzrLgAKZ4/roicaOQ=
+Received: from BN9PR03CA0886.namprd03.prod.outlook.com (2603:10b6:408:13c::21)
+ by IA0PR12MB9012.namprd12.prod.outlook.com (2603:10b6:208:485::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 8 Oct
+ 2026 23:24:21 +0000
+Received: from BL6PEPF0006C3DD.namprd02.prod.outlook.com
+ (2603:10b6:408:13c:cafe::72) by BN9PR03CA0886.outlook.office365.com
+ (2603:10b6:408:13c::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu, 8
+ Oct 2026 23:24:21 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF0006C3DD.mail.protection.outlook.com (10.167.249.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 23:24:21 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
+ 2026 18:24:16 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via
+ Frontend Transport; Thu, 8 Oct 2026 18:24:15 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+ <max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+ <mario.limonciello@amd.com>
+Subject: [PATCH] accel/amdxdna: Reject device heap BO when dev_mem_size is not
+ set
+Date: Thu, 8 Oct 2026 16:24:16 -0700
+Message-ID: <20261008232416.2646054-1-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908-sm8250-xiaomi-enuma-v3-3-0198c3bf954a@dawidwrobel.com>
-X-Authority-Analysis: v=2.4 cv=E+1YNqdl c=1 sm=1 tr=0 ts=6ac81d4c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=VoYNWTs0KIJBnnxc:21 a=xqWC_Br6kY4A:10
- a=8nJEP1OIZ-IA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=br21HGidAAAA:8 a=EUspDBNiAAAA:8 a=16WXXSGXZCMmNkSL7LsA:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=rq5_1Q1BYlbxkLLkNd_B:22
-X-Proofpoint-GUID: it9zfOZyyVABSwrwBZ6i54vGbHVbms5t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA5MCBTYWx0ZWRfX4IpRpJdqM/yy
- 2Ij1atWj5arrODbnU8QqvIloGEpGAvkeRPw/FQLFLYk6ZKu2h6pNR94PnJ9dVy1yDFTKUTHVANj
- pHLEfFFQo+bsQ5TlPWkLWRtORNvTO69aR1rmKLceJ6iFOM9ARQ37b1IIyCjD7fBwnAJ3mTQB35B
- mVLTrKnYG/jRWHjTJ2tmdqfWisMM+LTYv10xZL5fgutyZxPKbp8MPBSvZD5VqHuIH7nHOVK/v5i
- Jucv8A8wcVIRz3exKDcQtgca7T4wG6uJZ2nLoNXFWeXSDHQkaw4WwEaxKociWbmjl1Ti1yEZDLv
- D60LKdc5FYQn9wG1lkruQ24zxRTrNC1hqiLqm3gMQVIY7DkFhUj7KaCDXFhICk83ujcUXsHrJ+F
- jdbV2l/W2OSbKhw1GzyPtSo9ekVML2tPuaibPVuq31CjXK/mKnuQZT3+JdfroCZjOXBmjbkwCBD
- lR7s+uHs+XQgXoOZb9A==
-X-Proofpoint-ORIG-GUID: it9zfOZyyVABSwrwBZ6i54vGbHVbms5t
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA5MCBTYWx0ZWRfX3KhHiaAlrJCZ
- PfWWjaAKWANSTFJ8RmtBf15TbeCW8eO/kodacRI8iJhAaN7MO2n9k1jBxn2Quvq8HhKdFQYySaC
- ci352D5q6lZtyGqYSC0ee2DDjvMgP98=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_07,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080090
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DD:EE_|IA0PR12MB9012:EE_
+X-MS-Office365-Filtering-Correlation-Id: 085be6e4-71a0-4a55-d6a5-08df2593485c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|10067099003|11063799006|6133799003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: X5IMYtxOInxEPaT9ZcOY02uMmJIMlZU8FEiF4LrDDsvpMxd33+xtFQu/YhNK1xwuv0hdVJB8Vt2OHmtedw5YD+103K6ss02dWQUfbJ3yogxHWYZXKa1igKMKaTju7kZVkyD+VOFVHxmhiL343uR1RNefwag2+GqhP9ED2Q02spPGyKlZyrA1rhGreaTfSFNKkn/L1+r1OQf4bK3760g4lJi+FgY57YnZ4dMc+7sxy0Thm7tsZNR7ReDuIiRhGo8mwRCitYzGhDmVYfdlTK+LOVULsJnfwaEHrot+i0o/0rZYA81fW+nW3fe7LimgzYMmMFys6ViQkwtyFDAuNWjMatVuh8SPa70A2rEr3m+ZJ4Jdc41NIbDNu3leu11f86DbCaXJHkAq8AWwv278/Xe+G2ujpM/ARkkKpxTcMjWJgSqsrh9rd3zuNUpEjXSUJG0WdW26c71H78pzMs1ocx468PJOPsQZzeZaEJ5GVO140JZEj4rd1mX0FmOOpVM14qGO8cxNczs4HC4MawvMuByP4yV4C5ndBJ9pG9QEh/w+e3OS6/WEdotoECuo+Rsx22fpvGNTLjutQwc0p4g6nV39BtWSxy2c5QzCGQzZdilzFitvCeNA6MUP6ZoTJiCr/n0Tzk8dmgESe5RMJdI87POJAHajeL++5mJEc+nSVBbplG/K4jiTSqpQUAZ6XzOyWn4tradjBuVMtUaosZlTD1/1DQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(10067099003)(11063799006)(6133799003)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: kBxzBtLcG4cPlWZqGosmvzfL7IshlkxbzZjxgtLH58k9Hax9en9dBobdAlLtmPsqAMwqLliaBCsfhZHsqSyQmQdy9rWW3QJ3pVs7U5Po45Aq9pBu8Kr9CcVhCt+66VU3qrDdDCsyHVquiuLtSeszWw7xMNqmSQFbNPwxAsHiqwxil+ctllCUUcW8JusYbqIKy1rX9rthYvUYua5GRjJmakIMC3x+TjS0pDKvvAvqntKClSg1Ir5meWE0Z3w4SYc5QJYGqD8Xkdj/jV//c56ofhFDiRCZZU+eaQbxZxynt3S/D9tPQHHbEob4HefUfqLFFKjH21vtlPenlEo2D8a11L24OBygyVEPT+9/M52QsQxEFeIgPuMCEOA5zVJXvr2JEBE3ytFJLTdemHCeaSm/QxfDnv+KoH11WVyXpgg+o0GG63e6myxsPYdAIj+6DbGG
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 23:24:21.3915 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 085be6e4-71a0-4a55-d6a5-08df2593485c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0006C3DD.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9012
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,32 +113,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2026 at 05:57:01PM +0200, Dawid Wróbel via B4 Relay wrote:
-> From: Dawid Wróbel <me@dawidwrobel.com>
-> 
-> The Mi Pad 5 Pro 5G (enuma, 2021) is the modem-equipped variant of the
-> Mi Pad 5 Pro. The board is otherwise the elish design, so describe it as
-> the common device tree plus its own board ID, panel compatible and WiFi
-> board data variant.
-> 
-> Unlike elish, this model shipped with a single display variant, so there
-> is one device tree rather than a per-panel pair.
-> 
-> The WiFi node in the common device tree gains a label, so this board can
-> override its calibration variant.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile                  |  1 +
->  .../boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi  |  2 +-
->  arch/arm64/boot/dts/qcom/sm8250-xiaomi-enuma.dts   | 27 ++++++++++++++++++++++
->  3 files changed, 29 insertions(+), 1 deletion(-)
-> 
+NPU3 devices do not set dev_mem_size, since they do not use a device
+heap. Creating an AMDXDNA_BO_DEV_HEAP BO on such a device hits the
+WARN_ON(!is_power_of_2(dev_mem_size)) check, which any user with
+access to the device node can trigger.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Return -EOPNOTSUPP when dev_mem_size is 0.
 
+Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add helper APIs for address retrieval")
+Signed-off-by: David Zhang <yidong.zhang@amd.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index f4832337ec31..f14484bc31ec 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -1140,6 +1140,11 @@ amdxdna_drm_create_dev_heap_bo(struct drm_device *dev,
+ 	struct amdxdna_gem_obj *abo;
+ 	int ret;
+ 
++	if (!xdna->dev_info->dev_mem_size) {
++		XDNA_DBG(xdna, "Device heap is not supported");
++		return ERR_PTR(-EOPNOTSUPP);
++	}
++
+ 	WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
+ 	XDNA_DBG(xdna, "Requested dev heap size 0x%llx", args->size);
+ 	if (!args->size || !IS_ALIGNED(args->size, xdna->dev_info->dev_mem_size)) {
 -- 
-With best wishes
-Dmitry
+2.34.1
+
