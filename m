@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07B36CA6007
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 13:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C879FCA600C
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 13:35:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 647D710E08D;
-	Thu,  8 Oct 2026 13:28:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F8310E496;
+	Thu,  8 Oct 2026 13:35:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iF1NsI1q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PWzeL0x1";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 140D310E08D
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 13:28:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1478D10E496
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 13:35:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C971643979;
- Thu,  8 Oct 2026 13:27:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830A31F000FF;
- Thu,  8 Oct 2026 13:27:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 77A0F4141D;
+ Thu,  8 Oct 2026 13:35:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3992F1F000FF;
+ Thu,  8 Oct 2026 13:35:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791466079;
- bh=AnVM2AeDceOLST6xP9oEAM7ItRj+UsiT0lr4QlIrPHU=;
+ s=k20260515; t=1791466515;
+ bh=7JJq+viT3IaL35KmfiwygZ4Y9fu0UUo3sRNONKolOhg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iF1NsI1qNbHu/8NEyd/iaGmVPx+P6/hdY7JcSmOEf0fmzWw5+bXY3A4vWaVBTGsfQ
- vgv+rrPX1SNZtqfpHQCQKSK3IzgMOOhEqSbOuCI+Ydh7XUY4yBAgGZgWHhznrH50o0
- 2vF89+2HJfDNEwEig+I14aRUzSHeloe66F1IlLM7aMjOaR8o3NarSCwqs1X0ECvikY
- RTgLm0TEPl7OxSf3TyWcbzKZZdURTv941jAk4kDUmCojC+ZE18Hf5yiIV5fCRd+rp8
- rQo/+kAhzhrBZzkqWDTh6X3KIDx+WZdLyNyXwyLS2ZL6pUFD+HM2Zc3JPbJ2Kt8r6s
- p0NoxPSVWIw9A==
-Message-ID: <sashiko-outbox-164210@kernel.org>
+ b=PWzeL0x1mKO9YbCnkSUJWbAVT49aB8GnlifqkH+WDNLtAxvpTsG6Kx4Sjq6vjTfJC
+ uH/Y63GEooRcDTep3+PPQFNMXEm2Ea0AYQZ8wotGTOm5e3EOGdVX+adIc5Cd2YkZ6G
+ 8wwmnxRMXPGnbAmC2VkJoICKTiYf+/oIDI1cJk9Ebg1eYpP2oYLlnt9OulDU3hNdJL
+ 5EtrPVyrF50qc5XjGsssKkY6blKAu9h8SJpRdl0IqJBtV+F/dlM2Yp6Z8483jKAg/w
+ igCxAaNSW0k65mPLTuUyvvIiPjloDl7yG/9udQhnev296vgrAJmaA/TY6oKsbNmqDj
+ UAweJjHZgv2pA==
+Message-ID: <sashiko-outbox-164219@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 7/9] drm/panel: add atomic variants of the enable
- and disable callbacks
+Subject: Re: [PATCH RFC 9/9] drm/panel: novatek-nt35950: use the atomic
+ state to select the mode
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261008-panel-atomic-state-v1-7-b157fddb8de1@oss.qualcomm.com>
+In-Reply-To: <20261008-panel-atomic-state-v1-9-b157fddb8de1@oss.qualcomm.com>
 References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
- <20261008-panel-atomic-state-v1-7-b157fddb8de1@oss.qualcomm.com>
+ <20261008-panel-atomic-state-v1-9-b157fddb8de1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 13:27:59 +0000
+Date: Thu, 08 Oct 2026 13:35:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,75 +58,120 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm: backlight_disable error prevents panel->enabled =3D false upd=
-ate
+- [High] drm/panel: atomic_check rejects CRTC disable with MODE_ID=3D0
+- [Low] drm/panel: nt35950: unbalanced regulator disable in atomic_prepare =
+error path
 --
 
-commit 00631cfc33b867ee09e15a877b7d601e80307028
+commit bb80efea394ba9e6d61de8428c59d0a3f71bf60e
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-drm/panel: add atomic variants of the enable and disable callbacks
 
-This commit introduces atomic variants of panel prepare, enable, disable, a=
-nd
-unprepare callbacks. These new callbacks receive the atomic commit state,
-allowing panels tracking configuration via atomic state to program themselv=
-es
-appropriately.
+drm/panel: novatek-nt35950: use the atomic state to select the mode
 
-> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index ed0d16e04eaec..a2cd043fe1467 100644
-> --- a/drivers/gpu/drm/drm_panel.c
-> +++ b/drivers/gpu/drm/drm_panel.c
+The commit subclasses the panel state to store selected mode parameters
+and switches callbacks to their atomic variants so the driver can look
+up and validate the mode directly in atomic_check().
 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35950.c b/drivers/gpu/=
+drm/panel/panel-novatek-nt35950.c
+> index 94aa6489d99fc..f5161f11b1f5e 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt35950.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
 [ ... ]
-
-> +static void drm_panel_atomic_disable(struct drm_panel *panel,
-> +				     struct drm_atomic_commit *commit)
+> @@ -354,11 +339,43 @@ static int nt35950_sharp_init_vregs(struct nt35950 =
+*nt, struct device *dev)
+>  	return 0;
+>  }
+> =20
+> -static int nt35950_prepare(struct drm_panel *panel)
+> +static int nt35950_atomic_check(struct drm_panel *panel,
+> +				struct drm_atomic_commit *commit)
 > +{
-> +	const struct drm_panel_funcs *funcs =3D panel->funcs;
-> +	int ret =3D 0;
+> +	struct nt35950 *nt =3D to_nt35950(panel);
+> +	struct drm_panel_state *panel_state;
+> +	struct drm_crtc_state *crtc_state;
+> +	int i;
 > +
-> +	if (!panel->enabled) {
-> +		dev_warn(panel->dev, "Skipping disable of already disabled panel\n");
-> +		return;
+> +	panel_state =3D drm_atomic_get_new_panel_state(commit, panel);
+> +	crtc_state =3D drm_atomic_get_new_crtc_state_for_panel(commit, panel);
+> +	if (!panel_state || !crtc_state)
+> +		return -EINVAL;
+> +
+> +	for (i =3D 0; i < nt->desc->num_modes; i++) {
+> +		if (drm_mode_match(&crtc_state->mode,
+> +				   &nt->desc->mode_data[i].mode,
+> +				   DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATCH_CLOCK)) {
+> +			to_nt35950_state(panel_state)->mode_data =3D
+> +				&nt->desc->mode_data[i];
+> +			return 0;
+> +		}
 > +	}
 > +
-> +	guard(mutex)(&panel->follower_lock);
-> +
-> +	drm_panel_followers_disabling(panel);
-> +
-> +	ret =3D backlight_disable(panel->backlight);
-> +	if (ret < 0)
-> +		DRM_DEV_INFO(panel->dev, "failed to disable backlight: %d\n",
-> +			     ret);
-> +
-> +	if (funcs->atomic_disable)
-> +		ret =3D funcs->atomic_disable(panel, commit);
-> +	else if (funcs->disable)
-> +		ret =3D funcs->disable(panel);
-> +	if (ret < 0)
-> +		return;
+> +	return -EINVAL;
+> +}
 
 [Severity: High]
-Does an error in backlight_disable() prevent the panel from being marked as
-disabled when the disable callbacks are missing?
+Does this unconditional mode matching loop fail to account for CRTC
+disablements?
 
-Since both funcs->atomic_disable and funcs->disable are optional callbacks,
-many drivers omit them. In that case, the if/else if block is skipped, and
-ret retains the negative value returned by backlight_disable().=20
+When a userspace atomic commit sets MODE_ID=3D0 on the CRTC but leaves the
+connector's CRTC_ID unchanged (like DPMS off or blanking), `crtc_state->ena=
+ble`
+is false and `mode` is zeroed. In this scenario, checking the zeroed mode
+against valid panel modes will find no match, causing `nt35950_atomic_check=
+()`
+to erroneously reject valid state commits with -EINVAL, preventing userspace
+from disabling the display using standard KMS atomic updates.
 
-The subsequent if (ret < 0) condition then evaluates to true, triggering an
-early return that skips setting panel->enabled =3D false.
+> +
+> +static int nt35950_atomic_prepare(struct drm_panel *panel,
+> +				  struct drm_atomic_commit *commit)
+>  {
+>  	struct nt35950 *nt =3D to_nt35950(panel);
+> +	struct drm_panel_state *panel_state;
+>  	int ret;
+> =20
+> +	panel_state =3D drm_atomic_get_new_panel_state(commit, panel);
+> +	if (!panel_state || !to_nt35950_state(panel_state)->mode_data)
+> +		return -EINVAL;
+> +
+>  	ret =3D regulator_enable(nt->vregs[0].consumer);
+>  	if (ret)
+>  		return ret;
+[ ... ]
+> @@ -380,7 +397,7 @@ static int nt35950_prepare(struct drm_panel *panel)
+> =20
+>  	nt35950_reset(nt);
+> =20
+> -	ret =3D nt35950_on(nt);
+> +	ret =3D nt35950_on(nt, to_nt35950_state(panel_state)->mode_data);
+> =20
+>  end:
+>  	if (ret < 0) {
 
-Because the state remains panel->enabled =3D true, future calls to
-drm_panel_atomic_enable() will immediately return without turning the screen
-back on, leaving the display permanently off.
+[Severity: Low]
+Can this error path cause an unbalanced regulator disable?
 
-> +	panel->enabled =3D false;
-> +}
+In `nt35950_atomic_prepare()`, regulators are enabled one by one, and on
+failure, it jumps to the error path here:
+
+    end:
+        if (ret < 0) {
+            regulator_bulk_disable(ARRAY_SIZE(nt->vregs), nt->vregs);
+            return ret;
+        }
+
+This error path calls `regulator_bulk_disable()` on all 4 regulators, inclu=
+ding
+the one that just failed and any subsequent regulators that were never enab=
+led,
+resulting in unbalanced regulator disables. This triggers warnings and trac=
+king
+corruption. Additionally, the error path fails to assert the reset GPIO to
+power down the panel properly.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-panel-atom=
-ic-state-v1-0-b157fddb8de1@oss.qualcomm.com?part=3D7
+ic-state-v1-0-b157fddb8de1@oss.qualcomm.com?part=3D9
