@@ -4,100 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C0BCA6017
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 23:24:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C51EDCA6015
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 23:59:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB8110E11F;
-	Thu,  8 Oct 2026 23:24:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE8410EA54;
+	Thu,  8 Oct 2026 23:59:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1FMigVHa";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.b="dJpN6+Vz";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012002.outbound.protection.outlook.com [52.101.48.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC6F410E11F
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 23:24:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z+OIsHXbK7LnDNEPHBuhxdbH6Fp4V1K3n6NYyCs7DWgzor7kb1mHsSGTVWYEKCPQxPwLBYyyrs8L20tVICIX/UlRFyg7CoVe6nabb8skf53X/tDsHhFQBhEgx4Afm4B2mkNipfbxJd8MQur1sqRtrCrqhKfjVxtJ56mY//T16iKSa700QBKEm4jDCLiC265sOpn95vIvNP8quJOqH0HrK700QCHChWlVNuFdRXPW/xjrTvhqmgRj9WBpzJhHW1hjVA7CQheQ6Q/Hw7fnouM8simdFvSm4t23hcH2tKiLOR4zJW6Deyp98vZfOWHfgq6QpqwtW4zwwDBKMLch+vjkBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y62j6lcAZyTVN01jVSyEcTwPcUxyW1Uzd+mAoRuXpCY=;
- b=gNn2BvqWtHPBlC/Wka+yssqkrkUyxNqJNUhz5ticP/S91sgiT4/kpglByLkdN8fhLlArLUx5zUNTFCeOAqkmiTaWXo/e2XTOZ2F19Dg1JS65L/OrmVnYjh9A9j4RXkwY7B/xDhxknmp3LO4mzyJEyRlTZ4g2UHJKaWSaOIvKuSrWh71hd0LS0OOmJRCLqlWRszoeIY4YjJZCUrObw22s3KFErQ/sjB9QEh67rfJh9ZWyB77a/6nQHmqDQD5kvNsL0uqp881nB9A9HU1kY+VA4/fAPrRgqUV6PZOMZcOt3DwucigsG7NrMkDLsJF+OgPbNl64scEdbQ+Nx23rSmYQ+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y62j6lcAZyTVN01jVSyEcTwPcUxyW1Uzd+mAoRuXpCY=;
- b=1FMigVHaj9xFcBla4d1GSmn+MdYaUacZCZKggh8m8AhONmWB3Cpck90a6RdUiG+e5RLyRe/mptVynx76Ap1YIARvSDp+9Kyc/1KphZRv1m9R7Rm5/stxm6OHqJjJobq9TVvaY/M4kzOWIlhTk8xhnEMgd5LzrLgAKZ4/roicaOQ=
-Received: from BN9PR03CA0886.namprd03.prod.outlook.com (2603:10b6:408:13c::21)
- by IA0PR12MB9012.namprd12.prod.outlook.com (2603:10b6:208:485::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 8 Oct
- 2026 23:24:21 +0000
-Received: from BL6PEPF0006C3DD.namprd02.prod.outlook.com
- (2603:10b6:408:13c:cafe::72) by BN9PR03CA0886.outlook.office365.com
- (2603:10b6:408:13c::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu, 8
- Oct 2026 23:24:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0006C3DD.mail.protection.outlook.com (10.167.249.232) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 23:24:21 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 18:24:16 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via
- Frontend Transport; Thu, 8 Oct 2026 18:24:15 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
- <max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
- <mario.limonciello@amd.com>
-Subject: [PATCH] accel/amdxdna: Reject device heap BO when dev_mem_size is not
- set
-Date: Thu, 8 Oct 2026 16:24:16 -0700
-Message-ID: <20261008232416.2646054-1-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EC6310E996
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 23:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru; 
+ s=dkim;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+ Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=xRu+OVReHZZZ8Gs1E5fRPJgegCzlBaNiCuBPOFT1DMo=; b=dJpN6+Vzg8XO4DVzDCsNVlbFQI
+ 3PiwuHmIxIt+ZpPck7wqrPE8QQ1/n4PlhL4UH+bYCb2p7JpVarHZCzo0EjxdKhYeuu54XGXOURcqH
+ CIO4yNlmbk8/Q9Ir8DmCq2ea3mmednCifzfI1Zstov6vfj0+R2VDVEHhSZNGOMcdwErM=;
+Received: by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls
+ TLS_AES_128_GCM_SHA256 (envelope-from <alexeymin@minlexx.ru>)
+ id 1xEy0m-00000008axC-353x; Fri, 09 Oct 2026 02:58:57 +0300
+Message-ID: <5380b2cd-48f1-4e4e-8a11-9e303c366e47@minlexx.ru>
+Date: Fri, 9 Oct 2026 02:58:55 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DD:EE_|IA0PR12MB9012:EE_
-X-MS-Office365-Filtering-Correlation-Id: 085be6e4-71a0-4a55-d6a5-08df2593485c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|10067099003|11063799006|6133799003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: X5IMYtxOInxEPaT9ZcOY02uMmJIMlZU8FEiF4LrDDsvpMxd33+xtFQu/YhNK1xwuv0hdVJB8Vt2OHmtedw5YD+103K6ss02dWQUfbJ3yogxHWYZXKa1igKMKaTju7kZVkyD+VOFVHxmhiL343uR1RNefwag2+GqhP9ED2Q02spPGyKlZyrA1rhGreaTfSFNKkn/L1+r1OQf4bK3760g4lJi+FgY57YnZ4dMc+7sxy0Thm7tsZNR7ReDuIiRhGo8mwRCitYzGhDmVYfdlTK+LOVULsJnfwaEHrot+i0o/0rZYA81fW+nW3fe7LimgzYMmMFys6ViQkwtyFDAuNWjMatVuh8SPa70A2rEr3m+ZJ4Jdc41NIbDNu3leu11f86DbCaXJHkAq8AWwv278/Xe+G2ujpM/ARkkKpxTcMjWJgSqsrh9rd3zuNUpEjXSUJG0WdW26c71H78pzMs1ocx468PJOPsQZzeZaEJ5GVO140JZEj4rd1mX0FmOOpVM14qGO8cxNczs4HC4MawvMuByP4yV4C5ndBJ9pG9QEh/w+e3OS6/WEdotoECuo+Rsx22fpvGNTLjutQwc0p4g6nV39BtWSxy2c5QzCGQzZdilzFitvCeNA6MUP6ZoTJiCr/n0Tzk8dmgESe5RMJdI87POJAHajeL++5mJEc+nSVBbplG/K4jiTSqpQUAZ6XzOyWn4tradjBuVMtUaosZlTD1/1DQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(10067099003)(11063799006)(6133799003)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: kBxzBtLcG4cPlWZqGosmvzfL7IshlkxbzZjxgtLH58k9Hax9en9dBobdAlLtmPsqAMwqLliaBCsfhZHsqSyQmQdy9rWW3QJ3pVs7U5Po45Aq9pBu8Kr9CcVhCt+66VU3qrDdDCsyHVquiuLtSeszWw7xMNqmSQFbNPwxAsHiqwxil+ctllCUUcW8JusYbqIKy1rX9rthYvUYua5GRjJmakIMC3x+TjS0pDKvvAvqntKClSg1Ir5meWE0Z3w4SYc5QJYGqD8Xkdj/jV//c56ofhFDiRCZZU+eaQbxZxynt3S/D9tPQHHbEob4HefUfqLFFKjH21vtlPenlEo2D8a11L24OBygyVEPT+9/M52QsQxEFeIgPuMCEOA5zVJXvr2JEBE3ytFJLTdemHCeaSm/QxfDnv+KoH11WVyXpgg+o0GG63e6myxsPYdAIj+6DbGG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 23:24:21.3915 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 085be6e4-71a0-4a55-d6a5-08df2593485c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0006C3DD.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9012
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dsi: fix AHB clock staying enabled across suspend
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mahadevan.p@oss.qualcomm.com, rajeevny@qti.qualcomm.com
+References: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,35 +63,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-NPU3 devices do not set dev_mem_size, since they do not use a device
-heap. Creating an AMDXDNA_BO_DEV_HEAP BO on such a device hits the
-WARN_ON(!is_power_of_2(dev_mem_size)) check, which any user with
-access to the device node can trigger.
+On 06.10.2026 16:13, Arpit Saini wrote:
+> pm_clk_suspend()/resume() only call clk_disable()/clk_enable() for the
+> AHB ("iface") clock, never clk_unprepare(), so prepare_count never
+> reaches 0. The clock (and its source) stays reported as enabled
+> through s2idle suspend even though the display stack is fully
+> suspended:
+> 
+>    disp_cc_mdss_ahb_clk [19200000] ->
+>      disp_cc_mdss_ahb_clk_src [19200000] ->
+>      bi_tcxo [19200000] -> xo-board [76800000]
+>    disp_cc_mdss_ahb_clk_src [19200000] ->
+>      bi_tcxo [19200000] -> xo-board [76800000]
+> 
+> Calling clk_prepare_enable()/clk_disable_unprepare() directly from the
+> PHY's runtime_suspend/runtime_resume is not safe either, since it can
+> deadlock against the PHY's own PLL clocks taking the global CCF
+> prepare_lock during clk_prepare()/clk_unprepare().
+> 
+> Fix this by moving clk_prepare()/clk_unprepare() out of the runtime PM
+> path. clk_enable()/clk_disable() (spinlock only) stay in
+> runtime_suspend/runtime_resume. clk_prepare()/clk_unprepare() move to
+> suspend_late/resume_early, avoiding the prepare_lock collision and
+> actually dropping prepare_count to 0. DPM_FLAG_NO_DIRECT_COMPLETE
+> ensures these hooks always run on sleep.
+> 
+> Fixes: 0b3ccb76b95b ("drm/msm/dsi: Fix 14nm DSI PHY PLL Lock issue")
+> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 132 +++++++++++++++++++++++++++++++---
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h |   4 ++
+>   2 files changed, 127 insertions(+), 9 deletions(-)
+> 
 
-Return -EOPNOTSUPP when dev_mem_size is 0.
+Hi,
 
-Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add helper APIs for address retrieval")
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
----
- drivers/accel/amdxdna/amdxdna_gem.c | 5 +++++
- 1 file changed, 5 insertions(+)
+is this supposed to fix the message: "mdss_ahb_clk status stuck at 'on'"
+during suspending?
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index f4832337ec31..f14484bc31ec 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -1140,6 +1140,11 @@ amdxdna_drm_create_dev_heap_bo(struct drm_device *dev,
- 	struct amdxdna_gem_obj *abo;
- 	int ret;
- 
-+	if (!xdna->dev_info->dev_mem_size) {
-+		XDNA_DBG(xdna, "Device heap is not supported");
-+		return ERR_PTR(-EOPNOTSUPP);
-+	}
-+
- 	WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
- 	XDNA_DBG(xdna, "Requested dev heap size 0x%llx", args->size);
- 	if (!args->size || !IS_ALIGNED(args->size, xdna->dev_info->dev_mem_size)) {
--- 
-2.34.1
-
+--
+Regards,
+Alexey Minnekhanov
