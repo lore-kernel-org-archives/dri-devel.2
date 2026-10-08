@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42919CA600B
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 06:35:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA91CA600B
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 06:36:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF8810FC70;
-	Thu,  8 Oct 2026 06:35:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37BAB10FC71;
+	Thu,  8 Oct 2026 06:36:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g4M1a8if";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S4dvYXrk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B413210FC70
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 06:35:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52D6110FC71
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 06:36:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9D1D54107A;
- Thu,  8 Oct 2026 06:35:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6198B1F000FF;
- Thu,  8 Oct 2026 06:35:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 82FC460252;
+ Thu,  8 Oct 2026 06:36:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B1021F000FF;
+ Thu,  8 Oct 2026 06:36:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791441324;
- bh=0OpgAzGa67nrFSlllc9zBA/M/gpNDJIxhTyVZSQQq94=;
+ s=k20260515; t=1791441375;
+ bh=YH22pCnTtKMj7m5yA4ghJiiKrBeYb6m5MLi14H3ncEM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g4M1a8ifLVCpASPHsGZA6qdI3B+PViWMFUZdfK7daBakOP1KbghlkZBDyJCG+bkhN
- P5k0KP2iljyYzSfstgt2MauBk93BT4StGjBPbZEqBqMkFVLlrIExypj31SYOZ520ZS
- 3E090jddzD1TNRK4G2zDVR6Wc1ZN0RSUhIpbz4DG5/zubBlfKcTkQTmmdMhjuIqDd7
- W4yLMIcPpsAjT7TzHFGeVZAJZkdAaWpCCjTHkvnTXkk1QSc/Po/mU7IndZvj1YuqST
- L+i9Xqx1RRM4yr11zKFoAeLaJcpD/dMfbE9oBiyZycGQSqBziZ/NjEF/AeRbfvZp3j
- TdfRC6FTCKy0A==
-Message-ID: <sashiko-outbox-163699@kernel.org>
+ b=S4dvYXrk2zP86jmHlzXfQCQ+B5Y2QWwYCI9DvcVz3xTu62GWo4aXCo2oTVjI8O7Pz
+ uBQ0V8z/9tW042V8GWJauK/WDQu/gdt9SoXGB+nu11p/ntXSRZARrPyp6MmlcbPyhB
+ PsFl5QSFsB69BMWDwdj3yP82PYf87J0TY1fwos2Qb35w+ztlnYaKMXrXxsmNoBdo0B
+ rCyN2qvVRca7lAHeX42Ez2FPexCzkzuutuBxDy+9jljnWxcAr8OkFuTv7lmMmaJan2
+ BKt+VO7ZJS/WLu8Cm7dFxHBZJvUSto/iiYz6k2BRjfCi+xwj+TMkSQAaKypeLVceyZ
+ t2l6fs/OoL5EQ==
+Message-ID: <sashiko-outbox-163700@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/7] bus: mhi: Add QDU100 Sahara variant and firmware
- fallback
+Subject: Re: [PATCH v7 2/7] bus: mhi: Move Sahara protocol driver under MHI
+ host client drivers
 To: "Kishore Batta" <kishore.batta@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261008-sahara_protocol_new_v2-v7-4-90d278bd7414@oss.qualcomm.com>
+In-Reply-To: <20261008-sahara_protocol_new_v2-v7-2-90d278bd7414@oss.qualcomm.com>
 References: <20261008-sahara_protocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com>
- <20261008-sahara_protocol_new_v2-v7-4-90d278bd7414@oss.qualcomm.com>
+ <20261008-sahara_protocol_new_v2-v7-2-90d278bd7414@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 06:35:24 +0000
+Date: Thu, 08 Oct 2026 06:36:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,82 +60,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] sahara: unintended firmware fallback behavior for AIC100/AIC200
+- [Medium] kconfig: MHI_SAHARA missing select WANT_DEV_COREDUMP
 --
 
-commit 02c795f9adf45b209ef5da56b858e0490ac4667d
+commit cc1e20cb4bdaa51fb38cee82d4db3c559fb1e1d9
 Author: Kishore Batta <kishore.batta@oss.qualcomm.com>
 
-bus: mhi: Add QDU100 Sahara variant and firmware fallback
+bus: mhi: Move Sahara protocol driver under MHI host client drivers
 
-This commit extends the Sahara driver to recognize QDU100 devices and adds
-a firmware lookup fallback for unspecified image IDs. It allows QDU100
-devices to request required images to be provisioned by the platform.
+This patch moves the Sahara protocol driver from the QAIC accelerator
+subsystem to the MHI host client drivers to allow reuse. It sets up a new
+Kconfig hierarchy and converts the driver to use module_mhi_driver().
 
-> bus: mhi: Add QDU100 Sahara variant and firmware fallback
->
-> The Sahara driver currently selects a firmware image table based on the
-> attached device, but it does not recognize QDU100 devices that expose the
-> protocol on the SAHARA MHI channel. As a result, the host cannot associate
-> QDU100 devices with the correct firmware namespace during image transfer.
->
-> Extend the probe time variant selection to match the SAHARA MHI channel a=
-nd
-> associate it with the QDU100 firmware folder. Add a firmware lookup
-> fallback for cases where an image does not have an explicit entry in the
-> device's firmware table. This allows required images to be provisioned by
-> the platform.
->
-> This change only affects devices matched on the SAHARA MHI channel and
-> does not change behavior for existing AIC100 and AIC200 devices.
+> diff --git a/drivers/bus/mhi/host/clients/sahara/Kconfig b/drivers/bus/mh=
+i/host/clients/sahara/Kconfig
+> new file mode 100644
+> index 0000000000000..f1fc7013a2dee
+> --- /dev/null
+> +++ b/drivers/bus/mhi/host/clients/sahara/Kconfig
+> @@ -0,0 +1,15 @@
+> +config MHI_SAHARA
+> +	tristate "Sahara protocol driver"
+> +	depends on MHI_BUS
 
 [Severity: Medium]
-Is this statement accurate?
+Does this new Kconfig entry also need to select WANT_DEV_COREDUMP?
 
-Since fw_folder is populated for existing AIC100 devices (for example, in
-drivers/accel/qaic/mhi_controller.c where aic100_sahara_fw sets
-fw_folder =3D "aic100"), the new fallback lookup in sahara_find_image() will
-also apply to them. If an AIC100 target requests an unspecified image ID, it
-will now trigger a filesystem lookup instead of being immediately rejected.
+Since the Sahara driver is now an independent module, if it is built in a
+configuration where DRM_ACCEL_QAIC is disabled, DEV_COREDUMP may not be
+selected.
 
-Does this unintentionally change the behavior for existing devices?
+When DEV_COREDUMP is not set, the dev_coredumpv() call in
+sahara_parse_dump_image() falls back to an inline stub that silently frees
+the memory dump without exposing it.
 
-> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
-
-> diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/m=
-hi/host/clients/sahara/sahara.c
-> index e339c67e236af..7fe5158c17e98 100644
-> --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
-> +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-[ ... ]
-> @@ -201,8 +202,28 @@ static int sahara_find_image(struct sahara_context *=
-context, u32 image_id)
->  	}
-> =20
->  	if (image_id >=3D context->table_size || !context->image_table[image_id=
-]) {
-> -		dev_err(&context->mhi_dev->dev, "request for unknown image: %d\n", ima=
-ge_id);
-> -		return -EINVAL;
-> +		if (!context->fw_folder) {
-> +			dev_err(&context->mhi_dev->dev,
-> +				"Request for unknown image: %u (no fw folder)\n", image_id);
-> +			return -EINVAL;
-> +		}
-> +
-> +		fw_path =3D kasprintf(GFP_KERNEL, "qcom/%s/%u",
-> +				    context->fw_folder, image_id);
-
-[Severity: Medium]
-Could this unintentionally execute for AIC100 and AIC200 devices?
-
-Because aic100_sahara_fw sets .fw_folder =3D "aic100", context->fw_folder w=
-ill
-be valid for these devices. An unknown image_id request from an AIC100 devi=
-ce
-will fall through to this path and perform a filesystem lookup instead of
-returning -EINVAL immediately.
+Adding select WANT_DEV_COREDUMP here would ensure the diagnostic features
+advertised in the help text remain functional regardless of whether other
+drivers happen to enable the core dump framework.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-sahara_pro=
-tocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com?part=3D4
+tocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com?part=3D2
