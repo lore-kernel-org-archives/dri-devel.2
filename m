@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F858CA5FED
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 07:17:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE625CA6012
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 07:17:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D7E110FEF4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3870510FEF5;
 	Fri,  9 Oct 2026 07:17:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="Nf/2P4xv";
+	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="BB7h6WZ2";
 	dkim-atps=neutral
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 886BA10E91F
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 19:13:16 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-33fb4680717so2079381eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 12:13:16 -0700 (PDT)
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0295710E94A
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 19:13:15 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-33fb4680717so2079328eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 12:13:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1791486796; x=1792091596;
+ d=trailofbits.com; s=google; t=1791486794; x=1792091594;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=IWU3gZsRjQK7kls2sJA9yEwySYblQEWHXA6BXaEKqjg=;
- b=Nf/2P4xvFiuBuucQuR/G5lH+HmRXNEMtKkA9melOt4ilHboGGo+rPmwCXJrwcgck7M
- S0/Bh/6cqjxH2QZXOkZf8DRYUD00vp4BoxbAKbkQEPP6/qV/KsRYxH1M3WGuqBPV+NEj
- LnIr9o/pNgQNamyzoCkcJyLpiPY/zBdEM+QKNMmKLz/Gq/pFJQ2Ce0bXDFPWEI5rUbEY
- GJHagegqx0GPi0O41rGrUC1RygJm+rtaJOx6rs7sFm/Uc09ymAyXcp+XOltoyOaeHVSO
- 95G8l/BrwgwZKLUv1uuVULR+1TRnAnXZoNIX/dTloGYKDVMJc3b7rM5ZY5Y3a3it2Qvp
- QI8g==
+ bh=mdYp5F0mgTxGu/EPWqlstTXyTWY/Kq4qdM3AvQLOhGc=;
+ b=BB7h6WZ2UlQFHGqw23sMVKMZvLj1cdpOhGvVlugw8tbenZmuZZvBZL+DghJNfH7yOl
+ pl4fry6z2a3GwdJUDtfvcc1L92NM3ompaxwey3tIyd2+xY1+gMCwrh/8VCpsK+Y3SrX8
+ /UhxLeejq09edcKdA29B2CGSrwkFHtn+UXmh9Q4VJnFsAMLW3KUkuHG+k8dD95Omkk3K
+ rBD9XSWHsW9Gv1B38ADjxAd+gR4BGYCr7MPLNUoHPWQTmKGxqNlZIBq2RwxDzSo7m+uf
+ CTNaZPa5rH9dw4Sp2otiKPmKdSYL6oz7GeXaIpU+yhp/rQ4gIuierB7Wye/0or7h1/YA
+ GwAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791486796; x=1792091596;
+ d=1e100.net; s=20260707; t=1791486794; x=1792091594;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=IWU3gZsRjQK7kls2sJA9yEwySYblQEWHXA6BXaEKqjg=;
- b=JZBezJXRpbsm339cQLoG6Gs0IleyDGLFbsdFcFkkLBB+Ng5ZnzL60lKAr/8LKS1biH
- N0viSXi70IRIMEc3ZNa+6K/zE1QLGNrbko13N8tbRqzyFwT45EXmriR9y7vs0xGPJJYc
- lffu05QJC2HEFANJpjstxHhEQ4VY0B9u35iui4BgVjvTcnv4iUNgeTGaX6MarYBO88B1
- vzvRiW2idFdRwFa1e+7GuH/7yGRNqUCBXWcEogxlIvFvJyPf9hQSETH5qpPtQvL4w2xf
- VztlfPO7NGTllu4Ikf2QaDCH2tdhItPjgHF6s8xvR+fJukugkrOw6M0e3hQdJVDhcXhe
- 41Qg==
+ bh=mdYp5F0mgTxGu/EPWqlstTXyTWY/Kq4qdM3AvQLOhGc=;
+ b=Qs/BOW6UBVkIxkV7KCN8RsDuJx0Odj/1Ab+yJGXw/Um///pFsoi2I0dDLiJP8aCWeD
+ rf464W1Ir39NzlcvUvmySpe48e5PgzPQrt3USj0aFq0P5bd42Qv3dWeNEkl+h6Ep16lX
+ ZUEKCOPoS4pf2QWbz3b2097xqcIZS/OGtxCIewGAhUCc0SiHv4DFtOo2UQlfoIlXfosK
+ v/Hzj+SoN8TtW/Y3Uui5pqQk5FsFQ49xr9AjtxhBEebQxfj+f9v86NFXQnfp9aKKjnMG
+ MfxVzUmSh3aQ+nLpLvj6NQWPix0WW+WcYuvATFmwZx7h5Qvn7MpHZwNs4zP6WfMLOcGv
+ BJJQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz8FxLH1Xs/oNJYCB7FcfqyWNkiseVLeZYlDESNZ8bL6K2xKVsua7q+omAT7ukUXgGMOz7ek+bIh/Q=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLowSYvgRlBglXww+TNxXEpTOdvJ7WaM/+oiu2/mL1rVOlz04Ms
- 5kmSxjNcVY9GX7ABLOBLRMGae2M+RME+OoCA1LJwUCqxzomLDNP3VxXLvAvXMqV1BQ8=
-X-Gm-Gg: AYBFou3fl6Nv28g+Lv4mq8C5xvPekVXJZJs6fSDQIYN8a/WK6XvLcEd6YkOMLkWRmk6
- 2aXMNaod2Fbt+hm/rPPMub/69fYDOhQ2n45M/7t8Y74nBS0JDoEgK25BiIQIMUarHya1HQ5/iqU
- xfWN18ymetFYNc47yrGoQQK29USdiSiufGz/ww5q68NaOOnU9bRWW528GKxF5vdkQdQlTd24Iby
- KqO+oTPqayvcmGtlyLe3qkLLtkz7Fhbx0+bh+Og0e+HKrGn5uoDqEj7WT52bjh0W3Jn/xvndsT4
- cfc9znWuYsCGOEy3ChhWGXqFZelXV/wDUfRVNblstEVnCP8mAewTqB377uAmWG8nyzVHnHw3Sfo
- P911DxFLQ+yf8NFeRqYAYPWEJ9JOQqUznGqQKZvBgd6YI2z2vDyi8v8FOsh1qifqOGXIhNJx6fk
- xCWBGu2x+XVUYLml7Two3sPS4cq7lJRa3C3V7K36TjMTUKUUYMLeeRLvvw0gnBk7TNl1CZJd2d+
- ECi28LJZUXlqagZhSfn9QGk5pmFV/SBckpJQK5V2CmthkJcVolu3MZYZMU/vKmLve1EDDE=
-X-Received: by 2002:a05:7301:b8b:b0:351:78e9:944e with SMTP id
- 5a478bee46e88-35178e99942mr4032116eec.41.1791486795573; 
- Thu, 08 Oct 2026 12:13:15 -0700 (PDT)
+ AKwUvBwtKwmaOXInzS5DfD53RrvHvbxR8NKpqX4YMjjnrktA0YgYy1FEohPj1CZNVVHhGg/lptqu1Umpews=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLilZ7SGLArI+QU2yWSf/qS+gNxm5pysk51JikzWfzfqlEdaiy5
+ KZE8wvjRSb1K3wGd1faCGdaGaFI0tbsRgFSYRpYnq32fQAIQqB1utUYtfZuH5ay5UjdZl69ONAA
+ J+1GxrXAVSg==
+X-Gm-Gg: AYBFou12fEhIdMgPMfyTHw3uqCiZHOwyi483xjQvnv0Kmo2TPIDtWEE9d9jZ+o55ANw
+ SDZwp0FhoB7cCA2rK3IzdpPjnNp8AQvSnWMTSF9klR1+7SEcmsf/GSOmPC9zyWm6X7mKdlPbzcV
+ ZnbBP3vBMO56q8CKhczij95Nz50J3eSws7h+WKNKgg92pVDRsAK+PqjEs3GlTMWuJ9AK0+u/NWl
+ j6k4grKaU3rmgn0E1kgBPVbL4QDaR9r8Nxlp72SxSeU5igRXKz529rFXNmJNHC8CWQyCnFaU37/
+ 736VaIiHI62acNYES+AGs+OHrSstR3SjgUFI8jmbKqP7dUw/V8P0HCxqqNjDwxnqneXjSqZNuAR
+ Dqmb15mTscCyZMvOYt3WIc5Z+Gyd3jGvxMrFVSX92f2jWiKEibYGenYpvMuvuDii8rBhoioVNXp
+ r5eWc6nxBETkJljRY3VXF94EiyS827ywC8IxwoWtQytlI1YLhmpSVEQ0lV0z+AKG8Zd0QM8CKad
+ 69n/JnTnjT9O+wJeNoFwWOBrRHD1yETZdhhmSbyZI0b0P62EEzLXmkwzZnoSp+S2bWYGPA=
+X-Received: by 2002:a05:693c:414b:20b0:351:1cc6:995e with SMTP id
+ 5a478bee46e88-3515dbea38fmr8630903eec.5.1791486794211; 
+ Thu, 08 Oct 2026 12:13:14 -0700 (PDT)
 Received: from localhost.localdomain
  ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3537c841579sm94214eec.4.2026.10.08.12.13.14
+ 5a478bee46e88-3537c841579sm94214eec.4.2026.10.08.12.13.13
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 08 Oct 2026 12:13:15 -0700 (PDT)
+ Thu, 08 Oct 2026 12:13:13 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
@@ -76,11 +77,10 @@ Cc: Artem Dinaburg <artem@trailofbits.com>,
  Haiyang Zhang <haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>,
  Helge Deller <deller@gmx.de>, linux-hyperv@vger.kernel.org,
  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, akpm@linux-foundation.org
-Subject: [PATCH 6.6.y 2/2] fbdev: hyperv_fb: Allow graceful removal of
- framebuffer
-Date: Thu,  8 Oct 2026 15:13:05 -0400
-Message-ID: <20261008191309.98263-3-artem@trailofbits.com>
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y 1/2] fbdev: hyperv_fb: Simplify hvfb_putmem
+Date: Thu,  8 Oct 2026 15:13:04 -0400
+Message-ID: <20261008191309.98263-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261008191309.98263-1-artem@trailofbits.com>
 References: <20261008191309.98263-1-artem@trailofbits.com>
@@ -104,121 +104,96 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Saurabh Sengar <ssengar@linux.microsoft.com>
 
-[ Upstream commit ea2f45ab0e53b255f72c85ccd99e2b394fc5fceb ]
+[ Upstream commit f5e728a50bb17336a20803dde488515b833ecd1d ]
 
-When a Hyper-V framebuffer device is unbind, hyperv_fb driver tries to
-release the framebuffer forcefully. If this framebuffer is in use it
-produce the following WARN and hence this framebuffer is never released.
+The device object required in 'hvfb_release_phymem' function
+for 'dma_free_coherent' can also be obtained from the 'info'
+pointer, making 'hdev' parameter in 'hvfb_putmem' redundant.
+Remove the unnecessary 'hdev' argument from 'hvfb_putmem'.
 
-[   44.111220] WARNING: CPU: 35 PID: 1882 at drivers/video/fbdev/core/fb_info.c:70 framebuffer_release+0x2c/0x40
-< snip >
-[   44.111289] Call Trace:
-[   44.111290]  <TASK>
-[   44.111291]  ? show_regs+0x6c/0x80
-[   44.111295]  ? __warn+0x8d/0x150
-[   44.111298]  ? framebuffer_release+0x2c/0x40
-[   44.111300]  ? report_bug+0x182/0x1b0
-[   44.111303]  ? handle_bug+0x6e/0xb0
-[   44.111306]  ? exc_invalid_op+0x18/0x80
-[   44.111308]  ? asm_exc_invalid_op+0x1b/0x20
-[   44.111311]  ? framebuffer_release+0x2c/0x40
-[   44.111313]  ? hvfb_remove+0x86/0xa0 [hyperv_fb]
-[   44.111315]  vmbus_remove+0x24/0x40 [hv_vmbus]
-[   44.111323]  device_remove+0x40/0x80
-[   44.111325]  device_release_driver_internal+0x20b/0x270
-[   44.111327]  ? bus_find_device+0xb3/0xf0
-
-Fix this by moving the release of framebuffer and assosiated memory
-to fb_ops.fb_destroy function, so that framebuffer framework handles
-it gracefully.
-
-While we fix this, also replace manual registrations/unregistration of
-framebuffer with devm_register_framebuffer.
-
-[ Backport to 6.6.y: retain explicit unregister_framebuffer(), but call it
-  only after delayed work and the VMBus channel are shut down; defer
-  hvfb_putmem()/framebuffer_release() to fb_destroy. This preserves the
-  upstream teardown order without requiring devm_register_framebuffer(). ]
-
-Fixes: 68a2d20b79b1 ("drivers/video: add Hyper-V Synthetic Video Frame Buffer Driver")
+[ Backport to 6.6.y: Pass info->device through the target's
+  hvfb_release_phymem() helper and remove the now-redundant hdev
+  argument from each hvfb_putmem() call. ]
 
 Signed-off-by: Saurabh Sengar <ssengar@linux.microsoft.com>
 Reviewed-by: Michael Kelley <mhklinux@outlook.com>
 Tested-by: Michael Kelley <mhklinux@outlook.com>
-Link: https://lore.kernel.org/r/1740845791-19977-3-git-send-email-ssengar@linux.microsoft.com
+Link: https://lore.kernel.org/r/1740845791-19977-2-git-send-email-ssengar@linux.microsoft.com
 Signed-off-by: Wei Liu <wei.liu@kernel.org>
-Message-ID: <1740845791-19977-3-git-send-email-ssengar@linux.microsoft.com>
+Message-ID: <1740845791-19977-2-git-send-email-ssengar@linux.microsoft.com>
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-This is patch 2 of 2 in the ordered 6.6.y backport series.
-This change addresses CVE-2025-21976. The target remove path unregisters the
-framebuffer before completing driver cleanup and then directly frees its
-memory even when another open reference keeps the framebuffer alive.
-This needed a target-specific adjustment; I called it out in the bracketed
-backport note above.
+This is patch 1 of 2 in the ordered 6.6.y backport series.
+This is the prerequisite needed for the CVE-2025-21976 backport. Makes
+hvfb_putmem() derive the device from fb_info, which permits the following
+fix to move framebuffer-memory release into fb_destroy() and honor
+outstanding open references.
 
 The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
 This fix also affects 6.1.y, which will need a separate backport; this
 submission contains only the 6.6.y patch.
 
- drivers/video/fbdev/hyperv_fb.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+ drivers/video/fbdev/hyperv_fb.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/video/fbdev/hyperv_fb.c b/drivers/video/fbdev/hyperv_fb.c
-index 80e6d9682179..e0d68953aa1a 100644
+index 80e8ec36b7db..80e6d9682179 100644
 --- a/drivers/video/fbdev/hyperv_fb.c
 +++ b/drivers/video/fbdev/hyperv_fb.c
-@@ -283,6 +283,8 @@ static uint screen_depth;
- static uint screen_fb_size;
- static uint dio_fb_size; /* FB size for deferred IO */
- 
-+static void hvfb_putmem(struct fb_info *info);
-+
- /* Send message to Hyper-V host */
- static inline int synthvid_send(struct hv_device *hdev,
- 				struct synthvid_msg *msg)
-@@ -887,6 +889,17 @@ static void hvfb_cfb_imageblit(struct fb_info *p,
- 					       image->width, image->height);
+@@ -973,7 +973,7 @@ static phys_addr_t hvfb_get_phymem(struct hv_device *hdev,
  }
  
-+/*
-+ * fb_ops.fb_destroy is called by the last put_fb_info() call at the end
-+ * of unregister_framebuffer() or fb_release(). Do any cleanup related to
-+ * framebuffer here.
-+ */
-+static void hvfb_destroy(struct fb_info *info)
-+{
-+	hvfb_putmem(info);
-+	framebuffer_release(info);
-+}
-+
- static const struct fb_ops hvfb_ops = {
- 	.owner = THIS_MODULE,
- 	.fb_check_var = hvfb_check_var,
-@@ -897,6 +910,7 @@ static const struct fb_ops hvfb_ops = {
- 	.fb_imageblit = hvfb_cfb_imageblit,
- 	.fb_blank = hvfb_blank,
- 	.fb_mmap = fb_deferred_io_mmap,
-+	.fb_destroy = hvfb_destroy,
- };
+ /* Release contiguous physical memory */
+-static void hvfb_release_phymem(struct hv_device *hdev,
++static void hvfb_release_phymem(struct device *device,
+ 				phys_addr_t paddr, unsigned int size)
+ {
+ 	unsigned int order = get_order(size);
+@@ -981,7 +981,7 @@ static void hvfb_release_phymem(struct hv_device *hdev,
+ 	if (order <= MAX_ORDER)
+ 		__free_pages(pfn_to_page(paddr >> PAGE_SHIFT), order);
+ 	else
+-		dma_free_coherent(&hdev->device,
++		dma_free_coherent(device,
+ 				  round_up(size, PAGE_SIZE),
+ 				  phys_to_virt(paddr),
+ 				  paddr);
+@@ -1100,7 +1100,7 @@ static int hvfb_getmem(struct hv_device *hdev, struct fb_info *info)
+ }
  
+ /* Release the framebuffer */
+-static void hvfb_putmem(struct hv_device *hdev, struct fb_info *info)
++static void hvfb_putmem(struct fb_info *info)
+ {
+ 	struct hvfb_par *par = info->par;
  
-@@ -1246,14 +1260,11 @@ static void hvfb_remove(struct hv_device *hdev)
+@@ -1109,7 +1109,7 @@ static void hvfb_putmem(struct hv_device *hdev, struct fb_info *info)
+ 		iounmap(par->mmio_vp);
+ 		vmbus_free_mmio(par->mem->start, screen_fb_size);
+ 	} else {
+-		hvfb_release_phymem(hdev, info->fix.smem_start,
++		hvfb_release_phymem(info->device, info->fix.smem_start,
+ 				    screen_fb_size);
+ 	}
  
+@@ -1223,7 +1223,7 @@ static int hvfb_probe(struct hv_device *hdev,
+ 
+ error:
  	fb_deferred_io_cleanup(info);
- 
--	unregister_framebuffer(info);
- 	cancel_delayed_work_sync(&par->dwork);
- 
+-	hvfb_putmem(hdev, info);
++	hvfb_putmem(info);
+ error2:
+ 	vmbus_close(hdev->channel);
+ error1:
+@@ -1252,7 +1252,7 @@ static void hvfb_remove(struct hv_device *hdev)
  	vmbus_close(hdev->channel);
  	hv_set_drvdata(hdev, NULL);
--
--	hvfb_putmem(info);
--	framebuffer_release(info);
-+	unregister_framebuffer(info);
+ 
+-	hvfb_putmem(hdev, info);
++	hvfb_putmem(info);
+ 	framebuffer_release(info);
  }
  
- static int hvfb_suspend(struct hv_device *hdev)
 -- 
 2.39.5
