@@ -4,96 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B19BCA6017
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 21:07:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6F64CA6017
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 21:07:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BB2410FD06;
-	Thu,  8 Oct 2026 21:07:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A69510FD7D;
+	Thu,  8 Oct 2026 21:07:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WEw9wtfV";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gxoGz7Ls";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="M7Y59j8f";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EarhM9Uc";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFF9510FD6D
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 21:07:30 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34B3F10FD7F
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 21:07:38 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 698L0N6s3387063
- for <dri-devel@lists.freedesktop.org>; Thu, 8 Oct 2026 21:07:30 GMT
+ 698Kxwoe807709
+ for <dri-devel@lists.freedesktop.org>; Thu, 8 Oct 2026 21:07:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yKtOOvFc5D27LCXFHoXF9QLWg5IasKf5P3xB+DwmaeQ=; b=WEw9wtfVjtcWxcyY
- 4VQo18+yoysdzuba7UA/qyi62cBJFbW4e8fSOPZEi/xpuazH6KX4iB5mtUiY5ZSi
- A/wmcBU/exDz6z1FY9ujCUD2cWXtTpfStyCZbOq3GSIx6XJ5lLVBIqsoEm6LxGdb
- tcvolzSUi5qkW+QoDyEyuRpJoJGoT+FAVehR+ffrgL4vHEDzDV4ncxW7+kJqUzs9
- zHHtlsUqRADpOPWCoVWduf1UsIyh12RZx/zq7qwm/lwehCMXU179XKSUY9Qa2xNE
- Nra4w2om78oojEJCzmb7EgUN6W82SIzp7SPH4jRTFVZulDCDikklXCaepUyKBSCX
- 9dIjAA==
+ q+Vkc41unzNxew41NjqyUCYAnUjbaybiTMnS77qN/gM=; b=M7Y59j8fQ+TEaBv8
+ KyrSU7dWjYUOkUXB5FaKj4gZKyOg0NTnvlgE8gs8NueMX6MkCVUpAgVLCnaPdLKb
+ bq1QZBswHeH98+QQZ19RcqYkbjONhzQbN4pzcAtUFfbUoroEG/MkV//k/pPNsKP8
+ ZUYX1qQ4CuI9AXNtZrgsJg2zhK2YW/7+QGBx6SGnh4YmEAIw1P9WCISIraW1hAvY
+ rgvpN1nNfJaxiJ7lsn/+m0ORl7f7a+Avs4nqyCy+VtTu8YdupI9cbWNvPQNuU5H6
+ cMwKhbprP3WL487wDKviA/sCfs0qkFn6r5NJHyOHKMPY0YssnIxOcAHfk+CpseXS
+ O95rwg==
 Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
  [74.125.82.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxrrp23-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxp0n9w-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 21:07:30 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 21:07:37 +0000 (GMT)
 Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-351788121cfso4952931eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 14:07:30 -0700 (PDT)
+ 5a478bee46e88-35158d674e1so1458518eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 14:07:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791493650; x=1792098450;
+ d=oss.qualcomm.com; s=google; t=1791493657; x=1792098457;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=yKtOOvFc5D27LCXFHoXF9QLWg5IasKf5P3xB+DwmaeQ=;
- b=gxoGz7Lsm8msDsi6AT4edOVs5WrT+zyi85ksCVrT1QwzET1gsVOlIJQ5wAzdhNsPL0
- r903+an9pNkG8jNO2150kHVRyNUVWS/7xr1htfRo8T4gIcxMYbDrykt4qM/vJqbNdeJz
- 4AtCFfvhxfiVia4qbdt4Z1x7XP2yRxCvUwj7X8Au8GUFZQXItuTjSZpJWP5auh8cey32
- 3XXOpu17UdzY6Lu2c2LfXmZEGm0fqHAOqatu46ZOGlHKwpFsDzEW65q/1jLWnBBKO2zf
- QAe5JQgkCyyfQ+qf3pWCyEYMFNAUysLIERqM1F2udGoXAZtkrUj2MvAzIC1bRDkTZme4
- NLmw==
+ bh=q+Vkc41unzNxew41NjqyUCYAnUjbaybiTMnS77qN/gM=;
+ b=EarhM9UchXKbgRnxKDHxZpU3gcgam+Awze5GinqO6HI6OwVrfjD+N9DO7B9ZqMgwA8
+ cX0uEL+Eq7Qluzqh/P29h0fllpDwcu/oraS2tchlbh5ebGYQLIC+NUnq/Vn0pyoU6nwf
+ K5pw1O+ixKkfXhxxWbA3a8nOvWGuFN7k0jPkAKphls7cI+XzZXf0ycUk19Sk+4Ybc2PB
+ 4oKvCspbulnO67XmVfxcaVDTSMknoMxLiHEkkZbBRjotmDoNCbveBZH0yg4C3qieYke4
+ Liypqu9S0dQdxmWK9+t1lx4+dg8P14nYujwMMR9e8V5hnnR/PqL+5dU0HQHHbs3ri8ZP
+ m3DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791493650; x=1792098450;
+ d=1e100.net; s=20260707; t=1791493657; x=1792098457;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=yKtOOvFc5D27LCXFHoXF9QLWg5IasKf5P3xB+DwmaeQ=;
- b=qn4w8U3K+3LnpWz/eTXUWtvfgONTjmxGRaH5l1l+7CB5jdaQE8IvgKXqwzk0JN60kK
- 0AzbpTXXZzPR3J62gfnOu4T0yglv3be/ZStTb4azmo9bU7a1Et6JyvYy0oE1tvEOBey4
- Bih1CYuvXjt//bumoOyDKYX8Oiz5U3v48GZEMvYAVw2rq7vk89EWPP2lNOSOVP6EhhZv
- Xp3INbj8luPtec2m2piJG6F1hh0aLr46/FL9t2WiTWxFX17IDAGWT46xd4jPvtE3kxdU
- 79xeOJLmK6U8l6MNdlZ84OEE1ASwvydjzDrvZh6mLLh4CyAfKipx7/V2ZnfxYDCHAfpb
- KRlg==
+ bh=q+Vkc41unzNxew41NjqyUCYAnUjbaybiTMnS77qN/gM=;
+ b=olvgee0xP1tllkh8HKsE9fWFWbFEwLcMQvCFWnNGA3yidmBxQAI2FE0oDRASYsB6/i
+ +U9/z6KWjisBtEuYJJXSI3HEd8lzxNt5jDq85VKWD+61ww/i/+VamQnVbJvbeiDOEDAl
+ h/fOyn2E0ONpZ3WTVhWuCkT6eeTtJBlCsaIor60eOv7OXlgyk6VZTLMasEC20Tbf65u7
+ FywEzQ9CP5J0x78RxlVdq38F3RgX/tOsaaKBHNzNv6SZQ/ckqNbDU0k89AcySv1oaX+n
+ ZhVP1E7pu/M59a/Jjnat+374Hv8Xbr1sWilburUvlJ7evIefG9INp5jXLEPncK5tABqe
+ 0aeQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw4ePGn/+dNLXj6ooSWx3jBLoL+bPwR42p6q0t9c+UHg4G0/u83ZxE/hKsKhMJCYXXCYN9Uf9DZGjI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ47M5r1uOoYEInRsKKLBRJt3CFYfkAHFSl8bPQUfBS3RRn1gXp
- gRk8wL42kqMdoGCbSKe2k+gNUZxL1X/lpchp4f+MW2Gd9NRwCITkiH5XjWUzorxLpve+KRSmu8D
- sQ0x8sPJ6gzWbfNUKtW78bBCKNkWaxEvdTZyC8P9PhXTjBBfAYfBEyEMdi/tbEd2ZUB8ro/I=
-X-Gm-Gg: AYBFou17pjSgjvRA6jINg22boi2jsihLqiLLG6z43eDg/cDKD+qBlqgB96k/bL8IK/H
- lKVAx/3kgCgpK0KyL0Y6fk1gfsvAX8HL9Q7wEPE4Ag8vnf9ArxnVhjNhBBssTHtobrkQhYJr3lK
- 3zz2IWUNLkdmKaFQvgEehFtIxVSbayEGjq/soQUv6wa7FZKcF8wIHgzFTVlUdHMOtqwZFghq0wu
- CwOy8d1krmMMQXo4q0OuZtSjqPpKjp44c5pUn8q9NYqnlkc9qlnFcKOJhqIJoobLbhs/ujEdwjt
- 0pdLdbM4qXk/yUeAVCh7ZGCjp9qkTKZL1W6Tx/kQ3wtitQhDusMN4LIVY8JPKtvJgAr/hYs3i9U
- YQVTHsWk28XydLa4Si8H8QKY=
-X-Received: by 2002:a05:693c:895a:10b0:343:9eb1:9940 with SMTP id
- 5a478bee46e88-3537e0270fbmr104194eec.26.1791493649287; 
- Thu, 08 Oct 2026 14:07:29 -0700 (PDT)
-X-Received: by 2002:a05:693c:895a:10b0:343:9eb1:9940 with SMTP id
- 5a478bee46e88-3537e0270fbmr104146eec.26.1791493648753; 
- Thu, 08 Oct 2026 14:07:28 -0700 (PDT)
+ AKwUvBwhSstVRfOdA06DqQV+o4Oa1pQ5dSUpdfCK1vkRmpESEf0kiMJbB2ompbS/VGnymntPdNJrjZWZIGU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLwLlweYom/5+qdvKUhcmnThyckJ58/a4OioYQehiU5zhcr2MJ0
+ c96Pm0i4wrHnOubDXGSyLn95UVaQM1OaEohbv3h5VRpC4v4KENZ8HQccB05J0/6aqq2IrPhQXup
+ hFT2Hi2hWDyFjNM6JOKLi6A6KVtR/BWdM5omHFNuyJYvfTre05gCcTpsJbNNUrT0P1Qfsk3E=
+X-Gm-Gg: AYBFou1hdQh1OBIE4TlEHJrC6Ls2Rc+2El0Bp8gZS5yNvUOK0W0N0bpJHJfM066RXCQ
+ vxOfzejzuWeatpFXpW+PedOb/kweZTtXpslHHuP5l7SdRvLsYHjE/PwlhQy/sWrs3nYizkcXtlh
+ prJtM3njq7Zk2i3r5xfz6ereQj06aUcL/IoSHs1QspaF+E9UdYW77UZsEmFKdXXHvPF3fit9g6m
+ 5YKQlI1b9HH0HdfkRHFbHmu1BcLtvXk6F6rEqK06jIL9l7jx0aiv/lt77H4z4zXfXJZbidmp8OK
+ sYE1jVZ7Lx1/Kfza/7aOfbesKtmb+jOhK4Qtw4rJGVt++hOpyxjeZ2Jpq+RAzB7ZFR+bV+H5IVR
+ 0lNqFG27Fn/pb/yHY+67Rqvc=
+X-Received: by 2002:a05:7300:f144:b0:351:6594:94e6 with SMTP id
+ 5a478bee46e88-3537e085100mr102113eec.39.1791493656720; 
+ Thu, 08 Oct 2026 14:07:36 -0700 (PDT)
+X-Received: by 2002:a05:7300:f144:b0:351:6594:94e6 with SMTP id
+ 5a478bee46e88-3537e085100mr102054eec.39.1791493655932; 
+ Thu, 08 Oct 2026 14:07:35 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3537cab27d5sm634773eec.17.2026.10.08.14.07.21
+ 5a478bee46e88-3537cab27d5sm634773eec.17.2026.10.08.14.07.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2026 14:07:28 -0700 (PDT)
+ Thu, 08 Oct 2026 14:07:35 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Fri, 09 Oct 2026 02:36:37 +0530
-Subject: [PATCH 3/5] arm64: dts: qcom: nord: Add Adreno 753 GPU and GMU nodes
+Date: Fri, 09 Oct 2026 02:36:38 +0530
+Subject: [PATCH 4/5] arm64: dts: qcom: nord: Add GPU cooling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-nord-gpu1-v1-3-a06a6c57bde7@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261009-nord-gpu1-v1-4-a06a6c57bde7@oss.qualcomm.com>
 References: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
 In-Reply-To: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -112,40 +112,40 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Shivam Rawat <shivrawa@qti.qualcomm.com>
+ Aastha Pandey <aastha.pandey@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791493618; l=4289;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791493618; l=12452;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=6h4f7qVB4BKj8LihzL9H5wv7/el2Fm3tcb/8YO2NRo0=;
- b=g6Wbz6L+lGaMZuM2qLDwfWf242JVw9KWYgrDBLIggTh+WUYgs9DycTv52UscuMiOTt2a90FYP
- 4LEXEoArMpcCUOT6gk5uKG+7/ST2BxO4c0g3mq2are7+oqCK7P/a5tb
+ bh=5jj3RJ/5IFAiCv3Rof+NOkHigaCXJnGzuVZWWhgkGNQ=;
+ b=etf7fNy2G6qqGs1vmRapH2TDTAjQgPfxnyYBFzjsabgU6eSevsB+wqIoG/x7aXky4XUAqWrln
+ eq0qXxmvSqsB0lpGmAQxudhEKZBQ4Clr9urEuC2ZMOxbwI3xnDHPMXM
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Authority-Analysis: v=2.4 cv=E+1YNqdl c=1 sm=1 tr=0 ts=6ac80612 cx=c_pps
+X-Proofpoint-ORIG-GUID: Z5N01BfJf1lwh7Oy4iue4OA-I6JqakKa
+X-Proofpoint-GUID: Z5N01BfJf1lwh7Oy4iue4OA-I6JqakKa
+X-Authority-Analysis: v=2.4 cv=LI3z05W9 c=1 sm=1 tr=0 ts=6ac80619 cx=c_pps
  a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=iMbq6FfIWUb5wk3_mucA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=oAcwOEFyTfjsga8YSwYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
  a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: lY9kRr8kWydmnVAj8jB3hpgQrK5c_adD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA4NCBTYWx0ZWRfXxf6OEV/DAXJy
- MJAJhMuvS7JcvX0KH31+KQBbiq72o1NOpbj5CnRlvqlN/N0hjYmzrnStMBS1y1tU2AASLtcNq3B
- 3mk72o6hZ7xvjqpSNijN03mn9ySa44MrnS7Wq8B0RKVCumIVK6nB0b4MDcuFVC0F+Lrd2S0c2S6
- uk3oB4vmSFqQy/sQpFHWYneH8iGyYEJSReLeRqB6Sb9jrTnHLi50xZEL3TkX1kIA3fYZvmmBeNO
- KreJyUrCEBdIWAN/x/GAVoGnv3yiFkW/WgC1ZvLY/5JCO+pHHohSrfRdSzp4Jnn61oMh6F8LHWb
- R3zpiOcsI8bmMFGhoy49N0LqtBVuH7MhmoA7N+CehuJmWmx/8nKy0vyYOo7/RKgwZcLxJlX+j3J
- LFhSIcCC29Y4JsznKfbfp6ndCXeEqLplIw31DzF2Hytix/7JABkpZXWWGNM55Ew/KPsJ5djWnef
- jeq89E2X/PJcCwXihTw==
-X-Proofpoint-ORIG-GUID: lY9kRr8kWydmnVAj8jB3hpgQrK5c_adD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA4NCBTYWx0ZWRfXywbSu9dp2QxS
- Smo3tI63XZqINdTguyXZqn+I87TkvuZP4NsFTPU+afAKxKZUwe/bhZ2oibUh6A2D4jYzlmHKBQ0
- zPqrhGqzZ3T3Het7t16B0QykXujcA7Q=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA4NCBTYWx0ZWRfX4d3DUNmHkr5I
+ 2nenrRo8B2hbR9VbqT7Ucic96Doxd61pIgRbXuVRHtLBkvzBuWS2CNphrmk2S0EWYnx3/6DXasx
+ rQs1cMx0tseez5VniP+Z/N4NyU7akqE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA4NCBTYWx0ZWRfX82IDcuM8IB0d
+ bCK+mLLjoRr9s/Wd2M1sG+fA7m8EIzjwXF+4On2Rr689ii1cYaoOZP8KvbIXiEJr8Voqp37d4Gd
+ s9UN8t/jawFrQrkGo9iJ38/ftGVLHdMtCupu3rhhhzXDPDCwGul3F0mNNlo9tsMn8Bm5kFIQY+N
+ sxaqGmpufSvr1BjSUjIXp1ZgZeBwVFCWmxqAPhhyapikEEHR8skBP+FGBG+P9Ckii5DdW9dyYNO
+ eBRzo2lRTh45V/vXqqxjP+/y3JlLUbBPZ/RAd6sEp6GZMKe5OKdCNUd69OjEFDLACSq66LwdFeS
+ 3ijvHIh+Z7bPaB7TnMMguiiRfFZclpBnkJst8citLuJGFMcDfXGy/7XeQMt5xKIlVDvwBKn9Wu8
+ v1GFODHEr9ObaAAKhICDXiDImIjXmxnzf6H1P6jY6bpvlLZNEjBTPCGiPb+xU1JEG0NWMfLplcN
+ wdQck0U/OcIV3eEq7rg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_07,2026-10-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080084
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -163,154 +163,540 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Shivam Rawat <shivrawa@qti.qualcomm.com>
+From: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
 
-Nord SoC integrates an Adreno 753 GPU as its primary GPU, belonging to
-the A7xx Gen3 family, along with its Graphics Management Unit (GMU).
+Unlike the CPU, the GPU does not throttle its speed automatically when
+it reaches high temperatures.
 
-Add the GPU and GMU nodes together with their OPP tables. The GPU sits
-behind adreno_smmu_0 and uses the gen71300 zap shader, while the GMU is
-clocked and powered from GPUCC.
+Set up GPU cooling on Nord by throttling the Adreno 753 GPU when it
+reaches 105°C. Label the GPU thermal zones and their passive trip
+points, map them to the GPU as a cooling device, and add a passive
+polling delay so the thermal framework can monitor the zones while
+throttling.
 
-Unlike previous Adreno SoCs, where the GMU AXI clock comes from the
-single global clock controller, Nord splits its GCC into four blocks
-(GCC, SE_GCC, NE_GCC and NW_GCC). The GPU's AXI clock,
-NW_GCC_HSCNOC_GPU_AXI_CLK, is provided by NW_GCC, so the GMU node
-references nwgcc directly.
-
-Signed-off-by: Shivam Rawat <shivrawa@qti.qualcomm.com>
+Signed-off-by: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 116 ++++++++++++++++++++++++++++
- 1 file changed, 116 insertions(+)
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 177 ++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/nord.dtsi          |  80 ++++++-------
+ 2 files changed, 217 insertions(+), 40 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-index 1ab7d9bc3cfe..4379092b7bf8 100644
+index 4379092b7bf8..23370007c974 100644
 --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
 +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-@@ -776,6 +776,122 @@ hscnoc: interconnect@2000000 {
- 		qcom,bcm-voters = <&apps_bcm_voter>;
- 	};
+@@ -17,6 +17,7 @@
+ #include <dt-bindings/interconnect/qcom,nord-rpmh.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
++#include <dt-bindings/thermal/thermal.h>
  
-+	gpu_0: gpu@3d00000 {
-+		compatible = "qcom,adreno-43051701", "qcom,adreno";
-+		reg = <0x0 0x03d00000 0x0 0x40000>,
-+		      <0x0 0x03d9e000 0x0 0x2000>,
-+		      <0x0 0x03d61000 0x0 0x800>;
-+		reg-names = "kgsl_3d0_reg_memory",
-+			    "cx_mem",
-+			    "cx_dbgc";
+ #include "nord.dtsi"
+ 
+@@ -2042,3 +2043,179 @@ opp-403000000 {
+ 		};
+ 	};
+ };
 +
-+		interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
++&gpu_0_0_0_thermal {
++	polling-delay-passive = <10>;
 +
-+		iommus = <&adreno_smmu_0 0 0x0>,
-+			 <&adreno_smmu_0 1 0x0>;
-+
-+		operating-points-v2 = <&gpu_opp_table_0>;
-+
-+		qcom,gmu = <&gmu_0>;
-+		#cooling-cells = <2>;
-+
-+		interconnects = <&hscnoc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-+				 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+		interconnect-names = "gfx-mem";
-+
-+		status = "disabled";
-+
-+		gpu_0_zap_shader: zap-shader {
-+			memory-region = <&gpu_microcode_mem>;
-+		};
-+
-+		gpu_opp_table_0: opp-table {
-+			compatible = "operating-points-v2-adreno",
-+				     "operating-points-v2";
-+
-+			opp-468000000 {
-+				opp-hz = /bits/ 64 <468000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+				opp-peak-kBps = <781250>;
-+			};
-+
-+			opp-625000000 {
-+				opp-hz = /bits/ 64 <625000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+				opp-peak-kBps = <6075000>;
-+			};
-+
-+			opp-735000000 {
-+				opp-hz = /bits/ 64 <735000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+				opp-peak-kBps = <8175000>;
-+			};
-+
-+			opp-854000000 {
-+				opp-hz = /bits/ 64 <854000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+				opp-peak-kBps = <10687500>;
-+			};
-+
-+			opp-1000000000 {
-+				opp-hz = /bits/ 64 <1000000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+				opp-peak-kBps = <12450000>;
-+			};
++	cooling-maps {
++		map0 {
++			trip = <&gpu_0_0_0_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 +		};
 +	};
++};
 +
-+	gmu_0: gmu@3d6a000 {
-+		compatible = "qcom,adreno-gmu-753.1", "qcom,adreno-gmu";
-+		reg = <0x0 0x03d6a000 0x0 0x35000>,
-+		      <0x0 0x03d50000 0x0 0x10000>,
-+		      <0x0 0x0b2a0000 0x0 0x10000>;
-+		reg-names = "gmu",
-+			    "rscc",
-+			    "gmu_pdc";
++&gpu_0_0_1_thermal {
++	polling-delay-passive = <10>;
 +
-+		interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-names = "hfi",
-+				  "gmu";
-+
-+		clocks = <&gpucc GPU_CC_AHB_CLK>,
-+			 <&gpucc GPU_CC_CX_GMU_CLK>,
-+			 <&gpucc GPU_CC_CXO_CLK>,
-+			 <&nwgcc NW_GCC_HSCNOC_GPU_AXI_CLK>,
-+			 <&gpucc GPU_CC_MEMNOC_GFX_CLK>,
-+			 <&gpucc GPU_CC_HUB_CX_INT_CLK>;
-+		clock-names = "ahb",
-+			      "gmu",
-+			      "cxo",
-+			      "axi",
-+			      "memnoc",
-+			      "hub";
-+
-+		power-domains = <&gpucc GPU_CC_CX_GDSC>,
-+				<&gpucc GPU_CC_GX_GDSC>;
-+		power-domain-names = "cx",
-+				     "gx";
-+
-+		iommus = <&adreno_smmu_0 5 0x0>;
-+
-+		operating-points-v2 = <&gmu_opp_table_0>;
-+
-+		gmu_opp_table_0: opp-table {
-+			compatible = "operating-points-v2";
-+
-+			opp-416666000 {
-+				opp-hz = /bits/ 64 <416666000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+			};
-+
-+			opp-625000000 {
-+				opp-hz = /bits/ 64 <625000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+			};
++	cooling-maps {
++		map0 {
++			trip = <&gpu_0_0_1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 +		};
 +	};
++};
 +
- 	gpucc: clock-controller@3d90000 {
- 		compatible = "qcom,nord-gpucc";
- 		reg = <0x0 0x03d90000 0x0 0x9800>;
++&gpu_0_1_0_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpu_0_1_0_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpu_0_1_1_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpu_0_1_1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_0_1_0_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_0_1_0_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_0_1_1_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_0_1_1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_0_1_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_0_1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_0_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss0_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_1_0_1_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_1_0_1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_1_1_0_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_1_1_0_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_1_1_1_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_1_1_1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_1_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_2_0_1_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_2_0_1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_2_1_0_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_2_1_0_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_2_1_1_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss_2_1_1_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
++&gpuss_2_thermal {
++	polling-delay-passive = <10>;
++
++	cooling-maps {
++		map0 {
++			trip = <&gpuss2_alert0>;
++			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
+index 147d8e595a3a..b032d1d2ad9b 100644
+--- a/arch/arm64/boot/dts/qcom/nord.dtsi
++++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+@@ -4101,13 +4101,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-0-thermal {
++		gpuss_0_thermal: gpuss-0-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 1>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4121,13 +4121,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-1-thermal {
++		gpuss_1_thermal: gpuss-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 2>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4141,13 +4141,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-2-thermal {
++		gpuss_2_thermal: gpuss-2-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 3>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss2_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4161,13 +4161,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpu-0-0-0-thermal {
++		gpu_0_0_0_thermal: gpu-0-0-0-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 4>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpu_0_0_0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4181,13 +4181,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-1-0-thermal {
++		gpuss_1_0_thermal: gpuss-1-0-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 5>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_1_0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4201,13 +4201,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-1-1-thermal {
++		gpuss_1_1_thermal: gpuss-1-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 6>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_1_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4321,13 +4321,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-0-1-1-thermal {
++		gpuss_0_1_1_thermal: gpuss-0-1-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 12>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_0_1_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4341,13 +4341,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-1-1-1-thermal {
++		gpuss_1_1_1_thermal: gpuss-1-1-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 13>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_1_1_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4361,13 +4361,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-2-1-1-thermal {
++		gpuss_2_1_1_thermal: gpuss-2-1-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 14>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_2_1_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4381,13 +4381,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpu-0-1-1-thermal {
++		gpu_0_1_1_thermal: gpu-0-1-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens6 15>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpu_0_1_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4421,13 +4421,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-0-1-0-thermal {
++		gpuss_0_1_0_thermal: gpuss-0-1-0-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 1>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_0_1_0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4441,13 +4441,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-1-1-0-thermal {
++		gpuss_1_1_0_thermal: gpuss-1-1-0-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 2>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_1_1_0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4461,13 +4461,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-2-1-0-thermal {
++		gpuss_2_1_0_thermal: gpuss-2-1-0-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 3>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_2_1_0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4481,13 +4481,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpu-0-1-0-thermal {
++		gpu_0_1_0_thermal: gpu-0-1-0-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 4>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpu_0_1_0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4501,13 +4501,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-1-2-thermal {
++		gpuss_1_2_thermal: gpuss-1-2-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 5>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_1_2_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4521,13 +4521,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpu-1-0-thermal {
++		gpu_1_0_thermal: gpu-1-0-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 6>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpu_1_0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4641,13 +4641,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-0-1-thermal {
++		gpuss_0_1_thermal: gpuss-0-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 12>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_0_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4661,13 +4661,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-1-0-1-thermal {
++		gpuss_1_0_1_thermal: gpuss-1-0-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 13>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_1_0_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4681,13 +4681,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpuss-2-0-1-thermal {
++		gpuss_2_0_1_thermal: gpuss-2-0-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 14>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpuss_2_0_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
+@@ -4701,13 +4701,13 @@ trip-point1 {
+ 			};
+ 		};
+ 
+-		gpu-0-0-1-thermal {
++		gpu_0_0_1_thermal: gpu-0-0-1-thermal {
+ 			polling-delay-passive = <0>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsens7 15>;
+ 
+ 			trips {
+-				trip-point0 {
++				gpu_0_0_1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <10000>;
+ 					type = "passive";
 
 -- 
 2.55.0
