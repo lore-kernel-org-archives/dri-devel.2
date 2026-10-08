@@ -4,105 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C86CA6011
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 17:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29C2CCA6011
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 17:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B469010E16E;
-	Thu,  8 Oct 2026 17:15:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CFF110E5C5;
+	Thu,  8 Oct 2026 17:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sLT8s0Ji";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UgFUWyCQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aI3VSHxk";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012045.outbound.protection.outlook.com
- [40.93.195.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FEF810E16E
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 17:15:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ei336h801CKxoO72dcPZd9U04WLodDN/Vvyq64yuKbb4nUbuP3dAkbxB5n+Hr35fQ+d55WS0RsvSR4hVpkUEigdzJSuib3f0qgu4GUzKVM/1dZtIk6JdWZ3okBeDiiv+dlmUb6FfPIxZEhuONH27jEbwZ9lb+dHdsrtzJrEZA6QJSHNAjz/wMc0aDF70dUqkI/4FYTbhkIu+UpCpH/DFQXzVpimYXKyFT6loMSiD1skQCxb+3JMYOt2XFEgXRWf8WF3/VUQfcUqkSB8mERmQ833ULlN4jXsRi7MpuBbTxGIoEUZDXM07SRN3u4OhEClKA7KEH3QCRiOmF7QUaSCWUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ayLJL7deR/RkfbFu4ZXISzPOLgDiRJVP/MnhM2jodbs=;
- b=cakTnHS6l0Vk2h/Sgrb26M2JmHUw2VJ/1DDHNh5wQEFUzTCB+a+46zgHFk4Gi2Qv0rYn6/fAJ5bs7Y+Q5CsWdQ9rwASmk6r9gPtPjEigZ+ajqEOjr4A8iEpHQuf1xkhaBQsHbwmo26SquT+lcGEHTK53V/d2aI9myttWO+lpryF+7AU1YjBhwcHSSwaaNPiIaOOQscaHvu7pJ5w93rEYFlUFViUoJaVGBYyhE4OIacUDomphmKLeDdc2WftfRyOlB8hnJjhhDWoifRXfSAYMrXnGGhvGmoQoww5BZD4svyLYTIs63soumVVyb2d+Ku0KINlPQGbbNz6ZsnumaaZJQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ayLJL7deR/RkfbFu4ZXISzPOLgDiRJVP/MnhM2jodbs=;
- b=sLT8s0Ji0q9suuVOup+r4wakHixlKjPX2LxoiqbnzuRLrLUWQjYsMJNrlBYWDLPZh9WIIslbp7kt4eTLb/A43w3g7hk5meAkPoqPnW8LtQEGCRotr+3NmprZ/w1nXAzdA8g6Vz54ywhHo48mBwXP/S1bcQieU0LxkTo8S8/S0XI=
-Received: from CH0PR03CA0375.namprd03.prod.outlook.com (2603:10b6:610:119::25)
- by SN7PR12MB7022.namprd12.prod.outlook.com (2603:10b6:806:261::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Thu, 8 Oct
- 2026 17:15:42 +0000
-Received: from CH2PEPF0000009E.namprd02.prod.outlook.com
- (2603:10b6:610:119:cafe::32) by CH0PR03CA0375.outlook.office365.com
- (2603:10b6:610:119::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
- Oct 2026 17:15:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000009E.mail.protection.outlook.com (10.167.244.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 17:15:41 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 12:15:36 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 8 Oct 2026 12:15:35 -0500
-Message-ID: <7c3628d9-6cfb-2cf2-d0c3-034d73f61210@amd.com>
-Date: Thu, 8 Oct 2026 10:15:35 -0700
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE79510FA9A
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 17:24:18 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 698EVhtf2124117
+ for <dri-devel@lists.freedesktop.org>; Thu, 8 Oct 2026 17:24:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=xs+sf3wJNXkhPWmEhogdCY
+ XfatqD4maQcm6aGnSdVnc=; b=UgFUWyCQYz3R+Ku/VR84R1286R0Elf0cKd5lbX
+ Bmz1fUWn7V3nMXU82kKGkQdQUfWvC/5yeyB8tm7A25L4QD12vdpyPfnF7iRJUhgb
+ XwXKuJM6miyiblWi76bz4SlyRNw28w0KExTDSSU2UxRYzDRLAtQVcplXETkIGPDT
+ QANZgiifA53WwvBU34IwliZQ9rmeJ9m5molJPBmdl7xtQx61+JAyz4CTmC9GjcvP
+ MhhD+3886GRaT1YTTJQBoQlxrIMTG67SiBXz0GVuTgoeHRNYu2LoHPZtrnMPzVdG
+ bmsGwYsiC8hqWVvC3Dh2+H7lQq1YIKXXjx5KLi2YiBHol8QA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3bxvq-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 17:24:17 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-3aaf955db5fso1259158a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 10:24:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791480256; x=1792085056;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=xs+sf3wJNXkhPWmEhogdCYXfatqD4maQcm6aGnSdVnc=;
+ b=aI3VSHxkQPH5IJ3jUuxcEPpVU4Rr9y91ovVYIv9V9+q+AZtrXafmbvUohhJjUP7Ygi
+ f8SN+0nf8U5xkFpB9oYsWK7LeqRNXy/GjP+Mmv1Tb+XDazJJ/GOOmPSYLNZwcQr0xqvF
+ SMVBYXtprIDvWVG84pchHfn+yo04vNab/Ai5t89qJFcSJHwULE+ITHDLPcKcNAFtmrYZ
+ qr0nOHfiHp6ggijpT2TXWRucac5nKIf+oMcrkiu04UdZAJR9qmQUxmVF8QrGnCJhLNKs
+ Jw7rs5edS99PD3OskheALjogyaxXcWvHDPHf6BelFQGyJqdFoh4vSN+64iwvpZtHM8l/
+ hrpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791480256; x=1792085056;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=xs+sf3wJNXkhPWmEhogdCYXfatqD4maQcm6aGnSdVnc=;
+ b=GmXj3VRGuU4Bly2HRQMda8wZ84utkZoGaJf2jF2JEXVDkQbC7DZmOFwRKlFayYAvNu
+ PfH/GEoiJBWtkHDpsTBpJrIZLL/k9wZmhvUeSTqkYYJZPJCXz0V6uMMalcMTwzSOYlmk
+ UVYfI/ud48iedtM3tGJYa4dRyMI29Sv3dxI0i61Ezfe4CVhmnUwDxORWEiHpgRr8+UqY
+ pbcHLmyocT7xZU+aa08pA2w3TdVEkCdTbTHvEGvbnyzz37/0/uVpAbU6NgmRkzNsrzur
+ DwCwnLbtIXOr/WaUUx/85rweD3/6p/jJj/hfKgLHKYRMAahNQSHm+gF+OCD2GNDfSOEl
+ i/Ow==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx1/KfGx/BTHGUshA9olZ9feJATOWdkD+si3Wrfni4HiHnySj+AHhphQLxvj3zVG8Adiq7ejhEIrzs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK5M1y3K0UEBwAlQUFWjiCDo+Keu+umvjFt/IhqnasNO1VXeRSP
+ 0qUVu5s98xhNnbyjjc7KNvpPDBKtDE+ij/wV0Wtk09ykruoD6LIoZ9+sDkkxEbMb3EVIlvO9x6Q
+ +9YujEGEGz+gLZMTL+YBQrQxxR2rjJYSO1BzPhVpIBTVJ5QZ+Xjiyw/48g3gxDZfeDPNRaByHja
+ aGp98=
+X-Gm-Gg: AYBFou3jo8zYv52yYfgKvWTjLi2nHVXa0Yquwxf3J7M+/L/HXKKSkiEboc6cIAccSWB
+ 6RDVLShC7CS0UP6puO8tHI9AqTM8MJs+dPjdww3OF8uhaw0hxrg6V2onnSWerj1CxyfQiRklVuu
+ APSFP0VzJe5f07rsT3vZlnWJPD8s8omzwtIY5QUptB5HZoaEM3vw7EXsGrt5oUxcq5zBWAWK4Mc
+ gZVIggq/c/rsHTcmMbXVrkgpSPIv/QLe5XF+LXyzrX4+9QtXI30cagT0shxNjx+42ZXNtNduA5t
+ JeXEhtDlbX4OjIfLE+Obko3jb3ibhzHQ8wxEwv6a5hF5klcXjfdVprFUdJg9PZkNKpGlB6a7H2T
+ 9NR3SgKRO+X0NnYVTZqi1hS7gww==
+X-Received: by 2002:a17:90b:4d0d:b0:3a4:b418:94cf with SMTP id
+ 98e67ed59e1d1-3a8a0728aa1mr5887880a91.14.1791480256461; 
+ Thu, 08 Oct 2026 10:24:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d0d:b0:3a4:b418:94cf with SMTP id
+ 98e67ed59e1d1-3a8a0728aa1mr5887862a91.14.1791480255879; 
+ Thu, 08 Oct 2026 10:24:15 -0700 (PDT)
+Received: from hu-mahap-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ab3277c459sm47228a91.16.2026.10.08.10.24.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Oct 2026 10:24:15 -0700 (PDT)
+From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: [PATCH v4 0/6] drm/msm/dpu: rework layer mixer allocation and mode
+ limits
+Date: Thu, 08 Oct 2026 22:53:46 +0530
+Message-Id: <20261008-lm_fixes_final-v4-0-fa986071c3c1@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V3 04/19] accel/amdxdna: Upgrade firmware version to 6.0
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
- <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <yidong.zhang@amd.com>
- <20261008032348.2044667-1-yidong.zhang@amd.com>
- <20261008032348.2044667-5-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261008032348.2044667-5-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009E:EE_|SN7PR12MB7022:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d149f98-a465-4652-aeb8-08df255fc7d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|56012099006|4143699003|10067099003|11063799006|22082099003|3023799007|18002099003;
-X-Microsoft-Antispam-Message-Info: h/GLWQQLqzUZveugqYc/TKXBlL4EHbPXHshTOzJGufX+ee3sQyOg5vSDeoa380JENhWjCXk70WyfN3ONeYTJXipjiDCF/7ELG3ZVAOYhzdx/Pzl49pgJxEpV21nLEiyvp09uvyPHoUomM7T6x6wdaK1EgxoYKrpiO8V75W3z772pGwy3pLVLXlYkWE1jLS0bVtiLMYuchglh+oVstBNh3oSklGSsKrLVZK2NMcEzyHim5+CPLylPN9IatM14J2WdCCeiLLPGIGK2jNSiVVicM2vCIbV/Xm6YyVrlFwvuDNiT7/mbpUAR4KliG3iGsoP0TbHW1lnuPF2OtvPKZgz9nbLPuQBGGLtNcnYGupOUWdInSnZR+oIZS5FmKVrrvT0PpYqr2zrbBBfCKwgD9vqKNHQpPIK/TIl4n232DrvrBAP0oMHH0l7tqsW+qY1PN0SqLAlIa0zoQN6qcoONuxAADaOtlpp+RwJ8GnJtsTZQAYjugVQqFU4XQAh1sn6MzCGnYZIetM96p29F4naVQKc0M2OmfDeraqa5OdCXxmQKIaZqC0c+RPKo1rm4hx1c+LUDKKeYboTrOerX8WR3Cw7qtBngYZ4lcuTgJw9YYlhdPmTgOIzwyLj1e6P4WCeWLH238ecDJ+ta33LEiWy3Nxr36bMNkcrY0z8p+Ewo3Z0jcici4as8e7FIvpFj8qi2GJViny+0FWjGC0QhYMLmokjm/Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(56012099006)(4143699003)(10067099003)(11063799006)(22082099003)(3023799007)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: VAk2nMMl425P12GKW2PrbXH/3lH2wry+PLt21pJVtL3JpfiXADDwJUqZgt27aU3w4gVRNrpbdbY9PKK8jTpCLzfhkZ2IetQ2usszpJoP+bC/7asp0uElVQNoIyVzPE1BX363/3T7R2Z3+YqzL+SjkUXUG583QSbYgtAlx+KbjHOaAXcu0nGPnDF9q0Qui3bbXp5hiweABW1/ktI6DSjLDxBGB3+wzoda6dr3em2/J10WyIRKLPs2uWbnOwRWjLrsGrayFEPV1GHMLbTD9ft1uWpfnVGyxmfNnhZHr+ZP3dFgr/gL+8qSxPLPKkZj0wm7ZY+DRCd9toMsqe0JLmyi4YBw2V2QLVneiy4dRwu3dwGpqd1mq2UEL2pBKg9n0wTXPpPQPe8taUIfJ8YBdw5dFgH/EDWn5FG0jv6BP/lQkOMXQ7fZw1CQsDtdL3UsN0un
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 17:15:41.3841 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d149f98-a465-4652-aeb8-08df255fc7d2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7022
+X-B4-Tracking: v=1; b=H4sIAKPRx2oC/x2M3w6CIBTGX8Vx3XEHSAdd9R7NNRJMNhEDM5vz3
+ Tt5822/79/GskveZXYpNpbc4rOPI8H5VLC2N+PTgbfETKCoOaKCIdw7v7pMOpoB9EMbZdFqJSt
+ Goym5I6bNrSHufZ5j+h7/i/y7xxVyLiCYFQKVE3y8nXtYJCB0WmEtnRG8q64x5/L1NkMbQyhJW
+ LPv+w884/DbtAAAAA==
+X-Change-ID: 20261008-lm_fixes_final-9b9a8d0d9835
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Xilin Wu <sophon@radxa.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791480250; l=4299;
+ i=mahadevan.p@oss.qualcomm.com; s=20250923; h=from:subject:message-id;
+ bh=yAMh1U+xHo0E1mlJ85wtYqoDRvM7p/qznvyhc4c6cOk=;
+ b=N73dcZJICejbFBUNc0+WynUv7uaFblnOzfLuH0I30NDZWum3CyYKdGwFFTRgnCHZBVvIoTpX1
+ vhXLzaTK9SfBzuxEdwI8wJJDtayfn9dZRxttd6AP/5mE+4KcCZcxXW1
+X-Developer-Key: i=mahadevan.p@oss.qualcomm.com; a=ed25519;
+ pk=wed9wuAek0VbCYfkANx7ujIG4VY0XfCYrffFKPN2p0Y=
+X-Proofpoint-GUID: Vixq2kCFOst2Z7tvH4bJtdSd7Wa6mRY5
+X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac7d1c1 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=EnqxrFWiGIBXIX2NHIsA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2OSBTYWx0ZWRfX458wTg+3o6eH
+ fvxCFL7mtoliu0/FhH2I25H+kG88okKZygiw2YwaZkTCCJIWnCLwGvpHPo4sZLHwsC7caaQ6zeq
+ rGsU5ud25ZvbwgCCW4/Y8kwThM97hxM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2OSBTYWx0ZWRfX4AzZSJ1FTap8
+ oeHhKQDeGROOkvOXlFp5uI7InL9gbYNf60qOp36fQatRp6vb29TNRx8wouRggUs1FCIueCCUbM7
+ VHofl1alxNOBWPFbjtYftBKn01TWCSE0HaQh82HH9YyxAiOr9ngF/bBfEM9JDzoXvbs5gNngRHB
+ XNq5mdM8gBXkFKlX5cqvJ4iTZ5LfpeJzPYt5smwgz31eA+iUGzLxxgaKj0+ElGL9xBda8aD4C6s
+ WOvX5U7cCtM/lf4HcvEAuZ8VemgaPCZHscmXwXqnNGtQhLhm9uCYOIjq7UxJB/O+9X6glhC0duM
+ mfYBonRE9e4d9IZxd0VxKC8e2ojNl+QSoF2pNoZS3fne4YejC+sRGfAp//kxok3qperWvHpgGhJ
+ Np7dVDHcycf0g2usK+wRbh5QM9VeErlc24rzCP06cApeio8vSu3mp5EpFjjfcCLQgHq6A2I51Th
+ uKAf82gamTyahMaLXuQ==
+X-Proofpoint-ORIG-GUID: Vixq2kCFOst2Z7tvH4bJtdSd7Wa6mRY5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080069
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,217 +161,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Currently, the DPU driver bases LM reservation off of the maximum
+supported width for the layer mixer and an arbitrary MAX_HDISPLAY_SPLIT.
+However, these limits are not hardware limits meaning that a single LM
+can support higher resolutions.
 
-On 10/7/26 20:23, David Zhang wrote:
-> Upgrade firmware interface version to 6.0. Update host queue layout,
-> opcode definitions, and context creation/destruction request structures.
-> Parse priority band and PASID for hardware context creation. Protocol
-> compatibility for this queue layout is validated against the CERT
-> firmware protocol version.
+Switch to basing LM reservation off of PINGPONG and DSC encoder hardware
+limits.
 
-Maybe the patch should be "Support firmware 6.0?" and mention fw 5.0 is 
-obsoleted and will not be released.
+This revision also adds clock-based mixer selection and a source-pipe
+width guard for mixers without source split.
 
-Lizhi
+Assisted-by: LLM
+Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+---
+Changes in v4:
+- Rebased on msm-next, resolving conflicts.
+- Added clock-based mixer selection and reused the helper in mode
+  validation.
+- Added a source-pipe width guard for mixers without source split.
+- Extended the catalog cleanup to newer platforms.
+- Link to v3: https://lore.kernel.org/r/20260112-max-mixer-width-v3-0-f98063ea21f5@oss.qualcomm.com
 
->
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/aie4_ctx.c        | 23 ++++++++++++++++++++---
->   drivers/accel/amdxdna/aie4_host_queue.h |  7 +++++--
->   drivers/accel/amdxdna/aie4_message.c    | 11 +++++++++++
->   drivers/accel/amdxdna/aie4_msg_priv.h   | 20 +++++++++++++++++---
->   drivers/accel/amdxdna/aie4_pci.h        |  1 +
->   drivers/accel/amdxdna/npu3_regs.c       |  2 +-
->   6 files changed, 55 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-> index 8157f2a6fd10..5eb918e1d58c 100644
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
-> @@ -9,6 +9,7 @@
->   #include <drm/drm_gem_shmem_helper.h>
->   #include <drm/drm_print.h>
->   #include <drm/gpu_scheduler.h>
-> +#include <linux/iommu.h>
->   #include <linux/types.h>
->   
->   #include "aie.h"
-> @@ -110,6 +111,22 @@ static int aie4_msg_destroy_context(struct amdxdna_dev_hdl *ndev, u32 hw_context
->   	return aie_send_mgmt_msg_wait(&ndev->aie, &msg);
->   }
->   
-> +static u8 aie4_parse_priority_to_dev(u32 priority)
-> +{
-> +	switch (priority) {
-> +	case AMDXDNA_QOS_LOW_PRIORITY:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_IDLE;
-> +	case AMDXDNA_QOS_NORMAL_PRIORITY:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_NORMAL;
-> +	case AMDXDNA_QOS_HIGH_PRIORITY:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_FOCUS;
-> +	case AMDXDNA_QOS_REALTIME_PRIORITY:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_REAL_TIME;
-> +	default:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_NORMAL;
-> +	}
-> +}
-> +
->   static int aie4_hwctx_create(struct amdxdna_hwctx *hwctx)
->   {
->   	DECLARE_AIE_MSG(aie4_msg_create_hw_context, AIE4_MSG_OP_CREATE_HW_CONTEXT);
-> @@ -129,9 +146,9 @@ static int aie4_hwctx_create(struct amdxdna_hwctx *hwctx)
->   
->   	req.partition_id = ndev->partition_id;
->   	req.request_num_tiles = hwctx->num_tiles;
-> -	req.pasid = FIELD_PREP(AIE4_MSG_PASID, client->pasid) |
-> -		FIELD_PREP(AIE4_MSG_PASID_VLD, 1);
-> -	req.priority_band = hwctx->qos.priority;
-> +	req.pasid = aie4_msg_pasid(client);
-> +	req.pasid = req.pasid == IOMMU_PASID_INVALID ? 0 : req.pasid;
-> +	req.priority_band = aie4_parse_priority_to_dev(hwctx->qos.priority);
->   
->   	req.hsa_addr_high = upper_32_bits(amdxdna_gem_dev_addr(priv->umq_bo));
->   	req.hsa_addr_low = lower_32_bits(amdxdna_gem_dev_addr(priv->umq_bo));
-> diff --git a/drivers/accel/amdxdna/aie4_host_queue.h b/drivers/accel/amdxdna/aie4_host_queue.h
-> index 1b33eda3f727..95ebbb714c6f 100644
-> --- a/drivers/accel/amdxdna/aie4_host_queue.h
-> +++ b/drivers/accel/amdxdna/aie4_host_queue.h
-> @@ -10,6 +10,7 @@
->   
->   #define CTX_MAX_CMDS                    32
->   
-> +/* Host queue header layout. */
->   struct host_queue_header {
->   	__u64 read_index;
->   	struct {
-> @@ -17,8 +18,10 @@ struct host_queue_header {
->   		__u16 minor;
->   	} version;
->   	__u32 capacity; /* Queue capacity, must be power of two. */
-> -	__u64 write_index;
-> +	__u64 padding0[6];
-> +	__u64 write_index; /* different cacheline from read_index to avoid false sharing */
-> +	__u64 padding1[6];
->   	__u64 data_address; /* The xdna dev addr for payload. */
-> -};
-> +} __packed;
->   
->   #endif /* _AIE4_HOST_QUEUE_H_ */
-> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-> index b137a2a40b34..bdbd1d116b61 100644
-> --- a/drivers/accel/amdxdna/aie4_message.c
-> +++ b/drivers/accel/amdxdna/aie4_message.c
-> @@ -5,6 +5,8 @@
->   
->   #include <drm/amdxdna_accel.h>
->   #include <drm/drm_print.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/iommu.h>
->   #include <linux/mutex.h>
->   
->   #include "aie.h"
-> @@ -14,6 +16,15 @@
->   #include "amdxdna_mailbox_helper.h"
->   #include "amdxdna_pci_drv.h"
->   
-> +u32 aie4_msg_pasid(struct amdxdna_client *client)
-> +{
-> +	if (!amdxdna_pasid_on(client))
-> +		return IOMMU_PASID_INVALID;
-> +
-> +	return FIELD_PREP(AIE4_MSG_PASID, client->pasid) |
-> +	       FIELD_PREP(AIE4_MSG_PASID_VLD, 1);
-> +}
-> +
->   int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev)
->   {
->   	DECLARE_AIE_MSG(aie4_msg_suspend, AIE4_MSG_OP_SUSPEND);
-> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-> index 5b97c8057de0..b9f7c61f36e3 100644
-> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
-> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-> @@ -12,7 +12,6 @@
->   enum aie4_msg_opcode {
->   	AIE4_MSG_OP_IDENTIFY                         = 0x10002,
->   	AIE4_MSG_OP_SUSPEND                          = 0x10003,
-> -	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x1000D,
->   	AIE4_MSG_OP_QUERY_CERT_FIRMWARE_VERSION      = 0x1000F,
->   
->   	AIE4_MSG_OP_CREATE_VFS                       = 0x20001,
-> @@ -23,6 +22,8 @@ enum aie4_msg_opcode {
->   	AIE4_MSG_OP_CREATE_HW_CONTEXT                = 0x30003,
->   	AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
->   	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
-> +
-> +	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
->   };
->   
->   enum aie4_msg_status {
-> @@ -32,6 +33,14 @@ enum aie4_msg_status {
->   	MAX_AIE4_MSG_STATUS_CODE = 0x4,
->   };
->   
-> +enum aie4_msg_context_priority_band {
-> +	AIE4_CONTEXT_PRIORITY_BAND_IDLE = 0,
-> +	AIE4_CONTEXT_PRIORITY_BAND_NORMAL,
-> +	AIE4_CONTEXT_PRIORITY_BAND_FOCUS,
-> +	AIE4_CONTEXT_PRIORITY_BAND_REAL_TIME,
-> +	AIE4_CONTEXT_PRIORITY_BAND_COUNT
-> +};
-> +
->   struct aie4_msg_identify_req {
->   	__u32 rsvd;
->   } __packed;
-> @@ -94,7 +103,9 @@ struct aie4_msg_create_hw_context_req {
->   #define AIE4_MSG_PASID GENMASK(19, 0)
->   #define AIE4_MSG_PASID_VLD GENMASK(31, 31)
->   	__u32 pasid;
-> -	__u32 priority_band;
-> +	__u8 priority_band;
-> +	__u8 priority_level;
-> +	__u16 restore_id;
->   } __packed;
->   
->   struct aie4_msg_create_hw_context_resp {
-> @@ -106,11 +117,14 @@ struct aie4_msg_create_hw_context_resp {
->   
->   struct aie4_msg_destroy_hw_context_req {
->   	__u32 hw_context_id;
-> -	__u32 resvd1;
-> +#define AIE4_MSG_GRACEFUL_FLAG GENMASK(0, 0)
-> +	__u32 graceful_flag;
->   } __packed;
->   
->   struct aie4_msg_destroy_hw_context_resp {
->   	enum aie4_msg_status status;
-> +	__u16 restore_id;
-> +	__u16 resvd;
->   } __packed;
->   
->   struct aie4_tile_info {
-> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index 8c62ee6a9b23..bdbb2d7cf0e7 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.h
-> +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -75,6 +75,7 @@ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
->   				    struct amdxdna_drm_query_firmware_version *fw_version);
->   int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
->   				     struct amdxdna_drm_query_firmware_version *cert_version);
-> +u32 aie4_msg_pasid(struct amdxdna_client *client);
->   
->   /* aie4_ctx.c */
->   int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
-> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-> index e82bc0a4f597..93f749acb5d5 100644
-> --- a/drivers/accel/amdxdna/npu3_regs.c
-> +++ b/drivers/accel/amdxdna/npu3_regs.c
-> @@ -38,7 +38,7 @@
->   #define MP1_C2PMSG_60_ALT_1     0x3B109F0
->   
->   static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
-> -	{ .major = 5, .min_minor = 10 },
-> +	{ .major = 6, .min_minor = 0 },
->   	{ 0 }
->   };
->   
+Changes in v3:
+- Rebased on msm-next, fixing conflicts
+- Updated commit messages to describe the actual issue.
+- Link to v2: https://lore.kernel.org/r/20260103-max-mixer-width-v2-0-ef5d3d246709@oss.qualcomm.com
+
+Changes in v2:
+- Dropped PP and DSC encoder width drop the catalog, they are now
+  determined in the code by using the DPU programming
+- Corrected DSC encoder width for DPUs < 8.x (2048 vs 2560)
+- Link to v1: https://lore.kernel.org/r/20250514-max-mixer-width-v1-0-c8ba0d9bb858@oss.qualcomm.com
+
+---
+Jessica Zhang (3):
+      drm/msm/dpu: check mode against PINGPONG or DSC max width
+      drm/msm/dpu: filter writeback modes using writeback maxlinewidth
+      drm/msm/dpu: remove max_mixer_width from catalog
+
+Mahadevan P (3):
+      drm/msm/dpu: split modes a single layer mixer cannot clock
+      drm/msm/dpu: do not assume a merged datapath when validating mode clock
+      drm/msm/dpu: limit the mode width to a pipe if the LM has no source split
+
+ .../drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_12_0_sm8750.h    |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_12_4_eliza.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_13_0_kaanapali.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h   |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h   |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_9_1_sar2130p.h   |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |  1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 82 +++++++++++++++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  9 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      |  9 +--
+ 36 files changed, 79 insertions(+), 54 deletions(-)
+---
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
+change-id: 20261008-lm_fixes_final-9b9a8d0d9835
+
+Best regards,
+-- 
+Mahadevan P <mahadevan.p@oss.qualcomm.com>
+
