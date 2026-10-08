@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B590DCA6016
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 21:09:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C6B6CA6017
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 21:15:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 130EC10FD7F;
-	Thu,  8 Oct 2026 21:09:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8F510FD3F;
+	Thu,  8 Oct 2026 21:15:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="knaC1qoR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jHEZzyka";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2A610FD3F
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 21:09:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3773010FD3F
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 21:15:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2DEA141619;
- Thu,  8 Oct 2026 21:09:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E030F1F000FF;
- Thu,  8 Oct 2026 21:09:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2369760DA9;
+ Thu,  8 Oct 2026 21:15:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712821F000FF;
+ Thu,  8 Oct 2026 21:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791493774;
- bh=NJDbMjiAZGIEX6Xvd1t2m4pTGXaml9fxHZwWgvnCsJM=;
+ s=k20260515; t=1791494135;
+ bh=EUjJU4QS/nJLfIBzxcye2SlSFqIg3lZcc5WD5aB/RrM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=knaC1qoRvwNQ+cE03z0Yz0EqlRxrlUZKGyptGG0p65sS5reqngE3fHPOVgv51ObKS
- 3yQehfSK0GihnnJiuOwpJTdzypnaj4/6olbH3gdUKS7ECD0h4pI2b9eZLhbd/Lv5MR
- CkVgX/wepbQgozgXEGFq4au/Dc4q1sfaXf+WXy/Lbo7tzSIelLM92pq+mBR2itEauv
- Nirek7BMEU81qp+2a4D2mzdx2z/IyqMPNrPriMRLmSyem7zq8kKsirGEdLH7o1FlRq
- z6mUkEh3eR+xpkM8UC72G03eK0ZBvmSuNzFhU1BUXYSQ3Kx9GQ0026Rdk77VkzCIZH
- qn2PUSaFZpu7w==
-Message-ID: <sashiko-outbox-164597@kernel.org>
+ b=jHEZzykaL8nevSGwEsqXYpG3n9TNIUFZEzsuCqbSTO2XQweUAFS9VEu0fsSHS4H6A
+ EUMv/8G4a3bFnCTcHVVkOw1WIhVWfhMonP1IR4xSrmXf6Far8xAHjEbrY6XdVyqbZN
+ 5PEA7TtaX0rAj9Kd5yOQmoIVcuSsGFZa2eipD5LiPOrTwFMdXLK2+XEtgA1AQ867eB
+ e3Lo+BWrWbsQX8vqlr+7S8gRXkrSDg42iaaxJUIGiEH4eBIwOC/7GK+V5Hf8VyLMp2
+ n6r9x2yxikqabisrjTiuf1pSNbXFc6cj/oInzFjq2R1tDbNnrbhyJcxbN9+UQUIIFH
+ wdk+oXiOKabBA==
+Message-ID: <sashiko-outbox-164604@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/tegra: Support swapping chroma planes
-To: "Aaron Kling" <webgeek1234@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261008-tegra-drm-yvu420-v1-1-dc1c443c00f3@gmail.com>
-References: <20261008-tegra-drm-yvu420-v1-0-dc1c443c00f3@gmail.com>
- <20261008-tegra-drm-yvu420-v1-1-dc1c443c00f3@gmail.com>
+Subject: Re: [PATCH 4/5] arm64: dts: qcom: nord: Add GPU cooling
+To: "Akhil P Oommen" <akhilpo@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20261009-nord-gpu1-v1-4-a06a6c57bde7@oss.qualcomm.com>
+References: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
+ <20261009-nord-gpu1-v1-4-a06a6c57bde7@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 21:09:33 +0000
+Date: Thu, 08 Oct 2026 21:15:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +60,91 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] drm/tegra: uninitialized swap_uv field in tegra_plane_atomic_duplic=
-ate_state
+- [Medium] dts: missing cooling-device mappings for 4 GPU thermal zones
 --
 
-commit 7a6701643e457b2ef09eac11050804bd4c35f58d
-Author: Aaron Kling <webgeek1234@gmail.com>
+commit be1fe5e4df785d4f2fc715cc8d3e734547b71199
+Author: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
 
-drm/tegra: Support swapping chroma planes
+arm64: dts: qcom: nord: Add GPU cooling
 
-The Tegra display controller supports some yuv types, but not their
-chroma swapped variants. For example, yuv420 is supported but yvu420 is
-not. This can be efficiently worked around by just passing the hardware
-said chroma planes backwards. Add a flag to the plane state struct and
-handling to both tegradc and nvdisplay paths.
+This commit sets up GPU cooling on Nord by throttling the Adreno 753 GPU
+when it reaches 105C. It labels the GPU thermal zones and their passive trip
+points, maps them to the GPU as a cooling device, and adds polling delays.
 
-> diff --git a/drivers/gpu/drm/tegra/plane.h b/drivers/gpu/drm/tegra/plane.h
-> index e33a581e6490e..dba5f1b254e98 100644
-> --- a/drivers/gpu/drm/tegra/plane.h
-> +++ b/drivers/gpu/drm/tegra/plane.h
-> @@ -49,6 +49,7 @@ struct tegra_plane_state {
->  	struct tegra_bo_tiling tiling;
->  	u32 format;
->  	u32 swap;
-> +	bool swap_uv;
+> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boo=
+t/dts/qcom/nord-embedded.dtsi
+> index 4379092b7bf8d..23370007c9748 100644
+> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
 
-[Severity: Low]
-Does tegra_plane_atomic_duplicate_state() need to copy this new swap_uv fie=
-ld?
+[ ... ]
 
-In drivers/gpu/drm/tegra/plane.c:tegra_plane_atomic_duplicate_state(), the
-state object is allocated without zero-initializing memory, and then
-explicitly copies fields like format, swap, and reflect_x:
+> +&gpuss_2_thermal {
+> +	polling-delay-passive =3D <10>;
+> +
+> +	cooling-maps {
+> +		map0 {
+> +			trip =3D <&gpuss2_alert0>;
+> +			cooling-device =3D <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +		};
+> +	};
+> +};
 
-	copy->format =3D state->format;
-	copy->swap =3D state->swap;
-	copy->reflect_x =3D state->reflect_x;
-	copy->reflect_y =3D state->reflect_y;
+[Severity: Medium]
+Are the cooling device mappings for the gpuss_1_0_thermal, gpuss_1_1_therma=
+l,
+gpuss_1_2_thermal, and gpu_1_0_thermal zones intentionally omitted from this
+list?
 
-Because a corresponding copy->swap_uv =3D state->swap_uv assignment is omit=
-ted,
-copy->swap_uv contains uninitialized heap memory. While this is partially
-mitigated because tegra_plane_atomic_check() recomputes swap_uv for active
-planes, the uninitialized memory persists if the plane is disabled
-(!new_plane_state->crtc), which violates the state duplication contract and
-could risk undefined behavior if the state is inspected later.
+If a sustained GPU workload creates hotspots near these unmapped sensors,
+localized heating will not trigger GPU throttling. This could allow the SoC
+to reach unsafe temperature thresholds and trigger a hardware shutdown
+before the adjacent mapped sensors become hot enough to intervene.
+
+These zones and their trip points are explicitly labeled in the nord.dtsi
+changes below, which suggests they should have cooling maps defined alongsi=
+de
+the other zones.
+
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> index 147d8e595a3a3..b032d1d2ad9b6 100644
+> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+
+[ ... ]
+
+> -		gpuss-1-0-thermal {
+> +		gpuss_1_0_thermal: gpuss-1-0-thermal {
+>  			polling-delay-passive =3D <0>;
+>  			polling-delay =3D <0>;
+>  			thermal-sensors =3D <&tsens6 5>;
+
+[ ... ]
+
+> -		gpuss-1-1-thermal {
+> +		gpuss_1_1_thermal: gpuss-1-1-thermal {
+>  			polling-delay-passive =3D <0>;
+>  			polling-delay =3D <0>;
+>  			thermal-sensors =3D <&tsens6 6>;
+
+[ ... ]
+
+> -		gpuss-1-2-thermal {
+> +		gpuss_1_2_thermal: gpuss-1-2-thermal {
+>  			polling-delay-passive =3D <0>;
+>  			polling-delay =3D <0>;
+>  			thermal-sensors =3D <&tsens7 5>;
+
+[ ... ]
+
+> -		gpu-1-0-thermal {
+> +		gpu_1_0_thermal: gpu-1-0-thermal {
+>  			polling-delay-passive =3D <0>;
+>  			polling-delay =3D <0>;
+>  			thermal-sensors =3D <&tsens7 6>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-tegra-drm-=
-yvu420-v1-0-dc1c443c00f3@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-nord-gpu1-=
+v1-0-a06a6c57bde7@oss.qualcomm.com?part=3D4
