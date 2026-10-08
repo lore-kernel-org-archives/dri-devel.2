@@ -4,65 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91799CA600B
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 11:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C9BDCA600B
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 11:51:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA1510E22F;
-	Thu,  8 Oct 2026 11:40:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 776E810E7DE;
+	Thu,  8 Oct 2026 11:51:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n/s7cyzP";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Nkrx+O9+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCFB110E22F
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 11:40:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7FA1940124;
- Thu,  8 Oct 2026 11:40:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4C9A7C2BCF5;
- Thu,  8 Oct 2026 11:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1791459606;
- bh=5cZJAWA+CiynDkD7+cgtosCPRHe10XmA5BWh5df9MX0=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=n/s7cyzPUEYUwH4dW4y1xq35jALZqNXNR2o380K4FtJS2fXUzaY74UZrx+0FiBAvQ
- 1OCbF22Z5efdnfJNWlSYEQ80wg9ByYrvsuEp2iMhf8YD1HaNZEpEFjZhauxi0gc0tn
- lqj3Z1M22z2yJCqagNPaZKlsshMIjeaWIjgnaHQZtv4Or3ru9U0dIkK9jcMMJZIR1G
- hdyxdK0Eizy3rKeDzttqmTsQDN8wNtW1dC8ZMzldpiuWLRsu7bd2gSLZEpIBQRRVaF
- W7VlmB0ouHyeCa0eRwLOdyfqgXaEtCyG7aFvoSzIejgkwQLdbUcCYEpdy0X5Vp+GyO
- TZwv/vUBXP1vw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 36DF9CA600C;
- Thu,  8 Oct 2026 11:40:06 +0000 (UTC)
-From: Lucas Frendorf via B4 Relay <devnull+lucasfrendorf.proton.me@kernel.org>
-Date: Thu, 08 Oct 2026 13:39:47 +0200
-Subject: [PATCH] drm/ttm: Skip GPU MM stats for DMA-allocated pool pages
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B82C10E7DE
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 11:51:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=bIZdi0x4+Oe2fEpH8W3vJqEIkeq6WR18dtsgPzbLfvc=; b=Nkrx+O9+jdeiLPN95WrgK8B1C3
+ YgXpRa8i+2BLFBbZ8Jq9HRUZxKC5q74fywLry4tsVr2xToBjbquldRVc3FgfH6EPfQ06lJlF4JC90
+ hJKtLPYElWiNE331n7CWuoZgoM36mb+n1a2hCLHlSfAlPxY6ImtpT1sDUqS3W1ZB03MmKl4PaJ/3h
+ amiV0PsJk4TXoOYOO/iUvQxRgexchj5jVvUnVAl6wjzjBbSNN+3TKGlkyNOOvRPiiTQRLdBYbRE4R
+ Y1v8nSvIojle3G1Ww5SZORVG2VZpm/SIEIzKb5iFm0+myCyPOuVQm5N4+U4TOl3HyF77E56wNuBlG
+ aC2hsn4Q==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xEmeK-00ESAw-UW; Thu, 08 Oct 2026 13:51:01 +0200
+Message-ID: <5f934e82-62e6-4be3-9ace-f591fd95f7b7@igalia.com>
+Date: Thu, 8 Oct 2026 08:50:56 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-ttm-gpu-stats-dma-v1-1-2922ae4d372d@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqEMAxA4atI1hOoxYrOVWQWtUaN4A9NHAbEu
- 9vR5bd47wChyCTwzg6I9GXhdUnIXxmE0S8DIXfJYI0tc2MqVJ1x2HYU9SrYzR7rPjiqnfWFayF
- 1W6Sef/ez+TyWvZ0o6H8E53kBXUj42XUAAAA=
-X-Change-ID: 20261008-ttm-gpu-stats-dma-9fc5e952a45b
-To: Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Christian Koenig <christian.koenig@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Matthew Auld <matthew.auld@intel.com>, 
- Huang Rui <ray.huang@amd.com>, David Airlie <airlied@gmail.com>, 
- Matthew Brost <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791459605; l=3687;
- i=lucasfrendorf@proton.me; s=20261008; h=from:subject:message-id;
- bh=kWINnrTxPf/UJdWXQRq0OxWFpdRLdVyF8aeGd93+1n0=;
- b=ilFnetDJSPqDknQvJ919aZlejSr87t9O54w92Cfcc8VqOAuRqF1298dwSMo3RUkV1OnHUtrrt
- jy92MERfoVPDJPjtAqzI20WP7bl6eMXMNJNR7USE7rbEHiw9cuXHmX0
-X-Developer-Key: i=lucasfrendorf@proton.me; a=ed25519;
- pk=v8K8GS0xRvfhhVxjq0t7VICeqma8piHxgNSzSM4Uytg=
-X-Endpoint-Received: by B4 Relay for lucasfrendorf@proton.me/20261008 with
- auth_id=1129
-X-Original-From: Lucas Frendorf <lucasfrendorf@proton.me>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vc4: Disable the V3D interrupt across runtime suspend
+To: Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20260925191318.541938-1-mcanal@igalia.com>
+ <749f58993b891f756cde15e1408b1e98b861ce54.camel@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <749f58993b891f756cde15e1408b1e98b861ce54.camel@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,97 +82,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: lucasfrendorf@proton.me
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Lucas Frendorf <lucasfrendorf@proton.me>
+Hi Iago,
 
-ttm_pool_alloc_page() and ttm_pool_free_page() account NR_GPU_ACTIVE
-and NR_GPU_RECLAIM only for pages from the page allocator, but
-ttm_pool_type_give() and ttm_pool_type_take() update them for every
-page. Each DMA-allocated page that is given to a pool and later freed
-from it therefore leaves NR_GPU_RECLAIM incremented and NR_GPU_ACTIVE
-decremented.
+On 08/10/26 08:21, Iago Toral wrote:
+> Looks good to me, I have a couple of questions below:
+> 
+> El vie, 25-09-2026 a las 16:10 -0300, Maíra Canal escribió:
+> (...)
+>> diff --git a/drivers/gpu/drm/vc4/vc4_irq.c
+>> b/drivers/gpu/drm/vc4/vc4_irq.c
+>> index 7877d493d80e..98a8db720091 100644
+>> --- a/drivers/gpu/drm/vc4/vc4_irq.c
+>> +++ b/drivers/gpu/drm/vc4/vc4_irq.c
+>> @@ -276,7 +276,7 @@ vc4_irq_disable(struct drm_device *dev)
+>>   	V3D_WRITE(V3D_INTCTL, V3D_DRIVER_IRQS);
+>>   
+>>   	/* Finish any interrupt handler still in flight. */
+>> -	synchronize_irq(vc4->irq);
+>> +	disable_irq(vc4->irq);
+> 
+> With this change, do we still need the 2 V3D_WRITEs above this?
 
-DMA-allocating pools are used by amdgpu, radeon and nouveau when
-drm_need_swiotlb() is true, and by vmwgfx in coherent mode. On an
-amdgpu Rembrandt APU, GPUReclaim reached 20 GiB on a 30.6 GiB machine
-after 2 days while the pool held 34 MiB, and GPUActive read 0 kB.
+Yes, because, before disabling the IRQ, we must make sure that the
+V3D interface is quiet.
 
-The imbalance was found with LLM assistance while investigating a
-memory monitor that reported 95% use.
+>>
+>>
+>>   	cancel_work_sync(&vc4->overflow_mem_work);
+>>   }
+>> @@ -284,7 +284,6 @@ vc4_irq_disable(struct drm_device *dev)
+>>   int vc4_irq_install(struct drm_device *dev, int irq)
+>>   {
+>>   	struct vc4_dev *vc4 = to_vc4_dev(dev);
+>> -	int ret;
+>>   
+>>   	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+>>   		return -ENODEV;
+>> @@ -298,19 +297,8 @@ int vc4_irq_install(struct drm_device *dev, int
+>> irq)
+>>   	init_waitqueue_head(&vc4->job_wait_queue);
+>>   	INIT_WORK(&vc4->overflow_mem_work, vc4_overflow_mem_work);
+>>   
+>> -	/* Clear any pending interrupts someone might have left
+>> around
+>> -	 * for us.
+>> -	 */
+>> -	V3D_WRITE(V3D_INTCTL, V3D_DRIVER_IRQS);
+> 
+> Why this change?
 
-The allocation and free paths do not account DMA API memory. Skip the
-give and take accounting for DMA-allocating pools as well.
-
-Fixes: ae80122f3896 ("drm/ttm: use gpu mm stats to track gpu memory allocations. (v4)")
-Link: https://github.com/AvengeMedia/dgop/issues/44
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Lucas Frendorf <lucasfrendorf@proton.me>
----
-I noticed dgop, a memory monitor, reported 95% usage. An LLM found the
-cause in the GPUReclaim accounting, wrote this patch and drafted its
-changelog, which I reviewed and revised.
-
-To reproduce, compare GPUReclaim in /proc/meminfo with the page total
-in /sys/kernel/debug/dri/<pci-id>/ttm_page_pool on a device with a
-DMA-allocating pool.
-
-Tested on v7.2.9 with the patched ttm.ko: GPUReclaim stayed at 0 kB
-through a glmark2 run on the 680M while its DMA pool held 298 MiB. The
-RX 6800S, which uses the non-DMA pools, still raised and lowered
-GPUReclaim normally. The patch builds with W=1 on v7.3-rc6.
-
-Dave Airlie's memcg series (part 2 v2, patch 05/10) rewrites both
-hunks and would need the same check.
----
- drivers/gpu/drm/ttm/ttm_pool.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 1bf37023f..1f2d31c3e 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -341,8 +341,10 @@ static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
- 	rcu_read_unlock();
- 
- 	atomic_long_add(num_pages, &allocated_pages[nid]);
--	mod_lruvec_page_state(p, NR_GPU_ACTIVE, -num_pages);
--	mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
-+	if (!pt->pool || !ttm_pool_uses_dma_alloc(pt->pool)) {
-+		mod_lruvec_page_state(p, NR_GPU_ACTIVE, -num_pages);
-+		mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
-+	}
- }
- 
- static enum lru_status take_one_from_lru(struct list_head *item,
-@@ -367,8 +369,10 @@ static struct page *ttm_pool_type_take(struct ttm_pool_type *pt, int nid)
- 	ret = list_lru_walk_node(&pt->pages, nid, take_one_from_lru, (void *)&p, &nr_to_walk);
- 	if (ret == 1 && p) {
- 		atomic_long_sub(1 << pt->order, &allocated_pages[nid]);
--		mod_lruvec_page_state(p, NR_GPU_ACTIVE, (1 << pt->order));
--		mod_lruvec_page_state(p, NR_GPU_RECLAIM, -(1 << pt->order));
-+		if (!pt->pool || !ttm_pool_uses_dma_alloc(pt->pool)) {
-+			mod_lruvec_page_state(p, NR_GPU_ACTIVE, (1 << pt->order));
-+			mod_lruvec_page_state(p, NR_GPU_RECLAIM, -(1 << pt->order));
-+		}
- 	}
- 	return p;
- }
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261008-ttm-gpu-stats-dma-9fc5e952a45b
+vc4_irq_install() is now called before PM resume, so it can't access HW
+registers and that's okay, because cleaning pending interrupts is done
+during resume.
 
 Best regards,
---  
-Lucas Frendorf <lucasfrendorf@proton.me>
+- Maíra
 
+> 
+>> -
+>> -	ret = devm_request_irq(dev->dev, irq, vc4_irq, 0,
+>> -			       dev_name(dev->dev), dev);
+>> -	if (ret)
+>> -		return ret;
+>> -
+>> -	vc4_irq_enable(dev);
+>> -
+>> -	return 0;
+>> +	return devm_request_irq(dev->dev, irq, vc4_irq,
+>> IRQF_NO_AUTOEN,
+>> +				dev_name(dev->dev), dev);
+>>   }
 
