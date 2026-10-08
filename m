@@ -4,89 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D106CA6007
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 08:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A83C2CA600A
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 08:27:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B03610FD38;
-	Thu,  8 Oct 2026 08:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F375910E5FF;
+	Thu,  8 Oct 2026 08:27:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DHBrhSNW";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LbpqK6dW";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE9410E5FF
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 08:25:06 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-48bbb06e746so2711398f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 01:25:06 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 482D310E766
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 08:27:09 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a018792ab3so25093395e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 01:27:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1791447905; x=1792052705; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1791448028; x=1792052828; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=W42EnwmE67etDA5kP9Ha0QuiGDOcv6prx44pdv7jZT8=;
- b=DHBrhSNW9QIDDmcjDkMb5PZV+fET1TWXYodHthnzbubQXHLo3y8oCywHYSzEHYhO7g
- ZR3xvSHBuAc2mfn9Nf51seQKlnwVM9jKMBI3dsnYGTfOB5ZV50sNcSe1KWx1dgsMKKsy
- hRKhTePxbXpTEc3MvPcILWn6ggjR3i7snZR8ntmcP5qC5t6a+jt4oRX9/Sowfz3gqyWg
- cdrlnfaEEsS8IMf9mzHJV8Bur/yusHymS3pJx6M0RYFTNnP6DuT0vtz1k4hC04jK8yP4
- aDYxVwaiLAEPa8xhLAOLF1Q5+vigjokARFty4Z8PPbV1ZBbkrOfROYT0RLfFuIx0ITbV
- 9wZw==
+ bh=cDnEFJrAYNmZIA6bszuyNmXd6pp1X1kbMGgs/I8iGxE=;
+ b=LbpqK6dW26TcVAs89QkBcVLgJW6yGFepBjjHnFtjkRrKLtsxkQ0pnCEdt0bXl4+mbH
+ TbpdrkHc8erRNuyMEqtKKi/74H4TSI04kvuGRsNqBHqzSYTbwnp5bSdDEITttBTGs1oN
+ 1E1i/wUkwACSDXB0lUP5Ydpez98IXh+iSMFXpv4IYxXI6Taf8EcRfKNg44lrhvpbZ2KW
+ RjiMbM2+bJOixgza8+/wpi/oZmBnPLlr+/2AYqUjia3osvezBeL2mpOIx8umaUZT525w
+ EKhgtSkDDgm3/EzDA3c55Xv24DyQr4nk1LG9+YaVPgfHDQqWdJzZJ9EISSQIQWdnU3js
+ PNcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791447905; x=1792052705;
+ d=1e100.net; s=20260707; t=1791448028; x=1792052828;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=W42EnwmE67etDA5kP9Ha0QuiGDOcv6prx44pdv7jZT8=;
- b=219IQJSlL3Zzn9S1tdwuOX2Xo2qbP8yc0N1o3OxFN9kACJyNJKtPNsuK6JFpH1krTh
- 2CQAmDeEm98IAgK0D1/na4+fTCrwLCEOXAifoCywkC+XNIy5FbojyCagVZwihu7nJYST
- RGLO4Fj3zdyIW/rrPpIC+sk9jI5eaa6Wd3V9jFU/tdoFMdWg85XEAu8A7GmBoq4hWisw
- RG/PCWpTK80Y4x/Z1G8VYR3p+rSA12rMqjhD3pYOdpPes69A1Xx9/50DunD3Ebr5m+Y5
- RgymgpOtZMCpU9htm3No7D86vp3wF7aqtR/27OgJPZ1/xEdN5i5jyqpppkd+fX0msv1F
- bBzg==
+ bh=cDnEFJrAYNmZIA6bszuyNmXd6pp1X1kbMGgs/I8iGxE=;
+ b=siOksERurqRIUk917SlKwVAC1EixPHhE+7yuY+TaVX62+5mWtShLtsi9Mj8lkmNtFz
+ xZSzL13+eQjkarLmS87CmOQIJyZ7wFML3AHxl5TKOxTcxst+sZNg+MXtEfjPitXB17KT
+ /fkoDwy6wnlIBsylJSwa5fNS5LrCPzdzKEKeNo3vnATl9HLTz2wLVIcJANGS9ZcKhGvj
+ XtJz09NsSUqhyc+MDNk36wWcBMesMdk4V4nRsoBj9TWEAt7yUzQuPkoJRfy4Ff3v/gf9
+ N2G4FX8yQrJebBe3On20+1qgIuXi6KO74zXWklyZT5MDPj7YLvd9bttb/qvS4l5z8Ngx
+ N94A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzDc+1Xfm0qkOzom2CN4sXRS/1XwEw3PDyZZP4vYttrTo4mjsqx0Z69axFpWx+5u7UBt4cVEwBOuMQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL65quxzrcyGc7nOT3S3foVXfpZU8SJm5Z9/HQ4F6kxVPFoFHXe
- eEspG9G+G4UnsvV1XbeSMeFZpfbbKzPDWDYVyqoIME0vPyVqplOvlpJk+RoKAPvMyg4=
-X-Gm-Gg: AYBFou3sAJbNECekj3+Z7wimhoXViCcd2hr94IPkO3m9uxojkRhNXqB6Ne5jOivVFkD
- IFUxv2Ren8gx+Vb2+mgyTL5g2UA4Yn7/mnT9y1iPSIkNtqKeuChtPTKKK0ZxAYnmzBaI6EqIWRN
- l4VXJdbIjweereGs+NO0LyhxTgrvrD538rACxs9HMJCji1Z2FZldHXlkha7tkgH1XEDcjJuR2/2
- KvGwmYA//ztSI4hdSfKKDGVvPkzbTma3bvP/rK+Xgcj4jkqIhkq3mA+yf5mGQ5fZdmoKGNmMn93
- 19wk43dohsOsSBlXL550hCid+66MC6izwq4fEfFfw7vB/Yg7Dvtrx0Pydmdf64Ue5Ntr8VzAoBw
- EKn+YQw7TGWQVYkHI5JMBvvkzt7r/mpp18l3ugMctZhT2qYLyb8PBLv+lnUAzt72q5ysHSoWjMd
- +AX1IV/3kBEdlvAZ4Ps20AHtxup1P2XxDKA6TZImqsu5jClRFrqHv8QeDMM6jApmjXLxazoKEBP
- Xkpwzo0rVVh6p20DVu8tnAYgxMyOxc=
-X-Received: by 2002:a05:6000:4818:b0:488:8751:e78e with SMTP id
- ffacd0b85a97d-48c72788373mr8448347f8f.16.1791447904535; 
- Thu, 08 Oct 2026 01:25:04 -0700 (PDT)
+ AKwUvByJNUAD3V2863M5GZOUeyFTpoBmwQG52MGMm5+ZFNWlx5DqZxq0FuQQ5Z1CMcu+QQDsmDpanhdzMa8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nUMiD3djW+OEaBwTx1VEtC1EOLoJBOG2ybvpLAMofpyKnhkg6p
+ nb1SP6unW+XjAqtl1qX+T7HF/3zlkAeNEZWyN4e+KlUTEUcA2W71K0syQ9H5aJ823ks=
+X-Gm-Gg: AYBFou0L0jn0dA2TQecOyT9LhJBn8sXWljs6Fu/Tz3HPvS6b7mA8DFDnOZNwv6xfrwy
+ d4MN1FMrQ79861jivogdAYvt77FNNIpWNnJwz3cMuZh35evzeJ3IQ2Cy3bt2E1OG5Viy5kN8a1O
+ 5nC9siPhUIcMzqbx1IHeKTo5wFzOrcUaLNXT/7Ynr/KQ+GH0QxJ/cjl0Fm07zRYL9ZdLwxoSukc
+ aT7fiX0pXAWwdHaOh6eAs1k/dqxglOs6zVH6byq35JjsK/qcFrnK4T4er1TZPvhbswHSx8HzcMe
+ zUaRGTKqlOjUNl04M8lbOflWprHLXFtFydx4hGxX0sGGeW4bcQ0wbuS/BgShMsf3jm7LNTP+eIa
+ yQn1vXJMq1Z1rk+ZqMrVtHaznVRyR/LFNumAHGpgOyVp8z3TxKYq4gHHjKRJEvztafVqCdpdj1c
+ 5RpIhalQCdOBPEHocHFEs3to4llEOFeDv2hFXH6Lxr+Q0R5DoWaoSRY3EaExkkGzZMYyaqHMT1U
+ 8zgJCl2yokGl5snR7rp7NJL9lq5YCZr
+X-Received: by 2002:a05:600c:4693:b0:4a1:7e1f:21bc with SMTP id
+ 5b1f17b1804b1-4a180648ff1mr80887095e9.29.1791448027436; 
+ Thu, 08 Oct 2026 01:27:07 -0700 (PDT)
 Received: from [192.168.151.76] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48c71d2044fsm10204091f8f.31.2026.10.08.01.25.03
+ 5b1f17b1804b1-4a1843d1e0bsm51493935e9.6.2026.10.08.01.27.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Oct 2026 01:25:04 -0700 (PDT)
-Message-ID: <2c1dc2eb-4404-4985-8263-22caab44485c@linaro.org>
-Date: Thu, 8 Oct 2026 10:25:02 +0200
+ Thu, 08 Oct 2026 01:27:06 -0700 (PDT)
+Message-ID: <c23f91fd-a5d5-46a2-b4d7-3e33a87a348e@linaro.org>
+Date: Thu, 8 Oct 2026 10:27:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 4/4] drm/panel: st7703: Add DCLTek 300248 10.25in display
-To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, =?UTF-8?Q?Guido_G=C3=BCnther?=
- <agx@sigxcpu.org>
-Cc: Ondrej Jirman <megi@xff.cz>, Purism Kernel Team <kernel@puri.sm>,
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics panel support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
- Felix Boucher <felix.boucher@savoirfairelinux.com>,
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-References: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
- <20261007201859.3709656-5-marc-olivier.champagne@savoirfairelinux.com>
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+ <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
+ <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+ <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+ <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
+ <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org>
+ <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
+ <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
+ <pyl6bihy4zsyhmblrgvuvov2gi2jz5ktpbcz4u3r53qw7h725y@4wzvce345wwh>
+ <b48f9b77-5b11-483d-b031-81da16c5c73a@linaro.org>
+ <cqo2n43vq4v7txg6j7ss6dyzpnqdbm265m5xedjtrp5tn7b56c@xlqtrwvpvoly>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -113,9 +121,9 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261007201859.3709656-5-marc-olivier.champagne@savoirfairelinux.com>
+In-Reply-To: <cqo2n43vq4v7txg6j7ss6dyzpnqdbm265m5xedjtrp5tn7b56c@xlqtrwvpvoly>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,133 +140,161 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/7/26 22:18, Marc-Olivier Champagne wrote:
-> The DCLTek dt300248 is an LCD panel using the Sitronix ST7703
-> controller. Add the panel to the driver.
+On 10/5/26 13:15, Dmitry Baryshkov wrote:
+> On Mon, Oct 05, 2026 at 10:54:41AM +0200, Neil Armstrong wrote:
+>> On 10/5/26 04:22, Dmitry Baryshkov wrote:
+>>> On Sun, Oct 04, 2026 at 05:51:44PM +0200, Neil Armstrong wrote:
+>>>> On 10/1/26 02:43, Dmitry Baryshkov wrote:
+>>>>> On Wed, Sep 30, 2026 at 09:18:55PM +0200, Neil Armstrong wrote:
+>>>>>> On 9/30/26 21:04, Dmitry Baryshkov wrote:
+>>>>>>> On Wed, Sep 30, 2026 at 06:43:47PM +0200, Neil Armstrong wrote:
+>>>>>>>> On 9/30/26 09:44, Linus Walleij wrote:
+>>>>>>>>> On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>>>>>>
+>>>>>>>>>> This entire binding seems like stitching two devices together, which
+>>>>>>>>>> might be fine (I don't even remember this stuff... two months old) or
+>>>>>>>>>> might be artificial grouping of separate devices.
+>>>>>>>>>
+>>>>>>>>> I think that's a good point and fair pushback.
+>>>>>>>>>
+>>>>>>>>> Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
+>>>>>>>>> https://www.youtube.com/watch?v=6tNGW8PoSzw
+>>>>>>>>>
+>>>>>>>>> The current binding does not reflect the physical topology of the
+>>>>>>>>> actual device, and the bindings need improvements. I have a feeling
+>>>>>>>>> there is one display controller with two physical panels.
+>>>>>>>>
+>>>>>>>> No there's really 2 controller and 2 separate panels, but they are not
+>>>>>>>> classic panel, they are a pair of panels+lens which are in front of
+>>>>>>>> the eyes which forms a single "image" for the brain, so they are
+>>>>>>>> technically a single display and requires to be hard synchronized.
+>>>>>>>
+>>>>>>> Yes. However this approach makes it impossible to share the code between
+>>>>>>> the double-panel drivers and single-panel drivers. I think, that the
+>>>>>>> panel driver should still reference a single glass+DDIC, while letting
+>>>>>>> the DSI host driver to handle the bifurcation.
+>>>>>>
+>>>>>> Yes, and no, it must really be considered as a "single panel driven by 2 identical controllers",
+>>>>>> and even this is really purely software implementation issue.
+>>>>>
+>>>>> [...]
+>>>>>
+>>>>>
+>>>>>>>> Describing both panels into separate nodes would only be possible
+>>>>>>>> if we described a "VR display complex" nodes linked to both panels
+>>>>>>>> but this would probably be solved by actually describing the "display"
+>>>>>>>> linked to a DDIC controller and is out of subject for this serie,
+>>>>>>>> and can be added later when we properly define things.
+>>>>>>>
+>>>>>>> I like the VR complex idea. In the end, you have two modes which you
+>>>>>>> most likely might want to support:
+>>>>>>> - L+R, having double-width CRTC scanning over a double-width framebuffer
+>>>>>>> - Mx2, having a single-width CRTC and a single-width framebuffer
+>>>>>>>       displaying the same picture to both eyes. I can imaging that knowing
+>>>>>>>       about L+R might be an explicit opt-in feature of the DRM interface.
+>>>>>>>
+>>>>>>
+>>>>>> This makes no sense to support both modes, and this will never be used,
+>>>>>> and anyway this is purely software implementation.
+>>>>>>
+>>>>>> We're defining bindings here, describing the real reality, not hypothetical
+>>>>>> situation that will never happen.
+>>>>>
+>>>>> Let's ignore software issues. On the hardware side, you have two
+>>>>> distinct DSI panels, each having its own set of controls, own DSI link
+>>>>> and own backlight control.
+>>>>>
+>>>>
+>>>> OK so let's see the problem in another angle, if we had 2 DS links 2 physical
+>>>> controllers, 2 physically distinct panels but forms an unique display.
+>>>
+>>> Imaging the case: through the time the backlight LEDs on the right eye
+>>> age faster than the ones on the left eye, so we need to apply dynamic
+>>> correction to the backlight, dynamically calibrating the coefficient to
+>>> be applied to the LED brightness (or even worse, dynamically applieing
+>>> the _curve_ to compensate for the brightness difference).
+>>>
+>>> Note, I don't have any information here, if such a difference can exist
+>>> or if it can appear through the time, or if the xR DDICs can handle it
+>>> on its own via a pre-programmed LUT, so you can totally say that the
+>>> argument is moot and I won't even argue here.
+>>>
+>>>>
+>>>> Describing it in separate distincts nodes is wrong since it doesn't reflect
+>>>> that it's an unified display, so either we define :
+>>>> - a "combined-display" bridge defined as:
+>>>>     - a separate top node in / like connectors with a graph from the DSI links to each panel
+>>>>     - a DSI subnode with 2 panels as subnode, port graph from both dsi to both sub-panels
+>>>> - a "R63455" panel bindings with 2 subpanels as Linus shared in https://lore.kernel.org/all/CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com/
+>>>>
+>>>> I think it would be interesting to have the "combined-display", with a connector-like node,
+>>>> which will do all the split-dsi dual-panel logic for us and leave use implementing simple panel
+>>>> drivers.
+>>>>
+>>>> The outline would be:
+>>>>
+>>>> =====><=======================================
+>>>> / {
+>>>>
+>>>> 	xr-display {
+>>>> 		compatible = "combined-display";
+>>>>
+>>>> 		ports {
+>>>> 			port@0 {
+>>>> 				combined_dsi0: endpoint {
+>>>> 					remote-endpoint = <&dsi0_out>;
+>>>> 				};
+>>>> 			};
+>>>> 			port@1 {
+>>>> 				combined_dsi1: endpoint {
+>>>> 					remote-endpoint = <&dsi1_out>;
+>>>> 				};
+>>>> 			};
+>>>> 			port@2 {
+>>>> 				combined_panel0: endpoint {
+>>>> 					remote-endpoint = <&r63455_right_in>;
+>>>> 				};
+>>>> 			};
+>>>> 			port@3 {
+>>>> 				combined_panel1: endpoint {
+>>>> 					remote-endpoint = <&r63455_left_in>;
+>>>> 				};
+>>>> 			};
+>>>> 		};
+>>>> 	};
+>>>> };
+>>>
+>>> This is an interesting approach and it would be a requirement, if we
+>>> ever have a device with 4 DSI hosts which can driver two sets of XR
+>>> panels (there would be no other way to understand, which pairs of panels
+>>> are bundled together). I am not sure if it needs to be an OF graph
+>>> device or if it can simply reference the DSI devices. Or if it can
+>>> reference panels (which is not the same).
+>>
+>> I mean we could imagine combine any number of panels to form a combined display,
+>> 2 or 4 DSI links would be handled the same.
 > 
-> Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-> ---
->   drivers/gpu/drm/panel/panel-sitronix-st7703.c | 97 +++++++++++++++++++
->   1 file changed, 97 insertions(+)
+> I was thinking about 2 combined display example. In this case you can't
+> figure it out in software without extra hint.
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> index f4635a7327de..b3abfe8c9ed9 100644
-> --- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> +++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> @@ -768,6 +768,102 @@ static const struct st7703_panel_desc ayaneo_pocket_ds_lower_desc = {
->   	.init_sequence = ayaneo_pocket_ds_lower_init_sequence,
->   };
->   
-> +static void dcltek_dt300248_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETEXTC, 0xf1, 0x12, 0x87);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETDISP, 0xe0, 0x05, 0xf8);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETRGBIF, 0x10, 0x10, 0x28,
-> +				     0x28, 0x03, 0xff, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETCYC, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETBGP, 0x0d, 0x0b);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETVCOM, 0x6d, 0x6d);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPOWER_EXT, 0x25, 0x62,
-> +				     0x20, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETMIPI,
-> +				     0x33, 0x81, 0x05, 0xf9, 0x0e, 0x0e, 0x20, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x44, 0x25,
-> +				     0x00, 0x91, 0x0a, 0x00, 0x00, 0x01, 0x4f, 0x01,
-> +				     0x00, 0x00, 0x37);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETVDC, 0x47);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_BF,
-> +				     0x02, 0x10, 0x00, 0x80, 0x04);
-> +
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETSCR,
-> +				     0x73, 0x73, 0x50, 0x50, 0xa0, 0x00, 0x12, 0x53,
-> +				     0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPOWER,
-> +				     0x25, 0x00, 0x32, 0x32, 0x77, 0xe4, 0x77, 0x77,
-> +				     0xcc, 0xcc, 0xff, 0xff, 0x11, 0x11, 0x00, 0x00,
-> +				     0x32);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETIO,
-> +				     0x10, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0xed, 0xc5, 0x00, 0xa5);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETCABC,
-> +				     0x10, 0x40, 0x1e, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPANEL, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGAMMA,
-> +				     0x00, 0x13, 0x1a, 0x2c, 0x34, 0x3f, 0x4f, 0x3f,
-> +				     0x06, 0x0c, 0x0d, 0x14, 0x15, 0x13, 0x13, 0x11,
-> +				     0x19, 0x00, 0x13, 0x1a, 0x2c, 0x34, 0x3f, 0x4f,
-> +				     0x3f, 0x06, 0x0c, 0x0d, 0x14, 0x15, 0x13, 0x13,
-> +				     0x11, 0x19);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_E1,
-> +				     0x11, 0x11, 0x91, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETEQ,
-> +				     0x07, 0x07, 0x0b, 0x0b, 0x0b, 0x0b, 0x00, 0x00,
-> +				     0x00, 0x00, 0x2f, 0x04, 0xc0, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGIP1,
-> +				     0xc8, 0x10, 0x0a, 0x10, 0x0e, 0x80, 0x38, 0x12,
-> +				     0x31, 0x23, 0x4f, 0x86, 0x80, 0x38, 0x47, 0x08,
-> +				     0x00, 0x0c, 0x04, 0x00, 0x00, 0x00, 0x00, 0x0c,
-> +				     0x04, 0x00, 0x00, 0x00, 0x8f, 0x44, 0x60, 0x28,
-> +				     0xba, 0x02, 0x88, 0x88, 0x88, 0x88, 0x88, 0x8f,
-> +				     0x45, 0x71, 0x38, 0xba, 0x13, 0x88, 0x88, 0x88,
-> +				     0x88, 0x88, 0x00, 0x00, 0x00, 0x01, 0x00, 0x80,
-> +				     0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGIP2,
-> +				     0x96, 0x18, 0x00, 0x00, 0x00, 0xb4, 0x01, 0x0b,
-> +				     0x41, 0x01, 0x02, 0x00, 0xf8, 0x43, 0x17, 0x58,
-> +				     0xba, 0x31, 0x88, 0x88, 0x88, 0x88, 0x88, 0xf8,
-> +				     0x42, 0x06, 0x48, 0xba, 0x20, 0x88, 0x88, 0x88,
-> +				     0x88, 0x88, 0x23, 0x00, 0x00, 0x00, 0xd7, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00, 0x07, 0x8b, 0x00, 0x00, 0x40, 0x80,
-> +				     0x81, 0x40, 0x80, 0x81, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_EF,
-> +				     0xff, 0xff, 0x01);
-> +}
-> +
-> +static const struct drm_display_mode dcltek_dt300248_mode = {
-> +	.clock		= (440 + 8 + 32 + 40) * (1920 + 41 + 8 + 6) * 60 / 1000,
-> +
-> +	.hdisplay	= 440,
-> +	.hsync_start	= 440 + 8,
-> +	.hsync_end	= 440 + 8 + 32,
-> +	.htotal		= 440 + 8 + 32 + 40,
-> +
-> +	.vdisplay	= 1920,
-> +	.vsync_start	= 1920 + 41,
-> +	.vsync_end	= 1920 + 41 + 8,
-> +	.vtotal		= 1920 + 41 + 8 + 6,
-> +
-> +	.width_mm	= 58,
-> +	.height_mm	= 253,
-> +	.flags		= DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
-> +};
-> +
-> +static const struct st7703_panel_desc dcltek_dt300248_desc = {
-> +	.mode = &dcltek_dt300248_mode,
-> +	.lanes = 4,
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO |
-> +		MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> +		MIPI_DSI_MODE_LPM,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.init_sequence = dcltek_dt300248_init_sequence,
-> +};
-> +
->   static int st7703_enable(struct drm_panel *panel)
->   {
->   	struct st7703 *ctx = panel_to_st7703(panel);
-> @@ -1026,6 +1122,7 @@ static void st7703_remove(struct mipi_dsi_device *dsi)
->   static const struct of_device_id st7703_of_match[] = {
->   	{ .compatible = "anbernic,rg353v-panel-v2", .data = &rg353v2_desc },
->   	{ .compatible = "ayaneo,pocket-ds-lower-panel", .data = &ayaneo_pocket_ds_lower_desc },
-> +	{ .compatible = "dcltek,dt300248", .data = &dcltek_dt300248_desc },
->   	{ .compatible = "gameforce,chi-panel", .data = &gameforcechi_desc },
->   	{ .compatible = "powkiddy,rgb10max3-panel", .data = &rgb10max3_panel_desc },
->   	{ .compatible = "powkiddy,rgb30-panel", .data = &rgb30panel_desc },
+>>
+>>>
+>>> Another question, do we need to list any other devices here? regulators?
+>>> sensors? maybe proximity sensor? cameras? I'm thinking from the
+>>> 4-host-2-xr point of view, because if we don't have 4 DSI hosts, we
+>>> don't need to describe anything. We already know all the hardware
+>>> properies and connections, the rest is really just a software plumbing.
+>>
+>> The regulators would be in the panel nodes, for the associated peripherals
+>> like sensors & cameras they are not physically tied to the display so
+>> it's only software plumbing.
+> 
+> regulators yes, they are described. Think about the 2 XR units being
+> driven by the same "base". I think, you would at least need to link the
+> cameras to the enclosure. Otherwise you will have a 2x number of cameras
+> and no idea which of the enclosures they belong to.
+> 
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+This is highly improbable, and I don't think it's the priority right now anyway.
 
-Thanks,
 Neil
