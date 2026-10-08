@@ -4,128 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44042CA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 07:17:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB978CA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 07:17:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F23A10FF0C;
-	Fri,  9 Oct 2026 07:17:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2912810FF02;
+	Fri,  9 Oct 2026 07:17:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="SKcKWJIz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sXL90drQ";
 	dkim-atps=neutral
-Received: from MEUPR01CU001.outbound.protection.outlook.com
- (mail-australiasoutheastazolkn19010007.outbound.protection.outlook.com
- [52.103.73.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1650010FDA6;
- Thu,  8 Oct 2026 22:34:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pz6ZUyHCnLFnS9UTzXH8b8gib3wZ2iI+NK2lAaXJ5KaE34uWZ5V+4xMiRg0lvYJlU55d1dmvaz5JWBRE9BVDZUSb7O8PHK84EBzR3twl6G6xVSRVgxYo/YZyY9ttt3hlAI0quP4jg3dEvoCNrjhqAEB0SvHZZq76vCIKwQQZ58SekwORG4yYAG5JkCc4fDlL1yzjKEA0F+lIqBw8lBeRNRrnfmiwqiIGmOjbzc5Tot+MwXjDF1QT4zLx1dbK4uupbxtX3VlAG3qsGiZFBF15NAP7A7GaN9gfId/VWx2yjozNb/M9EeMHniNTcz6YM8BTF7ewIlO/jFp4vBUnZJf3kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YIkdTef33D+UeU9f2VZyNomF5TP+8KexJI+5ofZQK3I=;
- b=kSa2oi10TXMtVy6FvE1CtmHpnlsfL1yrpT3+Wu3nvT2ftq6HLwRLjuGkCSZgaBttcoX9OzV++gv2PMF3MCvArn3QI/y8PFy4NsXQwmsnqpQEQFsLGWjCyvp6tFFzrlkYsp3/tbuZejOD+X5mccA1WNNQDx5lwi3T1N2uExoZZbiU1VeKb/JAg/mBMDfLrI4eDhYeAOQFvTQZK8WhPTTLAjZM9r4a85RC9K2zgq5pL1z19H4qywQDtMQsHKLG4seOjGEZU51OSzqvXQ0UQBERDUMTvostW9PLQjExx1zbJ3QBfYiBqj/lOLUr+r96eRZRaauQigsQUw/YT1SskkXMfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YIkdTef33D+UeU9f2VZyNomF5TP+8KexJI+5ofZQK3I=;
- b=SKcKWJIzislWWFbxX3qD2cfTomO6eKhm5FeeUNiyr3i8GJpFXut77U6mKloFvoiFLE06xV/mipIYOoJPleCZeCEkVK7W85AA3ZSUnhUajpmInKydancHPZ3EKx1+0m4wbyDknbWx1jU+Uuu6JkMNKp+2AiqRvAYp1HH9vKHPpoMR8MWJs2bI/JIeLQCCTxfOBcvpLO1lbAZya1T2Wo1j6gt9/SJJAkJM3ftkpucFhek0lzgBpZPXzczTdouAf8O0AD/GOKSIg+Nzlzo3PG7UzaCzfkSrKU1mBae/bVHWhMSLM5c/iMvQx2Lz9f87Tr6lM79zVoHRdint8leU71/RAA==
-Received: from SY5PR01MB10600.ausprd01.prod.outlook.com (2603:10c6:10:32c::14)
- by SY3PPF346C5784E.ausprd01.prod.outlook.com (2603:10c6:18::40d) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.6; Thu, 8 Oct 2026
- 22:34:52 +0000
-Received: from SY5PR01MB10600.ausprd01.prod.outlook.com
- ([fe80::db5f:2818:b791:cc19]) by SY5PR01MB10600.ausprd01.prod.outlook.com
- ([fe80::db5f:2818:b791:cc19%3]) with mapi id 15.21.0522.002; Thu, 8 Oct 2026
- 22:34:52 +0000
-From: Zhang Jiaxi <Z1529105815@outlook.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>
-CC: Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: [RFC PATCH 3/3] drm/msm/dpu: reject video scanout timestamps in
- command mode
-Thread-Topic: [RFC PATCH 3/3] drm/msm/dpu: reject video scanout timestamps in
- command mode
-Thread-Index: AQHdV3U7n3REWdlu506FkvpR7BjP5Q==
-Date: Thu, 8 Oct 2026 22:34:51 +0000
-Message-ID: <SY5PR01MB1060081221E28F78CE120FE4AA1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SY5PR01MB10600:EE_|SY3PPF346C5784E:EE_
-x-ms-office365-filtering-correlation-id: c5314f85-5c83-413a-a450-08df258c5ec7
-x-microsoft-antispam: BCL:0;
- ARA:14566002|51005399006|8062599012|19110799012|31061999003|8060799015|25010399006|25031999004|12121999013|704163111799003|15080799012|41001999006|2604032031799003|38102599003|24021099003|16051099003|102099032|2607281247196008|440099028|26104999009|3412199025|40105399003;
-x-microsoft-antispam-message-info: =?us-ascii?Q?83S7mBYCyy/zUIHRmLHOdpqEK1JUm8l1b0Mrp80Jp8k5yvO64hEOViHSw/bf?=
- =?us-ascii?Q?LTpanYWrx8SkHUCEYmzFLX2Vt9nD2vczR35N+NeOdzyXMC8AEysh+MX3wmk6?=
- =?us-ascii?Q?vX+/pDd6B8LOcXWU3xwT0kJHFjOXiqtSc/aMo0rGMpyUjVWhf7q2e3NBEVq0?=
- =?us-ascii?Q?crNvTC8p+nZIe0sq3ciGW9fak+bHMhhGPlpxnX11ExT65VELyYhECsZHyW6I?=
- =?us-ascii?Q?R5S17QutFM2kgjMctfqmHhMm9mTSLIsLb4JNErHMSYz9y/KappGWHeQo3z+M?=
- =?us-ascii?Q?aHbsvXh8ZhfKdtT0kZfxdZU2pjpTOx2wTnLhfDWuw1xVvHVyMNHA+YIZnuCZ?=
- =?us-ascii?Q?2524nhJDfvg6SrT4RU74QbXLl6zilPI98JY+uxI64Ffr7nP0euY3PI15wBJX?=
- =?us-ascii?Q?HvxAwaBpNtpxhQWj00UreQzRS63jZGJfPUwiBSEGomSZIfEI9eRMEgC7wIvP?=
- =?us-ascii?Q?wbsc0bKSjdVgKJIig3H6Ag6I7c6HDqGXQH91fugjd8vB290ObMNMdbIBMQMJ?=
- =?us-ascii?Q?vBwNnciDKnsNdmKa5kpNMocNeOqKTkYJFkqGQr/wBBhZFENSqXK+/u69MThW?=
- =?us-ascii?Q?Gyo8u7/qv14FS6yJG0viBheCELo/KvR0vHeuQ4UsgHvFGls8FDZ4Kn5a/ESH?=
- =?us-ascii?Q?GYhEW+p/61d8Wt5L5i21igguBG8YJwRr6a3zwXxel4cdTHptcwbXTQx5byQA?=
- =?us-ascii?Q?9Jp5Tj117q3bDEzkthK48J/jo1KigPUb859pWH9GIgygKkl+n82iQcsayK8s?=
- =?us-ascii?Q?LzvGRRVCDeZK8XNGQIW8YIhaZsO45ffVd3K68XXcRw1nAQtlc3/tFv7oGCJr?=
- =?us-ascii?Q?YBqj0XV7RUVfMyfWnplSlv9JPwfrjumqqVT8EeZkFYZsPJMnLbVvkakwY4VI?=
- =?us-ascii?Q?2bN4fSIgkyuj92uH11J9YKsugyqDM4/i+cPjacNxYHICav+XnRkqO0N7Vw8x?=
- =?us-ascii?Q?VqNJ4xqIdPauWnA+ePAcgu4m0TVIjxMPBMez8Ku+Qg6VMfkcBqOFHZYmRZ0Z?=
- =?us-ascii?Q?0X154PSVeihi3aGw4aOrnMJNoXw6gi4e4evZ2uXeLz0a207V+lN/4t4I1wNM?=
- =?us-ascii?Q?Q9SsVi+YNuQTVF3Kasr5gNhtdWwa+OpRZsaSeDOqb8dwQ3UvCBkovD09jLZA?=
- =?us-ascii?Q?yjj/HN2mT6TpOxOFzED+Fd0DXVJs32UXU5s7RuPwXV0/v2n0zwgKjOtSw9ue?=
- =?us-ascii?Q?GbYY35MFZlxIkzW7?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wAFPB2J6DNG0d49oGL07CcoIdh/luYI3zxRoY7NDigBsnwx6aY3Xq9aIJMEM?=
- =?us-ascii?Q?CLr5X+GN65AKPZaRS1szlDenI3ClFfxB6EboBoB9d3rl3OOpKqaK4tV5sdHD?=
- =?us-ascii?Q?JwNpO5wKthx44NMTZMik5wQRuQ9ZiG4vqwUTxGTVmv3rI1JQNkAMtjFqvqBF?=
- =?us-ascii?Q?s2pJkrbzHoI0zx2ggbcCbZ5zmoaRd4ACQ8I2PjeD4jBVANgnsOnM5IGibUWk?=
- =?us-ascii?Q?O2BZXgntQq5cWxKKCLYSFlmUaGify2jfC9cXGdOp3Y3bygJXHaqtusq22nB+?=
- =?us-ascii?Q?7oVaAhu2YEPVygmVghGMh/AmySVfKQapl84ZD6qVbs/7P1slWI/r8qwYO2KB?=
- =?us-ascii?Q?fIU/sibby761m24+bYWH9dqAmzJ/BpOchKCGN51SFji5eHtp2845mjAjb7bo?=
- =?us-ascii?Q?U/cILp7yl+BvOscN4MZdaqANDbiGMv0OzeL0NMmEyIrYA4M/QdkfyvAR8Rdx?=
- =?us-ascii?Q?DlA5RlnWqx8K2cga9s3E8mJRg509OYTR97AsM/wWgUBg2MNvrfHjT6d9Eqq0?=
- =?us-ascii?Q?Ij4sIm8gauGUUCAiNLdpPgC+hu1WzrwCwdX377pNSL2FwA+OgjaQ9EZLhlZd?=
- =?us-ascii?Q?4jpaq06ZLTQqt9S3tmgQWiDLzzK8YyI+Yotm0Jdb5/eLYf3HwvnhzvHWXkjH?=
- =?us-ascii?Q?OtFhPURxwJNV8cNwdC3RQCCvv5WQzTdJnwDj4UPBZwksHTkmIDEbebNJAh1R?=
- =?us-ascii?Q?j/+/7+In/GASkcJl1YcO5i/mOSeLWvSvx95u8a4e8ObO0VO/u6DKnI+Y7p6i?=
- =?us-ascii?Q?ObuIYyktyR1JhLlp5lvsj3xqzHQrwa9Wrg2an5iWzCYrog0N79fQLfij1s6A?=
- =?us-ascii?Q?YprWeK7E2kyZ2s5lFGKDaMbuQNRxMqN3ZlC/dcE/w1m2iekzfdxXuyoaiRf8?=
- =?us-ascii?Q?KYlkO72OLHrcdh4duvm29sHxJvRmG4ZbV9cWXRQZ4dZ/2yAaKQJPhmgZ4217?=
- =?us-ascii?Q?l3rbd6fHRbUBR5AB1jxwhuMX7WIF1kKOgDxCDyx5lAkyJ4+mijjQ4xsSmhLN?=
- =?us-ascii?Q?zzHKaaEzxKoke08JUV9vGnmEMgqim4xFWuPOBgTzXLf0qCQu2/zUdrs2CCQQ?=
- =?us-ascii?Q?UxcEwusXxzawjI0xCfe4ytE1JRZ0QrF87324a8yAUvpD5iHT3UtBS41LX8Dk?=
- =?us-ascii?Q?vxlfxzqfWBjLt5on5ocElJ8H+7gRI0Pqa8fwdbqEov/1SGwIdoS8D8LgvOyo?=
- =?us-ascii?Q?BnzsFNVaGkjxm0BRYgnaUyOJpHIcSL9G+uQcyEy2y9CN6dU/6IE2PdBwfDq9?=
- =?us-ascii?Q?zLSYx3WGlVTeMp8bbNS564F/xE8YV5mxbpSjXiFaALGDow0a4HXAo3w2zYju?=
- =?us-ascii?Q?ZkY2D/NgWC7fdyfA9+xV8yk7/q6Rb9JNrMiZwSgRI+JoqEidPTfleao2im1L?=
- =?us-ascii?Q?FdvTe3MJnWTT4u+cdz2So0eBMPUv?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com
+ [209.85.217.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C29E310ECFC
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 15:50:46 +0000 (UTC)
+Received: by mail-vs1-f44.google.com with SMTP id
+ ada2fe7eead31-7c1ecff2b1fso996703137.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 08:50:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791474645; x=1792079445; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Z605x3oSurFK9+1Jj7NngNX+hXuD5vIj60PGN3GhQpM=;
+ b=sXL90drQze1pmCR5+MsihqU8a5hOU1GZINfLjAMntg5RL07xCAkf5MmYWPE/glDt0E
+ 9P1uHmb9GwwVJRyyjwWq9SIXKZj/GSaP0kalqPaLqEPPMufhjg6ls6dRNaFH5vp3IBwz
+ /i+ZMAVi/7RaTxre87Q4BgOvtHEx2bm1Hj5vg42nS9Gd/maRlzoFJFQqstHfZ29CDhJ+
+ +gZ3qrWb+YQ+pTw+3BlqsUnq8GffbQb7mrlPzFIvnWFyKkb34QjIJ+x6ndqBLfY73fg9
+ SFgQMBd8I+jnNIL4jQIIIIHOxKYUWN05IKaZ6+ssw7wSlmDcHlWTxhAj79UKqb5py4Lo
+ TiLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791474645; x=1792079445;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=Z605x3oSurFK9+1Jj7NngNX+hXuD5vIj60PGN3GhQpM=;
+ b=RUDXBnWB0FLQnAUrySnc2clscmnfRsGDaGHPuiVPK26e3YqqQPDS+Nqb+/XWmR7dvn
+ g4ZmXE+p7iCCXaFl12qZL3Edz8WZn7nA9eWvHAs3cQ6HZKtgCLqKw49XwSbfnUybkcHN
+ hlRqKsRMxWqfntPPzwr2dn48Bf6Dn8JSuuMyfpDdiXsKPZOLCGKAzbS3O+AINlKvHSa8
+ Cd0FYvlLZYddTRlAK9VF0vkN5em5Ntny3LqBBHoRvqc3APeIBGnUtANLhv1TgaWAsphT
+ p9VraocC0ksX6FC2/FhG9tK69VKue3322nkOCup7UJcTYQbBFYRb8HbFpbQ/R5gL5Ts2
+ KyCw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzyaWbbkDLAv6gIjPrpMJIIONfAi3Y/ywqOamCVrgWKTXeErMZPiqtWSl12U4JFy3+D1CfAQcsnoks=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL12lD5ztWIDjAY2eP6J/OIw5XIWAOMI62I8vJGyRqvTUsoVJJM
+ QTCcKkQFDnkOGAVOcN2GwhbNicsbOd3ZSVQCfUPk2GbXga+m+srRiepq
+X-Gm-Gg: AYBFou2G/gIpp7pODLy6iJlyfDIIAGlEvVRv5hT2zNQiQiooRSVfl/U8uQsaEP5nLC9
+ dblp3KNAPckFAJpTaTc0avA4wRThPsd7sW+HnmhBebP011gTYjacHSo8BWTOfZqe77231E8KdRc
+ 0k7DVjb4akqPHNUBLsdO7AicRoMUdWMartK+VtqJM6DjS7hHIbHBnscuRDYXJVRzVvVkg/4Ek8X
+ 93OGy2xxNtMfVZM3zkMGeXXbE8O20vlQyiek5I2GyjpWgVA8lC40fePeNf4AZ7Z7wh0cqStx734
+ EybgGl+w+1ZEbrIikM6kco6jPNUJQ6P67coO7BF4n1ovEgA2827wvfMItDdFv7+62noSUqt5wOe
+ /wiXr9QHU2Bro/S3dhUm+VDp1Dj3S8UhRFDYMLA0ePEhzN6b2/upIZ5Nwm2zu8BKqaxpVVYt2hb
+ kjAY6ba4vcRPQZrHQK4lazrL2LCE29Udw/aF0lteV+5MV1jKM=
+X-Received: by 2002:a05:6102:4426:b0:7b2:508e:3d57 with SMTP id
+ ada2fe7eead31-7ca36e40c71mr1688635137.4.1791474645346; 
+ Thu, 08 Oct 2026 08:50:45 -0700 (PDT)
+Received: from fedora ([2804:14c:3b83:954b::e289])
+ by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-98e39adb533sm4293125241.2.2026.10.08.08.50.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Oct 2026 08:50:43 -0700 (PDT)
+From: Julio Faracco <jcfaracco@gmail.com>
+To: Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH V2] drm/qxl: Fix out-of-bounds read in client monitors head
+ access
+Date: Thu,  8 Oct 2026 12:50:34 -0300
+Message-ID: <20261008155034.55688-1-jcfaracco@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SY5PR01MB10600.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5314f85-5c83-413a-a450-08df258c5ec7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 22:34:51.9185 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY3PPF346C5784E
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 09 Oct 2026 07:17:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,43 +92,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jiaxi Zhang <z1529105815@outlook.com>=0A=
-=0A=
-The shared scanout-position callback subtracts the video VSYNC/porch=0A=
-window from an encoder line counter. Command mode uses the tear-check=0A=
-counter: dpu_encoder_phys_cmd_tearcheck_config initializes it at vdisplay,=
-=0A=
-sets RD_PTR at vdisplay + 1, and permits a wrap at twice vtotal when a TE=
-=0A=
-edge is missed. Those values are not the video raster/blanking coordinate=
-=0A=
-system expected by this conversion.=0A=
-=0A=
-Return false for command mode so the DRM vblank timestamp helper reports=0A=
-that this accurate scanout-derived timestamp is unavailable. Video mode=0A=
-keeps its existing calculation; the command-mode TE interrupt callback and=
-=0A=
-hardware vblank counting remain in place.=0A=
-=0A=
-IRQ reference accounting and the existing off-delay policy are unchanged.=
-=0A=
-Idle-power behavior is outside this timestamp correction.=0A=
-=0A=
-Signed-off-by: Jiaxi Zhang <z1529105815@outlook.com>=0A=
-=0A=
----=0A=
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm=
-/disp/dpu1/dpu_crtc.c=0A=
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c=0A=
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c=0A=
-@@ -282,6 +282,10 @@=0A=
- 		DRM_ERROR("no encoder found for crtc %d\n", pipe);=0A=
- 		return false;=0A=
- 	}=0A=
-+=0A=
-+	/* The command-mode counter follows TE, not the video porch timing. */=0A=
-+	if (dpu_encoder_get_intf_mode(encoder) =3D=3D INTF_MODE_CMD)=0A=
-+		return false;=0A=
- =0A=
- 	vsw =3D mode->crtc_vsync_end - mode->crtc_vsync_start;=0A=
- 	vbp =3D mode->crtc_vtotal - mode->crtc_vsync_end;=0A=
+qxl_update_offset_props() dereferences
+qdev->client_monitors_config->heads[output->index] for every connector.
+The connector list holds qxl_num_crtc entries (default 4), but heads[] is
+only allocated for client_monitors_config->count entries. When the client
+reports fewer monitors than qxl_num_crtc (e.g. a guest started with
+heads=1), output->index exceeds count and the read runs off the end:
+
+    BUG: KASAN: slab-out-of-bounds in
+         qxl_display_read_client_monitors_config+0x61e/0x6f0 [qxl]
+    Read of size 4 ... located 16 bytes to the right of
+    allocated 32-byte region
+
+Factor the index-vs-count check already open-coded in
+qxl_add_monitors_config_modes() and qxl_conn_detect() into a
+qxl_output_get_client_head() helper that returns the head or NULL when the
+config is absent or does not cover the output's index, and use it in all
+four places, including qxl_conn_get_modes() which had the same unchecked
+heads[output->index] access reachable from the mode probe path.
+
+Signed-off-by: Julio Faracco <jcfaracco@gmail.com>
+---
+v2:
+- Also convert qxl_conn_get_modes(), same unchecked access
+  (from Sashiko AI review).
+
+ drivers/gpu/drm/qxl/qxl_display.c | 40 ++++++++++++++++++++++---------
+ 1 file changed, 29 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
+index 0719fc6a52d5..35440ee71b83 100644
+--- a/drivers/gpu/drm/qxl/qxl_display.c
++++ b/drivers/gpu/drm/qxl/qxl_display.c
+@@ -148,6 +148,21 @@ static int qxl_display_copy_rom_client_monitors_config(struct qxl_device *qdev)
+ 	return status;
+ }
+ 
++/*
++ * Return the client monitors config head for @output, or NULL when the
++ * client monitors config is absent or does not cover this output's index.
++ */
++static struct qxl_head *qxl_output_get_client_head(struct qxl_output *output)
++{
++	struct qxl_device *qdev = to_qxl(output->base.dev);
++	struct qxl_monitors_config *cfg = qdev->client_monitors_config;
++
++	if (!cfg || output->index >= cfg->count)
++		return NULL;
++
++	return &cfg->heads[output->index];
++}
++
+ static void qxl_update_offset_props(struct qxl_device *qdev)
+ {
+ 	struct drm_device *dev = &qdev->ddev;
+@@ -158,7 +173,9 @@ static void qxl_update_offset_props(struct qxl_device *qdev)
+ 	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
+ 		output = drm_connector_to_qxl_output(connector);
+ 
+-		head = &qdev->client_monitors_config->heads[output->index];
++		head = qxl_output_get_client_head(output);
++		if (!head)
++			continue;
+ 
+ 		drm_object_property_set_value(&connector->base,
+ 			dev->mode_config.suggested_x_property, head->x);
+@@ -263,12 +280,11 @@ static int qxl_add_monitors_config_modes(struct drm_connector *connector)
+ 		return 0;
+ 	if (h >= qxl_num_crtc)
+ 		return 0;
+-	if (!qdev->client_monitors_config)
+-		return 0;
+-	if (h >= qdev->client_monitors_config->count)
++
++	head = qxl_output_get_client_head(output);
++	if (!head)
+ 		return 0;
+ 
+-	head = &qdev->client_monitors_config->heads[h];
+ 	DRM_DEBUG_KMS("head %d is %dx%d\n", h, head->width, head->height);
+ 
+ 	return qxl_add_mode(connector, head->width, head->height, true);
+@@ -1054,11 +1070,11 @@ static int qxl_conn_get_modes(struct drm_connector *connector)
+ 	struct qxl_output *output = drm_connector_to_qxl_output(connector);
+ 	unsigned int pwidth = 1024;
+ 	unsigned int pheight = 768;
++	struct qxl_head *head;
+ 	int ret = 0;
+ 
+-	if (qdev->client_monitors_config) {
+-		struct qxl_head *head;
+-		head = &qdev->client_monitors_config->heads[output->index];
++	head = qxl_output_get_client_head(output);
++	if (head) {
+ 		if (head->width)
+ 			pwidth = head->width;
+ 		if (head->height)
+@@ -1111,15 +1127,17 @@ static enum drm_connector_status qxl_conn_detect(
+ 		drm_connector_to_qxl_output(connector);
+ 	struct drm_device *ddev = connector->dev;
+ 	struct qxl_device *qdev = to_qxl(ddev);
++	struct qxl_head *head;
+ 	bool connected = false;
+ 
+ 	/* The first monitor is always connected */
+ 	if (!qdev->client_monitors_config) {
+ 		if (output->index == 0)
+ 			connected = true;
+-	} else
+-		connected = qdev->client_monitors_config->count > output->index &&
+-		     qxl_head_enabled(&qdev->client_monitors_config->heads[output->index]);
++	} else {
++		head = qxl_output_get_client_head(output);
++		connected = head && qxl_head_enabled(head);
++	}
+ 
+ 	DRM_DEBUG("#%d connected: %d\n", output->index, connected);
+ 
+-- 
+2.55.0
+
