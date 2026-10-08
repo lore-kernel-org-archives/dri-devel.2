@@ -4,144 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A19C8CA6011
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 17:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF31DCA600D
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 17:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F085810FAB7;
-	Thu,  8 Oct 2026 17:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2304810E93D;
+	Thu,  8 Oct 2026 17:25:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Emzi9NQ6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LM/5OVe0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IxGbtWFM";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B6E510FAA1
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 17:24:50 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 698EVsQL3517922
- for <dri-devel@lists.freedesktop.org>; Thu, 8 Oct 2026 17:24:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- kXOB6HSENlgLJ01CymQ95n8hmSw8nebKPmjVVOMcZrI=; b=Emzi9NQ66f94ePkr
- eyA8pLJNCNTJl8KPL0ursay6sOlmqUSIH8cfA4wJqXHIYpEK4k2mQX6v6vE/zp4o
- CIXTgsvJVW3+8uQTs07fB0kjVxGY7NJARyNGQ2ud8AdhVzvA0+wgxKFgkJtLV58L
- hc6ouROcwtUYTBAKy115lamD7inVjj15nwLCImMDhlaGGaSZxq8efyCUmztH9uOk
- pLdzHFBHty/c1NS4DZ55rrWfvIEmyX98YNJt1UTUE4sCyqN2lO6OK2YQF3pDmO6e
- unuE3ofUINt6PH6DQzpCLoC0GH2vxi9igfHSsfRxtnyXQluWWX/ZpM3xgR/bU4hm
- rWBK/w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe83wjh-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 17:24:49 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-3965ba1ba3eso6906708a91.2
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 10:24:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791480289; x=1792085089;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=kXOB6HSENlgLJ01CymQ95n8hmSw8nebKPmjVVOMcZrI=;
- b=LM/5OVe070z9CQYZA+9Vgf4uzz+Laf+og0GUqpNQcEefnIt7isG3ih5KtguRn05Z8n
- kato9JyxTIxJ6Vln3kdB0UlJ7B9/vjUkYj2IwJ6nNiHtj9AXl/8WFbV/W4L8IfLCkGRr
- OZkw1CvSPNBVou79Imw17Fhxo5h4dMBn9r9ZhCwREYHZ56v0hD44hZAm5VEEBzk3LEhR
- lXTE+TFgv7FvQCrddjTZJsY1UEaFSuUmq704y5DAw5LEDaK/ZHf4dLX3TnnPt5ZsplRQ
- VGPXAluFn6Zk/lJJlsmIVX1BvId3YRwUJBDbfOJfZMJXVc2J9XfUrGa5r8l8tr/AbN26
- BR2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791480289; x=1792085089;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kXOB6HSENlgLJ01CymQ95n8hmSw8nebKPmjVVOMcZrI=;
- b=EMuXctCNmb+g56o4dzsZwsVJcDg8AFI0w1IXDcG6nkgXeS/h76gGdwpWcSr/wxicm0
- 1WgGZm08cReXbVJ2n3w99uRORFVWvJjxWXiwe3RqvjVWq8O/CCh55TO8rV6B+yC1eF5y
- b4G8pe7G/jtDto8twgicj9zcDaP9xqANAhCH5henFEV6W97bHoPtQvUAYvxixR8BWTZM
- JebBbLz2QkU1QVlvin3m2NrN089Dj3GF22uM6XvEFvVCruoG99vCm9v+oBmEdYIWs0jQ
- kXU0tSW2LSku/2WOT+KPjZsrMXQO+/XoFq7GdM+HsKZu7LLr4ZB2EvuYBmNswI87QG9J
- HsHw==
-X-Forwarded-Encrypted: i=1;
- AKwUvByAnnFD9FbbEbdNAP2Nptmm1ml2212HbFkf0k/z3HbwrSdt/kR/AH8okSNt6awhGo4++zJSQ7LmQCQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLgGLZpD85shVwqR9RgQ7gZJOTOxz9MQZw/vOa8vsuo9i+3NRsW
- Ati97dq19nHdrD3o1HIqWu2anmO4tm0G+CUVPvbNG7XpZQd1lf+ZpLqNGpznMpTfC0qW2gvCTEh
- T91CHzpGLL3LdSrD4K7WuyUmnGffSxpu7sig9Lf1Au/ojqEMrQZBrA6vvk3LD610+yZUkkuQ=
-X-Gm-Gg: AYBFou3tq0zLWQM7PlihABMp3N9ivOyq4zpmu13O3RsK7sg1M8P42S5o4PIfhakTaUN
- dOZSFZOJSYAzkldQZvKdoW3/WoIDCgYXX8Rrpx51UAIaiuo4Hnjomt9zibXf8fgJ5kyIPMB9A3L
- HiBoXw8kjCqnj77WrmMIux+Xd6dfwUPYccx4wyiD6ems1xkaV4PP/1Y9Ufy6GPfn0+IRin8/Kwv
- 2ZuoHtXGB0dMWWBpJ5HZSUfDAk9lGKXaU5zi5oPOaRwCa9r1k+VjO0lAejT95HgkPBhmfbOUn0g
- diM+mG91sphej5iIkdB1tVG/vAB3JT/ccJJse43CRMx/5LAcP6HLXVaF406miSNL2FysfTnCCKT
- r12RzbtoOD0VxkmB8x/D6V1Jg/A==
-X-Received: by 2002:a17:90b:134d:b0:3a4:ee64:b880 with SMTP id
- 98e67ed59e1d1-3a8a0dfb941mr4586256a91.32.1791480287620; 
- Thu, 08 Oct 2026 10:24:47 -0700 (PDT)
-X-Received: by 2002:a17:90b:134d:b0:3a4:ee64:b880 with SMTP id
- 98e67ed59e1d1-3a8a0dfb941mr4586236a91.32.1791480287115; 
- Thu, 08 Oct 2026 10:24:47 -0700 (PDT)
-Received: from hu-mahap-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ab3277c459sm47228a91.16.2026.10.08.10.24.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2026 10:24:46 -0700 (PDT)
-From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 22:53:52 +0530
-Subject: [PATCH v4 6/6] drm/msm/dpu: limit the mode width to a pipe if the
- LM has no source split
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013025.outbound.protection.outlook.com
+ [40.93.196.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAFE610FAA1
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 17:25:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HALhl0nbKrfQL37vnBu5WTOjGKfHcX6i6adKvkawBzGw9fNx4PPULtq1M3qfWhOQlmpQNeX+xCopSzsDT3t312Ot+vxwA16TVb+XVgDLavJK4kkrN12CtA+4ZLs3S7Nf16W3v74570YPjUuLgRQFv0+2frsh/kOwyGzXvrN++XutDQQ3fsz7NlFi2ZJj9VtseccmgDJ4E3j88F1DJWrac8PI0K+4/YeMg+oaBiDmXkQa+eHRpxkRo6Yz5GB9CQ/NcL6Qmfxqw8sjFLSrJAoWpjjJCPDNsxkh4WYxDounZj2+d2qFvfPTBb4bfokC+laDJfPGyOiqT8rLoDIOxHle6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/nMwtoFpbQDY7gyv9bOunWvkXTfkHM8RDy8rYfQmSKc=;
+ b=HscrcJCqLST3CbAnIwIabZTKDboFybPBUg9JAgjyzaf30mGTX/WeFHRfdoVxUb1j+VXBlAnyOiuD6ikGUoIN04+WFP6bRaqvzO5TMEnlmPHzaFpkGfW2u/FgcrJu0R9C2ZcCn3D4oHzXwSk+ObOE6qspNGzqvfkeHe952GIqDTiJf0BMHcoUN9xqogNYciqH5NCwf90vYS5uHF5cwqkviV3b5Xh/qSjeiVHOSGuJmuQKW42Ub8cRV0HgHRDRLgpFWSbZb56YGbwjwPZu2AboX4+iJOdF8TcQonsvdO8gtWvdz27dx+lWjhwYqjBYJ9emxWYCWcnp4pVYy7CsRB33Pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/nMwtoFpbQDY7gyv9bOunWvkXTfkHM8RDy8rYfQmSKc=;
+ b=IxGbtWFMVeblBL94tkmjQ+L8JDl4t7IFcYFg2TudcmTQ+inmWMIeuitIcsQotsYtuv52Z2lv3kBMvgKIwx+sSnhcwmwDPr013PVJBIO+/+Q9xdw37vpVTJaSuuh2ZkY/G27vmYYiN/9TAL8nXmoqPJWPe3HidpebYvkwunaCItw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB9062.namprd12.prod.outlook.com (2603:10b6:208:3aa::14)
+ by DS0PR12MB7994.namprd12.prod.outlook.com (2603:10b6:8:149::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.35; Thu, 8 Oct
+ 2026 17:25:14 +0000
+Received: from IA1PR12MB9062.namprd12.prod.outlook.com
+ ([fe80::28c6:3cbd:6e97:5257]) by IA1PR12MB9062.namprd12.prod.outlook.com
+ ([fe80::28c6:3cbd:6e97:5257%6]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
+ 17:25:14 +0000
+Message-ID: <dea37d3a-a66c-4620-b6c5-032b27e9c43c@amd.com>
+Date: Thu, 8 Oct 2026 10:25:08 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 05/19] accel/amdxdna: Add NPU3 classic device support
+To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <yidong.zhang@amd.com>
+ <20261008032348.2044667-1-yidong.zhang@amd.com>
+ <20261008032348.2044667-6-yidong.zhang@amd.com>
+ <sashiko-outbox-163576@kernel.org>
+Content-Language: en-US
+From: "Zhang, Yidong (David)" <yidong.zhang@amd.com>
+In-Reply-To: <sashiko-outbox-163576@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-lm_fixes_final-v4-6-fa986071c3c1@oss.qualcomm.com>
-References: <20261008-lm_fixes_final-v4-0-fa986071c3c1@oss.qualcomm.com>
-In-Reply-To: <20261008-lm_fixes_final-v4-0-fa986071c3c1@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Xilin Wu <sophon@radxa.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791480250; l=1679;
- i=mahadevan.p@oss.qualcomm.com; s=20250923; h=from:subject:message-id;
- bh=ffK+sgwIxa0nxxdTwedAg7jsF/07q/HMTOzQUsBHFFY=;
- b=VM0cIPXc3RlKPNnSljZP7as8ig45IsRGPJpT6qKIh9HH00akRjuibYAvs7G0QY03xQFqfmsPI
- 4PZkw+2QcotDKvVpPGBJsqo/jeq6vsDvjrq9KyipQcs/bbwdj05JrHl
-X-Developer-Key: i=mahadevan.p@oss.qualcomm.com; a=ed25519;
- pk=wed9wuAek0VbCYfkANx7ujIG4VY0XfCYrffFKPN2p0Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2OSBTYWx0ZWRfX0Qha76gXmIrs
- lYmKZFB0j7FC80Rk7G6N7MMZcdJd5zSCpM9xDhfXx2v1+zMfLKoAThIiVV6Fpndk4zaWjRuIiFa
- HAhGPVnxjbuudF2UmiGO4CyGePxSUYLy0aKedv/DIqz/GHx8z9ipGgREyDHWapXvKHrU+Ks3PKL
- CMxuDmiW2EqYRHFtc6y04HEuzpLVtKoYg5Q+oFGiefvdrGgqSERleR4leYnRlgFBjcOWiax+Kku
- moLZsOQP7Wrw35eyKqPAurRwPwlHq9StM3rPwpep7C+tD7WsueLNQRT3n6zVUL7Vuzz9WfivwX5
- dAASg7IKpJPaPftWP5wxRS2FKwJR/wcSW0lUtCsTX2mweDuUUCZEWmqYq+Ba6ZNVrBcmDn9ELlu
- H3bk3zirLYHa65khwXlAv1X6KlNEjh/2DEry/2W7PcYn8On9ZurT6VR2sklc+AVoUxDOZIBV4Dd
- z+EwB+sNOh86Hf53sLw==
-X-Proofpoint-GUID: 2UesdSuv3wA0yi4NyxFb8r_TIQpYQ0BL
-X-Proofpoint-ORIG-GUID: 2UesdSuv3wA0yi4NyxFb8r_TIQpYQ0BL
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2OSBTYWx0ZWRfX2tlhtEFAlf4I
- uTY53MpNNNwtZjIQBN0CIm6Q901QRHD1fxQclk5WX+ZEvO34UcgR5miYJHPL78m0W7XQ404iTsF
- uirYxHehhGsK+x8L4ujWAlAXvP6omlE=
-X-Authority-Analysis: v=2.4 cv=MPT1C8Zl c=1 sm=1 tr=0 ts=6ac7d1e1 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=RCAr_VjVQrktO2oC:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=67skgTjD9neFK7rYSF4A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080069
+X-ClientProxiedBy: SJ0PR13CA0201.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::26) To IA1PR12MB9062.namprd12.prod.outlook.com
+ (2603:10b6:208:3aa::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB9062:EE_|DS0PR12MB7994:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2b46e76-8277-4ef4-535c-08df25611d13
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: xGliV/YUBUiuTxIGRuF6Rp4jVTPpYRxj2zI/McNwZDmTPEcdJBKNEsLkjGmx4VU6vgA7e+eyJZFaLmh1gBV6/asWh8KRebtshlrdp1YLFA0898i1ygySO7ZQvmtLTXB3HIn6FYCcg5sdwR5BJ4vcFxoOk+BRUWWv2aR5pdUzTQlJZsxgI2B33Rm/4jtBk51pCmuvcS/XI7rJ5m95v8QUgoBsAdH2l5GWtgoAXLjhAJPheQriKxenJqRYnDEL50qR5kIyrrsYZh8RHFvWAz76wtoeLtC1d7QjTgM3hjsFCB4V//IAIiIIyz44iHUhdeI+PTTiLoLt1X+YHTXmW1+L0f1t7nUxnm0knQVfUp1ItJxXv3uTaSykdSZRe4wb5kdcgClWf2CylAIJ/Sn8yhd1E0Ayv2P4d8id6XT+GG0aIJDcTMq6tkk/vAQtiOJxY3B9kwfM8dW2ww5B/uB6FMOD98N4kmrr4B4LyXZwVvLV0LRn/5SzOfJZZroIvmtRJmjn0GycfbmBHheb3R1jb6LnhJ3Zexlb4NyYWgPWN72Md/xSiYgCckXSTMGzJm7v2NpN+4d4YdZ2Qope4OvL1NP+JiOsjMBQcUrIWy7//eWvDoWhfh/vexufqjlEB56bF53ROpawU3PngZxt296zSZ2K5343kTY7JZvuy3wni/rD1pw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB9062.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0dhdGV1TWhqQ1p5QmQ0bUE5d1VLVHQxRVhMdXVUdDcxZ3ppU3ZXVFFLVW5w?=
+ =?utf-8?B?T0lDbm5ZUCtaYmNQNVl1NWRHVGN5OExpdmY4d1dYSythdkluczNaQzQ1L0ZD?=
+ =?utf-8?B?SlJ5OWUxNHJFVDFseDFUUXgwZ2M2Nm1KbGxFdWhYZkZ1ZEVMdkpDd0FGNFBJ?=
+ =?utf-8?B?WmpCc3hBdURrVGR6ZTZyaWUwb1FaOVM0WlRsY01sbHdCTHF6SUVkWFZJQWFF?=
+ =?utf-8?B?Q0FjS3ZpdGRiY0hsMjZrc0tBMFlZWmNMUHZsanZNK3JheUJ6bkVRZTJBNTVz?=
+ =?utf-8?B?Q0s4SS9rSlljUVA4dFAxNkxBaGVvWlhTRm9jcXNMTThPZmxscS93aU96dVV6?=
+ =?utf-8?B?RWU4RVczVTlMRi95OWxNK0trdlY3MTRpd2ZaenhaT2NZOVZUSmVuWHZZRnc0?=
+ =?utf-8?B?NEp4cmtTNHp3ZlQ3cENsdTZ6UkNFWFlsWVBCT2c0MzdWcjRqelBvVU5BeWwr?=
+ =?utf-8?B?MHk1djU3UjFJYjhkYWJ2WHBHRldBbkdsL0JqUWl1YU93SWhCdXEwWElObzJ2?=
+ =?utf-8?B?OTU0S3JmNkNtcFQ4aHJiOEpBb1ZMR0lWU1JKYThLbC83eFMrNkovanFWZjgw?=
+ =?utf-8?B?RU9SUWNETW9xak42cVZCMlRqVDVYVVhocGZWSERnVm1aOUQxbWJKMmdYd0RN?=
+ =?utf-8?B?dERrU2xES3dBQWhZNTVrWmNRQkZLVEZPeEV1R0VmVU9wNUlGMHArVm5NQklI?=
+ =?utf-8?B?OS83dG5UMWQwd3hQQ0RDUDFnWVovLzdES0Z4ZkVqVzBVblh6b2labEZZL2d2?=
+ =?utf-8?B?d3FvZE51N2ZJK1Q0aXJ2MFcvTkdxM2gzU2dzckhxUXE0RTRnd3pHRDd6dGRo?=
+ =?utf-8?B?YnA4bm5wdVZYMmhIVzRFT01NSFFJclFlWWY1V3dVMFlHM0tSUjJiVUltY2VN?=
+ =?utf-8?B?Y0FweEN0T0ZBY1ArN2g2dDVYaWo3SDAvK3JwRDVTQUc5RkhFOW9zM0o2VlR1?=
+ =?utf-8?B?MU5WL0MzVjh2QUNUZmFWSmx0S3prU0JaZ3hwZzFXeW9uZm5RZnh4Yk1qSXRE?=
+ =?utf-8?B?dlZKVVJXZ01HWFpUVGdGRUNmWVQ2NzlhdDhVdk1tYzVzbXhPMi9ISHVNRzBZ?=
+ =?utf-8?B?RGRmMzBzYXV3b1I0MVptK2poU0xHK2o3QXpjVEdBRXA3OHFrTnNtSmNwalBZ?=
+ =?utf-8?B?L2NvOFBnckVybGltVVdMdDE1QVdLWkJEclI0THpUUEZIWmdVUU1hK290OEdY?=
+ =?utf-8?B?NmlncHNrRkk1TWRoQWc0OGtnMkpISEEwblUrZFNiYllXTDJiaVJ3alBPMkNO?=
+ =?utf-8?B?cGVxc2hCc1Q2L21hb2k4NCt0VTdmRjB1YisvUmNZbFpWTlIwRkg4UVRyZkxB?=
+ =?utf-8?B?eml4YWdBeE96NWFSSXRtbkNrUk14WVNWMzQxNjFhMis1MkZENGNMNXJ4OFp1?=
+ =?utf-8?B?RjIrOXVVN2w1RFFqN05RbUhGQmE1S2FXV0k3Y1IzRHZNSmVBQlJKcENwLysw?=
+ =?utf-8?B?cktJS01CdHRZWi9EcDdxYXdZVkllU3hBbFlOWEF2ZkwycW9SNWMzY3hCUnh0?=
+ =?utf-8?B?SUtvaDltZm80WWRaMHhpejc2R1ZqaW9SOWd1RS9zbEI0b3F0WU5lTCtzWHA1?=
+ =?utf-8?B?TU5SVUg5T1RNZ1BTWnFJMCs4eUk5Q1BPTlppanFKOEtTQklnaWtURXhyc21i?=
+ =?utf-8?B?TTJNUElJcWl4VGNSTzRLZkxTNkNaNW9hbVZsZ2loZU1GMllvVzFrYlh6eTNS?=
+ =?utf-8?B?dXhqeHduVEdjVEErZVkvOVNSM2FWaVVpSE1CN2lVRWhlZ2hHYTlUMWNMNDJz?=
+ =?utf-8?B?MDZ5N2Y4ZW02Y2xKOUU1UDk3WjNaUFBSWXU3M05HeTlzdm9yZ1o4ZjFNZEJO?=
+ =?utf-8?B?emFod2lKZzR6dy9aTFdVaWN4RUZGTnp2Z0ZIa3F0V2ZTZ3g3cS9EU3ZNMm5p?=
+ =?utf-8?B?TUlRVVZZV3diWFpHa2NXWEF3Z1JxQU1pWkt6Nlg2ZWpOemtCSUs1ZytmbEZ4?=
+ =?utf-8?B?bnFWc0VDUVJCNTVFbUZlYTA4eDcwaTdKT2NHYnFvdjBhMHZvMDBzc2o2Y3Bl?=
+ =?utf-8?B?cUxORllOdjk0RWZaS2JXdWtBaTRoK0JQM0p0RGMxMkF5QlBPU3I0YnY5NjlH?=
+ =?utf-8?B?YlVlcFJGTVJnd0J4cFZwZ1ZYTXBNd0I4eGNldlVNNk4xL1ZGYzJxL1dBWlhl?=
+ =?utf-8?B?aVJ1dkw5Y3NKOTBScDkralU2SFF0ekpjekIrczNjY25QbHNFUjNiMHlPa2pF?=
+ =?utf-8?B?VXBKRFkyK3hpUGV2Yld0Si9VSFAxQTI3aDN5bCsyd01lWnpwMlRyQ2NUbGRI?=
+ =?utf-8?B?bWUxMjdBQndwaVg3a1MxNEUrMWo1Z3RZcEtCM3FwbjBROG56aUpML3N1MURw?=
+ =?utf-8?B?UVAxTll5eWk2blVJRjJUQWp6ajdqRW4zNzdrWE45azFudHFNSlZLdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2b46e76-8277-4ef4-535c-08df25611d13
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9062.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 17:25:14.1261 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 758MQ2hwNOXx6VbxFTRlH95qrW/3xbGJXO6zxynVdunKkXT8UmJF6avtvx0+ISbHt3GCRawdXcaT5LTwAzUDYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7994
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,46 +138,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Layer mixers without DPU_MIXER_SOURCESPLIT stage one pipe per blend level,
-so a plane is fetched by a single pipe of at most max_linewidth pixels.
 
-max_mixer_width used to reject wider modes. Now that the mode is checked
-against the PINGPONG width (4096/5120), keep max_linewidth as an extra
-bound when source split isn't available.
+On 10/7/2026 8:44 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] amdxdna: user-triggerable WARN_ON due to 0 dev_mem_size on NPU3
+> --
+>
+> commit f86aaf866bc504bcba674227ac3b36c9902b057f
+> Author: David Zhang <yidong.zhang@amd.com>
+>
+> accel/amdxdna: Add NPU3 classic device support
+>
+> This commit adds NPU3 classic device operations, register definitions, PCI
+> device IDs, and firmware declarations. It also guards device heap memory
+> initialization against a zero-sized device heap, since NPU3 does not
+> configure a dedicated device memory heap.
+>
+>> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
+>> index 93f749acb5d5d..c82433d629012 100644
+>> --- a/drivers/accel/amdxdna/npu3_regs.c
+>> +++ b/drivers/accel/amdxdna/npu3_regs.c
+> [ ... ]
+>
+>> @@ -105,3 +105,17 @@ const struct amdxdna_dev_info dev_npu3_vf_info = {
+>>   	.cert_feature_tbl	= npu3_cert_feature_table,
+>>   	.ops			= &aie4_vf_ops,
+>>   };
+>> +
+>> +const struct amdxdna_dev_info dev_npu3_classic_info = {
+>> +	.mbox_bar		= NPU3_MBOX_BAR,
+> [Severity: Medium]
+> Since this struct leaves dev_mem_size uninitialized (defaults to 0),
+> can this cause a user-triggerable WARN_ON?
+>
+> When an unprivileged user space client calls the DRM_IOCTL_AMDXDNA_CREATE_BO
+> ioctl with args.type == AMDXDNA_BO_DEV_HEAP, the handler delegates to
+> amdxdna_drm_create_dev_heap_bo() without verifying if the device actually
+> supports a heap.
+>
+> In amdxdna_drm_create_dev_heap_bo():
+>
+>          WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
+>
+> Since dev_mem_size is 0, is_power_of_2(0) evaluates to false, causing the
+> WARN_ON to execute. This allows any local user with DRM node access to
+> flood the kernel log or potentially trigger a crash if panic_on_warn is
+> enabled.
 
-Assisted-by: LLM
-Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Yes, will fix this with a single patch.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 41f986ca2a68..c2ebeef0b01f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -791,6 +791,10 @@ static int _dpu_crtc_check_and_setup_lm_bounds(struct drm_crtc *crtc,
- 	    adj_mode->hdisplay > max_pingpong_width)
- 		return -E2BIG;
- 
-+	if (!test_bit(DPU_MIXER_SOURCESPLIT, &dpu_kms->catalog->mixer[0].features) &&
-+	    adj_mode->hdisplay > dpu_kms->catalog->caps->max_linewidth)
-+		return -E2BIG;
-+
- 	for (i = 0; i < cstate->num_mixers; i++) {
- 		struct drm_rect *r = &cstate->lm_bounds[i];
- 		r->x1 = crtc_split_width * i;
-@@ -1661,6 +1665,10 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
- 	    mode->hdisplay > max_pingpong_width)
- 		return MODE_BAD_HVALUE;
- 
-+	if (!test_bit(DPU_MIXER_SOURCESPLIT, &dpu_kms->catalog->mixer[0].features) &&
-+	    mode->hdisplay > dpu_kms->catalog->caps->max_linewidth)
-+		return MODE_BAD_HVALUE;
-+
- 	adjusted_mode_clk = dpu_core_perf_adjusted_mode_clk(mode->clock,
- 							    dpu_kms->perf.perf_cfg);
- 
+/David
 
--- 
-2.34.1
-
+>> +	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
+>> +	.psp_bar                = NPU3_PSP_BAR_INDEX,
+>> +	.smu_bar		= NPU3_SMU_BAR_INDEX,
+>> +	.doorbell_bar		= NPU3_DOORBELL_BAR,
+>> +	.default_vbnv		= "RyzenAI-npu3",
+>> +	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
+>> +	.dev_priv		= &npu3_dev_priv,
+>> +	.fw_feature_tbl		= npu3_fw_feature_table,
+>> +	.cert_feature_tbl	= npu3_cert_feature_table,
+>> +	.ops			= &aie4_classic_ops,
+>> +};
