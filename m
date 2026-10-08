@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0D90CA600A
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 08:54:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC819CA600A
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 09:05:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 285C810E5D0;
-	Thu,  8 Oct 2026 08:54:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91E7510E792;
+	Thu,  8 Oct 2026 09:05:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="lnMwii2E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XjI53OhT";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9607810E5D0
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 08:54:04 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CAA11691
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 01:54:00 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 9A1F23F763
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 01:54:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1791449643; bh=kv5z2TT6AyAkWoFsdmXPAE51rmMlmY8WTTT3zFEcWSQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lnMwii2EtxgcDuG3ZtTveDkIDEtLhrvYOsh6n4QVwTXnkU6bubSCl7SpGkbaxHTa9
- 0e4+fmn03FwhtYLGYzBq4bd0baWe3Gmdlsrd/ItXpQserdHi6CHNSzqUd3JexFPrI+
- xlwfUz8aw6oB51aH9FlAFRnHd3vZSe/iaTCe6nKg=
-Date: Thu, 8 Oct 2026 09:53:50 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 416E110E77F;
+ Thu,  8 Oct 2026 09:05:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3F3D6601EF;
+ Thu,  8 Oct 2026 09:05:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E6A1F000FF;
+ Thu,  8 Oct 2026 09:05:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791450345;
+ bh=YukIs24ku5eXMFyDrQgCz9IpX8rOpx/Ss8mK/NLt3mY=;
+ h=Date:From:To:Cc:Subject;
+ b=XjI53OhTtmFpr35J/lOLX+7bINETHnWnTQoN10AjG3lT5xcEOUmqLx20KboiTl4Pb
+ g9zhIGhaa0YeiFUhnyi0gNdJZhJTtVjokHOZddoZlUdxsbQOyeQrmMzjYH7hxa7WKo
+ //E4ZaKx5td7ntsvEVf0ccNPYKLewPxjTb5uUexYRWqTmJVrzXlyObdX74bbxPsU2I
+ dBnFIeSOuHJhqPjrlRr1Enk/NDXI5olAWLB4dDWVpgg+Y2JgkPn9K+QSIXYxddWNCM
+ WnzfbC2D1fgJDd6imOMIcR7TsTTo4FFyOSCQrsH7WDXhHkVzwtRNJ8hvAza8ZJpvrY
+ mSb7a2vvN3tSA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id EA02F1AC57CE; Thu, 08 Oct 2026 10:05:41 +0100 (BST)
+Date: Thu, 8 Oct 2026 11:05:41 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
- check and erase
-Message-ID: <asdaHi1t7i721Xfn@e142607>
-References: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
+ Vitaly Prosyak <vitaly.prosyak@amd.com>
+Subject: linux-next: manual merge of the amdgpu tree with the drm-misc tree
+Message-ID: <asdc5fk-KcV74jnx@sirena.co.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="q9xfQlstLeq8UYA1"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,69 +64,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Oct 07, 2026 at 08:12:19PM +0200, Osama Abdelkader wrote:
-> panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
-> xa_erase() without holding the xarray lock across both. If the handle is
-> destroyed by another thread in between, and a concurrent GROUP_CREATE
-> reuses the freed ID, the first destroy erases and releases the new,
-> still-initializing group, leading to a use-after-free in
-> panthor_group_create().
-> 
-> Do the mark check and erase atomically under xa_lock().
-> 
-> Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+--q9xfQlstLeq8UYA1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-As Boris mentioned, please let us know if LLM has assisted in finding the bug or in
-the creation of the patch before we can merge the fix.
+Hi all,
 
-Best regards,
-Liviu
+Today's linux-next merge of the amdgpu tree got a conflict in:
 
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 0493858e55d7..a343c5180e01 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_device *ptdev = pfile->ptdev;
->  	struct panthor_scheduler *sched = ptdev->scheduler;
-> -	struct panthor_group *group;
-> +	struct panthor_group *group = NULL;
->  
-> -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> -		return -EINVAL;
-> +	/*
-> +	 * Check the mark and erase the entry atomically, so a concurrent
-> +	 * destroy + create can't make us erase a group that's still being
-> +	 * initialized and happens to reuse the same handle.
-> +	 */
-> +	xa_lock(&gpool->xa);
-> +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> +		group = __xa_erase(&gpool->xa, group_handle);
-> +	xa_unlock(&gpool->xa);
->  
-> -	group = xa_erase(&gpool->xa, group_handle);
->  	if (!group)
->  		return -EINVAL;
->  
-> -- 
-> 2.53.0
-> 
+  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+between commit:
+
+  6ccc5b5fc1d36 ("drm/fbdev: Move fbdev helpers into client library")
+
+=66rom the drm-misc tree and commit:
+
+  51a4359f7431a ("drm/amdgpu: serialize vblank counter reads against GPU re=
+set")
+
+=66rom the amdgpu tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 51a7a4091376b,f34150d20a2f2..0000000000000
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@@ -28,8 -28,9 +28,9 @@@
+ =20
+  #include "amdgpu.h"
+  #include <drm/amdgpu_drm.h>
+ +#include <drm/clients/drm_fbdev_helper.h>
+  #include <drm/drm_drv.h>
+ -#include <drm/drm_fb_helper.h>
++ #include <drm/drm_vblank.h>
+  #include "amdgpu_uvd.h"
+  #include "amdgpu_vce.h"
+  #include "atom.h"
+
+--q9xfQlstLeq8UYA1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasdc4gAKCRAv73Ows9A4
+iY/qAQDmwHMMWeRccgRE+tTVCTmNuMzLFIdc1NEMD0DF9yctVAEAhB70yDiLSRlv
+IUx3V+JGlvl1BTztsQHThX0+M+KplQc=
+=eM/5
+-----END PGP SIGNATURE-----
+
+--q9xfQlstLeq8UYA1--
