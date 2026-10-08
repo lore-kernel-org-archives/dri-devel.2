@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10D7CA6017
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 22:19:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9141CA6016
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 22:32:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFE8810E155;
-	Thu,  8 Oct 2026 22:19:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2320210EA4A;
+	Thu,  8 Oct 2026 22:32:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FK+UDDe8";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="bWyl+jJ2";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 056A710E155
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 22:19:54 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63B7010EA51
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 22:32:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1791497994;
+ s=mimecast20190719; t=1791498752;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=q26pHtJq5AW1BVb5JdpMBhNJVBPJeWS+ScAq8jhsGho=;
- b=FK+UDDe8Jrzv5rxtAflypj6Ied7V0XHZsWu4e0CVngsIGm1jCTEddxeUHphybM/H+DlI9z
- M0qRQ5n8Ymbta2InxkwBmyNSs2xZ7GyNclFNQMvcIfDzjiKykO4D09CqgcVaGJ3EAewaCG
- cW2Rzq2li9lVkxUh5IBnbkPqiYO13qY=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
+ b=bWyl+jJ2pB3KHzW6jXVOADPvy6rN8wKXy0QK9P2jYtnjH/lTFjstiq1ZUT7bR4P9etNUnB
+ tRz645CCuBbJCqthT9cOsS4Po4QBhrB0uo3VW8+n77NKYGeRwsqg59RhXY6yUn7CNRO3Zq
+ 2goVOqfJDMLV/Kp5qBWgzL8/nSs2gfU=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-151-P0qy7SUhOCiEEeKW-YDaDA-1; Thu, 8 Oct 2026 22:19:53 +0000
-X-MC-Unique: P0qy7SUhOCiEEeKW-YDaDA-1
-X-Mimecast-MFC-AGG-ID: P0qy7SUhOCiEEeKW-YDaDA_1791497992
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93caf6c528aso955622785a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 15:19:52 -0700 (PDT)
+ us-mta-554-dcU3HTNMMF6M3ZSqljEyIQ-1; Thu, 08 Oct 2026 18:32:31 -0400
+X-MC-Unique: dcU3HTNMMF6M3ZSqljEyIQ-1
+X-Mimecast-MFC-AGG-ID: dcU3HTNMMF6M3ZSqljEyIQ_1791498751
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93909014c85so1031661485a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 15:32:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791497992; x=1792102792;
+ d=1e100.net; s=20260707; t=1791498751; x=1792103551;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=GjfKe0UMSMorT3desuNDK/FRCwDViDwkhbHy5Q186yc=;
- b=VW2pw2Sltx5OGbS7MaiTnWpk5sHS4RICXc0cmWOIdlYOD0g43zh8NiXCNbK60eeAeJ
- 2oYwH5lZgwINBaNPAK9L1LcjbsCUYFvo4nAihPfCalvO53MSOCI5JW681PFeYPsBVnRW
- GQ2/BZyO29Vp3vPqvwUIHbMUeIBPQKiU+GobM1wrnZbQLHXlP3VNwUoDRiIBAgpIa+LM
- pKgq3cyC+IindFD3YMQ+/MALFsZaWNOlDVuu9bedOX9R18spcLS19AKcYa0ZjL3KZdmH
- 22l1QJPUfpxCvn/rtMUnDm1jbc0S9F4LZdEDJYsKQhT5Yc1g2pxnqUjCKOvL9KCAK3XI
- HQMw==
-X-Gm-Message-State: AFuF++kqST9ewpOvI2oV6AwgIwwgmAF1vuP2dKpE4MBc1FTxZNdboZHJ
- 6nHTVh9Ev8Wl54tgbXT/JMWrVj0FLB/FZlJe5baqMU9T5dmJG0V7p2WF3DXJ9ufpCha33TgfWY9
- L3tMSXso6fQAhH05BZs054nT+QbsOhbvdt3ljgJPPTH5iVYwCVv5nP/1ZaWLEepJfEeYX7Q==
-X-Gm-Gg: AYBFou1bNsXFgE7LqEEc4Q0rkdl6JoA2ToHkwEvSFxHfZn0BJjpbPUydR/UiwAq9he0
- 44iRo7GdDV6hY5W0VJIrgL7kG1jaawTs2WFLWvZAtKzipdJlUru8oIyyokx/Y4WdXx90oOWspr+
- gAnywZjCjY+JXBFahuaOkUvK4b8FJ3y5QjqFoov3RaftmQXqpeoyyHZpVOnnJMLLKMHZ9RvLUOA
- Fvq+xFqVEXIV8vqk/ShbTLUwLhbyMQsqbXblpbTPbIN3A38zAIbgPVzTP1oGO6W68ARI+pqWtjG
- lqI/XELTt7toCDfVreuBKIWVSqaHL6qoHLVhhwmu48Jxb5n1zgmrhFiD8CGdSJytEWmLfnA=
-X-Received: by 2002:a05:620a:198d:b0:93e:942f:b8ae with SMTP id
- af79cd13be357-93ebd1dfff5mr2778485a.26.1791497992319; 
- Thu, 08 Oct 2026 15:19:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:198d:b0:93e:942f:b8ae with SMTP id
- af79cd13be357-93ebd1dfff5mr2774485a.26.1791497991653; 
- Thu, 08 Oct 2026 15:19:51 -0700 (PDT)
+ bh=SIc4iwA5XrGPQ2J5CyhQjre/d7+7alnceRYs7l0hTO4=;
+ b=kU6DlvhgK70XhHTfZE/MHTWWhUAb3LfwlVPV2g4IUd1dZz9GbkDp9rkniA/WdwxJ2e
+ zPE9PkLg1Ju1N3peNxw3nGDIUXWq54EtqSu1WmG2zQIv8CIkiZk+z2lIL8QBRQ3TMylC
+ i6soYCZoRbxp/Pif/HS9GPtb95N/SDUhKrXQUVTpf7PU2PBQHX6Kk/3phv5f+YyW/qY+
+ vRB2eTl/+i7F6vR1uHJY1i/MGcuC2DxI2o37VAlU5jY0zJYI3RgMiz1UnF3RnB8RKRIA
+ isxg/MkUIZ5HyCw7J7fyt/AsNnY9bCe0EUTS0OU/chsP17seoa4n5TTOY7XO7ddqiiSI
+ KReA==
+X-Gm-Message-State: AFuF++m9S2iAVLb12Eipvu33wQj1wnmi4CsgiHPAFV397dVjgtnWRQbP
+ pD2jcRRtDyr2zNw+o5wgzKNUrKC3kAh3zFqQ81tfMa7ECzQIKELuZIACnUpnhbib7XO3ezlDUyD
+ Czt+pc0FQOUQGhx0Vk94C+HFuzKFtmOtQkTD0a5lK41i1gLj2ZI2fcOu5GSIGfxpWPXmbhA==
+X-Gm-Gg: AYBFou39eXr2hLWhm60Sw8fUkgqKnItSYJrgeDpByJjY2R8WMCU5/jV8Ki7/ru0vd9o
+ qU88OIJMPCLfnk/jMZ3vXI3TVZ6kAxtGoCq3mkt/eIhg81sQM8Kyt4QdqyyreSHszVGYyp0TFGb
+ UjKS39FzsJr7w120WWtuR8Dgbl+sjrqsKhy6vISIYKN6aWnG68ZvkkU0CykYsPrHtJayRtsUaWs
+ bUJjWHzygww5px4aDhfB5XmbwMvDExGv2PNcamG2iNCHQtDLunVjwnbJ/+TVqZWhjOzyOz1GUIF
+ ypsTNj077cCieEd0Uc4fm9Yr07OwNtEF82IkiRopFbdb60ecs4M3yHjqeY9ykRqpU3WUbq8=
+X-Received: by 2002:a05:620a:31a7:b0:93e:739a:7ca0 with SMTP id
+ af79cd13be357-93ebd22937cmr7032585a.18.1791498750560; 
+ Thu, 08 Oct 2026 15:32:30 -0700 (PDT)
+X-Received: by 2002:a05:620a:31a7:b0:93e:739a:7ca0 with SMTP id
+ af79cd13be357-93ebd22937cmr7027385a.18.1791498750001; 
+ Thu, 08 Oct 2026 15:32:30 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93eb986c350sm38274685a.22.2026.10.08.15.19.50
+ 6a1803df08f44-91b550d394bsm1890416d6.41.2026.10.08.15.32.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2026 15:19:51 -0700 (PDT)
-Message-ID: <778d3018e596c0be1db309b5e36aa361db89c9bb.camel@redhat.com>
-Subject: Re: [PATCH 3/3] drm/nouveau/gsp: Fix NULL dereference in
- nvkm_gsp_gcx_ready()
+ Thu, 08 Oct 2026 15:32:29 -0700 (PDT)
+Message-ID: <57528a486e149dc398d0ca443b33b16f805ea4e7.camel@redhat.com>
+Subject: Re: [PATCH 0/3] nouveau: fix 3 null-ptr derefs
 From: lyude@redhat.com
 To: jim.cromie@gmail.com, Danilo Krummrich <dakr@kernel.org>, Maarten
  Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
@@ -77,14 +76,13 @@ To: jim.cromie@gmail.com, Danilo Krummrich <dakr@kernel.org>, Maarten
  <airlied@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org
-Date: Thu, 08 Oct 2026 18:19:50 -0400
-In-Reply-To: <20261002-my-fixups-v1-3-a83d20f9d3fe@gmail.com>
+Date: Thu, 08 Oct 2026 18:32:28 -0400
+In-Reply-To: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
 References: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
- <20261002-my-fixups-v1-3-a83d20f9d3fe@gmail.com>
 User-Agent: Evolution 3.58.3 (3.58.3-2.fc43)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: s8C4zMJaH4D_w1JZvh6aTPMXvvodz9B1tkRUW_N-4e0_1791497992
+X-Mimecast-MFC-PROC-ID: CR2ZKc_rjvCtvwMol45fTj65bOiRhWQOdE-AKr9hkxs_1791498751
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -103,84 +101,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Actually - sorry for going back on a review, but before pushing these I
+realized we might want to do a bit more of a concrete fix than just
+these patches. Why don't we modify nvkm_gsp_rm() so that it also checks
+gsp->rm, and then use coccinelle to convert as many instances of open-
+coded `if (!gsp)` as we can find?
 
-Will push to drm-misc-fixes in a moment, thanks!
+Would you be up for handling that? If not, I could just modify these
+patches, update nvkm_gsp_rm(), and send out a new series with your
+modified work included.
 
 On Fri, 2026-10-02 at 12:09 -0600, Jim Cromie via B4 Relay wrote:
-> From: Jim Cromie <jim.cromie@gmail.com>
+> These 3 patches fix NULL ptr derefs I hit while booting kernels with
+> unrelated work (dynamic-debug) on a 2019 amdgpu+noueau laptop.=C2=A0 One
+> of
+> them is possibly hard to reproduce, the others are "dependable".
 >=20
-> Commit cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
-> INTERNAL_GCX_ENTRY_PREREQUISITE") hooked nvif_device_gcx_ready() into
-> nouveau_pmops_runtime_suspend() to consult GSP before runtime
-> suspend.
->=20
-> On GPUs running without GSP-RM (e.g. Volta GV100, NvGspRm=3D0, or
-> missing
-> GSP firmware blobs), device->gsp is instantiated but gsp->rm remains
-> NULL. nvkm_udevice_gcx_ready() checked "!gsp" instead of verifying
-> nvkm_gsp_rm(gsp), allowing non-RM instances to invoke
-> nvkm_gsp_gcx_ready(). nvkm_gsp_gcx_ready() then unconditionally
-> dereferenced gsp->rm->api, causing a kernel oops:
->=20
-> =C2=A0 RIP: 0010:nvkm_gsp_gcx_ready+0x10/0x30 [nouveau]
-> =C2=A0 Code: ... 48 8b 87 70 0e 00 00 <48> 8b 40 18 ...
-> =C2=A0 RAX: 0000000000000000 RDI: ffff8c9555fca000
-> =C2=A0 Call Trace:
-> =C2=A0=C2=A0 nvkm_udevice_mthd+0xa5/0x150 [nouveau]
-> =C2=A0=C2=A0 nvkm_ioctl+0xcc/0x1d0 [nouveau]
-> =C2=A0=C2=A0 nvif_object_mthd+0x110/0x1e0 [nouveau]
-> =C2=A0=C2=A0 nvif_device_gcx_ready+0x36/0x60 [nouveau]
-> =C2=A0=C2=A0 nouveau_pmops_runtime_suspend+0x39/0x140 [nouveau]
->=20
-> Instruction decode shows `mov rax, [rdi+0xe70]` loads gsp->rm (0x0),
-> and `<48> 8b 40 18` (`mov rax, [rax+0x18]`) faults accessing rm->api.
->=20
-> Fix by:
-> 0. Checking !nvkm_gsp_rm(gsp) in nvkm_udevice_gcx_ready() so non-RM
-> =C2=A0=C2=A0 devices report GC6/GcOff ready and bypass the GSP call entir=
-ely.
-> 1. Guarding gsp and gsp->rm in nvkm_gsp_gcx_ready() before inspecting
-> =C2=A0=C2=A0 gsp->rm->api->gsp->gcx_ready.
->=20
-> Fixes: cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
-> INTERNAL_GCX_ENTRY_PREREQUISITE")
 > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 > ---
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/device/user.c | 2 +-
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c=C2=A0=C2=A0=C2=A0 | =
-2 +-
-> =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
+> Jim Cromie (3):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau: Fix NULL pointer dereferences=
+ in GETPARAM ioctl
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau: Fix NULL pointer dereference =
+in GET_ZCULL_INFO
+> ioctl
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/gsp: Fix NULL dereference in n=
+vkm_gsp_gcx_ready()
 >=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-> b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-> index f78e6b9b4292..d469437eb991 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-> @@ -201,7 +201,7 @@ nvkm_udevice_gcx_ready(struct nvkm_udevice *udev,
-> void *data, u32 size)
-> =C2=A0=09} *args =3D data;
-> =C2=A0=09int ret =3D -ENOSYS;
-> =C2=A0
-> -=09if (!gsp) {
-> +=09if (!nvkm_gsp_rm(gsp)) {
-> =C2=A0=09=09args->v0.ready =3D NV_DEVICE_GC6_READY |
-> NV_DEVICE_GCOFF_READY;
-> =C2=A0=09=09return 0;
-> =C2=A0=09}
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-> b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-> index e475d0e8fa7b..9e07d67dcb0f 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-> @@ -51,7 +51,7 @@ nvkm_gsp_intr_stall(struct nvkm_gsp *gsp, enum
-> nvkm_subdev_type type, int inst)
-> =C2=A0int
-> =C2=A0nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp)
-> =C2=A0{
-> -=09if (!gsp->rm->api->gsp->gcx_ready)
-> +=09if (!gsp || !gsp->rm || !gsp->rm->api->gsp->gcx_ready)
-> =C2=A0=09=09return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
-> =C2=A0
-> =C2=A0=09return gsp->rm->api->gsp->gcx_ready(gsp);
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 27
+> ++++++++++++++++++-----
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/device/user.c |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 2 +-
+> =C2=A03 files changed, 24 insertions(+), 7 deletions(-)
+> ---
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> change-id: 20261002-my-fixups-324d25f3bd05
+>=20
+> Best regards,
 
