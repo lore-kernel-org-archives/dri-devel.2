@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 841E4CA5FFD
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 04:04:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB54CA6007
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 04:10:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3CA610E741;
-	Thu,  8 Oct 2026 04:04:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62FBF10E731;
+	Thu,  8 Oct 2026 04:10:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WsGFmsxM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RQIhh1v5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB3A10E741
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 04:04:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E424810E731
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 04:10:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0F9D942E4A;
- Thu,  8 Oct 2026 04:04:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCD801F000FF;
- Thu,  8 Oct 2026 04:04:25 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D1C536025A;
+ Thu,  8 Oct 2026 04:10:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D2271F000FF;
+ Thu,  8 Oct 2026 04:10:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791432265;
- bh=wKMEJDX8N8PFAvrL8ZqeFjf0s1sSEcvq2kKLs8Abl+A=;
+ s=k20260515; t=1791432620;
+ bh=/8sbOrUI2hlZ894jRuMSQHYCAO6KJc/UhJ8FilsrHek=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WsGFmsxMTqwG7+S8OrQ71qWEBnl8EpjG1W367nD6lK3WJzFceBbQ/+VOZm4wAAkSk
- iX6LTelm43S98Q1qVOCh65+6fUIV6cWwR2d1H+kIZS7w0oiT+N7PPvtdDW1btnDH5d
- M9cr3xmxJW4ta7kPHENrbW0LbmqybrjcyoyJBTjOum8rMsId7x0ArYaT8XNXx+tQx2
- dxsu0yH6s/atkuxH2MHNapMRKwbjzRT3aO15oEU3m6Wv4eV5nh8JVJtJa7NR4AX4P7
- jNbIVileBM/6A0xHv8mk5c4TuvsnKlEcJPXXY4E5jpzoumlqiHLBtR0G8jqmSY4/w5
- sUBeafMYpPQyQ==
-Message-ID: <sashiko-outbox-163601@kernel.org>
+ b=RQIhh1v5tIJ2ro1qyw5Nlv2jYf6iiNLroSeEF2V/0eoZWAYXxThwsP5dsrsF4aaYu
+ S8lbIQGDLsZQfxbNE0phGlPXANlj9NMN13ApdQiWQuXX5V0J4JZd8NoH7o+hwKoQW1
+ JMK5LvTmOn44dS25YmVpNyDKOxKBiIIZixC20qDMTWkR4SFp8kFptCbKPul8waMWDI
+ pbn6yA+BT9qV4T5wKrqh6sODQAwS6TtwCqK000lZEYp9Fr92IwHnpEFt1CAfq70Y9f
+ tKeylXPKuyjL5TY384vS9nLkykL9WtCKJqXaw4uJqdVEyUsafdEIXERczeJ5NPqBU+
+ J8DCWMRwA6k6A==
+Message-ID: <sashiko-outbox-163604@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V3 13/19] accel/amdxdna: Prepare for AIE4 command
- submission
+Subject: Re: [PATCH V3 18/19] accel/amdxdna: Implement AIE4 suspend and resume
 To: "David Zhang" <yidong.zhang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261008032348.2044667-14-yidong.zhang@amd.com>
+In-Reply-To: <20261008032348.2044667-19-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
  <20261008032348.2044667-1-yidong.zhang@amd.com>
- <20261008032348.2044667-14-yidong.zhang@amd.com>
+ <20261008032348.2044667-19-yidong.zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 04:04:25 +0000
+Date: Thu, 08 Oct 2026 04:10:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,85 +60,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] amdxdna: infinite userspace loop on AMDXDNA_WAIT_CMD during devi=
-ce disconnect
+- [High] accel/amdxdna: missing job abort on pci_enable_device failure in r=
+esume
 --
 
-commit 59707c18aa0b6cb9051b6124aa8c05886c58491f
+commit dc42481bff99333322ed758d78317abfcf760ec5
 Author: David Zhang <yidong.zhang@amd.com>
 
-accel/amdxdna: Prepare for AIE4 command submission
+accel/amdxdna: Implement AIE4 suspend and resume
 
-This commit prepares the data structures and completion wait helpers for
-AIE4 command submission. It extends data structures for ERT_START_DPU paylo=
-ad
-and queue list linkage. It also updates wait helpers to detect asynchronous
-device disconnects and handle non-atomic read index updates.
+This commit implements suspend and resume callbacks for AIE4 Physical Funct=
+ion
+(PF), Virtual Function (VF), and Classic device types. It introduces functi=
+ons
+to manage hardware contexts and pending jobs across suspend boundaries, and
+establishes stateless links between VFs and PFs for SR-IOV coordination.
 
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie=
-4_ctx.c
-> index 226570367f71f..09c92b1b5134e 100644
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
+diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_=
+pci.c
+--- a/drivers/accel/amdxdna/aie4_pci.c
++++ b/drivers/accel/amdxdna/aie4_pci.c
 [ ... ]
-> @@ -437,11 +449,21 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 =
-seq, u32 timeout)
->  		wait_jifs =3D msecs_to_jiffies(timeout);
+@@ -1277,11 +1277,10 @@ static int aie4_vf_resume(struct amdxdna_dev *xdna)
+>  static int aie4_vf_resume(struct amdxdna_dev *xdna)
+>  {
+>  	struct amdxdna_dev_hdl *ndev =3D xdna->dev_handle;
+>  	struct pci_dev *pdev =3D to_pci_dev(xdna->ddev.dev);
+>  	int ret;
 > =20
->  	ret =3D wait_event_interruptible_timeout(cert_comp->waitq,
-> -					       (check_cmd_done(hwctx, seq)),
-> +					       check_cmd_done(hwctx, seq, cert_comp),
->  					       wait_jifs);
+>  	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
 > =20
-> -	if (!ret)
-> +	if (!ret) {
->  		ret =3D -ETIME;
-> +	} else if (ret > 0 && !check_cert_comp_linked(hwctx, cert_comp) &&
-> +		   get_read_index(hwctx) <=3D seq) {
-> +		/*
-> +		 * Disconnected, or read_index invalid (0), before completion was
-> +		 * seen. -EAGAIN is by design: the caller retries the wait until a
-> +		 * valid read_index is observed. Command state and fence are not
-> +		 * affected.
-> +		 */
-> +		ret =3D -EAGAIN;
+>  	ret =3D pci_enable_device(pdev);
+>  	if (ret) {
+>  		XDNA_ERR(xdna, "enable pci device failed %d", ret);
+>  		return ret;
 
-[Severity: Medium]
-When the device is disconnected, does returning -EAGAIN here cause an infin=
-ite
-loop in userspace?
+[Severity: High]
+If pci_enable_device fails here, does this return leave pending software jo=
+bs
+hanging indefinitely?
 
-If the device disconnects or resets, the cert_comp is unlinked, but the
-context is not removed from client->hwctx_xa during teardown. Consequently,
-amdxdna_drm_wait_cmd_ioctl() will successfully look up the context and invo=
-ke
-aie4_cmd_wait() again.
+During suspend, aie4_hwctx_suspend_all is called with clean_jobs set to fal=
+se,
+which destroys the hardware context but intentionally leaves software jobs
+pending. If resume fails early, shouldn't those pending jobs be explicitly
+aborted and their fences signaled with an error?
 
-Because amdxdna_drm_wait_cmd_ioctl() lacks a drm_dev_enter() check to abort
-early on unplug, userspace will receive -EAGAIN and instantly retry.
+The later failure path for aie4_vf_hw_start calls aie4_hwctx_suspend_all wi=
+th
+clean_jobs set to true to properly handle this cleanup.
 
-On the next attempt, it hits the !cert_comp check at the start of
-aie4_cmd_wait() which also instantly returns -EAGAIN:
-
-drivers/accel/amdxdna/aie4_ctx.c:aie4_cmd_wait() {
-	...
-	struct cert_comp *cert_comp =3D aie4_get_cert_comp(hwctx);
-	long ret;
-
-	if (!cert_comp)
-		return -EAGAIN;
-	...
-}
-
-If the disconnect is permanent or recovery fails, will userspace poll forev=
-er
-without observing any delays?
-
-> +	}
+>  	}
+>  	pci_set_master(pdev);
 > =20
->  	aie4_put_cert_comp(cert_comp);
->
+>  	ret =3D aie4_vf_hw_start(ndev);
+>  	if (ret) {
+>  		XDNA_ERR(xdna, "hw_start failed %d", ret);
+>  		/* Contexts cannot reconnect; fail waiters and abort running jobs. */
+>  		aie4_hwctx_suspend_all(ndev, true);
+>  		goto pci_disable;
+>  	}
+[ ... ]
+@@ -1331,11 +1331,10 @@ static int aie4_classic_resume(struct amdxdna_dev *=
+xdna)
+>  static int aie4_classic_resume(struct amdxdna_dev *xdna)
+>  {
+>  	struct amdxdna_dev_hdl *ndev =3D xdna->dev_handle;
+>  	struct pci_dev *pdev =3D to_pci_dev(xdna->ddev.dev);
+>  	int ret;
+> =20
+>  	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
+> =20
+>  	ret =3D pci_enable_device(pdev);
+>  	if (ret) {
+>  		XDNA_ERR(xdna, "enable pci device failed %d", ret);
+>  		return ret;
+
+[Severity: High]
+Does this error path share the same issue as aie4_vf_resume where failing to
+call aie4_hwctx_suspend_all with clean_jobs set to true might deadlock wait=
+ing
+userspace tasks?
+
+>  	}
+>  	pci_set_master(pdev);
+> =20
+>  	ret =3D aie4_classic_hw_start(ndev);
+>  	if (ret) {
+>  		XDNA_ERR(xdna, "hw_start failed %d", ret);
+>  		/* Contexts cannot reconnect; fail waiters and abort running jobs. */
+>  		aie4_hwctx_suspend_all(ndev, true);
+>  		goto pci_disable;
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008032348.2044=
-667-1-yidong.zhang@amd.com?part=3D13
+667-1-yidong.zhang@amd.com?part=3D18
