@@ -4,49 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3400DCA600B
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98CA7CA600B
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D2410FCBC;
-	Thu,  8 Oct 2026 07:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F15AE10FCBE;
+	Thu,  8 Oct 2026 07:38:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kzInXlkk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KR4rDzTn";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D0E910FCBC
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 07:37:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3CFC10FCBE
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 07:38:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1857843430;
- Thu,  8 Oct 2026 07:37:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142191F000FF;
- Thu,  8 Oct 2026 07:37:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8C141419C7;
+ Thu,  8 Oct 2026 07:38:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFCE1F000FF;
+ Thu,  8 Oct 2026 07:38:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791445035;
- bh=9nh0eDL8VlS8CbRVuCMsRERyCaNvya5PFxbGvhuNeIE=;
+ s=k20260515; t=1791445096;
+ bh=42tEfSCwrEQdTCVPUj466kCjGMPLnBr3HCBYWUS+8PA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kzInXlkke8Pjiz8kPnaLTJkwDXkEhcaqaDyLYDZ/5MFzfgpKx3ciR++cirT1JpcLX
- gwQxYV7fQuD9fNEE4Xx2/loRWEtR0KqFWXrWU1NJuFU/OzX2tkhY/U8pzEnnv3Y4Xg
- 2BdkWR79A3GXVueJPuhpR7OQ6qbm84FZmXkRtAJW9Byei/z8hpUUFO9om9+eFfafk2
- YdVi+REpSbfaL5ktLQzov1fEbQRN5rb3XIQW83fBKWEc4xxD8Tz+kY/xj63kOJbPI6
- m641LiKCzGcjz3JAPLZBLddAI3g8sKY8frhRoT/n0aBsZC6kaoi8cf1zy2bVEdmq1X
- llKKjP4Oozz/g==
-Message-ID: <sashiko-outbox-163770@kernel.org>
+ b=KR4rDzTnW/+PIkHrk8m3UPx+f25GG0yv8fpDYUU13qD8Y+nb/QQ2dbcj00lGXY2rT
+ JMxTJ/KWEWVAM2SUXdYsEW4qIVW9lbMZFr9/kt8a33t2RsZ9fMrBtf/u8sW5NZTCi4
+ iZ7pttPrQe9NxdVGubRQyX46QcvYxfJYXqXDhY/cZn/eSvhfiFUma8MQ5bUJeFug5K
+ TdcxEuwFrK1osirkqJfFyWd/ZgMZSZvNDAC2fuHmSyYHbC2CYcU/ak+EIYPaJ3eTAy
+ O4IxvADX0rpA/TQg3u8wwhNu3WnQdxEaMd/z4nI1nP7BENC8NADOg9gvHACzK/OHok
+ 0+EPqwK1YCXAA==
+Message-ID: <sashiko-outbox-163771@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 12/13] treewide: convert rdmsrq() from a macro to an
- inline function
-To: "Juergen Gross" <jgross@suse.com>
-Cc: linux-hwmon@vger.kernel.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>,
- linux-pci@vger.kernel.org, linux-gpio@vger.kernel.org, cassel@kernel.org,
- linux-ide@vger.kernel.org, linux-perf-users@vger.kernel.org,
- kvm@vger.kernel.org, dlemoal@kernel.org, linux-hyperv@vger.kernel.org
-In-Reply-To: <20261008071839.2247074-13-jgross@suse.com>
-References: <20261008071839.2247074-1-jgross@suse.com>
- <20261008071839.2247074-13-jgross@suse.com>
+Subject: Re: [PATCH] drm/amd/display: Increase the HDMI HPD disconnect
+ filter time
+To: 2564278112@qq.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <tencent_B4299278015532212E7D2E624FA23C09C90A@qq.com>
+References: <tencent_B4299278015532212E7D2E624FA23C09C90A@qq.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 07:37:14 +0000
+Date: Thu, 08 Oct 2026 07:38:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,31 +57,55 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Today rdmsrq() is a macro using its second parameter as the target for
-> storing the read MSR value.
->=20
-> Convert rdmsrq() to an inline function returning the MSR value.
->=20
-> The users have been converted using the following semantic patch:
->=20
->   // Options: --include-headers
->=20
->   virtual patch
->   virtual report
->=20
->   @@
->   expression msr, val;
->   @@
->   (
->   - rdmsrq(msr,val)
->   + val =3D rdmsrq(msr)
->   )
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/amd/display: HDMI HPD disconnect filter masks valid KVM puls=
+es
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit 56a856b6f885a6969be27edf739c5c17d243d79b
+Author: Wang Jiang <jiangwang@kylinos.cn>
+
+drm/amd/display: Increase the HDMI HPD disconnect filter time
+
+This commit raises the DVI and HDMI HPD disconnect filter time from 100ms to
+800ms to hide bouncing hotplug signals when sinks reconfigure.
+
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c b/d=
+rivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
+> @@ -82,8 +82,12 @@ bool program_hpd_filter(const struct dc_link *link)
+>  	case SIGNAL_TYPE_HDMI_TYPE_A:
+>  	case SIGNAL_TYPE_HDMI_FRL:
+>  		/* Program hpd filter */
+> +		/* Some HDMI/DVI sinks drive HPD low for a few hundred ms while
+> +		 * they reconfigure; 100ms is not enough to hide that bounce,
+> +		 * which is then reported as a fake unplug/plug pair.
+> +		 */
+>  		delay_on_connect_in_ms =3D 500;
+> -		delay_on_disconnect_in_ms =3D 100;
+> +		delay_on_disconnect_in_ms =3D 800;
+
+[Severity: Medium]
+Will this 800ms filter in program_hpd_filter() mask legitimate hotplug puls=
+es
+from KVM switches or AV receivers?
+
+Standard HPD low pulses used by these devices to indicate a configuration
+change are typically between 100ms and 500ms. Because this filter is progra=
+mmed
+in hardware, an 800ms threshold completely hides these valid pulses from the
+CPU, meaning the HPD interrupt never fires.
+
+Could this cause the driver to miss valid hotplug events when users switch
+inputs, resulting in blank screens or incorrect video modes because EDID and
+HDCP are not renegotiated?
+
+>  		break;
+>  	case SIGNAL_TYPE_DISPLAY_PORT:
+>  	case SIGNAL_TYPE_DISPLAY_PORT_MST:
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008071839.2247=
-074-1-jgross@suse.com?part=3D12
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_B4299278015=
+532212E7D2E624FA23C09C90A@qq.com?part=3D1
