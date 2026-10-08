@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB34FCA600C
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 18:43:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4D8CA600C
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 19:17:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C39B10E8B6;
-	Thu,  8 Oct 2026 18:43:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D78B10E9C6;
+	Thu,  8 Oct 2026 19:17:50 +0000 (UTC)
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2F4F10E8B6;
- Thu,  8 Oct 2026 18:43:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 905EB10E997
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 19:17:48 +0000 (UTC)
 Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowABHTTtJ5MdqnboQCg--.13485S2;
- Fri, 09 Oct 2026 02:43:21 +0800 (CST)
+ by APP-03 (Coremail) with SMTP id rQCowADHzz1W7MdqTWwRCg--.14045S2;
+ Fri, 09 Oct 2026 03:17:43 +0800 (CST)
 From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=83=C2=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: return error from gpu_recover_get() on runtime pm
- failure
-Date: Fri,  9 Oct 2026 02:43:24 +0800
-Message-Id: <20261008184324.2783919-1-vulab@iscas.ac.cn>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/omap: hdmi: fix runtime PM leak in hdmi_pll_enable()
+Date: Fri,  9 Oct 2026 03:17:45 +0800
+Message-Id: <20261008191745.2809272-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABHTTtJ5MdqnboQCg--.13485S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr4UXFW7Zw1xur1rXFWxCrg_yoW8GrykpF
- 4fXrnxtryDZF12ya47Aa4xXa4Y9w17XFW8KryUC347uw15AFZ5JFy5JFWjqFWjkrZ2kF47
- trWkG3y7XFnF93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: rQCowADHzz1W7MdqTWwRCg--.14045S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrWDXw17Ww1kCw4ktr4UCFg_yoW8Wr4Upr
+ WSqa4jvrykJr47trsrAFnxZFya93yakrWfGr97Cas3ua1rAa4rtr4rAryF9F4v9rykAa13
+ Krn7Gay3CryYyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUklb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
  0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
  A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
@@ -47,7 +47,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxJr4UXFW7Zw1xur1rXFWxCrg_yoW8GrykpF
  42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU59o2UUUUU
  U==
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEOA2rHo1OWWwACsY
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQOA2rHpl2cVQAAsR
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,36 +63,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gpu_recover_get() calls pm_runtime_get_sync() and, when it fails, puts the
-runtime pm reference but returns 0 instead of the negative error code.  It
-also never writes *val in that path, and since the debugfs file is backed
-by DEFINE_DEBUGFS_ATTRIBUTE/simple_attr_read(), a 0 return makes libfs
-format an uninitialized on-stack u64 and expose the kernel stack contents
-to userspace, while the error itself is silently discarded.
+hdmi_pll_enable() acquires a runtime PM reference with
+pm_runtime_get_sync() and then returns the -ETIMEDOUT error from
+hdmi_wp_set_pll_pwr() without releasing it.  The callers of
+dss_pll_enable() (hdmi4.c, hdmi5.c, dpi.c and dsi.c) do not call
+dss_pll_disable() when enabling fails, so the reference is never
+dropped and the HDMI device can no longer be runtime suspended.
 
-Return r so the failure is propagated and the caller skips formatting the
-uninitialized value.
+Release the runtime PM reference and undo the dss_ctrl_pll_enable()
+call on that error path.  Also drop the reference with
+pm_runtime_put_noidle() when pm_runtime_get_sync() itself fails.
 
-Fixes: a9ffe2a98338 ("drm/amdgpu/debugfs: properly handle runtime pm")
+Fixes: 86c9305c864c ("drm/omap: HDMI PLL: use runtime pm")
 Assisted-by: DeepSeek-V4.1-Flash
 Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/omapdrm/dss/hdmi_pll.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 3043ad041bb4..4c373167d86d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -988,7 +988,7 @@ static int gpu_recover_get(void *data, u64 *val)
- 	r = pm_runtime_get_sync(dev->dev);
- 	if (r < 0) {
- 		pm_runtime_put_autosuspend(dev->dev);
--		return 0;
-+		return r;
- 	}
+diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi_pll.c b/drivers/gpu/drm/omapdrm/dss/hdmi_pll.c
+index eea719243eaf..9b900fc88f5f 100644
+--- a/drivers/gpu/drm/omapdrm/dss/hdmi_pll.c
++++ b/drivers/gpu/drm/omapdrm/dss/hdmi_pll.c
+@@ -43,13 +43,19 @@ static int hdmi_pll_enable(struct dss_pll *dsspll)
+ 	int r;
  
- 	if (amdgpu_reset_domain_schedule(adev->reset_domain, &adev->reset_work))
+ 	r = pm_runtime_get_sync(&pll->pdev->dev);
+-	WARN_ON(r < 0);
++	if (WARN_ON(r < 0)) {
++		pm_runtime_put_noidle(&pll->pdev->dev);
++		return r;
++	}
+ 
+ 	dss_ctrl_pll_enable(dsspll, true);
+ 
+ 	r = hdmi_wp_set_pll_pwr(wp, HDMI_PLLPWRCMD_BOTHON_ALLCLKS);
+-	if (r)
++	if (r) {
++		dss_ctrl_pll_enable(dsspll, false);
++		pm_runtime_put_sync(&pll->pdev->dev);
+ 		return r;
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.25.1
 
