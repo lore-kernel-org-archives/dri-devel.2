@@ -4,47 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2A21CA600C
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 11:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F9B1CA6007
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 11:56:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D43810E7EC;
-	Thu,  8 Oct 2026 11:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96E9F10E7EB;
+	Thu,  8 Oct 2026 11:56:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FlaYMhMs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LW+GAElv";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B38C310E7EC
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 11:55:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:From:Reply-To;
- bh=SWa3YlZkDzYb1zZq6EwD/X7SF1I+Gt0BS0xUQawhlj4=; b=FlaYMhMsdCJwQwmDWzPLkqXb8K
- mhuSHkulG37nMsmJpYuNjF3Hubov78jwiO1JvkAgLYa0GDwk7ilMzeOPJq+RnWVxoJgxGfoizpV7b
- NvogCprVvqYK1v6bRHAuZuUcgOJFtkXCd0XXoHDkeBfUcJEr4L9tLV4Z5LazHmEGtx9oQd33zb6MZ
- t+pVjl5qHQhzbUIf6pSpfjqwwbGfsSr7syS0cqQ3KneAjNuRcb4Y8DZOWEwQOxFLQr7cimRkiAE+h
- RKLL7XgNnf8qtDkxrarTg78hKyIW2yKBQfEdOQe1DBNj9N4+O+uUiKDBvjFpK/OWRr15fX9Sp8k/S
- fK1rn5ZQ==;
-Received: from [148.56.135.230] (helo=[192.168.0.17])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xEmiY-00ESGp-R5; Thu, 08 Oct 2026 13:55:22 +0200
-Message-ID: <54fa8011835a2ca41da5e12c4bca6cd36d4aa28b.camel@igalia.com>
-Subject: Re: [PATCH] drm/vc4: Fix binner slot allocation failing on an idle GPU
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Jose Maria Casanova
- Crespo <jmcasanova@igalia.com>, Maxime Ripard <mripard@kernel.org>, Dave
- Stevenson <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Date: Thu, 08 Oct 2026 13:55:12 +0200
-In-Reply-To: <20260930182204.1877361-1-mcanal@igalia.com>
-References: <20260930182204.1877361-1-mcanal@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48BE210E7EB
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 11:56:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E419B41979;
+ Thu,  8 Oct 2026 11:56:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BA191C2BCF5;
+ Thu,  8 Oct 2026 11:56:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1791460571;
+ bh=G6ARnNTARObbrTT7DPV97sjeI/BJutADNZnC5X5vdSc=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=LW+GAElvEGV9qBbBG/cvw3QlPrf8V7jQfBn9p/zK1LtGQBmeooSbzRABjpRs96+wh
+ 7bKb3YkgpeQEk6W32lk3M5tDwt44BeCTtLaKmoWzmqwfvo434zfr2YHuczZMnX7JIE
+ 4jBCPn+8gAUiMoTMOvYb4nqMPLwWKLN/ESj9e1nn7l9WABhesHQe2J3Eh7WqJxxFhG
+ gy84xZmvellfuh9OsErXPFwxekg6rkMpUYHi06TbNp7uMOaVL07ROOzUP+pgMxtQ00
+ hskdX2U8bhozonb4jgldpDYVBk1inKplBqOMTpnEKQzOkkLClDO6NNhn3FlogBaTJ+
+ kDvJeOgn6dY0g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 961E2CA6007;
+ Thu,  8 Oct 2026 11:56:11 +0000 (UTC)
+From: Lucas Frendorf via B4 Relay <devnull+lucasfrendorf.proton.me@kernel.org>
+Date: Thu, 08 Oct 2026 13:55:20 +0200
+Subject: [PATCH RESEND] drm/ttm: Skip GPU MM stats for DMA-allocated pool pages
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-ttm-gpu-stats-dma-v1-1-8660b659fe52@proton.me>
+To: Arun Pravin <arunpravin.paneerselvam@amd.com>, 
+ Natalie Vock <nat@pixelcluster.dev>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Christian Koenig <christian.koenig@amd.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ linux-kernel@vger.kernel.org, Matthew Auld <matthew.auld@intel.com>, 
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791460570; l=3732;
+ i=lucasfrendorf@proton.me; s=20261008; h=from:subject:message-id;
+ bh=hyaFv4vc1TDrPFFu8kZEtFpbp4jfnGBU2CeqvxC7h3U=;
+ b=yn2Z9plYH7C+tt+85/t2791dD127a4PIX7UwSbGVY6GZij4lE0Le1s7UCgposXfKR6RBzT98o
+ FySL0XcrJFAAhi+4K6w+vnA189H0S3CtH43QD+G3utJImcPl94iAFzN
+X-Developer-Key: i=lucasfrendorf@proton.me; a=ed25519;
+ pk=v8K8GS0xRvfhhVxjq0t7VICeqma8piHxgNSzSM4Uytg=
+X-Endpoint-Received: by B4 Relay for lucasfrendorf@proton.me/20261008 with
+ auth_id=1129
+X-Original-From: Lucas Frendorf <lucasfrendorf@proton.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,240 +73,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: lucasfrendorf@proton.me
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Nice catch! I think this looks good:
+From: Lucas Frendorf <lucasfrendorf@proton.me>
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+ttm_pool_alloc_page() and ttm_pool_free_page() account NR_GPU_ACTIVE
+and NR_GPU_RECLAIM only for pages from the page allocator, but
+ttm_pool_type_give() and ttm_pool_type_take() update them for every
+page. Each DMA-allocated page that is given to a pool and later freed
+from it therefore leaves NR_GPU_RECLAIM incremented and NR_GPU_ACTIVE
+decremented.
 
-El mi=C3=A9, 30-09-2026 a las 15:20 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> A job's binner slots are returned to bin_alloc_used by
-> vc4_complete_exec(),
-> which runs from the job_done workqueue, but the seqno
-> vc4_v3d_get_bin_slot() waits on is incremented earlier, in the
-> function
-> vc4_irq_finish_render_job(). Therefore, a waiter can wake, retry, and
-> still
-> find the pool full because the worker has not run. By then, the job
-> might
-> have left the render_job_list, so no seqno remains to wait on and the
-> allocation fails returning -ENOMEM.
->=20
-> This scenario can be reproduced on a Raspberry Pi 3 by using a burst
-> of
-> small jobs (e.g. Piglit's `quick_gl` suite), with userspace seeing a
-> rejected submit for a pool about to become free.
->=20
-> Note that the slots are held from validation until the render
-> completes,
-> so the pool can also be exhausted by jobs still queued on
-> bin_job_list,
-> leaving render_job_list empty and nothing to wait on.
->=20
-> Release the slots from the FRDONE handler and wait on the pool
-> instead of
-> on one job's seqno. This bounds the wait to the actual resource.
-> Also, by
-> claiming the slot inside the wait condition, another submit is unable
-> to
-> take the slot between the wakeup and the retry. vc4_complete_exec()
-> keeps
-> clearing the slots for jobs that never completed, and now wakes the
-> waiters too.
->=20
-> Note that the wait takes a deadline, since the two callers need
-> different
-> ones. The submit path is a user task and can be interrupted, so it
-> waits
-> without one. On the other hand, vc4_overflow_mem_work() runs on a
-> worker
-> and never sees a signal, so it needs a deadline. During a reset,
-> vc4_irq_disable() masks V3D_DRIVER_IRQS before draining the worker,
-> and
-> with those masked nothing can release a slot. This deadlocks: the
-> worker
-> would wait for slots that only the reset can free, while the reset
-> waits
-> in cancel_work_sync() for the worker.
->=20
-> Fixes: 553c942f8b2c ("drm/vc4: Allow using more than 256MB of CMA
-> memory.")
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 2 +-
-> =C2=A0drivers/gpu/drm/vc4/vc4_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 8 +++++-
-> =C2=A0drivers/gpu/drm/vc4/vc4_irq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 6 +++-
-> =C2=A0drivers/gpu/drm/vc4/vc4_v3d.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 44 ++=
-++++++++++++--------------
-> --
-> =C2=A0drivers/gpu/drm/vc4/vc4_validate.c |=C2=A0 2 +-
-> =C2=A05 files changed, 34 insertions(+), 28 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/vc4/vc4_drv.h
-> b/drivers/gpu/drm/vc4/vc4_drv.h
-> index 695bc6a29d30..09134809bf15 100644
-> --- a/drivers/gpu/drm/vc4/vc4_drv.h
-> +++ b/drivers/gpu/drm/vc4/vc4_drv.h
-> @@ -1053,7 +1053,7 @@ void vc4_plane_async_set_fb(struct drm_plane
-> *plane,
-> =C2=A0/* vc4_v3d.c */
-> =C2=A0extern struct platform_driver vc4_v3d_driver;
-> =C2=A0extern const struct of_device_id vc4_v3d_dt_match[];
-> -int vc4_v3d_get_bin_slot(struct vc4_dev *vc4);
-> +int vc4_v3d_get_bin_slot(struct vc4_dev *vc4, long timeout);
-> =C2=A0int vc4_v3d_bin_bo_get(struct vc4_dev *vc4, bool *used);
-> =C2=A0void vc4_v3d_bin_bo_put(struct vc4_dev *vc4);
-> =C2=A0int vc4_v3d_pm_get(struct vc4_dev *vc4);
-> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c
-> b/drivers/gpu/drm/vc4/vc4_gem.c
-> index 3212b9167620..356d7bb7f46a 100644
-> --- a/drivers/gpu/drm/vc4/vc4_gem.c
-> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-> @@ -889,11 +889,17 @@ vc4_complete_exec(struct drm_device *dev,
-> struct vc4_exec_info *exec)
-> =C2=A0		drm_gem_object_put(&bo->base.base);
-> =C2=A0	}
-> =C2=A0
-> -	/* Free up the allocation of any bin slots we used. */
-> +	/* Free up the allocation of any bin slots we used. Jobs
-> that ran to
-> +	 * completion had their slots released in
-> vc4_irq_finish_render_job().
-> +	 * Only jobs that never completed still have slots to be
-> released here.
-> +	 */
-> =C2=A0	spin_lock_irqsave(&vc4->job_lock, irqflags);
-> =C2=A0	vc4->bin_alloc_used &=3D ~exec->bin_slots;
-> =C2=A0	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-> =C2=A0
-> +	/* Let anyone waiting on the binner pool retry. */
-> +	wake_up_all(&vc4->job_wait_queue);
-> +
-> =C2=A0	/* Release the reference on the binner BO if needed. */
-> =C2=A0	if (exec->bin_bo_used)
-> =C2=A0		vc4_v3d_bin_bo_put(vc4);
-> diff --git a/drivers/gpu/drm/vc4/vc4_irq.c
-> b/drivers/gpu/drm/vc4/vc4_irq.c
-> index 3a3ea1e62dcb..e44ff996eaac 100644
-> --- a/drivers/gpu/drm/vc4/vc4_irq.c
-> +++ b/drivers/gpu/drm/vc4/vc4_irq.c
-> @@ -74,7 +74,7 @@ vc4_overflow_mem_work(struct work_struct *work)
-> =C2=A0
-> =C2=A0	bo =3D vc4->bin_bo;
-> =C2=A0
-> -	bin_bo_slot =3D vc4_v3d_get_bin_slot(vc4);
-> +	bin_bo_slot =3D vc4_v3d_get_bin_slot(vc4,
-> msecs_to_jiffies(500));
-> =C2=A0	if (bin_bo_slot < 0) {
-> =C2=A0		drm_err(&vc4->base, "Couldn't allocate binner
-> overflow mem\n");
-> =C2=A0		goto complete;
-> @@ -165,6 +165,10 @@ vc4_irq_finish_render_job(struct drm_device
-> *dev)
-> =C2=A0	trace_vc4_rcl_end_irq(dev, exec->seqno);
-> =C2=A0
-> =C2=A0	vc4->finished_seqno++;
-> +
-> +	vc4->bin_alloc_used &=3D ~exec->bin_slots;
-> +	exec->bin_slots =3D 0;
-> +
-> =C2=A0	list_move_tail(&exec->head, &vc4->job_done_list);
-> =C2=A0
-> =C2=A0	nextbin =3D vc4_first_bin_job(vc4);
-> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c
-> b/drivers/gpu/drm/vc4/vc4_v3d.c
-> index b40d98c9d1d2..3b0b01820c97 100644
-> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
-> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-> @@ -152,46 +152,42 @@ void vc4_v3d_init_hw(struct drm_device *dev)
-> =C2=A0	V3D_WRITE(V3D_VPMBASE, 0);
-> =C2=A0}
-> =C2=A0
-> -int vc4_v3d_get_bin_slot(struct vc4_dev *vc4)
-> +static int bin_slot_try_alloc(struct vc4_dev *vc4)
-> =C2=A0{
-> -	struct drm_device *dev =3D &vc4->base;
-> -	unsigned long irqflags;
-> =C2=A0	int slot;
-> -	uint64_t seqno =3D 0;
-> -	struct vc4_exec_info *exec;
-> =C2=A0
-> -	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
-> -		return -ENODEV;
-> +	guard(spinlock_irqsave)(&vc4->job_lock);
-> =C2=A0
-> -try_again:
-> -	spin_lock_irqsave(&vc4->job_lock, irqflags);
-> =C2=A0	slot =3D ffs(~vc4->bin_alloc_used);
-> =C2=A0	if (slot !=3D 0) {
-> =C2=A0		/* Switch from ffs() bit index to a 0-based index.
-> */
-> =C2=A0		slot--;
-> =C2=A0		vc4->bin_alloc_used |=3D BIT(slot);
-> -		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-> -		return slot;
-> +	} else {
-> +		slot =3D -ENOMEM;
-> =C2=A0	}
-> =C2=A0
-> -	/* Couldn't find an open slot.=C2=A0 Wait for render to complete
-> -	 * and try again.
-> -	 */
-> -	exec =3D vc4_last_render_job(vc4);
-> -	if (exec)
-> -		seqno =3D exec->seqno;
-> -	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-> +	return slot;
-> +}
-> =C2=A0
-> -	if (seqno) {
-> -		int ret =3D vc4_wait_for_seqno(dev, seqno, ~0ull,
-> true);
-> +int vc4_v3d_get_bin_slot(struct vc4_dev *vc4, long timeout)
-> +{
-> +	int slot;
-> +	long ret;
-> =C2=A0
-> -		if (ret =3D=3D 0)
-> -			goto try_again;
-> +	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
-> +		return -ENODEV;
-> =C2=A0
-> +	/* If the pool is full, wait for a job to release its slots.
-> */
-> +	ret =3D wait_event_interruptible_timeout(vc4->job_wait_queue,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (slot =3D
-> bin_slot_try_alloc(vc4)) >=3D 0,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 timeout);
-> +	if (ret < 0)
-> =C2=A0		return ret;
-> -	}
-> +	if (ret =3D=3D 0)
-> +		return -ENOMEM;
-> =C2=A0
-> -	return -ENOMEM;
-> +	return slot;
-> =C2=A0}
-> =C2=A0
-> =C2=A0/*
-> diff --git a/drivers/gpu/drm/vc4/vc4_validate.c
-> b/drivers/gpu/drm/vc4/vc4_validate.c
-> index d2a65c968b1f..565227657b43 100644
-> --- a/drivers/gpu/drm/vc4/vc4_validate.c
-> +++ b/drivers/gpu/drm/vc4/vc4_validate.c
-> @@ -402,7 +402,7 @@ validate_tile_binning_config(VALIDATE_ARGS)
-> =C2=A0		return -EINVAL;
-> =C2=A0	}
-> =C2=A0
-> -	bin_slot =3D vc4_v3d_get_bin_slot(vc4);
-> +	bin_slot =3D vc4_v3d_get_bin_slot(vc4, MAX_SCHEDULE_TIMEOUT);
-> =C2=A0	if (bin_slot < 0) {
-> =C2=A0		if (bin_slot !=3D -EINTR && bin_slot !=3D -ERESTARTSYS)
-> {
-> =C2=A0			drm_err(dev, "Failed to allocate binner
-> memory: %d\n",
+DMA-allocating pools are used by amdgpu, radeon and nouveau when
+drm_need_swiotlb() is true, and by vmwgfx in coherent mode. On an
+amdgpu Rembrandt APU, GPUReclaim reached 20 GiB on a 30.6 GiB machine
+after 2 days while the pool held 34 MiB, and GPUActive read 0 kB.
+
+The imbalance was found with LLM assistance while investigating a
+memory monitor that reported 95% use.
+
+The allocation and free paths do not account DMA API memory. Skip the
+give and take accounting for DMA-allocating pools as well.
+
+Fixes: ae80122f3896 ("drm/ttm: use gpu mm stats to track gpu memory allocations. (v4)")
+Link: https://github.com/AvengeMedia/dgop/issues/44
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Lucas Frendorf <lucasfrendorf@proton.me>
+---
+I noticed dgop, a memory monitor, reported 95% usage. An LLM found the
+cause in the GPUReclaim accounting, wrote this patch and drafted its
+changelog, which I reviewed and revised.
+
+To reproduce, compare GPUReclaim in /proc/meminfo with the page total
+in /sys/kernel/debug/dri/<pci-id>/ttm_page_pool on a device with a
+DMA-allocating pool.
+
+Tested on v7.2.9 with the patched ttm.ko: GPUReclaim stayed at 0 kB
+through a glmark2 run on the 680M while its DMA pool held 298 MiB. The
+RX 6800S, which uses the non-DMA pools, still raised and lowered
+GPUReclaim normally. The patch builds with W=1 on v7.3-rc6.
+
+Dave Airlie's memcg series (part 2 v2, patch 05/10) rewrites both
+hunks and would need the same check.
+---
+ drivers/gpu/drm/ttm/ttm_pool.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 1bf37023f..1f2d31c3e 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -341,8 +341,10 @@ static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
+ 	rcu_read_unlock();
+ 
+ 	atomic_long_add(num_pages, &allocated_pages[nid]);
+-	mod_lruvec_page_state(p, NR_GPU_ACTIVE, -num_pages);
+-	mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
++	if (!pt->pool || !ttm_pool_uses_dma_alloc(pt->pool)) {
++		mod_lruvec_page_state(p, NR_GPU_ACTIVE, -num_pages);
++		mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
++	}
+ }
+ 
+ static enum lru_status take_one_from_lru(struct list_head *item,
+@@ -367,8 +369,10 @@ static struct page *ttm_pool_type_take(struct ttm_pool_type *pt, int nid)
+ 	ret = list_lru_walk_node(&pt->pages, nid, take_one_from_lru, (void *)&p, &nr_to_walk);
+ 	if (ret == 1 && p) {
+ 		atomic_long_sub(1 << pt->order, &allocated_pages[nid]);
+-		mod_lruvec_page_state(p, NR_GPU_ACTIVE, (1 << pt->order));
+-		mod_lruvec_page_state(p, NR_GPU_RECLAIM, -(1 << pt->order));
++		if (!pt->pool || !ttm_pool_uses_dma_alloc(pt->pool)) {
++			mod_lruvec_page_state(p, NR_GPU_ACTIVE, (1 << pt->order));
++			mod_lruvec_page_state(p, NR_GPU_RECLAIM, -(1 << pt->order));
++		}
+ 	}
+ 	return p;
+ }
+
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261008-ttm-gpu-stats-dma-9fc5e952a45b
+
+Best regards,
+--
+Lucas Frendorf <lucasfrendorf@proton.me>
+-- 
+Lucas Frendorf <lucasfrendorf@proton.me>
+
 
