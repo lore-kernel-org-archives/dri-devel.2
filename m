@@ -4,108 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 136D7CA600C
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 16:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF654CA600C
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 16:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A3710E0A4;
-	Thu,  8 Oct 2026 16:23:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5014310E4F1;
+	Thu,  8 Oct 2026 16:28:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uuB3GeMG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C7q0MCc/";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010069.outbound.protection.outlook.com [52.101.201.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 804C810E0A4
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 16:23:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57DFC10E133;
+ Thu,  8 Oct 2026 16:28:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791476891; x=1823012891;
+ h=date:from:to:cc:subject:message-id:
+ content-transfer-encoding:mime-version;
+ bh=EWHJrOa2CEK/wsumANeZHOd80Ogt62Od04e3SOSavfY=;
+ b=C7q0MCc/vOZzeGiBzKgAHalWcelC0MrjR6/3QydsYR1UA0qjDDMv+LhU
+ 86e4GZaVo1zanFnj8gX8iMZAAIY3AEWvyO1LuFxpzHYb3hnexPHIKlL/+
+ Glt8tktUw6eju669wBOYcIta7rFWIRF+cjSwyL2rRN9IoeKBoFPoMHSJv
+ UEPgiH1iFSntP6+gHn/xt5txSym00rtq3XJ2jDqiHbBvKhBr2r9CiO2Vx
+ Yb3Sq2Et2YIBZ1UoN2NEgb91HfNwcAwJYR3bNhkh2eFJ2rf9HKAQ+GpXD
+ f4yalK6DXb0LaZJYcDMbzLHtwMlHIyPZj+refqifUuvWW6PNhfCLRrAqJ w==;
+X-CSE-ConnectionGUID: INVoIy9OSQecxJSKn0Jj+A==
+X-CSE-MsgGUID: TBdh7YyGT7i0DnqnxsC15Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="146516"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="146516"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2026 09:28:10 -0700
+X-CSE-ConnectionGUID: 5Wai8+xPSK2O7cDqHoe+OA==
+X-CSE-MsgGUID: QrsU4AvCQmC8LBIGkFCjxQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="1908891"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2026 09:28:09 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 09:28:08 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 09:28:08 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.57) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 09:28:08 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FM+ftG5cj0NbRFv2YODLQoWIK69w7nPUH9Svn6O4e8GXLqKOMPIRMDGhxdx/5/2PXgBQe3LoQTc7m53He0rT96CW0f8UTUol/rQUb3eloYdvi9exQTGquZfV4fHveXPSc/EyAJrXoIIDUDmN/s1VVVUTmDCF9LPRUVfgOqLca7HB65iVsTZtJuUeQ2M+ytaL8wYELghb3rNOJp3aVZdh2lIiAQ0jLuHhuG1LtkQkeCoVMXAYsLzdOTxmQpmW1u8131yKJFDQ5f3J13qvRw7GmZmrkIwWnk5hwgJHePKI+mtGl455mbcvGq8zvk1NL+zqZImqNsW0zODvjPL0sRW0bw==
+ b=gGK04RsdRePM/suC+TTToneqc9OpnWg/oDw6kWuTCRN9xGTEhvOOzVA4vms8yzmvyGBGfX0tHg8mT7Q34EOLHbSRxsToYmBTHBTnApyAZhu3LreYvjX9LtrxK++752pMBWeMY+IZWvSQBfykquSknkeXfUDLSIL2sMg+Y+1ejPbHKOv/En2b1vdyRBdfXupIovv2ydjLBn++EYYRt5z2SACAT3rJYxl5dA1lhWmFlEfLwdnkveQ6pbOCfaOqd3QJjktEx05ZILC1T5JK6LjaKqIGjBz2CpfrNAe6goSbxt+wulIGK0mLMEVUIBBlpYMCtYQa3WDrqJXHg8fJluVWhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EP9DGHRJr5DNgI/LD50lufqcCHdAChY7WUOip4F5GWQ=;
- b=dkpBm/HWJdgBvd3zFOFpbAxTE/M5nMCbl1UPI4G+91xyS0ogcxfGI9c7Zxb6t5dCCeljGQhBNqEg9lf2sLdYIYMLpp1cVgxBNXUmIJZzUeN177vIb/OBDO4hfoYzQ+5/zCPC3RQCZGZQNq28ARBArqr8wCxop0C/Ee1ETGOo3KrAjM5DzS5e9zGJ03JWo9eI5/eZqjuyQbv1+/hpxEhqcrjFKC181BEJMrjBy//65/hoqy6+4fsl4S4momx+nOiqKwISkuAeiQoDhdlHXxkQDaB7n6WZsxzmqvMH43nSkAHSWSHntDm4qg251kg8hNWXoRmxAWvR9xoKI27Ut9F2wA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EP9DGHRJr5DNgI/LD50lufqcCHdAChY7WUOip4F5GWQ=;
- b=uuB3GeMGK35TSp+eMB2hduxZSWDWit2BQGY27plkdj72eqVDJThfX2iM3BsA//kL0qBBkvHWjGw3OcECc4O/LyLuZ9444Yuax0wTlTA+NmL0isP5aEOOiqO7t52U4t68//9Ll0RAVQMyewx8RCKCQ4UdqIlNE/tY7bGZ50RMA2s=
-Received: from DS7PR03CA0251.namprd03.prod.outlook.com (2603:10b6:5:3b3::16)
- by SJ5PPF3487F9737.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::990) with
+ bh=EZp3TrPyiY9rZyQOq9daLBIBLP6EEaIYIIs/3ky+LM8=;
+ b=dgzjQYKUhlIDEc+NK4vAiveZ7Y4qv2NjYeYlZ+NEf3+vaVt3utHE6TXOBjOqrDoLE1VPXImPJlXaISoY2eVGdM69ffGIYkin7bIzCVCQkWz5x25S5SvytamDv9ayB/XjuyaY+j0HUhX2LCrnSb2+iGgWIxzqj7MUSNPQcJRHw46i3maMpsSsjgm8Dz+zD/K1AOjLMxtWiFNDUyzg9Agb9Umhm22n/rVf83rt8NOZaMvJ4ErBYhqyaQGRR3mHDrNpU985QOPvi/nexelA6Nxy7gpPkQYEkzP0m6MRTn0Uunq2p1HteFEDg+Tuk2Q2t+Iwppi9jKItXTINJ8PW8Wymew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7192.namprd11.prod.outlook.com (2603:10b6:8:13a::22)
+ by PH7PR11MB8503.namprd11.prod.outlook.com (2603:10b6:510:30d::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Thu, 8 Oct
- 2026 16:23:06 +0000
-Received: from DM3PEPF000265BE.namprd04.prod.outlook.com
- (2603:10b6:5:3b3:cafe::56) by DS7PR03CA0251.outlook.office365.com
- (2603:10b6:5:3b3::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu, 8
- Oct 2026 16:23:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DM3PEPF000265BE.mail.protection.outlook.com (10.167.23.251) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 16:23:05 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 11:23:00 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 11:23:00 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 8 Oct 2026 11:22:59 -0500
-Message-ID: <74b4f7ac-ea02-ecd8-f943-1c5abb5a030f@amd.com>
-Date: Thu, 8 Oct 2026 09:23:03 -0700
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
+ 2026 16:28:04 +0000
+Received: from DS0PR11MB7192.namprd11.prod.outlook.com
+ ([fe80::c747:a502:4a7f:f5bb]) by DS0PR11MB7192.namprd11.prod.outlook.com
+ ([fe80::c747:a502:4a7f:f5bb%4]) with mapi id 15.21.0472.016; Thu, 8 Oct 2026
+ 16:27:59 +0000
+Date: Thu, 8 Oct 2026 12:27:42 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
+ Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dim-tools@lists.freedesktop.org>
+Subject: [PULL] drm-xe-fixes
+Message-ID: <asfEfgbIjs0GJ-RF@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2P153CA0028.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::9)
+ To DS0PR11MB7192.namprd11.prod.outlook.com
+ (2603:10b6:8:13a::22)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V3 01/19] accel/amdxdna: Rename NPU3 firmware files
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
- <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <yidong.zhang@amd.com>
- <20261008032348.2044667-1-yidong.zhang@amd.com>
- <20261008032348.2044667-2-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261008032348.2044667-2-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265BE:EE_|SJ5PPF3487F9737:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82a638a2-549d-4f0c-e9fd-08df25586ec8
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7192:EE_|PH7PR11MB8503:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a126eb9-08e7-4187-49c9-08df25591da7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|18002099003|22082099003|10067099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: /TDhB3IDfj6pA4vYMMQ7Qqc3n/0xUI3KPOa/Y1K6uTJJn5OGg5kd6kP9f6+1Q8CoCKRiEOOOyhIgxMHVgZsnpHrzQYnKZqu1KSpAA1TVFypx/d8L9xczY3Hx1lPpyfXiXU0Hs4GGyy36JcrLt/BDvOxmzVQoh7u2GGT5anvRaFbiCW9hgwn1fU8wYyrXK+B/CROdTMXsWhcYrIDSJAA7S07wU9Ya0xa/4Dn5KWddwsXhrOsdvwsaGdIiK9IB+/qxoktd0EcBmwpGoqBwUvhemazrzbziiApw5oKSlS1KGqarT3/VNqofa2zm4Iyd5rQE7r5jEG4CzmXWBn7n5fZdJqHac0vO1cAYUW40d0Gh1siEAs4tMgwYg/ot2DU+f1j0hnPSMJh/tTQU5GhmKeYUYFazNtuCBxIv6KKan22umK8z48Sgdb32q/JUmPGh7vswjl3ELlfS/P+rQp1fFns7xxVHmad0tH+p4WdxSPVja1z1FoNFkXjbCpLgjUHUcuU+4J+QBCvgPNO9fOhs3eYuIvUhPqB8CQjgAAOl3KEDTGDxBkgVpD0XIcO9bCD/I/MJe8zqET5A+n3qiCm6Z9Oy2HuM1HFlJnadxYZyi6lIjgPv/iAA5gupt2VbK3d8xRf9udA72iDk7pmOLRZEs23VVyaD28PnC0k+p2QpQHW5f2+XUcltHMaBFpTon7wumgGDp5yLp63U25GQtM1b4wluzg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006)(4143699003);
+ ARA:13230040|376014|23010399003|7416014|366016|1800799024|56012099006|11063799006|260925021311599003|260925021911599003|260925022911599003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: YJJI+jSdiWdGYwApIeAdf0iMFXmmSX4+qIWtGwb+ec0o8ofIue/F9epX22G80HrY0FamvqpD4DXuDTabj9ymOy2x9gAG92C6sn0So1iikYFFYrV9A/PXeZURiK48wrwMHn/gl2YRUk2QvNk5gFbBV7a3/LxNDQaQKmGAAUUKRaF3xUVWuQqQYiuuwKbTSQSwGwDC/eg2DMUSrQbA30otWJ4gbssnXNKSDuYdqnbbYHNzNShdy6dtz8UfmlR+PVbDVkfgLVah0YACwlBEgitH6Wvn7zXSnRAfTQa2/MtIGh+FTLKrqrZTNOO30g6qgHJqdpYStP3CaAVWTaE+/QRhsC8vfDLBjotSJSvd0mOZEKJdik6VXhYk+2cXq5cYi5atqA+hw0pBQ4Oe9kGJzqym5CwEq4RWuLI/avkOIPPUP3mRnFSIKMLRIF9RzecXfnIY3tw0gKB1aI3LrY4Cfcvi3D5G3lprOQtO8FTNOK8LO5gRsPNKKK8Vh4dkhGxydEVLIV7AhxoylB9b5ieAXbLaCfDBEXlKfOPtcsRYA5o4ycHPMLp+2y5oamlu1MPJzb9/UAogKUMs2rQDyWCnwCxAO3MH25VGMmt1X8ZqhKyMUkw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7192.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(56012099006)(11063799006)(260925021311599003)(260925021911599003)(260925022911599003)(10067099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: kFCnFdy/Bmj3ZqVq2MDzvwv9MNA2RFDZgBSKJRJvpjBnFyP2zchRBnX32fcgXPyUFL1lwx5PbbBwhuItrqrHTkRuKqUHDgnyk4XML2C3QnxlbPzVEIv3qt/Au96/6XonhLVd3PM5mhYePLI/1wjbLVWSv/CC+MTe8GkTQAUCpn6S43FO+aVsE6o8U9A3Dd/oKeriTIOCYebBiekSuZqwaqzlFkGH6oQ5HP6y9w1zea7KQ0DJc92KU1pLYzDLp853xBE2/o6IuFrAxPIMCvWnJB3uK9VyqI6fwaTRy9zkhpkrSg4cHtngDrzPOObYzL91Gz0fActknH7j6SSgEPXumGTzCy74BjzjrfefcVb6VovSA4VtRfJS+ZjNFS4AR4Ds/ggx0hjR4Iii0U6MXVfjsOpsXGzi9hY8+50BsmfsI6WS9Q9uK/JDOcJnC8mNHS0P
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 16:23:05.5505 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82a638a2-549d-4f0c-e9fd-08df25586ec8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265BE.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF3487F9737
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?PjuDrgQUy210y0ghofZLq0Cl8sm7/NBJjae9YFdzGYkWarJl/il2exGij6?=
+ =?iso-8859-1?Q?yjmg5MY9T0tZ31fe3n+4oMjGB2IujldDRStMQIwwxkyzfMyHFcagNlm2jk?=
+ =?iso-8859-1?Q?h6j6rcwMKRxa/klRPcWEGxcVRXB6/8DZbWzywAigQe79Y+B2KJ3u8Y1RzN?=
+ =?iso-8859-1?Q?j84+1/lf6yVRdWpsolgNtgs7267x6Yy++5adaXgY1YM8fQnD+W8QLYuauK?=
+ =?iso-8859-1?Q?bWN+h1i/CTHXqTUCalF94RqixAaSwrprthw3WX4B0TxZ0J3RXMy8QitJlu?=
+ =?iso-8859-1?Q?UaplaowJEyv6xHX5qbHChnM2qCD24I6YWM4UmPzXmIyXGdjL1utdp4AFf8?=
+ =?iso-8859-1?Q?cGjj2ZKbIQAzhxStdkkzytuAttT9obcANuhqj6wz2+cUiu7UY2osz97Tex?=
+ =?iso-8859-1?Q?oFCGYfs1Wt4s1aq0mPo0zzr1ujduM9TPo5NDwbOw5OkWuVavrx3i4V6kwl?=
+ =?iso-8859-1?Q?1cIf6TyC45oZhuyCy16YkX0i41iREtcEBSgLUdXPp1ZStd8lZFAIm4CfJH?=
+ =?iso-8859-1?Q?RgjhyYh7ZWA+piKbteS2dOnCjPtS/ryPNojAw9AFpipRq5XjXQaU+1vpnh?=
+ =?iso-8859-1?Q?MfPjuCoP09ekqFpPsxg2VLiGyp/mJCkwUoObbZvZI/kZuZmWsKC7Y0pSnM?=
+ =?iso-8859-1?Q?6sQkO68/3L526gmx5ACVWZeQ6iIU+ao4nV4kOdrZWgLU25MtSEfHg16Na2?=
+ =?iso-8859-1?Q?gVBAB38tISpQwFBNJRmrHzJyjfzWHoQMJtIaZ2jRzR+wj7fBE+95jTC97d?=
+ =?iso-8859-1?Q?9lhkSKOsrIrzwOldjhF8WIdD9l6gpWKky/L+3DXEQ1O1aM/GCyEJB0VLxd?=
+ =?iso-8859-1?Q?FwMjskbJX3uXMMx4XUX9Yri05JnZBJ/HXOVPX4MOZOlSPrAAZfB3nOTu7q?=
+ =?iso-8859-1?Q?NHab/NyMAMBX4roBVRPsldVXqQkbekDMHpArT84jmGa0NIfP0ZRK6g+hwR?=
+ =?iso-8859-1?Q?6520qPczG/R2y2Qcxdbj/4o2wmJ4CKgNvWLHWix4CfrP/OBt6ifJVt9Bn8?=
+ =?iso-8859-1?Q?OTv257N3Ui4d4dCtRISWSKjosISjGHcB+zlm+D9zWz2FbnRzN9A399Xy9F?=
+ =?iso-8859-1?Q?Uy9ctsGmsxHfsVXSv2nJxHUv9sozeVJ+RX7/yuEHUV9RJK6X8puq3/kNjU?=
+ =?iso-8859-1?Q?hOhxxN+ZSWoxpRgLziJDrOpHWEbTBCCHeJS3DcxknmyWRjXa6wf3YRyBiq?=
+ =?iso-8859-1?Q?Cff1XMav/nmzCIalS4m5iWIvB+lUSrBQqYBOKX72e6Kt6iAyGmfeXWrAF2?=
+ =?iso-8859-1?Q?Joeki66nQJzjPlDzJnXLo0CRY3kJFrP2zEbylYcT8TnkNjLJRaFLkvQMoY?=
+ =?iso-8859-1?Q?hzL32qHk12JWMgHMtk87bv0Sdd5OF566GHr/2BCuBkW1ukugvTeWri753J?=
+ =?iso-8859-1?Q?G1ywb1d7bJyCyBnWWpnvxj30MtCv9QaXTok0uZ15kmTQI6/IPc6J9Rcl7t?=
+ =?iso-8859-1?Q?mP+ZQpdkq35MJvmoMfaFT3dX4Acx3AtMHgd2IYabkStKXPr193E6gm916/?=
+ =?iso-8859-1?Q?0VfoSP+ixHF1OCVD9d4wCU2aCPuPlVFldVuh6iHSOmRCS42Ec8uGEuEeIm?=
+ =?iso-8859-1?Q?Ji88pp8wrUgRTNKMrIkWmld7PIJ7UMXqeMhCauxhljExPK9MKbLPVAEmze?=
+ =?iso-8859-1?Q?9C+QZl0TYJV9bmgKgaKVWYVvnse7JNWjFLruc0q1Z1csHdELrbd148CnEC?=
+ =?iso-8859-1?Q?cmPlI7W70Dj5U9jFdo+7Jn/ubrEfql2H7E9DwW2ekciXTBJ5TwfAuUJZxT?=
+ =?iso-8859-1?Q?eQ5T96gOabQo23dAPYfJyu4GkR5bECEssaaO5vQmsPsEAui+PRt8mrRAHW?=
+ =?iso-8859-1?Q?pbomspeyj5kSPwT/BEiI/BYSvQl1Boo=3D?=
+X-Exchange-RoutingPolicyChecked: AGqSvrVKtPfTtQNsm/Vwz+4myxnMQOritq5TIvG70bUTGWrysnqiFB8psgJUmkZh+RnBjcGa1aZuOnljznMP6sz5o+yqIfgeeKxgxgi5fKE/VlPEb4VCYr1qTJOkn5SuFzZRuOAGE6fjd4qGKRNuMGGC1Yy3Sw3FfLFC8r16Trk8KtsUoQ4OUCiea+GRZ8s2LXBhcZvYFsNXK2t20DgUrt15lW3Njt3CwL6HD081q5iq/Zxl49wGpKiy2YinqPNR6GbUQERvSgdX8Ee6B6NmLfkIhkNstJ6fYcQkRO9oYuycxtH6dk5qW8Bp7aoj7p7XftXS0bycXfgKztOYviaQFQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a126eb9-08e7-4187-49c9-08df25591da7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7192.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 16:27:59.6029 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TWUUppbZ3YPpzF2rkbLm1cJyx0aaZSKzc3VE272kOS48YaE6joF/1RMbD3PsSlL87v31yrtTVCkpZAGhgC24HQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8503
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,45 +167,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Dave and Sima,
 
-On 10/7/26 20:23, David Zhang wrote:
-> The NPU3 firmware files will be released as npu.sbin and cert.sbin.
-> Rename the current firmware names to match the firmware release names,
-> and add MODULE_FIRMWARE() declarations for the new 17f2_10 npu.sbin and
-> cert.sbin names.
->
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_pci_drv.c | 2 ++
->   drivers/accel/amdxdna/npu3_regs.c       | 4 ++--
->   2 files changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index bb339e641416..d9e2e71d3e05 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -28,6 +28,8 @@ MODULE_FIRMWARE("amdnpu/17f0_20/npu.sbin");
->   MODULE_FIRMWARE("amdnpu/1502_00/npu_7.sbin");
->   MODULE_FIRMWARE("amdnpu/17f0_10/npu_7.sbin");
->   MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f2_10/npu.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
->   
->   /*
->    * 0.0: Initial version
-> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-> index d76b2e99c308..8d287ef32fff 100644
-> --- a/drivers/accel/amdxdna/npu3_regs.c
-> +++ b/drivers/accel/amdxdna/npu3_regs.c
-> @@ -43,8 +43,8 @@ static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
->   };
->   
->   static const struct amdxdna_dev_priv npu3_dev_priv = {
-> -	.npufw_path             = "npu.dev.sbin",
-> -	.certfw_path            = "cert.dev.sbin",
-> +	.npufw_path             = "npu.sbin",
-> +	.certfw_path            = "cert.sbin",
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   	.mbox_bar		= NPU3_MBOX_BAR,
->   	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
->   	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
+Here goes our xe fixes for this rc round.
+
+Thanks,
+Rodrigo.
+
+drm-xe-fixes-2026-10-08:
+Fixes on:
+ - i2c removal (Fan)
+ - system Controller Maibox header handling (Mallesh)
+ - two bo pin/unpin accounting bugs (Thomas)
+ - not emitting a w/a twice (Tvrtko)
+ - xe_mmio_wait32() to honor delay/sleep maximums (Al\
+ an)
+The following changes since commit a90ee4305c4a5df72c11b31dacfdc76e00fcf78a:
+
+  Linux 7.3-rc6 (2026-10-04 13:45:25 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-10-08
+
+for you to fetch changes up to 611857adc9e7b0ee1239a0baf38498922ca5a12e:
+
+  drm/xe/i2c: cancel the client work on remove (2026-10-07 09:22:03 -0400)
+
+----------------------------------------------------------------
+Fixes on:
+ - i2c removal (Fan)
+ - system Controller Maibox header handling (Mallesh)
+ - two bo pin/unpin accounting bugs (Thomas)
+ - not emitting a w/a twice (Tvrtko)
+ - xe_mmio_wait32() to honor delay/sleep maximums (Al\
+ an)
+
+----------------------------------------------------------------
+Alan Previn (1):
+      drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep maximums
+
+Fan Wu (1):
+      drm/xe/i2c: cancel the client work on remove
+
+Mallesh Koujalagi (1):
+      drm/xe/sysctrl: Fix mailbox header handling
+
+Thomas Hellström (2):
+      drm/xe: Fix shrinker accounting double-subtraction on nested external pins
+      drm/xe: Fix stale pinned_link entry when fb-pin performs the final unpin
+
+Tvrtko Ursulin (1):
+      drm/xe: Do not emit Wa_16010904313 twice
+
+ drivers/gpu/drm/xe/display/xe_fb_pin.c  |   6 +-
+ drivers/gpu/drm/xe/xe_bo.c              | 139 ++++++++++++++++++++++++--------
+ drivers/gpu/drm/xe/xe_bo.h              |   2 +
+ drivers/gpu/drm/xe/xe_i2c.c             |   5 +-
+ drivers/gpu/drm/xe/xe_lrc.c             |  38 ++++++---
+ drivers/gpu/drm/xe/xe_mmio.c            |   5 +-
+ drivers/gpu/drm/xe/xe_sysctrl_mailbox.c |  16 ++--
+ 7 files changed, 150 insertions(+), 61 deletions(-)
