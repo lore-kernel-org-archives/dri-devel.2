@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98CA7CA600B
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53F39CA600E
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F15AE10FCBE;
-	Thu,  8 Oct 2026 07:38:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A98F610FCC3;
+	Thu,  8 Oct 2026 07:38:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KR4rDzTn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ELEynV8v";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3CFC10FCBE
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 07:38:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12A7F10FCC3
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 07:38:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8C141419C7;
- Thu,  8 Oct 2026 07:38:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFCE1F000FF;
- Thu,  8 Oct 2026 07:38:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 68B456025A;
+ Thu,  8 Oct 2026 07:38:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFF01F00893;
+ Thu,  8 Oct 2026 07:38:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791445096;
- bh=42tEfSCwrEQdTCVPUj466kCjGMPLnBr3HCBYWUS+8PA=;
+ s=k20260515; t=1791445118;
+ bh=OeGWmsd1zkwW2li9C1wPCg8/T3CMhCzW8z90h+6vsYs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KR4rDzTnW/+PIkHrk8m3UPx+f25GG0yv8fpDYUU13qD8Y+nb/QQ2dbcj00lGXY2rT
- JMxTJ/KWEWVAM2SUXdYsEW4qIVW9lbMZFr9/kt8a33t2RsZ9fMrBtf/u8sW5NZTCi4
- iZ7pttPrQe9NxdVGubRQyX46QcvYxfJYXqXDhY/cZn/eSvhfiFUma8MQ5bUJeFug5K
- TdcxEuwFrK1osirkqJfFyWd/ZgMZSZvNDAC2fuHmSyYHbC2CYcU/ak+EIYPaJ3eTAy
- O4IxvADX0rpA/TQg3u8wwhNu3WnQdxEaMd/z4nI1nP7BENC8NADOg9gvHACzK/OHok
- 0+EPqwK1YCXAA==
-Message-ID: <sashiko-outbox-163771@kernel.org>
+ b=ELEynV8v1gO6bH9uXfwAjZEoAZxLm9R0vc52HDcaniqSv5kQeex2XT16Rvzk4yzgV
+ 8aKoKebPfAbi1TxW/3q9dCjeqX495pIuDR1Tqb6yqB0F+ZFSMSec6vxug6xN7KTWkL
+ IrCainOeRUBKShx9pEOBg9i6thaXSJTTeSNdQDHDERH10pn3OU7HtK5b2WUAmtfE1r
+ 1ZIdKsi9Yj/H7PHO/IMJ4cj0yDgZI/uc8MKLmoQ5NAyETeVR1YXp9epkkalhIklWQA
+ MtCaUikKqyMUjKV/hzE1FXMxLUWxUumuBWJVVh0S7ccw7CgDXuYKpu5kXTLBS39UkM
+ evxafaseWXPcQ==
+Message-ID: <sashiko-outbox-163773@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: Increase the HDMI HPD disconnect
- filter time
+Subject: Re: [PATCH] drm/amd/display: Don't ignore dc_commit_streams() failures
 To: 2564278112@qq.com
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <tencent_B4299278015532212E7D2E624FA23C09C90A@qq.com>
-References: <tencent_B4299278015532212E7D2E624FA23C09C90A@qq.com>
+In-Reply-To: <tencent_34284E790157CA20C27C9260A7A32C08C10A@qq.com>
+References: <20261008071700.552056-1-2564278112@qq.com>
+ <tencent_34284E790157CA20C27C9260A7A32C08C10A@qq.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 07:38:15 +0000
+Date: Thu, 08 Oct 2026 07:38:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,55 +57,97 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/amd/display: HDMI HPD disconnect filter masks valid KVM puls=
-es
+- [High] drm/amd: incomplete fix, plane programming still executes after co=
+mmit failure
+- [Medium] drm/amd/display: hdmi_frl_status_polling_work leaks on commit fa=
+ilure
 --
 
-commit 56a856b6f885a6969be27edf739c5c17d243d79b
+commit 5df85d959754dc46c8ae54787ba1fc6639162940
 Author: Wang Jiang <jiangwang@kylinos.cn>
 
-drm/amd/display: Increase the HDMI HPD disconnect filter time
+drm/amd/display: Don't ignore dc_commit_streams() failures
 
-This commit raises the DVI and HDMI HPD disconnect filter time from 100ms to
-800ms to hide bouncing hotplug signals when sinks reconfigure.
+This patch modifies the AMD DRM driver to stop ignoring failures from
+dc_commit_streams(). It logs the failure and adds an early return in
+amdgpu_dm_commit_streams() to avoid programming plane state against a
+half-committed stream list. It also logs failures in the reset recovery
+path in dm_resume().
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c b/d=
-rivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
-> @@ -82,8 +82,12 @@ bool program_hpd_filter(const struct dc_link *link)
->  	case SIGNAL_TYPE_HDMI_TYPE_A:
->  	case SIGNAL_TYPE_HDMI_FRL:
->  		/* Program hpd filter */
-> +		/* Some HDMI/DVI sinks drive HPD low for a few hundred ms while
-> +		 * they reconfigure; 100ms is not enough to hide that bounce,
-> +		 * which is then reported as a fake unplug/plug pair.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+
+[ ... ]
+
+> @@ -4735,7 +4740,18 @@ static void amdgpu_dm_commit_streams(struct drm_at=
+omic_commit *state,
+>  	dm_enable_per_frame_crtc_master_sync(dc_state);
+>  	mutex_lock(&dm->dc_lock);
+>  	dc_exit_ips_for_hw_access(dm->dc);
+> -	WARN_ON(!dc_commit_streams(dm->dc, &params));
+> +	if (dc_commit_streams(dm->dc, &params) !=3D DC_OK) {
+> +		mutex_unlock(&dm->dc_lock);
+> +		/*
+> +		 * DC refused the stream list, so the hardware and the DC state
+> +		 * no longer agree. Bail out instead of programming more
+> +		 * stream/plane state for a half committed stream list (this
+> +		 * used to be a silently ignored WARN_ON()).
 > +		 */
->  		delay_on_connect_in_ms =3D 500;
-> -		delay_on_disconnect_in_ms =3D 100;
-> +		delay_on_disconnect_in_ms =3D 800;
+> +		drm_err(dev, "DC failed to commit %u stream(s)\n",
+> +			(unsigned int)params.stream_count);
+> +		return;
+
+[Severity: High]
+Will this early return successfully stop the plane programming?
+
+Since amdgpu_dm_commit_streams() returns void, it cannot propagate this
+failure state back to its caller. Looking at the caller
+amdgpu_dm_atomic_commit_tail():
+
+amdgpu_dm_atomic_commit_tail() {
+        ...
+        if (dm_state && dm_state->context) {
+                dc_state =3D dm_state->context;
+                amdgpu_dm_commit_streams(state, dc_state);
+        }
+        ...
+        if (dm_new_crtc_state->stream)
+                amdgpu_dm_commit_planes(state, dev, dm, crtc, wait_for_vbla=
+nk);
+}
+
+Because the tail continues unconditionally, won't it still program the
+planes against the rejected stream list, resulting in the exact crash
+this patch intended to prevent?
 
 [Severity: Medium]
-Will this 800ms filter in program_hpd_filter() mask legitimate hotplug puls=
-es
-from KVM switches or AV receivers?
+Does this early return cause the HDMI FRL status polling work to leak?
 
-Standard HPD low pulses used by these devices to indicate a configuration
-change are typically between 100ms and 500ms. Because this filter is progra=
-mmed
-in hardware, an 800ms threshold completely hides these valid pulses from the
-CPU, meaning the HPD interrupt never fires.
+By returning early, we bypass the subsequent block that manages the FRL
+polling work:
 
-Could this cause the driver to miss valid hotplug events when users switch
-inputs, resulting in blank screens or incorrect video modes because EDID and
-HDCP are not renegotiated?
+        if (frl_stream_found) {
+                queue_delayed_work(...)
+        } else {
+                if (cancel_delayed_work_sync(&dm->hdmi_frl_status_polling_w=
+ork))
+                        ...
+        }
 
->  		break;
->  	case SIGNAL_TYPE_DISPLAY_PORT:
->  	case SIGNAL_TYPE_DISPLAY_PORT_MST:
+Looking at hdmi_frl_status_polling_work(), the handler unconditionally
+re-arms itself by calling queue_delayed_work() at the end of its execution.
+If we fail the stream commit and return early, doesn't it leave the delayed
+work to run and wake up the CPU indefinitely on a recoverable failure path?
+
+> +	}
+> =20
+>  	bool frl_stream_found =3D false;
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_B4299278015=
-532212E7D2E624FA23C09C90A@qq.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_34284E79015=
+7CA20C27C9260A7A32C08C10A@qq.com?part=3D1
