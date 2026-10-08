@@ -4,44 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17BC6CA600B
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 06:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52917CA600A
+	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 07:01:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F54C10FC73;
-	Thu,  8 Oct 2026 06:39:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9146810FC84;
+	Thu,  8 Oct 2026 07:01:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cQki93hi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ImWKRJJP";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 167AE10FC73
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 06:39:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3CA45601DB;
- Thu,  8 Oct 2026 06:39:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F9A1F000FF;
- Thu,  8 Oct 2026 06:39:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791441574;
- bh=xuxjy3emaPTDsE2ZJx/MoZ53dYPQF5Buox5VZW0/ozA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cQki93hijEkt3OQTJYFKxgIJQZnjP/X457iz+LO/hV8KgyRCZe815RGq/XqUlwAQu
- E2oDbAM06TX/RxuZu0lvN+spVUaCBiqUPQRRa4B8V1+ZIVBlETVEHLa8BHE1XdRqg0
- 41YuQo9rj3EBRoxkhjp88BckiGr7M9IrLE4P9z5ELqwGEyHIaTqwdvFr7Kcj50k+CV
- 2SS5ec4quy+jAHbW0xuRE9rSCRUQWeWAyIrxBFk+ZUnOTyK/OOXWe5Dtygfxp1fDmA
- yYR1hnFVUuDD0w74KSi6MSMpNP/ErRNCjyidMLGIdS7rGBNR5KW8tYZBpDgxmGAIJL
- 7+IJLUj30pbIA==
-Message-ID: <sashiko-outbox-163703@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 7/7] bus: mhi: Expose DDR training data via
- controller sysfs
-To: "Kishore Batta" <kishore.batta@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261008-sahara_protocol_new_v2-v7-7-90d278bd7414@oss.qualcomm.com>
-References: <20261008-sahara_protocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com>
- <20261008-sahara_protocol_new_v2-v7-7-90d278bd7414@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
+ [209.85.210.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA1310FC83
+ for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 07:01:54 +0000 (UTC)
+Received: by mail-ot1-f47.google.com with SMTP id
+ 46e09a7af769-81b54d0cb17so2287570a34.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 00:01:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791442913; cv=none;
+ d=google.com; s=arc-20260327;
+ b=gokOlTXHGD9ri+2rSQAgqH/LP/iOb3AQ/gW0RI7FjfaELCgZGTgGRqZLLJUNYj5/Iy
+ W9FblEI5Mao0ladnsirLN/QKnblG3ZLl7iTnhoGPn0Fr72BLnDr76LPrkRZar/I/xwPJ
+ MwqakaSrMb06R1abfc3Zmm/utCp7jhDtoAXvk0Qz0sG/LRCVERdd6WB+Ac6v+pAwN8my
+ Ha46zZu3+AjAMn5228MgFahXiFDKZ12c3PMPgobuJ0L8TQ6L2v34oY08tlLVuj5W9BbM
+ TbnzcaJONcqLdI+hpbYh5D391rmTY0nszRcaeyNJa2c922jQqEuL6m4XX5eSIB7oV1Me
+ eDwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=VnjgZpiqCBnWQmDzV7ayfji4vld+Ysm4KsVus+ufOj4=;
+ fh=lPaCkO07BNLum1Dybkp9KGFEBShdc1JamAzCBMNTfx0=;
+ b=pT/aRB4OYJ9nF1QwliQwgs9RKuplnBwuAZRxeO8+7ukeiqFls5R/vA2nWf0RGqkpGT
+ h9rQqxZoHqzew4AHzapUZNGJLwa7VD5x5/P8QEsjfCy9n6U1RnI1oFyzvwrWvkFjUFAY
+ LSeB+DiP5mOZx/6pxSlriMA+IEe/tmp9gNKfjZ2Z36+88rSgUKddw/ekoexkrXv3zA7h
+ jIwQ18T8Eoqdm8plPWPIN1Pqenc5ZHoli4T3DBrxx/OA0dH8bkHF4fm4f+hxErSvQYeG
+ w4m2uIVXR0LgLxDAbblKO6BbAntw8nWzTA+aKk3zWdeVsgUfoPX1w7W9OSpDlEG0FVXj
+ p0dA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791442913; x=1792047713; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=VnjgZpiqCBnWQmDzV7ayfji4vld+Ysm4KsVus+ufOj4=;
+ b=ImWKRJJPrluEkjJ+Vfl4+BhunI/0RAtwetIbiYKViFQsCvfUiRR0KV941L+8OmHQR3
+ qs3AlACFooCqe/4ySL8ner/qQ5v51y/OFWsxUkPETbWMJiYkTZeKOOR0K/tIhNYf8yn0
+ oNQRETa8OZ26tJONeApTMuwrp83/K5ogJWOC6cpiyW7CNX/GuGtkJW5F2k2/MV1EgURO
+ njrIGgGh6ecR5fAP83eWFyf6TZ6uODF6UTNAAWPnuPRxKol90oo7amqg4UoTS5z6NkNm
+ iFE3PWgGw3OGTXFdB63QBoGJg12NwZqcg0nLU4bxEDLWlsxal8oIkFcPTU+fbUKJ4mmu
+ lKrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791442913; x=1792047713;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=VnjgZpiqCBnWQmDzV7ayfji4vld+Ysm4KsVus+ufOj4=;
+ b=qTfrA0K4g81eOK35Jykk6YnpToMXnI8FAVmo13GRH8f309laBmp+A6lMSah5w9gz9z
+ JUYsGOAXkA0JtRVHtuazjZ4pXSkfeVEJ5OU2EKlvvHQPcPOpgn2IWF9vxu6Ph75WuoPe
+ D2VLn4LVhFOus5wJzURHgwAHavILLLTW8Q/Pwb+xPv9b6t4edw5spJ8SwoFJBCzv1FE9
+ DFC7L/erQPRvxx3Juwa63QtIBEsb3JfobEVFOjFu4VR0ft5oMyIxSnvyJNWKrRah5+mh
+ yLR3P72qVAGGB7MGCHMEVuKkRc3w6jFXA978WQT4E/kvOtdVc+o+vXPETObX099yzChl
+ M3zA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByCUwMbEe/srvRQEJWZURzf8HL3xw6/9h1ob+hGAQ4Y56Jg8zpaXW0rrui+9Pe06R5WzNvliSHZ0fE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mjp5+SqGgetEQ/qZ1x2B/j07gyQoUxYPwKWKD5ijy2Wxupdd5U
+ jJY0W6u+4lKV+rXHt1+P2gaTha8MV6wmFbXWopbcMfdoeXPV98kDXLbKZOGPzPOrR9AHoHhrKk/
+ KXdf1W23g/J+9D7UOONWnqB1vV5Hyxrc=
+X-Gm-Gg: AYBFou17deyar/mHWLO0P+wMfjpgTKAzBKDWaYbHjUnjskt2ifvnIyaTR28WRDvjhUY
+ BAm4AruGKHDAI/wj6wM3aUcHKVqCdIHiZ5NWgtChg7gHT2r+59ENWPiNfQ4wyMhUeH/rJ5v01yP
+ jUAIsJxa/I2bHXgm98KLD/RQcBr4XziG0iYprLAgT73mAg41BlIKfjvnYzxkmedFCTcCcvZ0sUl
+ Lsu8Riw2T0MYkR0uvY6UG6LdurFgl6PWATGwp75D5Myvq4fc/wrehtPbMqSZnEbHPEY95bLICif
+ vDsxik9gFsHmbDQVpe2so8H8BDPbH7xCk5ntaBBiyCZSI46F1ndVw0vjICVKKhaWi7/HHkJBJBU
+ pHblHDZDS4g7SxgocR+gw4GLkNu28XC7I2j25Nge6otyGuhTktisH
+X-Received: by 2002:a05:6830:25d3:b0:80c:d30f:97d with SMTP id
+ 46e09a7af769-82ad16d6194mr5557685a34.30.1791442913372; Thu, 08 Oct 2026
+ 00:01:53 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260829004608.25252-1-mikhail.v.gavrilov@gmail.com>
+ <20260829085941.106318-1-mikhail.v.gavrilov@gmail.com>
+ <CABXGCsNQZY+g5AB17yiZP4aD3eKBpNWWNqcOL3_eh5JLxp=H3A@mail.gmail.com>
+ <IA0PPFD4454CAA918D3DA3D71405C9C7FD6FC932@IA0PPFD4454CAA9.namprd12.prod.outlook.com>
+In-Reply-To: <IA0PPFD4454CAA918D3DA3D71405C9C7FD6FC932@IA0PPFD4454CAA9.namprd12.prod.outlook.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Thu, 8 Oct 2026 12:01:40 +0500
+X-Gm-Features: AclHuK9yC09SUFDh4Mtny64tXmLQQDmS3U1PZKcvsixYfz550FQvCb7EW7S4RLM
+Message-ID: <CABXGCsNGmbFYB2FtAi6Hzn-jPTy6YG7P_Y82Qe4hi42svcq4xA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: add missing CRC engine 1 registers
+ and masks for DCN3.2
+To: "Lin, Wayne" <Wayne.Lin@amd.com>
+Cc: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li,
+ Sun peng (Leo)" <Sunpeng.Li@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Li,
+ Roman" <Roman.Li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "sashiko-bot@kernel.org" <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 06:39:33 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,187 +117,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] mhi: sahara: dangling devres and sysfs callbacks on module unload
-- [High] mhi: sahara: ddr_training_data sysfs read exposes incomplete data
-- [High] sahara: sleep in atomic context in sahara_mhi_dl_xfer_cb()
-- [High] mhi/sahara: Use-After-Free of devres training data in sysfs read
-- [Medium] bus: mhi: sahara: TOCTOU race in sahara_cntrl_training_get cause=
-s split-brain and leak
---
+On Thu, Oct 8, 2026 at 7:25=E2=80=AFAM Lin, Wayne <Wayne.Lin@amd.com> wrote=
+:
+>
+> Public
+>
+> Hi Mikhail,
+>
+> Thanks for catching this!
+> Could I give another patch that will include this fix along with a few ot=
+her DCN fixes, please?
+> I'll make sure to CC you when I send it out later.
+>
 
-commit 23130cc627e07ba76790886430e0130309cce1af
-Author: Kishore Batta <kishore.batta@oss.qualcomm.com>
+Sure, go ahead.
 
-bus: mhi: Expose DDR training data via controller sysfs
+Please keep "Fixes: ef45aaf73717" on it, so that the fix also reaches
+7.3 stable, where the WARN is new.  A Reported-by would be appreciated.
 
-This commit exposes DDR training data captured during Sahara command mode
-via a read-only binary sysfs attribute on the MHI controller device. The da=
-ta
-is served directly from controller scoped storage to userspace to optimize
-subsequent boots.
+If the other fixes cover DCN2.0, 3.0 and 3.1, which the Sashiko review
+of v2 pointed at: their offset headers define all twelve CRC1 window and
+data registers, so it looks like the same addition there.
 
-> diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/m=
-hi/host/clients/sahara/sahara.c
-> index 11f65cbfa66b8..2f2d18e4ed4da 100644
-> --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
-> +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-> @@ -273,6 +273,66 @@ static struct sahara_cntrl_training_data *sahara_cnt=
-rl_training_get(struct devic
->  	return ct;
->  }
-> =20
-> +static ssize_t ddr_training_data_read(struct file *filp, struct kobject =
-*kobj,
-> +				      const struct bin_attribute *attr, char *buf,
-> +				      loff_t offset, size_t count)
-> +{
-> +	struct device *dev =3D kobj_to_dev(kobj);
-> +	struct sahara_cntrl_training_data *ct;
-> +	size_t available;
-> +
-> +	ct =3D sahara_cntrl_training_get(dev);
-
-[Severity: Medium]
-Since this sysfs read path doesn't hold any lock before calling
-sahara_cntrl_training_get(), could we hit a race here?
-
-sahara_cntrl_training_get() performs a check and then allocates:
-
-	ct =3D devres_find(dev, sahara_cntrl_training_release, ...);
-	if (ct)
-		return ct;
-	ct =3D devres_alloc(..., GFP_KERNEL);
-	...
-	devres_add(dev, ct);
-
-If a userspace process reads this sysfs file concurrently while the MHI
-device is receiving training data (which also enters this function via
-sahara_mhi_dl_xfer_cb() or sahara_processing()), could two concurrent calle=
-rs
-bypass the singleton check, allocating and adding separate instances to the
-devres list?
-
-This would cause a memory leak and a split-brain state where the sysfs
-reader and the MHI driver operate on different instances.
-
-[Severity: High]
-Could this devres allocation sequence also lead to a use-after-free during
-controller unbind?
-
-When ddr_training_data_read() creates ct via sahara_cntrl_training_get(),
-it adds it to the controller device's devres list after the sysfs cookie
-was already added during probe. Because devres lists are LIFO, ct will be
-freed before the sysfs cookie is processed.
-
-If the controller device unbinds concurrently, devres_release_all() will
-free ct first, and only then call device_remove_bin_file() to drain
-active sysfs readers. Would the active sysfs reader continue executing and
-call mutex_lock(&ct->lock) on the now-freed ct pointer?
-
-> +	if (!ct)
-> +		return -ENODEV;
-> +
-> +	mutex_lock(&ct->lock);
-
-[Severity: High]
-Does taking this mutex cause a scheduling while atomic bug when interacting
-with the MHI transfer callbacks?
-
-The MHI transfer callback sahara_mhi_dl_xfer_cb() is executed from the MHI
-event tasklet (mhi_ev_task()), which is an atomic context. In that context,
-it calls sahara_cntrl_training_get() (which performs a sleeping GFP_KERNEL
-allocation) and then acquires this same mutex via mutex_lock(&ct->lock).
-
-Is it safe to sleep in this path?
-
-> +
-> +	/* No data yet or offset past end */
-> +	if (!ct->data || offset >=3D ct->size) {
-> +		mutex_unlock(&ct->lock);
-> +		return 0;
-> +	}
-> +
-> +	available =3D ct->size - offset;
-> +	count =3D min(count, available);
-> +	memcpy(buf, (u8 *)ct->data + offset, count);
-
-[Severity: High]
-Could this read expose incomplete or uninitialized data to userspace?
-
-The read computes available data based on ct->size without checking if the
-asynchronous transfer is still ongoing (i.e., whether ct->receiving is true=
-).
-
-ct->size is initialized to the full target length in
-sahara_command_execute_resp() before the data is actually received via DMA.
-Data is then incrementally copied into the buffer from the DL callback
-(sahara_mhi_dl_xfer_cb) using ct->copied.
-
-If a userspace process reads the sysfs file concurrently while the transfer
-is in progress, wouldn't it receive a partially zero-padded buffer instead
-of the actual DDR training data?
-
-Should this rely on ct->copied or check ct->receiving instead?
-
-> +
-> +	mutex_unlock(&ct->lock);
-> +
-> +	return count;
-> +}
-> +static BIN_ATTR_RO(ddr_training_data, 0);
-> +
-> +static void sahara_sysfs_devres_release(struct device *dev, void *res)
-> +{
-> +	device_remove_bin_file(dev, &bin_attr_ddr_training_data);
-> +}
-> +
-> +static void sahara_sysfs_create(struct mhi_device *mhi_dev)
-> +{
-> +	struct device *dev =3D &mhi_dev->mhi_cntrl->mhi_dev->dev;
-> +	void *cookie;
-> +	int ret;
-> +
-> +	if (devres_find(dev, sahara_sysfs_devres_release, NULL, NULL))
-> +		return;
-> +
-> +	ret =3D device_create_bin_file(dev, &bin_attr_ddr_training_data);
-> +	if (ret) {
-> +		dev_warn(&mhi_dev->dev,
-> +			 "Failed to create DDR training sysfs node (%d)\n", ret);
-> +		return;
-> +	}
-> +
-> +	cookie =3D devres_alloc(sahara_sysfs_devres_release, 1, GFP_KERNEL);
-> +	if (!cookie) {
-> +		device_remove_bin_file(dev, &bin_attr_ddr_training_data);
-> +		return;
-> +	}
-> +
-> +	devres_add(dev, cookie);
-> +}
-
-[Severity: High]
-Does this leave dangling pointers when the driver module is unloaded?
-
-sahara_sysfs_create() attaches a module-scoped devres release callback
-(sahara_sysfs_devres_release) and a sysfs attribute
-(bin_attr_ddr_training_data) to the long-lived controller device
-(&mhi_dev->mhi_cntrl->mhi_dev->dev).
-
-Since the controller device outlives the client device, and
-sahara_mhi_remove() doesn't manually remove the sysfs file and devres
-callbacks, won't they become dangling pointers when the module is unloaded?
-
-If the module is unloaded (e.g., rmmod mhi_sahara), any subsequent
-teardown of the controller device or a userspace read of the sysfs file
-would dereference these unmapped pointers.
+When it is out, I will test it on Navi 31 (DCN3.2) the same way as v2
+and reply with a Tested-by.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-sahara_pro=
-tocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com?part=3D7
+Thanks,
+Mikhail.
