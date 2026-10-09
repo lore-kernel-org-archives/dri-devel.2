@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F22ECA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76E66CA9EC5
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6413D10EBF1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72F1510EBF2;
 	Sat, 10 Oct 2026 12:38:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KZKQheuz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZLFT1XEI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C966610EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:13:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 097E310EAB2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:11:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 753864095D;
- Fri,  9 Oct 2026 18:13:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D411F000FF;
- Fri,  9 Oct 2026 18:12:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CCDC940AB0;
+ Fri,  9 Oct 2026 18:11:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ADB91F000FF;
+ Fri,  9 Oct 2026 18:10:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569600;
- bh=iDIhdQ4t5p5EBi+T7UN1fdBBm9Y25zMxYUCZ1BD49A8=;
+ s=k20260515; t=1791569474;
+ bh=i4y1sz7ZVghomqASsiy9XjZk1iqHWnAgN1nUm45xiCg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=KZKQheuzBkjAM2O4+v+AZscyh10745SRE5C6d3hgUYxBW9oahyQGgRTz6g7EKF9cj
- ie9ox3bNzDg7SRc/MO6N82ZYBJWc+4n12YhVZWAof5GhCb96kF+gsk1C/Y/8rGfu1o
- 7CCvtSI/YbcpjDK+A11l/1D1cYP5v8zEYIW3WCMyHxJ7lF7MjbR840DrdGt5vZrtFO
- NB53sOnVa8Su3CgmzsP72rX0M3DYpmTp+JFOUnUFIRGKpI6NDVQZfFM8j31isA9cQH
- S6+ru0/6oBB58nPMUJ+z3lLqnWs9hJIXZgqQn1xE9SvXQ9+3rBEVUt2CaO9duNF64t
- b+Dv1O2VII1Fw==
+ b=ZLFT1XEIIbgkZgYbl2cjVccfZl0WKiE8m0l03W59DgDeneiv+L+92FBild3sPyde0
+ wzuqOjF3Vi0Eodv+kRyAn0GxTK/vytccPEoGWPP+suajfvmc+F08VZ1oopYqvzdtOI
+ gILxTUEONu48fqVbkejv2G+UmDtjgipP/1mz81o3k6pHGvEd/jbGl2ey//6m4Sc6aa
+ EwtFe6k4gZiCPvFZ7ccHgXdRKe704eDpyuT7oMGEQ02V5L8/keYilUw7mGeP9K/b5J
+ YIPgLlCxq8hWwy+A73RCX9v4hfjY2Oi0k2pU+usaU8PsYFavcgQ591QEr+WIPN7KJx
+ VunBPOI806UKQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:19 +0100
-Subject: [PATCH v5 25/38] mm: remove VMA_IO_BIT check in
- vma[_flags]_is_mm_managed()
+Date: Fri, 09 Oct 2026 19:04:13 +0100
+Subject: [PATCH v5 19/38] HSI: cmt_speech: convert mmap hook to
+ mmap_prepare, refactor
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-25-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-19-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -122,12 +122,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6830; i=ljs@kernel.org;
- h=from:subject:message-id; bh=XJ2QJEIs+ulFNbkBjHGFKwasEh4q1kCJXoJq3WPvmC8=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sxdZTT/t41/fs/H5z+brsyr9v8cpvPio/3ax/YH9
- /dszZC70FHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJhNswMuxP+iF4fjXblA6R
- 1ikqZ1buuORjmSmrtsPH5vKxQpvN79czMpzfnimqq8Nefkpl+R8PoW3L22/e1zuYf0zopBnvWrm
- lL3kB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2685; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=MY9UuAl0nfMrM4GSY6SwItqCUTxM/pJjBHtqUqIj4oQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6szhFQzwb7tUeoPRuuPlFgPj5tXbDD5Iius9vRzo/
+ m6mlbhYRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACZSwMTwz2b9vWTG1ESd96su
+ dPx99u6Q85TpVdvX7pLb9cDO7/j9db0M/zQuLxdM+WWdy3d7yS57i4s8Cw9F8E4Ld5p+416nzHk
+ XeX4A
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -146,179 +146,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We have now made it such that every driver which sets VMA_IO_BIT marks it
-as not mm-managed.
+Use the mmap_prepare in favour of the deprecated mmap hook as part of the
+work to convert one to another.
 
-However, vma_flags_is_mm_managed() currently treats VMA_IO_BIT as
-disqualifying. This was a product of drivers previously marking a range as
-not mm-managed by
-setting VMA_IO_BIT alone.
+Since this is simply a refcounted kernel page that has been allocated, it
+should not be marked VM_IO and should be inserted using the kernel page
+insertion mechanism, so convert it to do this instead.
 
-Fix this by removing the VMA_IO_BIT check in vma_flags_is_mm_managed(),
-and update mmap_validate_vma_flags() to use vma_flags_is_mm_managed()
-rather than open-coding the VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT check.
+Use the VMA descriptor's private data field as a scratch buffer to store
+the page in - this stays valid throughout the kernel page mapping
+operation.
 
-This change means that vma[_flags]_can_merge() doesn't check VMA_IO_BIT any
-longer (which is now redundant) as it calls vma_flags_is_mm_managed().
-
-Now that the predicate means precisely VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT,
-also use it at the other sites which open-code that pair, so the intent is
-stated rather than the flags, with no functional change:
-
-zap_special_vma_range() only zaps mappings which are not mm-managed, as
-drivers use it
-to tear down ranges they established themselves.
-
-The mprotect() arch PFN modification check applies to mappings not managed
-by core mm, which may map PFNs without struct pages.
-
-NUMA balancing skips VM_MIXEDMAP mappings having already excluded VM_IO
-and VM_PFNMAP mappings via vma_migratable(), so it skips exactly the
-mappings not managed by core mm - say so.
-
-Finally, update the VMA userland merge 'special' flag tests to no longer
-assert that VMA_IO_BIT prevents merge as VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT
-now suffices.
-
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mm.h              |  3 +--
- kernel/sched/fair.c             |  2 +-
- mm/memory.c                     |  7 ++++---
- mm/mprotect.c                   |  3 +--
- mm/vma.c                        |  2 +-
- tools/testing/vma/include/dup.h |  3 +--
- tools/testing/vma/tests/merge.c | 10 ++--------
- 7 files changed, 11 insertions(+), 19 deletions(-)
+ drivers/hsi/clients/cmt_speech.c | 33 +++++++++------------------------
+ 1 file changed, 9 insertions(+), 24 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 6b5f06cd174a..3ddb463db895 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1627,8 +1627,7 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
-  */
- static inline bool vma_flags_is_mm_managed(const vma_flags_t *flags)
- {
--	return !vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
--				   VMA_IO_BIT);
-+	return !vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
+diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
+index 7226677ebde7..801697b74d4f 100644
+--- a/drivers/hsi/clients/cmt_speech.c
++++ b/drivers/hsi/clients/cmt_speech.c
+@@ -1084,22 +1084,6 @@ static void cs_hsi_stop(struct cs_hsi_iface *hi)
+ 	kfree(hi);
  }
  
- /**
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 8dff37059faf..a07a658cd99f 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -4212,7 +4212,7 @@ static void task_numa_work(struct callback_head *work)
- 
- 	for (; vma; vma = vma_next(&vmi)) {
- 		if (!vma_migratable(vma) || !vma_policy_mof(vma) ||
--			is_vm_hugetlb_page(vma) || (vma->vm_flags & VM_MIXEDMAP)) {
-+			is_vm_hugetlb_page(vma) || !vma_is_mm_managed(vma)) {
- 			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_UNSUITABLE);
- 			continue;
- 		}
-diff --git a/mm/memory.c b/mm/memory.c
-index e5c1d1c35bc7..094983683f24 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2343,19 +2343,20 @@ void zap_vma_range(struct vm_area_struct *vma, unsigned long address,
- }
- 
- /**
-- * zap_special_vma_range - zap all page table entries in a special vma range
-+ * zap_special_vma_range - zap all page table entries in a VMA which is not
-+ * mm-managed
-  * @vma: the vma covering the range to zap
-  * @address: starting address of the range to zap
-  * @size: number of bytes to zap
-  *
-  * This function does nothing when the provided address range is not fully
-- * contained in @vma, or when the @vma is not VM_PFNMAP or VM_MIXEDMAP.
-+ * contained in @vma, or when @vma is mm-managed.
-  */
- void zap_special_vma_range(struct vm_area_struct *vma, unsigned long address,
- 		unsigned long size)
- {
- 	if (!range_in_vma(vma, address, address + size) ||
--	   !(vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP)))
-+	   vma_is_mm_managed(vma))
- 		return;
- 
- 	zap_vma_range(vma, address, size);
-diff --git a/mm/mprotect.c b/mm/mprotect.c
-index 2888ee638d87..706c679d4281 100644
---- a/mm/mprotect.c
-+++ b/mm/mprotect.c
-@@ -783,8 +783,7 @@ mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
- 	 * uncommon case, so doesn't need to be very optimized.
- 	 */
- 	if (arch_has_pfn_modify_check() &&
--	    vma_flags_test_any(&old_vma_flags, VMA_PFNMAP_BIT,
--			       VMA_MIXEDMAP_BIT) &&
-+	    !vma_flags_is_mm_managed(&old_vma_flags) &&
- 	    !vma_flags_test_any_mask(&new_vma_flags, VMA_ACCESS_FLAGS)) {
- 		pgprot_t new_pgprot = vm_get_page_prot(newflags);
- 
-diff --git a/mm/vma.c b/mm/vma.c
-index 51bdbe08bb02..cb8729b195ea 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2796,7 +2796,7 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
- 		return -EINVAL;
- #endif
- 
--	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
-+	if (vma_flags_is_mm_managed(flags)) {
- 		/* mm-managed mappings may not set VMA_IO_BIT. */
- 		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
- 			return -EINVAL;
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 442ea9eb098d..94bf818ad0e1 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1667,8 +1667,7 @@ static inline bool file_is_dev_zero(const struct file *file)
- 
- static inline bool vma_flags_is_mm_managed(const vma_flags_t *flags)
- {
--	return !vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
--				   VMA_IO_BIT);
-+	return !vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
- }
- 
- static inline bool vma_is_mm_managed(const struct vm_area_struct *vma)
-diff --git a/tools/testing/vma/tests/merge.c b/tools/testing/vma/tests/merge.c
-index acaab282939c..b26f1a66a170 100644
---- a/tools/testing/vma/tests/merge.c
-+++ b/tools/testing/vma/tests/merge.c
-@@ -496,17 +496,11 @@ static bool test_vma_merge_special_flags(void)
- 		.mm = &mm,
- 		.vmi = &vmi,
- 	};
--	vma_flag_t special_flags[] = { VMA_IO_BIT, VMA_DONTEXPAND_BIT,
-+	vma_flag_t special_flags[] = { VMA_DONTEXPAND_BIT,
- 		VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT };
--	vma_flags_t all_special_flags = EMPTY_VMA_FLAGS;
- 	int i;
- 	struct vm_area_struct *vma_left, *vma;
- 
--	/* Make sure there aren't new VM_SPECIAL flags. */
--	for (i = 0; i < ARRAY_SIZE(special_flags); i++)
--		vma_flags_set(&all_special_flags, special_flags[i]);
--	ASSERT_FLAGS_SAME_MASK(&all_special_flags, VMA_SPECIAL_FLAGS);
+-static vm_fault_t cs_char_vma_fault(struct vm_fault *vmf)
+-{
+-	struct cs_char *csdata = vmf->vma->vm_private_data;
+-	struct page *page;
 -
- 	/*
- 	 * 01234
- 	 * AAA
-@@ -520,7 +514,7 @@ static bool test_vma_merge_special_flags(void)
- 	 * 01234
- 	 * AAA*
- 	 *
--	 * This should merge if not for the VM_SPECIAL flag.
-+	 * This should merge if not for the 'special' flag.
- 	 */
- 	vmg_set_range(&vmg, 0x3000, 0x4000, 3, vma_flags);
- 	for (i = 0; i < ARRAY_SIZE(special_flags); i++) {
+-	page = virt_to_page((void *)csdata->mmap_base);
+-	get_page(page);
+-	vmf->page = page;
+-
+-	return 0;
+-}
+-
+-static const struct vm_operations_struct cs_char_vm_ops = {
+-	.fault	= cs_char_vma_fault,
+-};
+-
+ static int cs_char_fasync(int fd, struct file *file, int on)
+ {
+ 	struct cs_char *csdata = file->private_data;
+@@ -1256,18 +1240,19 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 	return r;
+ }
+ 
+-static int cs_char_mmap(struct file *file, struct vm_area_struct *vma)
++static int cs_char_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	if (vma->vm_end < vma->vm_start)
+-		return -EINVAL;
++	struct file *file = desc->file;
++	struct cs_char *csdata = file->private_data;
++	struct page **pages = (struct page **)&desc->private_data;
+ 
+-	if (vma_pages(vma) != 1)
++	if (vma_desc_pages(desc) != 1)
+ 		return -EINVAL;
+ 
+-	vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
+-	vma->vm_ops = &cs_char_vm_ops;
+-	vma->vm_private_data = file->private_data;
++	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT, VMA_DONTEXPAND_BIT);
+ 
++	*pages = virt_to_page((void *)csdata->mmap_base);
++	mmap_action_map_kernel_pages_full(desc, pages);
+ 	return 0;
+ }
+ 
+@@ -1353,7 +1338,7 @@ static const struct file_operations cs_char_fops = {
+ 	.write		= cs_char_write,
+ 	.poll		= cs_char_poll,
+ 	.unlocked_ioctl	= cs_char_ioctl,
+-	.mmap		= cs_char_mmap,
++	.mmap_prepare	= cs_char_mmap_prepare,
+ 	.open		= cs_char_open,
+ 	.release	= cs_char_release,
+ 	.fasync		= cs_char_fasync,
 
 -- 
 2.55.0
