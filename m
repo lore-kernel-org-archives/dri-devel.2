@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34D43CA601F
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:45:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF26CA601F
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A4E110EB0A;
-	Fri,  9 Oct 2026 18:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 899F710E561;
+	Fri,  9 Oct 2026 18:46:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HvNJBZy9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EbvOFCwl";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE81910EB0A
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:44:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E0A010E561
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:46:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9D093407BA;
- Fri,  9 Oct 2026 18:44:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E99B1F000FF;
- Fri,  9 Oct 2026 18:44:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3727640A34;
+ Fri,  9 Oct 2026 18:46:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA6071F000FF;
+ Fri,  9 Oct 2026 18:46:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791571498;
- bh=ocrMeNkMQZu7lUW0ZX/nXGH/6NYNDpKamVvMXgsOpXg=;
+ s=k20260515; t=1791571612;
+ bh=HFKBoDKgPdTwbnYnYqRFjYpZs2q39uFT5lOGj3Ocqlo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HvNJBZy9Tsu7oES9CdsfR4f/4C+IE4xqTb5dLbuMSUyzbZsJ/yjMXR+167f3p//XP
- ob9okM/QutTRXss9bRhSy32e9t+A72Lx1PrRuFf2/GmmRAXiVDVbwzemFvMgRSZxYa
- mGBdpo12ahOey7dmJZEFs/eqKDPFLTw8kz22QIdmMIpU+qXV5ZLU0U9IUSkRL5i3rL
- OIqQh4UappTglas5pgF9N8JI7YpuUHe0ZFJNh7EvC7+IM75vMMXflYmgSLcwMErzNk
- 4EiUwDS9kMlOCoyBbclPjMXyO/PYSmG2FK5aCTN1dnk9a11R8DFOwhl0lX7LvS5qgh
- DL5Mh9PLzrdVQ==
-Message-ID: <sashiko-outbox-165968@kernel.org>
+ b=EbvOFCwl7vCmqFIt3haK4QWAALj/vPIXRM+4bVy4Fp9K5f6O7aab0Q5qMaLvGj1LD
+ ZbPbiowO2iup3HXEvEFvKKu84X48KwpxGQLTTrFLvLYdcCloY3B8TbI0kwn4Jnx15W
+ nPAn/aGDGtMgVuWOCntjbUI4rL7Wc245lCbS+NRWfnYy2dedAIoIIg9QByRPTxQ6em
+ MNU+rTEP9SoKPAFsJIX8QwjlziA7pA83ESORBONiCSf4jICiIuQk5ClHkAd4rpCZP3
+ aJfzH3arqwRQM+rmogzbCXJdcKfC2VOhZA1Opwpa/mzrMIMJbLVSHMVFkfz/SppwCj
+ 3B2dqW0icl31w==
+Message-ID: <sashiko-outbox-165970@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 17/38] scsi: sg: convert mmap hook to mmap_prepare
- and rework
+Subject: Re: [PATCH v5 31/38] mm/uffd: use predicates for userfaultfd checks
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: bpf@vger.kernel.org, kvmarm@lists.linux.dev,
- "Vasily Gorbik" <gor@linux.ibm.com>, linux-perf-users@vger.kernel.org,
- kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-usb@vger.kernel.org,
- "Marc
- Zyngier" <maz@kernel.org>, linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+Cc: kvmarm@lists.linux.dev, linux-scsi@vger.kernel.org,
+ "Oliver Upton" <oupton@kernel.org>, "Vasily
+ Gorbik" <gor@linux.ibm.com>, linux-s390@vger.kernel.org,
+ linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, linux-trace-kernel@vger.kernel.org,
  "Heiko
- Carstens" <hca@linux.ibm.com>, dri-devel@lists.freedesktop.org, "Oliver
- Upton" <oupton@kernel.org>, "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- linux-trace-kernel@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, linux-scsi@vger.kernel.org
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-17-923b70125b1e@kernel.org>
+ Carstens" <hca@linux.ibm.com>, kvm@vger.kernel.org, linux-usb@vger.kernel.org,
+ "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, "Marc Zyngier" <maz@kernel.org>,
+ selinux@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-31-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-17-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-31-923b70125b1e@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 18:44:56 +0000
+Date: Fri, 09 Oct 2026 18:46:50 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,41 +67,26 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Move from the deprecated mmap hook to the new mmap_prepare hook.
+> Rather than directly checking VMA flags, use the newly introduced
+> vma_is_mm_managed() and vma_is_mm_backed() helpers in userfaultfd
+> when assessing VMA suitability for userfaultfd and UFFDIO_MOVE.
 >=20
-> We are mapping kernel pages here, so use the discontiguous kernel mapping
-> mmap action to do so.
+> Update vma_move_compatible() so it's expressed in terms of VMA
+> characteristics rather than arbitrary flags.
 >=20
-> Unwind the rather confusing loop and instead map as many pages as we can =
-at
-> one time.
+> Additionally, update the use of the deprecated VMA flag API when checking
+> VMA_SHADOW_STACK_BIT.
 >=20
-> Note that we do not need to pay attention to rsv_schp->k_use_sg here, as
-> the pages are populated for the length of the buffer at
-> rsv_schp->page_order granularity as compound pages.
+> A VMA_IO_BIT check is no longer required but that is fine as a hard
+> invariant has been established that mm-managed mappings may not set
+> VMA_IO_BIT so the check is now redundant.
 >=20
-> The discontiguous kernel page mapping logic handles the compound pages for
-> us.
->=20
-> sfp->mmap_called keeps the buffer stable for us. As before it is never
-> cleared, so a failed mmap also leaves it set.
->=20
-> We also remove some useless vma, vma->vm_file NULL checks - these will
-> always be non-NULL if you reached the mmap hook logic.
->=20
-> We retain log output for consistency, but change what's output on page
-> mapping to indicate that sg_discontig_get() does the work now.
->=20
-> Note that we drop the VMA_IO_BIT flag for the VMA here. It was never
-> necessary as we invoke alloc_pages() which gives us refcounted folios that
-> are fine for GUP to access (VMA_IO_BIT would prevent that).
->=20
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Acked-by: Zi Yan <ziy@nvidia.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-b4-mmap-pr=
-epare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org?part=3D17
+epare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org?part=3D31
 
