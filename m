@@ -4,51 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E34A9CA9EBE
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 21:55:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00B86CA9EBE
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 22:01:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40E5C10EB60;
-	Fri,  9 Oct 2026 21:55:33 +0000 (UTC)
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6455510EB60
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 21:55:31 +0000 (UTC)
-Received: by mail-oi1-f198.google.com with SMTP id
- 5614622812f47-4b37620eb73so550648b6e.1
- for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 14:55:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48D6210EB55;
+	Fri,  9 Oct 2026 22:01:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="d4A6d+lp";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B95610EB55
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 22:01:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1791583296;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=T7imtYyWMwIHvOB2ZFxNOfZ9OLtnlcEZ/kjK2JkgTcA=;
+ b=d4A6d+lp5Rlhq/tvyxLmOswXfNTsx9HOlaYS+c6uYPZv+nPCACP2/aq47C0D9zTiaJN5MX
+ iOGiNGowSGwxXmrFLBtEUw74JCfzagIs+UuBe0P4ZhQQEh2yWNhU94Vtjo2YsQl/VOePaT
+ B/CVd0zyQ+sUw8hSZzbv+/QM0hevoYg=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-561-pTMQWfFsOA2Ta_ylHUQmbQ-1; Fri, 9 Oct 2026 22:01:28 +0000
+X-MC-Unique: pTMQWfFsOA2Ta_ylHUQmbQ-1
+X-Mimecast-MFC-AGG-ID: pTMQWfFsOA2Ta_ylHUQmbQ_1791583288
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-5358515b4easo3827641cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 15:01:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791582930; x=1792187730;
- h=content-type:to:from:subject:message-id:in-reply-to:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=EJZ9bPUGIIFLQOn9K1GH3elZiy2JfD5gZkP/Geb2G1U=;
- b=u7jHKsw0+ThjM3BkPulhtMjXrUgpnA8TuhyGaG+i7mwq09XalsOZkVtGylQrPXtHIm
- CP2Ksn9mCo8fkbk2vGrfRaKm1YWkt4JCuQSW2QjMdf3E2+grVSmfCcNGm8C78EliH7K/
- o9NLuenf8isS/x4d0yMhbfAaiMBmKOVB/TTFPT9JiczKTB8B11aeg++QFJtcWmCZ5LVD
- LWATrvLQ8M+/uwjvNxfbR2fGyDh+t7yz7RFZ2E84zUTB6dCWoej+fQuff8BUt3hHgA9q
- gl+oC1/IPp9ItD3zlBxhEQxgGZ2UsYEi2GCDhLTWTwchA1uBUekqnRowEv+7HhLziZkW
- WdMA==
+ d=1e100.net; s=20260707; t=1791583288; x=1792188088;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=T7imtYyWMwIHvOB2ZFxNOfZ9OLtnlcEZ/kjK2JkgTcA=;
+ b=FEYlPuEgWowl6LaIiaMk9fmdVDKF1YXKoALnI8yXtTiFCq11Mn5iSKwao/djh52xZX
+ dZOBmRxYFUxyCG+70Mq9TWTwAe7LEuvG3XROuHqeAR+VWg5YkFpetr+8zp4MzetIeaIW
+ PbdsaP/Imgp9povoWnzEVdtOBbD1qlmJJOepCMg2UdxjVqHj5xKF5st15cU9zmN9HfBT
+ 7965A9qKgIO2+20lLolT2Aq5Xh758srrwDya1bUxqMaGgbnPxb61DrO1qsBO2CgRLnHu
+ Gd06k/kUTXpPI/txFSd9ImU3BathVq4dhDeVP2FiL+jrriIiM8ecDFLZHDQldLjfe885
+ ipnA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzTWhC0nA02tcuz5+PLepuOowNjwkji1/Tn7Gqy4ZIiBxulZOB07L3xFMxkKNVzuqN5BpJtp/HFPUQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nS+4djGQV3Rd29SHvcNPWKBAS1gpKHRfhxQJgduZDeYBUc30jo
- PA6BXxgLACwFezOopiKFq7pI/FM/diIGH7eMOAM97tTjyFe+AEH6se6AUvueFHzqcKWh8uxNbp1
- lstYWfqGa7e3kDMpnMx8K3+7ucP1gzoPf6VOpcHQQfz4Tv9oMIu9nls14/FM=
+ AKwUvBzxtrv1tma1uL8eHEHEbAtFkCoI6KOB59aHDx53R6pz4cr0sWhFL0gvfzBvQCB/JcNfdxWxDnVe2HE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJQDFjOHatNPeUe/J32xpgwj8celtgvAkKguuTYYEV0BoebvkAW
+ +MfIwreQwICgDOpMpkC/EJ0M5QOPgOASnU/Sy8xhCy8/3NJzPczrzhOISOH8WtMqgbp+bUh00MM
+ Dqk4fSQNns5mhgubKzEjOXHxHa0kPR452Z/QlA9fTrOsUf6+HuLWgFo2gBIG/xKg7BMdWdTt+Xb
+ alQA==
+X-Gm-Gg: AYBFou128fptWTk+sxJgjt254fuu13bmkF7BhJgbcbnQzZGvp4w/vcAc8eNz9b3M0Q+
+ QBPLcXL92omizrnzFzkdpBBSNtRdwpHurbcGDsZD5yZt5kaxpbuDCJ32sO9Y/ILC4v+2QsUnwcY
+ 1fT+ZXFmX0DV0rCCYoubMffx88MyC3zbYpDI2ELuGT3HumH64FlvyVU3BYZWUUQ7SUdx/VtVN0P
+ N0BKNpPvXotc5x+sv73SpbVe1V4cu96FuDISXYecZgBJKyw1fmVUuKy0vFTqgEbreqogLMstwcI
+ CurqdsIjJdI54X6c5koTEjTtMH/tEg97MAydGBrLbxk3frVzqbp+jcn7eAmNy6LfbKVyCBc=
+X-Received: by 2002:a05:622a:1a9e:b0:533:972d:ff91 with SMTP id
+ d75a77b69052e-5359fae1644mr56984171cf.26.1791583287951; 
+ Fri, 09 Oct 2026 15:01:27 -0700 (PDT)
+X-Received: by 2002:a05:622a:1a9e:b0:533:972d:ff91 with SMTP id
+ d75a77b69052e-5359fae1644mr56983381cf.26.1791583287345; 
+ Fri, 09 Oct 2026 15:01:27 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91b5504de42sm29021296d6.24.2026.10.09.15.01.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Oct 2026 15:01:25 -0700 (PDT)
+Message-ID: <77926aa23a920ed00c5b1a13d98e768e11d6446e.camel@redhat.com>
+Subject: Re: [PATCH v2 3/3] nouveau: Fix NULL dereference in
+ nvkm_gsp_gcx_ready()
+From: lyude@redhat.com
+To: Danilo Krummrich <dakr@kernel.org>, Jim Cromie via B4 Relay
+ <devnull+jim.cromie.gmail.com@kernel.org>
+Cc: jim.cromie@gmail.com, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
+ dri-devel@lists.freedesktop.org, 	nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Daniel Campos Ramos	 <Capitain_Jack@yahoo.com>
+Date: Fri, 09 Oct 2026 18:01:25 -0400
+In-Reply-To: <DM0N3VIIXERD.PZBNSZJPSEL7@kernel.org>
+References: <20261009-my-fixups-v2-0-839e2bbe514d@gmail.com>
+ <20261009-my-fixups-v2-3-839e2bbe514d@gmail.com>
+ <DM0N3VIIXERD.PZBNSZJPSEL7@kernel.org>
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f65:b0:4e5:c2b4:33b0 with SMTP id
- 5614622812f47-50c59399b92mr2796870b6e.43.1791582930733; Fri, 09 Oct 2026
- 14:55:30 -0700 (PDT)
-Date: Fri, 09 Oct 2026 14:55:30 -0700
-In-Reply-To: <6a778d6e.9c11d2ce.289b96.00ba.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac962d2.bbc4c7f9.15faa7.003c.GAE@google.com>
-Subject: Re: [syzbot] [dri?] WARNING in drm_fbdev_shmem_helper_fb_dirty
-From: syzbot <syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com>
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
- tzimmermann@suse.de
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: URd6tkClId9f0rAUrmjauvCVac6BzwUB7CQYHuj9ib4_1791583288
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,80 +108,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-syzbot has found a reproducer for the following issue on:
+On Fri, 2026-10-09 at 23:53 +0200, Danilo Krummrich wrote:
+> On Fri Oct 9, 2026 at 7:44 PM CEST, Jim Cromie via B4 Relay wrote:
+> > From: Jim Cromie <jim.cromie@gmail.com>
+> >=20
+> > Commit cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
+> > INTERNAL_GCX_ENTRY_PREREQUISITE") hooked nvif_device_gcx_ready()
+> > into
+> > nouveau_pmops_runtime_suspend() to consult GSP before runtime
+> > suspend.
+> >=20
+> > On GPUs running without GSP-RM (e.g. Volta GV100, NvGspRm=3D0, or
+> > missing
+> > GSP firmware blobs), device->gsp is instantiated but gsp->rm
+> > remains
+> > NULL. nvkm_udevice_gcx_ready() checked "!gsp" instead of verifying
+> > nvkm_gsp_rm(gsp), allowing non-RM instances to invoke
+> > nvkm_gsp_gcx_ready(). nvkm_gsp_gcx_ready() then unconditionally
+> > dereferenced gsp->rm->api, causing a kernel oops:
+> >=20
+> > =C2=A0 RIP: 0010:nvkm_gsp_gcx_ready+0x10/0x30 [nouveau]
+> > =C2=A0 Code: ... 48 8b 87 70 0e 00 00 <48> 8b 40 18 ...
+> > =C2=A0 RAX: 0000000000000000 RDI: ffff8c9555fca000
+> > =C2=A0 Call Trace:
+> > =C2=A0=C2=A0 nvkm_udevice_mthd+0xa5/0x150 [nouveau]
+> > =C2=A0=C2=A0 nvkm_ioctl+0xcc/0x1d0 [nouveau]
+> > =C2=A0=C2=A0 nvif_object_mthd+0x110/0x1e0 [nouveau]
+> > =C2=A0=C2=A0 nvif_device_gcx_ready+0x36/0x60 [nouveau]
+> > =C2=A0=C2=A0 nouveau_pmops_runtime_suspend+0x39/0x140 [nouveau]
+> >=20
+> > Instruction decode shows `mov rax, [rdi+0xe70]` loads gsp->rm
+> > (0x0),
+> > and `<48> 8b 40 18` (`mov rax, [rax+0x18]`) faults accessing rm-
+> > >api.
+> >=20
+> > Fix by:
+> > 0. Checking !nvkm_gsp_rm(gsp) in nvkm_udevice_gcx_ready() so non-RM
+> > =C2=A0=C2=A0 devices report GC6/GcOff ready and bypass the GSP call ent=
+irely.
+> > 1. Guarding gsp and gsp->rm in nvkm_gsp_gcx_ready() before
+> > inspecting
+> > =C2=A0=C2=A0 gsp->rm->api->gsp->gcx_ready.
+> >=20
+> > Fixes: cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
+> > INTERNAL_GCX_ENTRY_PREREQUISITE")
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>=20
+> Isn't this fixed in commit 4d0e27041185 ("nouveau: check gsp->rm as
+> well as gsp
+> pointer before gcx ready") already?
 
-HEAD commit:    af32da41b032 Merge tag 'net-7.3-rc7' of git://git.kernel.o..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17b540a5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d1b274ca9837366
-dashboard link: https://syzkaller.appspot.com/bug?extid=369ee6a6e9d0bbf14b37
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10c2fa8e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1268e0a5580000
+(gonna hold off on pushing all 3 of these patches, you're right - I
+completely forgot that we had already pushed a commit for this)
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-af32da41.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6a43965520a9/vmlinux-af32da41.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c79ed41c72d4/bzImage-af32da41.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-virtio-pci 0000:00:01.0: [drm] Dirty helper failed: ret=-12
-WARNING: drivers/gpu/drm/drm_fbdev_shmem.c:118 at drm_fbdev_shmem_helper_fb_dirty+0x1e1/0x310 drivers/gpu/drm/drm_fbdev_shmem.c:118, CPU#0: kworker/0:0/9
-Modules linked in:
-CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: events drm_fb_helper_damage_work
-RIP: 0010:drm_fbdev_shmem_helper_fb_dirty+0x288/0x310 drivers/gpu/drm/drm_fbdev_shmem.c:118
-Code: 27 fc 4c 89 f8 48 c1 e8 03 42 80 3c 28 00 74 08 4c 89 ff e8 3a 1a 9a fc 4d 8b 27 48 89 df 4c 89 f6 4c 89 e2 8b 5c 24 04 89 d9 <67> 48 0f b9 3a 89 d8 e9 f7 fe ff ff 89 d9 80 e1 07 fe c1 38 c1 0f
-RSP: 0018:ffffc9000022f898 EFLAGS: 00010246
-RAX: 1ffff1100004481a RBX: 00000000fffffff4 RCX: 00000000fffffff4
-RDX: ffff888000b33d00 RSI: ffffffff8c79f2a0 RDI: ffffffff91867840
-RBP: ffff8880322ca008 R08: ffffc9000022f5e7 R09: 1ffff92000045ebc
-R10: dffffc0000000000 R11: fffff52000045ebd R12: ffff888000b33d00
-R13: dffffc0000000000 R14: ffffffff8c79f2a0 R15: ffff8880002240d0
-FS:  0000000000000000(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f76a6223b50 CR3: 0000000038789000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- drm_fb_helper_fb_dirty drivers/gpu/drm/drm_fb_helper.c:339 [inline]
- drm_fb_helper_damage_work+0x84c/0xf20 drivers/gpu/drm/drm_fb_helper.c:365
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess), 1 bytes skipped:
-   0:	fc                   	cld
-   1:	4c 89 f8             	mov    %r15,%rax
-   4:	48 c1 e8 03          	shr    $0x3,%rax
-   8:	42 80 3c 28 00       	cmpb   $0x0,(%rax,%r13,1)
-   d:	74 08                	je     0x17
-   f:	4c 89 ff             	mov    %r15,%rdi
-  12:	e8 3a 1a 9a fc       	call   0xfc9a1a51
-  17:	4d 8b 27             	mov    (%r15),%r12
-  1a:	48 89 df             	mov    %rbx,%rdi
-  1d:	4c 89 f6             	mov    %r14,%rsi
-  20:	4c 89 e2             	mov    %r12,%rdx
-  23:	8b 5c 24 04          	mov    0x4(%rsp),%ebx
-  27:	89 d9                	mov    %ebx,%ecx
-* 29:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2e:	89 d8                	mov    %ebx,%eax
-  30:	e9 f7 fe ff ff       	jmp    0xffffff2c
-  35:	89 d9                	mov    %ebx,%ecx
-  37:	80 e1 07             	and    $0x7,%cl
-  3a:	fe c1                	inc    %cl
-  3c:	38 c1                	cmp    %al,%cl
-  3e:	0f                   	.byte 0xf
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
