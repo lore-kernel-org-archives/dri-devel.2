@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99895CA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71203CA6017
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 417F010EBD6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB3E210EBD8;
 	Sat, 10 Oct 2026 12:37:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aMQjGNH0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e4cjbHk3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0BBC10E1A8
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:09:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 242D610EAB2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:15:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 83E6641264;
- Fri,  9 Oct 2026 18:09:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2C41F000FF;
- Fri,  9 Oct 2026 18:08:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9AF2160267;
+ Fri,  9 Oct 2026 18:15:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989971F00899;
+ Fri,  9 Oct 2026 18:15:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569349;
- bh=HXvAGJ21GFXlCXFIOD7WMGr+Kl6vRRefqbwPXSBjAug=;
+ s=k20260515; t=1791569726;
+ bh=XF0JJsfuKvhm2G8uGXZbY0Fvh9Ki1oyQ756jSTtjCVM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=aMQjGNH0miqmoIl35ZayS+qH0MGRnd6Cko1KN+6mGkZIpvojG35ka6MQIUlxiWhAU
- 7Ln8zh9hhLq9/1AZ4CUIHLlvwH0EJqJ/tkD2FYwjagFYPQvhXEaEdBgtp2EvRgPG3r
- QJzdFeOiI1gTGjDg02fgNZbpIh+cL8WbTHfWopYGPffFMnOoPodyytvyqjVbOMnbR/
- nvG64vKUGzUmcI49cSMjb/bTMNTJdjOHcsa3Rfch1jqWEUoXTjC3q09cCAnIvErO5g
- 4uFSPk+KvS5ycVdSSSYkwgl0u37j84fms9RT6yPBIOZhoQoMlKgF2fwxAJG4LoYA6l
- Bnv2OZu8cljig==
+ b=e4cjbHk3kXpv5jaUuHmFqIXJ+YwAUbqhYDOu+qfqsGQQ8nmPgyEH/SlXwfLyQXIsQ
+ 1Ok07WusxUfLJqniEECIOHLjriMdhkatRXiYnyQ28ua9IXSwV+7p8FtVW1/QtQg3M0
+ FhzEg03kx7mcEfynajAwqDNx9hDoxww5ey/v2hFaVEbvLdzYdr2y/IKM6tWVG74mm1
+ +hPO1++lAim7du02RQvH9+O37KljWxoBqXlWCWGKuDJn35U58XFlBgQkKRUg8jk+wy
+ 9L2KeDxqFeDfDmZ9vyGH/V5M3ikQsTovN6S12yPbxYIb0eFbqzPdS+SKQX7LrDFHck
+ nJfjZspO3yOJw==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:07 +0100
-Subject: [PATCH v5 13/38] bpf: arena: mark arena_map_mmap() mappings
- VM_MIXEDMAP
+Date: Fri, 09 Oct 2026 19:04:25 +0100
+Subject: [PATCH v5 31/38] mm/uffd: use predicates for userfaultfd checks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-13-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-31-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,15 +119,14 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2179; i=ljs@kernel.org;
- h=from:subject:message-id; bh=tM59zMzSvZAL0eIh8BMq6f95yGj1GJaZNA6qSluVUvo=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sx6cN9+uxBv5cu51X66TDxRzjfPdew4Fa0+5eqjw
- BzdRZded5SwMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiu/kY/nv+0eN+Pz1UTJJD
- f+40+6cJWZdfSV9cLmrpVVTBMWXDYRaGH+tvRH5S+Kjxrzdz+h1B1VNqyYaS59t8t3G4Bvjtexb
- GBAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2291; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=hWvFAcFtWeMeGKyFkbOpdZHf6iGKkjlhr26+pQ1dsRw=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6szb1sT2110oIqdq8uT3KibMm6pvXNgik3Nc6bmpo
+ meQ+IwXHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIBnFGhv7pq+QSix90/ogs
+ nOjwI/lh1cRz8Ru6rgdNKr38+0tGqwgjQ3utulnz2WtVwW5Z8enOvk84048mMLA83t276BRLJmc
+ gOwA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -147,56 +145,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
-one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
-or arena_map_mmap().
+Rather than directly checking VMA flags, use the newly introduced
+vma_is_mm_managed() and vma_is_mm_backed() helpers in userfaultfd
+when assessing VMA suitability for userfaultfd and UFFDIO_MOVE.
 
-It is convention in mm to mark mappings whose pages the kernel manages
-itself with VM_MIXEDMAP, so core mm knows not to treat them as ordinary
-page cache or anonymous memory.
+Update vma_move_compatible() so it's expressed in terms of VMA
+characteristics rather than arbitrary flags.
 
-The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
-use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
-marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
-explicitly.
+Additionally, update the use of the deprecated VMA flag API when checking
+VMA_SHADOW_STACK_BIT.
 
-However, the exception to this is arena_map_mmap(), which doesn't set the
-flag.
+A VMA_IO_BIT check is no longer required but that is fine as a hard
+invariant has been established that mm-managed mappings may not set
+VMA_IO_BIT so the check is now redundant.
 
-This patch corrects this and updates the comment to reflect it.
-
-The pages are refcounted and vm_normal_page() finds them regardless of the
-flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
-thus unmergeable). The one effect is that NUMA balancing now skips these
-VMAs, as it already does for the other bpf map mappings, which is the
-reason array_map_mmap() gives for setting the flag.
-
-The intent of this patch is to be able to establish the invariant that only
-PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
-in bpf_map_mmap().
-
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- kernel/bpf/arena.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/userfaultfd.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index 7b6847200b43..b69fe5e34339 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
- 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
- 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
- 	 * being copied into the child process on fork.
-+	 * This is a kernel page so set VM_MIXEDMAP.
- 	 */
--	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
- 	vma->vm_ops = &arena_vm_ops;
- 	return 0;
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 949017e60608..f33b04700838 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1754,10 +1754,16 @@ static inline bool move_splits_huge_pmd(unsigned long dst_addr,
  }
+ #endif
+ 
+-static inline bool vma_move_compatible(struct vm_area_struct *vma)
++static inline bool vma_move_compatible(const struct vm_area_struct *vma)
+ {
+-	return !(vma->vm_flags & (VM_PFNMAP | VM_IO |  VM_HUGETLB |
+-				  VM_MIXEDMAP | VM_SHADOW_STACK));
++	/* uffd is generally incompatible with mappings not managed by core mm. */
++	if (!vma_is_mm_managed(vma))
++		return false;
++	/* The shadow stack should not be written to by userspace. */
++	if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
++		return false;
++	/* hugetlb mappings cannot be safely moved. */
++	return !vma_is_hugetlb(vma);
+ }
+ 
+ static int validate_move_areas(struct userfaultfd_ctx *ctx,
+@@ -2146,10 +2152,11 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
+ {
+ 	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
+ 
+-	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
++	/* Only mm-backed memory can have its faults handled by userspace. */
++	if (!vma_is_mm_backed(vma))
+ 		return false;
+-
+-	if (!vma_is_hugetlb(vma) && (vma->vm_flags & VM_SPECIAL))
++	/* The shadow stack should not be written to by userspace. */
++	if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
+ 		return false;
+ 
+ 	vm_flags &= __VM_UFFD_FLAGS;
 
 -- 
 2.55.0
