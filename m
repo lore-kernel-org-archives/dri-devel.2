@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADAD1CA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 17:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B8ACA601F
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 17:44:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C54C10EA99;
-	Fri,  9 Oct 2026 17:43:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87D4610EAA2;
+	Fri,  9 Oct 2026 17:44:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="IcWKAHyk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oG6UMmUk";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3475610EA99
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 17:43:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791567799; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=g3lMuIJlU5myjBeFh5StRCLz5OuShmhh2kujR0XJxKpacLwXUfjuTNkd/cw3J9t97El+u97tMfwSPmOHV3JzDowzCbWseNOlaZeI1QyTKNLu3zPkHkL9lVa9iI3cPpP0lQvVQeOs1f/qds/FoukeV9kaXwOmkltaGO8O6ZJ07s4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791567799;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=2USrELN0j9xjAwY+/mGGtPdliAWR0A+x4t3JgPpnkkc=; 
- b=T2SqrsCVVbzz0caauPWDtySNc788Z7nLCbAaPagojusYfSU1vZtTgppqhRmqlNOb8WqAtA6NJit30HDyhZ3enS9RHPl4pRFWiTHs07GfCBS3EycV5BTc2i63PkvxzVzrOBj2Sp18XEJtY9/pECb/YsI5V8PVi+QBxZWpFtLTFMM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791567799; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=2USrELN0j9xjAwY+/mGGtPdliAWR0A+x4t3JgPpnkkc=;
- b=IcWKAHykQ90adxjIX4R8u1h3dhdvXqpxsc7KWIaOIA9o6v8qjlvqTnAJEyosBRfT
- NMFlgtITRsQwZVQyLRPRJfFhzPm/HM2kVT3Rn0lBaZr4gIGvrNG6FLYLd81sqjyC6uG
- Oa865Z1qL+ug4uohLwJm/jVxA4jDbGWcB6NqDtXY=
-Received: by smtp.zohomail.com with SMTPS id 1791567797840227.23013293258816; 
- Fri, 9 Oct 2026 10:43:17 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH 4/7] rust: fs: add iminor() helper
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260814230923.1292966-5-dakr@kernel.org>
-Date: Fri, 9 Oct 2026 14:43:01 -0300
-Cc: aliceryhl@google.com, acourbot@nvidia.com, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
- tamird@kernel.org, work@onurozkan.dev, brauner@kernel.org,
- lyude@redhat.com, j@jananu.net, alvin.sun@linux.dev,
- deborah.brouwer@collabora.com, laura.nao@collabora.com,
- beata.michalska@arm.com, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6395D58C-F3CC-4B2E-8B20-6EEEB92070DC@collabora.com>
-References: <20260814230923.1292966-1-dakr@kernel.org>
- <20260814230923.1292966-5-dakr@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-ZohoMailClient: External
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCE8D10EAA2;
+ Fri,  9 Oct 2026 17:44:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id ADB3C43CF6;
+ Fri,  9 Oct 2026 17:44:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 77C44C4AF09;
+ Fri,  9 Oct 2026 17:44:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1791567878;
+ bh=/fFdp633uSwnogK4eY0RGM25kPYtyLeTmwanN+nMgeg=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=oG6UMmUkpSGyKapC9SXro0755cq9dMXbujPMbdWiZWsLIvtCdBdzF3850cx/eNkPK
+ RyfQgzh4GXxXNpKt9FPG+dRIPxhIjZXTpS2V/zvftDM0fImLgliA1e0CtjlsPSWT3K
+ 07ubF2UdMDYoVADELBaV3jFGweRi0ioZTE1Jbw5CeOgUSgqQy5XwxzLF0PR1pBxUkM
+ LdY3AYWw3J92Tqg9vL8ojttsdwHNySwVQVhcPG3S7vpN7kRJLAl3yv3AToYnSYZ8e7
+ hO3vZxVXnOdv0JvafqZzJNPgxynp2Bofe/mA9YqY/78rIMTCZeNflHY1vnOG0VMy38
+ VEhCBpMfUZ3rg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 55DB8CA9EC1;
+ Fri,  9 Oct 2026 17:44:38 +0000 (UTC)
+From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
+Date: Fri, 09 Oct 2026 11:44:26 -0600
+Subject: [PATCH v2 3/3] nouveau: Fix NULL dereference in nvkm_gsp_gcx_ready()
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-my-fixups-v2-3-839e2bbe514d@gmail.com>
+References: <20261009-my-fixups-v2-0-839e2bbe514d@gmail.com>
+In-Reply-To: <20261009-my-fixups-v2-0-839e2bbe514d@gmail.com>
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Airlie <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Daniel Campos Ramos <Capitain_Jack@yahoo.com>, 
+ Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791567877; l=3425;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=YyKLmo0bEj/hJpRUlDlZOCssFCXNnz2YynMbMOOeOi4=;
+ b=UOPAMqmtzEXw0svG2xoRhLf7pa0/9gTca19f8JoK3eLaMt8FPyB6oNGnlVSyxtXKPSpi3IYhZ
+ IiR/juE41x5CH1MMejtk/VLRyAgubmV7cjNA/+0qHI5/NXBvF8OzuRL
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
+ auth_id=958
+X-Original-From: Jim Cromie <jim.cromie@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,41 +74,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: jim.cromie@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Jim Cromie <jim.cromie@gmail.com>
+
+Commit cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
+INTERNAL_GCX_ENTRY_PREREQUISITE") hooked nvif_device_gcx_ready() into
+nouveau_pmops_runtime_suspend() to consult GSP before runtime suspend.
+
+On GPUs running without GSP-RM (e.g. Volta GV100, NvGspRm=0, or missing
+GSP firmware blobs), device->gsp is instantiated but gsp->rm remains
+NULL. nvkm_udevice_gcx_ready() checked "!gsp" instead of verifying
+nvkm_gsp_rm(gsp), allowing non-RM instances to invoke
+nvkm_gsp_gcx_ready(). nvkm_gsp_gcx_ready() then unconditionally
+dereferenced gsp->rm->api, causing a kernel oops:
+
+  RIP: 0010:nvkm_gsp_gcx_ready+0x10/0x30 [nouveau]
+  Code: ... 48 8b 87 70 0e 00 00 <48> 8b 40 18 ...
+  RAX: 0000000000000000 RDI: ffff8c9555fca000
+  Call Trace:
+   nvkm_udevice_mthd+0xa5/0x150 [nouveau]
+   nvkm_ioctl+0xcc/0x1d0 [nouveau]
+   nvif_object_mthd+0x110/0x1e0 [nouveau]
+   nvif_device_gcx_ready+0x36/0x60 [nouveau]
+   nouveau_pmops_runtime_suspend+0x39/0x140 [nouveau]
+
+Instruction decode shows `mov rax, [rdi+0xe70]` loads gsp->rm (0x0),
+and `<48> 8b 40 18` (`mov rax, [rax+0x18]`) faults accessing rm->api.
+
+Fix by:
+0. Checking !nvkm_gsp_rm(gsp) in nvkm_udevice_gcx_ready() so non-RM
+   devices report GC6/GcOff ready and bypass the GSP call entirely.
+1. Guarding gsp and gsp->rm in nvkm_gsp_gcx_ready() before inspecting
+   gsp->rm->api->gsp->gcx_ready.
+
+Fixes: cb4c7603678c ("drm/nouveau/gsp/r570: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE")
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/device/user.c | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+index ed5c6e0e68d3..933f13ed2a50 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+@@ -274,7 +274,7 @@ struct nvkm_gsp {
+ static inline bool
+ nvkm_gsp_rm(struct nvkm_gsp *gsp)
+ {
+-	return gsp && (gsp->fws.rm || gsp->fw.img);
++	return gsp && gsp->rm && (gsp->fws.rm || gsp->fw.img);
+ }
+ 
+ #include <rm/rm.h>
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+index f78e6b9b4292..d469437eb991 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+@@ -201,7 +201,7 @@ nvkm_udevice_gcx_ready(struct nvkm_udevice *udev, void *data, u32 size)
+ 	} *args = data;
+ 	int ret = -ENOSYS;
+ 
+-	if (!gsp) {
++	if (!nvkm_gsp_rm(gsp)) {
+ 		args->v0.ready = NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
+ 		return 0;
+ 	}
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+index e475d0e8fa7b..ea895f04293a 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+@@ -51,7 +51,7 @@ nvkm_gsp_intr_stall(struct nvkm_gsp *gsp, enum nvkm_subdev_type type, int inst)
+ int
+ nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp)
+ {
+-	if (!gsp->rm->api->gsp->gcx_ready)
++	if (!nvkm_gsp_rm(gsp) || !gsp->rm->api->gsp->gcx_ready)
+ 		return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
+ 
+ 	return gsp->rm->api->gsp->gcx_ready(gsp);
+
+-- 
+2.56.0
 
 
-> On 14 Aug 2026, at 20:09, Danilo Krummrich <dakr@kernel.org> wrote:
->=20
-> Add a Rust helper for iminor(), which extracts the minor number from a
-> struct inode. This is a static inline function in the C headers, so
-> bindgen does not generate a binding for it.
->=20
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
-> rust/helpers/fs.c | 5 +++++
-> 1 file changed, 5 insertions(+)
->=20
-> diff --git a/rust/helpers/fs.c b/rust/helpers/fs.c
-> index 789d60fb8908..d6f9782db178 100644
-> --- a/rust/helpers/fs.c
-> +++ b/rust/helpers/fs.c
-> @@ -10,3 +10,8 @@ __rust_helper struct file =
-*rust_helper_get_file(struct file *f)
-> {
-> return get_file(f);
-> }
-> +
-> +__rust_helper unsigned int rust_helper_iminor(const struct inode =
-*inode)
-> +{
-> + return iminor(inode);
-> +}
-> --=20
-> 2.55.0
->=20
->=20
-
-
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
