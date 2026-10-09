@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 582B1CA9EBB
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:14:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1B80CA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:17:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B468011231E;
-	Fri,  9 Oct 2026 23:14:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04D6210E08C;
+	Fri,  9 Oct 2026 23:17:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hkAbjL7J";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TQvGkaBO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 386A211231E
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:14:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8870F10E08C
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:17:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5C72160211;
- Fri,  9 Oct 2026 23:14:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0B61F000FF;
- Fri,  9 Oct 2026 23:14:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5522040E81;
+ Fri,  9 Oct 2026 23:17:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97921F000FF;
+ Fri,  9 Oct 2026 23:17:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791587686;
- bh=7YkitWBz1HsBgQxmIof28ZoWZ2SSt6Ty4j9hUZhDX8c=;
+ s=k20260515; t=1791587828;
+ bh=uTyq+gG3BmiJuifTGHZT7h/852nDGs9lABXPN5fqywE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hkAbjL7JduQ1k5Em62kg2DxuVRnTAAO0SjeybUvIzd4la4TkqcjazUfa3AmPL0UMP
- oLGhZMA8kffLCdWQeAbAr1E/C2sXiEtZ9MWmPUM2Ot0zt2pLni0+uNGqe5O1dwVak7
- uTpFJiDmKm5gyhGjwsobH3vDyFIUhvXRbIBza9Ojomn48xVpk5ZcrB5q8xYOuA3a1J
- H9fgf3muq4Eg6xi29VhjOzjUXu+5blMnI2wKIJcS7lNVpqjgIM/4eTG+fM4okRCQhA
- ZR+DGai0/V+Lg9uXlnekNvGV5GWMJQGrFMb90EyvRgddSoFZCzIzEOXI2mdAtOThBj
- XaCUYqfG79dHQ==
-Message-ID: <sashiko-outbox-166179@kernel.org>
+ b=TQvGkaBOk30lSP4PESwhkm5oRBQSss8uhsTY/SySaWxmrdCUbiR7rDEU2z67Ptl1Q
+ vVYlzt5kLQBiIO2kWQPQuz5q+9/JYWiyq6D+VRDNpp5L/QsZ7BGMMBTwYVu/ebZYPK
+ 8VC5m8qYSvEeSbTHrOIsJpC1R+UqHufIj0Dx+gIfh22nrtHd8TbTjO8T2bmmMnCPTI
+ WXBiWZYnV2SEWMO1zzN0d8yIfeiLJAw4X53rJtz3Cj2VfRcE5SmythD68KVp7yE+Zi
+ OAJ6JqZ69MDIzzdN33lCq1RSURJGPIQ8mPMlkRenJJb6F2PsWOfiWF+INZGVCtKcVi
+ VrWIIiReSRMTw==
+Message-ID: <sashiko-outbox-166180@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V4 17/19] accel/amdxdna: Enable AIE4 firmware logging to
- DRAM
+Subject: Re: [PATCH V4 19/19] accel/amdxdna: Implement runtime suspend and
+ resume support
 To: "David Zhang" <yidong.zhang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009225343.3079074-18-yidong.zhang@amd.com>
+In-Reply-To: <20261009225343.3079074-20-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
  <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-18-yidong.zhang@amd.com>
+ <20261009225343.3079074-20-yidong.zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 23:14:45 +0000
+Date: Fri, 09 Oct 2026 23:17:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,70 +59,86 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] amdxdna: DMA Use-After-Free of fw_log_buf on hardware start failure
+- [High] amdxdna: Missing runtime PM reference during hardware context dest=
+ruction
+- [Low] amdxdna: Dead code due to unconditional assignment of PM callbacks =
+in aie2_ops
 --
 
-commit 399dd24d5b4823ad10e211886f1046c8d43ff630
+commit e84dc9f8e09a4669bbdb0e93c4368ea773cd8d73
 Author: David Zhang <yidong.zhang@amd.com>
 
-accel/amdxdna: Enable AIE4 firmware logging to DRAM
-   =20
-This commit allocates a DRAM buffer for firmware logging and configures the
-device to use it with a less verbose log level.
+accel/amdxdna: Implement runtime suspend and resume support
+
+Add runtime suspend/resume for the AIE4 classic device by using its
+system suspend/resume handlers.
+
+> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie=
+2_pci.c
+> index 690ad035463c5..a3866e8933e61 100644
+> --- a/drivers/accel/amdxdna/aie2_pci.c
+> +++ b/drivers/accel/amdxdna/aie2_pci.c
+> @@ -1221,6 +1221,8 @@ const struct amdxdna_dev_ops aie2_ops =3D {
+>  	.fini =3D aie2_fini,
+>  	.resume =3D aie2_hw_resume,
+>  	.suspend =3D aie2_hw_suspend,
+> +	.runtime_resume =3D aie2_hw_resume,
+> +	.runtime_suspend =3D aie2_hw_suspend,
+
+[Severity: Low]
+Are pm_ptr() wrappers missing here?
+
+Unlike aie4_classic_ops, which correctly wraps these assignments in
+pm_ptr(), aie2_ops omits the wrappers. When the power management
+configuration is disabled, the compiler cannot automatically discard
+these functions, resulting in dead code being linked into the kernel.
+
+>  	.get_aie_info =3D aie2_get_info,
+>  	.set_aie_state =3D aie2_set_state,
+>  	.hwctx_init =3D aie2_hwctx_init,
+
+[ ... ]
 
 > diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie=
 4_pci.c
-> index 7f4238f76bc22..e09d24d85cdfa 100644
+> index 70a052ab5f775..60140c3927a2e 100644
 > --- a/drivers/accel/amdxdna/aie4_pci.c
 > +++ b/drivers/accel/amdxdna/aie4_pci.c
-[ ... ]
-> @@ -953,6 +998,8 @@ static int aie4_pf_init(struct amdxdna_dev *xdna)
->  	if (ret)
->  		return ret;
-> =20
-> +	aie4_alloc_fw_log_buffer(xdna->dev_handle);
-> +
->  	ret =3D aie4_pf_hw_start(xdna->dev_handle);
+> @@ -1041,6 +1041,7 @@ static int aie4_classic_init(struct amdxdna_dev *xd=
+na)
 >  	if (ret)
 >  		goto free_work_buf;
-> @@ -960,6 +1007,7 @@ static int aie4_pf_init(struct amdxdna_dev *xdna)
+> =20
+> +	amdxdna_pm_init(xdna);
+
+[Severity: High]
+Could this introduce a bug when destroying hardware contexts while the devi=
+ce
+is suspended?
+
+The driver enables runtime autosuspend here, allowing the device to enter
+a suspended state when idle. When a user destroys a hardware context,
+the destruction path runs without ensuring the device is active:
+
+amdxdna_drm_destroy_hwctx_ioctl()
+  amdxdna_hwctx_destroy_rcu()
+    aie4_hwctx_stop()
+      aie4_hwctx_destroy()
+        aie4_msg_destroy_context()
+
+None of these destruction paths call amdxdna_pm_resume_get() to wake up the
+device.
+
+If the device has autosuspended, the firmware is stopped and the mailbox
+is finalized (via aie4_mailbox_fini()). Accessing the mailbox registers
+in this state will cause a bus error, system hang, or kernel crash.
+
 >  	return 0;
 > =20
 >  free_work_buf:
-> +	aie4_free_fw_log_buffer(xdna->dev_handle);
-
-[Severity: High]
-Can this lead to a use-after-free of the DMA buffer if the hardware fails to
-start?
-
-During aie4_pf_hw_start(), aie4_config_fw() is called which instructs the
-firmware to begin asynchronously DMA-ing logs into fw_log_buf.
-
-If a subsequent step in aie4_pf_hw_start() fails (such as
-aie4_restore_power_mode() timing out), the error path attempts to stop the
-firmware via aie4_fw_stop().
-
-However, if the PSP teardown inside aie_psp_stop() also times out:
-
-aie_psp_stop() {
-    ...
-    ret =3D psp_exec(psp, reg_vals);
-    if (ret)
-        drm_err(psp->ddev, "release tmr failed, ret %d", ret);
-}
-
-It returns without successfully halting the active firmware. We then reach
-this error path in aie4_pf_init() and free fw_log_buf back to the page
-allocator.
-
-Does the active firmware continue writing logs into this freed memory?
-
->  	aie4_free_work_buffer(xdna->dev_handle);
->  	return ret;
->  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009225343.3079=
-074-1-yidong.zhang@amd.com?part=3D17
+074-1-yidong.zhang@amd.com?part=3D19
