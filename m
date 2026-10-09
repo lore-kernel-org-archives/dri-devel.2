@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8746CA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 00:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5A81CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 01:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18D5510E98F;
-	Fri,  9 Oct 2026 00:31:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAA2810E18C;
+	Fri,  9 Oct 2026 01:10:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WzBC5Clz";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="hkW0ryOb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2AED10E98F
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 00:31:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A273143259;
- Fri,  9 Oct 2026 00:31:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505021F000FF;
- Fri,  9 Oct 2026 00:31:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791505911;
- bh=a7oc0bTwVs9/h0D+Ob9pfer3YpJgG90NWcUUrLuCIS4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WzBC5ClzlKzKfcJdbVCxG3otlSlanSvVMNDw2IFwNWxzuBmvU5pxw5nuzcauLpGgR
- AJesC1xNy6Op/N+suFdWV8DgIbDeo/wBr0c2RzuazzDBnaUgqSWlNUwP4sCenTTA/9
- VvAxbsMVEp5g376SEtd4oKqMP78PBIda/H5E3/Ph6qBql+CixLCcO41YEU2lNSQnwg
- c74SeVH63qFrIRd9yknxKafTbc1EEgYYSXuQstdNiHhNaJLLVu29IY8imX7HXp0qSh
- LLClVbhxtrc8HwFRy1Q5qqgAitqCmARAcd/TsezjrkXrhk38On2sCwu9kPaNCRiwzD
- ZbB7C2jfpuaFg==
-Message-ID: <sashiko-outbox-164674@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 1/2] iommu: Add iommu_map_sgtable_dma()
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261009002114.67851-2-kmehltretter@gmail.com>
-References: <20261009002114.67851-1-kmehltretter@gmail.com>
- <20261009002114.67851-2-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 00:31:50 +0000
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2BC210E18C
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 01:10:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=qSjdS+jjbWu2dBBtAcqMX8OeigCICcsVNMw5EqE90jA=; b=hkW0ryObarzrgu2IO6KUf746V9
+ zXWkoSJ7DMHPJ9kZ+2R6JkhqcHpx1Cb+0Ml5ngQOCn0JP4UJKu3ePsyeJunC9IIGvPYaPw8JktgxY
+ uAIi4t/GaZKGYHwEPDu77YerwxpwmCaW+bLlmPaig9if7LBxKkmF8v8Pmh1syxpXfdqk7NN9xjZDF
+ 9w+LAwb3dkQk4yIUFBUgZgdRfjg3Yulh+7iiN+MvWF0moLBCAbzn7huQr/bv0PNFnNHX0duKDQgbL
+ eKpDhzdA0U9hX8mVyAyFVzrMDHb5mTtNChCbyZMOcTi8pMcZebKJ1NjmWr6ktbYawcfB/t24LnGB4
+ CkzfEKFQ==;
+Received: from [104.129.159.233] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1xEz8K-00000005EC1-072V; Fri, 09 Oct 2026 01:10:48 +0000
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Liam R. Howlett" <liam@infradead.org>
+Subject: [PATCH] accel/amdxdna: Fix Kconfig invalid configuration
+Date: Thu,  8 Oct 2026 21:10:10 -0400
+Message-ID: <20261009011010.3521631-1-liam@infradead.org>
+X-Mailer: git-send-email 2.47.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,91 +52,40 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] iommu: unaligned len triggers un-ratelimited pr_err() log spam i=
-n iommu_map_sgtable_dma
---
+The amdxdna has a soft dependency on the amd_pmf module.  It will use an
+exported function if it is available and fall back to another function
+if it is not enabled.
 
-commit b1535b935267283d387d7d45e27e3ad27be6e57f
-Author: Karl Mehltretter <kmehltretter@gmail.com>
+amdxdna and amd_pmf are tridstate modules supporting both built [y] and
+modularized [m] in the .config file.  Since the amdxdna decides to use
+the amd_pmf if it is either a module or built in (see
+drivers/accel/amdxdna/aie2_pci.h), then there is an issue if they are
+not compiled either both as modules or both as built-in.
 
-iommu: Add iommu_map_sgtable_dma()
+Adding the optional dependency to Kconfig does not allow the
+configuration from being selected.
 
-This commit adds an iommu-dma helper to map a live attachment into another
-domain by translating through the device's default DMA domain.
+Fixes: f66d6cc6891e4 ("accel/amdxdna: Support sensors for column utilization")
+Signed-off-by: Liam R. Howlett <liam@infradead.org>
+---
+ drivers/accel/amdxdna/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 58c624513cd43..b9a1f91ec5dbb 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-[ ... ]
-> +ssize_t iommu_map_sgtable_dma(struct iommu_domain *domain, unsigned long=
- iova,
-> +			      struct device *dev, struct sg_table *sgt,
-> +			      int prot)
-> +{
-> +	struct iommu_domain *dma_domain;
-> +	size_t len =3D 0, mapped =3D 0, total =3D 0;
-> +	struct scatterlist *sg;
-> +	size_t granule, target_granule;
-[ ... ]
-> +	target_granule =3D 1UL << __ffs(domain->pgsize_bitmap);
-> +	if (!use_dma_iommu(dev))
-> +		return -EOPNOTSUPP;
-> +	dma_domain =3D iommu_get_dma_domain(dev);
-> +	if (!dma_domain || !dma_domain->pgsize_bitmap)
-> +		return -EOPNOTSUPP;
-> +	granule =3D min(target_granule,
-> +		      1UL << __ffs(dma_domain->pgsize_bitmap));
-[ ... ]
-> +	for_each_sgtable_dma_sg(sgt, sg, i) {
-> +		dma_addr_t dma_addr =3D sg_dma_address(sg);
-> +		size_t dma_len =3D sg_dma_len(sg);
-> +
-> +		while (dma_len) {
-> +			phys_addr_t next;
-> +			phys_addr_t phys;
-> +
-> +			phys =3D iommu_iova_to_phys(dma_domain, dma_addr);
-[ ... ]
-> +			if (len && phys !=3D next) {
-> +				ret =3D iommu_map_nosync(domain, iova + mapped,
-> +						       start, len, prot,
-> +						       GFP_KERNEL);
+diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/Kconfig
+index f39d7a87296cd..eddff490b4f75 100644
+--- a/drivers/accel/amdxdna/Kconfig
++++ b/drivers/accel/amdxdna/Kconfig
+@@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
+ 	depends on DRM_ACCEL
+ 	depends on PCI && HAS_IOMEM
+ 	depends on X86_64
++	depends on AMD_PMF || !AMD_PMF
+ 	select DRM_SCHED
+ 	select DRM_GEM_SHMEM_HELPER
+ 	select FW_LOADER
+-- 
+2.47.3
 
-[Severity: Medium]
-Can this result in un-ratelimited kernel log spam if `len` is not aligned to
-the target domain's minimum page size?
-
-If `dma_domain` has a smaller minimum page size than the target `domain`,
-`granule` will be strictly less than `target_granule`. If the DMA-BUF backi=
-ng
-memory is fragmented at `granule` boundaries, `phys !=3D next` will evaluate
-to true at an offset aligned to `granule` but potentially unaligned to
-`target_granule`.
-
-When `iommu_map_nosync()` is called with this unaligned `len`, it eventually
-reaches `__iommu_map_domain_pgtbl()` in drivers/iommu/iommu.c, which logs an
-un-ratelimited error:
-
-drivers/iommu/iommu.c:__iommu_map_domain_pgtbl() {
-	...
-	if (!IS_ALIGNED(iova | paddr | size, min_pagesz)) {
-		pr_err("unaligned: iova 0x%lx pa %pa size 0x%zx min_pagesz 0x%x\n",
-		       iova, &paddr, size, min_pagesz);
-		return -EINVAL;
-	}
-	...
-}
-
-Could a heavily fragmented DMA-BUF provided by userspace (e.g., via a DRM
-ioctl) repeatedly trigger this path and flood the kernel log?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009002114.6785=
-1-1-kmehltretter@gmail.com?part=3D1
