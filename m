@@ -4,57 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B726DCA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38843CA9EBD
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:33:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D1010EAD3;
-	Fri,  9 Oct 2026 18:33:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D6C210EAE0;
+	Fri,  9 Oct 2026 18:33:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="LXgUIK4u";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nwwBPEuO";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F65810EAD3
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:33:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791570779; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ndIOPv8r0Hu3BFCMKBBrrCeakt4nEErRREnecNyS2TD0emNOMXOgEj3qaHSBVT4IEJBp21Yn+w/EmgPMrPhruiRUnqIL9/hrAHjKNGovL5h+frJb1Kuw+JvQglHVjnJFCtenJNm4N1PLYOmtgHR/gDBes6fKRr3f37Kvf9JBmOg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791570779;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=SNDtFTIyhLZv5ilCpSSEHjpugz1pSbUUO54QyH+Q/rY=; 
- b=Lcw7CPUxK4WV5N3wsUGlD6JKtBwQyje7X88VVly6l01BnF85vQbZb+59u38fVliJi0T9dvIIHKB5WYKo2C0fQuBIWS4OjljUY1cOUhQ9E07/jq/FYlpFTDoukLP88MoockrU0mZaCv0gL2900U54iwmghOhRiy4G12CSS6uo0P8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791570779; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=SNDtFTIyhLZv5ilCpSSEHjpugz1pSbUUO54QyH+Q/rY=;
- b=LXgUIK4u2x1Pvt2tgngFsxStsuP3qyLB3SAQFibqGi6n//mxCqKNKLq4EJ80Fwg9
- Vx+FozcIJVndIouC7AlWshTIBcQ1d9QZXgawV+0/6FNk5hQZIK1732BZTwIrmy0NDYo
- MFWihW3TGZEih6iQ2YEe1hkzgWOuEfBvdNQ+0CFw=
-Received: by smtp.zohomail.com with SMTPS id 1791570778259984.4383563393213;
- Fri, 9 Oct 2026 11:32:58 -0700 (PDT)
-Message-ID: <69e33ec9-a0bc-4d02-b20d-9c0c03236a42@collabora.com>
-Date: Fri, 9 Oct 2026 21:32:54 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: Honglei Huang <honghuan@amd.com>, odaki@rsg.ci.i.u-tokyo.ac.jp,
- airlied@redhat.com, kraxel@redhat.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260924095556.1326164-4-honghuan@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32BC710EAE0
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:33:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F087F43274;
+ Fri,  9 Oct 2026 18:33:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ABF01F000FF;
+ Fri,  9 Oct 2026 18:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791570835;
+ bh=xkooYtsuVAkQrEBEYuW+eOExdD7O8DWUyq4mMnL2MuU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nwwBPEuOkW4GWjitpf8Zm2Ohvg2267+y0Cd9lr+Tzjiv5g0sSo38K6uiaK/3+QJQm
+ foR3DeCkaGBeYV7ixqfBSVV9xXKJrorYbejxDDMyT81suTY7/ckWDgiaAY0dDHmENx
+ 1o8PpT2K+FyYd9MQ4O9Dq5C/Z3HgZVYOWy5Gb9xPSc54+LMA2WtboCEGjOHwTblfsh
+ qaf3tV4iRN35f93TXtZbFlbY01XxAiOn8ToCF7avkOVJ/HA4dP9J7UtKu9jRz/JcCB
+ YRj5ewab+r9e4EUkQx0V5+4cI4JE4AX5shfy7smqOS2B8iWsjjCxDF51Wy8YveJP6d
+ s3U88woecfatQ==
+Message-ID: <sashiko-outbox-165952@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 03/38] mm: consistently validate VMA state after
+ mmap[_prepare] hooks
+To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
+Cc: linux-trace-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-usb@vger.kernel.org, kvm@vger.kernel.org, bpf@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, selinux@vger.kernel.org, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, linux-s390@vger.kernel.org, "Heiko
+ Carstens" <hca@linux.ibm.com>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Marc
+ Zyngier" <maz@kernel.org>, linux-perf-users@vger.kernel.org,
+ "Vasily Gorbik" <gor@linux.ibm.com>, kvmarm@lists.linux.dev,
+ linux-scsi@vger.kernel.org, "Oliver Upton" <oupton@kernel.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-3-923b70125b1e@kernel.org>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-3-923b70125b1e@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 18:33:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,25 +62,37 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-24.09.2026 12:55, Honglei Huang пишет:
-> +static struct dma_buf *
-> +virtio_gpu_userptr_prime_export(struct drm_gem_object *obj, int flags)
-> +{
-> +	return ERR_PTR(-EINVAL);
-> +}
-> +
-> +static const struct drm_gem_object_funcs virtio_gpu_userptr_funcs = {
-> +	.open = virtio_gpu_gem_object_open,
-> +	.close = virtio_gpu_gem_object_close,
-> +	.free = virtio_gpu_userptr_free,
-> +	.export = virtio_gpu_userptr_prime_export,
-> +};
+> When the f_op->mmap_prepare or deprecated f_op->mmap hooks are invoked, t=
+he
+> driver might have done something crazy that is not permitted by the kerne=
+l.
+>=20
+> Currently we check for three such cases in __mmap_new_file_vma(), but only
+> if the legacy f_op->mmap hook is used:
+>=20
+> * Did sparc ADI result in invalid flags?
+>=20
+> * Did the driver alter vma->vm_start?
+>=20
+> * Did the driver make a file-backed mapping on a read-only file writable?
+>=20
+> Generalise these checks for both mmap_prepare and mmap and apply to all
+> invocations of mmap_file(), the f_op->mmap and f_op->mmap_prepare handling
+> in the core VMA code and the mmap_prepare compatibility layer.
+> [ ... ]
+>=20
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Is virtio_gpu_userptr_prime_export() optional?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
--- 
-Best regards,
-Dmitry
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-b4-mmap-pr=
+epare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org?part=3D3
+
