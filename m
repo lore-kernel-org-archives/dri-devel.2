@@ -4,62 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 612D8CA601F
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:04:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17D7CCA601D
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:05:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C23C4112061;
-	Fri,  9 Oct 2026 11:04:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C0A110E9B8;
+	Fri,  9 Oct 2026 11:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="BLuUpfUa";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="pRUwS3sd";
 	dkim-atps=neutral
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3E7112059
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 11:04:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791543825; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Lbu7mK3foQG91+/R97L5K3gl0S+EiTPMKu86RBiU0Erh8Tv0ql4kROEDY8JyOxTIILTM8kFcEeZyoqU0zpi1RPy3X5jc7vVbdZGAakDi9vAGEp0UaDC1QpPLxfCTR9pu383VjGB+H+LJxVYhI6o8QuSUwhymLLHMfLaZ3/R+HhY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791543825;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=6VeP7OZP4fl2d+SeH1xW2SsZlw8sptiCYA73mXgU3+4=; 
- b=ltMAs8NoqJEdBg3T7a0XNhKkosbScEDNPOwv1Mw7jXibNkhyTAtDIG42XieJPHqdkScN3w6mBEBxVPqtvfQzPomUM2oUh1to8dKXhCzi6HfjPDzWKGs822rf1b0wRESu/dcJnBChtn8ZL51ETey9ABO/BGabRvXSm4p3SlhDacQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791543825; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=6VeP7OZP4fl2d+SeH1xW2SsZlw8sptiCYA73mXgU3+4=;
- b=BLuUpfUa9jBAe949z8Z72+OF92L43TUHquroQh8Oo3SB2jPrRId9pMF9RI6AQM42
- zmY6UcREMFw9j0gTkjt/IEbMggXDyo6hqIdXEC/JBkkch9sZP2cDy+xBYUT6ugturCJ
- s9UXcjlAqMkifngnvB+67Jhr8dXkS8Obz5TAP+es=
-Received: by smtp.zohomail.com with SMTPS id 1791543824599306.9382623529217;
- Fri, 9 Oct 2026 04:03:44 -0700 (PDT)
-Message-ID: <8c0920fc-2f3f-425a-84d8-2aa701cb2388@collabora.com>
-Date: Fri, 9 Oct 2026 14:03:39 +0300
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A4F410E9B8;
+ Fri,  9 Oct 2026 11:05:01 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6998IOtS2155485; Fri, 9 Oct 2026 12:04:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=/Br/6limmNvLqxhImifZgMH
+ 8e0JTjZxr1VAE2aX2EVU=; b=pRUwS3sd0A7qSZOdjA1PyljWH8kaQ3dmBFHtS+l
+ H3DrYRiM9G/UMxeAWH4eg/IMFQYgzVgcXvNAEiDu81LVZLQpm/gFnGHkGWkO7yZB
+ JbDAXMw96u0HgA/gcNxUA+ownjl4PALHD/PXso8OyCtVuwVBGBUG15mn4A3eDjuT
+ zlrFGs9XBaCzEi/Lt9kp/Um4LcUu4d5fs0Z4dwfF6za3SWxyiOmsA5xOfcqKDsC1
+ IEMAm/L1cwFgPpCegMwb4z3oRx4VYNB/dIlVFDTg0NZ2gDtSPUxbJ6t17NJMDfo3
+ B1kDt4Wk18gfakuTsSgrh0yGhzjuYyRX6SXlin7y9eaBizg==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4h6m49rb89-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 09 Oct 2026 12:04:44 +0100 (BST)
+Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 12:04:42 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Fri, 9 Oct 2026 14:04:35 +0300
+Subject: [PATCH v2] drm/imagination: Improve logging of unknown freelist
+ IDs
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/virtio: do not enforce blob_alignment in
- cross-domain contexts
-To: Val Packett <val@invisiblethingslab.com>,
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Sergio Lopez <slp@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261006154913.2689067-2-val@invisiblethingslab.com>
- <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com>
- <4d86ec37-ce27-4556-966e-4b4e80ec0718@invisiblethingslab.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <4d86ec37-ce27-4556-966e-4b4e80ec0718@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261009-b4-improve-logging-of-unknown-freelist-ids-v2-1-5e6c3f63370e@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAELKyGoC/52OQQ6CMBREr0K69htaTQFX3sOwoOVTvkpLWqgaw
+ t0teAOXL5mZNwsL6AkDu2QL8xgpkLMJxCFjum+sQaA2MRO5kDzPJagz0DB6FxGezhiyBlwHs31
+ Y97LQecQnhSm1ApSNrIqi6FrJkaXB0WNH7112q38cZnVHPW2GLdGnqvOf/U3kW+4vceTAoZKot
+ OInocr8SoOZUB+1G1i9rusXwKh4mvcAAAA=
+X-Change-ID: 20261006-b4-improve-logging-of-unknown-freelist-ids-8a69777fd61e
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791543882; l=2738;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=6hQb1VevjYBv3Tw8uZWL9ZLHBJXvAlYAwVjC5B0voiA=;
+ b=xVm3kndH/G7cBamiQ02aZpWZWpr4YLeaQTqHUqE73WJ8pnfsvzc6KM7seUy24Jb4DU1QAS8jE
+ wTsqoNe7ba6DzBMR4WN4+E1Y0dWtNVzNxZCeE3QOGtho0uOLwHWgjeZ
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Originating-IP: [172.25.10.25]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0MyBTYWx0ZWRfXyhgKxIPnvy+U
+ iNoqFd8CUT+LwD6M+7jeWgVRPMbbqN0vKTihT3aSSqWLqdrGEz57QPLV3rQ98unDp+km3FJtjqM
+ 4TIX+mDpvGGn+HMxBczWR3MhXHrc1oYyz67IitLAEGsYVPZV/fD3xNH4FGJN+9mdtb/eF3um92/
+ SWndS4xA5XvyGq/4UVAC/A5s56E8PRTuOSwr+7G9dMlSASWXLrtFndfb4qk6wSBarvPDmxzHek7
+ oKTWqiMW748LcvSwngykEXPlluU50KTJ2tk2bev6vvhpSw0Txa+EKuoXwM+YK/uGHjsLoaJXz+g
+ zPr6beU5TSZ7QPHsIfdJsJ4WqiQiBm7euy7/OtXXHrIQBcL6lyArWy0k/gg03UAMaC2dkSYAiUy
+ OD40uF2WS2pS2qKhPasokansBRp0LWo38s+r+4AK8dSmdvOQMl4n5SvcvHWsikH7PSy/m+OHJc5
+ 1gM4BHpRizNN/rhM1Zg==
+X-Proofpoint-GUID: 9QPs50kLpkyRXT1IVYs6Cvsl_X_clgOZ
+X-Proofpoint-ORIG-GUID: 9QPs50kLpkyRXT1IVYs6Cvsl_X_clgOZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0MyBTYWx0ZWRfX3wBGlO/KpDIM
+ 0quUi4+88xnKzNYBhDAJl4BRtum71wixlnHB0bPz0rOFYf3kvs25Moq5U+kHpncbR/+0Ctcs6Uf
+ E0AfKqk7UgMJ5FkXNJ7MLROcVAigT+E=
+X-Authority-Analysis: v=2.4 cv=O62sLx9W c=1 sm=1 tr=0 ts=6ac8ca4c cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=aErvwOJsbcN-9OlzexIA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,102 +101,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/8/26 23:59, Val Packett wrote:
-> 
-> On 10/8/26 4:33 AM, Dmitry Osipenko wrote:
->> On 10/6/26 18:42, Val Packett wrote:
->>> VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
->>> however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
->>> created under cross-domain contexts are arbitrary shared system memory
->>> files, which includes unusual things like Wayland keymaps received
->>> from the host compositor. Do not enforce alignment requirements there.
->>>
->>> Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
->>> Signed-off-by: Val Packett <val@invisiblethingslab.com>
->>> ---
->>>
->>> v2: also check has_virgl_3d to prevent dereferencing NULL vfpriv
->>> v1: https://lore.kernel.org/all/20261006004044.2242154-1-
->>> val@invisiblethingslab.com/
->>>
->>> ~val
->>>
->>> ---
->>>   drivers/gpu/drm/virtio/virtgpu_ioctl.c | 4 +++-
->>>   1 file changed, 3 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/
->>> drm/virtio/virtgpu_ioctl.c
->>> index 3ddd5481d6bc..4d5ae062834d 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
->>> @@ -551,7 +551,9 @@ static int verify_blob(struct virtio_gpu_device
->>> *vgdev,
->>>       params->blob_flags = rc_blob->blob_flags;
->>>       params->blob_hints = rc_blob->blob_hints;
->>>   -    if (vgdev->has_blob_alignment &&
->>> +    if (vgdev->has_blob_alignment && vgdev->has_virgl_3d &&
->>> +        (vfpriv->context_init &
->>> VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
->>> +        VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
->>>           !IS_ALIGNED(params->size, vgdev->blob_alignment))
->>>           return -EINVAL;
->>>   
->> What userspace has this problem and why it re-purposes virtio-gpu to act
->> as udmabuf for arbitrary data that never reaches host?
-> 
-> Sorry, what do you mean by that?
-> 
-> This is not related to data that "never reaches host" at all! The error
-> I referred to in the patch message literally says "received *from* the
-> host"…??
-> 
-> Guest userspace is any of the cross-domain proxies:
-> 
-> * https://codeberg.org/drakulix/wl-cross-domain-proxy
-> * https://github.com/talex5/wayland-proxy-virtwl
-> * https://github.com/google/sommelier-rs (or old C++ version)
-> 
-> VIRTIO_GPU_CAPSET_CROSS_DOMAIN "repurposes virtio-gpu" to act as a
-> cross-VM UNIX socket transport that supports fd passing. By referring to
-> virtio-gpu resources in the send command the guest can make the device
-> send the resources' corresponding host fds to the host Wayland
-> compositor. It can refer to resources from other contexts, in order to
-> present drm/venus/etc rendered buffers on Wayland surfaces. (i.e. the
-> host would send the actual dma-buf from virglrenderer) But the resources
-> created on the cross-domain context itself are system memory buffers,
-> generally used for software rendering and miscellaneous Wayland "stuff"
-> like keymaps which are sent *from* the host, and exposed to Wayland
-> clients in the guest. Socket receive handling in rutabaga-gfx stores
-> incoming fds and returns their IDs to the guest, then the guest does a
-> CREATE_BLOB with matching blob_id, which creates a virtio-gpu resource
-> from the incoming buffer, so the guest can just MAP_BLOB it. These are
-> the blobs that are not aligned to anything because they're just
-> arbitrary memfds on the host.
+From: Alessio Belle <alessio.belle@imgtec.com>
 
-Blob is a chunk of memory intended to be shared between host and guest.
+Log freelist IDs not recognised by the driver when processing freelist
+grow or reconstruction requests from the firmware.
 
-The shared mappable buffer size must be aligned to a page size
-granularity that satisfies both host and guest requirement.
+In the freelist grow request path, remove a WARN_ON() which is not
+particularly useful since it is known where the request came from.
 
-If I'm now reading correctly, you're saying that here blob size is
-arbitrary payload data size, even not the the aligned size of memory
-blob that contains payload. And userspace code implicitly relies on
-kernel to round-up payload size to a guest's page size.
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v2:
+- Fixed an issue pointed by Sashiko by replacing drm_warn() with drm_warn_ratelimited().
+- Link to v1: https://patch.msgid.link/20261006-b4-improve-logging-of-unknown-freelist-ids-v1-1-96ebcb132b80@imgtec.com
 
-We now have blob_alignment and verifying the unaligned params->size.
-Given the userspace dependency on the kernel's implicit round-up, we
-should be checking blob_alignment of the rounded-up params->size:
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/imagination/pvr_free_list.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-+	if (*guest_blob)
-+		params->size = roundup(params->size, PAGE_SIZE);
+diff --git a/drivers/gpu/drm/imagination/pvr_free_list.c b/drivers/gpu/drm/imagination/pvr_free_list.c
+index e85cac83834c..ec02fbbe0168 100644
+--- a/drivers/gpu/drm/imagination/pvr_free_list.c
++++ b/drivers/gpu/drm/imagination/pvr_free_list.c
+@@ -8,6 +8,7 @@
+ #include "pvr_vm.h"
+ 
+ #include <drm/drm_gem.h>
++#include <drm/drm_print.h>
+ #include <linux/slab.h>
+ #include <linux/xarray.h>
+ #include <uapi/drm/pvr_drm.h>
+@@ -367,8 +368,12 @@ void pvr_free_list_process_grow_req(struct pvr_device *pvr_dev,
+ 	u32 grow_pages = 0;
+ 
+ 	/* If we don't have a freelist registered for this ID, we can't do much. */
+-	if (WARN_ON(!free_list))
++	if (!free_list) {
++		drm_warn_ratelimited(from_pvr_device(pvr_dev),
++				     "Received freelist grow request for unknown ID 0x%x\n",
++				     req->freelist_id);
+ 		return;
++	}
+ 
+ 	/* Since the FW made the request, it has already consumed the ready pages,
+ 	 * update the host struct.
+@@ -564,8 +569,12 @@ pvr_free_list_reconstruct(struct pvr_device *pvr_dev, u32 freelist_id)
+ 	struct rogue_fwif_freelist *fw_data;
+ 	struct pvr_hwrt_data *hwrt_data;
+ 
+-	if (!free_list)
++	if (!free_list) {
++		drm_warn_ratelimited(from_pvr_device(pvr_dev),
++				     "Received freelist reconstruction request for unknown ID 0x%x\n",
++				     freelist_id);
+ 		return;
++	}
+ 
+ 	mutex_lock(&free_list->lock);
+ 
 
-	if (vgdev->has_blob_alignment &&
-	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
-		return -EINVAL;
+---
+base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+change-id: 20261006-b4-improve-logging-of-unknown-freelist-ids-8a69777fd61e
 
-Does it work for you?
-
--- 
 Best regards,
-Dmitry
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
