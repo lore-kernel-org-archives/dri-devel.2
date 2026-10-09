@@ -4,42 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B6FACA6017
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33ADECA9EC7
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1520610E7FA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2238B10E8C2;
 	Sat, 10 Oct 2026 12:37:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B36pcNNv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qad3KSrd";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF4110EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:12:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AEDC10E1A8
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:04:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AC7CA41AAC;
- Fri,  9 Oct 2026 18:12:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E20971F00898;
- Fri,  9 Oct 2026 18:11:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0B94041329;
+ Fri,  9 Oct 2026 18:04:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9D731F000FF;
+ Fri,  9 Oct 2026 18:04:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569537;
- bh=FZ5vcpIzeMnQD61R3Z7f2Q7Zoun1RactPZJC7NXk5O8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=B36pcNNvjsz/zhdFcUlv9KirsSW7/GJs06knxU38HgJ6J0B49mAO7Fe4kaRQlQYDn
- fbIfq/4ZW43Owg8tsEjgw8JTiXrJ6extsqa6m5mz4irFrXmF7jljftGaOCgzcXA3Ba
- TdTtURY0IEC0zLjQeLlEJq1cu7nQcPcNWib5YfW35aAru2ThGHARKxwpqoCZ+Lyski
- OO0pw7pVFQPI4WVrqqrpnzymrmWQAt0zO680NtPa1LIFqzzE9rkKXj8Ih/g36hSr9S
- HyOEUjIdhzuSQ6zSG43VfYwVw5cSKjiIAATTi39RG0z7NubiemAL6qtEvojkl/u57j
- aRmCTtCpOGVrA==
+ s=k20260515; t=1791569076;
+ bh=SHbPL8zAhY1EPDigTnWul0MzUeZXzl8KtpG/s8AqHXY=;
+ h=From:Subject:Date:To:Cc;
+ b=Qad3KSrddBgXnQWBK0Lx2JvuXuUvt6cFnQA7ziRLUO7kybnH5xcjHLqxLIjnOMaae
+ vIQcFH7oS6EG/qkp0/aK8LoTXMFgmhjy8SLC9NLnfIJA2cfdZuTMiR8PyUCOAQbXT1
+ SizGfxN5Cy1MC+n11o8cFtpHAJG50xLWg2Tr2mMYCFNV6/fB5HU0wOp/rJnC886Ulz
+ N9BwAObrLZTs86EmJo66Ak0JXK1F4SkrFaqzUctVqRC6UlARTGESabx4ECJvmNMtDi
+ o/hVI7HkK3JlHS0y5DTpLbGC5XZp7HJYNWyCNIRpIaQmIjHHWfFRcBBc6/R0RQAT2A
+ AS2nq+aY71VAg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:16 +0100
-Subject: [PATCH v5 22/38] mm/mlock: clear VMA_LOCKED_MASK over mmap
- callback
+Subject: [PATCH v5 00/38] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL
+Date: Fri, 09 Oct 2026 19:03:54 +0100
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-22-923b70125b1e@kernel.org>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQTW7DIBAF4KtErEsFAwQ7q96j6mIMg0Mb/whS1
+ Cjy3YsTqUqVhZdPevreaK4sU4qU2WF3ZYlKzHEaazAvO+aOOPbEo6+ZgYC9sCB5p/kw4MznRDM
+ m4mVAHk7Y84xjDBcOUggNxgeDyKpSeyH+3BbeP+45f3ef5M4ruzaOMZ+ndLmdUOTau6+1otlcK
+ 5IL7tEF2TpHAN3bF6WRTq9T6tk6V+ABlHobhApa39pGkjdqL59A9QjabVBVUJtG+QZBdQ6fQP0
+ H1tepbVBXEGUQBowQwdt/4LIsv+zINubUAQAA
+X-Change-ID: 20260721-b4-mmap-prepare-vma-flag-sanify-2100425df5aa
 To: Andrew Morton <akpm@linux-foundation.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
  Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
@@ -120,14 +124,15 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Takashi Iwai <tiwai@suse.de>, Emil Tsalapatis <emil@etsalapatis.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2804; i=ljs@kernel.org;
- h=from:subject:message-id; bh=d+EvKVA+pcfu65IMeGqrSLR7pkk/b5ufT4uPydKYcbA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sx5zWj+db1RtX1++g5OEbMfUbW3YzrfNDxRvXbgb
- YCHX+TCjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAExEXYrhn+0a7ZjDS7YvnHum
- XuBC6nyHuYpmVdf2tXu+idp3iGX5GW2G/362n5NtgzrquU329EWFcH43Y2Y3ZvK6paT46WbG290
- qnAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13909; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=n4V9rL2hXS1EHjEQMTlg867FNgqGNKwt46gTB6wkitI=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6kydo702/Ib2xh9+HSqmfsVCNscPR/U77Ut0rj9xh
+ SnxoOn3jlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzEUJ2R4eZn3ZoPJ+4KpZV/
+ zIlJktF97JTUnWozvY7fWIl3JdsSR0aGw3Ec7V0VV6v3Wah8KNselbo8wS/c8P0f3eQCy6s2bXW
+ cAA==
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -146,88 +151,275 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently there's a confusing mess around VMA_LOCKED_BIT and
-VMA_LOCKONFAULT_BIT.
+The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
+properties:
 
-It is permitted for drivers to set any flags they like, with the VMA
-already possessing lock flags.
+* Is this managed by core mm, or by a driver mapping MMIO, kernel-allocated
+  pages, or even ordinary pages itself?
+* Can it be expanded or merged?
+* Is this a 'weird' case like mlock where migration might race and we
+  'have' to set invalid flags to notify?
+* Is it another 'weird' case where we just want to stop GUP from touching
+  it?
 
-This results in the absurd situation of a VMA possessing both
-VMA_SPECIAL_FLAGS and VMA_LOCKED_MASK flags, which is not permitted.
+Driver writers have often been confused about this, and who can blame them?
 
-This has resulted in mlock_vma_folio() having a very silly check for this
-scenario to work around it.
+It also interacts badly with the eternal edgecase known as hugetlb - which
+sets VMA_DONTEXPAND_BIT but doesn't also want to be treated like a
+'special' flag.
 
-There is no need for this - just clear the flags before invoking the hook
-and reinstate them afterwards if they are required.
+Another issue is that we cannot make sensible assumptions about flag
+use. It's not possible to assume VMA_IO_BIT means iommu because drivers
+abuse it and mlock abuses it.
 
-Nothing relies upon this being set during the mmap operation.
+Special is also an overloaded term in mm. VDSO and VVAR mappings are also
+called 'special' but they're special in a... special way.
 
-mmap_prepare is unaffected by this so requires no fix.
+Sometimes things are called special that are a subset of
+VMA_SPECIAL_FLAGS (VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT for instance when it
+comes to zapping or vm_normal_folio()).
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+There's a specific kind of special for THP too, which considers
+PFN map, mixed map 'special' but DAX not.
+
+It's all rather a mess.
+
+This series brings some order to things by both limiting what drivers can
+do with VMA flags and switching to using predicates that describe
+behaviour, not arbitrary flags.
+
+It establishes the invariant that mm-managed mappings may neither set
+VMA_IO_BIT nor clear VMA_MAYWRITE_BIT in an mmap hook, enforcing this by
+validating VMA state after every mmap and mmap_prepare hook.
+
+It updates usbmon and sg to mmap_prepare in order to do so, adding a new
+mmap action for mapping discontiguous kernel pages, and has hfi1 and the
+ALSA PCM status page map their pages eagerly instead.
+
+It also establishes the invariant that VMA_MIXEDMAP_BIT be set when mapping
+kernel memory, something that is usually the case but happens not to be for
+some users - specifically defio, cmt_speech, uprobes and the bpf arena, all
+of which are updated to do the right thing.
+
+It replaces VM_SPECIAL and arbitrary flag tests with predicates that say
+what is actually being tested:
+
+     vma_is_mm_managed()   Are the VMA's contents established and managed
+                           by core mm, rather than a driver or other kernel
+                           component?
+
+      vma_is_mm_backed()   Is the VMA backed by memory core mm itself
+                           faults in and keeps, rather than a driver or
+                           device?
+
+  vma_is_fixed_mapping()   Is the VMA not permitted to be expanded or
+                           merged?
+
+         vma_can_merge()   Can the VMA be merged with a compatible
+                           neighbour?
+
+Remaining raw VMA_IO_BIT, VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT tests
+scattered across mm are converted to predicates where they express one, and
+left as explicit flag tests where they do not.
+
+And also the opportunity is taken to eliminate THP's vma_is_special_huge()
+which was an existing source of confusion.
+
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/internal.h |  9 +--------
- mm/vma.c      | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+), 8 deletions(-)
+v5:
+* Applied tags (thanks everybody!)
+* Updated 3/38 to fix a bug in __mmap_new_file_vma() by zapping + closing
+  the VMA before setting vma->vm_file NULL to avoid an i_mmap_writable
+  imbalance. A repro was tested before/after and confirmed fixed.
+* Updated 7/38 to make __map_kernel_pages_prepare() use
+  mmap_assert_write_locked() rather than the weird
+  assert-on-mmap_read_trylock() pattern, as per Suren.
+* Also update vm_insert_page(), vm_insert_pages() to fix the same pattern
+  and to use the new VMA API, and converted a BUG_ON to a
+  VM_WARN_ON_ONCE().
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 557e629db8c5..4ae08fedffff 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -970,14 +970,7 @@ void mlock_folio(struct folio *folio);
- static inline void mlock_vma_folio(struct folio *folio,
- 				struct vm_area_struct *vma)
- {
--	/*
--	 * The VM_SPECIAL check here serves two purposes.
--	 * 1) VM_IO check prevents migration from double-counting during mlock.
--	 * 2) Although mmap_region() and mlock_fixup() take care that VM_LOCKED
--	 *    is never left set on a VM_SPECIAL vma, there is an interval while
--	 *    file->f_op->mmap() is using vm_insert_page(s), when VM_LOCKED may
--	 *    still be set while VM_SPECIAL bits are added: so ignore it then.
--	 */
-+	/* The VM_IO check prevents migration from double-counting during mlock. */
- 	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
- 		mlock_folio(folio);
- }
-diff --git a/mm/vma.c b/mm/vma.c
-index 39ceb03023e2..4f09fb98a2fd 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2607,6 +2607,11 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 	if (!map->vm_file->f_op->mmap)
- 		return 0;
- 
-+	/*
-+	 * Driver-specified flags may make the lock flags invalid, so clear
-+	 * VMA_LOCKED_MASK and reinstate it afterwards if appropriate.
-+	 */
-+	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
- 	error = mmap_file(vma->vm_file, vma);
- 	map->vm_file = vma->vm_file;
- 
-@@ -2629,6 +2634,18 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 		return error;
- 	}
- 
-+	/*
-+	 * If the VMA is still eligible for mlock(), reinstate any original
-+	 * VMA_LOCKED_BIT and/or VMA_LOCKONFAULT_BIT flags.
-+	 */
-+	if (vma_supports_mlock(vma)) {
-+		const vma_flags_t mask =
-+			vma_flags_and_mask(&map->vma_flags,
-+					   VMA_LOCKED_MASK);
-+
-+		vma_set_flags_mask(vma, mask);
-+	}
-+
- 	map->vma_flags = vma->flags;
- 
- 	return 0;
+v4:
+* Pulled what was 2/40 out of the series to send as a fix instead, as per
+  Suren.
+* Updated 1/38 to rename put_map() to map_put_vm_file(), as per Suren and
+  Liam.
+* Updated 3/38 (was 4/40) to perform the vma_close() after unmapping the
+  range as per Gregory.
+* Updated 3/38 (was 4/40) to rename prev_* to orig_* in the mmap hook
+  validation code, as per Suren.
+* Updated 4/38 (was 5/40) to clarify that the mergeable-VMA action check
+  runs after mmap_action_prepare(), as per Zi.
+* Updated 7/38 (was 8/40) to have discontig_kernel_map_page_range() map
+  only the pages which fit in the VMA, consistent with
+  discontig_kernel_map_page(), as per Suren and Zi.
+* Updated 7/38 (was 8/40) to unmap and close the VMA when an mmap action
+  fails under the mmap_prepare compatibility layer, so state is correctly
+  released there too, as per Lance.
+* Updated 8/38 (was 9/40) to document this, as per Zi.
+* Updated 14/38 (was 15/40) to replace vma[_flags]_is_kernel_owned() with
+  its inverse, vma[_flags]_is_mm_managed() and reword accordingly
+  throughout, as per David.
+* Updated 22/38 (was 23/40) to add a clarifying comment, as per Zi.
+* Updated 23/38 (was 24/40) to test VMA_LOCKED_MASK before draining the
+  mlock batch in try_to_unmap_one() and try_to_migrate_one(), as per Lance.
+* Updated 30/38 (was 31/40) to rename vma[_flags]_is_persistent() to
+  vma[_flags]_is_mm_backed() and reword its documentation around what backs
+  the mapping rather than persistence, as per David.
+* Updated 31/38 (was 32/40) to make the code more succinct in
+  vma_move_compatible(), as per David.
+* Dropped what was 40/40, vma[_flags]_can_gup(), as per David.
+https://lore.kernel.org/r/20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org
 
+v3:
+* Fixed up bug in patch 1 as reported by Mike - have to delay setting
+  map->vma_flags until after action prepare, though map->vm_file needs to
+  be set before for correct reference count management.
+* Updated 4/40 to add a symmetric vm_end check as well as vm_start in case
+  of a dangerously insane driver, as per Sashiko.
+* Updated 8/40 to check if a driver did something REALLY stupid like having
+  a NULL discontig_kernel_page_ops ptr, as per Sashiko.
+* Updated 15/40 to trivially synchronise userland test comments.
+* Updated 17/40 to correctly duplicate code to the userland VMA tests as
+  per Sashiko.
+https://lore.kernel.org/r/20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org
+
+v2:
+* Rebased on mm-unstable.
+* Introduced new patch to fix various mmap_prepare and file interactions
+  that weren't quite right as per Sashiko. None impact anything upstream
+  yet so it doesn't need to be a fix.
+* Restore vma->vm_start if an mmap hook has moved it before tearing the
+  VMA down, so we unmap the range we established rather than the one the
+  hook invented, as per Sashiko.
+* Reject a discontiguous kernel page batch of zero pages rather than
+  looping forever, and bound batches by the pages remaining in the VMA,
+  as per Sashiko.
+* Add the missing map_kernel_discontig member to the userland VMA tests'
+  copy of struct mmap_action as per Sashiko.
+* Set VM_DONTEXPAND on hfi1's RCV_HDRQ, RCV_EGRBUF and RTAIL mappings, as
+  dma_mmap_coherent() doesn't on the IOMMU-DMA path, as per Sashiko.
+* Recompute vma->vm_page_prot in snd_pcm_mmap_status() after clearing
+  VM_WRITE, as vm_insert_page() uses it immediately rather than at fault
+  time, as per Sashiko.
+* munlock_vma_folio() now tests VMA_LOCKED_MASK so an unmap racing the
+  mlock walk still munlocks folios the walk has already counted, as per
+  Sashiko.
+https://lore.kernel.org/r/20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org
+
+v1:
+https://lore.kernel.org/r/20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org
+
+---
+Lorenzo Stoakes (ARM) (38):
+      mm/vma: fix mmap_prepare file handling, remove file_doesnt_need_get
+      mm/vma: introduce and use vma_[flags_]can_merge()
+      mm: consistently validate VMA state after mmap[_prepare] hooks
+      mm/vma: ensure mmap_prepare doesn't set actions on a mergeable vma
+      mm: make map_kernel_pages_[prepare,complete] internal and unexported
+      mm/vma: tidy up map kernel pages enum values
+      mm: add mmap action for discontiguous kernel page mapping
+      docs: filesystems: update mmap_prepare docs for discontig kernel pgs
+      drivers/usb/mon: update to use mmap_prepare + map kernel pages
+      infiniband: update hfi1 to use remap_vmalloc_range()
+      selinux: reject writable opens of policy file, drop mmap shared/write check
+      ALSA: pcm: use vm_insert_page() to map PCM status page
+      bpf: arena: mark arena_map_mmap() mappings VM_MIXEDMAP
+      mm/vma: add vma[_flags]_is_mm_managed() predicates
+      mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT if not mm-managed
+      mm/vma: add and use vma_[flags]_is_fixed_mapping
+      scsi: sg: convert mmap hook to mmap_prepare and rework
+      fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO, add VM_MIXEDMAP
+      HSI: cmt_speech: convert mmap hook to mmap_prepare, refactor
+      mm/gup: error out early on !VMA_MAYREAD_BIT VMAs
+      uprobes: remove VM_IO, set VM_MIXEDMAP for mapped kernel pages
+      mm/mlock: clear VMA_LOCKED_MASK over mmap callback
+      mm/mlock: eliminate weird VMA_IO_BIT abuse and simplify
+      mm/vma: enforce that mm-managed mappings may not set VMA_IO_BIT
+      mm: remove VMA_IO_BIT check in vma[_flags]_is_mm_managed()
+      mm: remove hugetlb_inline.h
+      mm: rename is_vm_hugetlb_page() to vma_is_hugetlb()
+      mm: drop some redundant checks around hugetlb VMAs
+      mm/madvise: update is_valid_guard_vma() to use vma_can_merge()
+      mm/vma: introduce vma[_flags]_is_mm_backed()
+      mm/uffd: use predicates for userfaultfd checks
+      mm/madvise: use predicates for madvise(..., MADV_DOFORK)
+      mm: eliminate VMA_SPECIAL_FLAGS usage when hugetlb explicitly tested
+      mm: eliminate VMA_SPECIAL_FLAGS check in lru_gen_look_around()
+      mm: avoid use of VMA_SPECIAL_FLAGS in migrate_vma_setup()
+      mm: eliminate VM_SPECIAL, VMA_SPECIAL_FLAGS
+      fuse: dax: do not set VM_MIXEDMAP
+      mm/huge_memory: remove vma_is_special_huge()
+
+ Documentation/filesystems/mmap_prepare.rst |  81 ++++++++++
+ arch/arm64/kvm/mmu.c                       |   4 +-
+ arch/powerpc/mm/book3s64/radix_tlb.c       |   6 +-
+ arch/powerpc/mm/nohash/e500_hugetlbpage.c  |   2 +-
+ arch/powerpc/mm/nohash/tlb.c               |   2 +-
+ arch/riscv/kvm/mmu.c                       |   2 +-
+ arch/riscv/mm/tlbflush.c                   |   2 +-
+ arch/s390/mm/gmap_helpers.c                |   6 +-
+ arch/sparc/mm/init_64.c                    |   2 +-
+ arch/x86/kernel/uprobes.c                  |   2 +-
+ drivers/gpu/drm/drm_gpusvm.c               |   5 +-
+ drivers/hsi/clients/cmt_speech.c           |  33 ++--
+ drivers/infiniband/hw/hfi1/file_ops.c      |  83 +++-------
+ drivers/scsi/sg.c                          | 115 ++++++-------
+ drivers/usb/mon/mon_bin.c                  |  82 ++++++----
+ drivers/video/fbdev/core/fb_defio.c        |   6 +-
+ drivers/video/fbdev/ssd1307fb.c            |   2 +
+ fs/coredump.c                              |   2 +-
+ fs/fuse/dax.c                              |   2 +-
+ fs/hugetlbfs/inode.c                       |   2 +-
+ fs/proc/task_mmu.c                         |   8 +-
+ include/asm-generic/tlb.h                  |   4 +-
+ include/linux/hugetlb.h                    |   5 +-
+ include/linux/hugetlb_inline.h             |  28 ----
+ include/linux/mm.h                         | 240 +++++++++++++++++++++++++--
+ include/linux/mm_types.h                   |  50 +++++-
+ include/linux/pagemap.h                    |   1 -
+ include/linux/rmap.h                       |   2 +-
+ include/linux/userfaultfd_k.h              |   1 -
+ kernel/bpf/arena.c                         |   3 +-
+ kernel/events/core.c                       |   2 +-
+ kernel/events/uprobes.c                    |   4 +-
+ kernel/sched/fair.c                        |   3 +-
+ mm/folio.c                                 |   2 +-
+ mm/gup.c                                   |   8 +-
+ mm/huge_memory.c                           |  31 ++--
+ mm/hugetlb.c                               |  14 +-
+ mm/internal.h                              |  80 +++++----
+ mm/ksm.c                                   |   4 +-
+ mm/madvise.c                               |  28 ++--
+ mm/memory.c                                | 147 ++++++++++++++---
+ mm/mempolicy.c                             |   2 +-
+ mm/migrate_device.c                        |  12 +-
+ mm/mlock.c                                 |  51 +++---
+ mm/mmap.c                                  |   2 +-
+ mm/mmu_gather.c                            |   2 +-
+ mm/mprotect.c                              |   5 +-
+ mm/mremap.c                                |  11 +-
+ mm/page_vma_mapped.c                       |   4 +-
+ mm/pagewalk.c                              |   2 +-
+ mm/rmap.c                                  |   8 +-
+ mm/swapfile.c                              |   2 +-
+ mm/userfaultfd.c                           |  43 ++---
+ mm/util.c                                  |  49 ++++--
+ mm/vma.c                                   | 250 ++++++++++++++++++++++-------
+ mm/vma.h                                   |  31 +++-
+ mm/vma_internal.h                          |   1 -
+ mm/vmscan.c                                |   9 +-
+ security/selinux/selinuxfs.c               |  11 +-
+ sound/core/pcm_native.c                    |  38 ++---
+ tools/testing/vma/include/dup.h            |  80 +++++++--
+ tools/testing/vma/include/stubs.h          |   6 +-
+ tools/testing/vma/tests/merge.c            |  10 +-
+ 63 files changed, 1164 insertions(+), 571 deletions(-)
+---
+base-commit: 6b41451631cabf9ea3b384c2a099088e1598f963
+change-id: 20260721-b4-mmap-prepare-vma-flag-sanify-2100425df5aa
+
+Cheers,
 -- 
-2.55.0
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
