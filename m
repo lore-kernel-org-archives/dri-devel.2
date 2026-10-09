@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2446DCA5FED
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 07:56:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D4F5CA6012
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 07:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32DB510E4CB;
-	Fri,  9 Oct 2026 07:56:05 +0000 (UTC)
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87D9810E4CB
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 07:56:02 +0000 (UTC)
-X-QQ-mid: zesmtpip2t1791532521tcc01530a
-X-QQ-Originating-IP: UWuX76hIPH1r9oQg3By8mO++236onaSHj0Sgf6QQ3jg=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FEEB10FF53;
+	Fri,  9 Oct 2026 07:56:08 +0000 (UTC)
+X-Greylist: delayed 16674 seconds by postgrey-1.36 at gabe;
+ Fri, 09 Oct 2026 07:56:05 UTC
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4597210E759
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 07:56:04 +0000 (UTC)
+X-QQ-mid: zesmtpip2t1791532526tc2f97ed7
+X-QQ-Originating-IP: VBjnUdPH8eC5s6bbmCJPoWdYx3vLC3pyuYwl0fR409I=
 Received: from [192.168.30.32] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 09 Oct 2026 15:55:13 +0800 (CST)
+ id ; Fri, 09 Oct 2026 15:55:22 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7057571656101032469
+X-BIZMAIL-ID: 10937849882715644539
 EX-QQ-RecipientCnt: 32
 From: Xilin Wu <sophon@radxa.com>
-Subject: [PATCH v2 0/4] arm64: dts: qcom: Add support for Radxa Dragon Q8B
-Date: Fri, 09 Oct 2026 15:55:05 +0800
-Message-Id: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+Date: Fri, 09 Oct 2026 15:55:06 +0800
+Subject: [PATCH v2 1/4] dt-bindings: display: bridge: simple: document
+ Chrontel CH7218A
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XPy26EMAwF0F9BWddVcCYhsOp/VLPIw3RSdXgkA
- VGN+PcGpotKXV7p2j5+sEQxUGJd9WCR1pDCOJSALxVzNzN8EARfMkOOire8hllb8DmBEaZ3sm+
- ttshKe4rUh+3c9H595rTYT3L5GP9tRJqXciI/a8yaRODG+z3kriLBFSqNwly4alA6wta6Rjqry
- V1U4wXVJFCxv7QiPWCSN5CcRs23CeZlgikMLscvkMZqU5AkZN+tyA7ZLaQ8xu/z5bU+If++W2v
- g0HjiVplGeK7fovGbeS1Ydt33/QfMOlXPOAEAAA==
-X-Change-ID: 20260901-q8b-dts-a3afc5f9b8b2
+Message-Id: <20261009-q8b-dts-v2-1-eda11e5dea8b@radxa.com>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+In-Reply-To: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
 To: Bjorn Helgaas <bhelgaas@google.com>, 
  Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
@@ -54,34 +53,34 @@ Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Daniele Briguglio <hello@superkali.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4320; i=sophon@radxa.com;
- h=from:subject:message-id; bh=zDhMVNDbNx3vkG4egCOIH6uOAFDS34JQCEN3kVWtccE=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFkn5j4KNmmaZa/x7MGbJzl/juhuWZzie1jvyP7IvQvTm
- t5yXVps0lHKwiDGxSArpsiiEM8wl70y99pTsVI9mDmsTCBDGLg4BWAiDZsY/nB1mDFcFzoz+WN7
- uGh94M+uLY5fnD/LbBdurRS+2+BvxsXwz/ynTUDMrG1Pnip+7z5+ZMbiSqnY7veeiXcvXq+WusP
- 1nhcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1233; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=G4sBlfB4NGRMNHWX1zneeBBLLlnhh7y7L1BErGKdRik=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFkn5j6dLvxD9rDtZd8tLCU/7edO92tbXbWPRY6Rk33Rn
+ 4KfbRr7O0pZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWQIAxenAExEIIrhf3Uyl5x+xe4V9m9n
+ cvFybXfI4WFw2CJ+5NuE89LSx+S/P2Zk6A05+Nlu+u4MXVkN/n9eb9QCWmXX3nFPuyS1O0T5yv7
+ PHAA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MRw/zKT/0BpPisBx+JCcUx/B+Le2462CbHmBNTUe9ASJ/ME/RM/qkDev
- ZPa2lWy0nF9VDx7Vip85lWrv/J56ygaa+ICIMUmoy66tlrBNyvYncZPN4y0gnnPS5Hif0qr
- ztce852GlU3xs0JR6Ohtax/5kMgbLB6W8fL50+631Uehbd9+ao0ABg2WmbBPIB4qUfu2bXA
- qN90mhxg0BJJ1mX7GuEd4Liej+oLcTOYY2429/7JsdR79bFbA/duH8sOp5C+5Cndrjip86p
- 22ux9xMEYHZFnrUf6V2lINoNlXnkGE7Y0oQ+sYJqLQ8oLgj9jSTXtjYKbhBwyzujMasKNRu
- zmU2fXbEbipGUpC7Y/50kcPK3Zoavw5tAKUvKaECBNJqhU1VaPPo2Noe1AaUskuG55ECfbV
- kQLW+CvNHgiqsfrOT53nAaU5aid/dPxX3eRvM1yGfwzXvFG2k5xskvrmTAAYvDAuE1eYLvx
- v8b8a5pg6JinvSgcCo6OfbOkDRF5yVeN3CZGyYHxrGix8vlbs+gGUBWtZBGiKYQ3aPSOIkb
- cOKT8LLVoU6dGc9lGm2y6GPh+k/me0D+RnqLwxEYTtA03dIzI2/5/46wu+lxsdelX9fhNo0
- jPGWbjvDzqE9tKqVyEFskK9cfWhVQrteKpAfbvSuNfN3A+JpRYppzzT5kWRVMUeItksNaOv
- S073n4KWpMZxtvCgL44Vb8CONOEZz65AXs6UtAajMhIJxc6UDkMqsWYNuJWEYaK6eQspWk9
- HLtfriZsX8QHorGIkuu6F73B5tFRcZBZxL1y/h3ql6rze4N0aJ5l+wQNMiFN85zqEgCUMRA
- kmHMrjfwD2IjgjsFEFjkfNBOpqMe8Mn30OdZAm/E+99UGFqVbtGXFlq5OPmay6vmB8AcfYl
- ZyhOelw9klyogFglNhBAFZTaqrCDyCb1x/OlwuUYeuCcJgvz4E7CZeSYUgRwX0WSIEAzSLp
- Cw2nmMMzj69trBdhd8Z97YZ65yGEBfXKZf1v4T1vR7KMVEavP/Z0Jy5T4R9H8Wqa9QjhhBe
- xxLKWyIpYbl25ERAUbMAwWu7pCiJaBatbSuByTWIwX2KcQ7YtiiYUQfGdzzgTmGA3OetIHI
- nUGyqdxQheO
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: MWgnKUIRcMzUjOVK4clzKPivdwNFZOmqHpyW99kJockB/liF7JezN3Pp
+ sseHFtFM5DIw+yzRh0yEyJqjnSA8RbztqzpCFYoZI1qhqYJO8DEBMvvaI5CNAPJhGB9r9cj
+ zaVTN5FsxushsDrZ8tuCJBvNl3C9iq9ZHhkouvJcaJmFuwf3qoelfmx7fbZzQN6Q822wtZm
+ F06BlZ0lyiwEvJZO+icCgnvVLlP66RCd4KYRulyy6P1ZEZ1Q44BMhslIR9OnEwomJbeBj9H
+ smDIB2TSN0DNZzQvD7hHQD0lPPlUo5T2H4x+la+xHiHfrses1V9RCRL+85wys8MdplStM0w
+ 9T6PgWisv+gwacatF0Lzd4Bd1zrmIw5o+iNqGdWCnob7YHF+pYfJ44SlLhgjY5uoy9sLivR
+ ZRB07s4ibDgBVMdFzMmSSA3ptFgJAB/JU+H1RsFpChoBod/7UWmI4+PSFr5LQHS9KxVR12/
+ 3MrFtSU+ujda0Kho0HHETvdA7o/owN795xrrYzoq2Y5M4pJBkcP7VQfGz4UHzfh/Y/PiFQe
+ BkkIPVlwx/A7LimHmAKTsogkGUp7U8LnfcdnQMHZjjaBc73gEuy/qcMw52QS0FXJ2HbGBRq
+ Vv9fL0sfPMv6WAXmAMUEF6BowIea1n82EoMIRorrnu8wUtU04F7eFt0jUhS1+xUilY92VG7
+ NGYsLJPwSplhuH7UGFNe379C0kAWvqeGqxcKOlVSG/b4TkuLO4DyOwG5wL39HVVU6BHFu8W
+ 77Ws4gKkI6w4nHFwxh327upvXGycAxg/pEnp+nTf87SxfJ6V3CtNeEJQoykV8kfBHxqX1E4
+ y6S2A1rG84MtYd2meYpdLbtfn7R+2CDvbTioTIf0knrY8Zfhl3Dzv76oyaH8cdfO8vi5pB/
+ X448rAitmpT/FXEBWakZa0aDcnU5+xU2GmJWCe55q0hnI3RJAQLkFtGt0+MzWAl2uhk1xAH
+ zfH7/XOAko0ZIBWZgUBZolzHd0P0T6OLO1tUSE/BTT72J77jB43vA6XXcYPSPVyJEzRSD6j
+ Nzo9cORTMr6k/Hf7y3D4uEAnc3e14VUETk3nsRZfj9FVpn7Ob/Ly7ElDi1XhyMzLu4EmbJG
+ jonoiS1SbqC1ZSqavz/MldbT1o4Yz3tAO0YfM639Y97
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,101 +97,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+The Chrontel CH7218A is a DisplayPort 1.4 to HDMI 2.1 protocol converter.
 
-The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
-Snapdragon 8cx Gen 3 (SC8280XP) platform.
+The device contains an embedded microcontroller and on-chip flash. It
+automatically boots its firmware and requires no host-side configuration
+for the on-board use case, so it can be represented by the simple bridge
+binding.
 
-The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
-E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
-alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
-a 40-pin expansion header.
+Document the chrontel,ch7218a compatible.
 
-This series adds the initial device tree support for the board. It
-describes the regulators, storage, PCIe topology, USB and display outputs,
-audio, remote processors, thermal sensors, RTC, EEPROM and expansion
-header. Build targets for both the regular and EL2 device trees are
-included.
-
-The TC9563 power-control driver powers off external downstream ports whose
-device tree nodes have status = "disabled". On the Dragon Q8B,
-config-space reads to these powered-off port functions raise an Arm SError
-instead of returning an all-ones PCI error response, preventing the board
-from completing boot.
-
-The PCI OF change to skip config-space reads for unavailable DT-described
-bridge functions has been split out into a separate two-patch series for
-the PCI tree. Disabled endpoint functions remain discoverable so PCI
-fixups can still be applied, while driver binding continues to be
-suppressed later.
-
-The onboard HDMI output is provided by a Chrontel CH7218A DisplayPort 1.4
-to HDMI 2.1 protocol converter. The device boots its firmware from on-chip
-flash and requires no host-side configuration, so the series documents it
-and adds it to the simple bridge driver.
-
-The series also documents the board compatible. The SC8280XP TLMM binding
-change allowing gpio-line-names has already been applied and is no longer
-included in this series.
-
-The PCI change is required before applying the board DTS patch; otherwise
-the disabled TC9563 downstream ports cause a boot-time SError. The display
-binding and driver patches can otherwise be applied independently through
-the DRM tree.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Tested-by: Daniele Briguglio <hello@superkali.me>
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
-Changes in v2:
-- Describe the TC9563 embedded GPIO controller and use its GPIOs 2 and 3
-  for the external downstream port PERST# reset lines.
-- Drop "PCI: of: Avoid config reads for disabled bridge nodes"; split it
-  into a separate two-patch PCI series, including the kernel-doc fix.
-- Drop "dt-bindings: pinctrl: qcom,sc8280xp-tlmm: allow gpio-line-names"
-  because it has already been applied.
-- Link to v1: https://patch.msgid.link/20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com
+ Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
+diff --git a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+index 7636c24906ba..9e0e7e09774e 100644
+--- a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+@@ -29,6 +29,7 @@ properties:
+           - adi,adv7123
+           - algoltek,ag6311
+           - asl-tek,cs5263
++          - chrontel,ch7218a
+           - dumb-vga-dac
+           - mstar,tsumu88adt3-lf-1
+           - parade,ps185hdm
 
----
-Xilin Wu (4):
-      dt-bindings: display: bridge: simple: document Chrontel CH7218A
-      drm/bridge: simple: add Chrontel CH7218A
-      dt-bindings: arm: qcom: document Radxa Dragon Q8B
-      arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
- .../bindings/display/bridge/simple-bridge.yaml     |    1 +
- arch/arm64/boot/dts/qcom/Makefile                  |    2 +
- .../boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts    | 2102 ++++++++++++++++++++
- drivers/gpu/drm/bridge/simple-bridge.c             |    5 +
- 5 files changed, 2111 insertions(+)
----
-base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
-change-id: 20260901-q8b-dts-a3afc5f9b8b2
-prerequisite-change-id: 20260507-sc8280xp-qup-pinctrl-5ab8af9be35f:v2
-prerequisite-patch-id: 1060ddda6f3ff07b36691a0dd7d783a5be2cc993
-
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
+-- 
+2.56.0
 
