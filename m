@@ -4,44 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C601CA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 13:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1956CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 13:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B3D4112134;
-	Fri,  9 Oct 2026 13:14:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F45910E631;
+	Fri,  9 Oct 2026 13:18:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I4Lc64F6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gZ6qkEpN";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A6XUAF1a";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 550D4112134
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 13:14:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BD7B360098;
- Fri,  9 Oct 2026 13:14:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55EFD1F000FF;
- Fri,  9 Oct 2026 13:14:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791551664;
- bh=vM0eTp7oj6CIav1VHdZhPAWhfrUD1iDGcoTzgio+ypk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=I4Lc64F6926tWwkfE7SKb5X+CHKjb1+Mo7WKNtviW+z6cNQRa59rK+LwqUztiE5hj
- UtmovK81OpCG819rsQlx/3E+bLeitHwzm5RF1GZJMKWKKlgFbF9ldxKaPu3VqsGqpH
- 1JGL4FXqj5SxD3zVRULeLrOIS1XlNLWo/W1//IJVpjPxZ3ICoGL2Q1NXpRsaMFcDns
- dkXphii+JavRMKVe9BPNUtCD5w5h5TMdnwwCmWocGhiw7+husnNEEFxvwoRy+LOcJL
- u/DW4A5BeCcITb5/qgfM+fHhxx50mihUkKNCLtKPm21jNwCt1hCMiNgpTX7uqn1ehB
- YGst6KanZL/kg==
-Message-ID: <sashiko-outbox-165608@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 05/15] drm/panfrost: Consolidate device clock
- management and reset
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009-claude-fixes-v14-5-cb743b3b973b@collabora.com>
-References: <20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com>
- <20261009-claude-fixes-v14-5-cb743b3b973b@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 13:14:23 +0000
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C913A10E189
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 13:18:23 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6998KC0e2257077
+ for <dri-devel@lists.freedesktop.org>; Fri, 9 Oct 2026 13:18:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=qYYBr2BmdY4zOcF4U3A9MMVD
+ JkUDAoza8jdCzVd87J8=; b=gZ6qkEpN/3z0dp4iU/6TBh+4OpMelin21NOP/SRx
+ MNxj7f9rZy6MhtORC7OPNIKpz0JZHg1I9i3mtUqbFcWTJLHI7Ojsva5tvjyY5YYe
+ Lb673H5g63L1jckeq5bpK4hyA+XyP7tRAflWpb/Y71vJBHMrIc7SMehyyJEvBLZs
+ Bpe6xluCmmAjxK7RFkfekuRVqoY1UDIk/2xSvobcp5PCmJ7jC8XP8VmxbWpeNcAX
+ e3SSyS/PTEE49G1VR/8XR/5vL+X+sx7n8Uz6ekGflQa94kdQ005deNVvhvkg5/Jn
+ ZOrVGikNdxHVoM4cJnL8E925DFF8Y9Fx5bbR+Jw66l+0QA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6nuftfqb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 13:18:23 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93ea9ea9d13so336275785a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 06:18:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791551902; x=1792156702;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=qYYBr2BmdY4zOcF4U3A9MMVDJkUDAoza8jdCzVd87J8=;
+ b=A6XUAF1a6uAy8rlX5FWa5r3dHEFnyxJc0uuxFZ8NX/o2KXKmHvxGncCvWwH7V5pH8I
+ SP/W9xuEGHIB+P/UOa9nmyHss7PEUSculGQghi8YpmejAcOCTNjwLLQUfzFEnULgYXRy
+ jGVaumNfYKkLFnHSLD6q9N2bqAwTkVFbbfum0QKEaCwmVKjgmlMgJprefG8h3vuKNNQn
+ CGGfTNa+b3sKh5XggutY4Tl3pQ3fy188/J5/pgFQBMbNrIVIy9XeVY0857DoqNuK3yFp
+ brx9g62GHfb6VU0mXoJTPU6UBQIW1XwG/DdCVWqhE6NpIK1pgtKPhIDtuOJ4jDoo4e5A
+ ICng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791551902; x=1792156702;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=qYYBr2BmdY4zOcF4U3A9MMVDJkUDAoza8jdCzVd87J8=;
+ b=klmUji7Sdc0of4SbKszBmHCgzTa5zJ4DEsc4xsLpJlu+AOtHv/9oJ+ruUDTgYaPqhk
+ 0UGYmdFzLjLfQ4mk7pNGyX8I/vNIdnICA00yOQaXU8NledlmB+ONEIZYU9tIC+np8UZh
+ Wnsnwcgq12q1TPlvhb2bqJUm4PI4n7tSqcOv56RMbO9vQg7x0mBgwLuGujl3VeL0hN/6
+ /Qf9HNfMXRetzlb2nzvev9DIVlXKqL4v7zYFlJ1WqO/VSM4+U26O1rVr4wOUrQ4FN8Mk
+ GHpRumFh+q+RHCxnrZHFTE7/BM8l6rkzA+pmsa9estEW1IfCNS+4w3LGPDtOiL6hVTIL
+ NH7g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzPheQoV8c9tZHrCNA8LlnkNNGAhdGJ/4LWdyAicm/Puahu64Sm6wNaP4VFopKgn48TYgo1oclJL6I=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLOU4KIlkfRBK67k+wa9Fd0liuCbNxhd3kY8hz2V8PWFTNAQ6p9
+ hVDLh+GBqO2KLcH6/5obAj2F+IEtpopSxvJHpzQ4gej+yTgl6YwrccgsfINvZiHKcGR/J74bQEH
+ Pt06IxQ7oB0+EFISXp5yA5rb/xse8kD5Q9VgIJJx4pveb0Pskw45T/UabsBEPuBhJcF4P76k=
+X-Gm-Gg: AYBFou3f/DALpY6+oSXpsALSWYddFSJftmnJqKlsJaUUcz8oOr0t/WczHYdDw9vnoiv
+ OFTTZVREseBKG8RQe/QpkL43gYj9HhaPtoN9wr9NqSOmYSXBPQ+cUuBr6EWC9yhw8rKYEEwF9b2
+ rZQBEFRm4TDVoroRVsoXy2LSAEi83BJWIyeHz/hmv4TMwUCjbliUS9lB928ej1TuR0PEQF/r6xJ
+ QZOcb+vfW6AFHcoKMRQQdHZyXap6S+NlBWgr7vqckFmtZBxViUoyd/X2Xhkxr/bWeXGRVvvFxnZ
+ ruC124/2s3ZjjmnChV3ZoHR3MeV9swzD/yUuOBEwWqYBMR+raqF8mdHNfnnzsEfrkq98ae9q+Va
+ 341NcG9341Gl45SmOtvA/Zwdcf5lZ1b+TUPtG19UDL4vYnnM+PhXa6vLAc7ihD+3OngLd0m9l0r
+ DkEuIAhLbJVFWm
+X-Received: by 2002:a05:620a:2951:b0:93e:6da8:6cde with SMTP id
+ af79cd13be357-93ebd207afcmr247614685a.35.1791551902211; 
+ Fri, 09 Oct 2026 06:18:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:2951:b0:93e:6da8:6cde with SMTP id
+ af79cd13be357-93ebd207afcmr247608285a.35.1791551901630; 
+ Fri, 09 Oct 2026 06:18:21 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3a9c3cd5d8fsm5986561fa.30.2026.10.09.06.18.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Oct 2026 06:18:20 -0700 (PDT)
+Date: Fri, 9 Oct 2026 16:18:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] drm/panel: Add driver for Novatek NT37705 panel
+Message-ID: <xwaxsqtffljmv2tgobybq2f5v23hs26wy5zjdti3dziu62kq6z@qpzlpnmplnwp>
+References: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
+ <20261009-fp6-panel-v4-2-7c3819664778@fairphone.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-fp6-panel-v4-2-7c3819664778@fairphone.com>
+X-Authority-Analysis: v=2.4 cv=afn0Dhot c=1 sm=1 tr=0 ts=6ac8e99f cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=6H0WHjuAAAAA:8
+ a=EUspDBNiAAAA:8 a=qNtwOHy-hT8K20Jd0IMA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1MiBTYWx0ZWRfX7KfJ4AOLlklk
+ 3MbE8gUZyRlWcs9bykz7cEMLYyLRnSDd90FIfRQS8v8jyZOhTyyDFIJ+kdfSaB1Y4bZxKtwkAUg
+ 9ryfXB5Jc2arPTMOYfZeD5dGjLSRR+s=
+X-Proofpoint-GUID: eJtKv8it3uDsOOh8oCa_wxDcuksE-a5k
+X-Proofpoint-ORIG-GUID: eJtKv8it3uDsOOh8oCa_wxDcuksE-a5k
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1MiBTYWx0ZWRfX48fOcyGBQfpB
+ SgEg0GiqRmHmpwTAZYDQ0ldmhzNddBkG8vHhGoQsiM+tziHI5Dqo2zGZOqW79DgrBS73JAjFjsY
+ hyz+ZyTvxaEE92jq/Vdpq2yfCMqhf23rp0DD4l8Apcy6vc0ks6b6qcWN57hqPlQdsS/iv9h00EE
+ RJyer8tu/One2RTIMohBaxbDdfx2P4ZqofS5LMPHo3LkLRgCuTTS2wG46Lts9GBJ+k9YA1f8oIN
+ 7RoHqLil5ZioLPVk5WhPxXwuBBizk1Etb94hKVMMs6l3fwdL7NMNE16dEtpV+73NgAyRwrDpRzc
+ SwyWnpo1aKQveKEiUU/bjFwVoUjjQqC7U1Uj6RLb0fD+fsf7rPGi3LL0nK/YTLClNzByIuvCOKi
+ zEoxMsndGX8LPGuCVkS2rAE/Kw8pzDCFlJdNTf5BpwgI/YyWsoBuB36qdtpphwakO4+C0IvkaVK
+ Y5R+Uz4B1MR8qC7Op+g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090052
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,99 +151,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/panfrost: global prepare_lock mutex contention in runtime PM=
- hot path
---
+On Fri, Oct 09, 2026 at 01:25:01PM +0200, Luca Weiss wrote:
+> Add support for the 2484x1116 AMOLED panel from BOE (BJ631JHM-T71-D900)
+> bundled with a NT37705 driver IC, as found on the Fairphone (Gen. 6)
+> smartphone.
+> 
+> The panel can also be configured in 10-bit (RGB101010) mode, however
+> currently it's configured in 8-bit (RGB888) since there's some issues in
+> the Qualcomm DPU driver when driving this panel in 10-bit.
 
-commit 3af44bee15a2caec9722e2975dc04d5f8f206925
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+I hoped that fixed all of them...
 
-drm/panfrost: Consolidate device clock management and reset
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
+>  drivers/gpu/drm/panel/Kconfig                 |  12 +
+>  drivers/gpu/drm/panel/Makefile                |   1 +
+>  drivers/gpu/drm/panel/panel-novatek-nt37705.c | 396 ++++++++++++++++++++++++++
+>  3 files changed, 409 insertions(+)
 
-Gather all clock enables and disables into a single function to avoid
-repetitions between driver init/fini and device resume/suspend, since
-these clocks are always handled in bulk.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index b3a53504bd016..50f4713bfcfdd 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -34,10 +34,46 @@ static void panfrost_reset_fini(struct panfrost_devic=
-e *pfdev)
->  	reset_control_assert(pfdev->rstc);
->  }
-> =20
-> -static int panfrost_clk_init(struct panfrost_device *pfdev)
-> +static int panfrost_clks_enable(struct panfrost_device *pfdev, bool on_r=
-esume)
->  {
->  	int err;
-> +
-> +	err =3D clk_prepare_enable(pfdev->clock);
+I went through Sashiko comments, I don't think that this driver diverges
+from any other panel driver.
 
-[Severity: Medium]
-Does this introduce global prepare_lock mutex contention into the runtime PM
-hot path?
-
-By replacing the atomic-safe clk_enable() and clk_disable() calls with
-clk_prepare_enable() and clk_disable_unprepare() in the runtime PM suspend
-and resume paths, this code will now unconditionally acquire the system-wide
-prepare_lock mutex during high-frequency GPU idle transitions.
-
-Even though panfrost_clk_init() appears to still prepare the clocks, the
-Common Clock Framework's clk_prepare() unconditionally acquires the global
-mutex to manage the software reference count. Acquiring this global mutex
-during rapid runtime PM transitions defeats the separation of the slow prep=
-are
-phase from the fast enable phase, potentially causing unnecessary
-serialization and latency spikes across the system.
-
-[ ... ]
-
-> @@ -436,34 +478,17 @@ static int panfrost_device_runtime_resume(struct de=
-vice *dev)
->  		if (ret)
->  			return ret;
-> =20
-> -		ret =3D clk_enable(pfdev->clock);
-> -		if (ret)
-> -			goto err_clk;
-> -
-> -		ret =3D clk_enable(pfdev->bus_clock);
-> -		if (ret)
-> -			goto err_bus_clk;
-> -
-> -		ret =3D clk_enable(pfdev->bus_ace_clock);
-> -		if (ret)
-> -			goto err_bus_ace_clk;
-> +		ret =3D panfrost_clks_enable(pfdev, true);
-> +		if (ret) {
-> +			reset_control_assert(pfdev->rstc);
-> +			return ret;
-> +		}
->  	}
-
-[ ... ]
-
-> @@ -480,9 +505,7 @@ static int panfrost_device_runtime_suspend(struct dev=
-ice *dev)
->  	panfrost_gpu_power_off(pfdev);
-> =20
->  	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
-> -		clk_disable(pfdev->bus_ace_clock);
-> -		clk_disable(pfdev->bus_clock);
-> -		clk_disable(pfdev->clock);
-> +		panfrost_clks_disable(pfdev, true);
->  		reset_control_assert(pfdev->rstc);
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-claude-fix=
-es-v14-0-cb743b3b973b@collabora.com?part=3D5
+-- 
+With best wishes
+Dmitry
