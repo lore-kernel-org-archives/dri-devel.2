@@ -4,66 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 837D1CA601D
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 15:50:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 896C3CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 15:57:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8651121D8;
-	Fri,  9 Oct 2026 15:50:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C16A610E9DC;
+	Fri,  9 Oct 2026 15:57:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lT7qZutG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uh9MD4Mh";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BC7C10F42E;
- Fri,  9 Oct 2026 15:49:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791560999; x=1823096999;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=KA76ESxM8lCnsXfxSBELhVXIMrRIa1cTrHeMm5DtMDI=;
- b=lT7qZutGnlMWoUQVQ2GtEGln6EphEAnnXeu60KpMOJA0wlkEz4OQV5fv
- qOWy6K6UjCaJoDRumSbLubMkkWjic6/flwf9j9f2JtcSGK1TEVntZTe5/
- 2g3d+In6/rcEOgeK56tEZ8EFbDwZ0bZRMZT1lqzRSu6spMlA7hBlh5IPL
- hhZ1UgTKCxyRvyF8USIU0zVcl6r0w97O/I1EPDkoYYghE7Cu6oJCO3XbT
- S7O6A7UECkJb8gGYXlkXKgyuhh6Vd9fsyobiVtPInD7UM+Il105ore719
- IPeyS8VsDqnv4teNWXuBmYgRXBY/CbOfaL1c2+6eHE5G+CR/pCEL/sxnS w==;
-X-CSE-ConnectionGUID: T94ZOEJYQlKPFvj4Nb8enw==
-X-CSE-MsgGUID: KShKMmJiTrKVA+pjx+WyWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="365747"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="365747"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2026 08:49:59 -0700
-X-CSE-ConnectionGUID: UWXxgW8GTLmWpRwxnnwZmA==
-X-CSE-MsgGUID: 5xcecb1lRXusBDDXrBFxdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="796335"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa010.fm.intel.com with ESMTP; 09 Oct 2026 08:49:55 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xFCr2-000000005wy-0Ous;
- Fri, 09 Oct 2026 15:49:52 +0000
-Date: Fri, 9 Oct 2026 23:48:56 +0800
-From: kernel test robot <lkp@intel.com>
-To: Julio Faracco <jcfaracco@gmail.com>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH V2] drm/qxl: Fix out-of-bounds read in client monitors
- head access
-Message-ID: <202610092302.Y90qfnp6-lkp@intel.com>
-References: <20261008155034.55688-1-jcfaracco@gmail.com>
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010024.outbound.protection.outlook.com [52.101.201.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB8A810E9DC
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 15:57:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Um3UR+ngUBZiNqHG3gfB4Krt/WHUiWNex6fGCbJiRpQXaGzEo6xjutkqmCnF/Xup68dRIaOsniiqrgKq+2zaKKuCh/5OYXIwkjlpyD3i4nuAEkS4NXF+EYYulpucqpV4PKuCd//+YjbIBwylJSpONTNQ3+WNehPMtpjjsroonnvhpSc/nmDlJl6qf9Uz5R3FKw382NexL5vEst97bJMRdVyf5aOyEw4N0BULuncZ+T0AEZZ796ZV8oFopoIN7nzMDstr0s/17lp83X/Yj1OZNiHUAjfIEKc0nZaUsH+uTZuVyKfnVRvOHMyAx/smsWuR9nao35BLsgg5Bq7UPy+ufw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UDutRPGz3QE9EwRkPudDUt3N1XuqFkxhtJkTbzupVc8=;
+ b=Q5IayKxengn+YP2Jl6u0KWJlqFEGMmIqREXPYSYu2ZDiZf3a7yifZMQ/e9sre6lR3AdA+V5TVaKxJHd7wVVL1BRmMD0i/B/SOh9zXQywzum3PCIkINkjn5+9QRdK51jRemqjlHtUttkY/kholGYcnkMvwnR1RwZ0VC+dMxSGtDxbB+fT7FyLfArJBGqMKYE6ulmTpJyC/N5lCw0J4/vbwCrfgP6ETjPNhTUc6JAK4EHqN8R77RfY+TPfrSQ+dS3cTBJExmM4U8TCWq8asuAXewJg437yfwpXXKd31ab5edUuWdSjkACdWKM0jJw0Fz0IvNlFldDhgelBP/TyG1Ztdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UDutRPGz3QE9EwRkPudDUt3N1XuqFkxhtJkTbzupVc8=;
+ b=uh9MD4MhSZOMFgHH6iFIpUQ7DWJIr3a6YoDAKh7X/Nsj4hHT9xjWjtmc+imE0Eu0eyOyyMptAUVUXDrmofS3P+PKBqBnCwWyrDnztJD391XcURqnzypXw1sw27E1ecfn/wJvSKcDbZPa/vWT2XYHkS6Og88O1b5VNcNJUFwMNpI=
+Received: from CY5P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:ed::10)
+ by DS3PR12MB393264.namprd12.prod.outlook.com (2603:10b6:8:43e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 15:57:33 +0000
+Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
+ (2603:10b6:930:ed:cafe::9e) by CY5P220CA0003.outlook.office365.com
+ (2603:10b6:930:ed::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri, 9
+ Oct 2026 15:57:33 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 15:57:33 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 10:57:28 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 9 Oct 2026 10:57:27 -0500
+Message-ID: <bcbfc6c2-705e-ec35-6543-ae5e6ecaab6b@amd.com>
+Date: Fri, 9 Oct 2026 08:57:32 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008155034.55688-1-jcfaracco@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Reject device heap BO when dev_mem_size is
+ not set
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+ <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
+References: <20261008232416.2646054-1-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261008232416.2646054-1-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|DS3PR12MB393264:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9022350e-0398-4092-1498-08df261e080a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|6133799003|22082099003|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: 1rdmSnHSn6MbL74TdtKqcGYzXNKmKg60nyVJ7UjGLxdUKWuK5p06nq+0eiz4UC0eIXx+CNMwuJHWwgO5TbqHVQX705yy+mALs+X1ruRr1AXTfGXTDY9y4k2SPDle226y4nAKpCYSJVJsPRkWubxVdhPkGgPebKXO9keR8lLLC/T28/AQU76LrkrOFCuajIo0XKUqtPAOLdbe1gHJRPA7taybnqTl0/jOkmpyaH3FGpJ2TFG9CVK24ZR7MbyXawQW/XAVnaOJYTLTEJkPkSs/Cgg2sDSHH1S/wk4gZmlartEClauWMNfbV60TJ7ppffaLwlR/GkVv+IOVYrQubkuw5iJPyJOlSxb2y67XugcAaWo3cXDEMRgvpCHg0aPtUQzbP31wbijzlKye3ho3QXsAGYdYIa7PDeyvCV8mHzXlcbRRqzgpiUJQeglLYQktzPZmB/nhuE8NWIvRRJaAuOMzUlmBuH8BzUBLB08nvfgHV6ZB5op4tCnG3ycSUurI4xwLpxS9m2ra/Gs9Q5LwPaRgjLyOEz/2VMPe5IDrNAqvjJ+R8vaLnf97oKmcOzjEg3MugUB3OUqkgB+yAPVegHNgUEm5HhYXglgXlW44RZrMSYg5Oh1ycqli7Vxozxi/a45e3OBUixFo1/Pt/5PZJ0Pwz2EQlSZ2i1ixFiCq12HB9WQmL0oTEAYhCjiF16D+jD2e07QCN8KG87bm90ELF1NIFg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: kE732TUHBEFz9LMHKIFbhmQb+7cNNX4bjeTahasuQdPFdge/uuu0JQ6HgWbHf323Oro/DDRm+Is6R/vWhgVtdgHfuUxZ1SqyRC9EqiFH2I1BiytfYUEN3PU9sv09G2wG0WYxePyqwjRGS8UpCOghePJ/Nl9/80D6q7X0v552i92HOYQ7sk/eaAunK74Ea7+3kH4QIewE6QWgaOAH3BojbSQ0HbELOmaPJ/Ug3tVojt1PA+V2nsMqHqtIMnekrXk1YShCNQW+BfS0XWalbtiZJwYE/WtIv6llE2Di/HII0cp67x4248r1ESj56K11h3sz4I9riVMsMoGsn2Wn22nuc4cxMise0g3J0Hi3AF3lPoHB22a34jUiwVKXqMiSN9Vc3fcdw8VwdWa7yXyHZAsoyq54wL5UaaNccgrLKcZbe+7D0L1EN9LPqYRwQ7d2qe1Q
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:57:33.4374 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9022350e-0398-4092-1498-08df261e080a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000204.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR12MB393264
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,66 +116,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Julio,
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm/drm-next linus/master v7.3-rc6 next-20261008]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Julio-Faracco/drm-qxl-Fix-out-of-bounds-read-in-client-monitors-head-access/20261008-125034
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261008155034.55688-1-jcfaracco%40gmail.com
-patch subject: [PATCH V2] drm/qxl: Fix out-of-bounds read in client monitors head access
-config: x86_64-randconfig-1017-20261009 (https://download.01.org/0day-ci/archive/20261009/202610092302.Y90qfnp6-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610092302.Y90qfnp6-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610092302.Y90qfnp6-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/qxl/qxl_display.c: In function 'qxl_conn_get_modes':
->> drivers/gpu/drm/qxl/qxl_display.c:1069:28: warning: unused variable 'qdev' [-Wunused-variable]
-    1069 |         struct qxl_device *qdev = to_qxl(dev);
-         |                            ^~~~
-
-
-vim +/qdev +1069 drivers/gpu/drm/qxl/qxl_display.c
-
-f64122c1f6ade30 Dave Airlie           2013-02-25  1065  
-f64122c1f6ade30 Dave Airlie           2013-02-25  1066  static int qxl_conn_get_modes(struct drm_connector *connector)
-f64122c1f6ade30 Dave Airlie           2013-02-25  1067  {
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1068  	struct drm_device *dev = connector->dev;
-e304f8a0513b830 Simona Vetter         2020-04-15 @1069  	struct qxl_device *qdev = to_qxl(dev);
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1070  	struct qxl_output *output = drm_connector_to_qxl_output(connector);
-1b000494978d2f3 Shayenne da Luz Moura 2018-10-26  1071  	unsigned int pwidth = 1024;
-1b000494978d2f3 Shayenne da Luz Moura 2018-10-26  1072  	unsigned int pheight = 768;
-bf72b40d47f83ac Julio Faracco         2026-10-08  1073  	struct qxl_head *head;
-2d856f94e6d2532 Gerd Hoffmann         2017-03-01  1074  	int ret = 0;
-f64122c1f6ade30 Dave Airlie           2013-02-25  1075  
-bf72b40d47f83ac Julio Faracco         2026-10-08  1076  	head = qxl_output_get_client_head(output);
-bf72b40d47f83ac Julio Faracco         2026-10-08  1077  	if (head) {
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1078  		if (head->width)
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1079  			pwidth = head->width;
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1080  		if (head->height)
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1081  			pheight = head->height;
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1082  	}
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1083  
-b5f030b7b4a5c8e Gerd Hoffmann         2019-01-18  1084  	ret += drm_add_modes_noedid(connector, 8192, 8192);
-b5f030b7b4a5c8e Gerd Hoffmann         2019-01-18  1085  	ret += qxl_add_extra_modes(connector);
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1086  	ret += qxl_add_monitors_config_modes(connector);
-1b043677d4be206 Gerd Hoffmann         2019-01-18  1087  	drm_set_preferred_mode(connector, pwidth, pheight);
-f64122c1f6ade30 Dave Airlie           2013-02-25  1088  	return ret;
-f64122c1f6ade30 Dave Airlie           2013-02-25  1089  }
-f64122c1f6ade30 Dave Airlie           2013-02-25  1090  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On 10/8/26 16:24, David Zhang wrote:
+> NPU3 devices do not set dev_mem_size, since they do not use a device
+> heap. Creating an AMDXDNA_BO_DEV_HEAP BO on such a device hits the
+> WARN_ON(!is_power_of_2(dev_mem_size)) check, which any user with
+> access to the device node can trigger.
+>
+> Return -EOPNOTSUPP when dev_mem_size is 0.
+>
+> Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add helper APIs for address retrieval")
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index f4832337ec31..f14484bc31ec 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -1140,6 +1140,11 @@ amdxdna_drm_create_dev_heap_bo(struct drm_device *dev,
+>   	struct amdxdna_gem_obj *abo;
+>   	int ret;
+>   
+> +	if (!xdna->dev_info->dev_mem_size) {
+> +		XDNA_DBG(xdna, "Device heap is not supported");
+> +		return ERR_PTR(-EOPNOTSUPP);
+> +	}
+> +
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
+>   	XDNA_DBG(xdna, "Requested dev heap size 0x%llx", args->size);
+>   	if (!args->size || !IS_ALIGNED(args->size, xdna->dev_info->dev_mem_size)) {
