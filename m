@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE9A2CA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90552CA9EBB
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1932B112315;
-	Fri,  9 Oct 2026 23:24:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE64C11231F;
+	Fri,  9 Oct 2026 23:24:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eNc3HzeV";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ZlM3Ws5I";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F83911231F
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:23:58 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5DB611231F
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:24:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1791588237;
+ s=mimecast20190719; t=1791588287;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZdLXwKy4rMVRiAcn1ajTN/XCnaFe6z5Qy+Wx1ZS4ezs=;
- b=eNc3HzeVCFSAiM9FA1Qxy8f3DWDsuFuNvJW+/xr0HnbSled0QsMCXnpXW0m2iV5KlwbjRn
- +6KA1Kg2pImli83ARBGIUokOIQ3GLPriCO2mL7rK6KbnYLE2YPdj6M4E0Hm4kFMWea2KI+
- pKXigQQYFtrPqKllQtFWV1Aagp1r884=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=c13MuhXT24Rb6zhv5dO/7ybzw4u9qtSVSio9SfsGxY4=;
+ b=ZlM3Ws5IfnsCQCizY6qRFl5t6hagStNqRdibxqr0YixRC9PqeYY4FoaYxeBrSDn1UNU560
+ ebQI0Fw7n4U2HhRPv0WXLeoS8T9EO9bdfPoFX+bAh9KvS7hwfsNNGYzMSQ+dUE4jLgqLhH
+ 8hwKjgkeSYkBgfp+SJQ0Aw8VfOIQqyA=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-172-6R-7r-ISPXeWgoib1GG1jA-1; Fri, 9 Oct 2026 23:23:56 +0000
-X-MC-Unique: 6R-7r-ISPXeWgoib1GG1jA-1
-X-Mimecast-MFC-AGG-ID: 6R-7r-ISPXeWgoib1GG1jA_1791588236
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-53397b6e05aso5385121cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 16:23:56 -0700 (PDT)
+ us-mta-99-oyBi2VLWPCGf2XgdgiNrIg-1; Fri, 9 Oct 2026 23:24:45 +0000
+X-MC-Unique: oyBi2VLWPCGf2XgdgiNrIg-1
+X-Mimecast-MFC-AGG-ID: oyBi2VLWPCGf2XgdgiNrIg_1791588285
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93e49a1d3b1so42143685a.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 16:24:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791588236; x=1792193036;
+ d=1e100.net; s=20260707; t=1791588285; x=1792193085;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=itTUK0qBJAobOiyoWxRrJ2RE7+6HMxd85fVudqmm2Kg=;
- b=m505jP+5nnwnYT/EM5c9Gun54WDwHafOYfhcSaOtLPEDEPbpeAW3jv6q8Cc9IrS2DR
- eRNGNrAr902mlcyGx2q4Ck5R7auRs7MJ3RByp92dd/OLdfBB+Qcw/r2ile9ulYBvCXds
- GAKB+Iw2y94I62IU0vnUtGCLKLl0Y2T3fZ57A1cQym9M7ZQWSuCgw/+P1OScfFzH9jfW
- DhPgVAk+aPvyZnz0JWH3d4f9qGzoxY6Kyu1jmYo0gl1nIZWAcvrVJHYmRHlPQBzz9m3o
- roZaY7Tu+Tu700FIso0dgbWwOfFI13YUPCtW0UoUcRzQndP13r+wlIOo9CXrfTpFzGen
- G6xA==
-X-Gm-Message-State: AFq9FYJOBfvtaRxEzcv6js9K2YSzAo+tlNcedBX8MVwAGpmx7GTIE/8h
- 4qfc/DGBZS9cgctq8BxUbLfpuTVgmWp0wEW8k5FxEQzlhz6cJ580p7x2b0nUA9kapgMLHkP5I5J
- b4LzBeDj4KaC9MwD3UgYhD4Er1swn6Ia7H2Bnl01OdHEiSTEJfaIxA4SKi7IP4A0hRbLM5w==
-X-Gm-Gg: AYBFou1qshWqQTWVUuhL6tcdFKU9wXnA8q7Rv8ypD0i+wHRHLhJs2qs6yhJA9Hht821
- NPJXi8T7JBe2XFwZn1bE2kaxVBTHYzB7B3QoAAKfDLlNpCd/QiqVENGtmeCl9x5b4Ltp4qvBtUl
- APpjy/MCN1PQg2t17VekYek5WgbsEVlIgDmg+AKQSfgMAVULlCfj94+7mmbUGEs3virpjPFtTZS
- AQ76Af9pB0rSZDoAk8L7J4fw4WopBOT+hXb3EMPt4tFFjhQw3g3iKSJ6BrSHT5SBwhI4o3FtQ29
- TQuB/jlYcwojpoVmlWaM3NmanZrDyyfA4YzWDKe1EthEA7tO208SoEQKh+rmQjJl6JizXIk=
-X-Received: by 2002:a05:622a:4c0f:b0:535:384d:68ac with SMTP id
- d75a77b69052e-5359facfcbamr53929081cf.13.1791588235689; 
- Fri, 09 Oct 2026 16:23:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:4c0f:b0:535:384d:68ac with SMTP id
- d75a77b69052e-5359facfcbamr53928871cf.13.1791588235223; 
- Fri, 09 Oct 2026 16:23:55 -0700 (PDT)
+ bh=T5sL1IN+vEe3uRvA6b5GRf1/o9Y8z+Hb4XnuY1HXzNs=;
+ b=Du8Xr1tsDR2Iih+zWRlFlkMxKyJb/QaYskGKsm59yUtA9ADjIg4l0zCE17xmjVCUdK
+ p0W/mqhXgI361Gcm6EGTLSNak/ywskxKwyjYCHCsrBRc5XEuvclvX7VCWhw3qwL8b6fA
+ u4YRjBtUAxyb08HbhSkMYakSy5T86amP5cSvnWOUAbeTzFtiLjvZcT8+M95tlb05/GxC
+ TF7HvTZDC2VtsPQNCPZPwMMItv0HZZgK/vz1OfTjj+v52BRVjifT6ZAiXD08bcuu++Qh
+ /Bw6wb8Tgd4GLuDRrAgATlmITWoz+Z6vNVw9fjCwHA/XgQ4Kgr52Tx0pGCiKxHBLIPeW
+ ZHNA==
+X-Gm-Message-State: AFq9FYLKLP+LO5mOJaRytsvPuIRaq6KLTWJd5gPBp3N3aUA/+meOdd0o
+ xbURKLsGvC8JhExxnnrNSWBIdTJ125K6QJ2xVRHaX7gjV17krs9OmCaAB7bGKWBhWpJqvgcUN/a
+ UQwdYYBSxTfg3KRFYzRUOScvPfsVzqdXc69b1xCXoZEsz2BB0Vfk/0R1YbZMOtBJqfkesEA==
+X-Gm-Gg: AYBFou2AuofQI9OfRufaZIFMtFyDiZXzANn2pCFGUVemVwvFnyH0dwIMKV/vizgGf/t
+ BOP0RfxNayPXRZ/YBh0d7rMsyKyYi7By9pzHrDH5hhLeF4WLjgOAETNXhsE094uPQThgmRQKmYQ
+ jOHC60WAW04y4pGfVzrXSbMYsJdps8eKdEjeShnGkXHagh2Po4zrmjIIdwaOdvJVS+ffU4hT+ly
+ dsPn7wVMuuAJCfleR+TCKMKxsjPsi6m/O8TpImGeavxLpfzRg6oo2yaqIWMXW4JMXzy3nr7rcec
+ 43pBwyDemMLDb3Socw7pvmNTO2IKV9DoHCPrrc4ROsj5JOplSYLbj/8oSUunCMUpjwywbUk=
+X-Received: by 2002:a05:620a:a419:20b0:93e:c12c:f145 with SMTP id
+ af79cd13be357-93ec12d06ddmr330166885a.79.1791588285219; 
+ Fri, 09 Oct 2026 16:24:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:a419:20b0:93e:c12c:f145 with SMTP id
+ af79cd13be357-93ec12d06ddmr330165185a.79.1791588284801; 
+ Fri, 09 Oct 2026 16:24:44 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-5359b277938sm29237071cf.0.2026.10.09.16.23.52
+ af79cd13be357-93eb98e3a33sm297469885a.40.2026.10.09.16.24.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Oct 2026 16:23:53 -0700 (PDT)
-Message-ID: <4200b4cefe4868fc3ca085d01957446ebfdc53e9.camel@redhat.com>
-Subject: Re: [PATCH 1/2] drm/nouveau/sw: prevent NULL deref of disp in
- vblank methods
+ Fri, 09 Oct 2026 16:24:44 -0700 (PDT)
+Message-ID: <a6f23983895d0d09b9c2c6a02160c5e3949a6a81.camel@redhat.com>
+Subject: Re: [PATCH 2/2] drm/nouveau: prevent NULL deref of gr in
+ GETPARAM_GRAPH_UNITS
 From: lyude@redhat.com
 To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
@@ -77,15 +77,14 @@ To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
  stable@vger.kernel.org
-Date: Fri, 09 Oct 2026 19:23:52 -0400
-In-Reply-To: <929077046827f363bc32f6f59e760de27a48b5ff.camel@redhat.com>
+Date: Fri, 09 Oct 2026 19:24:43 -0400
+In-Reply-To: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-2-7e057f6aeba0@gmail.com>
 References: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com>
- <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-1-7e057f6aeba0@gmail.com>
- <929077046827f363bc32f6f59e760de27a48b5ff.camel@redhat.com>
+ <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-2-7e057f6aeba0@gmail.com>
 User-Agent: Evolution 3.58.3 (3.58.3-2.fc43)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 6mLP-j-jq9kcBi-z-xIPu5gqHc9fVpRqJ--0lbhr0I8_1791588236
+X-Mimecast-MFC-PROC-ID: ansTRhzEpmejsRO-bGDdxpx0943R58A5AbT0tF4HiXk_1791588285
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -104,85 +103,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bah - sorry I keep doing this :), could you add a fixes tag for this
-and respin it before I push it?
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-On Fri, 2026-10-09 at 19:22 -0400, lyude@redhat.com wrote:
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
+Since this kind of relies on driver initialization having already
+failed (which I'm sure breaks many other things we haven't found yet)
+I'm going to push this to drm-misc-next
+
+On Wed, 2026-08-12 at 23:00 +0800, Zhenhao Wan wrote:
+> nouveau_abi16_ioctl_getparam() fetches the graphics engine with
+> gr =3D nvxx_gr(drm) (i.e. drm->nvkm->gr) and, for the
+> NOUVEAU_GETPARAM_GRAPH_UNITS parameter, passes it straight to
+> nvkm_gr_units(), which dereferences gr->func with no NULL check.
 >=20
-> Will push to drm-misc-next in a moment
+> When graphics-engine construction returns -ENODEV, NVKM treats it as
+> an
+> optional absent engine: the NVKM_LAYOUT_ONCE device constructor
+> deletes
+> the subdevice, leaves device->gr =3D=3D NULL and continues probing, and
+> Nouveau still registers a render node. An unprivileged client holding
+> a
+> /dev/dri/renderD* fd can then issue DRM_IOCTL_NOUVEAU_GETPARAM with
+> NOUVEAU_GETPARAM_GRAPH_UNITS and oops the kernel on the NULL gr.
 >=20
-> On Wed, 2026-08-12 at 23:00 +0800, Zhenhao Wan wrote:
-> > The NV50 and GF100 software-class vblank methods
-> > nv50_sw_chan_mthd()
-> > and gf100_sw_chan_mthd() evaluate "data < device->disp-
-> > > vblank.index_nr"
-> > to validate the requested vblank head before allowing its notifier.
-> >=20
-> > On a headless card the display subdevice is absent:
-> > nvkm_subdev_disable()
-> > (strap-driven from devinit) and the -ENODEV path of the
-> > NVKM_LAYOUT_ONCE
-> > device constructor both leave device->disp =3D=3D NULL while the device
-> > continues to probe and still registers a render node
-> > (DRIVER_RENDER).
-> > An
-> > unprivileged client holding a /dev/dri/renderD* fd can then create
-> > a
-> > software channel and push method 0x0408 (NV50) / 0x040c (GF100),
-> > which
-> > dereferences the NULL device->disp and oopses the kernel.
-> >=20
-> > The channel constructors nv50_sw_chan_new() and gf100_sw_chan_new()
-> > already tolerate an absent display ("for (i =3D 0; disp && ...)"), so
-> > no
-> > vblank notifier is ever registered on such a card and the method
-> > handlers
-> > are the only path that assumes disp is present. Guard the
-> > dereference
-> > with the same disp NULL test the constructors already use.
-> >=20
-> > Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> > Assisted-by: Claude:claude-opus-5
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c | 2 +-
-> > =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c=C2=A0 | 2 +-
-> > =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-> > b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-> > index 0171cdf6f639..4cf8cd120c76 100644
-> > --- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-> > +++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-> > @@ -72,7 +72,7 @@ gf100_sw_chan_mthd(struct nvkm_sw_chan *base, int
-> > subc, u32 mthd, u32 data)
-> > =C2=A0=09=09chan->vblank.value =3D data;
-> > =C2=A0=09=09return true;
-> > =C2=A0=09case 0x040c:
-> > -=09=09if (data < device->disp->vblank.index_nr) {
-> > +=09=09if (device->disp && data < device->disp-
-> > > vblank.index_nr) {
-> > =C2=A0=09=09=09nvkm_event_ntfy_allow(&chan-
-> > > vblank.notify[data]);
-> > =C2=A0=09=09=09return true;
-> > =C2=A0=09=09}
-> > diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-> > b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-> > index 0cfb1eaae6de..b202e11238a5 100644
-> > --- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-> > +++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-> > @@ -69,7 +69,7 @@ nv50_sw_chan_mthd(struct nvkm_sw_chan *base, int
-> > subc, u32 mthd, u32 data)
-> > =C2=A0=09case 0x0400: chan->vblank.offset =3D data; return true;
-> > =C2=A0=09case 0x0404: chan->vblank.value=C2=A0 =3D data; return true;
-> > =C2=A0=09case 0x0408:
-> > -=09=09if (data < device->disp->vblank.index_nr) {
-> > +=09=09if (device->disp && data < device->disp-
-> > > vblank.index_nr) {
-> > =C2=A0=09=09=09nvkm_event_ntfy_allow(&chan-
-> > > vblank.notify[data]);
-> > =C2=A0=09=09=09return true;
-> > =C2=A0=09=09}
+> Report 0 units when gr is absent. This matches nvkm_gr_units()
+> itself,
+> which already returns 0 when the engine exposes no units callback.
+>=20
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c
+> b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+> index 291203121f0c..dd3f8d386377 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+> @@ -306,7 +306,7 @@ nouveau_abi16_ioctl_getparam(ABI16_IOCTL_ARGS)
+> =C2=A0=09=09getparam->value =3D 1;
+> =C2=A0=09=09break;
+> =C2=A0=09case NOUVEAU_GETPARAM_GRAPH_UNITS:
+> -=09=09getparam->value =3D nvkm_gr_units(gr);
+> +=09=09getparam->value =3D gr ? nvkm_gr_units(gr) : 0;
+> =C2=A0=09=09break;
+> =C2=A0=09case NOUVEAU_GETPARAM_EXEC_PUSH_MAX: {
+> =C2=A0=09=09int ib_max =3D getparam_dma_ib_max(device);
 
