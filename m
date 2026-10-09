@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD23ACA6017
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F13DFCA9EC5
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0986110E6E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32A9610EB61;
 	Sat, 10 Oct 2026 12:37:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RG79TTsX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eMJIih1Y";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BA9110E1A8
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:08:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A02D510E1A8
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:09:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 708E6405ED;
- Fri,  9 Oct 2026 18:08:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F8321F00904;
- Fri,  9 Oct 2026 18:08:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4CE50405C9;
+ Fri,  9 Oct 2026 18:09:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0351F00893;
+ Fri,  9 Oct 2026 18:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569328;
- bh=GMtIN+4F9Qb+gUfI9aB/QG5XlGE+8TEC3chxVq3fBvM=;
+ s=k20260515; t=1791569391;
+ bh=dJvW4vwNwue9hYXHoVVoy2mw1y7LjTNGlUYGA8Z9YPI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=RG79TTsXtdLFNVIBfTJxF8oLuu+5m7NNZ56wCA57RHrAz6MJ75qyRN5mJCOUUkxgy
- jbQOyUlzFyiMdDEA2YJb3Gql3kIAq7ri83iTnPxD/rXsuPjDaBsoPHcv+Mcg5yy3pp
- i/dFx9+dZsKRNmJJH08I/jbObL4QYF4o7512qtve4lYqt+/aSzrla2xDuoWgUrcQd6
- iRMdACfI86yBKKzR8mB0HRM2q53Cqod73gMqGUu1nLR7rtBem1EMO6HDkuF6kKdWQ2
- 22d8wFTLnY9rHOopat/hNlZpNZNWdxLCE3OpqHg9FemWhtsVIFlDrXcsgeljQBpPTU
- RQ/zjA1a4Aa0Q==
+ b=eMJIih1YEN8CYVlMRY/ORVHZGGxLbjE063LoOLQLQinW2xtLSHaQ+vhVFZxWG0hw/
+ 3N3GLT2mXl9hM7Jy3IdpWPYrstwohZ+wWAWehVqWRcwl5Hg7uSOb2DEGhsTMNL8oid
+ ESX/xx1VXRVhaYHQu8G/8VJASAOTybkXofYde316mj7Qr2m2O2dT7fIW71XyEg+9+Y
+ s5LkmVtQjaPn3506bBx2LTl7J2gcBmreElyALmWou/T50jsqaOkd/M7GNlHAzMzsvy
+ e7gUtPmOJRB03xHkGNzOjdEO9pNR9Aa7TIfAipvo6k4Q2A0KOC1q1C2/Skh4BQ/Mbe
+ 9557MZhvD9G2A==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:06 +0100
-Subject: [PATCH v5 12/38] ALSA: pcm: use vm_insert_page() to map PCM status
- page
+Date: Fri, 09 Oct 2026 19:04:09 +0100
+Subject: [PATCH v5 15/38] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT
+ if not mm-managed
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-12-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-15-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,15 +120,14 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Takashi Iwai <tiwai@suse.de>
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2824; i=ljs@kernel.org;
- h=from:subject:message-id; bh=9ugH4FT9/gtznAktS44gGpUEq4pOXZMJ2VeeFOF3Z44=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sySeVmdcf50TK0o57eC76+W2Sh5z/RiXMolLlTIH
- P9ap+N8RykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACYidZiR4fA3i8qOls98hQcu
- H06vOvDwtH/CO9GL7PNKo3hz2qW2ODMyXCuZGnQj6OVy3Yii6daF179XuJrLFc0O9ej9Zvxy2/9
- XPAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2298; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=yyTb6qa70UHuQDT2/p92dj6MAkJAoB6SoUmZKZd8e30=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sz+kXTw3r5Wr9bHK6N631gZ39/xaLW9/Tc3rmlq5
+ 1bzxb/37yhlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEPvQxMsxccyqoIbdbnt3K
+ UGo390wbxhViC94l/vh/t9S3wah35gFGhnYzKw8v2Ysb3EWOPbkk/uHE3W4tq6PJkSxF6n0zJ0n
+ ncgIA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -147,87 +146,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There's no need to keep a fault handler around for this, instead map on
-mmap.
+For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
+the underlying file is itself read-only.
 
-While we're here, rename area to vma to be consistent.
+This means that mprotect() cannot mark a shared mapping of a read-only file
+as read/write, as doing so would violate the read only attribute, and
+permit writes.
 
-This correctly makes the mapping a mixed map mapping.
+In general, we do not want file systems to be able to do this for
+read/write files.
 
-This works towards establishing the invariant that only PFN mapped or mixed
-map mappings may clear the VM_MAYWRITE flag. The status page mapping clears
-VM_MAYWRITE, so it must not be mm-managed; the control page mapping remains
-writable and is left fault-based.
+Doing so would violate fundamental user expectation of file attributes and
+likely break userspace.
 
-The assumption is made that the struct pcm_mmap_status structure is at most
-a page in size, which is asserted as a build bug.
+However, drivers pose a tricky problem here - the /dev/xxx file may be
+read/write but provide access to a resource which is fundamentally
+read-only.
 
-This is safe to assume, as the size of the structure is 56 bytes at most.
+Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+To achieve both of these things, forbid this for mm-managed mappings as
+identified by vma_flags_is_mm_managed().
+
+This constrains this ability to drivers which own the mapping's contents,
+whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
+map themselves, and so define its semantics.
+
+Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
+across drivers, filesystems and bpf, establishes a mapping which is not
+mm-managed,
+with usbmon and the ALSA PCM status page converted earlier in this series
+to do so.
+
+Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
+disable MAP_PRIVATE-file-backed mapping CoW semantics.
+
+This is perhaps not always intended, but we retain this capacity to
+maintain existing behaviour.
+
+As no driver which clears VMA_MAYWRITE_BIT establishes an mm-managed
+mapping, no functional change is intended.
+
+Acked-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- sound/core/pcm_native.c | 38 +++++++++++++-------------------------
- 1 file changed, 13 insertions(+), 25 deletions(-)
+ mm/vma.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 62324282fcae..c98fb3df14f3 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -3760,39 +3760,27 @@ static __poll_t snd_pcm_poll(struct file *file, poll_table *wait)
- /*
-  * mmap status record
-  */
--static vm_fault_t snd_pcm_mmap_status_fault(struct vm_fault *vmf)
-+static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, struct file *file,
-+			       struct vm_area_struct *vma)
- {
--	struct snd_pcm_substream *substream = vmf->vma->vm_private_data;
-+	const unsigned long size = vma->vm_end - vma->vm_start;
- 	struct snd_pcm_runtime *runtime;
--	
--	if (substream == NULL)
--		return VM_FAULT_SIGBUS;
--	runtime = substream->runtime;
--	vmf->page = virt_to_page(runtime->status);
--	get_page(vmf->page);
--	return 0;
--}
-+	struct page *page;
- 
--static const struct vm_operations_struct snd_pcm_vm_ops_status =
--{
--	.fault =	snd_pcm_mmap_status_fault,
--};
-+	BUILD_BUG_ON(sizeof(struct snd_pcm_mmap_status) > PAGE_SIZE);
- 
--static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, struct file *file,
--			       struct vm_area_struct *area)
--{
--	long size;
--	if (!(area->vm_flags & VM_READ))
-+	if (!(vma->vm_flags & VM_READ))
+diff --git a/mm/vma.c b/mm/vma.c
+index c067d6a4c826..39ceb03023e2 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2801,6 +2801,11 @@ static int mmap_validate(unsigned long orig_start, unsigned long orig_end,
+ 	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
  		return -EINVAL;
--	size = area->vm_end - area->vm_start;
--	if (size != PAGE_ALIGN(sizeof(struct snd_pcm_mmap_status)))
-+	if (size != PAGE_SIZE)
- 		return -EINVAL;
--	area->vm_ops = &snd_pcm_vm_ops_status;
--	area->vm_private_data = substream;
--	vm_flags_mod(area, VM_DONTEXPAND | VM_DONTDUMP,
+ 
++	/* mm-managed mappings may not clear VMA_MAYWRITE_BIT. */
++	if (vma_flags_is_mm_managed(curr_flags) &&
++	    WARN_ON_ONCE(was_maywrite && !is_maywrite))
++		return -EINVAL;
 +
-+	vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP,
- 		     VM_WRITE | VM_MAYWRITE);
-+	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
- 
--	return 0;
-+	runtime = substream->runtime;
-+	page = virt_to_page(runtime->status);
-+	return vm_insert_page(vma, vma->vm_start, page);
+ 	return mmap_validate_vma_flags(curr_flags);
  }
  
- /*
 
 -- 
 2.55.0
