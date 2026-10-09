@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83830CA9EC7
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3995DCA9ECA
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A7B610EBED;
-	Sat, 10 Oct 2026 12:37:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5666910EBEB;
+	Sat, 10 Oct 2026 12:38:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZIC3TEMs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nzt9uJ82";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2E3A10EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:16:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1FF10E16B
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:07:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7D646434CD;
- Fri,  9 Oct 2026 18:16:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2E21F0089A;
- Fri,  9 Oct 2026 18:15:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BEA206020C;
+ Fri,  9 Oct 2026 18:07:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9E21F00893;
+ Fri,  9 Oct 2026 18:07:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569768;
- bh=7yzjjlSzlbX51F4Uds4bBqm2u/xB0/1FIMGl/ApzD2g=;
+ s=k20260515; t=1791569244;
+ bh=Lu0VsoSO5Y8jAjJ4jjJfxqGBlWm16k8LaqvRUDRmuVE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZIC3TEMsbPYeSKHn0ifT8ANm/XzNERdMqJErbEgbnnYG9UI14KKN8CWn0EWSBSUW5
- vYjx/P7IktTDWxK1od8PNBmxET6SMAQDw8/q5PNJZKbw4hl/ZK3I90PRkEG+e5rg9p
- yp9V7dDjXlOKZdm2+FxEDRiCQpX+3veCrT5EwoBMVdOgdu8WLiPz1eWpFfZmVEvX7y
- 8iSt5ygzKSpmPmxFgXQ/H8OVr0eKW+GwvO9EcVGdsHVXl0CDWm14HIaQ3vn+z44RMW
- JY+k5q3DVczHqP3o+4wYm8na0WrzYXWNBt/7Kz6kPDBZkeRehrVWN8QxUIbcVlqpyl
- 64NcF5Wnfqpvw==
+ b=Nzt9uJ82sx4kgceFZEnZLwj+r4Ve6ZiqqxzI/3FOYjJFlYy+eyGUNbRI92pIDP0pG
+ Z9Oo2YTtHERr1CoPAaDe//rdfKOPdUBg4tz9fAw6AOKmtAm0VJLakv7NsWtSZSVhxZ
+ csnEhLiUTUet31nd8xl0FiyCIIyCZ8m/bODXWymZa7KdkyrVRBJhiTe0D8sabrzGaF
+ 8mmvesQj3JB1JmrZ2QkGi805ngdFREXBCYuIzQizVPWT/azVlQvYwFiAzutLo4/0YP
+ HKGUlZzIgCY7L6hyG+wRWRYLCtNd8yLZy3355d+wxWJmUcSCfXPozADeZGocNk46dd
+ hEFmm8kzMeD0w==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:27 +0100
-Subject: [PATCH v5 33/38] mm: eliminate VMA_SPECIAL_FLAGS usage when
- hugetlb explicitly tested
+Date: Fri, 09 Oct 2026 19:04:02 +0100
+Subject: [PATCH v5 08/38] docs: filesystems: update mmap_prepare docs for
+ discontig kernel pgs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-33-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-8-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -122,12 +122,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2586; i=ljs@kernel.org;
- h=from:subject:message-id; bh=VzpMBnGSH2RNHu5Mv4xiPliY+l+0YLYMpytCFKUc+Kk=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6swrniJ87IlG4rTlWpr9OjIN3+cmvQwVXxRpmtXRH
- rdDL02so5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABPJ7Wb4p//89U9p388dqt0t
- d9kYTx+ZZp/zSFTqwMy1Vz+n34zn/8LIMGPBz9BzgSslFYKidLSmKl0WUJj4r9Sre7XCacZZtw4
- c5wIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4641; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=auqf79oCP3yh8BA+hsHadz1V3B7oqOLT7qTOqqd9Qkw=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6swMYzon//Sf+CLnh82rq71Tlves8evX/CYfy/9Wz
+ O+JpVNSRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACbCIMXI8Hdlj2jHofdhXbHv
+ 9JkvGy5WSly+y7zW4P7e8y/5uV8U/2FkmM5W9H3Oju1V05Ue9Ie+fcr9K2te0q5pD5q+eKxoa3G
+ u4QIA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -146,76 +146,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It is now an invariant that VMA_IO_BIT is not set by mm-managed mappings,
-so each existing VMA_SPECIAL_FLAGS test need only test for
-VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT.
+Describe the newly introduced discontiguous kernel page mapping mechanism,
+detailing how to use it sensibly and how the API looks.
 
-This is precisely a test for a fixed or non-mm-managed mapping.
+Explicitly detail the various discontiguous actions available and how to
+use them.
 
-Update a number of callsites which already explicitly handle hugetlb
-mappings.
-
-vma_supports_mlock() and ksm_compatible() also explicitly bail on droppable
-mappings - excluding non-mm-managed, fixed or droppable mappings is exactly
-what vma_is_mm_backed() tests for, so in these cases use this predicate.
-
-should_skip_vma() tests for locked, fixed or non-mm-managed memory (having
-already excluded hugetlb mappings) so simply test for those there.
-
-No functional change intended.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/internal.h | 4 +---
- mm/ksm.c      | 4 +---
- mm/vmscan.c   | 3 ++-
- 3 files changed, 4 insertions(+), 7 deletions(-)
+ Documentation/filesystems/mmap_prepare.rst | 81 ++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index b5f7be8f65d8..e57c35e5f90b 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1112,9 +1112,7 @@ static inline struct file *maybe_unlock_mmap_for_io(struct vm_fault *vmf,
+diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
+index 82c99c95ad85..ddb4434d919a 100644
+--- a/Documentation/filesystems/mmap_prepare.rst
++++ b/Documentation/filesystems/mmap_prepare.rst
+@@ -164,5 +164,86 @@ pointer. These are:
+   sufficient entries in the page array to cover the entire range of the
+   described VMA.
  
- static inline bool vma_supports_mlock(const struct vm_area_struct *vma)
- {
--	if (vma_test_any_mask(vma, VMA_SPECIAL_FLAGS))
--		return false;
--	if (vma_test_single_mask(vma, VMA_DROPPABLE))
-+	if (!vma_is_mm_backed(vma))
- 		return false;
- 	if (vma_is_dax(vma) || vma_is_hugetlb(vma))
- 		return false;
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 624f37975e12..ed66a90e0031 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -747,9 +747,7 @@ static bool ksm_compatible(const struct file *file, vma_flags_t vma_flags)
- 	if (vma_flags_test_any(&vma_flags, VMA_SHARED_BIT, VMA_MAYSHARE_BIT,
- 			       VMA_HUGETLB_BIT))
- 		return false;
--	if (vma_flags_test_single_mask(&vma_flags, VMA_DROPPABLE))
--		return false;
--	if (vma_flags_test_any_mask(&vma_flags, VMA_SPECIAL_FLAGS))
-+	if (!vma_flags_is_mm_backed(&vma_flags))
- 		return false;
- 	if (file_is_dax(file))
- 		return false;
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 12ed3388ee41..3b318efa2916 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3477,7 +3477,8 @@ static int should_skip_vma(unsigned long start, unsigned long end, struct mm_wal
- 	if (!vma_has_recency(vma))
- 		return true;
- 
--	if (vma->vm_flags & (VM_LOCKED | VM_SPECIAL))
-+	if (vma_test(vma, VMA_LOCKED_BIT) || !vma_is_mm_managed(vma) ||
-+	    vma_is_fixed_mapping(vma))
- 		return true;
- 
- 	if (vma == get_gate_vma(vma->vm_mm))
++* mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
++  `struct page` pointers over the VMA. They must span from the start of the VMA,
++  but may terminate prior to the end (leaving the remainder unmapped).
++
+ **NOTE:** The ``action`` field should never normally be manipulated directly,
+ rather you ought to use one of these helpers.
++
++Discontiguous Actions
++=====================
++
++Some actions can be performed across discontiguous ranges.
++
++Map kernel pages
++----------------
++
++To map kernel pages discontiguously, you must provide hooks using ``struct
++discontig_kernel_page_ops``:
++
++.. code-block:: C
++
++    struct discontig_kernel_page_ops {
++        int (*init)(void *vm_private_data, void **private);
++        int (*get)(struct discontig_kernel_page_state *state);
++    };
++
++The ``init`` hook is optional and allows state to be established before the
++operation starts, for instance taking a reference count. Nothing is invoked
++after the operation, so ``init`` must not leave locks held, and state that must
++be released once the mapping goes away should be released in
++``vm_ops->close``.
++
++The ``init`` hook, if provided, is invoked prior to the operation starting. It
++may update what is pointed to by ``vm_private_data`` and/or ``private``. If an
++error is returned, then the operation is aborted. The ``private`` field can be
++reassigned.
++
++**NOTE:** The operation may sleep between invocations of ``get``, so locks
++needed to stabilise state must be taken and released within each hook.
++
++The ``get`` handler is the key means through which the operation is
++executed. The current state of the operation is provided through ``struct
++discontig_kernel_page_state``:
++
++.. code-block:: C
++
++    struct discontig_kernel_page_state {
++        /* Map state. */
++        unsigned long start;            /* Start address of VMA. */
++        unsigned long end;              /* End address of VMA. */
++        unsigned long addr;             /* The current address to be mapped. */
++        pgoff_t pgoff;                  /* The current pgoff to be mapped. */
++        unsigned long nr_pages_mapped;  /* The number of pages mapped. */
++        unsigned long nr_pages_remain;  /* The number of pages remaining. */
++
++        /* User-defined state. */
++        void *vm_private_data;          /* VMA private data. */
++        void *private;                  /* Mapping private data. */
++
++        /* Users should not touch these, use discontig_kernel_map_*() helpers. */
++        ... internal fields ...
++    };
++
++With ``private`` being an additional user-controllable state variable,
++initialised via ``mmap_action_map_discontig_kernel_pages()``, and
++``vm_private_data`` being equal to the ``desc->private_data`` field set in
++the ``mmap_prepare()`` hook.
++
++In the ``get`` hook, the user must choose how to map kernel pages:
++
++* ``discontig_kernel_map_abort()`` - Call this to abort the operation, whatever
++  has been mapped so far will be retained, the rest of the mapping will SIGBUS
++  if accessed.
++* ``discontig_kernel_map_page()`` - Maps a single page, correctly handling
++  compound pages (if the compound page is bigger than the remaining pages in the
++  VMA, then only those pages that fit will be mapped). For a compound page, the
++  head page must be passed.
++* ``discontig_kernel_map_page_range()`` - Map an array of pages of a specified
++  size. As with a compound page, if more pages are specified than remain in
++  the VMA then only those that fit will be mapped.
++
++If an error arises after ``init`` succeeded, the core unmaps the VMA, invoking
++``vm_ops->close`` if set, which is therefore the place to release any state
++that ``init`` established.
 
 -- 
 2.55.0
