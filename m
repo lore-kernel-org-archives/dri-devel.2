@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7612CA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3005CA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:34:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0FDD10FE43;
-	Fri,  9 Oct 2026 03:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 311E310FE45;
+	Fri,  9 Oct 2026 03:34:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lY8nalWr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XCvQASzV";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9FBA10FE43
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 03:34:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD17610FE45
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 03:34:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2674D60DB0;
- Fri,  9 Oct 2026 03:34:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE2DA1F000FF;
- Fri,  9 Oct 2026 03:34:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5130B60DB0;
+ Fri,  9 Oct 2026 03:34:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06621F000FF;
+ Fri,  9 Oct 2026 03:34:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791516849;
- bh=/bDLIWmosHc7HMVZ5vK7Hifmrc/1cNgzcETy2OmyHQ4=;
+ s=k20260515; t=1791516871;
+ bh=uLEBDTGSrOERnuwBKCOruRVL+fRG9kRlOZ7F9Hcdxlo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lY8nalWrmbbnwdP3Cc32d/F8XY7jY7kqtm7/vsgqpMfXW4dFQI6hWMwaJcuElMFlS
- nXu8SqSYou/Idmd6QTXG53MHDMRFK5GFmT3Hr7bwFRwdbXuuEacUytxRzDDBvNV487
- NfGdZyuoByBTzXki8v7/PZ6iT4/6M8+LnztzlvvVAatcKUATIKNZ7zs15/UKn0gk6f
- KTGF2eqE9qG1nxMEOJMq1eslenGPRuhNVtciqTo//0gSRg481dObLOmG8atxwZbFim
- HRRcH8L0Eb0y+rtAbl7WBl4nThymwZ48vLANlVNwKCUiL7RKIgfIlz2jUCF8/fo+J/
- lYg8LAcaEPxVA==
-Message-ID: <sashiko-outbox-164772@kernel.org>
+ b=XCvQASzV9uLMnjIXf45ghnsvi147o/1NAhhkkcnl8kJzJeem1lzbDtTkQ2TmzXKW4
+ Ip6yKKf5IUjr1ikrR7GfbwiPdDlZA9rq08KTECtYlcBrJA5jcM4Y02wo943kz2miTH
+ y5XwNi7ckr3s8jk/9QrP4S9HUGesPaDMtCpJxf7kT0z1z9fahPbs9YrvpVfW8PEWx8
+ Uhp3RXpJBs3sCFwiq7MSu+bZ3Nbo4VX/Vu5Y1HNkwQl9MPyS6dzePdeCkc+WY7AhmP
+ 0I3sb+zG7wcgPI5mScP6knEpfCOnqduhvQ3QyX2jCIoWESs8+eoWXHnKlAfkrPGqLE
+ kR2I5QzXiLsJQ==
+Message-ID: <sashiko-outbox-164774@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 16/20] drm/msm/dp: Disable PSR for YUV420 streams
+Subject: Re: [PATCH v2 17/20] drm/msm/dp: Track VSC packets in bridge atomic
+ state
 To: "Xilin Wu" <sophon@radxa.com>
-Cc: dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org,
- linux-amlogic@lists.infradead.org
-In-Reply-To: <20261009-msm-dp-hdr10-v2-16-1835d4966da3@radxa.com>
+Cc: neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261009-msm-dp-hdr10-v2-17-1835d4966da3@radxa.com>
 References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
- <20261009-msm-dp-hdr10-v2-16-1835d4966da3@radxa.com>
+ <20261009-msm-dp-hdr10-v2-17-1835d4966da3@radxa.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 03:34:09 +0000
+Date: Fri, 09 Oct 2026 03:34:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,47 +61,81 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/msm: endianness bug on DP_PSR_EN_CFG write using u32 pointer
+- [Medium] drm/msm/dp: persistent peripheral flush after disabling VSC SDP =
+(state stickiness)
 --
 
-commit d1403cc5c58c4528368941f08f1ea1ec332d1a49
+commit b5e9083e5d055244149a4e0660254522762ffc0e
 Author: Xilin Wu <sophon@radxa.com>
 
-drm/msm/dp: Disable PSR for YUV420 streams
+drm/msm/dp: Track VSC packets in bridge atomic state
 
-This commit disables self-refresh for YUV420 streams because their
-colorimetry VSC packets cannot share the automatic PSR packet generator.
-It computes eligibility after common atomic checks and restores PSR
-configuration accordingly.
+This commit moves YUV420 VSC construction to the atomic check phase and
+retains the packed packet in the private bridge state. It also programs
+the packet unchanged for normal streams while deriving the peripheral
+flush from both the old and new states.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-> index 783cafb223748..82ef8e4055431 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-[ ... ]
-> @@ -1923,15 +1923,20 @@ void msm_dp_ctrl_config_psr(struct msm_dp_ctrl *m=
-sm_dp_ctrl,
-[ ... ]
-> -	cfg =3D DP_PSR_ENABLE;
-> +	cfg =3D enable ? DP_PSR_ENABLE : 0;
->  	drm_dp_dpcd_write(ctrl->aux, DP_PSR_EN_CFG, &cfg, 1);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -679,7 +681,8 @@ static int msm_dp_init_sub_modules(struct msm_dp_disp=
+lay_private *dp)
+>  static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+>  				   const struct drm_display_mode *adjusted_mode,
+>  				   struct msm_dp_panel *msm_dp_panel,
+> -				   const struct msm_dp_bridge_state *state)
+> +				   const struct msm_dp_bridge_state *state,
+> +				   const struct msm_dp_bridge_state *old_state)
+>  {
+>  	struct msm_dp_display_private *dp;
+>  	u32 bpp;
+> @@ -691,8 +694,7 @@ static int msm_dp_display_set_mode(struct msm_dp *msm=
+_dp_display,
+>  	else
+>  		bpp =3D state->bpp;
+> =20
+> -	msm_dp_panel->sdp_needs_flush =3D msm_dp_panel->msm_dp_mode.out_fmt_is_=
+yuv_420 ||
+> -		drm_mode_is_420_only(&msm_dp_panel->connector->display_info, adjusted_=
+mode);
+> +	dp->sdp_needs_flush =3D old_state->vsc_enabled || state->vsc_enabled;
 
 [Severity: Medium]
-Could this silently write 0 and fail to enable PSR on big-endian platforms?
+When transitioning from a mode with VSC SDP enabled (e.g., YUV420) to a mode
+without it (RGB), the display controller requires a peripheral flush to app=
+ly
+the disabled SDP configuration. Here, the expression correctly evaluates to
+true for that transition frame.
 
-The variable cfg is defined as a u32 at the beginning of
-msm_dp_ctrl_config_psr(). When its address is passed to drm_dp_dpcd_write()
-with a size of 1 byte, little-endian systems will correctly read the least
-significant byte containing the enable bit.=20
+However, since msm_dp_display_set_mode() is only executed during
+atomic_pre_enable (on modesets), does this code leave the flush flag
+persistently enabled?
 
-However, on big-endian systems, taking the address of a u32 and reading 1
-byte will read the most significant byte instead (which is 0x00).
+Because there is no mechanism here to clear dp->sdp_needs_flush after the
+transition frame completes, it appears the flag will stay true for all
+subsequent non-modeset page flips.
 
-Would using a u8 variable or drm_dp_dpcd_writeb() avoid this structural
-mismatch and ensure the correct byte is written regardless of architecture
-endianness?
+[ ... ]
+
+> @@ -1563,7 +1578,7 @@ bool msm_dp_needs_periph_flush(const struct msm_dp =
+*msm_dp_display,
+>  	struct msm_dp_display_private *dp =3D container_of(msm_dp_display,
+>  					struct msm_dp_display_private, msm_dp_display);
+> =20
+> -	return dp->panel->sdp_needs_flush;
+> +	return dp->sdp_needs_flush;
+
+[Severity: Medium]
+The DPU encoder queries msm_dp_needs_periph_flush() on every frame kickoff.
+
+If the value remains stuck at true after a transition away from a VSC SDP
+mode, does this cause the hardware to perform unnecessary peripheral flushes
+on every VSYNC during the entire duration of the new mode?
+
+Could we provide a way to clear the flush flag once the transition frame has
+been successfully kicked off?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-msm-dp-hdr=
-10-v2-0-1835d4966da3@radxa.com?part=3D16
+10-v2-0-1835d4966da3@radxa.com?part=3D17
