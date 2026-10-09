@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15111CA6017
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:00:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4DC0CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6170F10E402;
-	Fri,  9 Oct 2026 03:00:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEAA10EA70;
+	Fri,  9 Oct 2026 03:03:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hhbfjxSN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C5+KFltK";
 	dkim-atps=neutral
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
- [209.85.221.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2526910E402
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 03:00:40 +0000 (UTC)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-5d7daf06158so1140562e0c.3
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 20:00:40 -0700 (PDT)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
+ [209.85.221.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3C5C10FE10
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 03:03:37 +0000 (UTC)
+Received: by mail-vk1-f182.google.com with SMTP id
+ 71dfb90a1353d-5cd7bcaf81cso2853761e0c.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 20:03:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791514839; x=1792119639; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791515016; x=1792119816; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=8p/rQ3UH6zCn7qLdglPOcw+wjm5XRLP5ezDaCm/Zd40=;
- b=hhbfjxSNTK/HtkR+lYjrF4jGvn9MDIZxGqsVRmahCAebfFVn3pkNw+TUbXhLDBTeYG
- KSKdmg4tCgyvEUjfIAHb9E59I7J4UIAubiDNd9uxHsR6lkpx+H0B3qfVLQ+i4fJ2CWQo
- fEyD/Y2Sr4L/P9idrbHJkj2jzhS9yWzfZAtw3v1T93p24a2TIyH8W19GxuyDs5BxGCaw
- ynYbhOgZLox52kOrVqde/IWzRAq+8yzNrkE0BrDmBWUMzKmj2N0OzXJDojw82p66Y63e
- fgXd7TFkdsZG2mpdLoGWGG/XPGSKAYgAaJlR81nodH1L4jQt0ZPfGimA04mYX/ywno0s
- ohLw==
+ bh=dY+07CnYbuDTOMQpTAwDubObYAClkAAr9Kwvv3Zr0Ig=;
+ b=C5+KFltKRZUW2VJuaWWPfi/EC4aV8/umtSNjTzy4K3owe3AdmtsHmqPBB4jfHScUFc
+ JpgCMsuiCbskkTCQ9ysEOjc/yDEPWEiXcpdLBH2hXWID60kjmwUMEeHksTzSP84uB/72
+ pTm1EoIX+q75+NPOGQOoecOE1oqV2G1O/BtynIP3PysXKpVRGYcnCBV+DQlNqzxIUofx
+ +YvfOXyvpe6gUMibChku0PiTfHVCHeIzhtZQ2fszOxccyJmYEoP8ufWf/EKKISgffKY0
+ Tokd79VzuV089pb3TC/FmcV4MdNwxLVWxlERw9udoQH20EByKtXtXEPoQdpFBryU5odb
+ l1nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791514839; x=1792119639;
+ d=1e100.net; s=20260707; t=1791515016; x=1792119816;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=8p/rQ3UH6zCn7qLdglPOcw+wjm5XRLP5ezDaCm/Zd40=;
- b=yjh8E/9boQ5/CHWklp3XVVirZONXsYxAVu8vXnihiv7aEq4Zg4YK/+HNqyG7RDO1Dd
- nHMPCWlCSD3jCTyhuxuCJ89eII4XI18yZjiTirKu5Fjjxq/xFzGuenpMJdblIjU3qZ7M
- EPLivWPnbWgvxn/BShaGtu14grmJlFWw/HaUFNtHd8FMF4GVVFcTZS5GZ5UoqdjSTjj7
- EIH9CahrIIDRj9n/BxIEFAqJzTh4nzb2fW5oPQPDFcsg7T5COZYvtf9zJWJHVgnQT6rd
- fRBC8Ua8ZO2fd5X5CN2QdiOIYjskV0vBEn5SJf2ifjxUEJAX58GUa/vJl/FY9XZcq2NM
- yobQ==
+ bh=dY+07CnYbuDTOMQpTAwDubObYAClkAAr9Kwvv3Zr0Ig=;
+ b=susWM/rn7dSnND6CnEeLFV/qoLh6z3q0UOz9EhCMkzDde2NCqZ8w8V9mbO8UtL95J7
+ cJ5F5AK9D478lMSOL6hfDWYE5FoInw9ROzdY1nifqzT4nsQ86BxfdfRWHRIVgAclrcWa
+ a22THXrSQO8nszGt/XANjAG+bWnsNf8onuTOZvmvyaBZInqgLSo9RFSCQdCenGDQhXsN
+ Q7B0nTiNVzh7ItKu4lidfOO845XUe3HOFAt0gFZX8C8+O/dnKCrQNI4A8fCELdbHIA4T
+ XqESIYVnojBNIo6Hvtlizu1uOjKmhfcjerQjl7+DIAqycRU/mLxe0PGco+m+dS1C5XHD
+ HbnQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw/tPDT5NjxwzRCf7x1P5FhG+At42OZZxYtSLYWQDLKccYow9qXK4bQUJOeRrZ5HZMpIpbAIe0yeAY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJiA/s7oUsVnlTn0kFS954YKeAFy0q1J7SMAYE4b7m+k+/+iX6X
- crcNXlnkgqUOZqQKBy63T5N8keNwG4bLELieu/Ite4bRcC8Df1QJ2eflK/54w8aeOxD30Q==
-X-Gm-Gg: AYBFou3zwQHA+lZjyUAsXZZP82LKc1oGBfFumLCO3tiRn5kyopvVkGu/xNyBTPRY5uF
- ufMJaksL0oB6KI1vmrHesX3Fw+hagmuO0FmbSURtpTZnTGIfRnk6C3Wy+BqfINtbSbwUugTMKzM
- U+42gOYJELzwIvWcHq9U1iSjwfR3n6uXR34a2e7t7hUI54066h8rzPEKgG5yFMS6jDSKtJbjkxc
- 3K7DfIJfCbd7FINOb+kLKlk+qixtnZCaccS7Nlc5LwtU2Kb1cIHnF88+T8mm0K2LtFcJEOjlkdJ
- pyVdFVQnk+T+1GRlQjOwdyTROHjrirRjYrt8fcP5V5cEW+MNLTL+qoXRK9uBsieDxmQOalKSTP0
- aQNWbd/UIdKpcmOXTaRpTjrCwHlXq79olsT5taDObvHzcK91VGCnV/jH0cmkUysa8luplqHdHpI
- 4xAsW/VCeLzgDpHrf2/hMSD6fnEW3tw7LfkfJ/5j1sZWCm2g1KUHgKVwr6YGyUiVY=
-X-Received: by 2002:a05:6102:5344:b0:7b5:1ca4:9df1 with SMTP id
- ada2fe7eead31-7cb365906c8mr241387137.5.1791514838797; 
- Thu, 08 Oct 2026 20:00:38 -0700 (PDT)
+ AKwUvByAsb2iJIQfN4PtaUtywE9La+DD23Q4iZ9adxFJg+BNctjwbBmTA1uuF/JBGiZz+nnD0DWwij0v8MQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLruCeul51fbzsByA1adQrIGgsmxEP89HybssTzISMpPUx6a7Yg
+ DGzE92RkoVKxGeovKDg55buF5V/qedXvIF2DrwLVy6RKxP8pBIx5jZsj
+X-Gm-Gg: AYBFou0mryBMOGtmZ/Ae1TlUhpjrPkUmy4FXIwz0a/m90NpqTWK07O6/0EbuGR4CMEA
+ NvVjer29HYnE6sWWi+opgsc3MNcwB0J0d/PmV+CW81ZU9ckohI/hA/02pt/fVE9uMok28ayAMlK
+ kP0t13BLiFKlxj68G854lo3jXDEXW80axP4qB6hU9LK3T5Ouw6+5TV9kyrndxterBg3xtU+qzLs
+ k8iYgiSWDbqrPbObybHEC/MHNhEGRL1l+lLw/RwWomz/s3VfIKkE4u1lH93xftMitkQZOlzI9xe
+ 3UFa63gDqsSSEupCB/eYIccvSZDY0daOaicAOUXZezmPo5KDI5/6G4u9G4XjxQmKID3xC7RgAqA
+ t+I2epD8dWuEjM/HTsg9ryLAGA1mXrY5Js8uQUp7Mf+FCMLHw0iAxLPDJn4r+noCMSoxXJoadWi
+ EjHS+HuCfwWxtinPvu/TEMUDnnVrfC5Em751ZHfDEU1Zd0mbSvLjqJJJgKgdMvNgY=
+X-Received: by 2002:a05:6102:548f:b0:7c3:83a9:edcd with SMTP id
+ ada2fe7eead31-7cb397160f4mr227448137.3.1791515016575; 
+ Thu, 08 Oct 2026 20:03:36 -0700 (PDT)
 Received: from beelink.. ([187.13.210.57]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5e91cb29ca1sm757506e0c.8.2026.10.08.20.00.37
+ a1e0cc1a2514c-99003ae1577sm814626241.0.2026.10.08.20.03.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2026 20:00:38 -0700 (PDT)
+ Thu, 08 Oct 2026 20:03:36 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] drm/qxl: fix multiple missing bounds checks in
- execbuffer relocations
-Date: Fri,  9 Oct 2026 00:00:27 -0300
-Message-ID: <20261009030029.3040494-1-qwe.aldo@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/amdgpu: fix ATOM parameter space index bounds check
+Date: Fri,  9 Oct 2026 00:03:27 -0300
+Message-ID: <20261009030328.3062630-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260913222956.2050281-1-qwe.aldo@gmail.com>
-References: <20260913222956.2050281-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260923162839.1368073-1-qwe.aldo@gmail.com>
+References: <20260923162839.1368073-1-qwe.aldo@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,15 +89,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Gerd,
+Hi Alex,
 
-Friendly ping on this v2 series (4 patches), sent September 13.
-It fixes missing bounds checks in the execbuffer relocation path:
-dst_offset validation, oversized commands, cross-page kmap writes,
-and src_offset truncation.  The v2 addresses the gaps found by
-Sashiko AI review on v1.
+Friendly ping on this v2, sent September 23.  It fixes the dword/byte
+mismatch in the ATOM PS index bounds check in atom_get_src_int() and
+atom_put_dst() -- the sibling of the calltable underflow fix you
+already applied.
 
-Let me know if any of them need changes.
+v2 also corrects the pr_info() messages to print ps_size/4 (dwords)
+instead of ps_size (bytes), per Sashiko review on v1.
 
 Thanks,
 Aldo
