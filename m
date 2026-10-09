@@ -4,133 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E3DDCA6012
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 06:36:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5908CCA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 06:42:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD4410FEC2;
-	Fri,  9 Oct 2026 06:36:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B29110E148;
+	Fri,  9 Oct 2026 06:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="TBDX2OGD";
+	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="NPjY84gP";
+	dkim=pass (1024-bit key; unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="iQeoW9zH";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011026.outbound.protection.outlook.com [40.107.208.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 280F410FEBF;
- Fri,  9 Oct 2026 06:36:46 +0000 (UTC)
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com
+ [148.163.154.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA7F10E148
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 06:42:41 +0000 (UTC)
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+ by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6993Igph1059029; Fri, 9 Oct 2026 01:42:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=proofpoint-05-2026; bh=q+E9fqL4MqiAz
+ dmD6tc7X2E4rha3el9JyAU9xOg284w=; b=NPjY84gP5WnIjQYjKpO8nr4+2JyBC
+ n9ltPPMh5l386IWb+MU/xbKiLiD36g/6tBgTPLQgkOEcYz9wVpd4awmXDm2Z7Rss
+ 2LGwl6UH2hetQSuAXyh/uHD+YUXN0B95mDbNkyxPBY0EaxwcAfht70mM4q2Ab/2D
+ jUS0+nWQRkeptJCuzXi5v+Y9e87dje7omfaT3lCVB8afG347Rgt5G1ztWpdEnbVF
+ 17bcBKArGmXKfhBtl0qUxiINxXQASAJJDvjx+8eLA0DvkRmxCd33sSW6wS8gmr6m
+ bfyW8/xRIZO0YezZvEPtNLLGJjbmJcaM8dWaNUymJFRXXVHP/WPQOdodg==
+Received: from sa9pr02cu001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013048.outbound.protection.outlook.com
+ [40.93.196.48])
+ by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h68h2pwk7-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 09 Oct 2026 01:42:17 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cavF/h5Ofkj2u9pXah97soINUTwoQCJgLnOJHJlMW/P6+0l4+6YY9H9blXYaDleXnba+f2W8cciih/uCk6OUQwNTXaVK9SSUQmkGMzySXTqA9E/L2akMTH9nPvjVitVWJWTDF+4E1vGxmkxoD8AtHaOUTtnvfKTTfLaM5NXyKiBBi5mvQ4SUlmQG2FBF0YDKV1JrUvkUqW1D/1k6+h9lvRjBxkxITrPUTU9Z0ZwjFNMYFeo/c4LARQPCHyRuTGPnT+oF/fVO2hezGOjvl+Qgsceki4upQKqOV711rj5gFSlPyoOb8HwbwBIZpUXeZL0/UNlR6AEDaY+0tsdcj9UJkg==
+ b=iTMEvP5wjuydKh6d/xfREYzm8LqxJ7/6907tXBCNwQSFyosY3cujmN8Jjfmsg43iKGPQKsctxMAZgsViIFwZ9We2rJMZeVlEhwXtwIsyAU9IKXxrsMiC21dtrMwsxarZNSTIsbZV+teLVcGiBhpv0AHAVyPv1SZIAgy2MpKgeYv8GPOS38nZdHOmKLQ3Gq+598gxs3bwlTdJOhVsMhE8r2JNaqrzCP2yzN+T1WFR6Du2/e4hM7i8KNiSB9JdEDeur2ZCZiG8EK821HzZT7pwODr0+U/GUTEOolYDDNA/A7yoERQZLnBvVyOpIPKDQvfNQLbh8IPvwW+ccMu7ly5Juw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KfNTsBjUxsNeSEw4PPpbKR//nKVxOm6V1qNIIZolXgw=;
- b=sthxyStwoX9cpO2vUJvpZnkz2guagEdu2rtHOaGrffVTjmEl9aY9bJIyrnYQInS/S6/+qkyAouV4VnEkxZIP4T/bMG3NzaIs3t3finMc5OqvLQuWw35/YcWq2tdQGp33DgJvof3CIh4j5CfdlXxBtkwGwAJDf9A2oES4azfbtFJ1sCqPrGDWxVaWy1I7sp9Fdi7AFk9M9vwjWukiZ2sqxJ+T+EcZ6RFetAzkFILgBqV+32qpKoMViU7+fbS+UxThgCupFojFImI4ljBoyBjv2OI/Bv9KX9cMs8KtShYBAvnNrfpWOMaXdsT+YNIgoNyYN6PqxFyNhNY+9w2wCZj8hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=q+E9fqL4MqiAzdmD6tc7X2E4rha3el9JyAU9xOg284w=;
+ b=CMbwDZtdNrPu+d55ZyGFr491qx5Db8sAp+wWaVKkkfpGFoT8oI4ia+UUVZa8l1OJfYuwR7u+Oika66Q+RdB8mRgkCqgTJANhGgCZxQAZoMtxETeMr8bgJYmkxvqHxq/3xrBNWYHyls4hwK/tzGd3HmzWAtTNFRdOtH77otyHz4ZwJElG2LzPbGNQcYVYsjXOk9bToieikKRYlSeFBshFVHbF31QCdwMQrO+rzd/WzAC8u1nws74C9zWbYtfvRiDlWAvPA2H4nsBh/vYIdSsStyc4Vs/PinUX4VdPIBBzqpKM4ZlV0XA5b6AzbjWzRGwPil/ISEeWeqOhf2Jlp3YP4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KfNTsBjUxsNeSEw4PPpbKR//nKVxOm6V1qNIIZolXgw=;
- b=TBDX2OGDOOV5P5Vb4QU5mxgneqhURCfAFKSb+AaqmdR0TKWZAX1JyNGb2L4YIyW1XGTzMNJbFrU7qjpAZ2E6vNVfxm9lwQWDa3najCZUDT4XISdR+sdtjmLotWCAOWMJAgqCNLrYrN1WKCZctNG/sIY8Xn6Ewg/JUO2qj30YHRCqKcmQhYL0xf62OV0XfIohLQ5oKgokMTXgt8Xm3WiXnR2Gj6/qbFsBY3Y5p1Gjsf5wt8A5pL1XflHZWCfQiyr9J/D6HLa/oMLjYPsn9X/Y6drsHzOFR0w5YUAQ1h0frCE8AZwM7/NTWf6JBZ8WpSPezOYfjxXKwPd9vUr/pNJExg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SN7PR12MB7324.namprd12.prod.outlook.com (2603:10b6:806:29b::12)
+ bh=q+E9fqL4MqiAzdmD6tc7X2E4rha3el9JyAU9xOg284w=;
+ b=iQeoW9zHiU/dapupu1klKcr81/AVOue5tLzypGs7ZCxohqPpn75M+3RGd8rcU20+v7rDjWmH1hSkVCLwxzVcx6XbmoVGKSyZT8rWtDQ+U1JpHw6JKX5lwk2rfDJXn0Ew77Ia4/hMItsoIu+9kvQISuzan76+by3s4A0bJ7kJaYo=
+Received: from CY8PR11CA0010.namprd11.prod.outlook.com (2603:10b6:930:48::22)
+ by SJ0PR10MB4574.namprd10.prod.outlook.com (2603:10b6:a03:2dd::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 06:36:41 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
- 06:36:41 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 15:36:38 +0900
-Message-Id: <DM03LOKOYPFQ.3UXED0I92H8Y6@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v3 5/9] gpu: nova-core: gsp: cmdq: split RPC parsing
- part of the receive path
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
- <20260930-cmdq-rpc-v3-5-91613f06520b@nvidia.com>
- <DLT7CLF1AJVA.3BNA0XWZOZB99@nvidia.com>
-In-Reply-To: <DLT7CLF1AJVA.3BNA0XWZOZB99@nvidia.com>
-X-ClientProxiedBy: OS0P286CA0120.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:169::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.14; Fri, 9 Oct
+ 2026 06:42:14 +0000
+Received: from CY6PEPF0000004C.namprd03.prod.outlook.com
+ (2603:10b6:930:48:cafe::58) by CY8PR11CA0010.outlook.office365.com
+ (2603:10b6:930:48::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri, 9
+ Oct 2026 06:42:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CY6PEPF0000004C.mail.protection.outlook.com (10.167.247.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 06:42:13 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 9 Oct
+ 2026 01:41:40 -0500
+Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 9 Oct
+ 2026 01:41:40 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 9 Oct 2026 01:41:40 -0500
+Received: from yashas.dhcp.ti.com (yashas.dhcp.ti.com [10.24.53.80])
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6996fXfu666824;
+ Fri, 9 Oct 2026 01:41:34 -0500
+From: Yashas D <y-d@ti.com>
+To: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+ <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <h-shenoy@ti.com>,
+ <tomi.valkeinen@ideasonboard.com>, <panchuang@vivo.com>,
+ <kees@kernel.org>, <r-ravikumar@ti.com>, <y-d@ti.com>,
+ <sjakhade@cadence.com>, <yamonkar@cadence.com>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v7 0/2] Add no-hpd property to the cadence bridge
+Date: Fri, 9 Oct 2026 12:10:22 +0530
+Message-ID: <20261009064024.985688-1-y-d@ti.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SN7PR12MB7324:EE_
-X-MS-Office365-Filtering-Correlation-Id: f28c5832-8f84-4825-72af-08df25cfad92
+X-MS-TrafficTypeDiagnostic: CY6PEPF0000004C:EE_|SJ0PR10MB4574:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b7a0228-4af4-4b4a-3ed1-08df25d0737d
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|1800799024|376014|23010399003|7416014|18002099003|22082099003|4143699003|56012099006|3023799007|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: b4uAL0Wfd7ROUtcXdEVULYOPk5Z7Zw+F8ph8GstOBW8YKeL0NnD7V1IHproNbFooYEJzBlD/ROMvwq7ZU1W6Ptpm4Ct9tGKcQ+LluI+qQEzfBUcqUn7iwHENue/Uf8WLE4n83/dswuTpGaY86ryL5PFILu5LTv1NK7/mHQ9HycVFhGET0jrN/ydhIj3t7qaY2IsfSnVAeVtDDtysbjLqs5PTsXiZoIy4P5dl0ktACLP/Q27OEYE0XfImIgMJTgOb/zxllb3r3E66uHY1kSM8ujT3fVlUqTLvf6R42aJE3rBjJL8bK8tpYShPQ9M5isnzWLlrPgjhvtf+AVS5hGZlRe7QpxYZmKMRBlOOLVRQ1dxIr/sSS/iKIlcsz+TtYUmlgKjKrlaDxT8IMDA/K0tKyhDt4TxELVSgrzAwTCQdo/MpMQPipWefRdABngw669TwOLaeBXRKk/L2j1hucG0H07Ru4iFY+nAIiLlR01CM96WVZDQw4JknMkn49eFTAXrTJcCEger0HO5wIvqxljUV9fpzOdBsTupBYZwQ80ikVg0qw0ELdImst6R3JjDiCBpxnrJAki2VflYDN7yPiDt5qmeuBRwxkE57dLjlq2Wl0NeizOBU71SWolcL+2FQjTFI7AhpM7Wju8qPO1Ev24YJ0axi+tT6QmpI+Pw/xXEQVKM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(1800799024)(376014)(23010399003)(7416014)(18002099003)(22082099003)(4143699003)(56012099006)(3023799007)(10067099003)(11063799006);
+ ARA:13230040|1800799024|376014|36860700016|82310400026|23010399003|7416014|13003099007|921020|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: yoqMJR3ICEneJx5k4UiQbguzQI9M0+DwbAfKaCZmbVdaP0aC5Y1J2SKmVS+6/tEVIkPwbu79iDr1GhVxXBU6kRgj9D1QKtzRs1stad0E83RHACJXpiPdtWem+Ane5qZj+BRLE3XKW4551hesSU1fzQGOWuldEW4W/YUutcLx4+ko4+0GxtOrtrwdC574gH2wMuMxsltbqiBdIs7s7OoxnCWIk9zhK+7abuJlbFsOqhLjdw2GglUmKSc7hPbF3e9Cs++Ao3qjzB5xrBKFBRitjWDY/MCOUQh+Yg+BLYNFJcfIZrrJcXXgyE6yHw0rT1izZNpbGVokC7viay68vygcldEeQKVWbdMvm1QRhwuHLp4t47Xy+MEcJwCXKoTvIy1n9u3Js+EwLeGItBc0XXhhUfA2Rr7cQt4g8GbdaPqNxiG/nVtcweAaFM6hgu5eYmdsfMw+jmko1fcN7oQmHKctmvqSiMjVLHp7QYrG7EnntxTd2aqwLnRYaZzzOsySHDeiWtJFAJlzYGJ0lQmx352tGDBM2FwcnhKJRM+N36T8f4gNrjVMppvvnBiYDcFK6XPDJjkenwP8RYQrzlyTixh5CQstHF7k1DXV4lCQwxgJgIIFVFry/YUM2dzSygLXStQfpjtzTr6/lAvr6Q+RV/Qg7UHpwIUgUKLLHy/GBajCSkpQ/UT2ISpeRvpCXCCPzaApkmdwmo24L7ceD7WIlGRXcbeBvtUJumioJXoMi/YaRT850XWfAq9LrE9lOPwdVTmd
+X-Forefront-Antispam-Report: CIP:198.47.21.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet200.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(23010399003)(7416014)(13003099007)(921020)(10067099003)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1JmTndtNEpUbzN2Ujd0Q3ExaUJKVHpuVCtqSVhyNFV5UmZIMHFqY1FEWlVz?=
- =?utf-8?B?QW5OKzRvUDFTS1poRDR4Q1FENlhVODgzV2p1S0RZbXpBdithdnJta3FtZTEw?=
- =?utf-8?B?QmNQVkxMQ1VCTnUrdVk5bndmREpMeW53UWxtU3VzVCtzb25UQ0VxOWZaQXpr?=
- =?utf-8?B?MUpBWDN6VmMrMmR5RGVMWjhYRDNYdFNNQXVSS2wzd1JxUTJsQzVWdEc1NlhC?=
- =?utf-8?B?U2pqU2lFS2lZZk9TckZHc0ZsNFErWkRna2cxMDZzc1FZQW9UUXV2Z0lVY0dv?=
- =?utf-8?B?WkxneklIaGdld3kxR2NDbUY1L1RrZ1JNQlhVM3FxUE1KRmZHaStWczliVllH?=
- =?utf-8?B?cWs0dElmMHF6MU1KenhkMjZCb1drcVBrQSs1QTlMZVFtTGZZREVjR2xxTFh3?=
- =?utf-8?B?SEJOSDlnUzNTVWwwUWg5NVpBTk5hc24vellsbTA2WXk5c0hxMUJ2QjVCZTNI?=
- =?utf-8?B?elJoRmNudnhod1pCa0xBMG9MdnVxa0JTR1RIY3prVDVnSTNvZnBBVkwxdzI4?=
- =?utf-8?B?bWdDQU84Y0o4dEdJQUppU0hSQVpNK1p2MVM3SzNhay9PYUNKRHI1TXhITWtD?=
- =?utf-8?B?cXQ1MXREZlV4SjRuWnBVbEh5ZnB2Q281YWs2VUwrSktJQXdNTmNYNDBJM2d0?=
- =?utf-8?B?VHdqZmY2WUppdFEwRjFaSG9xd2JQMmlmL2djbC84WnhoQ3pxNUd2VUZvRTZX?=
- =?utf-8?B?UWZsV011dW9hUDQ5ZUMrQmNuckVMYk5UeENIZEtTV01tU3UyRnZJVnZRQW5Q?=
- =?utf-8?B?OFBwbnA3Q2VJY3UrQ2JLRkhZNkZHTkNXUm5aTk1QNStDWlpoMFpTSEJoTmVX?=
- =?utf-8?B?UnRzZnpCWUI1b1BEaFJwUFZDUVJwcHlZa2VSS3RyQ3pTeDVuYU5Qc0o0OVk5?=
- =?utf-8?B?aWZyOUJhN2NLNlhqR2FoVEo1aWJOc3JxcGUyL0FxVENCWEhCaWdCbUtOMmhy?=
- =?utf-8?B?cWNUcFRUdHNMUDJCQzdSM2Y3a3BrSVRoc0R1NXExeUVRL2l5Z2ZEV3hlUVJt?=
- =?utf-8?B?OWl0S0U1Q1VqR3ZqRzY0NWEyd2IyQjh0OEN0cVFWaXZtcXB5V2ROZ0Juc3ND?=
- =?utf-8?B?VXp5aUVCRklBUjFMUTdqdHFNcytEek5VVTlJVkpBV0VlR2Q1NDRNaVBxWXRM?=
- =?utf-8?B?azVEM1NGelU3QnRxemtJMjZFa1hJc2tMREl0aHRYR1AzOU4rM3gxb1JZbjBC?=
- =?utf-8?B?UGdHMUpFR2tUYXN1UFkveFVxS25kN3NSTjlSNzZxdGJhRm0yZXozeG5rU2hD?=
- =?utf-8?B?d0s4Q0FXMGpNTHpoMFNvUDk5ZWNaN0dDNXovUkFBQlBwa3BjRG1YRmdKWWNv?=
- =?utf-8?B?WFh4TE1sSHBjQTBDQXE4WEZiMmpJalozazNqRFpwWnhwbWt2NTFNbmJWMHcr?=
- =?utf-8?B?Y255SUpFb2ZBWEM0anRhbXlHRXRkT3ZYME82YzBma2IyM1JtMW5lT1U3aTlw?=
- =?utf-8?B?cER2bFpWdUpnQ0NaUmtmTThlMXZOeHhsc01pcDJRVDNqclpiK0pZNkRkVDhP?=
- =?utf-8?B?N09DZm1VaXQvTzA2NThJY296cWlITmZBYmVKWmYvbWx6cVVFTWdNUlljRVRF?=
- =?utf-8?B?V3dZYWtZZW4zTXNUUzBUSnRwM3NSd1hWYjdQejdJNEJPZlhFUTZ5NDRLQTI3?=
- =?utf-8?B?d0NhRWd4NDAyN3pzYy8xRmhGWllOZHQ2OWJKc05GbXBZeWUwcElrWEU1UWRR?=
- =?utf-8?B?WEF4VXZremZYd3FJZ0xtUzRJM1hLdlpvUWRQU1hvU1JlM0swYS8vWCsvc2xy?=
- =?utf-8?B?emdYdy83TWZram5VbWJVSjQrY0UzK2dCQ1pJM3VlNGVtdVZkdWNKcFk3TGJS?=
- =?utf-8?B?WnRrRXNBVnF0Vk1lQ1FTMncwZmI4NVdFckNwMGJlM1FMN0dJeS9qTzBidEpF?=
- =?utf-8?B?T1hwUnBvcVJOSE1hN1lzQXlDQlRpRjVTVW01dU9RWmNGUWNnZkdVSWwwY21H?=
- =?utf-8?B?NVA2SW0wTHJvdjUyNzFrc3RjTUFFTXpWZFZianFzVUV3dXVkN0NQVlZpWkxI?=
- =?utf-8?B?bklnbWQ5R2RZSVBpdURXeEVtbnd0bDlLUFgveGhBVlVraExWam5xSHA0YlJS?=
- =?utf-8?B?TzhRdytUN0dGNVcwMXNSVGxKUjNnakV5SnBCMTc0QWtVYVlwVEo4MTE4bWh3?=
- =?utf-8?B?WVRSRWs4RTByWENINW5VbGtJd2JZTzBvNmNOWTZXZXZkZUppNnBETDRtTzh0?=
- =?utf-8?B?Z3JWTytUMmc5VFdCTy9Kb1k3K3VMSU03Q1l4MDl3dWZQS2R4S2ovbTVPUFhO?=
- =?utf-8?B?YytmZGkxSEFIZERlZE5xRXg1NGYyVVp2RDVnbE5oMVBEV25pU2xXNXpxMWl2?=
- =?utf-8?B?N3hsc09JNzhHNXBzRm53Y1BLZG5JNElZYUhTdGh1NHQxSllRekoxUGRQMHps?=
- =?utf-8?Q?5BGEWS/RJmywTs4RXGStNGW068hqPTAIZ+7Imn0vwhc8g?=
-X-MS-Exchange-AntiSpam-MessageData-1: WFcxM7yveqTCGg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f28c5832-8f84-4825-72af-08df25cfad92
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 06:36:41.3521 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CcYARNcDccvo2bnqb6jajrcNqqJLW9UlM4+ZWIAKneO5tyiNRspYiqH7Y+wSNu89MeV3D5LZ9cSOKars7WLD1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7324
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: cjLKne8ZItuQrZKuAM+LC2r/Z6Z4++MwM8B8aFwsgUt2YDhEIcMClVrasp4T+0aIQ2wwOEUEB4TeeDXC34vi7y94OxSNnpAwlv2niE/8n6ZsAxkW07ctfW65o20fuESPI3QqxDUokTgsQT1HeqlqcDQOWLt6No13mL/Q4M9Vru6ioFWcgTg90rVXYVDEx8s+BiH5C71Hg/VFsE9Xpt4IelDUVNo/zsUYGh8kG5oROkR1jblvnryVYyOZ8hWkvlQV1Dse5Dj5d9EBkvLLJSJFGOLrnGziRGBUOKqm9JNyBxJIQkivhi2WUx0MR0elkNxJV6+W6gGAyK5i7JGFKwHgSWkKuc+Ckr3xmIXHXfIDYE6JH8Fak4RZyapwqsoEyUrs/vKE4Nc3ntC4kf1E4fN/0NPXpPUtSuO4Y2tDeYO/4tTMgQkU7DJWpqsqQZpMPH7G
+X-Exchange-RoutingPolicyChecked: GnlimDjWsOOfds+wE4LxssE8Kz3zPwc/6Da06T6TjIOk1mNcV5wzi3jqKJDc71vI/luacMks2nOEFUtOqsija/XXYe+vkS9/aVoT8SfbHGwfMm/OwW4pQ4f5YtRDsSTrg7FXX4INKzIg7nyoyzrEe0clUfjqyRGik8k4kmIwLbAHY1TVApNLmhuep6R9xdjK1DVCubYo2s0YPDS9w7H+HbdYjhyJNZ7IpeKrKmkhZnkEvQf04gbFE6CoxM1ZrEwcFC8KV08N/GqfubxDVcK2smmzE6DRDaiAAIuO8Qpt8BrwHe5/5Al8tr/6DjO9JvdpYHyI3sJw0ZtnbvgHcsQ86Q==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 06:42:13.0066 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b7a0228-4af4-4b4a-3ed1-08df25d0737d
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.194];
+ Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY6PEPF0000004C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4574
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAyNiBTYWx0ZWRfX3V7CXPzEtCEh
+ jU8u5W+i9F+a0oNcxAeYKm0UKuglerFWTHCV0RbW3+FuH0mh4zTArKtfexyhM2J0Y9ofcgpAGKk
+ t9IO8KHMa8ggMFpCLzmhdSs1bRRIDqgeVyfBroWMsWGjIl2RuYb63jOZkPmpgjw6jKQ388f9Dl/
+ m/GrxOpS3ZbcRM/RTsMih/A6HfPErBmdKwidERe/Pn4ZCfJ5vQai3qOdBgSP865tR+ahGUQAQx3
+ iE2JiCOF7oTEIsOyoNjdWa+RPNF7zyW+2+wbjS4OtNactsrwrNUJyBipB7z5NMAZm7dnWOMnilQ
+ wM4383IAkL2wFUoeBzsqquQx9rinXOejLJWC3RyLAN0TcFLAXHp5SlV5uaSQfWWprxOWd/wWezR
+ pvpiP8o/Qdzt461FCBySLKAXFSEeGf93tVNDSmX6QgTtf9xo+BUFwOH7YtNpLA6PNuyIamTqQ6A
+ eD7P4szMLWz6mRPNjxA==
+X-Proofpoint-GUID: DmLwNIX-KK2wedf8q4IGQPMp1zpyFMFc
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAyNiBTYWx0ZWRfX01M3Q0SU3XoG
+ d++8o+3qPl2ldL0X30+OkVWbWNslSGLCYSHBoiL68vWVw4BqSrQLQYBLcw8teXAZidM2FjIUvC9
+ JMzd3K8AaFvLGMLSo5MOIEqypyafGg8=
+X-Authority-Analysis: v=2.4 cv=a/WlZkSF c=1 sm=1 tr=0 ts=6ac88cc9 cx=c_pps
+ a=BzYQZFXHgS3DonsPiq/7CA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=AlMIdn_sM9wA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
+ a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=QB_yHwAkhtgrPd7RwJsA:9
+X-Proofpoint-ORIG-GUID: DmLwNIX-KK2wedf8q4IGQPMp1zpyFMFc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1011 bulkscore=0
+ suspectscore=0 malwarescore=0 adultscore=0 phishscore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610090026
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,61 +176,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Oct 1, 2026 at 1:04 PM JST, Eliot Courtney wrote:
-> On Wed Sep 30, 2026 at 11:55 PM JST, Alexandre Courbot wrote:
->> The RPC parsing should not be done in the same method as the transport
->> header parsing. Split it out and introduce a `RpcMessage` type to
->> indicate messages that have been successfully parsed as RPC. This makes
->> the code easier to move around into its new destination.
->>
->> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/gsp/cmdq.rs | 37 ++++++++++++++++++++++++++++++++=
-+----
->>  1 file changed, 33 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
-sp/cmdq.rs
->> index d8a7716fc500..b8a9e02b76fe 100644
->> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
->> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
->> @@ -553,6 +553,17 @@ struct GspMessage<'a> {
->>      contents: (&'a [u8], &'a [u8]),
->>  }
->> =20
->> +/// A RPC message ready to be processed from the message queue.
->> +///
->> +/// This is the type returned by [`CmdqInner::parse_rpc_message`].
->> +struct RpcMessage<'a> {
->> +    // Reference to the RPC header of the message.
->> +    header: &'a RpcMessageHeader,
->> +    // Slices to the contents of the message. The second slice is zero =
-unless the message loops
->> +    // over the message queue.
->> +    contents: (&'a [u8], &'a [u8]),
->> +}
->> +
->>  /// GSP command queue.
->>  ///
->>  /// Provides the ability to send commands and receive messages from the=
- GSP using a shared memory
->> @@ -794,7 +805,7 @@ fn send_command<M>(&mut self, command: M) -> Result
->>      ///   message queue.
->>      ///
->>      /// Error codes returned by the message constructor are propagated =
-as-is.
->> -    fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
->> +    fn wait_for_msg(&self, timeout: Delta) -> Result<RpcMessage<'_>> {
->
-> This gets changed back to `GspMessage` return value in the next patch,
-> and also introduces a bug [1]. What about just keeping return
-> `GspMessage` here? You can move RpcMessage to the next patch.
->
-> [1]: https://lore.kernel.org/all/DLT4O89RYP29.UKGBMIJD8ZSC@nvidia.com/
+This series adds 'no-hpd' device tree property support to the Cadence
+MHDP8546 bridge driver for boards where the HPD line cannot be used for
+hotplug detection.
 
-Indeed, we could organize the change a bit more smoothly. I've tried to
-reorder and hopefully the next revision will flow better.
+On TI J721S2 EVMs, the DP0 HPD resistor is DNI from factory, so the HPD
+signal is not physically connected to SoC pin AA24 by default. AA24 must
+still be in DP0_HPD mux mode for the MHDP firmware to operate.
 
-And yes, it is undeniable that having both length methods called
-`length` is confusing and has caused this bug, so I've given them
-different names.
+When 'no-hpd' is set, DRM_BRIDGE_OP_HPD is omitted and the framework
+falls back to polling .detect() every ~10 seconds. Presence is detected
+by reading DP_DPCD_REV (0x000) over AUX, with an early exit when the
+monitor is stably connected to avoid re-programming the stream each poll.
+
+Changes since v6:
+  - Reverted back to dev_dbg instead of dev_err for the normal hpd case.
+  - Picked up Acked-by from Krzysztof Kozlowski from v6 on the bindings patch.
+
+Link to v6: https://lore.kernel.org/all/20260802153825.1570435-1-y-d@ti.com/
+
+Rahul T R (2):
+  dt-bindings: display: bridge: cdns,mhdp8546: Add no-hpd property to
+    the cadence bridge
+  drm: bridge: cdns-mhdp8546: Add no-hpd property
+
+ .../display/bridge/cdns,mhdp8546.yaml         | 11 +++
+ .../drm/bridge/cadence/cdns-mhdp8546-core.c   | 69 +++++++++++++++++--
+ .../drm/bridge/cadence/cdns-mhdp8546-core.h   |  1 +
+ 3 files changed, 75 insertions(+), 6 deletions(-)
+
+-- 
+2.34.1
+
