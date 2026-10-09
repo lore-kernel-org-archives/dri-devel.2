@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E44FCA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 12:35:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD97CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 12:35:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCE3C112100;
-	Fri,  9 Oct 2026 12:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 495C4112103;
+	Fri,  9 Oct 2026 12:35:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Y5lwtFhW";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="BaZ5nfIr";
 	dkim-atps=neutral
 Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
  [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 715BD112100
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 12:35:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791549297; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FB47112101
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 12:35:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791549303; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=MapIU5EOwJqSOuTxjJ8jbDf4medCip4QICdqdTbQtT68IwXRZKvD9PKS6OmcGIr4I1ufxqfKhHD/kCpEweqbuSMGCGvoSs+3DvpxjjkDX9UfeOoC9ZmGkaFHEy8gHX6RGn9/5OGa0o+BwlftDU5NaRtHTztd1U/WhD11bMaMTUQ=
+ b=W+R87kMpjyar1NQ8KOAoFpg6JWihzD9jKcZfBZv1WhuVr25+Zj3j3MREeWmgttINfTJ3CcCd/PdGZ4wNDkq2S4kiJqWNKf2SDlnD/hSiShMHY5p/bDBNJVYUnUOWrw18SiHb7LjjFin7kGSIuBSKQBcJIOzaAqah9QuufPoAjIo=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791549297;
+ s=zohoarc; t=1791549303;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Ow8m1p85I2URfn8W7y19YwhJHcOAO4IB4TdoCwyI3XQ=; 
- b=Ax4FFnrANv5vaVnkUAOoB3qFgovN2Tnwf7Z1ozfV3kSL3OmuEoLSq3A5zrhcu+TQFNqMZn9SiSLFGSJtSlMfjWXsVPdsTpRHf2B07D3Qv7jz0i38tR78H/MXpn8uPlFgLsejsXLziDpL3Fx3vZ5TgKYiqgIK4VRp7gII07H16Mo=
+ bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=; 
+ b=A96SAl5MkZNlfY9t94PFe7zeAUfpAVaxnW2/r11eK9dwSJbD6J4wW+Qlnf/Id1zJ5R1q1LyTlQHRllDe5lmalp6gQyKs7VSqpVeWpEWWUEFK9cEJwEctYmIN++WNvKqvcZYwk+NVW+cYHbTFRpd/YBUZHpeV542N4fJkLvgaAis=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791549297; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791549303; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=Ow8m1p85I2URfn8W7y19YwhJHcOAO4IB4TdoCwyI3XQ=;
- b=Y5lwtFhWOzAtCitpImZtj6nPWgnNH0Wfhhrd9IPUf7flWomsjQUKAG9TU17LiJlr
- +DxNhTnJoCILK4nVEL/XGt2ndoaPuwkD5Yv1VXwArA4s3O1/SF4PY3mE7DQOgvWObpW
- XIn8iHa+TQR5hzTgbtO+C4+jJgejN/Uly+Dbpd8M=
-Received: by smtp.zohomail.com with SMTPS id 1791549296153116.76854193393274; 
- Fri, 9 Oct 2026 05:34:56 -0700 (PDT)
+ bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=;
+ b=BaZ5nfIrDlS4NQqrFf/a/94yzfgqRQLlMcAGeig3Gdh+1RPHGInu11jSlsjGhgh8
+ F1MM7NccKw/iCxj24fzMAL8SIyZ9D7CArJOE9K6brDAefMya8Qd+7tSFcR34TbUZl1m
+ hXDj2062pVgqfk4ig0xu6uthVahT5KWa1Zvm7r3M=
+Received: by smtp.zohomail.com with SMTPS id 1791549302531720.3797333886697;
+ Fri, 9 Oct 2026 05:35:02 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 09 Oct 2026 13:33:57 +0100
-Subject: [PATCH v14 10/15] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
+Date: Fri, 09 Oct 2026 13:33:58 +0100
+Subject: [PATCH v14 11/15] drm/panfrost: Move perfcnt GPU disable sequence
+ into a helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261009-claude-fixes-v14-10-cb743b3b973b@collabora.com>
+Message-Id: <20261009-claude-fixes-v14-11-cb743b3b973b@collabora.com>
 References: <20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com>
 In-Reply-To: <20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -61,18 +61,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3249;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2775;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=J9qMQhiTpJOf48Udf2cuPWnHMtP8lHjxgtPC1iHmQ5g=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqyN8vytX7e+sjqktFNc7g/V4fPOzja+Suak0Cv
- pvEerepfoiJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasjfLwAKCRAOJn5M7lND
- PczkDACk6cPRKDs3HibudDyXXulmeNK80yMfJFqzFr2jDdCXvL7kmNx5PA1h7RoYnd9em7vqNvM
- p2GwEIKi/LLZZV8ZXqGaO/kQVIUHf9SdJOSTAdPPoFyej2aW/NLcY24IM4wYwlB/P95bByJA0ls
- 4smdVHHZ23RnWNZjIRIZb85mH3dOU/KyoYCt+zFCjTHBscuagTNehGRfeXz7H6Tav2eO0Vem9Y3
- m7B1Q8InX6MCF7W0HSkjvXZiYVKPWHB8ojKtKZ5wXafpUMpgbNpQWk6sgYPaxPtSgqH2W+43+xE
- TBq/794TJopzDZ8piGd9nCQwU6tNtogVvkf9qqrxsG9SKqa9VznD+c0DzwKpruJGznppQcv7eXC
- LCwi1kgKN+q96o+lxsXhJ+pYxiFRan6xokakj+ynJOa9oCtDNB0V2ZE3NVtkPyK0EC2BxpJ/rv2
- 2Nyq6uoCNYn0YOGBX1PB6N0MuntFCU6cvSsIHpNMO2q1/FxscOI5rmA7foVZ4IZpJ8d9g=
+ bh=1NC6JbP9YeSjejJ7XZFftPMwKC3c1jXoMn6zNAHeTm0=;
+ b=kA0DAAoBDiZ+TO5TQz0ByyZiAGrI3y/I0L7X8rwDOLH4jysS91b2w2xW4owG/DQ913ZDl/zyr
+ IkBswQAAQoAHRYhBDJAMOjABRdd+TcHpA4mfkzuU0M9BQJqyN8vAAoJEA4mfkzuU0M9W2gMALlu
+ wJ2GPCs9QcgiLIhm+Y/dETBa8sr0E12h3gnCebM6bWYJLKOIYaXhHOcU2L/g05j5ogz5ieI9yCp
+ V8TByMV16ZHzSKpXetggG/D1WMSGyifiSw7YHUuYBR7CX40h9GbpTmeQaGWIr5aQcPXSsDcRp5J
+ gJYCpm8kLeJn/Lm7mo6nva2W2vb492ijNdbcGVuTSvIpAVHHa+nEnDqn18ropPuPaBwbpbt4vYG
+ ZH396oWB1zQ9KVJxCdU1hxdPq3xeSRpDyr4W06Kvtmm6lEcHN2RjW3nGMmFKcZtTWU/8moLaz4W
+ QlHC3xQ37Ar1MR9XZxKEKFB0berWv4+78MHtBBjlotHU7JykUr1HUcB/3xiziwqP0h8hMm6FVkV
+ kEyIQYUq4la/g7MpRBZS6VFevYx0brdWNhNomG42hXxhhxpN/rBA7EaoRubiaho6nybMUkffoyr
+ 5akOTsqENTuA03N5AUKWJdIPvDx8NbhPwcvK3j06HpOWnh8uK8VUXxIifQuw==
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,105 +90,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This will be of great help when testing potential races between the GPU
-reset sequence and other parts of the code accessing HW registers.
+Just for the sake of avoiding repetition.
 
-We must also disable the reset work item rather than simply cancelling
-it, to prevent the knob from triggering another reset when the device
-is being removed.
-
-At the moment, the only legitimate input value for the knob is '1'. This is
-to allow for future inputs that would encode alternative reset scenarios
-we'd want to trigger manually.
-
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c | 46 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/panfrost/panfrost_job.c    |  2 +-
- 2 files changed, 47 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 31 ++++++++++++-----------------
+ 1 file changed, 13 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index 687230225743..b3dae6ce3eb0 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -2,6 +2,7 @@
- /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
- /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
- 
-+#include <linux/debugfs.h>
- #include <linux/clk.h>
- #include <linux/reset.h>
- #include <linux/platform_device.h>
-@@ -623,9 +624,54 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index 7020c0192e18..f71534e741b6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -35,6 +35,16 @@ struct panfrost_perfcnt {
+ 	struct completion dump_comp;
  };
  
- #ifdef CONFIG_DEBUG_FS
-+static int reset_get(void *data, u64 *val)
++static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
 +{
-+	struct panfrost_device *pfdev =
-+		container_of(data, struct panfrost_device, base);
-+
-+	*val = atomic_read(&pfdev->reset.pending);
-+	return 0;
++	gpu_write(pfdev, GPU_PERFCNT_CFG,
++		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
++	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
 +}
 +
-+static int reset_set(void *data, u64 val)
-+{
-+	struct panfrost_device *pfdev =
-+		container_of(data, struct panfrost_device, base);
-+	int ret;
-+
-+	if (val != 1)
-+		return -EINVAL;
-+
-+	ret = pm_runtime_get_if_active(pfdev->base.dev);
-+	if (!ret)
-+		return 0;
-+
-+	panfrost_device_schedule_reset(pfdev);
-+	flush_work(&pfdev->reset.work);
-+
-+	/* ret < 0 means runtime PM for the device is disabled, so we
-+	 * only need to return the PM reference in the opposite case
-+	 */
-+	if (ret > 0)
-+		pm_runtime_put(pfdev->base.dev);
-+
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
-+			 reset_get, reset_set,
-+			 "0x%08llx\n");
-+
-+static void panfrost_reset_debugfs_init(struct drm_minor *minor)
-+{
-+	debugfs_create_file("reset", 0600, minor->debugfs_root,
-+			    minor->dev, &panfrost_reset_debugfs_fops);
-+}
-+
- void panfrost_device_debugfs_init(struct drm_minor *minor)
+ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
  {
- 	panfrost_gem_debugfs_init(minor);
- 	panfrost_sched_debugfs_init(minor);
-+	panfrost_reset_debugfs_init(minor);
- }
- #endif // CONFIG_DEBUG_FS
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 00fb36c577df..ab65786bf63b 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -932,7 +932,7 @@ void panfrost_jm_fini(struct panfrost_device *pfdev)
- 		drm_sched_fini(&js->queue[j].sched);
- 	}
+ 	complete(&pfdev->perfcnt->dump_comp);
+@@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
+ 	if (user != perfcnt->user)
+ 		return -EINVAL;
  
--	cancel_work_sync(&pfdev->reset.work);
-+	disable_work_sync(&pfdev->reset.work);
- 	destroy_workqueue(pfdev->reset.wq);
- }
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
++	panfrost_perfcnt_hw_disable(pfdev);
  
+ 	perfcnt->user = NULL;
+ 	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+@@ -327,12 +332,7 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
+ 	perfcnt->bosize = size;
+ 
+ 	/* Start with everything disabled. */
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
++	panfrost_perfcnt_hw_disable(pfdev);
+ 
+ 	init_completion(&perfcnt->dump_comp);
+ 	mutex_init(&perfcnt->lock);
+@@ -344,10 +344,5 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
+ void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
+ {
+ 	/* Disable everything before leaving. */
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
++	panfrost_perfcnt_hw_disable(pfdev);
+ }
 
 -- 
 2.55.0
