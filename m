@@ -4,49 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7659FCA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:44:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98698CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD3CC1121A7;
-	Fri,  9 Oct 2026 14:44:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E897710E180;
+	Fri,  9 Oct 2026 14:52:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="d3wW/zEo";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="DXubZqbr";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D16E1121A7
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:44:37 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz
- [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C5C35346;
- Fri,  9 Oct 2026 16:42:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1791556958;
- bh=blrsm518AbY7gsS1Fe/wV9oYiBIEFkxhkrxPCpHO4uU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=d3wW/zEolVEpicLWTjYVHNvptXBe3prTygHVLJCx+disI2aDOh2v4BUdSFDAMAtD6
- /fOCQzoNZOazwKjpSJ1/91L0OMR9OprtBQBgNlLIG2WpVBg/D+BBpWEO2UiyjNRgnC
- Z/jLFoZKS6C0NlIuGxuHbQy9mHwh32m7HRG3X/oc=
-Date: Fri, 9 Oct 2026 16:44:34 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Quchaosheng <quchaosheng000406@163.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-Message-ID: <20261009144434.GD622105@killaraus.ideasonboard.com>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
- <20261009105601.301891-2-quchaosheng000406@163.com>
- <20261009-2f34bbada2c463c78b2c05a7@squawk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261009-2f34bbada2c463c78b2c05a7@squawk>
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4D210E180
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:52:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791557553; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Z+z6z0ksLMfonBhun8oeR7/DSVjnafMXHhyl6IGgTwbRwCHnhp4BxXnVi0JOquxAiGVhvgSetsOJfNXjSOGyxQxsJ1l7YmzXWPSjANhra8npyQu/nDGCS69CQxB63sDlvdzUpatOQvOTnzVtZa3yy6ZVBGGMGgeKbD8SH5s2QY8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791557553;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=EiLsH5UA/UAiT8EVhaZCRrPJfE6J/JG41Rfbvq9F6Jk=; 
+ b=dVa8fOIknUAnhPupZPxBXcpw5NN+mrT2WN9dy/0/Pq7lV7P2TdSl7GEv4K0QXIgk8szcH/LHspkdsvFugW//uRfkatqjxx2IEYG+QEOB9HVsMT/mkPldckPULk3kYovkyFcwbq6xhw6GP71fr5DWIlecO0yilkgEV2/kDnbBrkE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791557553; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=EiLsH5UA/UAiT8EVhaZCRrPJfE6J/JG41Rfbvq9F6Jk=;
+ b=DXubZqbrnPnNjo75oU8CUkmCxU5WEW7U137kdql6G/TvUin3a9mIBQ01dcF3Jyvw
+ zXysVlnWfi8tPmxV4UWfqAX/MVUX5EZDadwk0cr8eOCfVfNdEDysgtm0r1IimXErtue
+ NKF66Fi2yzMoVjB3dE+xlGimuCzQ1UfNdYeaXsPI=
+Received: by smtp.zohomail.com with SMTPS id 1791557552056367.49141307442665; 
+ Fri, 9 Oct 2026 07:52:32 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v3 08/11] drm/tyr: add BO-related ioctls
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260929-tyr-ioctls-v3-8-26955fb111d5@kylinos.cn>
+Date: Fri, 9 Oct 2026 11:52:12 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ driver-core@lists.linux.dev, Alvin Sun <alvin.sun@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <419B635B-1C89-4004-98CB-9127875CA043@collabora.com>
+References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
+ <20260929-tyr-ioctls-v3-8-26955fb111d5@kylinos.cn>
+To: sunke@kylinos.cn
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,195 +82,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 09, 2026 at 03:25:49PM +0100, Conor Dooley wrote:
-> On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
-> > From: Chaosheng Qu <quchaosheng000406@163.com>
-> > 
-> > Convert the TPD12S015 HDMI level shifter binding to DT schema.
-> > 
-> > The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-> > and ESD protection circuitry. Document the two ports it exposes between
-> > the HDMI transmitter and the connector.
-> > 
-> > The tpd12s016 is software compatible with the tpd12s015 and is listed as
-> > a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-> > fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-> > a board using the tpd12s016 must list both compatibles.
-> > 
-> > Assisted-by: LLM
-> > Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
-> 
-> No idea if the sashiko reply is valid, because I have no clue if
-> providing a subset of the gpios is functional. Really this should have
-> multiple different gpios properties,
+Hi Alvin,
 
-Definitely.
+Same comment about dev_err vs dev_dbg.
 
-> but this binding is really old and
-> not worth changing IMO.
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> pw-bot: not-applicable
+> On 28 Sep 2026, at 23:15, Ke Sun via B4 Relay =
+<devnull+sunke.kylinos.cn@kernel.org> wrote:
+>=20
+> From: Alvin Sun <alvin.sun@linux.dev>
+>=20
+> Implement BO_CREATE and BO_MMAP_OFFSET so userspace can allocate GPU
+> buffers and obtain a DRM mmap offset for the generic mmap path.
+> BO_CREATE page-aligns the requested size; BO_MMAP_OFFSET rejects
+> NO_MMAP objects, which must never be CPU-mapped.
+>=20
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+> drivers/gpu/drm/tyr/driver.rs |  2 ++
+> drivers/gpu/drm/tyr/file.rs   | 73 =
++++++++++++++++++++++++++++++++++++++++++++
+> drivers/gpu/drm/tyr/gem.rs    |  8 ++++-
+> 3 files changed, 82 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/tyr/driver.rs =
+b/drivers/gpu/drm/tyr/driver.rs
+> index 9a7f147935e29..8baf88aee96ad 100644
+> --- a/drivers/gpu/drm/tyr/driver.rs
+> +++ b/drivers/gpu/drm/tyr/driver.rs
+> @@ -224,6 +224,8 @@ impl drm::Driver for TyrDrmDriver {
+>         (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, =
+ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
+>         (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, =
+TyrDrmFileData::vm_bind),
+>         (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, =
+ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
+> +        (PANTHOR_BO_CREATE, drm_panthor_bo_create, =
+ioctl::RENDER_ALLOW, TyrDrmFileData::bo_create),
+> +        (PANTHOR_BO_MMAP_OFFSET, drm_panthor_bo_mmap_offset, =
+ioctl::RENDER_ALLOW, TyrDrmFileData::bo_mmap_offset),
+>     }
+> }
+>=20
+> diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+> index 2c037b136406c..e98eb0a46877f 100644
+> --- a/drivers/gpu/drm/tyr/file.rs
+> +++ b/drivers/gpu/drm/tyr/file.rs
+> @@ -248,6 +248,79 @@ pub(crate) fn vm_get_state(
+>             Ok(0)
+>         })
+>     }
+> +
+> +    pub(crate) fn bo_create(
+> +        ddev: &TyrDrmDevice<Registered>,
+> +        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        bocreate: &mut uapi::drm_panthor_bo_create,
+> +        file: &TyrDrmFile,
+> +    ) -> Result<u32> {
+> +        if bocreate.size =3D=3D 0
+> +            || bocreate.pad !=3D 0
+> +            || bocreate.flags & =
+!uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP !=3D 0
+> +        {
+> +            dev_err!(
+> +                ddev.as_ref(),
+> +                "Invalid BO_CREATE params: size=3D{}, pad=3D{}, =
+flags=3D{:#x}\n",
+> +                bocreate.size,
+> +                bocreate.pad,
+> +                bocreate.flags
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        if bocreate.exclusive_vm_id !=3D 0 {
+> +            dev_err!(ddev.as_ref(), "BO_CREATE: exclusive_vm_id not =
+supported\n");
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let size =3D usize::try_from(bocreate.size).map_err(|_| {
+> +            dev_err!(
+> +                ddev.as_ref(),
+> +                "BO_CREATE size {:#x} too large\n",
+> +                bocreate.size
+> +            );
+> +            EINVAL
+> +        })?;
+> +        let bo =3D crate::gem::new_object(ddev, size, =
+bocreate.flags)?;
+> +        bocreate.handle =3D bo.create_handle(file)?;
+> +        bocreate.size =3D bo.size() as u64;
 
-I'm getting annoyed be the LLM-assisted individual conversions. Can we
-start requiring people who convert text bindings to YAML to at least
-handle whole groups in one go ? If they're going to do a bad job, I'd
-rather have to review it once only.
+Why is the sg_table() call only added later? As it stands, this patch
+introduces a silent (and extremely confusing) issue.
 
-> > ---
-> >  .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
-> >  .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
-> >  2 files changed, 90 insertions(+), 44 deletions(-)
-> >  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> >  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> > deleted file mode 100644
-> > index 26e6d32e3f20..000000000000
-> > --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> > +++ /dev/null
-> > @@ -1,44 +0,0 @@
-> > -TPD12S015 HDMI level shifter and ESD protection chip
-> > -====================================================
-> > -
-> > -Required properties:
-> > -- compatible: "ti,tpd12s015"
-> > -
-> > -Optional properties:
-> > -- gpios: CT CP HPD, LS OE and HPD gpios
-> > -
-> > -Required nodes:
-> > -- Video port 0 for HDMI input
-> > -- Video port 1 for HDMI output
-> > -
-> > -Example
-> > --------
-> > -
-> > -tpd12s015: encoder@1 {
-> > -	compatible = "ti,tpd12s015";
-> > -
-> > -	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
-> > -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
-> > -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
-> > -
-> > -	ports {
-> > -		#address-cells = <1>;
-> > -		#size-cells = <0>;
-> > -
-> > -		port@0 {
-> > -			reg = <0>;
-> > -
-> > -			tpd12s015_in: endpoint@0 {
-> > -				remote-endpoint = <&hdmi_out>;
-> > -			};
-> > -		};
-> > -
-> > -		port@1 {
-> > -			reg = <1>;
-> > -
-> > -			tpd12s015_out: endpoint@0 {
-> > -				remote-endpoint = <&hdmi_connector_in>;
-> > -			};
-> > -		};
-> > -	};
-> > -};
-> > diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> > new file mode 100644
-> > index 000000000000..1927da3bd736
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> > @@ -0,0 +1,90 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: TI TPD12S015 HDMI level shifter and ESD protection chip
-> > +
-> > +maintainers:
-> > +  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> > +
-> > +description: |
-> > +  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-> > +  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-> > +  connector, and provides control over the level shifter enable and the
-> > +  hot-plug detect signals.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - const: ti,tpd12s015
-> > +      - items:
-> > +          - const: ti,tpd12s016
-> > +          - const: ti,tpd12s015
-> > +
-> > +  gpios:
-> > +    description:
-> > +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
-> > +      the level shifter, the second enables the level shifter outputs and
-> > +      the third reads the hot-plug detect line.
-> > +    maxItems: 3
-> > +
-> > +  ports:
-> > +    $ref: /schemas/graph.yaml#/properties/ports
-> > +
-> > +    properties:
-> > +      port@0:
-> > +        $ref: /schemas/graph.yaml#/$defs/port-base
-> > +        unevaluatedProperties: false
-> > +        description: HDMI input from the transmitter.
-> > +
-> > +      port@1:
-> > +        $ref: /schemas/graph.yaml#/$defs/port-base
-> > +        unevaluatedProperties: false
-> > +        description: HDMI output to the connector.
-> > +
-> > +    required:
-> > +      - port@0
-> > +      - port@1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - ports
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +
-> > +    encoder1 {
-> > +        compatible = "ti,tpd12s015";
-> > +
-> > +        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
-> > +                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
-> > +                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
-> > +
-> > +        ports {
-> > +            #address-cells = <1>;
-> > +            #size-cells = <0>;
-> > +
-> > +            port@0 {
-> > +                reg = <0>;
-> > +
-> > +                tpd12s015_in: endpoint {
-> > +                    remote-endpoint = <&hdmi_out>;
-> > +                };
-> > +            };
-> > +
-> > +            port@1 {
-> > +                reg = <1>;
-> > +
-> > +                tpd12s015_out: endpoint {
-> > +                    remote-endpoint = <&hdmi_connector_in>;
-> > +                };
-> > +            };
-> > +        };
-> > +    };
-> > +
-> > +...
+I=E2=80=99d prefer if the call were to be here instead. You can just =
+call it
+unconditionally for now. IIUC it is harmless for coherent systems
+and in any case, we only support non-coherent systems atm.
 
--- 
-Regards,
 
-Laurent Pinchart
+
+With the changes above:
+
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
+=E2=80=94 Daniel
+
+
