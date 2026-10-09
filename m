@@ -4,138 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78D27CA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74CC3CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF0A710E7D2;
-	Fri,  9 Oct 2026 14:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B48C910E9AC;
+	Fri,  9 Oct 2026 14:14:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="H4RnMgwr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AEbB1kXX";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012010.outbound.protection.outlook.com [52.101.48.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2F1510E7D2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:10:00 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010052.outbound.protection.outlook.com [52.101.201.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 684BF10E9AC
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:14:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=luiFhoVgz6/8tvMXI6WPEYUxZmV1PxeZy8JlPmvYKKAbpmswViS8GcB8n/kqTMnJk9g9/Rr5hhO2mehNtKT7uD7WyHkqnUyJJvaobOCja0V6HW5YI1nbSwDV9uaRkPrC24RoZqskKu5oBgJREyCaKMrzPi3rQkEhhzEsJo0k82DtcgB29XlHFcgYbAnXFJzPc0cm7q6LBB14V/weOmehH+maFFIH3ljXnSSnkYfDqLjxtlkF1ScWqZMk4DY1+ibpg/Zo9IW8MY/QNXnesH2cq0jUFkNE2oTIa68m5mFXULxoqABsCj4dvmH0eS3dXGRF78jhM+K0E3LZBfPwVypvSA==
+ b=lK1CQH9HC+WlLIf9Pmn+JGevOARWRKVXXmxpMRXbHdxPCm6e1Q9KDHmlebGvRptc8l5VHWCTUBNz0QLl6DCyjgZRBxlC1ZnrJI7dNWKHvZ2MBAQydmbLUAJ5DAdn5KVBHkODcj8W8uySORVzFHDar8Cpf7CY/UQLYJ7MXQ2vdED4LVbhjMYqZbWFixT/FbTDqO+hUUvM83baciSHqTWN388yzLSNcencYM4SeHP/RilCv0KYewl3hPfCftNn12B6h1YLV8w5R69GX4NHnIR30x4+6rW6UXPkRLJ7TR0LpvldECYRkgZwadcJIFXFwUb2UCdZ05NZuDT9g7hd7Rkdhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L+R7/BCkFBQLRMQT2xeYSj5M0IOJEqhocZQJjd5MT64=;
- b=t3B6ONrjN4bTBMNEm0RcpAKqoVrEGdH1Dlw3FQ0hJ+jmqFROu82D+WGpexr/o2uo4NoTts9a+k0bOjZvsk7dxNzCCHoPjgSxjBJx6TkOTzN8IOA/bI6bI1u25HrM5D+fPPs9oYkU4Bgu0aHn6s3OChXeIjm0uhD/K9Z9wax7Pi7hIQ0i6McoqPf+KlHjVI61siP1FOtfFLnLJC+D9PXhWKjpcvCL8MOGYmh9GnKaTAluyPmG8R09bIBwUTEO4eFV0S0MC6tQKK5hR9HPzEtxPdH3z3UJe8gCE54e1fLNOgKLDLVSf9qTma1+DPlCVW+TZXzJkOCn+GHLOfc8kDHswg==
+ bh=8TFpuKuIyNbGE09Ek1a/p+VHQZELTmZ3qJvrslfC/lk=;
+ b=xkBVv2s8b9VS/1INidOwzmvG7d6eO/J5Vyf34W/rA2ll8ZnQD6PcxvB5Grkc1tFHRijtN2/Zkv2EcItHJVUx/rZPnCrPeOaXeFTnFOfeYYrp6vdenqmwslZ7Gx6DsXAaDC+bxCyBf5YeErRZ5o0dyYeDnzyRdupDKtglcaYrR6FKdeTJjQyQY5tawixRNZoMX1v1zK9peZPqlDxCZ4tKS/Uk8Sh6pPkBfGPpLxyrq9kSQOoZe3SKnrAppdVO23uENjRbSxsnN3dcTe41ARz3pE7rSs8010mu1DDisMj4cmsXvsO6NXyTYJaurkuzBMGFsgubwWY7l186IgukKWBwEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L+R7/BCkFBQLRMQT2xeYSj5M0IOJEqhocZQJjd5MT64=;
- b=H4RnMgwr3JYLbUTP0g8fTPs6QTozMuLGpBiYFnjTcNHbSd89qCNMAGA2BUUjIV1C4+ojXieZc1R617me3K+grFiM+KqIM6DuSuF9wHOIj6o9eUiUQo6PLx7GCyoqO8LGcRVmNvlmYyxg65aH4Vivmg9JAmPcuN3GsemgBJVnigA0wRdgTYuyShpibwWSgkhsiJfc/H8EF65mA58boyxMxVqenOhMxL1ptxjWXE2Abw6qj31DZhve9Q6QwGOqzs8lFNr3tKPGqFryb0mxg8hRfO72O6bKN34qTDpbaEghbKaJV9cqd54m1NgJsnt2beeySosWXfBbiKQsj2d6rokBHQ==
+ bh=8TFpuKuIyNbGE09Ek1a/p+VHQZELTmZ3qJvrslfC/lk=;
+ b=AEbB1kXX3jB9yjYzlouVAm9BZ3SvNRytd3QJwnnmJ/oZuP5vBCKgigFgpKWGx9l+UAFeVUjDjEFfSyxZ925rH8uRQHSJu3MVW2IVJbJiLPDMSu+hjajDmqxrmSM4HdqBHN4YS3ThuODcYw8aEfnNKhw0d6DB5KDfp2QmpMO50TU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by IA3PR12MB362669.namprd12.prod.outlook.com (2603:10b6:208:700::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 14:07:54 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
- 14:07:54 +0000
+ 2026 14:14:13 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
+ 14:14:13 +0000
+Message-ID: <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
+Date: Fri, 9 Oct 2026 16:14:06 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
+ clearing a BO
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Evanshenf <archwse@gmail.com>,
+ dri-devel@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
+ "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
+ Xi Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+ <20261003093415.902f89244043-2-archwse@gmail.com>
+ <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 23:07:51 +0900
-Message-Id: <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Yury Norov" <ynorov@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-8-0d6cca376cff@nvidia.com> <aryYkkB9j14xnWo3@yury>
- <DLTA93JE6VF2.37UGB3SWU6ID6@nvidia.com> <ase7IBtZjQsPVWSN@yury>
-In-Reply-To: <ase7IBtZjQsPVWSN@yury>
-X-ClientProxiedBy: TYCP286CA0040.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:29d::15) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0149.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:95::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA3PR12MB362669:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34c308cd-44ef-4e0a-ff98-08df260eb668
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA3PR12MB362669:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36713df2-4926-4bf5-c176-08df260f9869
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|23010399003|366016|1800799024|56012099006|4143699003|11063799006|5023799004|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: rrmxczRkmfS5JBI7oHSpz/7ptWLMvCW6LLCAF3OmN8clvBkx/CihcjY3eIqkeZc+kF6ZpP3ItuwxydwEu53J5XRiXoqwv9OEvuJ6T+c2+zjZ8HBFYRbcmSG14RALribvaFumWfLl8F2ZrT+ZtePkY9WPKIbYQbaNfM6NBe8QUWJzoYs0nHW1Lb1Pzf53tJmbguNzQYEK0eWNF0xJZr4zkFP7hyouZw2Pa9d+ME+JmwF3lvTFCqudWQ9rZaQPlwRyZ/dfAunTKyPMB9xG1vI+Yp71ve3r2OgdFBWjm+HtGpIQtq1vtg8nh4T1McIlXivJ2RBykSvHkaHuHV+ZVreEReoI3HxW1KGJKa80ar/BDgLLX4kSMwpH6R6YYS29wGUbpfoMLa5+PUWlgz394ThRa0G2507YGn4+uOwojVJ6xZcfzBAVp6X1hdDEN2UrCOPqGfLzntXrI8yXsGLxhJ+PUIdvSPz9ghX9gXaDwfKREfKFGv7CY0vm10jsxSBrg2890tzhpuDF2/0COayLRK9Vd9gbypR2Q3S8Ys3TdEx88zxNsWgmpRqSpooBBSiPDHQl+qmwsFd7ox/iOknN153pkRujIbFSSLWehl8cYRTdhuSjAKoWan+7vj+8PUjDM2Lnlz3FsO5WlQcJUAFSlaCcyZthL2BNHCJJAygHVa3ghuo=
+ ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|18002099003|22082099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 6KlHF97+CaE3+KQ7Sjy41v0R3eh6czeRVghO96K2E1NZGs4IAbdAk+jypBbR1ml16tuQE4HPsI34Lyq7924kCkpBzwQvWdFQlPQ+qELxpj9E3n7HFiAlzlKf5fDP4jmwU4cHQSTlppA6lR3xknQJobaqO3eeBz08SiX7EL0qV7byQ/6MC18wIQgOXbDaxZOvsdfPOWHOFhQqmIgSEcK5sn3SzVX5G/n38UAgg4Hi+9xxukvq8ws76jd+QDYx+YRb0WlVBsgY8hZWLI0EJcCAk8h4NKhDW8ED0qaVK9ywPF26DrGmzqZW7aibhRA51swq6d+QVqnNsmkb9ll1C82xiYAhcE4zJlj6AyVzYXPE/vnMcrh4tv2LzNiVBz4388+Mi9kQmJJQ6GYl6jon9GNgkJSIt0EsbcHGz0n256oJsC8eP+/v/CidGvTPno5q11KHabgbIhlRVsbdc3e/e+H7Q6/n8rg1LpzoFy47Akam2oER+Z2/qEaec+w3R65lv2ZWsv3g2ZOqKDWyP3Vg5G61f9iS1B0CidmaTyLpQ+bGqwesjJABVNbCyxfL8R1zEafsdmuRB5k0QZ+luYn9qTuUgrKppFpRfYs16L1zScwfRcp16vt7T5Dzaxxo0qOYdA5iYbu3omMGVU2TAKRkDfWl/p5snny5teKxE5qQrgJnphM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(23010399003)(366016)(1800799024)(56012099006)(4143699003)(11063799006)(5023799004)(10067099003)(18002099003)(22082099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VGZsQlBjSHdTSS9heVlBUFlNdXV5Z1NXa0JpdkZ5QlVCeVBwWnh1UEk2MjBY?=
- =?utf-8?B?cEI1VUpXUTdFQ2JvUlA2Q0xxMlpXSG5PWmROVTVjdUROS0tYTEUxTG5tUkVI?=
- =?utf-8?B?Tkt0SGFaTVgydEVRV2xxcmR3TEFEWmIyaG5Cd0FTY3JpcjVsa0FwTmc4YkhE?=
- =?utf-8?B?ZE1YWXU0bmI0bnJRcXJqaWRLcHo2Z3pIa2laK1RidnNkU0pidzlxU0RmMlFu?=
- =?utf-8?B?YUZGdWkvSlM5Z1BNcmw0Y1J2TTlMaDdUOVAya3RHaVJETHJuSHdsVnJEcHdS?=
- =?utf-8?B?VzV1bjM1a3FRdDBlUWxYNjIvTTNvbCtYeWZ1SGErdGs3cW5VTmJ4M2Foa0x0?=
- =?utf-8?B?dWxIWHU5cXZDcGJXSENnTlRNeTdVQWhLR3NVaWM3QmVHWlRTL2tQTzY1SVBV?=
- =?utf-8?B?RC91VzJLa1c0OE81T3VHelcreG1ybG02WlhhY2NQbEtjK0tEaUU4OUEzVUlu?=
- =?utf-8?B?a0grYkUvQlFRTndmVDBWd1MwWCtZWE1NWW5CRXZYaERIMUFZNE9pUDltNkg2?=
- =?utf-8?B?VjFqc01XdFdEbnoyK3ltbm1LVVdMZ3dEUU5SL3FKRE14V3ZSbzRvemdVdGdy?=
- =?utf-8?B?VDR6QUJiS1NLVkdLNFpleVQ0RFo1cU1lNE9sMWFRd2M1Y3pkUzRGcTZhZ1V6?=
- =?utf-8?B?VHpvRXdFMkJOZG9PNWxUMVN4NWlSYWI2UCtOaEFtL3dlVTJmTjUzUWphWUNK?=
- =?utf-8?B?cFJLV1ZDWktGaHpXUXlzSCtiTzJBbWg4Y1ptNXVPbWJsd1JnaFF6SDcvM3NQ?=
- =?utf-8?B?L25vNHhPbnpiYktaMlY3cDJhUnU0Z2lCMUdLUGJmTXBPNUxGaUVYUkRYd3ZJ?=
- =?utf-8?B?TTMyMnAvMndXMnd3UlZhZ2dkbDFVRTMxanhOYTZEaVg1SmxLckFTcSt4dU5u?=
- =?utf-8?B?ZHRWaWoraGRINDhSTFhGSllIaTlzR05IcFFsL1FLT1JaVTBuczJYUGo3WUZi?=
- =?utf-8?B?dEJ0Nzc0QXFnblJiKy9lV1VhTXdnN2ZhV2xVdVR2YTBKd1V6dVNFbFVQaWEx?=
- =?utf-8?B?eVhXbTVacWZxbUhaeHlpRkFlUVlGWEFiVVR3czkwR0MrU3dsZWY1M2pPVTcx?=
- =?utf-8?B?Q1o0Sk1NYjVpNzNta2lBSWtxbkNzS2JhS01heGRWS0t1TFBFaFpKNU5yWWJp?=
- =?utf-8?B?S1Bta3ZjV09VcGlGLzZqM1Fnd0gvVXdUVlFidzMxSjQvOWpIVVB4ZVV4R2xY?=
- =?utf-8?B?akkySkwvcWxjaDBZZWFmS2gyOE5LYUVZY1JDRElRV2l3S05XZmNmNlkvRnFa?=
- =?utf-8?B?Wjg3OE9PTHJKWDZ6SWZwUVQ3MHdtUktUR05IcHYyTEdxaklOUjJQS3QrS0J0?=
- =?utf-8?B?VjdZL3dHSVFmS2txZS9WK3BZT0E1MkhFVzhpcnhwclNCRkcwQjhHZ2pqaytm?=
- =?utf-8?B?WDNiRlIrMWVnOUgwK1dlMXI0a1F5N0VSdWswOTdBUGFwSDE3U2Z3bzcraUVC?=
- =?utf-8?B?UVdNZUVINk5MRnhRdSsyTWFRT2p6R01NdjNMNVo0aCtaZlpSLzFMNFBPS25G?=
- =?utf-8?B?ZEsvVTBDRjJIdVlFQlZFbExrOU5rOHJSSjZnTnpiU00vc3B0TjhDQS9qZGNh?=
- =?utf-8?B?UFFqMTBrR0dwK2gxYWgyN3JkVDhDTzJFZHlWbTN5SHJkM2dPM0ZxZlM2azJZ?=
- =?utf-8?B?RUNrYm5TelI4ZnBzaGFHZ3BwWW9oWW1UaFlqVEk0VkN5cjlPUEZxcnNLdUxP?=
- =?utf-8?B?aGJac2dJMk5OUk1ZMHRacndPRlNFaWRNNjdWUXJXTDlPeWovamZQbUsrNy8z?=
- =?utf-8?B?Y0EzTC9DRjhRODRzdXBCb1cwQitqUzJPUUxJZU91MHg4WjZRNTFqWm56OTVI?=
- =?utf-8?B?OVNkN1dmTU5Gd2xsSW90TXoxdmNBYzJzdmdxQm1ldUQxTnF6UVNsY3lKSWtR?=
- =?utf-8?B?K2R6TDNqQU5OYldnRVZrM1YrblhKK2RhUmxDdnJONDlXTmZMcS9wT2lFSSsr?=
- =?utf-8?B?dFdiRG53VVBKTk51Wlc0RENYY0FoSkd1Q3lzMFZ5VTQxTktrbzVrbkNRZ20v?=
- =?utf-8?B?NEFwdGdsbVZlUlgvQ0FOT0g2Vm5lWTBMbHdXdVBMdUh5RHN6TmFlbndtVVZx?=
- =?utf-8?B?U1JSR0tycWhRcUFUUnJjeU5yOHdIMDIremRtL2pnVlVkelVTSFJDelg3aVZv?=
- =?utf-8?B?K29XaUFjRjlvM0pIN2lFMkY0ck9rWVByMHFsOEllUUQ1bHJBcmtIV0NMQms0?=
- =?utf-8?B?UVlBWXoyZ3R0aVZwZFI1d3dlNGh0WXFKRVFHLzNIdVd2RFZOK1BFcmg5Y0pp?=
- =?utf-8?B?aDRmRXV0M2lWVFM1SFdqQ1llaHBpMGx2RHdMVlpncUZ6SlRiOGwwdXViUzRX?=
- =?utf-8?B?T1NtSXVNeUk4WlZ3UHFvVXdEWXIzZlNmbnp3MjRERXEwdTRGUnhuYVp4MWZY?=
- =?utf-8?Q?PPeihhiSJ54vDS4UhWHuwo1tdgfs33Px9oK9rSATu77/w?=
-X-MS-Exchange-AntiSpam-MessageData-1: v3IsaoptcpfUrA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34c308cd-44ef-4e0a-ff98-08df260eb668
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3BWTmVFUmVZUHRqYnVuaGFvVktINmladkRCaVBzdExvTElBTkZOY0IvRVVw?=
+ =?utf-8?B?cjdmM0IrdkpoQVZ3KzFBOXBOU25uWWNKbzZWOTdvUWIyOWxIemVmbHN4MXRu?=
+ =?utf-8?B?bjVBaGFtUjFHdzBFVml3Q0RnazBNcXIzUkZSNDhaTWZDZzVHbWJGSU1sdEEy?=
+ =?utf-8?B?cXNYcHhrQTc2ZkQyK0hISEhXOW0zOSttU3RKdnAxODNUb3pmSjlQMEducUpU?=
+ =?utf-8?B?WXpzMEdWUkFwREFHZVlJU0Y0ZW1xa05hY3p3NVBndlV4dGczYVpOakExUDV1?=
+ =?utf-8?B?V20yVlhxamFZckRrOXdoMDc5NUFML0dBTFd5cWd6KzRuUzVETDRsYXVCR3ow?=
+ =?utf-8?B?Vnp6WlJLTGJvN1A4bGZwY3RENWVudGFPZnQ0NzFkWmdESllSK2FIb0I1L0M0?=
+ =?utf-8?B?dVlvaVNHajFqNzlWUlhFTXZHNUU5YmkxdU05ME5BbGtuRituaUErTWZFOENi?=
+ =?utf-8?B?Z1ZIZXdScnNjcXBtR0dTbHlYMXhIWW1EZFIzT2N5TWhzL3BDYS9JeENmbitq?=
+ =?utf-8?B?UTNseFhmeUFRWERKMlBVdDk4MG02S2JNM3RhK25jQ2lhN3hFbnhEdVh4bVFY?=
+ =?utf-8?B?RFo1cVdJV0NZaS9iZVBGWlRINGpZa2RrUWpGU3lLbFZUNjdmZVIwUWtyZElr?=
+ =?utf-8?B?U3V0ZllETVlwdFhJS0lLbnpmaTlHS2FZOFp3bEZaZzBjanZOWHVia0U0NFpD?=
+ =?utf-8?B?Nythc1ozaGtab2pYeXZxRTBndnZBanhZODJIV0d5ODlTVjBmdWIxQnVEd0pE?=
+ =?utf-8?B?SW94QmFYaWl5emZHK29ISDgwbUxZZkRTSEhmcHpOWGdSZ2E0R1ArRW5YSGRX?=
+ =?utf-8?B?bUlLMjlIRnRGTFNQZUQxNWxRQ3MwZnRJWEV2N0JKd2dWQURJT1hMOFhYRWxD?=
+ =?utf-8?B?enJxU1Z5d3NDWW1lNUZRbnFCLzV6V3VPM0pDeWw2ZURrNk1sY2J3QjZLMkxs?=
+ =?utf-8?B?cHVNS3RWTmdBaUhDRW0rSVRxNURMb0dqQ2ozUWRyRzFHNWg3ZFFlV25hY2Mr?=
+ =?utf-8?B?NVBFaDMxb1Z6V09GWXRncUNZOTR6UHF2K3RNK1RsaU5rblJCZ1BuelFJcVJH?=
+ =?utf-8?B?T0F4ZUhlTUVnT1BZc3hlYVJpejdhWVQyY0RRK1orMXAzSzlmL1dRdFBPUjIw?=
+ =?utf-8?B?R2RmN1QycGxKMGlqWk1iTFpUQXlCSzZjNWZMMjc3UThibEJhd1A2NWJFQ2xx?=
+ =?utf-8?B?Q1lEb1VWS25aQk1kMHpsZlVyUjJtWnJtWHIwY0pjR2xGK25SbDN1NGd6QVZn?=
+ =?utf-8?B?TzQ2LzAwek10SUlxdTkrdmhoZTdPYzI3eUR5U0QxdkxpeXBEbVNHSFBocXZr?=
+ =?utf-8?B?NVVFOWwwNEJjdHhKNXVtVDNLNUxBcnVWOEY5Q0xsQUE0elp2dll3SS9sNGRT?=
+ =?utf-8?B?cEJreWNZazlOVE8rWjBjZDJSQmhSaWtpTzd5a1pNcis0NCt5OHpnSXZQVk1M?=
+ =?utf-8?B?M0EyRzdicnQ3TFRxU3E0dk0rVkt2SmFmWnV4VDV3UkJWYWhsVTA2bFZVMjBO?=
+ =?utf-8?B?cnU5SzE2UkxxN2NrNDhUKzVYNFhVY1VNUVFsbGRzZ1JFMWlCRTZRMkR1MUFi?=
+ =?utf-8?B?Z0Q4eDJPejJMRjUxLy9uMENUQmdQSkptTG5kQmY5K1VBMm80SnhCSUZFYlo0?=
+ =?utf-8?B?OHN0RkFXRmE4Ly82WG1vd3l2R3REVUoxdWhZbzd6czVBeFdBUkcxaG5tN0x1?=
+ =?utf-8?B?R2xjcUdtSms5Y2hZbXZ6ODhFaTRMMStUQ0hmdW1jWkZpU3JQckJJK1ppbUxj?=
+ =?utf-8?B?MERlbzQ5cExDY3cramdHVWVoWGs3N2Z5amRTejFSK0piS0NkZXZwNkE1MlZV?=
+ =?utf-8?B?ZEVZTCtxRzc3d2FyTTkzVC81Z1d3M1ZBTTBqOEFXTjRQNzFXVSsxVjN3NjNB?=
+ =?utf-8?B?eVl1N0c0QytQZGhMdXZkQXl3WFR2YjFqbDJseFB1RlJXdmh5QlFPUGgvMGJC?=
+ =?utf-8?B?YnB2Nnd5NGovWnZFUHlLQkFZVCs0NytjdStuNGNZMHVMdHcxdG14SlV3bkJG?=
+ =?utf-8?B?TEswc0MvVzF0RTFOM1dzZE41R2tEWmUwZ0J6R2h2Nm1EZ3I1TFpOYnJUUXk3?=
+ =?utf-8?B?aE4zbklxNDh0STg3blozcTcrem5xTCtYSElLVWVXOS9qVUZla3EwT3VzUXp4?=
+ =?utf-8?B?TitqWjVoQ1A3Z1VnaVVUbFJFcVMxMkl6bDY0WFhDMWJMRWRORWhkcFQzRnNO?=
+ =?utf-8?B?ayt5WXZ4bXB6ald0d0ZlTVFmNVVZb09qbGd2cFJ5Nkp5T0RLS0NUdkJIM0lJ?=
+ =?utf-8?B?Zkw3M2FIam1PaUh5NGRlTityQ2huWHBmMXoyWFh5dEswbXQwVDJxTlU3SlNj?=
+ =?utf-8?B?RnlZeUIrWE1mRS8wU0ZMSzQxcWhSbWZPakExcFU0SllrMzRxazdVdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36713df2-4926-4bf5-c176-08df260f9869
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:07:54.3124 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:14:13.5615 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ODepU7BN6ZOayFqNSQuiWf1zqu7+Xxzs8/Sx4lP6wYXZSkNHXQ4o65ie8YYgPSm1JpDzH7ggIBuQufZWmpeOCQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: mJrHhQvYy7Xhdm02qM9mkT86CkV3lR8/0a1mPeH6m00Gzl2YyeXMR0kz6PaMdPUV
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB362669
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -152,110 +144,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Oct 9, 2026 at 12:47 AM JST, Yury Norov wrote:
-> On Thu, Oct 01, 2026 at 03:20:40PM +0900, Alexandre Courbot wrote:
->> On Wed Sep 30, 2026 at 2:05 PM JST, Yury Norov wrote:
->
-> ...
->
->> > Allocating a pool with 0-bit capacity is wrong. Please don't put it
->> > in the examples. I recall I pointed that this object would panic the
->> > kernel if, for example, you call pool.next_zero_bit(0) immediately
->> > after this. Sorry, but NAK.
->> >
->> > This .with_capacity() should take num_ids: NonZero, after all...
->>=20
->> This panic is not specific to the size zero, any size triggers the same
->> behavior when accessed out of bounds.
->
-> In C, malloc(0) is implementation defined behavior, i.e. it can return
-> a pointer valid for free(), or NULL (which is also valid for free).
->
-> This is a very old legacy coming from K&R implementation, then rejected
-> in C89, and later this all became an impl-def, mostly for compatibility
-> reasons. See 7.20.3 in
->
-> https://www.open-std.org/jtc1/sc22/wg14/www/docs/n937.pdf
->
-> Rust adopted C bitmaps, thus creating 0-bit bitmap may go through, and
-> hit that questionable behavior. You add this example without any
-> discussion about all that possible complications, and with no
-> protection for users.
->
-> Interestingly, you're doing it for the reason that has been considered
-> a bad practice for over 30 years ago - malloc(0) with the immediate
-> realloc(). See the above link for details.
->
-> To me it looks like pulling legacy with a potential of undefined behavior
-> into Rust.
->
-> Bitmaps is a way more simple case than the generic malloc(). There's the
-> only user of bitmaps - the Linux kernel, so we know exactly all users and
-> their user patterns. I'm not aware of any in-tree user allocating 0-lengt=
-h
-> bitmap for whatever reason, and such a coding style is highly unwelcome
-> nowadays (30+ years).
->
-> When it comes to rust, things are even simpler. Rust has much stricter
-> memory policy - no undefined behavior, no implementation-defined behavior
-> is allowed, no 50-years old legacy has to be considered.
->
-> Rust community decided to take the existing in-kernel implementation of
-> bitmaps written in C, for a reason. But with that it pulls all undefined
-> and poorly defined behavior associate to C language. We did quite well
-> spotting such places and fencing them with safety checks.
->
-> The 0-length bitmaps is just another case that should be resolved.
+On 10/9/26 15:50, Icenowy Zheng wrote:
+> 在 2026-10-03六的 09:34 +0000，Evanshenf写道：
+>> lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
+>> writes
+>> to lbo->kptr unconditionally. When the first mapping of a newly
+>> allocated
+>> buffer fails, kptr is still NULL and the subsequent memset accesses
+>> it.
+>>
+>> Return the mapping error without touching the buffer and propagate it
+>> from lsdc_gem_object_create(). Install the GEM object functions
+>> before
+>> clearing so that drm_gem_object_put() can release the buffer
+>> correctly
+>> on failure. Do not add the failed object to the tracking list or
+>> return
+>> an uncleared buffer to the caller.
+>>
+>> Imported buffers still skip clearing, and successfully mapped buffers
+>> are cleared and unmapped as before.
+>>
+>> Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap(). Its
+>> -EINVAL return reached userspace, the object was destroyed once, and
+>> no GEM handle was published. Normal create/map/zero/write/read/close
+>> cycles passed, with the tracked BO count and VRAM usage unchanged.
+>>
+>> AI assistance was used for the lifetime analysis, fix, fault-
+>> injection
+>> tools, build and test execution.
+>>
+>> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+>> controller")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Evanshenf <archwse@gmail.com>
+>> ---
+>>  drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
+>>  drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
+>>  drivers/gpu/drm/loongson/lsdc_ttm.h |  2 +-
+>>  3 files changed, 17 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
+>> b/drivers/gpu/drm/loongson/lsdc_gem.c
+>> index 2fb0348..9eba4e1 100644
+>> --- a/drivers/gpu/drm/loongson/lsdc_gem.c
+>> +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+>> @@ -157,14 +157,18 @@ struct drm_gem_object
+>> *lsdc_gem_object_create(struct drm_device *ddev,
+>>  		return ERR_PTR(ret);
+>>  	}
+>>  
+>> +	gobj = &lbo->tbo.base;
+>> +	gobj->funcs = &lsdc_gem_object_funcs;
+>> +
+>>  	if (!sg) {
+>>  		/* VRAM is filled with random data */
+>> -		lsdc_bo_clear(lbo);
+>> +		ret = lsdc_bo_clear(lbo);
+>> +		if (ret) {
+>> +			drm_gem_object_put(gobj);
+>> +			return ERR_PTR(ret);
+>> +		}
+>>  	}
+>>  
+>> -	gobj = &lbo->tbo.base;
+>> -	gobj->funcs = &lsdc_gem_object_funcs;
+>> -
+>>  	/* tracking the BOs we created */
+>>  	mutex_lock(&ldev->gem.mutex);
+>>  	list_add_tail(&lbo->list, &ldev->gem.objects);
+>> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
+>> b/drivers/gpu/drm/loongson/lsdc_ttm.c
+>> index 88536e2..7b30dea 100644
+>> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
+>> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+>> @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
+>>  	ttm_bo_kunmap(&lbo->kmap);
+>>  }
+>>  
+>> -void lsdc_bo_clear(struct lsdc_bo *lbo)
+>> +int lsdc_bo_clear(struct lsdc_bo *lbo)
+>>  {
+>> -	lsdc_bo_kmap(lbo);
+>> +	int ret;
+>> +
+>> +	ret = lsdc_bo_kmap(lbo);
+>> +	if (ret)
+>> +		return ret;
+>>  
+>>  	if (lbo->is_iomem)
+>>  		memset_io((void __iomem *)lbo->kptr, 0, lbo->size);
+>> @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
+>>  		memset(lbo->kptr, 0, lbo->size);
+>>  
+>>  	lsdc_bo_kunmap(lbo);
+>> +
+>> +	return 0;
+>>  }
+>>  
+>>  int lsdc_bo_evict_vram(struct drm_device *ddev)
+> 
+> Well I currently don't know whether the clearing is meaningful...
+> 
+> It seems that drm_gem_vram_helper doesn't do this.
+> 
+> Cc'ing TTM maintainers for an answer.
 
-As it turns out we would never perform a zero-sized malloc, even for a
-zero-sized bitmap. `IdPool` is backed by a `BitmapVec`, which up to
-`usize::BITS` uses an inline member as backing storage. So we would
-never call `bitmap_zalloc` with a value of 0, making the safety concern
-moot.
+Natalie and Arun are TTM maintainers now, but I will try to answer here as well.
 
->
-> If you still think that you need 0-length bitmaps in Rust, can you please
-> give the clear and thorough explanation why rust needs those 0-length
-> bitmaps. Are there any in-kernel examples? Any language concepts requirin=
-g
-> it? If not, it's still a NAK.
+OpenGL doesn't necessarily require clearing of VRAM nor isolation of VRAM data between processes.
 
-I don't know of an in-kernel example, but please look at the
-`bitmap_vec_new` test which has been here since the API was initially
-merged last year: the first thing it does is create a zero-sized bitmap.
+So it is up to the driver if they want this or not. Classically a lot of drivers didn't clear VRAM allocations until explicitely asked.
 
-It is also easy to imagine a user starting with an empty pool and
-growing it on-demand. Having the ability to create a zero-sized pool is
-convenient to avoid special-casing user code, and in this case I'd say
-expected, just like you can create a zero-sized vector. Again a size of
-zero does not trigger anything that a larger capacity cannot trigger, so
-I don't see a reason to forbid it.
+But if you clear the memory you should have proper error handling and a kmap/vmap can fail at any time for multiple reasons.
 
->
->> A size of zero has nothing special
->> in that respect, so why make an exception and forbid it? We had this
->> discussion some time ago [1][2], and I'd recommend instead making e.g.
->> `next_zero_bit` return `None` on out-of-bounds accesses, which is
->> semantically correct.
->
-> No. out-of-bound access should panic because every caller of bitmap
-> API knows the length of that bitmap.
+Regards,
+Christian.
 
-Right now out-of-bound accesses are allowed if
-`CONFIG_RUST_BITMAP_HARDENED` is not set. The Kconfig documentation for
-that option even says "if unsure, say N", which suggests that not
-panicking (and thus the behavior I described above for `next_zero_bit`)
-is the default. If out-of-bound accesses should panic, then the Kconfig
-does not reflect that.
+> 
+> Thanks,
+> Icenowy
+> 
+>> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
+>> b/drivers/gpu/drm/loongson/lsdc_ttm.h
+>> index 843e147..df47d9b 100644
+>> --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
+>> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
+>> @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
+>>  
+>>  int lsdc_bo_kmap(struct lsdc_bo *lbo);
+>>  void lsdc_bo_kunmap(struct lsdc_bo *lbo);
+>> -void lsdc_bo_clear(struct lsdc_bo *lbo);
+>> +int lsdc_bo_clear(struct lsdc_bo *lbo);
+>>  
+>>  int lsdc_bo_evict_vram(struct drm_device *ddev);
+>>  
+> 
 
->
-> But if you make that 0-length bitmap a valid case, we need to revisit
-> every function and make sure it returns ENOENT or something instead of
-> panicking. That, again, must be very well explained and justified, and
-> all this has to be done before adding 0-length bitmap support in code
-> and examples.
-
-With hardening off, every function already behaves in that way, and
-existing user code is already written to not trigger that condition
-anyway (because of the possibility of a panic), so that would be a
-pretty innocuous change.
