@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A597CA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA22CA601F
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:20:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A6E10E358;
-	Fri,  9 Oct 2026 18:19:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F393B10EABA;
+	Fri,  9 Oct 2026 18:20:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nneO5/se";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NFbw4/T4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A95F710EABA
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:19:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E08B910EABA
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:20:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CB5E56020C;
- Fri,  9 Oct 2026 18:19:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7BD1F000FF;
- Fri,  9 Oct 2026 18:19:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8D97240302;
+ Fri,  9 Oct 2026 18:20:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CBB81F000FF;
+ Fri,  9 Oct 2026 18:20:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569943;
- bh=FGR6IAJ22ppjXpr5xm080mWSWuyxnEDDo+UtB4ySOG4=;
+ s=k20260515; t=1791570006;
+ bh=XVlb3mYoSbmXQy7keQ5SiIkIOFjittedAmc93PfV57I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nneO5/seF62iUijhFLoCsBQRM40H/nOYcsQEmtzn+cCnYDeEQ35uMbOtfkMvTDefL
- IbBBEOHhiaFI2mWG5Bq0c+JTLa52QcZzJIblpYUGky+GglszQAmqRau0D8oxMj4xIy
- heQDk+waRR1wHju3wr+dj40lB2cV7w8FR+swYFWowEK1P9wG0TstZCuwh+szuxXuVl
- S/AcScP9ZozJy6LUFGVJeL6v2Jrs8IILKE6He8jUP3drbmwQ0139GxUx405PBggsBp
- LRBH0iRdi2PBivM+TKmomOojKiLXYs9ApEdg7Wh9G3nt6Tcw9z5BXLM65ia+RwzcAf
- Xx83zN0dh6Upw==
-Message-ID: <sashiko-outbox-165929@kernel.org>
+ b=NFbw4/T4oBz3H+UYivcp1/4PPhbobaj22UkJxFy3ezuYVOpT8ZItiiQgOlWNNz40N
+ aX7V+GyqusVzLW8QeoIinJdUh9+0g+5kRmASKS1ORhICy4YyCEUvORTH4vOy9IdPd3
+ pQiwL36/jmyB2vfVknRA+dvy3wA1Plw1c85P6TES+TZeCD8fuMNtTI0wyO4p5NQQ2r
+ dfrmAhVpM4SEgjVBkFpFdBLO10sh6Q3RTCcYvwb4T39PJ0EsuKqgs9nKCxSOm33vhV
+ 4ikqrWiQ0zInfjTL+f/hyJZTSRnAs0j0G3uLNsKFFoz4GSHuvsQ0oSbUuzGqOTCDAG
+ k7vzboCLWqfpQ==
+Message-ID: <sashiko-outbox-165931@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 08/38] docs: filesystems: update mmap_prepare docs
- for discontig kernel pgs
+Subject: Re: [PATCH v5 06/38] mm/vma: tidy up map kernel pages enum values
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: linux-trace-kernel@vger.kernel.org, "Marc Zyngier" <maz@kernel.org>, "Heiko
- Carstens" <hca@linux.ibm.com>, kvm@vger.kernel.org, bpf@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, kvmarm@lists.linux.dev,
- "Oliver
- Upton" <oupton@kernel.org>, "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- "Alexander
- Gordeev" <agordeev@linux.ibm.com>, linux-perf-users@vger.kernel.org,
- selinux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, "Vasily
- Gorbik" <gor@linux.ibm.com>, linux-usb@vger.kernel.org
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-8-923b70125b1e@kernel.org>
+Cc: linux-s390@vger.kernel.org,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Oliver
+ Upton" <oupton@kernel.org>, linux-scsi@vger.kernel.org,
+ linux-rdma@vger.kernel.org, kvmarm@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, "Marc
+ Zyngier" <maz@kernel.org>, "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ selinux@vger.kernel.org, bpf@vger.kernel.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ kvm@vger.kernel.org, linux-perf-users@vger.kernel.org
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-6-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-8-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-6-923b70125b1e@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 18:19:02 +0000
+Date: Fri, 09 Oct 2026 18:20:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,18 +66,25 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Describe the newly introduced discontiguous kernel page mapping mechanism,
-> detailing how to use it sensibly and how the API looks.
+> MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied by
+> MMAP.
 >=20
-> Explicitly detail the various discontiguous actions available and how to
-> use them.
+> Also while we're here delete useless comments for mmap actions whose names
+> clearly indicate what they are for.
+>=20
+> Also update the userland VMA tests to reflect this change.
+>=20
+> No functional change intended.
 >=20
 > Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-b4-mmap-pr=
-epare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org?part=3D8
+epare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org?part=3D6
 
