@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2109ECA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 12:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60A99CA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 12:06:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 785E21120C1;
-	Fri,  9 Oct 2026 12:00:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B310310E038;
+	Fri,  9 Oct 2026 12:06:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nan+1v9G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AZV/GHEL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28B351120C1
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 12:00:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F23810E038
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 12:06:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D5FA2403F4;
- Fri,  9 Oct 2026 12:00:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D18E1F000FF;
- Fri,  9 Oct 2026 12:00:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4D6C460534;
+ Fri,  9 Oct 2026 12:06:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7CD1F000FF;
+ Fri,  9 Oct 2026 12:06:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791547240;
- bh=OX3YUHatPcL3Kz3o3unLGo9ozOKPQHAwI4BjyvNipr4=;
+ s=k20260515; t=1791547583;
+ bh=XoGZ5yWB502YFWVWaODrBXXuoD51zGAgrsoRbKanqvU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Nan+1v9GfcDzwbjKkKvdZpLuxZZI5nvplgjMolY5AAMavE4APwElO7iuLj9QRD34y
- f2t7sEz58ls5rAdhx/HOjwMVJCJdt3SZOEswcXnZhnNr6PokY9EOEjGcoq6K7VktFJ
- /OJ2zRTMvO5QXKknmR+Ul2cyUo5VY/WmRdNIH86Lbv3/SWJu1BdLla35p1BzMmEt3B
- 2shR1sUwhkWfRTdVlrPLrfzRKS5xPSkUCSP8Qeulj3ot7m3qFgX/aOiUxUcnH4zoqf
- EoRMsiTKVZenJffrUPpqKapS5SJVkTvGpTnVd0gcj7nutrxFtmtvWKkWxzxLnJYT6m
- t3+wwe4LcDWaw==
-Message-ID: <sashiko-outbox-165460@kernel.org>
+ b=AZV/GHEL9081GlHM5evY1ZUjb2258r2pffiyT4IRcJZBxuUBhS90cXDRfpOvW6VAf
+ U9bVPWBGZbrsO0UCOTTx3k1cCc/QUoPwZrQdJm89uHR94dnAZxyZ1dkXeNnkjkb4gI
+ GSUleZnVwBBfv0okb5GV0zYANNg4xCIOP8+aFTlhb8RLXwF4W1/yhXLqeppiPelZf/
+ 1W2TcyI95yZu45v2CxPPwI2C2c4xfwHBzzmahKEDAwhCAXZNFzQzrXOGDSbCZT9w59
+ yIo3CaH5oqem8bGl2HuOzXliKUNba9hpr+k/OddIcjg/HkqqbgHRJNRrzq2kaUBARW
+ LDIHhvJy854KA==
+Message-ID: <sashiko-outbox-165477@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/nouveau: Fix memory leaks in debugfs and hwmon
- init error paths
-To: liupeng <liupeng01@kylinos.cn>
-Cc: dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20261009115151.13877-1-liupeng01@kylinos.cn>
-References: <ea9a1d374cf3127e5047bc73807ce821022e026e.camel@redhat.com>
- <20261009115151.13877-1-liupeng01@kylinos.cn>
+Subject: Re: [PATCH v4 01/10] gpu: nova-core: gsp: cmdq: validate checksum
+ earlier on receive
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ "Alexandre
+ Courbot" <acourbot@nvidia.com>, ojeda@kernel.org, gary@garyguo.net
+In-Reply-To: <20261009-cmdq-rpc-v4-1-c9ab8de1d3f2@nvidia.com>
+References: <20261009-cmdq-rpc-v4-0-c9ab8de1d3f2@nvidia.com>
+ <20261009-cmdq-rpc-v4-1-c9ab8de1d3f2@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 12:00:40 +0000
+Date: Fri, 09 Oct 2026 12:06:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,28 +60,78 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> In nouveau_debugfs_init(), if nvif_object_ctor() fails, the previously
-> allocated drm->debugfs is leaked because the function returns the
-> error code directly.
->=20
-> In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
-> the allocated hwmon structure is leaked because the function returns
-> the error code directly.
->=20
-> Fix both by freeing the allocated memory and clearing the pointer on
-> the error paths.
->=20
-> Fixes: b126a200e9db ("drm/nouveau/debugfs: we need a ctrl object for debu=
-gfs")
-> Fixes: b9ed919f1c8f ("drm/nouveau/drm/pm: remove everything except the hw=
-mon interfaces to THERM")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
-> Signed-off-by: liupeng <liupeng01@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] gpu: nova-core: double fetch of message length allows queue desync=
+hronization
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit 946fd7a5c2c75e7ae4c51655010ee1c1c0977129
+Author: Alexandre Courbot <acourbot@nvidia.com>
+
+gpu: nova-core: gsp: cmdq: validate checksum earlier on receive
+
+This moves the checksum validation before accessing the RPC header to
+avoid printing an unvalidated sequence number.
+
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index 1b2f346a237f0..b1d46d6d4d4ab 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -792,6 +792,15 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<Gsp=
+Message<'_>> {
+>          // Extract the `GspMsgElement`.
+>          let (header, slice_1) =3D GspMsgElement::from_bytes_prefix(slice=
+_1).ok_or(EIO)?;
+> =20
+> +        // Validate checksum after truncating the message to its exact l=
+ength.
+> +        if Cmdq::calculate_checksum(
+> +            SBufferIter::new_reader([header.as_bytes(), slice_1, slice_2=
+]).take(header.length()),
+> +        ) !=3D 0
+
+[Severity: High]
+Does this code introduce a double fetch regression? Because the GSP message
+queue resides in DMA-coherent shared memory, the device can concurrently
+modify header.length().
+
+By using header.length() to bound the checksum calculation via take() here,
+but later using header.payload_length() to slice the payload:
+
+drivers/gpu/nova-core/gsp/cmdq.rs:wait_for_msg() {
+...
+        let payload_length =3D header.payload_length();
+...
+}
+
+could the GSP modify the length field between these fetches, causing the
+slices to cover unvalidated payload data and bypassing the checksum?
+
+Furthermore, there is a third fetch of the length later in receive_msg():
+
+drivers/gpu/nova-core/gsp/cmdq.rs:receive_msg() {
+...
+        self.gsp_mem.advance_cpu_read_ptr(u32::try_from(
+            message.header.length().div_ceil(GSP_PAGE_SIZE),
+        )?);
+...
+}
+
+Could modifying the length before this fetch cause the CPU to advance the
+pointer by an arbitrary amount, desynchronizing the command queue and
+potentially processing arbitrary data as commands?
+
+Do follow-up patches in this series retain this same structure in other are=
+as,
+such as consume_element and RpcMessage::parse?
+
+> +        {
+> +            dev_err!(&self.dev, "GSP receive: bad checksum\n");
+> +            return Err(EIO);
+> +        }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009115151.1387=
-7-1-liupeng01@kylinos.cn?part=3D1
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-cmdq-rpc-v=
+4-0-c9ab8de1d3f2@nvidia.com?part=3D1
