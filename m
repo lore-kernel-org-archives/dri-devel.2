@@ -4,53 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70505CA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 15:42:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 837D1CA601D
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 15:50:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B616F10EA95;
-	Fri,  9 Oct 2026 15:42:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8651121D8;
+	Fri,  9 Oct 2026 15:50:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TP8RuDRh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lT7qZutG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 815B710EA8A
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 15:42:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 51B6843354;
- Fri,  9 Oct 2026 15:42:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65251F000FF;
- Fri,  9 Oct 2026 15:42:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791560530;
- bh=HW59q6Yn0OslPF3Els2Dkx+G+MOVrvpGDU0AOpiMs5A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=TP8RuDRhfHpTVUdPOYlk0cIai3NHcEJgnKN6+dQM5aM4V2sN0c1RJn+LEudiFDrkx
- dxScbsVCXK/W/4tJ088RvzIyIV4tcX65/nuH9IbLVfzP1O0w/fPilJaufUYPI5Fg5C
- OeGTmYEozM6KgPwCKm1yctQX089jK86OD+Q6445gfjut+OH+ojDM0OJ9+2wQdQttII
- ea4mSor3ZZPSpSlPWNsGESj4hSjJ+7W/nhqBdJXGVeYuAY49DAOltFhqV0oMpSh0p4
- aNrSJHhvyLXiCcTuidBjxn3JMDSlIw3uS5sa/2sm7OfmUhh7PfK5uelxDHP4XYiGk2
- 3dTzg8vgb7Q7A==
-Date: Fri, 9 Oct 2026 16:42:01 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Quchaosheng <quchaosheng000406@163.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-Message-ID: <20261009-db35f1d74028d0d0a34f1106@squawk>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
- <20261009105601.301891-2-quchaosheng000406@163.com>
- <20261009-2f34bbada2c463c78b2c05a7@squawk>
- <20261009144434.GD622105@killaraus.ideasonboard.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BC7C10F42E;
+ Fri,  9 Oct 2026 15:49:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791560999; x=1823096999;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=KA76ESxM8lCnsXfxSBELhVXIMrRIa1cTrHeMm5DtMDI=;
+ b=lT7qZutGnlMWoUQVQ2GtEGln6EphEAnnXeu60KpMOJA0wlkEz4OQV5fv
+ qOWy6K6UjCaJoDRumSbLubMkkWjic6/flwf9j9f2JtcSGK1TEVntZTe5/
+ 2g3d+In6/rcEOgeK56tEZ8EFbDwZ0bZRMZT1lqzRSu6spMlA7hBlh5IPL
+ hhZ1UgTKCxyRvyF8USIU0zVcl6r0w97O/I1EPDkoYYghE7Cu6oJCO3XbT
+ S7O6A7UECkJb8gGYXlkXKgyuhh6Vd9fsyobiVtPInD7UM+Il105ore719
+ IPeyS8VsDqnv4teNWXuBmYgRXBY/CbOfaL1c2+6eHE5G+CR/pCEL/sxnS w==;
+X-CSE-ConnectionGUID: T94ZOEJYQlKPFvj4Nb8enw==
+X-CSE-MsgGUID: KShKMmJiTrKVA+pjx+WyWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="365747"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="365747"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2026 08:49:59 -0700
+X-CSE-ConnectionGUID: UWXxgW8GTLmWpRwxnnwZmA==
+X-CSE-MsgGUID: 5xcecb1lRXusBDDXrBFxdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="796335"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa010.fm.intel.com with ESMTP; 09 Oct 2026 08:49:55 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xFCr2-000000005wy-0Ous;
+ Fri, 09 Oct 2026 15:49:52 +0000
+Date: Fri, 9 Oct 2026 23:48:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Julio Faracco <jcfaracco@gmail.com>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev
+Subject: Re: [PATCH V2] drm/qxl: Fix out-of-bounds read in client monitors
+ head access
+Message-ID: <202610092302.Y90qfnp6-lkp@intel.com>
+References: <20261008155034.55688-1-jcfaracco@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+lGluAYOQ0yvN+I2"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009144434.GD622105@killaraus.ideasonboard.com>
+In-Reply-To: <20261008155034.55688-1-jcfaracco@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,69 +79,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---+lGluAYOQ0yvN+I2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Julio,
 
-On Fri, Oct 09, 2026 at 04:44:34PM +0200, Laurent Pinchart wrote:
-> On Fri, Oct 09, 2026 at 03:25:49PM +0100, Conor Dooley wrote:
-> > On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
-> > > From: Chaosheng Qu <quchaosheng000406@163.com>
-> > >=20
-> > > Convert the TPD12S015 HDMI level shifter binding to DT schema.
-> > >=20
-> > > The TI TPD12S015 is an HDMI companion chip that combines a level shif=
-ter
-> > > and ESD protection circuitry. Document the two ports it exposes betwe=
-en
-> > > the HDMI transmitter and the connector.
-> > >=20
-> > > The tpd12s016 is software compatible with the tpd12s015 and is listed=
- as
-> > > a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-> > > fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only=
-, so
-> > > a board using the tpd12s016 must list both compatibles.
-> > >=20
-> > > Assisted-by: LLM
-> > > Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
-> >=20
-> > No idea if the sashiko reply is valid, because I have no clue if
-> > providing a subset of the gpios is functional. Really this should have
-> > multiple different gpios properties,
->=20
-> Definitely.
->=20
-> > but this binding is really old and
-> > not worth changing IMO.
-> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > pw-bot: not-applicable
->=20
-> I'm getting annoyed be the LLM-assisted individual conversions. Can we
-> start requiring people who convert text bindings to YAML to at least
-> handle whole groups in one go ? If they're going to do a bad job, I'd
-> rather have to review it once only.
+kernel test robot noticed the following build warnings:
 
-Or do one, and take the learnings into all the remaining patches - but
-with LLM conversions I don't think there's really much learning going on
-at all.
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm/drm-next linus/master v7.3-rc6 next-20261008]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I guess bunching them is fine, provided it is for one subsystem. I
-definitely don't want to see a set of 15 patches across 9 subsystems,
-at least with one subsystem it's likely to be the same common problems
-across the bunch.
+url:    https://github.com/intel-lab-lkp/linux/commits/Julio-Faracco/drm-qxl-Fix-out-of-bounds-read-in-client-monitors-head-access/20261008-125034
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261008155034.55688-1-jcfaracco%40gmail.com
+patch subject: [PATCH V2] drm/qxl: Fix out-of-bounds read in client monitors head access
+config: x86_64-randconfig-1017-20261009 (https://download.01.org/0day-ci/archive/20261009/202610092302.Y90qfnp6-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610092302.Y90qfnp6-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610092302.Y90qfnp6-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/gpu/drm/qxl/qxl_display.c: In function 'qxl_conn_get_modes':
+>> drivers/gpu/drm/qxl/qxl_display.c:1069:28: warning: unused variable 'qdev' [-Wunused-variable]
+    1069 |         struct qxl_device *qdev = to_qxl(dev);
+         |                            ^~~~
 
 
---+lGluAYOQ0yvN+I2
-Content-Type: application/pgp-signature; name=signature.asc
+vim +/qdev +1069 drivers/gpu/drm/qxl/qxl_display.c
 
------BEGIN PGP SIGNATURE-----
+f64122c1f6ade30 Dave Airlie           2013-02-25  1065  
+f64122c1f6ade30 Dave Airlie           2013-02-25  1066  static int qxl_conn_get_modes(struct drm_connector *connector)
+f64122c1f6ade30 Dave Airlie           2013-02-25  1067  {
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1068  	struct drm_device *dev = connector->dev;
+e304f8a0513b830 Simona Vetter         2020-04-15 @1069  	struct qxl_device *qdev = to_qxl(dev);
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1070  	struct qxl_output *output = drm_connector_to_qxl_output(connector);
+1b000494978d2f3 Shayenne da Luz Moura 2018-10-26  1071  	unsigned int pwidth = 1024;
+1b000494978d2f3 Shayenne da Luz Moura 2018-10-26  1072  	unsigned int pheight = 768;
+bf72b40d47f83ac Julio Faracco         2026-10-08  1073  	struct qxl_head *head;
+2d856f94e6d2532 Gerd Hoffmann         2017-03-01  1074  	int ret = 0;
+f64122c1f6ade30 Dave Airlie           2013-02-25  1075  
+bf72b40d47f83ac Julio Faracco         2026-10-08  1076  	head = qxl_output_get_client_head(output);
+bf72b40d47f83ac Julio Faracco         2026-10-08  1077  	if (head) {
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1078  		if (head->width)
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1079  			pwidth = head->width;
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1080  		if (head->height)
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1081  			pheight = head->height;
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1082  	}
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1083  
+b5f030b7b4a5c8e Gerd Hoffmann         2019-01-18  1084  	ret += drm_add_modes_noedid(connector, 8192, 8192);
+b5f030b7b4a5c8e Gerd Hoffmann         2019-01-18  1085  	ret += qxl_add_extra_modes(connector);
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1086  	ret += qxl_add_monitors_config_modes(connector);
+1b043677d4be206 Gerd Hoffmann         2019-01-18  1087  	drm_set_preferred_mode(connector, pwidth, pheight);
+f64122c1f6ade30 Dave Airlie           2013-02-25  1088  	return ret;
+f64122c1f6ade30 Dave Airlie           2013-02-25  1089  }
+f64122c1f6ade30 Dave Airlie           2013-02-25  1090  
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaskLSQAKCRB4tDGHoIJi
-0oOqAP9/cjJoHwDyuvhTJ9sGUQQFM7+QGVx4YCXrySUHlraVRgD/awI23g7lMVjK
-P89dAe3GuVNwufd8hjuhcHxiA7qK/g4=
-=bjaF
------END PGP SIGNATURE-----
-
---+lGluAYOQ0yvN+I2--
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
