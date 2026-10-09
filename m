@@ -4,81 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 883AACA6012
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 06:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89754CA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 07:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCED810FEDA;
-	Fri,  9 Oct 2026 06:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C942D10FEE6;
+	Fri,  9 Oct 2026 07:00:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="aSG73Zc/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UQV3U0hN";
 	dkim-atps=neutral
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
- [34.2.64.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A47210FEE1
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 06:57:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1791529056; bh=Iw/ZLCNV53Y0bK2SE3FJKi1UCBzg1qTnswZ6Yw7hiNc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=aSG73Zc/7ZcQ74JjOGuSzrZvUwqJPUPd3E/fW6T2oxYi1RgDb0al8DTHFMiRDS1Wg2Jue3Q4ERU/Ocaurf1Ke21MBddOcvAUtqJKV62CXszVbR/Gb8GHXSEYr9fF6g3g3ykBX712ky7HoBWFBOx/2tCdyw5aayUGCt9WDPtzYHy4GZD8cjxvDIfbDYU7j/BQQ5hBkOhN4E1HgN88Vz8qFyukb+zffu/CMRUxsbe+x8AT/OaNrmBWJflA3bpDODalueQESSovzVHwz1ZpMPQK7M5634jX8dqf5Y0JcHel+Oidyh7fz5ScbCQ1p7Rwsn7XwwD3nSqFcd8Y4dt6ldkcUA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1791529056; bh=LysxEuhHDaiT1NCtYsZ6IuZrgF5QkyKqrPMaTcjPqiT=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=JQLG8y0CdG7Oo/89J+3Nb6yZ1fqfcJBlc2pTiB1WZNB82xwHogQ+EoCAyMpf4ozS5aURIguwh1FaW7807DiThYn1kstJaB0/TSoqSghcZnizlKxFJd46DMueJaZCEmKUCiRcth2b8mJO8+3vEQ4yA4y7wyaEtpMuUO2Hkc+XEZhBbcrT/vx+x80Zh1IwPPFZHFpRo8WU05wTFfzHKsYEOJ+LwNwVLCK97ExLUuX2Zfl//cA0kgTYrH0Xfa6yp57ussygLdfj0V7zq5z4YIDqEKxB0ujv9ZmHnKZgT9L0eyvuCleQx1oAV/6BkiUxgiOVR/5J8vXs8xmGzouUYb+qyw==
-X-YMail-OSG: I1QNoUEVM1nP0mP9nAemyQvQSJFbB6BrKVohJxTYekKlqu0WOCuJ3jouZuSNEQx
- IFSyjgaZ_JXJ5DOmmUxv1VSnpHAX5NPoDInMlCIpBfguL7N9_TXRENezg_7AG9xxQmO_aEL9ArAR
- smjvA79vmzyN4fX4GXLLs0e_wcLW0h.cu4npkv08YSL8jaUddWzcD_tk2exdxvMHIUW_GJI23gri
- W__nyfKd6b7L1U5CuCr6If7ECv0EiWOWLpP9uamtHL8jcZ8zj56NNN7OOylqNLqw1Q4Vrt.yMBmD
- a8._5t5zhvm.dgvEZ9UJcOIZaBCvcZQ2Eplnb67R7V2.GmoA6pwvxrEJIhqfg6OqaTzNuwghy_v8
- VmQaVSHy3Vg0ooqvSL1J01Z1xJygoXtYOxCqMZDNnttWflLJ5QZlgp_LKmx1L6RtpJSxp2UD7jgi
- oucBjL9StWBoa_DR7TqeCD8.DprWkkiTSi4.krf0KdeXewgehcdWabnRjunaFo0A6INHg4IzSkUM
- Zc7YUyLCqzAfrVEeTCSn7P62PlLOHoagyRMqf4Ucjqh3.kdnCHUfxCy_6CvqU07nSJHg7uf.1Y9A
- qqYkobtRwoRJIJFeI0qxh5Z3fbfbDN4WmNJGiNb1_TPgiI1o8.GYfcfsyRW1vcfd0yn1ngC7Hu1e
- inecKKPLNFl7f1.rS1oNoC.x5_3LuWw8bYTYc.7VwV8Z_TXAakP74Q1PZcxvbyy8q3Pk3RyK3WHN
- by2fTU.EIq8gVucPTZsrjDRUUyhsVdjO4mjvjokea2qS1SUZz5lbCceEOtJckZ8mzjIgXbBtNtek
- GuyG7ZEQ1S1dHdEWzmxR9keZtKTdTwCVXU4qwuKSrZV5yE2hcBtI_d86njeV4rDxIJ8FvAXWwKvU
- K4DvNrCFjqmtQT6JcmKdSIeo43btnMN6bR63IIs_gRJKGEgM9qGPspuylgojzvx0OqHrPQsiaLSv
- v_DOTBSmiy8j2h7AcbwbLdnmlcRt608.gafszgI..pEFLJK4McEscznx4x8ktTWjyrnBTuSdd38I
- 9Nrk7YxbA1Xymm8_8WnDHveHWJlgJtO8bHMrBOF7I0hN7vjdafB4JfsooO6O8On8ouTgzl12V0Hd
- 8urDbJxwFsY4VyUhQuXqDxOtudL7YbFJoNupYSDiBH8FVN.vwe7I3UzIXG07OTuq3yQRl..gr7KQ
- wFPouiAa92Y0LFghKXumS0vG01PImk.XvouWs70WU0eNWajnvG9SXpiuVJUPkMohx_WZjMNWrFSw
- IhhdYqP0ljuWkMiITzthFwJnMHOdf6rO9CKEK4YG8VgfqXsG8uMKzY18UvhylRO5NObIRrFk2ufC
- ADxVjDmCINwuCajoI1mYvYrPsjDXNqC2K4F5DS_L1Z9sAQtkTEGpw4styqulp.sOHCYB9NS60V_9
- tG7l3krgh91d0n18kitU9TPKKNOxV77lUba3w.sWj8aMAtOojqxfgHCMPtc0yAnNyBcSCzcHEJRV
- 4t1Ns.eYqByMgQfq6WW2xTcriSUrZJpHDPCfPnwPiXtzbfAu1d1CX1sKx3rZtdr7fVEl8Aj2_CfH
- iZckE1bVMyTd8XIssMB.WYx.D4TIGeMVLKzKAfc7fNTA9xQ3bCr6w5EU7Oc_44wu8cFe.JKwkCog
- wTQCcTpbJ2CMK5bNTVYdggAKzzd.UmwPRbm2QaE3X2Nzi2uCe14Az4x77cinmswq833DdnBrdDZ9
- 65oH.zizhZz8J0ALQc4WjQXWfjzfaYmDzrmnwUA9uuwRUWV3DIMaEvFcbJ3XXzBMHC5UVDTZ1FFK
- kzsXnl3awuYGpm_WGTqwCe1YzNRP17jBUzbHFbJshw.VaRl5GaKGrd85qqXqIQzVBr45ffmU8qYF
- In8IBDBY5JlLTF9ZD90saOeX7j9m5332zdCkt8zxEUe0aHB129acKB4uSI9MsDs3zSkBvKCyV4ms
- gMftsCfYPS9csNHU5bAa1DdJ4Wk54WwXzBu5iQZCDQWLUy0Oxn4hu0Muz1RC8Qs_C9DhIiGbYCjU
- 65RzwzG7sslvwgVp2mkGPXYoguluiTUJQ1je2FywkVc5C5ozsW.qY9K0-
-X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: 0d4c5a8c-1b9e-4e2a-b8e0-aef6d6ea5f45
-Received: from sonic.gate.mail.ne1.yahoo.com by
- mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-101 with HTTP;
- Fri, 9 Oct 2026 06:57:36 +0000
-Received: from dip109.lsn.bf1.yahoo.com ([67.195.177.118])
- by hello (SMTP) with SMTP ID c876e35fe2f2b7cd9ee5c8b0d50dabd2;
- Fri, 09 Oct 2026 06:57:33 +0000 (UTC)
-From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>,
- =?utf-8?q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 3/3] drm/vkms: Add KUnit tests for stereo modes
-Date: Fri, 09 Oct 2026 03:57:29 -0300
-Message-ID: <179152904903.1726604.8586921343759594120@yahoo.com>
-In-Reply-To: <179152903254.1726604.8785647683993800694@yahoo.com>
-References: <179152903254.1726604.8785647683993800694@yahoo.com>
-Content-Type: text/plain; charset="utf-8"
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010062.outbound.protection.outlook.com
+ [52.101.193.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3B810FEE5;
+ Fri,  9 Oct 2026 07:00:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fovFioz1sDdEs11DYgL9B60RaBtynVu3CiQLWCnhW1KZQdUOntvsi00Xmau9JZue/LMLp5ETLMomS1u56UIjlWecyIqbyBcuFY2Y1vuANBLyca5IE2iYGoCJtQQfgga6Sa8Y/8C3L8qpFcufjOFFqCAMTcns6ufxxRezgvmMrlrb8KcwBYzXTJxlp0FQDIw1i7D3NOMVaYIJFOBMaKMI3w+L4iaat0BhwR4UdECgvQyLEOISzPVx5K9OoMNy32or05V/AIK3U7WPnU9Kwx+67y6xZGBTTzY7DM7LNfDP2Brode8ef7G7HH6h4pkqwmu9YwMfm0bD7yVjVE1Jy+OGug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TCo6wGRWu8BFdU/gNdiTea787T5Ld1Y++XjLjBclhrU=;
+ b=O0JcmDL4muW5P1y8w+NRPHrS7uJq8nNvqsnk4wNb/6eW8C1HazFiyZCcKbEeoiQ/3hVM9X43Vn1wXb47Z4zbmI2Eq7/OkNfZxMA47MhwrdpQmonufmuvFZol4Ro3bKA7cAASYwJmch50Vqyu2HV80A1tADrk1gYdCs4+SaI5iJ+fIV2ESZUGV/Jcddvn6Lkb20aa+IPK0a8NokhAS8A3WCxcflxfgS1oUohcwkpzkd0Nejk1CLXFAjPKQJZEG1/Ijc0bg3bfgQ1+SLHoBOhPY36/ti1twFYzN3kHlMXNg6lySIQzEa/mbvV/74jPak5s53/8GVhaaPYrPOzlEPVgtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TCo6wGRWu8BFdU/gNdiTea787T5Ld1Y++XjLjBclhrU=;
+ b=UQV3U0hNzxSPbe0m0n7cSNWeP6k4/0yUnDv2M1OWDkp6QoG2pgBGmxn93yhuPi+YZ/PBbVNUKdJYfwhDQQ55BNZcTqZP4Jg/oVxZFUrwXeIV2f44g1W9QKagUhr/D6zuMp+nDYskz2W3gn9j8py0ziRt0hrGjaqoXsllCPs8rVY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5620.namprd12.prod.outlook.com (2603:10b6:510:137::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Fri, 9 Oct
+ 2026 07:00:35 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
+ 07:00:35 +0000
+Message-ID: <c64df6fa-6734-4c66-8f8b-52e5bd118cdb@amd.com>
+Date: Fri, 9 Oct 2026 09:00:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: wait for pending page table updates before
+ switching a VM to CPU updates
+To: John Fisher <jfisher84@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, Prike Liang <Prike.Liang@amd.com>
+References: <20261008204517.392180-1-jfisher84@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261008204517.392180-1-jfisher84@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0020.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26668
- mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5620:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73352ee7-86e1-4a44-7e07-08df25d3046a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|23010399003|1800799024|260925021911599003|11063799006|10067099003|260925021311599003|260925022911599003|56012099006|5023799004|18002099003|6133799003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: ur6m4EEznlAZW3qLiTJvqnVka+lCmI+aNlWtCtoA/0z1E3rsy9zETsm/cUzTejPSPaI3iLImi3Glvr5PwAUSEZy1Vrah27vKCiBsjJRzsuOkw4uRTN7dvhvPtrMv/A2yNIInhk2VnGmiUZ0lxWP3nrhXau8i4o0evLB91l2V1ma2SKbAVogPhMiwFZmIW8uzHTAY9Kgcxs18oy+JuOgykZW6+76LOaA4qnVFjbV0TrTNpUNXP5YiTD17bdjO72NGIiIh/FFpIFM9ZIIotTVgJSjSRjJ/5sK1tkWuASrGJcb17MdslmLxWUPvNmwSr5n0TaoO4MnrhXPvqfIjPo8JI5xz/LWAmx9H4dNUKGWyuwRu+k7PDGNAT0W5j77nxx/Xo7Xb9zrKcklNEAfp4H00xJwO75fZWXwp531AIwbRY03jlwH6t3J72a9jQijldVVWKcjXVoKnvBSQrGLSqmKLX84hQoqgUBzrMjJRNLKgR8vl6euh02K4giAJMuJ4Oi4dycUU1Dqcwk/rX9GCzQ7r0WgJJn0bU4+5D+PQN5CRehA0xwV4Pn2AJJLk1AhvkNwKA0hJtAuESxVsCbfm9o8TwyzzWjQ8FshBLTylyn0FjcwL/I7HPxzpxpoLHX0ofjj9
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(260925021911599003)(11063799006)(10067099003)(260925021311599003)(260925022911599003)(56012099006)(5023799004)(18002099003)(6133799003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Kzk5WEpXcTJ5K1RJRURNcXUySm14MlAra3o4UWR0TTZZeGNYZWx4bG0zbDhx?=
+ =?utf-8?B?M3djd1RENUZBYkZTZm4xYVA4OXZ5bEZTQTNBNEgrZThVM3NqSGJETjJXRFVV?=
+ =?utf-8?B?d1B0UGtycHlZcmxPc245b1NHTCt4MWFaS0ZDNFVhVWJTTGxDeDFIQTVSR0xN?=
+ =?utf-8?B?dSt3T015a24xRmx1OUhVQVQ0ZWtRck4yVXZpc0k3NlpIQ1pUeGxQRGFPRmMz?=
+ =?utf-8?B?eTFrR3pjcUpibVlFWFBEY1RoMThOS080YUNBRWcyRzQzWTdxWEJBNk4rMm5q?=
+ =?utf-8?B?MXdXeWx6UDJJWVhURzlGUVdUK1BleDF2dlVlZmRJS1Y4YWQ2NmwxaDdEQWlG?=
+ =?utf-8?B?MFE4ZGQyNVJyVTJwZTc3cHl4TTA2Tk9kZVhHaGFlN2pCajBUb2twbXlNRy9G?=
+ =?utf-8?B?NFMrc25QMXFudEdlU1pXSFhkR2VMb1MrZklqTG1IT2FVZ0FmR3c1R21lblVp?=
+ =?utf-8?B?MmZPRFh2bCs5c0YxZStQd0prSnJyUTNnVGdjWmxMVE1SdGlRczljYTZMWjRR?=
+ =?utf-8?B?Nm9pK0VMTjlJREFzT0NFR0xCSjAzNXZuUi9DOXVvazZlNXFoZ0hrNEJjUjUz?=
+ =?utf-8?B?V1VPaUh3Y3hVNUNZV3hRaCt4Y1YyNllTWE9DSnNxT0VudDlTQ2w4RS9QeDJn?=
+ =?utf-8?B?bk9EVXVMN1IvcjRiWkRtR3crcy8xMDRZWEczRDh2Z3JpZStJYUc0M1AwelNL?=
+ =?utf-8?B?SWpPVTlDRndBZTRSM056RkhoRUNGSlZSbEFrbEVLQWV1VDRBU0ZRVnhCaCtv?=
+ =?utf-8?B?ZUE0cGVsak9STGRDL2d6Wk44c0NGY2tlZmRxYzkyc3hZN2UxclU2eEJuTisr?=
+ =?utf-8?B?dHIyME5KcGZXQmRpd3pJRDkvVzhsSDc5WmEvaVFCdEVSVm4wUm1BdHRJblpx?=
+ =?utf-8?B?dFAwOXRBQStJbHEyMU1PcWlyVllRK2VhRVdpM1JPd0UzbnFlZXIrRVJQd1cy?=
+ =?utf-8?B?UHE0TStIcVVRbW9MNXlWaWJuRHR1QTdBRnlvc2hrL0FXUDQ0TVlGVmcxWlNt?=
+ =?utf-8?B?MldCYXZzbzdnaWUxYUlkcjBCay9ycUdwa2xUWkp1elJEZWo2a1hvMGxWNVVh?=
+ =?utf-8?B?UlBFUGRxWG9SM2FMdS9mRDl2RE5xUENOMTV5MGkvZm5kZGpQdzlGZ0UwSWJm?=
+ =?utf-8?B?M2hhMFZMUXl4Nkp2Yk12Rmw5Mi8yTERIOW0xRlJqTCs1aHNROGUyc0FoN251?=
+ =?utf-8?B?M3RHUkxoK0NxVVYyd0RxeTNXSkxmanRlMlJ1YitpSjJRZHAxNmxzOCtzRERU?=
+ =?utf-8?B?RGJ0SVJJN0dRQitqS0QwK1FNRkJneTFQdUlxQSt0dkFwcmRBLzFhYXhzb0Fh?=
+ =?utf-8?B?VS9lNFBoVjRSZ25UV2VTeEpUb1d3TW9DOEw1N1lJUjAxYXp1MDV6TVpKRXFt?=
+ =?utf-8?B?QXZGcWF1Q3BLclBaZkI1NkxZOWJLdTB4WjRBUTRKVS9NcFQ3dEpCYzgwaGVY?=
+ =?utf-8?B?OW1Ba3djYnpERTh4TDZTeGlHZDZVU1F2RmcrdVJXck5SUWVyNlhRZ0dLblhu?=
+ =?utf-8?B?OFE2TFFwVGtTWkZvbWxuV3pWL3gzdGJRcjJ6Qy9LVDY5U2dHODJxT25IV3By?=
+ =?utf-8?B?ZDVwKzdmRFZBQUZya0d3ZUppOExqQk85UmplbXNkV2hudTVaYmtYYzhhK2hq?=
+ =?utf-8?B?ZDdlT09Yb2ExUjVkUUlMMHkxN2FITGJMbE03akZveWVlamczajNuN1FLRnlD?=
+ =?utf-8?B?Rks2eHJncUFxOE1vc0xCcmNzdlo5T0NDcnBSMnhlQUE5a2NzUHhkT1dQK1U2?=
+ =?utf-8?B?aHJBSi9WMEpxKzBlMFRCU3JnOFJpejhFNHB0bGh3QVliQ2pwVjVXb0U0UytQ?=
+ =?utf-8?B?U0s2U2lUdHV6RzNqOTZlRlpmYlZubDlPMVBaS3JiMlJRMWFnT1NGMTJQbjQ1?=
+ =?utf-8?B?OVdwUDhtTUxCaVQ3SS9uaTFFM1RmazNHVk1aR0ErUFBnb09xVVBzd3NGY0sz?=
+ =?utf-8?B?ZlVQL1NROFI4MEk3WldpQ3cxczQxL0Y1dkVWUmlYYkgyUVR5dWxZb1JjNlFk?=
+ =?utf-8?B?L0xCYkVHTDRHN2NXT1RrMDVhNi80OEpvcndrT091U0wzTzcvZDBKbzg3SjdC?=
+ =?utf-8?B?amRwRXExZU9BcGh3TTZRdlEvTUtybXNFSW9tRDEzU2R2WEk4dlBSWjUrcXY1?=
+ =?utf-8?B?YWlPM0FCN0I3Z0hOQTVzZXhsTGs3Q0JwSnhHREhFVDRsRFdvd2FZTWwwN2Za?=
+ =?utf-8?B?NGhyZDVEbStqb1dFdHJFbWpVTTNnU2FqRWd6RStPZHYrRDkyb2haSVRudnZI?=
+ =?utf-8?B?Slo2WnhZbmNrbjYwazh5aWtvbHF5MCtqTTMrS0JMZUU2Zm8yS3J2WDdRczZB?=
+ =?utf-8?Q?wa/AchyO3k97jg3vZ3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73352ee7-86e1-4a44-7e07-08df25d3046a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 07:00:35.4584 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GMBhOyUHQ+bIy90ZDM7p56VJ055Z4WsALw3qjy1OP8opO5HSkVwwhWPdD1yFNqXh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,547 +137,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Build a device from the default configuration with vkms_output_init(),
-its connector reading an EDID that declares 3D in its HDMI
-Vendor-Specific Data Block, and check that:
+On 10/8/26 22:45, John Fisher wrote:
+> amdgpu_vm_make_compute() switches a VM from SDMA to CPU page table
+> updates when a KFD process acquires it. It syncs "with the last SDMA
+> update/clear" through amdgpu_bo_sync_wait() on the root PD, but that
+> walks the reservation with DMA_RESV_USAGE_READ, and the clears of the
+> VM's page tables (the root PD from amdgpu_vm_init(), and the PDs/PTs
+> the seq64 mapping allocates at the render node's open) are added there
+> by amdgpu_vm_sdma_commit() with DMA_RESV_USAGE_BOOKKEEP only:
+> amdgpu_vm_pt_clear() commits them with a NULL fence, so they do not
+> reach vm->last_update. The CPU path's own waits (amdgpu_vm_cpu_update(),
+> amdgpu_bo_kmap()) use DMA_RESV_USAGE_KERNEL. None of them waits for a
+> clear that is still queued.
+> 
+> When one is, the CPU writes the first entries of the new compute VM (the
+> KFD trap handler's TBA/TMA page at AMDGPU_VA_RESERVED_TRAP_START, mapped
+> during ACQUIRE_VM) into a page directory the SDMA then clears. The
+> entries are gone, the handler's page is unmapped, and the first wave
+> save of any queue of the process faults in the SQC instruction fetch at
+> the handler's address (GCVM_L2_PROTECTION_FAULT_STATUS 0x008012B1,
+> PERMISSION_FAULTS 0xb). The MES then fails REMOVE_QUEUE and SUSPEND, and
+> the device takes a MODE1 reset with VRAM lost on 7.2.9; on 7.3-rc6 the
+> queue is reset instead.
+> 
+> The window is the time between the render node's open and ACQUIRE_VM.
+> ROCr spends milliseconds there and is practically never hit; a minimal
+> KFD client that opens the render node and acquires the VM at once is hit
+> most of the time. On a Radeon AI PRO R9700 (gfx1201, Resizable BAR, so
+> vm_update_mode defaults to CPU updates for compute VMs), a wave reading
+> the trap handler's page right after queue creation found it unmapped in
+> 8 of 12 runs; a 5 ms sleep between the open and ACQUIRE_VM made that 0
+> of 9, and the same sleep after queue creation instead 3 of 3.
+> 
+> The wait covered these jobs until commit 926c79ad6ecd ("drm/amdgpu:
+> promote the implicit sync to the dependent read fences") narrowed
+> amdgpu_sync_resv() from DMA_RESV_USAGE_BOOKKEEP to DMA_RESV_USAGE_READ;
+> the VM's page table jobs have been added with BOOKKEEP since commit
+> 4247084057cf ("drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2"), so from
+> v6.16 on the sync in amdgpu_vm_make_compute() waits for nothing of
+> them.
+> 
+> Record the clears in vm->last_update, as amdgpu_vm_update_pdes() does
+> with its updates, and wait for it, uninterruptibly, before switching the
+> update functions. The clears all go through vm->delayed, so the last one
+> covers the earlier ones; immediate clears are not recorded, as before.
+> 
+> With this, on 7.3-rc6 and on 7.2.9, the same client reads the handler
+> 10 of 10 times, 8 busy queues on the 4 compute slots complete in 5 of 5
+> runs on 7.3-rc6 and 3 of 3 on 7.2.9 (1 of 6 before), 16 and 32 queues
+> complete on 7.3-rc6, and two processes with 8 queues each complete
+> together on both, with no fault.
+> 
+> Fixes: 926c79ad6ecd ("drm/amdgpu: promote the implicit sync to the dependent read fences")
+> Cc: stable@vger.kernel.org # v6.16+
+> Cc: Prike Liang <Prike.Liang@amd.com>
+> Signed-off-by: John Fisher <jfisher84@gmail.com>
 
-- the connector lists the stereo modes the EDID declares, frame packing,
-  top-and-bottom and side by side (half), and no other;
-- the writeback connector accepts a buffer of the frame that holds both
-  eyes and refuses other sizes, for each of these layouts and for a 2D
-  mode.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Export vkms_output_init() for KUnit and select the DRM KUnit helpers.
+> ---
+> v2: wait for vm->last_update, in which amdgpu_vm_pt_clear() now records
+>     the clears, instead of every BOOKKEEP fence on the root PD; wait
+>     uninterruptibly without checking the result; keep the original
+>     comment (Christian)
+> v1: https://lore.kernel.org/amd-gfx/20261007200345.417281-1-jfisher84@gmail.com/
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 5 +----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
+>  2 files changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 29187fabc..757a037ed 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2737,10 +2737,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>  
+>  	if (vm->use_cpu_for_update) {
+>  		/* Sync with last SDMA update/clear before switching to CPU */
+> -		r = amdgpu_bo_sync_wait(vm->root.bo,
+> -					AMDGPU_FENCE_OWNER_UNDEFINED, true);
+> -		if (r)
+> -			goto unreserve_bo;
+> +		dma_fence_wait(vm->last_update, false);
+>  
+>  		vm->update_funcs = &amdgpu_vm_cpu_funcs;
+>  		r = amdgpu_vm_pt_map_tables(adev, vm);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index c03327f12..cdbc2e931 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -427,7 +427,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  	if (r)
+>  		goto exit;
+>  
+> -	r = vm->update_funcs->commit(&params, NULL);
+> +	r = vm->update_funcs->commit(&params, &vm->last_update);
+>  exit:
+>  	drm_dev_exit(idx);
+>  	return r;
 
-Assisted-by: LLM
-Signed-off-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
----
- drivers/gpu/drm/vkms/Kconfig                  |   1 +
- drivers/gpu/drm/vkms/tests/Makefile           |   1 +
- drivers/gpu/drm/vkms/tests/vkms_stereo_test.c | 476 ++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_output.c            |   2 +
- 4 files changed, 480 insertions(+)
- create mode 100644 drivers/gpu/drm/vkms/tests/vkms_stereo_test.c
-
-diff --git a/drivers/gpu/drm/vkms/Kconfig b/drivers/gpu/drm/vkms/Kconfig
-index 3977bbb99f..d0b7f772cc 100644
---- a/drivers/gpu/drm/vkms/Kconfig
-+++ b/drivers/gpu/drm/vkms/Kconfig
-@@ -19,6 +19,7 @@ config DRM_VKMS
- config DRM_VKMS_KUNIT_TEST
- 	tristate "KUnit tests for VKMS" if !KUNIT_ALL_TESTS
- 	depends on DRM_VKMS && KUNIT
-+	select DRM_KUNIT_TEST_HELPERS
- 	default KUNIT_ALL_TESTS
- 	help
- 	  This builds unit tests for VKMS. This option is not useful for
-diff --git a/drivers/gpu/drm/vkms/tests/Makefile b/drivers/gpu/drm/vkms/tests/Makefile
-index 92cfa7262b..cad869aa61 100644
---- a/drivers/gpu/drm/vkms/tests/Makefile
-+++ b/drivers/gpu/drm/vkms/tests/Makefile
-@@ -5,5 +5,6 @@ vkms-kunit-tests-y := \
- 	vkms_format_test.o \
- 	vkms_color_test.o \
- 	vkms_configfs_test.o \
-+	vkms_stereo_test.o \
- 
- obj-$(CONFIG_DRM_VKMS_KUNIT_TEST) += vkms-kunit-tests.o
-diff --git a/drivers/gpu/drm/vkms/tests/vkms_stereo_test.c b/drivers/gpu/drm/vkms/tests/vkms_stereo_test.c
-new file mode 100644
-index 0000000000..9229d5ae17
---- /dev/null
-+++ b/drivers/gpu/drm/vkms/tests/vkms_stereo_test.c
-@@ -0,0 +1,476 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+
-+#include <kunit/test.h>
-+
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_kunit_helpers.h>
-+#include <drm/drm_modeset_lock.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_writeback.h>
-+
-+#include "../vkms_config.h"
-+#include "../vkms_connector.h"
-+#include "../vkms_drv.h"
-+
-+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-+
-+/*
-+ * edid-decode (hex):
-+ *
-+ * 00 ff ff ff ff ff ff 00 31 d8 3d 00 00 00 00 00
-+ * 00 21 01 03 81 a0 5a 78 0a 00 00 00 00 00 00 00
-+ * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
-+ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
-+ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 53 74 65
-+ * 72 65 6f 20 45 44 49 44 0a 20 00 00 00 fd 00 17
-+ * 4c 0f 8c 1e 00 0a 20 20 20 20 20 20 00 00 00 10
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 b4
-+ *
-+ * 02 03 1d 81 46 10 04 20 13 1f 22 6e 03 0c 00 10
-+ * 00 00 3c 20 a0 04 01 00 06 50 e2 00 4a 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f
-+ *
-+ * ----------------
-+ *
-+ * Block 0, Base EDID:
-+ *   EDID Structure Version & Revision: 1.3
-+ *   Vendor & Product Identification:
-+ *     Manufacturer: LNX
-+ *     Model: 61
-+ *     Made in: 2023
-+ *   Basic Display Parameters & Features:
-+ *     Digital display
-+ *     DFP 1.x compatible TMDS
-+ *     Maximum image size: 160 cm x 90 cm
-+ *     Gamma: 2.20
-+ *     RGB color display
-+ *     First detailed timing is the preferred timing
-+ *   Color Characteristics:
-+ *     Red  : 0.0000, 0.0000
-+ *     Green: 0.0000, 0.0000
-+ *     Blue : 0.0000, 0.0000
-+ *     White: 0.0000, 0.0000
-+ *   Established Timings I & II:
-+ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
-+ *   Standard Timings: none
-+ *   Detailed Timing Descriptors:
-+ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
-+ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
-+ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
-+ *     Display Product Name: 'Stereo EDID'
-+ *     Display Range Limits:
-+ *       Monitor ranges (GTF): 23-76 Hz V, 15-140 kHz H, max dotclock 300 MHz
-+ *     Dummy Descriptor:
-+ *   Extension blocks: 1
-+ * Checksum: 0xb4
-+ *
-+ * ----------------
-+ *
-+ * Block 1, CTA-861 Extension Block:
-+ *   Revision: 3
-+ *   Underscans IT Video Formats by default
-+ *   Native detailed modes: 1
-+ *   Video Data Block:
-+ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
-+ *     VIC   4:  1280x720    60.000000 Hz  16:9     45.000 kHz     74.250000 MHz
-+ *     VIC  32:  1920x1080   24.000000 Hz  16:9     27.000 kHz     74.250000 MHz
-+ *     VIC  19:  1280x720    50.000000 Hz  16:9     37.500 kHz     74.250000 MHz
-+ *     VIC  31:  1920x1080   50.000000 Hz  16:9     56.250 kHz    148.500000 MHz
-+ *     VIC  34:  1920x1080   30.000000 Hz  16:9     33.750 kHz     74.250000 MHz
-+ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
-+ *     Source physical address: 1.0.0.0
-+ *     Maximum TMDS clock: 300 MHz
-+ *     Extended HDMI video details:
-+ *       3D present
-+ *       All advertised VICs are 3D-capable
-+ *       3D: Side-by-side (half, horizontal)
-+ *       3D VIC indices with specific capabilities:
-+ *         VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (top-and-bottom)
-+ *         VIC  34:  1920x1080   30.000000 Hz  16:9     33.750 kHz     74.250000 MHz (frame packing)
-+ *   Video Capability Data Block:
-+ *     YCbCr quantization: No Data
-+ *     RGB quantization: Selectable (via AVI Q)
-+ *     PT scan behavior: No Data
-+ *     IT scan behavior: Always Underscanned
-+ *     CE scan behavior: Always Underscanned
-+ * Checksum: 0x7f
-+ */
-+static const u8 test_edid_hdmi_3d[] = {
-+	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x3d, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
-+	0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
-+	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
-+	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
-+	0x00, 0x00, 0x00, 0xfc, 0x00, 0x53, 0x74, 0x65, 0x72, 0x65, 0x6f, 0x20,
-+	0x45, 0x44, 0x49, 0x44, 0x0a, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x17,
-+	0x4c, 0x0f, 0x8c, 0x1e, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-+	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xb4, 0x02, 0x03, 0x1d, 0x81,
-+	0x46, 0x10, 0x04, 0x20, 0x13, 0x1f, 0x22, 0x6e, 0x03, 0x0c, 0x00, 0x10,
-+	0x00, 0x00, 0x3c, 0x20, 0xa0, 0x04, 0x01, 0x00, 0x06, 0x50, 0xe2, 0x00,
-+	0x4a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x7f,
-+};
-+
-+struct vkms_stereo_test_priv {
-+	struct vkms_device *vkmsdev;
-+	struct drm_connector *connector;
-+	struct drm_writeback_connector *wb_connector;
-+	struct drm_crtc *crtc;
-+	struct drm_plane *primary;
-+};
-+
-+struct vkms_stereo_test_mode {
-+	int hdisplay;
-+	int vdisplay;
-+	int vrefresh;
-+	u32 layout;
-+};
-+
-+/* The stereo modes the EDID above declares, without the interlaced ones */
-+static const struct vkms_stereo_test_mode test_edid_stereo_modes[] = {
-+	/* 3D_present: the mandatory formats of the 2D formats listed */
-+	{ 1920, 1080, 24, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+	{ 1920, 1080, 24, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	{ 1280, 720, 60, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+	{ 1280, 720, 60, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	{ 1280, 720, 50, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+	{ 1280, 720, 50, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	/* 3D_Structure_ALL: side by side (half) for every VIC */
-+	{ 1920, 1080, 60, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1280, 720, 60, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1920, 1080, 24, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1280, 720, 50, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1920, 1080, 50, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	{ 1920, 1080, 30, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	/* 3D_Structure_X */
-+	{ 1920, 1080, 60, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	{ 1920, 1080, 30, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+};
-+
-+static void vkms_stereo_test_config_destroy(void *config)
-+{
-+	vkms_config_destroy(config);
-+}
-+
-+static void vkms_stereo_test_fb_destroy(struct drm_framebuffer *fb)
-+{
-+	drm_framebuffer_cleanup(fb);
-+}
-+
-+static const struct drm_framebuffer_funcs vkms_stereo_test_fb_funcs = {
-+	.destroy = vkms_stereo_test_fb_destroy,
-+};
-+
-+static void vkms_stereo_test_fb_put(void *fb)
-+{
-+	drm_framebuffer_put(fb);
-+}
-+
-+static struct drm_framebuffer *vkms_stereo_test_create_fb(struct kunit *test,
-+							  int width, int height)
-+{
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	struct drm_framebuffer *fb;
-+	int ret;
-+
-+	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, fb);
-+
-+	fb->dev = &priv->vkmsdev->drm;
-+	fb->format = drm_format_info(DRM_FORMAT_XRGB8888);
-+	fb->width = width;
-+	fb->height = height;
-+	fb->pitches[0] = width * 4;
-+
-+	ret = drm_framebuffer_init(fb->dev, fb, &vkms_stereo_test_fb_funcs);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = kunit_add_action_or_reset(test, vkms_stereo_test_fb_put, fb);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	return fb;
-+}
-+
-+static int vkms_stereo_test_init(struct kunit *test)
-+{
-+	struct vkms_stereo_test_priv *priv;
-+	struct vkms_config_connector *connector_cfg;
-+	struct vkms_config_plane *plane_cfg;
-+	struct vkms_config_crtc *crtc_cfg;
-+	struct vkms_config *config;
-+	struct device *dev;
-+	int ret;
-+
-+	priv = kunit_kzalloc(test, sizeof(*priv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+	test->priv = priv;
-+
-+	config = vkms_config_default_create(false, true, false, false);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
-+	ret = kunit_add_action_or_reset(test, vkms_stereo_test_config_destroy, config);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	vkms_config_for_each_connector(config, connector_cfg) {
-+		vkms_config_connector_set_edid_enabled(connector_cfg, true);
-+		vkms_config_connector_set_edid(connector_cfg, test_edid_hdmi_3d,
-+					       sizeof(test_edid_hdmi_3d));
-+	}
-+
-+	dev = drm_kunit_helper_alloc_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	priv->vkmsdev = drm_kunit_helper_alloc_drm_device(test, dev, struct vkms_device, drm,
-+							  DRIVER_MODESET | DRIVER_ATOMIC);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv->vkmsdev);
-+
-+	priv->vkmsdev->config = config;
-+	config->dev = priv->vkmsdev;
-+
-+	ret = vkms_output_init(priv->vkmsdev);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	vkms_config_for_each_crtc(config, crtc_cfg) {
-+		priv->crtc = &crtc_cfg->crtc->crtc;
-+		priv->wb_connector = &crtc_cfg->crtc->wb_connector;
-+		plane_cfg = vkms_config_crtc_primary_plane(config, crtc_cfg);
-+		priv->primary = &plane_cfg->plane->base;
-+	}
-+
-+	vkms_config_for_each_connector(config, connector_cfg)
-+		priv->connector = &connector_cfg->connector->base;
-+
-+	return 0;
-+}
-+
-+static void vkms_stereo_test_probe(struct kunit *test)
-+{
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	struct drm_device *drm = &priv->vkmsdev->drm;
-+	int count;
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	count = drm_helper_probe_single_connector_modes(priv->connector, XRES_MAX, YRES_MAX);
-+	mutex_unlock(&drm->mode_config.mutex);
-+
-+	KUNIT_ASSERT_GT(test, count, 0);
-+}
-+
-+static bool vkms_stereo_test_mode_matches(const struct drm_display_mode *mode,
-+					  const struct vkms_stereo_test_mode *expected)
-+{
-+	return mode->hdisplay == expected->hdisplay &&
-+	       mode->vdisplay == expected->vdisplay &&
-+	       drm_mode_vrefresh(mode) == expected->vrefresh &&
-+	       (mode->flags & DRM_MODE_FLAG_3D_MASK) == expected->layout;
-+}
-+
-+static const struct drm_display_mode *
-+vkms_stereo_test_find_mode(struct kunit *test, const struct vkms_stereo_test_mode *expected)
-+{
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	const struct drm_display_mode *mode;
-+
-+	list_for_each_entry(mode, &priv->connector->modes, head) {
-+		if (vkms_stereo_test_mode_matches(mode, expected))
-+			return mode;
-+	}
-+
-+	return NULL;
-+}
-+
-+/*
-+ * The connector lists the stereo modes of its EDID next to the 2D ones, and
-+ * no other stereo mode. Formats at 24, 30 and 60 Hz are listed twice, at
-+ * the integer rate and at 1000/1001 of it, both covered by one entry.
-+ */
-+static void vkms_stereo_test_edid_modes(struct kunit *test)
-+{
-+	static const struct vkms_stereo_test_mode mode_2d = { 1920, 1080, 60, 0 };
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	const struct drm_display_mode *mode;
-+	int i;
-+
-+	vkms_stereo_test_probe(test);
-+
-+	for (i = 0; i < ARRAY_SIZE(test_edid_stereo_modes); i++) {
-+		const struct vkms_stereo_test_mode *expected = &test_edid_stereo_modes[i];
-+
-+		KUNIT_EXPECT_NOT_NULL_MSG(test, vkms_stereo_test_find_mode(test, expected),
-+					  "%dx%d@%d layout %u not listed",
-+					  expected->hdisplay, expected->vdisplay,
-+					  expected->vrefresh, expected->layout >> 14);
-+	}
-+
-+	list_for_each_entry(mode, &priv->connector->modes, head) {
-+		bool expected = false;
-+
-+		if (!(mode->flags & DRM_MODE_FLAG_3D_MASK))
-+			continue;
-+
-+		for (i = 0; i < ARRAY_SIZE(test_edid_stereo_modes); i++)
-+			expected |= vkms_stereo_test_mode_matches(mode, &test_edid_stereo_modes[i]);
-+
-+		KUNIT_EXPECT_TRUE_MSG(test, expected, "unexpected " DRM_MODE_FMT,
-+				      DRM_MODE_ARG(mode));
-+	}
-+
-+	KUNIT_EXPECT_NOT_NULL(test, vkms_stereo_test_find_mode(test, &mode_2d));
-+}
-+
-+struct vkms_stereo_test_frame_case {
-+	const char *name;
-+	struct vkms_stereo_test_mode mode;
-+	int width;
-+	int height;
-+	int bad_width;
-+	int bad_height;
-+};
-+
-+/*
-+ * The frame of a mode is the buffer that holds both eyes: frame packing
-+ * adds vtotal lines (1080 + 1125 for these modes), the other layouts keep
-+ * the size of the mode. Each case also names a writeback buffer size that
-+ * must be refused.
-+ */
-+static const struct vkms_stereo_test_frame_case vkms_stereo_test_frame_cases[] = {
-+	{ "2d", { 1920, 1080, 60, 0 }, 1920, 1080, 1920, 2205 },
-+	{ "frame-packing", { 1920, 1080, 30, DRM_MODE_FLAG_3D_FRAME_PACKING },
-+	  1920, 2205, 1920, 1080 },
-+	{ "top-and-bottom", { 1920, 1080, 60, DRM_MODE_FLAG_3D_TOP_AND_BOTTOM },
-+	  1920, 1080, 1920, 2205 },
-+	{ "side-by-side-half", { 1920, 1080, 60, DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF },
-+	  1920, 1080, 3840, 1080 },
-+};
-+
-+static void vkms_stereo_test_frame_case_desc(const struct vkms_stereo_test_frame_case *t,
-+					     char *desc)
-+{
-+	strscpy(desc, t->name, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(vkms_stereo_test_frame, vkms_stereo_test_frame_cases,
-+		  vkms_stereo_test_frame_case_desc);
-+
-+/*
-+ * Checks an update showing a primary plane of the frame size and writing
-+ * the composed frame back to a buffer of wb_width x wb_height.
-+ */
-+static int vkms_stereo_test_check_update(struct kunit *test,
-+					 const struct drm_display_mode *mode,
-+					 int width, int height,
-+					 int wb_width, int wb_height)
-+{
-+	struct vkms_stereo_test_priv *priv = test->priv;
-+	struct drm_device *drm = &priv->vkmsdev->drm;
-+	struct drm_framebuffer *fb, *wb_fb;
-+	struct drm_connector_state *conn_state, *wb_state;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_plane_state *plane_state;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_atomic_commit *state;
-+	int ret;
-+
-+	fb = vkms_stereo_test_create_fb(test, width, height);
-+	wb_fb = vkms_stereo_test_create_fb(test, wb_width, wb_height);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-+	ret = drm_atomic_set_mode_for_crtc(crtc_state, mode);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	crtc_state->enable = true;
-+	crtc_state->active = true;
-+
-+	conn_state = drm_atomic_get_connector_state(state, priv->connector);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	plane_state = drm_atomic_get_plane_state(state, priv->primary);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_state);
-+	ret = drm_atomic_set_crtc_for_plane(plane_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	drm_atomic_set_fb_for_plane(plane_state, fb);
-+	plane_state->crtc_w = width;
-+	plane_state->crtc_h = height;
-+	plane_state->src_w = width << 16;
-+	plane_state->src_h = height << 16;
-+
-+	wb_state = drm_atomic_get_connector_state(state, &priv->wb_connector->base);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, wb_state);
-+	ret = drm_atomic_set_crtc_for_connector(wb_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	ret = drm_writeback_set_fb(wb_state, wb_fb);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = drm_atomic_check_only(state);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
-+	return ret;
-+}
-+
-+/*
-+ * The writeback connector takes a buffer of the frame size, so it receives
-+ * both eyes, and refuses any other size.
-+ */
-+static void vkms_stereo_test_writeback_frame(struct kunit *test)
-+{
-+	const struct vkms_stereo_test_frame_case *t = test->param_value;
-+	const struct drm_display_mode *mode;
-+	int ret;
-+
-+	vkms_stereo_test_probe(test);
-+
-+	mode = vkms_stereo_test_find_mode(test, &t->mode);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+
-+	ret = vkms_stereo_test_check_update(test, mode, t->width, t->height,
-+					    t->width, t->height);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	ret = vkms_stereo_test_check_update(test, mode, t->width, t->height,
-+					    t->bad_width, t->bad_height);
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
-+}
-+
-+static struct kunit_case vkms_stereo_test_cases[] = {
-+	KUNIT_CASE(vkms_stereo_test_edid_modes),
-+	KUNIT_CASE_PARAM(vkms_stereo_test_writeback_frame,
-+			 vkms_stereo_test_frame_gen_params),
-+	{}
-+};
-+
-+static struct kunit_suite vkms_stereo_test_suite = {
-+	.name = "vkms-stereo",
-+	.init = vkms_stereo_test_init,
-+	.test_cases = vkms_stereo_test_cases,
-+};
-+
-+kunit_test_suite(vkms_stereo_test_suite);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Kunit test for vkms stereo modes");
-diff --git a/drivers/gpu/drm/vkms/vkms_output.c b/drivers/gpu/drm/vkms/vkms_output.c
-index ad901340ba..b484255c43 100644
---- a/drivers/gpu/drm/vkms/vkms_output.c
-+++ b/drivers/gpu/drm/vkms/vkms_output.c
-@@ -5,6 +5,7 @@
- #include "vkms_drv.h"
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
-+#include <kunit/visibility.h>
- 
- int vkms_output_init(struct vkms_device *vkmsdev)
- {
-@@ -130,3 +131,4 @@ int vkms_output_init(struct vkms_device *vkmsdev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_IF_KUNIT(vkms_output_init);
