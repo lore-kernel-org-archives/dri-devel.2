@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6DC7CA9EC8
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99895CA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 048BE10EBD0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 417F010EBD6;
 	Sat, 10 Oct 2026 12:37:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OkBCv+l2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aMQjGNH0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF9F10EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:16:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0BBC10E1A8
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:09:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 956DF60267;
- Fri,  9 Oct 2026 18:16:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D931F00893;
- Fri,  9 Oct 2026 18:16:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 83E6641264;
+ Fri,  9 Oct 2026 18:09:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2C41F000FF;
+ Fri,  9 Oct 2026 18:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569810;
- bh=25TcrP5NPlHeICyKz/Dt0wvN5LMoYnpbWYR4UkDCBe8=;
+ s=k20260515; t=1791569349;
+ bh=HXvAGJ21GFXlCXFIOD7WMGr+Kl6vRRefqbwPXSBjAug=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=OkBCv+l2tus1fhsoR6yRNBzqw9wTjBOBFDiaDfa14H9Z5JQB5kG9OiwbFete4BwqC
- EzuoodO0uvmtlh55fExFTJtBKmy/gjwCgFE3kFsoMvXlpopfUcrM3eZ3kw2c5vnwMz
- saQ/a/lN2THW/RWZzLd3qKq84ZRtCQi9Y/VdLxtxZvQlnF2CVh2i1N1MvGOkpd1YoB
- /tOa3jA326w/FP2YeL1y3kuSS9DbgS4+2ZmaKC+u/rOas/ofq4KBiO/DbQHxTpdPt5
- CniKRPTzwREOlu0kq1UEWcpT20vGpHTc8BA3SH17P+lKt2I4mnNzd0KrVlfqQ0dVEQ
- qNXt+V1XPJIKw==
+ b=aMQjGNH0miqmoIl35ZayS+qH0MGRnd6Cko1KN+6mGkZIpvojG35ka6MQIUlxiWhAU
+ 7Ln8zh9hhLq9/1AZ4CUIHLlvwH0EJqJ/tkD2FYwjagFYPQvhXEaEdBgtp2EvRgPG3r
+ QJzdFeOiI1gTGjDg02fgNZbpIh+cL8WbTHfWopYGPffFMnOoPodyytvyqjVbOMnbR/
+ nvG64vKUGzUmcI49cSMjb/bTMNTJdjOHcsa3Rfch1jqWEUoXTjC3q09cCAnIvErO5g
+ 4uFSPk+KvS5ycVdSSSYkwgl0u37j84fms9RT6yPBIOZhoQoMlKgF2fwxAJG4LoYA6l
+ Bnv2OZu8cljig==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:29 +0100
-Subject: [PATCH v5 35/38] mm: avoid use of VMA_SPECIAL_FLAGS in
- migrate_vma_setup()
+Date: Fri, 09 Oct 2026 19:04:07 +0100
+Subject: [PATCH v5 13/38] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-35-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-13-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,14 +120,15 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1717; i=ljs@kernel.org;
- h=from:subject:message-id; bh=iFGL+FHCILhy9SDbSepqrBsRxsucMM51zxGaU7Q5a2U=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sxzNUrRETtx8MUkj2Qz2awP1zfzxao1vmj+t8VGV
- NbijqNkRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACayM4Dhnw733085YbIMFdEi
- PVv/ZxsV/5xgZasU+Htn+Z5t6crtUowMqyL/vzAtXu/fPFO4KuxVZ2bG1YptJTZPP+xU/qbimHy
- HFQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2179; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=tM59zMzSvZAL0eIh8BMq6f95yGj1GJaZNA6qSluVUvo=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sx6cN9+uxBv5cu51X66TDxRzjfPdew4Fa0+5eqjw
+ BzdRZded5SwMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiu/kY/nv+0eN+Pz1UTJJD
+ f+40+6cJWZdfSV9cLmrpVVTBMWXDYRaGH+tvRH5S+Kjxrzdz+h1B1VNqyYaS59t8t3G4Bvjtexb
+ GBAA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -146,53 +147,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now we have the expressive vma_is_mm_managed() and vma_is_fixed_mapping()
-predicates, use them to determine whether to proceed with migration. This
-drops the VMA_IO_BIT test, which is safe as mm-managed mappings may not set
-it.
+The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
+one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
+or arena_map_mmap().
 
-hugetlb mappings remain excluded, as they are fixed mappings.
+It is convention in mm to mark mappings whose pages the kernel manages
+itself with VM_MIXEDMAP, so core mm knows not to treat them as ordinary
+page cache or anonymous memory.
 
-No functional change intended.
+The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
+use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
+marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
+explicitly.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+However, the exception to this is arena_map_mmap(), which doesn't set the
+flag.
+
+This patch corrects this and updates the comment to reflect it.
+
+The pages are refcounted and vm_normal_page() finds them regardless of the
+flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
+thus unmergeable). The one effect is that NUMA balancing now skips these
+VMAs, as it already does for the other bpf map mappings, which is the
+reason array_map_mmap() gives for setting the flag.
+
+The intent of this patch is to be able to establish the invariant that only
+PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
+in bpf_map_mmap().
+
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/migrate_device.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ kernel/bpf/arena.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index b9c453c28795..289d7b08ace4 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -739,19 +739,21 @@ static void migrate_vma_unmap(struct migrate_vma *migrate)
-  */
- int migrate_vma_setup(struct migrate_vma *args)
- {
-+	const struct vm_area_struct *vma = args->vma;
- 	long nr_pages = (args->end - args->start) >> PAGE_SHIFT;
- 
- 	args->start &= PAGE_MASK;
- 	args->end &= PAGE_MASK;
--	if (!args->vma || vma_test_any_mask(args->vma, VMA_SPECIAL_FLAGS) ||
--	    vma_is_dax(args->vma))
-+	if (!vma)
-+		return -EINVAL;
-+	if (!vma_is_mm_managed(vma) || vma_is_fixed_mapping(vma) ||
-+	    vma_is_dax(vma))
- 		return -EINVAL;
- 	if (nr_pages <= 0)
- 		return -EINVAL;
--	if (args->start < args->vma->vm_start ||
--	    args->start >= args->vma->vm_end)
-+	if (args->start < vma->vm_start || args->start >= vma->vm_end)
- 		return -EINVAL;
--	if (args->end <= args->vma->vm_start || args->end > args->vma->vm_end)
-+	if (args->end <= vma->vm_start || args->end > vma->vm_end)
- 		return -EINVAL;
- 	if (!args->src || !args->dst)
- 		return -EINVAL;
+diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+index 7b6847200b43..b69fe5e34339 100644
+--- a/kernel/bpf/arena.c
++++ b/kernel/bpf/arena.c
+@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
+ 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
+ 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
+ 	 * being copied into the child process on fork.
++	 * This is a kernel page so set VM_MIXEDMAP.
+ 	 */
+-	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
++	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
+ 	vma->vm_ops = &arena_vm_ops;
+ 	return 0;
+ }
 
 -- 
 2.55.0
