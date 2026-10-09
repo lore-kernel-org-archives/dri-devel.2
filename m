@@ -4,31 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E53AECA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:19:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8DC8CA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:19:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 439D210FE29;
-	Fri,  9 Oct 2026 03:19:42 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4318310FE29;
- Fri,  9 Oct 2026 03:19:40 +0000 (UTC)
-X-QQ-mid: zesmtpip2t1791515882t0fd3316f
-X-QQ-Originating-IP: XXNfWD6sBCjyqaCfOai782WfGgGzZkkZ7WXlzuAHYJ8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE98610FE3B;
+	Fri,  9 Oct 2026 03:19:47 +0000 (UTC)
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECE9010FE33;
+ Fri,  9 Oct 2026 03:19:45 +0000 (UTC)
+X-QQ-mid: zesmtpip2t1791515822t7f4751d9
+X-QQ-Originating-IP: 7Pk+11nntTD5E8b/1b413pLXlghYhtX9yXW0rSJDyLc=
 Received: from [192.168.30.32] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 09 Oct 2026 11:17:59 +0800 (CST)
+ id ; Fri, 09 Oct 2026 11:16:52 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12552488957466588621
-EX-QQ-RecipientCnt: 29
+X-BIZMAIL-ID: 559857501391731083
+EX-QQ-RecipientCnt: 30
 From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 11:16:07 +0800
-Subject: [PATCH v2 15/20] drm/msm/dp: Flush VSC updates when leaving YUV420
+Subject: [PATCH v2 00/20] drm/msm/dp: Add static HDR support for DP and eDP
+Date: Fri, 09 Oct 2026 11:15:52 +0800
+Message-Id: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-msm-dp-hdr10-v2-15-1835d4966da3@radxa.com>
-References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
-In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOwW7DIBBEf8XiXCp2jYH41P+ocmAXqKnk2AEnS
+ hXl34sTqbceR5p58+6ixpJjFWN3FyVec83LqQV86wRP/vQVZQ4tC1Ro1KFXcq6zDKucQgElg9M
+ RAB32cBBtspaY8u2J+zy+cr3Qd+RtZ+yNKddtKT/PvyvsvX/QV5CNT5QcIWkk/ig+3Pw7L7M4P
+ l7sEs+XZry9DsXqN56a79h51L3RNuKBDQaTErALiYjdEIwK1viBNA366fy30uA1kYGBrWMAGlo
+ PtPPJWGeS8s6bnsHiviJfo2wuc97GzmLoEyenkHWTe/wCyUOxCFYBAAA=
+X-Change-ID: 20260930-msm-dp-hdr10-d84e11282319
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -47,36 +51,36 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3407; i=sophon@radxa.com;
- h=from:subject:message-id; bh=Z9h8OALLyQT16FzQH0lJ854H/RrF3oqTzDkmSpjnkKg=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlb1VPj7TlmssD18z5dZVp5Ppsnl555o3H0o43fcB
- ObaR1emd5SyMIhxMciKKbIoxDPMZa/MvfZUrFQPZg4rE8gQBi5OAZhI73OGP/zX8mwuvhZWVrnI
- 7bFGYuPsY+HM55Xnmi62Pr/Ir+V41j9Ghon8wfmbPuw8te/9xiPC/eobRRgEtL9c6PXaL+ncdvT
- zUVYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7844; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=146l0DN3W/8cc56zI/r+4Ok/KX8Zd6nBks+pkZ7RVLg=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYpYwyB1U2DhxqtNLvw0eEyze1M6YvEVOpKrtcsXb5
+ qoDqWrrOkpZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWwIF6cATCRpBsM/W44Jc5fLv/MPfvWI
+ t7DaO27ilVNHJoV6xv+bt2LFsu9Mcxn+u03q9JH/ulz0mpPWqTczGtOPiDG86tGbWlmc+Kxw5aq
+ TTAA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NQzH8pzEc5hGI+mOX+sK8WrWJPiXdgZBqb4S/aI847o2PN74zOn4/+d7
- nu6c/ZCPnsuBOcjYM1lZMrkU9eCoU8EKmTeLTA5PiAno/vbO7b6OR4CYnDuv9vwxCnaNH2n
- h13lZDuzh11BN5O5RsNbRk1D1hgEOUtY41aRLuerobWBMOxMQw9ULMWsTO47f3PCYOkNAU9
- lLciuC05nAt+PlZrawBsO6uRYmgyfgRDR30hmUqOu3vaKt1slEj97md+IY/YncdzILGNKqL
- IZ8AgXSi1Sdw9BOqbU7K8mmQZqQAhmMUKI0+vbyqe++GfTKYhhTbVAxBWf6VPj9n/hNXC9Q
- DBjifgsP+u46xlHC3zXqAFEIexUUpVq2HuVdxtxVRMjCMn2IFfxd8/cRCsuy6J/VbgNE4CE
- 2lXyQ+jqpMx8rOQbQzFuVgE+puxmE81plYCXHwFtt/xILO3ygBiTX+xRUZbm6tOpPhN2ETZ
- EZpKxW/Lo88Jx681N5obJJSecrlAJMkSdxloc8ock/x25kAiRHc7NPVjjuG2soT6p3fESpr
- 1TqhPNKfnIpUfHZ3ZjECipOy75WRq7hdnV82lVjArmp4ft1pa74OF0k1vZxDT20/vhs1ZF0
- 9j9W8ebEzznvJ1F6r1Or0FuVz0nsx809siX35oE96SQ3iAf8DE2ntmujk+gVx3HaTwO6d34
- gRpFbQkT4cm4FdMh01PJ0gz9QiQbLDzvk3YC6P2SgQkar7QX1/KUEBGhOB+tkQ71i2M1dv2
- ctzYP+o86XAe7zoV9Dfkn9IjbsekA7os2or0iGc034TyH/xxXx3pFVYzNv9bjg9cFivFIFx
- 47ST+L3ZvCo6GEuiY7zuMOcK7hzwZI0EJfiO6Pg/e1WlxsLVbORuMSD2M6HDc71qDVogki2
- 43lJ0Y+GDwl3AJsvW4e7J+Hnpw9hzRTBb59h+HLTP7wwNmNy8AJFntVcmDr7OSvQ84418Nu
- W4DMF60S3TUG2jrBVbT0ru5od0YusMxM+hTXrKb5gbumO9IkChz4KWDCV6fJworqjg0o3LN
- U5W3fGxYyu8nDRYcJNBOr/dpMEltSsejOpt3+Ta4T1FE565wiXEJMwyfbyHpWN//QGSsUht
- Q==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-XMAILINFO: NRfl6k/eYe7AKfDcDCTDplaPW9bQEDrZMjX5Fj4FCNMrBW+MwnL+wTtJ
+ XVzDGbDlKxH5JZHrkImMuu6exSAQEPytpReoc3FIyWttWP/i6KQWetwhi6wUGM198BhMyEs
+ T3C5a6WIQPltBDpltYTmNqzRejYQJJvjZ2QBnIK1+kwaQkvCRNEe5ptCWSAAN/Gl2Fo+kLQ
+ ad5Eev0mN6epo7h0GKHdx0NC5KUVmYtcsz0V+RSh1+UEUL+D9pvObNrTvlaL0ucIcrKA8GS
+ b05sya230Vy2ELbvYrwZcyu/yrIN+a1uWxxUhUjOiLhXAkZYsxDnsb5VU/DPewCl+kRXf/h
+ R6CQA4GA2YAdmDeCNLs8KBvVI4MoVOgW0Clbz6jx+enmQLwpt1pE3LSpvkhTJ0SWC2exIoh
+ hTwmFoY3V0ZJnO7+HzmKulxXw0PgnWTUjK52ZOS/eDQp/OdOMaIxd6+jzF7GGhEroGdLkOI
+ a1cEfBnS4qJrIIQaHwXsxgxn0KFt85J0Sy815RrMFRRYeax629/PwqKXT9batjM0X2F0mrt
+ VA5//6bCvsN7z2KPYIdfW1c5fmhHfNpZp9GS1U9awflQOQSKKHty8m6cpJVAuojUbAcMW/N
+ 5kb/+HNpGIoJa8aMKdzfEJuDhGi01fHC8G50eFJW+tlU60fMCbYZ2Gw0P9Rh61BsDzrbWOD
+ n9EkwG3ofoL30IjIN+pxl9V+eCy2rBKAbJE5mCeL7hr+a4ZbtwrFMLYdGPFxxshQGIs5qYh
+ 2ptr9+db1r5nrgWtCVqRHw0yGFudYpTZOtogLAYI6kjhemMP7dOnV5eBl1nPRJKpNu3jok5
+ kDJ6Q7kx1+g8UPjJAf/sAyLH/7W5RbvdXU81XCCKpSxIx4p4XxrHPEVVqV9qy49cyRpTrlm
+ j4ZY5Nidlrt/h8127nLimU6meKMXn7XHtRpYZAU0KohVE/1m8sdpVNIXg4BthyGn4tHf/q5
+ IxkeFGBRrBz7A87I/ys/AaWD4R8fQIF+Ztu6vYIhWInNVDdvnQfVnYPGApfb1HsZFSOJEVE
+ TCu8hQg8tr84Ge3BXtFDF1cdVArn6GCsxPtGK09g==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,91 +97,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Peripheral flush is currently requested only for the new YUV420 mode.
-Returning to RGB also changes SDP state and must remove the old VSC
-packet rather than leaving its enable bits set.
+This series adds standard KMS static HDR metadata and BT.2020 RGB
+signalling to MSM DP and eDP, with HDR10 as the intended use case. It uses
+HDR_OUTPUT_METADATA, Colorspace and max bpc. Userspace supplies the HDR
+pixel content; DSC, dynamic HDR and tone mapping are outside this series.
 
-Track whether either stream needs VSC and request peripheral flush for
-both enabling and removing it. Explicitly disable VSC for RGB, and write
-the packet payload before enabling transmission. Retain the existing
-hardware-specific SDP update mechanism.
+Patches 1-3 allow max bpc registration before connector state allocation,
+restore the attached property default, remove the early state allocation
+workarounds and register max bpc centrally for non-HDMI bridge connectors.
 
-Assisted-by: LLM
+Patch 4 makes the SDP header packing input const. Patch 5 prepares generic
+SDP slots. The HPD state serialization and debugfs connector pointer fixes
+are already in linux-next and are not included in this revision. On the
+current v7.3-rc5 base, both fixes are applied as prerequisites.
+
+Patches 6-9 move runtime PM calls outside the connection lock, serialize
+stream operations with HPD, establish PHY power ownership and add stream
+enable rollback, including AUX recovery for a connected external peer.
+New error returns are introduced together with their cleanup paths.
+
+Patches 10-12 add deferred link-status notification, persistent eDP link
+capability caching and stream reconstruction for modesets leaving eDP self
+refresh.
+Patch 13 adds atomic output depth selection. Patches 14-17 clear stale MSA
+colorimetry, flush VSC removal, exclude YUV420 streams from PSR and move
+VSC packets into bridge atomic state. Patch 18 adds BT.2020 RGB signalling.
+
+Patch 19 serializes SDR video-test state changes with mode programming.
+Patch 20 adds complete static HDR support: metadata validation and packing,
+10 bpc enforcement, Generic2 programming and teardown, stream restoration,
+PSR exclusion and arbitration with video-pattern tests. A test request
+arriving after atomic check cannot replace the checked HDR output depth.
+
+This series is tested on a Lenovo Yoga Slim 7x using x1e80100.
+
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 7 ++++++-
- drivers/gpu/drm/msm/dp/dp_panel.c   | 6 ++++--
- drivers/gpu/drm/msm/dp/dp_panel.h   | 1 +
- 3 files changed, 11 insertions(+), 3 deletions(-)
+Changes in v2:
+- Drop the HPD state serialization and debugfs connector pointer fixes,
+  which are already in linux-next.
+- Restore max bpc from the property default and remove early connector
+  state allocation workarounds, with regression coverage. (Maxime)
+- Register non-HDMI max bpc in the bridge connector helper and advertise
+  the MSM DP/eDP limit through bridge->max_bpc. (Dmitry)
+- Split the const SDP header change into a separate patch. (Dmitry)
+- Serialize stream operations and rollback with HPD before tracking PHY
+  ownership; keep runtime PM calls outside the connection lock. (Sashiko)
+- Clear the sink training pattern before returning a retraining error. (Sashiko)
+- Use the link-status property helper and move TODO removal into the
+  failure notification patch. (Dmitry)
+- Cache eDP link capabilities after the first successful discovery and
+  retain them across power transitions. (Dmitry)
+- Discover eDP bandwidth limits before atomic check and reject unknown
+  limits instead of deferring validation to enable. (Sashiko)
+- Keep the checked depth during training fallback and only accept links
+  that can carry the unchanged stream. (Dmitry)
+- Derive PSR eligibility from the checked VSC state, including YUV420
+  modes with default colorimetry. (Sashiko)
+- Program the checked VSC packet unchanged for normal streams; rebuild
+  it only for video compliance tests. (Dmitry)
+- Split MSA cleanup, VSC updates, PSR exclusion and atomic VSC state
+  from BT.2020 RGB support. (Dmitry)
+- Validate HDR controller support during atomic check. (Sashiko)
+- Pass checked VSC/HDR state through stream programming instead of
+  copying the configuration into the panel. (Dmitry)
+- Link to v1: https://patch.msgid.link/20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 1f9595ff5fd9..486348113b8a 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -691,6 +691,8 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
- 	else
- 		bpp = state->bpp;
- 
-+	msm_dp_panel->sdp_needs_flush = msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420 ||
-+		drm_mode_is_420_only(&msm_dp_panel->connector->display_info, adjusted_mode);
- 	msm_dp_panel_init_panel_info(msm_dp_panel, adjusted_mode, bpp ? bpp : 24);
- 
- 	/* populate wide_bus_support to different layers */
-@@ -1557,7 +1559,10 @@ void __exit msm_dp_unregister(void)
- bool msm_dp_needs_periph_flush(const struct msm_dp *msm_dp_display,
- 			       const struct drm_display_mode *mode)
- {
--	return drm_mode_is_420_only(&msm_dp_display->connector->display_info, mode);
-+	struct msm_dp_display_private *dp = container_of(msm_dp_display,
-+					struct msm_dp_display_private, msm_dp_display);
-+
-+	return dp->panel->sdp_needs_flush;
- }
- 
- bool msm_dp_wide_bus_available(const struct msm_dp *msm_dp_display)
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index af05441bc32a..026074cafc88 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -526,14 +526,14 @@ void msm_dp_panel_enable_vsc_sdp(struct msm_dp_panel *msm_dp_panel, struct dp_sd
- 	cfg2 = msm_dp_read_link(panel, MMSS_DP_SDP_CFG2);
- 	misc = msm_dp_read_link(panel, REG_DP_MISC1_MISC0);
- 
-+	msm_dp_panel_send_sdp(panel, vsc_sdp, MMSS_DP_GENERIC0_0);
-+
- 	cfg |= GEN0_SDP_EN;
- 	msm_dp_write_link(panel, MMSS_DP_SDP_CFG, cfg);
- 
- 	cfg2 |= GENERIC0_SDPSIZE_VALID;
- 	msm_dp_write_link(panel, MMSS_DP_SDP_CFG2, cfg2);
- 
--	msm_dp_panel_send_sdp(panel, vsc_sdp, MMSS_DP_GENERIC0_0);
--
- 	/* indicates presence of VSC (BIT(6) of MISC1) */
- 	misc |= DP_MISC1_VSC_SDP;
- 
-@@ -686,6 +686,8 @@ int msm_dp_panel_timing_cfg(struct msm_dp_panel *msm_dp_panel, bool wide_bus_en)
- 
- 	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
- 		msm_dp_panel_setup_vsc_sdp_yuv_420(msm_dp_panel);
-+	else
-+		msm_dp_panel_disable_vsc_sdp(msm_dp_panel);
- 
- 	panel->panel_on = true;
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-index a5cb8a4a9498..31752895f124 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.h
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-@@ -42,6 +42,7 @@ struct msm_dp_panel {
- 	bool link_caps_valid;
- 	/* All capability reads completed; eDP can reuse the full cache. */
- 	bool caps_cached;
-+	bool sdp_needs_flush;
- 	u32 hw_revision;
- 
- 	u32 max_bw_code;
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Kevin Hilman <khilman@baylibre.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 
--- 
-2.56.0
+---
+Xilin Wu (20):
+      drm/atomic: Handle max bpc properties before connector state allocation
+      drm/connector: Drop early state allocation for max bpc registration
+      drm/bridge-connector: Attach max bpc for non-HDMI bridges
+      drm/msm/dp: Accept a const SDP header when packing
+      drm/msm/dp: Support multiple generic SDP slots
+      drm/msm/dp: Keep runtime PM calls outside the connection lock
+      drm/msm/dp: Serialize stream operations with HPD processing
+      drm/msm/dp: Track PHY power ownership
+      drm/msm/dp: Unwind resources when enabling a stream fails
+      drm/msm/dp: Report stream enable failures through link status
+      drm/msm/dp: Cache eDP link capabilities after successful discovery
+      drm/msm/dp: Rebuild the eDP stream on modesets leaving self refresh
+      drm/msm/dp: Track output bit depth in bridge atomic state
+      drm/msm/dp: Clear stale MSA colorimetry bits
+      drm/msm/dp: Flush VSC updates when leaving YUV420
+      drm/msm/dp: Disable PSR for YUV420 streams
+      drm/msm/dp: Track VSC packets in bridge atomic state
+      drm/msm/dp: Signal BT.2020 RGB on DP and eDP
+      drm/msm/dp: Serialize video test state changes
+      drm/msm/dp: Add static HDR metadata support for DP and eDP
+
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c      |   6 -
+ drivers/gpu/drm/display/drm_bridge_connector.c |  18 +
+ drivers/gpu/drm/drm_atomic_state_helper.c      |   8 +
+ drivers/gpu/drm/drm_connector.c                |  22 +-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c     |   6 -
+ drivers/gpu/drm/msm/Kconfig                    |   1 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c               | 263 ++++++++++----
+ drivers/gpu/drm/msm/dp/dp_ctrl.h               |   9 +-
+ drivers/gpu/drm/msm/dp/dp_debug.c              |  27 +-
+ drivers/gpu/drm/msm/dp/dp_debug.h              |   8 +-
+ drivers/gpu/drm/msm/dp/dp_display.c            | 483 +++++++++++++++++++++----
+ drivers/gpu/drm/msm/dp/dp_display.h            |   8 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c                | 133 ++++++-
+ drivers/gpu/drm/msm/dp/dp_drm.h                |  14 +
+ drivers/gpu/drm/msm/dp/dp_panel.c              | 176 +++++----
+ drivers/gpu/drm/msm/dp/dp_panel.h              |   9 +-
+ drivers/gpu/drm/msm/dp/dp_reg.h                |   4 +
+ drivers/gpu/drm/msm/dp/dp_utils.c              | 134 ++++++-
+ drivers/gpu/drm/msm/dp/dp_utils.h              |  23 +-
+ drivers/gpu/drm/tests/drm_connector_test.c     |  62 ++++
+ include/drm/drm_bridge.h                       |  11 +-
+ 21 files changed, 1128 insertions(+), 297 deletions(-)
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260930-msm-dp-hdr10-d84e11282319
+prerequisite-patch-id: a243647e29c62d6ff1c8dfbbc85d60d76a5b4b54
+prerequisite-patch-id: 41a4bb615c78c11b576a148af6786f0a8a63c172
+
+Best regards,
+--  
+Xilin Wu <sophon@radxa.com>
 
