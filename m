@@ -4,50 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C51EDCA6015
-	for <dri-devel@archiver.kernel.org>; Thu,  8 Oct 2026 23:59:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81DEACA6017
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 00:01:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE8410EA54;
-	Thu,  8 Oct 2026 23:59:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A89A10E177;
+	Fri,  9 Oct 2026 00:01:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.b="dJpN6+Vz";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="UROCiQv4";
 	dkim-atps=neutral
-Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EC6310E996
- for <dri-devel@lists.freedesktop.org>; Thu,  8 Oct 2026 23:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru; 
- s=dkim;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
- Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=xRu+OVReHZZZ8Gs1E5fRPJgegCzlBaNiCuBPOFT1DMo=; b=dJpN6+Vzg8XO4DVzDCsNVlbFQI
- 3PiwuHmIxIt+ZpPck7wqrPE8QQ1/n4PlhL4UH+bYCb2p7JpVarHZCzo0EjxdKhYeuu54XGXOURcqH
- CIO4yNlmbk8/Q9Ir8DmCq2ea3mmednCifzfI1Zstov6vfj0+R2VDVEHhSZNGOMcdwErM=;
-Received: by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls
- TLS_AES_128_GCM_SHA256 (envelope-from <alexeymin@minlexx.ru>)
- id 1xEy0m-00000008axC-353x; Fri, 09 Oct 2026 02:58:57 +0300
-Message-ID: <5380b2cd-48f1-4e4e-8a11-9e303c366e47@minlexx.ru>
-Date: Fri, 9 Oct 2026 02:58:55 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dsi: fix AHB clock staying enabled across suspend
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mahadevan.p@oss.qualcomm.com, rajeevny@qti.qualcomm.com
-References: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
-Content-Language: en-US
-From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-In-Reply-To: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com
+ [209.85.215.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 545F510E177
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 00:01:21 +0000 (UTC)
+Received: by mail-pg1-f225.google.com with SMTP id
+ 41be03b00d2f7-cc4aa18f9afso2862233a12.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 17:01:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791504081; x=1792108881;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:dkim-signature
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=eQ9gPc8GMtuGw+jgy6osNNuy5Xw9rr9Ot71+Sg0ZxL0=;
+ b=W/cJqpnhE8qvS7EQMRua4HIwmNbwW47nx/1MffSEKFxz3ere3c/kwdXrMVd9NsKRa8
+ brxvQ21wAIISYnbsEFjHp6ww50tXqcPZ9sXAhSoDiju4MZQ8CiAQKOR7trGzNFN8ADIF
+ 8MD8NN8hPrEKd0wQgTy2H2TICZiiUE7qABUmOaoFZuEzCzF45vEFm59wCewyApHTrCW+
+ Cp36IyKLguKywrOeMuRu45rKDFu/h680qMdz6eCfwaZWT4omuh0b9LcIXxrT5dXuEgqg
+ I3bXeMU5p/HX7ATY2/+rHrBD2HkBt1ea547dTWfCz/YhN/Rrir9DoQ6WLy8TmA+ab+5W
+ P9LQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzKcRsENsPR3+yIDFaKvmPCvpwOdgG29e93cmiApCRzjgGZ97AsglVaxkTgFulCHnEIVlnyHS6Hg9A=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJagpRLJdUM873iUWe0C+iBkKvjfmhvRQChNZox7uzJAMJrb5Ni
+ pKAPeU/+AHHory363mMOiB4fyXRyGdapkENwrofSc6Q90f33ZuKkGKGefm39MAxy8W7fl3uBBlq
+ kRsqJULMPdHShGJw3IvybUcEsc0kNzQReomWKDScYWBF9sMwfQQnthxv1MjghAeO1Dz5Gy+Tm0S
+ ni2/hHKA4ISFgfF+1U9m0s6GSYDus9avA3OJH94kmMLe+6wHc9kthn2IlljhGlwIpAnoukNSao8
+ /yqqxtdc/MnXlcsJaO9c9K6fJmY
+X-Gm-Gg: AYBFou3rNPxcm7uWptOAPXFTrpHs9khf8vRdJ8FGTmpv7hFS4ZvNxWNF+xfzRA/Jo3R
+ t64rHAcNKR20qpbjEPWyit7BvA4WqA/cyu0+e6IWj8hoO1SqUBcWIwbIxrsjp2Gel1qblRbSUjp
+ rGvW/6bIIx6vy0nHswkFLYLtC74hmwCFNJgjvFkQugQNw/GRvOzZxNph1Nj8WOOhO2u9B41MUKS
+ hgsS3gdpMcz+81/DhogzD2QJilA4KKa9xrrJTnmRz7glHvBTv9Ukn136ui0qLOjdau/CUuQ9BPx
+ O8jnau8CfzsKjCexjKMgPCNodR2XqhkFHGFNIqfsTH9o3eAKPE5MwEypFh3Z+iIswG0K/3WbStw
+ x8IHlAs4xXHi04fDOuOkHos7/MbPViii/mpf8MaEOxx+yM1b1wmIyGV2KEIdNlmabwP39oAVWm6
+ AUkd5Y1KHDHCahaE6aohZhCSgf28y5R+MGFi3HPxHkEIo=
+X-Received: by 2002:a17:90b:390a:b0:3ab:413:49a9 with SMTP id
+ 98e67ed59e1d1-3ab3a932609mr370642a91.50.1791504080108; 
+ Thu, 08 Oct 2026 17:01:20 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+ by smtp-relay.gmail.com with ESMTPS id
+ 98e67ed59e1d1-3ab395531b4sm142500a91.3.2026.10.08.17.01.19
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 08 Oct 2026 17:01:20 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-34ef0362d95so11726644eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 17:01:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1791504078; x=1792108878;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=eQ9gPc8GMtuGw+jgy6osNNuy5Xw9rr9Ot71+Sg0ZxL0=;
+ b=UROCiQv4Daq0W5iIw/Yk3WORnDLFWR0wk20dsDQOrGd6R4nUWbdUQgB1saccvjtkNU
+ wv9kBu5ABVI6tbVbRDE5bKxGpJcz7InuLfqE3jPzvSqQbq+MfS5TfIGxhVxI1XbSoazw
+ 8/RAtTjJLtKsH585/u7Wus2M+1dW9Q7fBBlXQ=
+X-Forwarded-Encrypted: i=1;
+ AKwUvByYDuAGKWpNExa3YRuYXlcnIOkXRrMslrzUvji/eZ6b+YuMb7N03uHUrgBtDIAGg2kQFaq7RxXU5jg=@lists.freedesktop.org
+X-Received: by 2002:a05:7300:ea0f:b0:34b:7c9c:9a71 with SMTP id
+ 5a478bee46e88-3537dde991fmr644025eec.1.1791504077138; 
+ Thu, 08 Oct 2026 17:01:17 -0700 (PDT)
+X-Received: by 2002:a05:7300:ea0f:b0:34b:7c9c:9a71 with SMTP id
+ 5a478bee46e88-3537dde991fmr643952eec.1.1791504075878; 
+ Thu, 08 Oct 2026 17:01:15 -0700 (PDT)
+Received: from localhost ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3537cab786fsm1578849eec.19.2026.10.08.17.01.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Oct 2026 17:01:15 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 08 Oct 2026 17:02:15 -0700
+Message-Id: <DLZV7Q47B0NY.1E83HQV0P64MI@broadcom.com>
+Cc: <bcm-kernel-feedback-list@broadcom.com>, <zack.rusin@broadcom.com>
+Subject: Re: [PATCH] drm/vmwgfx: Make vmw_bo_driver function pointer table
+ readonly
+From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
+ <maaz.mombasawala@broadcom.com>
+To: "Ian Forbes" <ian.forbes@broadcom.com>, <dri-devel@lists.freedesktop.org>
+X-Mailer: aerc 0.17.0
+References: <20261008141501.2182964-1-ian.forbes@broadcom.com>
+In-Reply-To: <20261008141501.2182964-1-ian.forbes@broadcom.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,44 +113,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 06.10.2026 16:13, Arpit Saini wrote:
-> pm_clk_suspend()/resume() only call clk_disable()/clk_enable() for the
-> AHB ("iface") clock, never clk_unprepare(), so prepare_count never
-> reaches 0. The clock (and its source) stays reported as enabled
-> through s2idle suspend even though the display stack is fully
-> suspended:
-> 
->    disp_cc_mdss_ahb_clk [19200000] ->
->      disp_cc_mdss_ahb_clk_src [19200000] ->
->      bi_tcxo [19200000] -> xo-board [76800000]
->    disp_cc_mdss_ahb_clk_src [19200000] ->
->      bi_tcxo [19200000] -> xo-board [76800000]
-> 
-> Calling clk_prepare_enable()/clk_disable_unprepare() directly from the
-> PHY's runtime_suspend/runtime_resume is not safe either, since it can
-> deadlock against the PHY's own PLL clocks taking the global CCF
-> prepare_lock during clk_prepare()/clk_unprepare().
-> 
-> Fix this by moving clk_prepare()/clk_unprepare() out of the runtime PM
-> path. clk_enable()/clk_disable() (spinlock only) stay in
-> runtime_suspend/runtime_resume. clk_prepare()/clk_unprepare() move to
-> suspend_late/resume_early, avoiding the prepare_lock collision and
-> actually dropping prepare_count to 0. DPM_FLAG_NO_DIRECT_COMPLETE
-> ensures these hooks always run on sleep.
-> 
-> Fixes: 0b3ccb76b95b ("drm/msm/dsi: Fix 14nm DSI PHY PLL Lock issue")
-> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 132 +++++++++++++++++++++++++++++++---
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h |   4 ++
->   2 files changed, 127 insertions(+), 9 deletions(-)
-> 
+LGTM
 
-Hi,
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 
-is this supposed to fix the message: "mdss_ahb_clk status stuck at 'on'"
-during suspending?
+--=20
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
 
---
-Regards,
-Alexey Minnekhanov
