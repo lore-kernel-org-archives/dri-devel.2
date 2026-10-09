@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 918B2CA6017
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 639B6CA9EC8
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6D9010EBB3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7A4A10EBBD;
 	Sat, 10 Oct 2026 12:37:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CVh1QKG/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mvzi1fiC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9881710E16B
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:07:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E2F410E18B
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:17:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 76453405ED;
- Fri,  9 Oct 2026 18:07:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0F1B1F00898;
- Fri,  9 Oct 2026 18:07:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 56C106020C;
+ Fri,  9 Oct 2026 18:17:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799181F00898;
+ Fri,  9 Oct 2026 18:17:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569265;
- bh=XhhlSsemSmxgXNdMsOuIhrMWTeKjuFdWFETXzMuu8iA=;
+ s=k20260515; t=1791569873;
+ bh=Q2aQUzTUuuuNI/ysultBnvmSy0Vxb53qrqOM+R0btIA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=CVh1QKG/RmVaLC/5g/1Q+3bfhMtYz+DJoCtEusgckKBXnjkL7bT0ZwvZab4v4pK7A
- oEttV62GS/TxCdiC+9fvD8Qp32Wzh6FvEwHOSOcOZvMrBPkZ+F0y+0/vulSeabkZUX
- eDkulGke+yBeEjJBIgxKpDiwfAiXBQPQ+ZhAHe7N35XpHMSQKQU4YjY/dEHRcDBfZd
- 8s0fCsJji7/5/3xWZ8drMtahRB6Sg7znugCL4VG5oS0iG2fQ1Px1OYPPYNx7ATSOaV
- Tzjj8MehPQYtGrjDk53cRum6WMonkL4Kk3oASvg/gGwenxf2T3JI6Pzbqjo/F8a/2t
- uufakHoXz8h1w==
+ b=Mvzi1fiC6gX/l2jQGIwOF7O63+WE13HT+q4ZHUAMv6JVw7qL2MDphBGUkkO6YC+Gp
+ M9+AcJDTYwgzfHItQHapQgVC77ka1excAet+KIgzyS/z5TqMW+YLy1mXKvqoIdGfIQ
+ te9hu5V+MpJ1mRea6WG8zB0aOEb3w9//poav+TxQQl9lQvL3T9KVLtjcMcV62r0Tjk
+ pZjj8iPIlVpbYKwaSWPGhValW8a40mzLhunv3AiK4J2UGMS3ntAEtUkKYtoLG1Dw4n
+ KXMb7Uiz862SqCAVEegs9wOrsfyCd2UV/GPj5hsvhhw1oFdq0wBHrAtFFrS8s0a8yU
+ ll9X4iU0jG7ig==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:03 +0100
-Subject: [PATCH v5 09/38] drivers/usb/mon: update to use mmap_prepare + map
- kernel pages
+Date: Fri, 09 Oct 2026 19:04:32 +0100
+Subject: [PATCH v5 38/38] mm/huge_memory: remove vma_is_special_huge()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-9-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-38-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -122,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6274; i=ljs@kernel.org;
- h=from:subject:message-id; bh=MVQ57kbHbmPy06L79MgXIJ1zXhvIw2KdqOI+DoqsBik=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6swqSffhy/HT9z7yweqanb7MvYiHXGuVWtVzYzJiE
- g/E6hV1lLIwiHExyIopsjz/Ir4/SCRsXucFfzeYOaxMIEMYuDgFYCJl+xgZNswy3SnC6jD77vS+
- p9Kb/PVexH1MfaxSEu6VtK1go5aQJMNfgUx/y7APFeZ/VJ9/j/ohZS1u8/D1u/sFroniz4MqNb2
- YAQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2917; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=I2iSzq1wq3BUA5ngKyuzaIh6bRjYfHM3M8Ib2DX8Eao=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6szfWj3ty7q/pguW7DpuZtT4jElWLtS1uyhobZze9
+ OafW9z2dJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAih4oZGY7W1nnvPG33iTuv
+ sX7rVRfheG+m6w6XN7fGfTlreHDn7qkMf6Vv23es6UhS+qaT8/NXQxXPhBvTt4tozmYROcvWdel
+ NIAMA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -146,185 +145,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the deprecated .mmap hook with its replacement .mmap_prepare. As
-part of this change, additionally take the approach of mapping pages upon
-mmap rather than providing a fault handler.
+vma_is_special_huge() tests whether either the VMA_PFNMAP_BIT or
+VMA_MIXEDMAP_BIT is set (i.e. whether the VMA is not mm-managed),
+but with a DAX carve-out.
 
-The page span cannot be mutated when an mmap mapping is in place, so this
-is safe to do in advance (the MON_IOCT_RING_SIZE ioctl operation exits
--EBUSY if it's attempted, gated by the rp->mmap_active reference count).
+DAX however no longer sets VMA_MIXEDMAP_BIT, so this carve-out is no longer
+required.
 
-Utilise the newly introduced mmap_action_map_discontig_kernel_pages() to do
-this, which allows for iteration over pages in mon_bin_discontig_get().
+Therefore test for !vma_is_mm_managed() instead and also drop the
+VMA_IO_BIT check, as it is now redundant since it is enforced that
+mm-managed mappings may not set VMA_IO_BIT.
 
-mon_bin_discontig_init() increments the rp->mmap_active reference count to
-stabilise page spans. Should an error arise the core unmaps the VMA and
-mon_bin_vma_close() drops the reference again.
+This also eliminates another overloaded use of 'special' within mm.
 
-The vm_ops->close hook implemented in mon_bin_vma_close() will ensure
-correct reference count arithmetic upon unmap (with mon_bin_vma_open()
-accounting for splitting).
+No functional change intended.
 
-The existing semantics are all retained, including not mapping past the
-range of available pages, with a SIGBUS being raised in a userland process
-that attempts to access past this point.
-
-Ultimately insert_page() is invoked to insert each page, which increments
-the reference count on each mapped page. This mimics what was being done
-previously, only we pre-map the entire range rather than doing so on
-demand.
-
-The existing fault handler did nothing that required demand paging, and was
-presumably implemented this way for historical reasons.
-
-One behavioural difference: pages are no longer faulted in on demand, so a
-page discarded with MADV_DONTNEED is not repopulated and a subsequent
-access raises SIGBUS, as with other pre-populated kernel mappings.
-
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/usb/mon/mon_bin.c | 82 ++++++++++++++++++++++++++++++-----------------
- 1 file changed, 53 insertions(+), 29 deletions(-)
+ mm/huge_memory.c | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/usb/mon/mon_bin.c b/drivers/usb/mon/mon_bin.c
-index 687f6a8981f3..9d00b21a8153 100644
---- a/drivers/usb/mon/mon_bin.c
-+++ b/drivers/usb/mon/mon_bin.c
-@@ -1219,6 +1219,15 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
- 	return mask;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 83dd63b04568..000c4bb50f71 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -110,14 +110,6 @@ static inline bool file_thp_enabled(const struct vm_area_struct *vma)
+ 	return S_ISREG(inode->i_mode);
  }
  
-+static void __mon_bin_vma_open(struct mon_reader_bin *rp)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&rp->b_lock, flags);
-+	rp->mmap_active++;
-+	spin_unlock_irqrestore(&rp->b_lock, flags);
-+}
-+
- /*
-  * open and close: just keep track of how many times the device is
-  * mapped, to use the proper memory allocation function.
-@@ -1226,64 +1235,79 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
- static void mon_bin_vma_open(struct vm_area_struct *vma)
+-/* If returns true, we are unable to access the VMA's folios. */
+-static bool vma_is_special_huge(const struct vm_area_struct *vma)
+-{
+-	if (vma_is_dax(vma))
+-		return false;
+-	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
+-}
+-
+ static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
+ 		enum tva_type type)
  {
- 	struct mon_reader_bin *rp = vma->vm_private_data;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&rp->b_lock, flags);
--	rp->mmap_active++;
--	spin_unlock_irqrestore(&rp->b_lock, flags);
-+	__mon_bin_vma_open(rp);
- }
- 
--static void mon_bin_vma_close(struct vm_area_struct *vma)
-+static void __mon_bin_vma_close(struct mon_reader_bin *rp)
+@@ -192,7 +184,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 	/* Check the intersection of requested and supported orders. */
+ 	if (vma_is_anonymous(vma))
+ 		supported_orders = THP_ORDERS_ALL_ANON;
+-	else if (vma_is_dax(vma) || vma_is_special_huge(vma))
++	else if (vma_is_dax(vma) || !vma_is_mm_managed(vma))
+ 		supported_orders = THP_ORDERS_ALL_SPECIAL_DAX;
+ 	else
+ 		supported_orders = THP_ORDERS_ALL_FILE_DEFAULT;
+@@ -3066,7 +3058,7 @@ int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	orig_pud = pudp_huge_get_and_clear_full(vma, addr, pud, tlb->fullmm);
+ 	arch_check_zapped_pud(vma, orig_pud);
+ 	tlb_remove_pud_tlb_entry(tlb, pud, addr);
+-	if (vma_is_special_huge(vma)) {
++	if (!vma_is_mm_managed(vma)) {
+ 		spin_unlock(ptl);
+ 		/* No zero page support yet */
+ 	} else {
+@@ -3222,7 +3214,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		 */
+ 		if (arch_needs_pgtable_deposit())
+ 			zap_deposited_table(mm, pmd);
+-		if (vma_is_special_huge(vma))
++		if (!vma_is_mm_managed(vma))
+ 			return;
+ 		if (unlikely(pmd_is_migration_entry(old_pmd))) {
+ 			const softleaf_t old_entry = softleaf_from_pmd(old_pmd);
+@@ -4765,9 +4757,7 @@ static inline bool vma_not_suitable_for_thp_split(struct vm_area_struct *vma)
  {
- 	unsigned long flags;
- 
--	struct mon_reader_bin *rp = vma->vm_private_data;
- 	spin_lock_irqsave(&rp->b_lock, flags);
- 	rp->mmap_active--;
- 	spin_unlock_irqrestore(&rp->b_lock, flags);
- }
- 
--/*
-- * Map ring pages to user space.
-- */
--static vm_fault_t mon_bin_vma_fault(struct vm_fault *vmf)
-+static void mon_bin_vma_close(struct vm_area_struct *vma)
- {
--	struct mon_reader_bin *rp = vmf->vma->vm_private_data;
-+	struct mon_reader_bin *rp = vma->vm_private_data;
-+
-+	__mon_bin_vma_close(rp);
-+}
-+
-+static const struct vm_operations_struct mon_bin_vm_ops = {
-+	.open =     mon_bin_vma_open,
-+	.close =    mon_bin_vma_close,
-+};
-+
-+static int mon_bin_discontig_init(void *vm_private_data, void **private)
-+{
-+	struct mon_reader_bin *rp = vm_private_data;
-+
-+	/* Dropped by mon_bin_vma_close() on unmap, including on error. */
-+	__mon_bin_vma_open(rp);
-+	return 0;
-+}
-+
-+static int mon_bin_discontig_get(struct discontig_kernel_page_state *state)
-+{
-+	struct mon_reader_bin *rp = state->vm_private_data;
- 	unsigned long offset, chunk_idx;
--	struct page *pageptr;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&rp->b_lock, flags);
--	offset = vmf->pgoff << PAGE_SHIFT;
-+
-+	offset = state->pgoff << PAGE_SHIFT;
- 	if (offset >= rp->b_size) {
- 		spin_unlock_irqrestore(&rp->b_lock, flags);
--		return VM_FAULT_SIGBUS;
-+		discontig_kernel_map_abort(state);
-+		return 0;
- 	}
- 	chunk_idx = offset / CHUNK_SIZE;
--	pageptr = rp->b_vec[chunk_idx].pg;
--	get_page(pageptr);
--	vmf->page = pageptr;
-+	discontig_kernel_map_page(state, rp->b_vec[chunk_idx].pg);
-+
- 	spin_unlock_irqrestore(&rp->b_lock, flags);
- 	return 0;
- }
- 
--static const struct vm_operations_struct mon_bin_vm_ops = {
--	.open =     mon_bin_vma_open,
--	.close =    mon_bin_vma_close,
--	.fault =    mon_bin_vma_fault,
-+static const struct discontig_kernel_page_ops mon_discontig_ops = {
-+	.init = mon_bin_discontig_init,
-+	.get = mon_bin_discontig_get,
- };
- 
--static int mon_bin_mmap(struct file *filp, struct vm_area_struct *vma)
-+static int mon_bin_mmap_prepare(struct vm_area_desc *desc)
- {
--	/* don't do anything here: "fault" will set up page table entries */
--	vma->vm_ops = &mon_bin_vm_ops;
-+	const struct file *filp = desc->file;
- 
--	if (vma->vm_flags & VM_WRITE)
-+	if (vma_desc_test(desc, VMA_WRITE_BIT))
- 		return -EPERM;
- 
--	vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP, VM_MAYWRITE);
--	vma->vm_private_data = filp->private_data;
--	mon_bin_vma_open(vma);
-+	desc->vm_ops = &mon_bin_vm_ops;
-+	vma_desc_clear_flags(desc, VMA_MAYWRITE_BIT);
-+	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
-+	desc->private_data = filp->private_data;
-+
-+	mmap_action_map_discontig_kernel_pages(desc, NULL, &mon_discontig_ops);
- 	return 0;
- }
- 
-@@ -1298,7 +1322,7 @@ static const struct file_operations mon_fops_binary = {
- 	.compat_ioctl =	mon_bin_compat_ioctl,
- #endif
- 	.release =	mon_bin_release,
--	.mmap =		mon_bin_mmap,
-+	.mmap_prepare = mon_bin_mmap_prepare,
- };
- 
- static int mon_bin_wait_event(struct file *file, struct mon_reader_bin *rp)
+ 	if (vma_is_dax(vma))
+ 		return true;
+-	if (vma_is_special_huge(vma))
+-		return true;
+-	if (vma_test(vma, VMA_IO_BIT))
++	if (!vma_is_mm_managed(vma))
+ 		return true;
+ 	if (vma_is_hugetlb(vma))
+ 		return true;
 
 -- 
 2.55.0
