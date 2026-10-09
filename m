@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71203CA6017
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C40ECA9EC5
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB3E210EBD8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C053B10EBDB;
 	Sat, 10 Oct 2026 12:37:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e4cjbHk3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nRzxNI+s";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 242D610EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:15:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A432D10E1A8
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:08:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9AF2160267;
- Fri,  9 Oct 2026 18:15:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989971F00899;
- Fri,  9 Oct 2026 18:15:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6528C41264;
+ Fri,  9 Oct 2026 18:08:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2351F00893;
+ Fri,  9 Oct 2026 18:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569726;
- bh=XF0JJsfuKvhm2G8uGXZbY0Fvh9Ki1oyQ756jSTtjCVM=;
+ s=k20260515; t=1791569307;
+ bh=KHIf8B2iI8fiNQJo3dAJ4TwVu9iIvLIuOzKYifaGOuw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=e4cjbHk3kXpv5jaUuHmFqIXJ+YwAUbqhYDOu+qfqsGQQ8nmPgyEH/SlXwfLyQXIsQ
- 1Ok07WusxUfLJqniEECIOHLjriMdhkatRXiYnyQ28ua9IXSwV+7p8FtVW1/QtQg3M0
- FhzEg03kx7mcEfynajAwqDNx9hDoxww5ey/v2hFaVEbvLdzYdr2y/IKM6tWVG74mm1
- +hPO1++lAim7du02RQvH9+O37KljWxoBqXlWCWGKuDJn35U58XFlBgQkKRUg8jk+wy
- 9L2KeDxqFeDfDmZ9vyGH/V5M3ikQsTovN6S12yPbxYIb0eFbqzPdS+SKQX7LrDFHck
- nJfjZspO3yOJw==
+ b=nRzxNI+sutDN8f09nDjKkkSVYLIVFA1KBxmkta60GSU2jmmn5Fr0ShIPbnGo2JAMc
+ FmGDoODwUQcfMnKXfnagv0XMuf2pSfBX3rbgSB8n8d0mFfgqXTtttbU61wBS0hv64I
+ HR1cerfNHUGT3EFUpSCcwyg1l/etfg6QCuenzcdkbGVaqZTg3kumDLWZu3xboiHhHX
+ GcxzBPdky67tnM0dYnDp6x+S5wL8vR6r/38MNmp6RwBWNN5oL9z7qKP+Q2E0EY2K1v
+ fJvsHQy++SIJCIpufn4IECyZpabC0v3S4H6zNL11g4j1/iEebgcLFpzeN4uETr2urt
+ jgrO9D370hMTA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:25 +0100
-Subject: [PATCH v5 31/38] mm/uffd: use predicates for userfaultfd checks
+Date: Fri, 09 Oct 2026 19:04:05 +0100
+Subject: [PATCH v5 11/38] selinux: reject writable opens of policy file,
+ drop mmap shared/write check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-31-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-11-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +122,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2291; i=ljs@kernel.org;
- h=from:subject:message-id; bh=hWvFAcFtWeMeGKyFkbOpdZHf6iGKkjlhr26+pQ1dsRw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6szb1sT2110oIqdq8uT3KibMm6pvXNgik3Nc6bmpo
- meQ+IwXHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIBnFGhv7pq+QSix90/ogs
- nOjwI/lh1cRz8Ru6rgdNKr38+0tGqwgjQ3utulnz2WtVwW5Z8enOvk84048mMLA83t276BRLJmc
- gOwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1977; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=htC5Vt0G+OXzRx+Moje1Xpkb4xzW02xQsc9pTlrK3z8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6syyLlwm5qqqxW+4hq3BtOXz0qpbk8pMXuT1zn705
+ Ox2edZNHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIqlaG/+55/uKCLuaNFyZO
+ b/ZR3qyvebb6133fTwaTWJS8T93+soqRYcdKk1dXz7/gfes4jXtH2iq5VQJ2myUlgicr1T20/Wq
+ bywsA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -145,65 +146,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rather than directly checking VMA flags, use the newly introduced
-vma_is_mm_managed() and vma_is_mm_backed() helpers in userfaultfd
-when assessing VMA suitability for userfaultfd and UFFDIO_MOVE.
+The policy file has no write method and is exposed read-only (S_IRUGO in
+selinux_files[]), yet sel_open_policy() performs no open mode check, so a
+CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
+kernfs does.
 
-Update vma_move_compatible() so it's expressed in terms of VMA
-characteristics rather than arbitrary flags.
+The file can then never be mapped with FMODE_WRITE, so do_mmap() always
+clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
+check in sel_mmap_policy() cannot be reached. Remove it.
 
-Additionally, update the use of the deprecated VMA flag API when checking
-VMA_SHADOW_STACK_BIT.
+This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that is
+neither a PFN map nor a mixed map, ahead of the core enforcing that only
+such mappings may do so.
 
-A VMA_IO_BIT check is no longer required but that is fine as a hard
-invariant has been established that mm-managed mappings may not set
-VMA_IO_BIT so the check is now redundant.
-
-Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Reviewed-by: Jann Horn <jannh@google.com>
+Acked-by: Paul Moore <paul@paul-moore.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/userfaultfd.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ security/selinux/selinuxfs.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 949017e60608..f33b04700838 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -1754,10 +1754,16 @@ static inline bool move_splits_huge_pmd(unsigned long dst_addr,
- }
- #endif
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index c7d91476971c..545a6f89f9e7 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -340,6 +340,9 @@ static int sel_open_policy(struct inode *inode, struct file *filp)
+ 	struct policy_load_memory *plm = NULL;
+ 	int rc;
  
--static inline bool vma_move_compatible(struct vm_area_struct *vma)
-+static inline bool vma_move_compatible(const struct vm_area_struct *vma)
++	if (filp->f_mode & FMODE_WRITE)
++		return -EACCES;
++
+ 	rc = avc_has_perm(current_sid(), SECINITSID_SECURITY,
+ 			  SECCLASS_SECURITY, SECURITY__READ_POLICY, NULL);
+ 	if (rc)
+@@ -424,14 +427,6 @@ static const struct vm_operations_struct sel_mmap_policy_ops = {
+ 
+ static int sel_mmap_policy(struct file *filp, struct vm_area_struct *vma)
  {
--	return !(vma->vm_flags & (VM_PFNMAP | VM_IO |  VM_HUGETLB |
--				  VM_MIXEDMAP | VM_SHADOW_STACK));
-+	/* uffd is generally incompatible with mappings not managed by core mm. */
-+	if (!vma_is_mm_managed(vma))
-+		return false;
-+	/* The shadow stack should not be written to by userspace. */
-+	if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
-+		return false;
-+	/* hugetlb mappings cannot be safely moved. */
-+	return !vma_is_hugetlb(vma);
- }
- 
- static int validate_move_areas(struct userfaultfd_ctx *ctx,
-@@ -2146,10 +2152,11 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
- {
- 	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
- 
--	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
-+	/* Only mm-backed memory can have its faults handled by userspace. */
-+	if (!vma_is_mm_backed(vma))
- 		return false;
+-	if (vma->vm_flags & VM_SHARED) {
+-		/* do not allow mprotect to make mapping writable */
+-		vm_flags_clear(vma, VM_MAYWRITE);
 -
--	if (!vma_is_hugetlb(vma) && (vma->vm_flags & VM_SPECIAL))
-+	/* The shadow stack should not be written to by userspace. */
-+	if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
- 		return false;
+-		if (vma->vm_flags & VM_WRITE)
+-			return -EACCES;
+-	}
+-
+ 	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+ 	vma->vm_ops = &sel_mmap_policy_ops;
  
- 	vm_flags &= __VM_UFFD_FLAGS;
 
 -- 
 2.55.0
