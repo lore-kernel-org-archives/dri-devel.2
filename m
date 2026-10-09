@@ -4,129 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DCDACA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:43:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7659FCA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:44:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 882531121AB;
-	Fri,  9 Oct 2026 14:43:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD3CC1121A7;
+	Fri,  9 Oct 2026 14:44:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="MPdRqLmn";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="d3wW/zEo";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012046.outbound.protection.outlook.com [52.101.53.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41BE61121A7
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:43:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WMXBW8OrP+OXkDBF2gTJPHqP6lllVDNfoESgP/Qfw/lRHLLA8+7AsUJ9BvGpfmxVy6E5EEs/s0Mc+/VFTlhfbFGus7S8gl/S1aI2zoFhELiZJDS8a9kA3f4UGO/WLpgVb4II2OKM2on4i5v27DAMnaNOQt1QwGOwJZ0tUgSUKSbkcVnvIEkHDOsEwRIXA5d/wMyWPG1fhzYRVpoOpqoXJ2LLDsy+ksxf14svR3mE3lhAj8obf4pW1RZRdRGRqX42pp3KdK5duknm31ImllekCYFQ0qiYcEfn0PLVM/HhXAECYn7qHcynuJPstrzW4CpvFF0HRAi+Z6wK5DapI8/5bA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lzj0/FMthPmD+zy8ocYz7qr/nwxApU7bjPa3TkzroPc=;
- b=tSPDse3dL1sEtnU/MOK7b1m33wpJtBjoeQyuCrWrUM6dVzobp2vMwFI/XfUDXxiSlan7W0rtPdP+g1p8TLeTUnKfODrW7xPSv5juL0umKB5MbVj9n0pa7f/TGthR/GFpmROjYt8LKBpr+jKiaRMn/rtLwBIPC/xPn8OQm+aAR7SX7kQIB5cJKNSbFk/yHhwGCHjINtjTZJ4UhpZ1oleuyliqZ1ZbfHrfmQaqN5z73Elkg1ivNNEHEAZjy85D01+vbMvF6V8LAH8DOij/N9oPlA1rDYTaHOBj7aFbs76ZviAPXVCg39kAb2CtXPKtpil45x2C6SzakSMwUg6k2aX+PQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lzj0/FMthPmD+zy8ocYz7qr/nwxApU7bjPa3TkzroPc=;
- b=MPdRqLmnHsIYs+6FZXShhvJQgFFHB3WUo4d7i5jowa2ioNP4cQR+PrPnN4vwBd8FXxoCCveVunr6Z9EAg9Z28wFzl0yLa3sotKOzWD2DHrfqMchpkEp2o0lXbd8xlIRuVPLRy1mmvG4BQCqFyznCYBLQNHyrt32LwuqhElR/jyBN/wmFgcWCnHK0OwoEV2zr8ValgBqcgHJl7BhFzbeyamkgCeQEdnYcfuko24BhLLBXxHopaMf/RWrTZwpvo0gsc5pYwJr2omRlmFyzRpz+FtrW819Kk8Z39xdbgPjx78HaOCv/eY9NpvdKcIcTiFXwiUqiIsuMFPTMPqxfSOpslg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by IA0PR12MB8207.namprd12.prod.outlook.com
- (2603:10b6:208:401::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
- 2026 14:43:20 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 14:43:20 +0000
-Date: Fri, 9 Oct 2026 11:43:19 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Alistair Popple <apopple@nvidia.com>
-Cc: iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Diederik de Haas <diederik@cknow-tech.com>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Jianfeng Liu <liujianfeng1994@gmail.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/2] iommu: Add iommu_map_sgtable_dma()
-Message-ID: <20261009144319.GA58900@nvidia.com>
-References: <20261009002114.67851-1-kmehltretter@gmail.com>
- <20261009002114.67851-2-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009002114.67851-2-kmehltretter@gmail.com>
-X-ClientProxiedBy: YT4PR01CA0035.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fe::21) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D16E1121A7
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:44:37 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz
+ [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C5C35346;
+ Fri,  9 Oct 2026 16:42:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1791556958;
+ bh=blrsm518AbY7gsS1Fe/wV9oYiBIEFkxhkrxPCpHO4uU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=d3wW/zEolVEpicLWTjYVHNvptXBe3prTygHVLJCx+disI2aDOh2v4BUdSFDAMAtD6
+ /fOCQzoNZOazwKjpSJ1/91L0OMR9OprtBQBgNlLIG2WpVBg/D+BBpWEO2UiyjNRgnC
+ Z/jLFoZKS6C0NlIuGxuHbQy9mHwh32m7HRG3X/oc=
+Date: Fri, 9 Oct 2026 16:44:34 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Quchaosheng <quchaosheng000406@163.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
+ schema
+Message-ID: <20261009144434.GD622105@killaraus.ideasonboard.com>
+References: <20261009105601.301891-1-quchaosheng000406@163.com>
+ <20261009105601.301891-2-quchaosheng000406@163.com>
+ <20261009-2f34bbada2c463c78b2c05a7@squawk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA0PR12MB8207:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c1ff189-dbec-443b-9628-08df2613a9b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|7416014|18002099003|22082099003|4143699003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: l1SKlmN7a5cmPfSoAOiOcHkmYwgnQPag5BK4t68BmMxHgEvn8pLf9uN/3EIJb3wvZcG0k8D6b99yvIK3q2sc4Knnzbapo+BAt7uhTVE7nGUlETM1CQqd+Wvu2km7CLMYhNVA9OHoc1d7bVFFMc8Vu5v1Ju0arAx6NtcMUg2zZn0ehEAv6LispeEiMphD37MCUUt4GLt1cbNiZRnKH57aTVuijVrCxCpVLCyzp6LCnxMvtXkIoT+t31taIKLU32ICkS6g/0TYoP7jLqSCRva7OJivNzROracYYTOnSzCY4kQu/jv3/7jM+oTQCmL95Ycz/k4sOmQv0G2gYZa2HCBRAio/rocnMbvEVuJkCEtNi1L4XzNUDhp7ib7lvjMKE3cEh0hqQOyKY7/g73pyqPW6B8WtT+ctxVjwmJ2a4sXP8d3RZbouA6BbCb393KGvbcZtm+l2iIqxZOPLPudQpkbQTpV9X9qbFpMog0Kw/D3+tC9HK3X5oBnYH36/RreiqDlkhrYBksKDLX0i3SwwJOxwvQ9ht0mH+pYV6W8wS985kinyAJY860WWbZCzk8FyEdQC+aCeFa4BFp+SJTpMzTbyry/xu3lzF6ILgsE2/1md+8qAZ2q5PHrGkmI8yb9p6/eCADQ9ZT0fPZRMPC6S3bWDo+/k0sDQlPFkXOl8GitG1HM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(18002099003)(22082099003)(4143699003)(56012099006)(10067099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wvH+h9sEGxVzQEnUy9PMqtWLSATdT2bltIY1F4wxk77ddwR2hNm3YqIqWKyJ?=
- =?us-ascii?Q?0kiT5CSfisUxHz0he3Ls0FNd4gsvy1vYAGMR7wv9XAHeFfEhmA1Hy8xBpgfc?=
- =?us-ascii?Q?CeVQp3MJSXujY6S/6KjxsxNN8FrszCmWUSyg+HN4+tmbOS+pVO4gCmfgPeRp?=
- =?us-ascii?Q?R3oLX33LU4l4xqitz4eQ9qyAyhC7ed/ybXIzDlxg3ZEqBxiHJA3MrONirZnG?=
- =?us-ascii?Q?fD37etUy09OAZRAltCjVKSwKWTaE6H0jQcYsQ+5F1dqbwxsYPpTLa56Uyhay?=
- =?us-ascii?Q?6HJLGJ3nRBQI4Wyly7o0mmlIVpdXOOOO4tqpl5bgEpanXWQ0jogbCtnd1bl6?=
- =?us-ascii?Q?Wf8wEFkUSqk3jH78YAeJ+sz6PIFpwdGtV49ljXpczrYS4aybuman/MaJ5GCu?=
- =?us-ascii?Q?xDQ6P16MAkWtLTl0BLd9CgRBSoKYAjWIm/sjRIxHGaPGLu/Ny1xZssx3qRW8?=
- =?us-ascii?Q?1UsemdXhqCi4EJSSNY/c+owRbCNYoJXcw5YITM+9Nmwe1fieB92yRqFQlPV1?=
- =?us-ascii?Q?xOYF7i1c3yDNS4NBVOpZliWhFl7+vdaeKEa8dgMiV91M1wK8Ua9iaX1aP5iB?=
- =?us-ascii?Q?0JrmMD5kSGHssr2P0ww73kEEqAuMh5212+RjxK5g8Vx0K/usKFt06aLUiHzx?=
- =?us-ascii?Q?2AxLAtr4x2SBOJHuzEaJFB+RxyFCHMpCo9aPlOxmKm49T8d3jya3SflNpxR3?=
- =?us-ascii?Q?Hzc8c4dqJuMeZObCXwA2yxRAWiLr5k3NHITvQI4WW9b31fpS04A7NY6Kd6PD?=
- =?us-ascii?Q?UpofJoOF3xMwlul0Ef7KL/li0NCcFpI88Dejwp3kV705nugUnfljxtmyQrGi?=
- =?us-ascii?Q?qHQvhGyOhX/S9AflTnx8BuxT97VWChuzl81DvefiAJt6EB4E/3Hpj3VEFx23?=
- =?us-ascii?Q?WgQliMVT0hfzOTndcB8rQ+X0xCIg5c4XL+tSvZCIL1LwQjjvJF9/0E5FG94V?=
- =?us-ascii?Q?hqxMjp/hhw20y+dQdDkke0jDnDZfH0tJUWYubwgBI4XM+Y+YN9HBgHnQx5Nj?=
- =?us-ascii?Q?IRqc7RFXaCiuUkT9dM+1ETT1mHF2MK3/Pr5yeNbVs3GLn3olp7bSSlhpOVrc?=
- =?us-ascii?Q?A/AGvYtRhAGCQnGBZGrgLy7tqNgPIzXCXD3IlmAFeBH5PBUU4kIfo9m4vwdW?=
- =?us-ascii?Q?fBKCQmMtFza2GCltsV7XSFqpL92ukqAEZcAaE+S/fKYm9YI3rCGrLR28SEG1?=
- =?us-ascii?Q?I0/Cfm0UVlMHUo2oqdxZ6c6yWA6FTYAasmde8R/9AeB/17v6qSPU6ljSFgqc?=
- =?us-ascii?Q?azgs7gWy+PmFlBYNMKMM8nLdV0sVVUlyNhIfoZYZVr3JhTK78UqBn2mZTiNx?=
- =?us-ascii?Q?nsBhMNXKaei69iB0p+lXpwnRgUGJzolEq8Ff/rSLCR668A1Ia1uKlmVZwzGo?=
- =?us-ascii?Q?3miEQqNwXzDBqGjAZ/3desJsJDbmc91gO1K0aqBMoUt6GKGWQgzebcoTVZw0?=
- =?us-ascii?Q?pVsl/Emf8W4tShIdo146xKZLYbRIkOqL5QAezBUquRswv41/suLqaL4Gw3As?=
- =?us-ascii?Q?hbEbPUWlXzK7bTjZUY2onnMPaFpxD2ZbvmBjnBlk8s/85glTTcZ+V5stiibk?=
- =?us-ascii?Q?3H12B1+NT2FeJOyg6LjP/TwgajA92WPxNmfVK5OjehLDEw2j7hfc3dJmLNDv?=
- =?us-ascii?Q?xY7/FDMZI/3nG8/pEAp1YpR6gwsKKfucUJCWWxN4ZJ2MNxW/VCszX+Koe9xc?=
- =?us-ascii?Q?NlwzNTit9HetBJPQkLO2YFQgm71Dkmijic1wc7nfwQRDLiYQ?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c1ff189-dbec-443b-9628-08df2613a9b2
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:43:20.3977 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qzXEd/gUoEsZUvqa7XwV8tugZN2Bt6Reo9yjYPaCXa8IdvlCUBp//hoqG4EFVYXY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8207
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009-2f34bbada2c463c78b2c05a7@squawk>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,31 +62,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 09, 2026 at 02:21:13AM +0200, Karl Mehltretter wrote:
-> DMA-BUF attachments provide DMA addresses, not CPU-side pages.
-> iommu_map_sgtable() needs those pages, so private-domain importers such
-> as Rockchip cannot use it with strict DMABUF_DEBUG.
+On Fri, Oct 09, 2026 at 03:25:49PM +0100, Conor Dooley wrote:
+> On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
+> > From: Chaosheng Qu <quchaosheng000406@163.com>
+> > 
+> > Convert the TPD12S015 HDMI level shifter binding to DT schema.
+> > 
+> > The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+> > and ESD protection circuitry. Document the two ports it exposes between
+> > the HDMI transmitter and the connector.
+> > 
+> > The tpd12s016 is software compatible with the tpd12s015 and is listed as
+> > a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
+> > fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
+> > a board using the tpd12s016 must list both compatibles.
+> > 
+> > Assisted-by: LLM
+> > Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
 > 
-> Add an iommu-dma helper to map a live attachment into another domain by
-> translating through the device's default DMA domain. Roll back target
-> mappings on error. This still recovers physical addresses
-> internally.
+> No idea if the sashiko reply is valid, because I have no clue if
+> providing a subset of the gpios is functional. Really this should have
+> multiple different gpios properties,
 
-Absolutely not. You cannot recover the phys_addr's from a DMABUF
-expoter by using iommu_iova_to_phys(). Christian is adamant that
-drivers must not use physical addresses, and I will not agree to any
-hacks like this to try to end-run around his prohibition by abusing
-iommu subsystem.
+Definitely.
 
-NAKed-by: Jason Gunthorpe <jgg@nvidia.com>
+> but this binding is really old and
+> not worth changing IMO.
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> pw-bot: not-applicable
 
-If you want to keep the domain in the rockchip driver you have to fix
-DMABUF to allow an importer to use an iommu domain safely.
+I'm getting annoyed be the LLM-assisted individual conversions. Can we
+start requiring people who convert text bindings to YAML to at least
+handle whole groups in one go ? If they're going to do a bad job, I'd
+rather have to review it once only.
 
-It *must not* be done with a scatterlist interface, sorry, I know that
-is alot of work but Alistair is going to take a serious stab at it.
+> > ---
+> >  .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
+> >  .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
+> >  2 files changed, 90 insertions(+), 44 deletions(-)
+> >  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+> >  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+> > deleted file mode 100644
+> > index 26e6d32e3f20..000000000000
+> > --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+> > +++ /dev/null
+> > @@ -1,44 +0,0 @@
+> > -TPD12S015 HDMI level shifter and ESD protection chip
+> > -====================================================
+> > -
+> > -Required properties:
+> > -- compatible: "ti,tpd12s015"
+> > -
+> > -Optional properties:
+> > -- gpios: CT CP HPD, LS OE and HPD gpios
+> > -
+> > -Required nodes:
+> > -- Video port 0 for HDMI input
+> > -- Video port 1 for HDMI output
+> > -
+> > -Example
+> > --------
+> > -
+> > -tpd12s015: encoder@1 {
+> > -	compatible = "ti,tpd12s015";
+> > -
+> > -	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+> > -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+> > -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+> > -
+> > -	ports {
+> > -		#address-cells = <1>;
+> > -		#size-cells = <0>;
+> > -
+> > -		port@0 {
+> > -			reg = <0>;
+> > -
+> > -			tpd12s015_in: endpoint@0 {
+> > -				remote-endpoint = <&hdmi_out>;
+> > -			};
+> > -		};
+> > -
+> > -		port@1 {
+> > -			reg = <1>;
+> > -
+> > -			tpd12s015_out: endpoint@0 {
+> > -				remote-endpoint = <&hdmi_connector_in>;
+> > -			};
+> > -		};
+> > -	};
+> > -};
+> > diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> > new file mode 100644
+> > index 000000000000..1927da3bd736
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> > @@ -0,0 +1,90 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: TI TPD12S015 HDMI level shifter and ESD protection chip
+> > +
+> > +maintainers:
+> > +  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> > +
+> > +description: |
+> > +  The TPD12S015 is an HDMI companion chip that combines a level shifter and
+> > +  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
+> > +  connector, and provides control over the level shifter enable and the
+> > +  hot-plug detect signals.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - const: ti,tpd12s015
+> > +      - items:
+> > +          - const: ti,tpd12s016
+> > +          - const: ti,tpd12s015
+> > +
+> > +  gpios:
+> > +    description:
+> > +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
+> > +      the level shifter, the second enables the level shifter outputs and
+> > +      the third reads the hot-plug detect line.
+> > +    maxItems: 3
+> > +
+> > +  ports:
+> > +    $ref: /schemas/graph.yaml#/properties/ports
+> > +
+> > +    properties:
+> > +      port@0:
+> > +        $ref: /schemas/graph.yaml#/$defs/port-base
+> > +        unevaluatedProperties: false
+> > +        description: HDMI input from the transmitter.
+> > +
+> > +      port@1:
+> > +        $ref: /schemas/graph.yaml#/$defs/port-base
+> > +        unevaluatedProperties: false
+> > +        description: HDMI output to the connector.
+> > +
+> > +    required:
+> > +      - port@0
+> > +      - port@1
+> > +
+> > +required:
+> > +  - compatible
+> > +  - ports
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +
+> > +    encoder1 {
+> > +        compatible = "ti,tpd12s015";
+> > +
+> > +        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
+> > +                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
+> > +                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
+> > +
+> > +        ports {
+> > +            #address-cells = <1>;
+> > +            #size-cells = <0>;
+> > +
+> > +            port@0 {
+> > +                reg = <0>;
+> > +
+> > +                tpd12s015_in: endpoint {
+> > +                    remote-endpoint = <&hdmi_out>;
+> > +                };
+> > +            };
+> > +
+> > +            port@1 {
+> > +                reg = <1>;
+> > +
+> > +                tpd12s015_out: endpoint {
+> > +                    remote-endpoint = <&hdmi_connector_in>;
+> > +                };
+> > +            };
+> > +        };
+> > +    };
+> > +
+> > +...
 
-Many users want this, not just rockchip. So help with the work to
-allow iommufd to do this and you will get it for free.
+-- 
+Regards,
 
-Jason
+Laurent Pinchart
