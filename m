@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37D8ECA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B6FACA6017
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C07710EBB0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1520610E7FA;
 	Sat, 10 Oct 2026 12:37:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d+b8wTFf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B36pcNNv";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9B010E1A8
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:06:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF4110EAB2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:12:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DB6934030C;
- Fri,  9 Oct 2026 18:06:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F351F00893;
- Fri,  9 Oct 2026 18:06:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AC7CA41AAC;
+ Fri,  9 Oct 2026 18:12:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E20971F00898;
+ Fri,  9 Oct 2026 18:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569181;
- bh=SAzG9Wth1XJ2c0bU3DI60XqRT1mNgvn5WEld38uFlsY=;
+ s=k20260515; t=1791569537;
+ bh=FZ5vcpIzeMnQD61R3Z7f2Q7Zoun1RactPZJC7NXk5O8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=d+b8wTFfrUQ8jmcrAK3KmrwEgBliaTXeFDj86MnPlTPMIMnYedIfLBUmim+zSePtq
- UiwBe3e3wudgLqlmR9vuD68Tayt0xK2rYcueEdm1uHrOO5VMNajbaH0+m3IGkEoFDo
- 9P8vYCgL6KUze0m/6htzdTfZiU/D1x2UDZbLNxsrSVR53mxRl9yglP/jRajhOPeoKK
- r1Dv7XsFbXJBcDoi9Q1sw7SyZiAzX5r9bHoTHt6zfJ7xcqF/GYmPnPtYysW7rCjNsi
- EKX1TPRIdDWJS/C/1YvtA8/xU6+WziFiHmsi65Gb5ogjUgzQTQE+10EMp+/PgVWPGk
- iYMN/rphhdJVg==
+ b=B36pcNNvjsz/zhdFcUlv9KirsSW7/GJs06knxU38HgJ6J0B49mAO7Fe4kaRQlQYDn
+ fbIfq/4ZW43Owg8tsEjgw8JTiXrJ6extsqa6m5mz4irFrXmF7jljftGaOCgzcXA3Ba
+ TdTtURY0IEC0zLjQeLlEJq1cu7nQcPcNWib5YfW35aAru2ThGHARKxwpqoCZ+Lyski
+ OO0pw7pVFQPI4WVrqqrpnzymrmWQAt0zO680NtPa1LIFqzzE9rkKXj8Ih/g36hSr9S
+ HyOEUjIdhzuSQ6zSG43VfYwVw5cSKjiIAATTi39RG0z7NubiemAL6qtEvojkl/u57j
+ aRmCTtCpOGVrA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:03:59 +0100
-Subject: [PATCH v5 05/38] mm: make map_kernel_pages_[prepare,complete]
- internal and unexported
+Date: Fri, 09 Oct 2026 19:04:16 +0100
+Subject: [PATCH v5 22/38] mm/mlock: clear VMA_LOCKED_MASK over mmap
+ callback
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-5-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-22-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -122,12 +122,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2708; i=ljs@kernel.org;
- h=from:subject:message-id; bh=W5EJA/cmsVT7jDTw6eYY8+j+S742rFhYZzwOfLirwec=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sws8px184BXlMYNnaRekyN5kgvOVk122ur3tlL88
- KH+koPuHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIqT8jw1UnLrF7Ss+Se14I
- HP62U1T88wUR48jznP0vvqTt5Q6qusjwv2jGPLFPwhc9TOK3Za803r3pQPWzqSGn4vfMtAy9d8x
- 4Gy8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2804; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=d+EvKVA+pcfu65IMeGqrSLR7pkk/b5ufT4uPydKYcbA=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sx5zWj+db1RtX1++g5OEbMfUbW3YzrfNDxRvXbgb
+ YCHX+TCjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAExEXYrhn+0a7ZjDS7YvnHum
+ XuBC6nyHuYpmVdf2tXu+idp3iGX5GW2G/362n5NtgzrquU329EWFcH43Y2Y3ZvK6paT46WbG290
+ qnAA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -146,74 +146,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There's no reason to export the symbols for these functions which are only
-called from internal mm logic, additionally there's no reason for them to
-be declared in mm.h.
+Currently there's a confusing mess around VMA_LOCKED_BIT and
+VMA_LOCKONFAULT_BIT.
 
-This patch therefore removes the exports and moves the declarations to
-mm/internal.h.
+It is permitted for drivers to set any flags they like, with the VMA
+already possessing lock flags.
 
-No functional change intended.
+This results in the absurd situation of a VMA possessing both
+VMA_SPECIAL_FLAGS and VMA_LOCKED_MASK flags, which is not permitted.
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+This has resulted in mlock_vma_folio() having a very silly check for this
+scenario to work around it.
+
+There is no need for this - just clear the flags before invoking the hook
+and reinstate them afterwards if they are required.
+
+Nothing relies upon this being set during the mmap operation.
+
+mmap_prepare is unaffected by this so requires no fix.
+
 Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mm.h | 3 ---
- mm/internal.h      | 3 +++
- mm/memory.c        | 2 --
- 3 files changed, 3 insertions(+), 5 deletions(-)
+ mm/internal.h |  9 +--------
+ mm/vma.c      | 17 +++++++++++++++++
+ 2 files changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 68250ece4219..0c17f0932b76 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4768,9 +4768,6 @@ int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
- int vm_insert_page(struct vm_area_struct *, unsigned long addr, struct page *);
- int vm_insert_pages(struct vm_area_struct *vma, unsigned long addr,
- 			struct page **pages, unsigned long *num);
--int map_kernel_pages_prepare(struct vm_area_desc *desc);
--int map_kernel_pages_complete(struct vm_area_struct *vma,
--			      struct mmap_action *action);
- int vm_map_pages(struct vm_area_struct *vma, struct page **pages,
- 				unsigned long num);
- int vm_map_pages_zero(struct vm_area_struct *vma, struct page **pages,
 diff --git a/mm/internal.h b/mm/internal.h
-index 061a87f9c3fb..fc4e249e2343 100644
+index 557e629db8c5..4ae08fedffff 100644
 --- a/mm/internal.h
 +++ b/mm/internal.h
-@@ -1512,6 +1512,9 @@ int remap_pfn_range_prepare(struct vm_area_desc *desc);
- int remap_pfn_range_complete(struct vm_area_struct *vma,
- 			     struct mmap_action *action);
- int simple_ioremap_prepare(struct vm_area_desc *desc);
-+int map_kernel_pages_prepare(struct vm_area_desc *desc);
-+int map_kernel_pages_complete(struct vm_area_struct *vma,
-+			      struct mmap_action *action);
- 
- static inline int io_remap_pfn_range_prepare(struct vm_area_desc *desc)
+@@ -970,14 +970,7 @@ void mlock_folio(struct folio *folio);
+ static inline void mlock_vma_folio(struct folio *folio,
+ 				struct vm_area_struct *vma)
  {
-diff --git a/mm/memory.c b/mm/memory.c
-index 926276d41920..448342883e9d 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2628,7 +2628,6 @@ int map_kernel_pages_prepare(struct vm_area_desc *desc)
+-	/*
+-	 * The VM_SPECIAL check here serves two purposes.
+-	 * 1) VM_IO check prevents migration from double-counting during mlock.
+-	 * 2) Although mmap_region() and mlock_fixup() take care that VM_LOCKED
+-	 *    is never left set on a VM_SPECIAL vma, there is an interval while
+-	 *    file->f_op->mmap() is using vm_insert_page(s), when VM_LOCKED may
+-	 *    still be set while VM_SPECIAL bits are added: so ignore it then.
+-	 */
++	/* The VM_IO check prevents migration from double-counting during mlock. */
+ 	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
+ 		mlock_folio(folio);
+ }
+diff --git a/mm/vma.c b/mm/vma.c
+index 39ceb03023e2..4f09fb98a2fd 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2607,6 +2607,11 @@ static int __mmap_new_file_vma(struct mmap_state *map,
+ 	if (!map->vm_file->f_op->mmap)
+ 		return 0;
+ 
++	/*
++	 * Driver-specified flags may make the lock flags invalid, so clear
++	 * VMA_LOCKED_MASK and reinstate it afterwards if appropriate.
++	 */
++	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
+ 	error = mmap_file(vma->vm_file, vma);
+ 	map->vm_file = vma->vm_file;
+ 
+@@ -2629,6 +2634,18 @@ static int __mmap_new_file_vma(struct mmap_state *map,
+ 		return error;
+ 	}
+ 
++	/*
++	 * If the VMA is still eligible for mlock(), reinstate any original
++	 * VMA_LOCKED_BIT and/or VMA_LOCKONFAULT_BIT flags.
++	 */
++	if (vma_supports_mlock(vma)) {
++		const vma_flags_t mask =
++			vma_flags_and_mask(&map->vma_flags,
++					   VMA_LOCKED_MASK);
++
++		vma_set_flags_mask(vma, mask);
++	}
++
+ 	map->vma_flags = vma->flags;
  
  	return 0;
- }
--EXPORT_SYMBOL(map_kernel_pages_prepare);
- 
- int map_kernel_pages_complete(struct vm_area_struct *vma,
- 			      struct mmap_action *action)
-@@ -2640,7 +2639,6 @@ int map_kernel_pages_complete(struct vm_area_struct *vma,
- 			    action->map_kernel.pages,
- 			    &nr_pages, vma->vm_page_prot);
- }
--EXPORT_SYMBOL(map_kernel_pages_complete);
- 
- /**
-  * vm_insert_page - insert single page into user vma
 
 -- 
 2.55.0
