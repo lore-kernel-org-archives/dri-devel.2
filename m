@@ -4,45 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1B80CA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:17:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4DC0CA9EBB
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:22:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D6210E08C;
-	Fri,  9 Oct 2026 23:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19CF410EB5A;
+	Fri,  9 Oct 2026 23:22:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TQvGkaBO";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hRK8LJUg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8870F10E08C
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:17:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5522040E81;
- Fri,  9 Oct 2026 23:17:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97921F000FF;
- Fri,  9 Oct 2026 23:17:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791587828;
- bh=uTyq+gG3BmiJuifTGHZT7h/852nDGs9lABXPN5fqywE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TQvGkaBOk30lSP4PESwhkm5oRBQSss8uhsTY/SySaWxmrdCUbiR7rDEU2z67Ptl1Q
- vVYlzt5kLQBiIO2kWQPQuz5q+9/JYWiyq6D+VRDNpp5L/QsZ7BGMMBTwYVu/ebZYPK
- 8VC5m8qYSvEeSbTHrOIsJpC1R+UqHufIj0Dx+gIfh22nrtHd8TbTjO8T2bmmMnCPTI
- WXBiWZYnV2SEWMO1zzN0d8yIfeiLJAw4X53rJtz3Cj2VfRcE5SmythD68KVp7yE+Zi
- OAJ6JqZ69MDIzzdN33lCq1RSURJGPIQ8mPMlkRenJJb6F2PsWOfiWF+INZGVCtKcVi
- VrWIIiReSRMTw==
-Message-ID: <sashiko-outbox-166180@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V4 19/19] accel/amdxdna: Implement runtime suspend and
- resume support
-To: "David Zhang" <yidong.zhang@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009225343.3079074-20-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-20-yidong.zhang@amd.com>
-Content-Type: text/plain; charset=utf-8
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 715E010EB5A
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:22:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1791588135;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=90QDk9UsK++TfeFt53Yn4L9GDOFPMNUxZr70RksJ3Wo=;
+ b=hRK8LJUgvYLlCucJ4nAynAi03Gsms65dAx1FmdKRiMmMekOb0fWggjkcGe9lhm1yfXyC3r
+ SnnYWqZ+2t2G+Tiqr6xBbfsXA7853UvpalNcA6ELLHNPso+YpYNev5Yy3zO5xGy0akLqtZ
+ F52pKgjo9vZlNQ9yjCEMPjX/xOWHYPc=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-627-8M3I7c2uO1eAOubnwIMXrg-1; Fri, 9 Oct 2026 23:22:14 +0000
+X-MC-Unique: 8M3I7c2uO1eAOubnwIMXrg-1
+X-Mimecast-MFC-AGG-ID: 8M3I7c2uO1eAOubnwIMXrg_1791588134
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93a3f673221so55862285a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 16:22:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791588134; x=1792192934;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=MOkSafKPWfgergQn1PH0zCTo27W7O5llrWCsPU5yGRE=;
+ b=d51g3jf84/6dFKP1BH+7kJjW4OcKs/wYjSUcyaybBG3X6RZanVhdcPKQwVwqsBeZBE
+ ZeCs7SfUsSN5RhNrkAbYLEMsj4ZOAbgg/N1aIzAvPiQbe+QimjIoxjfUpm0nCYRNBr7i
+ ZtavSVh8i628eZAymT9qIGrkhiHzaJWtLSKrqOYVj/iA3ofWIwtltfB8xsEnxdv5ABne
+ dPBhBTmkmak1NNGg9s+m81EVW/3sdUEVOsVwuaI74D0fmjNu/szfQ9PCRb4Liarix+MI
+ C8SFl1IEXIG///ELIYbZlCmpRyuxNufcPTG/W4KEZ1541ro5E84ZFnSYK9oAWrztlDWw
+ JN8Q==
+X-Gm-Message-State: AFq9FYJIduPcZB8Wjme2Ps0a1csfy5uHZCCHwgLzqJSXJLObCaQ0mM6K
+ juLFZSbFZvL81w9v91ZZJkodGb3t9H4i7G9WtNSEJ6r913tA6oG0olqT0LCUWYF6TH0JgPzxfxm
+ AfW4s9pHDDP3x0hPINTRdjxmtU87bKe0dKH2x1irlBiq+UeZdL1BEltzjm5DMxpMrmzojzA==
+X-Gm-Gg: AYBFou27daZf57ZnKpMg6s44lGDFOWMdwZ4xRGcQzfgMDRPPe3mykgVuYHFYgnrRCBf
+ JQNmfvExNHAtDkFgT8TQZHGigLvpgM0VC8OfjBXYTd42myn4rj5uR90arLEcFmVChcXJcd9zSas
+ DdUN/aB2WWYMeGx8v/aAaD0aE/X9MYQQ4hGlINgEfDe4Nw9bJV6Dshm6a68gJiiK+xKfa452OsH
+ 1kiRF8+HLLQ2DhoKB9BwT0Joyitt9pOBtTorUe3wBoXg3aQtA/psIBhqGGb8ikSphVQrrx39pg2
+ 1Neaf9te/Suhv92hzySksbx9Vqg6APNkUnwyUy0GNxQyJ5hQkzkIBkGUgobYngXJ5QL+1rw=
+X-Received: by 2002:a05:620a:178e:b0:93c:57da:4ef0 with SMTP id
+ af79cd13be357-93ebd2916eamr545877785a.56.1791588133669; 
+ Fri, 09 Oct 2026 16:22:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:178e:b0:93c:57da:4ef0 with SMTP id
+ af79cd13be357-93ebd2916eamr545873585a.56.1791588133188; 
+ Fri, 09 Oct 2026 16:22:13 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-93eb984889fsm300130785a.13.2026.10.09.16.22.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Oct 2026 16:22:12 -0700 (PDT)
+Message-ID: <929077046827f363bc32f6f59e760de27a48b5ff.camel@redhat.com>
+Subject: Re: [PATCH 1/2] drm/nouveau/sw: prevent NULL deref of disp in
+ vblank methods
+From: lyude@redhat.com
+To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org
+Date: Fri, 09 Oct 2026 19:22:11 -0400
+In-Reply-To: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-1-7e057f6aeba0@gmail.com>
+References: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com>
+ <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-1-7e057f6aeba0@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43)
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: MvQ2Qs0e4CVXlNI_yrMx1vOGRTZRsXBPsGohf3UIuzg_1791588134
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 23:17:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,90 +100,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] amdxdna: Missing runtime PM reference during hardware context dest=
-ruction
-- [Low] amdxdna: Dead code due to unconditional assignment of PM callbacks =
-in aie2_ops
---
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-commit e84dc9f8e09a4669bbdb0e93c4368ea773cd8d73
-Author: David Zhang <yidong.zhang@amd.com>
+Will push to drm-misc-next in a moment
 
-accel/amdxdna: Implement runtime suspend and resume support
+On Wed, 2026-08-12 at 23:00 +0800, Zhenhao Wan wrote:
+> The NV50 and GF100 software-class vblank methods nv50_sw_chan_mthd()
+> and gf100_sw_chan_mthd() evaluate "data < device->disp-
+> >vblank.index_nr"
+> to validate the requested vblank head before allowing its notifier.
+>=20
+> On a headless card the display subdevice is absent:
+> nvkm_subdev_disable()
+> (strap-driven from devinit) and the -ENODEV path of the
+> NVKM_LAYOUT_ONCE
+> device constructor both leave device->disp =3D=3D NULL while the device
+> continues to probe and still registers a render node (DRIVER_RENDER).
+> An
+> unprivileged client holding a /dev/dri/renderD* fd can then create a
+> software channel and push method 0x0408 (NV50) / 0x040c (GF100),
+> which
+> dereferences the NULL device->disp and oopses the kernel.
+>=20
+> The channel constructors nv50_sw_chan_new() and gf100_sw_chan_new()
+> already tolerate an absent display ("for (i =3D 0; disp && ...)"), so
+> no
+> vblank notifier is ever registered on such a card and the method
+> handlers
+> are the only path that assumes disp is present. Guard the dereference
+> with the same disp NULL test the constructors already use.
+>=20
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c | 2 +-
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c=C2=A0 | 2 +-
+> =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+> index 0171cdf6f639..4cf8cd120c76 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+> @@ -72,7 +72,7 @@ gf100_sw_chan_mthd(struct nvkm_sw_chan *base, int
+> subc, u32 mthd, u32 data)
+> =C2=A0=09=09chan->vblank.value =3D data;
+> =C2=A0=09=09return true;
+> =C2=A0=09case 0x040c:
+> -=09=09if (data < device->disp->vblank.index_nr) {
+> +=09=09if (device->disp && data < device->disp-
+> >vblank.index_nr) {
+> =C2=A0=09=09=09nvkm_event_ntfy_allow(&chan-
+> >vblank.notify[data]);
+> =C2=A0=09=09=09return true;
+> =C2=A0=09=09}
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+> index 0cfb1eaae6de..b202e11238a5 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+> @@ -69,7 +69,7 @@ nv50_sw_chan_mthd(struct nvkm_sw_chan *base, int
+> subc, u32 mthd, u32 data)
+> =C2=A0=09case 0x0400: chan->vblank.offset =3D data; return true;
+> =C2=A0=09case 0x0404: chan->vblank.value=C2=A0 =3D data; return true;
+> =C2=A0=09case 0x0408:
+> -=09=09if (data < device->disp->vblank.index_nr) {
+> +=09=09if (device->disp && data < device->disp-
+> >vblank.index_nr) {
+> =C2=A0=09=09=09nvkm_event_ntfy_allow(&chan-
+> >vblank.notify[data]);
+> =C2=A0=09=09=09return true;
+> =C2=A0=09=09}
 
-Add runtime suspend/resume for the AIE4 classic device by using its
-system suspend/resume handlers.
-
-> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie=
-2_pci.c
-> index 690ad035463c5..a3866e8933e61 100644
-> --- a/drivers/accel/amdxdna/aie2_pci.c
-> +++ b/drivers/accel/amdxdna/aie2_pci.c
-> @@ -1221,6 +1221,8 @@ const struct amdxdna_dev_ops aie2_ops =3D {
->  	.fini =3D aie2_fini,
->  	.resume =3D aie2_hw_resume,
->  	.suspend =3D aie2_hw_suspend,
-> +	.runtime_resume =3D aie2_hw_resume,
-> +	.runtime_suspend =3D aie2_hw_suspend,
-
-[Severity: Low]
-Are pm_ptr() wrappers missing here?
-
-Unlike aie4_classic_ops, which correctly wraps these assignments in
-pm_ptr(), aie2_ops omits the wrappers. When the power management
-configuration is disabled, the compiler cannot automatically discard
-these functions, resulting in dead code being linked into the kernel.
-
->  	.get_aie_info =3D aie2_get_info,
->  	.set_aie_state =3D aie2_set_state,
->  	.hwctx_init =3D aie2_hwctx_init,
-
-[ ... ]
-
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie=
-4_pci.c
-> index 70a052ab5f775..60140c3927a2e 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -1041,6 +1041,7 @@ static int aie4_classic_init(struct amdxdna_dev *xd=
-na)
->  	if (ret)
->  		goto free_work_buf;
-> =20
-> +	amdxdna_pm_init(xdna);
-
-[Severity: High]
-Could this introduce a bug when destroying hardware contexts while the devi=
-ce
-is suspended?
-
-The driver enables runtime autosuspend here, allowing the device to enter
-a suspended state when idle. When a user destroys a hardware context,
-the destruction path runs without ensuring the device is active:
-
-amdxdna_drm_destroy_hwctx_ioctl()
-  amdxdna_hwctx_destroy_rcu()
-    aie4_hwctx_stop()
-      aie4_hwctx_destroy()
-        aie4_msg_destroy_context()
-
-None of these destruction paths call amdxdna_pm_resume_get() to wake up the
-device.
-
-If the device has autosuspended, the firmware is stopped and the mailbox
-is finalized (via aie4_mailbox_fini()). Accessing the mailbox registers
-in this state will cause a bus error, system hang, or kernel crash.
-
->  	return 0;
-> =20
->  free_work_buf:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009225343.3079=
-074-1-yidong.zhang@amd.com?part=3D19
