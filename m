@@ -4,156 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 167C9CA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:38:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65EF8CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3160C10E96B;
-	Fri,  9 Oct 2026 14:38:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1086112192;
+	Fri,  9 Oct 2026 14:38:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VbYUQwuJ";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PAYC+IWe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OsuM/vi2";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D693710E96B
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:38:22 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 699DKeBu887308
- for <dri-devel@lists.freedesktop.org>; Fri, 9 Oct 2026 14:38:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UMVpMFCHtMG0Xn67lqGB8w67sz48UmLUXf0QKHiAu9Y=; b=VbYUQwuJPCbtoeVX
- m7otJFYOvB2nJ/0eD5rMovP6i9TEsL9EsY+aAjWGwu4BLzi+Cow5JCrCB0CpVwpc
- KCqXEBJThkepkP4ptknCDiKzHIua9stKQaMJCjZ2OedHblO1CwJtlYJe5tyV9rpu
- zuH+iDR3Gu/xBamKr5oMgVhPrcqdRvt9a6NZNcjuUgHnC/Nzg262hRdLYGi+Lh06
- YBh4CgVsDbBkT7VgKX38+3M/mXE1SkgvkmZY007Urf4ET0KiRlXMmeMGuIl3ut8G
- 4IeuA77qbU7JY5aafiRsZCu/gCck2jBsIXIWm8E1ufCYrq96pI5kCmefSMsxzfrZ
- bOVO0Q==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxu3xp2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 14:38:21 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-cc1ca15334cso6534217a12.1
- for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 07:38:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791556698; cv=none;
- d=google.com; s=arc-20260327;
- b=AOl7JnywUU6JVveEunv3hEJOtKEgjmYXywgwk47+7m6L9fyJTugGM3VC9iUVO6x1JR
- euGcn3qp+0wR3upJ/6UKWClem3bzCH+vJztbvTCqb+ug9tIETxB7SSNIGl+PV5J5Cc7w
- /lmPgrvdD8O6Bw4KTkzjBXemfVvvHJ2za5sCrw7eP4nsntUCFp4YAj+zGanOodwsvOl2
- 9lOmAgSJAFcOJFQ7lGSJl0Is9JCITUBEz8epgG25Gwmg0dvJhrISP0UYVL40m8s/kdim
- NnrWdwOdHnw9gY/cTIx+39pPUwPPBFI5izvvZhFRDlEPosa0S3QeQWLS6aQACPn/wpd8
- 3llQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=UMVpMFCHtMG0Xn67lqGB8w67sz48UmLUXf0QKHiAu9Y=;
- fh=ApWd12nLBkAagkm9muTENqXE4gPQuuUpA5d5jT/B1HQ=;
- b=qQxHvpboIJ42uVe8eX7NE0PX+Hm8fQQNCXUnhcFUsRIFBJKysqqjRHZs0gYv/qXr1p
- Z5WMQrUau6lA1EPiK2TKib6EcK4hHpUYN+3bri1wtkIFQJOBE4k3zo29q/0qBNSNinf+
- FmWu6+/swiJ8ZyZJROM4Zt64r8kLCxjV1hU12CQ72Zv7cpk2PzW+nV36SzCpfyJ5YI3b
- KuYHesIYJcNmDMcxC3xbeL9NuDRTi/gpnoD8/q+rR6y3Vnm8kMUG6ix2D9Hl16GrJFJQ
- CGaWyJJIxgrS3uufm6XF5tvhBPIjtAgE7uL3oCa6/DmSLOWAmtFN3VqiXYwFx8hm/ZAZ
- jzXw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791556698; x=1792161498;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=UMVpMFCHtMG0Xn67lqGB8w67sz48UmLUXf0QKHiAu9Y=;
- b=PAYC+IWeHhg0qRUCbH6LBH2mZFcR9+4uj1rbf1GFn9HIulSjYN6+t1xVrSJvB2CCfZ
- D8WVkmQD3SpEN8VnZdKRsofWmJYaWeqKQ33mhaHMrKzuzXn8rTo6duvexcoIMTfZb2TI
- hshd1LjKOGp7hNMlWWKrdDsgrFOxu+/XKO8+bFLvIZkpAjQx6Jw9wKBkLgQZZ2pfgCME
- H+jEzYCs9YNkcumALkHli9EYFcrNJs0fCO9LTy5W6YRilfVbAaTO7OOdKaXL7KQEt7aG
- rLT+EamdHO9l25PR8LXC8L7kyVfRb9NCUd59zx2yaFQKWhCN6cRiPck8YfrZ5e+wANCl
- lVow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791556698; x=1792161498;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=UMVpMFCHtMG0Xn67lqGB8w67sz48UmLUXf0QKHiAu9Y=;
- b=Rry0VxOqY71oaPxlUm9VSm2HvJNbb89bMzJNsT0HQ50AGzsK1pRHX2lTbGiXO05MV9
- oSndjUHt2momTe3Dgqametw/SADJgjO0oA6VXBNorxbbXbki8FRrU/Krbm5flgX6t5TX
- VRDX1k8c60GxzpigEa+Cohbv1zBJsGZDjRJfMMlddxfYIJT7B+5tqVqciQ4pUCzTsM4r
- rEDABAfHaj37kk5SSIzM97YUFWdQiRGDfuHOknIZy2dzZlk0dQzmwoCC0m3d8hgmghqf
- KA0fGYxPoRWwV2TpWD3fO4R0W1MwiYaUOIGnG78WTCaihuiyjfdez60aPa99LUOM8FcY
- 2Mlg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwyZUrBCPZ1b415fgyJpESjncGZj2oyrLzOdIy1Up5GUfmeZ5OV1r3s6POI7Ul9a0TmM0dF9ZbxSHA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIMUWx9MF67EPgRtYw9+BT8u8TUyNT3iKJtP8Up6D0Q/xeogWz+
- mULw3ajLVrSnh+CuPt+WHdIY/S/XDX5Sxq+EyQFgWt1sb+UFyme63J68NtaxU0RM6fCwuWkAmG8
- Pd5ECLXIfMYWu2hfOrlWH2D11Y0ROQOwc0jx824gkCMsD3Ea8l7+r4FmQyhWbUmTKyA2BhSKt8d
- V4J15uqmDQv0NlWbEKsnlnxsDR73RJvggTGLz5366LL8P7jQ==
-X-Gm-Gg: AYBFou0N8421mY63KkYR+aP93UikkzvstVPfWC8K4ET+fWDDO5ULfvbVQxR+h3GyXC+
- TNrJLwoERy5Ed1uQx8XxLfm+PqTgdCbmIHiDr9fZD7pmCIM0I5ADbVV/ShCxUqU1jiob6SPv9RX
- ek8kIrZZy2/JirH8bf5h57arjqHNWC8dzbgK6qzX970hjXQmVkkLqokv9BtQ==
-X-Received: by 2002:a17:90b:1e41:b0:3a8:9b79:e6ea with SMTP id
- 98e67ed59e1d1-3ab3a96ffd7mr2186013a91.59.1791556698414; 
- Fri, 09 Oct 2026 07:38:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:1e41:b0:3a8:9b79:e6ea with SMTP id
- 98e67ed59e1d1-3ab3a96ffd7mr2185985a91.59.1791556697914; Fri, 09 Oct 2026
- 07:38:17 -0700 (PDT)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AFDC10E9D2;
+ Fri,  9 Oct 2026 14:38:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mfMKnPq7ZH9/lNyrbR+Y1dUOVmoNYadlll4i80xB3mIBMTnmxaRvDqpq9c54XLdUmrCdB5V6Ng8fLRHha1928GjXOcvuxVhgWuA0KKLSlW8KZaT0MJpTS4MzgOYFEfop/kGkUkT30kbkXPFoxwCmnl8feWhzWl6Ci6cu7xAuUzf+YaS8+Pz+tXsglA9bJUigwthIOy0n9iS2q3m22lDlyD5iftQn1txlqfLHa3Kgs9u04UhPYpIC77QyWdxOeDhgXFuGiaLOq48ZBrxwvfrxHK0+pbz7oFKsK7G/PDMhAcT89Qac1ec1gvIrt9FDVdp/B7YIHVHMphVJOgQauQauQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l1xaJLkPGSsW7BKJHlmD/jxgy6pwgI/LFkYtZx7XmhI=;
+ b=pDrstW94p99AppiSoy/ARGtImDUVOp5VjcgPhP1yAVtHoPgZXSUCWDEaqXhKiAuWzKQSd7H3eIPdGgm33JhEWubVve4kR0gkvn2M7tGV6Qfwf3CW+cl/lN0bBWb5pzjd/nLFbEm7GiwIuG3ZKoIJkrTrwlcJ49csH97grkOq0pyWqpdqDJFnWez+qnaouq6Rkoy8felw3fcZZzyZReyAFvDbMH0gV2YVUdInA3A1rQ+qFqzO/HSHxPhGm9cq1KvbuhIi3IkwxvSLzDFbBDkaw3IHJhg8AFxM5hOIWzNO54tYVJF+GT2g/VnvTHADAZm7bD8vOlTETalx9SahISN/CQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l1xaJLkPGSsW7BKJHlmD/jxgy6pwgI/LFkYtZx7XmhI=;
+ b=OsuM/vi270BFlcNiq52xkASFrjv45OsmHZ0G5IEcsbNO97paz+eu2l/7IoOP0OwE2nhbOw3ZFTIdET6Z8k+EotDv77nDhuFa8sLw7cr5nkYB0bLjEalqcx2ZBSIw/bykzh25UslRe4g7Dpmy3lcBJtfXPU/U9Tpo7/mX9RlKODY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by IA0PR12MB7604.namprd12.prod.outlook.com
+ (2603:10b6:208:438::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 9 Oct
+ 2026 14:38:24 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 14:38:24 +0000
+Message-ID: <91cb8302-350b-43b8-bcd7-73637deb207d@amd.com>
+Date: Fri, 9 Oct 2026 10:38:17 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm/amdkfd: Fix use-after-free in the process creation
+ error path
+To: Binbin Deng <18983559317@163.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261009132619.40151-1-18983559317@163.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20261009132619.40151-1-18983559317@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0336.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::20) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
-References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
- <20260921-ux500-power-domains-v7-1-v3-5-9352be6b86b1@kernel.org>
- <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
- <CAD++jLm+yRo9e1UDhnaYrdPq28mdyYKQZ6tdKuUa3UG85imkNA@mail.gmail.com>
- <20261009131902.GA1195061-robh@kernel.org>
-In-Reply-To: <20261009131902.GA1195061-robh@kernel.org>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 16:38:06 +0200
-X-Gm-Features: AclHuK-dvh3nBN-NbcFTG0ZbDjXuEqk09evXIZaWdeTMn5nwqDOFCebwqJJJ9Ag
-Message-ID: <CAPx+jO9F6wUG9M_cV-xiF-KAKD5kJ02n+yE6L9vocs=KWaKFTw@mail.gmail.com>
-Subject: Re: [PATCH v3 05/18] dt-bindings: display: ste,
- mcde: Allow power domains
-To: Rob Herring <robh@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1OCBTYWx0ZWRfX5OYb3n8eOh0T
- RkBEON1RARte8aHJG/CVvBV8X4atEmqbm7beGwonM2wAdpfQJyMwgOvzuZx85FSMC8KWJMCWDBy
- ofLskUHppM7zyu2jQQ++ByiJ3LcuQvnSDSKQCRt4Dwihw4ac5YAn9zWs/5ThvzCl0WvT4vl8GWG
- xbJd8W11TEWP+2s61aGdi86utKSkqbMkCbGyOrYlZQ0U4XU/wVooZW+YKte9x+PISapp5tapeso
- lsLZCRE1R2jJeLLygb0cEIGU3dRU/1oyXEQdVxv6bvVoQkVmlTu53lT1UXoei6cMYayE+Twnj5i
- Gzi94teOAxe66vR2Jq8SEVeafT1CWOizQEJOfoa4CJof/tTCby+/sH2UIp0XvZNeg2FO1Gn06Qf
- KKIQCDWHRACJodBddz3UPrMq/ulf3ThojN7jEdYHEfd5U89IBJv0R/DRFunewfFzH57v04nbMt5
- mRfdnqyD0SZIKeQf+rw==
-X-Authority-Analysis: v=2.4 cv=QbjzLcbv c=1 sm=1 tr=0 ts=6ac8fc5d cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=sRttis5sQqJQ8Uet4gEA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-GUID: CNQVY6q0KEP7GfGI2e_5_cxqqe2q9S4k
-X-Proofpoint-ORIG-GUID: CNQVY6q0KEP7GfGI2e_5_cxqqe2q9S4k
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1OCBTYWx0ZWRfX4myqGoqhqsB6
- zxx3V3aYl9E5UsIgo1V/Wu/ZDcPqbpxiZp9JUGb7mi/hE65kkjnLTlnhOuubp5PGLn6J/0t9Ts3
- kENmuvjxNEEfNZ9rNf+PZ6LvMHcqBDs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- bulkscore=0 phishscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090058
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|IA0PR12MB7604:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59e05e3c-4f16-4161-9576-08df2612f906
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|6133799003|22082099003|10067099003|18002099003|11063799006|260925021311599003|260925021911599003|260925022911599003|56012099006;
+X-Microsoft-Antispam-Message-Info: VW1c29mNK+wFQ4/JkYkQLZ8lhtYXsY0ylNZYEsOQgPUMCEd74E3oNG9QBFO7tg2mSwwN36BjTEIZFCioHEiJ/aSJWcGTiXX4L2k1QLSEwPXA4PKIWtroui9p3svxCeQ1pjlKOEWCQ+ep4UJP/kmKQjTWFfMhNC93pFJPfMPcz0UcxNr9xJR4Yks1gLRZMkgUjWesEB2cu9e7GNAGW1Nv4qIdRmtU5tQwe5rivJo650Da2FlmvY+GF6lyvMJs4W05bK9sisrpf+KjxwR30SNnX9Bup4r11F/a3fjdVJ9j2eHNKQXqhRCLKgH2iGbwtKJcVpIOOfXS+GY5WVJSJw9H+fGikPUqZYkv61vldzIK/biPnWk274WaFEVP9i1/7/kXMEsspDhSUZ3RftTRjHpUiTHsBa5DwnIJeCA3zxWXcRlA1+Ejc/pZAFRLLTAvOoLgPk7g77r5RZ+nSpr+X7CfAoacsmk+Nwo1Do+hYT/ooNb9f3+8WVKqgOOCdFg98gr8ULr85h0I1dOLHEQhOLtSdwFjgatyRztJcqcVAlxHOI+AUs6U81jt/cWAusj/xJ/J6XEuuWZUUswIy86qS2eQ6Rh3e/vo2yuOu6w07wf8kXJ6Wy6NL+qI4PBX6bYdtZVzoQbXUP0a9x0E+FsI15ZDNMviCyJUwGLmoQyRguUA1Mo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(11063799006)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVJsY3BlQXU1Vzk2RStiZ3hDOEpVbGs4eUVpMHBKcjJLczBIa0dtcTh5aTlJ?=
+ =?utf-8?B?VUJEdlhsYWFLQm5pTWZnNlhlUW53bVIrSGw1UnduZUZ6alJDQmFWNCtpWHVT?=
+ =?utf-8?B?a3lXV0djVjBPRXRwRGxSV1BpVnAyNVRJUnZmN0JUcnRHZFhRVk5COUlYTlZW?=
+ =?utf-8?B?ZkltNThnT3MxT01aVDJ1a0F3ZzI3RURUZ3o1NlpEK2dnRVAzOHEweUhFbzRX?=
+ =?utf-8?B?M0pENW1FYVc0NFhZL0FWanZISlIzUy9KRzd2YkhVMXQrSHJFcEVLZkE2T1Vy?=
+ =?utf-8?B?ZlNUM3BDOWFKaDErMkRIalVIQjJLRk50MGxhUWRaTDVlc0pDRjRmay82Wmg4?=
+ =?utf-8?B?azdXVnM2TVArTlJsdk9JZ1I0K1hUR0haOFFxNFBSS0szUjViWFA5RmpNUk5C?=
+ =?utf-8?B?VHcrMzFhY1BPNmlHTFRRaVp4K2Z1b2tKRHNPdHN5cDRuMFEwc0tHMHFBZFpo?=
+ =?utf-8?B?RDJBK0t1akQvTEp6SVN6MVpSNlJua1d4Y20reWE1VlMrMmN4cTg1UFdtZm1U?=
+ =?utf-8?B?cjQ3Mlk5bGlhOHBCSmdEZ2R6RGpUMDRJM1FoOHI1cVBpWWFXL0pEWHNRODAw?=
+ =?utf-8?B?a01JVHRzalozUTJyZ1lsallnL3RJdCtIQTFNb0JsdEZEVENIbXJnUVBmRFdD?=
+ =?utf-8?B?UkQrYitlVXR1RitzVTE4ZVJZZUFEVkdYN1NNU1FXZHMwYllpbmJWajBJQ2RW?=
+ =?utf-8?B?dmVzT29aSVBxaUlUZ2FVYWpCeXM2dkRWbzAwWXprczR2SEtnU0htTnJmZVZr?=
+ =?utf-8?B?cnVNUDZuQUlvV3d1dFRYQXM5dDFPemoyN21NL2lXT3RKYXJuUlIzeEEyNnlF?=
+ =?utf-8?B?WlcvUTQrZkVlRTJwekFXcEVzQTJ2aHo1TktLcHo3amVaM2JGQ0FRU0c2MVM1?=
+ =?utf-8?B?TXF6SDhoRWFWS2ttaWRaME1ZSmxvRWovY0xtM2dhekd6NFBremFZRy9tNXVl?=
+ =?utf-8?B?Nm01M3JDbk1aekJqTGpQaHl3YktCZFRiN0tBNytnWmlKMWxKQkZtUDhWZkN2?=
+ =?utf-8?B?NzYxYW9JQ2FuR0FsSzlWR1IxSVlvMUVYblRMWUc3TmN4Uk5JdmFKYTZESUFC?=
+ =?utf-8?B?OEdFblA0Y0hTUGV1ZWRkVW5qZCtibWJSZ1l4SVJUUjQrTUVXUUV3MnhTaG5T?=
+ =?utf-8?B?Z3ZPcHc2RDh0ekZXNUNlZjRjWUxldWg4b0FiWUc3VXJ6dWZWbVV4b2thdTcy?=
+ =?utf-8?B?VzdJRm5tT3ZOWG5ZU0NEMzhEQXg0NnhPc1lGTjRQN0kyTXduV0hMdVhQT2dr?=
+ =?utf-8?B?eHNGUmxFRUxDa2d6UmtQbEtYT1JJNDFEV2JhdmtaS3g4RGt2TDEvWmdwaWNr?=
+ =?utf-8?B?QzhWQmtUcWR6YjkrdWQwcmRTVmZKQTJyNkdDcGt3ZDRZbGZ5YkRudW9WMkYx?=
+ =?utf-8?B?ZnYyc05Bd3pDbThIMVJPbTJncGpTWVFVWnVOdmcyMUtlODhmU1RGemdTcWhx?=
+ =?utf-8?B?VE9MNzFFN1ZvSWxMNTBLK0xUREQ0T3o0QzM4QS9Jbld5cng5K3ArZTF6MmNw?=
+ =?utf-8?B?Q1RwT3FNUUVwa2g5L3BBdDU1YlQ2bEkyZlcxZzlseTZIQlRGSE9FbVp3Zzdi?=
+ =?utf-8?B?ZWtaUlY0aExIZ2IyV21hZ0tQNkcxcXkwdFhlb2VNVmlGK0ZuNmtFWUd6VWYy?=
+ =?utf-8?B?RUVnRGdFQ3Q0U1dZL1JIamYyKzZ0U29uSEVuN2duem9KdXEybXZEQzhGZFpE?=
+ =?utf-8?B?N2ZGNFgrdmcvR3haUXkrOGZwUG9ZYmlEKy9JUGZhbWRVckprL3Noa1ZxT1JU?=
+ =?utf-8?B?VWNkWGluMXdlaENUZndRdFkxZVVoK1Vja0xHSUFiNEhieFNtMmlmQ0ZFZk5v?=
+ =?utf-8?B?QmlvUmNVTkhFamMvMVd2cTNGdWxaMGdkcE5nZTBtRXVlZDRQTnMzT2tqTE5G?=
+ =?utf-8?B?SXFYTG5nR3UzeVBDbHJOOWNweFdkNStDL0lmcTgyUk1lNGVxMVpFT2QxK1ZY?=
+ =?utf-8?B?aXJZMW52NTBKaE9qZnBSZm51eUtlbnQvM1I4V1hTSEVkcis5c0t2L0xLeU9O?=
+ =?utf-8?B?NUllM2FPeGR3TjVXNDhZUzBjend5RHA4U0R2eEVzUU5WdmMwYlJHZ3dscjhS?=
+ =?utf-8?B?RlFFSFRyeUkzYzJXdkUyeHNZT21IMTQxUGRFcGR4VVRCYWNZS2dOc2RETE1T?=
+ =?utf-8?B?ZmdlVElLZU1XN2ZZMVRaakpZemdTOEFjbjhVVWVQYjlLNUJQc2tEMEZORTRS?=
+ =?utf-8?B?bWVXMjFsRkhPRkcxeVNoMDU3OXhCcUpaaVpqQnlmSmlMTkdnRW82YWRlaFhK?=
+ =?utf-8?B?Vml3bE9FZmhPcWNMdGhpM3pJNTc1V1pyTWQ4OHRaQzExbG1DM2h5V1N3K3Q0?=
+ =?utf-8?B?bVE0ajdNOXNrY3hqMXp2UWN3cmdWc0RFdmRoOUYwV2ZwVklYUFFwZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59e05e3c-4f16-4161-9576-08df2612f906
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:38:24.0196 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kPytnsi9NrywMrrpWlOhTbrBPfvZ6fgY4VmMnMhFNCIGMH8ODHoUM+PViuqjESYkiqqhFRVLI64KBniW9eVHlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7604
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,44 +137,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 9, 2026 at 3:19=E2=80=AFPM Rob Herring <robh@kernel.org> wrote:
+On 2026-10-09 09:26, Binbin Deng wrote:
+> [Some people who received this message don't often get email from 18983559317@163.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 >
-> On Fri, Oct 09, 2026 at 07:05:46AM +0200, Linus Walleij wrote:
-> > On Thu, Oct 8, 2026 at 7:41=E2=80=AFPM Rob Herring <robh@kernel.org> wr=
-ote:
-> >
-> > > > +      power-domains =3D <&pm_domains DOMAIN_B2R2_MCDE>;
-> > >
-> > > This patch is in next, but the define is not breaking dt_binding_chec=
-k.
-> >
-> > I screwed up, I forgot the dependency on the new define :(
-> >
-> > I asked Ulf to merge the prerequisite which would resolve it:
-> > https://lore.kernel.org/linux-pm/CAD++jL=3DgFt9kKZH9T-m8B_pbwRvzc35tTrM=
-n5V238d3528DpUg@mail.gmail.com/
-> >
-> > Is it very urgent so I should just revert it? I could also just merge
-> > the single patch adding the defines into the drm-misc tree if
-> > Ulf is OK with that.
+> create_process() publishes the new process in the global hash table
+> before the steps that can still fail:
 >
-> 'make dt_binding_check' errors out. That kills my bot for anything based
-> on next which is most patches.
+>          /* alloc_notifier needs to find the process in the hash table */
+>          hash_add_rcu(kfd_processes_table, &process->kfd_processes,
+>                          (uintptr_t)process->mm);
 >
-> You could also just remove the define from the example.
+> If a later step fails (mmu_notifier_get() with a pending signal, or
+> kfd_process_alloc_id()), the error path removes and frees it:
 >
-> (Note that drm folks require a revert be posted and acked or they will
-> revert your revert. I learned the hard way.)
+> err_register_notifier:
+>          hash_del_rcu(&process->kfd_processes);
+>          svm_range_list_fini(process);
+>          ...
+>          kfree(process);
 >
-> Rob
+> hash_del_rcu() only unlinks the node; readers that entered an SRCU
+> read-side critical section before the deletion can still be walking
+> the hash bucket and using the node.  The unconditional kfree() that
+> follows is not covered by any SRCU grace period, so such a reader can
+> obtain and dereference freed memory.
+>
+> The readers are the GPU interrupt and ioctl lookup helpers, which run
+> under srcu_read_lock(&kfd_processes_srcu) only:
+> kfd_lookup_process_by_pasid() iterates the whole table with
+> hash_for_each_rcu and dereferences p->pdds[] of every entry;
+> kfd_lookup_process_by_id() and kfd_lookup_process_by_mm() match and
+> return the process for further use.
+>
+> The normal removal path (kfd_process_table_remove()) already executes
+> synchronize_srcu(&kfd_processes_srcu) after hash_del_rcu(); only the
+> error rollback path misses it.  The race is reachable by an unprivileged
+> GPU compute user: a thread whose process creation fails (e.g. ioctl
+> interrupted by SIGKILL at mmu_notifier_get) while another thread is
+> servicing a GPU interrupt that walks the process table.
+>
+> Fix this by waiting for an SRCU grace period in the error path after
+> unlinking the process, before the object is freed.
 
-I have queued up three patches [1] for next from Linus via my pmdomain
-tree. The patches are also available for you to pull via my immutable
-dt branch. I assume that should resolve this problem?
+I don't think that's sufficient. Typically the lookup functions get a 
+refcount of the kfd_process under the srcu read lock. Even after 
+srcu_synchronize returns, other threads can be holding a reference. I 
+think we need to use kfd_unref_process to free the process after it has 
+been added to the hash table, instead of doing the cleanup manually.
 
-Kind regards
-Uffe
+I see another problem: kfd_process_alloc_id can fail after registering 
+the MMU notifier. That should be moved before the registration.
 
-[1]
-https://lore.kernel.org/all/20261009-ux500-power-domains-v7-3-rc1-redux-v1-=
-0-5eb1b90bc35e@kernel.org/
+Regards,
+   Felix
+
+
+>
+> Fixes: 0029cab3146a ("drm/amdkfd: fix a use after free race with mmu_notifer unregister")
+> Signed-off-by: Binbin Deng <18983559317@163.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 0a7c1900da95..8d0e70a256f7 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1747,6 +1747,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+>          kfd_process_free_id(process);
+>   err_register_notifier:
+>          hash_del_rcu(&process->kfd_processes);
+> +       synchronize_srcu(&kfd_processes_srcu);
+>          svm_range_list_fini(process);
+>   err_init_svm_range_list:
+>          kfd_process_free_outstanding_kfd_bos(process);
+> --
+> 2.43.0
