@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8546ACA5FED
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:20:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF05ECA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D759810FE3C;
-	Fri,  9 Oct 2026 03:20:46 +0000 (UTC)
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE71F10FE3C;
- Fri,  9 Oct 2026 03:20:44 +0000 (UTC)
-X-QQ-mid: zesmtpip2t1791515854tbee33f08
-X-QQ-Originating-IP: mZmBNt09oCAyCIS5AV787bFxJ0kbiYhVbHb5G7CrF0Q=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 331DE10E343;
+	Fri,  9 Oct 2026 03:22:15 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD4E10E343;
+ Fri,  9 Oct 2026 03:22:12 +0000 (UTC)
+X-QQ-mid: zesmtpip2t1791515897t3bb15f3d
+X-QQ-Originating-IP: 4IO4EU9rcZ+ALtRpgY5n+TUnjtG5ZsnojYZCSVOLSzQ=
 Received: from [192.168.30.32] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 09 Oct 2026 11:17:31 +0800 (CST)
+ id ; Fri, 09 Oct 2026 11:18:14 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 2693331085856337013
+X-BIZMAIL-ID: 4378160521373157400
 EX-QQ-RecipientCnt: 29
 From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 11:16:00 +0800
-Subject: [PATCH v2 08/20] drm/msm/dp: Track PHY power ownership
+Date: Fri, 09 Oct 2026 11:16:11 +0800
+Subject: [PATCH v2 19/20] drm/msm/dp: Serialize video test state changes
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-msm-dp-hdr10-v2-8-1835d4966da3@radxa.com>
+Message-Id: <20261009-msm-dp-hdr10-v2-19-1835d4966da3@radxa.com>
 References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,34 +49,34 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3920; i=sophon@radxa.com;
- h=from:subject:message-id; bh=CNhp1n10ypP2UBsGrSZeyY/HNqkOHXcwJsO9tkT9xVU=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlbeqS/ZnDDnWF/U+29GT/7FLYzmbz/4Yf+yRf7K7
- 8x0Ku02dpSwMIhxMciKKbIoxDPMZa/MvfZUrFQPZg4rE8gQBi5OAZhIXAjDdw++CSzK5t8Fc09y
- MBTHR7eYPBU+t3v+60ThgAXl000LGf5ZBObGrWxJP7z+9O+Wb3/3iiXMTXdp0mTSu6a59q9hw3p
- GAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9106; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=KHKSAyzs833Ln6l0U/jy+twU04WRde5GQcn9QfB/NEA=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlbrKIifiN0XwmVUVz5/+hL9zessIxMOnD0R4vuA1
+ aa2/6txRykLgxgXg6yYIotCPMNc9srca0/FSvVg5rAygQxh4OIUgIn032P4X7vC3u3MZssTOsuW
+ 5CUp/r5ueKatSTBR+VyRUs+u3vY1iQz/dOM1H6+Ml3UqKpy5U2rmF80Vho4vtH3N1u4IEpCSfG3
+ JCQA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OCnNLGxuhE2oslplLQtuVX3D5hJLhXmqLbCXeQo5g0wrYotzABPBQDs0
- xfswK8LO2rg4v9c00+q9tK7AXUIU55sREWW4C1PAT2euSWroXZrxEcRS9izqGTcgtk+iiSK
- sV9TetjaEbA+jfJKK/C1SpPHoIKhne88O8il8Ff5RWlzXu2mHqGol2SRlTNy4BK0Y6iw6uJ
- EwEJNMlAVUL0BHxXeHwQmmvhiREO5WYc3zu/80oxJOaYu97dw0W6jhSW78NHRJWtlB9LJwp
- hN2zPTAj/mxGs4JadAvcFBmA5ZJyAs7aw2cHAOH79sGgjvQ6qPV9AQ1b6XVFiEucgaOynOB
- Te2xtr2J1JfDCXcG2djDjmHDPOrN65L34f/+VVNUIl3mSg8hYi/IKMaB2+BzVXSMAtLOGpT
- VlbjpmoyH1FAes2AEEJWbjcKd+oqtjOa2mvC6G519jl6iHARMAqajKezsxY8fmvOH/D0+Y2
- wj0n4na7kzSXrc/WIdAgpKzKkSIAh388qFSSnVhONro4WJMuE0HaDok2Jyn0TbACRYRvdMz
- JJrQNIZlh+t6iSSEC9UXUyZX/oiqJESlkGv3j4mvlEqGCZhCR2vpMbcuO3OzgUrAW62V1Rk
- 1IJEEqLpqg9LetzI4SkpFqveqxooqfxUAoVpDCWMe1AoDO/5W0S3YgXEcPl3H1iyAr3kyrL
- PExxizZhDk/mT/Dm2Ywr93mncK5zLzO4eMDuNazTGh3jpLN3SEMJx/0Dpb8Y2Bq0u5XfIlW
- HFwWRAk4wiZnT298YYB//Kt/E9xPqJS9/qZZ3Zw3EQdXd15NYQlSH7BViAyv5PM1PEN3PN2
- J52jNhQntzqmb2U+s2DFrDlR00al6mjt8v7e+CwNWnGBE46tozAWYSxly2mngcx5UaEdVrT
- BVUksoGskNhx+hEPLNuYw3pXQWc/dqYxBU7gHvKQ914cO62cIYCzAUxEQv1XMQjuQzYUk2T
- 0y8FqWMxMfIxFK/3ABZTaE7SACbnFR3egdBdlFMR1aarsmzsX/oa2J0w4ZhZS6ykib7BSJz
- fL4jVUATIPDaHrPHYulEY8JZm7R6WaAUB1EUqeBmEWl0QnNyoX2DVW+16pBjSNjH+tqVd7k
- A==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-XMAILINFO: MjtcwOZJa0njp5YNPszYOqnsolhOWplUQa7jmmT/BT6sjBCxnyhMDHy/
+ Oh9c2eZ2E0vfZ1ZFe8nGn+vodwbnV3RBU2cHy/2KNFI1NtJv/LS7dHhViDKmT0gDOrOwlm6
+ i+bgcl62SbiWhrwfDNwPGG4uakBnew6VaM4jNMxv0ieYN/iE2rHY5nNOmYD9UNitvZPdeGw
+ XhRZU3gD+1BF/m8KpRcpeSocxzvbVJziAiTQGWDtnW2yGtq4caI0BgjYEczV+zNv9FaChVI
+ 90U5YgS1+OYTAISOe2EuSeJFBe969cD8r5RMls2Tt0XZuu21iUe9sp8K7QZmWCovJEmo04r
+ DKRTWvXkhi7jpQKD8ZXVc2oNmVP+CdHpLJyMB4UseYvzjbLahVDK/URC7t8n15zhNvmDtHr
+ PiE74pPCpR5C62cBocrot+E7G3x5euUnkOdzSR3XxAdLU3V8st/Ejcw+7lS/nC/FaShO8R+
+ 1YPRqvLDazQUVv5nAWoJXo1KwU+VlOhTSbmTcA2kmX+pj6Nacef/LW9OZpE/NlJfhpoiSMu
+ yvcXzxcse6AQRJM1WKvhry6FRszLrBxAb/ctZ9OestGwzfjOZytBHPpXzjJVnOCp/zEKqgf
+ ZSQWyH7ubHgXpew18iY4LCz31GHtjFSYZHyzWdB6cK2/DF4ug+otQgyAkWbZYlrEGO3te3a
+ MNTsxm94ORSavqEmvkg00m4EosFXlFB7L5Y7d1XMcP7cVObAULVDeFf4qytGVH8OnQ3iNmd
+ mo/kIcD3q/5c6nSt/T7RVg+JvDCqa4xfMfwy8sgpZAtR8cViE6GfU72IR5msDCwDzuO/Vj7
+ 9I9+dfp9HDFq+fKXuHTVek/Ll2yejMLA7NM0kvRo2ippv6XuJRFbW9oja6X6ftkWya4abV8
+ 8fc4LscLZsrruhbKfR4ifp2Pfkw/rrFJ00HBg04GWBQTEF5g7K5mCMKfcemoYOrjOuUNqL+
+ LfyfKbLYhDU9bf9dMp6oPgP9nCacR3171xjcAz8s1AZ0yrJnHl70KdzWkfWgYiNOgTwgDP7
+ y9EZtd/FEJ8W2EkrPXqvKFTdOOIeNoRmetZfrnEz8zCQwq1zEnWi/xAwmf1nYydUisIpo/E
+ Q==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,123 +93,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mainlink restart and PHY test paths can power down the PHY before a later
-cleanup attempts to release it again. The PHY core counts each power-off
-call, so cleanup without an owned reference can underflow that count and
-prevent a subsequent enable from calling the hardware power-on operation.
+The debugfs test control writes video_test directly, racing HPD handling
+and mode programming. Reading the test flag and its requested depth in
+separate calls also allows those values to change between the reads.
 
-Record successful PHY power acquisition in the controller and route all
-power-off paths through an ownership check. Keep the reference recorded
-when power-off fails and avoid acquiring a second reference while it is
-still held. Also skip releasing link clocks that are already disabled.
+Route test state access through the display and use plugged_lock for both
+HPD and debugfs updates. Hold the same lock while selecting the test depth
+and installing the mode. Pass the display instance to debugfs for access
+to its connector and the serialized test controls.
 
-The preceding stream serialization change protects these ownership
-checks against HPD PHY tests and link maintenance. Error propagation is
-left to the subsequent stream enable rollback change.
+Preserve the existing SDR test behavior. The shared setter provides the
+entry point for rejecting incompatible tests when HDR is added.
 
 Assisted-by: LLM
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 35 +++++++++++++++++++++++++++++------
- 1 file changed, 29 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_debug.c   | 27 ++++++++++++++-------------
+ drivers/gpu/drm/msm/dp/dp_debug.h   |  8 +++++---
+ drivers/gpu/drm/msm/dp/dp_display.c | 34 ++++++++++++++++++++++------------
+ drivers/gpu/drm/msm/dp/dp_display.h |  2 +-
+ 4 files changed, 42 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 59070f399e2d..f005421630c6 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -136,6 +136,7 @@ struct msm_dp_ctrl_private {
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
+index 00fb1a7ba40e..c26b356f998a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.c
++++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+@@ -21,7 +21,7 @@
+ struct msm_dp_debug_private {
+ 	struct msm_dp_link *link;
+ 	struct msm_dp_panel *panel;
+-	struct drm_connector *connector;
++	struct msm_dp *dp;
+ };
  
- 	u32 hw_revision;
+ static int msm_dp_debug_show(struct seq_file *seq, void *p)
+@@ -89,7 +89,7 @@ DEFINE_SHOW_ATTRIBUTE(msm_dp_debug);
+ static int msm_dp_test_data_show(struct seq_file *m, void *data)
+ {
+ 	const struct msm_dp_debug_private *debug = m->private;
+-	const struct drm_connector *connector = debug->connector;
++	const struct drm_connector *connector = debug->dp->connector;
+ 	u32 bpc;
  
-+	bool phy_powered;
- 	bool core_clks_on;
- 	bool link_clks_on;
- 	bool stream_clks_on;
-@@ -1813,6 +1814,9 @@ static void msm_dp_ctrl_link_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	if (connector->status == connector_status_connected) {
+@@ -111,7 +111,7 @@ DEFINE_SHOW_ATTRIBUTE(msm_dp_test_data);
+ static int msm_dp_test_type_show(struct seq_file *m, void *data)
+ {
+ 	const struct msm_dp_debug_private *debug = m->private;
+-	const struct drm_connector *connector = debug->connector;
++	const struct drm_connector *connector = debug->dp->connector;
  
- 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 	if (connector->status == connector_status_connected)
+ 		seq_printf(m, "%02x", DP_TEST_LINK_VIDEO_PATTERN);
+@@ -133,7 +133,7 @@ static ssize_t msm_dp_test_active_write(struct file *file,
+ 	int val = 0;
  
-+	if (!ctrl->link_clks_on)
-+		return;
+ 	debug = ((struct seq_file *)file->private_data)->private;
+-	connector = debug->connector;
++	connector = debug->dp->connector;
+ 
+ 	if (len == 0)
+ 		return 0;
+@@ -154,10 +154,11 @@ static ssize_t msm_dp_test_active_write(struct file *file,
+ 		/* To prevent erroneous activation of the compliance
+ 		 * testing code, only accept an actual value of 1 here
+ 		 */
+-		if (val == 1)
+-			debug->panel->video_test = true;
+-		else
+-			debug->panel->video_test = false;
++		status = msm_dp_display_set_video_test(debug->dp, val == 1);
++		if (status) {
++			kfree(input_buffer);
++			return status;
++		}
+ 	}
+ 	kfree(input_buffer);
+ 
+@@ -168,10 +169,10 @@ static ssize_t msm_dp_test_active_write(struct file *file,
+ static int msm_dp_test_active_show(struct seq_file *m, void *data)
+ {
+ 	struct msm_dp_debug_private *debug = m->private;
+-	struct drm_connector *connector = debug->connector;
++	struct drm_connector *connector = debug->dp->connector;
+ 
+ 	if (connector->status == connector_status_connected) {
+-		if (debug->panel->video_test)
++		if (msm_dp_display_check_video_test(debug->dp))
+ 			seq_puts(m, "1");
+ 		else
+ 			seq_puts(m, "0");
+@@ -200,12 +201,12 @@ static const struct file_operations test_active_fops = {
+ 
+ int msm_dp_debug_init(struct device *dev, struct msm_dp_panel *panel,
+ 		  struct msm_dp_link *link,
+-		  struct drm_connector *connector,
++		  struct msm_dp *dp,
+ 		  struct dentry *root, bool is_edp)
+ {
+ 	struct msm_dp_debug_private *debug;
+ 
+-	if (!dev || !panel || !link) {
++	if (!dev || !panel || !link || !dp || !dp->connector) {
+ 		DRM_ERROR("invalid input\n");
+ 		return -EINVAL;
+ 	}
+@@ -216,7 +217,7 @@ int msm_dp_debug_init(struct device *dev, struct msm_dp_panel *panel,
+ 
+ 	debug->link = link;
+ 	debug->panel = panel;
+-	debug->connector = connector;
++	debug->dp = dp;
+ 
+ 	debugfs_create_file("dp_debug", 0444, root,
+ 			debug, &msm_dp_debug_fops);
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.h b/drivers/gpu/drm/msm/dp/dp_debug.h
+index a90083fec856..430891e110fb 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.h
++++ b/drivers/gpu/drm/msm/dp/dp_debug.h
+@@ -9,6 +9,8 @@
+ #include "dp_panel.h"
+ #include "dp_link.h"
+ 
++struct msm_dp;
 +
- 	clk_bulk_disable_unprepare(ctrl->num_link_clks, ctrl->link_clks);
+ #if defined(CONFIG_DEBUG_FS)
  
- 	ctrl->link_clks_on = false;
-@@ -1824,6 +1828,23 @@ static void msm_dp_ctrl_link_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl)
- 		   str_on_off(ctrl->core_clks_on));
+ /**
+@@ -17,7 +19,7 @@
+  * @dev: device instance of the caller
+  * @panel: instance of panel module
+  * @link: instance of link module
+- * @connector: double pointer to display connector
++ * @dp: display instance owning the connector and video test state
+  * @root: connector's debugfs root
+  * @is_edp: set for eDP connectors / panels
+  * return: pointer to allocated debug module data
+@@ -27,7 +29,7 @@
+  */
+ int msm_dp_debug_init(struct device *dev, struct msm_dp_panel *panel,
+ 		  struct msm_dp_link *link,
+-		  struct drm_connector *connector,
++		  struct msm_dp *dp,
+ 		  struct dentry *root,
+ 		  bool is_edp);
+ 
+@@ -36,7 +38,7 @@ int msm_dp_debug_init(struct device *dev, struct msm_dp_panel *panel,
+ static inline
+ int msm_dp_debug_init(struct device *dev, struct msm_dp_panel *panel,
+ 		  struct msm_dp_link *link,
+-		  struct drm_connector *connector,
++		  struct msm_dp *dp,
+ 		  struct dentry *root,
+ 		  bool is_edp)
+ {
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 34e1c48cdd79..c51d033598a5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -435,10 +435,20 @@ static void msm_dp_display_host_deinit(struct msm_dp_display_private *dp)
+ 	dp->core_initialized = false;
  }
  
-+static int msm_dp_ctrl_phy_power_off(struct msm_dp_ctrl_private *ctrl)
++static int msm_dp_display_set_video_test_locked(struct msm_dp_display_private *dp,
++						bool enable)
 +{
-+	int ret;
++	lockdep_assert_held(&dp->plugged_lock);
 +
-+	if (!ctrl->phy_powered)
-+		return 0;
-+
-+	ret = phy_power_off(ctrl->phy);
-+	if (ret) {
-+		DRM_ERROR("Failed to power off PHY: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ctrl->phy_powered = false;
++	dp->panel->video_test = enable;
 +	return 0;
 +}
 +
- static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl,
- 					      struct msm_dp_panel *panel)
+ static void msm_dp_display_handle_video_request(struct msm_dp_display_private *dp)
  {
-@@ -1836,7 +1857,11 @@ static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl,
- 	ctrl->phy_opts.dp.ssc = drm_dp_max_downspread(dpcd);
+ 	if (dp->link->sink_request & DP_TEST_LINK_VIDEO_PATTERN) {
+-		dp->panel->video_test = true;
++		if (msm_dp_display_set_video_test_locked(dp, true))
++			dp->link->test_response = DP_TEST_NAK;
+ 		msm_dp_link_send_test_response(dp->link);
+ 	}
+ }
+@@ -689,8 +699,10 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
  
- 	phy_configure(phy, &ctrl->phy_opts);
--	phy_power_on(phy);
-+	if (!ctrl->phy_powered) {
-+		ret = phy_power_on(phy);
-+		if (!ret)
-+			ctrl->phy_powered = true;
-+	}
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
  
- 	dev_pm_opp_set_rate(ctrl->dev, ctrl->link->link_params.rate * 1000);
- 	ret = msm_dp_ctrl_link_clk_enable(&ctrl->msm_dp_ctrl);
-@@ -1996,7 +2021,7 @@ static int msm_dp_ctrl_reinitialize_mainlink(struct msm_dp_ctrl_private *ctrl,
- 	 */
- 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
+-	if (msm_dp_display_check_video_test(msm_dp_display))
+-		bpp = msm_dp_display_get_test_bpp(msm_dp_display);
++	guard(mutex)(&dp->plugged_lock);
++
++	if (dp->panel->video_test)
++		bpp = msm_dp_link_bit_depth_to_bpp(dp->link->test_video.test_bit_depth);
+ 	else
+ 		bpp = state->bpp;
  
--	phy_power_off(phy);
-+	msm_dp_ctrl_phy_power_off(ctrl);
- 	/* hw recommended delay before re-enabling clocks */
- 	msleep(20);
+@@ -974,22 +986,20 @@ bool msm_dp_display_check_video_test(struct msm_dp *dp)
  
-@@ -2022,7 +2047,7 @@ static int msm_dp_ctrl_deinitialize_mainlink(struct msm_dp_ctrl_private *ctrl,
+ 	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
  
- 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
- 
--	phy_power_off(phy);
-+	msm_dp_ctrl_phy_power_off(ctrl);
- 
- 	/* aux channel down, reinit phy */
- 	phy_exit(phy);
-@@ -2643,10 +2668,8 @@ void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 			  struct msm_dp_panel *panel)
- {
- 	struct msm_dp_ctrl_private *ctrl;
--	struct phy *phy;
- 
- 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
--	phy = ctrl->phy;
- 
- 	msm_dp_panel_disable_vsc_sdp(panel);
- 
-@@ -2656,7 +2679,7 @@ void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 
- 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
- 
--	phy_power_off(phy);
-+	msm_dp_ctrl_phy_power_off(ctrl);
++	guard(mutex)(&msm_dp_display->plugged_lock);
++
+ 	return msm_dp_display->panel->video_test;
  }
  
- irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl,
+-int msm_dp_display_get_test_bpp(struct msm_dp *dp)
++int msm_dp_display_set_video_test(struct msm_dp *dp, bool enable)
+ {
+ 	struct msm_dp_display_private *msm_dp_display;
+ 
+-	if (!dp) {
+-		DRM_ERROR("invalid params\n");
+-		return 0;
+-	}
+-
+ 	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+ 
+-	return msm_dp_link_bit_depth_to_bpp(
+-		msm_dp_display->link->test_video.test_bit_depth);
++	guard(mutex)(&msm_dp_display->plugged_lock);
++
++	return msm_dp_display_set_video_test_locked(msm_dp_display, enable);
+ }
+ 
+ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp)
+@@ -1604,7 +1614,7 @@ void msm_dp_display_debugfs_init(struct msm_dp *msm_dp_display, struct dentry *r
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+ 	dev = &dp->msm_dp_display.pdev->dev;
+ 
+-	rc = msm_dp_debug_init(dev, dp->panel, dp->link, dp->msm_dp_display.connector, root, is_edp);
++	rc = msm_dp_debug_init(dev, dp->panel, dp->link, msm_dp_display, root, is_edp);
+ 	if (rc)
+ 		DRM_ERROR("failed to initialize debug, rc = %d\n", rc);
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index 6a77e5952530..ac64c1d3227a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -30,7 +30,7 @@ struct msm_dp {
+ 
+ int msm_dp_display_get_modes(struct msm_dp *msm_dp_display);
+ bool msm_dp_display_check_video_test(struct msm_dp *msm_dp_display);
+-int msm_dp_display_get_test_bpp(struct msm_dp *msm_dp_display);
++int msm_dp_display_set_video_test(struct msm_dp *dp, bool enable);
+ void msm_dp_display_signal_audio_start(struct msm_dp *msm_dp_display);
+ void msm_dp_display_signal_audio_complete(struct msm_dp *msm_dp_display);
+ void msm_dp_display_set_psr(struct msm_dp *dp, bool enter);
 
 -- 
 2.56.0
