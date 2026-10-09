@@ -4,44 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1300ECA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 13:24:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E38C3CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 13:29:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7053911214C;
-	Fri,  9 Oct 2026 13:24:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F55B10E189;
+	Fri,  9 Oct 2026 13:29:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="beW/k4Pg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BK63iEBT";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16D2F11214C
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 13:24:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31E2F10E189
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 13:29:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3CEDE60DC5;
- Fri,  9 Oct 2026 13:23:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C86D61F0089C;
- Fri,  9 Oct 2026 13:23:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 82E646053E;
+ Fri,  9 Oct 2026 13:29:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0341F000FF;
+ Fri,  9 Oct 2026 13:28:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791552238;
- bh=t46+aEFXXPpgTz0iOLiT1XNZR7fitLVfwA4EKjmsyT0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=beW/k4PgLlJOQeOxkNrV6p1U6KikCViN2nDmKR81Hgvv154HMy/8644paNcOSuUAM
- 7c7z6IMLTPxqQSLttMoAvIMK6vGTd+yZ7n1Xz5IOzZAtkkycHeKEztpvbia8WmuG80
- EyL4Yv38rNcuvqEXpeShfhX3YDMFzI41N8R5mMx7RhKlzRL5iF/QbOTYDRcTNK3Lzg
- OI6x2hTrVb8ziix9t4aSUwV08ybLvXZIMCI9ptmFv2xS57kvtS16ATFHg4vGk9HZb1
- NYKQ+El6dNnGmM3WK97Fitta8IMpe934qz7vmFunQNrTOsUVeQSi7Dsor+LKCUYCCZ
- n9+whaSTucJ+Q==
-Message-ID: <sashiko-outbox-165626@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 06/15] drm/panfrost: Fix PM refcnt and autosuspend
- issues at device probe/remove
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009-claude-fixes-v14-6-cb743b3b973b@collabora.com>
-References: <20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com>
- <20261009-claude-fixes-v14-6-cb743b3b973b@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 13:23:58 +0000
+ s=k20260515; t=1791552549;
+ bh=Gatt45NA+CcG7C8Cl1B/ynhphZULT/ZIYDGwesp6iXI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=BK63iEBTcpVQ1vTmmKPQ1XqR4dGykGGSlD7kE+a+JLECBT0n+oco4VMfqxh9pc6NX
+ 0nHrXK9pkTN2XT/eQC64i6xjlw+8mwSRwiboAJp2X4Efcb5Mh5oRj1hxfASI/3jZ+P
+ ut+t1EH646HGu0zqcHYB4Dd8pTeCm6l9PVeIYdItwnQnB5eWK79ZfEP30XUs9SMSFp
+ FiDxnhsgvfywoKko6Kh3izyTaz4DCfg67uydNoSoJOk6b6TL/1Xw10nNzxBRpMbvSm
+ //m5R9XdVcVXyp1UdQAIgCPRIWR4AU79nu5RcC5tpRyoWu35Ge224WYRLV1FFKonfs
+ Ho4vh+q5EK5GA==
+Message-ID: <6a91df34-cd81-49f3-8923-6676bfedf1c1@kernel.org>
+Date: Fri, 9 Oct 2026 15:28:56 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] dt-bindings: arm: qcom: document Radxa Dragon Q8B
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Xilin Wu <sophon@radxa.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
+ dragon@radxa.com, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniele Briguglio <hello@superkali.me>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <20261009-q8b-dts-v2-3-eda11e5dea8b@radxa.com>
+ <cd97e6ab-eac0-4482-8b85-455ac8730241@kernel.org>
+ <kzqftw7lugumzzkafcnsa36n6nix3kmwee66bzlv67aoqrkovc@7lbdhwfchvp3>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <kzqftw7lugumzzkafcnsa36n6nix3kmwee66bzlv67aoqrkovc@7lbdhwfchvp3>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,62 +120,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/panfrost: fatal bus fault on pm_runtime_get_sync() failure dur=
-ing teardown
---
+On 09/10/2026 15:23, Dmitry Baryshkov wrote:
+> On Fri, Oct 09, 2026 at 01:42:11PM +0200, Krzysztof Kozlowski wrote:
+>> On 09/10/2026 09:55, Xilin Wu wrote:
+>>> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
+>>> SC8280XP platform.
+>>>
+>>> Document its radxa,dragon-q8b compatible.
+>>>
+>>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>> Tested-by: Daniele Briguglio <hello@superkali.me>
+>>
+>> Fake test, drop tag.
+>>
+>> Why is this so problem to provide the tag ONLY to the patches which were
+>>  actually tested?
+> 
+> Please teach b4 to skip to skip Tested-by on dt-bindings patches (or to
+> have a flag / config to achieve that). This would solve 80% of these
+> issues.
 
-commit b75b37397a751cf9b55bbc2c3a99131de6b299ec
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+That's an idea, although my complain stays - why author could not just
+add tested-by to relevant patches. That's the same with blanket reviews.
+Several people DID NOT review entire set, just LGTM and give the tag for
+everything.
 
-drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
-
-This commit manually adjusts the PM usage counter during device probe and
-removal to ensure autosuspend works correctly. It calls
-pm_runtime_dont_use_autosuspend() in the wind-down path to fix devfreq
-spam and job timeouts.
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-[ ... ]
-> @@ -884,9 +892,12 @@ static void panfrost_remove(struct platform_device *=
-pdev)
->  	drm_dev_unregister(&pfdev->base);
-> =20
->  	pm_runtime_get_sync(pfdev->base.dev);
-
-[Severity: High]
-If pm_runtime_get_sync() fails here, could this lead to a fatal bus fault?
-
-In panfrost_remove() in drivers/gpu/drm/panfrost/panfrost_drv.c, the return
-value of pm_runtime_get_sync() is ignored. If the resume operation fails,
-the device remains in a suspended state with its clocks and power domains
-disabled.
-
-The code then unconditionally calls panfrost_device_fini(), which executes
-hardware teardown functions like panfrost_jm_fini(), panfrost_mmu_fini(),
-and panfrost_gpu_fini(). These functions read and write MMIO registers.
-
-Accessing unclocked or unpowered MMIO registers on ARM SoC architectures
-triggers a fatal synchronous external abort (SError) or data abort, which
-brings down the entire system. Should hardware register accesses be
-explicitly skipped if power could not be restored?
-
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
-> +
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-claude-fix=
-es-v14-0-cb743b3b973b@collabora.com?part=3D6
+Best regards,
+Krzysztof
