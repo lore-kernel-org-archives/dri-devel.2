@@ -4,40 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1148CA9EC5
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 968D5CA9EC0
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0BF710E387;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AADDD10E2AD;
 	Sat, 10 Oct 2026 11:45:05 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7771F10E189;
- Fri,  9 Oct 2026 13:18:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6C6E960DC1;
- Fri,  9 Oct 2026 13:18:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF7C1F00893;
- Fri,  9 Oct 2026 13:18:25 +0000 (UTC)
-Date: Fri, 9 Oct 2026 15:18:22 +0200
-From: Maxime Ripard <self@mripard.dev>
-To: Dave Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <asjkbknTHg2t8JGy@houat>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="mF9LnetM";
+	dkim-atps=neutral
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86EB410E5E4
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:54:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=q6
+ KiQ0JnIYlZjIauCBrkVstsxm3xXiTQEIf87XsyrHw=; b=mF9LnetMlO8n37nrj8
+ oQd/EPbLkrfWWt0sLSs7ENU9dUvG+ivtAL1wue7nhwS34sD9nZo3X4XxF2xKY04X
+ 0+0PBAZguMw1h7iySjluxiV5CowJh9NMHukGyIuEHt7tMLb86pzu7xRFMx/h+PwM
+ 1HSdWXFAmKI1+yD9kvlszSHoM=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+ by gzsmtp5 (Coremail) with SMTP id QCgvCgB3vmvUx8hqvTiFDg--.2548S4; 
+ Fri, 09 Oct 2026 18:54:14 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Chaosheng Qu <quchaosheng000406@163.com>
+Subject: [PATCH 2/3] ARM: dts: ti/omap: drop the two unused gpios from the
+ igep0050 hdmi encoder
+Date: Fri,  9 Oct 2026 18:54:11 +0800
+Message-ID: <20261009105412.300338-3-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009105412.300338-1-quchaosheng000406@163.com>
+References: <20261009105412.300338-1-quchaosheng000406@163.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="tsq25yhole3hlkt3"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: QCgvCgB3vmvUx8hqvTiFDg--.2548S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw15Ar4xtw1UJry7Jw4fXwb_yoW8XF18p3
+ 9Ikr4DAr929F1ayws7Z3sFvF45CanrXFyq9r15Kw4rAw1aqFyxKrWSkr1avr4DJFWSyw4F
+ 9r45X3srt3Z8Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zE5rc3UUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xbzaWrIx9bWHAAA3W
 X-Mailman-Approved-At: Sat, 10 Oct 2026 11:45:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,82 +63,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Chaosheng Qu <quchaosheng000406@163.com>
 
---tsq25yhole3hlkt3
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: [PULL] drm-misc-fixes
-MIME-Version: 1.0
+omap5-igep0050.dts lists five GPIOs for the tpd12s015 encoder: the three
+the driver asks for, plus two more that the comment names "SCL" and
+"SDA".
 
-Hi Dave, Sima,
+Neither driver reads them. ti-tpd12s015.c and encoder-tpd12s015.c both
+obtain exactly three GPIOs through devm_gpiod_get_index(), indices 0 to
+2, and neither file mentions scl, sda or ddc anywhere. The text binding
+that the schema replaces said the same thing: "gpios: CT CP HPD, LS OE
+and HPD gpios". There is no pinctrl group for the two extra lines and
+nothing else in the tree consumes them.
 
-A bit late due to travel back from plumbers, but here's this week
-drm-misc-fixes PR.
+Drop them so the node describes the three signals the hardware is wired
+to through this binding.
 
-Maxime
+Assisted-by: LLM
+Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+---
+ arch/arm/boot/dts/ti/omap/omap5-igep0050.dts | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-drm-misc-fixes-2026-10-09:
-A pointer assignment fix for gud, a reference fix and a preallocation
-size fix for imagination, a suspend fix and an allocation fix when idle
-for vc4, and a hardware variant fix for nouveau.
-The following changes since commit bca45af5998a05f34b13a2ef11e639bac9c62643:
+diff --git a/arch/arm/boot/dts/ti/omap/omap5-igep0050.dts b/arch/arm/boot/dts/ti/omap/omap5-igep0050.dts
+index 0368e32f67e7..8e8325936cda 100644
+--- a/arch/arm/boot/dts/ti/omap/omap5-igep0050.dts
++++ b/arch/arm/boot/dts/ti/omap/omap5-igep0050.dts
+@@ -102,9 +102,7 @@ OMAP5_IOPAD(0x086, PIN_INPUT | MUX_MODE6)	/* gpio4_118 */
+ &tpd12s015 {
+ 	gpios = <&tca6416 11 0>,	/* TCA6416 P01, CT_CP_HDP */
+ 		<&tca6416 12 0>,	/* TCA6416 P00, LS_OE*/
+-		<&gpio7 1 0>,		/* 193, HPD */
+-		<&gpio7 2 0>,		/* 194, SCL */
+-		<&gpio7 3 0>;		/* 195, SDA */
++		<&gpio7 1 0>;		/* 193, HPD */
+ };
+ 
+ &twl6040 {
+-- 
+2.43.0
 
-  drm/vc4: Use kvmalloc_objs() for the BO cache size list (2026-10-01 10:36=
-:09 -0300)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-20=
-26-10-09
-
-for you to fetch changes up to 6ccf996a0dec1852dab94ad865f27b4904750e12:
-
-  drm/nouveau: Skip the Turing CE workaround object for non-GR channels (20=
-26-10-08 18:14:46 -0400)
-
-----------------------------------------------------------------
-A pointer assignment fix for gud, a reference fix and a preallocation
-size fix for imagination, a suspend fix and an allocation fix when idle
-for vc4, and a hardware variant fix for nouveau.
-
-----------------------------------------------------------------
-Gyeyoung Baek (2):
-      drm/imagination: Fix reference and vm_bo handling in remap()
-      drm/imagination: Size page table preallocation by device address
-
-Mary Guillemard (1):
-      drm/nouveau: Skip the Turing CE workaround object for non-GR channels
-
-Ma=EDra Canal (2):
-      drm/vc4: Disable the V3D interrupt across runtime suspend
-      drm/vc4: Fix binner slot allocation failing on an idle GPU
-
-Sajal Gupta (1):
-      drm/gud: don't keep a connector without a CRTC as connector_state
-
- drivers/gpu/drm/gud/gud_pipe.c          |  1 +
- drivers/gpu/drm/imagination/pvr_mmu.c   | 25 +++++++--------
- drivers/gpu/drm/imagination/pvr_vm.c    |  8 ++---
- drivers/gpu/drm/nouveau/nouveau_abi16.c |  2 +-
- drivers/gpu/drm/vc4/vc4_drv.h           |  2 +-
- drivers/gpu/drm/vc4/vc4_gem.c           |  8 ++++-
- drivers/gpu/drm/vc4/vc4_irq.c           | 24 +++++---------
- drivers/gpu/drm/vc4/vc4_v3d.c           | 57 ++++++++++++++++-------------=
-----
- drivers/gpu/drm/vc4/vc4_validate.c      |  2 +-
- 9 files changed, 62 insertions(+), 67 deletions(-)
-
---tsq25yhole3hlkt3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCasjpngAKCRAnX84Zoj2+
-dnq+AX9VnzyYbqDsLI3klttBA8eM/1p70QjhoR5jPXkAYgLKSL9O0sRVawtZx8Wo
-R2zx8vkBfiQUU7rGGc8g1ecy2HIEBkSZ9A9WaT4fZd2bteZxM71IzpxdCLXVGnwh
-kgD4xkQeqA==
-=wxDM
------END PGP SIGNATURE-----
-
---tsq25yhole3hlkt3--
