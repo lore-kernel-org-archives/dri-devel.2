@@ -4,49 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C6B9CA6004
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B0C2CA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C44FA10E244;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9BA810E249;
 	Sat, 10 Oct 2026 11:45:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="LOHYqvAJ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="VU/Cfc5U";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43B6C10E9B4
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:54:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SU
- 2hOrP3XkxbQgBianI5yCRcm1GVQm++rhoG9WeYkXY=; b=LOHYqvAJ0UXxp9lo7d
- 1N9FXFRqdVSxIDSYvcV4t8mpMxoiFc+rbsWooQWNIqrTCWTav+Gs66MjZbX1+ZkL
- DB5/wksSrt8wKKb4sZN2us0cyo/8v8LsYDeyWIFXXmfVBxtXd9N6p9YGdzdmBlMe
- NkNVSd0OpRNGiEaHDhSoD5B7c=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
- by gzsmtp3 (Coremail) with SMTP id PigvCgAX19XEx8hqHXqzDg--.691S5;
- Fri, 09 Oct 2026 18:53:58 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH 3/3] ARM: dts: ti/omap: drop unit-address from tpd12s015
- endpoints
-Date: Fri,  9 Oct 2026 18:53:56 +0800
-Message-ID: <20261009105356.300188-4-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009105356.300188-1-quchaosheng000406@163.com>
-References: <20261009105356.300188-1-quchaosheng000406@163.com>
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DD12010EEB8
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 15:45:41 +0000 (UTC)
+Received: from localhost.localdomain (unknown [4.194.122.162])
+ by linux.microsoft.com (Postfix) with ESMTPSA id D587520B7168;
+ Fri,  9 Oct 2026 08:45:35 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D587520B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1791560740;
+ bh=OPNpKz6OHklbJCYVRtqhmrTLvTXsKAqbS+7QlmXkvaI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=VU/Cfc5UHkvAXTpc0qzynMKbbdWrmHeuiwj7u5CtcZeQPAZBCIaoxaWUQEj4lpnbH
+ DBtbWkCFrIzuBS/pm+uOTba8GagA64Ib83AYYRdG/GCIFYXtx505DQr5wcnWR6ZfYI
+ cyVn6H7UEGVkaeDHjdI1gwyZoFggp3CLsrza1Nro=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	Greg KH <gregkh@linuxfoundation.org>
+Cc: Cen Zhang <cenzhang@linux.microsoft.com>,
+ Hungyu Lin <dennylin0707@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] staging: fbtft: update outdated struct fbtft_ops comment
+Date: Fri,  9 Oct 2026 11:45:26 -0400
+Message-ID: <20261009154526.43528-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PigvCgAX19XEx8hqHXqzDg--.691S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw1rXry7try7XrWDtw43ZFb_yoW8CF4kp3
- s29Fs7tws7GF10kF4DZw1qgFyDKFWDuF1akF4UWryUCa13Xw1rJr1xt3sakr1UCayfZw4j
- 9rs5WasFqw1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zMMKZAUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAAfvZWrIx8e5PgAA3o
 X-Mailman-Approved-At: Sat, 10 Oct 2026 11:45:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,67 +55,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
+Correct struct fbtft_ops outdated kernel-doc comment: 1) update
+field write_reg to write_register; 2) remove non-existing field
+free_gpios.
 
-The endpoint nodes of the tpd12s015 encoder on the am5729-beagleboneai
-and the am57xx-idk carry a unit-address without a matching reg property,
-which the device tree specification does not allow.
-
-Drop the unit-address so the nodes are named "endpoint".
-
-No functional change.
-
-Assisted-by: LLM
-Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
 ---
- arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts | 4 ++--
- arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/staging/fbtft/fbtft.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-index 76bfb364777e..f40017a0e414 100644
---- a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-+++ b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-@@ -168,7 +168,7 @@ ports {
- 			port@0 {
- 				reg = <0x0>;
- 
--				hdmi_encoder_in: endpoint@0 {
-+				hdmi_encoder_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -176,7 +176,7 @@ hdmi_encoder_in: endpoint@0 {
- 			port@1 {
- 				reg = <0x1>;
- 
--				hdmi_encoder_out: endpoint@0 {
-+				hdmi_encoder_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
-diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-index 5eccff3bb4b6..4e8a5820b05c 100644
---- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-@@ -135,7 +135,7 @@ ports {
- 			port@0 {
- 				reg = <0>;
- 
--				tpd12s015_in: endpoint@0 {
-+				tpd12s015_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -143,7 +143,7 @@ tpd12s015_in: endpoint@0 {
- 			port@1 {
- 				reg = <1>;
- 
--				tpd12s015_out: endpoint@0 {
-+				tpd12s015_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
+diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
+index c7afb0fd3943..40a7567df1eb 100644
+--- a/drivers/staging/fbtft/fbtft.h
++++ b/drivers/staging/fbtft/fbtft.h
+@@ -37,7 +37,7 @@ struct fbtft_par;
+  * @write: Writes to interface bus
+  * @read: Reads from interface bus
+  * @write_vmem: Writes video memory to display
+- * @write_reg: Writes to controller register
++ * @write_register: Writes to controller register
+  * @set_addr_win: Set the GRAM update window
+  * @reset: Reset the LCD controller
+  * @mkdirty: Marks display lines for update
+@@ -46,7 +46,6 @@ struct fbtft_par;
+  * @blank: Blank the display (optional)
+  * @request_gpios_match: Do pinname to gpio matching
+  * @request_gpios: Request gpios from the kernel
+- * @free_gpios: Free previously requested gpios
+  * @verify_gpios: Verify that necessary gpios is present (optional)
+  * @register_backlight: Used to register backlight device (optional)
+  * @unregister_backlight: Unregister backlight device (optional)
 -- 
-2.43.0
+2.55.0
 
