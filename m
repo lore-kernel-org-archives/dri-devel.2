@@ -4,104 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 923B0CA5FED
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 04:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3025ACA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 05:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D38E210E0E7;
-	Fri,  9 Oct 2026 04:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F20D110E511;
+	Fri,  9 Oct 2026 05:06:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RRmXFF1O";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CChd7zzJ";
 	dkim-atps=neutral
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
- [74.125.224.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B26E710FE59
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 04:21:54 +0000 (UTC)
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-677dbe051d4so5681173d50.0
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 21:21:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791519713; cv=none;
- d=google.com; s=arc-20260327;
- b=cyJTx3CbUtzetH50LG+K4S43JDTFP6cB/H9D3prLIRyvONFj4z+FR+7k6e9hp6b3ss
- 4Qaaq/LLNPT34gZYjyx/BPGZsewXdgAMGcKn45ZImDSlVDqk360mNlXZXQcn8jziHvJs
- 6O/nRPxcISZBkH8JocEAQY6aJ6DfQ4vjMEYjggo5HTE9dxml7A23T6qpFH7YN6eZp9zc
- iN7nienSMqOsZQsfedDY5+DYC1TauMh7P1VDQu2N0TnYctZbUtx//uyMT3uZq0WXOxWp
- ngNqt0oj8b335SAiE0DlVpU9QCt5WrU8fqL9QvBcmerWnbcwEg4Kzpe4BcYeVelCc+lE
- E4gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=BywDXOPv2ssWSV12Fq4ovlFzbKenjlyEsA0nv8jqMGk=;
- fh=Hl0chG7E+1m37j6iEdmZ1JxUm7u7II8XxRhTr8XZV3o=;
- b=G3A7wTpiO3Cngr19pMSX8QHVe4fa6yMrp8PmczUdsvCyfq3rdRwH7TfREMKbndzNdX
- eOQnnNg9H2ud7VQPy6fAbbUErG07D0852mS+DReXQCkQMeX0CIzmIPtg9rT+ZJHZcF1W
- O919RVpuvzkww42+/cNffhlTh4nOUo1pbiIqW7YtavkmrXwsRAtg/6Dd9rUeLrUQrDY0
- VpPOsxB/ijWszAte093mTp/yS0kE8B0vIiKiEWQv2yVFz/m9cpV1q64YWXj7ApT8H/rq
- YGH27R/NZJeFjNF1KqJfBNCgAcFkr+wdOhS5swP/RAmPkQcIzCvCPZayOGgT4CFA5+wM
- VOPA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791519713; x=1792124513; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BywDXOPv2ssWSV12Fq4ovlFzbKenjlyEsA0nv8jqMGk=;
- b=RRmXFF1OoBnXPaNeP5em4+ZuVVGtylcdVcRErALTLeOOkWsKvJFCPoG1uDq2ak7Vky
- il4WkRdLJrRRjZcC+0sbPOfJkprEGj2q2PosAkDCyfeFbHXBYGpGzSeGfu43bmxahc/W
- T+mbPoO9UdAxwyj3sugUdXJQpFL8gZt5nZrYGtRBqExk/JmY/7XCucRtL7JWrp6fZCuX
- v30Uf454mZ30OniVqgHNKsmMdRhCwYNWt5I+IkdK4ggb3rrzNuKj3x/YU5nV5CWpIIme
- G6g+HhzA6hsXPD6A/QzTEBKP0MXGk+u91gxRXN1u8b8LB1/G+l6VmuG582G/n+wtzWsN
- Dp4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791519713; x=1792124513;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=BywDXOPv2ssWSV12Fq4ovlFzbKenjlyEsA0nv8jqMGk=;
- b=lE/U9Yk8mhdrBx8aESePgCBfiQ8c9GJV9Cqvkqiw0+kGv7lTDmV+fTJEfro3m3yhZm
- 6tYDXlAK2OVUdgX2BexfZ6h7mobry+yi2/hWmPqvVIkifih/0q7ULiOFhHZ2ouMm64/D
- q8KQJ40QDGrJYs3W31GsFUoFFxuoejds54Ypx93eQoAcHZxQgS0BsClSI0s02MtSc+kP
- j6SjKCsQ9vvugv6esCFVR308Si8WgCbghm/UCspva9wPRE82iCUhBgbF+Fwuywo+ZVPd
- aadhlt9/LAheg1BKKx/D9joMDhJdU1bszXcBt+rLjKZfO/MruwRdUyieKSC4jGO2zp7i
- SRFA==
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C11610E511
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 05:06:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CADB843C6E
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 05:05:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CD41F008A5
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 05:05:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791522359;
+ bh=I9YO0eJYB2iuGA2U/VJdUhkPCHtdLj+gjfpQldoRh8o=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=CChd7zzJcSynPfXkJUfzvxWOXcF/ySNL5XLqIhF7VLTfAK7P3aIpLnm+B46PQeoU8
+ OZjRgCzQ+tYcXIfYiAAgYjz19+3/yg15qtTHp5L3BaiXWrYb86nld+0jZodxPrY5NZ
+ 7428JZRZUy6Wdp4CaOEkfcDqHUtvBSqewIqBF0hUISdx0Y3T7bPA7U/Qn7ovgrg4CH
+ nxIvUKtw/DWAXeK1pGG9NprsuRdn64u9pw19YsclC2bhoEcty/jxOe2Mtfe/CoS6Ul
+ LHKR/bAgAfWLLB+IZoPsSho4UyzRdVWIsrrL14Ld8SnH2Cp1G2FfkB9yz0yV73+QxG
+ PXJB1ozmuLebg==
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-3a7858d3a20so51699761fa.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 22:05:59 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBwd3fwpd631B7a6r45qcFhwIAKxMdj13zzqq1JdY2xSnnXgGAZ7ymNLaA1kj2tZZssqbFxozbf+kbE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI7RmkNlt3FH1IaGoi9/uuOQJHsqnEm2rObRt6njCvKbYoi+M9S
- 9k9gf8emeyT0FvF1R7ECghFM7CrqpzeZl5bQsl/nQqxcmuuNuSNmaw13T3rXcQvEvEBNdPcgeFw
- pbyLAreaDGfQiJYWQZ6I3CTTm8BNPYaU=
-X-Gm-Gg: AYBFou2tgxkHOgxSuFGGgEi/mt0W5O/cBuDOxW0Tqc8a/6MRwwWfkTw4OfyGUfibmzl
- FGN6yj2/r3sr0jARZJS3JDBws51wqawyWlBjLTnU11vmdeeBmxEeQj7HT3/4qi76z54l7kD1FJP
- nMC7I+guA5tQ8fUZgtXHIfJOHKjSrV7qabspBgbu2okkjZdf2gZ0/6e18Go5hV8Mzy18UorAJ3W
- UbYh36GcP6LnnFyAOula6wxuY5nWEXhbhB3n1NiUDCQFiOqO0EbhQyLYSZ78BK31VesUXeknYZ/
- fp2HWQqm12LX5FvK/DCz4jBwsQEh4Z6wJxKC+gRwTmnQbQtx/aah7ppyjQ==
-X-Received: by 2002:a05:690e:4509:20b0:675:3142:bfb9 with SMTP id
- 956f58d0204a3-679362a00abmr161562d50.109.1791519713466; Thu, 08 Oct 2026
- 21:21:53 -0700 (PDT)
+ AKwUvBzNMI8ggqAln1TVD4zx5avju5VjZzLFSyj9Fzw/83EhRR7NfwE5Btc2T4W4IB53Cs7TwB9LLmL7NzM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLbqctM/EMVlRgGfqQI5vhTwzi9OhwjI9NYYpegUzhUtYIpxbkB
+ R4bj1wO8cGYGm7AHw9faQ5QXsxNss8ARkVgTNADwuVv8mNLXuyoR8AjYyNXJAzZ4SLgWH+liGU6
+ ALiYaGq4x8gcP9doDhzFRlTLEqUY/+/s=
+X-Received: by 2002:a05:651c:a204:20b0:3a7:812b:cfc with SMTP id
+ 38308e7fff4ca-3a9c5362e82mr1036541fa.14.1791522358331; Thu, 08 Oct 2026
+ 22:05:58 -0700 (PDT)
 MIME-Version: 1.0
-References: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
- <20261001-pvr-fixes-a-v2-2-f58254e5dfb8@gmail.com>
- <64b915fe3c794567a04c955fa89184204e3b9552.camel@imgtec.com>
- <CAKbEznvDanJtt8yEL2UmTeLpA1SZOT693E6AD1Xau+mU4Mztuw@mail.gmail.com>
- <67ab8185350907d6fc6ff15ffcef4012902e0d96.camel@imgtec.com>
-In-Reply-To: <67ab8185350907d6fc6ff15ffcef4012902e0d96.camel@imgtec.com>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Fri, 9 Oct 2026 13:21:42 +0900
-X-Gm-Features: AclHuK8MEV-5zdcFNHIWE-2Un_-sTcc-b7az1tB-8pxj_ak2vbxL8zBUg9oyHpk
-Message-ID: <CAKbEznusAuyr5wGKDw8f7rm_CtKJN_19fLK9LHNRVUvSbzjvTQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] drm/imagination: Size page table preallocation by
- device address
-To: Alessio Belle <Alessio.Belle@imgtec.com>
-Cc: Luigi Santivetti <Luigi.Santivetti@imgtec.com>, 
- "imagination@lists.freedesktop.org" <imagination@lists.freedesktop.org>,
- "simona@ffwll.ch" <simona@ffwll.ch>, 
- Brajesh Gupta <Brajesh.Gupta@imgtec.com>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "airlied@gmail.com" <airlied@gmail.com>, 
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
- Alexandru Dadu <Alexandru.Dadu@imgtec.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, 
- "mripard@kernel.org" <mripard@kernel.org>
+References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
+ <20260921-ux500-power-domains-v7-1-v3-5-9352be6b86b1@kernel.org>
+ <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
+In-Reply-To: <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 9 Oct 2026 07:05:46 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm+yRo9e1UDhnaYrdPq28mdyYKQZ6tdKuUa3UG85imkNA@mail.gmail.com>
+X-Gm-Features: AclHuK-Ex5IjXhkbtgEhkucoevwygfmCnjR6ilMQmzKovj4MIFQJsLkwQxsWcf8
+Message-ID: <CAD++jLm+yRo9e1UDhnaYrdPq28mdyYKQZ6tdKuUa3UG85imkNA@mail.gmail.com>
+Subject: Re: [PATCH v3 05/18] dt-bindings: display: ste,
+ mcde: Allow power domains
+To: Rob Herring <robh@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Lee Jones <lee@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,19 +82,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alessio,
+On Thu, Oct 8, 2026 at 7:41=E2=80=AFPM Rob Herring <robh@kernel.org> wrote:
 
-> > I'll address the rest in v3 as well.
+> > +      power-domains =3D <&pm_domains DOMAIN_B2R2_MCDE>;
 >
-> Sorry for not waiting your v3, I wanted to be certain of having these bugs (OOM
-> panic in particular) fixed in the next release candidate or release, so I went
-> ahead and applied these patches to drm-misc-fixes. I've only updated the commit
-> message for this one and left the comment update for another time. Many thanks
-> for your patches.
->
+> This patch is in next, but the define is not breaking dt_binding_check.
 
-Okay, thanks for applying them!
+I screwed up, I forgot the dependency on the new define :(
 
--- 
-Thanks,
-Gyeyoung
+I asked Ulf to merge the prerequisite which would resolve it:
+https://lore.kernel.org/linux-pm/CAD++jL=3DgFt9kKZH9T-m8B_pbwRvzc35tTrMn5V2=
+38d3528DpUg@mail.gmail.com/
+
+Is it very urgent so I should just revert it? I could also just merge
+the single patch adding the defines into the drm-misc tree if
+Ulf is OK with that.
+
+Yours,
+Linus Walleij
