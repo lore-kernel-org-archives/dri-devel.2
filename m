@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 830A2CA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 124D4CA9EBB
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:08:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D88F310E1F0;
-	Fri,  9 Oct 2026 23:08:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7331810EB57;
+	Fri,  9 Oct 2026 23:08:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kegmyvYr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GB8vUd0E";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34CDC10E1F0
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:08:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5C810EB57
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:08:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0F9E9434DC;
- Fri,  9 Oct 2026 23:08:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29821F000FF;
- Fri,  9 Oct 2026 23:08:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1F17960211;
+ Fri,  9 Oct 2026 23:08:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A82B1F000FF;
+ Fri,  9 Oct 2026 23:08:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791587301;
- bh=hBTKZD3HeJyVodX7qLY7GjxRbIgnBjqwBP7cw9HdNmU=;
+ s=k20260515; t=1791587312;
+ bh=mkrUVtcvU2bRuRzCE+2xaz3xlBu8d6rjFRB0TETaTds=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kegmyvYryuZVJPmg9DH1YuXLioAq3L/WPhGo4VFJ5ZYutYapE6N+pB+i9mGspPsxf
- /nTN46ac0z+qDOs+vfMEEw2S2/FxySSfBlYBVmvsiG+zUqM5bzqQaCUHLg2fdEfuSR
- +dH1hOQt99edZXtBEYlEybGH2Wd6jSTlkm57v5Mb8R2ieyYEevnUI/KR+SwQyNFgQ1
- wIskTAb+8yrlHnheIojcwjKXjludOgwchjUDM6RfTGhskh0ei+6pk7XUy+ifymdr49
- QdetDJYRYUquLSO0s7/SIBhft4YzeXsoh5UgVvpEUhZxVtX6bbhQNE6SQYXVi6wrUv
- lky0rCF0PPlGA==
-Message-ID: <sashiko-outbox-166174@kernel.org>
+ b=GB8vUd0EyopN6kIUnLZhskRBEvzTIIdFJmpoF7mgaMT+Nktzm46/CpgQztV2LMFg4
+ PytXIoHiESTr+V72DKcLI6WBNIeSp6BAP+pCxHYqvHhHZINuCxL/M04JSPBCHRC9FS
+ jC55cYnP6SEnC/tRYnRwo+VzkvcNkGb1/7WJs4Vv71DQtB6hM7J0h6iQuChx43vlIa
+ FNZ8fDfr/QW330ICvTSzvhNhTiEBkoiFGroMoH+a9X7oaie/In9a/0xoIoPAaisUNX
+ KLYcCcAwKyZWKKUCWEoYL5Q9sCT+9WKd4j3A9bNoaRdNHL95Z8tE5wZ+mhr0c8GEw+
+ we+TwdlobEmVQ==
+Message-ID: <sashiko-outbox-166175@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V4 04/19] accel/amdxdna: Support firmware 6.0
+Subject: Re: [PATCH V4 05/19] accel/amdxdna: Add NPU3 classic device support
 To: "David Zhang" <yidong.zhang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009225343.3079074-5-yidong.zhang@amd.com>
+In-Reply-To: <20261009225343.3079074-6-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
  <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-5-yidong.zhang@amd.com>
+ <20261009225343.3079074-6-yidong.zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 23:08:21 +0000
+Date: Fri, 09 Oct 2026 23:08:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,66 +60,57 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] accel/amdxdna: missing capability check for REALTIME priority al=
-lows DoS
+- [Medium] amdxdna: user-triggerable WARN_ON via AMDXDNA_BO_DEV_HEAP on NPU=
+3 classic
 --
 
-commit 33aba925e30324fed055cc90f6f20b1a9826f931
+commit 9daa4537d3513c6a4bc057f8afd01b65162be2b6
 Author: David Zhang <yidong.zhang@amd.com>
 
-accel/amdxdna: Support firmware 6.0
+accel/amdxdna: Add NPU3 classic device support
 
-This commit supports firmware interface version 6.0 by updating the host qu=
-eue
-layout, opcode definitions, and context creation/destruction request struct=
-ures.
-It also parses priority band and PASID for hardware context creation.
+Add NPU3 classic device operations (aie4_classic_ops) and register
+definitions, as well as the PCI device ID and firmware declarations for
+NPU3 classic devices. Remove device IDs 0x1B0B and 0x1B0C because those
+devices will not be released.
 
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie=
-4_ctx.c
-> index 8157f2a6fd10a..5eb918e1d58c7 100644
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
-
-[ ... ]
-
-> @@ -110,6 +111,22 @@ static int aie4_msg_destroy_context(struct amdxdna_d=
-ev_hdl *ndev, u32 hw_context
->  	return aie_send_mgmt_msg_wait(&ndev->aie, &msg);
->  }
-> =20
-> +static u8 aie4_parse_priority_to_dev(u32 priority)
-> +{
-> +	switch (priority) {
-> +	case AMDXDNA_QOS_LOW_PRIORITY:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_IDLE;
-> +	case AMDXDNA_QOS_NORMAL_PRIORITY:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_NORMAL;
-> +	case AMDXDNA_QOS_HIGH_PRIORITY:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_FOCUS;
-> +	case AMDXDNA_QOS_REALTIME_PRIORITY:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_REAL_TIME;
+> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/np=
+u3_regs.c
+> index 93f749acb5d5d..c82433d629012 100644
+> --- a/drivers/accel/amdxdna/npu3_regs.c
+> +++ b/drivers/accel/amdxdna/npu3_regs.c
+> @@ -105,3 +105,17 @@ const struct amdxdna_dev_info dev_npu3_vf_info =3D {
+>  	.cert_feature_tbl	=3D npu3_cert_feature_table,
+>  	.ops			=3D &aie4_vf_ops,
+>  };
+> +
+> +const struct amdxdna_dev_info dev_npu3_classic_info =3D {
+> +	.mbox_bar		=3D NPU3_MBOX_BAR,
+> +	.sram_bar		=3D NPU3_MBOX_BUFFER_BAR,
+> +	.psp_bar                =3D NPU3_PSP_BAR_INDEX,
+> +	.smu_bar		=3D NPU3_SMU_BAR_INDEX,
+> +	.doorbell_bar		=3D NPU3_DOORBELL_BAR,
+> +	.default_vbnv		=3D "RyzenAI-npu3",
+> +	.device_type		=3D AMDXDNA_DEV_TYPE_UMQ,
+> +	.dev_priv		=3D &npu3_dev_priv,
+> +	.fw_feature_tbl		=3D npu3_fw_feature_table,
+> +	.cert_feature_tbl	=3D npu3_cert_feature_table,
+> +	.ops			=3D &aie4_classic_ops,
+> +};
 
 [Severity: Medium]
-Could this allow an unprivileged user to monopolize the NPU?
+Since dev_mem_size is omitted here, it defaults to 0. Does this cause a
+kernel warning when creating a device heap BO?
 
-In aie4_parse_priority_to_dev() in drivers/accel/amdxdna/aie4_ctx.c, when a
-user calls the AMDXDNA_CREATE_HWCTX ioctl and passes
-AMDXDNA_QOS_REALTIME_PRIORITY in qos.priority, this maps directly to
-AIE4_CONTEXT_PRIORITY_BAND_REAL_TIME during context creation and is sent to
-the firmware.
+If an unprivileged user opens the accelerator device and requests a BO with
+type AMDXDNA_BO_DEV_HEAP, the ioctl dispatcher calls
+amdxdna_drm_create_dev_heap_bo() which unconditionally evaluates:
 
-Since there doesn't appear to be a capability check (such as verifying if t=
-he
-caller possesses CAP_SYS_NICE or similar privileges), could any local user
-with access to the DRM node create an NPU hardware context with REALTIME
-priority and starve other workloads, causing a denial of service?
+WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
 
-> +	default:
-> +		return AIE4_CONTEXT_PRIORITY_BAND_NORMAL;
-> +	}
-> +}
+Since dev_mem_size is 0, this will evaluate to true and trigger a warning,
+potentially causing a local denial of service if panic_on_warn is enabled.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009225343.3079=
-074-1-yidong.zhang@amd.com?part=3D4
+074-1-yidong.zhang@amd.com?part=3D5
