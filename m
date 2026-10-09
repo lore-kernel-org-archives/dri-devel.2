@@ -4,76 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 031D9CA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92069CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:26:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8108210E41A;
-	Fri,  9 Oct 2026 03:26:34 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MT1v4yq5";
-	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 167B910E41A
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 03:26:34 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-ca766c1c9ccso1562196a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 20:26:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791516393; x=1792121193; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=LYAohfURFktRBLdiWxIwClXMCDAhfiRzTvJlH6pEOZU=;
- b=MT1v4yq5MDcP61CJKskgA4xgOojXPQRNHiDfIxAj7zW+5F60oH2jCNb+nvHDudlvsa
- TxrqjunSAZ8cqcdcDSdElaDfaOPbyrHLxEqbxh+Fjdt6dUWVtYxo+hFoY0tNXX43v5BX
- g0MxbOhh1NQDwHSdFbsR3MM5sMlRRZ8prfFRUH3DL7ZfsRKw2kXugsQqrM+HVMZrxA+0
- iSl7S8I0gMhSeY8KmdyzrtlMcfH601L4YgiZHb8SGKyfr1CpA5bd86hmnVRFySSNC54p
- U42dYtHgUtP1D/bJ9qfT2DFrUmIkKisQhWFWXF04lJwi//66MCYHkj+I46P1XOf/YpxP
- WJpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791516393; x=1792121193;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LYAohfURFktRBLdiWxIwClXMCDAhfiRzTvJlH6pEOZU=;
- b=gNJdIAqOhq1mEB26sZ9iuXfSUy2+RsJFv6EZ1iIwlwkOAYFmET6I9PRC8nTyistbMB
- khp7WOhzWapOLhChweN5fn+I0BvfwXVqMpCl+JlBdSzAB4DrRy9d1Fj+thPBfn33AKCQ
- dwF/fK5v7FN4G23r3f7RDMhXhbGyHKFWxK4Zbm4noKKUzxgayx6/+uClY3MfFHOn3dJh
- ZWOAsPVl5PsQfgVCael2aPYW8yiv41Dx1W1H1xNAAS8ZTk3o/ICFOwD6kOhqbqNhtlFc
- DPvcQZtI/1Ubka+sm1YE8zxUPBZRJSNIw1LDdO0EChUQ5Wi8DFdSlprRUo/QNtUyY5Wd
- iBuQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwvJZgULX/MrlOmC1RpgABhvbunkrZyos8Tk3EM0C9s5HMJaMP7mnTJA+dlrvrA2coF+jcw38OAgMQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLhrmQM0YjCsPkhvVqgTHjQqFf7N7qnrW6gqH/wSw2lESCDrHyB
- lrKOXq1rsIF2PhoCXaFfBlTmyDN46FYS7jEoQI6Mn3tv7QtwQd8lEtHz
-X-Gm-Gg: AYBFou28564JsYH4U+uGzReFnjRmzJx6MhJghqFKQjKrsdH4P0NJKJQV8pnyq0Ro60b
- j3H0JJ4mTYkZHYvazfUCZ6nhadgurgogOklYRDo27HUzUhe1Ln4/ZKgc+11aq5pjBJ+8VKBNuJ+
- Y9ROiKr3vYF9KK99Cbnzr7vwc8bjlXUwe5KVo9mU5brWK8LMH32jLT2vz7E40wb6Vw610BWNJSG
- 6LufkbwQKFU1Haupqpg8WiAbnTo83Q+m+uJbUj8Bkal2+8eGeB2gC+iywLsQt8zhq6rTa6GtU88
- Gt9648qarRO8lYjF1cmqA8qQE/KwhNLKiGYUipoY0PfF2SyGn0tTT86UkOigNWoDFQNIxV4hmb/
- ASCvTraTlg7VmXttwUxzQFmuLAP4RS8fFPfzsq1p35bZnxue6XN38x8/U3irUaeZk23W70xuwlK
- MjLv8ZewWzZdhXd2XwZv+Lemq9LXW8sBk7p/63k2ZuJkrh0v3Nl/aUu0OuAeXuX5yT5X0sOwbON
- GTxep/PNsuH/LkCIKXCRmaE9lvBsdVTYyAtkUK0NpNo+v4GBztmT1uAsWaVc1tlXF8MhmIimwPV
- 0QIR9m8C
-X-Received: by 2002:a17:90b:4b09:b0:39e:3713:c2e4 with SMTP id
- 98e67ed59e1d1-3ab3ac58076mr575751a91.14.1791516393448; 
- Thu, 08 Oct 2026 20:26:33 -0700 (PDT)
-Received: from 0xiviel ([49.224.123.154]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ab371b2f2bsm1436401a91.15.2026.10.08.20.26.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2026 20:26:33 -0700 (PDT)
-From: Eva Crystal <0xiviel@gmail.com>
-To: stable@vger.kernel.org
-Cc: Lizhi Hou <lizhi.hou@amd.com>, Min Ma <mamin506@gmail.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 6.18.y] accel/amdxdna: Bound the sync_bo flush range to the BO
- size
-Date: Fri,  9 Oct 2026 16:26:14 +1300
-Message-ID: <20261009032616.432392-1-0xiviel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB2DF10FE3F;
+	Fri,  9 Oct 2026 03:26:42 +0000 (UTC)
+X-Greylist: delayed 391 seconds by postgrey-1.36 at gabe;
+ Fri, 09 Oct 2026 03:26:39 UTC
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3096B10FE3A;
+ Fri,  9 Oct 2026 03:26:38 +0000 (UTC)
+X-QQ-mid: zesmtpip2t1791515830tbb33f0fc
+X-QQ-Originating-IP: 1yXzRkYE3qH1UuMYru7LuPsRRvS2YXzC1KUR3SgFG/c=
+Received: from [192.168.30.32] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 09 Oct 2026 11:17:07 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8012898157940025237
+EX-QQ-RecipientCnt: 29
+From: Xilin Wu <sophon@radxa.com>
+Date: Fri, 09 Oct 2026 11:15:54 +0800
+Subject: [PATCH v2 02/20] drm/connector: Drop early state allocation for
+ max bpc registration
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-msm-dp-hdr10-v2-2-1835d4966da3@radxa.com>
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4736; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=o0Le8wc2L6kpMkxWzI0bIlS/W7PHaYO3TrOedahZL74=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlYsixe8Y+WokNMp4dagJs8aHzijp/e9a8eDPH/nC
+ f/jfs7qKGVhEONikBVTZFGIZ5jLXpl77alYqR7MHFYmkCEMXJwCMBGBNYwME9ZoiBo0c2eWexr8
+ m3V7RtAic+bb/Ft+zxTa8Ukk4lnWNob/JdLs53RXbvD1tun/Er28fk0jY7jhpoRN2zfd23XCaeY
+ RHgA=
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NFzQ23lyTybaiK9hZ0WYaq+UKfyls87ehAOP2r+4ljpNYyWzvNGHpD3D
+ kHtxIY1MdEjK/+YFFt7Px+KRlhupznXb7DbsUYphtpAwwVU0lkCe9uk5lgtudT2W2qbVcqu
+ iIFnULX8Zd9sI17oWkGkWUx4fQUX3xgyjWNDUorFe0mRn2NhKisCB1Ql3WfR/LnVB4Z53jC
+ BPi23+3mZ9u7pYlr4pOxQTPpDXiGXrLj3sMUxh1lE1Z/NKgtlMsuhMpToFhux6dq7iz+Eut
+ fhbFbSmwr8SS/0TcLLQV/k5fRNElBnSij4qO2EjK41Dd/20t4ATdGBw2RG8dRHToJqm7zc7
+ WhKQ0/NXVuTXx7m7+5NpdouoTs4Kaa371POZTe/uMHZ76E0xNlW0egfghTkz+N4bSlcg4bM
+ NaxtUc3LX+nMTh79XNRCPKGnmDRXZ8HeP0Mp0/JU5T9wMRAzgAawu2aOwlE8GgJTe8Hom1Q
+ Y6ChziUHPl4rqlwO7G7w9Y0jSUJgtOz9q/j6kjlQQL4gWc4w8YaNTiiHaODrwAF1bn27k4o
+ 03jMsCH7y1RQiD3htrRnkv6IMdoyV0KwTMGw6+mbtGkHlbraXwwHChgC6OrIn2YXFiOskZE
+ rbML7/MWs3j7guAgyqhq0fbtpRr5zql+pCL3gTclJG+l5lhk5GpVoi+2dqG1PYYbwlLoSXn
+ ilhZ8lJXRJkiWeKoTuCU3Y8GIZ38aQZEaCjuaaStvkNIC9RfL1iG73UIYePhCdrxtXcuhjN
+ xFuS6Gkl2NkRAqYzTzR0ioOIxLHhgitwX/d1S7c+XqYX9LKxYHp4qY96OSgzgkw7+nCKhck
+ boYWZnE+p6745UT66/NnrR0z6MMhaRDFhJYmMn0OKbdIaButWcIYegTg0ISlibtBFVPvIfw
+ gp8DvwJ1FBMZNMrVAqFE2E/NBHRsDixVBT4QcJL8WQYw0oLEYZImMiYPY7Tk/6/9iexK95B
+ AGcGAW0o2Oz8TGn8YZF5E//7RnTw8QZudhl1KuAaUYRBZo9pAMdsAcTlYLEBYdZO8puubzl
+ 1dpBB4IzJAvzbpvRwFJxvUN8UWSq0EoBs+zTK6Fg==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,83 +95,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-[ Upstream commit dbc8fd7a03cbc0704e8e558a448015f620547a02 ]
+The max bpc property can now be attached before connector state exists,
+and the atomic state helper restores its default when creating state.
+Remove the early state allocation that was only needed to satisfy the
+old property attachment requirement in the HDMI connector helper, Meson
+and DW HDMI.
 
-amdxdna_drm_sync_bo_ioctl() passes the caller's offset and size to
-drm_clflush_virt_range() on the BO's kernel mapping without checking
-either against the BO size. The ioctl has no permission flags: any
-process that can open the accel node controls the offset. Any BO with a
-kernel mapping reaches that call: AMDXDNA_BO_DEV_HEAP, AMDXDNA_BO_DEV
-and AMDXDNA_BO_CMD. A DEV_HEAP is vmapped, so an offset equal to its
-size lands the flush on the vmap guard page.
+Update the HDMI connector tests to check bit-depth defaults after the
+normal mode configuration reset, and check that property registration
+itself no longer allocates state.
 
-Measured on 6.18.55 on an AMD Ryzen AI 9 365 NPU, firmware 1.0.0.63,
-as a non-root user with access to the accel node: unpatched, an offset
-equal to the 64 MiB DEV_HEAP size oopses in drm_clflush_virt_range()
-under amdxdna_drm_sync_bo_ioctl(), 2 of 2 runs; patched, the same call
-returns -EINVAL, 2 of 2, and an in-bounds sync returns 0, 2 of 2.
-DEV_HEAP is the type tested; DEV and CMD are by code reading.
-
-Upstream bounds the range in amdxdna_flush_bo(), added by commit
-dbc8fd7a03cb ("accel/amdxdna: Add expandable device heap support").
-This applies only that check: an offset at or past the BO's end, or
-an overflowing offset plus size, returns -EINVAL.
-
-Deviations from upstream: that commit adds a feature and is too large
-for stable as a whole. It calls drm_WARN() when the check rejects a BO
-whose type is not AMDXDNA_BO_DEV, which userspace can trigger; this
-fix does not. Upstream bounds AMDXDNA_BO_DEV by the heap chunks it
-spans and flushes only the overlap, reporting no error for an offset
-past the end; 6.18 has one heap per client, so this fix uses the BO's
-own abo->mem.size and rejects such an offset instead. As in upstream,
-a size past the BO's end is clamped, not rejected.
-
-Built from v6.18.55 with the test system's distro-derived config,
-DRM_ACCEL_AMDXDNA=m. The touched file also compiles W=1 clean.
-
-Fixes: e252e3f3488a ("accel/amdxdna: Revise device bo creation and free")
-Cc: stable@vger.kernel.org # 6.18.x
 Assisted-by: LLM
-Signed-off-by: Eva Crystal <0xiviel@gmail.com>
+Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/accel/amdxdna/amdxdna_gem.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c  |  6 ------
+ drivers/gpu/drm/drm_connector.c            | 16 ----------------
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c |  6 ------
+ drivers/gpu/drm/tests/drm_connector_test.c |  9 +++++++++
+ 4 files changed, 9 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index ca747457cec7..95d04af2b993 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -934,6 +934,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
- 	struct amdxdna_drm_sync_bo *args = data;
- 	struct amdxdna_gem_obj *abo;
- 	struct drm_gem_object *gobj;
-+	u64 end, size;
- 	int ret;
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 34c5f583e910..a061a3a23ee5 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -2601,12 +2601,6 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ 				    DRM_MODE_CONNECTOR_HDMIA,
+ 				    hdmi->ddc);
  
- 	gobj = drm_gem_object_lookup(filp, args->handle);
-@@ -943,6 +944,13 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
- 	}
- 	abo = to_xdna_obj(gobj);
+-	/*
+-	 * drm_connector_attach_max_bpc_property() requires the
+-	 * connector to have a state.
+-	 */
+-	drm_atomic_helper_connector_reset(connector);
+-
+ 	drm_connector_attach_max_bpc_property(connector, 8, 16);
  
-+	if (args->offset >= abo->mem.size ||
-+	    check_add_overflow(args->offset, args->size, &end)) {
-+		ret = -EINVAL;
-+		goto put_obj;
-+	}
-+	size = min(abo->mem.size, end) - args->offset;
-+
- 	ret = amdxdna_gem_pin(abo);
- 	if (ret) {
- 		XDNA_ERR(xdna, "Pin BO %d failed, ret %d", args->handle, ret);
-@@ -955,7 +963,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
- 	if (is_import_bo(abo))
- 		drm_clflush_sg(abo->base.sgt);
- 	else if (abo->mem.kva)
--		drm_clflush_virt_range(abo->mem.kva + args->offset, args->size);
-+		drm_clflush_virt_range(abo->mem.kva + args->offset, size);
- 	else if (abo->base.pages)
- 		drm_clflush_pages(abo->base.pages, gobj->size >> PAGE_SHIFT);
- 	else
+ 	if (hdmi->version >= 0x200a && hdmi->plat_data->use_drm_infoframe)
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 34c30469f405..2e0dbc58c13b 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -614,22 +614,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	strtomem_pad(connector->hdmi.vendor, vendor, 0);
+ 	strtomem_pad(connector->hdmi.product, product, 0);
+ 
+-	/*
+-	 * drm_connector_attach_max_bpc_property() requires the
+-	 * connector to have a state.
+-	 */
+-	if (connector->funcs->atomic_create_state) {
+-		struct drm_connector_state *state;
+-
+-		state = connector->funcs->atomic_create_state(connector);
+-		if (IS_ERR(state))
+-			return PTR_ERR(state);
+-
+-		connector->state = state;
+-	} else if (connector->funcs->reset) {
+-		connector->funcs->reset(connector);
+-	}
+-
+ 	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
+ 	connector->max_bpc = max_bpc;
+ 
+diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+index 0c7a72cb514a..3bfb4f8bec2c 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+@@ -439,12 +439,6 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+ 	 * encoder->[hdmi encoder bridge]->[dw-hdmi bridge]->[display connector bridge]->[display connector]
+ 	 */
+ 
+-	/*
+-	 * drm_connector_attach_max_bpc_property() requires the
+-	 * connector to have a state.
+-	 */
+-	drm_atomic_helper_connector_reset(meson_encoder_hdmi->connector);
+-
+ 	if (meson_vpu_is_compatible(priv, VPU_COMPATIBLE_GXL) ||
+ 	    meson_vpu_is_compatible(priv, VPU_COMPATIBLE_GXM) ||
+ 	    meson_vpu_is_compatible(priv, VPU_COMPATIBLE_G12A))
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index 1174607441b9..af5dda3701cf 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -1036,7 +1036,10 @@ static void drm_test_connector_hdmi_init_bpc_8(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+ 	KUNIT_EXPECT_EQ(test, val, 8);
+ 
++	KUNIT_EXPECT_NULL(test, connector->state);
++	drm_mode_config_reset(&priv->drm);
+ 	state = connector->state;
++	KUNIT_ASSERT_NOT_NULL(test, state);
+ 	KUNIT_EXPECT_EQ(test, state->max_bpc, 8);
+ 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 8);
+ 
+@@ -1077,7 +1080,10 @@ static void drm_test_connector_hdmi_init_bpc_10(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+ 	KUNIT_EXPECT_EQ(test, val, 10);
+ 
++	KUNIT_EXPECT_NULL(test, connector->state);
++	drm_mode_config_reset(&priv->drm);
+ 	state = connector->state;
++	KUNIT_ASSERT_NOT_NULL(test, state);
+ 	KUNIT_EXPECT_EQ(test, state->max_bpc, 10);
+ 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 10);
+ 
+@@ -1118,7 +1124,10 @@ static void drm_test_connector_hdmi_init_bpc_12(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+ 	KUNIT_EXPECT_EQ(test, val, 12);
+ 
++	KUNIT_EXPECT_NULL(test, connector->state);
++	drm_mode_config_reset(&priv->drm);
+ 	state = connector->state;
++	KUNIT_ASSERT_NOT_NULL(test, state);
+ 	KUNIT_EXPECT_EQ(test, state->max_bpc, 12);
+ 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 12);
+ 
+
 -- 
-2.53.0
+2.56.0
 
