@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5157CA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:18:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B597CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3F0910FE25;
-	Fri,  9 Oct 2026 03:18:18 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2AA10FE29;
- Fri,  9 Oct 2026 03:18:17 +0000 (UTC)
-X-QQ-mid: zesmtpip2t1791515826t0fda5ad6
-X-QQ-Originating-IP: 1m0x0heME81gQiDrvyw1IQiDZIStO9MbFOMmJ8xkQy4=
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA6C010FE2E;
+	Fri,  9 Oct 2026 03:18:21 +0000 (UTC)
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9BD410FE2A;
+ Fri,  9 Oct 2026 03:18:20 +0000 (UTC)
+X-QQ-mid: zesmtpip2t1791515838t472c8b42
+X-QQ-Originating-IP: MKR7kzW7HAK+NrS0wgFqsGbBRp/tfPe9KB5QgOo6rjo=
 Received: from [192.168.30.32] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 09 Oct 2026 11:17:03 +0800 (CST)
+ id ; Fri, 09 Oct 2026 11:17:15 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 359533307684351837
-EX-QQ-RecipientCnt: 29
+X-BIZMAIL-ID: 16529762743812786716
+EX-QQ-RecipientCnt: 30
 From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 11:15:53 +0800
-Subject: [PATCH v2 01/20] drm/atomic: Handle max bpc properties before
- connector state allocation
+Date: Fri, 09 Oct 2026 11:15:56 +0800
+Subject: [PATCH v2 04/20] drm/msm/dp: Accept a const SDP header when
+ packing
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-msm-dp-hdr10-v2-1-1835d4966da3@radxa.com>
+Message-Id: <20261009-msm-dp-hdr10-v2-4-1835d4966da3@radxa.com>
 References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,35 +48,36 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5131; i=sophon@radxa.com;
- h=from:subject:message-id; bh=iY5Uc1xTCGczUi0dqQkmwt1qtcO7yk+6gKr9GQ/UnJk=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlZs31B1zKVURPdXms5Xgb0XHiqV7Y54feWedc4eE
- SZm2Uy+jlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABMR2cDwh/NZnu31jX6Lqxll
- dy98ejFAjcdId0Nq03nWSoMXD6eo1DEy9O14VH7ZRCs32K2i/e82Dim96YFzGE+Z+7k7n9y4mTO
- eFQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1789; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=w0FWwQh+BArzLEg40xbIVHgfENw/S8iO3UHo5I+Bfm4=;
+ b=kA0DAAoWMsMVZ62eMk4ByyZiAGrIXKijETSs3rt6JIAJ8bXCJKivjITsO1dXNj8lydUN4XW4T
+ Yh1BAAWCgAdFiEEIF8AnQd5bdblFnUuMsMVZ62eMk4FAmrIXKgACgkQMsMVZ62eMk5+NQEAnfcl
+ sZ3qoQ57XjQN4azidHE4kJrQ/Mmm0rbt37WuTOAA/jg8pZJgWaNaE/wWRj5tblS+RXKhQ34hIsp
+ H125BnrYA
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OY7kNFRo2XI4LjaELtbWp4MX8GvTVWZ5i/VWNxsnow/bbPcfG7q2quAS
- KBHLk73P9ddghRcc/5BLLAE0LcqFCn1kPXAt/CVYEQNTbxELqAnJLsJTYAnnrzOI9NBj9Me
- UluLZvF1Kk40VrcsYZlMmE2R8nRRjiDtk+WsyzZuUVS75fEwCxMcJvZxzPGh1hIxF15ctje
- crDsRiHWg3iea9MGpwzug6GnMvG2soi/DzVtBRSGrHzW40BGsCxSa11ixKisDslVxWamkYY
- CMdIaYRgd6QgbKdtxvTB511IVT5M7O19T5cST7EUuV9oPFAK89nhCtVBRVWZnYASafOJeDn
- C23e7oxFSaM9apZtYH1NawA3RT1L7dTGt+2Nri8H02IWdJqjeVVaoaJmKWOBEfbyU2WAyV7
- QnAFeBu8957IoaSyOlnfYYafM28v3aoYdO7SNTc1OnH2KNWlWsyogQCogmYfEV+t+Epo76r
- ms9eb3ZNy3r43mpIF6BdESx89gLWXbBTrb6T/OskqObk2FRW3gEs2Nzm6jiJEseCJe9kzF1
- EPU47iVvlhzZXYEc7sMXUvRqlEyze4+RqKslGfXUif+u7Sv+11asS9cr5WEYHZlV+m7wtLw
- rbE26/ZLWwCSAO4ag3bTNjjBS57as5ey3ZwCi4Mt0ahIneKvtXc7MkfeMk+ONFICsAW1Pdi
- RtfYddUsrGBvm86VrIBIk4ReMP4KjlZT2W33oQe3yrXZ4JZJTT08P9A6WNxt8R2N5D31fxt
- Ur1X6iWht83BtkGZCC/ZRz3KSFeRDQYLT6g6ZeUNbYgKocGTs7OB+tH8bXs2bP9vO5NZcZL
- hBQwtAvFZN9RVxZ1BcM247m5c2x838HzKTudJUdDCQsFnEbSqG09i7eQ2//YfzLr8z0795e
- zi0FVikXJEqX9U1ncfeXJ1/lgGsk1WgezI/tEO0t7HrOFPubqF7R9+mlvt1S24iizAvEtRW
- vLjMiYOwjWTgUbzAcTytiz2sNHyaNPxB3xikzCywy559c+VY8xB8uxGcECgW2qtGkxNo/t1
- Ir3X+KrauMwgKKOGK5TwkhV1Q7DPRgzYBxWXIi/g==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: NafziRg7Bx69Tosy8Qw5AZhRSV5l2WXXBXBd468c3xzmREkMNaILwNy1
+ 8Lbj+JE0lSp3yGFXXbeWO29CHmJRgRPOgmpXrk1MLWONEZATED3wkM/+hLcg3p/IHH9ekO+
+ TNH9DOZQjJyZhtLuzJVx9zROLVZbWyJEgIXWYvkStFnKK5e4klf8yY/Ft0tsaqzTi7nQj0K
+ /gleuYSPhTjtX547IoUo5QPXA8P5eMOsxOE1Ly+qbWGVp3Jxh9c2RjzWUAqVwFhI7gYJoTp
+ zFHawiasLXplVEiThSqrfSkiFGNujY6Vm/tTsQqM8MAlV4yiib5UuPe4Fob+A0G3xoYYWPa
+ el8JH5vNvejk4mjrQbiH1wW2zdLYJQz6cQJRlwLlGmHvi/di4tFrIsJOzjo00IS1O+J44Xn
+ VzTamTH2/Gi9wflCY9lkHHgYyJdP7tVvuys3j5TTyGR+i4Y0mXejcBwq7fD8pWNXDxl5Ygd
+ 4rZ84ufD5GudJ9/UCQlIwYJ3K9myZI9V3XTUxvefo+acZ7V5MM0y/fqGM9uHjU0NdAyGL1K
+ 6yOy9O9RTZP178Zp7+SWLk0yVTG/urVbShohmvaBrMuGtpnoT6+iUroPF1PCbSzNqYTJWYj
+ 5MvzXpMgR24x6pFqGPy5IAlaXIdT37haAMhO1Kr1HlWaoOOMOtuvZsJfdX32YZwWIwj2i75
+ PPySImsXRkHmSWmBwP6sz5B0QRDIZphnGQBhMF2SXMJmR9PqjlJ2BSKO4caFAz2hPaOPCtl
+ rtQs8Fyt3Ky2naz1u2B9JAcRwhhsS1VOMaC0D6UqQpJ0qp+F5VdE+ka/IBiCN11wU3jPrz9
+ HRKO/Br8iIJWAX3AfrJDZtnP5R02iW9fUiYWY+JC4Qu0kTHrlW9qAQHOTek/1h0xDCp2iCU
+ +2cBPB1WBzgDDLMEQq7mfeZwoYGu6sAyssJhZZtq+GfQkSdh5WqGe3Sue1e9pXqQXNdnyq6
+ vIHQgfAM86/MucGyftILuiGU1leoxMGezFyKJRhADDTVY1oV0xjtaE1t/M3yoX33MO/nvRY
+ rL6IxlsTblSYeZAhJ2Fi6blg8C8+fisC4VaGSb0dhCNZ2ydxFZvqMfcU2Vr2g=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,135 +94,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Allow drivers to attach the max bpc property before allocating connector
-state, as needed by the upcoming non-HDMI bridge connector support.
-Only update the current state when one exists.
-
-Initialize max_requested_bpc and max_bpc from the attached property default
-when creating connector state. Use drm_object_property_get_default_value()
-rather than the range maximum so that state creation and subsequent resets
-restore the value chosen when attaching the property.
-
-Cover deferred allocation, existing state and restoration of a default
-that differs from the range maximum in the connector KUnit tests.
+The SDP header packing helper only reads the header. Mark its input const
+so callers can pack headers from read-only SDP packets without discarding
+the qualifier. This prepares for the generic SDP writer accepting const
+packets without changing the packed header bytes.
 
 Assisted-by: LLM
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c  |  8 +++++
- drivers/gpu/drm/drm_connector.c            |  6 ++--
- drivers/gpu/drm/tests/drm_connector_test.c | 53 ++++++++++++++++++++++++++++++
- 3 files changed, 65 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_utils.c | 3 ++-
+ drivers/gpu/drm/msm/dp/dp_utils.h | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index a2ef272e9f27..8352b5a9097a 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -494,7 +494,15 @@ void
- __drm_atomic_helper_connector_state_init(struct drm_connector_state *conn_state,
- 					 struct drm_connector *connector)
+diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
+index 4a5ebb0c33b8..226b370ce8fe 100644
+--- a/drivers/gpu/drm/msm/dp/dp_utils.c
++++ b/drivers/gpu/drm/msm/dp/dp_utils.c
+@@ -74,7 +74,8 @@ u8 msm_dp_utils_calculate_parity(u32 data)
+ 	return parity_byte;
+ }
+ 
+-void msm_dp_utils_pack_sdp_header(struct dp_sdp_header *sdp_header, u32 header_buff[2])
++void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
++				  u32 header_buff[2])
  {
-+	u64 val;
-+
- 	conn_state->connector = connector;
-+	if (connector->max_bpc_property &&
-+	    !drm_object_property_get_default_value(&connector->base,
-+						   connector->max_bpc_property, &val)) {
-+		conn_state->max_requested_bpc = val;
-+		conn_state->max_bpc = val;
-+	}
- }
- EXPORT_SYMBOL(__drm_atomic_helper_connector_state_init);
+ 	header_buff[0] = FIELD_PREP(HEADER_0_MASK, sdp_header->HB0) |
+ 		FIELD_PREP(PARITY_0_MASK, msm_dp_utils_calculate_parity(sdp_header->HB0)) |
+diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
+index 2e4f98a863c4..2fdb89efc57c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_utils.h
++++ b/drivers/gpu/drm/msm/dp/dp_utils.h
+@@ -31,6 +31,7 @@
+ u8 msm_dp_utils_get_g0_value(u8 data);
+ u8 msm_dp_utils_get_g1_value(u8 data);
+ u8 msm_dp_utils_calculate_parity(u32 data);
+-void msm_dp_utils_pack_sdp_header(struct dp_sdp_header *sdp_header, u32 header_buff[2]);
++void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
++				  u32 header_buff[2]);
  
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 8b4baed060f3..34c30469f405 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2886,8 +2886,10 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
- 	}
- 
- 	drm_object_attach_property(&connector->base, prop, max);
--	connector->state->max_requested_bpc = max;
--	connector->state->max_bpc = max;
-+	if (connector->state) {
-+		connector->state->max_requested_bpc = max;
-+		connector->state->max_bpc = max;
-+	}
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
-index beb1d50a6646..1174607441b9 100644
---- a/drivers/gpu/drm/tests/drm_connector_test.c
-+++ b/drivers/gpu/drm/tests/drm_connector_test.c
-@@ -12,6 +12,7 @@
- #include <drm/drm_file.h>
- #include <drm/drm_kunit_helpers.h>
- #include <drm/drm_modes.h>
-+#include <drm/drm_property.h>
- 
- #include <drm/display/drm_hdmi_helper.h>
- 
-@@ -187,7 +188,59 @@ KUNIT_ARRAY_PARAM(drm_connector_init_type_valid,
- 		  drm_connector_init_type_valid_tests,
- 		  drm_connector_init_type_desc);
- 
-+/* The attached default need not equal the upper end of the property range. */
-+static void drm_test_connector_max_bpc_default(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	struct drm_property *prop;
-+	int ret;
-+
-+	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
-+				  DRM_MODE_CONNECTOR_DisplayPort, NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	prop = drm_property_create_range(&priv->drm, 0, "max bpc", 6, 12);
-+	KUNIT_ASSERT_NOT_NULL(test, prop);
-+	connector->max_bpc_property = prop;
-+	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_NULL(test, connector->state);
-+
-+	drm_mode_config_reset(&priv->drm);
-+	KUNIT_ASSERT_NOT_NULL(test, connector->state);
-+	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
-+	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
-+
-+	connector->state->max_requested_bpc = 8;
-+	connector->state->max_bpc = 8;
-+	drm_mode_config_reset(&priv->drm);
-+	KUNIT_ASSERT_NOT_NULL(test, connector->state);
-+	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
-+	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
-+}
-+
-+static void drm_test_connector_max_bpc_existing_state(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	int ret;
-+
-+	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
-+				  DRM_MODE_CONNECTOR_DisplayPort, NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	drm_mode_config_reset(&priv->drm);
-+	KUNIT_ASSERT_NOT_NULL(test, connector->state);
-+
-+	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
-+	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
-+}
-+
- static struct kunit_case drmm_connector_init_tests[] = {
-+	KUNIT_CASE(drm_test_connector_max_bpc_default),
-+	KUNIT_CASE(drm_test_connector_max_bpc_existing_state),
- 	KUNIT_CASE(drm_test_drmm_connector_init),
- 	KUNIT_CASE(drm_test_drmm_connector_init_null_ddc),
- 	KUNIT_CASE_PARAM(drm_test_drmm_connector_init_type_valid,
+ #endif /* _DP_UTILS_H_ */
 
 -- 
 2.56.0
