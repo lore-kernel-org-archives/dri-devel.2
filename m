@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A1F2CA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 15:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70505CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 15:42:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C6110E072;
-	Fri,  9 Oct 2026 15:38:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B616F10EA95;
+	Fri,  9 Oct 2026 15:42:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XHxTJXV6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TP8RuDRh";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 431D310E072
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 15:38:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815B710EA8A
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 15:42:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E177543AAC;
- Fri,  9 Oct 2026 15:38:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98CF51F000FF;
- Fri,  9 Oct 2026 15:38:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 51B6843354;
+ Fri,  9 Oct 2026 15:42:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65251F000FF;
+ Fri,  9 Oct 2026 15:42:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791560338;
- bh=EyYI5Bvz0oSkR9/M8GqMlgc8PLg+HxYsg2cxJ36I6hA=;
+ s=k20260515; t=1791560530;
+ bh=HW59q6Yn0OslPF3Els2Dkx+G+MOVrvpGDU0AOpiMs5A=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=XHxTJXV6LhebRwBQbr22QEuSv0ftXtEBZTHx7yK2dU6dmmmuTqyK6ekFQ5h5LNt2a
- RBbB1gfPVKOUXlbEfz2C3rS3ASpMlEAI12bj+t8bMEQJf9j2X10yakpRvzRX+MfAD1
- y7hgB3v8Za7bhdwET4SglQiBrS5Way11BTqokd2NUXyuy2PjCjzSBrjq0KOx+TostC
- I32B2gN3+1zQv5QeuZcf9KTjWJUKhtwzO3AegZZ2hdLO6pYYPZPaiwyoOYyIziggSi
- vQyDKZttOZwOrDPRDocNEOwtedEpaSpDLnZWaJfY4dLn8fJb/FhTLUbJnMX5KxigqN
- jH8GnLydkadBQ==
-Date: Fri, 9 Oct 2026 10:38:57 -0500
-From: Rob Herring <robh@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ b=TP8RuDRhfHpTVUdPOYlk0cIai3NHcEJgnKN6+dQM5aM4V2sN0c1RJn+LEudiFDrkx
+ dxScbsVCXK/W/4tJ088RvzIyIV4tcX65/nuH9IbLVfzP1O0w/fPilJaufUYPI5Fg5C
+ OeGTmYEozM6KgPwCKm1yctQX089jK86OD+Q6445gfjut+OH+ojDM0OJ9+2wQdQttII
+ ea4mSor3ZZPSpSlPWNsGESj4hSjJ+7W/nhqBdJXGVeYuAY49DAOltFhqV0oMpSh0p4
+ aNrSJHhvyLXiCcTuidBjxn3JMDSlIw3uS5sa/2sm7OfmUhh7PfK5uelxDHP4XYiGk2
+ 3dTzg8vgb7Q7A==
+Date: Fri, 9 Oct 2026 16:42:01 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Quchaosheng <quchaosheng000406@163.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
@@ -41,13 +41,16 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
  schema
-Message-ID: <20261009153857.GA1690986-robh@kernel.org>
+Message-ID: <20261009-db35f1d74028d0d0a34f1106@squawk>
 References: <20261009105601.301891-1-quchaosheng000406@163.com>
  <20261009105601.301891-2-quchaosheng000406@163.com>
+ <20261009-2f34bbada2c463c78b2c05a7@squawk>
+ <20261009144434.GD622105@killaraus.ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="+lGluAYOQ0yvN+I2"
 Content-Disposition: inline
-In-Reply-To: <20261009105601.301891-2-quchaosheng000406@163.com>
+In-Reply-To: <20261009144434.GD622105@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,149 +66,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
-> From: Chaosheng Qu <quchaosheng000406@163.com>
-> 
-> Convert the TPD12S015 HDMI level shifter binding to DT schema.
-> 
-> The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-> and ESD protection circuitry. Document the two ports it exposes between
-> the HDMI transmitter and the connector.
-> 
-> The tpd12s016 is software compatible with the tpd12s015 and is listed as
-> a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-> fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-> a board using the tpd12s016 must list both compatibles.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
-> ---
->  .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
->  .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
->  2 files changed, 90 insertions(+), 44 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
->  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> deleted file mode 100644
-> index 26e6d32e3f20..000000000000
-> --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> +++ /dev/null
-> @@ -1,44 +0,0 @@
-> -TPD12S015 HDMI level shifter and ESD protection chip
-> -====================================================
-> -
-> -Required properties:
-> -- compatible: "ti,tpd12s015"
-> -
-> -Optional properties:
-> -- gpios: CT CP HPD, LS OE and HPD gpios
-> -
-> -Required nodes:
-> -- Video port 0 for HDMI input
-> -- Video port 1 for HDMI output
-> -
-> -Example
-> --------
-> -
-> -tpd12s015: encoder@1 {
-> -	compatible = "ti,tpd12s015";
-> -
-> -	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
-> -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
-> -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
-> -
-> -	ports {
-> -		#address-cells = <1>;
-> -		#size-cells = <0>;
-> -
-> -		port@0 {
-> -			reg = <0>;
-> -
-> -			tpd12s015_in: endpoint@0 {
-> -				remote-endpoint = <&hdmi_out>;
-> -			};
-> -		};
-> -
-> -		port@1 {
-> -			reg = <1>;
-> -
-> -			tpd12s015_out: endpoint@0 {
-> -				remote-endpoint = <&hdmi_connector_in>;
-> -			};
-> -		};
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> new file mode 100644
-> index 000000000000..1927da3bd736
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> @@ -0,0 +1,90 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI TPD12S015 HDMI level shifter and ESD protection chip
-> +
-> +maintainers:
-> +  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> +
-> +description: |
+--+lGluAYOQ0yvN+I2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Don't need '|'.
+On Fri, Oct 09, 2026 at 04:44:34PM +0200, Laurent Pinchart wrote:
+> On Fri, Oct 09, 2026 at 03:25:49PM +0100, Conor Dooley wrote:
+> > On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
+> > > From: Chaosheng Qu <quchaosheng000406@163.com>
+> > >=20
+> > > Convert the TPD12S015 HDMI level shifter binding to DT schema.
+> > >=20
+> > > The TI TPD12S015 is an HDMI companion chip that combines a level shif=
+ter
+> > > and ESD protection circuitry. Document the two ports it exposes betwe=
+en
+> > > the HDMI transmitter and the connector.
+> > >=20
+> > > The tpd12s016 is software compatible with the tpd12s015 and is listed=
+ as
+> > > a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
+> > > fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only=
+, so
+> > > a board using the tpd12s016 must list both compatibles.
+> > >=20
+> > > Assisted-by: LLM
+> > > Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+> >=20
+> > No idea if the sashiko reply is valid, because I have no clue if
+> > providing a subset of the gpios is functional. Really this should have
+> > multiple different gpios properties,
+>=20
+> Definitely.
+>=20
+> > but this binding is really old and
+> > not worth changing IMO.
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > pw-bot: not-applicable
+>=20
+> I'm getting annoyed be the LLM-assisted individual conversions. Can we
+> start requiring people who convert text bindings to YAML to at least
+> handle whole groups in one go ? If they're going to do a bad job, I'd
+> rather have to review it once only.
 
-> +  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-> +  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-> +  connector, and provides control over the level shifter enable and the
-> +  hot-plug detect signals.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,tpd12s015
-> +      - items:
-> +          - const: ti,tpd12s016
-> +          - const: ti,tpd12s015
-> +
-> +  gpios:
-> +    description:
-> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
-> +      the level shifter, the second enables the level shifter outputs and
-> +      the third reads the hot-plug detect line.
-> +    maxItems: 3
+Or do one, and take the learnings into all the remaining patches - but
+with LLM conversions I don't think there's really much learning going on
+at all.
 
-Use this form instead:
+I guess bunching them is fine, provided it is for one subsystem. I
+definitely don't want to see a set of 15 patches across 9 subsystems,
+at least with one subsystem it's likely to be the same common problems
+across the bunch.
 
-items:
-  - description: ...
-  - description: ...
-  - description: ...
- 
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
 
-No extra properties, so use:
+--+lGluAYOQ0yvN+I2
+Content-Type: application/pgp-signature; name=signature.asc
 
-$ref: /schemas/graph.yaml#/properties/port
+-----BEGIN PGP SIGNATURE-----
 
-(and no need for unevaluatedProperties)
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaskLSQAKCRB4tDGHoIJi
+0oOqAP9/cjJoHwDyuvhTJ9sGUQQFM7+QGVx4YCXrySUHlraVRgD/awI23g7lMVjK
+P89dAe3GuVNwufd8hjuhcHxiA7qK/g4=
+=bjaF
+-----END PGP SIGNATURE-----
 
-> +        description: HDMI input from the transmitter.
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI output to the connector.
-
-Same here.
-
-Rob
+--+lGluAYOQ0yvN+I2--
