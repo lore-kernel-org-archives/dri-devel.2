@@ -4,62 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF18CA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:08:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A597CA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:19:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A577110E16B;
-	Fri,  9 Oct 2026 18:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18A6E10E358;
+	Fri,  9 Oct 2026 18:19:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="JpQ7O9UT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nneO5/se";
 	dkim-atps=neutral
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F15B010E16B
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:08:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791569281; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=clme1yHpoHM+G6HOjxsv8j0Im65+8ioMiQ4PVBiExb32hj1KRvJxq97YBnk54Iwp+UUkkENU8h0VfGQHRkiEMJ6Ry7oYZ1X41iQODgbw+XspaIuOqOXwlnf4lPvY++5c4rromdieBx2A8+pkI4ZILrpiooafMoQBO6YuBnFWwAU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791569281;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
- b=DO8VZn4+az+xFVqJIr+HbfpIcbj6/fIdzvGtNdrgxXCNPbxZmdBlAPFvh05VHWQYPS0tKBx6AUlDax3v2P/Zr5r3aY/oaNf27Nf99VYERiiHTMeS0Ye8Kt8GJJlEo5fQNTgu7NscCFM2YEAAc6WviGNMf54jagVr2Zil5YXN43E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791569281; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
- b=JpQ7O9UTstpCzFaN6DKHwo1CUZkqiojs6iemZ9KZxF+YBkTF2ePlGd6VZo//+Thi
- EHIDQEc2mX2E92WGN/647ran3b4+BbJMHP8YBYj+47SWqGYYZ8zO0Gjv65KJuc4a16H
- CtbeOxOJuXyytKlUhFpFdieshDO1yibhoQaw/MUU=
-Received: by smtp.zohomail.com with SMTPS id 1791569280936665.7129691219392;
- Fri, 9 Oct 2026 11:08:00 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH 5/7] rust: drm: wrap fops open with RegistrationGuard
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260814230923.1292966-6-dakr@kernel.org>
-Date: Fri, 9 Oct 2026 15:07:42 -0300
-Cc: aliceryhl@google.com, acourbot@nvidia.com, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
- tamird@kernel.org, work@onurozkan.dev, brauner@kernel.org,
- lyude@redhat.com, j@jananu.net, alvin.sun@linux.dev,
- deborah.brouwer@collabora.com, laura.nao@collabora.com,
- beata.michalska@arm.com, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <8C194765-DD59-4C6E-BD9C-88C012513296@collabora.com>
-References: <20260814230923.1292966-1-dakr@kernel.org>
- <20260814230923.1292966-6-dakr@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-ZohoMailClient: External
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A95F710EABA
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:19:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CB5E56020C;
+ Fri,  9 Oct 2026 18:19:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7BD1F000FF;
+ Fri,  9 Oct 2026 18:19:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791569943;
+ bh=FGR6IAJ22ppjXpr5xm080mWSWuyxnEDDo+UtB4ySOG4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nneO5/seF62iUijhFLoCsBQRM40H/nOYcsQEmtzn+cCnYDeEQ35uMbOtfkMvTDefL
+ IbBBEOHhiaFI2mWG5Bq0c+JTLa52QcZzJIblpYUGky+GglszQAmqRau0D8oxMj4xIy
+ heQDk+waRR1wHju3wr+dj40lB2cV7w8FR+swYFWowEK1P9wG0TstZCuwh+szuxXuVl
+ S/AcScP9ZozJy6LUFGVJeL6v2Jrs8IILKE6He8jUP3drbmwQ0139GxUx405PBggsBp
+ LRBH0iRdi2PBivM+TKmomOojKiLXYs9ApEdg7Wh9G3nt6Tcw9z5BXLM65ia+RwzcAf
+ Xx83zN0dh6Upw==
+Message-ID: <sashiko-outbox-165929@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 08/38] docs: filesystems: update mmap_prepare docs
+ for discontig kernel pgs
+To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
+Cc: linux-trace-kernel@vger.kernel.org, "Marc Zyngier" <maz@kernel.org>, "Heiko
+ Carstens" <hca@linux.ibm.com>, kvm@vger.kernel.org, bpf@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, kvmarm@lists.linux.dev,
+ "Oliver
+ Upton" <oupton@kernel.org>, "Christian Borntraeger" <borntraeger@linux.ibm.com>,
+ "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, linux-perf-users@vger.kernel.org,
+ selinux@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, linux-usb@vger.kernel.org
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-8-923b70125b1e@kernel.org>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-8-923b70125b1e@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 18:19:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,7 +63,22 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Describe the newly introduced discontiguous kernel page mapping mechanism,
+> detailing how to use it sensibly and how the API looks.
+>=20
+> Explicitly detail the various discontiguous actions available and how to
+> use them.
+>=20
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+Sashiko has reviewed this patch and found no issues. It looks great!
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-b4-mmap-pr=
+epare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org?part=3D8
+
