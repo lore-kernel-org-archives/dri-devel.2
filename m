@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4A1DCA9EC5
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2B71CA6017
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E747A10EBDD;
-	Sat, 10 Oct 2026 12:37:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 221BE10EBE3;
+	Sat, 10 Oct 2026 12:37:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m018Hjmf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="itAYN0mR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93DE410EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:16:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 905E910EAB2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:14:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6CF1441093;
- Fri,  9 Oct 2026 18:16:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA8E51F000FF;
- Fri,  9 Oct 2026 18:16:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AFAA160DD1;
+ Fri,  9 Oct 2026 18:14:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F871F00899;
+ Fri,  9 Oct 2026 18:14:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569789;
- bh=sNxRxaa4FCG/PyGcafpOW4Vhq6S2764syPChNm7Rjt0=;
+ s=k20260515; t=1791569663;
+ bh=5upPOtDABwwVpDceVPyuSA83QzDcrZ56JA1+Hc43xbI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=m018Hjmfn/pxYuj3+eTlmGklX9bJP9V7GcFJt+kUpcCntKb6FCNazqjZw0N5gPxR/
- m/N1FNcfoPguGqAtl31eQTqnrPuvibp2WpHFLGmOZsyzlXkq7R5pmrahmaCAHUI/ZK
- +MwQE6km+nqBMC+iMAvBvOjXenS1+gXhieyp58nOmdxiWiVNnZ0Q/S6DyA/NGmdyTH
- ylTPlouva0ci0VABvaemvPL5bADRItMnL2sHTG37mxxDfBhKjrye0CwAWytflxgnFC
- rPb7OPGYZqacFV1D4jx1z/bKXZZgevuxdcoa30kQBqjIopi4v0wU8NBTbXS/y+LNyw
- BqzS+8gamX6Cw==
+ b=itAYN0mRby3loFr3kB3erznCYLyJWSv7y9EdE4a4SdBxzAp5q9gGykK29Cemo1B6n
+ xUIbU6fwrjcABEJj0iAu2KbcnlrUKjdpTgGMauBAph4NqMhPbKfYOkEzZ7Zvgyaehb
+ T21cEITGvOur1SbYWACxHxHKQ1DccEHNV4AJ3e/rShDKhT6LHsp0Ex5xX1XPtKVIOk
+ GPC/H3skaPetLTfRKnWecsjavs/Z0T711H8dQMj5SbT/UyGlsv8YAl8fiEiy7R69Em
+ rN+CScbilpeAbrAjSYkjfRgZDK3SDt7CMJcVqsKijMA/xdq3sIu8832Eshzeb08S77
+ AiSCv6n5JHppA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:28 +0100
-Subject: [PATCH v5 34/38] mm: eliminate VMA_SPECIAL_FLAGS check in
- lru_gen_look_around()
+Date: Fri, 09 Oct 2026 19:04:22 +0100
+Subject: [PATCH v5 28/38] mm: drop some redundant checks around hugetlb
+ VMAs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-34-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-28-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -122,12 +122,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1268; i=ljs@kernel.org;
- h=from:subject:message-id; bh=HkTbLGiMaDy9mSSm1Y8681jTpkwBcd1ymOGev1wsVuw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sxbMTVXVcSGa8rCEpmcR2sqHz4PmPrzjd+9a5P09
- rEu2VR8tqOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATmX+dkaH//9VUNo22rJTP
- 6xl37bKf3BvxwOZaJ6ebyKrIfee/cncz/E/i/7Hh5+ygwwn9pRHbYjacDSp9JVHd23ni0NKma2U
- JtWwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2822; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=ULLCLMudbM+nA5DIlUO12EUl7FbXJrpgl/45EV2ltd8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sydarL6faDM1u3ZZfdn2yeZbvy5T1m47nOX5xo2w
+ +oXTFOEO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRx+wM/1TuxklMuhhxXiG/
+ a4aAGltEa0NF0YptPTMKTRXfc59Wa2L473R/2uuHOzJWnZfmY3Pv+5LyeJpj3bxlovOPqaUWsi8
+ X5AUA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -146,38 +146,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A fixed or non-mm-managed mapping is one which sets VMA_PFNMAP_BIT,
-VMA_MIXEDMAP_BIT or VMA_DONTEXPAND_BIT, which is precisely what
-VMA_SPECIAL_FLAGS tests for other than VMA_IO_BIT, which is safe to drop as
-mm-managed mappings may not set it.
+Adjust code which inadvertently perform redundant checks on hugetlb VMAs
+and clean them up:
 
-Using these predicates rather than VMA_SPECIAL_FLAGS makes the check
-self-documenting and helps eliminate the confusion around 'special' flags.
+* hugetlb VMAs have VMA_DONTEXPAND_BIT set so a VMA_SPECIAL_FLAGS check
+  suffices. (migrate_vma_setup() regains an explicit hugetlb test later in
+  the series, once VMA_SPECIAL_FLAGS is removed.)
+
+* hugetlb VMAs unconditionally set vma->vm_ops, so they are never
+  anonymous.
+
+* hugetlb VMAs do not set VMA_PFNMAP_BIT so checking for this is redundant.
+
+While we're here also drop a VM_BUG_ON() which the simplified check above
+makes unreachable, and use the new VMA flag API.
 
 No functional change intended.
 
+Acked-by: Marc Zyngier <maz@kernel.org>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/vmscan.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm64/kvm/mmu.c         | 4 +---
+ drivers/gpu/drm/drm_gpusvm.c | 3 +--
+ mm/migrate_device.c          | 4 ++--
+ 3 files changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 3b318efa2916..7adffe8182b3 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4418,8 +4418,8 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
- 	if (spin_is_contended(pvmw->ptl))
- 		return true;
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index a7968f8d24bf..3c1240ffc38d 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1463,14 +1463,12 @@ static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
+ {
+ 	unsigned long pa;
  
--	/* exclude special VMAs containing anon pages from COW */
--	if (vma->vm_flags & VM_SPECIAL)
-+	/* exclude fixed and non-mm-managed VMAs containing anon pages from COW */
-+	if (!vma_is_mm_managed(vma) || vma_is_fixed_mapping(vma))
- 		return true;
+-	if (vma_is_hugetlb(vma) && !(vma->vm_flags & VM_PFNMAP))
++	if (vma_is_hugetlb(vma))
+ 		return huge_page_shift(hstate_vma(vma));
  
- 	/* avoid taking the LRU lock under the PTL when possible */
+ 	if (!(vma->vm_flags & VM_PFNMAP))
+ 		return PAGE_SHIFT;
+ 
+-	VM_BUG_ON(vma_is_hugetlb(vma));
+-
+ 	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+ 
+ #ifndef __PAGETABLE_PMD_FOLDED
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index a1d4989b0b61..fab34fea99c2 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1141,8 +1141,7 @@ drm_gpusvm_range_find_or_insert(struct drm_gpusvm *gpusvm,
+ 	 * limitations. If/when migrate_vma_* add more support, this logic will
+ 	 * have to change.
+ 	 */
+-	migrate_devmem = ctx->devmem_possible &&
+-		vma_is_anonymous(vas) && !vma_is_hugetlb(vas);
++	migrate_devmem = ctx->devmem_possible && vma_is_anonymous(vas);
+ 
+ 	chunk_size = drm_gpusvm_range_chunk_size(gpusvm, notifier, vas,
+ 						 fault_addr, gpuva_start,
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index c38cbaaef5a4..b9c453c28795 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -743,8 +743,8 @@ int migrate_vma_setup(struct migrate_vma *args)
+ 
+ 	args->start &= PAGE_MASK;
+ 	args->end &= PAGE_MASK;
+-	if (!args->vma || vma_is_hugetlb(args->vma) ||
+-	    (args->vma->vm_flags & VM_SPECIAL) || vma_is_dax(args->vma))
++	if (!args->vma || vma_test_any_mask(args->vma, VMA_SPECIAL_FLAGS) ||
++	    vma_is_dax(args->vma))
+ 		return -EINVAL;
+ 	if (nr_pages <= 0)
+ 		return -EINVAL;
 
 -- 
 2.55.0
