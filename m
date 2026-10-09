@@ -4,76 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4DC0CA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90110CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:18:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEAA10EA70;
-	Fri,  9 Oct 2026 03:03:39 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C5+KFltK";
-	dkim-atps=neutral
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
- [209.85.221.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3C5C10FE10
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 03:03:37 +0000 (UTC)
-Received: by mail-vk1-f182.google.com with SMTP id
- 71dfb90a1353d-5cd7bcaf81cso2853761e0c.2
- for <dri-devel@lists.freedesktop.org>; Thu, 08 Oct 2026 20:03:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791515016; x=1792119816; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=dY+07CnYbuDTOMQpTAwDubObYAClkAAr9Kwvv3Zr0Ig=;
- b=C5+KFltKRZUW2VJuaWWPfi/EC4aV8/umtSNjTzy4K3owe3AdmtsHmqPBB4jfHScUFc
- JpgCMsuiCbskkTCQ9ysEOjc/yDEPWEiXcpdLBH2hXWID60kjmwUMEeHksTzSP84uB/72
- pTm1EoIX+q75+NPOGQOoecOE1oqV2G1O/BtynIP3PysXKpVRGYcnCBV+DQlNqzxIUofx
- +YvfOXyvpe6gUMibChku0PiTfHVCHeIzhtZQ2fszOxccyJmYEoP8ufWf/EKKISgffKY0
- Tokd79VzuV089pb3TC/FmcV4MdNwxLVWxlERw9udoQH20EByKtXtXEPoQdpFBryU5odb
- l1nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791515016; x=1792119816;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=dY+07CnYbuDTOMQpTAwDubObYAClkAAr9Kwvv3Zr0Ig=;
- b=susWM/rn7dSnND6CnEeLFV/qoLh6z3q0UOz9EhCMkzDde2NCqZ8w8V9mbO8UtL95J7
- cJ5F5AK9D478lMSOL6hfDWYE5FoInw9ROzdY1nifqzT4nsQ86BxfdfRWHRIVgAclrcWa
- a22THXrSQO8nszGt/XANjAG+bWnsNf8onuTOZvmvyaBZInqgLSo9RFSCQdCenGDQhXsN
- Q7B0nTiNVzh7ItKu4lidfOO845XUe3HOFAt0gFZX8C8+O/dnKCrQNI4A8fCELdbHIA4T
- XqESIYVnojBNIo6Hvtlizu1uOjKmhfcjerQjl7+DIAqycRU/mLxe0PGco+m+dS1C5XHD
- HbnQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByAsb2iJIQfN4PtaUtywE9La+DD23Q4iZ9adxFJg+BNctjwbBmTA1uuF/JBGiZz+nnD0DWwij0v8MQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLruCeul51fbzsByA1adQrIGgsmxEP89HybssTzISMpPUx6a7Yg
- DGzE92RkoVKxGeovKDg55buF5V/qedXvIF2DrwLVy6RKxP8pBIx5jZsj
-X-Gm-Gg: AYBFou0mryBMOGtmZ/Ae1TlUhpjrPkUmy4FXIwz0a/m90NpqTWK07O6/0EbuGR4CMEA
- NvVjer29HYnE6sWWi+opgsc3MNcwB0J0d/PmV+CW81ZU9ckohI/hA/02pt/fVE9uMok28ayAMlK
- kP0t13BLiFKlxj68G854lo3jXDEXW80axP4qB6hU9LK3T5Ouw6+5TV9kyrndxterBg3xtU+qzLs
- k8iYgiSWDbqrPbObybHEC/MHNhEGRL1l+lLw/RwWomz/s3VfIKkE4u1lH93xftMitkQZOlzI9xe
- 3UFa63gDqsSSEupCB/eYIccvSZDY0daOaicAOUXZezmPo5KDI5/6G4u9G4XjxQmKID3xC7RgAqA
- t+I2epD8dWuEjM/HTsg9ryLAGA1mXrY5Js8uQUp7Mf+FCMLHw0iAxLPDJn4r+noCMSoxXJoadWi
- EjHS+HuCfwWxtinPvu/TEMUDnnVrfC5Em751ZHfDEU1Zd0mbSvLjqJJJgKgdMvNgY=
-X-Received: by 2002:a05:6102:548f:b0:7c3:83a9:edcd with SMTP id
- ada2fe7eead31-7cb397160f4mr227448137.3.1791515016575; 
- Thu, 08 Oct 2026 20:03:36 -0700 (PDT)
-Received: from beelink.. ([187.13.210.57]) by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-99003ae1577sm814626241.0.2026.10.08.20.03.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2026 20:03:36 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/amdgpu: fix ATOM parameter space index bounds check
-Date: Fri,  9 Oct 2026 00:03:27 -0300
-Message-ID: <20261009030328.3062630-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923162839.1368073-1-qwe.aldo@gmail.com>
-References: <20260923162839.1368073-1-qwe.aldo@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C895410FE10;
+	Fri,  9 Oct 2026 03:18:14 +0000 (UTC)
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB79910FE10;
+ Fri,  9 Oct 2026 03:18:11 +0000 (UTC)
+X-QQ-mid: zesmtpip2t1791515834tf0417f50
+X-QQ-Originating-IP: EuPfVQdQ7C/DcphIeULq/TvnkWsIwm0C4Knbx2+F2nw=
+Received: from [192.168.30.32] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 09 Oct 2026 11:17:11 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8697921741928776439
+EX-QQ-RecipientCnt: 29
+From: Xilin Wu <sophon@radxa.com>
+Date: Fri, 09 Oct 2026 11:15:55 +0800
+Subject: [PATCH v2 03/20] drm/bridge-connector: Attach max bpc for non-HDMI
+ bridges
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-msm-dp-hdr10-v2-3-1835d4966da3@radxa.com>
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3357; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=y8Hk7pwSF01X//hlbGuKeI//kPSXq5QtzgIxRDu/UNE=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlZ8jeQ8yyZ+66e3jMCWDdv2fKs7Zex8UUWxMKvws
+ 3KzrkJORykLgxgXg6yYIotCPMNc9srca0/FSvVg5rAygQxh4OIUgIkcOMnIcPXJ64nvDWvMZL58
+ scnVvV/ptecT87WDX5137uVsvvhpcgjDX5kTk1U8N8oe3HA+0KBdpXsNs6RraVb75L7665cDNly
+ XYQUA
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: M7r/zttrUmlkFTN2XrU5vmuMFMgJLiiXfgn0xAvgaT17DsWOf5jccVwm
+ Z3Rqn8S8LrjXYfqvf4oPxHarrYfAsNS3PXel2NlFBAvwSPERgF8KklbaXcGiOcbQCLqopIZ
+ nk2uUMGi5bIK2t+OlGesHiYE19EcVgKI62EximuEFGCwVD6FCWSa2aHBUTT8akg4ERcnk8e
+ IIXsFSpbMuSst7g9HxLm7WAp+2Xeh/MBe0jCkjX67ISlJeSGEItnU4P2naSwBNQg3l81hj6
+ oTw2geDZkOpAtb8Wdv4ReXfUMbmXGn8iTiOOInKxt0OcVbXthhCPnMNHt/wgxGqdLDqXWGW
+ 4YprvOeWPDs+IvnAo/lvd0tigKhrvXWzSXBTE+ILpTFnqNDgs4P/uy1Y0NCdFVm9Eu1A9yX
+ 31AcjxBGDh4cwUoVic8XRDtr6w1St0gC4HWe7zcV2u7LHABPPE73+RMJrQ9ao+s2yJv2uuy
+ ePtwFtM57MRQw5DxdpTKXCHARvZFwXlgnA6rffJvDRp1JaVhQVRuAsQ0jNL4BmkyDVNKVAJ
+ xWFW5jZWYFgMoTzc2+HOJ6eVGYzLY8XT8RtfpGGinvNPr8/3jLAaOBdi8Y8m3b5XNjUczfi
+ kmQM7+UI/c86v1eWxAXu/DbyK9Voze3W3OZMaDUCeTNyy+shWmjs+VtAFap/Top2xd8rUM6
+ w+Ekb7zm33i3N7lzqtISEaYyYbC8586Oq1DzX6B7Ei0LU/QImxKXXTkyQc37vdcayuL/KTg
+ JyOIERP78xn60+wTFb3hn8vezmE4dp4xYXZjCEUucBP4b8tLBvpzCGrhrsTlMpjea9aBr5x
+ AHgJ5FTToo7bbxojLQeieLY9qSzTPe02/6FXsgCo3IhC9k4jXqDAJyhkteuPATQWPavqCNl
+ J2sAjhAntMP6oA8JpgnyXXob1wYkYZ3pCU/a4xbrzp2zStH1vZjNaFBygtuKpCU2CazqH1W
+ bxX+G0ruAhSC8wIMb0NmBO755vDoM1l/u21W4HsNqSzoMtBgMQUIOYqiXQptH2Z/nr6ADCm
+ dh89CzqN/XG3LbGl3PsOoZUscooZmynByI2mxvGFEzj0g3I5Kw
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,15 +93,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex,
+Allow non-HDMI bridges to advertise their output bit-depth limit through
+max_bpc. Attach the max bpc property when the lowest reported limit in the
+chain exceeds 8, ignoring bridges that do not report a limit. This lets
+DP drivers expose deep-color support without attaching the property in
+their connector initialization code.
 
-Friendly ping on this v2, sent September 23.  It fixes the dword/byte
-mismatch in the ATOM PS index bounds check in atom_get_src_int() and
-atom_put_dst() -- the sibling of the calltable underflow fix you
-already applied.
+Use a lower bound of 6 for DP and eDP, which support 6 bpc RGB output, and
+8 for other connector types. Keep the existing HDMI registration path.
+The property can be attached before connector state allocation; the
+atomic state helper initializes its default when state is created.
 
-v2 also corrects the pr_info() messages to print ps_size/4 (dwords)
-instead of ps_size (bytes), per Sashiko review on v1.
+Assisted-by: LLM
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ drivers/gpu/drm/display/drm_bridge_connector.c | 18 ++++++++++++++++++
+ include/drm/drm_bridge.h                       | 11 ++++++++---
+ 2 files changed, 26 insertions(+), 3 deletions(-)
 
-Thanks,
-Aldo
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 8b54069fa53a..be2e08a3694a 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -825,6 +825,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
+ 	unsigned int supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
+ 	unsigned int max_bpc = 8;
++	unsigned int chain_max_bpc = 0;
+ 	bool support_hdcp = false;
+ 	int connector_type;
+ 	int ret;
+@@ -985,6 +986,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 			panel_bridge = drm_bridge_get(bridge);
+ 		}
+ 
++		if (bridge->max_bpc)
++			chain_max_bpc = chain_max_bpc ?
++				min(chain_max_bpc, bridge->max_bpc) : bridge->max_bpc;
++
+ 		if (bridge->support_hdcp)
+ 			support_hdcp = true;
+ 	}
+@@ -1026,6 +1031,19 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 					  connector_type, ddc);
+ 		if (ret)
+ 			return ERR_PTR(ret);
++
++		if (chain_max_bpc > 8) {
++			unsigned int min_bpc = 8;
++
++			if (connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
++			    connector_type == DRM_MODE_CONNECTOR_eDP)
++				min_bpc = 6;
++
++			ret = drm_connector_attach_max_bpc_property(connector, min_bpc,
++								    chain_max_bpc);
++			if (ret)
++				return ERR_PTR(ret);
++		}
+ 	}
+ 
+ 	if (bridge_connector->bridge_hdmi_audio ||
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 58fff047f43b..01ad1878149e 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -1089,9 +1089,14 @@ struct drm_bridge {
+ 	unsigned int supported_formats;
+ 
+ 	/**
+-	 * @max_bpc: Maximum bits per char the HDMI bridge supports. Allowed
+-	 * values are 8, 10 and 12. This is only relevant if
+-	 * @DRM_BRIDGE_OP_HDMI is set.
++	 * @max_bpc: Maximum bits per color component the bridge supports.
++	 * Zero means that the bridge does not report a limit. For HDMI bridges
++	 * with @DRM_BRIDGE_OP_HDMI set, allowed values are 8, 10 and 12.
++	 *
++	 * For non-HDMI connectors, drm_bridge_connector_init() attaches the
++	 * max bpc property when the lowest nonzero limit in the bridge chain
++	 * exceeds 8. Bridges remain responsible for validating configurations
++	 * against any limits not reported here.
+ 	 */
+ 	unsigned int max_bpc;
+ 
+
+-- 
+2.56.0
+
