@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C66E2CA9EBB
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 830A2CA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 23:08:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A538112314;
-	Fri,  9 Oct 2026 23:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D88F310E1F0;
+	Fri,  9 Oct 2026 23:08:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S6Tn3xmb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kegmyvYr";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4A9E112314
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:06:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34CDC10E1F0
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 23:08:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A3025438C8;
- Fri,  9 Oct 2026 23:06:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1A01F000FF;
- Fri,  9 Oct 2026 23:06:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0F9E9434DC;
+ Fri,  9 Oct 2026 23:08:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29821F000FF;
+ Fri,  9 Oct 2026 23:08:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791587190;
- bh=R9ba7KZtqj1dskjtHZHbVBoAZ5QTD5i6591EPZIYhks=;
+ s=k20260515; t=1791587301;
+ bh=hBTKZD3HeJyVodX7qLY7GjxRbIgnBjqwBP7cw9HdNmU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=S6Tn3xmbfOpzN82ENILVKUd9krj+MCN1rmuGwIfZNWJheMGKBCBdVGgtyPrZN/8ro
- Wt7Bz/f0qGiXdjTwrQRmCYgKaf/03nAAbj3ZOZgkkTo7p5siXnMb4Hsesjk6yYYVkG
- BkglBti14r7G5dk+vE0JTEToT9D59LDQvyq10Fm+15DQ5l2i3Es/8xSpnVScwXXTeT
- FYkoNEZ7bXLmnbXngnR3g+M/DO2T4OFmg9CfpA9jPtTHZLtzpAg0iPab10nE3LMR+2
- uDoKgzQNkGYanQlwNETyVj8j1/zVHzx+rKAvx5JwNSLThomlcXynx3qEgWDbljoYwg
- XKlnBoBmFtZtg==
-Message-ID: <sashiko-outbox-166173@kernel.org>
+ b=kegmyvYryuZVJPmg9DH1YuXLioAq3L/WPhGo4VFJ5ZYutYapE6N+pB+i9mGspPsxf
+ /nTN46ac0z+qDOs+vfMEEw2S2/FxySSfBlYBVmvsiG+zUqM5bzqQaCUHLg2fdEfuSR
+ +dH1hOQt99edZXtBEYlEybGH2Wd6jSTlkm57v5Mb8R2ieyYEevnUI/KR+SwQyNFgQ1
+ wIskTAb+8yrlHnheIojcwjKXjludOgwchjUDM6RfTGhskh0ei+6pk7XUy+ifymdr49
+ QdetDJYRYUquLSO0s7/SIBhft4YzeXsoh5UgVvpEUhZxVtX6bbhQNE6SQYXVi6wrUv
+ lky0rCF0PPlGA==
+Message-ID: <sashiko-outbox-166174@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V4 15/19] accel/amdxdna: Make populate_range common for
- AIE2 and AIE4
+Subject: Re: [PATCH V4 04/19] accel/amdxdna: Support firmware 6.0
 To: "David Zhang" <yidong.zhang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009225343.3079074-16-yidong.zhang@amd.com>
+In-Reply-To: <20261009225343.3079074-5-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
  <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-16-yidong.zhang@amd.com>
+ <20261009225343.3079074-5-yidong.zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 23:06:29 +0000
+Date: Fri, 09 Oct 2026 23:08:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,115 +58,68 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/amdxdna: data race on hmm_range during concurrent faulting
-- [High] mm: cross-process mmap_lock dependency blocks NPU job submission
+- [Medium] accel/amdxdna: missing capability check for REALTIME priority al=
+lows DoS
 --
 
-commit c2a130c1477d63bd08139e79291eca214fcf225a
+commit 33aba925e30324fed055cc90f6f20b1a9826f931
 Author: David Zhang <yidong.zhang@amd.com>
 
-accel/amdxdna: Make populate_range common for AIE2 and AIE4
+accel/amdxdna: Support firmware 6.0
 
-This commit moves aie2_populate_range() from aie2_ctx.c into amdxdna_gem.c
-as amdxdna_populate_range(), making it common for both AIE2 and AIE4
-command submissions.
+This commit supports firmware interface version 6.0 by updating the host qu=
+eue
+layout, opcode definitions, and context creation/destruction request struct=
+ures.
+It also parses priority band and PASID for hardware context creation.
 
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
-amdxdna_gem.c
-> index e1b72cef51bdf..320604ec157f7 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie=
+4_ctx.c
+> index 8157f2a6fd10a..5eb918e1d58c7 100644
+> --- a/drivers/accel/amdxdna/aie4_ctx.c
+> +++ b/drivers/accel/amdxdna/aie4_ctx.c
 
 [ ... ]
 
-> @@ -337,6 +337,79 @@ void amdxdna_umap_put(struct amdxdna_umap *mapp)
->  	kref_put(&mapp->refcnt, amdxdna_umap_release);
+> @@ -110,6 +111,22 @@ static int aie4_msg_destroy_context(struct amdxdna_d=
+ev_hdl *ndev, u32 hw_context
+>  	return aie_send_mgmt_msg_wait(&ndev->aie, &msg);
 >  }
 > =20
-> +int amdxdna_populate_range(struct amdxdna_gem_obj *abo)
+> +static u8 aie4_parse_priority_to_dev(u32 priority)
 > +{
-> +	struct amdxdna_dev *xdna =3D to_xdna_dev(to_gobj(abo)->dev);
-> +	struct amdxdna_umap *mapp;
-> +	unsigned long timeout;
-> +	struct mm_struct *mm;
-> +	bool found;
-> +	int ret;
-> +
-> +	timeout =3D msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-> +again:
-> +	found =3D false;
-> +	down_write(&xdna->notifier_lock);
-> +	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
+> +	switch (priority) {
+> +	case AMDXDNA_QOS_LOW_PRIORITY:
+> +		return AIE4_CONTEXT_PRIORITY_BAND_IDLE;
+> +	case AMDXDNA_QOS_NORMAL_PRIORITY:
+> +		return AIE4_CONTEXT_PRIORITY_BAND_NORMAL;
+> +	case AMDXDNA_QOS_HIGH_PRIORITY:
+> +		return AIE4_CONTEXT_PRIORITY_BAND_FOCUS;
+> +	case AMDXDNA_QOS_REALTIME_PRIORITY:
+> +		return AIE4_CONTEXT_PRIORITY_BAND_REAL_TIME;
 
-[Severity: High]
-Does this code iterate over all mappings across all processes without
-filtering by the current process?
+[Severity: Medium]
+Could this allow an unprivileged user to monopolize the NPU?
 
-If an unprivileged process imports a shared dmabuf, maps it, and holds its
-mmap_write_lock indefinitely (e.g., via userfaultfd or FUSE), it could cause
-this function to block indefinitely when attempting to acquire the
-mmap_read_lock for that other process's mm.=20
+In aie4_parse_priority_to_dev() in drivers/accel/amdxdna/aie4_ctx.c, when a
+user calls the AMDXDNA_CREATE_HWCTX ioctl and passes
+AMDXDNA_QOS_REALTIME_PRIORITY in qos.priority, this maps directly to
+AIE4_CONTEXT_PRIORITY_BAND_REAL_TIME during context creation and is sent to
+the firmware.
 
-Could this result in a denial of service by permanently blocking job
-submission for the process that exported the dmabuf?
+Since there doesn't appear to be a capability check (such as verifying if t=
+he
+caller possesses CAP_SYS_NICE or similar privileges), could any local user
+with access to the DRM node create an NPU hardware context with REALTIME
+priority and starve other workloads, causing a denial of service?
 
-> +		/*
-> +		 * Skip entries that have already been unmapped.
-> +		 *
-> +		 * If userspace unmaps the address and later submits I/O using
-> +		 * it, the IOMMU will reject the access and report a fault.
-> +		 * Ignore such entries here.
-> +		 */
-> +		if (mapp->unmapped)
-> +			continue;
-> +
-> +		if (mapp->invalid && kref_get_unless_zero(&mapp->refcnt)) {
-> +			found =3D true;
-> +			break;
-> +		}
+> +	default:
+> +		return AIE4_CONTEXT_PRIORITY_BAND_NORMAL;
 > +	}
-> +
-> +	if (!found) {
-
-[ ... ]
-
-> +	if (!mmget_not_zero(mm)) {
-> +		amdxdna_umap_put(mapp);
-> +		return -EFAULT;
-> +	}
-> +
-> +	ret =3D hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
-
-[Severity: High]
-Can multiple concurrent job submissions on the same GEM object cause a data
-race here?
-
-When multiple hardware contexts submit jobs referencing the same GEM object
-with invalidated memory mappings, aie2_cmd_submit() drops GEM reservations
-and notifier_lock before calling amdxdna_populate_range(). Because
-mapp->invalid remains true until the fault is completed, concurrent
-submissions will find the exact same amdxdna_umap object and invoke
-hmm_range_fault_unlocked_timeout() simultaneously on the identical
-&mapp->range structure.
-
-The HMM API requires struct hmm_range to be thread-local or synchronized by
-the caller. The internal mmap_read_lock only protects the VMA, not the
-hmm_range struct itself.
-
-Could these unsynchronized writes to range->notifier_seq and the
-range->hmm_pfns array break the mmu_interval_read_retry() logic, circumvent
-MMU invalidations, or lead to memory corruption?
-
-> +	if (ret)
-> +		goto put_mm;
-> +
-> +	down_write(&xdna->notifier_lock);
-> +	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq))=
- {
-> +		up_write(&xdna->notifier_lock);
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009225343.3079=
-074-1-yidong.zhang@amd.com?part=3D15
+074-1-yidong.zhang@amd.com?part=3D4
