@@ -4,110 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75609CA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:43:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E36FCA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C372D112098;
-	Fri,  9 Oct 2026 11:43:21 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D1eL6w6E";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E4B112098
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 11:43:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CCD3243E4C;
- Fri,  9 Oct 2026 11:43:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990401F000FF;
- Fri,  9 Oct 2026 11:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791546200;
- bh=CpEZlDsRDuWenxcVgqGImJd26hAtuDMO57pjc3sZvDA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=D1eL6w6Ewdr6llyTH4fAbb8hCyFLsOSKaLbrXG209Y1k/pmbDbwi6+HhvQZEnddfv
- ozhgqIAZPEJiYixReahW0E5j5paGGbV175wO5N0/2qMKx3icHiuOPsyYXPPJS/PDGD
- 7O3rKXjf8R3Fb2Zj3IDfyYyEvaVylAPPRdpibqcld4DiywBWyC3NeCk8iJ98EZvdH8
- pxwSahZW5Y7TUwRoT0kSnbHmwd5EgIGvkWb7Uiz6jn5t3n8Dv2hYfwx1QEEU0vOBoW
- A8KAHkqPFemwxUmaYpBpwCxyJN72FWr7gCMN/SwHyFcMD6oeN0X/No8SJAzwbx6W2E
- Ve2mqwlmxiPEQ==
-Message-ID: <b8cc8683-d114-48c8-af60-ecd8e16bdf46@kernel.org>
-Date: Fri, 9 Oct 2026 13:43:09 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D635112099;
+	Fri,  9 Oct 2026 11:52:05 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4F21120A2;
+ Fri,  9 Oct 2026 11:52:03 +0000 (UTC)
+X-UUID: d2798a54c3d711f19a56ed5b684f684d-20261009
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:c691bcf6-e7dd-4ae4-8863-0b37bebbeaeb, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:7db8b62, CLOUDID:ceed06e202d5449ce84cc283a9489a01,
+ BulkI
+ D:nil,BulkQuantity:0,SF:81|82|102|136|865|898,TC:nil,Content:0|15|50|99,ED
+ M:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,
+ OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d2798a54c3d711f19a56ed5b684f684d-20261009
+X-User: liupeng01@kylinos.cn
+Received: from t14 [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <liupeng01@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 551343682; Fri, 09 Oct 2026 19:51:54 +0800
+From: liupeng <liupeng01@kylinos.cn>
+To: lyude@redhat.com,
+	dakr@kernel.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, linux@roeck-us.net,
+ nouveau@karolherbst.de, bskeggs@redhat.com,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ stable@vger.kernel.org, liupeng <liupeng01@kylinos.cn>
+Subject: [PATCH v3] drm/nouveau: Fix memory leaks in debugfs and hwmon init
+ error paths
+Date: Fri,  9 Oct 2026 19:51:51 +0800
+Message-ID: <20261009115151.13877-1-liupeng01@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ea9a1d374cf3127e5047bc73807ce821022e026e.camel@redhat.com>
+References: <ea9a1d374cf3127e5047bc73807ce821022e026e.camel@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH v2 0/4] arm64: dts: qcom: Add support for Radxa
- Dragon Q8B
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Xilin Wu <sophon@radxa.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
- dragon@radxa.com, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>,
- Daniele Briguglio <hello@superkali.me>
-References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
- <179153455955.2970577.14103639336377928226.b4-ty@b4>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <179153455955.2970577.14103639336377928226.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,25 +66,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 09/10/2026 10:29, Dmitry Baryshkov wrote:
-> On Fri, 09 Oct 2026 15:55:05 +0800, Xilin Wu wrote:
->> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
->> Snapdragon 8cx Gen 3 (SC8280XP) platform.
->>
->> The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
->> E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
->> alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
->> a 40-pin expansion header.
->>
->> [...]
-> 
-> Applied to drm-misc-next, thanks!
-> 
-> [1/4] dt-bindings: display: bridge: simple: document Chrontel CH7218A
->       commit: 377682cf917027396211426c509cae5785305ba8
+In nouveau_debugfs_init(), if nvif_object_ctor() fails, the previously
+allocated drm->debugfs is leaked because the function returns the
+error code directly.
 
-So the fake tag gets applied. Having 12 minutes to respond to this
-posting is NOT enough.
+In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
+the allocated hwmon structure is leaked because the function returns
+the error code directly.
 
-Best regards,
-Krzysztof
+Fix both by freeing the allocated memory and clearing the pointer on
+the error paths.
+
+Fixes: b126a200e9db ("drm/nouveau/debugfs: we need a ctrl object for debugfs")
+Fixes: b9ed919f1c8f ("drm/nouveau/drm/pm: remove everything except the hwmon interfaces to THERM")
+Cc: stable@vger.kernel.org
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: liupeng <liupeng01@kylinos.cn>
+---
+Changes in v3:
+- Drop the extra return in nouveau_debugfs_init() as suggested by Lyude.
+- Add Reviewed-by tag.
+
+ drivers/gpu/drm/nouveau/nouveau_debugfs.c | 14 +++++++++++---
+ drivers/gpu/drm/nouveau/nouveau_hwmon.c   |  2 ++
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
+index 47d5579c568d..338421e52f69 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
++++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
+@@ -295,13 +295,21 @@ nouveau_drm_debugfs_init(struct drm_minor *minor)
+ int
+ nouveau_debugfs_init(struct nouveau_drm *drm)
+ {
++	int ret;
++
+ 	drm->debugfs = kzalloc_obj(*drm->debugfs);
+ 	if (!drm->debugfs)
+ 		return -ENOMEM;
+ 
+-	return nvif_object_ctor(&drm->client.device.object, "debugfsCtrl", 0,
+-				NVIF_CLASS_CONTROL, NULL, 0,
+-				&drm->debugfs->ctrl);
++	ret = nvif_object_ctor(&drm->client.device.object, "debugfsCtrl", 0,
++			       NVIF_CLASS_CONTROL, NULL, 0,
++			       &drm->debugfs->ctrl);
++	if (ret) {
++		kfree(drm->debugfs);
++		drm->debugfs = NULL;
++	}
++
++	return ret;
+ }
+ 
+ void
+diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
+index 726397ab035d..ffbe7f542ab0 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
++++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
+@@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
+ 	if (IS_ERR(hwmon_dev)) {
+ 		ret = PTR_ERR(hwmon_dev);
+ 		NV_ERROR(drm, "Unable to register hwmon device: %d\n", ret);
++		drm->hwmon = NULL;
++		kfree(hwmon);
+ 		return ret;
+ 	}
+ 
+-- 
+2.53.0
+
