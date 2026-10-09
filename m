@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9273CA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5FB9CA6004
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA8A110E238;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E06BB10E24C;
 	Sat, 10 Oct 2026 11:45:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="qDWAmlue";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="VT+bQSog";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B749112059
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:56:14 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A52B410E544
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:54:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
  s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=N0
- UHDUvgrExzuUIvmY5lEGVvWVWCcps+KEQmmx2+7ZE=; b=qDWAmlue9saooLvaNv
- 5uSpjXu0wTWDmB607qxLybLBTxNKlg0PctoW+IODmy/beJfoE1u++K7f/AY9JOX8
- EVMMHS3EqvEXNYcaPTVxfXmHQXnBE2lZljxMb4tLvEhniVeXes1HUhbQg2EN0INs
- 520PF+MualUtwK1p2RkjxnELE=
+ UHDUvgrExzuUIvmY5lEGVvWVWCcps+KEQmmx2+7ZE=; b=VT+bQSog2Vc3eQqB/9
+ zWXZTMr9fPxRidBEqBlPtMTM8/1OhW7M+BU24xFuuyBGgn5oon9RHBYmx0yBFxCE
+ 2WuqVAC3EHbOZg7CiblJ6NAW6FABdpFYPUCthn/FKBdItuNqHIHnD7eIFBrx7Hrn
+ 4303yk+jlv3f3OA68mHYkb1CE=
 Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
- by gzsmtp4 (Coremail) with SMTP id PygvCgCH_z1ByMhqBHGWDg--.46097S3; 
- Fri, 09 Oct 2026 18:56:02 +0800 (CST)
+ by gzsmtp2 (Coremail) with SMTP id PSgvCgC3fLnAx8hqSa9RDQ--.50503S3; 
+ Fri, 09 Oct 2026 18:53:54 +0800 (CST)
 From: Quchaosheng <quchaosheng000406@163.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -33,19 +33,19 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
  Chaosheng Qu <quchaosheng000406@163.com>
 Subject: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT schema
-Date: Fri,  9 Oct 2026 18:55:59 +0800
-Message-ID: <20261009105601.301891-2-quchaosheng000406@163.com>
+Date: Fri,  9 Oct 2026 18:53:50 +0800
+Message-ID: <20261009105352.300149-2-quchaosheng000406@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009105601.301891-1-quchaosheng000406@163.com>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
+In-Reply-To: <20261009105352.300149-1-quchaosheng000406@163.com>
+References: <20261009105352.300149-1-quchaosheng000406@163.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PygvCgCH_z1ByMhqBHGWDg--.46097S3
+X-CM-TRANSID: PSgvCgC3fLnAx8hqSa9RDQ--.50503S3
 X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDtr1xCr1UZF1rCr45Wrg_yoWruryxpF
  n5Gas7uFy8WFyaqw40yr1kCa1rAFykAF40kF1xJFy5Ja10qF48tF13Krn8XFy5Ga4xZay2
  qF47Ww17Kwn7C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi-6pkUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wIPhGrIyELcTwAA3R
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piRnmiUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wLuZGrIx8LVBAAA3d
 X-Mailman-Approved-At: Sat, 10 Oct 2026 11:45:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
