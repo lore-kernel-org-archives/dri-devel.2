@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F40CCA6017
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3621CA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 968C910EBF3;
-	Sat, 10 Oct 2026 12:38:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 061A310EBF4;
+	Sat, 10 Oct 2026 12:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="llFa/poY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GfjOm1Yb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81A1610EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:13:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF4C10EAB2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:13:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 59BC443773;
- Fri,  9 Oct 2026 18:13:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1BD11F00893;
- Fri,  9 Oct 2026 18:13:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A309E6020C;
+ Fri,  9 Oct 2026 18:12:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D077C1F00904;
+ Fri,  9 Oct 2026 18:12:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569621;
- bh=RI4WX0O22KjPeI16PdUA8FkhrmSCrPwITssscZUOsxA=;
+ s=k20260515; t=1791569579;
+ bh=Jv5vWPdrcz097br/0FGXZ4kuG0KuwNXHMoZExC0GyjA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=llFa/poY0brf6+kiPhmRb1N1W0JK886d+tvUN7BA0EBLft5rKIrD15XtZgQt7LDgJ
- 94bM0LjhJxPxv5Lnp65QXqT/hk7kjPw1jz1bWg2J5J/RQCZeph3B+hiMNrGPT15dKN
- C5tbKlRzqdZ/z/Xu2S2t5QN9tjEMxeY8gQgT7r5qa93woBjuDUE7Ww//naj0HA1L23
- UQHaJr9niawaKr4UsgHHAR01YGMCRnurKUjweb1cB75kFRZeKmP8AuzxjMt19htlXV
- D0fJCYxrjGgRKX2HEoKZrWp3M0pJnfZdc5r3X0DLRqudrhqWthF7IjJ1N7Eu+E4cYy
- wHCQwDQ0fk10g==
+ b=GfjOm1YbMNP9On7qgcqTp2BVzxLPSp24ku88qx/ieUICU+qTFg9Cnglf/MGmYL+1Z
+ SWoL8jB05I3BHQvki5qjcSkECeBW38CL8iZUsu3LJUJVcZZuAIxYziR34xz5LcLLXN
+ K0JyDI8kd3sBmLFGFZjz4fSSNRKj9dScqWPqP7zAkk+i+9jB3LWleapH7Ndg3r7Vkk
+ N4uPkDv07N2mPei9qbC3NGs28joSqCgWylfaRJMwB/atrDQ9huOAGxJM21vP9zJUBY
+ e1QdNCKgRLX07M3seux7Lk6PLRLDG36FC/9pNrji+Q/tjrYFTjwnfo5Xf1jWVXaJyK
+ dWJgw9cpx9neg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:20 +0100
-Subject: [PATCH v5 26/38] mm: remove hugetlb_inline.h
+Date: Fri, 09 Oct 2026 19:04:18 +0100
+Subject: [PATCH v5 24/38] mm/vma: enforce that mm-managed mappings may not
+ set VMA_IO_BIT
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-26-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-24-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +122,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5629; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Lb6PN86E47rAtJp1lXXo9OY9NeHwxjKk0v89DhOzLiM=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6syV62q7OXvHmknHD9nJTihnzTy2/9wd6dabLSLpJ
- vd9/xcLdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiJ2UZ/qdy5ClWqWQ0+j1e
- /tnhQNdFlgNRTotmuU6WD/PcFhKsq8vI8KDVJD8vpc1W8InSt71+j0Ur9YxO7NHheB3yRevYFQU
- JBgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1031; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=3En+9VaolB5QMCITsLTv3qFJ+TZ+NLC6z2q54bPNGqQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sxRYtOo1LA9Up7cm9T3boZTC4tce470ykkPuauWP
+ bF7f+BjRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACay+SkjwxyfGRvyij/9OdD/
+ f7lJlrqTXJibT+OWW1r3DPZHJB0oZmf4p+qy0HQSg1F6pmWchr7Ev+K9LdkaO/QnpIW4OIVYVU/
+ hBAA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -145,186 +146,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This header really makes little sense - every place it is included mm.h is
-also included, and the header itself includes mm.h, so it does nothing to
-reduce header size.
+It makes no sense for a mapping whose contents the kernel does not own to
+specify that the range is MMIO.
 
-It also oddly does an #ifdef around checking VMA_HUGETLB_BIT, however
-VMA_HUGETLB_BIT is unconditionally available, and will never be set if
-hugetlb is not enabled.
+Prior to this patch, all in-tree drivers which did so have been updated
+such that they are marked as not being mm-managed. The check WARNs and
+fails the mmap for any out-of-tree driver that still sets VMA_IO_BIT
+without a kernel mapping.
 
-Simply remove the header, eliminate the odd ifdeffery and place the
-predicates in mm.h.
-
-The naming of these predicates is odd, but to keep changes separate, we
-will address this in a separate patch.
-
-The file was never put into MAINTAINERS so there's no change required
-there.
-
-No functional change intended.
+No functional change intended for in-tree code.
 
 Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/gpu/drm/drm_gpusvm.c   |  2 +-
- include/asm-generic/tlb.h      |  2 +-
- include/linux/hugetlb.h        |  1 -
- include/linux/hugetlb_inline.h | 28 ----------------------------
- include/linux/mm.h             | 11 +++++++++++
- include/linux/pagemap.h        |  1 -
- include/linux/userfaultfd_k.h  |  1 -
- kernel/sched/fair.c            |  1 -
- mm/vma_internal.h              |  1 -
- 9 files changed, 13 insertions(+), 35 deletions(-)
+ mm/vma.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index a93eee7ddb9e..793dacec2100 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -9,9 +9,9 @@
- #include <linux/dma-mapping.h>
- #include <linux/export.h>
- #include <linux/hmm.h>
--#include <linux/hugetlb_inline.h>
- #include <linux/memremap.h>
- #include <linux/mm_types.h>
-+#include <linux/mm.h>
- #include <linux/slab.h>
+diff --git a/mm/vma.c b/mm/vma.c
+index 4f09fb98a2fd..51bdbe08bb02 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2796,6 +2796,12 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
+ 		return -EINVAL;
+ #endif
  
- #include <drm/drm_device.h>
-diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
-index 044dabc1fe9c..8b8123e5b7d7 100644
---- a/include/asm-generic/tlb.h
-+++ b/include/asm-generic/tlb.h
-@@ -11,9 +11,9 @@
- #ifndef _ASM_GENERIC__TLB_H
- #define _ASM_GENERIC__TLB_H
- 
-+#include <linux/mm.h>
- #include <linux/mmu_notifier.h>
- #include <linux/swap.h>
--#include <linux/hugetlb_inline.h>
- #include <asm/tlbflush.h>
- #include <asm/cacheflush.h>
- 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 80a5a03e9cee..d7e6563cef75 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -7,7 +7,6 @@
- #include <linux/mm_types.h>
- #include <linux/mmdebug.h>
- #include <linux/fs.h>
--#include <linux/hugetlb_inline.h>
- #include <linux/cgroup.h>
- #include <linux/page_ref.h>
- #include <linux/list.h>
-diff --git a/include/linux/hugetlb_inline.h b/include/linux/hugetlb_inline.h
-deleted file mode 100644
-index 5c29cd3223a1..000000000000
---- a/include/linux/hugetlb_inline.h
-+++ /dev/null
-@@ -1,28 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _LINUX_HUGETLB_INLINE_H
--#define _LINUX_HUGETLB_INLINE_H
--
--#include <linux/mm.h>
--
--#ifdef CONFIG_HUGETLB_PAGE
--
--static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
--{
--	return vma_flags_test(flags, VMA_HUGETLB_BIT);
--}
--
--#else
--
--static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
--{
--	return false;
--}
--
--#endif
--
--static inline bool is_vm_hugetlb_page(const struct vm_area_struct *vma)
--{
--	return is_vma_hugetlb_flags(&vma->flags);
--}
--
--#endif
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 3ddb463db895..6c470da29a64 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1609,6 +1609,17 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
- 	return is_shared_maywrite(&vma->flags);
++	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
++		/* mm-managed mappings may not set VMA_IO_BIT. */
++		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
++			return -EINVAL;
++	}
++
+ 	return 0;
  }
  
-+static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
-+{
-+	return IS_ENABLED(CONFIG_HUGETLB_PAGE) &&
-+	       vma_flags_test(flags, VMA_HUGETLB_BIT);
-+}
-+
-+static inline bool is_vm_hugetlb_page(const struct vm_area_struct *vma)
-+{
-+	return is_vma_hugetlb_flags(&vma->flags);
-+}
-+
- /**
-  * vma_flags_is_mm_managed() - Do the specified VMA flags indicate that the
-  * contents of the VMA are managed by core mm?
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 939f3a5e973f..d7d8b312466c 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -14,7 +14,6 @@
- #include <linux/gfp.h>
- #include <linux/bitops.h>
- #include <linux/hardirq.h> /* for in_interrupt() */
--#include <linux/hugetlb_inline.h>
- 
- struct folio_batch;
- 
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index a4351cffc60c..a14b8a9ffb7b 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -18,7 +18,6 @@
- #include <linux/swap.h>
- #include <linux/leafops.h>
- #include <asm-generic/pgtable_uffd.h>
--#include <linux/hugetlb_inline.h>
- 
- /* The set of all possible UFFD-related VM flags. */
- #define __VM_UFFD_FLAGS (VM_UFFD_MISSING | VM_UFFD_MINOR | \
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index a07a658cd99f..9eb12d0b6f1b 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -22,7 +22,6 @@
-  */
- #include <linux/energy_model.h>
- #include <linux/mmap_lock.h>
--#include <linux/hugetlb_inline.h>
- #include <linux/jiffies.h>
- #include <linux/mm_api.h>
- #include <linux/highmem.h>
-diff --git a/mm/vma_internal.h b/mm/vma_internal.h
-index 4d300e7bbaf4..4f73f0a4db79 100644
---- a/mm/vma_internal.h
-+++ b/mm/vma_internal.h
-@@ -18,7 +18,6 @@
- #include <linux/fs.h>
- #include <linux/huge_mm.h>
- #include <linux/hugetlb.h>
--#include <linux/hugetlb_inline.h>
- #include <linux/kernel.h>
- #include <linux/ksm.h>
- #include <linux/khugepaged.h>
 
 -- 
 2.55.0
