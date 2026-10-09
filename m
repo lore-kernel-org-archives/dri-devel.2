@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E0BDCA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 20:28:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFB44CA9EBB
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 20:28:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED0FE10EB10;
-	Fri,  9 Oct 2026 20:28:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F152310EB3B;
+	Fri,  9 Oct 2026 20:28:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hOikepET";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ht++Lp15";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D27B10EB10
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 20:28:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4767B10EB1C
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 20:28:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7317760267
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 20:28:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 28676C2BCFB
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 20:28:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 24EB244583
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 20:28:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 09FEEC2BD01
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 20:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1791577710;
- bh=fqzd63trBesVUi24Ry2WdWf7Of3q3S0Z5LF14gSpO8g=;
+ s=k20201202; t=1791577712;
+ bh=MdahvjmI1j4M7AMa1+LVJj1H3t9FtujlKvAwocK1aY4=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=hOikepETbQ7PmKcps2E3o6e1WwjShsH9earkqiIQQakncZ0TAr7qKvLOcAnPeV2LN
- z7j0/dsiRCjjWoOKlCfUfNeXn6OlHNxt5sWoHCQNqAmfeeOfSVcZnUdo+SmHicDkww
- Dwm9+lEzmhZS4Hjiw0ZEivmZMOvyQVyt/mL3Usxheq1GqMupbp2iHVEkg51Gmo9qXn
- QwzQVXgfuQFoanVvEmUeD6EvtWHovHyKzLf4PYAzRgPFSABNAnCHXs6ZU4G8BvKdow
- 85vejcuCBAoiVnhZJQm0zH7B/u9LP3UpiW0Tou5SnaoPD/g4EVQVRBmJqZyKolz9ce
- SxP5/It1HNlkw==
+ b=Ht++Lp15+r9PU3OmVvg7DLxSKq4dUr4P/hz2SyuPhncmuIpjtZiFTW0bj1YMIb0ju
+ NCDEYyNY+4LKq2WGpP5RvDC3302QuTJezMn9sBfzHTfBFTfAbWIeU9U70JTJ+akojA
+ oDbgRfY8m5mywuMrf1BxMA5kdcX+kgPEn5S4mwfWGBVxHlWctXTb+85RObKzOh0dCJ
+ OMxBgOQe5DrrYF4N3IhKIbMpYkEUyBwTv9uBagoa5h0JwA5RY1pBq9Rvyu0AgZ63o0
+ snbwKGjvH51BFsL9FYf5ArfZkhasCBfowLF0hD3q6GIPN5wep10WqCEychbKTbHKtG
+ +y4/13veZOPeg==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 16FE6C4160E; Fri,  9 Oct 2026 20:28:30 +0000 (UTC)
+ from userid 48) id EEC34C41612; Fri,  9 Oct 2026 20:28:31 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: dri-devel@lists.freedesktop.org
 Subject: [Bug 222109] [amdgpu Picasso 1002:15d8] gfxhub UTCL2 SQC permission
  fault -> ring gfx timeout when DPM forced high (repro on LTS 6.18 too)
-Date: Fri, 09 Oct 2026 20:28:29 +0000
+Date: Fri, 09 Oct 2026 20:28:31 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
@@ -52,7 +52,7 @@ X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
 X-Bugzilla-Changed-Fields: attachments.created
-Message-ID: <bug-222109-2300-teRaysTlox@https.bugzilla.kernel.org/>
+Message-ID: <bug-222109-2300-CTBtbDfqxj@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-222109-2300@https.bugzilla.kernel.org/>
 References: <bug-222109-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -77,10 +77,11 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D222109
 
---- Comment #2 from Alex (aleksey16.11.2000@gmail.com) ---
-Created attachment 311047
-  --> https://bugzilla.kernel.org/attachment.cgi?id=3D311047&action=3Dedit
-lspci -nnk (GPU Picasso 1002:15d8 rev c2, amdgpu)
+--- Comment #3 from Alex (aleksey16.11.2000@gmail.com) ---
+Created attachment 311048
+  --> https://bugzilla.kernel.org/attachment.cgi?id=3D311048&action=3Dedit
+package versions (kernels 7.2.9 + 6.18.55 LTS, mesa 26.2.4, firmware,
+kwin/kitty)
 
 --=20
 You may reply to this email to add a comment.
