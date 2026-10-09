@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF81CA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5945CA9EC5
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAFAE10EBD1;
-	Sat, 10 Oct 2026 12:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4483810EBEA;
+	Sat, 10 Oct 2026 12:37:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YmlBlEw2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a7/Ll5oy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E027D10EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:11:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D208810EAB2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:11:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CE4C76020C;
- Fri,  9 Oct 2026 18:11:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 006361F000FF;
+ by sea.source.kernel.org (Postfix) with ESMTP id B6F4E40AB0;
  Fri,  9 Oct 2026 18:11:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14F1F1F00893;
+ Fri,  9 Oct 2026 18:11:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569516;
- bh=LVsKBqVWvO2goFpEXdlOxthsdTnnCRoJk7yo/PPrnVs=;
+ s=k20260515; t=1791569495;
+ bh=el2jCgXoJXHv+Kw12WkowqS11UrU+02k++d1dTT+Yhs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=YmlBlEw20GnNRAi0WeBFfkS+cdj1zT6uWTbp0O8prPQdyoccO3eXZVZGVr9xsDdBw
- j1uuZZsWOJepfs4c3FO1hJBtW3Sute0o263POAqkrdUQDCSvV+zPmoaCANn1S+IfWb
- jtFQ1Ub9VCpM6VuDJgS4BkSyTMjbYmTrV30UtURfNzoXVhIl551+iV87N9QkBjXFaG
- EWC9lfZE2XE21VTnGzvUZ49H5ybi2jZnnznZqyAMud911Nd5M9PdWWYjmZEq/biNZ2
- AkKA9UuyTiSw8uv1+1WGWXSLSvvpM8VEG0Hym04wvA05kqMQITzi07SzsyPSnsLwsY
- juJmQlICqvk2g==
+ b=a7/Ll5oyWfbHwIZTdPhw1BCs0zSOIpXzIB9G2bV6vu5nmuFmsJ0pdb52fh9rABH2s
+ 96A4dXiIvofjJLpaQ/2+AIypxGZsiKbNt8Nt9m/dXtT3NJbzAAX1Djv4PZ1enJEZvA
+ 94IdhLEAjNBtv/9JhU/sL0NDsFQTy2/rrsErEax1jdpl4wjOUEFkbnCdHWqA8WVoG3
+ YHYKFFIlhxG2/t8YQBZW9WfvXVK+5SdPgQEJ9Hsq3BqUzG0KCpyJ6MSETsoXPD3p7/
+ LWpfPY9G0Op7qqbPkTrtpBd4BrvPufFypLL36yAM0HHuuPUrlE9cWWqF8S6rf6Y1S2
+ iU7TIPpkYAELg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:15 +0100
-Subject: [PATCH v5 21/38] uprobes: remove VM_IO, set VM_MIXEDMAP for mapped
- kernel pages
+Date: Fri, 09 Oct 2026 19:04:14 +0100
+Subject: [PATCH v5 20/38] mm/gup: error out early on !VMA_MAYREAD_BIT VMAs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-21-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-20-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -122,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2123; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Z+RdhWQ0b5VD679RGsODXA4DFYVH3rkRqMWlJZjTGXE=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sx5+Dex2eSZiuQkXsbz1+2f7zK7JGG06cSKn4UuI
- rmz+BV6OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRj24M/zNWe1beyfvX7Prg
- dd2JlczFGW4HTWvnb9+reLfwT1TvlYMM/+O0cqLYTwZyv487XXAnrtX9sZue4+p/Zgc89lxYuqW
- BlxsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1377; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=9EZavFkFq061KOoliOxtk7vpVQljz+WstI3qyeYua5A=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6swJmNKrm3zTdM72XNVZ/SrFRSvX6ZhuzdWoXDDTa
+ /apfqNFHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhI3UyGf4p3p1yyENZf/7rc
+ JbcqbXLih1/8F/b6rt5R9ZVhLj/TnemMDHeE7BZvWvxIqlktUGvDQX5VHsMtLz0CazXNtkR/PcJ
+ SzwQA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -146,63 +145,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These are not MMIO pages so VMA_IO_BIT is an inappropriate flag to set.
+When populating a VMA range via the aptly named populate_vma_page_range()
+an unreadable VMA will always eventually fail with -EFAULT.
 
-Instead, set them VMA_MIXEDMAP_BIT as they are kernel mappings and this is
-the appropriate flag to set for those.
+That a VMA is accessible is always checked, however VMA_MAYREAD_BIT is not.
 
-This provides the semantics required - no VMA merging is permitted, but
-does not prevent GUP.
+All user mappings always have VMA_MAYREAD_BIT set, so this check only
+impacts kernel mappings.
 
-However this has no meaningful impact as these are refcounted and thus can
-be GUPed.
+It is implemented specifically to disallow population of uprobes XOL
+mappings which are exec-only.
 
-A previous commit already prevented __mm_populate() from being invoked on
-XOL areas, which VMA_IO_BIT was previously relied upon to do, so that is no
-longer required.
+A nasty interaction with these mappings may occur if they are mlocked, so
+actively disallow this early.
 
-Both VMAs set a VMA name, so always_dump_vma() returns true before
-vma_dump_size() reaches its VMA_IO_BIT check, and thus there is no change
-in core dump behaviour.
+This allows a subsequent commit to remove the VM_IO check in
+__mm_populate() which otherwise requires non-MMIO mappings to be wrongly
+flagged simply as a workaround.
 
-Change this for both the core xol_add_vma() function and the x86-specific
-get_uprobe_trampoline() function.
-
+Acked-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- arch/x86/kernel/uprobes.c | 2 +-
- kernel/events/uprobes.c   | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ mm/gup.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-index 65a2de82ecd2..0f60c0d076b6 100644
---- a/arch/x86/kernel/uprobes.c
-+++ b/arch/x86/kernel/uprobes.c
-@@ -715,7 +715,7 @@ static struct vm_area_struct *get_uprobe_trampoline(struct mm_struct *mm, unsign
+diff --git a/mm/gup.c b/mm/gup.c
+index c2dfcb4744bc..e6310a7cc05b 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -1836,6 +1836,10 @@ long populate_vma_page_range(struct vm_area_struct *vma,
+ 	if (!vma_is_accessible(vma))
+ 		return -EFAULT;
  
- 	*new_mapping = true;
- 	return _install_special_mapping(mm, vaddr, PAGE_SIZE,
--				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_IO,
-+				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_MIXEDMAP,
- 				&tramp_mapping);
- }
- 
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 7709ea882477..b89cc5cee002 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -1726,8 +1726,8 @@ static int xol_add_vma(struct mm_struct *mm, struct xol_area *area)
- 	}
- 
- 	vma = _install_special_mapping(mm, area->vaddr, PAGE_SIZE,
--				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|VM_IO|
--				VM_SEALED_SYSMAP,
-+				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|
-+				VM_MIXEDMAP|VM_SEALED_SYSMAP,
- 				&xol_mapping);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
++	/* Unreadable VMAs also cannot be faulted in. */
++	if (!vma_test(vma, VMA_MAYREAD_BIT))
++		return -EFAULT;
++
+ 	gup_flags = FOLL_TOUCH;
+ 	/*
+ 	 * We want to touch writable mappings with a write fault in order
 
 -- 
 2.55.0
