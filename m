@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A0F7CA601D
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:14:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8E62CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:20:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F11B10E5E4;
-	Fri,  9 Oct 2026 11:14:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E24E6112068;
+	Fri,  9 Oct 2026 11:20:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P96Vx3HG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RG+mBBEK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7183C10E5E4
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 11:14:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3378112068
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 11:20:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8AED860534;
- Fri,  9 Oct 2026 11:14:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26EE1F000FF;
- Fri,  9 Oct 2026 11:14:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 61BBE4033A;
+ Fri,  9 Oct 2026 11:20:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1111F000FF;
+ Fri,  9 Oct 2026 11:20:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791544468;
- bh=wAlmfTO1x8ZGuIrBVnjfCIbThBR9a4CfW10WL3eQS7M=;
+ s=k20260515; t=1791544816;
+ bh=0o1kK6fZkQXjnkYxsuaH1QSfO7UyFiC+mO/coJPFJLc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=P96Vx3HGBtOYuWHSnBl8hVuig9QLG7UyK8EDObvwgJBfuB/QmmBDPaK8cQDB8PBMa
- JbIZlb9gDD7cRfa1gmsSjpE2B6zti95nLR8g/IR/ynRYVi0aicL1BjP2iQJQ9RsdlP
- AXZA8y7i6NC93LKx7PV+tXIYk+kn5tAscrv9x5GubMOGVtxT1QN0TtSLcGFWmklQt8
- Ics8hnLFKmzf485VHwIaVv+JBuuR6NSLngtdhg9fLrEpfsLnEQOgbUs20rGrdRw5xn
- SMcYpPXQzhqeC4y8bPybn/2LSDqgiLb1yBFXVD1ZjVKl/RFrbR6SonelaTJhEI44pT
- Gu+PE6reFhT4w==
-Message-ID: <sashiko-outbox-165335@kernel.org>
+ b=RG+mBBEKabQUgfgmbPasX/MSSkpLHhuY6DS6ZI+rY2e7HUhhytKXOXAJdq7oBtmtY
+ FfDmJhyBylKgRGP0puMj+jNvDYdizfF7HbmTWNebVr4i1m+nf9OPuTSy1kJesVipEo
+ biqNxDqgycmNbG0zrJ5+B2wJ9Xh9KP3Ll0HfamzTef/vohfUQvzKvx1OP5Gr7jH47f
+ 2Z3L4JZUrbo1c8pz1OKACGSH0ELIhSXPJVoR3tZNkkLuWRTvpLi31NVciL6BFEzzcv
+ utqnSLSVJ16fvEe1hVsawL0nRG0RgkDc/ubyG/65i5IX7+uRKcGCiboDyi4p/I6XNp
+ 4xvpWaU6ybokg==
+Message-ID: <sashiko-outbox-165352@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009105601.301891-2-quchaosheng000406@163.com>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
- <20261009105601.301891-2-quchaosheng000406@163.com>
+Subject: Re: [PATCH v2] drm/imagination: Improve logging of unknown freelist
+ IDs
+To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261009-b4-improve-logging-of-unknown-freelist-ids-v2-1-5e6c3f63370e@imgtec.com>
+References: <20261009-b4-improve-logging-of-unknown-freelist-ids-v2-1-5e6c3f63370e@imgtec.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 11:14:27 +0000
+Date: Fri, 09 Oct 2026 11:20:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,63 +59,82 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: display: ti,tpd12s015: gpios lacks minItems: 3 and is =
-not required
+- [High] drm/imagination: missing lock around free_list page accounting
 --
 
-commit 0e47bb58ccd4af1df6d3ff49895c7cf9fbc75cb8
-Author: Chaosheng Qu <quchaosheng000406@163.com>
+commit 26a8dc61d661134bbaa586ea04b036fc6a817608
+Author: Alessio Belle <alessio.belle@imgtec.com>
+drm/imagination: Improve logging of unknown freelist IDs
 
-dt-bindings: display: ti,tpd12s015: Convert to DT schema
+This commit improves logging when the driver receives freelist grow or
+reconstruction requests from the firmware for unrecognised freelist IDs.
+It replaces a WARN_ON() with a ratelimited warning.
 
-Convert the TPD12S015 HDMI level shifter binding to DT schema.
+Link: https://patch.msgid.link/20261006-b4-improve-logging-of-unknown-freel=
+ist-ids-v1-1-96ebcb132b80@imgtec.com
 
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.ya=
-ml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> new file mode 100644
-> index 0000000000000..1927da3bd7361
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> diff --git a/drivers/gpu/drm/imagination/pvr_free_list.c b/drivers/gpu/dr=
+m/imagination/pvr_free_list.c
+> index e85cac83834c6..ec02fbbe0168b 100644
+> --- a/drivers/gpu/drm/imagination/pvr_free_list.c
+> +++ b/drivers/gpu/drm/imagination/pvr_free_list.c
 [ ... ]
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,tpd12s015
-> +      - items:
-> +          - const: ti,tpd12s016
-> +          - const: ti,tpd12s015
-> +
-> +  gpios:
-> +    description:
-> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first contr=
-ols
-> +      the level shifter, the second enables the level shifter outputs and
-> +      the third reads the hot-plug detect line.
-> +    maxItems: 3
+> @@ -367,8 +368,12 @@ void pvr_free_list_process_grow_req(struct pvr_devic=
+e *pvr_dev,
+>  	u32 grow_pages =3D 0;
+> =20
+>  	/* If we don't have a freelist registered for this ID, we can't do much=
+. */
+> -	if (WARN_ON(!free_list))
+> +	if (!free_list) {
+> +		drm_warn_ratelimited(from_pvr_device(pvr_dev),
+> +				     "Received freelist grow request for unknown ID 0x%x\n",
+> +				     req->freelist_id);
+>  		return;
+> +	}
+> =20
+>  	/* Since the FW made the request, it has already consumed the ready pag=
+es,
+>  	 * update the host struct.
 
-[Severity: Low]
-Does this schema accurately reflect the requirements for the GPIOs?
+[Severity: High]
+Are there missing locks around the free_list page accounting in
+pvr_free_list_process_grow_req()?
 
-If a device tree node defines fewer than 3 GPIOs or omits the property
-entirely, it will pass schema validation since maxItems is set to 3 without
-minItems: 3, and gpios is omitted from the required block below.
+Right below this change, free_list->current_pages and free_list->ready_page=
+s are
+modified without holding free_list->lock:
 
-However, both the DRM and FBDEV drivers unconditionally fetch index 2 (the
-HPD GPIO) and fail probe if it is missing:
+	free_list->current_pages +=3D free_list->ready_pages;
+	free_list->ready_pages =3D 0;
 
-drivers/gpu/drm/bridge/ti-tpd12s015.c:tpd12s015_probe() {
-	...
-	gpio =3D devm_gpiod_get_index(&pdev->dev, NULL, 2, GPIOD_IN);
-	if (IS_ERR(gpio))
-		return PTR_ERR(gpio);
-	...
-}
+The FWCCB processing loop (pvr_fwccb_process) drops pvr_dev->fwccb.lock bef=
+ore
+calling process_fwccb_command().
 
-Should the schema include minItems: 3 under gpios and add gpios to the
-required list to ensure device tree configurations that pass validation don=
-'t
-silently fail during driver probe?
+Since pvr_fwccb_process() is called by both the IRQ thread
+(pvr_device_irq_thread_handler) and the release path (pvr_free_list_release=
+),
+could multiple threads concurrently pull commands from the global FWCCB que=
+ue?
+
+If pvr_free_list_release() runs concurrently with the IRQ thread, it appears
+they could execute pvr_free_list_process_grow_req() or
+pvr_free_list_reconstruct() for the same freelist concurrently.
+
+Could this result in a data race and corrupted page tracking, causing the
+firmware to access unmapped or unallocated memory (GPU MMU fault)?
+
+Additionally, after pvr_free_list_grow() returns, the fields are read again
+without holding the lock:
+
+	resp->new_pages =3D free_list->current_pages + free_list->ready_pages;
+	resp->ready_pages =3D free_list->ready_pages;
+
+Could this create a time-of-check to time-of-use vulnerability where the va=
+lues
+are modified by another thread before being used to populate the response?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009105601.3018=
-91-1-quchaosheng000406@163.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-b4-improve=
+-logging-of-unknown-freelist-ids-v2-1-5e6c3f63370e@imgtec.com?part=3D1
