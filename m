@@ -4,55 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98028CA5FED
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 08:33:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AC8ACA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 08:34:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA4B210FFA1;
-	Fri,  9 Oct 2026 08:33:35 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4872C10FF9B
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 08:33:34 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
- by APP-03 (Coremail) with SMTP id rQCowAD3AUDVpshqXmkgCg--.113S2;
- Fri, 09 Oct 2026 16:33:26 +0800 (CST)
-Message-ID: <79d0e9e21b47551b73413b6938c403a5af5f6bb4.camel@iscas.ac.cn>
-Subject: Re: [PATCH] drm/loongson: Fix framebuffer selection in async cursor
- updates
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Evanshenf <archwse@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
- Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>, kernel
- test robot <lkp@intel.com>, stable@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Date: Fri, 09 Oct 2026 16:33:24 +0800
-In-Reply-To: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
-References: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A52510FF9C;
+	Fri,  9 Oct 2026 08:34:40 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="G3JmpNuR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h5zGpJQ2";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA0710FF9C
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 08:34:38 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6998KMDt1223197
+ for <dri-devel@lists.freedesktop.org>; Fri, 9 Oct 2026 08:34:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=pKNoPzYs9svU6eazntWGtkQq
+ 4hl2TnKUIjurAm47tJA=; b=G3JmpNuRKq8VIslY+OgL6deVdaPG4ukkBvVnmJYO
+ ePlZqQOBaIg7OaQgHr0rFOCWAnkM1tiBgsQRfSVqLtLG8mawsSz74HInpJL4Gsj8
+ 1T5V7KuYgH4ALnWjD3guijJhwqN4yXLN8+AA4keRSG2t6p0g3arVUSKhez0hCWxR
+ eRqvCxI5AZwi/ADYQXmEStlVLy4gDiNnZTdSy9KvnhpJXW0V61vpJMF+31zx81xa
+ Zarwiwhg0rfx6XsZw5ck4kF+3Qw339Q1kW6jbV3HmDDGDjExPeddDPYHPh6vlc44
+ tojO+ISeb+xbMGARcO1zwCYImtm/IC2hEwNtVn9UqiRhug==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxkam13-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 08:34:37 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93cb6391e89so1220192585a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 01:34:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791534877; x=1792139677;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=pKNoPzYs9svU6eazntWGtkQq4hl2TnKUIjurAm47tJA=;
+ b=h5zGpJQ2RM9eI+wdu+p+p3NVnYiHtNdJLxbWoGZlbBYwm8OoCvwsGDPlLZlweqtFlD
+ tr7erdPvXhDT9pEfTl+kUVTRRxLqlYEOzSslSwKRY45VdK+ft0vXrkDMvNtNK9HvlTwr
+ F8tdLntxRJ1y6Y24/tJBShJPTkZ9zWRE5/ML8BwB/JrgwAQcKwIAIbha+81mmwVJj6x9
+ 54BXB2cJuqsWgyVF1Mob1ePZIC+5kRdxHYmmsZlF9/Q6a+96S8RRlHCn1xg8wj31oGGZ
+ cgVdIYPeVpL4Lf/wBJvU155Zg7Dq71R3FSgZqHFWUV8NNVOjxr7nzavEZ9gucs555wjh
+ cRjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791534877; x=1792139677;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=pKNoPzYs9svU6eazntWGtkQq4hl2TnKUIjurAm47tJA=;
+ b=mwD6sUVbYja6+1CATEPBwoir8sgFIzWQ4xvWiSHJCxoiDSWZJO2moDRKbDFwPvgc3I
+ 5HhvGFg1y5O0fjE/4DvnxENt0YSUEQBhPdGdt2NQ0PLIEOlIaRyAOJw8DLB2LslPS3Xh
+ 1VZ+yxA2hcIUATsltIk5vRPAPX0hQ4NO0iAFbgc+/RC+TYWps7o/hfOzgnFOpxZYWj74
+ NpfDYNTaSu5snYiK4FSXIWH77DkU1yZkNEOhYcMQbHBQkUI9Ms3Q7HufdykrJYbCSu94
+ 16O+at2VqUZkFd10gtCaUmRoVRUbdSAAiFqt7iGJRstnuJgOWcZUUADPdzSM1l4L9c+3
+ rpGg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx1KR5uXs5Cq0HH3Vv5UT8dhSJgi7IZip+kvpan7FCkGQseX7Izm6r4RcB3U3rzUtvBKaBjdFRS4ew=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lbL6BGUHG1x3tz2NM1ZtdHwTWPtqTJNeHvSo4TWQCq7D9Pe+Uo
+ 3EqhkZJ4P9RfTD/cFR699Tl2qOkPv0NFQv2qneNam42sw5RFA4ywp0DpCbZRGzcFqLukX5qP5tS
+ FHP6eMGaFXYdNkZQU67NmV4uM2XIku800fm/QFmXM0nfIfcV96Fnz24jy3vJja6+AXgZhTps=
+X-Gm-Gg: AYBFou0jvDqnfTR0MiTdxXPWer3PwZTv9GI05LQYXdVni6pfCgduZZSNqpqo01HxAe7
+ PBoVPQ34th+Nrms65jNE3GFermrMh83nmvo0avnw8HiwnTEvACM7LtFf+ZI1JDE6U7wpM2pWnjH
+ ObcxEc6Jx8E14Hf3fHRSPovjgCKS3fS+2L2fG6cDTBfAkORAyjy1y2lGNZ9Znxm9ES+vQ+XY8p2
+ 73ecV2zTbmfRnPjtG6h0E9hwNsiCVP53MQKU33JLjxRq3wGe5EnB6jlM6eXzr+8MgCT3YCIyWyX
+ u9Pmilyh+r/cD1LiwGqEd5bn0Hzy61UMx0xgFGwzGZ5G3Qk27IeXpVeOnMtOF301ySmwxL7yZy7
+ gF9li1XQWDat5msfc1SufZdzuux29nOnlaH+8vO4RDSJ2ntTHZvlo1YMhePaWBgONcAIyKlzhq8
+ dXO88Xnfd6y3ft
+X-Received: by 2002:a05:620a:468a:b0:939:57ca:7e08 with SMTP id
+ af79cd13be357-93ebd0e4190mr162078885a.2.1791534877291; 
+ Fri, 09 Oct 2026 01:34:37 -0700 (PDT)
+X-Received: by 2002:a05:620a:468a:b0:939:57ca:7e08 with SMTP id
+ af79cd13be357-93ebd0e4190mr162075985a.2.1791534876796; 
+ Fri, 09 Oct 2026 01:34:36 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3a9c3befd30sm4730841fa.3.2026.10.09.01.34.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Oct 2026 01:34:35 -0700 (PDT)
+Date: Fri, 9 Oct 2026 11:34:33 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] arm64: dts: qcom: kaanapali-mtp: Enable USB headset
+ and Type-C accessory mode
+Message-ID: <ytqzmngqzb2ear5ovqexrzcw63t7plac7hvsbh3ce32krt4mfd@e3yyzs6y5anq>
+References: <20261005-kaanapali_dp-v1-0-6faeac3a6d59@oss.qualcomm.com>
+ <20261005-kaanapali_dp-v1-4-6faeac3a6d59@oss.qualcomm.com>
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowAD3AUDVpshqXmkgCg--.113S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw15Aw4kKw1xGry7tF48Xrb_yoW5GF18pF
- Z8t340kr4kJw4vvwsrCF1fXFWfuan3WFyxKFyDGw1jgr1Yyr1xZr4xCw4UWr47ZrZ7W342
- vFsIkFn8KF4vyFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxU2wIDUUUUU
-X-Originating-IP: [112.94.100.127]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-kaanapali_dp-v1-4-6faeac3a6d59@oss.qualcomm.com>
+X-Proofpoint-GUID: ovAHyoaeMO4x12009xD9-cUK9Hx7mrgl
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX/TvYog4ppsFU
+ srRRNMg9IA0AMjaOfYqP77FR8wKdGTn0xpsvaghk9hc8y4at1VtV6EimptsM+LVg0cVkrFpARlX
+ 0hOmTAPYkPvyOl2WHq/5mPx7g7eqi/E=
+X-Authority-Analysis: v=2.4 cv=Cs0q4X4D c=1 sm=1 tr=0 ts=6ac8a71e cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=bh13_d1_8jtD0fUh7gcA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfXylWOgKz+j3Dw
+ lhm2T/DXX8hOg/mGs0kzNSBOef9tgQKKtBepAFrGccoFX4eabGYoc6CrKNJ+O6uE+W5Mwa+D0zY
+ wNGm3K5TcSnoWIy2duQwN9dwJQgw/+Il9zFjLu6rMo7u/J+NYISSZ6mC34wxiC42GsBaUHMpITR
+ eyW57FKGBlj55d1q+HlIU20gp+YgjhNcRk0TBye8hXTLzJ/akEg0bcfmwjRvCEpw4SDrPlejlCr
+ dlE5CRZa69Yy/wUizDfIBxvJHtQhyG95AQSdsXVLvSJsaHdqBC2r8ZjXyT26sHh5+4x1si4PvdX
+ n3N9UoTfS1YVBOg4wrOf1O9vA+2vu5cNhLKLbyu5dduJjcEGqg8+T5G7kLiPHc/YjYYfULdgB05
+ pey9B6q1xVWe8BO7SH+XWuLv7/uazk7zmVJeDVIZxfVJCpj6ehUCq+Av1y/nuwbSfROCmvNVhFR
+ vSUo39HhZAtSh3tPwBQ==
+X-Proofpoint-ORIG-GUID: ovAHyoaeMO4x12009xD9-cUK9Hx7mrgl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610090032
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,77 +162,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(Cc'ing drm-misc maintainers)
-
-=E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:00 +0000=EF=BC=8CEvanshenf=E5=86=
-=99=E9=81=93=EF=BC=9A
-> An asynchronous cursor update swaps the new framebuffer into the live
-> plane state. However, the driver reads both old_fb and new_fb from
-> the
-> live state before this swap. When an enabled cursor changes buffers,
-> the
-> address-update condition is therefore false and the hardware
-> continues
-> scanning the previous buffer.
->=20
-> Read new_fb from the new plane state before swapping the framebuffer
-> references. This updates the hardware address when the framebuffer
-> changes while retaining the existing behavior for cursor movement.
->=20
-> Verified on a Loongson 3A5000 with LS7A2000 using 32x32 and 64x64
-> legacy
-> cursor updates. Callback counters and read-only register observations
-> confirmed the asynchronous path, the stale address before the change,
-> and the new address afterward. Same-framebuffer movement and cursor
-> disable/re-enable also passed, with the primary framebuffer and mode
-> unchanged.
->=20
-> AI assistance was used to investigate the existing report, prepare
-> the
-> fix and test tools, run the build and hardware comparison, and draft
-> this message.
->=20
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes:
-> https://lore.kernel.org/r/202311152357.4KFS0M8f-lkp@intel.com/
-> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
-> controller")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Evanshenf <archwse@gmail.com>
+On Mon, Oct 05, 2026 at 12:54:29PM +0530, Balaji Kalkonda wrote:
+> MTP does not have audio jack connected and relies on USB mux (WCD9395).
+> Add necessary nodes for proper audio headset support along with USB
+> Type-C accessory mode and orientation.
+> 
+> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 > ---
-> =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
-> b/drivers/gpu/drm/loongson/lsdc_plane.c
-> index bcc0ffa..7b9c65c 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-> @@ -230,7 +230,7 @@ static void
-> lsdc_cursor_plane_atomic_async_update(struct drm_plane *plane,
-> =C2=A0
-> =C2=A0	new_state =3D drm_atomic_get_new_plane_state(state, plane);
-> =C2=A0
-> -	new_fb =3D plane->state->fb;
-> +	new_fb =3D new_state->fb;
+>  arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 51 ++++++++++++++++++++++++++++++
+>  1 file changed, 51 insertions(+)
+> 
+> @@ -916,6 +926,42 @@ &gpu_zap_shader {
+>  	firmware-name = "qcom/kaanapali/gen80200_zap.mbn";
+>  };
+>  
+> +&i2c3 {
 
-This change looks okay, although I don't know whether the
-atomic_async_update() hook should be implemented at all now.
+No clock-frequency?
 
-```
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-```
+> +	status = "okay";
+> +
+> +	wcd_usbss: typec-mux@e {
 
-However, please wait for further clarification of the function itself
-from drm-misc maintainers.
-
-Thanks,
-Icenowy
-
-> =C2=A0
-> =C2=A0	plane->state->crtc_x =3D new_state->crtc_x;
-> =C2=A0	plane->state->crtc_y =3D new_state->crtc_y;
->=20
-> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
-
+-- 
+With best wishes
+Dmitry
