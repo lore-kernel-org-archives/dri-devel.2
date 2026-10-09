@@ -4,51 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D393CA9EBB
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 21:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E61DCA9EBE
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 21:16:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70D4E10E565;
-	Fri,  9 Oct 2026 21:00:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C1510EB38;
+	Fri,  9 Oct 2026 21:16:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ZljA2DY6";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cG+2CrOd";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 660BD10E565
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 21:00:13 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3593A204C
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:00:09 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 4B7F73F763
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:00:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1791579612; bh=yVxRx8Iwa/de/sDhPPSGo7hWUp05Xa6aoPl2C0SywbM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZljA2DY6Lc3DXE7zduaozBWLL2Oc6KyBFfE6oqkHbLlzNYJyJyR4hzrm9tJ97X4oR
- 0I8fMwF/vcTWqrXL4wKj6ziWMVznwugJ8CoWhKqEjrmTU4Qq6wQO0d8kj9vpxLT/es
- sqeVnwjn0c8UGHqdYA545Jzfz65wyr6V9pxD8V/k=
-Date: Fri, 9 Oct 2026 22:00:01 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chia-I Wu <olvaffe@gmail.com>, Akash Goel <akash.goel@arm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
- check and erase
-Message-ID: <aslV0W5wpa_xHb1E@e142607>
-References: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D476110EB38
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 21:16:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E427D60200
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 21:16:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CDBB1F0089D
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 21:16:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791580608;
+ bh=pOjh8O8Oq6aRVh6JgsLLuSInkH3+kGN0eVIPZ+j+jmc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=cG+2CrOd/QgTwToV1AwTrkzyFuPmqfc73GdFV7wNvYOFnXZWbZWW/rrgmv46M8QYd
+ /coo1iRKTKUtKMdYTOT9l2sZy7jyZF6JHKG42SK9Yvohzctg1HD/lqYGjIZ9leOfAE
+ tV94AUotzs5KkNtvmqM0jwdlURnWerRBOt1KAvdHH9uVLTv8lBAUYBGp+WV/73feVu
+ SP0MhUlNc6O/DtAyJEWAWEmsKbt5y5f2OTFgYewpx1UmHilkQ/atenLnBQ23ZWxisa
+ wVylB5egjye+9e7J6pojE2czF6KCRzjr2GjzIFc1QRrtLA3ggcgPhYLStpTLCEqGG6
+ z3/NcrfY8ydGg==
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-3a9cc82ef31so2140171fa.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 14:16:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw0V65xliRyxVIpwJKp1zxbiGosCHKLlgo0kiuOwXptZPZ9YFYRp5NhPTn0GrYGzJao8xiTyjd2yPE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKU4q1/rgFG7xqfHsNzZlQ8NTGbM7mViRKy4PbM8zub4ZHYakae
+ qlZpUCuyWIxvSZgNSWSBLEnBnu9GBv2aC/LDRvtqJ9Jt8Uuw/EsdFL8g0VsAOFJyf89XoSqoaJ4
+ 3B4haRONg5xVCJuIsWVtGyUBPdXHSxJg=
+X-Received: by 2002:a05:651c:198f:b0:3a7:69bd:80ad with SMTP id
+ 38308e7fff4ca-3a9c5253754mr7279251fa.6.1791580607219; Fri, 09 Oct 2026
+ 14:16:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
+References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
+ <20260921-ux500-power-domains-v7-1-v3-5-9352be6b86b1@kernel.org>
+ <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
+ <CAD++jLm+yRo9e1UDhnaYrdPq28mdyYKQZ6tdKuUa3UG85imkNA@mail.gmail.com>
+ <20261009131902.GA1195061-robh@kernel.org>
+ <CAPx+jO9F6wUG9M_cV-xiF-KAKD5kJ02n+yE6L9vocs=KWaKFTw@mail.gmail.com>
+In-Reply-To: <CAPx+jO9F6wUG9M_cV-xiF-KAKD5kJ02n+yE6L9vocs=KWaKFTw@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 9 Oct 2026 23:16:34 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkkWUpkg6gwZuRzwwLU5E_9AsLiv8PSjT04dvNFj4DBBA@mail.gmail.com>
+X-Gm-Features: AclHuK9p2mVaeX7VK8JUI4a76kwVWB2K8tlFEwycQPwaH1SFyM2rvP_ArIybIGc
+Message-ID: <CAD++jLkkWUpkg6gwZuRzwwLU5E_9AsLiv8PSjT04dvNFj4DBBA@mail.gmail.com>
+Subject: Re: [PATCH v3 05/18] dt-bindings: display: ste,
+ mcde: Allow power domains
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Mark Brown <broonie@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Lee Jones <lee@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,72 +86,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 08, 2026 at 12:09:35PM +0200, Osama Abdelkader wrote:
-> panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
-> xa_erase() without holding the xarray lock across both. If the handle is
-> destroyed by another thread in between, and a concurrent GROUP_CREATE
-> reuses the freed ID, the first destroy erases and releases the new,
-> still-initializing group, leading to a use-after-free in
-> panthor_group_create().
-> 
-> Do the mark check and erase atomically under xa_lock().
-> 
-> Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
-> Assisted-by: Claude:claude-opus-5.5
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+On Fri, Oct 9, 2026 at 4:38=E2=80=AFPM Ulf Hansson <ulf.hansson@oss.qualcom=
+m.com> wrote:
 
-Pushed to drm-misc-next.
+> I have queued up three patches [1] for next from Linus via my pmdomain
+> tree. The patches are also available for you to pull via my immutable
+> dt branch. I assume that should resolve this problem?
 
-Best regards,
-Liviu
+Way quicker than sending and having a revert accepted, and
+way way more productive :D
 
-> ---
-> v2:
-> - added Assisted-by tag, no code changes.
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 0493858e55d7..a343c5180e01 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_device *ptdev = pfile->ptdev;
->  	struct panthor_scheduler *sched = ptdev->scheduler;
-> -	struct panthor_group *group;
-> +	struct panthor_group *group = NULL;
->  
-> -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> -		return -EINVAL;
-> +	/*
-> +	 * Check the mark and erase the entry atomically, so a concurrent
-> +	 * destroy + create can't make us erase a group that's still being
-> +	 * initialized and happens to reuse the same handle.
-> +	 */
-> +	xa_lock(&gpool->xa);
-> +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> +		group = __xa_erase(&gpool->xa, group_handle);
-> +	xa_unlock(&gpool->xa);
->  
-> -	group = xa_erase(&gpool->xa, group_handle);
->  	if (!group)
->  		return -EINVAL;
->  
-> -- 
-> 2.53.0
-> 
+Thanks Ulf!
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Yours,
+ Linus Walleij
