@@ -4,69 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D9B5CA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:36:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 167C9CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:38:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33FC610E651;
-	Fri,  9 Oct 2026 14:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3160C10E96B;
+	Fri,  9 Oct 2026 14:38:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="GC2wHIce";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VbYUQwuJ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PAYC+IWe";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C586112192
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:36:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791556590; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=nXhJggP73UHG7VkWulp5vqTh3BP6i7wGtgpkYOKUPOM+U/DzbpruJR/ymLbV6W5A7VrGFJFePxlIrWKqsm5DAyOZXN0BtWbeOMX3QdQCsEWJWHImyT2Or4aWCPWTAvgvht+8O/RHlrtpjIoqWECUU/UmN5eHIImEHr+UT2Mssvs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791556590;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=g4UUnYhHV7ucZE6mbImtigGPnQ4SPA1INEgqC2/4t4M=; 
- b=BJP+s4ZrZgogIh2zHi2NnR8WAU/Lxq8QPu82ysdraYJBDRFlVTb2vRNZiklQ+ZsXrsr0XLmr1RdM+s7WLlaZNgpQM7JjqlxqDHgrgcTISm3Do4LCvFz0fAoCqjI2/n5/DRWXJO3zaRMjj4ynbkYjCMmJ/WDbI7LVNbHnHEy1I+E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791556590; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=g4UUnYhHV7ucZE6mbImtigGPnQ4SPA1INEgqC2/4t4M=;
- b=GC2wHIceWth6rBpgcOPzsl3yXK8F1YE5FnWs6ql6bagW8xh78+g7XtzA2VHQ+OIG
- 35EfNElXdnDKSUeIvHcbg+KHV2qcZ0ILHmQUxTkv1HMT7AbOg6E4R6CAf1Zf5yfMlcv
- 95+X5YbZersRMSj1tN6KPn77cl1Bz2t8PZkVGJAg=
-Received: by smtp.zohomail.com with SMTPS id 1791556588006355.21426914343954; 
- Fri, 9 Oct 2026 07:36:28 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v3 07/11] drm/tyr: add VM-related ioctls
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260929-tyr-ioctls-v3-7-26955fb111d5@kylinos.cn>
-Date: Fri, 9 Oct 2026 11:36:08 -0300
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
- linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- driver-core@lists.linux.dev, Alvin Sun <alvin.sun@linux.dev>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D693710E96B
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:38:22 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 699DKeBu887308
+ for <dri-devel@lists.freedesktop.org>; Fri, 9 Oct 2026 14:38:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UMVpMFCHtMG0Xn67lqGB8w67sz48UmLUXf0QKHiAu9Y=; b=VbYUQwuJPCbtoeVX
+ m7otJFYOvB2nJ/0eD5rMovP6i9TEsL9EsY+aAjWGwu4BLzi+Cow5JCrCB0CpVwpc
+ KCqXEBJThkepkP4ptknCDiKzHIua9stKQaMJCjZ2OedHblO1CwJtlYJe5tyV9rpu
+ zuH+iDR3Gu/xBamKr5oMgVhPrcqdRvt9a6NZNcjuUgHnC/Nzg262hRdLYGi+Lh06
+ YBh4CgVsDbBkT7VgKX38+3M/mXE1SkgvkmZY007Urf4ET0KiRlXMmeMGuIl3ut8G
+ 4IeuA77qbU7JY5aafiRsZCu/gCck2jBsIXIWm8E1ufCYrq96pI5kCmefSMsxzfrZ
+ bOVO0Q==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxu3xp2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 14:38:21 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-cc1ca15334cso6534217a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 07:38:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791556698; cv=none;
+ d=google.com; s=arc-20260327;
+ b=AOl7JnywUU6JVveEunv3hEJOtKEgjmYXywgwk47+7m6L9fyJTugGM3VC9iUVO6x1JR
+ euGcn3qp+0wR3upJ/6UKWClem3bzCH+vJztbvTCqb+ug9tIETxB7SSNIGl+PV5J5Cc7w
+ /lmPgrvdD8O6Bw4KTkzjBXemfVvvHJ2za5sCrw7eP4nsntUCFp4YAj+zGanOodwsvOl2
+ 9lOmAgSJAFcOJFQ7lGSJl0Is9JCITUBEz8epgG25Gwmg0dvJhrISP0UYVL40m8s/kdim
+ NnrWdwOdHnw9gY/cTIx+39pPUwPPBFI5izvvZhFRDlEPosa0S3QeQWLS6aQACPn/wpd8
+ 3llQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=UMVpMFCHtMG0Xn67lqGB8w67sz48UmLUXf0QKHiAu9Y=;
+ fh=ApWd12nLBkAagkm9muTENqXE4gPQuuUpA5d5jT/B1HQ=;
+ b=qQxHvpboIJ42uVe8eX7NE0PX+Hm8fQQNCXUnhcFUsRIFBJKysqqjRHZs0gYv/qXr1p
+ Z5WMQrUau6lA1EPiK2TKib6EcK4hHpUYN+3bri1wtkIFQJOBE4k3zo29q/0qBNSNinf+
+ FmWu6+/swiJ8ZyZJROM4Zt64r8kLCxjV1hU12CQ72Zv7cpk2PzW+nV36SzCpfyJ5YI3b
+ KuYHesIYJcNmDMcxC3xbeL9NuDRTi/gpnoD8/q+rR6y3Vnm8kMUG6ix2D9Hl16GrJFJQ
+ CGaWyJJIxgrS3uufm6XF5tvhBPIjtAgE7uL3oCa6/DmSLOWAmtFN3VqiXYwFx8hm/ZAZ
+ jzXw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791556698; x=1792161498;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=UMVpMFCHtMG0Xn67lqGB8w67sz48UmLUXf0QKHiAu9Y=;
+ b=PAYC+IWeHhg0qRUCbH6LBH2mZFcR9+4uj1rbf1GFn9HIulSjYN6+t1xVrSJvB2CCfZ
+ D8WVkmQD3SpEN8VnZdKRsofWmJYaWeqKQ33mhaHMrKzuzXn8rTo6duvexcoIMTfZb2TI
+ hshd1LjKOGp7hNMlWWKrdDsgrFOxu+/XKO8+bFLvIZkpAjQx6Jw9wKBkLgQZZ2pfgCME
+ H+jEzYCs9YNkcumALkHli9EYFcrNJs0fCO9LTy5W6YRilfVbAaTO7OOdKaXL7KQEt7aG
+ rLT+EamdHO9l25PR8LXC8L7kyVfRb9NCUd59zx2yaFQKWhCN6cRiPck8YfrZ5e+wANCl
+ lVow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791556698; x=1792161498;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UMVpMFCHtMG0Xn67lqGB8w67sz48UmLUXf0QKHiAu9Y=;
+ b=Rry0VxOqY71oaPxlUm9VSm2HvJNbb89bMzJNsT0HQ50AGzsK1pRHX2lTbGiXO05MV9
+ oSndjUHt2momTe3Dgqametw/SADJgjO0oA6VXBNorxbbXbki8FRrU/Krbm5flgX6t5TX
+ VRDX1k8c60GxzpigEa+Cohbv1zBJsGZDjRJfMMlddxfYIJT7B+5tqVqciQ4pUCzTsM4r
+ rEDABAfHaj37kk5SSIzM97YUFWdQiRGDfuHOknIZy2dzZlk0dQzmwoCC0m3d8hgmghqf
+ KA0fGYxPoRWwV2TpWD3fO4R0W1MwiYaUOIGnG78WTCaihuiyjfdez60aPa99LUOM8FcY
+ 2Mlg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwyZUrBCPZ1b415fgyJpESjncGZj2oyrLzOdIy1Up5GUfmeZ5OV1r3s6POI7Ul9a0TmM0dF9ZbxSHA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIMUWx9MF67EPgRtYw9+BT8u8TUyNT3iKJtP8Up6D0Q/xeogWz+
+ mULw3ajLVrSnh+CuPt+WHdIY/S/XDX5Sxq+EyQFgWt1sb+UFyme63J68NtaxU0RM6fCwuWkAmG8
+ Pd5ECLXIfMYWu2hfOrlWH2D11Y0ROQOwc0jx824gkCMsD3Ea8l7+r4FmQyhWbUmTKyA2BhSKt8d
+ V4J15uqmDQv0NlWbEKsnlnxsDR73RJvggTGLz5366LL8P7jQ==
+X-Gm-Gg: AYBFou0N8421mY63KkYR+aP93UikkzvstVPfWC8K4ET+fWDDO5ULfvbVQxR+h3GyXC+
+ TNrJLwoERy5Ed1uQx8XxLfm+PqTgdCbmIHiDr9fZD7pmCIM0I5ADbVV/ShCxUqU1jiob6SPv9RX
+ ek8kIrZZy2/JirH8bf5h57arjqHNWC8dzbgK6qzX970hjXQmVkkLqokv9BtQ==
+X-Received: by 2002:a17:90b:1e41:b0:3a8:9b79:e6ea with SMTP id
+ 98e67ed59e1d1-3ab3a96ffd7mr2186013a91.59.1791556698414; 
+ Fri, 09 Oct 2026 07:38:18 -0700 (PDT)
+X-Received: by 2002:a17:90b:1e41:b0:3a8:9b79:e6ea with SMTP id
+ 98e67ed59e1d1-3ab3a96ffd7mr2185985a91.59.1791556697914; Fri, 09 Oct 2026
+ 07:38:17 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
+ <20260921-ux500-power-domains-v7-1-v3-5-9352be6b86b1@kernel.org>
+ <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
+ <CAD++jLm+yRo9e1UDhnaYrdPq28mdyYKQZ6tdKuUa3UG85imkNA@mail.gmail.com>
+ <20261009131902.GA1195061-robh@kernel.org>
+In-Reply-To: <20261009131902.GA1195061-robh@kernel.org>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 16:38:06 +0200
+X-Gm-Features: AclHuK-dvh3nBN-NbcFTG0ZbDjXuEqk09evXIZaWdeTMn5nwqDOFCebwqJJJ9Ag
+Message-ID: <CAPx+jO9F6wUG9M_cV-xiF-KAKD5kJ02n+yE6L9vocs=KWaKFTw@mail.gmail.com>
+Subject: Re: [PATCH v3 05/18] dt-bindings: display: ste,
+ mcde: Allow power domains
+To: Rob Herring <robh@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <D57A468E-4256-40EC-99BB-43B931E0D4BB@collabora.com>
-References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
- <20260929-tyr-ioctls-v3-7-26955fb111d5@kylinos.cn>
-To: sunke@kylinos.cn
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-ZohoMailClient: External
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1OCBTYWx0ZWRfX5OYb3n8eOh0T
+ RkBEON1RARte8aHJG/CVvBV8X4atEmqbm7beGwonM2wAdpfQJyMwgOvzuZx85FSMC8KWJMCWDBy
+ ofLskUHppM7zyu2jQQ++ByiJ3LcuQvnSDSKQCRt4Dwihw4ac5YAn9zWs/5ThvzCl0WvT4vl8GWG
+ xbJd8W11TEWP+2s61aGdi86utKSkqbMkCbGyOrYlZQ0U4XU/wVooZW+YKte9x+PISapp5tapeso
+ lsLZCRE1R2jJeLLygb0cEIGU3dRU/1oyXEQdVxv6bvVoQkVmlTu53lT1UXoei6cMYayE+Twnj5i
+ Gzi94teOAxe66vR2Jq8SEVeafT1CWOizQEJOfoa4CJof/tTCby+/sH2UIp0XvZNeg2FO1Gn06Qf
+ KKIQCDWHRACJodBddz3UPrMq/ulf3ThojN7jEdYHEfd5U89IBJv0R/DRFunewfFzH57v04nbMt5
+ mRfdnqyD0SZIKeQf+rw==
+X-Authority-Analysis: v=2.4 cv=QbjzLcbv c=1 sm=1 tr=0 ts=6ac8fc5d cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=sRttis5sQqJQ8Uet4gEA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: CNQVY6q0KEP7GfGI2e_5_cxqqe2q9S4k
+X-Proofpoint-ORIG-GUID: CNQVY6q0KEP7GfGI2e_5_cxqqe2q9S4k
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1OCBTYWx0ZWRfX4myqGoqhqsB6
+ zxx3V3aYl9E5UsIgo1V/Wu/ZDcPqbpxiZp9JUGb7mi/hE65kkjnLTlnhOuubp5PGLn6J/0t9Ts3
+ kENmuvjxNEEfNZ9rNf+PZ6LvMHcqBDs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ bulkscore=0 phishscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090058
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,64 +169,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alvin,
+On Fri, Oct 9, 2026 at 3:19=E2=80=AFPM Rob Herring <robh@kernel.org> wrote:
+>
+> On Fri, Oct 09, 2026 at 07:05:46AM +0200, Linus Walleij wrote:
+> > On Thu, Oct 8, 2026 at 7:41=E2=80=AFPM Rob Herring <robh@kernel.org> wr=
+ote:
+> >
+> > > > +      power-domains =3D <&pm_domains DOMAIN_B2R2_MCDE>;
+> > >
+> > > This patch is in next, but the define is not breaking dt_binding_chec=
+k.
+> >
+> > I screwed up, I forgot the dependency on the new define :(
+> >
+> > I asked Ulf to merge the prerequisite which would resolve it:
+> > https://lore.kernel.org/linux-pm/CAD++jL=3DgFt9kKZH9T-m8B_pbwRvzc35tTrM=
+n5V238d3528DpUg@mail.gmail.com/
+> >
+> > Is it very urgent so I should just revert it? I could also just merge
+> > the single patch adding the defines into the drm-misc tree if
+> > Ulf is OK with that.
+>
+> 'make dt_binding_check' errors out. That kills my bot for anything based
+> on next which is most patches.
+>
+> You could also just remove the define from the example.
+>
+> (Note that drm folks require a revert be posted and acked or they will
+> revert your revert. I learned the hard way.)
+>
+> Rob
 
-> +
-> +    pub(crate) fn vm_destroy(
-> +        ddev: &TyrDrmDevice<Registered>,
-> +        _reg_data: &TyrDrmRegistrationData<'_>,
-> +        vmdestroy: &mut uapi::drm_panthor_vm_destroy,
-> +        file: &TyrDrmFile,
-> +    ) -> Result<u32> {
-> +        if vmdestroy.pad !=3D 0 {
-> +            dev_err!(
-> +                ddev.as_ref(),
-> +                "Invalid VM destroy pad: {:#x}\n",
-> +                vmdestroy.pad
-> +            );
+I have queued up three patches [1] for next from Linus via my pmdomain
+tree. The patches are also available for you to pull via my immutable
+dt branch. I assume that should resolve this problem?
 
-For invalid userspace arguments, let=E2=80=99s try to use dev_dbg =
-instead.
+Kind regards
+Uffe
 
-Same for other places.
-
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let ret: Result<u32, Error> =3D file.inner_with(|pfile| {
-> +            let vm =3D pfile.vm_pool.remove(vmdestroy.id)?;
-> +            vm.kill();
-> +            Ok(0)
-> +        });
-> +        ret
-> +    }
-> +
-> +    pub(crate) fn vm_bind(
-> +        ddev: &TyrDrmDevice<Registered>,
-> +        _reg_data: &TyrDrmRegistrationData<'_>,
-> +        vmbind: &mut uapi::drm_panthor_vm_bind,
-> +        file: &TyrDrmFile,
-> +    ) -> Result<u32> {
-> +        let async_flag =3D =
-uapi::drm_panthor_vm_bind_flags_DRM_PANTHOR_VM_BIND_ASYNC;
-> +
-> +        if vmbind.flags & !async_flag !=3D 0 {
-> +            dev_err!(
-> +                ddev.as_ref(),
-> +                "Invalid VM_BIND flags: {:#x}\n",
-> +                vmbind.flags
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        if vmbind.flags & async_flag !=3D 0 {
-> +            dev_err!(ddev.as_ref(), "Async VM_BIND not supported\n");
-> +            return Err(ENOTSUPP);
-
-IIRC ioctls should not return this, but EOPNOTSUPP instead.
-
-
-
-With the changes above,
-
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
+[1]
+https://lore.kernel.org/all/20261009-ux500-power-domains-v7-3-rc1-redux-v1-=
+0-5eb1b90bc35e@kernel.org/
