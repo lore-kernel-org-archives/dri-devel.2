@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90110CA6015
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:18:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5157CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C895410FE10;
-	Fri,  9 Oct 2026 03:18:14 +0000 (UTC)
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB79910FE10;
- Fri,  9 Oct 2026 03:18:11 +0000 (UTC)
-X-QQ-mid: zesmtpip2t1791515834tf0417f50
-X-QQ-Originating-IP: EuPfVQdQ7C/DcphIeULq/TvnkWsIwm0C4Knbx2+F2nw=
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3F0910FE25;
+	Fri,  9 Oct 2026 03:18:18 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2AA10FE29;
+ Fri,  9 Oct 2026 03:18:17 +0000 (UTC)
+X-QQ-mid: zesmtpip2t1791515826t0fda5ad6
+X-QQ-Originating-IP: 1m0x0heME81gQiDrvyw1IQiDZIStO9MbFOMmJ8xkQy4=
 Received: from [192.168.30.32] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 09 Oct 2026 11:17:11 +0800 (CST)
+ id ; Fri, 09 Oct 2026 11:17:03 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8697921741928776439
+X-BIZMAIL-ID: 359533307684351837
 EX-QQ-RecipientCnt: 29
 From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 11:15:55 +0800
-Subject: [PATCH v2 03/20] drm/bridge-connector: Attach max bpc for non-HDMI
- bridges
+Date: Fri, 09 Oct 2026 11:15:53 +0800
+Subject: [PATCH v2 01/20] drm/atomic: Handle max bpc properties before
+ connector state allocation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-msm-dp-hdr10-v2-3-1835d4966da3@radxa.com>
+Message-Id: <20261009-msm-dp-hdr10-v2-1-1835d4966da3@radxa.com>
 References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,33 +50,33 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3357; i=sophon@radxa.com;
- h=from:subject:message-id; bh=y8Hk7pwSF01X//hlbGuKeI//kPSXq5QtzgIxRDu/UNE=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlZ8jeQ8yyZ+66e3jMCWDdv2fKs7Zex8UUWxMKvws
- 3KzrkJORykLgxgXg6yYIotCPMNc9srca0/FSvVg5rAygQxh4OIUgIkcOMnIcPXJ64nvDWvMZL58
- scnVvV/ptecT87WDX5137uVsvvhpcgjDX5kTk1U8N8oe3HA+0KBdpXsNs6RraVb75L7665cDNly
- XYQUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5131; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=iY5Uc1xTCGczUi0dqQkmwt1qtcO7yk+6gKr9GQ/UnJk=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlZs31B1zKVURPdXms5Xgb0XHiqV7Y54feWedc4eE
+ SZm2Uy+jlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABMR2cDwh/NZnu31jX6Lqxll
+ dy98ejFAjcdId0Nq03nWSoMXD6eo1DEy9O14VH7ZRCs32K2i/e82Dim96YFzGE+Z+7k7n9y4mTO
+ eFQA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: M7r/zttrUmlkFTN2XrU5vmuMFMgJLiiXfgn0xAvgaT17DsWOf5jccVwm
- Z3Rqn8S8LrjXYfqvf4oPxHarrYfAsNS3PXel2NlFBAvwSPERgF8KklbaXcGiOcbQCLqopIZ
- nk2uUMGi5bIK2t+OlGesHiYE19EcVgKI62EximuEFGCwVD6FCWSa2aHBUTT8akg4ERcnk8e
- IIXsFSpbMuSst7g9HxLm7WAp+2Xeh/MBe0jCkjX67ISlJeSGEItnU4P2naSwBNQg3l81hj6
- oTw2geDZkOpAtb8Wdv4ReXfUMbmXGn8iTiOOInKxt0OcVbXthhCPnMNHt/wgxGqdLDqXWGW
- 4YprvOeWPDs+IvnAo/lvd0tigKhrvXWzSXBTE+ILpTFnqNDgs4P/uy1Y0NCdFVm9Eu1A9yX
- 31AcjxBGDh4cwUoVic8XRDtr6w1St0gC4HWe7zcV2u7LHABPPE73+RMJrQ9ao+s2yJv2uuy
- ePtwFtM57MRQw5DxdpTKXCHARvZFwXlgnA6rffJvDRp1JaVhQVRuAsQ0jNL4BmkyDVNKVAJ
- xWFW5jZWYFgMoTzc2+HOJ6eVGYzLY8XT8RtfpGGinvNPr8/3jLAaOBdi8Y8m3b5XNjUczfi
- kmQM7+UI/c86v1eWxAXu/DbyK9Voze3W3OZMaDUCeTNyy+shWmjs+VtAFap/Top2xd8rUM6
- w+Ekb7zm33i3N7lzqtISEaYyYbC8586Oq1DzX6B7Ei0LU/QImxKXXTkyQc37vdcayuL/KTg
- JyOIERP78xn60+wTFb3hn8vezmE4dp4xYXZjCEUucBP4b8tLBvpzCGrhrsTlMpjea9aBr5x
- AHgJ5FTToo7bbxojLQeieLY9qSzTPe02/6FXsgCo3IhC9k4jXqDAJyhkteuPATQWPavqCNl
- J2sAjhAntMP6oA8JpgnyXXob1wYkYZ3pCU/a4xbrzp2zStH1vZjNaFBygtuKpCU2CazqH1W
- bxX+G0ruAhSC8wIMb0NmBO755vDoM1l/u21W4HsNqSzoMtBgMQUIOYqiXQptH2Z/nr6ADCm
- dh89CzqN/XG3LbGl3PsOoZUscooZmynByI2mxvGFEzj0g3I5Kw
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-XMAILINFO: OY7kNFRo2XI4LjaELtbWp4MX8GvTVWZ5i/VWNxsnow/bbPcfG7q2quAS
+ KBHLk73P9ddghRcc/5BLLAE0LcqFCn1kPXAt/CVYEQNTbxELqAnJLsJTYAnnrzOI9NBj9Me
+ UluLZvF1Kk40VrcsYZlMmE2R8nRRjiDtk+WsyzZuUVS75fEwCxMcJvZxzPGh1hIxF15ctje
+ crDsRiHWg3iea9MGpwzug6GnMvG2soi/DzVtBRSGrHzW40BGsCxSa11ixKisDslVxWamkYY
+ CMdIaYRgd6QgbKdtxvTB511IVT5M7O19T5cST7EUuV9oPFAK89nhCtVBRVWZnYASafOJeDn
+ C23e7oxFSaM9apZtYH1NawA3RT1L7dTGt+2Nri8H02IWdJqjeVVaoaJmKWOBEfbyU2WAyV7
+ QnAFeBu8957IoaSyOlnfYYafM28v3aoYdO7SNTc1OnH2KNWlWsyogQCogmYfEV+t+Epo76r
+ ms9eb3ZNy3r43mpIF6BdESx89gLWXbBTrb6T/OskqObk2FRW3gEs2Nzm6jiJEseCJe9kzF1
+ EPU47iVvlhzZXYEc7sMXUvRqlEyze4+RqKslGfXUif+u7Sv+11asS9cr5WEYHZlV+m7wtLw
+ rbE26/ZLWwCSAO4ag3bTNjjBS57as5ey3ZwCi4Mt0ahIneKvtXc7MkfeMk+ONFICsAW1Pdi
+ RtfYddUsrGBvm86VrIBIk4ReMP4KjlZT2W33oQe3yrXZ4JZJTT08P9A6WNxt8R2N5D31fxt
+ Ur1X6iWht83BtkGZCC/ZRz3KSFeRDQYLT6g6ZeUNbYgKocGTs7OB+tH8bXs2bP9vO5NZcZL
+ hBQwtAvFZN9RVxZ1BcM247m5c2x838HzKTudJUdDCQsFnEbSqG09i7eQ2//YfzLr8z0795e
+ zi0FVikXJEqX9U1ncfeXJ1/lgGsk1WgezI/tEO0t7HrOFPubqF7R9+mlvt1S24iizAvEtRW
+ vLjMiYOwjWTgUbzAcTytiz2sNHyaNPxB3xikzCywy559c+VY8xB8uxGcECgW2qtGkxNo/t1
+ Ir3X+KrauMwgKKOGK5TwkhV1Q7DPRgzYBxWXIi/g==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,89 +93,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Allow non-HDMI bridges to advertise their output bit-depth limit through
-max_bpc. Attach the max bpc property when the lowest reported limit in the
-chain exceeds 8, ignoring bridges that do not report a limit. This lets
-DP drivers expose deep-color support without attaching the property in
-their connector initialization code.
+Allow drivers to attach the max bpc property before allocating connector
+state, as needed by the upcoming non-HDMI bridge connector support.
+Only update the current state when one exists.
 
-Use a lower bound of 6 for DP and eDP, which support 6 bpc RGB output, and
-8 for other connector types. Keep the existing HDMI registration path.
-The property can be attached before connector state allocation; the
-atomic state helper initializes its default when state is created.
+Initialize max_requested_bpc and max_bpc from the attached property default
+when creating connector state. Use drm_object_property_get_default_value()
+rather than the range maximum so that state creation and subsequent resets
+restore the value chosen when attaching the property.
+
+Cover deferred allocation, existing state and restoration of a default
+that differs from the range maximum in the connector KUnit tests.
 
 Assisted-by: LLM
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 18 ++++++++++++++++++
- include/drm/drm_bridge.h                       | 11 ++++++++---
- 2 files changed, 26 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_atomic_state_helper.c  |  8 +++++
+ drivers/gpu/drm/drm_connector.c            |  6 ++--
+ drivers/gpu/drm/tests/drm_connector_test.c | 53 ++++++++++++++++++++++++++++++
+ 3 files changed, 65 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a..be2e08a3694a 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -825,6 +825,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
- 	unsigned int supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
- 	unsigned int max_bpc = 8;
-+	unsigned int chain_max_bpc = 0;
- 	bool support_hdcp = false;
- 	int connector_type;
- 	int ret;
-@@ -985,6 +986,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			panel_bridge = drm_bridge_get(bridge);
- 		}
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index a2ef272e9f27..8352b5a9097a 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -494,7 +494,15 @@ void
+ __drm_atomic_helper_connector_state_init(struct drm_connector_state *conn_state,
+ 					 struct drm_connector *connector)
+ {
++	u64 val;
++
+ 	conn_state->connector = connector;
++	if (connector->max_bpc_property &&
++	    !drm_object_property_get_default_value(&connector->base,
++						   connector->max_bpc_property, &val)) {
++		conn_state->max_requested_bpc = val;
++		conn_state->max_bpc = val;
++	}
+ }
+ EXPORT_SYMBOL(__drm_atomic_helper_connector_state_init);
  
-+		if (bridge->max_bpc)
-+			chain_max_bpc = chain_max_bpc ?
-+				min(chain_max_bpc, bridge->max_bpc) : bridge->max_bpc;
-+
- 		if (bridge->support_hdcp)
- 			support_hdcp = true;
- 	}
-@@ -1026,6 +1031,19 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 					  connector_type, ddc);
- 		if (ret)
- 			return ERR_PTR(ret);
-+
-+		if (chain_max_bpc > 8) {
-+			unsigned int min_bpc = 8;
-+
-+			if (connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
-+			    connector_type == DRM_MODE_CONNECTOR_eDP)
-+				min_bpc = 6;
-+
-+			ret = drm_connector_attach_max_bpc_property(connector, min_bpc,
-+								    chain_max_bpc);
-+			if (ret)
-+				return ERR_PTR(ret);
-+		}
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 8b4baed060f3..34c30469f405 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2886,8 +2886,10 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
  	}
  
- 	if (bridge_connector->bridge_hdmi_audio ||
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 58fff047f43b..01ad1878149e 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1089,9 +1089,14 @@ struct drm_bridge {
- 	unsigned int supported_formats;
+ 	drm_object_attach_property(&connector->base, prop, max);
+-	connector->state->max_requested_bpc = max;
+-	connector->state->max_bpc = max;
++	if (connector->state) {
++		connector->state->max_requested_bpc = max;
++		connector->state->max_bpc = max;
++	}
  
- 	/**
--	 * @max_bpc: Maximum bits per char the HDMI bridge supports. Allowed
--	 * values are 8, 10 and 12. This is only relevant if
--	 * @DRM_BRIDGE_OP_HDMI is set.
-+	 * @max_bpc: Maximum bits per color component the bridge supports.
-+	 * Zero means that the bridge does not report a limit. For HDMI bridges
-+	 * with @DRM_BRIDGE_OP_HDMI set, allowed values are 8, 10 and 12.
-+	 *
-+	 * For non-HDMI connectors, drm_bridge_connector_init() attaches the
-+	 * max bpc property when the lowest nonzero limit in the bridge chain
-+	 * exceeds 8. Bridges remain responsible for validating configurations
-+	 * against any limits not reported here.
- 	 */
- 	unsigned int max_bpc;
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index beb1d50a6646..1174607441b9 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_file.h>
+ #include <drm/drm_kunit_helpers.h>
+ #include <drm/drm_modes.h>
++#include <drm/drm_property.h>
  
+ #include <drm/display/drm_hdmi_helper.h>
+ 
+@@ -187,7 +188,59 @@ KUNIT_ARRAY_PARAM(drm_connector_init_type_valid,
+ 		  drm_connector_init_type_valid_tests,
+ 		  drm_connector_init_type_desc);
+ 
++/* The attached default need not equal the upper end of the property range. */
++static void drm_test_connector_max_bpc_default(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	struct drm_connector *connector = &priv->connector;
++	struct drm_property *prop;
++	int ret;
++
++	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
++				  DRM_MODE_CONNECTOR_DisplayPort, NULL);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	prop = drm_property_create_range(&priv->drm, 0, "max bpc", 6, 12);
++	KUNIT_ASSERT_NOT_NULL(test, prop);
++	connector->max_bpc_property = prop;
++	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_NULL(test, connector->state);
++
++	drm_mode_config_reset(&priv->drm);
++	KUNIT_ASSERT_NOT_NULL(test, connector->state);
++	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
++	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
++
++	connector->state->max_requested_bpc = 8;
++	connector->state->max_bpc = 8;
++	drm_mode_config_reset(&priv->drm);
++	KUNIT_ASSERT_NOT_NULL(test, connector->state);
++	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
++	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
++}
++
++static void drm_test_connector_max_bpc_existing_state(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	struct drm_connector *connector = &priv->connector;
++	int ret;
++
++	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
++				  DRM_MODE_CONNECTOR_DisplayPort, NULL);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	drm_mode_config_reset(&priv->drm);
++	KUNIT_ASSERT_NOT_NULL(test, connector->state);
++
++	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
++	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
++}
++
+ static struct kunit_case drmm_connector_init_tests[] = {
++	KUNIT_CASE(drm_test_connector_max_bpc_default),
++	KUNIT_CASE(drm_test_connector_max_bpc_existing_state),
+ 	KUNIT_CASE(drm_test_drmm_connector_init),
+ 	KUNIT_CASE(drm_test_drmm_connector_init_null_ddc),
+ 	KUNIT_CASE_PARAM(drm_test_drmm_connector_init_type_valid,
 
 -- 
 2.56.0
