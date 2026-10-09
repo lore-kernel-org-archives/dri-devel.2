@@ -4,95 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1F3FCA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 19:13:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68020CA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 19:14:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EDFA10EB23;
-	Fri,  9 Oct 2026 19:13:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9EBE10EB28;
+	Fri,  9 Oct 2026 19:14:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mXURl5jE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ummxtshc";
 	dkim-atps=neutral
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D0010EB23
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 19:13:24 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-8acda240937so41467877b3.3
- for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 12:13:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791573203; cv=none;
- d=google.com; s=arc-20260327;
- b=Q9JF6inPrpFAkk5ECixjXk98rvpVPv/bTiP81h1Y/XO3Jae0gU5e4H6Cq9brYL4SWJ
- emi1v0wnKv81xYbQgLan/MDYJwxKBPbDkS4PJ+IScLszB5htolZjz64HOxd3vtt7NEM0
- CLYZyWkfLJYNEtWWjLWOICVZerHazkbqAOXNXV5VetjLi2ZYcV5PuOJyKYrdQTXfcZv/
- iGwvhnwO59muc8j/UTWCsIFLc6k72Wg35Sjbx6gTaS/Wy3io6gtuLGexltkS+ny55Gp9
- yR/pjF/C/4Nfzpxc3osjY6/+BJQ5cexTU8+NTYL/rfMuu4O91zTIoL3OsmJrjXaNbQ6J
- 7Zrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=+m5RVY/Fd1R44a1Q2Ut7yuguyjSg/NovE0vzMnvGQ8Y=;
- fh=5xTYYYG61svQVHhUs/manmCfRH0zuLGYL+f4sVmIV8c=;
- b=STsJTUsGYT3NrV8anklqR4wmB1VYHp2P2QPAsVXtXuT+7Rt27YVKThcTqwoOiIH3S7
- /tKLs4Bdwi3DD/ZyQboTD2GvULhJ0Q/niLtilOxsJF1TbeTFgjr/jPSkHDkpaKd6FX5I
- CUU/6rbTN7PzeL0Wkdfb+g56yn3ws4ocNkJianGyMEiCKWlmqnKFrvzuBWn+2J1XeNe0
- l/oibO3tNbKDXs2pSnwc/3L3Ed1E/+z2P1WZ9qX4Eg1SvrCl2OCjINyKbacyN4frJQF3
- VnEKu/SJhWA5HtjELTVFMqmQSxVWVcqd/YPiiQHza61sXGrjgszUTgulowxjfi/c7pTM
- P6xw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791573203; x=1792178003; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=+m5RVY/Fd1R44a1Q2Ut7yuguyjSg/NovE0vzMnvGQ8Y=;
- b=mXURl5jEqfjyxDco0nGdGY//6sEiHlm3Z2DY5GdBG6aPL9AoMFkZhfk/e0CQeO2IFM
- AxzoYb7HZvFFaLJW6HSAZ7F0+v9kzoGNYOtXWVP8Hc+dxCejfsrZt8Z0p0eNS/MgNkmB
- deqQDmYNjsr1baIgo+Ooh8c5FAAUeRvkrp7GeYBcM3709qL9KqrzCQeIH/ns7e3Za0nl
- /Qv4j9E6L8Tdn89uumtqRiC0NcMzsQlRpULL6RqwqxRyEHYYftF2uxV3nFJPqFhOlkfO
- qr1li9k0dovVpMe3an3c5J9zmhpFuDLb53MtvDQEIaknmSfUvmPiM4XVSE/V9c14iBUx
- dOgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791573203; x=1792178003;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=+m5RVY/Fd1R44a1Q2Ut7yuguyjSg/NovE0vzMnvGQ8Y=;
- b=xFvGrFyCDz6CKGFY/d0oplhHee5gEUTzr2sSiQTU0ifO6Cf4Vn9ynCjZNRkmgBE7Ju
- Bbce9UMqK47AUOz4Ixh6Br/ag9QCa4fdf8wP1c3FJgB74kMwiJQE2gZGwZJXTAFD1hTP
- Ke7ijJGIwM5Ebj856Kkt0RrF4NCzf31JkvxoXmNGQ8QkMH1qPhAsgG/RudziM7lziPhW
- hUteJZBYpcb2+6rHgy9jMC3ZN6UimNs7mLdGXUVfVe+PXq1m2NeILW/MJVVVcTZuQFco
- S0nQbGqbfFzov4qTXwzhseMK22niGvKKskB5sv58IL5mzap27+NBiR+4dlvIopQ/sZbf
- XXVQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxOJF/Eo9wTp4vRLx4VySVAKo2qxeJnMVVtnjRZkFycjVinAwc3wu//5b+YzKyffNWlnaw1YrmtjNA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJHnGsSvV1MHp/3XBAmYKSS1IlwnCc26RrGipqLXejRaA7hbs/k
- 8ziORi4aHKU+TUrgRg9hflFBCHJ0N79mxwqfSsLIqBgHan/wPQXISsDcQk3Wz93pWPjBoYs0DGa
- 8mW1RyFZVV6xbuLh6bT0GtdY2vL51+VU=
-X-Gm-Gg: AYBFou1G/RGkkIlIJ0XPBlyH0QJspa3gVQrYeHo1u8r0qTyrWD1k1kjEg6hTZ6SgH6L
- UN1fnun3gz9G0xonp6jm45DrzsbE89MtmHU8L5L0pBrVs5CukbUfu7/+H83y6jjyjftWeErR/q3
- YVC93djkWltKkFTi09dmBLYY7eYSXFMMNveaeSXqI6Dvc/xoCFhw2eBsHxsV6dGRUgBL4iKe83x
- 3GczYXs2/jT6OKm4GEKNhALTG+uURzbx7nKgnfejivjqaJ9ZCBbkv/8Ax8bI8iNEUzLFDHrhN1x
- yo14gzHkWCDQUljwlaT5pN2L1HvON2AAeyxlRi8rJjUK7f9yaXHZhCnr8Xd0AlbGPKjIDlOmobR
- +aYLULQEChddGqTc1kDBaWExXs8Mts/3Uho4TCavFKpEkG+cEWrqw6QFl96ga2tnkvENQZPZTDQ
- ==
-X-Received: by 2002:a05:690c:1d:b0:8b0:8a9c:fac1 with SMTP id
- 00721157ae682-8b08a9d034bmr1353337b3.21.1791573203443; Fri, 09 Oct 2026
- 12:13:23 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21D8010EB28
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 19:14:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DB5DA43EC9;
+ Fri,  9 Oct 2026 19:14:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB661F000FF;
+ Fri,  9 Oct 2026 19:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791573261;
+ bh=rzSDMH69NxsZdNIquyU3ZY3vMVEbvlrwHE+qRvxpOMc=;
+ h=From:To:Cc:Subject:Date;
+ b=UmmxtshcNAxTTdjud/u87Thw45aFVt8fpAK0hwEZ1RWKWibNrh1UzZNfRUtGTR8FP
+ IyoKunbuqT9ESuGgFGt3JlNuOHsqyn4oOuIoVe3xsB+MDIFkrcMGKdZzr0zyLf9wfg
+ YXhluaHTz1db4D3+Xg4fvN3pe8oUh/VDxkv4/6T6pDX6rmh2TE9u2rkmOrENW+RBg7
+ eoLpHTrkg3r6XnneSBCZh1DPezUS2s4o/Usn2484+8s42s92n6JCYC3p97OuU4s6Vi
+ j/Xp/bvYmJvajOYXIsII86i+/vC8Pxs9bq1PmMyW47jJMU1au3YE5rbAueqJRuHa+b
+ DJLOWDb2i+2xg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Boris Brezillon <boris.brezillon@collabora.com>, John.harrison@igalia.com,
+ da.gomez@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: [RFC PATCH v5 0/6] rust: Add drm::JobQueue
+Date: Fri,  9 Oct 2026 21:11:18 +0200
+Message-ID: <20261009191124.1022902-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-References: <20261009032616.432392-1-0xiviel@gmail.com>
- <74b15e57-1387-e37c-d343-eeba1de33ceb@amd.com>
-In-Reply-To: <74b15e57-1387-e37c-d343-eeba1de33ceb@amd.com>
-From: Eva Crystal <0xiviel@gmail.com>
-Date: Sat, 10 Oct 2026 08:13:11 +1300
-X-Gm-Features: AclHuK_cy9U-CWUp8mwYJvruBGY0UqEQuD2c3_YFDBhDH3-C0Ix51_bl-Ikk4B8
-Message-ID: <CA+pz=kL0a0BpNf_ozK=MUntN8EjtAzb1Z_5MS4TLEV+sTLEtWA@mail.gmail.com>
-Subject: Re: [PATCH 6.18.y] accel/amdxdna: Bound the sync_bo flush range to
- the BO size
-To: Lizhi Hou <lizhi.hou@amd.com>
-Cc: stable@vger.kernel.org, Min Ma <mamin506@gmail.com>, 
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,33 +70,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/10/26, Lizhi Hou wrote:
-> It needs to check if size is zero.
+Changes in v5:
+  - Add back the Revocable<JobQueueInner…> from my earliest RFCs. Reason
+    is still the same: JQ dropping while dependency fences signal could
+    deadlock. Similarly, this solves a dependency kicking of the work
+    item again while drop() is running.
+  - Do not call run_job() with a lock held, since run_job() might sleep.
+    AFAICS, this also makes the proposed XArray solution impossible and
+    demands that we use a list.
+  - Re-add the earlier credit-count-system, so that run_job() is
+    infallible. Simplifies the design quite a bit. (Danilo)
+  - Drop jobs in a deferred manner through the work item so that job
+    payload data can do atomic-hostile stuff.
+  - Because of the point above, I suggest that we stop dropping a
+    DriverFence on signal (Danilo's and my idea). It has no real
+    advantage, and getting rid of it allows for better controlling what
+    drops when through JobQueue. For fence it's only relevant that there
+    is an RCU grace period, thus:
+  - Replace DriverFence::drop()'s call_rcu() with synchronize_rcu(). We
+    would, therefore, demand that everyone who's got a problem with the
+    delay drops via work item.
 
-Thanks for the ack.
+This can still not be tested as I'm blocked by pin-init vs self-ref.
+Just FYI.
 
-The zero-length guard from dc1475366424 is already on 6.18.y as
-45962da5821d, shipped in 6.18.52, moved into
-amdxdna_drm_sync_bo_ioctl() because amdxdna_flush_bo() does not exist
-on this branch.
+I would appreciate confirmation of these following thoughts on locking
+design:
 
-My check at drivers/accel/amdxdna/amdxdna_gem.c:947 runs before it,
-and the clamped size cannot reach the drm_clflush_virt_range() at
-drivers/accel/amdxdna/amdxdna_gem.c:966 as 0: with args->offset below
-abo->mem.size, min(abo->mem.size, end) exceeds args->offset whenever
-args->size is above 0, and an args->size of 0 already returns 0 at the
-guard.
+1.
+I believe that callers of jq.new_job() and jq.submit_job() do not need
+an outer serialization mutex. Reason is that JQ serializes with its
+internal lock. Sequence numbers cannot take over older seqnos because it
+is submit_job() who sets the seqno.
 
-That is by code reading. The arms I measured on this branch all used
-size 0x40, so I have no zero-size run.
+2.
+I, furthermore, believe that a driver will not need to hold a
+driver-lock while calling jq.complete_jobs_up_to_seqno().
 
-A zero-length sync at an offset past the end returns -EINVAL from my
-check, where upstream reports no error for AMDXDNA_BO_DEV, as my
-commit message notes.
+IOW, I am suggesting that a driver can always safely use JQ without an
+outer lock, and actually *should* do so to avoid potential locking
+issues.
 
-So no second patch is needed. v1 applies as is with your Acked-by, or
-I will resend as v2 carrying the tag if stable prefers.
+Reason:
 
-Eva Crystal (0xiviel)
-XSource Security
-https://xsourcesec.com
+let driver_stuff = foo.lock();
+let current_gpu_seqno = driver_stuff.get_seqno();
+drop(driver_stuff);
+jq.complete_jobs_up_to_seqno(current_gpu_seqno);
+
+Thus, I believe that it is OK for me to take the JQ lock in
+jq.complete_jobs_up_to_seqno().
+
+Please correct me if I'm missing something.
+
+Should I be wrong and a lock inversion could occur, then we could
+hypothetically add a fence Signaler object, with which we could signal
+fences with a different lock. Similar to how drm_sched does it with the
+hardware_fence.
+
+
+Regards
+P.
+
+
+====
+
+Cover letter from v4:
+
+As the commit messages and code comments detail, progressing JobQueue is
+currently somewhat blocked because of an issue with self-referential
+PinInit, which Gary generously offered to investigate.
+
+This code compiles, but the example does not because of the
+aformentioned issue. Nevertheless, I wanted to provide another RFC here
+so that we can move our discussions forward in the meantime, especially
+since very much about JobQueue has changed.
+
+Our, now upstreamed, DmaFence abstractions informed some of the notable
+changes in JobQueue. Most notably, JobQueue now owns the FenceContext,
+Jobs are created on the queue and own the DriverFence. Jobs, again, are
+owned by the JobQueue. We hope to enforce correct behavior that way,
+having FenceContext, JobQueue and firmware ring all correspond with each
+other 1:1:1.
+
+I suspect that a potential deadlock on JQ drop still exists. I
+previously solved that with Revocable, which I tend to think will also
+be the way to go here.
+
+(One very great news btw is that we almost magically solved a number of
+issues with the new DmaFence design – in combination with this JobQueue
+design, for the first time it would be possible to fully support the
+dma_fence backend_ops. The driver-unload-problem previously had most
+users use intermediate fences, like the drm_sched_fence, which means
+that callbacks, e.g. from userspace, could not be passed through to the
+driver. Now, with FenceContextOps <-> JobQueueOps, we can theoretically
+support all of them)
+
+The differences between this draft and Daniel / Tyr's prototype which
+probably are most noteworthy are the different lock design
+("Philipp"-JobQueue has one big lock, wheres Tyr-JobQueue has 2, 3 if
+you count the XArray lock) and the used data structure.
+
+The presented solution uses lists over XArray because:
+  1. XArray is semantically more complex and has an additional lock.
+  2. An Xarray-as-ringbuffer needs own algorithms for index tracking,
+     wrapp around etc. With list you enqueue into a waiting list, and
+     for running you move into the running_list.
+  3. The memory reservations we need for pre-allocating everything for
+     our job-submission path are solved in one go with list, because a
+     job simply contains a list head.
+  4. Most notably, it is unclear how XArray behaves for ever-increasing
+     indices with a sliding window, whereas the list semantic is well
+     understood and deterministic.
+
+I obviously don't claim to own all the wisdom in that regard; it's just
+that I still propose this solution because these arguments make me
+believe that it is the right one.
+
+Since all the list handling is done with iterators, there is currently
+no unsafe needed.
+
+
+I hope we can discuss many things here before we, hopefully soon, can
+address the lifetime issue and move to a v1.
+
+
+This is based on drm-rust-next (10a6623a24a8), plus Danilo's ScopedWork
+[1] and my patches [2][3] regarding 'static and lock errors.
+
+Regards,
+Philipp
+
+[1] https://lore.kernel.org/rust-for-linux/20260807165252.3849875-1-dakr@kernel.org/
+[2] https://lore.kernel.org/rust-for-linux/20260922083631.444614-2-phasta@kernel.org/
+[3] https://lore.kernel.org/rust-for-linux/20260924085523.2620704-2-phasta@kernel.org/
+
+Philipp Stanner (6):
+  rust: DmaFence: remove static lifetime
+  rust: DmaFence: Implement Deref for FenceContext
+  rust: DmaFence: Don't drop on signal
+  rust: DmaFence: [RFC] Add Signaler
+  rust: DmaFence: Replace call_rcu() with synchronize_rcu()
+  rust: drm: Add JobQueue
+
+ rust/kernel/dma_buf/dma_fence.rs | 139 ++++----
+ rust/kernel/drm/job_queue.rs     | 525 +++++++++++++++++++++++++++++++
+ rust/kernel/drm/mod.rs           |   4 +
+ 3 files changed, 606 insertions(+), 62 deletions(-)
+ create mode 100644 rust/kernel/drm/job_queue.rs
+
+-- 
+2.55.0
+
