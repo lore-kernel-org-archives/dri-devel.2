@@ -4,111 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3592CCA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8BCECA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:39:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 818FE10E9BE;
-	Fri,  9 Oct 2026 14:38:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4570210E9D2;
+	Fri,  9 Oct 2026 14:39:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q5J66ouH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h+z/FDdX";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F51310E9BE
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:38:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6460D10E9D2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:39:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C638560267;
- Fri,  9 Oct 2026 14:38:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773371F00893;
- Fri,  9 Oct 2026 14:38:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DA37760098;
+ Fri,  9 Oct 2026 14:39:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6725C1F00893;
+ Fri,  9 Oct 2026 14:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791556731;
- bh=SCBsfgZUxHW8yIrKeUAB0LX0uup67iHjwWbPDGYXOxw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Q5J66ouHMBRcmi4uFPbcmivlL1qZBzOVGkBSAItu6RXRC5gjNAl/5kuBDjjB31/ax
- w8O00JoNb/1phP2ph+jORg6N5bFcjB6ui3zrBpuJCVt6EZ9DXRxu85cSTuW87D79pN
- CiiXDmr/g7Fi72PyuflBKQo+bQ2XvWFQDGtAl1mHdaRL2Oo8V269IQfCs+BcGhkwFv
- 4LnGRwcIUPR5yoXrusM4hvLaeF/OGpA8MAGX0obheXfTXJwlZvXuNdEw2IxJDwGn1n
- Bgrqr9UPKWjlUpDhQMWk8r10CTrGUuFrT8Vra8KHSQD+YE2FH9v594Na9SVWsM42m0
- 0UYT+A6a1wQYg==
-Message-ID: <0e741650-8f60-4273-a783-8dbe3aedf207@kernel.org>
-Date: Fri, 9 Oct 2026 16:38:38 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] dt-bindings: arm: qcom: document Radxa Dragon Q8B
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Xilin Wu <sophon@radxa.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
- dragon@radxa.com, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>,
- Daniele Briguglio <hello@superkali.me>
-References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
- <20261009-q8b-dts-v2-3-eda11e5dea8b@radxa.com>
- <cd97e6ab-eac0-4482-8b85-455ac8730241@kernel.org>
- <kzqftw7lugumzzkafcnsa36n6nix3kmwee66bzlv67aoqrkovc@7lbdhwfchvp3>
- <6a91df34-cd81-49f3-8923-6676bfedf1c1@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <6a91df34-cd81-49f3-8923-6676bfedf1c1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1791556765;
+ bh=tEjnCtSmR4nndaOHOBuIH6gNSaVPsM4HRgDUydCWYWI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h+z/FDdXB9dDVzaOQVLAjiXzAxr8+iJOgEEHsTWYgW3oQcYqa1f3LfmQrR/kcNKAl
+ fbrmTFrJXnmf+pjpTFGRv8dhOF+GAXVD07/4hvpr2QCm/3B7CC+5P1OsnCMKL6qU7p
+ 30DJ5XJVtZe8YajAz49flVVDcaD0FhNsGCPU2/JhKgH2xeMn379NcBX8uHuCySOQ22
+ y5XXUunWg1nBnTTGEw84iJeagJnnn9Wj5SytALuIHinuMa0wSDf4z/Af5qm5OHG5dS
+ hFOXmactQlKimvdWlrY8t9PcEnfJZaT4MDq/tt5QKXF4db3DET41c1TqzHWbDvYbip
+ zLcR3rMUO7u3A==
+Message-ID: <sashiko-outbox-165725@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 15/15] drm/panfrost: Fix races between perfcnt and
+ reset sequence
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261009-claude-fixes-v14-15-cb743b3b973b@collabora.com>
+References: <20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com>
+ <20261009-claude-fixes-v14-15-cb743b3b973b@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 14:39:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,26 +54,163 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 09/10/2026 15:28, Krzysztof Kozlowski wrote:
->>> Fake test, drop tag.
->>>
->>> Why is this so problem to provide the tag ONLY to the patches which were
->>>  actually tested?
->>
->> Please teach b4 to skip to skip Tested-by on dt-bindings patches (or to
->> have a flag / config to achieve that). This would solve 80% of these
->> issues.
-> 
-> That's an idea, although my complain stays - why author could not just
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] drm/panfrost: data race on perfcnt->state drops reset notificati=
+ons
+- [Medium] drm/panfrost: Race between delayed perfcnt interrupt and dump re=
+-initialization
+- [Low] drm/panfrost: cleanup subsystem violation mixing goto and scoped_gu=
+ard
+--
 
-b4:
-https://lore.kernel.org/r/20261009143620.309848-1-krzysztof.kozlowski%40oss.qualcomm.com
+commit a3c7a0f93b13c20ffb612831ca0de295364a95de
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-> add tested-by to relevant patches. That's the same with blanket reviews.
-> Several people DID NOT review entire set, just LGTM and give the tag for
-> everything.
-Best regards,
-Krzysztof
+drm/panfrost: Fix races between perfcnt and reset sequence
+
+Formerly, the reset sequence would race with panfrost_mmu_as_put()
+when tearing down a perfcnt session. On top of that, poking GPU
+registers to program a perfcnt session or obtaining a dump might lead to
+undefined behaviour when done at the same time a reset was ongoing.
+
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index b3f71d7fd82a9..a9def452d5ef9 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+
+[ ... ]
+
+> -static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+> +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u=
+32 *state)
+>  {
+> -	u64 gpuva;
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +	u64 gpuva =3D perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+>  	int ret;
+> =20
+> -	reinit_completion(&pfdev->perfcnt->dump_comp);
+> -	gpuva =3D pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> -	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> -	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> -	gpu_write(pfdev, GPU_INT_CLEAR,
+> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		*state =3D perfcnt->state;
+> +		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
+> +			return -EIO;
+> +
+> +		perfcnt->state =3D 0;
+> +
+> +		reinit_completion(&pfdev->perfcnt->dump_comp);
+> +
+> +		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> +		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> +						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+
+[Severity: Medium]
+Is there a race condition between reinit_completion() and clearing pending
+interrupts?
+
+If a previous dump request timed out, a delayed interrupt could still be
+raised by the hardware.
+
+Since panfrost_perfcnt_dump_locked() executes without disabling hardirqs,
+could a concurrent interrupt handler execute right after reinit_completion()
+but before GPU_INT_CLEAR?
+
+This would spuriously signal the completion and cause the subsequent wait to
+return immediately while the hardware is still writing counter data.
+
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> +	}
+> +
+> +	/*
+> +	 * Here we release the reset semaphore because perfcnt should not get i=
+n the way
+> +	 * of a HW reset. Besides, a legitimate reset might be issued during th=
+e wait.
+> +	 */
+>  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
+_comp,
+>  							msecs_to_jiffies(1000));
+> +
+>  	if (!ret)
+>  		ret =3D -ETIMEDOUT;
+> -	else if (ret > 0)
+> -		ret =3D 0;
+> =20
+> -	return ret;
+> +	/* We need to restore perfcnt state so the next successful dump can rel=
+ay it to UM */
+> +	if (ret < 0) {
+> +		perfcnt->state |=3D *state;
+
+[Severity: Medium]
+Does this unprotected read-modify-write drop reset notifications?
+
+When panfrost_perfcnt_dump_locked() exits early with an error, the code has
+already released the reset read semaphore. Concurrently, a reset might
+happen and panfrost_perfcnt_reset() could write the interrupted flag to
+perfcnt->state:
+
+    perfcnt->state |=3D PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+
+Since the assignment here performs a non-atomic read-modify-write without
+holding the semaphore, won't it clobber the reset flags written by the
+reset sequence, hiding them from userspace?
+
+> +		*state =3D 0;
+> +		return ret;
+> +	}
+
+[ ... ]
+
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		/*
+> +		 * Clear the counters to start from a fresh state.
+> +		 */
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> =20
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
+> +		ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +		if (ret)
+> +			goto err_vunmap;
+
+[Severity: Low]
+Does this goto violate the cleanup and guard subsystem rules?
+
+The kernel documentation for the cleanup subsystem explicitly forbids mixing
+traditional goto-based error handling and scope-based guard() declarations
+in the same function. Mixing them creates confusing ownership semantics and
+can lead to LIFO ordering bugs on scope exit.
+
+> =20
+> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +		perfcnt->user =3D user;
+> +		perfcnt->state =3D 0;
+> +	}
+> =20
+>  	/* The BO ref is retained by the mapping. */
+>  	drm_gem_object_put(&bo->base);
+> =20
+> -	perfcnt->user =3D user;
+> -
+>  	return 0;
+> =20
+>  err_vunmap:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-claude-fix=
+es-v14-0-cb743b3b973b@collabora.com?part=3D15
