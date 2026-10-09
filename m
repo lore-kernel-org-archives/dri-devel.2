@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C4FDCA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 13:36:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E621CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 13:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BE5B112158;
-	Fri,  9 Oct 2026 13:36:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6607211215D;
+	Fri,  9 Oct 2026 13:39:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oxzfR+w3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FXMzkrIN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AFEE112158
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 13:36:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4768511215D
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 13:39:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AAE9860098;
- Fri,  9 Oct 2026 13:36:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3883E1F000FF;
- Fri,  9 Oct 2026 13:36:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DAA1640639;
+ Fri,  9 Oct 2026 13:39:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93B661F000FF;
+ Fri,  9 Oct 2026 13:39:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791552971;
- bh=h8N5JEuuFSo+H1X+3M+DKhVU/ltqD/92S+cYFBN2atc=;
+ s=k20260515; t=1791553166;
+ bh=pPAhLNyuDOTYSe17nIy9otyWSF4neLAAeHEXvUDPiOE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oxzfR+w31s9zxgKrV9EjeSZggn9R6Nye5vQxoiLvoq86fwQbXEDDm0SLff5HJr9sf
- houVYAmUxjP1bCPVEkciD1k2bzaBZPDrnarYT/Cff2Dj5FqIGXbReBxSQhDbwQj/Sv
- f9396HHMxIfNcZlpdzRLCHF5ZwBNrgeNJJ5FquHXik0DQKdwEjv/pvLnXvS+B6PlCr
- yh1N9iRvKn/VfZvN8aAH3rkhXQLuD1ODDfANdqTElCRVEjs6o1yURqL9ZRYpOySmgh
- dNOsHcM3yc1XhTH3xwkyeBUf47k+7rT/VuqmMK7wXfPcArjgoxIGDzFzC/XTKB98Bv
- 7ZWpmmx04KPQw==
-Message-ID: <sashiko-outbox-165650@kernel.org>
+ b=FXMzkrINuDIiFrR7tN+2gluglEdmo04bhbKxqwQBzkgwy2Lj+WTu1+Qf7PUJIpfvu
+ RQWh0MOZgkeyTy6Z9nq5m1yAmcIJm8MaTfWyN8PLyBFv8TVRn4djJ8HAQQCIMiSFT6
+ 9ZYTL3rjwOcux2vIb9j4ip0K8X5+Z55suITouhDqrJJEzlNPfVmj/A9EKZlsABVIpR
+ 7hSpHcBRcXSTqTOyynu/JI0T0r3QiACf/bYHD57XvUqq72PPWCrsafFPY1nCil8Uqh
+ 1SsSdjt4tdZaZAznQkx1AbtV+ubpShHxiXMmvdr68w3xHW1R0bPb2odTAM2DB6pAx/
+ xnSvFFEhMmIhA==
+Message-ID: <sashiko-outbox-165653@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/msm/a6xx: Split out a7xx/a8xx device tables
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>
+Subject: Re: [PATCH v14 08/15] drm/panfrost: Move all DRM device
+ initialisation into device_init()
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009131927.551319-3-robin.clark@oss.qualcomm.com>
-References: <20261009131927.551319-1-robin.clark@oss.qualcomm.com>
- <20261009131927.551319-3-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261009-claude-fixes-v14-8-cb743b3b973b@collabora.com>
+References: <20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com>
+ <20261009-claude-fixes-v14-8-cb743b3b973b@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 13:36:10 +0000
+Date: Fri, 09 Oct 2026 13:39:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,70 +58,69 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm: missing weight index 0 in a810_pwrup_reglist_regs
-- [Low] drm: a640_gbif declared as extern in C file instead of shared header
+- [Medium] Resource teardown order mismatch between init error path and fin=
+i()
 --
 
-commit 417ccf9a602a6ae58f1d68b6bfbd7ec7f4880b14
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
+commit cc1a89616a9fe7ee1baf348443aab4d77f011c53
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+drm/panfrost: Move all DRM device initialisation into device_init()
 
-drm/msm/a6xx: Split out a7xx/a8xx device tables
+This commit moves all DRM device initialization and registration into
+panfrost_device_init() so the probe function can be minimal. It also
+adjusts panfrost_remove() to rely on panfrost_device_fini() for resource
+cleanup.
 
-This commit splits the Adreno GPU device tables into separate a7xx and a8xx
-catalog files. It moves hardware configuration arrays and structs to these =
-new
-files to organize generation without conflicts across GPU generations.
-
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/adreno/a7xx_catalog.c
-> @@ -0,0 +1,496 @@
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 50f4713bfcfdd..a6deabb39fd2c 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
 [ ... ]
-> +#include "a6xx_gpu.h"
-> +#include "a6xx.xml.h"
-> +#include "a6xx_gmu.xml.h"
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+> +	pm_runtime_get_sync(pfdev->base.dev);
 > +
-> +extern const struct adreno_reglist a640_gbif[];
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_disable(pfdev->base.dev);
 > +
-
-[Severity: Low]
-Is it intentional to declare a640_gbif as an extern array directly inside
-a7xx_catalog.c?
-
-This bypasses type checking across translation units and causes
--Wmissing-prototypes and -Wmissing-declarations warnings on W=3D1 builds. It
-is generally preferred to put shared declarations in a common header like
-a6xx_gpu.h instead of placing ad-hoc externs inside C files.
-
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-> @@ -0,0 +1,1847 @@
-[ ... ]
-> +static const uint32_t a810_pwrup_reglist_regs[] =3D {
-> +	REG_A6XX_UCHE_MODE_CNTL,
-[ ... ]
-> +	REG_A7XX_SP_READ_SEL,
-> +	REG_A6XX_TPL1_NC_MODE_CNTL,
-> +	REG_A6XX_TPL1_DBG_ECO_CNTL,
-> +	REG_A6XX_TPL1_DBG_ECO_CNTL1,
-> +	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
-> +	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
-> +	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
+>  	panfrost_gem_fini(pfdev);
+>  	panfrost_perfcnt_fini(pfdev);
+>  	panfrost_jm_fini(pfdev);
+> @@ -354,6 +400,9 @@ void panfrost_device_fini(struct panfrost_device *pfd=
+ev)
+>  	panfrost_clk_fini(pfdev);
+>  	panfrost_reset_fini(pfdev);
+>  	panfrost_pm_domain_fini(pfdev);
 
 [Severity: Medium]
-Does this sequence intentionally omit index 0 for the bicubic weights table?
+Is there a resource teardown order mismatch here?
 
-The a810_pwrup_reglist_regs array is used to restore critical hardware state
-on power-up for the A810 GPU. The bicubic weights table initialization in
-this array skips REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0), directly jumping to
-index 1.
+In panfrost_device_init(), devfreq is initialized before regulators, and its
+error path correctly tears down regulators before devfreq:
 
-Other GPUs (like a830, a840, a850, and a750) correctly include index 0 in
-their power-up lists. Missing the 0th index here means the weight will not
-be restored during power-up or preemption, potentially leading to
-unpredictable bicubic filtering behavior or data corruption on the GPU.
+panfrost_device_init() {
+    ...
+out_regulator:
+    panfrost_regulator_fini(pfdev);
+out_devfreq:
+    panfrost_devfreq_fini(pfdev);
+    ...
+}
+
+However, in panfrost_device_fini(), panfrost_devfreq_fini() is called before
+panfrost_regulator_fini() (just above panfrost_clk_fini()).
+
+Could this create an issue during device removal by not following the strict
+reverse-initialization order used in the init error path?
+
+> +
+> +	pm_runtime_set_suspended(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009131927.5513=
-19-1-robin.clark@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-claude-fix=
+es-v14-0-cb743b3b973b@collabora.com?part=3D8
