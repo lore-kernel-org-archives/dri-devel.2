@@ -4,143 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53359CA5FED
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 08:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7621CA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 08:12:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1B8D10FF5F;
-	Fri,  9 Oct 2026 08:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3630310FF68;
+	Fri,  9 Oct 2026 08:12:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="MKUUwq6K";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UzJ7wGDY";
 	dkim-atps=neutral
-Received: from SY2PR01CU004.outbound.protection.outlook.com
- (mail-australiaeastazolkn19011027.outbound.protection.outlook.com
- [52.103.72.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71D4210FF5F;
- Fri,  9 Oct 2026 08:02:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xdp6AkH916XjyCd+8mS9ckPabfOMiGUkLfhBR2ncgtTcZ2NyYf3ZTfLvgqsEQoImvdXKeFPKnFQnGDehN1bOl+Kb4JRnZr/3FLMaSsdJG+6hbAiFadcCRUaLWJfVT+RgqXmphBt/3XLsX4s8mbZ3o/0eD5BoGc2I4CEkNdS54k6RJrr21SZ1Kz02fu9dNCjjpO2XXnRH2f6dbO5GIwkjnINJFtOO7IlWroBXT18NTT1av5lwXA4AakVC9BBa3DiKukFJcKNF4JhP/49WeXcB1Rg3pf5I5q+a6NCaYCCjud+e1ePnJKlkFO3bdysBv+aUN1JvXNPiE5fD/tnBn8rvbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ipDsmwEasG+9StgsDx7RDFFBjLwK9g7whjLsKxG0NSw=;
- b=VHdfx7c4EUX3FNfSxW5ncdujCP9XH+/5b4pDt/k7PbIKc2F4G4Fsl6bIYKMqNMUsw0Li+AQaPaPsw1ipYtLLQk3rKKzc2yI9sOfNpMfr9kLRF5EBoDjBJE4cK6a722IBh/qh7LgtTEBC8qTeYn4lAYDvmuMEznYhQlM4jvXInFwXXbd0I0SOQTi0v2ag9ULo/rgSuZI46quENZy73buiU3Z/JflJWV7fX4tX5JgLAEmg6P8YJH1m6dg1yiuEzAA/AhCIww1frHP5aosyMIK9woJCSEsUXdUGkhm7xHh/tZCpoOVJlQTTpAcjTO57hMa2x2GSzi2/izwdIXY8+Ui5gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ipDsmwEasG+9StgsDx7RDFFBjLwK9g7whjLsKxG0NSw=;
- b=MKUUwq6K1Jqq0rWyWnGYyYHKS//e+47t1OzE3mBSF2rCtH6fG9oU3y09pe8XAjOCi+TbCs5LXS70YG1/w34BNLoGdrTQdxiw6uXRW7hNbH+qTIhCDg+qsijJIT7ua7sy/n/oJLf+N7jBuO4vW4fNl2NCPDWWX0TNh0zzqygxUuHCiQNp38aoNUk8bPlrW+++Tv9ty1w2wZyRnI7Oosvi2VNveha8j8sXZu9fi9mJA8wUcDQXEsCVL5+Lhkl5+Lv7QLPfB9UWK/I53cALCkq6rE1dKSH/mYAwWjAxIxeDLKD03jFVtj7gVuvUqOF+oh0r7Ax9RhVtsCmgdttQ8+9MWw==
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
- by ME2PR01MB5667.ausprd01.prod.outlook.com (2603:10c6:220:d3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
- 2026 08:02:00 +0000
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c%7]) with mapi id 15.21.0522.002; Fri, 9 Oct 2026
- 08:02:00 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-To: Balbir Singh <balbirs@nvidia.com>
-CC: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Andrew Morton
- <akpm@linux-foundation.org>, Mary Guillemard <mary@mary.zone>, Mohamed Ahmed
- <mohamedahmedegypt2001@gmail.com>, James Jones <jajones@nvidia.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yuhao Jiang
- <danisjiang@gmail.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/2] drm/nouveau/uvmm: reject replace across page sizes
-Thread-Topic: [PATCH 2/2] drm/nouveau/uvmm: reject replace across page sizes
-Thread-Index: AQHdRvYcklAowvA/gEmsg6OoXFvr57b0+X+A
-Date: Fri, 9 Oct 2026 08:02:00 +0000
-Message-ID: <FBF1ED94-0D02-4C4A-812B-818897A605C4@outlook.com>
-References: <20260817-nouveau-fixes-v1-0-f518d0c735f3@outlook.com>
- <20260817-nouveau-fixes-v1-2-f518d0c735f3@outlook.com>
- <61d42916-a391-4b98-a6fc-84175127c2e2@nvidia.com>
-In-Reply-To: <61d42916-a391-4b98-a6fc-84175127c2e2@nvidia.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|ME2PR01MB5667:EE_
-x-ms-office365-filtering-correlation-id: 3692f9eb-d79d-491b-a7de-08df25db98e1
-x-microsoft-antispam: BCL:0;
- ARA:14566002|24021099003|25010399006|31061999003|22091999003|24121999003|4140399003|8060799015|19110799012|8062599012|15080799012|53005399003|40105399003|2607281247196008|102099032|440099028|3412199025;
-x-microsoft-antispam-message-info: =?utf-8?B?S09YejRialZST1hHN1dHbjBzZWhUNCsrUk41ekFVUXFLNjc5aG04N3d4anph?=
- =?utf-8?B?RVdsMGFLdE1INGlLYkRSY2RGaHdFUjBxYlpFVGRpbVdtaVpTUTgwQU9sbjRJ?=
- =?utf-8?B?WWs4RFM5SEhUQkV4N21lK1NsekFFdlFPc1psc1Z3enJ1UDJWbDNsWi9jRERj?=
- =?utf-8?B?bWdBWGhMZndoVmRCQjh5TVZJMkk0b3JWbVJjaXlOc2Jwd2RKbXErTjNXdWhM?=
- =?utf-8?B?SlJ1emMyVEs0L0d6WjVMdDVBUmhIR1MxWmYreHR4eHZESVViWjlXYktmdGFj?=
- =?utf-8?B?cGdtUTBmVDJEdHBoSVZwZ0Q5QjRKazFVSGZyMzN6d0EyY2xWMkgrRUZ3U0Ir?=
- =?utf-8?B?WmpCRGZpSEs0UkhoRmR1YXZoRUkvY2ZVUFllVFo4ZmVxb3NocVJHMkdoR2g2?=
- =?utf-8?B?YVN0czNYR0lBblVYQlRQa3JrWkZlOVIvbDl4cnFUUlBOSE1DbFA4SU5Xdy9o?=
- =?utf-8?B?MFRjRmFjam5RMHU1TmIrSGgvc05mY3IrTko5S1JINzhyM28vYjJKSmRzUjU1?=
- =?utf-8?B?QzRXcnpZRlFkUm9WSkxOa0QzM1MxRktuZ2pzSVExa25IWXl4MEFJMDVnejNY?=
- =?utf-8?B?eVROdFBaSnFWUWt4Si9ORGdyWFpzOXo1VnlQUStMWi9jZklHYzFJY3JNazND?=
- =?utf-8?B?U2hzamVUSXhJQ25KWTB6RzNjcTdYc1B2akVneFJjK1JIeUM0ZTV4dnZsVk5Y?=
- =?utf-8?B?ZTUvZGRpaVRJZ0tTcFY2aFYvQnpyTnZJYWZYZXB4ak5oOGNSb01IVGIxMHVY?=
- =?utf-8?B?WWpMUFo1WnkycDlwb2hCQnIvYWxKbTg2TmxFNDJ4eEdRUFRlR1JvWEpMZUIx?=
- =?utf-8?B?TjA3b29PS2xOYWFGUDZDZlF1eVRmWjh1QmovMW1HTDQ0SzFSMUtmYWJtaGdN?=
- =?utf-8?B?dDdKckg4Q3ZOOVozOUVRZmFVcDRBUStvck9mcHpsSXRxeFMrS2xZUytRVzl0?=
- =?utf-8?B?TVV4bC8vZEJISGk3dDhuZ2Q4R25EdWxjS2VhSjFhTGV6aUZUUlp2a0R3VUV4?=
- =?utf-8?B?NWJWRVBtT0hNQ3lKZmRuMFFCRmd6K01jOENXTmVQMGpObUk4dGcvSUFnK1Nv?=
- =?utf-8?B?S1hvdXdFVndzUXlmdXNleUFyS2dpdEZpbkxwVUxreXp6eWNBejZTREJSblM1?=
- =?utf-8?B?eHJKbitoRmVmM3NPYzJpVFdySkt5ekxBbS9PSXJIZnUxdVA3OEN5ejNSc2pj?=
- =?utf-8?B?clpzckFmNFNhWXhQeE1oRzJ0UHJtNUdCcjQ0MnFIOEZockdvMmdLWXRsUmZG?=
- =?utf-8?B?cm1RRDJSd3c3L1V0cVZnVlZtL2NHUnJOVTNQVXFKTzM0NGs1cVNSYjZONExz?=
- =?utf-8?Q?7H7+tga8vELTF24kCtZngscmr1juHZ2nU4?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SjVYeU9qR3FUYWF1TXVTQlNKV2ZsQlVXUE9xcmZHcjNTZDBIeGJxbVdIdnRa?=
- =?utf-8?B?SVA2RDdyRDNQaGxHUWEwMHYwbG1HbFlzLzlmdC9rdTBLWTN1NFJCN1ZRNnBx?=
- =?utf-8?B?S2lSdXhKVHJrVjZCZGJpcUpmVElPNkR4SE9SRE1OZElrbU5mSnJqbjB5bXhJ?=
- =?utf-8?B?MjU2WE1sSjNya01MTHdtTEdTSmlWQzFzTG1qWlNyN2dkUThsZEMyb25FR2hP?=
- =?utf-8?B?U3dYTVBpd3lwOTlBU3Y0MXRSSi9hNzBITjMvWDRWY2JnL2xjMlJIMzNGNFBM?=
- =?utf-8?B?L1dxODdzdytyeDVhd3JNd3A3OUF1ZTdyUkFyQ0hDWXFrV1N4OEc5cWNjcllZ?=
- =?utf-8?B?R1pZYmN4d3M3UUsrdnVGdHlsblFweXBBRVpHaEpvY0pYNXQ0QWRMeWJhMXJC?=
- =?utf-8?B?c1ZvWitBYTRDMi9Vc2FGaHVYTE9OYUU4YXR3TUo4dVhBbGlock9GZkpIWWNL?=
- =?utf-8?B?SW5WSU1jeDl2alQrL0lnM0RuRlBXMU44dndRbHk4R1JiaHNudjdkRDdnbTli?=
- =?utf-8?B?NWwxTnJ1T2JTUWNjYzZEa2FISWhBUDNDb1E0bVgrYktnUFBNZmZtcWtZSktl?=
- =?utf-8?B?a3dqaTF3cXVXdUFOS3Y2TkQvdk1tb1Y4RDdtK2RKbVBxM3l6LytkbTBpRDJu?=
- =?utf-8?B?cDR2bTRBRTJESy90NU9HbXlHdUhpN25vWTkvYWRjTUMrc1JwN1F2aWJ3a00x?=
- =?utf-8?B?RXFyYjlHbncwaWcvV0R6SXY5UUUzWXJNRlBkWVF5UTMxTU5zQkpHV2tjOGQv?=
- =?utf-8?B?ZjRVT1B5WUIvSU0rb2I4MTMrdmhaVEtkNFl4QmxnbndzdC9sQmlYN2FmVTI2?=
- =?utf-8?B?alkxRmREbE00bDJuSWlDRFVtODg1N2tlcWV3TGlSVmppSXVOREpTQ2NFZ2ZN?=
- =?utf-8?B?ZFJNemVTQk9HbUpyNWVScG15NDVVck1JazBCUG1lbzdIS0Y2L05VU1JueDFa?=
- =?utf-8?B?dU9NaHNadXRIbGxnb0hVMlEyZGo0czJneEhaVTB1aDYxUmpLV2lJTHFrdTZZ?=
- =?utf-8?B?czd2QUx4bGtMS2Y2dW9EMkN3Sk5sNjl4WE5NTGU5bjV4RnJLbUc3K1hZUXNV?=
- =?utf-8?B?UWtDTUdtMHAwTi9OVnQzcnFwZHd2VHl3NTBudVJZaFRrTHcwcE8vVXMwcUdo?=
- =?utf-8?B?MlpIRVY5ZHF3SFJodjZMZnRxTS8rT3ZJcmJIU0dVZWtRVGF0akhQL25qOGdY?=
- =?utf-8?B?K0dOM09Mei9sdkcrWk9VTkIvL3doeWMrTnlXQW55Y0ZEOFlMdWZnMlZsWXJK?=
- =?utf-8?B?N3RMaHphai9CMWtFRjNVNy96N2xwc0VUZlB3OHFPdEgxRHQ4dWt3Sy9DV0Ft?=
- =?utf-8?B?YXVmbEEyc3RPbWlSZFdCS0hFOVNvWHgzT1F1S1BHSXpyT3pURzlCVWxJVWtl?=
- =?utf-8?B?TXdZRzIrb3lMVWc2VlFUMGxzWTJMRHRGSlhhZ1pOVnhxUWR2eC9JNElvUmlO?=
- =?utf-8?B?TkhMNkF2RmlVcnJyZHhXQjVTb2MrdUFJVUpZT2tSV0NVbWRYOG9zUnZ4VTJu?=
- =?utf-8?B?OUtQVGVPcmxKMkxVQmZlVGwvZG5ZRnExV050UStsbUFCQXcyWDNqVXFJbHYw?=
- =?utf-8?B?LzFVVGlsNkcyc0Z1K3QyTEdxeGYwUTJMUDM4MG9wNTIwNjRUSmtSV2s4UHNs?=
- =?utf-8?B?aTBNREw2dG5yTWxSQU9CZ29YSXFFcWFib3lJUmdCL282clZxRTB5Y2NjQXhQ?=
- =?utf-8?B?b0l2Y3JKdmhiMHFOY0ZXbmNwYndNc0o5YVRNamJWeWRRS3cyaTdjbzAvUVpI?=
- =?utf-8?B?RU40QzI2QlBQMGZHb3VRMmlpZDRDalBxeEgwclFBRDdRTzF3ZzFaZEtJSWRy?=
- =?utf-8?B?MHJQOGZyK3pyV1h6THNVSFZCcTRBM29ITERYU0Ztc25kYVp6LzRYRXpudGFs?=
- =?utf-8?B?UTdMU2MxYXh4YnR6Y2x0U09RT2QyZzRmOTZ0cGsxNHRCNkE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <A52D2784EACFA24BA6CCDEA30A706BED@ausprd01.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3692f9eb-d79d-491b-a7de-08df25db98e1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 08:02:00.2798 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME2PR01MB5667
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42E1810FF68
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 08:12:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 45668602CA;
+ Fri,  9 Oct 2026 08:12:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AD8A1F000FF;
+ Fri,  9 Oct 2026 08:12:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791533572;
+ bh=X1cf1XRY96NZF0/0mJlvdPw4ueD3LtuwRBXDO6KPtEw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UzJ7wGDYamxF/Oe+2y/8+9Pux0EoH6rJtroTIIdC+1c/dDyV5fGKWs+mp10E0mcU4
+ zKdFWBccaY0gf2uIeo0kSet9NpP3z79myNk+r/JNY1XrkEt1ectH9O20mvpc6QNTY/
+ pBtr9xLBNWKVItnRP2q//NUWFNxLudJzTao1x9NoYI4J22E1bNP8Z+I/l9vxmgwfV7
+ aKD5h1us1FhHJz5JIUJ6FrcFk6YWFn98xnQA8oP49GosTK5kRCY83ed3Sx2mJMZVpo
+ ac5HhVXAZ+WwkipVFx9ZpUWNXHZdhTCziwUlz4DGMcy9OO+bxrZJMvf5hOxzjMTnZv
+ kbG7oKTh3DGnQ==
+Message-ID: <sashiko-outbox-165058@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
+To: "Xilin Wu" <sophon@radxa.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ robh@kernel.org, dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+In-Reply-To: <20261009-q8b-dts-v2-4-eda11e5dea8b@radxa.com>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <20261009-q8b-dts-v2-4-eda11e5dea8b@radxa.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 08:12:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,13 +54,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-PiBPbiBTZXAgMTgsIDIwMjYsIGF0IDY6NDTigK9BTSwgQmFsYmlyIFNpbmdoIDxiYWxiaXJzQG52
-aWRpYS5jb20+IHdyb3RlOg0KPiANCj4gV2UgYXJlIG1vdmluZyB0byBBc3Npc3RlZC1ieTogTExN
-DQoNCkdvdCBpdC4NCg0KPiBKdXN0IHdvbmRlcmluZyBob3cgdGhpcyB3YXMgdGVzdGVkL2NhdWdo
-dD8NCg0KVGhpcyB3YXMgZm91bmQgdXNpbmcgYW4gTExNLWJhc2VkIGFnZW50IHdlIGRldmVsb3Bl
-ZCBhcyBwYXJ0IG9mIG91ciByZXNlYXJjaC4gV2UgdGhlbiBjaGVja2VkIGl0IG1hbnVhbGx5Lg0K
-DQpJIGRvbid0IGhhdmUgc3VpdGFibGUgaGFyZHdhcmUgdG8gdGVzdCB0aGlzIG9uLCBzbyBJIGhh
-dmVuJ3QgdGVzdGVkIGF0IHJ1bnRpbWUuDQoNClRoYW5rcywNCkp1bnJ1aQ==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: swapped vdda-phy-supply and vdda-pll-supply in m=
+dss0_dp2_phy
+--
+
+commit 1ed6dcf998cee616c10f9c98d191dd8e63e625e3
+Author: Xilin Wu <sophon@radxa.com>
+
+arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
+
+This commit adds initial device tree support for the Radxa Dragon Q8B
+single-board computer. It describes various hardware components including
+storage, PCIe, USB-C, HDMI output, audio, and multiple regulators.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts b/arc=
+h/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts
+> new file mode 100644
+> index 0000000000000..322b66de6ef68
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts
+> @@ -0,0 +1,2102 @@
+[ ... ]
+> +		vreg_l3b: ldo3 {
+> +			regulator-name =3D "vreg_l3b";
+> +			regulator-min-microvolt =3D <1200000>;
+> +			regulator-max-microvolt =3D <1200000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +			regulator-boot-on;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes =3D <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+[ ... ]
+> +		vreg_l6b: ldo6 {
+> +			regulator-name =3D "vreg_l6b";
+> +			regulator-min-microvolt =3D <880000>;
+> +			regulator-max-microvolt =3D <880000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +			regulator-boot-on;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes =3D <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+[ ... ]
+> +&mdss0_dp2_phy {
+> +	vdda-phy-supply =3D <&vreg_l3b>;
+> +	vdda-pll-supply =3D <&vreg_l6b>;
+
+[Severity: High]
+Are the core analog PHY supply and PLL supply swapped here?
+
+The vdda-phy-supply is connected to <&vreg_l3b> (which is configured as 1.2V
+above), and vdda-pll-supply is connected to <&vreg_l6b> (configured as 0.88=
+V).
+For Qualcomm DisplayPort PHYs, the core analog PHY supply requires the lower
+voltage rail (0.88V), and the PLL supply requires the higher voltage rail
+(1.2V).=20
+
+Could this apply 1.2V to the 0.88V core domain, potentially preventing the =
+PHY
+from initializing or causing overvoltage damage? For comparison, usb_0_qmpp=
+hy
+in this same file correctly uses the lower voltage for vdda-phy-supply and =
+the
+higher voltage for vdda-pll-supply.
+
+> +
+> +	status =3D "okay";
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-q8b-dts-v2=
+-0-eda11e5dea8b@radxa.com?part=3D4
