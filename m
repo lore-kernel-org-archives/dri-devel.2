@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 094EECA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 665C6CA9EC5
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60B8910EBF7;
-	Sat, 10 Oct 2026 12:38:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E22910EBF5;
+	Sat, 10 Oct 2026 12:38:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NjpwzYOG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P0TgtNkO";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6272010E18B
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:17:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFD4A10EAB2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:15:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3C69241186;
- Fri,  9 Oct 2026 18:17:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8694F1F00893;
- Fri,  9 Oct 2026 18:17:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8238840BDB;
+ Fri,  9 Oct 2026 18:15:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5241F00893;
+ Fri,  9 Oct 2026 18:15:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569852;
- bh=brSHanJN25qJ54Niea2K3A3DIc/HKTRx7GaGCKmRkSY=;
+ s=k20260515; t=1791569747;
+ bh=FL+pG7iYbns5NAvxUiKpoa2h2WT2T+0wVsizSFodaIE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=NjpwzYOGiGRkBGv2+kMnevRQrrQWdzxweR1O1SfiEhqVYEsvmU5GTZF+RZZaKz0DC
- MPEo7gN2KQkpLYXQ/0+3pR103pZyBi4+O3Ar8pm8bJIf57VzElzKQDEeTEVo4jkM8C
- PiI27T5ZqybWYn4VNylc1Ziq2QqYrRStNlNYFC3EvLPb4kKkEOxRQeJyWC41eYS4Qo
- U4GwDRSN7R3g2SMt2M09YBUnZPVDQLQ1ydjVWr5jmJ8OYJA4LZYTnFix9vgRlGrun/
- bUTx5VyyfPSTOGLuZXLGfvrMIJi9YmmyI4h1rI3VE5EPbUSu14IRi9OEVpcGSrchEn
- LFBmBbiK+HIAQ==
+ b=P0TgtNkOLtz1V5RqdFfmzHsbr2ZV2xb1XGOzsdEPHrVHwslHBF+5+ZC2lwDUuDN5/
+ fmzhfAT1pDfwOvwsrPJa7aNcDNhIIqnIEOI8uqL5dLhrP6DOftcDd4KkvNQXDxuA+g
+ nJi/13n9pEHD72FuN8zUubPaSDEbqZ3WKnWiAnPYiObUoTTMYlqZj/t5I9CzVxr9ET
+ 0DDBl0yUC3dQkmq5m7xXxu7UK4dB/9ZbLmiRf8qqe1xA7LjkBPGH6dVx2erHafhBJz
+ p4NQx5Hj4F7vstfNKhmQ0KlnVBEt+wvKAGe4YIHvd3X3wW2eOvwHvCAg6kSyk9ULup
+ tbJ2MFJUV62gQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:31 +0100
-Subject: [PATCH v5 37/38] fuse: dax: do not set VM_MIXEDMAP
+Date: Fri, 09 Oct 2026 19:04:26 +0100
+Subject: [PATCH v5 32/38] mm/madvise: use predicates for madvise(...,
+ MADV_DOFORK)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-37-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-32-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +122,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1534; i=ljs@kernel.org;
- h=from:subject:message-id; bh=tfz3ccYwKEyTRVC6abtstchqWCa1ts0/TLS9J4UHnV4=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sxv1swqFJoZ719bfann5Z1Zl6xuCD87X32mv2HLt
- Fsq35UXdpSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiXV8YGZbWH7yp13z5Lvf1
- B9m8L7R2q63PXrrWZ2e3UO+TxYtjtM0Z/sdPWiiwTNQkc0OrYbC5ZOLVL6pTnt2+vv2IftziYzH
- bGbkB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1363; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=YNfpkCadbWvpcwwLlLHWuiS8T4ZWoqNpMFslOQmKhoo=;
+ b=kA0DAAoWz53NioHifxQByyZiAGrJLJ6g6RZFhU4KbWCxJ4gVFn/3GBGvvkwe5RYbI4G/7nuFn
+ oh1BAAWCgAdFiEE5/QXv1IUVp6J0E9Gz53NioHifxQFAmrJLJ4ACgkQz53NioHifxQ9ogD8CxPW
+ +3isn5QUBXjLRAKoCcFSJm47bItdt01SL2uVpbQBAN7TvVxb9O5vKhbJaqaskLivUiqoAqXACKJ
+ oRjxBku0C
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -145,46 +146,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit e1fb4a086495 ("dax: remove VM_MIXEDMAP for fsdax and device dax")
-prevented fsdax and device-dax from setting VM_MIXEDMAP, as DAX no longer
-relies on it to direct core mm paths.
+Make it clear what we're blocking in MADV_DOFORK. Previously we simply
+disallowed VM_SPECIAL i.e. mappings not managed by core mm, fixed mappings
+and
+VMA_IO_BIT.
 
-The fuse DAX implementation, added later, copied the old pattern and still
-sets it.
+Now the invariant is established that mm-managed mappings may not set
+VMA_IO_BIT, the VMA_IO_BIT check is redundant.
 
-Fuse DAX maps pages the same way fsdax does, via dax_iomap_fault() and
-ultimately vmf_insert_page_mkwrite() and vmf_insert_folio_pmd(), which
-insert ordinary refcounted pages and so do not require VM_MIXEDMAP.
+The rest is equivalent to testing for a fixed or non-mm-managed mapping,
+i.e. exactly the same check as whether the VMA is permitted to be merged.
 
-Setting it only serves to mark the mapping as not mm-managed, making fuse
-DAX the sole DAX implementation whose mappings are unmergeable, cannot be
-mlock()'d, eagerly copy page tables on fork and reject MADV_DOFORK and
-MADV_DODUMP.
+This was established by commit 0b2758f48f22 ("Require (reasonably) normal
+mappings for MADV_DOFORK") containing my hands-down favourite call out of
+all time.
 
-It also requires vma_is_special_huge() in mm/huge_memory.c to carve DAX out
-of its check for mappings not managed by core mm explicitly.
+Express the same thing differently - if we wouldn't be allowed to merge it,
+then we aren't allowed to manipulate CoW behaviour on fork.
 
-There is no reason for fuse DAX to keep on using this flag so drop it.
+No functional change intended.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- fs/fuse/dax.c | 2 +-
+ mm/madvise.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
-index 85cdf0199bc0..a5994f1c637d 100644
---- a/fs/fuse/dax.c
-+++ b/fs/fuse/dax.c
-@@ -826,7 +826,7 @@ int fuse_dax_mmap(struct file *file, struct vm_area_struct *vma)
- {
- 	file_accessed(file);
- 	vma->vm_ops = &fuse_dax_vm_ops;
--	vm_flags_set(vma, VM_MIXEDMAP | VM_HUGEPAGE);
-+	vma_set_flags(vma, VMA_HUGEPAGE_BIT);
- 	return 0;
- }
- 
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 9d0cde25da61..30e42df6910a 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1565,7 +1565,7 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
+ 		new_flags |= VM_DONTCOPY;
+ 		break;
+ 	case MADV_DOFORK:
+-		if (new_flags & VM_SPECIAL)
++		if (!vma_can_merge(vma))
+ 			return -EINVAL;
+ 		new_flags &= ~VM_DONTCOPY;
+ 		break;
 
 -- 
 2.55.0
