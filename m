@@ -4,60 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5F3ACA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:21:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BD3FCA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF53C10E6CD;
-	Fri,  9 Oct 2026 14:21:07 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E23B010E6CD
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:21:05 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
- by APP-03 (Coremail) with SMTP id rQCowADX4T9G+Mhqz14oCg--.5069S2;
- Fri, 09 Oct 2026 22:20:54 +0800 (CST)
-Message-ID: <576dcb368d9d8c96226a27474f9427e6da2db1da.camel@iscas.ac.cn>
-Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
- clearing a BO
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Evanshenf
- <archwse@gmail.com>, dri-devel@lists.freedesktop.org, Natalie Vock
- <natalie.vock@gmx.de>, "Paneer Selvam, Arunpravin"
- <Arunpravin.PaneerSelvam@amd.com>
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
- Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org, Huang Rui	
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost	
- <matthew.brost@intel.com>
-Date: Fri, 09 Oct 2026 22:20:54 +0800
-In-Reply-To: <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
- <20261003093415.902f89244043-2-archwse@gmail.com>
- <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
- <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: rQCowADX4T9G+Mhqz14oCg--.5069S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF45uw1fZrykXrWfJr15XFb_yoW7AFWxpr
- ZxAFyjkrWDXrnFkrnFqa4kC3WFya4Fgry7WFW5tasYg39Fyr17WF15WFWDCF9rZF17Ar12
- vrn3G39xu3Wqy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
- 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
- C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
- wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
- v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
- jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxUqiFxDUUUU
-X-Originating-IP: [112.94.100.127]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9E810E9B7;
+	Fri,  9 Oct 2026 14:23:20 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="RksHnFXU";
+	dkim-atps=neutral
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D82CF10E9B7
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:23:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791555795; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=lAlURLZu0gsFAeLRiD3z03sBeXmic9SGbshdeCgMaFoUMt0T8944Sg4G8+fJeVQ2fSSKUoST3hJtrF9JaYE/z1A2dzNKQ6LkQmiKM1JKkQn5Yqa79C74hElIgHkgfXcutoGE8tzx1ZDuF5wJdl5LpTT4URlDveQccaWZmc4cVbk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791555795;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=rZbHmDw7k1JuGcWfTDK449kSL5IH3c8JdJckWZ9HH+4=; 
+ b=AyNf1Benc97uLhNZOadBHnrPfdI9qQEtZTBBq/s5SFaqdcCeaUzjO8jNZpLdvTlqFbt9vCPbGydG+rTlU9aZ+YIar8GaXB71wVnwjlnNbuHZ7b1v/RzOp7+1wBRD7AUmg4mI0zH0xdeB3K8rLypoe93rBRAa0eXU79gXVIezrmQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791555795; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=rZbHmDw7k1JuGcWfTDK449kSL5IH3c8JdJckWZ9HH+4=;
+ b=RksHnFXUcBOTHXDLrx+PEsxDe3TSlE182Y7go8RfuwdnkyFUYVG7jmGVUmhy/InS
+ 33+RwaGKOema756oga6ZpC9trR5D8n7q3GnEPq6bqaIs198mef/+pJ5ruZO0nQ6RXz4
+ SI3PYNsTn8VbtlMEzJRagi+BUdjHu8WpzNpIT7pI=
+Received: by smtp.zohomail.com with SMTPS id 1791555794216331.23684005909104; 
+ Fri, 9 Oct 2026 07:23:14 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v3 04/11] drm/tyr: add per-file VM pool
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260929-tyr-ioctls-v3-4-26955fb111d5@kylinos.cn>
+Date: Fri, 9 Oct 2026 11:22:54 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ driver-core@lists.linux.dev, Alvin Sun <alvin.sun@linux.dev>
+Content-Transfer-Encoding: 7bit
+Message-Id: <B980B946-8AD5-48DD-95E2-8EFAF3F353FD@collabora.com>
+References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
+ <20260929-tyr-ioctls-v3-4-26955fb111d5@kylinos.cn>
+To: sunke@kylinos.cn
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,174 +82,6 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-10-09=E4=BA=94=E7=9A=84 16:14 +0200=EF=BC=8CChristian K=C3=
-=B6nig=E5=86=99=E9=81=93=EF=BC=9A
-> On 10/9/26 15:50, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
-> > > writes
-> > > to lbo->kptr unconditionally. When the first mapping of a newly
-> > > allocated
-> > > buffer fails, kptr is still NULL and the subsequent memset
-> > > accesses
-> > > it.
-> > >=20
-> > > Return the mapping error without touching the buffer and
-> > > propagate it
-> > > from lsdc_gem_object_create(). Install the GEM object functions
-> > > before
-> > > clearing so that drm_gem_object_put() can release the buffer
-> > > correctly
-> > > on failure. Do not add the failed object to the tracking list or
-> > > return
-> > > an uncleared buffer to the caller.
-> > >=20
-> > > Imported buffers still skip clearing, and successfully mapped
-> > > buffers
-> > > are cleared and unmapped as before.
-> > >=20
-> > > Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap().
-> > > Its
-> > > -EINVAL return reached userspace, the object was destroyed once,
-> > > and
-> > > no GEM handle was published. Normal
-> > > create/map/zero/write/read/close
-> > > cycles passed, with the tracked BO count and VRAM usage
-> > > unchanged.
-> > >=20
-> > > AI assistance was used for the lifetime analysis, fix, fault-
-> > > injection
-> > > tools, build and test execution.
-> > >=20
-> > > Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
-> > > controller")
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: LLM
-> > > Signed-off-by: Evanshenf <archwse@gmail.com>
-> > > ---
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.h |=C2=A0 2 +-
-> > > =C2=A03 files changed, 17 insertions(+), 7 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > b/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > index 2fb0348..9eba4e1 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > @@ -157,14 +157,18 @@ struct drm_gem_object
-> > > *lsdc_gem_object_create(struct drm_device *ddev,
-> > > =C2=A0		return ERR_PTR(ret);
-> > > =C2=A0	}
-> > > =C2=A0
-> > > +	gobj =3D &lbo->tbo.base;
-> > > +	gobj->funcs =3D &lsdc_gem_object_funcs;
-> > > +
-> > > =C2=A0	if (!sg) {
-> > > =C2=A0		/* VRAM is filled with random data */
-> > > -		lsdc_bo_clear(lbo);
-> > > +		ret =3D lsdc_bo_clear(lbo);
-> > > +		if (ret) {
-> > > +			drm_gem_object_put(gobj);
-> > > +			return ERR_PTR(ret);
-> > > +		}
-> > > =C2=A0	}
-> > > =C2=A0
-> > > -	gobj =3D &lbo->tbo.base;
-> > > -	gobj->funcs =3D &lsdc_gem_object_funcs;
-> > > -
-> > > =C2=A0	/* tracking the BOs we created */
-> > > =C2=A0	mutex_lock(&ldev->gem.mutex);
-> > > =C2=A0	list_add_tail(&lbo->list, &ldev->gem.objects);
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > index 88536e2..7b30dea 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
-> > > =C2=A0	ttm_bo_kunmap(&lbo->kmap);
-> > > =C2=A0}
-> > > =C2=A0
-> > > -void lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > +int lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > =C2=A0{
-> > > -	lsdc_bo_kmap(lbo);
-> > > +	int ret;
-> > > +
-> > > +	ret =3D lsdc_bo_kmap(lbo);
-> > > +	if (ret)
-> > > +		return ret;
-> > > =C2=A0
-> > > =C2=A0	if (lbo->is_iomem)
-> > > =C2=A0		memset_io((void __iomem *)lbo->kptr, 0, lbo-
-> > > >size);
-> > > @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > =C2=A0		memset(lbo->kptr, 0, lbo->size);
-> > > =C2=A0
-> > > =C2=A0	lsdc_bo_kunmap(lbo);
-> > > +
-> > > +	return 0;
-> > > =C2=A0}
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev)
-> >=20
-> > Well I currently don't know whether the clearing is meaningful...
-> >=20
-> > It seems that drm_gem_vram_helper doesn't do this.
-> >=20
-> > Cc'ing TTM maintainers for an answer.
->=20
-> Natalie and Arun are TTM maintainers now, but I will try to answer
-> here as well.
+Hi Alvin, thanks a lot for working on this!
 
-Ah I heard about TTM maintenance change, but I used the mailing
-addresses in v7.3-rc6.=20
-
->=20
-> OpenGL doesn't necessarily require clearing of VRAM nor isolation of
-> VRAM data between processes.
->=20
-> So it is up to the driver if they want this or not. Classically a lot
-> of drivers didn't clear VRAM allocations until explicitely asked.
-
-Then in this case I think it's better to just remove the VRAM clearing
-code -- this driver is even not related to render acceleration at all
-now (and getting rendering to work would be so hacky because loongson
-DC's are paired with either Vivante GPUs with dedicated VRAM or
-proprietary GPUs).
-
->=20
-> But if you clear the memory you should have proper error handling and
-> a kmap/vmap can fail at any time for multiple reasons.
-
-Yes, if the other maintainers prefer to keep the memory clearing code,
-I will accept this specific patch.
-
-Thanks,
-Icenowy
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > b/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > index 843e147..df47d9b 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_kmap(struct lsdc_bo *lbo);
-> > > =C2=A0void lsdc_bo_kunmap(struct lsdc_bo *lbo);
-> > > -void lsdc_bo_clear(struct lsdc_bo *lbo);
-> > > +int lsdc_bo_clear(struct lsdc_bo *lbo);
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev);
-> > > =C2=A0
-> >=20
-
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
