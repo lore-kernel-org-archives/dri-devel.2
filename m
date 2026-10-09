@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E21CA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C146FCA601F
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 18:26:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08DF710EAD0;
-	Fri,  9 Oct 2026 18:26:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 194C410EAD6;
+	Fri,  9 Oct 2026 18:26:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eAQlCbpA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C+NmX9+V";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 497BB10EAD0
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:26:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F89E10EAD4
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:26:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2E852436F7;
- Fri,  9 Oct 2026 18:26:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4421F000FF;
- Fri,  9 Oct 2026 18:26:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E3BE560DC6;
+ Fri,  9 Oct 2026 18:26:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 032611F00898;
+ Fri,  9 Oct 2026 18:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791570411;
- bh=hCYG4mb6Y3+WHTuTX+96FEwLU/wi/dMPvdqqRXrtajA=;
+ s=k20260515; t=1791570413;
+ bh=n9GMDy/R1UgfttvwZhvfhmFdvjuuPlOAsVdTKlAlOWM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eAQlCbpAS96MLx70Tc9gifLpJ5iahGMxgYJh0/bJ0pS63IADsDEnPq08vLVgceN7Q
- o9yN87ptROgczUv2QkI5s4xXnMLel6q3WkGRlF4nOflAQvE1YxUzixs5Y657eC53km
- Tg/sapcML71/94YFP3oYNnbU8cuCD0rflyPoxGcNdbcN9QJWYNTl7kVG4gvkHdIOJ3
- QV8tfjm2kH/Id98OADQPdImQSdpjAKFj20c6ppcmWjlHynqdK00ix1ERAu6MeyZPLU
- V9vAG6OOJoBUd/iq6r3SOLKCZbD+E1zb+9b1gCvKqRwVANvSJqF1yo1nlZscL2V70A
- 58qv+8XpuYRiw==
-Message-ID: <sashiko-outbox-165944@kernel.org>
+ b=C+NmX9+VHEvaJrcf+awbOATPxFbMv5CSoC2ic9OVqfD8wDE3DwmfihLbI9kLu7RTX
+ NMMa59/VofRuvBSCOotI+pOcSis7QC5xtHvdKGhQz5gKKDPlT4rD04Qd6M58WopCXZ
+ tNsO4qe3MR33XMhbfgYshQq0xXEHtSmDTDYijFSM8+U1E7heFDR5NlCWDwi6H9gUKm
+ MiP+rimIHakYedE8y7dgk7bmtfTlvdjwJQ1qvXxCsZaBOaJY6Y6VY3bO9exBG/CruD
+ pjwvA2OFF7AGgowbSv81ytcljfGCqpXLBhgwYs/XS8UJj3EOjcCoQwMwV5LQQgNg6a
+ kLRnoaszO1XDg==
+Message-ID: <sashiko-outbox-165945@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 11/38] selinux: reject writable opens of policy file,
- drop mmap shared/write check
+Subject: Re: [PATCH v5 14/38] mm/vma: add vma[_flags]_is_mm_managed()
+ predicates
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: "Alexander Gordeev" <agordeev@linux.ibm.com>, linux-scsi@vger.kernel.org,
- "Marc Zyngier" <maz@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, linux-s390@vger.kernel.org,
- linux-usb@vger.kernel.org, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>,
- kvmarm@lists.linux.dev, selinux@vger.kernel.org, "Oliver
- Upton" <oupton@kernel.org>, linux-rdma@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kvm@vger.kernel.org, bpf@vger.kernel.org
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-11-923b70125b1e@kernel.org>
+Cc: linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ bpf@vger.kernel.org, kvm@vger.kernel.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, linux-s390@vger.kernel.org, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, linux-usb@vger.kernel.org, "Oliver
+ Upton" <oupton@kernel.org>, "Marc Zyngier" <maz@kernel.org>, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, linux-rdma@vger.kernel.org,
+ kvmarm@lists.linux.dev, linux-scsi@vger.kernel.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, selinux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-14-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-11-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-14-923b70125b1e@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 18:26:50 +0000
+Date: Fri, 09 Oct 2026 18:26:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,23 +66,26 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> The policy file has no write method and is exposed read-only (S_IRUGO in
-> selinux_files[]), yet sel_open_policy() performs no open mode check, so a
-> CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
-> kernfs does.
+> Rather than referring to VMA flags with uncertain meaning, add a new
+> predicate that explicitly describes what absence of the VMA_PFNMAP_BIT and
+> VMA_MIXEDMAP_BIT flags means, and then refer to that function for
+> determining VMA mergeability.
 >=20
-> The file can then never be mapped with FMODE_WRITE, so do_mmap() always
-> clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
-> check in sel_mmap_policy() cannot be reached. Remove it.
+> If neither of these flags are set, that means the contents of the mapping
+> are managed by core mm.
 >=20
-> This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that =
-is
-> neither a PFN map nor a mixed map, ahead of the core enforcing that only
-> such mappings may do so.
+> Otherwise they are instead owned by some other kernel component, usually a
+> driver: the memory may be MMIO, kernel-allocated pages or even ordinary
+> pages the driver maps itself, but core mm must not populate, reclaim,
+> migrate, copy-on-write or merge the range itself.
 >=20
-> Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-> Reviewed-by: Jann Horn <jannh@google.com>
-> Acked-by: Paul Moore <paul@paul-moore.com>
+> We initially also treat VMA_IO_BIT as implying a mapping is not mm-manage=
+d,
+> as by implication it cannot be. (mlock() also sets VMA_IO_BIT transiently
+> [ ... ]
+> No functional change intended.
+>=20
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
 > Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
@@ -90,5 +93,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-b4-mmap-pr=
-epare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org?part=3D11
+epare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org?part=3D14
 
