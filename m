@@ -4,87 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C921CA9EBB
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 22:25:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39E56CA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 22:53:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 486E310E4EF;
-	Fri,  9 Oct 2026 22:25:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8C8710E51F;
+	Fri,  9 Oct 2026 22:53:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="CSW45Q12";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l2LNbjP0";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1EB10E4EF
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 22:25:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1791584730;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bK4K6Zwn6uj/JoYpayj3VUrzNvyKqfzTmCHlvOGm9C4=;
- b=CSW45Q12oNVZAg+6CisK5tEwsqBf4Z2rA0IbcAc+YmbqBMtl+Q6pj1fj6JPkUAMxfnm5D0
- DNdYsjDiTk3vxXq6gefmYWMbSvJDrFtojb8/+hcbcyfQaZPotVc/z+7joM0RTHrdBVCuo8
- VFTTrokZd1FvOcvzPz6ZibUp0PRgc+I=
-Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
- [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-522-I-HpofIuMVS8V5n55UEhpw-1; Fri, 9 Oct 2026 22:25:28 +0000
-X-MC-Unique: I-HpofIuMVS8V5n55UEhpw-1
-X-Mimecast-MFC-AGG-ID: I-HpofIuMVS8V5n55UEhpw_1791584727
-Received: by mail-lj1-f199.google.com with SMTP id
- 38308e7fff4ca-3a7a968980aso10022751fa.1
- for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 15:25:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791584727; x=1792189527;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bK4K6Zwn6uj/JoYpayj3VUrzNvyKqfzTmCHlvOGm9C4=;
- b=zwGVInvFdq8KVVysjq4udGFrs120nE9vLscUuV1EYMBMzbWR2BaRTNRp95iKMZ3c0+
- 1KeNSG827h3vvh3aL+zbk/rH8RiXWZwUjYMhU7eA/qRHt8JxILkOF9vv+X+Eu7kLbJIp
- MqI3fAk0oHJEcBuHucB33PbpWLb4soRxHB8Lq3iBxUxz3SrWpd0IXjs4nrFQmX5QMNgS
- 1ZZmzbPSWGI0y2aYwAF4b6HgSvROIApS1IFHXv6KtAQLEk3VZmCTVQ5/FtPOR6Pz4Kw1
- +pERApKTW2XLdrTNzs0a2/GXZEW6yXxssuOswr+2Zc+7YB99cPjfILforNZe8BZB+WH3
- md1A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxxC5UYCWUcHpTO9uAtgVNZnj0Iz9GH4z/TmIr94d1kzLaM3rGHH7Xz4XEaGJZghgo3xaB6WUUTmIU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLzZ01Tfz+uTHZcBAKKihb8mlI3ncD3nTUeaxTgVJX6kfWIC9/c
- blLk/MUJmXVGfGB6ZgXJKSfgutxHeDf1Lfu4Az43y8vnz2kOo0h2QzibbMXJ0RbWe46DVy3JVmN
- 5QWv2/H902QBrbx//GptiAchazK4/4lzmVaZWDug7/rpAVlXDidJsqknkZYbegC2PdM15Tw==
-X-Gm-Gg: AYBFou1ow1JIP8yNHnSWpYwzna2vnpUcrfHIJ6+qvPA7SBc+9m1kb7IDoLQ8bCSaGzJ
- Hcz/AfZ85DGJLkAkbl/aKCDdTYToaQl3BgzBTmO7LGwoiV8y5Ijq03tIQrrq7IQzF0iAG2tTlGW
- ObGsqUaX7HP1sv7y3vQvThVe6PAfsveC9uMCgQHZtnY9hHkouZ8qtrrPLmgrH2t3s2Nt7nWug3t
- NamCqOjOqqvB3eWFJ7nqvIQb/WzqJZN3koZkae/i4mKeyXRnXY2KVy+zu8tgm8TqmMbFoCMNdfn
- yBjVS0TsQFwm9nkS23aA3e0Pkvp7ovU3dbAYjsqRguZ3UaVa9rTQpvGfzMB+QhF41eBRkLg=
-X-Received: by 2002:a05:651c:1510:b0:3a9:a07b:7448 with SMTP id
- 38308e7fff4ca-3a9c2b34b4bmr8879331fa.19.1791584727349; 
- Fri, 09 Oct 2026 15:25:27 -0700 (PDT)
-X-Received: by 2002:a05:651c:1510:b0:3a9:a07b:7448 with SMTP id
- 38308e7fff4ca-3a9c2b34b4bmr8879291fa.19.1791584726867; 
- Fri, 09 Oct 2026 15:25:26 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a9c3c9af97sm9864011fa.14.2026.10.09.15.25.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Oct 2026 15:25:26 -0700 (PDT)
-Message-ID: <80477cda2bee82a656b866fea09b964ca9e0b955.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau/kms: defer window LUT disable until the
- image update
-From: lyude@redhat.com
-To: Solom Tamawy <solom@solom.dev>, nouveau@lists.freedesktop.org
-Cc: Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Date: Fri, 09 Oct 2026 18:25:24 -0400
-In-Reply-To: <CACbN=AsQdd1GsAA1FpNMZCrd4YNHidX_dQ1CmBW4zYUnHbrioQ@mail.gmail.com>
-References: <CACbN=AsQdd1GsAA1FpNMZCrd4YNHidX_dQ1CmBW4zYUnHbrioQ@mail.gmail.com>
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010062.outbound.protection.outlook.com [52.101.56.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFDD410E51F
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 22:53:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SZxzD15ihRKr0oA1X4FtoAEKQXNAey5yr9mjMVLVdKZhgLIvhdoRi+3z3p9gz2Q5utkwq5FCz+hcnklGrO63zF0r/Wib6CzC3G7+dn3JxvzQaGmTrTB/uN1uwtgNVQkNH/wnYuEdDWQrDKDMO/KabFPxrGf9fxk0skF18hMEcs8+BZyfQSuYkpAIgnZvrYO1dlChTVKts2d/QoisL25yFmsYA3tGYBbaVbUef6qa6phRCygXkZb+pFhk0O+E9kwt+jPVbvnrpsWrS9LlL4xDG9b+ahn06fCs56WIqcKmFgTi0cs5k5IONkM74WzjBL66U6PzageSb/04ovdXLT/22A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rF1u17LOajU99h9A93l3jH0PLIzkE6/S40gRuQo2Yto=;
+ b=PvMsXfJtdM25lMPdQKaTx9fX/QI2DPFgMvM2krzkz+imhSY1o0TLXIh+BO+3ySa6Q5iLNB50CV6AkDsocVINcTlxApimEMYOpyoxX5jYfQW71r/Wh5kcMieAgUK06ECX0Lif1SCPgMjz9uHNTVx2AcbJ93vzHMeCH8CgvTPfZ21djIj0G3Wv/vgRp2nyyAEV0DGnz7DTrnGucjsFUWLh4+cmCsOO4vifS9cJbLU6xBhfepd+gaXVkBxAlM+46pQxnWkclhlBlKGEjSLlNW9Ldv/28nymVRHbNw17VWtEzKe75PP2gO8r60zMybN0iBF7aVW7LznjQ4zUAJnGCEnwNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rF1u17LOajU99h9A93l3jH0PLIzkE6/S40gRuQo2Yto=;
+ b=l2LNbjP0dp97DWnBN6xB0Ki7H3WhmXKOJCasTr/NCObk7tpBSN/qWKfZLY5qUyMnF6/3dRgkv8Tg3tHgUTCCz2s8hL117mKTKeOHsjw1j4RdqvEpo9EL2u8lmHfdZn716ybtdClnm5TlCQ4dIs4ACWb3OvYUTrkIYfTv3gPY/wI=
+Received: from BN0PR04CA0017.namprd04.prod.outlook.com (2603:10b6:408:ee::22)
+ by MN0PR12MB5740.namprd12.prod.outlook.com (2603:10b6:208:373::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
+ 2026 22:53:48 +0000
+Received: from BN3PEPF00022BC1.namprd04.prod.outlook.com
+ (2603:10b6:408:ee:cafe::2f) by BN0PR04CA0017.outlook.office365.com
+ (2603:10b6:408:ee::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
+ Oct 2026 22:53:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF00022BC1.mail.protection.outlook.com (10.167.248.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 22:53:47 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 17:53:42 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 17:53:42 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via
+ Frontend Transport; Fri, 9 Oct 2026 17:53:42 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+ <max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+ <mario.limonciello@amd.com>
+Subject: [PATCH V4 01/19] accel/amdxdna: Rename NPU3 firmware files
+Date: Fri, 9 Oct 2026 15:53:25 -0700
+Message-ID: <20261009225343.3079074-2-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261009225343.3079074-1-yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261009225343.3079074-1-yidong.zhang@amd.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: H7pz-Lq7H06EoE4M7clkXUvDK0Ga5AeJ-9oXvK1JEt0_1791584727
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC1:EE_|MN0PR12MB5740:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2c3c9c4-4d5c-4af1-6b08-08df26582de8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|23010399003|1800799024|376014|36860700016|56012099006|11063799006|4143699003|22082099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: MJTi28TEqJtth+2JOT5xThUoV2ij0Bsi/mxg4pvnF3ZXVhdSAC1Ws3InpAhFAHHFaeKsrwhMbIkLNUU4+trj7qQyrYS4dJXD6ZdBOuT6OVlZLUuDM0nw72FYpChBAgWOx/hIWa4lqKdLCyCAQM+mMadAIYskujypfG6GfYlM2D36nKCvNb0lnWWkxaWw/Z1+vQQuAByhJk/IT4sUL9qxr9npvHfpTvFokMHm4gQEmyBKO04TJmq9xZzwbR+0uYDo3i3oAr6UAypKrhWWexezThSGyxQVTchB0s3V/K/oIRQx+OOAaa7VTzcq7eJW0LZLo+JML6eKf5T8SLh5xTfIr4NK/zEn8HD++omLj2V/nIzBJNJSvB6CEx3yk/edRQPckAIcmDPdZ0UGDNLSII6Ioh22sQJqBt4bELpfu4b29kNJKwfjYgI1oJb0coLPJE7mlnEDIiEb564CI9BlX0ZzIAvqGqRna54skXiWBAfABonMFjQLVOwQi8q7zZlDOheAD/O1BVeRReR844FHxp/s097KHW+LBZoqQy9kIcdOanD3BBZiI+ZBQUid1PxurfrycfCEkR8qVSh0Vlmozn/cFGfaNnReFHSlTKl7FGWZsgvgkSYsA7GNZ77+amfOdVf51x5efLijkKmY8bau4eFN4mSJde4G4+5Cul2dfNMDKdDRZbQegTvUuNQhL6ZnGSraZWMCrxkl7en3+Bc3smV/JA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(23010399003)(1800799024)(376014)(36860700016)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Os3OhZ9gZQ4VC2Qzjui8jeXzAF/iqG7dgn/6G1AEh+3cNNxMWWQ/3bclSeTuxwvNnX04WbyD9N7XYWS8mF5PetkARbMr2ifujl7vnG2aDT9qM0iN7fUIDILOIAcf0r1PJMHWsscUPxtuRhsCVR2jvydDoosC1MSBnSnxnHbrj2iv1nPI2JcKZz6LWuMt19KZ6veWIe4no5ozndOmsTkjYrKwUZQ6W+FfaXtj6996Sa4aXQ2usRAJOHJLQOBMLP6JeJjELZ38U7PWHy81lB73NKTtgYfBlgOnStxEg50EplefIAFdUR2hTbH5tGikqL7g2AzTBSMX2jRGs+umr8XWFPTApGSEXIJ4TtFXlUbmAPdt9Ab0wYkbjh9QeMLi4qeQpgSyl3HrIyTv6yEWAWJEJ0d3pwLWSexi+gr+ld+WWGsLh4f4eID/ll3I5LfwgJ57
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 22:53:47.8654 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2c3c9c4-4d5c-4af1-6b08-08df26582de8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5740
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,208 +119,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-JFYI - I will review this patch soon, but I'm currently waiting on
-getting the information I need from elsewhere to actually decode the
-NvDisplay error here just to double check that this fix makes sense.
+The NPU3 firmware files will be released as npu.sbin and cert.sbin.
+Rename the current firmware names to match the firmware release names,
+and add MODULE_FIRMWARE() declarations for the new 17f2_10 npu.sbin and
+cert.sbin names.
 
-On Sat, 2026-10-03 at 17:41 -0700, Solom Tamawy wrote:
-> A modeset on one head can set flush_disable for the entire atomic
-> commit while another window changes from an integer framebuffer to
-> FP16 without a modeset. The latter sets clr.xlut and set.image, but
-> not clr.image.
->=20
-> nv50_wndw_flush_clr() clears that window's ILUT before the
-> intermediate
-> disable UPDATE, leaving the old integer image enabled without its
-> LUT.
-> The new FP16 image is only programmed later in nv50_wndw_flush_set().
-> On hardware that uses the ILUT to convert integer input to the
-> internal
-> FP16 pipeline, the intermediate state is invalid.
->=20
-> This ordering defect was found while investigating a Plasma login
-> hang
-> on GB205 after atomic modesetting became enabled by default. The
-> failure
-> logs contained window UPDATE exceptions followed by a core notifier
-> timeout:
->=20
-> =C2=A0=C2=A0 gsp: Xid:56 CMDre 00000001 00000200 00000001 00000005 000000=
-2d
-> =C2=A0=C2=A0 gsp: Xid:56 CMDre 00000005 00000200 00000001 00000005 000000=
-2d
-> =C2=A0=C2=A0 drm: core notifier timeout
->=20
-> Defer the LUT clear until the image update when the old image remains
-> enabled across a separate disable UPDATE. The LUT clear and new image
-> then take effect together. Keep early clears for windows whose images
-> are disabled and preserve the path without a separate disable UPDATE.
-> Pass flush_disable explicitly to the set phase, since the new plane
-> state's atomic-state backpointer is cleared during state swap.
->=20
-> Fixes: ebf8ca6b3d6d ("drm/nouveau/kms/nv50-: disable input lut
-> harder")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Solom Tamawy <solom@solom.dev>
-> ---
-> Based on linux-next f0406245cb9855e6318335a8a223551354291a46
-> (next-20261002). This is the functional fix only; atomic modesetting
-> remains enabled and the advertised formats are unchanged.
->=20
-> Testing:
-> - A focused C harness extracts the actual pristine and patched flush
-> =C2=A0=C2=A0 helpers and models two heads at each UPDATE boundary. The pr=
-istine
-> =C2=A0=C2=A0 helpers fail the mixed-head integer-to-FP16 case; the patche=
-d
-> helpers
-> =C2=A0=C2=A0 pass all 14 cases. The model is not a full GPU simulator.
-> - Nouveau built against the matching kernel configuration and headers
-> =C2=A0=C2=A0 with successful modpost and BTF generation and no build warn=
-ings.
-> - I successfully logged into Plasma Wayland on RTX 5070
-> =C2=A0=C2=A0 (GB205), with three NVIDIA DP displays, amdgpu active on the
-> integrated
-> =C2=A0=C2=A0 GPU, and a CalDigit TS5 Plus dock connected before login. No
-> atomic=3D0
-> =C2=A0=C2=A0 override or USB/PCIe/Thunderbolt PM workarounds were present=
-. The
-> =C2=A0=C2=A0 expected patched module was loaded, and the I confirmed a
-> =C2=A0=C2=A0 successful DRM_CLIENT_CAP_ATOMIC=3D1 capability probe. No Xi=
-d or
-> core
-> =C2=A0=C2=A0 notifier timeout appeared in this boot.
->=20
-> =C2=A0 drivers/gpu/drm/nouveau/dispnv50/disp.c |=C2=A0 2 +-
-> =C2=A0 drivers/gpu/drm/nouveau/dispnv50/wndw.c | 13 ++++++++++++-
-> =C2=A0 drivers/gpu/drm/nouveau/dispnv50/wndw.h |=C2=A0 4 ++--
-> =C2=A0 3 files changed, 15 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> index e91130f93db6..b7022a9b6e6f 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -2351,7 +2351,7 @@ nv50_disp_atomic_commit_tail(struct
-> drm_atomic_commit *state)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (!asyw->clr.mask || atom->=
-flush_disable))
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 co=
-ntinue;
->=20
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 nv50_wndw_flush_set(wndw, interlock, asyw);
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 nv50_wndw_flush_set(wndw, interlock,
-> atom->flush_disable, asyw);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Flush update. */
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-> b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-> index 74eb1dfcc043..ac59219e162a 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-> @@ -137,6 +137,14 @@ nv50_wndw_flush_clr(struct nv50_wndw *wndw, u32
-> *interlock, bool flush,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 union nv50_wndw_atom_mas=
-k clr =3D {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 .mask =3D asyw->clr.mask & ~(flush ? 0 : asyw-
-> >set.mask),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* A different head can require a s=
-eparate disable update
-> while this
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * window only changes format.=
- Keep its LUT enabled for the
-> old
-> image
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * until the new image is prog=
-rammed: integer formats require
-> an
-> ILUT.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (flush && !clr.image && asyw->se=
-t.image)
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 clr.xlut =3D false;
-> +
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (clr.sema ) wndw->fun=
-c-> sema_clr(wndw);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (clr.ntfy ) wndw->fun=
-c-> ntfy_clr(wndw);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (clr.xlut ) wndw->fun=
-c-> xlut_clr(wndw);
-> @@ -147,7 +155,7 @@ nv50_wndw_flush_clr(struct nv50_wndw *wndw, u32
-> *interlock, bool flush,
-> =C2=A0 }
->=20
-> =C2=A0 void
-> -nv50_wndw_flush_set(struct nv50_wndw *wndw, u32 *interlock,
-> +nv50_wndw_flush_set(struct nv50_wndw *wndw, u32 *interlock, bool
-> flush,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct nv50_wndw_atom *asy=
-w)
-> =C2=A0 {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (interlock[NV50_DISP_=
-INTERLOCK_CORE]) {
-> @@ -157,6 +165,9 @@ nv50_wndw_flush_set(struct nv50_wndw *wndw, u32
-> *interlock,
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (asyw->set.sema ) wnd=
-w->func->sema_set (wndw, asyw);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (asyw->set.ntfy ) wnd=
-w->func->ntfy_set (wndw, asyw);
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Apply a deferred LUT disable tog=
-ether with the new image.
-> */
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (flush && asyw->clr.xlut && !asy=
-w->clr.image && asyw-
-> >set.image)
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 wndw->func->xlut_clr(wndw);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (asyw->set.image) wnd=
-w->func->image_set(wndw, asyw);
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (asyw->set.xlut ) {
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-> b/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-> index 7bd8bcc199db..b0b1b10cf782 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-> @@ -40,8 +40,8 @@ int nv50_wndw_new_(const struct nv50_wndw_func *,
-> struct drm_device *,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const u32 *format, u32 heads,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum nv50_disp_interlock_type, u=
-32
-> interlock_data,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct nv50_wndw **);
-> -void nv50_wndw_flush_set(struct nv50_wndw *, u32 *interlock,
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct n=
-v50_wndw_atom *);
-> +void nv50_wndw_flush_set(struct nv50_wndw *wndw, u32 *interlock,
-> bool
-> flush,
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct n=
-v50_wndw_atom *asyw);
-> =C2=A0 void nv50_wndw_flush_clr(struct nv50_wndw *, u32 *interlock, bool
-> flush,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 struct nv50_wndw_atom *);
-> =C2=A0 void nv50_wndw_ntfy_enable(struct nv50_wndw *, struct
-> nv50_wndw_atom *);
->=20
-> base-commit: f0406245cb9855e6318335a8a223551354291a46
+Signed-off-by: David Zhang <yidong.zhang@amd.com>
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/amdxdna_pci_drv.c | 2 ++
+ drivers/accel/amdxdna/npu3_regs.c       | 4 ++--
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index bb339e641416..d9e2e71d3e05 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -28,6 +28,8 @@ MODULE_FIRMWARE("amdnpu/17f0_20/npu.sbin");
+ MODULE_FIRMWARE("amdnpu/1502_00/npu_7.sbin");
+ MODULE_FIRMWARE("amdnpu/17f0_10/npu_7.sbin");
+ MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_10/npu.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
+ 
+ /*
+  * 0.0: Initial version
+diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
+index d76b2e99c308..8d287ef32fff 100644
+--- a/drivers/accel/amdxdna/npu3_regs.c
++++ b/drivers/accel/amdxdna/npu3_regs.c
+@@ -43,8 +43,8 @@ static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
+ };
+ 
+ static const struct amdxdna_dev_priv npu3_dev_priv = {
+-	.npufw_path             = "npu.dev.sbin",
+-	.certfw_path            = "cert.dev.sbin",
++	.npufw_path             = "npu.sbin",
++	.certfw_path            = "cert.sbin",
+ 	.mbox_bar		= NPU3_MBOX_BAR,
+ 	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
+ 	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
+-- 
+2.34.1
 
