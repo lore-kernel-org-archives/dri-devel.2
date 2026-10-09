@@ -4,90 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CABC1CA6012
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 06:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E3DDCA6012
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 06:36:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 251CB10E6CB;
-	Fri,  9 Oct 2026 06:34:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD4410FEC2;
+	Fri,  9 Oct 2026 06:36:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="UBgFPZSF";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="TBDX2OGD";
 	dkim-atps=neutral
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
- [34.2.64.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3486110E6CB
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 06:34:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1791527670; bh=53F8eeZQg3g1Nqk6SIiKM9bUNM7Hn0PGxCtMlom1If0=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From:Subject:Reply-To;
- b=UBgFPZSFju7HOd1z+ho2EmlQLYaFvndsTPVjD5QF94xMVRlOW56x4xmYmJo3nwAA7qpkvAQRbtBG/yLwF1CS5zds5cUWrH9qZg99AS+R8KrOyq3JswspF0o3j2kfbQnTjmRzkgfQKpm+nTOaHq5Ve6dC1j5fCW9ZM/SiyN4WasONFV5X27m+/wXjUI6Sda253R9CM1NW2fM8xW2hivw3wi57ICOlEYKj3/LkQj5tsQ6Lho/R00JzAYlvR+K1ejsEgJrPDgFRzEQA6C6lw9CLTJHNR7fy35rVXSeDsnPuE2BMKpuV5kpyvM0VK0CJtqS+N5w9CryalCRmVZb6Ru0bpA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1791527670; bh=G8FnG61slJSrLsnZtJnhkqzfzmrElK3JWnf83kE32pM=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=gK5N3k86gqvxfgCf/X6w7xwtjS1bVsElrxmFWH6nH7b1ZCBQJKgRSdbHC8sb0ilKm++OVHFFKLg5tAlSb4biK+gBclKJlkiioeOIqKAK4C2BsKFdNJyqUI+g2asFKQ4uNVHf0mGB6X13hKFGU651AiowFMXaH94h7cNqNAS2nZQ2NTRyB87jBxj/Nw0Hi/ym4AWX3pRrSiprFQSJ8atnMxbvnvhnFcVX4RnX4EvzeSPsUxgZEvyvKs/HViW2BIfbNdYkOFC8h194BTFjJQy8ECFMO2JskleuohnVKDJyISPEfaVkaVZOwuAUpn4Aj+WpCEFlHKWanMEZF0XvnEG0xQ==
-X-YMail-OSG: seHmNZIVM1nkfqqNvwtHcWmHQHqnphrWihU8eMmzVSuyS_RuQ2j.WDpUsRSavaU
- jZYfRatP1_4DA4f5KUios8OJz1tdtRvSLo3dUe5QdQCPyocBgjmsPQwtirVOqLHJ_RUQvuHXV6sM
- gd5ExRd1fsASC3LMFmZPq73krtwxAGawILY6ZXKqFGmshYJyj65KZF1nptAf.8USkkuCWuZiRY1p
- o082CsTR4w3.wIygu1h7hYKpG_GRK18sdPCHojfEVqVKG1aq6w.qixlx.lxhFpFGAU5eaGQ4YXhJ
- wBuuUNRxY.vT5Bc_AABN6_njxEFydpQroSGfUQZkLKVMg4bQqDOcEuj8SYv5j7NRAFw2I4mQEsxW
- 2ufI6ScADggGo1J0sY1wu75wnZU1t.ZT380QqtzwzsgOMp75xTHPVzCyPQbVMI.1Z.6Zwsv3DJ1r
- buS4IXCb7JBgkORah9pXNUFJNvfYvBFqmKo87oDCnajnX.as2BKxQLcijHjt6HLF7m4GxR271MhJ
- HgajYuYQj2152Wk2wUt5sOzxSVyPdbSd5kFT86kl0NR8w9xIdQiqfNqviJKkGzhzVFiWJiwOwWA9
- e9Gb4k9_IWwMoc6PTIWdXQn0f7Y_T6Iew2u6IYqDiDwqoDGpQtPHsvX1YX0UupKJ3exeRy3mwgLs
- xypQzSqsT4LuG3vFAUhT5yar1Ca0_SELMOmfznOQrUx9K2WwLKP9oHNyk0SPj2Mhd7veylOEW.XN
- biYjAmgTW57x_eHYUehbadMm33w5e1Anridq5yjDPRwgNcz7iMobMptpt.8JY_b4Ld9yqUnIFPM6
- kWlDq7nDiJvv9SNvnKoYe2kZtPOWVe1JZ_GsSA6GbtxcXHRqk9XUg07JG_dd8pN5dasD5Vca6UmY
- _MMYTB.ncp9vriGX1lyQgW22OqYreNcaggxTCd9jvgOtE7WVKMqTr5HRNrTguV4SALW3AYx_iZIy
- bRl2qOqhI_Ot6bGeEHZu.cV5nWvnoaTcQsQNpoP08NGbKWpeG82MiBI4vaX_vmAEDryzjpHGREw6
- ETV5KQO3ttNig8mW9xXhVlJPKvoycJNPbo3lhVAP9xOhHorDIAc5q02i9MLXdQx8A3P32RaG5_Vv
- Ws5D5.t2o5L6CP2dnBrvHG0cnsVfi.OnbfG2B0xEve7MTb6mes8TrlgYtOxw_JyVsWjo.TerftFy
- KCQY6I8dRjZJMN583sYvZYV2Tawp5Yh02hZrx4wTxALAAfVN1k_XbbofXtyxPfYhBn0DVcEAVaOz
- HoJpnEy4ocEvum0mt0MN7.vf8t19a8cpcfFbOBtD3RQ1RECeJSvkVb.VPoQKPlJddOpGZcpIkf0K
- RXD1rBkdxPAav5d8.f8w3AhjxOpTbaYzEIE11hMNXO9vN8W2C6UuQ.VSmSBhmnqlBuDDeZ2o3wq.
- GP05skzBvCztwh24uPfm1veqfBNdpYAF2hRNa7iQt66TBGmrlMeQUn_8IZf1YSSP5c1IkoaIf1YF
- _Sx9zSwtxUJg02nUscQ8nEsJ4dKpwPeQMyk5mA9fIRy9JKsUfuITETERC2njJ1bFNh8TC07bYBHe
- amIaHHWvnaa1RwKtYgi83m5dVG.iQVp0aGkTG5KFlXUWucJUofSHBNz8AIxaBWdys6DcK0VIY6uz
- EH2MogkL80MyOODhabyo1bJ4rH12ocw60LTQb0xp5FV591hhiotiffFTNKogREL9Smp5A5Gk8o5M
- PEOdJ8OZhqMUPvBxkfBU8lvRVQnVXfsfIzgJcIiS63NRd0tOOezBJ5UURhV9j7TETD8j622oCqwm
- L5r5hZJ.6.Wjvsak97WltV9DMvxyLcwYjH03brYZhqHFf2VoxnhOvWCqLk7foGObXzAfeX3AbYz6
- CnfwfPbk5s1DA.K77VR65LBDAli3FHxUPj1ZqxiBWQ6_yqTDVAtEH0UllQo86UZLXmRWTcdaSC9D
- asgEYe3l.4tVfRpw6uf6M7RSQKlV3KdSKtZBNQGbP7KhEsgYERZTOripn2c42wdyahpsw4cdzq5V
- Wl7f4nUK1tuFRZxtuo5mSbwBm_dGn
-X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: 49b055a9-9390-4c2c-a8a1-4757ae31f10a
-Received: from sonic.gate.mail.ne1.yahoo.com by
- mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-101 with HTTP;
- Fri, 9 Oct 2026 06:34:30 +0000
-Received: from dip104.lsn.bf1.yahoo.com ([67.195.177.113])
- by hello (SMTP) with SMTP ID b587e42b02226132a0e74996d08f2e41;
- Fri, 09 Oct 2026 06:34:27 +0000 (UTC)
-From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, jose.exposito89@gmail.com,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kory Maincent <kory.maincent@bootlin.com>, victoria@system76.com,
- sebastian.wick@redhat.com, thomas.petazzoni@bootlin.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v5 37/38] drm/vkms: Add connector parent configuration in
- vkms_config
-In-Reply-To: <20260627-vkms-all-config-v5-37-854aa0840926@bootlin.com>
-References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
- <20260627-vkms-all-config-v5-37-854aa0840926@bootlin.com>
-Date: Fri, 09 Oct 2026 03:34:21 -0300
-Message-ID: <179152766117.1436711.17646397822774209185@yahoo.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011026.outbound.protection.outlook.com [40.107.208.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 280F410FEBF;
+ Fri,  9 Oct 2026 06:36:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cavF/h5Ofkj2u9pXah97soINUTwoQCJgLnOJHJlMW/P6+0l4+6YY9H9blXYaDleXnba+f2W8cciih/uCk6OUQwNTXaVK9SSUQmkGMzySXTqA9E/L2akMTH9nPvjVitVWJWTDF+4E1vGxmkxoD8AtHaOUTtnvfKTTfLaM5NXyKiBBi5mvQ4SUlmQG2FBF0YDKV1JrUvkUqW1D/1k6+h9lvRjBxkxITrPUTU9Z0ZwjFNMYFeo/c4LARQPCHyRuTGPnT+oF/fVO2hezGOjvl+Qgsceki4upQKqOV711rj5gFSlPyoOb8HwbwBIZpUXeZL0/UNlR6AEDaY+0tsdcj9UJkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KfNTsBjUxsNeSEw4PPpbKR//nKVxOm6V1qNIIZolXgw=;
+ b=sthxyStwoX9cpO2vUJvpZnkz2guagEdu2rtHOaGrffVTjmEl9aY9bJIyrnYQInS/S6/+qkyAouV4VnEkxZIP4T/bMG3NzaIs3t3finMc5OqvLQuWw35/YcWq2tdQGp33DgJvof3CIh4j5CfdlXxBtkwGwAJDf9A2oES4azfbtFJ1sCqPrGDWxVaWy1I7sp9Fdi7AFk9M9vwjWukiZ2sqxJ+T+EcZ6RFetAzkFILgBqV+32qpKoMViU7+fbS+UxThgCupFojFImI4ljBoyBjv2OI/Bv9KX9cMs8KtShYBAvnNrfpWOMaXdsT+YNIgoNyYN6PqxFyNhNY+9w2wCZj8hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KfNTsBjUxsNeSEw4PPpbKR//nKVxOm6V1qNIIZolXgw=;
+ b=TBDX2OGDOOV5P5Vb4QU5mxgneqhURCfAFKSb+AaqmdR0TKWZAX1JyNGb2L4YIyW1XGTzMNJbFrU7qjpAZ2E6vNVfxm9lwQWDa3najCZUDT4XISdR+sdtjmLotWCAOWMJAgqCNLrYrN1WKCZctNG/sIY8Xn6Ewg/JUO2qj30YHRCqKcmQhYL0xf62OV0XfIohLQ5oKgokMTXgt8Xm3WiXnR2Gj6/qbFsBY3Y5p1Gjsf5wt8A5pL1XflHZWCfQiyr9J/D6HLa/oMLjYPsn9X/Y6drsHzOFR0w5YUAQ1h0frCE8AZwM7/NTWf6JBZ8WpSPezOYfjxXKwPd9vUr/pNJExg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SN7PR12MB7324.namprd12.prod.outlook.com (2603:10b6:806:29b::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 06:36:41 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
+ 06:36:41 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 09 Oct 2026 15:36:38 +0900
+Message-Id: <DM03LOKOYPFQ.3UXED0I92H8Y6@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 5/9] gpu: nova-core: gsp: cmdq: split RPC parsing
+ part of the receive path
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
+ <20260930-cmdq-rpc-v3-5-91613f06520b@nvidia.com>
+ <DLT7CLF1AJVA.3BNA0XWZOZB99@nvidia.com>
+In-Reply-To: <DLT7CLF1AJVA.3BNA0XWZOZB99@nvidia.com>
+X-ClientProxiedBy: OS0P286CA0120.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:169::14) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26668
- mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SN7PR12MB7324:EE_
+X-MS-Office365-Filtering-Correlation-Id: f28c5832-8f84-4825-72af-08df25cfad92
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|1800799024|376014|23010399003|7416014|18002099003|22082099003|4143699003|56012099006|3023799007|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: b4uAL0Wfd7ROUtcXdEVULYOPk5Z7Zw+F8ph8GstOBW8YKeL0NnD7V1IHproNbFooYEJzBlD/ROMvwq7ZU1W6Ptpm4Ct9tGKcQ+LluI+qQEzfBUcqUn7iwHENue/Uf8WLE4n83/dswuTpGaY86ryL5PFILu5LTv1NK7/mHQ9HycVFhGET0jrN/ydhIj3t7qaY2IsfSnVAeVtDDtysbjLqs5PTsXiZoIy4P5dl0ktACLP/Q27OEYE0XfImIgMJTgOb/zxllb3r3E66uHY1kSM8ujT3fVlUqTLvf6R42aJE3rBjJL8bK8tpYShPQ9M5isnzWLlrPgjhvtf+AVS5hGZlRe7QpxYZmKMRBlOOLVRQ1dxIr/sSS/iKIlcsz+TtYUmlgKjKrlaDxT8IMDA/K0tKyhDt4TxELVSgrzAwTCQdo/MpMQPipWefRdABngw669TwOLaeBXRKk/L2j1hucG0H07Ru4iFY+nAIiLlR01CM96WVZDQw4JknMkn49eFTAXrTJcCEger0HO5wIvqxljUV9fpzOdBsTupBYZwQ80ikVg0qw0ELdImst6R3JjDiCBpxnrJAki2VflYDN7yPiDt5qmeuBRwxkE57dLjlq2Wl0NeizOBU71SWolcL+2FQjTFI7AhpM7Wju8qPO1Ev24YJ0axi+tT6QmpI+Pw/xXEQVKM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(376014)(23010399003)(7416014)(18002099003)(22082099003)(4143699003)(56012099006)(3023799007)(10067099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1JmTndtNEpUbzN2Ujd0Q3ExaUJKVHpuVCtqSVhyNFV5UmZIMHFqY1FEWlVz?=
+ =?utf-8?B?QW5OKzRvUDFTS1poRDR4Q1FENlhVODgzV2p1S0RZbXpBdithdnJta3FtZTEw?=
+ =?utf-8?B?QmNQVkxMQ1VCTnUrdVk5bndmREpMeW53UWxtU3VzVCtzb25UQ0VxOWZaQXpr?=
+ =?utf-8?B?MUpBWDN6VmMrMmR5RGVMWjhYRDNYdFNNQXVSS2wzd1JxUTJsQzVWdEc1NlhC?=
+ =?utf-8?B?U2pqU2lFS2lZZk9TckZHc0ZsNFErWkRna2cxMDZzc1FZQW9UUXV2Z0lVY0dv?=
+ =?utf-8?B?WkxneklIaGdld3kxR2NDbUY1L1RrZ1JNQlhVM3FxUE1KRmZHaStWczliVllH?=
+ =?utf-8?B?cWs0dElmMHF6MU1KenhkMjZCb1drcVBrQSs1QTlMZVFtTGZZREVjR2xxTFh3?=
+ =?utf-8?B?SEJOSDlnUzNTVWwwUWg5NVpBTk5hc24vellsbTA2WXk5c0hxMUJ2QjVCZTNI?=
+ =?utf-8?B?elJoRmNudnhod1pCa0xBMG9MdnVxa0JTR1RIY3prVDVnSTNvZnBBVkwxdzI4?=
+ =?utf-8?B?bWdDQU84Y0o4dEdJQUppU0hSQVpNK1p2MVM3SzNhay9PYUNKRHI1TXhITWtD?=
+ =?utf-8?B?cXQ1MXREZlV4SjRuWnBVbEh5ZnB2Q281YWs2VUwrSktJQXdNTmNYNDBJM2d0?=
+ =?utf-8?B?VHdqZmY2WUppdFEwRjFaSG9xd2JQMmlmL2djbC84WnhoQ3pxNUd2VUZvRTZX?=
+ =?utf-8?B?UWZsV011dW9hUDQ5ZUMrQmNuckVMYk5UeENIZEtTV01tU3UyRnZJVnZRQW5Q?=
+ =?utf-8?B?OFBwbnA3Q2VJY3UrQ2JLRkhZNkZHTkNXUm5aTk1QNStDWlpoMFpTSEJoTmVX?=
+ =?utf-8?B?UnRzZnpCWUI1b1BEaFJwUFZDUVJwcHlZa2VSS3RyQ3pTeDVuYU5Qc0o0OVk5?=
+ =?utf-8?B?aWZyOUJhN2NLNlhqR2FoVEo1aWJOc3JxcGUyL0FxVENCWEhCaWdCbUtOMmhy?=
+ =?utf-8?B?cWNUcFRUdHNMUDJCQzdSM2Y3a3BrSVRoc0R1NXExeUVRL2l5Z2ZEV3hlUVJt?=
+ =?utf-8?B?OWl0S0U1Q1VqR3ZqRzY0NWEyd2IyQjh0OEN0cVFWaXZtcXB5V2ROZ0Juc3ND?=
+ =?utf-8?B?VXp5aUVCRklBUjFMUTdqdHFNcytEek5VVTlJVkpBV0VlR2Q1NDRNaVBxWXRM?=
+ =?utf-8?B?azVEM1NGelU3QnRxemtJMjZFa1hJc2tMREl0aHRYR1AzOU4rM3gxb1JZbjBC?=
+ =?utf-8?B?UGdHMUpFR2tUYXN1UFkveFVxS25kN3NSTjlSNzZxdGJhRm0yZXozeG5rU2hD?=
+ =?utf-8?B?d0s4Q0FXMGpNTHpoMFNvUDk5ZWNaN0dDNXovUkFBQlBwa3BjRG1YRmdKWWNv?=
+ =?utf-8?B?WFh4TE1sSHBjQTBDQXE4WEZiMmpJalozazNqRFpwWnhwbWt2NTFNbmJWMHcr?=
+ =?utf-8?B?Y255SUpFb2ZBWEM0anRhbXlHRXRkT3ZYME82YzBma2IyM1JtMW5lT1U3aTlw?=
+ =?utf-8?B?cER2bFpWdUpnQ0NaUmtmTThlMXZOeHhsc01pcDJRVDNqclpiK0pZNkRkVDhP?=
+ =?utf-8?B?N09DZm1VaXQvTzA2NThJY296cWlITmZBYmVKWmYvbWx6cVVFTWdNUlljRVRF?=
+ =?utf-8?B?V3dZYWtZZW4zTXNUUzBUSnRwM3NSd1hWYjdQejdJNEJPZlhFUTZ5NDRLQTI3?=
+ =?utf-8?B?d0NhRWd4NDAyN3pzYy8xRmhGWllOZHQ2OWJKc05GbXBZeWUwcElrWEU1UWRR?=
+ =?utf-8?B?WEF4VXZremZYd3FJZ0xtUzRJM1hLdlpvUWRQU1hvU1JlM0swYS8vWCsvc2xy?=
+ =?utf-8?B?emdYdy83TWZram5VbWJVSjQrY0UzK2dCQ1pJM3VlNGVtdVZkdWNKcFk3TGJS?=
+ =?utf-8?B?WnRrRXNBVnF0Vk1lQ1FTMncwZmI4NVdFckNwMGJlM1FMN0dJeS9qTzBidEpF?=
+ =?utf-8?B?T1hwUnBvcVJOSE1hN1lzQXlDQlRpRjVTVW01dU9RWmNGUWNnZkdVSWwwY21H?=
+ =?utf-8?B?NVA2SW0wTHJvdjUyNzFrc3RjTUFFTXpWZFZianFzVUV3dXVkN0NQVlZpWkxI?=
+ =?utf-8?B?bklnbWQ5R2RZSVBpdURXeEVtbnd0bDlLUFgveGhBVlVraExWam5xSHA0YlJS?=
+ =?utf-8?B?TzhRdytUN0dGNVcwMXNSVGxKUjNnakV5SnBCMTc0QWtVYVlwVEo4MTE4bWh3?=
+ =?utf-8?B?WVRSRWs4RTByWENINW5VbGtJd2JZTzBvNmNOWTZXZXZkZUppNnBETDRtTzh0?=
+ =?utf-8?B?Z3JWTytUMmc5VFdCTy9Kb1k3K3VMSU03Q1l4MDl3dWZQS2R4S2ovbTVPUFhO?=
+ =?utf-8?B?YytmZGkxSEFIZERlZE5xRXg1NGYyVVp2RDVnbE5oMVBEV25pU2xXNXpxMWl2?=
+ =?utf-8?B?N3hsc09JNzhHNXBzRm53Y1BLZG5JNElZYUhTdGh1NHQxSllRekoxUGRQMHps?=
+ =?utf-8?Q?5BGEWS/RJmywTs4RXGStNGW068hqPTAIZ+7Imn0vwhc8g?=
+X-MS-Exchange-AntiSpam-MessageData-1: WFcxM7yveqTCGg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f28c5832-8f84-4825-72af-08df25cfad92
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 06:36:41.3521 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CcYARNcDccvo2bnqb6jajrcNqqJLW9UlM4+ZWIAKneO5tyiNRspYiqH7Y+wSNu89MeV3D5LZ9cSOKars7WLD1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7324
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,79 +146,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Louis,
+On Thu Oct 1, 2026 at 1:04 PM JST, Eliot Courtney wrote:
+> On Wed Sep 30, 2026 at 11:55 PM JST, Alexandre Courbot wrote:
+>> The RPC parsing should not be done in the same method as the transport
+>> header parsing. Split it out and introduce a `RpcMessage` type to
+>> indicate messages that have been successfully parsed as RPC. This makes
+>> the code easier to move around into its new destination.
+>>
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/gsp/cmdq.rs | 37 ++++++++++++++++++++++++++++++++=
++----
+>>  1 file changed, 33 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
+sp/cmdq.rs
+>> index d8a7716fc500..b8a9e02b76fe 100644
+>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>> @@ -553,6 +553,17 @@ struct GspMessage<'a> {
+>>      contents: (&'a [u8], &'a [u8]),
+>>  }
+>> =20
+>> +/// A RPC message ready to be processed from the message queue.
+>> +///
+>> +/// This is the type returned by [`CmdqInner::parse_rpc_message`].
+>> +struct RpcMessage<'a> {
+>> +    // Reference to the RPC header of the message.
+>> +    header: &'a RpcMessageHeader,
+>> +    // Slices to the contents of the message. The second slice is zero =
+unless the message loops
+>> +    // over the message queue.
+>> +    contents: (&'a [u8], &'a [u8]),
+>> +}
+>> +
+>>  /// GSP command queue.
+>>  ///
+>>  /// Provides the ability to send commands and receive messages from the=
+ GSP using a shared memory
+>> @@ -794,7 +805,7 @@ fn send_command<M>(&mut self, command: M) -> Result
+>>      ///   message queue.
+>>      ///
+>>      /// Error codes returned by the message constructor are propagated =
+as-is.
+>> -    fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+>> +    fn wait_for_msg(&self, timeout: Delta) -> Result<RpcMessage<'_>> {
+>
+> This gets changed back to `GspMessage` return value in the next patch,
+> and also introduces a bug [1]. What about just keeping return
+> `GspMessage` here? You can move RpcMessage to the next patch.
+>
+> [1]: https://lore.kernel.org/all/DLT4O89RYP29.UKGBMIJD8ZSC@nvidia.com/
 
-On Sat, 27 Jun 2026 05:30:54 +0200, Louis Chauvet wrote:
-> @@ -150,6 +220,8 @@ static int __must_check vkms_connector_init(struct vkms_connector *connector,
->  		}
->  	}
->  
-> +	drm_object_attach_property(&connector->base.base, connector->base.dev->mode_config.path_property, 0);
-> +
->  	return 0;
->  }
+Indeed, we could organize the change a bit more smoothly. I've tried to
+reorder and hopefully the next revision will flow better.
 
-With this, every VKMS connector has a PATH property, and a connector
-without a parent keeps the value 0, no blob. IGT reads a PATH property
-as "this connector has a path blob": kmstest_get_path_blob() asserts
-the blob whenever the property exists, and igt_display_require()
-reaches it through igt_output_refresh(), so IGT tests built on
-igt_display stop before their first subtest.
-
-Measured in QEMU on your base commit with v5 applied, IGT master of
-2026-10-08, on the default VKMS device: kms_atomic fails with
-
-  igt_kms-CRITICAL: Test assertion failure function kmstest_get_path_blob, file ../igt/lib/igt_kms.c:2287:
-  igt_kms-CRITICAL: Failed assertion: path_blob
-  ...
-    #3 ../igt/lib/igt_kms.c:2618 igt_output_refresh()
-    #4 ../igt/lib/igt_kms.c:2953 igt_display_reset_outputs()
-    #5 ../igt/lib/igt_kms.c:3244 igt_display_require()
-    #6 ../igt/tests/kms_atomic.c:1470 __igt_unique____real_main1460()
-
-The vkms:none job of drivers/gpu/drm/ci runs IGT on that device.
-
-Drivers attach PATH to MST connectors only, and set the blob at the
-same time. With the change below, which attaches PATH only to
-connectors that have a parent, kms_atomic plane-primary-legacy passes
-on the default device and on a configfs device with an HDMI-A
-connector, and kms_3d passes with the stereo series I am about to
-post. A parent can only be linked while the connector is disabled,
-and enabling a connector goes through vkms_connector_init() again, so
-the property is there whenever a connector has a parent.
-
--- >8 --
-From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-Subject: [PATCH] drm/vkms: Attach PATH only to connectors that have a parent
-
-Every VKMS connector gets the PATH property, but only connectors with a
-parent ever get a path blob, so a connector without a parent exposes
-PATH = 0. Drivers attach PATH to MST connectors only, and set the blob
-with it, and IGT relies on that: kmstest_get_path_blob() asserts a
-blob whenever the property exists, so igt_display_require() and
-kmstest_get_connector_config() fail on every VKMS device, and with
-them kms_atomic and kms_3d.
-
-Attach PATH only to connectors that have a parent.
-
-Assisted-by: LLM
-Signed-off-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
----
- drivers/gpu/drm/vkms/vkms_connector.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms/vkms_connector.c
-index 3449c4c213..5d43201cff 100644
---- a/drivers/gpu/drm/vkms/vkms_connector.c
-+++ b/drivers/gpu/drm/vkms/vkms_connector.c
-@@ -222,7 +222,9 @@ static int __must_check vkms_connector_init(struct vkms_connector *connector,
- 		}
- 	}
- 
--	drm_object_attach_property(&connector->base.base, connector->base.dev->mode_config.path_property, 0);
-+	if (vkms_config_connector_get_parent(connector_cfg))
-+		drm_object_attach_property(&connector->base.base,
-+					   connector->base.dev->mode_config.path_property, 0);
- 
- 	return 0;
- }
+And yes, it is undeniable that having both length methods called
+`length` is confusing and has caused this bug, so I've given them
+different names.
