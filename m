@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC07ACA6017
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 00:31:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8746CA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 00:31:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE0710E188;
-	Fri,  9 Oct 2026 00:31:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18D5510E98F;
+	Fri,  9 Oct 2026 00:31:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FS1/0KgV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WzBC5Clz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21C5710E188
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 00:31:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2AED10E98F
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 00:31:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 186D660DAF;
- Fri,  9 Oct 2026 00:31:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ECC41F000FF;
- Fri,  9 Oct 2026 00:31:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A273143259;
+ Fri,  9 Oct 2026 00:31:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505021F000FF;
+ Fri,  9 Oct 2026 00:31:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791505895;
- bh=5OlITJ0s80uw2JtIjKIqR3zSVcbOregfKjsrOYC72yk=;
+ s=k20260515; t=1791505911;
+ bh=a7oc0bTwVs9/h0D+Ob9pfer3YpJgG90NWcUUrLuCIS4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FS1/0KgVQu1M5ZfUAWL/cNvGB4Oh+6B9m1o5adjpFvolHKZyaDxSIj9KGRqxkGbyV
- qChsKVrqUwXFv+1ABv2APsSkoHtJCgveGCbw2LNNjn45UCYkA7V6JJ2v5zFFeRsW2+
- 75IX3jhzb/HO1/33x47uBqjmo5TGdK3fEpXPKmTlgwRdHf8E9C9bkKlbB81DG9WAhJ
- 9ptcV8AgYEfU5kLUAm8dYmfmrvlRSEofpgFDsjwH+kh5B/+/VQ0E63jycWK+Fs7UO3
- 4yR36LR8WmrCxZKlh5vcRolyjGJbjbjl5amNw0J0QfuKiUHnt0dacRozTqIMUmID90
- tk4r4VVS2F1bA==
-Message-ID: <sashiko-outbox-164673@kernel.org>
+ b=WzBC5ClzlKzKfcJdbVCxG3otlSlanSvVMNDw2IFwNWxzuBmvU5pxw5nuzcauLpGgR
+ AJesC1xNy6Op/N+suFdWV8DgIbDeo/wBr0c2RzuazzDBnaUgqSWlNUwP4sCenTTA/9
+ VvAxbsMVEp5g376SEtd4oKqMP78PBIda/H5E3/Ph6qBql+CixLCcO41YEU2lNSQnwg
+ c74SeVH63qFrIRd9yknxKafTbc1EEgYYSXuQstdNiHhNaJLLVu29IY8imX7HXp0qSh
+ LLClVbhxtrc8HwFRy1Q5qqgAitqCmARAcd/TsezjrkXrhk38On2sCwu9kPaNCRiwzD
+ ZbB7C2jfpuaFg==
+Message-ID: <sashiko-outbox-164674@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 2/2] drm/rockchip: Map imported buffers from DMA
- addresses
+Subject: Re: [RFC PATCH 1/2] iommu: Add iommu_map_sgtable_dma()
 To: "Karl Mehltretter" <kmehltretter@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261009002114.67851-3-kmehltretter@gmail.com>
+In-Reply-To: <20261009002114.67851-2-kmehltretter@gmail.com>
 References: <20261009002114.67851-1-kmehltretter@gmail.com>
- <20261009002114.67851-3-kmehltretter@gmail.com>
+ <20261009002114.67851-2-kmehltretter@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 00:31:35 +0000
+Date: Fri, 09 Oct 2026 00:31:50 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +59,85 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/rockchip: DMABUF_DEBUG crash on fallback iommu_map_sgtable i=
-mport
+- [Medium] iommu: unaligned len triggers un-ratelimited pr_err() log spam i=
+n iommu_map_sgtable_dma
 --
 
-commit 59e8ac2bc0441a5d0b8e3d0e4089c7508adc71d5
+commit b1535b935267283d387d7d45e27e3ad27be6e57f
 Author: Karl Mehltretter <kmehltretter@gmail.com>
 
-drm/rockchip: Map imported buffers from DMA addresses
+iommu: Add iommu_map_sgtable_dma()
 
-This commit updates rockchip_gem_iommu_map() to use iommu_map_sgtable_dma()
-for imported buffers to avoid CONFIG_DMABUF_DEBUG import failures. If the
-DMA mapping is not supported, it falls back to the old page-based path using
-iommu_map_sgtable().
+This commit adds an iommu-dma helper to map a live attachment into another
+domain by translating through the device's default DMA domain.
 
-Link: https://lore.kernel.org/r/DLR74W1U9YPC.375IK0HOYHDIG@cknow-tech.com/
-Link: https://lore.kernel.org/r/DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com/
-
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/dr=
-m/rockchip/rockchip_drm_gem.c
-> index 9a1dc9f120729..501c94cb921ad 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 58c624513cd43..b9a1f91ec5dbb 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
 [ ... ]
-
-> @@ -40,8 +41,16 @@ static int rockchip_gem_iommu_map(struct rockchip_gem_=
-object *rk_obj)
-> =20
->  	rk_obj->dma_addr =3D rk_obj->mm.start;
-> =20
-> -	ret =3D iommu_map_sgtable(private->domain, rk_obj->dma_addr, rk_obj->sg=
-t,
-> -				prot);
-> +	if (dma_dev) {
-> +		ret =3D iommu_map_sgtable_dma(private->domain, rk_obj->dma_addr,
-> +					    dma_dev, rk_obj->sgt, prot);
-> +		if (ret =3D=3D -EOPNOTSUPP)
-> +			ret =3D iommu_map_sgtable(private->domain, rk_obj->dma_addr,
-> +						rk_obj->sgt, prot);
+> +ssize_t iommu_map_sgtable_dma(struct iommu_domain *domain, unsigned long=
+ iova,
+> +			      struct device *dev, struct sg_table *sgt,
+> +			      int prot)
+> +{
+> +	struct iommu_domain *dma_domain;
+> +	size_t len =3D 0, mapped =3D 0, total =3D 0;
+> +	struct scatterlist *sg;
+> +	size_t granule, target_granule;
+[ ... ]
+> +	target_granule =3D 1UL << __ffs(domain->pgsize_bitmap);
+> +	if (!use_dma_iommu(dev))
+> +		return -EOPNOTSUPP;
+> +	dma_domain =3D iommu_get_dma_domain(dev);
+> +	if (!dma_domain || !dma_domain->pgsize_bitmap)
+> +		return -EOPNOTSUPP;
+> +	granule =3D min(target_granule,
+> +		      1UL << __ffs(dma_domain->pgsize_bitmap));
+[ ... ]
+> +	for_each_sgtable_dma_sg(sgt, sg, i) {
+> +		dma_addr_t dma_addr =3D sg_dma_address(sg);
+> +		size_t dma_len =3D sg_dma_len(sg);
+> +
+> +		while (dma_len) {
+> +			phys_addr_t next;
+> +			phys_addr_t phys;
+> +
+> +			phys =3D iommu_iova_to_phys(dma_domain, dma_addr);
+[ ... ]
+> +			if (len && phys !=3D next) {
+> +				ret =3D iommu_map_nosync(domain, iova + mapped,
+> +						       start, len, prot,
+> +						       GFP_KERNEL);
 
 [Severity: Medium]
-Will this fallback path crash if CONFIG_DMABUF_DEBUG is enabled?
+Can this result in un-ratelimited kernel log spam if `len` is not aligned to
+the target domain's minimum page size?
 
-The commit message mentions that unsupported imports still use the old
-page-based path and remain unfixed. When iommu_map_sgtable_dma() returns
--EOPNOTSUPP, this code falls back to iommu_map_sgtable() which reads CPU-si=
-de
-pages. Since the dma-buf core explicitly clears these CPU-side page pointers
-when CONFIG_DMABUF_DEBUG is enabled, won't this fallback lead to an invalid
-memory access or kernel panic?
+If `dma_domain` has a smaller minimum page size than the target `domain`,
+`granule` will be strictly less than `target_granule`. If the DMA-BUF backi=
+ng
+memory is fragmented at `granule` boundaries, `phys !=3D next` will evaluate
+to true at an offset aligned to `granule` but potentially unaligned to
+`target_granule`.
 
-Should the code return an error instead of falling back to a function that
-is known to crash under these conditions?
+When `iommu_map_nosync()` is called with this unaligned `len`, it eventually
+reaches `__iommu_map_domain_pgtbl()` in drivers/iommu/iommu.c, which logs an
+un-ratelimited error:
 
-> +	} else {
-> +		ret =3D iommu_map_sgtable(private->domain, rk_obj->dma_addr,
-> +					rk_obj->sgt, prot);
-> +	}
->  	if (ret < (ssize_t)rk_obj->base.size) {
->  		DRM_ERROR("failed to map buffer: size=3D%zd request_size=3D%zd\n",
+drivers/iommu/iommu.c:__iommu_map_domain_pgtbl() {
+	...
+	if (!IS_ALIGNED(iova | paddr | size, min_pagesz)) {
+		pr_err("unaligned: iova 0x%lx pa %pa size 0x%zx min_pagesz 0x%x\n",
+		       iova, &paddr, size, min_pagesz);
+		return -EINVAL;
+	}
+	...
+}
+
+Could a heavily fragmented DMA-BUF provided by userspace (e.g., via a DRM
+ioctl) repeatedly trigger this path and flood the kernel log?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009002114.6785=
-1-1-kmehltretter@gmail.com?part=3D2
+1-1-kmehltretter@gmail.com?part=3D1
