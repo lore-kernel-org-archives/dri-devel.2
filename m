@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E09EECA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9059CA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 12:37:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 016F410E6C8;
-	Sat, 10 Oct 2026 12:37:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF4A410E2B0;
+	Sat, 10 Oct 2026 12:37:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HIQYUm0D";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oufl86fb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED35610E1A8
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:06:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD20910E1A8
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:05:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C886141613;
- Fri,  9 Oct 2026 18:06:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240C31F00898;
- Fri,  9 Oct 2026 18:06:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2DD416020C;
+ Fri,  9 Oct 2026 18:05:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C551F00899;
+ Fri,  9 Oct 2026 18:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569202;
- bh=+lV50szqwhlOdZvvntvc8L71JtBIxPo0bLUpU4NKXmU=;
+ s=k20260515; t=1791569118;
+ bh=XQQXLmuz/mYy2m0DRCE2BDh2jZAsmGDyji4q3SA7eeo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HIQYUm0DLx/2bKzu66ezACO7GBokL8d6VcBRDYg55Zn4Va9F0v3kunAGC0L9W4d5b
- hHz2ojBcicsTT0lGgtbhzgEPJ/o0NHbUsWdd+36z93oRd5OTOwid7Fpxq5JlvboqQ8
- nHsW0BujxzAyfC/urZMNuug3vDxijOAlqlXve0WOvl1wvHUkSAVON7aZOTHGZ1pQU9
- cNbPPSpf7UMIWeX5IxzcpXQFjOEvEIam0meh5LWCITsb64k8WUQ49ynfluF7//78jj
- Qs8wye2NHfNLTB42oPTPtyZ25J5aTsiVuQ+4kMEVzE78xiccvR3JItPXy0ZzNxrl1e
- J5koIBJyXk5FQ==
+ b=Oufl86fbt2wAMOG9DEe6vQCDdDu6UCXD/ZnvQm2HoFPixcMuVu2mgzOhW2AXaKo3Z
+ W+Tz8tkgEWviZ36e6rwJ3g1a/QEsIfYKlFhsGkSDhjcZPAyFDkhBazezZ1QJmaebEi
+ 2CM5qZyGRLv6Mlm7RTjrmk34GEg+40aTZmy00x3a45OU93Xjb9EPoD9ccZ02su4J22
+ 1t6y1WkTpRnppUH/Foi5HDpc3eifDZFtEYGTi4pHIU/2rwzIg0tQfngRO+jQdS2Ov8
+ 9ae/7Av09LDM8kKNft9z7VKP6Hn3enauekx/NqwpAylOu1kDGBKgDSwkokTVvz8gFK
+ WwJ/QZtcmbHPw==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:00 +0100
-Subject: [PATCH v5 06/38] mm/vma: tidy up map kernel pages enum values
+Date: Fri, 09 Oct 2026 19:03:56 +0100
+Subject: [PATCH v5 02/38] mm/vma: introduce and use vma_[flags_]can_merge()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-6-923b70125b1e@kernel.org>
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-2-923b70125b1e@kernel.org>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4144; i=ljs@kernel.org;
- h=from:subject:message-id; bh=nvhkE4iVPWt6ZMbpDqr0VjZaPTTvkSGU9Bdm3A6LGuc=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sz0ecuhabPRdpPK2Q2xbqfD67XmL3erXzXlSdUsS
- 0GX2ZyfOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARX2eGfwqMUa37yooF/+aL
- czQu1hOX2d9kaRxstGbleU4p3QuZjYwMhx/P6ddiYrn85V5Rm4dPSMdf3oxXOc6tuj8ez976/Po
- dHgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3865; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=EYqw+AtDKpEde3pCckMQkm9HGGlkplYL0cvv0S5EwV8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sxYqncsy6E/QYnnXbSNt/KVF3vV3OdnbD4W3awaF
+ md8Miqyo5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABNJX8Lwv1rMyX/X/pmLa3kq
+ fPdsfFrlN5Fpbln4sxLn8ydTXRjbShj+ZyS8Ob7Lbk22Ybn8+Ud7BR5nS8wtmDlh+a9T5zZrBqd
+ u4gQA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:37 +0000
@@ -145,121 +145,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied by
-MMAP.
+Replace the open-coded VMA_SPECIAL_FLAGS check in the VMA merge logic with
+two new functions vma_flags_can_merge() and vma_can_merge() and update the
+merge logic to use the former.
 
-Also while we're here delete useless comments for mmap actions whose names
-clearly indicate what they are for.
+This abstracts the check and expresses it in terms of the desired behaviour
+rather than an arbitrary and confusing VMA flag.
 
-Also update the userland VMA tests to reflect this change.
+This also lays the groundwork for making further improvements in VMA flag
+usage.
+
+Also update the userland VMA tests to reflect the change.
 
 No functional change intended.
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mm.h              | 2 +-
- include/linux/mm_types.h        | 8 ++++----
- mm/util.c                       | 8 ++++----
- tools/testing/vma/include/dup.h | 8 ++++----
- 4 files changed, 13 insertions(+), 13 deletions(-)
+ include/linux/mm.h              | 21 +++++++++++++++++++++
+ mm/vma.c                        | 19 +++++++++++--------
+ tools/testing/vma/include/dup.h |  5 +++++
+ 3 files changed, 37 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 0c17f0932b76..a1f2d375cf7d 100644
+index 969594074fd2..68250ece4219 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -4623,7 +4623,7 @@ static inline void mmap_action_map_kernel_pages(struct vm_area_desc *desc,
- {
- 	struct mmap_action *action = &desc->action;
+@@ -1612,6 +1612,27 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+ 	return is_shared_maywrite(&vma->flags);
+ }
  
--	action->type = MMAP_MAP_KERNEL_PAGES;
-+	action->type = MMAP_KERNEL_PAGES;
- 	action->map_kernel.start = start;
- 	action->map_kernel.pages = pages;
- 	action->map_kernel.nr_pages = nr_pages;
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 5413bd10fff2..9ca2ea3664bc 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -815,11 +815,11 @@ struct pfnmap_track_ctx {
++/**
++ * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
++ * merged with another?
++ * @flags: The VMA flags to test.
++ * Returns: true if the flags permit merging, false otherwise.
++ */
++static inline bool vma_flags_can_merge(const vma_flags_t *flags)
++{
++	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++}
++
++/**
++ * vma_can_merge() - Do @vma's flags permit it to be merged with another VMA?
++ * @vma: The VMA to test.
++ * Returns: true if the flags permit merging, otherwise false.
++ */
++static inline bool vma_can_merge(const struct vm_area_struct *vma)
++{
++	return vma_flags_can_merge(&vma->flags);
++}
++
+ /**
+  * vma_kernel_pagesize - Default page size granularity for this VMA.
+  * @vma: The user mapping.
+diff --git a/mm/vma.c b/mm/vma.c
+index c27aea6d58d9..8f8c554d5c07 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -924,13 +924,14 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
  
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
+ 	vmg->state = VMA_MERGE_NOMERGE;
  
- /*
-diff --git a/mm/util.c b/mm/util.c
-index d809e08c7b4d..1660910e2a22 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1467,7 +1467,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 		return io_remap_pfn_range_prepare(desc);
- 	case MMAP_SIMPLE_IO_REMAP:
- 		return simple_ioremap_prepare(desc);
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		return map_kernel_pages_prepare(desc);
- 	}
++	if (!vma_flags_can_merge(&vmg->vma_flags))
++		return NULL;
+ 	/*
+-	 * If a special mapping or if the range being modified is neither at the
+-	 * furthermost left or right side of the VMA, then we have no chance of
+-	 * merging and should abort.
++	 * If the range being modified is neither at the furthermost left or
++	 * right side of the VMA, then we have no chance of merging and should
++	 * abort.
+ 	 */
+-	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
+-	    (!left_side && !right_side))
++	if (!left_side && !right_side)
+ 		return NULL;
  
-@@ -1498,7 +1498,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 		err = remap_pfn_range_complete(vma, action);
- 		break;
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		err = map_kernel_pages_complete(vma, action);
- 		break;
- 	case MMAP_IO_REMAP_PFN:
-@@ -1521,7 +1521,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle these. */
- 		break;
- 	}
-@@ -1542,7 +1542,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle this. */
+ 	if (left_side)
+@@ -1152,9 +1153,11 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
  
- 		err = -EINVAL;
+ 	vmg->state = VMA_MERGE_NOMERGE;
+ 
+-	/* Special VMAs are unmergeable, also if no prev/next. */
+-	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
+-	    (!prev && !next))
++	if (!vma_flags_can_merge(&vmg->vma_flags))
++		return NULL;
++
++	/* VMAs with no prev/next are unmergeable. */
++	if (!prev && !next)
+ 		return NULL;
+ 
+ 	can_merge_left = can_vma_merge_left(vmg);
 diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 077df510a311..023ad6092e9c 100644
+index 16c09dac59d9..2fd422789717 100644
 --- a/tools/testing/vma/include/dup.h
 +++ b/tools/testing/vma/include/dup.h
-@@ -454,11 +454,11 @@ static __always_inline bool vma_flags_empty(const vma_flags_t *flags)
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from an array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
- 
- /*
+@@ -1647,3 +1647,8 @@ static inline bool file_is_dev_zero(const struct file *file)
+ {
+ 	return file && file->f_op == &zero_fops;
+ }
++
++static inline bool vma_flags_can_merge(const vma_flags_t *flags)
++{
++	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++}
 
 -- 
 2.55.0
