@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8584FCA9EC5
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5669DCA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC4A010E567;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBFFA10E7C3;
 	Sat, 10 Oct 2026 11:45:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="L6+PFKcs";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="WdD5irgK";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 913B811214A;
- Fri,  9 Oct 2026 13:29:14 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAFB310E5E4
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=y+
- ePeBrDalH4ot+RGsdcB0s9bmc/mBJjEtJvv7GUvmI=; b=L6+PFKcsbvh6J35Vbm
- 977RGwxynajGUjvp6qLHitQPBAELWHktpXeJH66JQ/DOkgY92Gk3IoaVhTDvP7bP
- LhT0u3kTvYi3rCvocGMEJrsnpzbxI0Fg4dtCSIUx5uI4yfliRcau0MpqNjS8+cFI
- hjexNpfkZwt1IcWpK02nIqnhg=
-Received: from colol4bi5.localdomain (unknown [])
- by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id
- _____wD338uI68hqzoRZDQ--.36286S2; 
- Fri, 09 Oct 2026 21:26:33 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Binbin Deng <18983559317@163.com>
-Subject: [PATCH v1] drm/amdkfd: Fix use-after-free in the process creation
- error path
-Date: Fri,  9 Oct 2026 21:26:19 +0800
-Message-ID: <20261009132619.40151-1-18983559317@163.com>
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=N0
+ UHDUvgrExzuUIvmY5lEGVvWVWCcps+KEQmmx2+7ZE=; b=WdD5irgKbKTRbxVMhM
+ pp+IBWOOZ7hFiRJlTwdS9FdzMK+cEN8eNtge3KfaAfibz5/wdHPNxuyKcOXi5ZDc
+ 9l41w9nWxXZJo+1xUnYhlHQ/XLUQBFTB7JkinrBitVVuZajC+LKNpU0YKXa09g0K
+ j7sdzCmv2yKBq6yqKXpQIZ5jk=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+ by gzsmtp3 (Coremail) with SMTP id PigvCgAX19XEx8hqHXqzDg--.691S3;
+ Fri, 09 Oct 2026 18:53:57 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Chaosheng Qu <quchaosheng000406@163.com>
+Subject: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT schema
+Date: Fri,  9 Oct 2026 18:53:54 +0800
+Message-ID: <20261009105356.300188-2-quchaosheng000406@163.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009105356.300188-1-quchaosheng000406@163.com>
+References: <20261009105356.300188-1-quchaosheng000406@163.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD338uI68hqzoRZDQ--.36286S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxur47Wr1rXF15uryDKF45Wrg_yoW5Gw4rpa
- yrWF1jvr1kC3Z7K343Zay8ZryfJw4UAF47Grn7Kr9xWw15AFy5XrZxGryj9F95Cr1F9a43
- t3WDWr4UGr9Fvr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U1uWXUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4AnpzWrI64kgAAAA3t
+X-CM-TRANSID: PigvCgAX19XEx8hqHXqzDg--.691S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDtr1xCr1UZF1rCr45Wrg_yoWruryxpF
+ n5Gas7uFy8WFyaqw40yr1kCa1rAFykAF40kF1xJFy5Ja10qF48tF13Krn8XFy5Ga4xZay2
+ qF47Ww17Kwn7C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piiZ2-UUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wXvZWrIx8XVLgAA33
 X-Mailman-Approved-At: Sat, 10 Oct 2026 11:45:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,63 +62,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-create_process() publishes the new process in the global hash table
-before the steps that can still fail:
+From: Chaosheng Qu <quchaosheng000406@163.com>
 
-	/* alloc_notifier needs to find the process in the hash table */
-	hash_add_rcu(kfd_processes_table, &process->kfd_processes,
-			(uintptr_t)process->mm);
+Convert the TPD12S015 HDMI level shifter binding to DT schema.
 
-If a later step fails (mmu_notifier_get() with a pending signal, or
-kfd_process_alloc_id()), the error path removes and frees it:
+The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+and ESD protection circuitry. Document the two ports it exposes between
+the HDMI transmitter and the connector.
 
-err_register_notifier:
-	hash_del_rcu(&process->kfd_processes);
-	svm_range_list_fini(process);
-	...
-	kfree(process);
+The tpd12s016 is software compatible with the tpd12s015 and is listed as
+a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
+fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
+a board using the tpd12s016 must list both compatibles.
 
-hash_del_rcu() only unlinks the node; readers that entered an SRCU
-read-side critical section before the deletion can still be walking
-the hash bucket and using the node.  The unconditional kfree() that
-follows is not covered by any SRCU grace period, so such a reader can
-obtain and dereference freed memory.
-
-The readers are the GPU interrupt and ioctl lookup helpers, which run
-under srcu_read_lock(&kfd_processes_srcu) only:
-kfd_lookup_process_by_pasid() iterates the whole table with
-hash_for_each_rcu and dereferences p->pdds[] of every entry;
-kfd_lookup_process_by_id() and kfd_lookup_process_by_mm() match and
-return the process for further use.
-
-The normal removal path (kfd_process_table_remove()) already executes
-synchronize_srcu(&kfd_processes_srcu) after hash_del_rcu(); only the
-error rollback path misses it.  The race is reachable by an unprivileged
-GPU compute user: a thread whose process creation fails (e.g. ioctl
-interrupted by SIGKILL at mmu_notifier_get) while another thread is
-servicing a GPU interrupt that walks the process table.
-
-Fix this by waiting for an SRCU grace period in the error path after
-unlinking the process, before the object is freed.
-
-Fixes: 0029cab3146a ("drm/amdkfd: fix a use after free race with mmu_notifer unregister")
-Signed-off-by: Binbin Deng <18983559317@163.com>
+Assisted-by: LLM
+Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
+ .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
+ 2 files changed, 90 insertions(+), 44 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+ create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 0a7c1900da95..8d0e70a256f7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1747,6 +1747,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	kfd_process_free_id(process);
- err_register_notifier:
- 	hash_del_rcu(&process->kfd_processes);
-+	synchronize_srcu(&kfd_processes_srcu);
- 	svm_range_list_fini(process);
- err_init_svm_range_list:
- 	kfd_process_free_outstanding_kfd_bos(process);
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+deleted file mode 100644
+index 26e6d32e3f20..000000000000
+--- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
++++ /dev/null
+@@ -1,44 +0,0 @@
+-TPD12S015 HDMI level shifter and ESD protection chip
+-====================================================
+-
+-Required properties:
+-- compatible: "ti,tpd12s015"
+-
+-Optional properties:
+-- gpios: CT CP HPD, LS OE and HPD gpios
+-
+-Required nodes:
+-- Video port 0 for HDMI input
+-- Video port 1 for HDMI output
+-
+-Example
+--------
+-
+-tpd12s015: encoder@1 {
+-	compatible = "ti,tpd12s015";
+-
+-	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+-		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+-		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@0 {
+-			reg = <0>;
+-
+-			tpd12s015_in: endpoint@0 {
+-				remote-endpoint = <&hdmi_out>;
+-			};
+-		};
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			tpd12s015_out: endpoint@0 {
+-				remote-endpoint = <&hdmi_connector_in>;
+-			};
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+new file mode 100644
+index 000000000000..1927da3bd736
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI TPD12S015 HDMI level shifter and ESD protection chip
++
++maintainers:
++  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
++
++description: |
++  The TPD12S015 is an HDMI companion chip that combines a level shifter and
++  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
++  connector, and provides control over the level shifter enable and the
++  hot-plug detect signals.
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,tpd12s015
++      - items:
++          - const: ti,tpd12s016
++          - const: ti,tpd12s015
++
++  gpios:
++    description:
++      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
++      the level shifter, the second enables the level shifter outputs and
++      the third reads the hot-plug detect line.
++    maxItems: 3
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI input from the transmitter.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI output to the connector.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    encoder1 {
++        compatible = "ti,tpd12s015";
++
++        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
++                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
++                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                tpd12s015_in: endpoint {
++                    remote-endpoint = <&hdmi_out>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                tpd12s015_out: endpoint {
++                    remote-endpoint = <&hdmi_connector_in>;
++                };
++            };
++        };
++    };
++
++...
 -- 
 2.43.0
 
