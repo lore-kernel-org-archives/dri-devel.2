@@ -4,44 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62B24CA6012
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 06:54:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CB11CA6012
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 06:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1E6A10E4BC;
-	Fri,  9 Oct 2026 06:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7A6E10FEED;
+	Fri,  9 Oct 2026 06:57:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kSUpUt2l";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="Of3io1WE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B92FF10E4BC
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 06:54:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ED637602C3;
- Fri,  9 Oct 2026 06:54:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6038E1F000FF;
- Fri,  9 Oct 2026 06:54:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791528849;
- bh=M4C/ci/K/kssp6GkM1WbBaSmae0wVmUEikBCtgOVDr0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kSUpUt2lhyeZ9zfy88vTSSddzQ9M6v4I6YuloY9WYXjJHGFAfDPnx9Yk99UozNv/P
- WmjXzQ6yLIIQSYcFIAyZCCQtY4tuKIyY5er2WBpkbaymo3ajeXf+jHKNO40EpQJVhx
- IDcBhEdQ+td9uGO6KsCiVxQZCJjT/egxxVQSVzidkePmFof5mQ7gWw1v33f9v9naJH
- 5K70zrfGWqgkU8bCffogKZh3P8Y1SPenCewieAlEZQvvMsmDAQLQBMZn4EzywS0GIu
- KF1VNz2wG1E6X/2Ycu3lkcZ41R2p23w+PhQMsTevQcE7sJk2UYsKRLPBvjvKDVdDba
- mWPX2x2vZWs8w==
-Message-ID: <sashiko-outbox-164969@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd property
-To: "Yashas D" <y-d@ti.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009064024.985688-3-y-d@ti.com>
-References: <20261009064024.985688-1-y-d@ti.com>
- <20261009064024.985688-3-y-d@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 06:54:08 +0000
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
+ [34.2.64.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44D6C10FED9
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 06:57:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1791529041; bh=3NjxC5M5lg/RA5MwmPOKbOgmDERC/b/v0LWiQ2VGm7I=;
+ h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To;
+ b=Of3io1WEu9UP4h7CHNEYniM/0reeDIMOKUP2Xobn7Nn0G0V/43LmJPNcKXe3kZ/rPV6j1sWjsEZSNyHkmx9hGI5OtnWMlK0zs+DHnwak+RseCMuYkhe3TuqeFy/txkglM20mP9f0fNd0CobS+mchAngTwr1S8jv+9v45kpTJmSz5akmt+j7OzoG98C9GG1AD79g9+UFUXMMKi6Kh0j1P6PrRJPD4NzDUY0Ci81LR3KAvwnjmaB0ek987wOFtvn/5fExybRSVnuGxkbGoNZ7bxtrKtF88kLdu1Qx0wpNntDowGklDTdJjD0emesS3iIWZ/E1k294L8nDPLkOhR2POBQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1791529041; bh=2S0aVmr8XrU+uelAAHfkdyBCRjPDadmfhs769dbi28P=;
+ h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
+ b=aKW58jk9cULuXHtLia4nrS05SUmm04Hx8SXil38N9T8OgA6wpiuSLsDxBcc1FejCOY+KNkOe1NkOca2lk4PoCS4sdzO+Fuz8nPzWJSw+w9KD/BgDAzs5NVr6sG4nxuPNvfNc1fVeV+4HM7oa2g6iuVrMp2lhDrdTmye1eRp451FAuJBkSBmYHEtt3jKxoImxx0X3+tU0zzZWtJ0TEpr9Wam6pgBPv+Lw+PL1IvHnLFvgC8ToOKhbGpRTSA0Z5BPX4ROipjAW9PjNjnL7j6HG0qo/zSFeaL/ct2xCQtw0a8xRfzU8w8igyGMD39ayWxY7oN0S5RbaKa9PpgwWafYimg==
+X-YMail-OSG: QhWuxTQVM1m5mwPOZJzhUlhHlYAsMw7xOMmTKOGKkm9HHzHrUzaoI_bGKKHfuQf
+ NYDNGJAmUPr08OjZv8prComOUhy6mXbWQUWmM.OpKfv1Yr5rswPh5GXcuZM8uIX2A8wu2BTDd8hU
+ JOdJ3ZcXcCmRKfywBd4RlZi7QzSCboyQSQiibLI9YXUW5rXtlsDgrepoD1cU0AEsJzYSlhkBJEXD
+ G8jPmVkuZbYuQH_xity1tcdsQaOfxgr4POHNXfIlBGC5PyBDj1Pyr2p4Ahc40Vp1xgHr7YUyPIYe
+ u1uFk3tK_AT8ubNoFr7_eD4RD59Ei9xtYXVXrlxava1HHA1eRqrKGKhWt6aVeM5bICL45Bv9fEYw
+ 8f_Loq9dAaxb_35EUp2EyWtOcvHRWjBjszbFk3YSarNnUuqabLTZ3B8fMooCNHtVPm8VBK4Df4wr
+ qPgveg9juh8WM__OL.lX1ZrAlEerDdqXXTeU6LS8tEYqhUlAG.nmHmKoa9R8t4Nx12tZHkIlj31p
+ FHfjZYTfeRujgozRPoUsB4mjxWST3r1AHfUIrQrPR77h8Z__WpKyBEJG2ifNIFlgJw4p90gMNs3e
+ 6_60BRmRm3gIbrcjzXFwfmPvMH8fTOsKvZDMECN3ivllUHvc.SB6nRUfhhmkqqh5QlSTb3OI9Qja
+ 8gmaC4Np5CZJ6OsTeYletSmo6LosAhHqNxQtVkRdttxVejepwbUS2JUGaB6sXpW9Pkc8QQFUExp6
+ UDBdqSq0ttRN52Ibf5NmZc4dcbOXkQ8Uzq9H0sBd_OCbqzBLmReTUf3TZN0cOAakOmD72IrV1CZ1
+ Ypamp_UhbDvarPE1b4uHop4Q8CqOeprALyliiISzDIErZXl8kgH4q_sNzuuew25sFawjZKDy7UPU
+ 0V0YDA3q4S7.RKynS_AITwqptrLxp.IbPpewpfAp6e9cj98NAOdLH_CkwQq3mLtKZ_9BV2IhVaQZ
+ YzcBmGbaaZOgUvTUNtXJ1G.4EHjAqVi9GOOSpzYKHwAMBH8Mbj_Ykd7kMIeDyzstSehsgl.MpxpV
+ bDeK0osbgQ4p6g5bl_ILnv.4WAGHdYt9clA_zqk_SjyfUplsb_QXfCwXJgucUpfr6fsX7AG3PwuD
+ 7n7urFhb3WNSVtLL_VtpcWRCRj9uJg.KPGhhg2xFGGeFjj4_AsIRp9QrtZAZb6BLHsVJWYJj.cmV
+ qWQUfI9oFakmw30vI_nZOTphDNk_8BvqEE4npylqukiWYp_jumoVXguwwbVYL2rsRVS0My477Nc6
+ HbLoxI4RaSrLYfezU5tN5wpXrAH1WK00TBUSuFQuYcgE0LyTzSoUqhfzwvqb7cjxubeCu.1qawcI
+ 6_wkEN5WrBM8GvA94sscgyTpJGFP1IAZRZBM5Zvut_TmbRqspdzzh91B2nv5g1lnaYRqPsoUNUh1
+ 7XTiVPJPE_vaEhqA5ojs5_NxgBg1zoSgUZmjtVMZ4CZW7KcTCyuzPWM.kFLhA2F5_3iSG5DrdlBz
+ o7hmkvTQ8r7GRCaMMrNJtljm9C5YpR1SF8KbIDnOQxeGvUsGY8a42Ul5zsRsQHDAvdeq9GXKyc6O
+ D0dn9kTdw0rqXQybtY7It_CbjLsw1PMYDTfNU5SHa_D4Bn4B9eQoF4CgGWEOZ6urA2EbqFV76lDs
+ at4DGODPMS89jch20mVa7YPj3L1HwWOaKbjMomc.xKhU701U.P2lw9XGYhH.y_WH_KRQqYgq9.NJ
+ o9BNhhGCBgG5bspGU.NK7vNp5MmSo4iNktr.5zmRD_2V5UbEhy4XvSTCKqaGeFjAQ3LWgUWrrItS
+ 2yuz127p12z02nVm9oF8g_h.3mWYQkftHfb.ORxm6oWf4ihZRZa5SdVXkYmCHzQYICECC46wnBvk
+ 8zudnjVziTPdtiYZoqudyrqfq4AYk4acc9vdSyn5KGyNesdvkLppoWZgmEVe9lQTZtStjX2Nlzdo
+ AK2LKFB0WWLPwTrOuEl3vBTJkTFP0LJKfkS9b_k0e3EWqh4C0O42z0mey_ivvs6.nCiUbYHSUye1
+ puxeky82cGoN13ctkVtoeJoehvf1LbESWKew4a72mNR.S.iRQGQ2pDdkcIw0BLGaV1a43
+X-Sonic-MF: <Capitain_Jack@yahoo.com>
+X-Sonic-ID: f5ad2f6e-b087-43e9-92f3-81045e1d9fef
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-101 with HTTP;
+ Fri, 9 Oct 2026 06:57:21 +0000
+Received: from dip44.lsn.bf1.yahoo.com ([67.195.177.53])
+ by hello (SMTP) with SMTP ID 9892a3ad3218e50826b25c7d9c5c3a6d;
+ Fri, 09 Oct 2026 06:57:17 +0000 (UTC)
+From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>,
+ =?utf-8?q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/3] drm/vkms: Stereo (HDMI 3D) modes
+Date: Fri, 09 Oct 2026 03:57:12 -0300
+Message-ID: <179152903254.1726604.8785647683993800694@yahoo.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+References: <179152903254.1726604.8785647683993800694.ref@yahoo.com>
+X-Mailer: WebService/1.1.26668
+ mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,148 +90,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/bridge: cdns-mhdp8546: no-hpd property inadvertently disables =
-all SW event interrupts
-- [Medium] drm/bridge: cdns-mhdp8546: .detect polling forces link training =
-when disabled
---
+With Louis's configfs series [1], a VKMS connector can read an EDID. An
+EDID whose HDMI Vendor-Specific Data Block declares 3D (HDMI 1.4b) makes
+the EDID parser list stereo modes, but the probe helper drops them
+because VKMS never sets stereo_allowed, and VKMS would not show them
+right anyway: a frame packing mode describes one eye, while its frame
+holds both eyes and the vertical blanking between them.
 
-commit 74d172bfd85fd1324471808ee819e4a124d26946
-Author: Rahul T R <r-ravikumar@ti.com>
-Subject: drm: bridge: cdns-mhdp8546: Add no-hpd property
+This series lets the composer and the writeback connector use the frame
+of both eyes, allows stereo modes, and adds KUnit tests. A VKMS
+connector then behaves like an HDMI 3D sink for compositor and IGT
+tests: a test sets a stereo mode with a known left and right eye and
+reads each eye back from the writeback buffer, with no 3D display.
 
-Adds a no-hpd boolean property for boards where the hardware HPD line is
-unavailable. When set, the driver uses DPCD AUX reads to poll monitor
-presence via the .detect() callback instead of relying on HPD interrupts.
+Tested in QEMU/KVM on the base below, with Louis's v5 and the two v5
+fixes proposed in [2] and [3] applied:
 
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
-s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index f47717bd10798..b02147a725a2d 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-[ ... ]
-> @@ -698,7 +700,9 @@ static int cdns_mhdp_fw_activate(const struct firmwar=
-e *fw,
->  	 * MHDP_HW_STOPPED happens only due to driver removal when
->  	 * bridge should already be detached.
->  	 */
-> -	cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
-> +
-> +	if (!mhdp->no_hpd)
-> +		cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
+- KUnit: vkms-stereo passes next to vkms-config, vkms-configfs,
+  vkms-format and vkms-color. Without patches 1 and 2, the test reports
+  all 14 stereo formats of its EDID as not listed; with patch 2 but not
+  patch 1, frame packing fails both writeback size checks (the
+  frame-sized buffer is refused, the one-eye buffer accepted).
 
-[Severity: High]
-When no-hpd is set, cdns_mhdp_bridge_hpd_enable() is bypassed here.
+- A userspace test that sets every stereo mode a test EDID and a Sony
+  KDL-46HX855's EDID (a 3D TV) give, with known eyes, and compares the
+  writeback buffer pixel by pixel: 91 of 91 checks pass. Frame packing
+  1080p is 1920x2205 with the right eye from line 1125, 720p is
+  1280x1470 from line 750; top-and-bottom and side by side (half) stay
+  in the 2D frame; one plane per eye at its place gives the same frame;
+  a 2D mode stays 2D; the vblank period of 1080p24 frame packing is the
+  same 41666.7 us as 1080p24. Without patch 1, every frame packing
+  commit with a frame-sized writeback buffer is refused.
 
-Looking at cdns_mhdp_bridge_hpd_enable(), it unmasks all SW events, not just
-HPD:
+- IGT kms_3d: pass, ten stereo modes set. This needs the PATH fix [2]:
+  with v5 as posted, kms_3d fails in kmstest_get_path_blob() on any
+  VKMS connector.
 
-static void cdns_mhdp_bridge_hpd_enable(struct drm_bridge *bridge)
-{
-        ...
-        if (mhdp->bridge_attached)
-                writel(readl(mhdp->regs + CDNS_APB_INT_MASK) &
-                       ~CDNS_APB_INT_MASK_SW_EVENT_INT,
-                       mhdp->regs + CDNS_APB_INT_MASK);
-}
+- With KASAN on, the three runs above give no report.
 
-Since this bit controls all software event notifications from the firmware,
-won't bypassing this cause features like HDCP to unconditionally time out w=
-hen
-they wait for SW events?
+- The same changes on a 7.3-rc1 based tree, with a KWin build that
+  supports HDMI 3D modes (Sparky Stereo OS): KWin lists the stereo modes
+  of the VKMS connector, sets them, and its frames hold each eye where
+  the layout puts it.
 
-> =20
->  	spin_unlock(&mhdp->start_lock);
-> =20
-[ ... ]
-> @@ -1523,6 +1532,19 @@ static int cdns_mhdp_attach(struct drm_bridge *bri=
-dge,
-> =20
->  	spin_unlock(&mhdp->start_lock);
-> =20
-> +	if (mhdp->no_hpd) {
-> +		/*
-> +		 * In no-hpd mode there are no HPD interrupts to trigger
-> +		 * detection. If firmware is already ready, do the initial
-> +		 * AUX poll immediately. Otherwise fw_cb() will call
-> +		 * cdns_mhdp_update_link_status() once firmware finishes
-> +		 * loading and sees bridge_attached is true.
-> +		 */
-> +		if (hw_ready)
-> +			cdns_mhdp_update_link_status(mhdp);
-> +		return 0;
-> +	}
+Not covered: interlaced stereo modes (VKMS does not set
+interlace_allowed, so the mandatory 1080i side by side (half) formats
+are not listed), and the HDMI vendor InfoFrame, which VKMS has no link
+to send.
 
-[Severity: High]
-This early return also bypasses the SW event interrupt unmasking during bri=
-dge
-attach. Should CDNS_APB_INT_MASK_SW_EVENT_INT be unmasked independently of =
-the
-HPD configuration?
+The test and its EDIDs: https://github.com/Sparky-OS/sparky-stereo-os/tree/main/tools/vkms-stereo-bench
 
-> +
->  	/* Enable SW event interrupts */
->  	if (hw_ready)
->  		cdns_mhdp_bridge_hpd_enable(bridge);
-[ ... ]
-> @@ -2100,7 +2132,29 @@ static int cdns_mhdp_update_link_status(struct cdn=
-s_mhdp_device *mhdp)
-> =20
->  	mutex_lock(&mhdp->link_mutex);
-> =20
-> -	mhdp->plugged =3D cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-> +	if (mhdp->no_hpd) {
-> +		u8 rev;
-> +
-> +		/*
-> +		 * Use a side-effect-free capability register for presence
-> +		 * detection. A successful AUX read means a sink is present;
-> +		 * we do not need link training status registers here.
-> +		 */
-> +		ret =3D drm_dp_dpcd_read(&mhdp->aux, DP_DPCD_REV, &rev, 1);
-> +		mhdp->plugged =3D (ret =3D=3D 1);
-> +		ret =3D mhdp->plugged ? 0 : -EIO;
-> +		hpd_pulse =3D false;
-> +
-> +		/*
-> +		 * If the monitor is still connected and the link is already
-> +		 * up, there is nothing to do. Avoid falling through to
-> +		 * cdns_mhdp_sst_enable() on every poll cycle.
-> +		 */
-> +		if (mhdp->plugged && old_plugged && mhdp->link_up)
-> +			goto out;
+[1] https://lore.kernel.org/dri-devel/20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com/
+[2] https://lore.kernel.org/dri-devel/179152766117.1436711.17646397822774209185@yahoo.com/
+[3] https://lore.kernel.org/dri-devel/179152764385.1436711.6215580184547295403@yahoo.com/
 
-[Severity: Medium]
-During DPMS off or atomic_disable, the driver correctly powers down the link
-and sets mhdp->link_up to false.=20
+Daniel Campos Ramos (3):
+  drm/vkms: Compose the frame of both eyes for stereo modes
+  drm/vkms: Allow stereo modes
+  drm/vkms: Add KUnit tests for stereo modes
 
-When the 10-second polling calls .detect() while the bridge is disabled,
-mhdp->link_up will be false. The short-circuit condition here evaluates to
-false, causing the code to fall through to:
+ drivers/gpu/drm/vkms/Kconfig                  |   1 +
+ drivers/gpu/drm/vkms/tests/Makefile           |   1 +
+ drivers/gpu/drm/vkms/tests/vkms_stereo_test.c | 476 ++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_composer.c          |   9 +-
+ drivers/gpu/drm/vkms/vkms_connector.c         |   2 +
+ drivers/gpu/drm/vkms/vkms_output.c            |   2 +
+ drivers/gpu/drm/vkms/vkms_writeback.c         |  11 +-
+ 7 files changed, 494 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/gpu/drm/vkms/tests/vkms_stereo_test.c
 
-	if (!mhdp->link_up) {
-		ret =3D cdns_mhdp_link_up(mhdp);
-		if (ret < 0)
-			goto out;
-	}
-
-Will this unconditionally perform full hardware link training and issue
-DP_SET_POWER_D0 on every poll cycle, defeating power management while the
-bridge is logically disabled?
-
-> +	} else {
-> +		mhdp->plugged =3D cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-> +	}
-> =20
->  	if (!mhdp->plugged) {
->  		cdns_mhdp_link_down(mhdp);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009064024.9856=
-88-1-y-d@ti.com?part=3D2
+base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
+prerequisite-message-id: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
