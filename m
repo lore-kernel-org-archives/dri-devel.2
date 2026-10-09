@@ -4,62 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04D78CA601D
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 16:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2136CCA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 17:10:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0360B10E1A4;
-	Fri,  9 Oct 2026 16:55:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72E7110EA93;
+	Fri,  9 Oct 2026 17:10:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="IIJC+7aQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wmxowf33";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BABD10E1A4
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 16:55:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791564947; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ATtpEt/9bvUEwNBBWYAGhHf1tJroYf15Wq484WiW6zkg71Tqw4Cr7IGoMlS2TL2gXQgjBDCuXfniAzVPsO1pJxctMHkev73+dNYO2JVsSJVil0by6Pg3mqfz+Sg3omQmbsXNWlrMHSLVGFBnU+uUQNed2LNxmuK3hcKHqwbeB5o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791564947;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
- b=KkpgfwgLLBE+9I3+HukgzZ7vjApfjh4uaESmMB/uPNzZjeaINk45i/X7dOXJjWCoYFdGEpTulk3ahr+q9FHRR0Sd72wQzp8yhL86AkSHInBKn1CZ+/qXXK7KvnxGBmU2mL1IeuB844Ulkly4KKvsQnPtISNoqQabpaANW1yJpEA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791564947; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
- b=IIJC+7aQdqVK/P4OOnTiOfIEvv5/6WhcPARXJUbpxjs3HFRTT92PJB/gw1+ddUGp
- OjS7i0g3hr2GXAmYwqspN4Iot3wTBUjcr3u5Ft8I3QOExO0nXxIQ+Cmgp72SRZkdWop
- /oY7ksAgplTLB4r9b7Vs2ZzS6gTmfNffnCrnn/vA=
-Received: by smtp.zohomail.com with SMTPS id 1791564945621243.20648823200918; 
- Fri, 9 Oct 2026 09:55:45 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH 1/7] rust: drm: rename Ioctl device context to Userspace
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260814230923.1292966-2-dakr@kernel.org>
-Date: Fri, 9 Oct 2026 13:55:27 -0300
-Cc: aliceryhl@google.com, acourbot@nvidia.com, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
- tamird@kernel.org, work@onurozkan.dev, brauner@kernel.org,
- lyude@redhat.com, j@jananu.net, alvin.sun@linux.dev,
- deborah.brouwer@collabora.com, laura.nao@collabora.com,
- beata.michalska@arm.com, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <8CB5BDA6-0329-491B-80EE-FCEBA390CB2F@collabora.com>
-References: <20260814230923.1292966-1-dakr@kernel.org>
- <20260814230923.1292966-2-dakr@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-ZohoMailClient: External
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A00D710EA93
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 17:10:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BCE8960DC6;
+ Fri,  9 Oct 2026 17:10:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D4B1F00898;
+ Fri,  9 Oct 2026 17:10:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791565831;
+ bh=dmxj2lj4Q4GvWHDzZDgnLPWqXygKdSJybIHJoEn8ViA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Wmxowf334BkRZFU6Sq+uwK2c5v9j4EnLSle+yuIxbw0dZoW2zbp0fanJ3gjkSzjlg
+ ++J5V5kaKFWyO50Jl1QWmLE98n1bC9sGm9nyBGYh2S3xa2FjRSCHhuqsUO41nflxsE
+ HF2AgCutPzPCaKnIxuPIaY9WkS0OvpankhXXAzlwqBkuVCvMpnPGAmwupB4qR1BX4q
+ y7pVdBA7HD2YGln5FnmdyMGutGkG+xpvhjIoiak5Nrz8n5urXSS1zeK4oPcAT+KvjI
+ 1SMKLjs3nGGyEl61xuJW/lbEGxNl3dMETwT3QENiyz1QiYF+b9OzkVDVLfQLr1X7dM
+ Ivjwqv6bRwygg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, Artem Dinaburg <artem@trailofbits.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>, Wei Liu <wei.liu@kernel.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>,
+ Helge Deller <deller@gmx.de>, linux-hyperv@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, akpm@linux-foundation.org
+Subject: Re: [PATCH 6.6.y 0/2] fbdev: backport CVE-2025-21976
+Date: Fri,  9 Oct 2026 13:09:46 -0400
+Message-ID: <2026-10-09-1-daily-reply-0009-hyperv-fb-removal-6-6@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261008191309.98263-1-artem@trailofbits.com>
+References: <20261008191309.98263-1-artem@trailofbits.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,4 +64,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Could you please consider this series for 6.6.y?
+
+Queued the series for 6.6, thanks.
+
+-- 
+Thanks,
+Sasha
