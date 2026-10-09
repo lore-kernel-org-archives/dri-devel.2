@@ -4,49 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 712C7CA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BE22CA6004
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:47:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EABD10EA2D;
-	Sat, 10 Oct 2026 11:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C99810E25E;
+	Sat, 10 Oct 2026 11:47:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="JBJZc6hR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CF9lp+Q5";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559E410E544
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:54:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=N0
- UHDUvgrExzuUIvmY5lEGVvWVWCcps+KEQmmx2+7ZE=; b=JBJZc6hRPvIF4715ez
- 3AaoPB9BvzTSPoysnDMhEqCcgdNy5nrQ3V2as2USmUbgpeyWPpVKJmkBJlowC8+N
- yBJ9AdIyZAmk5sx8bXcGf7dl50Y5RuinkUoU+5k/c44Q+/+JkPfXIwRHVvcVqBEa
- cAvfBULH/SPGGhbDN5lX4Gxt0=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
- by gzsmtp5 (Coremail) with SMTP id QCgvCgB3vmvUx8hqvTiFDg--.2548S3; 
- Fri, 09 Oct 2026 18:54:13 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT schema
-Date: Fri,  9 Oct 2026 18:54:10 +0800
-Message-ID: <20261009105412.300338-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009105412.300338-1-quchaosheng000406@163.com>
-References: <20261009105412.300338-1-quchaosheng000406@163.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D9610EAB2
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:10:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E05714379B;
+ Fri,  9 Oct 2026 18:10:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4688D1F00893;
+ Fri,  9 Oct 2026 18:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791569453;
+ bh=+vhnZLSAfTMC+QZqCgbvTEDiC6mj4h6xS61LbBpqM50=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=CF9lp+Q5Za7cVZHqQC74rjOFr8yk/De75otGYPR3S1T86ZL6oRSrAGvK28LfrvlH2
+ Se2zsh30qwMLlCqCA7med4URDz81nItQ7Be+kYtyf+1Iw7pD7ujrogPRF4MJJPi5SA
+ ROWlbwv2jQeOtHw7szaaz95Mi0h7nwXWfkJTNF/598PqLd+CYikRpuV0N9CXSKCIVt
+ o3wXmoeccut4nTq4n3hdNX1JIoyTrHyq46T8GSH56DRQbV24tBBhAlNRVg4WoIlVmy
+ 84aeZDE9EHN4igen11Ju7/iVYb7qestz9d3AcWi65jWKShAOorIZ2uT+oAgUqIsOlh
+ TnwYuhRcNncGw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 09 Oct 2026 19:04:12 +0100
+Subject: [PATCH v5 18/38] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO,
+ add VM_MIXEDMAP
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: QCgvCgB3vmvUx8hqvTiFDg--.2548S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDtr1xCr1UZF1rCr45Wrg_yoWruryxpF
- n5Gas7uFy8WFyaqw40yr1kCa1rAFykAF40kF1xJFy5Ja10qF48tF13Krn8XFy5Ga4xZay2
- qF47Ww17Kwn7C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi-VycUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xXzaWrIx9XWDQAA3H
-X-Mailman-Approved-At: Sat, 10 Oct 2026 11:45:03 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-18-923b70125b1e@kernel.org>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2415; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=UjDr9VPjw22rvNYi9RjlPonrYjyH/X5y02GEaoE2d0I=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sxWupUx2VNl6dUlgjKlqVYLQ81dE/7Zf/0r++8Nj
+ 9q0G3l3OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRrL8M/6uTzvVuvTzriZbp
+ Wn794nevaw0lNv46pdrkfVrg+8fLd1UZGd5et1MMWxS9frpYkc6xSvuZWbyPPjvff7JR9mPZvAU
+ zPrEDAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Sat, 10 Oct 2026 11:47:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,174 +146,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
+Currently all drivers which use defio allocate system memory. All of them
+also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
+system RAM, so simply failed to set this flag when it ought to.
 
-Convert the TPD12S015 HDMI level shifter binding to DT schema.
+This patch sets FBINFO_VIRTFB on ssd1307fb probe, then drops setting VM_IO
+in fb_deferred_io_mmap() and instead requires FBINFO_VIRTFB to be set,
+erroring out with a kernel warning if not.
 
-The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-and ESD protection circuitry. Document the two ports it exposes between
-the HDMI transmitter and the connector.
+The logic requires a page from the driver and since commit 1ecbc7dd2902
+("fbdev/deferred-io: Always call get_page() for framebuffer pages") has
+always required it to be refcounted, so this was implicitly already the
+case.
 
-The tpd12s016 is software compatible with the tpd12s015 and is listed as
-a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-a board using the tpd12s016 must list both compatibles.
+Finally this patch sets VM_MIXEDMAP, as the logic is mapping
+kernel-allocated memory so this is appropriate.
 
-Assisted-by: LLM
-Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
- .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
- 2 files changed, 90 insertions(+), 44 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+ drivers/video/fbdev/core/fb_defio.c | 6 +++---
+ drivers/video/fbdev/ssd1307fb.c     | 2 ++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-deleted file mode 100644
-index 26e6d32e3f20..000000000000
---- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--TPD12S015 HDMI level shifter and ESD protection chip
--====================================================
--
--Required properties:
--- compatible: "ti,tpd12s015"
--
--Optional properties:
--- gpios: CT CP HPD, LS OE and HPD gpios
--
--Required nodes:
--- Video port 0 for HDMI input
--- Video port 1 for HDMI output
--
--Example
---------
--
--tpd12s015: encoder@1 {
--	compatible = "ti,tpd12s015";
--
--	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
--		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
--		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		port@0 {
--			reg = <0>;
--
--			tpd12s015_in: endpoint@0 {
--				remote-endpoint = <&hdmi_out>;
--			};
--		};
--
--		port@1 {
--			reg = <1>;
--
--			tpd12s015_out: endpoint@0 {
--				remote-endpoint = <&hdmi_connector_in>;
--			};
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-new file mode 100644
-index 000000000000..1927da3bd736
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-@@ -0,0 +1,90 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
+index fd00b86e1ae6..fb359ecc3966 100644
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -366,13 +366,13 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ {
+ 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+ 
++	if (WARN_ON_ONCE(!(info->flags & FBINFO_VIRTFB)))
++		return -EINVAL;
+ 	if (!try_module_get(THIS_MODULE))
+ 		return -EINVAL;
+ 
+ 	vma->vm_ops = &fb_deferred_io_vm_ops;
+-	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+-	if (!(info->flags & FBINFO_VIRTFB))
+-		vm_flags_set(vma, VM_IO);
++	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP);
+ 	vma->vm_private_data = info->fbdefio_state;
+ 
+ 	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
+diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
+index c4fdecafd856..958514a35433 100644
+--- a/drivers/video/fbdev/ssd1307fb.c
++++ b/drivers/video/fbdev/ssd1307fb.c
+@@ -763,6 +763,8 @@ static int ssd1307fb_probe(struct i2c_client *client)
+ 	info->fix.smem_start = __pa(vmem);
+ 	info->fix.smem_len = vmem_size;
+ 
++	info->flags = FBINFO_VIRTFB;
 +
-+title: TI TPD12S015 HDMI level shifter and ESD protection chip
-+
-+maintainers:
-+  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-+
-+description: |
-+  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-+  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-+  connector, and provides control over the level shifter enable and the
-+  hot-plug detect signals.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ti,tpd12s015
-+      - items:
-+          - const: ti,tpd12s016
-+          - const: ti,tpd12s015
-+
-+  gpios:
-+    description:
-+      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
-+      the level shifter, the second enables the level shifter outputs and
-+      the third reads the hot-plug detect line.
-+    maxItems: 3
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: HDMI input from the transmitter.
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: HDMI output to the connector.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    encoder1 {
-+        compatible = "ti,tpd12s015";
-+
-+        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
-+                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
-+                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+
-+                tpd12s015_in: endpoint {
-+                    remote-endpoint = <&hdmi_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+
-+                tpd12s015_out: endpoint {
-+                    remote-endpoint = <&hdmi_connector_in>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
+ 	fb_deferred_io_init(info);
+ 
+ 	i2c_set_clientdata(client, info);
+
 -- 
-2.43.0
+2.55.0
 
