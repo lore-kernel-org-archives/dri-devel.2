@@ -4,97 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D15D3CA6018
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:25:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E8D8CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2991411208E;
-	Fri,  9 Oct 2026 11:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95F4B112081;
+	Fri,  9 Oct 2026 11:35:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="dHg6+OAa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BMU5e2h9";
 	dkim-atps=neutral
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7790A112086
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 11:25:11 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-6af9a90e4bbso4536602a12.0
- for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 04:25:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1791545110; x=1792149910; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=365rpWbQTI8r+XdiFb+KF1sTOX5DYF/iothdwDHKaSc=;
- b=dHg6+OAaxwjaPQTJvPEduz9ktlYhF/OXQlT5n9kipztDSOjztJ7tSFmR+Q2wqEfzRD
- v2Qgkgm04yFpwllZR0w5yoFVwcofNqxl2EhPET8TVph2twjRtYglfFOv0buhsoWKfoWq
- ScC1p2XPh7s/uqdOmw1xx83ce9q7vZTtbOWZmoQnbJjpV4/MPr7ugzZCBGowZUYmNE0y
- jc0MEIdelGCWWaPitkce9vvzpGWIf9gylqgrm6GW7x/SNqd0tKqR/nJLvpBLNmTGEtB4
- LcQtQdAbuiNIEXA7+MJ1dPYMzEQcjSG68IKOaF3BlpFd9La3lL0HIZerojW4oKP0R48L
- lQDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791545110; x=1792149910;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=365rpWbQTI8r+XdiFb+KF1sTOX5DYF/iothdwDHKaSc=;
- b=dJGR12TauekVdhKkD35MAhpieeMtBW82gV0QElCIHXHPgj/rQYh5Sf+PYL4Pngj0tB
- 0yxS2n+EQq+lGoFfrs44J6Fl9cnJkC4K98fw3mhP+03lyM4DEgCJVYFshTgUo3yztkW6
- jDxQUhLa9fE8O2wam3RAGkRHqHfU8KBs7EHL1dnYBEZ/sriR52Hxa2lOxnQ7fx0gZuC0
- oMx7+Gb7/l83+A4S2pvzge8DGrruSGCOxjlxhhqwSR7qGmIjWxPvSrcW98TvDyqxbenQ
- lHfWIkUOFYn0OwDNKAxbbfXFCi3cczpKJXD7vDLaGn/LtHUN+Gp0b3IK5sAyydb0Fllt
- 9FGQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwMYaUFB4TGpH7ALL3ake0F1C6RDzeTl/gqj8YI+3/G6DOWsXSesPQ1ipmUayRGqNZ4xmpNBKRzDX4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLReUzkOUv4izG8Hg9v5jwQHPhLYcGwFxtSFgmmlldh1iFjMWds
- JzLIHSv/zQl0hx+/4vhyrES7bHQjqzsSO/HQLC048lvP6Flsv8ZKzqRfNPeZPqdv4NM=
-X-Gm-Gg: AYBFou3gr4w99qz3/OqnCeIy4zULG0t63Cv2ZEvIENqJb5h98PK7lrwj4Zy2Ph/ONLd
- Dsq/LCBi6KGfbWxH22Zi/PY+z54Mzd5Yj9MQFapjVIlijFU8XWeGFCanE6W4RwJzLddrjxhM97W
- 7TO65hCXePluZF7OuBrAykTKFtzXwP+rA6C+zvLn0AloCTF/S2hYZoW0piKC4FCvtBAQSq4IQLF
- lsedvIAy7Cg15In/A/VbXXa6BXjWcGnckFDxSc0EdrRKa5Zk0eHSvSysSsIOj99Wr/dkuFfQaHG
- BHiSNEdeHmJFIpaZBbrdmfOf5enJVm9ubeVqBRaGrhTwS7uaJzvz19qMSrywExZo7boa9SKQyld
- gmpYivxTkf9C0xywX4ZPrLgDAeVQddMbbzTrnTEpoM3Ij2K08DGtOAPnRAKcrb4smz5dXp/r/wN
- MDzn6ma/webfEBgR4RFMRUN/ggFP9gP03XxHccfV4G2LfT1Y4tNtGq4iw67pWDjsyuzt4NbHFgY
- u9iHs5nTbZuORVVYvET3Vv8c45DbF22hY/toFHhL/g0ttSTflBs
-X-Received: by 2002:a05:6402:190f:b0:6ab:6e:a8e4 with SMTP id
- 4fb4d7f45d1cf-6b17c2919a2mr1279444a12.44.1791545109895; 
- Fri, 09 Oct 2026 04:25:09 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b179dd3597sm985764a12.14.2026.10.09.04.25.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Oct 2026 04:25:09 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 09 Oct 2026 13:25:03 +0200
-Subject: [PATCH v4 4/4] arm64: dts: qcom: milos-fairphone-fp6: Enable display
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013006.outbound.protection.outlook.com
+ [40.107.201.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4D3A10E54D;
+ Fri,  9 Oct 2026 11:35:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NEixSCg9WVosYuTGdzqwpQ89bxHxctP7YFC+L5n/MnnuZkUgREB2qEouIBDh9XbpxrgZ1TtkL3WkLaGQ5GKiFsKUfWSsH6xQCfoLn3n4TwIYuBib3J2rr2CxNsCMGlo3Jzn+qrGpdN+OXg1v+34dICcQpDN/B1oKUEf0uiVg0DarlZF4fPLeznbtHa44i3fD0LiadysN/0KvdsiXR//I+L+JEb/EKo04WwKsS8/5N5ZrJ9VFR6iPbPoNzs1/j6YvYdJn9f2/ebm2PstKlpLqnjwfW2wLQDiVpVt7mMs8kh0Ih2aTV2NtcGo2oudwIjWRVr6oQWHgzctHMsKMFEptPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PYfwrcoViiR/gnFoyNIAHCBYZreGcrKXTWBTATdQzQQ=;
+ b=AXdMInN49SHs83Js/0XGsjT0RtVIcOloYCYtMz6x1NdBSx51BkEmMkzZv6YrnkjaenLELUY1W7mgrdfj24coyXA1p7349PFAYFMkqS9M0JVdmS8iNtn+u0QWcqyOdK9ki19Cj4ReQ6kl5IIXjYCET5HH6bwEwylw9kTrkuiS74rJx7G14z0f4Entpd7z7UNdct1gyVY8QiwIQ5HvgGl0LdM+fFDa3UAjKwmTJ6kSrNiEDoJn0LzrLAzgSMEODjPv2t4e8pYEa8VfOMW4JvDafw3hoxi1eoHGEpHkvdkSglFOc5gq6Y14U4cIuAO2tlfTKA+7KkjN3wo+2+3pb0DawA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PYfwrcoViiR/gnFoyNIAHCBYZreGcrKXTWBTATdQzQQ=;
+ b=BMU5e2h9JVKbODBoKp5Syk8J3+Y8IGh79grdBvISLxK9dj1DVOe+AIvTENEP5TsD7t4OVCWHNXpNJMgTVivT/oZIXH6XMUvy4ErOUXEF0cY5X4UtfzUPhcbFbS3NiObSXmYM8wLGU3eP7YQwAn/ZGYmdoFPrDnqxAMFjh76bcRk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by DM4PR12MB6064.namprd12.prod.outlook.com (2603:10b6:8:af::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 11:35:21 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 11:35:21 +0000
+Message-ID: <caa4405c-eb97-48a2-a088-c22242179018@amd.com>
+Date: Fri, 9 Oct 2026 17:05:10 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/ttm: return an error when kmapping a BO without
+ pages
+To: Jesse Zhang <Jesse.Zhang@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com, natalie.vock@gmx.de, 
+ stable@vger.kernel.org
+References: <20261009103419.4122940-1-Jesse.Zhang@amd.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20261009103419.4122940-1-Jesse.Zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0018.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:179::17) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-fp6-panel-v4-4-7c3819664778@fairphone.com>
-References: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
-In-Reply-To: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791545105; l=2284;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=K/UuwAdCDzSNTdbtCp/oiK4VjRQqMyDj/QIu8/Tze7s=;
- b=+RENV5BTwuJZenkB/tqi4Ledclqeb7XKWAMWUX+RVt0JGWYi6hJZJFY91iUXFwZmz89TsCRE7
- /oHOtl9hGpoA3+AJesVeUI7yU+ifKJovTWzz+fN4xrzyAidTMUrrqNm
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|DM4PR12MB6064:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2dda7cf5-282f-4a11-76cc-08df25f96669
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|18002099003|10067099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: pySBPY7lLSkEO7Y0gFvPg4SaGIC5Oa/1Bp1Pt3Svn4lYOjQlfnVjQHbI0wfL6/wCvZNl13Vy1sJ+e+V7p0OMeRO0Jd2T8F0Wzei9NQZwQxsG5mU8Lu4eYaHq714FRIj6QMVWnRogRwR+q+9z9q5Wx+QLgo+PSi4Cct2NCZL4xZTdT/69X5e/CVAV9e0lvj3NgRMz9Mp5g68uqW+1/Lrtrx8PPgqT2irULQraCaCKGqWsR3UYI2DV7XkvE5i59M4LYVKSSMxq1UCTDTdYNLbK2BPGqTuPI8JxPeE2QbE0VsZ4eRkdFK3mHxqfNCZ0v7OviDvl0ZNTwdbXtCQo2Cn9NBNs0K87NGXO4StGDQ/wn+6uFook6vzc+KvL4CGpmQpfPE9MY3jcNi+CyVsH6+aA8+mkzkxJDl0DNV3SMnlYmtEV8r/IJKq6sjegCe0NDPKjJTDnsHBqPXuN5egShaviyq4dP8PmwpIgmBds01VPAowGSevzA2Bti8mRaisQOT7rPSX1FC8J21FWWTcrCZzCH1e3pe/Sw/3VY52zVDq95q8zwPYSOnT51n8bo7KK3nKL9SVfzznCYvvA6AOTixjj7d5w28ZOC3ZyInLhvJE09Cl7hSj8JkA/afqtOI+ehdDI8ynGKRMyaHhTdW40xFKM2EIp/YkqXm+P29O3/O7XKDQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(10067099003)(22082099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHNEcU5nU0g3ZG5qRVFUWC9NeGtaZDJMdU4zWURaMWpsMExVQVVBM3VyTmZt?=
+ =?utf-8?B?ZjZLV0pLUGtla2tZR21uc3ZHcFF6NHAvODdEbk5BNkdiNHpjaXBtVTVib1pX?=
+ =?utf-8?B?RDJEZ1RqWVlkd0FKRWhKYW5sWnpQQ3c2RXBvZlF4T2NLUVJyU1RDV3h2ZWV5?=
+ =?utf-8?B?MHRhVUVZZEVJb21sREhKbjhNNnhmTDZXSmRCaHkyYUkybXJWRE9UcTRBNks0?=
+ =?utf-8?B?am9RUnYrYlA0cXRhNklLaDcrNlVNUzZNWkpodWRQdnZtRk9LZDc4ZWQyRFNH?=
+ =?utf-8?B?NmZPSW1IenhoMk1ZR041em1QNVNnTjVDMmlkYnk4TnVCNXl5cER3K0tsaU10?=
+ =?utf-8?B?T09obUNNREE4dmVtQUkwZHlaMytlRi9jc0c3NFY3T3BDNFlNQjdnOTFCV3gy?=
+ =?utf-8?B?S2pzN2NiYVZXb2ZKR2U4RDRpcUpUSGlnK3dDYk5RYXVieE5rSVE1SE5OcGxl?=
+ =?utf-8?B?UjZzdFBvcW5Xb0FwSHZaMFlmczdGT1RhWmszUWNkQ2pyWVZtaW9VQUZZeE5N?=
+ =?utf-8?B?amJwdkxjVG5nanRtUEpuNjBCRXhrcXU5ZUdlOVhkUUh4NUp3OGJiN2x5d0dT?=
+ =?utf-8?B?K2NIRDgxa1dvQkpwbXB0UjF1bzBKdGdpaHRlcE1CSXVnMXpQd1pyR0tGUVBH?=
+ =?utf-8?B?VTFIcjBLcEhjNFNKUjIrMUVGVTNPbSs3LzZBdXZBRVFhOXlUcnVxOGlHcXVQ?=
+ =?utf-8?B?M1hrbVZmUzduaWpFQi96Y1hXR2ZCaGcrSjBZYjE4Z3JwRmVqeFBFYjhLNkF6?=
+ =?utf-8?B?SHN0dTNkeHBGYXBnSFBoaC9Db3NqNWFIbW5uSHV4a2lzU3M1OW1odUREMFlI?=
+ =?utf-8?B?cW1BeWd4NzMrNXFwazI3TUk1ZjJKZkdCYmQrY3FVSGphczA4aytHVURZRmRR?=
+ =?utf-8?B?WEZTZXVTTFNNZFIycVc3akRlZ3c5MDdvMklrRjluMFJEKzRESzVHaFJwZ0lv?=
+ =?utf-8?B?dE5DR3dWQVJjdktYQTY5RDVLZ2Z6VGJGZW85M3FnRlNQK0Y3QWZjakpDUlUw?=
+ =?utf-8?B?c1FzZlhVaEZGREJjUWNVWC9QcUJ2dEpIZUp3RWNFWFEwc0M1OU1iT3ZZMmFV?=
+ =?utf-8?B?di9BN3N0WDQ4MC92K2ZCeDRPdGJGTDRvVXZzR0Q3OEtPclY5Vi9rb013ZHFB?=
+ =?utf-8?B?b3pydHNLVU5IajZzOG1QdFdrdS9xTUVDMHFtQkJTSXJES0EyRVdqQ0FjdDB4?=
+ =?utf-8?B?c0J6MEpDdlo3aXVKa0RKQlFHY0ZSaEFzd09RVGM0UFhob2pJYmIyUlFYM0xa?=
+ =?utf-8?B?WU13YTNpRnNuQ3V2REt6Y0pnWHl1M0UyUWVxUjNJRjRaajNmSUhwQ1Q5ZTFQ?=
+ =?utf-8?B?V0pYTDR3TXVzandFbVBFRW1ZbUhFTk5XOGU0MGtjd3BIdEtVME9mYk1mWEF6?=
+ =?utf-8?B?aDFXOGMwZElXb2kzMEFkQWlIY0c2MmFmQVFVRmRaTHY5UDd6RVA5cVROV1RL?=
+ =?utf-8?B?NmNMQ3g2V2gxMzBiVG84c0NmcTY5ZXBCbWtBaGZ2akhiNWFRVnAzeklOdGlq?=
+ =?utf-8?B?MUxtL0hKRjFZZ3ZZL3dxT1ZuWlpHMWRxUk9hSzQ0K2lXSVFoVUFvM21uYUNR?=
+ =?utf-8?B?Y1NGaWtvYVFEWjM1UUcyTTZSZmUxczBuUXZ5VzVFejQ3UXFpelhKbkk5amFW?=
+ =?utf-8?B?SEdnSytrdGp5Wi9Xb0piZ1AzUmpieEFJQ254V2lyUkY0a0NzbjNVT21oQ3hw?=
+ =?utf-8?B?djdCNUxpTGJ6VGVTMUJ0WGh5L0NncGlIZndwSzgrSXRVMEtBbEQ1NGNTbTd6?=
+ =?utf-8?B?cDVSMW0vUVNVeUpEemRRc0xBNDd6bEljS2NXanFaUWtpQ2I1OXR5YnZHdkpZ?=
+ =?utf-8?B?TGdsVWFWcDYvbFRZSnNHdVdVL2NGRklGdHpQZE5BRDcvd05kVjlIcmhVSytx?=
+ =?utf-8?B?WlN3bGdETDFqM2d2S0VHdFRWRjBQMDNMblVLNEJnK0Y3cHNrWk1KSC95TDdP?=
+ =?utf-8?B?U0QzaHFVbXQ3M3NjOXFIY1gyVW1uWG42Y1pWTW1tZXlkMmREM0hWb3hDVFF1?=
+ =?utf-8?B?clVuekFUTVRGeTdtQmpieVBWTFdoWGd2TlFkc1FudjVmNHFqZC81djFIcnR1?=
+ =?utf-8?B?OGFOY1JqZTRrWlNwbWovWjFRQVVrRnp0T1VSeW96VlRaRHdmWlk3K0NrMXVa?=
+ =?utf-8?B?WGtZWVRKTVBPajV5UGsvdThrVmk3V3R2MkwvejRBWkczWUkwS1h3QVhyTlJy?=
+ =?utf-8?B?NXpnUlZSY0I3Vm1oUzJTWjVFUDFMMjNoTDNOYlFDYklTeUNKT1JxeWcxU1ov?=
+ =?utf-8?B?V1FkV29KSDVqS2ZuTFJyN2hZT2ZSM1ZZWmMyQUF0di9Td3Y3OWtTMStaRWo5?=
+ =?utf-8?B?eWdCcnhQbENVd2RHY0NRQlBzVnVEeGZYQTdWRXZMRmpPUjhhVmF4Zz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dda7cf5-282f-4a11-76cc-08df25f96669
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 11:35:20.8762 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iZwDF9a++pn2xDDZnCY/UUID84IsmT5inlvckep7Xv82fwNH//N1IDQ2qr5aYojnlWONiRycBPQcmHGFcUOkFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6064
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,105 +138,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Configure the MDSS nodes for the phone and add the panel node.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 64 ++++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-index 4e8777162b53..11015c3fa331 100644
---- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-+++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-@@ -709,6 +709,49 @@ &ipa {
- 	status = "okay";
- };
- 
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l4b>;
-+
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "boe,bj631jhm-t71-d900";
-+		reg = <0>;
-+
-+		reset-gpios = <&tlmm 12 GPIO_ACTIVE_LOW>;
-+
-+		vci-supply = <&vreg_l19b>;
-+		vddio-supply = <&vreg_l9b>;
-+		dvdd-supply = <&vreg_oled_dvdd_1p2>;
-+
-+		pinctrl-0 = <&disp_reset_n_active>, <&mdp_vsync>;
-+		pinctrl-1 = <&disp_reset_n_suspend>, <&mdp_vsync>;
-+		pinctrl-names = "default",
-+				"sleep";
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&panel_in>;
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l2b>;
-+
-+	status = "okay";
-+};
-+
- &pm8550vs_c {
- 	status = "okay";
- };
-@@ -872,6 +915,20 @@ &tlmm {
- 			       <13 1>, /* NC */
- 			       <63 2>; /* WLAN UART */
- 
-+	disp_reset_n_active: disp-reset-n-active-state {
-+		pins = "gpio12";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	disp_reset_n_suspend: disp-reset-n-suspend-state {
-+		pins = "gpio12";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
- 	sdc2_card_det_n: sdc2-card-det-state {
- 		pins = "gpio65";
- 		function = "gpio";
-@@ -906,6 +963,13 @@ pm8008_int_default: pm8008-int-default-state {
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
-+
-+	mdp_vsync: mdp-vsync-state {
-+		pins = "gpio129";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
- };
- 
- &uart5 {
+On 10/9/2026 4:03 PM, Jesse Zhang wrote:
+> ttm_tt objects for imported sg tables (ttm_bo_type_sg, set up by
+> ttm_sg_tt_init() with TTM_TT_FLAG_EXTERNAL) only have DMA addresses and
+> no pages array. ttm_bo_kmap() and ttm_bo_vmap() still dereference
+> ttm->pages for them, so a driver that tries to CPU map such a BO oopses
+> instead of getting an error:
+>
+>    BUG: kernel NULL pointer dereference, address: 0000000000000000
+>    RIP: 0010:ttm_bo_kmap+0x26c/0x300 [ttm]
+>    Call Trace:
+>     amdgpu_bo_kmap+0x89/0xb0 [amdgpu]
+>     amdgpu_userq_fence_read_wptr+0x116/0x170 [amdgpu]
+>     amdgpu_userq_signal_ioctl+0x3fe/0xbb0 [amdgpu]
+>
+> Return -EINVAL in that case, like ttm_bo_kmap_try_from_panic() already
+> checks for a missing pages array.
+>
+> Fixes: 75a57669cbc8 ("drm/ttm: add ttm_sg_tt_init")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+I have upstreamed this patch.
 
--- 
-2.56.0
+Regards,
+Arun.
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo_util.c | 11 +++++++++--
+>   1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index 3e3c201a0222..83142bfa3bc1 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -356,6 +356,10 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
+>   	if (ret)
+>   		return ret;
+>   
+> +	/* Imported sg tables only come with DMA addresses, no pages to map. */
+> +	if (!ttm->pages)
+> +		return -EINVAL;
+> +
+>   	if (num_pages == 1 && ttm->caching == ttm_cached &&
+>   	    !(man->use_tt && (ttm->page_flags & TTM_TT_FLAG_DECRYPTED))) {
+>   		/*
+> @@ -419,7 +423,7 @@ EXPORT_SYMBOL(ttm_bo_kmap_try_from_panic);
+>    *
+>    * Returns
+>    * -ENOMEM: Out of memory.
+> - * -EINVAL: Invalid range.
+> + * -EINVAL: Invalid range or the BO has no pages to map.
+>    */
+>   int ttm_bo_kmap(struct ttm_buffer_object *bo,
+>   		unsigned long start_page, unsigned long num_pages,
+> @@ -493,7 +497,7 @@ EXPORT_SYMBOL(ttm_bo_kunmap);
+>    *
+>    * Returns
+>    * -ENOMEM: Out of memory.
+> - * -EINVAL: Invalid range.
+> + * -EINVAL: Invalid range or the BO has no pages to map.
+>    */
+>   int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+>   {
+> @@ -537,6 +541,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+>   		if (ret)
+>   			return ret;
+>   
+> +		if (!ttm->pages)
+> +			return -EINVAL;
+> +
+>   		/*
+>   		 * We need to use vmap to get the desired page protection
+>   		 * or to make the buffer object look contiguous.
 
