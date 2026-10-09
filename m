@@ -4,66 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDC6CA601D
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 10:17:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5167BCA6012
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 10:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FEA7112043;
-	Fri,  9 Oct 2026 10:17:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEE0112036;
+	Fri,  9 Oct 2026 10:18:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BdZSf2Gu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BZXPHilW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFF8112038;
- Fri,  9 Oct 2026 10:17:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791541069; x=1823077069;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=UxZTeqDdMka3Axk5fCmI5VXfUgLzwT/RR9bD9eGU+Mo=;
- b=BdZSf2GuJ+faMJOOqAsFL7IBrRb71EMx9XSo8AYftdWazAHjzzDfbtth
- viljuC4uMJiX/mP7OmCDtmc7Gxev/Mlq3rIjp8R4PoAMJPmO8ULJSbXnx
- FPxAwx+tsvLXnHDIgDAOREgl12Hkxwx743dYYV3EK1cB9EkH1ZWnxB4Hx
- m8J49gXGia503nxy5zimlTQcazRn1IN4XG8guFGX6i8uFwVNQkHRnHl9t
- zOMSoBp7twwvED5t/91P9KupzN8tCcH6AJb++y0xnb1gKkJm9jZ2ffode
- jbxBh8JIXX3Mn7Ax0Tjb7vbp2JAfDYtV2yAsUaHcz5Ok9+bVUxNxwOOXE w==;
-X-CSE-ConnectionGUID: tv/gwQpkQ5GP8LZf8RRR6g==
-X-CSE-MsgGUID: y+g/30KQT2WH9uMAsP0org==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="222379"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="222379"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2026 03:17:45 -0700
-X-CSE-ConnectionGUID: Tb7BYTqzSQqPPM6fSwfIAw==
-X-CSE-MsgGUID: z9Tbu1d6RfWY1wlDovc+PQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="290491"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.25])
- ([10.245.244.25])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2026 03:17:40 -0700
-Message-ID: <e225564c-81ba-4ca3-8dbd-d848e02f4c6f@intel.com>
-Date: Fri, 9 Oct 2026 11:17:37 +0100
+Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com
+ [74.125.231.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 859D4112039
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:18:53 +0000 (UTC)
+Received: by mail-oo2-f10.google.com with SMTP id
+ 46e09a7af769-820ff812cd8so1638142a34.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 03:18:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791541132; x=1792145932; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qQYsTFrWke5vcZofnQE3TNuLqYunAq0Wa80G2xcz6E8=;
+ b=BZXPHilW1AerL2kD7w+mrFWUe/DPWJHLAh8tscNsuSvNKsp5zmZGffoTuoK7JqW8jB
+ /2UNXobb7y1EgxjTtM3Y93aoG76NH0ex1C7ot9dizqUUztLN583ZaZwVowxzscQIbdlR
+ 9Jtos9m9C8XUqOtaZE99MI9AEJp6nvzgbNa9yc9/SpsAekgu+0NiE+0DkVexVXD/7o0F
+ vYtIez7qAxC9+VexyxfLN5YEYA5M+70BNfIiEVSpqa123FM4dkhjhWy/rFRnTKei2hVn
+ di/QoDHfSSVxiy2v+qsLwgXZYWMEpAkCDN7KZ524cN3DL4lVxsg+xjPoLDbFZbSPY5oa
+ LPTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791541132; x=1792145932;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qQYsTFrWke5vcZofnQE3TNuLqYunAq0Wa80G2xcz6E8=;
+ b=mOsBtgDdDds+XSnh3KcjsJ5e05wuv7BnmOdTWVZKN3/ckaGWeuCquCOUCJQDv2MOfd
+ hrZ6SjkIRntBBEzS4GaPrDx2oVo+MEjnz2Exh0iNIQspIvP5QsC3yk/nX2NVkSWhTiyf
+ /Of6ZvxGOqiaEzDj7/Ouz5kR1FnZO0dwtXs1z9cAfaXU8YWydfSiwE3YMaGNl7oGmuWp
+ pElXjJGA55NPzMkc1DbvhZWiekECmnXFVWTKiBAysbGTMC0aKJb/0+hlgSKHAeWWTI3v
+ AxaVgt3/Muv843CO1JTb7s+35L/BLfe62UReZL3m+JbXQ/gDNP4UvPWvBDBA0fvbklaK
+ appQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwCyUXOTVzfBIanEZKmw/IbDZtHcDsuU1+Le7rihIx2ufdQKiTIbX9sA8DvzOyxWVf+YglBWHoiuJM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIDzepCx8ShIigYf9Hbr/F85pXkOw4qqqqNCs/g3eQVLRNDfvpa
+ GlYhAdNOWsuaoCQdKQPwlaMLJiwuJ4Dfg46KPW2ROHustofxxNiLXSyR
+X-Gm-Gg: AYBFou24g8DuKD+3tu+OXrwU3wO7OIFjumvH4X6J7aFVOFlJR3u3Wp8t8UI99mRFs/I
+ vORzdamaMjPnF1q4alZBBpjYT5/tBgi1BhiRwgg++EbrR5aRH2GoLNlA6vvoA0d/DT+WFBnjU6Y
+ fv4csiH3Bxmd8DzKAG+tcVoeudx1j820xADdEEuG99OWuROA6GSTTtoBAABYW2MCXzxII6ljnFN
+ wE+1InVSq7baG7qPhdWDjvGPJZjZpDgOgmE66YDDsros3+YVQQ16AAJN8lfriAzM/XCnPfPe8wM
+ eUXO3WUGJ7Xh60RD5XWNrdJ+z5eQYP03SsLpbhsGPsci64cLYgSPAzpZh9l2gO67v+7hGJA1lfb
+ uo2H7XTawzzUPHsCl/97Roa8pO2VbtR96PQ6G1/3UQR1rPRAWv4OOgbZRF0lAN8R9TUtuvq02j5
+ oWXjFPzP6IGbvQAvXAGdQXS8C87w/72tA4QZ9gVPBiCbTtUR+X3ZPQGAPjedBGB+eGCBF1kdJZ+
+ FSLjNrCwMr1Y+ghiLpt0c2zTAPYrmYNfp3jpA==
+X-Received: by 2002:a05:6871:5214:b0:49e:6fbc:cd5b with SMTP id
+ 586e51a60fabf-4a2a898e729mr1145751fac.55.1791541132396; 
+ Fri, 09 Oct 2026 03:18:52 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.41])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-4a2a858aa3esm1401367fac.12.2026.10.09.03.18.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Oct 2026 03:18:50 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Henry Martin <bsdhenrymartin@gmail.com>
+Subject: [PATCH] amdkfd: fix doorbell allocation race creating duplicate
+ allocations
+Date: Fri,  9 Oct 2026 18:18:42 +0800
+Message-ID: <20261009101842.3294707-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] gpu/buddy: add range-restricted contiguous allocation
- fallback
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- Anand.Raghavendra@amd.com
-References: <20260930062117.585089-1-arunpravin.paneerselvam@amd.com>
- <254159a2-66f8-4fce-b185-84e81d126e25@intel.com>
- <b86fd371-289d-479f-bdfe-b2d6136d8d21@amd.com>
- <05785392-b9fd-4d3a-82c5-37b4b6cb5f91@intel.com>
- <b5f63c1e-589d-4f60-869e-bb85c9d2a554@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <b5f63c1e-589d-4f60-869e-bb85c9d2a554@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,428 +92,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 09/10/2026 10:14, Arunpravin Paneer Selvam wrote:
-> 
-> 
-> On 10/6/2026 3:27 PM, Matthew Auld wrote:
->> On 05/10/2026 15:14, Arunpravin Paneer Selvam wrote:
->>>
->>>
->>> On 10/1/2026 11:58 PM, Matthew Auld wrote:
->>>> On 30/09/2026 07:21, Arunpravin Paneer Selvam wrote:
->>>>> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>>>>
->>>>> A range + contiguous allocation (e.g. a scanout FB confined to the
->>>>> CPU-visible VRAM aperture) rounds its size up to a power of two and
->>>>> requires a naturally aligned free block of that size; on a fragmented
->>>>> aperture no such aligned block may exist even though enough contiguous
->>>>> space is free, so the allocation fails with -ENOSPC.
->>>>>
->>>>> The non-range contiguous path already recovers from this via
->>>>> __alloc_contig_try_harder(), which stitches an exact-size span from
->>>>> smaller adjacent blocks, but that fallback was unreachable once
->>>>> GPU_BUDDY_RANGE_ALLOCATION was set. Give __alloc_contig_try_harder()
->>>>> a [range_start, range_end) window and route the range + contiguous
->>>>> case through it: each candidate placement is confined to the window
->>>>> and aligned to min_block_size. Non-range callers pass [0, mm->size),
->>>>> where the guards are no-ops, so the existing behaviour is unchanged.
->>>>> A KUnit regression test covers the fragmentation pattern.
->>>>>
->>>>> Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
->>>>> regression.
->>>>>
->>>>> v2:
->>>>>   - Drop the split-undo patch; the range-bias search always 
->>>>> descends to
->>>>>     an exact-order block or fails the split (already handled), so the
->>>>>     extra undo was redundant. (Matthew)
->>>>>   - Verified this fallback alone fixes the kms_plane regression.
->>>>>
->>>>> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with 
->>>>> decoupled dirty tracker")
->>>>
->>>> Patch looks more like totally new functionally/feature, so the fixes 
->>>> here is maybe unexpected? Did something in that fixes commit change 
->>>> something such that the try_harder is now needed, but that needs 
->>>> some expansion with bias + contig? Do we know exactly what changed 
->>>> here?
->>> That commit removed __force_merge(), which previously helped recover 
->>> larger contiguous allocations on demand. As a result, some range- 
->>
->> __force_merge() got nuked, but IIRC I think that was essentially 
->> because we now "force merge" on free, so shouldn't we get the ~same 
->> result? Or is the fact that we force_merge() on every free giving a 
->> different layout of pages, and with some very some specific allocation 
->> pattern that difference subtly results in -ENOSPC, somehow?
-> You are right - merge-on-free reclaims contiguity just like the old on- 
-> demand  __force_merge() , so that is not the cause and the layout is 
-> effectively the same. The real change is where clear/dirty segregation 
-> lives: it used to be an inline guard inside __alloc_range_bias() , but 
-> the rework pulled it out into dirty_steer_window() , which only runs for 
-> non-range allocations. So range (aperture) requests now go through 
-> __alloc_range_bias()  with no clear/dirty guard at all - clear and dirty 
-> allocations interleave and fragment the aperture until no large same- 
-> class run survives for a 4K scanout pin (-> -ENOSPC). Restoring that 
-> two-pass guard is the real fix.
+The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+lockless at every call site of kfd_alloc_process_doorbells():
+kfd_get_process_doorbells() (mmap of /dev/kfd), kfd_ioctl_create_queue()
+and the CRIU restore path each test the pointer under different
+locking (or none), so two racing threads can both observe NULL and
+each allocate a doorbell BO and bitmap, orphaning one allocation and
+handing the two mappings different backing pages.
 
-Ahh, yeah that makes more sense now :)
+Move the serialization into kfd_alloc_process_doorbells() itself:
+take kfd->doorbell_mutex and re-check under it, so all three call
+sites are covered regardless of their own locking.  The existing
+doorbell_mutex users (kfd_get_kernel_doorbell() /
+kfd_release_kernel_doorbell()) only guard the device-global
+kfd->doorbell_bitmap in short non-sleeping sections and never call
+into this path, so there is no nesting.
 
-> 
-> I have accordingly moved the  Fixes:  tag onto that guard-restore patch, 
-> and kept the range support in  __alloc_contig_try_harder() as a new 
-> feature -  it still helps, but it is a safety-net fallback that should 
-> land on top, not as the root-cause fix.
-> 
-> Regards,
-> Arun.
->>
->>> restricted contiguous allocation requests
->>> that used to succeed now fail with -ENOSPC (the kms_plane 
->>> regression). This patch restores that capability through the 
->>> try_harder() stitching logic, so the Fixes: tag reflects a
->>> regression introduced by that commit rather than new functionality.
->>>>
->>>>> Assisted-by: Claude:claude-opus-4-8
->>>>
->>>> Assisted-by: LLM
->>>>
->>>>> Cc: Matthew Auld <matthew.auld@intel.com>
->>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>> Signed-off-by: Arunpravin Paneer Selvam 
->>>>> <Arunpravin.PaneerSelvam@amd.com>
->>>>> ---
->>>>>   drivers/gpu/buddy.c                | 88 +++++++++++++++ 
->>>>> +--------------
->>>>>   drivers/gpu/tests/gpu_buddy_test.c | 83 ++++++++++++++++++++++++++--
->>>>>   2 files changed, 126 insertions(+), 45 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->>>>> index 2f2aaadafe35..5265e1f6a318 100644
->>>>> --- a/drivers/gpu/buddy.c
->>>>> +++ b/drivers/gpu/buddy.c
->>>>> @@ -1685,26 +1685,14 @@ static int __gpu_buddy_alloc_range(struct 
->>>>> gpu_buddy *mm,
->>>>>                    blocks, total_allocated_on_err);
->>>>>   }
->>>>>   -static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
->>>>> -                    u64 unaligned_offset,
->>>>> -                    u64 size,
->>>>> -                    u64 min_block_size,
->>>>> -                    unsigned long flags,
->>>>> -                    struct list_head *blocks)
->>>>> -{
->>>>> -    u64 aligned_offset = round_down(unaligned_offset, 
->>>>> min_block_size);
->>>>> -
->>>>> -    return __gpu_buddy_alloc_range(mm, aligned_offset, size, flags,
->>>>> -                       NULL, blocks);
->>>>> -}
->>>>> -
->>>>>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->>>>> +                     u64 range_start, u64 range_end,
->>>>>                        u64 size,
->>>>>                        u64 min_block_size,
->>>>>                        unsigned long flags,
->>>>>                        struct list_head *blocks)
->>>>>   {
->>>>> -    u64 rhs_offset, lhs_offset, filled;
->>>>> +    u64 rhs_offset, lhs_offset, filled, aligned;
->>>>>       struct gpu_buddy_block *block;
->>>>>       struct rb_root *root;
->>>>>       struct rb_node *iter;
->>>>> @@ -1734,20 +1722,24 @@ static int __alloc_contig_try_harder(struct 
->>>>> gpu_buddy *mm,
->>>>>                              flags, &filled, blocks);
->>>>>           if (err && err != -ENOSPC)
->>>>>               return err;
->>>>> -        if (!err && IS_ALIGNED(rhs_offset, min_block_size))
->>>>> +        if (!err && IS_ALIGNED(rhs_offset, min_block_size) &&
->>>>> +            rhs_offset >= range_start && rhs_offset + size <= 
->>>>> range_end)
->>>>>               return 0;
->>>>>           if (!err) {
->>>>>               /* Allocate the unaligned RHS offset using round_down */
->>>>>               gpu_buddy_free_list_internal(mm, blocks);
->>>>> -            err = __alloc_contig_aligned_retry(mm, rhs_offset,
->>>>> -                               size,
->>>>> -                               min_block_size,
->>>>> -                               flags, blocks);
->>>>> -            if (!err)
->>>>> -                return 0;
->>>>> -            if (err != -ENOSPC) {
->>>>> -                gpu_buddy_free_list_internal(mm, blocks);
->>>>> -                return err;
->>>>> +
->>>>> +            aligned = round_down(rhs_offset, min_block_size);
->>>>> +            if (aligned >= range_start &&
->>>>> +                aligned + size <= range_end) {
->>>>> +                err = __gpu_buddy_alloc_range(mm, aligned, size,
->>>>> +                                  flags, NULL, blocks);
->>>>
->>>> Did you consider doing a bias-range for [start, end] using 
->>>> min_block_size and using what it returns as the starting point, 
->>>> extending left/right? If that fails advance start and try again? 
->>>> Maybe what you have here is much better for the case you have in mind?
->>> I took a closer look at the alloc_range_bias approach. My 
->>> understanding is that this would repeatedly bias within [start, end], 
->>> use the returned min_block_size block as a starting point, and then 
->>> extend left/right to build the requested run.
->>> While that should work, every failed attempt may require splitting 
->>> higher-order blocks to obtain a min_block_size block, followed by a 
->>> free/merge back when the extension fails.
->>> The free-tree descent evaluates the available starting points through 
->>> a tree walk without any splitting or allocation just for enumeration, 
->>> so I kept that approach.
->>> Please let me know if there is a case where alloc_range_bias would 
->>> provide an advantage over the free-tree descent.
->>>
->>> While evaluating it, I found two issues in the current try_harder() 
->>> implementation:
->>>
->>> 1. It only searches free_tree[size_order]. This is insufficient when 
->>> min_block_size < size. For example, for a 128 KiB allocation 
->>> (order-5) with min_block_size = 4 KiB, free_tree[5] may be empty
->>> while two adjacent order-4 (64 KiB) blocks covering [64 KiB, 128 KiB] 
->>> and [128 KiB, 192 KiB] are free. These blocks still form a valid 
->>> order-5-sized contiguous run, but they can never appear in
->>> free_tree[5] because they are not mergeable buddies. As a result, a 
->>> search that only considers free_tree[5] will never find this 
->>> placement. v3 addresses this by walking the free tree from the
->>> requested size order down to min_order, while reusing the existing 
->>> extend/stitch logic and min_block_size alignment checks unchanged.
->>>
->>> 2. The search is not restricted to the requested range. v3 confines 
->>> the walk to [range_start, range_end], skipping candidates at or above 
->>> range_end and stopping once the walk falls below range_start.
->>> This ensures that range-constrained allocations only consider free 
->>> blocks within the requested window and avoids performing allocation/ 
->>> free attempts on blocks outside the specified range.
->>> For non-range callers, the effective window remains [0, mm->size], so 
->>> the behavior is unchanged.
->>>
->>> Regards,
->>> Arun.
->>>>
->>>>> +                if (!err)
->>>>> +                    return 0;
->>>>> +                if (err != -ENOSPC) {
->>>>> +                    gpu_buddy_free_list_internal(mm, blocks);
->>>>> +                    return err;
->>>>> +                }
->>>>>               }
->>>>>               goto next;
->>>>>           }
->>>>> @@ -1759,15 +1751,17 @@ static int __alloc_contig_try_harder(struct 
->>>>> gpu_buddy *mm,
->>>>>             /* Allocate the unaligned LHS offset using round_down */
->>>>>           gpu_buddy_free_list_internal(mm, blocks);
->>>>> -        err = __alloc_contig_aligned_retry(mm, lhs_offset,
->>>>> -                           size,
->>>>> -                           min_block_size,
->>>>> -                           flags, blocks);
->>>>> -        if (!err)
->>>>> -            return 0;
->>>>> -        if (err != -ENOSPC) {
->>>>> -            gpu_buddy_free_list_internal(mm, blocks);
->>>>> -            return err;
->>>>> +
->>>>> +        aligned = round_down(lhs_offset, min_block_size);
->>>>> +        if (aligned >= range_start && aligned + size <= range_end) {
->>>>> +            err = __gpu_buddy_alloc_range(mm, aligned, size,
->>>>> +                              flags, NULL, blocks);
->>>>> +            if (!err)
->>>>> +                return 0;
->>>>> +            if (err != -ENOSPC) {
->>>>> +                gpu_buddy_free_list_internal(mm, blocks);
->>>>> +                return err;
->>>>> +            }
->>>>>           }
->>>>>   next:
->>>>>           gpu_buddy_free_list_internal(mm, blocks);
->>>>> @@ -2021,11 +2015,18 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy 
->>>>> *mm,
->>>>>       min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
->>>>>         if (order > mm->max_order || size > mm->size) {
->>>>> -        if ((flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) &&
->>>>> -            !(flags & GPU_BUDDY_RANGE_ALLOCATION))
->>>>> -            return __alloc_contig_try_harder(mm, original_size,
->>>>> +        if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
->>>>> +            u64 range_start, range_end;
->>>>> +
->>>>> +            range_start = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? 
->>>>> start : 0;
->>>>> +            range_end = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? 
->>>>> end : mm->size;
->>>>> +
->>>>> +            return __alloc_contig_try_harder(mm, range_start,
->>>>> +                             range_end,
->>>>> +                             original_size,
->>>>>                                original_min_size,
->>>>>                                flags, blocks);
->>>>> +        }
->>>>>             return -EINVAL;
->>>>>       }
->>>>> @@ -2058,9 +2059,14 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy 
->>>>> *mm,
->>>>>                * Try contiguous block allocation through
->>>>>                * try harder method.
->>>>>                */
->>>>> -            if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
->>>>> -                !(flags & GPU_BUDDY_RANGE_ALLOCATION)) {
->>>>> -                err = __alloc_contig_try_harder(mm,
->>>>> +            if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
->>>>> +                u64 range_start, range_end;
->>>>> +
->>>>> +                range_start = (flags & 
->>>>> GPU_BUDDY_RANGE_ALLOCATION) ? start : 0;
->>>>> +                range_end = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? 
->>>>> end : mm->size;
->>>>> +
->>>>> +                err = __alloc_contig_try_harder(mm, range_start,
->>>>> +                                range_end,
->>>>>                                   original_size,
->>>>>                                   original_min_size,
->>>>>                                   flags,
->>>>> @@ -2068,9 +2074,9 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->>>>>                   if (!err)
->>>>>                       return 0;
->>>>>                   if (err != -ENOSPC)
->>>>> -                    return err;
->>>>> -                goto err_free;
->>>>> +                    goto err_free;
->>>>>               }
->>>>> +
->>>>>               err = -ENOSPC;
->>>>>               goto err_free;
->>>>>           } while (1);
->>>>> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/ 
->>>>> tests/ gpu_buddy_test.c
->>>>> index b75d32ca6ca0..2c445870b808 100644
->>>>> --- a/drivers/gpu/tests/gpu_buddy_test.c
->>>>> +++ b/drivers/gpu/tests/gpu_buddy_test.c
->>>>> @@ -1251,6 +1251,77 @@ static void 
->>>>> gpu_test_buddy_alloc_contiguous(struct kunit *test)
->>>>>       gpu_buddy_fini(&mm);
->>>>>   }
->>>>>   +static void gpu_test_buddy_alloc_range_contiguous(struct kunit 
->>>>> *test)
->>>>> +{
->>>>> +    const unsigned long ps = SZ_4K, mm_size = 16 * ps;
->>>>> +    const unsigned long range_end = 8 * ps;
->>>>> +    struct gpu_buddy_block *block, *prev;
->>>>> +    LIST_HEAD(allocated);
->>>>> +    struct gpu_buddy mm;
->>>>> +    LIST_HEAD(pin_lo);
->>>>> +    LIST_HEAD(pin_hi);
->>>>> +    u64 total;
->>>>> +
->>>>> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, ps),
->>>>> +                   "buddy_init failed\n");
->>>>> +
->>>>> +    /*
->>>>> +     * Idea is to confine the test to the sub-range [0, 32K), 
->>>>> which a 12K
->>>>> +     * contiguous request (rounded up to 16K) splits into two 
->>>>> naturally
->>>>> +     * aligned 16K slots: [0, 16K) and [16K, 32K). We pin the 
->>>>> first 4K page
->>>>> +     * of each slot ([0, 4K) and [16K, 20K)) so that neither 
->>>>> aligned slot
->>>>> +     * can satisfy the rounded-up 16K allocation, yet the freed 
->>>>> remainder
->>>>> +     * still leaves a contiguous 12K hole at offset 4K, which is 
->>>>> page-aligned
->>>>> +     * but not 16K-aligned. A 12K contiguous+range allocation must 
->>>>> therefore
->>>>> +     * fall back to stitching that span instead of returning -ENOSPC.
->>>>> +     */
->>>>> +    KUNIT_ASSERT_FALSE_MSG(test,
->>>>> +                   gpu_buddy_alloc_blocks(&mm, 0, ps, ps, ps,
->>>>> +                              &pin_lo, 0),
->>>>> +                   "failed to pin low page\n");
->>>>> +    KUNIT_ASSERT_FALSE_MSG(test,
->>>>> +                   gpu_buddy_alloc_blocks(&mm, 4 * ps, 5 * ps, ps,
->>>>> +                              ps, &pin_hi, 0),
->>>>> +                   "failed to pin high page\n");
->>>>> +
->>>>> +    /* No aligned 16K block is free; the range-aware fallback must 
->>>>> stitch
->>>>> +     * the unaligned [ps, 4*ps) hole instead of returning -ENOSPC.
->>>>> +     */
->>>>> +    KUNIT_ASSERT_FALSE_MSG(test,
->>>>> +                   gpu_buddy_alloc_blocks(&mm, 0, range_end, 3 * ps,
->>>>> +                              ps, &allocated,
->>>>> + GPU_BUDDY_CONTIGUOUS_ALLOCATION |
->>>>> +                              GPU_BUDDY_RANGE_ALLOCATION),
->>>>> +                   "range-restricted contiguous alloc failed\n");
->>>>> +
->>>>> +    /* The result must be exactly 3*ps, contiguous, and inside the 
->>>>> range. */
->>>>> +    total = 0;
->>>>> +    prev = NULL;
->>>>> +    list_for_each_entry(block, &allocated, link) {
->>>>> +        u64 offset = gpu_buddy_block_offset(block);
->>>>> +        u64 bsize = gpu_buddy_block_size(&mm, block);
->>>>> +
->>>>> +        KUNIT_EXPECT_TRUE_MSG(test, offset + bsize <= range_end,
->>>>> +                      "block [%llx, %llx) outside range\n",
->>>>> +                      offset, offset + bsize);
->>>>> +        if (prev)
->>>>> +            KUNIT_EXPECT_EQ_MSG(test,
->>>>> +                        gpu_buddy_block_offset(prev) +
->>>>> +                        gpu_buddy_block_size(&mm, prev),
->>>>> +                        offset,
->>>>> +                        "block at %llx not contiguous\n",
->>>>> +                        offset);
->>>>> +        prev = block;
->>>>> +        total += bsize;
->>>>> +    }
->>>>> +    KUNIT_EXPECT_EQ(test, total, 3 * ps);
->>>>> +
->>>>> +    gpu_buddy_free_list(&mm, &allocated, 0);
->>>>> +    gpu_buddy_free_list(&mm, &pin_lo, 0);
->>>>> +    gpu_buddy_free_list(&mm, &pin_hi, 0);
->>>>> +    gpu_buddy_fini(&mm);
->>>>> +}
->>>>> +
->>>>>   static void gpu_test_buddy_alloc_pathological(struct kunit *test)
->>>>>   {
->>>>>       u64 mm_size, size, start = 0;
->>>>> @@ -1534,10 +1605,13 @@ static void 
->>>>> gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
->>>>>                        GPU_BUDDY_RANGE_ALLOCATION);
->>>>>       KUNIT_EXPECT_EQ(test, err, -EINVAL);
->>>>>   -    /* CONTIGUOUS + RANGE should return -EINVAL (no try_harder 
->>>>> for RANGE) */
->>>>> -    err = gpu_buddy_alloc_blocks(&mm, 0, mm_size, size, SZ_4K, 
->>>>> &blocks,
->>>>> -                     GPU_BUDDY_CONTIGUOUS_ALLOCATION | 
->>>>> GPU_BUDDY_RANGE_ALLOCATION);
->>>>> -    KUNIT_EXPECT_EQ(test, err, -EINVAL);
->>>>> +    /* CONTIGUOUS + RANGE should succeed via the range-aware 
->>>>> try_harder */
->>>>> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, 
->>>>> mm_size, size,
->>>>> +                                SZ_4K, &blocks,
->>>>> + GPU_BUDDY_CONTIGUOUS_ALLOCATION |
->>>>> + GPU_BUDDY_RANGE_ALLOCATION),
->>>>> +                   "range contiguous alloc hit an error 
->>>>> size=%llu\n", size);
->>>>> +    gpu_buddy_free_list(&mm, &blocks, 0);
->>>>>         gpu_buddy_fini(&mm);
->>>>>   }
->>>>> @@ -1603,6 +1677,7 @@ static struct kunit_case gpu_buddy_tests[] = {
->>>>>       KUNIT_CASE(gpu_test_buddy_alloc_pessimistic),
->>>>>       KUNIT_CASE(gpu_test_buddy_alloc_pathological),
->>>>>       KUNIT_CASE(gpu_test_buddy_alloc_contiguous),
->>>>> +    KUNIT_CASE(gpu_test_buddy_alloc_range_contiguous),
->>>>>       KUNIT_CASE(gpu_test_buddy_alloc_clear),
->>>>>       KUNIT_CASE(gpu_test_buddy_alloc_range),
->>>>>       KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
->>>>>
->>>>> base-commit: 744f262401cc2e1f3827496c72a47e072d31a852
->>>>
->>>
->>
-> 
+This vulnerability was discovered by Tencent CodeBuddy Security.
 
+Fixes: 428542d91772 ("drm/amd/display: Setup for mmhubbub3_warmup_mcif with big buffer")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+index fdcf7f2d1b5b4..07f881573837e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+@@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+ 	int r;
+ 	struct qcm_process_device *qpd = &pdd->qpd;
+
++	mutex_lock(&kfd->doorbell_mutex);
++
++	/* Another thread may have won the check-and-allocate race */
++	if (qpd->proc_doorbells) {
++		mutex_unlock(&kfd->doorbell_mutex);
++		return 0;
++	}
++
+ 	/* Allocate bitmap for dynamic doorbell allocation */
+ 	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
+ 					     GFP_KERNEL);
+ 	if (!qpd->doorbell_bitmap) {
+ 		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
+-		return -ENOMEM;
++		r = -ENOMEM;
++		goto unlock;
+ 	}
+
+ 	r = init_doorbell_bitmap(&pdd->qpd, kfd);
+@@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+ 		DRM_ERROR("Failed to allocate process doorbells\n");
+ 		goto err;
+ 	}
++
++	mutex_unlock(&kfd->doorbell_mutex);
+ 	return 0;
+
+ err:
+ 	bitmap_free(qpd->doorbell_bitmap);
+ 	qpd->doorbell_bitmap = NULL;
++unlock:
++	mutex_unlock(&kfd->doorbell_mutex);
+ 	return r;
+ }
+
+--
+2.43.7
