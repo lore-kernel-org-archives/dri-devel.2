@@ -4,51 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E6ABCA6019
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDE0ACA6015
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 14:28:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D911010E937;
-	Fri,  9 Oct 2026 14:26:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3918910E9CB;
+	Fri,  9 Oct 2026 14:28:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZNm8swsx";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Ud2kTanL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42BD910E937
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:26:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 52C6360DA8;
- Fri,  9 Oct 2026 14:26:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BE31F00898;
- Fri,  9 Oct 2026 14:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791556017;
- bh=1J9ACYh971c62D3Ot0EcBKcdhV3VuspaHio7POj5giA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ZNm8swsxdOSsxEDKtft7Uby7TFWtkpmBuYHHOAElBTWMXR2Xc+uAVGAl2+OzLsjIp
- KUv3pss5WxBaikBO+wbXwQkvMcY4FcehT//dArnpKhDXLl9WR9P3rwbBSdR/SMf0cf
- JfC0m6731yr51Wg7UxuxtjIKGcOW0EtFTWSL3H160rdJCW3XDm/Up3B1r6Dtlsj3q3
- LBNPk/uop1CKoRWp3mPwa/AFJp35VsXX4Z8zFDbV0DNnD30FTUD7FQ2C8aWpWRS6Vf
- nA1RYQrh+2l0U3Yt5/p4rLs6F/KH/lgIJaKD++mg4OrU7UEqSsUYxAyKXoHNE1Cp+r
- oZso9ri1Dhzwg==
-Date: Fri, 9 Oct 2026 15:25:49 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-Message-ID: <20261009-2f34bbada2c463c78b2c05a7@squawk>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
- <20261009105601.301891-2-quchaosheng000406@163.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="V6w0Wu673xJltLHL"
-Content-Disposition: inline
-In-Reply-To: <20261009105601.301891-2-quchaosheng000406@163.com>
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A67C10E9CB
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 14:28:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791556100; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ieJhTY1/fVTNNenBOIQaRrSR1EtiO7w/SD+0eL9tYE6G3zIU2cdAZDef6XnH3cXW0ypI/8LRRD9qSudw6LI1S2pvOX8rwrt/KHM9nKYtfZ00SEqBJhJ6jT6xa3aVSEpUufbjDgdWcnqa1kqcjcI9ULMY7bOReNknEGiyKopkdtc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791556100;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=WIa/8inlxu6owg1iy8GQek7mIHexIT52zxxTW0xBXtY=; 
+ b=dZ5t4WDrpV3N4ENvaSkR0mSZUmLbQ9FcQBhNlXTUogb1nZ+E37dHPCyz+OPmzEH2r5tfi9JMO40jwnhpmnbCp1LnB4L8H3CRLAwfRJEgjSiRNftKTgNv0AfKjWF8RPavTe3CNY3h8aix8xOkc7BBL3tUfd/KYnMDKD+Gf1d0EPs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791556100; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=WIa/8inlxu6owg1iy8GQek7mIHexIT52zxxTW0xBXtY=;
+ b=Ud2kTanLnTn70V47psbhImXgfgyN+noPAVAOTSEYigdMG9RoQ/2kaJFJBuR0yroO
+ 9MBibrhidvG2R90atM8CMRh1Hmi5+8qUWoT3YNOBuFaVQB6qKx4IvwrdQ3eR6DxqgSb
+ FsI4TobHjlrFuqxzo0qg0aF+oFw896Y7eGzlJufg=
+Received: by smtp.zohomail.com with SMTPS id 1791556094666375.33121900586843; 
+ Fri, 9 Oct 2026 07:28:14 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v3 05/11] drm/tyr: add user and MCU VM specifications
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260929-tyr-ioctls-v3-5-26955fb111d5@kylinos.cn>
+Date: Fri, 9 Oct 2026 11:27:55 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ driver-core@lists.linux.dev, Alvin Sun <alvin.sun@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <76CE11D7-94E6-4352-B2CC-F20DDDB451F6@collabora.com>
+References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
+ <20260929-tyr-ioctls-v3-5-26955fb111d5@kylinos.cn>
+To: sunke@kylinos.cn
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,210 +82,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---V6w0Wu673xJltLHL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
-> From: Chaosheng Qu <quchaosheng000406@163.com>
->=20
-> Convert the TPD12S015 HDMI level shifter binding to DT schema.
->=20
-> The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-> and ESD protection circuitry. Document the two ports it exposes between
-> the HDMI transmitter and the connector.
->=20
-> The tpd12s016 is software compatible with the tpd12s015 and is listed as
-> a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-> fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-> a board using the tpd12s016 must list both compatibles.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+> +    pub(crate) fn new_for_user(
+>         dev: &'drm Device<Bound>,
+>         ddev: &TyrDrmDevice,
+>         mmu: ArcBorrow<'_, Mmu<'drm>>,
+>         gpu_info: &GpuInfo,
+> +        user_va: UserVaRequest,
+> +    ) -> Result<Arc<Vm<'drm>>> {
+> +        let mmu_features =3D =
+MMU_FEATURES::from_raw(gpu_info.mmu_features);
+> +        let va_bits =3D mmu_features.va_bits().get();
+> +        let range =3D 0..(1u64 << va_bits);
+> +
+> +        let layout =3D VmLayout::compute(range.clone(), =
+user_va).inspect_err(|_| {
+> +            dev_err!(
+> +                dev,
+> +                "Failed to split GPU VA range {:#x}..{:#x} into user =
+and kernel regions\n",
+> +                range.start,
+> +                range.end
+> +            );
 
-No idea if the sashiko reply is valid, because I have no clue if
-providing a subset of the gpios is functional. Really this should have
-multiple different gpios properties, but this binding is really old and
-not worth changing IMO.
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+This should probably be dev_dbg.
 
-> ---
->  .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
->  .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
->  2 files changed, 90 insertions(+), 44 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12=
-s015.txt
->  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12=
-s015.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.tx=
-t b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> deleted file mode 100644
-> index 26e6d32e3f20..000000000000
-> --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> +++ /dev/null
-> @@ -1,44 +0,0 @@
-> -TPD12S015 HDMI level shifter and ESD protection chip
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> -
-> -Required properties:
-> -- compatible: "ti,tpd12s015"
-> -
-> -Optional properties:
-> -- gpios: CT CP HPD, LS OE and HPD gpios
-> -
-> -Required nodes:
-> -- Video port 0 for HDMI input
-> -- Video port 1 for HDMI output
-> -
-> -Example
-> --------
-> -
-> -tpd12s015: encoder@1 {
-> -	compatible =3D "ti,tpd12s015";
-> -
-> -	gpios =3D <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
-> -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
-> -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
-> -
-> -	ports {
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <0>;
-> -
-> -		port@0 {
-> -			reg =3D <0>;
-> -
-> -			tpd12s015_in: endpoint@0 {
-> -				remote-endpoint =3D <&hdmi_out>;
-> -			};
-> -		};
-> -
-> -		port@1 {
-> -			reg =3D <1>;
-> -
-> -			tpd12s015_out: endpoint@0 {
-> -				remote-endpoint =3D <&hdmi_connector_in>;
-> -			};
-> -		};
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.ya=
-ml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> new file mode 100644
-> index 000000000000..1927da3bd736
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> @@ -0,0 +1,90 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI TPD12S015 HDMI level shifter and ESD protection chip
-> +
-> +maintainers:
-> +  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> +
-> +description: |
-> +  The TPD12S015 is an HDMI companion chip that combines a level shifter =
-and
-> +  ESD protection circuitry. It sits between an HDMI transmitter and the =
-HDMI
-> +  connector, and provides control over the level shifter enable and the
-> +  hot-plug detect signals.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,tpd12s015
-> +      - items:
-> +          - const: ti,tpd12s016
-> +          - const: ti,tpd12s015
-> +
-> +  gpios:
-> +    description:
-> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first contr=
-ols
-> +      the level shifter, the second enables the level shifter outputs and
-> +      the third reads the hot-plug detect line.
-> +    maxItems: 3
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI input from the transmitter.
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI output to the connector.
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    encoder1 {
-> +        compatible =3D "ti,tpd12s015";
-> +
-> +        gpios =3D <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
-> +                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
-> +                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
-> +
-> +        ports {
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            port@0 {
-> +                reg =3D <0>;
-> +
-> +                tpd12s015_in: endpoint {
-> +                    remote-endpoint =3D <&hdmi_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg =3D <1>;
-> +
-> +                tpd12s015_out: endpoint {
-> +                    remote-endpoint =3D <&hdmi_connector_in>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> --=20
-> 2.43.0
->=20
-
---V6w0Wu673xJltLHL
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasj5YAAKCRB4tDGHoIJi
-0i6QAQC7TbianbWVZj38NRXyqg/Sle+Ok3VUON4sFzkFO75j7gEA/RfSN5wQ2f+I
-hWNAgc/Li10HouwRRA/JdfRg6z2oug8=
-=32kq
------END PGP SIGNATURE-----
-
---V6w0Wu673xJltLHL--
+=E2=80=94 Daniel=
