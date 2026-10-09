@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99CB5CA6018
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A87ECA5FED
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 03:37:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 061F210FE49;
-	Fri,  9 Oct 2026 03:35:42 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88E8A10FE49
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 03:35:40 +0000 (UTC)
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowABXVzUGYchqJ9MaCg--.1960S2;
- Fri, 09 Oct 2026 11:35:35 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Linus Walleij <linusw@kernel.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/kmb: fix bridge reference leak on probe error and remove
-Date: Fri,  9 Oct 2026 11:35:37 +0800
-Message-Id: <20261009033537.3065836-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABXVzUGYchqJ9MaCg--.1960S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrWUKrW3GF1UKFWUuF1kAFb_yoW8Jw4Upr
- W2gw4IkF40qr47ta17Aa18Ja4rAanrtFWrWrZ7K395Zw4rXa43WrykAFy29ryUCF4xWFZr
- tFs8tFyF9FykAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr
- 1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWU
- twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
- 1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
- 64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
- 0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF
- 0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUqqNKUUUUU
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUPA2rIHibzcwAAsK
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8443410E19C;
+	Fri,  9 Oct 2026 03:37:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A2tiCLpw";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60F3110E19C
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 03:37:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A873D60DB0;
+ Fri,  9 Oct 2026 03:37:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337D01F000FF;
+ Fri,  9 Oct 2026 03:37:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791517033;
+ bh=lZSS/2RFzLxHfGPISuolpDPcoGqgS5kdjH1YQ467zPE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=A2tiCLpwJcacb1xdRusfD8qgcoTJ79YS0B9pjwCegN7UQ3nmJiIzcPWYS/5HlrBWB
+ cojSw6jaH3LvmxLXIc1VMoYnj0G3UT2/nbS9R2eYq2ZYm32e5ImehHIE5q68QHI8mL
+ fT54iAvIXyjBeFBX2OtwdoStRnyLVES1FY9O+okMBDPAgLD4lQ5sZW61iKofBWk+BI
+ X9MXXZ/Vi4qgn6SPjLY1MwWUyDrppX8IFcO8+IFmgmK+RgMVJPYKxLLvDTVKAnTeUG
+ jVtcSr4mFhzWFBucAIMaXkn40/k0h48/lI2o2xJ5/dmfMhOT7MPxCm4cRa/htdpuIG
+ Kne6lb22K0uhA==
+Message-ID: <sashiko-outbox-164779@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 06/20] drm/msm/dp: Keep runtime PM calls outside the
+ connection lock
+To: "Xilin Wu" <sophon@radxa.com>
+Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ neil.armstrong@linaro.org
+In-Reply-To: <20261009-msm-dp-hdr10-v2-6-1835d4966da3@radxa.com>
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+ <20261009-msm-dp-hdr10-v2-6-1835d4966da3@radxa.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 03:37:12 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,41 +55,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-kmb_dsi_host_bridge_init() looks up the ADV7535 bridge with
-of_drm_find_and_get_bridge(), which takes a reference on the bridge, and
-stores it in the global adv_bridge. That reference is never released, so
-unbinding the driver leaves the bridge refcount permanently elevated and
-prevents the bridge driver from ever being removed. The same happens
-when probe fails after the bridge has been found.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/msm: Unresolved ABBA deadlock between runtime_suspend and IRQ =
+thread
+--
 
-Release the reference in kmb_dsi_host_unregister(), which is called both
-from the probe error path and from kmb_remove().
+commit 32f0e463b46b824d1b3126d8c017d6f4509a8c7b
+Author: Xilin Wu <sophon@radxa.com>
 
-Fixes: abbe7f8144d5 ("drm/kmb/dsi: convert to of_drm_find_and_get_bridge()")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/kmb/kmb_dsi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+drm/msm/dp: Keep runtime PM calls outside the connection lock
 
-diff --git a/drivers/gpu/drm/kmb/kmb_dsi.c b/drivers/gpu/drm/kmb/kmb_dsi.c
-index 59d0e856392f..483f4afe6317 100644
---- a/drivers/gpu/drm/kmb/kmb_dsi.c
-+++ b/drivers/gpu/drm/kmb/kmb_dsi.c
-@@ -184,6 +184,10 @@ void kmb_dsi_host_unregister(struct kmb_dsi *kmb_dsi)
- {
- 	kmb_dsi_clk_disable(kmb_dsi);
- 	mipi_dsi_host_unregister(kmb_dsi->host);
-+
-+	/* Release the bridge reference taken in kmb_dsi_host_bridge_init() */
-+	drm_bridge_put(adv_bridge);
-+	adv_bridge = NULL;
- }
- 
- /*
--- 
-2.25.1
+This commit shifts runtime PM calls outside the connection lock in the plug,
+unplug, and detect handlers. The goal is to avoid holding the lock during
+synchronous PM operations that might deadlock with HPD IRQ threads.
 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+
+[ ... ]
+
+> @@ -488,10 +491,10 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_d=
+isplay_private *dp)
+>  			dp->msm_dp_display.connector_type,
+>  			dp->link->sink_count);
+> =20
+> -	if (dp->plugged) {
+> -		pm_runtime_put_sync(&pdev->dev);
+> -		dp->plugged =3D false;
+> -	}
+> +	dp->plugged =3D false;
+> +	mutex_unlock(&dp->plugged_lock);
+> +
+> +	pm_runtime_put_sync(&pdev->dev);
+
+[Severity: High]
+Does this still leave an ABBA deadlock, just shifted from the plugged_lock
+to the PM runtime wait queue?
+
+If a process thread (e.g., during unbind) calls this pm_runtime_put_sync()
+and drops the PM usage count to 0, it triggers msm_dp_pm_runtime_suspend().
+
+The suspend callback calls disable_irq(dp->irq), which synchronously blocks
+waiting for the msm_dp_display_irq_thread to complete.
+
+However, if the IRQ thread is concurrently handling an event, it executes
+msm_dp_bridge_hpd_notify(), which unconditionally calls:
+
+msm_dp_bridge_hpd_notify()
+   pm_runtime_resume_and_get(&msm_dp_display->pdev->dev)
+
+Because the device state is RPM_SUSPENDING, the IRQ thread blocks on the
+PM runtime wait queue waiting for the suspend to finish. The suspend thread
+is blocked on disable_irq() waiting for the IRQ thread, resulting in a
+deadlock.
+
+> =20
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-msm-dp-hdr=
+10-v2-0-1835d4966da3@radxa.com?part=3D6
