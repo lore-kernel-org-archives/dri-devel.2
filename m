@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 607AECA9EC0
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C6B9CA6004
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B429B10E1E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C44FA10E244;
 	Sat, 10 Oct 2026 11:45:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="DdH83U+D";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="LOHYqvAJ";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76F2A10E9B4
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:54:13 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43B6C10E9B4
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 10:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=rp
- O4WDzaFdn7OJ5Ok0/pHV3CuqSEzHovW6aTlMkvFzA=; b=DdH83U+DAQ12NRQFKw
- ErSkIVeGtycniOQHRccTjzLE5zXh18OAudboVpbFvW37UliooMQqluJlTNaS1TVn
- 9nylPEM4q+ky3o8uQHtDJqlSSFgYrnbe/A1d8S6zxIEySD7HdP5AK49dK0tSDcN6
- /Uipzxct0QjZJjVWyChQBzgZ0=
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SU
+ 2hOrP3XkxbQgBianI5yCRcm1GVQm++rhoG9WeYkXY=; b=LOHYqvAJ0UXxp9lo7d
+ 1N9FXFRqdVSxIDSYvcV4t8mpMxoiFc+rbsWooQWNIqrTCWTav+Gs66MjZbX1+ZkL
+ DB5/wksSrt8wKKb4sZN2us0cyo/8v8LsYDeyWIFXXmfVBxtXd9N6p9YGdzdmBlMe
+ NkNVSd0OpRNGiEaHDhSoD5B7c=
 Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
- by gzsmtp3 (Coremail) with SMTP id PigvCgAX19XEx8hqHXqzDg--.691S2;
- Fri, 09 Oct 2026 18:53:56 +0800 (CST)
+ by gzsmtp3 (Coremail) with SMTP id PigvCgAX19XEx8hqHXqzDg--.691S5;
+ Fri, 09 Oct 2026 18:53:58 +0800 (CST)
 From: Quchaosheng <quchaosheng000406@163.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -32,19 +32,21 @@ To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
  Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH 0/3] dt-bindings: display: ti, tpd12s015: convert,
- and fix what the conversion exposed
-Date: Fri,  9 Oct 2026 18:53:53 +0800
-Message-ID: <20261009105356.300188-1-quchaosheng000406@163.com>
+Subject: [PATCH 3/3] ARM: dts: ti/omap: drop unit-address from tpd12s015
+ endpoints
+Date: Fri,  9 Oct 2026 18:53:56 +0800
+Message-ID: <20261009105356.300188-4-quchaosheng000406@163.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009105356.300188-1-quchaosheng000406@163.com>
+References: <20261009105356.300188-1-quchaosheng000406@163.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PigvCgAX19XEx8hqHXqzDg--.691S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw1rAw4UJF48tr4fCryrXrb_yoW8uF18pa
- 9xWF4DCrn2kF15CrsrXw1qyFZ3Ca93WF4vgF17G3y5Aan8Cw4Fqry3Cr42vrWUG395Cw40
- vF1Yg3sFgwnYy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pikhLnUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AXvZWrIx8VMLQAA3q
+X-CM-TRANSID: PigvCgAX19XEx8hqHXqzDg--.691S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw1rXry7try7XrWDtw43ZFb_yoW8CF4kp3
+ s29Fs7tws7GF10kF4DZw1qgFyDKFWDuF1akF4UWryUCa13Xw1rJr1xt3sakr1UCayfZw4j
+ 9rs5WasFqw1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zMMKZAUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAAfvZWrIx8e5PgAA3o
 X-Mailman-Approved-At: Sat, 10 Oct 2026 11:45:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,53 +65,65 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Chaosheng Qu <quchaosheng000406@163.com>
 
-v4.  The three things Laurent pointed out on the v3 thread are addressed,
-and the conversion is separated from the two devicetree fixes it turned
-up.
+The endpoint nodes of the tpd12s015 encoder on the am5729-beagleboneai
+and the am57xx-idk carry a unit-address without a matching reg property,
+which the device tree specification does not allow.
 
-  [1/3] converts ti,tpd12s015.txt to DT schema.  gpios is back to three
-        entries: the two drivers obtain exactly three through
-        devm_gpiod_get_index(), indices 0 to 2, and neither file mentions
-        scl, sda or ddc.  v3 had raised maxItems to five only to keep
-        dtbs_check quiet for omap5-igep0050.dts, which wrote a defect of
-        the DT source into the binding.  That was backwards.
+Drop the unit-address so the nodes are named "endpoint".
 
-  [2/3] drops the two extra entries from omap5-igep0050.dts, which is
-        where the defect belongs.  Nothing reads them: there is no
-        pinctrl group for those lines and no other consumer in the tree.
+No functional change.
 
-  [3/3] drops the unit-address from the tpd12s015 endpoints on
-        am5729-beagleboneai and am57xx-idk.  Those nodes carry a
-        unit-address without a matching reg property.
+Assisted-by: LLM
+Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+---
+ arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts | 4 ++--
+ arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi  | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-Each of the two devicetree patches removes a warning that the bare
-conversion leaves behind, so the three belong together:
-
-  am5729-beagleboneai:  241 -> 237 dtbs_check warnings
-  omap5-igep0050:       188 -> 186 dtbs_check warnings
-
-with no new warnings in either file.
-
-Assisted-by: LLM is on all three, which the v1 posting and v3 were
-missing.
-
-One thing I raised on the thread and should repeat here: Eduard Bostina
-posted the same conversion on 2026-07-30,
-<20260730092245.52034-1-egbostina@gmail.com>.  If his series is the one to
-carry this, say so and I will drop mine.
-
-Chaosheng Qu (3):
-  dt-bindings: display: ti,tpd12s015: Convert to DT schema
-  ARM: dts: ti/omap: drop the two unused gpios from the igep0050 hdmi
-    encoder
-  ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
-
- .../bindings/display/ti/ti,tpd12s015.txt           |  44 ------
- .../bindings/display/ti/ti,tpd12s015.yaml          |  90 ++++++++++++
- arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts  |   4 +-
- arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi   |   4 +-
- arch/arm/boot/dts/ti/omap/omap5-igep0050.dts       |   4 +-
- 5 files changed, 94 insertions(+), 52 deletions(-)
+diff --git a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
+index 76bfb364777e..f40017a0e414 100644
+--- a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
++++ b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
+@@ -168,7 +168,7 @@ ports {
+ 			port@0 {
+ 				reg = <0x0>;
+ 
+-				hdmi_encoder_in: endpoint@0 {
++				hdmi_encoder_in: endpoint {
+ 					remote-endpoint = <&hdmi_out>;
+ 				};
+ 			};
+@@ -176,7 +176,7 @@ hdmi_encoder_in: endpoint@0 {
+ 			port@1 {
+ 				reg = <0x1>;
+ 
+-				hdmi_encoder_out: endpoint@0 {
++				hdmi_encoder_out: endpoint {
+ 					remote-endpoint = <&hdmi_connector_in>;
+ 				};
+ 			};
+diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
+index 5eccff3bb4b6..4e8a5820b05c 100644
+--- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
++++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
+@@ -135,7 +135,7 @@ ports {
+ 			port@0 {
+ 				reg = <0>;
+ 
+-				tpd12s015_in: endpoint@0 {
++				tpd12s015_in: endpoint {
+ 					remote-endpoint = <&hdmi_out>;
+ 				};
+ 			};
+@@ -143,7 +143,7 @@ tpd12s015_in: endpoint@0 {
+ 			port@1 {
+ 				reg = <1>;
+ 
+-				tpd12s015_out: endpoint@0 {
++				tpd12s015_out: endpoint {
+ 					remote-endpoint = <&hdmi_connector_in>;
+ 				};
+ 			};
 -- 
 2.43.0
 
