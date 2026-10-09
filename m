@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FC58CA601E
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 17:35:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68802CA601E
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 17:36:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C848610EA94;
-	Fri,  9 Oct 2026 17:35:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C51AF10E11A;
+	Fri,  9 Oct 2026 17:36:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="B6tvdDEN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OrFbKr7v";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E604810EA94
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 17:35:56 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 952D010E11A
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 17:36:45 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 699HZUwn1879577; Fri, 9 Oct 2026 17:35:49 GMT
+ 699HZwO82471179; Fri, 9 Oct 2026 17:36:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=gTyJZhzmoZm
- 53RRpySNbJEUmRM+rHF9NXY0nxWeqrRU=; b=B6tvdDENkzSSAiOBpgKmokjNe7t
- x101lrh4T23nDREA5JOgF98JmwrQDrLNdC9qVcKndWEl3iLk9QTft9WVD2/WSdrX
- sC2zYGg6X2ng0tvwtKF5b0qecoe+TJ5c7GGxoCSuGKrvtxybNShdeRzPt4+T35Vo
- zlo1U0KBmVzHgmdY0Y0WTUYkUnX4Z18WoVmhfHhJM23UqEFQIAOBohH5w3obMC1f
- XU8QM176aaK+PV1FHylgaPLrbbEH0S+YQULvQFnVlleq+hAw5bDhhf5YP/3mSJYj
- Vfzl5/zfWxHfVs3NB+2q+gpsO5q8bhape0O7CS6ELgIX1t06X0k5rjHdDNg==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ :mime-version:references:subject:to; s=qcppdkim1; bh=kC1+SWRw5Bt
+ +D1asGSDsXm1gAGcyZOCRTrD68Xf3QXU=; b=OrFbKr7v5XIBc5Gme1E4Eg+75Tl
+ QMqm3wPmaLMepkyhWFkU4h3z8+n49y2CGaLFaTEW5EyTVEj/iKWCzzh/N0tDTgyz
+ fG90HBOBCQHt0SXAokcVeRf2LA4MouG8oSGWLlcGdIKo+9XXWSdz0Tz+/l1Deh5A
+ oq/zdAr/4tyGqyqbel0HXfsDLufaRBMrFMHJVz/IHtFT0YAdZeD1i0HK48gXwWMa
+ hdPDxI9YNQNN2AVxFInmvvjIo5yhOIoIn9lIr0vd4XGxkKrb9UYZTAfH/gmV2gkw
+ SMsdlzYXfxLqOcKWLlDSf2Ta78Yg0LYU9P6TK3WnyQGAWtgt4wXWNaw9lLA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h74t8g01m-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h74t8g03s-1
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Fri, 09 Oct 2026 17:35:49 +0000 (GMT)
-Received: from pps.filterd (nalasppmta04.qualcomm.com [127.0.0.1])
- by NALASPPMTA04.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 699HVM9a1187245; Fri, 9 Oct 2026 17:35:10 GMT
+ Fri, 09 Oct 2026 17:36:38 +0000 (GMT)
+Received: from pps.filterd (nalasppmta05.qualcomm.com [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 699HZALs1157166; Fri, 9 Oct 2026 17:35:10 GMT
 Received: from hu-devc-lv-u24-a.qualcomm.com (hu-zmckevit-lv.qualcomm.com
  [10.81.84.220])
- by NALASPPMTA04.qualcomm.com (PPS) with ESMTPS id 699HZ92d1192881
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 699HZ9wF1157126
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Fri, 09 Oct 2026 17:35:09 +0000 (GMT)
+ Fri, 09 Oct 2026 17:35:10 +0000 (GMT)
 Received: by hu-devc-lv-u24-a.qualcomm.com (Postfix, from userid 4696302)
- id CC2C322A55; Fri,  9 Oct 2026 10:35:09 -0700 (PDT)
+ id C5EFE229F7; Fri,  9 Oct 2026 10:35:09 -0700 (PDT)
 From: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
  riana.tauro@intel.com, aravind.iddamsetty@linux.intel.com,
@@ -52,9 +52,10 @@ To: dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
 Cc: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com,
  troy.hanson@oss.qualcomm.com, youssef.abdulrahman@oss.qualcomm.com,
  Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-Subject: [PATCH 3/3] accel/qaic: Add callbacks for DRM RAS netlink telemetry
-Date: Fri,  9 Oct 2026 10:31:52 -0700
-Message-ID: <20261009173152.2436195-4-zachary.mckevitt@oss.qualcomm.com>
+Subject: [PATCH 2/3] drm/drm_ras: Extend DRM RAS interface to include
+ telemetry nodes
+Date: Fri,  9 Oct 2026 10:31:51 -0700
+Message-ID: <20261009173152.2436195-3-zachary.mckevitt@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com>
 References: <20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com>
@@ -63,31 +64,32 @@ Content-Transfer-Encoding: 8bit
 X-Proofpoint-Reinject: loops=2 maxloops=12
 X-QCInternal: smtphost
 X-QCInternal: smtphost
-X-Proofpoint-GUID: xyBWfPDJU1QSY-MwoRXtSP3zxNAzpiye
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA3MCBTYWx0ZWRfX4OgI9WfeSNhh
- XXRZb5SaGMxmEVywKHOCVPZq8vauLx0gyKgUfv0YRhvJsNK1JGgIFkBpBeSd+7Ee4ly8Y5tYPTr
- Tq6BnBSqH1f7ETBSSTalcInaIh+dYj2Mpvmz/6w9yeR4s4ucKoS71CYVxMrWx+gOUVTQDK6na9J
- JMKOd1gQdfcejK5HLzS/mN5kgrWUHYx2S6LBmW7iJVoyreZsuBK/5F8CRsMnGJKuGHsd/W8ZM+Y
- ezz1ElQ0qh29qTOGateaX0zggjNTT3koKtblbRhoCCpz+tYGEWB8AlKvEPOBq8sKedXK2+rIqfZ
- VxqmGfjvNXy4843EK8+gcFzc43BCFxs6ngCJFzrVMiOqqu7hyUmvonEJeQKTBMtn0tNs25Mmkxx
- sIvSHcBbZkONgC5xJxqIeP1r1bKohHI7d5UKPlkuVd2wo7Y7IZXD/Fq207MF4M65jjI/df6E/zh
- 2LW0Ac7yto67rlo4xPg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA3MCBTYWx0ZWRfXxbBwVc9XOPvA
- 4w/Lg8qh0Cf7Ts2y29YwRJaysPXr/18KHW6K9VwKv0sBwnJlBnxiVo+D8SvC+R5sIv2AKmwp3s4
- fv0+Tfk93d1THjlFJEO5yI6oaRy+0RM=
-X-Proofpoint-ORIG-GUID: xyBWfPDJU1QSY-MwoRXtSP3zxNAzpiye
-X-Authority-Analysis: v=2.4 cv=ELeTQFZC c=1 sm=1 tr=0 ts=6ac925f5 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=ONOyTiaB c=1 sm=1 tr=0 ts=6ac92626 cx=c_pps
  a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=8t4G5gdA2GWZijPyF7YA:9
+ a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=lvw0CApv9O1bdv8pmMwA:9
+X-Proofpoint-GUID: jfYjjVZuH73mvXjj0EzkjonsHmCT9eDE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA3MCBTYWx0ZWRfXyTr8rFVSvCpa
+ j58mzcrwKP+8pvDVz+Q9b/n1MIH7LhBuhcJrCfUfU5RGOG503ukWUJwauV+lrhZIBZjLn3wGKJF
+ 6DLlcVE5pjknvdb/3hshLVtZlUd5CNw=
+X-Proofpoint-ORIG-GUID: jfYjjVZuH73mvXjj0EzkjonsHmCT9eDE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA3MCBTYWx0ZWRfX730qTR3vJKI2
+ 7lYpxff4qbWSjGpO0AbMT3oRJ5pQikZ9Bc5/RnRDADLCP/AEX5VB5gzMfzD3HayHwgNYMw+dE2i
+ UNoPtV8zdPYlseV9JumYDWpFzKF31NREOgHEWYlpvhzt5YOTiF5+O4LaUFXpsWhUmK0XvzGpEaL
+ 6tDIqgOat7I3zj/Sbi0RAh6YZe9spOjJNeTC710W+fidpbD0m3WG+JspcddcaTxXKis8wLEGG4c
+ 8bBCdE6Mph7qirQGuyoca4WH6eLPEaHSdTqbGX4+MXrz1PS70aUbHImS4YaRPgDYw+DxsU9IS3p
+ OY/m8cXjBi8nX5R5ZJ8Jz1SEGWCRhTL/DzCZ1QJPhMN6u2A8lCtB/Cd66l5Z8xTWwOI8b/pjv3e
+ eD0K9SZFjVXPGOgMgQz+wMYn/xOednIsL6NIEsVl95Ft79DM/hZhCAVx8MQWw4SDiz8dlYanAgU
+ QwT/FueCpdTYVax1HFw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-09_05,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 priorityscore=1501 spamscore=0 phishscore=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610090070
+ phishscore=0 bulkscore=0 adultscore=0 clxscore=1011 suspectscore=0
+ lowpriorityscore=0 priorityscore=1501 spamscore=0 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610090070
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,691 +105,499 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the DRM RAS netlink infrastructure to perform device telemetry.
-During PCI probe, create a DRM RAS node with DRM_RAS_NODE_TYPE_TELEMETRY
-type and add callbacks to telemetry_request for read and write operations.
+Add a new node type, attribute set, and doit function for performing
+telemetry read and write operations using the DRM RAS interface.
 
-Co-developed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Signed-off-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
 Signed-off-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
 ---
- drivers/accel/qaic/Makefile         |   1 +
- drivers/accel/qaic/qaic.h           |  19 ++
- drivers/accel/qaic/qaic_drv.c       |  19 ++
- drivers/accel/qaic/qaic_telemetry.c | 463 ++++++++++++++++++++++++++++
- drivers/accel/qaic/qaic_telemetry.h |  18 ++
- include/uapi/drm/qaic_accel.h       |  28 ++
- 6 files changed, 548 insertions(+)
- create mode 100644 drivers/accel/qaic/qaic_telemetry.c
- create mode 100644 drivers/accel/qaic/qaic_telemetry.h
+ Documentation/netlink/specs/drm_ras.yaml |  55 ++++++-
+ drivers/gpu/drm/drm_ras.c                | 193 ++++++++++++++++++++++-
+ drivers/gpu/drm/drm_ras_nl.c             |  29 ++++
+ drivers/gpu/drm/drm_ras_nl.h             |   6 +
+ include/drm/drm_ras.h                    |  39 +++++
+ include/uapi/drm/drm_ras.h               |  14 ++
+ 6 files changed, 327 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/accel/qaic/Makefile b/drivers/accel/qaic/Makefile
-index 71f727b74da3..b2bbe9b3e077 100644
---- a/drivers/accel/qaic/Makefile
-+++ b/drivers/accel/qaic/Makefile
-@@ -13,6 +13,7 @@ qaic-y := \
- 	qaic_ras.o \
- 	qaic_ssr.o \
- 	qaic_sysfs.o \
-+	qaic_telemetry.o \
- 	qaic_timesync.o \
- 	sahara.o
+diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
+index a88fdab7a1c7..d558eb1cba3f 100644
+--- a/Documentation/netlink/specs/drm_ras.yaml
++++ b/Documentation/netlink/specs/drm_ras.yaml
+@@ -16,7 +16,7 @@ definitions:
+     type: enum
+     name: node-type
+     value-start: 1
+-    entries: [error-counter]
++    entries: [error-counter, telemetry]
+     doc: >-
+          Type of the node. Currently, only error-counter nodes are
+          supported, which expose reliability counters for a hardware/software
+@@ -100,6 +100,31 @@ attribute-sets:
+         name: error-value
+         type: u32
+         doc: Current value of the error counter.
++  -
++    name: telemetry-attrs
++    attributes:
++      -
++        name: node-id
++        type: u32
++        doc: >-
++             Unique identifier for the node.
++             Assigned dynamically by the DRM RAS core upon registration.
++      -
++        name: field
++        type: u32
++        doc:  Telemetry field to be read/written, e.g., SoC temp.
++      -
++        name: value
++        type: u64
++        doc: Value of telemetry field that was read/written.
++      -
++        name: status
++        type: s32
++        doc: Status of the telemetry operation.
++      -
++        name: pad
++        type: pad
++        doc: Alignment padding used for 64-bit
  
-diff --git a/drivers/accel/qaic/qaic.h b/drivers/accel/qaic/qaic.h
-index 02ca99000e2a..f5dbeadba658 100644
---- a/drivers/accel/qaic/qaic.h
-+++ b/drivers/accel/qaic/qaic.h
-@@ -17,6 +17,7 @@
- #include <linux/workqueue.h>
- #include <drm/drm_device.h>
- #include <drm/drm_gem.h>
-+#include <drm/drm_ras.h>
+ operations:
+   list:
+@@ -198,6 +223,34 @@ operations:
+             - node-id
+             - error-id
+             - error-threshold
++    -
++      name: telemetry-read
++      doc: Perform a read of the specified telemetry field.
++      attribute-set: telemetry-attrs
++      do:
++        pre: drm-ras-nl-pre-telemetry
++        request:
++          attributes:
++            - node-id
++            - field
++        reply:
++          attributes:
++            - value
++            - status
++    -
++      name: telemetry-write
++      doc: Perform a write of the specified telemetry field.
++      attribute-set: telemetry-attrs
++      do:
++        pre: drm-ras-nl-pre-telemetry
++        request:
++          attributes:
++            - node-id
++            - field
++            - value
++        reply:
++          attributes:
++            - status
  
- #define QAIC_DBC_BASE		SZ_128K
- #define QAIC_DBC_SIZE		SZ_4K
-@@ -203,6 +204,24 @@ struct qaic_device {
- 	void			*ssr_mhi_buf;
- 	/* DBC which is under SSR. Sentinel U32_MAX would mean that no SSR in progress */
- 	u32			ssr_dbc;
-+	/* MHI telemetry channel device */
-+	struct mhi_device	*tele_ch;
-+	/* Head in list of requests queued in MHI telemetry device */
-+	struct list_head	tele_xfer_list;
-+	/* Req. ID of request that will be queued next in MHI telemetry device */
-+	u32			tele_next_seq_num;
-+	/* Synchronizes MHI telemetry device transactions and its xfer list */
-+	struct mutex		tele_mutex;
-+	/*
-+	 * TRUE: A tx MHI transaction has failed and a rx buffer is still queued
-+	 * in telemetry device. Such a buffer is considered lost rx buffer
-+	 * FALSE: No rx buffer is lost in telemetry device
-+	 */
-+	bool			tele_lost_buf;
-+	/* Work queue for tasks related to MHI telemetry device */
-+	struct workqueue_struct	*tele_wq;
-+	/* Netlink telemetry node */
-+	struct drm_ras_node *ras_node;
- 	/* Array of DBC struct of this device */
- 	struct dma_bridge_chan	dbc[] __counted_by(num_dbc);
- };
-diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
-index c1bb6db78d12..d2aed51052a6 100644
---- a/drivers/accel/qaic/qaic_drv.c
-+++ b/drivers/accel/qaic/qaic_drv.c
-@@ -32,6 +32,7 @@
- #include "qaic_debugfs.h"
- #include "qaic_ras.h"
- #include "qaic_ssr.h"
-+#include "qaic_telemetry.h"
- #include "qaic_timesync.h"
- #include "sahara.h"
+ mcast-groups:
+   list:
+diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+index b099eb67836e..b88293295cda 100644
+--- a/drivers/gpu/drm/drm_ras.c
++++ b/drivers/gpu/drm/drm_ras.c
+@@ -53,6 +53,15 @@
+  * 7. SET_ERROR_THRESHOLD: Set error threshold of a given counter.
+  *    Userspace must provide Node ID, Error ID and threshold to be set.
+  *
++ * 8. TELEMETRY_READ: Read a telemetry value.
++ *    Userspace must provide Node ID and telemetry field to be read.
++ *    Returns the status of the read and the value read (if valid).
++ *
++ * 9. TELEMETRY_WRITE: Write a telemetry value.
++ *    Userspace must provide Node ID, the telemetry field to write, and the value
++ *    to be written.
++ *    Returns the status of the write.
++ *
+  * Node registration:
+  *
+  * - drm_ras_node_register(): Registers a new node and assigns
+@@ -63,7 +72,6 @@
+  * Node type:
+  *
+  * - ERROR_COUNTER:
+- *     + Currently, only error counters are supported.
+  *     + The driver must implement the query_error_counter() callback to provide
+  *       the name and the value of the error counter.
+  *     + The driver must provide a error_counter_range.last value informing the
+@@ -81,6 +89,12 @@
+  *       that are raised by the hardware.
+  *     + The driver is responsible for error threshold bounds checking.
+  *
++ * - TELEMETRY:
++ *     + The driver must implement the telemetry_read() and telemetry_write()
++ *       callbacks.
++ *     + The driver can optionally provide a pre_doit callback, telemetry_pre(),
++ *       to enforce permissions checks on telemetry operations.
++ *
+  * Netlink handlers:
+  *
+  * - drm_ras_nl_list_nodes_dumpit(): Implements the LIST_NODES
+@@ -95,6 +109,12 @@
+  *   operation, fetching the error threshold of a specific counter.
+  * - drm_ras_nl_set_error_threshold_doit(): Implements the SET_ERROR_THRESHOLD doit
+  *   operation, setting the error threshold of a specific counter.
++ * - drm_ras_nl_pre_telemetry(): Implements the TELEMETRY_READ and TELEMETRY_WRITE
++ *   pre_doit operation, returning 0 if valid.
++ * - drm_ras_nl_telemetry_read_doit(): Implements the TELEMETRY_READ doit operation,
++ *   invoking the driver's telemetry_read callback and returning the results.
++ * - drm_ras_nl_telemetry_write_doit(): Implements the TELEMETRY_WRITE doit operation,
++ *   invoking the driver's telemetry_write callback and returning the results.
+  */
  
-@@ -381,6 +382,7 @@ static void qaic_notify_reset(struct qaic_device *qdev)
- 	qdev->dev_state = QAIC_OFFLINE;
- 	/* wake up any waiters to avoid waiting for timeouts at sync */
- 	wake_all_cntl(qdev);
-+	wake_all_telemetry(qdev);
- 	for (i = 0; i < qdev->num_dbc; ++i)
- 		wakeup_dbc(qdev, i);
- 	synchronize_srcu(&qdev->dev_lock);
-@@ -431,6 +433,9 @@ static struct qaic_device *create_qdev(struct pci_dev *pdev,
- 	if (ret)
- 		return NULL;
- 	ret = drmm_mutex_init(drm, &qdev->bootlog_mutex);
-+	if (ret)
-+		return NULL;
-+	ret = drmm_mutex_init(drm, &qdev->tele_mutex);
- 	if (ret)
- 		return NULL;
- 
-@@ -443,6 +448,9 @@ static struct qaic_device *create_qdev(struct pci_dev *pdev,
- 	qdev->ssr_wq = qaicm_wq_init(drm, "qaic_ssr");
- 	if (IS_ERR(qdev->ssr_wq))
- 		return NULL;
-+	qdev->tele_wq = qaicm_wq_init(drm, "qaic_tele");
-+	if (IS_ERR(qdev->tele_wq))
-+		return NULL;
- 
- 	ret = qaicm_srcu_init(drm, &qdev->dev_lock);
- 	if (ret)
-@@ -458,6 +466,7 @@ static struct qaic_device *create_qdev(struct pci_dev *pdev,
- 
- 	INIT_LIST_HEAD(&qdev->cntl_xfer_list);
- 	INIT_LIST_HEAD(&qdev->bootlog);
-+	INIT_LIST_HEAD(&qdev->tele_xfer_list);
- 	INIT_LIST_HEAD(&qddev->users);
- 
- 	for (i = 0; i < qdev->num_dbc; ++i) {
-@@ -595,6 +604,10 @@ static int qaic_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	if (ret)
- 		return ret;
- 
-+	ret = qaic_drm_ras_register_node(qdev);
-+	if (ret)
-+		return ret;
-+
- 	qdev->mhi_cntrl = qaic_mhi_register_controller(pdev, qdev->bar_mhi, mhi_irq,
- 						       qdev->single_msi, config->family);
- 	if (IS_ERR(qdev->mhi_cntrl)) {
-@@ -615,6 +628,7 @@ static void qaic_pci_remove(struct pci_dev *pdev)
- 
- 	qaic_dev_reset_clean_local_state(qdev);
- 	qaic_mhi_free_controller(qdev->mhi_cntrl, link_up);
-+	qaic_drm_ras_unregister_node(qdev);
- 	qaic_destroy_drm_device(qdev, QAIC_NO_PARTITION);
+ static DEFINE_XARRAY_ALLOC(drm_ras_xa);
+@@ -617,6 +637,156 @@ int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb, struct genl_info *i
+ 	return set_node_error_threshold(node_id, error_id, threshold);
  }
  
-@@ -813,6 +827,10 @@ static int __init qaic_init(void)
- 		goto free_bootlog;
- 	}
- 
-+	ret = qaic_telemetry_register();
-+	if (ret)
-+		pr_debug("qaic: qaic_telemetry_register failed %d\n", ret);
-+
- 	return 0;
- 
- free_bootlog:
-@@ -842,6 +860,7 @@ static void __exit qaic_exit(void)
- 	 * reinitializing the link_up state after the cleanup is done.
- 	 */
- 	link_up = true;
-+	qaic_telemetry_unregister();
- 	qaic_ssr_unregister();
- 	qaic_ras_unregister();
- 	qaic_bootlog_unregister();
-diff --git a/drivers/accel/qaic/qaic_telemetry.c b/drivers/accel/qaic/qaic_telemetry.c
-new file mode 100644
-index 000000000000..dbfb36cf319c
---- /dev/null
-+++ b/drivers/accel/qaic/qaic_telemetry.c
-@@ -0,0 +1,463 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/* Copyright (c) 2020-2021, The Linux Foundation. All rights reserved. */
-+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. */
-+
-+#include <drm/drm_file.h>
-+#include <drm/drm_ras.h>
-+#include <asm/byteorder.h>
-+#include <linux/completion.h>
-+#include <linux/fs.h>
-+#include <linux/kernel.h>
-+#include <linux/kref.h>
-+#include <linux/list.h>
-+#include <linux/mhi.h>
-+#include <linux/mutex.h>
-+#include <linux/namei.h>
-+#include <linux/path.h>
-+#include <linux/sprintf.h>
-+#include <linux/srcu.h>
-+#include <linux/types.h>
-+#include <linux/workqueue.h>
-+#include <uapi/drm/qaic_accel.h>
-+
-+#include "qaic.h"
-+#include "qaic_telemetry.h"
-+
-+#define MAGIC				0x55AA
-+#define VERSION				0x1
-+
-+enum fw_errno {
-+	ERR_READ_ONLY		= -1,
-+	ERR_NOT_SUPPORTED	= -2,
-+	ERR_WHILE_PROCESSING	= -3,
-+	ERR_INVALID_VALUE	= -4,
-+	ERR_INVALID_HEADER	= -5,
-+};
-+
-+enum cmd_type {
-+	TYPE_READ,  /* read value from device */
-+	TYPE_WRITE, /* write value to device */
-+};
-+
-+enum msg_type {
-+	MSG_PUSH, /* async push from device */
-+	MSG_REQ,  /* sync request to device */
-+	MSG_RESP, /* sync response from device */
-+};
-+
-+struct telemetry_data {
-+	u8	cmd;
-+	u8	cmd_type;
-+	u8	status;
-+	__le64	val; /* signed */
-+} __packed;
-+
-+struct telemetry_header {
-+	__le16	magic;
-+	__le16	ver;
-+	__le32	seq_num;
-+	u8	type;
-+	u8	id;
-+	__le16	len;
-+} __packed;
-+
-+struct telemetry_msg { /* little endian encoded */
-+	struct telemetry_header hdr;
-+	struct telemetry_data data;
-+} __packed;
-+
-+struct wrapper_msg {
-+	struct kref ref_count;
-+	struct telemetry_msg msg;
-+};
-+
-+struct xfer_queue_elem {
-+	/*
-+	 * Node in list of ongoing transfer request on telemetry channel.
-+	 * Maintained by root device struct
-+	 */
-+	struct list_head list;
-+	/* Sequence number of this transfer request */
-+	u32 seq_num;
-+	/* This is used to wait on until completion of transfer request */
-+	struct completion xfer_done;
-+	/* Received data from device */
-+	void *buf;
-+};
-+
-+struct resp_work {
-+	/* Work struct to schedule work coming on QAIC_TELEMETRY channel */
-+	struct work_struct work;
-+	/* Root struct of device, used to access device resources */
-+	struct qaic_device *qdev;
-+	/* Buffer used by MHI for transfer requests */
-+	void *buf;
-+};
-+
-+static void free_wrapper(struct kref *ref)
-+{
-+	struct wrapper_msg *wrapper = container_of(ref, struct wrapper_msg, ref_count);
-+
-+	kfree(wrapper);
-+}
-+
-+int telemetry_request(struct qaic_device *qdev, u8 cmd, u8 cmd_type, s64 *val)
-+{
-+	struct wrapper_msg *wrapper;
-+	struct xfer_queue_elem elem;
-+	struct telemetry_msg *resp;
-+	struct telemetry_msg *req;
-+	long ret = 0;
-+
-+	wrapper = kzalloc_obj(*wrapper);
-+	if (!wrapper)
-+		return -ENOMEM;
-+
-+	kref_init(&wrapper->ref_count);
-+	req = &wrapper->msg;
-+
-+	ret = mutex_lock_interruptible(&qdev->tele_mutex);
-+	if (ret)
-+		goto free_req;
-+
-+	req->hdr.magic = cpu_to_le16(MAGIC);
-+	req->hdr.ver = cpu_to_le16(VERSION);
-+	req->hdr.seq_num = cpu_to_le32(qdev->tele_next_seq_num++);
-+	req->hdr.type = MSG_REQ;
-+	req->hdr.id = 0;
-+	req->hdr.len = cpu_to_le16(sizeof(req->data));
-+
-+	req->data.cmd = cmd;
-+	req->data.cmd_type = cmd_type;
-+	req->data.status = 0;
-+	if (cmd_type == TYPE_READ)
-+		req->data.val = cpu_to_le64(0);
-+	else
-+		req->data.val = cpu_to_le64(*val);
-+
-+	elem.seq_num = qdev->tele_next_seq_num - 1;
-+	elem.buf = NULL;
-+	init_completion(&elem.xfer_done);
-+	if (likely(!qdev->tele_lost_buf)) {
-+		resp = kzalloc_obj(*resp);
-+		if (!resp) {
-+			mutex_unlock(&qdev->tele_mutex);
-+			ret = -ENOMEM;
-+			goto free_req;
-+		}
-+
-+		ret = mhi_queue_buf(qdev->tele_ch, DMA_FROM_DEVICE, resp, sizeof(*resp), MHI_EOT);
-+		if (ret) {
-+			mutex_unlock(&qdev->tele_mutex);
-+			goto free_resp;
-+		}
-+	} else {
-+		/*
-+		 * we lost a buffer because we queued a recv buf, but then
-+		 * queuing the corresponding tx buf failed. To try to avoid
-+		 * a memory leak, lets reclaim it and use it for this
-+		 * transaction.
-+		 */
-+		qdev->tele_lost_buf = false;
-+	}
-+
-+	kref_get(&wrapper->ref_count);
-+	ret = mhi_queue_buf(qdev->tele_ch, DMA_TO_DEVICE, req, sizeof(*req), MHI_EOT);
-+	if (ret) {
-+		qdev->tele_lost_buf = true;
-+		kref_put(&wrapper->ref_count, free_wrapper);
-+		mutex_unlock(&qdev->tele_mutex);
-+		goto free_req;
-+	}
-+
-+	list_add_tail(&elem.list, &qdev->tele_xfer_list);
-+	mutex_unlock(&qdev->tele_mutex);
-+
-+	ret = wait_for_completion_interruptible_timeout(&elem.xfer_done, HZ);
-+	/*
-+	 * not using _interruptable because we have to cleanup or we'll
-+	 * likely cause memory corruption
-+	 */
-+	mutex_lock(&qdev->tele_mutex);
-+	if (!list_empty(&elem.list))
-+		list_del(&elem.list);
-+	if (!ret && !elem.buf)
-+		ret = -ETIMEDOUT;
-+	else if (ret > 0 && !elem.buf)
-+		ret = -EIO;
-+	mutex_unlock(&qdev->tele_mutex);
-+
-+	resp = elem.buf;
-+
-+	if (ret < 0)
-+		goto free_resp;
-+
-+	if (le16_to_cpu(resp->hdr.magic) != MAGIC || le16_to_cpu(resp->hdr.ver) != VERSION ||
-+	    resp->hdr.type != MSG_RESP || resp->hdr.id != 0 ||
-+	    le16_to_cpu(resp->hdr.len) != sizeof(resp->data) || resp->data.cmd != cmd ||
-+	    resp->data.cmd_type != cmd_type) {
-+		ret = -EINVAL;
-+		goto free_resp;
-+	}
-+
-+	if (resp->data.status) {
-+		switch ((int8_t) resp->data.status) {
-+		case ERR_READ_ONLY:
-+			ret = -EROFS;
-+			break;
-+		case ERR_NOT_SUPPORTED:
-+			ret = -EOPNOTSUPP;
-+			break;
-+		case ERR_WHILE_PROCESSING:
-+			ret = -EREMOTEIO;
-+			break;
-+		case ERR_INVALID_VALUE:
-+			ret = -EINVAL;
-+			break;
-+		case ERR_INVALID_HEADER:
-+			ret = -EBADR;
-+			break;
-+		default:
-+			ret = -EPROTO;
-+		}
-+		goto free_resp;
-+	}
-+
-+	if (cmd_type == TYPE_READ)
-+		*val = le64_to_cpu(resp->data.val);
-+
-+	ret = 0;
-+
-+free_resp:
-+	kfree(resp);
-+free_req:
-+	kref_put(&wrapper->ref_count, free_wrapper);
-+
-+	return ret;
-+}
-+
-+static int qaic_telemetry_mhi_probe(struct mhi_device *mhi_dev, const struct mhi_device_id *id)
-+{
-+	struct qaic_device *qdev = pci_get_drvdata(to_pci_dev(mhi_dev->mhi_cntrl->cntrl_dev));
-+	int ret;
-+
-+	ret = mhi_prepare_for_transfer(mhi_dev);
-+	if (ret)
-+		return ret;
-+
-+	dev_set_drvdata(&mhi_dev->dev, qdev);
-+	qdev->tele_ch = mhi_dev;
-+	qdev->tele_lost_buf = false;
-+
-+	return 0;
-+}
-+
-+static void qaic_telemetry_mhi_remove(struct mhi_device *mhi_dev)
-+{
-+	struct qaic_device *qdev = dev_get_drvdata(&mhi_dev->dev);
-+
-+	mhi_unprepare_from_transfer(qdev->tele_ch);
-+	qdev->tele_ch = NULL;
-+}
-+
-+static void resp_worker(struct work_struct *work)
-+{
-+	struct resp_work *resp = container_of(work, struct resp_work, work);
-+	struct qaic_device *qdev = resp->qdev;
-+	struct telemetry_msg *msg = resp->buf;
-+	struct xfer_queue_elem *elem;
-+	struct xfer_queue_elem *i;
-+	bool found = false;
-+
-+	if (le16_to_cpu(msg->hdr.magic) != MAGIC) {
-+		kfree(msg);
-+		kfree(resp);
-+		return;
-+	}
-+
-+	mutex_lock(&qdev->tele_mutex);
-+	list_for_each_entry_safe(elem, i, &qdev->tele_xfer_list, list) {
-+		if (elem->seq_num == le32_to_cpu(msg->hdr.seq_num)) {
-+			found = true;
-+			list_del_init(&elem->list);
-+			elem->buf = msg;
-+			complete_all(&elem->xfer_done);
-+			break;
-+		}
-+	}
-+	mutex_unlock(&qdev->tele_mutex);
-+
-+	if (!found)
-+		/* request must have timed out, drop packet */
-+		kfree(msg);
-+
-+	kfree(resp);
-+}
-+
-+static void qaic_telemetry_mhi_ul_xfer_cb(struct mhi_device *mhi_dev,
-+					  struct mhi_result *mhi_result)
-+{
-+	struct telemetry_msg *msg = mhi_result->buf_addr;
-+	struct wrapper_msg *wrapper;
-+
-+	wrapper = container_of(msg, struct wrapper_msg, msg);
-+	kref_put(&wrapper->ref_count, free_wrapper);
-+}
-+
-+static void qaic_telemetry_mhi_dl_xfer_cb(struct mhi_device *mhi_dev,
-+					  struct mhi_result *mhi_result)
-+{
-+	struct qaic_device *qdev = dev_get_drvdata(&mhi_dev->dev);
-+	struct telemetry_msg *msg = mhi_result->buf_addr;
-+	struct resp_work *resp;
-+
-+	if (mhi_result->transaction_status) {
-+		kfree(msg);
-+		return;
-+	}
-+
-+	resp = kmalloc(sizeof(*resp), GFP_ATOMIC);
-+	if (!resp) {
-+		pci_err(qdev->pdev, "dl_xfer_cb alloc fail, dropping message\n");
-+		kfree(msg);
-+		return;
-+	}
-+
-+	INIT_WORK(&resp->work, resp_worker);
-+	resp->qdev = qdev;
-+	resp->buf = msg;
-+	queue_work(qdev->tele_wq, &resp->work);
-+}
-+
-+static const struct mhi_device_id qaic_telemetry_mhi_match_table[] = {
-+	{ .chan = "QAIC_TELEMETRY", },
-+	{},
-+};
-+
-+static struct mhi_driver qaic_telemetry_mhi_driver = {
-+	.id_table = qaic_telemetry_mhi_match_table,
-+	.remove = qaic_telemetry_mhi_remove,
-+	.probe = qaic_telemetry_mhi_probe,
-+	.ul_xfer_cb = qaic_telemetry_mhi_ul_xfer_cb,
-+	.dl_xfer_cb = qaic_telemetry_mhi_dl_xfer_cb,
-+	.driver = {
-+		.name = "qaic_telemetry",
-+	},
-+};
-+
-+int qaic_telemetry_register(void)
-+{
-+	return mhi_driver_register(&qaic_telemetry_mhi_driver);
-+}
-+
-+void qaic_telemetry_unregister(void)
-+{
-+	mhi_driver_unregister(&qaic_telemetry_mhi_driver);
-+}
-+
-+void wake_all_telemetry(struct qaic_device *qdev)
-+{
-+	struct xfer_queue_elem *elem;
-+	struct xfer_queue_elem *i;
-+
-+	mutex_lock(&qdev->tele_mutex);
-+	list_for_each_entry_safe(elem, i, &qdev->tele_xfer_list, list) {
-+		list_del_init(&elem->list);
-+		complete_all(&elem->xfer_done);
-+	}
-+	qdev->tele_lost_buf = false;
-+	mutex_unlock(&qdev->tele_mutex);
-+}
-+
-+static int qaic_telemetry_pre(struct drm_ras_node *ep)
-+{
-+	struct qaic_device *qdev = ep->priv;
-+	struct inode *dev_inode;
-+	struct path path;
-+	char devpath[24];
-+	int ret;
-+
-+	snprintf(devpath, sizeof(devpath), "/dev/accel/%s", to_accel_kdev(qdev->qddev)->kobj.name);
-+	ret = kern_path(devpath, LOOKUP_FOLLOW, &path);
-+	if (ret)
-+		return -EINVAL;
-+
-+	dev_inode = d_inode(path.dentry);
-+	ret = inode_permission(&nop_mnt_idmap, dev_inode, MAY_READ | MAY_WRITE);
-+	path_put(&path);
-+
-+	return ret;
-+}
-+
-+static int qaic_telemetry_read(struct drm_ras_node *ep, u32 *field, u64 *value, s32 *status)
-+{
-+	struct qaic_device *qdev = ep->priv;
-+
-+	*status = (s32)telemetry_request(qdev, *field, TYPE_READ, value);
-+
-+	return *status;
-+}
-+
-+static int qaic_telemetry_write(struct drm_ras_node *ep, u32 *field, u64 *value, s32 *status)
-+{
-+	struct qaic_device *qdev = ep->priv;
-+
-+	*status = (s32)telemetry_request(qdev, *field, TYPE_WRITE, value);
-+
-+	return *status;
-+}
-+
-+int qaic_drm_ras_register_node(struct qaic_device *qdev)
++/**
++ * drm_ras_nl_pre_telemetry - Enforce permission checks
++ * @ops: Generic netlink operations
++ * @skb: Netlink message buffer
++ * @info: Generic Netlink info containing attributes of the request
++ *
++ * Enforces a telemetry node's pre_doit conditions (if they exist).
++ *
++ * Returns 0 if no pre_doit is specified, otherwise returns the pre_doit.
++ */
++int drm_ras_nl_pre_telemetry(const struct genl_split_ops *ops, struct sk_buff *skb,
++			     struct genl_info *info)
 +{
 +	struct drm_ras_node *node;
-+	struct pci_dev *pdev = qdev->pdev;
-+	const char *device_name, *node_name;
-+	int ret;
++	u32 node_id;
 +
-+	node = kzalloc_obj(struct drm_ras_node);
-+	if (!node)
-+		return -ENOMEM;
++	node_id = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
++	node = xa_load(&drm_ras_xa, node_id);
 +
-+	device_name = kasprintf(GFP_KERNEL, "%04x:%02x:%02x.%d",
-+				pci_domain_nr(pdev->bus), pdev->bus->number,
-+				PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
-+	if (!device_name) {
-+		kfree(node);
-+		return -ENOMEM;
-+	}
++	if (node->telemetry_pre)
++		return node->telemetry_pre(node);
 +
-+	node_name = kasprintf(GFP_KERNEL, "qaic_telemetry");
-+	if (!node_name) {
-+		kfree(device_name);
-+		kfree(node);
-+		return -ENOMEM;
-+	}
-+
-+	node->device_name = device_name;
-+	node->node_name = node_name;
-+	node->type = DRM_RAS_NODE_TYPE_TELEMETRY;
-+	node->priv = qdev;
-+	node->telemetry_read = qaic_telemetry_read;
-+	node->telemetry_write = qaic_telemetry_write;
-+	node->telemetry_pre = qaic_telemetry_pre;
-+
-+	ret = drm_ras_node_register(node);
-+	if (ret) {
-+		kfree(device_name);
-+		kfree(node_name);
-+		kfree(qdev->ras_node);
-+		return ret;
-+	}
-+
-+	qdev->ras_node = node;
 +	return 0;
 +}
 +
-+void qaic_drm_ras_unregister_node(struct qaic_device *qdev)
++/**
++ * drm_ras_nl_telemetry_read_doit() - Query a telemetry value
++ * @skb: Netlink message buffer
++ * @info: Generic Netlink info containing attributes of the request
++ *
++ * Extracts the telemetry field from the netlink attributes and
++ * reads that value from the device.
++ *
++ * Return: 0 on success, or negative errno on failure.
++ */
++int drm_ras_nl_telemetry_read_doit(struct sk_buff *skb, struct genl_info *info)
 +{
-+	drm_ras_node_unregister(qdev->ras_node);
-+	kfree(qdev->ras_node->node_name);
-+	kfree(qdev->ras_node->device_name);
-+	kfree(qdev->ras_node);
++	struct drm_ras_node *node;
++	struct sk_buff *msg;
++	struct nlattr *hdr;
++	u32 node_id, field;
++	s32 status;
++	u64 value;
++	int ret;
++
++	if (!info->attrs || !info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD])
++		return -EINVAL;
++
++	field = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD]);
++	node_id = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
++
++	node = xa_load(&drm_ras_xa, node_id);
++	if (!node || !node->telemetry_read)
++		return -ENOENT;
++
++	msg = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
++	if (!msg)
++		return -ENOMEM;
++
++	hdr = genlmsg_iput(msg, info);
++	if (!hdr) {
++		nlmsg_free(msg);
++		return -EMSGSIZE;
++	}
++
++	ret = node->telemetry_read(node, &field, &value, &status);
++	if (ret) {
++		nlmsg_free(msg);
++		return ret;
++	}
++
++	ret = nla_put_s32(msg, DRM_RAS_A_TELEMETRY_ATTRS_STATUS, status);
++	if (ret) {
++		genlmsg_cancel(msg, hdr);
++		nlmsg_free(msg);
++		return ret;
++	}
++
++	ret = nla_put_64bit(msg, DRM_RAS_A_TELEMETRY_ATTRS_VALUE, sizeof(value),
++			    &value, DRM_RAS_A_TELEMETRY_ATTRS_PAD);
++	if (ret) {
++		genlmsg_cancel(msg, hdr);
++		nlmsg_free(msg);
++		return ret;
++	}
++
++	genlmsg_end(msg, hdr);
++
++	return genlmsg_reply(msg, info);
 +}
-diff --git a/drivers/accel/qaic/qaic_telemetry.h b/drivers/accel/qaic/qaic_telemetry.h
-new file mode 100644
-index 000000000000..a80922591e37
---- /dev/null
-+++ b/drivers/accel/qaic/qaic_telemetry.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+/* Copyright (c) 2020, The Linux Foundation. All rights reserved. */
++/**
++ * drm_ras_nl_telemetry_write_doit() - Write a telemetry value
++ * @skb: Netlink message buffer
++ * @info: Generic Netlink info containing attributes of the request
++ *
++ * Extracts the telemetry field and value to be written from the netlink
++ * attributes and writes that value to the specified field on the device.
++ *
++ * Return: 0 on success, or negative errno on failure.
++ */
++int drm_ras_nl_telemetry_write_doit(struct sk_buff *skb, struct genl_info *info)
++{
++	struct drm_ras_node *node;
++	struct sk_buff *msg;
++	struct nlattr *hdr;
++	u32 node_id, field;
++	s32 status;
++	u64 value;
++	int ret;
 +
-+#ifndef __QAIC_TELEMETRY_H__
-+#define __QAIC_TELEMETRY_H__
++	if (!info->attrs || !info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD])
++		return -EINVAL;
 +
-+#include "qaic.h"
++	value = nla_get_u64(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_VALUE]);
++	field = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD]);
++	node_id = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
 +
-+int telemetry_request(struct qaic_device *qdev, u8 cmd, u8 cmd_type, s64 *val);
-+int qaic_drm_ras_register_node(struct qaic_device *qdev);
-+void qaic_drm_ras_unregister_node(struct qaic_device *qdev);
++	node = xa_load(&drm_ras_xa, node_id);
++	if (!node || !node->telemetry_read)
++		return -ENOENT;
 +
-+int qaic_telemetry_register(void);
-+void qaic_telemetry_unregister(void);
-+void wake_all_telemetry(struct qaic_device *qdev);
++	msg = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
++	if (!msg)
++		return -ENOMEM;
 +
-+#endif /* __QAIC_TELEMETRY_H__ */
-diff --git a/include/uapi/drm/qaic_accel.h b/include/uapi/drm/qaic_accel.h
-index c92d0309d583..5aac05101426 100644
---- a/include/uapi/drm/qaic_accel.h
-+++ b/include/uapi/drm/qaic_accel.h
-@@ -51,6 +51,34 @@ extern "C" {
- #define QAIC_TRANS_VALIDATE_PARTITION_FROM_DEV	19
- #define QAIC_TRANS_VALIDATE_PARTITION_TO_DEV	20
- 
-+/* Telemetry fields */
-+#define QAIC_DEVINFO_THERMAL_SOC_MAX_TEMP	1
-+#define QAIC_DEVINFO_THERMAL_BOARD_TEMP		2
-+#define QAIC_DEVINFO_THERMAL_BOARD_MAX_TEMP	3
-+#define QAIC_DEVINFO_THERMAL_DDR_TEMP		4
-+#define QAIC_DEVINFO_THERMAL_WARNING_TEMP	5
-+#define QAIC_DEVINFO_THERMAL_SHUTDOWN_TEMP	6
-+#define QAIC_DEVINFO_BOARD_TDP			7
-+#define QAIC_DEVINFO_BOARD_POWER		8
-+#define QAIC_DEVINFO_POWER_STATE		9
-+#define QAIC_DEVINFO_POWER_MAX			10
-+#define QAIC_DEVINFO_THROTTLE_PERCENT		11
-+#define QAIC_DEVINFO_THROTTLE_TIME		12
-+#define QAIC_DEVINFO_UPTIME			13
-+#define QAIC_DEVINFO_THERMAL_SOC_FLOOR_TEMP	14
-+#define QAIC_DEVINFO_THERMAL_SOC_CEILING_TEMP	15
-+#define QAIC_DEVINFO_VOLTAGE_CX			16
-+#define QAIC_DEVINFO_VOLTAGE_MX			17
-+#define QAIC_DEVINFO_VOLTAGE_NSP_CX		18
-+#define QAIC_DEVINFO_VOLTAGE_NSP_MX		19
-+#define QAIC_DEVINFO_CFG_TOPS			20
-+#define QAIC_DEVINFO_THERMAL_PMIC_TEMP_A	21
-+#define QAIC_DEVINFO_THERMAL_PMIC_TEMP_C	22
-+#define QAIC_DEVINFO_THERMAL_PMIC_TEMP_E	23
-+#define QAIC_DEVINFO_POWER_ACTION		24
-+#define QAIC_DEVINFO_SOC_TDP			25
-+#define QAIC_DEVINFO_SOC_POWER			26
++	hdr = genlmsg_iput(msg, info);
++	if (!hdr) {
++		nlmsg_free(msg);
++		return -EMSGSIZE;
++	}
++
++	ret = node->telemetry_write(node, &field, &value, &status);
++	if (ret) {
++		nlmsg_free(msg);
++		return ret;
++	}
++
++	ret = nla_put_s32(msg, DRM_RAS_A_TELEMETRY_ATTRS_STATUS, status);
++	if (ret) {
++		genlmsg_cancel(msg, hdr);
++		nlmsg_free(msg);
++		return ret;
++	}
++
++	genlmsg_end(msg, hdr);
++
++	return genlmsg_reply(msg, info);
++}
 +
  /**
-  * struct qaic_manage_trans_hdr - Header for a transaction in a manage message.
-  * @type: In. Identifies this transaction. See QAIC_TRANS_* defines.
+  * drm_ras_node_register() - Register a new RAS node
+  * @node: Node structure to register
+@@ -631,14 +801,21 @@ int drm_ras_node_register(struct drm_ras_node *node)
+ 	if (!node->device_name || !node->node_name)
+ 		return -EINVAL;
+ 
+-	/* Currently, only Error Counter Endpoints are supported */
+-	if (node->type != DRM_RAS_NODE_TYPE_ERROR_COUNTER)
+-		return -EINVAL;
+-
+-	/* Mandatory entries for Error Counter Node */
+-	if (node->type == DRM_RAS_NODE_TYPE_ERROR_COUNTER &&
+-	    (!node->error_counter_range.last || !node->query_error_counter))
++	/* Currently, only Error Counter and Telemetry endpoints are supported */
++	switch (node->type) {
++	case DRM_RAS_NODE_TYPE_ERROR_COUNTER:
++		/* Mandatory entries for Error Counter Node */
++		if (!node->error_counter_range.last || !node->query_error_counter)
++			return -EINVAL;
++		break;
++	case DRM_RAS_NODE_TYPE_TELEMETRY:
++		/* Mandatory entries for Telemetry Node */
++		if (!node->telemetry_read || !node->telemetry_write)
++			return -EINVAL;
++		break;
++	default:
+ 		return -EINVAL;
++	}
+ 
+ 	return xa_alloc(&drm_ras_xa, &node->id, node, xa_limit_32b, GFP_KERNEL);
+ }
+diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+index ff0dc406c27c..4577bc1a333e 100644
+--- a/drivers/gpu/drm/drm_ras_nl.c
++++ b/drivers/gpu/drm/drm_ras_nl.c
+@@ -41,6 +41,19 @@ static const struct nla_policy drm_ras_set_error_threshold_nl_policy[DRM_RAS_A_E
+ 	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD] = { .type = NLA_U32, },
+ };
+ 
++/* DRM_RAS_CMD_TELEMETRY_READ - do */
++static const struct nla_policy drm_ras_telemetry_read_nl_policy[DRM_RAS_A_TELEMETRY_ATTRS_FIELD + 1] = {
++	[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID] = { .type = NLA_U32, },
++	[DRM_RAS_A_TELEMETRY_ATTRS_FIELD] = { .type = NLA_U32, },
++};
++
++/* DRM_RAS_CMD_TELEMETRY_WRITE - do */
++static const struct nla_policy drm_ras_telemetry_write_nl_policy[DRM_RAS_A_TELEMETRY_ATTRS_VALUE + 1] = {
++	[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID] = { .type = NLA_U32, },
++	[DRM_RAS_A_TELEMETRY_ATTRS_FIELD] = { .type = NLA_U32, },
++	[DRM_RAS_A_TELEMETRY_ATTRS_VALUE] = { .type = NLA_U64, },
++};
++
+ /* Ops table for drm_ras */
+ static const struct genl_split_ops drm_ras_nl_ops[] = {
+ 	{
+@@ -83,6 +96,22 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
+ 		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD,
+ 		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
+ 	},
++	{
++		.cmd		= DRM_RAS_CMD_TELEMETRY_READ,
++		.pre_doit	= drm_ras_nl_pre_telemetry,
++		.doit		= drm_ras_nl_telemetry_read_doit,
++		.policy		= drm_ras_telemetry_read_nl_policy,
++		.maxattr	= DRM_RAS_A_TELEMETRY_ATTRS_FIELD,
++		.flags		= GENL_CMD_CAP_DO,
++	},
++	{
++		.cmd		= DRM_RAS_CMD_TELEMETRY_WRITE,
++		.pre_doit	= drm_ras_nl_pre_telemetry,
++		.doit		= drm_ras_nl_telemetry_write_doit,
++		.policy		= drm_ras_telemetry_write_nl_policy,
++		.maxattr	= DRM_RAS_A_TELEMETRY_ATTRS_VALUE,
++		.flags		= GENL_CMD_CAP_DO,
++	},
+ };
+ 
+ static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
+diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
+index 9aef097ea10f..4bdd7ed268a1 100644
+--- a/drivers/gpu/drm/drm_ras_nl.h
++++ b/drivers/gpu/drm/drm_ras_nl.h
+@@ -12,6 +12,9 @@
+ 
+ #include <uapi/drm/drm_ras.h>
+ 
++int drm_ras_nl_pre_telemetry(const struct genl_split_ops *ops,
++			     struct sk_buff *skb, struct genl_info *info);
++
+ int drm_ras_nl_list_nodes_dumpit(struct sk_buff *skb,
+ 				 struct netlink_callback *cb);
+ int drm_ras_nl_get_error_counter_doit(struct sk_buff *skb,
+@@ -24,6 +27,9 @@ int drm_ras_nl_get_error_threshold_doit(struct sk_buff *skb,
+ 					struct genl_info *info);
+ int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb,
+ 					struct genl_info *info);
++int drm_ras_nl_telemetry_read_doit(struct sk_buff *skb, struct genl_info *info);
++int drm_ras_nl_telemetry_write_doit(struct sk_buff *skb,
++				    struct genl_info *info);
+ 
+ enum {
+ 	DRM_RAS_NLGRP_ERROR_REPORT,
+diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
+index 1765a3130b09..2a2cdd44839d 100644
+--- a/include/drm/drm_ras.h
++++ b/include/drm/drm_ras.h
+@@ -100,6 +100,45 @@ struct drm_ras_node {
+ 	 */
+ 	int (*set_error_threshold)(struct drm_ras_node *node, u32 error_id, u32 threshold);
+ 
++	/**
++	 * @telemetry_pre:
++	 *
++	 * This callback is used to enforce any pre_doit conditions necessary
++	 * for telemetry. This is an optional callback for telemetry_node.
++	 *
++	 * Returns 0 on success, negative error code on failure.
++	 */
++	int (*telemetry_pre)(struct drm_ras_node *ep);
++
++	/**
++	 * @telemetry_read:
++	 *
++	 * This callback is used for a drm-ras telemetry node to read a
++	 * telemetry value. This is a mandatory callback for telemetry_node.
++	 *
++	 * The callback will read the desired device-specific field into value
++	 * and update status corresponding to a device-specific error code.
++	 *
++	 * Returns 0 on success, negative error code on failure.
++	 */
++	int (*telemetry_read)(struct drm_ras_node *ep, u32 *field, u64 *value,
++			      s32 *status);
++
++	/**
++	 * @telemetry_write:
++	 *
++	 * This callback is used for a drm-ras telemetry node to write a
++	 * telemetry value. This is a mandatory callback for telemetry_node.
++	 *
++	 * The callback will write the value to the desired device-specific
++	 * field and update status corresponding to a device-specific error
++	 * code.
++	 *
++	 * Returns 0 on success, negative error code on failure.
++	 */
++	int (*telemetry_write)(struct drm_ras_node *ep, u32 *field, u64 *value,
++			       s32 *status);
++
+ 	/** @priv: Driver private data */
+ 	void *priv;
+ };
+diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
+index 2f832275ee6e..d39c78a9ed5a 100644
+--- a/include/uapi/drm/drm_ras.h
++++ b/include/uapi/drm/drm_ras.h
+@@ -16,6 +16,7 @@
+  */
+ enum drm_ras_node_type {
+ 	DRM_RAS_NODE_TYPE_ERROR_COUNTER = 1,
++	DRM_RAS_NODE_TYPE_TELEMETRY,
+ };
+ 
+ enum {
+@@ -51,6 +52,17 @@ enum {
+ 	DRM_RAS_A_ERROR_EVENT_ATTRS_MAX = (__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX - 1)
+ };
+ 
++enum {
++	DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID = 1,
++	DRM_RAS_A_TELEMETRY_ATTRS_FIELD,
++	DRM_RAS_A_TELEMETRY_ATTRS_VALUE,
++	DRM_RAS_A_TELEMETRY_ATTRS_STATUS,
++	DRM_RAS_A_TELEMETRY_ATTRS_PAD,
++
++	__DRM_RAS_A_TELEMETRY_ATTRS_MAX,
++	DRM_RAS_A_TELEMETRY_ATTRS_MAX = (__DRM_RAS_A_TELEMETRY_ATTRS_MAX - 1)
++};
++
+ enum {
+ 	DRM_RAS_CMD_LIST_NODES = 1,
+ 	DRM_RAS_CMD_GET_ERROR_COUNTER,
+@@ -58,6 +70,8 @@ enum {
+ 	DRM_RAS_CMD_ERROR_EVENT,
+ 	DRM_RAS_CMD_GET_ERROR_THRESHOLD,
+ 	DRM_RAS_CMD_SET_ERROR_THRESHOLD,
++	DRM_RAS_CMD_TELEMETRY_READ,
++	DRM_RAS_CMD_TELEMETRY_WRITE,
+ 
+ 	__DRM_RAS_CMD_MAX,
+ 	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
 -- 
 2.43.0
 
