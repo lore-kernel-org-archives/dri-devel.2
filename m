@@ -4,44 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A074CA6018
-	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:43:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75609CA6019
+	for <dri-devel@archiver.kernel.org>; Fri,  9 Oct 2026 11:43:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7C7B112083;
-	Fri,  9 Oct 2026 11:43:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C372D112098;
+	Fri,  9 Oct 2026 11:43:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="opnZqri0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D1eL6w6E";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B226D112083
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 11:43:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5E4B112098
+ for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 11:43:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7B8D74402E;
- Fri,  9 Oct 2026 11:43:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 313F21F00893;
- Fri,  9 Oct 2026 11:43:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CCD3243E4C;
+ Fri,  9 Oct 2026 11:43:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990401F000FF;
+ Fri,  9 Oct 2026 11:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791546193;
- bh=ETZZbHSsbkFSWgkr1arGQcDGv4upEM79ITnCnEUyM2w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=opnZqri0RB9Rok9FaYkwq4v8TQs8meYHdnvzcBZ+56Pc4M/89xRFgoUxZq8aEAXF3
- BkK/+lzCsp2DQ36H95o7hlViMogjLBI6AFzIqe2qW1nPz+5HeiqJkxU1QlRSom/dl0
- 0jNGhZ95x23U1wzgNTJZzW9mjDQ8OsV15rziE/8FseVcnl4rDZFb2oWEkLM1MV/iVr
- SSt9ni92YnhdHzCG4XbmwcXRnxUof3CmQ8XQNURMGLBLmtTbJw/u9CRDgdWiXCrRSw
- GMLvc+E3+CgHkUPO1gkvUPYJRTRECLIqClOdLZvvGH+q5d0NsItMdbKa+gQW3Qjkrj
- qDt+ru8uMMlsg==
-Message-ID: <sashiko-outbox-165407@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/4] drm/panel: Add driver for Novatek NT37705 panel
-To: "Luca Weiss" <luca.weiss@fairphone.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261009-fp6-panel-v4-2-7c3819664778@fairphone.com>
-References: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
- <20261009-fp6-panel-v4-2-7c3819664778@fairphone.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 11:43:12 +0000
+ s=k20260515; t=1791546200;
+ bh=CpEZlDsRDuWenxcVgqGImJd26hAtuDMO57pjc3sZvDA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=D1eL6w6Ewdr6llyTH4fAbb8hCyFLsOSKaLbrXG209Y1k/pmbDbwi6+HhvQZEnddfv
+ ozhgqIAZPEJiYixReahW0E5j5paGGbV175wO5N0/2qMKx3icHiuOPsyYXPPJS/PDGD
+ 7O3rKXjf8R3Fb2Zj3IDfyYyEvaVylAPPRdpibqcld4DiywBWyC3NeCk8iJ98EZvdH8
+ pxwSahZW5Y7TUwRoT0kSnbHmwd5EgIGvkWb7Uiz6jn5t3n8Dv2hYfwx1QEEU0vOBoW
+ A8KAHkqPFemwxUmaYpBpwCxyJN72FWr7gCMN/SwHyFcMD6oeN0X/No8SJAzwbx6W2E
+ Ve2mqwlmxiPEQ==
+Message-ID: <b8cc8683-d114-48c8-af60-ecd8e16bdf46@kernel.org>
+Date: Fri, 9 Oct 2026 13:43:09 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: (subset) [PATCH v2 0/4] arm64: dts: qcom: Add support for Radxa
+ Dragon Q8B
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Xilin Wu <sophon@radxa.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
+ dragon@radxa.com, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniele Briguglio <hello@superkali.me>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <179153455955.2970577.14103639336377928226.b4-ty@b4>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <179153455955.2970577.14103639336377928226.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,201 +120,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] drm/panel: missing error cleanup in nt37705_prepare() leaks regula=
-tors
-- [High] drm/panel: nt37705: data race and DSI timeout in backlight sysfs
-- [Medium] drm/panel: dsi->mode_flags mutated and not restored on error in =
-nt37705_bl_update_status()
-- [Medium] drm/panel: invalid payload for 0-parameter DCS commands
-- [Medium] drm/panel: nt37705: missing panel.prepared check in backlight up=
-date_status
---
+On 09/10/2026 10:29, Dmitry Baryshkov wrote:
+> On Fri, 09 Oct 2026 15:55:05 +0800, Xilin Wu wrote:
+>> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
+>> Snapdragon 8cx Gen 3 (SC8280XP) platform.
+>>
+>> The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
+>> E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
+>> alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
+>> a 40-pin expansion header.
+>>
+>> [...]
+> 
+> Applied to drm-misc-next, thanks!
+> 
+> [1/4] dt-bindings: display: bridge: simple: document Chrontel CH7218A
+>       commit: 377682cf917027396211426c509cae5785305ba8
 
-commit a437b7eca971b2adefff7488ccaf50028c00b068
-Author: Luca Weiss <luca.weiss@fairphone.com>
-drm/panel: Add driver for Novatek NT37705 panel
+So the fake tag gets applied. Having 12 minutes to respond to this
+posting is NOT enough.
 
-This commit adds support for the 2484x1116 AMOLED panel from BOE
-(BJ631JHM-T71-D900) bundled with a NT37705 driver IC, as found on the
-Fairphone 6 smartphone.
-
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37705.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt37705.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
-> @@ -0,0 +1,396 @@
-[ ... ]
-> +static int nt37705_on(struct nt37705_panel *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-[ ... ]
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_TEAR_ON);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-> +				     0x20);
-> +	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 0x045b);
-> +	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x09b3);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_GAMMA_CURVE, 0x00);
-> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xbb0d);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x04);
-> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xfe0f);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x01, 0x19);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0x03, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91,
-> +				     0x89, 0x28, 0x00, 0x0c, 0xd2, 0x00, 0x02,
-> +				     0x2f, 0x01, 0x18, 0x00, 0x07, 0x09, 0x75,
-> +				     0x08, 0x34, 0x10, 0xf0);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x30);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_EXIT_SLEEP_MODE, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_ON, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 22);
-
-[Severity: Medium]
-The driver issues several MIPI DCS commands that require zero parameters,
-such as MIPI_DCS_EXIT_SLEEP_MODE (0x11) and MIPI_DCS_SET_DISPLAY_ON (0x29).
-However, passing 0x00 as an argument to mipi_dsi_dcs_write_seq_multi()
-creates a 2-byte array ({ cmd, 0x00 }). This triggers a DCS Short Write
-with 1 parameter (Data Type 0x15) instead of a 0-parameter write (Data Type
-0x05).=20
-
-Similarly, earlier in this sequence, MIPI_DCS_SET_TEAR_ON takes 1 parameter=
-=20
-but is called with no parameters.
-
-Could this cause strict DSI sinks to reject these malformed packets and fail
-panel initialization?
-
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int nt37705_off(struct nt37705_panel *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +
-> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_OFF, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_ENTER_SLEEP_MODE, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-
-[Severity: Medium]
-As mentioned above, MIPI_DCS_SET_DISPLAY_OFF and MIPI_DCS_ENTER_SLEEP_MODE
-are also 0-parameter commands being given a 0x00 payload, creating an
-incorrect DCS short write length.
-
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int nt37705_prepare(struct drm_panel *panel)
-> +{
-> +	struct nt37705_panel *ctx =3D to_nt37705_panel(panel);
-> +	struct device *dev =3D &ctx->dsi->dev;
-> +	struct drm_dsc_picture_parameter_set pps;
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(nt37705_supplies), ctx->suppli=
-es);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	nt37705_reset(ctx);
-> +
-> +	ret =3D nt37705_on(ctx);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		regulator_bulk_disable(ARRAY_SIZE(nt37705_supplies), ctx->supplies);
-> +		return ret;
-> +	}
-> +
-> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-> +
-> +	ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
-> +	if (ret < 0) {
-> +		dev_err(dev, "failed to enable compression mode: %d\n", ret);
-> +		return ret;
-> +	}
-
-[Severity: High]
-If mipi_dsi_picture_parameter_set() or mipi_dsi_compression_mode() fails
-here, the function returns immediately. Earlier in this function, the
-regulators are enabled and the reset GPIO is toggled. Should these error
-paths also assert the reset GPIO and call regulator_bulk_disable() like
-the error path for nt37705_on() does?
-
-Since the prepare callback failed, the DRM core will not call
-drm_panel_unprepare(), which leaves a permanent regulator imbalance and the
-panel powered on in an inconsistent state.
-
-> +	msleep(28); /* TODO: Is this panel-dependent? */
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int nt37705_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-This function modifies dsi->mode_flags using non-atomic bitwise operations
-without taking a lock. Since userspace can write to the sysfs brightness
-node at any time, could this race with a DRM modeset where nt37705_on() or
-nt37705_off() also modify the panel state? Concurrent execution could
-corrupt dsi->mode_flags and lose flags like MIPI_DSI_MODE_NO_EOT_PACKET set
-during probe.
-
-[Severity: Medium]
-When the panel is disabled and unprepared, its regulators are turned off.
-If a write occurs to the sysfs backlight node while the panel is unprepared,
-is it safe to unconditionally issue a DSI transmission via
-mipi_dsi_dcs_set_display_brightness_large()?
-
-Sending DSI DCS commands to a powered-off panel usually causes the DSI bus
-to hang or timeout. Should this function check if ctx->panel.prepared is
-true before attempting to communicate with the panel?
-
-[Severity: Medium]
-If mipi_dsi_dcs_set_display_brightness_large() fails, the function
-returns early. Doesn't this leave the MIPI_DSI_MODE_LPM flag permanently
-cleared?=20
-
-Also, on success, it unconditionally forces the MIPI_DSI_MODE_LPM flag on,
-even if it wasn't originally set. This might corrupt the panel's mode flags
-and cause subsequent commands to incorrectly use or omit Low Power Mode.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-fp6-panel-=
-v4-0-7c3819664778@fairphone.com?part=3D2
+Best regards,
+Krzysztof
