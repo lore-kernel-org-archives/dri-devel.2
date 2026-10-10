@@ -4,175 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE50CA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 08:42:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84749CA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 09:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9622010EB62;
-	Sat, 10 Oct 2026 08:42:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fo5lzCKR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YruWGRPL";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6597E10E042
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 08:42:53 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69A4dpYj2402565
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 08:42:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IqymoQ2HDibV8WA0yhfluVKdlQdB/7YbmVl1gD2ORD8=; b=Fo5lzCKR6ouvQqMF
- AfXvk7qHNy+UGr0uB/I75FzhO/oHguIgOagvJ50C1NXQUikQfyJk79H9vjFIlnjB
- bgTjhV8vSzS4dPkTiu8g6i4oO5GZS5Hbva9CkwhMzsCPgcJ3se2tzthEO1U0YM/h
- qqKO+KNKfG+Bwtqnb1VFRRoze4vVy6qBoY+WTKXije/fNbbTy3NigBrpI1x3+A0r
- uIlAHrfVf71v/5ji4yntBkpw+jq2Bhy0bKyGz9N8eUDWvzrEPHJpKe+wvJJZUPau
- BceKIvfkXsLXb5ZCrcR4QKdS/cROb9qNkdQ3r4GI9dt4fqy1ey8vUMAPPuUjd38K
- cYoPsA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7ehjgf20-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 08:42:52 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93cc40759b2so110969685a.1
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 01:42:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791621772; x=1792226572;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=IqymoQ2HDibV8WA0yhfluVKdlQdB/7YbmVl1gD2ORD8=;
- b=YruWGRPL6TGV20+iTBx41WcZMCWrB9MQy3q8v68kmBRwsy/x9Dj2RTTrlezGE8eDUz
- Kl/F9Q4g1uZDZJkZlYSW85EQ531b5lM1r6m3Y8PP8NEaLV1shElIshzTmsAV3Jq1NtA9
- 6ar86pRnWjSNxobweLRKBNcbYJEgJghy8kz+4WcJze852+rTp/cgU2SUbQuWWCTLR54I
- EBickhE8pod/aEg2PdzghL/h/ztZcTxBjfdW8h7aznI/eBfsk3qkIeTRTMjT4rprbsCp
- nDyamSYbRrmS7noMIAx/bJPw/92LgnNdgiH5wDyLutBys+FSEdqa293za2cUD8iesc8g
- e1Hg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id C899610EBC8;
+	Sat, 10 Oct 2026 09:42:13 +0000 (UTC)
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A13AC10EBBA
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 09:42:12 +0000 (UTC)
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-45ecb9dd589so574840fac.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 02:42:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791621772; x=1792226572;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=IqymoQ2HDibV8WA0yhfluVKdlQdB/7YbmVl1gD2ORD8=;
- b=cAu5lb1DmLgUqDhts1sXMVutXVoS5BvFEnLqNhvx5WZhIGENckNW832Q/xtelONUso
- MFKuNZ4lbPjQW+5vop7b3GYzqvcuhRYLQ00Xn8Euv6gB19fKy8cVpelEhL5KDIs5mO3p
- cWOTnq7rQq57PUqWYXhRAIIxM5eaUjqULIxAK5gf8Ey1xEPBdVJiN6swbh82ggbZKHIr
- erAvdSThXQTkZiP8aytwk5h0xXQwt22RvraIKDht9jlGdD9sYN4Q61nXcuohfgXwrVEz
- /uvVrnyZ/0C6EmVfmvDVV4z4047Iy4Z2HcaBgDhWyhj7ODPaVnv7MSCYRIvEGnf/sxUK
- SFOQ==
+ d=1e100.net; s=20260707; t=1791625332; x=1792230132;
+ h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=8LzDxcHIFLOailu9VoDSBmcQuYWWLTYeM5cdlcmR5HQ=;
+ b=2Jmfh/yuBYG31U1+us88Xnouu3DvMcNfo/PfaFvG/Cj0kYCw15TsXXAOjq5qsCEedC
+ Eno0Duihe0cMvGkaT3VPDzCEADvpkYkhgIb/qArTbQEHAeO6MWjTa5Ys+1ulugP7Au4o
+ 0F8rdtLaMnBKSrRHl39JZ+iy+IJUCDHf3sgy9w7aTCGXs4kYVuwoZUPnMUBUBxfW21oz
+ RhTWNpaCJXkbTrKBq9m2xYdsuogjDlFSMlOL8HXQJcjmu5FWK7hWHpmxUZD7NyP2pJK3
+ uiCjF674nYatkIk7DhE0cUxcV2a6Ue3Kom37EGHLuPQFDqxq4CkIAvFultjePRWNB+a+
+ oPng==
 X-Forwarded-Encrypted: i=1;
- AKwUvBySIvIwXGxb0kgftquf2lqpBZRndgs7Kq8Uw2oYIBm2aTZQXXDabxtt4UMnqGUYoZrc56kvP5EQhD4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK8iTWcd+QrjPMv1r/II2488gYHxY3EB9oU+TxauK97eSNv+Wwn
- aE3P7kNlfwQLAOnCRgWlbDYVu4jUMnvT6ZNZ3F5VTB604G0yrUNcvvxiunQ/0cQ25UHvYRr06GN
- hYQS0tUB3319f4kyDxpjeWRO4fQmWzDfYmk0/0D4fU0Vn5wWRpXITuUrMzLAwReO+cYsWI6w=
-X-Gm-Gg: AYBFou3pv0Wxd5qKnbC12GAGheI8MiUVWD328pTsReBS3t0cCweN65GIyjibhL37SWb
- kGHO0akBFIu43zpcq09seOXuav4T9UReue/Fl1gt5GM3yo7IZ/I2F2qteiDfrQ4NiB1DACoK6lj
- x39b1UwJ1ohLLQcVZqrYlRKvfAPgJlaRmk0IvMky/TNmTv9qznyESrhJRBNQMqFnneUT3+9VsR4
- qIMW9mWSjUr5Lrs+HT9lB0zEDR7Xn81SapikcaYkipKvH+BpOKcTXlpsuTkIdiJw/MwTO7o3iop
- P/Zi+iyLse1r004kcSyVu13ZLdNpAO+T31EDFdS0oeoMNLpsUH0Vm9nGgs1q4MUqzhA9l5mKX+3
- Ti9S4YL/FsTmMt5JRZNl4QeZLyf+b3hHOX7afmcfxBJ85ADutYPs=
-X-Received: by 2002:a05:620a:4146:b0:93e:5929:f012 with SMTP id
- af79cd13be357-93ebd1bb215mr668129685a.18.1791621771781; 
- Sat, 10 Oct 2026 01:42:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:4146:b0:93e:5929:f012 with SMTP id
- af79cd13be357-93ebd1bb215mr668125985a.18.1791621771276; 
- Sat, 10 Oct 2026 01:42:51 -0700 (PDT)
-Received: from brgl-qcom.local (126.171.88.92.rev.sfr.net. [92.88.171.126])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a192d3efb6sm49065585e9.1.2026.10.10.01.42.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Oct 2026 01:42:50 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- Brian Norris <briannorris@chromium.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- linux-pm@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Alex Elder <elder@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- David Lechner <dlechner@baylibre.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hadar Gat <hadar.gat@arm.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- Jaroslav Kysela <perex@perex.cz>, Jessica Zhang <jesszhan0024@gmail.com>,
- Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Linus Walleij <linusw@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Olivia Mackall <olivia@selenic.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Rui Miguel Silva <rmfrfs@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, greybus-dev@lists.linaro.org,
- linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-staging@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: Re: (subset) [PATCH 00/13] PM: runtime: Convert
- pm_runtime_put_autosuspend() and friends to a void function
-Date: Sat, 10 Oct 2026 10:42:36 +0200
-Message-ID: <179162175231.5836.15015381844446264252.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261006231900.3230373-1-briannorris@chromium.org>
-References: <20261006231900.3230373-1-briannorris@chromium.org>
+ AKwUvBwff4ekk6KecJ+bfk6D+Pu9sVC4YpxkK/Y2pCuhvkicvGkuN5oxQAt9ebprFlzk0Xcwiba3/fzYhuI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLuJr+c9oGZC8Hxl68TjytnYOov1dcFMOhsu12K7mgFE1fn6dpj
+ klaQT504fNMXKXCXdmThlDxqfy4GAgVC2TwpyY41OYBxIs24gJ5G1O1i/nDKovu1A+1+j9bcmHj
+ Z+R+zF8Nr8BYYusksJhKsf3Qvt36o7gw2l4umlizKWIfQuIQLLtztOsu5RM0=
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDAzNCBTYWx0ZWRfX1VYv5H7jrcGw
- b+/B5joPFObligEoW5fWtaN6wZDcozgxzEKBHsZNBC4Pou6wts+MwI0ds3wcyPJ4c3AZszO53kH
- a0hRL1JfFNtQM3i4lZIgUoGokQgbJxRtzp6831GA07PYukr6xmhfJiYQsUn+HdbZKvFMeUU8iBu
- GWHOuAJDrhPbekOEuS2Mt0pnmi3gMU4PDVXvhqaqclZc/bFNYVYPjHCByYGIX1Nd+/TCoQlPErL
- B1cahZlvotwUhUH9Mu5m1ozeZivmmeV2oTuI+clQ9Y8sAL3KUS6/rkYnaJA6KGVr1kU8Nko7zG4
- TQSzWcXoJs0T0IYJqvTfOrVPHoBcSkRGQ77E9AeVR7Myz+MlMhlb8SM8ksI36pQ8KfBEhmylr/X
- AK1Ll/rWVU27DnTWcv+jxTW7gQ/lhlT8tO7l1TmpzX0JDqf0QAjM+IG96ksK4hcGATi5JwlbtGS
- HJP959cPOp1vceCyAlQ==
-X-Proofpoint-ORIG-GUID: L0PQngoHhtJG93XE2IFsatFia_E5IL5Q
-X-Authority-Analysis: v=2.4 cv=MpTHeGae c=1 sm=1 tr=0 ts=6ac9fa8c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=3oaWUOhNWTYPA9BJS75j6A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rmSHi3-zQwwJBmM97rsA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: L0PQngoHhtJG93XE2IFsatFia_E5IL5Q
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDAzNCBTYWx0ZWRfX7hpYCkfR1qJH
- tzBYmbAOFtPnItBssTN6RGg0ZsMNq5CmiWhgIjrxkWHLeevMo45wRFKLWl58dAHybC/xBGnPwGP
- Wrwnm5F8np50GqdZG1jYLDYtL4mJIqI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610100034
+X-Received: by 2002:a05:6808:138e:b0:4f4:73a9:f838 with SMTP id
+ 5614622812f47-50c4ed3dc0dmr3742553b6e.22.1791625331782; Sat, 10 Oct 2026
+ 02:42:11 -0700 (PDT)
+Date: Sat, 10 Oct 2026 02:42:11 -0700
+In-Reply-To: <20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aca0873.70ed5d86.2ac85.00ac.GAE@google.com>
+Subject: [syzbot ci] Re: Extend drm_ras for qaic telemetry
+From: syzbot ci <syzbot+ci0a77ef6c47a86cbc@syzkaller.appspotmail.com>
+To: airlied@gmail.com, aravind.iddamsetty@linux.intel.com, 
+ carl.vanderlip@oss.qualcomm.com, dri-devel@lists.freedesktop.org, 
+ jeff.hugo@oss.qualcomm.com, karol.wachowski@linux.intel.com, kuba@kernel.org, 
+ lizhi.hou@amd.com, netdev@vger.kernel.org, ogabbay@kernel.org, 
+ raag.jadav@intel.com, riana.tauro@intel.com, rodrigo.vivi@intel.com, 
+ simona.vetter@ffwll.ch, troy.hanson@oss.qualcomm.com, 
+ youssef.abdulrahman@oss.qualcomm.com, zachary.mckevitt@oss.qualcomm.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -188,23 +68,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+syzbot ci has tested the following series
 
-On Tue, 06 Oct 2026 16:13:28 -0700, Brian Norris wrote:
-> Similar to this effort:
-> 
->   Subject: [PATCH v1 00/23] PM: runtime: Convert pm_runtime_put() to a void function
->   https://lore.kernel.org/all/6245770.lOV4Wx5bFT@rafael.j.wysocki/
-> 
-> i.e., commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void") and friends.
-> 
-> [...]
+[v1] Extend drm_ras for qaic telemetry
+https://lore.kernel.org/all/20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com
+* [PATCH 1/3] drm/drm_ras: Remove admin-perm flag from list-nodes operation
+* [PATCH 2/3] drm/drm_ras: Extend DRM RAS interface to include telemetry nodes
+* [PATCH 3/3] accel/qaic: Add callbacks for DRM RAS netlink telemetry
 
-Applied, thanks!
+and found the following issue:
+general protection fault in drm_ras_nl_pre_telemetry
 
-[05/13] pinctrl: qcom: lpass-lpi: Discard pm_runtime_put_autosuspend() return values
-        https://git.kernel.org/brgl/c/9bcd1725b0cc7954525e3d0d02fecaec7c7aab33
+Full report is available here:
+https://ci.syzbot.org/series/6915fb7c-08cd-48b4-b8a4-3834f3e60de5
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+***
+
+general protection fault in drm_ras_nl_pre_telemetry
+
+tree:      drm-next
+URL:       https://gitlab.freedesktop.org/drm/kernel.git
+base:      f2bf20011b95401f63e573d54134544c452c4117
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/d48f7944-a0fb-4983-a3c6-c037c81dd832/config
+syz repro: https://ci.syzbot.org/findings/c2ca90ba-3f79-4e56-94d4-b1ddc64056e5/syz_repro
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+CPU: 1 UID: 0 PID: 5808 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:nla_get_u32 include/net/netlink.h:1734 [inline]
+RIP: 0010:drm_ras_nl_pre_telemetry+0x60/0xe0 drivers/gpu/drm/drm_ras.c:656
+Code: 8b 1b 48 83 c3 08 48 89 d8 48 c1 e8 03 42 80 3c 38 00 74 08 48 89 df e8 3e 3c 9a fc 48 8b 1b 48 83 c3 04 48 89 d8 48 c1 e8 03 <42> 0f b6 04 38 84 c0 75 5b 8b 33 48 c7 c7 80 d3 6f 90 e8 c9 8c 49
+RSP: 0018:ffffc9000379f420 EFLAGS: 00010247
+RAX: 0000000000000000 RBX: 0000000000000004 RCX: ffff8881bf17bc00
+RDX: 0000000000000000 RSI: ffff8881bf38d380 RDI: ffffc9000379f600
+RBP: ffffc9000379f588 R08: ffffc9000379f4ff R09: 0000000000000000
+R10: ffffc9000379f4d0 R11: ffffffff859eb380 R12: ffffc9000379f600
+R13: dffffc0000000000 R14: ffff8881bf38d380 R15: dffffc0000000000
+FS:  00007f2c256e36c0(0000) GS:ffff8882a7cb6000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000100 CR3: 000000016e7ee000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ genl_family_rcv_msg_doit+0x1db/0x340 net/netlink/genetlink.c:1109
+ genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+ genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
+ netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2575
+ genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+ netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
+ netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1364
+ netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1919
+ sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
+ __sock_sendmsg net/socket.c:815 [inline]
+ ____sys_sendmsg+0x54e/0x850 net/socket.c:2713
+ ___sys_sendmsg+0x2a5/0x360 net/socket.c:2767
+ __sys_sendmsg net/socket.c:2799 [inline]
+ __do_sys_sendmsg net/socket.c:2804 [inline]
+ __se_sys_sendmsg net/socket.c:2802 [inline]
+ __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2802
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f2c2479e1d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2c256e3028 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+RAX: ffffffffffffffda RBX: 00007f2c24a25fa0 RCX: 00007f2c2479e1d9
+RDX: 0000000000000000 RSI: 0000200000000100 RDI: 0000000000000004
+RBP: 00007f2c24835888 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2c24a26038 R14: 00007f2c24a25fa0 R15: 00007ffc88247b58
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:nla_get_u32 include/net/netlink.h:1734 [inline]
+RIP: 0010:drm_ras_nl_pre_telemetry+0x60/0xe0 drivers/gpu/drm/drm_ras.c:656
+Code: 8b 1b 48 83 c3 08 48 89 d8 48 c1 e8 03 42 80 3c 38 00 74 08 48 89 df e8 3e 3c 9a fc 48 8b 1b 48 83 c3 04 48 89 d8 48 c1 e8 03 <42> 0f b6 04 38 84 c0 75 5b 8b 33 48 c7 c7 80 d3 6f 90 e8 c9 8c 49
+RSP: 0018:ffffc9000379f420 EFLAGS: 00010247
+RAX: 0000000000000000 RBX: 0000000000000004 RCX: ffff8881bf17bc00
+RDX: 0000000000000000 RSI: ffff8881bf38d380 RDI: ffffc9000379f600
+RBP: ffffc9000379f588 R08: ffffc9000379f4ff R09: 0000000000000000
+R10: ffffc9000379f4d0 R11: ffffffff859eb380 R12: ffffc9000379f600
+R13: dffffc0000000000 R14: ffff8881bf38d380 R15: dffffc0000000000
+FS:  00007f2c256e36c0(0000) GS:ffff8882a7cb6000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f2c247eb8c0 CR3: 000000016e7ee000 CR4: 00000000000006f0
+----------------
+Code disassembly (best guess):
+   0:	8b 1b                	mov    (%rbx),%ebx
+   2:	48 83 c3 08          	add    $0x8,%rbx
+   6:	48 89 d8             	mov    %rbx,%rax
+   9:	48 c1 e8 03          	shr    $0x3,%rax
+   d:	42 80 3c 38 00       	cmpb   $0x0,(%rax,%r15,1)
+  12:	74 08                	je     0x1c
+  14:	48 89 df             	mov    %rbx,%rdi
+  17:	e8 3e 3c 9a fc       	call   0xfc9a3c5a
+  1c:	48 8b 1b             	mov    (%rbx),%rbx
+  1f:	48 83 c3 04          	add    $0x4,%rbx
+  23:	48 89 d8             	mov    %rbx,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 0f b6 04 38       	movzbl (%rax,%r15,1),%eax <-- trapping instruction
+  2f:	84 c0                	test   %al,%al
+  31:	75 5b                	jne    0x8e
+  33:	8b 33                	mov    (%rbx),%esi
+  35:	48 c7 c7 80 d3 6f 90 	mov    $0xffffffff906fd380,%rdi
+  3c:	e8                   	.byte 0xe8
+  3d:	c9                   	leave
+  3e:	8c                   	.byte 0x8c
+  3f:	49                   	rex.WB
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
