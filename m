@@ -4,29 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6926DCA9EBD
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 02:44:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE801CA9EBD
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 02:48:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA9A010E767;
-	Sat, 10 Oct 2026 02:44:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D54210E869;
+	Sat, 10 Oct 2026 02:48:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="i94VClHp";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="NDDV4FoZ";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Sat, 10 Oct 2026 02:44:25 UTC
-Received: from mail-m60234.netease.com (mail-m60234.netease.com
- [210.79.60.234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C52110E767;
- Sat, 10 Oct 2026 02:44:24 +0000 (UTC)
+Received: from mail-m939.xmail.ntesmail.com (mail-m939.xmail.ntesmail.com
+ [103.126.93.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC2210E869
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 02:48:13 +0000 (UTC)
 Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 50844c1f1;
- Sat, 10 Oct 2026 10:39:17 +0800 (GMT+08:00)
-Message-ID: <82df3bec-7734-4d84-9e20-a563e6231aa9@rock-chips.com>
-Date: Sat, 10 Oct 2026 10:39:15 +0800
+ by smtp.qiye.163.com (Hmail) with ESMTP id 50848de2e;
+ Sat, 10 Oct 2026 10:48:09 +0800 (GMT+08:00)
+Message-ID: <80f7ba75-d374-4eae-abfe-d53ec2deb52f@rock-chips.com>
+Date: Sat, 10 Oct 2026 10:48:06 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/20] drm/bridge-connector: Attach max bpc for
- non-HDMI bridges
+Subject: Re: [PATCH v2 01/20] drm/atomic: Handle max bpc properties before
+ connector state allocation
 To: Xilin Wu <sophon@radxa.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -47,22 +45,22 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  freedreno@lists.freedesktop.org, dragon@radxa.com,
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
- <20261009-msm-dp-hdr10-v2-3-1835d4966da3@radxa.com>
+ <20261009-msm-dp-hdr10-v2-1-1835d4966da3@radxa.com>
 Content-Language: en-US
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261009-msm-dp-hdr10-v2-3-1835d4966da3@radxa.com>
+In-Reply-To: <20261009-msm-dp-hdr10-v2-1-1835d4966da3@radxa.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa123add66203a7kunm2ab09db81359c42
+X-HM-Tid: 0aa123b5f22b03a7kunm6360a2b5135bed8
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQ0pOVhhNSkpDTE5LGUxLTVYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0lCVh4eS0NISB0ZGkIZQ1YVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
  pKQkxVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
- b=i94VClHpmYbPXhra1VFNUWbroJUdigk/oWp50gX7ervPys3K2s89uJ6im7uYzB+K9Mxa0lfSSxWf283hIRmL3nwSXVFQmawBo3cLD/gvMowHXWjivohlyoUWXk+3x5MmP+uXkfggUtHMpXew44L7yTW2oTI2X/HnWu3BM3ghnJg=;
+ b=NDDV4FoZEkpnMGy2XPGW8N+gwtaSRGLvEggg0PegiDpBP5UhKFXzFgDGs7vhPjaiOze7Fyi4/WWCLvCSyp2ikyPrx//6pcTMrtVJcxyw9Qaw1Za2AAiM6d2ZWXCVVg5KUlWFQXDDNihwmxL85/LQ5quIpkQDKNopIVW3o7xdwo0=;
  s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=5z0sWq1xdiTzWPgicaSELr86K89CYKpEepP4VhiG/1g=;
+ bh=XezuMrCTQbMzbi20T+1rCrxjWanYRbUDYkUJJW/TRwg=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,93 +80,147 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Hi Xilin,
 
 On 10/9/2026 11:15 AM, Xilin Wu wrote:
-> Allow non-HDMI bridges to advertise their output bit-depth limit through
-> max_bpc. Attach the max bpc property when the lowest reported limit in the
-> chain exceeds 8, ignoring bridges that do not report a limit. This lets
-> DP drivers expose deep-color support without attaching the property in
-> their connector initialization code.
+> Allow drivers to attach the max bpc property before allocating connector
+> state, as needed by the upcoming non-HDMI bridge connector support.
+> Only update the current state when one exists.
 > 
-> Use a lower bound of 6 for DP and eDP, which support 6 bpc RGB output, and
-> 8 for other connector types. Keep the existing HDMI registration path.
-> The property can be attached before connector state allocation; the
-> atomic state helper initializes its default when state is created.
+> Initialize max_requested_bpc and max_bpc from the attached property default
+> when creating connector state. Use drm_object_property_get_default_value()
+> rather than the range maximum so that state creation and subsequent resets
+> restore the value chosen when attaching the property.
+> 
+> Cover deferred allocation, existing state and restoration of a default
+> that differs from the range maximum in the connector KUnit tests.
 > 
 > Assisted-by: LLM
 > Signed-off-by: Xilin Wu <sophon@radxa.com>
 > ---
->  drivers/gpu/drm/display/drm_bridge_connector.c | 18 ++++++++++++++++++
->  include/drm/drm_bridge.h                       | 11 ++++++++---
->  2 files changed, 26 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/drm_atomic_state_helper.c  |  8 +++++
+>  drivers/gpu/drm/drm_connector.c            |  6 ++--
+>  drivers/gpu/drm/tests/drm_connector_test.c | 53 ++++++++++++++++++++++++++++++
+>  3 files changed, 65 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-> index 8b54069fa53a..be2e08a3694a 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -825,6 +825,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->  	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
->  	unsigned int supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
->  	unsigned int max_bpc = 8;
-> +	unsigned int chain_max_bpc = 0;
->  	bool support_hdcp = false;
->  	int connector_type;
->  	int ret;
-> @@ -985,6 +986,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->  			panel_bridge = drm_bridge_get(bridge);
->  		}
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index a2ef272e9f27..8352b5a9097a 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -494,7 +494,15 @@ void
+>  __drm_atomic_helper_connector_state_init(struct drm_connector_state *conn_state,
+>  					 struct drm_connector *connector)
+>  {
+> +	u64 val;
+> +
+>  	conn_state->connector = connector;
+> +	if (connector->max_bpc_property &&
+> +	    !drm_object_property_get_default_value(&connector->base,
+> +						   connector->max_bpc_property, &val)) {
+> +		conn_state->max_requested_bpc = val;
+> +		conn_state->max_bpc = val;
+> +	}
+>  }
+>  EXPORT_SYMBOL(__drm_atomic_helper_connector_state_init);
 >  
-> +		if (bridge->max_bpc)
-> +			chain_max_bpc = chain_max_bpc ?
-> +				min(chain_max_bpc, bridge->max_bpc) : bridge->max_bpc;
-> +
-
-The check on chain_max_bpc here doesn't seem to make any sense.
-
-
->  		if (bridge->support_hdcp)
->  			support_hdcp = true;
->  	}
-> @@ -1026,6 +1031,19 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->  					  connector_type, ddc);
->  		if (ret)
->  			return ERR_PTR(ret);
-> +
-> +		if (chain_max_bpc > 8) {
-> +			unsigned int min_bpc = 8;
-> +
-> +			if (connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
-> +			    connector_type == DRM_MODE_CONNECTOR_eDP)
-> +				min_bpc = 6;
-> +
-> +			ret = drm_connector_attach_max_bpc_property(connector, min_bpc,
-> +								    chain_max_bpc);
-> +			if (ret)
-> +				return ERR_PTR(ret);
-> +		}
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index 8b4baed060f3..34c30469f405 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -2886,8 +2886,10 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
 >  	}
 >  
->  	if (bridge_connector->bridge_hdmi_audio ||
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 58fff047f43b..01ad1878149e 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -1089,9 +1089,14 @@ struct drm_bridge {
->  	unsigned int supported_formats;
+>  	drm_object_attach_property(&connector->base, prop, max);
+> -	connector->state->max_requested_bpc = max;
+> -	connector->state->max_bpc = max;
+> +	if (connector->state) {
+> +		connector->state->max_requested_bpc = max;
+> +		connector->state->max_bpc = max;
+> +	}
+> 
+
+And for patch1/2. I don't think it's right way to go.
+
+As comment said: 
+drm_connector_attach_max_bpc_property() requires the connector to have a state.
+
+There are two reasons here. First, most drivers follow the convention
+described in this comment, but you only modified some of them. Second, 
+it appears you are removing the connector state, so the 
+"if (connector->state)" check here would always evaluate to false, 
+which doesn't seem to make much sense.
+
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+> index beb1d50a6646..1174607441b9 100644
+> --- a/drivers/gpu/drm/tests/drm_connector_test.c
+> +++ b/drivers/gpu/drm/tests/drm_connector_test.c
+> @@ -12,6 +12,7 @@
+>  #include <drm/drm_file.h>
+>  #include <drm/drm_kunit_helpers.h>
+>  #include <drm/drm_modes.h>
+> +#include <drm/drm_property.h>
 >  
->  	/**
-> -	 * @max_bpc: Maximum bits per char the HDMI bridge supports. Allowed
-> -	 * values are 8, 10 and 12. This is only relevant if
-> -	 * @DRM_BRIDGE_OP_HDMI is set.
-> +	 * @max_bpc: Maximum bits per color component the bridge supports.
-> +	 * Zero means that the bridge does not report a limit. For HDMI bridges
-> +	 * with @DRM_BRIDGE_OP_HDMI set, allowed values are 8, 10 and 12.
-> +	 *
-> +	 * For non-HDMI connectors, drm_bridge_connector_init() attaches the
-> +	 * max bpc property when the lowest nonzero limit in the bridge chain
-> +	 * exceeds 8. Bridges remain responsible for validating configurations
-> +	 * against any limits not reported here.
->  	 */
->  	unsigned int max_bpc;
+>  #include <drm/display/drm_hdmi_helper.h>
 >  
+> @@ -187,7 +188,59 @@ KUNIT_ARRAY_PARAM(drm_connector_init_type_valid,
+>  		  drm_connector_init_type_valid_tests,
+>  		  drm_connector_init_type_desc);
+>  
+> +/* The attached default need not equal the upper end of the property range. */
+> +static void drm_test_connector_max_bpc_default(struct kunit *test)
+> +{
+> +	struct drm_connector_init_priv *priv = test->priv;
+> +	struct drm_connector *connector = &priv->connector;
+> +	struct drm_property *prop;
+> +	int ret;
+> +
+> +	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
+> +				  DRM_MODE_CONNECTOR_DisplayPort, NULL);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +	prop = drm_property_create_range(&priv->drm, 0, "max bpc", 6, 12);
+> +	KUNIT_ASSERT_NOT_NULL(test, prop);
+> +	connector->max_bpc_property = prop;
+> +	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +	KUNIT_EXPECT_NULL(test, connector->state);
+> +
+> +	drm_mode_config_reset(&priv->drm);
+> +	KUNIT_ASSERT_NOT_NULL(test, connector->state);
+> +	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
+> +	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
+> +
+> +	connector->state->max_requested_bpc = 8;
+> +	connector->state->max_bpc = 8;
+> +	drm_mode_config_reset(&priv->drm);
+> +	KUNIT_ASSERT_NOT_NULL(test, connector->state);
+> +	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
+> +	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
+> +}
+> +
+> +static void drm_test_connector_max_bpc_existing_state(struct kunit *test)
+> +{
+> +	struct drm_connector_init_priv *priv = test->priv;
+> +	struct drm_connector *connector = &priv->connector;
+> +	int ret;
+> +
+> +	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
+> +				  DRM_MODE_CONNECTOR_DisplayPort, NULL);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +	drm_mode_config_reset(&priv->drm);
+> +	KUNIT_ASSERT_NOT_NULL(test, connector->state);
+> +
+> +	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
+> +	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
+> +}
+> +
+>  static struct kunit_case drmm_connector_init_tests[] = {
+> +	KUNIT_CASE(drm_test_connector_max_bpc_default),
+> +	KUNIT_CASE(drm_test_connector_max_bpc_existing_state),
+>  	KUNIT_CASE(drm_test_drmm_connector_init),
+>  	KUNIT_CASE(drm_test_drmm_connector_init_null_ddc),
+>  	KUNIT_CASE_PARAM(drm_test_drmm_connector_init_type_valid,
 > 
 
 -- 
