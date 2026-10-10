@@ -4,77 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71911CA9EDD
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B6EBCA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E461B10E4E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E3110E24A;
 	Mon, 12 Oct 2026 07:32:02 +0000 (UTC)
-Received: from mail-qk2-f6.google.com (mail-qk2-f6.google.com [74.125.230.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF3D10E0CD
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 00:43:07 +0000 (UTC)
-Received: by mail-qk2-f6.google.com with SMTP id
- af79cd13be357-93bfb25817cso77594185a.0
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 17:43:07 -0700 (PDT)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E477B10E5CE
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 15:04:20 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-884062f3296so424870b3a.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 08:04:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791679386; x=1792284186; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=wKMM/5NJTGuE+7PUxcL8x7aaEFcwMXWe96PcY9zklq0=;
- b=DhRkrheVeIWSNaXr7z/QAP80wP1YgMRZBQYX0c2WDqbufrql/U18Q+BinH4dICZNoi
- 4iLcSwm3oXW3+EJOFAYFhuRQESTFSRIuSUOeFhCJGx6YOhN293+It08YY0NUOp+bUCsN
- w8CICm3JUDTY4HdHSBAresrQpqJn5A4aikylxF/68wd/OTZer08ZFXYgm2F3x4fzSXTR
- Vt4rjRgc9FeuaG9YyRxZZ9vkNjcE9SeRblFkZGelVCb4BRkNjvcr4bXHbpoziBeuYDp0
- Wk5CnMIyIovPhoHnaQ5uSCynzbK3duqkqGZhm32nb2PN48NEw7OYYjpBBquOqdacxIMa
- lZJg==
+ d=gmail.com; s=20251104; t=1791644660; x=1792249460; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=PqwoKExF7hzuaQAhCxVdphwaIay6TpBVh1ij/ZVF6Y8=;
+ b=Ss2pbCyumAOffRPkqnHkIrwJLiPYPzqiRkKpHCQyTuB0uzxyq8/KB6ICyw/cA+823f
+ TJ8a2GMlplaRfczhWr0FcoCLa7h6bRWjiz34YwslUScn08+773u5M7KoMEHPj4N6IzyA
+ HItJMpjk62mSoPwdRmHR5xrY9iW0LFFMI4eOGF/uq7lb6cxEwDDJuQElA0bsQFu4ol5U
+ bTsCRsRV+r9SkVGuUT1CxiI8IBdcqq3Nx3XPtSw+BK6niazIniophYfi2ZN+YIRxqH54
+ k3IsirbenWGDSra8SkIY0TUJeD3allbyBPP5jd0nI9OhsIWvV9qcewHmJZoY0R3Qp9oO
+ R9ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791679386; x=1792284186;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=wKMM/5NJTGuE+7PUxcL8x7aaEFcwMXWe96PcY9zklq0=;
- b=rAm0y3NgsPgu2XSnpgZj3bsQRcuAEwIW3GNObKWpQS0TG7vAdxnXovjRc0kgPicRbC
- 6uby3wrOFQAtBVIS8uNf6TuGRTFJ6NoxeatoAPgeneRt9ixTPy2JEK0L4KTA1493VJlz
- 0AEK36N7mrzR1+reywjQCQ6PJzn4SvpDHO9HnAddG5jEADPJsub9C2tDDd5COMqeyROR
- lWWqkYrgp8A2N3sKJES4eyPehvPrm1y6+ld7L0k6Npb1014yHWLGfx2ziyMwg1U97A6k
- Cx84pARFI4ECWMi7WXG3M8PBihlvGjW3IRAjRflhb0+2QZtYkCRNaBHirsWXIx3rQlPQ
- NJoA==
+ d=1e100.net; s=20260707; t=1791644660; x=1792249460;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=PqwoKExF7hzuaQAhCxVdphwaIay6TpBVh1ij/ZVF6Y8=;
+ b=YPjlBNCnUeh0Lni5ciVVXeuUhqHLumeH0PA0oX+zb8peTz/ABGavwo6tv9LDiIuRXN
+ zriI1oxosGj7TWzRMxLF1ncLjYAUN8i1QLRJmayH+QStkAGrd82XZXXtXcipbvo4OWbF
+ sYlEMs18nYxiU/AYV8FOysSirrxfFYgsmbfcJaPXO8Brv28nFSZHSJMvssUE7mrHFVpc
+ qjfPeQ7M6eY+aAnl9xX987w/FOk+t/TDo0Zb9RV0A+2R3HZdplwc8aihzf3l/KDS2t8f
+ HDsjI1si4wkV9Hpo2MKYqpaA2dWHTG1CJlAVwjM3+oWsTC9m/6/Q48kBsO3tqQst3bUW
+ BXFg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzPrDUUjqp90+pr6vaZRH9VOweUB7Ww/LJhsj+NtScQJQEjKVNIihXG0LPa7epuRG5GxZAt8vI5sYo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIijVQ6f1f1OUzJgbK1HV1gw40uDaDg82cy/82IetNwkSaupDsz
- fWZke7SQfeXzDh2MRMMpp49ukMSO/t6jsJ3vVPhSshhmPQdZDATJD6UZ
-X-Gm-Gg: AYBFou0SqVd5CUf657XBF4zgXiKcWRQNjkFXJdwPGtt1YzkgF8KxMEq2+o33E8hbUSp
- MrS+wbGFDqh2c5hrFa1zDDR8GJz3oumHcY+p9PnAFuzQnqJXRk3TEOvo3tx7snzuxDJXqzXiPOd
- rqN3ihvyIg6d4zVi8dZ2GBI+q+iOA8dF0AjT3RdlkxsBgTTmyoTkLBlgqTUoJQJetOSpI9NyCye
- d8T6BMp3LjtnVqO74Bgcn+6GsA4xAQ78qQVLU0ZoeJwGRd8U9pf2lBxopju2PRiyOx0FyeciHU2
- HsF4plBI3HkqZMX0hy97GM+lsHEWWFCxaOdZI+TqgZIrL6A8aCP9qs2slT/ZxF2jz2JbVqp24Zm
- WIfcYSqn1KwQHYV1wxiwa1WbVxRUjRC+aIUsYANNjtL+XD5AyX2Al9vuIzdVbTkG1QhonSbwZTz
- GsiQLxLqGV9y1/XAN/R1Di4rcurxLuMnoX2wd2uIob2pimKmCZE7YkGK0dK7NztTH+rxM=
-X-Received: by 2002:a05:620a:3187:b0:93e:c12c:9b73 with SMTP id
- af79cd13be357-93ec12c9f14mr906360385a.78.1791679386387; 
- Sat, 10 Oct 2026 17:43:06 -0700 (PDT)
-Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
+ AKwUvBxCS6ZhgkZi/p5lP3dvE+3VhRfSqhr3+yjZxxy9/pT10EjFxmSdGMwB8Zkp/gI9BJFlSK03ezCBHPU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIxindPVeZk956j+nasaOA6Mf/iZ5vU9edZeT3bChmGA7tknrvy
+ Ed0obEr3HmcrdUq7YOfIG37KtE6bO9At8cYAEWOmtu2QDTGt1nD/YyxY
+X-Gm-Gg: AYBFou3IdBiHT4UCmWP/7QmhySz89krAauatWeFAhJOUJjz4JcCy+3nz2RI2y+nKge1
+ FWG2+RQ/Q4NnQumIMmZ13kkV0oB/F3lirIf/XdIJixufDsrkzt37kKEtWdqLKYxPemfwh1PC2wk
+ vMg/nAOOnmEvhXQAjwii9N7rT3/qgUtf7kZXKdRxkgyxh4G1UaKNpxAbgSgFQNuCgt90pk0ViAs
+ Gu29JNJI3+co3vT7zShfBmsSNrV65v1heKWqjAuZBfM3J12NN8B969XX6SQNl6kozfFCalpOvpt
+ jzpSPGxmTqqSB70XkYYiodKPQxB9P5UCyNGsKX4QVLee8WS4r09xOsni+6pCWnOaPixnGVwrCle
+ 6d4KYqarQxbcz2KWI3Q6F73P7vNfVJuUHNv1z5y2vvT5RAClNioM+6IWJnz7wPyK3z0TFJvbU/W
+ 6ewFAvWcy412mLDxq/184phn9/OVTbfG7gFkO0oh53bLOrEAb2fs6j3gPizkdpheh672PE6A==
+X-Received: by 2002:a05:6a20:bea6:b0:3e1:5481:5457 with SMTP id
+ adf61e73a8af0-3e16bde44c7mr4299571637.31.1791644660094; 
+ Sat, 10 Oct 2026 08:04:20 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7a80:50::3cf:2d])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93eb9848702sm532320085a.12.2026.10.10.17.43.05
+ d2e1a72fcca58-896c42b06e9sm2252836b3a.42.2026.10.10.08.04.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Oct 2026 17:43:05 -0700 (PDT)
-From: zoan37 <agentzoan@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jason-JH Lin <jason-jh.lin@mediatek.com>, CK Hu <ck.hu@mediatek.com>,
- Nancy Lin <nancy.lin@mediatek.com>, Nathan Lu <nathan.lu@mediatek.com>,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] drm/mediatek: mtk_crtc: Pick the connector route on every
- CRTC enable
-Date: Sat, 10 Oct 2026 20:42:48 -0400
-Message-ID: <20261011004248.1117649-4-agentzoan@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261011004248.1117649-1-agentzoan@gmail.com>
-References: <20261011004248.1117649-1-agentzoan@gmail.com>
+ Sat, 10 Oct 2026 08:04:19 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Hillf Danton <hdanton@sina.com>, David Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
+ syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev
+Subject: Re: [PATCH] drm/virtio: share one vbuf cache across all devices
+Date: Sat, 10 Oct 2026 22:04:13 +0700
+Message-ID: <20261010150414.16953-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Oct 2026 07:32:01 +0000
@@ -93,56 +88,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-mtk_crtc_update_output() only picks the output component of a CRTC
-with connector routes when connectors_changed is set in the commit that
-enables the CRTC. But connectors_changed only says that the connectors
-changed in that commit, not since the CRTC was last enabled. A connector
-can be attached to (or moved to) the CRTC while it is inactive, and the
-later commit that only sets ACTIVE then has active_changed but not
-connectors_changed:
+On 27.09.2026, Dmitry Osipenko wrote:
+> kmem_cache is used by GPU drivers to avoid kmalloc stalls in a
+> latency-sensitive job-submission code path.
 
-- If the CRTC had never been enabled, the route slot is still NULL and
-  mtk_crtc_ddp_hw_init() dereferences it (mtk_ddp_comp_clk_enable()
-  and so on).
-- If the CRTC was driven through another route before, e.g. a CRTC
-  shared by an HDMI bridge on DSI and a DisplayPort output that is
-  switched off (DPMS) while the monitor moves from one to the other,
-  the pipeline is set up for the old output.
+Fair, I'll drop the kzalloc()/kfree() v2 and go back to v1's approach
+(one cache, created once).
 
-update_output() only runs from atomic_enable and the lookup is a short
-loop over the routes, so do it on every enable.
+> The /dev/fb reference doesn't sound right as normally removal of
+> framebuffers is required before GPU driver can be unbound. Such bug
+> reports should be treated as invalid, BTW [1].
 
-Fixes: 01389b324c97 ("drm/mediatek: Add connector dynamic selection capability")
-Assisted-by: LLM
-Signed-off-by: zoan37 <agentzoan@gmail.com>
----
+I went and checked, and the /dev/fb angle isn't actually load-bearing
+here: two virtio-gpu devices at once hit the same WARN at plain boot,
+no remove/rescan or held-open fd involved ("-device virtio-gpu-pci"
+twice on the QEMU command line). syzbot's repro happened to go through
+the hot-unplug path, but the bug is just "a second virtio-gpu device
+probes while the first one's cache is still around."
 
-Notes:
-    Testing: found by reading the code. The same change runs on the MT8189
-    Chromebook described in patch 1, where one routed CRTC drives either
-    HDMI or USB-C DisplayPort: DPMS off/on and suspend/resume with a DP
-    monitor attached come back. The sequence that fails without it
-    (connector attached or swapped while the CRTC is inactive, then only
-    ACTIVE set) was not reproduced on purpose. Compile-tested (W=1) on
-    next-20261008.
+I also owe a correction: my commit message said
+kmem_cache_create() fails and the device doesn't probe. That's wrong.
+It WARNs and still returns a cache (merged with the existing one), so
+the second device probes fine either way -- I'd just never checked
+that claim against the actual behavior of kmem_cache_sanity_check().
+The real problem is the duplicate name itself (confuses slabtop, per
+the comment next to the check), which is what syzbot and any
+panic_on_warn setup flag as a crash.
 
- drivers/gpu/drm/mediatek/mtk_crtc.c | 3 ---
- 1 file changed, 3 deletions(-)
+> Assume the similar "duplicated" kmemcache problem should exists if
+> there is more than one virtio-gpu device in a system. I suggest you
+> to validate this case and if it has the problem, might be better to
+> make kmemcache's static instead of creating dynamically.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index 704931b369b6..0bfd17f68282 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -695,9 +695,6 @@ static void mtk_crtc_update_output(struct drm_crtc *crtc,
- 	struct mtk_drm_private *priv;
- 	unsigned int encoder_mask = crtc_state->encoder_mask;
- 
--	if (!crtc_state->connectors_changed)
--		return;
--
- 	if (!mtk_crtc->num_conn_routes)
- 		return;
- 
--- 
-2.43.0
+Confirmed, and agreed -- I'll send a v3 that's v1's static
+module-scope cache again, with the commit message fixed and the
+two-device case as the primary trigger.
 
+Thanks,
+Nguyen Ngoc Thang
