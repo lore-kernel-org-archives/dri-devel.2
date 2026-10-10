@@ -4,82 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0D6CCA9EBD
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 02:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 527F5CA9EBD
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 02:55:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0577610EB76;
-	Sat, 10 Oct 2026 02:55:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A29C410EB69;
+	Sat, 10 Oct 2026 02:55:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="VDsGhyso";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EdY08S5P";
 	dkim-atps=neutral
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFFD10EB71
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 02:55:39 +0000 (UTC)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-3580c07911eso1160251eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 19:55:39 -0700 (PDT)
+Received: from mail-lr2-f1.google.com (mail-lr2-f1.google.com [74.125.230.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4A1E10EB8C
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 02:55:52 +0000 (UTC)
+Received: by mail-lr2-f1.google.com with SMTP id
+ 38308e7fff4ca-3a772511049so3008691fa.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 09 Oct 2026 19:55:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791600951; cv=none;
+ d=google.com; s=arc-20260327;
+ b=q9NA30b0kprhaoRlcdJA0lUSJQ8K8UQbtc9xaNjRDixLKdWnVDPRwEiuoYOSoRU1rp
+ m4wnbTHU6al+6TM0mbEEDZ9fhP0nBapn8zkkLsYVLMwmHr0zhCW04ZXRErNpwYWJdpAR
+ i4O3EKLqrtiM3GysGpyYB7YQjlV4IZAaYOEJW9LItVOBagg0h3dJadSrMj5I+E9yCmL/
+ Zvtt6e6DFYjfShKtg6lhVSmpWRiKduIXrNGlAQwtnuAhTgJ8qYMhCKAWyLA/f3FzRhI8
+ dS28YXjjyJXlYa4GIFfjfPDcDDnjOLViT3SrAncD4/hYFHV3UeJ4YSS0dpgASX2Z3vP+
+ ewuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+Ed07fuWkE9fwos4AUZ3ykff2cVsq6dA1pVFJ9uVlwM=;
+ fh=R4X1BBKAbhpm9eIAH+YZQ0rQs6WmPBe9yTrjlqGsjPU=;
+ b=SPBMn1RvwOkJ2ebh3JAjtNEvUILYV47nS1qbsYLPb7v7a5sB77Dldh9/oEk5SaQAW5
+ MYAzRRiKi2/5TdbnaDfRHlAc+mI+BRpi+pwxxk4s1zbpxL5skCfDLUA/qfKPxFkzxpgr
+ uPofDpll+uqnJaS0ZGXxMhhJ2ETky70GzKiGFctyAYF8rzt96o7gxqOylpf4bqhnBjpX
+ sSFqZNJhUhZ//0oCcv+s1a17lZ0JzQP4orZihBc2TzSQuwFPyb+akjoA22jtmO9X8Nqk
+ +RoUpdbFvtdURwu9HhL9j0gpBXTmcxs9bJSJCvCt757yS3QTPCzUcHlbj+vzIRzNZUgC
+ 6o8A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791600938; x=1792205738;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=0d9kx5oWqQ1CybegjOdsNGS+P/geGKBslG4tLGyxeVI=;
- b=VDsGhysobrm4kqizJHXVJQdDKPfUKMy8ttvi6N1XOAKgeOS25PXqgK/LWWQsYB4MTZ
- 4qcf0WCo2c5teGJ9kD4aNLA9b7vEkaNCZ4R6Fy+KTC26Ciik0ao8aFYMzkQ20RkULfj+
- aqvmGnT3qGAv1t+4k6v4jbm7vszVxA2w6mtD4rvBytWovp9BPbyLbBUVc5URlRd3a3ja
- 5zBFwG6SdtZoeJb/cfFLfY49/8oqXKFqLP2U1U7fiRofUdxA7QQMWAzjF/d+zMqDvT7W
- Y89WqFMreSHCuvpsPU8Wr2ujDHD21lzglLb8yvD+FV35OanFiccaN5jzyH0deTMKamkr
- 78AA==
+ d=gmail.com; s=20251104; t=1791600951; x=1792205751; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=+Ed07fuWkE9fwos4AUZ3ykff2cVsq6dA1pVFJ9uVlwM=;
+ b=EdY08S5PHI7IVT+JkyVrc8GdnpDTpsjaMLGfOCFn/mQZUr8I3wx4IStPE2jQ5I6Wwg
+ G4Qa9fT7YokY+KdxWLdrzYkJOeOfI0REau0YgVELa9zA+NhEDjqq1Cyk37a7dha3Ryoq
+ hUSfWpVOM9KHm7MMwQs6UnSuPFVCycLyG3R9bUVReuX5lsf+WdweLkwky+NuAnYC/XQW
+ Eaai++CKd5y9hvM/pnAxSTkssEXd5JvjdfcJo9tVArCka7/8c3DLZ5C2hlJPvljg/rxS
+ TDx7EZWdpoe1VE1GgUiHYh2T71xswQXJkC2JNVPgVRi47H9g9tUG71V0zvd7j1d2IdQj
+ 8oWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791600938; x=1792205738;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=0d9kx5oWqQ1CybegjOdsNGS+P/geGKBslG4tLGyxeVI=;
- b=VKBfr2Ja3Sr2Pizar5m5HNsCaj9ATa97/hDDoeW5iOnroMRQZUjIkzcCaOqFam1Kox
- XOYINLt6if/dufyU0PMi5sWmSimq9XahJb4qgm6bXblE5o0i3lpzSO65dygqHPKA2MZS
- osHKgNvWOhwicZYzswzwcLr7EAC6gr5kvkG3hN32uVgC5meK7dVMa78AUIZ02ex19kWr
- wgwiWskLSx+G3IPxBZLKfE2t1qP0Fyqm8Bes51OArLuGIrd0RyRw9bI3wsSaewnI/SIP
- lwU1Ia9BETb8nmfQ1EO/Fh/HKgmVO3pQiWActRoyU8CXFN+MPB+5LTcGS4ucg3Nam1lV
- u77w==
+ d=1e100.net; s=20260707; t=1791600951; x=1792205751;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=+Ed07fuWkE9fwos4AUZ3ykff2cVsq6dA1pVFJ9uVlwM=;
+ b=flBU5/uzuBZJWLgrywW5IBK6ODLjeb9ELZb+uRmeMKoX+i4K2JUwNT/CgysZMeg1cP
+ tGstvzEesSXlvYsxYCcDEgenRDmTNRTW7q+gdwMM6mZRT51J4nM0KGwaGYqN+xTIo87n
+ Y58UGh0daNudifMdEwHtIXVKkB75UrFgG7F5CkNlDR1toJFEeA228vuZlHf9LnN03fvN
+ VVt6Rgb1nPTyhVYZM65Bx9306ZZNvnc453hd07r+/yd2Z90OFKZ9R58YLUoGqbuj9syp
+ LLvK821qnPAchqlIpEm+9rN5yzd9HNCCQoamCh49mcYvG9QV4MA3KuOUsTiCWGPoNUH6
+ O8tw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxlUgD65FA4HFQU5Oy0mQRmoLObiRG1TVKqNCjwjk6Y50qAvHMu36wgNIOJXE5quRUcXyghiBbi2GI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJNPpix0RtB2RXjF5+4WfaOy30bex+FsX6ZNVf+0H+E5RTICQpk
- tfM/4bR4y8HrB9LiEE+Y0z/DPRX1GIm7HGJKV7WmaH2aDg24aM0QbYOWt152Ku6+C25pP0OP5rA
- qOV+M+leNS7k4H0OagkakBVTUIg==
-X-Received: from dyvj1-n2.prod.google.com
- ([2002:a05:693c:87c1:20b0:355:5354:7d27])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:895a:20b0:351:f762:a10c with SMTP id
- 5a478bee46e88-3537dc3ca81mr5067199eec.0.1791600937866; 
- Fri, 09 Oct 2026 19:55:37 -0700 (PDT)
-Date: Sat, 10 Oct 2026 02:55:16 +0000
-In-Reply-To: <20261010025532.839559-1-almasrymina@google.com>
-Mime-Version: 1.0
-References: <20261010025532.839559-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261010025532.839559-5-almasrymina@google.com>
-Subject: [PATCH net v1 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: Mina Almasry <almasrymina@google.com>
-To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>,
- David Wei <dw@davidwei.uk>, 
- Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>,
- Kaiyuan Zhang <kaiyuanz@google.com>, 
- Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>,
- Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- Daniel Borkmann <daniel@iogearbox.net>, 
- Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>, 
- Kaifeng Wang <kaifengw@google.com>
+ AKwUvBy3TKy0LYulXx36UcOvwr5RC3V5QYu+ruhGXSze45DSpZ/pAM2fIjk4dudHYYGFd03BdZBlRrEXVcw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLsa47tLa7numbdNz7CMdXxwB3lFeImgrVSAy8T4CAE0o4G3BCV
+ mGDm7F9KS2o4e2j7pF+PzPO/1GqbRbiHklWCqC8xGjaRJqjlFyK7kEWcmmYNXNsN7laQ/+H7fAL
+ i3yswABoMiGQZhbnr6WHbOJTh44c5LdE=
+X-Gm-Gg: AYBFou28Y/bI67rK9qZ4YPAGYB52r1q3dtjWCWCkcKxf881xgrl2VpNXLWSzmoEYDWl
+ jqRi/nr1oGPiyBpd5uaEUoTkKO+1Vtbpk9ux//ap6cwRpnB5IU7LcLSzp//XnE6nDFDosS49ZLp
+ mx7t19gbn+ZnJXnr8+O7YwuICh8t9jUMIebu0a4hi/bRrMc4GEEdYQD9LXOKviPTs+0qmKY0om4
+ sqlpCgT40QzSLNtaHUdY3AovOOLsDWJDq/pl0lBSE9QpkrOvJdEXzkeP7JX4Zvw0zlw0Gw3PwCg
+ mA2nNo2Xn4/wCdu4v+92QkjsAy/Y1G0yWm2XFQBeKm788J/9b1lAGIfm
+X-Received: by 2002:a05:651c:198f:b0:3a9:7993:14d9 with SMTP id
+ 38308e7fff4ca-3a9c55db6demr8033451fa.8.1791600950465; Fri, 09 Oct 2026
+ 19:55:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <20261009101842.3294707-1-bsdhenrymartin@gmail.com>
+ <2bbea75d-2e3f-4a57-a291-5f5d9ca698c5@amd.com>
+ <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
+In-Reply-To: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
+From: henry martin <bsdhenrymartin@gmail.com>
+Date: Sat, 10 Oct 2026 10:55:38 +0800
+X-Gm-Features: AclHuK8jQu2OuoKyhFajMg-wI8QX3TxzpO-LWoyEF9m9UL71Uox_eNc24B_fdJ4
+Message-ID: <CAEnQdOrvD+uju5FBcew7TPWvfcfuSOHHyxuwF3T91yHOG5GYDQ@mail.gmail.com>
+Subject: Re: [PATCH] amdkfd: fix doorbell allocation race creating duplicate
+ allocations
+To: "Kuehling, Felix" <felix.kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,154 +112,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-to nl_netdev.py to verify that unregistering a netdevsim device while a
-netlink socket holds an active RX or TX devmem binding synchronously
-detaches the dma_buf attachment and cleanly closes the netlink socket
-without use-after-free or page faults.
+Hi Felix,
 
-Cc: Tariq Toukan <tariqt@nvidia.com>
-Cc: Kaifeng Wang <kaifengw@google.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
----
- tools/testing/selftests/net/nl_netdev.py | 108 ++++++++++++++++++++++-
- 1 file changed, 105 insertions(+), 3 deletions(-)
+You're right on both counts, thanks for the careful look.
 
-diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-index ceb44c8e1fec5..bad230ee9dcd2 100755
---- a/tools/testing/selftests/net/nl_netdev.py
-+++ b/tools/testing/selftests/net/nl_netdev.py
-@@ -6,10 +6,14 @@ Tests for the netdev netlink family.
- """
- 
- import errno
-+import fcntl
-+import mmap
-+import os
-+import struct
- from os import system
--from lib.py import ksft_run, ksft_exit
-+from lib.py import ksft_run, ksft_exit, KsftSkipEx
- from lib.py import ksft_eq, ksft_ge, ksft_ne, ksft_raises, ksft_busy_wait
--from lib.py import NetdevFamily, NetdevSimDev, NlError, defer, ip
-+from lib.py import EthtoolFamily, NetdevFamily, NetdevSimDev, NlError, defer, ip
- 
- 
- def empty_check(nf) -> None:
-@@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
-     ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
- 
- 
-+def _create_udmabuf(num_pages=64) -> int:
-+    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-+    if not os.path.exists("/dev/udmabuf"):
-+        raise KsftSkipEx("/dev/udmabuf is not available")
-+
-+    size = num_pages * mmap.PAGESIZE
-+    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-+    os.ftruncate(memfd, size)
-+    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
-+    devfd = os.open("/dev/udmabuf", os.O_RDWR)
-+    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-+    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
-+    os.close(devfd)
-+    os.close(memfd)
-+    return dmabuf_fd
-+
-+
-+def _dmabuf_attached_devs():
-+    """Return attached device names from debugfs dma_buf/bufinfo if available."""
-+    path = "/sys/kernel/debug/dma_buf/bufinfo"
-+    if not os.path.exists(path):
-+        return None
-+    with open(path, "r", encoding="utf-8") as f:
-+        text = f.read()
-+    attached = []
-+    in_attached = False
-+    for line in text.splitlines():
-+        if line.strip() == "Attached Devices:":
-+            in_attached = True
-+            continue
-+        if in_attached:
-+            if line.startswith("\t") and line.strip():
-+                attached.append(line.strip())
-+            else:
-+                in_attached = False
-+    return attached
-+
-+
-+def devmem_bind_rx_unregister_check(_nf) -> None:
-+    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-+    dmabuf_fd = _create_udmabuf()
-+    nf_priv = NetdevFamily()
-+    ef = EthtoolFamily()
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    ef.rings_set({"header": {"dev-index": nsim.ifindex},
-+                  "tcp-data-split": "enabled"})
-+    nf_priv.bind_rx({
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+        "queues": [{"id": 1, "type": "rx"}],
-+    })
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_ge(len(attached), 1)
-+
-+    nsimdev.remove()
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_eq(len(attached), 0)
-+
-+    del nf_priv
-+    os.close(dmabuf_fd)
-+
-+
-+def devmem_bind_tx_unregister_check(_nf) -> None:
-+    """Verify TX devmem bindings detach cleanly on netdev unregister without UAF."""
-+    dmabuf_fd = _create_udmabuf()
-+    nf_priv = NetdevFamily()
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    nf_priv.bind_tx({
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+    })
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_ge(len(attached), 1)
-+
-+    nsimdev.remove()
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_eq(len(attached), 0)
-+
-+    del nf_priv
-+    os.close(dmabuf_fd)
-+
-+
- def main() -> None:
-     """ Ksft boiler plate main """
-     nf = NetdevFamily()
-@@ -379,7 +479,9 @@ def main() -> None:
-               page_pool_check,
-               page_pool_dump_ifindex,
-               page_pool_ifindex_leak_check,
--              page_pool_stats_ifindex_check
-+              page_pool_stats_ifindex_check,
-+              devmem_bind_rx_unregister_check,
-+              devmem_bind_tx_unregister_check
-               ],
-              args=(nf, ))
-     ksft_exit()
--- 
-2.56.0.385.gd3acb90ef8-goog
+v2 drops kfd->doorbell_mutex entirely and adds a per-process-device
+mutex in struct kfd_process_device (initialized in
+kfd_create_process_device_data()).  The device-global mutex is no
+longer held across the sleeping allocations, so the existing
+dqm->lock -> doorbell_mutex order on the start_cpsch() -> pm_init()
+-> kq_initialize() path cannot invert, and unrelated processes no
+longer serialize against each other for per-process doorbell setup.
 
+The Fixes tag is corrected to 2105a15a2046 ("drm/amdgpu: use
+doorbell mgr for kfd process doorbells").
+
+Regards,
+Henry
+
+Kuehling, Felix <felix.kuehling@amd.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=889=
+=E6=97=A5=E5=91=A8=E4=BA=94 23:33=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 2026-10-09 11:00, Kuehling, Felix wrote:
+> > On 2026-10-09 06:18, Henry Martin wrote:
+> >> The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+> >> lockless at every call site of kfd_alloc_process_doorbells():
+> >> kfd_get_process_doorbells() (mmap of /dev/kfd), kfd_ioctl_create_queue=
+()
+> >> and the CRIU restore path each test the pointer under different
+> >> locking (or none), so two racing threads can both observe NULL and
+> >> each allocate a doorbell BO and bitmap, orphaning one allocation and
+> >> handing the two mappings different backing pages.
+> >>
+> >> Move the serialization into kfd_alloc_process_doorbells() itself:
+> >> take kfd->doorbell_mutex and re-check under it, so all three call
+> >> sites are covered regardless of their own locking.  The existing
+> >> doorbell_mutex users (kfd_get_kernel_doorbell() /
+> >> kfd_release_kernel_doorbell()) only guard the device-global
+> >> kfd->doorbell_bitmap in short non-sleeping sections and never call
+> >> into this path, so there is no nesting.
+> >>
+> >> This vulnerability was discovered by Tencent CodeBuddy Security.
+> >>
+> >> Fixes: 428542d91772 ("drm/amd/display: Setup for
+> >> mmhubbub3_warmup_mcif with big buffer")
+> >> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> >
+> > Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> >
+> > I'm applying the patch to amd-staging-drm-next.
+>
+> An automatic Claude review pointed out two problems with the patch. I
+> agree with both:
+>
+> The Fixes: tag points at an unrelated drm/amd/display commit
+> (428542d91772). It must be corrected =E2=80=94 2105a15a2046 ("drm/amdgpu:=
+ use
+> doorbell mgr for kfd process doorbells") is the commit that introduced
+> the allocation being fixed.
+>
+> The patch holds the device-global kfd->doorbell_mutex across
+> bitmap_zalloc(GFP_KERNEL) and amdgpu_bo_create_kernel(), while that same
+> mutex is already acquired under dqm_lock via start_cpsch -> pm_init ->
+> kq_initialize -> kfd_get_kernel_doorbell(). That is a plausible ABBA
+> inversion once reclaim/TTM eviction runs the KFD eviction fence back
+> into dqm_lock. Please either post lockdep (CONFIG_PROVE_LOCKING) results
+> for a boot + queue-create cycle, or switch to a per-process-device lock,
+> which also avoids serialising unrelated processes behind a device-wide
+> mutex for per-process state.
+>
+> Regards,
+>    Felix
+>
+>
+> >
+> > Thanks,
+> >   Felix
+> >
+> >
+> >> ---
+> >>   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
+> >>   1 file changed, 14 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> >> b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> >> index fdcf7f2d1b5b4..07f881573837e 100644
+> >> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> >> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> >> @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev
+> >> *kfd, struct kfd_process_device *
+> >>       int r;
+> >>       struct qcm_process_device *qpd =3D &pdd->qpd;
+> >>
+> >> +    mutex_lock(&kfd->doorbell_mutex);
+> >> +
+> >> +    /* Another thread may have won the check-and-allocate race */
+> >> +    if (qpd->proc_doorbells) {
+> >> +        mutex_unlock(&kfd->doorbell_mutex);
+> >> +        return 0;
+> >> +    }
+> >> +
+> >>       /* Allocate bitmap for dynamic doorbell allocation */
+> >>       qpd->doorbell_bitmap =3D
+> >> bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
+> >>                            GFP_KERNEL);
+> >>       if (!qpd->doorbell_bitmap) {
+> >>           DRM_ERROR("Failed to allocate process doorbell bitmap\n");
+> >> -        return -ENOMEM;
+> >> +        r =3D -ENOMEM;
+> >> +        goto unlock;
+> >>       }
+> >>
+> >>       r =3D init_doorbell_bitmap(&pdd->qpd, kfd);
+> >> @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev
+> >> *kfd, struct kfd_process_device *
+> >>           DRM_ERROR("Failed to allocate process doorbells\n");
+> >>           goto err;
+> >>       }
+> >> +
+> >> +    mutex_unlock(&kfd->doorbell_mutex);
+> >>       return 0;
+> >>
+> >>   err:
+> >>       bitmap_free(qpd->doorbell_bitmap);
+> >>       qpd->doorbell_bitmap =3D NULL;
+> >> +unlock:
+> >> +    mutex_unlock(&kfd->doorbell_mutex);
+> >>       return r;
+> >>   }
+> >>
+> >> --
+> >> 2.43.7
