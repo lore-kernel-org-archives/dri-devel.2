@@ -4,100 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33114CA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 15:04:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85CEFCA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 15:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0413310E5A0;
-	Sat, 10 Oct 2026 15:04:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96A6F10E068;
+	Sat, 10 Oct 2026 15:12:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="oAhTH0AO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gg1wSic9";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9552D10E5A0
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 15:04:00 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4a16aaf2067so8252355e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 08:04:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791644639; cv=none;
- d=google.com; s=arc-20260327;
- b=E9PBWwoFY8aoNH8rPdR4LglE0ClLR1Ma5gQtcu/Bezfcq5bPkJ5ck/4EOwXvgbMxt6
- qwxwMS7lxSNt01YE6BQ4VCZtRGddHceDOj2A6jYw9tUYM7SPYcEX+OkszUTbNmevYyIH
- mVeUiRaPaeaFBDpWYxgNe2Q/kytNVt+vVTFlz389Iqpgj+lhy9r/l0gKxce637ctE7cD
- D7Id021PD33jrRoqS5LHisnid28kN1y8RBLtpt1hgwps1nOT7K078QnXrg4gmUQxYG0l
- ntnFfpA27nC8pHawhbrrfs6CMMBYgUTInxv+lj6ZjgOOCVFOmcIbA4tDT7KzFspunwjv
- zWvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=D4M8q1Gw4JSNRpSJ6YMmuoD2ZiLo8ynCybzLGCHtt4s=;
- fh=1AoAT7nm+QaqIc61tPARY7ENEAyf8cLaToYIfpX9fk8=;
- b=a2qaAOiLqxTaqYUgNbVgjkGpQkf2atHWHic+YDHPyV0pCY21ugWfbNqqIY1/6Qon6I
- ZYJLT/Jll78+Jc+j/VkI69P8XyF5aNw9TMIvQOxDCrxyQij3gc/QcwEghUN1aaA0Pobr
- ROsCfs2VEYQ3Dj/1YczqHWI8oRgdXQt/TBVKakLpIEYzxQlJHnrFqRUVV2rZNuaIfDQZ
- bgm7CI2xahhl48ukOA0cffPKFyd1hFEJOKqyGtz/fFoUb35uPoqMGlbmGB6onLEK0O7s
- MkAkwjKjGhzGlEl3jfJAQU8sTedfLIgiaymZxMeXdP44d1a0Sz4+1PuDk3BzCxIXSkJU
- NAWA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791644639; x=1792249439;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=D4M8q1Gw4JSNRpSJ6YMmuoD2ZiLo8ynCybzLGCHtt4s=;
- b=oAhTH0AOfGjz+CWvGIxD3fGkL4zvKGQ6/rzeAaC2pQKlmRlSvCPqpx6F3edXQwQ5d5
- t0V3813q2XZorUqDxuii5M8y9o5tUwxe2UvWuPYe6Zlz8wMmsjmJd8Ql+VjLt17SSyeJ
- Xw6jRLYyEpwokLsdh21eCVX0CCUUakTaNeU0QUCvx0BtAax6oKWxK1qTbDdY6gtniW8W
- Uw1fMwRxB2TBeixyy5NNkzK6sRlptR4TA0/NjztolJqIOO5e56V1Iji5WBPYD++cJkuo
- 8LH23hdvteopjK0obT7unlGK4bGyypLVWFihNaDVRsYDGy/HAmJToR2HKl+1cfjD3sg6
- pZAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791644639; x=1792249439;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=D4M8q1Gw4JSNRpSJ6YMmuoD2ZiLo8ynCybzLGCHtt4s=;
- b=sjcFjc8pEHm/V1BGq0uiAJq4kkakVk4/6xrI/7B6FPd4bOoQK/YrEQXJL/D6BWS/vl
- bpewhVCwkam3TjbZcC5ilgMeoDB63PNoLHrEZ/9MKZC/UBtXl/fuVlnf5lqDCy5Tt56I
- 7Fz18bpR3PpJxARcw1cDXuUboSOxHKV4i+VxYZNGE6l6WD/EpJ2SXJl2BrhS7GLk6CWz
- dgp1y9IFoyEs48KrTRQ9B8/xANgwvd2xX12hhTju+oDLPPALAfZ9hxyJVK7+dOJgtJu8
- U4BkxFxbSYnvjoCoz9AOMZAoyCzMqUO8Nr/1aA97Lxy5NbGqp9BVNzzIUnKD6FkHi0yx
- rdhw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBww+vgMTiPo8H/EbSUwwNwNasACGoAFf1GjueiHQatizVIvtRdYoIO6qVvsDUXKebMWL938PayN4zc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKI+aETJVrcp6XdNTtwonn0TBnGIfgf+Nyfz/QBDNZyP3HLmK9J
- 3h1XeaQE5dSnKn1RDaNGXft3fmefBoK+jXaJvHHbv2uz/zw8EqmApPf+W33pj3U1pHTgBNDC8q2
- iFDK0Lr0JiOsA/nXy6jIK23avTQpoO5x6EIhetJZv
-X-Gm-Gg: AYBFou08C53Sm4xT6ohVHFA2hBLuWvEcc/YXF4eff7g14WbkP7T8ZZenojGbmI+r2NF
- 9T3KT9J8GmKabEXDm9omkCJMJFeU7Db41liYqd3dNa+hoA79BcOWXVty0pFzi7MW5zcB8KJlPAq
- /nTQfAmoDM0HMHg898DRfA5HVEsCS9egaXP40M+gQPKgpCFwZjf28Eoq7tPpWin/yIyWWWWJhpw
- 6Cn5wK+R4xFGjezFDKoRO9aD4PoJCMze+GDnyrrUjVUoMUVX0UvXHK6EUzprtvG+NYx7hkBtUHN
- glgIYudJ6RkDuV4uoLjbg76Lc7RCzgn3Q4+7mITMmxAGBoOM+zOoqKjY12E3+sO2aoWA/mMMcXP
- CijK8XeHMB/JR78TImzPe
-X-Received: by 2002:a05:600c:34cf:b0:4a0:159b:d2a9 with SMTP id
- 5b1f17b1804b1-4a18e4d68aamr77276885e9.24.1791644638230; Sat, 10 Oct 2026
- 08:03:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260929190024.2248099-1-dakr@kernel.org>
-In-Reply-To: <20260929190024.2248099-1-dakr@kernel.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Sat, 10 Oct 2026 17:03:45 +0200
-X-Gm-Features: AclHuK8ZQUI3eItwXg_rZSYr1EbwRsPHujK2QRZB7QR-TB8HYr0HF9f_x1pIk1Y
-Message-ID: <CAH5fLgh6siikdQ-vM2eMdbgqxOvquGuv=0UKZwidabj4tcGV7A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] rust: drm: Return impl PinInit from
- drm::Registration::new()
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: acourbot@nvidia.com, daniel.almeida@collabora.com, ojeda@kernel.org, 
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, 
- tamird@kernel.org, work@onurozkan.dev, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E197510E068
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 15:12:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9E9A541151;
+ Sat, 10 Oct 2026 15:12:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300681F000FF;
+ Sat, 10 Oct 2026 15:12:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791645164;
+ bh=H+P/wL3zitAeIyoU57JVhuwa5yX/h6XhvME6dOVmtEw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gg1wSic9JR75K1uNkVBtoDMziIp/RvbGa6sra6KA25/17zO1J8Ppxmh2Urt1Ojnu/
+ drD/NqDe7QCQ7jWZWPpQ1ah76WMDPGHIu51HaPBxCxUZPCDlNSQR9sNn+Xf5IstkOu
+ NlkhQXam5r6EWUQkLASi5JCIC9i3ny4JN/LzIwxW4xoDnVsNC+qnYhS/td0mJQa1Ql
+ 4AUXEymwLgPjDxCQvRf4dxX7uSH0g7IAGsBPy5tF0W6RTRMcITG7Hdacd3F2G+7fFf
+ Ibubrwk/0Quo7M6Z76TC1wIqiej6ENeaWsMhuGa9kHAYo31o4Dc6CKy5PBl0fhO005
+ pPxJlMNQalZJw==
+Message-ID: <sashiko-outbox-166686@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/virtio: share one vbuf cache across all devices
+To: "Nguyen Ngoc Thang" <ngocthang2710.1999@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261010150429.17036-1-ngocthang2710.1999@gmail.com>
+References: <20261010150429.17036-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Sat, 10 Oct 2026 15:12:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,21 +53,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2026 at 9:00=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> Convert drm::Registration to return an impl PinInit<Self, Error> rather
-> than creating a separate allocation. This removes an otherwise
-> unnecessary allocation.
->
-> Update both in-tree callers (nova, tyr) to construct their bus device
-> private data using try_pin_init!().
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
+> "virtio-gpu-vbufs" for every virtio-gpu device and destroys it from
+> virtio_gpu_release(), which only runs once the last drm_device
+> reference is dropped.
+>=20
+> Two live virtio-gpu devices are enough to hit this: the second
+> kmem_cache_create() call finds the name already taken and
+> kmem_cache_sanity_check() WARNs. This reproduces at plain boot with
+> two "-device virtio-gpu-pci" on the QEMU command line, no sysfs
+> remove/rescan or held-open fd needed.
+>=20
+>   kmem_cache of name 'virtio-gpu-vbufs' already exists
+>   WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
+>   Call Trace:
+>    virtio_gpu_alloc_vbufs
+> [ ... ]
+> at module init and destroy it at module exit instead of per device.
+>=20
+> Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D1b129b44597a126d2d79
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-For both:
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010150429.1703=
+6-1-ngocthang2710.1999@gmail.com?part=3D1
+
