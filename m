@@ -4,133 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BE22CA6004
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFF4ACA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:55:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C99810E25E;
-	Sat, 10 Oct 2026 11:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAB9510E254;
+	Sat, 10 Oct 2026 11:55:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CF9lp+Q5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lsTJ/1yr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63D9610EAB2
- for <dri-devel@lists.freedesktop.org>; Fri,  9 Oct 2026 18:10:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E05714379B;
- Fri,  9 Oct 2026 18:10:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4688D1F00893;
- Fri,  9 Oct 2026 18:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791569453;
- bh=+vhnZLSAfTMC+QZqCgbvTEDiC6mj4h6xS61LbBpqM50=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=CF9lp+Q5Za7cVZHqQC74rjOFr8yk/De75otGYPR3S1T86ZL6oRSrAGvK28LfrvlH2
- Se2zsh30qwMLlCqCA7med4URDz81nItQ7Be+kYtyf+1Iw7pD7ujrogPRF4MJJPi5SA
- ROWlbwv2jQeOtHw7szaaz95Mi0h7nwXWfkJTNF/598PqLd+CYikRpuV0N9CXSKCIVt
- o3wXmoeccut4nTq4n3hdNX1JIoyTrHyq46T8GSH56DRQbV24tBBhAlNRVg4WoIlVmy
- 84aeZDE9EHN4igen11Ju7/iVYb7qestz9d3AcWi65jWKShAOorIZ2uT+oAgUqIsOlh
- TnwYuhRcNncGw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:04:12 +0100
-Subject: [PATCH v5 18/38] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO,
- add VM_MIXEDMAP
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4079E10E254
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 11:55:50 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4a01933b584so5366745e9.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 04:55:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791633348; x=1792238148; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=MUGs28pjyaKV6mm7T8DFRVWF7FBLghSbmcUfgUOr8K0=;
+ b=lsTJ/1yrQtCQzMsk4+ewK0DFWEm04yZZeRvXA/DbvYRNOQpf8vOKOGPnK5iBYeuCnC
+ h2yKfm9bQeCxQ01hcDmqYgSCfBmM+ivtGk6/1VPNQ4CvR7vZ+vuuRfV8QI6uxotDe217
+ 1FPdymyUjyMUmTyMm1LRgYe7oXjT6/CJw+a1uacU1DiXR6PiBmtwnrQqWLgNbazTJPK7
+ KfUlCAC6aVdetbzZT9MD4HPnGm1xxCAd4cOVyJybV6gqUqkh+wV5rQA7EMe51kEtU8jQ
+ FpDGSEJKZ8bLqKpqTFN+P18l7JJcOtYqzTcvvoXL3K/Kx9EkOzK2uR20luIVOW44+LYR
+ ln9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791633348; x=1792238148;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=MUGs28pjyaKV6mm7T8DFRVWF7FBLghSbmcUfgUOr8K0=;
+ b=tobmkhBGh00N+b0MsFWfDyF5cAzpTjlmW0ekVk4qt1WTYd/kbykudedxkTVO6BRmop
+ K9DtQ1XYVtnbkxStrHNyrZFPTBhFUgfRI7sFFJDC+/NDRr8lDc4SXC/rMDBkHVtQ58Ho
+ ItoVJv5JUUSSvDeCmmgVXLTuwFM05ySFI/rD7hG5WVK12w6WLRBbXspHK3g7suhdGLNy
+ RgR9NUxSFLxeC0uHAaJq+wvCnCpslcwLtUqMztxazuFa+RGcOX4OCDSaPBALMg+l86Bl
+ JwD+Ry4l4WvWoYT+18wr8GRtx577z8v0O2+SLBDMkJft+jkSzJNh4WZM2oUjnDyoW4PB
+ VKNw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByxm+Kf47r54d4I6fF/IV0O27FypmGoL7hEv9T44iWaz9xXtdqpuEIzP2FIMqn98xMJ3IMkWn+yDJA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIZLVp46OaG3XKJnW4HFHkDl4Jm7G7H/RoQYuyaYqNZBd/bcb4T
+ 7aSGpUBrapqalhnxwUFndzRBVIIN9woOPuoCN03idrB8SFqqZA2ndyat
+X-Gm-Gg: AYBFou0Tcae4Lr7JmUwE32VyhFUjymFB7GCa4UstxqSudHlzny5GoWZW0PSnOYuaIEk
+ 9VbJrPYrOS6jmJyYbP0cG1Lwb1dRvmmvvQv0W0mGXmodnhxa6LYuJsC7QXJ4vn4dxZvwIx0cEsJ
+ avSsJTh1lUr5ChXHPDQxJh4omzoxp5US4h6mEapSfSJNA6pzkh8ZwsZQPcP9z08D8so1+WHLI/x
+ s2W76od/4EOQYTMOPyOxMAwQUtNnI/Mjr7XdkmjT+p8OGBKNa07URKYqjzrtOH//jolhWAUtsit
+ n65MeG/aqup4Jk/sh9QFD3HtOIWzdbbaGLKpDJYvpF/kFwn/5V5sxk4dsNQQq9dSiXk8bVAhUOy
+ 3a9Jfmw6SUzW83U4fRudu8+/HCz/x1MrxXvMnmW7Il1Fp34LGP4Nn4ZMgESyTALf3m0l24ZdTrs
+ m8h9w2IvHyggmcNn8mBiA72u5H7fSlGlp62QZaO85bqfwCOhp8pXBgF8W3xQWqQumZkPYzd661A
+ ngtAw==
+X-Received: by 2002:a05:600c:4e01:b0:49f:ce78:3567 with SMTP id
+ 5b1f17b1804b1-4a18e4afc3amr83354515e9.24.1791633348096; 
+ Sat, 10 Oct 2026 04:55:48 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48db9aca657sm8746340f8f.43.2026.10.10.04.55.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 10 Oct 2026 04:55:47 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Fabien Parent <fparent@baylibre.com>,
+ CK Hu <ck.hu@mediatek.com>, chunhui dai <chunhui.dai@mediatek.com>,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/7] Add support for Mediatek mt8167 HDMI display output
+Date: Sat, 10 Oct 2026 13:54:00 +0200
+Message-ID: <20261010115539.9237-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-18-923b70125b1e@kernel.org>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2415; i=ljs@kernel.org;
- h=from:subject:message-id; bh=UjDr9VPjw22rvNYi9RjlPonrYjyH/X5y02GEaoE2d0I=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sxWupUx2VNl6dUlgjKlqVYLQ81dE/7Zf/0r++8Nj
- 9q0G3l3OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRrL8M/6uTzvVuvTzriZbp
- Wn794nevaw0lNv46pdrkfVrg+8fLd1UZGd5et1MMWxS9frpYkc6xSvuZWbyPPjvff7JR9mPZvAU
- zPrEDAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Sat, 10 Oct 2026 11:47:10 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,65 +103,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently all drivers which use defio allocate system memory. All of them
-also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
-system RAM, so simply failed to set this flag when it ought to.
+The MediaTek mt8167 SoC supports HDMI output via a dedicated HDMI PHY
+driven by the DPI1 display block.
 
-This patch sets FBINFO_VIRTFB on ssd1307fb probe, then drops setting VM_IO
-in fb_deferred_io_mmap() and instead requires FBINFO_VIRTFB to be set,
-erroring out with a kernel warning if not.
+Support for HDMI output was partially upstreamed in 2021, but is currently
+not functional as it's missing its HDMI PHY driver. The HDMI PHY is
+apparently similar to the mt2701 one, but some differences in timings and
+in the initialization sequence are better expressed with a separate driver.
 
-The logic requires a page from the driver and since commit 1ecbc7dd2902
-("fbdev/deferred-io: Always call get_page() for framebuffer pages") has
-always required it to be refcounted, so this was implicitly already the
-case.
+* Patch 1, 2 add support for the HDMI PHY.
 
-Finally this patch sets VM_MIXEDMAP, as the logic is mapping
-kernel-allocated memory so this is appropriate.
+In addition to the HDMI PHY, a few fixes are required here and there to
+actually get HDMI output.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- drivers/video/fbdev/core/fb_defio.c | 6 +++---
- drivers/video/fbdev/ssd1307fb.c     | 2 ++
- 2 files changed, 5 insertions(+), 3 deletions(-)
+* Patch 3: Some of the HDMI registers are mapped into the apmixedsys
+  syscon. Since they are manipulated inside the HDMI PHY driver, we change
+  the apmixedsys memory map to non exclusive by switching it from
+  devm_platform_ioremap_resource to of_iomap. This approach was copied
+  from mt8173 apmixedsys syscon.
 
-diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
-index fd00b86e1ae6..fb359ecc3966 100644
---- a/drivers/video/fbdev/core/fb_defio.c
-+++ b/drivers/video/fbdev/core/fb_defio.c
-@@ -366,13 +366,13 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
- {
- 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
- 
-+	if (WARN_ON_ONCE(!(info->flags & FBINFO_VIRTFB)))
-+		return -EINVAL;
- 	if (!try_module_get(THIS_MODULE))
- 		return -EINVAL;
- 
- 	vma->vm_ops = &fb_deferred_io_vm_ops;
--	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
--	if (!(info->flags & FBINFO_VIRTFB))
--		vm_flags_set(vma, VM_IO);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP);
- 	vma->vm_private_data = info->fbdefio_state;
- 
- 	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
-diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
-index c4fdecafd856..958514a35433 100644
---- a/drivers/video/fbdev/ssd1307fb.c
-+++ b/drivers/video/fbdev/ssd1307fb.c
-@@ -763,6 +763,8 @@ static int ssd1307fb_probe(struct i2c_client *client)
- 	info->fix.smem_start = __pa(vmem);
- 	info->fix.smem_len = vmem_size;
- 
-+	info->flags = FBINFO_VIRTFB;
-+
- 	fb_deferred_io_init(info);
- 
- 	i2c_set_clientdata(client, info);
+* Patch 4: Since the DPI1 interface is hardwired to the HDMI PHY, it is
+  appropriate for the HDMI PHY to control the DPI1 clocks. There is no
+  effect on DPI0 clocks as they're completely separate.
 
+* Patch 5: Some MediaTek SoCs require a supervisor call to enable HDMI
+  output. mt8167 is not one of those.
+
+* Patch 6: In the common path for mt2701/mt8167, a register operation that
+  is meant to enable the HDMI_PSECUR_EN bit is actually touching some
+  other bits that are set by later operations anyway. The patch makes
+  more explicit the intent of the operation by setting only the necessary
+  bit.
+
+* Patch 7: Adds the device tree nodes to the mt8167 dtsi. Since DPI1
+  is hardwired to HDMI it is possible to bind the input port of the HDMI
+  node to the output port of DPI1, but the patch that adds the DPI nodes
+  to the DTSI [1] has not been picked up yet, so we leave it disconnected
+  for now.
+
+The series was tested at all supported resolutions on the Sony PlayStation
+Classic Mini.
+
+[1] https://lore.kernel.org/linux-mediatek/20260921113914.779393-5-l.scorcia@gmail.com/
+
+Luca Leonardo Scorcia (7):
+  dt-bindings: mediatek: hdmi-phy: Add compatible for mt8167
+  phy: mediatek: hdmi: Add support for mt8167
+  clk: mediatek: mt8167: Map apmixedsys iomem as shared
+  clk: mediatek: mt8167: Correct HDMI-related clock definitions
+  drm/mediatek: mtk_hdmi: Set tz_disabled for mt8167
+  drm/mediatek: mtk_hdmi: Improve the secure output bit toggle
+  arm64: dts: mediatek: mt8167: Add HDMI display nodes
+
+ .../bindings/phy/mediatek,hdmi-phy.yaml       |   1 +
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      |  62 +++++
+ drivers/clk/mediatek/clk-mt8167-apmixedsys.c  |  26 ++-
+ drivers/clk/mediatek/clk-mt8167.c             |   6 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c           |   3 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_regs.h      |   1 +
+ drivers/phy/mediatek/Makefile                 |   1 +
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c    | 217 ++++++++++++++++++
+ drivers/phy/mediatek/phy-mtk-hdmi.c           |   3 +
+ drivers/phy/mediatek/phy-mtk-hdmi.h           |   1 +
+ 10 files changed, 314 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c
+
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
 -- 
-2.55.0
+2.43.0
 
