@@ -4,136 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5570CCA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39DA8CA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A54E610E4EC;
-	Mon, 12 Oct 2026 07:01:18 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2858610E4EC
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:01:07 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69C55xRi4068824
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:01:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Efnu9rK1FagTbizfEvVPZFQB44bsbmV5V1j12zHm+T8=; b=YY2iaJYRkj4ca8fx
- 8bZ6jZvcvd0ssbY/ugQTGnY6/UfhK/9Z7J487hLYz740D7DnS5M7xBzC3fLOFbfh
- 9a266wndxtPqoBqEcME7WRu8N+gUqT5WUi9rSi4DhZkn69IDapU1z8EBmlA9LNkC
- DKGLdGz2f3XynnBVkgCAorA0/nqXceY73GgfNnA1Ma8TesCFDSIrI68qNg8q1qVD
- iCYcEGXYVoZ6x+adnkT2N6XEHaCsdFXEcLTSPdtxO+RjTJ6UVcKC27KC9RbKuXvS
- 02p9gkiWbafP/mw6qwx5yPM4ouc+lM5S9Ald7WqvuAa4w3kAKr2HJ35hsU1T3vt1
- zeonow==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7ehjn8cc-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:01:06 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93edac58b24so4118485a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 00:01:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C62FA10E439;
+	Mon, 12 Oct 2026 07:32:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECB8C10E0E6
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 22:00:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A595602CC;
+ Sat, 10 Oct 2026 22:00:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AADC1F000FF;
+ Sat, 10 Oct 2026 22:00:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791788465; x=1792393265;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Efnu9rK1FagTbizfEvVPZFQB44bsbmV5V1j12zHm+T8=;
- b=Zd//N8YKMCLVCyTblp6ILuj08cwoSqr827/kxttrRLbUO2CtNW/XgcosmhEyi04wSy
- cXLHQlmuYAGtF9tN5o9uLehZUkGrnM6VUWgm3n0cXZ42EwHqDsPbvjRhbBV4PdD73XVm
- R1gdUMkn799jxrgERY/Oat78P0L778p2gZz1eboHkwYeVLHR3inq69yDlZiGTS8fq4IN
- FdAKZWYYOmOSAdzpL/V9eHi/0QXnJOSQWABW5zojTrtlGLdXqLMseKflGbi8zrS2LfVP
- EK0shQFlFXxTsIyYmrYJX+Iso8/iJfNi+bdGRt8NwamxiLaIQdkrechnwg/jZOFMfxcs
- JK8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791788465; x=1792393265;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Efnu9rK1FagTbizfEvVPZFQB44bsbmV5V1j12zHm+T8=;
- b=zIaEC+EGSHDhyBivlzylva6VOZtZNbalik0u0fg66avZ90dq27HVoCaaN5v5SrdFgp
- mzndhuXlA8oANZwFN6hoca5+pmja8NL4BQS9flcK93Ycg9kFZPYOa8rxE+NG6pDSeB1/
- bNUtzYH/iLRP8RO6N2XaKAnyE7CQBAFifkgQPK20ZgUpreYnEnZdXTUrV4A6o9PVNqo0
- 2CbGINheDPUBCl1W90luQxgVTmBfJATPovPMAFRQ1DFFYm2QjUH0f7Rh4lg/ajs7n3b9
- IFa+gtSxGLdyq8RPOwfgq/6ATbBpW3RLG9Q8AM38RybF6ICWcN9vnzOs5f7r7c91M81I
- Lywg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwK4zxjUgnPWS0Akoge4CGBe9nL9Tt5l6vCAFCJpgm0cdbykKKmhyAk70XwVs2TKSOTznUNPemJ360=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJkPfWObNH0bQWwLPcSxcW6kVvwGHp4dGByyLLwo4bDBKY4ScnF
- Emd+XsmyPxxk8jmKeN5SreBm9MQStQvRSpj2GWFupf/kUz4GrlABb6hOasnodC5CyS1hqHQ9knq
- E/NScsJt190hXFyyILWoAEyD9ZJpX15BsUmZy1VpXU1gjL8R4j6TG4HmKxmIU+pixJOhwUmU=
-X-Gm-Gg: AYBFou3fJXguFI5K1OrF4nQ76xs83T/NlXz4myPljxmxgqUto0pb5Fuh8378Le0QKFu
- jlwFtIhfXTPkg/wZaToWs7tUXeKMkA80PtOkM2NPu/H2Qm4dxVankVnYGbAjGsfhhY+rcjXJ0og
- 1LU05EEMn5i2tDY5W8Cjcv6Z1Nvb/2xGNy4M9zxmm7ugqIteDC0VU+G5o+nXd54kIOq/ILy/uZ3
- dw7k4H6MHgJKYPslfL255duzCiPJbhCLKzieJcM8BjHbZ/osB4pzuDVPl0r8az3R6cPqkqpzigU
- plfGD0I0R+jnWROwHjri+dmvoNrMJWrzTTjWdcpwD1ljtLH+yh/O3jRAwo4ZdJe66URmEknYzWT
- AUrrAZbbmQWnugD/gFhKB6w==
-X-Received: by 2002:a05:620a:8084:b0:93e:571e:94f0 with SMTP id
- af79cd13be357-93ebd1eabeamr1637430185a.3.1791788464537; 
- Mon, 12 Oct 2026 00:01:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:8084:b0:93e:571e:94f0 with SMTP id
- af79cd13be357-93ebd1eabeamr1637426285a.3.1791788464004; 
- Mon, 12 Oct 2026 00:01:04 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c31a9aa94d4sm424903966b.62.2026.10.12.00.01.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Oct 2026 00:01:02 -0700 (PDT)
-Message-ID: <6e67b0b2-8bae-4568-a276-56f9db360b80@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 09:00:58 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/3] drm/msm: correct DSC RGB and command-mode vblank
- handling
-To: Zhang Jiaxi <Z1529105815@outlook.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <SY5PR01MB1060041363FC41A7F40DF59DBA1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <SY5PR01MB1060041363FC41A7F40DF59DBA1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+ d=linux-foundation.org; s=korg; t=1791669625;
+ bh=N2jYfqmPt2es1xuCkTol8NOahRHgRnTcTOUiwhGzkTU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=ffP+TPLt1hBG2zdntJGpA4a6eo1Kktyl63gUdmTPWoDV5PB8j6QZDH7O5pu6DND18
+ 83jrFOWryJ2h63yrCPBw+Uh9wavAQ633twrY1q8Eu4fcsINr1B1dFygd9ev9/B+B/N
+ PiED0VbjIV4o5yPrrgsINTWJg6/2ZfXlko4ls4sM=
+Date: Sat, 10 Oct 2026 15:00:20 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
+ <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+ <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Dennis Dalessandro
+ <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
+ <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya
+ Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, Ryan
+ Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+ <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert
+ <dgilbert@interlog.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, Helge Deller
+ <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, John Hubbard
+ <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra
+ <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+ <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>, Harry Yoo
+ <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann
+ <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
+ <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
+ Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, Oliver Upton
+ <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Madhavan
+ Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, Claudio Imbrenda
+ <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens
+ <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller"
+ <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, Alexander
+ Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park
+ <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, Chris
+ Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng Shi
+ <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
+ <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, Johannes
+ Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Chengming
+ Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, Miklos
+ Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org,
+ selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, Bert
+ Karwatzki <spasswolf@web.de>, Takashi Iwai <tiwai@suse.de>, Emil Tsalapatis
+ <emil@etsalapatis.com>
+Subject: Re: [PATCH v5 00/38] mm: make VMA flag semantics explicit,
+ eliminate VM_SPECIAL
+Message-Id: <20261010150020.cbd6ce3038e3b6d72e2c92c9@linux-foundation.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyNyBTYWx0ZWRfX/cc9MZmuUPIg
- qCyiBY6v/xg9J1IQZSpTGkqjOdYoJ0JNTTVu8JRAHr7BJ4DFtKpZ+ZeOGGqbQwU6PD8ch/TyDct
- tGlz5ayd8fYIIrEPcQeczE3AuvZoTd2y6ZFtSpMd0JG2hQOXNtjQfp7sfb1jFM1BX948goDIUfe
- ckKsCVvebdpYfdqYGCpSH5NSGCcDiB88Gux1/4jJ88agDhmoLajk20IIs2W0r7Q/HvCSDqsPK/B
- NiVBqwVEcQH7myRoFoR2/9+DjaapF3ME8NucW9bownlMGcjhntCh5z+LXT7KfXTubwwt27FR465
- r2ojAivPN8mWK/J77cUEpBC1aHoDLuKo4PcwJbdF9jxwYxuuSpq/yIlQ58YTXWmQt8TV/3XS6rX
- 3f30cLF5echuwlafOX+mo1cqMkn6aIKsVgBLXFi2HeoGYUhn3Gcut7nkiLM3XORFiHoI4G/z/PJ
- k6eq43fIZoPpyDNiEtQ==
-X-Proofpoint-ORIG-GUID: Ip5IgkGGRZrJB0zC9jH2mfUnXsRhMtMJ
-X-Authority-Analysis: v=2.4 cv=MpTHeGae c=1 sm=1 tr=0 ts=6acc85b2 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=cNoKYFeJyS4W4/1HdvzxLidmn8o=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8 a=Ot09LXujVt6j2_2-7twA:9
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: Ip5IgkGGRZrJB0zC9jH2mfUnXsRhMtMJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyNyBTYWx0ZWRfX/H1dJAiGMvxa
- RpyfuVDzZvVkaKuMI6Jjvd4qgTowRCk/npkOB9DUqlP0HbW3UnQj+6cSG5qXb9R38ZU1AG31AMo
- yT891Uu+ozMOcoo5xh9zuxfB1Y4bKls=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120027
+X-Mailman-Approved-At: Mon, 12 Oct 2026 07:32:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,24 +124,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/9/26 12:34 AM, Zhang Jiaxi wrote:
-> These three independent corrections preserve current target APIs:
-> select the existing RGB DSC 1.2 RC table only for version 1.2 and reject
-> native subsampling in a forced-RGB path; retain the commit's vblank reference
-> until completion delivers its page-flip event; and reject video-porch
-> scanout-position conversion for a command-mode tear-check counter.
+On Fri, 09 Oct 2026 19:03:54 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+
+> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
+> properties:
 > 
-> Command mode initializes that counter at vdisplay, puts RD_PTR at
-> vdisplay+1 and can wrap at twice vtotal. This is not the video raster used
-> by the shared timestamp conversion. Returning false only marks that
-> accurate scanout-derived timestamp unavailable; TE IRQ/counting and the
-> current off-delay policy remain in place. No always-on IRQ policy is added.
-> The completion callback consumes the current count/time and does not wait
-> for another TE interrupt.
+> * Is this managed by core mm, or by a driver mapping MMIO, kernel-allocated
+>   pages, or even ordinary pages itself?
+> * Can it be expanded or merged?
+> * Is this a 'weird' case like mlock where migration might race and we
+>   'have' to set invalid flags to notify?
+> * Is it another 'weird' case where we just want to stop GUP from touching
+>   it?
+> 
+> Driver writers have often been confused about this, and who can blame them?
+> 
+> It also interacts badly with the eternal edgecase known as hugetlb - which
+> sets VMA_DONTEXPAND_BIT but doesn't also want to be treated like a
+> 'special' flag.
+> 
+> Another issue is that we cannot make sensible assumptions about flag
+> use. It's not possible to assume VMA_IO_BIT means iommu because drivers
+> abuse it and mlock abuses it.
+> 
+> Special is also an overloaded term in mm. VDSO and VVAR mappings are also
+> called 'special' but they're special in a... special way.
+> 
+> Sometimes things are called special that are a subset of
+> VMA_SPECIAL_FLAGS (VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT for instance when it
+> comes to zapping or vm_normal_folio()).
+> 
+> There's a specific kind of special for THP too, which considers
+> PFN map, mixed map 'special' but DAX not.
+> 
+> It's all rather a mess.
+> 
+> This series brings some order to things by both limiting what drivers can
+> do with VMA flags and switching to using predicates that describe
+> behaviour, not arbitrary flags.
 
-[...]
+Thanks, I've updated mm-unstable to this version.
 
-You sent a number of patches with broken threading, please switch to
-using the b4 tool - https://b4.docs.kernel.org/en/latest/
+For some reason, new versions of this series aren't applying when I
+drop the new series in place of the old.  I made the same old bunch of
+reject-fixups, so the below interdiff will show if I messed any of them up.
 
-Konrad
+> v5:
+> * Applied tags (thanks everybody!)
+> * Updated 3/38 to fix a bug in __mmap_new_file_vma() by zapping + closing
+>   the VMA before setting vma->vm_file NULL to avoid an i_mmap_writable
+>   imbalance. A repro was tested before/after and confirmed fixed.
+> * Updated 7/38 to make __map_kernel_pages_prepare() use
+>   mmap_assert_write_locked() rather than the weird
+>   assert-on-mmap_read_trylock() pattern, as per Suren.
+> * Also update vm_insert_page(), vm_insert_pages() to fix the same pattern
+>   and to use the new VMA API, and converted a BUG_ON to a
+>   VM_WARN_ON_ONCE().
+
+Here's how v5 altered mm.git:
+
+ mm/memory.c                       |   20 +++++++++++---------
+ mm/vma.c                          |   16 ++++++++--------
+ tools/testing/vma/include/stubs.h |    4 ++++
+ 3 files changed, 23 insertions(+), 17 deletions(-)
+
+--- a/mm/memory.c~b
++++ a/mm/memory.c
+@@ -2611,10 +2611,11 @@ int vm_insert_pages(struct vm_area_struc
+ 
+ 	if (!range_in_vma(vma, addr, end))
+ 		return -EFAULT;
+-	if (!(vma->vm_flags & VM_MIXEDMAP)) {
+-		VM_WARN_ON_ONCE(mmap_read_trylock(vma->vm_mm));
+-		VM_WARN_ON_ONCE(vma->vm_flags & VM_PFNMAP);
+-		vm_flags_set(vma, VM_MIXEDMAP);
++	if (!vma_test(vma, VMA_MIXEDMAP_BIT)) {
++		mmap_assert_write_locked(vma->vm_mm);
++		VM_WARN_ON_ONCE(vma_test(vma, VMA_PFNMAP_BIT));
++		vma_start_write(vma);
++		vma_set_flags(vma, VMA_MIXEDMAP_BIT);
+ 	}
+ 	/* Defer page refcount checking till we're about to map that page. */
+ 	return insert_pages(vma, addr, pages, num, vma->vm_page_prot);
+@@ -2626,7 +2627,7 @@ static void __map_kernel_pages_prepare(s
+ 	if (vma_desc_test(desc, VMA_MIXEDMAP_BIT))
+ 		return;
+ 
+-	VM_WARN_ON_ONCE(mmap_read_trylock(desc->mm));
++	mmap_assert_write_locked(desc->mm);
+ 	VM_WARN_ON_ONCE(vma_desc_test(desc, VMA_PFNMAP_BIT));
+ 	vma_desc_set_flags(desc, VMA_MIXEDMAP_BIT);
+ }
+@@ -2785,10 +2786,11 @@ int vm_insert_page(struct vm_area_struct
+ {
+ 	if (addr < vma->vm_start || addr >= vma->vm_end)
+ 		return -EFAULT;
+-	if (!(vma->vm_flags & VM_MIXEDMAP)) {
+-		BUG_ON(mmap_read_trylock(vma->vm_mm));
+-		BUG_ON(vma->vm_flags & VM_PFNMAP);
+-		vm_flags_set(vma, VM_MIXEDMAP);
++	if (!vma_test(vma, VMA_MIXEDMAP_BIT)) {
++		mmap_assert_write_locked(vma->vm_mm);
++		VM_WARN_ON_ONCE(vma_test(vma, VMA_PFNMAP_BIT));
++		vma_start_write(vma);
++		vma_set_flags(vma, VMA_MIXEDMAP_BIT);
+ 	}
+ 	return insert_page(vma, addr, page, vma->vm_page_prot, false);
+ }
+--- a/mm/vma.c~b
++++ a/mm/vma.c
+@@ -2631,21 +2631,21 @@ static int __mmap_new_file_vma(struct mm
+ 	map->vm_file = vma->vm_file;
+ 
+ 	if (error) {
+-		struct file *file = vma->vm_file;
+ 		UNMAP_STATE(unmap, vmi, vma, vma->vm_start, vma->vm_end,
+ 			    map->prev, map->next);
+ 
++		if (vma->vm_ops->close) {
++			zap_vma(vma);
++			/* Safe, because VMA zapped. */
++			vma_close(vma);
++		}
++		if (map_same_file(map))
++			fput(map->vm_file);
++
+ 		vma->vm_file = NULL;
+ 		vma_iter_set(vmi, vma->vm_end);
+ 		/* Undo any partial mapping done by a device driver. */
+ 		unmap_region(&unmap);
+-		vma->vm_file = file;
+-		/* Only safe once unmapped. */
+-		vma_close(vma);
+-
+-		if (map_same_file(map))
+-			fput(map->vm_file);
+-		vma->vm_file = NULL;
+ 		return error;
+ 	}
+ 
+--- a/tools/testing/vma/include/stubs.h~b
++++ a/tools/testing/vma/include/stubs.h
+@@ -329,6 +329,10 @@ static inline void vma_close(struct vm_a
+ {
+ }
+ 
++static inline void zap_vma(struct vm_area_struct *vma)
++{
++}
++
+ static inline int mmap_file(struct file *file, struct vm_area_struct *vma)
+ {
+ 	return 0;
+_
+
