@@ -4,60 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB6EDCA9EC0
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F310CA9EC5
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:45:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9179C10E8A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9352E10E8EB;
 	Sat, 10 Oct 2026 11:45:09 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E262410E213
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 01:35:52 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.172])
- by gateway (Coremail) with SMTP id _____8AxX9N0lslqdVoUAA--.59203S3;
- Sat, 10 Oct 2026 09:35:48 +0800 (CST)
-Received: from [10.20.42.172] (unknown [10.20.42.172])
- by front1 (Coremail) with SMTP id qMiowJAxX89wlslqoq4qAA--.24714S2;
- Sat, 10 Oct 2026 09:35:46 +0800 (CST)
-Message-ID: <5857a47f-5101-4bea-9060-d4c72362245d@loongson.cn>
-Date: Sat, 10 Oct 2026 09:35:47 +0800
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="mGkw0dUh";
+	dkim-atps=neutral
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 634A110E042
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 08:31:27 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a17baef589so3398645e9.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 01:31:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1791621086; x=1792225886;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=27dNsyUa7fhD1O/J2+BjSAdyJgmahNgxjJzz5yMN3P4=;
+ b=mGkw0dUhFn0P4K8UHOer/j+OkO5fMepG947zJ/fmU1lh7Ryf+Y8TGV0ixI47nrdRkG
+ 1y+9UNbBdxR/Wvwd3baATUCY6IL09wx+jpHpXWL43pDsw2vMa1+2t6qhx2fB6LWmnnKj
+ HdkslbWifPYFKZ3tzm8Mflf2gEC+8KRMeNFlhbb3rfmevqVKx432yKwRWraW66khVTH7
+ jpldr2A4mpF/yk8SYx3wqnMf8fRV7y05ZbNo7Oyg8wiZNKu6mXW0WyiVqof4HIAatcgp
+ OCMoSxIKrc2FlMkxsrEasU2nHjz1r+hdLlyUCas5IfhE/5lHBiMvcKISPEQfVd4JeGaA
+ sNQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791621086; x=1792225886;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=27dNsyUa7fhD1O/J2+BjSAdyJgmahNgxjJzz5yMN3P4=;
+ b=BiwcGM5gAHBg4UOKI/FjRpln1K7UEGstv0t2U7hx78hZJtK79Q8Ev8MyGWeS2JJJLa
+ nMZc4eCUgBa6a+ltA5jqvIwqKjsw+lxlVBQXOhJiz5PBaolYoNEBjhxZGSgBKLf4CzXj
+ on63UB8rb/rqXLpIWCGtNFHhlFpaXeVKT0Mszy7Ch5kEOuqMnpCY+XrVzAcVSJdZopcT
+ THZdR/czMu2ZomhVksrT+uS2BF8fHkxAX6yrYM5Q2W7ylYKc+Dlg4IrXnY/x3meu1WU7
+ 4DqesvoDFdqi8/VsqrXQ9bSYV1ym1rAeeh+lqnhauXBfKZEfZdfch7nItYyjwvQmtwqj
+ /lXQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByeKw4sCs1X3+x9od/0NvdUJwS9sRCmtdiUTiuJpiewR3cVRiZSnlxyNkTlEjUGSd91gxkLBkirm44=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLOKSDmFLqjIFk2hQSdPIcO8Um4Jq7zLiiupiB+QN8vNbs6pWBL
+ O9S18jjH2Q8aE2Phc5S08vYgSstzFU5Dbgtnk427lIu4cu5vOslLy6tacG6f+tjkyfA=
+X-Gm-Gg: AYBFou2zKU03MEYciv3aWkgFhCj/6kE9LLjBDwWJFoRUxkdkcGQSNFEPrF22jR2KcDi
+ EC6/85ngfPJeSo78oboLb1KkkFq7VPbMk02c2kUse/wUg7J5aspOmGzJjpiauvTM8LrQAoLcnaa
+ 5gw2KODHOxnv5C6zphyOsXg3zKL7Px+TtYC22tMuB1Z6n48Ha2YxcHpul4BXZP31mbi9GiygRtA
+ 15SwtIZ7yLcEBiBFSoyjl3PjPPYh1DC4Vf4YDCQ16GiLefofj+Mz7efhk1Qtx2rrGmII7weqgb9
+ 96EetKcUyEZMD/830E6yleg8GDi6qEUXsvzCE4lBxSbx6yr+UK9j8oQiuEG/IshLMjQLb+FHIMz
+ AlZV1d66OMMzWlbx6nnPTZi/DVB3oYMVdTnv+0ShewALfwjEcDWyG8t4ZjgANmZbuIJ+oqwv+YT
+ rmQTY36jH66/LAkXR0NKudeXKfLcNxY3BZdAT0GCuLb0nmI88lHfgOb39YpbyW/x8Mmpiryid8M
+ uZ7MXa1lgHgXtqVQLhRYLPa6MY=
+X-Received: by 2002:a05:600c:3d96:b0:4a1:746e:5898 with SMTP id
+ 5b1f17b1804b1-4a18e4835e7mr80062645e9.13.1791621085688; 
+ Sat, 10 Oct 2026 01:31:25 -0700 (PDT)
+Received: from localhost (137.36.26.109.rev.sfr.net. [109.26.36.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a18e4a3b4asm198380275e9.5.2026.10.10.01.31.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 10 Oct 2026 01:31:25 -0700 (PDT)
+From: Phong LE <ple@baylibre.com>
+To: Lucas Stach <l.stach@pengutronix.de>
+Cc: Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/etnaviv: add the Allwinner T527 VIP9000 hardware database
+ entry
+Date: Sat, 10 Oct 2026 10:30:36 +0200
+Message-ID: <20261010083036.765881-1-ple@baylibre.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/loongson: Fix framebuffer selection in async cursor
- updates
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Evanshenf <archwse@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
- Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
- kernel test robot <lkp@intel.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-References: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
- <79d0e9e21b47551b73413b6938c403a5af5f6bb4.camel@iscas.ac.cn>
-Content-Language: en-US
-From: wuqianhai <wuqianhai@loongson.cn>
-In-Reply-To: <79d0e9e21b47551b73413b6938c403a5af5f6bb4.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowJAxX89wlslqoq4qAA--.24714S2
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxAw17JFy7Jw18ZF1UGF1kCrX_yoW5WrykpF
- WDKa40kr4kJr4Iy39FgF4rXFWfua1fWFyxKF98Gw109ryYyr1xZrW7Cw4DWr47ZrZ7W342
- vr42kF98tF4vyFgCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
- Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
- kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
- twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
- kF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4U
- MxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI
- 0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE
- 14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20x
- vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWU
- JVW8JbIYCTnIWIevJa73UjIFyTuYvjxUcpBTUUUUU
 X-Mailman-Approved-At: Sat, 10 Oct 2026 11:45:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,99 +92,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Qianhai Wu <wuqianhai@loongson.cn> 
-  
-  
+Add an identity entry for the VIP9000 NPU found in the Allwinner T527,
+as used on the Orange Pi 4A. Match model 0x9000, revision 0x9003,
+product 0x05090009, customer 0x10000016 and ECO 0x06000000.
 
-  
-  
-  
+Provide the core counts, limits and feature masks for this variant
+instead of relying on the register-based fallback. It has six NN cores
+and one shader core.
 
-      The fix is correct. 
-  
-  
+Include SECURITY_AHB in minor_features10. The corresponding
+vip9000nano-si+ entry in the Orange Pi BSP feature database advertises
+both SECURITY and SECURITY_AHB. This lets the existing capability check
+select ETNA_SEC_KERNEL without a model-specific security override.
 
-  
-  
-  
+Validated on an Orange Pi 4A with a 6.18.38-based kernel and patched
+Mesa/Teflon. Full quantized MobileNet inference completes with identical
+NN intermediate and final outputs to the vendor BSP. Two additional
+runs without per-operation instrumentation complete without a hang.
+The Mesa fixes are separate from this hardware database addition.
 
-      Thanks, 
-  
-  
+Signed-off-by: Phong LE <ple@baylibre.com>
+---
+This entry combines the locally tested T527 HWDB addition and the
+SECURITY_AHB correction.
 
-      Qianhai Wu
+Prepared against torvalds/linux 6812ce4e4379ffc99c52401ec28f0d7ffbc36206 (etnaviv_hwdb.c).
+Hardware testing used the local 6.18.38-based tree, not this upstream
+revision.
 
-在 2026/10/9 16:33, Icenowy Zheng 写道:
-> (Cc'ing drm-misc maintainers)
-> 
-> 在 2026-10-03六的 09:00 +0000，Evanshenf写道：
->> An asynchronous cursor update swaps the new framebuffer into the live
->> plane state. However, the driver reads both old_fb and new_fb from
->> the
->> live state before this swap. When an enabled cursor changes buffers,
->> the
->> address-update condition is therefore false and the hardware
->> continues
->> scanning the previous buffer.
->>
->> Read new_fb from the new plane state before swapping the framebuffer
->> references. This updates the hardware address when the framebuffer
->> changes while retaining the existing behavior for cursor movement.
->>
->> Verified on a Loongson 3A5000 with LS7A2000 using 32x32 and 64x64
->> legacy
->> cursor updates. Callback counters and read-only register observations
->> confirmed the asynchronous path, the stale address before the change,
->> and the new address afterward. Same-framebuffer movement and cursor
->> disable/re-enable also passed, with the primary framebuffer and mode
->> unchanged.
->>
->> AI assistance was used to investigate the existing report, prepare
->> the
->> fix and test tools, run the build and hardware comparison, and draft
->> this message.
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes:
->> https://lore.kernel.org/r/202311152357.4KFS0M8f-lkp@intel.com/
->> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
->> controller")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Evanshenf <archwse@gmail.com>
->> ---
->>   drivers/gpu/drm/loongson/lsdc_plane.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
->> b/drivers/gpu/drm/loongson/lsdc_plane.c
->> index bcc0ffa..7b9c65c 100644
->> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
->> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
->> @@ -230,7 +230,7 @@ static void
->> lsdc_cursor_plane_atomic_async_update(struct drm_plane *plane,
->>   
->>   	new_state = drm_atomic_get_new_plane_state(state, plane);
->>   
->> -	new_fb = plane->state->fb;
->> +	new_fb = new_state->fb;
-> 
-> This change looks okay, although I don't know whether the
-> atomic_async_update() hook should be implemented at all now.
-> 
-> ```
-> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ```
-> 
-> However, please wait for further clarification of the function itself
-> from drm-misc maintainers.
-> 
-> Thanks,
-> Icenowy
-> 
->>   
->>   	plane->state->crtc_x = new_state->crtc_x;
->>   	plane->state->crtc_y = new_state->crtc_y;
->>
->> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+Vendor reference: Orange Pi T527 BSP,
+bsp/drivers/npu/aw_nna_galcore/hal/inc/gc_feature_database.h,
+entry vip9000nano-si+, customer 0x10000016. The SECURITY and SECURITY_AHB
+fields are both set to 1.
+
+Test details: 5,043,689 NN output elements and all 1,001 final output
+values match the captured BSP reference. This tests one model/input;
+it does not validate every reported capability or the graphics paths.
+
+ drivers/gpu/drm/etnaviv/etnaviv_hwdb.c | 32 ++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c b/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
+index 32d710baf17f..4df463ef6e60 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
+@@ -292,6 +292,38 @@ static const struct etnaviv_chip_identity etnaviv_chip_identities[] = {
+ 		.minor_features10 = 0x108048c0,
+ 		.minor_features11 = 0x00000010,
+ 	},
++	{
++		.model = 0x9000,
++		.revision = 0x9003,
++		.product_id = 0x5090009,
++		.customer_id = 0x10000016,
++		.eco_id = 0x6000000,
++		.stream_count = 8,
++		.register_max = 64,
++		.thread_count = 256,
++		.shader_core_count = 1,
++		.nn_core_count = 6,
++		.vertex_cache_size = 16,
++		.vertex_output_buffer_size = 1024,
++		.pixel_pipes = 1,
++		.instruction_count = 512,
++		.num_constants = 320,
++		.buffer_size = 0,
++		.varyings_count = 16,
++		.features = 0xe0287cac,
++		.minor_features0 = 0xc1799eff,
++		.minor_features1 = 0xfefbfadb,
++		.minor_features2 = 0xeb9d6fbf,
++		.minor_features3 = 0xedfffced,
++		.minor_features4 = 0xd30dafc7,
++		.minor_features5 = 0x7b5ac333,
++		.minor_features6 = 0xf239c400,
++		.minor_features7 = 0xffffe9bf,
++		.minor_features8 = 0x2003dfce,
++		.minor_features9 = 0x01081841,
++		.minor_features10 = 0x01004048,
++		.minor_features11 = 0x00010000,
++	},
+ };
+ 
+ bool etnaviv_fill_identity_from_hwdb(struct etnaviv_gpu *gpu)
+
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+-- 
+2.43.0
 
