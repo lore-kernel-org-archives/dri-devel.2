@@ -4,127 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805EBCA6017
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 07:38:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B578ECA9EBE
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 08:11:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9BA910E22A;
-	Sat, 10 Oct 2026 07:38:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6D6810E5B1;
+	Sat, 10 Oct 2026 08:11:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FUHKkRHZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sBpIpJpN";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013018.outbound.protection.outlook.com
- [40.107.201.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C0C10E22A
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 07:38:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DqMaqZ2Tc80XlZE4BLZOeAi4zRzE3ZCZYiQNBECJ85TNU51/w0681SnQHgO3Qr63wOFoapj+x1KJLbGTN6wIWK2nNR84kz5WS/fAa3gK77ZotUPqfmflHMwZpoDCQTM1TmM8uIws6NJwHd0zzCBWvlxa5oTWmw0x6HWCkYmRbC9Q+Nc6GHoxdRunBfOx6dZhgTQwtew21jyjSGTxnFnUeJbZ5CuCLj7ukWEC+DZZ+X0fDETvZvJA90it1IMdu6X4m+FRC3WzPAVCdmfs9U3xmFqlrPiBeJbljBjUheAAnLMGnC0KrmSOsb0bdzjEl9KFeK+Q0ajZMPRE4wXSNEOUIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JzF8fiJs15TupAMOGtcF/tbDJnFRYi5WcSd2OPbn9Ww=;
- b=uzJkjETnpINA4GTva5U7eaZAJwxxDJbm5TGMl2yXqzhK1Vtdx7r8l995ZDWmDgc7WJV0c5tsonwJAZeZt8yaexJUxdiUB4S1ZQO46LnzntP66yAxxyR7S2uQx5T/vN6pNGZ7hhGpfWEYnjlHXx8dWcdp5Ay1xNw+65iuCAb6otT9vRFN/12nqXfZSXaDipgWwFXuQSumsQRZhUK6F9QnzWTnJM0CHfZOVq1OFV+57xgDeoaPX1RL8f9rxY+GWKuAo6zFdPc1k97NkvHxfemlVSHCIyfS08TqPTjOMV0ZYHXLc9Cmxo7dojRev7kyINYngA9R2/Il2NtXtUKXtJwR7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JzF8fiJs15TupAMOGtcF/tbDJnFRYi5WcSd2OPbn9Ww=;
- b=FUHKkRHZatuFQl935GrVMfq3aw5DC+FXVYIUyqE7LupS/9PnSehpKopObI6r82GjdsMbEhKalgsWNw5c41RWQ1HPMYe76YqEVXJrHOdiJCt2hZuvegL5YLPeOQiGeAdg5i9x1FhaxdHeeNiZGbOWlPzG4PIOEhuazmuw3h4+J/w=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by DM6PR12MB4042.namprd12.prod.outlook.com (2603:10b6:5:215::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sat, 10 Oct
- 2026 07:37:57 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0496.010; Sat, 10 Oct 2026
- 07:37:57 +0000
-Message-ID: <7c32c182-5b49-4dc0-9c97-a4238743f28c@amd.com>
-Date: Sat, 10 Oct 2026 15:37:45 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
- airlied@redhat.com, kraxel@redhat.com
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <dfa2f117-1094-40b9-9445-ab2bbf62ff2e@collabora.com>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <dfa2f117-1094-40b9-9445-ab2bbf62ff2e@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TPYP295CA0046.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:8::17) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 910A710E5B1
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 08:11:11 +0000 (UTC)
+Received: by mail-oo2-f7.google.com with SMTP id
+ 46e09a7af769-8210db80578so191709a34.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 01:11:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791619870; x=1792224670; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Z2ha4Gusp7rfS5qI3QalwE3wIPhVWRGc9MjXkvhjipc=;
+ b=sBpIpJpNE5MsZMjpDn/15IM5c9DLsnm276IhBIuaiP8Pl8r9ABoITkBB0ntcJGiiSt
+ p3L2mWPkGRjHGyOWOaiwYQsQoJ7242E6UxFCri7Gq/16uD/SWz+BpT/j1qxyjv9oIugT
+ HrPxafRyTmWh1GM6Rd86OD/2pdjP7pDqLPsL06hCkqKOYp4DI3wlknCqCSd71hp63NA1
+ oM0uAWMpebCBzb07zOz5Hc9D3jchoD1V2LNQEr+0FzmdQYqfKFWv4AlfoQx/hSUiRa3+
+ JSD6Y6pcl0S9pDBgLUGr/asDyle+Ixa9R/uIW+RFIR07qbHRYumYfgDXy7TH++Pf7iRa
+ J2Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791619870; x=1792224670;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Z2ha4Gusp7rfS5qI3QalwE3wIPhVWRGc9MjXkvhjipc=;
+ b=nz7f1+Ly3io9e94h3taSNu0+Z8RS4O794jJVsn3AMEZJlVur5igyhlCSGAgCTAX0VG
+ VjOcRcXheXDwXCGCZg9szebsb2uG//g5IbJTRuk+1cQFI0KkFMqIdCy5SaulFe+tJdEo
+ tv62boX+fCkgd5oKp8GGjGtqf2cOhkzTVDo2aL/sTh4bgaA0ksEHqxs89w5jEMDmIdaB
+ /doqQuzt7IYYvNQ6lgQdmXoXibA7E1rsiRqUugvkYVJVHOrWP0B5uJSCgiYJ7yG8oX6z
+ BTH+AyS4KW1CymB0dhnvpPEKQ3g0CVJu3NBCeKsGOlTYEsYSfUWTcxGRtFde070A3K31
+ p2Lg==
+X-Gm-Message-State: AFq9FYKNkt/p+v95vJPWGtJJsPYmY0KwBIbPbSTlpvb6yMQRq5NymHmX
+ Wafey3s499y++07te1hJ8UCR/zQ9X0BeQFcpMxUKRNF4df+JItUi363w
+X-Gm-Gg: AYBFou20xE2F3jaRo9/loRp6wnnODfDfAkCuUUOJ/sjFSCs1StxHpxWec4lbc3pNfDM
+ jSmSV2xxArMK9UFrnvdBBdyQy1CkMBsOndiyezCimlCgQs1Q2z2Z4b51GeNF/FouSY0EKZpoTd4
+ bmhhui4fvEr11kSa1s9iaX9ykbB6Stz5kkxtR1V9DT5KYvRm/Y1pLqllV4tBqro/8KG7iv/nrXi
+ r21Y1Aqc7+4CvG6yo+PSZaGluqcS70sCfue+k/E9H+uwhKfenT1qt62ZVEBtEf7ExIU629N97kJ
+ m86LfNCSGKdHl5gPE7lUoUzs6wcgCphPsXkur7lEhCqgtBaNf/J4vzAMkx8dfLfD1x88wQeqVUA
+ QBZrX1DDxBsfFSIUhCDjEhP4Chs4irBikbRtcYxXA3tYJUIivffpuIoAPpgKlzYYaDnGHkPZVAc
+ TrSCv+jYs8nIlXHl7Lx7Oc2rU/UYQnAfUqPIEcqzRjfx4FzEIUoVxi6QIKxVX/5tewmWlifsdfC
+ YYDL7zbvtGAhYd1cL+rQkFt/G2cOBbPLv91aGzUdVJMzFnW
+X-Received: by 2002:a05:6808:f8c:b0:4c1:f40e:b697 with SMTP id
+ 5614622812f47-50c56bf8ed8mr3581941b6e.38.1791619870362; 
+ Sat, 10 Oct 2026 01:11:10 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.38])
+ by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-50c16755587sm4665356b6e.5.2026.10.10.01.11.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 10 Oct 2026 01:11:08 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: David Airlie <airlied@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Junrui Luo <moonafterrain@outlook.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Henry Martin <bsdhenrymartin@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/virtio: reject mappable HOST3D blobs without host-visible
+ memory
+Date: Sat, 10 Oct 2026 16:10:59 +0800
+Message-ID: <20261010081059.3096312-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|DM6PR12MB4042:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94fb2e2e-a6c0-439e-f8c4-08df26a16704
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|10067099003|18002099003|22082099003|261009223027099003|261009221227099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: VCkjNf7FX9SQEtD0aYurkhupZ/vO/F4PoOrTtvzpHwB33kTGnFRCzPMga0M76vCvf8gK/SP33TroVjyHFWjdTYjntKEzWDJxQbAMDeX7l7O9URkzjXs18bm9XseviFmqleiKiADEmXIstjKzeGgLf9UCPQWtF5BLGBN/Gi2pVZA489wJFIMnx0NEWweZUpBMHcKkRWH8gIyqD71MtkMhOfPcf6IZw6ckw7mVFJYUo8rERx2kX7mtsMgq1HgBU05lA99RNDkGUZYJit5eqvv99kcaRY55UbhpITTPZVnYDYNIsabOQqWKbhxO4lZ/OVQvllJ5RIR//TKrWfFluDjySBr9Z+zJA8khwy2eHmD2d3mVd0eVx9PQ5hOxcF6U8YI+yr/hxxeH8XOwXiMbnqIIN8rocgW+9ua3Wg/kTc8OVRRMW5Rs/qcArLphHyTtZaXL3VVRrAATcFvfoZ6hPLhrsJ+ByhES4+lyZTe5ycqI/lrPouVzkQT2gHPTIFanIs5GNqyTHtf7uenqB1WgMOzYJ4/o3NEfa5dexGensJjFGzHqsZiBKN3WcIr7ZUtqhC8Mj4VykQEzMvrUPG/ah8J8RHzGkvkIAet+SqhrJvkGWqJtI0ZFQ7nnKgJsA9Trw3uNgdMiDyqhYCo7b51lLWVauxQ2ycW6e6r1dfQssSoaJvM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(261009223027099003)(261009221227099003)(4143699003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWNYRjhXV3ZWWXZ6TmQ2UlpacFlERUtFNlBsZjBoWi8vc2pZQlNYTTY1WFli?=
- =?utf-8?B?bGZoNlBHR2N3bEVBQW41VUlSTjVlWEYzMHVyYmxPY0w2WllXOGpCWmpweDFR?=
- =?utf-8?B?REtLdTE0cVZkaUNyVnlRUGJmR0ZnTEt6M2I1MTZSTU4zVGE2YlN6dm1ldUls?=
- =?utf-8?B?UXVNT0ZVVWlxT2hBRGRtclJxNWRxOXlYU05KaEExeVJhNUxESGFOem9IK3Jw?=
- =?utf-8?B?UDNmdFkrN3JjaTBnaW9YYVNGWkdIemoxLzduR2ZNVWZNUEliRW5Fd0xKT25u?=
- =?utf-8?B?eVA2Um05R2dzOHc2bGdkdjVORlNNTUV6ZCs5Yy9vRm5OampqbnVORVpOdWdz?=
- =?utf-8?B?NWNIbjZjT3dvbmtGRVlOSndKaEQ2RUNQdkN2ZFBVckdpcHBtTiszSWVaWU5a?=
- =?utf-8?B?SWpPSGFEL0xHbUtKU0dtclhaUUNqN1FzTFlkbkRVd25JMWZ2SWQzcUtxQ2xL?=
- =?utf-8?B?NFd5TmxYRUs0L294WlRjekN6NHRJc1FpMHo0NEd6VU41N3F1Wk83Y2E2aHVr?=
- =?utf-8?B?eFp5RmxjKzkreTdraU5WNzJRSHBCUXNXb2JUU2tqa29Jc1lLOWRyaDErbldt?=
- =?utf-8?B?ZVBwMVE3bFA4bTEya2NSaUJEUHNacm5PZjliOVJBOXJNRW9TTEVCUkp6Sk80?=
- =?utf-8?B?SktGdFp5TTJPRExWUGkxRnV1UVlFa1I0RDVKVi9mZTBJNUJrT08vdjJ2OXV2?=
- =?utf-8?B?M3AyQisxM1RRenRYY2h3bTJ5dUU5WjB5Q3Jxd2NnMmRUZEpCZWNwbkpWdU5K?=
- =?utf-8?B?a1F5ZGZUVDMybnQxc0lnNEw0SmNINGtKNlJtYXpyMFBaZGxBUHZTMldMSU1Z?=
- =?utf-8?B?MFBkb0dYa3JGWWdVUWEwTHBleEYxZVdCbkZOWk9qUG5tSGhqblovd3IwTFA1?=
- =?utf-8?B?Vmt4K01SZkMrWFpTbU9RUEowODNOUVB1QWcySkFJWHlQSHNlcFRXcGdsVW15?=
- =?utf-8?B?aGNDT1h1ZEFibndocEpPaWJXcUYxOFArWUpoK3JXTnI1VjBVVEdZNlRPU0xH?=
- =?utf-8?B?UW1OTDBoVTl3dGpWczRBejVoYlZnOGpQKzllRHI4RHZ4bW1wMndocVp1YXVT?=
- =?utf-8?B?b2wrY1RRUDZ4UFZUNWo5K3o1Mi9kZVpKYWpkYXRwaHN0MEovWEZOay84bVBy?=
- =?utf-8?B?M2lKbyswdzFEaktlMkMvWkZPbzF2KytsS09QdWpKWDF4Wi9VK1dxVzJxaGNK?=
- =?utf-8?B?QjFDZnY2d1l6Z3ZVVGpHbVlVZEhraUdPaGRFTkZFTlVya0tXMGljWVh5TGdr?=
- =?utf-8?B?ck5td1E3U1RTc0toS0NZRkZUK2FSYVZmaEgzNUdOZXhDbmNqOHVxRjM0VDda?=
- =?utf-8?B?MnNuRzNNTFpRa0pkUFkxZ1lTUWtwRXIzYUhGK3dhTXBEV1haNXA0VWhjaGw5?=
- =?utf-8?B?Qy84dW1MaXM0bzg4UlcrYnZoc25XS0M1YWh2YzU4WlFRV25CTGRDU1FEV0FX?=
- =?utf-8?B?VmNyaVFXaXp0T3pPeWVJMjZJMHMrNFRiQ3h6OWpwRGxiV0ZvTkpjSzNWNDVO?=
- =?utf-8?B?Q0VnMDhPWUZMa253L1hEUnFBWFJqMDZTTGc1eTdneU5XTkRZZ1ZWTHBEYzIw?=
- =?utf-8?B?UzNUK3NYVkk1VkExQ3cvQ2pSaGY4OXJBaUx1ZEUvL25ack5ZdUNVZlZWWUNz?=
- =?utf-8?B?TThZWmtYdDdyVlpRWXcvTjA3STVLaTU5YUZUcnN3UnZSaXVuakhNaWpPRnIz?=
- =?utf-8?B?UnBMUW5iMnBPNy9uY1dCVUtOeUVrVDNtcUhwdU81dUlxR2k0VllQQXhuUGkv?=
- =?utf-8?B?YjUrOWpqN3kzd25ybko2TCtmT1ZYZjFSaXJmSVgxLy8yeG9ndlVGRlhUZXo3?=
- =?utf-8?B?VGhhRkpOUVpFdUtQaU9HeVFuZjRZWWR1SkJaMXg4bmUxekN6L3dxcitibFFt?=
- =?utf-8?B?MHRjUmxmVDhjWnRsY2M1VzJtaWVnbzdadlhwb0YvQjhIaUVjd2N1WFNVdnR4?=
- =?utf-8?B?ODczaS9Ga00vUDhKWDhPNFRIOHhxMGMxVEJXSUxMRXRVa0hlbTkwSWZIMVZ3?=
- =?utf-8?B?STJkaUgzZm0vWld4ZmZnZW8xWjdYbzI1L3NGaGx5K0EyeEp2QjV3NnJVWktr?=
- =?utf-8?B?K1k5YmxveVdnd1IzN2dEbU8rRnJ4LytmNW1kd2cwNzI3eFZTeHhudVVmWXBB?=
- =?utf-8?B?d252eUxsaVhZbTJUQ0xHUWVsY3BqeDhLcVJzUUtJc2NHbHJMRTdpTnlQR2ov?=
- =?utf-8?B?SkZDbGQ2Y2I4VW1xV1cyaHdsaXdYbTRYU045cVNVd2lNQzlwQlFzYW5OK1Y5?=
- =?utf-8?B?U29IZUtva0VaTUI2UjNxeEtmK1F3SGdUT2xIOUE3SHR4Ty8wYzdxRWtEVzZI?=
- =?utf-8?Q?6/yES/nQ77RL8NRl6L?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94fb2e2e-a6c0-439e-f8c4-08df26a16704
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 07:37:57.2174 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lOxI8+ykEUfhNab/vFolYNHShJ8r5N3u2nxVFpsuXUh7lTwvxNgjiMIDcJ1bmaUPeONRyGg5HR7GnCQegbo/mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4042
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,43 +93,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+virtio_gpu_resource_create_blob_ioctl() -> verify_blob() validates
+blob flags, memory type, context and alignment, but never checks
+VIRTGPU_BLOB_FLAG_USE_MAPPABLE against vgdev->has_host_visible.
 
+For blob_mem == VIRTGPU_BLOB_MEM_HOST3D the blob is created via
+virtio_gpu_vram_create(), and on a device without host-visible
+memory (plain virtio-gpu-pci,blob=on with no hostmem) the failure
+comes too late: the GEM object has been allocated, a host resource
+id taken and the create_blob command issued when
+virtio_gpu_vram_map() returns -EINVAL, and the cleanup calls
+virtio_gpu_vram_free(), which is a no-op while bo->created is still
+false (the host response has not been processed yet).  Every such
+blob creation permanently leaks the vram object and its resource
+id; /dev/dri/renderD* is reachable by unprivileged users.
 
-On 10/10/2026 2:53 AM, Dmitry Osipenko wrote:
-> 24.09.2026 12:55, Honglei Huang пишет:
->> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
->> +			      struct drm_file *file,
->> +			      struct virtio_gpu_object_params *params,
->> +			      struct virtio_gpu_object **bo_ptr)
->> +{
->> +	struct virtio_gpu_object_userptr *userptr;
->> +	struct virtio_gpu_mem_entry *ents = NULL;
->> +	struct sg_table *sgt;
->> +	struct mm_struct *mm;
->> +	unsigned long lock_limit;
->> +	unsigned long start;
->> +	unsigned long end;
->> +	s64 new_pinned;
->> +	unsigned int nents;
->> +	int ret;
->> +
->> +	*bo_ptr = NULL;
->> +
->> +	if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
->> +	    params->userptr != (unsigned long)params->userptr)
->> +		return -EINVAL;
->> +
->> +	start = params->userptr;
->> +	if (!IS_ALIGNED(start, PAGE_SIZE) ||
->> +	    check_add_overflow(start, (unsigned long)params->size, &end))
->> +		return -EINVAL;
-> 
-> There is new vgdev->blob_alignment defining host page size as it may
-> differ from guest's page. Will be good to validate both.
-> 
+Guest-backed blobs (VIRTGPU_BLOB_MEM_GUEST and
+VIRTGPU_BLOB_MEM_HOST3D_GUEST) mmap through the shmem path and do
+not need host-visible memory, so only the HOST3D case is rejected.
 
-Will add blob_alignment check in next version, thanks for the review.
+Commit 036d28db1818a ("drm/virtio: release the GEM object on
+virtio_gpu_vram_create() errors") fixed the sibling error paths but
+missed this one.  Reject the impossible combination at ioctl entry,
+making the failure mode unreachable.
 
-Regards,
-Honglei
+This issue was discovered by Tencent CodeBuddy Security.
 
+Cc: stable@vger.kernel.org
+Fixes: 16845c5d5409 ("drm/virtio: implement blob resources: implement vram object")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+index 81e70a12b3569..e3edade4a62dd 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
++++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+@@ -533,6 +533,11 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+ 			return -EINVAL;
+ 	}
+ 
++	if ((rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_MAPPABLE) &&
++	    rc_blob->blob_mem == VIRTGPU_BLOB_MEM_HOST3D &&
++	    !vgdev->has_host_visible)
++		return -EINVAL;
++
+ 	params->blob_mem = rc_blob->blob_mem;
+ 	params->size = rc_blob->size;
+ 	params->blob = true;
+-- 
+2.43.7
