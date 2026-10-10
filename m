@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 106DBCA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:56:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8101CCA6004
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 11:56:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F13B10E6E0;
-	Sat, 10 Oct 2026 11:56:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF9C410E7B5;
+	Sat, 10 Oct 2026 11:56:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BV4/hlDz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A7bwVcJI";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C385D10E5C2
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 11:56:10 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-48afe0081a6so327517f8f.2
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 04:56:10 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9DEF10EA11
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 11:56:14 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4a172eb31f0so4073345e9.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 04:56:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791633369; x=1792238169; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791633373; x=1792238173; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=7cQlWEs7vG4qRpaZiwY4RuZzcs0XsJM2mV6rRYet5I8=;
- b=BV4/hlDzk8H8183PCGIrYn1X9lkKlM1bGdAnDKWCnTjXpPOcFb86YYE8FZquLkpkL5
- 1R2XhUVzX21GmF3u5OW+uutnf7I52IubBMb9zxmEU9gAxECWABokZEOVa/vo8+dO6OZW
- 1Yxa6JzNwZQMWmQ9G8R6Bqk7sgXw49MiFFANf0H73E3uL8OtdVPyy5teIyD7IYF6Xyzo
- 20dVnXH72cgzsJKBzM0rjlLvRAAtkJcDjJeFx9wkyGtc4uIwT8bdlGxMdmp5RVkiZ148
- Os4m7fboStCaf3BmLhm9kH1QfjtNJF9ZXA2O1TXyx62nm1NLVk4Br9m5lgZ7dkkzQk/i
- 4Zmg==
+ bh=Qd6y2NiBciAjRKr5ndbJ7uSamNBWAtmvHRlzXouwwJA=;
+ b=A7bwVcJILLHEfCLzT33ouYKP/SPTkfsuDJfKW2QcfNeahEuliBZEQDLhxQAE6aoPVS
+ GMtdRWa7JJvR3rAoM57kCaQlk8rBa1xYBGexVY6YJy6k58SvZOtAvEUUwOfcKLvWZd3u
+ ZutDhlBd9MPAnB/6q01HrO5pleNfjPNVfFuQm3NSba5zxpGzjYPLvCVKExBI+dETJlF6
+ qXjSiKcg8mCKW+v4ybgrG5ZtLPU0kzpe4eb3Off6Wl0YPFgJhHJFOG5sOCaj4h+3Nv7y
+ esuRXUDBC+UmZNs+Ee4m3oGam4OpvWCEu0xDtzZFLqIviH0ldPANZMHBj//3DNWz2Ho6
+ sU2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791633369; x=1792238169;
+ d=1e100.net; s=20260707; t=1791633373; x=1792238173;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=7cQlWEs7vG4qRpaZiwY4RuZzcs0XsJM2mV6rRYet5I8=;
- b=d74OSCqb0jfi9+RTNFw4cuL7vLsYfvFS31aUolgjMhXZhw/hwVf3KLt2W0h1m5RvlL
- tqoCd+RX1ZcYPfsfvSkPb4DBIgdRa2fWeRxqULsej+BQ40+pIEqURMbxIeUc358/f+5H
- w4D189/LE6tugEvxMixI+xzjA8h8FuF+O7UQqeqxM7lS47ukW/eXqTk1IIG6DRu+gaIv
- 5+LtQfsGJTAuxK7YJTzB/NFePic31dvQcQZPErFePDHdCEtIIJax9nYC2k9FuSFnkDpM
- OVDc3yzMtvsaT25cZ9B40Uftyqps7aaYSQk6mtyOdGSSN6U98OdORODtM010bkQJA1Gu
- AoGw==
+ bh=Qd6y2NiBciAjRKr5ndbJ7uSamNBWAtmvHRlzXouwwJA=;
+ b=zDzrFvdsGAx0UUpFlnVLzyxx99LAhBleo6m6Zb7iBCcpkcY19KadnzWkkLg2YQyNRa
+ HSeTibYaxbi/XvjVvSPmEWVFLGwUfCd4nj3L21wL9QXze4aBw6llPDnrSUcL0q8NC9EI
+ HAzXerggHGKBltsR4HgsdRus8m3PdDTKE/hr7Prw2zaoLKXfryoWUIo+CPrMEJ8UrcOy
+ H9P4HXTF51wai8JFTOtb7mxAKc868JmDplQTP5aNabtp9MlvzUOktRWqpYuT+41mvcE3
+ 7+zwIeZdIigKzE+Htda9Z1pYv+TWI+cN4lr5fWhusHL+zQKa2BebFkIGZUBkwiwuLVDK
+ trKA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwPbJ6xydxjc7kCZGkAiKQbzyYKl64DO+8Hz0lYKNF9TWsqf0832OWlRHTNaPZYWRhyCKuUFd7KeZ0=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKEuBT9RiWjHP0MvNFfMGZHp9Zb7tl2HglZNjxy81BkB3LOa+5e
- Tut2UWfqIWeQ08vBWeCZcW4Enbym/1JdhxdVmZ4PWpfIZR8aXQXwc0F4
-X-Gm-Gg: AYBFou30TNeYHeNoomGAelIWLW/q40oP8nog1EM2c+d1JqrdeoNgPl6nSSwxAfC9ZTR
- zGxOT5efYSTEnucm2Up+23M6FH8jUHMr//X6L+BldzK/Tn0tf6/OPKttR5h6DtmKBLLzQZLj19n
- dfw8M3lwNbuncWAKcYmvyUeWeAZXfmZoBREcoMSawN5NS3bi97v4gO+bD/Wq624sVq46vfqk8M3
- HrBtecp/c6ht290F6msiw+DghtobYriVCftFduHJ1Ylcl6q9cDCwTAq53VJZYpTO3rZQCYP9fe0
- uYnSdaHIFS01U2PiCTDORBY7y0ZW2h6lVlhhGxNAqhwV0xt7NGIOq4lSPwG0TYXsnKVE2GjS0hj
- WgHiQcD5OgFS+6UVDNRr9oNLi8If30btAsNVzxTfpowPReH3O7ynqme2UBf1IZp0YbNa6O9mcH2
- IfuGz4BphkR/Qkn5UyfWnIwY+ta0Qoi1U68izHsZm4pxzGznjKEi5SZpH0+LvztG0M3A==
-X-Received: by 2002:a5d:5d09:0:b0:48c:6a6b:69b2 with SMTP id
- ffacd0b85a97d-48dbaae7028mr6208118f8f.27.1791633369101; 
- Sat, 10 Oct 2026 04:56:09 -0700 (PDT)
+ AKwUvBy8WUnW67y4GzBXA76yfcoxA7e+MwHevsjPwiHXO3wYm4iQWR+pUlws0y/pdr31uv+O9/YzYetz4D4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ+U5btRF6C9WIidkmbfNYhyMQ3bdjNDaX9jkmGecnRqCg0g6LG
+ ni+8r4MhuoPAbXOwcYXZgEJmzeSPtVAalO+mgTHJzC65eVxSEe/17VOm
+X-Gm-Gg: AYBFou3DCLMOV9HP+3jlWY5uMbrwqPzwoNBWK/O73F+Ri7hQrdmPPH/Nw1HmWCLkIBz
+ 7vz91qO25RbMPKql4gtEzmLkWQcXixSTn5QeCGs+9FMAwYvJpGtUGTCMXiDOI+zjzRljrd33Vnx
+ UBaRLB8BsJqbtA9lxtKjJFiP6dkbZgrxAgwXD3/EGpJTp3eaAHgkJXMCNsnH9xX5aB++xvQOLlX
+ XrPPNt7e3XWbiqwUxS2hRp74fPBPc57Da90UFvbkeKg0h2D1uChhCtV8hLu+/lOx+bW/ZqAwC6X
+ Ypcw761mYia+lbtROOZQruRxiTkLGM/Mdxt/T/xb9D7O0nTWihVt+7iWcaySRs8PSFKzAv+m332
+ n0GPoAzeLvEL2NiN8OpnJwRomJZpUDV7liafC1ZSgInAB0IeeNZy0scERcDfkXBodVIADDaljym
+ H4Rwd+Y2w+ZXKJQL1K8oLlQBDuI7DHN2AjfkpxXevs0qGqfKc5sZeQNKMAbK9E/9uchg==
+X-Received: by 2002:a05:600c:6749:b0:4a0:1a7f:2abf with SMTP id
+ 5b1f17b1804b1-4a18e49d633mr79294265e9.7.1791633373147; 
+ Sat, 10 Oct 2026 04:56:13 -0700 (PDT)
 Received: from luca-vm.lan ([154.61.61.58]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48db9aca657sm8746340f8f.43.2026.10.10.04.56.07
+ ffacd0b85a97d-48db9aca657sm8746340f8f.43.2026.10.10.04.56.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Oct 2026 04:56:08 -0700 (PDT)
+ Sat, 10 Oct 2026 04:56:12 -0700 (PDT)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
 Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
@@ -78,13 +78,14 @@ Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Chen-Yu Tsai <wenst@chromium.org>, Fabien Parent <fparent@baylibre.com>,
- CK Hu <ck.hu@mediatek.com>, chunhui dai <chunhui.dai@mediatek.com>,
+ chunhui dai <chunhui.dai@mediatek.com>, CK Hu <ck.hu@mediatek.com>,
  linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 5/7] drm/mediatek: mtk_hdmi: Set tz_disabled for mt8167
-Date: Sat, 10 Oct 2026 13:54:05 +0200
-Message-ID: <20261010115539.9237-6-l.scorcia@gmail.com>
+Subject: [PATCH 6/7] drm/mediatek: mtk_hdmi: Improve the secure output bit
+ toggle
+Date: Sat, 10 Oct 2026 13:54:06 +0200
+Message-ID: <20261010115539.9237-7-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261010115539.9237-1-l.scorcia@gmail.com>
 References: <20261010115539.9237-1-l.scorcia@gmail.com>
@@ -105,27 +106,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Just like mt2701, MediaTek mt8167 does not require an ARM supervisor mode
-call to toggle HDMI output.
+The secure output control bit toggle for mt2701/mt8167 currently sets
+bit 0 (DEEP_COLOR_EN), 1-2 (DEEP_COLOR_MODE), 15 (HDMI_PSECUR_EN) and 31
+(HDMI_PCLK_FREE_RUN_EN) in the same operation, but only bit 15 is actually
+controlling the HDMI_PSECUR_EN bit, the rest of them are already being set
+in separate operations later. Add a define for bit 15 and clean up the bit
+update operation.
 
-Fixes: 511cf7d12331 ("drm/mediatek: hdmi: Add MT8167 configuration")
+Fixes: 0fc721b2968e ("drm/mediatek: add hdmi driver for MT2701 and MT7623")
 Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 ---
- drivers/gpu/drm/mediatek/mtk_hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/mediatek/mtk_hdmi.c      | 2 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_regs.h | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-index 738090a47176..9896eaf81e7e 100644
+index 9896eaf81e7e..781177a1f190 100644
 --- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
 +++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-@@ -1214,6 +1214,7 @@ static const struct mtk_hdmi_conf mtk_hdmi_conf_mt2701 = {
- };
- 
- static const struct mtk_hdmi_conf mtk_hdmi_conf_mt8167 = {
-+	.tz_disabled = true,
- 	.cea_modes_only = true,
- 	.max_mode_clock = 148500,
- 	.ver_conf = &mtk_hdmi_v1_ver_conf
+@@ -63,7 +63,7 @@ static void mtk_hdmi_hw_make_reg_writable(struct mtk_hdmi *hdmi, bool enable)
+ 	if (hdmi->conf && hdmi->conf->tz_disabled)
+ 		regmap_update_bits(hdmi->sys_regmap,
+ 				   hdmi->sys_offset + HDMI_SYS_CFG20,
+-				   0x80008005, enable ? 0x80000005 : 0x8000);
++				   HDMI_PSECUR_EN, enable ? 0 : HDMI_PSECUR_EN);
+ 	else
+ 		arm_smccc_smc(MTK_SIP_SET_AUTHORIZED_SECURE_REG, 0x14000904,
+ 			      0x80000000, 0, 0, 0, 0, 0, &res);
+diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_regs.h b/drivers/gpu/drm/mediatek/mtk_hdmi_regs.h
+index 2050ba45b23a..e0c35277c553 100644
+--- a/drivers/gpu/drm/mediatek/mtk_hdmi_regs.h
++++ b/drivers/gpu/drm/mediatek/mtk_hdmi_regs.h
+@@ -219,6 +219,7 @@
+ #define DEEP_COLOR_EN			BIT(0)
+ #define HDMI_AUDIO_TEST_SEL		BIT(8)
+ #define HDMI2P0_EN			BIT(11)
++#define HDMI_PSECUR_EN			BIT(15)
+ #define HDMI_OUT_FIFO_EN		BIT(16)
+ #define HDMI_OUT_FIFO_CLK_INV		BIT(17)
+ #define MHL_MODE_ON			BIT(28)
 -- 
 2.43.0
 
