@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E54F1CA9EC1
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 17:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCAC9CA9EC1
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 17:36:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1181410E26D;
-	Sat, 10 Oct 2026 17:36:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1153B10E278;
+	Sat, 10 Oct 2026 17:36:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mj05ueRG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h6/RHVBF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E12E910E26D
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 17:36:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41C4110E27A
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 17:36:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9FC88406D1;
- Sat, 10 Oct 2026 17:36:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 594D61F000FF;
- Sat, 10 Oct 2026 17:36:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2A42F406D1;
+ Sat, 10 Oct 2026 17:36:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87ED1F000FF;
+ Sat, 10 Oct 2026 17:36:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791653814;
- bh=czyMrPS4gaN5S1toQPWC0XGf1Y6zZ2VTaO3otU9fiQo=;
+ s=k20260515; t=1791653816;
+ bh=Ph+/ZBET6Z1YE6UskAUElMktd2TrcZklt3qXS0DExUc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Mj05ueRGiZjh4ov0PhIh+wp51luj6IECcvOWsyRT3vuJl2U2G3tTmi33/X01yL3Fm
- EcCIp1Oepv83m6cguweuuk9kbmcohze1OitmDJuy8q3T0Z4tKptZOE5Huu37bUEpgh
- RO95CMCVOjNu9ief4pRxZnd4dE6doJfbvor9pY4n6x4fCW+HX3sU8v8ymZneBrfUZd
- 5B2ywzHmVru9/iljKXAYS/2dPNFYniWOxX5fCcMpxIvV5nn7ouDV542K44Hm3Be+1R
- tO9r5kvWqp/EisEbWp1bSbu8wMPVhcqEpoP72pSTMddNEJpBZgGFNAKEjVqGBbhimU
- P6nk+RxdG6+iA==
-Message-ID: <sashiko-outbox-166781@kernel.org>
+ b=h6/RHVBFHWK1JBiKdvUaX5Yqkg8QRyLkeM0B/ZQqMPuuuRSdCcX21d1KuB1QG0zIG
+ 2q/uvK+Z83ilwImpcb2f6pJUcup/a2BqNBAdVLwG6ZOYOHCehTi5B4FYQwMS4TucTG
+ ZhGfGNJSrfXhBsrjh+0NHPHM0Ua5cap0maNPF/7JUQuVQKTDdw/w4PoKPPuGC570Yr
+ NbNEWon1Egl6A45cXCG0IxtNr/az9pN0jIcRNo5X/0xvOxqQ7aG5XYGfTr1cbCU0V4
+ 2PnQOC6OBsE2MF603VkVM11frsjw7OcNDbtqKiCQ1sxPCEzJm+qQhlM6JZr1VJhKv6
+ FuZzAjq03o2tg==
+Message-ID: <sashiko-outbox-166783@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/drm_ras: Extend DRM RAS interface to include
- telemetry nodes
+Subject: Re: [PATCH 1/3] drm/drm_ras: Remove admin-perm flag from list-nodes
+ operation
 To: "Zack McKevitt" <zachary.mckevitt@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009173152.2436195-3-zachary.mckevitt@oss.qualcomm.com>
+In-Reply-To: <20261009173152.2436195-2-zachary.mckevitt@oss.qualcomm.com>
 References: <20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com>
- <20261009173152.2436195-3-zachary.mckevitt@oss.qualcomm.com>
+ <20261009173152.2436195-2-zachary.mckevitt@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 17:36:53 +0000
+Date: Sat, 10 Oct 2026 17:36:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,257 +58,110 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm: NULL pointer dereference in drm_ras_nl_pre_telemetry() on inv=
-alid node
-- [High] drm: missing netlink attribute presence checks cause NULL pointer =
-dereferences
-- [High] drm: Use-After-Free of drm_ras_node in netlink telemetry handlers
-- [High] drm: DRM_RAS_CMD_TELEMETRY_WRITE lacks GENL_ADMIN_PERM capability
-- [Medium] drm: uninitialized stack variables leaked in drm_ras_nl_telemetr=
-y_read_doit()
-- [Low] drm_ras: drm_ras_nl_telemetry_write_doit validates wrong callback
-- [Low] netlink: use of u64 and pad attributes instead of uint for new uAPI
+- [Critical] core: UAF in drm_ras_xa lookups during Netlink operations
+- [High] core: uninitialized variable leak in Netlink dumpit handlers
+- [Low] netlink: missing NLM_F_DUMP_INTR flag for lockless dump iteration
 --
 
-commit 6e531a5b48e418d2f90c14c196ea1ac73f7170e4
+commit 46092107989be3447885b1e58b5d130104004fba
 Author: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
 
-drm/drm_ras: Extend DRM RAS interface to include telemetry nodes
+drm/drm_ras: Remove admin-perm flag from list-nodes operation
 
-This commit adds a new node type, attribute set, and doit function for
-performing telemetry read and write operations using the DRM RAS interface.
+Drivers may want to avoid requiring CAP_NET_ADMIN for subsequent
+drm-ras operations. So, drop the CAP_NET_ADMIN requirement for dumping
+RAS nodes so that drivers with different permission requirements are
+still able to use the interface.
 
-> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/net=
-link/specs/drm_ras.yaml
-> index a88fdab7a1c74..d558eb1cba3f1 100644
-> --- a/Documentation/netlink/specs/drm_ras.yaml
-> +++ b/Documentation/netlink/specs/drm_ras.yaml
-[ ... ]
-> @@ -100,6 +100,31 @@ attribute-sets:
->          name: error-value
->          type: u32
->          doc: Current value of the error counter.
-> +  -
-> +    name: telemetry-attrs
-> +    attributes:
-[ ... ]
-> +      -
-> +        name: value
-> +        type: u64
-> +        doc: Value of telemetry field that was read/written.
-> +      -
-> +        name: status
-> +        type: s32
-> +        doc: Status of the telemetry operation.
-> +      -
-> +        name: pad
-> +        type: pad
-> +        doc: Alignment padding used for 64-bit
-
-[Severity: Low]
-Does this new netlink family uAPI violate the generic netlink design
-guidelines?
-
-The telemetry-attrs set defines value as a fixed-width u64 and uses a pad
-attribute. The generic netlink documentation explicitly prefers
-variable-width 64-bit types (uint/sint) for new attributes to avoid padding
-and 64-bit alignment issues on 32-bit architectures.
-
-Since uAPI is immutable once merged, should this use uint natively instead
-of introducing fixed-width structures requiring pad attributes?
-
-> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-> index b099eb67836e7..b88293295cda9 100644
-> --- a/drivers/gpu/drm/drm_ras.c
-> +++ b/drivers/gpu/drm/drm_ras.c
-[ ... ]
-> +int drm_ras_nl_pre_telemetry(const struct genl_split_ops *ops, struct sk=
-_buff *skb,
-> +			     struct genl_info *info)
-> +{
-> +	struct drm_ras_node *node;
-> +	u32 node_id;
-> +
-> +	node_id =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
-
-[Severity: High]
-Can this cause a NULL pointer dereference if userspace sends a malformed
-message?
-
-Generic netlink policies enforce the type of an attribute only if it
-is present, but they do not enforce presence. If the
-DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID attribute is missing from the request,
-info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID] will be NULL.
-
-Passing NULL to nla_get_u32() dereferences NULL + NLA_HDRLEN, leading to an
-immediate kernel oops.
-
-> +	node =3D xa_load(&drm_ras_xa, node_id);
-> +
-> +	if (node->telemetry_pre)
-
-[Severity: High]
-Could this dereference a NULL pointer if the provided node_id does not
-exist?
-
-The xa_load() function returns NULL if the ID is not registered, and
-this code immediately evaluates node->telemetry_pre without verifying if
-node is a valid pointer.
-
-> +		return node->telemetry_pre(node);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +int drm_ras_nl_telemetry_read_doit(struct sk_buff *skb, struct genl_info=
- *info)
-> +{
-> +	struct drm_ras_node *node;
-> +	struct sk_buff *msg;
-> +	struct nlattr *hdr;
-> +	u32 node_id, field;
-> +	s32 status;
-> +	u64 value;
-
-[Severity: Medium]
-Are these variables guaranteed to be fully initialized by the driver
-callback?
-
-They are declared on the kernel stack and passed by reference to the
-node->telemetry_read() callback below.
-
-> +	int ret;
-> +
-> +	if (!info->attrs || !info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD])
-> +		return -EINVAL;
-> +
-> +	field =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD]);
-> +	node_id =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
-> +
-> +	node =3D xa_load(&drm_ras_xa, node_id);
-> +	if (!node || !node->telemetry_read)
-> +		return -ENOENT;
-
-[Severity: High]
-Does this lockless usage of the node pointer risk a use-after-free?
-
-The pointer is obtained via xa_load(), which uses RCU internally but drops
-the read lock before returning. The pointer is then used locklessly without
-a reference count across the node->telemetry_read() callback.
-
-Since telemetry_read() is allowed to sleep, could a concurrent hardware
-unbind or module unload unregister and free the node while this callback is
-still executing?
-
-> +
-> +	msg =3D genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
-> +	if (!msg)
-> +		return -ENOMEM;
-> +
-> +	hdr =3D genlmsg_iput(msg, info);
-> +	if (!hdr) {
-> +		nlmsg_free(msg);
-> +		return -EMSGSIZE;
-> +	}
-> +
-> +	ret =3D node->telemetry_read(node, &field, &value, &status);
-> +	if (ret) {
-> +		nlmsg_free(msg);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D nla_put_s32(msg, DRM_RAS_A_TELEMETRY_ATTRS_STATUS, status);
-> +	if (ret) {
-> +		genlmsg_cancel(msg, hdr);
-> +		nlmsg_free(msg);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D nla_put_64bit(msg, DRM_RAS_A_TELEMETRY_ATTRS_VALUE, sizeof(valu=
-e),
-> +			    &value, DRM_RAS_A_TELEMETRY_ATTRS_PAD);
-
-[Severity: Medium]
-If the driver's telemetry_read() callback returns success (0) but fails to
-explicitly populate the value or status fields, this writes uninitialized
-kernel stack memory directly into the netlink reply.
-
-Should these variables be initialized to zero when declared?
-
-> +	if (ret) {
-> +		genlmsg_cancel(msg, hdr);
-> +		nlmsg_free(msg);
-> +		return ret;
-> +	}
-[ ... ]
-> +int drm_ras_nl_telemetry_write_doit(struct sk_buff *skb, struct genl_inf=
-o *info)
-> +{
-> +	struct drm_ras_node *node;
-> +	struct sk_buff *msg;
-> +	struct nlattr *hdr;
-> +	u32 node_id, field;
-> +	s32 status;
-> +	u64 value;
-> +	int ret;
-> +
-> +	if (!info->attrs || !info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD])
-> +		return -EINVAL;
-> +
-> +	value =3D nla_get_u64(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_VALUE]);
-> +	field =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD]);
-> +	node_id =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
-
-[Severity: High]
-Similar to the pre_doit handler, is it possible for a malformed message
-missing the VALUE or NODE_ID attributes to trigger a NULL pointer
-dereference here?
-
-The presence of DRM_RAS_A_TELEMETRY_ATTRS_FIELD is explicitly checked above,
-but VALUE and NODE_ID are extracted unconditionally.
-
-> +
-> +	node =3D xa_load(&drm_ras_xa, node_id);
-> +	if (!node || !node->telemetry_read)
-
-[Severity: Low]
-Does this code validate the wrong callback?
-
-The telemetry write handler checks for the presence of node->telemetry_read,
-but later invokes node->telemetry_write(). While node registration might
-currently ensure both are populated, checking the read callback here creates
-a brittle dependency on the registration logic.
-
-> +		return -ENOENT;
-[ ... ]
 > diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+> index c9f5e0ceb3b5f..ff0dc406c27c8 100644
 > --- a/drivers/gpu/drm/drm_ras_nl.c
 > +++ b/drivers/gpu/drm/drm_ras_nl.c
-[ ... ]
-> @@ -83,6 +96,22 @@ static const struct genl_split_ops drm_ras_nl_ops[] =
-=3D {
-[ ... ]
-> +	{
-> +		.cmd		=3D DRM_RAS_CMD_TELEMETRY_WRITE,
-> +		.pre_doit	=3D drm_ras_nl_pre_telemetry,
-> +		.doit		=3D drm_ras_nl_telemetry_write_doit,
-> +		.policy		=3D drm_ras_telemetry_write_nl_policy,
-> +		.maxattr	=3D DRM_RAS_A_TELEMETRY_ATTRS_VALUE,
-> +		.flags		=3D GENL_CMD_CAP_DO,
-> +	},
->  };
+> @@ -46,7 +46,7 @@ static const struct genl_split_ops drm_ras_nl_ops[] =3D=
+ {
+>  	{
+>  		.cmd	=3D DRM_RAS_CMD_LIST_NODES,
+>  		.dumpit	=3D drm_ras_nl_list_nodes_dumpit,
+> -		.flags	=3D GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
+> +		.flags	=3D GENL_CMD_CAP_DUMP,
+
+[Severity: Critical]
+Does dropping the admin permission here safely handle the pointer management
+in drm_ras_nl_list_nodes_dumpit() and get_node_error_counter()?
+
+In drm_ras_nl_list_nodes_dumpit(), xa_for_each_start() iterates over the
+xarray:
+
+	xa_for_each_start(&drm_ras_xa, id, node, ctx->restart) {
+		hdr =3D genlmsg_iput(skb, info);
+		...
+		ret =3D nla_put_string(skb, DRM_RAS_A_NODE_ATTRS_DEVICE_NAME,
+				     node->device_name);
+
+The xa_for_each_start() macro drops the RCU read lock before returning,
+leaving the node pointer unprotected against concurrent freeing.
+
+Could an unprivileged user concurrently querying the list while nodes are
+unregistered trigger a use-after-free when node->device_name is read,
+leading to memory corruption or data leaks?
+
+A similar unprotected access occurs in get_node_error_counter():
+
+	node =3D xa_load(&drm_ras_xa, node_id);
+	if (!node || !node->query_error_counter)
+		return -ENOENT;
+	...
+	return node->query_error_counter(node, error_id, name, value);
+
+Does xa_load() protect the returned node pointer from being freed before the
+query_error_counter() function pointer is dereferenced?
 
 [Severity: High]
-Should this command require the GENL_ADMIN_PERM capability?
+Can exposing drm_ras_nl_list_nodes_dumpit() to unprivileged users leak kern=
+el
+stack memory?
 
-Unlike DRM_RAS_CMD_SET_ERROR_THRESHOLD, the telemetry write command is miss=
-ing
-the GENL_ADMIN_PERM flag. This allows unprivileged users to issue arbitrary
-writes to hardware components, potentially leading to denial of service or
-hardware state corruption.
+In drm_ras_nl_list_nodes_dumpit(), the ret variable is uninitialized:
+
+	int ret;
+
+	xa_for_each_start(&drm_ras_xa, id, node, ctx->restart) {
+		...
+
+If the drm_ras_xa xarray is empty, the loop will not execute, and the
+function will return the uninitialized stack value. The same issue exists
+in drm_ras_nl_get_error_counter_dumpit().
+
+Additionally, if the loop does execute and the socket buffer is full, ret is
+set to -EMSGSIZE and returned:
+
+	if (ret =3D=3D -EMSGSIZE)
+		ctx->restart =3D id;
+
+	return ret;
+
+Does returning -EMSGSIZE break multi-part netlink dumps entirely by failing
+to return skb->len when the buffer fills up?
+
+[Severity: Low]
+Is the NLM_F_DUMP_INTR flag required for this lockless dump iteration?
+
+drm_ras_nl_list_nodes_dumpit() iterates over the lockless drm_ras_xa data
+structure. If concurrent node registrations or unregistrations occur, the
+iteration could skip or repeat items.
+
+According to the Netlink subsystem rules, should such dumps maintain a
+generation counter and set NLM_F_DUMP_INTR on the affected messages to
+notify userspace of inconsistent states?
+
+>  	},
+>  	{
+>  		.cmd		=3D DRM_RAS_CMD_GET_ERROR_COUNTER,
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009173152.2436=
-195-1-zachary.mckevitt@oss.qualcomm.com?part=3D2
+195-1-zachary.mckevitt@oss.qualcomm.com?part=3D1
