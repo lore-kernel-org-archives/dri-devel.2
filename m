@@ -4,60 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCC0ECA9EBE
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 06:38:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF0F4CA9EC1
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 07:36:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10E4B10E70C;
-	Sat, 10 Oct 2026 06:38:53 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1117F10E70C
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 06:38:49 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
- by APP-01 (Coremail) with SMTP id qwCowAD3ye1q3clq+e5uCg--.39007S2;
- Sat, 10 Oct 2026 14:38:35 +0800 (CST)
-Message-ID: <58550960f484cc419d19e693b9efa5b03982cc22.camel@iscas.ac.cn>
-Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
- clearing a BO
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Evanshenf
- <archwse@gmail.com>, dri-devel@lists.freedesktop.org, Natalie Vock
- <natalie.vock@gmx.de>, "Paneer Selvam, Arunpravin"
- <Arunpravin.PaneerSelvam@amd.com>
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
- Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org, Huang Rui	
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost	
- <matthew.brost@intel.com>
-Date: Sat, 10 Oct 2026 14:38:34 +0800
-In-Reply-To: <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
- <20261003093415.902f89244043-2-archwse@gmail.com>
- <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
- <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF3D910E0FB;
+	Sat, 10 Oct 2026 07:36:37 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2QZuiSnz";
+	dkim-atps=neutral
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012022.outbound.protection.outlook.com
+ [40.93.195.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3949C10E0FB
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 07:36:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v+psvXNHbhHji5V8amCltzUYCDPEuf5Xcko7UBvD5OrDP0ggGA8BTLwM/bRB/7fShXi6ulvhlcqyRuVpWhD54C7YjTeBALooBNVJhDimi1gV4K+4azTGcFETdQWpdddjxLsJaTIpqU2SPH1i0AQoPUBHgA0wJXRDV5Nc+nrtgxGThagxk5yH/rL+M3k2lwOF0+BBPj+GMfWLzZtrUGIh3B7V6CXW0vHy7vaO+EoYQdlBep425WQuWKiFQKGVvHzaMIsgmLXzTykwJiDqVConxrIKHAalaDID4G0K3+qPIgN/kCIbzxqavJAkPzKXQA2IbZSECrFCiuPpH1ZejMvdyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VYz9r8PmsOwxzyPyrjquMnAjad0LJaf3uyKSiBQn1Yc=;
+ b=BeG41VlB+4a1xwQ2I4C3B1oP6XWkhWlA75laBfLe0rLxtb4Ss9xKirqtm9a720U++pFOECNCChPOyqCkA0iPIDKSxf+yx0SKYrZuTAlgMvACbu21h4K2kAtlC/VxEIeD4eNpQ05ChX0eIX/6j+xYpWTi4CvOPgAxnMCMoXqbfLvRmdetYvjp2JuoGdWgc9+/SUOYcou7j7iXt8060gM/TBD5Mh8IX2ASK7/zPEUNQPqmuIrKRWfYunG8t1PmzqUE04Y3TIZ/MtrpxyhW0OzcG9F+/zx5lDO5/puhh7cfKkITBuvcPlVhZHFZygne0H04qhE153chPP/9lLQ43yeI5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VYz9r8PmsOwxzyPyrjquMnAjad0LJaf3uyKSiBQn1Yc=;
+ b=2QZuiSnzzgfXhyIDicFeha9up3FQ60iy1qiQl2/j/Kz8mdHn6G7WRiXO9gdM6OpJjAKfqj2hl4RBn44+mEAeTRHRvJMB314UhEPQU6q/veA0VursZa8StEE3D/ioOmcIk+15RFbCwZtzFVeK68SyXJ6I1rB8tC6GZFgRnvbm0lE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by DM6PR12MB4042.namprd12.prod.outlook.com (2603:10b6:5:215::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sat, 10 Oct
+ 2026 07:36:32 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0496.010; Sat, 10 Oct 2026
+ 07:36:32 +0000
+Message-ID: <16241811-671c-4962-aa3c-ac8f3ffb4f2c@amd.com>
+Date: Sat, 10 Oct 2026 15:36:20 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
+ airlied@redhat.com, kraxel@redhat.com
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <69e33ec9-a0bc-4d02-b20d-9c0c03236a42@collabora.com>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <69e33ec9-a0bc-4d02-b20d-9c0c03236a42@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TPYP295CA0057.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:8::8)
+ To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowAD3ye1q3clq+e5uCg--.39007S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF45uw1fZrykXrW3ur4DJwb_yoW7Xr4rpr
- ZxAa4jkrWDXrnFkrnFqa4kC3WSka4Sgr17WFW5Ja4rW39Fyr1UWF15WFWDuF9rZF17Ar42
- vrn3Ganxu3Z0v37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxUqiFxDUUUU
-X-Originating-IP: [112.94.100.127]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|DM6PR12MB4042:EE_
+X-MS-Office365-Filtering-Correlation-Id: d72145b7-6fbb-4d4b-6e6b-08df26a1348d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|10067099003|18002099003|22082099003|261009220027099003|261009223027099003|261009223327099003|261009221227099003|4143699003|261009221727099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: nvzxsQpaFWKzsoMk6zMxOgDII7N8G97k0ehiYX4hUsCp3cKKKl0vCj0M0eSrS7vEbGBMqI+UOmTOeZ3qb+/H4q9QD+JV6JSq170ju12a1lAWHeRfGPLb3a6vK6UsmVC2Io4lm9h4ase7Fli/rFTAuD/Xsbkz4WfnzMpYpkc1uipml+g2i6Dq64JQQRAod5nH/phFeaBZKA2cMjPqSEQRM0Rq2OD1Q4uY5mI+21Ca0/LwQP0JVzeWmfhCESDYhwBdbfIX33bjSSr3nQ4Htaa70LB1bkDroYH1BKhXSv5kpQBu1cXu/gBJ4FOXMZGAR5c84ijOZfQmP9wRpN7qFx+yQzk6+rWm2QrCifZ+lzkbyg8oh9aUglCTYU4PVTLRu7vSsJ8jWPtNqUv77PdIzh9joagiqtM3R+lz4m/WBhSFq/kDp7FMNIxyuKUEkgky6RZv9U1oPS3vShg5LArILKEJfRSnwur3hSx/n2PQBMeAGuHtE52AYBrSU55TIdq4ydJd7yTuusSxnSa8TkPqSNm9HeD2OJIC3lmaHQaSfVJHZ5TFGAxicEnzSWhq2HZcw4W3wdxaYykrCpvGdqzKytOe23WCqpXbO8jGkd+x2RB7O2kj6PNJdA6eD/6sxKOT3YeEj0t+j+ApbnzDyrLtVwtOh2vCcRPJeg8CPQuq5wBpBPE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(261009220027099003)(261009223027099003)(261009223327099003)(261009221227099003)(4143699003)(261009221727099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVVmblRqRTFqVkI3V0ZuUzVHYjYxVjJ4MS83a0V0VW9xbk0yeVU3MnVSRE50?=
+ =?utf-8?B?Nmk3M0hzZlRraVN1cTZTVDFFeEt5aXQyeGROYUQvVERFajdhbkRvOW90UUYw?=
+ =?utf-8?B?MU0ydFA0bmdtb1d2NXBQRFYzOWdFVk9ZM0VaRFNuYUhtYzBZb0dkalpsd21P?=
+ =?utf-8?B?OTB6UzI2dE5WZ0JSMFlSMzVxT2VNK3p3OEEzbWswSHRITk1mbkVrZ2w5ZG9U?=
+ =?utf-8?B?UGdTZ0NqMEd3ZU1RV2xwbTg5RkVkdzh1bVlaQXNCZTMxSGpRbGNicmRpQmVV?=
+ =?utf-8?B?eUZLbGwzYXFtWlYxRFIwV1ZscldUUjA5RWYvNllzZHVCV1J0c2VmcUk0MTI5?=
+ =?utf-8?B?ZmExQ2x3cGxJZ2NHYlIxWjB5ZHdwbk1WREF4UWhkZ3FGUFZhOEwrMjhMUVhM?=
+ =?utf-8?B?czkxZzRlR3ExMHNqbjBUUlFUclQ5bW5SZlQ1cS9MWjJCVDBpbWQ2MmdMRWR4?=
+ =?utf-8?B?Vythb3NpL2ZZQ0UvK1RlOVJ5VmhmQlhXZlJ3ZmVNQXAxQ3VJdXo3amlsMWFI?=
+ =?utf-8?B?bHdKSUg1MmVoLzVVSDJWcUd0U1RaalVLcGR0M1REb1RKOXZMQ2ZsQ0VTYTBy?=
+ =?utf-8?B?TjBwa256OEpGODJ0Q2Q1YWxURThVa2crYU5ZWk9lTG5mQ0prZ1Zqcng4MmVL?=
+ =?utf-8?B?SWo3eFBVOW1GNTd3Tkc1ekFxcHFXZi9zZStyYWNERUl5WkxMdWpweFI2SnBJ?=
+ =?utf-8?B?ZnBVMHdNdWY3ekY5dlhZSXI0ZW9PTnNndzViRGxOem85YTYxb3J6TDlaRmk5?=
+ =?utf-8?B?TmcrYXBjdkVJbmlGQWRQL2pwTzRINzhybkdJT29VNmlmdUtrejh5ZnJYSVlY?=
+ =?utf-8?B?cVBwZExUV29rdHFoK2ZZVkd4U1pDWWpsS0I0d1R5QUtyemhUcGttTUd2TmFz?=
+ =?utf-8?B?a2JTV09ZTkVybkJBU0s0bG1LZDFMR3BIbW9EU2NJQkd3SzVLaWFsbUFSNjNL?=
+ =?utf-8?B?Mk84aWlHcTZkekVGWDhDTVJBcCt3eWtmVjE1TG5KQW1aRjV1M2xiS1JpVC9Q?=
+ =?utf-8?B?cGliSlpHdXFYRlo1RUFiMmxpcVRDWldwNkF0MHhLTXlEZ3NWVWhSQlhDWWJa?=
+ =?utf-8?B?elJSakJNS0pIcHQ4QUZoR2NYQ1prZmxMMDhUTElFdm9ZR2hvK21kdjhUa3ZQ?=
+ =?utf-8?B?SDlUNWhOVGVlQXRCd0gxSmZWU3JtRDJMQUxkSFpVOHlwalNhaXl4SFgxTWNI?=
+ =?utf-8?B?K2szWDhSbWRubkNEOE43dmJ4SDFlNTh5N0xiT2FUOW5tWkEzZjF5SmNRdk5K?=
+ =?utf-8?B?TldMeWJoYlVtZUZXYTYxVVczemF3Y1pEUE1GcjJqQ3ZOTHVtL0kyelhjWnB5?=
+ =?utf-8?B?eUtmYjdrUmExZ2tWQXZXdFZVZDhhV1JzUjNWL2FLWlZ6ZUE4WnRpT01sVlNX?=
+ =?utf-8?B?TlphQ0F2YTRuSjV3SUd5YjltR3huN3BsVGJ6R0o4T3EvQXdNZWJRM3FRc2hK?=
+ =?utf-8?B?Mi9ERWg2THo5Y2lleWZPRkx2eXRjWFJzTk9sRnFDdEhXT0dtd2pna2pFVk9O?=
+ =?utf-8?B?QlVXNGw0c0FlZkpNbWsrRnErY2ZTc1ZiNGRNb3IrVFQ1TUZOWWJVZGtCZGcy?=
+ =?utf-8?B?MitoWDJCT0dabm5ha1BLdEkzK29taUw3ZTJtSUxaQVVPSThaZzY5Qm9RWlJG?=
+ =?utf-8?B?VzVaR3hEeTlDK0doLy8reGFDT01lajlvaDJTY1czSGIxdEVHdzNBSkFmNkpw?=
+ =?utf-8?B?a0lWNEs4MFFZN3JxeHlPdWJMVzVMcEIyQS9HcDQ0RTI4N3RVbXhxVXBtQ0ln?=
+ =?utf-8?B?cm1WQjhhTVNFNkNTNVdvWVdiUitTUEhmQzlxY0VNbm5HY083VWlmZTMrUUUx?=
+ =?utf-8?B?Y09FajVqKzF0a1FycW1ic0grSjhlMExFR0JxSHZDbHpEN3pKOEVtRWp1R25T?=
+ =?utf-8?B?VTVTOUdSUDN6SHhPbXR3c2xXNFY4amRDUUxWdllRSjJ0UTNrQTVKbjlBNHpY?=
+ =?utf-8?B?U1hUZFZGdEc4d2Z6L251Wkd1TU44eEQxd1g4NkVpdkd4RmI5WFZpVERsTGZM?=
+ =?utf-8?B?d2tlbXlOSTBTY3pEQmRuSUNJbVFDWWlrQTQ0RnAvTWkrU2syZVBYNDZPVi9P?=
+ =?utf-8?B?cU01YmxjeE82VDcyQ1h5SXpTY3I2ZUMyL3M2QTZqYzZPeFpvdnVTeWtXbk9U?=
+ =?utf-8?B?dk1ucFJPNXIwVVlGZWxTaGs1MXk3cFIvNkdZdmxGSVZFeEtxTk9tOGhtN0Nq?=
+ =?utf-8?B?VGlYNVU1TWNaZFljQU41dEg5L0d0UGhJSlErLzFiSXRHcWV3MTdmT3VYNEZD?=
+ =?utf-8?B?VjlNWHBYR2xQNzdhYjlnRkRsSHp5RVYxdjFmQzRBREtMMzdyRXRWZ0R6MC8z?=
+ =?utf-8?B?Z2dDL3dTdXZJSmkwcDhCSVNQdHFmUUNtdS9xSjRub3RnYXVMai9jQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d72145b7-6fbb-4d4b-6e6b-08df26a1348d
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 07:36:32.6358 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vzQUwkCnhyWsVAB28FIwMSAHUKM1rs+WLEjNNWD+2vhOP+hWufD2LBy42ecHpBrYvWrwX1Tn8lIffeq3U1xNvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4042
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,168 +140,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-10-09=E4=BA=94=E7=9A=84 16:14 +0200=EF=BC=8CChristian K=C3=
-=B6nig=E5=86=99=E9=81=93=EF=BC=9A
-> On 10/9/26 15:50, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
-> > > writes
-> > > to lbo->kptr unconditionally. When the first mapping of a newly
-> > > allocated
-> > > buffer fails, kptr is still NULL and the subsequent memset
-> > > accesses
-> > > it.
-> > >=20
-> > > Return the mapping error without touching the buffer and
-> > > propagate it
-> > > from lsdc_gem_object_create(). Install the GEM object functions
-> > > before
-> > > clearing so that drm_gem_object_put() can release the buffer
-> > > correctly
-> > > on failure. Do not add the failed object to the tracking list or
-> > > return
-> > > an uncleared buffer to the caller.
-> > >=20
-> > > Imported buffers still skip clearing, and successfully mapped
-> > > buffers
-> > > are cleared and unmapped as before.
-> > >=20
-> > > Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap().
-> > > Its
-> > > -EINVAL return reached userspace, the object was destroyed once,
-> > > and
-> > > no GEM handle was published. Normal
-> > > create/map/zero/write/read/close
-> > > cycles passed, with the tracked BO count and VRAM usage
-> > > unchanged.
-> > >=20
-> > > AI assistance was used for the lifetime analysis, fix, fault-
-> > > injection
-> > > tools, build and test execution.
-> > >=20
-> > > Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
-> > > controller")
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: LLM
-> > > Signed-off-by: Evanshenf <archwse@gmail.com>
 
-I'm going to accept this patch now.
 
-```
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-```
+On 10/10/2026 2:32 AM, Dmitry Osipenko wrote:
+> 24.09.2026 12:55, Honglei Huang пишет:
+>> +static struct dma_buf *
+>> +virtio_gpu_userptr_prime_export(struct drm_gem_object *obj, int flags)
+>> +{
+>> +	return ERR_PTR(-EINVAL);
+>> +}
+>> +
+>> +static const struct drm_gem_object_funcs virtio_gpu_userptr_funcs = {
+>> +	.open = virtio_gpu_gem_object_open,
+>> +	.close = virtio_gpu_gem_object_close,
+>> +	.free = virtio_gpu_userptr_free,
+>> +	.export = virtio_gpu_userptr_prime_export,
+>> +};
+> 
+> Is virtio_gpu_userptr_prime_export() optional?
+> 
+Yes it is optional, but if not set this callback then .export will 
+fallback to  drm_gem_prime_export, userptr can not support the export
+feature, to prevent silent failure, an explicit registration method is 
+used here to ensure it is not supported.
 
-Although I may prefer to remove the clearing routine in the future.
-
-Thanks,
-Icenowy
-
-> > > ---
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.h |=C2=A0 2 +-
-> > > =C2=A03 files changed, 17 insertions(+), 7 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > b/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > index 2fb0348..9eba4e1 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > @@ -157,14 +157,18 @@ struct drm_gem_object
-> > > *lsdc_gem_object_create(struct drm_device *ddev,
-> > > =C2=A0		return ERR_PTR(ret);
-> > > =C2=A0	}
-> > > =C2=A0
-> > > +	gobj =3D &lbo->tbo.base;
-> > > +	gobj->funcs =3D &lsdc_gem_object_funcs;
-> > > +
-> > > =C2=A0	if (!sg) {
-> > > =C2=A0		/* VRAM is filled with random data */
-> > > -		lsdc_bo_clear(lbo);
-> > > +		ret =3D lsdc_bo_clear(lbo);
-> > > +		if (ret) {
-> > > +			drm_gem_object_put(gobj);
-> > > +			return ERR_PTR(ret);
-> > > +		}
-> > > =C2=A0	}
-> > > =C2=A0
-> > > -	gobj =3D &lbo->tbo.base;
-> > > -	gobj->funcs =3D &lsdc_gem_object_funcs;
-> > > -
-> > > =C2=A0	/* tracking the BOs we created */
-> > > =C2=A0	mutex_lock(&ldev->gem.mutex);
-> > > =C2=A0	list_add_tail(&lbo->list, &ldev->gem.objects);
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > index 88536e2..7b30dea 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
-> > > =C2=A0	ttm_bo_kunmap(&lbo->kmap);
-> > > =C2=A0}
-> > > =C2=A0
-> > > -void lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > +int lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > =C2=A0{
-> > > -	lsdc_bo_kmap(lbo);
-> > > +	int ret;
-> > > +
-> > > +	ret =3D lsdc_bo_kmap(lbo);
-> > > +	if (ret)
-> > > +		return ret;
-> > > =C2=A0
-> > > =C2=A0	if (lbo->is_iomem)
-> > > =C2=A0		memset_io((void __iomem *)lbo->kptr, 0, lbo-
-> > > >size);
-> > > @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > =C2=A0		memset(lbo->kptr, 0, lbo->size);
-> > > =C2=A0
-> > > =C2=A0	lsdc_bo_kunmap(lbo);
-> > > +
-> > > +	return 0;
-> > > =C2=A0}
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev)
-> >=20
-> > Well I currently don't know whether the clearing is meaningful...
-> >=20
-> > It seems that drm_gem_vram_helper doesn't do this.
-> >=20
-> > Cc'ing TTM maintainers for an answer.
->=20
-> Natalie and Arun are TTM maintainers now, but I will try to answer
-> here as well.
->=20
-> OpenGL doesn't necessarily require clearing of VRAM nor isolation of
-> VRAM data between processes.
->=20
-> So it is up to the driver if they want this or not. Classically a lot
-> of drivers didn't clear VRAM allocations until explicitely asked.
->=20
-> But if you clear the memory you should have proper error handling and
-> a kmap/vmap can fail at any time for multiple reasons.
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > b/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > index 843e147..df47d9b 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_kmap(struct lsdc_bo *lbo);
-> > > =C2=A0void lsdc_bo_kunmap(struct lsdc_bo *lbo);
-> > > -void lsdc_bo_clear(struct lsdc_bo *lbo);
-> > > +int lsdc_bo_clear(struct lsdc_bo *lbo);
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev);
-> > > =C2=A0
-> >=20
-
+Regards,
+Honglei
