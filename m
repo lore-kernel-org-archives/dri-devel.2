@@ -4,44 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B611CA9EC1
-	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 17:37:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94CC6CA9EC1
+	for <dri-devel@archiver.kernel.org>; Sat, 10 Oct 2026 18:07:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65D0310E27C;
-	Sat, 10 Oct 2026 17:37:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A05E610E00D;
+	Sat, 10 Oct 2026 18:07:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Co9NxxtO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HxwR4OHq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AD4F10E278
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 17:36:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 927B4602CA;
- Sat, 10 Oct 2026 17:36:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ECBB1F000FF;
- Sat, 10 Oct 2026 17:36:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791653815;
- bh=F55AD4/ymcuo+n5X14BLdpRsN4JWih05ovGc1znBK9k=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Co9NxxtOha0mjKFw58QA8yYnem9ZN8BTp81PztiknxOBu6xEePlvNU0tRLIsRBp6B
- 4CJZgaetuSaPSBX8XiJ+QxVYvMhAuDnMiLbV8r1DGzgSUksO7waNcXEuGntZYVObm3
- comM986boEIsWzMu7xcpICXQAcovWvq92zl07LIo9wyH5B49hB8hDuiT2Nc3bE+7cG
- Ebdja7SFUtXXFqdZer+aKmFfONZA7WaWX5Dov1J6ShDEb222DIBNbxuHa+NINKQaaD
- /Xavp99006MjmR0RMsfjcAVarGNQVk8Q2pdEa+FbakBexxst92htyTyI5vQ84L1Sc8
- 3GSFcQewkcXYQ==
-Message-ID: <sashiko-outbox-166782@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] accel/qaic: Add callbacks for DRM RAS netlink
- telemetry
-To: "Zack McKevitt" <zachary.mckevitt@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009173152.2436195-4-zachary.mckevitt@oss.qualcomm.com>
-References: <20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com>
- <20261009173152.2436195-4-zachary.mckevitt@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 17:36:54 +0000
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7594010E00D
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 18:07:22 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4a018dc1f98so5519125e9.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 11:07:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791655641; x=1792260441; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4cQOSGMTi903DsbkZFEEk4+RD6TWLVh4oE9VBqnyk1A=;
+ b=HxwR4OHqgyhFUDwgqcV/SiVDRKkGPvSZSAGc/vGwz4oGvUD0DCCCBg2TgZakOkZv1u
+ azWXuFbLPa0SPSxXj7HM8JorOj5t1de5FCK7AsfuC1sTp4PBrRQitKn+u+BDML/muzkF
+ oMGpC2j3M3OfIcNQ4VKZ/tQUsAi1t2MYSfy2M0kjK9eKE/yVQra6Sf7y42EdQd5w1sZ7
+ tj78GrZov2Z6bSO5QJu4oM1Gn1UPLolSEG5wTpnZ6Czvj00TNTzTCxDNAw5wQF+i6BTx
+ TuZiszF8i0jCY+IlKV9zNtiUu1Pek9uLNVqsWyO5kddKVa1m9NEWsH9D/PcF/bxmm+5m
+ BYqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791655641; x=1792260441;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4cQOSGMTi903DsbkZFEEk4+RD6TWLVh4oE9VBqnyk1A=;
+ b=0JV4+Q4edQhDQfS0XL2BpE1dyX3zS6hiH/qzpkUkqibVMm+E/+grKhBkAeqWZ74K8N
+ eAtDddVf9hvaGu0rTipkNm+ec/UZ1AzOQO+Pp6LS75oxXFaAqn6yOZwD+PwmpCmlm9XS
+ 6OYFIpSKQ1mFBLoN67Zs1jC5b+8m9380mR7PcwJKjz34QsIzNO9aEfZOSp3NZGG/w1v9
+ VFW0dHP+jYhsciSGmEtWxFEQwdZUggOC41ue/GfiXnsTRtCJ1sqrc8fU3QxjQ9nPoRIT
+ nRlEO/MDoN4ZDYltxSsYcfU10PTRDMVN4geiCZ96S6+vRmfx3p+MLhMvIfAd/RSpWf3p
+ ITpw==
+X-Gm-Message-State: AFq9FYJcrm22npLORMmnM3n1FaiKl9Nk+mqcMC5KtbIUrLKPejKnzAe9
+ QS+AEAa/z3VpA5j8Z+QfaCvhQ89X+FFOggCVHqU0Wkdp788XvpczjRN0
+X-Gm-Gg: AYBFou2jWsKQflvYagKlaCwGQFnU8hC5UqA4YKVq/VBv4iJocG9ff0w4glqZKucF8hV
+ gzxTfBpQzbtexrytJBpU28u1czjS+EaVveSA6ijTs/bsU2W2WlnFFhaZun02nl0SAsWLTpYz3Rc
+ zuFhS/PWs2rUKcOFYbJzxQ+zvkGvd8aWvVFSiXCSK4LxfSv4qqAXOLT+Rnwzmt8uYu/bJLhLZ/f
+ Q6jfPQ1crivCgeujlwEE+3yBeBp7yflmYBa1NLqVoNj1aymO2qg1Cs6/I8b1WyVt0OzLCJF1jxJ
+ XsbkgazP+96hwftoZ9BzbN3e7QhL4hoRmntlsURDpyEnv3+hSU6zo7wcZmQvYFE+rBE2lMx0qU6
+ j1m6VUVPK8ZJpCjFNLPflBSruuG7Lin4tdiBv2uwUV2t68QUlEhz9fhKx+Xx4ZxHOt1oaFugSg+
+ 6+pR82EfU2TxOC/+LW1y6HDQYiQKbKvvLC6o0+4o6VNMblDMLbdSYE/fyXbrdQlC50ODBZrOzK7
+ FTxFkg5eKvkPNV7ROsUGruj1N16Proq9GwW9M7UdfwMURS6QpSNWw==
+X-Received: by 2002:a05:600c:4e8a:b0:4a1:78dd:dd28 with SMTP id
+ 5b1f17b1804b1-4a18e4d2b31mr106881115e9.27.1791655640518; 
+ Sat, 10 Oct 2026 11:07:20 -0700 (PDT)
+Received: from desk (ip87-106-117-14.pbiaas.com. [87.106.117.14])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48db94e530esm9617208f8f.13.2026.10.10.11.07.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 10 Oct 2026 11:07:20 -0700 (PDT)
+From: Julian Orth <ju.orth@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Julian Orth <ju.orth@gmail.com>
+Subject: [PATCH 0/2] drm/syncobj: fix sync_file import into timeline points
+Date: Sat, 10 Oct 2026 20:07:09 +0200
+Message-ID: <20261010180711.1548333-1-ju.orth@gmail.com>
+X-Mailer: git-send-email 2.56.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,208 +89,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] accel/qaic: NULL pointer dereference of qdev->tele_ch during telem=
-etry requests
-- [High] accel/qaic: Privilege escalation in qaic_telemetry_pre via mount n=
-amespace bypass
-- [High] accel/qaic: Missing cleanup in qaic_pci_probe error paths causes U=
-AF and leaks
-- [High] qaic: UAF of qdev in tele_wq due to mismatched devm and drmm lifec=
-ycles
-- [Medium] accel/qaic: Memory leak of drm_ras_node in qaic_drm_ras_register=
-_node error path
-- [Medium] accel/qaic: Misaligned DMA buffer embedded in struct wrapper_msg
-- [Low] accel/qaic: Incompatible pointer type warning in qaic_telemetry_rea=
-d/write
---
+Importing a sync_file into a timeline point
+(DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE |
+DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_TIMELINE) has two bugs since
+c2d3a7300695:
 
-commit bade5a85b4c68c8d3389f9341f8bbf308ca4eee4
-Author: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+1. The fence and syncobj references leak if dma_fence_chain_alloc()
+   fails.
+2. A sync_file that contains a dma_fence_chain (e.g. one exported from a
+   timeline point) is wrapped in another chain and triggers the
+   WARN_ON in dma_fence_chain_init(). I reported this on 2026-05-20.
 
-accel/qaic: Add callbacks for DRM RAS netlink telemetry
-   =20
-Use the DRM RAS netlink infrastructure to perform device telemetry.
-During PCI probe, create a DRM RAS node with DRM_RAS_NODE_TYPE_TELEMETRY
-type and add callbacks to telemetry_request for read and write operations.
+These patches were developed completely autonomously by AI. I have
+reviewed them, but they have not been tested at runtime. They are only
+compile-tested.
 
-> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
-> index c1bb6db78d129..d2aed51052a66 100644
-> --- a/drivers/accel/qaic/qaic_drv.c
-> +++ b/drivers/accel/qaic/qaic_drv.c
-[ ... ]
-> @@ -443,6 +448,9 @@ static struct qaic_device *create_qdev(struct pci_dev=
- *pdev,
->  	qdev->ssr_wq =3D qaicm_wq_init(drm, "qaic_ssr");
->  	if (IS_ERR(qdev->ssr_wq))
->  		return NULL;
-> +	qdev->tele_wq =3D qaicm_wq_init(drm, "qaic_tele");
-> +	if (IS_ERR(qdev->tele_wq))
-> +		return NULL;
+Julian Orth (2):
+  drm/syncobj: fix fence and syncobj leak in
+    drm_syncobj_import_sync_file_fence
+  drm/syncobj: flatten chains when importing sync_file into timeline
+    point
 
-[Severity: High]
-Can this mismatched devm and drmm lifecycle lead to a use-after-free?
+ drivers/gpu/drm/drm_syncobj.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-The qdev structure is allocated via devm_kzalloc() and is tied to the PCI
-device lifecycle, getting freed immediately upon unbind. However, tele_wq
-is tied to the DRM device lifecycle via drmm_add_action_or_reset().
 
-If userspace holds the DRM file descriptor open during PCI device unbind,
-the DRM device will outlive qdev. Any queued resp_worker() items running
-on tele_wq will execute after qdev is freed and dereference it.
+base-commit: 6ccf996a0dec1852dab94ad865f27b4904750e12
+-- 
+2.56.0
 
-[ ... ]
-> @@ -595,6 +604,10 @@ static int qaic_pci_probe(struct pci_dev *pdev, cons=
-t struct pci_device_id *id)
->  	if (ret)
->  		return ret;
-> =20
-> +	ret =3D qaic_drm_ras_register_node(qdev);
-> +	if (ret)
-> +		return ret;
-> +
-
-[Severity: High]
-If qaic_drm_ras_register_node() fails here, we return an error directly
-without calling qaic_destroy_drm_device(). Doesn't this leak the registered
-DRM device?
-
-Also, if qaic_mhi_register_controller() fails immediately after this, it
-calls qaic_destroy_drm_device() but fails to call
-qaic_drm_ras_unregister_node(). Since qdev is managed by devm_kzalloc and
-will be freed by the driver core on probe failure, leaving the DRM RAS node
-or DRM device registered with dangling pointers to the freed qdev will lead
-to Use-After-Free crashes if userspace attempts to interact with them.
-
-[Severity: High]
-The telemetry node is exposed to userspace here before the MHI channel
-is initialized on the next line.=20
-
-In qaic_pci_remove(), the MHI controller is freed (which asynchronously
-clears qdev->tele_ch =3D NULL) before the DRM RAS node is unregistered.
-
-Concurrent netlink requests from userspace during either of these windows
-will trigger a NULL pointer dereference in mhi_queue_buf(), causing a
-kernel oops, because qdev->tele_ch is accessed unconditionally in
-telemetry_request().
-
->  	qdev->mhi_cntrl =3D qaic_mhi_register_controller(pdev, qdev->bar_mhi, m=
-hi_irq,
->  						       qdev->single_msi, config->family);
-[ ... ]
-> diff --git a/drivers/accel/qaic/qaic_telemetry.c b/drivers/accel/qaic/qai=
-c_telemetry.c
-> new file mode 100644
-> index 0000000000000..dbfb36cf319ce
-> --- /dev/null
-> +++ b/drivers/accel/qaic/qaic_telemetry.c
-[ ... ]
-> +int telemetry_request(struct qaic_device *qdev, u8 cmd, u8 cmd_type, s64=
- *val)
-> +{
-[ ... ]
-> +	kref_get(&wrapper->ref_count);
-> +	ret =3D mhi_queue_buf(qdev->tele_ch, DMA_TO_DEVICE, req, sizeof(*req), =
-MHI_EOT);
-
-[Severity: Medium]
-Is it safe to pass this embedded buffer to the DMA engine?
-
-The req buffer is a pointer to wrapper->msg, which is embedded inside
-struct wrapper_msg immediately after struct kref ref_count (4 bytes).
-This means the req buffer starts at a 4-byte offset from the kzalloc
-allocation, sharing its cacheline with the kref.
-
-Passing unaligned buffers to the DMA mapping API violates architecture DMA
-requirements and can cause cacheline tearing and memory corruption on
-non-cache-coherent architectures.
-
-> +	if (ret) {
-[ ... ]
-> +static int qaic_telemetry_pre(struct drm_ras_node *ep)
-> +{
-> +	struct qaic_device *qdev =3D ep->priv;
-> +	struct inode *dev_inode;
-> +	struct path path;
-> +	char devpath[24];
-> +	int ret;
-> +
-> +	snprintf(devpath, sizeof(devpath), "/dev/accel/%s", to_accel_kdev(qdev-=
->qddev)->kobj.name);
-> +	ret =3D kern_path(devpath, LOOKUP_FOLLOW, &path);
-> +	if (ret)
-> +		return -EINVAL;
-> +
-> +	dev_inode =3D d_inode(path.dentry);
-> +	ret =3D inode_permission(&nop_mnt_idmap, dev_inode, MAY_READ | MAY_WRIT=
-E);
-
-[Severity: High]
-Does this regression introduce a privilege escalation vector by relying on
-the caller's mount namespace for security enforcement?
-
-kern_path() resolves paths relative to the caller's root and mount
-namespace. An unprivileged attacker could use unshare to create a new
-mount namespace, mount a tmpfs over /dev/accel, and create a fake
-device node with 0777 permissions.
-
-When the attacker sends a netlink request, kern_path() would resolve to
-their fake file, passing the inode_permission() check and granting
-unauthorized execution of privileged telemetry commands.
-
-> +	path_put(&path);
-> +
-> +	return ret;
-> +}
-> +
-> +static int qaic_telemetry_read(struct drm_ras_node *ep, u32 *field, u64 =
-*value, s32 *status)
-> +{
-> +	struct qaic_device *qdev =3D ep->priv;
-> +
-> +	*status =3D (s32)telemetry_request(qdev, *field, TYPE_READ, value);
-
-[Severity: Low]
-Will this implicit cast between signed and unsigned pointer types trigger
--Wincompatible-pointer-types warnings and break builds with -Werror?
-
-qaic_telemetry_read() receives a u64 *value parameter from the DRM RAS
-API, but it passes it directly to telemetry_request(), which takes an
-s64 *val parameter.
-
-> +
-> +	return *status;
-> +}
-[ ... ]
-> +int qaic_drm_ras_register_node(struct qaic_device *qdev)
-> +{
-> +	struct drm_ras_node *node;
-[ ... ]
-> +	ret =3D drm_ras_node_register(node);
-> +	if (ret) {
-> +		kfree(device_name);
-> +		kfree(node_name);
-> +		kfree(qdev->ras_node);
-
-[Severity: Medium]
-Should this be kfree(node) instead?
-
-qdev->ras_node is not assigned until the end of the function, so it is
-NULL at this point. kfree(NULL) is a no-op, which means the node
-allocation is permanently leaked on this error path.
-
-> +		return ret;
-> +	}
-> +
-> +	qdev->ras_node =3D node;
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009173152.2436=
-195-1-zachary.mckevitt@oss.qualcomm.com?part=3D3
