@@ -4,75 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E022CCA9ED5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 371ACCA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA0CF10E3FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE98A10E454;
 	Mon, 12 Oct 2026 07:32:02 +0000 (UTC)
-Received: from mail-qk2-f4.google.com (mail-qk2-f4.google.com [74.125.230.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ED8410E0CD
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 00:43:03 +0000 (UTC)
-Received: by mail-qk2-f4.google.com with SMTP id
- af79cd13be357-93cc7e652d7so79923685a.1
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 17:43:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791679382; x=1792284182; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=X9wwtOfFZ3dlRyxA00OaR8axrYegTwtr34ydCtqSvyE=;
- b=jc7yzo0PZYhyrfTDblDrjelHuk5OOai8lnFv3Oa0MRSMy0ZjC+Ld17B0s0JDTTPMD5
- mQF8R7M5COFTAfVaM7QIjrUe5aimwACZ8MIsTYub5OA1Q0syJ5bieC8iE2yIC5ufHDSk
- g1/+3g2COXcHtSwFhGu77RX2l1YVGalBrBDZSrSzWbG5XtWpeSktEKX/nINdPq4qeL00
- FkF00WpzQTCRBTehWD2zvDhKyc/8022nSNqF/mGjq3Ck1GHiEggvzhHfNNU1UBS+nlP3
- 9znpMQ+0OAzlNoSLM0W03rXHsXSAq//R3YhyTZthPujJdwT6jdVTajkUENKaC0va+hST
- 25qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791679382; x=1792284182;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=X9wwtOfFZ3dlRyxA00OaR8axrYegTwtr34ydCtqSvyE=;
- b=uASM/dUh4AwC9jAemBoVvcB6gdpmiMwisxSp+MayaZ5fd62HEeqmf0Q1QeNEMde6LN
- IjplVtJK0AiBmglLSfS3d1FQKrerIr0zgX+1KR7cSjhcVEpEJtgVRti9Hr0/BhnSqUvY
- KsxOoeNujQPozi7efH/KvRy/60+Im3nmv09IL2cVzxHu4V6ZpkWPj8kV18ekoADQ2XT9
- +F4Ip3cuITg/j3gP38GY1cUX7ZdRefVkHxEIziqPjxFUh3x1wvonzypesLNz8WPtahQU
- pdWnn7LZZv8OjMRK+06VE3thHKUyYJnjwMqWR25U8v4B/5Ljbsu9DdMX9ISDfMY5+1sn
- +pAA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwsXH6Uzr61fhfBh20ED+OPekF5PG7sHjJkgasnPNIEHz9E9H2OgM4SYpg1QxJSrMDh8xH+J+BL/eo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIqfxb9v2GQ0D8wKKqUbOYJl8iFkpBvS+B2CU+HCCaTQ7fF5OVg
- x7/rROndmI39uYecMCp0yklhvk04PPli7vxcIyHWsQ7AGy72bEtSPMVk
-X-Gm-Gg: AYBFou302TKR5/hJlCt+sZYTsQKMRz+03qQQX+z+vtHCjBPAJBzFW3gZ/lkJqE9jKTq
- nbsBedMBecb9w9alBOTwTqxLYfUNBj/rtfEXLUXvLeq0cmaCitonB18o+H9TumW6eN7GFM++oI9
- BBYy4b78H5F6hbXbzTzmgutRsf1RePX6Pc2E5jsU7QmvAQWesgKx8AX/OMJeYFiCv1QIzVyZxak
- 8rXAZKUENA/D6yOM3XjXDfGSk/hUzywlCUqeeyWboO8xg83bOvd6ZtAwvB3n8hfYbVRMZNKVok9
- NEwKq7f9+8I7BQqs7cwOxdawxIi7NiYESzxmssk2Cgej92oMBVC7mpq1JZfsLKpDfz8/KtnMF8q
- AisvqAK0jKGHvu06TNM+ZLboAQ+nThC3H/PoHYviWoTLkBWvgp90ezSKeLrU5FftLl3QMid0IbP
- aJ85Iu7uSWyfkUrNWPWxk5OdAIpC9/Pk/mSmmDiKHfBq6HoLGAJJxWKoKLc4hwL8fPS7o=
-X-Received: by 2002:a05:620a:3194:b0:93e:942f:b8a6 with SMTP id
- af79cd13be357-93ebd2973f0mr1024374385a.59.1791679382152; 
- Sat, 10 Oct 2026 17:43:02 -0700 (PDT)
-Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93eb9848702sm532320085a.12.2026.10.10.17.43.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Oct 2026 17:43:01 -0700 (PDT)
-From: zoan37 <agentzoan@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jason-JH Lin <jason-jh.lin@mediatek.com>, CK Hu <ck.hu@mediatek.com>,
- Nancy Lin <nancy.lin@mediatek.com>, Nathan Lu <nathan.lu@mediatek.com>,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] drm/mediatek: mtk_crtc: Fix connector route handling
-Date: Sat, 10 Oct 2026 20:42:45 -0400
-Message-ID: <20261011004248.1117649-1-agentzoan@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from SEYPR02CU001.outbound.protection.outlook.com
+ (mail-koreacentralazon11023112.outbound.protection.outlook.com
+ [40.107.44.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A2310E0D3
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 23:29:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yT/bt8AUlVP58RNTAmxXTmK4GgF3hONP+53FPazkhw3x9kEt2ThPXdmnDjOTYtl1N5J4qbwLoOknYxJ6gNIQBJ5gCtR5gfRhlqxsuCovCerVLDV9MjAApXwWM9hAEG33CgnTlmBZ5ms3dPrfyqjg+gk1jMzYM7KIsVQWzjECGlMA2Wz8PaHDnPdpLw4jyBBKfm0K/jbE8NgGmsfUCjR2+Lxq78wqS8Yu7dgAAd0FjzNONcAaG4zhYib7wZHKIJ/xFzK7GHMEVjhtu9AbCyw4tw0Y4LUOhrZLXP66QqPrlmBoA/9eb6162JFniKBEbQ5U+R/HuuHtMsl9Lg+GYHKxnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b2+kSdi9lUHigCoayCZmtOnwYzTXA6My5EKrCUw2s6c=;
+ b=GCD8LavIw7ESLzZ8R0y1bTWhlO0ynIRhc/MYcaEM/DiZM8pWk6bC7QiAr7kqckDT52MoQ9Nx8H9g6PPQFEdU/WAnKKAGulM6vAlUjJLkSBthbH/rGPB71mTzNjcwd6Tilwlyt2oad4/gtUSEfWLxM+d8vtksPZjxVLA73pJdIpx168+dR7yOf9WNM3K3aAOC7jt8GMZZFLWThiFRfOuNiLibWz7P7mgHEDkQBwfrMt60QzsauNyPu+XueIZiHYHpQ5I23Frf0qxk8Qq7CM603nWY7/ExCjQ4Ob+EG4Ek7k86CX5T/uKm1PuNxxCQAGd2xRJNbeyYtIIrk55oKDPyqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=crepuse.com; dmarc=pass action=none header.from=crepuse.com;
+ dkim=pass header.d=crepuse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crepuse.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b2+kSdi9lUHigCoayCZmtOnwYzTXA6My5EKrCUw2s6c=;
+ b=S8B/CcW1AsiQHUdQb42qFvdFL8978mlyRCNoy9JhPbvNrqwWayPGOZIj2NbXoKbAuX4cbDv8Xhy9sejnqg+Jgqp0peAmQtaPUk8JIteCWJkU75V5LxWFlhOpKetpoPsPJe+6Na8vSXenwj1a1rS7XTSy5/LardUzNqAqPBimKCrWe5zjrZlC5Tb7MwUVHNg90rEXN8S444AncvsZGk16YhDiqxRk9syEkiMk8m0ISMlhSfL2dc0c953frTDQMk2+qwVDkPGslT+LIpdDNgL583UDTMsmhE8k3ZJOLu/F9j6FV8G9bahy3udxsqJfmrjaYyjcEBNpIt2PNb68R6a6Kw==
+Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
+ (2603:1096:d10:8d::16) by TYZPR01MB4380.apcprd01.prod.exchangelabs.com
+ (2603:1096:400:1d0::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sat, 10 Oct
+ 2026 23:28:59 +0000
+Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
+ ([fe80::fe2d:77d4:b78a:358a]) by KUYPR01MB8186.apcprd01.prod.exchangelabs.com
+ ([fe80::fe2d:77d4:b78a:358a%4]) with mapi id 15.21.0496.018; Sat, 10 Oct 2026
+ 23:28:59 +0000
+From: Miotsuki Mizuno <founder@crepuse.com>
+To: "heiko@sntech.de" <heiko@sntech.de>, "neil.armstrong@linaro.org"
+ <neil.armstrong@linaro.org>
+CC: "airlied@gmail.com" <airlied@gmail.com>, "conor+dt@kernel.org"
+ <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "jesszhan0024@gmail.com"
+ <jesszhan0024@gmail.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-rockchip@lists.infradead.org"
+ <linux-rockchip@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "noralf@tronnes.org" <noralf@tronnes.org>,
+ "robh@kernel.org" <robh@kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>
+Subject: [PATCH 1/2] dt-bindings: display: panel-mipi-dbi-spi: Add UNIHIKER
+ M10 display
+Thread-Topic: [PATCH 1/2] dt-bindings: display: panel-mipi-dbi-spi: Add
+ UNIHIKER M10 display
+Thread-Index: AQHdWQ8g5QeBlRG6u0O4CV2+kMRJmw==
+Date: Sat, 10 Oct 2026 23:28:59 +0000
+Message-ID: <20261010232857.26950-2-founder@crepuse.com>
+References: <20261010232857.26950-1-founder@crepuse.com>
+In-Reply-To: <20261010232857.26950-1-founder@crepuse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=crepuse.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KUYPR01MB8186:EE_|TYZPR01MB4380:EE_
+x-ms-office365-filtering-correlation-id: d271228a-ceee-4a3c-ffd7-08df2726430a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|7416014|376014|10067099003|261009223027099003|38070700021|6133799003|22082099003|18002099003|56012099006;
+x-microsoft-antispam-message-info: dye9xHJeHZaz9ARSv9IkRtTE3TUey0/nkZ81Wve4MHy5IqWN4oE387y5HffbIaiq75Z6sOwfJ7K/nB/V1nv6zRrIWNKkRJrCzKwK4S3V9DL+SjrUYafWtN2v3+xUnzNJfNA4JO0c+OYEFN09ppit5bihGvpiLxVQoZqkkAXxsPyDD0LF2NWIDUaQIy/QbosmZNOvZXRbw0uF7IMUEqmGLl/anxcW0NkSOWAIPlBJTo3TtkGD2masuCasfTPeqAGmcAC4F02+jLGVi6eH7cJPnpcWnuyXPeZJITA/kfHXf9BvPxPpqbrkM11AUZ5VzSG+WO5x8N1OW0tXLcYMWYINmOKrZEQLszi7NXgUmNjZWekz/92BuUTILd0vV49O7T2q6MC3yiTMCMge2cQUNcJBWnM2RDuxY8maj8n/rus/8hMbJ8Wd4ZDncCqs8JZUT09t+0i4V+h0Hwnd4jJnnghM84oWeR6SmUp1UuC/ZM8gnR1BstQ8Ad4fKqIyeJksVtcjTZlo3OSE6mUI585Tyym/geklpmoFnB3AUYL2lwh364flA6KwOhKfuUmsScGrNp172qpOHA5S5iRtueKEiRbbsN5UEnGAKzVt1u0eNtuWcFUIWfd2PVOwguY+Kpdife7UovzA1rhDa/fljSyDEvXAfDgiOFvB4ZBWXjQ8omCeRBgmkCTeXVYQNS6+joRO7ZHFYaeeCtP0G+ozz501c+LZau8TSwn4g/U3ZQ+ZVEOB+XE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:KUYPR01MB8186.apcprd01.prod.exchangelabs.com; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(10067099003)(261009223027099003)(38070700021)(6133799003)(22082099003)(18002099003)(56012099006);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?ZfcSTjOVpSllmr/KaMBVRpgEq/NXhS2HqjSnJuT6TKLd8DtHlmIJqCONN+?=
+ =?iso-8859-1?Q?Ggu4o2mFjeKLthcrT4h4UatQFTYaxmpqg8f/yYe9urt56tH+KirRKGampv?=
+ =?iso-8859-1?Q?ngL9CG4mz1M8UEpantR48/stU3Z8l7mRpBCOwxv3Wzp3wda91Yt5B2mt4U?=
+ =?iso-8859-1?Q?7irw1riMm6721CT31bqYb8Nct5hgqqRGa7jwf57m0hd9gsLAgi240OmP10?=
+ =?iso-8859-1?Q?LN64OfpF9naTR8osvptwwktTihAopyYXmo7NHMA/GrXZBUq/ir+RvD1wIR?=
+ =?iso-8859-1?Q?Ocag8rNdK85yJi0JQxmQGKUNAjKp8CIi44AEUsgSRnT12Nbl7s/FQ4IPU2?=
+ =?iso-8859-1?Q?AHOyXADMfi/oPDTirZFZfpQRFBlg6cszIfM1BNW9qHYAvdQt093dsVadza?=
+ =?iso-8859-1?Q?LNJnRfZ0ND5KuTyfkkBRI+5FTonlg4PLW55NPfE7rLlaAF8w8JBLXPCmRI?=
+ =?iso-8859-1?Q?qDJHd3LPuJ6J0WZm8tE2wNHoSgGmUTulmRYrxvSB+tLugAXMOAu6DiZfWR?=
+ =?iso-8859-1?Q?jop4SiSlEN/xW6edrWTh4XJDwMs/Oxux/qWmRAs8sVqPHvYDmxA6D52sqT?=
+ =?iso-8859-1?Q?Yj5kJ/CY6RnzpEy/m2B7MTmDW3HOyZxnT4sVJJnSjZO27+J7aEUTzPtQKL?=
+ =?iso-8859-1?Q?QIA9TQ7eVuJJ0uXpFrY9S1YAwe0UeVFPpOsrx/Ix65iV7iyTEcROnMndl0?=
+ =?iso-8859-1?Q?KvwtU1gk2872SNRo21XTKxFaAQBy/RmXfqcNvtAu7lxdnRtAkYxts/U/PS?=
+ =?iso-8859-1?Q?+qUM4xBKt/WWFHtTaexy4Iy86442aw4nMRbDiWCwc8BxQp6AxztcXv0fGo?=
+ =?iso-8859-1?Q?aD3GBJcMqufJLt+i5JZsGkbGquu1F5cFDrqVSX+qZzaG+HLFlbLv6D7vBI?=
+ =?iso-8859-1?Q?QUoair/j73u9kJeO9DQD+z7HAZ400r4009/oVIlY+uZiB3U1c32LkLSw9c?=
+ =?iso-8859-1?Q?wJ4HgteGIpYCitL4c9tY6dE4IJsG9rT9am3SFajmBSSbkzWfRCsgex/QHJ?=
+ =?iso-8859-1?Q?DFuqU7H/zPL858dBku78KxEMQJX44+xwZmNGYUsT9agvrnuZmlceQ0lAvl?=
+ =?iso-8859-1?Q?HbkuHmH73ATMR4hhkdEZEVesfr1yAUHjbGiTz8HGHFrulmhc1c/wNKLe8b?=
+ =?iso-8859-1?Q?VNPKyofkv/jgrEN6iROgcrLsqKnBJX81sT8CJ+4lLRKkFnaCN3fdoTTi1J?=
+ =?iso-8859-1?Q?Yf/YVdyKeyvJk52A/Ebj0sviJ3rRDEMTSep8kF20xSNgCGqZPiTwQ3cZGg?=
+ =?iso-8859-1?Q?qttr89uhcqGfAVYhGMebx4YxTdHXd32l5LEzz5p6LP+7+HusfvxB27RQqp?=
+ =?iso-8859-1?Q?oTM0hcpJY4OxwIUIyG1JmNq6bltYbUC7/AHRA2CSfIgnb8mxn0geTNW0KB?=
+ =?iso-8859-1?Q?By40EHJgFx5acLy8KLjZsadU1vMOywHKpqET3GQTa4keyCmmPqWwktDOmT?=
+ =?iso-8859-1?Q?l/wK99mTl5FAb4R2SgDXt6OPcUHRhzkS1u3GRZ1taOJIS6OwGgiaHc4yim?=
+ =?iso-8859-1?Q?zGUez6aBWZqnqSHfhfrbwkON51zBLsdvaKcVm09cWXejqKiu99OInMwxXO?=
+ =?iso-8859-1?Q?bTzpFS5y8At1Eb2fBXbXL5fxv8Ys8ISk8iVVoePOsyRW54wJobkdfC3IQe?=
+ =?iso-8859-1?Q?HMJGYbAsQ8KHIEeJNsOCfh3d2FVvePnqk4zsk5DcGqj2vVu4ipceIQlGtx?=
+ =?iso-8859-1?Q?oFYHqIeIMU4COKoOw6AC3YrQdTIkTJx6E6dTuC7Bdq2/htdOwocJ7NdDlF?=
+ =?iso-8859-1?Q?Ix6XuqdrUW3U0izU267glIW0JH2zGMSkaTJNL0KLHurz/Y?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: crepuse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KUYPR01MB8186.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d271228a-ceee-4a3c-ffd7-08df2726430a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2026 23:28:59.6720 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 9e189589-0b8b-4283-80ca-b0157c0a04fa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1/F16oJIGvt1m5H6QtRtpPJAHqsMCMfSWOeqAZtD8W/zIZcVQTpQxR67Ok3HX4ZHO8C5kiwhUc9GViwLxZJtWw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR01MB4380
 X-Mailman-Approved-At: Mon, 12 Oct 2026 07:32:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,40 +142,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Three fixes for the connector routes of mtk_crtc (the output component
-picked at enable time from the encoder in use), found while bringing up
-the external display path of an MT8189 Chromebook, where one CRTC
-drives either an HDMI bridge on DSI0 or USB-C DisplayPort on DVO1:
-
-1. The route components are looked up in the private data of the mmsys
-   at index drm_crtc_index(), not of the CRTC's own mmsys. It only works
-   by coincidence today (the only route table is on MT8188's CRTC 0);
-   on MT8189 it oopsed on the first HDMI hotplug.
-2. Destroying a CRTC whose route slot was never filled dereferences
-   NULL.
-3. The route is only picked when connectors_changed is set, so a CRTC
-   whose connector was attached or swapped while it was off is enabled
-   with no output (NULL dereference) or with the old one.
-
-All three were compile-tested with W=1 on next-20261008 and run on the
-MT8189 board; the per-patch notes say what was and wasn't exercised.
-The MT8189 display support itself isn't upstream yet; these patches
-don't depend on it.
-
-The changes were written with the help of an AI coding assistant
-(hence the Assisted-by tags).
-
-zoan37 (3):
-  drm/mediatek: mtk_crtc: Look up connector routes in the CRTC's own
-    mmsys
-  drm/mediatek: mtk_crtc: Skip the empty connector route slot in destroy
-  drm/mediatek: mtk_crtc: Pick the connector route on every CRTC enable
-
- drivers/gpu/drm/mediatek/mtk_crtc.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-
-base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
--- 
-2.43.0
-
+The DFRobot UNIHIKER M10 V1.2 has a 240x320 SPI display with an=0A=
+ILI9341-compatible command interface. Its initialization sequence can=0A=
+be supplied to the existing panel-mipi-dbi driver as firmware.=0A=
+=0A=
+Add dfrobot,unihiker-m10-display as the panel-specific compatible,=0A=
+with panel-mipi-dbi-spi as the fallback.=0A=
+=0A=
+Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>=0A=
+---=0A=
+ .../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml    | 1 +=0A=
+ 1 file changed, 1 insertion(+)=0A=
+=0A=
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi=
+-spi.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-=
+spi.yaml=0A=
+index 6f0290c4e291..adef35f91670 100644=0A=
+--- a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.ya=
+ml=0A=
++++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.ya=
+ml=0A=
+@@ -72,6 +72,7 @@ properties:=0A=
+   compatible:=0A=
+     items:=0A=
+       - enum:=0A=
++          - dfrobot,unihiker-m10-display=0A=
+           - saef,sftc154b=0A=
+           - sainsmart18=0A=
+           - shineworld,lh133k=0A=
+=0A=
+base-commit: f4f7ecd2e0e8debcbab4789717cc79d570d665e3=0A=
+-- =0A=
+2.56.0=0A=
+=0A=
