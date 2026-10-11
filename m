@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A69FCA9EBD
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 14:04:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33F39CA9EC7
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 14:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A531B10E031;
-	Sun, 11 Oct 2026 14:04:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7822110E235;
+	Sun, 11 Oct 2026 14:05:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q4W4xec9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A5n+eCIi";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADBBC10E031
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 14:04:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59B1610E235
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 14:05:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9A66E601DB
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 14:04:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533E31F0089D
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 14:04:03 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9898F600E2
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 14:05:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505471F008A1
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 14:05:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791727443;
- bh=86pWPhLv9adWOQ1oVMYMQWf73TNhvR4D25U83YvJRXk=;
+ s=k20260515; t=1791727511;
+ bh=/ZP9mYgIUz9YMc+23KxEk5KZByJyBE7m+dN+yOiaTi4=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=Q4W4xec9m/VHOuiG3KnYHd2gtbv11XoCyhIIjdFiPQ3wyinY9CbDqE5SmCdVMSqcE
- TXT6m/13swQ+bs5M/5+S5/Z1DMFAHcJE3OOyVqmi8Y60tI8scQUm95FvyUH4PWKJun
- +U+87pw3NoMFk1g4pyNPHYAHexQI9vZtKEeQGplYF7cjld7f/K4gS7apga9g6Sv4Rh
- 4fSYJ8p13RhIxpguIjscDcDkfM1mlBf5OiDfqVvyWMl+r/RBZTpbbnCzRzH07dNmpE
- QNbK6PP6tQg3o8EaAxIVGWZjC7dsVzzVPs4SQOqaFQmKy5jKXgEFRWQfLYsliTxvti
- 02u+IM/Tambmw==
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-6af9a9451daso1670776a12.0
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 07:04:03 -0700 (PDT)
-X-Gm-Message-State: AFq9FYK/KYEVNXamdQ0kXLLozalbmW9nYBT2f9AFJKt/cdBA12jYX3u3
- 1xZRKQ9q3E8MTCepkz8xRVDWsrckI9fLHCjyYXpL/8H0CGo3f4ahTXICiEpsEv6fLydm3NtiQd7
- 5fALq4f+ixYWsFMGB5Yf9paMkDO07bos=
-X-Received: by 2002:a05:6402:304a:10b0:6b1:b5b8:b696 with SMTP id
- 4fb4d7f45d1cf-6b1b5b8b911mr909603a12.23.1791727441955; Sun, 11 Oct 2026
- 07:04:01 -0700 (PDT)
+ b=A5n+eCIi69zoQuXvSnhBIZ9aC63O+JFKGaUTOdc+TTU5juSfBG5RSKT3c4rQ2Ri+Y
+ gZfaAq0vuypFVJCSSgzGDEw/h9hQULGq0GEssJu8Qs4ap4aj5SxdSY1hDDm0MXlWr7
+ 5bL0lt43aSVerpBE8RqSZ5cyqTVEoHgp7XXIxxUhopFy+EHeCMRgGaMSjmVRgM903R
+ 7sdPHS5OncIz5DE7tMXr/bV/S3o04NTbLr7qhSOp4ylztl9196oQ7R1keXoftB7jXU
+ 1FyvXwZl3QTM9PUZ2PvU7eg/YJj9M0u2Y31dpIBGG4CV3venPal8goYCdHqckZAosZ
+ nxlXtuF348bZw==
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-6afb0d2a586so1991807a12.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 07:05:11 -0700 (PDT)
+X-Gm-Message-State: AFq9FYLfubklgAPEO6pEAP4uyiDuO4yTLto9eae4Z4ddB6g2+HVaBqo8
+ K58j24iGfVfHrAZlxEVVu/3z5uhcQ6Xjcl26hgUPZSYgCtsGTD+I+s+4Q+cArqiCBmTU5M5v7Rq
+ wbOV0cusJWVVxs1+9OaEHVEm7A2r1eqw=
+X-Received: by 2002:a05:6402:c518:10b0:6aa:1112:62f2 with SMTP id
+ 4fb4d7f45d1cf-6b17c2759c5mr4536370a12.15.1791727509987; Sun, 11 Oct 2026
+ 07:05:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-In-Reply-To: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+References: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
+In-Reply-To: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 11 Oct 2026 22:03:56 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5bHA_MZGsA7=udMTiM57wqG-nQMbak+afeq3+CvVcBcA@mail.gmail.com>
-X-Gm-Features: AclHuK__mYheWRSoDKQ5OBLHeWz1vxxNsOg4UblzjX9eWNRSrtJhbuLE3srtb7Y
-Message-ID: <CAAhV-H5bHA_MZGsA7=udMTiM57wqG-nQMbak+afeq3+CvVcBcA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/loongson: Fix double free on BO initialization
- failure
+Date: Sun, 11 Oct 2026 22:05:07 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4w6SN7GU-sYQerr7rkdD9vesJ=h24jEQHDxczeB0YU1A@mail.gmail.com>
+X-Gm-Features: AclHuK_wkl41GPKJI7ip6m3noq5nnGLcBVVPh9hjqmLS-fvueKzuBAPhXPgohI4
+Message-ID: <CAAhV-H4w6SN7GU-sYQerr7rkdD9vesJ=h24jEQHDxczeB0YU1A@mail.gmail.com>
+Subject: Re: [PATCH] drm/loongson: Fix framebuffer selection in async cursor
+ updates
 To: Evanshenf <archwse@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, Jianmin Lv <lvjianmin@loongson.cn>, 
  Qianhai Wu <wuqianhai@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
  Xi Ruoyao <xry111@xry111.site>, 
  Icenowy Zheng <zhengxingda@iscas.ac.cn>, Sui Jingfeng <suijingfeng@loongson.cn>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
+ kernel test robot <lkp@intel.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,26 +73,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Oct 3, 2026 at 5:35=E2=80=AFPM Evanshenf <archwse@gmail.com> wrote:
+On Sat, Oct 3, 2026 at 5:00=E2=80=AFPM Evanshenf <archwse@gmail.com> wrote:
 >
-> If ttm_bo_init_validate() fails, it drops the buffer object's reference
-> and cleans it up through the supplied destroy callback. lsdc_bo_destroy()
-> releases the GEM object and frees the enclosing lsdc_bo, so freeing it
-> again in lsdc_bo_create() causes a double free on a synchronous failure
-> path.
+> An asynchronous cursor update swaps the new framebuffer into the live
+> plane state. However, the driver reads both old_fb and new_fb from the
+> live state before this swap. When an enabled cursor changes buffers, the
+> address-update condition is therefore false and the hardware continues
+> scanning the previous buffer.
 >
-> Let TTM own the cleanup after initialization has started and return the
-> error directly. Keep the explicit free on drm_gem_object_init() failure,
-> which occurs before ownership is passed to TTM.
+> Read new_fb from the new plane state before swapping the framebuffer
+> references. This updates the hardware address when the framebuffer
+> changes while retaining the existing behavior for cursor movement.
 >
-> Tested on LS7A2000 by making drm_vma_offset_add() return -ENOSPC for one
-> selected dumb-buffer creation. The error reached userspace, the destroy
-> callback ran once, and no handle was published or tracked BO retained.
-> Normal buffer creation, zeroing, mapping, readback and release passed.
+> Verified on a Loongson 3A5000 with LS7A2000 using 32x32 and 64x64 legacy
+> cursor updates. Callback counters and read-only register observations
+> confirmed the asynchronous path, the stale address before the change,
+> and the new address afterward. Same-framebuffer movement and cursor
+> disable/re-enable also passed, with the primary framebuffer and mode
+> unchanged.
 >
-> AI assistance was used for the ownership analysis, fix, fault-injection
-> tools, build and test execution.
+> AI assistance was used to investigate the existing report, prepare the
+> fix and test tools, run the build and hardware comparison, and draft
+> this message.
 >
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/r/202311152357.4KFS0M8f-lkp@intel.com/
 > Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller=
 ")
 > Cc: stable@vger.kernel.org
@@ -100,28 +106,24 @@ Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
 > Signed-off-by: Evanshenf <archwse@gmail.com>
 > ---
->  drivers/gpu/drm/loongson/lsdc_ttm.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
+>  drivers/gpu/drm/loongson/lsdc_plane.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongs=
-on/lsdc_ttm.c
-> index d7441d9..88536e2 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> @@ -475,10 +475,8 @@ struct lsdc_bo *lsdc_bo_create(struct drm_device *dd=
-ev,
+> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c b/drivers/gpu/drm/loon=
+gson/lsdc_plane.c
+> index bcc0ffa..7b9c65c 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+> @@ -230,7 +230,7 @@ static void lsdc_cursor_plane_atomic_async_update(str=
+uct drm_plane *plane,
 >
->         ret =3D ttm_bo_init_validate(bdev, tbo, bo_type, &lbo->placement,=
- 0,
->                                    false, sg, resv, lsdc_bo_destroy);
-> -       if (ret) {
-> -               kfree(lbo);
-> +       if (ret)
->                 return ERR_PTR(ret);
-> -       }
+>         new_state =3D drm_atomic_get_new_plane_state(state, plane);
 >
->         return lbo;
->  }
+> -       new_fb =3D plane->state->fb;
+> +       new_fb =3D new_state->fb;
+>
+>         plane->state->crtc_x =3D new_state->crtc_x;
+>         plane->state->crtc_y =3D new_state->crtc_y;
 >
 > base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
 > --
