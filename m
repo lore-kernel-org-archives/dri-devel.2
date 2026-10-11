@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3A96CA9EC5
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 00:56:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 565B2CA9EC9
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 02:55:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C986B10E081;
-	Sun, 11 Oct 2026 00:56:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9848410E28C;
+	Sun, 11 Oct 2026 02:55:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g+hUdQgs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NLBWOUp9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB98F10E081
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 00:56:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFDA10E28C
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 02:55:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C71C660018;
- Sun, 11 Oct 2026 00:56:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A84B1F000FF;
- Sun, 11 Oct 2026 00:56:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C2EB241592;
+ Sun, 11 Oct 2026 02:55:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CDF61F00893;
+ Sun, 11 Oct 2026 02:55:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791680204;
- bh=EJaRq5VLVpexPsCNG6md8X8pDtNa7WirTlBJ7J4XteE=;
+ s=k20260515; t=1791687344;
+ bh=DOoYMQZ2DO4lFxMSUPOPAn/DLkN7QJpUtfwwE27zcOY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g+hUdQgsOJcF16/eSoEzD3CjXCK3KXr6cA1qWWIlo/z5e7DxWalqzL6qRwxeJUkm2
- 1E3mBZRqmk5bLunDX1z7p2YrXgQjNuORNXj0ix4CCwpTiAgviTMeVLRLL50h3Ap242
- pPIRkvjcjOvoRzJRWdpKADNKVtOfypSc2F1BkgIV7Fdsg1tpfBdELJBRRcTBe/VrbJ
- ZUITqB7W4BomUfPjmm94/JcaHoKWGGuYG3sdm7eKbQmTIY7e1qiiANeRiNeUjyCCaf
- ZxVf8yiUH89788EfZYnBk8e02t81yF6jT3T2EQdAGyAC5bjitX4GeoPjwah5mNj2Ef
- DkQUeqgUAs4Qg==
-Message-ID: <sashiko-outbox-166953@kernel.org>
+ b=NLBWOUp9K+WB5dlBYk4IZbK3VD2lmk/cwypXmvhzw9HmvD+Bbkt/clY/X/sgorqJr
+ qa19lWhAKcr1lqeFOJXRDCdpSL8LhQAgQdscMtwSaGrw8VYhWqdSU0fG+etJJT1aFC
+ Y57ad3hrsM/YNQKnsPMy/6E58A0dQ3VvMz0p/Ij4no7fpPdFsKcsRU1A6BonoX/izL
+ oq48JA4EzOdJvKWsBjBDMszoRl2YtCQu4YaCFeUa+FxEDHgvL/kFTbDtUMLuiGTIQv
+ flgcyaHuJGAoSOgF1zblqABt4fiB0Aac0p1ViHeGpA3rP36Oypla5BwTjn1ngktSj5
+ o7xUX5RvYmIGA==
+Message-ID: <sashiko-outbox-166987@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/mediatek: mtk_crtc: Pick the connector route on
- every CRTC enable
-To: zoan37 <agentzoan@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261011004248.1117649-4-agentzoan@gmail.com>
-References: <20261011004248.1117649-1-agentzoan@gmail.com>
- <20261011004248.1117649-4-agentzoan@gmail.com>
+Subject: Re: [PATCH net v1 4/4] selftests: net: add devmem RX and TX netdev
+ unregister tests
+To: "Mina Almasry" <almasrymina@google.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20261010025532.839559-5-almasrymina@google.com>
+References: <20261010025532.839559-1-almasrymina@google.com>
+ <20261010025532.839559-5-almasrymina@google.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 00:56:43 +0000
+Date: Sun, 11 Oct 2026 02:55:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,83 +58,125 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/mediatek: data race on ddp_comp array in mtk_crtc_mode_valid
+- [Medium] selftests: net: global dmabuf debugfs parsing causes spurious te=
+st failures
+- [Low] selftests: net: resource leak on exception in devmem unregister tes=
+ts
 --
 
-commit 932f98864769c15d84bbf97b7de7de8b563c5923
-Author: zoan37 <agentzoan@gmail.com>
+commit 920bd7824b195d91554d5afd53f2bc33d3bbf933
+Author: Mina Almasry <almasrymina@google.com>
+Subject: selftests: net: add devmem RX and TX netdev unregister tests
 
-drm/mediatek: mtk_crtc: Pick the connector route on every CRTC enable
+This commit adds devmem_bind_rx_unregister_check and
+devmem_bind_tx_unregister_check to verify that unregistering a netdevsim
+device synchronously detaches dma_buf attachments. It ensures netlink
+sockets close cleanly without page faults or use-after-free bugs.
 
-mtk_crtc_update_output() only picks the output component of a CRTC
-with connector routes when connectors_changed is set in the commit that
-enables the CRTC. But connectors_changed only says that the connectors
-changed in that commit, not since the CRTC was last enabled. A connector
-can be attached to (or moved to) the CRTC while it is inactive, and the
-later commit that only sets ACTIVE then has active_changed but not
-connectors_changed:
+> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/sel=
+ftests/net/nl_netdev.py
+> index ceb44c8e1fec5..bad230ee9dcd2 100755
+> --- a/tools/testing/selftests/net/nl_netdev.py
+> +++ b/tools/testing/selftests/net/nl_netdev.py
 
-- If the CRTC had never been enabled, the route slot is still NULL and
-  mtk_crtc_ddp_hw_init() dereferences it (mtk_ddp_comp_clk_enable()
-  and so on).
-- If the CRTC was driven through another route before, e.g. a CRTC
-  shared by an HDMI bridge on DSI and a DisplayPort output that is
-  switched off (DPMS) while the monitor moves from one to the other,
-  the pipeline is set up for the old output.
+[ ... ]
 
-update_output() only runs from atomic_enable and the lookup is a short
-loop over the routes, so do it on every enable.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediat=
-ek/mtk_crtc.c
-> index 704931b369b6f..0bfd17f682826 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-> @@ -695,9 +695,6 @@ static void mtk_crtc_update_output(struct drm_crtc *c=
-rtc,
->  	struct mtk_drm_private *priv;
->  	unsigned int encoder_mask =3D crtc_state->encoder_mask;
-> =20
-> -	if (!crtc_state->connectors_changed)
-> -		return;
-> -
+> +def _dmabuf_attached_devs():
+> +    """Return attached device names from debugfs dma_buf/bufinfo if avai=
+lable."""
+> +    path =3D "/sys/kernel/debug/dma_buf/bufinfo"
+> +    if not os.path.exists(path):
+> +        return None
+> +    with open(path, "r", encoding=3D"utf-8") as f:
+> +        text =3D f.read()
+> +    attached =3D []
+> +    in_attached =3D False
+> +    for line in text.splitlines():
+> +        if line.strip() =3D=3D "Attached Devices:":
+> +            in_attached =3D True
+> +            continue
+> +        if in_attached:
+> +            if line.startswith("\t") and line.strip():
+> +                attached.append(line.strip())
+> +            else:
+> +                in_attached =3D False
 
 [Severity: Medium]
-Does removing this guard expose a data race on the ddp_comp array in
-mtk_crtc_mode_valid()?
+Will this loop blindly accumulate attached devices for all dma_bufs
+system-wide without filtering by inode or specific fd?=20
 
-A non-blocking atomic commit executes mtk_crtc_atomic_enable() asynchronous=
-ly
-via the commit_tail worker, which does not hold dev->mode_config.mutex.
+If there are other active dma_bufs on the system, such as from DRM or V4L2
+workloads, it looks like their attachments would all be unconditionally
+appended to this global list.
 
-This calls mtk_crtc_update_output(), which modifies the array using plain
-non-atomic assignment:
+> +    return attached
+> +
+> +
+> +def devmem_bind_rx_unregister_check(_nf) -> None:
+> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev =
+unregister."""
+> +    dmabuf_fd =3D _create_udmabuf()
+> +    nf_priv =3D NetdevFamily()
+> +    ef =3D EthtoolFamily()
+> +    nsimdev =3D NetdevSimDev(queue_count=3D2)
+> +    nsim =3D nsimdev.nsims[0]
+> +
+> +    ip(f"link set dev {nsim.ifname} up")
 
-mtk_crtc_update_output()
-	mtk_crtc->ddp_comp[mtk_crtc->ddp_comp_nr - 1] =3D comp;
+[Severity: Low]
+If a test helper like ip() or nf_priv.bind_rx() raises an exception, will
+these resources be permanently leaked?
 
-Concurrently, unprivileged userspace can issue DRM_IOCTL_MODE_GETCONNECTOR,
-which acquires mode_config.mutex and invokes
-drm_helper_probe_single_connector_modes().
+The file descriptor from _create_udmabuf() and the NetdevSimDev are created
+but do not appear to be protected by defer(). If an exception occurs, it
+could skip the manual cleanup calls at the end of the function.
 
-This iterates over all possible CRTCs and calls mtk_crtc_mode_valid(), which
-reads the entire ddp_comp array without READ_ONCE():
+> +    ef.rings_set({"header": {"dev-index": nsim.ifindex},
+> +                  "tcp-data-split": "enabled"})
+> +    nf_priv.bind_rx({
+> +        "ifindex": nsim.ifindex,
+> +        "fd": dmabuf_fd,
+> +        "queues": [{"id": 1, "type": "rx"}],
+> +    })
+> +
+> +    attached =3D _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_ge(len(attached), 1)
+> +
+> +    nsimdev.remove()
+> +
+> +    attached =3D _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_eq(len(attached), 0)
 
-mtk_crtc_mode_valid()
-	for (i =3D 0; i < mtk_crtc->ddp_comp_nr; i++) {
-		status =3D mtk_ddp_comp_mode_valid(mtk_crtc->ddp_comp[i], mode);
+[Severity: Medium]
+Because _dmabuf_attached_devs() aggregates attachments system-wide, does
+this make the test exceedingly brittle?=20
 
-Could this lead to undefined behavior, KCSAN splats, or a crash if compiler
-optimization splits the pointer read in the inlined mtk_ddp_comp_mode_valid=
-()
-function?
+If any unrelated dma_buf has attachments, this assertion could incorrectly
+fail and cause spurious test failures in CI environments.
 
->  	if (!mtk_crtc->num_conn_routes)
->  		return;
->
+> +
+> +    del nf_priv
+> +    os.close(dmabuf_fd)
+> +
+> +
+> +def devmem_bind_tx_unregister_check(_nf) -> None:
+> +    """Verify TX devmem bindings detach cleanly on netdev unregister wit=
+hout UAF."""
+> +    dmabuf_fd =3D _create_udmabuf()
+> +    nf_priv =3D NetdevFamily()
+> +    nsimdev =3D NetdevSimDev(queue_count=3D2)
+> +    nsim =3D nsimdev.nsims[0]
+> +
+> +    ip(f"link set dev {nsim.ifname} up")
+
+[Severity: Low]
+Similar to the RX test above, does this code leak the simulated netdev and
+file descriptor if an exception is raised before the manual cleanup?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011004248.1117=
-649-1-agentzoan@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010025532.8395=
+59-1-almasrymina@google.com?part=3D4
