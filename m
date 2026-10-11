@@ -4,49 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58723CA9EBD
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 16:33:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9991CA9EC7
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 16:44:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE7910E082;
-	Sun, 11 Oct 2026 16:33:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E711D10E151;
+	Sun, 11 Oct 2026 16:44:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SvOfPrKI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i08LKoZX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42C6A10E082
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 16:33:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2A19C42B62;
- Sun, 11 Oct 2026 16:33:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A7C11F0089B;
- Sun, 11 Oct 2026 16:33:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791736435;
- bh=uD3Wpx0T5ehE2s2XDi6c8Jflhb+BEWrMVlMvLIr9wUM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SvOfPrKIsuAy3Yzm/IKedxehCl2JX7hwYkEtsXUpRExj2E0YBkTdYbW8Z08BUEDN6
- cHILVVL8NP5NFIm6/EX/oNLBWNX6sFG945FePUzqIJ5sq69jBszbnUf+g8sY+wE+ps
- UpupgxwVgKP8l3Wqsbq4iojBuPERqq4OPMBg6pSBXyaWNLCPOKle9kxUkTlXKNLU4n
- T+6Ps05ZkMQA7sPpewoC4T+tjrEjejQZUVA5Kmo9s1rCtM8ZtH0bz8fVK89hRFS0UN
- VQ6oXKNk5XD2n1C3YVvflQNB0dsQZaLoFprWAD2DJIlnNo2ynAHWnN5uGJaga+zHH8
- G6nZ2nw/tD7fw==
-Date: Sun, 11 Oct 2026 22:03:46 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Kishore Batta <kishore.batta@oss.qualcomm.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
-Subject: Re: [PATCH v7 0/7] Qualcomm Sahara protocol enhancements
-Message-ID: <asu5x72z9-p0U8G0@debian>
-References: <20261008-sahara_protocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com>
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBE4410E151
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 16:44:26 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2dd76b1361dso6698235ad.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 09:44:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791737066; x=1792341866; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=wGHkGbWaY1GHrAj+q2ZWx0R3E1TtNOA2ScwMHNrb9/4=;
+ b=i08LKoZX9hpQX+ZdjRjlJOT/KPA+ET1n+dZZqBCMWMHC+AHVrZtr+jQO/96DqE2/yy
+ F+6DambHHE7rICDi+Oc+E/y86HqxU4ckM4yKxoiLwwCsRHRvPS+b8jxFOtcT9NiIOKY+
+ CUFCt7fCi5HkysJ+p9YBLcJqNUB23SpETdxJ8rovcnoUA66ZqgEQYUFjJo85u2Tj5CFn
+ tA94i6aCn0oVBM0tPQCdgNM487NP8R4LCoYXoLDIZ7IAstZxtXQCnvVkntWEzLGzntwm
+ T469iFzwJK4I8sQ7idyUjVsKnRloW/EDfKeAWDSo7Zdly7YJxFeRpZ/4uh8gPHF8wIOn
+ Fpvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791737066; x=1792341866;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wGHkGbWaY1GHrAj+q2ZWx0R3E1TtNOA2ScwMHNrb9/4=;
+ b=HOedS996NWtxTphgdQ4uYMavwaFhX2kiLyax8xnD3hhi7x8DsAzCpY4tjGLprRVHmb
+ vOuFrqyUwYkXGAe6NzFYCbBNLeHDn5ky2fkxmvGRUxKVY2G/qtLbXqw9rPyk1IKeTwZe
+ BaSzqjFmoo4XL0UlWFa7TgqXMQj+C+5nFpvmmnwzyLAwHjNISHy49C2i5VItM1vuOua1
+ /lpN2AJOTMtHJMsKvVKbvYvV51tzjrcymvPFWAfXx4lHT/2/KtLtq4paB7/WPgS8ZPIw
+ L/pYX1zlWiD7jCxERIj2pLK72a7GVMTMlT6G101p3HKnsR3wrJWkrB1KH4kav74G1zsP
+ L5bw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxRa0PGJGxevwM/xn+at3xh/qDIXGUm5w0mQaVz18M5JFhKCrQgHpojf4cviq9dbZ4gluqRAL/hb98=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIwod8XBtDMdPnbJADluvvHMHHRtKBbuKjUwoBXnFGsbl3lTo6Z
+ eVT6fMeLflNVaRAWTGPgoUw2deUkRmcHan2c1zhCIN+EqDTyMQTKIf+V
+X-Gm-Gg: AYBFou1GYzm8S8p05Nvrt5XrAFH0IVwljZUZetkR5uSerIbUuc21ZmIYqkUEj1tDX6z
+ Ye9aBXjQWy2SlpnTTiR+IvrdPyRnvYpM0hUCPEYAlo7ci3sZsq+OfTQovU9ecJqb3X1kLmxo6iE
+ YMPOTmYPruUEYJh8IaAMoGM+wroFZ+0EfoYef3dDji4W7fghH1gEArzjUG3jvU0FqNDM6IpHDNs
+ dShzpiDaZ/H3einh0ubiul3R2Wf095MjiBrNyRF5UFbJBerp+xC29lrHpNWA2CwnWWjPvDgF6sW
+ eK2YAkSQ2rwjNH5hUBjk0yZXASQbciOVzRITZaOAjhtWaAQYbr1QxvSGX8/Ni/qVkrogHk4/T1y
+ 5t5uFuYz3xW/UJtbwyGHbpzIiiKvui3FPABTUWv4fVNDnPPIilGQzqS0x/WA2HjlnJRZRL5Byg4
+ YGZM32eF8nU3sl1634Haq9PC2oqBoPU5UX1wy7WCerONhU2ZUg8Wv/FyQoIHw9FKojR5IoPlp9q
+ CgFyTM=
+X-Received: by 2002:a17:903:22ce:b0:2e6:18c4:89d0 with SMTP id
+ d9443c01a7336-2e8427ee486mr63798685ad.5.1791737066088; 
+ Sun, 11 Oct 2026 09:44:26 -0700 (PDT)
+Received: from arch.localdomain ([161.33.202.10])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2e8422fa91asm32769435ad.81.2026.10.11.09.44.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Oct 2026 09:44:25 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Douglas Anderson <dianders@chromium.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Jun Yan <jerrysteve1101@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/panel-edp: Add BOE NV140FHD-N43 panel
+Date: Mon, 12 Oct 2026 00:44:16 +0800
+Message-ID: <20261011164417.151770-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261008-sahara_protocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,69 +93,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 08, 2026 at 11:53:44AM +0530, Kishore Batta wrote:
-> Hi All,
-> 
-> This series reworks the Sahara protocol driver to make it reusable for
-> multiple MHI based devices and adds support for capturing, restoring and
-> exposing DDR training data using the Sahara command mode.
-> 
-> The Sahara protocol is transported over the MHI bus and is used by multiple
-> flashless devices to transfer firmware images, retrieve memory dumps and
-> exchange command mode data during early boot. However, the current
-> implementation lives under the QAIC accelerator driver and contains
-> device-specific assumptions that limit reuse.
-> 
-> Some MHI devices (for example, QDU100) expose the sahara protocol directly
-> on a "SAHARA" MHI channel and rely on command mode to exchange DDR training
-> data with the host. The existing driver does not bind to such devices and
-> ignores Sahara command mode packets, causing training data to be dropped.
-> 
-> This series addresses these issues by relocating the Sahara driver to the
-> MHI subsystem, centralizing device specific configuration and adding command
-> mode handling for DDR training data.
-> 
-> Overview of the changes in this series -
-> 1. Move Sahara under the MHI subsystem:
->    a. Relocate the sahara protocol driver from QAIC accelerator tree to
->       drivers/bus/mhi/host/clients directory.
->    b. Register Sahara as an independent MHI protocol driver.
-> 
-> 2. Generalize device matching and configuration
->    a. Allow the driver to bind to devices exposing the protocol on a
->       SAHARA MHI channel.
->    b. Centralize firmware image table selection at probe time using a variant
->       table, instead of scattered conditionals.
->    c. Preserve existing behavior on AIC devices.
-> 
-> 3. Add QDU100 firmware image table support
->    a. Add a QDU100 image table and select it based on the matched MHI channel.
->    b. No separate client driver or registration mechanism is required.
-> 
-> 4. Add Sahara command mode support for DDR training.
->    a. Handle command mode packets(CMD_READY, EXECUTE, EXECUTE_DATA).
->    b. Query supported commands and retrieve DDR training data from the device.
->    c. Allocate receive buffers based on the reported payload size and copy
->       raw data from the MHI DL.
->    d. Store training data in controller-scoped memory using devres so it
->       survives sahara channel teardown.
-> 
-> 5. Expose DDR training data to userspace
->    a. Add a read-only binary sysfs attribute under the MHI controller device.
->    b. The attribute reads directly from controller-scoped storage and remains
->       available after the Sahara channel device is removed.
->    c. Cleanup is handled automatically via device-managed resources.
-> 
-> 6. Document the sysfs ABI
->    a. Add ABI documentation describing the DDR training data sysfs node.
-> 
-> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
+Add the BOE NV140FHD-N43 14.0" 1920x1080 eDP panel found in the
+Sunniwell Z96A.
 
-Series fails to apply to mhi-next branch. Please rebase and resend. Since I'm
-about to send the PR for v7.4, this will miss the upcoming cycle. But I can
-queue it once v7.4-rc1 is released.
+raw EDID:
 
-- Mani
+00 ff ff ff ff ff ff 00 09 e5 f4 03 00 00 00 00
+13 1c 01 04 a5 1f 11 78 02 3f 62 94 5e 56 94 28
+21 4f 58 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 c8 36 80 cc 70 38 14 40 30 20
+36 00 35 ae 10 00 00 1a 86 24 80 cc 70 38 14 40
+64 64 44 05 35 ad 10 00 00 1a 00 00 00 fe 00 53
+54 41 52 52 59 0a 20 20 20 20 20 20 00 00 00 fe
+00 4e 56 31 34 30 46 48 44 2d 4e 34 33 0a 00 97
 
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index ac815729aa83..ba981581f3b4 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -1972,6 +1972,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xd497, &delay_200_500_e50, "B120XAN01.0"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xf390, &delay_200_500_e50, "B140XTN07.7"),
+ 
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x03f4, &delay_200_500_e50, "NV140FHD-N43"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0607, &delay_200_500_e200, "Unknown"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0608, &delay_200_500_e50, "NT116WHM-N11"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0609, &delay_200_500_e50_po2e200, "NT116WHM-N21 V4.1"),
 -- 
-மணிவண்ணன் சதாசிவம்
+2.56.0
+
