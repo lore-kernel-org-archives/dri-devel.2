@@ -4,76 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ED63CA9ED2
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71911CA9EDD
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1EBA10E4B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E461B10E4E9;
 	Mon, 12 Oct 2026 07:32:02 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AB9310E5CE
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 15:04:37 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-3ab752f6244so463966a91.2
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 08:04:37 -0700 (PDT)
+Received: from mail-qk2-f6.google.com (mail-qk2-f6.google.com [74.125.230.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF3D10E0CD
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 00:43:07 +0000 (UTC)
+Received: by mail-qk2-f6.google.com with SMTP id
+ af79cd13be357-93bfb25817cso77594185a.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 17:43:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791644677; x=1792249477; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=aUdWymVuN1GgzXiVTLtzb4zC9ehLS9HDiJgUQVk5Mn4=;
- b=JxErr61oMeVGCREBBM9lyaWG3OBKWl3Jt9rcgeZkwOnWTHDHJQwRGwcDJ0itoHOuHC
- EddqPc+/Mimu2sDHh0vE7qHavt8gToTs0CfrwqwVpyDP3hCzjTShtEg1+z0GoaTYd5S9
- /JCNIZDGEOXzVZDJIJ7/1jF5CtKuYii9AtPFa+JZgL7dwy+XYrv7y1GmpAG9jTDVPlfV
- rk/65gaCWuqMTHBK3NDN5+9Chtgn1CIBQ0ENqrYSyZH0tcJQtJc+NaqQroBtYDngO5JZ
- ZaTs4+IUhG+xzIHtk/F6scNZvPYQRp7rQlyMQlzRZItEntfKuQkfSg6jdZF3H5v2MJrQ
- xblQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791644677; x=1792249477;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1791679386; x=1792284186; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=aUdWymVuN1GgzXiVTLtzb4zC9ehLS9HDiJgUQVk5Mn4=;
- b=mfkOqFER/wvabGMd5JqlKWRtWTY25KPkxb2dWzc8aC/pVYIfTUeoW31aieQArE42Wo
- /crl5oU910LniANqDeAvrpW2MfYe1bIo8auY/AEst05mKy4NmQJYEZRESOf+VR7hgiTJ
- z28r0WPCTIbryhAMyEKoyIyrdBd+W1jDVOt1XN9H5sPFqQcYx9XO/7DwFoWLvh5n6vB4
- 1JIWqFHCK0F5WZpiid03loFAFgxYt+TBDo2HHmJgTHllD6szmLOG8EOWHOygvuCLwzjH
- 0XJgLLPcX7seP2y+Ih+Z5l7IA8F3710qB9Tc+6ZxzfBG49iuHIRdyHgnB9Y5n8Zk4Zjq
- 5miw==
+ bh=wKMM/5NJTGuE+7PUxcL8x7aaEFcwMXWe96PcY9zklq0=;
+ b=DhRkrheVeIWSNaXr7z/QAP80wP1YgMRZBQYX0c2WDqbufrql/U18Q+BinH4dICZNoi
+ 4iLcSwm3oXW3+EJOFAYFhuRQESTFSRIuSUOeFhCJGx6YOhN293+It08YY0NUOp+bUCsN
+ w8CICm3JUDTY4HdHSBAresrQpqJn5A4aikylxF/68wd/OTZer08ZFXYgm2F3x4fzSXTR
+ Vt4rjRgc9FeuaG9YyRxZZ9vkNjcE9SeRblFkZGelVCb4BRkNjvcr4bXHbpoziBeuYDp0
+ Wk5CnMIyIovPhoHnaQ5uSCynzbK3duqkqGZhm32nb2PN48NEw7OYYjpBBquOqdacxIMa
+ lZJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791679386; x=1792284186;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=wKMM/5NJTGuE+7PUxcL8x7aaEFcwMXWe96PcY9zklq0=;
+ b=rAm0y3NgsPgu2XSnpgZj3bsQRcuAEwIW3GNObKWpQS0TG7vAdxnXovjRc0kgPicRbC
+ 6uby3wrOFQAtBVIS8uNf6TuGRTFJ6NoxeatoAPgeneRt9ixTPy2JEK0L4KTA1493VJlz
+ 0AEK36N7mrzR1+reywjQCQ6PJzn4SvpDHO9HnAddG5jEADPJsub9C2tDDd5COMqeyROR
+ lWWqkYrgp8A2N3sKJES4eyPehvPrm1y6+ld7L0k6Npb1014yHWLGfx2ziyMwg1U97A6k
+ Cx84pARFI4ECWMi7WXG3M8PBihlvGjW3IRAjRflhb0+2QZtYkCRNaBHirsWXIx3rQlPQ
+ NJoA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxZIdl+YNYN/LLI9h2xLx/+/dwGbW5nljRK5ZNFHB7nN3VkSKVU/DfqVo1da/8uf1TLaAvTLCCJ3cU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK9DwzeLx4NkRfJdRcPMsx4ODLUPlOEtAZslGUucBufDMuaujOU
- NMSMObgg6Ke3NWbGYBoTxQhIX+xBT3EG+4p23j7Q6tTFcAom3cpesSokO4P7wKvL
-X-Gm-Gg: AYBFou0md+wTZGcZH4S8zhByNy9rRrVIdGUMzUCICtBJpFrHS+t/eQ1wyglVNw1GZDV
- ATaUefRyHaG8S6TvuKk8Mu7NRoPIZQm+AD2wpwURzFJ8swR10sP6E7VzYaQvx4Zt55lG8Ll2966
- +qnKM91+kyCzLcnaNX3JLuBWgBtkjLYgWcBk5VjjVoqjflIEhb1V0bMbkSaVGUKwsmKAxgOnnq+
- f1+YY04f8RnGsH+zcE5hFx+IhaGRfHYV8ydrzhKeWRJfP1qMoI5Y45pSrOxwSQaUiwd5GaQ2JYI
- 4i3sJvCZvh5Af1ZeEqTM8SqQB5jBT65YG4xDWTGm4AbAbFOV0ULouuLGG+ZE/YZSTpc+bTKTGTX
- 81fSX/TZcknA3fw4K/c/zscAYeSp4Jp7dRHzDwuJAdYR5u75b+3uLaXtKZzHdq/Ks75ujRizngR
- 8nE2nmKJC/9DKoEmrG0nClsQpW4cz9eCwg29QRl1q12qxV7R9iRr3ozw3TloMifxL2Xqpoog==
-X-Received: by 2002:a17:90b:3b84:b0:3ab:1b19:78f4 with SMTP id
- 98e67ed59e1d1-3ab3a3a11a1mr4404697a91.6.1791644676645; 
- Sat, 10 Oct 2026 08:04:36 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7a80:50::3cf:2d])
+ AKwUvBzPrDUUjqp90+pr6vaZRH9VOweUB7Ww/LJhsj+NtScQJQEjKVNIihXG0LPa7epuRG5GxZAt8vI5sYo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIijVQ6f1f1OUzJgbK1HV1gw40uDaDg82cy/82IetNwkSaupDsz
+ fWZke7SQfeXzDh2MRMMpp49ukMSO/t6jsJ3vVPhSshhmPQdZDATJD6UZ
+X-Gm-Gg: AYBFou0SqVd5CUf657XBF4zgXiKcWRQNjkFXJdwPGtt1YzkgF8KxMEq2+o33E8hbUSp
+ MrS+wbGFDqh2c5hrFa1zDDR8GJz3oumHcY+p9PnAFuzQnqJXRk3TEOvo3tx7snzuxDJXqzXiPOd
+ rqN3ihvyIg6d4zVi8dZ2GBI+q+iOA8dF0AjT3RdlkxsBgTTmyoTkLBlgqTUoJQJetOSpI9NyCye
+ d8T6BMp3LjtnVqO74Bgcn+6GsA4xAQ78qQVLU0ZoeJwGRd8U9pf2lBxopju2PRiyOx0FyeciHU2
+ HsF4plBI3HkqZMX0hy97GM+lsHEWWFCxaOdZI+TqgZIrL6A8aCP9qs2slT/ZxF2jz2JbVqp24Zm
+ WIfcYSqn1KwQHYV1wxiwa1WbVxRUjRC+aIUsYANNjtL+XD5AyX2Al9vuIzdVbTkG1QhonSbwZTz
+ GsiQLxLqGV9y1/XAN/R1Di4rcurxLuMnoX2wd2uIob2pimKmCZE7YkGK0dK7NztTH+rxM=
+X-Received: by 2002:a05:620a:3187:b0:93e:c12c:9b73 with SMTP id
+ af79cd13be357-93ec12c9f14mr906360385a.78.1791679386387; 
+ Sat, 10 Oct 2026 17:43:06 -0700 (PDT)
+Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ab397920b4sm4828242a91.4.2026.10.10.08.04.32
+ af79cd13be357-93eb9848702sm532320085a.12.2026.10.10.17.43.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Oct 2026 08:04:35 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Hillf Danton <hdanton@sina.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
-Subject: [PATCH v3] drm/virtio: share one vbuf cache across all devices
-Date: Sat, 10 Oct 2026 22:04:29 +0700
-Message-ID: <20261010150429.17036-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Sat, 10 Oct 2026 17:43:05 -0700 (PDT)
+From: zoan37 <agentzoan@gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Jason-JH Lin <jason-jh.lin@mediatek.com>, CK Hu <ck.hu@mediatek.com>,
+ Nancy Lin <nancy.lin@mediatek.com>, Nathan Lu <nathan.lu@mediatek.com>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 3/3] drm/mediatek: mtk_crtc: Pick the connector route on every
+ CRTC enable
+Date: Sat, 10 Oct 2026 20:42:48 -0400
+Message-ID: <20261011004248.1117649-4-agentzoan@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261011004248.1117649-1-agentzoan@gmail.com>
+References: <20261011004248.1117649-1-agentzoan@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Oct 2026 07:32:01 +0000
@@ -92,231 +93,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
-"virtio-gpu-vbufs" for every virtio-gpu device and destroys it from
-virtio_gpu_release(), which only runs once the last drm_device
-reference is dropped.
+mtk_crtc_update_output() only picks the output component of a CRTC
+with connector routes when connectors_changed is set in the commit that
+enables the CRTC. But connectors_changed only says that the connectors
+changed in that commit, not since the CRTC was last enabled. A connector
+can be attached to (or moved to) the CRTC while it is inactive, and the
+later commit that only sets ACTIVE then has active_changed but not
+connectors_changed:
 
-Two live virtio-gpu devices are enough to hit this: the second
-kmem_cache_create() call finds the name already taken and
-kmem_cache_sanity_check() WARNs. This reproduces at plain boot with
-two "-device virtio-gpu-pci" on the QEMU command line, no sysfs
-remove/rescan or held-open fd needed.
+- If the CRTC had never been enabled, the route slot is still NULL and
+  mtk_crtc_ddp_hw_init() dereferences it (mtk_ddp_comp_clk_enable()
+  and so on).
+- If the CRTC was driven through another route before, e.g. a CRTC
+  shared by an HDMI bridge on DSI and a DisplayPort output that is
+  switched off (DPMS) while the monitor moves from one to the other,
+  the pipeline is set up for the old output.
 
-  kmem_cache of name 'virtio-gpu-vbufs' already exists
-  WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
-  Call Trace:
-   virtio_gpu_alloc_vbufs
-   virtio_gpu_init
-   virtio_gpu_probe
-   ...
+update_output() only runs from atomic_enable and the lookup is a short
+loop over the routes, so do it on every enable.
 
-syzbot found the same WARNing through a different path: open an
-fbdev node, then remove and rescan its PCI device over sysfs. The
-drm_device reference the open fd holds delays virtio_gpu_release(),
-so the old cache is still around when the rescan probes the device
-again and calls virtio_gpu_alloc_vbufs() a second time.
-
-Either way kmem_cache_create() still returns a valid (merged) cache,
-so the device keeps working; the WARN is not a probe failure. But it
-is a real defect: as the comment next to the check says, a duplicate
-name "confuses slabtop, et al", and it is exactly what syzbot and
-any panic_on_warn setup treat as a crash.
-
-The vbuf size is the same for every device, so create the cache once
-at module init and destroy it at module exit instead of per device.
-
-Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Fixes: 01389b324c97 ("drm/mediatek: Add connector dynamic selection capability")
+Assisted-by: LLM
+Signed-off-by: zoan37 <agentzoan@gmail.com>
 ---
-No Fixes: tag. I could not pin down which commit introduced the
-dedicated per-device cache (dc5698e80cf7, the original driver commit,
-still used a plain kzalloc() pool); happy to add the right one if
-someone can point to it.
 
-v3: back to one cache shared at module scope (Dmitry), not kzalloc()/
-    kfree() (v2) -- kmem_cache keeps the allocation off the general
-    kmalloc slabs for this latency-sensitive path. Commit message
-    corrected: the duplicate-name WARN does not fail the probe (the
-    cache still gets created, merged with the existing one), and the
-    trigger is any two live virtio-gpu devices, not just the syzbot
-    remove/rescan path. Tested with two "-device virtio-gpu-pci" at
-    once, and with one device torn down and rescanned while its fbdev
-    node stays open.
-    v2: https://lore.kernel.org/r/20260927042035.19956-1-ngocthang2710.1999@gmail.com
-    v1: https://lore.kernel.org/r/20260926162452.136863-1-ngocthang2710.1999@gmail.com
+Notes:
+    Testing: found by reading the code. The same change runs on the MT8189
+    Chromebook described in patch 1, where one routed CRTC drives either
+    HDMI or USB-C DisplayPort: DPMS off/on and suspend/resume with a DP
+    monitor attached come back. The sequence that fails without it
+    (connector attached or swapped while the CRTC is inactive, then only
+    ACTIVE set) was not reproduced on purpose. Compile-tested (W=1) on
+    next-20261008.
 
- drivers/gpu/drm/virtio/virtgpu_drv.c | 13 ++++++++++++-
- drivers/gpu/drm/virtio/virtgpu_drv.h |  5 ++---
- drivers/gpu/drm/virtio/virtgpu_kms.c |  8 --------
- drivers/gpu/drm/virtio/virtgpu_vq.c  | 26 ++++++++++++++------------
- 4 files changed, 28 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_crtc.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 2aaa7cb08085..eec6f73a4c15 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -283,6 +283,10 @@ static int __init virtio_gpu_driver_init(void)
- 	struct pci_dev *pdev;
- 	int ret;
+diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
+index 704931b369b6..0bfd17f68282 100644
+--- a/drivers/gpu/drm/mediatek/mtk_crtc.c
++++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
+@@ -695,9 +695,6 @@ static void mtk_crtc_update_output(struct drm_crtc *crtc,
+ 	struct mtk_drm_private *priv;
+ 	unsigned int encoder_mask = crtc_state->encoder_mask;
  
-+	ret = virtio_gpu_vbufs_init();
-+	if (ret)
-+		return ret;
-+
- 	pdev = pci_get_device(PCI_VENDOR_ID_REDHAT_QUMRANET,
- 			      PCI_DEVICE_ID_VIRTIO_GPU,
- 			      NULL);
-@@ -291,7 +295,7 @@ static int __init virtio_gpu_driver_init(void)
- 			VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM);
- 		if (ret) {
- 			pci_dev_put(pdev);
--			return ret;
-+			goto err_vbufs;
- 		}
- 	}
- 
-@@ -305,12 +309,19 @@ static int __init virtio_gpu_driver_init(void)
- 		pci_dev_put(pdev);
- 	}
- 
-+	if (ret)
-+		goto err_vbufs;
-+	return 0;
-+
-+err_vbufs:
-+	virtio_gpu_vbufs_exit();
- 	return ret;
- }
- 
- static void __exit virtio_gpu_driver_exit(void)
- {
- 	unregister_virtio_driver(&virtio_gpu_driver);
-+	virtio_gpu_vbufs_exit();
- }
- 
- module_init(virtio_gpu_driver_init);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 9df4c7117341..f6009fc8472f 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -261,7 +261,6 @@ struct virtio_gpu_device {
- 	struct virtio_gpu_queue ctrlq;
- 	struct virtio_gpu_queue cursorq;
- 	bool vqs_released;
--	struct kmem_cache *vbufs;
- 
- 	atomic_t pending_commands;
- 
-@@ -361,8 +360,8 @@ void virtio_gpu_array_put_free_delayed(struct virtio_gpu_device *vgdev,
- void virtio_gpu_array_put_free_work(struct work_struct *work);
- 
- /* virtgpu_vq.c */
--int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
--void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev);
-+int virtio_gpu_vbufs_init(void);
-+void virtio_gpu_vbufs_exit(void);
- void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev);
- void virtio_gpu_cmd_create_resource(struct virtio_gpu_device *vgdev,
- 				    struct virtio_gpu_object *bo,
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 1d4d3bf46a20..047b591b5da2 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -264,11 +264,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 		DRM_ERROR("failed to find virt queues\n");
- 		goto err_vqs;
- 	}
--	ret = virtio_gpu_alloc_vbufs(vgdev);
--	if (ret) {
--		DRM_ERROR("failed to alloc vbufs\n");
--		goto err_vbufs;
--	}
- 
- 	/* get display info */
- 	virtio_cread_le(vgdev->vdev, struct virtio_gpu_config,
-@@ -324,8 +319,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 	virtio_reset_device(vgdev->vdev);
- 	virtio_gpu_modeset_fini(vgdev);
- err_scanouts:
--	virtio_gpu_free_vbufs(vgdev);
--err_vbufs:
- 	vgdev->vdev->config->del_vqs(vgdev->vdev);
- err_vqs:
- 	dev->dev_private = NULL;
-@@ -365,7 +358,6 @@ void virtio_gpu_release(struct drm_device *dev)
+-	if (!crtc_state->connectors_changed)
+-		return;
+-
+ 	if (!mtk_crtc->num_conn_routes)
  		return;
  
- 	virtio_gpu_modeset_fini(vgdev);
--	virtio_gpu_free_vbufs(vgdev);
- 	virtio_gpu_cleanup_cap_cache(vgdev);
- 
- 	if (vgdev->has_host_visible)
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index c02c03c10d92..769b6e70feda 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -70,21 +70,23 @@ void virtio_gpu_cursor_ack(struct virtqueue *vq)
- 	schedule_work(&vgdev->cursorq.dequeue_work);
- }
- 
--int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev)
-+/* Shared by all devices: a per-device cache would collide by name. */
-+static struct kmem_cache *virtio_gpu_vbufs;
-+
-+int virtio_gpu_vbufs_init(void)
- {
--	vgdev->vbufs = kmem_cache_create("virtio-gpu-vbufs",
--					 VBUFFER_SIZE,
--					 __alignof__(struct virtio_gpu_vbuffer),
--					 0, NULL);
--	if (!vgdev->vbufs)
-+	virtio_gpu_vbufs = kmem_cache_create("virtio-gpu-vbufs",
-+					     VBUFFER_SIZE,
-+					     __alignof__(struct virtio_gpu_vbuffer),
-+					     0, NULL);
-+	if (!virtio_gpu_vbufs)
- 		return -ENOMEM;
- 	return 0;
- }
- 
--void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev)
-+void virtio_gpu_vbufs_exit(void)
- {
--	kmem_cache_destroy(vgdev->vbufs);
--	vgdev->vbufs = NULL;
-+	kmem_cache_destroy(virtio_gpu_vbufs);
- }
- 
- /* For drm_panic */
-@@ -93,7 +95,7 @@ virtio_gpu_panic_get_vbuf(struct virtio_gpu_device *vgdev, int size)
- {
- 	struct virtio_gpu_vbuffer *vbuf;
- 
--	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_ATOMIC);
-+	vbuf = kmem_cache_zalloc(virtio_gpu_vbufs, GFP_ATOMIC);
- 
- 	vbuf->buf = (void *)vbuf + sizeof(*vbuf);
- 	vbuf->size = size;
-@@ -110,7 +112,7 @@ virtio_gpu_get_vbuf(struct virtio_gpu_device *vgdev,
- {
- 	struct virtio_gpu_vbuffer *vbuf;
- 
--	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_KERNEL | __GFP_NOFAIL);
-+	vbuf = kmem_cache_zalloc(virtio_gpu_vbufs, GFP_KERNEL | __GFP_NOFAIL);
- 
- 	BUG_ON(size > MAX_INLINE_CMD_SIZE ||
- 	       size < sizeof(struct virtio_gpu_ctrl_hdr));
-@@ -205,7 +207,7 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
- 	if (vbuf->resp_size > MAX_INLINE_RESP_SIZE)
- 		kfree(vbuf->resp_buf);
- 	kvfree(vbuf->data_buf);
--	kmem_cache_free(vgdev->vbufs, vbuf);
-+	kmem_cache_free(virtio_gpu_vbufs, vbuf);
- }
- 
- void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
 -- 
 2.43.0
 
