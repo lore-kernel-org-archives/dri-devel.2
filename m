@@ -4,56 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5141DCA9ECC
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 20:43:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14464CA9EC7
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 22:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6824410E09A;
-	Sun, 11 Oct 2026 20:43:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=packett.cool header.i=@packett.cool header.b="F/+0Zmhj";
-	dkim-atps=neutral
-Received: from mta0.migadu.com (out-202.mta0.migadu.com [91.218.175.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BC7210E09A
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 20:43:24 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=rqaA0XuWiDskP9yuqwcegfvbvYXBfuaFoAbZjxFS4is=; 
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791751403; v=1; x=1792356203;
- b=F/+0Zmhj1z1Nxe891pHNxIFQxl6ZLKuxQjJ/S1GeoYNI04cReDkv29E2IZhawz95sRDUsrWY
- ji1Cw/u6zD969atYB+7KQHu24XEUuITa6E48MXGEsKFMyp6kiSrinZisukW2wyMDZ6BtlY3Xjs+
- zfAcBfHTGvTHo5JRHAr2kk0pbg9v3sb5J6+uODWdQq27JmJj1pczZCgcLPn7aNrTbKiWiOy71zi
- S6qg5un16aS1Qku6Lwsny8svrporRTgB6NYZukWFv4J9UfjYv+ySOgrlEXGg8pkbP5HFQ6ON9oR
- 1mGCw1q4Mhrb5eMifNlNnrx+qOd8k5Yl2Dyzz9LxU6wBg==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id e9d61ac877c13462;
- Sun, 11 Oct 2026 20:43:22 +0000
-X-Mizu-Trace-ID: e9d61ac877c13462
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c5051b9d-2657-4852-809e-37ce2839e728@packett.cool>
-Date: Sun, 11 Oct 2026 17:43:11 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCBDF10E025;
+	Sun, 11 Oct 2026 22:00:54 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 901B310E025
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 22:00:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1791756046;
+ bh=Ywh1GMRw2iBO14IQbgD0pj6ibbfA/kMA8uXSyE24qzQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=RGqVBaoPkXH9kOrMo6u1pfngT02rTOpnlcvjdokeFPC6gfsY8pTcnDkNT7o8t9wiV
+ knISOnkUrwGL+v9OwiuScoWP4JRVi773vsgS5n0x8ffq7qkdLWGlbJWfBqoPGcvaHZ
+ ERt/yxo6khEvhJuI5J8wXejPjKfXQUe8+cOKNl0N/BrgU6AN9gi4EMHPM+7iqIfux0
+ 41W5IT7eJAIw9iRPx7w/9Y6Br2Gzul+ABgz8Dq6syTNkYPEEqmufTpnU8vNLX5lZe8
+ w3mIrbqVSkGH9gvXhKZpFhaz4yeYFirR5nSuxWMvbqyNFmD828mmcima5U2AB1yJyn
+ wfgD/gWp/XLtw==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 50A5B17E0110;
+ Mon, 12 Oct 2026 00:00:46 +0200 (CEST)
+Message-ID: <eac822b3-8468-4067-aa1d-579a2dd9cf6e@collabora.com>
+Date: Mon, 12 Oct 2026 01:00:45 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
+Subject: Re: [PATCH 7/7] drm/vc4: hdmi: Defer pixel clock validation to HDMI
+ helpers
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Maxime Ripard <mripard@kernel.org>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261001-vc4-common-scramb-v1-0-51280460194b@collabora.com>
+ <20261001-vc4-common-scramb-v1-7-51280460194b@collabora.com>
+ <CAPY8ntDCU80hkxdDEGphQCX362ut4AdWJUTGkDOwOHWfkPW6BQ@mail.gmail.com>
 Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <CAPY8ntDCU80hkxdDEGphQCX362ut4AdWJUTGkDOwOHWfkPW6BQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,48 +66,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Dave,
 
-On 10/8/26 10:14 AM, Dmitry Baryshkov wrote:
-> Panel drivers don't have an atomic state and so they can't handle
-> additional data to be stored at the atomic_check time or to be retrieved
-> at the enable/disable time. For example, it prevents panel drivers from
-> supporting multiple display modes or making DSC being optional in a
-> clean way. Drivers like panel-novatek-nt35950, save the connector
-> pointer in get_modes() and later dereference
-> connector->state->crtc->state from prepare() without holding any locks.
-> The panels also have no way to reject the configuration they cann't
-> handle, as it doesn't take part in the atomic check.
->
-> The panel already embeds a drm_bridge, and the bridge has an atomic
-> state which is property handled. Subclass it to provide atomic state for
-> the panels. The callbacks can find the state of the other related
-> objects (e.g. CRTC state to get the display mode).
->
-> The atomic state is opt-in. A panel that doesn't implement the state
-> callbacks keeps working exactly as before, with the plain bridge state,
-> so there is no need to touch the existing drivers. The panels which do
-> implement them can only be driven through the embedded bridge, since
-> there is no commit to hand over when the host calls drm_panel_prepare()
-> and friends directly. Those entry points warn and refuse to handle such
-> panels. There are still a dozen of display drivers calling these
-> functions, and the panels used with them can not be converted until the
-> hosts are switched to the panel bridge.
->
-> The previous attempt by Val Packett <val@packett.cool> ([1]), but it had
-> issues with the API design, passing NULL for the state. This approach
-> follows closer the path that was chosen for drm_bridge conversion.
->
-> The series is marked as RFC as it is only compiled-tested only.
->
-> [1] https://lore.kernel.org/r/20260425001130.233935-1-val@packett.cool/
+On 10/8/26 9:01 PM, Dave Stevenson wrote:
+> Hi Cristian
+> 
+> Sorry for coming in late on this one.
+> 
+> On Thu, 1 Oct 2026 at 01:27, Cristian Ciocaltea
+> <cristian.ciocaltea@collabora.com> wrote:
+>>
+>> drm_atomic_helper_connector_hdmi_check() rejects modes whose computed
+>> TMDS character rate exceeds the connector limit before invoking the
+>> driver's .tmds_char_rate_valid() hook.
+>>
+>> BCM2835 is capped at 162 MHz, slightly below the 165 MHz limit of HDMI
+>> 1.2.
+> 
+> Nothing I have says that BCM2835 is HDMI capped at 162MHz.
+> Working back through the history, originally the HSM clock was always
+> set to 163.7MHz and the pixel rate had to be >1% below that, hence
+> below 162MHz.
+> 
+> However that was reworked so that the HSM clock rate is now set to the
+> pixel clock * 101/100.
+> The HSM clock can run at 166.65MHz without issue, so a pixel clock of
+> 165MHz is fine.
 
-Tested-by: Val Packett <val@packett.cool>
+Thanks for checking this out. 
 
-Converted my nt37701 WIP to this, temporarily at:
+Since that would be a functional change, I think it's worth introducing a
+dedicated patch, acting as a prerequisite to the current one. I'll handle it 
+in v2.
 
-https://github.com/valpackett/linux-qclaptops/commit/a0a3a25e1ce484ffe072e4399014ced605c78852
+Speaking of which, assuming no additional changes are required, would you be
+able to merge the series afterwards? That would get us one step closer to
+finalizing the infrastructure cleanup.
 
-Everything works as it did with my initial hacky attempt. :)
-
-~val
-
+Cristian
