@@ -4,144 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEC14CA9EBD
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 03:30:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70415CA9EBD
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 03:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1D1210E143;
-	Sun, 11 Oct 2026 03:30:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F85B10E106;
+	Sun, 11 Oct 2026 03:38:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KysF0DNb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TItdSFqp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EGinSXvX";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE45810E143
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 03:30:44 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69B1q3H43329685
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 03:30:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- H9svzMgESlMxQ2/eamTykJGeU+wpVc5L1Ni2Wur0Meg=; b=KysF0DNbKXWuLhgL
- vj3p1/+J0Ejl9Sm+6+jKRiOU/lqYZ+GNPhD5QoPfLqRgQgnHtXVcUwpjroowGWKm
- CGITP+wi3/G5VPy3z0LgbxE/kOz/2BZQM44IhQ+vF68JP/D6YqOfthu0hSctN3++
- Xy8ujyufEAmjJRUrbgag4kE+TEO8Xdh6TFuPptMO/CZX+7kvXip8CphBSWD8fbrw
- EKil1SVaasue3w5sDrM5zqOZXjPKBzjojtrOEJyjyuamoFhtbJ1kcjGAe6D6qXts
- wHzqsRnbxI4ppNnJumzR5Dp03RDBRTJLiVw2YWZ9sypOwGZDzxKM/tUhvvnr2gas
- 7nuk0g==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7b2famcd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 03:30:44 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-3580c07911eso1930384eec.0
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 20:30:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791689444; x=1792294244;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=H9svzMgESlMxQ2/eamTykJGeU+wpVc5L1Ni2Wur0Meg=;
- b=TItdSFqpa3QWtfKKofFbtvLHH8hRUDiDZHIEHSsVXvaJ3a/dBp1bzigiQWRa9ggZH9
- fwiKTvFpJr9/JEpMnaafBkhCKlIby5VRIPo7BSdw2F2G+Z2SSSlEGy21mvds7uKX2Tba
- 437EIE13nvW/LreyYz3stD6VEiSDN4Xxn8v0amPTBUjgZT7rJNG3yPgr3tYGBLolR6Af
- v6sr+qXU5lkk5zCajkD3uWtCrBJ2JEjAAvxqpIkKEcdd7upr2RkRqt+mADfaWcNLlkj/
- 3YGdLUKOqm84nAI2SVes6Bn+su5sG3o2JOtKCz9x+PvoDadaACRbjJF3bVohHgZjLDab
- iSuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791689444; x=1792294244;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=H9svzMgESlMxQ2/eamTykJGeU+wpVc5L1Ni2Wur0Meg=;
- b=t8h5JwZQLizT7kXQBUC+qLN2pB69q+/tXdKiC6Hovkmp5FsejtyUkaq3HaCLrYv79s
- dbcgTcF5B3CQ5YQA2wfnaWggyIbP3G9kh9PyatRwJ6m7edpixn0Bffqn0nJJ71NKC7KH
- vbq+BHhOPqC18MzEAldBTGHcvxlut7FJ9uPxTOXx95ilxzy1KpTOVBC9QbevJZEwzTSp
- QUc40pwZCNpo5i6xzyNIMsFKApX2NFsjf3olEGR0W9SGkfqsVF/fCqoaDoxJ6gtexBMo
- pHWLhDjMp6vMQOUwBtkIGa9z85mG/dIojTCcXJ/9f4KvZTtzQhdWDmEJc1XUbsR6MIzJ
- ilRw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxfl2qop2QxvcmJvh5fxBgjTKDIzbu2vbwhG7WXPdAUUaYw7bmkGSWqrDWdfc9Z16L10xI7Jf22TKA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKF7GqLCS5++pBPmjXOCOdC7BcBlMo9CsgJ8Hj/xaZpFgNDh8oA
- OUQdUj8wQ2B23dleqLqPM11co6FoolROXo8mHLx69v4tm0plfKH9S0Jo1uBE0NpvW5qV+C/kJuZ
- tD8YrInD2DfPIhzXOmZVgOrEmB/OCWAadpj59XiAMoO1IdliZ2vzEq/9t9arzGleE8b8STX8=
-X-Gm-Gg: AYBFou1jZNUQTLjbFOn9YbogmPCJIOMrPEYLN6PSKGOesQnpzK0XII1MwTf141xU2NM
- 0IOsagUoumH5YGTjNUZyFB2MDcc4xisfr5EgYNyL2dtFNhKUJfhrZ4jRqZczZf8NcC21jcqtwll
- mBnbW3B7xu1NmMZLB3V3zuQceLUDSC8WOUP8nUp5oZrSKBC7mnNZy8R5AXBz7NQ5K77rFQRDsKK
- 5xESu5f8qsWA+rwsIxd7Ny9ivZIVpn/HyElAHomfqXZs+pSRqJD4HsvA17kNNkKV3idNRrEAx4v
- EGoMWWtSwazzrHfF3RVsgodaN3uR3+qZGaegv0MkE8EcFJkvV22lm5FyWzWIWxWTqgzrA3neYhI
- L+LoAU2K5ULTr1pmJ6ccA+uGUbzFr6Asn4dfMy5Txbg==
-X-Received: by 2002:a05:7300:1343:b0:351:727d:b9c2 with SMTP id
- 5a478bee46e88-3537e05bd1bmr11778411eec.17.1791689443494; 
- Sat, 10 Oct 2026 20:30:43 -0700 (PDT)
-X-Received: by 2002:a05:7300:1343:b0:351:727d:b9c2 with SMTP id
- 5a478bee46e88-3537e05bd1bmr11778338eec.17.1791689442629; 
- Sat, 10 Oct 2026 20:30:42 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3537ca6d202sm19172887eec.13.2026.10.10.20.30.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Oct 2026 20:30:42 -0700 (PDT)
-Date: Sun, 11 Oct 2026 11:30:34 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Aastha Pandey <aastha.pandey@oss.qualcomm.com>
-Subject: Re: [PATCH 4/5] arm64: dts: qcom: nord: Add GPU cooling
-Message-ID: <assC2v74wpr3AzI6@QCOM-aGQu4IUr3Y>
-References: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
- <20261009-nord-gpu1-v1-4-a06a6c57bde7@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E52B10E106
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 03:38:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3055E41472;
+ Sun, 11 Oct 2026 03:38:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2501F000FF;
+ Sun, 11 Oct 2026 03:38:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791689898;
+ bh=IHiq471lI34tMV6DI159H0HPk05JOLQKG1SqobU79J0=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References;
+ b=EGinSXvXpMfm+BKNZSmdSSntxAhl9mXZyU1CvvbHybYYrOFEAUplRFw93WoCpsrlz
+ AE6R27g5xwx8YepMEIMSbWA4MwPWl6/taP2phdnYblY4lplz5F39EL9vjm/NrzR0vH
+ 5njyL8cZX7SFm8XCVC5pmp8CEKTWplmCsErFuEaqeCI+hDWFWthMtmM3gm1kEyxdA1
+ QvgS9q1lBn6fRVzg44hJMFcLIz/pQbeSsYyWqnYyTtgVvZZ9DEFPX14XgsIaC6kigN
+ vtr+AQJHdwJ+AFq19iQsmjkgkujLMqg0eVkTKkHpIgcK7BzaBC5kvk+hKgJTakkwig
+ CU7u0yQ6Sk14Q==
+Subject: Re: [PATCH net v1 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
+ ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
+ bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
+ razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com
+Date: Sun, 11 Oct 2026 03:38:16 +0000
+Message-ID: <179168989611.434549.16378879758158058625@kernel.org>
+In-Reply-To: <20261010025532.839559-2-almasrymina@google.com>
+References: <20261010025532.839559-2-almasrymina@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261009-nord-gpu1-v1-4-a06a6c57bde7@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDAxMyBTYWx0ZWRfX5VPxpq0JYCKt
- 8Z6dbN4m/MeYGCMsHrob0Nj9nusgbknhqLbv49n7tEmPy3ZaT8yNaO45jMKtSxBts6kvGlZ6CAs
- 0B+/MrOQ5wOOS1w01ERo32FwfsYwTH8=
-X-Proofpoint-GUID: rBKDdo5UxfWAQuyUtwW3P9y_w6m2MJnp
-X-Authority-Analysis: v=2.4 cv=NddzRGD4 c=1 sm=1 tr=0 ts=6acb02e4 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=8nJEP1OIZ-IA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=eBu_aoQerpSAkrlkAZQA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDAxMyBTYWx0ZWRfX4hy3dDLtgsHJ
- ZC4q+3gzhMhH9oCOwELYDs3nw/Tpaelt7/SwwXnxQcYRYSCrTDWM1OQwxTwmcG9j8QJuDaamNdJ
- F+JkaxgaEhz8thN0EnNBzQYNzLRIXmQVN+Lw+ZqvTfE39n0GdEYUfLdtWoo5xsxM+O7rXsfZNoo
- tn/3Slqfy9+W4VD35CF6NuUsWNcsZceXcE0fAg1iPOaksr8tR0RqH6nkMg4jnlsJvi3Ml7TQDu7
- BeFbsmow+Hf1RmUMjXbjYINVcKMouKdB+GSuJX0qOBu4e6qnS/kGfB84PXUpmsR4EP6NGTwXbXj
- uimjBeVYc6EJZoaisamIkoKbiZ9x2L5cAC1cYvZF8Lm4kys2YbeXjPRanBbUgtCA7IXDYoZyLb7
- KGO3sGFJoyb1BX16LNwED7tnoHDKUfoAIsTxqIHlHYhWqdAvIJZcMA37wlmWvJLqR0mv8km5IQ/
- DU+oDpXRdLBzu6/AWWQ==
-X-Proofpoint-ORIG-GUID: rBKDdo5UxfWAQuyUtwW3P9y_w6m2MJnp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-11_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1011
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110013
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,54 +65,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 09, 2026 at 02:36:38AM +0530, Akhil P Oommen wrote:
-> From: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
-> 
-> Unlike the CPU, the GPU does not throttle its speed automatically when
-> it reaches high temperatures.
-> 
-> Set up GPU cooling on Nord by throttling the Adreno 753 GPU when it
-> reaches 105�C. Label the GPU thermal zones and their passive trip
-> points, map them to the GPU as a cooling device, and add a passive
-> polling delay so the thermal framework can monitor the zones while
-> throttling.
-> 
-> Signed-off-by: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 177 ++++++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/nord.dtsi          |  80 ++++++-------
->  2 files changed, 217 insertions(+), 40 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> index 4379092b7bf8..23370007c974 100644
-> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> @@ -17,6 +17,7 @@
->  #include <dt-bindings/interconnect/qcom,nord-rpmh.h>
->  #include <dt-bindings/power/qcom,rpmhpd.h>
->  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
-> +#include <dt-bindings/thermal/thermal.h>
->  
->  #include "nord.dtsi"
->  
-> @@ -2042,3 +2043,179 @@ opp-403000000 {
->  		};
->  	};
->  };
-> +
-> +&gpu_0_0_0_thermal {
-> +	polling-delay-passive = <10>;
-> +
-> +	cooling-maps {
-> +		map0 {
-> +			trip = <&gpu_0_0_0_alert0>;
-> +			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +		};
-> +	};
-> +};
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-I'm not sure why this is Embedded variant specific. Can we not just
-update nord.dtsi as needed? Would that break GearVM variant in any way?
+Critical: 0 · High: 2 · Medium: 0 · Low: 2
 
-Shawn
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] Incomplete fix: a binding that has already been unbound (netlink
+  socket closed) but is still alive because a TCP socket or page pool…
+- [High] The patch unmaps and detaches the dma-buf in
+  mp_dmabuf_devmem_uninstall() as soon as bound_rxqs becomes empty.
+- [Low] The comment on struct net_devmem_dmabuf_binding::lock in
+  net/core/devmem.h still reads '/* Protect dev */'.
+- [Low] The comment on struct net_devmem_dmabuf_binding::ref in
+  net/core/devmem.h still says 'The binding undos itself and unmaps the…
+
+--
+
+net: devmem: unmap dma_buf synchronously on queue uninstall
+
+This patch adds net_devmem_dmabuf_binding_unmap(), which runs under
+binding->lock and clears binding->sgt and binding->attachment so that
+unmapping is idempotent. It is called from mp_dmabuf_devmem_uninstall()
+when the last bound RX queue is uninstalled, so the dma_buf is no longer
+unmapped against a freed dma_dev after device unregister.
+
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index f4d60654ce7fd..5e4070b82df44 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+> @@ -58,6 +58,21 @@ static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
+>  	schedule_work(&binding->unbind_w);
+>  }
+>  
+> +static void
+> +net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
+> +{
+> +	lockdep_assert_held(&binding->lock);
+
+[Severity: Low]
+This isn't a bug, but the comment on binding->lock in net/core/devmem.h
+still reads:
+
+	/* Protect dev */
+	struct mutex lock;
+
+The lock now also protects binding->sgt and binding->attachment, and the
+lockdep_assert_held() here enforces that. Should the comment in the header
+be updated as well?
+
+> +
+> +	if (!binding->sgt)
+> +		return;
+
+[ ... ]
+
+> @@ -74,9 +89,10 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+>  		  size, avail))
+>  		gen_pool_destroy(binding->chunk_pool);
+>  
+> -	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
+> -					  binding->direction);
+> -	dma_buf_detach(binding->dmabuf, binding->attachment);
+> +	mutex_lock(&binding->lock);
+> +	net_devmem_dmabuf_binding_unmap(binding);
+> +	mutex_unlock(&binding->lock);
+
+[Severity: High]
+Can this deferred unmap still run against a freed dma_dev when the binding
+was already unbound before the device went away?
+
+The commit message says the fix covers unregister "while userspace still
+holds a netlink or TCP socket reference". However, the only synchronous
+unmap is in mp_dmabuf_devmem_uninstall(), and dev_memory_provider_uninstall()
+only reaches that for RX queues whose rxq->mp_params is still set.
+
+Closing the netlink socket does this, with no unmap:
+
+netdev_nl_sock_priv_destroy()
+  net_devmem_unbind_dmabuf()
+    xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+    netif_mp_close_rxq()
+      __netif_mp_close_rxq()
+        memset(&rxq->mp_params, 0, sizeof(rxq->mp_params));
+    percpu_ref_kill(&binding->ref);
+
+Other references can keep the binding alive past that point. On RX,
+unreturned devmem tokens keep the old page pool alive. On TX, unacked
+devmem skbs in a TCP retransmit queue hold refs taken via
+net_devmem_get_net_iov(). The TX binding can be created through
+netdev_nl_bind_tx_doit(), which does not check for CAP_NET_ADMIN.
+
+A later unregister then finds no installed provider, so
+mp_dmabuf_devmem_uninstall() is never called for this binding. After the
+parent device is freed (for example in nsim_bus_dev_release()), dropping
+the last reference goes through:
+
+__net_devmem_dmabuf_binding_free()
+  net_devmem_dmabuf_binding_unmap()
+    dma_buf_unmap_attachment_unlocked()
+      unmap_udmabuf()
+        dma_unmap_sg_attrs()    <-- freed attach->dev
+
+That looks like the same KASAN report quoted in the commit message.
+
+The follow-up commit "net: devmem: detach TX bindings on NETDEV_UNREGISTER"
+fixes the TX case while the netlink socket is still open. Its
+net_devmem_dev_unregister() only walks net_devmem_dmabuf_bindings, though,
+and unbound bindings are no longer in that xarray.
+
+A narrower variant needs no extra references. The unbind_w work queued by
+net_devmem_dmabuf_binding_release() runs asynchronously, and nothing makes
+it run before device removal.
+
+Would a complete fix need to track every binding that is still mapped
+against a device, and not only the ones installed on an RX queue?
+
+> +
+>  	dma_buf_put(binding->dmabuf);
+>  	xa_destroy(&binding->bound_rxqs);
+>  	percpu_ref_exit(&binding->ref);
+> @@ -535,6 +551,7 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+>  				mutex_lock(&binding->lock);
+>  				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+>  				WRITE_ONCE(binding->dev, NULL);
+> +				net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+Is it safe to unmap here just because bound_rxqs became empty? Nothing
+here checks whether the hardware queue has actually stopped using the
+binding.
+
+On queue lease teardown the physical NIC is still registered and running:
+
+netkit_queue_unlease()
+  netdev_rx_queue_unlease()
+    netif_rxq_cleanup_unlease()
+      __netif_mp_close_rxq(phys_rxq->dev, rxq_idx, &p);
+      __netif_mp_uninstall_rxq(virt_rxq, &p);
+        mp_dmabuf_devmem_uninstall()
+          net_devmem_dmabuf_binding_unmap()
+
+If the reconfig fails, __netif_mp_close_rxq() only warns:
+
+	err = netdev_rx_queue_reconfig(dev, rxq_idx, &qcfg[0], &qcfg[1]);
+	WARN_ON(err && err != -ENETDOWN);
+
+netdev_rx_queue_reconfig() can fail in ndo_queue_mem_alloc() before
+ndo_queue_stop() is called. It can also fail in stop or start, with the
+old queue restored. In both cases the old devmem page pool keeps running,
+and its ring holds DMA addresses from binding->sgt.
+
+netif_rxq_cleanup_unlease() still calls uninstall unconditionally. The
+virtual rxq is the one recorded in bound_rxqs, so removing it empties the
+xarray. The dma-buf is then unmapped and detached while the NIC can still
+DMA into those IOVAs, and the pool can keep refilling from
+binding->chunk_pool.
+
+Before this patch the mapping lasted until __net_devmem_dmabuf_binding_free()
+ran, which only happens after every page pool has dropped its binding ref.
+The commit message only talks about unregistration. Was the lease
+teardown path also meant to unmap synchronously here?
+
+[Severity: Low]
+This isn't a bug, but the comment on the ref field of struct
+net_devmem_dmabuf_binding in net/core/devmem.h still says:
+
+	 * The binding undos itself and unmaps the underlying dmabuf once all
+	 * those refs are dropped and the binding is no longer desired or in
+	 * use.
+
+With this call, the mapping can go away while netlink, page pool or
+net_iov refs are still held. The follow-up commit "net: devmem: detach TX
+bindings on NETDEV_UNREGISTER" adds another early unmap in
+net_devmem_dev_unregister(). Should this comment be updated to match?
+
+>  				mutex_unlock(&binding->lock);
+>  			}
+>  			break;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010025532.839559-1-almasrymina%40google.com
