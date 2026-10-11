@@ -4,67 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6909CA9ECA
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 00:22:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3A96CA9EC5
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 00:56:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2594310E0A3;
-	Sun, 11 Oct 2026 00:22:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C986B10E081;
+	Sun, 11 Oct 2026 00:56:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="i1bSzKdE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g+hUdQgs";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A11E510E0A3
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 00:22:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791678148; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=RtJ+Y5yFVjFpWdC4PqXJ7qZsJRqt8s6mwjSC0jSNde3JeYg219d/VgxrUKF8IAf3bxHe95paI5drCSe/jLqlJQCwF/6bYhAohXQPunz1GKUr+BsQd8G/nynoLf1rtVP74bcs134HxJOX/cNib4k8dU5H7hgAIUHR6tFmcLTcwpE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791678148;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=41dPddWoQKnpWMYRbAvh5x0oiXREGVQ4pqzdMYi7w6A=; 
- b=Veop6pQhMd+18pin7jk2NMYmbcPRgtECUcTTV/a9KOkS2qDWYPcdO7gHXjOxJqn5KMMlMaPVBd1mKrb6VqfmtUzKz75CNhPJy1tjmVOmftgZsmT+AWU0DlM7eVVrInQpDabyDMfdj3UmvsnQyWFnqb43asqy5V4jLoAsGaPDxDs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791678148; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=41dPddWoQKnpWMYRbAvh5x0oiXREGVQ4pqzdMYi7w6A=;
- b=i1bSzKdEqE/viofxpvNNSpKDshCMhnIEq1x9CfVhyWXrx8UtAC5hT/f322iQi9Ru
- XoukuCzrdcAcQ2apBzDoBeljfkSo7mzKO20Aiyzd6hq1NZxpyTUB9DmiIQhN18wO+yV
- NE0Sfm0cZf/lMw21NX2dKZ6tJWpVYjZFgfqmVn9Q=
-Received: by smtp.zohomail.com with SMTPS id 1791678146138728.6489422256464;
- Sat, 10 Oct 2026 17:22:26 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [RFC PATCH v5 0/6] rust: Add drm::JobQueue
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20261009191124.1022902-2-phasta@kernel.org>
-Date: Sat, 10 Oct 2026 21:22:07 -0300
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>, John.harrison@igalia.com,
- da.gomez@kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB98F10E081
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 00:56:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C71C660018;
+ Sun, 11 Oct 2026 00:56:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A84B1F000FF;
+ Sun, 11 Oct 2026 00:56:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791680204;
+ bh=EJaRq5VLVpexPsCNG6md8X8pDtNa7WirTlBJ7J4XteE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=g+hUdQgsOJcF16/eSoEzD3CjXCK3KXr6cA1qWWIlo/z5e7DxWalqzL6qRwxeJUkm2
+ 1E3mBZRqmk5bLunDX1z7p2YrXgQjNuORNXj0ix4CCwpTiAgviTMeVLRLL50h3Ap242
+ pPIRkvjcjOvoRzJRWdpKADNKVtOfypSc2F1BkgIV7Fdsg1tpfBdELJBRRcTBe/VrbJ
+ ZUITqB7W4BomUfPjmm94/JcaHoKWGGuYG3sdm7eKbQmTIY7e1qiiANeRiNeUjyCCaf
+ ZxVf8yiUH89788EfZYnBk8e02t81yF6jT3T2EQdAGyAC5bjitX4GeoPjwah5mNj2Ef
+ DkQUeqgUAs4Qg==
+Message-ID: <sashiko-outbox-166953@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] drm/mediatek: mtk_crtc: Pick the connector route on
+ every CRTC enable
+To: zoan37 <agentzoan@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261011004248.1117649-4-agentzoan@gmail.com>
+References: <20261011004248.1117649-1-agentzoan@gmail.com>
+ <20261011004248.1117649-4-agentzoan@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <F09C7397-AF97-4947-89D5-759498BCF7B0@collabora.com>
-References: <20261009191124.1022902-2-phasta@kernel.org>
-To: Philipp Stanner <phasta@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-ZohoMailClient: External
+Date: Sun, 11 Oct 2026 00:56:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,116 +54,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Philipp,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/mediatek: data race on ddp_comp array in mtk_crtc_mode_valid
+--
 
-> On 9 Oct 2026, at 16:11, Philipp Stanner <phasta@kernel.org> wrote:
->=20
-> Changes in v5:
->  - Add back the Revocable<JobQueueInner=E2=80=A6> from my earliest =
-RFCs. Reason
->    is still the same: JQ dropping while dependency fences signal could
->    deadlock. Similarly, this solves a dependency kicking of the work
->    item again while drop() is running.
+commit 932f98864769c15d84bbf97b7de7de8b563c5923
+Author: zoan37 <agentzoan@gmail.com>
 
-Can you expand a bit on this? IIUC the problem is introduced by trying =
-to take
-the jq lock on signal? If so, this could be avoided by queuing the =
-worker from
-that path instead?
+drm/mediatek: mtk_crtc: Pick the connector route on every CRTC enable
 
->  - Do not call run_job() with a lock held, since run_job() might =
-sleep.
->    AFAICS, this also makes the proposed XArray solution impossible and
->    demands that we use a list.
+mtk_crtc_update_output() only picks the output component of a CRTC
+with connector routes when connectors_changed is set in the commit that
+enables the CRTC. But connectors_changed only says that the connectors
+changed in that commit, not since the CRTC was last enabled. A connector
+can be attached to (or moved to) the CRTC while it is inactive, and the
+later commit that only sets ACTIVE then has active_changed but not
+connectors_changed:
 
-Can you expand on this a bit?
+- If the CRTC had never been enabled, the route slot is still NULL and
+  mtk_crtc_ddp_hw_init() dereferences it (mtk_ddp_comp_clk_enable()
+  and so on).
+- If the CRTC was driven through another route before, e.g. a CRTC
+  shared by an HDMI bridge on DSI and a DisplayPort output that is
+  switched off (DPMS) while the monitor moves from one to the other,
+  the pipeline is set up for the old output.
 
->  - Re-add the earlier credit-count-system, so that run_job() is
->    infallible. Simplifies the design quite a bit. (Danilo)
+update_output() only runs from atomic_enable and the lookup is a short
+loop over the routes, so do it on every enable.
 
-What is AGX=E2=80=99s position on this? IIRC, this credit system could =
-not represent
-their submission model exactly, like it can for others.
+> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediat=
+ek/mtk_crtc.c
+> index 704931b369b6f..0bfd17f682826 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
+> @@ -695,9 +695,6 @@ static void mtk_crtc_update_output(struct drm_crtc *c=
+rtc,
+>  	struct mtk_drm_private *priv;
+>  	unsigned int encoder_mask =3D crtc_state->encoder_mask;
+> =20
+> -	if (!crtc_state->connectors_changed)
+> -		return;
+> -
 
+[Severity: Medium]
+Does removing this guard expose a data race on the ddp_comp array in
+mtk_crtc_mode_valid()?
 
->  - Drop jobs in a deferred manner through the work item so that job
->    payload data can do atomic-hostile stuff.
->  - Because of the point above, I suggest that we stop dropping a
->    DriverFence on signal (Danilo's and my idea). It has no real
->    advantage, and getting rid of it allows for better controlling what
->    drops when through JobQueue. For fence it's only relevant that =
-there
->    is an RCU grace period, thus:
->  - Replace DriverFence::drop()'s call_rcu() with synchronize_rcu(). We
->    would, therefore, demand that everyone who's got a problem with the
->    delay drops via work item.
+A non-blocking atomic commit executes mtk_crtc_atomic_enable() asynchronous=
+ly
+via the commit_tail worker, which does not hold dev->mode_config.mutex.
 
-I will get back to you.
+This calls mtk_crtc_update_output(), which modifies the array using plain
+non-atomic assignment:
 
->=20
-> This can still not be tested as I'm blocked by pin-init vs self-ref.
-> Just FYI.
->=20
-> I would appreciate confirmation of these following thoughts on locking
-> design:
->=20
-> 1.
-> I believe that callers of jq.new_job() and jq.submit_job() do not need
-> an outer serialization mutex. Reason is that JQ serializes with its
-> internal lock. Sequence numbers cannot take over older seqnos because =
-it
-> is submit_job() who sets the seqno.
+mtk_crtc_update_output()
+	mtk_crtc->ddp_comp[mtk_crtc->ddp_comp_nr - 1] =3D comp;
 
-I guess this makes sense, so long as submit_job() doesn=E2=80=99t take =
-&mut self?
+Concurrently, unprivileged userspace can issue DRM_IOCTL_MODE_GETCONNECTOR,
+which acquires mode_config.mutex and invokes
+drm_helper_probe_single_connector_modes().
 
-Also, submit_job() assigning seqnos is not compatible with the XArray =
-IIRC.
-Fine if going with lists, I suppose.
+This iterates over all possible CRTCs and calls mtk_crtc_mode_valid(), which
+reads the entire ddp_comp array without READ_ONCE():
 
+mtk_crtc_mode_valid()
+	for (i =3D 0; i < mtk_crtc->ddp_comp_nr; i++) {
+		status =3D mtk_ddp_comp_mode_valid(mtk_crtc->ddp_comp[i], mode);
 
->=20
-> 2.
-> I, furthermore, believe that a driver will not need to hold a
-> driver-lock while calling jq.complete_jobs_up_to_seqno().
+Could this lead to undefined behavior, KCSAN splats, or a crash if compiler
+optimization splits the pointer read in the inlined mtk_ddp_comp_mode_valid=
+()
+function?
 
-In tyr, we hold _no_ locks. The driver signals the fences, and this will
-enqueue the worker thread.
+>  	if (!mtk_crtc->num_conn_routes)
+>  		return;
+>
 
->=20
-> IOW, I am suggesting that a driver can always safely use JQ without an
-> outer lock, and actually *should* do so to avoid potential locking
-> issues.
->=20
-> Reason:
->=20
-> let driver_stuff =3D foo.lock();
-> let current_gpu_seqno =3D driver_stuff.get_seqno();
-> drop(driver_stuff);
-> jq.complete_jobs_up_to_seqno(current_gpu_seqno);
->=20
-> Thus, I believe that it is OK for me to take the JQ lock in
-> jq.complete_jobs_up_to_seqno().
->=20
-> Please correct me if I'm missing something.
->=20
-> Should I be wrong and a lock inversion could occur, then we could
-> hypothetically add a fence Signaler object, with which we could signal
-> fences with a different lock. Similar to how drm_sched does it with =
-the
-> hardware_fence.
->=20
->=20
-> Regards
-> P.
->=20
->=20
-
-I will have a more thorough look this week :)
-
-=E2=80=94 Daniel
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011004248.1117=
+649-1-agentzoan@gmail.com?part=3D3
