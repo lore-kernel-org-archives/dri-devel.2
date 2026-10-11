@@ -4,52 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B9FCA9EC9
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 03:38:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C958CA9EC7
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 04:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBB6010E2B7;
-	Sun, 11 Oct 2026 03:38:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F43110E2C4;
+	Sun, 11 Oct 2026 04:24:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LSHJfP/I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hBX/cW6h";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B61A10E282
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 03:38:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 833AB4450C;
- Sun, 11 Oct 2026 03:38:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54211F00893;
- Sun, 11 Oct 2026 03:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791689904;
- bh=DhT2Sc1qZOsPqVuOtTlejOzafSl9/+wC5w47v4hyl3w=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References;
- b=LSHJfP/IDboyc/VdiFW0S5vIbArmrOGlWGu/rf8Sh8b+nve3NdVCJHXsysp4l9xaH
- tD4nZz3H2ZukItiafHfTQjAnJmrAdmTRwxKLV3nJR4XGcpWcLGef/wR8PqhWRPI5HR
- muaHaCh6nYMsarMSJlbuwA114GYKMFTPCUSkucosh0wzaDPMJgqlyUFHLFhy2jma/j
- a2KBtbQ/hC3yjjj2yu6EILi7ByOptub1AdzKbl62tWxeRgpvpM3S5S6OD0a0VY2PAV
- obgXc63PF1EQDAttMzuZo4oAgEmdZUlABXqaqErfF06EHfxtqUsjKEqS31zb4sEcD6
- FIqE/AFVbfJMg==
-Subject: Re: [PATCH net v1 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: netdev-bot+sashiko@kernel.org
-To: almasrymina@google.com
-Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
- ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
- bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
- razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com
-Date: Sun, 11 Oct 2026 03:38:22 +0000
-Message-ID: <179168990244.434549.3313221235274785716@kernel.org>
-In-Reply-To: <20261010025532.839559-5-almasrymina@google.com>
-References: <20261010025532.839559-5-almasrymina@google.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com
+ [74.125.230.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9480210E2A2
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 04:24:21 +0000 (UTC)
+Received: by mail-lr2-f10.google.com with SMTP id
+ 38308e7fff4ca-3a7f674d148so7788101fa.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 21:24:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791692660; cv=none;
+ d=google.com; s=arc-20260327;
+ b=X4tja6QR+QT+CbGMP6LnkDyk7H+03liiF8rSa6YL+Nj/DE3aiyIUEGsItPn6LoFKgt
+ U2V639Xnc13sU9ojpSIh2ymbObshmdb4Q7/nm8VjP6iiRt1X2L+ygIVuQahRMKIQJmzp
+ 1OnvpQ8V7NeXXgXJRei/X/Yvf8Ek2NSlN6RK+wumBj/3z8lnVccpsCyUZa2rbnRHJ7SO
+ Pjpe6NROA32nCiUQpuuOYkvhmsgIue4X5uepAur+RI4/4cvuL6Vm5Z5dveObIZWmmKPW
+ cvJnbOSfSxTA7z/ay+vWd3vVpr/8v0w9SIdrdt0JvNvyMLxpyUWdAXjVdNthekcpSmrJ
+ 7/UA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=VhZc0ul596MdstjFona8ML1ytD+B6YUHJy1OvUi+4LI=;
+ fh=vxTpDn6kAMjt/zGFUZovke2YEywiljOLwHVIFSSslT4=;
+ b=HFIsya7JJOOJMZQSbT24xI/fS7wFKA7080GcnAeAnTciiY37826PZha9QY/TTWC2zs
+ u5T3dh0ubJ9Hz8+RnfLHxYWwm3OeAAL4BGjrOEbdpf5e8OHjEMa7ON/a9rhMbwjIjQxr
+ hWKJMYcsvLxt7Y+24tj85Wt7VIr5nfqp6sZjHwW51iOxiCsc2ZSq9+Q9jEI65HHFU07n
+ pFREpJEJYY4eYmIPuqzGM4uuTgAcWJ6xgm/pwJA99XxA7VJ9DYwNcCPq4wEgNspEb9nb
+ p2xrFmxUCwDzJlbWCibu4ICTp/2HRfqRapvKX79R3khg+a5mRcJfHnMVQVToghCTUeS4
+ dLZw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791692660; x=1792297460; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=VhZc0ul596MdstjFona8ML1ytD+B6YUHJy1OvUi+4LI=;
+ b=hBX/cW6h1NIRv4fyNOR2eUWoN0d3/JFsDSVQZX7IrBPsOLSEpY81IL5I/ufJk5zsuR
+ /tCEt5RMLit+WbN28F1BqHSLnsKuZThiDoI8WEWo82UqnIWiGUim6cr6c0w56G5C5REr
+ 5uFnRAkOhXvDZupKcSrMw4ROfYEbp5TP9JSt0azofqez0BwtjvPJ8FlZiKrEryZpbXoO
+ LVV5meJ8AHQer30QFtz6Nze0NGzMi6inAUFbhpeKTQaq4+QQ7mABfGbCqlrZrWAiofM3
+ o7b+BTA2PmYpanCjXblCLUfyLK4QwMJNqXbccVmQxsK/7LgkrnHUZs2PBvF1jFouO9KN
+ go7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791692660; x=1792297460;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=VhZc0ul596MdstjFona8ML1ytD+B6YUHJy1OvUi+4LI=;
+ b=u2SB5rzNeAOfSA4UDLTodQKWFUlnnBhfj4kY3j6vP6PiN0unV22XM6Q82ioO0h+T7K
+ zVKgH+crePTDB/7tqM3AodHT2DkIXSvwJ/nUcODQCnbuleM5eC6BLQB0B4BRECQF0OMA
+ YdOGNIT9OzQ2fjyG3mwfIqQYWFFJwrpIjgRf/qiox9fArEZ90WomLwxZSaaARXBpyUD6
+ 0IPzZNiVguMYHSDcwVAgikfogmlH5mvuyD0axfnLd5XCpYD1q0zPe2ON1I9L6F+gXJ2z
+ KGkzMXIMEfiC6WZn+AJ3S6ux8WA0MTYwLP8fiRf70x+a2VXXCkFpW8Wb5/cBD25pZhpw
+ UZ/Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzzr8IGN9ZCCajb2J/i/Ob4SzAnwCJxM+ldhVT1bpRqZjHwQw7IfF9ZArV4C5FaaOfnxxKzxHVCPIs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJhN/nTjVRpF5p54kodirYpjobtzz2/ptssnFZIQ3ZSF8BD/ynY
+ FOtcTUQ93rOOhWGvfuFqdrj3dZV8F/JE/Ot1Fjb4DNtalmfc8kG2huHKakiqZGRBES3PAdk8gv+
+ qs9SNJtvUosSER4JLc3J4R0xA/Vi9IBQ=
+X-Gm-Gg: AYBFou1/UBnCH1Amx+GAMao4k+xrTuzGV7Ydfb1hlGzQPeHflahHr2iiuM7j3aNIFqA
+ BK3VG8RrhiEIfyfDNEkiB9RFY7D7PsY/Ixiq7cuORt8jVsE/ZPQmExXCg2RIRNZ0gMOgHQ6mfkU
+ 2yKNFvGZHRX+8mZaW3LuOMjOOU234hHur9fJdkcgc86XnFWpRJMo9SI/G/rxhsBwTXoLHCqaepr
+ SBaYGdMol38ZLI324xCkQ9uZuj1qrUS8B3GpbTEFNxgUUDi/QbQqA/tseWAE8qrbYbm9K31JQXq
+ P8xG9hYjs8BlCS69OeE0B9xxHE7NGGUtQi93J2PVZQ0xqbKlu2+4KuCN
+X-Received: by 2002:a05:651c:b27:b0:3a9:9b0b:b789 with SMTP id
+ 38308e7fff4ca-3a9c4ebac3bmr15900241fa.3.1791692659381; Sat, 10 Oct 2026
+ 21:24:19 -0700 (PDT)
 MIME-Version: 1.0
+References: <20261010081059.3096312-1-bsdhenrymartin@gmail.com>
+ <8393a8a2-2ed5-4d63-b937-5d837c1bb1aa@collabora.com>
+In-Reply-To: <8393a8a2-2ed5-4d63-b937-5d837c1bb1aa@collabora.com>
+From: henry martin <bsdhenrymartin@gmail.com>
+Date: Sun, 11 Oct 2026 12:24:10 +0800
+X-Gm-Features: AclHuK-BTl_lG-VGVrLo4m7etjeQVOp6O1v4a1N4RBOkp9wdRCffIEeVjuhsxU0
+Message-ID: <CAEnQdOovxVfYAyiEZ8nJM-DXe=r6apYkfmpJJUNx6CJbg61_-w@mail.gmail.com>
+Subject: Re: [PATCH] drm/virtio: reject mappable HOST3D blobs without
+ host-visible memory
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Chia-I Wu <olvaffe@gmail.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Junrui Luo <moonafterrain@outlook.com>, dri-devel@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,268 +115,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
+Hi Dmitry,
 
-Critical: 0 · High: 0 · Medium: 5 · Low: 2
+You're right, thanks for catching this.  bo->created is set
+synchronously in virtio_gpu_cmd_resource_create_blob(), so the
+unmap/unref completion chain (cmd_unref_cb -> cleanup_object)
+releases everything once the host acks.  The leak I described does
+not exist - please drop the patch.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Sorry for the noise.
 
-- [Medium] In devmem_bind_rx_unregister_check() and
-  devmem_bind_tx_unregister_check()…
-- [Medium] The new tests need /dev/udmabuf (CONFIG_UDMABUF) and debugfs
-  (CONFIG_DEBUG_FS, for the bufinfo assertions).
-- [Medium] _dmabuf_attached_devs() (nl_netdev.py:390-408) collects the
-  'Attached Devices' entries of every dma_buf in the system, not only…
-- [Medium] devmem_bind_rx_unregister_check() (lines 413-439) and
-  devmem_bind_tx_unregister_check() (lines 444-466) do not use `with…
-- [Medium] _create_udmabuf() (nl_netdev.py:384) passes the hardcoded
-  number 0x40187542 as UDMABUF_CREATE.
-- [Low] In both new tests, the only check for the behaviour the
-  docstrings claim ('Verify RX devmem bindings detach dma_buf…
-- [Low] _create_udmabuf() (nl_netdev.py:379-387) closes memfd and devfd
-  only on the success path.
+Regards,
+Henry
 
---
-
-selftests: net: add devmem RX and TX netdev unregister tests
-
-This adds two tests to nl_netdev.py. Each one creates a udmabuf, binds it
-to a netdevsim device for devmem RX or TX through the netdev netlink
-family, and then removes the netdevsim device. The tests check debugfs
-dma_buf/bufinfo to confirm that the attachment is gone, and expect the
-netlink socket to close cleanly afterwards.
-
-> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-> index ceb44c8e1fec5..bad230ee9dcd2 100755
-> --- a/tools/testing/selftests/net/nl_netdev.py
-> +++ b/tools/testing/selftests/net/nl_netdev.py
-
-[ ... ]
-
-> @@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
->      ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
->  
->  
-> +def _create_udmabuf(num_pages=64) -> int:
-> +    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-> +    if not os.path.exists("/dev/udmabuf"):
-> +        raise KsftSkipEx("/dev/udmabuf is not available")
-
-[Severity: Medium]
-Will these tests ever run in CI that builds from the net config fragment?
-
-The only related entry in tools/testing/selftests/net/config is:
-
-CONFIG_NETDEVSIM=m
-
-It enables neither CONFIG_UDMABUF nor CONFIG_DEBUG_FS. So
-_create_udmabuf() would always raise KsftSkipEx here, and both new tests
-would always skip.
-
-tools/testing/selftests/drivers/net/hw/config and drivers/dma-buf/config
-both set CONFIG_UDMABUF=y. Should the net config fragment add
-CONFIG_UDMABUF=y and CONFIG_DEBUG_FS=y too?
-
-> +
-> +    size = num_pages * mmap.PAGESIZE
-> +    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-> +    os.ftruncate(memfd, size)
-> +    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
-> +    devfd = os.open("/dev/udmabuf", os.O_RDWR)
-> +    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-> +    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
-
-[Severity: Medium]
-Is 0x40187542 the right request number on every architecture?
-
-The uapi header defines it as:
-
-include/uapi/linux/udmabuf.h:
-#define UDMABUF_CREATE       _IOW('u', 0x42, struct udmabuf_create)
-
-0x40187542 is the asm-generic encoding. Alpha, mips, powerpc and sparc
-define _IOC_WRITE as 4U with 13 size bits, and parisc defines it as 2U.
-On all of these the write bit lands at 0x80000000, so the request number
-becomes 0x80187542.
-
-On those architectures udmabuf_ioctl() hits its default case:
-
-	default:
-		ret = -ENOTTY;
-
-Nothing catches the resulting OSError from fcntl.ioctl(), so both devmem
-tests would fail instead of running or skipping.
-
-> +    os.close(devfd)
-> +    os.close(memfd)
-> +    return dmabuf_fd
-
-[Severity: Low]
-Does this leak memfd and devfd on the error paths?
-
-If os.ftruncate(), the F_ADD_SEALS fcntl() or os.open() raises, memfd is
-never closed. If the UDMABUF_CREATE ioctl raises (the ENOTTY case above,
-for example), both memfd and devfd stay open. ksft_run() catches the
-exception and keeps the process running.
-
-A try/finally around these calls would close both.
-
-> +
-> +
-> +def _dmabuf_attached_devs():
-> +    """Return attached device names from debugfs dma_buf/bufinfo if available."""
-> +    path = "/sys/kernel/debug/dma_buf/bufinfo"
-> +    if not os.path.exists(path):
-> +        return None
-
-[Severity: Low]
-What happens when bufinfo is missing (CONFIG_DEBUG_FS off, or debugfs not
-mounted)?
-
-Both tests guard every assertion with:
-
-    if attached is not None:
-
-With None they run no assertions at all. ksft_run() then records them as
-pass, not skip.
-
-The tests still exercise nsimdev.remove(), but they would pass even if
-the dma_buf stayed attached after unregister. Should this raise
-KsftSkipEx instead of returning None?
-
-> +    with open(path, "r", encoding="utf-8") as f:
-> +        text = f.read()
-> +    attached = []
-> +    in_attached = False
-> +    for line in text.splitlines():
-> +        if line.strip() == "Attached Devices:":
-> +            in_attached = True
-> +            continue
-> +        if in_attached:
-> +            if line.startswith("\t") and line.strip():
-> +                attached.append(line.strip())
-> +            else:
-> +                in_attached = False
-> +    return attached
-
-[Severity: Medium]
-Does this count attachments from every dma_buf in the system, rather than
-only the udmabuf this test created?
-
-dma_buf_debug_show() walks the whole dmabuf_list and prints one block for
-each buffer:
-
-drivers/dma-buf/dma-buf.c:dma_buf_debug_show() {
-    ...
-		seq_puts(s, "\tAttached Devices:\n");
-		attach_count = 0;
-
-		list_for_each_entry(attach_obj, &buf_obj->attachments, node) {
-			seq_printf(s, "\t%s\n", dev_name(attach_obj->dev));
-    ...
-}
-
-The parser collects entries after every header, so the result is a total
-for the whole host.
-
-This has two effects:
-
-- ksft_eq(len(attached), 0) after nsimdev.remove() fails whenever any
-  other dma_buf (GPU, display, V4L2) has an attachment, even if the
-  kernel detached this one correctly.
-- ksft_ge(len(attached), 1) passes even if this binding never attached.
-
-An attachment left behind by the RX test would also make the TX test
-fail.
-
-Could this filter on the inode of dmabuf_fd (os.fstat(dmabuf_fd).st_ino)
-or on the netdevsim device name?
-
-> +
-> +
-> +def devmem_bind_rx_unregister_check(_nf) -> None:
-> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-> +    dmabuf_fd = _create_udmabuf()
-> +    nf_priv = NetdevFamily()
-> +    ef = EthtoolFamily()
-> +    nsimdev = NetdevSimDev(queue_count=2)
-> +    nsim = nsimdev.nsims[0]
-
-[Severity: Medium]
-What happens to the netdevsim device if anything between here and
-nsimdev.remove() raises?
-
-The ip link set call, ef.rings_set(), nf_priv.bind_rx() or ksft_ge()
-could all raise. ksft_run() catches the exception and moves on, but
-nsimdev.remove() is never reached.
-
-NetdevSimDev only cleans up through remove() or __exit__ and has no
-__del__. So the device stays in the kernel after the selftest exits.
-dmabuf_fd stays open, and if the bind succeeded, the dma_buf attachment
-stays live too.
-
-The other netdevsim tests in this file use "with NetdevSimDev(...)" or
-defer(). Could these do the same? devmem_bind_tx_unregister_check() has
-the same pattern.
-
-> +
-> +    ip(f"link set dev {nsim.ifname} up")
-> +    ef.rings_set({"header": {"dev-index": nsim.ifindex},
-> +                  "tcp-data-split": "enabled"})
-> +    nf_priv.bind_rx({
-> +        "ifindex": nsim.ifindex,
-> +        "fd": dmabuf_fd,
-> +        "queues": [{"id": 1, "type": "rx"}],
-> +    })
-> +
-> +    attached = _dmabuf_attached_devs()
-> +    if attached is not None:
-> +        ksft_ge(len(attached), 1)
-> +
-> +    nsimdev.remove()
-> +
-> +    attached = _dmabuf_attached_devs()
-> +    if attached is not None:
-> +        ksft_eq(len(attached), 0)
-> +
-> +    del nf_priv
-> +    os.close(dmabuf_fd)
-
-[Severity: Medium]
-Does del nf_priv actually close the netlink socket that holds the
-binding?
-
-YnlFamily.__init__() stores, on self, a partial for every op that refers
-back to self:
-
-tools/net/ynl/pyynl/lib/ynl.py:YnlFamily.__init__() {
-    ...
-        for op_name, op in self.ops.items():
-            bound_f = functools.partial(self._op, op_name)
-            setattr(self, op.ident_name, bound_f)
-    ...
-}
-
-That is a reference cycle, so refcounting never frees the object. del
-only drops the local name, and self.sock stays open until the cyclic GC
-happens to run. That could be during the next test, or at process exit
-after ksft_exit() has already printed the results.
-
-So the step the commit message describes, closing the socket after
-unregister and reaching netdev_nl_sock_priv_destroy(), does not happen
-at a fixed point inside this test. A failure on that path could be
-blamed on another test, or show up after this one already reported ok.
-
-YnlFamily already provides close() and __enter__/__exit__. Would
-nf_priv.close(), or "with NetdevFamily() as nf_priv:", be better here?
-The same applies to devmem_bind_tx_unregister_check().
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010025532.839559-1-almasrymina%40google.com
+Dmitry Osipenko <dmitry.osipenko@collabora.com> =E4=BA=8E2026=E5=B9=B410=E6=
+=9C=8811=E6=97=A5=E5=91=A8=E6=97=A5 04:19=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 10/10/26 11:10, Henry Martin wrote:
+> > virtio_gpu_resource_create_blob_ioctl() -> verify_blob() validates
+> > blob flags, memory type, context and alignment, but never checks
+> > VIRTGPU_BLOB_FLAG_USE_MAPPABLE against vgdev->has_host_visible.
+> >
+> > For blob_mem =3D=3D VIRTGPU_BLOB_MEM_HOST3D the blob is created via
+> > virtio_gpu_vram_create(), and on a device without host-visible
+> > memory (plain virtio-gpu-pci,blob=3Don with no hostmem) the failure
+> > comes too late: the GEM object has been allocated, a host resource
+> > id taken and the create_blob command issued when
+> > virtio_gpu_vram_map() returns -EINVAL, and the cleanup calls
+> > virtio_gpu_vram_free(), which is a no-op while bo->created is still
+> > false (the host response has not been processed yet).  Every such
+>
+> virtio_gpu_cmd_resource_create_blob() is invoked before
+> virtio_gpu_vram_map() in virtio_gpu_vram_create(), hence bo->created is
+> always true, how come it's false?
+>
+> --
+> Best regards,
+> Dmitry
