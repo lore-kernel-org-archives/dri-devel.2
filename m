@@ -4,45 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70505CA9EC7
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 08:33:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8354BCA9EC7
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 09:15:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9801B10E01F;
-	Sun, 11 Oct 2026 08:33:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6014910E013;
+	Sun, 11 Oct 2026 09:15:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ouA1yz3b";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BvfKGJl+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 161E810E01F
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 08:33:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 19731600AA;
- Sun, 11 Oct 2026 08:33:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC2B1F0089B;
- Sun, 11 Oct 2026 08:33:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791707604;
- bh=21p/tNdTknSSHsuxJ9ami0fbfcIm8YfZRuAP2R8IzYo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ouA1yz3bssGz9jRBEwjQVtUoh8C86dwsMoAhVobomND9tU03XrUGmDxKLNFOtfyiC
- tcL89HkDyaAbvr5HK97siqPEZlvfiv/JQsb0i+gehU3Nd+Ih+23zxOF6UpSkk/YotQ
- NzqMxrfpm20lNxiuAe+T2ZFJNmANci+jF1efP9luzZnyXfd/HFprbDEgPkgQsPqiS1
- TbgRPHUTten7XC12PjdkJgW5sxEXObp6ci2Ix6M+p0b5tjRrzsXLTZOqdGW7dsktTa
- rynQE1mxHlLVnbyx13idRWHBicuOnS+c9hHOPHHtKSu9SNko+WqYM1wA2XEFHQkjKo
- Qln8DuB96KKsg==
-Message-ID: <sashiko-outbox-167123@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 1/1] phy: mediatek: phy-mtk-hdmi: Use regmap to
- manipulate hdmi registers
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org,
- olteanv@gmail.com, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261011082042.348422-2-l.scorcia@gmail.com>
-References: <20261011082042.348422-1-l.scorcia@gmail.com>
- <20261011082042.348422-2-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A63C010E013
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 09:15:36 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-33e623bd651so116803eec.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 02:15:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791710136; cv=none;
+ d=google.com; s=arc-20260327;
+ b=htpPUn2sYqycSggOo2Eplde9r7sIs5U7+UZ8qGAXqPAm+H9FSfptpzRR1Cc2rORWUg
+ ZCzCcBtz3wMFrXDRsUDKDeyN8bP7oFTy9L8w7aIlpiG9qy2bJLw67hRltcNVIuZRXJX3
+ xmRM2/kW2O18hzCp/1TxRV1uvcrmcxDOWhnJM0d0JTfg3d60DncYqQ+LIBziToHXkYGS
+ /9UMJ3y6rao7JBhTN0SkDKOD4Sr+oQ8OJzr7LnQiSa+CsLLQ9z7Juidm0EjgmdxfhKW9
+ C+SbzLyT6NGgAqRpAslXwkPvyTnLFMNFWo/T8PGaniIgyJ9Zzmk/kOkbGwsCVGU3aJHQ
+ gKJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=hGkdQt3CffghjwhVKgS734IYuXkQ0DDpVgAEI+JBZM4=;
+ fh=PhlNItrMytVS9iuU0Hozl7Ybbbv0K6If9kqT9JihNng=;
+ b=psBu9d27Il9uLHb+AEYG2UbNpV9OXRNC77QtvJTb5Tq29OBmIbsfayGptQPdCKeIpp
+ v807yNScDkFMdOIy3a+0GqG8vZyCbQe15Mjs8fEHqGOWWbfYRBY927Ugtc0xG3nvwLxK
+ UHbA1woQDQ9EVScZYT88tyspqHLAl19ETDRJgXgAJ+VohcqXXGa8UnavEuMpfWOXmsKx
+ 9DWn5fhp58yMVIJmg455a9EYiezRyh9wMl5U/1QWQbaZqp8CAAsfEScwGE9gzEDMJkDG
+ UG1FvtKMyr7FMquKfFKu5SOQ0CgorlJpvshxQiXwFY8rV0SDYECGgZuxuo4ZtPi8yejS
+ R3/w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791710136; x=1792314936; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=hGkdQt3CffghjwhVKgS734IYuXkQ0DDpVgAEI+JBZM4=;
+ b=BvfKGJl+wTUDn1rA1Q0KMgeK/1Yswfx/PvAAueYL+eDJ39HiMxgB6OqTqWDS65Yeo7
+ I7qkk6zStx3D0Q3HgRvLJj/0ALVrH8mIMJN4BloZCGyfAUJ1tHnwqx8ChMnIjULfWAwh
+ /SKrSfcJppS45SOuiwbK6yvRE1VTt/WX8eUOTxPrbiK77aBYsZlAdRLLN3qfF6xMaHHS
+ tdYhVdYQywahYdzsrla5lkKPJfluZvl7u1GONpg42lkUnZRxKZmxjMobhYJryrHs/N0j
+ CPQ3waf67nrf8ADx5jxfphUk5MmPBrgS3c/GwNVXtGbYUfD4EO0bEyS0xbErFLJky9W3
+ 5ulQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791710136; x=1792314936;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hGkdQt3CffghjwhVKgS734IYuXkQ0DDpVgAEI+JBZM4=;
+ b=F3ort1FHwbDxFwFrVyvZ2rBVV8wYfZ2r6oAzLLXauS2EE8FrSogOnYZIwdvZxVq94/
+ lacHq1CCUJO45aaJasL9+Uk42UKK7upvXXLMahi2pn6ChKjA8jfsACvEvIrRSJYaK8gR
+ 41P80imYMvSztWzOYlymjmvOUH3NxpgdACLHAucARaAeSXbCB+TDVJWd8rASDPtiF/vR
+ PRkM/tKOh91POGSJfp3PirA8p9L36qPfDGy1mjVXEKyRMI/KQsPg6NaJcroTLNReob1w
+ OOBtkJpQT3MFx+svPTIF6F/+wA45kf2fMVz8Ee33Goov6ENOMLuyoN6aBu5Bmdm4VpZg
+ tcUg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByKdnzwu1t8NOVnSFpwVUgBXA7HRc3oiK6vvpZ8KiqqWtcR72YZGR2WJipe6BVDm2xYHjoqrsfvrq8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLj/S1nqSHxxIPwu3BwTp1DesG+ogh2dCHHXECndA7rvNP/5aOg
+ Xc7pUVGPfr78RXC85ibrSpXiEnoaD13EWk4Pe7P3sVClLx6/KGFZprLITmVIZrNG6kvoM0X0cBt
+ uAssgPLv9nTTl4YUXPWs/0EJf77qvINI=
+X-Gm-Gg: AYBFou2e8i8FIDsl7fI0RPdfCoIzN2Y+8oR6jErIJ7a+/bTnltlhrzkhmgf7ju8NbrE
+ xgFDU8FkAEttCrsFbiV3B6O3bIuDjc3e64rnJpXnreqhpp967uUvLQNTTmXwL8T9VXq2joXJTlr
+ LKXZsWhANE9BR7oq3itlMlevkY+2CkKaqxpkOG+98voMDELptHZpD9a7HBSqwk8Fo6N2zjRVbOW
+ fly6l33XnuWnhk1BkD7SpFLXDVNd7kcxMyJIM41BGNuq4BnCdmiK4qQ4EQi6t3twiKEvKQOVJQY
+ cBzeIKxDJPCV+ZALvT09+/EPqu/lSZWlYFM44tvtDT6CgTxr3cGtmotTs2rHbELPCIwBdaWjo0x
+ ih29zpuMbgGTeLQrCvIn0l/yUhhk+H1alLDjrNFtkdcuLAOqkaMR+gSJMxh/o7bZVAI8JEArQpD
+ MjQdL86babmU4+bGPRB5nHIFqNPNkMBMKojcIDNuSOJnCSDgF7NHQ=
+X-Received: by 2002:a05:7300:ea0e:b0:351:6d7f:e2bc with SMTP id
+ 5a478bee46e88-3537e04ce24mr13816603eec.2.1791710134848; Sun, 11 Oct 2026
+ 02:15:34 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
+ <DLZJSCA10YBI.2NIG6CA24G8L@nvidia.com>
+In-Reply-To: <DLZJSCA10YBI.2NIG6CA24G8L@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 11 Oct 2026 11:15:22 +0200
+X-Gm-Features: AclHuK8oq3naNnD7eambaIbJJqVk3yW7pH0z0MJvkulMtcEMY7rW0rV1YUtor2E
+Message-ID: <CANiq72=91-kisxDHJyth3xsy8BdEdqLd3qpHLWqpRxY_bmFSTw@mail.gmail.com>
+Subject: Re: [PATCH v9 0/9] rust: Add support for reserving of ranges of IDs
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
+ Yury Norov <yury.norov@gmail.com>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Yury Norov <ynorov@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 08:33:23 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,159 +122,24 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] phy: mediatek: uninitialized stack variable used if regmap_read(=
-) fails
-- [Medium] phy: mediatek: uninitialized stack variable use if regmap_read()=
- fails
-- [Low] Build: missing explicit include of <linux/bitfield.h>
---
+On Thu, Oct 8, 2026 at 5:05=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.c=
+om> wrote:
+>
+> Since that's quite a bit of code outside of nova-core, maybe it is
+> better to merge the non-nova bits mentioned above through the Rust tree
+> in time for the 7.4 merge window. All the patches I have listed should
+> have the required tags, but the `cv!` patch needs one last respin to
+> address the remaining comments and add a "Pitfalls" section at the very
+> least. Miguel, does that sound doable?
 
-commit 0d55ccaecdee64be04bc28971e8e4aca3393e3a3
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+These things have been around for quite a while, so yeah, if we can
+land part of this now, then we should definitely try. :)
 
-phy: mediatek: phy-mtk-hdmi: Use regmap to manipulate hdmi registers
+The "Pitfalls" section can wait, if that simplifies the
+discussion/review, since the rest are nits.
 
-This commit transitions the Mediatek HDMI PHY driver to use the regmap API
-for register manipulation, removing custom helpers. This resolves an -EBUSY
-error on mt8167 devices where the HDMI PHY registers are mapped inside the
-apmixedsys memory space.
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt2701.c b/drivers/phy/med=
-iatek/phy-mtk-hdmi-mt2701.c
-> index c9a1f20e939b9..7fcf9116a0a93 100644
-> --- a/drivers/phy/mediatek/phy-mtk-hdmi-mt2701.c
-> +++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt2701.c
-> @@ -5,7 +5,13 @@
->   */
-> =20
->  #include "phy-mtk-hdmi.h"
-> -#include "phy-mtk-io.h"
-> +
-> +/* field @mask shall be constant and continuous */
-> +#define mtk_phy_update_regmap_field(regmap, reg, mask, val) \
-> +({ \
-> +	BUILD_BUG_ON_MSG(!__builtin_constant_p(mask), "mask is not constant"); \
-> +	regmap_update_bits(regmap, reg, mask, FIELD_PREP(mask, val)); \
-> +})
-
-[Severity: Low]
-The code removes phy-mtk-io.h which explicitly included <linux/bitfield.h>,
-but does not add <linux/bitfield.h> while still using FIELD_PREP. Relying on
-implicit transitive inclusion for core bitfield macros can sometimes cause
-build failures across different architectures or under varying compiler fla=
-gs.
-Should <linux/bitfield.h> be explicitly included in this file or the common
-header?
-
-[ ... ]
-
-> @@ -133,7 +136,7 @@ static unsigned long mtk_hdmi_pll_recalc_rate(struct =
-clk_hw *hw,
->  	unsigned long out_rate, val;
->  	u32 tmp;
-> =20
-> -	tmp =3D readl(hdmi_phy->regs + HDMI_CON6);
-> +	regmap_read(hdmi_phy->regs, HDMI_CON6, &tmp);
->  	val =3D FIELD_GET(RG_HTPLL_PREDIV_MASK, tmp);
-
-[Severity: Medium]
-If regmap_read() fails and returns an error code, tmp is left uninitialized.
-Using the uninitialized stack variable tmp in the FIELD_GET macro leads to
-undefined behavior, which could result in incorrect PLL clock rates. Should=
- the
-return value of regmap_read() be checked here?
-
->  	switch (val) {
->  	case 0x00:
-> @@ -150,7 +153,7 @@ static unsigned long mtk_hdmi_pll_recalc_rate(struct =
-clk_hw *hw,
->  	val =3D FIELD_GET(RG_HTPLL_FBKDIV_MASK, tmp);
->  	out_rate *=3D (val + 1) * 2;
-> =20
-> -	tmp =3D readl(hdmi_phy->regs + HDMI_CON2);
-> +	regmap_read(hdmi_phy->regs, HDMI_CON2, &tmp);
->  	val =3D FIELD_GET(RG_HDMITX_TX_POSDIV_MASK, tmp);
-
-[Severity: Medium]
-Similar to the previous read, if regmap_read() fails, tmp remains
-uninitialized. Does this also need an error check?
-
-[ ... ]
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8173.c b/drivers/phy/med=
-iatek/phy-mtk-hdmi-mt8173.c
-> index 58c6596c8c20b..6df997ff74c97 100644
-> --- a/drivers/phy/mediatek/phy-mtk-hdmi-mt8173.c
-> +++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8173.c
-> @@ -5,7 +5,13 @@
->   */
-> =20
->  #include "phy-mtk-hdmi.h"
-> -#include "phy-mtk-io.h"
-> +
-> +/* field @mask shall be constant and continuous */
-> +#define mtk_phy_update_regmap_field(regmap, reg, mask, val) \
-> +({ \
-> +	BUILD_BUG_ON_MSG(!__builtin_constant_p(mask), "mask is not constant"); \
-> +	regmap_update_bits(regmap, reg, mask, FIELD_PREP(mask, val)); \
-> +})
-
-[Severity: Low]
-As in the mt2701 driver, <linux/bitfield.h> is not explicitly included but
-FIELD_PREP is used. Should the header be explicitly included here as well?
-
-[ ... ]
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c b/drivers/phy/med=
-iatek/phy-mtk-hdmi-mt8195.c
-> index a4bc1268946d8..5d6122277725a 100644
-> --- a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-> +++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-> @@ -15,62 +15,64 @@
->  #include <linux/units.h>
->  #include <linux/nvmem-consumer.h>
-> =20
-> -#include "phy-mtk-io.h"
->  #include "phy-mtk-hdmi.h"
->  #include "phy-mtk-hdmi-mt8195.h"
-> =20
-> +/* field @mask shall be constant and continuous */
-> +#define mtk_phy_update_regmap_field(regmap, reg, mask, val) \
-> +({ \
-> +	BUILD_BUG_ON_MSG(!__builtin_constant_p(mask), "mask is not constant"); \
-> +	regmap_update_bits(regmap, reg, mask, FIELD_PREP(mask, val)); \
-> +})
-
-[Severity: Low]
-Missing explicit include of <linux/bitfield.h> for FIELD_PREP here too.
-
-[ ... ]
-
-> @@ -501,8 +497,11 @@ static int mtk_hdmi_phy_pwr5v_disable(struct regulat=
-or_dev *rdev)
->  static int mtk_hdmi_phy_pwr5v_is_enabled(struct regulator_dev *rdev)
->  {
->  	struct mtk_hdmi_phy *hdmi_phy =3D rdev_get_drvdata(rdev);
-> +	u32 tmp;
-> +
-> +	regmap_read(hdmi_phy->regs, HDMI_CTL_1, &tmp);
-> =20
-> -	return !!(readl(hdmi_phy->regs + HDMI_CTL_1) & RG_HDMITX_PWR5V_O);
-> +	return !!(tmp & RG_HDMITX_PWR5V_O);
->  }
-
-[Severity: Medium]
-If regmap_read() fails, tmp is uninitialized. The function then evaluates t=
-he
-regulator enabled state based on stack garbage. Does regmap_read()'s return
-value need to be checked to prevent this?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011082042.3484=
-22-1-l.scorcia@gmail.com?part=3D1
+Cheers,
+Miguel
