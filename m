@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B10CA9EC7
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 17:51:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D934CA9ECF
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 17:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B393E10E19A;
-	Sun, 11 Oct 2026 17:51:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D292B10E379;
+	Sun, 11 Oct 2026 17:52:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lf4PyJg5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dbbodPa2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD60410E379
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 17:51:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E89F10E379
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 17:52:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A05D64349F;
- Sun, 11 Oct 2026 17:51:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 654221F0089B;
- Sun, 11 Oct 2026 17:51:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 884B5600E2;
+ Sun, 11 Oct 2026 17:52:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 163C71F0089B;
+ Sun, 11 Oct 2026 17:52:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791741081;
- bh=2OUaOYzXWXvPJWGpAjDf7Ua9hT7CXpuQff0Ioep7KmE=;
+ s=k20260515; t=1791741132;
+ bh=P/XzrpahFDJGhfdQoOV07mNrHtMO3VESxMJhvCJK8ps=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lf4PyJg5Y3RrhA9YTj02RIeW1iwiugnyNalVrTp+BcBHfLCB/R0P8TJQqJd0tzCTl
- K9yniJvrwiQEWInXzyZdfxnDX8qwkRzzCNfMG/Cwlzwae4Nf7oXRBPY84VfPge+VJQ
- 9ZxbYwL5dCY3R084//DnfTICCxA8QDATn9kQzPjpCtj+Y3TvsmXyquKgeVJgyjqrq+
- TCwPDOmwA1IpZ9Or0sQWOpwjrLgjOoa8X7WuNzbFkNx3YxrnbVIeoqVaqBlHVh5zL1
- 3JG0hp1Zew7VQVqPG+683iKwI3vTke+ztOgSNikFgVmm38PTNoLIO0SGr2ZE9Hytjk
- jzJe2kyBFBZWg==
-Message-ID: <sashiko-outbox-167360@kernel.org>
+ b=dbbodPa2mtff2msGC4e+eH5DPtf8wOF8Bh70N5kXTwAz8p0jauWKhr9FwKBSkut15
+ MOATwRjMjvexT7OKM4c2esP/EaOvw8qcFrVhqNl10BoA6Qk6G79xBsQpgGfLXnmFLg
+ gUpvk4ViP8vzboQGfhZ6SNW23C4+pX36jdHpa7RxZjDHq4quqyHjNU+6RH01+30TQe
+ ZpCS8vGjn+UPtOH+qJHWi7S55xDltrwVwmp4zMRxv7yAjV0XZ9X9iOc57EaQhnIy1x
+ ZFpGqJPb6+llRyGRR0S8lc0CwmiBMM1NpkNW2GfKjeBLcCz3Yy6u2rT7Qjh83il89c
+ bf/j47CgDrklw==
+Message-ID: <sashiko-outbox-167361@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/8] drm/panthor: Introduce sampling sessions to
- handle userspace clients
+Subject: Re: [PATCH v7 8/8] drm/panthor: Expose the panthor perf ioctls
 To: "Lukas Zapolskas" <lukas.zapolskas@arm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261011-panthor-performance-counters-v7-5-12c32495062f@arm.com>
+In-Reply-To: <20261011-panthor-performance-counters-v7-8-12c32495062f@arm.com>
 References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
- <20261011-panthor-performance-counters-v7-5-12c32495062f@arm.com>
+ <20261011-panthor-performance-counters-v7-8-12c32495062f@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 17:51:21 +0000
+Date: Sun, 11 Oct 2026 17:52:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,221 +57,204 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] drm/panthor: panthor_perf_bo_get() drops iosys_map is_iomem flag
-- [High] drm/panthor: integer overflow in panthor_perf_session_create() rin=
-gbuffer size check
-- [Medium] drm/panthor: dead code in session state checks causes incorrect =
-error returns
+- [High] drm: panthor: leak of SRCU read lock on error paths in perf sessio=
+n ioctls
+- [High] drm: panthor: integer overflow in sample size calculation allows o=
+ut-of-bounds write
+- [High] drm: missing drm_dev_exit() on error paths causes SRCU lock leak
+- [Low] drm/panthor: missing bounds validation for perf block_set
 --
 
-commit 7bd124a87dfe342eb277b597b5fdc104cfbe8dd7
+commit 67ed39f94766c6f1ca32b076cb6cf69b5aaa9f5d
 Author: Lukas Zapolskas <lukas.zapolskas@arm.com>
 
-drm/panthor: Introduce sampling sessions to handle userspace clients
+drm/panthor: Expose the panthor perf ioctls
 
-This commit introduces a sampling session intermediary layer between the HW=
-/FW
-interfaces and userspace for the Panthor DRM driver. It enables manual samp=
-ling
-sessions with operations to start, stop, and sample hardware performance
-counters, while multiple sessions and periodic sampling are left for future
-extensions.
+This patch implements the PANTHOR_PERF_SESSION ioctl series.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/pan=
-thor/panthor_perf.c
-> index ba466e22c50d0..76c3469811508 100644
-> --- a/drivers/gpu/drm/panthor/panthor_perf.c
-> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/pant=
+hor/panthor_drv.c
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
 
 [ ... ]
 
-> +static int
-> +panthor_perf_bo_get(struct drm_file *file, u32 handle, size_t expected_s=
-ize,
-> +		    struct panthor_perf_bo *bo)
+> +static int panthor_ioctl_perf_session_create(struct drm_device *ddev, vo=
+id *data,
+> +					     struct drm_file *file)
 > +{
-> +	struct drm_device *ddev =3D file->minor->dev;
-> +	struct drm_gem_object *obj;
-> +	struct iosys_map map;
-> +	int ret;
+> +	int ret, cookie;
+> +	unsigned long sid =3D 0;
+> +	struct drm_panthor_perf_session_create *args =3D data;
 > +
-> +	if (WARN_ON_ONCE(!bo))
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (!mem_is_zero(args->pad, sizeof(args->pad)))
 > +		return -EINVAL;
-> +
-> +	obj =3D drm_gem_object_lookup(file, handle);
-> +	if (!obj) {
-> +		drm_err(ddev, "Could not find handle %d!\n", handle);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (expected_size && obj->size !=3D PFN_ALIGN(expected_size)) {
 
 [Severity: High]
-Does this expected_size check handle integer overflow correctly?
+Does this error path leak the SRCU read lock acquired by drm_dev_enter()?
+Returning directly without calling drm_dev_exit() leaves the lock held,
+which can cause a system deadlock when drm_dev_unplug() waits indefinitely=
+=20
+in synchronize_srcu().
 
-In panthor_perf_session_create(), expected_size is calculated as:
-user_sample_size =3D ptdev->perf_info.sample_size * slots;
-
-Since slots is controlled by userspace and size_t is 32-bit on 32-bit
-architectures, a maliciously large power-of-two value for sample_slots can
-overflow the multiplication to exactly 0.=20
-
-Because of the "if (expected_size && ...)" check, an expected_size of 0 byp=
-asses=20
-the size validation completely, allowing a small buffer to be mapped. When
-sampling occurs later, the massive slots count could lead to out-of-bounds
-writes into kernel memory.
-
-> +		drm_err(ddev,
-> +			"Incorrect BO size from userspace: user %zu vs kernel %lu\n",
-> +			obj->size, PFN_ALIGN(expected_size));
-> +		ret =3D -ENOMEM;
-> +		goto err_put;
-> +	}
 > +
-> +	ret =3D drm_gem_vmap(obj, &map);
+> +	ret =3D panthor_perf_session_create(file, args, &sid);
+
+[Severity: High]
+When calling panthor_perf_session_create(), does the calculation of
+user_sample_size overflow on 32-bit systems?
+
+Inside panthor_perf_session_create() in panthor_perf.c:
+
+	user_sample_size =3D ptdev->perf_info.sample_size * slots;
+
+Since size_t is 32-bit on 32-bit architectures, and slots is derived from
+the userspace-provided sample_slots, a large power-of-two value can cause
+this multiplication to wrap to exactly 0.
+
+If user_sample_size wraps to 0, panthor_perf_bo_get() will skip its bounds
+validation. This would allow userspace to map a small buffer object while
+retaining a massive ringbuf_slots value, which could result in out-of-bounds
+writes into adjacent kernel virtual memory during sample collection. Should
+this use size_mul() to saturate on overflow?
+
+
+[Severity: Low]
+Is the block_set parameter from userspace bounds-checked before it is passed
+to panthor_perf_session_add() here?
+
+Inside panthor_perf_session_add() in panthor_perf.c, the unvalidated set is
+stored directly:
+
+	perf->set_config =3D set;
+
+Later in panthor_perf_fw_write_config(), it gets truncated by the hardware
+masking macro GLB_PERFCNT_CONFIG_SET:
+
+	perfcnt_config |=3D GLB_PERFCNT_CONFIG_SET(perf->set_config);
+
+Should this be validated against the maximum number of blocks to return an
+-EINVAL error for non-existent sets, as documented in the uAPI?
+
 > +	if (ret)
-> +		goto err_put;
-> +
-> +	bo->obj =3D obj;
-> +	bo->vaddr =3D map.vaddr;
+> +		return ret;
 
 [Severity: High]
-Is it safe to discard the map.is_iomem flag here?
-
-These BOs might be imported DMA-BUFs backed by device IOMEM. By dropping the
-is_iomem flag and treating the mapping as a standard CPU pointer, the driver
-may trigger architecture faults (such as alignment faults or unsupported ac=
-cess
-types) when interacting with IOMEM memory later on, such as via SMP memory
-barriers.
+Does this error path also leak the SRCU read lock by returning directly
+without calling drm_dev_exit(cookie)?
 
 > +
-> +	return 0;
+> +	drm_dev_exit(cookie);
+> +	return sid;
+> +}
 > +
-> +err_put:
-> +	drm_gem_object_put(obj);
+> +static int panthor_ioctl_perf_session_start(struct drm_device *ddev, voi=
+d *data,
+> +					    struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile =3D file->driver_priv;
+> +	struct drm_panthor_perf_session_start *args =3D data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+
+[Severity: High]
+Can this early return leak the SRCU lock? We need drm_dev_exit(cookie) here
+before returning.
+
+> +
+> +	ret =3D panthor_perf_session_start(pfile, args->handle, args->user_data=
+);
+> +
+> +	drm_dev_exit(cookie);
 > +	return ret;
 > +}
 > +
-> +static void panthor_perf_bo_put(struct panthor_perf_bo *bo)
+> +static int panthor_ioctl_perf_session_sample(struct drm_device *ddev, vo=
+id *data,
+> +					     struct drm_file *file)
 > +{
-> +	if (!bo->obj)
-> +		return;
+> +	int cookie, ret;
+> +	struct panthor_file *pfile =3D file->driver_priv;
+> +	struct drm_panthor_perf_session_sample *args =3D data;
 > +
-> +	if (bo->vaddr) {
-> +		struct iosys_map map =3D IOSYS_MAP_INIT_VADDR(bo->vaddr);
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
 > +
-> +		drm_gem_vunmap(bo->obj, &map);
-
-[Severity: High]
-Is it correct to hardcode is_iomem to false during vunmap?
-
-Since the original mapping might have been IOMEM, reconstructing a fake
-iosys_map with IOSYS_MAP_INIT_VADDR() sets is_iomem =3D false. Passing this=
- to
-drm_gem_vunmap() violates the API contract for imported objects and could
-corrupt the exporter's teardown flow because the unmap parameters do not ma=
-tch
-the original map parameters.
-
-> +	}
-> +
-> +	drm_gem_object_put(bo->obj);
-> +
-> +	memset(bo, 0, sizeof(*bo));
-> +}
-
-[ ... ]
-
-> +int panthor_perf_session_create(struct drm_file *file,
-> +				struct drm_panthor_perf_session_create *create_args,
-> +				unsigned long *sid)
-> +{
-
-[ ... ]
-
-> +	session->control =3D control.vaddr;
-> +	*session->control =3D (struct drm_panthor_perf_ringbuf_control) { 0 };
-
-[Severity: High]
-Can this direct assignment fault if the memory is IOMEM?
-
-Since the vaddr came from panthor_perf_bo_get() which discarded the is_iomem
-flag, this performs a direct CPU assignment on memory that could be IOMEM.
-
-[ ... ]
-
-> +static int session_try_stop(struct panthor_perf_session *session, u64 us=
-er_data)
-> +{
-> +	guard(mutex)(&session->state_lock);
-> +
-> +	if (!session_is_active(session))
-> +		return 0;
-> +
-> +	if (session_is_starting(session))
-> +		return -EBUSY;
-> +
-> +	if (session_is_stopping(session))
-> +		return 1;
-
-[Severity: Medium]
-Are the session_is_starting() and session_is_stopping() checks unreachable =
-here?
-
-If a session is in PANTHOR_PERF_SESSION_STARTING or
-PANTHOR_PERF_SESSION_STOPPING state, session_is_active() evaluates to false=
-.=20
-The !session_is_active() check will immediately return 0, bypassing the lat=
-er=20
-checks.=20
-
-This causes the kernel to incorrectly return success (0) instead of -EBUSY =
-for a
-starting session, and 0 instead of 1 for a stopping session. This may preve=
-nt
-session_stop from properly waiting for a stopping session to finish syncing.
-
-> +
-> +	session_set_state(session, PANTHOR_PERF_SESSION_STOPPING);
-> +	session->user_data =3D user_data;
-> +
-> +	return 1;
-> +}
-
-[ ... ]
-
-> +static int session_try_sample(struct panthor_perf_session *session, u64 =
-user_data)
-> +{
-> +	guard(mutex)(&session->state_lock);
-> +
-> +	if (!session_is_active(session))
+> +	if (args->pad0)
 > +		return -EINVAL;
-> +
-> +	if (session_is_stopping(session))
-> +		return -EBUSY;
 
-[Severity: Medium]
-Is the session_is_stopping() check unreachable dead code?
-
-Similar to session_try_stop(), if the session is stopping, session_is_activ=
-e()
-is false, causing the function to return -EINVAL immediately instead of the
-expected -EBUSY.
+[Severity: High]
+Can this early return leak the SRCU lock? We need drm_dev_exit(cookie) here
+before returning.
 
 > +
-> +	if (session_has_overflow(session))
-> +		return -EACCES;
+> +	ret =3D  panthor_perf_session_sample(pfile, args->handle, args->user_da=
+ta);
 > +
-> +	session->user_data =3D user_data;
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
 > +
-> +	return 1;
+> +static int panthor_ioctl_perf_session_stop(struct drm_device *ddev, void=
+ *data,
+> +					   struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile =3D file->driver_priv;
+> +	struct drm_panthor_perf_session_stop *args =3D data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+
+[Severity: High]
+Can this early return leak the SRCU lock? We need drm_dev_exit(cookie) here
+before returning.
+
+> +
+> +	ret =3D panthor_perf_session_stop(pfile, args->handle, args->user_data);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_destroy(struct drm_device *ddev, v=
+oid *data,
+> +					      struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile =3D file->driver_priv;
+> +	struct drm_panthor_perf_session_destroy *args =3D data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+
+[Severity: High]
+Can this early return leak the SRCU lock? We need drm_dev_exit(cookie) here
+before returning.
+
+> +
+> +	ret =3D panthor_perf_session_destroy(pfile, args->handle);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
 > +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011-panthor-pe=
-rformance-counters-v7-0-12c32495062f@arm.com?part=3D5
+rformance-counters-v7-0-12c32495062f@arm.com?part=3D8
