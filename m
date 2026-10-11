@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21514CA9EC7
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 02:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58697CA9EBD
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 03:17:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF4010E292;
-	Sun, 11 Oct 2026 02:55:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 612F610E02A;
+	Sun, 11 Oct 2026 03:17:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UPUdIN46";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k0sQ4UJN";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD3C810E28C
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 02:55:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC7510E02A
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 03:17:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 96B064397F;
- Sun, 11 Oct 2026 02:55:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428441F00893;
- Sun, 11 Oct 2026 02:55:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 586A841AE8;
+ Sun, 11 Oct 2026 03:17:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5ED1F000FF;
+ Sun, 11 Oct 2026 03:17:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791687345;
- bh=Lt/7AQC8hFd46+OHFqq8vkhQhymxqla2eGKpembrV5I=;
+ s=k20260515; t=1791688660;
+ bh=NokxSFb1h9XdhnQOxk5VMfAMvUbsl5r+4iR7ulSshbM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UPUdIN46fiB+2kIzwuybB5so1ouq9v15CRpV875bcwwJaQ/Ul6/i6/deKcLd5CrWL
- QcZ520YYrBRI2yAhBfkB/oCUtuT+sDlxw2vbMDObPN92k3hZCuvt+NxUzweMs0M5bk
- rJNQ26EY6dgP72p83rLlb5/cJHZl9Udf/lRsNUvqcmiEBsWrVq/5pvtnQpnV1zHGc8
- oNaTq7cM+l32Q98Yuj3R5emGed8/F+yKrq9DP7YO44OgMjxP3MTRWWWQDRgGlmLGcu
- aYZDz3/ZOtgHl92ElSwPUEoaSwXZUIZtPRbkrOANzDrMubRLMUl03kBtSb5paH3goJ
- 2zTcOnF1Pq+xg==
-Message-ID: <sashiko-outbox-166989@kernel.org>
+ b=k0sQ4UJNUYdzHvo9UZ5fce7T/f3JhiQBRorMG7aE6p/VPJjj6WFqkSyC+jVhm405d
+ ynhzti1emtoKTE2ITLpwya8H9lNeJ2oHbL5oPmvvgnZYl9x8Mlae7yBd0Vkt6lfM8Q
+ WlYfoPaS9hLGxYCQdQOyq0ODN1vNn5hd2X1kQMxXO3ZOxVYT4ypbuTx6H49GtbfVhH
+ v7cx9FGXIP3mVAXmRRITrRQLcV7H3tjpSS4QexSlIgXMsWPRZc+s0K+bB5/gw0pZeo
+ jPuItbhYOvUcO/NNAmkfP3ZgQaqRSagZjY1Ixsvhj/YacCspHXWtfPxGybZGQENrp/
+ pP/PpJ+0076nA==
+Message-ID: <sashiko-outbox-166994@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net v1 3/4] netdevsim: support devmem RX and TX bindings
-To: "Mina Almasry" <almasrymina@google.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261010025532.839559-4-almasrymina@google.com>
-References: <20261010025532.839559-1-almasrymina@google.com>
- <20261010025532.839559-4-almasrymina@google.com>
+Subject: Re: [PATCH v2] drm/qxl: validate relocation destination offsets
+To: "Zhou Qiuyue" <n0ps1edzz@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ "Eugenio Perez" <eperezma@redhat.com>, virtualization@lists.linux.dev
+In-Reply-To: <6acafc03.6b76d992.279a8.b343@mx.google.com>
+References: <6acafc03.6b76d992.279a8.b343@mx.google.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 02:55:44 +0000
+Date: Sun, 11 Oct 2026 03:17:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,113 +57,71 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] netdevsim: UAF in page_pool async destruction due to freed nsim_bu=
-s_dev
-- [Medium] netdevsim: memory leak and page_pool release loop in nsim_pp_hol=
-d_write
+- [High] qxl: unaligned dst_offset causes page-boundary cross and alignment=
+ faults
 --
 
-commit 3929ee46c506ebcd379657adcaaf3d764e577c6d
-Author: Mina Almasry <almasrymina@google.com>
+commit 214f69f63b016ba44fb4af3f2bea1273b9aa972b
+Author: Zhou Qiuyue <n0ps1edzz@gmail.com>
 
-netdevsim: support devmem RX and TX bindings
+drm/qxl: validate relocation destination offsets
 
-This patch sets a 64-bit DMA mask on nsim_bus_dev, enables NETMEM_TX_DMA,
-and configures page_pool instances with PP_FLAG_DMA_MAP,
-PP_FLAG_DMA_SYNC_DEV, and PP_FLAG_ALLOW_UNREADABLE_NETMEM to allow
-testing of devmem bind operations in software selftests.
+This patch validates the user-supplied relocation offset against the
+destination object's size to prevent out-of-bounds kernel writes. It also
+widens data types to prevent truncation and sign-extension vulnerabilities.
 
-> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netde=
-v.c
-> index b4a99f3ceac60..4415dc01c610b 100644
-> --- a/drivers/net/netdevsim/netdev.c
-> +++ b/drivers/net/netdevsim/netdev.c
-
+> diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_io=
+ctl.c
+> index 591b026ceff9c..ae32295fd5e84 100644
+> --- a/drivers/gpu/drm/qxl/qxl_ioctl.c
+> +++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
 [ ... ]
-
-> @@ -414,16 +414,22 @@ static int nsim_poll(struct napi_struct *napi, int =
-budget)
->  	return done;
->  }
+> @@ -231,6 +232,23 @@ static int qxl_process_single_command(struct qxl_dev=
+ice *qdev,
+>  			reloc_info[i].dst_offset =3D reloc.dst_offset + release->release_offs=
+et;
+>  		}
 > =20
-> -static int nsim_create_page_pool(struct page_pool **p, struct napi_struc=
-t *napi)
-> +static int nsim_create_page_pool(struct net_device *dev, struct page_poo=
-l **p,
-> +				 struct napi_struct *napi, int idx)
->  {
-> +	struct netdevsim *ns =3D netdev_priv(dev);
->  	struct page_pool_params params =3D {
->  		.order =3D 0,
->  		.pool_size =3D NSIM_RING_SIZE,
-> +		.flags =3D PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV |
-> +			 PP_FLAG_ALLOW_UNREADABLE_NETMEM,
-
-[Severity: Medium]
-Does adding PP_FLAG_ALLOW_UNREADABLE_NETMEM here cause a memory leak when
-used with the debugfs pp_hold file?
-
-When devmem is bound, a user writing to pp_hold triggers nsim_pp_hold_write=
-()
-which attempts to allocate a page:
-
-nsim_pp_hold_write() {
-    ...
-    } else if (val) {
-        ns->page =3D page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
-        if (!ns->page)
-            ret =3D -ENOMEM;
-    ...
-}
-
-Because the page pool is configured to allow unreadable devmem,
-page_pool_dev_alloc_pages() returns an unreadable devmem net_iov.
-The inline function netmem_to_page() detects it is unreadable and returns
-NULL.
-
-nsim_pp_hold_write() sees the NULL, treats it as an allocation failure,
-and drops the pointer without releasing the underlying net_iov back to the
-page pool. This leaks the inflight netmem, and later causes the page pool
-teardown workqueue (page_pool_release_retry) to spin indefinitely.
-
-> +		.max_len =3D PAGE_SIZE,
->  		.nid =3D NUMA_NO_NODE,
-> -		.dev =3D &napi->dev->dev,
-> +		.dev =3D &ns->nsim_bus_dev->dev,
+> +		/*
+> +		 * The relocation is applied with a plain write into the memory
+> +		 * window of the destination object, so the user supplied offset
+> +		 * must be validated against the object size.  Otherwise userspace
+> +		 * can write anywhere in the mapping window set up by
+> +		 * qxl_bo_kmap_atomic_page(), i.e. outside of the object.
+> +		 */
+> +		reloc_size =3D (reloc.reloc_type =3D=3D QXL_RELOC_TYPE_BO) ?
+> +			     sizeof(uint64_t) : sizeof(uint32_t);
+> +		if (reloc_info[i].dst_offset > reloc_info[i].dst_bo->tbo.base.size ||
+> +		    reloc_size > reloc_info[i].dst_bo->tbo.base.size -
+> +				 reloc_info[i].dst_offset) {
 
 [Severity: High]
-Can this lead to a use-after-free during asynchronous page pool destruction?
+Does this bounds check ensure that dst_offset is properly aligned to
+reloc_size?
 
-This sets the pool's device pointer to the dynamically allocated
-nsim_bus_dev, but the page pool does not appear to take a reference to it.
+If userspace passes an unaligned dst_offset, could the pointer write in
+apply_reloc() cross a page boundary?
 
-If the netdevsim device is unregistered (e.g., via sysfs) while normal SKBs
-are still inflight in a socket receive queue, nsim_bus_dev's refcount can
-drop to 0, causing it to be synchronously freed:
+In qxl_ioctl.c:apply_reloc():
+    reloc_page =3D qxl_bo_kmap_atomic_page(qdev, info->dst_bo,
+                                         info->dst_offset & PAGE_MASK);
+    *(uint64_t *)(reloc_page + (info->dst_offset & ~PAGE_MASK)) =3D ...;
 
-nsim_bus_dev_release() {
-    ...
-    nsim_bus_dev =3D container_of(dev, struct nsim_bus_dev, dev);
-    kfree(nsim_bus_dev);
-}
+If (dst_offset & ~PAGE_MASK) > PAGE_SIZE - 8, the 8-byte write could cross
+into an unmapped or adjacent page, potentially causing a fault when using
+CONFIG_HAVE_ATOMIC_IOMAP.
 
-When those inflight SKBs are eventually consumed and freed by user-space,
-the asynchronous page pool destruction will invoke
-__page_pool_unmap_netmem_dma(), which calls
-dma_unmap_page_attrs(pool->p.dev, ...).
+Additionally, could the unaligned cast to (uint64_t *) trigger unaligned ac=
+cess
+exceptions on architectures with strict alignment requirements?
 
-Because pool->p.dev points to the already-freed nsim_bus_dev->dev,
-this results in a use-after-free.
-
-> +		.napi =3D napi,
->  		.dma_dir =3D DMA_BIDIRECTIONAL,
-> -		.netdev =3D napi->dev,
-> +		.netdev =3D dev,
-> +		.queue_idx =3D idx,
->  	};
+> +			DRM_DEBUG("reloc dst offset out of bounds\n");
+> +			ret =3D -EINVAL;
+> +			goto out_free_bos;
+> +		}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010025532.8395=
-59-1-almasrymina@google.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/6acafc03.6b76d992.2=
+79a8.b343@mx.google.com?part=3D1
