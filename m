@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62653CA9EC7
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 17:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C247ACA9ED0
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 17:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39E6710E1D7;
-	Sun, 11 Oct 2026 17:40:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA0D10E1EC;
+	Sun, 11 Oct 2026 17:40:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="SWuT+AZ5";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SWuT+AZ5";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="rQAFDupb";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rQAFDupb";
 	dkim-atps=neutral
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010068.outbound.protection.outlook.com [52.101.69.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E588A10E05C
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 17:40:21 +0000 (UTC)
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011038.outbound.protection.outlook.com [52.101.70.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA32910E33E
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 17:40:25 +0000 (UTC)
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=s5F93KSIu4ijrewBHACg5WsUzEmZZkJWaKCKaE5QeWrxZC+e2mU3qOGPu6SG6BmLPekgWk33xgeObyDR2lALqRkdUQEW26KdDz3/JHEjH2nXWt1zxVEumQofKUiJ6cRG1OOVYNQFE6ftpYY4bdFCQMKwKVYfSmyKnfs6EwgOxKqQRxpsxajNDBEZPuXMN4K8T/1GJztJja5jCi2yJmAkZ7cu4UUjIHtM6QE96VO0gFEp9fJLkVRfTntAY6RWeZXU9celX3FuOrjaz3UX5ELbSTiymw7rl+PUa1y4RBhFM04kMHCDYXktZib+BT748F0Z0PVnVmJ3c3TRCmpyKMuaBw==
+ b=IQi+39qcFlOOBPAd7IMjMz+q52BPtsGEvkvRJHFA54J0thj79uVXrBSEknIE6JAMr35/v3fgZgmOVPbkAuCKF8wtpLt/qaxrdc6xisnOhhYkMJkrWK3QEBwKNW0z2xK2srISgMSO+FNwluZP0ThyVF0uP+/XEjhvgrBkfilgDQh5I+593NDt9BQEVIcjWl7T+uwrQ4mu+R335KuCw0MX1TccoF6iJl/XzCOCnYvk3DQ5erVwJknUgAX4duDgpEPSlNVqt83LJRvqkt7aKTO601ntdXrLI8S4vaNX74lDLHv74HErvfjQesNqS4CxbtE2rTxJ+Qg0Y5mnfZN4uLCf9Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jx6IsF/HFQXkI9HEPm7JHbI0utq+JyiXY/rE+89su9w=;
- b=PZwzn4OcZBMER4yuS14o9LyvI1MQRAXgCTGKvUhFeZrCfttzu2dBj+XmulNNObx9iXORbHhu6zPCoPlfQCseOGFEy7bBASWHXBl7e1jpGD6oFSfoOuq35aLI9vIc2U7+LM3G9utpCJUDVyIBEPxExuMO+SQHUNcRdMe3OuxTWun38zrvE3AsyhUBkG4ujjiI9+6qjM6jshD4Ud3AyEz+pOYSNvBEsVic+m1KM6SCrhQwhXPrnIruPsj3lHp8NXrh6Zbs7760n6p/7/xXQe2Id8aqkf604TyivY4Rmc+vqm5Mz6h+xxq7AflPnfNc73v/UDdAANSws21Glj6uNtEAvg==
+ bh=RDb3WBMM4PmSO/lwr4s1BpXl0kR13bv3BSu6voV8ypY=;
+ b=nAx6PRYVc5xg5JzjBHRBHTdmGLxAK8N5Xfszg7+zftDV8YqChLHLCctQjBqknyljfVOFGnbgov/GS+Wwd+WOy8CUIvudeMYFqZq2AcWwEwmosugGPoJ3+66UcDkWFLTjVc93tmOEldNpcoo0PaoJhba7ckg3MYKnuUCjrYkkXYRT4K6ZsOJRo3b3tE+oV5WB5lAoSm3RDvq00KL2HNKFEfxaK2FgOgxoH3blXD77oxRdXY9adZvgzV6+HIxO0MzSJ0AEphXlmJlTtuCnbn2ephhg+4oXQCz+S3oj7eERpCdrsnF6G7+iJW+B5VgJ1o+ipV1O9sME4kVwpHzsV4tbdw==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -32,18 +32,18 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jx6IsF/HFQXkI9HEPm7JHbI0utq+JyiXY/rE+89su9w=;
- b=SWuT+AZ5m70SmH1oxmboQJO5DD+q7GP/OFKcpL+hCBEnScIC3g6WQfYVc9dO+ynWQd4nshrbLjToJuJis1OnLIpzMl9Fj0XW4JhSF4xWCW8xgBQPLLOp+pOIkrD99CIhtf9aFp6wAMQymOSY4P2K3xKqv3sFKF+ieYLhrpPBcxE=
-Received: from DUZPR01CA0117.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4bc::23) by AS8PR08MB8350.eurprd08.prod.outlook.com
- (2603:10a6:20b:56c::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Sun, 11 Oct
- 2026 17:40:14 +0000
-Received: from DU2PEPF00028D03.eurprd03.prod.outlook.com
- (2603:10a6:10:4bc:cafe::f) by DUZPR01CA0117.outlook.office365.com
- (2603:10a6:10:4bc::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Sun,
- 11 Oct 2026 17:40:14 +0000
+ bh=RDb3WBMM4PmSO/lwr4s1BpXl0kR13bv3BSu6voV8ypY=;
+ b=rQAFDupbFWtl1Jt1gUua5HizungjvabQ5hzqu6JCO5TPBkitBSBnY+/nYZzSXJTRh8XNsoPjjJXV0DeiHJfNxEiTEtUHamyYOxaRzu1Bny6Myt15Mgb1+GXFaXJI3p/ysOv0xcO1c3OdV4VblILSBHZRkp3lu/Lk/eBpRme8p7Q=
+Received: from VIUP296CA0014.AUTP296.PROD.OUTLOOK.COM (2603:10a6:800:34f::17)
+ by AS8PR08MB9041.eurprd08.prod.outlook.com (2603:10a6:20b:5b1::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.7; Sun, 11 Oct
+ 2026 17:40:21 +0000
+Received: from MI3PEPF00008495.eurprd03.prod.outlook.com
+ (2603:10a6:800:34f:cafe::1a) by VIUP296CA0014.outlook.office365.com
+ (2603:10a6:800:34f::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sun, 11
+ Oct 2026 17:40:21 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 4.158.2.129) smtp.mailfrom=arm.com;
  dkim=pass (signature was verified)
@@ -52,40 +52,40 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DU2PEPF00028D03.mail.protection.outlook.com (10.167.242.187) with Microsoft
+ MI3PEPF00008495.mail.protection.outlook.com (10.167.240.180) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
- via Frontend Transport; Sun, 11 Oct 2026 17:40:14 +0000
+ via Frontend Transport; Sun, 11 Oct 2026 17:40:20 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NlGavKqv1CN3gAItaYrZ+QZHCSM21tCMwg3lmaX5V8f11+lMi71bCmFLZ7+7o8toe0FmNRXIbbAouW7ozt+/byYyufAopAMBm3utKfUZvPpwPwWHIjEWK0WftYgMABfJ5HwyfP/T55Ajs4uHEVq5DsL87xPDLfyYKiyMlyZfoNxo74iEVptNyqq0irHlqfm5vuNIoErdxgiMX9XMmdZjCncmpfhOvDeCvkGMMUY2eoDaX1WCS7IPk2YDmCpz4CVBQwlZQhtpfoIVXZ9RFbYl56dtpU7cDCFF/CkP2HaCp/fcdijI3q63mSgdeMKLYOQHN9305Ni4mLPhwgrMnpyJhg==
+ b=CThTHG0N57iTWrCFvzzEh7efKK/EJ6TwJBcmdQKevElRauUk2txy78udYJsJR/UkA8suwW4uB+aTaipdOb3FILOeIU4F3mm3xfUbv14nwN2nvp0U838OJMghxgEIWRSz8hxTnV+uljqtV+H+Fo+CuPZRIYOMJ/S/I/o16XG51/NPvmZ9BJjISmW5TIgooXUnneN3MQO7mfQeExFOC2JUA9TcU9x58fcSlJgapGJgCgxh+3r0BUjEy+F1GP7nUZDkW6sn/yYmVNy5jqgt3w7FwGdu3Jp6pFKERcQ8I09FdOvtJQ9vHWQqLHBJESoD9muWgsBhVy09ozioA1O98SjaAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jx6IsF/HFQXkI9HEPm7JHbI0utq+JyiXY/rE+89su9w=;
- b=JReaQTipIDyBVhAgbgNT1E2H7nMWKSOg8P0K6Oi6IN22TgQJZhsmLbhJq5bMw5vLjQBeMakwJuJKFGQmi/CNxuiKoWcxuIV7//19JoKQLQSxS9/Iaji1sTKRWOmjElfGiVZmhtoReiljWCn20JxwivAgChOKA9AGqy3l222/4odfr/K5QypYflnwa2HL4wj2SngaRr4mtDdheTiiOyba9fflLWg2MEKvouHWgdjwYchb3n1k81bRgp1pir9Qo9Be1z3VCXPAE2wH8F9kHakaz0Aw4ghmgnJDmQiqiezsmMinqW5xy1zgB338YOVjFZ2aDkVpPDg4+A05dBRhJNHDVQ==
+ bh=RDb3WBMM4PmSO/lwr4s1BpXl0kR13bv3BSu6voV8ypY=;
+ b=LEBHQqxyTMYulxtRpdHmPEMxew3wEpNAS1niy6J0l3SLZSdO9KmuSd82hrIGEtvNyfUI17f0fWw6IGIKKslJ2SDuCzeMS6xZr/2Jmh0q016CRbc40ow21qUGuYEhKuW81Ual/UzqZqfBxD0Voq3u83zfQgTqNUGz/BSOjQlr/o2KLCyb8NqNtRaO2IL79kq/Pm66C59bfhWMLaZuRtpjz4qhD/+NtddvIIvyJpEArnPXTI3fWbbq2pF6ujaLM9OTiXIneFhKV2KXWTAJzTQnERQSw3e5T5OpgAK0SWxnB3aYTL5jESdf858bu5YtOzetzcKF1WFScFaqNOraMFDBLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jx6IsF/HFQXkI9HEPm7JHbI0utq+JyiXY/rE+89su9w=;
- b=SWuT+AZ5m70SmH1oxmboQJO5DD+q7GP/OFKcpL+hCBEnScIC3g6WQfYVc9dO+ynWQd4nshrbLjToJuJis1OnLIpzMl9Fj0XW4JhSF4xWCW8xgBQPLLOp+pOIkrD99CIhtf9aFp6wAMQymOSY4P2K3xKqv3sFKF+ieYLhrpPBcxE=
+ bh=RDb3WBMM4PmSO/lwr4s1BpXl0kR13bv3BSu6voV8ypY=;
+ b=rQAFDupbFWtl1Jt1gUua5HizungjvabQ5hzqu6JCO5TPBkitBSBnY+/nYZzSXJTRh8XNsoPjjJXV0DeiHJfNxEiTEtUHamyYOxaRzu1Bny6Myt15Mgb1+GXFaXJI3p/ysOv0xcO1c3OdV4VblILSBHZRkp3lu/Lk/eBpRme8p7Q=
 Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
  signed) header.d=none;dmarc=none action=none header.from=arm.com;
 Received: from AM9PR08MB6052.eurprd08.prod.outlook.com (2603:10a6:20b:2d5::15)
- by AS2PR08MB9521.eurprd08.prod.outlook.com (2603:10a6:20b:60f::20)
+ by DB9PR08MB7496.eurprd08.prod.outlook.com (2603:10a6:10:36b::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.10; Sun, 11 Oct
- 2026 17:39:41 +0000
+ 2026 17:39:47 +0000
 Received: from AM9PR08MB6052.eurprd08.prod.outlook.com
  ([fe80::5ba6:c70c:1cd:48cd]) by AM9PR08MB6052.eurprd08.prod.outlook.com
  ([fe80::5ba6:c70c:1cd:48cd%7]) with mapi id 15.21.0522.009; Sun, 11 Oct 2026
- 17:39:41 +0000
+ 17:39:47 +0000
 From: Lukas Zapolskas <lukas.zapolskas@arm.com>
-Date: Sun, 11 Oct 2026 18:36:48 +0100
-Subject: [PATCH v7 1/8] drm/panthor: Add performance counter uAPI
+Date: Sun, 11 Oct 2026 18:36:54 +0100
+Subject: [PATCH v7 7/8] drm/panthor: Add suspend, resume and reset handling
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-panthor-performance-counters-v7-1-12c32495062f@arm.com>
+Message-Id: <20261011-panthor-performance-counters-v7-7-12c32495062f@arm.com>
 References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
 In-Reply-To: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -96,54 +96,53 @@ To: Daniel Almeida <daniel.almeida@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- nd@arm.com, Mihail Atanassov <mihail.atanassov@arm.com>, 
- Lukas Zapolskas <lukas.zapolskas@arm.com>
+ nd@arm.com, Lukas Zapolskas <lukas.zapolskas@arm.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: LO4P265CA0153.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c7::16) To AM9PR08MB6052.eurprd08.prod.outlook.com
+X-ClientProxiedBy: PA7P264CA0173.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:36f::9) To AM9PR08MB6052.eurprd08.prod.outlook.com
  (2603:10a6:20b:2d5::15)
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: AM9PR08MB6052:EE_|AS2PR08MB9521:EE_|DU2PEPF00028D03:EE_|AS8PR08MB8350:EE_
-X-MS-Office365-Filtering-Correlation-Id: c46ea45b-6d0f-4f25-5f8b-08df27beb4dd
+X-MS-TrafficTypeDiagnostic: AM9PR08MB6052:EE_|DB9PR08MB7496:EE_|MI3PEPF00008495:EE_|AS8PR08MB9041:EE_
+X-MS-Office365-Filtering-Correlation-Id: abd120b1-c408-4a1a-7edb-08df27beb8ee
 X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|23010399003|6133799003|10067099003|22082099003|18002099003|921020|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info-Original: KRe5tQYWoMpE4wbYfFCOXUffgq1M1ADAUZAzefhwIXV0MMiD2Gs+qo3zTXitNfU0xUqgjPjvH6rkb5oBh8rQOuAz8eS6r96ht8ecfN3XLv/x6DghG+sg4Tkk9n3le44+JYgicMcpbkNVNUxRDRwqbys297zA1REFhIK+U0NU/kTtj0HAL0acFIvJ1h85kBZ0BbbiwB7wB7oVYRdmCAST/vPlcZFEUm/aI7GfY/5XpiNE1Y3/+02gqXv3mMVR2wOIWQaSnHbM/UkYLhe8E0qdIgiNbNdWXR8CLOwSGuEqJ8cpelKZqLfnuWixVHE8yfsuIQ3CAfv3DdZrVUJrLrvl7ze0wRCmjfkF8tu58bnKALA/Lz1/HLV5FJ1Sngn6e7QFu1xrEcTI+aZCVeoU6Bbf1LRUH5xEBVgUEM5uZ0Tzn0w15qO8++lP83dVex4pz4uO++vSgXgapIF9c45oWND8bY+2NV0ZNe0i5N6UMXQYQTIfDMbHaTmw79aAIf3JXfQdvybakO9hvRFcLMCHNU1fq8GGrSdxRXZ0V5KSqmErTBxmXRBSQwgK265M3cMQTELf5jnpL7S//+fx8SWn6OKdGtswNhVsO2E1fVLXSdRjKhwl9+HIzEoXAiQqysMI5AQcyuo59rtU0ADR2x9JRuiHdrw8NAweD2Cdph95nI9vOkNKYnDzprZ1en5uFRMmE6S3fk1ItKsrP9K1jBQENm0jDA==
+ ARA:13230040|7416014|366016|376014|1800799024|23010399003|921020|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original: t9GyTe6jcuYzwz8fNGptredISKyWYoZxErJXoOtQksRv45cxb88X0qRGSrJ9A63dHwkobPAX/73efpoeWX+ukuA6p+WPFOhGdu3BIADu0X85Gngl8ZvReVmLVszltEbr/4sBXWWeTIOEEVSZGpS6F8bs93bnM56YbpoyXmPU6MfvRwQ0PFSqBskDUNycJ+N+2hQKKXnCrrCvyvTkN6OULtw8Fje8bCifYAT/9+4miMH/9sGwUlQkoRCN9m2F9fW6U6lPQ75zsMbw2Fkzc6VAlliPH0ED5UUKz7j9Ux4PXYAfprcf16VPUtwtd/qz0iZ2m6JTpW34NuTwrrYYddI7SRVMu4k+jgXGXp+iiXJZJqmSYk3jh208sPDg7K/kMt1AJUMWwbx1NXz0VKISX2NNPcRSXiUVJQNwK85lUbRWxqhiaWsP3GB9LZdfFnGkAsEUw3BJrHNC93eaaKncNoQxGwy80FeWse2DQCCku6mDjQrqLSnLqaZI0VqvjFtmFHjdmV2zkaAk0HUaUld/5YsIjoVdS2UQ76A/ekxo9Xrt779PCum+NZ/nyoMhtazYEfi7oBv6LfKoGM5wXx/lovuCZyfqNLZY0yLlMXLtkBdWCxYqmQ2S+kVMHq9xqtobQvvrFys2uTfR+t85LK2EUu2HTFMLae7phGq+8T8U39etip6We/nouvTPdtxOcXudPzk9nJy9BDPbWFu3YIX2UM0Ekg==
 X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
  SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AM9PR08MB6052.eurprd08.prod.outlook.com;
  PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(921020)(11063799006)(261009223027099003)(56012099006);
+ SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(921020)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: 3ur4VbUUasBK5cYKmJ+9E3zW7SzJwwJucHTowOVnDgEdKlAMUrWkCOHk1dG6AEiJdfdZHvx+pnYm6RzLEZL5IXztARhlDCwcNZz5D3q/hPOcRSWHgu/CTi8S8K+6dgzU9T3OaTEsIPdw89lGAtCJ74ZsJs4Dw2Az9MOSeMTjjrOtEMAWCwbbjJNWgCubQMec5tVG1z4Xhx8gtSDiaEjhpiO6wsGskj6wyTM1H/tZBVoxpYP9GvmnsTUKD8JkL7OcdS+RzJXe5ruCR3C5gjekNWXjMCFh9RySXraY+faMwxgf3+kTL4ckKv4C/NT7/Cro1STSWK1E3bbNFJyYYVen9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9521
+X-Exchange-RoutingPolicyChecked: wdmHxzA6DFgtghCpPXuGYx4aw9K684xYb76rGkotrV2fE6rjC++OyMbYh3pz6o5730LCdLF+B7GCD3dt7GhoXusO1prQdaw0UcY9/CVxNUJreR3snjqdYd58BxqBJ4PzpkNNLTAE64fCbMASmo5nvP3/kB6U1r7GNFTcqXiTu7GYrRzk9ZJueFnFpdMLc8wEp0+ypYxiVNI6iEaxfxjdmuluu6qduH3WMuVF21rrK+KZfAKqbcHsGxja/mKVuFZXTR+jdKnR7nviMJ6sEYbdGbeb2Uf/tw2LFTL6pbpUbksUI5H2x/CKu7shPbpV53ytoCYn+Jc8xNlleeqzNNmv/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7496
 X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DU2PEPF00028D03.eurprd03.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: MI3PEPF00008495.eurprd03.prod.outlook.com
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 25bd7a7c-b1db-4b65-ffb0-08df27bea143
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 3050300e-b7a8-4f1c-4625-08df27bea4c8
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|36860700016|14060799003|35042699022|23010399003|82310400026|56012099006|11063799006|261009223027099003|921020|22082099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 7fYPNtzwIZjmHlg2QfgfkjwUPAuiD5BFtup+MYpQZepQESZvAWYdgxzbnNpte7wHv2U3QSQNIEuIjDiCnsbzi2PdQp5cEjUBT9qVpT/ygO0Iej8xp2vaM2iYePp2v7qqqAqfVqGmRpbux1mS1vHFoMUBN/u9NX8Np07lm4ozLR75TYAlGeRYfBWouQdUQ3u7/ifKm/RCjN5EUNlzvHbijIs36wnhTQHdFbuSQ0KX0xssU4pU23c1CsVg1cYGfsiZNa7Mw802kCyIUEEme5vvNma5WVTAiHI2ivjo/OBPOatWm6k2xDR3VEgw3HHNtq4eHXSxUNnuoba+Jf9Qw4A1UWoQreazMVYd5cHk+x3lmFoPIFvg5k+oxxvyzg4OdxitoDKqnNB2G2lYHrJWd19+AVdFeopc4MxmOyFLRdGCKFK4WQ/pKHrIO6dxGukcOCAnTR9pX4R4uOAvfwXxD88N6jAqH2XjM2ngslMexQKW+J08Qf8lFRyFM2BI34iu5EvlSyMGJlrInxPwrMcM10ffuCb7Awry/IFmwqgLC+6tlx207xNdxliRxiWTP8w17s6Tlw3fzfuSEh2m0ihHaebos3tYrfo0QexEucXu22BToE3ZMy7KcT8noFEVM/1M050PxK6vvVwOsginYTsmq/k7/W9firqYb1hSwncI28jUK6CMBQZViWWgi2sC6jlA/36Gp+gy5xhqdsOFxbs8RRzD6VU4IsyOAW0/IPGCdvxFFb12bSQiAxWF2ZY8VM1rSz/O
+ ARA:13230040|36860700016|14060799003|23010399003|1800799024|376014|7416014|35042699022|82310400026|261009223027099003|921020|56012099006|11063799006|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info: CJLa+Thu08bjMzHv2rQM8AcdZSbQs4YZJOGrzdzWixR04SmEqhSX+uQgvxBx8oXk06Viq3/uPwi61nDCPqa/4SZwxro1awxx5MUx4EK9LrblTSWIaxk8P/RjIPh6aRHEBnl2YURAfwu78ST7znGkN3bOXD6XCfG0+cQeGSMTF16FcloFY7GmYXACDCqwCG1r5spd76HDKwkabRZdo8pUT5tS1aZ0OGfah2PLCtoSbl48l0UIG55txfSH7zX7ci085P2cT9l7xeqGhA0Nj2qwQ4Epp0Pv7ynNCb16N2ngZz+yqn/fbsL5GKVJsZM/iJTPDvS2IvSqOP6naydCRQvinZa5dwxnnUAQaqlSvt+13fWeJHGP/ol/UOJ98RqEYUvE1KRYI1BzbEv3ndApCCdN54tTp7IuwAChoGkUDd/rTw44ZO+W64nFYB+X89+/XnM365i33CH99WSSKad3k1Q41wdY5r8pmh9CT0LxFtoou0lBeT0ai1xSM0ZC77lkeuo3z37N7rxehu3k1Vxmc5EOUHBPcG/YLYru1jtfO4OWGxZW/VRuvYGBmo6XELGeNEakan58QBmtbsFFr2+j5Z1exY9npwmRmtrSCsE26JSYV/+ku0Ml1umjWNi1ApYYICbdj+m5UMG4UmSiF9dDRU1c6JTfI1O5uOojzCJwACcvoEGmcEGsxPW+ynl8KxUDa67ELRK6S0nfnEWtgENQs1DzNDiNcOvwUXR+s5jR7UtBukQ=
 X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
  PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(36860700016)(14060799003)(35042699022)(23010399003)(82310400026)(56012099006)(11063799006)(261009223027099003)(921020)(22082099003)(10067099003)(18002099003)(6133799003);
+ SFS:(13230040)(36860700016)(14060799003)(23010399003)(1800799024)(376014)(7416014)(35042699022)(82310400026)(261009223027099003)(921020)(56012099006)(11063799006)(18002099003)(10067099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: D/vT3Uk11kU815SV/FUrS/htyBuMB0UGFEQdNtU6gxsqdDt8rkuaEjK5CoT6nOIv1lg0PARrO/SoAuTWuMDMlxUv491DZfmZNZplxv+jLH8GDIjdvWDCmA9BuVsoz+nTQx7lJW/RVDsnAdlUR4QichivHwT4kEyufjATyIXq5Ljra6pi83AV3Vg/XhUzyeu5vtP5t7q1T9a2OvfW9ySjEFqHpIT/abk7FsQ3BHbAaXWqB1cIpvl9NKd6No63bc6FVYStijmjgSwWZYeUE9PU+6Ew4S4K1fa6uiXLnNu5pNk9CyF7XeJzXfBKci7FlqkJ0L7zB1AgICZlIgzr/MxXnn1uSEwjzFp1KoEjsfsgeAQRQtYc1AdrgH9+ts5Ldax+0KqmNElWU56iA/tTnxVy4J8yPcLU/X0zXgc+luAHnHrO74x6Ec6jdcFy2K2njnf6
+X-MS-Exchange-AntiSpam-MessageData-0: kVVisDlAE+/UtDzEyMok5XJSmzreQUWMFbzfzofKAOi2urfSxCHAVUMoFhe3314K8Tl5oAPR8oYpz5tOwf3crx/oU+iAYMAzX65n+4aYHx3RZTaYVmkJq9kPKFAI5HNMJGKEKulwB+SOUKl3HvyHWGYr6CL6skTm/ODG34ngEzBy6nAGXc0lWZKZm/x2sftXfd8wpJE4omDRWqk+pwaSGOWzs5cWiqCd7jlKqa1MD700Fv4sg/ogsof4564WswaLUEJjNvot9VVnX0ESxiQJN7c9YYfX3PwK5WUnlJVDI/OcSRCMuUtEkumgKtMkFQeL3bAczsgD8W6IHpsUxNl9WKe1UauOUOO3tBN9tCJe0+KT/TfRWi0hPUmw9iwh+HHslYsyqMQhbmQdCe+BxaRqSzYz2Iq2nk/28V75Vk13PjPlz+INuO/uY2VGCKosUgm7
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 17:40:14.0490 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c46ea45b-6d0f-4f25-5f8b-08df27beb4dd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 17:40:20.7857 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: abd120b1-c408-4a1a-7edb-08df27beb8ee
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
  Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D03.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MI3PEPF00008495.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB8350
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9041
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,440 +158,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch extends the DEV_QUERY ioctl to return information about the
-performance counter setup for userspace, and introduces the new
-DRM_PANTHOR_PERF_SESSION ioctls in order to allow for the sampling of
-performance counters.
+The sampler must disable and re-enable counter sampling around
+suspends, and must re-program the FW interface after a reset to
+avoid losing data. Additionally, if a request was pending before the
+reset and it was not acked, the reset will have cleared it, so we toggle
+the flag and re-request a sample.
 
-The new design is inspired by the perf aux ringbuffer [0], with the
-insert and extract indices being mapped to userspace, allowing
-multiple samples to be exposed at any given time. The buffer is
-annotated to include sample metadata and block metadata inline with
-the elements they describe.
-
-Userspace is responsible for passing in resources for samples to be
-exposed, including the event file descriptor for notification of new
-sample availability, the ringbuffer BO to store samples, and the
-control BO.
-
-[0]: https://docs.kernel.org/userspace-api/perf_ring_buffer.html
-
-Co-developed-by: Mihail Atanassov <mihail.atanassov@arm.com>
-Signed-off-by: Mihail Atanassov <mihail.atanassov@arm.com>
 Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
 ---
- include/uapi/drm/panthor_drm.h | 370 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 370 insertions(+)
+ drivers/gpu/drm/panthor/panthor_device.c |  8 ++-
+ drivers/gpu/drm/panthor/panthor_perf.c   | 83 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/panthor/panthor_perf.h   |  6 +++
+ 3 files changed, 96 insertions(+), 1 deletion(-)
 
-diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index a2ff0f4ec691..e45f75b76245 100644
---- a/include/uapi/drm/panthor_drm.h
-+++ b/include/uapi/drm/panthor_drm.h
-@@ -154,6 +154,23 @@ enum drm_panthor_ioctl_id {
- 	 * This is useful for imported BOs.
- 	 */
- 	DRM_PANTHOR_BO_QUERY_INFO,
-+
-+	/** @DRM_PANTHOR_PERF_SESSION_CREATE: Create a performance counter session. */
-+	DRM_PANTHOR_PERF_SESSION_CREATE,
-+
-+	/** @DRM_PANTHOR_PERF_SESSION_START: Start a performance counter session. */
-+	DRM_PANTHOR_PERF_SESSION_START,
-+
-+	/** @DRM_PANTHOR_PERF_SESSION_SAMPLE: Request a manual sample on a performance counter
-+	 * session.
-+	 */
-+	DRM_PANTHOR_PERF_SESSION_SAMPLE,
-+
-+	/** @DRM_PANTHOR_PERF_SESSION_STOP: Stop a performance counter session. */
-+	DRM_PANTHOR_PERF_SESSION_STOP,
-+
-+	/** @DRM_PANTHOR_PERF_SESSION_DESTROY: Destroy a performance counter session. */
-+	DRM_PANTHOR_PERF_SESSION_DESTROY,
- };
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index 535383ef629f..c842480472ac 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -138,6 +138,7 @@ static void panthor_device_reset_work(struct work_struct *work)
+ 	if (!drm_dev_enter(&ptdev->base, &cookie))
+ 		return;
  
- /**
-@@ -256,6 +273,9 @@ enum drm_panthor_dev_query_type {
++	panthor_perf_pre_reset(ptdev);
+ 	panthor_sched_pre_reset(ptdev);
+ 	panthor_fw_pre_reset(ptdev, true);
+ 	panthor_mmu_pre_reset(ptdev);
+@@ -147,6 +148,8 @@ static void panthor_device_reset_work(struct work_struct *work)
+ 	ret = panthor_fw_post_reset(ptdev);
+ 	atomic_set(&ptdev->reset.pending, 0);
+ 	panthor_sched_post_reset(ptdev, ret != 0);
++	if (!ret)
++		panthor_perf_post_reset(ptdev);
+ 	drm_dev_exit(cookie);
  
- 	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
- 	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
-+
-+	/** @DRM_PANTHOR_DEV_QUERY_PERF_INFO: Query performance counter interface information. */
-+	DRM_PANTHOR_DEV_QUERY_PERF_INFO,
- };
+ 	if (ret) {
+@@ -539,8 +542,10 @@ int panthor_device_resume(struct device *dev)
+ 			ret = panthor_device_resume_hw_components(ptdev);
+ 		}
  
- /**
-@@ -517,6 +537,93 @@ struct drm_panthor_group_priorities_info {
- 	__u8 pad[3];
- };
+-		if (!ret)
++		if (!ret) {
+ 			panthor_sched_resume(ptdev);
++			panthor_perf_resume(ptdev);
++		}
+ 
+ 		drm_dev_exit(cookie);
+ 
+@@ -604,6 +609,7 @@ int panthor_device_suspend(struct device *dev)
+ 		/* We prepare everything as if we were resetting the GPU.
+ 		 * The end of the reset will happen in the resume path though.
+ 		 */
++		panthor_perf_suspend(ptdev);
+ 		panthor_sched_suspend(ptdev);
+ 		panthor_fw_suspend(ptdev);
+ 		panthor_mmu_suspend(ptdev);
+diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
+index c66ad658a95d..28b02003f9f9 100644
+--- a/drivers/gpu/drm/panthor/panthor_perf.c
++++ b/drivers/gpu/drm/panthor/panthor_perf.c
+@@ -1798,6 +1798,57 @@ int panthor_perf_session_sample(struct panthor_file *pfile, u32 handle, u64 user
+ 	return err;
+ }
  
 +/**
-+ * enum drm_panthor_perf_block_type - Performance counter supported block types.
-+ */
-+enum drm_panthor_perf_block_type {
-+	/** @DRM_PANTHOR_PERF_BLOCK_METADATA: Internal use only. */
-+	DRM_PANTHOR_PERF_BLOCK_METADATA = 0,
-+
-+	/** @DRM_PANTHOR_PERF_BLOCK_FW: The FW counter block. */
-+	DRM_PANTHOR_PERF_BLOCK_FW,
-+
-+	/** @DRM_PANTHOR_PERF_BLOCK_CSHW: The CSHW counter block. */
-+	DRM_PANTHOR_PERF_BLOCK_CSHW,
-+
-+	/** @DRM_PANTHOR_PERF_BLOCK_TILER: The tiler counter block. */
-+	DRM_PANTHOR_PERF_BLOCK_TILER,
-+
-+	/** @DRM_PANTHOR_PERF_BLOCK_MEMSYS: A memsys counter block. */
-+	DRM_PANTHOR_PERF_BLOCK_MEMSYS,
-+
-+	/** @DRM_PANTHOR_PERF_BLOCK_SHADER: A shader core counter block. */
-+	DRM_PANTHOR_PERF_BLOCK_SHADER,
-+
-+	/** @DRM_PANTHOR_PERF_BLOCK_FIRST: Internal use only. */
-+	DRM_PANTHOR_PERF_BLOCK_FIRST = DRM_PANTHOR_PERF_BLOCK_FW,
-+
-+	/** @DRM_PANTHOR_PERF_BLOCK_LAST: Internal use only. */
-+	DRM_PANTHOR_PERF_BLOCK_LAST = DRM_PANTHOR_PERF_BLOCK_SHADER,
-+
-+	/** @DRM_PANTHOR_PERF_BLOCK_MAX: Internal use only. */
-+	DRM_PANTHOR_PERF_BLOCK_MAX = DRM_PANTHOR_PERF_BLOCK_LAST + 1,
-+};
-+
-+/**
-+ * struct drm_panthor_perf_info - Performance counter interface information
++ * panthor_perf_suspend - Prepare the performance counter subsystem for system suspend.
++ * @ptdev: Panthor device.
 + *
-+ * Structure grouping all queryable information relating to the performance counter
-+ * interfaces.
++ * Indicate to the performance counters that the system is suspending.
++ *
++ * This function must not be used to handle MCU power state transitions: just before MCU goes
++ * from on to any inactive state, an automatic sample will be performed by the firmware, and
++ * the performance counter firmware state will be restored on warm boot.
++ *
 + */
-+struct drm_panthor_perf_info {
-+	/**
-+	 * @counters_per_block: The number of 8-byte counters available in a block.
-+	 */
-+	__u32 counters_per_block;
++void panthor_perf_suspend(struct panthor_device *ptdev)
++{
++	struct panthor_perf *perf = ptdev->perf;
++	int ret;
 +
-+	/**
-+	 * @sample_header_size: The size of the header struct available at the beginning
-+	 * of every sample.
-+	 */
-+	__u32 sample_header_size;
++	if (!perf)
++		return;
 +
-+	/**
-+	 * @block_header_size: The size of the header struct inline with the counters for a
-+	 * single block.
-+	 */
-+	__u32 block_header_size;
++	guard(mutex)(&perf->op_lock);
 +
-+	/**
-+	 * @sample_size: The size of a fully annotated sample, starting with a sample header
-+	 *               of size @sample_header_size bytes, and all available blocks for the current
-+	 *               configuration, each comprised of @counters_per_block 64-bit counters and
-+	 *               a block header of @block_header_size bytes.
-+	 *
-+	 *               The user must use this field to allocate size for the ring buffer. In
-+	 *               the case of new blocks being added, an old userspace can always use
-+	 *               this field and ignore any blocks it does not know about.
-+	 */
-+	__u32 sample_size;
++	ret = perf_disable(perf);
 +
-+	/** @fw_blocks: Number of FW blocks available. */
-+	__u32 fw_blocks;
++	if (ret)
++		drm_warn(&ptdev->base, "Could not stop sampling before suspend, err = %d", ret);
++}
 +
-+	/** @cshw_blocks: Number of CSHW blocks available. */
-+	__u32 cshw_blocks;
++/**
++ * panthor_perf_resume - Resume the performance counter subsystem after system resumption.
++ * @ptdev: Panthor device.
++ *
++ * Indicate to the performance counters that the system has resumed. This must not be used
++ * to handle MCU state transitions, for the same reasons as detailed in the kerneldoc for
++ * @panthor_perf_suspend.
++ */
++void panthor_perf_resume(struct panthor_device *ptdev)
++{
++	struct panthor_perf *perf = ptdev->perf;
++	int ret;
 +
-+	/** @tiler_blocks: Number of tiler blocks available. */
-+	__u32 tiler_blocks;
++	if (!perf)
++		return;
 +
-+	/** @memsys_blocks: Number of memsys blocks available. */
-+	__u32 memsys_blocks;
++	guard(mutex)(&perf->op_lock);
 +
-+	/** @shader_blocks: Number of shader core blocks available. */
-+	__u32 shader_blocks;
++	ret = perf_enable(perf);
 +
-+	/** @pad1: MBZ. */
-+	__u32 pad1;
-+};
++	if (ret)
++		drm_warn(&ptdev->base, "Could not resume sampling, err = %d", ret);
++}
 +
  /**
-  * struct drm_panthor_dev_query - Arguments passed to DRM_PANTHOR_IOCTL_DEV_QUERY
-  */
-@@ -1270,6 +1377,259 @@ struct drm_panthor_bo_query_info {
- 	__u32 pad;
- };
+  * panthor_perf_unplug - Terminate the performance counter subsystem.
+  * @ptdev: Panthor device.
+@@ -1868,3 +1919,35 @@ void panthor_perf_pool_destroy(struct panthor_file *pfile)
  
-+/**
-+ * DOC: Performance counter decoding in userspace.
-+ *
-+ * Each sample will be exposed to userspace in the following manner:
-+ *
-+ * +--------+--------+------------------------+--------+-------------------------+-----+
-+ * | Sample | Block  |        Block           | Block  |         Block           | ... |
-+ * | header | header |        counters        | header |         counters        |     |
-+ * +--------+--------+------------------------+--------+-------------------------+-----+
-+ *
-+ * Each sample starts with a &struct drm_panthor_perf_sample_header containing
-+ * timestamps, sample flags and the command's user data.
-+ *
-+ * Each block starts with a &struct drm_panthor_perf_block_header identifying its
-+ * type and index, followed by counters_per_block 64-bit counters, as reported by
-+ * &struct drm_panthor_perf_info.
-+ */
+ 	pfile->sessions = NULL;
+ }
 +
-+/**
-+ * struct drm_panthor_perf_block_header - Header present before every block in the
-+ * sample ringbuffer.
-+ */
-+struct drm_panthor_perf_block_header {
-+	/** @block_type: Type of the block. */
-+	__u8 block_type;
++void panthor_perf_pre_reset(struct panthor_device *ptdev)
++{
++	if (!ptdev->perf)
++		return;
 +
-+	/** @block_idx: Block index. */
-+	__u8 block_idx;
++	guard(mutex)(&ptdev->perf->op_lock);
 +
-+	/** @pad0: MBZ. */
-+	__u8 pad0[6];
-+};
++	perf_disable(ptdev->perf);
++}
 +
-+/**
-+ * enum drm_panthor_perf_sample_flags - Sample-wide events that occurred over the sampling
-+ * period.
-+ */
-+enum drm_panthor_perf_sample_flags {
-+	/**
-+	 * @DRM_PANTHOR_PERF_SAMPLE_OVERFLOW: This sample contains overflows due to the duration
-+	 * of the sampling period.
-+	 */
-+	DRM_PANTHOR_PERF_SAMPLE_OVERFLOW = 1 << 0,
-+};
++void panthor_perf_post_reset(struct panthor_device *ptdev)
++{
++	bool rerequest = false;
 +
-+/**
-+ * struct drm_panthor_perf_sample_header - Header present before every sample.
-+ */
-+struct drm_panthor_perf_sample_header {
-+	/**
-+	 * @timestamp_start_ns: Earliest timestamp that values in this sample represent, in
-+	 * nanoseconds. Derived from CLOCK_MONOTONIC_RAW.
-+	 */
-+	__u64 timestamp_start_ns;
++	if (!ptdev->perf)
++		return;
 +
-+	/**
-+	 * @timestamp_end_ns: Latest timestamp that values in this sample represent, in
-+	 * nanoseconds. Derived from CLOCK_MONOTONIC_RAW.
-+	 */
-+	__u64 timestamp_end_ns;
++	guard(mutex)(&ptdev->perf->op_lock);
 +
-+	/** @flags: Current sample flags, combination of drm_panthor_perf_sample_flags. */
-+	__u32 flags;
++	perf_enable(ptdev->perf);
 +
-+	/** @pad: MBZ. */
-+	__u32 pad;
++	scoped_guard(spinlock_irqsave, &ptdev->perf->pend_lock) {
++		rerequest = ptdev->perf->fw_sample_requested;
 +
-+	/**
-+	 * @user_data: User data provided as part of the command that triggered this sample.
-+	 */
-+	__u64 user_data;
-+};
++		if (rerequest)
++			ptdev->perf->fw_sample_requested = false;
++	}
 +
-+/**
-+ * enum drm_panthor_perf_counter_set - The counter set to be requested from the hardware.
-+ *
-+ * The hardware supports a single performance counter set at a time, so requesting any set other
-+ * than the primary may fail if another process is sampling at the same time.
-+ *
-+ * If in doubt, the primary counter set has the most commonly used counters and requires no
-+ * additional permissions to open.
-+ */
-+enum drm_panthor_perf_counter_set {
-+	/**
-+	 * @DRM_PANTHOR_PERF_SET_PRIMARY: The default set configured on the hardware.
-+	 *
-+	 * This is the only set for which all counters in all blocks are defined.
-+	 */
-+	DRM_PANTHOR_PERF_SET_PRIMARY,
-+
-+	/** @DRM_PANTHOR_PERF_SET_SECONDARY: The secondary performance counter set. */
-+	DRM_PANTHOR_PERF_SET_SECONDARY,
-+
-+	/** @DRM_PANTHOR_PERF_SET_TERTIARY: The tertiary performance counter set.*/
-+	DRM_PANTHOR_PERF_SET_TERTIARY,
-+};
-+
-+/**
-+ * struct drm_panthor_perf_ringbuf_control - Struct used to map in the ring buffer control indices
-+ *                                           into memory shared between user and kernel.
-+ *
-+ */
-+struct drm_panthor_perf_ringbuf_control {
-+	/**
-+	 * @extract_idx: Number of samples consumed or discarded by userspace. Only
-+	 *               modifiable by userspace.
-+	 */
-+	__u64 extract_idx;
-+
-+	/**
-+	 * @insert_idx: Number of samples emitted by the kernel. Only modifiable by
-+	 *              the kernel.
-+	 */
-+	__u64 insert_idx;
-+};
-+
-+/**
-+ * struct drm_panthor_perf_session_create - Arguments passed to DRM_PANTHOR_PERF_SESSION_CREATE.
-+ */
-+struct drm_panthor_perf_session_create {
-+	/**
-+	 * @block_set: Set of performance counter blocks, member of
-+	 *             enum drm_panthor_perf_counter_set.
-+	 *
-+	 * This is a global configuration and only one set can be active at a time. If
-+	 * another client has already requested a counter set, any further requests
-+	 * for a different counter set will fail and return an -EBUSY.
-+	 *
-+	 * If the requested set does not exist, the request will fail and return an -EINVAL.
-+	 *
-+	 * Some sets have additional requirements to be enabled, and the setup request will
-+	 * fail with an -EACCES if these requirements are not satisfied.
-+	 */
-+	__u8 block_set;
-+
-+	/** @pad: MBZ. */
-+	__u8 pad[7];
-+
-+	/** @fd: eventfd for signalling the availability of a new sample. */
-+	__u32 fd;
-+
-+	/** @ringbuf_handle: Handle to the BO to write perf counter sample to. */
-+	__u32 ringbuf_handle;
-+
-+	/**
-+	 * @control_handle: Handle to the BO containing a contiguous 16 byte range, used for the
-+	 * insert and extract indices for the ringbuffer.
-+	 */
-+	__u32 control_handle;
-+
-+	/**
-+	 * @sample_slots: The number of slots available in the userspace-provided BO. Must be
-+	 * a power of 2.
-+	 *
-+	 * If sample_slots * sample_size does not match the BO size, the setup request will fail.
-+	 */
-+	__u32 sample_slots;
-+
-+	/**
-+	 * @fw_enable_mask: Bitmask of counters to request from the FW counter block. Any bits
-+	 * past the first drm_panthor_perf_info.counters_per_block bits will be ignored. Bit 0
-+	 * corresponds to counter 0.
-+	 */
-+	__u64 fw_enable_mask[2];
-+
-+	/**
-+	 * @cshw_enable_mask: Bitmask of counters to request from the CSHW counter block. Any bits
-+	 * past the first drm_panthor_perf_info.counters_per_block bits will be ignored. Bit 0
-+	 * corresponds to counter 0.
-+	 */
-+	__u64 cshw_enable_mask[2];
-+
-+	/**
-+	 * @tiler_enable_mask: Bitmask of counters to request from the tiler counter block. Any
-+	 * bits past the first drm_panthor_perf_info.counters_per_block bits will be ignored. Bit
-+	 * 0 corresponds to counter 0.
-+	 */
-+	__u64 tiler_enable_mask[2];
-+
-+	/**
-+	 * @memsys_enable_mask: Bitmask of counters to request from the memsys counter blocks. Any
-+	 * bits past the first drm_panthor_perf_info.counters_per_block bits will be ignored. Bit 0
-+	 * corresponds to counter 0.
-+	 */
-+	__u64 memsys_enable_mask[2];
-+
-+	/**
-+	 * @shader_enable_mask: Bitmask of counters to request from the shader core counter blocks.
-+	 * Any bits past the first drm_panthor_perf_info.counters_per_block bits will be ignored.
-+	 * Bit 0 corresponds to counter 0.
-+	 */
-+	__u64 shader_enable_mask[2];
-+};
-+
-+/**
-+ * struct drm_panthor_perf_session_start - Arguments passed to DRM_PANTHOR_PERF_SESSION_START.
-+ */
-+struct drm_panthor_perf_session_start {
-+	/** @handle: Performance counter session handle. */
-+	__u32 handle;
-+
-+	/** @pad0: MBZ. */
-+	__u32 pad0;
-+
-+	/**
-+	 * @user_data: User provided data that will be attached to automatic samples collected
-+	 * until the next DRM_PANTHOR_PERF_SESSION_SAMPLE.
-+	 */
-+	__u64 user_data;
-+};
-+
-+/**
-+ * struct drm_panthor_perf_session_sample - Arguments passed to DRM_PANTHOR_PERF_SESSION_SAMPLE.
-+ */
-+struct drm_panthor_perf_session_sample {
-+	/** @handle: Performance counter session handle. */
-+	__u32 handle;
-+
-+	/** @pad0: MBZ. */
-+	__u32 pad0;
-+
-+	/** @user_data: User provided data that will be attached to the sample.*/
-+	__u64 user_data;
-+};
-+
-+/**
-+ * struct drm_panthor_perf_session_stop - Arguments passed to DRM_PANTHOR_PERF_SESSION_STOP.
-+ */
-+struct drm_panthor_perf_session_stop {
-+	/** @handle: Performance counter session handle. */
-+	__u32 handle;
-+
-+	/** @pad0: MBZ. */
-+	__u32 pad0;
-+
-+	/**
-+	 * @user_data: User provided data that will be attached to the automatic sample collected
-+	 * at the end of this sampling session.
-+	 */
-+	__u64 user_data;
-+};
-+
-+/**
-+ * struct drm_panthor_perf_session_destroy - Arguments passed to DRM_PANTHOR_PERF_SESSION_DESTROY.
-+ */
-+struct drm_panthor_perf_session_destroy {
-+	/** @handle: Performance counter session handle. */
-+	__u32 handle;
-+
-+	/** @pad0: MBZ. */
-+	__u32 pad0;
-+};
-+
- /**
-  * DRM_IOCTL_PANTHOR() - Build a Panthor IOCTL number
-  * @__access: Access type. Must be R, W or RW.
-@@ -1320,6 +1680,16 @@ enum {
- 		DRM_IOCTL_PANTHOR(WR, BO_SYNC, bo_sync),
- 	DRM_IOCTL_PANTHOR_BO_QUERY_INFO =
- 		DRM_IOCTL_PANTHOR(WR, BO_QUERY_INFO, bo_query_info),
-+	DRM_IOCTL_PANTHOR_PERF_SESSION_CREATE =
-+		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_CREATE, perf_session_create),
-+	DRM_IOCTL_PANTHOR_PERF_SESSION_START =
-+		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_START, perf_session_start),
-+	DRM_IOCTL_PANTHOR_PERF_SESSION_SAMPLE =
-+		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_SAMPLE, perf_session_sample),
-+	DRM_IOCTL_PANTHOR_PERF_SESSION_STOP =
-+		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_STOP, perf_session_stop),
-+	DRM_IOCTL_PANTHOR_PERF_SESSION_DESTROY =
-+		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_DESTROY, perf_session_destroy),
- };
++	if (rerequest)
++		perf_fw_request_sample(ptdev->perf);
++}
+diff --git a/drivers/gpu/drm/panthor/panthor_perf.h b/drivers/gpu/drm/panthor/panthor_perf.h
+index 0e1172dbae39..e4a323fe6f0d 100644
+--- a/drivers/gpu/drm/panthor/panthor_perf.h
++++ b/drivers/gpu/drm/panthor/panthor_perf.h
+@@ -18,6 +18,8 @@ int panthor_perf_pool_create(struct panthor_file *pfile);
+ void panthor_perf_pool_destroy(struct panthor_file *pfile);
  
- #if defined(__cplusplus)
+ int panthor_perf_init(struct panthor_device *ptdev);
++void panthor_perf_suspend(struct panthor_device *ptdev);
++void panthor_perf_resume(struct panthor_device *ptdev);
+ void panthor_perf_unplug(struct panthor_device *ptdev);
+ 
+ int panthor_perf_session_create(struct drm_file *file,
+@@ -30,5 +32,9 @@ int panthor_perf_session_sample(struct panthor_file *pfile, unsigned int handle,
+ 
+ void panthor_perf_report_irq(struct panthor_device *ptdev, u32 status);
+ 
++void panthor_perf_pre_reset(struct panthor_device *ptdev);
++
++void panthor_perf_post_reset(struct panthor_device *ptdev);
++
+ #endif /* __PANTHOR_PERF_H__ */
+ 
 
 -- 
 2.43.0
