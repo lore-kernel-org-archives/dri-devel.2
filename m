@@ -4,33 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66277CA9EBD
-	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 03:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B9FCA9EC9
+	for <dri-devel@archiver.kernel.org>; Sun, 11 Oct 2026 03:38:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2D8810E282;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBB6010E2B7;
 	Sun, 11 Oct 2026 03:38:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EkZZT6kA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LSHJfP/I";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8B610E282
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 03:38:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B61A10E282
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 03:38:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5E570447A1;
+ by sea.source.kernel.org (Postfix) with ESMTP id 833AB4450C;
+ Sun, 11 Oct 2026 03:38:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54211F00893;
  Sun, 11 Oct 2026 03:38:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17801F000FF;
- Sun, 11 Oct 2026 03:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791689902;
- bh=vpDzdyqOuBqn75M9QRrJXkUmp+FpV4aVcz8Hf/4UtS8=;
+ s=k20260515; t=1791689904;
+ bh=DhT2Sc1qZOsPqVuOtTlejOzafSl9/+wC5w47v4hyl3w=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References;
- b=EkZZT6kAN/v81cxQqSmrEi3H+WZMRHlWt8GrJxIwtnOVy5M5tthAjut+CnkvZp9W5
- eC4lRAXlnAMvr186xSv+RlbPLwgj5fsEJlrqgZ1YIL2Lc7jGjxvDGuHUI+r7ExDFzI
- +wmgcgvOZNkIPhSsQI3644WZj5Figmj9D7UI1qfXMt3vjurWGeV/qk+9O0kgS5ylu4
- pVtrU/aWTYoxOxFCvOpgKBRh4Ieqoz/xrLQROJB4jszb2yoRG3Xu8vvi2RqaiHlYES
- AEgnRa7uL+lesaLSi6fm2vRAxFfwOhXxx4M0ra60MdwcGNOQbcGfTgFydVbVJmRpmu
- Y+nSL18Z5CToQ==
-Subject: Re: [PATCH net v1 3/4] netdevsim: support devmem RX and TX bindings
+ b=LSHJfP/IDboyc/VdiFW0S5vIbArmrOGlWGu/rf8Sh8b+nve3NdVCJHXsysp4l9xaH
+ tD4nZz3H2ZukItiafHfTQjAnJmrAdmTRwxKLV3nJR4XGcpWcLGef/wR8PqhWRPI5HR
+ muaHaCh6nYMsarMSJlbuwA114GYKMFTPCUSkucosh0wzaDPMJgqlyUFHLFhy2jma/j
+ a2KBtbQ/hC3yjjj2yu6EILi7ByOptub1AdzKbl62tWxeRgpvpM3S5S6OD0a0VY2PAV
+ obgXc63PF1EQDAttMzuZo4oAgEmdZUlABXqaqErfF06EHfxtqUsjKEqS31zb4sEcD6
+ FIqE/AFVbfJMg==
+Subject: Re: [PATCH net v1 4/4] selftests: net: add devmem RX and TX netdev
+ unregister tests
 From: netdev-bot+sashiko@kernel.org
 To: almasrymina@google.com
 Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
@@ -41,10 +42,10 @@ Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
  edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
  sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
  razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com
-Date: Sun, 11 Oct 2026 03:38:20 +0000
-Message-ID: <179168990038.434549.9826013939304899900@kernel.org>
-In-Reply-To: <20261010025532.839559-4-almasrymina@google.com>
-References: <20261010025532.839559-4-almasrymina@google.com>
+Date: Sun, 11 Oct 2026 03:38:22 +0000
+Message-ID: <179168990244.434549.3313221235274785716@kernel.org>
+In-Reply-To: <20261010025532.839559-5-almasrymina@google.com>
+References: <20261010025532.839559-5-almasrymina@google.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -64,10 +65,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 7 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (1) · Medium: 2 · Low: 0
+Critical: 0 · High: 0 · Medium: 5 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,196 +76,257 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] This patch adds PP_FLAG_ALLOW_UNREADABLE_NETMEM and .queue_idx
-  to nsim_create_page_pool().
-- [Medium] nsim_bus_dev_new() ignores the return value of
-  dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64)) and…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  nsim_pp_hold_write() holds only rtnl_lock() while it loads ns->rq[0],…
+- [Medium] In devmem_bind_rx_unregister_check() and
+  devmem_bind_tx_unregister_check()…
+- [Medium] The new tests need /dev/udmabuf (CONFIG_UDMABUF) and debugfs
+  (CONFIG_DEBUG_FS, for the bufinfo assertions).
+- [Medium] _dmabuf_attached_devs() (nl_netdev.py:390-408) collects the
+  'Attached Devices' entries of every dma_buf in the system, not only…
+- [Medium] devmem_bind_rx_unregister_check() (lines 413-439) and
+  devmem_bind_tx_unregister_check() (lines 444-466) do not use `with…
+- [Medium] _create_udmabuf() (nl_netdev.py:384) passes the hardcoded
+  number 0x40187542 as UDMABUF_CREATE.
+- [Low] In both new tests, the only check for the behaviour the
+  docstrings claim ('Verify RX devmem bindings detach dma_buf…
+- [Low] _create_udmabuf() (nl_netdev.py:379-387) closes memfd and devfd
+  only on the success path.
 
 --
 
-netdevsim: support devmem RX and TX bindings
+selftests: net: add devmem RX and TX netdev unregister tests
 
-This patch sets a 64-bit DMA mask on the netdevsim bus device and enables
-NETMEM_TX_DMA on the netdevsim net_device. It also creates the RX page_pools
-with DMA mapping, unreadable netmem and queue_idx set, so that devmem
-bind-rx and bind-tx can be tested against netdevsim in selftests.
+This adds two tests to nl_netdev.py. Each one creates a udmabuf, binds it
+to a netdevsim device for devmem RX or TX through the netdev netlink
+family, and then removes the netdevsim device. The tests check debugfs
+dma_buf/bufinfo to confirm that the attachment is gone, and expect the
+netlink socket to close cleanly afterwards.
 
-> diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-> index 5c55c308487b4..f87f5e037b6fb 100644
-> --- a/drivers/net/netdevsim/bus.c
-> +++ b/drivers/net/netdevsim/bus.c
-> @@ -462,6 +462,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
->  	nsim_bus_dev->port_count = port_count;
->  	nsim_bus_dev->num_queues = num_queues;
->  	nsim_bus_dev->initial_net = current->nsproxy->net_ns;
-> +	dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64));
-
-[Severity: Medium]
-What happens here on CONFIG_HAS_DMA=n builds?
-
-NETDEVSIM does not depend on HAS_DMA. Some configs select NO_DMA, for
-example UML without UML_DMA_EMULATION. On those builds the dma_set_mask()
-stub returns -EIO. The return value is ignored here, so the device
-registers and no error is reported.
-
-The PP_FLAG_DMA_MAP change in nsim_create_page_pool() below means every
-slow-path page_pool allocation would then fail:
-
-page_pool_alloc_netmems()
-  ...
-    page_pool_dma_map()
-      dma_map_page_attrs()   <- stub returns DMA_MAPPING_ERROR
-      if (dma_mapping_error(pool->p.dev, dma))
-          return false;
-
-After that, nsim_pp_hold_write() returns -ENOMEM:
-
-	ns->page = page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
-	if (!ns->page)
-		ret = -ENOMEM;
-
-Would the existing page_pool selftests that use pp_hold now fail on these
-builds? They passed there before this patch.
-
-Should the error be checked here? Alternatively, should the DMA flags only
-be set when the mask setup succeeds?
-
->  	/* Disallow using nsim_bus_dev */
->  	smp_store_release(&nsim_bus_dev->init, false);
->  
-> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
-> index b4a99f3ceac60..4415dc01c610b 100644
-> --- a/drivers/net/netdevsim/netdev.c
-> +++ b/drivers/net/netdevsim/netdev.c
-> @@ -414,16 +414,22 @@ static int nsim_poll(struct napi_struct *napi, int budget)
->  	return done;
->  }
->  
-> -static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
-> +static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
-> +				 struct napi_struct *napi, int idx)
->  {
-> +	struct netdevsim *ns = netdev_priv(dev);
->  	struct page_pool_params params = {
->  		.order = 0,
->  		.pool_size = NSIM_RING_SIZE,
-> +		.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV |
-> +			 PP_FLAG_ALLOW_UNREADABLE_NETMEM,
-> +		.max_len = PAGE_SIZE,
->  		.nid = NUMA_NO_NODE,
-> -		.dev = &napi->dev->dev,
-> +		.dev = &ns->nsim_bus_dev->dev,
->  		.napi = napi,
->  		.dma_dir = DMA_BIDIRECTIONAL,
-> -		.netdev = napi->dev,
-> +		.netdev = dev,
-> +		.queue_idx = idx,
->  	};
-
-[Severity: Medium]
-With PP_FLAG_ALLOW_UNREADABLE_NETMEM and queue_idx set, page_pool_init()
-now copies rxq->mp_params.mp_ops and mp_priv into the pool. After a devmem
-(or io_uring zcrx) bind-rx on queue 0, ns->rq[0]->page_pool is therefore
-backed by a memory provider.
-
-nsim_pp_hold_write() still allocates from that pool with the page-only API:
-
-	ns->page = page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
-
-What happens to the net_iov in that case? The call chain looks like:
-
-nsim_pp_hold_write()
-  page_pool_dev_alloc_pages()
-    page_pool_alloc_pages()
-      page_pool_alloc_netmems()
-        mp_dmabuf_devmem_alloc_netmems()
-          page_pool_set_pp_info(pool, netmem);
-          pool->pages_state_hold_cnt++;
-      netmem_to_page()
-        if (WARN_ON_ONCE(netmem_is_net_iov(netmem)))
-            return NULL;
-
-The WARN fires, and it is fatal with panic_on_warn. ns->page becomes NULL
-and the write returns -ENOMEM. The net_iov is already counted in
-pages_state_hold_cnt, but nothing holds a pointer to it anymore.
-
-Is this net_iov leaked for good? If so, the pool's inflight count would
-never reach zero. page_pool_destroy() at unbind or queue restart would then
-keep deferring the release, and the provider's destroy hook would never
-run. That would also leak the pool, its dmabuf binding reference and the
-binding's genpool chunk.
-
-Should nsim_pp_hold_write() use the netmem allocation API instead? Or
-should it refuse to allocate when a memory provider is bound to the queue?
-
->  	struct page_pool *pool;
->  
+> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
+> index ceb44c8e1fec5..bad230ee9dcd2 100755
+> --- a/tools/testing/selftests/net/nl_netdev.py
+> +++ b/tools/testing/selftests/net/nl_netdev.py
 
 [ ... ]
 
-> @@ -762,14 +768,16 @@ nsim_queue_mem_alloc(struct net_device *dev,
->  	if (ns->rq_reset_mode == 1) {
->  		if (!netif_running(ns->netdev))
->  			return -ENETDOWN;
-> -		return nsim_create_page_pool(&qmem->pp, &ns->rq[idx]->napi);
-> +		return nsim_create_page_pool(dev, &qmem->pp,
-> +					     &ns->rq[idx]->napi, idx);
->  	}
+> @@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
+>      ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
 >  
->  	qmem->rq = nsim_queue_alloc();
->  	if (!qmem->rq)
->  		return -ENOMEM;
 >  
-> -	err = nsim_create_page_pool(&qmem->rq->page_pool, &qmem->rq->napi);
-> +	err = nsim_create_page_pool(dev, &qmem->rq->page_pool, &qmem->rq->napi,
-> +				    idx);
+> +def _create_udmabuf(num_pages=64) -> int:
+> +    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
+> +    if not os.path.exists("/dev/udmabuf"):
+> +        raise KsftSkipEx("/dev/udmabuf is not available")
 
-[Severity: High]
-This is a pre-existing issue that this patch did not introduce. It seems
-worth raising because bind-rx now gives netdevsim another way to restart
-queues.
+[Severity: Medium]
+Will these tests ever run in CI that builds from the net config fragment?
 
-nsim_pp_hold_write() holds only rtnl_lock() while it loads ns->rq[0],
-dereferences its page_pool and allocates from it. The RX queue restart
-path replaces and frees those objects while holding only the netdev instance
-lock:
+The only related entry in tools/testing/selftests/net/config is:
 
-netdev_rx_queue_restart()
-  nsim_queue_mem_alloc()
-  nsim_queue_stop()
-  nsim_queue_start()
-    ns->rq[idx] = qmem->rq;               (modes 0/2/3)
-    ns->rq[idx]->page_pool = qmem->pp;    (mode 1)
-  nsim_queue_mem_free()
-    page_pool_destroy(qmem->rq->page_pool);
-    nsim_queue_free(dev, qmem->rq);       <- kfree()s the old rq
+CONFIG_NETDEVSIM=m
 
-nsim_qreset_write() takes only netdev_lock(), and so do devmem bind-rx and
-unbind. None of them takes rtnl, so these paths share no lock with
-nsim_pp_hold_write().
+It enables neither CONFIG_UDMABUF nor CONFIG_DEBUG_FS. So
+_create_udmabuf() would always raise KsftSkipEx here, and both new tests
+would always skip.
 
-Can this interleaving lead to a use-after-free?
+tools/testing/selftests/drivers/net/hw/config and drivers/dma-buf/config
+both set CONFIG_UDMABUF=y. Should the net config fragment add
+CONFIG_UDMABUF=y and CONFIG_DEBUG_FS=y too?
 
-CPU0                                CPU1
-nsim_pp_hold_write()
-  rtnl_lock()
-  loads old ns->rq[0]
-                                    restart of queue 0
-                                      ns->rq[0] = new rq
-                                      page_pool_destroy(old pool)
-                                      kfree(old rq)
-  old rq->page_pool
-  page_pool_dev_alloc_pages()
+> +
+> +    size = num_pages * mmap.PAGESIZE
+> +    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
+> +    os.ftruncate(memfd, size)
+> +    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
+> +    devfd = os.open("/dev/udmabuf", os.O_RDWR)
+> +    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
+> +    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
 
-Should nsim_pp_hold_write() also take the netdev instance lock?
+[Severity: Medium]
+Is 0x40187542 the right request number on every architecture?
 
->  	if (err)
->  		goto err_free;
->
+The uapi header defines it as:
+
+include/uapi/linux/udmabuf.h:
+#define UDMABUF_CREATE       _IOW('u', 0x42, struct udmabuf_create)
+
+0x40187542 is the asm-generic encoding. Alpha, mips, powerpc and sparc
+define _IOC_WRITE as 4U with 13 size bits, and parisc defines it as 2U.
+On all of these the write bit lands at 0x80000000, so the request number
+becomes 0x80187542.
+
+On those architectures udmabuf_ioctl() hits its default case:
+
+	default:
+		ret = -ENOTTY;
+
+Nothing catches the resulting OSError from fcntl.ioctl(), so both devmem
+tests would fail instead of running or skipping.
+
+> +    os.close(devfd)
+> +    os.close(memfd)
+> +    return dmabuf_fd
+
+[Severity: Low]
+Does this leak memfd and devfd on the error paths?
+
+If os.ftruncate(), the F_ADD_SEALS fcntl() or os.open() raises, memfd is
+never closed. If the UDMABUF_CREATE ioctl raises (the ENOTTY case above,
+for example), both memfd and devfd stay open. ksft_run() catches the
+exception and keeps the process running.
+
+A try/finally around these calls would close both.
+
+> +
+> +
+> +def _dmabuf_attached_devs():
+> +    """Return attached device names from debugfs dma_buf/bufinfo if available."""
+> +    path = "/sys/kernel/debug/dma_buf/bufinfo"
+> +    if not os.path.exists(path):
+> +        return None
+
+[Severity: Low]
+What happens when bufinfo is missing (CONFIG_DEBUG_FS off, or debugfs not
+mounted)?
+
+Both tests guard every assertion with:
+
+    if attached is not None:
+
+With None they run no assertions at all. ksft_run() then records them as
+pass, not skip.
+
+The tests still exercise nsimdev.remove(), but they would pass even if
+the dma_buf stayed attached after unregister. Should this raise
+KsftSkipEx instead of returning None?
+
+> +    with open(path, "r", encoding="utf-8") as f:
+> +        text = f.read()
+> +    attached = []
+> +    in_attached = False
+> +    for line in text.splitlines():
+> +        if line.strip() == "Attached Devices:":
+> +            in_attached = True
+> +            continue
+> +        if in_attached:
+> +            if line.startswith("\t") and line.strip():
+> +                attached.append(line.strip())
+> +            else:
+> +                in_attached = False
+> +    return attached
+
+[Severity: Medium]
+Does this count attachments from every dma_buf in the system, rather than
+only the udmabuf this test created?
+
+dma_buf_debug_show() walks the whole dmabuf_list and prints one block for
+each buffer:
+
+drivers/dma-buf/dma-buf.c:dma_buf_debug_show() {
+    ...
+		seq_puts(s, "\tAttached Devices:\n");
+		attach_count = 0;
+
+		list_for_each_entry(attach_obj, &buf_obj->attachments, node) {
+			seq_printf(s, "\t%s\n", dev_name(attach_obj->dev));
+    ...
+}
+
+The parser collects entries after every header, so the result is a total
+for the whole host.
+
+This has two effects:
+
+- ksft_eq(len(attached), 0) after nsimdev.remove() fails whenever any
+  other dma_buf (GPU, display, V4L2) has an attachment, even if the
+  kernel detached this one correctly.
+- ksft_ge(len(attached), 1) passes even if this binding never attached.
+
+An attachment left behind by the RX test would also make the TX test
+fail.
+
+Could this filter on the inode of dmabuf_fd (os.fstat(dmabuf_fd).st_ino)
+or on the netdevsim device name?
+
+> +
+> +
+> +def devmem_bind_rx_unregister_check(_nf) -> None:
+> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
+> +    dmabuf_fd = _create_udmabuf()
+> +    nf_priv = NetdevFamily()
+> +    ef = EthtoolFamily()
+> +    nsimdev = NetdevSimDev(queue_count=2)
+> +    nsim = nsimdev.nsims[0]
+
+[Severity: Medium]
+What happens to the netdevsim device if anything between here and
+nsimdev.remove() raises?
+
+The ip link set call, ef.rings_set(), nf_priv.bind_rx() or ksft_ge()
+could all raise. ksft_run() catches the exception and moves on, but
+nsimdev.remove() is never reached.
+
+NetdevSimDev only cleans up through remove() or __exit__ and has no
+__del__. So the device stays in the kernel after the selftest exits.
+dmabuf_fd stays open, and if the bind succeeded, the dma_buf attachment
+stays live too.
+
+The other netdevsim tests in this file use "with NetdevSimDev(...)" or
+defer(). Could these do the same? devmem_bind_tx_unregister_check() has
+the same pattern.
+
+> +
+> +    ip(f"link set dev {nsim.ifname} up")
+> +    ef.rings_set({"header": {"dev-index": nsim.ifindex},
+> +                  "tcp-data-split": "enabled"})
+> +    nf_priv.bind_rx({
+> +        "ifindex": nsim.ifindex,
+> +        "fd": dmabuf_fd,
+> +        "queues": [{"id": 1, "type": "rx"}],
+> +    })
+> +
+> +    attached = _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_ge(len(attached), 1)
+> +
+> +    nsimdev.remove()
+> +
+> +    attached = _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_eq(len(attached), 0)
+> +
+> +    del nf_priv
+> +    os.close(dmabuf_fd)
+
+[Severity: Medium]
+Does del nf_priv actually close the netlink socket that holds the
+binding?
+
+YnlFamily.__init__() stores, on self, a partial for every op that refers
+back to self:
+
+tools/net/ynl/pyynl/lib/ynl.py:YnlFamily.__init__() {
+    ...
+        for op_name, op in self.ops.items():
+            bound_f = functools.partial(self._op, op_name)
+            setattr(self, op.ident_name, bound_f)
+    ...
+}
+
+That is a reference cycle, so refcounting never frees the object. del
+only drops the local name, and self.sock stays open until the cyclic GC
+happens to run. That could be during the next test, or at process exit
+after ksft_exit() has already printed the results.
+
+So the step the commit message describes, closing the socket after
+unregister and reaching netdev_nl_sock_priv_destroy(), does not happen
+at a fixed point inside this test. A failure on that path could be
+blamed on another test, or show up after this one already reported ok.
+
+YnlFamily already provides close() and __enter__/__exit__. Would
+nf_priv.close(), or "with NetdevFamily() as nf_priv:", be better here?
+The same applies to devmem_bind_tx_unregister_check().
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010025532.839559-1-almasrymina%40google.com
