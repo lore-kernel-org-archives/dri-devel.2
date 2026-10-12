@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B82C4CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 15:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D482CA9ED1
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 15:59:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2060110E5D6;
-	Mon, 12 Oct 2026 15:28:14 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0E4110E5D6
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 15:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1791818883;
- bh=cckqM1MgONxFlxUi1g5V6bonrsMA8X+llaxAqLIhnjg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=qmXRGNfySfL4NaLCxUUW0/bubXtRqFShac46prY92pN0d2jmDjYLAK+ifPhSMm1kn
- 9oV/NvONMCK/fHkoER7URnJhjQcIP/Ho9NmP1595CZZ0uvEGfTK+z2l8zduf/OcN42
- QTXZCtQXMO3aoh+EcCCj/gWfbWG9yNWcwWDZg2w2hR2tJMQCcUIu8jWOcYyNrNXxa5
- g/A8WeIHA/IKn90kbKb2JtHrx4GJ21Je6hKFqrTQm6EHaoH3Frp5E7DM7jIiJNkeFI
- e6UluJsq/8Wx6s/oGT2W0L+U76y/k4ec7GGjhmXvyFa03ByKiRxMl8/oEQICBS351P
- stfXCJrh9D+oQ==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3LvP3WMTz4wG8;
- Tue, 13 Oct 2026 02:28:01 +1100 (AEDT)
-Message-ID: <749905e4-52ea-490b-98c7-3923655a52ba@ozlabs.org>
-Date: Mon, 12 Oct 2026 16:27:50 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E44710E1B1;
+	Mon, 12 Oct 2026 15:59:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9603B10E1B1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 15:59:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E8C2D601FB;
+ Mon, 12 Oct 2026 15:59:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10EA21F0089B;
+ Mon, 12 Oct 2026 15:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791820781;
+ bh=BDRvqqZfo/phUQFJtkCaQB6PTdv+TDTlvf9qWVda4V0=;
+ h=Date:From:To:Cc:Subject;
+ b=ghY60TObteGrPY8SCpcdXGlgOKmNZwQdzZo3WINUrpIRpPai6GZWsNBhhj7n0QED4
+ LpzoqHUosOcGqWgH7UeB/8QzzdjnRI8KLNNR3BBduxIVYezIz01GM9BHmF3Y+GvTFU
+ 2uzPVNj7iJOBLg2t+ISt+fQJq3quYb0hDfPoE8i/dCQBaCnfR4aSNN+RmuGTsQ2AlO
+ SoOC9CpCP4ftbmpI/zrBbR4DOcApAP/ebhgfX/KGvor9D2Bj8NdwAl3OTf7THq1fxR
+ Det2apOY3rpMv8NY/uZR2PfNqope3h/nKRLhfBlLCRsYxT1LFU906wa+Qf3N3WSzDx
+ Q+bKvMqcjvBhg==
+Date: Mon, 12 Oct 2026 16:59:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Sasha Levin <sashal@kernel.org>
+Subject: linux-next: manual merge of the drm tree with the qcom tree
+Message-ID: <as0D5rnMA-26-LDk@sirena.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] dma-buf: Annul dmabuf->file on file release
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org,
- sashiko-reviews@lists.linux.dev
-References: <20261009123601.94079-1-matt@ozlabs.org>
- <20261009123601.94079-3-matt@ozlabs.org> <sashiko-outbox-165603@kernel.org>
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <sashiko-outbox-165603@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/pXuEVpPPVC4nohe"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,91 +57,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian, Alex,
 
-I'd be very grateful for your help on this:
+--/pXuEVpPPVC4nohe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 09/10/2026 14:11, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] dma-buf: NULL pointer dereference of dmabuf->file in exporter drivers
-> --
-> 
-> commit b5be810d5fa3244638a9bad8503cacb8ca86027e
-> Author: Matt Evans <matt@ozlabs.org>
-> 
-> dma-buf: Annul dmabuf->file on file release
-> 
-> This patch sets dmabuf->file to NULL in dma_buf_file_release() to prevent a
-> use-after-free window if the dentry outlives the file. By clearing the
-> pointer, exporters using get_file_active() can safely observe that the file
-> is closed.
-> 
->> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->> index 36cdc342627ee..d0f8b766e8fd1 100644
->> --- a/drivers/dma-buf/dma-buf.c
->> +++ b/drivers/dma-buf/dma-buf.c
->> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
->>   
->>   static int dma_buf_file_release(struct inode *inode, struct file *file)
->>   {
->> -	if (!is_dma_buf_file(file))
->> -		return -EINVAL;
->> +	struct dma_buf *dmabuf = file->private_data;
->> +
->> +	if (!dmabuf)
->> +		return 0;
->>   
->> -	__dma_buf_list_del(file->private_data);
->> +	__dma_buf_list_del(dmabuf);
->>   
->> +	/*
->> +	 * As the file is being closed, dmabuf->file is no longer
->> +	 * valid and NULL replaces an otherwise stale pointer.  If a
->> +	 * reference to the file isn't already held, the file can be
->> +	 * closed at any time, including before dmabuf->ops->release()
->> +	 * happens: dmabuf->file _must not_ be accessed directly.  An
->> +	 * exporter should use get_file_active(&dmabuf->file) which
->> +	 * atomically tests and acquires a reference to the file (or
->> +	 * returns NULL if the file has closed).  The barrier ensures
->> +	 * get_file_active() observes the store before file_free()
->> +	 * frees the memory.
->> +	 */
->> +	smp_store_mb(dmabuf->file, NULL);
-> 
-> [Severity: High]
-> Does setting dmabuf->file to NULL here cause a NULL pointer dereference in
-> exporter drivers that still hold a reference to the dma_buf?
-> 
-> For example, if a GEM object is exported to a DMA-BUF and the file descriptor
-> is closed, the dma_buf is kept alive by the GEM object. If a user then reads
-> the debugfs file, amdgpu_bo_print_info() in
-> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c dereferences dmabuf->file:
-> 
-> 		seq_printf(m, " imported from ino:%llu", file_inode(dma_buf->file)->i_ino);
-> 	else if (dma_buf)
-> 		seq_printf(m, " exported as ino:%llu", file_inode(dma_buf->file)->i_ino);
-> 
-> Similarly, during cleanup, amdgpu_ualink_cleanup_imp_xa_node() in
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c attempts to read the file count:
-> 
-> 	dev_dbg(adev->dev,
-> 		"IMP-CLEANUP: dmabuf free for NPA:%llx handle:%llx:%llx, fc:%lu\n",
-> 		imp_xa_node->npa_addr, imp_xa_node->handle.handle_hi,
-> 		imp_xa_node->handle.handle_lo,
-> 		file_count(imp_xa_node->dmabuf->file));
-> 
-> Could these routines trigger a kernel panic when dmabuf->file is NULL?
+Hi all,
 
-I am out on a limb here, being the first time I've read this driver. :-I 
-  It _looks_ like there's a live dmabuf->file because a 
-get_dma_buf()-style reference is held here (so a false positive from 
-Sashiko).  But I'm quite uncertain.
+Today's linux-next merge of the drm tree got a conflict in:
 
-Christian, that you hadn't already mentioned this hints to me that this 
-is safe, is that fair?
+  drivers/firmware/qcom/Kconfig
 
+between commits:
 
-Thanks,
+  618aedff70fbe ("firmware: QCOM interfaces should depend on ARCH_QCOM")
+  50508d3e0abd8 ("firmware: qcom: scm: Hide QCOM_SCM instead of depending o=
+n ARCH_QCOM")
 
+=66rom the qcom tree and commit:
 
-Matt
+  8fecd3194de33 ("firmware: QCOM interfaces should depend on ARCH_QCOM")
+
+=66rom the drm tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/firmware/qcom/Kconfig
+index 3ad22f8fc3e5f,691db0ded8e8c..0000000000000
+--- a/drivers/firmware/qcom/Kconfig
++++ b/drivers/firmware/qcom/Kconfig
+@@@ -26,7 -26,8 +26,7 @@@ config QCOM_PAS_TE
+  	  by the firmware TEE implementation as the backend.
+ =20
+  config QCOM_SCM
+ -	tristate "Qualcomm PAS SCM interface driver"
+ -	depends on ARCH_QCOM || COMPILE_TEST
+ +	tristate "Qualcomm PAS SCM interface driver" if ARCH_QCOM || COMPILE_TEST
+  	select QCOM_PAS
+  	select QCOM_TZMEM
+  	default y if ARCH_QCOM
+@@@ -35,17 -36,33 +35,17 @@@ config QCOM_TZME
+  	tristate
+  	select GENERIC_ALLOCATOR
+ =20
+ -choice
+ -	prompt "TrustZone interface memory allocator mode"
+ -	depends on QCOM_TZMEM
+ -	default QCOM_TZMEM_MODE_GENERIC
+ -	help
+ -	  Selects the mode of the memory allocator providing memory buffers of
+ -	  suitable format for sharing with the TrustZone. If in doubt, select
+ -	  'Generic'.
+ -
+ -config QCOM_TZMEM_MODE_GENERIC
+ -	bool "Generic"
+ -	help
+ -	  Use the generic allocator mode. The memory is page-aligned, non-cachab=
+le
+ -	  and physically contiguous.
+ -
+  config QCOM_TZMEM_MODE_SHMBRIDGE
+ -	bool "SHM Bridge"
+ +	bool "TrustZone interface memory allocator: SHM Bridge"
+ +	depends on QCOM_TZMEM
+  	help
+ -	  Use Qualcomm Shared Memory Bridge. The memory has the same alignment as
+ -	  in the 'Generic' allocator but is also explicitly marked as an SHM Bri=
+dge
+ -	  buffer.
+ +	  Use Qualcomm Shared Memory Bridge as memory allocator. The memory has =
+the
+ +	  same alignment as in the 'Generic' allocator, which is used when this =
+option
+ +	  is disabled, but is also explicitly marked as an SHM Bridge buffer.
+ =20
+  	  With this selected, all buffers passed to the TrustZone must be alloca=
+ted
+  	  using the TZMem allocator or else the TrustZone will refuse to use the=
+m.
+ =20
+ -endchoice
+ -
+  config QCOM_QSEECOM
+  	bool "Qualcomm QSEECOM interface driver"
+  	depends on QCOM_SCM=3Dy
+
+--/pXuEVpPPVC4nohe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrNA+UACgkQJNaLcl1U
+h9AwJgf/ZvVFQ1nmqe1NDSrVI/iaov6vIXJxvdi2XSNrsQC7PsA9N+IW1de+d6G3
+4ggnKhfg9tu3V1kgyUqqEP69hysFOY4GicfkvTAnWppmNLM6rXi6NbXMcZ+KtdMA
+jEM78CGA1sGzfWUhJd+GAZKFlhwgWR5wj6MEODDUXU05MeQFho8ZpIsfyllKTFIv
+zI5jMT/kK5BvGWZJvD9jTKGJrfBTFxn0Tj+9YLNVCemqlqb1EAk4+IvnVRzXdeRK
+H/FyYqwX+0TjYIpu1YsX7jgrXwQbztoT9kdLoLa2sEPqgyO+t/2ldW7aHvufZELb
+HWRo48RWsYSa5kjr2NNEqlJjkaEl3w==
+=/Mxj
+-----END PGP SIGNATURE-----
+
+--/pXuEVpPPVC4nohe--
