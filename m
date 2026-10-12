@@ -4,105 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE0CCA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 16:25:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D43E7CA9ED1
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 16:30:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F7E10E630;
-	Mon, 12 Oct 2026 16:25:31 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012055.outbound.protection.outlook.com
- [40.93.195.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 716A210EF42
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 16:25:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0567710E635;
+	Mon, 12 Oct 2026 16:30:19 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012068.outbound.protection.outlook.com [52.101.66.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4898910E635
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 16:30:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z7yYQesY9IWHxRkVWc80EO6kb2rbrAMdZC3OXxW4m6S5dsbrZ/AnjnURlZP2uO8B3ZWC5RJG74D/2jflnWnvfd750wnq27QOUsqE4/6PMqRvCtNI6u14f8xKQrGKPhBqVsDnp0aOsQ80SPy3yLP2MiwoXQpD2/V8iFY0CHuBi3HWwtzjYew8MEQZV/ccxm7OTTKv2XNxU9VMcyzEBE0/1xAkx+P+pGIr3Ird/qROTpaIQrWpfilCBGzNEpyYz9ryrgtla7RRA2REbDWnQViipl8QW93KNnIJF+2MKduATEdDWo5uUWIBfrB4mXhoM2ktxTbfG2oFNoleOzGsgM2UoQ==
+ b=qxuxP+NAnvAJKvVIPg9kHev/bbuzClzbyXLiTRJxHaF2SYnNCHo7WMl+FvXcVLTn0im3ZHhMyGQY5sMD5yLN71W1lMfmHjR5qZSGXQq1veWXVO/HhKUmHqRG9ospUI/Ty4GLtmZdCGaOIOdsOfEPh35QESCllB2K/7pxjAZoINNLL5wHxRyPPBuLAlxvLWFuHE7n/xFRbXEKoGzvZNZIIB7YOlhehJD4d5MGkAfvi8smzKNP+ML9NSpM7WFoWF68vOpiaaQVzhNgmFCKQ4+BRymHI20X/zbVPEXiw3rI9MrCYw26PoW0NohqIFgSBjLekGN1kp9Cnu/V8x2LyjElTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DRxgvTOkuzHXkrYfn7D7qRYxKyUiREZs/GaHzhetmSU=;
- b=QLWhrYHGlREAkJiLE9MtT8rNHENXFt+I0WJSxTOg+/1jQGJdTmFaeyIiVN6j+Fw5UmRqcujC7AzBX0kLYN/Wq4qS+FC4NwNGFbZjK1shCafHRdLw7rXEPnXOapDRD6TkJKaw/g0JI/5mRqtB1NXJynVOibUixsdNBDh48ENSNEmFanlF7i2k9mpVydKDNa/mKhEuL8wODqKjZlq09IZ5ek8I33+1YXZFja0TxktLtwJGnyiWGhu0KMkuPGo+kRSOlGh8pnB5Zqk5aAERsSywl0BSWjFoN85jJvUnHNEqxXbIB4YzYgoFaJGLfDy95yZMmYmsqR2wBMxPH1KQ71jUEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=HNgwyircA3f7PFdz2njO8x8rSz+LCkATQ+ndGKpSSmA=;
+ b=rrV9cB0+vRNj7x290Ell4uTKPl73+XOq7qrCsng996cygDZyRTJIy/jz6KaAxCGbmc3v3v9obeHWTOjOs0XmmtutmVJwrS4ND6hOkcGFXrrlWBzhf9FvRvvxMl9xd3upPmuJxMYDDgE95KRWtyC1MTp3VccjXF+oIfzWyRP9QILawg0YEk9JAK7kuFc83LWQxkvNu4+cYV76WQCNlCYWWA9W6KaR20goc4YHy3hHAJ2gxTGNHn9EX5eIUPIGv4v9sILSb69HaDA9aWcubfpn2NSvDfrxNcH6prBuhT32jPzIG4BKYAMbBQ/fqCWgruDbpA5m76+ypQTq74ni096VMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DRxgvTOkuzHXkrYfn7D7qRYxKyUiREZs/GaHzhetmSU=;
- b=OVuBIHxfld9JJvqDvfofXFveCts2DflNthKk3BAoZGRlhTLCVfypqPSPYN2Gccw3Qx7Ie+xhl6nQHnj3+vt519wkugFq8Jgd7gfRQAy43CY8qHs59tghFyQqBriezyJuMpThUFgMc16OOCt/DTb1D6grR1mC9Gd5yeyxBosKPsw=
-Received: from BN9PR03CA0808.namprd03.prod.outlook.com (2603:10b6:408:13f::33)
- by SAWPR12MB999268.namprd12.prod.outlook.com (2603:10b6:806:55d::16)
+ bh=HNgwyircA3f7PFdz2njO8x8rSz+LCkATQ+ndGKpSSmA=;
+ b=Z9cbE8JP+9i1nN5GrnLn0LkRpwx9YiP6KZPcy8G2tmuT6dX5ra7/fFlASW6Sf5WrRgLNfAKVpW7TPfjRKG4BA8jJNQnIm8cDgBFwOjUFsLhxqQ5nI3h4/JaLp+tnNk5Ut8K2/kKJHRG5vbFHjvHQIbzZPB38LswAgZNFbHc1l0XWKpIIOeEj0ZHfZnK5S7MwV+Cy717RfpEalym1ZKgC/tdHutzB0y4Df+Mevn/dJmXNIEA5CO0/1lmOMB3+ldAKG7g/zZwXIOF/k94ZVseb7ytc/Ji1XvajSiEeL6OKUJ0P3dSQBlWloggioZf64u0iVkoLRV7uXmWWIKHhK5MPUA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MI9PR04MB290196.eurprd04.prod.outlook.com (2603:10a6:290:86::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 16:25:20 +0000
-Received: from BN1PEPF00018070.namprd04.prod.outlook.com
- (2603:10b6:408:13f:cafe::56) by BN9PR03CA0808.outlook.office365.com
- (2603:10b6:408:13f::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 12 Oct 2026 16:25:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00018070.mail.protection.outlook.com (10.167.245.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 16:25:20 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 11:25:14 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 11:25:14 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 11:25:13 -0500
-Message-ID: <3c6a2804-b4e8-98fa-c21c-5bf9064c9da0@amd.com>
-Date: Mon, 12 Oct 2026 09:25:18 -0700
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 16:30:08 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 16:30:07 +0000
+Date: Mon, 12 Oct 2026 11:29:56 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 1/3] dt-bindings: display: bridge: simple: Add the
+ Toradex Apalis iMX6 VGA DAC bridge
+Message-ID: <as0LBIphr-rlTE4U@SMW015318>
+References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
+ <20261012-v1-apalis-imx6-enable-vga-v1-1-8905d8746504@toradex.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-v1-apalis-imx6-enable-vga-v1-1-8905d8746504@toradex.com>
+X-ClientProxiedBy: CY8PR10CA0046.namprd10.prod.outlook.com
+ (2603:10b6:930:4b::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] accel/amdxdna: Fix Kconfig invalid configuration
-Content-Language: en-US
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: "Liam R. Howlett" <liam@infradead.org>, Mario Limonciello
- <superm1@kernel.org>
-CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20261009011010.3521631-1-liam@infradead.org>
- <694d6976-4b2b-650b-ffe1-77f5f3cdd65d@amd.com>
-In-Reply-To: <694d6976-4b2b-650b-ffe1-77f5f3cdd65d@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018070:EE_|SAWPR12MB999268:EE_
-X-MS-Office365-Filtering-Correlation-Id: 839c134b-3c65-455e-a0b1-08df287d68a6
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB290196:EE_
+X-MS-Office365-Filtering-Correlation-Id: eae95202-ecbf-4fc5-9798-08df287e13f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|10067099003|261009223027099003|11063799006|4143699003|6133799003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: h3oETF1HS5W5TNCmxZDbdxBOB8lVxxv5JW2DuFdZQt6dFBNJ/ACjiDeVyBzCZ7yTraAvlmJqiKDr7xC0FrAP7ZZRW14Za9FJJR7wOjWv9MMee3+wnx8cZ/iAeufm6Yn1SU4pvANnwHltQ1h46eOfTtAXaqMHETHI7/klTewH38BYVeGQBXy5g+kDV4vUlDXXJBSXjcHnXNyze6+K3emEbR8KgcGc8qNU+ldF2IkZfmcI028Cnr9BT1rRNXhsHmsw5qrkXQXcj/721fRhKPdFz1a7IILKDn3GslitiryTAm8T/q8DUIEBPS80IXYQ8Q3HP80L67fin37Vm3Ko2Oa1KuGxTu1eTnBEIT3UNuUiJCJlXbGh2KeXLm0o9GhaGaVF4/98zuxc5owjXkP9xyQ80vEol2uY1AWdMg8fVXPwosFY0yAsM9JDUL0sKB9M4f9REsQ1vU3L2rg8eV1mKgTAigXCiVxEtszedK2vNEROUcQ93KSh2ADq6/2q8BdTZ66oPG+zzOWtvvJdP6dzEUr/TXpxqhhVe5dpxHbEAgHAKgOZnFIbxHaGzHU4mylyIkjlL20sBrxqam23kYM1Lu4v53S1oQ4kvHO3amin1C9WEPwnTvfrItX4/wl9Fyreocxne01kazYGDYlbON6Tz12mNNL74ZqD9qQuZswlxWAgiKqAD54A2b6Aeloc/4mKANBg3T9KdxjhV86us3zf7eRebA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(10067099003)(261009223027099003)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003)(56012099006);
+ ARA:13230040|376014|1800799024|7416014|366016|19092799006|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: JXV1DeTdZy3V47Cdy9qBX394+EqphRQLWzL598V5VhPzfNd5n3BBjWPjQuaLoAOAlDX4Xqe+BvJ39tVQ6m+nWIWLNz+R33IVfEa1v9XdHLNySdYVzP/RBXfl1Ck21dF6v6qpZviR32zJFA5BBkzdhNtmk9uGc/h+CLR/0u6mU1kYBwQ8anxJnA7EC39YhWbLrMKd6iQnY03/cWo1nDKBQ7KinvVF+j52KfiCCKkc0tDsMh+qPifbUCy6xqjfv6bM41DdFfmjnozX4We2Ibu1ebaX3Cbt2x6tI5Ksnxs2xcEszELg+/38NcgrqlzTjgQgp7/qtOyys/WhsCRAdgD/S5WlgZ2c7Gy31NfWU1rtGyIxvNTy1MnqTkiX3EpwqoH5sga1mshQC7r685X9nn6bTmAeat3tpJidiFAx8MwzZ5jsH2yAqrvdI849IqdFMx0aSSqLZNyH0RofQZ17nI+tNB1c2DTWO98nQSNZla1xgTz0MgvnpPl/whai5w1yE8aAEDKMmZ9KdFAQlqzHwdNQcF8PMpHo01fV29HUcBb4KiWeVt7X5GPmpfJ1mKCVtfcLWS/6fGNtNPPSWSfMhN9ncouk1TnjPDI8vrVbw+NS08gQ0DiSlJ5Xoljwyno54DxjBgX26Rox35VH4afMGoOuB/Nd6Zo89FUs6viquXmb7is=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(7416014)(366016)(19092799006)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: f7bsgq37+T5jRMusd3/acKKZpyBORQK5NXENtUvcktX5RW3+o7sf4O0fAplhzpSXZAtizSZo5G8IrvlaetjHLNj0FVCCnmbIvj6jj2IUANy1etYbCSuo17Tp/W0jLEiNJ3CDaR3BuFskdtJApifN9KslaPdfMAVZfc4idROVNLG9jt1P6zLa9OVHIIMY1/iTOr1z162arHKnSPOg9WQa2l0NnVACsulSCbYuoK2okIDa/gOqanpEHXlMLTCUVV/g5L2csPsY1ZuAWcSbodeGtszySnK7FwzU8s8YpkaTgyzog8Cs61SzIpDCBL8yLdIfx33UV9aS5tW6sZMYRrnQ23eM7JaMBds5qGaL1j/2i6suoGS5JJ1Yxzd5XO+9hmQT7hJho2Z4U14OP+6xqBRztIwf0y4H6osl0opK6ynrvQHMmLkDBK3hQi/jIjskcDBw
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:25:20.1191 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 839c134b-3c65-455e-a0b1-08df287d68a6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018070.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999268
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?O/oBgiFoDeLY3nEACpJY2TqB/x3QDrDotTnIl/mAKTxx0sfHy5jIq7t1N3AX?=
+ =?us-ascii?Q?UH0Q0jVGflftH5FBC190Or+wwRq/LhOxKohFv9LO6V/MVL7Crmtn0TSPks2i?=
+ =?us-ascii?Q?sct1uhFQ8kbnQSM0ajShbqka1L2BJQb8lbstQ0eNS3ffmW2izAurjb6h63D/?=
+ =?us-ascii?Q?Y4T2yeU/Bxwa5TEFRfPCJEOE9hM2lIC7jv2EYfL6SP9jJiahpLgRl9DBPNoz?=
+ =?us-ascii?Q?e+kHwi1x2AairaaS0eIP8hnyVkEU5VjcHayJTRiawW7aozS2UybwAr7d3qUX?=
+ =?us-ascii?Q?5qDsne/3cPR4rIRSbw3aZU2zjoi2hNVGuugS7RCVpgiwjnxTYeVMiWZDX0m6?=
+ =?us-ascii?Q?SYwMSknAoDtl/pE3EE4jy67gDhChvm1XTgdiWkUulsJMsDcT9o/0+amNtwUs?=
+ =?us-ascii?Q?gR0hAc4hdY8gaXHK+LYR0yUCAhz72/9/NRi39r/GhebK7440E6FHzy144DCn?=
+ =?us-ascii?Q?gh/T1SMe8kyLT1bA6i6KgNfcqm2IsiACJVW01lLh8/ErPOa930+dQq7tWmIQ?=
+ =?us-ascii?Q?2Hh41nMy/bcS9FytDCbyDvy547kgwLWeNQEuyYKhDiHdEVLEfoh2bUtq754I?=
+ =?us-ascii?Q?p4IrDB15e+LY47qb6slv9e/mD/6gQ4dG7bJGweXQKEh6eCdvKJEIH+CQ3POQ?=
+ =?us-ascii?Q?V2QoSmy3Fo5nW7EsfbB0IGRMhxVOXfec+/zOoUpcvV3iQjSLexLllb5Mycla?=
+ =?us-ascii?Q?tTWjvIzv/228dsb7lrDxJKhavGdrGQyHTzMl4v0ggf/+1pYtTrIlmFhyjs+k?=
+ =?us-ascii?Q?BwV9Xu6/tJA8Hx/LKP8T6Wpfh/d7sAssngEwJkShPsHC0p/S6hiGuHwy1VdG?=
+ =?us-ascii?Q?Nd0rgMMX0auNh53D+wctXAEyTod0Q/rBbOJ50y5Cv1cwsXxRvC9mVRxMD265?=
+ =?us-ascii?Q?XCY6PeKAHNqvQyPO28JWSDF3aSOjqt3rMnd8Vq+HXs7Kqkg1uM78dsRd4qDj?=
+ =?us-ascii?Q?jxR2B/bDtQ+Gt5gVeLPPNFNLlYtWLsx/mBSL6uySmERSKADqFOe9EFCp9GIS?=
+ =?us-ascii?Q?kmLgKfdpJ7+Gxn0KS+xrapzrBV9SKoe/M89ZE3+CY/PKG+NnvxWFsfNk7uoH?=
+ =?us-ascii?Q?mFOuUH+vwtpJRseC7X8/XM3h/r3UDO5PIk1KJI+L7LLGvxaSPq3Vh9rbJCaA?=
+ =?us-ascii?Q?A75gwGzPxsJhVroTGj39bdt2YQJtuI3QL9NzOti8q2+0wV8UQk7TAcc6rl8d?=
+ =?us-ascii?Q?W+jVpmNZUT2lwU7+TD6DVcNKvMG7DHn0Nls5h2Erem6MdPXv4gPgoC4sbDiY?=
+ =?us-ascii?Q?SwOtr0uljeogJ6JsZBpF0BcwdgD5L163LpVJjPGEcE4BwbhWBcRbASImc+Lq?=
+ =?us-ascii?Q?Vr17IlnHpBuKTtDdWb0CWpx0aQcjMDa0sFM9XOY66yOYInvIU59K0npanktp?=
+ =?us-ascii?Q?tXaiNCC9e51ryZBS9tPxKrAaY2YfyJPRhan4RT9uaL9rH2nJ1BEyPtRJDtud?=
+ =?us-ascii?Q?2RE4TkW38aWdkWhr340tixsGmN2fQ6F8/pnEjV7Tf/BL4dMP6Pq4mTcs2M1Z?=
+ =?us-ascii?Q?KyWSSHL2v89g9twwxVHlpzuA8qjCjyLLUDi2/OHLCuTz/5Nrtr6fFBd4wHOy?=
+ =?us-ascii?Q?bCo1SqDaoDb8JH3wz09HUC22Y3v+xlm5tX53ghiONYuoW2bkoUJBAiLxIElj?=
+ =?us-ascii?Q?Ya2jKMU7/7hjvyNXKuMNM9BSr0y4Xh8jzFohut+LvWo1G9PwZ5FVQWlNn1cd?=
+ =?us-ascii?Q?Ir3duPi8IsyiGKQBWamZzPUIZctqcc7zoZHpeqViyNsWfX9zx0BKeCHWydsf?=
+ =?us-ascii?Q?zHoNC5kMU+uBJUL9nwB2eclGJkHeHWX/4BdAhn7S5rp2Nqp9jrCn?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eae95202-ecbf-4fc5-9798-08df287e13f0
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:30:07.8531 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lmNCrQovN3wqI+aNrlNb9O15h/WkrwvsuDB/3bJbfNAb5jdYLBPze1+G2MixJK3Gu5zVoVXx7l2DvjxGmRtrfSruOQISLPthZwg5k+jvjxrJtuAiqQeaC53FXeDzU3u5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB290196
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,42 +139,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied to drm-misc-fixes.
-
-On 10/9/26 08:59, Lizhi Hou wrote:
+On Mon, Oct 12, 2026 at 04:25:23AM -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
 >
-> On 10/8/26 18:10, Liam R. Howlett wrote:
->> The amdxdna has a soft dependency on the amd_pmf module.  It will use an
->> exported function if it is available and fall back to another function
->> if it is not enabled.
->>
->> amdxdna and amd_pmf are tridstate modules supporting both built [y] and
->> modularized [m] in the .config file.  Since the amdxdna decides to use
->> the amd_pmf if it is either a module or built in (see
->> drivers/accel/amdxdna/aie2_pci.h), then there is an issue if they are
->> not compiled either both as modules or both as built-in.
->>
->> Adding the optional dependency to Kconfig does not allow the
->> configuration from being selected.
->>
->> Fixes: f66d6cc6891e4 ("accel/amdxdna: Support sensors for column 
->> utilization")
->> Signed-off-by: Liam R. Howlett <liam@infradead.org>
->> ---
->>   drivers/accel/amdxdna/Kconfig | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/accel/amdxdna/Kconfig 
->> b/drivers/accel/amdxdna/Kconfig
->> index f39d7a87296cd..eddff490b4f75 100644
->> --- a/drivers/accel/amdxdna/Kconfig
->> +++ b/drivers/accel/amdxdna/Kconfig
->> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
->>       depends on DRM_ACCEL
->>       depends on PCI && HAS_IOMEM
->>       depends on X86_64
->> +    depends on AMD_PMF || !AMD_PMF
-> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->>       select DRM_SCHED
->>       select DRM_GEM_SHMEM_HELPER
->>       select FW_LOADER
+> The VGA bridge on Apalis iMX6 consists of a simple resistor ladder that
+> converts a digital 16-bit RGB signal to VGA. The VGA output is gated by
+> an active-low data-enable signal.
+>
+> Add a dedicated compatible for the bridge, since the generic
+> dumb-vga-dac doesn't describe a data-enable signal.
+>
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> ---
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>  Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+> index 7636c24906ba..a86231a4a908 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+> @@ -37,6 +37,7 @@ properties:
+>            - ti,opa362
+>            - ti,ths8134
+>            - ti,ths8135
+> +          - toradex,apalis-imx6-vga-dac
+>
+>    ports:
+>      $ref: /schemas/graph.yaml#/properties/ports
+>
+> --
+> 2.43.0
+>
+>
