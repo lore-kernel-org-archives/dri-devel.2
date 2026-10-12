@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46FF9CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 22:38:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8CFDCA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 22:38:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B77310F3B2;
-	Mon, 12 Oct 2026 22:38:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42A1410F3B8;
+	Mon, 12 Oct 2026 22:38:35 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F001310F3B2
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 22:38:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD09D10F3A9
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 22:38:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791844700;
- bh=iemir4/bJvID1L2kuPWuIgRZmoTsm805wNnKuGPgf04=;
+ s=mail; t=1791844703;
+ bh=sbt8gOjjhrpDkX8nU1/Fn/bANM8+l3gxA8pi1MUZ7Hc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=qFKSwFRLGxtqO6u5h1LLzhfGvCfuOX+IklBzSfb4e1YBntOuu5lVI2689MbnxGIVd
- e3CPfcpr/X6K8DPWHA3jxZdZH6iL/YNyWtyiU4JCI1n/MQ5SKTIwGj6H39lhIXrzgC
- +DZC39B8AfXt7VRgBAIS0uEttoevM5wv90+DufxVqqW5WHubAowyER0u3XvUOtGdVQ
- qbybt8zXWvj11y82kRYyZTwGsAXCA1d0kaiOuAHttxLBJCCGSF8MAVE5BnXWAS82bz
- EBCQgxFbKDD/quTniK4h0/YSJzgVYnQo+exmAkndBR3qU2apr2pnlfTAs6NfRtET1/
- 4IZEOj/NBuqGQ==
+ b=pRKZfj9giiDFFuTvHlMBt2/c5/QZZycS+zoR4Y+slImUJFm8TvnF8wqwXudJjr05F
+ CTQnnLZhAB4t6F2ARrhhjw36eakApsdmQu5MAaA2+fWXKGHGoHAIc0HCcnSopovmPD
+ lzuaw0K5ZoTELU2dIlNywiiHb+UPhiYsbyqX/V9ZlXAQXnCuN8/eSoabN+w9Yb16NM
+ Ueu3j+4GPltBSwgXrmXn4DQ7O2zWoTDNUedI+pwymOaPahs96VMgqU6zDUzFRMnSr6
+ aWwHXJVykX1x1AngOS2lvtvV279J1oYGQOTu/BQl1FKfGmM3jW9D8txyWsQXJcQRm0
+ zY3Z9f6nH9pkw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0C2F017E092C;
- Tue, 13 Oct 2026 00:38:20 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 10D9517E0A33;
+ Tue, 13 Oct 2026 00:38:23 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 13 Oct 2026 01:37:42 +0300
-Subject: [PATCH v2 2/8] drm/vc4: hdmi: Bump BCM2835 max pixel clock to 165 MHz
+Date: Tue, 13 Oct 2026 01:37:46 +0300
+Subject: [PATCH v2 6/8] drm/vc4: hdmi: Convert to
+ drmm_connector_hdmi_init()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-vc4-common-scramb-v2-2-a41d15e131ad@collabora.com>
+Message-Id: <20261013-vc4-common-scramb-v2-6-a41d15e131ad@collabora.com>
 References: <20261013-vc4-common-scramb-v2-0-a41d15e131ad@collabora.com>
 In-Reply-To: <20261013-vc4-common-scramb-v2-0-a41d15e131ad@collabora.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -64,46 +65,222 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Historically, the HSM clock for BCM2835 was fixed at 163.7 MHz.  Since
-the pixel clock had to be at least 1% below the HSM clock, it was capped
-at 162 MHz.
+Switch driver over to the new drmm_connector_hdmi_init() signature. The
+vendor, product, supported_formats and max_bpc values previously passed
+as arguments are now provided through struct drm_connector_hdmi_funcs,
+together with the new supported_hdmi_ver field.
 
-Since commit cd4cb49dc5bb ("drm/vc4: hdmi: Adjust HSM clock rate
-depending on pixel rate"), the HSM clock rate is set to pixel clock *
-101 / 100.  For a 165 MHz pixel clock, this gives an HSM rate of 166.65
-MHz, which, per Dave Stevenson, the hardware can handle without issues.
+VC4 needs three distinct capability sets, based on the maximum TMDS
+character rate and color depth supported by each controller variant:
 
-Increase the max pixel clock to 165 MHz, which matches the maximum TMDS
-character rate of HDMI 1.0 through 1.2.
+  RPi 0-3:              165 MHz (HDMI 1.2),  8-bit
+  RPi 4 (HDMI1):        340 MHz (HDMI 1.4), 12-bit
+  RPi 4 (HDMI0), RPi 5: 600 MHz (HDMI 2.0), 12-bit
 
-Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Introduce three drm_connector_hdmi_funcs instances for these tiers and
+assign them to the corresponding vc4_hdmi_variant entries. Additionally,
+drop the now redundant .supports_hdr field of struct vc4_hdmi_variant.
+
+As the callback members are identical across all three, factor the
+shared initializers into a VC4_HDMI_CONNECTOR_FUNCS_COMMON macro to
+avoid duplication, with each variant adding only its distinguishing
+max_bpc/supported_hdmi_ver fields.
+
+Note that HDMI 2.0 cannot be advertised at this point, since it requires
+converting the driver to common scrambling infrastructure. This will be
+handled separately, hence temporarily use HDMI_VERSION_UNKNOWN for the
+related hdmi_funcs instance to skip generic scrambler and TMDS rate
+validation, and continue to rely on current driver-local implementation.
+
+No functional change intended.
+
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 93 ++++++++++++++++++++++++------------------
+ drivers/gpu/drm/vc4/vc4_hdmi.h |  6 +--
+ 2 files changed, 56 insertions(+), 43 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 8e4623ccc4f8..e61f1b694dbe 100644
+index 59af0d068457..d40517b1b3e5 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -1507,7 +1507,7 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
- 	 * users are able to use pixel clocks closer to HSM's, namely for
- 	 * 1920x1200@60Hz. So it was decided to have leave a 1% margin between
- 	 * both clocks. Which, for RPi0-3 implies a maximum pixel clock of
--	 * 162MHz.
-+	 * 165MHz.
- 	 *
- 	 * Additionally, the AXI clock needs to be at least 25% of
- 	 * pixel clock, but HSM ends up being the limiting factor.
-@@ -3363,7 +3363,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi_regs",
- 	.card_name		= "vc4-hdmi",
--	.max_pixel_clock	= 162000000,
-+	.max_pixel_clock	= HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc4_hdmi_fields,
- 	.num_registers		= ARRAY_SIZE(vc4_hdmi_fields),
+@@ -510,7 +510,6 @@ static const struct drm_connector_helper_funcs vc4_hdmi_connector_helper_funcs =
+ 	.mode_valid = drm_hdmi_connector_mode_valid,
+ };
  
+-static const struct drm_connector_hdmi_funcs vc4_hdmi_hdmi_connector_funcs;
+ static const struct drm_connector_hdmi_audio_funcs vc4_hdmi_audio_funcs;
+ 
+ static int vc4_hdmi_connector_init(struct drm_device *dev,
+@@ -518,22 +517,13 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
+ {
+ 	struct drm_connector *connector = &vc4_hdmi->connector;
+ 	struct drm_encoder *encoder = &vc4_hdmi->encoder.base;
+-	unsigned int max_bpc = 8;
+ 	int ret;
+ 
+-	if (vc4_hdmi->variant->supports_hdr)
+-		max_bpc = 12;
+-
+-	ret = drmm_connector_hdmi_ini2(dev, connector,
+-				       "Broadcom", "Videocore",
++	ret = drmm_connector_hdmi_init(dev, connector,
+ 				       &vc4_hdmi_connector_funcs,
+-				       &vc4_hdmi_hdmi_connector_funcs,
++				       vc4_hdmi->variant->hdmi_funcs,
+ 				       DRM_MODE_CONNECTOR_HDMIA,
+-				       vc4_hdmi->ddc,
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),
+-				       max_bpc);
++				       vc4_hdmi->ddc);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1722,28 +1712,51 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
+ 	return MODE_OK;
+ }
+ 
+-static const struct drm_connector_hdmi_funcs vc4_hdmi_hdmi_connector_funcs = {
+-	.tmds_char_rate_valid	= vc4_hdmi_connector_clock_valid,
+-	.avi = {
+-		.clear_infoframe = vc4_hdmi_clear_avi_infoframe,
+-		.write_infoframe = vc4_hdmi_write_avi_infoframe,
+-	},
+-	.hdmi = {
+-		.clear_infoframe = vc4_hdmi_clear_hdmi_infoframe,
+-		.write_infoframe = vc4_hdmi_write_hdmi_infoframe,
+-	},
+-	.audio = {
+-		.clear_infoframe = vc4_hdmi_clear_audio_infoframe,
+-		.write_infoframe = vc4_hdmi_write_audio_infoframe,
+-	},
+-	.hdr_drm = {
+-		.clear_infoframe = vc4_hdmi_clear_hdr_drm_infoframe,
+-		.write_infoframe = vc4_hdmi_write_hdr_drm_infoframe,
+-	},
+-	.spd = {
+-		.clear_infoframe = vc4_hdmi_clear_spd_infoframe,
+-		.write_infoframe = vc4_hdmi_write_spd_infoframe,
+-	},
++#define VC4_HDMI_CONNECTOR_FUNCS_COMMON						\
++	.vendor			 = "Broadcom",					\
++	.product		 = "Videocore",					\
++	.supported_formats	 = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |	\
++				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |	\
++				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),	\
++	.tmds_char_rate_valid	 = vc4_hdmi_connector_clock_valid,		\
++	.avi = {								\
++		.clear_infoframe = vc4_hdmi_clear_avi_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_avi_infoframe,		\
++	},									\
++	.hdmi = {								\
++		.clear_infoframe = vc4_hdmi_clear_hdmi_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_hdmi_infoframe,		\
++	},									\
++	.audio = {								\
++		.clear_infoframe = vc4_hdmi_clear_audio_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_audio_infoframe,		\
++	},									\
++	.hdr_drm = {								\
++		.clear_infoframe = vc4_hdmi_clear_hdr_drm_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_hdr_drm_infoframe,		\
++	},									\
++	.spd = {								\
++		.clear_infoframe = vc4_hdmi_clear_spd_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_spd_infoframe,		\
++	}
++
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi12 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 8,
++	.supported_hdmi_ver	= HDMI_VERSION_1_2,
++};
++
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi14 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 12,
++	.supported_hdmi_ver	= HDMI_VERSION_1_4,
++};
++
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi20 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 12,
++	/* TODO: set HDMI_VERSION_2_0 and convert to common scrambler infra */
++	.supported_hdmi_ver	= HDMI_VERSION_UNKNOWN,
+ };
+ 
+ #define WIFI_2_4GHz_CH1_MIN_FREQ	2400000000ULL
+@@ -3359,7 +3372,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
+ 	.phy_rng_enable		= vc4_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc4_hdmi_phy_rng_disable,
+ 	.channel_map		= vc4_hdmi_channel_map,
+-	.supports_hdr		= false,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi12,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+@@ -3387,8 +3400,8 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+ 	.phy_rng_enable		= vc5_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc5_hdmi_phy_rng_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+@@ -3416,8 +3429,8 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+ 	.phy_rng_enable		= vc5_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc5_hdmi_phy_rng_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi14,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+@@ -3443,8 +3456,8 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+ 	.phy_init		= vc6_hdmi_phy_init,
+ 	.phy_disable		= vc6_hdmi_phy_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+@@ -3470,8 +3483,8 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+ 	.phy_init		= vc6_hdmi_phy_init,
+ 	.phy_disable		= vc6_hdmi_phy_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct of_device_id vc4_hdmi_dt_match[] = {
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
+index 29d461d4ee49..d5ffcc17de32 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.h
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
+@@ -90,11 +90,11 @@ struct vc4_hdmi_variant {
+ 	/* Callback to get channel map */
+ 	u32 (*channel_map)(struct vc4_hdmi *vc4_hdmi, u32 channel_mask);
+ 
+-	/* Enables HDR metadata */
+-	bool supports_hdr;
+-
+ 	/* Callback for hardware specific hotplug detect */
+ 	bool (*hp_detect)(struct vc4_hdmi *vc4_hdmi);
++
++	/* HDMI-related connector callbacks and controller capabilities */
++	const struct drm_connector_hdmi_funcs *hdmi_funcs;
+ };
+ 
+ /* HDMI audio information */
 
 -- 
 2.55.0
