@@ -4,107 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45C42CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 14:41:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC71CA9ED1
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 14:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9847810F180;
-	Mon, 12 Oct 2026 14:41:15 +0000 (UTC)
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
- [74.125.224.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCA3310F186
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 14:41:08 +0000 (UTC)
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-677af43eed4so1544387d50.0
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:41:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791816067; cv=none;
- d=google.com; s=arc-20260327;
- b=mpstTlRHPHQQ5jsyM+vXXEBS61cYGiYxVLBBXGWri6X63EviFHdJSGmVg6u0oDN9Kz
- ErmDYPpeXl/IVG+4C1MmnP3J4RLnIana1RhHbgcAeIbDptBF3W8C/vrhGfCetlPfwI+H
- wI1wgcLTQhpeSE+5wQTh2+o0ytih/gSAwuPtju22jmptYWloopNqbDYXpB0SETY8oSlI
- Mx5oOz9Aa5PCYuBgCwXZoxA/2imlrOf8ipcjPVCC2VLMgc4iBmG2iFl9uUgyRu32gN3z
- rNi0a8PtSTmwueVcAJD/LGMZzhP8OxYq3VoV+JKlT8RDrb2FKnHknNKi6s70P2til2QK
- dCPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=hVt+2VZkW4XSaJKirxsUTpM7f+JQAOjlXtbg/RMP49g=;
- fh=DI3blECntUcDHQbGypjXN87m1A1k928khvGPx1zrNLY=;
- b=Sfy5TZRWKbuGgou5pR6UZoPsfr21eD9aIgQ1pD/ueZJ4xzjfrM1/OSpQMSa6vgZBol
- HBxSD+0aJ02I1pu1cSEnsvbLTM5xjMPlF3sk9B1HMHF//81VuweOrgMlLfC5vWUzSI+9
- 5SeJ06x0CbIejVvzIcziVP9U/+0uHLPRO9berDdqUO3O9XnFjp9pb/i5+Qe8bOfAFaY/
- K9ybGhhQNE5Ap/YDUOhjOnxTlEo7h453mBCmXMI3Ku27+z+rZ/2bKH+mwQOuv7HbKwOS
- R13ny9bb7kX3FuF1/BIouMAl8ZdmysujbEYyrZJ3KUbHSEgeSMDyxEG9/xS9YiEvQO4J
- UvAg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5297310F177;
+	Mon, 12 Oct 2026 14:46:26 +0000 (UTC)
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC08A10F1A1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 14:46:19 +0000 (UTC)
+Received: by mail-qt1-f172.google.com with SMTP id
+ d75a77b69052e-53397325663so21287191cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:46:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1791816067; x=1792420867; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=hVt+2VZkW4XSaJKirxsUTpM7f+JQAOjlXtbg/RMP49g=;
- b=QoaodpheO0c9qLCD3F1ccuBJHiU6M4LY8JSpIi90L+uVGAIQIaRsTy9eA2lcq7TZ0j
- 2oJfVArC752z4id68bbL9+5ic/AcvkULBwV8Sz99WI4mXoA25zI0uXXY+rpg47L+4Sk1
- eRQXLVfHtEklShH9wxfdNgUPWzdrtUurQGN8alBNr4KGG+TaLz09wTlZIJCiDPO8KsjG
- 5be6iZHDBWO4ve7+PEuXpNAKto2U5OGmvccnowo/EZ25UWVBoGSEfksh1LF6Yb28cHu/
- t/1t1/lSsQb/qWoLm89VUKzR0+GewnBc5Y1Z0Li9AK8bSh0Zl1IQOKuwwbMhNtcJjSQX
- vp7w==
+ d=ziepe.ca; s=google; t=1791816378; x=1792421178; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=kVDh4BcUbgvIW1O8+CoyCzwwqxHQNia8D9+ovujPztQ=;
+ b=MyDVWSa9+zUbSb7PIXZIhWMaOcIiJvuh6dbjLAgV4CQjZrxlueNhoYjs1+sN/RNuAt
+ oDNPtQpBa72pmyBSw7ivtbTRVe0CTnT7Not/J/+IHDEf6Kstq+l1R5tyvlG83fTulmPH
+ jIV6hlV3tY2bPyNg+WJen3I8yJczWdhSbv+duZv9q4C7eHj3DbSShYq3zBjTOTHROERN
+ sBV2IA5luSZVB0LSZgeXTIEwSM21dj3T6ZbQv5w0jzWGkoc4kWbimwF3LJS5IlVGjDMg
+ g2HLSMeCjNDS/aRKwg4q83aSC8xi8HoG2RvtUGi9P35s64Ibgb3AtSzU4m/eVIZQfWAE
+ 5YJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791816067; x=1792420867;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=hVt+2VZkW4XSaJKirxsUTpM7f+JQAOjlXtbg/RMP49g=;
- b=qkP2bPqObkGVBu+WycONR9vCtdFFaP3zBe5SjEV8/3VyQCU3KUCYr5q94YFApVi/HP
- DEahZm6wVlAAbu+ac4246Zhq5jROcRt6TJrQV6FzXQJpGmlZVDtifAegiLdv7RG0BhoC
- JD7WcZq8zgdxM27Je6zTZhbNZ4jgjpSpVssJynd0XIOZSteXA5coWwjnPGikY2w9zkxZ
- fXVnkhr9nyHemNvUoIKjXDGizjqKdGBUZpcD/gjuK437gv3JcK22YReSGPPR4jYV5iUO
- wLsVPFWmSt0FNEC+3HZc7TUeRTmyM/v3b2qN0GT4hpm9XUWqXrdzA9xw7ScvvENkgkJI
- 5pTg==
+ d=1e100.net; s=20260707; t=1791816378; x=1792421178;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=kVDh4BcUbgvIW1O8+CoyCzwwqxHQNia8D9+ovujPztQ=;
+ b=v6FsBhzgk5//sWhaA8ga30zRx1NKTW6rcvNF69o4fFITO7EqxVh1IfEHu+kcTGJO+Q
+ rFDVODa6s7BTgq2PON7bxgAyjLrmyrsgGhnybGm/cTTRdzS+Lr+zl4geUUIqaaaYZKC6
+ UL4vOju4stjWmakl+523y5T9vhMhrGO8nipACTN4f9Li5qpYU3xjMiiY41i7tZOLOHZs
+ T1h9o7igP1UTYRUiKRxYqpIyWG8VfDPDHuVoh8/oEBBMOd1ZPHBXT8N1kc7UEroPjX8P
+ W1JgCclUrbrioPljTYlyBSr408FLXuX0CRC8x9reY+i5D4XbHELBaaF6fValPVuAn3FQ
+ zLSw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzcACVacnwky38RZBmUoDBupbUUQoPiWOubQfYLOgD9sE92U0xvziQ/dqEsOgDLnIPllud8FgcxjFA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI08xNPYxR3GlpBdECmAnDdrk03jhPQdgqCjcT4g08PGB0G6mfT
- 2xGnXzVYAOgFDFv5bxZV3TBzxIkACRQB5LqXD5gzMWwl0CKAEAmeqFxWGC1yKLrWkVVhvRqdEDk
- b44ueqd+f6UYsiKE2VZUUecqof8tFX1vX4TLef2EoUg==
-X-Gm-Gg: AYBFou3cqMhwcPDst9hU+/2PlTo4nAkF91AvLHgxwa7FxWGT83Y7raRvesy90zifRCG
- DpG3GFf7Pn36BXSShs/BcABGgkFkwI75kXk94bMOQPFyWJBLfiyWs0rv4AZmUgSV/Llv9I67CLG
- 3xulmM6h5mVBEg5jqsTe2Ft28ejSWJf0/aKHg3c9A++/vi12jNOef7NWJaBamfItOsWuZ4o4a03
- RX61iqxG7es9o4EglUfSJB22LKZa8ysnyzTIpLWtPPV9wz1qTPKAEjPEj8vZhDKa3TfU6dHEZ7u
- 5AK1zxD5ut163cgRW7ulXSWjpbrW0ueHaVUQ3WygcisbiMpXaHDBDdyUzdMu66Sz
-X-Received: by 2002:a05:690e:1907:b0:66f:b528:cc51 with SMTP id
- 956f58d0204a3-6793698594fmr4322156d50.21.1791816067411; Mon, 12 Oct 2026
- 07:41:07 -0700 (PDT)
+ AKwUvBx7W18s4DOdsxAN0X8FqzaAO/u9SfqP/pUoLerwhKMS3Ss5C3gVCPy7r2GVHk1a4/itre7eP+LbbDU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLHosEJTdN1AyodREmmN//lfdDaTD4IWbMN1hBlV/TFsEiNC7zN
+ 2zUjLgncWLgsSSK7L2WniAyEXnHpv4LHKMulTWnc/BICiHwmLe721lcJCbI4BTfnfdA=
+X-Gm-Gg: AYBFou2ZQchC4qNiv7UMvgdoXp7SkQ1OjNqoYeLpdDA2+uvsNavytJFmD3DlZ3m2mxy
+ q9U6t5foIfm0jEWSYkNZV+WKlBAwQ5Q1t8nZcjyJ5QODXbd9VtcKsUCPWQsEYrEPlRhOBUYML7U
+ vIIxGXsF40xH5VMC0CdL8xqfwBy0rWfDfv91jCZSdWMSWjzAYzhmaM5vRXSf4immv8er/skRwWd
+ XrZ6YbstxAbSoJJCrcAgT/ovVDHYvRLgEoa/JAdW4zzbmcTVk2Ekk6881s62+tuhQiZHMF0EWr1
+ r9H/WYLHyFx4BwIwSdoVtLefpKQjfujSMQCC7DQalutCzS0rb5ckqnJ7cRo8VN6YBFHyf9eK89+
+ NDXLnXV+GdKK9i0J63RcAP/+tKgNNH0SPE0AwiVheW5rHtR8Te229qobWCTvWSvUJcUJH4+sqdb
+ 3TuL1SE/Odk9FmJQktXgPR4SlCox2I9wdVMbRZEIZ1hE5djHySnYgwqfIn3TSjJNWOjHaTz/3Cr
+ 3YRIPoeOF3BrcmpDVyW9PKIq4YYRQgHJuQCCj13p71vj/XUVEUdrpfN
+X-Received: by 2002:a05:622a:2487:b0:535:1134:91b with SMTP id
+ d75a77b69052e-5359faead4bmr160454661cf.14.1791816378499; 
+ Mon, 12 Oct 2026 07:46:18 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
+ [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-535e652f3c7sm3157041cf.26.2026.10.12.07.46.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 07:46:17 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1xGHI8-00000006SW2-2nlk;
+ Mon, 12 Oct 2026 11:46:16 -0300
+Date: Mon, 12 Oct 2026 11:46:16 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Fred Griffoul <griffoul@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ David Woodhouse <dwmw2@infradead.org>,
+ Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kselftest@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ x86@kernel.org
+Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run
+Message-ID: <20261012144616.GF14213@ziepe.ca>
+References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
+ <20261005132046.30025-1-griffoul@gmail.com>
+ <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-6-c042266b9eeb@linaro.org>
- <CAD++jLm2dVVKM075MDoStTudO+2hdECS-XucFiMGnM1H-Xk=TA@mail.gmail.com>
- <CABymUCN1oxuqPi=s1cpBHvMJorHN62uieD8Pf=Y--WBPp-=NHA@mail.gmail.com>
- <CAD++jLnkr+M9Tn_zAL8+owO7H706XYSMosSz-1D20rwbUukQ3A@mail.gmail.com>
-In-Reply-To: <CAD++jLnkr+M9Tn_zAL8+owO7H706XYSMosSz-1D20rwbUukQ3A@mail.gmail.com>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 12 Oct 2026 22:40:56 +0800
-X-Gm-Features: AclHuK8DXIfIQSpEn-02OXtKO750H1QIkJhmjnTnvXTflrGk6XkO0SctyamV-mw
-Message-ID: <CABymUCNzxWhud1qtv3os=f2txZ=nrTdMrQ6BOYkbfK87D=AnHQ@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] drm/panel: Add driver for Synaptics R63455 DSI
- panel
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,46 +117,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Linus Walleij <linusw@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=881=E6=97=
-=A5=E5=91=A8=E5=9B=9B 03:49=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Wed, Sep 30, 2026 at 6:31=E2=80=AFPM Jun Nie <jun.nie@linaro.org> wrot=
-e:
-> > > On Mon, Jul 27, 2026 at 10:09=E2=80=AFAM Jun Nie <jun.nie@linaro.org>=
- wrote:
->
-> > > If you have a datasheet for this display controller, then please add =
-some
-> > > one-line comments before each command to explain what is being set
-> > > up.
-> >
-> > I hope I had datasheet, but the answer is no. All I have is an init seq=
-uence
-> > with the information in the above macro definition. Let just live with =
-it @_@
->
-> I would send the message "upward" that you need a proper datasheet
-> for this, from whoever wants this to happen.
->
-> I have seen from the presentation that you will be working on
-> compensation for chromatic aberration for this device, and that is only
-> going to have a point if the color representation on the display can be
-> trusted to begin with. Which means
-> gamma correction. (Which we don't yet support in the panels,
-> but hey, another opportunity to be first!)
->
-> Gamma is invariably going to be one of these
-> "magic commands", at that point of depth you really need the manual
-> to see what is going on.
->
-> Yours,
-> Linus Walleij
+On Mon, Oct 05, 2026 at 04:53:34PM +0200, Christian König wrote:
+> > KVM gets its frames through the KVM-private guest_memfd provider
+> > interface from David's series. iommufd gets them through a private
+> > interface with the exporter, as it already does for vfio-pci. The new
+> > version adds a small registry in iommufd for that, which replaces the
+> > symbol_get() of the sample in David's series. The dma-buf is then only
+> > the handle and the existing revoke.
+> 
+> Yeah that approach sounds totally sane to me.
+> 
+> We have drivers which stuff all kind of resources, not just memory,
+> into a DMA-buf. That ranges from MMIO BARs to trigger FW operations
+> (doorbells) over full HW blocks (ordered appends, global wave sync
+> etc...) where two or more applications need to share which one is
+> used.
+> 
+> That you then have a exporter private interface is for accessing
+> this is perfectly ok.
+> 
+> The problem you are facing here is more that this is not limited to
+> one driver/module but multiple ones and you don't want module inter
+> dependencies because of the symbols.
+> 
+> So symbol_get() is probably the right thing to do as long as we
+> don't have something like weak symbols or similar.
 
-Compensation for chromatic aberration can be done either on the GPU,
-or display controller, or by panel. As long as the R/G/B channel
-can be processed individually, that's enough for the aberration. I will
-work on the solution with processing inside the display controller. So ther=
-e
-is no dependency on this specific panel.
+I don't want to keep expanding this hack in iommufd. If dmabuf is to
+be used then dmabuf needs to provide a pluggable way to fill the
+iommu_domain that many exporters can plug into. I don't want to
+hardwire every exporter into iommufd, that makes no sense.
 
-Jun
+The existing arrangement is to motivate solving this problem
+generically, not something to be expanded on.
+
+Jason
