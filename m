@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3007CCA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0443CA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64F3310F0CC;
-	Mon, 12 Oct 2026 13:00:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10F7C10F0D0;
+	Mon, 12 Oct 2026 13:00:30 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id D14F310F0A6
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:00:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 725B310F0BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:00:22 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 449FC1655;
- Mon, 12 Oct 2026 06:00:16 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DFF921A00;
+ Mon, 12 Oct 2026 06:00:18 -0700 (PDT)
 Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
  [10.42.46.160])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4BF2B3F66F;
- Mon, 12 Oct 2026 06:00:17 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E95D23F66F;
+ Mon, 12 Oct 2026 06:00:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1791810019; bh=OY4b9rx8njkewz7edHPqtfOF8iTdPo2fNGb90LhNQYU=;
+ t=1791810022; bh=5dl3upRv2JVuocjW37MBOplNc6LnnavS968KHhVlsvU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C0gPS15O87hxl3kVvzGa0IMQ3LcqSbwlrv/boamrDkXnoWwy8wznFdfGieRVDYdGs
- xcjbysZc6c32PPDGTALwmAe7IlzW49O9kNWU8blEWtB74HlLmtjurB5ITTx1o0IEA7
- V6F9VPfSdb8BWayEAHHak9SdHv99Mk8UiXG7NNas=
+ b=nL64fe6o2SbHvd4OoRET4KjAHFgMuZJMqfYbZ/5gNC/ezts5xfy4dhGTnVOQ4yeOp
+ othYf9FBzchaAuhH6UCugjDCfGEQlOGheLoasesBd7iIPwWB3Dr7Stb6fQfC8UTz43
+ dEaaRue6YIHeYYdqUt6A3/zHpdlPaidiRCKWUPXA=
 From: Ketil Johnsen <ketil.johnsen@arm.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -36,9 +36,9 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
  Alice Ryhl <aliceryhl@google.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: [PATCH v4 09/12] drm/panthor: Create kernel BO from existing GEM
-Date: Mon, 12 Oct 2026 14:59:37 +0200
-Message-ID: <20261012125940.3291951-10-ketil.johnsen@arm.com>
+Subject: [PATCH v4 10/12] drm/panthor: Support FW init of protm
+Date: Mon, 12 Oct 2026 14:59:38 +0200
+Message-ID: <20261012125940.3291951-11-ketil.johnsen@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261012125940.3291951-1-ketil.johnsen@arm.com>
 References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
@@ -61,9 +61,15 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Boris Brezillon <boris.brezillon@collabora.com>
 
-Refactors/splits existing panthor_kernel_bo_create().
-Adds panthor_kernel_bo_create_from_gem() so we can create kernel BOs
-from imported protected memory in future change.
+The Mali GPU FW needs some protected memory when executing in protected
+mode. This FW memory section is assigned a VA during device init.
+A user space process with the needed privileges (CAP_SYS_MODULE) must
+provide a suitable memory buffer before the Mali GPU is capable of
+executing in protected mode.
+
+Adds user query of FW protm state, min FW section size and min protm
+suspend buffer size.
+Adds user initiated init of FW protm section.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
@@ -74,197 +80,391 @@ Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
 v4:
 - First version of this change as a separate commit
 ---
- drivers/gpu/drm/panthor/panthor_gem.c | 94 ++++++++++++++++++---------
- drivers/gpu/drm/panthor/panthor_gem.h |  7 ++
- 2 files changed, 71 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/panthor/panthor_device.h |   3 +
+ drivers/gpu/drm/panthor/panthor_drv.c    |  18 +++-
+ drivers/gpu/drm/panthor/panthor_fw.c     | 107 +++++++++++++++++++++--
+ drivers/gpu/drm/panthor/panthor_fw.h     |   2 +
+ include/uapi/drm/panthor_drm.h           |  75 ++++++++++++++++
+ 5 files changed, 197 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 2e39a32fcd673..f1939b4aafed1 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -1033,7 +1033,6 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
- 		bo->base.resv = bo->exclusive_vm_root_gem->resv;
- 	}
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index 4362c55bcd7e4..99e5174cf0e50 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -343,6 +343,9 @@ struct panthor_device {
  
--	panthor_gem_debugfs_add_usage_flags(bo, usage_flags);
- 	panthor_gem_debugfs_bo_add(bo);
- 	return bo;
+ 		/** @protm_exit_count: Number of times we exited protm. */
+ 		atomic64_t protm_exit_count;
++
++		/** @info: Protected mode info. */
++		struct drm_panthor_protm_info info;
+ 	} protm;
+ };
  
-@@ -1260,7 +1259,9 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
- 	panthor_kernel_bo_vunmap(bo);
- 
- 	drm_WARN_ON(bo->obj->dev,
--		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem != panthor_vm_root_gem(vm));
-+		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem &&
-+			    (to_panthor_bo(bo->obj)->exclusive_vm_root_gem !=
-+			     panthor_vm_root_gem(vm)));
- 	panthor_vm_unmap_range(vm, bo->va_node.start, bo->va_node.size);
- 	panthor_vm_free_va(vm, &bo->va_node);
- 	if (vm == panthor_fw_vm(ptdev))
-@@ -1271,46 +1272,33 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
- }
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index 51a2e5358cd51..cc1c050ea3806 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -177,11 +177,13 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_mmu_info, page_size_bitmap), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_timestamp_info, current_timestamp), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_group_priorities_info, pad), \
++		 PANTHOR_UOBJ_DECL(struct drm_panthor_protm_info, pad), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
+-		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
++		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
++		 PANTHOR_UOBJ_DECL(struct drm_panthor_protm_init, pad))
  
  /**
-- * panthor_kernel_bo_create() - Create and map a GEM object to a VM
-+ * panthor_kernel_bo_create_from_gem() - Create kernel BO from existing GEM object
-  * @ptdev: Device.
-  * @vm: VM to map the GEM to.
-- * @size: Size of the buffer object.
-- * @bo_flags: Combination of drm_panthor_bo_flags flags.
-+ * @bo: BO to use for our kernel BO.
-  * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
-  * that are related to map operations).
-  * @gpu_va: GPU address assigned when mapping to the VM.
-  * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
-  * automatically allocated.
-- * @name: Descriptive label of the BO's contents
-+ * @vm_map_size: Size of the BO to map to the VM.
-  *
-  * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
-  */
- struct panthor_kernel_bo *
--panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
--			 size_t size, u32 bo_flags, u32 vm_map_flags,
--			 u64 gpu_va, const char *name)
-+panthor_kernel_bo_create_from_gem(struct panthor_device *ptdev,
-+				  struct panthor_vm *vm,
-+				  struct panthor_gem_object *bo,
-+				  u32 vm_map_flags, u64 gpu_va, u32 vm_map_size)
- {
- 	struct panthor_kernel_bo *kbo;
--	struct panthor_gem_object *bo;
--	u32 debug_flags = PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL;
- 	int ret;
+  * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
+@@ -958,6 +960,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+ 			args->size = sizeof(ptdev->mmu_info);
+ 			return 0;
  
--	if (drm_WARN_ON(&ptdev->base, !vm))
--		return ERR_PTR(-EINVAL);
--
- 	kbo = kzalloc_obj(*kbo);
- 	if (!kbo)
- 		return ERR_PTR(-ENOMEM);
- 
--	if (vm == panthor_fw_vm(ptdev))
--		debug_flags |= PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED;
--
--	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, debug_flags);
--	if (IS_ERR(bo)) {
--		ret = PTR_ERR(bo);
--		goto err_free_kbo;
--	}
--
-+	drm_gem_object_get(&bo->base);
- 	kbo->obj = &bo->base;
- 
- 	if (vm == panthor_fw_vm(ptdev)) {
-@@ -1319,24 +1307,27 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 			goto err_put_obj;
- 	}
- 
--	panthor_gem_kernel_bo_set_label(kbo, name);
--
- 	/* The system and GPU MMU page size might differ, which becomes a
- 	 * problem for FW sections that need to be mapped at explicit address
- 	 * since our PAGE_SIZE alignment might cover a VA range that's
- 	 * expected to be used for another section.
- 	 * Make sure we never map more than we need.
- 	 */
--	size = ALIGN(size, panthor_vm_page_size(vm));
--	ret = panthor_vm_alloc_va(vm, gpu_va, size, &kbo->va_node);
-+	vm_map_size = ALIGN(vm_map_size, panthor_vm_page_size(vm));
-+	ret = panthor_vm_alloc_va(vm, gpu_va, vm_map_size, &kbo->va_node);
- 	if (ret)
- 		goto err_unpin;
- 
--	ret = panthor_vm_map_bo_range(vm, bo, 0, size, kbo->va_node.start, vm_map_flags);
-+	ret = panthor_vm_map_bo_range(vm, bo, 0, vm_map_size,
-+				      kbo->va_node.start, vm_map_flags);
- 	if (ret)
- 		goto err_free_va;
- 
- 	kbo->vm = panthor_vm_get(vm);
-+	if (vm == panthor_fw_vm(ptdev))
-+		panthor_gem_debugfs_add_usage_flags(
-+			bo, PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED);
++		case DRM_PANTHOR_DEV_QUERY_PROTM_INFO:
++			args->size = sizeof(ptdev->protm.info);
++			return 0;
 +
- 	return kbo;
+ 		default:
+ 			return -EINVAL;
+ 		}
+@@ -991,6 +997,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+ 	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+ 		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
  
- err_free_va:
-@@ -1348,12 +1339,55 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 
- err_put_obj:
- 	drm_gem_object_put(&bo->base);
--
--err_free_kbo:
- 	kfree(kbo);
- 	return ERR_PTR(ret);
++	case DRM_PANTHOR_DEV_QUERY_PROTM_INFO:
++		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->protm.info);
++
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1588,6 +1597,12 @@ static int panthor_ioctl_bo_query_info(struct drm_device *ddev, void *data,
+ 	return 0;
  }
  
-+/**
-+ * panthor_kernel_bo_create() - Create and map a GEM object to a VM
-+ * @ptdev: Device.
-+ * @vm: VM to map the GEM to.
-+ * @size: Size of the buffer object.
-+ * @bo_flags: Combination of drm_panthor_bo_flags flags.
-+ * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
-+ * that are related to map operations).
-+ * @gpu_va: GPU address assigned when mapping to the VM.
-+ * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
-+ * automatically allocated.
-+ * @name: Descriptive label of the BO's contents
-+ *
-+ * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
-+ */
-+struct panthor_kernel_bo *
-+panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
-+			 size_t size, u32 bo_flags, u32 vm_map_flags,
-+			 u64 gpu_va, const char *name)
++static int panthor_ioctl_protm_init(struct drm_device *ddev, void *data,
++				    struct drm_file *file)
 +{
-+	struct panthor_kernel_bo *kbo;
-+	struct panthor_gem_object *bo;
++	return panthor_fw_protm_init(file, data);
++}
 +
-+	if (drm_WARN_ON(&ptdev->base, !vm))
-+		return ERR_PTR(-EINVAL);
+ static int
+ panthor_open(struct drm_device *ddev, struct drm_file *file)
+ {
+@@ -1664,6 +1679,7 @@ static const struct drm_ioctl_desc panthor_drm_driver_ioctls[] = {
+ 	PANTHOR_IOCTL(SET_USER_MMIO_OFFSET, set_user_mmio_offset, DRM_RENDER_ALLOW),
+ 	PANTHOR_IOCTL(BO_SYNC, bo_sync, DRM_RENDER_ALLOW),
+ 	PANTHOR_IOCTL(BO_QUERY_INFO, bo_query_info, DRM_RENDER_ALLOW),
++	PANTHOR_IOCTL(PROTM_INIT, protm_init, DRM_RENDER_ALLOW),
+ };
+ 
+ static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index fc07796fc9ef7..0af6addfd55a5 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -13,8 +13,10 @@
+ #include <linux/mutex.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/capability.h>
+ 
+ #include <drm/drm_drv.h>
++#include <drm/drm_file.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
+ 
+@@ -252,6 +254,9 @@ struct panthor_fw {
+ 	/** @shared_section: The section containing the FW interfaces. */
+ 	struct panthor_fw_section *shared_section;
+ 
++	/** @protm_section: The protected mode section. */
++	struct panthor_fw_section *protm_section;
 +
-+	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, 0);
-+	if (IS_ERR(bo))
-+		return ERR_CAST(bo);
+ 	/** @iface: FW interfaces. */
+ 	struct panthor_fw_iface iface;
+ 
+@@ -261,6 +266,9 @@ struct panthor_fw {
+ 		struct delayed_work ping_work;
+ 	} watchdog;
+ 
++	/** @protm_init_lock: Used to serialize protm initialization. */
++	struct mutex protm_init_lock;
 +
-+	kbo = panthor_kernel_bo_create_from_gem(ptdev, vm, bo, vm_map_flags,
-+						gpu_va, size);
-+	if (!IS_ERR(kbo)) {
-+		panthor_gem_debugfs_add_usage_flags(
-+			bo, PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL);
-+		panthor_gem_kernel_bo_set_label(kbo, name);
+ 	/**
+ 	 * @req_waitqueue: FW request waitqueue.
+ 	 *
+@@ -462,6 +470,9 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
+ 	    !(section->flags & CSF_FW_BINARY_IFACE_ENTRY_ZERO))
+ 		return;
+ 
++	if (!section->mem)
++		return;
++
+ 	ret = panthor_kernel_bo_vmap(section->mem);
+ 	if (drm_WARN_ON(&ptdev->base, ret))
+ 		return;
+@@ -621,12 +632,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT) {
+-		drm_warn(&ptdev->base,
+-			 "Firmware protected mode entry is not supported, ignoring");
+-		return 0;
+-	}
+-
+ 	if (hdr.va.start == CSF_MCU_SHARED_REGION_START &&
+ 	    !(hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_SHARED)) {
+ 		drm_err(&ptdev->base,
+@@ -678,7 +683,22 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 	section->size = section_size;
+ 	section->va = hdr.va.start;
+ 
+-	if (section_size) {
++	if (hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT) {
++		if (ptdev->fw->protm_section) {
++			drm_err(&ptdev->base,
++				"Only one protected section supported\n");
++			return -EINVAL;
++		}
++
++		ptdev->protm.info.fw_protected_sections_size =
++			ALIGN(section->size, vm_pgsz);
++		ptdev->fw->protm_section = section;
 +	}
 +
-+	/* panthor_kernel_bo_create_from_gem() acquires a GEM ref if the import
-+	 * succeeds, so we can release it unconditionally here.
++	/* Defer the section->mem creation if this is a protected entry.
++	 * This will be populated when DRM_IOCTL_PANTHOR_PROTM_INIT is called.
 +	 */
-+	drm_gem_object_put(&bo->base);
-+	return kbo;
++	if (section->size && !(hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT)) {
+ 		u32 vm_map_flags = section_vm_map_flags(section);
+ 
+ 		section->mem = panthor_kernel_bo_create(
+@@ -985,6 +1005,11 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+ 		return -EINVAL;
+ 	}
+ 
++	if (!csg_idx) {
++		ptdev->protm.info.group_protected_suspend_buf_size =
++			csg_iface->control->protm_suspend_size;
++	}
++
+ 	if (csg_idx > 0) {
+ 		struct panthor_fw_csg_iface *first_csg_iface =
+ 			panthor_fw_get_csg_iface(ptdev, 0);
+@@ -1585,6 +1610,70 @@ int panthor_fw_protm_exit(struct panthor_device *ptdev, u32 timeout_ms)
+ 	return panthor_fw_protm_exit_wait(ptdev, timeout_ms);
+ }
+ 
++int panthor_fw_protm_init(struct drm_file *file,
++			  struct drm_panthor_protm_init *args)
++{
++	struct panthor_file *pfile = file->driver_priv;
++	struct panthor_device *ptdev = pfile->ptdev;
++	struct panthor_fw_section *protm_section = ptdev->fw->protm_section;
++	struct drm_gem_object *obj;
++	u32 vm_map_flags;
++	int cookie, ret = 0;
++
++	if (!capable(CAP_SYS_MODULE))
++		return -EPERM;
++
++	if (args->pad)
++		return -EINVAL;
++
++	if (!protm_section || !protm_section->size)
++		return -EINVAL;
++
++	guard(mutex)(&ptdev->fw->protm_init_lock);
++
++	/* Thread safe access so other readers do not need protm_init_lock */
++	if (smp_load_acquire(&ptdev->protm.info.state) &
++	    DRM_PANTHOR_PROTM_INITIALIZED)
++		return 0;
++
++	if (!drm_dev_enter(&ptdev->base, &cookie))
++		return -ENODEV;
++
++	obj = drm_gem_object_lookup(file,
++				    args->fw_protected_sections_bo_handle);
++	if (!obj) {
++		ret = -ENOENT;
++		goto out_dev_exit;
++	}
++
++	if (obj->size < ptdev->protm.info.fw_protected_sections_size) {
++		ret = -EINVAL;
++		goto out_gem_put;
++	}
++
++	vm_map_flags = section_vm_map_flags(protm_section);
++
++	protm_section->mem = panthor_kernel_bo_create_from_gem(
++		ptdev, panthor_fw_vm(ptdev), to_panthor_bo(obj), vm_map_flags,
++		protm_section->va, protm_section->size);
++	if (IS_ERR(protm_section->mem)) {
++		ret = PTR_ERR(protm_section->mem);
++		protm_section->mem = NULL;
++		goto out_gem_put;
++	}
++
++	/* Make sure all above is completed before we update state */
++	smp_store_release(&ptdev->protm.info.state,
++			  DRM_PANTHOR_PROTM_INITIALIZED);
++
++out_gem_put:
++	drm_gem_object_put(obj);
++
++out_dev_exit:
++	drm_dev_exit(cookie);
++	return ret;
 +}
 +
  /**
-  * panthor_dummy_bo_create() - Create a Panthor BO meant to back sparse bindings.
+  * panthor_fw_init() - Initialize FW related data.
   * @ptdev: Device.
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-index 4da3f59693ce4..03dd3927b5d16 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.h
-+++ b/drivers/gpu/drm/panthor/panthor_gem.h
-@@ -318,6 +318,13 @@ panthor_kernel_bo_vunmap(struct panthor_kernel_bo *bo)
- 	}
- }
+@@ -1606,6 +1695,10 @@ int panthor_fw_init(struct panthor_device *ptdev)
+ 	INIT_LIST_HEAD(&fw->sections);
+ 	INIT_DELAYED_WORK(&fw->watchdog.ping_work, panthor_fw_ping_work);
  
-+struct panthor_kernel_bo *
-+panthor_kernel_bo_create_from_gem(struct panthor_device *ptdev,
-+				  struct panthor_vm *vm,
-+				  struct panthor_gem_object *bo,
-+				  u32 vm_map_flags, u64 gpu_va,
-+				  u32 vm_map_size);
++	ret = drmm_mutex_init(&ptdev->base, &fw->protm_init_lock);
++	if (ret)
++		return ret;
 +
- struct panthor_kernel_bo *
- panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 			 size_t size, u32 bo_flags, u32 vm_map_flags,
+ 	irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "job");
+ 	if (irq <= 0)
+ 		return -ENODEV;
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
+index 4eda8f8e714c1..34bc9dc82314c 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.h
++++ b/drivers/gpu/drm/panthor/panthor_fw.h
+@@ -529,6 +529,8 @@ static inline int panthor_fw_resume(struct panthor_device *ptdev)
+ int panthor_fw_init(struct panthor_device *ptdev);
+ void panthor_fw_unplug(struct panthor_device *ptdev);
+ 
++int panthor_fw_protm_init(struct drm_file *file,
++			  struct drm_panthor_protm_init *args);
+ int panthor_fw_protm_enter(struct panthor_device *ptdev);
+ int panthor_fw_protm_exit(struct panthor_device *ptdev, u32 timeout_ms);
+ int panthor_fw_protm_exit_wait(struct panthor_device *ptdev, u32 timeout_ms);
+diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+index a2ff0f4ec6915..d2d21e3e6bb39 100644
+--- a/include/uapi/drm/panthor_drm.h
++++ b/include/uapi/drm/panthor_drm.h
+@@ -154,6 +154,11 @@ enum drm_panthor_ioctl_id {
+ 	 * This is useful for imported BOs.
+ 	 */
+ 	DRM_PANTHOR_BO_QUERY_INFO,
++
++	/**
++	 * @DRM_PANTHOR_PROTM_INIT: Device-wide initialize of protected mode.
++	 */
++	DRM_PANTHOR_PROTM_INIT,
+ };
+ 
+ /**
+@@ -256,6 +261,11 @@ enum drm_panthor_dev_query_type {
+ 
+ 	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
+ 	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
++
++	/**
++	 * @DRM_PANTHOR_DEV_QUERY_PROTM_INFO: Query supported protected rendering information.
++	 */
++	DRM_PANTHOR_DEV_QUERY_PROTM_INFO,
+ };
+ 
+ /**
+@@ -517,6 +527,51 @@ struct drm_panthor_group_priorities_info {
+ 	__u8 pad[3];
+ };
+ 
++/**
++ * enum drm_panthor_protm_state_flags - Describes the state of the protected mode feature.
++ *
++ * List of GPU states which can be used by the GPU to access protected memory.
++ */
++enum drm_panthor_protm_state_flags {
++	/**
++	 * @DRM_PANTHOR_PROTM_INITIALIZED: Device-wide initialization of the
++	 * protected mode feature is done.
++	 */
++	DRM_PANTHOR_PROTM_INITIALIZED = 1 << 0,
++};
++
++/**
++ * struct drm_panthor_protm_info - Protected mode info.
++ *
++ * Structure grouping all queryable information relating to protected mode.
++ */
++struct drm_panthor_protm_info {
++	/**
++	 * @state: Combination of enum drm_panthor_protm_state_flags flags.
++	 */
++	__u32 state;
++
++	/**
++	 * @fw_protected_sections_size: Size of all the protected FW sections.
++	 *
++	 * Size of the protected buffer to pass through
++	 * DRM_IOCTL_PANTHOR_PROTM_INIT.
++	 */
++	__u32 fw_protected_sections_size;
++
++	/**
++	 * @group_protected_suspend_buf_size: Size of the group suspend buffer.
++	 *
++	 * This must be used to allocate a protected BO that's big enough to use
++	 * as a protected suspend buffer when a group supports protected
++	 * rendering.
++	 */
++	__u32 group_protected_suspend_buf_size;
++
++	/** @pad: MBZ. */
++	__u32 pad;
++};
++
+ /**
+  * struct drm_panthor_dev_query - Arguments passed to DRM_PANTHOR_IOCTL_DEV_QUERY
+  */
+@@ -1270,6 +1325,24 @@ struct drm_panthor_bo_query_info {
+ 	__u32 pad;
+ };
+ 
++/**
++ * struct drm_panthor_protm_init - Protected mode initialization arguments.
++ */
++struct drm_panthor_protm_init {
++	/**
++	 * @fw_protected_sections_bo_handle: Handle of the BO to use for the FW protected
++	 * sections.
++	 *
++	 * This BO must have been allocated from a protected DMA-BUF heap and
++	 * imported in panthor. It's size must be at least
++	 * drm_panthor_protm_info::fw_protected_sections_size.
++	 */
++	__u32 fw_protected_sections_bo_handle;
++
++	/** @pad: MBZ. */
++	__u32 pad;
++};
++
+ /**
+  * DRM_IOCTL_PANTHOR() - Build a Panthor IOCTL number
+  * @__access: Access type. Must be R, W or RW.
+@@ -1320,6 +1393,8 @@ enum {
+ 		DRM_IOCTL_PANTHOR(WR, BO_SYNC, bo_sync),
+ 	DRM_IOCTL_PANTHOR_BO_QUERY_INFO =
+ 		DRM_IOCTL_PANTHOR(WR, BO_QUERY_INFO, bo_query_info),
++	DRM_IOCTL_PANTHOR_PROTM_INIT =
++		DRM_IOCTL_PANTHOR(WR, PROTM_INIT, protm_init),
+ };
+ 
+ #if defined(__cplusplus)
 -- 
 2.43.0
 
