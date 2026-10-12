@@ -4,61 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FE63CC6B01
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 18:48:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CADC5CA9EDE
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 18:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0796510F2EE;
-	Mon, 12 Oct 2026 18:48:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF2A610F2E0;
- Mon, 12 Oct 2026 18:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791830900; x=1823366900;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=wdvxvj8TpOhnbf187hLLlbq90wjOsqeAlF1OfjHvI+o=;
- b=jVRO7pynlE+lXAsgKaW8X0ab0LjtDbIiIRQQI/cjCWh5zSq0AdS8jB5Z
- z3P2AS5YD/Mr6R8xI9u1xTkDflnpAKHataZDuRjK2VyjBIBQqgwe+ALCe
- zYfOIJvilO0BOixv2tZgpFnWHOhxkp44JFPtgkS2obf6wY0VVvKzwDNfr
- pTpU+3jF0GHdcf4Y0YS12hevfFMkU4BG9lVRxjZ4u/ry6VXbkUstOy67k
- 8Y7H6O81Zk0omoTAQV5QTMqZ5EmpQiYtVjPlAWyY05FPnAA81ZRWnFrRx
- ivVgVFkUtJD2zZrww8YloWKeWgjywIstCfIbBqK0dY/CYptrf6P8Z/Z3J A==;
-X-CSE-ConnectionGUID: fiZDCDdoTsuvG347BuULMw==
-X-CSE-MsgGUID: iraS4LH6RteCZGF8Pd0tXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="449765"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="449765"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 11:48:15 -0700
-X-CSE-ConnectionGUID: kl/61gRdRpiLj9o/viwJLA==
-X-CSE-MsgGUID: J6oTcnpVSKWEHYG8F3k9zw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1160677"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.47])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 11:48:13 -0700
-Message-ID: <2360da488842dcc9dc4fcbf5f3d1d8bc3b57c20e.camel@linux.intel.com>
-Subject: Re: [PATCH v7 2/6] drm/i915/gem: Count mapped pages in a folio
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, =?UTF-8?Q?Micha=C5=82?= Grzelak
- <michal.grzelak@intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>,  Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, stable@vger.kernel.org
-Date: Mon, 12 Oct 2026 20:48:10 +0200
-In-Reply-To: <20261006095845.451212-3-krzysztof.karas@intel.com>
-References: <20261006095845.451212-1-krzysztof.karas@intel.com>
- <20261006095845.451212-3-krzysztof.karas@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DA7610E4B7;
+	Mon, 12 Oct 2026 18:51:43 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB1C10E4B7
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:51:37 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4a022fee0caso19341975e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 11:51:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791831095; x=1792435895; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Ky+Mh+cO5xMBG7Bn/5pO6nl62hMlLNRWkoqZnT1lz8o=;
+ b=P5Mt4Md+karwRxbl7Z8sYS/Qa5RpSDgDpL56IDRuJWFEcRnpJF9bXg+IE2xu4aiQ74
+ 1gY7XnAe0s0+dZtQtFvGwv/EmovYzUjAPP8UlqtyIf3fmS9Ouk8EPF5W8vROJ1zDukoh
+ Z2RmjQwGL0ws1PXAEnI6hR33vyn5VFwtaVFnTXhdEzy5QJO6XmK7mY6gbSPF0XkQSyC5
+ ASmsglj2HLu6nzOZ/E6CRo5mSILsVttevgSl6jWcZxOf6wCyX+fGonSDThqbLJyNAhWN
+ x0WIPH+mxyUFMYeJNCNBuyi0ng7twEbjHcIqmttOoOFyTQgNrPOpvoj/KOveJd3Heg/R
+ qOGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791831095; x=1792435895;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Ky+Mh+cO5xMBG7Bn/5pO6nl62hMlLNRWkoqZnT1lz8o=;
+ b=RNLhRHitc73JQp5Xod6Vyp8HjLk7DxCxSlFlFXHrYTylDHL9DX3LzzBiNqjE2DtsB7
+ bKANvc1Be7J2qE6fFCXB/IQnR+lJQhzXvzhk3x4IJPSJkvMPDx32vPoc2O0WdP6xVSx8
+ JWQos0rvW/tbwzuwK3AIbjpleR3eYyWMI3WUo5z5Lo4i/Jv6mQt/gZIjFG+nH2zPzmsB
+ 0mLLJ1xbReVPkR+0DsQ33/954co5lkxHU+bUfqeCJBpptr3Wmo2AV4D0vuJZVrYv+0gc
+ h6x1tHJhS5w1J2JepZO7yU2nHc20aKObHv9YdI3h0vpb7aS/fZX9hxGGtpklS/UelA1I
+ 7QQA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwlye6vdfDSCpVnOu6lJAerKzumSu1LXZv6fPbmJQYQ3ds9UZ4skzC0JE19m0ZibIOQhEDgtro8dTo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIutAEMB7/zOG0dxM1oTeB5BP1GnoDBZZHlnkemjXCJ1sfjZI31
+ w+SjpwPK0+SI9yt7e5N3JZy++SFD1r3m8kdTwRYEnKy5i/Q+ZBlRfSIp
+X-Gm-Gg: AYBFou2RCUle6+lzo5lVxs5sopACMHa5XffIIOT/uftXmAr88t0r3+2dxixdA47tNtN
+ rfGetNMSL2OfajUOm1fb8oDhfUw+dIuTH6pKh31uHI4MO59L8p6yUnAxXPxxYFApzvsLHMn97T5
+ 0mgHSxBwLLu86WHGMNGMz1w7FE46G3i3cRf0zN0W8cCnETz4aV7Eq8+ZKc25DEueE7gKzvXWTKY
+ 6Mu59RmfuW9rqv4y9NS99V4sTindQm46E7c/sdK6EUhbQw+lmO0+6Gck3hKuxeQcCCEcC8tS9pr
+ PqyKpD+M9ZcRXdreBCJ6yEg65sY3meudhXsSZpqjCBY+vRPzp0BdbYxPLbcYPpJrpQpLOcWR6wc
+ xZc/5ukfBrFx2qFsSAAu+W5aGCrgZrzxu56thPL5euuuoMJXb6lAzcJEG9kn3vhw/IbIYzpgPd+
+ XggQnHS+txoWPwAI3DW9mm/60KRl7njsivqAw/KeRujigd9wZi9v2CBf2JOVRO/XAf50XdkUMxr
+ ks8GteIJqFJL5ZN+zKdwXrrYaEJyF4S+7fb2lO67GDsyvQagl0n4PUY24mhZ/UcCbElUlkS/fCF
+ B9zqAq0iMBWfeLea31B/KeSp5ytFOEJvFZgkOEy/+e6dRor1b8SUZgtuFo7v/SXyKrOYjIhlxoi
+ QwWfNUIk=
+X-Received: by 2002:a05:600c:6297:b0:4a0:62d:4424 with SMTP id
+ 5b1f17b1804b1-4a18e4a1756mr196491005e9.8.1791831095315; 
+ Mon, 12 Oct 2026 11:51:35 -0700 (PDT)
+Received: from unknown748F3CBA5068
+ (dynamic-2a02-3100-a8ab-0f01-016a-c770-797f-eaee.310.pool.telefonica.de.
+ [2a02:3100:a8ab:f01:16a:c770:797f:eaee])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a18bb68abfsm336946215e9.0.2026.10.12.11.51.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 11:51:34 -0700 (PDT)
+Date: Mon, 12 Oct 2026 20:51:33 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Jason Gunthorpe <jgg@nvidia.com>, Rob Clark <rob.clark@oss.qualcomm.com>, 
+ Jianfeng Liu <liujianfeng1994@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Vinod Koul <vkoul@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
+Message-ID: <as0r7Q4dHt9gQm_8@gmail.com>
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+ <d1ef135e-1b5d-4656-9229-348c7029efbb@leemhuis.info>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d1ef135e-1b5d-4656-9229-348c7029efbb@leemhuis.info>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,214 +103,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+On Mon, Oct 12, 2026 at 10:12:02AM +0100, Thorsten Leemhuis wrote:
+> 
+> What's the status here given that 7.3 will likely be released in a few
+> days? Note, I can see from the discussion that this is a complex problem
+> that can't be quickly solved. That's how it is sometimes. But I wonder
+> if the current state of things is the best compromise for now or if
+> Rob's revert or some other option would be better.
+> 
 
-This version finally looks good to me, however ...
+I think reverting my commit 143755bdabaa ("dma-buf: Make DMABUF_DEBUG
+default to y on DEBUG_KERNEL kernels") is the best interim solution for
+v7.3.
 
-On Tue, 2026-10-06 at 09:58 +0000, Krzysztof Karas wrote:
-> Before addition of commit 029ae067431a
-> ("drm/i915: Fix potential overflow of shmem scatterlist length")
-> and after folios were introduced complete folios were always
-> allocated, possibly overloading the scatterlist capacity which
-> was never truly limited to PAGE_SIZE when requested via
-> max_segment. The above commit addressed scatterlist overloading,
-> but unintentionally disabled PAGE_SIZE as a valid max_segment
-> value and failed to take care of remaining pages from folios
-> above max_segment boundary.
-> This created a state, where multitude of scatterlists were used
-> for the same folio, but never counting enough of its pages to
-> jump to the next folio.
->=20
-> Furthermore, current do-while loop goes over the same folio
-> multiple times, increasing the refcount each time, and breaks
-> get/put symmetry: many shmem_read_folio_gfp() gets and only one
-> put in i915_gem_object_put_pages_shmem() per folio.
->=20
-> Track how many pages have already been counted in a folio and
-> use that number as an offset on consecutive allocations from the
-> same folio to ensure it is fully covered before reading next
-> folio.
->=20
-> Fixes: 029ae067431a ("drm/i915: Fix potential overflow of shmem scatterli=
-st length")
-> Cc: stable@vger.kernel.org
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15816
-> Assisted-by: LLM
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
-> v7:
->  * Derive the page offset within the current folio from
->    next_pfn. (Janusz)
->  * Update next_pfn using that offset and clarify its role in
->    merging contiguous physical pages. (Andi)
->=20
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 108 +++++++++++++---------
->  1 file changed, 63 insertions(+), 45 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> index e35ee4bd456f..645da248e25d 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -70,7 +70,9 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915,=
- struct sg_table *st,
->  	unsigned int page_count; /* restricted by sg_alloc_table */
->  	unsigned long i;
->  	struct scatterlist *sg;
-> -	unsigned long next_pfn =3D 0;	/* suppress gcc warning */
-> +	/* suppress gcc warnings */
-> +	unsigned long next_pfn =3D 0;
+Christian, Sumit, could one of you apply Jianfeng's revert before the
+final release?
 
-Why plural?  Why moved to a separate line?  Do we really need such
-comments?  I'm not asking for dropping it, only not touching as not
-related, unless no longer applicable after your changes.
+https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com/
 
-> +	struct folio *folio;
-
-However, if initialization of next_pfn is needed because its lack can still
-trigger a gcc warning, shouldn't we now also initialize folio before first
-use?
-
-Thanks, =20
-Janusz
-
->  	gfp_t noreclaim;
->  	int ret;
-> =20
-> @@ -104,7 +106,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  	sg =3D st->sgl;
->  	st->nents =3D 0;
->  	for (i =3D 0; i < page_count; i++) {
-> -		struct folio *folio;
-> +		unsigned long folio_page_index;
->  		unsigned long nr_pages;
->  		const unsigned int shrink[] =3D {
->  			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
-> @@ -112,51 +114,61 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  		}, *s =3D shrink;
->  		gfp_t gfp =3D noreclaim;
-> =20
-> -		do {
-> -			cond_resched();
-> -			folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> -			if (!IS_ERR(folio))
-> -				break;
-> -
-> -			if (!*s) {
-> -				ret =3D PTR_ERR(folio);
-> -				goto err_sg;
-> -			}
-> -
-> -			i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> -
-> -			/*
-> -			 * We've tried hard to allocate the memory by reaping
-> -			 * our own buffer, now let the real VM do its job and
-> -			 * go down in flames if truly OOM.
-> -			 *
-> -			 * However, since graphics tend to be disposable,
-> -			 * defer the oom here by reporting the ENOMEM back
-> -			 * to userspace.
-> -			 */
-> -			if (!*s) {
-> -				/* reclaim and warn, but no oom */
-> -				gfp =3D mapping_gfp_mask(mapping);
-> +		if (!i || (next_pfn >=3D folio_pfn(folio) + folio_nr_pages(folio))) {
-> +			/* Grab the next folio if we exhausted the current one. */
-> +			do {
-> +				cond_resched();
-> +				folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> +				folio_page_index =3D 0;
-> +				if (!IS_ERR(folio))
-> +					break;
-> +
-> +				if (!*s) {
-> +					ret =3D PTR_ERR(folio);
-> +					goto err_sg;
-> +				}
-> +
-> +				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> =20
->  				/*
-> -				 * Our bo are always dirty and so we require
-> -				 * kswapd to reclaim our pages (direct reclaim
-> -				 * does not effectively begin pageout of our
-> -				 * buffers on its own). However, direct reclaim
-> -				 * only waits for kswapd when under allocation
-> -				 * congestion. So as a result __GFP_RECLAIM is
-> -				 * unreliable and fails to actually reclaim our
-> -				 * dirty pages -- unless you try over and over
-> -				 * again with !__GFP_NORETRY. However, we still
-> -				 * want to fail this allocation rather than
-> -				 * trigger the out-of-memory killer and for
-> -				 * this we want __GFP_RETRY_MAYFAIL.
-> +				 * We've tried hard to allocate the memory by reaping
-> +				 * our own buffer, now let the real VM do its job and
-> +				 * go down in flames if truly OOM.
-> +				 *
-> +				 * However, since graphics tend to be disposable,
-> +				 * defer the oom here by reporting the ENOMEM back
-> +				 * to userspace.
->  				 */
-> -				gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> -			}
-> -		} while (1);
-> +				if (!*s) {
-> +					/* reclaim and warn, but no oom */
-> +					gfp =3D mapping_gfp_mask(mapping);
-> +
-> +					/*
-> +					 * Our bo are always dirty and so we require
-> +					 * kswapd to reclaim our pages (direct reclaim
-> +					 * does not effectively begin pageout of our
-> +					 * buffers on its own). However, direct reclaim
-> +					 * only waits for kswapd when under allocation
-> +					 * congestion. So as a result __GFP_RECLAIM is
-> +					 * unreliable and fails to actually reclaim our
-> +					 * dirty pages -- unless you try over and over
-> +					 * again with !__GFP_NORETRY. However, we still
-> +					 * want to fail this allocation rather than
-> +					 * trigger the out-of-memory killer and for
-> +					 * this we want __GFP_RETRY_MAYFAIL.
-> +					 */
-> +					gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> +				}
-> +			} while (1);
-> +		} else {
-> +			/*
-> +			 * Otherwise, we are still inside the same folio,
-> +			 * so just update its page index.
-> +			 */
-> +			folio_page_index =3D next_pfn - folio_pfn(folio);
-> +		}
-> =20
-> -		nr_pages =3D min3(folio_nr_pages(folio),
-> +		nr_pages =3D min3(folio_nr_pages(folio) - folio_page_index,
->  				page_count - i, max_segment / PAGE_SIZE);
-> =20
->  		if (!i ||
-> @@ -166,13 +178,19 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  				sg =3D sg_next(sg);
-> =20
->  			st->nents++;
-> -			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
-> +			sg_set_page(sg, folio_page(folio, folio_page_index),
-> +				    nr_pages * PAGE_SIZE, 0);
->  		} else {
->  			nr_pages =3D min(nr_pages, (max_segment - sg->length) / PAGE_SIZE);
-> =20
->  			sg->length +=3D nr_pages * PAGE_SIZE;
->  		}
-> -		next_pfn =3D folio_pfn(folio) + nr_pages;
-> +
-> +		/*
-> +		 * Store the next PFN, so contiguous physical pages
-> +		 * can be merged into the same SG entry.
-> +		 */
-> +		next_pfn =3D folio_pfn(folio) + folio_page_index + nr_pages;
->  		i +=3D nr_pages - 1;
-> =20
->  		/* Check that the i965g/gm workaround works. */
+Thanks,
+Karl
