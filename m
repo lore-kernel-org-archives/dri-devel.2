@@ -4,57 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C89EBCA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEABCCA9ED9
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:26:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE57910EC77;
-	Mon, 12 Oct 2026 04:16:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72E5B10EC71;
- Mon, 12 Oct 2026 04:16:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778581; x=1823314581;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=IU/zhr2QsHJtJ5jSJxFiT1t4DfN2GLA5aDFFoQBFNn0=;
- b=PBoD+5oaZrulSeSF+0cFbcjLuih7r3LBo6Mpo20cQiIUAsnkeZbOT2nF
- cnhsotFx3X22e/drgZ+ymosU6DKuaIn1EQQp6/wtfMbXYoUvnX5lfQ41p
- f2NojO01TrAF6uI8xRRfJ7fLo0DmmJMGS1QUy5SBsSPY22+9giUkfXDlw
- WMMaEwrGTyOiO37s41Wdq138pqdbc1SU+8dFiRGsB79+HLPmtcG3SoQCo
- dz11UWKFCTGw7btf0yGhqEIe5rpSqlx9p7nMcobMyboOPUi7oI8P9Dbqs
- kBMe1khjj4WAaL4FryNs9uSuQTcAtvnNvjBYsCm2c4zIMWsRe1GMksd9J w==;
-X-CSE-ConnectionGUID: Q0vB/2qUSnWZmaVd1Wu9Mw==
-X-CSE-MsgGUID: toT40Mc8Rv2Zcv3og1CJQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="366217"
-X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="366217"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:16:21 -0700
-X-CSE-ConnectionGUID: Rv0suIQcRa61l5Rp+X6GRA==
-X-CSE-MsgGUID: M73uFgdTQkKaxynHNVM8UA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256837"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:16:19 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
- uma.shankar@intel.com, ville.syrjala@linux.intel.com,
- suraj.kandpal@intel.com
-Subject: [PATCH v2 55/56] drm/i915/hdmi: Iterate through joiner candidates in
- mode_valid path
-Date: Mon, 12 Oct 2026 09:28:04 +0530
-Message-ID: <20261012035806.3361439-56-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0EB710E48F;
+	Mon, 12 Oct 2026 04:26:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 660FB10E454;
+ Mon, 12 Oct 2026 04:26:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 28FEB43AA2;
+ Mon, 12 Oct 2026 04:26:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4B91F0089B;
+ Mon, 12 Oct 2026 04:26:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791779200;
+ bh=KeWFrinQF48UrISV/koEeVBMUFV6oRvk2NlN1tCn8wg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mCjD60otqveR/+CtlrmNrILwWp0F45sVv8hAvwnjYuRH8QsPJeNeXePFojsfH1qO3
+ xYAJgFQkep6TEsxD2yIHr5DAvHAYCh96CUafWicqwUivoNubFgpwt80aAOW8ppSL+t
+ CVkyxTFzwD+ihKkMG9+Ivgxinhut0dcffNWaza2XDJfpU2kCKjPMs7olvdlBRDX3Nb
+ /vdY3zv0/mmh1/jsjTRcLq9im6XoKVhGdE7ABBzEbynC6pGP4FeFD1IcDjNJES2NIq
+ rKo1D1cCQIROzh8NebPOK4waAlClPUDUe54uOVfFpeoZ/Ikcx5TOJyMjXcaq8wV/Yg
+ oVNmjohXF075Q==
+Message-ID: <sashiko-outbox-167594@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 19/56] drm/i915/ltphy: Add PLL tables for HDMI FRL
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20261012035806.3361439-20-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20261012035806.3361439-20-ankit.k.nautiyal@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 12 Oct 2026 04:26:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,114 +51,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Modes exceeding a single pipe's dotclock were rejected in mode_valid even
-when they could be driven by joining pipes. Iterate the joiner candidates
-and allow a mode if it fits with joining, relaxing the dotclock ceiling by
-the joined pipe count. Joiner configs needing DSC are pruned for
-now, since HDMI DSC comes later.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/i915: typo in xe3plpd_lt_hdmi_10g0 PLL table causes write to r=
+egister 0x0000
+--
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdmi.c | 51 ++++++++++++++++++-----
- 1 file changed, 40 insertions(+), 11 deletions(-)
+commit 42b740d6bfd04d2cc3cafcf973149a0f98931b3a
+Author: Suraj Kandpal <suraj.kandpal@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 2ec7d2a5e7d4..2c7c47a3c61d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2132,20 +2132,55 @@ intel_hdmi_mode_valid_format(struct intel_connector *connector,
- 	struct intel_display *display = to_intel_display(connector);
- 	struct intel_hdmi *hdmi = intel_attached_hdmi(connector);
- 	enum drm_mode_status status;
-+	int num_joined_pipes;
- 
- 	status = intel_hdmi_sink_format_valid(connector, mode,
- 					      has_hdmi_sink, sink_format);
- 	if (status != MODE_OK)
- 		return status;
- 
--	status = intel_pfit_mode_valid(display, mode, sink_format, 0);
--	if (status != MODE_OK)
-+	status = intel_hdmi_tmds_mode_clock_valid(&connector->base, clock,
-+						  has_hdmi_sink, sink_format);
-+
-+	if (status == MODE_OK)
-+		return status;
-+
-+	/*
-+	 * Joiner is supported only with FRL mode.
-+	 * If a mode is not supported with TMDS and FRL is not supported,
-+	 * prune the mode.
-+	 */
-+	if (status != MODE_OK && !intel_hdmi_can_support_frl(hdmi))
- 		return status;
- 
--	status = intel_hdmi_tmds_mode_clock_valid(&connector->base, clock, has_hdmi_sink, sink_format);
-+	for_each_joiner_candidate(connector, mode, num_joined_pipes) {
-+		if (intel_joiner_needs_dsc(display, num_joined_pipes)) {
-+			status = MODE_CLOCK_HIGH;
-+			continue;
-+		}
-+
-+		status = intel_pfit_mode_valid(display, mode, sink_format,
-+					       num_joined_pipes);
-+		if (status != MODE_OK)
-+			continue;
-+
-+		status = intel_mode_valid_max_plane_size(display, mode,
-+							 num_joined_pipes);
-+		if (status != MODE_OK)
-+			continue;
-+
-+		if (!intel_dp_dotclk_valid(display, clock, mode->htotal, 0,
-+					   num_joined_pipes)) {
-+			status = MODE_CLOCK_HIGH;
-+			continue;
-+		}
- 
--	if (status != MODE_OK && intel_hdmi_can_support_frl(hdmi))
- 		status = intel_hdmi_frl_mode_clock_valid(connector, mode, sink_format);
-+		if (status != MODE_OK)
-+			continue;
-+
-+		break;
-+	}
- 
- 	return status;
- }
-@@ -2160,7 +2195,6 @@ intel_hdmi_mode_valid(struct drm_connector *_connector,
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	enum drm_mode_status status;
- 	int clock = mode->clock;
--	int max_dotclk = display->cdclk.max_dotclk_freq;
- 	bool has_hdmi_sink = intel_has_hdmi_sink(hdmi, connector->base.state);
- 
- 	status = intel_cpu_transcoder_mode_valid(display, mode);
-@@ -2170,9 +2204,6 @@ intel_hdmi_mode_valid(struct drm_connector *_connector,
- 	if ((mode->flags & DRM_MODE_FLAG_3D_MASK) == DRM_MODE_FLAG_3D_FRAME_PACKING)
- 		clock *= 2;
- 
--	if (clock > max_dotclk)
--		return MODE_CLOCK_HIGH;
--
- 	if (mode->flags & DRM_MODE_FLAG_DBLCLK) {
- 		if (!has_hdmi_sink)
- 			return MODE_CLOCK_LOW;
-@@ -2197,10 +2228,8 @@ intel_hdmi_mode_valid(struct drm_connector *_connector,
- 			status = intel_hdmi_mode_valid_format(connector, mode, clock, has_hdmi_sink,
- 							      INTEL_OUTPUT_FORMAT_YCBCR420);
- 	}
--	if (status != MODE_OK)
--		return status;
- 
--	return intel_mode_valid_max_plane_size(display, mode, 1);
-+	return status;
- }
- 
- bool intel_hdmi_bpc_possible(const struct intel_crtc_state *crtc_state,
--- 
-2.50.1
+drm/i915/ltphy: Add PLL tables for HDMI FRL
 
+Add HDMI FRL Tables for LT PHY i.e for the rates of 3G, 6G, 8G,
+10G and 12G.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/dr=
+m/i915/display/intel_lt_phy.c
+> index 86492651b01d5..61bad87eefec2 100644
+> --- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
+> +++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+
+[ ... ]
+
+> +static const struct intel_lt_phy_pll_state xe3plpd_lt_hdmi_10g0 =3D {
+> +	.config =3D {
+> +		0x1d,
+
+[Severity: High]
+Is this config value a typo? The progression in other FRL tables appears to
+increment by 8 for the top nibble (3G=3D0x85, 6G=3D0x8d, 8G=3D0x95, 12G=3D0=
+xa5).
+Should this be 0x9d instead of 0x1d?
+
+> +		0x2d,
+> +		0x0,
+> +	},
+> +	.addr_msb =3D {
+> +		0x85,
+> +		0x85,
+> +		0x85,
+> +		0x85,
+> +		0x86,
+> +		0x86,
+> +		0x86,
+> +		0x86,
+> +		0x86,
+> +		0x00,
+
+[Severity: High]
+Is 0x00 the intended value for addr_msb[9]? When combined with addr_lsb[9],
+this will cause the configuration data to be written to hardware register
+0x0000. It looks like it might be a typo for 0x86.
+
+> +		0x86,
+> +		0x86,
+> +		0x86,
+> +	},
+> +	.addr_lsb =3D {
+> +		0x10,
+> +		0x0c,
+> +		0x14,
+> +		0xe4,
+> +		0x0c,
+> +		0x10,
+> +		0x14,
+> +		0x18,
+> +		0x48,
+> +		0x00,
+
+[Severity: High]
+Could this 0x00 value for addr_lsb[9] also be a typo? This completes the
+invalid register address 0x0000. Writing the corresponding data payload
+{ 0x27, 0x8, 0x0, 0x0 } to register 0x0000 could overwrite unrelated hardwa=
+re
+state, and failing to program the intended register (likely 0x8640) might
+prevent successful link training for 10Gbps HDMI FRL.
+
+> +		0x4c,
+> +		0x24,
+> +		0x44,
+> +	},
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
+439-1-ankit.k.nautiyal@intel.com?part=3D19
