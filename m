@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2157CC6B0E
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A14CC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 716C810F5BC;
-	Tue, 13 Oct 2026 07:53:29 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17C1810F2E8
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:49:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB2610F5B8;
+	Tue, 13 Oct 2026 07:53:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 037C110F2B9
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:16:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8C832602BE;
- Mon, 12 Oct 2026 18:49:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB4E1F008A3;
- Mon, 12 Oct 2026 18:48:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AE6DB43685;
+ Mon, 12 Oct 2026 18:16:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992E11F0089B;
+ Mon, 12 Oct 2026 18:15:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791830959;
- bh=wjF42amL6Dxyn7QE+tOpdln0eb7clnjUQooAdiVZf+0=;
+ s=k20260515; t=1791828963;
+ bh=QYTLULj50w8cGz2VrDdtiT3+k08nrjopgP7hF7y/knY=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=S5Kydjjv9MS5+ikIdcZLMtuInYdV4t+V4R8UcdwFfxkBeySjLpbFVJq8LB6YxCqkr
- WeAECYnx1xgOH4BCK5UKPqhA6vX63IsVR+EXTybK7br7NLZ0u33YyIJ0w63zopC1kg
- GU+kcsTw0LbmCgEp5zsbb6LxKiUHFIKAoePc0l+qoejVs3yioGigw3j4rdpAoRlJ3I
- /cUbiiAInDyjl1r0HL5sbja+XefiWr/RVW0+MJ3r/tslGXWsYEcvK/wwGhtCVMUb4u
- wvTis4aZ/ONKs/Wu0zQSkB08hCtETluDlUNZP//epzAHhx9+9SCh4NVSRJMN9uvwGR
- v4bYjBEhcFCPw==
-Message-ID: <a8ec0313-544f-4c8f-a161-5200d1cffe13@kernel.org>
-Date: Mon, 12 Oct 2026 20:48:21 +0200
+ b=jKb1KDAJ3AFav06sCyLj8UCjIoWRIlRCFdFfQ5zT9BeRC2sxgPNBxw6BbyYoWnU/f
+ tCdXrUW0n0dwFo32dUZ49pZL8p1NPDoE5mJy50/Yp7zqrshPLFad2VvFvE+Q++XYG1
+ ArL6vPewLSC8itjPCy8DcgYxztVngtqaCpUx4V2PsZ2AoMuvrmyo+WPFGE09ZU7tV5
+ pPtIyF0ur2rrwANNOiExG/1JN/dbg/8GA/bftwSsMYuUlXrXRo4y72l21Mo948fwu8
+ 1Eq/rGQf7emejheXqvBWawSe4WtPFf1Myhk48p1iYQVNdqbN7/o7xm1K0t4/5MKb1G
+ PgVkbNUkAJI6A==
+Message-ID: <da6cda23-da5d-453c-8b19-8fb35e60c4b5@kernel.org>
+Date: Mon, 12 Oct 2026 20:15:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 32/38] mm/madvise: use predicates for madvise(...,
- MADV_DOFORK)
+Subject: Re: [PATCH v5 20/38] mm/gup: error out early on !VMA_MAYREAD_BIT VMAs
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -115,7 +114,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
  Bert Karwatzki <spasswolf@web.de>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-32-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-20-923b70125b1e@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -162,10 +161,10 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-32-923b70125b1e@kernel.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-20-923b70125b1e@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,28 +181,28 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> Make it clear what we're blocking in MADV_DOFORK. Previously we simply
-> disallowed VM_SPECIAL i.e. mappings not managed by core mm, fixed mappings
-> and
-> VMA_IO_BIT.
+> When populating a VMA range via the aptly named populate_vma_page_range()
+> an unreadable VMA will always eventually fail with -EFAULT.
 > 
-> Now the invariant is established that mm-managed mappings may not set
-> VMA_IO_BIT, the VMA_IO_BIT check is redundant.
+> That a VMA is accessible is always checked, however VMA_MAYREAD_BIT is not.
 > 
-> The rest is equivalent to testing for a fixed or non-mm-managed mapping,
-> i.e. exactly the same check as whether the VMA is permitted to be merged.
+> All user mappings always have VMA_MAYREAD_BIT set, so this check only
+> impacts kernel mappings.
 > 
-> This was established by commit 0b2758f48f22 ("Require (reasonably) normal
-> mappings for MADV_DOFORK") containing my hands-down favourite call out of
-> all time.
+> It is implemented specifically to disallow population of uprobes XOL
+> mappings which are exec-only.
 > 
-> Express the same thing differently - if we wouldn't be allowed to merge it,
-> then we aren't allowed to manipulate CoW behaviour on fork.
+> A nasty interaction with these mappings may occur if they are mlocked, so
+> actively disallow this early.
 > 
-> No functional change intended.
+> This allows a subsequent commit to remove the VM_IO check in
+> __mm_populate() which otherwise requires non-MMIO mappings to be wrongly
+> flagged simply as a workaround.
 > 
 > Acked-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
