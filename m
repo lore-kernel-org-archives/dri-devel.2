@@ -4,126 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E631DCA9ED2
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 20:07:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 004F4CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 20:16:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43FEE10F344;
-	Mon, 12 Oct 2026 20:07:03 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013005.outbound.protection.outlook.com
- [40.107.201.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B73410E5ED;
- Mon, 12 Oct 2026 20:06:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rzwZDJI57mRUv0pmvY9YFmM2ofRBpnV1M9fi6/YeYhpHuTuOhWhtKNuOUvEQv53y6LJ4VA//evzwO7hWPbR0DAvqEo8j0IQErX/vX3AFppKekWNwd27IXr8lW6Z49tH8V020X6e++7TZPkiNOrMHygsEwTPqysbMxcgGtlvD3+CJmNgcqqIt26foQTmVRQgsYsmzArQXNOtrf7neK5LU2VQtoL9/QRn7dji+kenPztXttLZZwzxyZu98+N09WPpje2wBnMWI9NRZ1FTmb4Zn25YiYEpCrbxu2v0GzuBkgyTGAIDXKIlkbBXYzWCfG7ZZGgXvhOfK0OvB8LTEo8CWbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=asQn9FT+lvozQJSTUztr9sYKDDXy0SK5yZRbrvnfzHI=;
- b=scGp53bcBg9C/yetv8k8Qcdi/HuCPDln06nl3rUDhJrLJ/DCzBUkUPgawCmwzD+QfQB3VrhMWP5vKhK/eDVFjBw6SvoCJzxKCpT1WhPOBUmg7qySBGbXFfzYKf3ZJ1gPz0usjGM08zo4ajJZqoRfi8ZJ9Xnqlez/TMgrpaxkRC+TA3gfdMydq4gFrfcSEj0b2UYDTC0ugZ2j11vBeIi75j7rZm/tGqOd37UmZRqATNSKmhn5hNwaCc2G6ZSWDbixXK83efTcrGsXbQPxUGhy42Zy3cA698oODKjM3k9/z7wkIIIOpiNYXkG8E6SdmF2oNS23z9TdrtXwl97vPo0dgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=asQn9FT+lvozQJSTUztr9sYKDDXy0SK5yZRbrvnfzHI=;
- b=X/kHv6JVyANG3mfMB85WcnQWYQ/xhx+VJIav+yRn+m9Cnh48Qd629b8mSs2MYi1zZWvbUVzImpl47cR5++jyJilT4yRstxakyXyuPHNbJIP/jWDhdBkUQntzmHFMiIaaT62X3T38BEcCEGEcrngRqo0EHZtI1du2o8cP47BtCZU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB6921.namprd12.prod.outlook.com (2603:10b6:303:208::8)
- by PH7PR12MB5734.namprd12.prod.outlook.com (2603:10b6:510:1e1::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 20:06:49 +0000
-Received: from MW4PR12MB6921.namprd12.prod.outlook.com
- ([fe80::cbf7:e2db:1d37:c83b]) by MW4PR12MB6921.namprd12.prod.outlook.com
- ([fe80::cbf7:e2db:1d37:c83b%5]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 20:06:48 +0000
-Message-ID: <797bb933-adf3-41c6-8421-ffc3bd6948f9@amd.com>
-Date: Mon, 12 Oct 2026 15:06:45 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/amd/display: keep custom brightness curve in
- userspace domain
-Content-Language: en-US
-To: Andrei Rusu de Castro <arc@empyreal.works>, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- chen-yu.chen@amd.com, ray.wu@amd.com, stable@vger.kernel.org
-References: <20260902-brightness-cover-abf809f2@empyreal.works>
- <cover.1788388049.git.arc@empyreal.works>
- <8ec5dc8922407924f771d353cb7f2dd1846553ae.1788388049.git.arc@empyreal.works>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <8ec5dc8922407924f771d353cb7f2dd1846553ae.1788388049.git.arc@empyreal.works>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR04CA0094.namprd04.prod.outlook.com
- (2603:10b6:610:75::9) To MW4PR12MB6921.namprd12.prod.outlook.com
- (2603:10b6:303:208::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC39D10E5ED;
+	Mon, 12 Oct 2026 20:16:33 +0000 (UTC)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DD4210E5ED
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 20:16:26 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-82109f51565so870786a34.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:16:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791836186; x=1792440986;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wg1Ux0hl2+pwA4qVaI3hvIFFByPMMzuli4I/B5ITH7M=;
+ b=ISZ05pp7e8UlJSMIP/S5OPJixt7xQxW1sU5PuHTpOS05/c56GPI4aQbu3A7U8XV8Qs
+ AuNl1Aj0t4bQlbTJyH5E+U3JXLotBiuCjhQstA7KXDwbvejZxcOEAxTzIUa5PGHOWBs6
+ b4QDm6qeUCj3zzEQeeypXt3aPapiBy62y3dxBK+iIzRwVk3kQ354VMWRe5uFOue62+An
+ lI7RG7R6fCmzqpw2u3WGrN/nd2zSPk2P2K+GgEY93QyMV80Ly6AJDEXQ36tg5Lzb1v24
+ An7s7+o4q+acQU944ot2qedqoKiuzFBd+8f50onFiXTCJL8vQbPt33XMADVqExH8aS1T
+ igWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791836186; x=1792440986;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=wg1Ux0hl2+pwA4qVaI3hvIFFByPMMzuli4I/B5ITH7M=;
+ b=LM676eTe2IOMgPla6ICEpHISlIyaD93MDqayOnVnuThxERL2ISJIlovIX7EWUYxILy
+ iutjqOFiuBMV2HdRy7wu0dDUPL6nIPZ1iWufEnw0ta7r2JlerWQAF5fo+XSQbS3N61LU
+ yRGHBzs2EfP9bcLFtP8edBkKrQyawC1IvAdG2eT2b3B6keYshvcJdpimyyV0mF6KpGZU
+ q+iyNAO5tXM5+rtpV2/aRFSy+G0V5do23vessZ6tBW33Ln4fphFe/aHxylzlT/S0Jmuc
+ nOr7RXzbEF+mPWJ2VZ085FM9ihDkOGJC+Lbi7tX8qSymwMBRSeU7Ii+5rJe/ANE6NMaX
+ MpKQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxvnQlpJ90QIXJhm5AGQtFgB5x7dgOA71rZbMRi3XBOkDsjAxjTPtwtJt4F4/MoxFOmH7wTGNfDXFk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJufa7VWTpW5jgUo67MssG+UuDWRHFevoWnZEFexRmj3jXwH99x
+ q2JrTcNXs+KUM0Bhn15Ma93he9ouonzIrAiEDzt/wRWDqPVwuBu7ICCkO6pGeHcjIUQ=
+X-Gm-Gg: AYBFou3OPlLF3ZEi8m9j1TxqmawshwcGo55LEgZNRvAWWZCUptZGADFWZ4ZXBflopm+
+ H4IyuHmAscdg4HVgsCYxMMQQOUqipsI98E9Z28NBCNpHuEHyY1a81KjjoinaRdBrpFEMOmvseiJ
+ 1ZEZKVerkNBA54Kvqfw8qk9jmr063Rnunlwjkg2amyR7RGpQWRZS2mqNUwZXlsvGZtd0yb3WkUX
+ sDa2IlnGXuzF19vEccDCdLzLrAV5hbLTpIJKUUgkfLZFI1nwYll7WJW+GH5RPiVbdm+R+KF8uC4
+ VkiOZ5mqIUTl95hS/3CFkMDMZ+5dlrS6sGYP2FUZmFEmqk0/avUU9e4gFHF/7XUNTOxQSSvXOXA
+ Un8r4Y4e8eZi6t2LidyeCBazTF72M9Ir99b6t+LhGTKK7z3JUypIfbV5Qr8QG0CzeGcvp5TMimK
+ JVGJgS4BiUoesEyNn+APewUecOG6p0JRoiJnmAutv3G+RGYpqOvoD+0631mazSYesI0avQC6Cv2
+ RSNUO0jBj6sLVz92VI2GVqmoWpFCfZuMMXo+qvL51kEgWKAdCxBhUjx1Y6moOTGT4ZF
+X-Received: by 2002:a05:6830:4104:b0:81f:92c9:1f80 with SMTP id
+ 46e09a7af769-83095b2dcfdmr13038337a34.16.1791836185941; 
+ Mon, 12 Oct 2026 13:16:25 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-83039076d72sm10441653a34.12.2026.10.12.13.16.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 13:16:24 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: linux-block@vger.kernel.org, Pavel Begunkov <asml.silence@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, 
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>, 
+ William Power <william.power@intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>, 
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+In-Reply-To: <cover.1791336930.git.asml.silence@gmail.com>
+References: <cover.1791336930.git.asml.silence@gmail.com>
+Subject: Re: [PATCH v9 00/13] Add dmabuf read/write via io_uring
+Message-Id: <179183618332.250226.7412463798702866633.b4-ty@b4>
+Date: Mon, 12 Oct 2026 14:16:23 -0600
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6921:EE_|PH7PR12MB5734:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88baf530-c640-4637-bccd-08df289c5916
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|11063799006|4143699003|56012099006|22082099003|18002099003|261009223027099003|3023799007|10067099003;
-X-Microsoft-Antispam-Message-Info: JehVaGkBe55/EnQr2N0iiUgKy0HFQdhEzaQQBJW+Dv4aK+maKO1BNg7ffMhowH3Li1cz9ULfvMCcPOpErwaQ2PI439yMZKrzs8OUTjLrRaJNI3t7A2cPvhflgQZmYgv+9w3AVVMMpB/KNxh7lp9VhMmQ0sLL4Sgeq9clTwX8mPO6l14//YgAJkylWq5CsL/A0tH6xISvG4Gfjr3AD//Py7SK9iN04QPk3f6shjfbadMBnM3eFvSPd2JF25xcF31BGmBJEzpoX9/OyRtbeUtXQbgbgMX9l0xAhJABC+4cVeZGexeCtuGRbfRBXtOfu6oFiwOh92m3+ghVQkiJeqmjDC1V+HO23sIweXJ1TOWMvavv0wWH4bmyQnxkCYB+/KfhtFdXapjWuxivAdgIYB+G/tsXqBPYJ3v34CqmfLMgM2iMHaO5Fvh7Ktwy0kNZhrcFCOPZiywmhSA1yaBT3NqG8bkKfbrY88w7riRqYYdxhrkoNrgUwXmCgd6QEk4Jx+X2K4jeIs4HCoAzJDZ7veqsv7K1FOWTarZr/0wPtejBhzSMknbWmStCHikwweCpMwknzZ+4yar6rdmUOUzBszx3fAhfVCwDjhFfmj0C+rtNMrE75vmG+DW+G9HuXg+DdScJAGyEJV2EgoCghQ53S6ogTZaHh/GiYfxK+oxo7gYlj3Q=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6921.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(261009223027099003)(3023799007)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0p5WVZWdnhjVnYwVW9Dd0tDcldZREVsSWJHVXJWQXpVcENJdGFzTnBlTVEr?=
- =?utf-8?B?bmlqeW9uQ1JtSzRPdkgwR29NNWg0SmpnM2pUdmZkT3NTdCs3Z05nbVlqSU5Y?=
- =?utf-8?B?dUtaZlBlSFgyeWd3dUhpNTRjd0pWNnAzTDZaYWZFbTI2eVRpT1VjK1JlblNU?=
- =?utf-8?B?NHpNVE03RVhIZndEZ0dTYkNKVnA0R1dZRTZLMEROcEtRdGVhZlBNVW9rUEpQ?=
- =?utf-8?B?emhCbGdlcTNQTS9TNW5FNlFyTUIyWW1SZ3BlcnRsVERhV0lWRmhMUkxITnN3?=
- =?utf-8?B?bll5a1FoSjgxdlpISTVhcytkMXZUUUg0UFNoSnNic3FrT29vdnQ0MGNGaXBh?=
- =?utf-8?B?Mmh1czhqcTNiWE5VTXh0STV3NjVuV2JpL1gyZmZPMTlaL3cybDFQamtTUnZZ?=
- =?utf-8?B?dzZ3UWtkSXhuVWN2cE5WcG5GZjM3TnNCckUrOHZrOUJZdjBITmRUdFNlNnpv?=
- =?utf-8?B?dUVJTjFrdEMxUWtZRGcwMWRCdXFJeGZpeDBsbjc1WE9jcG00Y0dRZ2xqR1Fs?=
- =?utf-8?B?bzNyYlArZ01DVUVuek14cFFxSVF1QzV3dFAyWE5SaldsQU9tZXJtNnpyWFNS?=
- =?utf-8?B?QmlWMlRpWHdEbTJjdGRGbWlwYWM4TXZRQXdZeHRWaUlyTmF4TXlnb1hlSU9v?=
- =?utf-8?B?ZUIrWDVrWkdoWVdPaUd5eXFrbTI3ZlhnYjhQeloyWTNhTXl3R2dJZXcxdDNj?=
- =?utf-8?B?WUtTcFZoQ2VYWWVJVTRQUGY0TW1FUXM3VFlkSGR4SUdDL0lITzlGdUt0UjB5?=
- =?utf-8?B?TGxuK1lVRFlRbjlzaXVPUEpmYUg1YzhFOUtrYVdadmJPeWpHa0RPTmRYa3A3?=
- =?utf-8?B?WlFTdGlRV2NqSmtwVkV5RjRWQW9pMFhQN2VmbU5zZGdhR1ZXYVNPUHp2YlUy?=
- =?utf-8?B?aUk2SERsK0xRMkk2VS9zSUZyek1iUWJLS0hnN2kzWVBmbzdZRlU0Z2VUeVJZ?=
- =?utf-8?B?ZjRZUnU4SUJyZjllbE9UTDZsYU50bnUvb2FNMUZNdVhzY0t6L0p4c0d0RnQ0?=
- =?utf-8?B?MkVUeEFWbmd6YjhsM2dKMUZSSFZSNU13aUo5RkgrSnpmN1AxRmV0YVo0TnBM?=
- =?utf-8?B?NEE2Q1lJaFBQWVE5d0tSeXBRY0Z6ek9Qb1BuUmNCNFZ3ZGtNbUtWWFYxUUxm?=
- =?utf-8?B?N09YOFp3QnhkakE5ZUVoUVBLa0J6eXhxbUNZQ1F2SXV5anRSeG1NZ2NRRkdu?=
- =?utf-8?B?d2tHbC9BQ0xJdjMyODdzYzhnejd2Q3BHMzN6ckd3ODA2QXBMaTQ1TDh3NzEy?=
- =?utf-8?B?L2FBM0tsV01iai9RbG1sU1ZGRFBUWGEzMVIvVXc2OFI2WFF6MVZlNTd6UmZS?=
- =?utf-8?B?QW5mbkV1elgrSCtjdWpRektSRldKSUFvWklWL1R0N0hOd1hrc2JWZERxVTVK?=
- =?utf-8?B?VGdCKzhGMHNSZk5vYXF6U0tZSFVNSE91bUxSYlNxRmRObTY0M1VGNjlFSlBJ?=
- =?utf-8?B?VVNqS0ZpMVpEMmhrb1M5eFdVK2VPdWtkRHdjM0k3eXlxRHgvUUVEWDBENXZF?=
- =?utf-8?B?eFRzbHdrOWpUOFdVTzY5ZDBDdklrdTgwNW9keE16ZytCK1BhWWxVYTBCdk56?=
- =?utf-8?B?UHhxbUhjSTFjWG9kTC9ZVDZtZ09Ja05PUlhHUlBlaGsxWWlHRTQ3dCt5MGFO?=
- =?utf-8?B?b0NPSlYvSFV5OGJkNVV4YjhuRVA4bTBRVUE4ekZXWklnSTBscHZwckVBSmhy?=
- =?utf-8?B?SFd1ZXU0elZKREdyaHZuUHl5WkJ1TVRqMEVIa0ZNY0duckJGRUV1OHFQVEl3?=
- =?utf-8?B?SUU0b2g5azJXbnZPUGRRN2dzVElMb1ZBQklJNTczK0Uwa3dRMHJ1a0F1cGhq?=
- =?utf-8?B?aUhYZEJGaHFxeXZMT283U1RIMTJhelEyYkVIcFRHVjZiaWpNdzV3aG5zZUw4?=
- =?utf-8?B?R3N3ZXZITmJGRnMyTVJVbkFXZFVtZm03QW9JaDFxV0I2U0xyem9FaXkxL21v?=
- =?utf-8?B?em9CSisrQmkxWlpFVWpkU1hGdVZ6NG5Zb05yWG9IMGNMaENIRzNPa1BoTGlQ?=
- =?utf-8?B?NU9NSHhialQ2RytnS1NsZTZWa1d6Qlo5cnJBSE5jV0E4ZFNqZlNwcEF5TVNK?=
- =?utf-8?B?Nk1wNzNTWU5hcEZUbFJGL0NtNm84K251NkF4ZnBwa0pyVkw1akFxSmpYTEI0?=
- =?utf-8?B?SENCd0cvNk92TDNZTVp1YjNJREEyMkduK2JwUi9LZUhUdjFVeWhRaGRjb2Fz?=
- =?utf-8?B?TXlQdmtWMlpuNDlIOHlUL0kzK0I0TnJMNmtOTGhyZGRGekpEYVVLczBPZTNp?=
- =?utf-8?B?MWs3Z3hVdVZ4WkZuUUprNzFFSHZOTmFScVhmY1ZNNSs5NG5ZUUpsRGxyTUNY?=
- =?utf-8?Q?UFetiQ4PArnrcnnqEE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88baf530-c640-4637-bccd-08df289c5916
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6921.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:06:48.6332 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tiI5HcgMBkOisAnCM+74lon6AMYJaXxj0vcfgeIXGOGYY5Bdo916QjheBV0kvhlMM4QmTh+lSQN0ourZwKW7+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5734
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,225 +105,48 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 9/2/26 17:31, Andrei Rusu de Castro wrote:
-> convert_brightness_from_user() expects convert_custom_brightness() to
-> reshape a value in the userspace [0..max] domain before the caller maps
-> it once into the firmware [min..max] domain.
+On Wed, 07 Oct 2026 02:42:43 +0100, Pavel Begunkov wrote:
+> The patch set allows to register a dmabuf to an io_uring instance for
+> a specified file and use it with io_uring read / write requests. The
+> infrastructure is not tied to io_uring and there could be more users
+> in the future. A similar idea was attempted some years ago by Keith [1],
+> from where I borrowed a number of changes. Later it was brough back up
+> to life by Tushar and Vishal.
 > 
-> Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
-> userspace") instead made convert_custom_brightness() call
-> scale_fw_to_input(min, max, ...). That helper adds min and scales by the
-> firmware span, entering the firmware domain before the caller applies
-> the same span and minimum again.
-> 
-> With the default PWM range, min is 3084 and max is 65535. A zero request
-> through any custom curve consequently returns 6023 instead of 3084, so
-> the darkest 2939 firmware levels are unreachable.
-> 
-> Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
-> inverse of scale_input_to_fw(), and the caller remains the sole owner of
-> the userspace-to-firmware conversion. The linear path is unchanged.
-> 
-> A later patch removes this helper from the PWM power-module path because
-> the power module owns that curve. AUX panels continue to use it, and
-> stable kernels predating the power-module refactor still require this
-> correction on PWM panels.
-> 
-> Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
-> full range") fixed the corresponding input-side domain error. This
-> completes the output side of the same conversion.
-> 
-> Source and arithmetic analysis identified the duplicate domain
-> conversion. KUnit coverage for a non-zero firmware minimum is added
-> separately.
-> 
-> Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to userspace")
-> Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale custom brightness curve from full range
-> Cc: stable@vger.kernel.org # 6.17.x
-> Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop the header and test hunks
-> Assisted-by: LLM
-> Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+> [...]
 
-There has already been some competing changes for how the power module 
-integration handling works in amd-staging-drm-next.
+Applied, thanks!
 
-I wanted to see how your series was on top of it, but it doesn't apply 
-anymore. [1]  Can you please rebase your series and re-evaluate?
+[01/13] dma-buf: introduce initial file I/O infrastructure
+        commit: b899f5d8a9594f3e5be7c481e4631521f0a6e42d
+[02/13] iov_iter: add iterator type for dmabuf maps
+        commit: f41f84796a1129838524d2aa542598c22822a2ec
+[03/13] block: always adjust bi_offset on bio_advance_iter
+        commit: dda48c57e1484f967727d827923d3fb47d6b8aa3
+[04/13] block: introduce dma map backed bio type
+        commit: dfc9cc23122deeffcbf562a0989c695e8505d54e
+[05/13] block: add dma-buf support for raw bdev
+        commit: 738881239a914b2d92cafdf1030c382f1614a293
+[06/13] nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
+        commit: db93ee31780323044eb5d6279d89f6ae49493f39
+[07/13] nvme-pci: implement dma-buf backed requests
+        commit: bb3e58f540e95ad55bc7ba6a6f713f79b4e79e7e
+[08/13] nvme-pci: add SGL support for the dmabuf path
+        commit: 3676bad01d84421fbf8567edafac63bef9f648cc
+[09/13] io_uring/rsrc: introduce buf registration structure
+        commit: fa1925e901c00b00695edd29d053564a6de63d9c
+[10/13] io_uring/rsrc: extend buffer update
+        commit: b497df80ba7536cffb2c5364e725c0812135886c
+[11/13] io_uring/rsrc: add uncloneable regbuf flag
+        commit: 10b6521fae14c5941b3fd77d1a48eb7a424ee487
+[12/13] io_uring/rsrc: add regbuf import flags
+        commit: b5a1e426d22fa059eaac1106292ad60c8da52d17
+[13/13] io_uring/rsrc: add dmabuf backed registered buffers
+        commit: 4bb797852328975051b001189f3e3840cfaad2d7
 
-If it still makes sense (in your view); please send out a v3.
+Best regards,
+-- 
+Jens Axboe
 
-[1]
-Applying: drm/amd/display: keep custom brightness curve in userspace domain
-Patch failed at 0001 drm/amd/display: keep custom brightness curve in 
-userspace domain
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-error: patch failed: 
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c:112
-error: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c: 
-patch does not apply
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
 
-Thanks,
-
-> ---
->   .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
->   .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
->   .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
->   3 files changed, 22 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> index e61bbc310f33..424b33573a73 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> @@ -112,16 +112,15 @@ static inline u32 scale_input_to_fw(int max, u64 input)
->   	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
->   }
->   
-> -/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
-> -static inline u32 scale_fw_to_input(int min, int max, u64 input)
-> +/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace [0..max]. */
-> +static inline u32 scale_fw_to_input(int max, u64 input)
->   {
-> -	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
-> +	return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
->   }
->   
->   STATIC_IFN_KUNIT
->   void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-> -			       unsigned int min, unsigned int max,
-> -			       uint32_t *user_brightness)
-> +			       unsigned int max, uint32_t *user_brightness)
->   {
->   	u32 brightness = scale_input_to_fw(max, *user_brightness);
->   	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
-> @@ -179,7 +178,7 @@ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
->   						    (brightness - lower_signal),
->   						    upper_signal - lower_signal);
->   scale:
-> -	*user_brightness = scale_fw_to_input(min, max,
-> +	*user_brightness = scale_fw_to_input(max,
->   					     DIV_ROUND_CLOSEST(lum * brightness, 101));
->   }
->   
-> @@ -194,7 +193,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
->   	if (!get_brightness_range(caps, &min, &max))
->   		return brightness;
->   
-> -	convert_custom_brightness(caps, min, max, &brightness);
-> +	convert_custom_brightness(caps, max, &brightness);
->   
->   	/* Rescale 0..max to min..max */
->   	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-> index 07b75064847c..90bed0ea5d00 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-> @@ -67,8 +67,7 @@ ssize_t panel_power_savings_store(struct device *device,
->   int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
->   			 unsigned int *min, unsigned int *max);
->   void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-> -			       unsigned int min, unsigned int max,
-> -			       uint32_t *user_brightness);
-> +			       unsigned int max, uint32_t *user_brightness);
->   u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
->   				 uint32_t brightness);
->   u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-> index 7ca17f803f9d..1fb171fdbc3c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-> @@ -1033,7 +1033,7 @@ static void dm_test_custom_brightness_no_data_points(struct kunit *test)
->   
->   	caps.data_points = 0;
->   
-> -	convert_custom_brightness(&caps, 3084, 65535, &brightness);
-> +	convert_custom_brightness(&caps, 65535, &brightness);
->   
->   	/* No data points → no-op */
->   	KUNIT_EXPECT_EQ(test, brightness, saved);
-> @@ -1057,7 +1057,7 @@ static void dm_test_custom_brightness_debug_mask_disables(struct kunit *test)
->   	/* Set the disable flag */
->   	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
->   
-> -	convert_custom_brightness(&caps, 3084, 65535, &brightness);
-> +	convert_custom_brightness(&caps, 65535, &brightness);
->   
->   	/* Should be no-op due to debug mask */
->   	KUNIT_EXPECT_EQ(test, brightness, saved);
-> @@ -1100,14 +1100,14 @@ static void dm_test_custom_brightness_exact_match(struct kunit *test)
->   	 */
->   	brightness = 32896;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/*
->   	 * Exact match: lum=50, brightness_scaled=128
-> -	 * result = scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101))
-> -	 *        = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
-> -	 *        = scale_fw_to_input(0, 65535, 63)
-> -	 *        = 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
-> +	 * result = scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
-> +	 *        = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
-> +	 *        = scale_fw_to_input(65535, 63)
-> +	 *        = DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
->   	 */
->   	KUNIT_EXPECT_TRUE(test, brightness != 32896);
->   	KUNIT_EXPECT_TRUE(test, brightness < 32896);
-> @@ -1146,13 +1146,13 @@ static void dm_test_custom_brightness_below_first(struct kunit *test)
->   	 */
->   	brightness = 12850;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/*
->   	 * Below first data point: lum = DIV_ROUND_CLOSEST(40 * 50, 100) = 20
-> -	 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-> -	 *      = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
-> -	 *      = scale_fw_to_input(0, 65535, 10)
-> +	 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-> +	 *      = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
-> +	 *      = scale_fw_to_input(65535, 10)
->   	 * The output should be significantly less than input.
->   	 */
->   	KUNIT_EXPECT_TRUE(test, brightness < 12850);
-> @@ -1190,7 +1190,7 @@ static void dm_test_custom_brightness_interpolation(struct kunit *test)
->   	 */
->   	brightness = 32125;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/*
->   	 * The function should interpolate between data points and produce
-> @@ -1233,7 +1233,7 @@ static void dm_test_custom_brightness_above_last(struct kunit *test)
->   	 */
->   	brightness = 56533;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/* Output should differ from input (remapped via curve) */
->   	KUNIT_EXPECT_TRUE(test, brightness != 56533);
-> @@ -1271,7 +1271,7 @@ static void dm_test_custom_brightness_single_data_point(struct kunit *test)
->   	 */
->   	brightness = 16448;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	KUNIT_EXPECT_TRUE(test, brightness < 16448);
->   
-> @@ -1309,7 +1309,7 @@ static void dm_test_custom_brightness_lower_lum_zero(struct kunit *test)
->   	 */
->   	brightness = 32125;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/* Should remap; result should differ from input */
->   	KUNIT_EXPECT_TRUE(test, brightness != 32125);
 
