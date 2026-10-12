@@ -4,54 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6592DCA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 06:40:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83F1FCA9ED5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 06:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3A3F10E4C4;
-	Mon, 12 Oct 2026 06:40:44 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C91110E4AD
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:40:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 698EE60AA1;
- Mon, 12 Oct 2026 06:40:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982AE1F0089B;
- Mon, 12 Oct 2026 06:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791787237;
- bh=+hh4i2moavrGqPX1n2c2RQbAaD9fjE5awV5cn9mPTwY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=fXdRBOaMG4LWZ/2UNKOjJHXzXsjEEdugfLfJYCZGs2lMAQVa2x7W+HihvaplfEacq
- 7IbI+fvuLpPPZAeu2/21ZUbXm0jO8tNgsefFbWZPZeo3rryEwk7zayhX6jf9HUjtn/
- WnlFpv6C5Hv9nQSTySBgN/AnvwMVShGffMJDl5l46fP/jRWeY2csVxwP/ZyOz38yZL
- JNSQeIkRmDrZ+FBwUNp9v5FnV9/XjE3e6TZ7zHOYF3KRR6vAGspQ2jaojWVxTTURB0
- rLa5R1i+nzS0xFDtZzTUTED+qgJd/qQV+Gt/WPn8Rexq+NWIAIHFE6/zAo1JxZpRfT
- wLDQHjABJtivw==
-Date: Mon, 12 Oct 2026 08:40:33 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, Val Packett <val@packett.cool>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
-Message-ID: <asyAObcpbFy3OeE2@houat>
-References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D845310E4AD;
+	Mon, 12 Oct 2026 06:45:37 +0000 (UTC)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C9A110E44B
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:45:31 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2d01548ac96so931605ad.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 23:45:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791787531; x=1792392331; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ouRjuP1RtfyniT15YEA/gc6km+f4No4a2cccPN4BtkA=;
+ b=EGFbQAtrhBRTlxTzDwHgHmwAc4ybMVMN6RMN/oFHHTSfqMIIRy/VpJ2lFKzO1I8RLU
+ XfM23xfwm5lBrAJsvOUR7uffxtB631pxcVbbEysmT/0pcyp4jAHgI5oSA+V8IRWWBDr9
+ gK4nFW87DHX9MPqEAOxnj4qClwHSPVTZuask7ePOWMa9GR1nEcBExcic7llfPFp4jgxG
+ fumB6aqbXre/y+YdQmDa1zMF3ZfdFtE0CkQo8i5IK6prhWUThLk9cOYc9hY36BBDXOBs
+ 7OfxqzjaQd50B62Tsam4BtacKqhlLuAnk4HOmn/CTDSMUw9OB8YwRgPIOiG9j3NDuQ5v
+ zG/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791787531; x=1792392331;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ouRjuP1RtfyniT15YEA/gc6km+f4No4a2cccPN4BtkA=;
+ b=qvobKEAUMg2+/Lju62BJ5Rlo8+VsQ6uj2Gd+OFzH3kap/NLbB3leldDexMtkNhxL11
+ 7/+KWkenqX5Yy/hdqgcyGEUuuZFaHxHDqGneRoT3c+dncBK4qf8TfJmXTUnt4TcMWh75
+ MtLwR+UerqVS61izP7910fOcEhf3sUlUlbcfnShD/saG4EmnVEWDm+35WmeSsAa1lWWj
+ nuDLxHzHD+duVSZnbUjbLiaO2Oi3xnDF8XiSrI7VvPBViRR4Ily1kj7hL4Y4F32mrSsv
+ eTXbfLYViV0jdSrERWvCt/fEJyd1u1hF/AOxzfJd4kw3UbyK8RYjaxB28BdmlNlvtUAQ
+ kLcg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzXSPRWnvNuh4R2buMdjGYi/+vWOp9P+Kr2jHK9dGw5bXTLCrMp9r3TtqFMxBF58yTjklp+Bpx1+QI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIJ+1KrLqKIdM3rHMiePrFqwmAf51acTL2DZ5+eVQj1XbkvxJLk
+ CAxmpAe2VArqAQA0CZF1SGMeSNMH+CPM3/t15VICGMMVZsrZzSFLA349
+X-Gm-Gg: AYBFou1/EhlTKBEBob4xgcO8AHBQWhwULgfO+GHjI0yWqaOCkXMZ44+kfyefIewTcr0
+ 8ZjgAUSiQrUqL4XWbm8PH2IebalFQvSR90ym69b36SNML5tEGAU6EzV7aPSYbUBt3ngrykemMHB
+ tILLKbPdu+odXymZwrFN8nfoRowY4Hq7JnshSwP6HKfq5TOT0pgyvbEPVV01bpPLG1riCVMBFU5
+ sKH+eQAMZb1esa/OgARwQFa6VJ/XNnN4WgqRXatC74NYD0Cng91oC5A02noKuMe/5yB5ZZYQFg8
+ 9OnwdaZzkE6znsYfWgb9Y8YlMmJRe9SlOZJFm4BH5k/2mt1+I9Fp+C1DUtGDIJQGaKcqpm+2lqx
+ WhTRXjOOb+DtPXI9F8nyOBVp9juXLfbM+ce0fKm2UFOQpip+HuZwS/frZ72TkZR910Jkyug16Mc
+ GgPaseoEuoPkSoaqxGTmo/ZufmhtdLLiMdKQaK5teS+RcqDuIew2E+UkQ5JMsg42xp2hbI
+X-Received: by 2002:a17:90b:224e:b0:3a0:bcc8:1549 with SMTP id
+ 98e67ed59e1d1-3ab3afb180emr11995577a91.6.1791787530571; 
+ Sun, 11 Oct 2026 23:45:30 -0700 (PDT)
+Received: from marchy ([2405:3800:8a8:86f0:ee8e:77ff:fed4:d18b])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ab36ed0daesm15052355a91.5.2026.10.11.23.45.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Oct 2026 23:45:30 -0700 (PDT)
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de
+Cc: jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch,
+ andersson@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ azuddinadam@gmail.com
+Subject: [PATCH v4 0/2] drm/tiny: Add RAiO RA8875 display controller driver
+ support
+Date: Mon, 12 Oct 2026 14:45:03 +0800
+Message-ID: <20261012064518.3497285-1-azuddinadam@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="hjbswlulvbwt55yj"
-Content-Disposition: inline
-In-Reply-To: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,60 +89,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This series adds a new drm/tiny driver and matching dt-binding for the
+RAiO RA8875 SPI display controller. An fbtft driver for this chip
+currently exists at drivers/staging/fbtft/fb_ra8875.c, but fbtft is a
+legacy fbdev-based staging driver, and nothing in mainline DRM
+currently supports this controller.
 
---hjbswlulvbwt55yj
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
-MIME-Version: 1.0
+This driver does not use drm_mipi_dbi. The RA8875 SPI protocol is
+structurally incompatible with both Type C options drm_mipi_dbi supports.
+Type C1 encodes command/data as a 9th bit within a 9-bit SPI word. The
+RA8875 uses a full prefix byte (0x80 = command write, 0x00 = data write,
+0x40 = data read, 0xC0 = status read) sent as a separate 8-bit transaction.
+These are not the same thing and cannot be mapped to each other.
+Type C3 models two transfer types via a D/CX GPIO. The RA8875 has four
+transfer cycle types and no D/CX pin.
 
-On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
-> Panel drivers don't have an atomic state and so they can't handle
-> additional data to be stored at the atomic_check time or to be retrieved
-> at the enable/disable time. For example, it prevents panel drivers from
-> supporting multiple display modes or making DSC being optional in a
-> clean way. Drivers like panel-novatek-nt35950, save the connector
-> pointer in get_modes() and later dereference
-> connector->state->crtc->state from prepare() without holding any locks.
-> The panels also have no way to reject the configuration they cann't
-> handle, as it doesn't take part in the atomic check.
->=20
-> The panel already embeds a drm_bridge, and the bridge has an atomic
-> state which is property handled. Subclass it to provide atomic state for
-> the panels. The callbacks can find the state of the other related
-> objects (e.g. CRTC state to get the display mode).
->=20
-> The atomic state is opt-in. A panel that doesn't implement the state
-> callbacks keeps working exactly as before, with the plain bridge state,
-> so there is no need to touch the existing drivers. The panels which do
-> implement them can only be driven through the embedded bridge, since
-> there is no commit to hand over when the host calls drm_panel_prepare()
-> and friends directly. Those entry points warn and refuse to handle such
-> panels. There are still a dozen of display drivers calling these
-> functions, and the panels used with them can not be converted until the
-> hosts are switched to the panel bridge.
+My ER-TFTM050-3 board has RST tied NC, and VDD is a fixed supply
+set via an on-board solder jumper rather than software-controllable,
+so I couldn't test reset-gpios/vdd-supply myself, but added them
+as optional/required properties respectively per review feedback
+for boards that do need them.
 
-I really don't think we should extend the panel API. All panels are
-bridges now, consumers only care about bridges as well, and the bridges
-API provides what you want already.
+Tested on a Raspberry Pi 3B connected over SPI to an East Rising
+ER-TFTM050-3, a 5" 800x480 panel driven by the RA8875 in Linux 7.3.0-rc4.
+Based on drm-misc-next (commit 73df79cceb8c)
 
-Why not simply turn the panel drivers we want into bridges, possibly
-with a bunch of specialized helpers to manage a panel state, and call it
-a day?
+Link to v1: https://lore.kernel.org/all/20260916175942.3186804-1-azuddinadam@gmail.com/
+Link to v2: https://lore.kernel.org/all/20260924145400.1385815-1-azuddinadam@gmail.com/
+Link to v3: https://lore.kernel.org/all/20261001144128.2336301-1-azuddinadam@gmail.com/
+---
+Changes in v4:
 
-Maxime
+Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
+-  Drop the sentence in the description saying the binding covers only the
+   SPI-connected device (Conor).
+- Drop unused panel label
 
---hjbswlulvbwt55yj
-Content-Type: application/pgp-signature; name="signature.asc"
+drivers/gpu/drm/tiny/ra8875.c:
+- Catch error value from ra8875_write_pixels
+- Use consistent include header format.
+- Return if fb is null in atomic_update
+- Drop unnecessary extra byte in pixel data spi write.
 
------BEGIN PGP SIGNATURE-----
+drivers/gpu/drm/tiny/Kconfig:
+- Add depends on OF, which is caught by intel 0-day[3]
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCasyA3QAKCRAnX84Zoj2+
-ds8VAX4iLOr+i95wQQ2TEBtzi+Nu8K8umIW4GcZ4OjJ36hZ+u+qwcByShXAbYA53
-8a6SJLMBgNYv/aCiJAjGcMe8sPjtzRy5XUqYsKrIHhZVX29GqIkmxtUxqNgYWrUF
-Z+ps/5hToQ==
-=SZYX
------END PGP SIGNATURE-----
+Changes in v3:
 
---hjbswlulvbwt55yj--
+Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
+- Add gpio.h include in example to pass dt_binding_check
+- Remove spi-max-frequency as there is no reference in datasheet
+
+drivers/gpu/drm/tiny/ra8875.c:
+- Remove debug-only ra8875_read_reg function
+- Chunk large SPI transfers to 16 rows per chunk
+- Remove unnecessary includes and spi cs setups in probe
+- Create ra8875_write_pixels function for clear_screen and fb_dirty
+- Use 2 spi writes instead of 1 write with 2 transfers and cs_change in write_reg
+
+Changes in v2:
+
+Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml (review by Krzysztof Kozlowski):
+- Add hardware description to the binding
+- Drop the display-timings property, and instead require it in the required block
+- Add a required vdd-supply and an optional reset gpio property
+- Rename the example node to a more generic "panel: display@0"
+
+drivers/gpu/drm/tiny/Makefile and Kconfig:
+- Remove TINYDRM prefix from the config name (Thomas Zimmermann [1])
+
+drivers/gpu/drm/tiny/ra8875.c:
+- Reformat device_id table to match current convention (Krzysztof Kozlowski)
+- Drop unneeded linux/mod_devicetable.h include (Uwe Kleine-König)
+- Use drm_dev_unplug() instead of drm_dev_unregister() in remove callback
+- Move stack-allocated cmd/data buffers into ra8875_device struct
+- Add mode_valid() callback to validate height/width against panel maximum
+- Add optional reset gpio
+- Use dev_err_probe() in probe function
+- Remove connector detect callback
+- Remove unnecessary |= on register write return value in hw_init
+- Migrate from simple display pipe to manually-handled plane/crtc/encoder,
+  following the simple-KMS-helper removal effort [2]
+- Use defined constants instead of magic values where possible
+- Use drm_atomic_helper_damage_merged() and drm_fb_swab() in plane update
+
+[1] https://lore.kernel.org/all/fee2a743-d3e4-46b4-812f-05c3cc3a46ae@suse.de/
+[2] https://lore.kernel.org/all/20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com/
+[3] https://lore.kernel.org/all/202610042347.idGisdDW-lkp@intel.com/
+
+Adam Azuddin (2):
+  dt-bindings: display: panel: Add RAiO RA8875 display controller
+  drm/tiny: Add RAiO RA8875 display controller driver
+
+ .../bindings/display/panel/raio,ra8875.yaml   |  77 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   6 +
+ drivers/gpu/drm/tiny/Kconfig                  |  13 +
+ drivers/gpu/drm/tiny/Makefile                 |   1 +
+ drivers/gpu/drm/tiny/ra8875.c                 | 719 ++++++++++++++++++
+ 6 files changed, 818 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+ create mode 100644 drivers/gpu/drm/tiny/ra8875.c
+
+-- 
+2.55.0
+
