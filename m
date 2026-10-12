@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0443CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:00:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA8AACA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:00:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10F7C10F0D0;
-	Mon, 12 Oct 2026 13:00:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1061310F0A6;
+	Mon, 12 Oct 2026 13:00:33 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 725B310F0BB
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:00:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 22BFC10F0A6
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:00:25 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DFF921A00;
- Mon, 12 Oct 2026 06:00:18 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A1A11655;
+ Mon, 12 Oct 2026 06:00:21 -0700 (PDT)
 Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
  [10.42.46.160])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E95D23F66F;
- Mon, 12 Oct 2026 06:00:19 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 923C13F66F;
+ Mon, 12 Oct 2026 06:00:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1791810022; bh=5dl3upRv2JVuocjW37MBOplNc6LnnavS968KHhVlsvU=;
+ t=1791810024; bh=v7EmvNju9Oe0rmwSf6Sxhi8oR0v8qpfI9YQMwWDeJ1c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nL64fe6o2SbHvd4OoRET4KjAHFgMuZJMqfYbZ/5gNC/ezts5xfy4dhGTnVOQ4yeOp
- othYf9FBzchaAuhH6UCugjDCfGEQlOGheLoasesBd7iIPwWB3Dr7Stb6fQfC8UTz43
- dEaaRue6YIHeYYdqUt6A3/zHpdlPaidiRCKWUPXA=
+ b=g74xb2An9R/OJxAFP2n8aA3wp4jqJolmnqbCRCY494h0LQP8l5JxWb1eABn86HBqV
+ fMRadLjA8goZN5wIkfL/pl5FSSscEmNu6zOXt+QmBwl8jsJxDSn9PgFJCs88Zu75lk
+ 4N9fcy7kObogO2TJW/+kaoxOY1g/o1pTyR2JcQK4=
 From: Ketil Johnsen <ketil.johnsen@arm.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -36,9 +36,9 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
  Alice Ryhl <aliceryhl@google.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: [PATCH v4 10/12] drm/panthor: Support FW init of protm
-Date: Mon, 12 Oct 2026 14:59:38 +0200
-Message-ID: <20261012125940.3291951-11-ketil.johnsen@arm.com>
+Subject: [PATCH v4 11/12] drm/panthor: Protm support for groups
+Date: Mon, 12 Oct 2026 14:59:39 +0200
+Message-ID: <20261012125940.3291951-12-ketil.johnsen@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261012125940.3291951-1-ketil.johnsen@arm.com>
 References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
@@ -61,15 +61,17 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Boris Brezillon <boris.brezillon@collabora.com>
 
-The Mali GPU FW needs some protected memory when executing in protected
-mode. This FW memory section is assigned a VA during device init.
-A user space process with the needed privileges (CAP_SYS_MODULE) must
-provide a suitable memory buffer before the Mali GPU is capable of
-executing in protected mode.
+Extends struct drm_panthor_group_create to allow user provided protm
+suspend buffer. This is needed for protm execution with this group.
 
-Adds user query of FW protm state, min FW section size and min protm
-suspend buffer size.
-Adds user initiated init of FW protm section.
+Make use of the user supplied suspend buffer (import).
+
+Allow PROT_REGION instruction for groups which provided protm
+suspend buffer.
+
+Store the suspend buffer sizes (normal and protected) provided by FW
+after FW start. Unsafe to read directly from FW as these will return
+zero between FW load and FW start.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
@@ -80,391 +82,196 @@ Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
 v4:
 - First version of this change as a separate commit
 ---
- drivers/gpu/drm/panthor/panthor_device.h |   3 +
- drivers/gpu/drm/panthor/panthor_drv.c    |  18 +++-
- drivers/gpu/drm/panthor/panthor_fw.c     | 107 +++++++++++++++++++++--
- drivers/gpu/drm/panthor/panthor_fw.h     |   2 +
- include/uapi/drm/panthor_drm.h           |  75 ++++++++++++++++
- 5 files changed, 197 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/panthor/panthor_fw.c    | 24 ++++++++++
+ drivers/gpu/drm/panthor/panthor_fw.h    |  2 +
+ drivers/gpu/drm/panthor/panthor_sched.c | 59 ++++++++++++++++++++-----
+ include/uapi/drm/panthor_drm.h          | 10 ++++-
+ 4 files changed, 83 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index 4362c55bcd7e4..99e5174cf0e50 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -343,6 +343,9 @@ struct panthor_device {
- 
- 		/** @protm_exit_count: Number of times we exited protm. */
- 		atomic64_t protm_exit_count;
-+
-+		/** @info: Protected mode info. */
-+		struct drm_panthor_protm_info info;
- 	} protm;
- };
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 51a2e5358cd51..cc1c050ea3806 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -177,11 +177,13 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_mmu_info, page_size_bitmap), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_timestamp_info, current_timestamp), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_group_priorities_info, pad), \
-+		 PANTHOR_UOBJ_DECL(struct drm_panthor_protm_info, pad), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
--		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
-+		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
-+		 PANTHOR_UOBJ_DECL(struct drm_panthor_protm_init, pad))
- 
- /**
-  * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
-@@ -958,6 +960,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
- 			args->size = sizeof(ptdev->mmu_info);
- 			return 0;
- 
-+		case DRM_PANTHOR_DEV_QUERY_PROTM_INFO:
-+			args->size = sizeof(ptdev->protm.info);
-+			return 0;
-+
- 		default:
- 			return -EINVAL;
- 		}
-@@ -991,6 +997,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
- 	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
- 		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
- 
-+	case DRM_PANTHOR_DEV_QUERY_PROTM_INFO:
-+		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->protm.info);
-+
- 	default:
- 		return -EINVAL;
- 	}
-@@ -1588,6 +1597,12 @@ static int panthor_ioctl_bo_query_info(struct drm_device *ddev, void *data,
- 	return 0;
- }
- 
-+static int panthor_ioctl_protm_init(struct drm_device *ddev, void *data,
-+				    struct drm_file *file)
-+{
-+	return panthor_fw_protm_init(file, data);
-+}
-+
- static int
- panthor_open(struct drm_device *ddev, struct drm_file *file)
- {
-@@ -1664,6 +1679,7 @@ static const struct drm_ioctl_desc panthor_drm_driver_ioctls[] = {
- 	PANTHOR_IOCTL(SET_USER_MMIO_OFFSET, set_user_mmio_offset, DRM_RENDER_ALLOW),
- 	PANTHOR_IOCTL(BO_SYNC, bo_sync, DRM_RENDER_ALLOW),
- 	PANTHOR_IOCTL(BO_QUERY_INFO, bo_query_info, DRM_RENDER_ALLOW),
-+	PANTHOR_IOCTL(PROTM_INIT, protm_init, DRM_RENDER_ALLOW),
- };
- 
- static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
 diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index fc07796fc9ef7..0af6addfd55a5 100644
+index 0af6addfd55a5..11c370ef86aad 100644
 --- a/drivers/gpu/drm/panthor/panthor_fw.c
 +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -13,8 +13,10 @@
- #include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/capability.h>
+@@ -269,6 +269,12 @@ struct panthor_fw {
+ 	/** @protm_init_lock: Used to serialize protm initialization. */
+ 	struct mutex protm_init_lock;
  
- #include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- 
-@@ -252,6 +254,9 @@ struct panthor_fw {
- 	/** @shared_section: The section containing the FW interfaces. */
- 	struct panthor_fw_section *shared_section;
- 
-+	/** @protm_section: The protected mode section. */
-+	struct panthor_fw_section *protm_section;
++	/** @suspend_size: Size of regular suspend buffer */
++	u32 suspend_size;
 +
- 	/** @iface: FW interfaces. */
- 	struct panthor_fw_iface iface;
- 
-@@ -261,6 +266,9 @@ struct panthor_fw {
- 		struct delayed_work ping_work;
- 	} watchdog;
- 
-+	/** @protm_init_lock: Used to serialize protm initialization. */
-+	struct mutex protm_init_lock;
++	/** @protm_suspend_size: Size of protected suspend buffer size */
++	u32 protm_suspend_size;
 +
  	/**
  	 * @req_waitqueue: FW request waitqueue.
  	 *
-@@ -462,6 +470,9 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
- 	    !(section->flags & CSF_FW_BINARY_IFACE_ENTRY_ZERO))
- 		return;
- 
-+	if (!section->mem)
-+		return;
-+
- 	ret = panthor_kernel_bo_vmap(section->mem);
- 	if (drm_WARN_ON(&ptdev->base, ret))
- 		return;
-@@ -621,12 +632,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 		return -EINVAL;
+@@ -1006,6 +1012,14 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
  	}
  
--	if (hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT) {
--		drm_warn(&ptdev->base,
--			 "Firmware protected mode entry is not supported, ignoring");
--		return 0;
--	}
--
- 	if (hdr.va.start == CSF_MCU_SHARED_REGION_START &&
- 	    !(hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_SHARED)) {
- 		drm_err(&ptdev->base,
-@@ -678,7 +683,22 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 	section->size = section_size;
- 	section->va = hdr.va.start;
- 
--	if (section_size) {
-+	if (hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT) {
-+		if (ptdev->fw->protm_section) {
-+			drm_err(&ptdev->base,
-+				"Only one protected section supported\n");
-+			return -EINVAL;
-+		}
-+
-+		ptdev->protm.info.fw_protected_sections_size =
-+			ALIGN(section->size, vm_pgsz);
-+		ptdev->fw->protm_section = section;
-+	}
-+
-+	/* Defer the section->mem creation if this is a protected entry.
-+	 * This will be populated when DRM_IOCTL_PANTHOR_PROTM_INIT is called.
-+	 */
-+	if (section->size && !(hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT)) {
- 		u32 vm_map_flags = section_vm_map_flags(section);
- 
- 		section->mem = panthor_kernel_bo_create(
-@@ -985,6 +1005,11 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
- 		return -EINVAL;
- 	}
- 
-+	if (!csg_idx) {
-+		ptdev->protm.info.group_protected_suspend_buf_size =
+ 	if (!csg_idx) {
++		/* We make a copy of these sizes, as csg_iface can read these
++		 * as zero during full GPU reset, between FW sections being
++		 * reloaded and FW fully booted.
++		 */
++		ptdev->fw->suspend_size = csg_iface->control->suspend_size;
++		ptdev->fw->protm_suspend_size =
 +			csg_iface->control->protm_suspend_size;
-+	}
 +
- 	if (csg_idx > 0) {
- 		struct panthor_fw_csg_iface *first_csg_iface =
- 			panthor_fw_get_csg_iface(ptdev, 0);
-@@ -1585,6 +1610,70 @@ int panthor_fw_protm_exit(struct panthor_device *ptdev, u32 timeout_ms)
- 	return panthor_fw_protm_exit_wait(ptdev, timeout_ms);
+ 		ptdev->protm.info.group_protected_suspend_buf_size =
+ 			csg_iface->control->protm_suspend_size;
+ 	}
+@@ -1523,6 +1537,16 @@ static void panthor_fw_ping_work(struct work_struct *work)
+ 	}
  }
  
-+int panthor_fw_protm_init(struct drm_file *file,
-+			  struct drm_panthor_protm_init *args)
++u32 panthor_fw_suspend_size(struct panthor_device *ptdev)
 +{
-+	struct panthor_file *pfile = file->driver_priv;
-+	struct panthor_device *ptdev = pfile->ptdev;
-+	struct panthor_fw_section *protm_section = ptdev->fw->protm_section;
-+	struct drm_gem_object *obj;
-+	u32 vm_map_flags;
-+	int cookie, ret = 0;
-+
-+	if (!capable(CAP_SYS_MODULE))
-+		return -EPERM;
-+
-+	if (args->pad)
-+		return -EINVAL;
-+
-+	if (!protm_section || !protm_section->size)
-+		return -EINVAL;
-+
-+	guard(mutex)(&ptdev->fw->protm_init_lock);
-+
-+	/* Thread safe access so other readers do not need protm_init_lock */
-+	if (smp_load_acquire(&ptdev->protm.info.state) &
-+	    DRM_PANTHOR_PROTM_INITIALIZED)
-+		return 0;
-+
-+	if (!drm_dev_enter(&ptdev->base, &cookie))
-+		return -ENODEV;
-+
-+	obj = drm_gem_object_lookup(file,
-+				    args->fw_protected_sections_bo_handle);
-+	if (!obj) {
-+		ret = -ENOENT;
-+		goto out_dev_exit;
-+	}
-+
-+	if (obj->size < ptdev->protm.info.fw_protected_sections_size) {
-+		ret = -EINVAL;
-+		goto out_gem_put;
-+	}
-+
-+	vm_map_flags = section_vm_map_flags(protm_section);
-+
-+	protm_section->mem = panthor_kernel_bo_create_from_gem(
-+		ptdev, panthor_fw_vm(ptdev), to_panthor_bo(obj), vm_map_flags,
-+		protm_section->va, protm_section->size);
-+	if (IS_ERR(protm_section->mem)) {
-+		ret = PTR_ERR(protm_section->mem);
-+		protm_section->mem = NULL;
-+		goto out_gem_put;
-+	}
-+
-+	/* Make sure all above is completed before we update state */
-+	smp_store_release(&ptdev->protm.info.state,
-+			  DRM_PANTHOR_PROTM_INITIALIZED);
-+
-+out_gem_put:
-+	drm_gem_object_put(obj);
-+
-+out_dev_exit:
-+	drm_dev_exit(cookie);
-+	return ret;
++	return ptdev->fw->suspend_size;
 +}
 +
- /**
-  * panthor_fw_init() - Initialize FW related data.
-  * @ptdev: Device.
-@@ -1606,6 +1695,10 @@ int panthor_fw_init(struct panthor_device *ptdev)
- 	INIT_LIST_HEAD(&fw->sections);
- 	INIT_DELAYED_WORK(&fw->watchdog.ping_work, panthor_fw_ping_work);
- 
-+	ret = drmm_mutex_init(&ptdev->base, &fw->protm_init_lock);
-+	if (ret)
-+		return ret;
++u32 panthor_fw_protm_suspend_size(struct panthor_device *ptdev)
++{
++	return ptdev->fw->protm_suspend_size;
++}
 +
- 	irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "job");
- 	if (irq <= 0)
- 		return -ENODEV;
+ static bool wait_protm_enter(struct panthor_device *ptdev,
+ 			     s64 protm_session_seqno)
+ {
 diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
-index 4eda8f8e714c1..34bc9dc82314c 100644
+index 34bc9dc82314c..98576114cc803 100644
 --- a/drivers/gpu/drm/panthor/panthor_fw.h
 +++ b/drivers/gpu/drm/panthor/panthor_fw.h
-@@ -529,6 +529,8 @@ static inline int panthor_fw_resume(struct panthor_device *ptdev)
- int panthor_fw_init(struct panthor_device *ptdev);
- void panthor_fw_unplug(struct panthor_device *ptdev);
+@@ -531,6 +531,8 @@ void panthor_fw_unplug(struct panthor_device *ptdev);
  
-+int panthor_fw_protm_init(struct drm_file *file,
-+			  struct drm_panthor_protm_init *args);
+ int panthor_fw_protm_init(struct drm_file *file,
+ 			  struct drm_panthor_protm_init *args);
++u32 panthor_fw_suspend_size(struct panthor_device *ptdev);
++u32 panthor_fw_protm_suspend_size(struct panthor_device *ptdev);
  int panthor_fw_protm_enter(struct panthor_device *ptdev);
  int panthor_fw_protm_exit(struct panthor_device *ptdev, u32 timeout_ms);
  int panthor_fw_protm_exit_wait(struct panthor_device *ptdev, u32 timeout_ms);
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index fff805fd794a5..d1178be178a48 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -1462,10 +1462,15 @@ cs_slot_process_protm_pending_event_locked(struct panthor_device *ptdev,
+ 	if (!group)
+ 		return;
+ 
+-	/* Do not allow user space work to switch into protected mode, as we
+-	 * do not fully support this quite yet.
++	/* Do not allow user space work to switch into protected mode if we
++	 * do not support protected mode on this device.
++	 * User space should query (and init) this support before attempting
++	 * to use such GPU instructions.
+ 	 */
+-	atomic_or(BIT(cs_id), &group->fatal_queues);
++	if (group->protm_suspend_buf)
++		atomic_or(BIT(cs_id), &group->protm_pending_queues);
++	else
++		atomic_or(BIT(cs_id), &group->fatal_queues);
+ 
+ 	sched_queue_delayed_work(sched, tick, 0);
+ }
+@@ -4074,6 +4079,7 @@ static void add_group_kbo_sizes(struct panthor_device *ptdev,
+ }
+ 
+ #define MAX_GROUPS_PER_POOL		128
++#define GROUP_CREATE_FLAGS DRM_PANTHOR_GROUP_CREATE_PROTECTED
+ 
+ int panthor_group_create(struct drm_file *file,
+ 			 const struct drm_panthor_group_create *group_args,
+@@ -4083,14 +4089,10 @@ int panthor_group_create(struct drm_file *file,
+ 	struct panthor_device *ptdev = pfile->ptdev;
+ 	struct panthor_group_pool *gpool = pfile->groups;
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
+-	struct panthor_fw_csg_iface *csg_iface = panthor_fw_get_csg_iface(ptdev, 0);
+ 	struct panthor_group *group = NULL;
+-	u32 gid, i, suspend_size;
++	u32 gid, i;
+ 	int ret;
+ 
+-	if (group_args->pad)
+-		return -EINVAL;
+-
+ 	if (group_args->priority >= PANTHOR_CSG_PRIORITY_COUNT)
+ 		return -EINVAL;
+ 
+@@ -4136,14 +4138,51 @@ int panthor_group_create(struct drm_file *file,
+ 		goto err_put_group;
+ 	}
+ 
+-	suspend_size = csg_iface->control->suspend_size;
+-	group->suspend_buf = panthor_fw_alloc_suspend_buf_mem(ptdev, suspend_size);
++	group->suspend_buf = panthor_fw_alloc_suspend_buf_mem(
++		ptdev, panthor_fw_suspend_size(ptdev));
+ 	if (IS_ERR(group->suspend_buf)) {
+ 		ret = PTR_ERR(group->suspend_buf);
+ 		group->suspend_buf = NULL;
+ 		goto err_put_group;
+ 	}
+ 
++	if (group_args->protected_suspend_bo_handle) {
++		struct drm_gem_object *obj;
++
++		/* Read a correct snapshot of the state */
++		if (!(smp_load_acquire(&ptdev->protm.info.state) &
++		      DRM_PANTHOR_PROTM_INITIALIZED)) {
++			ret = -EINVAL;
++			goto err_put_group;
++		}
++
++		obj = drm_gem_object_lookup(
++			file, group_args->protected_suspend_bo_handle);
++		if (!obj) {
++			ret = -ENOENT;
++			goto err_put_group;
++		}
++
++		if (obj->size <
++		    ptdev->protm.info.group_protected_suspend_buf_size) {
++			drm_gem_object_put(obj);
++			ret = -EINVAL;
++			goto err_put_group;
++		}
++
++		group->protm_suspend_buf = panthor_kernel_bo_create_from_gem(
++			ptdev, panthor_fw_vm(ptdev), to_panthor_bo(obj),
++			DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC,
++			PANTHOR_VM_KERNEL_AUTO_VA,
++			panthor_fw_protm_suspend_size(ptdev));
++		drm_gem_object_put(obj);
++		if (IS_ERR(group->protm_suspend_buf)) {
++			ret = PTR_ERR(group->protm_suspend_buf);
++			group->protm_suspend_buf = NULL;
++			goto err_put_group;
++		}
++	}
++
+ 	group->syncobjs = panthor_kernel_bo_create(ptdev, group->vm,
+ 						   group_args->queues.count *
+ 						   sizeof(struct panthor_syncobj_64b),
 diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index a2ff0f4ec6915..d2d21e3e6bb39 100644
+index d2d21e3e6bb39..a0ed16041e178 100644
 --- a/include/uapi/drm/panthor_drm.h
 +++ b/include/uapi/drm/panthor_drm.h
-@@ -154,6 +154,11 @@ enum drm_panthor_ioctl_id {
- 	 * This is useful for imported BOs.
- 	 */
- 	DRM_PANTHOR_BO_QUERY_INFO,
-+
-+	/**
-+	 * @DRM_PANTHOR_PROTM_INIT: Device-wide initialize of protected mode.
-+	 */
-+	DRM_PANTHOR_PROTM_INIT,
- };
+@@ -956,8 +956,14 @@ struct drm_panthor_group_create {
+ 	/** @priority: Group priority (see enum drm_panthor_group_priority). */
+ 	__u8 priority;
  
- /**
-@@ -256,6 +261,11 @@ enum drm_panthor_dev_query_type {
- 
- 	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
- 	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
-+
+-	/** @pad: Padding field, MBZ. */
+-	__u32 pad;
 +	/**
-+	 * @DRM_PANTHOR_DEV_QUERY_PROTM_INFO: Query supported protected rendering information.
-+	 */
-+	DRM_PANTHOR_DEV_QUERY_PROTM_INFO,
- };
- 
- /**
-@@ -517,6 +527,51 @@ struct drm_panthor_group_priorities_info {
- 	__u8 pad[3];
- };
- 
-+/**
-+ * enum drm_panthor_protm_state_flags - Describes the state of the protected mode feature.
-+ *
-+ * List of GPU states which can be used by the GPU to access protected memory.
-+ */
-+enum drm_panthor_protm_state_flags {
-+	/**
-+	 * @DRM_PANTHOR_PROTM_INITIALIZED: Device-wide initialization of the
-+	 * protected mode feature is done.
-+	 */
-+	DRM_PANTHOR_PROTM_INITIALIZED = 1 << 0,
-+};
-+
-+/**
-+ * struct drm_panthor_protm_info - Protected mode info.
-+ *
-+ * Structure grouping all queryable information relating to protected mode.
-+ */
-+struct drm_panthor_protm_info {
-+	/**
-+	 * @state: Combination of enum drm_panthor_protm_state_flags flags.
-+	 */
-+	__u32 state;
-+
-+	/**
-+	 * @fw_protected_sections_size: Size of all the protected FW sections.
-+	 *
-+	 * Size of the protected buffer to pass through
-+	 * DRM_IOCTL_PANTHOR_PROTM_INIT.
-+	 */
-+	__u32 fw_protected_sections_size;
-+
-+	/**
-+	 * @group_protected_suspend_buf_size: Size of the group suspend buffer.
-+	 *
-+	 * This must be used to allocate a protected BO that's big enough to use
-+	 * as a protected suspend buffer when a group supports protected
-+	 * rendering.
-+	 */
-+	__u32 group_protected_suspend_buf_size;
-+
-+	/** @pad: MBZ. */
-+	__u32 pad;
-+};
-+
- /**
-  * struct drm_panthor_dev_query - Arguments passed to DRM_PANTHOR_IOCTL_DEV_QUERY
-  */
-@@ -1270,6 +1325,24 @@ struct drm_panthor_bo_query_info {
- 	__u32 pad;
- };
- 
-+/**
-+ * struct drm_panthor_protm_init - Protected mode initialization arguments.
-+ */
-+struct drm_panthor_protm_init {
-+	/**
-+	 * @fw_protected_sections_bo_handle: Handle of the BO to use for the FW protected
-+	 * sections.
++	 * @protected_suspend_bo_handle: BO to use as a protected suspend buffer.
 +	 *
 +	 * This BO must have been allocated from a protected DMA-BUF heap and
 +	 * imported in panthor. It's size must be at least
-+	 * drm_panthor_protm_info::fw_protected_sections_size.
++	 * drm_panthor_protm_info::group_protected_suspend_buf_size.
 +	 */
-+	__u32 fw_protected_sections_bo_handle;
-+
-+	/** @pad: MBZ. */
-+	__u32 pad;
-+};
-+
- /**
-  * DRM_IOCTL_PANTHOR() - Build a Panthor IOCTL number
-  * @__access: Access type. Must be R, W or RW.
-@@ -1320,6 +1393,8 @@ enum {
- 		DRM_IOCTL_PANTHOR(WR, BO_SYNC, bo_sync),
- 	DRM_IOCTL_PANTHOR_BO_QUERY_INFO =
- 		DRM_IOCTL_PANTHOR(WR, BO_QUERY_INFO, bo_query_info),
-+	DRM_IOCTL_PANTHOR_PROTM_INIT =
-+		DRM_IOCTL_PANTHOR(WR, PROTM_INIT, protm_init),
- };
++	__u32 protected_suspend_bo_handle;
  
- #if defined(__cplusplus)
+ 	/**
+ 	 * @compute_core_mask: Mask encoding cores that can be used for compute jobs.
 -- 
 2.43.0
 
