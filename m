@@ -4,41 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E697CCA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 17:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5632CCA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 17:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B2510E4AC;
-	Mon, 12 Oct 2026 17:20:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8519110E61C;
+	Mon, 12 Oct 2026 17:28:29 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5760310E4AC
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 17:20:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9199C10E61C
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 17:28:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3681342A3F;
- Mon, 12 Oct 2026 17:20:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195A71F0089B;
- Mon, 12 Oct 2026 17:20:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5FC0C412D2;
+ Mon, 12 Oct 2026 17:28:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE941F0089B;
+ Mon, 12 Oct 2026 17:28:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791825604;
- bh=/+kYat3Js03LLBNLv0RvM8p5SjFSuufv4UsSaTtr3vg=;
- h=From:To:Cc:Subject:Date;
- b=WCZIeTx48JYsbkqPJ8oGRb8Z6K0VhXDe7aglI7KhvjXQyj2HPezQGvCQXRlWz7804
- oE4iRPBXmYgyFKSCVRSoKRduwu69Gk+uz9eDqcPNFRnTgmAHK6GXE2iZsc6DlgcF18
- AilMXoUHzDoe82GDn6aFzLAZPLpa5waoW+EdBo1+cNL9PsrXc0kvTzlEp9bkw/p20i
- WG/QZabuOj+/PZjv2ozkwd2qRcRgRk5gxO3CaOuA2YAwsIBESkETY67uW9SejIjyhT
- zkqcFBLJrU73NjDg/vuLs8HWLVL2KDZqoxTc+PSPBKPg7GIBvaeCIWNEFuyd4ghqju
- J+xFKtK7Iv7Qw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dakr@kernel.org
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v2] dma-buf/dma-fence: Mark two callbacks as deprecated
-Date: Mon, 12 Oct 2026 19:19:40 +0200
-Message-ID: <20261012171939.390365-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1791826102;
+ bh=/zqB14m/WUapRicILRGVEdKBbN7cNJ6/tcYq3qR4AAo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mJx4k+9ojLRGF41nCCUzrOEwvw7oIgI5ZKRvCSBxxMtBHnc8Wh3vUdxePvRsq7uFs
+ bRo7UxOEbrJnWskVmTNxUENLqYtKtm+mCJgAaAGCaWCGy5hF/QZ7v/WP72L+yF0qQ8
+ oNkr19LPkhr4YI00C7WOTGhdJamhSBnmwTBejmL8fnsqDsS93j9lD5GP7c5P/tzxf/
+ CsusAfNKbLSoaNlCS2XnuKAa2frk3GhiG6vIkxNr6sg+3023O9RMnsA+k+g65/lcgP
+ NlgLu1eUQvkxVO+VF04huWyum9x5K77EZETIBWkYFcK+1DtO9yoUYk5a443LUE0FLy
+ HWmWP2kQAxxKg==
+Message-ID: <sashiko-outbox-168456@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dma-buf/dma-fence: Mark two callbacks as deprecated
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20261012171939.390365-2-phasta@kernel.org>
+References: <20261012171939.390365-2-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 12 Oct 2026 17:28:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,66 +49,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_fence's backend_ops functions ops->wait() and ops->release() are
-problematic because they prevent fence producers from unloading.
-Moreover, they can easily be implemented through simpler means more
-aligned with the dma_fence contract.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] dma-fence: @release deprecation advice causes UAF/SLAB corruption =
+for embedded fences
+- [Low] dma-fence: Missing @wait callback alternative documentation
+--
 
-Since the declared goal of dma_fence is to move towards an
-implementation that supports driver-unload in all circumstances, we must
-prevent more parties from implementing those callbacks.
+commit 491d04795e6f38b069b06a9246cd098fdc0a8b55
+Author: Philipp Stanner <phasta@kernel.org>
 
-Deprecate ops->release() and ops->wait() and document what users should
-do instead.
+dma-buf/dma-fence: Mark two callbacks as deprecated
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
-Changes in v2:
-  - Drop confusing sentence (Christian).
----
- include/linux/dma-fence.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+This commit marks the ops->wait() and ops->release() callbacks in
+dma_fence_ops as deprecated. It updates the documentation to advise against
+implementing them, aiming to move towards a design that supports driver
+unloading in all circumstances.
 
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index dd07d128adc3..388c07d11e70 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -220,6 +220,8 @@ struct dma_fence_ops {
- 	/**
- 	 * @wait:
- 	 *
-+	 * DEPRECATED!
-+	 *
- 	 * Custom wait implementation, defaults to dma_fence_default_wait() if
- 	 * not set.
- 	 *
-@@ -243,6 +245,8 @@ struct dma_fence_ops {
- 	/**
- 	 * @release:
- 	 *
-+	 * DEPRECATED!
-+	 *
- 	 * Called on destruction of fence to release additional resources.
- 	 * Can be called from irq context.  This callback is optional. If it is
- 	 * NULL, then dma_fence_free() is instead called as the default
-@@ -254,6 +258,12 @@ struct dma_fence_ops {
- 	 *
- 	 * If the callback is implemented the memory backing the dma_fence
- 	 * object must be freed RCU safe.
-+	 *
-+	 * Deprecated because it prevents the producer of a fence from
-+	 * unloading. No new users must be implemented. Parties with a
-+	 * hypothetical need for this callback can instead simply and directly
-+	 * perform their custom release operations one RCU grace period after
-+	 * they have signaled the fence.
- 	 */
- 	void (*release)(struct dma_fence *fence);
- 
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index dd07d128adc3b..388c07d11e708 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -220,6 +220,8 @@ struct dma_fence_ops {
+>  	/**
+>  	 * @wait:
+>  	 *
+> +	 * DEPRECATED!
+> +	 *
+>  	 * Custom wait implementation, defaults to dma_fence_default_wait() if
+>  	 * not set.
 
-base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
--- 
-2.55.0
+[Severity: Low]
+The commit message indicates it will "document what users should do instead"
+for both ops->release() and ops->wait(). However, while instructions are
+provided for @release, the alternative implementation details for @wait seem
+to be missing here.
 
+Could documentation be added to explain what developers should use instead
+of the @wait callback?
+
+[ ... ]
+
+> @@ -243,6 +245,8 @@ struct dma_fence_ops {
+>  	/**
+>  	 * @release:
+>  	 *
+> +	 * DEPRECATED!
+> +	 *
+>  	 * Called on destruction of fence to release additional resources.
+
+[ ... ]
+
+>  	 * If the callback is implemented the memory backing the dma_fence
+>  	 * object must be freed RCU safe.
+> +	 *
+> +	 * Deprecated because it prevents the producer of a fence from
+> +	 * unloading. No new users must be implemented. Parties with a
+> +	 * hypothetical need for this callback can instead simply and directly
+> +	 * perform their custom release operations one RCU grace period after
+> +	 * they have signaled the fence.
+>  	 */
+>  	void (*release)(struct dma_fence *fence);
+
+[Severity: High]
+Does this advice correctly account for embedded dma_fence objects?
+
+If a driver embeds struct dma_fence inside a driver-specific container,
+removes its .release callback to comply with this documentation, and frees
+the container one RCU grace period after signaling, could this cause a
+use-after-free for consumers still holding a long-term reference like
+dma_resv?
+
+Alternatively, if a driver simply omits .release to follow the "no new
+users" guidance without changing its allocation strategy, the core will
+execute dma_fence_free() on the final dma_fence_put(). This fallback
+executes kfree_rcu() directly on the fence pointer. If the fence is
+embedded and not placed at offset 0, passing an interior pointer to
+kfree_rcu() can corrupt the SLAB allocator.
+
+Would it make sense to update the documentation to explicitly warn that
+omitting .release requires the dma_fence to either be a standalone
+allocation or placed at offset 0 within its container?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012171939.3903=
+65-2-phasta@kernel.org?part=3D1
