@@ -4,82 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBEA1CC6B10
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08247CC6B0E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0762C10F5C1;
-	Tue, 13 Oct 2026 07:53:50 +0000 (UTC)
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
- [74.125.224.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 546C910E714
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:35:50 +0000 (UTC)
-Received: by mail-yx1-f47.google.com with SMTP id
- 956f58d0204a3-677bf06de21so1742636d50.3
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA8810F59A;
+	Tue, 13 Oct 2026 07:53:53 +0000 (UTC)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB45310E5B8
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 19:03:22 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-33c2520ad38so5026085eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:03:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791866149; x=1792470949; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=uZmMXlQEPn/Zuz4J8J6iJ6oFHFWuuc9FMm2/aQX315E=;
- b=dwYCdnd57ulMoCT2jJ8O481d/6WHB0y9arLqel8/wjvhN7dUlCCEe/F7oqxNriScX6
- gzRj69uX+x9v0YslNWobWPtkDxcH9jBDY6Akf6vxDB7tuTHQ/MCWIkJGr2HwVTbK5Z81
- MDS2P7hUS+xqp/q9tIl2sMFVAL1ER0lCHa+ncCZGOWLpJPnv6tXmmYPrWnYM8nXjaRA/
- 3Ukz1Zv2gRjxjy4Xv8krQEiFQhtYedvK0giNBONpgbXUza5TjNHVlvqTSPdd8KSVeqnn
- XkPaX9M/YaOWd6EfqaQ/n/b/pJCXkvOC+m+C5KQH7aOStNdD9swhq/QWagDcRT+ixqWk
- T/OQ==
+ d=gmail.com; s=20251104; t=1791831802; x=1792436602; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=2NkKyRW0wfIM67u0LXIiGPjl/Rwt9skgi7xkmQC6+0Q=;
+ b=AoSOOievz/Nhxwudnkpi1225dq9NKDTnHhjGdngfN3NupHuUf+k4UBOnoEkXJYFUUe
+ 1mD8jTdh+mKD6Zwo98/oxEqVt0XIX7ZeXDx9EOrrGbWTRAxf91qdQ9t4b6kHHkyDnSAN
+ ISTFCiAIjJfQR0pSRfszU3YtEDVdMj72cSTKcCcltF4j98lTamgILYdJFDA1QcqZMX0N
+ GzJIN1Z29VbzAAsVFN/TzquK6x6nSRoPQihUunxFxafaGrictRwJrlaqAYRj55i1/Iy+
+ 1hkCKMa3qBIVyNf9htdl7S47mEbc0bf7qBW4sQE/I+h9Tps/c/ipBPK40640scXFRBUk
+ oghg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791866149; x=1792470949;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=uZmMXlQEPn/Zuz4J8J6iJ6oFHFWuuc9FMm2/aQX315E=;
- b=00s9DJWgoWTkN1ijjRFVPr3hKFUvw60wkODqODU9IruXfbcdoLrZzPtdjle7jvWeXK
- U9WAJOGW72lFNX+2x/i2w4RuISb7ZTiluDdDXFMD6QNIgMr8nGUOazr+WuLRGQPJDZBO
- oBTwrZ7eiuXhiMdFeiXdVTNLQymGniTDlqBX1W5T7HlXT2JIEl2HkOn/1K4ByJQBb2Wz
- oOBZaHAsJl4DFuyKRIWIBMTHd8B+pDbXQyySQHsVtYfpt23CfkE/IkgJgS2p8TKUeZ/t
- vMaI42wAu/Nzu37LEcdnpbgES42S1MMAs7csjl+ppqNmwrLvEIexVTng+b0j+6TfoZ8j
- HfTQ==
-X-Gm-Message-State: AFq9FYL045yg4SStPIi0gaShGPTnH4kprT6No/l4wt45HMnoTFJSfdNr
- si5uWaLP8b3UYxfJwj+ou2+tcQk8yvblPepeqeH8hU4AMeWJUtFSdGRO
-X-Gm-Gg: AYBFou3npLbIN/PPuBAf+OI5pxCMn+Vo6TEWfAeeIkU5ZPfZYIpFwgrRscL2B/HwPha
- fJC1NYdoO7xuk+8CXKt0XXEGvr7FA8cDvpV5cKhSm05bKM7q64T0cKjccmDOfvNemJv+e/MW6IM
- FlnGc0WTAJRE0X4Hzs5wdiutvd1vv1FYKiF4FPti1xJjpt+xIzg8XpKdrtDmnGZOVLHs8XMS+xZ
- r5KBSNMZBa8gbk2bseYQx0t8GlwKIchFHBWoJTJFujzJ2GcX47KhNxHWWFPWjMcWJf8Z+CFgW4k
- 9nTbOVw0NSsdiPlCmFNCpkIuVOT0uPwmNCX1fUzFP1nHUytaHlkoPtbE0LSX++Vht5ZAX810lxf
- ETSuK507uuCpKkf5jtjCs0bheVdUlx/WdpLIlbiRK/5eClEQFp3NENOLu87n3sEShNqL2BlMyE4
- e/bIX5b0kyqQYllejyxmwIv70MBSZxu+jA57uq+ZdBsjwV0NLpP51AAUQCRbOhsHMkAfdjg+Pem
- 4GiG4s5TlrqvQ==
-X-Received: by 2002:a05:690e:d59:b0:674:a21e:bd20 with SMTP id
- 956f58d0204a3-67936267934mr2403854d50.78.1791866149013; 
- Mon, 12 Oct 2026 21:35:49 -0700 (PDT)
-Received: from [192.168.1.71] ([2600:1702:56e9:4b40:e3a9:78c5:641e:a58c])
+ d=1e100.net; s=20260707; t=1791831802; x=1792436602;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=2NkKyRW0wfIM67u0LXIiGPjl/Rwt9skgi7xkmQC6+0Q=;
+ b=dOWHTb2Yu9MZXI8OFeEBueWAh+1vAVClbVYSpM9sbkJmYda8AY2urCuY7aXMZYw98p
+ UBC66rjf9Hs6ieq0fPMtNp+XqlmXgmz+xWYj3AnaAVuj/0o/zN9KofR0GZfhnIp60w06
+ z8MvLrpVVhaOyqN11jdPJ++iWkPD5Iv2A88IIx6/c/1iyrSbDZDjY+VRpmjtRfIuNtb7
+ Llv3QCslk1eP/iJ+/hdkR4Be7WbohE+cAn1aloolNVnBgdE7Ujin/crxiC02QF3UYY+J
+ sqxWIm4CVPKZufrjOnrHDLJVjPMrLpODRB1YEWVvzTzTtePreKbiomzrIKonB15nMEC0
+ BkyA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBydHHPnFJCXeLaBNRdIFGmOOC8bAtDNlXnMzB9/Ll7daao48H6kKHLK32NX7nnvKz2U/5by0Y2zEjU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJFsny1YpTZ+MzJgdtd0/rZ+8FUDxVbTkjyfNvOIPCKk28hSqle
+ sAaQO7PGGPyKKKFOsFQh1mpY1+A2k+COU6t4OTdmldxOOXaQhe5Fr1EY
+X-Gm-Gg: AYBFou3PR8hvUM9h4VUSEdJy0xbHdhtq7/zik+5PsMgoJTaAjmkBciCQLaHAywnX11N
+ /E+ItJ9PXJPIKzYCnaw3dfwaZGdPkJmcIC8YubYj6WnusVo+SRAcEAEkb/mZ4qk8IJYjUJVDxn8
+ 6z2EAQqD85bDQLXjQDuOUW4Or2K/7PaYOm9Wcckz1Aa5Up31OFgPktWLMbkRRgbwpP7xOuEuuVy
+ RM1DLFeVf4yUuEXXrDq6liotj12Uj4pseJTkNW+bFnrtPUMW0VajSiUE6ciAaN95OAV5J7R4gIr
+ yanp3yv1R5QSBAwfmy879DYZ2BfrWdV+4CRiF7a4S9QDy1ylEEOb4Ds7b2XxTGXhyBMUOLZpqtq
+ qq/R8FGTaT6KtdPJ/XBIv9in/7QisZeBcxvcnYc5PoZLA5gGmNHqRn1CSt/SwAD7HZN7ok6iZN1
+ oBwFA5AZ4bHs8vNkqHV8GI1n9T1cXDvCKUXuMeSTOufRuX8cVtsthnQ9tkwHqFmDSoy5FfEyEWJ
+ ZMbADheMl6lKcdznQfizAjmMuYB7TrjEtc6POY=
+X-Received: by 2002:a05:7300:f582:b0:353:5ae1:b0f5 with SMTP id
+ 5a478bee46e88-3537e101bf0mr14461668eec.26.1791831801912; 
+ Mon, 12 Oct 2026 12:03:21 -0700 (PDT)
+Received: from localhost.localdomain ([136.126.251.209])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-67935606f5esm4448152d50.4.2026.10.12.21.35.47
+ 5a478bee46e88-3537cb6a279sm35501602eec.30.2026.10.12.12.03.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 21:35:47 -0700 (PDT)
-From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-Subject: [PATCH 0/4] drm/panel: Convert four panel drivers to
- mipi_dsi_*_multi()
-Date: Mon, 12 Oct 2026 23:34:35 -0500
-Message-Id: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
+ Mon, 12 Oct 2026 12:03:21 -0700 (PDT)
+From: Henry Zhang <henryzhang62@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Henry Zhang <henryzhang62@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] drm/vc4: dsi: Make failed reads visible and recoverable
+Date: Mon, 12 Oct 2026 12:02:41 -0700
+Message-ID: <20261012190249.3167-1-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0ND3dzMgkzd3NKckkxdiFZds2RLi6TUZINkc9NUJaC+gqLUtMwKsJn
- RsbW1ANERJ+RjAAAA
-X-Change-ID: 20261011-mipi-multi-series-6c98bec0c75e
-To: Doug Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Akash Sukhavasi <akash.sukhavasi@gmail.com>, 
- Heiko Stuebner <heiko@sntech.de>, Chris Morgan <macromorgan@hotmail.com>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,50 +91,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series converts deprecated mipi_dsi_dcs_*() calls to their
-_multi() equivalents in four panel drivers: leadtek-ltk500hd1829,
-kingdisplay-kd097d04, innolux-p079zca, and newvision-nv3051d. The
-first two drivers also convert mipi_dsi_generic_write().
+DSI reads on the Raspberry Pi 4 (vc4, DSI1) can fail in two ways that
+the caller cannot handle:
 
-In patches 2-4, unprepare() previously returned early when
-enter_sleep_mode() failed, skipping GPIO and regulator teardown.
-Because drm_panel_unprepare() leaves panel->prepared set when the
-callback returns an error, the panel could not be prepared again.
-These patches remove the early return, so GPIO and regulator
-teardown always runs, and have unprepare() always return 0, so
-drm_panel_unprepare() clears panel->prepared. Patches 2 and 3
-likewise stop returning regulator disable errors from unprepare().
+- A peripheral that detected an error answers a read with an
+  Acknowledge and Error Report. vc4 copies its two bytes into the
+  caller's buffer and returns success, so the error bits look like
+  register contents (patch 1).
 
-In patches 1, 3, and 4, the original code treated a set_display_off()
-failure as non-fatal and still attempted enter_sleep_mode(). These
-patches clear accum_err after set_display_off_multi() to keep that
-behaviour.
+- After a read whose bus turnaround times out, every following DSI
+  transfer times out as well, until the display is switched off and on
+  (patch 2).
 
-All four patches are compile tested only. checkpatch and a W=1 build
-are clean. Tested-by tags would be very welcome.
+These patches do not prevent the timeouts. With video running, vc4
+does not keep commands within vertical blanking, so a read can still
+collide with active video and time out. That is a separate issue; this
+series makes such failures visible to the caller and recoverable
+without a modeset.
 
-While converting nv3051d, I noticed that panel_nv3051d_init_sequence()
-always returns 0, so init sequence errors never reach prepare(). This
-series leaves that unchanged, and I plan to send a separate fix.
+Tested on a Raspberry Pi 4 with a 2-lane video mode panel at 120 Hz,
+using a backport of this series to the Raspberry Pi 6.18 kernel and a
+panel driver that retries failed reads up to 8 times: 499 of 500 reads
+with video running and 1000 of 1000 with video stopped returned the
+expected data, with no lock-up. Without the series, the first timeout
+left DSI unusable.
 
-Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
----
-Akash Sukhavasi (4):
-      drm/panel: leadtek-ltk500hd1829: Use mipi_dsi_*_multi()
-      drm/panel: kingdisplay-kd097d04: Use mipi_dsi_*_multi(); fix minor bugs
-      drm/panel: innolux-p079zca: Use mipi_dsi_*_multi(); fix minor bugs
-      drm/panel: newvision-nv3051d: Use mipi_dsi_*_multi(); fix minor bugs
+Compile-tested on drm-misc-next (arm64 defconfig, DRM_VC4=m, W=1), each
+patch on its own.
 
- drivers/gpu/drm/panel/panel-innolux-p079zca.c      | 43 +++++++-----------
- drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c | 53 ++++++++--------------
- drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c | 40 ++++++----------
- drivers/gpu/drm/panel/panel-newvision-nv3051d.c    | 36 ++++++---------
- 4 files changed, 61 insertions(+), 111 deletions(-)
----
-base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
-change-id: 20261011-mipi-multi-series-6c98bec0c75e
+Henry Zhang (2):
+  drm/vc4: dsi: Don't return error reports as read data
+  drm/vc4: dsi: Recover from a timed-out transfer
 
-Best regards,
+ drivers/gpu/drm/vc4/vc4_dsi.c | 114 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 109 insertions(+), 5 deletions(-)
+
+
+base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
 -- 
-Akash Sukhavasi <akash.sukhavasi@gmail.com>
+2.47.3
 
