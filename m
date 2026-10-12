@@ -4,123 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5325DCA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 12:31:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93EC5CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 12:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1A1910E456;
-	Mon, 12 Oct 2026 12:31:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9BC910F078;
+	Mon, 12 Oct 2026 12:33:58 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEE4610F078
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:31:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71D4A10EF66
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:33:47 +0000 (UTC)
 Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69CC0Pj22088501
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:31:28 GMT
+ 69CC0PGF2088511
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:33:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=h7qMwlSgAt+t7GkDL5quXlg8
- W4SQwFrSXsclHqg7y/4=; b=QLDoTwHGFUkmsvvtd5WYfnu9Q4F49LCyK2yvu+2i
- dGgqwc9qOdFzTCyJTYI9s2x6RwIT/tjtX1JLXVx/c9Xx1evMRgynYJnEDHzSpNqj
- sr6RaxknnrkX4aEvdeM9AC/Ac7Uq6tH4Gq4npUeycVVEtEZWL39CwcAZ3+s8HWxq
- TXPJ5IEXYem699CjJRUNc2ShJn76eiFX1cYcwRkkek8KnH/69nhf6505xMGcgojo
- qIEyzMnJ+PUP9vSW4kP4NtSWj2kOqC8gbXduOEudmDlRnl1ZWuRXy5PKJeOvGE2n
- C+/do2BFt0lpXjmCqcJr1fcJXj72gPnB8PzO96+89JZBtw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sgu1w45-1
+ :references:subject:to; s=qcppdkim1; bh=Bs2Jgzs7Tv+fLgxyw08H5RN1
+ Ifr7kpK1dx9qY8mqF68=; b=lDMJcHN/OPzq1UlDCuCQ65E5z1RzyVIhBJCOh8QD
+ AcYZMy5DsN7x6i0KGs2sryjcj3yWICTOYdljhsJZCHp5YNeHtNSrT1tC+Gh1QzoV
+ avhztiEp2vcnh/FO8yDSAhCIK+mEKcD4BL79euU3FtK9eiE2JKGYcPw0HG5IUeFZ
+ 4507/+Uu3ClC+MovwFh7WB7arRHwVkk4y9zKPx01QYnbP3irlWzExK2sF6RK8RCQ
+ cOhBWh4JVbPaxFCquDxV7wld/w/BRw3IEJOSwP/JLhUj0ZUgy0b/03/DnOnyTx1M
+ NS0NaNSPm9B3kSNnbafdBJtd2Hh02DPZE4z/OYgKnhj96Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sgu1we5-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:31:27 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93ecdc701a2so200114585a.3
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 05:31:27 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:33:46 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93c5ab5c136so317626285a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 05:33:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791808287; x=1792413087;
+ d=oss.qualcomm.com; s=google; t=1791808426; x=1792413226;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=h7qMwlSgAt+t7GkDL5quXlg8W4SQwFrSXsclHqg7y/4=;
- b=G1OfvAWR4bRTIAGnp5D3ks0cL3Z6CAmrB0aO48vHJqTgBcQTTq5qoiIfvnmom68+Fk
- fRRZVyRbRV0j392QB9W01tYM2ZkG5EbXumocbQeKSslMTDJOauRnDxFna3YNUAp031be
- IrdPD9dcsCJyvcokVp//qau1P/MCYUlRYT5G31vX8wshwyIstBbjbmivE7M+pOex9sYL
- J/tNQnHijdztzGZ+7R+paM24dEQ9gpwOkzif/nEASuXI08QubD10xbOedy0yccTasG+h
- rlRpfxqVYxgADc82jd4ItUZPwHnfiOitZ2zun5GVzpkAJ063mlCUXL4pLliJLpPv2P7Z
- ZyUA==
+ bh=Bs2Jgzs7Tv+fLgxyw08H5RN1Ifr7kpK1dx9qY8mqF68=;
+ b=G2R/j+uTfvzg3jfXppeEVHGWo+zWky4s5SxcsT3WjCXKIb5J8PoQ7Apb2N9NNgV8s1
+ qzEfeyk7FLrjvSktMzLuoIid4650IfkrXKD1VDvRYrglMmgpNrqgwNM5nxTd4mYMavtv
+ TfvZzp2pe6Wd7oJI2DXSO0bDhWENRvH203eYzuQFukoeFcOCLak/tmJq/nFFEB1saY7I
+ TQIs9/fSdu/AF/wcKZ1N1v4F9g8K2jQ458eQ0lmZbXiTKU3ozBh2OtJjmsG41FZMD0YA
+ FecgLpY5NZ2AgafZVdP13K0dgA/D/h+zbDGPRZXvjuSw6Vx3gqYglPVC4/OJ3H2qSJjt
+ D3Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791808287; x=1792413087;
+ d=1e100.net; s=20260707; t=1791808426; x=1792413226;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=h7qMwlSgAt+t7GkDL5quXlg8W4SQwFrSXsclHqg7y/4=;
- b=UyHnLYpH9Pq0FYWxdMZ9hYwIZI1whtyMDGDyWmNtILQW+XRTFDa6F5HaKAI6tZwdCa
- 35tVlPREWKydnJUh8yZrn8Rzb+ldTaT4+bx6hAllgRUCPKFR6fUcWXtu2jSGM3YvjpYt
- 2gvKa8wxiCUQTsjlj1RB3WHZ0Zmi6G0QyM7YgGHoQOEYk5ZsEXCMjDkaRtQOWLJievoa
- myGaFA1Hs+WxblbXVjV3zqnjtRVv4Lq5KStIBU1wge0BDehKohQ3NLzUGiYrUOitFHt0
- 2OLHH71zHg+yPDlVkgJ9czv0yzEVg2e6hUUvfsZ8zKexlZD/fTETh+IBnRF1yhh/vEQx
- axxA==
-X-Gm-Message-State: AFq9FYJz4M0HIF5xMUqYVV3z0xNn/3/RRvKFR4nyLcD9gDhoMIwAz5cP
- mM19s9KCbGfZZDWoDhKTFvjBlFCEcybmLEga2P6WOV4uyjlHWy5hnZ0gdxiuz7tn54qEuSemENA
- Td+09PHcZS4ib+x90umGD3+cJcGyG2VQiG253wAouNRBfN1ulGqVSDj6O7qJwtVfht9nBllo=
-X-Gm-Gg: AYBFou2SALwdMX4S0n8DsOicbDAyrLMc8rwITm51p/nmlw7yq73C+nmnzc0Fm2RYBWu
- RGFCHPy7wsghCrZd/Zu4D4xvYjCyh4Ofi+D4WMCOFNbRm3sxq2t4qBolpUOh2gg0ivad9kPwxKz
- Fp6nEqCmRU+C2l+c2tUR5rOjxSk657hFnOoDy8kuvACFspcPGsZ9tXyPgEjRndyW4ly4FKLPBoj
- SLmiEQAIsR/htENX2wuahLd6t7lvNXlV6DEf056PPM4taWa4TZBifBBsHRVbtapWAvS9GqdMgjv
- AKp5GZqsB5W+Dq/lj5qI3XqwLh0VeSrfN5SD+rAmHgCH7HlhNLZBDWe490D5r7UzVBunCQXXNtg
- SY+lv3MyD4DJUvrqMDbvtzyKM+n+CusLCoE0GeLcf8XXtXGDOjssvTVeBVwFixSzepugaA7IzWK
- WiStD3DGQ/BwTF
-X-Received: by 2002:a05:620a:a405:20b0:93e:c12c:fbd6 with SMTP id
- af79cd13be357-93ec12d07c6mr986750485a.82.1791808287032; 
- Mon, 12 Oct 2026 05:31:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:a405:20b0:93e:c12c:fbd6 with SMTP id
- af79cd13be357-93ec12d07c6mr986745585a.82.1791808286386; 
- Mon, 12 Oct 2026 05:31:26 -0700 (PDT)
+ bh=Bs2Jgzs7Tv+fLgxyw08H5RN1Ifr7kpK1dx9qY8mqF68=;
+ b=eJ5VjNQdijJZi0xaZCmbOnERxxqdNFXy4ar0oq7Ez7HDA0AAOeSUz1cEExwLlu8Osz
+ nbTERzjbt2mpmMPDaury6TkBFDYbI1mtbLpubgeJzdpM9xhgezF31Y/WdjVql57g4UaJ
+ 9v9ROsSNODsm2lV9gkYfqIukO1Tl/Kncoy3gkr98J/xBXYIXy5A+LpvNoiURupZ6BXhf
+ X7jFewvrjszN90u8NXkKQ3XCnvM7lX7X1d046yqUKy3UraQsamgshTC2GH2Uo9KqdWdd
+ Q5f6wTHN9BN8A/zsgbkgWQJ47iY51Ij76kYlf0R6VyRJ7p9dWgUEXYmCR0TWRWyfZQi0
+ 6zjg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw7PBtMRh+R5POWvgDCEsR4vF1tOhNOdfab8yC7MohkzRpH05GZt+9znKBlZpCCvNEe79p0WU4cw20=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKehId2+GiYto4aoRJSvay2kI2NtVJI+UhVmdS3qaStj4WoVW2t
+ 9iKSCm+CMOP0F+vW63Ij4Yxm7q5YYJaKYKW85eFDC3+J+g9qP/mxaBES0JC7T9tWrdjVuD5l2Pb
+ L2k+MiYfNAzctM0CcxwhAJmcp2qkJqyy253TKwbpvk5NFe6/E6snVWSTxO9CrHYPOsA4LUN4=
+X-Gm-Gg: AYBFou2117Vjx+b2ASeFeZ5Mz5NNHE99+BgGtYCZ5dQCox+ygSA6TvYeMUUcR7JB9hU
+ CsEK3IdVzbqGeI3lk7lFFo6pYvD5yaupUeLO+9O5mcLWyy22wQM2Gzhsjtmttrgx1ul/gdp2vIo
+ WbcpAvLy+ZuSx7h+6zKF1dHyx1ovEEJ3juXtIefDvbzPytHd44g9f5nzHuE7QEIPOcNi+shQxv6
+ cHtEQEQoAfd1fh9UKcr2Z8wIe73N5k8vt3/o80qCivylqR7O9du6pa1oqLHiqTaKLm22jIRiWRf
+ 03rf3PbtJUmEh6Ci5OR925oLRp75R2lUEBTXgU9I1xQy4wuwMojbiZCYH0WkSMo0L0+h4bKc/0V
+ LjTBxa5v/oVs6OqixwwbQp5NS7B6I4XuRSztEt8q5dlsAxF4t4vTiJnv7Whit68EXPtH0aKunXs
+ Fl477/UvrgvCqp
+X-Received: by 2002:a05:620a:6493:b0:93e:c12c:f12e with SMTP id
+ af79cd13be357-93ec12d0591mr1359662885a.73.1791808425734; 
+ Mon, 12 Oct 2026 05:33:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:6493:b0:93e:c12c:f12e with SMTP id
+ af79cd13be357-93ec12d0591mr1359651885a.73.1791808424602; 
+ Mon, 12 Oct 2026 05:33:44 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a9c3cdd958sm28225451fa.35.2026.10.12.05.31.24
+ 2adb3069b0e04-5bcddea81c7sm2819066e87.49.2026.10.12.05.33.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 05:31:25 -0700 (PDT)
-Date: Mon, 12 Oct 2026 15:31:23 +0300
+ Mon, 12 Oct 2026 05:33:43 -0700 (PDT)
+Date: Mon, 12 Oct 2026 15:33:41 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>,
+To: Xilin Wu <sophon@radxa.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] drm/msm/a6xx: Split out a7xx/a8xx device tables
-Message-ID: <a74ijgv3bfpgd5gqokwlyf72wxgzsc3642obj53m2jjpxg3g6b@loenpurcl62h>
-References: <20261010154125.726149-1-robin.clark@oss.qualcomm.com>
- <20261010154125.726149-3-robin.clark@oss.qualcomm.com>
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dragon@radxa.com, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 01/20] drm/atomic: Handle max bpc properties before
+ connector state allocation
+Message-ID: <mkkc7pbeh3aiyhhnbkis7owqvvpt55lyminlcnu5gun6s76vit@5pmsxkrdey4f>
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+ <20261009-msm-dp-hdr10-v2-1-1835d4966da3@radxa.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261010154125.726149-3-robin.clark@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=QdzzLcbv c=1 sm=1 tr=0 ts=6accd31f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20261009-msm-dp-hdr10-v2-1-1835d4966da3@radxa.com>
+X-Authority-Analysis: v=2.4 cv=QdzzLcbv c=1 sm=1 tr=0 ts=6accd3aa cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=ysDuX-smLMpIrN7MedEA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX4RBZlfdZpVbM
- cI0sLZkPUUrshhDTum4nHe+XCZfnzVTI0x93E12FSa77ArXw3NDfvBkm5L4RxalZ8ik1+r9SxWN
- m/zFkPns9tYNHNKs/RF+81g0ZbWGmBm8lons1juYJpvsgNJWlq1INLsnLpKdubqCQQhmN4X0p4w
- 1SBAZmYB3ZvaUKBQv4534TwA6lmpzCDW7lpInZ3oTAeJoVA5EJ1SLsZcSGDuu6E6ADxO7kJqsiX
- GN5CQ8oRGx1hrTi9WLJsSDnwkhtxziJnQLMkWEYjuLSLnriZs6CD8U9PMCKLng7TaByPmuizLmM
- PbXhzNq3qCR8fubTYSYThvtQt2atFEmTeEZrRJUwPAmtqIp5s+X9qOBaNsFKVctmfFJhEtT8piq
- pfmpJJz5lPh57DLZZr9W/Xks/iJGxVWXHaRO4FiQL6NSlO5dDleg4kauIH0mpuoyoxwyPlzgp31
- svcPDTgp3fa6jzit3QQ==
-X-Proofpoint-ORIG-GUID: eGJOuWGeO_DhX2Fvq27XhZO1KAVWMvlf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX5p9SoLEyctn7
- OJd4/TEElJGIW/g0W4ZdXlGdICZ6+dW5PO/iwYUuve0vTCALBat3A+sXXS3vlltb45wlJ035Wcm
- aGGbleBb5AWHuGYTCUQ4pPLTzya1ZTk=
-X-Proofpoint-GUID: eGJOuWGeO_DhX2Fvq27XhZO1KAVWMvlf
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=ksxQWNrZAAAA:8
+ a=uu4xuC75hOI6q6cYBXkA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX3hMOU3tRhunZ
+ ZpC67hRsE6wx4w29Q2VzwTiRTZZzaJM1PQEwb7xhfREojDsPcoBxsOFwhSwqaua+eyf3/5FJgMU
+ SL+LoSNpdnEay1tC86JKwusbZhOS2SgbT0nrphHaGzOVlNrcchVUZBWuvZZE6qr7Gv2OoyPUBxW
+ WRIzunpgmry3ata3DxhYJNQ9kHNTgxEh6r9x6XCUJXyGuEECmZjKGzorj80U16TmbESS3WNtBti
+ IASFVjFLfjvxqqkk2UXa8I8uBFRUg1PTwT0U3ZRrFFFDsLB3xWy9MfblTKYo8xu7ib6F4G+vrVH
+ 2vkshNESMXsvHFj/eyOQiFlFJpgW7B2SgwKL78qWn7SjHiMbyU5H81sypOs5JO6Y9VeNOXsW2H7
+ AwaMpA1Fec/hm9JEHS0+73y6vjWFDIE/jr1eQDGB5VUWDzOp9auf/skpi1Z/1fjTQQN/NUgwN8m
+ IOOiRrbt56OFWamcw5A==
+X-Proofpoint-ORIG-GUID: u43MiGBgWj9M_2uGx-zuW_6x1f9Ujtw9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfXy/CjZVXky9P5
+ MZf3Djklbz8R5L9lDeaFBVn++bxDPk3fSSXb4DG6ra8O3Gve7+Q3vcWhWmmz8kGF2qxdTvOpCJp
+ AggsHgIYU+zk2B9KRVLbzH1eiIHk3AI=
+X-Proofpoint-GUID: u43MiGBgWj9M_2uGx-zuW_6x1f9Ujtw9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
@@ -145,24 +160,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Oct 10, 2026 at 08:41:20AM -0700, Rob Clark wrote:
-> This way we can start including generated tables for a8xx GPU snapshot
-> in the device table (without having conflicts with earlier gens if we
-> eventually try to retrofit this approach, or later gens in the future).
+On Fri, Oct 09, 2026 at 11:15:53AM +0800, Xilin Wu wrote:
+> Allow drivers to attach the max bpc property before allocating connector
+> state, as needed by the upcoming non-HDMI bridge connector support.
+> Only update the current state when one exists.
 > 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> Initialize max_requested_bpc and max_bpc from the attached property default
+> when creating connector state. Use drm_object_property_get_default_value()
+> rather than the range maximum so that state creation and subsequent resets
+> restore the value chosen when attaching the property.
+> 
+> Cover deferred allocation, existing state and restoration of a default
+> that differs from the range maximum in the connector KUnit tests.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
 > ---
->  drivers/gpu/drm/msm/Makefile              |    2 +
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 2310 ---------------------
->  drivers/gpu/drm/msm/adreno/a7xx_catalog.c |  502 +++++
->  drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 1846 ++++++++++++++++
->  4 files changed, 2350 insertions(+), 2310 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/adreno/a7xx_catalog.c
->  create mode 100644 drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+>  drivers/gpu/drm/drm_atomic_state_helper.c  |  8 +++++
+>  drivers/gpu/drm/drm_connector.c            |  6 ++--
+>  drivers/gpu/drm/tests/drm_connector_test.c | 53 ++++++++++++++++++++++++++++++
+>  3 files changed, 65 insertions(+), 2 deletions(-)
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
+I'd very much prefer if instead non-HDMI bridge chains followed the HDMI
+approach, making the state available.
 
 -- 
 With best wishes
