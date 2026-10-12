@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E1ECCA9EDE
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 18:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 314D7CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 18:29:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90B8710E02B;
-	Mon, 12 Oct 2026 18:27:11 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F4710E641
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:27:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86A0910E64E;
+	Mon, 12 Oct 2026 18:29:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F251B10E64E
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:29:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7793943081;
- Mon, 12 Oct 2026 18:27:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD641F0089B;
- Mon, 12 Oct 2026 18:27:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0989760142;
+ Mon, 12 Oct 2026 18:29:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A2231F0089B;
+ Mon, 12 Oct 2026 18:29:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791829625;
- bh=+2qTH+V27a6wcdI4Lc4cQO1AYg6Yf1kR/4MIpr/C38c=;
+ s=k20260515; t=1791829776;
+ bh=DxzCS2kuA9KwkFH4lF5cg9IWThFGTeYfFT7ggM2KoKk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MnW31yfxWN0lj0r0sZBc7pJhojStbgsUfQXMcd4Cq6RWTgAaFeonE1IkTdY0upTE1
- pWfvAZCS3r8L8S7CAiE33QdS9OeyOH8HceEiD4K6T3UaljDML/14cWwHBQX529R549
- Djaxu5uSgZ8DgCYgiLda7WLIpVMclKUyKXw46PtbMfPv5PQwvz7/DIQHJm3ctBqrAd
- K7SsBuRv7y10Kuk5ukt+7GFM9IAGvpobbFve9xLy8ybQ+2nZCBqIhS4fJ6y1ZAVaf2
- 3zbY+QVxqazI4sMGKzF65Hi4jW+YGBKl8J+dt3/lAnUaewPgKVOadSknGR2m7sIka7
- Y8WQeCegmNEpg==
-Message-ID: <sashiko-outbox-168538@kernel.org>
+ b=Rtmfc7oCsXzqL8EaQF3Tb1W6hbEgz3UGAmcbxULwbAE3vrgh2UszoUTfMi45Ie6vi
+ XgRtTTXY+KMijigbX3m8LauY2uWyICirlR676ADvN2ZUhPEY4lYuj5YvaJXc77VXB6
+ s0ZyjDigDIoG47wyMh+fxtIKk8U3S8CBZtepKY+6DUrt3dO0TIhDDzZ6iU+tIOTaw7
+ hbyfLAK3YIqUaoMqtTiI3a0j0mS7MaVFKzb4r06NHBg+tOwK37l+2n9dM3vRf7oAYh
+ qNVAdnUyx/SDixgvmVF0BzYOe1Xr2k8jIgK5xhNN0wwEqWFcMMzwsJAfuMXb/i/y1p
+ x6OOkD8OLDY+Q==
+Message-ID: <sashiko-outbox-168539@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 6/7] bus: mhi: Capture DDR training data via command
- mode
+Subject: Re: [PATCH v8 3/7] bus: mhi: Centralize Sahara firmware image table
+ selection at probe time
 To: "Kishore Batta" <kishore.batta@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261012-sahara_protocol_new_v2-v8-6-e12939d229a1@oss.qualcomm.com>
+In-Reply-To: <20261012-sahara_protocol_new_v2-v8-3-e12939d229a1@oss.qualcomm.com>
 References: <20261012-sahara_protocol_new_v2-v8-0-e12939d229a1@oss.qualcomm.com>
- <20261012-sahara_protocol_new_v2-v8-6-e12939d229a1@oss.qualcomm.com>
+ <20261012-sahara_protocol_new_v2-v8-3-e12939d229a1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 18:27:04 +0000
+Date: Mon, 12 Oct 2026 18:29:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,267 +55,145 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] mhi: sleep in atomic context via mutex_lock in dl_xfer_cb
-- [High] mhi: module unload panic via leaked controller devres
-- [High] mhi: DMA buffer corruption from concurrent tx[0] reuse
-- [High] mhi: UAF due to incorrect teardown order in sahara_mhi_remove
-- [Medium] mhi: unbounded memory allocation due to unsigned tautology
-- [Medium] mhi: transfer stall for large or zero DDR training payloads
-- [Medium] mhi: TOCTOU race leading to dropped training packets
-- [Medium] mhi: protocol desynchronization if training buffer allocation fa=
-ils
+- [High] workqueue: missing cancel_work_sync for read_data_work causes use-=
+after-free
+- [High] mhi: teardown race in sahara_mhi_remove allows requeuing canceled =
+work
+- [High] mhi: data race on read_data_offset allows out-of-bounds firmware m=
+emory read
+- [Low] qaic: redundant strcmp in qaic_mhi_register_controller() for sahara=
+_fw
 --
 
-commit 1abdc448b94ff31d485a817b37e870ca14bbbfd6
+commit 6aa29eb13055431d194b1b8244436f789375e69f
 Author: Kishore Batta <kishore.batta@oss.qualcomm.com>
+bus: mhi: Centralize Sahara firmware image table selection at probe time
 
-    bus: mhi: Capture DDR training data via command mode
-   =20
-    During early boot, devices may perform DDR training and produce training
-    data that can be reused on subsequent boots to reduce initialization
-    time. The Sahara protocol provides a command mode flow to transfer this
-    training data to the host, but the driver currently does not handle
-    command mode and drops the training payload.
+This patch refactors the Sahara firmware image table selection into a singl=
+e,
+explicit probe time mechanism using a controller provided firmware mapping
+table. This centralizes device specific decisions and simplifies the Sahara
+probe logic.
+
+> diff --git a/drivers/accel/qaic/mhi_controller.c b/drivers/accel/qaic/mhi=
+_controller.c
+> index 40e6d262ef217..dd320739c07ad 100644
+> --- a/drivers/accel/qaic/mhi_controller.c
+> +++ b/drivers/accel/qaic/mhi_controller.c
+
+[ ... ]
+
+> @@ -871,6 +927,11 @@ struct mhi_controller *qaic_mhi_register_controller(=
+struct pci_dev *pci_dev, voi
+>  		mhi_cntrl->name =3D "AIC100";
+>  	}
+> =20
+> +	if (mhi_cntrl->name && !strcmp(mhi_cntrl->name, "AIC100"))
+> +		mhi_cntrl->sahara_fw =3D &aic100_sahara_fw;
+> +	else if (mhi_cntrl->name && !strcmp(mhi_cntrl->name, "AIC200"))
+> +		mhi_cntrl->sahara_fw =3D &aic200_sahara_fw;
+> +
+
+[Severity: Low]
+This isn't a bug, but since mhi_cntrl->name was just assigned as a literal
+string ("AIC100" or "AIC200") right above this, is it necessary to use
+strcmp() to check it again? Could the sahara_fw assignment be done directly
+in the same if/else block that sets the name?
 
 > diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/m=
 hi/host/clients/sahara/sahara.c
-> index afb72910fd67b..e7a6289b11a72 100644
+> index dc64beae06ada..74bf57f02873e 100644
 > --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
 > +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
 
 [ ... ]
 
-> @@ -335,6 +426,153 @@ static void sahara_hello(struct sahara_context *con=
-text)
-> +static void sahara_command_execute_resp(struct sahara_context *context)
-> +{
-> +	struct device *dev =3D &context->mhi_dev->mhi_cntrl->mhi_dev->dev;
-> +	struct sahara_cntrl_training_data *ct;
-> +	u32 client_cmd, resp_len;
-> +	int ret;
-> +	u64 remaining;
-> +	u32 i;
+> @@ -808,14 +768,14 @@ static int sahara_mhi_probe(struct mhi_device *mhi_=
+dev, const struct mhi_device_
+> -	if (!strcmp(mhi_dev->mhi_cntrl->name, "AIC200")) {
+> -		context->image_table =3D aic200_image_table;
+> -		context->table_size =3D ARRAY_SIZE(aic200_image_table);
+> -	} else {
+> -		context->image_table =3D aic100_image_table;
+> -		context->table_size =3D ARRAY_SIZE(aic100_image_table);
+> -		context->non_streaming =3D true;
+> -	}
+> +	sahara_fw =3D mhi_dev->mhi_cntrl->sahara_fw;
+> +	if (!sahara_fw || !sahara_fw->image_table || !sahara_fw->table_size)
+> +		return -ENODEV;
 > +
-> +	if (le32_to_cpu(context->rx->length) !=3D SAHARA_COMMAND_EXEC_RESP_LENG=
-TH ||
-> +	    le32_to_cpu(context->rx->command_execute_resp.response_length) < 0)=
- {
-
-[Severity: Medium]
-Since le32_to_cpu() returns a 32-bit unsigned integer, is the < 0 check
-mathematically impossible? This would allow a malfunctioning device to prov=
-ide
-an exceptionally large response_length that bypasses the check and causes a
-massive allocation in kzalloc().
-
-> +		dev_err(&context->mhi_dev->dev,
-> +			"Malformed command execute resp packet - length %d\n",
-> +			le32_to_cpu(context->rx->length));
-> +		return;
-> +	}
-> +
-> +	client_cmd =3D le32_to_cpu(context->rx->command_execute_resp.client_com=
-mand);
-> +	resp_len =3D le32_to_cpu(context->rx->command_execute_resp.response_len=
-gth);
-> +
-> +	sahara_command_execute_data(context, client_cmd);
-> +
-> +	if (client_cmd =3D=3D SAHARA_EXEC_CMD_GET_COMMAND_ID_LIST) {
-> +		sahara_command_execute(context, SAHARA_EXEC_CMD_GET_TRAINING_DATA);
+> +	context->image_table =3D sahara_fw->image_table;
+> +	context->table_size =3D sahara_fw->table_size;
+> +	context->non_streaming =3D sahara_fw->non_streaming;
+> +	context->fw_folder =3D sahara_fw->fw_folder;
 
 [Severity: High]
-Does calling sahara_command_execute_data() followed immediately by
-sahara_command_execute() queue the same context->tx[0] buffer twice?
+Since this configures devices for streaming mode which relies on
+read_data_work being scheduled, could the teardown path leave this work
+running? Looking at sahara_mhi_remove(), it cancels fw_work and dump_work
+but skips read_data_work:
 
-Since DMA buffers are submitted by reference, modifying context->tx[0] befo=
-re
-the hardware has consumed the first packet could cause data corruption.
+sahara_mhi_remove() {
+    ...
+    cancel_work_sync(&context->fw_work);
+    cancel_work_sync(&context->dump_work);
+    vfree(context->mem_dump);
+    ...
+}
 
-> +		return;
-> +	}
-> +
-> +	if (client_cmd !=3D SAHARA_EXEC_CMD_GET_TRAINING_DATA)
-> +		return;
-> +
-> +	ct =3D sahara_cntrl_training_get(dev);
-> +	if (!ct) {
-> +		context->is_cmd_mode =3D false;
-> +		sahara_switch_mode_to_img_tx(context);
-> +		return;
-> +	}
-> +
-> +	mutex_lock(&ct->lock);
-> +	kfree(ct->data);
-> +	ct->data =3D kzalloc(resp_len, GFP_KERNEL);
-> +	ct->size =3D resp_len;
-> +	ct->copied =3D 0;
-> +	ct->receiving =3D true;
-> +	mutex_unlock(&ct->lock);
-> +
-> +	if (!ct->data) {
-> +		context->is_cmd_mode =3D false;
-> +		sahara_switch_mode_to_img_tx(context);
-> +		return;
-> +	}
-
-[Severity: Medium]
-If kzalloc() fails, we return and switch back to IMAGE_TX_PENDING without
-setting context->receiving_training_data =3D true.
-
-However, sahara_command_execute_data() was already sent earlier, instructing
-the device to transmit the payload. If the device starts streaming data, wo=
-n't
-fw_work misinterpret the raw payload as Sahara protocol messages?
-
-> +
-> +	context->training_size =3D resp_len;
-> +	context->training_rcvd =3D 0;
-> +	context->receiving_training_data =3D true;
-> +
-> +	remaining =3D resp_len;
-> +	for (i =3D 0; i < SAHARA_NUM_CMD_BUF && remaining; i++) {
-> +		size_t pkt =3D min_t(size_t, remaining, SAHARA_PACKET_MAX_SIZE);
-> +
-> +		ret =3D mhi_queue_buf(context->mhi_dev, DMA_FROM_DEVICE,
-> +				    context->cmd_buff[i], pkt,
-> +				    (remaining <=3D pkt) ? MHI_EOT : MHI_CHAIN);
-> +		if (ret)
-> +			break;
-> +
-> +		remaining -=3D pkt;
-> +	}
-> +
-> +	context->training_nbuf =3D i;
-> +}
-
-[Severity: Medium]
-Is there a race condition where mhi_queue_buf() allows the hardware to start
-processing buffers immediately, before context->training_nbuf is updated?
-
-If a buffer completes quickly on another CPU, sahara_mhi_dl_xfer_cb() might
-check "i < context->training_nbuf" while training_nbuf is still 0, failing =
-to
-recognize the buffer as training data.
-
-[ ... ]
-
-> @@ -884,6 +1139,7 @@ static void sahara_mhi_remove(struct mhi_device *mhi=
-_dev)
-> =20
->  	cancel_work_sync(&context->fw_work);
->  	cancel_work_sync(&context->dump_work);
-> +	cancel_work_sync(&context->cmd_work);
->  	vfree(context->mem_dump);
->  	sahara_release_image(context);
->  	mhi_unprepare_from_transfer(mhi_dev);
+If the device is unbound while read_data_work is pending or executing, will
+the work execute after the devm-allocated context is freed by devres,
+leading to a use-after-free when sahara_read_data_processing() runs?
 
 [Severity: High]
-Does cancelling the workqueues before calling mhi_unprepare_from_transfer()
-leave a window where incoming completions can re-arm the workqueue?
+Also in sahara_mhi_remove(), is there a race with the MHI channels that
+could requeue canceled work?
 
-sahara_mhi_dl_xfer_cb() could run in this window and=20
-schedule_work(&context->cmd_work). When remove finishes, context is freed,=
-=20
-which could result in a Use-After-Free when the workqueue executes.
+sahara_mhi_remove() {
+    ...
+    cancel_work_sync(&context->fw_work);
+    cancel_work_sync(&context->dump_work);
+    ...
+    mhi_unprepare_from_transfer(mhi_dev);
+}
 
-[Severity: High]
-Does this function also need to clean up the devres allocated in
-sahara_cntrl_training_get()?
-
-The devres is attached to the parent MHI controller. If the Sahara driver
-module is unloaded without explicitly detaching it, the release callback
-pointer will become stale. When the MHI controller is subsequently removed,
-the devres core will invoke the unmapped callback, causing a panic.
-
-[ ... ]
-
-> @@ -900,15 +1156,71 @@ static void sahara_mhi_ul_xfer_cb(struct mhi_devic=
-e *mhi_dev, struct mhi_result
->  static void sahara_mhi_dl_xfer_cb(struct mhi_device *mhi_dev, struct mhi=
-_result *mhi_result)
->  {
->  	struct sahara_context *context =3D dev_get_drvdata(&mhi_dev->dev);
-> +	struct sahara_cntrl_training_data *ct;
-> +	struct device *dev;
-> +	size_t copy;
-> +	int ret;
-> +	u32 i;
-> +
-> +	if (mhi_result->transaction_status)
-> +		return;
-> +
-> +	/*
-> +	 * Raw training payload completions arrive for cmd_buff[] buffers.
-> +	 * Do not schedule cmd_work for those.
-> +	 */
-> +	if (context->is_cmd_mode && context->receiving_training_data &&
-> +	    mhi_result->buf_addr !=3D context->rx) {
-> +		dev =3D &context->mhi_dev->mhi_cntrl->mhi_dev->dev;
-> +		ct =3D sahara_cntrl_training_get(dev);
-> +		if (!ct)
-> +			return;
-> =20
-> -	if (!mhi_result->transaction_status) {
-> -		context->rx_size =3D mhi_result->bytes_xferd;
-> -		if (context->is_mem_dump_mode)
-> -			schedule_work(&context->dump_work);
-> -		else
-> -			schedule_work(&context->fw_work);
-> +		for (i =3D 0; i < context->training_nbuf; i++) {
-> +			if (mhi_result->buf_addr =3D=3D context->cmd_buff[i]) {
-> +				mutex_lock(&ct->lock);
+Since cancel_work_sync() happens before mhi_unprepare_from_transfer()
+stops the channels, if an MHI packet arrives during or immediately after
+the cancellations, won't sahara_mhi_dl_xfer_cb() blindly call
+schedule_work(&context->fw_work) again? This newly queued work would then
+execute on the freed context memory after remove() completes.
 
 [Severity: High]
-sahara_mhi_dl_xfer_cb() is an MHI transfer completion callback which execut=
-es
-in atomic context (softirq). Will acquiring a sleepable mutex here trigger a
-'scheduling while atomic' BUG?
+Does streaming mode have a data race on read_data_offset and
+read_data_length? In sahara_read_data(), these fields are updated without
+locks:
 
-> +				copy =3D min_t(size_t, mhi_result->bytes_xferd,
-> +					     ct->size - ct->copied);
-> +				memcpy((u8 *)ct->data + ct->copied,
-> +				       mhi_result->buf_addr, copy);
-> +				ct->copied +=3D copy;
-> +				mutex_unlock(&ct->lock);
-> +
-> +				context->training_rcvd +=3D copy;
-> +
-> +				if (context->training_rcvd >=3D context->training_size) {
-> +					mutex_lock(&ct->lock);
-> +					ct->receiving =3D false;
-> +					mutex_unlock(&ct->lock);
-> +
-> +					context->receiving_training_data =3D false;
-> +					context->is_cmd_mode =3D false;
-> +
-> +					sahara_switch_mode_to_img_tx(context);
-> +					ret =3D mhi_queue_buf(context->mhi_dev,
-> +							    DMA_FROM_DEVICE,
-> +							    context->rx,
-> +							    SAHARA_PACKET_MAX_SIZE,
-> +							    MHI_EOT);
-> +					if (ret)
-> +						dev_err(&context->mhi_dev->dev,
-> +							"Unable to requeue rx buf %d\n", ret);
-> +				}
-> +				return;
-> +			}
-> +		}
-> +		return;
->  	}
+sahara_read_data() {
+    ...
+    context->read_data_offset =3D data_offset;
+    context->read_data_length =3D data_len;
+}
 
-[Severity: Medium]
-If the device payload is larger than the capacity of the initially queued
-SAHARA_NUM_CMD_BUF buffers, the remainder is not queued. Since the buffer is
-not requeued here after its contents are copied, won't the transfer stall
-permanently waiting for more buffers?
+Back in sahara_processing(), the driver re-queues the single context->rx
+buffer, allowing the device to send another command. If a malicious device
+sends a second command while a large streaming transfer is ongoing, fw_work
+will update these fields while read_data_work is actively running on another
+CPU.
 
-Similarly, if the response_length is 0, zero buffers are queued in
-sahara_command_execute_resp(). Will this also stall the state machine?
+Can read_data_helper() then read a mixed state (like the large length from
+the first command and a huge offset from the second command) causing an
+out-of-bounds read from kernel memory via memcpy()?
+
+read_data_helper() {
+    ...
+    pkt_data_len =3D min(context->read_data_length, SAHARA_PACKET_MAX_SIZE);
+    memcpy(context->tx[buf_index],
+           &context->firmware->data[context->read_data_offset],
+           pkt_data_len);
+}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-sahara_pro=
-tocol_new_v2-v8-0-e12939d229a1@oss.qualcomm.com?part=3D6
+tocol_new_v2-v8-0-e12939d229a1@oss.qualcomm.com?part=3D3
