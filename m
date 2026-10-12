@@ -4,150 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D76CA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 19:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E631DCA9ED2
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 20:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F31F10E4F6;
-	Mon, 12 Oct 2026 19:46:34 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 990AA10E4F6;
- Mon, 12 Oct 2026 19:46:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791834389; x=1823370389;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=Bp1cjQI2G2zGM6kJl8qVPW15Ho+NAWgc/ZZWzK6JTLo=;
- b=QSA9J+uOnDkdTtp4xG6yKI8Voc5oJMw8AZN0ozB6FiWYFKBWpuNltioR
- PN3SN/1joWvcw4B17gkUo3+HJHxq7o2uEXyTTzNDKQbdTotEsNWsFZ1v8
- QCHBr1g45H2SEIeFqLUpUUGQCkH+7LiIXN3xMvMUx+VTRTqppzFVreZlX
- dGDIhDjRywUoti1Sf6s7BLr1aAMnH+xt0Iv8CXYLL7aEC3QzFUPf3fVVA
- aKVCFzD1ZFUajzEMox01b41+4N67oDPY7eQDOW+7ceszy6RVt6ObqgKy9
- Mnl4gcoSYzqKeL9hR/XFkPGW4zQ4bzDd8wLbOa6Xg/NhIY99nSF5HRpok w==;
-X-CSE-ConnectionGUID: x5Ys0UqVS/iVyKv+hQnvPw==
-X-CSE-MsgGUID: SFdh8VnpSFOxIu47WVoSSA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="435963"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="435963"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 12:46:28 -0700
-X-CSE-ConnectionGUID: eE49OXTQS5mhiVDV0Bl/dA==
-X-CSE-MsgGUID: tETE5sHSRAewJEIzE79MyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1091479"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 12:46:27 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 12:46:27 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 12:46:27 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.7) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 12:46:26 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43FEE10F344;
+	Mon, 12 Oct 2026 20:07:03 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013005.outbound.protection.outlook.com
+ [40.107.201.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B73410E5ED;
+ Mon, 12 Oct 2026 20:06:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D1lIjbVPim3LNANl9m//AxZn1LUH6CcJcjGxs9qqe35UsreSRsaOlbjE4akPziEi8L9EH9ke1K3C4LGizFm5kDIcbg/KQuSWizMhWl+8yFL1MdpNNwU0uJD4Hyjt2LpFsYjWFkSlSMg/Hu4vsJwR1RYisMRwwdJ7Ct1Ka9mWcgi8c0zxkPh7pNEkujQtgMYNUK1cPtFTWzUP8cg8p0q20+2aIOKfo03V9xnNhvlRSS1aTMkWh851yejAck3ElTUzsRBgzxdx2h00CS6Yi9S9CQ0RuELonpCvvWfmyJsSt4+jXAb3hd0LETE77c/TJn32uCIj0C49JqOsuUW2LP3HAA==
+ b=rzwZDJI57mRUv0pmvY9YFmM2ofRBpnV1M9fi6/YeYhpHuTuOhWhtKNuOUvEQv53y6LJ4VA//evzwO7hWPbR0DAvqEo8j0IQErX/vX3AFppKekWNwd27IXr8lW6Z49tH8V020X6e++7TZPkiNOrMHygsEwTPqysbMxcgGtlvD3+CJmNgcqqIt26foQTmVRQgsYsmzArQXNOtrf7neK5LU2VQtoL9/QRn7dji+kenPztXttLZZwzxyZu98+N09WPpje2wBnMWI9NRZ1FTmb4Zn25YiYEpCrbxu2v0GzuBkgyTGAIDXKIlkbBXYzWCfG7ZZGgXvhOfK0OvB8LTEo8CWbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xXFLtctUL3rmj6wngyHxrs84N4+LP0xyHP299DzUD5k=;
- b=D3bf/3WNE/Ehh7qnpTs+9opG6hsOqF4nZYVxq2Ijp8aPnZFVWbz3YImjNRBBk2VBz6jgHIHTaf+MMpdRlo4t1ydRVcV6ISJBmwa6RnfBSW8sCzLbea7Oqg3/t/tKCq0f5lzmSgKohBMOf5AbKrKXsR2bJEZHlyv3yWSR78QCXVq3BfddwYZo/XdlGRt/5K+v2X6eKzPKoZuDz1uNjMcZsQhLnpdwEeqjME/71PD2gwcMvbzshHqHRs4JTdsPuDCt6/Kg5gKzfRgAw38h71rKjZxs2BlVfG5owhIZMs5m/spcc1745Pc4HS4wWgFcEkrxoJX1zWz5FEUYqsBcH5ejhg==
+ bh=asQn9FT+lvozQJSTUztr9sYKDDXy0SK5yZRbrvnfzHI=;
+ b=scGp53bcBg9C/yetv8k8Qcdi/HuCPDln06nl3rUDhJrLJ/DCzBUkUPgawCmwzD+QfQB3VrhMWP5vKhK/eDVFjBw6SvoCJzxKCpT1WhPOBUmg7qySBGbXFfzYKf3ZJ1gPz0usjGM08zo4ajJZqoRfi8ZJ9Xnqlez/TMgrpaxkRC+TA3gfdMydq4gFrfcSEj0b2UYDTC0ugZ2j11vBeIi75j7rZm/tGqOd37UmZRqATNSKmhn5hNwaCc2G6ZSWDbixXK83efTcrGsXbQPxUGhy42Zy3cA698oODKjM3k9/z7wkIIIOpiNYXkG8E6SdmF2oNS23z9TdrtXwl97vPo0dgA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=asQn9FT+lvozQJSTUztr9sYKDDXy0SK5yZRbrvnfzHI=;
+ b=X/kHv6JVyANG3mfMB85WcnQWYQ/xhx+VJIav+yRn+m9Cnh48Qd629b8mSs2MYi1zZWvbUVzImpl47cR5++jyJilT4yRstxakyXyuPHNbJIP/jWDhdBkUQntzmHFMiIaaT62X3T38BEcCEGEcrngRqo0EHZtI1du2o8cP47BtCZU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
- by IA1PR11MB6324.namprd11.prod.outlook.com (2603:10b6:208:388::15)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MW4PR12MB6921.namprd12.prod.outlook.com (2603:10b6:303:208::8)
+ by PH7PR12MB5734.namprd12.prod.outlook.com (2603:10b6:510:1e1::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 19:46:25 +0000
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
- 19:46:24 +0000
-Date: Mon, 12 Oct 2026 15:46:08 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Guillaume Tucker <gtucker@gtucker.io>
-CC: Matthew Brost <matthew.brost@intel.com>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Mallesh
- Koujalagi" <mallesh.koujalagi@intel.com>, Badal Nilawar
- <badal.nilawar@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>,
- Riana Tauro <riana.tauro@intel.com>, Stuart Summers
- <stuart.summers@intel.com>, Jonathan Corbet <corbet@lwn.net>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/xe/log: fix documentation title levels
-Message-ID: <as05AF81CNjbCEas@intel.com>
-References: <2320050536ca29afe69ecd163eb974a40df571fc.1791740369.git.gtucker@gtucker.io>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <2320050536ca29afe69ecd163eb974a40df571fc.1791740369.git.gtucker@gtucker.io>
-X-ClientProxiedBy: SI1PR02CA0039.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::9) To CH3PR11MB7180.namprd11.prod.outlook.com
- (2603:10b6:610:148::5)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 20:06:49 +0000
+Received: from MW4PR12MB6921.namprd12.prod.outlook.com
+ ([fe80::cbf7:e2db:1d37:c83b]) by MW4PR12MB6921.namprd12.prod.outlook.com
+ ([fe80::cbf7:e2db:1d37:c83b%5]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 20:06:48 +0000
+Message-ID: <797bb933-adf3-41c6-8421-ffc3bd6948f9@amd.com>
+Date: Mon, 12 Oct 2026 15:06:45 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] drm/amd/display: keep custom brightness curve in
+ userspace domain
+Content-Language: en-US
+To: Andrei Rusu de Castro <arc@empyreal.works>, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ chen-yu.chen@amd.com, ray.wu@amd.com, stable@vger.kernel.org
+References: <20260902-brightness-cover-abf809f2@empyreal.works>
+ <cover.1788388049.git.arc@empyreal.works>
+ <8ec5dc8922407924f771d353cb7f2dd1846553ae.1788388049.git.arc@empyreal.works>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <8ec5dc8922407924f771d353cb7f2dd1846553ae.1788388049.git.arc@empyreal.works>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR04CA0094.namprd04.prod.outlook.com
+ (2603:10b6:610:75::9) To MW4PR12MB6921.namprd12.prod.outlook.com
+ (2603:10b6:303:208::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|IA1PR11MB6324:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7b21ef9-ebcc-45b8-b7f9-08df28997f4c
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6921:EE_|PH7PR12MB5734:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88baf530-c640-4637-bccd-08df289c5916
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|56012099006|5023799004|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: 5cWTBdK6aL0BnVje9ol5LI5Qpjt6qTH6K+lWH6BN/qROvIDBcOXUvMrkIjMBbXoIaT4V5T/hQ3hvUaGwbWZLUkY1MrucdhipvC9BA399BwsAZ16nso3iDjAbmN/PWj+7kPSkkkzLlRB/skvgWZnJf+IWncdzVAGXScsfTntUXsJOwla7dri2uL1x+MP6yQuTvcj45/Wfj1qRi3OP4rfFfmRVgK+F5UbEOKz9RAPA8eVKfQDKVfOKh3EY/PwTY3yeacu+xfoY8H9DMrquPShwjLu5ZYAYFMqBP38s5dbNC/aOYN348k+WC9j6NAvDIgVfr9hFGyt6jNnk0Sx/hxu/3i0KIl+zZVdqyMfaH1eZXlgWl3OtqJ3OQjImYPGU5OaQzkXf5xXMvZNqlJoi3KPcgm9ztb3Y31WGwQhqrB/+NCXZKu+/JHOTWe6nOFRjRRlLu604dYdlkYGqQ+pFp2uhkd7gn/+2rlgf2dFAQd/FUgm54EEXlY6G2YfbwzUC+5l/kkQpeQo9rlqbfushccFPtYzxTYQ1LyTuzdGWB66pvImjzGLnDnVPDLkOLm0EEVxQFuCDkYcngrqbobpwrTgLaNWmK6kUIGFkkzHtQqqyIzfmPued+AHqln9viv1blogPR7RdzRmUiOW6Qboh/hJEz+cxsmDwujHefIz4n/s+kCM=
+ ARA:13230040|376014|366016|23010399003|1800799024|11063799006|4143699003|56012099006|22082099003|18002099003|261009223027099003|3023799007|10067099003;
+X-Microsoft-Antispam-Message-Info: JehVaGkBe55/EnQr2N0iiUgKy0HFQdhEzaQQBJW+Dv4aK+maKO1BNg7ffMhowH3Li1cz9ULfvMCcPOpErwaQ2PI439yMZKrzs8OUTjLrRaJNI3t7A2cPvhflgQZmYgv+9w3AVVMMpB/KNxh7lp9VhMmQ0sLL4Sgeq9clTwX8mPO6l14//YgAJkylWq5CsL/A0tH6xISvG4Gfjr3AD//Py7SK9iN04QPk3f6shjfbadMBnM3eFvSPd2JF25xcF31BGmBJEzpoX9/OyRtbeUtXQbgbgMX9l0xAhJABC+4cVeZGexeCtuGRbfRBXtOfu6oFiwOh92m3+ghVQkiJeqmjDC1V+HO23sIweXJ1TOWMvavv0wWH4bmyQnxkCYB+/KfhtFdXapjWuxivAdgIYB+G/tsXqBPYJ3v34CqmfLMgM2iMHaO5Fvh7Ktwy0kNZhrcFCOPZiywmhSA1yaBT3NqG8bkKfbrY88w7riRqYYdxhrkoNrgUwXmCgd6QEk4Jx+X2K4jeIs4HCoAzJDZ7veqsv7K1FOWTarZr/0wPtejBhzSMknbWmStCHikwweCpMwknzZ+4yar6rdmUOUzBszx3fAhfVCwDjhFfmj0C+rtNMrE75vmG+DW+G9HuXg+DdScJAGyEJV2EgoCghQ53S6ogTZaHh/GiYfxK+oxo7gYlj3Q=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH3PR11MB7180.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6921.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(261009223027099003)(3023799007)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?u2zIwTQOFRm70UU2aR9J9mwIDa9ImYL02wr+cn57+QmC7ozcS0tUeiufAKi1?=
- =?us-ascii?Q?0hDSuoE6fylWLBtw7lpain7eETiTKz0tXWp3maIhGh25US4S1ZLUx85NxuVs?=
- =?us-ascii?Q?qEMdL75QyN5YtpiZTfIaFybq9I6qxRZhotv2yAyzZzgc5JapurV8Esk7Zb2/?=
- =?us-ascii?Q?/Lv+1VyerDEAghuD3gpcODI/YXhxEcbnWyvB4RPdb6wF0pMYtkoFrdl7JrHl?=
- =?us-ascii?Q?J70K3t1gcYOUikR+kt1NemOd2QxN8dbhoCzYGoSOtaEMObt9+7+jGXafEs+U?=
- =?us-ascii?Q?HDUxT1Ja70GMHEplKwNZYCdVxowxJ4BfqjrrYj4b6m7o/8oN9FeFSA4bwtbf?=
- =?us-ascii?Q?ZU5xogDxP78Jy/6mnAzq/2ST173rGU/lEtKhgsvyfpbZeku++rSWCurGQWUd?=
- =?us-ascii?Q?ZGq84cj6GdP2aJfZ46se0RDc+L9fKTJ2SxJWJtFtgbFXg4FjLqjmz6UEkklR?=
- =?us-ascii?Q?U0diEH7rMRjTCNlGAATuvSbtSI0bO1NYfslgLquoxrkWzE1An8RJhYhoKE0s?=
- =?us-ascii?Q?KPWTyIAvDGJdJL/oI+Si0xj3yYhIJFypN5nNlcMyBRUgDZQl9pFZS1htd+OA?=
- =?us-ascii?Q?aTHvPnuY9/A5pHQBicqLt7H7wsTVqbzXOM0kq2xFCpLqQJrc8ZcyJ+i9FyQk?=
- =?us-ascii?Q?IDDlfDb12sw9v7eUC0OKArqa1g9EFuUqD3kIyQiLbxhikfUO4+Yciyr2gb56?=
- =?us-ascii?Q?O9WNMfKIa0ILwRxDEM9xX4qrVUs66wAOfBIgTLPvTxjLw+riJ7cs6o2IKlge?=
- =?us-ascii?Q?FReFth1uTGrT9/1uNJz7UyVtXl1O56cEQRhiJxjEI6HOYVQNlMQEn9tCUkLJ?=
- =?us-ascii?Q?E8m0OIqLus77SdPvRfVjMhvrvGBT8OBL+ve1k0CTIIrrTLquYyjWQVrvJOKM?=
- =?us-ascii?Q?AG4rSK1wYhSkVu0xrleXPwKOwV0InRDZGkpPUsDZhkWnPyBYCoN5XPNnUlH7?=
- =?us-ascii?Q?ncmbUbHoEm6gjn2WNPJjJziA9Nt1oVzTuZYo77mNW6s9r+9AEvG4yBzoviNQ?=
- =?us-ascii?Q?W6wt3ozp6zWkZm8PHqyGkUVZ1xBkoga7NWtCl9Xrp//ywvH43WDnMbJFR3IV?=
- =?us-ascii?Q?XdJ6VK0evAAEQFOWixJ2s0ZMfjtP30yqs2fHnZAAg41uPWT8+wSEOX0m5Unk?=
- =?us-ascii?Q?+VYcsLRAcccmWm7PHUGABKDUOVhB/GXb9DXgHh+aKjd8kTgwuTNIb5OBfAks?=
- =?us-ascii?Q?7jwQXgwhzf11p5X/hOeE2FWljyColM2XWRXDXE5iiZyk2UKb+tjSrb/6TUPO?=
- =?us-ascii?Q?XMMq0I95nrXUMtiPUKnNpYcx2SjjTmIR8x6xflsKJUREiyd3ijwLk59XqFhf?=
- =?us-ascii?Q?YiBJ2U1Q1LqQB5eukLry58AA1IGRDCpD2qjRwFg/ls9T2PQR3we81CXlCXFT?=
- =?us-ascii?Q?BgKwVRdW9yBM5xP3jXySWqh3RKLZMpf4m9oCRRasvrbjeMc7FCvPYtjrb6De?=
- =?us-ascii?Q?MybOrSpe813voM40EmGLKxgZAGsUMvD1v6b5rncp613+LKMyEgnSPjLguKr3?=
- =?us-ascii?Q?T4CN8TKn+OYaHZSjrq4Znkp37cMLgd/rx6kWJugLVw2Erth94NwkLeHnIeLs?=
- =?us-ascii?Q?v/7XF4gnfUExdGvPH+XkoMwgHSZIm+9x34Fmfr7e9oA+fwd4RwxG9we9WxAs?=
- =?us-ascii?Q?G3ffJtbfwDUebd0I3Fuis5TIfPzXrS0q+Y3+8JOArEy2Hss71MQTtwILra7m?=
- =?us-ascii?Q?w+JWnNA44S/8+ffZjMhNWC2leDemoogMblE+AKe9zdO4WlxPASPT3T/BZzgj?=
- =?us-ascii?Q?lnyTypxW0w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: GaCwEqM3sv6Pqo0lMmcUgftj6yYeAwWB5URDVAvFxj0L8CR6OidjISU8InWYj+GqAUsTElrhaaMhOryqI4+E0x0CX224lMt005dDUXK6AbKBy5CUPmtNM7dPXAkY1GjvHWMve0CBviUnrNlqVyN+0dSCxy0Hwq13XQsFx18nC/dICwIGqo4bzIvTiWZ5gc3SwXzpfvS8SzdnbkoK6Akp5s+y889fAiIZ7ZH7z9j23ZqvOBLn1fZaoXYte2e0Sdh0aN6wK8SUZnEE71y+TBez9DF7As9HkhxEQhdinKIszjempnQvtC5PykK9OKPKp4PG+aXO9gy2ZutQdFp93o2++w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7b21ef9-ebcc-45b8-b7f9-08df28997f4c
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0p5WVZWdnhjVnYwVW9Dd0tDcldZREVsSWJHVXJWQXpVcENJdGFzTnBlTVEr?=
+ =?utf-8?B?bmlqeW9uQ1JtSzRPdkgwR29NNWg0SmpnM2pUdmZkT3NTdCs3Z05nbVlqSU5Y?=
+ =?utf-8?B?dUtaZlBlSFgyeWd3dUhpNTRjd0pWNnAzTDZaYWZFbTI2eVRpT1VjK1JlblNU?=
+ =?utf-8?B?NHpNVE03RVhIZndEZ0dTYkNKVnA0R1dZRTZLMEROcEtRdGVhZlBNVW9rUEpQ?=
+ =?utf-8?B?emhCbGdlcTNQTS9TNW5FNlFyTUIyWW1SZ3BlcnRsVERhV0lWRmhMUkxITnN3?=
+ =?utf-8?B?bll5a1FoSjgxdlpISTVhcytkMXZUUUg0UFNoSnNic3FrT29vdnQ0MGNGaXBh?=
+ =?utf-8?B?Mmh1czhqcTNiWE5VTXh0STV3NjVuV2JpL1gyZmZPMTlaL3cybDFQamtTUnZZ?=
+ =?utf-8?B?dzZ3UWtkSXhuVWN2cE5WcG5GZjM3TnNCckUrOHZrOUJZdjBITmRUdFNlNnpv?=
+ =?utf-8?B?dUVJTjFrdEMxUWtZRGcwMWRCdXFJeGZpeDBsbjc1WE9jcG00Y0dRZ2xqR1Fs?=
+ =?utf-8?B?bzNyYlArZ01DVUVuek14cFFxSVF1QzV3dFAyWE5SaldsQU9tZXJtNnpyWFNS?=
+ =?utf-8?B?QmlWMlRpWHdEbTJjdGRGbWlwYWM4TXZRQXdZeHRWaUlyTmF4TXlnb1hlSU9v?=
+ =?utf-8?B?ZUIrWDVrWkdoWVdPaUd5eXFrbTI3ZlhnYjhQeloyWTNhTXl3R2dJZXcxdDNj?=
+ =?utf-8?B?WUtTcFZoQ2VYWWVJVTRQUGY0TW1FUXM3VFlkSGR4SUdDL0lITzlGdUt0UjB5?=
+ =?utf-8?B?TGxuK1lVRFlRbjlzaXVPUEpmYUg1YzhFOUtrYVdadmJPeWpHa0RPTmRYa3A3?=
+ =?utf-8?B?WlFTdGlRV2NqSmtwVkV5RjRWQW9pMFhQN2VmbU5zZGdhR1ZXYVNPUHp2YlUy?=
+ =?utf-8?B?aUk2SERsK0xRMkk2VS9zSUZyek1iUWJLS0hnN2kzWVBmbzdZRlU0Z2VUeVJZ?=
+ =?utf-8?B?ZjRZUnU4SUJyZjllbE9UTDZsYU50bnUvb2FNMUZNdVhzY0t6L0p4c0d0RnQ0?=
+ =?utf-8?B?MkVUeEFWbmd6YjhsM2dKMUZSSFZSNU13aUo5RkgrSnpmN1AxRmV0YVo0TnBM?=
+ =?utf-8?B?NEE2Q1lJaFBQWVE5d0tSeXBRY0Z6ek9Qb1BuUmNCNFZ3ZGtNbUtWWFYxUUxm?=
+ =?utf-8?B?N09YOFp3QnhkakE5ZUVoUVBLa0J6eXhxbUNZQ1F2SXV5anRSeG1NZ2NRRkdu?=
+ =?utf-8?B?d2tHbC9BQ0xJdjMyODdzYzhnejd2Q3BHMzN6ckd3ODA2QXBMaTQ1TDh3NzEy?=
+ =?utf-8?B?L2FBM0tsV01iai9RbG1sU1ZGRFBUWGEzMVIvVXc2OFI2WFF6MVZlNTd6UmZS?=
+ =?utf-8?B?QW5mbkV1elgrSCtjdWpRektSRldKSUFvWklWL1R0N0hOd1hrc2JWZERxVTVK?=
+ =?utf-8?B?VGdCKzhGMHNSZk5vYXF6U0tZSFVNSE91bUxSYlNxRmRObTY0M1VGNjlFSlBJ?=
+ =?utf-8?B?VVNqS0ZpMVpEMmhrb1M5eFdVK2VPdWtkRHdjM0k3eXlxRHgvUUVEWDBENXZF?=
+ =?utf-8?B?eFRzbHdrOWpUOFdVTzY5ZDBDdklrdTgwNW9keE16ZytCK1BhWWxVYTBCdk56?=
+ =?utf-8?B?UHhxbUhjSTFjWG9kTC9ZVDZtZ09Ja05PUlhHUlBlaGsxWWlHRTQ3dCt5MGFO?=
+ =?utf-8?B?b0NPSlYvSFV5OGJkNVV4YjhuRVA4bTBRVUE4ekZXWklnSTBscHZwckVBSmhy?=
+ =?utf-8?B?SFd1ZXU0elZKREdyaHZuUHl5WkJ1TVRqMEVIa0ZNY0duckJGRUV1OHFQVEl3?=
+ =?utf-8?B?SUU0b2g5azJXbnZPUGRRN2dzVElMb1ZBQklJNTczK0Uwa3dRMHJ1a0F1cGhq?=
+ =?utf-8?B?aUhYZEJGaHFxeXZMT283U1RIMTJhelEyYkVIcFRHVjZiaWpNdzV3aG5zZUw4?=
+ =?utf-8?B?R3N3ZXZITmJGRnMyTVJVbkFXZFVtZm03QW9JaDFxV0I2U0xyem9FaXkxL21v?=
+ =?utf-8?B?em9CSisrQmkxWlpFVWpkU1hGdVZ6NG5Zb05yWG9IMGNMaENIRzNPa1BoTGlQ?=
+ =?utf-8?B?NU9NSHhialQ2RytnS1NsZTZWa1d6Qlo5cnJBSE5jV0E4ZFNqZlNwcEF5TVNK?=
+ =?utf-8?B?Nk1wNzNTWU5hcEZUbFJGL0NtNm84K251NkF4ZnBwa0pyVkw1akFxSmpYTEI0?=
+ =?utf-8?B?SENCd0cvNk92TDNZTVp1YjNJREEyMkduK2JwUi9LZUhUdjFVeWhRaGRjb2Fz?=
+ =?utf-8?B?TXlQdmtWMlpuNDlIOHlUL0kzK0I0TnJMNmtOTGhyZGRGekpEYVVLczBPZTNp?=
+ =?utf-8?B?MWs3Z3hVdVZ4WkZuUUprNzFFSHZOTmFScVhmY1ZNNSs5NG5ZUUpsRGxyTUNY?=
+ =?utf-8?Q?UFetiQ4PArnrcnnqEE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88baf530-c640-4637-bccd-08df289c5916
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6921.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 19:46:24.6060 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:06:48.6332 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9OM+RMslPe57VULYGZ6LInWuyT0O0MoxR/iJzFoew1omWxj2xKejGDdskIt9gJ17d+SFaNUacMPhKdBKzjwrVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6324
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: tiI5HcgMBkOisAnCM+74lon6AMYJaXxj0vcfgeIXGOGYY5Bdo916QjheBV0kvhlMM4QmTh+lSQN0ourZwKW7+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5734
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,102 +139,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Oct 11, 2026 at 07:46:53PM +0200, Guillaume Tucker wrote:
-> Fix an htmldocs build error in the gpu/xe section by moving all the
-> titles one level higher in the Xe SIGID page to keep a consistent
-> hierarchy.  This is the error message:
-> 
->     Documentation/gpu/xe/xe_sigid.rst:10: (SEVERE/4) Title level inconsistent:
-> 
-> All the other pages in the xe section use <h2> titles so follow the
-> same convention here as well.
 
-it looks like we have more stuff to fix in the xe_migrate.c still...
-
-thanks for this patch.
-pushed to drm-xe-next
-
+On 9/2/26 17:31, Andrei Rusu de Castro wrote:
+> convert_brightness_from_user() expects convert_custom_brightness() to
+> reshape a value in the userspace [0..max] domain before the caller maps
+> it once into the firmware [min..max] domain.
 > 
-> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
+> Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
+> userspace") instead made convert_custom_brightness() call
+> scale_fw_to_input(min, max, ...). That helper adds min and scales by the
+> firmware span, entering the firmware domain before the caller applies
+> the same span and minimum again.
+> 
+> With the default PWM range, min is 3084 and max is 65535. A zero request
+> through any custom curve consequently returns 6023 instead of 3084, so
+> the darkest 2939 firmware levels are unreachable.
+> 
+> Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
+> inverse of scale_input_to_fw(), and the caller remains the sole owner of
+> the userspace-to-firmware conversion. The linear path is unchanged.
+> 
+> A later patch removes this helper from the PWM power-module path because
+> the power module owns that curve. AUX panels continue to use it, and
+> stable kernels predating the power-module refactor still require this
+> correction on PWM panels.
+> 
+> Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
+> full range") fixed the corresponding input-side domain error. This
+> completes the output side of the same conversion.
+> 
+> Source and arithmetic analysis identified the duplicate domain
+> conversion. KUnit coverage for a non-zero firmware minimum is added
+> separately.
+> 
+> Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to userspace")
+> Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale custom brightness curve from full range
+> Cc: stable@vger.kernel.org # 6.17.x
+> Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop the header and test hunks
+> Assisted-by: LLM
+> Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+
+There has already been some competing changes for how the power module 
+integration handling works in amd-staging-drm-next.
+
+I wanted to see how your series was on top of it, but it doesn't apply 
+anymore. [1]  Can you please rebase your series and re-evaluate?
+
+If it still makes sense (in your view); please send out a v3.
+
+[1]
+Applying: drm/amd/display: keep custom brightness curve in userspace domain
+Patch failed at 0001 drm/amd/display: keep custom brightness curve in 
+userspace domain
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+error: patch failed: 
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c:112
+error: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c: 
+patch does not apply
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+
+Thanks,
+
 > ---
->  drivers/gpu/drm/xe/abi/xe_sigid_abi.h | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
+>   .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
+>   .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
+>   .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
+>   3 files changed, 22 insertions(+), 24 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/xe/abi/xe_sigid_abi.h b/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-> index 2f3440505f69..277b15fce9cc 100644
-> --- a/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-> +++ b/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-> @@ -10,14 +10,14 @@
->   * DOC: Xe Error Signatures (SIGID)
->   *
->   * What SIGID stands for
-> - * ---------------------
-> + * =====================
->   *
->   * SIGID is short for *Signature Identifier*. It is a small, stable integer
->   * that names one of the *recognised fault sites* -- nothing more. It is the
->   * primary handle used for triage and maps directly to a specific report site.
->   *
->   * Numbering
-> - * ---------
-> + * =========
->   *
->   * SIGIDs are a single flat list numbered sequentially within the assigned range,
->   * in the order the fault sites were introduced. Values are stable: once assigned
-> @@ -25,7 +25,7 @@
->   * SIGID value is deprecated in place, never re-purposed.
->   *
->   * Why this exists
-> - * ---------------
-> + * ===============
->   *
->   * Today the driver reports faults with ad-hoc ``xe_err()`` / ``xe_gt_err()``
->   * strings that have no stable shape. That is fine for a human reading dmesg,
-> @@ -37,7 +37,7 @@
->   * firmware versions, and (eventually) across other Intel devices in a node.
->   *
->   * What a SIGID is not
-> - * -------------------
-> + * ===================
->   *
->   * SIGID deliberately does not encode the detailed reason or the outcome. Those
->   * are carried alongside it::
-> @@ -51,7 +51,7 @@
->   * different severities depending on the instance and the recovery taken.
->   *
->   * When to use SIGID logging
-> - * -------------------------
-> + * =========================
->   *
->   * The xe_log_*() helpers are for these recognised fault sites only --
->   * important, operator-relevant faults and events. The driver's only job is to
-> @@ -63,7 +63,7 @@
->   * those that correspond to a published fault site.
->   *
->   * SIGID log output (dmesg vs. the machine record)
-> - * -----------------------------------------------
-> + * ===============================================
->   *
->   * The dmesg line stays close to a normal xe error message so it remains
->   * readable for admins; the only stable, machine-matchable token on it is
-> @@ -74,7 +74,7 @@
->   * carrying the same SIGID (generation is a planned follow-up).
->   *
->   * How to pick a SIGID (the uniqueness rule)
-> - * -----------------------------------------
-> + * =========================================
->   *
->   * Pick per *report site*, not per incident. Each site emits the single most
->   * specific recognised SIGID *for that site* -- so the question is never
-> @@ -95,7 +95,7 @@
->   * after making significant changes to the site that emits this SIGID.
->   *
->   * Scope: software vs hardware emitted signatures
-> - * ----------------------------------------------
-> + * ==============================================
->   *
->   * Some SIGID represents fault sites that the *driver itself* detects and
->   * reports from the software POV: probe abort, wedged, survivability, driver-
-> -- 
-> 2.47.3
-> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> index e61bbc310f33..424b33573a73 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> @@ -112,16 +112,15 @@ static inline u32 scale_input_to_fw(int max, u64 input)
+>   	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+>   }
+>   
+> -/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+> -static inline u32 scale_fw_to_input(int min, int max, u64 input)
+> +/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace [0..max]. */
+> +static inline u32 scale_fw_to_input(int max, u64 input)
+>   {
+> -	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
+> +	return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
+>   }
+>   
+>   STATIC_IFN_KUNIT
+>   void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+> -			       unsigned int min, unsigned int max,
+> -			       uint32_t *user_brightness)
+> +			       unsigned int max, uint32_t *user_brightness)
+>   {
+>   	u32 brightness = scale_input_to_fw(max, *user_brightness);
+>   	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+> @@ -179,7 +178,7 @@ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+>   						    (brightness - lower_signal),
+>   						    upper_signal - lower_signal);
+>   scale:
+> -	*user_brightness = scale_fw_to_input(min, max,
+> +	*user_brightness = scale_fw_to_input(max,
+>   					     DIV_ROUND_CLOSEST(lum * brightness, 101));
+>   }
+>   
+> @@ -194,7 +193,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
+>   	if (!get_brightness_range(caps, &min, &max))
+>   		return brightness;
+>   
+> -	convert_custom_brightness(caps, min, max, &brightness);
+> +	convert_custom_brightness(caps, max, &brightness);
+>   
+>   	/* Rescale 0..max to min..max */
+>   	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> index 07b75064847c..90bed0ea5d00 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> @@ -67,8 +67,7 @@ ssize_t panel_power_savings_store(struct device *device,
+>   int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+>   			 unsigned int *min, unsigned int *max);
+>   void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+> -			       unsigned int min, unsigned int max,
+> -			       uint32_t *user_brightness);
+> +			       unsigned int max, uint32_t *user_brightness);
+>   u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
+>   				 uint32_t brightness);
+>   u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> index 7ca17f803f9d..1fb171fdbc3c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> @@ -1033,7 +1033,7 @@ static void dm_test_custom_brightness_no_data_points(struct kunit *test)
+>   
+>   	caps.data_points = 0;
+>   
+> -	convert_custom_brightness(&caps, 3084, 65535, &brightness);
+> +	convert_custom_brightness(&caps, 65535, &brightness);
+>   
+>   	/* No data points → no-op */
+>   	KUNIT_EXPECT_EQ(test, brightness, saved);
+> @@ -1057,7 +1057,7 @@ static void dm_test_custom_brightness_debug_mask_disables(struct kunit *test)
+>   	/* Set the disable flag */
+>   	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
+>   
+> -	convert_custom_brightness(&caps, 3084, 65535, &brightness);
+> +	convert_custom_brightness(&caps, 65535, &brightness);
+>   
+>   	/* Should be no-op due to debug mask */
+>   	KUNIT_EXPECT_EQ(test, brightness, saved);
+> @@ -1100,14 +1100,14 @@ static void dm_test_custom_brightness_exact_match(struct kunit *test)
+>   	 */
+>   	brightness = 32896;
+>   
+> -	convert_custom_brightness(&caps, min, max, &brightness);
+> +	convert_custom_brightness(&caps, max, &brightness);
+>   
+>   	/*
+>   	 * Exact match: lum=50, brightness_scaled=128
+> -	 * result = scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101))
+> -	 *        = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
+> -	 *        = scale_fw_to_input(0, 65535, 63)
+> -	 *        = 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
+> +	 * result = scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
+> +	 *        = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
+> +	 *        = scale_fw_to_input(65535, 63)
+> +	 *        = DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
+>   	 */
+>   	KUNIT_EXPECT_TRUE(test, brightness != 32896);
+>   	KUNIT_EXPECT_TRUE(test, brightness < 32896);
+> @@ -1146,13 +1146,13 @@ static void dm_test_custom_brightness_below_first(struct kunit *test)
+>   	 */
+>   	brightness = 12850;
+>   
+> -	convert_custom_brightness(&caps, min, max, &brightness);
+> +	convert_custom_brightness(&caps, max, &brightness);
+>   
+>   	/*
+>   	 * Below first data point: lum = DIV_ROUND_CLOSEST(40 * 50, 100) = 20
+> -	 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
+> -	 *      = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
+> -	 *      = scale_fw_to_input(0, 65535, 10)
+> +	 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
+> +	 *      = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
+> +	 *      = scale_fw_to_input(65535, 10)
+>   	 * The output should be significantly less than input.
+>   	 */
+>   	KUNIT_EXPECT_TRUE(test, brightness < 12850);
+> @@ -1190,7 +1190,7 @@ static void dm_test_custom_brightness_interpolation(struct kunit *test)
+>   	 */
+>   	brightness = 32125;
+>   
+> -	convert_custom_brightness(&caps, min, max, &brightness);
+> +	convert_custom_brightness(&caps, max, &brightness);
+>   
+>   	/*
+>   	 * The function should interpolate between data points and produce
+> @@ -1233,7 +1233,7 @@ static void dm_test_custom_brightness_above_last(struct kunit *test)
+>   	 */
+>   	brightness = 56533;
+>   
+> -	convert_custom_brightness(&caps, min, max, &brightness);
+> +	convert_custom_brightness(&caps, max, &brightness);
+>   
+>   	/* Output should differ from input (remapped via curve) */
+>   	KUNIT_EXPECT_TRUE(test, brightness != 56533);
+> @@ -1271,7 +1271,7 @@ static void dm_test_custom_brightness_single_data_point(struct kunit *test)
+>   	 */
+>   	brightness = 16448;
+>   
+> -	convert_custom_brightness(&caps, min, max, &brightness);
+> +	convert_custom_brightness(&caps, max, &brightness);
+>   
+>   	KUNIT_EXPECT_TRUE(test, brightness < 16448);
+>   
+> @@ -1309,7 +1309,7 @@ static void dm_test_custom_brightness_lower_lum_zero(struct kunit *test)
+>   	 */
+>   	brightness = 32125;
+>   
+> -	convert_custom_brightness(&caps, min, max, &brightness);
+> +	convert_custom_brightness(&caps, max, &brightness);
+>   
+>   	/* Should remap; result should differ from input */
+>   	KUNIT_EXPECT_TRUE(test, brightness != 32125);
+
