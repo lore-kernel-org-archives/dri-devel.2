@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E688FCA9ED8
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:57:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E2ECA9ED6
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E90C10E426;
-	Mon, 12 Oct 2026 04:57:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3792210EB8E;
+	Mon, 12 Oct 2026 04:58:18 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D444610E19E;
- Mon, 12 Oct 2026 04:57:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9D410E4B6;
+ Mon, 12 Oct 2026 04:58:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A563443CB2;
- Mon, 12 Oct 2026 04:57:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473881F0089B;
- Mon, 12 Oct 2026 04:57:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B07B444002;
+ Mon, 12 Oct 2026 04:58:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52A061F0089B;
+ Mon, 12 Oct 2026 04:58:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791781020;
- bh=FpOWpXMW8ZRnZz1SOveLZVrcvB1sxHwMoRpU6Y2N7yY=;
+ s=k20260515; t=1791781091;
+ bh=N+IQ5UdKybR/yr2F/imU6346cC7w9uh3D+7mTxEwUvw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OKDpoCvHLirQb6BW/4DKCktY/h99rfQZuN9OGqINDuI61e5/xiiyHuNGld9kwYw87
- sbDmrfxARFZ495zXfRgLrRgi57n9MpiCJQAeQ9FRJMrxGEqf1ci5f0UkgK11QK6DHB
- 6FjdPvuze8bPVoj6aNXwykGzU3HGSLrwUUEGCWER9/cjA/f6PiFmrFquf6cYtI7KvV
- K/ACnFOZrip0ZI8UdjmSzhy6pLy6Ks1SgVuWVCj/Rz0aS7ozSUqHlicIqIgWKfU7Xy
- 6Rov/3GXEWgH8E6pHXqwRPndnujJIFNzmJuDje3moplMLLPczCWewRLVnADd/VDFuH
- yTjbpNJIV4qnA==
-Message-ID: <sashiko-outbox-167646@kernel.org>
+ b=DqGlbAsOP6EuoRd4XhaML2ijHjgfDtWDBx62Z0LzKfZC0SQ8+uAM6/Hh9ze46eONS
+ zKLUTSbkaTFFemSa806HsT1UNbq2w32hY92cG9dZwQ3/00qNpXzJkk7Oti0p8FgKxU
+ 49P7toXVHq4EfXYtFcNlfg9ZXfx+ZKL4BWK/jsjI/zKq7MyuBHBOLFMhuaGaiY0run
+ 0qmBK4x+Mz8XJW+jOF8a3oISG+0ABbkSCaLeq/iReQxKzLrE7qmEUAbr7jJdsDKtdW
+ i9pb7aHC3XOA0z0jg4cKg0eGYbmx2cPTj4iHrLLIMU+XqNbG1iXJohFrYil8WpZK5W
+ cwl3H9CciTKqQ==
+Message-ID: <sashiko-outbox-167647@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 37/56] drm/i915/hdmi: Add FRL port clock valid
+Subject: Re: [PATCH v2 50/56] drm/i915/hdmi: Enable FRL based mode clock valid
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-38-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20261012035806.3361439-51-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-38-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-51-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:56:59 +0000
+Date: Mon, 12 Oct 2026 04:58:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,81 +57,76 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/i915/hdmi: FRL mode_valid rejects valid modes by checking ma=
-x_rate instead of required rate
+- [High] drm/i915/hdmi: 4K120 4:2:0 bypasses FRL and fails via TMDS
 --
 
-commit a29948ea9df1fcfe40f2c9e5a0c8d6354286b145
+commit 4c023e7cde26d2644e793aa505b046a46b2d33ef
 Author: Vandita Kulkarni <vandita.kulkarni@intel.com>
 
-drm/i915/hdmi: Add FRL port clock valid
+drm/i915/hdmi: Enable FRL based mode clock valid
 
-Introduce hdmi_port_frl_clock_valid() which validates the FRL link
-rate against the maximum FRL rate and the source PHY (c10/c20 or LT).
-
-Call this from the FRL mode_valid path.
-
-Since PHY PLL table units are in 10 kbps, add a macro to convert FRL
-rate per lane in Gbps to 10 kbps.
-
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Higher resolution modes like 8K@60, 4K@120 need FRL support. Platforms
+before MTL do not support FRL, so allow modes requiring more than 600MHz
+dotclock to be enumerated only on MTL+ where FRL is supported.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
 i915/display/intel_hdmi.c
-> index b82c636b46f93..8e742165a50ad 100644
+> index c57d99195ed03..e3dbd71a3652e 100644
 > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+
 [ ... ]
-> @@ -2046,6 +2061,7 @@ intel_hdmi_frl_mode_clock_valid(struct intel_connec=
-tor *connector,
->  	struct intel_hdmi_frl_dfm frl_dfm =3D {};
->  	int max_rate =3D hdmi->max_frl_rate;
->  	int lanes =3D max_rate < 24 ? 3 : 4;
-> +	int port_clock;
+
+> @@ -2176,12 +2179,10 @@ intel_hdmi_mode_valid(struct drm_connector *_conn=
+ector,
+>  	}
 > =20
->  	frl_dfm.config.pixel_clock_nominal_khz =3D mode->clock;
->  	frl_dfm.config.hactive =3D mode->hdisplay;
-> @@ -2064,7 +2080,9 @@ intel_hdmi_frl_mode_clock_valid(struct intel_connec=
-tor *connector,
->  	if (!intel_hdmi_frl_dfm_nondsc_requirement_met(&frl_dfm))
+>  	/*
+> -	 * HDMI2.1 requires higher resolution modes like 8k60, 4K120 to be
+> -	 * enumerated only if FRL is supported. Current platforms do not support
+> -	 * FRL so prune the higher resolution modes that require doctclock more
+> -	 * than 600MHz.
+> +	 * Platforms < MTL do not support FRL so prune the higher resolution
+> +	 * modes that require doctclock more than 600MHz.
+>  	 */
+> -	if (clock > 600000)
+> +	if (!intel_hdmi_can_support_frl(hdmi) && clock > 600000)
 >  		return MODE_CLOCK_HIGH;
+
+[Severity: High]
+Does this allow high-bandwidth 4:2:0 modes to bypass FRL validation and
+fail later during atomic commit?
+
+By restricting the 600MHz dotclock limit to non-FRL platforms here,
+dotclocks up to 1200MHz can reach format validation on FRL platforms.
+However, when a mode like 4K@120Hz (1188MHz) in YCbCr 4:2:0 format reaches
+intel_hdmi_mode_valid_format(), the TMDS clock check executes first:
+
+intel_hdmi_mode_valid_format() {
+    ...
+    status =3D intel_hdmi_tmds_mode_clock_valid(&connector->base, clock,
+                                              has_hdmi_sink, sink_format);
+
+    if (status !=3D MODE_OK && intel_hdmi_can_support_frl(hdmi))
+        status =3D intel_hdmi_frl_mode_clock_valid(connector, mode,
+                                                 sink_format);
+    ...
+}
+
+For 4:2:0 formats, intel_hdmi_tmds_mode_clock_valid() halves the 1188MHz
+dotclock to 594MHz, which successfully passes the TMDS limit check and
+returns MODE_OK.
+
+Since the status is MODE_OK, intel_hdmi_frl_mode_clock_valid() is
+completely bypassed. The mode is incorrectly validated as TMDS instead of
+FRL. Because TMDS configuration does not support pipe joiner, the single-pi=
+pe
+dotclock limits will be exceeded during compute_config, causing the atomic
+commit to fail for advertised modes.
+
 > =20
-> -	return MODE_OK;
-> +	port_clock =3D FRL_GBPS_TO_10KBPS(max_rate / lanes);
-> +
-> +	return hdmi_port_frl_clock_valid(hdmi, port_clock);
->  }
-
-[Severity: Medium]
-Does this code reject valid modes by checking the absolute maximum FRL rate
-rather than the rate required by the mode?
-
-In intel_hdmi_frl_mode_clock_valid(), port_clock is computed from the absol=
-ute
-maximum FRL rate (hdmi->max_frl_rate) allowed by the sink EDID and VBT. The
-function then checks if the PHY supports this exact max_rate.
-
-However, hdmi->max_frl_rate is never clamped to the PHY's actual capabiliti=
-es
-during initialization. If max_frl_rate exceeds the PHY's capabilities, or if
-it evaluates to an invalid non-standard rate, hdmi_port_frl_clock_valid()
-returns MODE_CLOCK_RANGE, rejecting all FRL modes.
-
-For example, if an OEM limits the VBT to HDMI_MAX_FRL_RATE_3G,
-max_src_frl_rate incorrectly evaluates to 12 Gbps (3 * 4). If the sink supp=
-orts
->=3D 18 Gbps, max_frl_rate becomes 12. The port_clock is then computed as
-12 / 3 =3D 4 Gbps (400000 10kbps). Because 400000 is not in the PHY tables,=
- the
-PHY check fails.
-
-Does this break FRL entirely on that platform, rejecting even low-bandwidth
-modes the PHY could support?
-
-While compute_config iterates through supported rates in later patches,
-mode_valid remains hardcoded to test max_rate through the end of the series.
+>  	if (drm_mode_is_420_only(info, mode)) {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D37
+439-1-ankit.k.nautiyal@intel.com?part=3D50
