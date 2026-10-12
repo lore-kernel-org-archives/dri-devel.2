@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7AB7CC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B412BCC6B10
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4733910F5C5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E7D510F5C8;
 	Tue, 13 Oct 2026 07:53:36 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49D8310F2D7
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:19:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 992F110E507
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:54:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 074A940533;
- Mon, 12 Oct 2026 18:19:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776121F008A1;
- Mon, 12 Oct 2026 18:19:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 51A5C437C6;
+ Mon, 12 Oct 2026 18:54:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5128E1F0089B;
+ Mon, 12 Oct 2026 18:53:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791829177;
- bh=S5YZV5/Gzxz8OvyMdBctaB65GhjRf5UZXPrX96RovJk=;
+ s=k20260515; t=1791831243;
+ bh=/LzN6QFYSsA+fcmS211ot+Qp65prbM+0x7Y3py3WXwI=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=K0zgfFEo0DCNyJ7wXXNAtUB46Se1h+SZXZQPeJemBtFpTzbbQfSp5G5oZ8GTdldLM
- MXbquvQSvxIUkvzRI5GlEMD5x67ODCTifaRqV80gcXl3C4LnqeTjgHUYBaXToHruFk
- RfjY3g/6IP7W015WE+bNESTYURuWY9jUJ8i7PjCWw3HZh6XeHu6oh/3E3uAUsENyAr
- BDoFWSQQYfGPKVZaJYTOiQnAkya+mpNubID9cF4KOyTbKX/c5kud5UdMBR+XDc2osY
- BCONemdMlwywRdie1WLtCEhwDC+gz89qp0qxbu4FjCd0DKp41FMXYOaWqa7vpfT03h
- 20A437rctccRw==
-Message-ID: <5027aec2-84c1-461e-9f74-0736e2cc6171@kernel.org>
-Date: Mon, 12 Oct 2026 20:19:03 +0200
+ b=Cdad94l3/djhic99Bhd0ObG6C9U/C2CLrUE1lnyVHNjSsnckIVbfbC8gITgmKnRX1
+ Ng0cl01itPkjwqWZ8HXQOhijaLgVbwHhhfx0wpkrF4VjvbQv9wj7oIG0uhuwb2MieL
+ nFrM6c3TFAC31S2511GqSuww8ft/27QVjBhLuGUN0OMyF1qHmN4o2bKkSkr8PsmEse
+ xKKxIbkYoBm+BrvdRQO/8Asb/AXtmVx0Fkv0c2DWvv8y0lmRL9Qdg2cfSOlXLrrds/
+ g/VuG4q2KvwqvUKiuRTRsV6x7w5z6/xHOWetfu/xkcZvo7EFPXfnYKr9gOVnLL05of
+ nQSHFxLN66GKg==
+Message-ID: <ebd7f324-c426-43c6-9a6f-d55a9fffddac@kernel.org>
+Date: Mon, 12 Oct 2026 20:53:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 22/38] mm/mlock: clear VMA_LOCKED_MASK over mmap
- callback
+Subject: Re: [PATCH v5 38/38] mm/huge_memory: remove vma_is_special_huge()
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -115,7 +114,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
  Bert Karwatzki <spasswolf@web.de>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-22-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-38-923b70125b1e@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -162,10 +161,10 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-22-923b70125b1e@kernel.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-38-923b70125b1e@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,84 +181,24 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> Currently there's a confusing mess around VMA_LOCKED_BIT and
-> VMA_LOCKONFAULT_BIT.
+> vma_is_special_huge() tests whether either the VMA_PFNMAP_BIT or
+> VMA_MIXEDMAP_BIT is set (i.e. whether the VMA is not mm-managed),
+> but with a DAX carve-out.
 > 
-> It is permitted for drivers to set any flags they like, with the VMA
-> already possessing lock flags.
+> DAX however no longer sets VMA_MIXEDMAP_BIT, so this carve-out is no longer
+> required.
 > 
-> This results in the absurd situation of a VMA possessing both
-> VMA_SPECIAL_FLAGS and VMA_LOCKED_MASK flags, which is not permitted.
+> Therefore test for !vma_is_mm_managed() instead and also drop the
+> VMA_IO_BIT check, as it is now redundant since it is enforced that
+> mm-managed mappings may not set VMA_IO_BIT.
 > 
-> This has resulted in mlock_vma_folio() having a very silly check for this
-> scenario to work around it.
+> This also eliminates another overloaded use of 'special' within mm.
 > 
-> There is no need for this - just clear the flags before invoking the hook
-> and reinstate them afterwards if they are required.
+> No functional change intended.
 > 
-> Nothing relies upon this being set during the mmap operation.
-> 
-> mmap_prepare is unaffected by this so requires no fix.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Acked-by: Zi Yan <ziy@nvidia.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
->  mm/internal.h |  9 +--------
->  mm/vma.c      | 17 +++++++++++++++++
->  2 files changed, 18 insertions(+), 8 deletions(-)
-> 
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 557e629db8c5..4ae08fedffff 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -970,14 +970,7 @@ void mlock_folio(struct folio *folio);
->  static inline void mlock_vma_folio(struct folio *folio,
->  				struct vm_area_struct *vma)
->  {
-> -	/*
-> -	 * The VM_SPECIAL check here serves two purposes.
-> -	 * 1) VM_IO check prevents migration from double-counting during mlock.
-> -	 * 2) Although mmap_region() and mlock_fixup() take care that VM_LOCKED
-> -	 *    is never left set on a VM_SPECIAL vma, there is an interval while
-> -	 *    file->f_op->mmap() is using vm_insert_page(s), when VM_LOCKED may
-> -	 *    still be set while VM_SPECIAL bits are added: so ignore it then.
-> -	 */
-> +	/* The VM_IO check prevents migration from double-counting during mlock. */
->  	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
->  		mlock_folio(folio);
->  }
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 39ceb03023e2..4f09fb98a2fd 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -2607,6 +2607,11 @@ static int __mmap_new_file_vma(struct mmap_state *map,
->  	if (!map->vm_file->f_op->mmap)
->  		return 0;
->  
-> +	/*
-> +	 * Driver-specified flags may make the lock flags invalid, so clear
-> +	 * VMA_LOCKED_MASK and reinstate it afterwards if appropriate.
-> +	 */
-> +	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
->  	error = mmap_file(vma->vm_file, vma);
->  	map->vm_file = vma->vm_file;
->  
-> @@ -2629,6 +2634,18 @@ static int __mmap_new_file_vma(struct mmap_state *map,
->  		return error;
->  	}
->  
-> +	/*
-> +	 * If the VMA is still eligible for mlock(), reinstate any original
-> +	 * VMA_LOCKED_BIT and/or VMA_LOCKONFAULT_BIT flags.
-> +	 */
-> +	if (vma_supports_mlock(vma)) {
-> +		const vma_flags_t mask =
-> +			vma_flags_and_mask(&map->vma_flags,
-> +					   VMA_LOCKED_MASK);
-
-I'd just have at least the = vma_flags_and_mask on the same line. It's ok to
-exceed 80 chars.
-
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
