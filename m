@@ -4,89 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD02CC6B10
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD94CC6B0E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D30A10F58E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 542BB10F595;
 	Tue, 13 Oct 2026 07:53:11 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A99BB10F0AD
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:50:56 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-38d489b6b71so821550a91.0
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 05:50:56 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A190510E4E0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:25:43 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4a161d9b8c7so9669235e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 00:25:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791809456; x=1792414256; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ d=gmail.com; s=20251104; t=1791789942; x=1792394742; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
  :reply-to:content-type;
- bh=86WcGAeEklYqbgh3KKZHUzYuJQ+5rJGp9flS10qudDU=;
- b=O1EO+5zgoi3WVNF6eH7HR2nDxnXiZiNfI0ITvVNG8aCg/tL9NV+ZMGSYNk3I30hB8F
- iBbAqUkxBWma94hh5/igaV9tnCUquqfhExcGmaaeMetXditFMJmo6posZBkSsi3CI/0w
- 4BpT3NupIP+BITqkJ9SnctXtn/wBh8R3LPL7Xg2emcAup0R3NSJsiojXEwa3lYH49B+S
- rxXbmtWxT7o1Q6m9egCNxe/jjPplUFbElVU66Z/DVYY8xikt8RICDMCW+5KQIkYSR+oL
- Tk9u6gJ+Sn9uDBTTJ6o52Llxhoxql+TuFlXfuM728IOYNRdGrO2ahBw+rMBgoj6Mo7LF
- oBBA==
+ bh=d1QWTDb/oOVddYpnAN188VwUYCPxgfGwS1G3xLd3LyU=;
+ b=AQjvnYdLhWk37RHPQ6niYCn4BSZchoSg5gjm2IUhDpWwf3/0DGKa6wW3OstNxMEHLt
+ KcwC+msQdwfha+qhvZXNMAKF/FdjIOYQv7mqougGCVrfEZTOSCxtO/B28CafUA1sJBnr
+ d4OfgdVCY4WN2W4Pw1mzwUFzXNHa6d2XeX8tnwtRxDBO7wHMjwebeEEOhOy5CiC3HeH3
+ Pf7kgPE+PoKYiGYq2q471OL5Kf3g77LuJRqzvFbQZjQsu8spIS0OtgGjF8KktdTjCDY6
+ nYbUTiQ3hEg1Mbq2v+EuNyGj66XRaMDIthn5wSPhAxyVIPplSJy6/LUoK040PC1L0OZv
+ Ozyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791809456; x=1792414256;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=86WcGAeEklYqbgh3KKZHUzYuJQ+5rJGp9flS10qudDU=;
- b=bMSn0kdSeou1h1R6RDuOpRANw0CgMN9jTbb0EwosCKzshQvZcYPJWAdNc3HlAgXjKO
- ngwziW6Swhnz94JFj8dlKXyozTYL5zJrCjCzb8LIpUXUUSR97ev3pSm4R9UGDfORDoK+
- e+e2+K2WOY///a5YRpi+2zrGL2GR+qKQ+fx5RfSVCGfgMeGXakaSc7htQqjRFOSU6Il2
- p2fGB0PFURuBaae9d6Vg+BKeu1w3BjXH2O93GJfr1yBAED7NzAqweQugTdi4+hZmAv0b
- D10+2cvWLleq01542ED+BtWsgocOZTh4Tswui/xbEL3f3wRudd1RBiInlxTLJvIKGL9C
- KwGg==
-X-Gm-Message-State: AFq9FYJb9kSEOzFd77IHsma78UH8HG4hnydW1Wljkigfz9ILJSgo+QfT
- xFFofeGzPGVD0wT0bOaha09BBuaKtTNdiIMqteD/t8omEDCfA5iUjvdR
-X-Gm-Gg: AYBFou28Zgec4cvWHTRhl3NF2QUOrF4fH+QU3X/UP6Fz1A4ACUrT1yjdoNg/mMjm6+x
- MffWKdHZM+qFyLN26OrZHZ7slhkv85ZxRSoJBWs/gEDD40pQynSGDiJxX501XGxo4RAYfO3a+TD
- eeer/Vx4QxtCZ+JAPlQXbo1jgbu4t2ziTvRre+AwJRNpng3QsqNZ5dX6z43I2tXzRDVlzT/D5yU
- Wc2O/HgUVl16i1lNDc34XTg49GCEonqosRJ86Z9UJ6FHdxXKbyXxu0hkfnUSfFD63CoAKxNu6Tn
- F0foGDcDBztYX7Adid90tJUZVaWvkLF8ST+msxLvnZGrCj77vGdOMhkTP2QQD6J2hzogLSih4yE
- HG+VHSPvuzoZ+jsi6x36VEvHTDLbRDgrEi/Isqo82SjlOGYbF59ayR+roSydgOjsXnPFpuSk2qU
- o1g0joDDz6Cp+mcdKi42DBI0CF2UoJbQ8HCxg2r0jqzHv2KH1cNNe5BJyqALBj5wzasjk019PLn
- Ia0sA9buvij99w=
-X-Received: by 2002:a17:90b:1dc1:b0:3a0:eeda:39f3 with SMTP id
- 98e67ed59e1d1-3ab3aafac4fmr6499105a91.24.1791809456102; 
- Mon, 12 Oct 2026 05:50:56 -0700 (PDT)
-Received: from b4send_258f78389c344e02.eml ([23.155.4.238])
+ d=1e100.net; s=20260707; t=1791789942; x=1792394742;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=d1QWTDb/oOVddYpnAN188VwUYCPxgfGwS1G3xLd3LyU=;
+ b=kTUzp3SLs4x54ZYVQTj0tpFubn8Lg6D2dB/ohDsWQsJV6WKs4HN+bS44QDlntjQpm0
+ He+oXt/gqBnLrYRyA+g0HmUjsCEUZMHsT3NKWVKMdFPwecbzo4KqONVQ2OKn45SOsiR2
+ NArUPVTzKhd6OKHvv/Z9dYzPfgxfm+/WfILjrNVdAN+YGKesnu8o/IxP89JkbiN3y1dM
+ sYHjDM6Df4X7JNc4/HlTL2yHef5PbZT/o8VmWSx8OYkky0HNvO4Wj9awIIkaVlj2UkX1
+ l8ew9P8PLyfKMn8IH2fBjfRO5+9qWsyKoYtcyOGLloeJ9LG6wkMct+e1Sx31SG/g3hv0
+ q4NA==
+X-Gm-Message-State: AFq9FYKB1y2TORffxyYwPdX8jza88dCZJyIWVgQx09MbcvlAwtPL8P2F
+ s1qKrKHiexLcUGJWEu4K9uRQRizLbzjEJ2lkol8kJiggzL4DiaG940s5
+X-Gm-Gg: AYBFou3FiQP/ZKxDCe/bciKEJ/bDSm7Gq4UJlnhpoZ6RM8CegImTk5BlWysTdTWdTlM
+ at58IQIjP9ssa6XMTN2bvGb+uRIL8CkG/dZXcn2O4omtYGLgof8Y3iRkqV0Fmfra4ApXjFnWPzK
+ 4GmOZfVPTr0+aOjW4J+L6GmPpYEwdNW1iZsVaASpJUZtxcpE8yb+uJp39pgQZTnWs1sCf1ye/gM
+ L9yOqalTAOn8ueIRBw4+vQRaKEDRlnCd7hfayUq5Q3JagHTDdJD8u+olDuCXMtdtOTDmyvBbNDH
+ Jnb12dKlMvSaG3Hs6tP+3KOYKMx+zgq/BWqsJltJKXDja58553yxuZVCzI2hB7WusvWkv3wd121
+ B+q7V6Z1KzqsX+zKg4NreZFrxagjrCgPD9of5AxO/4N4vvZ+ovGKbA3FvDStlmHwgrn7DxrY98Y
+ +NSehL6IN3uS9bMPnx/YHivlLdi5tGMvY2OvtpRODUO1YrE287sp7RFwfKcUvzNwA+WckntjN66
+ bxRM65FP92iAYeytwfvwP4Mg0BWxli01NTVm0ce+3IYGWZtjtOK2pdD3GNNqMDu
+X-Received: by 2002:a05:600c:19ca:b0:4a1:7e76:d02f with SMTP id
+ 5b1f17b1804b1-4a18e4ac650mr158677175e9.14.1791789941611; 
+ Mon, 12 Oct 2026 00:25:41 -0700 (PDT)
+Received: from [127.0.1.1]
+ (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ab3962f771sm7634732a91.2.2026.10.12.05.50.50
+ ffacd0b85a97d-48db9aadf9bsm17523377f8f.29.2026.10.12.00.25.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 05:50:55 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Mon, 12 Oct 2026 20:50:47 +0800
-Subject: [PATCH v2] drm/nouveau/sw: prevent NULL deref of disp in vblank
- methods
+ Mon, 12 Oct 2026 00:25:41 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Subject: [PATCH 0/3] Add VGA support for Apalis iMX6
+Date: Mon, 12 Oct 2026 04:25:22 -0300
+Message-Id: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-nouveau-nvkm-absent-subdev-null-deref-v2-1-8b15a3f1c371@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAKbXzGoC/5WOSw6CMBRFt0Le2GdKwy+O3Idh0M9DqtCaljYaw
- t4tuAKH5+b+VgjkDQW4FCt4SiYYZzPwUwFqFPZOaHRm4Iw3rCs5WhcTiYg2PWcUMpBdMESpKaG
- N04SaPA041FzLWvGqYh3krlcWzfvYufU/zqEHqWUv3x2jCYvzn+NIKnffv5upRIYtsbodGkFSs
- Ot9FmY6KzdDv23bF5qNAU/sAAAA
-X-Change-ID: 20260812-nouveau-nvkm-absent-subdev-null-deref-f52db5c24408
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAGKLzGoC/x3MTQqAIBBA4avErBtII/u5SrQYa6oBs1CQILp70
+ vJbvPdA5CAcYSgeCJwkyukzVFnAvJPfGGXJBl1pU/W6w6SQLnISUY7bIHuyjjFthM3cWjK2brq
+ VIfdX4FXu/z1O7/sBKq18SGsAAAA=
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- Zhenhao Wan <whi4ed0g@gmail.com>, Ben Skeggs <bskeggs@redhat.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791809447; l=3997;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=9D/BNSC23S/Qmnz/rEyuzPeALBLDnVdnrOUvYw7hLMw=;
- b=EjYVQoBJ6xfZQoHh8JqdMA3zViHlPBACAXRZvdK3Aszn9sbBVAZ7oNcqK6IEHDatxfkwImc/7
- QvOFnSStI5VCtBFFJdX0SXubQOKx+LQwBQlTOYP7bRY8+bvvPJjMtMg
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791789940; l=1908;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=oIehZcPpAbqiwfIqG1W31kjdUe0imO5csyH1FVDoC4g=;
+ b=6Na6Gpe9E1PvitnwV+dpCDK0x8whlxg3tt6LUG+45ePWH6KHyR7uTPCZpXJvoHbTKeZQq5b6z
+ YhrD1XfpN2gDC54bNXQKOrMjPmqjFju0acH+K48bnab3b0Eu3MBtE5u
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,90 +110,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The NV50 and GF100 software-class vblank methods nv50_sw_chan_mthd()
-and gf100_sw_chan_mthd() evaluate "data < device->disp->vblank.index_nr"
-to validate the requested vblank head before allowing its notifier.
+This series adds a device tree overlay that enables the VGA output on Apalis
+iMX6, which is driven from a parallel RGB interface passing through a
+non-programmable video DAC.
 
-On a headless card the display subdevice is absent: nvkm_subdev_disable()
-(strap-driven from devinit) and the -ENODEV path of the NVKM_LAYOUT_ONCE
-device constructor both leave device->disp == NULL while the device
-continues to probe and still registers a render node (DRIVER_RENDER). An
-unprivileged client holding a /dev/dri/renderD* fd can then create a
-software channel and push method 0x0408 (NV50) / 0x040c (GF100), which
-dereferences the NULL device->disp and oopses the kernel.
+The video DAC is a simple resistor network gated by an active-low
+data-enable signal. For the bridge to work properly, this series also
+changes the following in the dt-bindings and simple-bridge driver:
 
-The channel constructors nv50_sw_chan_new() and gf100_sw_chan_new()
-already tolerate an absent display ("for (i = 0; disp && ...)"), so no
-vblank notifier is ever registered on such a card and the method handlers
-are the only path that assumes disp is present. Guard the dereference
-with the same disp NULL test the constructors already use.
+- dt-bindings: Add a new compatible for the bridge in the simple-bridge
+  binding. This is necessary because the existing dumb-vga-dac compatible
+  doesn't describe a data-enable signal polarity.
 
-Fixes: 79ca27706a03 ("drm/nouveau/core: rework event interface")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: LLM
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+- simple-bridge: Add the VGA bridge match-table entry and timings
+  struct, setting the DRM_BUS_FLAG_DE_LOW flag for the bridge.
+
+This change depends on another patch, and should be applied after it:
+
+- https://lore.kernel.org/all/20261002-v1-simple-bridge-atomic-check-v1-1-ef5d8332b078@toradex.com/T/#u
+
+  Adds the atomic_check function to the simple-bridge driver, which
+  allows the data-enable bus flag to be propagated through the DRM
+  pipeline. This is necessary for the VGA to work correctly on the
+  Apalis iMX6.
+
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
-Changes in v2:
-- Add the Fixes: tag Lyude asked for. 79ca27706a03 replaced the NULL-safe
-  per-channel vblank.nr_event bound (0 when there is no display) with a
-  direct disp->vblank.index_nr dereference.
-- Drop Cc: stable and spell Assisted-by: as LLM, matching how Lyude
-  applied patch 2/2.
-- Pick up Lyude's Reviewed-by.
-- Patch 2/2 of v1 ("drm/nouveau: prevent NULL deref of gr in
-  GETPARAM_GRAPH_UNITS") is unchanged and already applied to
-  drm-misc-next as f569473c1393, so it is not resent.
-- Link to v1: https://patch.msgid.link/20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com
+Leonardo Costa (3):
+      dt-bindings: display: bridge: simple: Add the Toradex Apalis iMX6 VGA DAC bridge
+      drm/bridge: simple-bridge: Add Toradex RGB to VGA DAC bridge
+      ARM: dts: imx6q-apalis: Add VGA overlay
 
-To: Lyude Paul <lyude@redhat.com>
-To: Danilo Krummrich <dakr@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Ben Skeggs <bskeggs@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
+ .../bindings/display/bridge/simple-bridge.yaml     |  1 +
+ arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+ .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 79 ++++++++++++++++++++++
+ drivers/gpu/drm/bridge/simple-bridge.c             | 10 +++
+ 4 files changed, 111 insertions(+)
 ---
- drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c | 2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-index 0171cdf6f639..4cf8cd120c76 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-@@ -72,7 +72,7 @@ gf100_sw_chan_mthd(struct nvkm_sw_chan *base, int subc, u32 mthd, u32 data)
- 		chan->vblank.value = data;
- 		return true;
- 	case 0x040c:
--		if (data < device->disp->vblank.index_nr) {
-+		if (device->disp && data < device->disp->vblank.index_nr) {
- 			nvkm_event_ntfy_allow(&chan->vblank.notify[data]);
- 			return true;
- 		}
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-index 0cfb1eaae6de..b202e11238a5 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-@@ -69,7 +69,7 @@ nv50_sw_chan_mthd(struct nvkm_sw_chan *base, int subc, u32 mthd, u32 data)
- 	case 0x0400: chan->vblank.offset = data; return true;
- 	case 0x0404: chan->vblank.value  = data; return true;
- 	case 0x0408:
--		if (data < device->disp->vblank.index_nr) {
-+		if (device->disp && data < device->disp->vblank.index_nr) {
- 			nvkm_event_ntfy_allow(&chan->vblank.notify[data]);
- 			return true;
- 		}
-
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260812-nouveau-nvkm-absent-subdev-null-deref-f52db5c24408
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260928-v1-apalis-imx6-enable-vga-5c7ba6b358fe
 
 Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+-- 
+Leonardo Costa <leonardo.costa@toradex.com>
 
