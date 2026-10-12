@@ -4,73 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55FAACA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 17:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 449A1CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 17:11:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99A9610E645;
-	Mon, 12 Oct 2026 17:09:28 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C16ED10E65A
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 17:09:22 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-cc4b62d118aso1249760a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 10:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791824962; x=1792429762; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=1xB7LeXBPWjQ/Fkq/Ig7agIfN32e6x+w4jhSajkeZwQ=;
- b=T4ZbBXiB0xjcaQSSJesMFfb86NyjkgLdJkwFfrmYkcmwkgtK0ZLlhIA4OKyn203531
- WFDyLbAzi77xlp5izstoVKwB7Kx3E7Ljpcea2ngoVmmPhFd5IU973+ysrHRhmy8pM0EF
- 69r4ByBdePx/jWM8hrc4DqvE3oww5rPNE5vrIAbdmZSVAZj6EgMC0GqGmJ6sVdYk0Aah
- YWdXBWC9NrpXhXChIYKg7r6UELuYw2IA95aHxTOI89KlqNIiPN6gAYnfqzv/kPEPBGuP
- KkLVCw5UhUsGcQVqo1T8jwnF4tluSkAfNbxJqW8aD6xpXtn4CPBKbzRgSZcO+ihOEM91
- OEqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791824962; x=1792429762;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=1xB7LeXBPWjQ/Fkq/Ig7agIfN32e6x+w4jhSajkeZwQ=;
- b=sSz4o5HZPvJotUFesEGeVCK+lXNkE0/AZzu0/dUIQCA8BWZPypur3rW+830rYAmnaw
- FZHbJl1xpDXTpDSP/6G/mE+HdvwbktTHlM7sz4A2XsdC4nr+tQwhOP2xeLxj40RWxP7d
- TOqnijFQ55MGIBqm8ReAmpLf0UmLQU9gcrL8G7JHuAhyN3EuUz4u12OYw4Sa4GxDw5og
- zLGnnYnjyQAWGzgGvNsbPJCwpDva1UygtfaNvorNLCRKSps8ZrlEP9s7fBqSSkRLacqg
- g1GMzLARLJw/TWOGC25sGr0AHoCCFjs+B5MwFP9OE6RIZuegjRfl84yOxdcZfkBqn1C6
- urRA==
-X-Gm-Message-State: AFq9FYIbTBBBd8J0toqi0S8LKm6/r+qxvARxDurewkPi63yWBBu7QMXw
- 93vq3tx9RbiqO/xwh///vNF2Es/RKmqECppz3PS5T/NM8eQdxMPJqQrdYxyQBEXy
-X-Gm-Gg: AYBFou1bbB5SqSNgRgFKx0aCO+T8mjO4domWhqKCfHcAJnCbpF151pQqQl1zU+868X9
- zid8WsHiFykXgctua4WrmZxsfwitPyt3/VZsSvB3FTgyXu5e9TirL3vHnyyE1R5gh6GjTdP2i+0
- zwdEaDveOxQq2Jzum5v+6gYlkWgvtMNcFsqEVYjqAm5bhIqONCmhpiSNtzNPCU0tDGOJgh1ZYf+
- tULDFoJiW9Fh7JmE6rL+ydVkZdNLC2hurMzq3fxlusUZkJnQ5Y9GaYPa1E0lqTBPh9llzyf46rI
- ILGWyXMcvCl7ivKc5933o02CPswUcSV6CVsLMU5uf3A4poqUunQnfcA436KlA+G9v9WOIu9BOBX
- xiav0fnd0SlBUHO8gNz4HDhwxYsPE7l3ak0ZcmlgR094TsaU+z2uPh1vkL4l1H3BTWpIIhT+gim
- S14w8Ps0CFRbHzvOKELE3ukDs9USmWKxzADpC5hKh2SnjwekG7nOw1OmOQBqNWlV05H+b1/LHpp
- Fg7JqQQJbUC+F2FEJWekIzli2tpWmE4N4ox9P6Ipt2w2o0uxck=
-X-Received: by 2002:a17:90b:4fd0:b0:3a0:9640:8039 with SMTP id
- 98e67ed59e1d1-3ab3a778837mr8843817a91.30.1791824962173; 
- Mon, 12 Oct 2026 10:09:22 -0700 (PDT)
-Received: from hostname.tail4fb79.ts.net
- ([2401:7400:c804:b668:a144:150d:733a:5ba2])
- by smtp.googlemail.com with ESMTPSA id
- 98e67ed59e1d1-3ab38ff0d34sm18056092a91.14.2026.10.12.10.09.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 10:09:21 -0700 (PDT)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Ho Jie Feng <hjf3108@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
-Date: Tue, 13 Oct 2026 01:08:56 +0800
-Message-ID: <20261012170857.199561-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B34010F27F;
+	Mon, 12 Oct 2026 17:11:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E34010E62E;
+ Mon, 12 Oct 2026 17:11:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2021E40164;
+ Mon, 12 Oct 2026 17:11:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B971F0089B;
+ Mon, 12 Oct 2026 17:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791825067;
+ bh=G2ShRVCJl4ADNMgICYYHDFwKwRhCkwXLZDOE5Y9VotM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Pzi4+a3vCIXcG1SI7NRiYdRM3vutIrVXhdQhb3D2AEOFECW4TxmmnG0G9LAwgfd/5
+ 9ZJi6xap7j6TTC2NIh95epvsLO3v4UeHkVwPI8rovJ/TqM7/kUVNG2s4pSFqyEoE+6
+ 7xUQQ1VY/ee78uSgiO0jizULRnDVczoq30977+vlyMC+f+ZzOZDnjwdh82kgatVhYl
+ y4eACzJjV48FKgbOW2cAN4oO4u+BpgfQucOZFkP/7VUpmVta5IBaboljXH0f/5fLDE
+ 1KjiF9DGXa1GJevaZW3hxQT6PZqdCsKK6DwNN1E5mkcUUP2EnMn///E8t9CCTwGbaJ
+ bj5Di5NtSFr6g==
+Date: Mon, 12 Oct 2026 18:10:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+ u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+ Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
+Message-ID: <0bf04f71-cec7-453f-af5a-d121277eb51e@sirena.org.uk>
+References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="bvUae1am23g2EFEG"
+Content-Disposition: inline
+In-Reply-To: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+X-Cookie: Academicians care, that's who.
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,145 +69,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a helper for devices that use packed UYVY but accept XRGB8888
-framebuffers.
 
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
-This is used for a driver, ms912x that I will be submitting. It only
-supports uyvy framebuffers.
+--bvUae1am23g2EFEG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
- drivers/gpu/drm/drm_format_helper.c   | 73 +++++++++++++++++++++++++++
- drivers/gpu/drm/drm_format_internal.h | 21 ++++++++
- include/drm/drm_format_helper.h       |  4 ++
- 3 files changed, 98 insertions(+)
+On Fri, Sep 25, 2026 at 12:26:27PM +0530, Aniket Limaye wrote:
 
-diff --git a/drivers/gpu/drm/drm_format_helper.c b/drivers/gpu/drm/drm_format_helper.c
-index 6cddf05c493bd..606733ca43fb4 100644
---- a/drivers/gpu/drm/drm_format_helper.c
-+++ b/drivers/gpu/drm/drm_format_helper.c
-@@ -1379,3 +1379,76 @@ void drm_fb_xrgb8888_to_gray2(struct iosys_map *dst, const unsigned int *dst_pit
- }
- EXPORT_SYMBOL(drm_fb_xrgb8888_to_gray2);
- 
-+static void drm_fb_xrgb8888_to_uyvy_line(void *dbuf, const void *sbuf, unsigned int width)
-+{
-+	u8 *transfer_buffer = dbuf;
-+	const __le32 *temp_buffer = sbuf;
-+	unsigned int i, dst_offset = 0;
-+	unsigned int pixel1, pixel2;
-+	unsigned int r1, g1, b1, r2, g2, b2;
-+	unsigned int r, g, b;
-+	unsigned int v, y1, u, y2;
-+
-+	for (i = 0; i < width; i += 2) {
-+		pixel1 = le32_to_cpup(&temp_buffer[i]);
-+		pixel2 = le32_to_cpup(&temp_buffer[i + 1]);
-+
-+		r1 = (pixel1 & 0x00ff0000) >> 16;
-+		g1 = (pixel1 & 0x0000ff00) >> 8;
-+		b1 =  pixel1 & 0x000000ff;
-+		r2 = (pixel2 & 0x00ff0000) >> 16;
-+		g2 = (pixel2 & 0x0000ff00) >> 8;
-+		b2 =  pixel2 & 0x000000ff;
-+
-+		y1 = drm_pixel_rgb_to_y_bt601(r1, g1, b1);
-+		y2 = drm_pixel_rgb_to_y_bt601(r2, g2, b2);
-+
-+		r = r1 + r2;
-+		g = g1 + g2;
-+		b = b1 + b2;
-+
-+		v = drm_pixel_rgb2_to_v_bt601(r, g, b);
-+		u = drm_pixel_rgb2_to_u_bt601(r, g, b);
-+
-+		transfer_buffer[dst_offset++] = u;
-+		transfer_buffer[dst_offset++] = y1;
-+		transfer_buffer[dst_offset++] = v;
-+		transfer_buffer[dst_offset++] = y2;
-+	}
-+}
-+
-+/**
-+ * drm_fb_xrgb8888_to_uyvy - Convert XRGB8888 to UYVY clip buffer
-+ * @dst: Array of UYVY destination buffers
-+ * @dst_pitch: Array of numbers of bytes between the start of two consecutive scanlines
-+ *             within @dst; can be NULL if scanlines are stored next to each other.
-+ * @src: Array of XRGB8888 source buffers
-+ * @fb: DRM framebuffer
-+ * @clip: Clip rectangle area to copy; x1 and x2 must be even
-+ * @state: Transform and conversion state
-+ *
-+ * This function copies parts of a framebuffer to display memory and converts the
-+ * color format during the process. The parameters @dst, @dst_pitch and @src refer
-+ * to arrays. Each array must have at least as many entries as there are planes in
-+ * @fb's format. Each entry stores the value for the format's respective color plane
-+ * at the same index.
-+ *
-+ * This function does not apply clipping on @dst (i.e. the destination is at the
-+ * top-left corner).
-+ *
-+ * Drivers can use this function for UYVY devices that don't support XRGB8888
-+ * natively. ITU BT.601 is being used for the RGB -> YUV conversion.
-+ */
-+void drm_fb_xrgb8888_to_uyvy(struct iosys_map *dst, const unsigned int *dst_pitch,
-+			     const struct iosys_map *src, const struct drm_framebuffer *fb,
-+			     const struct drm_rect *clip, struct drm_format_conv_state *state)
-+{
-+	static const u8 dst_pixsize[DRM_FORMAT_MAX_PLANES] = {
-+		2,
-+	};
-+
-+	drm_fb_xfrm(dst, dst_pitch, dst_pixsize, src, fb, clip, false, state,
-+		    drm_fb_xrgb8888_to_uyvy_line);
-+}
-+EXPORT_SYMBOL(drm_fb_xrgb8888_to_uyvy);
-+
-diff --git a/drivers/gpu/drm/drm_format_internal.h b/drivers/gpu/drm/drm_format_internal.h
-index ce29dd05bcc55..7a4cfb0d188cb 100644
---- a/drivers/gpu/drm/drm_format_internal.h
-+++ b/drivers/gpu/drm/drm_format_internal.h
-@@ -159,6 +159,27 @@ static inline u32 drm_pixel_xrgb8888_to_abgr2101010(u32 pix)
- 	       drm_pixel_xrgb8888_to_xbgr2101010(pix);
- }
- 
-+static inline u32 drm_pixel_rgb_to_y_bt601(u32 r, u32 g, u32 b)
-+{
-+	const u32 luma = (16U << 16) + 16829 * r + 33039 * g + 6416 * b + 32768;
-+
-+	return luma >> 16;
-+}
-+
-+static inline u32 drm_pixel_rgb2_to_u_bt601(u32 r2, u32 g2, u32 b2)
-+{
-+	const u32 u = (128U << 17) - 9714 * r2 - 19071 * g2 + 28784 * b2 + 65536;
-+
-+	return u >> 17;
-+}
-+
-+static inline u32 drm_pixel_rgb2_to_v_bt601(u32 r2, u32 g2, u32 b2)
-+{
-+	const u32 v = (128U << 17) + 28784 * r2 - 24103 * g2 - 4681 * b2 + 65536;
-+
-+	return v >> 17;
-+}
-+
- /*
-  * Conversion from ARGB8888
-  */
-diff --git a/include/drm/drm_format_helper.h b/include/drm/drm_format_helper.h
-index 2b5c1aef80b0e..e50f96e07484c 100644
---- a/include/drm/drm_format_helper.h
-+++ b/include/drm/drm_format_helper.h
-@@ -136,4 +136,8 @@ void drm_fb_xrgb8888_to_gray2(struct iosys_map *dst, const unsigned int *dst_pit
- 			      const struct iosys_map *src, const struct drm_framebuffer *fb,
- 			      const struct drm_rect *clip, struct drm_format_conv_state *state);
- 
-+void drm_fb_xrgb8888_to_uyvy(struct iosys_map *dst, const unsigned int *dst_pitch,
-+			     const struct iosys_map *src, const struct drm_framebuffer *fb,
-+			     const struct drm_rect *clip, struct drm_format_conv_state *state);
-+
- #endif /* __LINUX_DRM_FORMAT_HELPER_H */
--- 
-2.55.0
+> Add new compatible and update driver to support Synopsys Advanced I2C
+> Controller (DWC_i2c [0]) present on TI TDA54 SoC. This is needed since
+> this controller differs from the existing designware i2c (DW_apb_i2c
+> [1]) in its register offsets and some register definitions.
 
+> The new compatible updates driver logic due to changes in register
+> definitions:
+
+I'm working with a SoC with what looks to be another instance of this
+new version of the DesignWare I2C controller - I saw your discussion
+with Andy and the conclusion that a separate driver would be good.  I'm
+really keen to help out with getting the support for these IPs upstream
+however I can, not sure what your plans/thoughts are there?
+
+The I2C needs of the systems I'm using are fairly basic so I should only
+need a small subset of the capabilities that'll be visible in your
+systems, the only thing I can think might not come up for you is that my
+systems are servers so will be using ACPI rather than DT.
+
+--bvUae1am23g2EFEG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrNFKMACgkQJNaLcl1U
+h9DYAAf/bjE9rg7RrRaVEqhn3SMg3esM5MwEfWXwbKi+xD8v7jgxIhi2DVw9EzkT
+5b0p7aNEqVx+NbnLx3rADjd6lGH7tdQr9uvNsPO8qFY1ZaCj8q0dsaEsTHyqAt4m
+9JLZe66Syw8s0mgVB1xrGCGSpdXGSvYQ3qydoIJBjfHp8gpZ70SjCarOEXSPwLcx
+Nkig2YO42HRwDlbhLWuGB7HXIklGkJzaTzolbo9wY2qwjHoZG4MUGzMw9mGoe8CX
+EtrupLW7XYS6AXna9vABDD2Rhm2WESywWDxDWPOwHQaDPiqY21H5S9StzikgyTJo
+Nd3hLF/M+dphTjKwIRllDjwMuk7Xcg==
+=W3xf
+-----END PGP SIGNATURE-----
+
+--bvUae1am23g2EFEG--
