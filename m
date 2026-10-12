@@ -4,41 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE3F6CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD02CC6B10
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A377C10F592;
-	Tue, 13 Oct 2026 07:53:07 +0000 (UTC)
-X-Greylist: delayed 386 seconds by postgrey-1.36 at gabe;
- Mon, 12 Oct 2026 18:23:34 UTC
-Received: from mail.frii.com (mail.frii.com [199.45.237.237])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 477B410E3D9
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:23:34 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; bh=pQAuZArIzxKdH6O6A/njMg3SSA5HYNDpl2qSD8/d/ck=;
- c=relaxed/relaxed; d=frii.com;
- h=From:Date:Subject:Message-ID:To:Cc:Content-Type:MIME-Version:Reply-To;
- s=dkim; t=1791829027; v=1; x=1794421027;
- b=ZMcclTQlrPLWY44/dPHWEb/lBXO3afcthIbKBhPMOyjhwe1Kn6hTm+WTFH9JzNvH9n6/sOzC
- 1I9CVe+2i9qdSzoE1BMpfx0ULCgW91yTL8iFCaU9OZUACLcPdYNn8a5h0QsS+w9Psgd0u5LJrjz
- XPrUvn0MAHmrGSaXaE3bEV4hHeXyrLEDc0ymqxe6OO+v8tbTH0Z9JadffELvi+bBZmjqCypXIbE
- rZ2fUCL1qWSAa1eMFZFr//XVGkDpLGhOAE7T2sdbo3/ZzEa0KKC5oMLGcatE3ad8F9GSaOoqnMr
- XgtPyEVZ+ozqnsXSRg3xM8hJuwR0diIQY1m/Vy3UuJ7pA== 
-X-Virus-Scanned: amavis at mail.frii.com
-Received: from CORYZ64 (unknown [8.42.79.186])
- by mail.frii.com (Postfix) with ESMTPSA id 4j3QfV6f05zB1bqc
- for <dri-devel@lists.freedesktop.org.>; Mon, 12 Oct 2026 12:17:06 -0600 (MDT)
-From: <antonets@frii.com>
-To: <dri-devel@lists.freedesktop.org>
-Subject: drm/msm eDP problem
-Date: Mon, 12 Oct 2026 12:15:54 -0600
-Message-ID: <009601dd5a75$e3b92ca0$ab2b85e0$@frii.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D30A10F58E;
+	Tue, 13 Oct 2026 07:53:11 +0000 (UTC)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A99BB10F0AD
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:50:56 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-38d489b6b71so821550a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 05:50:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791809456; x=1792414256; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=86WcGAeEklYqbgh3KKZHUzYuJQ+5rJGp9flS10qudDU=;
+ b=O1EO+5zgoi3WVNF6eH7HR2nDxnXiZiNfI0ITvVNG8aCg/tL9NV+ZMGSYNk3I30hB8F
+ iBbAqUkxBWma94hh5/igaV9tnCUquqfhExcGmaaeMetXditFMJmo6posZBkSsi3CI/0w
+ 4BpT3NupIP+BITqkJ9SnctXtn/wBh8R3LPL7Xg2emcAup0R3NSJsiojXEwa3lYH49B+S
+ rxXbmtWxT7o1Q6m9egCNxe/jjPplUFbElVU66Z/DVYY8xikt8RICDMCW+5KQIkYSR+oL
+ Tk9u6gJ+Sn9uDBTTJ6o52Llxhoxql+TuFlXfuM728IOYNRdGrO2ahBw+rMBgoj6Mo7LF
+ oBBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791809456; x=1792414256;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=86WcGAeEklYqbgh3KKZHUzYuJQ+5rJGp9flS10qudDU=;
+ b=bMSn0kdSeou1h1R6RDuOpRANw0CgMN9jTbb0EwosCKzshQvZcYPJWAdNc3HlAgXjKO
+ ngwziW6Swhnz94JFj8dlKXyozTYL5zJrCjCzb8LIpUXUUSR97ev3pSm4R9UGDfORDoK+
+ e+e2+K2WOY///a5YRpi+2zrGL2GR+qKQ+fx5RfSVCGfgMeGXakaSc7htQqjRFOSU6Il2
+ p2fGB0PFURuBaae9d6Vg+BKeu1w3BjXH2O93GJfr1yBAED7NzAqweQugTdi4+hZmAv0b
+ D10+2cvWLleq01542ED+BtWsgocOZTh4Tswui/xbEL3f3wRudd1RBiInlxTLJvIKGL9C
+ KwGg==
+X-Gm-Message-State: AFq9FYJb9kSEOzFd77IHsma78UH8HG4hnydW1Wljkigfz9ILJSgo+QfT
+ xFFofeGzPGVD0wT0bOaha09BBuaKtTNdiIMqteD/t8omEDCfA5iUjvdR
+X-Gm-Gg: AYBFou28Zgec4cvWHTRhl3NF2QUOrF4fH+QU3X/UP6Fz1A4ACUrT1yjdoNg/mMjm6+x
+ MffWKdHZM+qFyLN26OrZHZ7slhkv85ZxRSoJBWs/gEDD40pQynSGDiJxX501XGxo4RAYfO3a+TD
+ eeer/Vx4QxtCZ+JAPlQXbo1jgbu4t2ziTvRre+AwJRNpng3QsqNZ5dX6z43I2tXzRDVlzT/D5yU
+ Wc2O/HgUVl16i1lNDc34XTg49GCEonqosRJ86Z9UJ6FHdxXKbyXxu0hkfnUSfFD63CoAKxNu6Tn
+ F0foGDcDBztYX7Adid90tJUZVaWvkLF8ST+msxLvnZGrCj77vGdOMhkTP2QQD6J2hzogLSih4yE
+ HG+VHSPvuzoZ+jsi6x36VEvHTDLbRDgrEi/Isqo82SjlOGYbF59ayR+roSydgOjsXnPFpuSk2qU
+ o1g0joDDz6Cp+mcdKi42DBI0CF2UoJbQ8HCxg2r0jqzHv2KH1cNNe5BJyqALBj5wzasjk019PLn
+ Ia0sA9buvij99w=
+X-Received: by 2002:a17:90b:1dc1:b0:3a0:eeda:39f3 with SMTP id
+ 98e67ed59e1d1-3ab3aafac4fmr6499105a91.24.1791809456102; 
+ Mon, 12 Oct 2026 05:50:56 -0700 (PDT)
+Received: from b4send_258f78389c344e02.eml ([23.155.4.238])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ab3962f771sm7634732a91.2.2026.10.12.05.50.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 05:50:55 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Date: Mon, 12 Oct 2026 20:50:47 +0800
+Subject: [PATCH v2] drm/nouveau/sw: prevent NULL deref of disp in vblank
+ methods
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_000_0097_01DD5A43.991F31D0"
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: Ad1adX+235cMFrtoQk2cd/Uhm7gh5A==
-Content-Language: en-us
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-nouveau-nvkm-absent-subdev-null-deref-v2-1-8b15a3f1c371@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAKbXzGoC/5WOSw6CMBRFt0Le2GdKwy+O3Idh0M9DqtCaljYaw
+ t4tuAKH5+b+VgjkDQW4FCt4SiYYZzPwUwFqFPZOaHRm4Iw3rCs5WhcTiYg2PWcUMpBdMESpKaG
+ N04SaPA041FzLWvGqYh3krlcWzfvYufU/zqEHqWUv3x2jCYvzn+NIKnffv5upRIYtsbodGkFSs
+ Ot9FmY6KzdDv23bF5qNAU/sAAAA
+X-Change-ID: 20260812-nouveau-nvkm-absent-subdev-null-deref-f52db5c24408
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ Zhenhao Wan <whi4ed0g@gmail.com>, Ben Skeggs <bskeggs@redhat.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791809447; l=3997;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=9D/BNSC23S/Qmnz/rEyuzPeALBLDnVdnrOUvYw7hLMw=;
+ b=EjYVQoBJ6xfZQoHh8JqdMA3zViHlPBACAXRZvdK3Aszn9sbBVAZ7oNcqK6IEHDatxfkwImc/7
+ QvOFnSStI5VCtBFFJdX0SXubQOKx+LQwBQlTOYP7bRY8+bvvPJjMtMg
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,119 +102,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a multipart message in MIME format.
+The NV50 and GF100 software-class vblank methods nv50_sw_chan_mthd()
+and gf100_sw_chan_mthd() evaluate "data < device->disp->vblank.index_nr"
+to validate the requested vblank head before allowing its notifier.
 
-------=_NextPart_000_0097_01DD5A43.991F31D0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+On a headless card the display subdevice is absent: nvkm_subdev_disable()
+(strap-driven from devinit) and the -ENODEV path of the NVKM_LAYOUT_ONCE
+device constructor both leave device->disp == NULL while the device
+continues to probe and still registers a render node (DRIVER_RENDER). An
+unprivileged client holding a /dev/dri/renderD* fd can then create a
+software channel and push method 0x0408 (NV50) / 0x040c (GF100), which
+dereferences the NULL device->disp and oopses the kernel.
 
-Hi all,
+The channel constructors nv50_sw_chan_new() and gf100_sw_chan_new()
+already tolerate an absent display ("for (i = 0; disp && ...)"), so no
+vblank notifier is ever registered on such a card and the method handlers
+are the only path that assumes disp is present. Guard the dereference
+with the same disp NULL test the constructors already use.
 
-HW: QCS6490 custom board, close to RB3Gen2. SW: Ubuntu 24.04.5 kernel
-6.8.0-1084.89.
+Fixes: 79ca27706a03 ("drm/nouveau/core: rework event interface")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: LLM
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+---
+Changes in v2:
+- Add the Fixes: tag Lyude asked for. 79ca27706a03 replaced the NULL-safe
+  per-channel vblank.nr_event bound (0 when there is no display) with a
+  direct disp->vblank.index_nr dereference.
+- Drop Cc: stable and spell Assisted-by: as LLM, matching how Lyude
+  applied patch 2/2.
+- Pick up Lyude's Reviewed-by.
+- Patch 2/2 of v1 ("drm/nouveau: prevent NULL deref of gr in
+  GETPARAM_GRAPH_UNITS") is unchanged and already applied to
+  drm-misc-next as f569473c1393, so it is not resent.
+- Link to v1: https://patch.msgid.link/20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com
 
-I'm using DRM/MSM with the eDP interface set to maximum debug output.
-Everything looks great, with no error messages at all.
+To: Lyude Paul <lyude@redhat.com>
+To: Danilo Krummrich <dakr@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Ben Skeggs <bskeggs@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-However, the screen is blank.
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+index 0171cdf6f639..4cf8cd120c76 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+@@ -72,7 +72,7 @@ gf100_sw_chan_mthd(struct nvkm_sw_chan *base, int subc, u32 mthd, u32 data)
+ 		chan->vblank.value = data;
+ 		return true;
+ 	case 0x040c:
+-		if (data < device->disp->vblank.index_nr) {
++		if (device->disp && data < device->disp->vblank.index_nr) {
+ 			nvkm_event_ntfy_allow(&chan->vblank.notify[data]);
+ 			return true;
+ 		}
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+index 0cfb1eaae6de..b202e11238a5 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+@@ -69,7 +69,7 @@ nv50_sw_chan_mthd(struct nvkm_sw_chan *base, int subc, u32 mthd, u32 data)
+ 	case 0x0400: chan->vblank.offset = data; return true;
+ 	case 0x0404: chan->vblank.value  = data; return true;
+ 	case 0x0408:
+-		if (data < device->disp->vblank.index_nr) {
++		if (device->disp && data < device->disp->vblank.index_nr) {
+ 			nvkm_event_ntfy_allow(&chan->vblank.notify[data]);
+ 			return true;
+ 		}
 
-A few details.
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260812-nouveau-nvkm-absent-subdev-null-deref-f52db5c24408
 
-On the same hardware modifications with a DSI interface, everything works
-flawlessly.
-
-On hardware with an eDP interface running the QCLinux version (DRM/SDE),
-everything works (SDE source code is available).
-
-I've spent 5 months trying to find the problem, so far without success.
-There's a lot of debugging information, and I didn't include it in this
-post. If necessary, I can provide it.
-
-Conclusion: I'm missing some small detail.
-
-An aggravating factor is that I don't have access to the documentation for
-HW.
-
-Ultimately, I need advice on which part of DRM might be the problem.
-
- 
-
-Thanks,
-
-Dmitriy Antonets
-
- 
-
- 
-
-
-------=_NextPart_000_0097_01DD5A43.991F31D0
-Content-Type: text/html;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; =
-charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
-(filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Aptos;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Aptos",sans-serif;
-	mso-ligatures:standardcontextual;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Aptos",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:11.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style></head><body lang=3DEN-US link=3D"#467886" vlink=3D"#96607D" =
-style=3D'word-wrap:break-word'><div class=3DWordSection1><p =
-class=3DMsoNormal><span lang=3DEN>Hi all,<o:p></o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN>HW: QCS6490 custom board, close to =
-RB3Gen2. SW: Ubuntu 24.04.5 kernel =
-6.8.0-1084.89.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN>I'm using DRM/MSM with the eDP interface set to maximum debug =
-output. Everything looks great, with no error messages at =
-all.<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN>However, =
-the screen is blank.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN>A few details.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN>On the same hardware modifications with a DSI interface, =
-everything works flawlessly.<o:p></o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN>On hardware with an eDP interface =
-running the QCLinux version (DRM/SDE), everything works (SDE source code =
-is available).<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN>I&#8217;ve spent 5 months trying to find the problem, so far =
-without success. There&#8217;s a lot of debugging information, and I =
-didn&#8217;t include it in this post. If necessary, I can provide =
-it.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN>Conclusion: I&#8217;m missing some small =
-detail.<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN>An =
-aggravating factor is that I don&#8217;t have access to the =
-documentation for HW.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN>Ultimately, I need advice on which part of DRM might be the =
-problem.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN>Thanks,<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN>Dmitriy Antonets<o:p></o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div></body></html>
-------=_NextPart_000_0097_01DD5A43.991F31D0--
+Best regards,
+--  
+Zhenhao Wan <whi4ed0g@gmail.com>
 
