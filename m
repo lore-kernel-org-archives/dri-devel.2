@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E2ECA9ED6
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:58:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CDEBCA9ED8
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 05:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3792210EB8E;
-	Mon, 12 Oct 2026 04:58:18 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE9D410E4B6;
- Mon, 12 Oct 2026 04:58:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 639C110ECA6;
+	Mon, 12 Oct 2026 05:01:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D3210E417;
+ Mon, 12 Oct 2026 05:01:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B07B444002;
- Mon, 12 Oct 2026 04:58:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52A061F0089B;
- Mon, 12 Oct 2026 04:58:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A0DF160AB5;
+ Mon, 12 Oct 2026 05:01:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 332731F0089B;
+ Mon, 12 Oct 2026 05:01:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791781091;
- bh=N+IQ5UdKybR/yr2F/imU6346cC7w9uh3D+7mTxEwUvw=;
+ s=k20260515; t=1791781308;
+ bh=lyngVLtYKa77fxaxR8GxLgLQWY0G4ojXk3xhtYDZmsc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DqGlbAsOP6EuoRd4XhaML2ijHjgfDtWDBx62Z0LzKfZC0SQ8+uAM6/Hh9ze46eONS
- zKLUTSbkaTFFemSa806HsT1UNbq2w32hY92cG9dZwQ3/00qNpXzJkk7Oti0p8FgKxU
- 49P7toXVHq4EfXYtFcNlfg9ZXfx+ZKL4BWK/jsjI/zKq7MyuBHBOLFMhuaGaiY0run
- 0qmBK4x+Mz8XJW+jOF8a3oISG+0ABbkSCaLeq/iReQxKzLrE7qmEUAbr7jJdsDKtdW
- i9pb7aHC3XOA0z0jg4cKg0eGYbmx2cPTj4iHrLLIMU+XqNbG1iXJohFrYil8WpZK5W
- cwl3H9CciTKqQ==
-Message-ID: <sashiko-outbox-167647@kernel.org>
+ b=HmnrCGPDYvfiOZ0X5U43qznl6bASGqV4tRFe5eep0rAZ/TR6iunXeYbYcJGcTTM/0
+ Z6C7RA+0Dkbetc6QAT7oNw7vmAHrVdZRd10kQoRIzdNGf+ApGSbzeJnCU0VAi9KxSn
+ WK1cdUTpokSyQi/CaWtC/NEW6reKcM8cXySN3qDtIoa5JNYUh+lh3CdIFq7GNo3Eh9
+ IJ41X8PUHE4VRNmI9j2w3ej2BEyrgmABv6hVwY0+7UZVDYfAD8UaE93EN3hqcBrwQo
+ t/zHq+LNZ5m1imtr1OmUZxOU+Q26yRDWlsHCwwiCws3Rn3teGMyWprMWdsx+LZwfYH
+ 8AR9odpNUruWQ==
+Message-ID: <sashiko-outbox-167649@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 50/56] drm/i915/hdmi: Enable FRL based mode clock valid
+Subject: Re: [PATCH v2 56/56] drm/i915/hdmi: Allow Pipe joiner for HDMI
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-51-ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261012035806.3361439-57-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-51-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-57-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:58:10 +0000
+Date: Mon, 12 Oct 2026 05:01:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,78 +55,115 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/i915/hdmi: 4K120 4:2:0 bypasses FRL and fails via TMDS
+- [High] drm/i915/hdmi: TMDS validation bypasses max plane size, breaking w=
+ide modes and FRL joiner fallback
+- [High] drm/i915: NULL pointer deref in intel_hdmi_has_joiner for SDVO
 --
 
-commit 4c023e7cde26d2644e793aa505b046a46b2d33ef
-Author: Vandita Kulkarni <vandita.kulkarni@intel.com>
+commit ede50d511c51a1eac2ca7425fa38667d98b1e4a1
+Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-drm/i915/hdmi: Enable FRL based mode clock valid
+drm/i915/hdmi: Allow Pipe joiner for HDMI
 
-Higher resolution modes like 8K@60, 4K@120 need FRL support. Platforms
-before MTL do not support FRL, so allow modes requiring more than 600MHz
-dotclock to be enumerated only on MTL+ where FRL is supported.
+Pipe joiner is used only with FRL mode, so allow it only when the platform
+and the sink both support FRL.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
 i915/display/intel_hdmi.c
-> index c57d99195ed03..e3dbd71a3652e 100644
 > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-
 [ ... ]
-
-> @@ -2176,12 +2179,10 @@ intel_hdmi_mode_valid(struct drm_connector *_conn=
-ector,
->  	}
+> @@ -4378,3 +4378,11 @@ void intel_hdmi_frl_get_config(struct intel_crtc_s=
+tate *crtc_state)
 > =20
->  	/*
-> -	 * HDMI2.1 requires higher resolution modes like 8k60, 4K120 to be
-> -	 * enumerated only if FRL is supported. Current platforms do not support
-> -	 * FRL so prune the higher resolution modes that require doctclock more
-> -	 * than 600MHz.
-> +	 * Platforms < MTL do not support FRL so prune the higher resolution
-> +	 * modes that require doctclock more than 600MHz.
->  	 */
-> -	if (clock > 600000)
-> +	if (!intel_hdmi_can_support_frl(hdmi) && clock > 600000)
->  		return MODE_CLOCK_HIGH;
+>  	intel_hdmi_frl_dfm_read(crtc_state);
+>  }
+> +
+> +bool intel_hdmi_has_joiner(struct intel_hdmi *intel_hdmi)
+> +{
+> +	struct intel_display *display =3D to_intel_display(intel_hdmi);
+> +	struct intel_encoder *encoder =3D &hdmi_to_dig_port(intel_hdmi)->base;
+> +
+> +	return HAS_HDMI_FRL(display) && intel_bios_hdmi_max_frl_rate(encoder->d=
+evdata);
+> +}
 
 [Severity: High]
-Does this allow high-bandwidth 4:2:0 modes to bypass FRL validation and
-fail later during atomic commit?
+Does the existing TMDS validation bypass the max plane size, breaking the w=
+ide
+modes and the FRL joiner fallback that this patch relies on?
 
-By restricting the 600MHz dotclock limit to non-FRL platforms here,
-dotclocks up to 1200MHz can reach format validation on FRL platforms.
-However, when a mode like 4K@120Hz (1188MHz) in YCbCr 4:2:0 format reaches
-intel_hdmi_mode_valid_format(), the TMDS clock check executes first:
+In intel_hdmi_mode_valid_format(), if the TMDS clock is valid, it returns
+MODE_OK immediately:
 
-intel_hdmi_mode_valid_format() {
-    ...
-    status =3D intel_hdmi_tmds_mode_clock_valid(&connector->base, clock,
-                                              has_hdmi_sink, sink_format);
+        status =3D intel_hdmi_tmds_mode_clock_valid(&connector->base, clock,
+                                                  has_hdmi_sink, sink_forma=
+t);
 
-    if (status !=3D MODE_OK && intel_hdmi_can_support_frl(hdmi))
-        status =3D intel_hdmi_frl_mode_clock_valid(connector, mode,
-                                                 sink_format);
-    ...
-}
+        if (status =3D=3D MODE_OK)
+                return status;
 
-For 4:2:0 formats, intel_hdmi_tmds_mode_clock_valid() halves the 1188MHz
-dotclock to 594MHz, which successfully passes the TMDS limit check and
-returns MODE_OK.
+This bypasses intel_mode_valid_max_plane_size(), meaning a mode with an
+hdisplay greater than 5120 but a valid TMDS clock (like 7680x1080@60Hz) is
+incorrectly advertised as valid to userspace.
 
-Since the status is MODE_OK, intel_hdmi_frl_mode_clock_valid() is
-completely bypassed. The mode is incorrectly validated as TMDS instead of
-FRL. Because TMDS configuration does not support pipe joiner, the single-pi=
-pe
-dotclock limits will be exceeded during compute_config, causing the atomic
-commit to fail for advertised modes.
+Then during atomic commit in intel_hdmi_compute_config(), it tries TMDS fir=
+st:
 
-> =20
->  	if (drm_mode_is_420_only(info, mode)) {
+        ret =3D intel_hdmi_compute_formats(encoder, pipe_config,
+                                         conn_state, false);
+
+        if (ret && enable_frl) {
+                ret =3D intel_hdmi_compute_formats(encoder, pipe_config,
+                                                 conn_state, true);
+
+Since TMDS only checks the clock and ignores the plane size, it succeeds and
+skips the FRL fallback. Later, intel_plane_atomic_check() calling
+skl_plane_check() rejects the un-split plane because the width exceeds the =
+max
+width of 5120, returning -EINVAL. This causes atomic commits to fail for
+advertised modes and prevents the driver from falling back to FRL, where the
+pipe joiner could have correctly handled the wide mode.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_joiner.c b/drivers/gpu/dr=
+m/i915/display/intel_joiner.c
+> --- a/drivers/gpu/drm/i915/display/intel_joiner.c
+> +++ b/drivers/gpu/drm/i915/display/intel_joiner.c
+[ ... ]
+> @@ -33,6 +34,9 @@ bool intel_joiner_connector_can_join(struct intel_conne=
+ctor *connector)
+>  	case DRM_MODE_CONNECTOR_DisplayPort:
+>  	case DRM_MODE_CONNECTOR_eDP:
+>  		return intel_dp_has_joiner(intel_attached_dp(connector));
+> +	case DRM_MODE_CONNECTOR_HDMIA:
+> +	case DRM_MODE_CONNECTOR_HDMIB:
+> +		return intel_hdmi_has_joiner(intel_attached_hdmi(connector));
+
+[Severity: High]
+Does this code handle SDVO HDMI connectors correctly? When this is called f=
+or
+SDVO HDMI connectors on older platforms, the connector type is initialized =
+to
+DRM_MODE_CONNECTOR_HDMIA. However, SDVO HDMI connectors are not backed by an
+intel_digital_port.
+
+When intel_attached_hdmi() is called for an SDVO connector, it calls
+enc_to_dig_port(), which evaluates to NULL because the encoder type is
+INTEL_OUTPUT_SDVO. Then enc_to_intel_hdmi() takes the address of &NULL->hdm=
+i,
+resulting in an invalid pointer offset.
+
+When this invalid pointer is passed to intel_hdmi_has_joiner(), the
+to_intel_display() macro calls hdmi_to_dig_port(). This reverses the offset
+back to NULL and dereferences it to find the device pointer, causing an
+unconditional kernel panic during boot.
+
+>  	default:
+>  		return false;
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D50
+439-1-ankit.k.nautiyal@intel.com?part=3D56
