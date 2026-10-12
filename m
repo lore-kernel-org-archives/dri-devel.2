@@ -4,83 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A2A5CC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28975CC6B0E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5480510F5A5;
-	Tue, 13 Oct 2026 07:53:17 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED44710E4F6
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 19:43:55 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-6b1aa27963eso1783845a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:43:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791834234; cv=none;
- d=google.com; s=arc-20260327;
- b=Z8vm25dXE/BOaykhqxUVEf5IUKSwrrC7uTJFdrW2XEyQ20g40k+otimiEraIOtEhtJ
- cXA+HlZwiTeqP/qQf5Nkdr0ztd7iMgSfP2CtQ8bFGYF5kGd7p0lWLDxDN5BXMUPFQDjm
- BfiSpKGnYv2b/ZixQMOK36p6N7qbZ1w0K/DjNQwnG7QOQrmkSBeEVGU3WilwNIRMpcTh
- rrGwOmCEIhmXfaHQrgSMu+ebHn7LM/kr812KPuLcHXLZi6g3UB9LX79wEy37suof8uhw
- ZjwZ+YLGSRfxZwx9NmuoxIZHtbPSDIOW24G97/VNHEQcmw1BklnvRBzeg365XngHRcHc
- IZcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=fKjrvAV+IumRAjQgNa7sO8gHIWvtGRpvC0rmKm5qiH4=;
- fh=rdVGboUKQTe2PQPC07+N7izNoR5Mh+KRwIz2BQB2NMY=;
- b=PchYuN70MD7YcdGxvJSLNblgwbni1W7Ias6Bc68i8AEpPKBfMRy1qUR5pfzk+mRE4k
- 6Tr5nceuFKC8xbuyfPlE+Y1zlMXtwwTfTdQjY7GKx/qQ5iUbLlRiHMZeN1NPBsQtTwq4
- /WU1/ES0nKjPkDm6FkESMJ+aEUCWQivYBrh88DpoER7y8KegNyT/CqjCbVb85tjUE/YG
- S72b9hUAG+lPoopsZB1VHvnDdj03luqcvD/U9nDgKnKG11eGnZLCjqLFeEkKU9q881i7
- SocwBnHWnH9reaBJtQb0PFi29zLrN+iZas2pBIRAKr80hsR6Xm1c20/HmmMVfQx++Wig
- WuKQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04F6610F5A8;
+	Tue, 13 Oct 2026 07:53:18 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1799510E606
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 15:29:50 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-49d05d51553so13152465e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:29:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791834234; x=1792439034; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:to:subject:message-id:date
- :from:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=fKjrvAV+IumRAjQgNa7sO8gHIWvtGRpvC0rmKm5qiH4=;
- b=EVJUbzZJZdzq1Ce95uqHGMnTLRd4A4zmTR/dd+8h4Phi1z67tCNG8Crgo9FpyM5zn1
- Ss77pIVpJ4tnV2NMkH5MfijlYvztxNrYbEVEO7E5C7VynIsiFsRLDzk/fg75NO+1MU48
- LGp3Crm2bzfn9JS0jkOHditFUoVpXyoJJ3BX/TRHYMsnRcfuaMVQS0nM6do1a7eRZdDF
- UvbJm8/3U1TFNDy77ViuR+11PHk5s91jcmQVD1KKlCyORdONzC2czxkgiDtAl1PpA1Ub
- N9YQPjElSVIj2/4Rk9kWYBlch3VXM9cFdON+6Sy3ggK45rek7+bQUBdAKeXZSpUz3VHF
- 249g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791834234; x=1792439034;
- h=content-transfer-encoding:content-type:to:subject:message-id:date
- :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1791818988; x=1792423788; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=fKjrvAV+IumRAjQgNa7sO8gHIWvtGRpvC0rmKm5qiH4=;
- b=JeYYePq/RyXlq7YIkpzHS61TxqIxioKtgCph0WEe8szSTkMoQMokmCxII4I476AuSf
- gBUJqiFzx9SLhMuV8J1BkjjqgqzqNfopCPARWryHNHgtAqqjng4XbUrJFcuKKkHadXDd
- JPY0DYkpvzjVRgNOA3578beurjtkKuY/qpactoI1v6cRmdX2siKOk+M51yqPZD70p6zk
- 8olroyKwh7Gi7H2GerfRRksiKduEw6l14CAOcOjG8uqzCuEC9Ymo+slsPheSeESUilQn
- KC6CcpTx+Hc9TDNUJQmXaOcDmmL42FPCWvtOHEGcj+lKblxJy+D3F1SBSKWbh2Go+a08
- jYtQ==
-X-Gm-Message-State: AFq9FYJro8hAcfiVuZLbrMGCzWeM7TbpJtFvu6Wi/m/ANZPYOSsveQKe
- en2DTwZzlnhxpFUB4CLj+cykxFfg4LBqRnZByxTt3+mnxDuyux/DNkgvgUnx2xSo8k+BnSLrmIA
- 8zyUFnRpBP4/kMN/+oEBHL3wJ2uCiHQRMB5w1DbyukQ==
-X-Gm-Gg: AYBFou38giuLMdRsIUgzR4XwFT3N1zLbZ9quSkJDsP88N0TiSzjIF5mEa23htkRpnt3
- dNcHvlYO6vaSL/9iyQiELETM66cRm9kFm8iFKVS2TV9Ofz1eu9zqbMMuVYtxcjqxuhlhzTIPdX5
- KTNblu2OfcA/sMOmSl6Ruu36li4OOP35F1yqXhvOZqko+50Tuf6laF3IJ72EE7y8tEoZeLPgA3v
- G6wKcVed9zNYE3zlsNGxkXXYbG+ooSh9lt85S/1pzvRSx/MbSBrHJPrkLvpqSoky9TR2tz8V9mC
- ptv48wt9jX9ALD0QVO7HFUJmu15RrLm/UjCQI7XvnYjGwhPxIkljADfgFH7xvQb6rTU5ZXV7fSJ
- QGy09uv1Q7bg7VQDdjLlClQnqfyNGyQSuqTPxKzX0
-X-Received: by 2002:a17:907:3d09:b0:c2b:ca98:872c with SMTP id
- a640c23a62f3a-c31a9fdff30mr1028550666b.20.1791834234155; Mon, 12 Oct 2026
- 12:43:54 -0700 (PDT)
+ bh=dHaZjZ/K9HkcWHP0xoN3hdI7zGw/VH12N/DXI78bY9w=;
+ b=KtYa8f0GS4Vf0rCxx0WGjaHaQuFkyo2Lqt9vIyYnMpKcfQvX/3a7HAcfLQb5c+EG3t
+ fD4lGzqKwqu246XJNqfalsm4ZHXIQF73kNkPsMVMwDaUTg8LOM8X+1p04CYkoA/erv74
+ idIFog+x72DuwVPyc0fGH1Td+vecKgnc2Mu4m3APg0HKK+5Qx8+W1NCyYHK12gB3wb0x
+ YTcnmtGdflV7KOLBgWOsdd0I1S2iRi2WESajs/RAZgIseelys3F0/b5tNQn/gPb4Qij3
+ AZFNKQaOfIfPCNE5uPxL/sb3sG22kIdIi78TH+6lQp3bKX1bDM2jdJ4KM8A1HH/tuncr
+ 0eSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791818988; x=1792423788;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=dHaZjZ/K9HkcWHP0xoN3hdI7zGw/VH12N/DXI78bY9w=;
+ b=RUAx6P3OUN8y8aZUnOAwtI3bM+wAQ0R1pjE9+DnK1pG2FKaAJLmxqd+VQNkTNrgF6i
+ RCIFInz0tvj7u3oZbW/H4CQzeszcuVQKTC+MJQY6FzWq2lb9t8ou2f3NNQhr5WhBCFez
+ HZ9DIflBWsAh181nPLmIa2KNUk/D2ICCIWKwYWIZnqCz19J5rNpCSK58lCCga9Kt1EfL
+ dn6c/uWZQq74LcGd4k/A3hnpFIwP6u3MlOEzGxScKYcFLyATBzGqflmsjIpgmSsKwu8c
+ jikFqjqKXz3fHcTUZHbMFCJsrG2FcmHPVHSL6AoC78hhddP1usKFv1fhC/crP+9jtqTq
+ kYRA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxe4MkyFnTHR83v/S5OLsg3dVx9uEjoRoiiYJFSZRhvZa+CALA5C+GRS2HCP+G5D4qkr0ERJqnXJMs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKjHeUl4HtVwnU2Pi+spZF5UVsMxvfZt3/o2ARvi4B0ZON2z2RP
+ utJtfx6ZOkGK9mgkPrvflXG47a8gy4M5+dT86JEG+mQYW8iGOoq1EH3X
+X-Gm-Gg: AYBFou0oOey+mON1jOhgtd9oVyYHMPmeZrSPROnKBTiU9ZfDlG3BJm/nvP4kGIsvqph
+ euH2aH/vQ9FN0gMS7dWki8IUyuPWOs0NFB4JdOl53xzWba5TlhzQ0dCMIP+0nAGHT3kiFasHyCz
+ IZTnv4opdPe2y481oxgjBWcmEDyqFREuFH+HVGcJC+TW+ZsCaGiAYHHISIyoVtf4iSBTN/LmfKs
+ gAHjepCbmFlDPeJvK46xmj+xqZMmBo3JTwVY6+cjiY5a9XJ8KivurrneOE48iEdndru47SCDYDn
+ ot0oWaRwD+p9AAALMxSDjXmpwElD/TxVLDVOe1ukJ/9bUMBz1XUtEoG0Sj95ntKxevOAOQsoptn
+ GmacFNa6f8sRTqvk90rIf+zMnSCjqI6/ybJIHvxkNlxoJN1Ie3xvwJYYs6HvcMVPxid/ausO+Dt
+ jQWWkG1EcCvfru/tnK1NGzPC5SY4e1dHBZx9PZDfpG0iPGlSKFrT3BQEY7KHVfsERzKbrjg40u9
+ bpAQg3w3p0XA75iQtPAguabczrccbl9nW733I/bLDAeDug2ECwh1WxasvHuAEkMmat2LX+WKmNL
+ +wIDARpo38bJ3Fy076ZotL3ziaOk4eMP02Q=
+X-Received: by 2002:a05:600c:8105:b0:4a1:714d:eed with SMTP id
+ 5b1f17b1804b1-4a18e4841c1mr177576875e9.14.1791818988354; 
+ Mon, 12 Oct 2026 08:29:48 -0700 (PDT)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com
+ (54-240-197-234.amazon.com. [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a190344032sm299058135e9.15.2026.10.12.08.29.46
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 12 Oct 2026 08:29:47 -0700 (PDT)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Kevin Tian <kevin.tian@intel.com>, David Woodhouse <dwmw2@infradead.org>,
+ Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, x86@kernel.org
+Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run
+Date: Mon, 12 Oct 2026 15:29:46 +0000
+Message-ID: <20261012152946.63489-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261012144616.GF14213@ziepe.ca>
+References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
+ <20261005132046.30025-1-griffoul@gmail.com>
+ <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
+ <20261012144616.GF14213@ziepe.ca>
 MIME-Version: 1.0
-From: =?UTF-8?B?0J4g0Jo=?= <kolomiiec@gmail.com>
-Date: Mon, 12 Oct 2026 22:43:17 +0300
-X-Gm-Features: AclHuK82uFUZXzhoHslXmm7Kx-h3vnuOEW5fZXGAV4FFPbRfGlEKIB4ntDKq_4A
-Message-ID: <CA+e2gLsfGRVzJ4WmGPOD-C9Bx8F=7Oeoc-v9FWUX-oUfNDRGCA@mail.gmail.com>
-Subject: [PATCH] drm/radeon: retry UVD v1 init on failure after resume
-To: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,107 +114,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: ukrainer8 <ukrainer8@users.noreply.github.com>
-Subject: [PATCH] drm/radeon: retry UVD v1 init on failure after resume
+On Mon, Oct 12, 2026 at 11:46:16AM -0300, Jason Gunthorpe wrote:
+> I don't want to keep expanding this hack in iommufd. If dmabuf is to
+> be used then dmabuf needs to provide a pluggable way to fill the
+> iommu_domain that many exporters can plug into. I don't want to
+> hardwire every exporter into iommufd, that makes no sense.
+>
+> The existing arrangement is to motivate solving this problem
+> generically, not something to be expanded on.
 
-On Evergreen/Redwood (and likely other UVD v1/v2 hardware), resume from
-suspend intermittently fails the UVD ring test:
+Agreed. The iommufd registry I mentioned above was never posted, and I
+have dropped it.
 
-    radeon 0000:01:00.0: [drm] *ERROR* radeon: ring 5 test failed (0xCAFEDE=
-AD)
-    radeon 0000:01:00.0: failed initializing UVD (-22).
+The series I posted since takes another route, without dma-buf:
 
-Cold boot always succeeds; resume succeeds only in about half of the cycles
-(42 measured suspend/resume cycles on a Radeon HD 5650M: OK counts per
-6-cycle run were 2, 3, 5, 6, 1, 5, 3). Once the ring test fails, UVD stays
-dead for the rest of the session and hardware video decode silently falls
-back to CPU.
+  https://lore.kernel.org/all/20261006183235.16576-1-griffoul@gmail.com/
 
-The resume path runs the same full asic startup as cold boot
-(evergreen_resume() -> evergreen_startup()), so the difference is the
-hardware state at entry, not a skipped call. The single 100 ms ring-test
-window right after VCPU boot simply races the hardware coming out of
-D3 + ASIC reset.
+It adds a small interface in mm for drivers that own memory. Such a
+driver hands out files, and for each page of a file it tells the caller
+which frame backs it. iommufd maps the file with IOMMU_IOAS_MAP_FILE and
+builds the iommu_domain itself, and the driver revokes a range when it
+changes. So iommufd never knows which driver it is talking to, and there
+is no symbol_get(). guest_memfd uses the same files for the guest. The
+iommufd part is patch 5:
 
-Retry the init sequence instead of giving up: on failure of clock setup,
-VCPU start or the ring test, fully stop UVD, let it settle for 20 ms and
-try again (up to 3 attempts). Each retry logs the failing step and the
-attempt number, which also makes future reports of this failure mode
-self-diagnosing.
+  https://lore.kernel.org/all/20261006183235.16576-6-griffoul@gmail.com/
 
-On the same machine the patched driver went 6/6 OK, with the log showing
-the ring test failing on attempts 1-2 and succeeding on attempt 3 =E2=80=94=
- i.e.
-the retry caught exactly the failure the stock driver used to declare
-fatal.
+The iommufd part is mainly there to show the interface, and it needs
+more work. Its revoke unmaps and then remaps, so a device can hit a
+hole. I would rebuild it on the REPLACE operation David discussed with
+you at LPC, with the scratch page as a quirk on the IOAS.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1867
-Link: https://bugs.launchpad.net/bugs/1865130
-Tested-by: ukrainer8 <ukrainer8@users.noreply.github.com>   # Radeon
-HD 5650M, kernel 7.0.0
-Signed-off-by: ukrainer8 <ukrainer8@users.noreply.github.com>
----
- drivers/gpu/drm/radeon/uvd_v1_0.c | <diffstat>
---- a/drivers/gpu/drm/radeon/uvd_v1_0.c
-+++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
-@@ -158,24 +158,45 @@
- {
-  struct radeon_ring *ring =3D &rdev->ring[R600_RING_TYPE_UVD_INDEX];
-  uint32_t tmp;
-- int r;
-+ int r, retry;
+Is this the kind of generic interface you had in mind, or would you
+rather have it hang off dma-buf?
 
-- /* raise clocks while booting up the VCPU */
-- if (rdev->family < CHIP_RV740)
-- radeon_set_uvd_clocks(rdev, 10000, 10000);
-- else
-- radeon_set_uvd_clocks(rdev, 53300, 40000);
-+ /* after resume the first ring test can race with the hardware; retry */
-+ for (retry =3D 0; retry < 3; retry++) {
-+ /* raise clocks while booting up the VCPU */
-+ if (rdev->family < CHIP_RV740)
-+ r =3D radeon_set_uvd_clocks(rdev, 10000, 10000);
-+ else
-+ r =3D radeon_set_uvd_clocks(rdev, 53300, 40000);
-+ if (r)
-+ drm_warn(&rdev->ddev, "radeon: raising UVD clocks failed (%d), attempt %d=
-\n",
-+ r, retry + 1);
-
-- r =3D uvd_v1_0_start(rdev);
-- if (r)
-- goto done;
-+ if (!r) {
-+ r =3D uvd_v1_0_start(rdev);
-+ if (r)
-+ drm_warn(&rdev->ddev, "radeon: starting UVD failed (%d), attempt %d\n",
-+ r, retry + 1);
-+ }
-
-- ring->ready =3D true;
-- r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
-- if (r) {
-- ring->ready =3D false;
-- goto done;
-+ if (!r) {
-+ ring->ready =3D true;
-+ r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
-+ if (r) {
-+ ring->ready =3D false;
-+ drm_warn(&rdev->ddev, "radeon: UVD ring test failed (%d), attempt %d\n",
-+ r, retry + 1);
-+ }
-+ }
-+
-+ if (!r)
-+ break;
-+
-+ uvd_v1_0_stop(rdev);
-+ if (retry < 2)
-+ mdelay(20);
-  }
-+ if (r)
-+ goto done;
-
-  r =3D radeon_ring_lock(rdev, ring, 10);
-  if (r) {
+Thanks,
+Fred
