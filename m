@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12EC7CA9ED5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 06:27:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6592DCA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 06:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D3FC10E48A;
-	Mon, 12 Oct 2026 06:27:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8103510E48A
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3A3F10E4C4;
+	Mon, 12 Oct 2026 06:40:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C91110E4AD
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:40:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 36D9F435D1;
- Mon, 12 Oct 2026 06:27:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509791F0089B;
- Mon, 12 Oct 2026 06:27:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 698EE60AA1;
+ Mon, 12 Oct 2026 06:40:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982AE1F0089B;
+ Mon, 12 Oct 2026 06:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791786438;
- bh=3CseviqKwc3wAzIvwt9NHYniqDq3QffXVJkcA0Kx9js=;
+ s=k20260515; t=1791787237;
+ bh=+hh4i2moavrGqPX1n2c2RQbAaD9fjE5awV5cn9mPTwY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JIsYZJYDCoFa3Pon8+Oc1DTFqd09qDtMwHcMf/lV4SARJXBu2x5tNlQmbxr8lqnwF
- nLnbZPBn9oeKRTreqP74ML7MemI/rTwrQRnagjtkhiZVw1ugPeNb6SQKgpgLYMiJHp
- sPSgtAdu6NymWXLHJ38MHt3Avxfm6A9Gd3NHsgIbgURJY7UFxQD2TKXIA46P1QRutL
- t+CcwG6rOX/1ojcKfvGmgmTVx+Qpq8k0BCt1gurJO/Sd7jBssGjMekZIGmPZQgeS8L
- 0I3Bs8jjFwy21xDzbQLGM+WUS7YLDuq5fCJxKsmRe+iYSd6BCRhB59PE/TU3bEM98m
- dspDIcYK5+axw==
-Date: Mon, 12 Oct 2026 09:27:13 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v8 3/9] dma-buf: Provide dma_buf_set_name()
-Message-ID: <20261012062713.GE27033@unreal>
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-4-matt@ozlabs.org>
+ b=fXdRBOaMG4LWZ/2UNKOjJHXzXsjEEdugfLfJYCZGs2lMAQVa2x7W+HihvaplfEacq
+ 7IbI+fvuLpPPZAeu2/21ZUbXm0jO8tNgsefFbWZPZeo3rryEwk7zayhX6jf9HUjtn/
+ WnlFpv6C5Hv9nQSTySBgN/AnvwMVShGffMJDl5l46fP/jRWeY2csVxwP/ZyOz38yZL
+ JNSQeIkRmDrZ+FBwUNp9v5FnV9/XjE3e6TZ7zHOYF3KRR6vAGspQ2jaojWVxTTURB0
+ rLa5R1i+nzS0xFDtZzTUTED+qgJd/qQV+Gt/WPn8Rexq+NWIAIHFE6/zAo1JxZpRfT
+ wLDQHjABJtivw==
+Date: Mon, 12 Oct 2026 08:40:33 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Val Packett <val@packett.cool>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+Message-ID: <asyAObcpbFy3OeE2@houat>
+References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="hjbswlulvbwt55yj"
 Content-Disposition: inline
-In-Reply-To: <20261006193643.76330-4-matt@ozlabs.org>
+In-Reply-To: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,72 +67,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Oct 06, 2026 at 08:36:31PM +0100, Matt Evans wrote:
-> Allow exporters to set the name of buffers, during export or for
-> subsequent updates.  This is useful to express buffer-specific debug
-> information, indicate state particular to the exporter's usage, etc.
-> Only exporters and userspace are expected to set names; it isn't
-> sensible for importers to do it.
-> 
-> Originally, the static dma_buf_set_name() was used for
-> DMA_BUF_SET_NAME ioctls, taking a __user string parameter.  Export
-> this function as a generic set-name helper, taking a kernel-allocated
-> string.  The SET_NAME ioctls now locally duplicate the __user string,
-> and use the new function to set the name.
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/dma-buf/dma-buf.c | 84 +++++++++++++++++++++++++--------------
->  include/linux/dma-buf.h   | 16 +++++---
->  2 files changed, 64 insertions(+), 36 deletions(-)
 
-<...>
+--hjbswlulvbwt55yj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+MIME-Version: 1.0
 
-> @@ -577,8 +549,19 @@ static long dma_buf_ioctl(struct file *file,
->  		return ret;
->  
->  	case DMA_BUF_SET_NAME_A:
-> -	case DMA_BUF_SET_NAME_B:
-> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
-> +	case DMA_BUF_SET_NAME_B: {
-> +		char *name = strndup_user((const char __user *)arg,
-> +					  DMA_BUF_NAME_LEN);
-> +
-> +		if (IS_ERR(name))
-> +			return PTR_ERR(name);
-> +
-> +		ret = dma_buf_set_name(dmabuf, name);
-> +		if (ret)
-> +			kfree(name);
+On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
+> Panel drivers don't have an atomic state and so they can't handle
+> additional data to be stored at the atomic_check time or to be retrieved
+> at the enable/disable time. For example, it prevents panel drivers from
+> supporting multiple display modes or making DSC being optional in a
+> clean way. Drivers like panel-novatek-nt35950, save the connector
+> pointer in get_modes() and later dereference
+> connector->state->crtc->state from prepare() without holding any locks.
+> The panels also have no way to reject the configuration they cann't
+> handle, as it doesn't take part in the atomic check.
+>=20
+> The panel already embeds a drm_bridge, and the bridge has an atomic
+> state which is property handled. Subclass it to provide atomic state for
+> the panels. The callbacks can find the state of the other related
+> objects (e.g. CRTC state to get the display mode).
+>=20
+> The atomic state is opt-in. A panel that doesn't implement the state
+> callbacks keeps working exactly as before, with the plain bridge state,
+> so there is no need to touch the existing drivers. The panels which do
+> implement them can only be driven through the embedded bridge, since
+> there is no commit to hand over when the host calls drm_panel_prepare()
+> and friends directly. Those entry points warn and refuse to handle such
+> panels. There are still a dozen of display drivers calling these
+> functions, and the panels used with them can not be converted until the
+> hosts are switched to the panel bridge.
 
-<...>
+I really don't think we should extend the panel API. All panels are
+bridges now, consumers only care about bridges as well, and the bridges
+API provides what you want already.
 
-> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
-> +{
-> +	if (!name)
-> +		return -EINVAL;
-> +
-> +	/* dmabuffs_dname() won't use the string if the length
-> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
-> +	 */
-> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
-> +		return -E2BIG;
+Why not simply turn the panel drivers we want into bridges, possibly
+with a bunch of specialized helpers to manage a panel state, and call it
+a day?
 
-BTW, in-kernel APIs generally avoid defensive programming, since it adds
-overhead for checks that callers are expected to perform. The caller is
-responsible for ensuring that the name is valid.
+Maxime
 
-Unless you're writing code specifically for out-of-tree use, which is
-also contrary to kernel rules.
+--hjbswlulvbwt55yj
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks
+-----BEGIN PGP SIGNATURE-----
 
-> +
-> +	spin_lock(&dmabuf->name_lock);
-> +	kfree(dmabuf->name);
-> +	dmabuf->name = name;
-> +	spin_unlock(&dmabuf->name_lock);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCasyA3QAKCRAnX84Zoj2+
+ds8VAX4iLOr+i95wQQ2TEBtzi+Nu8K8umIW4GcZ4OjJ36hZ+u+qwcByShXAbYA53
+8a6SJLMBgNYv/aCiJAjGcMe8sPjtzRy5XUqYsKrIHhZVX29GqIkmxtUxqNgYWrUF
+Z+ps/5hToQ==
+=SZYX
+-----END PGP SIGNATURE-----
+
+--hjbswlulvbwt55yj--
