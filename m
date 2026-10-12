@@ -4,66 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C2ECA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 14:50:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65504CA9ED1
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 15:01:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B5CD10F16D;
-	Mon, 12 Oct 2026 14:50:01 +0000 (UTC)
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com
- [165.173.182.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3C2210F16D
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 14:49:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791816584; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=dgXdmKngHhM318qjfVMYC74gMXGc+fVdLti7iaDwNAcMcB3a5zwQJOik7Wp4aFMi4tacvl3UURXkM4e7Oc26MTPZ+Z00w4QDK3KjHrV+wqi7dHrh/s8S/W27DQsrM+TIiWwaGxOcf66YwJl+ToXBCOGPIBvxUzzeez/ktRUtpbc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791816584;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=; 
- b=b9u5Bca9K9oBoLiH5naAS8C3AXYHMV1+15EqYHygDl1zAOhsDmtwBUSG59FApnANcBkioBS7/4QZGZj519i5BBInp+Eh4NcRC0bV0IcIMNzgN8xOMNihrnH2t18yvvuMUJUyAYLaWrc5cNFsFiJ7bfa8+7ANkfSPPyi1uL8qe/U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816584; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=;
- b=T7Vc/dRGYaDXRQGVuvc+Y/eeiZjc1MZXWW4dkOriDDZ02Sw7GyWfNjW35slqbLh/
- A2JtRd4QzJhJVsPNv/CtTeV+L1EOzG/LoB9KlqZedk5xmEmidSfR+MaHT1lEV3xNliY
- 31rcXmI4FFYUwcYwPrGTEHMMFQQMwFOmx6rrmjcOPS3NnJ55PnfuFXRVIMbUzkFtjYi
- LSq1TNSKSgtAZpTEk4d2+eFP0QLrwJuMY+SX4C8467MmHI0tkCaZmIug/eqp2uHm4oU
- karVUVAD+hUcefpumZT43yTtV8myiwOCm7nkvTHPzlI0fp8DijqnI5F5MrFUS56oKj+
- WiFC5qA8xA==
-Received: by smtp.zohomail.com with SMTPS id 1791816582175167.0189182002764;
- Mon, 12 Oct 2026 07:49:42 -0700 (PDT)
-Message-ID: <6b6b99fcd1c5f032a0b20d928bf7fa2e59ac5c87.camel@icenowy.me>
-Subject: Re: [PATCH 0/2] Add SPI display support for UNIHIKER M10 V1.2
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Miotsuki Mizuno <founder@crepuse.com>, "heiko@sntech.de"
- <heiko@sntech.de>,  "neil.armstrong@linaro.org"	 <neil.armstrong@linaro.org>
-Cc: "airlied@gmail.com" <airlied@gmail.com>, "conor+dt@kernel.org"	
- <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>,  "dri-devel@lists.freedesktop.org"	
- <dri-devel@lists.freedesktop.org>, "jesszhan0024@gmail.com"	
- <jesszhan0024@gmail.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
- "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>, "linux-rockchip@lists.infradead.org"	
- <linux-rockchip@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"	
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>,  "noralf@tronnes.org"	 <noralf@tronnes.org>,
- "robh@kernel.org" <robh@kernel.org>, "simona@ffwll.ch"	 <simona@ffwll.ch>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>
-Date: Mon, 12 Oct 2026 22:49:34 +0800
-In-Reply-To: <20261010232857.26950-1-founder@crepuse.com>
-References: <20261010232857.26950-1-founder@crepuse.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C417A10E483;
+	Mon, 12 Oct 2026 15:01:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A30E210F183
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 15:01:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DB48560229;
+ Mon, 12 Oct 2026 15:01:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671CE1F0089B;
+ Mon, 12 Oct 2026 15:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791817291;
+ bh=v1lY0kG2LV2wquBeSV/H2Sl5kZBXOaTXRiDxg85MlE8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Co8UqKjDkCu9Ln1bYFZ6ZecIW+UzZ5LDrlPFT0X7JiAsJ/CiByNeZMwZgVKMSEJpz
+ Jw8DVZoyvtpNxYi1iObXHhYRVf3dj5JscFmtckhqInkREj3sw9ARq+/Xxv89dDbziY
+ K7bND7YM2ICLMSSS0GlYE79LJcg58zvUHlztRz6eRLBwONuMKBGvE1q9aQ+SyicsVv
+ vgnDOOZXPLvR5UVf7muC7TEntThmN4ycBAUVRH+Egpe0nBWTZC28RByBOo+M3mkukH
+ L0rJzRBogXjQIFVMt360At1cr7ZXzdvMrsHrPFLQARmr9qYLnE9hKzlAUe5tUr7GYh
+ GkJgVTVMu2rNQ==
+Message-ID: <sashiko-outbox-168304@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 06/15] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261012-claude-fixes-v15-6-bc0a6c498553@collabora.com>
+References: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
+ <20261012-claude-fixes-v15-6-bc0a6c498553@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-ZohoMailClient: External
+Date: Mon, 12 Oct 2026 15:01:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +51,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-10-10=E5=85=AD=E7=9A=84 23:28 +0000=EF=BC=8CMiotsuki Mizuno=
-=E5=86=99=E9=81=93=EF=BC=9A
-> Describe the onboard 240x320 RGB565 display with panel-mipi-dbi.
-> The series adds the panel compatible and enables SPI2, GPIO reset/D-C
-> and the PWM1 backlight. It uses the existing DRM and SPI drivers.
->=20
-> This series is based on the separate board I2C2 preparation commit.
-> The prerequisite board patch was submitted separately:
-> https://lore.kernel.org/r/20261010232831.26908-1-founder@crepuse.com
-> It does not depend on the pending NS2009 driver or binding.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/panfrost: Unhandled pm_runtime_get_sync() failure causes bus f=
+ault on teardown
+--
 
-I just came across here via mailing list.
+commit 66f46645f69f978e0ed345266812912523ba84f8
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-It seems that NS2009 is designed to be mostly compatible with TI
-TSC2007, and the TSC2007 driver should be able to made work with
-minimal effort.
+drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
+   =20
+During device probe(), failure to do a PM get() will leave the usage_count
+set to 0, which is the value assigned at device creation time. That means
+when the autosuspend delay expires, runtime suspend callback won't be
+invoked, so the device will remain powered on forever.
 
-Thanks,
-Icenowy
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index dd80ad1a67004..2519d76666a98 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+[ ... ]
+> @@ -884,9 +892,12 @@ static void panfrost_remove(struct platform_device *=
+pdev)
+>  	drm_dev_unregister(&pfdev->base);
+> =20
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
 
->=20
-> The 132-byte initialization firmware is available from:
-> https://github.com/mio-tsuki/panel-mipi-dbi-firmware/releases/tag/v1.0.0
-> Required filename: dfrobot,unihiker-m10-display.bin
-> SHA256:
-> 50412ae6d29c5bbfb7fac585528a761fb249d7944011a1b19c5e0f80a0418e5f
-> The test kernel embeds it with CONFIG_EXTRA_FIRMWARE. Public release
-> does not imply linux-firmware acceptance.
->=20
-> The nominal active area is 43.2 x 57.6 mm, represented as 43 x 58 mm.
-> The published V1.3 schematic is not used as evidence for V1.2 supply
-> connections; optional power/io supply properties are omitted.
->=20
-> SPI2 input is assigned 100 MHz. Active transfer register readback
-> showed BAUDR=3D2, corresponding to 50 MHz. No oscilloscope measurement
-> is claimed. GPIO_ACTIVE_HIGH reset matches the existing DRM helper
-> and leaves the physical reset pin HIGH after initialization.
->=20
-> Built against Rockchip v7.4-armsoc/dts64, commit
-> ae965b9856f033145e292b0c29082a26bcc45efd. Target DTS/schema, binding
-> examples and strict checkpatch checks passed.=20
-> The exact display DTS booted through normal U-Boot three times in
-> this
-> retest with the original test kernel, without pstore instrumentation,
-> clk_ignore_unused or regulator_ignore_unused. Physical corner
-> patterns
-> were confirmed; full and partial updates and five DRM disable/enable
-> cycles completed. The exact display/touch combination also booted and
-> its physical output was confirmed.
->=20
-> Earlier boots reset during early userspace; one partial USB log
-> recorded
-> an instruction abort. This was not reproduced in the latest retest.
-> The resets may have resulted from accidental contact with a loose
-> jumper wire during reboot. The cause has not been established, and no
-> software fix is claimed.
-> Exact-DTS cold boot and deep suspend/resume have not been tested.
->=20
-> Mizuno Miotsuki (2):
-> =C2=A0 dt-bindings: display: panel-mipi-dbi-spi: Add UNIHIKER M10 display
-> =C2=A0 arm64: dts: rockchip: Enable display on UNIHIKER M10 V1.2
->=20
-> =C2=A0.../display/panel/panel-mipi-dbi-spi.yaml=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 1 +
-> =C2=A0.../dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 53
-> +++++++++++++++++++
-> =C2=A02 files changed, 54 insertions(+)
->=20
->=20
-> base-commit: f4f7ecd2e0e8debcbab4789717cc79d570d665e3
+[Severity: High]
+Does this code ignore a potential failure from pm_runtime_get_sync()?
+
+If panfrost_remove() is invoked while the device is runtime-suspended, it
+calls pm_runtime_get_sync() to wake the device up and restore clocks and
+power before tearing down hardware. If this resume fails, the error appears
+to be ignored.
+
+The code proceeds unconditionally to panfrost_device_fini(), which eventual=
+ly
+calls panfrost_gpu_power_off():
+
+drivers/gpu/drm/panfrost/panfrost_gpu.c:panfrost_gpu_power_off() {
+    ...
+    gpu_write(pfdev, SHADER_PWROFF_LO, pfdev->features.shader_present);
+    ...
+}
+
+If the clocks and power are actually off due to the resume failure, will th=
+is
+direct write to GPU MMIO registers cause a synchronous external abort and a
+kernel panic?
+
+A follow-up patch 09/15 in this series adds a drm_WARN_ON around the
+pm_runtime_get_sync() call, but it still ignores the failure and proceeds to
+hardware teardown, failing to resolve the potential crash.
+
+>  	pm_runtime_set_suspended(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+> +
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-claude-fix=
+es-v15-0-bc0a6c498553@collabora.com?part=3D6
