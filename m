@@ -4,80 +4,167 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3CB2CC6B15
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9C50CC6B0E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B89510F5A1;
-	Tue, 13 Oct 2026 07:53:13 +0000 (UTC)
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
- [74.125.224.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D8B310E735
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:35:55 +0000 (UTC)
-Received: by mail-yx1-f47.google.com with SMTP id
- 956f58d0204a3-677ad9083feso1778901d50.2
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791866154; x=1792470954; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Q79SjJi9kltChZ7QmatqFZHNr8QyYnXQCrfT5+1Exbs=;
- b=MYSZWbYo4ktnhcuB73nyaCSdbzoTzZTZh85HjYXTlTWH2XJqTJSpxFE+e92Uv4ggOA
- Y1D5VcoSbi+pCpL3OWLYFQY8b90n+oF2vlBUdaxKz2VE1Uiq5oALYdIaM8x7adBn/ygZ
- I6jCX/PbnJmqW/EpQnDRTudQbgmdPx0ltkG8zGu+i9Uu459lRJapUQ7HjyUU59ELWxB3
- 0//o9cpl90cYUBwKXg6H6Lguzs8SkqmlEMHUeNa7xGDRR0QArq2VrDdhgsFy+etaziv4
- 1dJFf8cmmiP2xKPTmTfeRcUQEWiW5g5aw2/xHUlpylhDPtOqvHuEvwjta1gyQRBhbCXB
- BXzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791866154; x=1792470954;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Q79SjJi9kltChZ7QmatqFZHNr8QyYnXQCrfT5+1Exbs=;
- b=aRd9iJVqAemVn7al/uXRHotWcPBvT3iqVZwFQ/XVO+3jjfcq9nJbttV20zMxAI//El
- qRkZc/M1bV+6ypZh4jIBh3JbIEkpkgg/bHAvM8jMsLcgfqt0BxoJpMe8fofb+f9gq2wI
- 8jxJ69I5ioxWfDF4jvOXjB9vG7kmz2rXxDS+GbbAbd0QT4xKymwmx9tD54BSQ/x1N6np
- SoB9XObqNCeGi1r90HkLRlw7j/teE0nj1PnnjQyBG50LGIaO717kj0XlEoB5oKlXEmn3
- ndj/+PSv0oPj51/3W2L+vrC/BrNczI2wBJr6DFJwPF2eq8HKhAk3JUgXEtUk49J5xgl1
- zpbw==
-X-Gm-Message-State: AFq9FYLT3vvLR4UlVUJOk6MWYgwN8o4bV/QRSKq6OB8IrRSll82xhwfV
- Uh+ZzcQVU/g/Sj/3WLVYwrqqB6VPSYl271houzbkNU/8gUDelMl5yWP2
-X-Gm-Gg: AYBFou2u/7UPIpUDBp2z3u/5MciufP7FGpUJx0snnqkqgN0mmJBEgfUEnJE7m2Iz75U
- J89zoluIHUqAhl/mZgYp8ldLynfERCSQIgYiJpu77JrNRSW43Zy9gH1GZpMt1hSj6JY8qUMACvr
- S43x9AysGn9fv0+GmUw37Zx+uDDubz9+QCmdFJWkICaKyAxUDhph8UJNIvDKzSzKiTFOZIsjF2a
- KFDVyYTgTlhOva2DDF78xCSXfU3E1vqgsoazOPU6lNrjdEPZ+y/Ftv4zqvldsh2mbPuZF6atJgH
- VayE21E0XPhkMaK+5ObkO6JGSzzjTgZFdmURy5YKYf+j+eOCWjXn+dNhX4n+3nwU0KL7b+j8ll/
- WGHlLC4hitsftKprvPxxm0qjU0NeQUPvaD4aDfY25KwX8DxdwiFHlYQoLcnHgx2CI6rDM0myQeF
- KjpgCQbTe4x9QNE7QNI/Vtidi3hnyYZEZa/vqyEtkOyKnvGwUtiou1mhjLQkx/QQEKPhZHwK8W0
- nn4cMlIXayFiQ==
-X-Received: by 2002:a05:690e:419c:b0:671:c5e:6d5 with SMTP id
- 956f58d0204a3-6793678dd2amr3782267d50.4.1791866154340; 
- Mon, 12 Oct 2026 21:35:54 -0700 (PDT)
-Received: from [192.168.1.71] ([2600:1702:56e9:4b40:e3a9:78c5:641e:a58c])
- by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-67935606f5esm4448152d50.4.2026.10.12.21.35.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 21:35:54 -0700 (PDT)
-From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-Date: Mon, 12 Oct 2026 23:34:37 -0500
-Subject: [PATCH 2/4] drm/panel: kingdisplay-kd097d04: Use
- mipi_dsi_*_multi(); fix minor bugs
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05CA910F59E;
+	Tue, 13 Oct 2026 07:53:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96FA610E519
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:57:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B6F356025A;
+ Mon, 12 Oct 2026 18:56:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31EC21F0089B;
+ Mon, 12 Oct 2026 18:56:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791831419;
+ bh=PTP8jRLZqHJYYCJdjNKIR4gbRyey/kI+sfcrw+3IbSA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Bm8mYN7NCuVqJWvDQ6HeMDQgHW56vGjF8/wxqiemm+bd4XmiznESMJg7H6sinCrPZ
+ GZV7rPVLL4c96uF233hGQASQqEN2lktuU7TPySarXIcDirkjehuR9NEWkWwAEoWNkE
+ 3RkmfTFQ3M+rQGQn1ltRovDD8fexILp4RameZqID6330p5FofggyKxZKeFhdRVSn0v
+ Cz0eHSlFKc21spb7cHAfXKwwUgbarEpbRn2T9NuuxmjpZZNP4MxauxEdyEed/b9hrO
+ GJqMnk1VIxCocs/eQrIixEL23q/oEUQNt41MRBaq/vsTI3LF5rjyg6hCs2s3qeSIOT
+ uC2OpBp+V/Fbw==
+Message-ID: <4124106e-c51e-4476-bd67-63e4641bf14a@kernel.org>
+Date: Mon, 12 Oct 2026 20:56:23 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 13/38] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ Bert Karwatzki <spasswolf@web.de>, Emil Tsalapatis <emil@etsalapatis.com>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-13-923b70125b1e@kernel.org>
+ <5b8ef0ce-7429-4d74-b4da-a0561c59b1e2@kernel.org> <as0Buhi_-VCC7xLZ@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <as0Buhi_-VCC7xLZ@gremlin>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-mipi-multi-series-v1-2-6a29add1ec92@gmail.com>
-References: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
-In-Reply-To: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
-To: Doug Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Akash Sukhavasi <akash.sukhavasi@gmail.com>
-X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,141 +181,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The mipi_dsi_dcs_*() and mipi_dsi_generic_write() functions used by
-this driver are deprecated in favour of their _multi() counterparts,
-as noted in Documentation/gpu/todo.rst. The _multi() variants record
-the first error in a context structure and skip subsequent calls once
-an error is set, removing the need to check the return value after
-each command. They also log failures internally, making the per-call
-dev_err() calls redundant.
+On 10/12/26 17:55, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Oct 12, 2026 at 05:08:09PM +0200, David Hildenbrand (Arm) wrote:
+>> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+> 
+>>> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+>>> index 7b6847200b43..b69fe5e34339 100644
+>>> --- a/kernel/bpf/arena.c
+>>> +++ b/kernel/bpf/arena.c
+>>> @@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
+>>>  	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
+>>>  	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
+>>>  	 * being copied into the child process on fork.
+>>> +	 * This is a kernel page so set VM_MIXEDMAP.
+>>>  	 */
+>>> -	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
+>>> +	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
+>>>  	vma->vm_ops = &arena_vm_ops;
+>>>  	return 0;
+>>>  }
+>>>
+>>
+>> Historically, VM_MIXEDMAP really just means: can contain refcounted and
+>> non-refcounted things. Everything with a struct page is refcounted.
+>>
+>> I think we are now changing the semantics to mean "maps kernel pages". I think
+> 
+> Yes.
+> 
+> It was sort of implicit before given insert_page() etc. but still really meaning
+> that it _might_ be both.
 
-Convert prepare(), disable(), and unprepare() to use the _multi()
-equivalents.
+Yeah, it's in the name. Mixed: pfn and/or ordinary.
 
-In prepare(), use mipi_dsi_msleep() and mipi_dsi_usleep_range() instead
-of plain msleep()/usleep_range() for delays between DSI commands, so
-they are skipped on prior error since the function will clean up via the
-existing poweroff label anyway.
+> 
+>> this is fine, but we really have to update the documentation (and possibly
+>> rename this thing to something more expressive?)
+> 
+> Yeah I completely agree.
+> 
+> I will rename it, but I think that's best for 7.5 obviously! :)
 
-In unprepare(), keep plain msleep() since the hardware delay must execute
-regardless of any prior DSI error. This also fixes a bug where a failure
-in enter_sleep_mode would return early, skipping the T15 delay, GPIO
-deassertion, and regulator disable, leaving the panel stuck in a
-prepared state. Because drm_panel_unprepare() does not clear
-panel->prepared when the callback returns an error, drm_panel_prepare()
-would return early on the next call, leaving the panel unable to be
-re-initialised.
+Yes.
 
-For the same reason, stop returning the regulator_disable() error from
-unprepare(). Returning it would leave the panel in the same stuck state.
+VM_PFNMAP / VM_MIXEDMAP - These contain kernel-mapped data which cannot be
+			  reasonably reconstructed on page fault.
 
-Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
----
-Compile tested only, no hardware available. checkpatch and a W=1
-build are clean.
----
- drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c | 53 ++++++++--------------
- 1 file changed, 18 insertions(+), 35 deletions(-)
+the description is already pretty clear. just not that kernel-mapped pages
+*must* use one of these.
 
-diff --git a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-index 893af9b16756..bc25ce1ce4a7 100644
---- a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-+++ b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-@@ -180,11 +180,10 @@ struct kingdisplay_panel *to_kingdisplay_panel(struct drm_panel *panel)
- static int kingdisplay_panel_disable(struct drm_panel *panel)
- {
- 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
--	int err;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
- 
--	err = mipi_dsi_dcs_set_display_off(kingdisplay->link);
--	if (err < 0)
--		dev_err(panel->dev, "failed to set display off: %d\n", err);
-+	/* Set display off; error does not prevent disable */
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
- 
- 	return 0;
- }
-@@ -192,22 +191,16 @@ static int kingdisplay_panel_disable(struct drm_panel *panel)
- static int kingdisplay_panel_unprepare(struct drm_panel *panel)
- {
- 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
--	int err;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
- 
--	err = mipi_dsi_dcs_enter_sleep_mode(kingdisplay->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to enter sleep mode: %d\n", err);
--		return err;
--	}
-+	/* Enter sleep mode; error does not prevent power-off */
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
- 
- 	/* T15: 120ms */
- 	msleep(120);
- 
- 	gpiod_set_value_cansleep(kingdisplay->enable_gpio, 0);
--
--	err = regulator_disable(kingdisplay->supply);
--	if (err < 0)
--		return err;
-+	regulator_disable(kingdisplay->supply);
- 
- 	return 0;
- }
-@@ -215,6 +208,7 @@ static int kingdisplay_panel_unprepare(struct drm_panel *panel)
- static int kingdisplay_panel_prepare(struct drm_panel *panel)
- {
- 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
- 	int err, regulator_err;
- 	unsigned int i;
- 
-@@ -232,33 +226,22 @@ static int kingdisplay_panel_prepare(struct drm_panel *panel)
- 	/* T4: 15ms */
- 	usleep_range(15000, 16000);
- 
--	for (i = 0; i < ARRAY_SIZE(init_code); i++) {
--		err = mipi_dsi_generic_write(kingdisplay->link, &init_code[i],
--					sizeof(struct kingdisplay_panel_cmd));
--		if (err < 0) {
--			dev_err(panel->dev, "failed write init cmds: %d\n", err);
--			goto poweroff;
--		}
--	}
--
--	err = mipi_dsi_dcs_exit_sleep_mode(kingdisplay->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to exit sleep mode: %d\n", err);
--		goto poweroff;
--	}
-+	for (i = 0; i < ARRAY_SIZE(init_code); i++)
-+		mipi_dsi_generic_write_multi(&dsi_ctx, &init_code[i],
-+					     sizeof(struct kingdisplay_panel_cmd));
- 
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
- 	/* T6: 120ms */
--	msleep(120);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	/* T7: 10ms */
-+	mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
- 
--	err = mipi_dsi_dcs_set_display_on(kingdisplay->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to set display on: %d\n", err);
-+	if (dsi_ctx.accum_err) {
-+		err = dsi_ctx.accum_err;
- 		goto poweroff;
- 	}
- 
--	/* T7: 10ms */
--	usleep_range(10000, 11000);
--
- 	return 0;
- 
- poweroff:
+(again, the ->fault thing returning allcoated kernel memory is nasty)
+
+
 
 -- 
-2.56.0
+Cheers,
 
+David
