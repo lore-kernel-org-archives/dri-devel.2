@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3139CC6B10
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E68C7CC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9B210F5AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8E010F5AC;
 	Tue, 13 Oct 2026 07:53:18 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45BB510E2BE
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:07:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FDEE10F2E0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:40:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 20DC8411EE;
- Mon, 12 Oct 2026 18:07:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58BFE1F0089B;
- Mon, 12 Oct 2026 18:07:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DD01A60142;
+ Mon, 12 Oct 2026 18:40:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90401F0089B;
+ Mon, 12 Oct 2026 18:39:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791828474;
- bh=5a6IsUlcXJHOADvAwqphif4IshvHpUsfPxJJpTYlkEY=;
+ s=k20260515; t=1791830410;
+ bh=0vdQFJSE/NT9Rh54bDzshWf+q/AffDyPSodP3mkqurc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=jwx+5rDYQjOIUBj08GLlEX9Web1Y8AehnEyD+NKJ+6JGLiDzQ2ykGnZMGinpwVxEm
- t43H8LUI4C36o21aCrvggHyN9RyNzw2SGdD/OyPLFBA80sFmKNnm84NtWUvo2kYU8N
- cYNbAPpDSSO2uHexKXokGU+9jMdh9g5QSHt0uWmtCrNqLoFovjiA4CtdU2HJfp322U
- 9aldNEnM+7h1H81AjZw6XqSBXIUYwZUU/Fk7ap4BPata9FLOdT63qFOxwbma7qOQ8U
- Nq/+WfROCztx3KWcWvYYP+Ey80vw0kj1tlhrwaXghvM9DOVKk2/vrEDswVQZvybKaC
- EY265kFEoC1fg==
-Message-ID: <5a7597e2-e4f6-46ef-a4b4-2f0746b5009a@kernel.org>
-Date: Mon, 12 Oct 2026 20:07:14 +0200
+ b=Jz/1EtXxleYZI0WyCuMXfidwpTwMlPkH4Ian2ndLo5ibmSWjqhlFClBUxTGnKp6I5
+ ROm5zrCorjYZeWLmPeuhV7SAbp8T2F/0Zl4JLNyoWN+lNFlr8O/2mLSIWJGeJm/AsK
+ yOhfVuEUllgCNPo5whCDaE8GjHjWz0JcQvnuQtk0DnH/R8oLzpJDPDdEOyjZrCeS+e
+ 7b7qfPdmAP0+SByoOI5pu3basxNiMh5ic75Ui0RlNnJrbN0dn6EmbcVY/PArdSiujq
+ gtc0GkWTY1ncRNbCX/87aasO2tmVrN2zWsEYHejb6N0GBwWLsP52ooOFVuqZNu/5i7
+ AUoFZ5uBv10ow==
+Message-ID: <5ba7305f-0ad1-44ee-be0b-36752684cdb9@kernel.org>
+Date: Mon, 12 Oct 2026 20:39:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/38] mm/vma: only allow mmap to clear
- VMA_MAYWRITE_BIT if not mm-managed
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
+Subject: Re: [PATCH v5 24/38] mm/vma: enforce that mm-managed mappings may not
+ set VMA_IO_BIT
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
@@ -53,7 +53,7 @@ To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
  Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
  Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
  "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
  Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
  John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
@@ -100,8 +100,7 @@ To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
  Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
  Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
  linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
  linux-sound@vger.kernel.org, bpf@vger.kernel.org,
@@ -115,7 +114,8 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
  Bert Karwatzki <spasswolf@web.de>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-15-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-24-923b70125b1e@kernel.org>
+ <5d51b6b3-ad58-4827-bedf-f1a79ebd5c86@kernel.org> <as0nF53W7dug-Fem@gremlin>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -162,10 +162,10 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-15-923b70125b1e@kernel.org>
+In-Reply-To: <as0nF53W7dug-Fem@gremlin>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -181,53 +181,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
-> the underlying file is itself read-only.
+On 10/12/26 20:35, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Oct 12, 2026 at 08:25:54PM +0200, David Hildenbrand (Arm) wrote:
+>> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+>>> It makes no sense for a mapping whose contents the kernel does not own to
+>>> specify that the range is MMIO.
+>>>
+>>> Prior to this patch, all in-tree drivers which did so have been updated
+>>> such that they are marked as not being mm-managed. The check WARNs and
+>>> fails the mmap for any out-of-tree driver that still sets VMA_IO_BIT
+>>> without a kernel mapping.
+>>>
+>>> No functional change intended for in-tree code.
+>>>
+>>> Reviewed-by: Zi Yan <ziy@nvidia.com>
+>>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> ---
+>>>  mm/vma.c | 6 ++++++
+>>>  1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/mm/vma.c b/mm/vma.c
+>>> index 4f09fb98a2fd..51bdbe08bb02 100644
+>>> --- a/mm/vma.c
+>>> +++ b/mm/vma.c
+>>> @@ -2796,6 +2796,12 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
+>>>  		return -EINVAL;
+>>>  #endif
+>>>
+>>> +	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
+>>> +		/* mm-managed mappings may not set VMA_IO_BIT. */
+>>> +		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
+>>> +			return -EINVAL;
+>>
+>> We do have a helper (vma_flags_is_mm_managed()) but we're not using it because
+>> of the VM_IO situation ...
 > 
-> This means that mprotect() cannot mark a shared mapping of a read-only file
-> as read/write, as doing so would violate the read only attribute, and
-> permit writes.
+> That gets removed.
 > 
-> In general, we do not want file systems to be able to do this for
-> read/write files.
+>>
+>> That's confusing ...
+>>
+>> Could we do something like testing vma_flags_is_mm_managed(), but removing the
+>> VM_IO flag from the checked flags?
 > 
-> Doing so would violate fundamental user expectation of file attributes and
-> likely break userspace.
+> I mean we do that in a subsequent commit, I think even the next one?
 > 
-> However, drivers pose a tricky problem here - the /dev/xxx file may be
-> read/write but provide access to a resource which is fundamentally
-> read-only.
 > 
-> Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
+>>
+>> Then we can add a comment about VM_IO in the future getting remove from
+>> vma_flags_is_mm_managed() ...
 > 
-> To achieve both of these things, forbid this for mm-managed mappings as
-> identified by vma_flags_is_mm_managed().
+> Yeah, but to do that the code would now be something like:
 > 
-> This constrains this ability to drivers which own the mapping's contents,
-> whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
-> map themselves, and so define its semantics.
+> 	vma_flags_t masked = flags;
 > 
-> Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
-> across drivers, filesystems and bpf, establishes a mapping which is not
-> mm-managed,
-> with usbmon and the ALSA PCM status page converted earlier in this series
-> to do so.
+> 	/*
+> 	  * vma_flags_is_mm_managed() tests VMA_IO_BIT, which will be removed
+> 	 * in the next commit.
+> 	 */
+> 	vma_flags_clear(&flags, VMA_IO_BIT);
+> 	if (!vma_flags_is_mm_managed(masked)) {
+> 		...
+> 	}
 > 
-> Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
-> disable MAP_PRIVATE-file-backed mapping CoW semantics.
+> Is that really worth it?
 > 
-> This is perhaps not always intended, but we retain this capacity to
-> maintain existing behaviour.
-> 
-> As no driver which clears VMA_MAYWRITE_BIT establishes an mm-managed
-> mapping, no functional change is intended.
-> 
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+> I don't think there's really too much confusion intra-patch about that is there?
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+I would do it as above (- the comment, as that is the next patch indeed) and
+only remove the vma_flags_clear() in the next patch.
+
+But in any case, you should spell out that this is only temporary in the patch
+description :)
 
 -- 
 Cheers,
