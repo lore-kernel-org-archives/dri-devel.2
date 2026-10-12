@@ -4,76 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F95FCA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 18:11:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 954B6CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 18:11:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6C6910EBEF;
-	Mon, 12 Oct 2026 18:11:19 +0000 (UTC)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F32C10F28E
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:11:14 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-c262f1186f0so282293466b.1
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 11:11:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6CC410F2AF;
+	Mon, 12 Oct 2026 18:11:22 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 026A310F2CF
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:11:15 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-6afb0d2a586so3837388a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 11:11:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1791828672; x=1792433472; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=bnEmVKkg5cFu8WsjlyBzfJa9upBux4p0W3hKHpQdaIg=;
- b=X9S+9fUBB4pPX5bMa/cxxBhhPb0zR9BV4Skinwsmz3KE1ircioQkxrT0BZOTBHiAAR
- JRRDVgkn/VbaaRdyU2pPdXtFQuXkyWPFRbceMqxSXuPerfhromV5Rl1Xo2jaUnpHe2mZ
- WEtuS7FwSXXwZwmC/CQ2QvgU/gavctGR50d0RCrq6PvEvjUzNGJohEKNr1s/r7ocDKDy
- t45FdvSaCg+SYHjWslPkGk0nquzYbcCEoqREwEcR0i+/hCYN4olM72yPfoN3i0AdkZpQ
- XrVj9cIE2iFy3q/lbJ+eRMKCKF87/bD3b7PCmmz/JSIspc5Txxdl5DKG56wcN4zDp9P6
- lq1w==
+ d=fairphone.com; s=fair; t=1791828674; x=1792433474; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=H+lZKGmObmd47/Y9rOiwVSAJPnc99rNMg+8rnP10wQQ=;
+ b=piewcuKTxXsXgdTCCT91cIpnzbdj9KGcHwOd5+Bxlk2voSgrgUkHz1tHo+o5rqBSO5
+ PZ0qg9KuqJbrAmNS5rkXFZskys21LZ2/AV1TqKijZVN9Uz0tOm4xSx0a4i/P16CR/jqS
+ lxV8Y/Dc83Rt2+VwG/VDRDXJSHXwqcbjwuJiHcw919DOSKwPAQhSctBuUA3nBDywUygs
+ 3fxPyoPO9fgQQ5c+MoqkYSqfG+/4XX5bwnQ34if9ac+J+h34kCkgKhPJjTc0pUnL0m4Q
+ G1BPbYwSy7JuFgKGsKsu6yxhznOm1LVC3q/epjW5w3aYpxzk8wmtSGZ08Q5EdGmz8/e2
+ AnzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791828672; x=1792433472;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=bnEmVKkg5cFu8WsjlyBzfJa9upBux4p0W3hKHpQdaIg=;
- b=I1HAZwGA9ZOKBX7VuQbIijNxJ4VY03XQ6MLjRAmuv0zgPz9QWkBX5MrcDWg1769QLb
- 4beZhu7GnjOGeLNbvB2wVBEgl2H4LZx9gVC3suxe7wgPjcvLXgNW/PoNL+VzIiGbT0Kk
- xNKX21qByK+pbFWh8u3DXBekW+sQHdQkr8H/MaqCR19wVT3OJdo8yMtb4yf5J8WGAh6+
- wis+WOzUrz44OCe1TlmYZ+NBvGUlsM9oWUH0ll8NxoE8cn84tDOOh39IGkTBG90kuXax
- GywaCqL3Lbipn2TaacGmdWW3M1G68PrU3rW/qxtzHVMm+kJ7A0hIGvjeCHAQ5qIk3WP8
- j/Zg==
+ d=1e100.net; s=20260707; t=1791828674; x=1792433474;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=H+lZKGmObmd47/Y9rOiwVSAJPnc99rNMg+8rnP10wQQ=;
+ b=ONZSYpLeBFCyGrlDdggrsH4s5vLl3ONgfBOzVlNoZmkSEuuEHLp7FdvORMxGHHNxcS
+ S3pntee+vsZxc8spYxLdzb9GAwHhcAN3joOygmIBJ7QDkYl7VoUl2bTmHgm/26rblsSd
+ mtUvU2JQnRqFJb/i9G2fJ2GrcFi6MObk5DIPqJxxx132jCBZ4ak/WB4Szrd8zo8aYpuh
+ HCIENqV3h4JX1ns3yUpfY6mMK1zqRjSrPByORLBTSmVHUuvk5levxSxJcHxY69Oe4d17
+ NEls1gyeXqxJpj86pz6hBPyXCcL90yt8YCirhvrdkLNp4GjKcv1FzNlp6ea163HCCYl3
+ EVNA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw81+r2f+4tSSoXH17/zx9HsmVWIUbGsJpUiVDgNLyqUO+7pTCMm0eqsIr1X3dEJdlTlJk3JbDBMvk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKe2/d+FHhM5a6ob72HWEFHiQgaBQIAabdXDa2cJTaKJg5rPNpJ
- PnYE0523urX/oHDgZ9qVhi9VCWqtuPxqqTqh+ikqxeZp3UUuKIt2auPX3a8zYjjOr60=
-X-Gm-Gg: AYBFou3SqKDDKm7QezOWJtbImNwaCsBGuYAzlaZTTniYMMN6eTGDg0ec6gO1Nm7F9LJ
- 7rzXz2OLdg4H/eqYOm2+ljliskbjQbfl4r1dzgwB0HTxkA8L4T+fCrJagF+pWpGxyfWmPc7IWht
- HjEqGR2MO0/vr8z1KbcTR+z6t9DX3zIkTMnQRBM34opHSrwwEBaatX/JGToS995CiPW/NLoDxI9
- Q333jfCohyeY2sHqErfVDrvg0iiGkhm2lH2vNeTxpPGjHKNNik6WrTUqQ3Lt8dnRPSeK9UrCw79
- +9p95/x8AYzlyD5osGyGI9qL26s/S9ACkfACZ4hdk7pqC/JTxF/XWhPLw06GXlAu+KdDKbeBmZn
- lOG6bnMwkNLj6ooyx4SCo1HFnbbqh0LBUQ0s3l8EUMM6/gGkZb3FWrrFNUjEjUjVdKT7v62gnGt
- Rj3bx39lJyTeZvpqitsaJktjVQ8pNUgDbYLq7C7rsdIiG4ao6DTqNhyJPvg83RtFsVt/NfHUJT5
- e3pF90nCQrlwskKsCqY5gKQI8ACj0Vawo4NxzLbI+BH19j82v065hW0Ont/XbFVr8Ni7kgKr305
- eEUGuGwL2aOWw4DafqI=
-X-Received: by 2002:a17:907:971a:b0:c2e:378c:8cee with SMTP id
- a640c23a62f3a-c31aa05bf43mr948779266b.34.1791828672451; 
- Mon, 12 Oct 2026 11:11:12 -0700 (PDT)
+ AKwUvBy48Y+L7D6f/Rscfp+HvRGaKIIW9h27hkS7L+hCSqWtzsu+gfeWOmgt53Oeue3sa7jNVqwVAYq0zFY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLkE7xaQpqYiJo7hGC+ySwWXvDy4KQPalI87/0m5mLs46Eim3Dg
+ c15VSpI1AY8nLua338uz3a7Rw4WqJ4XLoGFdhVbwTkpoZrRAV4owK0tI7F6NeDwLW9k=
+X-Gm-Gg: AYBFou26xGzIAgXM41RSLpQXQCdtSOvaznwX84Jg5zQErDeuRYlcKY3VCaq9RpddF3H
+ Uvg5R3qyC264QboXxTrcUyG/TuVx9ItaL3qmEgbzVAvfbAHpMKfk9DM5tzhy3Sd8bIdtPQADlgI
+ Lz+5YLobQrthee+XMvCTTfsiVZQhs5eNRE5whG1B3Tbku6vcToJNHSK0iwOUtJBAMKT5YVTZXlI
+ Y1QiSctOA7Eb7gQ/canGqICElbDPdghPZmAoOGg945bxOPqAYQVUyaPr+udEYvjOtlOjjuWfDoE
+ xwM6DyYQLZUiH1IrhYo58qMgRU8CRt92M8eNEJT3TULEODXbdyYEmTaSBLJ9orHSmG4MT2tnJlJ
+ TbUpsmYET1eyp4uwAodsCR+lb05NJeqbwvGfs1J7X74fAgrtewgkQBQEr6Olr5oWJnn0bA0z9xH
+ fhHgvIVFOYtEzaYOOn21Dogqaf9qJc2ArusSNMkZDLx/Fsy+Qw5xBsizHppHn9+TDMmP1kcLTGd
+ hmSAQj4H2Vfb8N0hWSU7CZjiVac+/yQbAkA+pD9ECCDnOKeni9VZj+NLUDjUissq6tT02pLD6f3
+ xsxo84k3/2Oo3kjE0PQ=
+X-Received: by 2002:a17:907:9690:b0:c21:450d:cd88 with SMTP id
+ a640c23a62f3a-c31a9a3361fmr925645566b.6.1791828674339; 
+ Mon, 12 Oct 2026 11:11:14 -0700 (PDT)
 Received: from [192.168.101.179]
  (2001-1c04-0504-7401-4b2e-1820-6d24-b264.cable.dynamic.v6.ziggo.nl.
  [2001:1c04:504:7401:4b2e:1820:6d24:b264])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c31a9ac924dsm498415466b.70.2026.10.12.11.11.09
+ a640c23a62f3a-c31a9ac924dsm498415466b.70.2026.10.12.11.11.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 11:11:10 -0700 (PDT)
+ Mon, 12 Oct 2026 11:11:14 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Subject: [PATCH 0/3] Support for the Samsung Galaxy Book2 Go (SC7280)
-Date: Mon, 12 Oct 2026 20:11:02 +0200
-Message-Id: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
+Date: Mon, 12 Oct 2026 20:11:04 +0200
+Subject: [PATCH 2/3] dt-bindings: arm: qcom: Add Samsung Galaxy Book2 Go
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0ND3aT8/Gyj9HzdJINUSxPTVFPjtJQkJaDqgqLUtMwKsEnRsRB+cWl
- SVmpyCUi7Um0tAHSvcVBrAAAA
-X-Change-ID: 20261011-book2go-b0e945e53fdb
+Message-Id: <20261012-book2go-v1-2-7188e7ea7a15@fairphone.com>
+References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
+In-Reply-To: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
 To: Douglas Anderson <dianders@chromium.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -87,14 +86,13 @@ To: Douglas Anderson <dianders@chromium.org>,
 Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>, Jasper Korten <jja2000@gmail.com>, 
- Luca Weiss <luca@lucaweiss.eu>, Federico Amedeo Izzo <federico@izzo.pro>
+ Luca Weiss <luca.weiss@fairphone.com>, Luca Weiss <luca@lucaweiss.eu>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791828669; l=872;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791828669; l=1131;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=aTUa7IEtoyVwyYxpXeqEYAviexKN4tyKhS8parfMx7w=;
- b=DnBnnWdN69x/EgtwVUigFuygLAgoZ/D9erZU7A/iJC3vkzP0Nrd+22v1FASSvO/66n7Lf31Bk
- 55R0Z3Ed//nCdn42fMg60F2hOzAV9xtQk4lKpZ2SZY9YQXp5BOgIr9f
+ bh=DuXzIQSun3W9jTWkn0omnZ8RlHXkIOkrEU0r1GCIViY=;
+ b=oxiEWLGe3H8pzO7bcR/tz+NQOoZwruYk7HCL2vpDG8HwyoDuSCTZdpze9SQqgYW2Wkw1J2FDY
+ U1pxGlyB9J1DKCDaaTZsaiNK+mo0vI89+6A63YfyKvYFP379CuXN+2U
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,28 +110,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add basic support for the Samsung Galaxy Book2 Go laptop. Basic support
-is just eDP panel support, devicetree bindings and a devicetree.
+From: Luca Weiss <luca@lucaweiss.eu>
 
+The Samsung Galaxy Book2 Go is a laptop with a Snapdragon 7c+ Gen 3 SoC
+(SC7280).
+
+It appears to exist in three variants:
+
+  NP340XNAA-EXP:
+    4GB RAM + 128GB UFS, WiFi-only (NP340XNA-KA1UK)
+
+  NP345XNAA-EXP:
+    4GB RAM + 128GB UFS, 5G (NP345XNA-KA1UK)
+    8GB RAM + 256GB UFS, 5G (NP345XNA-KA2UK)
+
+The internal code name is Hermes2-14.
+
+Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
-Jasper Korten (2):
-      drm/panel-edp: Add AUO B140HAN04.0 panel entry
-      arm64: dts: qcom: Add Samsung Galaxy Book2 Go
+ Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Luca Weiss (1):
-      dt-bindings: arm: qcom: Add Samsung Galaxy Book2 Go
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ff8a35df7862..5048e878b7ca 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -887,6 +887,11 @@ properties:
+           - const: google,zombie-sku514
+           - const: qcom,sc7280
+ 
++      - items:
++          - enum:
++              - samsung,galaxy-book2-go
++          - const: qcom,sc7280
++
+       - items:
+           - enum:
+               - lenovo,flex-5g
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |   5 +
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../dts/qcom/sc7280-samsung-galaxy-book2-go.dts    | 643 +++++++++++++++++++++
- drivers/gpu/drm/panel/panel-edp.c                  |   1 +
- 4 files changed, 650 insertions(+)
----
-base-commit: d970aefaa8160df2d536a71cee2d3df9ff65889c
-change-id: 20261011-book2go-b0e945e53fdb
-
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
+-- 
+2.56.0
 
