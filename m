@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84E22CA9ED9
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0391CCA9ED6
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460E910EC68;
-	Mon, 12 Oct 2026 04:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA1110E5D3;
+	Mon, 12 Oct 2026 04:16:08 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4350D10EAD5;
- Mon, 12 Oct 2026 04:15:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ED7B10E4C0;
+ Mon, 12 Oct 2026 04:16:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778557; x=1823314557;
+ t=1791778561; x=1823314561;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w/J3tBU++oM6gIEK+73WH+4QFGX2n1NaQyl5Sgk1Ni4=;
- b=JSIOJEZ/jrYO8+i30sDfjPwu1KVsL6BKHRLgJZIG+8m3BzQuri7ZHCrn
- l7W+UIztFgWdnDLbeD9V7g9yKwjqi9RmyDOONjamo3Q9thRjMvRg8Hxym
- 4Dm9pGqdIw+ol5OFvpfF4hlxOMZGs3DgNy4gSMaiQVVJDg2EL2no1YvBK
- 4I0LpCNBX8I8x0uHIFaQqjTiv7Hl+c5DfDfP/eCA/4Mo3+Z7kIKaKHmgI
- GqeL0IlR9AVNn0V4FEDvoCa02aC0iVl6CRwczm3krDzxs/ROJ9KZGu4+K
- RUkGk2xM29SyK2z2tPY7ZA+/eemrEf/atwMV2kLZnSgpUPrYOpW4dDRD2 A==;
-X-CSE-ConnectionGUID: zsqEYpYhRwSs5yGMhyslgA==
-X-CSE-MsgGUID: eODG6lbeTfWGr6ZiMqr6Ww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380945"
+ bh=QwQyKDdyEwbuO7BH8pDv8mPQ0JaHfjTDkap48ltVi/E=;
+ b=XutzbrKiCjUDlayIHtEhyr7/vrKDaY5ANgKheMS36MdAfl+Whr6KmOKW
+ +PPB8CnQBGKb1BGWRiZE0+/OGgUiDm+eJVgaHLjpBWrf7oVjnDYE1yazN
+ iMHZvCV8ovnKSLqK5QM/R0/PGShJJQX/iyqIzeuNBIG7an12tMKCrtJCE
+ n61Z6dX/GYqQ8t8il59gN9P269qVTYV4MTpapLc/2ZvNo/6nBrrlTQS/y
+ k/MB6xspWgghASWC1Kk1BxFXf5eAF06ex4YGlt99ACiKM/ELL6B94zB0+
+ w7atM4p9ymvhLQmrfvbgi+L6DM94OGKyv1fIre1NY7jAcXBK55RmrE+8j A==;
+X-CSE-ConnectionGUID: kG3Hm0XiTDKGhTmzRSIlPA==
+X-CSE-MsgGUID: /uu057AGSgKujs9mzdsGhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380947"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="380945"
+   d="scan'208";a="380947"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:15:57 -0700
-X-CSE-ConnectionGUID: vJ3c+l2yTla6MdXONVg/dA==
-X-CSE-MsgGUID: WShSNcHRSTmyeswIMS4pGg==
+ 11 Oct 2026 21:16:01 -0700
+X-CSE-ConnectionGUID: OUDBACpaSPOumQNncqaRuw==
+X-CSE-MsgGUID: yCBz3Wf7QL+dI2urb6YjAA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256706"
+   d="scan'208";a="1256736"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:15:55 -0700
+ 11 Oct 2026 21:16:00 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 45/56] drm/i915/hdmi: Use the real pixel clock as
- crtc_clock for FRL
-Date: Mon, 12 Oct 2026 09:27:54 +0530
-Message-ID: <20261012035806.3361439-46-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 47/56] drm/i915/hdmi: Compute output format for HDMI FRL
+ mode
+Date: Mon, 12 Oct 2026 09:27:56 +0530
+Message-ID: <20261012035806.3361439-48-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
@@ -70,61 +70,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For FRL, port_clock is the link rate, decoupled from the pixel clock, so
-hsw_crtc_compute_clock() must not overwrite crtc_clock via
-intel_crtc_dotclock().
-The FRL pixel clock isn't recoverable from hardware (the FRL M/N is the DFM
-tri-byte ratio), so take the sw value in verify_crtc_state()
-for the derived clock fields.
+If the source and sink support FRL, then compute output format
+that can support HDMI FRL mode. This in turn calculates the FRL
+configuration, clocks etc required to support a video mode with
+FRL transmission.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll.c      |  2 +-
- .../drm/i915/display/intel_modeset_verify.c    | 18 ++++++++++++++++++
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 66 +++++++++++++++++------
+ 1 file changed, 50 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index 20fd091cb9db..851a4abf2448 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -1171,7 +1171,7 @@ static int hsw_crtc_compute_clock(struct intel_atomic_state *state,
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index ce6ad9e28bee..425971d8927a 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2543,10 +2543,11 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
+ 	return intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits, enable_frl);
+ }
  
- 	/* CRT dotclock is determined via other means */
--	if (!crtc_state->has_pch_encoder)
-+	if (!crtc_state->has_pch_encoder && !crtc_state->frl.enable)
- 		crtc_state->hw.adjusted_mode.crtc_clock = intel_crtc_dotclock(crtc_state);
+-static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
+-				      struct intel_crtc_state *crtc_state,
+-				      const struct drm_connector_state *conn_state,
+-				      bool respect_downstream_limits)
++static int _intel_hdmi_compute_formats(struct intel_encoder *encoder,
++				       struct intel_crtc_state *crtc_state,
++				       const struct drm_connector_state *conn_state,
++				       bool respect_downstream_limits,
++				       bool enable_frl)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+@@ -2558,7 +2559,7 @@ static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
+ 		ret = intel_hdmi_compute_output_format(encoder, crtc_state, connector,
+ 						       respect_downstream_limits,
+ 						       INTEL_OUTPUT_FORMAT_YCBCR420,
+-						       false);
++						       enable_frl);
  
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_verify.c b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-index f0761d8a7437..54ec1f439b90 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-@@ -218,6 +218,24 @@ verify_crtc_state(struct intel_atomic_state *state,
- 	if (!sw_crtc_state->hw.active)
- 		goto destroy_state;
+ 		if (ret && !respect_downstream_limits) {
+ 			drm_dbg_kms(display->drm,
+@@ -2567,19 +2568,19 @@ static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
+ 			ret = intel_hdmi_compute_output_format(encoder, crtc_state, connector,
+ 							       respect_downstream_limits,
+ 							       INTEL_OUTPUT_FORMAT_RGB,
+-							       false);
++							       enable_frl);
+ 		}
+ 	} else {
+ 		ret = intel_hdmi_compute_output_format(encoder, crtc_state, connector,
+ 						       respect_downstream_limits,
+ 						       INTEL_OUTPUT_FORMAT_RGB,
+-						       false);
++						       enable_frl);
  
+ 		if (ret && drm_mode_is_420_also(info, adjusted_mode))
+ 			ret = intel_hdmi_compute_output_format(encoder, crtc_state, connector,
+ 							       respect_downstream_limits,
+ 							       INTEL_OUTPUT_FORMAT_YCBCR420,
+-							       false);
++							       enable_frl);
+ 	}
+ 
+ 	return ret;
+@@ -2620,6 +2621,26 @@ bool intel_hdmi_compute_has_hdmi_sink(struct intel_encoder *encoder,
+ 		!intel_hdmi_is_cloned(crtc_state);
+ }
+ 
++static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
++				      struct intel_crtc_state *crtc_state,
++				      const struct drm_connector_state *conn_state,
++				      bool enable_frl)
++{
++	int ret;
++
 +	/*
-+	 * The HDMI FRL pixel clock is decoupled from port_clock and cannot be
-+	 * recovered from hardware readout. The FRL M/N is the DFM tri-byte ratio, not
-+	 * a pixel:link ratio so we cannot derive the pixel clock accurately.
-+	 * To avoid mismatches and to avoid handling PIPE_CONF_CHECK for FRL,
-+	 * copy the software value to the hardware state.
++	 * Try to respect downstream TMDS clock limits first, if
++	 * that fails assume the user might know something we don't.
 +	 */
-+	if (sw_crtc_state->frl.enable) {
-+		hw_crtc_state->hw.adjusted_mode.crtc_clock =
-+			sw_crtc_state->hw.adjusted_mode.crtc_clock;
-+		hw_crtc_state->hw.pipe_mode.crtc_clock =
-+			sw_crtc_state->hw.pipe_mode.crtc_clock;
-+		hw_crtc_state->pixel_rate =
-+			sw_crtc_state->pixel_rate;
-+		hw_crtc_state->pixel_rate_cdclk =
-+			sw_crtc_state->pixel_rate_cdclk;
++	ret = _intel_hdmi_compute_formats(encoder, crtc_state,
++					  conn_state, true, enable_frl);
++	if (ret)
++		ret = _intel_hdmi_compute_formats(encoder, crtc_state,
++						  conn_state, false, enable_frl);
++
++	return ret;
++}
++
+ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 			      struct intel_crtc_state *pipe_config,
+ 			      struct drm_connector_state *conn_state)
+@@ -2628,6 +2649,9 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
+ 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+ 	struct drm_scdc *scdc = &connector->base.display_info.hdmi.scdc;
++	struct intel_hdmi *intel_hdmi = enc_to_intel_hdmi(encoder);
++	bool enable_frl = false;
++	int lane_count = 4;
+ 	int ret;
+ 
+ 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
+@@ -2648,13 +2672,23 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 	if (!intel_link_bw_compute_pipe_bpp(pipe_config))
+ 		return -EINVAL;
+ 
+-	/*
+-	 * Try to respect downstream TMDS clock limits first, if
+-	 * that fails assume the user might know something we don't.
+-	 */
+-	ret = intel_hdmi_compute_formats(encoder, pipe_config, conn_state, true);
+-	if (ret)
+-		ret = intel_hdmi_compute_formats(encoder, pipe_config, conn_state, false);
++	if (HAS_HDMI_FRL(display) &&
++	    intel_bios_hdmi_max_frl_rate(encoder->devdata) &&
++	    intel_hdmi->has_sink_hdmi_21)
++		enable_frl = true;
++
++	ret = intel_hdmi_compute_formats(encoder, pipe_config, conn_state, false);
++
++	if (ret && enable_frl) {
++		ret = intel_hdmi_compute_formats(encoder, pipe_config, conn_state, true);
++		drm_dbg_kms(display->drm,
++			    "Enabling FRL mode with lanes = %d rate = %d\n",
++			    pipe_config->frl.required_lanes,
++			    pipe_config->frl.required_rate);
++		pipe_config->frl.enable = true;
++		lane_count = pipe_config->frl.required_lanes;
 +	}
 +
- 	intel_pipe_config_sanity_check(hw_crtc_state);
+ 	if (ret) {
+ 		drm_dbg_kms(display->drm,
+ 			    "unsupported HDMI clock (%d kHz), rejecting mode\n",
+@@ -2677,7 +2711,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 		adjusted_mode->picture_aspect_ratio =
+ 			conn_state->picture_aspect_ratio;
  
- 	if (!intel_pipe_config_compare(sw_crtc_state,
+-	pipe_config->lane_count = 4;
++	pipe_config->lane_count = lane_count;
+ 
+ 	if (scdc->scrambling.supported && source_supports_scrambling(encoder) &&
+ 	    !pipe_config->frl.enable) {
 -- 
 2.50.1
 
