@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0716FCA9EDD
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40769CA9EDC
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA8E510E770;
-	Mon, 12 Oct 2026 04:15:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F44510EAED;
+	Mon, 12 Oct 2026 04:15:52 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A04810E6B5;
- Mon, 12 Oct 2026 04:15:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF1110E4C0;
+ Mon, 12 Oct 2026 04:15:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778540; x=1823314540;
+ t=1791778544; x=1823314544;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Lm8OL7AmJT89Qq9PNAvVTRb4WM+/jpzwRS6khu+l2JA=;
- b=GVLhglt5eqjB3bdZFtpi4vfH7l9SUhjhzMbKsqj/X/IP6rPRhzwHM0QK
- AlaJ/xn3YG3PEdw1GM+PreMFsGsQxCOqISI1CDknyAXL8xYJ6g+trIHJK
- OMFHxe59i+/X2W+dtkpx5ft+auznUkFGvpWruWOHy+vqGtxnVFe66XEum
- DPpKwE2tmA8vPfok9Hk1iVAGC41FzQLfmXg0Kv5Lsnst6KzOqaFlRpfWh
- p8sp4wU94FH2lVavU2eG3rZo5T5b1yAwCDRk+iLiYNVoh7fBzcpsk1dUx
- dLggWyx+QD2TCGJq29d+nZ/tFuF1euQXWXWsu15PJI0NYTiAIqWlO6U4Q w==;
-X-CSE-ConnectionGUID: /m7iYEvFTa2677ng/0syyQ==
-X-CSE-MsgGUID: 8qz3PVwMSvOUVZvwJdv1Kg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380926"
+ bh=IQmRlmklJrGXHgo4v8TXtFvvc7A4rRDkhpc2MqAMzts=;
+ b=V32aLn8BfbY1UQ37cNGOiStIGBjqrnzfbfjEyQMbgzDpaILmOWkf6T+W
+ k7vrJxywrch1eRoY7dPSaVoQB0YHi++eZcSi0gdUDAgFpyfrI1ACc5eXc
+ /QY1iLq3CVe2pZoDAwh2SIEp+CnRdo/juw/ePgQMkLceVASjdna57EyWC
+ ciU6VTXebnOF6SH0tDS4ynY8I7/2YKRbZHTdjRoxCK7blL7/HG3wPJoJU
+ Hw5XURlVnkZBZEhW0a8PllZCcc8GJURGYewWgl/ZMnpWEkh9FkqZkf7P1
+ FgtpOcrjLzdVyU57GptBTAZQM2WWIcPlLYYsojSHKYUR0Db7pqmR0bHjG Q==;
+X-CSE-ConnectionGUID: Jr/OTvQVQ1K3Nlk+vU9sMg==
+X-CSE-MsgGUID: EIPe0BkLSRyxxXb9E0Xbcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380934"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="380926"
+   d="scan'208";a="380934"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:15:36 -0700
-X-CSE-ConnectionGUID: SyNHCNK1TxqHwMYnpTqxrA==
-X-CSE-MsgGUID: /ZmCkKWHQKyQbuINBeDezQ==
+ 11 Oct 2026 21:15:42 -0700
+X-CSE-ConnectionGUID: V8lxF08HQT2GaQ1AzjKFiA==
+X-CSE-MsgGUID: 9xNvJ1rsRsqxUOeMc0mwKA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256597"
+   d="scan'208";a="1256633"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:15:34 -0700
+ 11 Oct 2026 21:15:41 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 36/56] drm/i915/hdmi: Validate FRL modes in mode_valid
- using the FRL DFM
-Date: Mon, 12 Oct 2026 09:27:45 +0530
-Message-ID: <20261012035806.3361439-37-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 39/56] drm/i915/hdmi: Add support for sending uevent to
+ user for FRL training failure
+Date: Mon, 12 Oct 2026 09:27:48 +0530
+Message-ID: <20261012035806.3361439-40-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
@@ -70,120 +70,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Modes above the TMDS limits can still be driven over FRL. When the
-TMDS check fails, fall back to an FRL check that runs the non-DSC FRL DFM
-at the best case (min bpc, max FRL rate, min audio) to confirm the mode
-fits.
+In case of HDMI FRL training failure for a given mode, the user
+should be sent a uevent signalling Link failure.
 
-The fallback is gated on intel_hdmi_can_support_frl(), added here as a
-placeholder returning false, so the FRL path stays inactive until FRL
-support is completed in a later change.
+Add support for sending uevent to userspace in case of link training
+failure.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 61 ++++++++++++++++++++++-
- 1 file changed, 60 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 32 +++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 67228b538e81..b82c636b46f9 100644
+index 0391597c9847..69612ebe80f0 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -62,6 +62,7 @@
- #include "intel_hdcp_regs.h"
- #include "intel_hdcp_shim.h"
- #include "intel_hdmi.h"
-+#include "intel_hdmi_frl_dfm.h"
- #include "intel_link_bw.h"
- #include "intel_lspcon.h"
- #include "intel_panel.h"
-@@ -2021,6 +2022,51 @@ intel_hdmi_tmds_mode_clock_valid(struct drm_connector *_connector, int clock,
- 	return status;
- }
+@@ -71,6 +71,8 @@
+ #include "intel_snps_phy.h"
+ #include "intel_vrr.h"
  
-+static u32
-+get_drm_color_format(enum intel_output_format output_format)
-+{
-+	switch (output_format) {
-+	case INTEL_OUTPUT_FORMAT_RGB:
-+		return DRM_OUTPUT_COLOR_FORMAT_RGB444;
-+	case INTEL_OUTPUT_FORMAT_YCBCR420:
-+		return DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		return DRM_OUTPUT_COLOR_FORMAT_YCBCR444;
-+	default:
-+		return DRM_OUTPUT_COLOR_FORMAT_RGB444;
-+	}
-+}
++#define HAS_HDMI_FRL(__display)		(DISPLAY_VER((__display)) >= 14)
 +
-+static enum drm_mode_status
-+intel_hdmi_frl_mode_clock_valid(struct intel_connector *connector,
-+				const struct drm_display_mode *mode,
-+				enum intel_output_format output_format)
-+{
-+	struct intel_hdmi *hdmi = intel_attached_hdmi(connector);
-+	struct intel_hdmi_frl_dfm frl_dfm = {};
-+	int max_rate = hdmi->max_frl_rate;
-+	int lanes = max_rate < 24 ? 3 : 4;
-+
-+	frl_dfm.config.pixel_clock_nominal_khz = mode->clock;
-+	frl_dfm.config.hactive = mode->hdisplay;
-+	frl_dfm.config.hblank = mode->htotal - mode->hdisplay;
-+
-+	/* Use min bpc to check if mode can be supported */
-+	frl_dfm.config.bpc = 8;
-+	frl_dfm.config.color_format = get_drm_color_format(output_format);
-+	frl_dfm.config.lanes = lanes;
-+	frl_dfm.config.bit_rate_kbps = (max_rate * 1000000) / lanes;
-+
-+	/* min audio */
-+	frl_dfm.config.audio_channels = 2;
-+	frl_dfm.config.audio_hz = 48000;
-+
-+	if (!intel_hdmi_frl_dfm_nondsc_requirement_met(&frl_dfm))
-+		return MODE_CLOCK_HIGH;
-+
-+	return MODE_OK;
-+}
-+
- static enum drm_mode_status
- intel_hdmi_sink_format_valid(struct intel_connector *connector,
- 			     const struct drm_display_mode *mode,
-@@ -2045,6 +2091,13 @@ intel_hdmi_sink_format_valid(struct intel_connector *connector,
+ bool intel_hdmi_is_frl(u32 clock)
+ {
+ 	static const u32 rates[] = { 300000, 600000, 800000, 1000000, 1200000 };
+@@ -3397,6 +3399,31 @@ void intel_infoframe_init(struct intel_digital_port *dig_port)
  	}
  }
  
-+static bool
-+intel_hdmi_can_support_frl(struct intel_hdmi *intel_hdmi)
++/* Common code with DP, need to put in a common place */
++static void intel_hdmi_modeset_retry_work_fn(struct work_struct *work)
 +{
-+	/* TODO check for FRL support */
-+	return false;
++	struct intel_connector *intel_connector;
++	struct drm_connector *connector;
++
++	intel_connector = container_of(work, typeof(*intel_connector),
++				       modeset_retry_work);
++	connector = &intel_connector->base;
++	DRM_DEBUG_KMS("[CONNECTOR:%d:%s]\n", connector->base.id,
++		      connector->name);
++
++	/* Grab the locks before changing connector property*/
++	mutex_lock(&connector->dev->mode_config.mutex);
++	/*
++	 * Set connector link status to BAD and send a Uevent to notify
++	 * userspace to do a modeset.
++	 */
++	drm_connector_set_link_status_property(connector,
++					       DRM_MODE_LINK_STATUS_BAD);
++	mutex_unlock(&connector->dev->mode_config.mutex);
++	/* Send Hotplug uevent so userspace can reprobe */
++	drm_kms_helper_hotplug_event(connector->dev);
 +}
 +
- static enum drm_mode_status
- intel_hdmi_mode_valid_format(struct intel_connector *connector,
- 			     const struct drm_display_mode *mode,
-@@ -2052,6 +2105,7 @@ intel_hdmi_mode_valid_format(struct intel_connector *connector,
- 			     enum intel_output_format sink_format)
+ bool intel_hdmi_init_connector(struct intel_digital_port *dig_port,
+ 			       struct intel_connector *intel_connector)
  {
- 	struct intel_display *display = to_intel_display(connector);
-+	struct intel_hdmi *hdmi = intel_attached_hdmi(connector);
- 	enum drm_mode_status status;
+@@ -3470,6 +3497,11 @@ bool intel_hdmi_init_connector(struct intel_digital_port *dig_port,
+ 	if (!intel_hdmi->cec_notifier)
+ 		drm_dbg_kms(display->drm, "CEC notifier get failed\n");
  
- 	status = intel_hdmi_sink_format_valid(connector, mode,
-@@ -2063,7 +2117,12 @@ intel_hdmi_mode_valid_format(struct intel_connector *connector,
- 	if (status != MODE_OK)
- 		return status;
- 
--	return intel_hdmi_tmds_mode_clock_valid(&connector->base, clock, has_hdmi_sink, sink_format);
-+	status = intel_hdmi_tmds_mode_clock_valid(&connector->base, clock, has_hdmi_sink, sink_format);
++	/* Initialize the work for modeset in case of link train failure */
++	if (HAS_HDMI_FRL(display))
++		INIT_WORK(&intel_connector->modeset_retry_work,
++			  intel_hdmi_modeset_retry_work_fn);
 +
-+	if (status != MODE_OK && intel_hdmi_can_support_frl(hdmi))
-+		status = intel_hdmi_frl_mode_clock_valid(connector, mode, sink_format);
-+
-+	return status;
+ 	return true;
  }
  
- static enum drm_mode_status
 -- 
 2.50.1
 
