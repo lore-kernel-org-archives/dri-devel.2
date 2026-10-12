@@ -4,168 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5957CC6B0E
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A53DDCC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2988410F58A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C16110F5B9;
 	Tue, 13 Oct 2026 07:53:29 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4121A10F2F2
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:50:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 614B6601E4;
- Mon, 12 Oct 2026 18:50:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC3E1F0089B;
- Mon, 12 Oct 2026 18:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791831046;
- bh=38uWEgDKI5eF78uuznuaCjVsoYczQiXE9MFjqO5oCvg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=X995GYifw7PrMKKJ1NpvxcWBaCAfqXTD5h3RO3nQXpyfK88CyU0oN+qCYuVNQoBfD
- Et5yOHn0bPhyCs9Jo50EXVQeNDA6fO1ffpVJmOa8Em3ujV0bhTB11mmU1otlP3c0ot
- JM2+sq4kPT0Hbw3bBDjmIr1uHp4GzqqX4oYOcHOTIMS3qd+6tN3lZAF8J214OWEKuY
- r/nHBqo4YxpRZK2UypT3YwkJtL6SbjE2Pbe+lcFHHYIOSn4ksFr6ttzt6/ja3zVUR2
- vDzF0jHc3Hyp4Fo4fyKKKVxhZcQlrrywc0fpPDd6ZNxltI1QoZzCxQKl3aTu5Hguxh
- 7HbTWgLExma8A==
-Message-ID: <22dc04ac-c046-4baa-9bdf-a5ba07c0c0ca@kernel.org>
-Date: Mon, 12 Oct 2026 20:50:09 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 34/38] mm: eliminate VMA_SPECIAL_FLAGS check in
- lru_gen_look_around()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C03A10E606
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 15:45:00 +0000 (UTC)
+Received: by mail-dl1-f49.google.com with SMTP id
+ a92af1059eb24-170135e43c7so1027110c88.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:45:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791819900; x=1792424700; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZJlyzhoWQhc9t2V9V/IMOCakgx6bB3MzV1A39J6uch0=;
+ b=fdSTyf6+VvxIVvQtwtytmc7PRBCzWuCFGZ11KXqNdLPNwPJxE3QCe37jRxVALhponY
+ rQycuB+drCCAg8Ra6D0TXuicAooxEbbLHnUNRRB4AzNtMzeQ1ek5maHOOR8F9Nulbc3g
+ /nxRFmdJySVMPLT3pHh9bf4iiWhn5SDQY7IwK14iIyqvDSpxTYOO0UdVSi9HK2CWPWiF
+ B1C0ilNZynhyAx9HqoHXyzgoo44lzFc0kTcT7CFYNBKGY5AzRK/aM+siA4EYFkqMq8Qy
+ b4F7Ixlw6UQ6BOy2vLB8yF4g31aoIlRiKzD9f6szxGvKEeQwdHpZva4XfPA4x2fypyuj
+ 6qCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791819900; x=1792424700;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZJlyzhoWQhc9t2V9V/IMOCakgx6bB3MzV1A39J6uch0=;
+ b=CAN9SRtVhlPzRfQ/A8KP9kNPdroFIzE8gPEAy/Zf5EEeu4JKxexlmkQ3WCUP9/IjHz
+ Zoai69w/6eVpbSN4v6TFa+167QSsMQAXG/m6qUxR2F64+Ie1pUxnAZNjr00MvT7ddr/r
+ eg6Z7E/XkPTc97xRP/+HTD2HyPioFLTLRVDoun6F+7QEb4MDox1Ki8KHGbVK2P2QEyiB
+ A/b8M18UMsnWuRlblYKcyTKwiRoEEuuanw4YWUuP65Uj+TUdNP/D1lPHECplQjEVHm2N
+ 7A05+BTRyWXb35sBnqrKo9c3Gi0RqN1sO5ZtY8vXi4o22l68G+E6a0ftZg8N2OgEZTdm
+ 3kUQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzkrG1xAsfteuZk7E5bd22gUQndTYyMHsPBVfGD7BxJKIpY57ux3r8cDpQBnFaWDTH5eguogDpSeuo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJD13jW3xKILeYKaC0VuTL2SXGiT5yT6xVOloBZZdRAR63h/fWU
+ TTVQFXYDLYgujbbj7HonuDOaWDMGBe81Scg0QOrGMAq1x9p//YZ12893
+X-Gm-Gg: AYBFou0CYBWFzc+tiSMB2S91pMBUB+7uMsxVeOqe7HZIGLNRW/2Yr67dx7mmHRrDLk2
+ jxP+JHLj0l96hSdv31CNvHVZ5RJfwsqgQMJRvYn/AzqjgQUU8JeTBlQtucwfHTW5yzwMK+ypobP
+ HxJZexmkzDZsSfVvxmRLpWnC6Y39o2DL2rzrGmO83neri5O7yhvTiAOOW65HxmQ490Vg3mxFjeu
+ Mcp13O5oxNCAeoQAFbHwJgYlzaG6MWpqvJotyGhLwALOHmMVCWrtkL+LAxLFZetclZSmcXZoTQu
+ HN5uknYo38iSjyKgYDVaXINBKjgGh3cwGdbKV+INbPhE6cuvrKa0qY/UewwRhcPa4joTLnDDcV5
+ KV/Ylw7TbOTJbX/8EQGSiqU6jZpg7vz8xgNVfYQvhwsjMfMWgLRUkKUGlAW5HoQ50ZI9euWmHmj
+ TY3uRHlMPyOVPIgsPAY+sAORiVoYs57ddNIHMBh7XlVPzGEyw+0FH/7HlbIzk+5jW9+rNA9km81
+ COiPRUQWp6U/eXBs1eP5/BNxbJf54K8IuthmmisVLItGgnu5MibRw+6g4OToj3tOL+DbEY6rovM
+ HQtloIk=
+X-Received: by 2002:a05:701b:291b:b0:14c:aaa0:941c with SMTP id
+ a92af1059eb24-16a64ba421cmr13044123c88.35.1791819899484; 
+ Mon, 12 Oct 2026 08:44:59 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:c1bb:8d21:6c07:8107])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-169a567aef5sm30728040c88.19.2026.10.12.08.44.55
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 12 Oct 2026 08:44:58 -0700 (PDT)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
- Bert Karwatzki <spasswolf@web.de>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-34-923b70125b1e@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-34-923b70125b1e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH] drm/vkms: Fix kernel-doc parameter and member names
+Date: Mon, 12 Oct 2026 21:14:47 +0530
+Message-ID: <20261012154449.42015-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -181,45 +90,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> A fixed or non-mm-managed mapping is one which sets VMA_PFNMAP_BIT,
-> VMA_MIXEDMAP_BIT or VMA_DONTEXPAND_BIT, which is precisely what
-> VMA_SPECIAL_FLAGS tests for other than VMA_IO_BIT, which is safe to drop as
-> mm-managed mappings may not set it.
-> 
-> Using these predicates rather than VMA_SPECIAL_FLAGS makes the check
-> self-documenting and helps eliminate the confusion around 'special' flags.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/vmscan.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 3b318efa2916..7adffe8182b3 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4418,8 +4418,8 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
->  	if (spin_is_contended(pvmw->ptl))
->  		return true;
->  
-> -	/* exclude special VMAs containing anon pages from COW */
-> -	if (vma->vm_flags & VM_SPECIAL)
-> +	/* exclude fixed and non-mm-managed VMAs containing anon pages from COW */
-> +	if (!vma_is_mm_managed(vma) || vma_is_fixed_mapping(vma))
->  		return true;
+A handful of kernel-doc entries name things that do not exist. struct
+vkms_output documents encoder and connector and misspells wb_connector,
+struct vkms_connector calls its base member drm, vkms_crtc_init() lists a
+crtc argument it does not take, the CRTC plane helpers say crtc_config
+instead of crtc_cfg, and vkms_config_plane_get_type() is written without
+the get.
 
-If you keep the droppable thing out there you can just use
+struct vkms_device used a dash instead of a colon, so its entries were
+being ignored rather than warned about. Switch it over and drop output,
+which is not a member either.
 
-vma_is_mm_backed() here I think.
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+@vblank_hrtimer and @period_ns in struct vkms_output are stale too, but
+they are already removed by Thomas Zimmermann's pending patch, so this
+one leaves them alone:
+https://lore.kernel.org/all/20260420131831.242882-1-tzimmermann@suse.de/
+ drivers/gpu/drm/vkms/vkms_config.h    |  6 +++---
+ drivers/gpu/drm/vkms/vkms_connector.h |  2 +-
+ drivers/gpu/drm/vkms/vkms_drv.h       | 11 ++++-------
+ 3 files changed, 8 insertions(+), 11 deletions(-)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
+diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
+index 8f7f286a4..56805b0c9 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.h
++++ b/drivers/gpu/drm/vkms/vkms_config.h
+@@ -269,7 +269,7 @@ struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config);
+ void vkms_config_destroy_plane(struct vkms_config_plane *plane_cfg);
+ 
+ /**
+- * vkms_config_plane_type() - Return the plane type
++ * vkms_config_plane_get_type() - Return the plane type
+  * @plane_cfg: Plane to get the type from
+  */
+ static inline enum drm_plane_type
+@@ -373,7 +373,7 @@ vkms_config_crtc_set_writeback(struct vkms_config_crtc *crtc_cfg,
+ /**
+  * vkms_config_crtc_primary_plane() - Return the primary plane for a CRTC
+  * @config: Configuration containing the CRTC
+- * @crtc_config: Target CRTC
++ * @crtc_cfg: Target CRTC
+  *
+  * Note that, if multiple primary planes are found, the first one is returned.
+  * In this case, the configuration will be invalid. See vkms_config_is_valid().
+@@ -387,7 +387,7 @@ struct vkms_config_plane *vkms_config_crtc_primary_plane(const struct vkms_confi
+ /**
+  * vkms_config_crtc_cursor_plane() - Return the cursor plane for a CRTC
+  * @config: Configuration containing the CRTC
+- * @crtc_config: Target CRTC
++ * @crtc_cfg: Target CRTC
+  *
+  * Note that, if multiple cursor planes are found, the first one is returned.
+  * In this case, the configuration will be invalid. See vkms_config_is_valid().
+diff --git a/drivers/gpu/drm/vkms/vkms_connector.h b/drivers/gpu/drm/vkms/vkms_connector.h
+index ed312f4ef..52ae97af2 100644
+--- a/drivers/gpu/drm/vkms/vkms_connector.h
++++ b/drivers/gpu/drm/vkms/vkms_connector.h
+@@ -11,7 +11,7 @@
+ /**
+  * struct vkms_connector - VKMS custom type wrapping around the DRM connector
+  *
+- * @drm: Base DRM connector
++ * @base: Base DRM connector
+  */
+ struct vkms_connector {
+ 	struct drm_connector base;
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index 0933e4ce0..1c94a2dea 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -202,9 +202,8 @@ struct vkms_crtc_state {
+  * struct vkms_output - Internal representation of all output components in VKMS
+  *
+  * @crtc: Base CRTC in DRM
+- * @encoder: DRM encoder used for this output
+- * @connector: DRM connector used for this output
+- * @wb_connecter: DRM writeback connector used for this output
++ * @wb_connector: DRM writeback connector used for this output
++ * @wb_encoder: DRM encoder used for this output
+  * @vblank_hrtimer: Timer used to trigger the vblank
+  * @period_ns: vblank period, in nanoseconds, used to configure @vblank_hrtimer and to compute
+  *	       vblank timestamps
+@@ -234,9 +233,8 @@ struct vkms_config_plane;
+ /**
+  * struct vkms_device - Description of a VKMS device
+  *
+- * @drm - Base device in DRM
+- * @faux_dev - Associated faux device
+- * @output - Configuration and sub-components of the VKMS device
++ * @drm: Base device in DRM
++ * @faux_dev: Associated faux device
+  * @config: Configuration used in this VKMS device
+  */
+ struct vkms_device {
+@@ -284,7 +282,6 @@ void vkms_destroy(struct vkms_config *config);
+ /**
+  * vkms_crtc_init() - Initialize a CRTC for VKMS
+  * @dev: DRM device associated with the VKMS buffer
+- * @crtc: uninitialized CRTC device
+  * @primary: primary plane to attach to the CRTC
+  * @cursor: plane to attach to the CRTC
+  */
 -- 
-Cheers,
+2.46.0
 
-David
