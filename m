@@ -4,104 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC71CA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 14:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46E2CCA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 14:48:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5297310F177;
-	Mon, 12 Oct 2026 14:46:26 +0000 (UTC)
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC08A10F1A1
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 14:46:19 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-53397325663so21287191cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:46:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1791816378; x=1792421178; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=kVDh4BcUbgvIW1O8+CoyCzwwqxHQNia8D9+ovujPztQ=;
- b=MyDVWSa9+zUbSb7PIXZIhWMaOcIiJvuh6dbjLAgV4CQjZrxlueNhoYjs1+sN/RNuAt
- oDNPtQpBa72pmyBSw7ivtbTRVe0CTnT7Not/J/+IHDEf6Kstq+l1R5tyvlG83fTulmPH
- jIV6hlV3tY2bPyNg+WJen3I8yJczWdhSbv+duZv9q4C7eHj3DbSShYq3zBjTOTHROERN
- sBV2IA5luSZVB0LSZgeXTIEwSM21dj3T6ZbQv5w0jzWGkoc4kWbimwF3LJS5IlVGjDMg
- g2HLSMeCjNDS/aRKwg4q83aSC8xi8HoG2RvtUGi9P35s64Ibgb3AtSzU4m/eVIZQfWAE
- 5YJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791816378; x=1792421178;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=kVDh4BcUbgvIW1O8+CoyCzwwqxHQNia8D9+ovujPztQ=;
- b=v6FsBhzgk5//sWhaA8ga30zRx1NKTW6rcvNF69o4fFITO7EqxVh1IfEHu+kcTGJO+Q
- rFDVODa6s7BTgq2PON7bxgAyjLrmyrsgGhnybGm/cTTRdzS+Lr+zl4geUUIqaaaYZKC6
- UL4vOju4stjWmakl+523y5T9vhMhrGO8nipACTN4f9Li5qpYU3xjMiiY41i7tZOLOHZs
- T1h9o7igP1UTYRUiKRxYqpIyWG8VfDPDHuVoh8/oEBBMOd1ZPHBXT8N1kc7UEroPjX8P
- W1JgCclUrbrioPljTYlyBSr408FLXuX0CRC8x9reY+i5D4XbHELBaaF6fValPVuAn3FQ
- zLSw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx7W18s4DOdsxAN0X8FqzaAO/u9SfqP/pUoLerwhKMS3Ss5C3gVCPy7r2GVHk1a4/itre7eP+LbbDU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLHosEJTdN1AyodREmmN//lfdDaTD4IWbMN1hBlV/TFsEiNC7zN
- 2zUjLgncWLgsSSK7L2WniAyEXnHpv4LHKMulTWnc/BICiHwmLe721lcJCbI4BTfnfdA=
-X-Gm-Gg: AYBFou2ZQchC4qNiv7UMvgdoXp7SkQ1OjNqoYeLpdDA2+uvsNavytJFmD3DlZ3m2mxy
- q9U6t5foIfm0jEWSYkNZV+WKlBAwQ5Q1t8nZcjyJ5QODXbd9VtcKsUCPWQsEYrEPlRhOBUYML7U
- vIIxGXsF40xH5VMC0CdL8xqfwBy0rWfDfv91jCZSdWMSWjzAYzhmaM5vRXSf4immv8er/skRwWd
- XrZ6YbstxAbSoJJCrcAgT/ovVDHYvRLgEoa/JAdW4zzbmcTVk2Ekk6881s62+tuhQiZHMF0EWr1
- r9H/WYLHyFx4BwIwSdoVtLefpKQjfujSMQCC7DQalutCzS0rb5ckqnJ7cRo8VN6YBFHyf9eK89+
- NDXLnXV+GdKK9i0J63RcAP/+tKgNNH0SPE0AwiVheW5rHtR8Te229qobWCTvWSvUJcUJH4+sqdb
- 3TuL1SE/Odk9FmJQktXgPR4SlCox2I9wdVMbRZEIZ1hE5djHySnYgwqfIn3TSjJNWOjHaTz/3Cr
- 3YRIPoeOF3BrcmpDVyW9PKIq4YYRQgHJuQCCj13p71vj/XUVEUdrpfN
-X-Received: by 2002:a05:622a:2487:b0:535:1134:91b with SMTP id
- d75a77b69052e-5359faead4bmr160454661cf.14.1791816378499; 
- Mon, 12 Oct 2026 07:46:18 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
- [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-535e652f3c7sm3157041cf.26.2026.10.12.07.46.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 07:46:17 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xGHI8-00000006SW2-2nlk;
- Mon, 12 Oct 2026 11:46:16 -0300
-Date: Mon, 12 Oct 2026 11:46:16 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Fred Griffoul <griffoul@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- David Woodhouse <dwmw2@infradead.org>,
- Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kselftest@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- x86@kernel.org
-Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run
-Message-ID: <20261012144616.GF14213@ziepe.ca>
-References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
- <20261005132046.30025-1-griffoul@gmail.com>
- <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90A5910E5AF;
+	Mon, 12 Oct 2026 14:48:12 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5650C10E1BE
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 14:48:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791816482; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=XOiPCqlQtfrqkV4346ge/wffKkqLIVknvcqw4Jw3EtTid38guJsG3sAN9JEdsL9Rjh0EBvByb2HEF72oq7SKrhjuo7U8QDofTGNpdBwm+p109ghvjwKYHVajmWkR9GaXDWMErV3A/yhSLMTCCNhzg6wMxNBZsxL5PgBYIvmT/jg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791816482;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=t8nuMitY40ACyrBwiVPxRftQjYUqoUZEy5nq+8JwsW4=; 
+ b=Qfl81TCjWkqqgz8KU1gqKwmlLj3zxAJvPvLSgcPF8olyrnkc37YYPkEb5Vd07MsXCUImnDrFhV7gwqmHKdO3qJvB1bBb9VdGAWGFHUeLGNJEGWciSgsfar0DdqGmzgJPDxo4MRd+0CGfZxEJ+38nPeD+fvc7e1jyNpzG8nGRQPA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816482; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=t8nuMitY40ACyrBwiVPxRftQjYUqoUZEy5nq+8JwsW4=;
+ b=YAFgf08eO5c3XX0h5YNI4nKIRdiePIS8IMgOVNBYdqVcFr0CkRwxZEK6/Y1YIA3e
+ L9OLE0Hl9UZtCJ+y65YULXjyZuu9xtYP9DfBDcpFavK/G85PqmDxx/aamfvJ7henPi2
+ N0+02rrhaPl6DHV79muFOv5VIWwFiwh3aBC3hAzA=
+Received: by smtp.zohomail.com with SMTPS id 1791816481169119.72931259646236; 
+ Mon, 12 Oct 2026 07:48:01 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v15 00/15] Collection of fixes for Panfrost: Perfcnt, RPM,
+ refactorings
+Date: Mon, 12 Oct 2026 15:47:52 +0100
+Message-Id: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23T3U7cMBAF4FdBuSbVzPifq75HxYU9npRUywYls
+ KJC++61qVCC15d27C9OzvHHsMk6yzY83H0Mq1zmbV7OZYDm/m7gp3j+LeOcy8RAQBYMqZFP8S3
+ LOM3vso2eEqiISkfPQ9nyssrng7Lj1+P/8faW/gi/VqOueJq312X9+/nCC9Z1X7T9Tl9whBGtB
+ JIYddDhJy+nU0zLGn/w8jxU/kI7YEE3ABXAOLYpa0ZrTA9QO+CoBVQFNMXJYkwZph6gj0BoAF0
+ AwGD9RMLOxR5gdsAjNoApgMo2EAcJnqkH2ANw8xNtAVxxQ5w0BHE9wB0B3wCuAlQiTsRIJvcAv
+ wMBXAP4AjAlTkY8odc9IBwApAYIBRDj/VR6YFG6KSAchJscEepHGBMoJMWM3SohHgnTErWNkNN
+ kovHiWLoEHYm2DFj7aClJAp+FoJsF7oVEgDYMrI3MtlwHhd54C11CH4mbU9ROcnJaJZWCU6klr
+ tfrP/iWZC4WBAAA
+X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9068;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=oJqWnIGEyptXwEVe7ZGMbZ5mIClNfgb5dutlj1038Rg=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqzPMaXznXSmuLMoi+2596WS7v/+Vdxuvo9hV5N
+ vSgV0ivfAKJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaszzGgAKCRAOJn5M7lND
+ PThnDACUkTREfbxvnN2MB2j55tS7/a7PvbU6rvvy1ymHgTRCXhUi6O1o0cLNvKx/dKn6SQFW6SU
+ olaZS0EVL0yvhljEvfKPyvgg509UyVHOIsaWJK3vHxrzVg5GdGC9Ef5k9cXcLmE7CCtom37EfOD
+ WnZnSLSjzJidrYW9colHkXY4vXc8ZJPL9F7jAmtD0P1rLVyy9r9COBnKKhVH/HQWrf9iCcQdYhC
+ TM3Ij2V901g3CjzV6n7XNdejTnuHrY+G15LprNs2+axpl9m482MG+Xz2u5eEXU3uva1ZCCe3eey
+ NZtRf3WJ3FtIG9dATS9trh5B+LOKrETIFiySFC7glWeoCOZcdQw5qoDsbh9C3e3OoncN1aIXo8C
+ Ha9SQuPkAhYBGVsQ/4ASPDxCTFDQ2/BBmCzDbK8QZ0yTfPSkNoSUYVMH5t7lQ8SOHgN4L81WFW2
+ YsIDg5U0elT6SX7m6VWbyWYV3fzX6BfDooQM4LuM+PPSGtFticeHPP+pBHNqFbbmbhLSE=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,38 +94,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 05, 2026 at 04:53:34PM +0200, Christian König wrote:
-> > KVM gets its frames through the KVM-private guest_memfd provider
-> > interface from David's series. iommufd gets them through a private
-> > interface with the exporter, as it already does for vfio-pci. The new
-> > version adds a small registry in iommufd for that, which replaces the
-> > symbol_get() of the sample in David's series. The dma-buf is then only
-> > the handle and the existing revoke.
-> 
-> Yeah that approach sounds totally sane to me.
-> 
-> We have drivers which stuff all kind of resources, not just memory,
-> into a DMA-buf. That ranges from MMIO BARs to trigger FW operations
-> (doorbells) over full HW blocks (ordered appends, global wave sync
-> etc...) where two or more applications need to share which one is
-> used.
-> 
-> That you then have a exporter private interface is for accessing
-> this is perfectly ok.
-> 
-> The problem you are facing here is more that this is not limited to
-> one driver/module but multiple ones and you don't want module inter
-> dependencies because of the symbols.
-> 
-> So symbol_get() is probably the right thing to do as long as we
-> don't have something like weak symbols or similar.
+This patch series began as an assortment of small fixes for some issues
+uncovered by Claude. Over time, it has evolved to include many other
+fixes for further problems revealed by Sashiko in successive revisions,
+and also refactorings and improvements suggested by maintainer
+discussions.
 
-I don't want to keep expanding this hack in iommufd. If dmabuf is to
-be used then dmabuf needs to provide a pluggable way to fill the
-iommu_domain that many exporters can plug into. I don't want to
-hardwire every exporter into iommufd, that makes no sense.
+A subset of patches submitted in previous revisions was already merged
+after they had been reviewed, to avoid this series growing to unmanageable
+extents.
 
-The existing arrangement is to motivate solving this problem
-generically, not something to be expanded on.
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+Changes in v15:
+- Rebased on top of latest drm-misc-next for the sake of merging it.
+- Added last remaining trailers.
+- Link to v14: https://patch.msgid.link/20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com
 
-Jason
+Changes in v14:
+- Fixed Sashiko-uncovered issues in the perfcnt-reset fixes commit.
+- Changed documentation for new state variable in the main driver file.
+- Link to v13: https://patch.msgid.link/20261008-claude-fixes-v13-0-d6a493185860@collabora.com
+
+Changes in v13:
+- Added initial clk prepares to avoid clocks being unprepared in the suspend path.
+- Remove warning around scheduler's credit count in the RPM suspend path. 
+- Reject all values other than '1' in the debugfs reset knob.
+- Cleaned the error reporting protocol for perfcnt reset conditions.
+- Fixed even more Sashiko issues in perfcnt reset sequence.
+- Refined commit message for initial perfcnt cache clean removal patch.
+- Link to v12: https://patch.msgid.link/20260929-claude-fixes-v12-0-62beb08de207@collabora.com
+
+Changes in v12:
+- Fixed perfcnt and driver init bugs uncovered by Sashiko in v11.
+- Fixed stale commit message for PM fixes.
+- Link to v11: https://patch.msgid.link/20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com
+
+Changes in v11:
+- Fixed bugs about user_count and PM device status at driver init and remove time.
+- Documented new uAPI for perfcnt dump ioctl that depends on reset status.
+- Fixed issues about internal perfcnt bookkeeping in case of reset.
+- Link to v10: https://patch.msgid.link/20260924-claude-fixes-v10-0-755929b3cc19@collabora.com
+
+Changes in v10:
+- Improved the logic for the debugfs reset knob.
+- Changed perfcnt reset race commit message to reflect true HW behaviour.
+- Improved logic of perfcnt reset handling with a state variable instead of booleans.
+- Added comments explaning how we handle PM status and references at device init time.
+- Fix RM resume clock disable bug uncovered by Sashiko and also changed function naming.
+- Link to v9: https://patch.msgid.link/20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com
+
+Changes in v9:
+- Extended clk_(enable|disable) consolidation into other runtime callbacks.
+- Fixed uAPI and perfcnt/reset interaction errors uncovered by Sashiko.
+- Link to v8: https://patch.msgid.link/20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com
+
+Changes in v8:
+- Applied fixes for issues brought up by Sashiko.
+- Rolled back some additions from v7: job stopping, IRQ consolidation.
+- Applied RPM fixes before moving most driver init code into panfrost_device.c
+- Brought back v6 patch that enables MMU IRQs before device is registered.
+- Simplified perfcnt reset handling procedure, so that no retry is done in the kernel.
+- Link to v7: https://patch.msgid.link/20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com
+
+Changes in v7:
+- Again fixed some minor issues reported by Sashiko.
+- Made sure the new debugfs reset knob works even when runtime PM isn't enabled.
+- Added new patch that handles job termination at driver teardown time.
+- Link to v6: https://patch.msgid.link/20260826-claude-fixes-v6-0-78119af409e7@collabora.com
+
+Changes in v6:
+- Grafted trivial already-reviwed patches from previous revisions into
+their own series so that they could be merged into drm-misc-next.
+- Added commits with multiple refactorings, code rearrangements and simplifications.
+- Addressed all issues brought up by reviwers and Sashiko in the previous revision.
+- Link to v5: https://patch.msgid.link/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+
+Changes in v5:
+- Addressed more issues uncovered by Sashiko.
+- Discarded two patches to avoid dealing with too many pre-existing issues at once.
+- Biggest change is the re-arrangement of the start sequence, made to look like Panthor.
+- Link to v4: https://patch.msgid.link/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com
+
+Changes in v4:
+- Fixed errors and issues uncovered by Sashiko in the previous revision.
+- Changed the way RPM checks whether the device is initialised when resuming.
+- Simplified perfcnt treatment of potential resets.
+- Link to v3: https://patch.msgid.link/20260724-claude-fixes-v3-0-542af61abd0f@collabora.com
+
+Changes in v3:
+- Applied some minor suggestions for the first couple of patches in the series.
+- Moved shrinker initialisation into gem initialisation.
+- Fixed RPM bugs by moving all clock and power initialisation into RPM resume.
+- Added patch for reset sequence fixes and also a userspace knob to trigger it.
+- Reworked perfcnt fix by having the reset sequence restore its initial state.
+- Link to v2: https://patch.msgid.link/20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com
+
+Changes in v2:
+- Fixed race conditions introduced by the previous revision, in the RPM and
+HWPerf commits specifically. These can be consulted at [1]
+- Don't attempt to suspend the device unconditionally at the end of
+probe(), and do it through autosuspend instead.
+- Broke the RPM patch into one that fixes PM refcnt proper and another one
+for MMU enablement at device init time.
+- Moved perfcnt GPU disable helper into its own commmit. Same for
+transplating shrinker initialisation and unplug.
+- Added 'Fixes' and 'Reported-by' tags to all the relevant commits
+- [1] https://sashiko.dev/#/patchset/20260526-claude-fixes-v1-0-16e92eaa4949%40collabora.com
+- Link to v1: https://patch.msgid.link/20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com
+
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Faith Ekstrand <faith.ekstrand@collabora.com>
+To: "Marty E. Plummer" <hanetzer@startmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Eric Anholt <eric@anholt.net>
+To: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+To: Robin Murphy <robin.murphy@arm.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+
+---
+Adrián Larumbe (15):
+      drm/panfrost: Move shrinker initialization and unplug one level down
+      drm/panfrost: Move lock and modparam initialisations into their subsystems
+      drm/panfrost: Move debugfs initialisation to relevant subsystems
+      drm/panfrost: Skip NULL checks for clock enable/disabling
+      drm/panfrost: Consolidate device clock management and reset
+      drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
+      drm/panfrost: Explicitly enable MMU interrupts at device init
+      drm/panfrost: Move all DRM device initialisation into device_init()
+      drm/panfrost: Warn of RPM get failure at device remove time
+      drm/panfrost: Add debugfs knob for manually triggering a GPU reset
+      drm/panfrost: Move perfcnt GPU disable sequence into a helper
+      drm/panfrost: Skip cache flush/invalidate when enabling perfcnt
+      drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent systems
+      drm/panfrost: Introduce a reset lock
+      drm/panfrost: Fix races between perfcnt and reset sequence
+
+ drivers/gpu/drm/panfrost/panfrost_device.c       | 247 +++++++++++++-----
+ drivers/gpu/drm/panfrost/panfrost_device.h       |   5 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c          | 198 +-------------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          |   9 -
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  64 ++++-
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  10 +-
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |   9 +-
+ drivers/gpu/drm/panfrost/panfrost_gpu.c          |   2 +
+ drivers/gpu/drm/panfrost/panfrost_job.c          | 103 +++++++-
+ drivers/gpu/drm/panfrost/panfrost_job.h          |   4 +
+ drivers/gpu/drm/panfrost/panfrost_mmu.c          |  14 +-
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c      | 319 +++++++++++++++--------
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.h      |   1 +
+ include/uapi/drm/panfrost_drm.h                  |  29 ++-
+ 14 files changed, 611 insertions(+), 403 deletions(-)
+---
+base-commit: 73df79cceb8c01f311055a61794e229dc81546cb
+change-id: 20260523-claude-fixes-82b03a134a8c
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
+
