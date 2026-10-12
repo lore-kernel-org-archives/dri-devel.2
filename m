@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87309CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9951ACC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADBB510F55F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABA9510F555;
 	Tue, 13 Oct 2026 07:52:59 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 081AE10F2B9
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:12:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64EFC10F2E0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:45:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A61F6438FA;
- Mon, 12 Oct 2026 18:12:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999391F0089B;
- Mon, 12 Oct 2026 18:12:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B4BDE601E4;
+ Mon, 12 Oct 2026 18:45:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCEA31F008A1;
+ Mon, 12 Oct 2026 18:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791828770;
- bh=cE3bSEEMTqHWrj1tS3Q/lf/i5N1uRPRLGcz8J6sy2y4=;
+ s=k20260515; t=1791830753;
+ bh=KI+fzgQwEiyuK2apx4uDGmy8H+VNSYQ2Fwx2d5pIup4=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=DgQYzth/MmZoWmiNzeqXMo3pL3++4NPcxPJzPON5+Iq1S5su3srfSsiLs/CRoSsV+
- y5o+xBW5wDB2UDULZVXK4Z+375t1dzbNUtt0abqzfCef5+wNE0F8zkc23m9IRRJQki
- E4j3lVFrh5llmtdqL8iYb+O84Q1sd17qdYFd9Kh1re0RHi4Rwnj76YbarFlQjfDBco
- wT37cp3+XRmGwpGtSGF5SPeOgjXQRjICCX4Lqd0pIe+Q1BeY5jWG2zzffSTDcLJPzR
- WjJK0Vf5kjqk84P6RDfdYSn6uJUn28TopIgTD9wsdxKgdymGRHK6Hy3nSvR1UmFnzT
- enZNuzoKkUK8A==
-Message-ID: <4c3e6350-b647-482d-a81a-89ba2431519e@kernel.org>
-Date: Mon, 12 Oct 2026 20:12:15 +0200
+ b=hjWrxaemgQIAy0VI71DGFBjmeo3u0jkeRxOMqy7BoqZ/W9u+ymJ7mEas0GsWImzhc
+ flbp4TMOKiQO6KfZp57FCitnC9KNkqZQKbjs3rKvW9AK9dzNGznommua8ryR/VPg0G
+ IMHh9SLlVDzr5qkD/M6su3mSho454w2cd6rH82b7g0g4syW51uXFUgh4fEGBdxcdBX
+ /vdRxwsILB6yAtD2m5LK+zcjfCCd3cc3PNdcsUVGMD0otTqf07c2OfCVDedxT9SlJC
+ lS+iaRr74Ul6y2Jkqg/poElsdZhpNt/w6ePhVB38uVJ+q/vSobduzrA5fPJz50twpQ
+ SjkIx4h/BDWmg==
+Message-ID: <c79d2d40-0f1c-43ec-bc25-b75ce975f27e@kernel.org>
+Date: Mon, 12 Oct 2026 20:45:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 18/38] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO, 
- add VM_MIXEDMAP
+Subject: Re: [PATCH v5 30/38] mm/vma: introduce vma[_flags]_is_mm_backed()
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -115,7 +114,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
  Bert Karwatzki <spasswolf@web.de>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-18-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-30-923b70125b1e@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -162,7 +161,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-18-923b70125b1e@kernel.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-30-923b70125b1e@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
@@ -182,28 +181,83 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> Currently all drivers which use defio allocate system memory. All of them
-> also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
-> system RAM, so simply failed to set this flag when it ought to.
+> Introduce vma[_flags]_is_mm_backed() for the purposes of identifying
+> mappings which are mm-managed and whose contents were placed there by core
+> mm's own fault path - rather than a custom ->fault handler - and which core
+> mm has not reserved the right to discard.
 > 
-> This patch sets FBINFO_VIRTFB on ssd1307fb probe, then drops setting VM_IO
-> in fb_deferred_io_mmap() and instead requires FBINFO_VIRTFB to be set,
-> erroring out with a kernel warning if not.
+> Mappings not managed by core mm do not fall into this category, as they are
+> populated by their owner, and nor of course does memory-mapped I/O.
 > 
-> The logic requires a page from the driver and since commit 1ecbc7dd2902
-> ("fbdev/deferred-io: Always call get_page() for framebuffer pages") has
-> always required it to be refcounted, so this was implicitly already the
-> case.
+> We exclude fixed mappings as these have a layout core mm cannot assume
+> ordinary fault semantics over.
 > 
-> Finally this patch sets VM_MIXEDMAP, as the logic is mapping
-> kernel-allocated memory so this is appropriate.
+> hugetlb mappings are fixed mappings, but core mm owns them entirely, so
+> they are explicitly carved out as mm-backed, as the MADV_DODUMP check
+> already does.
 > 
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Droppable mappings are excluded as core mm has promised it may discard them
+> at any time.
+> 
+> Use this functionality to update the madvise MADV_DODUMP check to test for
+> this rather than open-coding it.
+> 
+> This replaces the VM_SPECIAL check which means it no longer checks for
+> VMA_IO_BIT, however this is safe as we have established the invariant that
+> mm-managed mappings may not set VMA_IO_BIT, so we implicitly include
+> these.
+> 
+> No functional change intended.
+> 
+> Acked-by: Zi Yan <ziy@nvidia.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
+>  include/linux/mm.h | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>  mm/madvise.c       |  4 ++--
+>  2 files changed, 52 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 2ce68713e4c3..55320cf2c525 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -1738,6 +1738,56 @@ static inline bool vma_can_merge(const struct vm_area_struct *vma)
+>  	return vma_flags_can_merge(&vma->flags);
+>  }
+>  
+> +/**
+> + * vma_flags_is_mm_backed() - Do the specified VMA flags imply the mapping is
+> + * backed by core mm?
+> + * @flags: The VMA flags to test.
+> + *
+> + * An mm-backed mapping is one managed by core mm (see
+> + * vma_flags_is_mm_managed()) for which two further things are true:
+> + *
+> + * 1. Everything mapped was placed there by core mm's fault path (no custom
+> + *    ->fault).
+> + * 2. What is mapped stays there until it is zapped or unmapped by the user.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+I still dislike squeezing the VMA_DROPPABLE check in here.
+
+It's just weird semantics to squeeze pages that are *managed* by core MM (#1)
+but are simply always lazyfree into this check.
+
+In fact, core-mm manages (zaps) these pages, they are really just just
+permanently lazyfree.
+
+Open-coding "this (DUMP, UFFD, MLOCK) does not make sense for droppable
+mappings" is IMHO the right decision, because there you could say
+
+"dumping something that can get zapped every second does not make any sense"
+
+"placing pages through uffd does not make any sense if it can get zapped any second"
+
+"mlock'ing (and thereby allocating!) droppable mapping does not make any sense
+and could actually break droppable semantics"
+
+Not a hill I will die on, but I much rather have the droppable mapping be
+outside or  have it called something nasty like
+
+vma[_flags]_is_mm_backed_or_droppable()
 
 -- 
 Cheers,
