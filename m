@@ -4,48 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 192A3CC6B10
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E438BCC6B0E
 	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7071210F58C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 613CC10F589;
 	Tue, 13 Oct 2026 07:53:06 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACBB10E332
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:52:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=c6
- hLHbjPTyEX9KzDzUTEOrlIWSSx4BZg1YF3Q/YxGBk=; b=nuBJCiAkp6Hum4nfzm
- r/8sCWH8rNF4Hf+aFH2UCObWxRV83w1PuGPvuvelI+WFuodwN3d3xoALJbUi1nLo
- bI3vr9sb1R2LN2cqsxKK76eU4fn3d5eZTrJ3apNQb1DvVbGeC/+OCJAZZ/EUeU2S
- RKf+3RCu4/GJ/5g/iycggQ0Qk=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
- by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id
- _____wDXn6rVn8xqjDtnEA--.23112S3; 
- Mon, 12 Oct 2026 16:52:39 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH v5 1/3] dt-bindings: display: ti,
- tpd12s015: Convert to DT schema
-Date: Mon, 12 Oct 2026 16:52:35 +0800
-Message-ID: <20261012085237.377612-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012085237.377612-1-quchaosheng000406@163.com>
-References: <20261012085237.377612-1-quchaosheng000406@163.com>
+X-Greylist: delayed 993 seconds by postgrey-1.36 at gabe;
+ Mon, 12 Oct 2026 22:24:24 UTC
+Received: from outbound.ci.icloud.com (ci-2007h-snip4-11.eps.apple.com
+ [57.103.88.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9191F10E6C5
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 22:24:24 +0000 (UTC)
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-central-1k-60-percent-7 (Postfix) with ESMTPS id
+ 8A0641800C2B; Mon, 12 Oct 2026 22:07:49 +0000 (UTC)
+X-ICL-RepId: 01a13228-6117-710b-afbc-3a1d3671b653
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKCkMFWhxBDUkdXAVLVxQEHkkIRR5aHnkRUAFYHlZeWhdeTVEPDxlaFFwYU0VRH1RYQQ4KWgBQUR1fAgoERwRbF0YDU0VRGRcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8ZWhRcGFNFUR9UWF4EU1YOQglKBVwHWgBCC0gEXw9FA0QBTgJABkZUClwKRgVZK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai;
+ t=1791842870; x=1823378870; bh=4RNvChQmNx1ZsQjDMrdbwFGeu5n8buJ6kgh5fV9g8d4=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme;
+ b=Q1s4bxZQl+i4jQfbc4Uwe8Phh/tc/HpZKwSRaX61+mnRzAhG9X9wcVdle0RSCjmjRjM9P4NLxqIWum6n7ovuIyvvDfQKYFjSCdLhCoddneBg4fCmuIQRT0fv7ghIFHzCqEaeItQoKIas7nPtWRpK9ENVkjogDLNj5Z+O25JOnY4eyCq14QZFInr7rNUxWBF671KtFOASXNR1qMA0EUsGftVJsRpoAHck65RNR0UEPhvp0dlK+QaFhwhACllYdAJsGccJIJP36e5OyTPWwhQOX7eM4BSTCt66UkitDmPaReahsG6rWkfdcjNyUPdf4WQghAtZZq6ArE26DitoPsWlog==
+Received: from 252-PC-L.device.rit.edu (unknown [17.57.156.36])
+ by p00-icloudmta-asmtp-us-central-1k-60-percent-7 (Postfix) with ESMTPSA id
+ CC98918001AA; Mon, 12 Oct 2026 22:07:48 +0000 (UTC)
+From: Finn Zeruhn <fzeruhn@icloud.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Finn Zeruhn <fzeruhn@icloud.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/dp: keep MOT set between messages when no_zero_sized
+ is set
+Date: Mon, 12 Oct 2026 18:07:28 -0400
+Message-ID: <20261012220728.14861-1-fzeruhn@icloud.com>
+X-Mailer: git-send-email 2.56.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDXn6rVn8xqjDtnEA--.23112S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDtr1xCr1UZF1rCr45Wrg_yoWruF45pF
- n5Gas7CFy8WFyaqw4Iyr1kCa1rAFykAF40kF1xJFy5tF40qF4ktF13Krn8XFy5Ga4xZayY
- qF47Ww17Kwn7Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piQ6pPUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xjrYWrMn9iZzQAA3E
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
+X-Authority-Info-Out: v=2.4 cv=FJoWBuos c=1 sm=1 tr=0 ts=6acd5a36
+ cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
+ a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10
+ a=UWokjQvqbcQA:10 a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8
+ a=4Y1DqYvJFVATt9YQ-gkA:9
+X-Proofpoint-GUID: UFaH4ZMkzSVwnaRhiXHg1unmSdFc41RC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA4OCBTYWx0ZWRfX8tGDfvLVTEu5
+ /eCKjCPFAZ3PUNHsiJtG9lMdT0xINTG5YvIw1F+NTKYoBdS1XzaEOhj/YqobqfVUfv5B4L0uZIo
+ ljg8gqUIJyJNFD8qxX1zqOs6btsxtg0zSA8j0+Ya+RLQoVJ5rIwLkuboYpKbiMVOeE9UhVU0MU4
+ 5ayYR1q3o+vvqlPwCMiDe3WPZ//ZmvVyp4dFf5tyIV8/+95Bm53ulaJq3LBKOVWJc2C4QqZ8MK/
+ /HocGvncg/EB/ScK51IefPuT3WlNgRZrhMpL0xOzcRyyjay21XTZIz3T6yJSMzcYy/sXOQCyYZl
+ V+SgL9ILd7CX3DWv88oX4tekCMNByptYxjyPUmaXsfcdNPZaP2QzUh4IaknhKI=
+X-Proofpoint-ORIG-GUID: UFaH4ZMkzSVwnaRhiXHg1unmSdFc41RC
+X-JNJ: AAAAAAABCa9tMSaO86BRh/JsoI4xZ5q9hHxPbgdazF/w/KUUMMSNABkQt2//kzYOF1jYZQfanTaMPKhFZ33ZInURycjHfhnrDRY4sFqsp/2TRrccKblweNpCdfRX1rZoHAXw7narf18KFfltC+JRJqtG2cZ3TEfl5yWvEgtuyLeNTaoCVxeXdgJkHrveZbEeK8TYzv3pY7sffO0NDPQAa0yU/2iA7f5Y2Vmq1YqUiMEwR/1iVOlnpp1s6lf0qN2YqJuI84Hhbo8zFZ/k0i0ktkkIS+EEb8jW9EbvDvbQlE+KButIqMDTJt0SMV+FtukY28lfwlt27z1Uc7xceZ/hFu7xApPUuvUqYhB5G6LW7dbQ7r3gAhmDS76ppuRssG6tzA3JrnYzwv1MAuuwvoPqlfqopXAiROzdpIrYO8+WdeJAKL/cFaqJPg0noUr6diAnrT0o/STLeDzfuja8VWcdAfyImPWAT0ok1GzFWaUoaJvlBrd+rR+3tCPjh1DK9bK0Zvfd3k8UHGjKFh9QRSyB3pRqwoMmOeh4NQnGiron/zsnAGL4PW5kUXQPWuuNFXQZIik2n7RFOwzyN5qQHoeMnS/GMP92R0PbcpDRfs+GZOkghcIpbJhLOgxMyxrJzurrt9+qXubllVm9JT6NOxgaRgKgu7zEhYZfnGqv3s3yyDTnmafmj7jdn1IFzFjwHP9eKZNjtQTmEdAtjF3PKYp/Jzuz0NdyuoVb3z9iXs986IqnOyysViYPbojMLeQBMeR6dpEpNu9hgrkDpv1LFBjQ8qGSgG/blH54UVrvpUHD/A0MJSOKbYYgd0n48xU4PDlpLOpn89hF2HdyQ7WKkGraKk7SMXa02uTHHm1vbK8yAFo1v6+eAf+QSnS5Pf+suHVkqVTBT10Udb5dQF9ciApOphQKHigsM44gWHea13QPU7itMeTjW+ngOM5eCLga5UXghMHPuM+yTemQUb53+i/KKkiEmglM442
+ HJ3CqF7kjUdGkCtoewtJiqrpFr9lsp/9oFzXJqdloy7bFp8SDzN11eBXhnS7YCV7wvVZKzZtCXW1RBadTBs6i+BJoGaP5tNLQl1k+i0l7j4qVBJH/V4/XL+XE+PLbQB2zRI//VtBCFZRJQpsXwe+/FYQ2xV2t5dswU8kRhC9Fut9a2kCZmhD8+eo2cH6Xx/z4bBY/GebqC5l8BtQcF6QRBL2Y+2VFM2N3SqoiVIeS5fzyfkhTcoEFKGGn5+dULNwKPGQS3TdiWytSB0KTACHuj1fWpQxYAlUCnSEknfkUFSn3UOw6JeqFN2QvyJvtJ1FNgkdQ9EuT1iT+sqeZrXqqeIQumf+kJmjawqg++zMjJkPjqbfUmg==
+X-Apple-Category-Label: MTE1NzgzMjUxMzU6JGNhdGVnb3J5JF9QZXJzb25hbCw=
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,175 +75,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
+When aux->no_zero_sized is set, drm_dp_i2c_xfer() cannot use a bare
+address packet to close the transaction, so it clears MOT on the last
+data packet instead. The check only looks at the position within the
+current i2c_msg, so MOT is cleared at the end of every message and each
+one is terminated by an I2C stop.
 
-Convert the TPD12S015 HDMI level shifter binding to DT schema.
+This breaks E-DDC reads of EDID blocks 2 and up. Those are read as three
+messages: a write of the segment pointer to 0x30, a write of the offset
+to 0x50, and the read. The stop after the first message resets the
+segment pointer, so the read returns segment 0 again.
 
-The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-and ESD protection circuitry. Document the two ports it exposes between
-the HDMI transmitter and the connector.
+On a Pimax Dream Air (three EDID blocks, native timings in a DisplayID
+extension in block 2) connected to an RTX 5070 Ti with nouveau, block 2
+reads back as a copy of block 0. The checksum is valid, so nothing is
+reported, and the connector only offers fallback modes.
 
-The tpd12s016 is software compatible with the tpd12s015 and is listed as
-a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-a board using the tpd12s016 must list both compatibles.
+Clear MOT only on the last packet of the last message, as the commit
+that added the option describes. Trailing messages without data are
+skipped when looking for that packet, since nothing is sent for them
+and the stop would otherwise be lost. With this, block 2 reads
+correctly and the native 7104x3840 modes are listed for the Dream Air.
 
-The ports carry no properties beyond the graph ones, so each port takes
-the plain graph port schema.
+The same problem was pointed out by the Sashiko review of the patch that
+sets no_zero_sized for all DisplayPort connectors in nouveau.
 
-Assisted-by: LLM
-Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+Fixes: f0ddbb1eed18 ("drm/dp: add option to disable zero sized address only transactions.")
+Link: https://lore.kernel.org/all/20260827015758.0B4FB1F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
 ---
- .../bindings/display/ti/ti,tpd12s015.txt      | 44 ----------
- .../bindings/display/ti/ti,tpd12s015.yaml     | 88 +++++++++++++++++++
- 2 files changed, 88 insertions(+), 44 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+Changes in v2:
+- Clear MOT on the last message that carries data, so a transfer that
+  ends in a zero-length message still gets its stop.
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-deleted file mode 100644
-index 26e6d32e3f20..000000000000
---- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--TPD12S015 HDMI level shifter and ESD protection chip
--====================================================
--
--Required properties:
--- compatible: "ti,tpd12s015"
--
--Optional properties:
--- gpios: CT CP HPD, LS OE and HPD gpios
--
--Required nodes:
--- Video port 0 for HDMI input
--- Video port 1 for HDMI output
--
--Example
---------
--
--tpd12s015: encoder@1 {
--	compatible = "ti,tpd12s015";
--
--	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
--		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
--		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		port@0 {
--			reg = <0>;
--
--			tpd12s015_in: endpoint@0 {
--				remote-endpoint = <&hdmi_out>;
--			};
--		};
--
--		port@1 {
--			reg = <1>;
--
--			tpd12s015_out: endpoint@0 {
--				remote-endpoint = <&hdmi_connector_in>;
--			};
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-new file mode 100644
-index 000000000000..5955f2e6421c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-@@ -0,0 +1,88 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+v1: https://lore.kernel.org/dri-devel/20261002212833.9674-1-fzeruhn@icloud.com/
+
+ drivers/gpu/drm/display/drm_dp_helper.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 488fd123a01a..dfa64d20ab55 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2149,7 +2149,7 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
+ 			   int num)
+ {
+ 	struct drm_dp_aux *aux = adapter->algo_data;
+-	unsigned int i, j;
++	unsigned int i, j, last;
+ 	unsigned transfer_size;
+ 	struct drm_dp_aux_msg msg;
+ 	int err = 0;
+@@ -2159,6 +2159,10 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
+ 
+ 	dp_aux_i2c_transfer_size = clamp(dp_aux_i2c_transfer_size, 1, DP_AUX_MAX_PAYLOAD_BYTES);
+ 
++	last = num - 1;
++	while (last > 0 && !msgs[last].len)
++		last--;
 +
-+title: TI TPD12S015 HDMI level shifter and ESD protection chip
-+
-+maintainers:
-+  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-+
-+description:
-+  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-+  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-+  connector, and provides control over the level shifter enable and the
-+  hot-plug detect signals.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ti,tpd12s015
-+      - items:
-+          - const: ti,tpd12s016
-+          - const: ti,tpd12s015
-+
-+  gpios:
-+    description:
-+      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
-+      the level shifter, the second enables the level shifter outputs and
-+      the third reads the hot-plug detect line.
-+    maxItems: 3
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: HDMI input from the transmitter.
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: HDMI output to the connector.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    encoder1 {
-+        compatible = "ti,tpd12s015";
-+
-+        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
-+                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
-+                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+
-+                tpd12s015_in: endpoint {
-+                    remote-endpoint = <&hdmi_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+
-+                tpd12s015_out: endpoint {
-+                    remote-endpoint = <&hdmi_connector_in>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
+ 	memset(&msg, 0, sizeof(msg));
+ 
+ 	for (i = 0; i < num; i++) {
+@@ -2192,7 +2196,8 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
+ 			msg.buffer = msgs[i].buf + j;
+ 			msg.size = min(transfer_size, msgs[i].len - j);
+ 
+-			if (j + msg.size == msgs[i].len && aux->no_zero_sized)
++			if (aux->no_zero_sized && i == last &&
++			    j + msg.size == msgs[i].len)
+ 				msg.request &= ~DP_AUX_I2C_MOT;
+ 			err = drm_dp_i2c_drain_msg(aux, &msg);
+ 
+
+base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
 -- 
-2.43.0
+2.56.0
 
