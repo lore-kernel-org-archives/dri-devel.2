@@ -4,62 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33224CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B4A9CA9ED1
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:51:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA4010E4D4;
-	Mon, 12 Oct 2026 07:48:09 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B479710E4D4
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:48:02 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6FC6C41566;
- Mon, 12 Oct 2026 07:48:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A14BC2BCF4;
- Mon, 12 Oct 2026 07:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1791791282;
- bh=M7s9Lincs5YAX0rWv+FFYjgv7nPV6+lxcgamcHfegkk=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=swJTVslPj8N/xtSa5lKZqsdNTiN7j7k4N9JoQ/hDvSM9ooOLvO0Um/ZDouyFmyzHm
- WSlacCO3vUekDfYqfUtbz2E0SNWCDozZfwkzguerER260yZQ0mtRdytUEPzRUEiXyn
- oeMbrvse1GGBO8pA25CcpvkbCtmpq5HYcgenoAw8tjJlFCJ0YnoKgvbDQHdQFm+gs9
- utEeyLGn+MkJcf962+DcFdGDq6BHwI3A9V/ZUzetjb1xrVY1qt2GOEgdRI5S1fUXTa
- 9hX1ciQkC77MrSkZugyZ26buX+s5UBSU58qwWwPKMU7E7mHQUogf8wMFIoLJWDhZ9I
- AfyOq/jlP23og==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 23E4ECA9ED1;
- Mon, 12 Oct 2026 07:48:02 +0000 (UTC)
-From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Date: Mon, 12 Oct 2026 07:47:55 +0000
-Subject: [PATCH] drm/panel: visionox-vtdr6130: Add 120, 90 and 60 Hz modes
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0501F10E3CA;
+	Mon, 12 Oct 2026 07:51:24 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013032.outbound.protection.outlook.com
+ [40.93.196.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F07E10E3CA
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:51:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c38qzwaUUTiXHU9uRyk2AHOQ0VcZ+702hk0/00CS85HqNyVoEF/ayC1YL3ppuDsE7FF+ze229ptoq/vPaYtncyMMU2bi0Oy+pVZmWSHK/SwKI7/2qBP4fggVUARiWzqtbQdBrViPyetrUusZlTjZquOLYQzjPuUfCmuBLoKYy1kWvMBHjpO1dhgfiiKTQmt+qhFapXIsAGqqNgiM9OgJOIpJfPFHNrmUyNsg1OsQWz70Qx1h/Euef3NpJ8vwvY7V5i46mn8H0OxQtQRC6kcELz25aWNDsQSMJ54isgodZEJa+mPwZhLSVc6ZpB3BNqGWQt2RNgSB1CzFRt+CfY2kmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uO/LsM90vHJ9EP7bsceinIU4AJdSnqLnJKYeOKx/Kw0=;
+ b=W97A43wTqb659vVV989dd44O5JBHlsv4XzGy+INWg1weKubPs6Z3NkVdaZPaXwxgSk1xS3nSYdOZkrOQVJ25BsyAYP5kjftZQhvp8O7zO+/DJU9KGtacXmZzrgRNCLIqoJ297aaCOr1rRtnclacuRv4Rggvb9kkXE5HPz2VExXUYDLUnhuaEUdWXQycsRqNZqwDnakySr6+CeL+sNB0ThVhiyuGMuwBp5mqcT5/wuQ7e7MqEEcLgkawxrYHPLPMVeUNikoWIeJnJJXS1rDI3zbaQHhDJho9iFDvDeJIYQ8rs6tLFUOK8lb4jWzmhlaWqBkkVQGYFV06cE2ilarfBKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uO/LsM90vHJ9EP7bsceinIU4AJdSnqLnJKYeOKx/Kw0=;
+ b=mxTxad+e/Pbr8+JMahjd3YI5/XInavjHXLPSNfAMcgu/rmXIlAFUUowTRikojV3PinvY84bPYO4h5FcZiXGlu5cqQrF2Hmd+Wq2jzM+3ATDYdGbjEYvxHSic+qn4VGfVcQfiAHnUtU4CBJw3aSIT/0tQcHpEvpaOkA/Lu3pku3U=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CYYPR12MB8750.namprd12.prod.outlook.com (2603:10b6:930:be::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Mon, 12 Oct
+ 2026 07:51:13 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 07:51:13 +0000
+Message-ID: <f70c39c0-3754-4a18-8ad9-eaaf8a307b8f@amd.com>
+Date: Mon, 12 Oct 2026 09:51:08 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/syncobj: flatten chains when importing sync_file
+ into timeline point
+To: Julian Orth <ju.orth@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20261010180711.1548333-1-ju.orth@gmail.com>
+ <20261010180711.1548333-3-ju.orth@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261010180711.1548333-3-ju.orth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-vtdr6130-refresh-rates-v1-1-f6053b328e2a@fromdisposition.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDuQSSVCryIuNJnU6cKWmVQK4
- t2NdvnxeP8Gxips8Gg2UF7F5L1U0K2BOI/Lk1FSNXjnAznyuJakge4OlbOyzahjYUOKqfM5T9x
- 2Aer5U2f5XeF++Nu+04tjOWuw7wc/Nd91egAAAA==
-X-Change-ID: 20261012-vtdr6130-refresh-rates-1cd72ffbe476
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Aaron Kling <webgeek1234@gmail.com>, Demeter Barna <me@fromdisposition.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791791286; l=11768;
- i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=UdzeIu9dT5hZaoSKST+cAWFNeHEnoRPZTbrecaVBh+o=;
- b=U7fKZazHB1UR9GbtkW97qfAMueI2M1E3d5/sY+hM3j3a31I16sPKA21sntp2PAqi2SOj+BAEN
- rt0NHVv+rCgBhNvODvRX1V+Eob+xnAhkPmWDAP/h7vSti/ebvJs7WLA
-X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
- pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
-X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
- auth_id=1163
-X-Original-From: Demeter Barna <me@fromdisposition.org>
+X-ClientProxiedBy: BL1PR13CA0171.namprd13.prod.outlook.com
+ (2603:10b6:208:2bd::26) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8750:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6203cdd-f57a-4c68-b2b5-08df2835966c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|7416014|56012099006|261009221227099003|4143699003|11063799006|6133799003|10067099003|22082099003|18002099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: f2eea8olq6VwQuNN5AE3XI9xYEMzcdZXYIvNpShkHrYbMdfFR/9ud0lEnBhCUf4xSJhlCeJ8YeBYurjgTM0AMg7hoebcza9eOnOU0AEhqYnJYxeIebJwDGDdf87WdUf8BnnUr/PbeQe+ugRkUfGXi9ah1HcDCfnTsNdrTiTU9s0pklvLMmm03iF1d3M0+4hl5k7UQOL7rXyNhBn4FyDKToegN/ilzIBE7/XWqaqdnG61A6Pjho1bt8YtqWkE1Vfou/3HC2h3tC4fRmloHbdkf44RxVVNojLcepXmMHKO7tkth+mDbIiDVVwZavIoHxXLk73Gke326SvpmhTaF8BKPbGtuuhHbzD+YFKc8BtT4QPJ2juqha3X9NBRBSfZ0VGn7uyOAN6GMU7pMYmjiVQ9JYyjyYV8iD15fAjFmbCHXL7TUyCIXm/XPsf4VMbOXw803IUgkH6ZR1xCdwsPlbuf9CdDRB6cWcCqJbFa+a1rJ40cHNRdPHCLZwd4akA5NRLjGGM42O5GyUNdvD12k+0JLs57aSPCR7wZf90gI/UYT4p6urD31BVQGtQPzvJ4rMVfMhcGi4em1oIdsY3ems+ytFHdXQkNXkQ/7tj7p6Sw/KOAAlQIITCjYXJDOv/CkizUHz6osWf6QiIGgyKbXfCzqQTWAqXEPwvx3Y/scUbCco0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(56012099006)(261009221227099003)(4143699003)(11063799006)(6133799003)(10067099003)(22082099003)(18002099003)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3AzSkJtaWlhWnJxZVNCRkVnS3Q2MnhBRUE2c2hwRWNGcjYrVXBrQWJmQm8z?=
+ =?utf-8?B?R2h3azRDd016MEVPaUorcFpUWVNFdXNRSXp6VmxaL1llSGhpSXBIMitZQVl1?=
+ =?utf-8?B?dHdOWEZ5WXFYYXA3UlBaVk5tdWpGMDVuZnBXdkJmZnI5MnFaL2g3Y253ZzVJ?=
+ =?utf-8?B?UmQrWndpZEJubHQyc3BkOTN4bGVMMVg4WHJmeWtNODlzWlQ5R0lnOTg2UzdV?=
+ =?utf-8?B?UmphcEw0RDF5RWxTbjNiMWRDTGxtaUJNSFNnTjlDc1JseXpDRjA0dllPOWs5?=
+ =?utf-8?B?ODkzaDZpakptRjlZcnJkK29kdk96VzhLRkFzWlh0WWxtbGd3YWtJUFRSZVYz?=
+ =?utf-8?B?VnlaYkJjanhMUXdtVENDNXYzakpFbzZ0TmdLdmVlTzdJQ1ZFYXlOSEgwZ1VY?=
+ =?utf-8?B?M1pSM3FXR0lrUWlHUUp2VDdEYXg4cmI2d3hpVVZUdkZMeEtyMXVUeTlrYTdW?=
+ =?utf-8?B?NEpmc0lVWDRqUm1PTTRuS0o0NkVHN3BBVnlGaUdQVkJSK1UySURuYnZBamNs?=
+ =?utf-8?B?a3QxdXp5VHBmNEh0Zzh2cE90R29ZSjRReFBYMjZkK3J2enY3MHcxUjlncXpR?=
+ =?utf-8?B?aW5ydnNHUGkzbzhSNkdydDE2UHN1bHFZNHQyeGc5N1YwRm1NT3lKeTgxRFlJ?=
+ =?utf-8?B?WnFkZWtHNUJNWWt0NnJlL3Z4cDZtcE12RWxFdDZaa0NaQnJNOHNOcHFkVlFT?=
+ =?utf-8?B?Ukl6UHhPeDdLeFA2ZU80NFNNTDhzYTdITTJObDR3VzNRd1pHUVdHVFNHV2p5?=
+ =?utf-8?B?eVcwSTI3c3p5TlRtYkZSWFZWcC8rVlAxNWhvS0t1OWs3czdYK3Bjei9GUStr?=
+ =?utf-8?B?ZExNVkt6UzlYUHpEUEhtRGYrb1ByMWROcjdySzBNV0RpbkFCV0p4WnczT3ZB?=
+ =?utf-8?B?N0JEcG04K29nU3Z2Um1lWFhpYjVvS0hrZDBLVENDMDhZQjFEanFqOEhEVzJV?=
+ =?utf-8?B?Mk04MzhrOTlycVdiamxkczZ4TXRwY3lPc1EvWmZvbUYwajNTU3FBYWdWdFU3?=
+ =?utf-8?B?VnhZWUs4VUNLK2cwVk5OQ3JpbVQ1bm16UkRac2VTOGptcnp0QWo3dHpJQjZp?=
+ =?utf-8?B?NldvclFRZDBrNWNJYWRMOEVram1saldsVG9zTytiMlErK1IzcHpOYmFERDZQ?=
+ =?utf-8?B?OXBKZnBXaXlKaW91VVZpeTFnTStybmpOSkt5SGVnL3hSNE5qZWtLYmZUT3RU?=
+ =?utf-8?B?ZGoxRVNQcnk0aG5pWWRrUDB3a1pYbzcwdUt3bkxVUDB4aXA0ZThLd1Z3VG0v?=
+ =?utf-8?B?aEw1Wm9QbytGUWthOFVvdkx5U1o4ZkJjcFBFQXlLc05veUw2TjdJWmNOWFRD?=
+ =?utf-8?B?am1OMmp6VFlncVhpQ0lUTDZ5OVZtWkMrSjh6bkpQYkFlZkRKWEhvcEpNRVY3?=
+ =?utf-8?B?MGZKSEZjNTlXbncxc3N2RHRuK0tuWGI2U0JYUndUKzc5UnRZaWdBdHh1OHYv?=
+ =?utf-8?B?TDR3emd6N3Yrcnp3QUdTQUp1anBhOW1oaEFUejNDQzY0MU9NTU5ZOUJZNm5k?=
+ =?utf-8?B?WjJZM1ZhL1FlUEIzUDhOOUVGYUtLYzhXT1dvVGwyUkpnM2JNclpQNWM0MW5h?=
+ =?utf-8?B?dERYWHo2RHFzL3RXRUpyWGZ4bHZGbWpOVFA0RzhoVDJlcmhPR3R5Snd4Qnlw?=
+ =?utf-8?B?ME01S1VqUTh3aVN1bkdxR0Q2eXB2WkRUS1VsNUFmTk9JNzRCMWVnRFF6T2Vu?=
+ =?utf-8?B?czJieEZuVWpvb1p1N2ExOTBCdFpBKy9LMm8zZ0poVGZZQkppeW5wWUFOdDFZ?=
+ =?utf-8?B?dlJ1ZVJFWnVQcmJBTE41ZzlmamQ0UVhHZTJOMmNMRDNpYmhaTGVja0dhNzZi?=
+ =?utf-8?B?QkRKdnZ0YUJoRTc5RmI2Nm1uWVRudTZ3Z3Y1Y3VmVnNMTWRKak9HWXgrOG1K?=
+ =?utf-8?B?dXVNa1kxUVowVjliQnJESWRPQnk5bTdiVS9vc3hPMm52cFZ5aXYyM1JnK2tj?=
+ =?utf-8?B?RG85dXhWZ3J3SGdoVjQ5RlJzVGVOVzBxUFFtREUrRXV2dnBMRSs2aDZGaGFK?=
+ =?utf-8?B?ZUp3YlB6Z3hNTDhJUFUxK1BJU0NkYXdlUEMremdUZi9IaTNQUVdGZkF0VFJB?=
+ =?utf-8?B?RHl6bm53eHBkcnpkUWY4bTVzaWN1OWNmMURDRjB4NnZjY2h2U3ZBYnd2VUdq?=
+ =?utf-8?B?NklDL1ZYOWJJUTFOSlh0VDZJTUtoVHFVYWlWNjA3V21pZzRBbk9ON2tFaHc3?=
+ =?utf-8?B?akE1VXVETlc1b1lvQWJzQmYzNjlkM0dacHJXWkFXL2pITW1JOHhnbDhHdGh4?=
+ =?utf-8?B?K0tjakJIek8rMWN4RGVvYituZEJMeFh2SWVudElxbUNnNHNDYUlDelpQUG5q?=
+ =?utf-8?Q?lLoZfovliMRZWQ+C+5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6203cdd-f57a-4c68-b2b5-08df2835966c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 07:51:13.3277 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rv15xwFXyHbeFZa3lHkI5bG4172QgXhKWQNFDdpCgzHoXpgwtRzzoj5seUw1xRVA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8750
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,337 +138,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: me@fromdisposition.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Demeter Barna <me@fromdisposition.org>
+On 10/10/26 20:07, Julian Orth wrote:
+> A sync_file exported from a timeline point can contain a dma_fence_chain.
 
-The panel runs at 60, 90, 120 and 144 Hz, but the driver only exposes
-144 Hz.
+No it can't, IIRC sync files are only supposed to contain raw fences or dma_fence_array containers.
 
-Add the lower refresh rates. They keep the pixel clock and the
-horizontal timings of the 144 Hz mode and stretch the vertical front
-porch. Each mode carries the values of registers 0x6c, 0xb1 and
-0xce/0xd3 that the panel vendor programs for its rate, taken from the
-panel configuration shipped with the Razer Edge; the power-on sequence
-writes them where it wrote the 144 Hz values, so 144 Hz is programmed as
-before. As in panel-novatek-nt35950, the mode is looked up in the CRTC
-state at prepare time, so a rate change goes through a full modeset.
+I think we never documented that and that's why this issue here leaked in.
 
-get_modes() now exposes every mode of the panel description, the first
-one preferred; the Retroid Pocket 6 description has one.
+I'm not sure if that doesn't break anywhere else as well, so I think we should fix the exporting side instead.
 
-Assisted-by: LLM
-Signed-off-by: Demeter Barna <me@fromdisposition.org>
----
-This applies on top of Aaron Kling's Retroid Pocket 6 series in
-drm-misc-next ("drm/panel: visionox-vtdr6130: Modularize panel config"),
-whose per-panel description it extends.
+Alternatively we need to audit everywhere where fences from syncfiles can be imported somewhere else.
 
-Tested on a Razer Edge 5G, whose board support is not upstream yet:
-switched through KDE, every one of the twelve transitions between 144,
-120, 90 and 60 Hz lands on the requested mode at the expected frame
-rate with no DPU underrun; panel off and on, and suspend and resume,
-keep each rate. The Retroid Pocket 6 path is built but not tested.
----
- drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 204 +++++++++++++++++++-----
- 1 file changed, 161 insertions(+), 43 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-index d0db128cda81..a1fd09548073 100644
---- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-+++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-@@ -10,6 +10,7 @@
- 
- #include <drm/display/drm_dsc.h>
- #include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_crtc.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_of.h>
- #include <drm/drm_modes.h>
-@@ -19,6 +20,7 @@
- 
- struct visionox_vtdr6130 {
- 	struct drm_panel panel;
-+	struct drm_connector *connector;
- 	struct mipi_dsi_device *dsi;
- 	struct gpio_desc *reset_gpio;
- 	struct regulator_bulk_data *supplies;
-@@ -26,13 +28,24 @@ struct visionox_vtdr6130 {
- 	struct visionox_vtdr6130_desc *desc;
- };
- 
-+/*
-+ * A mode and, for the VTDR6130's own power-on sequence, the 0x6c, 0xb1 and
-+ * 0xce/0xd3 values the panel vendor programs for its refresh rate
-+ */
-+struct visionox_vtdr6130_mode {
-+	struct drm_display_mode mode;
-+	u8 rate;
-+	u8 b1[22];
-+	u8 tune[24];
-+};
-+
- struct visionox_vtdr6130_desc {
- 	unsigned int bpc;
- 	unsigned int lanes;
- 	unsigned long mode_flags;
- 	enum mipi_dsi_pixel_format format;
- 
--	const struct drm_display_mode *modes;
-+	const struct visionox_vtdr6130_mode *modes;
- 	unsigned int num_modes;
- 	int (*init_sequence)(struct visionox_vtdr6130 *ctx);
- 
-@@ -136,8 +149,30 @@ static int retroidpocket_rp6_on(struct visionox_vtdr6130 *ctx)
- 	return dsi_ctx.accum_err;
- }
- 
-+static const struct visionox_vtdr6130_mode *
-+visionox_vtdr6130_mode(struct visionox_vtdr6130 *ctx)
-+{
-+	const struct visionox_vtdr6130_desc *desc = ctx->desc;
-+	struct drm_connector *connector = ctx->connector;
-+	const struct drm_display_mode *mode;
-+	unsigned int i;
-+
-+	if (!connector || !connector->state || !connector->state->crtc)
-+		return &desc->modes[0];
-+
-+	mode = &connector->state->crtc->state->mode;
-+
-+	for (i = 0; i < desc->num_modes; i++)
-+		if (drm_mode_match(mode, &desc->modes[i].mode,
-+				   DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATCH_CLOCK))
-+			return &desc->modes[i];
-+
-+	return &desc->modes[0];
-+}
-+
- static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
- {
-+	const struct visionox_vtdr6130_mode *m = visionox_vtdr6130_mode(ctx);
- 	struct mipi_dsi_device *dsi = ctx->dsi;
- 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
- 	struct drm_dsc_picture_parameter_set pps;
-@@ -154,7 +189,7 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
- 				     MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00,
- 				     0x00);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x09);
--	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x01);
-+	mipi_dsi_dcs_write_var_seq_multi(&dsi_ctx, 0x6c, m->rate);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x01);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x12, 0x00, 0x00, 0xab,
-@@ -172,15 +207,9 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
- 				     0xf4, 0x4b, 0xf4, 0x6c, 0x34, 0x84, 0x74,
- 				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x10);
--	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb1, 0x01, 0x38, 0x00, 0x14,
--				     0x00, 0x1c, 0x00, 0x01, 0x66, 0x00, 0x14,
--				     0x00, 0x14, 0x00, 0x01, 0x66, 0x00, 0x14,
--				     0x05, 0xcc, 0x00);
-+	mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, m->b1, sizeof(m->b1));
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x13);
--	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xce, 0x09, 0x11, 0x09, 0x11,
--				     0x08, 0xc1, 0x07, 0xfa, 0x05, 0xa4, 0x00,
--				     0x3c, 0x00, 0x34, 0x00, 0x24, 0x00, 0x0c,
--				     0x00, 0x0c, 0x04, 0x00, 0x35);
-+	mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, m->tune, sizeof(m->tune));
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x14);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb2, 0x03, 0x33);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb4, 0x00, 0x33, 0x00, 0x00,
-@@ -276,19 +305,21 @@ static int visionox_vtdr6130_unprepare(struct drm_panel *panel)
- 	return 0;
- }
- 
--static const struct drm_display_mode retroidpocket_rp6_modes[] = {
-+static const struct visionox_vtdr6130_mode retroidpocket_rp6_modes[] = {
- 	{
--		.clock = (1080 + 22 + 2 + 16) * (1920 + 16 + 2 + 20) * 120 / 1000,
--		.hdisplay = 1080,
--		.hsync_start = 1080 + 22,
--		.hsync_end = 1080 + 22 + 2,
--		.htotal = 1080 + 22 + 2 + 16,
--		.vdisplay = 1920,
--		.vsync_start = 1920 + 16,
--		.vsync_end = 1920 + 16 + 2,
--		.vtotal = 1920 + 16 + 2 + 20,
--		.width_mm = 69,
--		.height_mm = 122,
-+		.mode = {
-+			.clock = (1080 + 22 + 2 + 16) * (1920 + 16 + 2 + 20) * 120 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 22,
-+			.hsync_end = 1080 + 22 + 2,
-+			.htotal = 1080 + 22 + 2 + 16,
-+			.vdisplay = 1920,
-+			.vsync_start = 1920 + 16,
-+			.vsync_end = 1920 + 16 + 2,
-+			.vtotal = 1920 + 16 + 2 + 20,
-+			.width_mm = 69,
-+			.height_mm = 122,
-+		},
- 	},
- };
- 
-@@ -313,19 +344,98 @@ static struct visionox_vtdr6130_desc retroidpocket_rp6_panel_desc = {
- 	},
- };
- 
--static const struct drm_display_mode visionox_vtdr6130_modes[] = {
-+/*
-+ * All modes share one pixel clock and the horizontal timings; the lower
-+ * rates stretch the vertical front porch.
-+ */
-+static const struct visionox_vtdr6130_mode visionox_vtdr6130_modes[] = {
- 	{
--		.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
--		.hdisplay = 1080,
--		.hsync_start = 1080 + 20,
--		.hsync_end = 1080 + 20 + 2,
--		.htotal = 1080 + 20 + 2 + 20,
--		.vdisplay = 2400,
--		.vsync_start = 2400 + 20,
--		.vsync_end = 2400 + 20 + 2,
--		.vtotal = 2400 + 20 + 2 + 18,
--		.width_mm = 71,
--		.height_mm = 157,
-+		.mode = {
-+			.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 20,
-+			.hsync_end = 1080 + 20 + 2,
-+			.htotal = 1080 + 20 + 2 + 20,
-+			.vdisplay = 2400,
-+			.vsync_start = 2400 + 20,
-+			.vsync_end = 2400 + 20 + 2,
-+			.vtotal = 2400 + 20 + 2 + 18,
-+			.width_mm = 71,
-+			.height_mm = 157,
-+		},
-+		.rate = 0x01,
-+		.b1 = { 0xb1, 0x01, 0x38, 0x00, 0x14, 0x00, 0x1c, 0x00, 0x01,
-+			  0x66, 0x00, 0x14, 0x00, 0x14, 0x00, 0x01, 0x66, 0x00,
-+			  0x14, 0x05, 0xcc, 0x00 },
-+		.tune = { 0xce, 0x09, 0x11, 0x09, 0x11, 0x08, 0xc1, 0x07, 0xfa,
-+			   0x05, 0xa4, 0x00, 0x3c, 0x00, 0x34, 0x00, 0x24, 0x00,
-+			   0x0c, 0x00, 0x0c, 0x04, 0x00, 0x35 },
-+	},
-+	{
-+		.mode = {
-+			.clock = (1080 + 20 + 2 + 20) * (2400 + 508 + 2 + 18) * 120 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 20,
-+			.hsync_end = 1080 + 20 + 2,
-+			.htotal = 1080 + 20 + 2 + 20,
-+			.vdisplay = 2400,
-+			.vsync_start = 2400 + 508,
-+			.vsync_end = 2400 + 508 + 2,
-+			.vtotal = 2400 + 508 + 2 + 18,
-+			.width_mm = 71,
-+			.height_mm = 157,
-+		},
-+		.rate = 0x01,
-+		.b1 = { 0xb1, 0x01, 0x38, 0x00, 0x14, 0x00, 0x1c, 0x00, 0x01,
-+			  0x66, 0x00, 0x14, 0x01, 0xfc, 0x00, 0x01, 0x66, 0x00,
-+			  0x14, 0x0d, 0x6c, 0x00 },
-+		.tune = { 0xce, 0x0a, 0xe1, 0x0a, 0xe1, 0x0a, 0x81, 0x09, 0x92,
-+			   0x06, 0xc5, 0x00, 0x48, 0x00, 0x3e, 0x00, 0x2b, 0x00,
-+			   0x0c, 0x00, 0x0c, 0x05, 0x00, 0x3f },
-+	},
-+	{
-+		.mode = {
-+			.clock = (1080 + 20 + 2 + 20) * (2400 + 1484 + 2 + 18) * 90 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 20,
-+			.hsync_end = 1080 + 20 + 2,
-+			.htotal = 1080 + 20 + 2 + 20,
-+			.vdisplay = 2400,
-+			.vsync_start = 2400 + 1484,
-+			.vsync_end = 2400 + 1484 + 2,
-+			.vtotal = 2400 + 1484 + 2 + 18,
-+			.width_mm = 71,
-+			.height_mm = 157,
-+		},
-+		.rate = 0x02,
-+		.b1 = { 0xb1, 0x01, 0x38, 0x00, 0x14, 0x00, 0x1c, 0x00, 0x01,
-+			  0x66, 0x00, 0x14, 0x00, 0x14, 0x00, 0x01, 0x66, 0x00,
-+			  0x14, 0x05, 0xcc, 0x00 },
-+		.tune = { 0xd3, 0x0e, 0x81, 0x0e, 0x81, 0x0e, 0x01, 0x0c, 0xc3,
-+			   0x09, 0x06, 0x00, 0x60, 0x00, 0x53, 0x00, 0x3a, 0x00,
-+			   0x0c, 0x00, 0x0c, 0x07, 0x00, 0x54 },
-+	},
-+	{
-+		.mode = {
-+			.clock = (1080 + 20 + 2 + 20) * (2400 + 3436 + 2 + 18) * 60 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 20,
-+			.hsync_end = 1080 + 20 + 2,
-+			.htotal = 1080 + 20 + 2 + 20,
-+			.vdisplay = 2400,
-+			.vsync_start = 2400 + 3436,
-+			.vsync_end = 2400 + 3436 + 2,
-+			.vtotal = 2400 + 3436 + 2 + 18,
-+			.width_mm = 71,
-+			.height_mm = 157,
-+		},
-+		.rate = 0x02,
-+		.b1 = { 0xb1, 0x01, 0x38, 0x00, 0x14, 0x00, 0x1c, 0x00, 0x01,
-+			  0x66, 0x00, 0x14, 0x01, 0xfc, 0x00, 0x01, 0x66, 0x00,
-+			  0x14, 0x0d, 0x6c, 0x00 },
-+		.tune = { 0xd3, 0x15, 0xc2, 0x15, 0xc2, 0x15, 0x02, 0x13, 0x25,
-+			   0x0d, 0x8a, 0x00, 0x90, 0x00, 0x7d, 0x00, 0x57, 0x00,
-+			   0x0c, 0x00, 0x0c, 0x0b, 0x00, 0x7e },
- 	},
- };
- 
-@@ -354,20 +464,28 @@ static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
- 				       struct drm_connector *connector)
- {
- 	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
-+	const struct visionox_vtdr6130_desc *desc = ctx->desc;
- 	struct drm_display_mode *mode;
-+	unsigned int i;
- 
--	mode = drm_mode_duplicate(connector->dev, ctx->desc->modes);
--	if (!mode)
--		return -ENOMEM;
-+	for (i = 0; i < desc->num_modes; i++) {
-+		mode = drm_mode_duplicate(connector->dev, &desc->modes[i].mode);
-+		if (!mode)
-+			return -ENOMEM;
- 
--	drm_mode_set_name(mode);
-+		drm_mode_set_name(mode);
-+
-+		mode->type = DRM_MODE_TYPE_DRIVER;
-+		if (i == 0)
-+			mode->type |= DRM_MODE_TYPE_PREFERRED;
-+		drm_mode_probed_add(connector, mode);
-+	}
- 
--	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
--	connector->display_info.width_mm = mode->width_mm;
--	connector->display_info.height_mm = mode->height_mm;
--	drm_mode_probed_add(connector, mode);
-+	connector->display_info.width_mm = desc->modes[0].mode.width_mm;
-+	connector->display_info.height_mm = desc->modes[0].mode.height_mm;
-+	ctx->connector = connector;
- 
--	return 1;
-+	return desc->num_modes;
- }
- 
- static enum drm_panel_orientation visionox_vtdr6130_get_orientation(struct drm_panel *panel)
-
----
-base-commit: 73df79cceb8c01f311055a61794e229dc81546cb
-change-id: 20261012-vtdr6130-refresh-rates-1cd72ffbe476
-
-Best regards,
---  
-Demeter Barna <me@fromdisposition.org>
-
+> Importing such a sync_file into a timeline point with
+> DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE |
+> DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_TIMELINE passes the chain directly to
+> dma_fence_chain_init() and triggers
+> 
+>   WARNING: drivers/dma-buf/dma-fence-chain.c:286 at dma_fence_chain_init
+> 
+> because chain fences must not be wrapped in other chain fences.
+> 
+> Flatten the fence with dma_fence_unwrap_merge() before adding it to the
+> timeline, as drm_syncobj_transfer_to_timeline() already does.
+> 
+> Reproducer:
+> 
+> 1. Export a sync_file from a point > 0 of a timeline syncobj with
+>    DRM_IOCTL_SYNCOBJ_HANDLE_TO_FD.
+> 2. Import it into a point > 0 of another timeline syncobj with
+>    DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE.
+> 
+> Fixes: c2d3a7300695 ("drm/syncobj: Extend EXPORT_SYNC_FILE for timeline syncobjs")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Julian Orth <ju.orth@gmail.com>
+> ---
+>  drivers/gpu/drm/drm_syncobj.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index 5ca5163d0..c545af77e 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -742,8 +742,18 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
+>  	}
+>  
+>  	if (point) {
+> -		struct dma_fence_chain *chain = dma_fence_chain_alloc();
+> +		struct dma_fence_chain *chain;
+> +		struct dma_fence *tmp;
+> +
+> +		tmp = dma_fence_unwrap_merge(fence);
+> +		dma_fence_put(fence);
+> +		fence = tmp;
+> +		if (!fence) {
+> +			drm_syncobj_put(syncobj);
+> +			return -ENOMEM;
+> +		}
+>  
+> +		chain = dma_fence_chain_alloc();
+>  		if (!chain) {
+>  			ret = -ENOMEM;
+>  			goto out;
 
