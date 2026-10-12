@@ -4,130 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 763C0CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 12:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A6A8CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C342410E469;
-	Mon, 12 Oct 2026 12:57:08 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010024.outbound.protection.outlook.com
- [52.101.193.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 675EC10E469
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:57:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bThBZezxVLRysFg7TiajusimFWt2vrKJirdZngvEuR2smnCzumQgHnYip1xI0MtlTVwbofsPiq+wI7qwYTI2ToXXwT5j1kv+vlMxT3ywD+4QX7J1J44iV7CU5Gts77adJ9toaA3Bh9B4zLT3TQ556BrDtpsNuVQ6yoTgacNTrU2fN2f7hVJp7Ti03tFjiPsYn4i8JofHpGy0LEKvtuZN6VC1oPp1ANs4geDGlS0bWuwOBn6n8usWzw3iY15yUcqz3dNYssqr5oEYFG9g6oV2BaXzzVKYUhbZ4WicF3BUAX+l14BGEqUAcgoRM/ZPejVuwBUebheedrrrLMcryj9S1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0VrkGiuHssYXUfiB9n0YrlNmoZITIeeBa+jZA6yU7w8=;
- b=w9lBrYhGQEVWPIsP0mUu0pKpM9UwCO0QwehxkfA37r/CkANl/r8ZlF+7wxjgg+rDrDwOH67imSMqW8OtNmCvKKVRstP/o8B1rlx2Lk8s1A086cKJ+G3aFk9MmPrNiz2o8MqRWUm9WAJSaYB+MiEkZ9znYlw81RbsHi1sBts0nva7C8wEIoAT0fD0gOz9aZgXpr+Z2N40BXqSftC3OMR8v+OaECECRjsIJgjegtZlZB8zGVWyVuSHrjm3jeVUL2jPJSrtpkwbuiXfjqU+qpmBG8lnX0sYMOEELPN2Y8/6B+5IlxIryOJCaUH+9GJKJHYhQjmJsujCmVoGSru4f1uRnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0VrkGiuHssYXUfiB9n0YrlNmoZITIeeBa+jZA6yU7w8=;
- b=LJN89alaEgDvnG/qLqsZs9LRbgca8R6dT/ff/kYYJhasP4yMaF9rPDhMcn1jJR9scce8XwLvg8xAPFcm79oTCxVRiS4bkjVqxiD1oylwhRCSUAY6ysvop3YUBDnjT353u7m6QNEDTCwBt1mJT1IgEUTIYGX1avA/XAVFt+NC0kA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 12:56:58 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 12:56:57 +0000
-Message-ID: <6c4e21d6-d347-4e1d-ba2a-87e17e91b580@amd.com>
-Date: Mon, 12 Oct 2026 14:56:52 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/syncobj: fix fence and syncobj leak in
- drm_syncobj_import_sync_file_fence
-To: Julian Orth <ju.orth@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20261010180711.1548333-1-ju.orth@gmail.com>
- <20261010180711.1548333-2-ju.orth@gmail.com>
- <49d4f34d-6d27-4a70-88ad-a5e939eef084@amd.com>
- <CAHijbEWpH+0M=mU3GiQWNL8b+6uTd=dK59UM=ejtviHmiRFq2A@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAHijbEWpH+0M=mU3GiQWNL8b+6uTd=dK59UM=ejtviHmiRFq2A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0122.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A943F10EF32;
+	Mon, 12 Oct 2026 13:00:01 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 79DEB10EF10
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:59:55 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 875001655;
+ Mon, 12 Oct 2026 05:59:51 -0700 (PDT)
+Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
+ [10.42.46.160])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 92B4B3F66F;
+ Mon, 12 Oct 2026 05:59:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1791809994; bh=oizA45bDDsJgO8SGT9GtZF3nmHazrlUFD3gKgUVNYFs=;
+ h=From:To:Cc:Subject:Date:From;
+ b=PKRcneeucpUeHmFVFwK7CF3Kiznv2yHVAUP2AUQyHZl9C4UYGD1GDhxqiYno/Rr9b
+ nsWlpf/th667/Vs1S+lo6o//z3pJ7yKfTAF5tlNfvLrFLxyvpSv97TMI9z+v4OVlWa
+ 2XAecbTPcjA6biUC1ePLQ9gZiwkMGLF242QYMTes=
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: [PATCH v4 00/12] drm/panthor: Protected mode support for Mali CSF GPUs
+Date: Mon, 12 Oct 2026 14:59:28 +0200
+Message-ID: <20261012125940.3291951-1-ketil.johnsen@arm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4190:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0da418f-9083-41ab-b09b-08df28604c44
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|7416014|376014|366016|10067099003|22082099003|18002099003|11063799006|4143699003|261009221227099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: XBAx/+Nlq80TxFcjo9RLqWNH/uGRUTBV2cnec26cqlbSQnWfqX88/HQQsZjo9s1/LVt1qz5unAfUjsOaWUY+sh1Owu0AnaZUFr22AbjZdfI9AMmyT2PijU1VbZnik9sxYYhN4gCwndr73SBWoj7lsYz6PkGMBnzZfvyE0frQip2VregIZcBO4mqhLeuwxXTL/ylOFDL/4z+qt1DfStz/Vpd7O64ZypiHeXa+YNm1kin4tZiMMw70mvb7YDp/VosczMCeNcAk0fyvmSsE43eJAVZojxnTL7a0+fik/MWJmjILKxUHtTYKeqcZnVwWLFa/gDEtoCTofs5ZB41a7stTLbz9kLuOp0oX/Mcrqd5+esz6dVWrcye0MRvcYLxcV0xia7GpajgrIytk9US9YfE8SRv5OM87eMjUFsCxPQsJIQQzyMZZ6Dzjoue1vNiPltkHuVCeRmsbEuGGE2hwqKNh4QRjKa+mJlRJ6Q1ZD9g8b163ikinFKE1Bp7c85cZV3DE/bZjy5qHVomwxV+Oouf4rUxFZHb9/NsOTq4VEucipMiquJcqCIjyXQFIYy9aObjWXHMeplwef9ZGMp8EqR6BH57DAfDpSCq0O2sJIQcHEj3e+EbikdgJN0Nk8du8XlSc
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(261009221227099003)(261009223027099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0thWjhWZXVldENXNXpDNnFLa3R1Y250VjlyMm8xNUw3NUlSMU9KNlIxVkp3?=
- =?utf-8?B?NVBqbGFsUlNDZG9oWGprOG9kR3JkbllvaU5Sbnl4dUNTbGJiSzcrMDZ6S3JM?=
- =?utf-8?B?b0dXTDFqWFY2U0dvdnZocVk4M0RYeXNIVE1PTVUvOXYrUE96OFNtWWd2aHk1?=
- =?utf-8?B?R1NJalpXeCtxcXNCcytmOXl2SE04Q21vY2x5OUw1SnVSTkZDMHh0bXdKdGh3?=
- =?utf-8?B?MkEzU2k4bFMxN2d3K0oyR0R5NlJ3U2lXMXI0djI0R3p2MTFqRzlkUHJMampD?=
- =?utf-8?B?Wjh5aUlTVWZGL29UeEVVaG1xbEc2UjdDSXNnRzlKck5pZi9XTHRLUVJjTGdq?=
- =?utf-8?B?cVlwNlVLeW5wRlFpdUlkZ1BVMndaaWlwT0FTcjRkdkhYc29Cb1NqYkZTK0l6?=
- =?utf-8?B?eDBZejdkblhCSEhwYlNzNzNjR25ZTkZUcjlxT1VTcTNGQm1SSysxNk5Kd1Z4?=
- =?utf-8?B?aXFOc0ZXRWJuanMxRCtBYzNEbkNieHBuMGlvZDNIL3VXY05BZVV4dU15ZEJj?=
- =?utf-8?B?UjU4bXpsTlJkZlMwTkhvZkdYeFNySmxCa0l6dWtrdEREOWlRNXNNQzBhdlc4?=
- =?utf-8?B?WTh6ZTFLSGZyanVVa2c4YWVJTHlaZ1BWTERpVjJoK0ZMZ3lMQy9tOXY1cGhh?=
- =?utf-8?B?TXc5R3RTRXB3L3BwRXhqdWRiQmZOellKTDBEdDhoVnh3Q1p5TjNwVXpjMHdq?=
- =?utf-8?B?aGlFL1pNY3dON2JraFZ0dDNXTTlPNjYyQUZ4WklsSnp4a29rWXdWRTk1aTg3?=
- =?utf-8?B?ZDdZaWd0dXJFenNLaUNGazRYT2F2MjRJbU1udktHb0ZzSTZuSFpFRE5GUHBi?=
- =?utf-8?B?eS9MMDNPMk0vZ0xEZmdyRHVuQUd0cDRjb2thc2Y2MGFoQUwyNEx4aVJ3UURt?=
- =?utf-8?B?Z1cxKzhiZ2lXaURPUjd2bEVUbUlJL3cyQVZFbkVCTU9XeEJBcGVkTFkvSExl?=
- =?utf-8?B?WGloSVJaMHNiVlRiV1g3RlVpNXNQcmVkZVVhNjdWZGxEUjdhOTJMTGtUTnRY?=
- =?utf-8?B?Zkw1L25tUEtueXpuRmlJYnBaUTFZV3d0VytVNG5RTU5uRXF6SjlFcmFWc3hM?=
- =?utf-8?B?cDJEems5dHNHS1NyV3BVayt5cHIzREtFbmhma3FWYXRsWUVsVnRGQ1hnUUJn?=
- =?utf-8?B?WHVpdXdYYnM5a2JtNnR6UDJDM2p2RXNRQTNRV0pUVUd1Sno2NFB3ZjhWRHov?=
- =?utf-8?B?Ulc1Sm16WFVEenNmOHFXQ1pWL3VqR09BMnY3RXEzeTIvN2pjbVRiQlFycGRZ?=
- =?utf-8?B?SkZoYUhwM2FraVFJd3daellHYUp4encyQlB6VVVQUzZnNS9lWVZNb0J6L3JL?=
- =?utf-8?B?L1RHa2RzZ3U0NlAwdjlSa2dGQmwrZU9UQlRIUlU5RTVIbWlVWS92dXV6blhu?=
- =?utf-8?B?L0FrRThrWk1BMHhiRzVYeUhqc09BbFZBRGN0UGxlQ25TMU50VVFVQ2NxTVFH?=
- =?utf-8?B?UG5xb3NjcmxIMlpjWTlSZ1VGQXNMVHRwdGRSbEpoRzMwQ283ak1CS1UralJG?=
- =?utf-8?B?aHZsZVhlVEFPSUowS3FjYVcyWllaazJpUVpWVW85bWJRd1gwQkZxdHVmd3Va?=
- =?utf-8?B?Si9yTGpIS2JGUS9zNUREZVNSSHNnbG5yMjNlQjBPcDA1Rm05UG4vRXZoY1Fu?=
- =?utf-8?B?L0FieWZiMXRiOGw5TUt5Q2FVdzRyV3F3OEllcE1ZbnhqUVZ6RU05UkU3bDdF?=
- =?utf-8?B?UjNXNlVWK1p0Q0V5K2FmSEhvQ2d3cHFtTzE2bjd3ZkhwK25Bdm13UlBFVUk2?=
- =?utf-8?B?d1FsSlJKeE5CZjNEcG9OMzRiZXhsYmNuayszN1RzV3FzcnQ5MjMzektqRWtP?=
- =?utf-8?B?alRBa25qd1RFMlEvamxYbnEyOEEwd01XNVY1eVkrSy9NTVpnczVLOEhPa3NV?=
- =?utf-8?B?MnBSWXNtSGV2UFF1SnhPZXdIREE4VmxMckFhS3QvbUxVVnRnMkplTkhZQ2JW?=
- =?utf-8?B?Wlp2TDFXRlpyNjNGTStrMUlubm1rTEMvSFdOb0ovSi9ZMWVKSTRpUWZnL1Zq?=
- =?utf-8?B?Nmc4aSt3SjNCU1hlanZzZDFkQ3Z6QmE1cUFyK2ZLRGljZnBmaGR3S2pBbzJl?=
- =?utf-8?B?UG50b2dNcGpkeUswMWZsOWlKZHRRL0JUWWhSVEJRLzFyeDhSaWE2c0wxU3BD?=
- =?utf-8?B?RVgvL0ZnRGtrdkx3TlVubHRrL29XUWVNcHJhSmhiY2lraUx1NFZwdzlPME1S?=
- =?utf-8?B?T09tSnFOeXY2RTErUlJWME9JUW1WUVBZU1NxVDVVSEl5TVVFRHI1cnp0OXJW?=
- =?utf-8?B?R3FBNmZwc296WVJ2MXQxc1JCZlNLTEY5ZEovK2hvQkwrQ0RxWlpBVC9mRVdu?=
- =?utf-8?Q?cBE+f1DluPzfgtTlbL?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0da418f-9083-41ab-b09b-08df28604c44
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:56:57.4934 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RVVuTy+77ugt7bWZM0/3gP7FvQsqD90rfd0agQaT0VAPw0M3wku5I7D9XB2yM2uO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,116 +57,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/12/26 13:38, Julian Orth wrote:
-> On Mon, Oct 12, 2026 at 9:45 AM Christian König
-> <christian.koenig@amd.com> wrote:
->>
->>
->>
->> On 10/10/26 20:07, Julian Orth wrote:
->>> If dma_fence_chain_alloc() fails, the function returns -ENOMEM without
->>> dropping the references to the imported fence and the syncobj.
->>>
->>> Fixes: c2d3a7300695 ("drm/syncobj: Extend EXPORT_SYNC_FILE for timeline syncobjs")
->>> Assisted-by: Claude:claude-opus-5-5
->>> Signed-off-by: Julian Orth <ju.orth@gmail.com>
->>> ---
->>>  drivers/gpu/drm/drm_syncobj.c | 10 +++++++---
->>>  1 file changed, 7 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
->>> index c23a5de27..5ca5163d0 100644
->>> --- a/drivers/gpu/drm/drm_syncobj.c
->>> +++ b/drivers/gpu/drm/drm_syncobj.c
->>> @@ -730,6 +730,7 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
->>>  {
->>>       struct dma_fence *fence = sync_file_get_fence(fd);
->>>       struct drm_syncobj *syncobj;
->>> +     int ret = 0;
->>
->> Please don't initialize return values on declaration that is often considered bad coding style.
->>
->>>
->>>       if (!fence)
->>>               return -EINVAL;
->>> @@ -743,17 +744,20 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
->>>       if (point) {
->>
->>>               struct dma_fence_chain *chain = dma_fence_chain_alloc();
->>>
->>> -             if (!chain)
->>> -                     return -ENOMEM;
->>> +             if (!chain) {
->>> +                     ret = -ENOMEM;
->>> +                     goto out;
->>> +             }
->>>
->>>               drm_syncobj_add_point(syncobj, chain, fence, point);
->>
->> Allocation and adding the point is intentionally separated so that dma_fence_chain_alloc() can be called before looking up the syncobj or previous fence.
->>
->> I suggest to make use of that.
-> 
-> This is the fourth time that someone has tried to fix this trivial bug
-> for over a year.
+Hi,
 
-I was already wondering as well if we haven't fixed that before.
+This is a patch series covering the support for protected mode execution in
+Mali Panthor CSF kernel driver.
 
-> The previous 3 cases were:
-> 
-> https://lore.kernel.org/all/c715ef30-9d91-46f3-8a0f-1039f3d25e7d@stanley.mountain/
-> https://lore.kernel.org/all/20260516-jorth-syncobj-v1-9-88ede9d98a81@gmail.com/
-> https://lore.kernel.org/all/20260525025455.3887523-1-vulab@iscas.ac.cn/
-> 
-> The last of which didn't even receive a reply. And there have been
-> more cases in the past where I encountered a dri-devel-adjacent issue,
-> googled it, and found that patches had already been sent in years ago
-> to fix it, but were ignored.
+It builds on the initial RFC posted by Florent Tomasin back in January of 2025.
 
-The problem here is clearly that nobody feels responsible for pushing that fix.
+The initial RFC can be found here:
+https://lore.kernel.org/lkml/cover.1738228114.git.florent.tomasin@arm.com/
 
-Regards,
-Christian.
+The Mali CSF GPUs come with the support for protected mode execution at the
+HW level. This feature requires two main changes in the kernel driver:
 
-> 
-> Which is all to explain why I had all of the work for this series done by AI.
-> 
-> I heard some chatter about dri-devel adopting a gitlab-based workflow,
-> and I hope that works out and I didn't misunderstand. Because the
-> current system is clearly broken. Nobody keeps track of which bugs
-> have been reported, nobody triages existing bugs, nobody keeps track
-> of attempts to fix bugs. Which is how 3 people ended up doing repeat
-> work of discovering, analyzing, and fixing the same bug.
-> 
-> The same pattern applies to my patch two. I clearly don't know enough
-> about the (probably) undocumented semantics of where and when which
-> structure of fences can be used. Which is why I sent in a bug report
-> about this issue in May instead of trying to fix it on my own:
-> https://lore.kernel.org/all/CAHijbEUKuXNeSnT82P-ojOhzU5siNHjxUW+qEDOqx07Ys9m=xw@mail.gmail.com/
-> 
-> I would have hoped that a bug report amounting to "this new feature
-> causes the kernel to spam dmesg at 60 fps" would get some attention.
-> But no. The only way to get this issue fixed seems to be me acting as
-> a meat proxy to fix an issue that I know very little about.
-> 
-> Thanks for reading my blog post.
-> 
-> 
->>
->> Regards,
->> Christian.
->>
->>>       } else {
->>>               drm_syncobj_replace_fence(syncobj, fence);
->>>       }
->>>
->>> +out:
->>>       dma_fence_put(fence);
->>>       drm_syncobj_put(syncobj);
->>> -     return 0;
->>> +     return ret;
->>>  }
->>>
->>>  static int drm_syncobj_export_sync_file(struct drm_file *file_private,
->>
+1) Configure the GPU with a protected buffer. The system must provide a DMA
+   heap from which the driver can get protected buffers.
+   It can be a carved-out memory or dynamically allocated protected memory region.
+   Some system includes a trusted FW which is in charge of the protected memory.
+   This problem is integration specific and the responsibility to allocate the
+   required protected memory from the correct and system specific DMA heap is
+   left to user space (Mesa). Panthor CSF driver must be handed the needed
+   buffers via new IOCTLs.
+
+2) Handle enter and exit of the GPU HW from normal to protected mode of execution.
+   FW sends a request for protected mode entry to the kernel driver.
+   The acknowledgment of that request is a scheduling decision. Effectively,
+   protected mode execution should not overrule normal mode of execution.
+   A fair distribution of execution time will guaranty the overall performance
+   of the device, including the UI (usually executing in normal mode),
+   will not regress when a protected mode job is submitted by an application.
+
+
+Background
+----------
+
+Current Mali Panthor CSF driver does not allow a user space application to
+execute protected jobs on the GPU. This use case is quite common on end-user-device.
+A user may want to watch a video or render content that is under a "Digital Right
+Management" protection, or launch an application with user private data.
+
+1) User-space:
+
+   In order for an application to execute protected jobs on a Mali CSF GPU the
+   user space application must submit jobs to the GPU within a "protected regions"
+   (range of commands to execute in protected mode).
+
+   Find here an example of a command buffer that contains protected commands:
+
+```
+          <--- Normal mode ---><--- Protected mode ---><--- Normal mode --->
+   +-------------------------------------------------------------------------+
+   | ... | CMD_0 | ... | CMD_N | PROT_REGION | CMD_N+1 | ... | CMD_N+M | ... |
+   +-------------------------------------------------------------------------+
+```
+
+   The PROT_REGION command acts as a barrier to notify the HW of upcoming
+   protected jobs. It also defines the number of commands to execute in protected
+   mode.
+
+   The Mesa definition of the opcode can be found here:
+
+     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/panfrost/lib/genxml/v10.xml?ref_type=heads#L763
+
+2) Kernel-space:
+
+   When loading the FW image, the Kernel driver must also load the data section
+   of CSF FW that comes from the protected memory, in order to allow FW to
+   execute in protected mode.
+
+   The FW uses the same protected memory buffer to execute protected jobs from
+   all processes on the system. Note: This buffer must be provided by a user
+   space process with CAP_SYS_MODULE though.
+
+   In addition, when a CSG (group) is created, it must have a protected suspend
+   buffer. User space must provide this buffer on group creation if it want to
+   execute protected jobs.
+
+   The required size of both these buffer types can be queried. See
+   query type DRM_PANTHOR_DEV_QUERY_PROTM_INFO.
+
+Design decisions
+----------------
+
+The earlier versions (RFC and v1) relied on in-kernel allocation of protected
+DMA-bufs, both for the required FW memory (system wide), and per group
+suspend buffers (per process). This is no longer needed.
+Starting with v2, this is now changed and it is user space which is responsible
+for supplying these buffers.
+Only a user space processes with elevated privileges (CAP_SYS_MODULE) is trusted
+to provide the system wide protected FW memory. This only needs to happen once
+per boot, and is needed before any non-privileged processes can make use of
+protected rendering.
+
+The Mali Panthor CSF kernel driver will handle enter/exit of protected
+mode with a fair consideration of the job scheduling.
+
+If the system integrator does not provide a protected DMA heap, the driver
+will not allow any protected mode execution.
+
+Testing
+-------
+
+1) Platform and development environment
+
+   Any platform containing a Mali CSF type of GPU and a protected memory allocator
+   that is based on DMA Heap can be used. For example, it can be a physical platform
+   or a simulator such as Arm Total Compute FVPs platforms. Reference to the latter:
+
+     https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms/Total%20Compute%20FVPs
+
+2) Mesa:
+
+PanVK support can be found here:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40044
+
+
+Previous versions
+-----------------
+v3: https://lkml.org/lkml/2026/9/11/1187
+v2: https://lkml.org/lkml/2026/7/12/369
+v1: https://lkml.org/lkml/2026/5/5/1523
+
+
+Highlevel changes
+-----------------
+
+Changes in v4:
+- Main changes are to the "drm/panthor: Add support for entering and exiting protected mode" patch.
+  A new approach to avoid uneccesary protm premption by non-running VMs.
+  This patch do need some splitting before final version. Will do that if
+  this approach gets the general approval.
+- Split the old patch "drm/panthor: Expose protected rendering features" into
+  multiple smaller patches.
+- See each patch for detailed changes
+
+Changes in v3:
+- Dropped patch "drm/panthor: Explicit expansion of locked VM region"
+- See each patch for detailed changes
+
+Changes in v2:
+- Conceptually similar to v1, but heavily reworked to address fault handling
+- User space provides all protected memory buffers (no in-kernel dmabuf alloc)
+
+Boris Brezillon (7):
+  drm/panthor: Pass drm_file instead of panthor_file
+  drm/panthor: New function for FW section map flags
+  drm/panthor: Keep size and VA in FW section obj
+  drm/panthor: Refactor GEM usage flags assignment
+  drm/panthor: Create kernel BO from existing GEM
+  drm/panthor: Support FW init of protm
+  drm/panthor: Protm support for groups
+
+Florent Tomasin (2):
+  drm/panthor: Minor scheduler refactoring
+  drm/panthor: Add support for entering and exiting protected mode
+
+Ketil Johnsen (3):
+  drm/panthor: De-duplicate FW memory section sync
+  drm/panthor: Don't allocate protm_suspend_buf
+  drm/panthor: Bump version to expose protm feature
+
+ drivers/gpu/drm/panthor/panthor_device.h |  11 +
+ drivers/gpu/drm/panthor/panthor_drv.c    |  61 +-
+ drivers/gpu/drm/panthor/panthor_fw.c     | 307 ++++++++--
+ drivers/gpu/drm/panthor/panthor_fw.h     |   8 +
+ drivers/gpu/drm/panthor/panthor_gem.c    | 107 ++--
+ drivers/gpu/drm/panthor/panthor_gem.h    |   9 +-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  49 +-
+ drivers/gpu/drm/panthor/panthor_gpu.h    |   4 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 294 +++++++---
+ drivers/gpu/drm/panthor/panthor_mmu.h    |  12 +-
+ drivers/gpu/drm/panthor/panthor_sched.c  | 702 +++++++++++++++++++----
+ drivers/gpu/drm/panthor/panthor_sched.h  |  28 +-
+ include/uapi/drm/panthor_drm.h           |  85 ++-
+ 13 files changed, 1356 insertions(+), 321 deletions(-)
+
+-- 
+2.43.0
 
