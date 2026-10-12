@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC487CA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:15:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7BACA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:15:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5134A10F06F;
-	Mon, 12 Oct 2026 13:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5B4410E62D;
+	Mon, 12 Oct 2026 13:15:29 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EEA410F0EE
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:15:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64C3B10F0EF
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:15:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E4E2B4039E;
- Mon, 12 Oct 2026 13:15:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8EF1F0089B;
- Mon, 12 Oct 2026 13:15:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4E42E41756;
+ Mon, 12 Oct 2026 13:15:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F245C1F0089C;
+ Mon, 12 Oct 2026 13:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791810917;
- bh=pbwolV2gpLlhco6YnOqT4f0AFWu7v8BeH4SkpDuXrms=;
+ s=k20260515; t=1791810924;
+ bh=YEFM1zCeU+S3WieHOaSiaNmgbDTa7ojyhqE8Yfkatuo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=algrs0+yoH1mDGhKhiinVo4Tojv/6YsugbCK8b5gMgSmwb+By68xiMTvfEUg14eas
- 4MrEsFDZntb28NSPVZrl21Q1tcJXZnZCP9ovv71msbBleWC/5vmgmspv00gJ0J8GKu
- ur5klKTANWlCw61b+3SawqWTY5DKOv9hp/Ms4MogqJd32hqLEvQ1WsQ/SlKK9yP2Wc
- FMSRFaRYjxWu0OkMeOdWdnVg4kbhNDMCPTjQg4A3wz+5A//xUuK5sRUpKpPT4Ny16G
- FnDiLDVHfftJqTVIPMToImL+HdHOUy/yc+0YIEK6CfH724feJ2beZWQLAtr7hb4OUz
- 7VU2OBZsRj5RQ==
-Message-ID: <sashiko-outbox-168152@kernel.org>
+ b=GgTZ/6BACJupGnVvkVNPXYQJocRU5Dz/8p9E8w5/lB0vWBKiQH8P6MBgNekZz3Npq
+ tDtRlNs9+uAYusMdtvYzywPv2k3MuHrreLwq0D7PQb30cUMbywWsg8uJhwjCYaDD4W
+ tdKFLT956OikQpqhHXogmKVm8VPZ9VyeMSs+jRBa2HRKZ1yorvKWiE9+4d/KDPQFkE
+ YOkAbLRng2JSKcFxGY27odrXp9/ROotitJBIdSW/vraTPKpSa5cPaB+vVWShRHwBKr
+ RtJxJTK5mxx7Z1a8fIlaVRvHdwf+94Yd5haCM7k1uM7h/D/KuHpUcpkAhtfdDc55ho
+ s8wcdd5nKItsg==
+Message-ID: <sashiko-outbox-168154@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 04/18] PCI/P2PDMA: Evaluate ACS controls at the path
- divergence
+Subject: Re: [PATCH v10 10/18] PCI/P2PDMA: Route Translated Requests under
+ Direct Translated P2P
 To: "Leon Romanovsky" <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org, media-ci@linuxtv.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261012-fix-p2p-acs-v4-0-v10-4-6ffe7b7a4517@nvidia.com>
+Cc: linux-pci@vger.kernel.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261012-fix-p2p-acs-v4-0-v10-10-6ffe7b7a4517@nvidia.com>
 References: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
- <20261012-fix-p2p-acs-v4-0-v10-4-6ffe7b7a4517@nvidia.com>
+ <20261012-fix-p2p-acs-v4-0-v10-10-6ffe7b7a4517@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 13:15:17 +0000
+Date: Mon, 12 Oct 2026 13:15:23 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,25 +58,16 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 > From: Leon Romanovsky <leonro@nvidia.com>
 >=20
-> ACS redirect controls choose between peer and upstream routes only at the
-> path divergence. Applying them below that point rejects valid nested
-> topologies because traffic already has only an upstream route.
+> A Downstream Port with ACS Direct Translated P2P enabled routes a Request
+> whose Address Type is Translated "to the peer Egress Port without
+> redirection, regardless of ACS P2P Request Redirect and ACS P2P Egress
+> Control", per PCIe r7.0 sec 6.12.3. P2PDMA assumes every Request carries =
+an
+> Untranslated address, so it sends an ATS client through the host bridge
+> even where the fabric would route it straight to the peer.
 >=20
->     Host bridge 1      Host bridge 2
->           |                  |
->     PCIe switch 1      PCIe switch 2
->        |     |               |
->        A     B               C
+> Consult Direct Translated P2P for the PCI_P2PDMA_TLP_TRANSLATED classes.
 >=20
-> A's and B's paths diverge in switch 1. A and C share no upstream bridge,
-> so no direct route exists for ACS to gate.
->=20
-> Evaluate Request controls on the Requester-side divergence port and
-> Completion Redirect on the Completer-side port and reject an unreadable A=
-CS
-> Control register.
->=20
-> Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
 > Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 > Tested-by: Tushar Dave <tdave@nvidia.com>
 > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
@@ -85,5 +76,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-fix-p2p-ac=
-s-v4-0-v10-0-6ffe7b7a4517@nvidia.com?part=3D4
+s-v4-0-v10-0-6ffe7b7a4517@nvidia.com?part=3D10
 
