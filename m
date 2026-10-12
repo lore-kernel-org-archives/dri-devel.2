@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D80BCA9ED5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:34:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD27FCA9ED5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:35:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C2B910EC5E;
-	Mon, 12 Oct 2026 04:34:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C63410E99B;
+	Mon, 12 Oct 2026 04:35:44 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1F8110EB45;
- Mon, 12 Oct 2026 04:34:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB2F10E6DE;
+ Mon, 12 Oct 2026 04:35:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CA4F943836;
- Mon, 12 Oct 2026 04:34:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4561F0089B;
- Mon, 12 Oct 2026 04:34:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 704E7432B3;
+ Mon, 12 Oct 2026 04:35:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA861F0089B;
+ Mon, 12 Oct 2026 04:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791779676;
- bh=XzGWGbUNJa0VOliIJ9F6aun4wC2RakHffbd8KCEUl54=;
+ s=k20260515; t=1791779737;
+ bh=buQ/dT+qZ6UXD4lxWkW/nH7QYfLsy264ejLwD4EymfU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F6xgb6DGu6TuVv+b0D53IFBtd89Z0ZA7raftjZGr8LIGAuuGzfCAxrTnIZIkncVc3
- UlB7UeWI19LBz6KrcSDBN0DDET39rZtCrER8iwq7yROJOU4/gV/QqTNXrY2kOdWvX4
- +oJhIfVLQlvm8+G0bTKsTjfOnHEkE7uUiFiqzW9PIQhk8lhlWs/DukL8NAyXLfEKaa
- gj2G0Vl11Sg4IurXqH6DxpnDUz6UPekABcwXqOTp0k/nOSgIGoNskCrSgcmMHOCN63
- /DKJeZ2xC2rUloMU33xvmlNUw5DhdCpQHz3auYGnKC5zW9MLJbr/6Mxl0mXPn2WjkR
- 3YAWe/PHK3ZSw==
-Message-ID: <sashiko-outbox-167611@kernel.org>
+ b=UzKSR05EKuYLmL7VZKcWC5ywH8pOT9PfaL0BC0WF7tL2Ouyatds6+BCsmBUVWUW+/
+ SCojpV9ZTomlZgYk0h3uPYhVX8g1es4fKiC6h2basSD12S4V6u0crJuwtsmxNRt+n8
+ L0VMMKlZOafol8OA6bDc92/vrARB7+ZKhAOfKDdwqmvmN+BjOlDQ+D0FQERqeJPOSs
+ wDGtW4fQDuAlYwq7ehHD/Z/jxJI8AyRXCehEl06IhJkbc/xS6YShm4Eg3JYHA4wnwB
+ gTYsNRRaUMIzVr8pqAqBvB8/5spLcT98NEtlN2FCOTeYiQXtY5eqhTOvsgbFYjuclb
+ uZRmOgRhqjCmw==
+Message-ID: <sashiko-outbox-167612@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/56] drm/i915/hdmi: Parse FRL max link rate from VBT
+Subject: Re: [PATCH v2 27/56] drm/i915/hdmi_frl_dfm_regs: Define DFM registers
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-2-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20261012035806.3361439-28-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-2-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-28-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:34:36 +0000
+Date: Mon, 12 Oct 2026 04:35:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,105 +55,51 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm: hardcoded platform check disables FRL on newer hardware
-- [High] drm/hdmi: FRL incorrectly disabled when VBT specifies platform def=
-ault rate
+- [Low] drm/i915: Typo in TB_MIN_THESHOLD macro names
 --
 
-commit df17bdb1a2102d3ca65a52512220409d6c6fe624
+commit 630f464ba2dd2b53e20d33d3caf2861bb55f1fa9
 Author: Vandita Kulkarni <vandita.kulkarni@intel.com>
 
-drm/i915/hdmi: Parse FRL max link rate from VBT
+drm/i915/hdmi_frl_dfm_regs: Define DFM registers
 
-Parse the maximum FRL link rate from VBT and store it for use
-during FRL mode selection and link training.
+This commit adds definitions for HDMI FRL dataflow metering registers to
+handle DFM values.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/=
-i915/display/intel_bios.c
-> index 7b6a6f8c3cf19..7181237508b3a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm_regs.h b/dri=
+vers/gpu/drm/i915/display/intel_hdmi_frl_dfm_regs.h
+> new file mode 100644
+> index 0000000000000..bb5cb76b3806b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm_regs.h
+
 [ ... ]
-> @@ -2788,12 +2788,45 @@ static bool is_port_valid(struct intel_display *d=
-isplay, enum port port)
->  	return true;
->  }
-> =20
-> +int intel_bios_hdmi_max_frl_rate(const struct intel_bios_encoder_data *d=
-evdata)
-> +{
-> +	struct intel_display *display =3D devdata->display;
-> +
-> +	if (display->vbt.version < 237)
-> +		return 0;
-> +
-> +	/*
-> +	 * When hdmi_max_frl_rate_valid is 0 the VBT does not specify a maximum
-> +	 * FRL rate, so don't use it to limit the FRL rate on FRL-capable
-> +	 * platforms.
-> +	 */
-> +	if (!devdata->child.hdmi_max_frl_rate_valid)
-> +		return display->platform.meteorlake ? 12000000 : 0;
 
-[Severity: High]
-Does this hardcoded check disable FRL on newer hardware?
+> +#define _TRANS_HDMI_FRL_DFMTHRSH_A			0x600c4
+> +#define TRANS_HDMI_FRL_DFMTHRSH(dev_priv, trans)	_MMIO_TRANS2(dev_priv, \
+> +								     trans, \
+> +								     _TRANS_HDMI_FRL_DFMTHRSH_A)
+> +#define  RUN_LEN_THRESHOLD_MASK				REG_GENMASK(31, 24)
+> +#define  RUN_LEN_THRESHOLD(val)				REG_FIELD_PREP(RUN_LEN_THRESHOLD_MASK=
+, val)
+> +#define  TB_MAX_THRESHOLD_MASK				REG_GENMASK(21, 12)
+> +#define  TB_MAX_THRESHOLD(val)				REG_FIELD_PREP(TB_MAX_THRESHOLD_MASK, =
+val)
+> +#define  TB_MIN_THESHOLD_MASK				REG_GENMASK(9, 0)
+> +#define  TB_MIN_THESHOLD(val)				REG_FIELD_PREP(TB_MIN_THESHOLD_MASK, va=
+l)
 
-By restricting the fallback rate exclusively to Meteorlake, 0 is returned
-for all newer FRL-capable platforms (e.g., Lunar Lake, Panther Lake) when
-the VBT lacks a valid max FRL rate.
-
-Downstream callers like intel_hdmi_compute_config() in intel_hdmi.c use
-the return value as a boolean condition:
-
-    if (HAS_HDMI_FRL(display) && intel_bios_hdmi_max_frl_rate(encoder->devd=
-ata) && ...)
-        enable_frl =3D true;
-
-Returning 0 causes enable_frl to evaluate to false, which means FRL will
-never be enabled on newer hardware architectures under these conditions.
+[Severity: Low]
+This isn't a bug, but there appears to be a typo in the names of these
+minimum threshold macros where THRESHOLD is spelled as THESHOLD. Could
+these be updated to include the missing R for consistency with the
+TB_MAX_THRESHOLD macros defined just above?
 
 > +
-> +	switch (devdata->child.hdmi_max_frl_rate) {
-> +	default:
-> +	case HDMI_MAX_FRL_RATE_PLATFORM:
-> +		return 0;
-
-[Severity: High]
-Does returning 0 here inadvertently disable FRL when the VBT specifies
-the platform default rate?
-
-Although the comment above mentions that a missing VBT specification
-should not limit the FRL rate, returning 0 signals callers to completely
-disable FRL rather than applying a platform fallback.
-
-Later in the series, the caller logic in intel_hdmi_compute_config()
-treats 0 as a strict boolean requirement and cap:
-
-    if (HAS_HDMI_FRL(display) &&
-        intel_bios_hdmi_max_frl_rate(encoder->devdata) &&
-        intel_hdmi->has_sink_hdmi_21)
-        enable_frl =3D true;
-
-Because intel_bios_hdmi_max_frl_rate() returns 0, enable_frl stays false
-and the rate cap becomes 0. This completely disables HDMI 2.1 Fixed
-Rate Link capabilities on any platform where the VBT is configured to use
-the platform's native default or if the VBT is older than version 237.
-
-> +	case HDMI_MAX_FRL_RATE_3G:
-> +		return 3000000;
-> +	case HDMI_MAX_FRL_RATE_6G:
-> +		return 6000000;
-> +	case HDMI_MAX_FRL_RATE_8G:
-> +		return 8000000;
-> +	case HDMI_MAX_FRL_RATE_10G:
-> +		return 10000000;
-> +	case HDMI_MAX_FRL_RATE_12G:
-> +		return 12000000;
-> +	}
-> +}
+> +#endif /* __INTEL_HDMI_FRL_DFM_REGS_H__ */
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D1
+439-1-ankit.k.nautiyal@intel.com?part=3D27
