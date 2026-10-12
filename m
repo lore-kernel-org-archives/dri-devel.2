@@ -4,55 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC356CA9EDD
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:15:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0DF4CA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:15:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F91210E530;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96D9D10E6E3;
 	Mon, 12 Oct 2026 04:15:35 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B332B10E4F4;
- Mon, 12 Oct 2026 04:15:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D65A310E4CC;
+ Mon, 12 Oct 2026 04:15:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778528; x=1823314528;
+ t=1791778525; x=1823314525;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=m8HYOz/DEkRkq3gcvWRxfRrHndSBhepMLl+2d2ewQWw=;
- b=MzbWownap/8Ek2gJr+c1hiD+u7gqRSB5WUGFOEDSGZYrY+27gRW+jUy7
- fygdeEmP+Nfi5JVEsC5Fp0k8inOjwvRZZwFuFVl8Z3rdEN832JOzRhC3I
- 97Rl7HiP7+p0Q0OH0zCvLQCuspi5p8fD1MQA7H6FvXM/0KBp79CYBkaXm
- Y4L+jR5EEu6a4K8glFL7dSapxGfdSUMrThGOywbUHE+y1R65LW87Xr6DQ
- gqko2vOcxEqyxTuYACX0SkJ5owDzJNHyha3aKolQ9oG63ChgRx0xz5xeg
- +3ty+5k8GL/UYJMoFR8LkWcjKpOdpVGUo01c1i1QkoI7xdiPFE7/xPl72 g==;
-X-CSE-ConnectionGUID: WTaDj6ISTbChEgVOBMJJVg==
-X-CSE-MsgGUID: jfMozLfkR623koznsIDkyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380916"
+ bh=iBU6u889VnLABqMl1kw04koX6VlI2i2hSDcvDtykU2Q=;
+ b=lgBe9hCa8vi/6JWAU5pXSKV2vtCZ2NsC2OiNN+wzLCJTuSZEbWCyDu9J
+ kTmSEhTPh1f3GVbWIrHphV5zq+SWS43U3x4K2M+f9Yb/A5Co7vXDr9Wcb
+ jbXms7X6VXxZv+jGwlCf2YGrBle7LXjB2Tv2MdBiuMy3ffqYacDk1GLXu
+ syAAbzbUPxgmT8ZQ0uCWJmXr017GMInd9973xu/nAk5RrPqxpolA83smJ
+ tHxNulUIBgIhXrRgW2z4jX1Aak8MY01/tt4WmsOjPx7wjEqDkmwK3X2MJ
+ uybxh8go+p92kWPRPNzeRGEluD5iwdIqR/keyl4jT7wF1OhbWym1I7uMH w==;
+X-CSE-ConnectionGUID: a9S/NlHJROeIgOiaZ6EdaA==
+X-CSE-MsgGUID: BCdVBQLdRrywjWv+rP764g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380912"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="380916"
+   d="scan'208";a="380912"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:15:24 -0700
-X-CSE-ConnectionGUID: FGjfjDwOQmehlyh6hQonRw==
-X-CSE-MsgGUID: v88u6951RXmNwSaCsWN8Og==
+ 11 Oct 2026 21:15:20 -0700
+X-CSE-ConnectionGUID: 7TNwZfkqSoOai1PMw0Gi3w==
+X-CSE-MsgGUID: y6AoS2Z5TX2LE+oMBAVTgg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256565"
+   d="scan'208";a="1256543"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:15:23 -0700
+ 11 Oct 2026 21:15:19 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 31/56] drm/i915/hdmi: Add helper to write FRL CFG register
-Date: Mon, 12 Oct 2026 09:27:40 +0530
-Message-ID: <20261012035806.3361439-32-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 29/56] drm/i915/hdmi_frl_dfm: Add non dsc frl capacity
+ computation helpers
+Date: Mon, 12 Oct 2026 09:27:38 +0530
+Message-ID: <20261012035806.3361439-30-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,49 +71,496 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce helpers to write FRL CFG refister bits.
+From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 
+Add helper functions for computing non dsc frl
+link characteristics
+
+v2:
+- Add macro PPM used by the Audio rate and FRl rate Tolerances. (Ankit)
+- Derive L-PCM AP factor from channel count instead of hardcoding. (Ankit)
+- Return early if available hblank tribytes are not sufficient for
+  audio. (Ankit)
+- Use 64-bit math for the DFM tri-byte/timing products to avoid u32
+  overflow. (Ankit)
+
+Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 16 ++++++++++++++++
- drivers/gpu/drm/i915/display/intel_hdmi.h |  1 +
- 2 files changed, 17 insertions(+)
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ .../gpu/drm/i915/display/intel_hdmi_frl_dfm.c | 426 ++++++++++++++++++
+ .../gpu/drm/i915/display/intel_hdmi_frl_dfm.h |   2 +
+ drivers/gpu/drm/xe/Makefile                   |   1 +
+ 4 files changed, 430 insertions(+)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index bfec1a808af5..db996b696847 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -3919,3 +3919,19 @@ void intel_hdmi_disable_frl(struct intel_encoder *encoder,
- 
- 	intel_hdmi_reset_frl_config(intel_hdmi);
- }
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index d4e7764621e1..d6abb79d5696 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -368,6 +368,7 @@ i915-y += \
+ 	display/intel_encoder.o \
+ 	display/intel_gmbus.o \
+ 	display/intel_hdmi.o \
++	display/intel_hdmi_frl_dfm.o \
+ 	display/intel_lspcon.o \
+ 	display/intel_lt_phy.o \
+ 	display/intel_lvds.o \
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c b/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c
+new file mode 100644
+index 000000000000..2381ad2a3fc4
+--- /dev/null
++++ b/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c
+@@ -0,0 +1,426 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2022 Intel Corp
++ */
 +
-+void intel_hdmi_frl_cfg_write(const struct intel_crtc_state *crtc_state)
++#include <linux/kernel.h>
++
++#include <drm/drm_connector.h>
++
++#include "intel_hdmi_frl_dfm.h"
++
++/* DFM constraints and tolerance values */
++#define TB_BORROWED_MAX			400
++#define FRL_CHAR_PER_CHAR_BLK		510
++/* Tolerance pixel clock unit is in  mHz */
++#define TOLERANCE_PIXEL_CLOCK		5
++
++/* ppm base for the tolerances below */
++#define PARTS_PER_MILLION		1000000
++#define TOLERANCE_FRL_BIT_RATE		300
++#define TOLERANCE_AUDIO_CLOCK		1000
++#define ACR_RATE_MAX			1500
++#define EFFICIENCY_MULTIPLIER		1000
++#define OVERHEAD_M			(3 * EFFICIENCY_MULTIPLIER / 1000)
++#define BPP_MULTIPLIER			16
++#define FRL_TIMING_NS_MULTIPLIER	1000000000
++
++/* Total FRL characters per super block */
++static u32 get_frl_char_per_super_blk(u32 lanes)
 +{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder cpu_trans = crtc_state->cpu_transcoder;
-+	u32 val;
-+
-+	if (!crtc_state->frl.enable)
-+		return;
-+
-+	val = TRANS_HDMI_R_B_SCHED_ENABLE(crtc_state->frl.rsrc_sched_en);
-+	val |= TRANS_HDMI_ACTIVE_CHAR_BUF_THRESH(crtc_state->frl.active_char_buf_threshold);
-+	val |= TRANS_HDMI_MIN_BLANK_CHAR(TRANS_HDMI_MIN_BLANK_CHAR_VAL);
-+
-+	intel_de_rmw(display, TRANS_HDMI_FRL_CFG(display, cpu_trans), 0, val);
++	return (4 * FRL_CHAR_PER_CHAR_BLK) + lanes;
 +}
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index 5baa38d326e5..6e0b5fb1930a 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -83,5 +83,6 @@ void intel_hdmi_poll_for_scrambling_enable(const struct intel_crtc_state *crtc_s
++
++/* Total minimum overhead multiplied by EFFICIENCY_MULIPLIER */
++static u32 get_total_minimum_overhead(u32 lanes)
++{
++	u32 overhead_sb;
++	u32 overhead_rs;
++	u32 overhead_map;
++
++	/*
++	 * Determine the overhead due to the inclusion of
++	 * the SR and SSB FRL characters used for
++	 * super block framing
++	 */
++	overhead_sb = (lanes * EFFICIENCY_MULTIPLIER) / get_frl_char_per_super_blk(lanes);
++
++	/*
++	 * Determine the overhead due to the inclusion of RS FEC pairity
++	 * symbols. Each character block uses 8 FRL characters for RS Pairity
++	 * and there are 4 character blocks per super block
++	 */
++	overhead_rs = (8 * 4 * EFFICIENCY_MULTIPLIER) /  get_frl_char_per_super_blk(lanes);
++
++	/*
++	 * Determine the overhead due to FRL Map characters.
++	 * In a bandwidth constrained application, the FRL packets will be long,
++	 * there will typically be two FRL Map Characters per Super Block most of the time.
++	 * When a tracnsition occurs between Hactive and Hblank (uncomperssed video) or
++	 * HCactive and HCblank (compressed video transport), there may be a
++	 * third FRL Map Charecter. Therefore this spec assumes 2.5 FRL Map Characters
++	 * per Super Block.
++	 */
++	overhead_map =
++		(25  * EFFICIENCY_MULTIPLIER) / (10 * get_frl_char_per_super_blk(lanes));
++
++	return overhead_sb + overhead_rs + overhead_map;
++}
++
++/* Audio Support Verification Computations */
++
++/*
++ * During the Hblank period, Audio packets (32 frl characters each),
++ * ACR packets (32 frl characters each), Island guard band (4 total frl characters)
++ * and Video guard band (3 frl characters) do not benefit from RC compression
++ * Therefore start by determining the number of Control Characters that maybe
++ * RC compressible
++ */
++static u32
++get_num_char_rc_compressible(u32 color_format, u32 bpc,
++			     u32 audio_packets_line, u32 hblank)
++{
++	u32 cfrl_free;
++	u32 kcdx100, k420;
++
++	if (color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR420)
++		k420 = 2;
++	else
++		k420 = 1;
++
++	if (color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR422)
++		kcdx100 = 100;
++	else
++		kcdx100 = (100 * bpc) / 8;
++
++	cfrl_free = max(((hblank * kcdx100) / (100 * k420) - 32 * audio_packets_line - 7),
++			U32_MIN);
++
++	return cfrl_free;
++}
++
++/*
++ * Determine the actual number of characters made available by
++ * RC compression
++ */
++static u32
++get_num_char_compression_savings(u32 cfrl_free)
++{
++	/*
++	 * In order to be conservative, situations are considered where
++	 * maximum RC compression may not be possible.
++	 * Add one character each for RC break caused by:
++	 * • Island Preamble not aligned to the RC Compression
++	 * • Video Preamble not aligned to the RC Compression
++	 * • HSYNC lead edge not aligned to the RC Compression
++	 * • HSYNC trail edge not aligned to the RC Compression
++	 */
++	const u32 cfrl_margin = 4;
++	u32 cfrl_savings = max(((7 * cfrl_free) / 8) - cfrl_margin, U32_MIN);
++
++	return cfrl_savings;
++}
++
++static u32
++get_frl_bits_per_pixel(u32 color_format, u32 bpc)
++{
++	u32 kcdx100, k420;
++
++	if (color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR420)
++		k420 = 2;
++	else
++		k420 = 1;
++
++	if (color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR422)
++		kcdx100 = 100;
++	else
++		kcdx100 = (100 * bpc) / 8;
++
++	return (24 * kcdx100) / (100 * k420);
++}
++
++/* Determine the total available tribytes during the blanking period */
++static u32
++get_blanking_tribytes_avail(u32 color_format,
++			    u32 hblank, u32 bpc)
++{
++	u32 kcdx100, k420;
++
++	if (color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR420)
++		k420 = 2;
++	else
++		k420 = 1;
++
++	if (color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR422)
++		kcdx100 = 100;
++	else
++		kcdx100 = (100 * bpc) / 8;
++
++	return DIV_ROUND_UP((hblank * kcdx100), (100 * k420));
++}
++
++/*
++ * Determine the minimum time necessary to transmit the active tribytes
++ * considering frl bandwidth limitation.
++ * Given the available bandwidth (i.e after overhead is considered),
++ * tactive_min represents the amount of time needed to transmit all the
++ * active data
++ */
++static u32
++get_tactive_min(u32 num_lanes, u32 tribyte_active,
++		u32 overhead_max_k, u32 frl_char_min_rate_k)
++{
++	u32 active_bytes, rate_kbps, efficiency_k, effective_rate_kbps;
++
++	active_bytes = (3 * tribyte_active) / 2;
++	rate_kbps = num_lanes * frl_char_min_rate_k;
++	efficiency_k = EFFICIENCY_MULTIPLIER - overhead_max_k;
++	effective_rate_kbps = mult_frac(rate_kbps, efficiency_k, EFFICIENCY_MULTIPLIER);
++
++	return div_u64(mul_u32_u32(FRL_TIMING_NS_MULTIPLIER, active_bytes),
++		       effective_rate_kbps) / 1000;
++}
++
++/*
++ * Determine the minimum time necessary to transmit the video blanking
++ * tribytes considering frl bandwidth limitations
++ */
++static u32
++get_tblank_min(u32 num_lanes, u32 tribyte_blank,
++	       u32 overhead_max_k, u32 frl_char_min_rate_k)
++{
++	u32 blank_bytes, rate_kbps, efficiency_k, effective_rate_kbps;
++
++	blank_bytes = (3 * tribyte_blank) / 2;
++	rate_kbps = num_lanes * frl_char_min_rate_k;
++	efficiency_k = EFFICIENCY_MULTIPLIER - overhead_max_k;
++	effective_rate_kbps = mult_frac(rate_kbps, efficiency_k, EFFICIENCY_MULTIPLIER);
++
++	return div_u64(mul_u32_u32(FRL_TIMING_NS_MULTIPLIER, blank_bytes),
++		       effective_rate_kbps) / 1000;
++}
++
++/* Collect link characteristics */
++static void
++compute_link_characteristics(struct intel_hdmi_frl_dfm *frl_dfm)
++{
++	u32 frl_bit_rate_min_kbps, line_width, rate_m;
++
++	/* Determine the maximum legal pixel rate */
++	frl_dfm->params.pixel_clock_max_khz =
++		(frl_dfm->config.pixel_clock_nominal_khz * (1000 + TOLERANCE_PIXEL_CLOCK)) / 1000;
++
++	/* Determine the minimum Video Line period */
++	line_width = frl_dfm->config.hactive + frl_dfm->config.hblank;
++
++	frl_dfm->params.line_time_ns =
++		div_u64(mul_u32_u32(FRL_TIMING_NS_MULTIPLIER, line_width),
++			frl_dfm->params.pixel_clock_max_khz) / 1000;
++
++	/* Determine the worst-case slow FRL Bit Rate in kbps*/
++	frl_bit_rate_min_kbps =
++		(frl_dfm->config.bit_rate_kbps / PARTS_PER_MILLION) *
++		(PARTS_PER_MILLION - TOLERANCE_FRL_BIT_RATE);
++
++	/* Determine the worst-case slow FRL Character Rate */
++	frl_dfm->params.char_rate_min_kbps = frl_bit_rate_min_kbps / 18;
++
++	/* Character rate in mega chars/sec */
++	rate_m = DIV_ROUND_UP(frl_dfm->params.char_rate_min_kbps * frl_dfm->config.lanes, 1000);
++
++	/* Determine the Minimum Total FRL characters per line period */
++	frl_dfm->params.cfrl_line = DIV_ROUND_UP(frl_dfm->params.line_time_ns * rate_m,
++						 FRL_TIMING_NS_MULTIPLIER / 1000000);
++}
++
++/* Determine FRL link overhead */
++static void compute_max_frl_link_overhead(struct intel_hdmi_frl_dfm *frl_dfm)
++{
++	u32 overhead_min = get_total_minimum_overhead(frl_dfm->config.lanes);
++
++	/*
++	 * Additional margin to the overhead is provided to account for the possibility
++	 * of more Map Characters, zero padding at the end of HCactive, and other minor
++	 * items
++	 */
++	frl_dfm->params.overhead_max = overhead_min + OVERHEAD_M;
++}
++
++/* Audio support Verification computations */
++static void
++compute_audio_hblank_min(struct intel_hdmi_frl_dfm *frl_dfm)
++{
++	u64 num_audio_pkt_x100, rate;
++	u32 audio_pkt_rate;
++
++	/*
++	 * #TODO: get the actual audio pkt type for the AP factor
++	 * For now consider only L-PCM:
++	 * Layout 0 (<= 2ch) AP = 0.25
++	 * Layout 1 (> 2 ch) AP = 1.0
++	 * Scale x100.
++	 */
++	num_audio_pkt_x100 = (frl_dfm->config.audio_channels <= 2) ? 25 : 100;
++
++	/*
++	 * Determine Audio Related Packet Rate considering the audio clock
++	 * increased to maximim rate permitted by Tolerance Audio clock
++	 */
++	rate = frl_dfm->config.audio_hz *  num_audio_pkt_x100 + (2 * ACR_RATE_MAX * 100);
++
++	audio_pkt_rate = DIV64_U64_ROUND_UP(rate * (PARTS_PER_MILLION + TOLERANCE_AUDIO_CLOCK),
++					    (u64)PARTS_PER_MILLION * 100);
++
++	/*
++	 * Average required packets per line is
++	 * number of audio packets needed during Hblank
++	 */
++	frl_dfm->params.num_audio_pkts_line =
++		DIV_ROUND_UP(audio_pkt_rate * frl_dfm->params.line_time_ns,
++			     FRL_TIMING_NS_MULTIPLIER);
++
++	/*
++	 * Minimum required Hblank assuming no Control Period RC Compression
++	 * This includes Video Guard band, Two Island Guard bands, two 12 character
++	 * Control Periods and 32 * AudioPackets_Line.
++	 * In addition, 32 character periods are allocated for the transmission of an
++	 * ACR packet
++	 */
++	frl_dfm->params.hblank_audio_min = 32 + 32 * frl_dfm->params.num_audio_pkts_line;
++}
++
++/*
++ * Determine the number of tribytes required for active video , blanking period
++ * with the pixel configuration
++ */
++static void
++compute_tbactive_tbblank(struct intel_hdmi_frl_dfm *frl_dfm)
++{
++	u32 bpp, bytes_per_line;
++
++	bpp = get_frl_bits_per_pixel(frl_dfm->config.color_format, frl_dfm->config.bpc);
++	bytes_per_line = (bpp * frl_dfm->config.hactive) / 8;
++
++	frl_dfm->params.tb_active = DIV_ROUND_UP(bytes_per_line, 3);
++
++	frl_dfm->params.tb_blank =
++		get_blanking_tribytes_avail(frl_dfm->config.color_format,
++					    frl_dfm->config.hblank,
++					    frl_dfm->config.bpc);
++}
++
++/* Verify the configuration meets the capacity requirements for the FRL configuration*/
++static bool
++verify_frl_capacity_requirement(struct intel_hdmi_frl_dfm *frl_dfm)
++{
++	u32 tactive_ref_ns, tblank_ref_ns, tactive_min_ns, tblank_min_ns;
++	u32 tborrowed_ns;
++	u32 line_time_ns = frl_dfm->params.line_time_ns;
++	u32 hactive = frl_dfm->config.hactive;
++	u32 hblank = frl_dfm->config.hblank;
++
++	/* Determine the average tribyte rate in kilo tribytes per sec */
++	frl_dfm->params.ftb_avg_k =
++		div_u64(mul_u32_u32(frl_dfm->params.pixel_clock_max_khz,
++				    frl_dfm->params.tb_active + frl_dfm->params.tb_blank),
++			frl_dfm->config.hactive + frl_dfm->config.hblank);
++	/*
++	 * Determine the time required to transmit the active portion of the
++	 * minimum possible active line period in the base timing
++	 */
++	tactive_ref_ns = (line_time_ns * hactive) / (hblank + hactive);
++
++	/*
++	 * Determine the time required to transmit the Video blanking portion
++	 * of the minimum possible active line period in the base timing
++	 */
++	tblank_ref_ns = (line_time_ns * hblank) / (hblank + hactive);
++
++	tactive_min_ns = get_tactive_min(frl_dfm->config.lanes,
++					 frl_dfm->params.tb_active,
++					 frl_dfm->params.overhead_max,
++					 frl_dfm->params.char_rate_min_kbps);
++	tblank_min_ns = get_tblank_min(frl_dfm->config.lanes,
++				       frl_dfm->params.tb_blank,
++				       frl_dfm->params.overhead_max,
++				       frl_dfm->params.char_rate_min_kbps);
++
++	if (tactive_ref_ns >= tactive_min_ns &&
++	    tblank_ref_ns >= tblank_min_ns) {
++		tborrowed_ns = 0;
++		frl_dfm->params.tb_borrowed = 0;
++
++		return true;
++	}
++
++	if (tactive_ref_ns < tactive_min_ns &&
++	    tblank_ref_ns >= tblank_min_ns) {
++		tborrowed_ns = tactive_min_ns - tactive_ref_ns;
++		/* Determine the disparity in tribytes */
++		frl_dfm->params.tb_borrowed =
++			DIV_ROUND_UP_ULL(mul_u32_u32(tborrowed_ns, frl_dfm->params.ftb_avg_k) * 1000,
++					 FRL_TIMING_NS_MULTIPLIER);
++
++		if (frl_dfm->params.tb_borrowed <= TB_BORROWED_MAX)
++			return true;
++	}
++
++	return false;
++}
++
++/* Verify utilization does not exceed capacity */
++static bool
++verify_utilization_possible(struct intel_hdmi_frl_dfm *frl_dfm)
++{
++	u32 cfrl_free, cfrl_savings, frl_char_payload_actual;
++	u32 utilization, margin;
++
++	cfrl_free = get_num_char_rc_compressible(frl_dfm->config.color_format,
++						 frl_dfm->config.bpc,
++						 frl_dfm->params.num_audio_pkts_line,
++						 frl_dfm->config.hblank);
++	cfrl_savings = get_num_char_compression_savings(cfrl_free);
++
++	/*
++	 * Determine the actual number of payload FRL characters required to
++	 * carry each video line
++	 */
++	frl_char_payload_actual =
++		DIV_ROUND_UP(3 * frl_dfm->params.tb_active, 2) +
++		frl_dfm->params.tb_blank - cfrl_savings;
++
++	/*
++	 * Determine the payload utilization of the total number of
++	 * FRL characters
++	 */
++	utilization = (frl_char_payload_actual * EFFICIENCY_MULTIPLIER) / frl_dfm->params.cfrl_line;
++
++	margin = 1000 - (utilization + frl_dfm->params.overhead_max);
++
++	if (margin > 0)
++		return true;
++
++	return false;
++}
++
++/* Check if DFM requirement is met */
++bool
++intel_hdmi_frl_dfm_nondsc_requirement_met(struct intel_hdmi_frl_dfm *frl_dfm)
++{
++	bool frl_capacity_req_met;
++
++	compute_max_frl_link_overhead(frl_dfm);
++	compute_link_characteristics(frl_dfm);
++	compute_audio_hblank_min(frl_dfm);
++	compute_tbactive_tbblank(frl_dfm);
++
++	if (frl_dfm->params.hblank_audio_min > frl_dfm->params.tb_blank)
++		return false;
++
++	frl_capacity_req_met = verify_frl_capacity_requirement(frl_dfm);
++
++	if (frl_capacity_req_met)
++		return verify_utilization_possible(frl_dfm);
++
++	return false;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.h b/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.h
+index c619073eef9b..83d5b0d6370b 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.h
++++ b/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.h
+@@ -110,4 +110,6 @@ struct intel_hdmi_frl_dfm {
+ 	struct intel_hdmi_frl_dfm_params params;
+ };
  
- int intel_hdmi_sink_max_frl_rate(struct drm_connector *connector);
- int intel_hdmi_sink_dsc_max_frl_rate(struct drm_connector *connector);
-+void intel_hdmi_frl_cfg_write(const struct intel_crtc_state *crtc_state);
- 
- #endif /* __INTEL_HDMI_H__ */
++bool intel_hdmi_frl_dfm_nondsc_requirement_met(struct intel_hdmi_frl_dfm *frl_dfm);
++
+ #endif
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index 563c2f859361..b950ea6bb303 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -308,6 +308,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
+ 	i915-display/intel_hdcp.o \
+ 	i915-display/intel_hdcp_gsc_message.o \
+ 	i915-display/intel_hdmi.o \
++	i915-display/intel_hdmi_frl_dfm.o \
+ 	i915-display/intel_hotplug.o \
+ 	i915-display/intel_hotplug_irq.o \
+ 	i915-display/intel_hti.o \
 -- 
 2.50.1
 
