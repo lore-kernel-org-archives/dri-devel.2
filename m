@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B9ACA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:18:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8106CA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 13:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A29F10EC49;
-	Mon, 12 Oct 2026 13:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3578210F0BD;
+	Mon, 12 Oct 2026 13:18:27 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4D5810EC49
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:18:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71F8710F0BD
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:18:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 192AB60AA2;
- Mon, 12 Oct 2026 13:18:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77F2F1F0089B;
- Mon, 12 Oct 2026 13:18:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E877960229;
+ Mon, 12 Oct 2026 13:18:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9D91F0089B;
+ Mon, 12 Oct 2026 13:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791811089;
- bh=75nruxqYQwVIDce8q/U0wm5ZZoAMN6VNOdnGB3FhShM=;
+ s=k20260515; t=1791811100;
+ bh=PloYP3m6dPLiqL5MoersveTlvLMJVh7AeE0KiHUrk/Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bjcryIzZLIsnfMT7/liLq7vuMp0F+wmd0Wc/y7CSWdiFEku+EZ6AFAiuhdG4aSuEX
- fvOrPEnW+0uG2LQcZZHtODxG49UVepi9NhZqTgZpbu3yoPwuimH/RGJmw4j7LXuKdE
- NWWhUfDkAdS3sHoCNrJbTkYFA+7tAOvp6f+frhNmOuu68oHcrXN65pzpkrl3Kud9wS
- lqOIoQ/BRu3cHsG4Jrsl/TGUI6WY1WqrSOCj5C3tdiAyfVdZf21T4hRYuqTCnNZPqI
- Zd35Dn1soQHdZh7JNHVpsPq+5gf3mGxGHBhZdEcbu0TjXFYr8uQ5r0wtFGbfp2UHQV
- cljAYmvaXJj+g==
-Message-ID: <sashiko-outbox-168160@kernel.org>
+ b=ESCqcYMJ3fgb+RPmLjYWXEiSm6Z0B9WiTdX0etnWbRUzHs5iW3+oXHsiFjx3VvXtk
+ YOj+7Y0V84hLjlHAwuBtCatUPXRsO2Aae8NqbrR5+Az3/YXfGfQBkbJo7AyQJnCa59
+ XeQ1WDr3ZeGTgXQECHI0F10HSSzq7bk2oWkeJZI/cM2GgWd7Raq1e8n+SuX/GUtpKb
+ 5cSjBvGszjIL4nHoW2ULLzZZ3ykRLxnhf9Pj0svevq5YXu1ek85nEG2FK0qcnSg9Ni
+ 484qAaeTtpmmTg78q8PMDsCqc8errW+HYpjhouRfrzyVsPHUcpz9h+OTmZmTeW5lAy
+ SERlPILrOmFWw==
+Message-ID: <sashiko-outbox-168161@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 11/18] PCI/P2PDMA: Log detailed ACS routing diagnostics
+Subject: Re: [PATCH v10 08/18] PCI/P2PDMA: Route Relaxed Ordering
+ Completions directly
 To: "Leon Romanovsky" <leon@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-rdma@vger.kernel.org, media-ci@linuxtv.org,
- kvm@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261012-fix-p2p-acs-v4-0-v10-11-6ffe7b7a4517@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ media-ci@linuxtv.org, linux-pci@vger.kernel.org, kvm@vger.kernel.org
+In-Reply-To: <20261012-fix-p2p-acs-v4-0-v10-8-6ffe7b7a4517@nvidia.com>
 References: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
- <20261012-fix-p2p-acs-v4-0-v10-11-6ffe7b7a4517@nvidia.com>
+ <20261012-fix-p2p-acs-v4-0-v10-8-6ffe7b7a4517@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 13:18:09 +0000
+Date: Mon, 12 Oct 2026 13:18:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,14 +58,18 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 > From: Leon Romanovsky <leonro@nvidia.com>
 >=20
-> When P2PDMA rejects a mapping, existing warnings identify only the final
-> ACS or host-bridge result. They omit topology, live controls, divergence
-> ports, cache state, and intermediate routing decisions.
+> ACS P2P Completion Redirect leaves Completions carrying the Relaxed
+> Ordering attribute alone. PCIe r7.0 sec 6.12.1.1 redirects only those "th=
+at
+> do not have the Relaxed Ordering Attribute bit set", and sec 7.7.12.5
+> describes the enable bit as "applicable only to Completions whose Relaxed
+> Ordering Attribute is clear". P2PDMA reports one answer for every kind of
+> TLP, so a client that sets Relaxed Ordering on its Non-Posted Requests,
+> and therefore receives such Completions (sec 2.2.9.1), is sent through
+> the host bridge for a redirect that never happens to it.
 >=20
-> Emit debug-level messages for verbose calculations and cache lookups.
-> Report both paths, decoded ACS controls, directional decisions, host
-> fallback, and the final mapping. This keeps incidental unsupported probes
-> quiet while allowing the diagnostics to be enabled when needed.
+> Route Completions directly for the classes that set
+> PCI_P2PDMA_TLP_RELAXED_CPL.
 >=20
 > Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 > Tested-by: Tushar Dave <tdave@nvidia.com>
@@ -74,5 +79,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-fix-p2p-ac=
-s-v4-0-v10-0-6ffe7b7a4517@nvidia.com?part=3D11
+s-v4-0-v10-0-6ffe7b7a4517@nvidia.com?part=3D8
 
