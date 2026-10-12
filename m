@@ -4,90 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D9B6CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:40:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC29CCA9ED2
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77F6210E521;
-	Mon, 12 Oct 2026 07:40:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32AA010E502;
+	Mon, 12 Oct 2026 07:41:25 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2DA710E502
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:40:01 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB68C10E502
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:41:13 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69C55oql1339374
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:40:01 GMT
+ 69C55lX0751017
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:41:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9o+UI71Fufpadx+8Ere4q7SEF6HwD4TGoTdoxZf8oeQ=; b=CCm/7qkgDiqZhDeN
- pdIqhE+GVeINyJNi1cQ5ukn7EGhl+SccPieeUnBO1W1N94dqwkAUfwknt/WLfLjT
- V01K/O2ppSimqZYdaay19XsLsNyYMSjiSVlgsoPj+Up79N9974cw1Z132LsQ5b5p
- fgD5GKMV3Fe12nHYXY3pHi3Kv4utbUCl/gixiDA3bLJp4NXsWFDIlL0ALU8xfly8
- k0Hj+OsRt5dY6Su5xIAahstAcSyhCEPgPqhrkzyxGJoD6uUdcSPX8NlnYhzfzxL7
- GomQaOwcrKS0u03JiB8ot3vTkz+jxfwydyMqBNRtToYD4kzXe3Qqh1K377y6D0Eq
- MSTIKw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7dk25e6b-1
+ MZWuDN9pFOwD5K//QEGKoPML07MF6J4iroVYXqGUMxo=; b=Bmh6lps/PXZ03dJZ
+ zLpa/8XF4xKgytva97b2Ucex7SDMQfBH9+4y+8wqS0RDTOIYsF7VhrDdDj9Lsn8j
+ D+fjTz07OiYFVJ1J4yYAlth25xNb9GfzdQ1ZbhtP34N1g21xQFP9hCKsT3hBcpVG
+ tBzg/3dVQ8acEWDYH5OENBw9BJHCNhT1XpEukJDYdqDn2orWQV7kWfhhwPQRj1Pl
+ dnk8hJ+U2kxpvErLj6ZJgSNIMqS7D7GBTrKE1P9bch5pXrOHkAvyN1Ut6dwLfuuv
+ yN0lvd7kblyDRiKqud/GsrIr0lWjFwJ+rnTgp2M3usHZgQH1cpkzvYjdFrXtMwbH
+ aj8Sog==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7e4ed9wt-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:40:01 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93ea8a9cfe6so10853385a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 00:40:01 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:41:13 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-5338bd59032so3713691cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 00:41:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791790800; x=1792395600;
+ d=oss.qualcomm.com; s=google; t=1791790872; x=1792395672;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=9o+UI71Fufpadx+8Ere4q7SEF6HwD4TGoTdoxZf8oeQ=;
- b=GMlnQdaj/fM+cbpkEdClSF3leasXJV51oGI9ll/N4y4Ft7dJGdTQN5i3Dzv41f1UUk
- Uiy3EJXw16jdF9VaeAvgY4Kl8V7QDC24kroEqOa4bN5J0CQHFNFSrNBXXWou418PrWFS
- fWuyoKKpHNfJZfwOZAjHrEZ6/yL5H4+C5t+e/KtetaM8YTWM9HpnhFZH7j2wIKLbD/c+
- T8OpOxyfEsCpbtzT9Qs3EDacbmlIjfGJiwBNl0fKIKKCTOKQYYUIHmr+UzBd3LOR9h01
- w9TCQQeytinDzQq75Ufwy7i9FdQWU0+VQReS/3PLOS0ZNv9HBi/U17kKmGlsuOQ7VMDQ
- O++g==
+ :content-type; bh=MZWuDN9pFOwD5K//QEGKoPML07MF6J4iroVYXqGUMxo=;
+ b=HvFmAcnRUvHyz1Zqlwfrw3CBvz+Io1H5EYBpvAQXgtxr+tpvvfu6GCGKri6V/dxim6
+ 5rw4L27doAHgLqaGGg/NQvxNnRJqWofaOfbmNdExmEczpfJoPpQWpJSgT+/yNiKQoA4v
+ EINYkO/xNmZtSA56ZqKL8dLoAQodjLpn3f611hFB4merLbGYhGdPP1NCWY15hdLaOisE
+ Xght/c8uIY4jrBKY/fXcnO3ycjvTd/dfMmpxPlkTMSlebD2veVXUfhiwa+oBM+RBeW5s
+ i+R9TjAn556mzV/IKm0u0OozM/WsUjvYKkeN4/7if9NQvhcomcn+mYsW5RLfRT7n9/U9
+ KIog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791790800; x=1792395600;
+ d=1e100.net; s=20260707; t=1791790872; x=1792395672;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9o+UI71Fufpadx+8Ere4q7SEF6HwD4TGoTdoxZf8oeQ=;
- b=wqtTn3UBc5Yq5O+MD+MvTBFCOyqLDMyEChYtwptlPc5BBSIhx0Yrrgir/WQ8cN3rbJ
- 0qzdbhYF3/OT6tiwaFUPC110bsM/mTT/Y8WbTGfdm77/E1YkS8BLleWWHRiva/TT4XFH
- 1tc3OFg631xCj7VdAn5xfX+yDhxJeBI20k21dxf9Jy96Y4nQv837ZT9R08LgJwBfv/lu
- OOGDspUcZSYtyUKkEbcUuMuw5aPU3iW7pvpIm/ccL64qXVhnAfU1S26woh9iiuuzkEnu
- JUGJg8eEWtsLn8aXY1BZhkcRollRywFlcprt5Ri39aUgLO0rtqidcWiUpTqQIzudjF9u
- /jXQ==
+ bh=MZWuDN9pFOwD5K//QEGKoPML07MF6J4iroVYXqGUMxo=;
+ b=QkjIVKPd4vjuiIIu7CdLGl0PpReAU/DpO0EbEL+ud3JyelWHKnP0l/dqumEB4JNEdn
+ xlYtXi0/84XqQGJWt7uLaHMTO7aQ/lyySLiYZVznhGV4CYadqPPbSvmL+KnoZLf09WER
+ skhUee1H2iZf+4jTwWx6fyr1N8w9Gabhyx3B7INM4biQ73kLhMtFQg68ALzSQ1QOhQ0P
+ kf+06J9T8Uu0vTjEwx5DNXw3yypVIs3vacG+fn+yl3o5uRezAlz+unFd+/rssTrSHM7A
+ bNtiv3BqwJfTSvxo6nBsC8bGvvr1v1F6pbI/ukGtipdn8P8skc0qa47YgcoWysfDOrP2
+ SYWQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzx5Cv0wVMFc/Ofj9CF0h+IKwFR93EEYFYp/VJFhBzyMDyiqMXCZPujfJjrYf6BuLWHfsH0XaGVHgM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKMJu+YgWMeiXYq+e1XWqqn4vlXfXYGs1GnJVRgPfYZNjxNgpQ5
- TlTDill626svcgJKcbArUDXNdGQspV4TiQB/xrWLCNiIvdiD/A+8AN9FgkrpTPNS1gxKVBCm5k9
- WeO73cU5OriLA5R/y/fsVzxXdyzNtdXg4WnrMzUIb3wM9mcZa9dwoo+0vGjYZF1a2daAFEkI=
-X-Gm-Gg: AYBFou3bZsIu8bsXfX4Lnglx4OD6L2lyjwX7ngtA0b7oSG9Q/m/RuY270VbhFjfhvrz
- cRnBoXXBmjdVQFLUnPOv12zorCIk5SIglFwGmh2fucuYEw9QqTTwNGGvid+PiM95ZVP11n2CTJX
- FwBSC4CfIiSloxT2MUY1yxLVU7CKxWegMnzwN9NWZqjvCj7naQZ2QdKBYEXbA2MP5yyOg+bKPAv
- rn1LggD4iA7mzvNyxfaOfnb9JkkezWdU718Jh73x77GQx10Gv7wiLTlKTb05IBGx+WVr3FpsZQX
- wT5lEUH1DLUFEN0mSQVfoIg56fToL5z2bpkfzYDBvIDx4yV3Ry91a32BFOS1cFLup6dvw0mD41n
- J08/Qn+dLhhX94BmMa0uohg==
-X-Received: by 2002:a05:620a:6f95:20b0:93e:ca50:d712 with SMTP id
- af79cd13be357-93eca50d86cmr791780285a.1.1791790800157; 
- Mon, 12 Oct 2026 00:40:00 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f95:20b0:93e:ca50:d712 with SMTP id
- af79cd13be357-93eca50d86cmr791778885a.1.1791790799634; 
- Mon, 12 Oct 2026 00:39:59 -0700 (PDT)
+ AKwUvBwi0AA3dHg7eQnzL15k0NsAbL4Nbbnli+1UNg2Z0qpWKejn1z3vXnVGGALEDd2QCCpwboelNkuu8Us=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKX3pUb0h/SfU7r7iLki6e/p29Y1g8JkG3X5eExLz+iqmbc1W2Q
+ Siz/4qbEDrjs4jfv2PMKMZ1jHo98TT3dnzCP9PyvqbMQVH8Rod6r57w33//emPxY+hp9gOK/z0t
+ 6Fyp8jWeRRO0qgbOOD7XGNWMB5Ae2JNc6xcnspqbSoc4mxQKa+FbwixiiBFgq2tgfkowVy5w=
+X-Gm-Gg: AYBFou1tOs4eZysro1QxqtclGMFAjJVGx4MKVja5vKNCASsvBcBULFWaFNjSopP+nwr
+ d0hTAzK6Q/UO416vchpyRmixGiGHpaf90zbx4zL+l00nSKLHpQnVH6A30VW+/Wi82vO7ESiHl0t
+ ztcpITbwf4zs89iIBh4t1P1hOpYhzfWiej/SMyb/PR4zdodNsSG02/RquiWvp1gIug+kDV+d/6p
+ A7Zvq9Sni9PSi32MqVjTwbyw1LBUFv8XucO9DQZmb8CGIzMq6fhK945+H/PXwF18IviWVtO9aBs
+ D8J+NNYi5q1dxGeZAxHX4FHQZKLFqMJjlD6gjJ4R5V0WiYXpn0LvBhZCUzI32LrRtFOdMbFtME/
+ dKUgrXLZfkSFR9IVbLRKt/w==
+X-Received: by 2002:a05:620a:2855:b0:939:8148:1e3d with SMTP id
+ af79cd13be357-93ebd0d7987mr1473733085a.2.1791790872219; 
+ Mon, 12 Oct 2026 00:41:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:2855:b0:939:8148:1e3d with SMTP id
+ af79cd13be357-93ebd0d7987mr1473725685a.2.1791790870268; 
+ Mon, 12 Oct 2026 00:41:10 -0700 (PDT)
 Received: from [192.168.226.26] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c31a9ac969dsm426842466b.73.2026.10.12.00.39.51
+ 4fb4d7f45d1cf-6b179dc0c8asm4576443a12.13.2026.10.12.00.41.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Oct 2026 00:39:56 -0700 (PDT)
-Message-ID: <0d9d12d6-8bcb-433c-b487-7ed847ac4ea3@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 09:39:50 +0200
+ Mon, 12 Oct 2026 00:41:09 -0700 (PDT)
+Message-ID: <94131d67-0e18-4502-91d7-26fdaec0694c@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 09:41:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] drm/msm/dp: Add DisplayPort controller for Kaanapali
+Subject: Re: [PATCH 3/5] arm64: dts: qcom: kaanapali: Add DisplayPort
+ controller
 To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
  <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -108,37 +109,37 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20261005-kaanapali_dp-v1-0-6faeac3a6d59@oss.qualcomm.com>
- <20261005-kaanapali_dp-v1-2-6faeac3a6d59@oss.qualcomm.com>
+ <20261005-kaanapali_dp-v1-3-6faeac3a6d59@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261005-kaanapali_dp-v1-2-6faeac3a6d59@oss.qualcomm.com>
+In-Reply-To: <20261005-kaanapali_dp-v1-3-6faeac3a6d59@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: gEkNyUpNFjeBrPjovL0MJJYVdKDfIiwm
-X-Proofpoint-GUID: gEkNyUpNFjeBrPjovL0MJJYVdKDfIiwm
-X-Authority-Analysis: v=2.4 cv=E6hYNqdl c=1 sm=1 tr=0 ts=6acc8ed1 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMCBTYWx0ZWRfX2F/6+ztBkUkc
+ /wovnDtPjjobYgZ0uoRu+Rc73Xyl/gjiuUiOP9/ORQsy8iIOr9TF4/l/beWhaRc8z5h5lKzJKBo
+ 62cxMcTKKspja9Vtj382yl5ezPNPXbzMuCiif84XXA/oBOxxs4ZTanZGuvmwKb3WkF90cLuF2WJ
+ 1W6jhiSoKRQqT/v96qSpkSFvxKqNqa85Md/AK757ghUhQl29lOQ3cFz+MQJlNXpvg3rBRkAOG6V
+ KZRAzANY+BFYB2wSJzjlU8Vg/wGEwdxrd1dqsuGQthZ56mqLV912C1zV7W40fpL6Jwby7lPVDLp
+ x9tOYI/pdffEeZ407gzBABp9ejA0Rpm8j2h5R3/nVHwHyPEyHq4Hn6wnbMF7iUZGcircVuAq8sT
+ MUF7oLDINrahKPNIRMchSNC7CqOP2XScNYT858+NwnA+kos6YbwNutAvZzFGDE3UHDNzySfDpIe
+ fTrJdlpEyalULrCxJgw==
+X-Proofpoint-ORIG-GUID: CosFrk32_KIq_5GLwq3j_rQvjftfjRFw
+X-Proofpoint-GUID: CosFrk32_KIq_5GLwq3j_rQvjftfjRFw
+X-Authority-Analysis: v=2.4 cv=W5utxhWk c=1 sm=1 tr=0 ts=6acc8f19 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=rUnJACkxGFui_EhALuMA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMCBTYWx0ZWRfX9M4KrdwZv5RI
- MbNtsDdvLzBiyWv058NGPusoXqv3iT1zMn6Py1AlGRDtZg+XcJNvAkphA5LD1pJQKqVJXnafmLF
- z077Ykr+6jUfqEnE1cMeZK5eTmZ7XhhxpcEAkyvUMWaK1poVLxBqiR+FYUzq73CLOfz4YVTX90G
- RDwKFmt+IigpkQVCH6MGBxGq+40GfaqE66HOnc6Phvyvor9Gb3CSuGw3UJOzqW4er1s1qMBgt+A
- 23eKpUeoSaLAbAuEw2WLFFUwSiXP6nQQSppMD4X6NnJOG2w3WXLoohrPw7CLoXMOHxYUhqUvCHF
- qGzBSUdCQyuYqpyT17qEXLONe07YbPK4PRsQLQdmWOYxtkMjOZWhgLBplMLRtw/t4eMWRHA8W7i
- G4sJ2Uk7VKkDdMlGBedjKyIyfmqIxOQIfmpZTplBsO8bL1IOG3Mqh8q3AfyhwSWZR6+e1bINHT6
- IYdDTT1VZStkW/w0i+Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMCBTYWx0ZWRfXwZ5cTSgLoJ9/
- 12afbK3DoyZoCapOSI40UJb/Jbz4oBxSJZpl+R28o/V6veWBRrgplyTxcy/AxESqsLFtw8ahIh+
- 7vqIgajP0TlPgTwN8gv0K7DyFEY4DBM=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=Yp_Lh5tV98jg5vq-HWkA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMCBTYWx0ZWRfXx3HRIOAUvz/h
+ 8EbCD2am6ESSvzuHkHe2tICJ9sWkrrOb6xwaJs3TSsdxWxziijHjStCHQC4Vop6ozkSxNpJ1XLX
+ zIOqQkZFd0EIB+bGVy33AjGVNxVBJz0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 impostorscore=0 phishscore=0
- bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
+ bulkscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120030
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -157,13 +158,21 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 10/5/26 9:24 AM, Balaji Kalkonda wrote:
-> The Qualcomm Kaanapali platform comes with a DisplayPort controller
-> with a different base offset than the previous SM8650 SoC, add support
-> for this in the DisplayPort driver.
+> Add device node for the DisplayPort controller, its OPP table, clocks
+> and power domain, and connect it to the DPU and USB/DP QMP PHY.
 > 
 > Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 > ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+[...]
+
+> +			mdss_dp0: displayport-controller@9ad2000 {
+> +				compatible = "qcom,kaanapali-dp";
+> +				reg = <0x0 0x09ad2000 0x0 0x10c>,
+> +				      <0x0 0x09ad2200 0x0 0xc8>,
+> +				      <0x0 0x09ad3000 0x0 0x78>,
+> +				      <0x0 0x09ad4000 0x0 0xa0>;
+
+These register ranges are wider (most are 0x200)
 
 Konrad
