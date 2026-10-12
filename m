@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AF3CCA9ED5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F280ACA9ED5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:36:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E21410EC63;
-	Mon, 12 Oct 2026 04:35:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58AB410EC83;
+	Mon, 12 Oct 2026 04:36:05 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5272A10E6DE;
- Mon, 12 Oct 2026 04:35:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2B110EC83;
+ Mon, 12 Oct 2026 04:35:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3A562414CB;
- Mon, 12 Oct 2026 04:35:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10D91F0089B;
- Mon, 12 Oct 2026 04:35:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 04F9C432B3;
+ Mon, 12 Oct 2026 04:35:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CF591F0089D;
+ Mon, 12 Oct 2026 04:35:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791779743;
- bh=i/06CbasgK72sVZ7um1iuJIv3RvrAyrF5q4McKOOV84=;
+ s=k20260515; t=1791779758;
+ bh=O6Ma69HBr8dHdSXn+B5vxbDSJZNZ98rD9Wn6vMaUPkE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=koooFfsI2FZaCdKiFvOtHECCCvbDU+9u/JJvu/dbZbVfOvXkM/gRmfDvRaJcDfnC+
- u/ZHwDK+BIbKz2DZLdSnJaycx1h1x3V6ZGTKePz/RmvYpQ6cUhZvA1nBFGlVZ3PwBq
- RgzxBretguGkWvDvj4OcDpVZX24sYRMhmR1H/P8ufCOzSHfnG75m6ajFydaCyKQNVr
- Yi/4HG4sXsuSVSavPkIlf4LNYD9C390Lj3Qbz12FRvGfW61h0ewWrmyrhpGZ04X7t2
- 9ys/j3d1fRGTwFb9aSreugDFqWgTS1Ml4ASHw3cWVDhTTCaVQb+lW0Sn0oiapnmLZk
- XBOgikKSj9XQA==
-Message-ID: <sashiko-outbox-167613@kernel.org>
+ b=BL5UsqkH0fel+k425msudc39IQ//Pe40n8G7DxjnzAJ0iCIh0Us1p7uVyN9unyt5O
+ kSa+jLNvuJtEB8rv3HMjeCx20D4jhR4bRPCC/smdTbwLokFOUbrP+8J453ItyAft1d
+ QQ7Mw4xktOIkxMi5/VkIcATA+qBEJ3pzwjH5PZV7WN56CrYMtTwx/jrCw2B1e9c0dN
+ TV+32uqmul2TGYideiUfMIEBoKUNVGQ4RnFDie8XWWHxtnaZKVOSD9OctA/qQiPLpX
+ T3dRY7jyJZzT+a82/zlpRWRHxiIPITNvShZAR2EqsB23aBQzwnZJvEyuFGlfak+3zZ
+ 50qx4ZzgyfHGQ==
+Message-ID: <sashiko-outbox-167614@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/56] drm/i915/ddi: Update Transcoder/DDI registers
- with the frl bits
+Subject: Re: [PATCH v2 21/56] drm/i915/ltphy: Calculate port clock for HDMI FRL
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-9-ankit.k.nautiyal@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261012035806.3361439-22-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-9-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-22-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:35:42 +0000
+Date: Mon, 12 Oct 2026 04:35:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,70 +57,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/i915/ddi: RMW race on XELPDP_PORT_BUF_CTL1 drops concurrent up=
-dates
+- [High] drm/i915/ltphy: Fragile FRL mode check misidentifies 300MHz/600MHz=
+ TMDS as FRL
 --
 
-commit b719c1e4da553224ed64e6f2c9076a3b63adb0c1
-Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+commit c8e5d35c7adb72d4a07659a9da4c78974ed1e816
+Author: Suraj Kandpal <suraj.kandpal@intel.com>
 
-drm/i915/ddi: Update Transcoder/DDI registers with the frl bits
+drm/i915/ltphy: Calculate port clock for HDMI FRL
 
-This commit updates the Transcoder and DDI/PORT registers for HDMI FRL mode.
-It sets the lane count, FRL shifter enable, and data width bits in both the
-DDI_BUF_CTL and PORT_BUF_CTL registers.
+Define function to get the port clock after we read VDR0_CONFIG.
+This helps us determine the port clock for HDMI FRL use case in LT
+PHY.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
-915/display/intel_ddi.c
-> index a46ab5d3d70fc..576e667746782 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -3121,12 +3121,20 @@ static void intel_ddi_buf_disable(struct intel_en=
-coder *encoder,
->  {
->  	struct intel_display *display =3D to_intel_display(encoder);
->  	enum port port =3D encoder->port;
-> +	u32 val;
-> =20
->  	intel_de_rmw(display, DDI_BUF_CTL(port), DDI_BUF_CTL_ENABLE, 0);
-> =20
->  	if (DISPLAY_VER(display) >=3D 14)
->  		intel_wait_ddi_buf_idle(display, port);
-> =20
-> +	/* Clear PORT_BUF_CTL HDMI FRL Shifter Enable to 0 */
-> +	if (crtc_state->frl.enable) {
-> +		val =3D intel_de_read(display, XELPDP_PORT_BUF_CTL1(display, port));
-> +		intel_de_write(display, XELPDP_PORT_BUF_CTL1(display, port),
-> +			       val & ~XELPDP_PORT_HDMI_FRL_SHFTR_EN);
+> diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/dr=
+m/i915/display/intel_lt_phy.c
+> index 0e2ebd550bc5e..7ac0888cdf452 100644
+> --- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
+> +++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+> @@ -2000,6 +2019,10 @@ intel_lt_phy_calc_port_clock(struct intel_display =
+*display,
+>  		rate =3D REG_FIELD_GET8(LT_PHY_VDR_RATE_ENCODING_MASK,
+>  				      lt_state->config[0]);
+>  		clk =3D intel_lt_phy_get_dp_clock(rate);
+> +	} else if (mode =3D=3D MODE_HDMI_FRL) {
+> +		rate =3D REG_FIELD_GET8(LT_PHY_VDR_RATE_ENCODING_MASK,
+> +				      lt_state->config[0]);
+> +		clk =3D intel_lt_phy_get_hdmi_frl_clock(rate);
 
 [Severity: High]
-Can this manual read-modify-write sequence race with concurrent register
-updates?
+Does returning valid FRL clocks from readout here expose an issue where 300=
+MHz
+and 600MHz TMDS modes are misidentified as FRL?
 
-Looking at intel_ddi_buf_disable(), the sequence uses intel_de_read() follo=
-wed
-by intel_de_write() to clear the XELPDP_PORT_HDMI_FRL_SHFTR_EN bit in the
-XELPDP_PORT_BUF_CTL1 register.
+The driver relies on clock value guessing via intel_hdmi_is_frl(port_clock)
+instead of checking protocol state (like crtc_state->frl.enable or
+ltpll->config[0]) to distinguish FRL modes from TMDS.
 
-Because this manual sequence drops the uncore spinlock and DMC wakelock
-between the read and the write, it creates a window where asynchronous Type=
--C
-hotplug workers in intel_tc.c might concurrently modify shared bits in the
-same register, such as XELPDP_TCSS_POWER_REQUEST or XELPDP_TC_PHY_OWNERSHIP.
+Because 300MHz and 600MHz are both valid TMDS character rates and FRL link
+rates, a TMDS mode running at exactly 300MHz or 600MHz (such as custom 4K or
+1440p timings) will be misidentified as FRL.
 
-Any concurrent update by a TC worker or another intel_de_rmw() operation
-during this window could be permanently overwritten and lost by the subsequ=
-ent
-intel_de_write(), leading to potential display or Type-C PHY state corrupti=
-on.
+This leads to incorrect PHY PLL state calculation and wrong port clock
+programming in intel_lt_phy_program_port_clock_ctl():
 
-Should this use intel_de_rmw() instead to guarantee atomicity and continuity
-of the uncore lock and DMC wakelock?
+	if (intel_lt_phy_is_hdmi(ltpll) && intel_hdmi_is_frl(port_clock))
+		val |=3D XELPDP_DDI_CLOCK_SELECT_PREP(display, XELPDP_DDI_CLOCK_SELECT_DI=
+V18CLK);
+	else
+		val |=3D XELPDP_DDI_CLOCK_SELECT_PREP(display, XELPDP_DDI_CLOCK_SELECT_MA=
+XPCLK);
 
-> +	}
-> +
->  	mtl_ddi_disable_d2d(encoder);
+Programming DIV18CLK instead of MAXPCLK will cause display failure for these
+TMDS modes.
+
+>  	} else if (mode =3D=3D MODE_HDMI_20) {
+>  		clk =3D intel_lt_phy_calc_hdmi_port_clock(display, lt_state);
+>  	} else {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D8
+439-1-ankit.k.nautiyal@intel.com?part=3D21
