@@ -4,100 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28975CC6B0E
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16E4DCC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F6610F5A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A8CA10F5A9;
 	Tue, 13 Oct 2026 07:53:18 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1799510E606
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 15:29:50 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-49d05d51553so13152465e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:29:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791818988; x=1792423788; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=dHaZjZ/K9HkcWHP0xoN3hdI7zGw/VH12N/DXI78bY9w=;
- b=KtYa8f0GS4Vf0rCxx0WGjaHaQuFkyo2Lqt9vIyYnMpKcfQvX/3a7HAcfLQb5c+EG3t
- fD4lGzqKwqu246XJNqfalsm4ZHXIQF73kNkPsMVMwDaUTg8LOM8X+1p04CYkoA/erv74
- idIFog+x72DuwVPyc0fGH1Td+vecKgnc2Mu4m3APg0HKK+5Qx8+W1NCyYHK12gB3wb0x
- YTcnmtGdflV7KOLBgWOsdd0I1S2iRi2WESajs/RAZgIseelys3F0/b5tNQn/gPb4Qij3
- AZFNKQaOfIfPCNE5uPxL/sb3sG22kIdIi78TH+6lQp3bKX1bDM2jdJ4KM8A1HH/tuncr
- 0eSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791818988; x=1792423788;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=dHaZjZ/K9HkcWHP0xoN3hdI7zGw/VH12N/DXI78bY9w=;
- b=RUAx6P3OUN8y8aZUnOAwtI3bM+wAQ0R1pjE9+DnK1pG2FKaAJLmxqd+VQNkTNrgF6i
- RCIFInz0tvj7u3oZbW/H4CQzeszcuVQKTC+MJQY6FzWq2lb9t8ou2f3NNQhr5WhBCFez
- HZ9DIflBWsAh181nPLmIa2KNUk/D2ICCIWKwYWIZnqCz19J5rNpCSK58lCCga9Kt1EfL
- dn6c/uWZQq74LcGd4k/A3hnpFIwP6u3MlOEzGxScKYcFLyATBzGqflmsjIpgmSsKwu8c
- jikFqjqKXz3fHcTUZHbMFCJsrG2FcmHPVHSL6AoC78hhddP1usKFv1fhC/crP+9jtqTq
- kYRA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxe4MkyFnTHR83v/S5OLsg3dVx9uEjoRoiiYJFSZRhvZa+CALA5C+GRS2HCP+G5D4qkr0ERJqnXJMs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKjHeUl4HtVwnU2Pi+spZF5UVsMxvfZt3/o2ARvi4B0ZON2z2RP
- utJtfx6ZOkGK9mgkPrvflXG47a8gy4M5+dT86JEG+mQYW8iGOoq1EH3X
-X-Gm-Gg: AYBFou0oOey+mON1jOhgtd9oVyYHMPmeZrSPROnKBTiU9ZfDlG3BJm/nvP4kGIsvqph
- euH2aH/vQ9FN0gMS7dWki8IUyuPWOs0NFB4JdOl53xzWba5TlhzQ0dCMIP+0nAGHT3kiFasHyCz
- IZTnv4opdPe2y481oxgjBWcmEDyqFREuFH+HVGcJC+TW+ZsCaGiAYHHISIyoVtf4iSBTN/LmfKs
- gAHjepCbmFlDPeJvK46xmj+xqZMmBo3JTwVY6+cjiY5a9XJ8KivurrneOE48iEdndru47SCDYDn
- ot0oWaRwD+p9AAALMxSDjXmpwElD/TxVLDVOe1ukJ/9bUMBz1XUtEoG0Sj95ntKxevOAOQsoptn
- GmacFNa6f8sRTqvk90rIf+zMnSCjqI6/ybJIHvxkNlxoJN1Ie3xvwJYYs6HvcMVPxid/ausO+Dt
- jQWWkG1EcCvfru/tnK1NGzPC5SY4e1dHBZx9PZDfpG0iPGlSKFrT3BQEY7KHVfsERzKbrjg40u9
- bpAQg3w3p0XA75iQtPAguabczrccbl9nW733I/bLDAeDug2ECwh1WxasvHuAEkMmat2LX+WKmNL
- +wIDARpo38bJ3Fy076ZotL3ziaOk4eMP02Q=
-X-Received: by 2002:a05:600c:8105:b0:4a1:714d:eed with SMTP id
- 5b1f17b1804b1-4a18e4841c1mr177576875e9.14.1791818988354; 
- Mon, 12 Oct 2026 08:29:48 -0700 (PDT)
-Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com
- (54-240-197-234.amazon.com. [54.240.197.234])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a190344032sm299058135e9.15.2026.10.12.08.29.46
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 12 Oct 2026 08:29:47 -0700 (PDT)
-From: Fred Griffoul <griffoul@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Kevin Tian <kevin.tian@intel.com>, David Woodhouse <dwmw2@infradead.org>,
- Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, x86@kernel.org
-Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run
-Date: Mon, 12 Oct 2026 15:29:46 +0000
-Message-ID: <20261012152946.63489-1-griffoul@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261012144616.GF14213@ziepe.ca>
-References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
- <20261005132046.30025-1-griffoul@gmail.com>
- <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
- <20261012144616.GF14213@ziepe.ca>
+Received: from TYDPR03CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11023103.outbound.protection.outlook.com [52.101.127.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 698C810EE39
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:17:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QgDxJzThEEG7fxdAw9/5tVajb5RbtfLTY1AJh92RdcMM+EPm90IuDcaavtJUlct8F9dbpp3KMGpJolk5hdnmwigcUJ6OXzkxNyBgETutmZtgbfeJ1IFo04jlcoBWSzzd3EHrVKSUNr7bihJ4c7db2mgTyQmItqalO56cDMZkZkABNKsz0TzEihPNfMORBjMglVwFdnUe46bbMEExeyZ214AWsZTOV3kzPGe0eS/qQdHXlBYn9gnIfriWXgvIhqI9ui0861E3eX1YyEBKH2yMMyx2dhEpb5AdD633kPN78FStgHSlSJy2dboozTR1zaHvTQst2GJhLq8cLfoj9Kev0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tZG2WlaoiJfyoyCoLT7NTkFy2Vb7kmNp+WMsJQvza34=;
+ b=I3oZyvBlbtRdCU+UnaPjEkfaLYj3Oc1uO7/7Fxwn5UU5aYrpPOSo90WuMjcp7SJ/iQMbu8Rp0u7qkRtPyiBkAAW4xths3YlfeEQUjc+jc4Xg5X2+SyKYMluM/RI62feLo8lnzRHa88e87f2jCjASX9W1RYa9ViCmUTsNqiwT0Sq1pwNxYuqHKV9Xzdn3SkIgJG3EyjEE7opaEAD8IywaSd1Aqjei31hoGNsB+aGjhutr9seF4bUE8i3Xx14K4kuwWVSTpCQU3gcuzE+krpyKblXJpwGm0PdFP4uRBMnhaailQWQMdZwSBRnGjD5puGST9I1SzJQVLj7Tasaqh6vTag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=crepuse.com; dmarc=pass action=none header.from=crepuse.com;
+ dkim=pass header.d=crepuse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crepuse.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tZG2WlaoiJfyoyCoLT7NTkFy2Vb7kmNp+WMsJQvza34=;
+ b=GnCzfT/rhE25J3YWEgc93gvo6pW6Zoxh0s8Rr7w75/Qm4N5L+7SDywwKytp9X5YRTf5QrufWsovp9Tt4nF9te9yEkLdn4hG9oVCP9iEIE6xuL0y+gjmlnljnkCU3gC4VeD407kC39OkTXEgKn7BOADrfJZBAo+7GKnoAn4Phu+t/yishRH0EUEYrphhxUC4g2CZDSSOnNGA4bRD25VK/ARxEEfVzxhbCJTMI9hhQq6h4qsKzEJt48B3XqiUyRuDoiFyEuhzhBuPhrp0+B6DyGvCSbQYC5C29EUcAgHZ8ev311sgmvPUveqijQmakzS5oDtcfR+Ai/RZGPwc6NI/Tlg==
+Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
+ (2603:1096:d10:8d::16) by SEZPR01MB5629.apcprd01.prod.exchangelabs.com
+ (2603:1096:101:136::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 12:17:23 +0000
+Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
+ ([fe80::fe2d:77d4:b78a:358a]) by KUYPR01MB8186.apcprd01.prod.exchangelabs.com
+ ([fe80::fe2d:77d4:b78a:358a%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 12:17:23 +0000
+From: Miotsuki Mizuno <founder@crepuse.com>
+To: "heiko@sntech.de" <heiko@sntech.de>, "neil.armstrong@linaro.org"
+ <neil.armstrong@linaro.org>
+CC: "airlied@gmail.com" <airlied@gmail.com>, "conor+dt@kernel.org"
+ <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "jesszhan0024@gmail.com"
+ <jesszhan0024@gmail.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-rockchip@lists.infradead.org"
+ <linux-rockchip@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "noralf@tronnes.org" <noralf@tronnes.org>,
+ "robh@kernel.org" <robh@kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>
+Subject: [PATCH v2 2/2] arm64: dts: rockchip: Enable display on UNIHIKER M10
+ V1.2
+Thread-Topic: [PATCH v2 2/2] arm64: dts: rockchip: Enable display on UNIHIKER
+ M10 V1.2
+Thread-Index: AQHdWkOitmjpbLvkWkSHeBsWBmcj1g==
+Date: Mon, 12 Oct 2026 12:17:23 +0000
+Message-ID: <20261012121718.53481-3-founder@crepuse.com>
+References: <20261012121718.53481-1-founder@crepuse.com>
+In-Reply-To: <20261012121718.53481-1-founder@crepuse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=crepuse.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KUYPR01MB8186:EE_|SEZPR01MB5629:EE_
+x-ms-office365-filtering-correlation-id: 6baf898f-a6d5-43bf-ccfe-08df285ac55c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|23010399003|38070700021|56012099006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+x-microsoft-antispam-message-info: Psc7vCYVFh1PtwlFZ+9vN3/0vCFyyFHS22kdiISlH1suiKAMI2q4Ldoq0wevZnTpSFvLRSOzLDaVM8aI9kJQwAl7terZW3+jvygnPfiArnwowT1s2TNKoPDQKUX/u08biC+XFPex5sSjnHXocoU6OwPqXra8StcnUCbeCRK6OWFM2wKGm6s97ECi1IkyQlUvZ3yh5T1ge0IUg2dmftOx3/sPyQudWZxVT5VERe/kNqaM0esER4BO6PN0N5wOkW/LhmJsiIZw6g36KG5CVH2MdBt32GKO78vkuif1/L4IYWIPeNlKkGjUteyklZpHTRSYOnfvOTjO4fiYvB4RYxgfov/HcO8hYqJUepIBiOtj7Upzx85xJD89cpAMeP0swzSnKdQ4d3zv/yQCCvJKlyHF1qBcC8j3AaqD4lBKdXwT4PajDWvBxIru3v018yTS3UomJrCGE9OaoB4t43rV8aXp+JzlZXtOoYc9ofn19iitXCPvlnpyeXNpnT9RUfM98pQChycxQ0+P1yWqdba7NQEwx/KqNWqYlv7qugfj5Bw5Eh+VyQoY69Dgv30zGp3X9rKI6OilzQOggGd4S0Q/l0rXcKFXbH84AuVTR8xkLOF3/PaI6JLm66PCKRjw5j+7ryyym+4VsRbWREnxN7Xv82v3uoJ5wFH8wE7zi8JQfSu4VyyBeR4lhag0vCSN/nTogn9aadI9g3lod9NYKjK6VzM+0g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:KUYPR01MB8186.apcprd01.prod.exchangelabs.com; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(38070700021)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?xzNT8W2s7khcTMQs0IQNlzWY3qWBRRlJJAAjENGTISR4UJp1/gj0bS+FqF?=
+ =?iso-8859-1?Q?vapkeA95RRy1A1kmNu9ZDKasHR9/PeHtArQAGO5XEFd+3s+ECRyho0jKDi?=
+ =?iso-8859-1?Q?dxAa9XM4gp+3bkUqunK61Fry/kVLk9fUEaQDk1jdwXWoV9FIDIvfud+0Yk?=
+ =?iso-8859-1?Q?6+77XThILYgqn8O8iHRFVOYqDeZzaMSbSuEqgo5cJrkNjrReKHeAXc/g93?=
+ =?iso-8859-1?Q?oO2Q85AiBK+c5/bTRKW2j1tvedRJYSvhfxssJZrsFZtQRkT5BYZGjIxV/+?=
+ =?iso-8859-1?Q?/Em0QJ41Lp1R1aDxs4YMQL8rgMfHozru429dfkdBZB0X+IUYKLpd6hXZoB?=
+ =?iso-8859-1?Q?TO3qW7jyjJ71u+uMuuhXqD9zqIz7WDHLm1TwMjFQbqOWM5qIyDWjLhF4oG?=
+ =?iso-8859-1?Q?fYi9+ypcP7RTOzS/7YEwLBIC5YWl22ziSgRzN5J+N4cABhh40BqHGTp6o/?=
+ =?iso-8859-1?Q?wA4/a7ygJkWXRAh77xGrl5vbaPbjuHbu4pWETsQq9lNDVV1MwLJYdvs3z7?=
+ =?iso-8859-1?Q?unJMDdSR7eCIAam387ccjRSSOEZwudNQzurURD5fQWr/Ws/FgnFh5T9Mul?=
+ =?iso-8859-1?Q?hsiPbeqqfv38A357NdqXBoWusUIYPUhIzy9ZTH5Sj1LGrf57OPfldmpLAT?=
+ =?iso-8859-1?Q?QGyEH554Be6agsqZyGDaZ6mQ0R7LQMR0RmnsgnsOKcKqRUVh40c87uSEYJ?=
+ =?iso-8859-1?Q?Enryywre14bZMwkdvvpX/mAMw++/oWwh2VPdjacfVRJrZo92IPewaP92uZ?=
+ =?iso-8859-1?Q?PCsGAn7TPLwohnXfrHtp5rTE/7hN5E2ms0hrut293pSVV5AzqUQS65RhIN?=
+ =?iso-8859-1?Q?d4XTVmXGRoHhwoJFNnlUc/ZNF7ZsNnHSBZWcOVzcVHx0Pibaq7Z6yyURh0?=
+ =?iso-8859-1?Q?EimJbFayb0Fv+8yZNHieTJsmcrAIFBwbDEziBjvXtXXUMuE3AtXkcUTPGA?=
+ =?iso-8859-1?Q?QQEX/Yc4D2sNRGCzATIfFSQ4L8uHhNXiz8pyBLjkGMXqMOrn2jxzod2lC7?=
+ =?iso-8859-1?Q?5/ydVvWcXtu2PMtK+vBm6tL8bxnrCp35Qw6M/GVMZ6MKDGa0A6yOXsZuq2?=
+ =?iso-8859-1?Q?18XapXdx2LKMwWSSyEGL/50/Yy2pT9Xn9ZoT+iWY3W/GU1fFVDcClcqmLb?=
+ =?iso-8859-1?Q?ynG8AIhDhVrPvnfdwS5TGy7rHQLCLV/4bS2kcuc4+8oK2sZeDf6Xp8rpjD?=
+ =?iso-8859-1?Q?3AGarWhfMT1sS3P4ju5nvcxR61qkqCDacaMwPVfGmg5IJUn8WBGeC5LGZg?=
+ =?iso-8859-1?Q?rXBfriTXBpIkXytro46jlgSI+xiI8Mve1xcfrKV8scTQ/g9fISDf4QloQu?=
+ =?iso-8859-1?Q?5hiFMKcNsN2pCHpMY6kv6AHzXGAmu5oXxznB+i+XRH0hkP6/1ga+UA9wQW?=
+ =?iso-8859-1?Q?rzSE3/YIMQjtbA0+dPzlzvos33dFkY/6BYaJ716d0iZ+XmD5nKD8Y8l1A3?=
+ =?iso-8859-1?Q?legwtHpO7jU5ThJ7xdaivkWxdpmwc6NbEwE7C8+ShdLBhyE/L5J7R0q4Oj?=
+ =?iso-8859-1?Q?hX7kkElphwVZPIPLT6Oowqx3r/xZrHj/vVV9VM7RurCWT27dWFr0IOxN2G?=
+ =?iso-8859-1?Q?7uan4xu7yW80cygUUUlMLuy0wyEyTVrBFZXkkT5sxN9O3R3Va21M2YMXd5?=
+ =?iso-8859-1?Q?Unx6aboCnqGYI8oDO5jkw/ERg9zaBD/ZDPf8o4HT04kvdnsLL2/VzBlk7h?=
+ =?iso-8859-1?Q?aCmgMHaxINyK9aesPQ3Np6u37cKvlji/tn3fbH3NIG3Qm+QwtDPjXIXtj1?=
+ =?iso-8859-1?Q?2cajNgU1+GA1VfXoDJs4LbhmcnupgibKaBkj8u9put0wcs?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: crepuse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KUYPR01MB8186.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6baf898f-a6d5-43bf-ccfe-08df285ac55c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 12:17:23.2826 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 9e189589-0b8b-4283-80ca-b0157c0a04fa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ohxgxTatWKWBDtfpYljdZ+t/NDCZlVI8Eyq9Uhhv9A3s4vMTO2EVHMfMufJc32GV2pFNvj6DhGQVrcuaaVm+7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB5629
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,39 +141,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2026 at 11:46:16AM -0300, Jason Gunthorpe wrote:
-> I don't want to keep expanding this hack in iommufd. If dmabuf is to
-> be used then dmabuf needs to provide a pluggable way to fill the
-> iommu_domain that many exporters can plug into. I don't want to
-> hardwire every exporter into iommufd, that makes no sense.
->
-> The existing arrangement is to motivate solving this problem
-> generically, not something to be expanded on.
-
-Agreed. The iommufd registry I mentioned above was never posted, and I
-have dropped it.
-
-The series I posted since takes another route, without dma-buf:
-
-  https://lore.kernel.org/all/20261006183235.16576-1-griffoul@gmail.com/
-
-It adds a small interface in mm for drivers that own memory. Such a
-driver hands out files, and for each page of a file it tells the caller
-which frame backs it. iommufd maps the file with IOMMU_IOAS_MAP_FILE and
-builds the iommu_domain itself, and the driver revokes a range when it
-changes. So iommufd never knows which driver it is talking to, and there
-is no symbol_get(). guest_memfd uses the same files for the guest. The
-iommufd part is patch 5:
-
-  https://lore.kernel.org/all/20261006183235.16576-6-griffoul@gmail.com/
-
-The iommufd part is mainly there to show the interface, and it needs
-more work. Its revoke unmaps and then remaps, so a device can hit a
-hole. I would rebuild it on the REPLACE operation David discussed with
-you at LPC, with the scratch page as a quirk on the IOAS.
-
-Is this the kind of generic interface you had in mind, or would you
-rather have it hang off dma-buf?
-
-Thanks,
-Fred
+From: Mizuno Miotsuki <founder@crepuse.com>=0A=
+=0A=
+Enable the onboard 240x320 SPI display using panel-mipi-dbi. Add its=0A=
+D/C and reset GPIOs, display timing, and PWM1 backlight, and enable=0A=
+SPI2 with a maximum transfer frequency of 50 MHz.=0A=
+=0A=
+Assign SPI2 a 100 MHz input clock from DPLL so that the controller's=0A=
+even baud-rate divider can provide 50 MHz for pixel transfers.=0A=
+=0A=
+Describe the 43.2 x 57.6 mm active area as 43 x 58 mm in the integer=0A=
+millimetre properties. The panel uses RGB565 pixel data and requires the=0A=
+external=0A=
+initialization file dfrobot,unihiker-m10-display.bin. No DRM or SPI=0A=
+controller driver changes are needed.=0A=
+=0A=
+Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>=0A=
+---=0A=
+ .../dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 53 +++++++++++++++++++=0A=
+ 1 file changed, 53 insertions(+)=0A=
+=0A=
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts b/ar=
+ch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts=0A=
+index 0c03f118378a..4dc01ea73e44 100644=0A=
+--- a/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts=0A=
++++ b/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts=0A=
+@@ -22,6 +22,14 @@ chosen {=0A=
+ 		stdout-path =3D "serial0:1500000n8";=0A=
+ 	};=0A=
+ =0A=
++	backlight: backlight {=0A=
++		compatible =3D "pwm-backlight";=0A=
++		pwms =3D <&pwm1 0 10000 0>;=0A=
++		brightness-levels =3D <0 16 32 48 64 80 96 112 128=0A=
++				     144 160 176 192 208 224 240 255>;=0A=
++		default-brightness-level =3D <12>;=0A=
++	};=0A=
++=0A=
+ 	keys {=0A=
+ 		compatible =3D "gpio-keys";=0A=
+ =0A=
+@@ -154,6 +162,13 @@ &pinctrl {=0A=
+ 	pinctrl-names =3D "default";=0A=
+ 	pinctrl-0 =3D <&rtc_32k>;=0A=
+ =0A=
++	lcd {=0A=
++		lcd_control: lcd-control {=0A=
++			rockchip,pins =3D <1 RK_PB4 RK_FUNC_GPIO &pcfg_pull_none>,=0A=
++				       <1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;=0A=
++		};=0A=
++	};=0A=
++=0A=
+ 	sdmmc {=0A=
+ 		sd_vcc_en: sd-vcc-en {=0A=
+ 			rockchip,pins =3D <4 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>;=0A=
+@@ -183,6 +198,10 @@ &pwm0 {=0A=
+ 	status =3D "okay";=0A=
+ };=0A=
+ =0A=
++&pwm1 {=0A=
++	status =3D "okay";=0A=
++};=0A=
++=0A=
+ &sdio {=0A=
+ 	#address-cells =3D <1>;=0A=
+ 	#size-cells =3D <0>;=0A=
+@@ -216,6 +235,40 @@ &sdmmc {=0A=
+ 	status =3D "okay";=0A=
+ };=0A=
+ =0A=
++&spi2 {=0A=
++	assigned-clocks =3D <&cru SCLK_SPI2>;=0A=
++	assigned-clock-parents =3D <&cru PLL_DPLL>;=0A=
++	assigned-clock-rates =3D <100000000>;=0A=
++	status =3D "okay";=0A=
++=0A=
++	display@0 {=0A=
++		compatible =3D "dfrobot,unihiker-m10-display", "panel-mipi-dbi-spi";=0A=
++		reg =3D <0>;=0A=
++		spi-max-frequency =3D <50000000>;=0A=
++		pinctrl-names =3D "default";=0A=
++		pinctrl-0 =3D <&lcd_control>;=0A=
++		dc-gpios =3D <&gpio1 RK_PB6 GPIO_ACTIVE_HIGH>;=0A=
++		/* The DBI reset helper drives logical low, then high. */=0A=
++		reset-gpios =3D <&gpio1 RK_PB4 GPIO_ACTIVE_HIGH>;=0A=
++		backlight =3D <&backlight>;=0A=
++		format =3D "r5g6b5";=0A=
++		width-mm =3D <43>;=0A=
++		height-mm =3D <58>;=0A=
++=0A=
++		panel-timing {=0A=
++			clock-frequency =3D <0>;=0A=
++			hactive =3D <240>;=0A=
++			vactive =3D <320>;=0A=
++			hback-porch =3D <0>;=0A=
++			hfront-porch =3D <0>;=0A=
++			hsync-len =3D <0>;=0A=
++			vback-porch =3D <0>;=0A=
++			vfront-porch =3D <0>;=0A=
++			vsync-len =3D <0>;=0A=
++		};=0A=
++	};=0A=
++};=0A=
++=0A=
+ &u2phy {=0A=
+ 	status =3D "okay";=0A=
+ };=0A=
+-- =0A=
+2.56.0=0A=
+=0A=
