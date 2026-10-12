@@ -4,94 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FEBCA9ED5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5BFECA9EDE
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C608810E4F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D950C10E4F5;
 	Mon, 12 Oct 2026 07:32:03 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6954210E050
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 04:01:45 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-3a1e9f55e03so15436701fa.1
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 21:01:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791777703; cv=none;
- d=google.com; s=arc-20260327;
- b=Na8c4T/3QLkWT1rbPahoi6lrUQbwUvkuk6952E/9TiDrNFEiY0Jnv3VvfCLdycW+d5
- 4w+O+seCWxv7zzq4fQeaES/1+Gpwt+hsZ3HF+p9YH5OeB9EknyyeetX5lpoArkfSnX93
- 8klXE7FYyt/R17fB70Ji3D8u7uNp7+C2LwD0jLuEd/2jCRXjqsxTTO8/oJ/9LUTf0fSc
- H3Jivu5iLY+M1o7VAekNfUDorBlnBfFm3bRUcDB06ZRknJPG+mVC/3DXNOOijxXwZ5Lb
- eHRf5jJH/CZDekCKMj18a8xzeLN5CrzzLVLcgZGWFvcq3nI0RCdWWyAKNmrr+s4haqWc
- RtQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Pe/a+GuYYDIVdvs2+OYKQN4TuAur+dcC/ty/ULPvGLo=;
- fh=uPeOtZZd6XQ9POBGbgMQGRPjPfCFosI4nXXmm9jk5h0=;
- b=Y3XPZQZxlljDDSZeQXuZ8F4ADrL6NZ+3HwEEjQrXJnj56j+irGpVWGH5lemlIFJG0l
- KRLNqZumDgxKtKHYt0Vh+kKdCbHKZTc2Fteo3yNW19sqsCP8HMhTOtoVLgtd76OoRDEM
- c4730VGktPfMJC/w0ba+uUDU2HWg74zx7olQ+HnSu0jg0za8TNrKGhiaPuQ6Kkp9kazK
- qbCKORWCgDVl/KAjWHY5ClfPVx3zjLSMZOPM8FnBtBfZB/GIoIXebzxjllHYa/mAwP5l
- imR4SLt08I6LUYJ2UX1emM+hBWwgIB5uaoHULiTUgCG2zIOVWl/0LXMzMHpEscBmC5kk
- /cIw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9A2310E414
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 05:44:53 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-48c02782159so819051f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 22:44:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791777703; x=1792382503; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Pe/a+GuYYDIVdvs2+OYKQN4TuAur+dcC/ty/ULPvGLo=;
- b=k0r2zJiYv2jOcyghrY9QU0cvt/KneIXZPx/6yECJZco9UzPLWd6iZ8oe1iGqfEvnqQ
- Gh4C4JOS5q4ZgSyxHNU+2i+qaHBKLe+UG2BNCN2qJ/tLg5csv/yznT6xS4r30N8EYRxb
- +6NrfE3KJKcxvsaTbHT2n/H3bYzYoXjhUoseB3/eOMan7B2g5M/GNx25cOlYw+xS+KI9
- bo+ozOgioFLe/AkmwDwfE9NPCoVvwWO5YwscTgmXs0wpKmHDaKBRYQyl5+XlOufGM/+c
- 2O0TQH89JoorxgCnZ+PIS1B3LQTQtXUoMW2UAOUvLoqtWpD9gJ4hbBSg2y9sCL/QM3LU
- Tc1A==
+ d=gmail.com; s=20251104; t=1791783892; x=1792388692; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=btW4jQ1y+/SiqS0gs878Y5z0xH+cJraR47l5WrmrTe4=;
+ b=RnuORQ+A0tGgVLj2LyLDMATBV3sqPw7kaOtzGzACzGpPxpP4kqaJPmnCbpt3+/W8hu
+ t8vdVDSBI17bbc2ZsoFpRfocEKL7cooLtqyyj3c8QLRL4hXHY4HTqOWoP153+Vr4hyga
+ WQVLDdfPVtgXrOmwBud/9ySoZLBXKV3ijs2lwN6LGgwZQlryIjP2goYx09IggXK3+lQp
+ LM5pYvo2A15Qrivot7Ur24LcfnX0nDOt9D1iO1V6FPisFCrtw1RFLi7dMuirPIih6aYS
+ goGY7c5S+bXfsb7tVsxOGbxXHVKxZJ8pLCoS6ZcqW8Vg5sSmZi28xl/guEkHI/vcFGOs
+ N+bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791777703; x=1792382503;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Pe/a+GuYYDIVdvs2+OYKQN4TuAur+dcC/ty/ULPvGLo=;
- b=vRLr49/Mx2TwWo6L6OICvoj8W2uE/yD87yEwup40ajUwmm8yWv8cUyFviqwNBH7vKU
- 4m4ALfu8wKGB2QbTjqJoxJc5szFo3vDAY2g657VMadzEY54N0VVNS40NS13ZfKRgJwxv
- FSFNzpg4O6TaBfqJWH5+jB4edvAeYwH3zP/2fAFLiukX1VYGAkstW2WyUERNFQeTBRWU
- dW+deac0TbTBU4cEgwblXk1FRESNw3nT8MoF/N1u0FnElnvLGA0rmssK8sbE0WhV2tmB
- z0EmQyhCQpes+cAjmqTYevy/naRaBFeeGtITuNLxzvy2jtjxde1CfjfP7naDNUZEsrhj
- mEpw==
+ d=1e100.net; s=20260707; t=1791783892; x=1792388692;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=btW4jQ1y+/SiqS0gs878Y5z0xH+cJraR47l5WrmrTe4=;
+ b=CZ1BjwvSHy7wlPPHCCH5Et7uuNCpQjWrlRKkSQgbuYoJyg4xyy5cPzDx/rzVL3mu4W
+ uA5AWjajx+uAFCsNw2iaA8y4SI48ABrsuhP4Lhvw9m8S+NQNAn8dqSMdnrGVe1yxJMYa
+ j01NiKXtl3WMF6sSkEU/qu9Kgz+bsNhRhgxNFShf4bkC3QJEZ7jO+alXvJRBuVTD+tRy
+ mfhE1UCqz59wcazjEzVyBpz8lXrXbuK4gSv8c6wBnKY3/+3N8Y7TFSXHoXTUT81Os2Uj
+ +ctzoG7m5QOXkC6bBoDywhmN+h53G/CCeCahFPtE4j/YSOR19qjskMS8JwRJbDAfcEnN
+ dpRw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxjOe6S64FYEve8VpZE1dOQOdXKrI9LTfRTvhyILCFko057YJNCB7uAPQXek0LGq+KhEok7HzzpS4A=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLM6FstQYscvMfdp2xGrvyrJ0KYXLwZY71MyeUHvd2ni0Js7q82
- lSTqos9CP4TpB772JEAcL34fKYJY2YPAqx/0zn9F78BUiqvUw5YrYpCM7culO4vt5erJeiy0xKr
- AO2+QSR4d0F/0p1sHQztHd3aA7nkNh1o=
-X-Gm-Gg: AYBFou3q3ZOlLVQXZsafLtSWB3zrtwOqp0WuO+rf1ANRwP8A39aBf6sgyI4VyWrRbOP
- zYcIiZKAsq6qTiqYPrDsThc0rw64mQRjZgBVQJPCczReGPLucgep+FZLlFMlZA2L3DRx+CG//Mh
- S8MIFRkoU2JeoAcJpnGZE3YM1CxjtYjvSjNw9XidSRaeaXUyko/yukRvPHnoVhB85GTqeWwSE4m
- 3nemSlfkME5hm76E7p9qgfDH9MFKJ+0c6pd30m44XyoLXoiVRbk5hsxU/XCKHAhP1fgF9Rw5qql
- s/Va8H98esM89EYs0mHwBJxG4iDXFMkxA2QDylcXrENpPD043FHXZH4Ywq4CTv9M0Q==
-X-Received: by 2002:a2e:bea9:0:b0:3a6:6a12:61e4 with SMTP id
- 38308e7fff4ca-3a9c5380907mr22473741fa.19.1791777703249; Sun, 11 Oct 2026
- 21:01:43 -0700 (PDT)
+ AKwUvByRVCNYo0T/stKK+lRbmUqtSnsB72ahyELbPrWWs0oFtuTtMXQ3HNUQMl64j9kflv+BTwzb6ZEIWdY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKPVJ0h0HP0LeaFxLZbvucPO4wCOhnal8Gw/VhFVfgoJUwKkln4
+ WWwjkRYh7K+ETRSfaiwkdtDsL3NhYiARZGMhoTWNvRKutRcpn0bHu4Fe
+X-Gm-Gg: AYBFou1XbCSsWaVyMXX/x5I9Zma12tFpQ0ANC/XSe01gaLSmOw299ZFvn9ars9Snov8
+ wcd9SQEyU31zKPLFb+d3BNeCCP3ZNNddw8cqB/VsC1mRM8no8er9SbI1voeWPd2bPEklc0l2R6J
+ vBw4ABznPUKvW5uK20TPSHZArVXvLBwB0Tox3hkccSPu3Klkk0EX/lMFNPIDUu7MEdY75j6YS2Q
+ iynSAGzGDE9Myl63vrLHz22YNbVYPcwaV5W97iywbEPIn82Ylu+vZ4Jv4aSJDRaWR9erXNL9e5I
+ jv+yIZ1nkXqSiGRg0+FPnjIvjamvLMXVTA3yXfUIzCZRuEfPJ/cvReGv5Hpd9nNmr1of2xbPrYk
+ A6D4VctnzqAi7IWjTd+W/fc7za7NJVc3/uQ47A2sz9D8jW9ZDQyNaLuQZdA7iUQzath/yNTAd/t
+ MIiZKT38suhlwyKRQI/4gt+vZneVg9p9y72S9A3TxIgPP0MpNEeW7spGzS8nlpWJ+TuUG6MZVNg
+ p97bOmk9H/lU4b9w3Yhv80by8FDQEo3U9NsNdBwZIGUwXa8W4osyA==
+X-Received: by 2002:a05:600c:6215:b0:4a0:eae0:b30e with SMTP id
+ 5b1f17b1804b1-4a18e4ca157mr133079995e9.22.1791783891940; 
+ Sun, 11 Oct 2026 22:44:51 -0700 (PDT)
+Received: from home-desktop (dynamic-002-214-019-128.2.214.pool.telefonica.de.
+ [2.214.19.128]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a18bf35930sm256330645e9.13.2026.10.11.22.44.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Oct 2026 22:44:51 -0700 (PDT)
+Date: Mon, 12 Oct 2026 07:44:49 +0200
+From: Abhin Parekadan Jose <abhinjoses@gmail.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Dongwon Kim <dongwon.kim@intel.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
+Subject: Re: [PATCH] drm/virtio: Destroy obj_restore_lock on the final
+ drm_dev_put()
+Message-ID: <asxz0Xvv5jO9gAol@home-desktop>
+References: <20260929070714.169412-1-abhinjoses@gmail.com>
 MIME-Version: 1.0
-References: <20261004212403.208681-1-oss.patchbox@gmail.com>
- <asm4DV84UitLCbve@dell-wzy>
-In-Reply-To: <asm4DV84UitLCbve@dell-wzy>
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Mon, 12 Oct 2026 00:01:31 -0400
-X-Gm-Features: AclHuK8Nc-yI1UOeFL3cp2dh7P_n3SkiObRIXOBg2zlQtbRku8sMwkQ2lyVopD4
-Message-ID: <CAGG=RgApzG=MeZ9xbpeBzqE0i0Q6RCPXtnyS-30JfEDPDKNN0Q@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
- still in use
-To: Zhenyu Wang <zhenyuw.linux@gmail.com>
-Cc: Zhi Wang <zhi.wang.linux@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin Zhang <xiaolin.zhang@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, zhiw@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929070714.169412-1-abhinjoses@gmail.com>
 X-Mailman-Approved-At: Mon, 12 Oct 2026 07:32:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,27 +98,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks for the review!
+Gentle ping on this fix for the syzbot report.
 
-On Fri, 9 Oct 2026 at 23:59, Zhenyu Wang <zhenyuw.linux@gmail.com> wrote:
->
-> I don't think this is *real*, as code would simply destroy entry in
-> that case, and there won't be on-the-fly dma operation on that, as
-> guest mem setup is totally before execlist submission, if guest driver
-> changed mapping by ignoring gvt emulated execlist status, that's just bad...
+Dmitry, Gerd, do you have a preference between moving mutex_destroy()
+to virtio_gpu_release() (this patch) and using drmm_mutex_init()? I can
+send a v2 with the other option if you prefer it.
 
-You know this code much better than I do, and I can't test it without
-GVT-g hardware, so I may well be missing something.
+Thanks,
+Abhin
 
-The case I had in mind is the guest mapping the same page at both sizes
-and keeping both, e.g. 2M in the PPGTT of one context and 4K in the GGTT
-or in another context's PPGTT. If the second request replaces the entry,
-the first shadow entry seems to keep the old DMA address, as
-shadow_ppgtt_mm() reuses a PPGTT that is already shadowed. Is that ruled
-out somewhere? Please let me know if so.
-
-> So this change would always force 2M to split into 4K? why?
-
-No, only when a 4K entry for the same gfn is cached at the time of the
-2M request. With no entry or a 2M entry nothing changes, and a 4K
-request now reuses an existing 2M entry instead of replacing it.
+On Tue, Sep 29, 2026 at 07:07:14AM +0000, Abhin Parekadan Jose wrote:
+> virtio_gpu_deinit() calls mutex_destroy() on obj_restore_lock, but
+> deinit runs from virtio_gpu_remove() at unbind or PCI remove, and GEM
+> objects can outlive that. An open /dev/fb0 keeps the fbdev buffer
+> alive, and the fbdev DRM client holds a drm_device reference. When the
+> fd is finally closed, the buffer is freed and takes the destroyed lock:
+> 
+>   fb_release()
+>     drm_fbdev_shmem_fb_destroy()
+>       drm_client_buffer_delete()
+>         virtio_gpu_free_object()
+>           virtio_gpu_remove_from_restore_list()
+>             mutex_lock(&vgdev->obj_restore_lock)
+> 
+>   DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+>   WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0xf2c/0x12ec
+> 
+> virtio_gpu_deinit() should only do hardware teardown in this case
+> related virtio, its queues and others. Software state that GEM callbacks
+> still use belongs in virtio_gpu_release(), which runs on the final
+> drm_dev_put().
+> 
+> There are two equivalent ways to tie the mutex lifetime to the
+> drm_device:
+> 
+>  1) Move mutex_destroy() from virtio_gpu_deinit() to the end of
+>     virtio_gpu_release(). This is what this patch does. It is the
+>     smallest change and keeps the teardown next to the rest of the
+>     final-put software cleanup.
+> 
+>  2) Initialise the lock with drmm_mutex_init() (checking its return
+>     value) and drop mutex_destroy() from virtio_gpu_deinit(), so DRM's
+>     managed release destroys it. This also covers the virtio_gpu_init()
+>     error path, where release returns early because dev_private is
+>     NULL. Skipping mutex_destroy() there is harmless, since it only
+>     matters for mutex debugging.
+> 
+> Either fix removes the WARN. Option 1 is sent as the smaller change,
+> and option 2 can be done instead if preferred.
+> 
+> Reproduced on arm64 QEMU (-device virtio-gpu-pci) with DEBUG_MUTEXES
+> and PROVE_LOCKING: open /dev/fb0, write 1 to
+> /sys/bus/pci/devices/0000:00:01.0/remove, then close the fd. With this
+> patch the WARN is gone, and rebinding brings back /dev/fb0 and
+> /dev/dri/card0.
+> 
+> Fixes: 54a970048296 ("drm/virtio: Add support for saving and restoring virtio_gpu_objects")
+> Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
+> Assisted-by: LLM
+> Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_kms.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+> index 1d4d3bf46a20..0ec755c35050 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+> @@ -354,7 +354,6 @@ void virtio_gpu_deinit(struct drm_device *dev)
+>  	virtio_reset_device(vgdev->vdev);
+>  	virtio_gpu_reclaim_vbufs(vgdev);
+>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
+> -	mutex_destroy(&vgdev->obj_restore_lock);
+>  }
+>  
+>  void virtio_gpu_release(struct drm_device *dev)
+> @@ -370,6 +369,8 @@ void virtio_gpu_release(struct drm_device *dev)
+>  
+>  	if (vgdev->has_host_visible)
+>  		drm_mm_takedown(&vgdev->host_visible_mm);
+> +
+> +	mutex_destroy(&vgdev->obj_restore_lock);
+>  }
+>  
+>  int virtio_gpu_driver_open(struct drm_device *dev, struct drm_file *file)
+> 
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> -- 
+> 2.51.1
+> 
