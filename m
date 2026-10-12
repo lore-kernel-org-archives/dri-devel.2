@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8230CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA91DCC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5074710F5B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E13F10F5A2;
 	Tue, 13 Oct 2026 07:53:23 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04B2110F2B9
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:15:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6953E10E519
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:58:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C783341179;
- Mon, 12 Oct 2026 18:15:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21CAA1F008A1;
- Mon, 12 Oct 2026 18:15:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2980C42E9B;
+ Mon, 12 Oct 2026 18:58:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5EB01F0089B;
+ Mon, 12 Oct 2026 18:57:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791828957;
- bh=UYY0MSTSV/lzjFZVBtMBYKll1hhz2HZYmEB77bYYO8k=;
+ s=k20260515; t=1791831502;
+ bh=qH+yTBGHMx4kskcBpBDKONKQ96Db6V1NplbT44nRvZo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=NGNHymLwZKbCWsslcnEUwI//+cq6FM4jrs7Ia4F+jhzWDXKoZWIgGKDTaly/zYCVy
- N+u1mw2NdZ92jr/bNvHzwEkIWzCVEzwNXu6gIE00aKEVtClmyPdMax8rEr8S6UODpC
- MfmedbtTEJ2mNqfIHxKYTlHH73Y0G/oSXblggh9QGAyRRxb0CLwIMwpqJGM504CZ5X
- XwlQ7niweJ7YuNmIIZV2JU+6rjKnr6s7+UcK552McrgXS+YYD9hU/Z7lWoVtfyFXTP
- ASpYZzxjtE9xK7MNYdM2ZPWWDVodgdmtgIzCRz75qkJRgDq3yVLOYqSo2cDEsvTtrz
- dXghVzOn8w/Qg==
-Date: Mon, 12 Oct 2026 19:15:10 +0100
+ b=looXlA6fTwVHV01oPQjKIsaLN7qg4gOfpfxfIKT2JYCP5qc6mtNOfKXzipcBrh5Ot
+ PwTlWcUh8iMGaWDsLLerJWirxQS11zQ+uNPPZD56vjlnfd4Xt8Ty0QR2gLNZRLAVmZ
+ XB2AV4YuqJ2oKkV2g5m/6Icmp243c7oQwlXcOgSGhet9aPBJl7BLHiRyQaIFfTFg5f
+ R5mIs3NuvgJeGZzERtd7pZ/l5Ywtb7I+I+N5/X1JMKypG8+SLTaEsyrMX/W1aLWQJP
+ x0/ar3g7y36ElH0BWNMVIYJBfaYlLx77JuLREXrJFvmLlG+LDzzGKzUyJUzEJO7zAF
+ 41OpXgdKh9hhA==
+Date: Mon, 12 Oct 2026 19:57:46 +0100
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -113,17 +113,21 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
  fuse-devel@lists.linux.dev, 
  Ihor Solodrai <ihor.solodrai@linux.dev>, Bert Karwatzki <spasswolf@web.de>
-Subject: Re: [PATCH v5 14/38] mm/vma: add vma[_flags]_is_mm_managed()
- predicates
-Message-ID: <as0jWKT3NgK7NP7i@gremlin>
+Subject: Re: [PATCH v5 24/38] mm/vma: enforce that mm-managed mappings may
+ not set VMA_IO_BIT
+Message-ID: <as0tfn85BbcLs-Kn@gremlin>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-14-923b70125b1e@kernel.org>
- <7554094f-d853-482f-ba82-3e2f7b1cf4a0@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-24-923b70125b1e@kernel.org>
+ <5d51b6b3-ad58-4827-bedf-f1a79ebd5c86@kernel.org>
+ <as0nF53W7dug-Fem@gremlin>
+ <5ba7305f-0ad1-44ee-be0b-36752684cdb9@kernel.org>
+ <as0qUOfS-FQgRnm4@gremlin>
+ <c0b212bb-da62-476b-a16d-2ce78e1e2639@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7554094f-d853-482f-ba82-3e2f7b1cf4a0@kernel.org>
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
+In-Reply-To: <c0b212bb-da62-476b-a16d-2ce78e1e2639@kernel.org>
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,83 +143,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2026 at 08:06:41PM +0200, David Hildenbrand (Arm) wrote:
-> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> > Rather than referring to VMA flags with uncertain meaning, add a new
-> > predicate that explicitly describes what absence of the VMA_PFNMAP_BIT and
-> > VMA_MIXEDMAP_BIT flags means, and then refer to that function for
-> > determining VMA mergeability.
+On Mon, Oct 12, 2026 at 08:51:10PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/12/26 20:48, Lorenzo Stoakes (ARM) wrote:
+> > On Mon, Oct 12, 2026 at 08:39:35PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 10/12/26 20:35, Lorenzo Stoakes (ARM) wrote:
+> >>>
+> >>> That gets removed.
+> >>>
+> >>>
+> >>> I mean we do that in a subsequent commit, I think even the next one?
+> >>>
+> >>>
+> >>>
+> >>> Yeah, but to do that the code would now be something like:
+> >>>
+> >>> 	vma_flags_t masked = flags;
+> >>>
+> >>> 	/*
+> >>> 	  * vma_flags_is_mm_managed() tests VMA_IO_BIT, which will be removed
+> >>> 	 * in the next commit.
+> >>> 	 */
+> >>> 	vma_flags_clear(&flags, VMA_IO_BIT);
+> >>> 	if (!vma_flags_is_mm_managed(masked)) {
+> >>> 		...
+> >>> 	}
+> >>>
+> >>> Is that really worth it?
+> >>>
+> >>> I don't think there's really too much confusion intra-patch about that is there?
+> >>
+> >> I would do it as above (- the comment, as that is the next patch indeed) and
+> >> only remove the vma_flags_clear() in the next patch.
+> >>
+> >> But in any case, you should spell out that this is only temporary in the patch
+> >> description :)
 > >
-> > If neither of these flags are set, that means the contents of the mapping
-> > are managed by core mm.
+> > And then there's a 'masked' variable that is unused?
 > >
-> > Otherwise they are instead owned by some other kernel component, usually a
-> > driver: the memory may be MMIO, kernel-allocated pages or even ordinary
-> > pages the driver maps itself, but core mm must not populate, reclaim,
-> > migrate, copy-on-write or merge the range itself.
+> > You need to have two vma_flags_t variables to be able both clear VMA_IO_BIT
+> > and use vma_flags_is_mm_managed().
 > >
-> > We initially also treat VMA_IO_BIT as implying a mapping is not mm-managed,
-> > as by implication it cannot be. (mlock() also sets VMA_IO_BIT transiently
-> > on ordinary VMAs while locking them, which is addressed later in this
-> > series.)
+> > So the change would have to be
 > >
-> > However the intent is to in future remove this, as no mapping should be
-> > marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
+> > + 	vma_flags_t masked = *flags;
+> > +
+> > + 	vma_flags_clear(&flags, VMA_IO_BIT);
+> > + 	if (!vma_flags_is_mm_managed(&masked)) {
+> > + 		...
+> > + 	}
 > >
-> > This forms the basis of further work intended to improve how we express VMA
-> > properties such as this.
+> > Then:
 > >
-> > Also update the VMA userland tests to reflect the change.
+> > - 	vma_flags_t masked = *flags;
+> > -
+> > - 	vma_flags_clear(&flags, VMA_IO_BIT);
+> > - 	if (!vma_flags_is_mm_managed(&masked)) {
+> > + 	if (!vma_flags_is_mm_managed(flags)) {
+> >  		...
+> >  	}
 > >
-> > No functional change intended.
+> > Which doesn't really seem worth it for somebody who is confused between two
+> > patches mid-series.
 > >
-> > Reviewed-by: Zi Yan <ziy@nvidia.com>
-> > Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  include/linux/mm.h              | 53 ++++++++++++++++++++++++++++++++++++++++-
-> >  tools/testing/vma/include/dup.h | 29 +++++++++++++++++++++-
-> >  2 files changed, 80 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> > index 97e1eb4fe3a4..83953757735a 100644
-> > --- a/include/linux/mm.h
-> > +++ b/include/linux/mm.h
-> > @@ -1612,6 +1612,41 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
-> >  	return is_shared_maywrite(&vma->flags);
-> >  }
-> >
-> > +/**
-> > + * vma_flags_is_mm_managed() - Do the specified VMA flags indicate that the
-> > + * contents of the VMA are managed by core mm?
-> > + * @flags: The VMA flags to test.
-> > + *
-> > + * Such a mapping is one established by a simple mmap() or brk() with no driver
-> > + * or other kernel component involved.
-> > + *
-> > + * They are rmappable, and core mm services rmap operations including reclaim,
-> > + * as well as population, CoW and merge/split (if eligible).
+> > But if you feel strongly I can make the change like that?
 >
-> I assume ->fault returning some kernel allocations (VM_DONTEXPAND set but none
-> of the others) will currently contradict to that. But hopefully we'll clean that
-> up in the future (or improve the documentation to cover them as well).
+> Whatever you prefer. Most important thing for me was finding it in the next
+> patch and being pleasantly surprised ;)
 
-They really shouldn't be, but that's one for the future I guess. I hate that we
-allowed ->fault to be that 'flexible'.
+I'd rather not then!
 
-VM_DONTEXPAND is already a weird case that needs rethinking/renaming I think
-anyway.
+It was always intended that way, this was all part of a careful dance to ensure
+correct behaviour right up until the point where we enforce that VMA_IO_BIT is only set when appropriate.
 
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Thanks!
-
->
-> --
-> Cheers,
->
-> David
+I can update the commit message to reflect it.
 
 --
 Cheers, Lorenzo
