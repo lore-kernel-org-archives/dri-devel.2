@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3755CA9ED5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:54:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F9EECA9ED6
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3035210E49F;
-	Mon, 12 Oct 2026 04:53:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 005DC10E910;
- Mon, 12 Oct 2026 04:53:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5B7910E98C;
+	Mon, 12 Oct 2026 04:54:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 343E710E978;
+ Mon, 12 Oct 2026 04:54:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4739060AA1;
- Mon, 12 Oct 2026 04:53:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DB21F0089B;
- Mon, 12 Oct 2026 04:53:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E424B42D87;
+ Mon, 12 Oct 2026 04:54:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 918531F0089B;
+ Mon, 12 Oct 2026 04:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791780823;
- bh=arJuLL5GQUhe12ZDQK1wsQjC1NNOA7WpdX3AVkTrYv0=;
+ s=k20260515; t=1791780858;
+ bh=7dghQZ6ZwPZbpPZKl+myzz8b5ED4mw3XYiqXI/2sy48=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fzemsQf8R3yB6eFQ8pHLq4a9fF68ClcSnaJMT7i1zvk4sJ0Mh/pUEpzSktnT+OY0m
- djAsMPfHtQIR0/xBl/00KkVuV/h8OMbmzgIvqjuK+mJndT5035NqQNV0i8nVPzLdms
- bbQCq5obrqleh191R/LrCyeALV+BEmhiz8qMeUWdjnoSXg4vf6CjrQwnS+LFjKcJs9
- 1vg3nYvaLwfrWwhU97VtztLZIg/oWZNDRBz0Ik8+kMr7WJTr3N5M1dQdpfHdsy02DU
- wa0sOS0A++vBvP6pnSCduEfAgndDem/qg/Z2HzcpQs0+ro6Car9ZvOm6Ag5HxWSJBT
- OhiX/LQ9B27Xg==
-Message-ID: <sashiko-outbox-167641@kernel.org>
+ b=X6U5cLmjc9U0baRkOfp7imibT3THVPkaivNTFflBV3BezNSPHqoUxwom9qXpfiz/L
+ qX8kpnlaAVrFY0sqdILHBxkDkH+m7QNw8tZDnZlJDxe492CHGakF/sRp6HN+qCm6GX
+ lTmSmo9Q2SsdKgAesgyniePL/s82mYyXUNhla3XsHrNm8fGzXBBC+UrAHZSsO8Wm6p
+ GbgFQIWv4p9ugg9YhlA2BfezieND2Vio/qFzTP6U4RrM+545cL3JmdyDlBDFA9r7lD
+ SxyXmdRdHZPJUCf6ZaGi8Qq7lNPFF45oBUwx2g4tD+BRaM5+i4KnX3qmgvrQoECSEM
+ ldcnYz0pP+rfw==
+Message-ID: <sashiko-outbox-167642@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 55/56] drm/i915/hdmi: Iterate through joiner
- candidates in mode_valid path
+Subject: Re: [PATCH v2 40/56] drm/i915/ddi: Wire FRL into the HDMI DDI
+ enable/disable path
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-56-ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261012035806.3361439-41-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-56-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-41-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:53:42 +0000
+Date: Mon, 12 Oct 2026 04:54:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,83 +56,97 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm/i915/hdmi: TMDS modes bypass max dotclock and plane size checks
+- [High] drm/i915/hdmi: connector refcount underflow via modeset_retry_work
+- [Medium] drm/i915/hdmi: intel_hdmi_frl_cfg_write corrupts register by omi=
+tting clear mask
+- [Medium] drm/i915: unconditional FRL configuration and transcoder enablem=
+ent contrary to commit message
 --
 
-commit fcc107a6617c907f4675cb58944ba1cef59c27ff
+commit cfc5e8ca998b654bfa60f35c76733a4d8332204f
 Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-drm/i915/hdmi: Iterate through joiner candidates in mode_valid path
+Subject: drm/i915/ddi: Wire FRL into the HDMI DDI enable/disable path
 
-This commit updates the HDMI mode validation path to iterate through joiner
-candidates, relaxing the dotclock ceiling when multiple pipes are joined.
-The single-pipe validation checks were relocated from the main mode validat=
-ion
-function into the format-specific validation function.
+This commit enables HDMI FRL in the DDI enable and disable sequences for
+MTL+. It prepares for FRL mode, starts FRL link training, and configures
+the FRL registers if enabled. On disable, it handles LTS:L teardown and
+register cleanup.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
-i915/display/intel_hdmi.c
-> index 2ec7d2a5e7d4d..2c7c47a3c61d1 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -2132,20 +2132,55 @@ intel_hdmi_mode_valid_format(struct intel_connect=
-or *connector,
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> index 53e889c0d0223..22a49eb50b203 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
 [ ... ]
-> +	status =3D intel_hdmi_tmds_mode_clock_valid(&connector->base, clock,
-> +						  has_hdmi_sink, sink_format);
+> @@ -3605,8 +3614,15 @@ static void intel_ddi_enable_hdmi(struct intel_ato=
+mic_state *state,
+> =20
+>  	intel_ddi_buf_enable(encoder, buf_ctl);
+> =20
+> -	if (DISPLAY_VER(display) >=3D 14)
+> +	if (DISPLAY_VER(display) >=3D 14) {
+> +		if (crtc_state->frl.enable &&
+> +		    intel_hdmi_start_frl(encoder, crtc_state) < 0)
+> +			schedule_work(&intel_connector->modeset_retry_work);
+
+[Severity: High]
+Does this code underflow the connector reference count?
+
+If intel_hdmi_start_frl() fails, schedule_work() is called directly without
+taking a reference via drm_connector_get(). If the driver suspends, unbinds,
+or calls intel_hpd_cancel_work(), it calls
+intel_connector_cancel_modeset_retry_work(). This generic cancel helper
+invokes cancel_work_sync() and unconditionally calls drm_connector_put() if
+the work was pending. Because the work was queued without taking a referenc=
+e,
+this drops an unowned reference.
+
 > +
-> +	if (status =3D=3D MODE_OK)
-> +		return status;
+> +		intel_hdmi_frl_cfg_write(crtc_state);
 
-[Severity: High]
-Does this early return cause TMDS modes to bypass the max dotclock and plane
-size limits?=20
+[Severity: Medium]
+Does intel_hdmi_frl_cfg_write() corrupt the register by omitting a clear ma=
+sk?
 
-It looks like if a mode fits within the TMDS link bandwidth, the function
-returns immediately, skipping the newly relocated intel_pfit_mode_valid(),
-intel_mode_valid_max_plane_size(), and intel_dp_dotclk_valid() checks inside
-the for_each_joiner_candidate() loop below.
+When this function is called here, it performs a read-modify-write on the
+TRANS_HDMI_FRL_CFG register:
 
-[ ... ]
-> @@ -2160,7 +2195,6 @@ intel_hdmi_mode_valid(struct drm_connector *_connec=
-tor,
-[ ... ]
->  	if ((mode->flags & DRM_MODE_FLAG_3D_MASK) =3D=3D DRM_MODE_FLAG_3D_FRAME=
-_PACKING)
->  		clock *=3D 2;
+intel_hdmi.c:intel_hdmi_frl_cfg_write() {
+    ...
+    val =3D TRANS_HDMI_R_B_SCHED_ENABLE(crtc_state->frl.rsrc_sched_en);
+    val |=3D TRANS_HDMI_ACTIVE_CHAR_BUF_THRESH(crtc_state->frl.active_char_=
+buf_threshold);
+    val |=3D TRANS_HDMI_MIN_BLANK_CHAR(TRANS_HDMI_MIN_BLANK_CHAR_VAL);
+
+    intel_de_rmw(display, TRANS_HDMI_FRL_CFG(display, cpu_trans), 0, val);
+}
+
+Because the clear mask is 0, intel_de_rmw() performs a read, leaves all
+existing bits intact, and then bitwise ORs the new val. This could
+permanently corrupt the hardware configuration if the previous register
+value had bits set that should be zero in the new configuration.
+
+[Severity: Medium]
+Does this execute hardware configuration unconditionally despite failures?
+
+The commit message explicitly states: "If FRL link training fails, notify
+userspace. On success, write DFM registers and enable the transcoder."
+However, the code unconditionally calls intel_hdmi_frl_cfg_write(),
+intel_hdmi_frl_dfm_write(), and intel_ddi_enable_transcoder_and_vblank()
+even if intel_hdmi_start_frl() returns an error. While this might be
+architecturally consistent with how DisplayPort handles link training
+failures, is there a discrepancy between the documented intent and the
+actual implementation?
+
+> +		intel_hdmi_frl_dfm_write(crtc_state);
+>  		intel_ddi_enable_transcoder_and_vblank(state, encoder, crtc_state);
+> +	}
 > =20
-> -	if (clock > max_dotclk)
-> -		return MODE_CLOCK_HIGH;
-> -
-
-[Severity: High]
-Since this overarching max_dotclk check was removed from the parent function
-intel_hdmi_mode_valid(), and TMDS modes now return early in=20
-intel_hdmi_mode_valid_format() before reaching the new validation loop, cou=
-ld
-this allow user-provided TMDS modes that exceed the display engine's max CD=
-CLK
-dotclock to pass validation?
-
-[ ... ]
-> @@ -2197,10 +2228,8 @@ intel_hdmi_mode_valid(struct drm_connector *_conne=
-ctor,
->  			status =3D intel_hdmi_mode_valid_format(connector, mode, clock, has_h=
-dmi_sink,
->  							      INTEL_OUTPUT_FORMAT_YCBCR420);
->  	}
-> -	if (status !=3D MODE_OK)
-> -		return status;
-> =20
-> -	return intel_mode_valid_max_plane_size(display, mode, 1);
-> +	return status;
-
-[Severity: High]
-Similarly, since intel_mode_valid_max_plane_size() is also removed here,
-it seems TMDS modes might bypass plane width and panel fitter checks too,
-potentially leading to atomic commit failures or hardware pipeline errors.
+>  	intel_hdmi_poll_for_scrambling_enable(crtc_state, connector);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D55
+439-1-ankit.k.nautiyal@intel.com?part=3D40
