@@ -4,43 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C97CA9EDD
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 16:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D7A4CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 16:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF7010F230;
-	Mon, 12 Oct 2026 16:00:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF6510E055
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 16:00:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AAEFA405CC;
- Mon, 12 Oct 2026 16:00:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048A11F0089B;
- Mon, 12 Oct 2026 16:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791820822;
- bh=DhtZIfuIEvlpkDK7brRoFcw85bcJ/156Vb80F9BAqjg=;
- h=Date:From:To:Cc:Subject;
- b=PtTAqcyY+HZj4VkCHU8oGAbpmAlWwEY+wWvyhjsY8LvnX6fNli5mKyG1psRWlm4fj
- FrpW+VT45tsTa2HZQSU3U4S2fWAK9/hg8gHWkYGw85Zao9o6dyrRZhuKjl3r3VQDjt
- KUwtZyiKn42jVQIsH/J0Xb/jjGcHeS2BktJVABxK5w9AxxnMIDFewSYpEz8x3NsWO7
- YlM9Cng5xZe+ABWLucE29LYLWO47O4OQ7rRm0lhnA8pB2pJe2qprAuPAc1jRTirQVQ
- 7yTslF8DMiGo14YDDEYt2CqC0hAzJ2h5/yTnqQJeZsQ7o+xM0iT+igGyXc1Y/HVv0s
- TovV58Fc1Z1FA==
-Date: Mon, 12 Oct 2026 17:00:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-Subject: linux-next: manual merge of the drm tree with the origin tree
-Message-ID: <as0EDOeG2YMPsccN@sirena.org.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72E1E10F233;
+	Mon, 12 Oct 2026 16:04:12 +0000 (UTC)
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D162210E055
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 16:04:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1791821044;
+ bh=mOTVvbMzguCr0itsLPJfPjM4slEMMfKEWtMDQZarop4=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=tGArUO0M+F9ccditeaf/9yzLO4TbPPnQuxNy2IaPxXImPRxBtkRXo15HwwD++1lW9
+ FA8Q50lzIXUoB9SbUAaYJ/ckFtxD7/lXnKrI2orv2TFsBcepc7c7Qe9VnF73gPX91/
+ N9g5mUejTU6u11+BgHImWdJFnGN7TkanYw/iSt6PcLyzjvb+5kOUt9KNO+PLCXDwAc
+ x417Zdh+bf1wVXu/IHdebGgPMzg8asF/7jzvejEHCCMBHU9Zxt4bS+mjKOlYeN0g67
+ 8xGGH73cDLwMxCzFJxQFwxlcdOtI5RJJ9I2Jv6eAfxmdvn6eTg/aB1y6kL5V7iz4Dl
+ T0hC+9by3qybg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3Mhv4KfYz4w9g;
+ Tue, 13 Oct 2026 03:03:59 +1100 (AEDT)
+Message-ID: <e2171fff-62af-4185-a815-6293bea71220@ozlabs.org>
+Date: Mon, 12 Oct 2026 17:03:56 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="lQXESTPYKYxWp4AU"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
+Content-Language: en-GB
+From: Matt Evans <matt@ozlabs.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Zack Rusin <zack.rusin@broadcom.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
+References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+ <CABQX2QOOaxkxzREaDHY3iXHs0106u+F9JvQSTXCnA7AEjPPxuQ@mail.gmail.com>
+ <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
+In-Reply-To: <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,126 +65,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi i915 folks,
 
---lQXESTPYKYxWp4AU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 08/10/2026 14:41, Matt Evans wrote:
+> Hi Zack,
+> 
+> On 07/10/2026 16:24, Zack Rusin wrote:
+>> On Tue, Oct 6, 2026 at 3:15 PM Matt Evans <matt@ozlabs.org> wrote:
+>>>
+>>> The dmabuf release path is split between file and dentry release:
+>>> dma_buf_file_release() is called shortly before the file is freed, and
+>>> dma_buf_release() calls an exporter's dmabuf->ops->release when the
+>>> dentry is freed.  However, the dentry can outlive the file (for
+>>> example, if opened with O_PATH), meaning .release might be called some
+>>> time after the file is freed.
+>>>
+>>> This presents a window, when closing a DMABUF file, in which
+>>> dmabuf->file points to freed memory yet .release op has not yet been
+>>> called.
+>>>
+>>> For VFIO, if a buffer's .release has not been called it's considered
+>>> still active and subject to move/cleanup.  If so, it attempts to
+>>> get_file_active() on dmabuf->file: a file close with dentry held open
+>>> will call this function with a stale pointer, a UAF.
+>>>
+>>> To make this pattern safe, set dmabuf->file to NULL in
+>>> dma_buf_file_release() to reflect that the associated file is now dead
+>>> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+>>> sequence concurrent with a file close will only execute as one of:
+>>>
+>>>    - Gets the file before file_ref_put() (dmabuf->file valid)
+>>>    - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+>>>    - Observes dmabuf->file = NULL (no file)
+>>>
+>>> Originally, drivers could assume dmabuf->file was valid until .release
+>>> was called from fops->release.  This assumption was no longer valid
+>>> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+>>> dentry_ops"), which moved the callback to the dentry release (by which
+>>> point the file might have been freed).  With this commit, drivers must
+>>> still consider that dmabuf->file could be NULL before .release.
+>>>
+>>> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to 
+>>> dentry_ops")
+>>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>>> ---
+>>>
+>>> Hi,
+>>>
+>>> This issue was found (by Claude Opus 5.5) in the context of VFIO's
+>>> DMABUF export path.  VFIO iterates live DMABUFs with a
+>>> get_file_active()/fput() block, which now becomes safe if the file is
+>>> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
+>>>
+>>> However, there are a couple of other places that directly use
+>>> dmabuf->file and seem able to race a closing file (i.e. without holding
+>>> the file reference)?  If this is so, they'd be a UAF today; with this
+>>> patch that goes away, but instead of a stale pointer dmabuf->file could
+>>> be NULL:
+>>>
+>>> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
+>>>
+>>>    file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
+>>
+>> Yes, that's a real UAF today. vmwgfx relied on the exporter's
+>> dma_buf_ops.release running inside __fput() before file_free(), which
+>> stopped being true with 4ab59c3c638c and we missed it.
+>>
+>> But this patch on its own makes vmwgfx worse. In the ordinary case,
+>> where closing the file drops the last dentry reference, a close racing
+>> PRIME_HANDLE_TO_FD is safe today: ttm_prime_dmabuf_release() runs from
+>> the same __fput() and blocks on prime->mutex, keeping the file
+>> allocated, so file_ref_get() just fails on the dead refcount. With
+>> this patch dmabuf->file is NULL in that window and we oops. So this
+>> shouldn't go to stable without a vmwgfx fix.
+>>
+>> For vmwgfx we'd probably need this one line change in
+>> drivers/gpu/drm/vmwgfx/ttm_object.c to accompany this patch:
+>> @@ -471,7 +475,7 @@ void ttm_object_device_release(struct
+>> ttm_object_device **p_tdev)
+>>    */
+>>   static bool __must_check get_dma_buf_unless_doomed(struct dma_buf 
+>> *dmabuf)
+>>   {
+>> -     return file_ref_get(&dmabuf->file->f_ref);
+>> +     return get_file_active(&dmabuf->file) != NULL;
+>>   }
+>>
+>> under prime->mutex, which keeps the struct dma_buf alive. It needs the
+>> NULL store from this patch to fix the existing UAF, since otherwise
+>> the recheck can accept a recycled file through the unchanged stale
+>> pointer.
+> 
+> Thanks for confirming!  Ah, so get_file_active() is good here, cheers. 
+> I'll repost as a 2-part series to first include this in vmwgfx and 
+> second add the anNULL.
+> 
+>>> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
+>>> this might be more subtle than replacing it with a get_file() variant
+>>> (so as to accept a NULL file *).
+>>>
+>>> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
+>>>
+>>>    gvt_dbg_dpy(... file_count(dmabuf->file) ...);
+> 
+> FWIW aside, I re-read this, and there does appear to be a ref held 
+> (dma_buf_export() has just happened, and dma_buf_fd() generated) so 
+> dmabuf->file is stable at that point.
 
-Hi all,
+I think I was mistaken here:  the reference is moved to the file table 
+by dma_buf_fd(), and seems another thread could immediately close it.
 
-Today's linux-next merge of the drm tree got a conflict in:
+If so, there's an opportunity for userspace to (after this fix) cause a 
+NULL deref here.
 
-  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+I'm about to repost the series but am happy to include a oneliner third 
+patch to mitigate this, if you feel appropriate.
 
-between commit:
+Is file_count() still interesting here, i.e. do you expect it to be >1 
+immediately after export?  If still required, reading 
+file_count(dmabuf->file) before the dma_buf_fd() would be safe (printing 
+it later at the existing place).
 
-  1a6023edfbb56 ("drm/amdgpu: serialize vblank counter reads against GPU re=
-set")
 
-=66rom the origin tree and commit:
+Matt
 
-  51a4359f7431a ("drm/amdgpu: serialize vblank counter reads against GPU re=
-set")
-  6ccc5b5fc1d36 ("drm/fbdev: Move fbdev helpers into client library")
+> 
+>>> Respective vmwgfx & i915 maintainers, what is your view?
+>>> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
+>>>
+>>> Thanks,
+>>>
+>>>
+>>> Matt
+>>>
+>>>
+>>>    drivers/dma-buf/dma-buf.c | 6 +++++-
+>>>    1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>>> index 4c9add51f9ef..726639130477 100644
+>>> --- a/drivers/dma-buf/dma-buf.c
+>>> +++ b/drivers/dma-buf/dma-buf.c
+>>> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
+>>>
+>>>    static int dma_buf_file_release(struct inode *inode, struct file 
+>>> *file)
+>>>    {
+>>> +       struct dma_buf *dmabuf = file->private_data;
+>>> +
+>>>          if (!is_dma_buf_file(file))
+>>>                  return -EINVAL;
+>>>
+>>> -       __dma_buf_list_del(file->private_data);
+>>> +       __dma_buf_list_del(dmabuf);
+>>>
+>>> +       /* Must be observed by __get_file_rcu() before file_free() */
+>>> +       smp_store_mb(dmabuf->file, NULL);
+>>
+>> I think Alex is right and dmabuf can be NULL here. An early if
+>> (!dmabuf) return 0" will fix that.
+> 
+> Yep, on it.
+> 
+> Many thanks,
+> 
+> 
+> Matt
+> 
 
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 7c081b338fe2e,8e15b204f117f..0000000000000
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@@ -28,8 -28,8 +28,8 @@@
- =20
-  #include "amdgpu.h"
-  #include <drm/amdgpu_drm.h>
-+ #include <drm/clients/drm_fbdev_helper.h>
-  #include <drm/drm_drv.h>
-- #include <drm/drm_fb_helper.h>
-  #include <drm/drm_vblank.h>
-  #include "amdgpu_uvd.h"
-  #include "amdgpu_vce.h"
-@@@ -48,6 -48,7 +48,7 @@@
-  #include "amd_pcie.h"
-  #include "amdgpu_userq.h"
-  #include "amdgpu_video_codecs.h"
-+ #include "amdgpu_ras_mgr.h"
- =20
-  void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev)
-  {
-@@@ -285,6 -286,10 +286,10 @@@ static int amdgpu_firmware_info(struct=20
-  		fw_info->ver =3D adev->pm.fw_version;
-  		fw_info->feature =3D 0;
-  		break;
-+ 	case AMDGPU_INFO_FW_MP5:
-+ 		fw_info->ver =3D adev->pm.mp5_fw_version;
-+ 		fw_info->feature =3D 0;
-+ 		break;
-  	case AMDGPU_INFO_FW_TA:
-  		switch (query_fw->index) {
-  		case TA_FW_TYPE_PSP_XGMI:
-@@@ -349,8 -354,8 +354,8 @@@
-  		fw_info->feature =3D adev->psp.toc.feature_version;
-  		break;
-  	case AMDGPU_INFO_FW_CAP:
-- 		fw_info->ver =3D adev->psp.cap_fw_version;
-- 		fw_info->feature =3D adev->psp.cap_feature_version;
-+ 		fw_info->ver =3D adev->psp.cap.fw_version;
-+ 		fw_info->feature =3D adev->psp.cap.feature_version;
-  		break;
-  	case AMDGPU_INFO_FW_MES_KIQ:
-  		fw_info->ver =3D adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK;
-@@@ -1291,7 -1296,11 +1296,11 @@@ int amdgpu_info_ioctl(struct drm_devic
- =20
-  		if (!ras)
-  			return -EINVAL;
-- 		ras_mask =3D (uint64_t)adev->ras_enabled << 32 | ras->features;
-+=20
-+ 		if (amdgpu_uniras_enabled(adev))
-+ 			ras_mask =3D amdgpu_uniras_get_ras_caps(adev);
-+ 		else
-+ 			ras_mask =3D (uint64_t)adev->ras_enabled << 32 | ras->features;
- =20
-  		return copy_to_user(out, &ras_mask,
-  				min_t(u64, size, sizeof(ras_mask))) ?
-@@@ -1937,6 -1946,14 +1946,14 @@@ static int amdgpu_debugfs_firmware_info
-  	seq_printf(m, "SMC feature version: %u, program: %d, firmware version: 0=
-x%08x (%d.%d.%d)\n",
-  		   fw_info.feature, smu_program, fw_info.ver, smu_major, smu_minor, smu=
-_debug);
- =20
-+ 	/* MP5 */
-+ 	query_fw.fw_type =3D AMDGPU_INFO_FW_MP5;
-+ 	ret =3D amdgpu_firmware_info(&fw_info, &query_fw, adev);
-+ 	if (ret)
-+ 		return ret;
-+ 	seq_printf(m, "MP5 feature version: %u, firmware version: 0x%08x\n",
-+ 		   fw_info.feature, fw_info.ver);
-+=20
-  	/* SDMA */
-  	query_fw.fw_type =3D AMDGPU_INFO_FW_SDMA;
-  	for (i =3D 0; i < adev->sdma.num_instances; i++) {
-
---lQXESTPYKYxWp4AU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrNBAsACgkQJNaLcl1U
-h9DHQQf+JTTBFbYHT/DL9onPYh6cI3z8rIK0mjV7PkkTU7RmodLCbCT9PlHerA0g
-Zb8bt16hQnza+irpH49ARFdPuvPoPXDGS4KEXxnnR/ggSCMUZgQmKU2ciTeWQQ51
-Q9DH4JnNpQCyapEwIncAyFQaYnKfh9d4s6yMQcAliQv+6wI1NbDREijXqKJ0wone
-F4yJG/zo1m1GRTgqzdVafrSmZMQDBgOmkGrRBPl5LEZjjbQB6SRSnzv0YP10KJwz
-xhe/ZciEFfqZ8CEfnQFh8NxG2hXBfPo1vvCY9BsOYuIUJ/zaMRsh9dw3XOVU41wf
-hUMNCojq7XlJYTgky4+h279x1t7m5Q==
-=Horb
------END PGP SIGNATURE-----
-
---lQXESTPYKYxWp4AU--
