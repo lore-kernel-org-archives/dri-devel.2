@@ -4,41 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D2BECC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73D67CC6B19
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:48:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0336A10E5F1;
-	Tue, 13 Oct 2026 17:43:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F24B10E3BB
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:43:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 21D1C44017;
- Tue, 13 Oct 2026 17:43:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2CD21F000FF;
- Tue, 13 Oct 2026 17:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791913403;
- bh=fL+I6tKYrDQmsJdPyYET/FTO+BenPvH5rqpr5ZfqJzQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K8wVpoirLdyIK2P64a2Ubvo863X7S4ctzAu8nCua4hTnSnzhIifb47Vr4xjkr0wlD
- +JMaOp71QQBY3ixc4t5rzk2wBBwpJUy25uKbvCHRvFDBGB+XnJpFtkZ/XfGKxaaf29
- AphEwFbq4FNLq+azeeiBxQiIlNjSAZL4o9ULfhF5Nsuf2q7MRPNuEjnEDT7bUZY0ZZ
- eBgLGOpoLWseJ5zwavF9RzR6nJrN7MFD5UZuJlzYaqerSv9ZbaF69Z+iNGAW+op7hk
- eYjGGEW6aIZE4yJq0hFnlGiJTUBWk/Me/g8rMDsDozyrDyj6ohw7zSJ2pLPxziinfp
- XaTqKYl9MFw8g==
-Message-ID: <sashiko-outbox-170250@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net v2 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-To: "Mina Almasry" <almasrymina@google.com>, dri-devel@lists.freedesktop.org
-Cc: media-ci@linuxtv.org
-In-Reply-To: <20261012174300.2338784-5-almasrymina@google.com>
-References: <20261012174300.2338784-1-almasrymina@google.com>
- <20261012174300.2338784-5-almasrymina@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 17:43:22 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBCE710E709;
+	Tue, 13 Oct 2026 17:48:16 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E05A210E709
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:48:05 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 387DCC653F9
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:49:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 97C8060362
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:48:04 +0000 (UTC)
+Received: by mail.galae.net (Postcow, from userid 0)
+ id ED2AD11D7183A; Tue, 13 Oct 2026 19:47:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1791913684; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=VskafZl3EMS3eyL37u/JduD2RMDkb+58+PAofJgKdgw=;
+ b=JoSTRWnswLumJqQ6J0ERITh1btt/qCGNo5Vh0gynesygURu2mkumZeaIqsNZka9z2h2DGS
+ +vWImwXVRzG7KJPnWt3kcmaXrYWtGfp5CoM+d98A6YxXmqItB+dE2Ok+GUJBR0o1bQiKcd
+ 2TtQcKC6tTHgs10KgGtiALozMA0S1tINYA0UoUSJG9odyr717VX7XYQazcJ8cA/rKlCHrr
+ blh/ws0JNZK9kwJP/0YquWqFnbeQ5VWYy4YFzTI11gf1WLqT3gIydbGkp3jV6g9VoaYI5A
+ KSY5cszCZyqEJXW+jDC8nFdSXNvLw1+Y9DTyg3K0w5dNULbg8ZDd7A1FWGHSwQ==
+Authentication-Results: mail.galae.net;
+	none
+Received: from mail.galae.net ([172.22.1.253]) by 9e7fea892943 with LMTP
+ id yKHqCgDvzGoYHxEAtaWaaQ (envelope-from <luca.ceresoli@bootlin.com>)
+ for <luca.ceresoli@bootlin.com>; Mon, 12 Oct 2026 16:30:24 +0200
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 2D0EA11D70508; 
+ Mon, 12 Oct 2026 16:30:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1791815423; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=VskafZl3EMS3eyL37u/JduD2RMDkb+58+PAofJgKdgw=;
+ b=vgHWBa4bLQM5FiPr3TUKfHGNQmGCbDiDpK27WlVC3ZVYr7MuDzdiQpW6DT30s7peAQC7hh
+ DVL25/Y46UaNq0Roa9N9Yz8b7rltdd/tm8sUAcnw7dBQgwzLGwc61Fey7Fo2SWQkEtz03m
+ uaqLfMitD6if6TCsGSZkLuUp9XzUF2BWf+lsPFqCCivonlhMlo3FJm+e52jlgGTUmOAn84
+ 0iHTGwsVcLRezN/R+nAnoEHsLQOlCbKC8lQUSotgraiIKFuTmKDyc0RZ9Nh6iXt2kq2XBX
+ KZthhgk6i6Rpj20DW6lKf1c/yB340pBC3bPFhECPFL7HfJ7in8rZcJ0xmlzKfg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Mon, 12 Oct 2026 16:29:52 +0200
+Subject: [PATCH 2/3] drm/panel: stop mentioning deprecated
+ devm_drm_of_get_bridge() in docs
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-drm-bridge-every-panel-cleanups-v1-2-0fd272f486b6@bootlin.com>
+References: <20261012-drm-bridge-every-panel-cleanups-v1-0-0fd272f486b6@bootlin.com>
+In-Reply-To: <20261012-drm-bridge-every-panel-cleanups-v1-0-0fd272f486b6@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
+X-Last-TLS-Session-Version: None
+X-Rspamd-Queue-Id: ED2AD11D7183A
+X-Spamd-Result: default: False [2.50 / 30.00]; SUSPICIOUS_RECIPS(1.50)[];
+ DATE_IN_PAST(1.00)[27]; RCVD_NO_TLS_LAST(0.10)[];
+ MIME_GOOD(-0.10)[text/plain]; BAYES_HAM(-0.00)[37.78%];
+ BCC(0.00)[]; TAGGED_RCPT(0.00)[];
+ DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FORWARDED(0.00)[luca.ceresoli@bootlin.com]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_TO(0.00)[intel.com,linaro.org,kernel.org,ideasonboard.com,kwiboo.se,gmail.com,linux.intel.com,suse.de,ffwll.ch];
+ MID_RHS_MATCH_FROM(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[luca.ceresoli@bootlin.com];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_DN_SOME(0.00)[];
+ URIBL_BLOCKED(0.00)[localhost:rdns,localhost:helo,bootlin.com:mid,bootlin.com:email,iscas.ac.cn:email];
+ MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
+ RECEIVED_HELO_LOCALHOST(0.00)[]; NEURAL_HAM(-0.00)[-1.000];
+ FROM_EQ_ENVFROM(0.00)[]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,99 +103,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] selftests: net: test falsely assumes global dma_buf attachments =
-drop to zero
-- [Medium] selftests: net: netdevsim device leak on exception paths
---
+The kernel-doc for drm_of_find_panel_or_bridge() still mentions
+devm_drm_of_get_bridge() which is deprecated. Update to mention the
+currently recommended API.
 
-commit 3ebc183bfb941c2f36dca38f1bd05b883cc61a30
-Author: Mina Almasry <almasrymina@google.com>
+Link: https://lore.kernel.org/all/c1b065c8bd926708500b7c42864279e055ed95d0.camel@iscas.ac.cn/
+Suggested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+ drivers/gpu/drm/drm_panel.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-selftests: net: add devmem RX and TX netdev unregister tests
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index c00529bfb706..8f35654c4650 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -1039,8 +1039,7 @@ EXPORT_SYMBOL(of_drm_find_panel);
+  * return either the associated struct drm_panel or drm_bridge device.
+  *
+  * This function is deprecated and should not be used in new drivers. Use
+- * of_drm_get_bridge_by_endpoint() instead when not looking for a panel, or
+- * devm_drm_of_get_bridge() otherwise.
++ * of_drm_get_bridge_by_endpoint() instead.
+  *
+  * Returns zero if successful, or one of the standard error codes if it fails.
+  */
 
-Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-to nl_netdev.py to verify that unregistering a netdevsim device while a
-netlink socket holds an active RX or TX devmem binding synchronously
-detaches the dma_buf attachment and cleanly closes the netlink socket
-without use-after-free or page faults.
+-- 
+2.56.0
 
-> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/sel=
-ftests/net/nl_netdev.py
-> --- a/tools/testing/selftests/net/nl_netdev.py
-> +++ b/tools/testing/selftests/net/nl_netdev.py
-[ ... ]
-> +def _dmabuf_attached_devs():
-> +    """Return attached device names from debugfs dma_buf/bufinfo if avai=
-lable."""
-> +    path =3D "/sys/kernel/debug/dma_buf/bufinfo"
-[ ... ]
-> +    for line in text.splitlines():
-> +        if line.strip() =3D=3D "Attached Devices:":
-> +            in_attached =3D True
-> +            continue
-> +        if in_attached:
-> +            if line.startswith("\t") and line.strip():
-> +                attached.append(line.strip())
-
-[Severity: Medium]
-Will this parsing approach unconditionally aggregate all attachments across=
- all
-dma_bufs in the system?
-
-Because this does not filter the debugfs output to the specific dma_buf
-created by the test, if the system executing the test has any other active
-dma_bufs with attachments (e.g., from DRM graphics drivers), the global
-attached count will remain non-zero.
-
-> +            else:
-> +                in_attached =3D False
-> +    return attached
-> +
-> +
-> +def devmem_bind_rx_unregister_check(_nf) -> None:
-> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev =
-unregister."""
-> +    dmabuf_fd =3D _create_udmabuf()
-> +    nf_priv =3D NetdevFamily()
-> +    ef =3D EthtoolFamily()
-> +    nsimdev =3D NetdevSimDev(queue_count=3D2)
-> +    nsim =3D nsimdev.nsims[0]
-
-[Severity: Medium]
-If an exception occurs during the test, will this leak the netdevsim device?
-
-The netdevsim device is instantiated without registering a teardown deferral
-like defer(nsimdev.remove) or using a try/finally block. If any step before
-the manual nsimdev.remove() call raises an exception, the cleanup is
-bypassed. This permanently leaks the kernel netdevsim device and its sysfs
-entries in the kernel namespace, potentially causing subsequent tests to fa=
-il.
-
-[ ... ]
-> +    attached =3D _dmabuf_attached_devs()
-> +    if attached is not None:
-> +        ksft_ge(len(attached), 1)
-> +
-> +    nsimdev.remove()
-> +
-> +    attached =3D _dmabuf_attached_devs()
-> +    if attached is not None:
-> +        ksft_eq(len(attached), 0)
-
-[Severity: Medium]
-Can this assertion spuriously fail if other dma_bufs exist system-wide?
-
-Since _dmabuf_attached_devs() aggregates all attachments without filtering
-for the specific dma_buf created by the test, the attached count will not
-drop to zero if the system has other active dma_bufs, causing the test to
-fail.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012174300.2338=
-784-1-almasrymina@google.com?part=3D4
