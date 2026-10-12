@@ -4,92 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6AACA9ED2
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 20:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3EF2CA9ED2
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 20:32:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C5110E672;
-	Mon, 12 Oct 2026 20:21:54 +0000 (UTC)
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2D410E672
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 20:21:47 +0000 (UTC)
-Received: by mail-ot1-f49.google.com with SMTP id
- 46e09a7af769-8266c388b67so1981205a34.0
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 13:21:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791836507; x=1792441307;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Z6hOwSLR8cfh8cDplIOaHfJc8wiTVy6P5jX2Jl3fTgI=;
- b=H0H3LjAE3/V8TMxfIO5K1+xAS+OBIsocS5uoURntTxZFGGUC5PdkJoMULKMakI9VCm
- GIQMD/iwxOmAXr5/aPoslWH10nkirYgMeMv/FvRlZ//jUGhpi9QHQaz8zd6RbzpJ5TzR
- 1dqLe73htKY3fE+QHMDNaoilgNoQKZ/FQQr9KGLUDToyxKXdfz4jUfYzL2Rsxb6XBBN6
- fxp5VFl/JHHhkKOEeZO4WUZaJYrFfCEGToN0HIJ+P298j90rXLI4TloC/fA73Mtu5ddn
- YJiucPeWDM4nihLhV2EYCdMe/Qv/Q4T/uVLdJOtCS8v5LJ6ZAIKJxTgknWkf9zgs21ux
- LgxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791836507; x=1792441307;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Z6hOwSLR8cfh8cDplIOaHfJc8wiTVy6P5jX2Jl3fTgI=;
- b=1aqv2Cuy54w9ERrEiE8oybaliZB4tv0L1ZX2IFxaUddSR2tQHR9wl5+rAiLN2ancro
- Ugw2cyIUQgbDHs+gfVDLOI2Zf6aS53IwFp6+N8E2BZn5lx23xE81W/Lk3HBHCJevnV4e
- NwyFqubtFdpJxHdfWAhbFzQT38qtHidyS8Hb7OF7kLOV5aTagj1CUYLP7bEFGXmmYrOL
- 05j6INBFkjQouAdX+Wp2ateSi19METBwPB8VOg5JOYctlYfI/1BvNnqmIXQyi5f7Uq56
- nY5RFX42jBeKZ8+T6mYqng57a1e9aZXXX2Z+0K8YK5C+j9DK9bJbA6qvaEi3BwAxdZ5b
- Cddw==
-X-Forwarded-Encrypted: i=1;
- AKwUvByQSzMGMayT4HaJx7/Q7mWyugQ9fmiuinPe/dBDCZ02M2FMW67ODDO/GgtBWJv0E3/rbYl7C0jNMLo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJCEpFcx2KI9GHYiT87lLEYCVjhBmLHdGeY+KPgS8hzBLd3vPvD
- z3GwB757y75BlDaYNwkYhuCVyueOkrAKhGaWi5UodkAsQns9/MLffcADH2iqNOP8exc=
-X-Gm-Gg: AYBFou39yaHUXDSLmCFWx6z0F/wNLUHmmk03VYl52V/NzSNetKkQtfd+8HU20yHMDtp
- 3eZm0V3iIySGpTqC8j1De17+B/j9I5CxQDOmwBv2ufeu8EwmnRVYRQ78RaBmXHeuO5h2AAEJV3z
- 6QDuuVBuYbP8gGh40Kui6a07SsQtBlG5IB1wqL7hWq2b3FVyeiDEKcbOOjRouvI1IoPcRPhqVpn
- rQMlLPtddjchz6cTtMKmx1ISnIHbz4TM5c5iu6vTx9GPMDDC6wg+JdXfGTO8OModzKRrpP0oEwy
- B15IZiQYKaAFD1KnvpS7ThwpCqSdKhG3w3JgB+ijpd2RsKLwFjONRCjSc1XRz+52wy0RNUp5ViX
- IePZcmUUsBqFFHzlYdFyZtJauLriSLW6VwnXH7ntZ1BV3wDiRB4ysSRXKLNI346MiZ5dWmKlC2V
- OCM5AN1G7W5R/C5qvYJKwoWNTqsgCTej5r93eja0xc8/1NvN+Md2cHr6NqI1Sy7MI83aP9J0HZl
- mF9+15IcU1+4+9/i/VAGqNS6JkJqROtI+UfnWf1zbwdBHdyGOVtYTQWNg==
-X-Received: by 2002:a05:6808:f88:b0:4d7:17d5:6c9b with SMTP id
- 5614622812f47-50c40a3e034mr9500602b6e.9.1791836506735; 
- Mon, 12 Oct 2026 13:21:46 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
- by smtp.gmail.com with ESMTPSA id
- 5614622812f47-50c167544b5sm12396143b6e.3.2026.10.12.13.21.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Oct 2026 13:21:45 -0700 (PDT)
-Message-ID: <d00e43fa-8f5b-4a8b-8b83-421d637ba519@kernel.dk>
-Date: Mon, 12 Oct 2026 14:21:41 -0600
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD79310F352;
+	Mon, 12 Oct 2026 20:32:38 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010054.outbound.protection.outlook.com [52.101.56.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9212C10E3A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 20:32:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LyQdMW/8XsPd48nQfc9JOlI5b+MpUx4a+xc0K730+DuBud2LbNvAE1o7A8ZPr1WrZl4TDd2dfPb2KYuqCE6gQb+fshdH96R79ey56N6mkp3eA8KDNNDiYlCgRs377sHGeZlrX+0DF9fzE/b1V9/4fBKQUYbf6UnwYb+bW/Me3FYhYDXwzy/sZFmbz30ENEnKg1i4gYNPUVsHKL6ZwCYlxKqC2oSszukGw8J923KHEtZ8eU6Zg5P7VD3K5XJs2wJI296MkAehBacPQ4VuyJyzMiPt2qlvK8FGmDeHM84r+T40DIQmq31sLQoGCtxYlh+XqyWSxpRqqDQwaXGobXcsPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2UgQb66GPPvIHEjQ5C9TWh419/KexlLC6rMO191owDw=;
+ b=fBdEYV/IXZ6PrWrgHLM10qsCr4oL8iwf2XmcASdjv6xMEXeeMtw5o9lFw8f741aeeIo4cp2L4jUcLP5g8kFgBVELUzFvuliTf5ljjZnlGzCtWmWcGFHHXEeBMt0O5rqp/oW4R9GSSSp07LPjy06+ohfx6lwNciEWZ0/8bxPWtn1C17Kspa2f8S2aonWPH+5rrpO1OLjuL/fGoKD9N29YJWnZ211IrtGYc6QEGW4RPQgB4EKojTOeKG6WIf6npZMSo701L0xAIzlYm6UDWuanWCSWadqGDf6U4lFsRzyvA2bb7Q/t7BqWI9DoJLEJTtdStI+iqaw2o+xc59KXzhFTUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2UgQb66GPPvIHEjQ5C9TWh419/KexlLC6rMO191owDw=;
+ b=MQRStZLIup8awN+GsuR8YScbuHIVgTV+vAMSjB4gG0L27OIns01IdPehUtfpux/vBIvP/ahlaYATqjLd5tZRYALhokIjjlaBQpChz1Z+mpVyLZ+7na2rzW5X6QHYltXbOU4XqPZfK4/GbrbiBATDhsAVlCjH7NhyEOjjqv0ZhSY=
+Received: from CH0P221CA0029.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11d::7)
+ by LV3PR12MB9215.namprd12.prod.outlook.com (2603:10b6:408:1a0::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 20:32:28 +0000
+Received: from CH2PEPF000166BD.namprd04.prod.outlook.com
+ (2603:10b6:610:11d:cafe::3d) by CH0P221CA0029.outlook.office365.com
+ (2603:10b6:610:11d::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.21 via Frontend Transport; Mon,
+ 12 Oct 2026 20:32:27 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF000166BD.mail.protection.outlook.com (10.167.252.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 20:32:27 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 15:32:21 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 15:31:41 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 12 Oct 2026 15:31:40 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
+Date: Mon, 12 Oct 2026 13:31:39 -0700
+Message-ID: <20261012203139.2573687-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 00/13] Add dmabuf read/write via io_uring
-To: Pavel Begunkov <asml.silence@gmail.com>, linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1791336930.git.asml.silence@gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <cover.1791336930.git.asml.silence@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166BD:EE_|LV3PR12MB9215:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e86af0f-435f-42e1-69e3-08df289fee4d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: nxY1N9PbtC/T67xDgTz5HX9QabCY/hOcZJmoCBCZryir4b5PwpGZbicMGbDKSm/D8kS6eOPAqE4KAPL07smFwVjYiOSOrTxvuuPjtB0fms0VekvlRoYRg7LvDE/eEkBUe4CuxG9IzKpKUZT0S4ZAMPPq2Fq989Fp4SrlEyulm4L5tJii1zlP24pdgDTPeAhhnYxtZECjFMobCWH6EYeNqKLOSGJmms/9rarnhwtRmgt2eTApKNw5WxOEDJ9oWHZt6eDBQVqBWtU0F+DRdNRIWs4E3oGvhRNfWfcbdSR77fvI9M8pFvTkGEtb0t68Oqf5AFdw7WM8w+r0C9i1E4R48WWOtxV3EYwRI3OiyYwXJuX+9HjWsryyPJQJrF43Zylj+czGniztbguHjJ+44QwdeovtV3Pc3oC0vOz3b5CEGjTEu3I86NksZOf9q8rfHptmzK0oTVVo0eN5joU+U924siogW6K254eT8jrIKe2ccaaza0Pv5NbkdXmFEsPtcdCijoGtGSCi0wHJ+6lebT5mmKYWCe9xffPw7sYafPHiYhNy/9yAx4CbOlVVRts6T4CB+tbJW3rvd4xlJ7cUjp/I6oQ4tPRjUQB8KngQ8/b9LjCx4yoXNebt4idCtad+r+kMf+qcrw4BJbno2GobrbQ+yVexMzRdpGOP0FskONUmZao4OV1zzXnBUFklldBZ620HgQQJ+MEO+JnKdD/NrM9KhA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: YXwEkJVEPH6XrT8Ww02qKJlTVZv4oy92Izws9GpX/++zv78yr8hdR9QqXB0Sdt/K2V/Gl1S3jmhrNGi6eI6CY9mB5zqykJk4cRfJibJrVZmMPzxRHzxJkUIuIZp8/yKmmQq8St35HBnxDNMUYVlKVWFqqlOG7x6E259szJfj5Co7bLwhdaclWZsAoA5lhsaFDDaZ/gCU0531l7ApCGMO5BVNPfhMYQUThh6USPnezWolmlRez9Kuisy6ANAo/0gijEeUgyv1Xjz9+/1ojVGkO+t2LR/LZTvO6vAs7d8ZSZrPgPLPcDm+XJri6m5PtkQgVMys4mIO00K6bDtxFGxI8bzE+1UXsqnkJ+5y+M+r0g0OCKK7Y/tZWoY6wCEqqtrevZvlbqjMUItO9WmYP016o2T8PmGOl3yINEjJ7MIwHkX9fBGyQkwBbbDH9aNOu74o
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:32:27.2589 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e86af0f-435f-42e1-69e3-08df289fee4d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000166BD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9215
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,25 +113,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/6/26 7:42 PM, Pavel Begunkov wrote:
-> The patch set allows to register a dmabuf to an io_uring instance for
-> a specified file and use it with io_uring read / write requests. The
-> infrastructure is not tied to io_uring and there could be more users
-> in the future. A similar idea was attempted some years ago by Keith [1],
-> from where I borrowed a number of changes. Later it was brough back up
-> to life by Tushar and Vishal.
-> 
-> It's an opt-in feature for files, and they need to implement a new
-> file operation to use it. Only NVMe block devices are supported in this
-> series. The user API is built on top of io_uring's "registered buffers",
-> where a dmabuf is registered in a special way, but after it can be used
-> as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
-> requests. It's created via a new file operation and the resulted map is
-> then passed through the I/O stack in a new iterator type. There is some
-> additional infrastructure to glue it together, count requests, manage
-> lifetime and implement invalidation.
+Two hardware contexts can submit jobs that use the same GEM object while
+a user mapping is invalid. aie2_cmd_submit() drops the reservation and
+notifier_lock before aie2_populate_range(), and that function takes a
+reference on the first invalid umap without clearing invalid until the
+fault returns. Both submissions then call
+hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
+structure is not safe for concurrent callers. The calls write
+notifier_seq and hmm_pfns[] at the same time, so mmu_interval_read_retry()
+can see the other call's sequence, miss an invalidation, and clear
+invalid. The job is then pushed while the pages may already be gone.
+Give each umap its own mutex and hold it from the fault through the retry
+check and the store that clears invalid. notifier_lock is dropped before
+this mutex is taken, and the fault drops mmap_lock before notifier_lock
+is taken again.
 
-I've queued this series up for some testing, in a separate branch. JFYI.
+Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
+ drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
+ drivers/accel/amdxdna/amdxdna_gem.h | 1 +
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index d927c8c9d557..4db67a789c34 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+ 		return -EFAULT;
+ 	}
+ 
++	mutex_lock(&mapp->lock);
+ 	ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
+-	if (ret)
++	if (ret) {
++		mutex_unlock(&mapp->lock);
+ 		goto put_mm;
++	}
+ 
+ 	down_write(&xdna->notifier_lock);
+ 	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
+ 		up_write(&xdna->notifier_lock);
++		mutex_unlock(&mapp->lock);
+ 		amdxdna_umap_put(mapp);
+ 		mmput(mm);
+ 		goto again;
+ 	}
+ 	mapp->invalid = false;
+ 	up_write(&xdna->notifier_lock);
++	mutex_unlock(&mapp->lock);
+ 	amdxdna_umap_put(mapp);
+ 	mmput(mm);
+ 	goto again;
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index f14484bc31ec..37bfa5058095 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
+ 	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
+ 
+ 	mmu_interval_notifier_remove(&mapp->notifier);
++	mutex_destroy(&mapp->lock);
+ 	kvfree(mapp->range.hmm_pfns);
+ 	kfree(mapp);
+ }
+@@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+ 		goto free_pfns;
+ 	}
+ 
++	mutex_init(&mapp->lock);
+ 	down_write(&xdna->notifier_lock);
+ 	if (list_empty(&abo->mem.umap_list))
+ 		abo->mem.uva = addr;
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
+index 9b4aa21a37c9..456a537eb68c 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.h
++++ b/drivers/accel/amdxdna/amdxdna_gem.h
+@@ -19,6 +19,7 @@ struct amdxdna_umap {
+ 	struct kref			refcnt;
+ 	bool				invalid;
+ 	bool				unmapped;
++	struct mutex			lock; /* protect range */
+ };
+ 
+ struct amdxdna_mem {
 -- 
-Jens Axboe
+2.34.1
+
