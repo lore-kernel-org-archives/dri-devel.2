@@ -4,81 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04DF9CC6B10
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6749CC6B13
 	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE9E10F57F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53AD010F580;
 	Tue, 13 Oct 2026 07:53:05 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0FD10E5B8
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 19:03:30 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-35b647aac23so663303eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 12:03:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791831810; x=1792436610; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=gg30uP+2zT7F4nzhITDGMjokMeqKShVAiesVP2byYZ8=;
- b=Pehe1BtM6Rm4SfX+16vYd7Pr7kdgp5MCdwOPojlBo8G2C19KbZMfJ9ONtWNnoPxWDx
- nVe2dnpGfVVjgXsF766WjszBylWjRQCgeb3OMqVJFrlIwIbw2QF2AzjWCcsrMEMpKQPo
- X8DFs3joYYCt5M1AgoZi6EMbsRhDC47yCc1NnO3GWifCFcwbB05fwttSHG4dyIW4D49O
- P2HQUaYVeh2MHrmnhLYkLmP2pYG+ZiGvfokrr6cA8IY7/FGbIEWYj61CTQU0U5N6tVy2
- dnUxeK83jMaCmp0ZURolH221x0Kjn5HJLScVsJYhkW0eITAHcf0MSTEo1Yeru1SkJijL
- xJog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791831810; x=1792436610;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=gg30uP+2zT7F4nzhITDGMjokMeqKShVAiesVP2byYZ8=;
- b=GyxqxyjvjX44OxiMyfCRLoqtr6SDrLnacuI7RSbbd1nhi0yiziRVQ5J7Oh+LKcKMrY
- eqhMJ5J9vEQsfHD7PQ+//5aLf7zSh+6GP2juAp4joRs/VnZUR3FH6tOFIxJ4Ez9QYycn
- pusZQhyKbRdoaDmg3zfmwTdxO+AkA+kSR8wzGBr+FLot+WW5gUjwCkzE/HO3qbTvkguT
- X3lHq5QRzdRu6rimZHjAlfAqa4D/Iu5TT55/fUh2d4RIQT/odc+ZiU5UsikKikoDKowO
- VnQuN4HSPDJjPyQhBDoYjwNBtsookA39o5HhNAVPxUjd188SfzQGD8sbNb8UtjK+NaZv
- 7icg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBydWDK60eg1hTakpIkizQ4eo5s1wI8YutL4FlQ08R5tqQ0BbbUvoiAlVPfYw7Vtx2izABRBWbvzGK0=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJKk6zZCqqCEVhqI3QKNAM+uKrjC7HsGhbQStOIhBbqN0kele1S
- vZAAbkn+R75LXJW7A4/LdziRXLCk5tjEvzFazplFrasPVEgoCs41RO3N
-X-Gm-Gg: AYBFou28qLh2+xJsu2O5q/edVfXTVtU0sGcjb15g4ClbOoMIoHr+PwuWbJIiJjyDLDg
- MpbMovlfJxzxi9BubiIBePtvkfR0zo+G3chG2BD2+Y7X2GrD6s2bttDDL/XPci9ZPUsm4by5jqZ
- JXE1w40iCrJ1KPbkpi2g6zab7NQWQogSU0R/zhJRGztGcf2A2itIV+5otREJ+ujyoef8Z+IBMte
- +GEcDZJ7dE+lXMH240ZfhVKriWqoKzol4Np5T1fHogJBRbYmANnQGlI5EiFP5XU84Ww2iP3d6R4
- L3ConmIsDbcMasH6dbqwMJdFTjrC3vlOVgU9WtaJBA7Kxml9xG49DxeMsHbZfkhBAYXxKtPJuGv
- 82PH9f6mts0Uw5WAJ09fh39QmeTWMh3nIfupyW898Z+BiRucucLgHjX1M4WvBB7Y4+eMmVreV/s
- IGupKrPGEkmSfH6jzAn8yxINDqVRtygD81Sx9ENFJrBOgqIsc/g8HT6dDeiKzUl3r3Yx/Z2QyKb
- tJJEigoG7VpCQoo+rq96vtCxqT7+ysmLUQYLEs=
-X-Received: by 2002:a05:7301:6794:b0:351:606f:2832 with SMTP id
- 5a478bee46e88-3537df77e03mr19422574eec.3.1791831809517; 
- Mon, 12 Oct 2026 12:03:29 -0700 (PDT)
-Received: from localhost.localdomain ([136.126.251.209])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3537cb6a279sm35501602eec.30.2026.10.12.12.03.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 12:03:29 -0700 (PDT)
-From: Henry Zhang <henryzhang62@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Henry Zhang <henryzhang62@gmail.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/vc4: dsi: Don't return error reports as read data
-Date: Mon, 12 Oct 2026 12:02:42 -0700
-Message-ID: <20261012190249.3167-2-henryzhang62@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261012190249.3167-1-henryzhang62@gmail.com>
-References: <20261012190249.3167-1-henryzhang62@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C002210E3D9
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:24:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 70338429E5;
+ Mon, 12 Oct 2026 18:24:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EB211F008A1;
+ Mon, 12 Oct 2026 18:23:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791829451;
+ bh=XFaoCRsSeFrqplzPhC7sYiQbwkNwnjThwg1EUt1kpJ8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=jtE+F+Qv8Id6B6sok4tUXFo/WttdoAtNDsnYx3FOXrAL8cH9okupFlV8UIia7guEU
+ +vucEDeV2orWOn4vncvKjOHxgLpA4z1i7ajNG9MWZWMFVvN4qyIVzuZeKcX/kEyCrH
+ E/taH25MY4+xXS5peaLpSE7R7Iim8QiaiSCBIYGbdI33SdOJfzFvr3BmyPD17L1aAJ
+ U/0dNzP3xhDe22x9gKDa9ilglbfD3cWxl+IMj1eK+ZgOY9uKMvF9rxkAMBdTJx+kaH
+ UEWib9ZdZm5YRBOs8FNN9IM2uvce7gfClsp4wZPpS8lSb0rbCcbaWuL8XwghfAbqY4
+ TscCzNvFkg/Kw==
+Date: Mon, 12 Oct 2026 19:23:24 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Bert Karwatzki <spasswolf@web.de>
+Subject: Re: [PATCH v5 22/38] mm/mlock: clear VMA_LOCKED_MASK over mmap
+ callback
+Message-ID: <as0lLP26IkTzbeaz@gremlin>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-22-923b70125b1e@kernel.org>
+ <5027aec2-84c1-461e-9f74-0736e2cc6171@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5027aec2-84c1-461e-9f74-0736e2cc6171@kernel.org>
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,72 +139,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a DSI peripheral detects an error, for example contention during
-the bus turnaround, it may answer a read request with an Acknowledge
-and Error Report short packet instead of the read response.
+On Mon, Oct 12, 2026 at 08:19:03PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+> > Currently there's a confusing mess around VMA_LOCKED_BIT and
+> > VMA_LOCKONFAULT_BIT.
+> >
+> > It is permitted for drivers to set any flags they like, with the VMA
+> > already possessing lock flags.
+> >
+> > This results in the absurd situation of a VMA possessing both
+> > VMA_SPECIAL_FLAGS and VMA_LOCKED_MASK flags, which is not permitted.
+> >
+> > This has resulted in mlock_vma_folio() having a very silly check for this
+> > scenario to work around it.
+> >
+> > There is no need for this - just clear the flags before invoking the hook
+> > and reinstate them afterwards if they are required.
+> >
+> > Nothing relies upon this being set during the mmap operation.
+> >
+> > mmap_prepare is unaffected by this so requires no fix.
+> >
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/internal.h |  9 +--------
+> >  mm/vma.c      | 17 +++++++++++++++++
+> >  2 files changed, 18 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/mm/internal.h b/mm/internal.h
+> > index 557e629db8c5..4ae08fedffff 100644
+> > --- a/mm/internal.h
+> > +++ b/mm/internal.h
+> > @@ -970,14 +970,7 @@ void mlock_folio(struct folio *folio);
+> >  static inline void mlock_vma_folio(struct folio *folio,
+> >  				struct vm_area_struct *vma)
+> >  {
+> > -	/*
+> > -	 * The VM_SPECIAL check here serves two purposes.
+> > -	 * 1) VM_IO check prevents migration from double-counting during mlock.
+> > -	 * 2) Although mmap_region() and mlock_fixup() take care that VM_LOCKED
+> > -	 *    is never left set on a VM_SPECIAL vma, there is an interval while
+> > -	 *    file->f_op->mmap() is using vm_insert_page(s), when VM_LOCKED may
+> > -	 *    still be set while VM_SPECIAL bits are added: so ignore it then.
+> > -	 */
+> > +	/* The VM_IO check prevents migration from double-counting during mlock. */
+> >  	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
+> >  		mlock_folio(folio);
+> >  }
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index 39ceb03023e2..4f09fb98a2fd 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -2607,6 +2607,11 @@ static int __mmap_new_file_vma(struct mmap_state *map,
+> >  	if (!map->vm_file->f_op->mmap)
+> >  		return 0;
+> >
+> > +	/*
+> > +	 * Driver-specified flags may make the lock flags invalid, so clear
+> > +	 * VMA_LOCKED_MASK and reinstate it afterwards if appropriate.
+> > +	 */
+> > +	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
+> >  	error = mmap_file(vma->vm_file, vma);
+> >  	map->vm_file = vma->vm_file;
+> >
+> > @@ -2629,6 +2634,18 @@ static int __mmap_new_file_vma(struct mmap_state *map,
+> >  		return error;
+> >  	}
+> >
+> > +	/*
+> > +	 * If the VMA is still eligible for mlock(), reinstate any original
+> > +	 * VMA_LOCKED_BIT and/or VMA_LOCKONFAULT_BIT flags.
+> > +	 */
+> > +	if (vma_supports_mlock(vma)) {
+> > +		const vma_flags_t mask =
+> > +			vma_flags_and_mask(&map->vma_flags,
+> > +					   VMA_LOCKED_MASK);
+>
+> I'd just have at least the = vma_flags_and_mask on the same line. It's ok to
+> exceed 80 chars.
 
-vc4_dsi_host_transfer() does not check the type of the received packet
-(there is a FINISHME for it). It copies the two bytes of the error
-report into the caller's buffer and returns success, so the caller
-gets the error bits as if they were register contents. Packets
-received with a checksum error, an uncorrectable ECC error or
-incomplete are passed on the same way.
+I've had people yell at me about this before on review :) you can't really win.
 
-Return -EIO in these cases so that callers can tell a failed read from
-data, and retry if they want to.
+Since I'm doing a respin anyway I can put it on one line.
 
-Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
----
- drivers/gpu/drm/vc4/vc4_dsi.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+>
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index 0148f2b..c092a1a 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -40,6 +40,8 @@
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_simple_kms_helper.h>
- 
-+#include <video/mipi_display.h>
-+
- #include "vc4_drv.h"
- #include "vc4_regs.h"
- 
-@@ -1300,6 +1302,24 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
- 		u32 rxpkt1h = DSI_PORT_READ(RXPKT1H);
- 		u8 *msg_rx = msg->rx_buf;
- 
-+		/*
-+		 * A peripheral that detected an error, e.g. contention during
-+		 * the bus turnaround, may answer with an Acknowledge and Error
-+		 * Report instead of the read response. Don't hand that, or a
-+		 * packet received with errors, to the caller as read data.
-+		 * Bits 7:6 of the Data ID are the virtual channel.
-+		 */
-+		if ((rxpkt1h & (DSI_RXPKT1H_CRC_ERR | DSI_RXPKT1H_DET_ERR |
-+				DSI_RXPKT1H_INCOMP_PKT)) ||
-+		    (!(rxpkt1h & DSI_RXPKT1H_PKT_TYPE_LONG) &&
-+		     (VC4_GET_FIELD(rxpkt1h, DSI_RXPKT1H_DT_LP_CMD) & 0x3f) ==
-+		     MIPI_DSI_RX_ACKNOWLEDGE_AND_ERROR_REPORT)) {
-+			drm_dbg_driver(drm, "DSI read rejected, RXPKT1H 0x%08x\n",
-+				       rxpkt1h);
-+			ret = -EIO;
-+			goto reset_fifo_and_return;
-+		}
-+
- 		if (rxpkt1h & DSI_RXPKT1H_PKT_TYPE_LONG) {
- 			u32 rxlen = VC4_GET_FIELD(rxpkt1h,
- 						  DSI_RXPKT1H_BC_PARAM);
-@@ -1314,8 +1334,6 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
- 			for (i = 0; i < msg->rx_len; i++)
- 				msg_rx[i] = DSI_READ(DSI1_RXPKT_FIFO);
- 		} else {
--			/* FINISHME: Handle AWER */
--
- 			msg_rx[0] = VC4_GET_FIELD(rxpkt1h,
- 						  DSI_RXPKT1H_SHORT_0);
- 			if (msg->rx_len > 1) {
--- 
-2.47.3
+Thanks!
 
+--
+Cheers, Lorenzo
