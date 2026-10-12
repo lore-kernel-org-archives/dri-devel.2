@@ -4,142 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55A33CA9EDD
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 08:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 575C1CA9EDD
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 08:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B666710E505;
-	Mon, 12 Oct 2026 08:01:18 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C904510EC71
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:01:07 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69C55rwJ2436696
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:01:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=; b=R/iGb5yh5gV+VzRZ
- yCFEkH4d4rDnR+vKoe15fRaCJi4R42/mdiB6NmcJrF5frK9CRi3rD8YYWU2pyb8v
- OUVigOu78zNtDxDGKQJmQjTq4oHP5b413jrhdmFsg0VBon054OMYK/KYZCZUia+q
- Nw1aiu3pupkVf7mrgTgolwvyR1DMps1/4jTDyCRPZMgbB4BjFAKcdfC0NYj/O9S5
- GZoMfYcCBDmj4obyPe7oZqTlMAl0VhU6mL/9baAWZyug+xKCnMO9Mny2Xel4px/W
- kWHFX2jSt5qEiCBmM6FQsUNLHaYw5hVsiW8VcRGvOzD6Xh1acjR/zrWWfkpAFXt3
- Zgfvvw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7b2fdu05-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:01:07 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93edac5877bso3781285a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 01:01:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791792066; x=1792396866;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=;
- b=TRO3P77rAxLVeupTXZ5VksglrleVf97A/xAUfqwgVPWgotV5iDtW08Trh4Od2GytH0
- USdUG/r5nJNPlwMEr+MWuBADigi9uY5byZom6sz8JEdbZm7nRWf2mKv5Q5uHuk7GqxsD
- WsaEZ9pvRZk5SlOQ6d6rjzvYPJZeAgNP/A3UY3NVF0qe3sN8opUIn1qu6Hk9N2Qq5Wjg
- d1VUaJMsoDES98R2pbMQeUOZTkta6ASLKYzVPXecO+R+nCVY6kJO7/O/i2Fb2sNRPteT
- LOKiqTIYAK3x6X1kWiIw6u2ra49FUkH4XIkR5mJh+XnmoFXK1L8FkJCp9B2WQf09++/5
- 1KzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791792066; x=1792396866;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=;
- b=GE+0WHUZiOwKk+vEAFzqwaAyVINKwoI17i6Wg+1qB5BxV5ip+uSnVuxB6z0zLyP4KL
- QtvNAn9Gf20m8cNwPJEX0IX0Y7fCqDedlsjKAdkOqAtlF/do91Wi8+qHB3/qR6VCLMvE
- 7lADN9AvELTJUxT89y0EiRrTgxle4An5cVUV0VCpwdiFY4oqiBwSIUdCfMfrQ/lAcgl4
- 0DclW2Xun3dQmA0uOfOq6Oec4qDjvQOr0loXSOZFQDlf/Mrx259VHLRLcqtU/ByPQCi/
- m48JYdvo/yAYZFLNExVGT7xhstJDQnyr9Oict0ptJ54L8KztYjr0yITg86+H4rEjmvSl
- HYeA==
-X-Gm-Message-State: AFq9FYKkd5aUfmUzlLquzrXWYGgVfhmLrpMhXsUIKob7sKOx4R+rOI9u
- PI/90ejNZNqXwcDyrr2tJ0grmz4jub61HnSZF4O0qwc+E5W3qkvYeNpEDlSSIyqSLhlkTmqUveo
- ffmOi73BZCAYnodP9MF/PDWjhR5YIGnvB3HwzZYxsueHx3nmljPZpIcTJ2rAH0LdGqp/IPC0=
-X-Gm-Gg: AYBFou3rDoUih6SeVmX/nocHmgHDHr9O1hOsx5ml2sU1cqnKS4MTLb+eg1nJJDKo6nb
- 5Xbbh81X8EAI3qoD2C/jvTQaisHqh5caE0HSdFghwy23u3AJwwFBHd4yflnpbCYwsIa1A0L1k/m
- DOLZWjhiyB/jj4t98/T0NnYzfhg9pEiIN1xgApwF2B3S0iOScL658q4hPh7s6eCU5Z5vIlnNsDR
- M/6cexgbGbuSWGyMh8giglNBZkh1FZM6hHWriDGjsb5yevdcO0MOYqqFPDY9hkNJp4eR1Mg+Euh
- rMlKDHaMueObW1kfW/8M0b9Jbb1Ltmeyy4OzTK3nzijZFhEraxfxZL88BG3MzYMVKMejuxRcvIj
- SWvL5+cg+H7DxruVGe5gn4A==
-X-Received: by 2002:a05:620a:1a10:b0:93c:c96c:a5b4 with SMTP id
- af79cd13be357-93ebd23a4f6mr1661419085a.4.1791792066237; 
- Mon, 12 Oct 2026 01:01:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a10:b0:93c:c96c:a5b4 with SMTP id
- af79cd13be357-93ebd23a4f6mr1661411885a.4.1791792065667; 
- Mon, 12 Oct 2026 01:01:05 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a9c3c9af97sm27169731fa.14.2026.10.12.01.00.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Oct 2026 01:00:42 -0700 (PDT)
-Message-ID: <d33eaab8-2933-45a9-a716-b3eebf3dd9d4@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 10:00:29 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/20] drm/msm/dp: Clear stale MSA colorimetry bits
-To: Xilin Wu <sophon@radxa.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dragon@radxa.com, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
- <20261009-msm-dp-hdr10-v2-14-1835d4966da3@radxa.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4E5010EF05;
+	Mon, 12 Oct 2026 08:01:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 877B310EC71;
+ Mon, 12 Oct 2026 08:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791792081; x=1823328081;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=4HiyCJj64lsVYPnlWvaiueSGwioZmFXK+8vY6Im4794=;
+ b=CL3XrhjlTk1dlh9JQErgdByo0v/vSPNWwo9+9k3AWIKFRrpW2sf/Nb2i
+ iKTcp4FxE46wq9OdISPUKnhx6d/Tx7nyVSNkdkcy96NecSrVbK6cY9V8G
+ BowWGMWzTykRdJPnjNnChlQZRgTaQoZ8o752Z6Q44PrWk2Tt6SXQmV/Qk
+ WcKBFolPUQjBTP8d2n4GbdPi3hkzNaXs5I2RRcY3r94HvD/Oj4XOacLZL
+ CAwny4I/AbvIrbzk+hjMP200ecb3osqjp+EIJ47If8IByMjz8Y4BxrGnx
+ y10ipCWqTjDZn+4DZ4fS6n+yjCnB+ONj1zY9xSqaGT6fuujeZ5bLonCRE Q==;
+X-CSE-ConnectionGUID: v2MEGgMyQyKPW1H3Nv9yOg==
+X-CSE-MsgGUID: vQSsM8ZkRDeP1HnFWZPBAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="370460"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="370460"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2026 01:01:20 -0700
+X-CSE-ConnectionGUID: KyRc+Zu+SxqsNTFYEKYFBQ==
+X-CSE-MsgGUID: Az3+TEIfTdKarntSv7eSyw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="808112"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2026 01:01:20 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 01:01:18 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 01:01:18 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.47) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 01:01:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mfXNvGIYeiKUFxEvqzRC7I35dQtYkUAXrthkHwedTCz47V3OS7//uzYIXjKpk/7GrLV1XB+x2t4bwk5VcQJqh6KxFa9suMJkhhdAPT7HPahsFtT6UA3Lhp6ab0HWZk8eNF4YXNSWNa9iGaTYK44vSAcCbYu8PxWT+DqAROj/7wQLlrDlZKfy1jNPZa/8+b7hSSw5i9HOFxNJmNwpD56Jvo1TYKn/7VPbRmoNIr1F6qpon1Fil/jAQ1oalDektT+ep8E66AENVNPY/kg4JS7e8CBYgw8UW2Xt6ncRBE1w1MVDeDMe4XQtKjc8zKXCJujjs7cSkBogfnVV7SnKbXxdJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N3BvvJ1d3J459XZJP8D67wCbK8mjKbRTJwWY6V26sSY=;
+ b=ihi7B79JPP7KmzNFgNW5ZvvpcEIaRsklIuoS10ienHCmf6Lqd7k6pIUphSoWJki23f+4kZTobCe+8nGMJC7RSHOfCGsV9kEvZzi3NpwWdRCfFv7UMITN+6ptx7xuIVPkoelb5tD8Y/xQqZw83/8NW846eO8/s0Y8Riu0sSHjqcmvA6H5aXe3WGnqeZcR6ygmx7tcHHiWHWFjM/ej0d2TEVw0biXvAtQjmr/Fw7wdr26Fv7TvH/bRTkelBafAMRcugslUR/wq1oG95xnUwt6auZtQ1QTWpF8O4pf5bXWPt9Gt11+Ni11LJcoyUHImrzzRjjQ06V3LhOW4G6zp0LeKmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB6360.namprd11.prod.outlook.com (2603:10b6:8:bd::12) by
+ SA1PR11MB5802.namprd11.prod.outlook.com (2603:10b6:806:235::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Mon, 12 Oct
+ 2026 08:01:14 +0000
+Received: from DM4PR11MB6360.namprd11.prod.outlook.com
+ ([fe80::22d9:ae03:5db1:680]) by DM4PR11MB6360.namprd11.prod.outlook.com
+ ([fe80::22d9:ae03:5db1:680%6]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 08:01:14 +0000
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>, "Kandpal,
+ Suraj" <suraj.kandpal@intel.com>
+Subject: RE: [PATCH v2 01/56] drm/i915/hdmi: Parse FRL max link rate from VBT
+Thread-Topic: [PATCH v2 01/56] drm/i915/hdmi: Parse FRL max link rate from VBT
+Thread-Index: AQHdWgArThbKQRrWdEWg2IfuIbuzK7b5aIWQ
+Date: Mon, 12 Oct 2026 08:01:14 +0000
+Message-ID: <DM4PR11MB6360A316EEFBC2EEBB7EFA43F49F2@DM4PR11MB6360.namprd11.prod.outlook.com>
+References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-2-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20261012035806.3361439-2-ankit.k.nautiyal@intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261009-msm-dp-hdr10-v2-14-1835d4966da3@radxa.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMSBTYWx0ZWRfX3QVxAoQHvUxA
- RAjen5xRsTuoNfBx6BuMuJkCAkprb/xCveP2u9eNKNbNhedf5bxCiQrTB5pF14BObtCdzcGYrvf
- iP/R0qLGTWaCS9SHCiXSvT0vSrFpALI=
-X-Proofpoint-GUID: xS-hvbG_yiq6HPldqT2ZjSw8-xFY5Czz
-X-Authority-Analysis: v=2.4 cv=NddzRGD4 c=1 sm=1 tr=0 ts=6acc93c3 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=ksxQWNrZAAAA:8 a=KLRTrxjsjmTHsxePAeEA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMSBTYWx0ZWRfX6N2NmYcd4A3y
- SGAMx/Ea03tVAGt8OUNBZPYl4q7fIfkpnNjx+QaEqjiZS/x5324dfrYqb2c6yjUW+wEjhwxUdRi
- Q74MMqJpZwv6/kzcxKAWKg76NInO2Uii5y9bxQi7xocP3W/cyj6MXt9NgMzC4viAE7hnCe4Ke35
- rsgsG+tvvuO6mBk4CZfYj3qW08JEWXqtR30LJqjWSvGuroppQ4CYxWreA31/1dH65C9+lUn6aC5
- WGJJS1/c5+g6/FmYzcUDB83wYWp64DbbeDpmL4b35yOJ7xJc0Xwhp1ywebdOmEDzkWz2fEFZKXo
- zJW1y1ScXVCTRNvjmrW3LXNxsgLhTk19jfEE6kgksnviz12i1QmSTlfTaGE0/vvQEH2CdR42ZWS
- NgO22hvx83IiCxghrei2ES+chHrF+VPLpY0XS05kOVuI0VvLihOg5vXo2i7Mk1IEjhqN4t/KTE5
- UdzlfWya8hlCebdMbBA==
-X-Proofpoint-ORIG-GUID: xS-hvbG_yiq6HPldqT2ZjSw8-xFY5Czz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120031
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB6360:EE_|SA1PR11MB5802:EE_
+x-ms-office365-filtering-correlation-id: 2ffe36e5-f52a-4231-538a-08df2836fcf0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|6133799003|22082099003|18002099003|11063799006|56012099006|5023799004|4143699003|260925021311599003|260925022911599003|10067099003|260925021911599003|38070700021|261009223027099003;
+x-microsoft-antispam-message-info: 9QJ6DVMXdfwiCdyHvnqZCe+KfgSwS+VLkfRcGeaaGWUCM1xyIRPHOZP8AXUUC0t4LrBcDwGRVtm3R79/ckUXbewvs3tx1VZd01zIwhGUBagDstyMitk7ezmfXU+UYKJn2H+pedObAw3byd/a2JIbAeoFXn9eSFVdkekC4ev+zrvICli033jRkjiPOa7sTVtggZDp+M9RTb9XozO+ug1fT9FG5NL9bk9UTsPSSZrMXnEaD1GF3/Y4qSVmYM6FIqnSySyEKzmtcfkmtn3ZdBh6YRXVVinSKZMy0fuwUQQyJ6hFGaMACTNdlSUlxwNwtJpQOKF/TST5wHYgIlnzUQCsWkPYAPIrwbu07zfdVjpk7yGxAUM8NQo+RxtmCr9qsA3LIlV8XRaI9Ak8cLpRj1qjcOeEuTUjX1irAVCbsC+OPMbhbPQRulXYKUvSKtyqs9Ryqw/oBSnTWNCchUa5mxH5bJM8iwhhF68nx9FLolbhSpwroDY7bStCOE316RdUB71OYf1Oa0ExgS2nM5sHkt+0aaA3kdIDvFir5OAX2L4rArDSC9QvFvKI25ftnc7Weqg4viKIyjhaQcwDDzRSVUQphxSqkhuoxyEvNq2A/+P+YdfYKenb2gWNG1tUeIkM/CI4n5YPimIgAsk75guyROkXIotwzSrdIQhPvjUDpaAhLBFivdLNM56S2AZv057B8UHZ4i3fczCxRxSLJhYZ7nWUrfunXSekhMB4cvFDU2kA9eU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB6360.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006)(5023799004)(4143699003)(260925021311599003)(260925022911599003)(10067099003)(260925021911599003)(38070700021)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cftX35LsscYp1+pAcxmu6b93cXrupvtRi+eVrQfYJWAArv7YwEYQa1R5d3NI?=
+ =?us-ascii?Q?aJRrdfVpevhzbVY2dmOC0gWszEno8aH3XhFdsxhZGiaBoybcip+H2bUPjnY8?=
+ =?us-ascii?Q?qIPdzEvZrAw9HzIByiPT8ME4nBiw0ovyprdv/EBM8Y5c6oJq4dYOhAe85rlw?=
+ =?us-ascii?Q?zh6dxZdWOw5Onf0ZhDsCCMRyZLDqYsWvfyQzNVsPnLy/98T+OOSkIf5jlQiT?=
+ =?us-ascii?Q?9CArd4eX2Yz7DhYM/QPaduzVeO+aghW9hHJfkyN+CY0lUbzMhkyTnaZesics?=
+ =?us-ascii?Q?MByqeC1twtA63o0sRcQbll/95iV/FgH817oNFq4sLQjYUQxddRNWvhYSBmsY?=
+ =?us-ascii?Q?lVCcgtus13S/gjXGZzk9WnuHRWyMdl4COCpMPuz/eRULGWdmTedTPxLkmt05?=
+ =?us-ascii?Q?DkYlB/4xAj/X7eOiUM3HhPsKrYiO85bCg7zP+ceoiga1uyq3ukY2UX2zTRVZ?=
+ =?us-ascii?Q?FXvvzYFpeeYhkBykqhzuHHB11SPCIaYCMFN6S/JQ4B8JyTqajiACqWcTqm9B?=
+ =?us-ascii?Q?ISP9zmAxLmzRkjwLKNsbXySymyWrZ+IdFbkDlT5dHyUC2WpRjUb1HXhPJyFl?=
+ =?us-ascii?Q?ESB8Rs2/boPaWZsHu7Yo6Y1mIzuUx2VuCjiTHTrRz37P/6XzcM3Y1radFWQW?=
+ =?us-ascii?Q?VyLhTkDefEKuCBmo2z9k9mDu4MY5VxUwCZsRzu6Md3KqV5rsFqqG+z91HZQI?=
+ =?us-ascii?Q?p+Sxnw+a86qkVN7pI7cL3oTwUgJclJ/+Qj8LkXsrlVwmrAcqL7mKhMG7Kthj?=
+ =?us-ascii?Q?KNNSyX1xmmar28aJs64i6Apzm9HBgM02IF7tMAPhqMFFOeG6v8tU5Y8d4ylc?=
+ =?us-ascii?Q?avx7BawF2D5Rv/5e13WFnjRBIm38bXM4ac5jRAg9PD3ol8+I7ZMj+dI0De7o?=
+ =?us-ascii?Q?vsFSPm+twPctDcbIga8/YO57pPbl31bQLYRt78J4i+s+Yfkoj6r6Old3ypQq?=
+ =?us-ascii?Q?+mU6mo5ZodlMNvwxvCO/pMXZPCNTbuQKrFS0mBAg986OYTTDZVLkGwgAs72v?=
+ =?us-ascii?Q?T/78sn3LYRmY52GlSy5WqKECOsb+QkKjN/881y7uuJSRmVuhpSAzwSXfCzAA?=
+ =?us-ascii?Q?M1L1RWVVDmTGU8Ue274jxuvYJp+ufOZTbnDfPx6Z62ZqI6x0tuyEunLasq/z?=
+ =?us-ascii?Q?DipB/MT6+HUM4xZns2aKRo5//XohXQerfu6dsbgm0oTMicOiwBAsw0FRyX10?=
+ =?us-ascii?Q?uOneha4B1hb1ujRUB5s7fQN6c523eUAVjFeNnPKn0TcOpSTrlV6r1exfxrr3?=
+ =?us-ascii?Q?ErWrZ0+GXNQzU8eSVY65PNbdIQkAgU5sGNGJMY1VRXAydfpmswGdVGlrQ1sg?=
+ =?us-ascii?Q?JCS5rpNNo3F1CRVD1oHYt4P0U98WaMAR08WX7BBBqAamjy15+aerEc5tRcR6?=
+ =?us-ascii?Q?3qACt8CvPY8pLSWg4VV6z/eNT6jChZSwowfKragnT1cgip7XAoXyrjAKwKTd?=
+ =?us-ascii?Q?pT7AjDrsdUELPxd50mt2/VNoIRRKOs9wKwORutZSxWrn3WeeYevVWXBt7N1/?=
+ =?us-ascii?Q?YLOS8ZtR+i5H3X+rAqYxkard558DKvCE4ixwmIUkEB0ptY0F5840pw0eoKko?=
+ =?us-ascii?Q?AakLRZmrIMgBXNhsZt7deLPAFsI4MDprf1ZB3v3dfbeI5ImIF/xSMnFMDP84?=
+ =?us-ascii?Q?YgKzp2QAAhlojHCel69rSwfLLh9UBBrDYC6OVrp6p6gPCLAmWg5DJq6M8HcF?=
+ =?us-ascii?Q?EiaH9c3bw4RLSmLPdqsTjA7SqMKmBUoP6yNzBQ+L0wia+7ebpaRfO3sUlpqZ?=
+ =?us-ascii?Q?HxhGerInSw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: vPWzkDd6SQr4OX6R3hwymvhmIGmPLCNciIgg8ATd8nVOdNMsh5WEep3lD/OfNpYfBAsXPtuiYHRMpt4uruAZNIDQP7AbfGSDgSQ3r79I50D3f6OIqpMuAYGyARb5Txg9mytguodEN3ugv0zUNKKVMKlxMGxCbLvOrxj9f/RSEKbD8cjjkkohJnvCCFnune0IQqpCYC2yNT1cXFLEhJgkO6X1Ntrk1MezQ3+QIWgbsQeD/8APQN5m3mhI+nvrmM+7moPZH3Kywex6BiH0nJTV1wQq7Z/X8F9fbZSn3Ao60icLZe70tudZJ7JIjkxlBUz8ImT65CTog5pIkNlD26KX6w==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6360.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ffe36e5-f52a-4231-538a-08df2836fcf0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 08:01:14.6816 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Qq2IBomVSGeLqyJi+CmLxxZlnfj7F/HdwTognjjrZs5tnkgMJIU5QkIxvSKCs3ZHKLhyTZXNVL5qrocDJ0HZJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB5802
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,40 +165,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/9/26 5:16 AM, Xilin Wu wrote:
-> The MISC0 update clears the bit-depth field but only ORs in the new
-> colorimetry value. Bits from the previous stream can therefore survive
-> when the new value clears them.
-> 
-> Clear the colorimetry field together with the bit-depth field before
-> programming the new stream.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
+
+
+> -----Original Message-----
+> From: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>
+> Sent: Monday, October 12, 2026 9:27 AM
+> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org; jani.nikula@linux.intel.com; Shankar=
+, Uma
+> <uma.shankar@intel.com>; ville.syrjala@linux.intel.com; Kandpal, Suraj
+> <suraj.kandpal@intel.com>
+> Subject: [PATCH v2 01/56] drm/i915/hdmi: Parse FRL max link rate from VBT
+>=20
+> From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+>=20
+> Parse the maximum FRL link rate from VBT and store it for use during FRL =
+mode
+> selection and link training.
+
+There is nothing getting stored here, maybe rephrase it to expose helper to=
+ get
+FRL max link rate.
+
+>=20
+> v3:
+> - Bail out early for VBT version < 237 and resolve the max FRL rate in a
+>   single switch, handling hdmi_max_frl_rate_valid =3D=3D 0 up front. (Jan=
+i)
+> - Drop the intel_bios_hdmi_max_frl_rate() encoder wrapper and take the
+>   encoder devdata directly. (Jani)
+> - Use the standard VBT debug message format. (Jani)
+> - Spell FRL and VBT in caps in the subject and debug message. (Suraj, Jan=
+i)
+> - Move the hdmi_max_frl_rate_valid =3D=3D 0 comment onto the check it
+>   describes. (Suraj)
+> - Add Bspec reference. (Suraj)
+>=20
+> Bspec: XXXXX
+
+Put a valid number here or drop it altogether.
+
+> Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 791bb3af2cad..783cafb22374 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -476,7 +476,8 @@ static void msm_dp_ctrl_config_misc1_misc0(struct msm_dp_ctrl_private *ctrl,
->  	misc_val = msm_dp_read_link(ctrl, REG_DP_MISC1_MISC0);
->  
->  	/* clear bpp bits */
-> -	misc_val &= ~(0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT);
-> +	misc_val &= ~((0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT) |
-> +		      GENMASK(4, 1));
+>  drivers/gpu/drm/i915/display/intel_bios.c     | 39 +++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_bios.h     |  1 +
+>  drivers/gpu/drm/i915/display/intel_vbt_defs.h |  7 ++++
+>  3 files changed, 47 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c
+> b/drivers/gpu/drm/i915/display/intel_bios.c
+> index 7b6a6f8c3cf1..7181237508b3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> @@ -2788,12 +2788,45 @@ static bool is_port_valid(struct intel_display *d=
+isplay,
+> enum port port)
+>  	return true;
+>  }
+>=20
+> +int intel_bios_hdmi_max_frl_rate(const struct intel_bios_encoder_data
+> +*devdata) {
+> +	struct intel_display *display =3D devdata->display;
+> +
 
-The colorimetry field spans bits 7:1 AFAICU and bit 15 means
-Y-only video
+Add a check for devdata as well to protect against any NULL pointer derefer=
+ence.
+Good to combine that with below check.
 
-Furthermore, I believe this register holds the standard fields/
-values defined in drm_dp.h near
+> +	if (display->vbt.version < 237)
+> +		return 0;
+> +
+> +	/*
+> +	 * When hdmi_max_frl_rate_valid is 0 the VBT does not specify a
+> maximum
+> +	 * FRL rate, so don't use it to limit the FRL rate on FRL-capable
+> +	 * platforms.
+> +	 */
+> +	if (!devdata->child.hdmi_max_frl_rate_valid)
+> +		return display->platform.meteorlake ? 12000000 : 0;
+> +
 
-"/* MSA (Main Stream Attribute) MISC bits (as MISC1<<8|MISC0) */"
+Why special casing for MTL, or update the comment.
 
-so we can drop the local defines
+> +	switch (devdata->child.hdmi_max_frl_rate) {
+> +	default:
+> +	case HDMI_MAX_FRL_RATE_PLATFORM:
+> +		return 0;
+> +	case HDMI_MAX_FRL_RATE_3G:
+> +		return 3000000;
+> +	case HDMI_MAX_FRL_RATE_6G:
+> +		return 6000000;
+> +	case HDMI_MAX_FRL_RATE_8G:
+> +		return 8000000;
+> +	case HDMI_MAX_FRL_RATE_10G:
+> +		return 10000000;
+> +	case HDMI_MAX_FRL_RATE_12G:
+> +		return 12000000;
+> +	}
+> +}
+> +
+>  static void print_ddi_port(const struct intel_bios_encoder_data *devdata=
+)  {
+>  	struct intel_display *display =3D devdata->display;
+>  	bool is_dvi, is_hdmi, is_dp, is_edp, is_dsi, is_crt, supports_typec_usb=
+,
+> supports_tbt;
+>  	int dp_boost_level, dp_max_link_rate, hdmi_boost_level, hdmi_level_shif=
+t,
+> max_tmds_clock;
+>  	enum port port;
+> +	int hdmi_max_frl_rate;
+>=20
+>  	port =3D intel_bios_encoder_port(devdata);
+>  	if (port =3D=3D PORT_NONE)
+> @@ -2863,6 +2896,12 @@ static void print_ddi_port(const struct
+> intel_bios_encoder_data *devdata)
+>  		drm_dbg_kms(display->drm,
+>  			    "Port %c VBT DP max link rate: %d\n",
+>  			    port_name(port), dp_max_link_rate);
+> +
+> +	hdmi_max_frl_rate =3D intel_bios_hdmi_max_frl_rate(devdata);
+> +	if (hdmi_max_frl_rate)
+> +		drm_dbg_kms(display->drm,
+> +			    "Port %c VBT HDMI max FRL rate: %d\n",
+> +			    port_name(port), hdmi_max_frl_rate);
+>  }
+>=20
+>  static void parse_ddi_port(struct intel_bios_encoder_data *devdata) diff=
+ --git
+> a/drivers/gpu/drm/i915/display/intel_bios.h
+> b/drivers/gpu/drm/i915/display/intel_bios.h
+> index 196b8b3f434f..b89f72d90c1f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bios.h
+> +++ b/drivers/gpu/drm/i915/display/intel_bios.h
+> @@ -112,6 +112,7 @@ int intel_bios_hdmi_boost_level(const struct
+> intel_bios_encoder_data *devdata);  int intel_bios_hdmi_ddc_pin(const str=
+uct
+> intel_bios_encoder_data *devdata);  int intel_bios_hdmi_level_shift(const=
+ struct
+> intel_bios_encoder_data *devdata);  int intel_bios_hdmi_max_tmds_clock(co=
+nst
+> struct intel_bios_encoder_data *devdata);
+> +int intel_bios_hdmi_max_frl_rate(const struct intel_bios_encoder_data
+> +*devdata);
+>=20
+>  void intel_bios_for_each_encoder(struct intel_display *display,
+>  				 void (*func)(struct intel_display *display, diff --git
+> a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+> b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+> index 0dc13d080e8a..db7484542dc0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+> +++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+> @@ -381,6 +381,13 @@ struct bdb_general_features {
+>  #define HDMI_MAX_DATA_RATE_340		4			/* 249+ */
+>  #define HDMI_MAX_DATA_RATE_300		5			/* 249+ */
+>=20
+> +#define HDMI_MAX_FRL_RATE_PLATFORM	0			/* 237 */
 
-Konrad
+Use 237+ to remain consistent, do it for all.
+
+> +#define HDMI_MAX_FRL_RATE_3G		1			/* 237 */
+> +#define HDMI_MAX_FRL_RATE_6G		2			/* 237 */
+> +#define HDMI_MAX_FRL_RATE_8G		3			/* 237 */
+> +#define HDMI_MAX_FRL_RATE_10G		4			/* 237 */
+> +#define HDMI_MAX_FRL_RATE_12G		5			/* 237 */
+> +
+>  #define LEGACY_CHILD_DEVICE_CONFIG_SIZE		33
+>=20
+>  /* DDC Bus DDI Type 155+ */
+> --
+> 2.50.1
+
