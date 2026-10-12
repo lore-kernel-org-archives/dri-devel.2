@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 697FDCA9ED5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:49:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D198CA9ED6
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D14EB10E117;
-	Mon, 12 Oct 2026 04:48:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACAC110EC93;
+	Mon, 12 Oct 2026 04:49:18 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5744210E3EA;
- Mon, 12 Oct 2026 04:48:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2D4510EC90;
+ Mon, 12 Oct 2026 04:49:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ACD5E601FA;
- Mon, 12 Oct 2026 04:48:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E4D21F0089B;
- Mon, 12 Oct 2026 04:48:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7674D601FA;
+ Mon, 12 Oct 2026 04:49:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2A941F0089B;
+ Mon, 12 Oct 2026 04:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791780530;
- bh=SOW0sPLYeXj/M1VVqwSzxngbVVMbYl1lSWVTW+8Ja4Q=;
+ s=k20260515; t=1791780551;
+ bh=vFVXv4EAx3qtBO5OXzdVsqH6wZHdiVJkF47oxGPevwI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Gt1+qjQrapeRcI9OCLOL5ZiW3A5BXy56H8JhpYH6THnwMS460eiZ7rPSW5bsAA/ji
- Cl8+kWHvoKPhaIFHpEfXGFcetfqqYXoVbEtbF1JhcuY4wIroKtHGnKqnTNdKPboBsi
- qtvvy/EMpzPKTB8Ir9FHxWFhLx8EgX8vllajDr1LSXWYxPRjRjwEBQGZMsFgT6jC7E
- XPvt08Hbf4/u6E1lPZsOOWXoi37lsWRlaFNVGYy+9J8K1fYUodGy+E66+I9Nr9nA9N
- fXG5iqp+d9OCW3HeFA4ECapfgklRBrHl4RnovhcBjYQkUq1AGQjxm2R4PGrxHRBZ1+
- 5uhDUXtwVFADg==
-Message-ID: <sashiko-outbox-167628@kernel.org>
+ b=G4L6WzLM1LXLZoC2W8LAng2K0e+2BpG8IE4usCpcl2/o90mv69VzlQHf0LjTwGCeB
+ xZuoy50J/AluAtqyVePUoYClxPz9qy6ZS0NinNHdiQ2oIPFMCo91C9DcKLlU5AG/+s
+ alyII0z+H30IkAGb6JFFkJWkE8XGaBTfsxWQ+1A3ZQA8ilBh5LjXa1cbR1OeewmaCH
+ 694AZ69gP8Id5WLn6ZnKOo6DkXRf2tgAJRvZnB6pZtpenxrhFnjmw2/r9kEa36ZSkW
+ KJAEiFTQKXDO+qY5+oiEfaQB4ROucc0OgLkLMZXPees7uFR/MDgvPslbG9dvzhs+ea
+ oYuJkfKjzp7ZQ==
+Message-ID: <sashiko-outbox-167629@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 29/56] drm/i915/hdmi_frl_dfm: Add non dsc frl
- capacity computation helpers
+Subject: Re: [PATCH v2 17/56] drm/i915/hdmi: Introduce
+ intel_hdmi_frl_level() for per-lane TxFFE
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-30-ankit.k.nautiyal@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20261012035806.3361439-18-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-30-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-18-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:48:49 +0000
+Date: Mon, 12 Oct 2026 04:49:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,98 +56,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/i915: unsigned underflow defeats max() zero-clamping in FRL pa=
-yload logic
-- [High] drm/i915: unsigned underflow in margin calculation bypasses FRL ca=
-pacity validation
-- [High] drm/i915: 32-bit integer overflow artificially truncates required =
-audio packet count
-- [Medium] drm/i915/hdmi_frl: 32-bit integer overflows in DFM timing calcul=
-ations
+- [Medium] drm/i915/ddi: flawed TMDS/FRL identification via port_clock in i=
+ntel_ddi_level
+- [Medium] drm/i915: intel_ddi_level misidentifies 300/600MHz TMDS modes as=
+ FRL
 --
 
-commit 6d21cc13348026a7ea42c4821a0b77f14d185b3e
-Author: Vandita Kulkarni <vandita.kulkarni@intel.com>
+commit 0e9b38d21314c92fdb8c138db211c81ea24f573c
+Author: Suraj Kandpal <suraj.kandpal@intel.com>
 
-drm/i915/hdmi_frl_dfm: Add non dsc frl capacity computation helpers
+drm/i915/hdmi: Introduce intel_hdmi_frl_level() for per-lane TxFFE
 
-This commit adds helper functions to the i915 DRM driver for computing
-non-DSC FRL link characteristics. It includes computations for DFM
-constraints, link overheads, audio hblank requirements, and capacity
-verifications.
+This commit introduces a per-lane TxFFE level tracking for HDMI FRL and
+exposes intel_hdmi_frl_level() to retrieve the buffer translation index.
+It modifies intel_ddi_level() to use this new function for FRL modes
+while preserving the existing behavior for TMDS.
 
-[Severity: High]
-In drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c, within the
-get_num_char_rc_compressible() function, the calculation for cfrl_free is:
-
-    cfrl_free =3D max(((hblank * kcdx100) / (100 * k420) - 32 *=20
-                     audio_packets_line - 7), U32_MIN);
-
-Since these variables are unsigned 32-bit integers, does this subtraction
-underflow when the required audio blanking space exceeds the available
-hardware hblank? If an underflow occurs, the value wraps to a huge positive
-number. Because the comparison is unsigned, the max() macro would simply
-return this huge positive value rather than clamping it to zero.
-
-This huge value then propagates into get_num_char_compression_savings():
-
-    u32 cfrl_savings =3D max(((7 * cfrl_free) / 8) - cfrl_margin, U32_MIN);
-
-Could this corrupt the downstream link utilization checks and cause the
-driver to incorrectly validate video modes that lack sufficient blanking
-intervals?
-
-[Severity: High]
-In the verify_utilization_possible() function, the link capacity margin is
-calculated as:
-
-    margin =3D 1000 - (utilization + frl_dfm->params.overhead_max);
-
-    if (margin > 0)
-        return true;
-
-If an over-utilized video mode requires more than 100 percent capacity
-(where utilization + overhead_max > 1000), does the unsigned subtraction
-underflow to a large positive value? This would cause the subsequent margin
-greater than 0 check to evaluate to true, which might lead the driver to
-validate modes that actually exceed the maximum FRL hardware bandwidth.
-
-[Severity: High]
-In the compute_audio_hblank_min() function, the required audio packets are
-calculated using standard 32-bit multiplication:
-
-    frl_dfm->params.num_audio_pkts_line =3D
-        DIV_ROUND_UP(audio_pkt_rate * frl_dfm->params.line_time_ns,
-                     FRL_TIMING_NS_MULTIPLIER);
-
-For standard low-refresh display timings transmitting high sample-rate
-audio (for instance, 192kHz multi-channel where audio_pkt_rate reaches
-around 195,195, and a 1080p24 line time of around 37,037ns), the product
-exceeds 7.2 billion. Does this overflow the U32_MAX limit of 4.29 billion,
-causing silent integer truncation before the division?
-
-Should this use mul_u32_u32() and DIV_ROUND_UP_ULL() to avoid calculating
-artificially small audio packet requirements?
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> index 1e08ffe19447f..53e889c0d0223 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+[ ... ]
+> @@ -1518,11 +1518,15 @@ int intel_ddi_level(struct intel_encoder *encoder,
+>  	if (drm_WARN_ON_ONCE(display->drm, !trans))
+>  		return 0;
+> =20
+> -	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
+> -		level =3D intel_ddi_hdmi_level(encoder, trans);
+> -	else
+> +	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
+> +		if (intel_hdmi_is_frl(crtc_state->port_clock))
+> +			level =3D intel_hdmi_frl_level(encoder, lane);
 
 [Severity: Medium]
-In the verify_frl_capacity_requirement() function, timing requirements are
-calculated with direct 32-bit multiplication:
+Does this incorrectly misidentify 300MHz and 600MHz TMDS modes as FRL modes?
 
-    tactive_ref_ns =3D (line_time_ns * hactive) / (hblank + hactive);
-    tblank_ref_ns =3D (line_time_ns * hblank) / (hblank + hactive);
+Because intel_hdmi_is_frl() checks if the clock exactly matches one of the
+FRL rates (e.g., 300000 kHz or 600000 kHz), it will return true if a custom
+display mode has a TMDS character clock of exactly 300 MHz or 600 MHz. There
+is no check in hdmi_port_tmds_clock_valid() preventing TMDS clocks from
+exactly matching FRL rates.
 
-Although the commit message mentions using 64-bit math for DFM timing
-products to avoid u32 overflow, these lines still appear to use 32-bit
-arithmetic. If a user-space client requests a mode with a very low pixel
-clock (where line_time_ns is large) and a large horizontal resolution, can
-line_time_ns * hactive overflow a 32-bit integer?
+If that happens, this branch will call intel_hdmi_frl_level() (returning
+index 1) instead of the correct VBT-defined TMDS level via
+intel_ddi_hdmi_level(). On older PHYs like C10 where FRL is unsupported,
+returning index 1 applies a random DP preset with pre-emphasis instead of
+the correct default HDMI level.
 
-If this wraps, it might trick the capacity check into returning true and
-bypassing mode rejection for invalid display modes. Does this require a
-transition to 64-bit arithmetic to safely handle edge-case timing values?
+Could this check use the more reliable crtc_state->frl.enable flag instead?
+
+A check forward through the series to commit ede50d511c51 confirms this log=
+ic
+is not fixed.
+
+> +		else
+> +			level =3D intel_ddi_hdmi_level(encoder, trans);
+> +	} else {
+>  		level =3D intel_ddi_dp_level(enc_to_intel_dp(encoder), crtc_state,
+>  					   lane);
+> +	}
+> =20
+>  	if (drm_WARN_ON_ONCE(display->drm, level >=3D n_entries))
+>  		level =3D n_entries - 1;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D29
+439-1-ankit.k.nautiyal@intel.com?part=3D17
