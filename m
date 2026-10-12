@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1725CA9ED6
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52AAACA9ED8
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:47:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A3410EC78;
-	Mon, 12 Oct 2026 04:44:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A0DE10EC87;
+	Mon, 12 Oct 2026 04:47:37 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78C6310EC6A;
- Mon, 12 Oct 2026 04:44:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD6B910E3EA;
+ Mon, 12 Oct 2026 04:47:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9A65660A9D;
- Mon, 12 Oct 2026 04:44:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7671F0089B;
- Mon, 12 Oct 2026 04:44:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DD542601FA;
+ Mon, 12 Oct 2026 04:47:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7F01F0089B;
+ Mon, 12 Oct 2026 04:47:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791780269;
- bh=fauviOaBU3CSyOQy8auY7OCM9wQNYgbRj4t+m8wWy38=;
+ s=k20260515; t=1791780449;
+ bh=zI3rhu57Kdp+EqB5KP5HRJfu0lpVTV/5n3g+QbfnOxo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GJy/6zahphSa8sImX4BS/eaxfWENNzieODxF1GtTnNkKNxkCzKRDANMz6eV/nOoLn
- p+pq+GxF+55pA6kSNpCnBXjy685QCzDfYI4BTHzs1ieJUPcYCrtmbp7JUvC2pk3eOz
- HF1LzpjWOAcuVUfh7vYHDUu4Mn8QDF86cltZ11pAug6CpeMEcIEKH5viE6uckS7zGp
- 3vL2BvLpAWEeQaq78zLhpQkjZRVKUp+wSrcWTZMDiHQlafJKKNrTKU6Ku+XFBYVMYu
- 8AKk7HzdJqUtmuVAU0kFy+OZvt37753vaqgVx+DRpyoq7PTarioJN/k+YNge5Q8KVd
- PBsXTi9eyKnAQ==
-Message-ID: <sashiko-outbox-167623@kernel.org>
+ b=itDCLLNZeMHwSn+KbnTmG/uc1H+n2gsU4TqVVhFMm+UHlXs31m2ep/EUdX5DeHXKY
+ 7CmL9YiYNqagXlTAHQFy0IJEZwVCet9TR2Q+BstFLFzwaX8GBEZih9Dw3hsLdpK8O2
+ H3zfNMBsGKNwO8aNY3S5QyrvZgZvTncLXco39eCAss95iHQlCZri2Niwcv/SEBCX6g
+ Otr9xIXDx3ciocL5JobSrF7fgdGdYaLxVnKYsgh6lz9bVULTd+ibhxPyxKzMusfhFq
+ PbU+RxHiK+C/IgLNRU+a/PNuOzqbxMOfhultfIeI4Njumppa3g/8MWoRUN58TmCqHk
+ e8BeHPhvllzRw==
+Message-ID: <sashiko-outbox-167626@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 15/56] drm/i915/intel_hdmi: Add helper to disable FRL
+Subject: Re: [PATCH v2 16/56] drm/i915/hdmi: Reduce FRL rate cap on rate
+ change during training
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-16-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20261012035806.3361439-17-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-16-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-17-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:44:28 +0000
+Date: Mon, 12 Oct 2026 04:47:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,71 +58,112 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/i915: NULL pointer deref in intel_hdmi_frl_ltsl() on systems w=
-ith broken VBT
-- [Low] drm/i915: unused crtc_state parameter in intel_hdmi_frl_ltsl()
+- [High] drm/i915/hdmi: FRL training infinite retry loop on rate change at =
+9 Gbps
+- [High] drm/i915/hdmi: Sleeping function read_poll_timeout called in atomi=
+c encoder enable callback
 --
 
-commit bf532cf416aeac573dbb2724089b2e009ada86f1
+commit 3ebcdfcc6e404185a2b52af7506a3997a1901b79
 Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-drm/i915/intel_hdmi: Add helper to disable FRL
+drm/i915/hdmi: Reduce FRL rate cap on rate change during training
 
-This commit adds a function to reset the SCDC FRL configuration and
-Transcoder FRL configuration registers.
+If the sink requests a rate change during FRL Link training, reduce
+frl.rate_cap to the next lower FRL rate. The next mode compute then
+uses this lower rate cap, so we do not attempt the failing rate again.
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
+i915/display/intel_hdmi.c
+> index fa4e5f0f567b0..11b4554e87bd6 100644
 > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
 [ ... ]
-> @@ -3824,3 +3824,31 @@ int intel_hdmi_start_frl(struct intel_encoder *enc=
-oder,
+> @@ -3779,6 +3791,7 @@ int intel_hdmi_start_frl(struct intel_encoder *enco=
+der,
+>  	int req_rate =3D crtc_state->frl.required_lanes * crtc_state->frl.requi=
+red_rate;
+>  	int ffe_level =3D get_ffe_level(req_rate);
+>  	enum frl_lt_status status;
+> +	int next_rate =3D -EINVAL;
 > =20
->  	return -EINVAL;
->  }
-> +
-> +static void intel_hdmi_frl_ltsl(struct intel_encoder *encoder,
-> +				const struct intel_crtc_state *crtc_state)
-
-[Severity: Low]
-Is the crtc_state parameter needed here? Looking at the function body, it
-appears to be passed in but never referenced. Removing it might help clean
-up the function signature.
-
-> +{
-> +	struct intel_display *display =3D to_intel_display(encoder);
-> +	struct i2c_adapter *adapter =3D
-> +		intel_gmbus_get_adapter(display, intel_hdmi_ddc_pin(encoder));
-> +
-> +	drm_scdc_disable_frl(adapter);
+>  	if (!crtc_state->frl.enable)
+>  		return 0;
 
 [Severity: High]
-Could this lead to a NULL pointer dereference on systems with a misconfigur=
-ed
-VBT?
+Does this code call sleeping functions from an atomic context?
 
-If a system has a missing or conflicting DDC pin, intel_hdmi_ddc_pin() can
-return 0. Consequently, intel_hdmi_init_connector() fails and no HDMI
-connector is registered.
+The DRM subsystem guide explicitly defines encoder atomic enable/disable
+callbacks as executing in an atomic context where sleeping is forbidden. Th=
+is
+patch modifies intel_hdmi_start_frl() which is wired into the atomic encoder
+enable callback path later in this patch series.
 
-However, if the BIOS left the port enabled in HDMI FRL mode, the driver's
-hardware state readout (intel_hdmi_frl_get_config()) will still set
-crtc_state->frl.enable =3D true because it unconditionally trusts the hardw=
-are
-register state.
+intel_hdmi_start_frl() relies on frl_train_complete_ltsp() and
+intel_hdmi_frl_train_lts3() which both use the read_poll_timeout() macro
+with a sleep_us parameter of 1000:
 
-When intel_sanitize_encoder() later cleans up this connector-less encoder,
-it calls the newly added intel_hdmi_disable_frl(). Since frl.enable is true,
-this invokes intel_hdmi_frl_ltsl(), which fetches the adapter for pin 0
-(GMBUS_PIN_DISABLED), receiving a NULL pointer.
+frl_train_complete_ltsp():
+	ret =3D read_poll_timeout(get_frl_update_flags, update_flags,
+				update_flags < 0 ||
+				(update_flags & (SCDC_FRL_START | SCDC_FLT_UPDATE)),
+				1000, FLT_UPDATE_TIMEOUT_MS * USEC_PER_MSEC,
+				false, encoder);
 
-Passing this NULL adapter to drm_scdc_disable_frl() will then cause a crash
-when it is subsequently dereferenced in i2c_transfer(). Should there be a
-NULL check for the adapter before calling drm_scdc_disable_frl()?
+intel_hdmi_frl_train_lts3():
+	read_poll_timeout(intel_hdmi_train_lanes, status,
+			  done,
+			  1000, FLT_TIMEOUT_MS * USEC_PER_MSEC,
+			  false, encoder, crtc_state, ffe_level);
 
-> +	drm_scdc_clear_update_flags(adapter, SCDC_FLT_UPDATE);
-> +}
+Providing a non-zero sleep parameter causes the macro to use usleep_range()
+internally, which sleeps. Executing usleep_range() in this atomic context
+violates subsystem guidelines and causes kernel warnings and potential
+deadlocks.
+
 [ ... ]
+> @@ -3812,10 +3825,22 @@ int intel_hdmi_start_frl(struct intel_encoder *en=
+coder,
+>  			    connector->base.id, connector->name,
+>  			    intel_hdmi->frl.rate_gbps);
+>  		return 0;
+> -	default:
+> +	case FRL_TRAIN_STOP:
+> +		next_rate =3D 0;
+> +		break;
+> +	case FRL_CHANGE_RATE:
+> +		next_rate =3D get_next_frl_rate(req_rate);
+>  		break;
+> +	case FRL_TRAIN_RETRAIN:
+> +		fallthrough;
+> +	default:
+> +		goto ltsl_tmds_mode;
+>  	}
+> =20
+> +	if (next_rate >=3D 0)
+> +		intel_hdmi->frl.rate_cap =3D next_rate;
+
+[Severity: High]
+Can this result in an infinite retry loop when the rate change happens at
+9 Gbps?
+
+If the current rate is already the minimum valid FRL rate (9 Gbps),
+get_next_frl_rate(9) returns -EINVAL. In intel_hdmi_start_frl(), next_rate
+becomes -EINVAL (< 0), causing the code to skip updating
+intel_hdmi->frl.rate_cap, leaving it at 9 Gbps.
+
+Because the rate cap was not lowered to 0 (which is required to disable FRL
+and force a TMDS fallback, as correctly handled for FRL_TRAIN_STOP), the ne=
+xt
+mode compute will see the exact same 9 Gbps rate cap and attempt FRL
+training at 9 Gbps again, leading to an infinite retry loop.
+
+> +
+> +ltsl_tmds_mode:
+>  	if (crtc_state->frl.enable && !intel_hdmi->frl.trained)
+>  		drm_err(display->drm,
+>  			"[CONNECTOR:%d:%s] FRL Training Failed with rate=3D%d\n",
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D15
+439-1-ankit.k.nautiyal@intel.com?part=3D16
