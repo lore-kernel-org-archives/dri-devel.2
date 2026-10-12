@@ -4,53 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B6E0CC6B03
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 18:06:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA84CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 18:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9196110F2AD;
-	Mon, 12 Oct 2026 18:06:04 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6638910EBEF;
- Mon, 12 Oct 2026 18:05:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791828359; x=1823364359;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=ccotpIDYhLXpeb1AQWIvA0uHN6PQHXBJzUNBZ+28p9I=;
- b=P4aQE+zlqz+6tfSlgfABsWRlD6rHOfFrMs1OA+Ip+xwB0GJHoBw5gs3S
- EHzMuz1Xer6gQokKfCRcL6qShy/HcByQ8prIMLDs8etevGiwAm7+cxwr0
- JObLpTydM+alyoBtnBHJaUdChNjrcRO4anYaUCq/JuAFPoF5MJ5obfYgl
- E7OT6z516mX3x5t9KaKWgIZSBMMstzPOjJu01rRDzHdp7icO60/jURMpE
- +d+LU86PO3IEJtwNVDh61qcYeAcz/hWbekeZnB1RQUQY+uFe7Db/u+Lv0
- aTZ7kGbJ3FsW+rl4hZfg+1Mf17tw5LuRLa2KH85rP6SrZG1v5gxmahCxp Q==;
-X-CSE-ConnectionGUID: /QdFM8sBQtmf9Nnj9b+Xpg==
-X-CSE-MsgGUID: ZTpJwogjR3yHwdd3ex6yBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="548317"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="548317"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 11:05:54 -0700
-X-CSE-ConnectionGUID: FN0Xnr36S92nZHJSplNFkg==
-X-CSE-MsgGUID: c9SZ/SpFQEiYdMlsZNbwnw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1281735"
-Received: from nvishwa1-desk.sc.intel.com ([172.25.29.126])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 11:05:53 -0700
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/gem: add helper to detect self-imported PRIME dma-bufs
-Date: Mon, 12 Oct 2026 11:05:42 -0700
-Message-ID: <20261012180543.1488703-5-niranjana.vishwanathapura@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012180543.1488703-4-niranjana.vishwanathapura@intel.com>
-References: <20261012180543.1488703-4-niranjana.vishwanathapura@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 097F910E2BE;
+	Mon, 12 Oct 2026 18:08:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0558D10E2BE
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:08:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E064040505;
+ Mon, 12 Oct 2026 18:08:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077291F0089B;
+ Mon, 12 Oct 2026 18:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791828498;
+ bh=3Wli0lXL90p/q6Zd9jQ+LYY2qQ0nlHmU0EB751vWIvA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=fMGkuOuA3HU0J2PUfACwqrLFc+hgMOiO+i+u8Svb2tKub0WK8gV8k05j4iY+pS7qE
+ EXoj2YjTUxO5M1xmqx2o8vDpWs66kAxY1FjO0y/DzxNFg0MOssq+btJLsm9Mguxt/0
+ FL6F0VAWBH1pqVUq4hMYZjq/L/dbREWmsLerVdme0SoCdHE3BOQ4bsdCR2AtHpkPpR
+ r+RfomPlMoTL187ySIPYb8PS/3ujv3L+kcjIi30RYNeyFI9zjOq+i/AArNb77EA2MS
+ zuiPmsJE7LMu8sWqmXc/yj52mbp19oPs2yHz2w8uRsDfcOg6G0jagvTgh9siQageES
+ p+uBEmUK6PtDg==
+Date: Mon, 12 Oct 2026 21:08:13 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v10 17/18] PCI/P2PDMA: Evaluate the ATS path for clients
+ with ATS enabled
+Message-ID: <20261012180813.GI219304@unreal>
+References: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
+ <20261012-fix-p2p-acs-v4-0-v10-17-6ffe7b7a4517@nvidia.com>
+ <sashiko-outbox-168177@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-168177@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,113 +58,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Farah Kassabri <farah.kassabri@intel.com>
+On Mon, Oct 12, 2026 at 01:27:12PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] pci: pci_p2pdma_distance_many() evaluates compatibility without applying client ATS constraints
+> --
+> 
+> commit 254b102fe424913edc3d5f94f8d41bc5d0de2b20
+> Author: Leon Romanovsky <leon@kernel.org>
+> 
+> PCI/P2PDMA: Evaluate the ATS path for clients with ATS enabled
+> 
+> P2PDMA assumes every client issues Untranslated Requests. A device with
+> ATS enabled may translate any address it is handed, including a bus
+> address, and Translation Blocking can reject its Translated Requests on
+> a route the Untranslated answer called usable.
+> 
+> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> > index e38081f797611..a5fc622e3114f 100644
+> > --- a/drivers/pci/p2pdma.c
+> > +++ b/drivers/pci/p2pdma.c
+> 
+> [ ... ]
+> 
+> > @@ -1660,10 +1706,10 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
+> >  		 pci_p2pdma_map_type_name(type), type, provider_state);
+> >  
+> >  	if (type == PCI_P2PDMA_MAP_UNKNOWN)
+> > -		return calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
+> > +		type = calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
+> >  					      true);
+> >  
+> > -	return type;
+> > +	return pci_p2pdma_client_map_type(pdev, client, per_mapping, type);
+> >  }
+> 
+> [Severity: High]
+> Does pci_p2pdma_distance_many() also need to apply these new ATS constraints?
+> 
+> While this patch successfully updates pci_p2pdma_map_type_tlp() to evaluate ATS
+> routing constraints for P2PDMA clients, pci_p2pdma_distance_many() continues
+> to evaluate mapping compatibility without them:
+> 
+> drivers/pci/p2pdma.c:pci_p2pdma_distance_many() {
+>     ...
+> 		pci_client = find_parent_pci_dev(clients[i]);
+> 		if (!pci_client) {
+>     ...
+> 		map = calc_map_type_and_dist(provider, pci_client, &distance, 0,
+> 					     verbose);
+>     ...
+> }
+> 
+> If a client has ATS enabled and its Untranslated route is usable but its
+> Translated route is blocked by Translation Blocking (or lacks a whitelisted
+> host bridge), pci_p2pdma_distance_many() evaluates the Untranslated mapping
+> with tlp_flags=0, and incorrectly returns success. 
+> 
+> When the driver subsequently attempts to map memory, the ATS-aware mapping
+> logic will return PCI_P2PDMA_MAP_NOT_SUPPORTED and fail unexpectedly at
+> runtime, breaking the API contract of the distance validation.
 
-Add drm_gem_prime_self_import() to detect and handle the case where a
-PRIME dma-buf being imported was exported by the same DRM device.
+Yes, Sashiko is right, I'll send new version :(.
 
-When the dma-buf originates from the importing device and uses the
-expected dma-buf ops, the helper returns the associated GEM object and
-takes an extra reference on it. This allows drivers to bypass the
-generic PRIME import path and avoid taking an additional reference on
-the dma-buf file.
+Thanks
 
-The helper simplifies self-import handling and avoids duplication of
-this pattern across DRM drivers.
-
-Signed-off-by: Farah Kassabri <farah.kassabri@intel.com>
-Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
----
- drivers/gpu/drm/drm_prime.c | 48 ++++++++++++++++++++++++++++++-------
- include/drm/drm_prime.h     |  4 ++++
- 2 files changed, 44 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 9b44c78cd77f..588910c250b8 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -974,15 +974,9 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
- 	struct drm_gem_object *obj;
- 	int ret;
- 
--	if (drm_gem_is_prime_exported_dma_buf(dev, dma_buf)) {
--		/*
--		 * Importing dmabuf exported from our own gem increases
--		 * refcount on gem itself instead of f_count of dmabuf.
--		 */
--		obj = dma_buf->priv;
--		drm_gem_object_get(obj);
-+	obj = drm_gem_prime_self_import(dev, dma_buf, &drm_gem_prime_dmabuf_ops);
-+	if (obj)
- 		return obj;
--	}
- 
- 	if (!dev->driver->gem_prime_import_sg_table)
- 		return ERR_PTR(-EINVAL);
-@@ -1116,3 +1110,41 @@ void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg)
- 	dma_buf_put(dma_buf);
- }
- EXPORT_SYMBOL(drm_prime_gem_destroy);
-+
-+/**
-+ * drm_gem_prime_self_import - Attempt to import a dma-buf exported by this DRM device
-+ * @dev: DRM device performing the import
-+ * @dma_buf: dma-buf to import
-+ * @expected_ops: dma-buf ops used by this driver
-+ *
-+ * If @dma_buf was exported by this DRM device using @expected_ops, return the
-+ * corresponding GEM object and take an extra reference on it. In this case,
-+ * the import avoids taking a reference on the dma-buf file and instead bumps
-+ * the GEM object's refcount directly.
-+ *
-+ * Returns:
-+ * A referenced GEM object on success, or %NULL if the dma-buf was not exported
-+ * by this device or does not match @expected_ops.
-+ */
-+struct drm_gem_object *drm_gem_prime_self_import(struct drm_device *dev,
-+						 struct dma_buf *dma_buf,
-+						 const struct dma_buf_ops *expected_ops)
-+{
-+	struct drm_gem_object *obj;
-+
-+	if (dma_buf->ops != expected_ops)
-+		return NULL;
-+
-+	obj = dma_buf->priv;
-+	if (obj->dev != dev)
-+		return NULL;
-+
-+	/*
-+	 * Importing dmabuf exported from our own gem increases
-+	 * refcount on gem itself instead of f_count of dmabuf.
-+	 */
-+	drm_gem_object_get(obj);
-+
-+	return obj;
-+}
-+EXPORT_SYMBOL(drm_gem_prime_self_import);
-diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-index f50f862f0d8b..d378404f8ab4 100644
---- a/include/drm/drm_prime.h
-+++ b/include/drm/drm_prime.h
-@@ -54,6 +54,7 @@ struct device;
- struct dma_buf_export_info;
- struct dma_buf;
- struct dma_buf_attachment;
-+struct dma_buf_ops;
- struct iosys_map;
- 
- enum dma_data_direction;
-@@ -108,6 +109,9 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
- 						struct device *attach_dev);
- struct drm_gem_object *drm_gem_prime_import(struct drm_device *dev,
- 					    struct dma_buf *dma_buf);
-+struct drm_gem_object *drm_gem_prime_self_import(struct drm_device *dev,
-+						 struct dma_buf *dma_buf,
-+						 const struct dma_buf_ops *expected_ops);
- 
- void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg);
- 
--- 
-2.43.0
-
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com?part=17
