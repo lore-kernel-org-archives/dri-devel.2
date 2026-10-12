@@ -4,45 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81B5CA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 11:34:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D19CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 11:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F44E10F011;
-	Mon, 12 Oct 2026 11:34:36 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBADB10F038
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 11:34:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=Cc1Uea7diDM+0S37dFP6rR7kt2Lopk4LERQKkL/X0OU=; b=smdh0966KQhEA17VFMjFRS0ll1
- qvQYI78uBQAglNpsHEZ56Nzv22CQxKdOx38mqWkNJhL5FgZzpiiMWAgQf2f4m7Um50P6cWV1jykB9
- KCqAI4rdCwrlg5PlJboe+pPTrEFf348D9Eg5qTrWH9/P4tqih8qf6tBk+x8XK3wDg3rS2eH+XoWzk
- pAYUghxU9F4IxfsunU/VGZPpMB9Y2aljjaIp6ue2RndxvrSfTix1A1+Hu1pZq0TD/2AcU300tXLOT
- qBx16mC7sIpUr9ftGUwDv4m8+ijjEmC7zW94CviX8hphPXuMcWxw5cN06hzbYmPS65ujh7yawcWx3
- Kx4mwD4g==;
-Received: from [179.105.94.163] (helo=prince)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xGEIQ-00GQnV-8m; Mon, 12 Oct 2026 13:34:22 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Cc: kernel-dev@igalia.com,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 0/2] drm/vc4: VC4 HDMI Runtime PM fixes for Packet RAM
-Date: Mon, 12 Oct 2026 08:33:33 -0300
-Message-ID: <179180481049.3672683.8597368731332679923.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002-vc4-hdmi-packet-ram-fix-v1-0-3d73148096c9@igalia.com>
-References: <20261002-vc4-hdmi-packet-ram-fix-v1-0-3d73148096c9@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7671A10E447;
+	Mon, 12 Oct 2026 11:39:18 +0000 (UTC)
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
+ [209.85.128.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71E6710E447
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 11:39:12 +0000 (UTC)
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-8ac9d666d4eso11133357b3.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 04:39:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791805151; cv=none;
+ d=google.com; s=arc-20260327;
+ b=fE/wVtN7iMPSGiMudLCh0uGCIryCukEGdQArCbLX2CHcswaKwWmrxaDtliV48oan3W
+ DsmgdijRCUwkbPWSewwv69DmZuYoVY5I3C4IWq9d+pMuvmx+Aga7wUMB2vGHlxpnp2yk
+ K5OHDvC3D4t9cwBKydGx/q2rAvpald8mfd13mgLwTXPLW59+hV/LD8fq0UWYhl1cVE/k
+ awjlZ+wyqw7LxD2fNZMhVOjtoNPCBibCBUoBtNFmBH5WHBWr9SzOauvXV7vJovMqliPX
+ 62amuuCWT7qTK42c6gapqZqgafR7gNf46AGZjD5od5kKVD/u/36Noj4uQ0QvIAy4Yx9R
+ 0H2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ni29dh9h/iY48KqO27Kf84qCvqIwpSgqllYQhFBWKYg=;
+ fh=vZGA541/Da9R8ky4DoFlF8rJQ1/aoJyaQkS65CynXWk=;
+ b=M/ia+ZTfHYvF+oqKvB24iboHwcXXz3fusSrPrBuytbiYEeTx76fQMzawhYalmFXlU2
+ oX/xBo92PpMyDVhgK3F/Pjg/os0eT48+gQYUzBEcD+e5cwIY52na3brLdXrERUdagmd8
+ zE1n8jrbsiv1rXFlnbXi37Xlyb2ei1PccKA9xT5Dw8lnVCAAm2d1mD9P3b6/T7otsXJ7
+ fM9/V3Rjfu9v7DtT+zmMcWk7U8Mpf+C9Gi8dSNV8pl0gLNgU5RL77tZy7+miLZrkhzSI
+ WPfR0cBk6QzG6bFj5twR3pyCYkxU7VO4nSysHzy0I8C04tchCfEhz8bDmCzh4ZdAGUke
+ 3U3Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791805151; x=1792409951; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ni29dh9h/iY48KqO27Kf84qCvqIwpSgqllYQhFBWKYg=;
+ b=N2DnIMUr0k+zBckLCek7LUyYQYD8J+VMYzlYhCDREYdtAzq2AE8eyt7RpyWinzDmUv
+ gLhKZjoV3JgT2yqg9hhSIyvY6Kr6bgHTbK6wvEfOqlMq2wtZm1ohVA0EKqqEKCEtePuQ
+ JmEowPlbYFcN9QNJD7cbFFYdC00oi9Szmii5FWyCk0Lg0/nq0LX0AeZ1sQqGd0v0UDXx
+ tR8gr2FqBGlPfzeKALSLm30M+reNowuqYIc22sUUGMYzOL1p4sOFRtukdx7BwpBQxaHL
+ tDyPXcHg38a+kodH9NT0LTAeS4ITvZvd4+bkSPcBI5ad5lI7JHe+QX60zB9FNIBy+CzZ
+ Poeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791805151; x=1792409951;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ni29dh9h/iY48KqO27Kf84qCvqIwpSgqllYQhFBWKYg=;
+ b=H0hoO3s1X4MUL4j+frB+hEOVQZZgk+DSsrbiZvFDOAIXEvfPX3rwTK/98mrWRN1WLx
+ nUj6Ik1+bfxSfiEFl8GD+WZVJVMTRBJNFwbN7rbVobtW1gEHLibpIDVlV3YeYF2gkG6p
+ 2j96thTXIsyWEsj8ME9zXDeyWTpKjftudTFDPR6aEu48HQ+vbNDeHJe/vJzJXjNf85kz
+ S9sa2SFwYeC4Xw17kuCZRYQFDD0lvvqxS92trXcl3GmQofM2TvALhQTPDwAaEbStAI9g
+ LlYL4SmvYi8RwpaB+4cSrf3z3iiOQp+x1uFeePeGgOeWZmUpFtgIW245FdG4u1414czc
+ ei4Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzdvk9s+6QG/NmGejgRwTa1OR0A9cTaD+3aDO8GjuEgyH3zG2MTRff7EGfAzqL8jOBakc29C5RY8y8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJJpOijlN2Ygled5GUaTFXAieCFn5sA5xrEc7kBlZuBnNb9TNol
+ HVO8y+w6XTyJBGF8BAwLUjzACcKFDv7LpYN7j+U/dvCGL//wNxxAjK9I5ljWoWI6Hctg7bR5ZMl
+ wOcoKaw1cIPkV/74ymQWMOVyYMxDlyLw=
+X-Gm-Gg: AYBFou1Zscgyulo+1p7vgm79K7hlwp9gaS8sdYtmRx2O/lOuLbzE+gvZcexw9jd8d3T
+ geIXNnB9/sm+gan7sbgCbWAmyQWBykb+ImDxm0IY3N1040ErPr+RkhbZBEklMudepXXWnAY6c7J
+ 4mAyk5zIMXrANKlVKXepTRcHiBPFDJInpEruHz/RlJ4UlIwgU9kmiJUucA+pyMF8xhrnRP9FZaQ
+ Ib0jmB4S9XPilOMn7358bU8WHnHlt2E+bJfn0tHb1zcMDeFXVDeuaZejWajXuWJ09swx14OMmdS
+ D1+MkShOIAWXNbiUi0J5DeHl1Eo+1pIYOp+0pMgDSDqNimrAo9Sz0MD1/KfTlbJnP43Sf5zm9yO
+ aQ6VBB6q/8UgR3qpm1p4u
+X-Received: by 2002:a05:690c:f08:b0:8a8:e0c7:dc3f with SMTP id
+ 00721157ae682-8b07edb5995mr31001627b3.18.1791805151356; Mon, 12 Oct 2026
+ 04:39:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261010180711.1548333-1-ju.orth@gmail.com>
+ <20261010180711.1548333-2-ju.orth@gmail.com>
+ <49d4f34d-6d27-4a70-88ad-a5e939eef084@amd.com>
+In-Reply-To: <49d4f34d-6d27-4a70-88ad-a5e939eef084@amd.com>
+From: Julian Orth <ju.orth@gmail.com>
+Date: Mon, 12 Oct 2026 13:38:59 +0200
+X-Gm-Features: AclHuK_TvDl5T3sJwAa-8Y_DCBwlQE-ZZAXe0QSdCleHISQ5S_vtpBNdiV3KYsA
+Message-ID: <CAHijbEWpH+0M=mU3GiQWNL8b+6uTd=dK59UM=ejtviHmiRFq2A@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/syncobj: fix fence and syncobj leak in
+ drm_syncobj_import_sync_file_fence
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,50 +113,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Oct 12, 2026 at 9:45=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+>
+>
+> On 10/10/26 20:07, Julian Orth wrote:
+> > If dma_fence_chain_alloc() fails, the function returns -ENOMEM without
+> > dropping the references to the imported fence and the syncobj.
+> >
+> > Fixes: c2d3a7300695 ("drm/syncobj: Extend EXPORT_SYNC_FILE for timeline=
+ syncobjs")
+> > Assisted-by: Claude:claude-opus-5-5
+> > Signed-off-by: Julian Orth <ju.orth@gmail.com>
+> > ---
+> >  drivers/gpu/drm/drm_syncobj.c | 10 +++++++---
+> >  1 file changed, 7 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncob=
+j.c
+> > index c23a5de27..5ca5163d0 100644
+> > --- a/drivers/gpu/drm/drm_syncobj.c
+> > +++ b/drivers/gpu/drm/drm_syncobj.c
+> > @@ -730,6 +730,7 @@ static int drm_syncobj_import_sync_file_fence(struc=
+t drm_file *file_private,
+> >  {
+> >       struct dma_fence *fence =3D sync_file_get_fence(fd);
+> >       struct drm_syncobj *syncobj;
+> > +     int ret =3D 0;
+>
+> Please don't initialize return values on declaration that is often consid=
+ered bad coding style.
+>
+> >
+> >       if (!fence)
+> >               return -EINVAL;
+> > @@ -743,17 +744,20 @@ static int drm_syncobj_import_sync_file_fence(str=
+uct drm_file *file_private,
+> >       if (point) {
+>
+> >               struct dma_fence_chain *chain =3D dma_fence_chain_alloc()=
+;
+> >
+> > -             if (!chain)
+> > -                     return -ENOMEM;
+> > +             if (!chain) {
+> > +                     ret =3D -ENOMEM;
+> > +                     goto out;
+> > +             }
+> >
+> >               drm_syncobj_add_point(syncobj, chain, fence, point);
+>
+> Allocation and adding the point is intentionally separated so that dma_fe=
+nce_chain_alloc() can be called before looking up the syncobj or previous f=
+ence.
+>
+> I suggest to make use of that.
 
-On Fri, 02 Oct 2026 10:36:42 -0300, Maíra Canal wrote:
-> While testing Raspberry Pi 4 HDMI hotplug with drm-misc-fixes, I hit the
-> following warning:
-> 
-> [  201.570266] ------------[ cut here ]------------
-> [  201.570293] Packet RAM has to be on to store the packet.
-> [  201.570367] WARNING: drivers/gpu/drm/vc4/vc4_hdmi.c:683 at vc4_hdmi_write_infoframe+0x404/0x494 [vc4], CPU#0: wireplumber/1606
-> [...]
-> [  201.658650] Hardware name: Raspberry Pi 4 Model B Rev 1.5 (DT)
-> [...]
-> [  201.758499] Call trace:
-> [  201.760967]  vc4_hdmi_write_infoframe+0x404/0x494 [vc4] (P)
-> [  201.766607]  vc4_hdmi_write_audio_infoframe+0x1c/0x28 [vc4]
-> [  201.772247]  write_infoframe+0xbc/0x140 [drm_display_helper]
-> [  201.777975]  drm_atomic_helper_connector_hdmi_update_audio_infoframe+0x80/0xdc [drm_display_helper]
-> [  201.787140]  vc4_hdmi_audio_prepare+0x4ac/0x570 [vc4]
-> [  201.792252]  drm_connector_hdmi_audio_prepare+0x24/0x30 [drm_display_helper]
-> [  201.799390]  hdmi_codec_prepare+0x100/0x160 [snd_soc_hdmi_codec]
-> [  201.805471]  snd_soc_pcm_dai_prepare+0xd4/0x100 [snd_soc_core]
-> [  201.811375]  __soc_pcm_prepare+0x60/0x12c [snd_soc_core]
-> [  201.816752]  soc_pcm_prepare+0x34/0x58 [snd_soc_core]
-> [  201.821863]  snd_pcm_do_prepare+0x70/0x8c [snd_pcm]
-> [  201.826798]  snd_pcm_action_nonatomic+0xe4/0x174 [snd_pcm]
-> [  201.832350]  snd_pcm_prepare+0xc8/0xd8 [snd_pcm]
-> [  201.837021]  snd_pcm_common_ioctl+0x458/0x614 [snd_pcm]
-> [  201.842308]  snd_pcm_ioctl+0x30/0x48 [snd_pcm]
-> [  201.846802]  __arm64_sys_ioctl+0x88/0xd8
-> [  201.850769]  invoke_syscall+0x48/0xf4
-> [  201.854470]  el0_svc_common+0x80/0xd8
-> [  201.858171]  do_el0_svc+0x1c/0x28
-> [  201.861520]  el0_svc+0x3c/0xb0
-> [  201.864605]  el0t_64_sync_handler+0x68/0xdc
-> [  201.868834]  el0t_64_sync+0x198/0x19c
-> [  201.872536] ---[ end trace 0000000000000000 ]---
-> 
-> [...]
+This is the fourth time that someone has tried to fix this trivial bug
+for over a year. The previous 3 cases were:
 
-Applied to drm-misc-fixes, thanks!
+https://lore.kernel.org/all/c715ef30-9d91-46f3-8a0f-1039f3d25e7d@stanley.mo=
+untain/
+https://lore.kernel.org/all/20260516-jorth-syncobj-v1-9-88ede9d98a81@gmail.=
+com/
+https://lore.kernel.org/all/20260525025455.3887523-1-vulab@iscas.ac.cn/
 
-[1/2] drm/vc4: hdmi: Move packet RAM enable to PM runtime
-      commit: 3f57b34485dc01e5a2db60a89a6ae5439a897e53
+The last of which didn't even receive a reply. And there have been
+more cases in the past where I encountered a dri-devel-adjacent issue,
+googled it, and found that patches had already been sent in years ago
+to fix it, but were ignored.
 
-I'll apply the second patch to drm-misc-next after the backport.
+Which is all to explain why I had all of the work for this series done by A=
+I.
 
-Best regards,
-- Maíra
+I heard some chatter about dri-devel adopting a gitlab-based workflow,
+and I hope that works out and I didn't misunderstand. Because the
+current system is clearly broken. Nobody keeps track of which bugs
+have been reported, nobody triages existing bugs, nobody keeps track
+of attempts to fix bugs. Which is how 3 people ended up doing repeat
+work of discovering, analyzing, and fixing the same bug.
+
+The same pattern applies to my patch two. I clearly don't know enough
+about the (probably) undocumented semantics of where and when which
+structure of fences can be used. Which is why I sent in a bug report
+about this issue in May instead of trying to fix it on my own:
+https://lore.kernel.org/all/CAHijbEUKuXNeSnT82P-ojOhzU5siNHjxUW+qEDOqx07Ys9=
+m=3Dxw@mail.gmail.com/
+
+I would have hoped that a bug report amounting to "this new feature
+causes the kernel to spam dmesg at 60 fps" would get some attention.
+But no. The only way to get this issue fixed seems to be me acting as
+a meat proxy to fix an issue that I know very little about.
+
+Thanks for reading my blog post.
+
+
+>
+> Regards,
+> Christian.
+>
+> >       } else {
+> >               drm_syncobj_replace_fence(syncobj, fence);
+> >       }
+> >
+> > +out:
+> >       dma_fence_put(fence);
+> >       drm_syncobj_put(syncobj);
+> > -     return 0;
+> > +     return ret;
+> >  }
+> >
+> >  static int drm_syncobj_export_sync_file(struct drm_file *file_private,
+>
