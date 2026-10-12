@@ -4,47 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECDE1CC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE3F6CC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A93F10F591;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A377C10F592;
 	Tue, 13 Oct 2026 07:53:07 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AD3C10E451
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:52:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=no
- 1Td3tdmEW7G6ld8W+IQiOPMrAFQrOX8CNuntiDDkw=; b=VN8BrxNFOpjN1PTO6+
- 5ZXzLTcpcLNSBp3mSqhKy5HGHOHD5h899UNIs2JkM1hxBBMYqssGSYhYCzeSWjiI
- VPKI2wR0bsDN5e1H8vNJDkF6PSpiYydJpSmbkVHqt+GVKdh414VUFw/lxXFvxhbF
- UYajUcZcJ7CYOEilKJbe62N2k=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
- by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id
- _____wDXn6rVn8xqjDtnEA--.23112S4; 
- Mon, 12 Oct 2026 16:52:40 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH v5 2/3] ARM: dts: ti/omap: drop the two unused gpios from the
- igep0050 hdmi encoder
-Date: Mon, 12 Oct 2026 16:52:36 +0800
-Message-ID: <20261012085237.377612-3-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012085237.377612-1-quchaosheng000406@163.com>
-References: <20261012085237.377612-1-quchaosheng000406@163.com>
+X-Greylist: delayed 386 seconds by postgrey-1.36 at gabe;
+ Mon, 12 Oct 2026 18:23:34 UTC
+Received: from mail.frii.com (mail.frii.com [199.45.237.237])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 477B410E3D9
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:23:34 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; bh=pQAuZArIzxKdH6O6A/njMg3SSA5HYNDpl2qSD8/d/ck=;
+ c=relaxed/relaxed; d=frii.com;
+ h=From:Date:Subject:Message-ID:To:Cc:Content-Type:MIME-Version:Reply-To;
+ s=dkim; t=1791829027; v=1; x=1794421027;
+ b=ZMcclTQlrPLWY44/dPHWEb/lBXO3afcthIbKBhPMOyjhwe1Kn6hTm+WTFH9JzNvH9n6/sOzC
+ 1I9CVe+2i9qdSzoE1BMpfx0ULCgW91yTL8iFCaU9OZUACLcPdYNn8a5h0QsS+w9Psgd0u5LJrjz
+ XPrUvn0MAHmrGSaXaE3bEV4hHeXyrLEDc0ymqxe6OO+v8tbTH0Z9JadffELvi+bBZmjqCypXIbE
+ rZ2fUCL1qWSAa1eMFZFr//XVGkDpLGhOAE7T2sdbo3/ZzEa0KKC5oMLGcatE3ad8F9GSaOoqnMr
+ XgtPyEVZ+ozqnsXSRg3xM8hJuwR0diIQY1m/Vy3UuJ7pA== 
+X-Virus-Scanned: amavis at mail.frii.com
+Received: from CORYZ64 (unknown [8.42.79.186])
+ by mail.frii.com (Postfix) with ESMTPSA id 4j3QfV6f05zB1bqc
+ for <dri-devel@lists.freedesktop.org.>; Mon, 12 Oct 2026 12:17:06 -0600 (MDT)
+From: <antonets@frii.com>
+To: <dri-devel@lists.freedesktop.org>
+Subject: drm/msm eDP problem
+Date: Mon, 12 Oct 2026 12:15:54 -0600
+Message-ID: <009601dd5a75$e3b92ca0$ab2b85e0$@frii.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDXn6rVn8xqjDtnEA--.23112S4
-X-Coremail-Antispam: 1Uf129KBjvdXoW7WryUWrWUKrWDCw18KF45Jrb_yoWktwcEqa
- s7Kw4Iqan3tr9Ik3Z5X3s8W34xu3Z8uws3Gr1kKr47K3ZxZF4kGFZ7tF93Gw45WrZrKrZ3
- GryrtF1qyw4avjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRGjgcUUUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BjrYWrMn9jPIwAA37
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_000_0097_01DD5A43.991F31D0"
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: Ad1adX+235cMFrtoQk2cd/Uhm7gh5A==
+Content-Language: en-us
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,37 +54,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
+This is a multipart message in MIME format.
 
-omap5-igep0050.dts gives the tpd12s015 node five gpios. The binding, the
-DRM driver and the fbdev driver all describe three: CT CP HPD, LS OE and
-HPD. Nothing in the file references the extra two, there is no pinctrl
-group for them and no other consumer in the tree.
+------=_NextPart_000_0097_01DD5A43.991F31D0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Drop them so the node matches what the hardware and the drivers actually
-use.
+Hi all,
 
-Assisted-by: LLM
-Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
----
- arch/arm/boot/dts/ti/omap/omap5-igep0050.dts | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+HW: QCS6490 custom board, close to RB3Gen2. SW: Ubuntu 24.04.5 kernel
+6.8.0-1084.89.
 
-diff --git a/arch/arm/boot/dts/ti/omap/omap5-igep0050.dts b/arch/arm/boot/dts/ti/omap/omap5-igep0050.dts
-index 0368e32f67e7..8e8325936cda 100644
---- a/arch/arm/boot/dts/ti/omap/omap5-igep0050.dts
-+++ b/arch/arm/boot/dts/ti/omap/omap5-igep0050.dts
-@@ -102,9 +102,7 @@ OMAP5_IOPAD(0x086, PIN_INPUT | MUX_MODE6)	/* gpio4_118 */
- &tpd12s015 {
- 	gpios = <&tca6416 11 0>,	/* TCA6416 P01, CT_CP_HDP */
- 		<&tca6416 12 0>,	/* TCA6416 P00, LS_OE*/
--		<&gpio7 1 0>,		/* 193, HPD */
--		<&gpio7 2 0>,		/* 194, SCL */
--		<&gpio7 3 0>;		/* 195, SDA */
-+		<&gpio7 1 0>;		/* 193, HPD */
- };
+I'm using DRM/MSM with the eDP interface set to maximum debug output.
+Everything looks great, with no error messages at all.
+
+However, the screen is blank.
+
+A few details.
+
+On the same hardware modifications with a DSI interface, everything works
+flawlessly.
+
+On hardware with an eDP interface running the QCLinux version (DRM/SDE),
+everything works (SDE source code is available).
+
+I've spent 5 months trying to find the problem, so far without success.
+There's a lot of debugging information, and I didn't include it in this
+post. If necessary, I can provide it.
+
+Conclusion: I'm missing some small detail.
+
+An aggravating factor is that I don't have access to the documentation for
+HW.
+
+Ultimately, I need advice on which part of DRM might be the problem.
+
  
- &twl6040 {
--- 
-2.43.0
+
+Thanks,
+
+Dmitriy Antonets
+
+ 
+
+ 
+
+
+------=_NextPart_000_0097_01DD5A43.991F31D0
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Aptos",sans-serif;
+	mso-ligatures:standardcontextual;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Aptos",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:11.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style></head><body lang=3DEN-US link=3D"#467886" vlink=3D"#96607D" =
+style=3D'word-wrap:break-word'><div class=3DWordSection1><p =
+class=3DMsoNormal><span lang=3DEN>Hi all,<o:p></o:p></span></p><p =
+class=3DMsoNormal><span lang=3DEN>HW: QCS6490 custom board, close to =
+RB3Gen2. SW: Ubuntu 24.04.5 kernel =
+6.8.0-1084.89.<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN>I'm using DRM/MSM with the eDP interface set to maximum debug =
+output. Everything looks great, with no error messages at =
+all.<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN>However, =
+the screen is blank.<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN>A few details.<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN>On the same hardware modifications with a DSI interface, =
+everything works flawlessly.<o:p></o:p></span></p><p =
+class=3DMsoNormal><span lang=3DEN>On hardware with an eDP interface =
+running the QCLinux version (DRM/SDE), everything works (SDE source code =
+is available).<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN>I&#8217;ve spent 5 months trying to find the problem, so far =
+without success. There&#8217;s a lot of debugging information, and I =
+didn&#8217;t include it in this post. If necessary, I can provide =
+it.<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN>Conclusion: I&#8217;m missing some small =
+detail.<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN>An =
+aggravating factor is that I don&#8217;t have access to the =
+documentation for HW.<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN>Ultimately, I need advice on which part of DRM might be the =
+problem.<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN>Thanks,<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN>Dmitriy Antonets<o:p></o:p></span></p><p =
+class=3DMsoNormal><span lang=3DEN><o:p>&nbsp;</o:p></span></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div></body></html>
+------=_NextPart_000_0097_01DD5A43.991F31D0--
 
