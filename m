@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52AAACA9ED8
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 697FDCA9ED5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:49:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A0DE10EC87;
-	Mon, 12 Oct 2026 04:47:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14EB10E117;
+	Mon, 12 Oct 2026 04:48:56 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD6B910E3EA;
- Mon, 12 Oct 2026 04:47:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5744210E3EA;
+ Mon, 12 Oct 2026 04:48:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DD542601FA;
- Mon, 12 Oct 2026 04:47:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7F01F0089B;
- Mon, 12 Oct 2026 04:47:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ACD5E601FA;
+ Mon, 12 Oct 2026 04:48:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E4D21F0089B;
+ Mon, 12 Oct 2026 04:48:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791780449;
- bh=zI3rhu57Kdp+EqB5KP5HRJfu0lpVTV/5n3g+QbfnOxo=;
+ s=k20260515; t=1791780530;
+ bh=SOW0sPLYeXj/M1VVqwSzxngbVVMbYl1lSWVTW+8Ja4Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=itDCLLNZeMHwSn+KbnTmG/uc1H+n2gsU4TqVVhFMm+UHlXs31m2ep/EUdX5DeHXKY
- 7CmL9YiYNqagXlTAHQFy0IJEZwVCet9TR2Q+BstFLFzwaX8GBEZih9Dw3hsLdpK8O2
- H3zfNMBsGKNwO8aNY3S5QyrvZgZvTncLXco39eCAss95iHQlCZri2Niwcv/SEBCX6g
- Otr9xIXDx3ciocL5JobSrF7fgdGdYaLxVnKYsgh6lz9bVULTd+ibhxPyxKzMusfhFq
- PbU+RxHiK+C/IgLNRU+a/PNuOzqbxMOfhultfIeI4Njumppa3g/8MWoRUN58TmCqHk
- e8BeHPhvllzRw==
-Message-ID: <sashiko-outbox-167626@kernel.org>
+ b=Gt1+qjQrapeRcI9OCLOL5ZiW3A5BXy56H8JhpYH6THnwMS460eiZ7rPSW5bsAA/ji
+ Cl8+kWHvoKPhaIFHpEfXGFcetfqqYXoVbEtbF1JhcuY4wIroKtHGnKqnTNdKPboBsi
+ qtvvy/EMpzPKTB8Ir9FHxWFhLx8EgX8vllajDr1LSXWYxPRjRjwEBQGZMsFgT6jC7E
+ XPvt08Hbf4/u6E1lPZsOOWXoi37lsWRlaFNVGYy+9J8K1fYUodGy+E66+I9Nr9nA9N
+ fXG5iqp+d9OCW3HeFA4ECapfgklRBrHl4RnovhcBjYQkUq1AGQjxm2R4PGrxHRBZ1+
+ 5uhDUXtwVFADg==
+Message-ID: <sashiko-outbox-167628@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 16/56] drm/i915/hdmi: Reduce FRL rate cap on rate
- change during training
+Subject: Re: [PATCH v2 29/56] drm/i915/hdmi_frl_dfm: Add non dsc frl
+ capacity computation helpers
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-17-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20261012035806.3361439-30-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-17-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-30-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:47:28 +0000
+Date: Mon, 12 Oct 2026 04:48:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,114 +56,98 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] drm/i915/hdmi: FRL training infinite retry loop on rate change at =
-9 Gbps
-- [High] drm/i915/hdmi: Sleeping function read_poll_timeout called in atomi=
-c encoder enable callback
+- [High] drm/i915: unsigned underflow defeats max() zero-clamping in FRL pa=
+yload logic
+- [High] drm/i915: unsigned underflow in margin calculation bypasses FRL ca=
+pacity validation
+- [High] drm/i915: 32-bit integer overflow artificially truncates required =
+audio packet count
+- [Medium] drm/i915/hdmi_frl: 32-bit integer overflows in DFM timing calcul=
+ations
 --
 
-commit 3ebcdfcc6e404185a2b52af7506a3997a1901b79
-Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+commit 6d21cc13348026a7ea42c4821a0b77f14d185b3e
+Author: Vandita Kulkarni <vandita.kulkarni@intel.com>
 
-drm/i915/hdmi: Reduce FRL rate cap on rate change during training
+drm/i915/hdmi_frl_dfm: Add non dsc frl capacity computation helpers
 
-If the sink requests a rate change during FRL Link training, reduce
-frl.rate_cap to the next lower FRL rate. The next mode compute then
-uses this lower rate cap, so we do not attempt the failing rate again.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
-i915/display/intel_hdmi.c
-> index fa4e5f0f567b0..11b4554e87bd6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-[ ... ]
-> @@ -3779,6 +3791,7 @@ int intel_hdmi_start_frl(struct intel_encoder *enco=
-der,
->  	int req_rate =3D crtc_state->frl.required_lanes * crtc_state->frl.requi=
-red_rate;
->  	int ffe_level =3D get_ffe_level(req_rate);
->  	enum frl_lt_status status;
-> +	int next_rate =3D -EINVAL;
-> =20
->  	if (!crtc_state->frl.enable)
->  		return 0;
+This commit adds helper functions to the i915 DRM driver for computing
+non-DSC FRL link characteristics. It includes computations for DFM
+constraints, link overheads, audio hblank requirements, and capacity
+verifications.
 
 [Severity: High]
-Does this code call sleeping functions from an atomic context?
+In drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c, within the
+get_num_char_rc_compressible() function, the calculation for cfrl_free is:
 
-The DRM subsystem guide explicitly defines encoder atomic enable/disable
-callbacks as executing in an atomic context where sleeping is forbidden. Th=
-is
-patch modifies intel_hdmi_start_frl() which is wired into the atomic encoder
-enable callback path later in this patch series.
+    cfrl_free =3D max(((hblank * kcdx100) / (100 * k420) - 32 *=20
+                     audio_packets_line - 7), U32_MIN);
 
-intel_hdmi_start_frl() relies on frl_train_complete_ltsp() and
-intel_hdmi_frl_train_lts3() which both use the read_poll_timeout() macro
-with a sleep_us parameter of 1000:
+Since these variables are unsigned 32-bit integers, does this subtraction
+underflow when the required audio blanking space exceeds the available
+hardware hblank? If an underflow occurs, the value wraps to a huge positive
+number. Because the comparison is unsigned, the max() macro would simply
+return this huge positive value rather than clamping it to zero.
 
-frl_train_complete_ltsp():
-	ret =3D read_poll_timeout(get_frl_update_flags, update_flags,
-				update_flags < 0 ||
-				(update_flags & (SCDC_FRL_START | SCDC_FLT_UPDATE)),
-				1000, FLT_UPDATE_TIMEOUT_MS * USEC_PER_MSEC,
-				false, encoder);
+This huge value then propagates into get_num_char_compression_savings():
 
-intel_hdmi_frl_train_lts3():
-	read_poll_timeout(intel_hdmi_train_lanes, status,
-			  done,
-			  1000, FLT_TIMEOUT_MS * USEC_PER_MSEC,
-			  false, encoder, crtc_state, ffe_level);
+    u32 cfrl_savings =3D max(((7 * cfrl_free) / 8) - cfrl_margin, U32_MIN);
 
-Providing a non-zero sleep parameter causes the macro to use usleep_range()
-internally, which sleeps. Executing usleep_range() in this atomic context
-violates subsystem guidelines and causes kernel warnings and potential
-deadlocks.
-
-[ ... ]
-> @@ -3812,10 +3825,22 @@ int intel_hdmi_start_frl(struct intel_encoder *en=
-coder,
->  			    connector->base.id, connector->name,
->  			    intel_hdmi->frl.rate_gbps);
->  		return 0;
-> -	default:
-> +	case FRL_TRAIN_STOP:
-> +		next_rate =3D 0;
-> +		break;
-> +	case FRL_CHANGE_RATE:
-> +		next_rate =3D get_next_frl_rate(req_rate);
->  		break;
-> +	case FRL_TRAIN_RETRAIN:
-> +		fallthrough;
-> +	default:
-> +		goto ltsl_tmds_mode;
->  	}
-> =20
-> +	if (next_rate >=3D 0)
-> +		intel_hdmi->frl.rate_cap =3D next_rate;
+Could this corrupt the downstream link utilization checks and cause the
+driver to incorrectly validate video modes that lack sufficient blanking
+intervals?
 
 [Severity: High]
-Can this result in an infinite retry loop when the rate change happens at
-9 Gbps?
+In the verify_utilization_possible() function, the link capacity margin is
+calculated as:
 
-If the current rate is already the minimum valid FRL rate (9 Gbps),
-get_next_frl_rate(9) returns -EINVAL. In intel_hdmi_start_frl(), next_rate
-becomes -EINVAL (< 0), causing the code to skip updating
-intel_hdmi->frl.rate_cap, leaving it at 9 Gbps.
+    margin =3D 1000 - (utilization + frl_dfm->params.overhead_max);
 
-Because the rate cap was not lowered to 0 (which is required to disable FRL
-and force a TMDS fallback, as correctly handled for FRL_TRAIN_STOP), the ne=
-xt
-mode compute will see the exact same 9 Gbps rate cap and attempt FRL
-training at 9 Gbps again, leading to an infinite retry loop.
+    if (margin > 0)
+        return true;
 
-> +
-> +ltsl_tmds_mode:
->  	if (crtc_state->frl.enable && !intel_hdmi->frl.trained)
->  		drm_err(display->drm,
->  			"[CONNECTOR:%d:%s] FRL Training Failed with rate=3D%d\n",
+If an over-utilized video mode requires more than 100 percent capacity
+(where utilization + overhead_max > 1000), does the unsigned subtraction
+underflow to a large positive value? This would cause the subsequent margin
+greater than 0 check to evaluate to true, which might lead the driver to
+validate modes that actually exceed the maximum FRL hardware bandwidth.
+
+[Severity: High]
+In the compute_audio_hblank_min() function, the required audio packets are
+calculated using standard 32-bit multiplication:
+
+    frl_dfm->params.num_audio_pkts_line =3D
+        DIV_ROUND_UP(audio_pkt_rate * frl_dfm->params.line_time_ns,
+                     FRL_TIMING_NS_MULTIPLIER);
+
+For standard low-refresh display timings transmitting high sample-rate
+audio (for instance, 192kHz multi-channel where audio_pkt_rate reaches
+around 195,195, and a 1080p24 line time of around 37,037ns), the product
+exceeds 7.2 billion. Does this overflow the U32_MAX limit of 4.29 billion,
+causing silent integer truncation before the division?
+
+Should this use mul_u32_u32() and DIV_ROUND_UP_ULL() to avoid calculating
+artificially small audio packet requirements?
+
+[Severity: Medium]
+In the verify_frl_capacity_requirement() function, timing requirements are
+calculated with direct 32-bit multiplication:
+
+    tactive_ref_ns =3D (line_time_ns * hactive) / (hblank + hactive);
+    tblank_ref_ns =3D (line_time_ns * hblank) / (hblank + hactive);
+
+Although the commit message mentions using 64-bit math for DFM timing
+products to avoid u32 overflow, these lines still appear to use 32-bit
+arithmetic. If a user-space client requests a mode with a very low pixel
+clock (where line_time_ns is large) and a large horizontal resolution, can
+line_time_ns * hactive overflow a 32-bit integer?
+
+If this wraps, it might trick the capacity check into returning true and
+bypassing mode rejection for invalid display modes. Does this require a
+transition to 64-bit arithmetic to safely handle edge-case timing values?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D16
+439-1-ankit.k.nautiyal@intel.com?part=3D29
