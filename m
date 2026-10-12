@@ -4,55 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0108CCA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 08:38:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C67E2CA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 08:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 191B610EF52;
-	Mon, 12 Oct 2026 08:38:28 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79BFC10EF50
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791794296; x=1823330296;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=fg6tiF4yOXq8/QJMcU0U+VzwgHLEWmtqE7z2XRv2wJY=;
- b=YQkfq3uxf4HzF5jdYoVwyYa49zsE0JurSKYYm9TE1P3+91h6d5C7fmSp
- trolD6SYgPgudmsUpUH3nRwCYOsVpUL0aoQrJ6omOCrxlEnMjg2FVIIPi
- aaN2tw1jeShK+klaqRGljBj5BUIfnueXxv4wbI0mJLQZqhfT+hT5K2Yj8
- lnv/AZbv+FozCmgyZFS7jLAXdvexbAxWSy1jzn1aD/ZtoJ1nnLV6mXANH
- kHKnnNeIQQ6CT0uHujOU1eepEvjGzvGs50zsGTTs33/Sn632oidx60URF
- SODixYnD4R7LUwT8w5NjI5EsW50nbf5gdNYMTjVAWK7Y3HVmcHOn9eC4L w==;
-X-CSE-ConnectionGUID: uowBLz8pTSu5df2WC1vj8w==
-X-CSE-MsgGUID: XPnxieQnToesoTCY4H/qew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="501024"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="501024"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 01:38:16 -0700
-X-CSE-ConnectionGUID: 9ZScIRkcQcqupT8/XUlxrQ==
-X-CSE-MsgGUID: kpE1im/sTJOZEvYzjBoAdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="1030744"
-Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 01:38:15 -0700
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
- Karol Wachowski <karol.wachowski@linux.intel.com>
-Subject: [PATCH 4/5] accel/ivpu: Merge buttress register headers
-Date: Mon, 12 Oct 2026 10:38:01 +0200
-Message-ID: <20261012083802.2778448-5-karol.wachowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012083802.2778448-1-karol.wachowski@linux.intel.com>
-References: <20261012083802.2778448-1-karol.wachowski@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D72810EF5E;
+	Mon, 12 Oct 2026 08:39:35 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94DE510EF5E
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:39:24 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69C8KnSo1593601
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:39:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ XVUoLgw50wiXKmSauCJw+oW9dk2W0d36IZAjmGS1EnA=; b=nOxZY9bVEcslPexO
+ /+2oxnw9SLhb8czQEzGDJQ+9CwLaSs9zQYATncW8xQJZUGUebUNcmqEt8d2IRFNK
+ eWS3saHtrEnx0T1WiT7iy8TBODk7qaLSPXaeHPUKgmANfmxtRNoDOkAiAgrrWDYq
+ i1c/IJeXe+BmKdwCXHaAOapuep+6AWnNj+qVPFouV+GsxxOcocIHvQrzqPNMBYJM
+ zRfmP3SLZBzmXQGo3azaPK0KuAnaj/iwFPtnh00LZVlnOcVPj15ycmWB7VASI+Ey
+ Knu5DfibtyXzNIGBVE9PGAR4SZxggUtlTwqB+YXf/eRAqp2mU9CWyVfNnok8QeRz
+ 2eJ8Zw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sgu0tgs-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:39:23 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-533962f6bc9so3972301cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 01:39:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791794363; x=1792399163;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=XVUoLgw50wiXKmSauCJw+oW9dk2W0d36IZAjmGS1EnA=;
+ b=jaDZdusCorqKlqa9HBrBK0IfY8K5E6n6hkAmrlUWz6Wx7Yxz+Z3afM6SrfCI5uWZKr
+ P5Ml5lO8o2b2eFmfvnnQSQB/dlSiPJBUYuqqwlLXDaWRuqSe8G97M9i0Mu3cgCbjEs6J
+ RnO0m47mkSa1+u8TqciUUtHdE1Px3ubfWy+ql6MXpqfh3jRnhpQQWdwHB14uOvUON8Vi
+ CW7Sfi+kVsZm80dFj8cRm6vo6Q8avFBg1hK5SGomWiCuRwfZFCRXjRE5rCY+Orl9PHYd
+ VIIlfGiPJo3hAY9fLH7FjuyvPgdP728FmB5eRdEO8Aj4N2Lzgqa3GZX7MgjjuZgly2M3
+ 3RTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791794363; x=1792399163;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=XVUoLgw50wiXKmSauCJw+oW9dk2W0d36IZAjmGS1EnA=;
+ b=b/IjsttLQpwu9uMY4ilTp4zQ3nZ6yFh6InXrxO/hgmT6HuhDHm+tIKb1bBsbHUNkHG
+ hcewotobrCh6I0CnH2ugXPQ2ogJ634E7h8Wf5sFlE4EaoR2pLQ04wI6SZqyi74x2jbkB
+ zrtDpsLk29LBLeofdeVgS3+n8HY5LW2yzOBbWzfNB1mbGyHd4w/pS6tlWvBttKjc/N4L
+ LSdLjeh1JFlgCZjuj3PjnaokzojPJPVPC9VIqGbLb3/5E0KzRGM3yx/1xWsf7EPXkdnB
+ +FkGu2RTKES9KVl0cj2IzBppUWz5NwvnAfXlhpIr6lVMOqKwKNJwY78QK6Hj8X8hSJZV
+ TLHA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwEFIkx4gjqkv0Mbk3B82pkMcyiFFijBkHZKc9/Hy327invVDSd2st0JCCT+EYQPQ7qzJxD1tsi/Hs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIjSRTDn0d/wUBJpEtO2ZZRtNaAH0+4si/rOLIXd2paUWHHUH9K
+ UWFHxLnLQPaYA3phMWfAbHJQGdF3e5ERECTTj+qqnT37lfmqT20OQ7UUHYnQmw5DtF3qW9t0mRh
+ w/I7NKnN6+MZO8DP9yYKIoIrL1PXSAOopUNuqcrM/vGMhouJOivQe6Z8j88Cz2iehuemegLE=
+X-Gm-Gg: AYBFou2luJ/RQ7xImSwKtO2gxYhjnaNjk251AAlIqC15LUWW71Dq90ajiLjF1TmGcv7
+ 69LcHBGUjztqHQb2LbbS6X4RfS3P51rQ8F6K8pe1n1hIGmQYu9as2sESMzrAtEmH5y4ufCHCFhN
+ imOPV/sjIlPY3BOO0HBlESKdgU8g5st3bzuy7rvR/Eisj9Zge+8JNfaPds8HMSmOG0NxlnUW07L
+ Lk8LdcRFkIPgsA9ppiVuvhpeboyOD/UbNFD1fNlB7RdkL51Vrg5vMNmtBqUFNhhhjbrlkcbP8Iw
+ u7gNXk2aS7lxWjujTtklhYdVuzQKr+G1HOk/Y+FSNbMw5rcnRVCFTa9r1vknh8WCQkKoRAKss0z
+ b/2TE7SJhwt2xuI3RwMRU6Q==
+X-Received: by 2002:a05:622a:110a:b0:535:1a6:6e93 with SMTP id
+ d75a77b69052e-5359f4e01bfmr173143861cf.2.1791794362654; 
+ Mon, 12 Oct 2026 01:39:22 -0700 (PDT)
+X-Received: by 2002:a05:622a:110a:b0:535:1a6:6e93 with SMTP id
+ d75a77b69052e-5359f4e01bfmr173143561cf.2.1791794362105; 
+ Mon, 12 Oct 2026 01:39:22 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c31a9aa8257sm434128866b.60.2026.10.12.01.39.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Oct 2026 01:39:17 -0700 (PDT)
+Message-ID: <cb263594-15b7-4d92-97b6-e0d08e3d7c61@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 10:39:06 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/msm/a6xx: Split out a7xx/a8xx device tables
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261010154125.726149-1-robin.clark@oss.qualcomm.com>
+ <20261010154125.726149-3-robin.clark@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261010154125.726149-3-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=QdzzLcbv c=1 sm=1 tr=0 ts=6acc9cbb cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=ysXiB3iG8gxY7zNvRuQA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfX4byFpYSDGtWg
+ uKer16ehNmzDd2uJzHgc9rGxai9xQ83D36xkRXLVxz96cNtd2QHI1SRmuKLOHQyRaZkLu9dXLi8
+ CdH13QPdyLRROmOK4Ijue9Nxllq7Tfs88r7OyE6qJHAAdZdr8e9A/wdIPrYheKygS/pK2UueJyt
+ xUcteaSOo4OV0MlklJdzPTI5Lp01rj/t6y3ji41Fj6TyL/TQyBYnVeB5EdlD4YYFQjfatH+rcAt
+ I+sRJs2Aq4HDxQajvkR75PV9vT47mwNRQteuZh78cJSdGGQGawZJ6nJwWfgB5pZ423blCu5qoq3
+ wDyjovpp+UXNzyedmMkd02bX8KdP2zEiVCx3Eu4x3rXqSdW46t908Kv8iLPnYoiui7njcwnw78F
+ Afuh6aLFzXKs3mRL50KKB9FXw0weDikJzoIZZ0O05DQXTsuO4h4XLNzydGkGXL3sIdVBuggzWd4
+ TR8PDRU+FX5F2zzvFaA==
+X-Proofpoint-ORIG-GUID: 5YwTrqenOwAkAqhWDcYDWYnpqIK9w_q_
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfX9Hve0NHpa3Ib
+ xif/SqMJhoj5aJUsM+iB9oSUvM+8gFOVFHsUoRo7+bG9G2vJe657NMdnED4fK5D0lPhzNdo+2iu
+ ATemZ36ir9yk6MgtQs/P/eCJP5qBvTk=
+X-Proofpoint-GUID: 5YwTrqenOwAkAqhWDcYDWYnpqIK9w_q_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120034
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,237 +148,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Put the MTL and LNL buttress registers in a single header, like the IP
-registers. No register shares its offset between MTL and LNL, so the
-MTL ones are simply followed by the LNL ones.
+On 10/10/26 5:41 PM, Rob Clark wrote:
+> This way we can start including generated tables for a8xx GPU snapshot
+> in the device table (without having conflicts with earlier gens if we
+> eventually try to retrofit this approach, or later gens in the future).
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
 
-Also fix the DUP_IDLE typo (should be DPU_IDLE).
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-No functional change.
-
-Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
----
- drivers/accel/ivpu/ivpu_hw_btrs.c             |  3 +-
- drivers/accel/ivpu/ivpu_hw_btrs_mtl_reg.h     | 83 -------------------
- ...u_hw_btrs_lnl_reg.h => ivpu_hw_btrs_reg.h} | 82 ++++++++++++++++--
- 3 files changed, 78 insertions(+), 90 deletions(-)
- delete mode 100644 drivers/accel/ivpu/ivpu_hw_btrs_mtl_reg.h
- rename drivers/accel/ivpu/{ivpu_hw_btrs_lnl_reg.h => ivpu_hw_btrs_reg.h} (59%)
-
-diff --git a/drivers/accel/ivpu/ivpu_hw_btrs.c b/drivers/accel/ivpu/ivpu_hw_btrs.c
-index dce6e9d41ea9..5851d83dc36e 100644
---- a/drivers/accel/ivpu/ivpu_hw_btrs.c
-+++ b/drivers/accel/ivpu/ivpu_hw_btrs.c
-@@ -8,8 +8,7 @@
- #include "ivpu_drv.h"
- #include "ivpu_hw.h"
- #include "ivpu_hw_btrs.h"
--#include "ivpu_hw_btrs_lnl_reg.h"
--#include "ivpu_hw_btrs_mtl_reg.h"
-+#include "ivpu_hw_btrs_reg.h"
- #include "ivpu_hw_reg_io.h"
- #include "ivpu_jsm_msg.h"
- #include "ivpu_pm.h"
-diff --git a/drivers/accel/ivpu/ivpu_hw_btrs_mtl_reg.h b/drivers/accel/ivpu/ivpu_hw_btrs_mtl_reg.h
-deleted file mode 100644
-index e93d539e066f..000000000000
---- a/drivers/accel/ivpu/ivpu_hw_btrs_mtl_reg.h
-+++ /dev/null
-@@ -1,83 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * Copyright (C) 2020-2023 Intel Corporation
-- */
--
--#ifndef __IVPU_HW_BTRS_MTL_REG_H__
--#define __IVPU_HW_BTRS_MTL_REG_H__
--
--#include <linux/bits.h>
--
--#define VPU_HW_BTRS_MTL_INTERRUPT_TYPE				0x00000000u
--
--#define VPU_HW_BTRS_MTL_INTERRUPT_STAT				0x00000004u
--#define VPU_HW_BTRS_MTL_INTERRUPT_STAT_FREQ_CHANGE_MASK		BIT_MASK(0)
--#define VPU_HW_BTRS_MTL_INTERRUPT_STAT_ATS_ERR_MASK		BIT_MASK(1)
--#define VPU_HW_BTRS_MTL_INTERRUPT_STAT_UFI_ERR_MASK		BIT_MASK(2)
--
--#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD0				0x00000008u
--#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD0_MIN_RATIO_MASK		GENMASK(15, 0)
--#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD0_MAX_RATIO_MASK		GENMASK(31, 16)
--
--#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD1				0x0000000cu
--#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD1_TARGET_RATIO_MASK	GENMASK(15, 0)
--#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD1_EPP_MASK		GENMASK(31, 16)
--
--#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD2				0x00000010u
--#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD2_CONFIG_MASK		GENMASK(15, 0)
--
--#define VPU_HW_BTRS_MTL_WP_REQ_CMD				0x00000014u
--#define VPU_HW_BTRS_MTL_WP_REQ_CMD_SEND_MASK			BIT_MASK(0)
--
--#define VPU_HW_BTRS_MTL_WP_DOWNLOAD				0x00000018u
--#define VPU_HW_BTRS_MTL_WP_DOWNLOAD_TARGET_RATIO_MASK		GENMASK(15, 0)
--
--#define VPU_HW_BTRS_MTL_CURRENT_PLL				0x0000001cu
--#define VPU_HW_BTRS_MTL_CURRENT_PLL_RATIO_MASK			GENMASK(15, 0)
--
--#define VPU_HW_BTRS_MTL_PLL_ENABLE				0x00000020u
--
--#define VPU_HW_BTRS_MTL_FMIN_FUSE				0x00000024u
--#define VPU_HW_BTRS_MTL_FMIN_FUSE_MIN_RATIO_MASK		GENMASK(7, 0)
--#define VPU_HW_BTRS_MTL_FMIN_FUSE_PN_RATIO_MASK			GENMASK(15, 8)
--
--#define VPU_HW_BTRS_MTL_FMAX_FUSE				0x00000028u
--#define VPU_HW_BTRS_MTL_FMAX_FUSE_MAX_RATIO_MASK		GENMASK(7, 0)
--
--#define VPU_HW_BTRS_MTL_TILE_FUSE				0x0000002cu
--#define VPU_HW_BTRS_MTL_TILE_FUSE_VALID_MASK			BIT_MASK(0)
--#define VPU_HW_BTRS_MTL_TILE_FUSE_SKU_MASK			GENMASK(3, 2)
--
--#define VPU_HW_BTRS_MTL_LOCAL_INT_MASK				0x00000030u
--#define VPU_HW_BTRS_MTL_GLOBAL_INT_MASK				0x00000034u
--
--#define VPU_HW_BTRS_MTL_PLL_STATUS				0x00000040u
--#define VPU_HW_BTRS_MTL_PLL_STATUS_LOCK_MASK			BIT_MASK(1)
--
--#define VPU_HW_BTRS_MTL_VPU_STATUS				0x00000044u
--#define VPU_HW_BTRS_MTL_VPU_STATUS_READY_MASK			BIT_MASK(0)
--#define VPU_HW_BTRS_MTL_VPU_STATUS_IDLE_MASK			BIT_MASK(1)
--
--#define VPU_HW_BTRS_MTL_VPU_D0I3_CONTROL			0x00000060u
--#define VPU_HW_BTRS_MTL_VPU_D0I3_CONTROL_INPROGRESS_MASK	BIT_MASK(0)
--#define VPU_HW_BTRS_MTL_VPU_D0I3_CONTROL_I3_MASK		BIT_MASK(2)
--
--#define VPU_HW_BTRS_MTL_VPU_IP_RESET				0x00000050u
--#define VPU_HW_BTRS_MTL_VPU_IP_RESET_TRIGGER_MASK		BIT_MASK(0)
--
--#define VPU_HW_BTRS_MTL_VPU_TELEMETRY_OFFSET			0x00000080u
--#define VPU_HW_BTRS_MTL_VPU_TELEMETRY_SIZE			0x00000084u
--#define VPU_HW_BTRS_MTL_VPU_TELEMETRY_ENABLE			0x00000088u
--
--#define VPU_HW_BTRS_MTL_ATS_ERR_LOG_0				0x000000a0u
--#define VPU_HW_BTRS_MTL_ATS_ERR_LOG_1				0x000000a4u
--#define VPU_HW_BTRS_MTL_ATS_ERR_CLEAR				0x000000a8u
--
--#define VPU_HW_BTRS_MTL_UFI_ERR_LOG				0x000000b0u
--#define VPU_HW_BTRS_MTL_UFI_ERR_LOG_CQ_ID_MASK			GENMASK(11, 0)
--#define VPU_HW_BTRS_MTL_UFI_ERR_LOG_AXI_ID_MASK			GENMASK(19, 12)
--#define VPU_HW_BTRS_MTL_UFI_ERR_LOG_OPCODE_MASK			GENMASK(24, 20)
--
--#define VPU_HW_BTRS_MTL_UFI_ERR_CLEAR				0x000000b4u
--
--#endif /* __IVPU_HW_BTRS_MTL_REG_H__ */
-diff --git a/drivers/accel/ivpu/ivpu_hw_btrs_lnl_reg.h b/drivers/accel/ivpu/ivpu_hw_btrs_reg.h
-similarity index 59%
-rename from drivers/accel/ivpu/ivpu_hw_btrs_lnl_reg.h
-rename to drivers/accel/ivpu/ivpu_hw_btrs_reg.h
-index a81a9ba540fa..8e20eed15967 100644
---- a/drivers/accel/ivpu/ivpu_hw_btrs_lnl_reg.h
-+++ b/drivers/accel/ivpu/ivpu_hw_btrs_reg.h
-@@ -1,13 +1,85 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
-- * Copyright (C) 2020-2024 Intel Corporation
-+ * Copyright (C) 2020-2026 Intel Corporation
-  */
- 
--#ifndef __IVPU_HW_BTRS_LNL_REG_H__
--#define __IVPU_HW_BTRS_LNL_REG_H__
-+#ifndef __IVPU_HW_BTRS_REG_H__
-+#define __IVPU_HW_BTRS_REG_H__
- 
- #include <linux/bits.h>
- 
-+#define VPU_HW_BTRS_MTL_INTERRUPT_TYPE				0x00000000u
-+
-+#define VPU_HW_BTRS_MTL_INTERRUPT_STAT				0x00000004u
-+#define VPU_HW_BTRS_MTL_INTERRUPT_STAT_FREQ_CHANGE_MASK		BIT_MASK(0)
-+#define VPU_HW_BTRS_MTL_INTERRUPT_STAT_ATS_ERR_MASK		BIT_MASK(1)
-+#define VPU_HW_BTRS_MTL_INTERRUPT_STAT_UFI_ERR_MASK		BIT_MASK(2)
-+
-+#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD0				0x00000008u
-+#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD0_MIN_RATIO_MASK		GENMASK(15, 0)
-+#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD0_MAX_RATIO_MASK		GENMASK(31, 16)
-+
-+#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD1				0x0000000cu
-+#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD1_TARGET_RATIO_MASK	GENMASK(15, 0)
-+#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD1_EPP_MASK		GENMASK(31, 16)
-+
-+#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD2				0x00000010u
-+#define VPU_HW_BTRS_MTL_WP_REQ_PAYLOAD2_CONFIG_MASK		GENMASK(15, 0)
-+
-+#define VPU_HW_BTRS_MTL_WP_REQ_CMD				0x00000014u
-+#define VPU_HW_BTRS_MTL_WP_REQ_CMD_SEND_MASK			BIT_MASK(0)
-+
-+#define VPU_HW_BTRS_MTL_WP_DOWNLOAD				0x00000018u
-+#define VPU_HW_BTRS_MTL_WP_DOWNLOAD_TARGET_RATIO_MASK		GENMASK(15, 0)
-+
-+#define VPU_HW_BTRS_MTL_CURRENT_PLL				0x0000001cu
-+#define VPU_HW_BTRS_MTL_CURRENT_PLL_RATIO_MASK			GENMASK(15, 0)
-+
-+#define VPU_HW_BTRS_MTL_PLL_ENABLE				0x00000020u
-+
-+#define VPU_HW_BTRS_MTL_FMIN_FUSE				0x00000024u
-+#define VPU_HW_BTRS_MTL_FMIN_FUSE_MIN_RATIO_MASK		GENMASK(7, 0)
-+#define VPU_HW_BTRS_MTL_FMIN_FUSE_PN_RATIO_MASK			GENMASK(15, 8)
-+
-+#define VPU_HW_BTRS_MTL_FMAX_FUSE				0x00000028u
-+#define VPU_HW_BTRS_MTL_FMAX_FUSE_MAX_RATIO_MASK		GENMASK(7, 0)
-+
-+#define VPU_HW_BTRS_MTL_TILE_FUSE				0x0000002cu
-+#define VPU_HW_BTRS_MTL_TILE_FUSE_VALID_MASK			BIT_MASK(0)
-+#define VPU_HW_BTRS_MTL_TILE_FUSE_SKU_MASK			GENMASK(3, 2)
-+
-+#define VPU_HW_BTRS_MTL_LOCAL_INT_MASK				0x00000030u
-+#define VPU_HW_BTRS_MTL_GLOBAL_INT_MASK				0x00000034u
-+
-+#define VPU_HW_BTRS_MTL_PLL_STATUS				0x00000040u
-+#define VPU_HW_BTRS_MTL_PLL_STATUS_LOCK_MASK			BIT_MASK(1)
-+
-+#define VPU_HW_BTRS_MTL_VPU_STATUS				0x00000044u
-+#define VPU_HW_BTRS_MTL_VPU_STATUS_READY_MASK			BIT_MASK(0)
-+#define VPU_HW_BTRS_MTL_VPU_STATUS_IDLE_MASK			BIT_MASK(1)
-+
-+#define VPU_HW_BTRS_MTL_VPU_IP_RESET				0x00000050u
-+#define VPU_HW_BTRS_MTL_VPU_IP_RESET_TRIGGER_MASK		BIT_MASK(0)
-+
-+#define VPU_HW_BTRS_MTL_VPU_D0I3_CONTROL			0x00000060u
-+#define VPU_HW_BTRS_MTL_VPU_D0I3_CONTROL_INPROGRESS_MASK	BIT_MASK(0)
-+#define VPU_HW_BTRS_MTL_VPU_D0I3_CONTROL_I3_MASK		BIT_MASK(2)
-+
-+#define VPU_HW_BTRS_MTL_VPU_TELEMETRY_OFFSET			0x00000080u
-+#define VPU_HW_BTRS_MTL_VPU_TELEMETRY_SIZE			0x00000084u
-+#define VPU_HW_BTRS_MTL_VPU_TELEMETRY_ENABLE			0x00000088u
-+
-+#define VPU_HW_BTRS_MTL_ATS_ERR_LOG_0				0x000000a0u
-+#define VPU_HW_BTRS_MTL_ATS_ERR_LOG_1				0x000000a4u
-+#define VPU_HW_BTRS_MTL_ATS_ERR_CLEAR				0x000000a8u
-+
-+#define VPU_HW_BTRS_MTL_UFI_ERR_LOG				0x000000b0u
-+#define VPU_HW_BTRS_MTL_UFI_ERR_LOG_CQ_ID_MASK			GENMASK(11, 0)
-+#define VPU_HW_BTRS_MTL_UFI_ERR_LOG_AXI_ID_MASK			GENMASK(19, 12)
-+#define VPU_HW_BTRS_MTL_UFI_ERR_LOG_OPCODE_MASK			GENMASK(24, 20)
-+
-+#define VPU_HW_BTRS_MTL_UFI_ERR_CLEAR				0x000000b4u
-+
- #define VPU_HW_BTRS_LNL_INTERRUPT_STAT				0x00000000u
- #define VPU_HW_BTRS_LNL_INTERRUPT_STAT_FREQ_CHANGE_MASK		BIT_MASK(0)
- #define VPU_HW_BTRS_LNL_INTERRUPT_STAT_ATS_ERR_MASK		BIT_MASK(1)
-@@ -84,7 +156,7 @@
- #define VPU_HW_BTRS_LNL_VPU_STATUS				0x00000154u
- #define VPU_HW_BTRS_LNL_VPU_STATUS_READY_MASK			BIT_MASK(0)
- #define VPU_HW_BTRS_LNL_VPU_STATUS_IDLE_MASK			BIT_MASK(1)
--#define VPU_HW_BTRS_LNL_VPU_STATUS_DUP_IDLE_MASK		BIT_MASK(2)
-+#define VPU_HW_BTRS_LNL_VPU_STATUS_DPU_IDLE_MASK		BIT_MASK(2)
- #define VPU_HW_BTRS_LNL_VPU_STATUS_CLOCK_RESOURCE_OWN_ACK_MASK	BIT_MASK(6)
- #define VPU_HW_BTRS_LNL_VPU_STATUS_POWER_RESOURCE_OWN_ACK_MASK	BIT_MASK(7)
- #define VPU_HW_BTRS_LNL_VPU_STATUS_PERF_CLK_MASK		BIT_MASK(11)
-@@ -109,4 +181,4 @@
- #define VPU_HW_BTRS_LNL_FMAX_FUSE				0x00000178u
- #define VPU_HW_BTRS_LNL_FMAX_FUSE_MAX_RATIO_MASK		GENMASK(7, 0)
- 
--#endif /* __IVPU_HW_BTRS_LNL_REG_H__ */
-+#endif /* __IVPU_HW_BTRS_REG_H__ */
--- 
-2.43.0
-
+Konrad
