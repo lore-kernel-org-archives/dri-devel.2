@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C16AFCA9EDD
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 15:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B970ECA9EDE
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 15:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 286CD10F1E3;
-	Mon, 12 Oct 2026 15:12:21 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B958C10F1E3;
- Mon, 12 Oct 2026 15:12:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BDA110F1CE;
+	Mon, 12 Oct 2026 15:12:25 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D045D10F1D8;
+ Mon, 12 Oct 2026 15:12:18 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 8E4951A11EB;
- Mon, 12 Oct 2026 15:12:13 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 9F6634E411F7;
+ Mon, 12 Oct 2026 15:12:17 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 60EC2601A6;
- Mon, 12 Oct 2026 15:12:13 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 71B30601A6;
+ Mon, 12 Oct 2026 15:12:17 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1287311D70211; 
- Mon, 12 Oct 2026 17:12:06 +0200 (CEST)
+ with ESMTPSA id AFF8411D70CD6; 
+ Mon, 12 Oct 2026 17:12:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1791817931; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1791817935; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=CY/snekrJ2jbr2xcfeIZ0vrbUr9dIQOslPzIssPtkas=;
- b=TGgCMtlj91Z2mqCWy754IMuKuubSH3Ua67cehuDX7NW1UO/8VFgTMslXLtwnN/H0PW1Og5
- Ty9F9hCQAVguEwm2UIHIuYYlXBQ2CR+3QQlGu2lZ56FvfMSNsx5+stEesFPRRoFzaVDM/d
- fem6gGcP69WhmRIhKmubEw3Aq3116Gn2hNcLdnkWvXF9ZoFNaJNWHHF4KpEgTdKHAr1WKI
- +C/TKcm3hKLswDgqXceAN9j4SOgVEJKdu1J7SnW6uSD2Je0t1hstj7LyYDczPBM50YjQ1t
- Sb+I3fqpEca0Agu5QZo+siPiHLiShO4sTpQGIM6k6zkYJA7mi1mkh3ZN2GXycw==
+ bh=P/Q4nFBYsii5RLmePNAPJ+fdVFCY7TJHBVJr5R7oOUU=;
+ b=QEw4ceLzWeB8qinUu3mC0wNsLS4KwoVzdMeNR1LuDZOqpeG4PwWut/oihiBkHGQnbMZxhl
+ OZp32Dlsdo/K2c61sEs2QPrVvPALXX8V2EcPeErhamuicCpfdVR20vOzkjxnlgKCaJU0Yr
+ exCKtpfmW3UbWGlASwH576cy09yT7rUudgRtXAeGCZNYkyHiGgHQwOTi9/PvsrPO8E6Lls
+ N2qpi/NxPYL9Cm/9PeF0JNTF7bdFq7AaEr90/6sAOncIfSe0wPcROPU/Prd7nCb56dQ7c9
+ rdyz+0CVJcpxqT964ronT75nEzdCaq9aXxGrcGzf01uBswPl3tFKxLGSMOIsqA==
 From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Mon, 12 Oct 2026 17:11:02 +0200
-Subject: [PATCH RFC v3 7/8] drm/analogix/anx7625: Use dp_connector helpers
- to expose link training state
+Date: Mon, 12 Oct 2026 17:11:03 +0200
+Subject: [PATCH RFC v3 8/8] drm/mediatek: Use dp_connector helpers to
+ expose link training state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-feat_link_cap-v3-7-7517f4aba0f3@bootlin.com>
+Message-Id: <20261012-feat_link_cap-v3-8-7517f4aba0f3@bootlin.com>
 References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
 In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -90,151 +90,189 @@ parameters once link training succeeds.
 
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
-Change in v3:
-- New patch
----
- drivers/gpu/drm/bridge/analogix/anx7625.c | 68 +++++++++++++++++++++++++++++++
- drivers/gpu/drm/bridge/analogix/anx7625.h |  1 +
- 2 files changed, 69 insertions(+)
+Not tested. I believed I had a board with this device, but it actually uses
+an anx7625 bridge. I'm unable to test it; it would be appreciated if
+someone else could, so the change isn't dropped.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
-index c3af88e14f8b2..2b1235efc9fa4 100644
---- a/drivers/gpu/drm/bridge/analogix/anx7625.c
-+++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
-@@ -2558,6 +2558,31 @@ static int anx7625_bridge_atomic_check(struct drm_bridge *bridge,
- 	return 0;
+Changes in v3:
+- Sync and report sink capabilities from the HPD thread for DisplayPort,
+  or in atomic_enable for eDP. Reset them on unplug, or atomic disable
+  and only report link parameters after successful training.
+- Add connection_mutex lock for DisplayPort in the IRQ thread.
+
+Changes in v2:
+- Remove voltage swing and pre emphasis properties.
+---
+ drivers/gpu/drm/mediatek/mtk_dp.c | 79 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 75 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
+index f656b85b84212..2e2596eaa342e 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dp.c
++++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+@@ -1812,6 +1812,35 @@ static void mtk_dp_train_change_mode(struct mtk_dp *mtk_dp)
+ 	mtk_dp_reset_swing_pre_emphasis(mtk_dp);
  }
  
-+static void anx7625_report_link_train(struct anx7625_data *ctx,
-+				      struct drm_connector *connector)
++static void _mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
 +{
-+	int bw_code, rate, nlanes;
++	u32 rate, nlanes;
++	bool dsc = false;
 +
-+	/*
-+	 * The DP link training is handled by the internal OCM firmware, read
-+	 * back the negotiated link rate and lane count.
-+	 */
-+	bw_code = anx7625_reg_read(ctx, ctx->i2c.tx_p0_client,
-+				   SP_TX_LINK_BW_SET_REG);
-+	if (bw_code < 0)
-+		return;
++	rate = drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate);
++	nlanes = mtk_dp->train_info.lane_count;
 +
-+	rate = drm_dp_bw_code_to_link_rate(bw_code & SP_TX_LINK_BW_SET_MASK);
-+
-+	nlanes = anx7625_reg_read(ctx, ctx->i2c.tx_p0_client,
-+				  SP_TX_LANE_COUNT_SET_REG);
-+	if (nlanes < 0)
-+		return;
-+	nlanes &= DP_MAX_LANE_COUNT_MASK;
-+
-+	drm_dp_set_cur_link_params(connector, rate, nlanes, false);
++	drm_dp_set_cur_link_params(mtk_dp->conn, rate, nlanes, dsc);
 +}
 +
- static void anx7625_bridge_atomic_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_commit *state)
++static void mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
++{
++	struct drm_modeset_lock *lock;
++	int ret;
++
++	if (!mtk_dp->conn)
++		return;
++
++	lock = &mtk_dp->conn->dev->mode_config.connection_mutex;
++	ret = drm_modeset_lock_single_interruptible(lock);
++	if (ret)
++		return;
++
++	_mtk_dp_report_link_train(mtk_dp);
++
++	drm_modeset_unlock(lock);
++}
++
+ static int mtk_dp_training(struct mtk_dp *mtk_dp)
  {
-@@ -2565,6 +2590,7 @@ static void anx7625_bridge_atomic_enable(struct drm_bridge *bridge,
- 	struct device *dev = ctx->dev;
- 	struct drm_connector *connector;
- 	struct drm_connector_state *conn_state;
-+	int ret;
+ 	int ret;
+@@ -2015,6 +2044,8 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
+ 			ret = mtk_dp_training(mtk_dp);
+ 			if (ret)
+ 				drm_err(mtk_dp->drm_dev, "Training failed, %d\n", ret);
++			else
++				mtk_dp_report_link_train(mtk_dp);
  
- 	dev_dbg(dev, "drm atomic enable\n");
+ 			mtk_dp->enabled = true;
+ 		}
+@@ -2145,9 +2176,12 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
+ 	struct mtk_dp *mtk_dp = mtk_dp_from_bridge(bridge);
+ 	enum drm_connector_status ret = connector_status_disconnected;
+ 	bool enabled = mtk_dp->enabled;
++	int err;
  
-@@ -2580,6 +2606,17 @@ static void anx7625_bridge_atomic_enable(struct drm_bridge *bridge,
- 
- 	anx7625_dp_start(ctx);
- 
-+	/* On DisplayPort case, the caps are set in the detect callback. */
-+	if (bridge->type == DRM_MODE_CONNECTOR_eDP) {
-+		ret = drm_dp_sink_sync_caps(connector, &ctx->aux, NULL);
-+		if (ret)
-+			DRM_DEV_DEBUG_DRIVER(dev,
-+					     "error sink caps synchronisation (%d)\n",
-+					     ret);
+-	if (!mtk_dp->train_info.cable_plugged_in)
++	if (!mtk_dp->train_info.cable_plugged_in) {
++		drm_dp_sink_reset_caps(connector);
+ 		return ret;
 +	}
-+
-+	anx7625_report_link_train(ctx, connector);
-+
- 	conn_state = drm_atomic_get_new_connector_state(state, connector);
  
- 	if (WARN_ON(!conn_state))
-@@ -2616,6 +2653,12 @@ static void anx7625_bridge_atomic_disable(struct drm_bridge *bridge,
- 		dev_dbg(dev, "update CP to DESIRE\n");
- 	}
+ 	if (!enabled)
+ 		mtk_dp_aux_panel_poweron(mtk_dp, true);
+@@ -2160,9 +2194,18 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
+ 	 * whether we connect to a sink device.
+ 	 */
  
-+	/* On DisplayPort unplug, the caps are already reset in the detect
-+	 * callback.
-+	 */
-+	if (bridge->type == DRM_MODE_CONNECTOR_eDP)
-+		drm_dp_sink_reset_caps(ctx->connector);
-+
- 	ctx->connector = NULL;
- 	anx7625_dp_stop(ctx);
+-	if (drm_dp_read_sink_count(&mtk_dp->aux) > 0)
++	if (drm_dp_read_sink_count(&mtk_dp->aux) > 0) {
+ 		ret = connector_status_connected;
  
-@@ -2634,11 +2677,25 @@ anx7625_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector
- 	struct anx7625_data *ctx = bridge_to_anx7625(bridge);
- 	struct device *dev = ctx->dev;
- 	enum drm_connector_status status;
-+	int ret;
- 
- 	DRM_DEV_DEBUG_DRIVER(dev, "drm bridge detect\n");
- 
- 	status = anx7625_sink_detect(ctx);
- 	anx7625_audio_update_connector_status(ctx, status);
-+
-+	if (status == connector_status_connected) {
-+		ret = drm_dp_sink_sync_caps(connector, &ctx->aux, NULL);
-+		if (ret)
-+			DRM_DEV_DEBUG_DRIVER(dev,
-+					     "error sink caps synchronisation (%d)\n",
-+					     ret);
-+
-+		anx7625_report_link_train(ctx, connector);
++		err = drm_dp_sink_sync_caps(connector, &mtk_dp->aux, NULL);
++		if (err)
++			drm_dbg_kms(mtk_dp->aux.drm_dev,
++				    "%s: error sink caps synchronisation (%d)\n",
++				    mtk_dp->aux.name, err);
 +	} else {
 +		drm_dp_sink_reset_caps(connector);
 +	}
 +
- 	return status;
+ 	if (!enabled)
+ 		mtk_dp_aux_panel_poweron(mtk_dp, false);
+ 
+@@ -2390,12 +2433,20 @@ static void mtk_dp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
+ 		mtk_dp_aux_panel_poweron(mtk_dp, true);
+ 
++		ret = drm_dp_sink_sync_caps(mtk_dp->conn, &mtk_dp->aux, NULL);
++		if (ret)
++			drm_dbg_kms(mtk_dp->aux.drm_dev,
++				    "%s: error sink caps synchronisation (%d)\n",
++				    mtk_dp->aux.name, ret);
++
+ 		/* Training */
+ 		ret = mtk_dp_training(mtk_dp);
+ 		if (ret) {
+ 			drm_err(mtk_dp->drm_dev, "Training failed, %d\n", ret);
+ 			goto power_off_aux;
+ 		}
++
++		_mtk_dp_report_link_train(mtk_dp);
+ 	}
+ 
+ 	ret = mtk_dp_video_config(mtk_dp);
+@@ -2435,6 +2486,7 @@ static void mtk_dp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
+ 		mtk_dp->enabled = false;
+ 		mtk_dp_aux_panel_poweron(mtk_dp, false);
++		drm_dp_sink_reset_caps(mtk_dp->conn);
+ 	}
+ 
+ 	mtk_dp_update_plugged_status(mtk_dp);
+@@ -2740,11 +2792,14 @@ static int mtk_dp_edp_link_panel(struct drm_dp_aux *mtk_aux)
+ 	return 0;
  }
  
-@@ -2765,6 +2822,14 @@ static const struct dev_pm_ops anx7625_pm_ops = {
- 			   anx7625_runtime_pm_resume, NULL)
- };
- 
-+static int anx7625_dp_rates[] = {162000, 270000, 540000, 675000};
++static int mtk_dp_rates[] = {162000, 270000, 540000, 810000};
 +
-+static struct drm_connector_dp_link_caps anx7625_dp_link_caps = {
-+	.nlanes = 2,
-+	.nlink_rates = ARRAY_SIZE(anx7625_dp_rates),
-+	.link_rates = anx7625_dp_rates,
-+};
-+
- static int anx7625_link_bridge(struct drm_dp_aux *aux)
+ static int mtk_dp_probe(struct platform_device *pdev)
  {
- 	struct anx7625_data *platform = container_of(aux, struct anx7625_data, aux);
-@@ -2787,6 +2852,9 @@ static int anx7625_link_bridge(struct drm_dp_aux *aux)
- 				    DRM_MODE_CONNECTOR_DisplayPort;
- 	platform->bridge.support_hdcp = true;
++	struct drm_connector_dp_link_caps *source_caps;
+ 	struct mtk_dp *mtk_dp;
+ 	struct device *dev = &pdev->dev;
+-	int ret;
++	int ret, i, max_rate;
  
-+	platform->bridge.dp_link_caps = &anx7625_dp_link_caps;
-+	platform->bridge.ops |= DRM_BRIDGE_OP_DP;
+ 	mtk_dp = devm_drm_bridge_alloc(dev, struct mtk_dp, bridge,
+ 				       &mtk_dp_bridge_funcs);
+@@ -2758,6 +2813,20 @@ static int mtk_dp_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to parse dt\n");
+ 
++	source_caps = devm_kzalloc(dev, sizeof(*source_caps), GFP_KERNEL);
++	if (!source_caps)
++		return -ENOMEM;
 +
- 	drm_bridge_add(&platform->bridge);
++	source_caps->nlanes = mtk_dp->max_lanes;
++	source_caps->link_rates = mtk_dp_rates;
++
++	max_rate = drm_dp_bw_code_to_link_rate(mtk_dp->max_linkrate);
++	for (i = 0; i < ARRAY_SIZE(mtk_dp_rates); i++)
++		if (mtk_dp_rates[i] > max_rate)
++			break;
++
++	source_caps->nlink_rates = i;
++
+ 	/*
+ 	 * Request the interrupt and install service routine only if we are
+ 	 * on full DisplayPort.
+@@ -2809,6 +2878,8 @@ static int mtk_dp_probe(struct platform_device *pdev)
  
- 	if (!platform->pdata.is_dpi) {
-diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.h b/drivers/gpu/drm/bridge/analogix/anx7625.h
-index 957d234ec07c8..b9a0f62f6398c 100644
---- a/drivers/gpu/drm/bridge/analogix/anx7625.h
-+++ b/drivers/gpu/drm/bridge/analogix/anx7625.h
-@@ -90,6 +90,7 @@
- #define HDCP2TX_FW_EN			BIT(4)
+ 	mtk_dp->bridge.of_node = dev->of_node;
+ 	mtk_dp->bridge.type = mtk_dp->data->bridge_type;
++	mtk_dp->bridge.dp_link_caps = source_caps;
++	mtk_dp->bridge.ops = DRM_BRIDGE_OP_DP;
  
- #define SP_TX_LINK_BW_SET_REG		0xA0
-+#define SP_TX_LINK_BW_SET_MASK		0x1F
- #define SP_TX_LANE_COUNT_SET_REG	0xA1
- 
- #define M_VID_0 0xC0
+ 	if (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP) {
+ 		/*
+@@ -2849,7 +2920,7 @@ static int mtk_dp_probe(struct platform_device *pdev)
+ 			}
+ 		}
+ 	} else {
+-		mtk_dp->bridge.ops = DRM_BRIDGE_OP_DETECT |
++		mtk_dp->bridge.ops |= DRM_BRIDGE_OP_DETECT |
+ 				     DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
+ 		ret = devm_drm_bridge_add(dev, &mtk_dp->bridge);
+ 		if (ret)
 
 -- 
 2.43.0
