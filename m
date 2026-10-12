@@ -4,39 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E932CA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 17:16:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E697CCA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 17:20:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0FE10E60B;
-	Mon, 12 Oct 2026 17:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25B2510E4AC;
+	Mon, 12 Oct 2026 17:20:10 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4BAD10E60B
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 17:16:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5760310E4AC
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 17:20:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 66A0D43954;
- Mon, 12 Oct 2026 17:16:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F4DC1F0089B;
- Mon, 12 Oct 2026 17:16:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3681342A3F;
+ Mon, 12 Oct 2026 17:20:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195A71F0089B;
+ Mon, 12 Oct 2026 17:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791825382;
- bh=vjt68e4KYRNFsNQM20zCJ/UaG6uqN1Z03eGGl1ypjLU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iSJtBkPK3yNZuMQppPVOHN+zgEwqL5kcgkYjvXrS9jGJDdiytqHWl8hEWzHeEfi/D
- jmwTISBC+bSPUu5tw7Rd5h+cm5Nigxnq9YBZKHNWBmr1tDnQ2n7HbBcj4y7QhJhwX+
- 09+SxvlCX+UWr58y44tT9/ezrrZLJuepojYDVB5laIM+ub46LEJ8meL3tFpw1V5qrk
- JxC6jIdDEzDjA/KIoFE7O6VV5u8FronWia0uyKDB2sJrptPNXdQ8Q7lp8xD5/1w9lv
- GERmM8+1FgNPCt08dFbIhj7fx/fB+b9HagwA6ZR37RvOVWJOvC2SK7UbGVQlbhVV5H
- K+6Kb989vWWrQ==
-Message-ID: <sashiko-outbox-168448@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
-To: "Ho Jie Feng" <hjf3108@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261012170857.199561-1-hjf3108@gmail.com>
-References: <20261012170857.199561-1-hjf3108@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 17:16:21 +0000
+ s=k20260515; t=1791825604;
+ bh=/+kYat3Js03LLBNLv0RvM8p5SjFSuufv4UsSaTtr3vg=;
+ h=From:To:Cc:Subject:Date;
+ b=WCZIeTx48JYsbkqPJ8oGRb8Z6K0VhXDe7aglI7KhvjXQyj2HPezQGvCQXRlWz7804
+ oE4iRPBXmYgyFKSCVRSoKRduwu69Gk+uz9eDqcPNFRnTgmAHK6GXE2iZsc6DlgcF18
+ AilMXoUHzDoe82GDn6aFzLAZPLpa5waoW+EdBo1+cNL9PsrXc0kvTzlEp9bkw/p20i
+ WG/QZabuOj+/PZjv2ozkwd2qRcRgRk5gxO3CaOuA2YAwsIBESkETY67uW9SejIjyhT
+ zkqcFBLJrU73NjDg/vuLs8HWLVL2KDZqoxTc+PSPBKPg7GIBvaeCIWNEFuyd4ghqju
+ J+xFKtK7Iv7Qw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ dakr@kernel.org
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH v2] dma-buf/dma-fence: Mark two callbacks as deprecated
+Date: Mon, 12 Oct 2026 19:19:40 +0200
+Message-ID: <20261012171939.390365-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,94 +51,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm: heap buffer overflow in drm_fb_xrgb8888_to_uyvy_line() on odd=
- clip width
---
+dma_fence's backend_ops functions ops->wait() and ops->release() are
+problematic because they prevent fence producers from unloading.
+Moreover, they can easily be implemented through simpler means more
+aligned with the dma_fence contract.
 
-commit 4e505b4602c1fdbf4570529c2dce5fc08ba8b249
-Author: Ho Jie Feng <hjf3108@gmail.com>
-Subject: drm/format-helper: Add XRGB8888 to UYVY conversion
+Since the declared goal of dma_fence is to move towards an
+implementation that supports driver-unload in all circumstances, we must
+prevent more parties from implementing those callbacks.
 
-This commit adds a new format helper function, drm_fb_xrgb8888_to_uyvy(),
-to convert XRGB8888 framebuffers to UYVY format. It is intended for devices
-that use packed UYVY natively but need to support XRGB8888 framebuffers.
+Deprecate ops->release() and ops->wait() and document what users should
+do instead.
 
-> diff --git a/drivers/gpu/drm/drm_format_helper.c b/drivers/gpu/drm/drm_fo=
-rmat_helper.c
-> index 6cddf05c493bd..606733ca43fb4 100644
-> --- a/drivers/gpu/drm/drm_format_helper.c
-> +++ b/drivers/gpu/drm/drm_format_helper.c
-[ ... ]
-> +static void drm_fb_xrgb8888_to_uyvy_line(void *dbuf, const void *sbuf, u=
-nsigned int width)
-> +{
-> +	u8 *transfer_buffer =3D dbuf;
-> +	const __le32 *temp_buffer =3D sbuf;
-> +	unsigned int i, dst_offset =3D 0;
-> +	unsigned int pixel1, pixel2;
-> +	unsigned int r1, g1, b1, r2, g2, b2;
-> +	unsigned int r, g, b;
-> +	unsigned int v, y1, u, y2;
-> +
-> +	for (i =3D 0; i < width; i +=3D 2) {
-> +		pixel1 =3D le32_to_cpup(&temp_buffer[i]);
-> +		pixel2 =3D le32_to_cpup(&temp_buffer[i + 1]);
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Changes in v2:
+  - Drop confusing sentence (Christian).
+---
+ include/linux/dma-fence.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-[Severity: High]
-Does this code perform an out-of-bounds read if the damage clip width is od=
-d?
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..388c07d11e70 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -220,6 +220,8 @@ struct dma_fence_ops {
+ 	/**
+ 	 * @wait:
+ 	 *
++	 * DEPRECATED!
++	 *
+ 	 * Custom wait implementation, defaults to dma_fence_default_wait() if
+ 	 * not set.
+ 	 *
+@@ -243,6 +245,8 @@ struct dma_fence_ops {
+ 	/**
+ 	 * @release:
+ 	 *
++	 * DEPRECATED!
++	 *
+ 	 * Called on destruction of fence to release additional resources.
+ 	 * Can be called from irq context.  This callback is optional. If it is
+ 	 * NULL, then dma_fence_free() is instead called as the default
+@@ -254,6 +258,12 @@ struct dma_fence_ops {
+ 	 *
+ 	 * If the callback is implemented the memory backing the dma_fence
+ 	 * object must be freed RCU safe.
++	 *
++	 * Deprecated because it prevents the producer of a fence from
++	 * unloading. No new users must be implemented. Parties with a
++	 * hypothetical need for this callback can instead simply and directly
++	 * perform their custom release operations one RCU grace period after
++	 * they have signaled the fence.
+ 	 */
+ 	void (*release)(struct dma_fence *fence);
+ 
 
-If userspace provides a damage clip where the width is an odd number, on the
-final iteration of this loop, it appears we will unconditionally read
-temp_buffer[i + 1] past the end of the source buffer.
+base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
+-- 
+2.55.0
 
-> +
-> +		r1 =3D (pixel1 & 0x00ff0000) >> 16;
-> +		g1 =3D (pixel1 & 0x0000ff00) >> 8;
-> +		b1 =3D  pixel1 & 0x000000ff;
-> +		r2 =3D (pixel2 & 0x00ff0000) >> 16;
-> +		g2 =3D (pixel2 & 0x0000ff00) >> 8;
-> +		b2 =3D  pixel2 & 0x000000ff;
-> +
-> +		y1 =3D drm_pixel_rgb_to_y_bt601(r1, g1, b1);
-> +		y2 =3D drm_pixel_rgb_to_y_bt601(r2, g2, b2);
-> +
-> +		r =3D r1 + r2;
-> +		g =3D g1 + g2;
-> +		b =3D b1 + b2;
-> +
-> +		v =3D drm_pixel_rgb2_to_v_bt601(r, g, b);
-> +		u =3D drm_pixel_rgb2_to_u_bt601(r, g, b);
-> +
-> +		transfer_buffer[dst_offset++] =3D u;
-> +		transfer_buffer[dst_offset++] =3D y1;
-> +		transfer_buffer[dst_offset++] =3D v;
-> +		transfer_buffer[dst_offset++] =3D y2;
-
-[Severity: High]
-Can this write overflow the destination buffer boundary?
-
-Since the destination line buffer size is calculated based on dst_pixsize =
-=3D 2,
-it expects 2 bytes per pixel. For an odd width, writing a 4-byte UYVY
-macropixel (u, y1, v, y2) on the final iteration writes 4 bytes when only
-2 bytes are expected for that final odd pixel.=20
-
-This appears to overflow the destination buffer by 2 bytes per line,
-potentially corrupting adjacent lines or causing a kernel heap buffer overf=
-low
-on the final line.
-
-> +	}
-> +}
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012170857.1995=
-61-1-hjf3108@gmail.com?part=3D1
