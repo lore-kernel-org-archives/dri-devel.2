@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2624ACA9ED6
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:14:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85205CA9ED9
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:14:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B38C110E3DB;
-	Mon, 12 Oct 2026 04:14:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEE6710E32D;
+	Mon, 12 Oct 2026 04:14:25 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 731FF10E102;
- Mon, 12 Oct 2026 04:14:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75B0A10E32D;
+ Mon, 12 Oct 2026 04:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778457; x=1823314457;
+ t=1791778459; x=1823314459;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=19gL4w8mizjW7xFE0BzSLOsZxs4sanxT3zmqmehV9Zk=;
- b=Nt7jyiNHQFxGWXX6Ca5GwgBs7G67ak8wXiCNhNNF+kCZ0JJ0l4Z4DaVd
- Xd/E6CricnNb+vPrxsz/XQKB7UFN1CFIIswO/Fms8yU3hZvag+6R9o8sp
- e0IzukswPFbQzXE7g6WOFJAGVChNWUEmX+ChCug3GhS5nzY8wIF3jg8z0
- ar+USRSOUDCWX8Mk/L142+xmjLtCNqpGAQlPq4S0ycV789p9TORilNxbq
- FzmeeQffXNBJkyMqT5ZnrxgHKdsx1DDmD+QT7uTC/6c74z9cUdj8YRFJD
- uMgt/6Sbivr8sUGWkzzBg9D45Nqpxtn3iVBJYvXy9FQrOsrLAIyZrKpIK g==;
-X-CSE-ConnectionGUID: mi1HMbHVSxiqk85sDGl0sA==
-X-CSE-MsgGUID: Hbk1jOxZR9KxOQVvj2Z/CQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380803"
+ bh=8niptzHTjhJDKB8AkTHTPlpKLVY4Fz+4YWxeOgNqT1c=;
+ b=JZiFdhT37vmaucNeVBuxMmvbMjkEN+Zdi+bVLRcj1K9+p7F5zeKQK3Pt
+ pXd7C4JV/0COzvP6v3xhvQukloEpHegA+AXaeawE/YaOWUY3gMA+QRdro
+ /5YrdQpdKUEZS+RrJPzbad+87xQwumal9NSNzlTduhx1/Z+ymAm1bnDVV
+ K+4neGZxGHQaVG/U0oC3aQN/+pS8OKIzD4JTVfsEIjQoBPZLcZEXZVIeu
+ mwhfjwmeorTHTRAODZoGO8eb2C2aR/jdj5G3n8dfUrs+Lyo1SXLJ//Q14
+ kVMiygpyWv49GfbYLHDhLehvn7bGsSZLoM5vxhIZGXDLDOpyxRwm1kz2a w==;
+X-CSE-ConnectionGUID: heb8aLtbRtmWbZ9ZMnL99g==
+X-CSE-MsgGUID: AYTf0dN4QGeRQ8dT3bT6kw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380808"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="380803"
+   d="scan'208";a="380808"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:14:16 -0700
-X-CSE-ConnectionGUID: p1hF9R6PQACmouaZJ5r2pg==
-X-CSE-MsgGUID: FAQ8FtwQRzGdJoNwMsGKDQ==
+ 11 Oct 2026 21:14:19 -0700
+X-CSE-ConnectionGUID: i3R+9wTrQbqIHDkj6MKctg==
+X-CSE-MsgGUID: awTHxqSFSpiKZeRiYr/eGA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256310"
+   d="scan'208";a="1256319"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:14:15 -0700
+ 11 Oct 2026 21:14:17 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 01/56] drm/i915/hdmi: Parse FRL max link rate from VBT
-Date: Mon, 12 Oct 2026 09:27:10 +0530
-Message-ID: <20261012035806.3361439-2-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 02/56] drm/i915/hdmi: Add new data members for FRL
+ configuration
+Date: Mon, 12 Oct 2026 09:27:11 +0530
+Message-ID: <20261012035806.3361439-3-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
@@ -69,124 +70,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+HDMI supports higher resolutions using Fixed Rate Link.
+Source needs to do FRL link training on the 4 lanes before video
+stream transmission.
 
-Parse the maximum FRL link rate from VBT and store it for use
-during FRL mode selection and link training.
+Add the members to crtc_state and intel_hdmi for identifying the FRL
+supporting HDMI sink and to maintain the FRL training information after
+successful training.
 
-v3:
-- Bail out early for VBT version < 237 and resolve the max FRL rate in a
-  single switch, handling hdmi_max_frl_rate_valid == 0 up front. (Jani)
-- Drop the intel_bios_hdmi_max_frl_rate() encoder wrapper and take the
-  encoder devdata directly. (Jani)
-- Use the standard VBT debug message format. (Jani)
-- Spell FRL and VBT in caps in the subject and debug message. (Suraj, Jani)
-- Move the hdmi_max_frl_rate_valid == 0 comment onto the check it
-  describes. (Suraj)
-- Add Bspec reference. (Suraj)
-
-Bspec: XXXXX
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c     | 39 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_bios.h     |  1 +
- drivers/gpu/drm/i915/display/intel_vbt_defs.h |  7 ++++
- 3 files changed, 47 insertions(+)
+ .../drm/i915/display/intel_display_types.h    |  9 +++++
+ drivers/gpu/drm/i915/display/intel_hdmi.c     | 36 +++++++++++++++++++
+ 2 files changed, 45 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 7b6a6f8c3cf1..7181237508b3 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -2788,12 +2788,45 @@ static bool is_port_valid(struct intel_display *display, enum port port)
- 	return true;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 79f30660c2b6..89333c9ddcc8 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1709,8 +1709,17 @@ struct intel_hdmi {
+ 		enum drm_dp_dual_mode_type type;
+ 		int max_tmds_clock;
+ 	} dp_dual_mode;
++	bool has_sink_hdmi_21;
++	int max_frl_rate;
++	int max_dsc_frl_rate;
+ 	struct intel_connector *attached_connector;
+ 	struct cec_notifier *cec_notifier;
++	struct {
++		bool trained;
++		int lanes;
++		int rate_gbps;
++		int ffe_level;
++	} frl;
+ };
+ 
+ struct intel_dp_mst_encoder;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index b6fa1a1558b8..69534eea78a1 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2485,6 +2485,8 @@ intel_hdmi_unset_edid(struct drm_connector *_connector)
+ 	struct intel_connector *connector = to_intel_connector(_connector);
+ 	struct intel_hdmi *intel_hdmi = intel_attached_hdmi(connector);
+ 
++	intel_hdmi->has_sink_hdmi_21 = false;
++
+ 	intel_hdmi->dp_dual_mode.type = DRM_DP_DUAL_MODE_NONE;
+ 	intel_hdmi->dp_dual_mode.max_tmds_clock = 0;
+ 
+@@ -2545,6 +2547,38 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *_connector)
+ 	}
  }
  
-+int intel_bios_hdmi_max_frl_rate(const struct intel_bios_encoder_data *devdata)
++static void
++intel_hdmi_reset_frl_config(struct intel_hdmi *intel_hdmi)
 +{
-+	struct intel_display *display = devdata->display;
-+
-+	if (display->vbt.version < 237)
-+		return 0;
-+
-+	/*
-+	 * When hdmi_max_frl_rate_valid is 0 the VBT does not specify a maximum
-+	 * FRL rate, so don't use it to limit the FRL rate on FRL-capable
-+	 * platforms.
-+	 */
-+	if (!devdata->child.hdmi_max_frl_rate_valid)
-+		return display->platform.meteorlake ? 12000000 : 0;
-+
-+	switch (devdata->child.hdmi_max_frl_rate) {
-+	default:
-+	case HDMI_MAX_FRL_RATE_PLATFORM:
-+		return 0;
-+	case HDMI_MAX_FRL_RATE_3G:
-+		return 3000000;
-+	case HDMI_MAX_FRL_RATE_6G:
-+		return 6000000;
-+	case HDMI_MAX_FRL_RATE_8G:
-+		return 8000000;
-+	case HDMI_MAX_FRL_RATE_10G:
-+		return 10000000;
-+	case HDMI_MAX_FRL_RATE_12G:
-+		return 12000000;
-+	}
++	intel_hdmi->frl.trained = false;
++	intel_hdmi->frl.lanes = 0;
++	intel_hdmi->frl.rate_gbps = 0;
++	intel_hdmi->frl.ffe_level = 0;
 +}
 +
- static void print_ddi_port(const struct intel_bios_encoder_data *devdata)
++static void
++intel_hdmi_init_frl_config(struct intel_connector *connector)
++{
++	struct intel_hdmi *intel_hdmi = intel_attached_hdmi(connector);
++	struct intel_encoder *encoder = &hdmi_to_dig_port(intel_hdmi)->base;
++	int max_src_frl_rate =
++		DIV_ROUND_UP(intel_bios_hdmi_max_frl_rate(encoder->devdata), 1000000) * 4;
++	int max_sink_dsc_frl_rate =
++		intel_hdmi_sink_dsc_max_frl_rate(&connector->base);
++	int max_sink_frl_rate =
++		intel_hdmi_sink_max_frl_rate(&connector->base);
++
++	intel_hdmi->has_sink_hdmi_21 = max_sink_frl_rate > 0;
++
++	intel_hdmi->max_frl_rate = min(max_sink_frl_rate,
++				       max_src_frl_rate);
++
++	intel_hdmi->max_dsc_frl_rate = min(max_sink_dsc_frl_rate,
++					   max_src_frl_rate);
++
++	intel_hdmi_reset_frl_config(intel_hdmi);
++}
++
+ static bool
+ intel_hdmi_set_edid(struct drm_connector *_connector)
  {
- 	struct intel_display *display = devdata->display;
- 	bool is_dvi, is_hdmi, is_dp, is_edp, is_dsi, is_crt, supports_typec_usb, supports_tbt;
- 	int dp_boost_level, dp_max_link_rate, hdmi_boost_level, hdmi_level_shift, max_tmds_clock;
- 	enum port port;
-+	int hdmi_max_frl_rate;
+@@ -2576,6 +2610,8 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
+ 	if (drm_edid_is_digital(drm_edid)) {
+ 		intel_hdmi_dp_dual_mode_detect(&connector->base);
  
- 	port = intel_bios_encoder_port(devdata);
- 	if (port == PORT_NONE)
-@@ -2863,6 +2896,12 @@ static void print_ddi_port(const struct intel_bios_encoder_data *devdata)
- 		drm_dbg_kms(display->drm,
- 			    "Port %c VBT DP max link rate: %d\n",
- 			    port_name(port), dp_max_link_rate);
++		intel_hdmi_init_frl_config(connector);
 +
-+	hdmi_max_frl_rate = intel_bios_hdmi_max_frl_rate(devdata);
-+	if (hdmi_max_frl_rate)
-+		drm_dbg_kms(display->drm,
-+			    "Port %c VBT HDMI max FRL rate: %d\n",
-+			    port_name(port), hdmi_max_frl_rate);
- }
+ 		connected = true;
+ 	}
  
- static void parse_ddi_port(struct intel_bios_encoder_data *devdata)
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
-index 196b8b3f434f..b89f72d90c1f 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.h
-+++ b/drivers/gpu/drm/i915/display/intel_bios.h
-@@ -112,6 +112,7 @@ int intel_bios_hdmi_boost_level(const struct intel_bios_encoder_data *devdata);
- int intel_bios_hdmi_ddc_pin(const struct intel_bios_encoder_data *devdata);
- int intel_bios_hdmi_level_shift(const struct intel_bios_encoder_data *devdata);
- int intel_bios_hdmi_max_tmds_clock(const struct intel_bios_encoder_data *devdata);
-+int intel_bios_hdmi_max_frl_rate(const struct intel_bios_encoder_data *devdata);
- 
- void intel_bios_for_each_encoder(struct intel_display *display,
- 				 void (*func)(struct intel_display *display,
-diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index 0dc13d080e8a..db7484542dc0 100644
---- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -381,6 +381,13 @@ struct bdb_general_features {
- #define HDMI_MAX_DATA_RATE_340		4			/* 249+ */
- #define HDMI_MAX_DATA_RATE_300		5			/* 249+ */
- 
-+#define HDMI_MAX_FRL_RATE_PLATFORM	0			/* 237 */
-+#define HDMI_MAX_FRL_RATE_3G		1			/* 237 */
-+#define HDMI_MAX_FRL_RATE_6G		2			/* 237 */
-+#define HDMI_MAX_FRL_RATE_8G		3			/* 237 */
-+#define HDMI_MAX_FRL_RATE_10G		4			/* 237 */
-+#define HDMI_MAX_FRL_RATE_12G		5			/* 237 */
-+
- #define LEGACY_CHILD_DEVICE_CONFIG_SIZE		33
- 
- /* DDC Bus DDI Type 155+ */
 -- 
 2.50.1
 
