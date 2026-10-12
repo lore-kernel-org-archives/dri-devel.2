@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C73CA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 14:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1AA8CA9ED1
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 14:49:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C67810F191;
-	Mon, 12 Oct 2026 14:49:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0872710F1C4;
+	Mon, 12 Oct 2026 14:49:36 +0000 (UTC)
 Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
  [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A96A810F191
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 14:49:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791816560; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F2110F16D
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 14:49:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791816564; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=HrvjCOEC621Lj66IBQr8AvZvmZB7FZThnZvOpVGlzDyQvsGkmI5Sv4Z6okenYLbWErys+OmyeUjkh1ijvB1eHzKyYWtwLj4dwTz/ydsZ9fqpeP90nJ7NaSqaPf7IObt/CJCRihLnG6qHzIzN1hN1bZT91sWwurYAMNM5iVkQtx8=
+ b=B28XMG0N6utzSHtCQjE9L/EDaZWxrzT17+qY2GuXS18BCqKzxLcERvtDeVd1YJBtCsxiJ5GliqVy8w3hCYXJJLqDkYQvkwtPW6Ak/SSnTTH+XFg4p12TryeZXP9eafiXNTqEIq7yyROZLCyf5H/QTrWvCcKsK09KcJIWoXx48bk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791816560;
+ s=zohoarc; t=1791816564;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=n7LLmX7fwJoNAhkMWdIEr6M9fWaQ3kE6c5cMXkSE36Y=; 
- b=EL2mL4unNDfgP9Vtt0mVlYiG4bqpI7kvwWmgiIu2Tr+Gbgtc4Nhl7Ag+yXciJsRdi0ZpPKNC8TdtcrQS6mhgcwXhx1Ke15ABP77PRK6o3mLS/jMVa0EXfg7GIzg/1yhJ0XpLCoHi7QR6mJJqM+dI0nhqdA/NGfNdx5+e6J5Jmx0=
+ bh=A5wyoAMpxyMonqK0K1X78lmaHacA+hX6YDZR4Ynb0YY=; 
+ b=YP9idSO7tJirp941/ll9R5zNh8jhfjRq3RP4Q+tY0BGC7oisTF0lqEq+9q6NHVzAjXWjY3c88HQsW+VXniLUBaPXbR46WIhmNryvn+z/VFOIkEdLXW1STbq/4T9XOdAElsAfTUPq04vE/DxDGu68rv79AgWVF9bZAcBfXAiRbOU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816560; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816564; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=n7LLmX7fwJoNAhkMWdIEr6M9fWaQ3kE6c5cMXkSE36Y=;
- b=enpiB3wR3HOHBRtJlba62Ko+EKXJiifTikn9xBZRk9tFd9koaUX0En1+Bk6lwLZ5
- Z7DVXpsMjD/ZVzaUqIeNlA8+5+WlZObTO2u0k13PTJW2oeT1r1crpBN/9M9snT3iyBm
- C7jDf9HU6q3hILsM53sEcKGI2LaVUr7BmaztZKA8=
-Received: by smtp.zohomail.com with SMTPS id 1791816558150144.61417515044297; 
- Mon, 12 Oct 2026 07:49:18 -0700 (PDT)
+ bh=A5wyoAMpxyMonqK0K1X78lmaHacA+hX6YDZR4Ynb0YY=;
+ b=aKIxiOSKTe5qfudCU0+MKy3l6qbbuDFU5slwAuCEY7ic7lWmSMh7d0SQJalbrSPE
+ gNVK5D9WOacFPiQ/7xSoLuOxF5Ms4W3MKPosc52ruiT9o5X6jLqfeArEbDT/MgCKRlW
+ N5oCQJdalXQ65h0CWuW0vnuoIyarn/KDvnuyJFmg=
+Received: by smtp.zohomail.com with SMTPS id 1791816564016320.2120801123739;
+ Mon, 12 Oct 2026 07:49:24 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Mon, 12 Oct 2026 15:48:05 +0100
-Subject: [PATCH v15 13/15] drm/panfrost: Avoid cache flush after perfcnt
- sample in fully coherent systems
+Date: Mon, 12 Oct 2026 15:48:06 +0100
+Subject: [PATCH v15 14/15] drm/panfrost: Introduce a reset lock
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261012-claude-fixes-v15-13-bc0a6c498553@collabora.com>
+Message-Id: <20261012-claude-fixes-v15-14-bc0a6c498553@collabora.com>
 References: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
 In-Reply-To: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -58,18 +57,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1138;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3054;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=n0Xb7x+5EOLF5WqM4LToZmyqgsrYoh+WYeTYPUQjIWU=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqzPMbHK5uwkP8qvP30ESa14sXjz3IZCm5Ftq+H
- K7oIL+O1hmJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaszzGwAKCRAOJn5M7lND
- PQH3C/46ju6dkcHR11d7k0pMwAf9quw7b20MDioBRT6bEF1nlvdqfJdq402cjcmDXAiUuUT3v08
- 5ul+r16lzgdJx3ncARtUzvjk3osf4nJCnPmIBZgbg7hDHY4OlAMSu8vc05ihz6ZJUEJdyjx9I6Y
- Esm3VpVLD5KkvWPRl6cBM4BI3UHFhWEaPq7EsV6jbkVvyZZhT0Di1HfsUV3eKtdgqexBH3EpvaO
- j1GORPK6Ch3bG5yO8FSuZ/uI+FlEFt7Ov0mUa6IykXI27dB165+HFBarn/e6gBQAyduU7XRL1q/
- 7N5VUfCsBZ+qNvKkjX4QyiKdQ9NPl7PsmKh8jj6x7f1fpopD+3kr0TB+WR1OU6J3ofAp/vCp4AE
- UBIMb0LuZ0c+Uq0p8EXXSaDeFtu2yVcx8tI+sfGHh+0tj6WqBRma38h4h8XjdqfyAS1Y7ryasFU
- y1aHQiCh9oe1PonOStjW7ORmp7o3ZIWDV2EUZj3lGmawPFuoSRZ+IHnvRzxKsJvCiDu6I=
+ bh=Cf1r5q0nDCBQw5k8kELolo3xi5/jIRp3reOvG17DeHI=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqzPMbSyXdvEhZDZjiexQtKVqltdRWu+LR3FqDP
+ 0HxDWcIfw6JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaszzGwAKCRAOJn5M7lND
+ PYbEC/4lU3jShNSVQUgV9bHKQK/ax3fBZJTnbrUjAKflUlBXkBrsVRNUGYUgimgZ2/7YFKGV8aM
+ clLkVb6K1juElEGtrWcDUcuxAJD2UGlZlaaqOb3UDcuAbC8mGZSLalHxZHX/+TLIMFE7jSn8CBn
+ 9AWEig7wwp4/aKd2yj3xEu/xKeZyfxK6zVCQBP/hAFxhARp304thIzWgMMafhWvQRHJ74WKGmlN
+ JJHMRDUHPRsO1SX3My91hegEnlhKrBnQdVZ1N+0FCt01gE40CeXgICawPbynoJkyaeDI9g7JC6n
+ WV+syWe4vgtNbBmPBz613rVpnYDC1S3WvWlDXu4gw3kNsdm2zsE0sg3RcYUIGSMKIMPTsbYRjaU
+ rCCD7hXNYntwaiJdqi+CEcRA9JfP/ZHaTvrVyQEo8J2gMBN1KSSypfypWNzKjoU/LXoepfIAb9G
+ 6s5RKNg6KPPAvXZ/QEMTzSNi5xoIz8+/UMyU0eKH1LAI33RKrgiXM/n6xKKeNXYarpp/Q=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,32 +86,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If the GPU and CPU are fully coherent, then there's no need to flush the
-GPU caches after a perfcnt sample is made available.
+In order to avoid accessing HW register while a reset is ongoing, a
+read/write semaphore that envelopes the reset sequence will help driver
+entry points avoid racing with it. For now, the only such racy entry
+point is the ioctl that returns the current GPU timestamp.
 
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panfrost/panfrost_device.c | 2 ++
+ drivers/gpu/drm/panfrost/panfrost_device.h | 1 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c    | 9 ++++++---
+ drivers/gpu/drm/panfrost/panfrost_job.c    | 1 +
+ 4 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index ffc77121070e..b3f71d7fd82a 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index b3dae6ce3eb0..5718e8185427 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -509,6 +509,8 @@ bool panfrost_exception_needs_reset(const struct panfrost_device *pfdev,
  
- void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
+ void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int)
  {
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-+	if (pfdev->features.selected_coherency != COHERENCY_ACE)
-+		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-+	else
-+		complete(&pfdev->perfcnt->dump_comp);
- }
++	guard(rwsem_write)(&pfdev->reset.lock);
++
+ 	panfrost_gpu_soft_reset(pfdev);
  
- static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+ 	panfrost_gpu_power_on(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
+index a0b9a2145fc9..63452febb1cf 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.h
++++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+@@ -165,6 +165,7 @@ struct panfrost_device {
+ 	struct {
+ 		struct workqueue_struct *wq;
+ 		struct work_struct work;
++		struct rw_semaphore lock;
+ 		atomic_t pending;
+ 	} reset;
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index da10eee85ca2..a141a41e224b 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -41,9 +41,12 @@ static int panfrost_ioctl_query_timestamp(struct panfrost_device *pfdev,
+ 	if (ret)
+ 		return ret;
+ 
+-	panfrost_cycle_counter_get(pfdev);
+-	*arg = panfrost_timestamp_read(pfdev);
+-	panfrost_cycle_counter_put(pfdev);
++	/* We should not read timestamp register while the GPU  is being reset */
++	scoped_guard(rwsem_read, &pfdev->reset.lock) {
++		panfrost_cycle_counter_get(pfdev);
++		*arg = panfrost_timestamp_read(pfdev);
++		panfrost_cycle_counter_put(pfdev);
++	}
+ 
+ 	pm_runtime_put(pfdev->base.dev);
+ 	return 0;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index ab65786bf63b..4ddf4b722ddf 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -877,6 +877,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
+ 	spin_lock_init(&js->job_lock);
+ 	mutex_init(&pfdev->sched_lock);
++	init_rwsem(&pfdev->reset.lock);
+ 
+ 	js->irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "job");
+ 	if (js->irq < 0)
 
 -- 
 2.55.0
