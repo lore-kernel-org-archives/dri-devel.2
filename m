@@ -4,39 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5632CCA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 17:28:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B6D0CA9EDE
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 17:43:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8519110E61C;
-	Mon, 12 Oct 2026 17:28:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9199C10E61C
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 17:28:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5FC0C412D2;
- Mon, 12 Oct 2026 17:28:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE941F0089B;
- Mon, 12 Oct 2026 17:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791826102;
- bh=/zqB14m/WUapRicILRGVEdKBbN7cNJ6/tcYq3qR4AAo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mJx4k+9ojLRGF41nCCUzrOEwvw7oIgI5ZKRvCSBxxMtBHnc8Wh3vUdxePvRsq7uFs
- bRo7UxOEbrJnWskVmTNxUENLqYtKtm+mCJgAaAGCaWCGy5hF/QZ7v/WP72L+yF0qQ8
- oNkr19LPkhr4YI00C7WOTGhdJamhSBnmwTBejmL8fnsqDsS93j9lD5GP7c5P/tzxf/
- CsusAfNKbLSoaNlCS2XnuKAa2frk3GhiG6vIkxNr6sg+3023O9RMnsA+k+g65/lcgP
- NlgLu1eUQvkxVO+VF04huWyum9x5K77EZETIBWkYFcK+1DtO9yoUYk5a443LUE0FLy
- HWmWP2kQAxxKg==
-Message-ID: <sashiko-outbox-168456@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] dma-buf/dma-fence: Mark two callbacks as deprecated
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261012171939.390365-2-phasta@kernel.org>
-References: <20261012171939.390365-2-phasta@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 17:28:21 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B80E710E62B;
+	Mon, 12 Oct 2026 17:43:10 +0000 (UTC)
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
+ [74.125.82.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E32E810E62B
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 17:43:04 +0000 (UTC)
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-357e2bc3b1bso3769836eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 10:43:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1791826984; x=1792431784;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3iJ1fd8MwlejaVJSs6HGpqE749ZNI8lIjAO4rDvQDfA=;
+ b=UE30Rhc0wzN8PV8EMKM6MElynrMlMnjFCxr8FSGHjcGHdKq8+jpeL/JeMaSONONK15
+ vaV8q013OaB5yrmbbZytHhzgYjraZJWZwTis9AhVRova4z2ElTWJS5Ijln8Rc5wVClZM
+ 1/61jnS3jOvH9Ui+iF4FVZb9w0Navcsi0DAQ+lfUjQHWVzmneCq0o0aCoH7aPtoDZN2G
+ hsOxCM6ImhbaqNGsOFz7961RAs5dWLKxmVtVN5mo0t8a7iZqSqxRL5t+oX5pD/WAO7V9
+ 1qPuEBg9qMDUB2TnET+qHAhQFfBpz+8vA8bER5GC5x1SCSW+cNgZf+kzBCwcpaufM/Ec
+ ce9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791826984; x=1792431784;
+ h=content-type:cc:to:from:subject:message-id:mime-version:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=3iJ1fd8MwlejaVJSs6HGpqE749ZNI8lIjAO4rDvQDfA=;
+ b=nKuAcHSwzY89z4wIjaXz6ukevg2e2D3LHxhzWT6hXveFcI3CvyJl018Uqo3csoBKCL
+ hHz4GjEbLA1hwIS/QlKlDG9yF69cawksQGneqmVPvMjCIhwg4ywzMQhdG8Qj2Jl5Mdf9
+ ICT4uyjlf5WtU0vYhnPYctsSBuD7QYuPnBS+l2Tpu9HkerUe56gmpiUANDX4V1141j7y
+ PolaXJaBMyj4qR3iSvR62FW/22xvjK0JwfOnfhDyZhgxnklQO9Rf2w/oUFx3vrz9y5lF
+ 9fjfkpqCi4TzR0SBm90usW3JMSg/Bvgla2FzSUuJ5epp4NHOtlJIhEY0i3U5Xik2g+0+
+ S3GQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByfAuewWfZTaNxgqP0/BDA0xK/ifs5OGcec/NCdSkE1o5P0QfydVutBoJiJKPzCXbP3OAHRrZtB9hI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJs9De6Kq8HZr8vAwtMKY1KGnU9LJtCYJ+kcqwv+/Oy6O10jG8B
+ Zfolb5gN2yHalq9/zhXjmajfKigkZOL4V9GkFSguIAMJg7shQpp7GUmpMLJ5kEPUGUL0KuL49fI
+ zax9ALBMoBY2IMM6dgpsbsGSrkQ==
+X-Received: from dybfc20.prod.google.com
+ ([2002:a05:7300:3e94:b0:35a:6ed3:3ee9])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:de49:b0:35b:b3fa:40f7 with SMTP id
+ 5a478bee46e88-35bb3fa4218mr1447041eec.38.1791826981179; 
+ Mon, 12 Oct 2026 10:43:01 -0700 (PDT)
+Date: Mon, 12 Oct 2026 17:42:56 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261012174300.2338784-1-almasrymina@google.com>
+Subject: [PATCH net v2 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
+ Pavel Begunkov <asml.silence@gmail.com>, Mina Almasry <almasrymina@google.com>,
+ Taehee Yoo <ap420073@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Nikolay Aleksandrov <razor@blackwall.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
+ Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,92 +87,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] dma-fence: @release deprecation advice causes UAF/SLAB corruption =
-for embedded fences
-- [Low] dma-fence: Missing @wait callback alternative documentation
---
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration:
 
-commit 491d04795e6f38b069b06a9246cd098fdc0a8b55
-Author: Philipp Stanner <phasta@kernel.org>
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall(),
+   and unmap RX bindings that were already unbound on NETDEV_UNREGISTER,
+   preventing slab-use-after-free in dma_unmap_sg_attrs() when the binding
+   is freed after dma_dev.
 
-dma-buf/dma-fence: Mark two callbacks as deprecated
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
 
-This commit marks the ops->wait() and ops->release() callbacks in
-dma_fence_ops as deprecated. It updates the documentation to advise against
-implementing them, aiming to move towards a design that supports driver
-unloading in all circumstances.
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
 
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index dd07d128adc3b..388c07d11e708 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -220,6 +220,8 @@ struct dma_fence_ops {
->  	/**
->  	 * @wait:
->  	 *
-> +	 * DEPRECATED!
-> +	 *
->  	 * Custom wait implementation, defaults to dma_fence_default_wait() if
->  	 * not set.
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
 
-[Severity: Low]
-The commit message indicates it will "document what users should do instead"
-for both ops->release() and ops->wait(). However, while instructions are
-provided for @release, the alternative implementation details for @wait seem
-to be missing here.
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
 
-Could documentation be added to explain what developers should use instead
-of the @wait callback?
+---
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
 
-[ ... ]
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
 
-> @@ -243,6 +245,8 @@ struct dma_fence_ops {
->  	/**
->  	 * @release:
->  	 *
-> +	 * DEPRECATED!
-> +	 *
->  	 * Called on destruction of fence to release additional resources.
+ drivers/net/netdevsim/bus.c              |   1 +
+ drivers/net/netdevsim/netdev.c           |  21 ++--
+ net/core/devmem.c                        | 121 ++++++++++++++++++++---
+ net/core/devmem.h                        |  10 +-
+ net/core/netdev-genl.c                   |   1 +
+ tools/testing/selftests/net/nl_netdev.py | 108 +++++++++++++++++++-
+ 6 files changed, 236 insertions(+), 26 deletions(-)
 
-[ ... ]
 
->  	 * If the callback is implemented the memory backing the dma_fence
->  	 * object must be freed RCU safe.
-> +	 *
-> +	 * Deprecated because it prevents the producer of a fence from
-> +	 * unloading. No new users must be implemented. Parties with a
-> +	 * hypothetical need for this callback can instead simply and directly
-> +	 * perform their custom release operations one RCU grace period after
-> +	 * they have signaled the fence.
->  	 */
->  	void (*release)(struct dma_fence *fence);
+base-commit: 4f6ac74fa594a918d41255c941256e1d51592d3b
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-[Severity: High]
-Does this advice correctly account for embedded dma_fence objects?
-
-If a driver embeds struct dma_fence inside a driver-specific container,
-removes its .release callback to comply with this documentation, and frees
-the container one RCU grace period after signaling, could this cause a
-use-after-free for consumers still holding a long-term reference like
-dma_resv?
-
-Alternatively, if a driver simply omits .release to follow the "no new
-users" guidance without changing its allocation strategy, the core will
-execute dma_fence_free() on the final dma_fence_put(). This fallback
-executes kfree_rcu() directly on the fence pointer. If the fence is
-embedded and not placed at offset 0, passing an interior pointer to
-kfree_rcu() can corrupt the SLAB allocator.
-
-Would it make sense to update the documentation to explicitly warn that
-omitting .release requires the dma_fence to either be a standalone
-allocation or placed at offset 0 within its container?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012171939.3903=
-65-2-phasta@kernel.org?part=3D1
