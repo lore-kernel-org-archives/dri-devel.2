@@ -4,103 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B85CA9ED2
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 21:30:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C5FBCA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 21:35:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3B2810F3A4;
-	Mon, 12 Oct 2026 21:30:07 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C86010E6A0
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:30:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xZZ0CQPViKa9jOrY8ZEp6jUbWD3sBVCco8bST8aZZjYhS75osLvLKxvZn6DpBUE0ePCDzU4fb240iHBuEa3BLeQ2UXPcjl6lN7M2tH6+aq5kHUV4tG1DN9vHCCRU/QK+AT29Vof9WrGahn3Km6kbkVGnbxSTxOf857RSliRsd8dqWIASIFMu/HeHi1Jpw/B4YVRqQwq0gpL7FGAEtlZqIA9pRF1tY4gG5Tw12zicPhq2sCMmzJ+Gw+jQtx5LJ+olZidzchMIUvjIK4Nt9waZV95OnhVU8gKYeV+pKtDYAVEZWkCuQO44puds8aEyCOkEmRAnMS+H1QlOyS0aMJt/ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X7RQzCQ1aLvBlwfDwLaP7GFrwAuF8hqIeat42jSbJM8=;
- b=Zmjc2kGzaMIKVpW5Ova1T/cM6jFF+iHpnLmImq1qo4LDiZbKZNLpm1OQtlzjuBESUKyhVsuTZMrari8AJyF8F9oQOyVFsrM9AWyExnNLm30eaQIgC1TRhOlaHP9KvkeyRK0SscIXcPLQCbm72jyXl7alNcUalRu1xC+giMH2xq9VThSuGQ7KjIKtZlc5MNOIhyVa98DFE2j3COvT1/inxGZq3lF4kVlo3NygGlph/uWc5p4qZU/043jXO2BeeCd5afMb97+3bCECx8x1LXg64snV2GG1Z4SY/91M0WPLl8QNsay3K3CQrh11fSt3SHjMAeJAWBB3sXWsGm/UzUYN3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X7RQzCQ1aLvBlwfDwLaP7GFrwAuF8hqIeat42jSbJM8=;
- b=azMwLm1Hl5mpj4YFRaYow4KCMq9rg0Sx8jJr5VJPcLNjX12t0MKlv1bSirF0txFe71QD7rUWbRq49C1kvo2YOztsUQX5QuCS/TIT3slKlnasY/fO8YWmyjNudtuex3l4LvEXt614yXt9sbNEbMN3Q11FNGGYk9JfxezUy+m0SyQ=
-Received: from BY1P220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5c3::8)
- by MW4PR12MB7029.namprd12.prod.outlook.com (2603:10b6:303:1eb::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 21:29:21 +0000
-Received: from CO1PEPF000075F4.namprd03.prod.outlook.com
- (2603:10b6:a03:5c3:cafe::6c) by BY1P220CA0018.outlook.office365.com
- (2603:10b6:a03:5c3::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
- Oct 2026 21:29:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075F4.mail.protection.outlook.com (10.167.249.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 21:29:20 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 16:29:14 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 16:29:13 -0500
-Message-ID: <2de6caa2-bcdc-107d-53d7-80f270512812@amd.com>
-Date: Mon, 12 Oct 2026 14:29:18 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38C6810E6A0;
+	Mon, 12 Oct 2026 21:35:37 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 495B410E6A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:25 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69CJMplm080195
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 9ksiK0T4L7o5SFNFytJEd7y68wkigvQZU6mjV4dVdPM=; b=g0h3LdSmFr4e3N4W
+ kWFQe6Z72oW7bYJwcLrMoI5ic9/ZrLHhXclKmvQO9d8Fy40NhuW9un2UqIgeyn2m
+ wjdooOi6odu+gbyxNLMT5pSu+kT5BtAGsufB2oyu5O4K0jytMzNg7DexMv7EI3mj
+ IsNCo06gBtnrBVxWMKZeSy6cg+l4u/bKHEOm/K+w0NX/NFHesjvl7xF/9sdLGarg
+ MJqspBr5k3SNcbIO5NSZSYXcgccBiYswuymKqUV++qA22acWHvTMUHg+wYAFxWOT
+ 6bbX3AJ/lq90VXxgVHE7fgKdA8o/2DnPivnM5AXgvQ4w1yeT/VHNXuwGc5APpV8C
+ +WovyQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8uh3khfa-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:24 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-3510d0baf63so6536701eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 14:35:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791840924; x=1792445724;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=9ksiK0T4L7o5SFNFytJEd7y68wkigvQZU6mjV4dVdPM=;
+ b=JHRBwc/+r8RYd3bV7DV4Zc1ByIrrXy7zKk3N4XCpS9AZ/C9hU4s9KXKsYMi9GFmuu0
+ D65EKJsLDsbmb/9WsiK1KyTH5RtKB6sc8T/YlJz/ljgx17N7j3zpR3+SU2/Ga5WvtBo+
+ BvY7uE1F8FpOp7F7Oe5zfSq+p3w+RKxf98EU8SbU9C4jeFNPLVE1u+i/U6wus7yIEAZJ
+ bsGWn19pqsz1TA0SgVXSZb576yIedeBO231EE7v0yaJfFOdjOysOpJqfqbmGeJnXhkjf
+ ffc4a6/eOY+fte8OehMOmby2elGr2bCsIKl8R7a+tMbfWDUAaIag8e47HZjw+lNHuMFx
+ QZYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791840924; x=1792445724;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9ksiK0T4L7o5SFNFytJEd7y68wkigvQZU6mjV4dVdPM=;
+ b=RdHgp9ShsrEgeBk89k/hfSoQH+RD7GLlEShaMXasIhasmd0BBSyZkg8pQfgnmWrdUc
+ Xbt/GIXwGJXJljXBWOtIQVRdw8qYrVb9asHkRsV7qUry3bjlKXK3Fpd3eem7Xgla3q0n
+ H/lZslXZb0oTMpvDOKszU0+oB8Ljarqu7urrfeRWiVixmJczcRuXB55A9ZUJIRvOsFKS
+ GG9O2/SgNBZCWbyAcyvBZKoonfaFnkADEblIe7kQuo++5yfMWm02CjbmrRzspqIj/2ZQ
+ iVNDYvoxWjCCR45oc0l4ZZH7QrWmxiyBM3y/U3Tv2U015Ja54ZMJMW/WHiemIoDoL2NK
+ gSNw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw9G2MPhs9Fm896GgQQp4UyshoBl83Gbp/bjG4DXT31DRJoIQirKRyaL4NwkrhAe/GVBifD2owoWNU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKx9Gw9//MhNZKU/Kf9UPdHftc+YJtecv3HyUnsBCbjBEh1532E
+ 8XYlLM2UrLWedP1+V9c8+OoPyarE+9rvYEqmKyHLcd6cwWYJBwSDqGKvd+ApLSPFbf74T3OEazE
+ i9TtuLB0mkzlgHVUPfedYvk6jOWOeX5EilRdX/ZnBqnbz3N4/QmYf+TLPQAHklHiP08BozM4=
+X-Gm-Gg: AYBFou3GjuxLTXTRCIVZJllSh+jSeA2pVCHlKczf3kVfiFTdjecxblwRHpGBEVZ26Xq
+ +aiAiPUMfQ98A6fNfdMY2545LP4mWAA17xQe6PMD/WwKrqNwwF6ucebsHy+6bQHVfpRbx5fAd1Q
+ v4hJPvnFRBihzIrx1iAb+VTxCP2tSYSFzzLAuOc3We3m3ribHrt8fkVbITJ1rHLTMdwIZjTSGJZ
+ +5CV/81odmcBkn/fvr2h3/OcT8SOUDf+kRiw7hwJeszhkNBURsLWtqmGaIfq7i50VgxOh3BltYa
+ rs3hvXRGblc7Po5S385gE/29MDsTWidxDBaP/3RT1+xOXH1kchSnG8KUTVa30zxGeMJIHuoaJ0S
+ jYbu0axIXkRy6VYzHo1i56bCfD6IzNdnEprBwqQfzdeSZi8j9phJL
+X-Received: by 2002:a05:7022:1581:b0:151:2e62:fe89 with SMTP id
+ a92af1059eb24-16a60812c7fmr20204156c88.32.1791840923578; 
+ Mon, 12 Oct 2026 14:35:23 -0700 (PDT)
+X-Received: by 2002:a05:7022:1581:b0:151:2e62:fe89 with SMTP id
+ a92af1059eb24-16a60812c7fmr20204104c88.32.1791840922795; 
+ Mon, 12 Oct 2026 14:35:22 -0700 (PDT)
+Received: from [10.73.232.100] (pat_11.qualcomm.com. [192.35.156.11])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-169a3f6186fsm34188115c88.14.2026.10.12.14.35.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Oct 2026 14:35:22 -0700 (PDT)
+Message-ID: <2bf0a2e0-7466-4e90-b53d-f3fc0d26378c@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 14:35:20 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V4 07/19] accel/amdxdna: Add get and set power_mode for
- AIE4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/7] bus: mhi: Move Sahara protocol driver under MHI
+ host client drivers
+To: Kishore Batta <kishore.batta@oss.qualcomm.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ mhi@lists.linux.dev
+References: <20261012-sahara_protocol_new_v2-v8-0-e12939d229a1@oss.qualcomm.com>
+ <20261012-sahara_protocol_new_v2-v8-2-e12939d229a1@oss.qualcomm.com>
 Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
- <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Soham Donwalkar
- <soham.donwalkar@amd.com>, Nishad Saraf <nishad.saraf@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-8-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261009225343.3079074-8-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Trilok Soni <trilokkumar.soni@oss.qualcomm.com>
+In-Reply-To: <20261012-sahara_protocol_new_v2-v8-2-e12939d229a1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F4:EE_|MW4PR12MB7029:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27ebd31d-1517-449c-2e5b-08df28a7e0eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18092099006|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: zt/bsNG6EFLXdpz9L/ADa/U9uFuKnz6lX7cU3gDeBHuRR7PtJOcPfxxiCUb1GjtSjR8FK5f01OcDfCLXBK9C6Wkw6vhXE5/X7m8SwxOAPEK1FREL5qO0S0aqzKaWeXVR/tZQRlvUg/qYE/937+MFHdjkoEWHosyaxiFbqbUTKzPSoiSmJq9NVTAugyoe3FnsoRjm3Uum9nrADb5LdaUvbATqzcgEqQBsY4o1CHW0Ew+Pt+Xp62A3MIYXEtUbu4WxWahUpd2cB4WGBAQ+ddQuDQxI0ec71g1Q6c1oaEIkbupqovloMHmu36yMUTTVVCXdm5hbDjzfyMSwTnQnktwsTtqp5lqkU6xw5+ypeO65L82K7hFOaEo9CL3PDf5mST9ZTxjbHv1VwuC3KWymsgAZnxz9KsQfeDU0aZlcgWWUdWl75ymQ6zV6+cGw0gmFGhbGi7JwSXH9AsPHZT6y804bbJScxnrQJqKrriQv1soFtkBb+FDuXlnMyQTB59qcNlhZAjmDgd0XgtEosWoRDEj27hd5wZNa5U44QAelSNmHuuphzavdgkF1houmwZQ5QWCAwPaWOfTdJ2165aJu9BBnoX4GT7cCqd2D1TeqNWzODOYVg7bRCkdRVzXPTrFCgrgepWnnarS8N6KS+4TPPiCAIB/SWVj1CxsRCPT80A4iMsrow2TC/DCb3lwgID9Yx74Nl0v0V+iSG8Bfd2RQj6uorQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18092099006)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4MHMf8ztjEtJ+o+TJIiaI2cRuAR2ypAyr6swzNym83VQCDqMqqWbfsYcbKAANUHI/IB111S/euRTzZcgcb28a4tMQJ8sOWk7+wjJ751u1/2pBuj21P/DZWlX+PkkgFJNTIRxJq0Iw/e+EXfoIA9XbDgNchB7EEZxfYvslWyaZ0LxpSx53Lk/THZISm6uveR/K07KilxNiQrhDWQzVfuf1xIjVHf+C4d1fA9nVcRypzcPYhcPhouuz99LYyVngq86ppdpGziNUed/pdooZEztVlmG6YZBuabvDZhcMetbzwfd8LDxjsR2WOgqCoGJJUKvn2sLAOmfmBGJTFhwp6KnPGzoqHeocBk8kNAQSzfg0gb5Nv25wmtcicZ5vUWm3OrkBXwmdpMYRFJLTjpHrcZxxASZ+kUD/T74SRhqHZep5wy4QjFcFihnkDeQn4qoE/qO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 21:29:20.7270 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27ebd31d-1517-449c-2e5b-08df28a7e0eb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F4.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7029
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA4NiBTYWx0ZWRfXzpodj4ibCic/
+ i7EGufzj2KS9Vd0gNV+K6Q6tOikBCFfIdbSflmBfb/k0DJYFB9MfukA5WM4xOoQNXVCvSlJsotE
+ rPUNk7FrWYjVSbwapmZqpA8oF6KJDIgFXQZCLGuYKH8SovpEAn2haIyNcsbzBvI+MS2qkx5bLpZ
+ BqtaObPvzpzXguV2+pmmcTaHSIn37WrQb7K9WATGlYrmSUS696tv2/2vKmAgC93W34c6VRvV6Xo
+ Ln4XZtYNbsh/Kn7KgMnAeb20OOPlMWDMNY369NS2Mq8bETMAMEbipQjFWqVo4kR6AZrL+dpvcy7
+ GWCqIWsh0ZdsCdvdniwXq9kqCu+Wc1mjO91RiXgXZgIUg2o8DHmJMQBUIcEbSkkorwFNnFqlQFg
+ alby4V01ctM16PDwReJ2iGvJ8SyXzlLba73bbIHK3dOXJZm4Z+YSLtAPP48b8YmIMYSz2SsCLvn
+ ABF4cVVuvguGYFvYayg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA4NiBTYWx0ZWRfXzLYvG82vkQMP
+ toTRlvdHmng8Ir0zjR9eF/Wq4MLTWzR8cTdlFz1xMUcLxJwbQ7NuGY1jMPANiSTEjJj52gwOS60
+ MMHWj8Ern5CBQbAkrvxyhdCYJK9RCek=
+X-Authority-Analysis: v=2.4 cv=QO391QLL c=1 sm=1 tr=0 ts=6acd529c cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZdW6uxA9NKXbfdqeeS2OGA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=EyST5JTptKXFtIIvUhkA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: jpipv2ZPd2apXsn51o9z0qC3dv8Ywz-t
+X-Proofpoint-GUID: jpipv2ZPd2apXsn51o9z0qC3dv8Ywz-t
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_06,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120086
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,322 +147,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 10/9/26 15:53, David Zhang wrote:
-> Add power mode support for AIE4 devices via DRM_AMDXDNA_GET_INFO and
-> DRM_AMDXDNA_SET_STATE:
-> - Add AIE4_MSG_OP_POWER_OVERRIDE mailbox support
-> - Add DRM_AMDXDNA_GET_POWER_MODE support
-> - Implement aie4_set_power_mode() and wire .set_aie_state
->
-> Firmware boots in POWER_MODE_DEFAULT after a reload, so re-send the
-> cached user power mode override whenever the hardware starts via
-> aie4_restore_power_mode(). On a fresh probe, pw_mode is
-> POWER_MODE_DEFAULT.
->
-> Co-developed-by: Soham Donwalkar <soham.donwalkar@amd.com>
-> Signed-off-by: Soham Donwalkar <soham.donwalkar@amd.com>
-> Co-developed-by: Nishad Saraf <nishad.saraf@amd.com>
-> Signed-off-by: Nishad Saraf <nishad.saraf@amd.com>
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+On 10/12/2026 11:18 AM, Kishore Batta wrote:
+> The Sahara protocol driver currently lives under the QAIC accelerator
+> subsystem even though the protocol is transported over MHI and is used by
+> multiple Qualcomm flashless devices. This makes Sahara appear QAIC specific
+> and complicates reuse by other MHI based devices.
+> 
+> Move the Sahara protocol driver under drivers/bus/mhi as a host client
+> driver and build it as an independent MHI protocol driver. This keeps the
+> QAIC driver focused on the accelerator device while allowing other MHI
+> users to enable Sahara without depending on QAIC.
+> 
+> As part of the move, add a dedicated Kconfig/Makefile hierarchy under the
+> MHI host client drivers and convert the driver to use module_mhi_driver()
+> instead of register/unregister hooks.
+> 
+> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
 > ---
->   drivers/accel/amdxdna/aie4_message.c  |  17 ++++
->   drivers/accel/amdxdna/aie4_msg_priv.h |   9 ++
->   drivers/accel/amdxdna/aie4_pci.c      | 116 ++++++++++++++++++++++++++
->   drivers/accel/amdxdna/aie4_pci.h      |   6 ++
->   4 files changed, 148 insertions(+)
->
-> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-> index c83f81a0e65b..8d1cad50cbab 100644
-> --- a/drivers/accel/amdxdna/aie4_message.c
-> +++ b/drivers/accel/amdxdna/aie4_message.c
-> @@ -158,3 +158,20 @@ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
->   
->   	return ret;
->   }
+>  drivers/accel/qaic/Kconfig                          |  1 +
+>  drivers/accel/qaic/Makefile                         |  3 +--
+>  drivers/accel/qaic/qaic_drv.c                       |  9 ---------
+>  drivers/accel/qaic/sahara.h                         | 10 ----------
+>  drivers/bus/mhi/host/Makefile                       |  2 +-
+>  drivers/bus/mhi/host/clients/Kconfig                |  6 ++++++
+>  drivers/bus/mhi/host/clients/Makefile               |  1 +
+>  drivers/bus/mhi/host/clients/sahara/Kconfig         | 15 +++++++++++++++
+>  drivers/bus/mhi/host/clients/sahara/Makefile        |  2 ++
+>  .../qaic => bus/mhi/host/clients/sahara}/sahara.c   | 21 ++++++++-------------
+>  10 files changed, 35 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/accel/qaic/Kconfig b/drivers/accel/qaic/Kconfig
+> index 116e42d152ca885b8c59e33c7a87519a0abc6bb3..af90fdfcf77eeb6dd5ad309b33d793d4fdc91b1e 100644
+> --- a/drivers/accel/qaic/Kconfig
+> +++ b/drivers/accel/qaic/Kconfig
+> @@ -8,6 +8,7 @@ config DRM_ACCEL_QAIC
+>  	depends on DRM_ACCEL
+>  	depends on PCI && HAS_IOMEM
+>  	depends on MHI_BUS
+> +	depends on MHI_SAHARA
+>  	select CRC32
+>  	select WANT_DEV_COREDUMP
+>  	help
+> diff --git a/drivers/accel/qaic/Makefile b/drivers/accel/qaic/Makefile
+> index 71f727b74da3bb4478324689f02a7cea24a05c2d..e7b8458800072aa627f7f36c3257883aa56f4ce4 100644
+> --- a/drivers/accel/qaic/Makefile
+> +++ b/drivers/accel/qaic/Makefile
+> @@ -13,7 +13,6 @@ qaic-y := \
+>  	qaic_ras.o \
+>  	qaic_ssr.o \
+>  	qaic_sysfs.o \
+> -	qaic_timesync.o \
+> -	sahara.o
+> +	qaic_timesync.o
+>  
+>  qaic-$(CONFIG_DEBUG_FS) += qaic_debugfs.o
+> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+> index 0acf6cdd44f81430ec52c7120b8b50c60721a615..64e87dfaa560376ecdf1e6f8bf7abf6153160926 100644
+> --- a/drivers/accel/qaic/qaic_drv.c
+> +++ b/drivers/accel/qaic/qaic_drv.c
+> @@ -32,7 +32,6 @@
+>  #include "qaic_ras.h"
+>  #include "qaic_ssr.h"
+>  #include "qaic_timesync.h"
+> -#include "sahara.h"
+>  
+>  MODULE_IMPORT_NS("DMA_BUF");
+>  
+> @@ -789,12 +788,6 @@ static int __init qaic_init(void)
+>  		goto free_pci;
+>  	}
+>  
+> -	ret = sahara_register();
+> -	if (ret) {
+> -		pr_debug("qaic: sahara_register failed %d\n", ret);
+> -		goto free_mhi;
+> -	}
+> -
+>  	ret = qaic_timesync_init();
+>  	if (ret)
+>  		pr_debug("qaic: qaic_timesync_init failed %d\n", ret);
+> @@ -816,7 +809,6 @@ static int __init qaic_init(void)
+>  
+>  free_bootlog:
+>  	qaic_bootlog_unregister();
+> -free_mhi:
+>  	mhi_driver_unregister(&qaic_mhi_driver);
+>  free_pci:
+>  	pci_unregister_driver(&qaic_pci_driver);
+> @@ -845,7 +837,6 @@ static void __exit qaic_exit(void)
+>  	qaic_ras_unregister();
+>  	qaic_bootlog_unregister();
+>  	qaic_timesync_deinit();
+> -	sahara_unregister();
+>  	mhi_driver_unregister(&qaic_mhi_driver);
+>  	pci_unregister_driver(&qaic_pci_driver);
+>  }
+> diff --git a/drivers/accel/qaic/sahara.h b/drivers/accel/qaic/sahara.h
+> deleted file mode 100644
+> index 08037281c80e28f6c85b924c45ce2c2f9dc60c39..0000000000000000000000000000000000000000
+> --- a/drivers/accel/qaic/sahara.h
+> +++ /dev/null
+> @@ -1,10 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0-only */
+> -
+> -/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. */
+> -
+> -#ifndef __SAHARA_H__
+> -#define __SAHARA_H__
+> -
+> -int sahara_register(void);
+> -void sahara_unregister(void);
+> -#endif /* __SAHARA_H__ */
+> diff --git a/drivers/bus/mhi/host/Makefile b/drivers/bus/mhi/host/Makefile
+> index 2a16008aeb38127494782bbff4e1656428d2b776..2e8949f1a2fe6f3f3b2e1dc541f97d2c393d6a0f 100644
+> --- a/drivers/bus/mhi/host/Makefile
+> +++ b/drivers/bus/mhi/host/Makefile
+> @@ -4,4 +4,4 @@ mhi-$(CONFIG_MHI_BUS_DEBUG) += debugfs.o
+>  
+>  obj-$(CONFIG_MHI_BUS_PCI_GENERIC) += mhi_pci_generic.o
+>  mhi_pci_generic-y += pci_generic.o
+> -obj-y += clients/
+> +obj-$(CONFIG_MHI_BUS) += clients/
+> diff --git a/drivers/bus/mhi/host/clients/Kconfig b/drivers/bus/mhi/host/clients/Kconfig
+> index 8bb5715e61d0d6e64a51012b4e1594ba46e5bfc1..1932344157a5b1dc25c8d63f6d4ac38f896d08a7 100644
+> --- a/drivers/bus/mhi/host/clients/Kconfig
+> +++ b/drivers/bus/mhi/host/clients/Kconfig
+> @@ -15,3 +15,9 @@ config MHI_BUS_LOOPBACK
+>  
+>  	  To compile this driver as a module, choose M here. The module
+>  	  will be called mhi_loopback.
 > +
-> +int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
-> +{
-> +	DECLARE_AIE_MSG(aie4_msg_power_override, AIE4_MSG_OP_POWER_OVERRIDE);
-> +	int ret;
+> +menu "MHI host client drivers"
 > +
-> +	req.power_mode = power_mode;
+> +source "drivers/bus/mhi/host/clients/sahara/Kconfig"
 > +
-> +	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-> +	if (ret)
-> +		XDNA_WARN(ndev->aie.xdna,
+> +endmenu
+> diff --git a/drivers/bus/mhi/host/clients/Makefile b/drivers/bus/mhi/host/clients/Makefile
+> index 3811b6928f42b38f94b1167941cf3b0fe512d32b..67e70de280369870164b4808f39d9b3340f2589b 100644
+> --- a/drivers/bus/mhi/host/clients/Makefile
+> +++ b/drivers/bus/mhi/host/clients/Makefile
+> @@ -1,2 +1,3 @@
+>  obj-$(CONFIG_MHI_BUS_LOOPBACK) += mhi_loopback.o
+>  mhi_loopback-y += loopback.o
+> +obj-$(CONFIG_MHI_SAHARA) += sahara/
+> diff --git a/drivers/bus/mhi/host/clients/sahara/Kconfig b/drivers/bus/mhi/host/clients/sahara/Kconfig
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..f1fc7013a2dee0be645c50f32305659e591de7e7
+> --- /dev/null
+> +++ b/drivers/bus/mhi/host/clients/sahara/Kconfig
+> @@ -0,0 +1,15 @@
+> +config MHI_SAHARA
+> +	tristate "Sahara protocol driver"
+> +	depends on MHI_BUS
+> +	help
+> +	  Enable support for the Sahara protocol transported over the MHI bus.
+> +
+> +	  The Sahara protocol is used to transfer firmware images, retrieve
+> +	  memory dumps and exchange command mode DDR calibration data between
+> +	  host and device. This driver is not tied to a specific SoC and may be
+> +	  used by multiple MHI based devices.
+> +
+> +	  If unsure, say N.
+> +
+> +	  To compile this driver as a module, choose M here: the module will be
+> +	  called mhi_sahara.
+> diff --git a/drivers/bus/mhi/host/clients/sahara/Makefile b/drivers/bus/mhi/host/clients/sahara/Makefile
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..fc02a25935011cbd7138ea8f24b88cf5b032a4ce
+> --- /dev/null
+> +++ b/drivers/bus/mhi/host/clients/sahara/Makefile
+> @@ -0,0 +1,2 @@
+> +obj-$(CONFIG_MHI_SAHARA) += mhi_sahara.o
+> +mhi_sahara-y := sahara.o
+> diff --git a/drivers/accel/qaic/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
+> similarity index 99%
+> rename from drivers/accel/qaic/sahara.c
+> rename to drivers/bus/mhi/host/clients/sahara/sahara.c
+> index c7c0b3eb4b65fb7776a6c724cb3105046cf6f7eb..dc64beae06ada6915a506ed8f4ae4d71c03158bb 100644
+> --- a/drivers/accel/qaic/sahara.c
+> +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
+> @@ -1,19 +1,20 @@
+>  // SPDX-License-Identifier: GPL-2.0-only
+> -
+> -/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. */
+> +/*
+> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> + *
+> + */
 
-Should be XDNA_ERR().
+Never delete the copyright lines please.  Is there any previous discussion on why we are doing it? 
 
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+---Trilok Soni
 
-> +			  "Failed to set power mode %u, ret %d", (u32)power_mode, ret);
-> +	else
-> +		XDNA_DBG(ndev->aie.xdna, "Power mode set to %u", (u32)power_mode);
-> +
-> +	return ret;
-> +}
-> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-> index 81842fa1d6ce..4c06792df1bd 100644
-> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
-> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-> @@ -23,6 +23,7 @@ enum aie4_msg_opcode {
->   	AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
->   	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
->   	AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
-> +	AIE4_MSG_OP_POWER_OVERRIDE                   = 0x3000B,
->   
->   	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
->   };
-> @@ -187,6 +188,14 @@ struct aie4_msg_query_cert_firmware_version_resp {
->   	__u16 host_queue_minor;
->   } __packed;
->   
-> +struct aie4_msg_power_override_req {
-> +	__u32 power_mode;
-> +} __packed;
-> +
-> +struct aie4_msg_power_override_resp {
-> +	enum aie4_msg_status status;
-> +} __packed;
-> +
->   #define AIE4_WORK_BUFFER_MIN_SIZE      SZ_4M
->   
->   struct aie4_msg_attach_work_buffer_req {
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index 1cbd1665a28f..6eacdc026ec7 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -4,6 +4,7 @@
->    */
->   
->   #include <drm/amdxdna_accel.h>
-> +#include <drm/drm_drv.h>
->   #include <drm/drm_managed.h>
->   #include <drm/drm_print.h>
->   #include <linux/firmware.h>
-> @@ -16,6 +17,7 @@
->   #include "amdxdna_mailbox.h"
->   #include "amdxdna_mailbox_helper.h"
->   #include "amdxdna_pci_drv.h"
-> +#include "amdxdna_pm.h"
->   
->   #define NO_IOHUB		0
->   #define PSP_NOTIFY_INTR		0xD007BE11
-> @@ -300,6 +302,15 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
->   	return 0;
->   }
->   
-> +/* Restore cached power mode override across hardware start. */
-> +int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev)
-> +{
-> +	if (ndev->pw_mode == POWER_MODE_DEFAULT)
-> +		return 0;
-> +
-> +	return aie4_msg_set_power_mode(ndev, ndev->pw_mode);
-> +}
-> +
->   static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
->   {
->   	int ret;
-> @@ -316,6 +327,10 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
->   	if (ret)
->   		goto mbox_fini;
->   
-> +	ret = aie4_restore_power_mode(ndev);
-> +	if (ret)
-> +		goto mbox_fini;
-> +
->   	return 0;
->   
->   mbox_fini:
-> @@ -353,8 +368,14 @@ static int aie4_vf_hw_start(struct amdxdna_dev_hdl *ndev)
->   	if (ret)
->   		goto mailbox_fini;
->   
-> +	ret = aie4_restore_power_mode(ndev);
-> +	if (ret)
-> +		goto partition_fini;
-> +
->   	return 0;
->   
-> +partition_fini:
-> +	aie4_partition_fini(ndev);
->   mailbox_fini:
->   	aie4_mailbox_fini(ndev);
->   	return ret;
-> @@ -394,8 +415,14 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
->   	if (ret)
->   		goto mailbox_fini;
->   
-> +	ret = aie4_restore_power_mode(ndev);
-> +	if (ret)
-> +		goto partition_fini;
-> +
->   	return 0;
->   
-> +partition_fini:
-> +	aie4_partition_fini(ndev);
->   mailbox_fini:
->   	aie4_mailbox_fini(ndev);
->   stop_fw:
-> @@ -535,6 +562,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->   
->   	ndev->priv = xdna->dev_info->dev_priv;
->   	ndev->aie.xdna = xdna;
-> +	ndev->pw_mode = POWER_MODE_DEFAULT;
->   	xdna->dev_handle = ndev;
->   
->   	xa_init_flags(&ndev->cert_comp_xa, XA_FLAGS_ALLOC);
-> @@ -589,6 +617,24 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->   	return 0;
->   }
->   
-> +static int aie4_get_power_mode(struct amdxdna_client *client,
-> +			       struct amdxdna_drm_get_info *args)
-> +{
-> +	struct amdxdna_drm_get_power_mode mode = {};
-> +	struct amdxdna_dev *xdna = client->xdna;
-> +	struct amdxdna_dev_hdl *ndev;
-> +	u32 buf_sz;
-> +
-> +	ndev = xdna->dev_handle;
-> +	mode.power_mode = ndev->pw_mode;
-> +
-> +	buf_sz = min_t(u32, args->buffer_size, sizeof(mode));
-> +	if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, buf_sz))
-> +		return -EFAULT;
-> +
-> +	return 0;
-> +}
-> +
->   static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
->   {
->   	struct amdxdna_dev *xdna = client->xdna;
-> @@ -605,6 +651,9 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
->   	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
->   		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
->   		break;
-> +	case DRM_AMDXDNA_GET_POWER_MODE:
-> +		ret = aie4_get_power_mode(client, args);
-> +		break;
->   	default:
->   		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
->   		ret = -EOPNOTSUPP;
-> @@ -615,6 +664,71 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
->   	return ret;
->   }
->   
-> +static int aie4_set_power_mode(struct amdxdna_client *client,
-> +			       struct amdxdna_drm_set_state *args)
-> +{
-> +	struct amdxdna_drm_set_power_mode power_state = { 0 };
-> +	struct amdxdna_dev *xdna = client->xdna;
-> +	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-> +	u8 power_mode;
-> +	int ret;
-> +
-> +	if (args->buffer_size < sizeof(power_state))
-> +		return -EINVAL;
-> +
-> +	if (copy_from_user(&power_state, u64_to_user_ptr(args->buffer),
-> +			   sizeof(power_state))) {
-> +		XDNA_ERR(xdna, "Failed to copy power mode request into kernel");
-> +		return -EFAULT;
-> +	}
-> +
-> +	if (XDNA_MBZ_DBG(xdna, power_state.pad, sizeof(power_state.pad)))
-> +		return -EINVAL;
-> +
-> +	power_mode = power_state.power_mode;
-> +	if (power_mode > POWER_MODE_TURBO) {
-> +		XDNA_ERR(xdna, "Invalid power mode %d", power_mode);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = aie4_msg_set_power_mode(xdna->dev_handle, power_mode);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ndev->pw_mode = power_mode;
-> +	return 0;
-> +}
-> +
-> +static int aie4_set_state(struct amdxdna_client *client,
-> +			  struct amdxdna_drm_set_state *args)
-> +{
-> +	struct amdxdna_dev *xdna = client->xdna;
-> +	int ret, idx;
-> +
-> +	if (!drm_dev_enter(&xdna->ddev, &idx))
-> +		return -ENODEV;
-> +
-> +	ret = amdxdna_pm_resume_get_locked(xdna);
-> +	if (ret)
-> +		goto dev_exit;
-> +
-> +	switch (args->param) {
-> +	case DRM_AMDXDNA_SET_POWER_MODE:
-> +		ret = aie4_set_power_mode(client, args);
-> +		break;
-> +	default:
-> +		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
-> +		ret = -EOPNOTSUPP;
-> +		break;
-> +	}
-> +
-> +	amdxdna_pm_suspend_put(xdna);
-> +
-> +dev_exit:
-> +	drm_dev_exit(idx);
-> +	return ret;
-> +}
-> +
->   static int aie4_alloc_work_buffer(struct amdxdna_dev_hdl *ndev)
->   {
->   	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> @@ -737,6 +851,7 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
->   	.hwctx_fini		= aie4_hwctx_fini,
->   	.cmd_wait		= aie4_cmd_wait,
->   	.get_aie_info		= aie4_get_info,
-> +	.set_aie_state		= aie4_set_state,
->   };
->   
->   const struct amdxdna_dev_ops aie4_classic_ops = {
-> @@ -746,4 +861,5 @@ const struct amdxdna_dev_ops aie4_classic_ops = {
->   	.hwctx_fini		= aie4_hwctx_fini,
->   	.cmd_wait		= aie4_cmd_wait,
->   	.get_aie_info		= aie4_get_info,
-> +	.set_aie_state		= aie4_set_state,
->   };
-> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index 5ae5e8427a3b..fd2c50dc8080 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.h
-> +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -58,6 +58,8 @@ struct amdxdna_dev_hdl {
->   	dma_addr_t			work_buf_addr;
->   	u32				work_buf_size;
->   
-> +	u8				pw_mode;
-> +
->   	struct amdxdna_drm_query_firmware_version cert_version;
->   };
->   
-> @@ -77,6 +79,7 @@ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
->   				    struct amdxdna_drm_query_firmware_version *fw_version);
->   int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
->   				     struct amdxdna_drm_query_firmware_version *cert_version);
-> +int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
->   u32 aie4_msg_pasid(struct amdxdna_client *client);
->   
->   /* aie4_ctx.c */
-> @@ -84,6 +87,9 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
->   void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
->   int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
->   
-> +/* aie4_pci.c */
-> +int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
-> +
->   /* aie4_sriov.c */
->   #if IS_ENABLED(CONFIG_PCI_IOV)
->   int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
