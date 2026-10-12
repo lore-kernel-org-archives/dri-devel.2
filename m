@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 329D6CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:40:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1ABDCA9ED6
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:43:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7792110E479;
-	Mon, 12 Oct 2026 04:40:07 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81B6F10E479;
- Mon, 12 Oct 2026 04:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 071A210E58B;
+	Mon, 12 Oct 2026 04:43:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F192E10E4B0;
+ Mon, 12 Oct 2026 04:42:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 34BB540D90;
- Mon, 12 Oct 2026 04:40:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF3B1F0089B;
- Mon, 12 Oct 2026 04:40:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0B08F60A9D;
+ Mon, 12 Oct 2026 04:42:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4841F0089B;
+ Mon, 12 Oct 2026 04:42:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791780001;
- bh=xCOw4GIKX9S+oZEdVaXtpLPePEHIQhVHXa9ztMHrO6Y=;
+ s=k20260515; t=1791780172;
+ bh=h9irwgE+hAAgjuhb34+Vg/6K0qGl0+P28LgQSGoGO18=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Rovg/7l2in+Z4YWEwizuz+km40KRHkyLebmNtFWAN9v6lq1c6q0OtOLSva7UbnKNH
- 2JNjADgae2NpvTDLRJcH4QfT5u3GshI1uZf+C3UjzB1UqCShQc606Csy/5N4EkNTEU
- 5jmAi8468SPzxqX6wGttT6T9M5H6WvpNZbPEEDDuTcB0WNG+Nw5MLVTO6lVuKPAiVf
- 2THQebo5iFFRJLKxHlGiLwURp0vYQc+z/gUVX14h/W3A+30qUwuV9RT+WGHsrFGS40
- 3VgaLKdNDSJvl402KWO972I/X0E5lRHFAUC18qhQZdWwqnKwin/waOGJOlQ/4DLhOq
- tc9ZBKf6EnNlA==
-Message-ID: <sashiko-outbox-167618@kernel.org>
+ b=RRuNMFSqD1j3JnA891rin3zk5nfDo04RQtQDVsaHv77pKeGo6nyE/pSIk3mfSsdkE
+ laojrDWbRGjBfTkWlNDqvmLfDql1MIozfKSvIaFfuTJT50ppdGJt5Cia9I8DCoo3BY
+ snvK0IcxnuSso7hPFwi4LLR9FqoV2mifwA7a9taf9GcZcl4cWhVZ0oQiw+IiDGvkhg
+ 6HWb69SWWbnJvAARZPdhYk3WSuCvfvwsVsNUPyxc05hSBn73JCSG8qpaC6HEUNdwJ8
+ 3OtqXeHQUcY9Ud5Py9DMD+V80ris34brF7KMCNpi8dBck/aAJQbp4W8aI8LG7gVHtp
+ xWZB5a1lUmZlQ==
+Message-ID: <sashiko-outbox-167621@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 20/56] drm/i915/ltphy: Add safegaurd when calculation
- HDMI FRL state
+Subject: Re: [PATCH v2 32/56] drm/i915/hdmi_frl_dfm: Add helpers to
+ read/write FRL DFM registers
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-21-ankit.k.nautiyal@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261012035806.3361439-33-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-21-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-33-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:40:00 +0000
+Date: Mon, 12 Oct 2026 04:42:52 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,68 +58,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/i915/ltphy: Valid TMDS modes with FRL-like clocks get miside=
-ntified as FRL
+- [Low] i915/display: spelling mistake in TB_MIN_THESHOLD macro usage
 --
 
-commit 24fcf65234b436b2c1d8a2379615e06c2dcf0888
-Author: Suraj Kandpal <suraj.kandpal@intel.com>
+commit 468a8e227948c1192c42e05f62742d8315145e2f
+Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-drm/i915/ltphy: Add safegaurd when calculation HDMI FRL state
+drm/i915/hdmi_frl_dfm: Add helpers to read/write FRL DFM registers
 
-This commit adds a safeguard in intel_lt_phy_pll_calc_state() to skip the
-HDMI TMDS dynamic PLL calculation when an HDMI FRL mode is in use. It
-determines this by checking if the port clock matches an FRL rate.
+This commit introduces helpers to read and write FRL Data Flow Metering
+registers.
 
-> drm/i915/ltphy: Add safegaurd when calculation HDMI FRL state
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c b/drivers/=
+gpu/drm/i915/display/intel_hdmi_frl_dfm.c
+> index fe1df69a10968..8062baed63db8 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c
+[ ... ]
+> @@ -719,3 +724,40 @@ bool intel_hdmi_frl_dfm_dsc_requirement_met(struct i=
+ntel_hdmi_frl_dfm *frl_dfm)
+[ ... ]
+> +void intel_hdmi_frl_dfm_write(const struct intel_crtc_state *crtc_state)
+> +{
+[ ... ]
+> +	reg =3D TRANS_HDMI_FRL_DFMTHRSH(display, cpu_trans);
+> +	val =3D TB_MIN_THESHOLD(crtc_state->frl.tb_threshold_min);
+> +	intel_de_rmw(display, reg, TB_MIN_THESHOLD_MASK, val);
 
-This isn't a bug, but there is a typo (safegaurd) in the subject line.
+[Severity: Low]
+This isn't a bug, but there appears to be a typo in the macro names
+TB_MIN_THESHOLD and TB_MIN_THESHOLD_MASK (missing the 'R' in THRESHOLD).
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/dr=
-m/i915/display/intel_lt_phy.c
-> index 61bad87eefec2..0e2ebd550bc5e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
-> +++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-> @@ -2042,7 +2042,8 @@ intel_lt_phy_pll_calc_state(struct intel_crtc_state=
- *crtc_state,
->  		}
->  	}
-> =20
-> -	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
-> +	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI) &&
-> +	    !intel_hdmi_is_frl(crtc_state->port_clock)) {
+Would it be worth updating the spelling to maintain consistency with
+adjacent macros and the struct field tb_threshold_min?
 
-[Severity: Medium]
-Does this logic mistakenly prevent the TMDS dynamic calculation for 300MHz
-and 600MHz TMDS modes?
+> +}
+> +
+> +void intel_hdmi_frl_dfm_read(struct intel_crtc_state *crtc_state)
+> +{
+[ ... ]
+> +	val =3D intel_de_read(display, TRANS_HDMI_FRL_DFMTHRSH(display, cpu_tra=
+ns));
+> +	crtc_state->frl.tb_threshold_min =3D
+> +		REG_FIELD_GET(TB_MIN_THESHOLD_MASK, val);
 
-Looking at intel_hdmi_is_frl(), it only checks if the numeric clock rate
-matches one of the FRL rates:
+[Severity: Low]
+This isn't a bug, but the same typo (THESHOLD instead of THRESHOLD) is also
+present here.
 
-drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_is_frl() {
-	static const u32 rates[] =3D { 300000, 600000, 800000, 1000000, 1200000 };
-	...
-	for (i =3D 0; i < ARRAY_SIZE(rates); i++)
-		if (intel_dpll_clock_matches(clock, rates[i]))
-			return true;
-
-	return false;
-}
-
-Since 300MHz and 600MHz can also be valid TMDS pixel clocks, a TMDS mode
-with exactly these clock rates would cause intel_hdmi_is_frl() to return
-true.
-
-This would block the fallback intel_lt_phy_calculate_hdmi_state()
-calculation for those valid TMDS modes.
-
-Should this check verify the protocol state instead, for example by checking
-if crtc_state->frl.enable is true?
-
->  		hw_state->ltpll.lane_count =3D crtc_state->lane_count;
->  		return intel_lt_phy_calculate_hdmi_state(&hw_state->ltpll,
->  							 crtc_state->port_clock);
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D20
+439-1-ankit.k.nautiyal@intel.com?part=3D32
