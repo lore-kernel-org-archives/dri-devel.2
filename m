@@ -4,148 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2477FCA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 06:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FEB7CA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 06:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E36F10ED54;
-	Mon, 12 Oct 2026 06:01:10 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010058.outbound.protection.outlook.com [52.101.85.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4B710ED54
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:01:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YdndVQv7Pp/pjB5WZW1ATFwHqVZf7bIhmQY5jsohIhPKQK7sZtLw8qPP40XcUUs6lk1v3PEIQ2bmmmsNavAlf/5BlhXEdQ9l2ZUm+jA900TSAkAHW+aCzoaeQta+OOKqdCKNuhykMSzTkqk+k7jklOZVBKVYgYQjbaAtCA7pFausMrbujP9/PcNo4QMY/DKaz7FW+TxGGAgJmqJyjcEKdmdkX3G/1HZTWG08SKnhDVM4ziQGTYo8GKAyj3awAVe4zffhDquOkOWT60KfyvTTAjq4jKxA5xVdQb5/XQq66fAmXAVylf4BYN2POrL2IR+z4zNslAiX8JKow2ji1He7rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Smck2Bpq2BqceuhanfQ8/7aHT50jGp8guUJfZ5IM5M=;
- b=LDvY6hp+Ap5qA+w75mmWJGWvnibPSCwJtgFM3FbeIIPWnicycJ+H8vDuPvxLVnbqsqtkePLJ/7TED/Bdyzo0XDOY+Ao5siob7w6+YVWjqLBVHNHNHC89o/71QRDPKadlgLHP235IntuKPI2Mu71pWt9UdGUAeLkk4vtPNQtZFw9xp4/0scjf27iuBOU3Uo0oawz0iU3gz/ql4IPFY3HgL9wa2MForacGndCb1q/y12LSgOdrRAoPTtWNrsYp8emOlEko5wviW2r1TCpKhWArIOaIytL/1ZkPhbNznHufevgNX1EDPA58HEr2O+cQiVoXGyyV/U+hTribXz/I3VkPJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Smck2Bpq2BqceuhanfQ8/7aHT50jGp8guUJfZ5IM5M=;
- b=REvgliFe6xqeGmJaHQpBPQkuDcwnC+71UR0LQltJw4zmcdi+ul5Edno40nCS2b8kCnBCy2MdkkhnLagyiHXQoz4nJNO+GH9rrb5HIxUjIgeXsOoxFvc3Qdv8Y4HYw1atKJLnaq8aU2EfwdemOoFyUWu4kNwujEiK3uPZ1l0PgJo=
-Received: from BN0PR04CA0020.namprd04.prod.outlook.com (2603:10b6:408:ee::25)
- by DM4PR12MB5915.namprd12.prod.outlook.com (2603:10b6:8:68::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Mon, 12 Oct
- 2026 06:00:50 +0000
-Received: from BL2PEPF000352CE.namprd02.prod.outlook.com
- (2603:10b6:408:ee:cafe::4d) by BN0PR04CA0020.outlook.office365.com
- (2603:10b6:408:ee::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.15 via Frontend Transport; Mon,
- 12 Oct 2026 06:00:50 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL2PEPF000352CE.mail.protection.outlook.com (10.167.249.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 06:00:50 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 01:00:44 -0500
-Received: from [10.136.45.168] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 01:00:21 -0500
-Message-ID: <c40415f4-7bc8-4479-a07c-22b9f67a7613@amd.com>
-Date: Mon, 12 Oct 2026 11:30:15 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8671E10EEF4;
+	Mon, 12 Oct 2026 06:18:21 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D944310EEF4
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:18:10 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69C55gZb750872
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:18:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ U5WUPplqDfO932T8HETSyOqNnzvpg7DeYZKhN0l8jpc=; b=Cn8hUM4vWCtDpe2E
+ ymdUQ8XfxpeO1hrFARUAN8PuGHifvXVHqDUGjLfgl7AzedtfJPo6rizshpP+Pqmr
+ asR3YFvtMkiQlD4YA1T7zlJQttiWj1vwat/O091WKQXP4lNv5dB4n1YLKEUYMcaZ
+ I6IhVWYCH0tVa61Lo2tpiJuFRNsF09P4lqrV95XgCW4b/z5TifiEWkHW+VSLjOJf
+ 25ngpFOT8J1xZhLRwCKruTsEbWEGu44B5WUq2V8+5TOycBrGuO7ZoSNIMuEiau/N
+ FDCjqDe8R7lPexu5JtIFphsMikpZVXy2xSqKMgMPysuw9j1QsjD5DHRbQU/kcko7
+ ENxPsA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7e4ecvpf-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:18:05 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-3ab868fe362so1436731a91.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 23:18:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791785885; x=1792390685;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=U5WUPplqDfO932T8HETSyOqNnzvpg7DeYZKhN0l8jpc=;
+ b=d9aEbEkNHUPxTAzAvRd9L0t94btNGykkGSwQeF+NUBYLRaQO69TUNSz1zGA6IlwJn5
+ mIQpWlFibURUsKWFjrVj6UXRvRVGc3sRxLPe2X5mpGNq76+o0ZBDfeijl1IADclbsUTT
+ WN7NgyRlZVy76I7pUR4BJMhyjNhghAO4u4/t47yyFgbcO8x64VXwYw9LOovbSp96WA/g
+ 82+cUmdJyQ/uIjPrvhB3FiIqJgAmCgriS3T9IayDMAwgxgAHjwrjOoRle9H1VhLyZitf
+ 4xU6DglgP1cXf0Xd2A1zwJyJEclbs8sLf8DLDa2wZ0Ijf4YWk2HnIxqOhiYvx1Eo7d8b
+ v3Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791785885; x=1792390685;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=U5WUPplqDfO932T8HETSyOqNnzvpg7DeYZKhN0l8jpc=;
+ b=NTxrarFYUMMyU4zDwWIi61MPGdr8XR71FOb5NoJoW21jOCi8r9ArFG+2pNyNq4M/jA
+ 9h9KGaSCLWH0mTYkGp47v1UxM5vSkG7fYEse5s+0KbG2nkdGgy2TetWQ/dw8NZBL/3dT
+ Qe8fwYyUrDAI+Y3odf0drXApWS7qZb7qaChRyRXmnzkUF1zb8Vy6hL0HMp9/gGBOuFvH
+ t4R9kAkS0P2ZwnA+oZdjZUN0I819jckQIRvUazFt64hdXHwWGJV+XhQBcUC96SrcAbIX
+ 7bvrhlClVvqBCwA4mZDkJnn61Ao9xmE0bRoxwWqsMNb7ZrVaJrEkYWeCSvpzEcWGAEyu
+ v9oQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwwxWCfVpoakg/KK11QvQ+fBEUxVX+Pbpf3MQ/w9zrKbmYiPKvF0qrhbaNqMxhqXwz4mQUB8fbXNl0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK7iSS7WVHMwVrP3Scg3mGVz49dTasK54aDir45f0eyxVaHvx8S
+ OsdVAq01duklIsGd94P2e2/DHHNOk6eeBxgitqrIPgo5nB6uCBy3CIyYPd9ZTxPMLmYHd+J1MDg
+ igo8s4+F6zafG1nfPKHG4VNX2bcv8rNJ0D2Ymc04UeADXVbnYvOZ/6btSt9dXLZrIigF65yY=
+X-Gm-Gg: AYBFou1ZnvTRERzLofYRwrbMlQeWOB5ehIlX3wJzeOZ7Fyxj9IonFPbwOHXQTPKMkpn
+ YJ89gjIy/SvFSYnyFyNGmuwTS0PuQPeRER0j7lQ5qzmZyUZItWy1JsYbuxkNyNL5pWLNSfkWFNs
+ k0wCSNQzPSHMi+qtBKJgWl7w92X4r68PcdBthMJgzVS3LmBHfyhXUAzeTOTkKA3Epvknnp5/gK8
+ EuL5RrMyujxmTKDYhIRnRj6RkpT9Th/PIj1doWNbcLWnhRJeVlQE0amG3ODIejucV8OHagW+79X
+ CRtc9yx3O5TYh+GnqgQT9ebGGf/Gsepjdf4CdwU5B9NooJVJQuWaR+0gEhfult57maz74Z8yRCT
+ 5Uf2XAbIlPzoMgYEcf1RDv/HWL5Kp2GsP2w==
+X-Received: by 2002:a17:90b:164b:b0:3aa:fc22:8ab4 with SMTP id
+ 98e67ed59e1d1-3ab3a97eb66mr6399550a91.29.1791785885202; 
+ Sun, 11 Oct 2026 23:18:05 -0700 (PDT)
+X-Received: by 2002:a17:90b:164b:b0:3aa:fc22:8ab4 with SMTP id
+ 98e67ed59e1d1-3ab3a97eb66mr6399515a91.29.1791785884714; 
+ Sun, 11 Oct 2026 23:18:04 -0700 (PDT)
+Received: from [10.204.78.217] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ab38f4863esm17543736a91.11.2026.10.11.23.17.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 11 Oct 2026 23:18:04 -0700 (PDT)
+Message-ID: <926167d5-e912-42b5-a040-be2bf220adbc@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 11:47:54 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/13] treewide: convert rdmsrq() from a macro to an
- inline function
-To: Juergen Gross <jgross@suse.com>, <linux-kernel@vger.kernel.org>,
- <x86@kernel.org>, <linux-perf-users@vger.kernel.org>,
- <linux-hyperv@vger.kernel.org>, <kvm@vger.kernel.org>,
- <virtualization@lists.linux.dev>, <linux-edac@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-coco@lists.linux.dev>, <linux-acpi@vger.kernel.org>,
- <linux-ide@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-crypto@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
- <linux-hwmon@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
- <platform-driver-x86@vger.kernel.org>, <linux-fbdev@vger.kernel.org>
-CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
- <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, "Dexuan
- Cui" <decui@microsoft.com>, Long Li <longli@microsoft.com>, "Sean
- Christopherson" <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
- "Ajay Kaher" <ajay.kaher@broadcom.com>, Alexey Makhalov
- <alexey.makhalov@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Josh Poimboeuf
- <jpoimboe@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, "Pu
- Wen" <puwen@hygon.cn>, Tony Luck <tony.luck@intel.com>, Reinette Chatre
- <reinette.chatre@intel.com>, Dave Martin <Dave.Martin@arm.com>, James Morse
- <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, Tony W Wang-oc
- <TonyWWang-oc@zhaoxin.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, "Andy
- Lutomirski" <luto@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, "Kiryl
- Shutsemau" <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- "David Airlie" <airlied@redhat.com>, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Viresh Kumar
- <viresh.kumar@linaro.org>, "Huang Rui" <ray.huang@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, "Perry Yuan" <perry.yuan@amd.com>, Srinivas
- Pandruvada <srinivas.pandruvada@linux.intel.com>, Yazen Ghannam
- <yazen.ghannam@amd.com>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Guenter Roeck <linux@roeck-us.net>, Artem
- Bityutskiy <artem.bityutskiy@linux.intel.com>, Artem Bityutskiy
- <dedekind1@gmail.com>, Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Rajneesh
- Bhardwaj" <irenic.rajneesh@gmail.com>, Xi Pardee <xi.pardee@linux.intel.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Helge Deller <deller@gmx.de>,
- <xen-devel@lists.xenproject.org>, <linux-geode@lists.infradead.org>, "Michael
- Kelley" <mhklinux@outlook.com>, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-References: <20261008071839.2247074-1-jgross@suse.com>
- <20261008071839.2247074-13-jgross@suse.com>
+Subject: Re: [PATCH 4/5] arm64: dts: qcom: kaanapali-mtp: Enable USB headset
+ and Type-C accessory mode
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261005-kaanapali_dp-v1-0-6faeac3a6d59@oss.qualcomm.com>
+ <20261005-kaanapali_dp-v1-4-6faeac3a6d59@oss.qualcomm.com>
+ <ytqzmngqzb2ear5ovqexrzcw63t7plac7hvsbh3ce32krt4mfd@e3yyzs6y5anq>
 Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261008071839.2247074-13-jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+In-Reply-To: <ytqzmngqzb2ear5ovqexrzcw63t7plac7hvsbh3ce32krt4mfd@e3yyzs6y5anq>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL2PEPF000352CE:EE_|DM4PR12MB5915:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7cfeebe3-ee41-47b1-9a45-08df28262b02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|32650700020|82310400026|23010399003|1800799024|376014|36860700016|7416014|18002099003|10067099003|22082099003|921020|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: iF/4vsFZ0oCxke5nY+IzxcsajSzz5fPHlKfX0Y7e1Yx6IxBZC2sr3ME/4gk3EsXUGoPLFu//3fq/5B93Fmnz6J+cejonYpLtAT5O3MoE9q/2qtUyA6JQVe9/KyUI0Zq2D53G0gSEYWNHVkklvOhGU3AX60Gl1/Dp2o8a7kr9auN2+ROJk55lgWuFVdOkGsnI/RjqR5yBE4YcIzdhUzo75yL+R1wluPkHvKzcBNUfJfs6UStcg3RvocQJvos3t8Ie55dbTBkmiXWO4GzaPMQMnWvyrNt99CU+kzYB2REQ6ZgmORiF6Vk/sQETKzhd/wI0RnhOuijITF21qZ+26lP8Z1rMGjpDfGCIA9/mHEWxy19fLdKyoLhnKunjb3sOk/NjA6nyZye1VKAQiR8L+P5Ix+8q4LpC4K9NO5pUbHiCkPwvUKcnq+gpAnjBtETeBz9J8IgxTvjLZVYS/5A/5aHcDzbNe/52x+IvEtxiu4QwbGgfgQNEwe5+0Ldvt/OFZn81u5mxvzdiUgvrqnm5Z0EPSmw6fhhzpuABtp4EULwt7/UHejEZxA8hCVUgDY1Q+MtNR7qd7b7NKZfskF+X+GyK6f1MXX9RGTjpff8PVrN7Vh2ybgNyjgBkyttYSxy15Sbssdy9hqKgVgE1S47frdT5p4BSbk28gX3HPHxEKRKgrLPQYvWGajX7RRYx+4XJkjMv2YlOgsIGCq/STIrTUogxtK+o1EhIKanpaAYU/pnTG0R/okTYWsplHnynkYPwx2IJ
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(32650700020)(82310400026)(23010399003)(1800799024)(376014)(36860700016)(7416014)(18002099003)(10067099003)(22082099003)(921020)(4143699003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 7oS2RettfJciXjAoPrqIpsgslkhkkpGAiW01FyzZHJNa6VOeV1Fs9l0RKNylshp8F43mwG7dYZK4yEnC3v2OZJfklqhnVYV8xmuueMD12u9jjbrj9fZR1VkqsUWmm6umnN6nxJeXy+PoYlQEQJEoloPH4EFw7pN+5lvyUMKMLbcWDF1wFCxmgit2RPf6HuaBXte6l7/4hBbWSHicYtdXGpY5AbGKJBmFA25RMv92aM3cXFiCCKCvG1U1CnGToXMhntV12UFo+3Pw59MKrc8GTvPBosZ0etwE2n1Wp4DIHjySvFMuIGuPBtltL9UDWxOmFJngwwXyApuTDlKSDb3h4ptwXkO8ss96jh/qHKPb0lo2Kg4bHCwK5V1iWIh7xJJ4YSFLPtrgDz0pQVTJQQpgka82T+jZZUitzlQX5OGrgr2p+XXZY9v881FQ+I0KBjNe
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 06:00:50.4752 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cfeebe3-ee41-47b1-9a45-08df28262b02
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL2PEPF000352CE.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5915
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyNCBTYWx0ZWRfXxsq3wGFtee2u
+ D2lQ9spG8rV2E/HzWMGCeKyTrsK16HswsztCikzh2g9oI7VnTaAzq68C3QNNsnmFgfOj0S9i8kt
+ i8GWtZJ+dXXQqCNSpUgkTkhGQjiCD0tnMidlYA4VdsWmB6u4hVQes1JCR7DvxCBDx8g8ADXJLkP
+ TvinoUWKjS2Y24/kkB4DzEsekmCE5Bmq+Bidr96N4a6dTIOt9fySwKA89sq8vPheMxI1ILtWJe6
+ pL7bbHqJTghv9iaCfRcSbm7CVoNO+JbD1atx+3LwdF0TKYlHJswsqC7DrwHqb4DaEsbUoWIuk+Y
+ IeCxymbR775NYFX9hddqEvVIC26wl+K/Vu976ccgAozWD9DhQqUDrK8JN0SFjRcg2stS5lhyEYe
+ pJ+STzCm/OVPhO1vvpJ3rQDMXx7Qaw==
+X-Proofpoint-ORIG-GUID: pSmxvg5KEuIIk-q7z48FfidagU4aHK5u
+X-Proofpoint-GUID: pSmxvg5KEuIIk-q7z48FfidagU4aHK5u
+X-Authority-Analysis: v=2.4 cv=W5utxhWk c=1 sm=1 tr=0 ts=6acc7b9d cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=84AGO2jvVljra0sjFOsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyNCBTYWx0ZWRfX7gNcOrE+f0fK
+ 4xiXxzJ8Ma6bkiy0ZefEfEzoRq8CnqYDHlUhyI0Vn6MIMhVIXW4ZGVUa2RNNd5FK5LY3xN78m/C
+ AEuJIZIHTVFx3FPYihPnj1SIZWl+UB0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 phishscore=0 spamscore=0 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2610080000 definitions=main-2610120024
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,44 +158,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Juergen,
 
-On 10/8/2026 12:48 PM, Juergen Gross wrote:
-> Today rdmsrq() is a macro using its second parameter as the target for
-> storing the read MSR value.
-> 
-> Convert rdmsrq() to an inline function returning the MSR value.
-> 
-> The users have been converted using the following semantic patch:
-> 
->   // Options: --include-headers
-> 
->   virtual patch
->   virtual report
-> 
->   @@
->   expression msr, val;
->   @@
->   (
->   - rdmsrq(msr,val)
->   + val = rdmsrq(msr)
->   )
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Acked-by: Damien Le Moal <dlemoal@kernel.org>      # ATA
-> Reviewed-by: Michael Kelley <mhklinux@outlook.com> # Hyper-V
-> Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org> # ACPI, cpufreq, powercap, thermal
-> Acked-by: Sean Christopherson <seanjc@google.com>
-> Acked-by: Reinette Chatre <reinette.chatre@intel.com> # resctrl
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com> # cpufreq
-> Acked-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>		# pdx86
+On 09-10-2026 02:04 pm, Dmitry Baryshkov wrote:
+> On Mon, Oct 05, 2026 at 12:54:29PM +0530, Balaji Kalkonda wrote:
+>> MTP does not have audio jack connected and relies on USB mux (WCD9395).
+>> Add necessary nodes for proper audio headset support along with USB
+>> Type-C accessory mode and orientation.
+>>
+>> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 51 ++++++++++++++++++++++++++++++
+>>  1 file changed, 51 insertions(+)
+>>
+>> @@ -916,6 +926,42 @@ &gpu_zap_shader {
+>>  	firmware-name = "qcom/kaanapali/gen80200_zap.mbn";
+>>  };
+>>  
+>> +&i2c3 {
+> No clock-frequency?
+>
+>> +	status = "okay";
+>> +
+>> +	wcd_usbss: typec-mux@e {
 
-Feel free to include:
+Hi Dmitry,
 
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com> # amd-pstate
-Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+The default I2C bus frequency for i2c3 is 100 kHz as configured by the controller driver. That is sufficient for the WCD9395 USB Type‑C mux use case, so an explicit clock-frequency property is not needed here.
 
--- 
-Thanks and Regards,
-Prateek
+Thanks and regards,
+
+Balaji
 
