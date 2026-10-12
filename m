@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E15DCA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C89EBCA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 985CA10EC25;
-	Mon, 12 Oct 2026 04:16:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE57910EC77;
+	Mon, 12 Oct 2026 04:16:37 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF25F10EC7E;
- Mon, 12 Oct 2026 04:16:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72E5B10EC71;
+ Mon, 12 Oct 2026 04:16:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778583; x=1823314583;
+ t=1791778581; x=1823314581;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WytIWaZAFrKaJis4bJW/SGKHscaE+ZLpRTAtJ1t+q5c=;
- b=EQD9u9GGZJaZvgljXX6fuktoZMu9iHJKx8zyildIoV/ee6i+IqGTFgN8
- AunOREFxkEj/CVB3UCmhG/t86LSF25SNjD3vYDQbmtnk3t0hQhCvhS8lz
- XJ1/cjcBP2eNMTWrFUShFJxi5Oa03u/ycV+Dy0JX50Afc5HmbQ1VVXLRs
- ulLlSKK01Dr9wMpF6DAcR3oygw9XL/ablxirSfG6VlFKD84pctYm5/CQp
- Ihl/JLQ0jbieRFNbkWYkr1kenY3d2666focapMumiRLwO/MTEA4kvxdJk
- rcnL+FHYnIcsLJ5GtE1GaFGlpyM8Kc8rHOq7cobcDmXslbJhfaLreWOm+ w==;
-X-CSE-ConnectionGUID: UD0UIt78SCCvJoTioeqAQQ==
-X-CSE-MsgGUID: Hs3JHH9KT3WVHuaQAKynIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="366218"
+ bh=IU/zhr2QsHJtJ5jSJxFiT1t4DfN2GLA5aDFFoQBFNn0=;
+ b=PBoD+5oaZrulSeSF+0cFbcjLuih7r3LBo6Mpo20cQiIUAsnkeZbOT2nF
+ cnhsotFx3X22e/drgZ+ymosU6DKuaIn1EQQp6/wtfMbXYoUvnX5lfQ41p
+ f2NojO01TrAF6uI8xRRfJ7fLo0DmmJMGS1QUy5SBsSPY22+9giUkfXDlw
+ WMMaEwrGTyOiO37s41Wdq138pqdbc1SU+8dFiRGsB79+HLPmtcG3SoQCo
+ dz11UWKFCTGw7btf0yGhqEIe5rpSqlx9p7nMcobMyboOPUi7oI8P9Dbqs
+ kBMe1khjj4WAaL4FryNs9uSuQTcAtvnNvjBYsCm2c4zIMWsRe1GMksd9J w==;
+X-CSE-ConnectionGUID: Q0vB/2qUSnWZmaVd1Wu9Mw==
+X-CSE-MsgGUID: toT40Mc8Rv2Zcv3og1CJQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="366217"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="366218"
+   d="scan'208";a="366217"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:16:23 -0700
-X-CSE-ConnectionGUID: IX/nCvIuR3iGH+HTh3bIdw==
-X-CSE-MsgGUID: YebCF+7+SK6qd3F0Fp0uQg==
+ 11 Oct 2026 21:16:21 -0700
+X-CSE-ConnectionGUID: Rv0suIQcRa61l5Rp+X6GRA==
+X-CSE-MsgGUID: M73uFgdTQkKaxynHNVM8UA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256852"
+   d="scan'208";a="1256837"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:16:21 -0700
+ 11 Oct 2026 21:16:19 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 56/56] drm/i915/hdmi: Allow Pipe joiner for HDMI
-Date: Mon, 12 Oct 2026 09:28:05 +0530
-Message-ID: <20261012035806.3361439-57-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 55/56] drm/i915/hdmi: Iterate through joiner candidates in
+ mode_valid path
+Date: Mon, 12 Oct 2026 09:28:04 +0530
+Message-ID: <20261012035806.3361439-56-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
@@ -69,66 +70,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Pipe joiner is used only with FRL mode, so allow it only when the platform
-and the sink both support FRL.
+Modes exceeding a single pipe's dotclock were rejected in mode_valid even
+when they could be driven by joining pipes. Iterate the joiner candidates
+and allow a mode if it fits with joining, relaxing the dotclock ceiling by
+the joined pipe count. Joiner configs needing DSC are pruned for
+now, since HDMI DSC comes later.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c   | 8 ++++++++
- drivers/gpu/drm/i915/display/intel_hdmi.h   | 1 +
- drivers/gpu/drm/i915/display/intel_joiner.c | 4 ++++
- 3 files changed, 13 insertions(+)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 51 ++++++++++++++++++-----
+ 1 file changed, 40 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 2c7c47a3c61d..2955ab5880fe 100644
+index 2ec7d2a5e7d4..2c7c47a3c61d 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -4378,3 +4378,11 @@ void intel_hdmi_frl_get_config(struct intel_crtc_state *crtc_state)
+@@ -2132,20 +2132,55 @@ intel_hdmi_mode_valid_format(struct intel_connector *connector,
+ 	struct intel_display *display = to_intel_display(connector);
+ 	struct intel_hdmi *hdmi = intel_attached_hdmi(connector);
+ 	enum drm_mode_status status;
++	int num_joined_pipes;
  
- 	intel_hdmi_frl_dfm_read(crtc_state);
+ 	status = intel_hdmi_sink_format_valid(connector, mode,
+ 					      has_hdmi_sink, sink_format);
+ 	if (status != MODE_OK)
+ 		return status;
+ 
+-	status = intel_pfit_mode_valid(display, mode, sink_format, 0);
+-	if (status != MODE_OK)
++	status = intel_hdmi_tmds_mode_clock_valid(&connector->base, clock,
++						  has_hdmi_sink, sink_format);
++
++	if (status == MODE_OK)
++		return status;
++
++	/*
++	 * Joiner is supported only with FRL mode.
++	 * If a mode is not supported with TMDS and FRL is not supported,
++	 * prune the mode.
++	 */
++	if (status != MODE_OK && !intel_hdmi_can_support_frl(hdmi))
+ 		return status;
+ 
+-	status = intel_hdmi_tmds_mode_clock_valid(&connector->base, clock, has_hdmi_sink, sink_format);
++	for_each_joiner_candidate(connector, mode, num_joined_pipes) {
++		if (intel_joiner_needs_dsc(display, num_joined_pipes)) {
++			status = MODE_CLOCK_HIGH;
++			continue;
++		}
++
++		status = intel_pfit_mode_valid(display, mode, sink_format,
++					       num_joined_pipes);
++		if (status != MODE_OK)
++			continue;
++
++		status = intel_mode_valid_max_plane_size(display, mode,
++							 num_joined_pipes);
++		if (status != MODE_OK)
++			continue;
++
++		if (!intel_dp_dotclk_valid(display, clock, mode->htotal, 0,
++					   num_joined_pipes)) {
++			status = MODE_CLOCK_HIGH;
++			continue;
++		}
+ 
+-	if (status != MODE_OK && intel_hdmi_can_support_frl(hdmi))
+ 		status = intel_hdmi_frl_mode_clock_valid(connector, mode, sink_format);
++		if (status != MODE_OK)
++			continue;
++
++		break;
++	}
+ 
+ 	return status;
  }
-+
-+bool intel_hdmi_has_joiner(struct intel_hdmi *intel_hdmi)
-+{
-+	struct intel_display *display = to_intel_display(intel_hdmi);
-+	struct intel_encoder *encoder = &hdmi_to_dig_port(intel_hdmi)->base;
-+
-+	return HAS_HDMI_FRL(display) && intel_bios_hdmi_max_frl_rate(encoder->devdata);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index 71b12f557d75..b0b40e46b568 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -87,6 +87,7 @@ int intel_hdmi_sink_max_frl_rate(struct drm_connector *connector);
- int intel_hdmi_sink_dsc_max_frl_rate(struct drm_connector *connector);
- void intel_hdmi_frl_cfg_write(const struct intel_crtc_state *crtc_state);
- void intel_hdmi_frl_get_config(struct intel_crtc_state *crtc_state);
-+bool intel_hdmi_has_joiner(struct intel_hdmi *intel_hdmi);
+@@ -2160,7 +2195,6 @@ intel_hdmi_mode_valid(struct drm_connector *_connector,
+ 	const struct drm_display_info *info = &connector->base.display_info;
+ 	enum drm_mode_status status;
+ 	int clock = mode->clock;
+-	int max_dotclk = display->cdclk.max_dotclk_freq;
+ 	bool has_hdmi_sink = intel_has_hdmi_sink(hdmi, connector->base.state);
  
- /* FRL rate per lane (Gbps) -> PHY PLL table units (10 kbps) */
- #define FRL_GBPS_TO_10KBPS(rate)	((rate) * 100000)
-diff --git a/drivers/gpu/drm/i915/display/intel_joiner.c b/drivers/gpu/drm/i915/display/intel_joiner.c
-index 9dfe855f5668..9330d53e3cb4 100644
---- a/drivers/gpu/drm/i915/display/intel_joiner.c
-+++ b/drivers/gpu/drm/i915/display/intel_joiner.c
-@@ -6,6 +6,7 @@
- #include "intel_display_core.h"
- #include "intel_display_types.h"
- #include "intel_dp.h"
-+#include "intel_hdmi.h"
- #include "intel_joiner.h"
+ 	status = intel_cpu_transcoder_mode_valid(display, mode);
+@@ -2170,9 +2204,6 @@ intel_hdmi_mode_valid(struct drm_connector *_connector,
+ 	if ((mode->flags & DRM_MODE_FLAG_3D_MASK) == DRM_MODE_FLAG_3D_FRAME_PACKING)
+ 		clock *= 2;
  
- bool intel_joiner_needs_dsc(struct intel_display *display,
-@@ -33,6 +34,9 @@ bool intel_joiner_connector_can_join(struct intel_connector *connector)
- 	case DRM_MODE_CONNECTOR_DisplayPort:
- 	case DRM_MODE_CONNECTOR_eDP:
- 		return intel_dp_has_joiner(intel_attached_dp(connector));
-+	case DRM_MODE_CONNECTOR_HDMIA:
-+	case DRM_MODE_CONNECTOR_HDMIB:
-+		return intel_hdmi_has_joiner(intel_attached_hdmi(connector));
- 	default:
- 		return false;
+-	if (clock > max_dotclk)
+-		return MODE_CLOCK_HIGH;
+-
+ 	if (mode->flags & DRM_MODE_FLAG_DBLCLK) {
+ 		if (!has_hdmi_sink)
+ 			return MODE_CLOCK_LOW;
+@@ -2197,10 +2228,8 @@ intel_hdmi_mode_valid(struct drm_connector *_connector,
+ 			status = intel_hdmi_mode_valid_format(connector, mode, clock, has_hdmi_sink,
+ 							      INTEL_OUTPUT_FORMAT_YCBCR420);
  	}
+-	if (status != MODE_OK)
+-		return status;
+ 
+-	return intel_mode_valid_max_plane_size(display, mode, 1);
++	return status;
+ }
+ 
+ bool intel_hdmi_bpc_possible(const struct intel_crtc_state *crtc_state,
 -- 
 2.50.1
 
