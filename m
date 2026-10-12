@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA68BCA9ED6
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3755CA9ED5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:54:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E1F710E497;
-	Mon, 12 Oct 2026 04:53:24 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A7810E40E;
- Mon, 12 Oct 2026 04:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3035210E49F;
+	Mon, 12 Oct 2026 04:53:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 005DC10E910;
+ Mon, 12 Oct 2026 04:53:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4E6CF4043F;
- Mon, 12 Oct 2026 04:53:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037C61F0089B;
- Mon, 12 Oct 2026 04:53:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4739060AA1;
+ Mon, 12 Oct 2026 04:53:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DB21F0089B;
+ Mon, 12 Oct 2026 04:53:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791780797;
- bh=rvCvOJK/26gje9EzgHEVJMlqrPWYJUqWHR4USq0cA7w=;
+ s=k20260515; t=1791780823;
+ bh=arJuLL5GQUhe12ZDQK1wsQjC1NNOA7WpdX3AVkTrYv0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VXmg2hg2ZgNUKnnt1yM2qqxtkls6WRqR6B7olio1zW42yCOEz9vwyAiTe+F9nzZlv
- B4LgiKt1B6yT8X4MJ9rrHQ+8MUa4BLEdc2gUHy3N1fu67IlmxgQl7B9LkcSKTb83ob
- PZ9Ova9ka5F7d3D03Iy146fnGvBPpi38+UiAuXQjgxN7PRJeEgHSwnMcGpflFrnJxw
- PDNGKpgZmJ3MKmyTQzWnegjgrzoBsMhT4tVNUCEJe6aVAH3jU0Ngg1j7xByhYWKmdv
- qvy8nwO/yvDROrPGEdEDcbJMlW3h1xNUacDk86Ni6mikJ9mnYV++BHAfMq0WQt4bt0
- z/lQNsz0qcKNw==
-Message-ID: <sashiko-outbox-167640@kernel.org>
+ b=fzemsQf8R3yB6eFQ8pHLq4a9fF68ClcSnaJMT7i1zvk4sJ0Mh/pUEpzSktnT+OY0m
+ djAsMPfHtQIR0/xBl/00KkVuV/h8OMbmzgIvqjuK+mJndT5035NqQNV0i8nVPzLdms
+ bbQCq5obrqleh191R/LrCyeALV+BEmhiz8qMeUWdjnoSXg4vf6CjrQwnS+LFjKcJs9
+ 1vg3nYvaLwfrWwhU97VtztLZIg/oWZNDRBz0Ik8+kMr7WJTr3N5M1dQdpfHdsy02DU
+ wa0sOS0A++vBvP6pnSCduEfAgndDem/qg/Z2HzcpQs0+ro6Car9ZvOm6Ag5HxWSJBT
+ OhiX/LQ9B27Xg==
+Message-ID: <sashiko-outbox-167641@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 47/56] drm/i915/hdmi: Compute output format for HDMI
- FRL mode
+Subject: Re: [PATCH v2 55/56] drm/i915/hdmi: Iterate through joiner
+ candidates in mode_valid path
 To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261012035806.3361439-48-ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261012035806.3361439-56-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
- <20261012035806.3361439-48-ankit.k.nautiyal@intel.com>
+ <20261012035806.3361439-56-ankit.k.nautiyal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 04:53:16 +0000
+Date: Mon, 12 Oct 2026 04:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,156 +56,83 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/i915/hdmi: out-of-spec TMDS fallback takes precedence over val=
-id FRL modes
-- [High] drm/i915/hdmi: FRL bypassed for modes exceeding sink TMDS limits
-- [Medium] drm/i915/hdmi: FRL clock computation corrupts crtc_state->pipe_b=
-pp on failure
-- [Low] drm/i915: unconditional FRL enablement logging on error path
+- [High] drm/i915/hdmi: TMDS modes bypass max dotclock and plane size checks
 --
 
-commit 53b28248132a15ea6972675cb5d3f48a3d13e3b3
+commit fcc107a6617c907f4675cb58944ba1cef59c27ff
 Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+drm/i915/hdmi: Iterate through joiner candidates in mode_valid path
 
-drm/i915/hdmi: Compute output format for HDMI FRL mode
-
-If the source and sink support FRL, then compute output format
-that can support HDMI FRL mode.
+This commit updates the HDMI mode validation path to iterate through joiner
+candidates, relaxing the dotclock ceiling when multiple pipes are joined.
+The single-pipe validation checks were relocated from the main mode validat=
+ion
+function into the format-specific validation function.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
 i915/display/intel_hdmi.c
+> index 2ec7d2a5e7d4d..2c7c47a3c61d1 100644
 > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-
+> @@ -2132,20 +2132,55 @@ intel_hdmi_mode_valid_format(struct intel_connect=
+or *connector,
 [ ... ]
-
-> @@ -2648,13 +2672,23 @@ int intel_hdmi_compute_config(struct intel_encode=
-r *encoder,
->  	if (!intel_link_bw_compute_pipe_bpp(pipe_config))
->  		return -EINVAL;
-> =20
-> -	/*
-> -	 * Try to respect downstream TMDS clock limits first, if
-> -	 * that fails assume the user might know something we don't.
-> -	 */
-> -	ret =3D intel_hdmi_compute_formats(encoder, pipe_config, conn_state, tr=
-ue);
-> -	if (ret)
-> -		ret =3D intel_hdmi_compute_formats(encoder, pipe_config, conn_state, f=
-alse);
-> +	if (HAS_HDMI_FRL(display) &&
-> +	    intel_bios_hdmi_max_frl_rate(encoder->devdata) &&
-> +	    intel_hdmi->has_sink_hdmi_21)
-> +		enable_frl =3D true;
+> +	status =3D intel_hdmi_tmds_mode_clock_valid(&connector->base, clock,
+> +						  has_hdmi_sink, sink_format);
 > +
-> +	ret =3D intel_hdmi_compute_formats(encoder, pipe_config, conn_state, fa=
-lse);
-> +
-> +	if (ret && enable_frl) {
+> +	if (status =3D=3D MODE_OK)
+> +		return status;
 
 [Severity: High]
-Does this sequence bypass FRL completely for displays with low TMDS limits?
+Does this early return cause TMDS modes to bypass the max dotclock and plane
+size limits?=20
 
-When connecting an HDMI 2.1 sink that supports FRL but has a lower max
-TMDS clock than the mode requires, the call to intel_hdmi_compute_formats
-with enable_frl=3Dfalse will first fail the strict limit check, but then
-internally fall back to ignoring downstream limits:
+It looks like if a mode fits within the TMDS link bandwidth, the function
+returns immediately, skipping the newly relocated intel_pfit_mode_valid(),
+intel_mode_valid_max_plane_size(), and intel_dp_dotclk_valid() checks inside
+the for_each_joiner_candidate() loop below.
 
-intel_hdmi_compute_formats() {
-    ...
-    ret =3D _intel_hdmi_compute_formats(..., true, enable_frl);
-    if (ret)
-        ret =3D _intel_hdmi_compute_formats(..., false, enable_frl);
-    ...
-}
-
-If the mode's clock is within the source's max TMDS capability, this
-fallback succeeds and returns 0, masking the downstream limit failure.
-Because ret evaluates to 0, this FRL configuration block is skipped,
-and the driver outputs an out-of-spec TMDS signal instead of attempting
-FRL.
-
-Additionally, in intel_hdmi_compute_frl_config, there is a strict
-check against max_rate:
-
-intel_hdmi_compute_frl_config() {
-    ...
-    for (i =3D 0; i < ARRAY_SIZE(rate); i++) {
-        if (rate[i] > max_rate)
-            continue;
-    ...
-}
-
-This means the fallback mechanism to ignore downstream limits doesn't
-actually allow users to override FRL bandwidth limits either. Could we
-attempt FRL before falling back to out-of-spec TMDS formats?
-
-> +		ret =3D intel_hdmi_compute_formats(encoder, pipe_config, conn_state, t=
-rue);
-
-[Severity: Medium]
-Can intel_hdmi_compute_formats corrupt crtc_state->pipe_bpp if the FRL
-computation fails?
-
-When FRL computation is attempted, it calls down to
-intel_hdmi_compute_frl_clock which iterates over bpc:
-
-intel_hdmi_compute_frl_clock() {
-    ...
-    for (bpc =3D max_bpc; bpc >=3D 8; bpc -=3D 2) {
-        ...
-        crtc_state->pipe_bpp =3D bpc * 3;
-
-        ret =3D intel_hdmi_compute_frl_config(encoder, crtc_state);
-        if (ret)
-            continue;
-    ...
-}
-
-If the FRL computation fails across all iterations, crtc_state->pipe_bpp
-remains permanently lowered (e.g., to 24). When
-_intel_hdmi_compute_formats subsequently falls back to trying the YCBCR420
-format, it reads this corrupted pipe_bpp to determine its starting max_bpc.
-This artificially restricts the fallback to 8 BPC, skipping 10 and 12 BPC
-which require less bandwidth under YCBCR420 and might have otherwise
-succeeded.
-
-> +		drm_dbg_kms(display->drm,
-> +			    "Enabling FRL mode with lanes =3D %d rate =3D %d\n",
-> +			    pipe_config->frl.required_lanes,
-> +			    pipe_config->frl.required_rate);
-> +		pipe_config->frl.enable =3D true;
-> +		lane_count =3D pipe_config->frl.required_lanes;
-> +	}
-
-[Severity: Low]
-Is it intentional that this block executes unconditionally, even if
-intel_hdmi_compute_formats fails?
-
-If the intel_hdmi_compute_formats call above returns a non-zero error
-code, the code still executes this drm_dbg_kms claiming FRL is being
-enabled with uninitialized or stale lane/rate values, and mutates
-pipe_config->frl.enable. While the atomic check will subsequently reject
-the mode and discard the state, the debug trace will misleadingly indicate
-FRL mode was successfully computed before the mode rejection.
-
-> +
->  	if (ret) {
->  		drm_dbg_kms(display->drm,
->  			    "unsupported HDMI clock (%d kHz), rejecting mode\n",
-> @@ -2677,7 +2711,7 @@ int intel_hdmi_compute_config(struct intel_encoder =
-*encoder,
->  		adjusted_mode->picture_aspect_ratio =3D
->  			conn_state->picture_aspect_ratio;
+[ ... ]
+> @@ -2160,7 +2195,6 @@ intel_hdmi_mode_valid(struct drm_connector *_connec=
+tor,
+[ ... ]
+>  	if ((mode->flags & DRM_MODE_FLAG_3D_MASK) =3D=3D DRM_MODE_FLAG_3D_FRAME=
+_PACKING)
+>  		clock *=3D 2;
 > =20
-> -	pipe_config->lane_count =3D 4;
-> +	pipe_config->lane_count =3D lane_count;
+> -	if (clock > max_dotclk)
+> -		return MODE_CLOCK_HIGH;
+> -
+
+[Severity: High]
+Since this overarching max_dotclk check was removed from the parent function
+intel_hdmi_mode_valid(), and TMDS modes now return early in=20
+intel_hdmi_mode_valid_format() before reaching the new validation loop, cou=
+ld
+this allow user-provided TMDS modes that exceed the display engine's max CD=
+CLK
+dotclock to pass validation?
+
+[ ... ]
+> @@ -2197,10 +2228,8 @@ intel_hdmi_mode_valid(struct drm_connector *_conne=
+ctor,
+>  			status =3D intel_hdmi_mode_valid_format(connector, mode, clock, has_h=
+dmi_sink,
+>  							      INTEL_OUTPUT_FORMAT_YCBCR420);
+>  	}
+> -	if (status !=3D MODE_OK)
+> -		return status;
 > =20
->  	if (scdc->scrambling.supported && source_supports_scrambling(encoder) &&
->  	    !pipe_config->frl.enable) {
+> -	return intel_mode_valid_max_plane_size(display, mode, 1);
+> +	return status;
+
+[Severity: High]
+Similarly, since intel_mode_valid_max_plane_size() is also removed here,
+it seems TMDS modes might bypass plane width and panel fitter checks too,
+potentially leading to atomic commit failures or hardware pipeline errors.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012035806.3361=
-439-1-ankit.k.nautiyal@intel.com?part=3D47
+439-1-ankit.k.nautiyal@intel.com?part=3D55
