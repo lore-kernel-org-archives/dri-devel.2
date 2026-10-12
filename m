@@ -4,81 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44FAACA9ED2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FEBCA9ED5
 	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:32:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D899210E4E0;
-	Mon, 12 Oct 2026 07:32:02 +0000 (UTC)
-Received: from mail-qk2-f10.google.com (mail-qk2-f10.google.com
- [74.125.230.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F3FC10E0CD
- for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 00:43:06 +0000 (UTC)
-Received: by mail-qk2-f10.google.com with SMTP id
- af79cd13be357-930f59d1dc6so59594685a.1
- for <dri-devel@lists.freedesktop.org>; Sat, 10 Oct 2026 17:43:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C608810E4F3;
+	Mon, 12 Oct 2026 07:32:03 +0000 (UTC)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6954210E050
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 04:01:45 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-3a1e9f55e03so15436701fa.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 11 Oct 2026 21:01:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791777703; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Na8c4T/3QLkWT1rbPahoi6lrUQbwUvkuk6952E/9TiDrNFEiY0Jnv3VvfCLdycW+d5
+ 4w+O+seCWxv7zzq4fQeaES/1+Gpwt+hsZ3HF+p9YH5OeB9EknyyeetX5lpoArkfSnX93
+ 8klXE7FYyt/R17fB70Ji3D8u7uNp7+C2LwD0jLuEd/2jCRXjqsxTTO8/oJ/9LUTf0fSc
+ H3Jivu5iLY+M1o7VAekNfUDorBlnBfFm3bRUcDB06ZRknJPG+mVC/3DXNOOijxXwZ5Lb
+ eHRf5jJH/CZDekCKMj18a8xzeLN5CrzzLVLcgZGWFvcq3nI0RCdWWyAKNmrr+s4haqWc
+ RtQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=Pe/a+GuYYDIVdvs2+OYKQN4TuAur+dcC/ty/ULPvGLo=;
+ fh=uPeOtZZd6XQ9POBGbgMQGRPjPfCFosI4nXXmm9jk5h0=;
+ b=Y3XPZQZxlljDDSZeQXuZ8F4ADrL6NZ+3HwEEjQrXJnj56j+irGpVWGH5lemlIFJG0l
+ KRLNqZumDgxKtKHYt0Vh+kKdCbHKZTc2Fteo3yNW19sqsCP8HMhTOtoVLgtd76OoRDEM
+ c4730VGktPfMJC/w0ba+uUDU2HWg74zx7olQ+HnSu0jg0za8TNrKGhiaPuQ6Kkp9kazK
+ qbCKORWCgDVl/KAjWHY5ClfPVx3zjLSMZOPM8FnBtBfZB/GIoIXebzxjllHYa/mAwP5l
+ imR4SLt08I6LUYJ2UX1emM+hBWwgIB5uaoHULiTUgCG2zIOVWl/0LXMzMHpEscBmC5kk
+ /cIw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791679385; x=1792284185; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=w/oAaJptKR3nQekIsHSFFz9kgi+8N/4Ku6bTVc5nJSg=;
- b=dQ5krt44doQC76u+OyJOJkT5dAwlHAu7MxUEscHeqXnUQ0LJwCW6sbYcu4pmWgu96N
- 3kOLdcxG7WS62DL4XKLqhjH0jMFeAnwCx/ECYI72Ir/fOwHdnGWG74/3GZc/rue3X3qa
- cZPDzX04LE/TjeePFlXOYFndx7F4vHYgTjxD7W0+0zQh07yMBtlmWOFPwZGpChK8nPje
- ykqY875N5PIb4ZF5InOuy8lTQympdCOB8aNKQonWTE6eSZkJzin/evhUJPlEKftEUeJ8
- ZZOUCkDokz/MBE4UYdJ6twM5G4wuSc/hB1OpwLJ0GASiN3LuY1VPGE3BNr74lnxS7U/Y
- d2ww==
+ d=gmail.com; s=20251104; t=1791777703; x=1792382503; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Pe/a+GuYYDIVdvs2+OYKQN4TuAur+dcC/ty/ULPvGLo=;
+ b=k0r2zJiYv2jOcyghrY9QU0cvt/KneIXZPx/6yECJZco9UzPLWd6iZ8oe1iGqfEvnqQ
+ Gh4C4JOS5q4ZgSyxHNU+2i+qaHBKLe+UG2BNCN2qJ/tLg5csv/yznT6xS4r30N8EYRxb
+ +6NrfE3KJKcxvsaTbHT2n/H3bYzYoXjhUoseB3/eOMan7B2g5M/GNx25cOlYw+xS+KI9
+ bo+ozOgioFLe/AkmwDwfE9NPCoVvwWO5YwscTgmXs0wpKmHDaKBRYQyl5+XlOufGM/+c
+ 2O0TQH89JoorxgCnZ+PIS1B3LQTQtXUoMW2UAOUvLoqtWpD9gJ4hbBSg2y9sCL/QM3LU
+ Tc1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791679385; x=1792284185;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=w/oAaJptKR3nQekIsHSFFz9kgi+8N/4Ku6bTVc5nJSg=;
- b=Q+IK3QlcbQYVDC2dwIi5aWvOqNv6WXLqtOYkDxZaZ8WXXouudPnLAGLBNjJK68EOkZ
- trGxNQNBnt4wcaKpYhL8fE4bdyd7OnEmGu19h6LvaYjAFd5Ss0UaqBUlS/eTgY4P5Erp
- A5fk22xtm+DBoHmRLoRLHZbHcS5z6o+a0zs2uR74dq8u8nwpG5gMlxSt0CurKlJwOFQn
- pghinSP+bhwfQ5wGCXvU2CHe8+fHyg51CIR0VwRQn+ZJ1q+x2tybxXncCdpJd6XOnl7D
- okRsPWyfGop77yPFuj7Tcb0bS9Q3duNyVIXXb7cp8gz1t23y3UftCPR3xCi34aAnIkR4
- 0dZQ==
+ d=1e100.net; s=20260707; t=1791777703; x=1792382503;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Pe/a+GuYYDIVdvs2+OYKQN4TuAur+dcC/ty/ULPvGLo=;
+ b=vRLr49/Mx2TwWo6L6OICvoj8W2uE/yD87yEwup40ajUwmm8yWv8cUyFviqwNBH7vKU
+ 4m4ALfu8wKGB2QbTjqJoxJc5szFo3vDAY2g657VMadzEY54N0VVNS40NS13ZfKRgJwxv
+ FSFNzpg4O6TaBfqJWH5+jB4edvAeYwH3zP/2fAFLiukX1VYGAkstW2WyUERNFQeTBRWU
+ dW+deac0TbTBU4cEgwblXk1FRESNw3nT8MoF/N1u0FnElnvLGA0rmssK8sbE0WhV2tmB
+ z0EmQyhCQpes+cAjmqTYevy/naRaBFeeGtITuNLxzvy2jtjxde1CfjfP7naDNUZEsrhj
+ mEpw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxy+soQ/n/kvBUZ5/Q/zm0d1hldXeynRbvTLXVaHLLnCqjRnowFdHa0g4Fo4o7VlZcO3iZklwh6H2M=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIKKa32xOowdOHXTVSQsIvSCv/vWLo4K0QKEM+T0TKL9SSXJrL/
- g+l+JmLXZYwQYfzUnyJPn+5WC0vn9SK5gLAjSye3w30Fj21VeExqwA02
-X-Gm-Gg: AYBFou2t0DJy+UUL83v/kDclA7e60Q1H12bvgsuQas1BCLhvnPA4XiRDAxsw7IpqQ1n
- vO0jK4qJ/o2YOAdHZ9/0tweMsLUw4gCfy0emipVgrQ94gRLhn3kBrtEwDWUsMo2EBVt1npFfIcc
- sk5ZZnHIxb64263rKWLYO4ZQonJT3J7Xku9Ty/7kd8+xEm9aUUBV4nJ5DxWrpXlqOGtO3LVdcen
- Dw52ovErhr10SHGUh1uqEyPV5ECbi592I7FDvk2HMfLcakP2dgIuI8qpHybbjFwQkeJq9STMi0T
- 4Iyvk0LRHLd8NnaAnK/TCpCp39aZxIE5GS+nVL4QmybU4yYz87ETMw9Vjd12X2VX0HVVLOssIxh
- iW1KIXzT28RQ4FZVu9dvc45MNYzBU2XxtjBbmMzbsnKQTuyOnZcusoZHhIifZgW+pcOe0MfNxZU
- oolZH80TsuFxrwW96NrxbLJWT1u1Ggr8lRCne3FCm1NfenKJMZHVba9P3N7ndUAr8MRFbv21XN6
- BGdwA==
-X-Received: by 2002:a05:620a:c53:b0:93c:677c:778d with SMTP id
- af79cd13be357-93ebd29275cmr999021285a.59.1791679384961; 
- Sat, 10 Oct 2026 17:43:04 -0700 (PDT)
-Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93eb9848702sm532320085a.12.2026.10.10.17.43.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Oct 2026 17:43:04 -0700 (PDT)
-From: zoan37 <agentzoan@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jason-JH Lin <jason-jh.lin@mediatek.com>, CK Hu <ck.hu@mediatek.com>,
- Nancy Lin <nancy.lin@mediatek.com>, Nathan Lu <nathan.lu@mediatek.com>,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] drm/mediatek: mtk_crtc: Skip the empty connector route
- slot in destroy
-Date: Sat, 10 Oct 2026 20:42:47 -0400
-Message-ID: <20261011004248.1117649-3-agentzoan@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261011004248.1117649-1-agentzoan@gmail.com>
-References: <20261011004248.1117649-1-agentzoan@gmail.com>
+ AKwUvBxjOe6S64FYEve8VpZE1dOQOdXKrI9LTfRTvhyILCFko057YJNCB7uAPQXek0LGq+KhEok7HzzpS4A=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLM6FstQYscvMfdp2xGrvyrJ0KYXLwZY71MyeUHvd2ni0Js7q82
+ lSTqos9CP4TpB772JEAcL34fKYJY2YPAqx/0zn9F78BUiqvUw5YrYpCM7culO4vt5erJeiy0xKr
+ AO2+QSR4d0F/0p1sHQztHd3aA7nkNh1o=
+X-Gm-Gg: AYBFou3q3ZOlLVQXZsafLtSWB3zrtwOqp0WuO+rf1ANRwP8A39aBf6sgyI4VyWrRbOP
+ zYcIiZKAsq6qTiqYPrDsThc0rw64mQRjZgBVQJPCczReGPLucgep+FZLlFMlZA2L3DRx+CG//Mh
+ S8MIFRkoU2JeoAcJpnGZE3YM1CxjtYjvSjNw9XidSRaeaXUyko/yukRvPHnoVhB85GTqeWwSE4m
+ 3nemSlfkME5hm76E7p9qgfDH9MFKJ+0c6pd30m44XyoLXoiVRbk5hsxU/XCKHAhP1fgF9Rw5qql
+ s/Va8H98esM89EYs0mHwBJxG4iDXFMkxA2QDylcXrENpPD043FHXZH4Ywq4CTv9M0Q==
+X-Received: by 2002:a2e:bea9:0:b0:3a6:6a12:61e4 with SMTP id
+ 38308e7fff4ca-3a9c5380907mr22473741fa.19.1791777703249; Sun, 11 Oct 2026
+ 21:01:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004212403.208681-1-oss.patchbox@gmail.com>
+ <asm4DV84UitLCbve@dell-wzy>
+In-Reply-To: <asm4DV84UitLCbve@dell-wzy>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Mon, 12 Oct 2026 00:01:31 -0400
+X-Gm-Features: AclHuK8Nc-yI1UOeFL3cp2dh7P_n3SkiObRIXOBg2zlQtbRku8sMwkQ2lyVopD4
+Message-ID: <CAGG=RgApzG=MeZ9xbpeBzqE0i0Q6RCPXtnyS-30JfEDPDKNN0Q@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
+ still in use
+To: Zhenyu Wang <zhenyuw.linux@gmail.com>
+Cc: Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin Zhang <xiaolin.zhang@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, zhiw@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 12 Oct 2026 07:32:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,50 +108,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A CRTC created with connector routes gets one extra ddp_comp[] slot for
-its output component, and ddp_comp_nr counts it, but the slot stays
-NULL until mtk_crtc_update_output() fills it in the first atomic
-enable.
+Thanks for the review!
 
-mtk_crtc_destroy() walks all ddp_comp_nr slots and passes each one to
-mtk_ddp_comp_unregister_vblank_cb(), which dereferences it. Tearing
-down a CRTC that was never enabled therefore dereferences NULL: unbinding
-or removing mediatek-drm while that display path was never used, or
-an error in mtk_drm_kms_init() after the CRTC was created.
+On Fri, 9 Oct 2026 at 23:59, Zhenyu Wang <zhenyuw.linux@gmail.com> wrote:
+>
+> I don't think this is *real*, as code would simply destroy entry in
+> that case, and there won't be on-the-fly dma operation on that, as
+> guest mem setup is totally before execlist submission, if guest driver
+> changed mapping by ignoring gvt emulated execlist status, that's just bad...
 
-Skip the empty slot. Nothing was registered for it anyway: the routed
-components (DSI, DPI, DP_INTF, ...) have no vblank callback.
+You know this code much better than I do, and I can't test it without
+GVT-g hardware, so I may well be missing something.
 
-Fixes: 01389b324c97 ("drm/mediatek: Add connector dynamic selection capability")
-Assisted-by: LLM
-Signed-off-by: zoan37 <agentzoan@gmail.com>
----
+The case I had in mind is the guest mapping the same page at both sizes
+and keeping both, e.g. 2M in the PPGTT of one context and 4K in the GGTT
+or in another context's PPGTT. If the second request replaces the entry,
+the first shadow entry seems to keep the old DMA address, as
+shadow_ppgtt_mm() reuses a PPGTT that is already shadowed. Is that ruled
+out somewhere? Please let me know if so.
 
-Notes:
-    Testing: found by reading the code; not reproduced. The same check runs
-    on the MT8189 Chromebook described in patch 1 (boot, HDMI/DP hotplug,
-    suspend/resume), but that does not exercise the destroy path (the
-    driver is built in and was not unbound). Compile-tested (W=1) on
-    next-20261008.
+> So this change would always force 2M to split into 4K? why?
 
- drivers/gpu/drm/mediatek/mtk_crtc.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index b54f8565d2fa..704931b369b6 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -145,6 +145,10 @@ static void mtk_crtc_destroy(struct drm_crtc *crtc)
- 		struct mtk_ddp_comp *comp;
- 
- 		comp = mtk_crtc->ddp_comp[i];
-+		/* The connector route slot is empty until the first enable */
-+		if (!comp)
-+			continue;
-+
- 		mtk_ddp_comp_unregister_vblank_cb(comp);
- 	}
- 
--- 
-2.43.0
-
+No, only when a 4K entry for the same gfn is cached at the time of the
+2M request. With no entry or a 2M entry nothing changes, and a 4K
+request now reuses an existing 2M entry instead of replacing it.
