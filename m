@@ -4,41 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ACCDCA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 15:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5899CCA9EDF
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 15:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CD7910F183;
-	Mon, 12 Oct 2026 15:05:51 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA05610F19E
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 15:05:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3E6EB60207;
- Mon, 12 Oct 2026 15:05:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE471F0089B;
- Mon, 12 Oct 2026 15:05:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791817545;
- bh=0DAbo4S5ZWJaTbKaam+b6uzqTFAZEtEn/VUI/IJpJPk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nlB+LsVH23qx+xbiTyboZOIITXxnmb8zSgyWPyqoDX39ivnW2Zp/v5QtPw5i0ros1
- f+o+AocQqleVWC27Fh1r1FpPE9p5kzOC4VlmovJEk8dzzbQotY3tS/NFw1AJkuGcw9
- I7p01blxr1EPRIFnRTKvyxJwC8f9g/EVjilvbguYnw8SQrLc8MQ36LcpBdkpoqeBKL
- v7d0FjA7ufyz7iUHL9tjRmm1ejg/0TgVItBU0yRain+/ZAY8dF60UiX/iyL143DUSc
- ADwwHMj2O6DZnPkNJxokcSEkpGjjEBaMr/GenK/yAMo4NmKQEDwkD43jSp4T4BB53H
- E6oEUPw70R4CA==
-Message-ID: <sashiko-outbox-168312@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 13/15] drm/panfrost: Avoid cache flush after perfcnt
- sample in fully coherent systems
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261012-claude-fixes-v15-13-bc0a6c498553@collabora.com>
-References: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
- <20261012-claude-fixes-v15-13-bc0a6c498553@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 15:05:44 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id A551C10F1BA;
+	Mon, 12 Oct 2026 15:11:54 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5B0910E5FD;
+ Mon, 12 Oct 2026 15:11:47 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 83C8D1A11E9;
+ Mon, 12 Oct 2026 15:11:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4EB3B601A6;
+ Mon, 12 Oct 2026 15:11:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id A117911D7012D; 
+ Mon, 12 Oct 2026 17:11:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1791817900; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Bk2x82OfVzEX8vQFg5r5k8G6Ahg8Yo7o0Nce1j8gVcc=;
+ b=MSu2ML6c1w653SFQ6BnfRaoqijHfRCycjnFvgpioFNeDI5rHTcfGoA1H3VQFtOqqy2iJCI
+ mkTya1N4+QcXVSQ46ka2NJp7OyGdIHni8M1wW8JHNGcpYhzqLd6ew6ymAqwuwtPBT7Sn9o
+ BGd7kQUUuRQGr2wm+rlRNmSVcnChy4LodeQQq7IkFdejdSPlijT7EexmD4UOz27rcBQAI8
+ fke1xnFH0582bVkdNCoq79f6OKUFndSZuGA6mNrTN3Fj/sPryTktSnfSPYSbKaUxl2TZ+N
+ BnsQbVWO8D5kjgVQiid31iX9sA7bXPISW++lraYHUlgzyqqDzLD5w/kA9bYvmA==
+From: Kory Maincent <kory.maincent@bootlin.com>
+Date: Mon, 12 Oct 2026 17:10:57 +0200
+Subject: [PATCH RFC v3 2/8] drm: Move DSC capability reading helper out of i915
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-feat_link_cap-v3-2-7517f4aba0f3@bootlin.com>
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, 
+ Manasi Navare <navaremanasi@google.com>, 
+ Drew Davenport <ddavenport@google.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Kory Maincent <kory.maincent@bootlin.com>
+X-Mailer: b4 0.16.1-dev-17221
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,65 +79,130 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/panfrost: UAF of perfcnt during device unbind
---
+In preparation for adding generic DRM properties to report source and
+sink capabilities, move the DSC capability reading helper out of the
+i915 driver into the generic DRM helpers.
 
-commit 1164f77fb530d75cfd2e6bee453335ff4ea53de6
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+No functional change intended.
 
-drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent syst=
-ems
-   =20
-If the GPU and CPU are fully coherent, then there's no need to flush the
-GPU caches after a perfcnt sample is made available.
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+---
+Change in v3:
+- New patch
+---
+ drivers/gpu/drm/display/drm_dp_helper.c | 30 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c | 28 ++++------------------------
+ include/drm/display/drm_dp_helper.h     |  2 ++
+ 3 files changed, 36 insertions(+), 24 deletions(-)
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index ffc77121070e2..b3f71d7fd82a9 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost=
-_device *pfdev)
-> =20
->  void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
->  {
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-> +	if (pfdev->features.selected_coherency !=3D COHERENCY_ACE)
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-> +	else
-> +		complete(&pfdev->perfcnt->dump_comp);
-                ^^^^^^^^
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 8ef096a0138e4..93cf43d166c6e 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -5149,3 +5149,33 @@ int drm_dp_read_edp_sink_rates(struct drm_dp_aux *aux, u8 edp_dpcd_rev,
+ 	return num_sink_rates;
+ }
+ EXPORT_SYMBOL_GPL(drm_dp_read_edp_sink_rates);
++
++/**
++ * drm_dp_read_dsc_dpcd() - read the DSC capabilities from the DPCD
++ * @aux: DisplayPort AUX channel
++ * @dsc_dpcd: Buffer to store the DSC capabilities read from the DPCD
++ *
++ * Attempts to read the sink DSC capabilities from the DPCD of @aux.
++ *
++ * Returns: 0 on success or a negative error code on failure.
++ */
++int drm_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
++			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
++{
++	int ret;
++
++	ret = drm_dp_dpcd_read_data(aux, DP_DSC_SUPPORT, dsc_dpcd,
++				    DP_DSC_RECEIVER_CAP_SIZE);
++	if (ret) {
++		drm_dbg_kms(aux->drm_dev,
++			    "Could not read DSC DPCD register 0x%x Error: %pe\n",
++			    DP_DSC_SUPPORT, ERR_PTR(ret));
++		return ret;
++	}
++
++	drm_dbg_kms(aux->drm_dev, "DSC DPCD: %*ph\n",
++		    DP_DSC_RECEIVER_CAP_SIZE,
++		    dsc_dpcd);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(drm_dp_read_dsc_dpcd);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index da73ad11e9cac..830fe6eda17d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4430,26 +4430,6 @@ static bool intel_dp_get_sst_split_sdp_status(u8 dprx)
+ 	return dprx & DP_SST_SPLIT_SDP_CAP;
+ }
+ 
+-static int intel_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
+-				  u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
+-{
+-	int ret;
+-
+-	ret = drm_dp_dpcd_read_data(aux, DP_DSC_SUPPORT, dsc_dpcd,
+-				    DP_DSC_RECEIVER_CAP_SIZE);
+-	if (ret) {
+-		drm_dbg_kms(aux->drm_dev,
+-			    "Could not read DSC DPCD register 0x%x Error: %pe\n",
+-			    DP_DSC_SUPPORT, ERR_PTR(ret));
+-		return ret;
+-	}
+-
+-	drm_dbg_kms(aux->drm_dev, "DSC DPCD: %*ph\n",
+-		    DP_DSC_RECEIVER_CAP_SIZE,
+-		    dsc_dpcd);
+-	return 0;
+-}
+-
+ static void init_dsc_overall_throughput_limits(struct intel_connector *connector, bool is_branch)
+ {
+ 	u8 branch_caps[DP_DSC_BRANCH_CAP_SIZE];
+@@ -4498,8 +4478,8 @@ void intel_dp_get_dsc_sink_cap(u8 dpcd_rev,
+ 	if (dpcd_rev < DP_DPCD_REV_14)
+ 		return;
+ 
+-	if (intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
+-				   connector->dp.dsc_dpcd) < 0)
++	if (drm_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
++				 connector->dp.dsc_dpcd) < 0)
+ 		return;
+ 
+ 	if (drm_dp_dpcd_readb(connector->dp.dsc_decompression_aux, DP_FEC_CAPABILITY,
+@@ -4530,8 +4510,8 @@ static void intel_edp_get_dsc_sink_cap(u8 edp_dpcd_rev, struct intel_connector *
+ 	if (edp_dpcd_rev < DP_EDP_14)
+ 		return;
+ 
+-	if (intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
+-				   connector->dp.dsc_dpcd) < 0)
++	if (drm_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
++				 connector->dp.dsc_dpcd) < 0)
+ 		return;
+ 
+ 	if (connector->dp.dsc_dpcd[0] & DP_DSC_DECOMPRESSION_IS_SUPPORTED)
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index d7f4c6f2ba4c7..7bc3b36f38b82 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -215,6 +215,8 @@ drm_dp_is_branch(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ }
+ 
+ /* DP/eDP DSC support */
++int drm_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
++			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+ u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+ u32 drm_dp_dsc_slice_count_to_mask(int slice_count);
+ u32 drm_dp_dsc_sink_slice_count_mask(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE],
 
-[Severity: High]
-Does this introduce a use-after-free regression during device unbind?
+-- 
+2.43.0
 
-If a user thread calls the perfcnt dump ioctl and blocks in
-wait_for_completion_interruptible_timeout() inside
-panfrost_perfcnt_dump_locked(), and the device is concurrently unbound:
-
-panfrost_remove() will return without cancelling the wait, and devres cleans
-up allocations.
-
-Because devm_kzalloc() for perfcnt in panfrost_perfcnt_init() occurs after
-devm_request_irq(), devres frees pfdev->perfcnt while the thread is still
-sleeping and the IRQ is still registered.
-
-When the thread wakes up, it will access the freed completion structure.
-
-Additionally, if a shared interrupt fires in this window and GPU_INT_STAT
-returns 0xffffffff (because clocks are off), panfrost_perfcnt_sample_done()
-will dereference the freed pfdev->perfcnt pointer here.
-
->  }
-> =20
->  static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-claude-fix=
-es-v15-0-bc0a6c498553@collabora.com?part=3D13
