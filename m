@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC3BFCA9ED5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 06:57:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A101CA9ED1
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 044E310E194;
-	Mon, 12 Oct 2026 06:57:15 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9F910E325
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 06:57:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 690DB10E384;
+	Mon, 12 Oct 2026 07:00:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E773D10E384
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:00:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1FE8960AA1;
- Mon, 12 Oct 2026 06:57:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842AE1F0089B;
- Mon, 12 Oct 2026 06:57:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 87F5D40C17;
+ Mon, 12 Oct 2026 07:00:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9281F0089D;
+ Mon, 12 Oct 2026 07:00:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791788227;
- bh=vEuBnmKFzhaHa35SWhMTKgji34Zzi7/2hC6q4Ak7OpM=;
+ s=k20260515; t=1791788445;
+ bh=PFIp1TdPGhi/dzhaDgsqYvqouWDSj/ttrVAY52ALsjs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Eh8svbRILbxhY5uIa0UPYYJfYWiHdB+fqHWnQPxIh7BcSsz+i7ppKvINfA3OWLt9m
- 5WD0Kj2hh4sPGvSFoHfJCzRTNPUlBbQdiiDrGKCkF1xjbObfQtDdQVMHFACR01kwFZ
- ZyBqJYgMbSjYb29PWSlFfkA76NTnwFmlaPT5lc6bOm9+krFyFu2rBVJXgj+et+2STT
- TtZYk683NvrWQC5Mp9lxKI0S7/p/eaRiupA8q95NN2p0C7V2IpmDZb9ZhmED0PZOYK
- gqbf07rehFD8JIH4tzMWiu3BLRvk91sfbVCuvwgZzpDZgwbx7c9tweWsi1v1Sr+uQ0
- agXoQRoqy1r0Q==
-Message-ID: <sashiko-outbox-167756@kernel.org>
+ b=POD/7O5lkr+Y8LsbAOqrJjzw03iqpsY3M0bEzVPks1D4c3b89tqQJKSrTYITb2kpt
+ J3wFaURcVmpwH4/gBblG7nvtN50JwwfmXK1JysGOLVQiluIr86LXbda83EZK0qPJ/2
+ 4AY4wBvlKZqsRGDZkLEfAngUP9l29hgOz4xTS54EGpMhFiOMjIQQSt3CuQYw9Wo/GP
+ 09E5BL3yFC0mYt/43OP3c8hs/OZADcMHmHYlo4Eg8SsmJ73ZL20NLIaVN5EryfV2cx
+ 1SGltg2GYdre9Ef/VwSqlN4dFWtydBluvP5d3luV+6A+koluVmVAcsguiHx7fLeB3u
+ h7hn0cAjYo8kg==
+Message-ID: <sashiko-outbox-167765@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Add RAiO RA8875
- display controller
+Subject: Re: [PATCH v4 2/2] drm/tiny: Add RAiO RA8875 display controller driver
 To: "Adam Azuddin" <azuddinadam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261012064518.3497285-2-azuddinadam@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20261012064518.3497285-3-azuddinadam@gmail.com>
 References: <20261012064518.3497285-1-azuddinadam@gmail.com>
- <20261012064518.3497285-2-azuddinadam@gmail.com>
+ <20261012064518.3497285-3-azuddinadam@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 06:57:07 +0000
+Date: Mon, 12 Oct 2026 07:00:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,100 +57,149 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: spi-peripheral-props.yaml restricts reg to 256, bre=
-aking parallel/I2C buses
-- [Medium] dt-bindings: missing dc-gpios breaks schema validation for legac=
-y DTs
-- [Medium] dt-bindings: display: panel: raio,ra8875: missing interrupts pro=
-perty for INT# pin
+- [High] drm: sleeping functions called from atomic commit callbacks
+- [High] spi: DMA-mapped buffers embedded in struct ra8875_device lack cach=
+eline alignment
+- [High] drm/tiny: ra8875: heap overflow in ra8875_clear_screen() via overs=
+ized mode
 --
 
-commit 770e5c23771cd9005f8ced2e1ea873a2b2042967
+commit 7912d063f00aebeba1b3f55021d00d84d5599465
 Author: Adam Azuddin <azuddinadam@gmail.com>
 
-dt-bindings: display: panel: Add RAiO RA8875 display controller
+drm/tiny: Add RAiO RA8875 display controller driver
 
-The RA8875 is an SPI-connected TFT display controller by RAiO
-Technology Inc. It supports display resolutions of up to 800x480.
+Add a DRM tiny driver for the RAiO RA8875 SPI-connected TFT display
+controller. The driver supports display resolutions up to 800x480
+and uses the GEM shmem helper for buffer management.
 
-Add YAML binding schema for the RA8875 controller, along with
-the raio vendor prefix for RAiO Technology Inc.
-
-> diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.=
-yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+> diff --git a/drivers/gpu/drm/tiny/ra8875.c b/drivers/gpu/drm/tiny/ra8875.c
 > new file mode 100644
-> index 0000000000000..86777e2cec57a
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
-> @@ -0,0 +1,77 @@
-[ ... ]
-> +description:
-> +  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
-> +  It can be connected to the controller via 8080/6800 parallel interface,
-> +  SPI or I2C.
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-
-[Severity: Medium]
-Since the description mentions the device can be connected via 8080/6800
-parallel interface or I2C, does unconditionally including the SPI peripheral
-properties here break non-SPI bindings?
-
-The spi-peripheral-props.yaml schema restricts the elements of the reg
-property to a maximum value of 256. For parallel memory-mapped interfaces,
-the reg property typically holds a full physical address which violates this
-constraint, causing device tree validation to fail.
-
-Could this inclusion be made conditional based on the bus type instead?
+> +++ b/drivers/gpu/drm/tiny/ra8875.c
+> @@ -0,0 +1,719 @@
 
 [ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - display-timings
-> +  - vdd-supply
+
+> +struct ra8875_device {
+> +	struct drm_device drm;
+> +	struct spi_device *spi;
+> +	struct gpio_desc *rst_gpio;
+> +	struct drm_crtc crtc;
+> +	struct drm_plane plane;
+> +	struct drm_encoder encoder;
+> +	struct drm_connector connector;
+> +	struct drm_display_mode mode;
+> +	u8 cmd_buf[RA8875_CMD_DATA_BUF_SIZE];
+> +	u8 data_buf[RA8875_CMD_DATA_BUF_SIZE];
+> +	u8 *txbuf;
+> +};
+
+[Severity: High]
+Since these embedded arrays are passed to spi_write() and may be mapped
+for DMA transfers, could they cause memory corruption?
+
+During DMA mapping, the CPU performs cache invalidation and flushing
+operations that operate on full cache lines. Because these small buffers
+share cache lines with adjacent members of struct ra8875_device, this risks
+silent memory corruption of adjacent fields (such as the txbuf pointer)
+via false sharing.
+
+Should these be declared with ____cacheline_aligned, or allocated
+separately?
+
+[ ... ]
+
+> +static int ra8875_write_pixels(struct ra8875_device *ra8875, size_t len)
+> +{
+> +	int ret;
 > +
-> +unevaluatedProperties: false
+> +	ra8875->cmd_buf[0] =3D RA8875_CMDWRITE;
+> +	ra8875->cmd_buf[1] =3D RA8875_MRWC;
+> +	ret =3D spi_write(ra8875->spi, ra8875->cmd_buf, 2);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return spi_write(ra8875->spi, ra8875->txbuf, len);
+> +}
 
-[Severity: Medium]
-Will this break validation for existing device trees that include the dc-gp=
-ios
-property?
+[Severity: High]
+Can this blocking SPI write cause scheduling while atomic warnings?
 
-The legacy fbtft driver strictly required this property for the raio,ra8875
-device and would abort probe without it:
+The DRM subsystem guidelines state that plane atomic callbacks (like
+ra8875_plane_atomic_update()) execute in an atomic context where sleeping
+is strictly forbidden.
 
-drivers/staging/fbtft/fbtft-core.c:fbtft_verify_gpios() {
+Because ra8875_plane_atomic_update() calls ra8875_fb_dirty() which in turn
+calls ra8875_write_pixels(), this synchronously invokes spi_write(). The
+spi_write() API is blocking, takes a mutex, and sleeps during the transfer.
+
+Could this be moved to a non-atomic worker or handled differently?
+
+> +static int ra8875_hw_init(struct ra8875_device *ra8875,
+> +			  struct drm_display_mode *mode)
+> +{
+> +	u8 hdwr, hndr, hstr, hpwr, vpwr;
+> +	u16 vdhr, vndr, vstr;
+> +	int ret;
+> +
+> +	if (ra8875->rst_gpio) {
+> +		gpiod_set_value_cansleep(ra8875->rst_gpio, 1);
+> +		usleep_range(1000, 1200);
+> +		gpiod_set_value_cansleep(ra8875->rst_gpio, 0);
+> +		msleep(RA8875_RESET_WAIT_MS);
+> +	}
+
+[Severity: High]
+Does this code call sleeping functions from an atomic commit callback?
+
+ra8875_crtc_atomic_enable() calls ra8875_hw_init(), which invokes
+gpiod_set_value_cansleep(), usleep_range(), and msleep().
+
+The DRM guidelines require that CRTC atomic enable callbacks do not sleep.
+Executing these functions within the atomic commit pipeline can cause
+priority inversion, deadlocks, and system instability.
+
+[ ... ]
+
+> +static enum drm_mode_status ra8875_mode_valid(struct drm_crtc *crtc,
+> +					      const struct drm_display_mode *mode)
+> +{
+> +	if (mode->hdisplay % 8 !=3D 0 || mode->hsync_start % 8 !=3D 0 ||
+> +	    mode->hsync_end % 8 !=3D 0 || mode->htotal % 8 !=3D 0) {
+> +		drm_dbg_kms(crtc->dev,
+> +		   "mode timings must be 8-pixel aligned (hdisplay=3D%d hsync_start=3D=
+%d hsync_end=3D%d htotal=3D%d)\n",
+> +			    mode->hdisplay, mode->hsync_start, mode->hsync_end, mode->htotal);
+> +		return MODE_H_ILLEGAL;
+> +	}
+> +	return MODE_OK;
+> +}
+
+[Severity: High]
+Could this validation allow custom modes to trigger a heap buffer overflow?
+
+In ra8875_probe(), txbuf is allocated with a fixed size based on
+RA8875_MAX_WIDTH:
+
+    buf_size =3D 1 + RA8875_TXBUF_ROWS * RA8875_MAX_WIDTH * 2;
+    ra8875->txbuf =3D devm_kzalloc(&spi->dev, buf_size, GFP_KERNEL);
+
+When userspace submits a custom display mode, the DRM core does not restrict
+mode dimensions against mode_config.max_width (which only limits framebuffer
+sizes). Since there is no explicit check here that mode->hdisplay is less
+than or equal to RA8875_MAX_WIDTH, a malicious or oversized mode can reach
+ra8875_clear_screen().
+
+This results in a heap overwrite when deriving the memset length:
+
+    int width =3D mode->hdisplay;
     ...
-    if (pdata->display.buswidth !=3D 9 &&  par->startbyte =3D=3D 0 &&
-        !par->gpio.dc) {
-        dev_err(par->info->device,
-            "Missing info about 'dc' gpio. Aborting.\n");
-        return -EINVAL;
-    }
-    ...
-}
+    memset(txbuf, 0, 1 + rows_per_chunk * width * 2);
 
-Because existing device trees in the wild must contain this property to work
-with the legacy driver, omitting it here while setting unevaluatedProperties
-to false will cause them to fail validation.
-
-[Severity: Medium]
-Does this schema omission prevent describing the hardware accurately when t=
-he
-INT# pin is connected?
-
-The RA8875 hardware features a dedicated INT# pin to signal events from its
-built-in touchscreen and keypad controllers. Omitting the interrupts proper=
-ty
-while setting unevaluatedProperties to false means valid device trees
-specifying this interrupt routing will be rejected.
-
-Should the interrupts property be added to allow full hardware description,
-even if the current DRM driver does not consume it?
+Should this function verify that mode->hdisplay <=3D RA8875_MAX_WIDTH and
+mode->vdisplay <=3D RA8875_MAX_HEIGHT?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012064518.3497=
-285-1-azuddinadam@gmail.com?part=3D1
+285-1-azuddinadam@gmail.com?part=3D2
