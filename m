@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB377CA9EC5
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:14:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45BE1CA9EC5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:14:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6707410E446;
-	Mon, 12 Oct 2026 04:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FACE10E44F;
+	Mon, 12 Oct 2026 04:14:41 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E05F710E400;
- Mon, 12 Oct 2026 04:14:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B167210E400;
+ Mon, 12 Oct 2026 04:14:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778466; x=1823314466;
+ t=1791778472; x=1823314472;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+q1m4zYkD+Bq9XfknPGVNSMbdnoV/K8t+oTetkADwLg=;
- b=Njrhb458i0p53YukaM0PTXKA1MvFhtUJ6KtFxTTBUwCysV7AgI9O2na+
- N4ccTcx8KLv1PIEGwHjfdHwcCtBKbIa0+9lcEBu8U5il1fGS0rGqeAspk
- 5mMwVk3VP6aJ8sI5mT0QO/3UoE963X3oMsbbVCAvpjf0XIU+50kMrNRJy
- gIttSBzJyKv2mpxKAfb8xRj3hMzRLOGF3prHFOWYI0T2hakeHuew6Kcyt
- iU1RcvWj9xQLq2eyQab09UEMHJx367Fcv9lfk/bREyBIwKCWfE0YsgPHj
- BjDiUO6mHGweV7r0/7lsAPlyTT86T3HZA6XzbwGdCS+l0hmK1GMcHU1gQ w==;
-X-CSE-ConnectionGUID: dG52xs6QQnGvAL6XC8pgYQ==
-X-CSE-MsgGUID: RdK2DykpQNGZRagSRVvt5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380821"
+ bh=/sqvIbiqohLThDXEnvUmuMzUIg7CErDjbAhquHJNSCY=;
+ b=Q99ss9dHtq7nRGfwmrIhSmDsAtOFNFNFLrMPq8lf2yC/fmPALqftxpB8
+ GqdmWU88hGuMSHfQ98hwvI7PbiQS37spif/2GzqgjZrjZcExUEJS5z/4T
+ riAEH2gDWKXaRJrf3qIK7fRFhJVeIHf3U46HhoAlRkkXMFRYNPFEevVlu
+ aLXRlnJiuBJDwmarNswM4csW97JcSupY9ZACXMWcrJwKqB1+K1E6hUHav
+ n8lx2PIXpfkwZOSD1CPxVWBC14FT9vJcrox3EVyvczhMoikMiVXpdXSIw
+ Bvs1OasVOWDkx5OHxizYY7jwkIh5q/Mv+f/IEoiCKvr2I+eF4m/ydw83m w==;
+X-CSE-ConnectionGUID: icqbtH1fQcedZZybsTPb9A==
+X-CSE-MsgGUID: rH7glr5qTaKIjntDbRWGMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380836"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="380821"
+   d="scan'208";a="380836"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:14:25 -0700
-X-CSE-ConnectionGUID: 9AWyvHjQRwq6IFHid3Ngqw==
-X-CSE-MsgGUID: VssDYuuRSG2OKsVHk9reWA==
+ 11 Oct 2026 21:14:32 -0700
+X-CSE-ConnectionGUID: Pdw2N65BQra+oRALF4xHGA==
+X-CSE-MsgGUID: JWHwVfQZT12nuMASKXFAmg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256340"
+   d="scan'208";a="1256356"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:14:24 -0700
+ 11 Oct 2026 21:14:31 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 05/56] drm/i915/display: Add registers for HDMI FRL
- configuration
-Date: Mon, 12 Oct 2026 09:27:14 +0530
-Message-ID: <20261012035806.3361439-6-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 08/56] drm/i915/ddi: Update Transcoder/DDI registers with
+ the frl bits
+Date: Mon, 12 Oct 2026 09:27:17 +0530
+Message-ID: <20261012035806.3361439-9-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
@@ -70,50 +70,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add registers for HDMI FRL configuration and link training.
+For platforms supporting HDMI FRL we need to fill the lane count
+in Transcoder and DDI/PORT registers for FRL mode.
+Similarly, FRL SHIFTER ENABLE, and DATA_WIDTH bits are to be set
+in FRL mode. These bits are written in both the DDI_BUF_CTL and
+PORT_BUF_CTL registers.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_regs.h | 26 +++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 25 +++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 8251ec15190b..1abd221f966b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -550,6 +550,32 @@
- #define _TRANS_MULT_B		0x6102c
- #define TRANS_MULT(dev_priv, trans)	_MMIO_TRANS2(dev_priv, (trans), _TRANS_MULT_A)
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index a46ab5d3d70f..576e66774678 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3121,12 +3121,20 @@ static void intel_ddi_buf_disable(struct intel_encoder *encoder,
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	enum port port = encoder->port;
++	u32 val;
  
-+/* HDMI FRL Configuration */
-+#define _TRANS_HDMI_FRL_CFG_A				0x600b0
-+#define TRANS_HDMI_FRL_CFG(dev_priv, trans)		_MMIO_TRANS2(dev_priv, \
-+								     (trans), \
-+								     _TRANS_HDMI_FRL_CFG_A)
-+#define  TRANS_HDMI_FRL_ENABLE				REG_BIT(31)
-+#define  TRANS_HDMI_TMDS_ENABLE				0
-+#define  TRANS_HDMI_FRL_TRAINING_COMPLETE		REG_BIT(28)
-+#define  TRANS_HDMI_DISABLE_DFM_MASKING			REG_BIT(20)
-+#define  TRANS_HDMI_R_B_SCHED_ENABLE_MASK		REG_BIT(19)
-+#define  TRANS_HDMI_R_B_SCHED_ENABLE(val)		REG_FIELD_PREP(TRANS_HDMI_R_B_SCHED_ENABLE_MASK, val)
-+#define  TRANS_HDMI_ACTIVE_CHAR_BUF_THRESH_MASK		REG_GENMASK(18, 16)
-+#define  TRANS_HDMI_ACTIVE_CHAR_BUF_THRESH(val)		REG_FIELD_PREP(TRANS_HDMI_ACTIVE_CHAR_BUF_THRESH_MASK, val)
-+#define  TRANS_HDMI_MIN_BLANK_CHAR_MASK			REG_GENMASK(15, 12)
-+#define  TRANS_HDMI_MIN_BLANK_CHAR(val)			REG_FIELD_PREP(TRANS_HDMI_MIN_BLANK_CHAR_MASK, val)
-+#define  TRANS_HDMI_MIN_BLANK_CHAR_VAL			0xa
-+#define  TRANS_HDMI_FRL_PKT_PAYLOAD_MAX_MASK		REG_GENMASK(9, 0)
-+#define  TRANS_HDMI_FRL_PKT_PAYLOAD_MAX(val)		REG_FIELD_PREP(TRANS_HDMI_FRL_PKT_PAYLOAD_MAX_MASK, val)
-+#define  TRANS_HDMI_PAYLOAD_UPPER_BOUND			0x3fe
+ 	intel_de_rmw(display, DDI_BUF_CTL(port), DDI_BUF_CTL_ENABLE, 0);
+ 
+ 	if (DISPLAY_VER(display) >= 14)
+ 		intel_wait_ddi_buf_idle(display, port);
+ 
++	/* Clear PORT_BUF_CTL HDMI FRL Shifter Enable to 0 */
++	if (crtc_state->frl.enable) {
++		val = intel_de_read(display, XELPDP_PORT_BUF_CTL1(display, port));
++		intel_de_write(display, XELPDP_PORT_BUF_CTL1(display, port),
++			       val & ~XELPDP_PORT_HDMI_FRL_SHFTR_EN);
++	}
 +
-+#define _TRANS_HDMI_FRL_TRAIN_A				0x600b4
-+#define TRANS_HDMI_FRL_TRAIN(dev_priv, trans)		_MMIO_TRANS2(dev_priv, \
-+								     (trans), \
-+								     _TRANS_HDMI_FRL_TRAIN_A)
-+#define  TRANS_HDMI_FRL_LTP(pattern, lane) ((pattern) << (lane) * 8)
+ 	mtl_ddi_disable_d2d(encoder);
+ 
+ 	if (intel_crtc_has_dp_encoder(crtc_state)) {
+@@ -3496,8 +3504,9 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
+ 	 * On ADL_P the PHY link rate and lane count must be programmed but
+ 	 * these are both 0 for HDMI.
+ 	 *
+-	 * But MTL onwards HDMI2.1 is supported and in TMDS mode this
+-	 * is filled with lane count, already set in the crtc_state.
++	 * But MTL onwards HDMI FRL is supported and in FRL mode, port width
++	 * needs to be filled with either 3 or 4 lanes. For TMDS mode this
++	 * is always filled with 4 lanes, already set in the crtc_state.
+ 	 * The same is required to be filled in PORT_BUF_CTL for C10/20 Phy.
+ 	 */
+ 	if (dig_port->lane_reversal)
+@@ -3513,8 +3522,18 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
+ 		if (dig_port->lane_reversal)
+ 			port_buf |= XELPDP_PORT_REVERSAL;
+ 
++		if (crtc_state->frl.enable) {
++			port_buf |= XELPDP_PORT_HDMI_FRL_SHFTR_EN;
++			port_buf |= XELPDP_PORT_BUF_PORT_DATA_20BIT;
++			buf_ctl |= DDI_BUF_PORT_DATA_20BIT;
++		} else {
++			buf_ctl &= ~DDI_BUF_PORT_DATA_MASK;
++		}
 +
- /* Hotplug control (945+ only) */
- #define PORT_HOTPLUG_EN(dev_priv)		_MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61110)
- #define   PORTB_HOTPLUG_INT_EN			(1 << 29)
+ 		intel_de_rmw(display, XELPDP_PORT_BUF_CTL1(display, port),
+-			     XELPDP_PORT_WIDTH_MASK | XELPDP_PORT_REVERSAL, port_buf);
++			     XELPDP_PORT_WIDTH_MASK | XELPDP_PORT_REVERSAL |
++			     XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK |
++			     XELPDP_PORT_HDMI_FRL_SHFTR_EN, port_buf);
+ 
+ 		buf_ctl |= DDI_PORT_WIDTH(crtc_state->lane_count);
+ 
 -- 
 2.50.1
 
