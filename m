@@ -4,78 +4,167 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A263ACC6B10
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2157CC6B0E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BFF610F5AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 716C810F5BC;
 	Tue, 13 Oct 2026 07:53:29 +0000 (UTC)
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
- [209.85.210.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B39010E719
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 05:04:26 +0000 (UTC)
-Received: by mail-ot1-f45.google.com with SMTP id
- 46e09a7af769-7f48c750afcso1933790a34.0
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 22:04:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791867865; x=1792472665; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=gTdVETudrkO9g7BtMaM+WFIY64QBuvndlnKmd0+mElY=;
- b=K3cihy28Xr8rTeRHhYYY5FNP7giIk0P7rmABizFxwGI4yzb9+jfuDOfAtcC9/QyM1k
- JpeRGuh2KKdY6i0zBA70Szk8CCkpioB56ukds37vmPua5OGVJnwVOA41O/F70j9fFVuk
- 7d1pbhBqh4DJOWAKCyTS51Dy/OjoHBlJ6X/n5ARC4I17fN4tzbvrguPykIMy8hnNo9+f
- rlbiQSb1unCWB4t4ljOWDZEqN5qb3cHtt+59JZ/LOHSkSHWbDCUVIoZnS23AUxG03qL9
- rgvfDowzT0kKFb2OBtnDBIm/fHlFwUu+Qlpq5ciu3SRFSrZCn5HssdIZ+x+BKZhko7li
- fdxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791867865; x=1792472665;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=gTdVETudrkO9g7BtMaM+WFIY64QBuvndlnKmd0+mElY=;
- b=XwbGFtHrVZPqqAPAiWqOFVP/lUx3LltT3foxQYx2Ma8s5PxE+C32MnFuor8A2kKTMu
- NRr9g+QEyR5VSVfCZncIczgdPGtG2TnzLNHYLz5RBdKcg760Wx90vgNichAgnVClYkkk
- O3dv6DwRW5GVfktbPwyA7RdHH4/amIU+tXxGWSGMaC5Ll7BstgIa6AJZZpb2rtHTHrY6
- V+7ORpQyKDopK/vIJLcqgwHQrGoDqgXGUPRjLFHCF/Jz9mF95LmSabX6fSC9U7zCI0WZ
- r6D30eCDU4PieIBRq3JadftOZosBg7mKj+lFv3/ALaDrvybFjW2PRTlLbPXbBm3tvwm9
- om3Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwuyVHEAFdCeNz4jXrMnYw+Fb8n1FH8rDfG2DSRyhr0MPIBnBFqvpFPv+BHom1cl/Pvwk7rLmf1tYA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKssli1JsLWhwb/CgfFxckZCw6yIIbQC7cLd/JlC5x+a0FPeWpT
- 9QJ1bc1sM45rBTaQD6QtzMBCSZCB24K18XskW/3EnRdIpjcKJs1iNzeH
-X-Gm-Gg: AYBFou05be95JNmRg6F6ulwacLHXWz0fOcuBK7KOU9o1yozh4cOg4G4PNFzOcERgC0N
- hdYNEYdiAQLpNXr/OYEjUcAw3i9ZKVyS2BbE2NtbYrVLFkF3tOpnnKNPJ5tt+OVTZioIPga5dgD
- rYePwWPz/6406/8APoRlPFRnMjhANH8aUTlpPY2IcTcupyPzpMJDl4RkRHajWdYhdSAJXJj/Z5h
- QqEv35RvIMxni2wpy1bWQCMNp2R5F7iY+YfHuAw2HpD70oOQ0fcE+gvM/Raoyx4GO/bzBtNDeQv
- QcoI9XkQo22Dh+OsfnKDxGCAKhxMIyXZJUHP+fWbf3qbGwPYdEkNN9fjd/oqmMNdPQtqbQ4UyV9
- kefjW4oJZ7dDKyoRTwKhuoR7j/PwDsLIMEsB8eDqcjwtjmhMYSqmdc78wqYIUlynX+KwSJRxgek
- NAXYLYWC0VG2t+YomVG0Jw0AxLSaAv9MyiwTgob5o5UkXPE4fGKck7tgBbH2WSdGW0mCm+4duxS
- ebu5/4pQBFBRQ==
-X-Received: by 2002:a05:6808:2215:b0:4ec:4c7e:37b5 with SMTP id
- 5614622812f47-50c541775a7mr10580195b6e.29.1791867865451; 
- Mon, 12 Oct 2026 22:04:25 -0700 (PDT)
-Received: from gmail.com ([108.243.219.47]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-50c167544b5sm13557623b6e.3.2026.10.12.22.04.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 22:04:23 -0700 (PDT)
-Date: Tue, 13 Oct 2026 00:04:22 -0500
-From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Doug Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Chris Morgan <macromorgan@hotmail.com>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 4/4] drm/panel: newvision-nv3051d: Use
- mipi_dsi_*_multi(); fix minor bugs
-Message-ID: <as24ZjtrzICOkcj3@gmail.com>
-References: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
- <20261012-mipi-multi-series-v1-4-6a29add1ec92@gmail.com>
- <sashiko-outbox-168984@kernel.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17C1810F2E8
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:49:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C832602BE;
+ Mon, 12 Oct 2026 18:49:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB4E1F008A3;
+ Mon, 12 Oct 2026 18:48:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791830959;
+ bh=wjF42amL6Dxyn7QE+tOpdln0eb7clnjUQooAdiVZf+0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=S5Kydjjv9MS5+ikIdcZLMtuInYdV4t+V4R8UcdwFfxkBeySjLpbFVJq8LB6YxCqkr
+ WeAECYnx1xgOH4BCK5UKPqhA6vX63IsVR+EXTybK7br7NLZ0u33YyIJ0w63zopC1kg
+ GU+kcsTw0LbmCgEp5zsbb6LxKiUHFIKAoePc0l+qoejVs3yioGigw3j4rdpAoRlJ3I
+ /cUbiiAInDyjl1r0HL5sbja+XefiWr/RVW0+MJ3r/tslGXWsYEcvK/wwGhtCVMUb4u
+ wvTis4aZ/ONKs/Wu0zQSkB08hCtETluDlUNZP//epzAHhx9+9SCh4NVSRJMN9uvwGR
+ v4bYjBEhcFCPw==
+Message-ID: <a8ec0313-544f-4c8f-a161-5200d1cffe13@kernel.org>
+Date: Mon, 12 Oct 2026 20:48:21 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-168984@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 32/38] mm/madvise: use predicates for madvise(...,
+ MADV_DOFORK)
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ Bert Karwatzki <spasswolf@web.de>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-32-923b70125b1e@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-32-923b70125b1e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,21 +181,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026 at 04:43:35AM +0000, sashiko-bot@kernel.org wrote:
-> [Severity: Medium]
-> Does panel_nv3051d_init_sequence() mask initialization failures?
+On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+> Make it clear what we're blocking in MADV_DOFORK. Previously we simply
+> disallowed VM_SPECIAL i.e. mappings not managed by core mm, fixed mappings
+> and
+> VMA_IO_BIT.
+> 
+> Now the invariant is established that mm-managed mappings may not set
+> VMA_IO_BIT, the VMA_IO_BIT check is redundant.
+> 
+> The rest is equivalent to testing for a fixed or non-mm-managed mapping,
+> i.e. exactly the same check as whether the VMA is permitted to be merged.
+> 
+> This was established by commit 0b2758f48f22 ("Require (reasonably) normal
+> mappings for MADV_DOFORK") containing my hands-down favourite call out of
+> all time.
+> 
+> Express the same thing differently - if we wouldn't be allowed to merge it,
+> then we aren't allowed to manipulate CoW behaviour on fork.
+> 
+> No functional change intended.
+> 
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This is pre-existing: panel_nv3051d_init_sequence() returned 0
-unconditionally before this patch as well, and the cover letter calls
-it out.
-
-My plan is to send the fix, returning dsi_ctx.accum_err, as a separate
-patch once this series has been reviewed.
-
-If you would rather have it in this series, I can include it in v2.
-
-Sashiko AI review: https://sashiko.dev/#/patchset/20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com?part=4
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-Thanks,
-Akash
+Cheers,
+
+David
