@@ -4,128 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B4A9CA9ED1
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 07:51:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55A33CA9EDD
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 08:01:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0501F10E3CA;
-	Mon, 12 Oct 2026 07:51:24 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013032.outbound.protection.outlook.com
- [40.93.196.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F07E10E3CA
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 07:51:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c38qzwaUUTiXHU9uRyk2AHOQ0VcZ+702hk0/00CS85HqNyVoEF/ayC1YL3ppuDsE7FF+ze229ptoq/vPaYtncyMMU2bi0Oy+pVZmWSHK/SwKI7/2qBP4fggVUARiWzqtbQdBrViPyetrUusZlTjZquOLYQzjPuUfCmuBLoKYy1kWvMBHjpO1dhgfiiKTQmt+qhFapXIsAGqqNgiM9OgJOIpJfPFHNrmUyNsg1OsQWz70Qx1h/Euef3NpJ8vwvY7V5i46mn8H0OxQtQRC6kcELz25aWNDsQSMJ54isgodZEJa+mPwZhLSVc6ZpB3BNqGWQt2RNgSB1CzFRt+CfY2kmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uO/LsM90vHJ9EP7bsceinIU4AJdSnqLnJKYeOKx/Kw0=;
- b=W97A43wTqb659vVV989dd44O5JBHlsv4XzGy+INWg1weKubPs6Z3NkVdaZPaXwxgSk1xS3nSYdOZkrOQVJ25BsyAYP5kjftZQhvp8O7zO+/DJU9KGtacXmZzrgRNCLIqoJ297aaCOr1rRtnclacuRv4Rggvb9kkXE5HPz2VExXUYDLUnhuaEUdWXQycsRqNZqwDnakySr6+CeL+sNB0ThVhiyuGMuwBp5mqcT5/wuQ7e7MqEEcLgkawxrYHPLPMVeUNikoWIeJnJJXS1rDI3zbaQHhDJho9iFDvDeJIYQ8rs6tLFUOK8lb4jWzmhlaWqBkkVQGYFV06cE2ilarfBKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uO/LsM90vHJ9EP7bsceinIU4AJdSnqLnJKYeOKx/Kw0=;
- b=mxTxad+e/Pbr8+JMahjd3YI5/XInavjHXLPSNfAMcgu/rmXIlAFUUowTRikojV3PinvY84bPYO4h5FcZiXGlu5cqQrF2Hmd+Wq2jzM+3ATDYdGbjEYvxHSic+qn4VGfVcQfiAHnUtU4CBJw3aSIT/0tQcHpEvpaOkA/Lu3pku3U=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CYYPR12MB8750.namprd12.prod.outlook.com (2603:10b6:930:be::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Mon, 12 Oct
- 2026 07:51:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 07:51:13 +0000
-Message-ID: <f70c39c0-3754-4a18-8ad9-eaaf8a307b8f@amd.com>
-Date: Mon, 12 Oct 2026 09:51:08 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id B666710E505;
+	Mon, 12 Oct 2026 08:01:18 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C904510EC71
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:01:07 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69C55rwJ2436696
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:01:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=; b=R/iGb5yh5gV+VzRZ
+ yCFEkH4d4rDnR+vKoe15fRaCJi4R42/mdiB6NmcJrF5frK9CRi3rD8YYWU2pyb8v
+ OUVigOu78zNtDxDGKQJmQjTq4oHP5b413jrhdmFsg0VBon054OMYK/KYZCZUia+q
+ Nw1aiu3pupkVf7mrgTgolwvyR1DMps1/4jTDyCRPZMgbB4BjFAKcdfC0NYj/O9S5
+ GZoMfYcCBDmj4obyPe7oZqTlMAl0VhU6mL/9baAWZyug+xKCnMO9Mny2Xel4px/W
+ kWHFX2jSt5qEiCBmM6FQsUNLHaYw5hVsiW8VcRGvOzD6Xh1acjR/zrWWfkpAFXt3
+ Zgfvvw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7b2fdu05-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 08:01:07 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93edac5877bso3781285a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 01:01:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791792066; x=1792396866;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=;
+ b=TRO3P77rAxLVeupTXZ5VksglrleVf97A/xAUfqwgVPWgotV5iDtW08Trh4Od2GytH0
+ USdUG/r5nJNPlwMEr+MWuBADigi9uY5byZom6sz8JEdbZm7nRWf2mKv5Q5uHuk7GqxsD
+ WsaEZ9pvRZk5SlOQ6d6rjzvYPJZeAgNP/A3UY3NVF0qe3sN8opUIn1qu6Hk9N2Qq5Wjg
+ d1VUaJMsoDES98R2pbMQeUOZTkta6ASLKYzVPXecO+R+nCVY6kJO7/O/i2Fb2sNRPteT
+ LOKiqTIYAK3x6X1kWiIw6u2ra49FUkH4XIkR5mJh+XnmoFXK1L8FkJCp9B2WQf09++/5
+ 1KzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791792066; x=1792396866;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=;
+ b=GE+0WHUZiOwKk+vEAFzqwaAyVINKwoI17i6Wg+1qB5BxV5ip+uSnVuxB6z0zLyP4KL
+ QtvNAn9Gf20m8cNwPJEX0IX0Y7fCqDedlsjKAdkOqAtlF/do91Wi8+qHB3/qR6VCLMvE
+ 7lADN9AvELTJUxT89y0EiRrTgxle4An5cVUV0VCpwdiFY4oqiBwSIUdCfMfrQ/lAcgl4
+ 0DclW2Xun3dQmA0uOfOq6Oec4qDjvQOr0loXSOZFQDlf/Mrx259VHLRLcqtU/ByPQCi/
+ m48JYdvo/yAYZFLNExVGT7xhstJDQnyr9Oict0ptJ54L8KztYjr0yITg86+H4rEjmvSl
+ HYeA==
+X-Gm-Message-State: AFq9FYKkd5aUfmUzlLquzrXWYGgVfhmLrpMhXsUIKob7sKOx4R+rOI9u
+ PI/90ejNZNqXwcDyrr2tJ0grmz4jub61HnSZF4O0qwc+E5W3qkvYeNpEDlSSIyqSLhlkTmqUveo
+ ffmOi73BZCAYnodP9MF/PDWjhR5YIGnvB3HwzZYxsueHx3nmljPZpIcTJ2rAH0LdGqp/IPC0=
+X-Gm-Gg: AYBFou3rDoUih6SeVmX/nocHmgHDHr9O1hOsx5ml2sU1cqnKS4MTLb+eg1nJJDKo6nb
+ 5Xbbh81X8EAI3qoD2C/jvTQaisHqh5caE0HSdFghwy23u3AJwwFBHd4yflnpbCYwsIa1A0L1k/m
+ DOLZWjhiyB/jj4t98/T0NnYzfhg9pEiIN1xgApwF2B3S0iOScL658q4hPh7s6eCU5Z5vIlnNsDR
+ M/6cexgbGbuSWGyMh8giglNBZkh1FZM6hHWriDGjsb5yevdcO0MOYqqFPDY9hkNJp4eR1Mg+Euh
+ rMlKDHaMueObW1kfW/8M0b9Jbb1Ltmeyy4OzTK3nzijZFhEraxfxZL88BG3MzYMVKMejuxRcvIj
+ SWvL5+cg+H7DxruVGe5gn4A==
+X-Received: by 2002:a05:620a:1a10:b0:93c:c96c:a5b4 with SMTP id
+ af79cd13be357-93ebd23a4f6mr1661419085a.4.1791792066237; 
+ Mon, 12 Oct 2026 01:01:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a10:b0:93c:c96c:a5b4 with SMTP id
+ af79cd13be357-93ebd23a4f6mr1661411885a.4.1791792065667; 
+ Mon, 12 Oct 2026 01:01:05 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3a9c3c9af97sm27169731fa.14.2026.10.12.01.00.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Oct 2026 01:00:42 -0700 (PDT)
+Message-ID: <d33eaab8-2933-45a9-a716-b3eebf3dd9d4@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 10:00:29 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/syncobj: flatten chains when importing sync_file
- into timeline point
-To: Julian Orth <ju.orth@gmail.com>,
+Subject: Re: [PATCH v2 14/20] drm/msm/dp: Clear stale MSA colorimetry bits
+To: Xilin Wu <sophon@radxa.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20261010180711.1548333-1-ju.orth@gmail.com>
- <20261010180711.1548333-3-ju.orth@gmail.com>
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dragon@radxa.com, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+ <20261009-msm-dp-hdr10-v2-14-1835d4966da3@radxa.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261010180711.1548333-3-ju.orth@gmail.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261009-msm-dp-hdr10-v2-14-1835d4966da3@radxa.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0171.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::26) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8750:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6203cdd-f57a-4c68-b2b5-08df2835966c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|56012099006|261009221227099003|4143699003|11063799006|6133799003|10067099003|22082099003|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: f2eea8olq6VwQuNN5AE3XI9xYEMzcdZXYIvNpShkHrYbMdfFR/9ud0lEnBhCUf4xSJhlCeJ8YeBYurjgTM0AMg7hoebcza9eOnOU0AEhqYnJYxeIebJwDGDdf87WdUf8BnnUr/PbeQe+ugRkUfGXi9ah1HcDCfnTsNdrTiTU9s0pklvLMmm03iF1d3M0+4hl5k7UQOL7rXyNhBn4FyDKToegN/ilzIBE7/XWqaqdnG61A6Pjho1bt8YtqWkE1Vfou/3HC2h3tC4fRmloHbdkf44RxVVNojLcepXmMHKO7tkth+mDbIiDVVwZavIoHxXLk73Gke326SvpmhTaF8BKPbGtuuhHbzD+YFKc8BtT4QPJ2juqha3X9NBRBSfZ0VGn7uyOAN6GMU7pMYmjiVQ9JYyjyYV8iD15fAjFmbCHXL7TUyCIXm/XPsf4VMbOXw803IUgkH6ZR1xCdwsPlbuf9CdDRB6cWcCqJbFa+a1rJ40cHNRdPHCLZwd4akA5NRLjGGM42O5GyUNdvD12k+0JLs57aSPCR7wZf90gI/UYT4p6urD31BVQGtQPzvJ4rMVfMhcGi4em1oIdsY3ems+ytFHdXQkNXkQ/7tj7p6Sw/KOAAlQIITCjYXJDOv/CkizUHz6osWf6QiIGgyKbXfCzqQTWAqXEPwvx3Y/scUbCco0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(56012099006)(261009221227099003)(4143699003)(11063799006)(6133799003)(10067099003)(22082099003)(18002099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3AzSkJtaWlhWnJxZVNCRkVnS3Q2MnhBRUE2c2hwRWNGcjYrVXBrQWJmQm8z?=
- =?utf-8?B?R2h3azRDd016MEVPaUorcFpUWVNFdXNRSXp6VmxaL1llSGhpSXBIMitZQVl1?=
- =?utf-8?B?dHdOWEZ5WXFYYXA3UlBaVk5tdWpGMDVuZnBXdkJmZnI5MnFaL2g3Y253ZzVJ?=
- =?utf-8?B?UmQrWndpZEJubHQyc3BkOTN4bGVMMVg4WHJmeWtNODlzWlQ5R0lnOTg2UzdV?=
- =?utf-8?B?UmphcEw0RDF5RWxTbjNiMWRDTGxtaUJNSFNnTjlDc1JseXpDRjA0dllPOWs5?=
- =?utf-8?B?ODkzaDZpakptRjlZcnJkK29kdk96VzhLRkFzWlh0WWxtbGd3YWtJUFRSZVYz?=
- =?utf-8?B?VnlaYkJjanhMUXdtVENDNXYzakpFbzZ0TmdLdmVlTzdJQ1ZFYXlOSEgwZ1VY?=
- =?utf-8?B?M1pSM3FXR0lrUWlHUUp2VDdEYXg4cmI2d3hpVVZUdkZMeEtyMXVUeTlrYTdW?=
- =?utf-8?B?NEpmc0lVWDRqUm1PTTRuS0o0NkVHN3BBVnlGaUdQVkJSK1UySURuYnZBamNs?=
- =?utf-8?B?a3QxdXp5VHBmNEh0Zzh2cE90R29ZSjRReFBYMjZkK3J2enY3MHcxUjlncXpR?=
- =?utf-8?B?aW5ydnNHUGkzbzhSNkdydDE2UHN1bHFZNHQyeGc5N1YwRm1NT3lKeTgxRFlJ?=
- =?utf-8?B?WnFkZWtHNUJNWWt0NnJlL3Z4cDZtcE12RWxFdDZaa0NaQnJNOHNOcHFkVlFT?=
- =?utf-8?B?Ukl6UHhPeDdLeFA2ZU80NFNNTDhzYTdITTJObDR3VzNRd1pHUVdHVFNHV2p5?=
- =?utf-8?B?eVcwSTI3c3p5TlRtYkZSWFZWcC8rVlAxNWhvS0t1OWs3czdYK3Bjei9GUStr?=
- =?utf-8?B?ZExNVkt6UzlYUHpEUEhtRGYrb1ByMWROcjdySzBNV0RpbkFCV0p4WnczT3ZB?=
- =?utf-8?B?N0JEcG04K29nU3Z2Um1lWFhpYjVvS0hrZDBLVENDMDhZQjFEanFqOEhEVzJV?=
- =?utf-8?B?Mk04MzhrOTlycVdiamxkczZ4TXRwY3lPc1EvWmZvbUYwajNTU3FBYWdWdFU3?=
- =?utf-8?B?VnhZWUs4VUNLK2cwVk5OQ3JpbVQ1bm16UkRac2VTOGptcnp0QWo3dHpJQjZp?=
- =?utf-8?B?NldvclFRZDBrNWNJYWRMOEVram1saldsVG9zTytiMlErK1IzcHpOYmFERDZQ?=
- =?utf-8?B?OXBKZnBXaXlKaW91VVZpeTFnTStybmpOSkt5SGVnL3hSNE5qZWtLYmZUT3RU?=
- =?utf-8?B?ZGoxRVNQcnk0aG5pWWRrUDB3a1pYbzcwdUt3bkxVUDB4aXA0ZThLd1Z3VG0v?=
- =?utf-8?B?aEw1Wm9QbytGUWthOFVvdkx5U1o4ZkJjcFBFQXlLc05veUw2TjdJWmNOWFRD?=
- =?utf-8?B?am1OMmp6VFlncVhpQ0lUTDZ5OVZtWkMrSjh6bkpQYkFlZkRKWEhvcEpNRVY3?=
- =?utf-8?B?MGZKSEZjNTlXbncxc3N2RHRuK0tuWGI2U0JYUndUKzc5UnRZaWdBdHh1OHYv?=
- =?utf-8?B?TDR3emd6N3Yrcnp3QUdTQUp1anBhOW1oaEFUejNDQzY0MU9NTU5ZOUJZNm5k?=
- =?utf-8?B?WjJZM1ZhL1FlUEIzUDhOOUVGYUtLYzhXT1dvVGwyUkpnM2JNclpQNWM0MW5h?=
- =?utf-8?B?dERYWHo2RHFzL3RXRUpyWGZ4bHZGbWpOVFA0RzhoVDJlcmhPR3R5Snd4Qnlw?=
- =?utf-8?B?ME01S1VqUTh3aVN1bkdxR0Q2eXB2WkRUS1VsNUFmTk9JNzRCMWVnRFF6T2Vu?=
- =?utf-8?B?czJieEZuVWpvb1p1N2ExOTBCdFpBKy9LMm8zZ0poVGZZQkppeW5wWUFOdDFZ?=
- =?utf-8?B?dlJ1ZVJFWnVQcmJBTE41ZzlmamQ0UVhHZTJOMmNMRDNpYmhaTGVja0dhNzZi?=
- =?utf-8?B?QkRKdnZ0YUJoRTc5RmI2Nm1uWVRudTZ3Z3Y1Y3VmVnNMTWRKak9HWXgrOG1K?=
- =?utf-8?B?dXVNa1kxUVowVjliQnJESWRPQnk5bTdiVS9vc3hPMm52cFZ5aXYyM1JnK2tj?=
- =?utf-8?B?RG85dXhWZ3J3SGdoVjQ5RlJzVGVOVzBxUFFtREUrRXV2dnBMRSs2aDZGaGFK?=
- =?utf-8?B?ZUp3YlB6Z3hNTDhJUFUxK1BJU0NkYXdlUEMremdUZi9IaTNQUVdGZkF0VFJB?=
- =?utf-8?B?RHl6bm53eHBkcnpkUWY4bTVzaWN1OWNmMURDRjB4NnZjY2h2U3ZBYnd2VUdq?=
- =?utf-8?B?NklDL1ZYOWJJUTFOSlh0VDZJTUtoVHFVYWlWNjA3V21pZzRBbk9ON2tFaHc3?=
- =?utf-8?B?akE1VXVETlc1b1lvQWJzQmYzNjlkM0dacHJXWkFXL2pITW1JOHhnbDhHdGh4?=
- =?utf-8?B?K0tjakJIek8rMWN4RGVvYituZEJMeFh2SWVudElxbUNnNHNDYUlDelpQUG5q?=
- =?utf-8?Q?lLoZfovliMRZWQ+C+5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6203cdd-f57a-4c68-b2b5-08df2835966c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 07:51:13.3277 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rv15xwFXyHbeFZa3lHkI5bG4172QgXhKWQNFDdpCgzHoXpgwtRzzoj5seUw1xRVA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8750
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMSBTYWx0ZWRfX3QVxAoQHvUxA
+ RAjen5xRsTuoNfBx6BuMuJkCAkprb/xCveP2u9eNKNbNhedf5bxCiQrTB5pF14BObtCdzcGYrvf
+ iP/R0qLGTWaCS9SHCiXSvT0vSrFpALI=
+X-Proofpoint-GUID: xS-hvbG_yiq6HPldqT2ZjSw8-xFY5Czz
+X-Authority-Analysis: v=2.4 cv=NddzRGD4 c=1 sm=1 tr=0 ts=6acc93c3 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=ksxQWNrZAAAA:8 a=KLRTrxjsjmTHsxePAeEA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMSBTYWx0ZWRfX6N2NmYcd4A3y
+ SGAMx/Ea03tVAGt8OUNBZPYl4q7fIfkpnNjx+QaEqjiZS/x5324dfrYqb2c6yjUW+wEjhwxUdRi
+ Q74MMqJpZwv6/kzcxKAWKg76NInO2Uii5y9bxQi7xocP3W/cyj6MXt9NgMzC4viAE7hnCe4Ke35
+ rsgsG+tvvuO6mBk4CZfYj3qW08JEWXqtR30LJqjWSvGuroppQ4CYxWreA31/1dH65C9+lUn6aC5
+ WGJJS1/c5+g6/FmYzcUDB83wYWp64DbbeDpmL4b35yOJ7xJc0Xwhp1ywebdOmEDzkWz2fEFZKXo
+ zJW1y1ScXVCTRNvjmrW3LXNxsgLhTk19jfEE6kgksnviz12i1QmSTlfTaGE0/vvQEH2CdR42ZWS
+ NgO22hvx83IiCxghrei2ES+chHrF+VPLpY0XS05kOVuI0VvLihOg5vXo2i7Mk1IEjhqN4t/KTE5
+ UdzlfWya8hlCebdMbBA==
+X-Proofpoint-ORIG-GUID: xS-hvbG_yiq6HPldqT2ZjSw8-xFY5Czz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120031
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,68 +155,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/10/26 20:07, Julian Orth wrote:
-> A sync_file exported from a timeline point can contain a dma_fence_chain.
-
-No it can't, IIRC sync files are only supposed to contain raw fences or dma_fence_array containers.
-
-I think we never documented that and that's why this issue here leaked in.
-
-I'm not sure if that doesn't break anywhere else as well, so I think we should fix the exporting side instead.
-
-Alternatively we need to audit everywhere where fences from syncfiles can be imported somewhere else.
-
-Regards,
-Christian.
-
-> Importing such a sync_file into a timeline point with
-> DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE |
-> DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_TIMELINE passes the chain directly to
-> dma_fence_chain_init() and triggers
+On 10/9/26 5:16 AM, Xilin Wu wrote:
+> The MISC0 update clears the bit-depth field but only ORs in the new
+> colorimetry value. Bits from the previous stream can therefore survive
+> when the new value clears them.
 > 
->   WARNING: drivers/dma-buf/dma-fence-chain.c:286 at dma_fence_chain_init
+> Clear the colorimetry field together with the bit-depth field before
+> programming the new stream.
 > 
-> because chain fences must not be wrapped in other chain fences.
-> 
-> Flatten the fence with dma_fence_unwrap_merge() before adding it to the
-> timeline, as drm_syncobj_transfer_to_timeline() already does.
-> 
-> Reproducer:
-> 
-> 1. Export a sync_file from a point > 0 of a timeline syncobj with
->    DRM_IOCTL_SYNCOBJ_HANDLE_TO_FD.
-> 2. Import it into a point > 0 of another timeline syncobj with
->    DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE.
-> 
-> Fixes: c2d3a7300695 ("drm/syncobj: Extend EXPORT_SYNC_FILE for timeline syncobjs")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Julian Orth <ju.orth@gmail.com>
+> Assisted-by: LLM
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
 > ---
->  drivers/gpu/drm/drm_syncobj.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index 5ca5163d0..c545af77e 100644
-> --- a/drivers/gpu/drm/drm_syncobj.c
-> +++ b/drivers/gpu/drm/drm_syncobj.c
-> @@ -742,8 +742,18 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
->  	}
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 791bb3af2cad..783cafb22374 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -476,7 +476,8 @@ static void msm_dp_ctrl_config_misc1_misc0(struct msm_dp_ctrl_private *ctrl,
+>  	misc_val = msm_dp_read_link(ctrl, REG_DP_MISC1_MISC0);
 >  
->  	if (point) {
-> -		struct dma_fence_chain *chain = dma_fence_chain_alloc();
-> +		struct dma_fence_chain *chain;
-> +		struct dma_fence *tmp;
-> +
-> +		tmp = dma_fence_unwrap_merge(fence);
-> +		dma_fence_put(fence);
-> +		fence = tmp;
-> +		if (!fence) {
-> +			drm_syncobj_put(syncobj);
-> +			return -ENOMEM;
-> +		}
->  
-> +		chain = dma_fence_chain_alloc();
->  		if (!chain) {
->  			ret = -ENOMEM;
->  			goto out;
+>  	/* clear bpp bits */
+> -	misc_val &= ~(0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT);
+> +	misc_val &= ~((0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT) |
+> +		      GENMASK(4, 1));
 
+The colorimetry field spans bits 7:1 AFAICU and bit 15 means
+Y-only video
+
+Furthermore, I believe this register holds the standard fields/
+values defined in drm_dp.h near
+
+"/* MSA (Main Stream Attribute) MISC bits (as MISC1<<8|MISC0) */"
+
+so we can drop the local defines
+
+Konrad
