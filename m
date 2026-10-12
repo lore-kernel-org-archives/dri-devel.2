@@ -4,34 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A14CC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A022DCC6B10
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB2610F5B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A04510F5BE;
 	Tue, 13 Oct 2026 07:53:30 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 037C110F2B9
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:16:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1267C10F2E0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:47:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AE6DB43685;
- Mon, 12 Oct 2026 18:16:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992E11F0089B;
- Mon, 12 Oct 2026 18:15:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C5917419DB;
+ Mon, 12 Oct 2026 18:47:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8956B1F008A1;
+ Mon, 12 Oct 2026 18:46:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791828963;
- bh=QYTLULj50w8cGz2VrDdtiT3+k08nrjopgP7hF7y/knY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=jKb1KDAJ3AFav06sCyLj8UCjIoWRIlRCFdFfQ5zT9BeRC2sxgPNBxw6BbyYoWnU/f
- tCdXrUW0n0dwFo32dUZ49pZL8p1NPDoE5mJy50/Yp7zqrshPLFad2VvFvE+Q++XYG1
- ArL6vPewLSC8itjPCy8DcgYxztVngtqaCpUx4V2PsZ2AoMuvrmyo+WPFGE09ZU7tV5
- pPtIyF0ur2rrwANNOiExG/1JN/dbg/8GA/bftwSsMYuUlXrXRo4y72l21Mo948fwu8
- 1Eq/rGQf7emejheXqvBWawSe4WtPFf1Myhk48p1iYQVNdqbN7/o7xm1K0t4/5MKb1G
- PgVkbNUkAJI6A==
-Message-ID: <da6cda23-da5d-453c-8b19-8fb35e60c4b5@kernel.org>
-Date: Mon, 12 Oct 2026 20:15:27 +0200
+ s=k20260515; t=1791830827;
+ bh=qSlbvrIHwU3Y3EaiCo+j8HqkUnlq3n6fYvrvq7B0imw=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=ifoy46DiXGWrvn9hHlC9sWpEOIJfnolR01lkmYmzMt8oZMHwULKUu405XHQyvJvcd
+ specWDspHy4xMW8bFKyZ8rpWjPIMeUNqSVWgVGRDTn907gomOPrB4hpaV/MLQBUx2M
+ 8VIFQ806d0QftmuijbNPIH////VvTEwrO1SHh8+NpG+s7sRK1rsSEUt1INVLlwjZxt
+ 1QIZU7Bw3nRpNkkvYBJS0tGBVjoOR8H8l0vwpksiXTvLIzHxaRPkznNHaA4C38A3Zs
+ mBuQbebXHvgoFrYLsANA2bsPxTBg5880xj3MQZLIL8NXEYnBg06LwVEG1x0EDcqIUu
+ 3KRtQ3mdnAWNg==
+Message-ID: <8819f458-894a-429a-8038-cd9bc0617bd2@kernel.org>
+Date: Mon, 12 Oct 2026 20:46:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 20/38] mm/gup: error out early on !VMA_MAYREAD_BIT VMAs
+Subject: Re: [PATCH v5 30/38] mm/vma: introduce vma[_flags]_is_mm_backed()
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -114,8 +115,8 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
  Bert Karwatzki <spasswolf@web.de>
 References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-20-923b70125b1e@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-30-923b70125b1e@kernel.org>
+ <c79d2d40-0f1c-43ec-bc25-b75ce975f27e@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -161,7 +162,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-20-923b70125b1e@kernel.org>
+In-Reply-To: <c79d2d40-0f1c-43ec-bc25-b75ce975f27e@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
@@ -180,31 +181,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> When populating a VMA range via the aptly named populate_vma_page_range()
-> an unreadable VMA will always eventually fail with -EFAULT.
+On 10/12/26 20:45, David Hildenbrand (Arm) wrote:
+> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+>> Introduce vma[_flags]_is_mm_backed() for the purposes of identifying
+>> mappings which are mm-managed and whose contents were placed there by core
+>> mm's own fault path - rather than a custom ->fault handler - and which core
+>> mm has not reserved the right to discard.
+>>
+>> Mappings not managed by core mm do not fall into this category, as they are
+>> populated by their owner, and nor of course does memory-mapped I/O.
+>>
+>> We exclude fixed mappings as these have a layout core mm cannot assume
+>> ordinary fault semantics over.
+>>
+>> hugetlb mappings are fixed mappings, but core mm owns them entirely, so
+>> they are explicitly carved out as mm-backed, as the MADV_DODUMP check
+>> already does.
+>>
+>> Droppable mappings are excluded as core mm has promised it may discard them
+>> at any time.
+>>
+>> Use this functionality to update the madvise MADV_DODUMP check to test for
+>> this rather than open-coding it.
+>>
+>> This replaces the VM_SPECIAL check which means it no longer checks for
+>> VMA_IO_BIT, however this is safe as we have established the invariant that
+>> mm-managed mappings may not set VMA_IO_BIT, so we implicitly include
+>> these.
+>>
+>> No functional change intended.
+>>
+>> Acked-by: Zi Yan <ziy@nvidia.com>
+>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>> ---
+>>  include/linux/mm.h | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>>  mm/madvise.c       |  4 ++--
+>>  2 files changed, 52 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>> index 2ce68713e4c3..55320cf2c525 100644
+>> --- a/include/linux/mm.h
+>> +++ b/include/linux/mm.h
+>> @@ -1738,6 +1738,56 @@ static inline bool vma_can_merge(const struct vm_area_struct *vma)
+>>  	return vma_flags_can_merge(&vma->flags);
+>>  }
+>>  
+>> +/**
+>> + * vma_flags_is_mm_backed() - Do the specified VMA flags imply the mapping is
+>> + * backed by core mm?
+>> + * @flags: The VMA flags to test.
+>> + *
+>> + * An mm-backed mapping is one managed by core mm (see
+>> + * vma_flags_is_mm_managed()) for which two further things are true:
+>> + *
+>> + * 1. Everything mapped was placed there by core mm's fault path (no custom
+>> + *    ->fault).
+>> + * 2. What is mapped stays there until it is zapped or unmapped by the user.
 > 
-> That a VMA is accessible is always checked, however VMA_MAYREAD_BIT is not.
+> I still dislike squeezing the VMA_DROPPABLE check in here.
 > 
-> All user mappings always have VMA_MAYREAD_BIT set, so this check only
-> impacts kernel mappings.
+> It's just weird semantics to squeeze pages that are *managed* by core MM (#1)
+> but are simply always lazyfree into this check.
 > 
-> It is implemented specifically to disallow population of uprobes XOL
-> mappings which are exec-only.
+> In fact, core-mm manages (zaps) these pages, they are really just just
+> permanently lazyfree.
 > 
-> A nasty interaction with these mappings may occur if they are mlocked, so
-> actively disallow this early.
+> Open-coding "this (DUMP, UFFD, MLOCK) does not make sense for droppable
+> mappings" is IMHO the right decision, because there you could say
 > 
-> This allows a subsequent commit to remove the VM_IO check in
-> __mm_populate() which otherwise requires non-MMIO mappings to be wrongly
-> flagged simply as a workaround.
+> "dumping something that can get zapped every second does not make any sense"
 > 
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+> "placing pages through uffd does not make any sense if it can get zapped any second"
+> 
+> "mlock'ing (and thereby allocating!) droppable mapping does not make any sense
+> and could actually break droppable semantics"
+> 
+> Not a hill I will die on, but I much rather have the droppable mapping be
+> outside or  have it called something nasty like
+> 
+> vma[_flags]_is_mm_backed_or_droppable()
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Noting that that does not make sense, as we would have to reve
 
 -- 
 Cheers,
