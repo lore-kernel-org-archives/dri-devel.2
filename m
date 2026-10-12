@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21CA5CA9ED9
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDFADCA9ED5
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF32D10EC7B;
-	Mon, 12 Oct 2026 04:16:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7201E10EC75;
+	Mon, 12 Oct 2026 04:16:22 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBEDE10E4DB;
- Mon, 12 Oct 2026 04:16:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 874A310EBCF;
+ Mon, 12 Oct 2026 04:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778574; x=1823314574;
+ t=1791778576; x=1823314576;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oB4L2j9QVOBAJkaGQuBdqBZVBK5Lu8/vtAXoYJ0IA5E=;
- b=b00+VJf1QlEAmIaCA95oIACFKaBKJEqfOOW76XTFWAwIo6t1K3R1Q3K8
- wzPi66NvgbOovtfSxLmnuIZ/WVOSpBmxVJu/5N8hAhMITUiqw0Ki9CEaV
- yS3sdyYhnSYEWbh4Kq0fHf+XyIZL1xqfkq9Lb68I9Qcx9Sl4VgCe7AHKO
- 5yfK1XQTRPEQUxncRC49zbxrpDZTMNyJhrsPfOmYVi+KwFDrJwBFKQTxP
- yGoBd1JrHftye1tEZR+2itL58NkTakdyXroyViJGN8UYe0du0eyK1h5Tq
- AxoLfViJnv9vAH0OaEhpZ4fcqXs7gD+lZfBima2MmwUdXJzP6LqaxB2eI w==;
-X-CSE-ConnectionGUID: mEamMfTzQkCpyqYvbltKpA==
-X-CSE-MsgGUID: 5eEn+UUNTiySU68ykerUXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="366212"
+ bh=2+R+J2ktMDG6VwcJlZVZwaScU1p+cPczIosCU8hRNmU=;
+ b=YyprwUDm9G6wC38/CPDUEuKxkAG3zwQQTbBnxP6XdqaWaSnCBrvIfCCx
+ pZzYC3KNqFoEYJ7+nZI6QqsqZf0JMlIkDGqDuh8r2E5zIHNqW2nU2Y0Bf
+ COIx5JqIkrtL3v7T6NkmXyShAS4uEa/gTC40OE0tFQMGE3znjrMp3n5c2
+ QgDT97r+YMPuNcjWUv2ZB2+y6YD5jxZ0rHCp+jzXCdbpQnIX/VofmVG1z
+ jfPvapAqm/Ufr2FbcRFcmYowkPbNRgOekrLon0rOGbIJQkNJmc80lUgaG
+ gsL+TlYKETvfbCD/+ZO/0CBqccGzQPcztSDHtFSjj1EFpoHx34co/W7BX w==;
+X-CSE-ConnectionGUID: OBK9wm4TRma8U2zRNoSODg==
+X-CSE-MsgGUID: auuzuP0YQ/yrqosiAcjKow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="366213"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="366212"
+   d="scan'208";a="366213"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:16:14 -0700
-X-CSE-ConnectionGUID: bh5+iYfnQkGrhwaFNThZiw==
-X-CSE-MsgGUID: X6Kny3NzSMG3zoj9PHWbzw==
+ 11 Oct 2026 21:16:16 -0700
+X-CSE-ConnectionGUID: SYQXoI24TkCsoo1XH17/0A==
+X-CSE-MsgGUID: KXPzA63IQnyM6OVXDGNSnw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256798"
+   d="scan'208";a="1256811"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:16:12 -0700
+ 11 Oct 2026 21:16:14 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 52/56] drm/i915/joiner: Move joiner candidate helpers to
+Subject: [PATCH v2 53/56] drm/i915/joiner: Move joiner pipe mask helper to
  intel_joiner.c
-Date: Mon, 12 Oct 2026 09:28:01 +0530
-Message-ID: <20261012035806.3361439-53-ankit.k.nautiyal@intel.com>
+Date: Mon, 12 Oct 2026 09:28:02 +0530
+Message-ID: <20261012035806.3361439-54-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
@@ -70,197 +70,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move intel_dp_joiner_candidate_valid() and the max hdisplay helper to
-intel_joiner.c so any encoder can use them.
-Replace the DP-only check with intel_joiner_connector_can_join(),
-which uses connector type, allowing HDMI to be added later.
+intel_joiner_valid_primary_pipe_mask() implements joiner-specific
+pipe validation logic and is only used by the joiner code.
+
+Move the helper, along with find_consecutive_bits() dependency, from
+intel_display.c to intel_joiner.c to keep joiner-related functionality
+grouped together.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../drm/i915/display/intel_display_debugfs.c  |  6 ++--
- drivers/gpu/drm/i915/display/intel_dp.c       | 36 -------------------
- drivers/gpu/drm/i915/display/intel_dp.h       |  9 -----
- drivers/gpu/drm/i915/display/intel_joiner.c   | 35 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_joiner.h   |  9 +++++
- 5 files changed, 46 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 47 --------------------
+ drivers/gpu/drm/i915/display/intel_joiner.c  | 47 ++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_joiner.h  |  2 +
+ 3 files changed, 49 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 3e302f23f247..7c0864ed0384 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -43,6 +43,7 @@
- #include "intel_hdcp.h"
- #include "intel_hdmi.h"
- #include "intel_hotplug.h"
-+#include "intel_joiner.h"
- #include "intel_link_bw.h"
- #include "intel_panel.h"
- #include "intel_pps.h"
-@@ -1352,12 +1353,9 @@ void intel_connector_debugfs_add(struct intel_connector *connector)
- 				    connector, &i915_dsc_fractional_bpp_fops);
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index f9233b5f5b6a..ea41432a86b7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -192,53 +192,6 @@ is_trans_port_sync_mode(const struct intel_crtc_state *crtc_state)
+ 		is_trans_port_sync_slave(crtc_state);
+ }
  
--	if ((connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
--	     connector_type == DRM_MODE_CONNECTOR_eDP) &&
--	    intel_dp_has_joiner(intel_attached_dp(connector))) {
-+	if (intel_joiner_connector_can_join(connector))
- 		debugfs_create_file("i915_joiner_force_enable", 0644, root,
- 				    connector, &i915_joiner_fops);
+-/*
+- * Return a bitmask of all the start indices of consecutive bitfields of size
+- * width in mask.
+- */
+-static unsigned long find_consecutive_bits(unsigned long mask, int width)
+-{
+-	unsigned long bit, out_mask = 0;
+-
+-	if (!width)
+-		return 0;
+-
+-	for_each_set_bit(bit, &mask, BITS_PER_TYPE(mask)) {
+-		/* For each set bit, see if the following bits are set also */
+-		unsigned long bitfield = GENMASK(bit + width - 1, bit);
+-
+-		if ((mask & bitfield) == bitfield)
+-			out_mask |= BIT(bit);
 -	}
- 
- 	if (connector_type == DRM_MODE_CONNECTOR_DSI ||
- 	    connector_type == DRM_MODE_CONNECTOR_eDP ||
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 49e4c77b5142..ba724c2e16f6 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1243,11 +1243,6 @@ intel_dp_sink_format_valid(struct intel_connector *connector,
- 	}
- }
- 
--int intel_dp_max_hdisplay_per_pipe(struct intel_display *display)
--{
--	return DISPLAY_VER(display) >= 30 ? 6144 : 5120;
+-
+-	return out_mask;
 -}
 -
- bool intel_dp_has_dsc(const struct intel_connector *connector)
+-/*
+- * Return a bitmask of all valid joiner primary pipes for joining
+- * num_joined_pipes pipes. For completeness, return all valid pipes for
+- * num_joined_pipes == 1.
+- *
+- * Return 0 if the platform doesn't support joining for the requested number of
+- * pipes, or there are not enough consecutive pipes available.
+- */
+-u8 intel_joiner_valid_primary_pipe_mask(struct intel_display *display, int num_joined_pipes)
+-{
+-	if (num_joined_pipes == 1) {
+-		return DISPLAY_RUNTIME_INFO(display)->pipe_mask;
+-	} else if (num_joined_pipes == 2) {
+-		if (!HAS_UNCOMPRESSED_JOINER(display) && !HAS_BIGJOINER(display))
+-			return 0;
+-	} else if (num_joined_pipes == 4) {
+-		if (!HAS_ULTRAJOINER(display))
+-			return 0;
+-	} else {
+-		return 0;
+-	}
+-
+-	return find_consecutive_bits(DISPLAY_RUNTIME_INFO(display)->pipe_mask, num_joined_pipes);
+-}
+-
+ static enum pipe joiner_primary_pipe(const struct intel_crtc_state *crtc_state)
  {
- 	struct intel_display *display = to_intel_display(connector);
-@@ -1268,18 +1263,6 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
- 	return true;
- }
- 
--static
--bool intel_dp_can_join(struct intel_dp *intel_dp,
--		       int num_joined_pipes)
--{
--	struct intel_display *display = to_intel_display(intel_dp);
--
--	if (num_joined_pipes > 1 && !intel_dp_has_joiner(intel_dp))
--		return false;
--
--	return intel_joiner_valid_primary_pipe_mask(display, num_joined_pipes);
--}
--
- bool intel_dp_dotclk_valid(struct intel_display *display,
- 			   int target_clock,
- 			   int htotal,
-@@ -7515,25 +7498,6 @@ int intel_dp_sdp_min_guardband(const struct intel_crtc_state *crtc_state,
- 	return sdp_guardband;
- }
- 
--bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
--				     int hdisplay,
--				     int num_joined_pipes)
--{
--	struct intel_display *display = to_intel_display(connector);
--	struct intel_dp *intel_dp = intel_attached_dp(connector);
--
--	if (!intel_dp_can_join(intel_dp, num_joined_pipes))
--		return false;
--
--	if (hdisplay > num_joined_pipes * intel_dp_max_hdisplay_per_pipe(display))
--		return false;
--
--	if (connector->force_joined_pipes && connector->force_joined_pipes != num_joined_pipes)
--		return false;
--
--	return true;
--}
--
- u8 intel_dp_as_sdp_transmission_time(void)
- {
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 17b6e270b05e..26d2313f2662 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -221,20 +221,11 @@ int intel_dp_compute_config_late(struct intel_encoder *encoder,
- 				 struct drm_connector_state *conn_state);
- int intel_dp_sdp_min_guardband(const struct intel_crtc_state *crtc_state,
- 			       bool assume_all_enabled);
--int intel_dp_max_hdisplay_per_pipe(struct intel_display *display);
- bool intel_dp_dotclk_valid(struct intel_display *display,
- 			   int target_clock,
- 			   int htotal,
- 			   int dsc_slice_count,
- 			   int num_joined_pipes);
--bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
--				     int hdisplay,
--				     int num_joined_pipes);
--
--#define for_each_joiner_candidate(__connector, __mode, __num_joined_pipes) \
--	for ((__num_joined_pipes) = 1; (__num_joined_pipes) <= (I915_MAX_PIPES); (__num_joined_pipes)++) \
--		for_each_if(intel_dp_joiner_candidate_valid(__connector, (__mode)->hdisplay, __num_joined_pipes))
--
- u8 intel_dp_as_sdp_transmission_time(void);
- 
- int intel_dp_link_init(struct intel_dp *intel_dp);
+ 	return ffs(crtc_state->joiner_pipes) - 1;
 diff --git a/drivers/gpu/drm/i915/display/intel_joiner.c b/drivers/gpu/drm/i915/display/intel_joiner.c
-index b9d7c9bfd1a6..4c50f226199d 100644
+index 4c50f226199d..9dfe855f5668 100644
 --- a/drivers/gpu/drm/i915/display/intel_joiner.c
 +++ b/drivers/gpu/drm/i915/display/intel_joiner.c
-@@ -20,3 +20,38 @@ bool intel_joiner_needs_dsc(struct intel_display *display,
- 	return (!HAS_UNCOMPRESSED_JOINER(display) && num_joined_pipes == 2) ||
- 		num_joined_pipes == 4;
+@@ -55,3 +55,50 @@ bool intel_joiner_candidate_valid(struct intel_connector *connector,
+ 
+ 	return intel_joiner_valid_primary_pipe_mask(display, num_joined_pipes);
  }
 +
-+static
-+int intel_joiner_max_hdisplay_per_pipe(struct intel_display *display)
++/*
++ * Return a bitmask of all the start indices of consecutive bitfields of size
++ * width in mask.
++ */
++static unsigned long find_consecutive_bits(unsigned long mask, int width)
 +{
-+	return DISPLAY_VER(display) >= 30 ? 6144 : 5120;
-+}
++	unsigned long bit, out_mask = 0;
 +
-+bool intel_joiner_connector_can_join(struct intel_connector *connector)
-+{
-+	switch (connector->base.connector_type) {
-+	case DRM_MODE_CONNECTOR_DisplayPort:
-+	case DRM_MODE_CONNECTOR_eDP:
-+		return intel_dp_has_joiner(intel_attached_dp(connector));
-+	default:
-+		return false;
++	if (!width)
++		return 0;
++
++	for_each_set_bit(bit, &mask, BITS_PER_TYPE(mask)) {
++		/* For each set bit, see if the following bits are set also */
++		unsigned long bitfield = GENMASK(bit + width - 1, bit);
++
++		if ((mask & bitfield) == bitfield)
++			out_mask |= BIT(bit);
 +	}
++
++	return out_mask;
 +}
 +
-+bool intel_joiner_candidate_valid(struct intel_connector *connector,
-+				  int hdisplay,
-+				  int num_joined_pipes)
++/*
++ * Return a bitmask of all valid joiner primary pipes for joining
++ * num_joined_pipes pipes. For completeness, return all valid pipes for
++ * num_joined_pipes == 1.
++ *
++ * Return 0 if the platform doesn't support joining for the requested number of
++ * pipes, or there are not enough consecutive pipes available.
++ */
++u8 intel_joiner_valid_primary_pipe_mask(struct intel_display *display, int num_joined_pipes)
 +{
-+	struct intel_display *display = to_intel_display(connector);
++	if (num_joined_pipes == 1) {
++		return DISPLAY_RUNTIME_INFO(display)->pipe_mask;
++	} else if (num_joined_pipes == 2) {
++		if (!HAS_UNCOMPRESSED_JOINER(display) && !HAS_BIGJOINER(display))
++			return 0;
++	} else if (num_joined_pipes == 4) {
++		if (!HAS_ULTRAJOINER(display))
++			return 0;
++	} else {
++		return 0;
++	}
 +
-+	if (hdisplay > num_joined_pipes * intel_joiner_max_hdisplay_per_pipe(display))
-+		return false;
-+
-+	if (connector->force_joined_pipes && connector->force_joined_pipes != num_joined_pipes)
-+		return false;
-+
-+	if (num_joined_pipes > 1 && !intel_joiner_connector_can_join(connector))
-+		return false;
-+
-+	return intel_joiner_valid_primary_pipe_mask(display, num_joined_pipes);
++	return find_consecutive_bits(DISPLAY_RUNTIME_INFO(display)->pipe_mask, num_joined_pipes);
 +}
 diff --git a/drivers/gpu/drm/i915/display/intel_joiner.h b/drivers/gpu/drm/i915/display/intel_joiner.h
-index a091eab2f86d..85e19ed1527f 100644
+index 85e19ed1527f..962b9724c112 100644
 --- a/drivers/gpu/drm/i915/display/intel_joiner.h
 +++ b/drivers/gpu/drm/i915/display/intel_joiner.h
-@@ -8,9 +8,18 @@
+@@ -22,4 +22,6 @@ bool intel_joiner_candidate_valid(struct intel_connector *connector,
+ 	for ((__num_joined_pipes) = 1; (__num_joined_pipes) <= (I915_MAX_PIPES); (__num_joined_pipes)++) \
+ 		for_each_if(intel_joiner_candidate_valid(__connector, (__mode)->hdisplay, __num_joined_pipes))
  
- #include <linux/types.h>
- 
-+struct intel_connector;
- struct intel_display;
- 
- bool intel_joiner_needs_dsc(struct intel_display *display,
- 			    int num_joined_pipes);
-+bool intel_joiner_connector_can_join(struct intel_connector *connector);
-+bool intel_joiner_candidate_valid(struct intel_connector *connector,
-+				  int hdisplay,
-+				  int num_joined_pipes);
++u8 intel_joiner_valid_primary_pipe_mask(struct intel_display *display, int num_joined_pipes);
 +
-+#define for_each_joiner_candidate(__connector, __mode, __num_joined_pipes) \
-+	for ((__num_joined_pipes) = 1; (__num_joined_pipes) <= (I915_MAX_PIPES); (__num_joined_pipes)++) \
-+		for_each_if(intel_joiner_candidate_valid(__connector, (__mode)->hdisplay, __num_joined_pipes))
- 
  #endif /* __INTEL_JOINER_H__ */
 -- 
 2.50.1
