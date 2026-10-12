@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D7A4CA9ED0
-	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 16:04:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52FBCA9ED0
+	for <dri-devel@archiver.kernel.org>; Mon, 12 Oct 2026 16:05:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72E1E10F233;
-	Mon, 12 Oct 2026 16:04:12 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D162210E055
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 16:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1791821044;
- bh=mOTVvbMzguCr0itsLPJfPjM4slEMMfKEWtMDQZarop4=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=tGArUO0M+F9ccditeaf/9yzLO4TbPPnQuxNy2IaPxXImPRxBtkRXo15HwwD++1lW9
- FA8Q50lzIXUoB9SbUAaYJ/ckFtxD7/lXnKrI2orv2TFsBcepc7c7Qe9VnF73gPX91/
- N9g5mUejTU6u11+BgHImWdJFnGN7TkanYw/iSt6PcLyzjvb+5kOUt9KNO+PLCXDwAc
- x417Zdh+bf1wVXu/IHdebGgPMzg8asF/7jzvejEHCCMBHU9Zxt4bS+mjKOlYeN0g67
- 8xGGH73cDLwMxCzFJxQFwxlcdOtI5RJJ9I2Jv6eAfxmdvn6eTg/aB1y6kL5V7iz4Dl
- T0hC+9by3qybg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3Mhv4KfYz4w9g;
- Tue, 13 Oct 2026 03:03:59 +1100 (AEDT)
-Message-ID: <e2171fff-62af-4185-a815-6293bea71220@ozlabs.org>
-Date: Mon, 12 Oct 2026 17:03:56 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51BCC10E5F2;
+	Mon, 12 Oct 2026 16:05:39 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4ACE10E5F2
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 16:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=ZI1jrhehYU+RLKzgYORjc8QBBzD771a1CdXAHNaSzhg=; b=z6bRrKRKJWtCYbq8O15zAVKj2D
+ bBzZr2i0KPOh74I4rQGdau7VTdAKbFhVeChAGUfakuuH16JYr91BIvvM2DR8J5GTsNfTmOADDDUxf
+ gSoyRlC/x31Z4YlNZF5zkwo55heQMtbGri91zlsdtqFHHohb+H9DxwCDSKr6LDuUCTXSZfauun/tz
+ NrO/lXE2WYRRkEAAhCYmJkoGjtPR5hOBGyZDTq5cfSZ+MeN5U9LIoWoSrQ37zsIatc5ItLcALCsSm
+ JbN9AMSF08rKqA3DshjDy6cC4kBWFUfdh/eTx9n1MZZ2KPNuYZ72C+gPT77kQZbxoDI5Mp78yAqb9
+ DNXK2IKQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Algea Cao <algea.cao@rock-chips.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Maud Spierings <maud_spierings@hotmail.com>,
+ =?UTF-8?q?Robin=20R=C3=A4ber?= <robin.raebi@gmail.com>,
+ Igor Paunovic <royalnet026@gmail.com>, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v12 00/16] Add HDMI 2.0 support to DW HDMI QP TX
+Date: Mon, 12 Oct 2026 18:05:01 +0200
+Message-ID: <179182109533.3793653.8971698569867906952.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
+References: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Zack Rusin <zack.rusin@broadcom.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
-References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
- <CABQX2QOOaxkxzREaDHY3iXHs0106u+F9JvQSTXCnA7AEjPPxuQ@mail.gmail.com>
- <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
-In-Reply-To: <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,171 +66,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi i915 folks,
 
-On 08/10/2026 14:41, Matt Evans wrote:
-> Hi Zack,
+On Mon, 05 Oct 2026 03:38:01 +0300, Cristian Ciocaltea wrote:
+> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
+> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by making use
+> of the scrambler infrastructure introduced recently in the DRM core and
+> HDMI display helpers.
 > 
-> On 07/10/2026 16:24, Zack Rusin wrote:
->> On Tue, Oct 6, 2026 at 3:15 PM Matt Evans <matt@ozlabs.org> wrote:
->>>
->>> The dmabuf release path is split between file and dentry release:
->>> dma_buf_file_release() is called shortly before the file is freed, and
->>> dma_buf_release() calls an exporter's dmabuf->ops->release when the
->>> dentry is freed.  However, the dentry can outlive the file (for
->>> example, if opened with O_PATH), meaning .release might be called some
->>> time after the file is freed.
->>>
->>> This presents a window, when closing a DMABUF file, in which
->>> dmabuf->file points to freed memory yet .release op has not yet been
->>> called.
->>>
->>> For VFIO, if a buffer's .release has not been called it's considered
->>> still active and subject to move/cleanup.  If so, it attempts to
->>> get_file_active() on dmabuf->file: a file close with dentry held open
->>> will call this function with a stale pointer, a UAF.
->>>
->>> To make this pattern safe, set dmabuf->file to NULL in
->>> dma_buf_file_release() to reflect that the associated file is now dead
->>> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
->>> sequence concurrent with a file close will only execute as one of:
->>>
->>>    - Gets the file before file_ref_put() (dmabuf->file valid)
->>>    - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->>>    - Observes dmabuf->file = NULL (no file)
->>>
->>> Originally, drivers could assume dmabuf->file was valid until .release
->>> was called from fops->release.  This assumption was no longer valid
->>> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
->>> dentry_ops"), which moved the callback to the dentry release (by which
->>> point the file might have been freed).  With this commit, drivers must
->>> still consider that dmabuf->file could be NULL before .release.
->>>
->>> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to 
->>> dentry_ops")
->>> Signed-off-by: Matt Evans <matt@ozlabs.org>
->>> ---
->>>
->>> Hi,
->>>
->>> This issue was found (by Claude Opus 5.5) in the context of VFIO's
->>> DMABUF export path.  VFIO iterates live DMABUFs with a
->>> get_file_active()/fput() block, which now becomes safe if the file is
->>> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
->>>
->>> However, there are a couple of other places that directly use
->>> dmabuf->file and seem able to race a closing file (i.e. without holding
->>> the file reference)?  If this is so, they'd be a UAF today; with this
->>> patch that goes away, but instead of a stale pointer dmabuf->file could
->>> be NULL:
->>>
->>> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
->>>
->>>    file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
->>
->> Yes, that's a real UAF today. vmwgfx relied on the exporter's
->> dma_buf_ops.release running inside __fput() before file_free(), which
->> stopped being true with 4ab59c3c638c and we missed it.
->>
->> But this patch on its own makes vmwgfx worse. In the ordinary case,
->> where closing the file drops the last dentry reference, a close racing
->> PRIME_HANDLE_TO_FD is safe today: ttm_prime_dmabuf_release() runs from
->> the same __fput() and blocks on prime->mutex, keeping the file
->> allocated, so file_ref_get() just fails on the dead refcount. With
->> this patch dmabuf->file is NULL in that window and we oops. So this
->> shouldn't go to stable without a vmwgfx fix.
->>
->> For vmwgfx we'd probably need this one line change in
->> drivers/gpu/drm/vmwgfx/ttm_object.c to accompany this patch:
->> @@ -471,7 +475,7 @@ void ttm_object_device_release(struct
->> ttm_object_device **p_tdev)
->>    */
->>   static bool __must_check get_dma_buf_unless_doomed(struct dma_buf 
->> *dmabuf)
->>   {
->> -     return file_ref_get(&dmabuf->file->f_ref);
->> +     return get_file_active(&dmabuf->file) != NULL;
->>   }
->>
->> under prime->mutex, which keeps the struct dma_buf alive. It needs the
->> NULL store from this patch to fix the existing UAF, since otherwise
->> the recheck can accept a recycled file through the unchanged stale
->> pointer.
+> The first group of patches wires up the SCDC scrambling feature itself
+> in the DW HDMI QP bridge driver, while improving i2c fault handling,
+> and providing enable/disable HPD PHY ops and a HPD notify helper.
 > 
-> Thanks for confirming!  Ah, so get_file_active() is good here, cheers. 
-> I'll repost as a 2-part series to first include this in vmwgfx and 
-> second add the anNULL.
-> 
->>> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
->>> this might be more subtle than replacing it with a get_file() variant
->>> (so as to accept a NULL file *).
->>>
->>> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
->>>
->>>    gvt_dbg_dpy(... file_count(dmabuf->file) ...);
-> 
-> FWIW aside, I re-read this, and there does appear to be a ref held 
-> (dma_buf_export() has just happened, and dma_buf_fd() generated) so 
-> dmabuf->file is stable at that point.
+> [...]
 
-I think I was mistaken here:  the reference is moved to the file table 
-by dma_buf_fd(), and seems another thread could immediately close it.
+Applied, thanks!
 
-If so, there's an opportunity for userspace to (after this fix) cause a 
-NULL deref here.
+[01/16] drm/bridge: dw-hdmi-qp: Demote i2c bus error messages to debug level
+        commit: 7de65917d29cc0747bdbd5f30ad2f8a3d0a236b9
+[02/16] drm/bridge: dw-hdmi-qp: Provide .{enable,disable}_hpd() PHY ops
+        commit: 23594060f8019e400c55abe4b982f4ddfbb06471
+[03/16] drm/bridge: dw-hdmi-qp: Remove unused workqueue include and define
+        commit: 994452efe9c7871d7a6de8c31ba6e5a2c9733e99
+[04/16] drm/bridge: dw-hdmi-qp: Add HDMI 2.0 scrambling support
+        commit: 046dbe428a69e0e2a8d09ac7de75ebc9bd469a46
+[05/16] drm/bridge: dw-hdmi-qp: Provide dw_hdmi_qp_hpd_notify() helper
+        commit: a58efc1aa0bb67abe1946be72a1c67d17d78aadf
+[06/16] drm/rockchip: dw_hdmi_qp: Fix invalid drvdata access in PM ops
+        commit: b6e19848c9db535d81d6db85c7cc1324e6611791
+[07/16] drm/rockchip: dw_hdmi_qp: Cancel pending HPD work on suspend
+        commit: 5d0aa771a5308f6a6c83eeaa89351a472ae580c3
+[08/16] drm/rockchip: dw_hdmi_qp: Add missing newlines in dev_err_probe() messages
+        commit: 7554a1cb23148a3ab0b74c7edd47356c26b40ead
+[09/16] drm/rockchip: dw_hdmi_qp: Use local dev variable consistently in bind()
+        commit: 1fe516676a1ca0678b27408f7b5f91b4e9f5bbc9
+[10/16] drm/rockchip: dw_hdmi_qp: Avoid spurious HPD IRQ thread wakeups
+        commit: 8bba3185c107b6bb6d59a1fb0c516e24dd90dee4
+[11/16] drm/rockchip: dw_hdmi_qp: Mask RK3576 HPD IRQ in io_init
+        commit: 383fad9dac0c136334cf257fa1a1ce5180e08740
+[12/16] drm/rockchip: dw_hdmi_qp: Implement .{enable,disable}_hpd() PHY ops
+        commit: 40e100d4af8f29df7ddc7e867412bf81836fb32c
+[13/16] drm/rockchip: dw_hdmi_qp: Factor out HPD interrupt (un)mask helpers
+        commit: b0d607d0c35b206b3ec0497dedbd0fa48f108144
+[14/16] drm/rockchip: dw_hdmi_qp: Control the HPD IRQ line via the bridge HPD ops
+        commit: 91f92a7487c4efef52b13bc864f5c16858791ba4
+[15/16] drm/rockchip: dw_hdmi_qp: Use dw_hdmi_qp_hpd_notify() for HPD reports
+        commit: bba9ac0a9047f3df5d5160140785c1d885debb06
+[16/16] drm/bridge: dw-hdmi-qp: Drop unused .setup_hpd() phy op
+        commit: fc9370d7b1c927f5a7f20e1251b8ee7bc0698954
 
-I'm about to repost the series but am happy to include a oneliner third 
-patch to mitigate this, if you feel appropriate.
-
-Is file_count() still interesting here, i.e. do you expect it to be >1 
-immediately after export?  If still required, reading 
-file_count(dmabuf->file) before the dma_buf_fd() would be safe (printing 
-it later at the existing place).
-
-
-Matt
-
-> 
->>> Respective vmwgfx & i915 maintainers, what is your view?
->>> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
->>>
->>> Thanks,
->>>
->>>
->>> Matt
->>>
->>>
->>>    drivers/dma-buf/dma-buf.c | 6 +++++-
->>>    1 file changed, 5 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->>> index 4c9add51f9ef..726639130477 100644
->>> --- a/drivers/dma-buf/dma-buf.c
->>> +++ b/drivers/dma-buf/dma-buf.c
->>> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
->>>
->>>    static int dma_buf_file_release(struct inode *inode, struct file 
->>> *file)
->>>    {
->>> +       struct dma_buf *dmabuf = file->private_data;
->>> +
->>>          if (!is_dma_buf_file(file))
->>>                  return -EINVAL;
->>>
->>> -       __dma_buf_list_del(file->private_data);
->>> +       __dma_buf_list_del(dmabuf);
->>>
->>> +       /* Must be observed by __get_file_rcu() before file_free() */
->>> +       smp_store_mb(dmabuf->file, NULL);
->>
->> I think Alex is right and dmabuf can be NULL here. An early if
->> (!dmabuf) return 0" will fix that.
-> 
-> Yep, on it.
-> 
-> Many thanks,
-> 
-> 
-> Matt
-> 
-
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
