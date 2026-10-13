@@ -4,130 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88B0CCC6B0F
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 12:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB12CA9ED2
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 12:14:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BD9E10E7E5;
-	Tue, 13 Oct 2026 12:13:46 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011065.outbound.protection.outlook.com [52.101.52.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 782E510E7DF;
- Tue, 13 Oct 2026 12:13:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B248810E7E2;
+	Tue, 13 Oct 2026 12:14:15 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011053.outbound.protection.outlook.com [52.101.57.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E407410E7E7
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 12:14:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n2FTiYOGzs/HIDtifNom2flkFH3XXM0l0x+KvXpHBHqhPGRl53AwWM2WfXnNlC/uV2Prdqf6Gv4D5ssi8klmV3O7ZzNOUjMTToUoui5FyOQX+7lEaEQ/LuI5LQdcw+8HrNbFQ2+XzxiHL/dlkce9JGB7z7PgH/jGXTTVrIEvcEkP1owfjP9QHNJjVUKiUDKp1MGPOV7z2vG1urmm73br/tgek7xv6ufQN0w3t+mnlrW7gewEAlsrmdeFUHRPwRCfxckqDoeNqiEeozbAGgNlHj8Z7amYjYQpwWc5Dx6ntLIU0i83Xduplv29J6AeXnPOW0DpgsCpbLGnL+9LBZgc4A==
+ b=OlnJ4/L21XMljEvQvnJpTOxHrgoQab+IWZufirYhVUrf+0orUQ9QaUyPtmXZ7EjUNUE4BL5NYzYjzQhJXGPXJoTA+EI2wWTaphl5TRZHIgxLlSZTj7zyoLVgTMcD/oT/iuQ/1HGN33E2GSj7Hri6Xx760T7vQ6Du3fRzc9Aqcw4w5n6rLa3NZThHl6ZYBAKMylCb/3NFX+L1404IZ5pnv6hRIT8Zj4Y5iXtuQD5aE2QOD0X9lRZLfozNzM66brEJheJEDjZiytWrAKjztrLyoUIsOm5MFDkP0stjszZb5+6IWlemzU9ZRsPhbRLljxCM3Q7vdUTBxnZdHliOIvftfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EpRoEh7vBlY9soQ1DXe54XyrmWydEWufoCt+y7zZXiE=;
- b=IwyjIWl0Acae/ab7PuW5LOBhiuAmP4rnwhZjGtxXaVFa8UMMnVQKkCLMSZGGUzPaaZt5oi9kThIhfdshZnX5scbnRtPwapJOQAccLB21i2opHO/mPn5JJ4vgDurF5xO7dk6adlOxp1kKf8Qo34dC0uQ1RGspp5W0jGplo98pR9Cg/+ROcyCx/6Qf6+VtVMA0Dnc/O/RMG06Aaf3qrRHaNhZZ8EZN0tJijzNUEe/c/DkTxFUE7jVk7WgI6g3A39K4dnkPf0KKxoX2COCJeS5ZY2dSv5n0Wxpi/BWeOJ+WBpiIMTRDMIPXjn9haq2GBzvkTkzNkI2FAFXqW87ML9fB0A==
+ bh=AZXVFUreUQYzKlk0D3KeTjavvLtHdXZFDqcCrAnC3+8=;
+ b=mPNMFfHExAkzqkmM08rAwkHM3hMrSMaO1t+tWy6LU479FwTXdXQWi0Zh4Y4okoB7oVykz1xPqPUdqHl4heV0mzciyx9LTEiD0n5XQ+kDr17q15/MpLJTKb0am03glUhN33W84X38npdDsp3unVxL+ilJ190zp+WUhPBm1rhm/9NUn4dWLIwefJntBTPl36A4PTzS4l4BINh+gfNVRt+KVRgJBpEbW+wdjRRQGRmOR+9Ebx76mI9u49VVV6OEdguCpi8VhdZet5FOIrrH1wJZGGLSQj3WAA0NpU+d9Eg8TKMmqUYpbnB4THG+LV+DCKxda4SLVeNDBjfEp7gP4N17pw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EpRoEh7vBlY9soQ1DXe54XyrmWydEWufoCt+y7zZXiE=;
- b=vTgZB6jwwQmHCwiTLkvmx9cHW78+iX/gmJUPgb8jtpaYefn11laNSRgdNS5lgaAsWfKPAK/nLRqad9l9sxtfDxqofTfpXltb+sBUNVk8OezqU5j1O9FojRu6jm1VVlLi41NpsTUD5iF21maNsR7txFFlrbCca7q7xS9y77D7d30=
+ bh=AZXVFUreUQYzKlk0D3KeTjavvLtHdXZFDqcCrAnC3+8=;
+ b=LlHKGM3ljva9+QOSUi/iR3DZ9m8XnYpD65+yIvU6NQ7c3Bt/r+lIH/LI6nS/tmsgyDrJPYPW9U2tkeL5Htbjz565vLpFrL4zO9tqmwzY1skBVwzeVqpIiY6BW0vKaLI42lAN0oZ0pDRdf9UnTfWI50Lh9JoHPIDgUNc3J1fAB1QDzi8dx9vE4Lwlc+xabFr176Qu84LvA8mBYb89lw830tbHjsFYi6/Xp1uLTsTAKY0VNQSA2I05ZGUrYF6lQyXWQbd8DtnuTHziWjtJNwYMrCt7lSUOzgSIO9/rcLITpcfzy1Ne7NbTjt2yWMMklulJeP4I+fo4OM+SlJRO5brgZg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8903.namprd12.prod.outlook.com (2603:10b6:610:17a::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 12:13:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 12:13:35 +0000
-Message-ID: <3e3e0974-20f9-4aaa-a6b8-a7fb4727ad8e@amd.com>
-Date: Tue, 13 Oct 2026 14:13:27 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
-To: Matt Evans <matt@ozlabs.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Zack Rusin <zack.rusin@broadcom.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
- Alex Williamson <alex@shazbot.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, stable@vger.kernel.org
-References: <20261013120211.135807-1-matt@ozlabs.org>
- <20261013120211.135807-4-matt@ozlabs.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261013120211.135807-4-matt@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR05CA0003.namprd05.prod.outlook.com
- (2603:10b6:208:36e::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by PH5PR12MB953872.namprd12.prod.outlook.com
+ (2603:10b6:510:501::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Tue, 13 Oct
+ 2026 12:14:07 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 12:14:07 +0000
+Date: Tue, 13 Oct 2026 09:14:05 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ media-ci@linuxtv.org, Marc Zyngier <maz@kernel.org>,
+ kvmarm@lists.linux.dev, Oliver Upton <oupton@kernel.org>
+Subject: Re: [RFC PATCH v8 01/14] mm: Add an allocator for CoCo shared memory
+Message-ID: <20261013121405.GQ13920@nvidia.com>
+References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+ <20260924100529.1398790-2-aneesh.kumar@kernel.org>
+ <20260924101907.5C6261F000FF@smtp.kernel.org>
+ <yq5a1pai4tlc.fsf@kernel.org> <20260924182643.GC9354@nvidia.com>
+ <yq5a33uary4z.fsf@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5a33uary4z.fsf@kernel.org>
+X-ClientProxiedBy: MN2PR11CA0003.namprd11.prod.outlook.com
+ (2603:10b6:208:23b::8) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8903:EE_
-X-MS-Office365-Filtering-Correlation-Id: b42d11c1-c03d-4004-8b46-08df292367e1
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|PH5PR12MB953872:EE_
+X-MS-Office365-Filtering-Correlation-Id: 833b4a40-8d56-44b3-eb43-08df29237ac7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|261009223027099003|10067099003|4143699003|11063799006|6133799003|22082099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: IqkspwH5TVRROaQgH1IA4ezGQkXt9+2yxuddTWHTRy8uQhLioL/9WGAYwpCuqXyfjnzBy0UHwMDW2lpWBU+2E9BWVaiseVAcKxZHPzOLQwm+hVTeluIOkVRMN1RLq/WjiGHaewUcVuK8f/wZNM+1ANd6PE9PSm0YmywOVIh29FyYT07bl8uPIMJI373cEpSB5Fr7dIkvX/vD8bDHugC99kSxbal7Xn/2mqpqbHNE4rkljXNPsJyPo5bpFj0Cs88qJHtEefOr4n5qlp3MfKcC/K+OzlMwt11p0ZpaGttpVgx0TqDNXrixFmzeg1vie1HLnNK2ohYtMoOmzxX6s7B3C+/qltA/36h63dKHlwUw5y/pDsfso41lhPo5R0icHdCRd9UJbnSQbaYbE3wyIwLJmbFau9TrgvYdLRBbcxrvEcYQvBcohy4tbzE7e8ogfIb9tkv6cIjLMWfQp7z5jeoNg79r8O1sgRbHyuIBWOSuPrr+/ZW4xniNk5YasK5KPoAmQeMgOp5CpzwFgF2bd9WxDe4bo6NDNfEVpqndPrThZkK2g+u1Y8tte+IzPfjxNzQ0EY13vnwMvPiPch92ldsXcBQ5KQDjIx5gvUNhv1r7a5lLNiUEgC7uPy60BkYcuKddoSK/yWTZWze+DZ3BBreI+c+ttq6zf6sU4gQl1zWOaoc=
+ ARA:13230040|23010399003|376014|366016|1800799024|18002099003|22082099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: YIQpo322jGjSbpeHCph3yURzEltYUJUrR/iL+BsLgG1e1Scf9SkVK9keGw1M1xCC+G9FWgkCpkV7Dh3K9Knfk9+epM9ltBCdeU6sggsINF2YcSq/3j2wyRXBjH1FH3vTEt8JfvyV2ilpcV4OiJ8KwAz/8zSkGojndYQuXFwi3ZUD4stxgGxfUgBpTdrK7dTK9aOFshEBhAJokrQfni1JUL1X6yLEUa4GaYxaLKmLGrkm05z38ogNzuKnjOhyMm1YiXGX7BE6o3lXsoXlVD29mJNbxUQFRoyo9jgvc9MIeTGIMR5nkNp+GdWuBQ5zz9IS4NcgO16+2IMkDAvUl7arZ8XoCo6LXnBBeaAJYlm9/iwNjUCVIBj13vxkIQwfeHqRBuQdmQGHVQA5+ZT1rW/f06KMoHPGyZFDmOizXaGoVXrfDpSmcpiL1Hc1VCMfieq5eWhFaN4Wg8ugtMXSqzfpfHsRcBDvwSj4Z3dpcXU3G2beonZS9eff66LtD/o33HjJB902E5Vp4f/3SgUwtSy9w9N8IN79oSNrad9UVTk/Guaw3QFtQPrFiTvJLNOn9U7FvYTE60oXKhqXHWBRs/Awobvdnbno1SehWCeealgcu6QfZ8IxRpICXNo5FnePVJgJgytG4sBF7/MjCftTeH1I7dZ9PHQoX8rN3hfHOBSR2DU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261009223027099003)(10067099003)(4143699003)(11063799006)(6133799003)(22082099003)(56012099006)(18002099003);
+ IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGQwc3dVZERtK244dFMxWExjZVREeFRvTFFiTFNSYlduYmVYdk13cHJWSG9z?=
- =?utf-8?B?R2dHYzZub1ZPYlh0bG1nSHVLUytGMitHQTl5REtmWVF6aGNaUEc2cUNBMkNq?=
- =?utf-8?B?ZjcwRVJoTWxyd2RCKy9nQVUvUm5qWThZTlgzL2dRZ1pwWGE2eGNpWmpVbDFk?=
- =?utf-8?B?VTRJSEE1a0s1TFBsVEdrQ3hRU1lBa2tDc3UyN3B2NDZDdzIzVlZlS3dSNU1r?=
- =?utf-8?B?SXFDSGp3dlBzcVFsSEhMWVkybnE3Lzd2cHRXN1FlNHNFclpLUWo3UlhtaVJu?=
- =?utf-8?B?ZDE2UU5YajNVcUltcHNqa1RwYTlnWHBlbGNzQWJKVDBnMDNBTHZNRmhVSERM?=
- =?utf-8?B?M0NUdEg1QW40Q3ArZVFxalYzVHpKTHJzVGhZbXVKUGZVQ0hCdXFCNGl3UnpF?=
- =?utf-8?B?dFU2WjJMWlRqaE9tTUc1bERiQThUVjVURFQ2UXdXTjg4YUFNZGFFb2hMd0Zz?=
- =?utf-8?B?M2hhQ0xVdURCQ0NuRG1VOXV0SXl2SFFqWWVxYVF0UlJ4NmtwWDJ2SFNtMTJM?=
- =?utf-8?B?dllxYTZwVFdCWUh3bTh0dGJ3ZUtjRUxVdXFiYUZDK1ZER3lYY2dEd1AzMnNX?=
- =?utf-8?B?VUxkN1VnVnpGU2gwZGVPMFkvcUNqYkMrelVjYkFFbDRqNlVjWWJBbEZnRW43?=
- =?utf-8?B?RGlDbzkxTXpkWmJsSWJkeVBLYUxiWjd4ZHVzVEY5RGJyWlYycy9DOWJTdlgv?=
- =?utf-8?B?Vi9YNjNldGVtd0RGSzZUZ1BYaUhWcnRCUVVOTWcwcndQWXNNT0xxNVFUUHZp?=
- =?utf-8?B?S1VSWW9FWHdGRzRTRXZuSVZvcWZBOTM3L0xFZWJ6WE5aS2pLdHJSVEoxMVJX?=
- =?utf-8?B?WXY3MGgxOVp3NnBLVFJqZmhmZTVia0p2R3h0Q2ROdTVKU0NtbVRxcU1JbmM4?=
- =?utf-8?B?cjJCN3FJeWhoMUxreDhtZStEc2hORTJrRlNIRHZKMGo1Y0dhYzFoRDlaaVdi?=
- =?utf-8?B?NlNKaTdZMnNWYkx4VFRvUEtpM3QwMmtaTjk2RTVMYXh6WWxkSzE4Mkp1N2Ru?=
- =?utf-8?B?RXJ2OElEVFlzS3k0Z21DeFZIQ2Y5MCs2bW9iaWNkRlZ5ZE9admlnZk1paUdz?=
- =?utf-8?B?eUhCeWNPOUVhM2kyVk5YQVZUU2lVTlRvZ292aVpmbFdoRnY2ZTZrT2R4aUJM?=
- =?utf-8?B?L1E5Ui9oUUpSVUtvbkpSMkdEc0RJYjFPYlc2cnBjWVlIbnpnMzZvcjNPaEhV?=
- =?utf-8?B?TGZZYSs2b3pVOW9Db0gvbmZ5SlFQdHhycUxYa01HM2ZRL3JIMml6Z3pOSktE?=
- =?utf-8?B?NnA5Q0FyRGMyQ0Q0NjRkcXlOZmJPZlpza1RPb1NaYk44dWJlOS9wSDgvaHIr?=
- =?utf-8?B?WGg0eEZjS1ZzcmIyd3NsTSthVkJMajR2STVnQ2dQMGJzT21WdkZ5aXVGTnlN?=
- =?utf-8?B?dnVtbU85cEJIKzlSQ2g1QXI3SFM3eU1ZSDFkeHY2TXhYUnY0bUphRXZ1TWlW?=
- =?utf-8?B?WCtkSXdlZ2svOEQvajBwaERVNUxuN2FCb1hoUEdmZURkWG95ODh5NitscU5Z?=
- =?utf-8?B?ZXlPZnppUXhwMkxKSlVUNng3Q1FkR3NZaXc1enFPVHpzMi8yWHJQNzZUVThZ?=
- =?utf-8?B?UHJkQVFMWUl1TnRMWXRTV2hxZVhOQWFPdjRRQktYUmRnQ1g2Z2F4VFBhSzZL?=
- =?utf-8?B?aU1oQjJDdEljUEd0eFpGaGdMWTdqb0FkOGdsNWs3Y2ZTSkhQRHFCN2RaS0N2?=
- =?utf-8?B?RDRYYndpZGpucHFPb1UrT0pVbnFpY2ZmUnBkcnBNLzc4SW16Wm9WeURtcnVa?=
- =?utf-8?B?T1lYcVZLb0lhZ1FtQzF2Nkg3ekpIZUd6ak5GbjlEaUNURCtPRWpzcWRTeHpv?=
- =?utf-8?B?T1pieWEvOGZGSWhhUzdzekRPaElLaWV4U294WWtQUTU5aTR6eFpUTGw1SU5Q?=
- =?utf-8?B?ZzV5NHNVM3RBeloycnRLUXBLSGkxcEpVZWdIOFBCd2dvajlkQVk5Yk9NSEdR?=
- =?utf-8?B?eXZpdzJWTjF1cHdPNkdkU0ZQV25CenhHcjdQTUF5VTJrY0lCelpkVlc2WUVV?=
- =?utf-8?B?cGYzMGRWZTI1aEZaTWw5U3dlVHNoMG9MaFJIa1RqMXFDbDF4S2d6Y05CaHdq?=
- =?utf-8?B?NktLLzIwOUtpb1NDVEpkK0JDUzhwNFdCZ3NQWmx3KzF5NFBjaUlMLzhTSjY0?=
- =?utf-8?B?c2dYMDJpLzFKUEt4YTJoRnFneXIrTS90dHhzcWtCd1k2Q2lpRnNXZDNxaUdN?=
- =?utf-8?B?QUoxZlF3Wm8vdkl6Y2hWYjRkdEtMKytJQ3JWZmo4QzlZQ0JqUnBuMnNhcVQ5?=
- =?utf-8?B?WjdsdW1RL0JIOEFjK2JXYnd1T1BOSWZrdkVjUHhzeXVGZ3Nsa1cyV2duc2V0?=
- =?utf-8?Q?Trtz72dQPk+9v5CP8j?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b42d11c1-c03d-4004-8b46-08df292367e1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?AnPSuYABapPcJuiildimaIrOM2HBOEf+xnUcA2Gz99eXLBKDHWQeRvHfXvgf?=
+ =?us-ascii?Q?/1QnJ7euQpC9FoQCxxBre1nqfkoB6Yqhn+2ys6RRuW2+tsPQ7GEqcFdN4u5A?=
+ =?us-ascii?Q?+qXx5uWifNLGMLcs1aLzTkfy/7vuoW/P3QfBjv2sXmRLUxM69l125Dx1hHHZ?=
+ =?us-ascii?Q?np+C0Cc8VesNFxjdX5Wk839R3pBXbyqYuA3yn1Q+h4Z5rPklFsbUu4JNphUe?=
+ =?us-ascii?Q?Mi2teKBvwpF3oFCAtkzUSoJY3AZCqo43VeShDsVcO1jop8ajQCAMa4bPhMOd?=
+ =?us-ascii?Q?8XeY9I/p7Y7wutIOfSOJpjFt2Nd3yeUx6zkRNv+U620iXCLlpYamMSlhKQ+N?=
+ =?us-ascii?Q?XYuYT+Ua+ccBPEn5lzmdfNlvJ8OWnQ+8LZVyjbc2iyNrU6N7ecRX9L+teLqd?=
+ =?us-ascii?Q?sNQBr66u/osG7z58KVz0n4xmhHhf5D6WUYOWW6syg/qbb3vkUR3Pv1QqZ+GS?=
+ =?us-ascii?Q?CeH3OEXz1yibxiYKjMh4PVqGydQridbu8XOF/n1Lj4mtOyRzNoImsty4vrPC?=
+ =?us-ascii?Q?V/WcbLDl3QwsxKkuJfT6DaArrMbojb3JwUSidsxUltdyNFYboc/Dtvb0LbRz?=
+ =?us-ascii?Q?Do7QKn35XlUt3dIP4r0fxhiQJqE4qoqozi6ZDd+L8S+YzGhEv5+MCq+/e+BX?=
+ =?us-ascii?Q?GyRH3l5CuIxd28681nSvp6Eq3IAOoL/phgxRIW0aqlGTZcgyT98hXoM+iqnp?=
+ =?us-ascii?Q?dAmpzKtXDk0lwQ2LLBUx+ekD0WolKb3sVzuvMqtya7duHTs2kxAW65g4sp1y?=
+ =?us-ascii?Q?g6+cm+0s/tX+XODQ14f7uLNgWHmHuPQfzUHqmFuzcM0F8rHQuhCV4AJ/QGX0?=
+ =?us-ascii?Q?Ut7Yyc5QJ1P70d+LoZntfR02N9G4JbqEAmBo8ptjBLErPUBXtX/dBtI9O+nZ?=
+ =?us-ascii?Q?YiMpCeQikVdctEJjXZSUHNQDB68UcmYwJW5JxRYPrSkeBuSa70Myy8c+HWNO?=
+ =?us-ascii?Q?VumuamPvDDQ7gHR9ZXCXMIH/tqHI6pwY1oeN4SSyr6WB+Qw3ut7dcpsUaN2g?=
+ =?us-ascii?Q?CH3tAkdq5SP8FvXz1MZcEQaHlwA8vW+GaTbpEpdNT0POtlloKsmTUf+BliMq?=
+ =?us-ascii?Q?Rac4wYtVSIU3wcJ029C2pi5KF3BHA+LZOakZZQh0lDYCxe3CM3od+rf42c5K?=
+ =?us-ascii?Q?Y4L5s0DDoDw49Eqb5o+s24bYMzzrc+DQ1fFZGmy5hfP0iIYidIIuSHJK3VGL?=
+ =?us-ascii?Q?VBk6YyPHqAiDZGLrAja67DqXaDUGjHBBXOs7MHnra2mJJbBO0CvSxVHyQi/V?=
+ =?us-ascii?Q?mjafBCoFYnfchi3Oo6axRH/oxqJoqiPWhEFJPnoYPQ3yU1lImr8P8yyIiAPI?=
+ =?us-ascii?Q?FJWHRahokPCF09jhXv9moRh6vgbBh/JOSiPclbMiQWBfV+SUW+cMLCJk6vkq?=
+ =?us-ascii?Q?WYCEQf47mdOZUF4qdCboxj/alxYMHwOvoMnbompdyxWxVyK9hKg0a+FLrzpp?=
+ =?us-ascii?Q?41SIMnJqgHSdEG9e6gprSxCpbnqGXbF/nZ83Tw95EH/2ImJFlXidVJ5NJUwH?=
+ =?us-ascii?Q?ijZeVZVcaAWXtkU/dttYysKgm+RG7eR8C8NuLEX5sN5Wwy5URxTcQhevjAQO?=
+ =?us-ascii?Q?jGFrzM0ggGMzEXZIp7BSCSC3rGrygvfaxHXGHQD5M09noKqaK6/VSIWOZjfw?=
+ =?us-ascii?Q?pGVBIxqzhsZ0h77y3OEcRTf0XeZCxemlMCyK01Xl5bwG+EHcJeN08e83AAfu?=
+ =?us-ascii?Q?A2+XFIH0hJhRBO6TVirPsJRaxFo7H4RQeghIdoI1BmZZfQTJ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 833b4a40-8d56-44b3-eb43-08df29237ac7
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 12:13:35.5658 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 12:14:07.1451 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mTiUhL505bf8TA7ulzdfazprRn2QrEaaOc6d+xBg3XREfxsvRx/UY+hYDh7G9KtC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8903
+X-MS-Exchange-CrossTenant-UserPrincipalName: ItEd68c8rPoYGO4e0sHRRzhB8JXgOejTZsXB8sSi/ayMzd6qY6E1EwHw4Jot4i7B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR12MB953872
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,98 +126,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/13/26 14:02, Matt Evans wrote:
-> The dmabuf release path is split between file and dentry release:
-> dma_buf_file_release() is called shortly before the file is freed, and
-> dma_buf_release() calls an exporter's dmabuf->ops->release when the
-> dentry is freed.  However, the dentry can outlive the file (for
-> example, if opened with O_PATH), meaning .release might be called some
-> time after the file is freed.
+On Tue, Oct 13, 2026 at 10:32:36AM +0530, Aneesh Kumar K.V wrote:
+> Jason Gunthorpe <jgg@nvidia.com> writes:
 > 
-> This presents a window, when closing a DMABUF file, in which
-> dmabuf->file points to freed memory yet .release op has not yet been
-> called.
+> > On Thu, Sep 24, 2026 at 07:52:39PM +0530, Aneesh Kumar K.V wrote:
 > 
-> For VFIO, if a buffer's .release has not been called it's considered
-> still active and subject to move/cleanup.  If so, it attempts to
-> get_file_active() on dmabuf->file: a file close with dentry held open
-> will call this function with a stale pointer, a UAF.
+>  [ ... 67 lines skipped ... ] 
 > 
-> To make this pattern safe, set dmabuf->file to NULL in
-> dma_buf_file_release() to reflect that the associated file is now dead
-> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-> sequence concurrent with a file close then only executes as one of:
+> >
+> >> >> +	if (cc_platform_has(CC_ATTR_MEM_ENCRYPT))
+> >> >> +		return __alloc_cc_shared_pages_node(nid, gfp, requested, mem);
+> >> >> +
+> >> >> +	order = get_order(requested);
+> >> >> +	if (order > MAX_PAGE_ORDER)
+> >> >> +		return -EINVAL;
+> >> >> +
+> >> >> +	if (nid == NUMA_NO_NODE)
+> >> >> +		page = alloc_pages(gfp, order);
+> >> >> +	else
+> >> >> +		page = alloc_pages_node(nid, gfp, order);
+> >> >
+> >> > [Severity: Medium]
+> >> > Can this fallback path inadvertently allocate a highmem page?
+> >> >
+> >> > The function's kernel-doc explicitly guarantees: "A memory-state transition
+> >> > requires a valid linear-map address, so such allocations never come from
+> >> > high memory".
+> >> 
+> >> Only when a private-to-shared transition is required.
+> >
+> > IMHO disable the whole thing at kconfig if highmem is enabled. Make
+> > the calls always fail.
 > 
->  - Gets the file before file_ref_put() (dmabuf->file valid)
->  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->  - Observes dmabuf->file = NULL (no file)
-> 
-> Originally, drivers could assume dmabuf->file was valid until .release
-> was called from fops->release.  This assumption was no longer valid
-> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), which moved the callback to the dentry release (by which
-> point the file might have been freed).  With this commit, drivers must
-> still consider that dmabuf->file could be NULL before .release.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> But we also want other kernel subsystems to use alloc_cc_shared_pages()
+> when CoCo is not enabled. In other words, usage like the following
+> should work even when the kernel is not running as a CoCo guest.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Oh, really? dmabuf heap doesn't want that..
 
-> ---
->  drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
->  include/linux/dma-buf.h   |  5 ++++-
->  2 files changed, 22 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..61485fc28b8b 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
->  
->  static int dma_buf_file_release(struct inode *inode, struct file *file)
->  {
-> -	if (!is_dma_buf_file(file))
-> -		return -EINVAL;
-> +	struct dma_buf *dmabuf = file->private_data;
-> +
-> +	if (!dmabuf)
-> +		return 0;
->  
-> -	__dma_buf_list_del(file->private_data);
-> +	__dma_buf_list_del(dmabuf);
->  
-> +	/*
-> +	 * As the file is being closed, dmabuf->file is no longer
-> +	 * valid and NULL replaces an otherwise stale pointer.  If a
-> +	 * reference to the file isn't already held, the file can be
-> +	 * closed at any time, including before dmabuf->ops->release()
-> +	 * happens: dmabuf->file _must not_ be accessed directly.  An
-> +	 * exporter should use get_file_active(&dmabuf->file) which
-> +	 * atomically tests and acquires a reference to the file (or
-> +	 * returns NULL if the file has closed).  The barrier ensures
-> +	 * get_file_active() observes the store before file_free()
-> +	 * frees the memory.
-> +	 */
-> +	smp_store_mb(dmabuf->file, NULL);
->  	return 0;
->  }
->  
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d15b2b31d3c9..a31eb0ab9ecf 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -303,7 +303,10 @@ struct dma_buf {
->  	 * @file:
->  	 *
->  	 * File pointer used for sharing buffers across, and for refcounting.
-> -	 * See dma_buf_get() and dma_buf_put().
-> +	 * See dma_buf_get() and dma_buf_put().  When an exporter holds a
-> +	 * common lock with the ->release() callback, it can use
-> +	 * get_file_active(&dma_buf->file) to safely acquire a reference;
-> +	 * the file could otherwise be closed at any time.
->  	 */
->  	struct file *file;
->  
+How does GIC even work like this? It makes the memory shared but then
+it puts the private IPA into the HW registers? The VMM is supposed to
+assume every address is actually a shared IPA and fix it? That's a
+little weird..
 
+Anyhow, in that case probably mask off GFP_HIGHMEM at the start of the
+function, not allowed, not supported.
+
+Jason
