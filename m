@@ -4,126 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6749CC6B13
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C4CFCC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:53:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53AD010F580;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 631C410F581;
 	Tue, 13 Oct 2026 07:53:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C002210E3D9
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 18:24:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 70338429E5;
- Mon, 12 Oct 2026 18:24:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EB211F008A1;
- Mon, 12 Oct 2026 18:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791829451;
- bh=XFaoCRsSeFrqplzPhC7sYiQbwkNwnjThwg1EUt1kpJ8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jtE+F+Qv8Id6B6sok4tUXFo/WttdoAtNDsnYx3FOXrAL8cH9okupFlV8UIia7guEU
- +vucEDeV2orWOn4vncvKjOHxgLpA4z1i7ajNG9MWZWMFVvN4qyIVzuZeKcX/kEyCrH
- E/taH25MY4+xXS5peaLpSE7R7Iim8QiaiSCBIYGbdI33SdOJfzFvr3BmyPD17L1aAJ
- U/0dNzP3xhDe22x9gKDa9ilglbfD3cWxl+IMj1eK+ZgOY9uKMvF9rxkAMBdTJx+kaH
- UEWib9ZdZm5YRBOs8FNN9IM2uvce7gfClsp4wZPpS8lSb0rbCcbaWuL8XwghfAbqY4
- TscCzNvFkg/Kw==
-Date: Mon, 12 Oct 2026 19:23:24 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
- Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Bert Karwatzki <spasswolf@web.de>
-Subject: Re: [PATCH v5 22/38] mm/mlock: clear VMA_LOCKED_MASK over mmap
- callback
-Message-ID: <as0lLP26IkTzbeaz@gremlin>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-22-923b70125b1e@kernel.org>
- <5027aec2-84c1-461e-9f74-0736e2cc6171@kernel.org>
+Received: from mail-qv2-f8.google.com (mail-qv2-f8.google.com [74.125.230.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B82C210E00B
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:32:36 +0000 (UTC)
+Received: by mail-qv2-f8.google.com with SMTP id
+ 6a1803df08f44-91438935506so14637526d6.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 19:32:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791858755; x=1792463555; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=9ePY+63uYRMrFDWAptdadiuSJ2ZP+/koDWoDpXgbL1M=;
+ b=CjF+soWAtXO/mgJgRoIlE4ZCMftLnaAuFZE1pq9o7AWGs3ho5A1JehorKDdBjiTo7G
+ xxVj78lDoPJx9RoXFLfShW8W6rEzYli/lODySwcL3LRYHQl0h9bnKtyB0Bwyx1usRlHE
+ YdjVfFNWtKC3ySb1GCLcNw1oiE2e5VHhovM77TaNdWBmVQtjz1KVK6LBNgrlhvP62Xwf
+ IeIIFJSn0MDgYUI54c70wm94eab95TiGCYNE8vpnwmW6AlpbPd3957CIIRbDqM1HxI8R
+ pvqNb2ZJop3X3KMqrfeV0nBNMmx6xWR2kIN7Cdrmkr86mew4k3c0+j/ulC36SVxV9vXc
+ fRQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791858755; x=1792463555;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=9ePY+63uYRMrFDWAptdadiuSJ2ZP+/koDWoDpXgbL1M=;
+ b=G8osM96naqPc4nXqPTNGeuh1FHYhmf0Z1Ihu0C+pRIFpcG6M64czkmSi4WreVkjOIz
+ l+lbEn933IOhOTxJccmAOLaEFhlSpExorKDf5U5QUOa7IpJZW+XXY+aIwMG9nmuzLOLW
+ IdE2dmYGkn198rr8Z5Q2tLlgv3oBSgyNB2ruEjbf24Vq8u7hYnvitJwGKVdaTSGxjb0b
+ BA34HGzd2F/yV5dVUPz/Utyd62ZGbBRBnndM3I4oQX4VUoUjmz0ObUYcjp6Np0EmfjAz
+ m/ujjnIZ5dW6dbvVIh0PNM/EZjawUjAN7+TZAKox4/biLzvI/Id0hB3nIw//vOhpnAHz
+ zReA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwhL26tijNN3U9p/OoT4RjWj7iGaldA8D9MIUKGpesKBGJtPY1wvAS74FGeiQwNG4Jma4FS1kOUOtU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJOWkc6G5sWmA0mfWiUgmkcyfpNG5uA3ejTftPAEi8wJ196a42S
+ SsZBJ3irRWUMunNfOJ54W9uEXo6GwnbUOVEx33LbW1WIOjT5jxmPlyEr
+X-Gm-Gg: AYBFou2ay+zMhtwQVAO0DhFa3mf1Ve6OvrNsaiTB8c7USOMqTq+8Cdpi+SH808Ll7Pt
+ 8XaVDD8a0xP8OHt5vM4q4O5hOnxVyKSMNqmdOT15p+CeFu0OvhYdabrMUUELrx6kr5CY7y293PL
+ YaokjiphzwI1MY6Be3YYwa4ZeUxn7pt3aGUGsS7vF48fTP0eCmnkUej8UnaLsxAjcI+bPMc7DUc
+ ASDGowEs838jUW5NxlphosEOtKic5d74ReC0C7em0/v+qvMUGrtd7MBU1tQOUz+QVtt7Kw23SIq
+ hwpmV9jf5nCkXWoABrJolyv3qYYDY0Rz24RdN4XKadtmuPBjSclfyihyuB6ZY0ikLE//WqYuxD/
+ 49+vtvUj7R6hPkCe4yRAgIXauIiPj2pmV7cnPGCXUZXZQ3bWfV2cqkxPLF6+FVQenEq8EA2M+mK
+ voWx+7quLsO7ryyA0Adndf0a26CnuF9QEEW9imruR08KV7diPiNximUpuvR9U9+rOqb0ZndxAJF
+ 7i9Qb0=
+X-Received: by 2002:a05:620a:4552:b0:93c:6abf:c8ae with SMTP id
+ af79cd13be357-93ebd231201mr1979508485a.50.1791858755323; 
+ Mon, 12 Oct 2026 19:32:35 -0700 (PDT)
+Received: from omarchy ([2601:804:8780:3df1:8019:c46c:3784:400f])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-93ef500973asm134755585a.15.2026.10.12.19.32.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 19:32:34 -0700 (PDT)
+From: zoan37 <agentzoan@gmail.com>
+To: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+Cc: Ariel D'Alessandro <ariel.dalessandro@collabora.com>,
+ CK Hu <ck.hu@mediatek.com>, Chen-Yu Tsai <wenst@chromium.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 0/6] AFBC fixes for MediaTek DRM
+Date: Mon, 12 Oct 2026 22:32:22 -0400
+Message-ID: <20261013023224.2195490-1-agentzoan@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cc128facb246d89408cf46aa7c9e250c56900940.camel@collabora.com>
+References: <cc128facb246d89408cf46aa7c9e250c56900940.camel@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5027aec2-84c1-461e-9f74-0736e2cc6171@kernel.org>
-X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:58 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,95 +96,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2026 at 08:19:03PM +0200, David Hildenbrand (Arm) wrote:
-> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> > Currently there's a confusing mess around VMA_LOCKED_BIT and
-> > VMA_LOCKONFAULT_BIT.
-> >
-> > It is permitted for drivers to set any flags they like, with the VMA
-> > already possessing lock flags.
-> >
-> > This results in the absurd situation of a VMA possessing both
-> > VMA_SPECIAL_FLAGS and VMA_LOCKED_MASK flags, which is not permitted.
-> >
-> > This has resulted in mlock_vma_folio() having a very silly check for this
-> > scenario to work around it.
-> >
-> > There is no need for this - just clear the flags before invoking the hook
-> > and reinstate them afterwards if they are required.
-> >
-> > Nothing relies upon this being set during the mmap operation.
-> >
-> > mmap_prepare is unaffected by this so requires no fix.
-> >
-> > Reviewed-by: Zi Yan <ziy@nvidia.com>
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  mm/internal.h |  9 +--------
-> >  mm/vma.c      | 17 +++++++++++++++++
-> >  2 files changed, 18 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/mm/internal.h b/mm/internal.h
-> > index 557e629db8c5..4ae08fedffff 100644
-> > --- a/mm/internal.h
-> > +++ b/mm/internal.h
-> > @@ -970,14 +970,7 @@ void mlock_folio(struct folio *folio);
-> >  static inline void mlock_vma_folio(struct folio *folio,
-> >  				struct vm_area_struct *vma)
-> >  {
-> > -	/*
-> > -	 * The VM_SPECIAL check here serves two purposes.
-> > -	 * 1) VM_IO check prevents migration from double-counting during mlock.
-> > -	 * 2) Although mmap_region() and mlock_fixup() take care that VM_LOCKED
-> > -	 *    is never left set on a VM_SPECIAL vma, there is an interval while
-> > -	 *    file->f_op->mmap() is using vm_insert_page(s), when VM_LOCKED may
-> > -	 *    still be set while VM_SPECIAL bits are added: so ignore it then.
-> > -	 */
-> > +	/* The VM_IO check prevents migration from double-counting during mlock. */
-> >  	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
-> >  		mlock_folio(folio);
-> >  }
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index 39ceb03023e2..4f09fb98a2fd 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -2607,6 +2607,11 @@ static int __mmap_new_file_vma(struct mmap_state *map,
-> >  	if (!map->vm_file->f_op->mmap)
-> >  		return 0;
-> >
-> > +	/*
-> > +	 * Driver-specified flags may make the lock flags invalid, so clear
-> > +	 * VMA_LOCKED_MASK and reinstate it afterwards if appropriate.
-> > +	 */
-> > +	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
-> >  	error = mmap_file(vma->vm_file, vma);
-> >  	map->vm_file = vma->vm_file;
-> >
-> > @@ -2629,6 +2634,18 @@ static int __mmap_new_file_vma(struct mmap_state *map,
-> >  		return error;
-> >  	}
-> >
-> > +	/*
-> > +	 * If the VMA is still eligible for mlock(), reinstate any original
-> > +	 * VMA_LOCKED_BIT and/or VMA_LOCKONFAULT_BIT flags.
-> > +	 */
-> > +	if (vma_supports_mlock(vma)) {
-> > +		const vma_flags_t mask =
-> > +			vma_flags_and_mask(&map->vma_flags,
-> > +					   VMA_LOCKED_MASK);
->
-> I'd just have at least the = vma_flags_and_mask on the same line. It's ok to
-> exceed 80 chars.
+Hi Nícolas,
 
-I've had people yell at me about this before on review :) you can't really win.
+On Fri, Jan 9, 2026, Nícolas F. R. A. Prado wrote:
+> I received a suggestion that the Lx_2ND_SUBBUF bit in OVL is not needed
+> when cropping is not enabled, and that removing it should fix the extra
+> pixels after the image described in 2.a., and perhaps even fix AFBC not
+> working with MT8188, though I haven't had time to test it.
 
-Since I'm doing a respin anyway I can put it on one line.
+I tried this on an MT8189 Chromebook (Lenovo IdeaPad Slim 3 Chromebook,
+board "quigon" of the skywalker family), and the suggestion holds there.
 
->
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Setup: next-20261008 with the posted MT8189 display series and this
+board's DT, plus patches 1-4 and 6 of this RFC (5 is MT8188-only; the
+MT8189 OVL uses the MT8195 data). AFBC announced on OVL0 only, which
+drives the internal 1920x1200 eDP panel. Mesa 26.2.4 Panfrost
+(Mali-G57), Hyprland. The compositor picked AFBC 32x8|SPLIT|SPARSE for
+both the 1920x1200 primary plane and the 512x512 cursor plane.
 
-Thanks!
+With the series as posted, I see what you list as 2.a: the top 4 rows
+are missing, and stray pixels show up after the image (here right below
+the cursor, on the cursor plane). On top of that, the IOMMU reports read
+faults from the display side while AFBC layers are on:
 
---
-Cheers, Lorenzo
+  mtk-iommu 1e802000.iommu: fault type=0x5 iova=0xfad06000 pa=0x0 master=0x21810410(larb=1 port=4) layer=1 read
+
+(always larb 1 port 4, two different iovas, presumably one per plane)
+
+With OVL_PITCH_MSB_2ND_SUBBUF left out of DISP_REG_OVL_PITCH_MSB for
+these layers, the picture is correct (nothing missing at the top, no
+stray pixels) and there are no faults. I made the bit switchable at
+runtime to check that it is the cause: with the bit off, 0 faults in
+30 s; set again, 20 faults in the next 10 s and the artifacts are back;
+off again, the faults stop once both planes have been updated.
+
+What I run now sets it only when the layer is cropped, going by the
+suggestion:
+
+	bool cropped = pending->clip_left || pending->clip_right ||
+		       pending->clip_top || pending->clip_bottom;
+
+	mtk_ddp_write_relaxed(cmdq_pkt,
+			      (cropped ? OVL_PITCH_MSB_2ND_SUBBUF : 0) | pitch_msb,
+			      &ovl->cmdq_reg, ovl->regs, DISP_REG_OVL_PITCH_MSB(idx));
+
+I haven't been able to exercise a cropped AFBC layer here (the
+compositor only uses full-screen and cursor planes), so I can't say
+whether the bit is right in that case. I also haven't tried the
+resolutions from 2.b/2.c or the external pipeline (OVL1).
+
+I can test a v2 on MT8189. The board's patches and notes are at
+https://github.com/zoan37/lenovo-slim3-chromebook-omarchy
+
+The testing was done with help from an AI assistant (Claude).
+
+Thanks,
+zoan37
