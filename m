@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99C83CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 12:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0761ECC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 12:02:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B88D10F7B5;
-	Tue, 13 Oct 2026 12:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 573C610E7E3;
+	Tue, 13 Oct 2026 12:02:37 +0000 (UTC)
 Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6EDF10F7B5
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 12:02:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AAE210E7E3
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 12:02:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1791892945;
- bh=zJnUMtE0sH0CISx9MqqvOOGAYYmvxKjdN07mJU6EPoc=;
+ s=201707; t=1791892949;
+ bh=U/+44aFm82lOehtBhiUwBP7f3FJAaVghj1VqiT/9BO0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZcGXX+OlHmmb1tbmmNK4uJpoF50N17/9hFpzl2HdfHKq0k1kEyEp/sAZBXaBl6LmD
- SixqFjsxXx02gGoTMLT9MMO3JqYov/JlnGtS8hoN8hvgHyDt2dy3I6BsHJVzQdavM0
- VD+9OFfo/Pds6v92+GEjBmb+h39P0f/0M+e8XF4bhRzJS21CZabPtO4hSoreIO+evN
- zaQYgRJOGD99gUSmYWHkJDcC9f0asNZXHQjtsVu2a79sub55NQuUhoCNaBkiWpy6W8
- PgDYFlRRU8fD//yE8UB1YShuPnctMPcKzm8vcRFe6t7T4LdjoAv87BfwJcM1ww06G/
- oyZzIWjdML33Q==
+ b=WcnltKix5mSq7CHBsfUeErV+lQhE0kzuk3XsCi3Wh/UGpm2t4xkc1UirarIP2amTO
+ hbPkz8uVEmmvYrxJlw5PkFxiALmd4yqCUQL2o1um9VkwStFmk99dHs79D2rG3ewAcq
+ pwB2EoAkcYAfUzSiwLUkZIY5IgF8btMzV01Gj/gMGr7JK3yDiC/4mNeUe/cRwWgNk4
+ 54do3kZG+/Ou+mJ/5+2ATN6ft+mCkOH8NbldgT9E59cxI9dEenrlcneWBXzo32Clok
+ uH3KvaJ/rx9HStgGCuQMVGFWK1Av+jGIWcgKEC7p9Bc9RDV8GpKLhsdcEaQpg5P5j2
+ 2TwjP+nLyhMSQ==
 Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tHh503kz4xgw;
- Tue, 13 Oct 2026 23:02:24 +1100 (AEDT)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tHm4SW6z4xgv;
+ Tue, 13 Oct 2026 23:02:28 +1100 (AEDT)
 From: Matt Evans <matt@ozlabs.org>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Sumit Semwal <sumit.semwal@linaro.org>,
@@ -45,9 +45,9 @@ Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  stable@vger.kernel.org
-Subject: [PATCH v3 1/3] drm/vmwgfx: Use get_file_active() for dmabuf->file
-Date: Tue, 13 Oct 2026 13:02:04 +0100
-Message-ID: <20261013120211.135807-2-matt@ozlabs.org>
+Subject: [PATCH v3 2/3] drm/i915/gvt: Read dmabuf->file only while valid
+Date: Tue, 13 Oct 2026 13:02:05 +0100
+Message-ID: <20261013120211.135807-3-matt@ozlabs.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261013120211.135807-1-matt@ozlabs.org>
 References: <20261013120211.135807-1-matt@ozlabs.org>
@@ -68,38 +68,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-dentry_ops") moved the dmabuf .release, and broke the vmwgfx driver's
-assumption that dmabuf->file would remain valid until release.
-Currently, dmabuf->file can be stale after the file closes even if
-.release has not yet been called, and a future commit makes
-dmabuf->file become NULL instead of stale.
+After 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+dentry_ops"), dmabuf->file can close prior to the .release callback
+being invoked.
 
-In preparation for that future commit, convert
-get_dma_buf_unless_doomed() to use get_file_active(&dmabuf->file)
-which is the safe method to access and get a reference, even when
-dmabuf->file could be NULL.
+intel_vgpu_get_dmabuf() exports the dmabuf, then dma_buf_fd()
+effectively transfers its file's reference to the fd.  A debug print
+dereferences dmabuf->file after the dma_buf_fd(); however, the fd
+could be closed by another thread, making dmabuf->file stale.
+
+Read file_count() while the reference to dmabuf->file is still held,
+for later debug printing.
 
 Cc: stable@vger.kernel.org
 Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
 Signed-off-by: Matt Evans <matt@ozlabs.org>
 ---
- drivers/gpu/drm/vmwgfx/ttm_object.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gvt/dmabuf.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
-index f9042bafdc93..9137a31eaa1a 100644
---- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-+++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-@@ -471,7 +471,7 @@ void ttm_object_device_release(struct ttm_object_device **p_tdev)
-  */
- static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabuf)
- {
--	return file_ref_get(&dmabuf->file->f_ref);
-+	return get_file_active(&dmabuf->file) != NULL;
- }
+diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
+index 8a1d6c5636c2..b6f50f2b912d 100644
+--- a/drivers/gpu/drm/i915/gvt/dmabuf.c
++++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
+@@ -503,6 +503,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
+ 	struct drm_device *dev = &vgpu->gvt->gt->i915->drm;
+ 	struct intel_vgpu_dmabuf_obj *dmabuf_obj;
+ 	struct drm_i915_gem_object *obj;
++	unsigned long db_fcount;
+ 	struct dma_buf *dmabuf;
+ 	int dmabuf_fd;
+ 	int ret = 0;
+@@ -531,6 +532,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
+ 		ret = PTR_ERR(dmabuf);
+ 		goto out_free_gem;
+ 	}
++	db_fcount = file_count(dmabuf->file);
  
- /**
+ 	ret = dma_buf_fd(dmabuf, DRM_CLOEXEC | DRM_RDWR);
+ 	if (ret < 0) {
+@@ -552,8 +554,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
+ 		    "        file count: %ld, GEM ref: %d\n",
+ 		    vgpu->id, dmabuf_obj->dmabuf_id,
+ 		    kref_read(&dmabuf_obj->kref),
+-		    dmabuf_fd,
+-		    file_count(dmabuf->file),
++		    dmabuf_fd, db_fcount,
+ 		    kref_read(&obj->base.refcount));
+ 
+ 	i915_gem_object_put(obj);
 -- 
 2.47.3
 
