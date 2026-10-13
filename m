@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1421FCC6B1A
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E725CC6B1A
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:14:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED2610F946;
-	Tue, 13 Oct 2026 18:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1BF210E944;
+	Tue, 13 Oct 2026 18:14:35 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 386D110E16E
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:14:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FBEC10E986
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:14:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 369D9602C3;
- Tue, 13 Oct 2026 18:14:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8975D1F000FF;
- Tue, 13 Oct 2026 18:14:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 201FF60A64;
+ Tue, 13 Oct 2026 18:14:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCE91F000FF;
+ Tue, 13 Oct 2026 18:14:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791915264;
- bh=yRTW/dH5AcddNS+HWfKGncCOuxQwSkTjx47Dtov2j6k=;
+ s=k20260515; t=1791915268;
+ bh=wdPjgZbwCKTdtL33b9mS5g+t87lxKHuF22lrCg6SFH0=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References;
- b=TPD3wAWdcLL9hitN4qecoU35ovIN01iCzNcwSSloL4Nog0YaTiD+Lbx5iolfN/7tG
- dwlY6AhShr8w7aI2MusDvnbR+JSTXDMf12b0bRZ2KaHZJ8xuyw1eTOvfXwSSpapG2s
- CC36fcB0/SCDtaycY0ThZ4O+wH2wym0YZJ55UFpPZQKPjeyBE6VGN4ko+w69FPF7Ks
- c2wwTNE1TyAQC+/kPveSHzwctGQpK038JoeEaxTRcXvyvfVqiwU2iQgIl/D1xLRSJ3
- NvO2HS15qlpZOhoWjvazmgjGMiIvDbHO1hhPNbcdU/R0jizuCtUeTaQI5GZKOJdGj3
- BwXRCInusU+MQ==
-Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
+ b=R4rBlEz3W6tyMUdWr6/wsjzNh7kwQ1XxIUCCH21XaD5VbPivcM31mFtR3eDeq80fh
+ tUgeqz8B7JRW4OrpFxz/JgZHG++5kDiYoGLMMo5TyLaEPVDx2vpaynuyz7DPA6JLyQ
+ UUDd3cdHGDJWEv4pQ7AkB5sUtBLX7vxPewtzqjt3KjsqySnoMMSDOZDcM0RK4m7X3N
+ RdmA0M7tJPAaVrfi2oyzHLVZFKFNaC0AoQFVVw2cHAir066/LNJeVy33nOqhWKS7H9
+ 93lcCZ+s4F3eaT6b1/iVdY3Bdr+jKAlGhBeuVL75oRPqSb0ifWTE7qCOmhXYjnrbI/
+ k+T0E4tOwrZEA==
+Subject: Re: [PATCH net v2 3/4] netdevsim: support devmem RX and TX bindings
 From: netdev-bot+sashiko@kernel.org
 To: almasrymina@google.com
 Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
@@ -39,11 +38,11 @@ Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
  edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
  sumit.semwal@linaro.org, christian.koenig@amd.com, razor@blackwall.org,
  daniel@iogearbox.net, tariqt@nvidia.com, kaifengw@google.com
-Date: Tue, 13 Oct 2026 18:14:22 +0000
-Message-ID: <179191526299.434549.7888465945343049764@kernel.org>
-In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
-References: <20261012174300.2338784-2-almasrymina@google.com>
-X-sashiko-severity: High
+Date: Tue, 13 Oct 2026 18:14:27 +0000
+Message-ID: <179191526706.434549.7588739313460970086@kernel.org>
+In-Reply-To: <20261012174300.2338784-4-almasrymina@google.com>
+References: <20261012174300.2338784-4-almasrymina@google.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
@@ -62,10 +61,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0 (1)
+Critical: 0 · High: 0 · Medium: 4 (1) · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -73,238 +72,244 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The same dma_unmap_sg_attrs() slab-use-after-free the patch
-  claims to fix can still happen for RX bindings made on a virtual…
-- [High] net_devmem_dev_unregister_rx() adds a new writer of binding->dev
-  (and a new unmap).
+- [Medium] The pp_hold debugfs knob leaks a devmem net_iov, and the page
+  pool's inflight count never reaches zero, once rx queue 0 has a dmabuf…
+- [Medium] Page-pool allocations always fail on CONFIG_HAS_DMA=n builds
+  after this patch.
+- [Medium] Enabling NETMEM_TX_DMA exposes netdevsim's software PSP
+  checksum path to unreadable payloads.
+- [Medium] Deferred page-pool cleanup can call the DMA API on a freed
+  nsim_bus_dev on configurations where PP_DMA_INDEX_BITS is 0.
 
 Pre-existing issues:
-- [Low] Not a valid finding against the final series state; kept only
-  because requires_validation=true.
+- [Medium] nsim_pp_hold_write() dereferences ns->rq[0]->page_pool and
+  allocates from it while holding only rtnl_lock.
 
 --
 
-net: devmem: unmap dma_buf synchronously on queue uninstall
+netdevsim: support devmem RX and TX bindings
 
-This adds net_devmem_dmabuf_binding_unmap(). The dma-buf attachment is
-now unmapped when the last bound RX queue is uninstalled, and also on
-NETDEV_UNREGISTER for unbound RX bindings, to avoid a use-after-free of
-dma_dev in dma_unmap_sg_attrs(). Bindings now stay in
-net_devmem_dmabuf_bindings until they are freed, and an xarray mark hides
-unbound ones from TX lookups.
+This commit sets a 64-bit DMA mask on the netdevsim bus device and enables
+NETMEM_TX_DMA on the netdev. It also creates page pools with DMA mapping
+and unreadable netmem support, tied to a queue index, so that devmem
+bind-rx and bind-tx can be tested against netdevsim in selftests.
 
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index f4d60654ce7fd..02d607cc87217 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
+> diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
+> index 5c55c308487b4..f87f5e037b6fb 100644
+> --- a/drivers/net/netdevsim/bus.c
+> +++ b/drivers/net/netdevsim/bus.c
+> @@ -462,6 +462,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
+>  	nsim_bus_dev->port_count = port_count;
+>  	nsim_bus_dev->num_queues = num_queues;
+>  	nsim_bus_dev->initial_net = current->nsproxy->net_ns;
+> +	dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64));
 
-[ ... ]
+[Severity: Medium]
+The return value of dma_coerce_mask_and_coherent() is ignored here.
 
-> @@ -129,10 +151,11 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
->  	unsigned long xa_idx;
->  	unsigned int rxq_idx;
+NETDEVSIM has no HAS_DMA dependency, and UML selects NO_DMA unless
+UML_DMA_EMULATION is set. On those builds the dma_set_mask stub returns
+-EIO, and the device registers anyway.
+
+nsim_create_page_pool() then sets PP_FLAG_DMA_MAP unconditionally. Every
+slow-path allocation goes through page_pool_dma_map() ->
+dma_map_page_attrs(). The stub returns DMA_MAPPING_ERROR, so the page is
+freed.
+
+Will page_pool_alloc_pages() always return NULL on CONFIG_HAS_DMA=n after
+this change? If so, nsim_pp_hold_write() would always fail with -ENOMEM.
+That would break the page_pool selftests that use pp_hold, which worked
+before.
+
+Should the DMA flags only be set when the mask setup succeeds? The other
+option is to make NETDEVSIM depend on HAS_DMA.
+
+>  	/* Disallow using nsim_bus_dev */
+>  	smp_store_release(&nsim_bus_dev->init, false);
 >  
-> -	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
-> +	xa_clear_mark(&net_devmem_dmabuf_bindings, binding->id,
-> +		      NET_DEVMEM_BINDING_LIVE);
->  
->  	/* Ensure no tx net_devmem_lookup_dmabuf() are in flight after the
-> -	 * erase.
-> +	 * mark is cleared.
->  	 */
->  	synchronize_net();
->  
-
-[ ... ]
-
-> @@ -153,6 +176,35 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
->  	percpu_ref_kill(&binding->ref);
+> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
+> index b4a99f3ceac60..4415dc01c610b 100644
+> --- a/drivers/net/netdevsim/netdev.c
+> +++ b/drivers/net/netdevsim/netdev.c
+> @@ -414,16 +414,22 @@ static int nsim_poll(struct napi_struct *napi, int budget)
+>  	return done;
 >  }
 >  
-> +static void
-> +net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
-> +			     unsigned long xa_idx, struct net_device *dev)
-> +{
-> +	if (xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> +			NET_DEVMEM_BINDING_LIVE) ||
-> +	    READ_ONCE(binding->dev) != dev)
-> +		return;
-> +
-> +	mutex_lock(&binding->lock);
-> +	WRITE_ONCE(binding->dev, NULL);
-> +	if (!netif_is_queue_leasee(dev))
-> +		net_devmem_dmabuf_binding_unmap(binding);
-> +	mutex_unlock(&binding->lock);
-> +}
+> -static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
+> +static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
+> +				 struct napi_struct *napi, int idx)
+>  {
+> +	struct netdevsim *ns = netdev_priv(dev);
+>  	struct page_pool_params params = {
+>  		.order = 0,
+>  		.pool_size = NSIM_RING_SIZE,
+> +		.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV |
+> +			 PP_FLAG_ALLOW_UNREADABLE_NETMEM,
 
-[Severity: High]
+[Severity: Medium]
+With PP_FLAG_ALLOW_UNREADABLE_NETMEM and .queue_idx set, page_pool_init()
+picks up the rx queue's mp_params. After a bind-rx on queue 0 and the
+queue restart, ns->rq[0]->page_pool becomes a dmabuf devmem pool.
 
-Can this race with net_devmem_unbind_dmabuf() and set binding->dev to
-NULL while the unbind is still walking bound_rxqs?
+What happens if pp_hold is written while the device is up?
+nsim_pp_hold_write() still uses the page-only API:
 
-net_devmem_dev_unregister() is called from netdev_genl_netdevice_event()
-before netdev_lock(netdev) is taken. That means this writer holds only
-RTNL, net_devmem_lock and binding->lock.
+drivers/net/netdevsim/netdev.c:nsim_pp_hold_write() {
+    ...
+		ns->page = page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
+		if (!ns->page)
+			ret = -ENOMEM;
+    ...
+}
 
-The socket close path holds netdev_lock(dev) but not binding->lock:
+The call chain would be:
 
-netdev_nl_sock_priv_destroy()
-    netdev_lock(dev);
-    net_devmem_unbind_dmabuf(binding);
-        xa_clear_mark(..., NET_DEVMEM_BINDING_LIVE);
-        synchronize_net();
-        xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
-            ...
-            netif_mp_close_rxq(binding->dev, rxq_idx, &mp_params);
-        }
+nsim_pp_hold_write()
+  page_pool_dev_alloc_pages()
+    page_pool_alloc_pages()
+      page_pool_alloc_netmems()
+        mp_dmabuf_devmem_alloc_netmems()
+          page_pool_set_pp_info()
+          pool->pages_state_hold_cnt++
+      netmem_to_page()
+        WARN_ON_ONCE(netmem_is_net_iov(netmem)) -> return NULL
 
-Clearing the mark is what makes this walk treat the binding as unbound.
-At least two paths deliver NETDEV_UNREGISTER after the instance lock has
-been dropped and while bound_rxqs is still populated:
+Does this leak the net_iov? The niov is already counted as inflight, but
+the handle is dropped without a page_pool_put_netmem() and the write
+returns -ENOMEM.
 
-- __dev_change_net_namespace() calls netdev_unlock_ops() after
-  dev_shutdown(), then call_netdevice_notifiers(NETDEV_UNREGISTER, dev).
-  It never calls dev_memory_provider_uninstall().
+If so, the pool's inflight count can never reach zero. page_pool_destroy()
+at close or queue restart would then loop forever in
+page_pool_release_retry() with "stalled pool shutdown". Because
+mp_ops->destroy never runs, the binding, its genpool chunk and the dma-buf
+would not be released either.
 
-- For a netkit leasee, unregister_netdevice_many_notify() runs the
-  notifiers after netdev_unlock_ops(). The bound rxq is only uninstalled
-  later, from ndo_uninit (netkit_uninit()->netkit_queue_unlease()).
+Should nsim_pp_hold_write() switch to the netmem API, or refuse when the
+pool has a memory provider?
 
-Suppose the unbind is sleeping in synchronize_net() during that window.
-This function then sees !LIVE and binding->dev == dev, and sets
-binding->dev to NULL. For a physical device it also unmaps the dma-buf
-while the binding is still the installed memory provider on the RX
-queues.
+> +		.max_len = PAGE_SIZE,
+>  		.nid = NUMA_NO_NODE,
+> -		.dev = &napi->dev->dev,
+> +		.dev = &ns->nsim_bus_dev->dev,
 
-The unbind loop then calls netif_mp_close_rxq(NULL, ...), which
-dereferences dev straight away:
+[Severity: Medium]
+Pool pages are now DMA-mapped against the nsim_bus_dev device, and the
+pool holds no reference on that device. Can the deferred page_pool release
+worker touch the bus device after it has been freed?
 
-	if (WARN_ON_ONCE(rxq_idx >= dev->real_num_rx_queues))
-		return;
+nsim_destroy() intentionally returns the pp_hold page late:
 
-Before this patch, binding->dev was only written by
-mp_dmabuf_devmem_uninstall() under the netdev instance lock. Does
-anything else serialize this walk with an unbind that is in progress?
+	/* Put this intentionally late to exercise the orphaning path */
+	if (ns->page) {
+		page_pool_put_full_page(pp_page_to_nmdesc(ns->page)->pp,
+					ns->page, false);
 
-> +
-> +void net_devmem_dev_unregister(struct net_device *dev)
-> +{
-> +	struct net_devmem_dmabuf_binding *binding;
-> +	unsigned long xa_idx;
-> +
-> +	mutex_lock(&net_devmem_lock);
-> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
-> +		if (binding->direction == DMA_FROM_DEVICE)
-> +			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
-> +	}
-> +	mutex_unlock(&net_devmem_lock);
-> +}
+By this point page_pool_destroy() has already scheduled
+page_pool_release_retry().
 
-[Severity: Low]
+Some configs have PP_DMA_INDEX_BITS == 0 (PAGE_OFFSET is not a compile-time
+constant and POISON_POINTER_DELTA == 0). There,
+page_pool_register_dma_index() does not track mappings, so
+page_pool_scrub() cannot unmap the outstanding page synchronously through
+pool->dma_mapped.
 
-This is a pre-existing issue, not one introduced by this patch, but only
-DMA_FROM_DEVICE bindings are handled here.
+After nsim_destroy() returns, device_unregister() can drop the last
+reference, and nsim_bus_dev_release() calls kfree(nsim_bus_dev). The
+delayed worker would later drain the ring and call
+dma_unmap_page_attrs(pool->p.dev, ...) on the freed device.
 
-After NETDEV_UNREGISTER, TX bindings created by netdev_nl_bind_tx_doit()
-still keep their dma-buf mapping. Their binding->dev also still points at
-the unregistered net_device, and netdev_nl_sock_priv_destroy() reads it
-later.
+The existing orphaning path test seems to exercise this sequence. Whether
+it actually triggers depends on which configs have PP_DMA_INDEX_BITS == 0,
+and on whether the final put_device() runs before the HZ/10 worker.
 
-The next patch in the series, "net: devmem: detach TX bindings on
-NETDEV_UNREGISTER", adds net_devmem_dev_unregister_tx() and an else
-branch here for TX bindings. That appears to resolve this by the end of
-the series.
+>  		.napi = napi,
+>  		.dma_dir = DMA_BIDIRECTIONAL,
+> -		.netdev = napi->dev,
+> +		.netdev = dev,
+> +		.queue_idx = idx,
+>  	};
+>  	struct page_pool *pool;
+>  
 
 [ ... ]
 
-> @@ -529,16 +585,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
->  	unsigned long xa_idx;
->  
->  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
-> -		if (bound_rxq == rxq) {
-> -			xa_erase(&binding->bound_rxqs, xa_idx);
-> -			if (xa_empty(&binding->bound_rxqs)) {
-> -				mutex_lock(&binding->lock);
-> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
-> -				WRITE_ONCE(binding->dev, NULL);
-> -				mutex_unlock(&binding->lock);
-> -			}
-> -			break;
-> +		if (bound_rxq != rxq)
-> +			continue;
-> +
-> +		xa_erase(&binding->bound_rxqs, xa_idx);
-> +		if (xa_empty(&binding->bound_rxqs)) {
-> +			mutex_lock(&binding->lock);
-> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
-> +			WRITE_ONCE(binding->dev, NULL);
-> +			if (!rxq->lease)
-> +				net_devmem_dmabuf_binding_unmap(binding);
-
-[Severity: High]
-
-Is the same use-after-free still reachable for RX bindings made on a
-netkit device that leases a queue from a physical NIC?
-
-In netdev_nl_bind_rx_doit(), dma_dev is resolved through the lease to
-the physical device's DMA device
-(netdev_nl_get_dma_dev()->netdev_queue_get_dma_dev()). However,
-binding->dev is the virtual netdev, and bound_rxqs holds the virtual rxq.
-
-The only uninstall this binding gets comes from the unlease path, and it
-runs while rxq->lease is still set:
-
-netkit_uninit()
-  netkit_queue_unlease()
-    netdev_rx_queue_unlease()
-      netif_rxq_cleanup_unlease()
-        __netif_mp_uninstall_rxq(virt_rxq, &p)
-          mp_dmabuf_devmem_uninstall()  <- rxq->lease != NULL, no unmap
-      WRITE_ONCE(rxq_src->lease, NULL);
-      WRITE_ONCE(rxq_dst->lease, NULL);
-      netdev_put(rxq_src->dev, &rxq_src->lease_tracker);
-
-So binding->dev becomes NULL and the unmap is skipped.
-
-net_devmem_dev_unregister_rx() doesn't catch it later either. On the
-virtual device's unregister it skips the unmap because
-netif_is_queue_leasee() is true. On the physical device's unregister,
-binding->dev is the virtual device or NULL, so it never matches.
-
-Once netdev_put() drops the lease's reference on the physical device,
-nothing holds dma_dev, since dma_buf_attach() doesn't take a reference.
-dma_dev can then be freed, for example by netdevsim del_device or PCI
-hot-remove. The later
-__net_devmem_dmabuf_binding_free()->net_devmem_dmabuf_binding_unmap()
-then unmaps against the freed device.
-
-The commit message says:
-
-  except when a leased queue is unleased: the physical device is still
-  registered and, if restarting its queue failed, may still be using
-  the binding.
-
-netkit_check_lease_unregister() triggers this unlease from inside the
-physical device's own NETDEV_UNREGISTER:
-
-	if (READ_ONCE(dev->reg_state) != NETREG_UNREGISTERING ||
-	    !dev->dev.parent)
-		return;
-	...
-	netdev_unlock_ops(dev);
-	unregister_netdevice_many(&list_kill);
-
-Is the physical device still registered in that case? Would this need to
-track the device that owns dma_dev, or hold a reference on dma_dev,
-instead of keying on binding->dev?
-
-> +			mutex_unlock(&binding->lock);
->  		}
-> +		break;
+> @@ -762,14 +768,16 @@ nsim_queue_mem_alloc(struct net_device *dev,
+>  	if (ns->rq_reset_mode == 1) {
+>  		if (!netif_running(ns->netdev))
+>  			return -ENETDOWN;
+> -		return nsim_create_page_pool(&qmem->pp, &ns->rq[idx]->napi);
+> +		return nsim_create_page_pool(dev, &qmem->pp,
+> +					     &ns->rq[idx]->napi, idx);
 >  	}
->  }
+>  
+>  	qmem->rq = nsim_queue_alloc();
+>  	if (!qmem->rq)
+>  		return -ENOMEM;
+>  
+> -	err = nsim_create_page_pool(&qmem->rq->page_pool, &qmem->rq->napi);
+> +	err = nsim_create_page_pool(dev, &qmem->rq->page_pool, &qmem->rq->napi,
+> +				    idx);
+>  	if (err)
+>  		goto err_free;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but nsim_pp_hold_write()
+dereferences ns->rq[0]->page_pool and allocates from it while holding only
+rtnl_lock.
+
+Queue restarts swap ns->rq[idx] in nsim_queue_start(). They destroy and
+free the old rq and pool in nsim_queue_mem_free() while holding only the
+netdev instance lock:
+
+	page_pool_destroy(qmem->rq->page_pool);
+	nsim_queue_free(dev, qmem->rq);
+
+Since rtnl_lock and the netdev instance lock never overlap here, can
+pp_hold allocate from a destroyed pool or dereference a freed rq?
+
+The queue_reset debugfs file already provides a trigger:
+nsim_qreset_write() -> netdev_lock() -> netdev_rx_queue_restart(). Working
+devmem bind-rx and unbind adds another one.
 
 [ ... ]
+
+> @@ -1051,6 +1059,7 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
+>  	ns->netdev->netdev_ops = &nsim_netdev_ops;
+>  	ns->netdev->stat_ops = &nsim_stat_ops;
+>  	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
+> +	ns->netdev->netmem_tx = NETMEM_TX_DMA;
+
+[Severity: Medium]
+With NETMEM_TX_DMA set, validate_xmit_unreadable_skb() now lets devmem TX
+skbs through to nsim_start_xmit(). psp_validate_xmit() only checks that
+the association's psd matches dev->psp_dev, so it does not reject
+unreadable frags.
+
+For a PSP-associated socket, nsim_start_xmit() calls nsim_do_psp() before
+any linearization. If the peer has no PSP device, or does not enable
+pas->version, nsim_do_psp() takes the non-decapsulation branch:
+
+drivers/net/netdevsim/psp.c:nsim_do_psp() {
+    ...
+		uh = udp_hdr(skb);
+		udplen = udp_get_len(skb, uh, skb_transport_offset(skb));
+		csum = skb_checksum(skb, skb_transport_offset(skb),
+				    udplen, 0);
+    ...
+}
+
+Would this hit WARN_ON_ONCE(!skb_frags_readable(skb)) in skb_checksum()?
+
+skb_checksum() then returns 0, or a partial header-only checksum.
+nsim_do_psp() uses that value to write uh->check, sets CHECKSUM_NONE, and
+forwards the packet to the peer with a wrong checksum.
+
+Should nsim_do_psp() check skb_frags_readable() before computing the
+checksum in software?
+
+>  	netdev_lockdep_set_classes(ns->netdev);
+>  
+>  	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012174300.2338784-1-almasrymina%40google.com
