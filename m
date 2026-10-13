@@ -4,78 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FAFDCC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:10:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1421FCC6B1A
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 446C310E93C;
-	Tue, 13 Oct 2026 18:10:05 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08F0510E64F
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:09:52 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4a022fee0caso30591245e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 11:09:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791914990; x=1792519790; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=XFhzx0x/OO34yNcVSV3ma6ykN2pOzHvVSjfyBVDm5Xk=;
- b=rp7qn6ceNJkdnvqvypKrDgl7a0ZDxZVMRn45YIZxrUZ+p2otM46oATOa8Zzwck/Sk7
- 2dAo2oNSm83omClEYwux3V8pAFjW+zCNleUMSeFvKr8LaowONkycPVmN6BBsgdlkEu7k
- vxN888nQWjMjNC3AXVJFPteCDTOyXQnbgIBdkSqurriS5E71NPplirxoHpc+McRYvJPq
- 9j4g3xw9UZ8lnAmut7JG2SlaVom3amNYMF65JDPX5li0HnDUI5szG8w+aDlgKieWkw9P
- +3o3x6vqxGS7wn1QZPEOf5egfwhiLt9XvgAEPdlwKHvlBtkgZ9IDr+nXxAkyU1RodDH+
- zDug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791914990; x=1792519790;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=XFhzx0x/OO34yNcVSV3ma6ykN2pOzHvVSjfyBVDm5Xk=;
- b=dJ39nqSZUrhiurhPlQ1wm3QEBIqAMYXNawJgsW1mIh5wjnArUpUzrLnpQ2BJPWgCio
- ZqIDzvYix3GaMTbhipLmei6LIcscUO8wjKr6bpxwhHSDX1FChz/Y3PbzmcQGGWZtfDN3
- 0LZxzlUmEmA1l0/NkdiTIp0KHlROdC79zD3goeq94/OQ2ePWkoF4BJXTB7JMy2v40tUA
- 9rvaNP4k+ESgHPjIR9JlFFgOfeKIDzhYo3bqXUbOCFERyY86TmHTzdo6u0MKLAPTzu0F
- tP1ohsbUxpHVfxI3OdSdANcymdplo6BFbju+Cne2iiHJRQtpEZKH8i4cKx5XIBHlyIWa
- 8T8A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzsgwMeJW2zgQ9Jea/VtOGYI99mhVkDZX3a5aUTFuVoNfqpoh9OM5QK5b6anRTXWqRbXsgpKwHDw4I=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIMQqhPzHYVZu9AYNFN0TivIhuvBuiqaf3QvsE+vKqUzqnPDMq/
- +0gnyg0/TVL7h6XiEicCCloGjb6u/9fc2NfLs8JMpDHy0GxPuV6lU4Hi
-X-Gm-Gg: AYBFou1kf/xoWXoA/9/ICfJqZMCsrBBUU5GC0xiMY110ZA0HWV2XgQaAf6NLf3TsKwV
- ATptVqMyl8BpAL2l80hrG6aY/4vq+nwYv3faCt8TMIMH+/vIJRAP+GRcUlLi1ml5BgJHviSPhQM
- Kk1ebnffd5GV8tCw83zMdoZZ+09w1wnEyFY1pUYaVOnn2y8W66/REtHmIINl9Mzv9FYg22g7Agk
- rDkgVz1QLdSw4A3MMZd8ZWj5DR/tPWf/ZZB9O9IDSlJ7RycjxmI+ADfU/TGOyyM+KsJn6yDYlpx
- 235gG2CXDCm94aSfUVjZ9slI7qn7TpBdFNKpQdo9+iQv0NBQ99pwlUXDqOBAhYGEv4TMi1yYL61
- V4Sos52jL2v0E8466RDejeOJZxyOT8oGbg1pbgY7Xidf/uWB5OtHz+IkRGtfRHt3c2ZlqFCfW/P
- OkoyK2EUilzU0mzNqTLa7NcW6gjSGMueUawujGqqYZndsNl0xqBOkSC9lTVW3yef5FdgaC223PJ
- aQpSKZqxNk6su/QPH4=
-X-Received: by 2002:a05:600c:3488:b0:4a1:7690:d878 with SMTP id
- 5b1f17b1804b1-4a18e4b8028mr275485265e9.17.1791914990160; 
- Tue, 13 Oct 2026 11:09:50 -0700 (PDT)
-Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48de0aaaaebsm6854498f8f.14.2026.10.13.11.09.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2026 11:09:49 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 3/4] mfd: aat2870: Convert to use OF bindings
-Date: Tue, 13 Oct 2026 21:09:32 +0300
-Message-ID: <20261013180933.487013-4-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013180933.487013-1-clamor95@gmail.com>
-References: <20261013180933.487013-1-clamor95@gmail.com>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED2610F946;
+	Tue, 13 Oct 2026 18:14:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 386D110E16E
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:14:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 369D9602C3;
+ Tue, 13 Oct 2026 18:14:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8975D1F000FF;
+ Tue, 13 Oct 2026 18:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791915264;
+ bh=yRTW/dH5AcddNS+HWfKGncCOuxQwSkTjx47Dtov2j6k=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References;
+ b=TPD3wAWdcLL9hitN4qecoU35ovIN01iCzNcwSSloL4Nog0YaTiD+Lbx5iolfN/7tG
+ dwlY6AhShr8w7aI2MusDvnbR+JSTXDMf12b0bRZ2KaHZJ8xuyw1eTOvfXwSSpapG2s
+ CC36fcB0/SCDtaycY0ThZ4O+wH2wym0YZJ55UFpPZQKPjeyBE6VGN4ko+w69FPF7Ks
+ c2wwTNE1TyAQC+/kPveSHzwctGQpK038JoeEaxTRcXvyvfVqiwU2iQgIl/D1xLRSJ3
+ NvO2HS15qlpZOhoWjvazmgjGMiIvDbHO1hhPNbcdU/R0jizuCtUeTaQI5GZKOJdGj3
+ BwXRCInusU+MQ==
+Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
+ ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
+ bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, razor@blackwall.org,
+ daniel@iogearbox.net, tariqt@nvidia.com, kaifengw@google.com
+Date: Tue, 13 Oct 2026 18:14:22 +0000
+Message-ID: <179191526299.434549.7888465945343049764@kernel.org>
+In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
+References: <20261012174300.2338784-2-almasrymina@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,691 +62,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Conversion of the AAT2870 driver to use OF bindings requires a few complex
-changes that should be done simultaneously.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-The AAT2870 essentially provides two functions via child devices:
-backlight and regulators. Both functions are fairly self-sufficient and
-may not be populated on the final board. Consequently, the MFD
-registration API was replaced with of_platform_populate(), and each
-sub-device was given its own compatible string.
+Critical: 0 · High: 2 · Medium: 0 · Low: 0 (1)
 
-Additionally, aat2870-core utilizes an enable GPIO. Obtaining this GPIO
-was converted to use modern gpiod/OF helpers, allowing the redundant
-aat2870_enable() and aat2870_disable() helpers to be removed.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The aat2870-regulator driver was updated to register each of the four LDOs
-from a dedicated OF node using modern regulator framework.
+- [High] The same dma_unmap_sg_attrs() slab-use-after-free the patch
+  claims to fix can still happen for RX bindings made on a virtual…
+- [High] net_devmem_dev_unregister_rx() adds a new writer of binding->dev
+  (and a new unmap).
 
-The aat2870-backlight driver was changed to populate all required
-properties from a dedicated Device Tree node. Its channel map was updated
-to use u8 instead of int. Furthermore, because the maximum current is now
-parsed as an absolute value rather than an enum entry, the calculation and
-application of the maximum current were updated accordingly.
+Pre-existing issues:
+- [Low] Not a valid finding against the final series state; kept only
+  because requires_validation=true.
 
-All of the changes above allow platform data to be removed entirely.
+--
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/aat2870-core.c            | 115 +++++--------------
- drivers/regulator/aat2870-regulator.c | 159 +++++++++++---------------
- drivers/video/backlight/aat2870_bl.c  |  51 +++++----
- include/linux/mfd/aat2870.h           |  95 +--------------
- 4 files changed, 121 insertions(+), 299 deletions(-)
+net: devmem: unmap dma_buf synchronously on queue uninstall
 
-diff --git a/drivers/mfd/aat2870-core.c b/drivers/mfd/aat2870-core.c
-index 0d56cd6fbc6a5..909c14ee60323 100644
---- a/drivers/mfd/aat2870-core.c
-+++ b/drivers/mfd/aat2870-core.c
-@@ -16,8 +16,15 @@
- #include <linux/gpio/legacy.h>
- #include <linux/mfd/core.h>
- #include <linux/mfd/aat2870.h>
-+#include <linux/of_platform.h>
- #include <linux/regulator/machine.h>
- 
-+struct aat2870_register {
-+	bool readable;
-+	bool writeable;
-+	u8 value;
-+};
-+
- static struct aat2870_register aat2870_regs[AAT2870_REG_NUM] = {
- 	/* readable, writeable, value */
- 	{ 0, 1, 0x00 },	/* 0x00 AAT2870_BL_CH_EN */
-@@ -61,34 +68,6 @@ static struct aat2870_register aat2870_regs[AAT2870_REG_NUM] = {
- 	{ 0, 1, 0x00 },	/* 0x26 AAT2870_LDO_EN */
- };
- 
--static struct mfd_cell aat2870_devs[] = {
--	{
--		.name = "aat2870-backlight",
--		.id = AAT2870_ID_BL,
--		.pdata_size = sizeof(struct aat2870_bl_platform_data),
--	},
--	{
--		.name = "aat2870-regulator",
--		.id = AAT2870_ID_LDOA,
--		.pdata_size = sizeof(struct regulator_init_data),
--	},
--	{
--		.name = "aat2870-regulator",
--		.id = AAT2870_ID_LDOB,
--		.pdata_size = sizeof(struct regulator_init_data),
--	},
--	{
--		.name = "aat2870-regulator",
--		.id = AAT2870_ID_LDOC,
--		.pdata_size = sizeof(struct regulator_init_data),
--	},
--	{
--		.name = "aat2870-regulator",
--		.id = AAT2870_ID_LDOD,
--		.pdata_size = sizeof(struct regulator_init_data),
--	},
--};
--
- static int __aat2870_read(struct aat2870_data *aat2870, u8 addr, u8 *val)
- {
- 	int ret;
-@@ -196,22 +175,6 @@ static int aat2870_update(struct aat2870_data *aat2870, u8 addr, u8 mask,
- 	return ret;
- }
- 
--static inline void aat2870_enable(struct aat2870_data *aat2870)
--{
--	if (aat2870->en_pin >= 0)
--		gpio_set_value(aat2870->en_pin, 1);
--
--	aat2870->is_enable = 1;
--}
--
--static inline void aat2870_disable(struct aat2870_data *aat2870)
--{
--	if (aat2870->en_pin >= 0)
--		gpio_set_value(aat2870->en_pin, 0);
--
--	aat2870->is_enable = 0;
--}
--
- #ifdef CONFIG_DEBUG_FS
- static ssize_t aat2870_dump_reg(struct aat2870_data *aat2870, char *buf)
- {
-@@ -332,9 +295,7 @@ static inline void aat2870_init_debugfs(struct aat2870_data *aat2870)
- 
- static int aat2870_i2c_probe(struct i2c_client *client)
- {
--	struct aat2870_platform_data *pdata = dev_get_platdata(&client->dev);
- 	struct aat2870_data *aat2870;
--	int i, j;
- 	int ret = 0;
- 
- 	aat2870 = devm_kzalloc(&client->dev, sizeof(struct aat2870_data),
-@@ -348,60 +309,29 @@ static int aat2870_i2c_probe(struct i2c_client *client)
- 
- 	aat2870->reg_cache = aat2870_regs;
- 
--	if (pdata->en_pin < 0)
--		aat2870->en_pin = -1;
--	else
--		aat2870->en_pin = pdata->en_pin;
-+	aat2870->en_pin = devm_gpiod_get_optional(&client->dev, "enable",
-+						  GPIOD_OUT_HIGH);
-+	if (IS_ERR(aat2870->en_pin))
-+		return dev_err_probe(&client->dev, PTR_ERR(aat2870->en_pin),
-+				     "Failed to get EN GPIO\n");
- 
--	aat2870->init = pdata->init;
--	aat2870->uninit = pdata->uninit;
- 	aat2870->read = aat2870_read;
- 	aat2870->write = aat2870_write;
- 	aat2870->update = aat2870_update;
- 
- 	mutex_init(&aat2870->io_lock);
- 
--	if (aat2870->init)
--		aat2870->init(aat2870);
--
--	if (aat2870->en_pin >= 0) {
--		ret = devm_gpio_request_one(&client->dev, aat2870->en_pin,
--					GPIOF_OUT_INIT_HIGH, "aat2870-en");
--		if (ret < 0) {
--			dev_err(&client->dev,
--				"Failed to request GPIO %d\n", aat2870->en_pin);
--			return ret;
--		}
--	}
--
--	aat2870_enable(aat2870);
--
--	for (i = 0; i < pdata->num_subdevs; i++) {
--		for (j = 0; j < ARRAY_SIZE(aat2870_devs); j++) {
--			if ((pdata->subdevs[i].id == aat2870_devs[j].id) &&
--					!strcmp(pdata->subdevs[i].name,
--						aat2870_devs[j].name)) {
--				aat2870_devs[j].platform_data =
--					pdata->subdevs[i].platform_data;
--				break;
--			}
--		}
--	}
-+	gpiod_set_value(aat2870->en_pin, 1);
- 
--	ret = mfd_add_devices(aat2870->dev, 0, aat2870_devs,
--			      ARRAY_SIZE(aat2870_devs), NULL, 0, NULL);
--	if (ret != 0) {
--		dev_err(aat2870->dev, "Failed to add subdev: %d\n", ret);
--		goto out_disable;
-+	ret = devm_of_platform_populate(&client->dev);
-+	if (ret) {
-+		gpiod_set_value(aat2870->en_pin, 0);
-+		return dev_err_probe(&client->dev, ret, "Failed to populate cells\n");
- 	}
- 
- 	aat2870_init_debugfs(aat2870);
- 
- 	return 0;
--
--out_disable:
--	aat2870_disable(aat2870);
--	return ret;
- }
- 
- static int aat2870_i2c_suspend(struct device *dev)
-@@ -409,7 +339,7 @@ static int aat2870_i2c_suspend(struct device *dev)
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct aat2870_data *aat2870 = i2c_get_clientdata(client);
- 
--	aat2870_disable(aat2870);
-+	gpiod_set_value(aat2870->en_pin, 0);
- 
- 	return 0;
- }
-@@ -421,7 +351,7 @@ static int aat2870_i2c_resume(struct device *dev)
- 	struct aat2870_register *reg = NULL;
- 	int i;
- 
--	aat2870_enable(aat2870);
-+	gpiod_set_value(aat2870->en_pin, 1);
- 
- 	/* restore registers */
- 	for (i = 0; i < AAT2870_REG_NUM; i++) {
-@@ -436,6 +366,12 @@ static int aat2870_i2c_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(aat2870_pm_ops, aat2870_i2c_suspend,
- 				aat2870_i2c_resume);
- 
-+static const struct of_device_id aat2870_match_table[] = {
-+	{ .compatible = "skyworks,aat2870" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, aat2870_match_table);
-+
- static const struct i2c_device_id aat2870_i2c_id_table[] = {
- 	{ "aat2870" },
- 	{ }
-@@ -444,6 +380,7 @@ static const struct i2c_device_id aat2870_i2c_id_table[] = {
- static struct i2c_driver aat2870_i2c_driver = {
- 	.driver = {
- 		.name			= "aat2870",
-+		.of_match_table		= aat2870_match_table,
- 		.pm			= pm_sleep_ptr(&aat2870_pm_ops),
- 		.suppress_bind_attrs	= true,
- 	},
-diff --git a/drivers/regulator/aat2870-regulator.c b/drivers/regulator/aat2870-regulator.c
-index 970d86f2bbb81..9b8eb8df220a7 100644
---- a/drivers/regulator/aat2870-regulator.c
-+++ b/drivers/regulator/aat2870-regulator.c
-@@ -15,73 +15,74 @@
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
- #include <linux/mfd/aat2870.h>
--
--struct aat2870_regulator {
--	struct aat2870_data *aat2870;
--	struct regulator_desc desc;
--
--	u8 enable_addr;
--	u8 enable_shift;
--	u8 enable_mask;
--
--	u8 voltage_addr;
--	u8 voltage_shift;
--	u8 voltage_mask;
-+#include <linux/regulator/of_regulator.h>
-+
-+#define AAT2870_LDO_AB_A_MASK    GENMASK(7, 4)
-+#define AAT2870_LDO_AB_B_MASK    GENMASK(3, 0)
-+#define AAT2870_LDO_CD_C_MASK    GENMASK(7, 4)
-+#define AAT2870_LDO_CD_D_MASK    GENMASK(3, 0)
-+
-+/* Device IDs */
-+enum aat2870_regulator_id {
-+	AAT2870_ID_LDOA,
-+	AAT2870_ID_LDOB,
-+	AAT2870_ID_LDOC,
-+	AAT2870_ID_LDOD
- };
- 
- static int aat2870_ldo_set_voltage_sel(struct regulator_dev *rdev,
- 				       unsigned selector)
- {
--	struct aat2870_regulator *ri = rdev_get_drvdata(rdev);
--	struct aat2870_data *aat2870 = ri->aat2870;
-+	struct aat2870_data *aat2870 = rdev_get_drvdata(rdev);
-+	const struct regulator_desc *rdesc = rdev->desc;
- 
--	return aat2870->update(aat2870, ri->voltage_addr, ri->voltage_mask,
--			       selector << ri->voltage_shift);
-+	return aat2870->update(aat2870, rdesc->vsel_reg, rdesc->vsel_mask,
-+			       (selector << __ffs(rdesc->vsel_mask)) & rdesc->vsel_mask);
- }
- 
- static int aat2870_ldo_get_voltage_sel(struct regulator_dev *rdev)
- {
--	struct aat2870_regulator *ri = rdev_get_drvdata(rdev);
--	struct aat2870_data *aat2870 = ri->aat2870;
-+	struct aat2870_data *aat2870 = rdev_get_drvdata(rdev);
-+	const struct regulator_desc *rdesc = rdev->desc;
- 	u8 val;
- 	int ret;
- 
--	ret = aat2870->read(aat2870, ri->voltage_addr, &val);
-+	ret = aat2870->read(aat2870, rdesc->vsel_reg, &val);
- 	if (ret)
- 		return ret;
- 
--	return (val & ri->voltage_mask) >> ri->voltage_shift;
-+	return (val & rdesc->vsel_mask) >> __ffs(rdesc->vsel_mask);
- }
- 
- static int aat2870_ldo_enable(struct regulator_dev *rdev)
- {
--	struct aat2870_regulator *ri = rdev_get_drvdata(rdev);
--	struct aat2870_data *aat2870 = ri->aat2870;
-+	struct aat2870_data *aat2870 = rdev_get_drvdata(rdev);
-+	const struct regulator_desc *rdesc = rdev->desc;
- 
--	return aat2870->update(aat2870, ri->enable_addr, ri->enable_mask,
--			       ri->enable_mask);
-+	return aat2870->update(aat2870, rdesc->enable_reg, rdesc->enable_mask,
-+			       rdesc->enable_mask);
- }
- 
- static int aat2870_ldo_disable(struct regulator_dev *rdev)
- {
--	struct aat2870_regulator *ri = rdev_get_drvdata(rdev);
--	struct aat2870_data *aat2870 = ri->aat2870;
-+	struct aat2870_data *aat2870 = rdev_get_drvdata(rdev);
-+	const struct regulator_desc *rdesc = rdev->desc;
- 
--	return aat2870->update(aat2870, ri->enable_addr, ri->enable_mask, 0);
-+	return aat2870->update(aat2870, rdesc->enable_reg, rdesc->enable_mask, 0);
- }
- 
- static int aat2870_ldo_is_enabled(struct regulator_dev *rdev)
- {
--	struct aat2870_regulator *ri = rdev_get_drvdata(rdev);
--	struct aat2870_data *aat2870 = ri->aat2870;
-+	struct aat2870_data *aat2870 = rdev_get_drvdata(rdev);
-+	const struct regulator_desc *rdesc = rdev->desc;
- 	u8 val;
- 	int ret;
- 
--	ret = aat2870->read(aat2870, ri->enable_addr, &val);
-+	ret = aat2870->read(aat2870, rdesc->enable_reg, &val);
- 	if (ret)
- 		return ret;
- 
--	return val & ri->enable_mask ? 1 : 0;
-+	return (val & rdesc->enable_mask) >> __ffs(rdesc->enable_mask);
- }
- 
- static const struct regulator_ops aat2870_ldo_ops = {
-@@ -101,84 +102,60 @@ static const unsigned int aat2870_ldo_voltages[] = {
- 	3000000, 3100000, 3200000, 3300000,
- };
- 
--#define AAT2870_LDO(ids)				\
--	{						\
--		.desc = {				\
--			.name = #ids,			\
--			.id = AAT2870_ID_##ids,		\
--			.n_voltages = ARRAY_SIZE(aat2870_ldo_voltages),	\
--			.volt_table = aat2870_ldo_voltages, \
--			.ops = &aat2870_ldo_ops,	\
--			.type = REGULATOR_VOLTAGE,	\
--			.owner = THIS_MODULE,		\
--		},					\
--	}
-+#define AAT2870_LDO(ids, match, vsel, vmask) {		\
-+	.name = #ids,					\
-+	.of_match = (match),				\
-+	.id = AAT2870_ID_##ids,				\
-+	.n_voltages = ARRAY_SIZE(aat2870_ldo_voltages),	\
-+	.volt_table = aat2870_ldo_voltages,		\
-+	.ops = &aat2870_ldo_ops,			\
-+	.type = REGULATOR_VOLTAGE,			\
-+	.owner = THIS_MODULE,				\
-+	.vsel_reg = (vsel),				\
-+	.vsel_mask = (vmask),				\
-+	.enable_reg = AAT2870_LDO_EN,			\
-+	.enable_mask = BIT(AAT2870_ID_##ids),		\
-+}
- 
--static struct aat2870_regulator aat2870_regulators[] = {
--	AAT2870_LDO(LDOA),
--	AAT2870_LDO(LDOB),
--	AAT2870_LDO(LDOC),
--	AAT2870_LDO(LDOD),
-+static struct regulator_desc aat2870_regulators[] = {
-+	AAT2870_LDO(LDOA, "ldo-a", AAT2870_LDO_AB, AAT2870_LDO_AB_A_MASK),
-+	AAT2870_LDO(LDOB, "ldo-b", AAT2870_LDO_AB, AAT2870_LDO_AB_B_MASK),
-+	AAT2870_LDO(LDOC, "ldo-c", AAT2870_LDO_CD, AAT2870_LDO_CD_C_MASK),
-+	AAT2870_LDO(LDOD, "ldo-d", AAT2870_LDO_CD, AAT2870_LDO_CD_D_MASK),
- };
- 
--static struct aat2870_regulator *aat2870_get_regulator(int id)
--{
--	struct aat2870_regulator *ri = NULL;
--	int i;
--
--	for (i = 0; i < ARRAY_SIZE(aat2870_regulators); i++) {
--		ri = &aat2870_regulators[i];
--		if (ri->desc.id == id)
--			break;
--	}
--
--	if (i == ARRAY_SIZE(aat2870_regulators))
--		return NULL;
--
--	ri->enable_addr = AAT2870_LDO_EN;
--	ri->enable_shift = id - AAT2870_ID_LDOA;
--	ri->enable_mask = 0x1 << ri->enable_shift;
--
--	ri->voltage_addr = (id - AAT2870_ID_LDOA) / 2 ?
--			   AAT2870_LDO_CD : AAT2870_LDO_AB;
--	ri->voltage_shift = (id - AAT2870_ID_LDOA) % 2 ? 0 : 4;
--	ri->voltage_mask = 0xF << ri->voltage_shift;
--
--	return ri;
--}
--
- static int aat2870_regulator_probe(struct platform_device *pdev)
- {
--	struct aat2870_regulator *ri;
-+	struct device *dev = &pdev->dev;
- 	struct regulator_config config = { };
- 	struct regulator_dev *rdev;
- 
--	ri = aat2870_get_regulator(pdev->id);
--	if (!ri) {
--		dev_err(&pdev->dev, "Invalid device ID, %d\n", pdev->id);
--		return -EINVAL;
--	}
--	ri->aat2870 = dev_get_drvdata(pdev->dev.parent);
--
--	config.dev = &pdev->dev;
--	config.driver_data = ri;
--	config.init_data = dev_get_platdata(&pdev->dev);
-+	config.dev = dev;
-+	config.driver_data = dev_get_drvdata(dev->parent);
- 
--	rdev = devm_regulator_register(&pdev->dev, &ri->desc, &config);
--	if (IS_ERR(rdev)) {
--		dev_err(&pdev->dev, "Failed to register regulator %s\n",
--			ri->desc.name);
--		return PTR_ERR(rdev);
-+	for (int i = 0; i < ARRAY_SIZE(aat2870_regulators); i++) {
-+		rdev = devm_regulator_register(dev, &aat2870_regulators[i], &config);
-+		if (IS_ERR(rdev)) {
-+			return dev_err_probe(dev, PTR_ERR(rdev),
-+					     "Failed to register regulator %s\n",
-+					     aat2870_regulators[i].name);
-+		}
- 	}
--	platform_set_drvdata(pdev, rdev);
- 
- 	return 0;
- }
- 
-+static const struct of_device_id aat2870_regulator_match_table[] = {
-+	{ .compatible = "skyworks,aat2870-regulator" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, aat2870_regulator_match_table);
-+
- static struct platform_driver aat2870_regulator_driver = {
- 	.driver = {
- 		.name	= "aat2870-regulator",
- 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+		.of_match_table = aat2870_regulator_match_table,
- 	},
- 	.probe	= aat2870_regulator_probe,
- };
-diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backlight/aat2870_bl.c
-index eb686e315921d..705a8d32d224f 100644
---- a/drivers/video/backlight/aat2870_bl.c
-+++ b/drivers/video/backlight/aat2870_bl.c
-@@ -15,11 +15,19 @@
- #include <linux/backlight.h>
- #include <linux/mfd/aat2870.h>
- 
-+/* Backlight has 8 channels, each bit represents one channel */
-+#define AAT2870_BL_CH_ALL	0xff
-+
-+/* Backlight current magnitude (uA), 450uA current is eq to 0 */
-+#define AAT2870_CURRENT_MIN	450
-+#define AAT2870_CURRENT_MAX	27900
-+#define AAT2870_CURRENT_STEP	900
-+
- struct aat2870_bl_driver_data {
- 	struct platform_device *pdev;
- 	struct backlight_device *bd;
- 
--	int channels;
-+	u8 channels;
- 	int max_current;
- 	int brightness; /* current brightness */
- };
-@@ -30,7 +38,7 @@ static inline int aat2870_bl_enable(struct aat2870_bl_driver_data *aat2870_bl)
- 			= dev_get_drvdata(aat2870_bl->pdev->dev.parent);
- 
- 	return aat2870->write(aat2870, AAT2870_BL_CH_EN,
--			      (u8)aat2870_bl->channels);
-+			      aat2870_bl->channels);
- }
- 
- static inline int aat2870_bl_disable(struct aat2870_bl_driver_data *aat2870_bl)
-@@ -85,24 +93,11 @@ static const struct backlight_ops aat2870_bl_ops = {
- 
- static int aat2870_bl_probe(struct platform_device *pdev)
- {
--	struct aat2870_bl_platform_data *pdata = dev_get_platdata(&pdev->dev);
- 	struct aat2870_bl_driver_data *aat2870_bl;
- 	struct backlight_device *bd;
- 	struct backlight_properties props;
- 	int ret = 0;
- 
--	if (!pdata) {
--		dev_err(&pdev->dev, "No platform data\n");
--		ret = -ENXIO;
--		goto out;
--	}
--
--	if (pdev->id != AAT2870_ID_BL) {
--		dev_err(&pdev->dev, "Invalid device ID, %d\n", pdev->id);
--		ret = -EINVAL;
--		goto out;
--	}
--
- 	aat2870_bl = devm_kzalloc(&pdev->dev,
- 				  sizeof(struct aat2870_bl_driver_data),
- 				  GFP_KERNEL);
-@@ -129,21 +124,20 @@ static int aat2870_bl_probe(struct platform_device *pdev)
- 
- 	aat2870_bl->bd = bd;
- 
--	if (pdata->channels > 0)
--		aat2870_bl->channels = pdata->channels;
--	else
--		aat2870_bl->channels = AAT2870_BL_CH_ALL;
-+	aat2870_bl->channels = AAT2870_BL_CH_ALL;
-+	device_property_read_u8(&pdev->dev, "skyworks,channels", &aat2870_bl->channels);
- 
--	if (pdata->max_current > 0)
--		aat2870_bl->max_current = pdata->max_current;
--	else
--		aat2870_bl->max_current = AAT2870_CURRENT_27_9;
-+	device_property_read_u32(&pdev->dev, "led-max-microamp", &aat2870_bl->max_current);
-+	aat2870_bl->max_current = clamp(aat2870_bl->max_current, AAT2870_CURRENT_MIN,
-+					AAT2870_CURRENT_MAX);
-+	aat2870_bl->max_current /= AAT2870_CURRENT_STEP;
- 
- 	/*
- 	 * The maximum number of brightness steps is determined by the max current.
--	 * The aat2870_current enum maps directly to the allowed brightness steps.
-+	 * The aat2870_bl->max_current value maps to the allowed brightness steps
-+	 * with +1 offset since max_current 0 is still 450uA.
- 	 */
--	bd->props.max_brightness = pdata->max_current;
-+	bd->props.max_brightness = aat2870_bl->max_current + 1;
- 
- 	aat2870_bl->brightness = 0;
- 	bd->props.power = BACKLIGHT_POWER_ON;
-@@ -171,9 +165,16 @@ static void aat2870_bl_remove(struct platform_device *pdev)
- 	backlight_update_status(bd);
- }
- 
-+static const struct of_device_id aat2870_bl_match_table[] = {
-+	{ .compatible = "skyworks,aat2870-backlight" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, aat2870_bl_match_table);
-+
- static struct platform_driver aat2870_bl_driver = {
- 	.driver = {
- 		.name	= "aat2870-backlight",
-+		.of_match_table = aat2870_bl_match_table,
- 	},
- 	.probe		= aat2870_bl_probe,
- 	.remove		= aat2870_bl_remove,
-diff --git a/include/linux/mfd/aat2870.h b/include/linux/mfd/aat2870.h
-index c7a3c53eba681..a7b482b790b4e 100644
---- a/include/linux/mfd/aat2870.h
-+++ b/include/linux/mfd/aat2870.h
-@@ -54,80 +54,13 @@
- #define AAT2870_LDO_EN		0x26
- #define AAT2870_REG_NUM		0x27
- 
--/* Device IDs */
--enum aat2870_id {
--	AAT2870_ID_BL,
--	AAT2870_ID_LDOA,
--	AAT2870_ID_LDOB,
--	AAT2870_ID_LDOC,
--	AAT2870_ID_LDOD
--};
--
--/* Backlight channels */
--#define AAT2870_BL_CH1		0x01
--#define AAT2870_BL_CH2		0x02
--#define AAT2870_BL_CH3		0x04
--#define AAT2870_BL_CH4		0x08
--#define AAT2870_BL_CH5		0x10
--#define AAT2870_BL_CH6		0x20
--#define AAT2870_BL_CH7		0x40
--#define AAT2870_BL_CH8		0x80
--#define AAT2870_BL_CH_ALL	0xFF
--
--/* Backlight current magnitude (mA) */
--enum aat2870_current {
--	AAT2870_CURRENT_0_45 = 1,
--	AAT2870_CURRENT_0_90,
--	AAT2870_CURRENT_1_80,
--	AAT2870_CURRENT_2_70,
--	AAT2870_CURRENT_3_60,
--	AAT2870_CURRENT_4_50,
--	AAT2870_CURRENT_5_40,
--	AAT2870_CURRENT_6_30,
--	AAT2870_CURRENT_7_20,
--	AAT2870_CURRENT_8_10,
--	AAT2870_CURRENT_9_00,
--	AAT2870_CURRENT_9_90,
--	AAT2870_CURRENT_10_8,
--	AAT2870_CURRENT_11_7,
--	AAT2870_CURRENT_12_6,
--	AAT2870_CURRENT_13_5,
--	AAT2870_CURRENT_14_4,
--	AAT2870_CURRENT_15_3,
--	AAT2870_CURRENT_16_2,
--	AAT2870_CURRENT_17_1,
--	AAT2870_CURRENT_18_0,
--	AAT2870_CURRENT_18_9,
--	AAT2870_CURRENT_19_8,
--	AAT2870_CURRENT_20_7,
--	AAT2870_CURRENT_21_6,
--	AAT2870_CURRENT_22_5,
--	AAT2870_CURRENT_23_4,
--	AAT2870_CURRENT_24_3,
--	AAT2870_CURRENT_25_2,
--	AAT2870_CURRENT_26_1,
--	AAT2870_CURRENT_27_0,
--	AAT2870_CURRENT_27_9
--};
--
--struct aat2870_register {
--	bool readable;
--	bool writeable;
--	u8 value;
--};
--
- struct aat2870_data {
- 	struct device *dev;
- 	struct i2c_client *client;
- 
- 	struct mutex io_lock;
- 	struct aat2870_register *reg_cache; /* register cache */
--	int en_pin; /* enable GPIO pin (if < 0, ignore this value) */
--	bool is_enable;
--
--	/* init and uninit for platform specified */
--	int (*init)(struct aat2870_data *aat2870);
--	void (*uninit)(struct aat2870_data *aat2870);
-+	struct gpio_desc *en_pin;
- 
- 	/* i2c io funcntions */
- 	int (*read)(struct aat2870_data *aat2870, u8 addr, u8 *val);
-@@ -135,30 +68,4 @@ struct aat2870_data {
- 	int (*update)(struct aat2870_data *aat2870, u8 addr, u8 mask, u8 val);
- };
- 
--struct aat2870_subdev_info {
--	int id;
--	const char *name;
--	void *platform_data;
--};
--
--struct aat2870_platform_data {
--	int en_pin; /* enable GPIO pin (if < 0, ignore this value) */
--
--	struct aat2870_subdev_info *subdevs;
--	int num_subdevs;
--
--	/* init and uninit for platform specified */
--	int (*init)(struct aat2870_data *aat2870);
--	void (*uninit)(struct aat2870_data *aat2870);
--};
--
--struct aat2870_bl_platform_data {
--	/* backlight channels, default is AAT2870_BL_CH_ALL */
--	int channels;
--	/* backlight current magnitude, default is AAT2870_CURRENT_27_9 */
--	int max_current;
--	/* maximum brightness, default is 255 */
--	int max_brightness;
--};
--
- #endif /* __LINUX_MFD_AAT2870_H */
+This adds net_devmem_dmabuf_binding_unmap(). The dma-buf attachment is
+now unmapped when the last bound RX queue is uninstalled, and also on
+NETDEV_UNREGISTER for unbound RX bindings, to avoid a use-after-free of
+dma_dev in dma_unmap_sg_attrs(). Bindings now stay in
+net_devmem_dmabuf_bindings until they are freed, and an xarray mark hides
+unbound ones from TX lookups.
+
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index f4d60654ce7fd..02d607cc87217 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+
+[ ... ]
+
+> @@ -129,10 +151,11 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	unsigned long xa_idx;
+>  	unsigned int rxq_idx;
+>  
+> -	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+> +	xa_clear_mark(&net_devmem_dmabuf_bindings, binding->id,
+> +		      NET_DEVMEM_BINDING_LIVE);
+>  
+>  	/* Ensure no tx net_devmem_lookup_dmabuf() are in flight after the
+> -	 * erase.
+> +	 * mark is cleared.
+>  	 */
+>  	synchronize_net();
+>  
+
+[ ... ]
+
+> @@ -153,6 +176,35 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	percpu_ref_kill(&binding->ref);
+>  }
+>  
+> +static void
+> +net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
+> +			     unsigned long xa_idx, struct net_device *dev)
+> +{
+> +	if (xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +			NET_DEVMEM_BINDING_LIVE) ||
+> +	    READ_ONCE(binding->dev) != dev)
+> +		return;
+> +
+> +	mutex_lock(&binding->lock);
+> +	WRITE_ONCE(binding->dev, NULL);
+> +	if (!netif_is_queue_leasee(dev))
+> +		net_devmem_dmabuf_binding_unmap(binding);
+> +	mutex_unlock(&binding->lock);
+> +}
+
+[Severity: High]
+
+Can this race with net_devmem_unbind_dmabuf() and set binding->dev to
+NULL while the unbind is still walking bound_rxqs?
+
+net_devmem_dev_unregister() is called from netdev_genl_netdevice_event()
+before netdev_lock(netdev) is taken. That means this writer holds only
+RTNL, net_devmem_lock and binding->lock.
+
+The socket close path holds netdev_lock(dev) but not binding->lock:
+
+netdev_nl_sock_priv_destroy()
+    netdev_lock(dev);
+    net_devmem_unbind_dmabuf(binding);
+        xa_clear_mark(..., NET_DEVMEM_BINDING_LIVE);
+        synchronize_net();
+        xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
+            ...
+            netif_mp_close_rxq(binding->dev, rxq_idx, &mp_params);
+        }
+
+Clearing the mark is what makes this walk treat the binding as unbound.
+At least two paths deliver NETDEV_UNREGISTER after the instance lock has
+been dropped and while bound_rxqs is still populated:
+
+- __dev_change_net_namespace() calls netdev_unlock_ops() after
+  dev_shutdown(), then call_netdevice_notifiers(NETDEV_UNREGISTER, dev).
+  It never calls dev_memory_provider_uninstall().
+
+- For a netkit leasee, unregister_netdevice_many_notify() runs the
+  notifiers after netdev_unlock_ops(). The bound rxq is only uninstalled
+  later, from ndo_uninit (netkit_uninit()->netkit_queue_unlease()).
+
+Suppose the unbind is sleeping in synchronize_net() during that window.
+This function then sees !LIVE and binding->dev == dev, and sets
+binding->dev to NULL. For a physical device it also unmaps the dma-buf
+while the binding is still the installed memory provider on the RX
+queues.
+
+The unbind loop then calls netif_mp_close_rxq(NULL, ...), which
+dereferences dev straight away:
+
+	if (WARN_ON_ONCE(rxq_idx >= dev->real_num_rx_queues))
+		return;
+
+Before this patch, binding->dev was only written by
+mp_dmabuf_devmem_uninstall() under the netdev instance lock. Does
+anything else serialize this walk with an unbind that is in progress?
+
+> +
+> +void net_devmem_dev_unregister(struct net_device *dev)
+> +{
+> +	struct net_devmem_dmabuf_binding *binding;
+> +	unsigned long xa_idx;
+> +
+> +	mutex_lock(&net_devmem_lock);
+> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> +		if (binding->direction == DMA_FROM_DEVICE)
+> +			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
+> +	}
+> +	mutex_unlock(&net_devmem_lock);
+> +}
+
+[Severity: Low]
+
+This is a pre-existing issue, not one introduced by this patch, but only
+DMA_FROM_DEVICE bindings are handled here.
+
+After NETDEV_UNREGISTER, TX bindings created by netdev_nl_bind_tx_doit()
+still keep their dma-buf mapping. Their binding->dev also still points at
+the unregistered net_device, and netdev_nl_sock_priv_destroy() reads it
+later.
+
+The next patch in the series, "net: devmem: detach TX bindings on
+NETDEV_UNREGISTER", adds net_devmem_dev_unregister_tx() and an else
+branch here for TX bindings. That appears to resolve this by the end of
+the series.
+
+[ ... ]
+
+> @@ -529,16 +585,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+>  	unsigned long xa_idx;
+>  
+>  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
+> -		if (bound_rxq == rxq) {
+> -			xa_erase(&binding->bound_rxqs, xa_idx);
+> -			if (xa_empty(&binding->bound_rxqs)) {
+> -				mutex_lock(&binding->lock);
+> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> -				WRITE_ONCE(binding->dev, NULL);
+> -				mutex_unlock(&binding->lock);
+> -			}
+> -			break;
+> +		if (bound_rxq != rxq)
+> +			continue;
+> +
+> +		xa_erase(&binding->bound_rxqs, xa_idx);
+> +		if (xa_empty(&binding->bound_rxqs)) {
+> +			mutex_lock(&binding->lock);
+> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> +			WRITE_ONCE(binding->dev, NULL);
+> +			if (!rxq->lease)
+> +				net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+
+Is the same use-after-free still reachable for RX bindings made on a
+netkit device that leases a queue from a physical NIC?
+
+In netdev_nl_bind_rx_doit(), dma_dev is resolved through the lease to
+the physical device's DMA device
+(netdev_nl_get_dma_dev()->netdev_queue_get_dma_dev()). However,
+binding->dev is the virtual netdev, and bound_rxqs holds the virtual rxq.
+
+The only uninstall this binding gets comes from the unlease path, and it
+runs while rxq->lease is still set:
+
+netkit_uninit()
+  netkit_queue_unlease()
+    netdev_rx_queue_unlease()
+      netif_rxq_cleanup_unlease()
+        __netif_mp_uninstall_rxq(virt_rxq, &p)
+          mp_dmabuf_devmem_uninstall()  <- rxq->lease != NULL, no unmap
+      WRITE_ONCE(rxq_src->lease, NULL);
+      WRITE_ONCE(rxq_dst->lease, NULL);
+      netdev_put(rxq_src->dev, &rxq_src->lease_tracker);
+
+So binding->dev becomes NULL and the unmap is skipped.
+
+net_devmem_dev_unregister_rx() doesn't catch it later either. On the
+virtual device's unregister it skips the unmap because
+netif_is_queue_leasee() is true. On the physical device's unregister,
+binding->dev is the virtual device or NULL, so it never matches.
+
+Once netdev_put() drops the lease's reference on the physical device,
+nothing holds dma_dev, since dma_buf_attach() doesn't take a reference.
+dma_dev can then be freed, for example by netdevsim del_device or PCI
+hot-remove. The later
+__net_devmem_dmabuf_binding_free()->net_devmem_dmabuf_binding_unmap()
+then unmaps against the freed device.
+
+The commit message says:
+
+  except when a leased queue is unleased: the physical device is still
+  registered and, if restarting its queue failed, may still be using
+  the binding.
+
+netkit_check_lease_unregister() triggers this unlease from inside the
+physical device's own NETDEV_UNREGISTER:
+
+	if (READ_ONCE(dev->reg_state) != NETREG_UNREGISTERING ||
+	    !dev->dev.parent)
+		return;
+	...
+	netdev_unlock_ops(dev);
+	unregister_netdevice_many(&list_kill);
+
+Is the physical device still registered in that case? Would this need to
+track the device that owns dma_dev, or hold a reference on dma_dev,
+instead of keying on binding->dev?
+
+> +			mutex_unlock(&binding->lock);
+>  		}
+> +		break;
+>  	}
+>  }
+
+[ ... ]
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012174300.2338784-1-almasrymina%40google.com
