@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 468E9CC6B15
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2830CC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6F5B10ECC8;
-	Tue, 13 Oct 2026 22:40:33 +0000 (UTC)
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F105C10F1C8
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:27 +0000 (UTC)
-Received: by mail-dl1-f70.google.com with SMTP id
- a92af1059eb24-1665200f4c2so4837738c88.0
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1748310F9F6;
+	Tue, 13 Oct 2026 22:40:37 +0000 (UTC)
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBE9410E959
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:25 +0000 (UTC)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-30bcb065bfdso6716199eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791931227; x=1792536027;
+ d=google.com; s=20251104; t=1791931225; x=1792536025;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=zqg4bcg4yTM1CSL1NV7gzxaOXxYgsDcagY96onRKZWw=;
- b=Xw3di7vhxstMXvUFMbRxQfGb4ObDMo6doJr+VO+YMJhzYsiIZ7q5BejUZguCr5hkpl
- R/xc3vTCxBQNIOXavbe6KAXGDfQRVtJ1QU2mCNl4zTcqvnA9a3uXPHrWVQmWzOHax1UI
- OkuKzpGWFYH4hXM86WhM8fGSg/K5iF2cy6PX/y5wihJj4mGqh/IDpWK6CK4fOskbKPWY
- lA3ZmB5WuwIRWkjC9XPf6rAo7EqilOG64BmCx3B+GSLr6nvqzr9/3FTHF9E4UjngaTqb
- 35Ehq0peUGlnnrSFQHCMpE4CiTbzH7n1D6A1ZLj07cvdZsq6K3OHtq7WZISpMpnTzkAh
- 7tSw==
+ :content-type; bh=wbjJdHqZPRkvVZnH2yPkFa6V1wQ6/MdT39yYoogCQX4=;
+ b=DqgnhSKp6FaugyXjSikPxlts5SWI68lgVjmnhmE9KlTqOcJhijgwIE8A5kyBGns1G7
+ XsOD03UfPwO5ygFLbTyEnE4g0osp1X2xd/Cz+4qJLRLQfi4EDRJCUEB68uOv9g6unCxo
+ wyj/E2+mmGFpHuwXyQV9dof49BZ6s3qRRH33RUlt+THQMI27RIsKuWt4FksTUWvgffKN
+ PIK7+ZvnhA0ZY6WgrsEex5k3u0KNE2tpUeb1tyyoKDBBi7smybFi2Hr/vrQrFc+khuav
+ ZEXou27kH/DFSnXzmQ9qCIsUXWk1o0ugnM0OvPb5iQeolovemUMQHmxkFPh80qJqOmZL
+ ioeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791931227; x=1792536027;
+ d=1e100.net; s=20260707; t=1791931225; x=1792536025;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=zqg4bcg4yTM1CSL1NV7gzxaOXxYgsDcagY96onRKZWw=;
- b=u3lHqJWtjcyTdhCg4Z2Q4JkoJ5b3iFoz7Ia3fymVLZMVfW5+mX9wgZYkbgvvjUTvsu
- /wS18AzXaGXxDhx+glzVKCWS07QUeZQu39SSQ+ynsmsuIPIPcOodPe717feGMPqbTDmH
- bkzX3wVzupvlGEbUGSrZvDDPCGFOmWKekauVIYVSPE7OA7Ef+MxivGyubJS4/3OxRKIV
- TAnC5IelvoTDrTNAZSEminzp8mKqbWsIupmJdLs1QGAh/3Fy83quEAqO8dSB9Uv+VsRp
- pne8m9yU3in8PH37NhP2Jetm7gFfQdREjYccYFjW89HUX4F3WfeRvMKBG+gTzyLO9scX
- KROQ==
+ bh=wbjJdHqZPRkvVZnH2yPkFa6V1wQ6/MdT39yYoogCQX4=;
+ b=yAIUof1UtTB1BLYmRnz/I2uSB29EKe9WB3lfLMKL1YydMx+lSYzrl/LyQ/h/lxui2C
+ e75amyWMqzZv77iDdBIyp/0lMPsZ0GSuVTbMugLhhJdXWemsllh58eTsn6io2jWTWotV
+ qx9ysRO5azWKJJlaaqZl2KiPNzlzgZ4B8smZZewAUBdevha+vcxaU281WiUNRRnX5xP/
+ Eg8/aYutrWfIp+0P/nb23hKT+qsSABgFy91Mc/euCx2ykcDa86jgBa6L5r5sUx3TZm0a
+ Gvz3cVKTMPlRvRO9wCs0zSOXbvalIjuOkhMdj3lt3nQnDR3OVKW7r3fSOTpA4g47Dv03
+ s1PQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx81tJppBWx3FAYDoP1sMC4w9vKAn3JO5wBqkMXzsV8PVK3GoYnSJMhXW93rqXPlP2cogFR3Io9LFo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL9vk37+Qz4zPVYafOlfcS77iRzMa/ZQ+nqvWo8bC09Bw+zdn7X
- gNT4g0dE1tUIuBXTLLCF91t90rqgVjARzs/gDywMTQEilM98r88BtDmKdcVzdoKQC0xGFWeJ7j/
- ZfvON2SMYEQ==
-X-Received: from dldyq19-n1.prod.google.com
- ([2002:a05:701b:4553:10b0:164:47f8:a96a])
+ AKwUvBxwUnzqemWBLCYNcfO+CmZ8crD2CWyOL9j3UETZV4I7bW/0Du2BI9wX1R+dXkVWV0/Wxb+h5hm+6yY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIAfkUpnjkRlh+Er9ERmaS3M48DBarACoJB2M/oBaPwZGlI2q34
+ pFcpDS4kv7cyB/odKqj+VU+c017l3fU/7SedSqL6zzDFoCvU0wSjbKC+GmtJOuzUv/NTIUrI05J
+ XhEkO8s90wQ==
+X-Received: from dyr27.prod.google.com ([2002:a05:693c:401b:b0:359:e5f1:14fb])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:4286:10b0:144:c128:4c4b
- with SMTP id a92af1059eb24-16a5e49c474mr18578865c88.36.1791931226644; Tue, 13
- Oct 2026 15:40:26 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:39:41 -0700
+ 2002:a05:7301:470e:b0:35c:73ca:a1e0
+ with SMTP id 5a478bee46e88-35c73caae65mr4317399eec.15.1791931223446; Tue, 13
+ Oct 2026 15:40:23 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:39:40 -0700
 In-Reply-To: <20261013223946.1836757-1-irogers@google.com>
 Mime-Version: 1.0
 References: <20261013223946.1836757-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013223946.1836757-7-irogers@google.com>
-Subject: [PATCH 06/11] dlm: Free dlm_ls in kobject release callback
+Message-ID: <20261013223946.1836757-6-irogers@google.com>
+Subject: [PATCH 05/11] ACPI: CPPC: Free cpc_desc in kobject release callback
 From: Ian Rogers <irogers@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J . Wysocki" <rafael@kernel.org>, 
@@ -108,88 +108,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-struct dlm_ls embeds a struct kobject (ls_kobj), but dlm_ktype lacked a
-.release callback and dlm freed the lockspace structure directly via
-kfree(ls). With CONFIG_DEBUG_KOBJECT_RELEASE=y, freeing ls before the
-kobject release runs causes a use-after-free.
+cpc_desc_ptr embeds a struct kobject that is registered in sysfs via
+kobject_init_and_add(), but cppc_ktype lacked a .release callback and
+acpi_cppc_processor_exit() freed cpc_ptr immediately after kobject_put().
+With CONFIG_DEBUG_KOBJECT_RELEASE=y, this causes a use-after-free when
+kobject_delayed_cleanup() runs on freed memory.
 
-Add dlm_ls_release() to free struct dlm_ls when the last reference to
-ls_kobj is dropped, use kobject_del() in release_lockspace(), and drop
-the final kobject reference in free_lockspace().
+Move the sys_mem_vaddr unmapping and kfree(cpc_ptr) into a new
+cppc_release() callback on cppc_ktype, and initialize the kobject on
+allocation so kobject_put() handles cleanup in all paths.
 
-Fixes: 3514faca19a6 ("kobject: remove struct kobj_type from struct kset")
+Fixes: 158c998ea44b ("ACPI / CPPC: add sysfs support to compute delivered performance")
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- fs/dlm/lockspace.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ drivers/acpi/cppc_acpi.c | 39 ++++++++++++++++++---------------------
+ 1 file changed, 18 insertions(+), 21 deletions(-)
 
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index a9c98b4f378f..1d226b27d8e6 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -179,7 +179,15 @@ static const struct sysfs_ops dlm_attr_ops = {
- 	.store = dlm_attr_store,
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index fef54fcd00b7..2a80404f85d3 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -297,7 +297,22 @@ static struct attribute *cppc_attrs[] = {
  };
+ ATTRIBUTE_GROUPS(cppc);
  
-+static void dlm_ls_release(struct kobject *kobj)
++static void cppc_release(struct kobject *kobj)
 +{
-+	struct dlm_ls *ls = container_of(kobj, struct dlm_ls, ls_kobj);
++	struct cpc_desc *cpc_ptr = to_cpc_desc(kobj);
++	unsigned int i;
 +
-+	kfree(ls);
++	for (i = 2; i < cpc_ptr->num_entries; i++) {
++		void __iomem *addr = cpc_ptr->cpc_regs[i - 2].sys_mem_vaddr;
++
++		if (addr)
++			iounmap(addr);
++	}
++	kfree(cpc_ptr);
 +}
 +
- static struct kobj_type dlm_ktype = {
-+	.release        = dlm_ls_release,
- 	.default_groups = dlm_groups,
- 	.sysfs_ops     = &dlm_attr_ops,
+ static const struct kobj_type cppc_ktype = {
++	.release = cppc_release,
+ 	.sysfs_ops = &kobj_sysfs_ops,
+ 	.default_groups = cppc_groups,
  };
-@@ -355,7 +363,7 @@ static void free_lockspace(struct work_struct *work)
- 	 */
- 	rhashtable_free_and_destroy(&ls->ls_rsbtbl, rhash_free_rsb, NULL);
+@@ -799,6 +814,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 		ret = -ENOMEM;
+ 		goto out_buf_free;
+ 	}
++	kobject_init(&cpc_ptr->kobj, &cppc_ktype);
  
--	kfree(ls);
-+	kobject_put(&ls->ls_kobj);
+ 	/* First entry is NumEntries. */
+ 	cpc_obj = &out_obj->package.elements[0];
+@@ -1001,11 +1017,9 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	/* Plug PSD data into this CPU's CPC descriptor. */
+ 	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
+ 
+-	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
+-			"acpi_cppc");
++	ret = kobject_add(&cpc_ptr->kobj, &cpu_dev->kobj, "acpi_cppc");
+ 	if (ret) {
+ 		per_cpu(cpc_desc_ptr, pr->id) = NULL;
+-		kobject_put(&cpc_ptr->kobj);
+ 		goto out_free;
+ 	}
+ 
+@@ -1013,14 +1027,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	return 0;
+ 
+ out_free:
+-	/* Free all the mapped sys mem areas for this CPU */
+-	for (i = 2; i < cpc_ptr->num_entries; i++) {
+-		void __iomem *addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
+-
+-		if (addr)
+-			iounmap(addr);
+-	}
+-	kfree(cpc_ptr);
++	kobject_put(&cpc_ptr->kobj);
+ 
+ out_buf_free:
+ 	kfree(output.pointer);
+@@ -1037,8 +1044,6 @@ EXPORT_SYMBOL_GPL(acpi_cppc_processor_probe);
+ void acpi_cppc_processor_exit(struct acpi_processor *pr)
+ {
+ 	struct cpc_desc *cpc_ptr;
+-	unsigned int i;
+-	void __iomem *addr;
+ 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
+ 
+ 	if (pcc_ss_id >= 0 && pcc_data[pcc_ss_id]) {
+@@ -1056,15 +1061,7 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
+ 	if (!cpc_ptr)
+ 		return;
+ 
+-	/* Free all the mapped sys mem areas for this CPU */
+-	for (i = 2; i < cpc_ptr->num_entries; i++) {
+-		addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
+-		if (addr)
+-			iounmap(addr);
+-	}
+-
+ 	kobject_put(&cpc_ptr->kobj);
+-	kfree(cpc_ptr);
  }
+ EXPORT_SYMBOL_GPL(acpi_cppc_processor_exit);
  
- static int new_lockspace(const char *name, const char *cluster,
-@@ -436,6 +444,8 @@ static int new_lockspace(const char *name, const char *cluster,
- 	atomic_set(&ls->ls_count, 0);
- 	init_waitqueue_head(&ls->ls_count_wait);
- 	ls->ls_flags = 0;
-+	ls->ls_kobj.kset = dlm_kset;
-+	kobject_init(&ls->ls_kobj, &dlm_ktype);
- 
- 	if (ops && dlm_config.ci_recover_callbacks) {
- 		ls->ls_ops = ops;
-@@ -567,9 +577,7 @@ static int new_lockspace(const char *name, const char *cluster,
- 	wait_event(ls->ls_recover_lock_wait,
- 		   test_bit(LSFL_RECOVER_LOCK, &ls->ls_flags));
- 
--	ls->ls_kobj.kset = dlm_kset;
--	error = kobject_init_and_add(&ls->ls_kobj, &dlm_ktype, NULL,
--				     "%s", ls->ls_name);
-+	error = kobject_add(&ls->ls_kobj, NULL, "%s", ls->ls_name);
- 	if (error)
- 		goto out_recoverd;
- 	kobject_uevent(&ls->ls_kobj, KOBJ_ADD);
-@@ -615,7 +623,6 @@ static int new_lockspace(const char *name, const char *cluster,
- 	rhashtable_destroy(&ls->ls_rsbtbl);
-  out_lsfree:
- 	kobject_put(&ls->ls_kobj);
--	kfree(ls);
-  out:
- 	module_put(THIS_MODULE);
- 	return error;
-@@ -759,7 +766,7 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
- 
- 	dlm_delete_debug_file(ls);
- 
--	kobject_put(&ls->ls_kobj);
-+	kobject_del(&ls->ls_kobj);
- 
- 	xa_destroy(&ls->ls_recover_xa);
- 	kfree(ls->ls_recover_buf);
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
