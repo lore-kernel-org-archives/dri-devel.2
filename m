@@ -4,104 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C07FCC6B0F
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 21:46:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B08B1CC6B0F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:12:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8F410E0AD;
-	Tue, 13 Oct 2026 21:46:50 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9D410E0AD
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 21:46:44 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-c2e7131b94eso316521366b.1
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 14:46:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791928003; cv=none;
- d=google.com; s=arc-20260327;
- b=USGYuFXgh3rl9cVHA7YCh64Ar2M4JpIgGP+rn19/dWXfWmeLvKsUyNNjv4TfPb8R1B
- MJYeEj44ufZyWHzdVf4LfWvHxCotF56coVY+6P7BA3tzdJawPM+Mh1jgXHJJ31hsx1d4
- El6SaCeRDj6XK5QFdS8ynqico+AbMuD7S3MSXfbqAgSfUxcxwVbAojm6/e+YKriqOf2x
- myJeh0YaMUkETexH55Gvp0JjkN5iRFCWiO4hsf0/KsXsLid3qysReGBu4QTPQCNPj9+9
- 1N1+53JTXoOyeooWzfwpLje5SEk//DH8jgp8cXLDg0vWcZ9dFdRYpzbEJcVGxGGOKSUz
- SdUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=AqZD4Ft9JyhRwT2DBarljuLbS5RYQ2WwnZPQWaQ6rj4=;
- fh=VpbDTx8XIz4FGb41FtN/KTwtvpIELL2ZAaIgIglG228=;
- b=c7TTIPz9p7vtWOEtI0+WtbzE9hoWtItBpKV6T508163IyOVga5zzo4iU4tt0Tegpn/
- MMNUB6dIjK92tyFXwMcJ6Y7uK02XxCht+Cl0+YvQBAl7dn1bWphn0mcnGDZDaDRyt/NM
- trM9rh6FWyrQTN58R78S+XZwa/cLsd0uST5EPjNTh2SVwffRLSGUuS7wQpG4sb9ZXVwF
- qQZ1GhuhGK4ciELbtxaCxqNwQSL0RWk/Ijape68908vKgfCK4D4ydyA/WTkJHOLPH8zv
- qbPHKYuPn+Tr+UMagiB9JwVaF0pTSZCE0auhhdlXCLS90mniyvl3A8DBZyjj4lpEhw7y
- WESw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791928003; x=1792532803; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=AqZD4Ft9JyhRwT2DBarljuLbS5RYQ2WwnZPQWaQ6rj4=;
- b=hsXF6X/fZ9n6M2LE9cpjRsJKfb2poTfMlIrBvu+qdWlR+uOzEyONmVFdfm5vhczE2/
- FwWhrvHb69Pm5pQ0xlSHa9ycvPSc00wuCmsEWu4umpi+KEBZNz+JSqfqifo/Eg1lnoUC
- ZeoB7WP49apP+Ksh+bBGcEj4WIhlBRGdDOe2LvMjH68hHL387ze6KVw2bkIR9SGqSE3P
- 4YKtM1GkrkpDwAfjmyDYpGeObpwQJBFJ47bOa3kQP99BetX8mHVchyfsAG0rMNiciF8k
- +F/30hSgwWwIIHMbemj01PH+4o30UFwfJx2roCWE2pl7++teE9dyETOj9f1Oxs9aiWGS
- nWOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791928003; x=1792532803;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=AqZD4Ft9JyhRwT2DBarljuLbS5RYQ2WwnZPQWaQ6rj4=;
- b=AeNt3Ju+Fmv2lA6C/WGBbuwiWuLuLWBORWiG5sYi3o6gerh8CB2yGn2k4Rk0/gsPnt
- KpHP4Zr1oadRS8PfyaDF0Wgi0NVTrxHhbDbTITZiu83YJiAjXrk3P1K2hd8QajyZxJWE
- sgyvoblP2ojqtUkFD6ZFsfJxQffjwuJ1J9d5tt0d5Rp8DVtR3dCSDYDMLyu48n/O5h46
- j9fyMK/Ggl+VY6rd9YaSGtryb/613b+MdRsaxy2tzKTFQWOq4ixNMJ+8AZ0Mo4xfsh6y
- gr4VNiPwXn+IH35Xi5506jMQMUMJV+p4n5MxxWFbb8hm10rkRA9jlhDZcWVLgs764x1H
- xxbg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzI0cZRW+EUSEoQQG86mfg+VdOW/2M8UbEYn/HI2mQJp0PQotSh/vuNnChvoDA81Z3AE728APG/yig=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLoRRHLzigVbf15tOqSE4/tWkW40VP9NIiqaZ0kUR87xIMvmss6
- 3eI+pCgYEGD1Idysx7i2ZfvOIPpHDDfAHUhmJfx/uvGbfByNVLtM4OgfEYwLXeziQ19EJue90jf
- ql616UHZ4wIaDzZfXy/vf2uTzEsTObJk=
-X-Gm-Gg: AYBFou0JNXMtLrozuX6/Z4EWpEKKXaOtRVJXhy72RsAv+WRHjc1Nk/VuID1tDHShgtq
- A0gK3NFNMHCPFnAOejFMo9Xlnn8OinJ+9dZZXXDxcxKTiUXDRbiEA0AteqI/UlSBqlK9GwpzbUm
- Zglud3M+POVWZnpa3J5XUBfI2L8zFP6b2vTHby5gJ5JbHHZIci6D1SEWuU0vOvJJ32Dti5uK48R
- uDg/ePT17B6bpQqw+Yji2HZfdRqt4eylYF5fIqm+hrknYQF5aXpIiasN3VRF89HzfTpArfCgoQO
- tJC/JYIKh7KdOcoboUhCNCoj5K0jsPQfq7CMX/xcdEeEYy9vu5XWog==
-X-Received: by 2002:a17:907:3d51:b0:c2d:be57:f742 with SMTP id
- a640c23a62f3a-c31a71252famr1282278766b.32.1791928002700; Tue, 13 Oct 2026
- 14:46:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2C2510E150;
+	Tue, 13 Oct 2026 22:12:25 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9691A10E150
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:12:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791929535; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=WZ8lGLaO87ls1aXK8rTZT9do0J6fz3Lpy2S6nmQ+8B5E4FvuFP+Js++jGkDAkd0ZHP7KK40QJcg/ixxkMJooUJ7IhRkT9ktVDMk2SKd1jBUmpYMNU05iWBIiTawOlMubJNdNfjXbC2k5yJzTSltxJFPuhlKTYWf2Z1gkmIPlWik=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1791929535;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=wcRc/T/eXCLTFhEcSFkccExr1kJjQjBISfxi0aCVTa0=; 
+ b=gJF37XSVKZheqM+qhSL/UvYxl2Ml6/zC4kNEVGVIJhxBITD10HY6nYxf9K+q8jZMiXShQGe7eo67nWzQyMcq2tDrSQSKfz5eKY2kjchhcC8SN0558Oul5QGoLyYibAGIkNMOV77hBGAmiXaCww80KXANs7HWAKb/t6S/mAiJ2OU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791929535; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=wcRc/T/eXCLTFhEcSFkccExr1kJjQjBISfxi0aCVTa0=;
+ b=FgwTvW/ZRIn4lUW0mVdAVa61kGyLcB1+oc9BqdXLwx2rIhxQA5lLYXjbS0nYXbtq
+ 4/KTPTX489rpeHnfLGs4BoER6pX2Yy7oL/dzEDi+n1Qo/ku2nRvqO4rUkYiWBv+V7Ej
+ 33dXRF6mHAfF3Q6YT/NkMmGHSVJRAjWlb0D5ATMM=
+Received: by smtp.zohomail.com with SMTPS id 1791929533139758.2008581627222;
+ Tue, 13 Oct 2026 15:12:13 -0700 (PDT)
+Message-ID: <d9ee1d07-4277-4a18-a857-c82f200fe76c@collabora.com>
+Date: Wed, 14 Oct 2026 01:12:08 +0300
 MIME-Version: 1.0
-References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
- <20261012-book2go-v1-1-7188e7ea7a15@fairphone.com>
- <CAD=FV=WVAnohGm8kmaLpfchk_MxCiUB8EcyyWBxZqtnc+9YPcg@mail.gmail.com>
-In-Reply-To: <CAD=FV=WVAnohGm8kmaLpfchk_MxCiUB8EcyyWBxZqtnc+9YPcg@mail.gmail.com>
-From: Jasper K <jja2000@gmail.com>
-Date: Tue, 13 Oct 2026 23:46:32 +0200
-X-Gm-Features: AclHuK-NqYEpvDtDXhi9IVbRYKes3SwwvzbOhM7NId12OJB7ksYzqp34C_yrVg0
-Message-ID: <CAErD6092tBte1je=9t0_NUwrU8uqHen_ffYMYXFBqMCJkTZRHg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/panel-edp: Add AUO B140HAN04.0 panel entry
-To: Doug Anderson <dianders@chromium.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- cros-qcom-dts-watchers@chromium.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: "Huang, Honglei" <honghuan@amd.com>
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
+ airlied@redhat.com, kraxel@redhat.com
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <dfa2f117-1094-40b9-9445-ab2bbf62ff2e@collabora.com>
+ <7c32c182-5b49-4dc0-9c97-a4238743f28c@amd.com>
+ <efd5fa89-e888-469a-ac80-e6e605f9a015@collabora.com>
+ <317cc6e9-8e15-462d-9e9c-2657011b7128@amd.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <317cc6e9-8e15-462d-9e9c-2657011b7128@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,80 +71,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 10/13/26 08:32, Huang, Honglei wrote:
+> 
+> 
+> On 10/10/2026 8:50 PM, Dmitry Osipenko wrote:
+>> On 10/10/26 10:37, Huang, Honglei wrote:
+>>>
+>>>
+>>> On 10/10/2026 2:53 AM, Dmitry Osipenko wrote:
+>>>> 24.09.2026 12:55, Honglei Huang пишет:
+>>>>> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
+>>>>> +                  struct drm_file *file,
+>>>>> +                  struct virtio_gpu_object_params *params,
+>>>>> +                  struct virtio_gpu_object **bo_ptr)
+>>>>> +{
+>>>>> +    struct virtio_gpu_object_userptr *userptr;
+>>>>> +    struct virtio_gpu_mem_entry *ents = NULL;
+>>>>> +    struct sg_table *sgt;
+>>>>> +    struct mm_struct *mm;
+>>>>> +    unsigned long lock_limit;
+>>>>> +    unsigned long start;
+>>>>> +    unsigned long end;
+>>>>> +    s64 new_pinned;
+>>>>> +    unsigned int nents;
+>>>>> +    int ret;
+>>>>> +
+>>>>> +    *bo_ptr = NULL;
+>>>>> +
+>>>>> +    if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
+>>>>> +        params->userptr != (unsigned long)params->userptr)
+>>>>> +        return -EINVAL;
+>>>>> +
+>>>>> +    start = params->userptr;
+>>>>> +    if (!IS_ALIGNED(start, PAGE_SIZE) ||
+>>>>> +        check_add_overflow(start, (unsigned long)params->size, &end))
+>>>>> +        return -EINVAL;
+>>>>
+>>>> There is new vgdev->blob_alignment defining host page size as it may
+>>>> differ from guest's page. Will be good to validate both.
+>>>>
+>>>
+>>> Will add blob_alignment check in next version, thanks for the review.
+>> Missed that verify_blob() already should be validating the userptr
+>> blob_alignment. The patches look good.
+>>
+>> BTW, previously the extra AMD KFD patches were needed on host kernel,
+>> did they land upstream?
+> 
+> According to KFD maintainer, they want to us to add those virtio
+> specific feature into drm svm, a new SVM frame work based on drm svm
+> helpers. We are working on it:
+> https://lore.kernel.org/amd-gfx/20260804094246.1719318-1-ray.huang@amd.com/
+> 
+> And the amdgpu VM maintainer has agreed that he will help to consider
+> how to intergate the virtio requirements into the design of amdgpu drmsvm.
+> 
+> And for now we can use a user space method to replace the AMD KFD
+> patches function, it is mremap, it also works, we tested it, but
+> it has some performance loss, I will update the whole thing when all the
+> components code are ready.
 
-Op di 13 okt 2026 om 22:35 schreef Doug Anderson <dianders@chromium.org>:
->
-> Hi,
->
-> On Mon, Oct 12, 2026 at 11:11=E2=80=AFAM Luca Weiss <luca.weiss@fairphone=
-.com> wrote:
-> >
-> > From: Jasper Korten <jja2000@gmail.com>
-> >
-> > Add an entry for the B140HAN04.0 eDP panel. It is found on the Samsung
-> > Galaxy Book2 Go.
-> >
-> > $ edid-decode /sys/class/drm/card0-eDP-1/edid
-> >
-> > 00 ff ff ff ff ff ff 00 06 af a9 65 00 00 00 00
-> > 28 20 01 04 a5 1f 11 78 02 9b 85 92 56 59 90 29
-> > 20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> > 01 01 01 01 01 01 14 37 80 b8 70 38 24 40 10 10
-> > 3e 00 35 ae 10 00 00 18 00 00 00 0f 00 00 00 00
-> > 00 00 00 00 00 00 00 00 00 20 00 00 00 fe 00 41
-> > 55 4f 0a 20 20 20 20 20 20 20 20 20 00 00 00 fe
-> > 00 42 31 34 30 48 41 4e 30 34 2e 30 20 0a 00 ed
-> >
-> > Signed-off-by: Jasper Korten <jja2000@gmail.com>
-> > Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> > ---
-> >  drivers/gpu/drm/panel/panel-edp.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/=
-panel-edp.c
-> > index 2b455369ed70..73cdc2d37ab7 100644
-> > --- a/drivers/gpu/drm/panel/panel-edp.c
-> > +++ b/drivers/gpu/drm/panel/panel-edp.c
-> > @@ -1986,6 +1986,7 @@ static const struct edp_panel_entry edp_panels[] =
-=3D {
-> >         EDP_PANEL_ENTRY('A', 'U', 'O', 0x635c, &delay_200_500_e50, "B11=
-6XAN06.3"),
-> >         EDP_PANEL_ENTRY('A', 'U', 'O', 0x639c, &delay_200_500_e50, "B14=
-0HAK02.7"),
-> >         EDP_PANEL_ENTRY('A', 'U', 'O', 0x643d, &delay_200_500_e50, "B14=
-0HAN06.4"),
-> > +       EDP_PANEL_ENTRY('A', 'U', 'O', 0x65a9, &delay_200_500_e50, "B14=
-0HAN04.0"),
->
-> I'd assume you don't have a datasheet here and that the timings are a
-> bit of a guess. It's nice if you put that in the commit message, but I
-> won't block it. Ideally you could reply here and let me know if you
-> referred to a datasheet or just made a guess about the timings so if
-> the question ever comes up later we can find the conversation based on
-> the Link: tag...
+Thanks for the clarification
 
-The guess was based on the other entry of a panel with the exact same
-name, but another ID (0x403d).
-The link for when that got added can be found here:
-https://patchwork.freedesktop.org/patch/msgid/20231107204611.3082200-4-hsin=
-yi@chromium.org
-
-There's some panel documentation around on panellook, but I'm not sure
-if that matches the HW rev that's in these laptops,
-nor if they actually contain the data I'd need for this panel entry.
-
-This setup ended up working out, so that's why I left it like that.
-
-Kindest Regards,
-
-Jasper Korten
-
->
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->
-> Pushed to drm-misc-next:
->
-> [1/3] drm/panel-edp: Add AUO B140HAN04.0 panel entry
->       commit: 9125232bc2a5020710db1eadd21973757f740648
+-- 
+Best regards,
+Dmitry
