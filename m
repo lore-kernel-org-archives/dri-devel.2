@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52763CC6B19
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2152ACC6B12
 	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:43:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 730FE10E2B9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71EE510E2B1;
 	Tue, 13 Oct 2026 17:43:28 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88D2B10E2B9
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3451F10E2B1
  for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:43:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6FAD543FAE;
- Tue, 13 Oct 2026 17:43:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B89F1F00893;
- Tue, 13 Oct 2026 17:43:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BBA7243D97;
+ Tue, 13 Oct 2026 17:43:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7814D1F00893;
+ Tue, 13 Oct 2026 17:43:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791913402;
- bh=AuoScA5FRM7uHPmAS8M742kalyVNL+TM2LhFvCRGy6A=;
+ s=k20260515; t=1791913401;
+ bh=yRdvdYoe8mq203ajF+kLtqwYzN/I5qVJzgFC7dqPjZM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OFIvjhB+a80ZM7mTZWf6oj6IP3TDQQ8x05ghb8w515yNPveTKXQolZTAP7QLp78mF
- su5JxEiapl4wF0gSdCMd2auKvqrX2SCQ+eX3KMmuijala/P44Exh848vsmimaqYLeu
- FmL76h5IpoPPC0sutYK2Vib4dxvyODf8efkV7MkKVEWRvxq+u5anmx2ktah5K3hPpg
- 8fKPEKwxlOqa96bctsxstkN7PowmAai8VI25Uf0A8cR39aMS0IKRcM++bPDr29SnF4
- WmdHHJVOn5zU0U+WUV42WqQdNB0hxHYbdsqAw6VL0FBo72PzHr0iGP8KehQSfGCa6c
- 1p/4nx6l9ag+Q==
-Message-ID: <sashiko-outbox-170249@kernel.org>
+ b=joboCn6ESZVOGzFNa5VMemCMESgmUMlprWFhxHe+p+w13uhBfCFqPXNhWqVkqm04U
+ rGUHnFJQlicZIXt9lT/pOx435OGrBop2Q1ax8yt24sm7H9cVKlRo9JseipdVDabgPT
+ 4IVKGznyj25bhV/4NDHamnHgMbcqtPqQSjrO8ENi5941eGzVudBlRhtcLJ4qXhmuuQ
+ YSIv185RZx3FefcV1uwlkhBbuV2YuisHinNjFXxS4S+2b2MC2d1zt4vJRM4WzmvxKz
+ ZHDw3qDCwAjpWlyBpHF0fHNpBr2/bIT0o/Ew3oeAT0iNa9Q3tWB5GKH5GuOibM/8RP
+ jGstbcmc0Nt/Q==
+Message-ID: <sashiko-outbox-170248@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net v2 2/4] net: devmem: detach TX bindings on
- NETDEV_UNREGISTER
+Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
 To: "Mina Almasry" <almasrymina@google.com>, dri-devel@lists.freedesktop.org
 Cc: media-ci@linuxtv.org
-In-Reply-To: <20261012174300.2338784-3-almasrymina@google.com>
+In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
 References: <20261012174300.2338784-1-almasrymina@google.com>
- <20261012174300.2338784-3-almasrymina@google.com>
+ <20261012174300.2338784-2-almasrymina@google.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Tue, 13 Oct 2026 17:43:21 +0000
@@ -55,115 +55,109 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] net: O(N) synchronize_net() calls under rtnl_lock cause RTNL stall=
- and IPI storm
-- [High] net: devmem: NULL deref in netif_mp_close_rxq() on concurrent unre=
-gister
+- [High] net: use-after-free in dma_unmap_sg_attrs() for devmem leased RX b=
+indings
 --
 
-commit 92717c23489a6c952c6219d6248685cf5a364b91
+commit 0978772617865658c49d5d8aff7d5a2c206deaf4
 Author: Mina Almasry <almasrymina@google.com>
-Subject: net: devmem: detach TX bindings on NETDEV_UNREGISTER
+net: devmem: unmap dma_buf synchronously on queue uninstall
 
-This patch extends net_devmem_dev_unregister() to detach TX bindings when
-a device is unregistered. It waits for in-flight readers via
-synchronize_net() and unmaps the dma_buf to prevent dangling pointers.
+This commit changes the unmapping of the dma_buf attachment to happen
+synchronously when the queue is uninstalled. It introduces
+net_devmem_dmabuf_binding_unmap() to clear the attachment, preventing a
+use-after-free if the physical device is unregistered while references
+are still held.
 
 > diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 02d607cc87217..a1c029f6ae47f 100644
+> index f4d60654ce7fd..02d607cc87217 100644
 > --- a/net/core/devmem.c
 > +++ b/net/core/devmem.c
+
 [ ... ]
+
+> @@ -153,6 +176,35 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmab=
+uf_binding *binding)
+>  	percpu_ref_kill(&binding->ref);
+>  }
+> =20
 > +static void
-> +net_devmem_dev_unregister_tx(struct net_devmem_dmabuf_binding *binding,
+> +net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
 > +			     unsigned long xa_idx, struct net_device *dev)
 > +{
-> +	if (READ_ONCE(binding->dev) =3D=3D dev) {
-> +		xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> +			      NET_DEVMEM_BINDING_LIVE);
-> +
-> +		mutex_lock(&binding->lock);
-> +		WRITE_ONCE(binding->dev, NULL);
-> +		WRITE_ONCE(binding->vdev, NULL);
-> +		mutex_unlock(&binding->lock);
-> +
-> +		/* Ensure no tx net_devmem_lookup_dmabuf() or
-> +		 * validate_xmit_unreadable_skb() are in flight after detach.
-> +		 */
-> +		synchronize_net();
+> +	if (xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +			NET_DEVMEM_BINDING_LIVE) ||
+> +	    READ_ONCE(binding->dev) !=3D dev)
+> +		return;
 
 [Severity: High]
-Does this O(N) synchronize_net() inside a loop cause a potential denial of
-service?
+For leased RX queues, if the physical device unregisters, could binding->dev
+still point to the virtual device instead of the physical device?
 
-Because net_devmem_dev_unregister() iterates over all bindings using
-xa_for_each() and calls net_devmem_dev_unregister_tx() for each, this
-synchronize_net() executes sequentially for every matching TX binding.
+If the physical device unregisters without prior unleasing, or if the queue
+was previously uninstalled (setting binding->dev to NULL), this check would
+evaluate to true and skip the unmapping. This would leave the dma_buf
+mapped to the physical device's dma_dev, which is subsequently freed.
 
-This executes in the NETDEV_UNREGISTER notifier chain under the global
-rtnl_lock, which causes synchronize_net() to fall back to
-synchronize_rcu_expedited(). For a large number of bindings, this could for=
-ce
-numerous consecutive expedited RCU grace periods, sending a massive amount =
-of
-IPIs system-wide and stalling the RTNL lock.
-
-Could we lift the synchronize_net() out of the per-binding loop, batch the
-pointer clearing, issue a single synchronize_net(), and then perform the
-unmapping?
+When the binding is ultimately destroyed via
+__net_devmem_dmabuf_binding_free(), could this trigger a use-after-free in
+dma_buf_unmap_attachment_unlocked() when it accesses the freed dma_dev?
 
 > +
-> +		mutex_lock(&binding->lock);
+> +	mutex_lock(&binding->lock);
+> +	WRITE_ONCE(binding->dev, NULL);
+> +	if (!netif_is_queue_leasee(dev))
 > +		net_devmem_dmabuf_binding_unmap(binding);
-> +		mutex_unlock(&binding->lock);
-> +	} else if (READ_ONCE(binding->vdev) =3D=3D dev) {
-> +		mutex_lock(&binding->lock);
-> +		WRITE_ONCE(binding->vdev, NULL);
-> +		mutex_unlock(&binding->lock);
-> +
-> +		synchronize_net();
-> +	}
+> +	mutex_unlock(&binding->lock);
 > +}
+
+[ ... ]
+
+> @@ -529,16 +585,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_pri=
+v,
+>  	unsigned long xa_idx;
+> =20
+>  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
+> -		if (bound_rxq =3D=3D rxq) {
+> -			xa_erase(&binding->bound_rxqs, xa_idx);
+> -			if (xa_empty(&binding->bound_rxqs)) {
+> -				mutex_lock(&binding->lock);
+> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> -				WRITE_ONCE(binding->dev, NULL);
+> -				mutex_unlock(&binding->lock);
+> -			}
+> -			break;
+> +		if (bound_rxq !=3D rxq)
+> +			continue;
 > +
->  void net_devmem_dev_unregister(struct net_device *dev)
->  {
->  	struct net_devmem_dmabuf_binding *binding;
-> @@ -201,6 +231,8 @@ void net_devmem_dev_unregister(struct net_device *dev)
->  	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
->  		if (binding->direction =3D=3D DMA_FROM_DEVICE)
->  			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
+> +		xa_erase(&binding->bound_rxqs, xa_idx);
+> +		if (xa_empty(&binding->bound_rxqs)) {
+> +			mutex_lock(&binding->lock);
+> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> +			WRITE_ONCE(binding->dev, NULL);
+> +			if (!rxq->lease)
+> +				net_devmem_dmabuf_binding_unmap(binding);
+> +			mutex_unlock(&binding->lock);
 
 [Severity: High]
-Is there a NULL pointer dereference risk here if net_devmem_unbind_dmabuf()
-runs concurrently with device unregistration?
+Here binding->dev is unconditionally set to NULL, but for leased queues,
+net_devmem_dmabuf_binding_unmap() is explicitly skipped.
 
-If unregister_netdevice_many_notify() calls dev_memory_provider_uninstall()
-and then drops the lock, the following race could occur:
+If the physical device is later unregistered, won't
+net_devmem_dev_unregister_rx() fail to unmap the binding because
+binding->dev was already set to NULL?
 
-1. netdev_nl_sock_priv_destroy() calls net_devmem_unbind_dmabuf(), clearing
-   the LIVE mark and entering synchronize_net().
+Could this result in the dma_buf remaining mapped to the physical device
+until the binding is eventually freed, causing a use-after-free at that
+time?
 
-2. The unregister notifier triggers net_devmem_dev_unregister_rx() here.
-
-3. Because the LIVE mark was cleared in step 1, net_devmem_dev_unregister_r=
-x()
-   bypasses its early return and unconditionally sets binding->dev =3D NULL.
-
-4. When net_devmem_unbind_dmabuf() resumes, it executes
-   xa_for_each(&binding->bound_rxqs) and calls
-   netif_mp_close_rxq(binding->dev) using the now NULL binding->dev.
-
-Could this crash the kernel at dev->real_num_rx_queues in netif_mp_close_rx=
-q()?
-
-> +		else
-> +			net_devmem_dev_unregister_tx(binding, xa_idx, dev);
+>  		}
+> +		break;
 >  	}
->  	mutex_unlock(&net_devmem_lock);
 >  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012174300.2338=
-784-1-almasrymina@google.com?part=3D2
+784-1-almasrymina@google.com?part=3D1
