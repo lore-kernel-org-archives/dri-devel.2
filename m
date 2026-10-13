@@ -4,108 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D9E5CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:18:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 447C5CC6B08
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:24:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE76910E356;
-	Tue, 13 Oct 2026 13:18:30 +0000 (UTC)
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5622E10E356
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:18:24 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-3535dd9a601so222890eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 06:18:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791897503; cv=none;
- d=google.com; s=arc-20260327;
- b=pj4Dsyk1S9wbhRq8MJEbVrE9jRbpl+fAv+YslZT07KwRCBcZCg72OVNGtTi56UbnbP
- /4ZsT4zBx/qSK8L3aCIaiwYAjiRx/zTWytWW0TcWNxFDT5GXvGu/tx2ek9MCju02CXrH
- HE3tI89/q9oJXSQYB3iT+3J9XUq0LxZRrJP8RTAsZOVqEAzsc+nlGtZG2MthTWanOoua
- cGrDy1GyvsU4lxfHtBHyRlSKWIIxAElnewc3jKVvbfDB125fiED6KvtZX74PdgsO8/uI
- xUGSJeDtcPbwMqbyvVgu+zzkGxaNfWN3MC200nGXxqurKalQ0ZIwJYX0/NS+zacwVGua
- mOFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bL59kslE7Bvimc7NTbR0+OM7nidwyCwsipRxQthChUo=;
- fh=WQ+TvdOUnGxo+ZeYjIDtYmPmA70Wgy2kco8keYn4cCg=;
- b=qlW6yVplhAaghKxnGzSZxgjy9nP0o2FORwsBSVmMoRZit/2V/w1c97u6WS1PaTN3dd
- asF6L1dS6u7y/3LKWVFhq/YBBmqdJ9X2lvBrcC7mHofPucVKskQJLppAp8xglZAwMAii
- N0KwHhV0TYqIeXCElF9JOzoU012tk9GEbOGOoDzH/JBdEyr/zMrcvpfSlyNKe9I5lBVZ
- dq3XlEe2240GcZ8HlYBw4/yFJWSWtAkG0tu9YdWPiGIAGvevtnLlQWC7k6FVTgiQlB4c
- 6DlnvaBQGfrqXHeXxi8Akl0L9F0dv1l9Fbh895mtrbuPP/Mw6yKVBGSVymafCoL8Wm5r
- HKaw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791897503; x=1792502303; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bL59kslE7Bvimc7NTbR0+OM7nidwyCwsipRxQthChUo=;
- b=jPXIC306LwuRtdH4C/hnoiTzx6HV0wepHjCZKd+HpCoRdk6UzDIjc+qC3t/CEaTh9X
- u27DoFPJfuTisyl6T4RhQAQJRX6e+DRXtL1ieOHwGu7d4+wJxENV6sILcSyaX5tHDb3e
- qO2IBZB7LR8OSFHJql1SS1E8R8GVLTM48fxn2AwtlxwYzBUd3/d282FShSsG2cdew4hF
- 2R4LWOhcMkfuQVIE1RGZRx/ngcAX+5s0eL1g+u4Sj4b799se3sy44XaC8sxgo7IfEsex
- 7e0ipppGNMejNNeqyT18IUCaKaXEoHojrkIixOsgbYbNPvGKlrwKtCDcS9FyXMsm10kl
- TAdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791897503; x=1792502303;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bL59kslE7Bvimc7NTbR0+OM7nidwyCwsipRxQthChUo=;
- b=PLd+dLZ4GWP37kALFKy/TIaqDA382oe7fABngkYsA2hysS4mikP+HnV4Hq1QbPDdBI
- s755l1Dq6eoPmCOBq25fOoEhzDZCLCt5Mx922dUisKsd2v+mPlKWND3QXs0ff98MEpu/
- ngSFx5GnJXymMXh2nPY2RWakcDuKtjaE/RdBcEAhuyMd2q1/ENx2rhf7XLqhuKuvMlap
- Gi4PzGdEA5NWRLRct8+2WmXCkoqif/gzGZ12RrHnvTIG0MxmgKW9gSR4jBRZB+cqv28v
- PmkIn4zAGf+e3BgyrfJ73kTyEl0DAwCxy+6ICYM30wINAhY3E2bxR+tT0CL5LHQpeup5
- JD+g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzwSoQC3i/J7EzomfpJZYAkfInVCF8aX5GCA8VSPb8Vd9T2OYCgFRT/mdbI4oQMsI0f/hst8AqX1Eo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLLbL7PMPn4WncjVKmGeULBDUzw0QkZAD+aYdZYOKAzsnh3BIfO
- XCoK1uPCIYZV6GCSa/mBI/nVTxZx9cgA4LWNusTtNMlLpjZPfBWJIG9WVHgNhVhPWLYmMYyvnJc
- 81sIJupfO2I/ijjzbKfaL1xS1QYab96o=
-X-Gm-Gg: AYBFou2uBSozLfLxmhz3yok5DMAz1JwYieWIcLkQOvlg0uXs/i2UykLN+70592rPTXZ
- TbxMAuDPh6wLVio61nrrMCAVEQ/9vuM3nCM0lFK+fxT4axvF2xFKWJObQ6KMLYQJVRozX07QozF
- R1if140nnRztO6H+aybyXWZND5OS//WRoEkObadsJ980zanF5//vpE49KrII7SlmfUzMYvxERIF
- 7In9POlWA6UVvql1kVfhkNhdsgBnv3DLSk6dIZsPpa8Wkjypi5UrW7K7rQ+bofiMaP9vz3jseKW
- Q+aNr5wkPuqHOZsiDp8b2pKynYkdovNZCs/2eEZ8Pxf/+FknLNG9ZJlbxmkU2ERQEj5B7qVrOov
- V9qWm736e/nWl/P5JIlJuwNJtxUIWviknFSpwDwSHyMgbCNYh5SlRynO5GsOljdQOf+IKmPE0Lp
- nrWx6ObR4Gm/p813++WsbjJB+TgfJKK3tC8lm99NbamkSx768ufYA1a/vDdgJLgw==
-X-Received: by 2002:a05:701b:4510:20b0:16b:4f52:a08 with SMTP id
- a92af1059eb24-16b4f520f3amr27369676c88.0.1791897503344; Tue, 13 Oct 2026
- 06:18:23 -0700 (PDT)
-MIME-Version: 1.0
-References: <20261013-cv-v5-0-113a538dfaef@nvidia.com>
- <20261013-cv-v5-1-113a538dfaef@nvidia.com>
-In-Reply-To: <20261013-cv-v5-1-113a538dfaef@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 13 Oct 2026 15:18:10 +0200
-X-Gm-Features: AclHuK_z220Bvz1iedMpcDzIc6RcPj5ZS2ls1iZZ_k6lRJyNsSKpCWB6rOoIE30
-Message-ID: <CANiq72kccCL7DjBtLw7AF-nNcKo7OjjVwZ7Ba4fZAQXVZaMkMA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] rust: num: add cv! macro to create values from
- constant expressions
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A412A10E852;
+	Tue, 13 Oct 2026 13:24:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCC3510F82B;
+ Tue, 13 Oct 2026 13:24:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8580A414B1;
+ Tue, 13 Oct 2026 13:24:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27F821F00898;
+ Tue, 13 Oct 2026 13:24:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791897866;
+ bh=a+KTIEiumSQgYw1pEEhiB0F+kfJhtjmJDeRdASjNNu8=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=NK1mADeR7a/qAT+UywBtFh8vY4i2CK4MZycPo8PnXnwNEZCO+5gHH6zrM9GS+8VWS
+ kS7BVNBDQ46BqQLucbMhBykAQGilTa8F6oYooJq8LlOoVt5tTKgeVqpyWRXStCdkps
+ KvkHBoQDuv2GMMJZRb7QWOJMDqadcpV5uHO1E1Q65SmAFBDQMy5id28+A9UYy8ryM6
+ D9c22nGrIPeQHQYm0LIng6NSXIX3NO3560n0NnllDAaDheXPdIc0923rf4FAv7wbcJ
+ 4N//ji8C0Ctbdkm0F5BE00pd63D/DYSRx9TbtBTsAbhA6HtTqIyvFW0979hu8VHGQE
+ O9QVASW/N8ILg==
+Message-ID: <sashiko-outbox-169802@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/8] PCI: Honor alignment overrides
+To: =?utf-8?b?SWxwbyBKw6RydmluZW4=?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20261013130948.6231-4-ilpo.jarvinen@linux.intel.com>
+References: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com>
+ <20261013130948.6231-4-ilpo.jarvinen@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 13:24:25 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,40 +51,100 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026 at 7:58=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
-m> wrote:
->
-> Currently, using NonZero/Bounded constants is quite verbose. It's
-> unfortunate because it disincentivizes using it in interface boundaries.
-> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
-> value) takes a const integer expression and widens it to i128 (at build
-> time only) before passing it as a const generic value to a new trait
-> `FromConst`. The value is then converted and appears in the
-> associated constant `FromConst::VALUE`. The trait is implemented by
-> NonZero, Bounded, and Alignment and lets values of each be constructed
-> from constants without a verbose turbofish syntax.
->
-> For example, `const { NonZero::new(1).unwrap() }` can be written as
-> `cv!(1)`.
->
-> Add the `cv!` macro to the prelude so it doesn't need to be imported
-> explicitly to use it.
->
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Acked-by: Miguel Ojeda <ojeda@kernel.org>
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Acked-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] pci: uninitialized variable `user_aligned` causes random bypass of=
+ resource alignment
+--
 
-Applied to `rust-next` -- thanks everyone!
+commit dc4a5f31af386d2a1de50debe4823977860a1cb9
+Author: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+Subject: PCI: Honor alignment overrides
 
-    [ Added a few intra-doc links. - Miguel ]
+This commit introduces struct pci_resreq_data to hold device and user-given
+alignment. It allows pci_align_resource() to honor user-given alignment by
+skipping remainder movement when a user alignment is provided.
 
-And thanks Eliot for the quick respin :)
+Link: https://lore.kernel.org/linux-pci/20260923133202.07DF61F000FF@smtp.ke=
+rnel.org/
 
-Cheers,
-Miguel
+[ ... ]
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107b1ef..ea7d758712691 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+[ ... ]
+> @@ -1217,12 +1217,40 @@ int __must_check pcibios_enable_device(struct pci=
+_dev *, int mask);
+>  /* Architecture-specific versions may override this (weak) */
+>  char *pcibios_setup(char *str);
+> =20
+> -/* Used only when drivers/pci/setup.c is used */
+> +/* Resource assignment request handling */
+> +/**
+> + * struct pci_resreq_data - Data passed to pcibios_align_resource()
+> + * @dev: PCI device
+> + * @user_align: User provided alignment override (pci=3Dresource_alignme=
+nt param)
+> + */
+> +struct pci_resreq_data {
+> +	struct pci_dev *dev;
+> +	resource_size_t user_align;
+> +};
+> +
+> +resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+> +						 bool *resize);
+> +/*
+> + * TODO: Improve PCI resource assignment interface so that callers outsi=
+de PCI
+> + * core do not need to know about this detail.
+> + */
+> +static inline void pci_init_pci_resreq_data(struct pci_resreq_data *rr,
+> +					    struct pci_dev *dev)
+> +{
+> +	bool user_aligned;
+> +
+> +	memset(rr, 0, sizeof(*rr));
+> +	rr->dev =3D dev;
+> +	rr->user_align =3D pci_specified_resource_alignment(dev, &user_aligned);
+
+[Severity: High]
+Does this leave user_aligned uninitialized on the default execution path?
+
+When pci_init_pci_resreq_data() calls pci_specified_resource_alignment(),
+the output parameter is not always written to. For instance, if there
+are no boot parameters, pci_specified_resource_alignment() exits early:
+
+drivers/pci/pci.c:pci_specified_resource_alignment() {
+    ...
+	p =3D resource_alignment_param;
+	if (!p || !*p)
+		goto out;
+    ...
+out:
+	spin_unlock(&resource_alignment_lock);
+	return align;
+}
+
+This leaves user_aligned with uninitialized stack memory. If this memory
+happens to be non-zero, it can cause the resource alignment logic to be
+randomly bypassed later in pci_align_resource(), leading to potential PCI
+resource exhaustion or allocation failures on architectures with a non-zero
+default alignment.
+
+Could user_aligned be initialized to false before being passed?
+
+> +	if (!user_aligned)
+> +		rr->user_align =3D 0;
+> +}
+> +
+>  resource_size_t pcibios_align_resource(void *data, const struct resource=
+ *res,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013130948.6231=
+-1-ilpo.jarvinen@linux.intel.com?part=3D3
