@@ -4,134 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22E9ECC6B0F
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:18:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E555CC6B0E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76B4210F505;
-	Tue, 13 Oct 2026 07:18:04 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013053.outbound.protection.outlook.com
- [40.93.201.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1644910F505
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 07:17:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bvmHFe0nkOp/9JrMAB6qhbdnBnZLm1yWlQS9taxO4tliUa8kjiJfy7xcj17yVHlUZirUJoCj80Ico3Q/1MlJc3jgWBJ5Z4JLyndASckCmNoZQJiGta1MP8DxHiC4Tce9Z2mqiUYvb053Qd6yV6fAEDnOorpnqOPvElWVOIhrdVnDyCVDpjHeif0XVkkkpJSgNZUipsYL2XZZjBecm1FJjGyzzi3qb64DHB5vuMeBCyEnt8F32XGgvzblpuwPTu9FCledcIIBNFXlD6+2INZ+8frTWBfr/uYGCKUDDCRsKDYknYkjBWAHLY17TZVhk9w5wWgOQMhC7h1KE3xQHt9pdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oB1dx1IeA8gbMLw2wDs5y9oUGlGuuZ2UMSJz/qdxHE0=;
- b=r3W8CHFmpZMqeIwrFJlwDW/C2QLxPcWApui4Xn2+RVpQrmEZnaz5KnMdUwUiJ04qPDmJiZs2TD2Zb3d9weGroRnbIuoyPF0ilhWDY7D5Et++8rRUwNF2UDWIub4OIbVFv00SOlI9JcUpni7JTvQG40O7Hqi66d8j1f74bXXmx9YMKO/Rl0DaEsYlYGQD/scNsBdr9k0f6XHdOJjQkHhNE0Np5wXRghiFrIAcUnkjact+MtXGP+orKfrBnRKEbnim4SI3NzB1u1Ytq0dRVVHDMYu1lrjozFl+kbnK54J9bEyytw4Yk0e0y+wCVO5/72dAcrqZcyiJ1HiNsDKUcRqtAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oB1dx1IeA8gbMLw2wDs5y9oUGlGuuZ2UMSJz/qdxHE0=;
- b=si/ivFtuzxJZmvl/+FYLr9MjkTpYsB+lGQVQd33D52FRGwSccMSWUm5gXLh8Bw/cExfYyYSjXYzbP5Bgz/+8fuuEKBE+vx++V2wkFPGx+NsZp9vruGHuPh/EmJJWdbBVIgnZBLknfFKZkCOXQ6D5x8tnWXsDFUUiohGe4Rv8gLejoDS06BGCdEeAY3dhCeyVfJZBz2Cl4zTxJCu86R8zu0hgjWh207z4E/UDnSAEjqCB5tGv55z4HyfNIu/xJm+Ebf/Mgb/2sOQhvxIinCy15HgT2Xruh1mO418avitJnHiXbK966BUJ7yX3aJVOFy0ecG2oqj90tcquURjuu5885Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS0PR12MB7534.namprd12.prod.outlook.com (2603:10b6:8:139::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.35; Tue, 13 Oct
- 2026 07:17:45 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 07:17:44 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Oct 2026 16:17:41 +0900
-Message-Id: <DM3IZAKDOOCR.2AKZ2VTDXNG0X@nvidia.com>
-Cc: "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v5 1/2] rust: num: add cv! macro to create values from
- constant expressions
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20261013-cv-v5-0-113a538dfaef@nvidia.com>
- <20261013-cv-v5-1-113a538dfaef@nvidia.com>
-In-Reply-To: <20261013-cv-v5-1-113a538dfaef@nvidia.com>
-X-ClientProxiedBy: TY6P301CA0021.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3bf::11) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A364610F506;
+	Tue, 13 Oct 2026 07:18:08 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E59ED10F501;
+ Tue, 13 Oct 2026 07:17:56 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 736BB1F788;
+ Tue, 13 Oct 2026 07:17:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791875875; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6LdaKbJxHh3w5tco5BvI0wrfqbELlAgnB3Y/NNN7uaE=;
+ b=dCNEVs8yZxb1mZVU7tJnIPzX6mSKMIM7l7FoGpdb2IGDyVENYqy4MkkoDMzje3329Z7GbE
+ cWpQaHFiQHXij/PPcsOO1nN+GEPafkYZ90tpfVtc7jokcbrbzTr08lmrpJ1C6zSZYWxy7N
+ u5ujPv6jsXHFOtdF3bLDPWel4G/Rwlg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791875875;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6LdaKbJxHh3w5tco5BvI0wrfqbELlAgnB3Y/NNN7uaE=;
+ b=oAznGZNrG9Vk3NQfpJ3SkQTBTc45HvrtByiJOaCT7sYfOAD41/EZJOl8Kt0hsYB/cBRxbP
+ llOztH+cOk17MrBA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ww3QvrcE;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=77iwrg96
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791875874; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6LdaKbJxHh3w5tco5BvI0wrfqbELlAgnB3Y/NNN7uaE=;
+ b=ww3QvrcECt0DHg23zB+7Zq0OpnyHlmm9QJZitaJZEOgIOL9guo3f4+nT7xcLDSPqBtmO/a
+ Agwd6zQoyKVVEa09D12lqmM8VhOGqwwOR0wEUd7clQt8jsu/99J4MHkXlVEJ+C6ciL/l64
+ zk+FGsr5xFjCWm2qwNovQYUYX76UhAg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791875874;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6LdaKbJxHh3w5tco5BvI0wrfqbELlAgnB3Y/NNN7uaE=;
+ b=77iwrg96yZhi/5tCD/5pWK+/e8SOnzyomnxVY8DsuUy3Kib9BeO7iiS3+sASP03uVgUWNK
+ CH0Z3ie4oDXuw9DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 304EC1349D;
+ Tue, 13 Oct 2026 07:17:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id pOcYASLbzWpXVQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 13 Oct 2026 07:17:54 +0000
+Message-ID: <ff266a33-2729-47b4-8a1e-ff96bb456782@suse.de>
+Date: Tue, 13 Oct 2026 09:17:53 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS0PR12MB7534:EE_
-X-MS-Office365-Filtering-Correlation-Id: d69f0c86-9516-4892-0922-08df28fa1395
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|10070799003|366016|1800799024|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: e5qsz84I4gOD8rTAV3QSeT0+i+4zPrnZvgdHbSpJXqBkmS00Eg8NrQ4t0U44BBGCaiOyT5O8wu/ejt2VZOYRdo42LiICXNpX324K/gK0L4yQqNES5+94n2xED7Jp2ZgxFmgb1CYAaKJqqdLZYduc6yWgcNYTnJuylq93ir1jz5xRCiKEsMD5whqMRWxOjzcIniPodHhniO3UdZbw0TElNm6qNnS6xTH87pkvYszg3aSrm75DsJva34zRCuKGNx4s/i9I2PNn3uXL4gSkwKG7uSQMAjDYgct2C54T2k76XWnvjILIicDXz5DL6YuC5kmYNSElmoGXZLVAlC0iBz9f+1K66AYlLua8vWxuWfrXWNLjkzplx6LP+/XXFvxAiNZ5WgRKbfPPPGIIDCkXya4yWhrNL22OTmVcAsB4GDyiR4XZutKXNsLwY4bCvjGP03DLB8qUrDfWOO+mxb/gMHuYkC8XzLrCxYd4cK/B7KPn2DJOZwr5OsnuqAPjwB0xFImDcYi7AN0mXUqsc/bzK2eBFiTcnfchv4Sv14rm2Wkyhcw8AM0wCB8FaHZgqRuNegEW6hJl7hTqQ5tu+R93QOQ/Jfru8M3Fsa/M7iIrmxg7uiCMyo9WEZXYfdOl121kn3h3vDfl7P1v3vwux1BYQFRD0hpOebwDscl6cSJhKqLvIcM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(10070799003)(366016)(1800799024)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SGhkRnNsTVhjWlc1bW10UkZzZE5lMTQwUWM5SktKL1VSZmx5dWw2QlJRdElq?=
- =?utf-8?B?Vko0ajhpT29peDJSQ1FBR1grYlYwekFnZUlhWXk2RHNpSnI4UFBuRElJOHdU?=
- =?utf-8?B?VU5OUDhGZE1rUm5kbkdEUzF5RGdZL2NKWHBDU3piUy9qZUZHMHRlWU5PeHlE?=
- =?utf-8?B?WVlrbVRGeWQ1NkpSelhzNmFnZGpUTWtiTlZBd1JrUC8wTzBTYVgyZ3NPUzIv?=
- =?utf-8?B?N1p4blB5ejZ4anFMTlU2aEdGUXBTTmo1RWNBTVBCSllqOUVuTU1mbndLVUtL?=
- =?utf-8?B?azVhem9VcFFYbzNUWkFJYWY4YW1KN1RTWDlSUmZkUVYzVWNnV2ZUNzk0NXFZ?=
- =?utf-8?B?RnlBWVlWc0h5WjV6c0FQMktGcHhZaHhGblAvTXFXWnpwQXkweVBVSGIzNS9l?=
- =?utf-8?B?VzRpazU0Z1RXTWFRWTRVbVdFb29yYXQ1ZVJhSlNRR3NCaWdCVW5LNWFnS2VR?=
- =?utf-8?B?QWF2Ny9nWUNuL1IxblVJdWNhNExEbTQwdEdCdjJpbHU2Q3Vsa2E0N0RwV3Rn?=
- =?utf-8?B?SnpQZEJkUS95MHRKVjhuRW5vWDFwNmdzcUErL0V6MTlPY2I1VnZ2YTQzNE0r?=
- =?utf-8?B?VHVZSlRrM0xWa0VSMko3U21DbzZLNDlnd0s5NjZwd29jV05jL0tFdHpNbThD?=
- =?utf-8?B?S2VERjdhVTY4dm9QT1A5SDJoK3h6RzErRE1DQTYreUNOWWZPSlNUaVNRTllX?=
- =?utf-8?B?Zm1YVzduR0lZT0NWTWJkZ1RZMG90T0tyNXJtWFdpd2tFdkZGVkh6eS85SE5r?=
- =?utf-8?B?bjZRM2MxRlNoZGNCZWs1UnFCbG8wSFRQSlgzSFpWdHFhU01kYWNsVWZTckc3?=
- =?utf-8?B?a0N5SmU3YUdpSGFwZGd6QWY4RjgrT1U5amQrdGhiajRNdGY2YmJuUTVySE5a?=
- =?utf-8?B?SjNCenowMmVtN2VHTUVLemlsOS95dGMrOXlFcEphbitjZXVLY1BmenIxazBX?=
- =?utf-8?B?NlNiaGh4U3psVkticXh4anlreTFRZGxZcnVHQkQ5cENRUEgvbytVUmErYWpM?=
- =?utf-8?B?OFF6L0hpUW5mNG00ZW1YY2pXc1h0ZElaZTNFenc5cXZhNHNuN3hHNnhsNGRJ?=
- =?utf-8?B?MlprejNiNnkrZldNMElNc09nTlBkU0xCL0pQTmtTUVJVNGRCOVlFNGxrTXpF?=
- =?utf-8?B?cFRkdVc3VFk2ZUxtMlJHNTE4M2FWTUxHaHJXM2tmOGlSdXJJTm9Sa2JUcWta?=
- =?utf-8?B?NUl3bGNJTDExVm5XanhBM3cybVVKMU9XaEFYdnFpU0ZLRE5vYlZMOXZXam94?=
- =?utf-8?B?dVZFZGdqbWFwdk9aK1FiQWo3SHZWK3MwQkxrNFFoUWdXSFdEK0E5Tkdsa0g3?=
- =?utf-8?B?MktybXVLTWtqRzhJUW51ZVB3MjJEUnpDVkl5RG1uTjliOTVJaHk1UnNwNSth?=
- =?utf-8?B?dWdFSnliY2FRSFQ1NTk4dzhpVk5xdjhaNjFCR2VHWDVQOHN2djVoUXdmczJB?=
- =?utf-8?B?dnRTajdqTGRvNDcwYjJpbloxUGhwbkozTWMwS1FxUkJVWGRiR1BRWFR2VndM?=
- =?utf-8?B?OCt1YmFtVWU0d2ZDM3BzVzI5b01xOUtxYlljdVk2THVCZ0RQaDJhc2pqTjJ2?=
- =?utf-8?B?MTFiQkZ3RHB0MWtRY2lndkZIL3Z6NlYvWEtJQ3hMZG9nT240VDZQYWJEV1ZW?=
- =?utf-8?B?RFZxK1NlTkJVZm03cng1YXQySXhUcG1UT1FIeTRyOCsyWGE5ckNLdlBsb3Za?=
- =?utf-8?B?dFp5YmhvaWFLZXNJWlBZMENoUTNFWXdiNGhPc0FMendGRHR6T0g0SEJ0Sm1p?=
- =?utf-8?B?NFhqaFRJTFRzVHVpR0dyN3ZhcnUxMFpaOTNYSURvYTBpNWl1aGxwczJFV28y?=
- =?utf-8?B?NVU3bTRoMnZDVDRncG1oWUdYc1M1SGxIaVV3ODRiMnBGNkp3MU13UFp0N3lq?=
- =?utf-8?B?RjcwK05uVnRRdnNDT3VtMzk0WTBJSE5ZSXdkQXN1SzZ6eGdjRnR6YitvZFVv?=
- =?utf-8?B?cGdQVWp4Lzl4K0NCZjVKdVVLa3lsTmRPRVJCMlhla1loUXRxUjNZSTlkU2Jz?=
- =?utf-8?B?dmZrd3krU3U2bkN5eG90MEt1Q2Y4bnBocllpQUxUWUs3QXAzSnc0aGJRMUUx?=
- =?utf-8?B?bGo0NnRQMnhBTzZBY0tSelpmRmFXakhqYmlLRFJ6TjRvUC9pYjNsV1V2Zkd1?=
- =?utf-8?B?eWZsYTV5RlhZSzFwcnRseExKNXBuZjdKMXB1OVhuWGVGY1R6TTVCd3dadDA0?=
- =?utf-8?B?WWhMV1dOajRGbS8xd043cHhwM01IM1VEN0xBTkJYL2x6NjdkQ3RGNlRPb1pz?=
- =?utf-8?B?c3FwUmFoVjRhTy91cFp4cGpmT3J4a2R0UFQ5TmhHazB3L1d6dXN4Q21mUUM1?=
- =?utf-8?B?Y2RETFBEQnh0VWx6SEtvNUloazZMN005K1FoSXNFMEVVOG9ESjNyK0RlcHRu?=
- =?utf-8?Q?5yvk9GjuyXIoUea2fH7uxSn82K/fVB/sMTUpOOGjbtxbn?=
-X-MS-Exchange-AntiSpam-MessageData-1: i87uYUF7/4a/jg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d69f0c86-9516-4892-0922-08df28fa1395
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 07:17:44.8728 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +3Bm+8MPlSR8yAfaSehvHII+ZCZJfLwMUloeqIXbxARHFUxNKD4h8nkLm1Q0bU1zvrjbhc6KHWesPvT/U47l5A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7534
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/6] drm/gem: add drm_gem_prime_dma_buf_to_gem()
+ self-import helper
+To: Matthew Brost <matthew.brost@intel.com>,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+References: <20261013010614.1516799-8-niranjana.vishwanathapura@intel.com>
+ <20261013010614.1516799-11-niranjana.vishwanathapura@intel.com>
+ <as2LL7IIs6EcL6Pj@gsse-cloud1.jf.intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <as2LL7IIs6EcL6Pj@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 736BB1F788
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,intel.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,28 +143,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Oct 13, 2026 at 2:58 PM JST, Eliot Courtney wrote:
-> Currently, using NonZero/Bounded constants is quite verbose. It's
-> unfortunate because it disincentivizes using it in interface boundaries.
-> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
-> value) takes a const integer expression and widens it to i128 (at build
-> time only) before passing it as a const generic value to a new trait
-> `FromConst`. The value is then converted and appears in the
-> associated constant `FromConst::VALUE`. The trait is implemented by
-> NonZero, Bounded, and Alignment and lets values of each be constructed
-> from constants without a verbose turbofish syntax.
->
-> For example, `const { NonZero::new(1).unwrap() }` can be written as
-> `cv!(1)`.
->
-> Add the `cv!` macro to the prelude so it doesn't need to be imported
-> explicitly to use it.
->
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Acked-by: Miguel Ojeda <ojeda@kernel.org>
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Acked-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Hi
 
-Acked-by: Alexandre Courbot <acourbot@nvidia.com>
+Am 13.10.26 um 03:36 schrieb Matthew Brost:
+> On Mon, Oct 12, 2026 at 06:06:15PM -0700, Niranjana Vishwanathapura wrote:
+>> drm_gem_is_prime_exported_dma_buf() is a bool predicate that open-codes
+>> the core PRIME self-import check. Its only caller, the shmem importer,
+>> then repeats the dma_buf->priv lookup and the reference get.
+>>
+>> Replace it with drm_gem_prime_dma_buf_to_gem(), a thin wrapper around
+>> drm_gem_prime_self_import() that returns the backing GEM object -- with
+>> a reference taken -- for a core-PRIME self-export, or NULL otherwise.
+>> This consolidates self-import handling onto drm_gem_prime_self_import()
+>> and lets drm_gem_shmem_prime_import_no_map() reuse the object directly.
+>>
+>> Unlike the removed predicate, the helper takes a reference on the
+>> returned object; the sole caller already wanted the referenced object.
+>>
+>> Assisted-by: GitHub-Copilot:claude-opus-4.8
+> Assisted-by: LLM
+>
+> I was going to suggest this last rev too as I noticed
+> drm_gem_shmem_prime_import_no_map called
+> drm_gem_is_prime_exported_dma_buf which should prefer the new helper but
+> shmem couldn't look at drm_gem_prime_dmabuf_ops.
+>
+> This is a good cleanup:
+
+No it's not. Please see my reply to the cover letter.
+
+Best regards
+Thomas
+
+>
+> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+>
+>> Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+>> ---
+>>   drivers/gpu/drm/drm_gem_shmem_helper.c | 14 ++++++--------
+>>   drivers/gpu/drm/drm_prime.c            | 26 +++++++++++++++-----------
+>>   include/drm/drm_prime.h                |  4 ++--
+>>   3 files changed, 23 insertions(+), 21 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> index d654a22a30de..a0e161f2333e 100644
+>> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> @@ -954,15 +954,13 @@ struct drm_gem_object *drm_gem_shmem_prime_import_no_map(struct drm_device *dev,
+>>   	size_t size;
+>>   	int ret;
+>>   
+>> -	if (drm_gem_is_prime_exported_dma_buf(dev, dma_buf)) {
+>> -		/*
+>> -		 * Importing dmabuf exported from our own gem increases
+>> -		 * refcount on gem itself instead of f_count of dmabuf.
+>> -		 */
+>> -		obj = dma_buf->priv;
+>> -		drm_gem_object_get(obj);
+>> +	/*
+>> +	 * Importing a dmabuf exported from our own gem increases the refcount
+>> +	 * on the gem itself instead of the f_count of the dmabuf.
+>> +	 */
+>> +	obj = drm_gem_prime_dma_buf_to_gem(dev, dma_buf);
+>> +	if (obj)
+>>   		return obj;
+>> -	}
+>>   
+>>   	attach = dma_buf_attach(dma_buf, dev->dev);
+>>   	if (IS_ERR(attach))
+>> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+>> index 588910c250b8..275c5661528d 100644
+>> --- a/drivers/gpu/drm/drm_prime.c
+>> +++ b/drivers/gpu/drm/drm_prime.c
+>> @@ -933,23 +933,27 @@ EXPORT_SYMBOL(drm_gem_prime_export);
+>>   
+>>   
+>>   /**
+>> - * drm_gem_is_prime_exported_dma_buf -
+>> - * checks if the DMA-BUF was exported from a GEM object belonging to @dev.
+>> + * drm_gem_prime_dma_buf_to_gem - GEM object backing a self-exported PRIME dma-buf
+>>    * @dev: drm_device to check against
+>>    * @dma_buf: dma-buf object to import
+>>    *
+>> - * Return: true if the DMA-BUF was exported from a GEM object belonging
+>> - * to @dev, false otherwise.
+>> + * If @dma_buf is a PRIME export of a GEM object that belongs to @dev and uses
+>> + * the core PRIME dma-buf ops, return that GEM object with an extra reference
+>> + * taken, so a self-import reuses the GEM object instead of referencing the
+>> + * dma-buf file. Returns NULL for a foreign dma-buf or one using driver-private
+>> + * ops; such drivers call drm_gem_prime_self_import() with their own ops.
+>> + *
+>> + * The returned object carries a reference the caller must drop with
+>> + * drm_gem_object_put().
+>> + *
+>> + * Return: the referenced GEM object on self-import, or NULL otherwise.
+>>    */
+>> -
+>> -bool drm_gem_is_prime_exported_dma_buf(struct drm_device *dev,
+>> -				       struct dma_buf *dma_buf)
+>> +struct drm_gem_object *drm_gem_prime_dma_buf_to_gem(struct drm_device *dev,
+>> +						    struct dma_buf *dma_buf)
+>>   {
+>> -	struct drm_gem_object *obj = dma_buf->priv;
+>> -
+>> -	return (dma_buf->ops == &drm_gem_prime_dmabuf_ops) && (obj->dev == dev);
+>> +	return drm_gem_prime_self_import(dev, dma_buf, &drm_gem_prime_dmabuf_ops);
+>>   }
+>> -EXPORT_SYMBOL(drm_gem_is_prime_exported_dma_buf);
+>> +EXPORT_SYMBOL(drm_gem_prime_dma_buf_to_gem);
+>>   
+>>   /**
+>>    * drm_gem_prime_import_dev - core implementation of the import callback
+>> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
+>> index d378404f8ab4..02665205aed1 100644
+>> --- a/include/drm/drm_prime.h
+>> +++ b/include/drm/drm_prime.h
+>> @@ -101,8 +101,8 @@ struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
+>>   unsigned long drm_prime_get_contiguous_size(struct sg_table *sgt);
+>>   
+>>   /* helper functions for importing */
+>> -bool drm_gem_is_prime_exported_dma_buf(struct drm_device *dev,
+>> -				       struct dma_buf *dma_buf);
+>> +struct drm_gem_object *drm_gem_prime_dma_buf_to_gem(struct drm_device *dev,
+>> +						    struct dma_buf *dma_buf);
+>>   
+>>   struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
+>>   						struct dma_buf *dma_buf,
+>> -- 
+>> 2.43.0
+>>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
