@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3015CC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBAB4CC6B2F
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2C511215F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE9811215E;
 	Thu, 15 Oct 2026 07:56:49 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8360C10E929
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:25:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD5410E0C3
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:22:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 03747602C3;
- Tue, 13 Oct 2026 15:25:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C948B1F00893;
- Tue, 13 Oct 2026 15:25:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 437DA40461;
+ Tue, 13 Oct 2026 15:22:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085131F00898;
+ Tue, 13 Oct 2026 15:21:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791905157;
- bh=brSHanJN25qJ54Niea2K3A3DIc/HKTRx7GaGCKmRkSY=;
+ s=k20260515; t=1791904943;
+ bh=CzLkglerZHaeqdqXBcJqI1OUUZn9McyDsaXMwmatEzY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=YMHlsDIYA6c+rskCJjZiIz071UzQ0h5CHw7Oa0sGmgBzY3Sd/UCi9xHgKJsA4Rrmw
- C9aAZ6VmbE+QMPfKIU+++8LDbRhtx95pfES908caFgmMHtj1a7HQBt07rM1S3509XA
- 8tkNvD9X+sj40UXprK/1HZJ297bIA1tbtS658KoM6TMH9CsAuEa7Fw47+MwXt4y5zR
- QwUgLqrEZzBrpUFuHd2WHcD4SKbnK8GFQemshFGcwB2X2W3UbM6HtZ0y9p+AVdnRt0
- fnasxZejhYeM3jJmmT7jJuYNaJwgZ8OjEN9GonJFuJH8K3NmQc7xeBT5DqDaGbLlTV
- +NpMPo9xhuHUw==
+ b=FwI8xuFkcWZh7OyfP4kiO5TnL8x0H+GyT2/juwXjWPgG2q3jlzUlITXSsEf92nt4A
+ U0XQ4si39pZo1N5LDpHXtJEAi/rXzQDoxp239dc9upMoQm0OIgMO4kwEoa6Nnjmgcy
+ sdurdRML4tf7jFo06dlM7+za+GVcYLxVI8PGy9muqNSjV/nOauqRVxuqt2lTHdh1b7
+ 7956953cxQr45TOjCYP5S/v0UHz0e/WN7pOzDLwUrEHL4ZWVRs9nHLznaOt/hC2f6g
+ WsDeiesyvxwB6pgmGTt+KtyRCQZe2Yth0b0GKXf9/GUXIlnTy/KdUjvQYGcfK9fx/i
+ 3Mzeuebipk/jQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:05:18 +0100
-Subject: [PATCH v6 38/39] fuse: dax: do not set VM_MIXEDMAP
+Date: Tue, 13 Oct 2026 16:05:11 +0100
+Subject: [PATCH v6 31/39] mm/madvise: update is_valid_guard_vma() to use
+ vma_is_mm_backed()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-38-1aa3c9b139f9@kernel.org>
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-31-1aa3c9b139f9@kernel.org>
 References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -118,12 +119,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1534; i=ljs@kernel.org;
- h=from:subject:message-id; bh=tfz3ccYwKEyTRVC6abtstchqWCa1ts0/TLS9J4UHnV4=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZydtu2sxIVFl3ffj4h7f3LSy6/Nc2uWt62vzll1t
- tY3a5/SnI5SFgYxLgZZMUWW51/E9weJhM3rvODvBjOHlQlkCAMXpwBMhCOHkeH9Y+ZdmgmzPs72
- KFNtPdjOn+kt90Cqdoahmdem+LLIyh5GhnX5HCp7vC5UL3q4Vv/8ze1nHydNs876IsGmNn0yn/S
- bA+wA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2135; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=6dMykbuVKPHDM4xFoe98lOwVyjcSXwfICmdhz8DaKPA=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZxhWeI/k1t/+0bj2V5v9vMW7pEtb9Y77P/q/98og
+ StpV1LyO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR/qcM//1Yl/R9mrfruMzR
+ zNWKb38qF4lP7y/8pROyX+TS7/XeX2Yx/I/cevmz66tHxnHB7a3/WD95Gko+9pSSE1ryNvD89eL
+ S66wA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
@@ -142,46 +143,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit e1fb4a086495 ("dax: remove VM_MIXEDMAP for fsdax and device dax")
-prevented fsdax and device-dax from setting VM_MIXEDMAP, as DAX no longer
-relies on it to direct core mm paths.
+We currently disallow the installation of lightweight guard regions in VMAs
+whose flags intersect VMA_SPECIAL_FLAGS or VMA_HUGETLB_BIT, or
+VMA_LOCKED_BIT unless allow_locked is set.
 
-The fuse DAX implementation, added later, copied the old pattern and still
-sets it.
+hugetlb VMAs set VMA_DONTEXPAND_BIT so this was already redundant,
+VMA_SPECIAL_FLAGS already sufficed.
 
-Fuse DAX maps pages the same way fsdax does, via dax_iomap_fault() and
-ultimately vmf_insert_page_mkwrite() and vmf_insert_folio_pmd(), which
-insert ordinary refcounted pages and so do not require VM_MIXEDMAP.
+However, now that VMA_IO_BIT is only set if VMA_PFNMAP or VMA_MIXEDMAP_BIT
+is set, this check collapses to being the equivalent of
+!vma_is_mm_backed(), excluding hugetlb mappings in which guard markers
+cannot be installed.
 
-Setting it only serves to mark the mapping as not mm-managed, making fuse
-DAX the sole DAX implementation whose mappings are unmergeable, cannot be
-mlock()'d, eagerly copy page tables on fork and reject MADV_DOFORK and
-MADV_DODUMP.
+Update is_valid_guard_vma() to reflect this.
 
-It also requires vma_is_special_huge() in mm/huge_memory.c to carve DAX out
-of its check for mappings not managed by core mm explicitly.
+No functional change intended.
 
-There is no reason for fuse DAX to keep on using this flag so drop it.
-
+Acked-by: Zi Yan <ziy@nvidia.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- fs/fuse/dax.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/madvise.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
-index 85cdf0199bc0..a5994f1c637d 100644
---- a/fs/fuse/dax.c
-+++ b/fs/fuse/dax.c
-@@ -826,7 +826,7 @@ int fuse_dax_mmap(struct file *file, struct vm_area_struct *vma)
- {
- 	file_accessed(file);
- 	vma->vm_ops = &fuse_dax_vm_ops;
--	vm_flags_set(vma, VM_MIXEDMAP | VM_HUGEPAGE);
-+	vma_set_flags(vma, VMA_HUGEPAGE_BIT);
- 	return 0;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 3d25202db5cc..7e14b3fd92f6 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1221,19 +1221,25 @@ static long madvise_remove(struct madvise_behavior *madv_behavior)
+ 	return error;
  }
  
+-static bool is_valid_guard_vma(struct vm_area_struct *vma, bool allow_locked)
++static bool is_valid_guard_vma(const struct vm_area_struct *vma,
++			       bool allow_locked)
+ {
+-	vm_flags_t disallowed = VM_SPECIAL | VM_HUGETLB;
+-
+ 	/*
+-	 * A user could lock after setting a guard range but that's fine, as
++	 * A user could lock after setting a guard range but that's fine as
+ 	 * they'd not be able to fault in. The issue arises when we try to zap
+ 	 * existing locked VMAs. We don't want to do that.
+ 	 */
+-	if (!allow_locked)
+-		disallowed |= VM_LOCKED;
++	if (!allow_locked && vma_test(vma, VMA_LOCKED_BIT))
++		return false;
++	/*
++	 * Guard regions require a VMA whose page tables are managed solely by
++	 * core mm, so the VMA must be mm-backed (excluding hugetlb, in which
++	 * guard markers cannot be installed).
++	 */
++	if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma))
++		return false;
+ 
+-	return !(vma->vm_flags & disallowed);
++	return true;
+ }
+ 
+ static bool is_guard_pte_marker(pte_t ptent)
 
 -- 
 2.55.0
