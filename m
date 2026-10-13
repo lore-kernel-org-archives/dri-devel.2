@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3EF3CC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:14:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E7ECC6B1C
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:14:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12A7A10E16E;
-	Tue, 13 Oct 2026 18:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 630B810E986;
+	Tue, 13 Oct 2026 18:14:42 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA61110E944
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:14:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A763B10E16E
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:14:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2D71460A5F;
- Tue, 13 Oct 2026 18:14:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E2B1F00893;
- Tue, 13 Oct 2026 18:14:25 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1ABF460A60;
+ Tue, 13 Oct 2026 18:14:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708231F00893;
+ Tue, 13 Oct 2026 18:14:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791915266;
- bh=kKIzCNn5CgrhfcSurryX3xOatR7Z/YVsZGhkddPHnrY=;
+ s=k20260515; t=1791915270;
+ bh=LNVLi5zmlfp86OAwSzYMPd0Re5zD+rl60i3RO7+XpcQ=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References;
- b=JVHrDcHi+hjTUi2GSLLbLdRvF2sRuUlCDYNu3P2vGB1Aguw67M4OvruAN8HxDdkVm
- Usu5mD3FzqTXucjiE2bQnRR5c4jQgUjqbEP3+MTLHK1YWWpmN/Qe5CoyR2IxVu3TQd
- TRavdZw/vhff2RciIZ5b+Vbs6H0tFiiiYOERzIKa2+46Hm88vsuVPLuYemgh3YparO
- v3+55S1J0gO2V8hrg5XjhuQ9nbCQnuQBmdx6g5QAPnypL5OeMaCY6nwjf28n8zSyIx
- rXFGZHtebPcRnwfoluOr/RIT2ZNVNImaAXdCDNzFLAOv9ZlPlb5muCz47x6Y6W816T
- t0yBkLqM312DQ==
-Subject: Re: [PATCH net v2 2/4] net: devmem: detach TX bindings on
- NETDEV_UNREGISTER
+ b=HSJqNOwyNhIEKIAKsEVFrPeFsCFiftEWzfq//EyRCnogXt8e9jBVHXNWPEgILsAXY
+ i9rUufdT3Cp0Sep8FdDNKzVpA/xhP/EsINdk+1GU41OrWf+45BJM6uXjdoo/0jbwa0
+ xuog5f9ifjfOEWSk11dT+AaLa1mXtW2FWyQT6qSXYoPBJIkFee7T3x2MuvsnAP+RUn
+ 0Zg5r1odyJt4TY7q6+GlXoEci8zTFvUcalYv9qzlv8RI54ZuHS46Y9RtM7povsXBlg
+ V3asBf2XEGIj9XO5b0HJx/C960mQUeikvkrINAaw8TeKqyMYyFrNHtnasXDy56nEsM
+ ESZpr9wTBy1sg==
+Subject: Re: [PATCH net v2 4/4] selftests: net: add devmem RX and TX netdev
+ unregister tests
 From: netdev-bot+sashiko@kernel.org
 To: almasrymina@google.com
 Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
@@ -39,11 +39,11 @@ Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
  edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
  sumit.semwal@linaro.org, christian.koenig@amd.com, razor@blackwall.org,
  daniel@iogearbox.net, tariqt@nvidia.com, kaifengw@google.com
-Date: Tue, 13 Oct 2026 18:14:25 +0000
-Message-ID: <179191526509.434549.6192981765881681048@kernel.org>
-In-Reply-To: <20261012174300.2338784-3-almasrymina@google.com>
-References: <20261012174300.2338784-3-almasrymina@google.com>
-X-sashiko-severity: High
+Date: Tue, 13 Oct 2026 18:14:29 +0000
+Message-ID: <179191526900.434549.14504153399122952528@kernel.org>
+In-Reply-To: <20261012174300.2338784-5-almasrymina@google.com>
+References: <20261012174300.2338784-5-almasrymina@google.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
@@ -62,10 +62,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 7 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 2 · Low: 0
+Critical: 0 · High: 0 · Medium: 6 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -73,256 +73,272 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] Commit "net: devmem: detach TX bindings on NETDEV_UNREGISTER"
-  leaves the dangling binding->dev use-after-free it says it fixes…
-- [High] net: devmem: NULL deref in netif_mp_close_rxq() on concurrent
-  unregister
-- [Medium] net_devmem_dev_unregister_tx() treats every NETDEV_UNREGISTER
-  as device destruction, but the same event is sent when a device moves…
-- [Medium] net_devmem_dev_unregister_tx() calls synchronize_net() once
-  for every TX binding that matches the device, in both the dev branch…
+- [Medium] `del nf_priv` in devmem_bind_rx_unregister_check() and
+  devmem_bind_tx_unregister_check()…
+- [Medium] _dmabuf_attached_devs() (nl_netdev.py:390-408) collects the
+  'Attached Devices:' entries for every dma-buf in…
+- [Medium] The new tests in tools/testing/selftests/net/nl_netdev.py need
+  /dev/udmabuf (CONFIG_UDMABUF) and CONFIG_NET_DEVMEM.
+- [Medium] devmem_bind_rx_unregister_check() and
+  devmem_bind_tx_unregister_check() create the netdevsim device…
+- [Medium] The detach check is what these tests mainly claim to verify
+  (RX docstring: 'Verify RX devmem bindings detach dma_buf synchronously…
+- [Medium] _create_udmabuf() (nl_netdev.py:384) issues
+  `fcntl.ioctl(devfd, 0x40187542, req)`, which hardcodes the asm-generic…
+- [Low] _create_udmabuf() (nl_netdev.py:379-387) opens `memfd` (line 379)
+  and `devfd` (line 382) without try/finally.
 
 --
 
-net: devmem: detach TX bindings on NETDEV_UNREGISTER
+selftests: net: add devmem RX and TX netdev unregister tests
 
-This patch extends net_devmem_dev_unregister() to cover TX devmem
-bindings. When binding->dev unregisters, it clears the LIVE mark, clears
-both dev and vdev, waits for a grace period and unmaps the dma_buf. When
-only binding->vdev unregisters, it clears just vdev.
+This adds devmem_bind_rx_unregister_check() and
+devmem_bind_tx_unregister_check() to nl_netdev.py. Each test binds a
+udmabuf to a netdevsim device over the netdev netlink family, then
+removes the device. It checks debugfs dma_buf/bufinfo to confirm the
+attachment is gone.
 
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 02d607cc87217..a1c029f6ae47f 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
-> @@ -192,6 +192,36 @@ net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
->  	mutex_unlock(&binding->lock);
->  }
+> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
+> index ceb44c8e1fec5..bad230ee9dcd2 100755
+> --- a/tools/testing/selftests/net/nl_netdev.py
+> +++ b/tools/testing/selftests/net/nl_netdev.py
+
+[ ... ]
+
+> @@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
+>      ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
 >  
-> +static void
-> +net_devmem_dev_unregister_tx(struct net_devmem_dmabuf_binding *binding,
-> +			     unsigned long xa_idx, struct net_device *dev)
-> +{
-> +	if (READ_ONCE(binding->dev) == dev) {
-> +		xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> +			      NET_DEVMEM_BINDING_LIVE);
+>  
+> +def _create_udmabuf(num_pages=64) -> int:
+> +    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
+> +    if not os.path.exists("/dev/udmabuf"):
+> +        raise KsftSkipEx("/dev/udmabuf is not available")
 
 [Severity: Medium]
-Does NETDEV_UNREGISTER always mean the device is being destroyed here?
-__dev_change_net_namespace() also sends it when a device only moves to
-another netns:
+Will these tests ever run with the config fragment for this directory?
 
-net/core/dev.c:__dev_change_net_namespace() {
-    ...
-	 * Note that dev->reg_state stays at NETREG_REGISTERED.
-	 * This is wanted because this way 8021q and macvlan know
-	 * the device is just moving and can keep their slaves up.
-	 */
-	call_netdevice_notifiers(NETDEV_UNREGISTER, dev);
-    ...
-}
+tools/testing/selftests/net/config has CONFIG_NETDEVSIM=m. It has none of
+CONFIG_UDMABUF, CONFIG_DMA_SHARED_BUFFER, CONFIG_NET_DEVMEM or
+CONFIG_DEBUG_FS. NET_DEVMEM depends on DMA_SHARED_BUFFER:
 
-netdev_genl_netdevice_event() calls net_devmem_dev_unregister() on every
-NETDEV_UNREGISTER, so a netns move ends up here too.
+net/Kconfig:
+config NET_DEVMEM
+	def_bool y
+	select GENERIC_ALLOCATOR
+	depends on DMA_SHARED_BUFFER
 
-If the physical dev of a TX binding is moved, this code clears
-NET_DEVMEM_BINDING_LIVE, sets binding->dev and binding->vdev to NULL and
-unmaps the dma_buf, even though the device is still alive. If a netkit vdev
-is moved, binding->vdev is cleared.
+The existing devmem tests use tools/testing/selftests/drivers/net/hw/config.
+That file sets CONFIG_NET_DEVMEM=y and CONFIG_UDMABUF=y.
 
-Nothing restores the mark, the pointers or the mapping when the device
-re-registers in the new netns. After that, net_devmem_lookup_dmabuf() can't
-find the binding, net_devmem_get_binding() returns -ENODEV, and
-validate_xmit_unreadable_skb() drops devmem skbs.
+On a kernel built from net/config, the skip above fires every time. The
+regression coverage for "net: devmem: unmap dma_buf synchronously on queue
+uninstall" and "net: devmem: detach TX bindings on NETDEV_UNREGISTER"
+would then never run in CI for this directory.
 
-netkit_check_lease_unregister() tells the two cases apart with:
-
-	if (READ_ONCE(dev->reg_state) != NETREG_UNREGISTERING ||
-
-Should net_devmem_dev_unregister_tx() check reg_state the same way? Bound
-RX bindings already survive netns moves, because
-net_devmem_dev_unregister_rx() skips LIVE bindings.
+Should CONFIG_UDMABUF=y, CONFIG_DMA_SHARED_BUFFER=y and CONFIG_DEBUG_FS=y
+be added to tools/testing/selftests/net/config?
 
 > +
-> +		mutex_lock(&binding->lock);
-> +		WRITE_ONCE(binding->dev, NULL);
-> +		WRITE_ONCE(binding->vdev, NULL);
-> +		mutex_unlock(&binding->lock);
-> +
-> +		/* Ensure no tx net_devmem_lookup_dmabuf() or
-> +		 * validate_xmit_unreadable_skb() are in flight after detach.
-> +		 */
-> +		synchronize_net();
-> +
-> +		mutex_lock(&binding->lock);
-> +		net_devmem_dmabuf_binding_unmap(binding);
-> +		mutex_unlock(&binding->lock);
-> +	} else if (READ_ONCE(binding->vdev) == dev) {
-> +		mutex_lock(&binding->lock);
-> +		WRITE_ONCE(binding->vdev, NULL);
-> +		mutex_unlock(&binding->lock);
-> +
-> +		synchronize_net();
-> +	}
-
-[Severity: High]
-Can a TX binding still end up with a dangling binding->dev? There seems to
-be a race between bind-tx on a netkit and unregistration of the physical
-device the netkit leases from.
-
-netdev_nl_bind_tx_doit() only checks reg_state on the device the user
-names, through netdev_get_by_index_lock() -> netdev_put_lock(). The physical
-device comes from netdev_find_netmem_tx_dev():
-
-	if (netif_device_present(phys_dev) &&
-	    phys_dev->netmem_tx == NETMEM_TX_DMA)
-		return phys_dev;
-
-Both of these conditions still hold after unregister_netdevice_many_notify()
-has set phys->reg_state to NETREG_UNREGISTERING.
-
-netdev_nl_bind_tx_doit() then calls netdev_lock(bind_dev) without checking
-reg_state again. net_devmem_bind_dmabuf() maps the dma_buf and publishes the
-binding with xa_alloc_cyclic() and xa_set_mark(LIVE), without holding
-net_devmem_lock.
-
-In the NETDEV_UNREGISTER chain for phys, netdev_genl_nb (subsys_initcall)
-is called before netkit's notifier (module_init). So this ordering looks
-possible:
-
-CPU1 unregistering phys:
-  call_netdevice_notifiers(NETDEV_UNREGISTER, phys)
-    netdev_genl_netdevice_event()
-      net_devmem_dev_unregister(phys)
-        /* walk completes, no binding for phys yet */
-
-CPU2, before netkit's notifier runs:
-  netdev_nl_bind_tx_doit()
-    netdev_find_netmem_tx_dev()      /* returns phys */
-    net_devmem_bind_dmabuf()         /* dev = phys, vdev = netkit */
-
-CPU1 continues:
-    netkit_notifier()
-      netkit_check_lease_unregister()  /* unregisters netkit */
-
-When the netkit unregisters, net_devmem_dev_unregister_tx() only takes the
-vdev branch above, because binding->dev is phys and not the netkit.
-
-Then netkit_uninit() -> netkit_queue_unlease() -> netdev_rx_queue_unlease()
-drops the last lease reference on phys with netdev_put(). The binding holds
-no netdev reference, so phys is freed while binding->dev still points to it
-and the dma_buf is still mapped.
-
-When the netlink socket is later closed, netdev_nl_sock_priv_destroy() reads
-binding->dev and calls netdev_hold() and netdev_lock() on it. Isn't that the
-same oops quoted in the commit message?
-
-Would it make sense for netdev_nl_bind_tx_doit() to reject
-bind_dev->reg_state != NETREG_REGISTERED under netdev_lock(bind_dev)? Or to
-publish the binding under net_devmem_lock together with that check?
-
-> +}
-> +
->  void net_devmem_dev_unregister(struct net_device *dev)
->  {
->  	struct net_devmem_dmabuf_binding *binding;
-> @@ -201,6 +231,8 @@ void net_devmem_dev_unregister(struct net_device *dev)
->  	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
->  		if (binding->direction == DMA_FROM_DEVICE)
->  			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
-> +		else
-> +			net_devmem_dev_unregister_tx(binding, xa_idx, dev);
->  	}
->  	mutex_unlock(&net_devmem_lock);
->  }
-
-[Severity: High]
-Can net_devmem_unbind_dmabuf() end up calling netif_mp_close_rxq()
-with a NULL dev when it races with unregistration of the device?
-
-unregister_netdevice_many_notify() runs dev_memory_provider_uninstall()
-under netdev_lock(dev). It then drops the instance lock before calling
-the NETDEV_UNREGISTER notifiers. If bound_rxqs is not fully emptied at
-that point, the binding still has rxqs to close when the netlink socket
-goes away. That could happen with a queue above a reduced
-real_num_rx_queues, or with a leased queue.
-
-This ordering looks possible:
-
-CPU1 unregistering dev:
-  unregister_netdevice_many_notify()
-    dev_memory_provider_uninstall(dev)  /* under netdev_lock */
-    /* netdev_lock(dev) dropped */
-
-CPU2 closing the netlink socket:
-  netdev_nl_sock_priv_destroy()
-    netdev_lock(dev)
-    net_devmem_unbind_dmabuf()
-      /* clears NET_DEVMEM_BINDING_LIVE */
-      synchronize_net()
-
-CPU1 continues:
-  call_netdevice_notifiers(NETDEV_UNREGISTER, dev)
-    netdev_genl_netdevice_event()
-      net_devmem_dev_unregister(dev)
-        net_devmem_dev_unregister_rx()
-          /* LIVE is clear and binding->dev == dev */
-          WRITE_ONCE(binding->dev, NULL)
-
-CPU2 continues:
-      xa_for_each(&binding->bound_rxqs, ...)
-        netif_mp_close_rxq(binding->dev, ...)  /* now NULL */
-
-netif_mp_close_rxq() reads dev->real_num_rx_queues straight away, so
-this is a NULL pointer dereference. An unprivileged user can trigger it
-by closing a devmem netlink socket while the device is being removed.
-The notifier path takes only net_devmem_lock and binding->lock. The
-netdev_lock(dev) held by the unbind side does not serialize against it.
-
-The LIVE check in net_devmem_dev_unregister_rx() seems meant to leave
-bindings alone while the unbind path still owns them. But
-net_devmem_unbind_dmabuf() clears the mark before it is done using
-binding->dev, and that opens this window.
-
-I see a few possible fixes:
-
-- net_devmem_unbind_dmabuf() could use a local copy of the dev that
-  netdev_nl_sock_priv_destroy() already holds, instead of re-reading
-  binding->dev.
-- net_devmem_dev_unregister_rx() could also skip bindings that still
-  have entries in bound_rxqs.
-- The unbind side could hold net_devmem_lock or binding->lock across
-  this window.
-
-Which of these did you intend?
+> +    size = num_pages * mmap.PAGESIZE
+> +    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
+> +    os.ftruncate(memfd, size)
+> +    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
+> +    devfd = os.open("/dev/udmabuf", os.O_RDWR)
+> +    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
+> +    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
 
 [Severity: Medium]
-Does this run one expedited RCU grace period for each matching TX binding,
-all while RTNL and net_devmem_lock are held?
+Is 0x40187542 correct on every architecture? The UAPI defines:
 
-net_devmem_dev_unregister_tx() calls synchronize_net() for every binding
-that matches dev, in both branches. This runs from the NETDEV_UNREGISTER
-notifier with RTNL held, so synchronize_net() picks the expedited variant:
+include/uapi/linux/udmabuf.h:
+#define UDMABUF_CREATE       _IOW('u', 0x42, struct udmabuf_create)
 
-net/core/dev.c:synchronize_net() {
+and the _IOW() encoding depends on the architecture. On powerpc,
+_IOC_WRITE is 4U and _IOC_SIZEBITS is 13, so the command works out to
+0x80187542. mips, sparc and alpha use the same layout.
+
+On those architectures, udmabuf_ioctl() falls through to its default case
+and returns -ENOTTY:
+
+drivers/dma-buf/udmabuf.c:udmabuf_ioctl() {
+	switch (ioctl) {
+	case UDMABUF_CREATE:
 	...
-	if (from_cleanup_net() || rtnl_is_locked())
-		synchronize_rcu_expedited();
-	else
-		synchronize_rcu();
+	default:
+		ret = -ENOTTY;
 }
 
-NETDEV_CMD_BIND_TX is unprivileged and has no limit on the number of
-bindings, so a user can create many bindings against one device. The next
-removal or netns move of that device would then hold RTNL and
-net_devmem_lock across N expedited grace periods. That also blocks
-__net_devmem_dmabuf_binding_free(), which takes net_devmem_lock.
+Python then raises OSError, and both tests report FAIL instead of SKIP
+before any binding happens. Could the command value be computed from the
+architecture's ioctl encoding instead?
 
-Could the walk first clear the mark and pointers on all matching bindings,
-then call synchronize_net() once, and only then unmap them?
+> +    os.close(devfd)
+> +    os.close(memfd)
 
-The vdev-only branch also doesn't seem to need a grace period for memory
-safety, since vdev is never dereferenced.
+[Severity: Low]
+Does this leak memfd and devfd when something fails partway through? If
+os.ftruncate(), the F_ADD_SEALS fcntl, os.open("/dev/udmabuf") or the
+UDMABUF_CREATE ioctl raises, these two os.close() calls are skipped. The
+descriptors, and the memfd pages, then stay open for the rest of the ksft
+process. Would a try/finally around these steps help?
+
+> +    return dmabuf_fd
+> +
+> +
+> +def _dmabuf_attached_devs():
+> +    """Return attached device names from debugfs dma_buf/bufinfo if available."""
+> +    path = "/sys/kernel/debug/dma_buf/bufinfo"
+> +    if not os.path.exists(path):
+> +        return None
+
+[Severity: Medium]
+When bufinfo is missing, can these tests pass without checking anything?
+
+The detach check is the main thing the RX docstring says this test
+verifies. If CONFIG_DEBUG_FS is off, debugfs is not mounted, or the file
+is not readable, this returns None. The callers' "if attached is not None:"
+guards then skip both assertions, and the test reports PASS.
+
+In that setup, the test would still pass if net_devmem_dev_unregister()
+stopped calling net_devmem_dmabuf_binding_unmap(), which is where
+dma_buf_detach() happens. net/config does not enable CONFIG_DEBUG_FS
+either.
+
+Should this raise KsftSkipEx instead of returning None?
+
+> +    with open(path, "r", encoding="utf-8") as f:
+> +        text = f.read()
+> +    attached = []
+> +    in_attached = False
+> +    for line in text.splitlines():
+> +        if line.strip() == "Attached Devices:":
+> +            in_attached = True
+> +            continue
+> +        if in_attached:
+> +            if line.startswith("\t") and line.strip():
+> +                attached.append(line.strip())
+> +            else:
+> +                in_attached = False
+> +    return attached
+
+[Severity: Medium]
+Does this count attachments from every dma-buf on the system, not just the
+udmabuf the test created?
+
+dma_buf_debug_show() walks the global dmabuf_list. For each buffer it
+prints a header and an "Attached Devices:" block:
+
+drivers/dma-buf/dma-buf.c:dma_buf_debug_show() {
+	...
+		list_for_each_entry(attach_obj, &buf_obj->attachments, node) {
+			seq_printf(s, "\t%s\n", dev_name(attach_obj->dev));
+	...
+}
+
+This loop adds every buffer's entries to one list. The before-bind
+ksft_ge(len(attached), 1) check can then pass because of some other
+buffer, even if the devmem bind never attached.
+
+The after-remove ksft_eq(len(attached), 0) check would also fail on any
+machine where another dma-buf has an attachment, even if the devmem
+binding detached correctly. Examples include GPU or DRM prime, V4L2, a
+parallel test, or a binding left behind by an earlier test.
+
+Could the parser filter on the test buffer's inode, for example by
+matching the ino column against os.fstat(dmabuf_fd).st_ino?
+
+> +
+> +
+> +def devmem_bind_rx_unregister_check(_nf) -> None:
+> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
+> +    dmabuf_fd = _create_udmabuf()
+> +    nf_priv = NetdevFamily()
+> +    ef = EthtoolFamily()
+> +    nsimdev = NetdevSimDev(queue_count=2)
+> +    nsim = nsimdev.nsims[0]
+> +
+> +    ip(f"link set dev {nsim.ifname} up")
+> +    ef.rings_set({"header": {"dev-index": nsim.ifindex},
+> +                  "tcp-data-split": "enabled"})
+> +    nf_priv.bind_rx({
+> +        "ifindex": nsim.ifindex,
+> +        "fd": dmabuf_fd,
+> +        "queues": [{"id": 1, "type": "rx"}],
+> +    })
+
+[Severity: Medium]
+What happens to the netdevsim device if ip(), ef.rings_set() or
+nf_priv.bind_rx() raises here?
+
+nsimdev is created without "with" or defer(nsimdev.remove). ksft_run()
+only flushes registered defers, so nothing removes the device. That leaves
+it registered in the kernel even after the test process exits:
+
+tools/testing/selftests/net/lib/py/nsim.py:NetdevSimDev.remove() {
+        if not self.removed:
+            self.ctrl_write("del_device", "%u" % (self.addr, ))
+            self.removed = True
+}
+
+dmabuf_fd and the netlink socket also leak for the rest of the run.
+
+Also, an NlError with EOPNOTSUPP from bind_rx() or bind_tx() is not turned
+into KsftSkipEx. Kernels that have the devmem fixes but not "netdevsim:
+support devmem RX and TX bindings" would then report FAIL rather than
+SKIP.
+
+defer is already imported in this file, and the other netdevsim tests use
+"with NetdevSimDev(...)". The same pattern is in
+devmem_bind_tx_unregister_check() around bind_tx().
+
+> +
+> +    attached = _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_ge(len(attached), 1)
+> +
+> +    nsimdev.remove()
+> +
+> +    attached = _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_eq(len(attached), 0)
+> +
+> +    del nf_priv
+
+[Severity: Medium]
+Does "del nf_priv" actually close the netlink socket that owns the
+binding? YnlFamily.__init__() stores partials of bound methods on the
+instance:
+
+tools/net/ynl/pyynl/lib/ynl.py:YnlFamily.__init__() {
+            bound_f = functools.partial(self._op, op_name)
+            setattr(self, op.ident_name, bound_f)
+}
+
+Each partial refers back to self, which makes a reference cycle. Deleting
+the local name drops only one reference. YnlFamily has no __del__, so
+self.sock stays open until the cyclic GC happens to run or the process
+exits.
+
+The commit message says the tests verify that unregister:
+
+    "cleanly closes the netlink socket without use-after-free or page
+    faults."
+
+As written, the genl release -> netdev_nl_sock_priv_destroy() path after
+unregister never runs inside the test. That is the path fixed by "net:
+devmem: detach TX bindings on NETDEV_UNREGISTER". A regression there would
+show up later, or not be linked to this test at all, and the test would
+still report PASS.
+
+YnlFamily already has close() and __enter__/__exit__. Would nf_priv.close()
+or "with NetdevFamily() as nf_priv:" work here? The same applies to
+"del nf_priv" in devmem_bind_tx_unregister_check().
+
+> +    os.close(dmabuf_fd)
+> +
+> +
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012174300.2338784-1-almasrymina%40google.com
