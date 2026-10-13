@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA0BACC6B0F
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 21:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E629CC6B0F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 21:23:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB1A10F9C5;
-	Tue, 13 Oct 2026 21:13:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C62A810EA38
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 21:13:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBB2110F9D1;
+	Tue, 13 Oct 2026 21:23:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8249810F9CD
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 21:23:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F204A6022B;
- Tue, 13 Oct 2026 21:13:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DBB91F000FF;
- Tue, 13 Oct 2026 21:13:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 359494241D;
+ Tue, 13 Oct 2026 21:23:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6A511F00893;
+ Tue, 13 Oct 2026 21:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791925984;
- bh=aekYN+rMoYIqyS3nb/QKC2HbzIQVxm5HHKW4K9SBzXM=;
+ s=k20260515; t=1791926616;
+ bh=jzyXKGbVkuoeho0qqy5SSr+BcSXl5Xzhf6Jn/mnzPf0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bIA9R8fwQ7YhmDIYuLMVPKGUOcIwITod18ZueJY9CWzTIL1xQZJi6qrEDgTSgHQJD
- EgB/XfLKHV5Wp37AIUhXjMuNYfjR8hgtKlZ9HWd3gw/8TZH1nlb7IG5IPtMgmUlUMl
- jpqs+liYayd3fR4i9p23TTvZ5SQ19K7Akg/8W8298zq7sciP5BDsD/qo8VI/tNRku6
- eqNRiqkg43KOsdHFiahNCpsPwywo5Zm7Q5kjK6xQRHiXJWFVJyb0pgfkTN4Fyde7sl
- 6xCpA03khDPECTM7U7uX6o3k6eEmcz+0l7fCxaRjTWC/GuVoSeMtW++9r9xM1jjuRm
- BgEphOLGTzwzw==
-Message-ID: <sashiko-outbox-170523@kernel.org>
+ b=ATmOwUZtIpU3T5yCtsPtADWwIZX3UTK0eKSpl630vEtXJEGsUXzrtt8zxl3i6ROE6
+ TIxTjBTcRNEiN9/ky5+pna4EnesEPDkjGMZsT5pYrWIR/6/52YyqYx4BdIAneEpyd0
+ m/fJzNg8T60vvOXoxJTLMaW8hfsWz2XFJunX0jbnq4i0TTbt5BjknhC+PEeLVItDAm
+ wcaD/vTSV1014npfV2PO7eFsiZEWil9EG45+O01wybDhJYW2qKAcMYnkGyKngqgQH5
+ WlSA85yOBc0wjS924ArPQ4P8UDrC+A2Tgf/6b41bcxAnq4S8iate7lP1y9RHbyVA/V
+ BPpHi8XWdZ/FA==
+Message-ID: <sashiko-outbox-170530@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 02/13] iov_iter: add iterator type for dmabuf maps
+Subject: Re: [PATCH v10 07/13] nvme-pci: implement dma-buf backed requests
 To: "Pavel Begunkov" <asml.silence@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20b8e9c900c7656e43e039a0d97213a2a781ba4f.1791924581.git.asml.silence@gmail.com>
+In-Reply-To: <a8c9ff112d4295e7a3f7c361e03f03ee5eb42e74.1791924581.git.asml.silence@gmail.com>
 References: <cover.1791924581.git.asml.silence@gmail.com>
- <20b8e9c900c7656e43e039a0d97213a2a781ba4f.1791924581.git.asml.silence@gmail.com>
+ <a8c9ff112d4295e7a3f7c361e03f03ee5eb42e74.1791924581.git.asml.silence@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 21:13:04 +0000
+Date: Tue, 13 Oct 2026 21:23:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,115 +54,96 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] iov_iter: iterate_and_advance_kernel() silently discards ITER_DMAB=
-UF_MAP data
-- [High] iov_iter: dmabuf absolute offset truncation and revert bounds bypa=
-ss
+- [High] nvme: missing controller state check allows attaching DMA-BUF to d=
+ead PCI device
 --
 
-commit 190aa53efd62f0f61a9121fb6b0b02899d01272d
+commit 6741fe43dc1132ae4f51db272567ac5b56987f17
 Author: Pavel Begunkov <asml.silence@gmail.com>
 
-iov_iter: add iterator type for dmabuf maps
+nvme-pci: implement dma-buf backed requests
 
-Introduce a new iterator type for dmabuf maps. The map in an opaque
-object with internals and format specific to the subsystem / driver, and
-only it can use that subsystem / driver for issuing IO. The task of the
-middle layers is to pass the map / iterator further down, maybe doing
-basic splitting and length checking.
+This patch implements DMA-BUF backed requests for the NVMe PCI driver. It
+allows mapping DMA-BUFs on registration and storing them as a PRP list to
+initialize requests. Attached contexts are tracked in a new list
+synchronized with a lock.
 
-> diff --git a/include/linux/iov_iter.h b/include/linux/iov_iter.h
-> index f9a17fbbd3980..2f91884d733bf 100644
-> --- a/include/linux/iov_iter.h
-> +++ b/include/linux/iov_iter.h
-> @@ -310,6 +310,8 @@ size_t iterate_and_advance2(struct iov_iter *iter, si=
-ze_t len, void *priv,
->  		return iterate_folioq(iter, len, priv, priv2, step);
->  	if (iov_iter_is_xarray(iter))
->  		return iterate_xarray(iter, len, priv, priv2, step);
-> +	if (WARN_ON_ONCE(iov_iter_is_dmabuf_map(iter)))
-> +		return 0;
->  	return iterate_discard(iter, len, priv, priv2, step);
->  }
-
-[Severity: High]
-This patch explicitly rejects ITER_DMABUF_MAP in iterate_and_advance2(), but
-does iterate_and_advance_kernel() also need this check?
-
-If an ITER_DMABUF_MAP iterator is passed to iterate_and_advance_kernel(), it
-looks like execution will fall through directly to iterate_discard(), which
-silently subtracts the requested length from iter->count and returns the
-length.
-
-Could this cause internal kernel components to silently bypass data process=
-ing
-instead of failing loudly?
+> diff --git a/drivers/nvme/host/pci-dmabuf.c b/drivers/nvme/host/pci-dmabu=
+f.c
+> new file mode 100644
+> index 0000000000000..8dab59d936507
+> --- /dev/null
+> +++ b/drivers/nvme/host/pci-dmabuf.c
 
 [ ... ]
-> diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-> index 2072c04e99d05..6831a5d9396e1 100644
-> --- a/lib/iov_iter.c
-> +++ b/lib/iov_iter.c
-[ ... ]
-> @@ -631,7 +632,8 @@ void iov_iter_revert(struct iov_iter *i, size_t unrol=
-l)
->  		return;
->  	}
->  	unroll -=3D i->iov_offset;
-> -	if (iov_iter_is_xarray(i) || iter_is_ubuf(i)) {
-> +	if (iov_iter_is_xarray(i) || iter_is_ubuf(i) ||
-> +	    iov_iter_is_dmabuf_map(i)) {
->  		BUG(); /* We should never go beyond the start of the specified
->  			* range since we might then be straying into pages that
->  			* aren't pinned.
 
-[Severity: High]
-Does setting iov_offset to the absolute file offset in iov_iter_dmabuf_map()
-break the bounds check in iov_iter_revert() prior to this BUG() guard?
-
-In iov_iter_revert(), the check is:
-
-	if (unroll <=3D i->iov_offset) {
-		i->iov_offset -=3D unroll;
-		return;
-	}
-
-If iov_offset contains an absolute offset rather than relative progress (0),
-does this evaluate the relative unroll amount against the absolute offset,
-allowing the iterator to rewind completely out of bounds without hitting
-the BUG() safety check?
-
-[ ... ]
-> @@ -775,6 +777,20 @@ void iov_iter_xarray(struct iov_iter *i, unsigned in=
-t direction,
->  }
->  EXPORT_SYMBOL(iov_iter_xarray);
-> =20
-> +void iov_iter_dmabuf_map(struct iov_iter *i, unsigned int direction,
-> +			 struct dma_buf_io_map *map,
-> +			 loff_t off, size_t count)
+> +static int nvme_init_io_ctx_locked(struct nvme_ctrl *ctrl,
+> +		struct nvme_dma_buf_list *buf_list,
+> +		struct dma_buf_io_ctx *ctx)
 > +{
-> +	WARN_ON(direction & ~(READ | WRITE));
-> +	*i =3D (struct iov_iter){
-> +		.iter_type =3D ITER_DMABUF_MAP,
-> +		.data_source =3D direction,
-> +		.dmabuf_map =3D map,
-> +		.count =3D count,
-> +		.iov_offset =3D off,
-> +	};
-> +}
+> +	struct nvme_dma_buf_io_ctx *nvme_ctx;
+> +	struct dma_buf_attachment *attach;
+> +
+> +	nvme_ctx =3D kzalloc_obj(*nvme_ctx);
+> +	if (!nvme_ctx)
+> +		return -ENOMEM;
+> +
+> +	attach =3D dma_buf_dynamic_attach(ctx->dmabuf, ctrl->dev,
+> +					&nvme_dmabuf_importer_ops, ctx);
 
 [Severity: High]
-Since iov_offset is defined as a size_t, does assigning the loff_t off
-truncate the offset on 32-bit architectures?
+Does this code allow attaching a DMA-BUF to a tearing-down or dead PCI devi=
+ce?
 
-Additionally, when this iterator is mapped into a bio in subsequent patches,
-iter->iov_offset is copied into bio->bi_iter.bi_offset (an unsigned int).
+If the PCI device is hot-unplugged or its driver is unbound, nvme_remove()
+calls nvme_dev_disable() which cleans up existing DMA-BUF contexts via
+nvme_pci_remove_dmabuf().
 
-Does this cause truncation on 64-bit architectures as well?
+Since nvme_get_ctrl() only pins the char device, not the underlying
+PCI device binding, could an unprivileged user with an open file descriptor
+to the block device invoke the register buffers ioctl and race with
+device removal?
+
+> +	if (IS_ERR(attach)) {
+> +		kfree(nvme_ctx);
+> +		return PTR_ERR(attach);
+> +	}
+> +
+> +	nvme_get_ctrl(ctrl);
+> +	list_add(&nvme_ctx->list, &buf_list->ctxs);
+> +	nvme_ctx->attach =3D attach;
+> +	nvme_ctx->base =3D ctx;
+> +	nvme_ctx->ctrl =3D ctrl;
+> +	nvme_ctx->buf_list =3D buf_list;
+> +	ctx->dev_priv =3D nvme_ctx;
+> +	ctx->dev_ops =3D &nvme_dma_buf_io_ops;
+> +	return 0;
+> +}
+> +
+> +int __nvme_init_dma_buf_io_ctx(struct nvme_ctrl *ctrl,
+> +		struct nvme_dma_buf_list *buf_list,
+> +		struct dma_buf_io_ctx *ctx)
+> +{
+> +	int ret;
+> +
+> +	mutex_lock(&buf_list->lock);
+> +	ret =3D nvme_init_io_ctx_locked(ctrl, buf_list, ctx);
+
+[Severity: High]
+Is a controller state check needed here before proceeding with the attachme=
+nt?
+
+Without verifying ctrl->state, this function can successfully add a new
+attachment to the device's list, mapping it to a PCI device that is no
+longer managed by the driver. This could lead to IOMMU domain use-after-free
+or memory leaks.
+
+> +	mutex_unlock(&buf_list->lock);
+> +	return ret;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791924581.gi=
-t.asml.silence@gmail.com?part=3D2
+t.asml.silence@gmail.com?part=3D7
