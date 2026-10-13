@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F0A0CC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3168CCC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0901112169;
-	Thu, 15 Oct 2026 07:56:55 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4D7710E8AA
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:15:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BFC111216E;
+	Thu, 15 Oct 2026 07:56:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB50A10E0D7
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:11:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AF50A41762;
- Tue, 13 Oct 2026 15:15:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806871F00893;
- Tue, 13 Oct 2026 15:14:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 52EAF602C3;
+ Tue, 13 Oct 2026 15:11:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF321F000FF;
+ Tue, 13 Oct 2026 15:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791904502;
- bh=D64A0FyPbpB3tjb5UBGU9hKY5JLuh1oCwyYrtY/p4P4=;
+ s=k20260515; t=1791904288;
+ bh=XhhlSsemSmxgXNdMsOuIhrMWTeKjuFdWFETXzMuu8iA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=bvoldU8QpJo3JQxVK4J2tjQ1CB5qxRjNJojatUoKUKSimKeRUZ21DFIkxNXHWag0F
- WYEsWGQT3Zk1tYNBmKwrdf19JHYSmjOvpxDzdUVmWTp+SBROvYaFS7eCDz1G/oNkOr
- /XIBf4DTxzP6Upe4D4NtJ7vCow6X+nFdXwdGhfxIPELv9bXSydERUr0PzrcoZr6VRR
- PDLyXvuQm5rMEiRem/EcBBiDb6/MCP4ve0UV+goQj3EYY7qdZlJ1lUb/W2eFM7aE89
- yavwMKs4NICKcEc5ZKJ41gOo+PEh6CY/gf3RIY3AhySm0g6DIR/7WJH3UUhODYbfEy
- ZTE3m0fGS6V7A==
+ b=IKIipxQdSPSYUc5DegrUfXhw+UY8TxEShwIHCPvOyP3Fo7nYLrh2IQNkAXJ8Fk3qG
+ 5NKm3C/qQcM20S5Ki+XOsdy7/PYqEIrWtp8UI6+CeCk8YsmtC1N9fd5BTVf5cFvVNk
+ NMGpPlHt+op+fQCHjVX5+1fq9U5XJW7JYyarTQkoorG94NXtyMxzn733G9axCeMbJa
+ lkXYeo/u+cEaIxW4lgGcl+86OYqFfpNunFZ9kYAreq2eu3+0vOqMgkp+CMRpbnQdXp
+ s5LL1MpV7OhrpBtNQMA+1eZGZAfEWJqNlwJzyWsvPcmiyRSFwkJzjxFLZP17ooUtjE
+ 9tF9+0ODWeiYQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:57 +0100
-Subject: [PATCH v6 17/39] mm/vma: add and use vma_[flags]_is_fixed_mapping
+Date: Tue, 13 Oct 2026 16:04:50 +0100
+Subject: [PATCH v6 10/39] drivers/usb/mon: update to use mmap_prepare + map
+ kernel pages
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-17-1aa3c9b139f9@kernel.org>
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-10-1aa3c9b139f9@kernel.org>
 References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -118,12 +119,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6660; i=ljs@kernel.org;
- h=from:subject:message-id; bh=dXM3F0LVCDO3gk2G109Oq5R7FFl/u4sVnffApMdLzBc=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZw0WLT2vsW6382XLk08tzdngmbyisdsLXsv7Fz25
- p9gvPvbhx2lLAxiXAyyYoosz7+I7w8SCZvXecHfDWYOKxPIEAYuTgGYyLdUhj+c05qbb8jHzzv4
- 4cLWybuX+S7XXXLkoLr2LNUMk3unbqw0Zfif8WdC5Neji/qrzeaUr5NmiGQ+nflAi0183/M1tfP
- yGk8xAAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6274; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=MVQ57kbHbmPy06L79MgXIJ1zXhvIw2KdqOI+DoqsBik=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZww8O4S7JCc5rj36DPzyVP0/8QtrKndkVv56HDhg
+ XUSFSuiOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARXWuGf7YXuo3euG15J7w9
+ JGPHn3RlmbKq+WHX9sRN6v6lJRQ3z5uRoc1risU17a+rt+i4RG6aF2+pvbrs2/UKDpHg+av2vJO
+ axA4A
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
@@ -142,187 +143,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This determines whether a VMA cannot be expanded or merged because what
-they mapped was determined to be a set size at mmap time.
+Replace the deprecated .mmap hook with its replacement .mmap_prepare. As
+part of this change, additionally take the approach of mapping pages upon
+mmap rather than providing a fault handler.
 
-This typically refers to mappings not managed by core mm, however
-VMA_DONTEXPAND_BIT
-is not reliably set alongside VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT, so we
-must explicitly test for this for now.
+The page span cannot be mutated when an mmap mapping is in place, so this
+is safe to do in advance (the MON_IOCT_RING_SIZE ioctl operation exits
+-EBUSY if it's attempted, gated by the rp->mmap_active reference count).
 
-We also explicitly test for VMA_PFNMAP_BIT as VMA_DONTEXPAND_BIT may not be
-set for VMA_PFNMAP_BIT's despite the one implying the other.
+Utilise the newly introduced mmap_action_map_discontig_kernel_pages() to do
+this, which allows for iteration over pages in mon_bin_discontig_get().
 
-Use this predicate in vma_flags_can_merge() and in check_prep_vma() in the
-mremap logic testing to see if mremap() can expand the VMA. The criteria
-for khugepaged and MADV_COLLAPSE eligibility in
-__thp_vma_allowable_orders() are precisely those for mergeability, so use
-vma_can_merge() there (with an expanded comment).
+mon_bin_discontig_init() increments the rp->mmap_active reference count to
+stabilise page spans. Should an error arise the core unmaps the VMA and
+mon_bin_vma_close() drops the reference again.
 
-This obviates the need for the VM_NO_KHUGEPAGED mask, so remove it.
+The vm_ops->close hook implemented in mon_bin_vma_close() will ensure
+correct reference count arithmetic upon unmap (with mon_bin_vma_open()
+accounting for splitting).
 
-Hugetlb VMAs remain excluded from khugepaged as hugetlbfs always sets
-VMA_DONTEXPAND_BIT.
+The existing semantics are all retained, including not mapping past the
+range of available pages, with a SIGBUS being raised in a userland process
+that attempts to access past this point.
 
-Also update the userland VMA tests to reflect the change.
+Ultimately insert_page() is invoked to insert each page, which increments
+the reference count on each mapped page. This mimics what was being done
+previously, only we pre-map the entire range rather than doing so on
+demand.
 
-No functional change intended.
+The existing fault handler did nothing that required demand paging, and was
+presumably implemented this way for historical reasons.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+One behavioural difference: pages are no longer faulted in on demand, so a
+page discarded with MADV_DONTNEED is not repopulated and a subsequent
+access raises SIGBUS, as with other pre-populated kernel mappings.
+
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mm.h              | 39 +++++++++++++++++++++++++++++++++++----
- mm/huge_memory.c                | 11 +++++++----
- mm/mremap.c                     |  5 ++---
- tools/testing/vma/include/dup.h | 16 +++++++++++++++-
- 4 files changed, 59 insertions(+), 12 deletions(-)
+ drivers/usb/mon/mon_bin.c | 82 ++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 53 insertions(+), 29 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index df8a5a1eb9c3..2ecf39bc857b 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -600,9 +600,6 @@ enum {
- #define VMA_REMAP_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,	\
- 				     VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT)
- 
--/* This mask prevents VMA from being scanned with khugepaged */
--#define VM_NO_KHUGEPAGED (VM_SPECIAL | VM_HUGETLB)
--
- /* This mask defines which mm->def_flags a process can inherit its parent */
- #define VM_INIT_DEF_MASK	VM_NOHUGEPAGE
- 
-@@ -1647,6 +1644,40 @@ static inline bool vma_is_mm_managed(const struct vm_area_struct *vma)
- 	return vma_flags_is_mm_managed(&vma->flags);
+diff --git a/drivers/usb/mon/mon_bin.c b/drivers/usb/mon/mon_bin.c
+index 687f6a8981f3..9d00b21a8153 100644
+--- a/drivers/usb/mon/mon_bin.c
++++ b/drivers/usb/mon/mon_bin.c
+@@ -1219,6 +1219,15 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
+ 	return mask;
  }
  
-+/**
-+ * vma_flags_is_fixed_mapping() - Do the specified VMA flags indicate that this
-+ * is a fixed mapping that cannot be expanded or merged?
-+ * @flags: The VMA flags to test.
-+ *
-+ * Fixed mappings are those whose size is set at the point of mmap (for
-+ * instance, a mapping of a fixed range of memory established by a driver),
-+ * and thus cannot be expanded or merged.
-+ *
-+ * Returns: true if the flags indicate a fixed mapping.
-+ */
-+static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
++static void __mon_bin_vma_open(struct mon_reader_bin *rp)
 +{
-+	/*
-+	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
-+	 * only the former.
-+	 */
-+	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
++	unsigned long flags;
++
++	spin_lock_irqsave(&rp->b_lock, flags);
++	rp->mmap_active++;
++	spin_unlock_irqrestore(&rp->b_lock, flags);
 +}
 +
-+/**
-+ * vma_is_fixed_mapping() - Is this VMA a fixed mapping that cannot be
-+ * expanded or merged?
-+ * @vma: The VMA to test.
-+ *
-+ * See vma_flags_is_fixed_mapping() for a description of this property.
-+ *
-+ * Returns: true if the VMA maps a fixed mapping.
-+ */
-+static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_fixed_mapping(&vma->flags);
-+}
-+
- /**
-  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
-  * merged with another?
-@@ -1668,7 +1699,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
- 	if (!vma_flags_is_mm_managed(flags))
- 		return false;
- 	/* VMA explicitly marked as being unmergeable. */
--	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
-+	if (vma_flags_is_fixed_mapping(flags))
- 		return false;
- 
- 	return true;
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 4cd917f77f3f..87e8bf8029ab 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -212,11 +212,14 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 		return in_pf ? orders : 0;
- 
- 	/*
--	 * khugepaged special VMA and hugetlb VMA.
--	 * Must be checked after dax since some dax mappings may have
--	 * VM_MIXEDMAP set.
-+	 * khugepaged moves data from VMAs once collapsed, after they have been
-+	 * faulted in, relying on refaulting for file-backed memory.
-+	 *
-+	 * Mappings not managed by core mm cannot be reliably reconstructed from
-+	 * page faults, and fixed mappings (including hugetlb) may well be
-+	 * mm-managed - precisely the mappings which cannot be merged.
- 	 */
--	if (!in_pf && !smaps && (vm_flags & VM_NO_KHUGEPAGED))
-+	if (!in_pf && !smaps && !vma_can_merge(vma))
- 		return 0;
- 
- 	/*
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 7c368440fafe..ed19b47c2caf 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -1788,8 +1788,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
- 		return -EINVAL;
- 	}
- 
--	if ((vrm->flags & MREMAP_DONTUNMAP) &&
--	    vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
-+	if ((vrm->flags & MREMAP_DONTUNMAP) && vma_is_fixed_mapping(vma))
- 		return -EINVAL;
- 
- 	/*
-@@ -1827,7 +1826,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
- 	if (pgoff + (new_len >> PAGE_SHIFT) < pgoff)
- 		return -EINVAL;
- 
--	if (vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
-+	if (vma_is_fixed_mapping(vma))
- 		return -EFAULT;
- 
- 	if (!mlock_future_ok(mm, vma_test(vma, VMA_LOCKED_BIT), vrm->delta))
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 89c645a6ad60..442ea9eb098d 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1676,6 +1676,20 @@ static inline bool vma_is_mm_managed(const struct vm_area_struct *vma)
- 	return vma_flags_is_mm_managed(&vma->flags);
- }
- 
-+static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
-+{
-+	/*
-+	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
-+	 * only the former.
-+	 */
-+	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
-+}
-+
-+static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_fixed_mapping(&vma->flags);
-+}
-+
- static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ /*
+  * open and close: just keep track of how many times the device is
+  * mapped, to use the proper memory allocation function.
+@@ -1226,64 +1235,79 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
+ static void mon_bin_vma_open(struct vm_area_struct *vma)
  {
- 	/*
-@@ -1691,7 +1705,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
- 	if (!vma_flags_is_mm_managed(flags))
- 		return false;
- 	/* VMA explicitly marked as being unmergeable. */
--	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
-+	if (vma_flags_is_fixed_mapping(flags))
- 		return false;
+ 	struct mon_reader_bin *rp = vma->vm_private_data;
+-	unsigned long flags;
  
- 	return true;
+-	spin_lock_irqsave(&rp->b_lock, flags);
+-	rp->mmap_active++;
+-	spin_unlock_irqrestore(&rp->b_lock, flags);
++	__mon_bin_vma_open(rp);
+ }
+ 
+-static void mon_bin_vma_close(struct vm_area_struct *vma)
++static void __mon_bin_vma_close(struct mon_reader_bin *rp)
+ {
+ 	unsigned long flags;
+ 
+-	struct mon_reader_bin *rp = vma->vm_private_data;
+ 	spin_lock_irqsave(&rp->b_lock, flags);
+ 	rp->mmap_active--;
+ 	spin_unlock_irqrestore(&rp->b_lock, flags);
+ }
+ 
+-/*
+- * Map ring pages to user space.
+- */
+-static vm_fault_t mon_bin_vma_fault(struct vm_fault *vmf)
++static void mon_bin_vma_close(struct vm_area_struct *vma)
+ {
+-	struct mon_reader_bin *rp = vmf->vma->vm_private_data;
++	struct mon_reader_bin *rp = vma->vm_private_data;
++
++	__mon_bin_vma_close(rp);
++}
++
++static const struct vm_operations_struct mon_bin_vm_ops = {
++	.open =     mon_bin_vma_open,
++	.close =    mon_bin_vma_close,
++};
++
++static int mon_bin_discontig_init(void *vm_private_data, void **private)
++{
++	struct mon_reader_bin *rp = vm_private_data;
++
++	/* Dropped by mon_bin_vma_close() on unmap, including on error. */
++	__mon_bin_vma_open(rp);
++	return 0;
++}
++
++static int mon_bin_discontig_get(struct discontig_kernel_page_state *state)
++{
++	struct mon_reader_bin *rp = state->vm_private_data;
+ 	unsigned long offset, chunk_idx;
+-	struct page *pageptr;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&rp->b_lock, flags);
+-	offset = vmf->pgoff << PAGE_SHIFT;
++
++	offset = state->pgoff << PAGE_SHIFT;
+ 	if (offset >= rp->b_size) {
+ 		spin_unlock_irqrestore(&rp->b_lock, flags);
+-		return VM_FAULT_SIGBUS;
++		discontig_kernel_map_abort(state);
++		return 0;
+ 	}
+ 	chunk_idx = offset / CHUNK_SIZE;
+-	pageptr = rp->b_vec[chunk_idx].pg;
+-	get_page(pageptr);
+-	vmf->page = pageptr;
++	discontig_kernel_map_page(state, rp->b_vec[chunk_idx].pg);
++
+ 	spin_unlock_irqrestore(&rp->b_lock, flags);
+ 	return 0;
+ }
+ 
+-static const struct vm_operations_struct mon_bin_vm_ops = {
+-	.open =     mon_bin_vma_open,
+-	.close =    mon_bin_vma_close,
+-	.fault =    mon_bin_vma_fault,
++static const struct discontig_kernel_page_ops mon_discontig_ops = {
++	.init = mon_bin_discontig_init,
++	.get = mon_bin_discontig_get,
+ };
+ 
+-static int mon_bin_mmap(struct file *filp, struct vm_area_struct *vma)
++static int mon_bin_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	/* don't do anything here: "fault" will set up page table entries */
+-	vma->vm_ops = &mon_bin_vm_ops;
++	const struct file *filp = desc->file;
+ 
+-	if (vma->vm_flags & VM_WRITE)
++	if (vma_desc_test(desc, VMA_WRITE_BIT))
+ 		return -EPERM;
+ 
+-	vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP, VM_MAYWRITE);
+-	vma->vm_private_data = filp->private_data;
+-	mon_bin_vma_open(vma);
++	desc->vm_ops = &mon_bin_vm_ops;
++	vma_desc_clear_flags(desc, VMA_MAYWRITE_BIT);
++	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
++	desc->private_data = filp->private_data;
++
++	mmap_action_map_discontig_kernel_pages(desc, NULL, &mon_discontig_ops);
+ 	return 0;
+ }
+ 
+@@ -1298,7 +1322,7 @@ static const struct file_operations mon_fops_binary = {
+ 	.compat_ioctl =	mon_bin_compat_ioctl,
+ #endif
+ 	.release =	mon_bin_release,
+-	.mmap =		mon_bin_mmap,
++	.mmap_prepare = mon_bin_mmap_prepare,
+ };
+ 
+ static int mon_bin_wait_event(struct file *file, struct mon_reader_bin *rp)
 
 -- 
 2.55.0
