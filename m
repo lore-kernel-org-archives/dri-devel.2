@@ -4,81 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F875CA9ED2
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E719CC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:02:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7240F10E828;
-	Tue, 13 Oct 2026 13:00:26 +0000 (UTC)
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4268110E828
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:00:20 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2d8f2ed7bdcso3833045ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 06:00:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791896420; x=1792501220; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=BPjCWxUSfRvlJUtSVwuDIbCnah44rNQ2fIrGmDlzw+k=;
- b=K2U2Bpn9/02YescAKbK4RHOn5l4FYlYMN9UKJt3UT87a/TqbK3aWhb9jGyPEpFo3Zi
- zBMtGlye4RJxRBPtX2G9CNUtQnIQQlfl4EfGsMpNKmoBG3ihkMZEalzn0xm/w6Ki2rAh
- DTcL/hoN11yFKUi902NwoDNukDkyNe2pY7B+bFKGuQ3RB9VNwuoZr6h3GW3MEZHHJcLK
- kowDBCloi6KSomFLe5upJ54nBcHxrtSi3xrGlSepFAtuhWFhRWJaJWfKi8qHNd6wORbM
- WEibYABzpX6TCtlvyhjHGgmhx8j5vjBoH3NPbotMtXudnjwqHuqE5D6fks75gXGY8dYW
- iQug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791896420; x=1792501220;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=BPjCWxUSfRvlJUtSVwuDIbCnah44rNQ2fIrGmDlzw+k=;
- b=UvhJ724SePUlPNNiwMBcIWqOSt0ZlbXjRNLucBot5sGsXQt34fiY1IO91DYMZoBLa5
- QzMcUFx1jpP3S/0nE4cuQTfozGxpgX2ec8CwczY0G7xsJ5QPfo3+0UZRz2DEQ+GYTXo2
- ghqEN9nL1uLbmjk+hB581K8UETWg08YA4T3tW40E4MNwE5l09hglB0JoyzNAvuUEUJsl
- B5Ws0zeo0CNgmpWg4h80ZP8l7adRVn0OFTPcZIFy7pR+Iv+5s26cjCwRc6GgFNnfyteW
- pUi1C+4UTQXLxjIoUwqznfn8Gjp6Siu6tk2wwlMyb9SrYB5jBQaxW2jp4YaWcibLqItA
- eDNw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz1ftwXxjwGh9TY/dpImYIKGhGwUAUNbWs1umAzQhQtuAIA1NaeLZEEr2GdIZrM9NVxSy80dI6fg1U=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLnF/yzmqxU4e2CuqSPHg3Jo6tuBtXK7I2X3y5L/vz8EmASmG+W
- khZNRM+fVV8B762HJxst4dccxoWZidfyaeeH/inJ/rnJw5p7E+IBIdOQ1JHh31r8KK+HWg==
-X-Gm-Gg: AYBFou2zPCGZ8jKZrlp0ltT180pHLvUXuBLltJz07jMf1fB0HWyaF9aWNtpgB6ynkz+
- 7cGc5BOBEHJDXsjpFQJ8yrCgwzLzgGouDx3wUDeqitR8Sd2ZvbZh1DCGe2TLfDOm8N9DwNcFiNL
- LWfJy1TFjnlRHTe2P+PS2QpgWmJo1DBoeqUDY/YVjuH4V0TYi3EVWlW7GrAGHoLXBqJyMjg3cKE
- SXQof+Q1Y4oTSRN8OtzXn6JQBWlOoclqbJvVMO/ri1lC+mzu3MLluiF8XAhSaffEdwdk/iyaZwL
- Zws1/Zfa3iiLH54kd8ljdnW+mca9IiNJd6OhHXjYgWiAwCj30yU7Hp3DLaEjEiufwvybgKZVvMv
- ol2UJHSjMzJcwbxjws+YVPVM9p4989vCXw3ARzPqmjp4KIgY2+K1ILh9KiLta2Ro748J/lW6vwo
- u2OOTkO0UVhrrb1Zwnk9OMVf6S6s+vSggsCykw9K8KFMqdijVd+tw+v9+op85zHSpTLuAHpA==
-X-Received: by 2002:a17:903:2f8c:b0:2e5:c78a:5309 with SMTP id
- d9443c01a7336-2e842ab6bb0mr178440135ad.4.1791896419592; 
- Tue, 13 Oct 2026 06:00:19 -0700 (PDT)
-Received: from marchy ([2405:3800:834:ced2:ee8e:77ff:fed4:d18b])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2e8422e4cf3sm53869375ad.72.2026.10.13.06.00.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2026 06:00:18 -0700 (PDT)
-Date: Tue, 13 Oct 2026 21:00:15 +0800
-From: Adam Azuddin <azuddinadam@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
- airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Add RAiO RA8875
- display controller
-Message-ID: <as4rX-xVWUPcczNp@marchy>
-References: <20261012064518.3497285-1-azuddinadam@gmail.com>
- <20261012064518.3497285-2-azuddinadam@gmail.com>
- <20261013-artificial-splendid-goat-d078dc@quoll>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-artificial-splendid-goat-d078dc@quoll>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7AAD10E80A;
+	Tue, 13 Oct 2026 13:02:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B0C10E80A
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:02:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3931D602C3;
+ Tue, 13 Oct 2026 13:02:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7144B1F000FF;
+ Tue, 13 Oct 2026 13:02:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791896551;
+ bh=XJ2kkZ+RvTB0VG/+3wOa1NDgrg0e/cxGLS6EIfDrKl0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dNyZjoAD/in71vjBe7A66me2pfaxbPkqCz5x3+X2HGyV/XzafFOe/4clLZSg5Ymz6
+ GVu3mMl6ddDBDSgBfK7Fr1fG3ug982XyaVHF9h7UBBSZDmO0OgVonYUdltBZYDDGfw
+ Fmu2/icpsh/7Sxb/SD4DAPwqs5d3UIFHascDPI1/yBIp/VT8cV9o+L7BEhKjeO57ye
+ 4BoUwM47Ftwhla/CKI5zG/VaKwDVvr4jHZc79M6C7zBUayWmjIrmaXMve/5QPre5HN
+ rfQpjsKoHelP6prnA4Owk4xpErMWpQP9z1qavOW7NKYCii/zk1JMY0RrFjPqry2aYN
+ +/qBBcPNDObGQ==
+Message-ID: <sashiko-outbox-169767@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 4/6] phy: rockchip: Add support for Naneng eDP phy
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org,
+ vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261013124946.1807886-5-damon.ding@rock-chips.com>
+References: <20261013124946.1807886-1-damon.ding@rock-chips.com>
+ <20261013124946.1807886-5-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 13:02:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,24 +52,151 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] phy: rockchip: Missing set_lanes configuration and UB on unverifie=
+d dp->lanes
+- [Medium] Uninitialized variable val used if regmap_read fails
+--
 
-On Tue, Oct 13, 2026 at 09:33:38AM +0200, Krzysztof Kozlowski wrote:
-> On Mon, Oct 12, 2026 at 02:45:04PM +0800, Adam Azuddin wrote:
-> > The RA8875 is an SPI-connected TFT display controller by RAiO
-> > Technology Inc. It supports display resolutions of up to 800x480.
-> > 
-> > Add YAML binding schema for the RA8875 controller, along with
-> 
-> So you ignored my feedback.
+commit be568cbd60b1a73a69ea7b9233f6bd9cf9a8b067
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-My mistake, I misunderstood your feedback regarding the redundant
-binding text in the commit description.
+    phy: rockchip: Add support for Naneng eDP phy
+   =20
+    Add a driver for the Rockchip eDP transmitter PHY with NaNeng IP
+    block, as found on the RK3568 SoC.
 
-I will fix the commit message and send v5.
+> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-edp.c b/drivers/phy=
+/rockchip/phy-rockchip-naneng-edp.c
+> new file mode 100644
+> index 0000000000000..a407714f639a7
+> --- /dev/null
+> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-edp.c
+[ ... ]
+> +static int rockchip_edp_phy_set_rate(struct rockchip_edp_phy *edpphy,
+> +				     struct phy_configure_opts_dp *dp)
+> +{
+[ ... ]
+> +	regmap_write(edpphy->grf, EDP_PHY_GRF_CON0, FIELD_PREP_WM16(EDP_PHY_PD_=
+PLL_MASK, 0));
+> +	regmap_write(edpphy->grf, EDP_PHY_GRF_CON0,
+> +		     FIELD_PREP_WM16(EDP_PHY_TX_PD_MASK, ~GENMASK(dp->lanes - 1, 0)));
 
-Best regards,
-Adam
+[Severity: High]
+If a caller passes a struct where dp->lanes is 0, will this trigger undefin=
+ed
+behavior?
+
+If dp->lanes is 0, ~GENMASK(dp->lanes - 1, 0) evaluates to
+GENMASK(UINT_MAX, 0), triggering a negative right-shift count in C. This can
+occur if a caller invokes phy_configure() with opts->dp.set_rate =3D 1 with=
+out
+having first configured the lane count.
+
+[ ... ]
+> +static int rockchip_edp_phy_verify_config(struct rockchip_edp_phy *edpph=
+y,
+> +					  struct phy_configure_opts_dp *dp)
+> +{
+[ ... ]
+> +	if (dp->set_lanes) {
+> +		/* Verify lane count. */
+> +		switch (dp->lanes) {
+> +		case 1:
+> +		case 2:
+> +		case 4:
+> +			/* valid lane count. */
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * If changing voltages is required, check swing and pre-emphasis
+> +	 * levels, per-lane.
+> +	 */
+> +	if (dp->set_voltages) {
+> +		/* Lane count verified previously. */
+> +		for (i =3D 0; i < dp->lanes; i++) {
+> +			if (dp->voltage[i] > 3 || dp->pre[i] > 3)
+> +				return -EINVAL;
+
+[Severity: High]
+Is it possible for dp->lanes to be used unvalidated here?
+
+The comment says "Lane count verified previously", but the validation of
+dp->lanes is bypassed if dp->set_lanes is false. If a driver calls
+phy_configure() with opts->dp.set_voltages =3D 1 and opts->dp.set_lanes =3D=
+ 0,
+an uninitialized or invalid dp->lanes value could lead to out-of-bounds arr=
+ay
+reads.
+
+[ ... ]
+> +static int rockchip_edp_phy_configure(struct phy *phy, union phy_configu=
+re_opts *opts)
+> +{
+> +	struct rockchip_edp_phy *edpphy =3D phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	ret =3D rockchip_edp_phy_verify_config(edpphy, &opts->dp);
+> +	if (ret) {
+> +		dev_err(edpphy->dev, "Invalid params for phy configure\n");
+> +		return ret;
+> +	}
+> +
+> +	if (opts->dp.set_rate) {
+> +		ret =3D rockchip_edp_phy_set_rate(edpphy, &opts->dp);
+> +		if (ret) {
+> +			dev_err(edpphy->dev, "Failed to set rate\n");
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	if (opts->dp.set_voltages) {
+> +		ret =3D rockchip_edp_phy_set_voltages(edpphy, &opts->dp);
+> +		if (ret) {
+> +			dev_err(edpphy->dev, "Failed to set voltages\n");
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Is opts->dp.set_lanes intentionally ignored when configuring the PHY?
+
+The opts->dp.set_lanes flag isn't handled here, meaning the hardware lane
+count is never configured. This missing state also causes the uninitialized
+dp->lanes issues in rockchip_edp_phy_set_rate() and
+rockchip_edp_phy_set_voltages().
+
+[ ... ]
+> +static bool rockchip_edp_phy_enabled(struct rockchip_edp_phy *edpphy)
+> +{
+> +	u32 val;
+> +
+> +	regmap_read(edpphy->grf, EDP_PHY_GRF_STATUS0, &val);
+> +
+> +	return FIELD_GET(PLL_RDY, val);
+
+[Severity: Medium]
+If regmap_read() fails, does this return stack garbage?
+
+A failure in regmap_read() leaves val uninitialized. Using the uninitialized
+stack variable could cause the driver to incorrectly assume the PHY is alre=
+ady
+enabled.
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013124946.1807=
+886-1-damon.ding@rock-chips.com?part=3D4
