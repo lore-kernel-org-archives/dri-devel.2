@@ -4,70 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBB9BCC6B08
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:53:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9598BCC6B0F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 052A310E496;
-	Tue, 13 Oct 2026 13:53:40 +0000 (UTC)
-X-Greylist: delayed 572 seconds by postgrey-1.36 at gabe;
- Tue, 13 Oct 2026 13:53:33 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [46.38.247.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4195010E496
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:53:33 +0000 (UTC)
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
- by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j3wWv1Qg1z8B09;
- Tue, 13 Oct 2026 15:43:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1791898987;
- bh=kn1pWwRqpSQrn5KGooof/V03NDOuyyBzzBkT7Vi6SwU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=EPog4h01ga+F8U3shEq7EMlLuCDz3HXb7iY9xLYTkixzfoVzjfJD+O/HRjG9ADSLv
- Mx1VLeEzB6kJntJRTHlUZfyMdAGP1X3me3Mtkh5M7sf8LP6PpK4O13rik3qk8+IKfU
- c9+EpsiaT8lPB8BhDT+wWTarOn8mKYTem+CiaKGii2duzSwBNlRTwLXiZcJD1GJqKJ
- 2KweN/+YbwoccjK3vJTpedsVqWBp/5yHAAslWokb/h8fzT8QWYZO+lZyX/S7keLpWX
- oztl5IJwR8XlQa8OWqVNwJ5PMHo0MDh8KyGg5aHxX6qqvD2DfSGRllbhnzZvAifJBE
- BZkiTMTlcSXsg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j3wWv0hpxz4y7n;
- Tue, 13 Oct 2026 15:43:07 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4j3wWs1dMTz8tfq;
- Tue, 13 Oct 2026 15:43:05 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 8117F5FB0E;
- Tue, 13 Oct 2026 15:43:04 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <144d54c1-fc08-4135-82ba-7cab417ebc3a@leemhuis.info>
-Date: Tue, 13 Oct 2026 15:43:04 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB64510E8B2;
+	Tue, 13 Oct 2026 13:55:39 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8C8110E615
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=3CfLPi3EYkogGa8SEiZ9IfC7GfR+WvoRaeDU2ttb0Xs=; b=p3QSWiVo3orvc+HNnn8MQoVopj
+ ACXWgnwlP7JH2JjfXyQeCx4x6Smqy4weGRtscULCso6BQuhkp4PSZZpLFkUImx8fNSvvZxqgGJTti
+ T2sjGsF986wxfaT9ZkRd7hKyFk8AB9FQyBYytwuKyaqAo5cbmDYTSzJct5e09pvEcfdvf2tMPIzVy
+ o7B4qfCzrhaIcPh1T5/V/4iGyb7KwG8alK90ZlhksmOWrzlOypvYyTtBrwBU3bCoDGTatHQWjLcAm
+ csG2GNb12n+eM9Z0XKD1FkypfAObmehO9tCdTkViQloAkEGa23xHzFaOouYmUZ78E002nv/mA2O5R
+ pnyf7BWg==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xGcyE-00H6ZZ-5T; Tue, 13 Oct 2026 15:55:10 +0200
+Message-ID: <d99331fb-2e8c-457d-ad56-a3d52ff4fb97@igalia.com>
+Date: Tue, 13 Oct 2026 10:55:02 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] 7.1: apple-gmux backlight dead on MacBookPro13,3 -
- PCI bridge left with VGA enable set and VGA 16-bit decode cleared, aliasing
- legacy VGA I/O over the gmux ports
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Haram Choi <haram@choiharam.com>
-Cc: dri-devel@lists.freedesktop.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <CAAKWd2_MZSC=A2EHuEw3=eECr1QfaqrhYawW=njt5muk=5sA_A@mail.gmail.com>
- <0102019fcb5d411c-e0a555b7-46da-43a1-bd9d-6cb120f58a7f-000000@eu-west-1.amazonses.com>
- <ap_yIeUyNu5WxSnX@intel.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <ap_yIeUyNu5WxSnX@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 02/13] drm: Discard pm_runtime_put_autosuspend() return
+ values
+To: Brian Norris <briannorris@chromium.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: linux-pm@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org
+References: <20261006231900.3230373-1-briannorris@chromium.org>
+ <20261006161337.2.If1822f9a34be06cf5939be44ac6465c543087c75@changeid>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20261006161337.2.If1822f9a34be06cf5939be44ac6465c543087c75@changeid>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179189898482.895600.241311855441224226@mxe9fb.netcup.net>
-X-NC-CID: v4imGa248cozeojC2LcUIjjt27yx0htnngaRM5/r3+Ng7SF8B04=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,27 +89,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/8/26 13:31, Ville Syrjälä wrote:
-> On Tue, Aug 04, 2026 at 06:01:54AM +0000, Haram Choi wrote:
->> I think I have found the commit. It is not in drivers/pci at all, and
->> my previous suspicion of 94555ea9a048 was wrong. Apologies to Simon
->> for the noise.
->>
->> The regression is:
->>
->>   cc6ed470caa2 ("drm/i915/vga: Avoid VGA arbiter during
->>                  intel_vga_disable() for iGPUs")
->>   Ville Syrjala <ville.syrjala@linux.intel.com>, 2025-12-08
->>
->> I have added Ville, intel-gfx and dri-devel to Cc.
->[...]
-> 
-> Sounds to me like the best fix would be to explicitly enable
-> 16 bit decoding on the bridges on these machines. That would
-> guarantee that apple-gmux works regardless of which GPU
-> drivers are loaded, and in which order.
-Was this regression ever addressed? From the outside it looks like it
-feel through the cracks, but well, it easy to miss something from where
-I stand.
+Hi Brian,
 
-Ciao, Thorsten
+On 06/10/26 20:13, Brian Norris wrote:
+> Several DRM drivers use or propagate the pm_runtime_put_autosuspend()
+> return value, which is not particularly useful.
+> 
+> Returning an error code from pm_runtime_put_autosuspend() merely means
+> that it has not queued up a timer or work item to check whether or not
+> the device can be suspended and there are many perfectly valid
+> situations in which that can happen, like after writing "on" to the
+> device's runtime PM "control" attribute in sysfs for one example.
+> 
+> For this reason, modify these drivers to simply discard the
+> pm_runtime_put_autosuspend() return value, and change the return type of
+> v3d_pm_runtime_put() (whose return value is never used) to void.  Also
+> drop the redundant pm_runtime_mark_last_busy() calls right before
+> pm_runtime_put_autosuspend().
+> 
+> This will facilitate a planned change of the
+> pm_runtime_put_autosuspend() return type to void in the future, similar
+> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+> type to void").
+> 
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+
+For V3D,
+
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
+
+Best regards,
+- Maíra
+
+> ---
+> This patch is independent of the rest of the series, except for the end
+> (changing the return type). I expect it can be applied by individual
+> maintainers, and we pick up the end once the dust is settled.
+> 
+>   drivers/gpu/drm/panel/panel-simple.c | 8 +-------
+>   drivers/gpu/drm/tidss/tidss_drv.c    | 7 +------
+>   drivers/gpu/drm/v3d/v3d_drv.h        | 4 ++--
+>   3 files changed, 4 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index c95964ba25a9..193d1b2b0ba5 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -318,12 +318,7 @@ static int panel_simple_suspend(struct device *dev)
+>   
+>   static int panel_simple_unprepare(struct drm_panel *panel)
+>   {
+> -	int ret;
+> -
+> -	pm_runtime_mark_last_busy(panel->dev);
+> -	ret = pm_runtime_put_autosuspend(panel->dev);
+> -	if (ret < 0)
+> -		return ret;
+> +	pm_runtime_put_autosuspend(panel->dev);
+>   
+>   	return 0;
+>   }
+> @@ -389,7 +384,6 @@ static int panel_simple_get_modes(struct drm_panel *panel,
+>   
+>   		num += drm_edid_connector_add_modes(connector);
+>   
+> -		pm_runtime_mark_last_busy(panel->dev);
+>   		pm_runtime_put_autosuspend(panel->dev);
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+> index 1c8cc18bc53c..44b0b009c29a 100644
+> --- a/drivers/gpu/drm/tidss/tidss_drv.c
+> +++ b/drivers/gpu/drm/tidss/tidss_drv.c
+> @@ -40,12 +40,7 @@ int tidss_runtime_get(struct tidss_device *tidss)
+>   
+>   void tidss_runtime_put(struct tidss_device *tidss)
+>   {
+> -	int r;
+> -
+> -	pm_runtime_mark_last_busy(tidss->dev);
+> -
+> -	r = pm_runtime_put_autosuspend(tidss->dev);
+> -	WARN_ON(r < 0);
+> +	pm_runtime_put_autosuspend(tidss->dev);
+>   }
+>   
+>   static int __maybe_unused tidss_pm_runtime_suspend(struct device *dev)
+> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+> index 29fa14be130b..eb002048ae9c 100644
+> --- a/drivers/gpu/drm/v3d/v3d_drv.h
+> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
+> @@ -669,9 +669,9 @@ static __always_inline int v3d_pm_runtime_get(struct v3d_dev *v3d)
+>   	return pm_runtime_resume_and_get(v3d->drm.dev);
+>   }
+>   
+> -static __always_inline int v3d_pm_runtime_put(struct v3d_dev *v3d)
+> +static __always_inline void v3d_pm_runtime_put(struct v3d_dev *v3d)
+>   {
+> -	return pm_runtime_put_autosuspend(v3d->drm.dev);
+> +	pm_runtime_put_autosuspend(v3d->drm.dev);
+>   }
+>   
+>   /* v3d_sched.c */
+
