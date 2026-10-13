@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD836CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 02:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC094CC6B08
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 02:37:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0219A10F43F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28F9D10F441;
 	Tue, 13 Oct 2026 02:37:01 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFF2E10E717
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:36:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72B9A10E707
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:36:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 24D7144814;
- Tue, 13 Oct 2026 02:36:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F3C35C32781;
- Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8BB4B448B1;
+ Tue, 13 Oct 2026 02:36:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 63152C2BD05;
+ Tue, 13 Oct 2026 02:36:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1791858999;
- bh=SQxVnIgSoMpxwgy2C/tOXIa+mUW6lJ9yrAEyOKtRvkY=;
+ s=k20201202; t=1791859000;
+ bh=sU+wXJ+ys4qCtMJM95xYfXEN5DcQxvolz6ACV7wzY+E=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=cvzoZ3t5vDhE/qVyiV2ArNF3Pu6Uo2wqOvYpDHCeen+3mq3kJNjzJVtLdyC9bc/jD
- L2BR7jVgN5i9mYeat3KXlWg5DR/SWQsXoR9xckfh+/vmUeHd2UwFt6vY9TqVlD642Q
- GOkZhNjhGpSQsFNAt18EA8arI+kJysQ00ciXEC+af/Or11k8TPpDK42HWspqdf/nGJ
- R4mChWsHY3w2YdLQV8ZO1G4YiG/2oz81J0VaYzTLfOQBTXMY01fxXHGzip3rhQ2AL3
- JIyiO8Y5W1NGysOleKULp5GTpQ1d6BrXfRI90QGdc8GYodrDcMgnhd56Mp0mFnV3S5
- qqp480OJBt99g==
+ b=d6zDZVNapixQrKWCnMLLKXU9Qy0ogbsHVD4LF7KAvWUJ9dF/9EMEhvVZDvKeOjHk7
+ 09QwcSf9dpJB9VyJbgt9kbevqF/VOO25S1xyTTkw114bUSVs3fF1UgX0MBbSuVeI2l
+ +000vG7nGqoCGhg2Xewf84Bza7GgjeSpepvW2Aw5m1AzrOTJFtM6uWtz0G6/yLqFpu
+ 9/3heNw7bdQkStRV1thIx7n0SPBq234+xPbz2iybzCLGnGvVAB4JXqd/i7Hnpgdfxl
+ /Mlx4My7236H5UPosaTT4p81AHf4a6C/t7ruGR5OiVVPVFYtLqYn2ltcEN6DmKh3Cm
+ DYOWO9Pu338ww==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E11DFCA9EDC;
- Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 50D47CC6B09;
+ Tue, 13 Oct 2026 02:36:40 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Mon, 12 Oct 2026 20:36:47 -0600
-Subject: [PATCH v12 16/40] dyndbg: replace classmap list with an
- array-slice
+Date: Mon, 12 Oct 2026 20:37:01 -0600
+Subject: [PATCH v12 30/40] dyndbg: split multi-query strings with @
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-dd-cmap-part2-clean-v12-16-3c8cc5725def@gmail.com>
+Message-Id: <20261012-dd-cmap-part2-clean-v12-30-3c8cc5725def@gmail.com>
 References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
 In-Reply-To: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -64,14 +63,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=5766;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=9157;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=FbC+U5SzF/MC71lnuOjxn7IrkxDsicC3GNkHfHM9UpU=;
- b=irY/7iIaKq0nF5Wo9KFJv3rL7UdtDpGIQl0hm8nS9Xp0kNdGZaIueDB5aU34XIMFV0iZ1+i6j
- GsVenCrK081Benx5szCPe4TmUqWI6xHuV3VQ9SycqLGa/stOlYxHNTU
+ bh=UAPI+bql5xcOoAtvWwGuJKRaoPMw5YcxCRGKbM9nfAU=;
+ b=oQUGaoz0d6dRvPdhAJa625HMhaZix4ymC+v8X6j2uqgPg6sgRVScy9rzkxEbF9jTDYfmeGL8s
+ +Wt8s/EwmLIAyJspFk6mTgAo4SjKpjqy79qI31Ss67+lYrUhEoOg05d
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -95,173 +93,225 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Classmaps are stored in an elf section/array, but currently are
-individually list-linked onto dyndbg's per-module ddebug_table for
-operation. This is unnecessary.
+Since
+commit 85f7f6c0edb8 ("dynamic_debug: process multiple debug-queries on a line")
 
-Just like dyndbg's descriptors, classmaps are packed in compile order;
-so even with many builtin modules employing multiple classmaps, each
-modules' maps are packed contiguously, and can be treated as a
-array-start-address & array-length.
+Multi-query commands have been allowed:
 
-So this drops the whole list building operation done in
-ddebug_attach_module_classes(), and removes the list-head members of
-the classmap structs.  The "select-by-modname" condition is reused to
-find the start,end of the subrange of classmaps belonging to the module.
+  modprobe drm dyndbg="class DRM_UT_CORE +p; class DRM_UT_KMS +p"
+  modprobe drm dyndbg=<<EOX
+     class DRM_UT_CORE +p
+     class DRM_UT_KMS +p
+  EOX
+
+More recently, the need for quoting was avoided by treating a comma
+like a space/token-terminator:
+
+  modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+
+That works, but it needs the escaped semicolon, which is a shell
+special-char (one of the bash control operators), so it is brittle
+when passed in/down/around scripts.
+
+So this patch adds '@' to the existing ';' and '\n' multi-command
+separators, which is more shell-friendly, so you can more fully avoid
+quoting and escaping hassles.
+
+Update selftests script, adding a multi-query split on @
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v2: RvB after SoB
----
- include/linux/dynamic_debug.h |  1 -
- lib/dynamic_debug.c           | 64 +++++++++++++++++++++++--------------------
- 2 files changed, 35 insertions(+), 30 deletions(-)
+v10:
+. replace strpbrk() with quote-aware ddebug_find_delimiter() to ignore '@' inside quotes.
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index baf5c0853f45..9cd262a3fcba 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -76,7 +76,6 @@ enum ddebug_class_map_type {
- };
+v9:
+. update FT_multi_query command in dyndbg_selftest.sh to actively test @ delimiter.
+v5: avoid +t flag in content tests - pid is not predictable.
+    remove Reviewed-by: <louis.chauvet@bootlin.com> - too many changes
+
+v2:
+
+replace '%' with '@' as multi-query splitter, as it is:
+ - not a sshell special cahr
+ - allows matching on format strings with format specifiers
+---
+ Documentation/admin-guide/dynamic-debug-howto.rst  |  8 +++--
+ lib/dynamic_debug.c                                | 26 ++++++++++++++++-
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 34 +++++++++++++++-------
+ 3 files changed, 53 insertions(+), 15 deletions(-)
+
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index b9fbb2a12955..a8962ab22aaf 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -85,10 +85,12 @@ by spaces, tabs, or commas.  So these are all equivalent::
+   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
+   :#> ddcmd file,svcsock.c,line,1603,+p
  
- struct ddebug_class_map {
--	struct list_head link;
- 	struct module *mod;
- 	const char *mod_name;	/* needed for builtins */
- 	const char **class_names;
+-Command submissions are bounded by a write() system call.
+-Multiple commands can be written together, separated by ``;`` or ``\n``::
++Command submissions are bounded by a write() system call.  Multiple
++commands can be written together, separated by ``@``, ``;`` or ``\n``::
+ 
+-  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
++  :#> ddcmd func foo +p @ func bar +p
++  :#> ddcmd func foo +p \; func bar +p
++  :#> ddcmd "func foo +p ; func bar +p"
+   :#> ddcmd <<"EOC"
+   func pnpacpi_get_resources +p
+   func pnp_assign_mem +p
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 474df0dbedc1..1c0604d7e3cc 100644
+index 6482fd28def4..636a88994a77 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -45,10 +45,11 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
- 
- struct ddebug_table {
--	struct list_head link, maps;
-+	struct list_head link;
- 	const char *mod_name;
--	unsigned int num_ddebugs;
- 	struct _ddebug *ddebugs;
-+	struct ddebug_class_map *classes;
-+	unsigned int num_ddebugs, num_classes;
- };
- 
- struct ddebug_query {
-@@ -149,12 +150,13 @@ static void v3pr_info_dq(const struct ddebug_query *query, const char *msg)
+@@ -622,6 +622,30 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 	return nfound;
  }
  
- static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
--							  const char *class_string, int *class_id)
-+							const char *class_string,
-+							int *class_id)
- {
- 	struct ddebug_class_map *map;
--	int idx;
-+	int i, idx;
- 
--	list_for_each_entry(map, &dt->maps, link) {
-+	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -235,7 +237,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 	unsigned int nfound = 0;
- 	struct flagsbuf fbuf, nbuf;
- 	struct ddebug_class_map *map = NULL;
--	int __outvar valid_class;
-+	int valid_class;
- 
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
-@@ -1067,9 +1069,10 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- 
- static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
- {
--	struct ddebug_class_map *map;
-+	struct ddebug_class_map *map = iter->table->classes;
-+	int i, nc = iter->table->num_classes;
- 
--	list_for_each_entry(map, &iter->table->maps, link)
-+	for (i = 0; i < nc; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
-@@ -1153,30 +1156,34 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
- };
- 
--static void ddebug_attach_module_classes(struct ddebug_table *dt,
--					 struct ddebug_class_map *classes,
--					 int num_classes)
-+static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
- 	struct ddebug_class_map *cm;
--	int i, j, ct = 0;
-+	int i, nc = 0;
- 
--	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
-+	/*
-+	 * Find this module's classmaps in a subrange/wholerange of
-+	 * the builtin/modular classmap vector/section.  Save the start
-+	 * and length of the subrange at its edges.
-+	 */
-+	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
- 
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
--
--			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
--				  cm->mod_name, cm->base, cm->length, cm->map_type);
--
--			for (j = 0; j < cm->length; j++)
--				v3pr_info(" %d: %d %s\n", j + cm->base, j,
--					  cm->class_names[j]);
--
--			list_add(&cm->link, &dt->maps);
--			ct++;
-+			if (!nc) {
-+				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
-+					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
-+				dt->classes = cm;
++/*
++ * Split multi-query string on delimiters (@, ;, \n), ignoring delimiters
++ * that appear inside single or double quoted strings.
++ */
++static char *ddebug_find_delimiter(char *str, const char *delims)
++{
++	bool in_quote = false;
++	char quote_char = 0;
++
++	for (; *str; str++) {
++		if (*str == '"' || *str == '\'') {
++			if (!in_quote) {
++				in_quote = true;
++				quote_char = *str;
++			} else if (*str == quote_char) {
++				in_quote = false;
 +			}
-+			nc++;
-+		} else if (nc) {
-+			/* end of matching classmaps */
-+			break;
- 		}
- 	}
--	if (ct)
--		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
-+	if (nc) {
-+		dt->num_classes = nc;
-+		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
++		} else if (!in_quote && strchr(delims, *str)) {
++			return str;
++		}
 +	}
- }
++	return NULL;
++}
++
+ /* handle multiple queries in query string, continue on error, return
+    last error or number of matching callsites.  Module name is either
+    in the modname arg (for boot args) or perhaps in query string.
+@@ -632,7 +656,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 	int i, errs = 0, exitcode = 0, rc, nfound = 0;
  
- /*
-@@ -1208,10 +1215,9 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	dt->num_ddebugs = di->num_descs;
+ 	for (i = 0; query; query = split) {
+-		split = strpbrk(query, ";\n");
++		split = ddebug_find_delimiter(query, "@;\n");
+ 		if (split)
+ 			*split++ = '\0';
  
- 	INIT_LIST_HEAD(&dt->link);
--	INIT_LIST_HEAD(&dt->maps);
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index eb508c804782..6e5f23866ccc 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -131,7 +131,6 @@ function ddcmd_load () {
+     local val="$4"
  
- 	if (di->classes && di->num_classes)
--		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
-+		ddebug_attach_module_classes(dt, di);
+     # 1. Setup the control filters (using positional ddcmd range-check)
+-    echo  "$query" "$range"
+     ddcmd "$query" "$range"
  
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
-@@ -1324,8 +1330,8 @@ static void ddebug_remove_all_tables(void)
- 	mutex_lock(&ddebug_lock);
- 	while (!list_empty(&ddebug_tables)) {
- 		struct ddebug_table *dt = list_entry(ddebug_tables.next,
--						      struct ddebug_table,
--						      link);
-+						     struct ddebug_table,
-+						     link);
- 		ddebug_table_free(dt);
- 	}
- 	mutex_unlock(&ddebug_lock);
+     # 2. Execute the workload and capture syslog prints
+@@ -325,9 +324,20 @@ function FT_basic_queries {
+     ddcmd "file $f +l"  "$f"
+     ddcmd "file $f -m"  "$f"
+     ddcmd "file $f =_"  "$f"
++}
++
++function FT_multi_query {
++    v_echo "${GREEN}# MULTI_QUERY_TESTS ${NC}"
++    if [ $LACK_DD_BUILTIN -eq 1 ]; then
++	echo "SKIP - test requires dynamic_debug built into kernel"
++	return
++    fi
++    local f='kernel/params.c'
++    ddcmd =_ # zero everything
+ 
+-    # multi-query commands split on ; on a single line
++    # multi-query commands on a single line, split on ;/@ respectively
+     ddcmd "file $f +mf ; file $f func parse_args +sl" "$f"
++    ddcmd "file $f -f @ file $f func parse_args -l"   "$f"
+ 
+     # verify multi-cmd input, newline separated, with embedded comments
+     ddcmd =_ # reset before multiline query to capture full transition
+@@ -373,7 +383,7 @@ function FT_test_classes {
+     verify_control_slice '\[test_dynamic_debug\]'
+ 
+     # 2. Verify state transition and live-printing end-to-end via ddcmd_load!
+-    ddcmd_load "class D2_CORE +pmf;class D2_KMS +pls;class D2_ATOMIC +pml" \
++    ddcmd_load "class,D2_CORE,+pmf;class,D2_KMS,+pls;class,D2_ATOMIC,+pml" \
+         '\[test_dynamic_debug\]' \
+         "/sys/module/test_dynamic_debug/parameters/do_classes" "1"
+ 
+@@ -467,6 +477,7 @@ builtin_tests=(
+     FT_grammar_errs
+     FT_basic_queries
+     FT_comma_terminators
++    FT_multi_query
+ )
+ 
+ # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
+@@ -489,8 +500,8 @@ modular_tests=(
+ #
+ # ==============================================================================
+ function GOLDEN_RECORDS {
+-    cat << 'EOF' | {
+-#K= 26fd1565f209b383d9f2fbf0b54cd5fc FT_grammar_errs.1
++    cat << 'EO_DYNDBG_GOLDEN_REFS' | {
++#K= 95b249c7ec2cbd5a436f96060b2bee37 FT_grammar_errs.1
+ #K= 200c01632c52a63f6d186da1c6460740 FT_grammar_errs.2
+ #K= 7d7141900ce6e32f15c99202309c63a4 FT_grammar_errs.3
+ #K= 1bb798a5831d0119789d424ef6cb55c4 FT_grammar_errs.4
+@@ -510,7 +521,7 @@ function GOLDEN_RECORDS {
+ #K= cb8288d607b0c5282125852f3ab05107 FT_grammar_errs.18
+ #K= b371c6ba52503d037dbc43da788af8be FT_grammar_errs.19
+ #K= 98e2bd3e4f3da58536496a38ec3e6238 FT_grammar_errs.20
+-#K= 02b210b2646aceb68f3d6d2876a3d57a FT_grammar_errs.21
++#K= c4e8b7261811e9fdf0c80fa9e374a29e FT_grammar_errs.21
+ #K= 51030cd01ed601a68dd48356902954b1 FT_grammar_errs.22
+ #K= af8818de076407d4e7f4e384ba110ac5 FT_grammar_errs.23
+ #K= 023ba04ffced833b4776fb4fcaae7755 FT_grammar_errs.24
+@@ -530,7 +541,7 @@ function GOLDEN_RECORDS {
+ #K= 130bf64b92a5e34d1c4cce98899084e1 FT_grammar_errs.38
+ #K= 9681a05658f1a50e3434aa991b5ce992 FT_grammar_errs.39
+ #K= 38506317363a188fbb7a417ff50457a9 FT_grammar_errs.40
+-#K= 02b210b2646aceb68f3d6d2876a3d57a FT_grammar_errs.41
++#K= c4e8b7261811e9fdf0c80fa9e374a29e FT_grammar_errs.41
+ #K= 8c08a8b5cacbf885d022360ed856e7a1 FT_grammar_errs.42
+ #K= f0f4d894a49bd2c1856cf4f013f83e54 FT_grammar_errs.43
+ #K= 25b92d52cb299fa8d84c5584e490bd97 FT_grammar_errs.44
+@@ -554,14 +565,15 @@ function GOLDEN_RECORDS {
+ #K= db17180b59444e5e34a8fc20c40e4530 FT_basic_queries.2
+ #K= f7bd56bd407ff255ef2e3b5fb093ae6a FT_basic_queries.3
+ #K= 4ce44468b3b5f80ae42ade1f261b952f FT_basic_queries.4
+-#K= 02e4fd94602e108cb89bfc70d47a5dad FT_basic_queries.5
+-#K= f03a7ca7316e8db4c0e16523dc41e75d FT_basic_queries.6
+-#K= c518a50ba30ba8099d0dc874a27ecf16 FT_basic_queries.7
+ #K= c8bbbac639f244ed9088208ebb7d83a6 FT_comma_terminators.1
+ #K= bed6350f058f600910837dae83a12f56 FT_comma_terminators.2
+ #K= 6e8599556a312200fb6d484565b6c52f FT_comma_terminators.3
+ #K= 68b329da9893e34099c7d8ad5cb9c940 FT_comma_terminators.4
+ #K= adc1ef04304c861c87fe294a8ba4e402 FT_comma_terminators.5
++#K= 02e4fd94602e108cb89bfc70d47a5dad FT_multi_query.1
++#K= c0fc482bbf18b9d5ffd6743b18bc34f7 FT_multi_query.2
++#K= f03a7ca7316e8db4c0e16523dc41e75d FT_multi_query.3
++#K= c518a50ba30ba8099d0dc874a27ecf16 FT_multi_query.4
+ #K= 91838b4012c50a1dc1d9e210ba8d68f8 FT_test_classes.1
+ #K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
+ #K= 2cee6842c9cdee5cb3bf50b2e3914813 FT_test_classes.3
+@@ -606,7 +618,7 @@ function GOLDEN_RECORDS {
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.34
+ #K= 4819f715ba485c493afb455542f7ab8c FT_modprobe_w_param.35
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.36
+-EOF
++EO_DYNDBG_GOLDEN_REFS
+         # Read the K-recs and skip those for tests that can't run
+         while read -r line; do
+             # Filter built-in if needed
 
 -- 
 2.56.0
