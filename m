@@ -4,125 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9126FCC6B0E
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 05:33:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91BD9CC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 05:46:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D367910E723;
-	Tue, 13 Oct 2026 05:33:15 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010047.outbound.protection.outlook.com [52.101.56.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85B3410E723
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 05:32:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rVFfqu+H+4C0gXGeFRr1LLV70Xvk5zS7yKRWV9/9JWtQStU20dYmzxDgMGNoo1fLpHFzpOYG17V+Drv5mzg1AWMAcUBYhTPn1NJATUtZyVPTqjUvW5VF0CZz3AOjjThsI/eMFOj5aDT5xre/HPWR4UnpCaH3szzdOCISv3VuslA9i2qrzydw5nbstv0JuId4+NJ0D1cx1+2iFekioXKdaBvMc9nzc9GQMKzzwgnT2hkRq9C/zOl7kU0cmiCkZzTxuIZo/JkmEP5u2y6qQEV529jxrX7OZBDkfYTjLZVDAXmmjr/fZ2YRKJSpmjSr8qx1IBs+X1322k0x77lyT8bOuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K8VQXQmUVa0Z1a9lKoKA8Za5Ck+uwHEa63Py6ca9DmQ=;
- b=Olf+X4z/Y8aWcEyaTmWsOFx8/icLo7irIvGKiTbC/EIiDkmx1zbKg0fqXafUOffExcFGpUaYyvyRxCvdjmYxLppZh9K8lUe0toXkrrLU2xGQVhnNMYoFAhr6BcdEwO4irkEVKcyV92Rog2YYlzcxJHHUeDqcGX5byaQLwgp9PGpYpVE3YHX8H/7sGWN8URMXMpMmmeai5tmvqj6sTXIfmBrCpqajwQenL6wMwMLsZ9vyv6Sq5oqJB8aumXKvZoDoNEOiJ9giOl1VsEU2aa8Hv1NHQobDm/bpPeSatCoPso+vUDbrJpP5RNROLCxEo9BFhaBtjXTLyYIIxXp+n8kGKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K8VQXQmUVa0Z1a9lKoKA8Za5Ck+uwHEa63Py6ca9DmQ=;
- b=blbTBsZIpwEVzpk58DzjvuPFZdd8XWj45dyOg72wlntVfgx2cCZyS84BPJKUbVI6bCIYxZWmvU6zbWjG+ATwFEu6Jw/TY9VUQwsX+CPLloZ29hJfn02T68vZ66lM8YhY/yEt5xuck2K64N087XWl992WDdaGuWSSIYl8fAUoi+U=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by SA1PR12MB6752.namprd12.prod.outlook.com (2603:10b6:806:259::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Tue, 13 Oct
- 2026 05:32:43 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 05:32:42 +0000
-Message-ID: <317cc6e9-8e15-462d-9e9c-2657011b7128@amd.com>
-Date: Tue, 13 Oct 2026 13:32:28 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
- airlied@redhat.com, kraxel@redhat.com
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <dfa2f117-1094-40b9-9445-ab2bbf62ff2e@collabora.com>
- <7c32c182-5b49-4dc0-9c97-a4238743f28c@amd.com>
- <efd5fa89-e888-469a-ac80-e6e605f9a015@collabora.com>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <efd5fa89-e888-469a-ac80-e6e605f9a015@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TPYP295CA0045.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::6)
- To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7E7610E073;
+	Tue, 13 Oct 2026 05:46:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C44C10E073
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 05:46:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F360243BEB;
+ Tue, 13 Oct 2026 05:46:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F1B1F000FF;
+ Tue, 13 Oct 2026 05:46:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791870396;
+ bh=Kn3sevWHfnmO/p6abMJZzG209Y+bg0EY/JmHb1ot1GE=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=ORBFjCtiLmLFAFdLrfSgNeOhZmd84KKHFG3/Ud7vCkeR4P8xYLLZV9vJFZ9ITLqEe
+ FMcv3ppgXKgS5hFtzSNr4sAImv5Sdpk0ehtcOYGsTGWDo86WRES/kHNuLfrpJ6fZQ5
+ UkIXfDT+sNYdhwqiizR0uHiVfZvAl5dSuTWJgDGUIonxzF4PoWnSjEnD/7AV84IV6T
+ KlOFHLybwTcUxVQVhLAxJmYWXoF9CG+nbk05dPYB79O4JJCPM61Sx65t0yX3jSSURg
+ t89eP8ob5nP7tBZa9s8UbYDKxfcRjW0OYyoY394hTRMnB4nKntpZASnVO7i6WnpKxZ
+ ubmnZ6/1aT1RA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: media-ci@linuxtv.org, kvmarm@lists.linux.dev,
+ Oliver Upton <oupton@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, dri-devel@lists.freedesktop.org
+Subject: Re: [RFC PATCH v8 03/14] irqchip/gic-v3-its: Resolve the default
+ NUMA node explicitly
+In-Reply-To: <20260924101929.815D81F00893@smtp.kernel.org>
+References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+ <20260924100529.1398790-4-aneesh.kumar@kernel.org>
+ <20260924101929.815D81F00893@smtp.kernel.org>
+Date: Tue, 13 Oct 2026 11:16:32 +0530
+Message-ID: <yq5awlrmqhjb.fsf@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|SA1PR12MB6752:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3df93b3f-edd5-4843-570a-08df28eb6734
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|4143699003|11063799006|56012099006|18002099003|22082099003|261009221227099003|10067099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: Xl7cSjGxoJX5ndXiCQNL12bLFgbciipzG8YEHBfL4LO9edq3Dj517wVFqxqXNi8r54dPH8F+BeR9GIdd+7kq75Vz15sKk1oUVDGHdZ1vlXlSqqgECjWllFoNEUuLFW0ZZUiFL7RW7KLil2CsWhUat/d+ozf5SBeKX63fey3cx6AIOZxRNAo8PwrqRSsQul5H45LVEYHYWfrLlCxpOAyDHdrNQ7ron141OPpGVGMbYZf0RqgeIgDZ50cU95ViZBdT15rfWVcf1Sh3cCaqgOSX62CGM7P76mAgJJyR8qnV5NunzEe1x0fC51I7gTZ9bn2D1/b+OzFU1m/WQvaYMneqRoBa1wRq0r8I1xINKbSFR0XWi+A1nmU7Tal40xWzgZOTEhXLFd7GlirLt5MGSCT85c8FZDVmALL7bKIx7u3X6GBjcbbOQiykku+CXsmNJFAZM5PCbSDHW//dOa5WyQ5WLpPhz6YdndXsSnI7lDqsxXsZ4yz12c/jULUl5BgFXVVLmPS4FiATX8qw7bTZ7x0A7z1NxX4eKf5i2yN5dpLGCp1iS/qJO4zd0dQwLCuPrfKy3PnfuBkj/GEGDOnZGGQLhquxydjTgU95UXatM+ZycT96PEzx6aeNhUegxxl/KD5c
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(261009221227099003)(10067099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clZ4Qi9LOVBxVFQxT2I0NlRUZWk1ZEJjaG9rQnR1ekwrR1Q0b21EV0hUd0xC?=
- =?utf-8?B?WGtnZUF2ODlzZHliUytHRlVtTEhMRHE0UnE5bURmN1picmpMTUpkV0tVM01C?=
- =?utf-8?B?WmgvODNtdkhjaTJaVWdxcEk5dlV2cDdsYzlMbzNseno2QnFOcUl5MW9SUGtS?=
- =?utf-8?B?REdHVGdpd3FYc1JXT25vZ2hJZkYrelpFNkUvNHpkeTZESWJHaGpLS2dyUVNs?=
- =?utf-8?B?N0s3Y0tKa3RzYkkxRXlDdGxPSnc1Qk9CalVETHZqWExaTDFHc3c5alVjdUxL?=
- =?utf-8?B?QUZRZmdoWklXRlAwNi9sTGsrTGpTRzdVTmdYQnM3RXF5djVsNmNaaEg1MVk0?=
- =?utf-8?B?bzJtV3NhNDZLUE5ZOVNZM050OHR5YSsvV05FblVnTVBmK3JtdTVFZ0w1ZXA3?=
- =?utf-8?B?dUlFalovY2VXSll2b2R2RTd2cW5uNGlkbkdoT0luMXRCS1hCczRNTXhSdHY2?=
- =?utf-8?B?U21IYVJxNXBFdXRYVnJuY1BGQnNqVVBZSW1mTVZUVG1RZ2h4MDJLaG9FZDVQ?=
- =?utf-8?B?RVdKZFZpcXhlRVhLWlBHb0JJRTROMXJROGFsUHI0YlIwaXhUQXBDU3psWUo3?=
- =?utf-8?B?bXNYdDVxVVU3YURXSExIZ3U3Z0pxSGNSZjBST05Hd2NMU2p6cjlKZkVHbFU5?=
- =?utf-8?B?a1pvc3htbFFhQU9nWG5CeExHMGJpWXpXY3JQei95VXluQkFjZ0REUUxoaGNq?=
- =?utf-8?B?cDYzNkVPTjlwWThFakMrc2JlNGVzWDNudjJXN2poMHppNktqSDZNQ0FpeFd0?=
- =?utf-8?B?akE2VlI2WUNieG9MZ1FpT0tZRll0VW1vRkM5czV3OHpzY3NuSVhib1UyeU9q?=
- =?utf-8?B?QWZEb2I1ZzZPNkN3dmhsTUtRMlZzSjhJQkZWaE5SaC9GRXZmQ3VUOCtBM21Q?=
- =?utf-8?B?aG5Hc0ppV0VHMmhHdlQ5elJjQ2c5TU5zZG12L2hweDE0bVlXWE9KdktvQkNl?=
- =?utf-8?B?QU1iL2lYLzU1Q0RUMmZnY29RWUpkUUpPMnJzUnRZNTNFdHFmWi9WdDQvYVdE?=
- =?utf-8?B?YmwvSVh1a041Q0I4eWhaMEpZMzFFTEVnNzBZbVplNnRlL25kM3I3eUpIQmlt?=
- =?utf-8?B?SXgxT3hJSGlObjg1ZW5QRVNoSmZmb2R2U3lhVXpkWUw1N0N6c0t0R1JZeFpZ?=
- =?utf-8?B?ait4S1IwMUsvdEpKZDBGSWc2UUVxK2traUowTVk5M0VUV2tZTVZIdnVNTUpv?=
- =?utf-8?B?OWY5bjVEN1dLMTNRZzhWQ0QrU1ZXMGtPcTlBd2NlTld0NGtSR2NLUEZvY3Vr?=
- =?utf-8?B?QTRZV1RJYzMyVHVYNC8xemxqQXJpTzlCZ28zTFQ1TGNuZHFDQ2liUHhPVS9v?=
- =?utf-8?B?TG9Ub0IxMVpxdllHQituTVdhUmdkNlFsL0U3YTNWT2VYU3U3am5DTTlJU0Fz?=
- =?utf-8?B?ZEVXN0JzNWg0K2lvNVFwdzMvWXhyMHpUQ0ZjZ0x2M01yTjNCeEQzUmd2NS91?=
- =?utf-8?B?c21WOWNuZGNRNGE4V3R0OFlaeGFGTVNtc0FFc1RIR3dObzBXcXNmamtYOC9W?=
- =?utf-8?B?WnZvRDNqRFZVS2plTDRDQUNrM0tKR0hsRXVxMVdjZHlMZFJnWlBJTzBTTGNx?=
- =?utf-8?B?YmgrQ2t1dXdyZVFmUVpNa1hkWUJEd1VVUHNTc1dkS2hQenZ2SStxRXhNS2RG?=
- =?utf-8?B?V2U3SjJZRzcwRUdSQzRHandyWjhZbUxvQVNzTUdyOUxNM2JzRWh0dmRBYkM0?=
- =?utf-8?B?dFUvRjgwKytPNHJrelRCYXAxVUhjWWh6OC9uZDNMT2F1VERTdlJyQXJLejlF?=
- =?utf-8?B?NjlwVTVmQmpvR1pXNHpXM3ZwM2pDOEM1ZXQyOWxCeFB2a0lHd3IyRzVWdnVi?=
- =?utf-8?B?bU80WkZka1hSdWdKNUlDbS9iN0U2cEUwNFVzSldPamErd1h5aE8xOHhDa1p4?=
- =?utf-8?B?K0xNM0Z3ZGdaQzNkUHZONHZKUlY4UFFjZDByT1pDUkI2MXdmSGo4OTMxNy9o?=
- =?utf-8?B?S2MvaWFweFpsTjU4enVHN2U2UWFQNXdwZWxMV0pCTW8xdXZLS3VMQ0Y3TFJi?=
- =?utf-8?B?QnRDUVpJQklRLzhXK3ZSZ3R1S2Q1VUpUV0lwTGZHeFBRbVV6MFg3RkM5b3NU?=
- =?utf-8?B?NDNpcGF4Zzk0cnRhUEdKR2lzUHVsSDNncXZqUXdDTUh0ZlVhWm8zWHhTdytu?=
- =?utf-8?B?UDF0a2ZsL3BraXQ5bTVGWExHcmpqcnpNdjZYZU9VdndrOEI0WEtOU1VIdEww?=
- =?utf-8?B?ZHVGZGhpTHkrQ0gwUzBxcWJnckFweENpSlNoSzlqYmpBU044WjlBUjVWZ0d0?=
- =?utf-8?B?Q0I5ZGs2bUFxMEFkOUlYOUR1MVpHai9FZ2pneENNdjJYQjlzeHhtWmhrNVpn?=
- =?utf-8?Q?t0nP/t3wYNf8su9scD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3df93b3f-edd5-4843-570a-08df28eb6734
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 05:32:42.6772 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Be3QdUSb1tPsbNLiVHg+1OSbj3k2uP6Bs7yCsNx+AM/2ryymr7V57EoztoamVyZiy/0TApugxpHzQz3Z2MshiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6752
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,68 +58,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+sashiko-bot@kernel.org writes:
 
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] irqchip/gic-v3-its: incomplete NUMA_NO_NODE resolution exposes allocations to task mempolicy
+> --
+>
+> commit 6d762ab83972132164ae57c1422f1916decb2fe3
+> Author: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+>
+>     irqchip/gic-v3-its: Resolve the default NUMA node explicitly
+>     
+>     alloc_pages_node() resolves NUMA_NO_NODE to numa_mem_id() internally. In
+>     preparation for switching ITS allocations to the CoCo shared memory
+>     allocator, resolve the default node explicitly in its_alloc_pages().
+>     
+>     The CoCo shared memory allocator interprets NUMA_NO_NODE as a request to
+>     apply the current task's memory policy. Passing numa_mem_id() instead
+>     preserves the existing nearest-memory-node placement across the
+>     allocator switch. This patch does not change the current allocation
+>     behavior.
+>
+>> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+>> --- a/drivers/irqchip/irq-gic-v3-its.c
+>> +++ b/drivers/irqchip/irq-gic-v3-its.c
+>> @@ -236,7 +237,7 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>>  
+>>  static struct page *its_alloc_pages(gfp_t gfp, unsigned int order)
+>>  {
+>> -	return its_alloc_pages_node(NUMA_NO_NODE, gfp, order);
+>> +	return its_alloc_pages_node(numa_mem_id(), gfp, order);
+>>  }
+>
+> [Severity: Medium]
+> Will this leave other callers of its_alloc_pages_node() exposed to the
+> task memory policy change?
+>
+> When a device probe or ITT allocation occurs with its->numa_node ==
+> NUMA_NO_NODE (which is common when firmware lacks NUMA info), callers pass
+> NUMA_NO_NODE directly to its_alloc_pages_node():
+>
+> drivers/irqchip/irq-gic-v3-its.c:its_alloc_pages_node() {
+> 	...
+> 	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
+> 	...
+> }
+>
+> If node is NUMA_NO_NODE, it passes it directly to the underlying allocator.
+> When the underlying allocator interprets NUMA_NO_NODE as a request to apply
+> task mempolicy, these direct callers will be subjected to the current task's
+> memory policy instead of bypassing it and using the local node. 
+>
+> If a user binds the driver via sysfs under a restrictive task mempolicy,
+> the allocations could land on suboptimal distant nodes or fail entirely.
+>
+> Should the NUMA_NO_NODE resolution logic be moved inside its_alloc_pages_node()
+> to ensure all callers are protected?
 
-On 10/10/2026 8:50 PM, Dmitry Osipenko wrote:
-> On 10/10/26 10:37, Huang, Honglei wrote:
->>
->>
->> On 10/10/2026 2:53 AM, Dmitry Osipenko wrote:
->>> 24.09.2026 12:55, Honglei Huang пишет:
->>>> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
->>>> +                  struct drm_file *file,
->>>> +                  struct virtio_gpu_object_params *params,
->>>> +                  struct virtio_gpu_object **bo_ptr)
->>>> +{
->>>> +    struct virtio_gpu_object_userptr *userptr;
->>>> +    struct virtio_gpu_mem_entry *ents = NULL;
->>>> +    struct sg_table *sgt;
->>>> +    struct mm_struct *mm;
->>>> +    unsigned long lock_limit;
->>>> +    unsigned long start;
->>>> +    unsigned long end;
->>>> +    s64 new_pinned;
->>>> +    unsigned int nents;
->>>> +    int ret;
->>>> +
->>>> +    *bo_ptr = NULL;
->>>> +
->>>> +    if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
->>>> +        params->userptr != (unsigned long)params->userptr)
->>>> +        return -EINVAL;
->>>> +
->>>> +    start = params->userptr;
->>>> +    if (!IS_ALIGNED(start, PAGE_SIZE) ||
->>>> +        check_add_overflow(start, (unsigned long)params->size, &end))
->>>> +        return -EINVAL;
->>>
->>> There is new vgdev->blob_alignment defining host page size as it may
->>> differ from guest's page. Will be good to validate both.
->>>
->>
->> Will add blob_alignment check in next version, thanks for the review.
-> Missed that verify_blob() already should be validating the userptr
-> blob_alignment. The patches look good.
-> 
-> BTW, previously the extra AMD KFD patches were needed on host kernel,
-> did they land upstream?
+Yes, updated the patch to perform the mapping in its_alloc_pages_node(),
+so all callers are handled.
 
-According to KFD maintainer, they want to us to add those virtio 
-specific feature into drm svm, a new SVM frame work based on drm svm 
-helpers. We are working on it:
-https://lore.kernel.org/amd-gfx/20260804094246.1719318-1-ray.huang@amd.com/
-
-And the amdgpu VM maintainer has agreed that he will help to consider 
-how to intergate the virtio requirements into the design of amdgpu drmsvm.
-
-And for now we can use a user space method to replace the AMD KFD 
-patches function, it is mremap, it also works, we tested it, but
-it has some performance loss, I will update the whole thing when all the 
-components code are ready.
-
-Regards,
-Honglei
-
-
-> 
-
+@@ -216,6 +217,9 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+ 	struct page *page;
+ 	int ret = 0;
+ 
++	if (node == NUMA_NO_NODE)
++		node = numa_mem_id();
++
+ 	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
+ 
+ 	if (!page)
