@@ -4,42 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E55CC6B08
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 14:59:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55257CC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 15:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B60F10E8D3;
-	Tue, 13 Oct 2026 14:59:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2B410E8F7;
+	Tue, 13 Oct 2026 15:04:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4344710E8D3
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 14:58:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C22010E8F7
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:04:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E6A5443B48
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 14:58:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2721F000FF;
- Tue, 13 Oct 2026 14:58:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4156B4140C;
+ Tue, 13 Oct 2026 15:04:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE19D1F00893;
+ Tue, 13 Oct 2026 15:04:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791903534;
- bh=soFU+qXa0/ORPPu9drT6BB+vJBeOanASsxCKHGvltzc=;
+ s=k20260515; t=1791903854;
+ bh=wO5auagr7j9YuovsuOoCpa9rWcK5UQOr4XUGzA6mqIE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ACkLY39Zu4orqPJL1n+JAZomNQbxs/iPkqWfeksAkQ0qT8jGcMWVr5ZJXEMAM9qdS
- 5quIUDGck1qI+vR8W6+CYZStaJLnWICmg2q2YmMCr3YoCTS89xkVHHqzv3MXGQTNaJ
- qWOWUDky7+zvs1fQu0TsMGPEd8HwxRPgyR3qSEJH6noNLcYRbZoFjpmipiSYqo35E0
- 3kRL45nw8LAWwVibF1+VzQyAsU9sH8fqYEgsa3/tuadiGoC7B31uFaH0OZRTM77qFb
- /1ig+FkdP/w6VCYKYHY0WvfZmw/y3Ki34yDDuSQc6IhpeYAHBn8iViN4EVFr0hcTWG
- lcc/237AKL1VA==
-Message-ID: <sashiko-outbox-169954@kernel.org>
+ b=YSurYeFcfRHKqjV9pKgBcrx5dgYdj8blseXI37etP7LCa5v59CX07yrZmZNJ5IT3v
+ S/FoztN6rV5i7bPLIUvdAVe2XcMZzaXmaVlMJzub6W/ETNBXpbmN1zOiY2nKFZPVoy
+ tmodYd1l4wQ2zRgh2pbDao7GB5lXH4lWsyF3wi8gvTpikRTNrJ4vS9+WvyrBYtslYz
+ v+iJtqme6hYP3/iGuQx/jP8bOlQGGAVCnrEIwbKlQYMKuZ/ujMXlkQaRTjf/p57uHo
+ gGBHm9V2290Z9GwKaQmhWXwcTEHs2xbBKwt46GB6lhSbOdA3zjoApp+teYhtPqpqNp
+ 0QTRv/eWp2xPQ==
+Message-ID: <sashiko-outbox-169964@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/nouveau/tegra: Keep the fuse clock enabled
- while the GPU is powered
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013145210.103565-3-sashal@kernel.org>
-References: <20261013145210.103565-1-sashal@kernel.org>
- <20261013145210.103565-3-sashal@kernel.org>
+Subject: Re: [PATCH] drm/msm/dpu: count the pending frame before kicking it off
+To: "Michael Burch" <me@michaelburch.net>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261013145007.13111-1-me@michaelburch.net>
+References: <20261013145007.13111-1-me@michaelburch.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 14:58:54 +0000
+Date: Tue, 13 Oct 2026 15:04:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,49 +55,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] nouveau: tegra: clk_fuse leak on power_down failure
+- [Medium] drm/msm/dpu: bandwidth leak due to missed frame_pending 0-transi=
+tion in error path
 --
 
-commit 4446c1485fff0b05a5e79c1e4d70e14c4beda300
-Author: Sasha Levin <sashal@kernel.org>
+commit 09d9db34ac4a7e898d02571dc93cd542a14a8979
+Author: Michael Burch <me@michaelburch.net>
 
-    drm/nouveau/tegra: Keep the fuse clock enabled while the GPU is powered
+drm/msm/dpu: count the pending frame before kicking it off
 
-This commit modifies nouveau's Tegra power management sequence to keep the
-fuse clock enabled while the GPU is powered. This resolves an issue where
-the GM20B GPU would fail to initialize on some boots.
+This commit moves the increment of frame_pending in dpu_crtc_commit_kickoff=
+()
+to occur before kickoff to prevent event worker races. It also adds a rollb=
+ack
+decrement in the clone mode error path.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c b/drivers=
-/gpu/drm/nouveau/nvkm/engine/device/tegra.c
-> index 3c8d0878891ad..31f8eaa9d6509 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
-
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/m=
+sm/disp/dpu1/dpu_crtc.c
+> index 42d0a529b4d51..c8bd9c305a59a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
 [ ... ]
-
-> @@ -95,6 +100,8 @@ nvkm_device_tegra_power_down(struct nvkm_device_tegra =
-*tdev)
->  			return ret;
+> @@ -1105,9 +1105,19 @@ void dpu_crtc_commit_kickoff(struct drm_crtc *crtc)
+>  		}
 >  	}
 > =20
-> +	clk_disable_unprepare(tdev->clk_fuse);
+> +	/* The frame-done event may be handled before the kickoff below returns=
+. */
+> +	if (atomic_inc_return(&dpu_crtc->frame_pending) =3D=3D 1) {
+> +		/* acquire bandwidth and other resources */
+> +		DRM_DEBUG_ATOMIC("crtc%d first commit\n", crtc->base.id);
+> +	} else {
+> +		DRM_DEBUG_ATOMIC("crtc%d commit\n", crtc->base.id);
+> +	}
 > +
->  	return 0;
->  }
+>  	if (drm_crtc_in_clone_mode(crtc->state)) {
+> -		if (dpu_crtc_kickoff_clone_mode(crtc))
+> +		if (dpu_crtc_kickoff_clone_mode(crtc)) {
+> +			atomic_dec(&dpu_crtc->frame_pending);
 
 [Severity: Medium]
-Does this code leak the clk_fuse enable and prepare counts if
-regulator_disable() fails?
+Does this unconditional atomic_dec() bypass the 0-transition check required=
+ to
+release CRTC bandwidth, causing a bandwidth leak?
 
-If regulator_disable() fails and returns an error, the function immediately
-returns early. Because the new clk_disable_unprepare() call is positioned
-at the very end of this function, it is skipped entirely on this error path.
+If Frame N-1 is executing and Frame N is committed, dpu_crtc_commit_kickoff=
+()
+bumps frame_pending to 2. If dpu_crtc_kickoff_clone_mode() fails, it
+decrements the count back.
 
-Since callers like nvkm_device_tegra_dtor() ignore the return value of
-nvkm_device_tegra_power_down() and proceed to free the device structure,
-would this result in a permanent resource leak where the clk_fuse's prepare
-and enable counts are never decremented?
+If the hardware interrupt for Frame N-1 fires concurrently and its event wo=
+rker
+runs, it will decrement the count to 1, skipping the
+dpu_core_perf_crtc_release_bw() call that requires a 1-to-0 transition.
+
+The error path then blindly decrements the count to 0 with atomic_dec() and
+also skips the dpu_core_perf_crtc_release_bw() call, permanently leaking the
+allocated bandwidth until the CRTC is fully disabled.
+
+>  			goto end;
+> +		}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013145210.1035=
-65-1-sashal@kernel.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013145007.1311=
+1-1-me@michaelburch.net?part=3D1
