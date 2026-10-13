@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C9D6CC6B19
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:43:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D2BECC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90A1610E3BB;
-	Tue, 13 Oct 2026 17:43:34 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEEE310E5F1
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:43:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0336A10E5F1;
+	Tue, 13 Oct 2026 17:43:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F24B10E3BB
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:43:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B35A60A5E;
- Tue, 13 Oct 2026 17:43:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810941F000FF;
+ by sea.source.kernel.org (Postfix) with ESMTP id 21D1C44017;
  Tue, 13 Oct 2026 17:43:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2CD21F000FF;
+ Tue, 13 Oct 2026 17:43:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1791913403;
- bh=yJjlSJtJYNMqtUndQ74YyJg9FOfyqfdfrhdF9cegVl4=;
+ bh=fL+I6tKYrDQmsJdPyYET/FTO+BenPvH5rqpr5ZfqJzQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g8w/QWQg263IDeIFjCcG8fR25UW8IWCMs9FzsYwWcqh2JxuDihVUensBMdxWJiBcJ
- 8OtNi+i4DroXVWvvYBJJg6KPZclNiBedOJ17r31L+oEnc3AbluWJ7DgYcmM3kKCUot
- RO2pYFAZfrz8w4VpczF8blRQugOq6otTB/H4eM60527w6T3c0NsfVP5gCnYbu37gVr
- TugV048QAZD/Zlt+A/8bICscMu4yuuCQVhGLBSP/rstHFy8w7H98IcsTNRRChcdV6F
- t2h8s1o6bYrRDNxR/SGgnNQslmE/gozl76Z8hC/jqykbDMD/RWwZuz4KUg87BXGu6S
- iaKIzYWy2yKRA==
-Message-ID: <sashiko-outbox-170251@kernel.org>
+ b=K8wVpoirLdyIK2P64a2Ubvo863X7S4ctzAu8nCua4hTnSnzhIifb47Vr4xjkr0wlD
+ +JMaOp71QQBY3ixc4t5rzk2wBBwpJUy25uKbvCHRvFDBGB+XnJpFtkZ/XfGKxaaf29
+ AphEwFbq4FNLq+azeeiBxQiIlNjSAZL4o9ULfhF5Nsuf2q7MRPNuEjnEDT7bUZY0ZZ
+ eBgLGOpoLWseJ5zwavF9RzR6nJrN7MFD5UZuJlzYaqerSv9ZbaF69Z+iNGAW+op7hk
+ eYjGGEW6aIZE4yJq0hFnlGiJTUBWk/Me/g8rMDsDozyrDyj6ohw7zSJ2pLPxziinfp
+ XaTqKYl9MFw8g==
+Message-ID: <sashiko-outbox-170250@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net v2 3/4] netdevsim: support devmem RX and TX bindings
+Subject: Re: [PATCH net v2 4/4] selftests: net: add devmem RX and TX netdev
+ unregister tests
 To: "Mina Almasry" <almasrymina@google.com>, dri-devel@lists.freedesktop.org
 Cc: media-ci@linuxtv.org
-In-Reply-To: <20261012174300.2338784-4-almasrymina@google.com>
+In-Reply-To: <20261012174300.2338784-5-almasrymina@google.com>
 References: <20261012174300.2338784-1-almasrymina@google.com>
- <20261012174300.2338784-4-almasrymina@google.com>
+ <20261012174300.2338784-5-almasrymina@google.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 17:43:23 +0000
+Date: Tue, 13 Oct 2026 17:43:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,85 +55,95 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] netmem: devmem leak and kernel warning in nsim_pp_hold_write()
+- [Medium] selftests: net: test falsely assumes global dma_buf attachments =
+drop to zero
+- [Medium] selftests: net: netdevsim device leak on exception paths
 --
 
-commit b58e0da7daeddfad13177ed902471523d6b96cbf
+commit 3ebc183bfb941c2f36dca38f1bd05b883cc61a30
 Author: Mina Almasry <almasrymina@google.com>
 
-netdevsim: support devmem RX and TX bindings
+selftests: net: add devmem RX and TX netdev unregister tests
 
-Set a 64-bit DMA mask on nsim_bus_dev, enable NETMEM_TX_DMA on the
-netdevsim net_device, and configure page_pool instances with
-PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV | PP_FLAG_ALLOW_UNREADABLE_NETMEM
-and queue_idx so devmem bind-rx and bind-tx netlink operations can be
-tested against netdevsim in software selftests.
+Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+to nl_netdev.py to verify that unregistering a netdevsim device while a
+netlink socket holds an active RX or TX devmem binding synchronously
+detaches the dma_buf attachment and cleanly closes the netlink socket
+without use-after-free or page faults.
 
-> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netde=
-v.c
-> index b4a99f3ceac60..4415dc01c610b 100644
-> --- a/drivers/net/netdevsim/netdev.c
-> +++ b/drivers/net/netdevsim/netdev.c
-
+> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/sel=
+ftests/net/nl_netdev.py
+> --- a/tools/testing/selftests/net/nl_netdev.py
+> +++ b/tools/testing/selftests/net/nl_netdev.py
 [ ... ]
-
-> @@ -414,16 +414,22 @@ static int nsim_poll(struct napi_struct *napi, int =
-budget)
->  	return done;
->  }
-> =20
-> -static int nsim_create_page_pool(struct page_pool **p, struct napi_struc=
-t *napi)
-> +static int nsim_create_page_pool(struct net_device *dev, struct page_poo=
-l **p,
-> +				 struct napi_struct *napi, int idx)
->  {
-> +	struct netdevsim *ns =3D netdev_priv(dev);
->  	struct page_pool_params params =3D {
->  		.order =3D 0,
->  		.pool_size =3D NSIM_RING_SIZE,
-> +		.flags =3D PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV |
-> +			 PP_FLAG_ALLOW_UNREADABLE_NETMEM,
+> +def _dmabuf_attached_devs():
+> +    """Return attached device names from debugfs dma_buf/bufinfo if avai=
+lable."""
+> +    path =3D "/sys/kernel/debug/dma_buf/bufinfo"
+[ ... ]
+> +    for line in text.splitlines():
+> +        if line.strip() =3D=3D "Attached Devices:":
+> +            in_attached =3D True
+> +            continue
+> +        if in_attached:
+> +            if line.startswith("\t") and line.strip():
+> +                attached.append(line.strip())
 
 [Severity: Medium]
-When PP_FLAG_ALLOW_UNREADABLE_NETMEM is set and devmem is bound, will this
-cause a leak and kernel warning in the debugfs handler?
+Will this parsing approach unconditionally aggregate all attachments across=
+ all
+dma_bufs in the system?
 
-If nsim_pp_hold_write() is called to test allocating memory from the pool,
-it uses page_pool_dev_alloc_pages():
+Because this does not filter the debugfs output to the specific dma_buf
+created by the test, if the system executing the test has any other active
+dma_bufs with attachments (e.g., from DRM graphics drivers), the global
+attached count will remain non-zero.
 
-drivers/net/netdevsim/netdev.c:nsim_pp_hold_write() {
-    ...
-	} else if (val) {
-		ns->page =3D page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
-		if (!ns->page)
-			ret =3D -ENOMEM;
-    ...
-}
+> +            else:
+> +                in_attached =3D False
+> +    return attached
+> +
+> +
+> +def devmem_bind_rx_unregister_check(_nf) -> None:
+> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev =
+unregister."""
+> +    dmabuf_fd =3D _create_udmabuf()
+> +    nf_priv =3D NetdevFamily()
+> +    ef =3D EthtoolFamily()
+> +    nsimdev =3D NetdevSimDev(queue_count=3D2)
+> +    nsim =3D nsimdev.nsims[0]
 
-Because devmem may be bound, page_pool_alloc_netmems() can allocate an
-unreadable net_iov. When this is passed to netmem_to_page(), it detects an
-IOV, triggers a WARN_ON_ONCE(), and returns NULL.
+[Severity: Medium]
+If an exception occurs during the test, will this leak the netdevsim device?
 
-nsim_pp_hold_write() receives NULL and returns -ENOMEM, leaking the
-allocated devmem netmem_ref because it is neither stored nor freed.=20
+The netdevsim device is instantiated without registering a teardown deferral
+like defer(nsimdev.remove) or using a try/finally block. If any step before
+the manual nsimdev.remove() call raises an exception, the cleanup is
+bypassed. This permanently leaks the kernel netdevsim device and its sysfs
+entries in the kernel namespace, potentially causing subsequent tests to fa=
+il.
 
-While this is restricted to root via debugfs, does this break the exact
-devmem testing functionality this patch intends to support?
+[ ... ]
+> +    attached =3D _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_ge(len(attached), 1)
+> +
+> +    nsimdev.remove()
+> +
+> +    attached =3D _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_eq(len(attached), 0)
 
-> +		.max_len =3D PAGE_SIZE,
->  		.nid =3D NUMA_NO_NODE,
-> -		.dev =3D &napi->dev->dev,
-> +		.dev =3D &ns->nsim_bus_dev->dev,
->  		.napi =3D napi,
->  		.dma_dir =3D DMA_BIDIRECTIONAL,
-> -		.netdev =3D napi->dev,
-> +		.netdev =3D dev,
-> +		.queue_idx =3D idx,
->  	};
+[Severity: Medium]
+Can this assertion spuriously fail if other dma_bufs exist system-wide?
+
+Since _dmabuf_attached_devs() aggregates all attachments without filtering
+for the specific dma_buf created by the test, the attached count will not
+drop to zero if the system has other active dma_bufs, causing the test to
+fail.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012174300.2338=
-784-1-almasrymina@google.com?part=3D3
+784-1-almasrymina@google.com?part=3D4
