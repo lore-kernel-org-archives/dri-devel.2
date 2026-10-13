@@ -4,62 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 069ECCC6B0F
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBB9BCC6B08
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:53:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA7310E880;
-	Tue, 13 Oct 2026 13:47:43 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1229F10E85B
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:47:36 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 8E41DC653ED;
- Tue, 13 Oct 2026 13:48:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C31006075C;
- Tue, 13 Oct 2026 13:47:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5A46D11D7152C; 
- Tue, 13 Oct 2026 15:47:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1791899247; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=/QTI9ocIwxDrICmupBcnt6yYBFq9ABOE/kC6kYQ+y2E=;
- b=j8LPKNmuWjOc89bbqryTjh2mFaBVGvdBpmvsGoiXlDg1um4sn42m7kEfgMClmS0f7Bt86E
- MvSjq0cPpdez22kyAdV9Bv4x5J9ZT3Ir/oYbPMttE2832nsIs9rQd+/NcULu8wpu8voXPT
- 2IrCQQvmo5hGtJx17gW5UCUa7/xVDubkcdFG50u4s1RGqRKQ7lg6+CJ6SiEnmpjI47Vrv1
- 0eGyawMZnXNcikNX66tH1pOJwvkduqVKEq3NDizn2POjLf/px3Yk7L3foZUhwjrDnCkE2K
- CGcVP2PkT9KmAeBMddz6oMXwzWvkTj7R0HCIWdV/3g5zKLj1MhRlFw3PMquFEA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 052A310E496;
+	Tue, 13 Oct 2026 13:53:40 +0000 (UTC)
+X-Greylist: delayed 572 seconds by postgrey-1.36 at gabe;
+ Tue, 13 Oct 2026 13:53:33 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [46.38.247.119])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4195010E496
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:53:33 +0000 (UTC)
+Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j3wWv1Qg1z8B09;
+ Tue, 13 Oct 2026 15:43:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1791898987;
+ bh=kn1pWwRqpSQrn5KGooof/V03NDOuyyBzzBkT7Vi6SwU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=EPog4h01ga+F8U3shEq7EMlLuCDz3HXb7iY9xLYTkixzfoVzjfJD+O/HRjG9ADSLv
+ Mx1VLeEzB6kJntJRTHlUZfyMdAGP1X3me3Mtkh5M7sf8LP6PpK4O13rik3qk8+IKfU
+ c9+EpsiaT8lPB8BhDT+wWTarOn8mKYTem+CiaKGii2duzSwBNlRTwLXiZcJD1GJqKJ
+ 2KweN/+YbwoccjK3vJTpedsVqWBp/5yHAAslWokb/h8fzT8QWYZO+lZyX/S7keLpWX
+ oztl5IJwR8XlQa8OWqVNwJ5PMHo0MDh8KyGg5aHxX6qqvD2DfSGRllbhnzZvAifJBE
+ BZkiTMTlcSXsg==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j3wWv0hpxz4y7n;
+ Tue, 13 Oct 2026 15:43:07 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy01-mors.netcup.net (Postfix) with ESMTPS id 4j3wWs1dMTz8tfq;
+ Tue, 13 Oct 2026 15:43:05 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 8117F5FB0E;
+ Tue, 13 Oct 2026 15:43:04 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <144d54c1-fc08-4135-82ba-7cab417ebc3a@leemhuis.info>
+Date: Tue, 13 Oct 2026 15:43:04 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] 7.1: apple-gmux backlight dead on MacBookPro13,3 -
+ PCI bridge left with VGA enable set and VGA 16-bit decode cleared, aliasing
+ legacy VGA I/O over the gmux ports
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Haram Choi <haram@choiharam.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <CAAKWd2_MZSC=A2EHuEw3=eECr1QfaqrhYawW=njt5muk=5sA_A@mail.gmail.com>
+ <0102019fcb5d411c-e0a555b7-46da-43a1-bd9d-6cb120f58a7f-000000@eu-west-1.amazonses.com>
+ <ap_yIeUyNu5WxSnX@intel.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <ap_yIeUyNu5WxSnX@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Oct 2026 15:47:15 +0200
-Message-Id: <DM3R9KIGS2XF.35DX6I83JKPYO@bootlin.com>
-Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
- "Jessica Zhang" <jesszhan0024@gmail.com>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Val Packett" <val@packett.cool>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Maxime Ripard"
- <mripard@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
- <asyAObcpbFy3OeE2@houat>
- <7pptulwzceqg7xozps5boncgcpd5fpw2pdabcslp4den34ixjn@rzgkoe36itwm>
- <as3sI-N3VeG_pL0U@houat>
- <lm7u5tcnccbtbxqeyyqzzvmmhpy2dfhgnyz3giqtt5toejy7pj@7bwixidtqxfz>
-In-Reply-To: <lm7u5tcnccbtbxqeyyqzzvmmhpy2dfhgnyz3giqtt5toejy7pj@7bwixidtqxfz>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179189898482.895600.241311855441224226@mxe9fb.netcup.net>
+X-NC-CID: v4imGa248cozeojC2LcUIjjt27yx0htnngaRM5/r3+Ng7SF8B04=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,99 +83,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Oct 13, 2026 at 1:57 PM CEST, Dmitry Baryshkov wrote:
-> On Tue, Oct 13, 2026 at 10:37:19AM +0200, Maxime Ripard wrote:
->> On Tue, Oct 13, 2026 at 10:51:38AM +0300, Dmitry Baryshkov wrote:
->> > On Mon, Oct 12, 2026 at 08:40:33AM +0200, Maxime Ripard wrote:
->> > > On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
->> > > > Panel drivers don't have an atomic state and so they can't handle
->> > > > additional data to be stored at the atomic_check time or to be ret=
-rieved
->> > > > at the enable/disable time. For example, it prevents panel drivers=
- from
->> > > > supporting multiple display modes or making DSC being optional in =
-a
->> > > > clean way. Drivers like panel-novatek-nt35950, save the connector
->> > > > pointer in get_modes() and later dereference
->> > > > connector->state->crtc->state from prepare() without holding any l=
-ocks.
->> > > > The panels also have no way to reject the configuration they cann'=
-t
->> > > > handle, as it doesn't take part in the atomic check.
->> > > >
->> > > > The panel already embeds a drm_bridge, and the bridge has an atomi=
-c
->> > > > state which is property handled. Subclass it to provide atomic sta=
-te for
->> > > > the panels. The callbacks can find the state of the other related
->> > > > objects (e.g. CRTC state to get the display mode).
->> > > >
->> > > > The atomic state is opt-in. A panel that doesn't implement the sta=
-te
->> > > > callbacks keeps working exactly as before, with the plain bridge s=
-tate,
->> > > > so there is no need to touch the existing drivers. The panels whic=
-h do
->> > > > implement them can only be driven through the embedded bridge, sin=
-ce
->> > > > there is no commit to hand over when the host calls drm_panel_prep=
-are()
->> > > > and friends directly. Those entry points warn and refuse to handle=
- such
->> > > > panels. There are still a dozen of display drivers calling these
->> > > > functions, and the panels used with them can not be converted unti=
-l the
->> > > > hosts are switched to the panel bridge.
->> > >
->> > > I really don't think we should extend the panel API. All panels are
->> > > bridges now, consumers only care about bridges as well, and the brid=
-ges
->> > > API provides what you want already.
->> > >
->> > > Why not simply turn the panel drivers we want into bridges, possibly
->> > > with a bunch of specialized helpers to manage a panel state, and cal=
-l it
->> > > a day?
->> >
->> > I think that panels provide good abstraction on top of the drm_bridge.
->> > For example, bridges don't have orientation, panels do.
+On 9/8/26 13:31, Ville Syrjälä wrote:
+> On Tue, Aug 04, 2026 at 06:01:54AM +0000, Haram Choi wrote:
+>> I think I have found the commit. It is not in drivers/pci at all, and
+>> my previous suspicion of 94555ea9a048 was wrong. Apologies to Simon
+>> for the noise.
 >>
->> That's easy to add.
->
-> What would it mean for the bridge? I was thinking about pulling
-> orientation from the per-panel code to a generic code path, including
-> reading and handling it. I'm not sure if it should be done in the
-> drm_bridge code if we declare drm_panel deprecated.
->
->> > Also panels have followers, while bridges do not.
+>> The regression is:
 >>
->> Ditto
+>>   cc6ed470caa2 ("drm/i915/vga: Avoid VGA arbiter during
+>>                  intel_vga_disable() for iGPUs")
+>>   Ville Syrjala <ville.syrjala@linux.intel.com>, 2025-12-08
 >>
->> > I don't think that either of those APIs make sense for bridge.
->>
->> Why not? In a world where we have bridge hotplug for example, it would
->> make total sense to me to have bridge followers. I think Luca even had
->> that at some point in his series (and still might?).
+>> I have added Ville, intel-gfx and dri-devel to Cc.
+>[...]
+> 
+> Sounds to me like the best fix would be to explicitly enable
+> 16 bit decoding on the bridges on these machines. That would
+> guarantee that apple-gmux works regardless of which GPU
+> drivers are loaded, and in which order.
+Was this regression ever addressed? From the outside it looks like it
+feel through the cracks, but well, it easy to miss something from where
+I stand.
 
-There's a simple notifier mechanism: see core [0] (with currently psoposed
-events [1]) and users [2][3].
-
-The events [1] and their semantics are not well defined as of now, so we
-are still on time to decide from the beginning whether it should be very
-bridge-hotplug-specific or have a wider scope.
-
-[0] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-14-8e34986d=
-cb68@bootlin.com/
-[1] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-14-8e34986d=
-cb68@bootlin.com/#Z31include:drm:drm_event_notifier.h
-[2] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-15-8e34986d=
-cb68@bootlin.com/
-[3] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-16-8e34986d=
-cb68@bootlin.com/
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Ciao, Thorsten
