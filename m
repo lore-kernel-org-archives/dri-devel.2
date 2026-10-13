@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06E9CC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 15:24:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49DEECC6B16
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 15:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFF1610E0C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF38910E911;
 	Tue, 13 Oct 2026 15:24:22 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45F7E10E96C
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:24:17 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF30B10E911
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:24:14 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 22399C653F3;
- Tue, 13 Oct 2026 15:25:11 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 35A2C4E4120E;
+ Tue, 13 Oct 2026 15:24:13 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8A03060362;
- Tue, 13 Oct 2026 15:24:15 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 0250860362;
+ Tue, 13 Oct 2026 15:24:13 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3C1CC11D71783; 
- Tue, 13 Oct 2026 17:24:12 +0200 (CEST)
+ with ESMTPSA id 9AB3811D716CA; 
+ Tue, 13 Oct 2026 17:24:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1791905054; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1791905051; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=ATEZfoBfRkWXUApFpaJ6xPCmlzpvWGWWPheGBZOP4cs=;
- b=SLPMw03rPtHUgOg9J+lE/Nvg06Q2pB8dQ5e/POc2+n/A6caHH6PunTxY5YlgWwYwbF8VPa
- fSN2V8eqhXUJdoLVqjOjfiHmSXpM+OfFAy4Nz8fqeiBJnUJOigabDZx0abjAvkiDWRrq7m
- 8kj6avhGkxUFH+1qFAkT0SW4JALvqUGAQ5Rv+l9Woo0jqe0Xgi/Um3ba1aI4WahYSm54tz
- J3GiQQDV37F3fPyftJRCD/OdaFfAWWRJ+b7SrC4y5iKajo+MAl3TdRKQdivMkz+vjrbRk6
- xCNKuu8dYo6Wj4zJhZt0E6QwfyKvjyCaHsukeCfuHGqB+XBxuPdr74II4dNTjg==
+ bh=B3fsmZl8vkEfky5YLwYCVAhKrRI48YT1fZwtM+Sy3BE=;
+ b=DDr4BJihOrC/kLjKTlKIeZ+2TrdI3p9nvQ7AKsOC3vsFkp8JpMaYG5r63+sBEX20n6MiQn
+ qJhD+DRXufVJNclvHnpOkVQF9+eEzI1TwFDnirgChX5zizkeUmM3559x5cp1OwYsvbBP7C
+ mkazCvi8qSD3TB78jwqbYee0RQ32IWm63bR4/b/Oegn0SrxxrRVEvFkr24cWyZ6RAOfCT3
+ USsKwm5RecN9WczaNRk5zDEo9Es6DdqTA9yxK+y04gjb8j5Yrdpnd9qzlAWlp3Fopne7f5
+ OVpnJJlQxikYzDD9uipg2//svX6yrxEQyYLet9sdzn4KHTeKeaXuL7WT0coixw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 13 Oct 2026 17:23:55 +0200
-Subject: [PATCH v3 2/3] drm/vc4: dsi: stop using deprecated
+Date: Tue, 13 Oct 2026 17:23:54 +0200
+Subject: [PATCH v3 1/3] drm/vc4: dpi: stop using deprecated
  drmm_of_get_bridge()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-drm-fix-of_get_bridge-build-regression-v3-2-0b4c0b65be82@bootlin.com>
+Message-Id: <20261013-drm-fix-of_get_bridge-build-regression-v3-1-0b4c0b65be82@bootlin.com>
 References: <20261013-drm-fix-of_get_bridge-build-regression-v3-0-0b4c0b65be82@bootlin.com>
 In-Reply-To: <20261013-drm-fix-of_get_bridge-build-regression-v3-0-0b4c0b65be82@bootlin.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -71,78 +71,54 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 drmm_of_get_bridge() is deprecated, switch to
 of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
-a refcounted bridge, ensure it is put by using bridge.next_bridge.
+a refcounted bridge, ensure it is put.
 
 drm_panel.h becomes unused, drop the include.
+
+Also remove a comment that is now obvious: now panels are just bridges.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
 Changes in v3:
-- fix bridge reference leak in error path
+- re-add and update comment
 ---
- drivers/gpu/drm/vc4/vc4_dsi.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/vc4/vc4_dpi.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index 0148f2befed1..675bd0fc1391 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -35,7 +35,6 @@
+diff --git a/drivers/gpu/drm/vc4/vc4_dpi.c b/drivers/gpu/drm/vc4/vc4_dpi.c
+index 53f36626a50d..feefefcf3ad7 100644
+--- a/drivers/gpu/drm/vc4/vc4_dpi.c
++++ b/drivers/gpu/drm/vc4/vc4_dpi.c
+@@ -16,7 +16,6 @@
+ #include <drm/drm_drv.h>
  #include <drm/drm_edid.h>
- #include <drm/drm_mipi_dsi.h>
  #include <drm/drm_of.h>
 -#include <drm/drm_panel.h>
  #include <drm/drm_print.h>
  #include <drm/drm_probe_helper.h>
  #include <drm/drm_simple_kms_helper.h>
-@@ -555,7 +554,6 @@ struct vc4_dsi {
+@@ -279,16 +278,13 @@ static const struct of_device_id vc4_dpi_dt_match[] = {
+ 	{}
+ };
  
- 	struct platform_device *pdev;
+-/* Sets up the next link in the display chain, whether it's a panel or
+- * a bridge.
+- */
++/* Sets up the next link in the display chain */
+ static int vc4_dpi_init_bridge(struct vc4_dpi *dpi)
+ {
+-	struct drm_device *drm = dpi->encoder.base.dev;
+ 	struct device *dev = &dpi->pdev->dev;
+-	struct drm_bridge *bridge;
  
--	struct drm_bridge *out_bridge;
- 	struct drm_bridge bridge;
- 
- 	void __iomem *regs;
-@@ -1165,7 +1163,7 @@ static int vc4_dsi_bridge_attach(struct drm_bridge *bridge,
- 	struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
- 
- 	/* Attach the panel or bridge to the dsi bridge */
--	return drm_bridge_attach(encoder, dsi->out_bridge,
-+	return drm_bridge_attach(encoder, dsi->bridge.next_bridge,
- 				 &dsi->bridge, flags);
- }
- 
-@@ -1749,9 +1747,10 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
- 		return ret;
- 	}
- 
--	dsi->out_bridge = drmm_of_get_bridge(drm, dev->of_node, 0, 0);
--	if (IS_ERR(dsi->out_bridge))
--		return PTR_ERR(dsi->out_bridge);
-+	struct drm_bridge *next_bridge __free(drm_bridge_put) =
+-	bridge = drmm_of_get_bridge(drm, dev->of_node, 0, 0);
++	struct drm_bridge *bridge __free(drm_bridge_put) =
 +		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
-+	if (IS_ERR(next_bridge))
-+		return PTR_ERR(next_bridge);
- 
- 	/* The esc clock rate is supposed to always be 100Mhz. */
- 	ret = clk_set_rate(dsi->escape_clock, 100 * 1000000);
-@@ -1775,9 +1774,13 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
- 	if (ret)
- 		return ret;
- 
-+	dsi->bridge.next_bridge = drm_bridge_get(next_bridge);
-+
- 	ret = drm_bridge_attach(encoder, &dsi->bridge, NULL, 0);
--	if (ret)
-+	if (ret) {
-+		drm_bridge_clear_and_put(&dsi->bridge.next_bridge);
- 		return ret;
-+	}
- 
- 	return 0;
- }
+ 	if (IS_ERR(bridge)) {
+ 		/* If nothing was connected in the DT, that's not an
+ 		 * error.
 
 -- 
 2.56.0
