@@ -4,167 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFBE1CC6B3B
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E85B1CC6B2F
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2617211217D;
-	Thu, 15 Oct 2026 07:57:02 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1A5F10E940
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:24:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 86D8B4379B;
- Tue, 13 Oct 2026 15:24:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B0261F00893;
- Tue, 13 Oct 2026 15:24:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791905075;
- bh=ts5FqIBv2fWYs7Xe01nn0l1b/khkxTyGv6WJ8ChJMkQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=frqVEp7l8FM6W+8Dcyt6OaOlfy1/61o2FwoIu+tE+sCQS7ApPnpZVfcEjqwyG10pS
- 2yJ66rzsXeBSJ3aNehuTRuadNU36nKkye4Y95CxpodAE5FIEdBZE70Wnk0FHDNltXS
- oUg35rUjVOYIXcN+oSGaQJoGdIcu9/YirfjboOfM6Hqu3d8wHixBBrmHswsXrfvYHM
- 1VopEMJi1Orq35BbsmGYxyzh4z7Iao71qsAblpACMusbAylnHb/kkCDXAy0lQaLzSl
- deK8lvKWH5lGesNvD5IrDGaOnyec1OCF4+Hyri//uBAmksAXs9nKW1cjeR70iVdvar
- GEIN8zS57k93A==
-Message-ID: <2d301625-ba76-4b3f-8a24-d66f0e56bfef@kernel.org>
-Date: Tue, 13 Oct 2026 17:24:02 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA83112171;
+	Thu, 15 Oct 2026 07:57:07 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11022113.outbound.protection.outlook.com [52.101.48.113])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC28610E21B;
+ Tue, 13 Oct 2026 18:21:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y80PkwviEy5VJoYasD2Gu9X1D+szOBz759TCM8mc831bgQEVY71+CH5Hts6oczgD8YPUY4aO4UusPyWXJONSfxY+LVpYbdYg5t55ftqH5w8cizATFNdsHr4DWavnQq+ln69rMZbdRNFeSPuVq3Nccnw0tyZ0cBVo5Q84FMtQMGoJf+b4iSD7B7c+vKKU8fuZIh5dzK53Anhp/EHLILGjaNLj6rq5e29ZNNCIYHwtofMi8ZljxWAPbr5V/+kn2/plRncg3L5AGqCKbV7t5FBx8jmPamROF4EAhB/xtcBR2Gsi6iyf+pRQ4PZ8Ndom/1SPEpYGoLcKewfhp0dMbEU8zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VVIHQjqVoSakUPUuM2JvbCsWTpG9ZApxO6NIP/sSMTc=;
+ b=MKEly5MiN4cetZnnlgctFh1jboUI1lNsZ0uXYwgerCuGhJM4xDN3l0wLupsyxUPjQDTRmyLe6xsicYgWaYwldj/HBjomcfjTrimeo0ptATqUSsARCXBgoZRAKhdFqsqhPInuL7h3GpdKDf1NELt4gHEiiJXXORgOlWQMaytnklAY08pxp4yParH/f82Ql9mOxpt/UpwmM+FoWRTxc5eoj0VS6WcZMHOnD1S18fm2LPtoksP1TFdQ8zw1RH6shDsZ+eyS8UJHGU5Ci+qqBTFhlIRNjch5ZEl8JbEvlIF1P3NlfI2mu9MZAFc9okxaMR9Mtblv7HsRoBp0435MC0dnyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=trailworks.io; dmarc=pass action=none
+ header.from=michaelburch.net; dkim=pass header.d=michaelburch.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=michaelburch.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VVIHQjqVoSakUPUuM2JvbCsWTpG9ZApxO6NIP/sSMTc=;
+ b=eCn8LsKXiKGtu/ITunYsOLQq8ofSLZjZN8Wxt2y3jx0uEiPkd1jAcb/vwCof5SNwtWw06998VWEA4ERB6GwaC4s0N9GgnOjCDalsvb26OiKSMUwrC3K79cySsg0RK48ulItlz6q7bt3iHCfLtYj0Y3vAHpB9x3+hhsXO6L17f6FqefNmw4QNt0IhwELYPLi3nKxyBhnYMp/SenSBU9wFfeIgsipR6cZU03DI7szjCOWNSZ1v7+DtW8ZkByUMA8vRG1OcTFagKrm/LNUH3+6BKqmjJ9AdUaLhliDHRF8Yzm8UWLR1UTvLbqLSnv50M/RU6uZT2c9gjSBxjRmaiCxuJQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=michaelburch.net;
+Received: from SA1PR01MB8112.prod.exchangelabs.com (2603:10b6:806:325::5) by
+ CH3PR01MB8648.prod.exchangelabs.com (2603:10b6:610:1b9::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.23; Tue, 13 Oct 2026 18:21:25 +0000
+Received: from SA1PR01MB8112.prod.exchangelabs.com
+ ([fe80::1e71:8f1d:29d1:8217]) by SA1PR01MB8112.prod.exchangelabs.com
+ ([fe80::1e71:8f1d:29d1:8217%6]) with mapi id 15.21.0496.015; Tue, 13 Oct 2026
+ 18:21:25 +0000
+From: Michael Burch <me@michaelburch.net>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2] drm/msm/dpu: count the pending frame before kicking it
+ off
+Date: Tue, 13 Oct 2026 13:21:15 -0500
+Message-ID: <20261013182117.759725-1-me@michaelburch.net>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <sashiko-outbox-170245@kernel.org>
+References: <20261013172703.12273-1-me@michaelburch.net>
+ <sashiko-outbox-170245@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA1PR02CA0006.namprd02.prod.outlook.com
+ (2603:10b6:806:2cf::15) To SA1PR01MB8112.prod.exchangelabs.com
+ (2603:10b6:806:325::5)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 08/39] mm: add mmap action for discontiguous kernel
- page mapping
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
- Bert Karwatzki <spasswolf@web.de>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
- <20261013-b4-mmap-prepare-vma-flag-sanify-v6-8-1aa3c9b139f9@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-8-1aa3c9b139f9@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR01MB8112:EE_|CH3PR01MB8648:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f847a38-3384-4d49-e78f-08df2956ca88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|6133799003|22082099003|10067099003|18002099003|3023799007|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: WpmjbCy6s2blDCbK3+0Mbe/qDsm3UTQUIbDwfqzbaTWB/+/mxVtupJfqFBXRV8drb9AsYCdh4+uuPwgnre8gh8ugioLPmX5T2DNeKcNjUM3cx0SyrHPI5cWUWX+5Ie+VUekj+6iV0oDrCtqdBtVLLLBXsnf8RixZH5z3F3T28EAipMLgcAzaYBjD/liG7rDvvPNhbIjwyCqxwTpgxVcxp68Jk+kUWOVDiCSDTkvOsJoRNUbmXGGWD4o0cQfHCgK9Fd0a/Dx2K6QZTWBKJ/KAi6x4bn3c4K7ki2RoZ2QXFq3fkpklFKJL1l3Cv108odCY+93hzJOxw9ky6xxbwRRwLjcIc5IN8Ve+taGG5hgfNQESuLJRBKx1xX+kLPXciAPX0twU+CipfXF2vvK9S6mSxdPJIfSZhdjED7xkLCWlbPX0vkIM+iaMv6Ingq9Gj16D3ZN4ervu1grEAziRvrxoPNljzVUXs0mJq+IjXHdyHXdaOb4v09rpvhpfBH8JYxMauKcNr8xD0U3Ut2GgtFNn4Z6yY3Sarellj5oyRV8f0PBC/W3d0g0poR7K0/t6nlULzhvju5t+FSYwW1DQymcGLrY3a59q7qLS5p3VzvChfsI05kZZYLzC/CiMoxiPKVL7+hU1GfpFUQYmujHv2lq20ZQdGDGQuJvPrCyrXA9Ooek=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR01MB8112.prod.exchangelabs.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(3023799007)(4143699003)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zR56b6Qmc2eD72Id0WQgMHMbcPPzGcQIiIuQb13BeJZaWxLQSNAiqlY8R19G?=
+ =?us-ascii?Q?ChAq11s3HKtWc6/+yxQyBX875FYsaMwSsfugos22WHMJf5KcQ6aVL6st1bfI?=
+ =?us-ascii?Q?o3ypCqpxBDvK2U23VxeSD/dGWC2O0resZ0P/45XnLRRCbrg/P9PYCq8il3DY?=
+ =?us-ascii?Q?gwLM1lur6LVo8K38jAYTGhBYAsmze9YMKz7lEGWlf8oCKs5CG77CSgoZDMyp?=
+ =?us-ascii?Q?NWHEFBVrNB9qu71wczNhDueleZpGvryX74eI/tiOCrQVDUjaRrwXVTMPLA7+?=
+ =?us-ascii?Q?Z23O1uaUUCOuscHawA57qFQ59ABuVvFUxoolD0MTugHiOnBfa+Z9k9zyEDcn?=
+ =?us-ascii?Q?m+AQ6tiSdLVpueCaS9x+8k2TdKqXKmBbyFMgU9K9YrvWHxXRHXFk7xCwJMCe?=
+ =?us-ascii?Q?EbWtr9axUS4R1wmMplJdZ9uOfikdx+frV7zoyKGxZVqDewTbVgZargM5Zavf?=
+ =?us-ascii?Q?ZLgW7+H89PT4oLuKJHaZj7sb0DDpuygRsWRZXi/Sfr7Oyv25SViWf7RdfiAO?=
+ =?us-ascii?Q?r/n9kg268XHSANFjXsrl8/CxbxnsJRypLjLkevChhdX8LyjxSENgESkfkQ2N?=
+ =?us-ascii?Q?xIbJIZMCJoVVQnII7UnCtpAV59N6bRiQGdOodn/1113Deni3aZCCZ0T6iLrH?=
+ =?us-ascii?Q?R5nBxwEtmWYTu5jSF8yQFNpknvHOr5K0XPElnvMPNOldBvyTMIfALOWtl+ss?=
+ =?us-ascii?Q?S4EY+q/Z3ifQCXoPwt2jPUB29UvThQ11XVTcKE5g/mKdmcfSersaKjkHXLoj?=
+ =?us-ascii?Q?g2BIK7DWA9Z9Bvc0x+/ua2MVCfCtsi6NVZZMpUlpFq4ESU0iPz/b8YpBWGL5?=
+ =?us-ascii?Q?4zuydhZGEb49qL5NzRlz6CWFmxqDyB8VNQjNHIXF7QkY7ES3yvM6e6cJFfNN?=
+ =?us-ascii?Q?ElqN8nQocJTjSk6DmIt9VYe5uRIuiecNV/Em0g4MCDNV5BoMiwdkSt7kAJjj?=
+ =?us-ascii?Q?vg7/zRN3tB/CC70AI0MvlD04XSt5IidIUBVt7p6bSJdXyzmCKUG8GC1Scn4t?=
+ =?us-ascii?Q?IKtTd0snQaoLMRKwt8pbbncjJB7SWRDQrhJm0jHu0Hte1gUTdBg3RV4VIyJr?=
+ =?us-ascii?Q?AZv9eyuiQ9hYrk3avYLd4x8R9RigZ2rqki2fCGvrKLNey8B4jkPNQKQbFTcM?=
+ =?us-ascii?Q?93RG6Rof/8Ps1TyUP/1ir/G01WN9Qnjg0Mw0W5rM+FfPTLe4M3a2Bhww4k/E?=
+ =?us-ascii?Q?qA9YJmu0BUDBN6YtUK5qSA5PyW1xPLaZX8LXgQ+ljWJPOpZzBCIFBnJG7RSq?=
+ =?us-ascii?Q?/jGfGBIPb13lMoDh5VU4vLJ4z9xUsSz5Dw/Ko6JEOAy8Rj4fhQPvw7/1POYx?=
+ =?us-ascii?Q?lh60Is4rG42GUSq9okKGsrhAa91Ebw6Z6zDUageA0P3a9LgRq/r+YilY/yEW?=
+ =?us-ascii?Q?fm3cFRM1UmicWKJ6ObvkZRsf8yrFqQTirfZ1DmSp9mtVHt/GcFUqE/TttGrM?=
+ =?us-ascii?Q?kJa97vSqgzKNG/GAxuTlbWIBXqnQ/qDZmIvptVo7gkzSjp0S8dINE0rMUm0r?=
+ =?us-ascii?Q?xcDX3TUPa5/O7bN0vUBLkZ70QoYyReVuCWnwqFjnxWefoY+zstvgb/nJgd5E?=
+ =?us-ascii?Q?4bSpVBQBdTPiD07m1PrhTTorWO8r6rAvJrIhrO3xDBdGO1LJL6ZxV8dwzU1B?=
+ =?us-ascii?Q?Vdzx/8KtLFknshUz/IEBTFJ6Pifq/9a0Ti5Wtnhy3gYauixgGxbVZIniXPwf?=
+ =?us-ascii?Q?N2uhee1ktB7+SJepE5Qrsp8yBkezBNYeSa7EyC6bTQz0mHhEn42aK9tPq80z?=
+ =?us-ascii?Q?dkQkyVGW9g=3D=3D?=
+X-OriginatorOrg: michaelburch.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f847a38-3384-4d49-e78f-08df2956ca88
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR01MB8112.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 18:21:25.3656 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8256b244-08e6-4df2-b146-877069d9ce10
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IJc738aIZo72nSaWWKSUIvoxsodFzycIGzuVamCKL4wNgTSFKJoDweeT3Y7DiLxKgro+4cTKb3QGD+n0bS677g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR01MB8648
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -181,61 +129,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/13/26 17:04, Lorenzo Stoakes (ARM) wrote:
-> The existing kernel page mapping mmap actions allow for partial and full
-> mapping of an array of struct page pointers.
-> 
-> However some drivers require the mapping of discontiguous ranges. Permit
-> this by providing discontig_kernel_page_ops which allows a driver to
-> specify how the operation should begin and how batches of pages should be
-> retrieved.
-> 
-> It uses the minimum exposed interface to do so, providing address, page
-> offset and both vm_private_data state and a local private state object.
-> 
-> ops->init can establish state for the operation, and ops->get outputs the
-> pages to map and their count. Should an error arise the core unmaps the
-> VMA, invoking vm_ops->close, which is therefore where any state established
-> by ops->init is released.
-> 
-> Also update the compatibility layer to do this too via
-> compat_mmap_action_abort().
-> 
-> Batches may not exceed the VMA, but may map less than its full range in
-> case the driver wishes to allow the user to map an area larger than the
-> available data.
-> 
-> To use it, users invoke mmap_action_map_discontig_kernel_pages() with
-> initial local private state and a set of operations.
-> 
-> Users can then use one of the provided helper functions to perform an
-> action:
-> 
-> * discontig_kernel_map_abort() - Abort and leave the mapping as it has
->   been accumulated so far.
-> * discontig_kernel_map_page() - Map a single page, or a compound page given
->   its head page, as 1..N contiguous pages.
-> * discontig_kernel_map_pages() - Map a struct page ** array of a specified
->   count, mapping only those pages which fit in the VMA.
-> 
-> The userland VMA tests are updated accordingly.
-> 
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
-
-
+On Tue, Oct 13, 2026, sashiko-bot@kernel.org wrote:
+> > +	dpu_crtc_count_pending_frame(crtc);
+> > +
+> >  	/*
+> >  	 * Kickoff real time encoder last as it's the encoder that
+> >  	 * will do the flush
+> >  	 */
+> >  	dpu_encoder_kickoff(wb_encoder);
+> >  	dpu_encoder_kickoff(rt_encoder);
+>
+> Does this code introduce an unbalanced decrement of frame_pending?
+>
+> In dpu_crtc_kickoff_clone_mode(), dpu_crtc_count_pending_frame() increments
+> frame_pending once per CRTC commit. However, the function subsequently kicks
+> off both wb_encoder and rt_encoder independently.
 [...]
+> If multiple clone-mode commits are interleaved, could the second event from an
+> earlier commit arrive after the next commit sets frame_pending to 1?
 
-> +
-> +int map_discontig_kernel_pages_complete(struct vm_area_struct *vma,
-> +					struct mmap_action *action)
+Yes, the accounting is unbalanced in clone mode, but it is not
+introduced by this patch. Without it, dpu_crtc_commit_kickoff() also
+counts one frame per commit, and both the writeback and the real-time
+encoder report FRAME_EVENT_DONE (and, on a frame-done timeout,
+FRAME_EVENT_ERROR) to the CRTC. The patch changes where the frame is
+counted, not how many times, so clone mode needs a separate fix.
 
-... indentation ;)
+The encoder already identifies the writeback encoder of a clone-mode
+CRTC: dpu_encoder_kickoff() skips its flush when
+drm_enc->encoder_type == DRM_MODE_ENCODER_VIRTUAL && dpu_enc->cwb_mask.
+Applying the same test in dpu_encoder_frame_done_callback() and
+dpu_encoder_frame_done_timeout(), so that only the real-time encoder
+reports to the CRTC, would keep one event per counted frame. The
+writeback job is still completed through
+drm_writeback_signal_completion(). Jessica, does that fit the CWB
+design?
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+I cannot test this here. dpu_encoder_get_clones() pairs writeback only
+with DSI encoders, so on X1E80100, where the panel is eDP, no encoder
+can share a CRTC with writeback and the DRM core rejects such a commit.
+That also corrects my test notes: this machine does expose a Writeback
+connector (WB_2); what it cannot do is clone mode.
 
--- 
-Cheers,
-
-David
+Michael
