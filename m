@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2830CC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:40:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 309C4CC6B1E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:40:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1748310F9F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D5AA10F9FE;
 	Tue, 13 Oct 2026 22:40:37 +0000 (UTC)
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBE9410E959
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:25 +0000 (UTC)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-30bcb065bfdso6716199eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:25 -0700 (PDT)
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
+ [74.125.82.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E3C310F6C9
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:30 +0000 (UTC)
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-3580c07911eso9020106eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791931225; x=1792536025;
+ d=google.com; s=20251104; t=1791931229; x=1792536029;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=wbjJdHqZPRkvVZnH2yPkFa6V1wQ6/MdT39yYoogCQX4=;
- b=DqgnhSKp6FaugyXjSikPxlts5SWI68lgVjmnhmE9KlTqOcJhijgwIE8A5kyBGns1G7
- XsOD03UfPwO5ygFLbTyEnE4g0osp1X2xd/Cz+4qJLRLQfi4EDRJCUEB68uOv9g6unCxo
- wyj/E2+mmGFpHuwXyQV9dof49BZ6s3qRRH33RUlt+THQMI27RIsKuWt4FksTUWvgffKN
- PIK7+ZvnhA0ZY6WgrsEex5k3u0KNE2tpUeb1tyyoKDBBi7smybFi2Hr/vrQrFc+khuav
- ZEXou27kH/DFSnXzmQ9qCIsUXWk1o0ugnM0OvPb5iQeolovemUMQHmxkFPh80qJqOmZL
- ioeA==
+ :content-type; bh=SzuEQJa4uF6wSn0s7ZpxNvjcEHFt9KB4NkbiARikmlQ=;
+ b=V9VxfbCXp7wwCpC6k1GCWW4MuxVc0ohWECqyNxQs9heasO5XD77l3yqtu7S08P3T+3
+ RMrFxWVmsmD83AswC0z6veksOXAcY1OlSF5kO0MZEPuDalG5QSE3E+DYwEcYlRM+s2ci
+ 2cyQOnzI9f9aidO602n8rt6YYeBOCude6Aa8AvD5Go19DI5uVU73tKmTR2a+U2TWt7nU
+ OGMDER8UtAeTfTUN7bMX/Q+ANa7eyB0otcok+HZAtVJjrpTKvAe5RM4q/yRMs7kFpy0k
+ X6iOugCWjcRYSWm2R5Sd9zB93Icr6RDuPymI90crLO8cdYZj+zPXr1DRhhZbHmgwHUl8
+ 23KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791931225; x=1792536025;
+ d=1e100.net; s=20260707; t=1791931229; x=1792536029;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=wbjJdHqZPRkvVZnH2yPkFa6V1wQ6/MdT39yYoogCQX4=;
- b=yAIUof1UtTB1BLYmRnz/I2uSB29EKe9WB3lfLMKL1YydMx+lSYzrl/LyQ/h/lxui2C
- e75amyWMqzZv77iDdBIyp/0lMPsZ0GSuVTbMugLhhJdXWemsllh58eTsn6io2jWTWotV
- qx9ysRO5azWKJJlaaqZl2KiPNzlzgZ4B8smZZewAUBdevha+vcxaU281WiUNRRnX5xP/
- Eg8/aYutrWfIp+0P/nb23hKT+qsSABgFy91Mc/euCx2ykcDa86jgBa6L5r5sUx3TZm0a
- Gvz3cVKTMPlRvRO9wCs0zSOXbvalIjuOkhMdj3lt3nQnDR3OVKW7r3fSOTpA4g47Dv03
- s1PQ==
+ bh=SzuEQJa4uF6wSn0s7ZpxNvjcEHFt9KB4NkbiARikmlQ=;
+ b=Mgg4ZuUmDDil9X5s+MwIxWT2uPXytge+0gt2IjVQC6ktVGjVcAxdvMmyWzwIFp99yU
+ 6SjEef3OmsA91dqWdQ/cXYXWklUxBkKT7Lx1oHpsRBSeXrQk8ZSY0ZZ5BAYOnoA+o/rw
+ kzWUbimTX4s8Uct8aH2nvQDX0+qSor04NdlDfTQ5/71oj1CeyXeOs4MqRjRhy+PKMFOc
+ RwKN8+6DytdddWrHKABk3hRnvidEm3S4D8gsHlTbZMYu7vWhBtPJjOeitNLzVum7dqVA
+ Kv4srOUcoEJCSVRfcXVRy5X3TvHaeLdWwXHxTXQChunDvJlOJHxcNBCeXu6R9567H55S
+ F5CA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxwUnzqemWBLCYNcfO+CmZ8crD2CWyOL9j3UETZV4I7bW/0Du2BI9wX1R+dXkVWV0/Wxb+h5hm+6yY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIAfkUpnjkRlh+Er9ERmaS3M48DBarACoJB2M/oBaPwZGlI2q34
- pFcpDS4kv7cyB/odKqj+VU+c017l3fU/7SedSqL6zzDFoCvU0wSjbKC+GmtJOuzUv/NTIUrI05J
- XhEkO8s90wQ==
-X-Received: from dyr27.prod.google.com ([2002:a05:693c:401b:b0:359:e5f1:14fb])
+ AKwUvBxc2DYGcwOBoxL3DfjP21T+ujjZP3NRrr3d2CWufR8Z2vGUpfcQYT1v3E/acv0LkZ9O7Q/sd1ySUn4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKgjGG+nIkneWOqxQucK2ccal6HLd9zV3T+AF8Kj5Y2KLF//I2j
+ AuUM8kdtIyL3y8jQEBeT34tAZz0n3a4BPBE6wT4407nz4DTpRvss/ejqE8qVwKJ2Op12CvWoMzT
+ zUsjmcdZR3Q==
+X-Received: from dybmf44.prod.google.com ([2002:a05:7301:92c:b0:358:41fa:f46f])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:470e:b0:35c:73ca:a1e0
- with SMTP id 5a478bee46e88-35c73caae65mr4317399eec.15.1791931223446; Tue, 13
- Oct 2026 15:40:23 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:39:40 -0700
+ 2002:a05:7300:c8c2:b0:35a:8dad:6724
+ with SMTP id 5a478bee46e88-35a8dad7ec8mr9213311eec.22.1791931228757; Tue, 13
+ Oct 2026 15:40:28 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:39:42 -0700
 In-Reply-To: <20261013223946.1836757-1-irogers@google.com>
 Mime-Version: 1.0
 References: <20261013223946.1836757-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013223946.1836757-6-irogers@google.com>
-Subject: [PATCH 05/11] ACPI: CPPC: Free cpc_desc in kobject release callback
+Message-ID: <20261013223946.1836757-8-irogers@google.com>
+Subject: [PATCH 07/11] xen/sys-hypervisor: Add release callback to
+ hyp_sysfs_kobj_type
 From: Ian Rogers <irogers@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J . Wysocki" <rafael@kernel.org>, 
@@ -108,111 +109,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-cpc_desc_ptr embeds a struct kobject that is registered in sysfs via
-kobject_init_and_add(), but cppc_ktype lacked a .release callback and
-acpi_cppc_processor_exit() freed cpc_ptr immediately after kobject_put().
-With CONFIG_DEBUG_KOBJECT_RELEASE=y, this causes a use-after-free when
-kobject_delayed_cleanup() runs on freed memory.
+hypervisor_init() in drivers/base/hypervisor.c creates hypervisor_kobj
+with kobject_create_and_add() (which allocates a dynamic kobject using
+dynamic_kobj_ktype), and hypervisor_subsys_init() in
+drivers/xen/sys-hypervisor.c then overwrites hypervisor_kobj->ktype with
+&hyp_sysfs_kobj_type, which had no .release callback.
 
-Move the sys_mem_vaddr unmapping and kfree(cpc_ptr) into a new
-cppc_release() callback on cppc_ktype, and initialize the kobject on
-allocation so kobject_put() handles cleanup in all paths.
+Add hyp_sysfs_release() calling kfree(kobj) to preserve the dynamic
+kobject release behavior.
 
-Fixes: 158c998ea44b ("ACPI / CPPC: add sysfs support to compute delivered performance")
+Fixes: cff7e81b3dd7 ("xen: add /sys/hypervisor support")
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/acpi/cppc_acpi.c | 39 ++++++++++++++++++---------------------
- 1 file changed, 18 insertions(+), 21 deletions(-)
+ drivers/xen/sys-hypervisor.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index fef54fcd00b7..2a80404f85d3 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -297,7 +297,22 @@ static struct attribute *cppc_attrs[] = {
+diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.c
+index 91923242a5ae..0e8a2cd69fd6 100644
+--- a/drivers/xen/sys-hypervisor.c
++++ b/drivers/xen/sys-hypervisor.c
+@@ -659,7 +659,13 @@ static const struct sysfs_ops hyp_sysfs_ops = {
+ 	.store = hyp_sysfs_store,
  };
- ATTRIBUTE_GROUPS(cppc);
  
-+static void cppc_release(struct kobject *kobj)
++static void hyp_sysfs_release(struct kobject *kobj)
 +{
-+	struct cpc_desc *cpc_ptr = to_cpc_desc(kobj);
-+	unsigned int i;
-+
-+	for (i = 2; i < cpc_ptr->num_entries; i++) {
-+		void __iomem *addr = cpc_ptr->cpc_regs[i - 2].sys_mem_vaddr;
-+
-+		if (addr)
-+			iounmap(addr);
-+	}
-+	kfree(cpc_ptr);
++	kfree(kobj);
 +}
 +
- static const struct kobj_type cppc_ktype = {
-+	.release = cppc_release,
- 	.sysfs_ops = &kobj_sysfs_ops,
- 	.default_groups = cppc_groups,
+ static const struct kobj_type hyp_sysfs_kobj_type = {
++	.release = hyp_sysfs_release,
+ 	.sysfs_ops = &hyp_sysfs_ops,
  };
-@@ -799,6 +814,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 		ret = -ENOMEM;
- 		goto out_buf_free;
- 	}
-+	kobject_init(&cpc_ptr->kobj, &cppc_ktype);
- 
- 	/* First entry is NumEntries. */
- 	cpc_obj = &out_obj->package.elements[0];
-@@ -1001,11 +1017,9 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	/* Plug PSD data into this CPU's CPC descriptor. */
- 	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
- 
--	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
--			"acpi_cppc");
-+	ret = kobject_add(&cpc_ptr->kobj, &cpu_dev->kobj, "acpi_cppc");
- 	if (ret) {
- 		per_cpu(cpc_desc_ptr, pr->id) = NULL;
--		kobject_put(&cpc_ptr->kobj);
- 		goto out_free;
- 	}
- 
-@@ -1013,14 +1027,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	return 0;
- 
- out_free:
--	/* Free all the mapped sys mem areas for this CPU */
--	for (i = 2; i < cpc_ptr->num_entries; i++) {
--		void __iomem *addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
--
--		if (addr)
--			iounmap(addr);
--	}
--	kfree(cpc_ptr);
-+	kobject_put(&cpc_ptr->kobj);
- 
- out_buf_free:
- 	kfree(output.pointer);
-@@ -1037,8 +1044,6 @@ EXPORT_SYMBOL_GPL(acpi_cppc_processor_probe);
- void acpi_cppc_processor_exit(struct acpi_processor *pr)
- {
- 	struct cpc_desc *cpc_ptr;
--	unsigned int i;
--	void __iomem *addr;
- 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
- 
- 	if (pcc_ss_id >= 0 && pcc_data[pcc_ss_id]) {
-@@ -1056,15 +1061,7 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
- 	if (!cpc_ptr)
- 		return;
- 
--	/* Free all the mapped sys mem areas for this CPU */
--	for (i = 2; i < cpc_ptr->num_entries; i++) {
--		addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
--		if (addr)
--			iounmap(addr);
--	}
--
- 	kobject_put(&cpc_ptr->kobj);
--	kfree(cpc_ptr);
- }
- EXPORT_SYMBOL_GPL(acpi_cppc_processor_exit);
  
 -- 
 2.56.0.385.gd3acb90ef8-goog
