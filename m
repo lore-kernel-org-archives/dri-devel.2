@@ -4,81 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D957CC6B08
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:47:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E7BCC6B0F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:47:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B41BE10E7FC;
-	Tue, 13 Oct 2026 13:47:18 +0000 (UTC)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7694A10E83B
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:47:12 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-887fb6c0ad1so776934b3a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 06:47:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791899232; x=1792504032; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=OEd55JoJOoDV13ld4fQoCE8domEIQzBBmawfYivXwdA=;
- b=fA10tt1l+2YUNYrhy9dyv+VdqFjh7Ji6RNTcSUqEyurPbFT7liluhBaYT0vnqdgYBZ
- X180qUYFLK+msGGcqIrsD3WeJtySRpCa3HRQAxBbNmJLGtN7cjgBXQwc7wf8UdACqNqw
- 3T/6na0z/Ywq4Q0DZzWMk4SFJtWyTUTkX8ri5Xqq7kpn0uvMxPzjcn1lZHzKoUQoVES4
- CYFfKJRD7gTwbzJmy2GojFWPFnyvAABtYEfqy1n5cJpU4fwr38CD14PkSFYwDhhAj+9R
- Pq9lrLhHgcY+MzTyY9ml9KccZprtYhUtDRP9dq8hg/XnrVhTrbuXEud2P6P9b6tqM7pS
- 3FnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791899232; x=1792504032;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=OEd55JoJOoDV13ld4fQoCE8domEIQzBBmawfYivXwdA=;
- b=eaymWa60vKSW42DPFydBbqxfrl4IvOrqwbX895Jek/iTYJUwoUGjhsErR2LTBMYJME
- m94Pu2HLcyHlAurPuCW6SYXLQ+R0e7xEw60vQCNf4pd9DqfuXHm31QwDfx6ZW4GXZ30F
- oMP/vhijNis6COZeT/jg3ovKV+NuiZwK1+e+Ds6Y3FjzDujYzwa/5Jn5VrVcXd0fN9gD
- gMbB3bZI1s5yy5ZGkNNXZ5luMMKPz3uUjRuN+gH4g8ZJ3c/oG2LzjN4Wmp2u2dBuT51s
- pIsvDkB0bjlU48XiXppm7SivihTBtygAVPivi86FXjbNaCGQ0DxJyycatOSDhqVA5G2w
- 8Wpw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzEa9qwrefQ19Ycx76A+X+NhYWLMF7ZiXvLSRCvTugryBIXsT4CrU1D3SmIwyneDrwAlp19MES607U=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYILNoIqmBR5bdiI49wxjFsOFOk7VDP5+pOSSKH21OP4uJDXfmnE
- niPFOR4O774bwTeXzEgweP3bUVPHTz7vkaNmc6CUNyOcaOfGpLIv0Dco
-X-Gm-Gg: AYBFou0objzpLlrzU6GdwFv24mFx1b9zvlvmt/DwvFhi7T7d2c6sIpq3nlGhCWPG4FM
- oGTeIqDYULp1qRONGUh/G6fKYFRlcr9lWHMCdWyvD6vJw0dsNpzabzdic7Kh0xYgQHXaWNAz/I0
- CyGs93jeFCEiI6yBKPKKusHcIRvlBfcZx6vEQ2Ah49D/Ynlg0+ErW1MmE5o2hR4acg5oDozkhCF
- S13tMWA2d/BDDsa0sXnS2Rz7xaNtGPtmWm6cw8tcn9HGiK/2SEoBY/MzN90GIuqkDjz2qp1ZqIb
- bsurj8NVRMRF2yV9XDkzMl+NnouGW8weroOcSp518w6y+aq54TIc81p2m6NKIJtBhNgTTfNotOo
- HPbKCkEeFWFETfemvsFr/yfttTccwrZg3Du9X6kvxJumfzx931Y+XiLq4keAr9kbc3NkKlvqtyh
- uBB/4H3agplzNibCg0xxJ87gNtQ8L150lUy8LzXSy1RAcs45qtY9yYhH1LeBBcKuivYOlxemrzU
- fvEnhGFOg==
-X-Received: by 2002:a05:6a00:b50:b0:882:626a:709f with SMTP id
- d2e1a72fcca58-897c3ff5155mr10872889b3a.3.1791899231770; 
- Tue, 13 Oct 2026 06:47:11 -0700 (PDT)
-Received: from arch.localdomain ([161.118.199.118])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-896c3cc80b0sm5044853b3a.29.2026.10.13.06.47.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2026 06:47:11 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>
-Cc: Jun Yan <jerrysteve1101@gmail.com>, Damon Ding <damon.ding@rock-chips.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: [PATCH v2 RESEND] drm/bridge: analogix_dp: use
- devm_phy_optional_get() for the DP PHY
-Date: Tue, 13 Oct 2026 21:46:57 +0800
-Message-ID: <20261013134659.335829-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11D6F10E83B;
+	Tue, 13 Oct 2026 13:47:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC82910E83B
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:47:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AA67560A60;
+ Tue, 13 Oct 2026 13:47:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2989B1F0089C;
+ Tue, 13 Oct 2026 13:47:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791899246;
+ bh=ufMZp4Qc9d80hvvRB3vNUruXIvuXEMAYVkTpkYEJ0aU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=S32sFMdJ2NY/boJZiq7qHgwrDvnfacP5JNU8mgaJyQiC/aJSf/o6u1yYss44okWo+
+ Sjga82Sb2QOdchZ1LbH0ux4IvEmSVJYxDuqsW2hn+bGfVieTjBjqpSHEZOrRJigUno
+ Px/tm8jUDyk1sC2fW1OcOVHLHHQvxIxtYjd1Q9Yv72c3MLoEPN+IRXDvhqPnrpGeFv
+ wDS7604PLG+GDAQq4ZB6hDi1UaV9y9t8Kh+H+s/ulOnRB0aWSsvTUCvQRS756SbO3C
+ aRc+OXw5d+p7xFNvkD8MgBaeVjQN7uppe/zdzAtPLcpNJmMMBmFatZswffJxTVZJ3G
+ jQSn9tSa+g88w==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfauth.ams.internal (Postfix) with ESMTP id 01726198003A;
+ Tue, 13 Oct 2026 09:47:11 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 09:47:21 -0400
+X-ME-Sender: <xms:XzbOan8Y8kGba8pRx5mgpWDM4YXW1EMocY6hBF154p4NE_F875UjkA>
+ <xme:XzbOasWum8CcjS-iK132ufVMOimRtEOpWN8JV7dRfEX1h1Dp_3dY_DtQtcao6Ny_a
+ yYaAPEJ0M59QTbNoSdl3ZanKVC4FYisPINrKzr_mvgREULtKWqsDGvx>
+X-ME-Received: <xmr:XzbOap0ub0Qc1GVOIpPOLwa49EH1LI7JGZhO_dy3oWX53Pt7ElSMpyHzD84>
+X-ME-Proxy-Cause: dmFkZTE4j+cS9gh3PxGqMjY7PyaLxMVg3dj8MlDzlM7GN7gdgiVxP0yJ//GkJN0wCahlMx
+ 5JdZXyer7uBv1S7r9zKudGJTVsIfvIDNMUthTv4zHTDadaydFl5J3WM5oOjG7bueTu1P/y
+ ErJcoDmdDlf2mbevwhHQ61prG/aGc64Y1+ArTq02T6BN55y6XBoncRB7eE5H2SYOX4r3El
+ YrSBfcjthcbdK9TH5Jj2U1yRZNxzXvJ0LVkfeDISJaGmLMzoC8igk5XBTY+38fhiHSyGiL
+ +cnpmehXA2/flj223aR6gM8IWtENoV0RxoyPyt9udox5uLVBfm0KgCcO5tiVN9eCvh/5JM
+ aTKNqGwu/2rDhCkM1c+ix5JpPW+GGwuxufWlSR9jnyihSU+e9+lhP2kVKcTNhuePk4D7h4
+ 2Q/OqvXjwTCM/tEN3XsDlSmc1l8yzmlZPtSQ3+C0mMNsQsEFPswQDCtfmGg67K80Az+PVL
+ LRd83YGI28XR3lRflIQMmdCsHVNKROP4bmpOl8lfPNG/peUSuiL9LZu5QLVVUe3NoZwPGs
+ g7i+lcpjCaoYEqyEbFS/GsC8fY2i0+IyggX935VBX1nvot5c71LozqkHm+PSwQtEOzOylc
+ ws01IE6e2mhHKHvxbwqIw1oJJoQYx5BwXuQtZfTdhwj1Ef1bu0vOINgdPZAw
+X-ME-Proxy: <xmx:XzbOavjAdgGfkkFd30Sl97e4fKs0AXQI0rmS1xtCq9gumhdIOAyBRQ>
+ <xmx:XzbOamTbl7FUwBPXlrXZ5UPMDMEsm-qJQemClGWaBNm7JvXRJNgTWQ>
+ <xmx:XzbOahFtiScMJxuiSy8_Pg59KzrCRLfao8Sx9nm0MSTSvPdPM-8nyw>
+ <xmx:XzbOau_9QagkSr9Gcvi2fyeWTN6rOk-E4VNxPyjkfdaOI5zuhHPpVw>
+ <xmx:XzbOanGVoJjyM8cI1RPfiSHx1bWBKrDdsr6nob_WZdZmjMxe9r7CI-pk>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 09:47:09 -0400 (EDT)
+Date: Tue, 13 Oct 2026 14:47:08 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, 	Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, 	Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 	Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, 	Long Li <longli@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, 	linux-media@vger.kernel.org,
+ linux-mm@kvack.org
+Subject: Re: [RFC PATCH v8 02/14] mm: Zero memory during shared memory
+ transitions
+Message-ID: <as4q9FlxUy9EFJZK@thinkstation>
+References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+ <20260924100529.1398790-3-aneesh.kumar@kernel.org>
+ <arZkEugXwCtKHH64@thinkstation> <yq5azewiqj39.fsf@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5azewiqj39.fsf@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,60 +123,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
-internal eDP port) has no separate PHY device and relies on its built-in
-PHY, which is programmed directly through the GRF registers, so its DT
-node carries no "phys"/"phy-names" property.
+On Tue, Oct 13, 2026 at 10:42:58AM +0530, Aneesh Kumar K.V wrote:
+> Kiryl Shutsemau <kas@kernel.org> writes:
+> 
+> > On Thu, Sep 24, 2026 at 03:35:17PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> >> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+> >> index f904a636d449..1f1f39082391 100644
+> >> --- a/arch/x86/coco/tdx/tdx.c
+> >> +++ b/arch/x86/coco/tdx/tdx.c
+> >> @@ -978,6 +978,9 @@ static bool tdx_enc_status_changed(unsigned long vaddr, int numpages, bool enc)
+> >>  static int tdx_enc_status_change_prepare(unsigned long vaddr, int numpages,
+> >>  					 bool enc)
+> >>  {
+> >> +	if (!enc)
+> >> +		memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
+> >> +
+> >>  	/*
+> >>  	 * Only handle shared->private conversion here.
+> >>  	 * See the comment in tdx_early_init().
+> >
+> > This doesn't make sense to me.
+> >
+> > On TDX the memset zeroes a page that is about to be dropped.
+> > MapGPA(shared) makes the VMM back the GPA with different memory, and
+> > what the guest reads afterwards through the shared mapping is whatever
+> > the host has there.
+> >
+> 
+> Does TDX require the guest contents to be preserved when pages are
+> converted to shared?
 
-Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
--ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
-misleading "no DP phy configured" error at probe time before falling back
-to a NULL phy.
+No.
 
-Use devm_phy_optional_get() instead, which returns NULL when the PHY is
-absent and otherwise behaves identically, and drop the manual -ENODEV/
--ENOSYS handling. This also removes the spurious error message.
+From the host perspective, the private page is withdrawn from the TD.
+Its contents are encrypted with the TD's key and do not carry over. Then
+the host inserts some page (maybe the same one) as shared.
 
-Assisted-by: Claude:deepseek-v4-flash
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../drm/bridge/analogix/analogix_dp_core.c    | 22 ++++++-------------
- 1 file changed, 7 insertions(+), 15 deletions(-)
+So the memset() in the prepare callback zeroes a page the guest is about
+to lose, and it does nothing to what the caller sees. With the
+post-conversion memset() gone from dma_direct_alloc(),
+dma_alloc_coherent() in a TDX guest returns whatever the host has at
+that GPA.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 6df6963740d2..637b1bff0f6c 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1426,21 +1426,13 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	dp->phy = devm_phy_get(dp->dev, "dp");
--	if (IS_ERR(dp->phy)) {
--		dev_err(dp->dev, "no DP phy configured\n");
--		ret = PTR_ERR(dp->phy);
--		if (ret) {
--			/*
--			 * phy itself is not enabled, so we can move forward
--			 * assigning NULL to phy pointer.
--			 */
--			if (ret == -ENOSYS || ret == -ENODEV)
--				dp->phy = NULL;
--			else
--				return ERR_PTR(ret);
--		}
--	}
-+	/*
-+	 * RK3288/RK3399 use Analogix DP controller built-in PHY,
-+	 * no extra PHY configuration is required.
-+	 */
-+	dp->phy = devm_phy_optional_get(dp->dev, "dp");
-+	if (IS_ERR(dp->phy))
-+		return ERR_CAST(dp->phy);
- 
- 	dp->clock = devm_clk_get(&pdev->dev, "dp");
- 	if (IS_ERR(dp->clock)) {
+TDX needs the same ordering as CCA: zero in
+tdx_enc_status_change_finish() after tdx_enc_status_changed(). No flag
+is needed for that.
+
+But, again, shared memory is under host control and you cannot assume it
+will stay zeroed.
+
 -- 
-2.56.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
