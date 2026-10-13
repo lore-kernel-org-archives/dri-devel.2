@@ -4,100 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E42CC6B0F
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 14:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4360CC6B08
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 14:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 953B610E80E;
-	Tue, 13 Oct 2026 14:17:08 +0000 (UTC)
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
- [74.125.224.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F1610E80E
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 14:17:02 +0000 (UTC)
-Received: by mail-yx1-f53.google.com with SMTP id
- 956f58d0204a3-677aec6ddfcso2469896d50.3
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 07:17:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791901021; cv=none;
- d=google.com; s=arc-20260327;
- b=fBMnp+XVD2PPhZV/DMn9hS5f/xf6AH5wD86r7acmlbLgb+y+pgiELcq01QEAldjfzI
- oBlNAF4Yesa8wDA0JqDvFjyoxWKxGDxbK3+45s/saw5deV/cW9pPKpekkAg/AV6YPXxP
- wZUC++3uuwVAsfluNHlwWDVkdXGnDp0Br6Q91fq3vhlKaRAnDwBBotq6u0q6eb5RYF6j
- YVckntBlGuxmuc/LYEAqniHdUO2EACGkvtPknn6PiimNMUjoyGg4MUy0OVORIyuy96n5
- QsvM+sVgtG3Ccvn+b8phPeDju8TK5eQ3dlHmpcZRboC4HyJ5H4xXnIROab9jWJQ4BflQ
- 0x1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=wNycpsWBlfQXgs2ZLPtEBzEs04amMNcoEiI5MVrXE/Y=;
- fh=uls47SBOl392Of7mq8RsrmMopEr0Jc1VpT8Sj92HnV0=;
- b=kAzZ46siHntWTjBSncHWEwLUHGo/6wSO9kqEc2NYKmXh06GRV2HTiRlQmAP1a6kwOb
- QJHlu5f5Ftr0fVwt759zchFNfnB4egeUlXN13MUptftYbYQHajY7IOc48deCkYjocruY
- DgSU8TC1vrN3H0+v0bMih2rmtvzcnYXReOcLrTvzSA0iGbvYM5+Q0JJM5eRj9WVaKU10
- ClUKdS5GqCjwvxvgIaKTMOJ0rkBwIikm3OEtcbxi9IaQg5VSs5oO2hBTnskb4C2PdFTJ
- aAhHMSwTxiKvXwpJ98wUJ/CibqexH7hW/6j/jYqba5egHgh2OxPOG5Y8FuNMe3m5uJEM
- GQBw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1791901021; x=1792505821; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=wNycpsWBlfQXgs2ZLPtEBzEs04amMNcoEiI5MVrXE/Y=;
- b=rLjd2unxTbXfc70cqGq0NNz7fl8sbvhsb7uYW3CR1wL58S17qb/sTd7HeZ0x1AMdXa
- coiWa3GAQ8VRvW3QXIi9BoBUW1EwDoIbw9pvkZZrfdQzrwWlBbIcipiuVxSObDKrzohM
- icVFD2GJEFvyWkZ+wknlu0cWN/mtm0omozdgSstd/9gEntqfYdLRRpGn3g8Z3ocfWxuJ
- Y5vh4SCT8R+DtuaY+oXpcBfupi369ajMH4/DSFc7D/dX3NvOIjyn8rY0Nm9odlqQm3QI
- bJ8NsXDASfuuKUU8Yed9Ll3098DLimuaOdBIkJ5YOfEmT1Vm4cXgK5umMuJ+6qye/kkY
- LDFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791901021; x=1792505821;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=wNycpsWBlfQXgs2ZLPtEBzEs04amMNcoEiI5MVrXE/Y=;
- b=FiDMeahlMVDGHfCHBC/Eir4ARmJJRuHINFVXQYil1ODc0zJIEYY62mmmbEyTRKpUpj
- sG+ysa2P4KhikEEOqNDX1OJQ6htE7PNcksrdfw2W97S+bAsas4VkyAYJDCa+6T/5RZFl
- e2VAInnQGrWEJ+mEB/7bZdCQTo88bwBDzvciKNn/9jfWYgzcH3bQU+ChQhARh1Q8+6Rd
- V/1Clh8/HsjXfuQ9p5U334PxRogeB8VZEPfByTp9dNH8P2v+vml+8I4UDxgjzp+aktb4
- JYeaY9QAGhtCxIBq3XD2qO0D3zDCW8fvOMQ+U5F0oDVztEOS+oxLxoNuN/ppPPwL1/zL
- Klxw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxnb3PSMPuR5VE7Dy9w7sn/neoQuDUnY2Gp9Ezff0xTDgUiw4ChMHZLIQRwVqF0d9pxOHZc/cDK/6I=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLwKVr3slIFshSjQbNX7LNz/o/PfKiid6uIrmVWpYKAqs5BEKJA
- JvpEQy9VrHY2ljBg2/3R/O0wJcuHcN5FG7PuGuubGXVLAcFXPTnMJIelR5d4sBp/2CesKtvUKqk
- 4RlTDXn+QU11CBmUSlvOt/TLt7vBdXCL9Cx7xfpg0oQ==
-X-Gm-Gg: AYBFou06lT7k+cysQb/Tx7vEnr+QjEjU2bHpPsedM4d7TLqDWLPBBvV5j5bJfUAbXkI
- 2BKvpOfz7Zr05j4Ehb1it/Og6+35ex7q17YW4tNlVtWRTOY0q0Mr3nnXLQ/er2EPunKGA+ilIyo
- J3xAwEboPp6w6yVz9J/FtGFJyjz01wH+V4XFPjV2VQfXXzuvd1Nffg1TcXP7EYHMl3d/x4QrcFg
- 6Zkc/FQBCeiM5oNc6OVDkeSVwM3QhYYTaii4xBknMNbxiO6BaD3WtF7NGN5l2HgYcd3dAgY5p2D
- R8zTWugHVigw9liTCbTZlQ+ZcvivPkSROnrEQ3Ix1oXg9E4ZHu0Nk4Do23uRTfWJ8cTyNRHg7JZ
- DtRLl7GkYANz0FPpn9mBM+ko=
-X-Received: by 2002:a53:e313:0:b0:677:b7cc:210c with SMTP id
- 956f58d0204a3-679362ede62mr2859896d50.163.1791901021395; Tue, 13 Oct 2026
- 07:17:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1752810E8F4;
+	Tue, 13 Oct 2026 14:25:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D2810E8A3
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 14:25:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B56F860A52;
+ Tue, 13 Oct 2026 14:25:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D507D1F000FF;
+ Tue, 13 Oct 2026 14:25:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791901538;
+ bh=BjTdMoFaO2CEchYCl9cp1x7qqKnBvpdTbTjUMlMqgVA=;
+ h=From:To:Cc:Subject:Date;
+ b=Fp3xQmHmj8lInW5fszvUA/8NO8UxDy9ieVVG+bfnIUti1PcPxhjFgYiYcTDbed06C
+ waRCr2jkTTX9tDJC2W92dqecRYF6Mn4AbAMDFyy7UK3v/emGRYOqXm9F20RYFuoqVb
+ wxPHdQJfYxE3DmDeR7Al26V8LYcB57pDi9aN2/7WMKzd0bzmhAla0y1gwqRgxvotKw
+ 4/0zjYX7g3n7nrfpiGPL04e/QNxLCRpygoWUYi5OFxZ8piqBYboogdq7vRXqfl66Sk
+ 2p/q9BXpV6tkRxgWzD5qTE2f7ptBu6+hlWTIzfpGd8HgF3E3qdgTy+qIsc5xKl6ImK
+ LPLYKwJT/zWvA==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH v11 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Date: Tue, 13 Oct 2026 17:25:08 +0300
+Message-ID: <20261013-fix-p2p-acs-v4-0-v11-0-72cf8c96e617@nvidia.com>
+X-Mailer: git-send-email 2.56.0
 MIME-Version: 1.0
-References: <20261005064133.7305-1-kmehltretter@gmail.com>
- <d1ef135e-1b5d-4656-9229-348c7029efbb@leemhuis.info>
- <as0r7Q4dHt9gQm_8@gmail.com>
-In-Reply-To: <as0r7Q4dHt9gQm_8@gmail.com>
-From: Sumit Semwal <sumit.semwal@linaro.org>
-Date: Tue, 13 Oct 2026 19:46:43 +0530
-X-Gm-Features: AclHuK9yOH0W7FJ5IkLpKJOcXHUnKCWcM6_hFWllx6ZiiWF7Douv1aRrjUDfUxs
-Message-ID: <CAO_48GGTHcs5M0WyY6dcJLxy1kUJq6uNLh_s+221t3HcGoMxSw@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@nvidia.com>, 
- Rob Clark <rob.clark@oss.qualcomm.com>,
- Jianfeng Liu <liujianfeng1994@gmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, 
- Linux kernel regressions list <regressions@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260821-fix-p2p-acs-v4-0-e72455e3a261
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,35 +70,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Karl,
+PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+This misclassifies asymmetric and nested switches, and reports one answer
+for every kind of TLP.
 
-On Tue, 13 Oct 2026 at 00:21, Karl Mehltretter <kmehltretter@gmail.com> wrote:
->
-> On Mon, Oct 12, 2026 at 10:12:02AM +0100, Thorsten Leemhuis wrote:
-> >
-> > What's the status here given that 7.3 will likely be released in a few
-> > days? Note, I can see from the discussion that this is a complex problem
-> > that can't be quickly solved. That's how it is sometimes. But I wonder
-> > if the current state of things is the best compromise for now or if
-> > Rob's revert or some other option would be better.
-> >
->
-> I think reverting my commit 143755bdabaa ("dma-buf: Make DMABUF_DEBUG
-> default to y on DEBUG_KERNEL kernels") is the best interim solution for
-> v7.3.
->
-> Christian, Sumit, could one of you apply Jianfeng's revert before the
-> final release?
->
-> https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com/
->
-> Thanks,
-> Karl
+Three ACS controls act on TLP attributes the Requester chooses rather
+than on the topology: Translation Blocking and Direct Translated P2P act on
+a Request's Address Type, and Completion Redirect skips Completions carrying
+Relaxed Ordering.
 
-I have pushed the revert to drm-misc-fixes; I'll request Dave to push
-it out to Linus along with drm-fixes.
+Evaluate each direction at the path divergence, decide every class from the
+one walk, and treat a client with ATS enabled as translating unless its
+driver declares per-mapping ATS.
 
-We should revisit this for the next cycle in a couple of weeks for sure.
+This completes the P2PDMA side; dma-buf and mlx5 follow separately.
 
-Best,
-Sumit.
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+Changes in v11:
+- Applied the client ATS policy in pci_p2pdma_distance_many() too, as
+  local Sashiko pointed out.
+- Read the ATS Enable bit once per query, so the class and the ATS policy
+  always agree.
+- Documented that pcim_p2pdma_set_ats_per_mapping() needs a successful
+  pcim_p2pdma_init().
+- The path diagnostics no longer read ACS Control or the bridge bus range,
+  and they report a failed cache store.
+- Added a KUnit case for Direct Translated P2P without a redirect.
+- Clarified the Relaxed Ordering and diagnostics commit messages.
+- Honored device-specific ACS redirection, such as Zhaoxin Downstream
+  Ports, in a new first patch with a KUnit case, as local Sashiko
+  pointed out. Relaxed Ordering Completions are redirected at such a
+  port too.
+- Clarified in the documentation that a quirk also redirects Relaxed
+  Ordering Completions and that Translation Blocking applies only to
+  upstream Requests, and labelled the ACS routing debug line with its
+  class, as local Sashiko pointed out.
+- Treated ACS registers that read as all ones as unreadable, and named
+  ports that a quirk redirects instead of suggesting
+  pci=disable_acs_redir= for them, as local Sashiko pointed out.
+- Ignored ACS quirks of endpoints, which only describe traffic between
+  their own functions.
+- Link to v10: https://patch.msgid.link/20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com
+
+Changes in v10:
+- Fixed the Relaxed Ordering description: a Completion carries the
+  attribute of its Request (PCIe r7.0 sec 2.2.9.1).
+- Used the PCIe terms Requester and Completer for TLPs, ACS and ports;
+  client and provider remain for P2PDMA objects.
+- Rebased on pci/p2pdma, which includes the prerequisite P2PDMA fixes.
+- Added a topology example to the path divergence patch.
+- Removed a repeated sentence from the disable_acs_redir documentation.
+- Explained the path divergence in the documentation.
+- Link to v9: https://patch.msgid.link/20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com
+
+Changes in v9:
+- Removed dmabuf patches for now.
+- Removed mlx5 per-mapping ATS declaration for now; it comes back with
+  the dmabuf patches.
+- Link to v8: https://patch.msgid.link/20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com
+
+Changes in v8:
+- Added extra Reviewed-by from Logan.
+- Added patches to take care of ATS per-device vs. per-mapping option
+- Link to v7: https://patch.msgid.link/20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com
+
+Changes in v7:
+- Removed "Document pdev->p2pdma lifetime rules" patch, it gives nothing
+  after p2pmem fix.
+- Split dmabuf patch.
+- Tushar retested the series, so added his Tested-by.
+- Added Logan's ROB tags and fixed minor documentation issues pointed
+  by him.
+- Link to v6: https://lore.kernel.org/all/20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com/
+
+Changes in v6:
+- Changed DMABUF to use callbacks and not directly stored pointer.
+- Link to v5: https://patch.msgid.link/20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com
+
+Changes in v5:
+- Rebase on the posted fixes.
+- Dropped tags from changed patches.
+- Remove Egress Control Vector interpretation and coverage.
+- Keep enabled Egress Control conservative as a Request redirect.
+- Use pci_dbg()/dev_dbg() for diagnostics and drop the "debug" prefix.
+- Removed code comments from "Document the pdev->p2pdma lifetime and RCU
+  rules" patch and reduced description to actual lifetime explanation.
+- Added note that Linux assumes that TLPs are in strict-ordering and
+  untranslated.
+- Added code to calculate p2p paths per-TLP type.
+- Converted mlx5 to use that new proposed API.
+- Link to https://patch.msgid.link/20260821-fix-p2p-acs-v4-0-v4-0-94426b96de73@nvidia.com
+
+Changes in v4:
+- Reject ACS Violations and unreadable routing state instead of treating
+  them as host-bridge redirects
+- Added Tested-by tags from Tushar Dave
+- Added support to asymmetric ACS routing
+- Limited redirect checks to the two ports at the path divergence
+- Added standalone ACS routing diagnostics for hardware retesting
+- Dropped " PCI: Account for Direct Translated P2P in ACS isolation checks" patch
+- Link to v3: https://patch.msgid.link/20260811-fix-p2p-acs-v3-0-efc488ee7c03@nvidia.com
+
+Changes in v3:
+- Fixed pci_p2pdma_add_resource() error unwinding
+- Made pdev->p2pdma teardown wait unconditionally for RCU readers
+- Restricted pci_p2pmem_find_many() to pool-backed providers
+- Documented the pdev->p2pdma lifetime and RCU rules
+- Fixed calc_map_type_and_dist() handling of the verbose argument
+- Required the ACS port and target to share a bus before indexing the
+  Egress Control Vector
+- Gave pci_acs_enabled() and pci_acs_path_enabled() a scope, so the ACS
+  Direct Translated P2P rule no longer stops pci_enable_pasid() from
+  enabling PASID
+- Dropped "Report ACS ports when the paths share no upstream bridge":
+  the mapping type cannot change without a shared upstream bridge, so
+  the pci=disable_acs_redir= hint was not actionable there and the ACS
+  walk only cost config space reads
+- Folded the Request Redirect rule into pci_acs_rr_ineffective(), so
+  pci_acs_flags_enabled() and the Intel SPT PCH quirk share one copy
+- Renamed pci_acs_egress_ctrl_set() to pci_acs_egress_ctrl_is_set(), it
+  reads the bit rather than setting it
+- Reworded the blocked-path warning: ACS may also leave the direct route
+  indeterminate rather than blocked
+- Added KUnit coverage for the shared-bus guard, a device with no ACS
+  capability and an unreadable ACS Control register
+- Added the missing Fixes: tags, a second one on the
+  pci_p2pdma_add_resource() unwinding fix (the dangling devres action
+  dates to f58ef9d1d135) and one on the Egress Control isolation change
+- Link to v2: https://patch.msgid.link/20260806-fix-p2p-acs-v2-0-0cec14812965@nvidia.com
+
+Changes in v2:
+- Added Logan's ROB tags
+- Added commas in Documentation patch
+- Link to v1: https://patch.msgid.link/20260802-fix-p2p-acs-v1-0-a7c5eb64fff6@nvidia.com
+
+---
+Leon Romanovsky (19):
+      PCI/P2PDMA: Honor device-specific ACS redirection
+      PCI/P2PDMA: Document the TLP attribute assumptions
+      PCI/P2PDMA: Derive routing from directional ACS controls
+      PCI: Reject unreadable ACS controls in isolation checks
+      PCI/P2PDMA: Evaluate ACS controls at the path divergence
+      PCI/P2PDMA: Document directional ACS routing
+      PCI/P2PDMA: Collect the path's ACS controls before deciding
+      PCI/P2PDMA: Answer routing per TLP class
+      PCI/P2PDMA: Route Relaxed Ordering Completions directly
+      PCI/P2PDMA: Reject Translated Requests blocked by Translation Blocking
+      PCI/P2PDMA: Route Translated Requests under Direct Translated P2P
+      PCI/P2PDMA: Log detailed ACS routing diagnostics
+      PCI/P2PDMA: Add KUnit tests for the ACS routing decisions
+      PCI/P2PDMA: Test the ACS P2P routing walk
+      PCI: Add KUnit coverage for ACS isolation checks
+      PCI/P2PDMA: Document TLP-class routing
+      PCI/P2PDMA: Let a client declare that it selects ATS per mapping
+      PCI/P2PDMA: Evaluate the ATS path for clients with ATS enabled
+      PCI/P2PDMA: Test the routing of clients with ATS enabled
+
+ Documentation/admin-guide/kernel-parameters.txt |   11 +-
+ Documentation/driver-api/pci/p2pdma.rst         |  105 ++
+ drivers/pci/Kconfig                             |   15 +
+ drivers/pci/Makefile                            |    1 +
+ drivers/pci/p2pdma.c                            |  942 +++++++++++++++--
+ drivers/pci/pci.c                               |    8 +-
+ drivers/pci/pci.h                               |   57 ++
+ drivers/pci/pci_acs_test.c                      | 1225 +++++++++++++++++++++++
+ drivers/pci/quirks.c                            |    8 +-
+ include/linux/pci-p2pdma.h                      |   12 +-
+ 10 files changed, 2292 insertions(+), 92 deletions(-)
+---
+base-commit: 36038f0e8377ef316b723d0d85b1510bc64069ab
+change-id: 20260821-fix-p2p-acs-v4-0-e72455e3a261
+
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
+
