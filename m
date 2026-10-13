@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBAB4CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E8FCC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE9811215E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8250D11215A;
 	Thu, 15 Oct 2026 07:56:49 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD5410E0C3
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:22:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C0E210E909
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:16:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 437DA40461;
- Tue, 13 Oct 2026 15:22:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085131F00898;
- Tue, 13 Oct 2026 15:21:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 258DC417D3;
+ Tue, 13 Oct 2026 15:16:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3CEB1F000FF;
+ Tue, 13 Oct 2026 15:16:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791904943;
- bh=CzLkglerZHaeqdqXBcJqI1OUUZn9McyDsaXMwmatEzY=;
+ s=k20260515; t=1791904594;
+ bh=i4y1sz7ZVghomqASsiy9XjZk1iqHWnAgN1nUm45xiCg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=FwI8xuFkcWZh7OyfP4kiO5TnL8x0H+GyT2/juwXjWPgG2q3jlzUlITXSsEf92nt4A
- U0XQ4si39pZo1N5LDpHXtJEAi/rXzQDoxp239dc9upMoQm0OIgMO4kwEoa6Nnjmgcy
- sdurdRML4tf7jFo06dlM7+za+GVcYLxVI8PGy9muqNSjV/nOauqRVxuqt2lTHdh1b7
- 7956953cxQr45TOjCYP5S/v0UHz0e/WN7pOzDLwUrEHL4ZWVRs9nHLznaOt/hC2f6g
- WsDeiesyvxwB6pgmGTt+KtyRCQZe2Yth0b0GKXf9/GUXIlnTy/KdUjvQYGcfK9fx/i
- 3Mzeuebipk/jQ==
+ b=PV5aBdvadH0SfHvKhSrJFwpI31/6TLnUPl2tF4inkGRjH2ijS95fbUwXttmLzcpNF
+ 5YVTNWNyE258rCi9csqPX0Vj3cl9jaUDTYbMJFqgtmVLV19Z7aozriIyOun6cOX4CA
+ Uqu8rE7sCZr4z3nz4Kzn2wrrCdQCFfiLVbmodNsFAGB1+jJbDNaURDMI061vbNIp7A
+ 9SZegYRQAPKdv3I+JM3iXh765idzGneUCjN998P+vvPrKb4ofuLC3QTcRU0UWm0cTM
+ 2Aj3jBmQzN+qkgGPCcVlhU/BclKU4af39C0cIrIexLOcaqP3dxowDtNAZxqEI9H8iS
+ yN5UVLyQAcdhA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:05:11 +0100
-Subject: [PATCH v6 31/39] mm/madvise: update is_valid_guard_vma() to use
- vma_is_mm_backed()
+Date: Tue, 13 Oct 2026 16:05:00 +0100
+Subject: [PATCH v6 20/39] HSI: cmt_speech: convert mmap hook to
+ mmap_prepare, refactor
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-31-1aa3c9b139f9@kernel.org>
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-20-1aa3c9b139f9@kernel.org>
 References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -119,12 +119,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2135; i=ljs@kernel.org;
- h=from:subject:message-id; bh=6dMykbuVKPHDM4xFoe98lOwVyjcSXwfICmdhz8DaKPA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZxhWeI/k1t/+0bj2V5v9vMW7pEtb9Y77P/q/98og
- StpV1LyO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR/qcM//1Yl/R9mrfruMzR
- zNWKb38qF4lP7y/8pROyX+TS7/XeX2Yx/I/cevmz66tHxnHB7a3/WD95Gko+9pSSE1ryNvD89eL
- S66wA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2685; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=MY9UuAl0nfMrM4GSY6SwItqCUTxM/pJjBHtqUqIj4oQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZy6kXSgTuanGnvKJJENNyOu/UwUsd+bw7y5x6TbY
+ u5UgX2fO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR+zUM/zQvH7vAej3kqe3+
+ bfVvFVQDI1RbnR7ofOBZnLM9W+V/pB8jw0Nhvv3x24xm9HZqz/rgs192a1lrRdjTt8lfVzDsibP
+ dwwAA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
@@ -143,66 +143,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We currently disallow the installation of lightweight guard regions in VMAs
-whose flags intersect VMA_SPECIAL_FLAGS or VMA_HUGETLB_BIT, or
-VMA_LOCKED_BIT unless allow_locked is set.
+Use the mmap_prepare in favour of the deprecated mmap hook as part of the
+work to convert one to another.
 
-hugetlb VMAs set VMA_DONTEXPAND_BIT so this was already redundant,
-VMA_SPECIAL_FLAGS already sufficed.
+Since this is simply a refcounted kernel page that has been allocated, it
+should not be marked VM_IO and should be inserted using the kernel page
+insertion mechanism, so convert it to do this instead.
 
-However, now that VMA_IO_BIT is only set if VMA_PFNMAP or VMA_MIXEDMAP_BIT
-is set, this check collapses to being the equivalent of
-!vma_is_mm_backed(), excluding hugetlb mappings in which guard markers
-cannot be installed.
+Use the VMA descriptor's private data field as a scratch buffer to store
+the page in - this stays valid throughout the kernel page mapping
+operation.
 
-Update is_valid_guard_vma() to reflect this.
-
-No functional change intended.
-
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/madvise.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ drivers/hsi/clients/cmt_speech.c | 33 +++++++++------------------------
+ 1 file changed, 9 insertions(+), 24 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 3d25202db5cc..7e14b3fd92f6 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1221,19 +1221,25 @@ static long madvise_remove(struct madvise_behavior *madv_behavior)
- 	return error;
+diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
+index 7226677ebde7..801697b74d4f 100644
+--- a/drivers/hsi/clients/cmt_speech.c
++++ b/drivers/hsi/clients/cmt_speech.c
+@@ -1084,22 +1084,6 @@ static void cs_hsi_stop(struct cs_hsi_iface *hi)
+ 	kfree(hi);
  }
  
--static bool is_valid_guard_vma(struct vm_area_struct *vma, bool allow_locked)
-+static bool is_valid_guard_vma(const struct vm_area_struct *vma,
-+			       bool allow_locked)
- {
--	vm_flags_t disallowed = VM_SPECIAL | VM_HUGETLB;
+-static vm_fault_t cs_char_vma_fault(struct vm_fault *vmf)
+-{
+-	struct cs_char *csdata = vmf->vma->vm_private_data;
+-	struct page *page;
 -
- 	/*
--	 * A user could lock after setting a guard range but that's fine, as
-+	 * A user could lock after setting a guard range but that's fine as
- 	 * they'd not be able to fault in. The issue arises when we try to zap
- 	 * existing locked VMAs. We don't want to do that.
- 	 */
--	if (!allow_locked)
--		disallowed |= VM_LOCKED;
-+	if (!allow_locked && vma_test(vma, VMA_LOCKED_BIT))
-+		return false;
-+	/*
-+	 * Guard regions require a VMA whose page tables are managed solely by
-+	 * core mm, so the VMA must be mm-backed (excluding hugetlb, in which
-+	 * guard markers cannot be installed).
-+	 */
-+	if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma))
-+		return false;
- 
--	return !(vma->vm_flags & disallowed);
-+	return true;
+-	page = virt_to_page((void *)csdata->mmap_base);
+-	get_page(page);
+-	vmf->page = page;
+-
+-	return 0;
+-}
+-
+-static const struct vm_operations_struct cs_char_vm_ops = {
+-	.fault	= cs_char_vma_fault,
+-};
+-
+ static int cs_char_fasync(int fd, struct file *file, int on)
+ {
+ 	struct cs_char *csdata = file->private_data;
+@@ -1256,18 +1240,19 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 	return r;
  }
  
- static bool is_guard_pte_marker(pte_t ptent)
+-static int cs_char_mmap(struct file *file, struct vm_area_struct *vma)
++static int cs_char_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	if (vma->vm_end < vma->vm_start)
+-		return -EINVAL;
++	struct file *file = desc->file;
++	struct cs_char *csdata = file->private_data;
++	struct page **pages = (struct page **)&desc->private_data;
+ 
+-	if (vma_pages(vma) != 1)
++	if (vma_desc_pages(desc) != 1)
+ 		return -EINVAL;
+ 
+-	vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
+-	vma->vm_ops = &cs_char_vm_ops;
+-	vma->vm_private_data = file->private_data;
++	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT, VMA_DONTEXPAND_BIT);
+ 
++	*pages = virt_to_page((void *)csdata->mmap_base);
++	mmap_action_map_kernel_pages_full(desc, pages);
+ 	return 0;
+ }
+ 
+@@ -1353,7 +1338,7 @@ static const struct file_operations cs_char_fops = {
+ 	.write		= cs_char_write,
+ 	.poll		= cs_char_poll,
+ 	.unlocked_ioctl	= cs_char_ioctl,
+-	.mmap		= cs_char_mmap,
++	.mmap_prepare	= cs_char_mmap_prepare,
+ 	.open		= cs_char_open,
+ 	.release	= cs_char_release,
+ 	.fasync		= cs_char_fasync,
 
 -- 
 2.55.0
