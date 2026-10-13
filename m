@@ -4,125 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C6FFCC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63815CC6B2F
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D9DE112153;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6CE112155;
 	Thu, 15 Oct 2026 07:56:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9DC110E05B
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 11:43:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9605E416EE;
- Tue, 13 Oct 2026 11:43:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2ACB1F000FF;
- Tue, 13 Oct 2026 11:43:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791891831;
- bh=S3kwk859qFodmpxj3OxHRi9StcyZ/IRrGX/kgBYEpD4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JvOEi1vyoPSPHIK+3e1cFSGk5Nq5aIKf+aPMRBqWK+jdkr+GJ34ZVhlK6KFh95ok4
- LFLkrLVzES/VjnqmInEE0Ue+CxRK2fSBE6/QrhXBRNAYjd1RCgj1C7FcX3LsnkXKK/
- FcPKD5CYRd5utm0PX1a/JlzYfAu81YBwmUTmdu2jSQfZJQIWOLsgxo2IqY17WGdyK/
- VwX9jgqE+oS/qTJ+U+MBVqNS1wFKQ3L5PC8a3V+m0KpECoP3Lv5uQdi+xwTGUWhyVU
- JXNNX9WvbPCWhJAa1Kpla3Kp/XCy1sGiLGPzH2fxY+k3JRj8YHefM/4npCF3FyIv1o
- RUlJ/KsSCGPhA==
-Date: Tue, 13 Oct 2026 12:43:19 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
- Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Bert Karwatzki <spasswolf@web.de>
-Subject: Re: [PATCH v5 33/38] mm: eliminate VMA_SPECIAL_FLAGS usage when
- hugetlb explicitly tested
-Message-ID: <as4ZGTa7tHwVwv-1@gremlin>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-33-923b70125b1e@kernel.org>
- <e65264f1-52dd-4ed4-a647-87e7a1778b6b@kernel.org>
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB04E10E882
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 14:01:28 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a19cba5c14so23671895e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 07:01:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791900087; x=1792504887; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ViTWpehkUTNRhhx96u8NdBVsVZbPiHx1y/c2M4wY64Y=;
+ b=jRVlnioh4GGa/VWFL7qF41aKB81rflnIGo6aVF2HEl4TstSfc97k5W8SShf2RV8Xz0
+ 0veV7jCd6i4SMg7XvqcPUo2IrPMCxHPXKYspBZ9UR43b3Yb8dLxQuYwF8UiNA2dsc+zT
+ 92/bbtbSl8dRiMdcT7UCmyS1qu+QoHQvOi584GtV/uz5V1wpYCnhZ8TKc1WBcA5HAjP5
+ o+q77oPtGiOMNvLW6i9QyZ0nAosyajycuB7r8L6jU5OKvV7RUVn9CRR8vABH9CXBRQVs
+ jIOH2q1ki/LhcL5TYK4uzzBy+ypyoAy/yn1VEPdp43tjDfereq+HTHBoQRe1dHFgff2R
+ M3ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791900087; x=1792504887;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ViTWpehkUTNRhhx96u8NdBVsVZbPiHx1y/c2M4wY64Y=;
+ b=1WibQvk+DqjJWci6E5K2QZ1AXc7fA2n6fxReuZSLD45ea4/slZccbprPWh4E+KIuCL
+ n9+oKicb6lKi/3M7e9YSZomvndUaVhEuOhUS9etDzpELFQyeVpBkZ3dBWHV9odyiKeYk
+ Ok03UynjchRRSfXPmcZorQw1JuhGWF9LDqGOmC6jPEvCN7HsYNZGjCajdcZppSGm5zQu
+ 4gb14HvAciTfab5wnSX3OuXkvPnToLxvTMonCyz+vaUxRJf8dkHquZ5vp9N+uKQOK6e/
+ 8dDgGOq2gam3FmaMsiuj9rtf6WGTfHmNyWVHLiJt+U5hYB1+0lDztUXTaANoSqGFqV92
+ lFPw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByHqY9qG7AvZEqOnyuyir4Xqzaie2fiuI5yC04jcPtXzuOh1PexCGG1k7FVHCU9XvKtABtvJEMvdFQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIAgnk+mHXY9l5B7dhOw5knrsO50kmufc9UgVTfy54wJkM9AT2V
+ KQ4npINoZhvxcNyJpC3LvMKrq9YtuBEV8K346lCnzmqWqhmwFLWEGXKp
+X-Gm-Gg: AYBFou2+NapgQ6Vn3It3M/Nd3ilycgpMap8vtoxLHxeuyxtITlWe0IwAurJCY5R3YZy
+ BLfvt3dWfh6XVXB06cS++F7W15xU4e6M7hBxGVxEuv6cj6gdvoy/WO7X6MOTVm1fPc4qf+EsebW
+ 3NVEAp7t+K+tABRP0lhvw3PXp4CgCuCVPoXsMkvhJJsyb5MRRqRUe00osef5H/Q9xNBbik0zbS6
+ 0dWJX8o5HBJ4ntdyJ97TJaKUimc25PGzhgHCcv91JIuq1aumG+r3EZQ5cJUKX0jWX/O7pp8YO2A
+ qXpIxQGZfBHSWN4150VZYGJMpUpzcHnvI+xh7QbHQCDxKrsRf+AwRYzrRC31Wt6K+pN+9m/E1PL
+ vQpR8uMm8hXnoDWju4Bgt4k/UtNw9l+qEEhN6DFRrhfP4QkDE5hUzml/pSlI+XlmsA5RPpvcpab
+ PPP1Zf3eSnLPgUHwKCaqPVGLj+7Yi5oaMknUrt1ZyIgwTKUY59my3CLvswWyvktiB/Rwa8J+rr0
+ /LKG71qoI+/pz9ykg==
+X-Received: by 2002:a05:600c:3111:b0:4a0:1e87:910 with SMTP id
+ 5b1f17b1804b1-4a18e4cb7a9mr257096075e9.20.1791900084826; 
+ Tue, 13 Oct 2026 07:01:24 -0700 (PDT)
+Received: from potato ([31.176.175.60]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48de72d2b13sm304691f8f.55.2026.10.13.07.01.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Oct 2026 07:01:19 -0700 (PDT)
+From: Omer El Idrissi <omer.e.idrissi@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Omer El Idrissi <omer.e.idrissi@gmail.com>
+Subject: [PATCH] drm/amdgpu: remove unused tracepoint
+Date: Tue, 13 Oct 2026 16:01:03 +0200
+Message-ID: <20261013140104.32179-1-omer.e.idrissi@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e65264f1-52dd-4ed4-a647-87e7a1778b6b@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,34 +85,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2026 at 08:49:11PM +0200, David Hildenbrand (Arm) wrote:
-> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+Remove unused tracepoint "amdgpu_reset_reg_dumps", flagged by UT=1,
+from amdgpu/amdgpu_trace.h
 
-> > diff --git a/mm/ksm.c b/mm/ksm.c
-> > index 624f37975e12..ed66a90e0031 100644
-> > --- a/mm/ksm.c
-> > +++ b/mm/ksm.c
-> > @@ -747,9 +747,7 @@ static bool ksm_compatible(const struct file *file, vma_flags_t vma_flags)
-> >  	if (vma_flags_test_any(&vma_flags, VMA_SHARED_BIT, VMA_MAYSHARE_BIT,
-> >  			       VMA_HUGETLB_BIT))
-> >  		return false;
-> > -	if (vma_flags_test_single_mask(&vma_flags, VMA_DROPPABLE))
-> > -		return false;
-> > -	if (vma_flags_test_any_mask(&vma_flags, VMA_SPECIAL_FLAGS))
-> > +	if (!vma_flags_is_mm_backed(&vma_flags))
-> >  		return false;
->
-> Same here, it's hard for me to tell my brain that "permanently lazyfree pages
-> are not backed by core-mm".
+Signed-off-by: Omer El Idrissi <omer.e.idrissi@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 16 ----------------
+ 1 file changed, 16 deletions(-)
 
-Yeah :) 'mm backed' is definitely too broad for this.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index fcd4cf2f4cd8..6fecee5be1ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -564,22 +564,6 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,
+ 		      __get_str(ring), __entry->ctx, __entry->seqno)
+ );
+ 
+-TRACE_EVENT(amdgpu_reset_reg_dumps,
+-	    TP_PROTO(uint32_t address, uint32_t value),
+-	    TP_ARGS(address, value),
+-	    TP_STRUCT__entry(
+-			     __field(uint32_t, address)
+-			     __field(uint32_t, value)
+-			     ),
+-	    TP_fast_assign(
+-			   __entry->address = address;
+-			   __entry->value = value;
+-			   ),
+-	    TP_printk("amdgpu register dump 0x%x: 0x%x",
+-		      __entry->address,
+-		      __entry->value)
+-);
+-
+ DECLARE_EVENT_CLASS(amdgpu_userq_queue,
+ 	    TP_PROTO(struct amdgpu_usermode_queue *queue),
+ 	    TP_ARGS(queue),
+-- 
+2.53.0
 
-Will reinstate the explicit droppable check in v6.
-
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Thanks!
-
---
-Cheers, Lorenzo
