@@ -4,97 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58EB5CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 08:46:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31E8ECA9ED2
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 08:46:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E8B210F614;
-	Tue, 13 Oct 2026 08:45:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8250510F609;
+	Tue, 13 Oct 2026 08:46:03 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5B0310F605
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:45:45 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72CBB10F609
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:45:52 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69D469rM173800
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:45:45 GMT
+ 69D7OXWe015278
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:45:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=hm90XuSXOD/PEj13akjejZ
- 9JjMmz/a4/47/QbvQQN84=; b=YKYZwFi9CecwqhxgzbRXHS3jHBHdl4WOFgiwqK
- aAndH9KLMY5kDzLETrWZk5i/z5INOGnAegeRildglOtYyFlUuH8AVX6TTt86bxOd
- iI329Jl3ihLBeQBAdi8/tvz+9ve10Jc5A5H4SIGeuc26M4x/fF9kz9mZyd3xsCG9
- S/aas/ST4ksaRDjySjySvPvirY6Z5dbFW0LqRGhdrC/kB+Fl1mQIA2X4DWNosZxB
- 5DDKxa25ZBwiwX4n1IgRo+bOyhhipYVMr7JbmKJvQI9GWc1ZXg4+IEKhNhH5BZCd
- kq7PWtitmeR7eeuweNdRiQSlklfBpKL0i1wvqrd/gHB91PYA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9daqs240-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ qT5wFOwOQjfGQK7vpGOD+7fPq5SZuAHyr4GhSVtl4NQ=; b=RPCciSKX2krHmpJq
+ ARsFrMNnqFEJ9YYkSwpjsWkDCq0XsSWm9jQd1iJ8zNi9XMiD+TqsVu3Ql6cObBGP
+ 3kzYXHndDXukSgstGOzIA95Ps6K1J+VsrOAi4FvPJ/5O4oBHRK/GgdI7zPgTpZiZ
+ xcsnNPzAI4s/YUjBS+JpH3NetF1qUetM6+4EeEgkIJ36FuUjEiZ2Gdbr6LOCmy+U
+ vuIADg3OJHKrTebzZI35KFSK8PoU+mFq7xl7rLZHZO5a4DrPwdhyTFV8xwdSs134
+ ZKw+urfkrnkmgtIdI4WrEe9PsHQktuoZ1tldOGIhFwBbgQNzvgbq85SKLF9CNVGs
+ RBbkrw==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7ugand-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:45:45 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-3ab2cb8d5dbso3425819a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 01:45:45 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:45:51 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-cd1e45a268cso1426583a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 01:45:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791881144; x=1792485944;
+ d=oss.qualcomm.com; s=google; t=1791881151; x=1792485951;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=hm90XuSXOD/PEj13akjejZ9JjMmz/a4/47/QbvQQN84=;
- b=AsuMQqjDp8K3Lh0VH2V0MKse31mLdqZo0ldSnRiS5IpYJA/K6htAczyhmdqxycePLg
- EHbuzFwhSzclz0TfOaNH7KhIMUn9IG7hujmEe1+WmL4FD8Rzz/7N3Jx7St4/AYiVSAzJ
- pvp5AFHxQOBRDG0UMoq0J39mfK72tA43U/3STRT6ShJD19Wa+qB07051qK7nyTUlyCug
- r/uZDVKNlsls1dl9TB5lWHO0NfED5RZazPJddlhW4hTf4y9wLakyciBkvqKBVasFbrfe
- CbOq7XAGMo00/CTWRy1MtXy7j1AoXiWvDTXZFMvioynXAUfZ0tQXtOys91aVHdPV1vU9
- l+9A==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qT5wFOwOQjfGQK7vpGOD+7fPq5SZuAHyr4GhSVtl4NQ=;
+ b=gjQOwwmfj05ON3r/z+k965oUWgVXc+/ZW2oJGbKon3enX6iFE2Sza6R3hMK38Zz+rZ
+ DvnZtoStyyXEDuMEcEUlA7XEdfo2DFJf9s86aM8wxlSEQcBWTd8JFu5vKUsR2PhSdlW+
+ wWVs9ADXY3eBgP3XLwM9qwgqcsUTbo88fwBiepNckHxSbnkb60+ncQyMZCWnwjlvr0fI
+ ZVdYmxtoWtwI70WUoqAnpgp3EeNPujbUGdjYnF87TxYnoubNm2+XjrNjNXcwauIIDPjH
+ x2ECFtqYUvEBdLO+w4XkpfkH+P63I6DOZqasIXqs+A51zzklsN2v1UtwhKGCY6gheMyS
+ wyqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791881144; x=1792485944;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=hm90XuSXOD/PEj13akjejZ9JjMmz/a4/47/QbvQQN84=;
- b=Pp/qM6SWmvKCUSRG6CUL3fdXRo4GVUtPPkqqTu27T5NyVhfZr/yAw9CiCUIPPRFBf0
- /eMiNcx+q8bL61UTbWqrSfwe0O37AIBpAKbejlMBtsAlW3IwyKWOS4239YqQwfV6Qf8t
- vtonjwgpqelh2kDzDP5+I1yAAZhIyl0NSgnrigd+b/fNm1TDFzVcC5vhHQV1Yghgh1vw
- EsbEheMxzRVlYkplXjF4Wfd862LllUbOVQ/m7jTu/aNtuvsar8oa/iNDAy+b1Ni5GR1H
- 8zF7s4sqc6YdXwA5gnGttcPv36zKPU6++5JIFEigW3U+VAcMNjViuQaqE+1Cw1JpUZz8
- k+2Q==
+ d=1e100.net; s=20260707; t=1791881151; x=1792485951;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=qT5wFOwOQjfGQK7vpGOD+7fPq5SZuAHyr4GhSVtl4NQ=;
+ b=B+vvqroyFGAr0YZ+V2nF5y7532t1ZYOVwfqXfR3LvJzorrXy1E8cJhx54++rUyNFdO
+ wC+SisQhQZDYgSu5ngWdr2r3BnU26tBLZgz1s+q7ABEwZnB5T/A7lP86Yl+EnMu5bMFK
+ Cm5o+vMf6mzycXgM6UPKBEpuwlSrB6DHWXAjwX+gqzd7zCFZ/RgyIFqVR78tMUJkj0jC
+ BFeVJBxas3IwJwy7aaJ+F8IQkH/3j+CVXDrdMf4dbLNV/MvDS8aCxzbjCUhbrThJB5/X
+ DBIsJsEgtOfhxux6pXip1adc+Wlcm9MRp+LVuQQRbpf1RQo+IPxWd6Nh3qBd01kiCTIe
+ YO2w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxYBijg4o2qSmQiOZdAmJiL1nqTdMB5BxAB7oY34OLACwqccYmPX4DhgXkSU825YhbQaQHp0vmetsg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLJH+cKESkU7aCQxvIOgvwBfpgCmhF4uxefD1VdOyKIZhfNNrZz
- 7UqvrYXa40EbSBKXERkvnAq9r6VefGgWK8j/mZn9WXQfC3Gm3OoW8S75c6uL3sm1DiA66iuGw9Q
- iPE7T/PAzrmTR2tRqxoJYFtzkBuYy9QlR8KIuueo/e52wCjtGkfUApzGodMU8yW+NhHAG9O8=
-X-Gm-Gg: AYBFou1MAEFVJvkkaq3e/tMFDXzHcMp7Vf/bzNvLwfL4v/bDIh9h+1PGz3Xn1aAZTB8
- hoOoH6+rqqpoBWkR9NF+s0jhviPqsdeqUs+KyFO0Wf46Ky672bk6oQK4y2FKwJwO0vN0/OpKB+Z
- 215bWFrOzMGctKFGBJtz1x2+etHqmKlwg5RCSTQZW2l2QrlvSAvabyDNle8KQWMPbP3OSE6xa9j
- mzcfygu2Jg0lc7PN+MnsvXuF0GyfcHosOgjSavmDU3Xh4WwXTICmnuyr4Z1ELRaHgp9jMwCVJ/h
- E2PcJTXAf9B2C/OaoEWus8Jf9i2fdnXCz0uKbMjnpirQOE3vW4rG2X2/TcrcFvOBGPX7d1X+bIG
- CWmTmPNxua+0P2lEusCThcpB4MnrW
-X-Received: by 2002:a17:90b:48c1:b0:3a7:e126:4980 with SMTP id
- 98e67ed59e1d1-3ab3a79c42amr9217790a91.43.1791881144256; 
- Tue, 13 Oct 2026 01:45:44 -0700 (PDT)
-X-Received: by 2002:a17:90b:48c1:b0:3a7:e126:4980 with SMTP id
- 98e67ed59e1d1-3ab3a79c42amr9217757a91.43.1791881143688; 
- Tue, 13 Oct 2026 01:45:43 -0700 (PDT)
+ AKwUvBw5SrXltF3+4bxSYsev+Lgntmw/ZgiZfJjdVCijqB7UToGhzA4nek/pmTjmARJvTgE5JmsqTZgl/zQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKq1EURPSNmNTDUZN4GukCbN2t2eZX43OfvmIE7i2PShvJZU4iV
+ BA9nAfS08DqsvOe4wgM6Bjfrl6cOGzLo6NZ3hMhAVQSWF4RJefq5FzsIKt89if7IYFm+X4SQLjA
+ jV4mS19w+XgHJzVoI3Goei5wPxeunr65bCdBjPLjz3TC6x2bHVVXrOCiRH1FiulZRKu1eOhY=
+X-Gm-Gg: AYBFou2srB4FPpYY3K+B/TVz735eh5fpwrVQ/wlnXuq5I/ym5rzFwQRNB/K2G7F8Ias
+ HBZb/HKBSTjBFKrBurqTymCV/hnJxuwfd1jdvTklt+GkNygZ3XK2IOr64P999Qu38x6l6e3iIwe
+ vJ61qpVenYo/ifdBmMhE7gNwlH1Y/eR3CmwM8wr3Jqfqf4YrN1bjupOvKriNAvkShv3h4MiSx8K
+ fZo7oHCyxMGEugFaKNur3LyS6nsCK4f5opf+5+RYwF5NloOpJ+Jpl62wXXoG6I2xxTJTzveI5tm
+ bKwzieKOZeohBYwx5ncWNSMoYw4fViaDfuvtW9pLpfHvZ7xw47H78Tan2qYtL8X7GssJlDsU0mF
+ idf7p9vZAjKse0sTEn6jAr9aOK0XO
+X-Received: by 2002:a05:6a20:430e:b0:3e0:c961:b5be with SMTP id
+ adf61e73a8af0-3e16baaa3d2mr9420305637.8.1791881149928; 
+ Tue, 13 Oct 2026 01:45:49 -0700 (PDT)
+X-Received: by 2002:a05:6a20:430e:b0:3e0:c961:b5be with SMTP id
+ adf61e73a8af0-3e16baaa3d2mr9420248637.8.1791881148517; 
+ Tue, 13 Oct 2026 01:45:48 -0700 (PDT)
 Received: from hu-batta-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cd3da0596f9sm5384721a12.31.2026.10.13.01.45.39
+ 41be03b00d2f7-cd3da0596f9sm5384721a12.31.2026.10.13.01.45.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2026 01:45:43 -0700 (PDT)
+ Tue, 13 Oct 2026 01:45:48 -0700 (PDT)
 From: Kishore Batta <kishore.batta@oss.qualcomm.com>
-Subject: [PATCH v9 0/7] Qualcomm Sahara protocol enhancements
-Date: Tue, 13 Oct 2026 14:15:31 +0530
-Message-Id: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 14:15:32 +0530
+Subject: [PATCH v9 1/7] Add documentation for Sahara protocol
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKvvzWoC/33Q20oDMRAG4FcpuXaXyeQwiVe+h0jJJqm7aJuar
- KtS+u5mC9peGCEM/APzZZgTKzFPsbD7zYnluExlSoca7N2G+dEdnmM3hZoZAmoQQF1xo8tue8x
- pTj69bg/xY7tgpzUaJYmE3xGrw8ccd9PnBX58qnmcypzy1+Wfha/dlVRgUHHgFnWPXINSsuPdy
- 1TGlGM/uHl2D6mU/u3dvfq03/e1sJVb8If4d6v6oEMbPEkzqGh9QxM3GoemJqpmrYxODhCUCw1
- N3mq2qcmqSXKBrABDGhuaumqS66amqqZdHHYAKsqhdTd91Qh4U9NVE46M0OglSd7Q6FfjAKap0
- Xo3CEhmCBWTDc3caBybmqla5GiFDYjW/bXb+Xz+BmUHfnbaAgAA
-X-Change-ID: 20260307-sahara_protocol_new_v2-662854773cf7
+Message-Id: <20261013-sahara_protocol_new_v2-v9-1-dc9f24357c4a@oss.qualcomm.com>
+References: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
+In-Reply-To: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
 To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
  Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
  Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
@@ -104,41 +101,40 @@ Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  mhi@lists.linux.dev, Kishore Batta <kishore.batta@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791881139; l=7797;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791881139; l=70390;
  i=kishore.batta@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=rrKEbuNDjPAq4STCm2KriONXpsF5cCQEo9OyC6ZSkxU=;
- b=Y9oWS8XdzV++hBjq5f4GLgWvgDXLVF58H6pXOC8+FOQHE95pl1ws1xC1/GapAMPhDhBWzz8ni
- bAU1170HubdC5AtF96L6SnfcW5e+pdQvhTlwxT9qsY87sWokzun8o45
+ bh=NcltKjQYCNHb7wupqDN+wruyggE3b75t2seX+5Py8cc=;
+ b=AtvTmZ3T2jbFWBJsz3Uek7loyOZtgqfvVNz3okLF/fpiMjjFwFolP3OltInY+uMjQxjTnBjMY
+ GwtCb61jzKaAqi37IdPk6vTX4ONL1sl8aLZEdB6sXnYMzcr3vvqedU8
 X-Developer-Key: i=kishore.batta@oss.qualcomm.com; a=ed25519;
  pk=vJo8RvTf+HZpRLK2oOIljmbn9l3zFkibCGh+blaqZCw=
-X-Proofpoint-GUID: UneVOTTl2KzGjVLbTXTn5mDt04f_sSgj
-X-Authority-Analysis: v=2.4 cv=FZuiV5+6 c=1 sm=1 tr=0 ts=6acdefb9 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX09GqFJU03b6X
+ BANQUf6o6OGABcU6FyrZKenyYMDwHSY6pfUQFH398wNQaw6Mt82uq/trXKxJJk8tJORKrNxjQ93
+ j+H87waY8GU82HDxgluRFiNRt3xLM2dAi/pQx/G6Qn6lFX0Z/EOvST7i3P2GOjeoQNPCNQCni0Y
+ 4r+QK4SR7DEPKWyS+XWWrMEbElkB7lM5K2Fbky2UV+f/1WIEtBdqH/6WFpCkedGIPvvlYD9YhZg
+ ezVy0GBz0O/l5WYRpMgcqstvI9o6oGoVr6+4a+MxMsLIGnZl9GwSvAMXOvw/cKjgxeTX2AdgZJc
+ NWv25QdLVQTp+te8vcfARd8QveEsPdmDVlMpQD0lLn0pqMXmoO/LHEYvE8NZZ9whwt1IazC/dtF
+ 90IY2hXnyAzY+W1DkFPSkE0wtj5b4ayBqCP/tcDrND2zNHC0TDZ7C3dewoUXKXkFJ3jZ/Kjalao
+ GhjMGchgzJ67onaCN4A==
+X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6acdefbf cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=TZsl4NGrXgOhBUOoEegA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfXy+5wrG2vG7ag
- ti3zU60CG/kCcX/sTy7A0JfnEvvzmUqEjaHonVt7dZTE63+QPnDp8M5iIeVo7g/riSu6cgeS1/F
- 3l1cHuVSQU6vkPcNs+o9swVGyscsYxI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfXzNKumbdc8Okm
- USBpbVvlBwbx3ESSzZd5y9+mHndMer9GQOUbepXbsWbeSNSDgDI6QRQdOrJo2IwYIuJFdVfktAS
- FzYstYY8LQrWHxd3SNNuBWqTyXehnqTdSq+L/bINU9Q97WdpZRZTm2X3S41MJgchpXdRLyaH09R
- /iNs40aAqbpU6g7ACTTUzjqvWQxS3XwByKu3A+YeK0IkeLZLk5aoROcUoR/6NAV3FxTv5Xznrgb
- tLODthuyQEjRiQZNmhpY7O/qcbkpFOeDmZLk54ZhaT365NxcXG2F/k2M71Nk6Fk1kL2OVuZcXg7
- O0U0O6e70B5CSJQwcf01vIQkgEaXG8WzzPwFJdrIkakj+MDEyB6P1LtuPiDDcg/b+uFq79pP7si
- n/eLYkrTOMP+RE8BzaBqNbg6iqEy/+4fEkpa5ckSwAjNifusKWU4U8+2NxzPr9PMzoOzvQ6IVKo
- YaFgglOLNMfPe8fBFcg==
-X-Proofpoint-ORIG-GUID: UneVOTTl2KzGjVLbTXTn5mDt04f_sSgj
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=MMUwo3wwYuTaqRZ-dQsA:9 a=t_MdwZQk9VBQcGG5:21
+ a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-ORIG-GUID: JuyA4fbhpScLFX9ohrGwTrSKcy-JcqZh
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX8i95QdOxR3+z
+ YwMjw+41dD0iPy9WRh2ei9oQeE8YoTCouD/qfpe8yE9MUmtvMMYvQS2QhlAKgKsT2QDom6DKt0p
+ nYcs51tQk/EkUKInSOFAafX6sAAwhc4=
+X-Proofpoint-GUID: JuyA4fbhpScLFX9ohrGwTrSKcy-JcqZh
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 impostorscore=0
- adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130034
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130034
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,156 +150,1277 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi All,
-
-This series reworks the Sahara protocol driver to make it reusable for
-multiple MHI based devices and adds support for capturing, restoring and
-exposing DDR training data using the Sahara command mode.
-
-The Sahara protocol is transported over the MHI bus and is used by multiple
-flashless devices to transfer firmware images, retrieve memory dumps and
-exchange command mode data during early boot. However, the current
-implementation lives under the QAIC accelerator driver and contains
-device-specific assumptions that limit reuse.
-
-Some MHI devices (for example, QDU100) expose the sahara protocol directly
-on a "SAHARA" MHI channel and rely on command mode to exchange DDR training
-data with the host. The existing driver does not bind to such devices and
-ignores Sahara command mode packets, causing training data to be dropped.
-
-This series addresses these issues by relocating the Sahara driver to the
-MHI subsystem, centralizing device specific configuration and adding command
-mode handling for DDR training data.
-
-Overview of the changes in this series -
-1. Move Sahara under the MHI subsystem:
-   a. Relocate the sahara protocol driver from QAIC accelerator tree to
-      drivers/bus/mhi/host/clients directory.
-   b. Register Sahara as an independent MHI protocol driver.
-
-2. Generalize device matching and configuration
-   a. Allow the driver to bind to devices exposing the protocol on a
-      SAHARA MHI channel.
-   b. Centralize firmware image table selection at probe time using a variant
-      table, instead of scattered conditionals.
-   c. Preserve existing behavior on AIC devices.
-
-3. Add QDU100 firmware image table support
-   a. Add a QDU100 image table and select it based on the matched MHI channel.
-   b. No separate client driver or registration mechanism is required.
-
-4. Add Sahara command mode support for DDR training.
-   a. Handle command mode packets(CMD_READY, EXECUTE, EXECUTE_DATA).
-   b. Query supported commands and retrieve DDR training data from the device.
-   c. Allocate receive buffers based on the reported payload size and copy
-      raw data from the MHI DL.
-   d. Store training data in controller-scoped memory using devres so it
-      survives sahara channel teardown.
-
-5. Expose DDR training data to userspace
-   a. Add a read-only binary sysfs attribute under the MHI controller device.
-   b. The attribute reads directly from controller-scoped storage and remains
-      available after the Sahara channel device is removed.
-   c. Cleanup is handled automatically via device-managed resources.
-
-6. Document the sysfs ABI
-   a. Add ABI documentation describing the DDR training data sysfs node.
+Introduce documentation for the Sahara protocol, describing its
+operational modes and their respective functions. The image transfer mode
+enables firmware transfer from host to device. The memory debug mode
+allows extraction of device memory contents to host. The command mode
+facilitates retrieval of DDR training data from the device and also
+to restore the training data back to device in subsequent boot of device
+to save boot time.
 
 Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
 ---
-Changes in v9:
-- Removed the unnecessary linux/mod_devicetable.h include from the Sahara driver.
-- Link to v8: https://lore.kernel.org/r/20261012-sahara_protocol_new_v2-v8-0-e12939d229a1@oss.qualcomm.com
+ Documentation/mhi/index.rst           |    1 +
+ Documentation/mhi/sahara_protocol.rst | 1241 +++++++++++++++++++++++++++++++++
+ 2 files changed, 1242 insertions(+)
 
-Changes in v8:
-- Rebased the series onto the current mhi-next branch so that it applies
-  cleanly.
-- Resolved conflicts with the MHI host client loopback driver and retained
-  the existing Sahara functionality without functional changes.
+diff --git a/Documentation/mhi/index.rst b/Documentation/mhi/index.rst
+index 0aa00482aa2e2d7ec4941154a8c6947dc0a0ac40..39a38978398b81727514ec95dee4e060a1063b34 100644
+--- a/Documentation/mhi/index.rst
++++ b/Documentation/mhi/index.rst
+@@ -9,3 +9,4 @@ MHI
+ 
+    mhi
+    topology
++   sahara_protocol
+diff --git a/Documentation/mhi/sahara_protocol.rst b/Documentation/mhi/sahara_protocol.rst
+new file mode 100644
+index 0000000000000000000000000000000000000000..3190e3e5a2820628e89efcf759c9ca634428f8b2
+--- /dev/null
++++ b/Documentation/mhi/sahara_protocol.rst
+@@ -0,0 +1,1241 @@
++.. SPDX-License-Identifier: GPL-2.0-only
++
++
++=============================
++Sahara protocol Specification
++=============================
++
++The Qualcomm Sahara protocol driver is primarily designed for transferring
++software images from a host device to a target device using a simplified data
++transfer mechanism over a link. However, the Sahara protocol does not support
++any authentication/validation of the data sent between devices. Such a mechanism
++is beyond the scope of the protocol.
++
++The Sahara protocol defines two types of packets - Command packet and Data
++packet.
++
++Command packet
++--------------
++  These packets are sent between the host and the target to setup transfers of
++  data packets. The command packets contain a command ID and packet length.
++  Depending on the command, the packet may contain additional command specific
++  field.
++
+++-------------+---------------+----------------+----------------+
++| Command ID  | Packet length | Optional field | Optional field |
+++-------------+---------------+----------------+----------------+
++
++Data packet
++-----------
++  The data packets contain RAW data as shown below.
++
+++---------------------------------------------------------+
++|           RAW Data (arbitrary number of bytes)          |
+++---------------------------------------------------------+
++
++Command packet optional fields
++------------------------------
++
+++---------+---------------+---------+-----------------------------------------+
++| ID val  |     Field     | Sent by |             Description                 |
+++---------+---------------+---------+-----------------------------------------+
++|   0x0   |       -       |    -    |             Invalid                     |
+++---------+---------------+---------+-----------------------------------------+
++|   0x1   | Hello packet  |  Target | Initializes connection and protocol     |
+++---------+---------------+---------+-----------------------------------------+
++|   0x2   | Hello response|  Host   | Acknowledges connection and protocol    |
++|         |               |         | sent by target. Also used to set mode of|
++|         |               |         | operation for target to execute.        |
+++---------+---------------+---------+-----------------------------------------+
++|   0x3   | Read data     |  Target | Reads specified number of bytes from    |
++|         |               |         | host for a given image.                 |
+++---------+---------------+---------+-----------------------------------------+
++|   0x4   | End of image  |  Target | Indicates host that the single image tx |
++|         | transfer      |         | is complete. Also used to indicate a    |
++|         |               |         | target failure during an image transfer |
+++---------+---------------+---------+-----------------------------------------+
++|   0x5   | Done packet   |  Host   | Sends acknowledgment from host that a   |
++|         |               |         | single image transfer is complete.      |
+++---------+---------------+---------+-----------------------------------------+
++|   0x6   | Done response |  Target | Provides the following information to   |
++|         |               |         | host.                                   |
++|         |               |         | 1. Target is exiting protocol           |
++|         |               |         | 2. Whether the target expects to        |
++|         |               |         | re-enter protocol to transfer another   |
++|         |               |         | image.                                  |
+++---------+---------------+---------+-----------------------------------------+
++|   0x7   | Reset packet  |  Host   | Instructs target to perform a reset.    |
+++---------+---------------+---------+-----------------------------------------+
++|   0x8   | Reset response|  Target | Indicates host that target is about to  |
++|         |               |         | reset.                                  |
+++---------+---------------+---------+-----------------------------------------+
++|   0x9   | Memory debug  |  Target | Indicates host that target has entered  |
++|         | packet        |         | a debug mode where it is ready to       |
++|         |               |         | transfer its system memory contents     |
+++---------+---------------+---------+-----------------------------------------+
++|   0xA   | Memory read   |  Host   | Reads specified number of bytes from    |
++|         | packet        |         | target's system memory, starting from a |
++|         |               |         | specified address.                      |
+++---------+---------------+---------+-----------------------------------------+
++|   0xB   | Command ready |  Target | Indicates host that target is ready to  |
++|         | packet        |         | receive client commands.                |
+++---------+---------------+---------+-----------------------------------------+
++|   0xC   | Command switch|  Host   | Indicates target to switch modes.       |
++|         | mode packet   |         | 1. Image transfer pending mode.         |
++|         |               |         | 2. Image transfer complete mode.        |
++|         |               |         | 3. Memory debug mode.                   |
++|         |               |         | 4. Command mode.                        |
+++---------+---------------+---------+-----------------------------------------+
++|   0xD   | Command       |  Host   | Indicates target to execute a given     |
++|         | execute packet|         | client command.                         |
+++---------+---------------+---------+-----------------------------------------+
++|   0xE   | Command       |  Target | Indicates host that target has executed |
++|         | execute       |         | client command. Also used to indicate   |
++|         | response      |         | status of executed command.             |
++|         | packet        |         |                                         |
+++---------+---------------+---------+-----------------------------------------+
++|   0xF   | Command       |  Host   | Indicates target that host is ready to  |
++|         | execute       |         | receive data resulting from executing   |
++|         | data          |         | previous client command.                |
++|         | packet        |         |                                         |
+++---------+---------------+---------+-----------------------------------------+
++|   0x10  | 64 bit Memory |  Target | Indicates host that target has entered  |
++|         | debug packet  |         | a debug mode where it is ready to       |
++|         |               |         | transfer its 64 bit system memory       |
++|         |               |         | contents.                               |
+++---------+---------------+---------+-----------------------------------------+
++|   0x11  | 64 bit Memory |  Host   | Reads specified number of bytes from    |
++|         | read packet   |         | target's system memory, starting from a |
++|         |               |         | 64 bit specified address.               |
+++---------+---------------+---------+-----------------------------------------+
++|   0x12  | 64 bit Read   |  Target | Reads specified number of bytes from    |
++|         | data          |         | host for a given 64 bit image.          |
+++---------+---------------+---------+-----------------------------------------+
++|   0x13  | Reset Sahara  |  Host   | Resets Sahara state machine and enters  |
++|         | sate machine  |         | Sahara entry without target reset       |
++|         | packet        |         |                                         |
+++---------+---------------+---------+-----------------------------------------+
++|   0x14  | Write data    |  Target | Writes specified number of bytes to host|
++|         | packet        |         | for a given image                       |
+++---------+---------------+---------+-----------------------------------------+
++|  Others |       -       |    -    |             Invalid                     |
+++---------+---------------+---------+-----------------------------------------+
++
++
++Hello Packet
++------------
++
++The hello packet is the first packet that the target sends to the host. If the
++host receives any other packet, it sends a reset command to the target. When the
++host receives a valid hello packet, it first verifies that the protocol running
++on the target is compatible with the protocol running on the host. If the
++protocol mismatch, the host sends a reset command to the target. The target uses
++the following format while sending a hello packet.
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Version   |     4       | Version number of this protocol      |
+++-----------+-------------+--------------------------------------+
++| Version   |     4       | Lowest Compatible version            |
++| Compatible|             |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       | Maximum command packet length        |
++| packet    |             | (in bytes) the protocol supports.    |
++| length    |             |                                      |
+++-----------+-------------+--------------------------------------+
++| Mode      |     4       | Expected mode of target operation    |
+++-----------+-------------+--------------------------------------+
++| Reserved  |     4       | Reserved for future use.             |
+++-----------+-------------+--------------------------------------+
++| Reserved  |     4       | Reserved for future use.             |
+++-----------+-------------+--------------------------------------+
++| Reserved  |     4       | Reserved for future use.             |
+++-----------+-------------+--------------------------------------+
++| Reserved  |     4       | Reserved for future use.             |
+++-----------+-------------+--------------------------------------+
++| Reserved  |     4       | Reserved for future use.             |
+++-----------+-------------+--------------------------------------+
++| Reserved  |     4       | Reserved for future use.             |
+++-----------+-------------+--------------------------------------+
++
++The target also sends the following information:
++  1. Maximum length of the command packet that it supports. The host uses this
++     information to avoid sending more bytes than the target can support in the
++     receiving command buffer.
++  2. Mode of operation it expects to enter, based on the boot up sequence. The
++     supported modes of operation for the target are as follows:
++
+++-----------------------------+---------+------------------------------------+
++|          Mode               | Mode ID |         Description                |
+++-----------------------------+---------+------------------------------------+
++| SAHARA_MODE_IMAGE_TX_PENDING|  0x0    | Image transfer is in the pending   |
++|                             |         | mode. Transfer image from the host.|
++|                             |         | After completion, the host should  |
++|                             |         | expect another image transfer      |
++|                             |         | request.                           |
+++-----------------------------+---------+------------------------------------+
++|SAHARA_MODE_IMAGE_TX_COMPLETE|  0x1    | Image transfer is in the complete  |
++|                             |         | mode. Transfer image from the host.|
++|                             |         | After completion, the host should  |
++|                             |         | not expect another image transfer  |
++|                             |         | request.                           |
+++-----------------------------+---------+------------------------------------+
++|  SAHARA_MODE_MEMORY_DBEUG   |  0x2    | Memory debug mode. The host should |
++|                             |         | prepare to receive a memory dump   |
++|                             |         | from the target.                   |
+++-----------------------------+---------+------------------------------------+
++|    SAHARA_MODE_COMMAND      |  0x3    | Command mode. The host executes    |
++|                             |         | operations on the target by sending|
++|                             |         | the appropriate client command to  |
++|                             |         | the Sahara client running on the   |
++|                             |         | target. The Sahar client interprets|
++|                             |         | the client command and the response|
++|                             |         | is sent after execution of the     |
++|                             |         | given command.                     |
+++-----------------------------+---------+------------------------------------+
++
++Hello response packet
++---------------------
++
++After the host validates the protocol running on the target, it sends a response
++to the target. The response contains the following information.
++1. The protocol version that is running.
++2. The minimum protocol version that it supports.
++3. The mode of operation.
++
++The host sets the packet status field to success if no errors occur on the host
++side. After the target receives this packet, it can proceed with data transfer
++requests or memory debug. The host uses the following format while sending a
++hello response packet.
++
+++-----------+-------------+--------------------------------------+
++| Field     | Length      | Description                          |
++|           | (bytes)     |                                      |
+++===========+=============+======================================+
++| Command   | 4           | Command identifier code              |
+++-----------+-------------+--------------------------------------+
++| Length    | 4           | Length of the packet (in bytes)      |
+++-----------+-------------+--------------------------------------+
++| Version   | 4           | Version number of this protocol      |
+++-----------+-------------+--------------------------------------+
++| Compatible| 4           | Lowest Compatible version            |
+++-----------+-------------+--------------------------------------+
++| Status    | 4           | Success or error code                |
+++-----------+-------------+--------------------------------------+
++| Mode      | 4           | Mode of operation for target to      |
++|           |             | execute                              |
+++-----------+-------------+--------------------------------------+
++| Reserved  | 4           | Reserved for future use              |
+++-----------+-------------+--------------------------------------+
++| Reserved  | 4           | Reserved for future use              |
+++-----------+-------------+--------------------------------------+
++| Reserved  | 4           | Reserved for future use              |
+++-----------+-------------+--------------------------------------+
++| Reserved  | 4           | Reserved for future use              |
+++-----------+-------------+--------------------------------------+
++| Reserved  | 4           | Reserved for future use              |
+++-----------+-------------+--------------------------------------+
++| Reserved  | 4           | Reserved for future use              |
+++-----------+-------------+--------------------------------------+
++
++
++Read data packet / 64 bit read data packet
++------------------------------------------
++
++The read data packet serves as a generic data transfer packet when any image
++data is to be transferred from the host to the target. This packet allows
++flexibility in the way that the image is transferred from the host to the
++target. As the target controls which data gets transferred, the target can
++determine what parts of the image get transferred and in what order. The host
++need not be familiar about the structure of the image. It must open the file and
++start transferring the data to the target based on the parameters specified in
++the packet.
++
++This gives the target complete control over how the images are transferred and
++processed. To initiate an image transfer, the target fills the read data packet
++with the image ID corresponding to the image that it wants to receive. The
++target also sends the offset into the image file and the length of the data(in
++bytes) it wants to read from the image. After the host receives this packet, the
++host responds with a data packet, which contains image data with the length
++specified in the read data packet. The host uses the following format while
++transferring the read data packet and 64-bit read data packet.
++
++
++Read data packet format
++=======================
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Image ID  |     4       | ID of the image to be transferred.   |
+++-----------+-------------+--------------------------------------+
++| Data      |     4       | Offset into the image file to start  |
++| offset    |             | transferring data.                   |
+++-----------+-------------+--------------------------------------+
++| Data      |     4       | Number of bytes target wants to      |
++| Length    |             | transfer from the image.             |
+++-----------+-------------+--------------------------------------+
++
++
++64-bit read data packet format
++==============================
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Image ID  |     8       | ID of the image to be transferred.   |
+++-----------+-------------+--------------------------------------+
++| Data      |     8       | Offset into the image file to start  |
++| offset    |             | transferring data.                   |
+++-----------+-------------+--------------------------------------+
++| Data      |     8       | Number of bytes target wants to      |
++| Length    |             | transfer from the image.             |
+++-----------+-------------+--------------------------------------+
++
++If any of the preceding fields are invalid, or if any other error occurs on the
++host, the host sends a data packet with length that does not match with what the
++target was expecting. The resulting error forces the target to send an end of
++image transfer packet with an error code in the status field and enables both
++the target and the host to enter an error handling state.
++
++End of Image transfer packet
++----------------------------
++
++If an image transfer is successfully completed, the target sends the host an end
++of image transfer packet with a success status. The target then waits for the
++host to send a done packet. If any error occurs during the transfer or
++processing of the image data, the status is set to the corresponding error code,
++and the target waits for a different command packet.
++
++The host uses the following format while transferring end of image transfer
++packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Image ID  |     4       | ID of the image that was being       |
++|           |             | transferred.                         |
+++-----------+-------------+--------------------------------------+
++| Status    |     4       | Success or error code                |
+++-----------+-------------+--------------------------------------+
++
++Done packet
++-----------
++
++If the host receives an end of image transfer packet with a success status, the
++host sends a done packet to indicate the target that it can exit the protocol
++and continue execution of code. The host uses the following format while sending
++the done packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++
++To transfer another image from the host, the target must re-initiate the
++protocol by starting with another hello packet.
++
++Done Response packet
++--------------------
++
++If the target receives a done packet, it responds with a done response packet
++containing the image transfer status. The target uses the following format while
++sending the done response packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Image Tx  |     4       | Indicates whether target is          |
++| Status    |             | expecting to receive another image   |
++|           |             | or not.                              |
+++-----------+-------------+--------------------------------------+
++
++If all the images are transferred, the target sends a complete status to enable
++the host to exit the protocol. If all the images are not transferred, the target
++sends a pending status and waits for another hello packet to arrive.
++
++Reset Packet
++------------
++
++The host sends a reset packet to reset the target. The target services a reset
++request only if its in a state where reset requests are valid. If the target
++receives an invalid reset request, the target sends an error in an end of image
++transfer packet. The format of reset packet is as follows:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++
++
++Reset response packet
++---------------------
++
++If the target receives a valid reset request, it sends a reset response packet
++just before it resets. The purpose of this response is to acknowledge the host
++that the target received the reset request. The format of reset response packet
++is as follows:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++
++
++Memory debug packet
++-------------------
++
++The target initiates a memory dump by sending the host a memory debug packet.
++This packet contains the address and length of the memory debug table. The
++memory debug table is a listing of memory locations that can be accessed and
++dumped to the host. The target uses the following format while sending the
++memory debug packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Memory    |     4       | Target sets this field to the address|
++| table     |             | in memory that stores the memory     |
++| Address   |             | debug table.                         |
+++-----------+-------------+--------------------------------------+
++| Memory    |     4       | Length in bytes of memory debug      |
++| table     |             | table.                               |
++| Length    |             |                                      |
+++-----------+-------------+--------------------------------------+
++
++Given the memory table address and length, the host issues a memory read to
++retrieve the table. After the host receives the memory table information, it can
++decode each entry and issue memory read requests to dump each memory location.
++
++Memory read packet / 64-bit memory read packet
++----------------------------------------------
++
++The host issues memory read commands for each section of memory that it dumps.
++The host uses the following format while sending the memory read packet and 64
++bit memory read packet:
++
++Memory read packet format
++=========================
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Memory    |     4       | Memory location to read.             |
++| Address   |             |                                      |
+++-----------+-------------+--------------------------------------+
++| Memory    |     4       | Length in bytes of memory to read    |
++| Length    |             |                                      |
+++-----------+-------------+--------------------------------------+
++
++64 bit memory read packet format
++================================
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Memory    |     8       | Memory location to read.             |
++| Address   |             |                                      |
+++-----------+-------------+--------------------------------------+
++| Memory    |     8       | Length in bytes of memory to read    |
++| Length    |             |                                      |
+++-----------+-------------+--------------------------------------+
++
++The accessible regions are defined in the memory debug table. For each memory
++read command received, the target verifies that the specified memory(address and
++length) is accessible and responds with a raw data packet. The content and
++length of the raw data packet is the memory dump starting from the memory
++address and length specified in the memory read packet. The memory debug table
++can also be read using a memory read command by setting the address and length
++to the values specified in the memory debug packet.
++
++If any error occurs on the target, an end of image transfer packet is sent with
++the corresponding error code and the host recognizes whether it is actual memory
++data or an end of image transfer packet. The host issues a reset command on
++completion of a successful memory dump. However, the protocol does not force
++this implementation.
++
++Command ready packet
++--------------------
++
++The target sends this packet to the host to indicate that the target is ready to
++execute client commands. The target uses the following format while sending the
++command ready packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++
++
++Command switch mode packet
++--------------------------
++
++The host sends the command switch mode packet to the target so that the target
++can switch to another mode. The host uses the following format while sending the
++command switch mode packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Mode      |     4       | Mode of operation for target         |
++|           |             | to execute.                          |
+++-----------+-------------+--------------------------------------+
++
++Command execute packet
++----------------------
++
++The host sends this packet to execute the given client command on the target. If
++the client command successfully executes, the target sends a command execute
++response packet. If an error occurs, the target sends an end of image transfer
++packet with the corresponding error code. The host uses the following format
++while sending command execute packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Client    |     4       | Client Command to be executed.       |
++| Command   |             |                                      |
+++-----------+-------------+--------------------------------------+
++
++
++Client commands
++===============
++
+++------------+-------------+--------------------------------------+
++|  Client ID |  Length     |          Description                 |
+++------------+-------------+--------------------------------------+
++|   0x8      |    4        |      Get Command ID list.            |
+++------------+-------------+--------------------------------------+
++|   0x9      |    4        |      Get DDR training data.          |
+++------------+-------------+--------------------------------------+
++
++Command execute Response packet
++-------------------------------
++
++The target sends this packet if it successfully executes the client command. The
++target uses the following format while sending the command execute response
++packet.
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Client    |     4       | Client Command to be executed.       |
++| Command   |             |                                      |
+++-----------+-------------+--------------------------------------+
++| Response  |     4       | Number of bytes for response data.   |
++| Length    |             |                                      |
+++-----------+-------------+--------------------------------------+
++
++Command execute data packet
++---------------------------
++
++The host sends this packet if the response length received in the command
++execute response packet is greater than 0. The host uses the following format
++while sending command execute data packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Client    |     4       | Client Command executed.             |
++| Command   |             |                                      |
+++-----------+-------------+--------------------------------------+
++
++The packet indicates the target to send the response data in a raw data packet.
++The target sends the response data upon receiving this packet.
++
++64-bit memory debug packet
++--------------------------
++
++The target sends this packet to the host to initiate a memory dump. The packet
++contains 64-bit address and length of the memory table. The target uses the
++following format while sending 64-bit memory debug packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Memory    |     8       | Target sets this field to the 64-bit |
++| table     |             | address in memory that stores the    |
++| Address   |             | memory debug table.                  |
+++-----------+-------------+--------------------------------------+
++| Memory    |     8       | Length in bytes of memory debug      |
++| table     |             | table.                               |
++| Length    |             |                                      |
+++-----------+-------------+--------------------------------------+
++
++Reset Sahara state machine packet
++---------------------------------
++
++The host sends a reset Sahara state machine packet whenever it wants to reset
++Sahara state machine. When the target receives a reset Sahara state machine
++request, it reinitializes Sahara protocol and sends the hello packet to the
++host. The Sahara protocol is restarted without a target reset. The host uses the
++following format while sending the reset Sahara state machine packet:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++
++Write data packet
++-----------------
++
++Write data packet serves as a generic data transfer packet when any data is
++transferred from the target to the host. This packet allows flexible data
++transfer from the target to the host.
++
++As the target controls what data gets transferred, target can determine what
++parts of the data get transferred and in what order. The host does not need to
++know anything about the structure of the data. It only needs to open the file
++and start accepting the data to the host based on the parameters specified in
++the packet.
++
++To initiate a write data transfer, the target fills the write data packet with
++the image ID corresponding to the image data that it wants to send. The target
++also sends the offset into the output file and the length of the data(in bytes)
++it wants to write from the target. As soon as the host receives the packet, the
++host opens an output file and waits to receive the data packets. After the
++packet is received, the content from the data pcket is written to the output
++file, The format of the write data packet is as follows:
++
+++-----------+-------------+--------------------------------------+
++|  Field    |  Length     |          Description                 |
++|           |  (bytes)    |                                      |
+++-----------+-------------+--------------------------------------+
++| Command   |     4       |      Command identifier code         |
+++-----------+-------------+--------------------------------------+
++| Length    |     4       | Length of the packet(in bytes)       |
+++-----------+-------------+--------------------------------------+
++| Data      |     8       | Offset into the image file to start  |
++| offset    |             | writing the data to host.            |
+++-----------+-------------+--------------------------------------+
++| Image ID  |     4       | ID of the image to be transferred.   |
+++-----------+-------------+--------------------------------------+
++| Data      |     4       | Number of bytes target wants to      |
++| Length    |             | transfer the data to the host.       |
+++-----------+-------------+--------------------------------------+
++
++
++Command packet flow between host and target
++-------------------------------------------
++
++Packet flow is a process of exchange of information as packets between the host
++and the target in a specific way using command packets. The Sahara protocol
++allows packet processing for the following scenarios:
++
++1. Transferring an image from the host to the target.
++2. Dumping memory from the target to the host.
++3. Loading DDR calibration data on flashless target.
++
++Packet flow for Image transfer
++------------------------------
++
++The packet flow is performed between the host and target for a successful image
++transfer.
++
++.. code-block:: text
++
++                        Host                       Target
++                          |          HELLO            |
++                          |   (mode = image transfer) |
++                          |<--------------------------|
++                          |                           |
++                          |         HELLO RESP        |
++                          |   (mode = image transfer) |
++                          |-------------------------->|
++                          |                           |
++                          |         READ_DATA         |
++                          |   (img ID, 0, offset,     |
++                          |   size of image header)   |
++                          |<--------------------------|
++                          |                           |
++                          |         RAW_DATA          |
++                          | (size of image header)    |
++                          |-------------------------->|
++                          |                           |
++                          |         READ_DATA         |
++                          | (img ID, segment 0 offset,|
++                          |  size of segment 0)       |
++                          |<--------------------------|
++                          |         RAW_DATA          |
++                          |     (size of segment 0)   |
++                          |-------------------------->|
++                          |                           |
++                          |         READ_DATA         |
++                          | (img ID, segment 1 offset,|
++                          |  size of segment 1)       |
++                          |<--------------------------|
++                          |                           |
++                          |                           |
++                          |         RAW_DATA          |
++                          |    (size of segment 1)    |
++                          |-------------------------->|
++                          |          ...              |
++                          |          ...              |
++                          |          ...              |
++                          |          ...              |
++                          |                           |
++                          |                           |
++                          |         READ_DATA         |
++                          | (img ID, segment N offset,|
++                          |  size of segment N)       |
++                          |<--------------------------|
++                          |                           |
++                          |                           |
++                          |                           |
++                          |         RAW_DATA          |
++                          |    (size of segment N)    |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |       END_IMAGE_TX        |
++                          |<--------------------------|
++                          |                           |
++                          |                           |
++                          |          DONE             |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |         DONE_RESP         |
++                          |<--------------------------|
++                          |                           |
++
++The packet flow sequence for image transfer is as follows:
++
++1. A hello packet is sent from the target to the host to initiate the protocol
++   with the mode set to either image transfer pending or image transfer
++   complete (depending on the target's boot sequence).
++
++2. The host sends a hello response packet with a success status and sets the
++   mode to the mode received in the hello packet. After it receives the hello
++   packet and validates the protocol version running on the target.
++
++3. After the target receives the hello response, the target initiates the
++   image transfer request by sending read data packets. Each read data packet
++   specifies the image that the target wishes to receive and what part of the
++   image is to be transferred.
++
++4. During normal operation, the target first requests image header information.
++
++   a. The image header information specifies image size and location of the
++      image data that is to be transferred.
++
++   b. The image header information (which is sent as a read data request)
++      allows the target to know the format of the image to be transferred.
++      The protocol does not require the host to know anything about the
++      image formats and allows the host to read and transfer data from the
++      image as requested by the target.
++
++   c. If the image is a standalone binary image without any data segmentation
++      (which means the data is entirely contiguous when stored as well as
++      transferred to the target system memory), then the target requests for
++      entire image data to be sent in one transfer.
++
++   d. If the image data is segmented and requires scattering of the data
++      segments to noncontiguous system memory locations, the target issues
++      multiple read data requests to enable each data segment to be
++      transferred directly to the respective destination address. This
++      scattered information resides in the image header and is parsed by the
++      target before issuing the read data requests.
++
++5. After receiving a read data request, the host parses the image ID, data
++   offset, and data length to transfer data from the corresponding image file.
++   The host sends the requested data without any packet header.
++
++6. The target directly transfers the data to the destination address without
++   any software processing or temporarily buffering of the data in system
++   memory by transferring the image header to the targert and setting the
++   receive buffer for the data as the destination address in system memory.
++
++7. After the target successfully receives all segments for an image, the
++   target sends an end of image transfer packet with the image ID of the
++   corresponding image, and a success status. The host stops reading and
++   closes the image file after receiving the success status.
++
++8. The host sends a done packet to allow the target to exit the protocol after
++   it receives a successgul end of image transfer packet.
++
++9. After the target receives the done packet, the target sends a done response
++   packet to the host. This packet indicates if the target expects another
++   image to be transferred and if the host can continue to run the protocol.
++
++Packet flow for memory debug
++----------------------------
++
++The packet flow is performed between the host and the target for the successful
++memory debug.
++
++.. code-block:: text
++
++                        Host                       Target
++                          |          HELLO            |
++                          |   (mode = memory debug)   |
++                          |<--------------------------|
++                          |                           |
++                          |         HELLO RESP        |
++                          |   (mode = memory debug)   |
++                          |-------------------------->|
++                          |                           |
++                          |         MEMORY_DEBUG      |
++                          |   (location of mem table, |
++                          |   size of memory table)   |
++                          |<--------------------------|
++                          |                           |
++                          |         MEMORY_READ       |
++                          |   (Address from region 0 ,|
++                          |    size of region 0)      |
++                          |-------------------------->|
++                          |         RAW_DATA          |
++                          |     (size of region 0)    |
++                          |<--------------------------|
++                          |                           |
++                          |         MEMORY_READ       |
++                          |   (Address from region 1 ,|
++                          |    size of region 1)      |
++                          |-------------------------->|
++                          |         RAW_DATA          |
++                          |     (size of region 1)    |
++                          |<--------------------------|
++                          |         MEMORY_READ       |
++                          |   (Address from region 2 ,|
++                          |    size of region 0)      |
++                          |-------------------------->|
++                          |         RAW_DATA          |
++                          |     (size of region 2)    |
++                          |<--------------------------|
++                          |          ...              |
++                          |          ...              |
++                          |          ...              |
++                          |          ...              |
++                          |                           |
++                          |         MEMORY_READ       |
++                          |   (Address from region N ,|
++                          |    size of region N)      |
++                          |-------------------------->|
++                          |         RAW_DATA          |
++                          |     (size of region N)    |
++                          |<--------------------------|
++                          |                           |
++                          |          RESET            |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |        RESET_RESP         |
++                          |<--------------------------|
++                          |                           |
++
++The packet flow sequence for image transfer is as follows:
++
++1. A hello packet is sent from the target to the host to initiate the protocol
++   with mode set to memory debug.
++
++2. The host sends a hello response packet with a success status and sets the
++   mode to memory debug after it receives the hello packet and validates the
++   protocol version running on the target.
++
++3. After the target receives the hello response, the target initiates the
++   memory dump by sending a memory debug packet with the location and size of
++   the memory debug table. The memory debug table specifies accessible memory
++   regions.
++
++4. The host then initiates a memory read packet to read the memory debug
++   table and receives the table in a raw data packet after it receives the
++   memory debug packet.
++
++5. The host then decodes the table and issues memory reads for each accessible
++   region. The data for each region is sent in a raw data packet.
++
++6. Upon completion, the host issues a reset to the target. The target sends a
++   reset response and resets the target.
++
++7. The host can alternatively send a command switch mode packet to allow the
++   target to switch modes and avoid a reset.
++
++
++Packet flow to load DDR calibration data on target
++--------------------------------------------------
++
++The packet flow is performed between the host and the target to load DDR
++calibration data on flashless target. This packet flow is initiated when the
++device boots up for the first time and needs DDR calibration. This packet flow
++is also initiated in other scenarios, such as build update or any reason for
++which DDR calibration data gets corrupted.
++
++First boot scenario or invalid calibration data in filesystem.
++--------------------------------------------------------------
++
++.. code-block:: text
++
++                        Host                       Target
++                          |          HELLO            |
++                          |   (mode = image transfer) |
++                          |<--------------------------|
++                          |                           |
++                          |         HELLO RESP        |
++                          |   (mode = image transfer) |
++                          |-------------------------->|
++                          |                           |
++                          |         READ_DATA         |
++                          |   (img ID:34, 0, offset,  |
++                          | size of DDR training data)|
++                          |<--------------------------|
++                          |                           |
++                          |         RAW_DATA          |
++                          |(size of DDR training data)|
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |       END_IMAGE_TX        |
++                          |<--------------------------|
++                          |                           |
++                          |                           |
++                          |          DONE             |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |         DONE_RESP         |
++                          | (mode = IMAGE_TX_PENDING) |
++                          |<--------------------------|
++                          |1. First boot scenario.    |
++                          |   DDR driver performs     |
++                          |   calibration and returns |
++                          |   to SBL.                 |
++                          |2. Next: Push DDR          |
++                          |  Calibration data to host |
++                          |                           |
++                          |                           |
++                          |          HELLO            |
++                          |   (mode = COMMAND mode)   |
++                          |<--------------------------|
++                          |                           |
++                          |         HELLO RESP        |
++                          |   (mode = COMMAND mode  ) |
++                          |-------------------------->|
++                          |                           |
++                          |         CMD_READY         |
++                          |<--------------------------|
++                          |                           |
++                          |         CMD_EXEC          |
++                          |(cmd id = 8, Get command   |
++                          | ID to be executed)        |
++                          |-------------------------->|
++                          |                           |
++                          |       CMD_EXEC_RESP       |
++                          |(cmd id: 8, resp len = 4)  |
++                          |<--------------------------|
++                          |                           |
++                          |    CMD_EXEC_GET_DATA      |
++                          |        (ID = 0x8)         |
++                          |-------------------------->|
++                          |                           |
++                          |          RAW_DATA         |
++                          |       (0x00000009)        |
++                          |<--------------------------|
++                          |                           |
++                          |         CMD_EXEC          |
++                          | (cmd id: 9, resp len > 0) |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |       CMD_EXEC_RESP       |
++                          |(cmd id: 9, resp len > 0)  |
++                          |<--------------------------|
++                          |                           |
++                          |    CMD_EXEC_GET_DATA      |
++                          |        (ID = 0x9)         |
++                          |-------------------------->|
++                          |                           |
++                          |          RAW_DATA         |
++                          |   (valid training data)   |
++                          |<--------------------------|
++                          |                           |
++                          |3. Host sends switch to    |
++                          |image tx mode to continue  |
++                          |booting.                   |
++                          |                           |
++                          |                           |
++                          |      CMD_SWITCH_MODE      |
++                          | (mode = IMAGE_TX_PENDING) |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |          HELLO            |
++                          | (mode = IMAGE_TX_PENDING) |
++                          |<--------------------------|
++                          |                           |
++                          |         HELLO RESP        |
++                          | (mode = IMAGE_TX_PENDING) |
++                          |-------------------------->|
++                          |                           |
++                          |4. Boot/Load rest of the   |
++                          |    images....             |
++                          |                           |
++                          |       END_IMAGE_TX        |
++                          |<--------------------------|
++                          |                           |
++                          |                           |
++                          |          DONE             |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |         DONE_RESP         |
++                          |(mode = IMAGE_TX_COMPLETE) |
++                          |<--------------------------|
++                          |                           |
++
++The packet flow sequence is as follows:
++
++1. The target sends the hello packet to the host to initiate the protocol
++   with the mode set to image transfer pending.
++
++2. The host sends a hello response packet with a success status and sets the
++   mode to image transfer pending after it receives the hello packet and
++   validates the protocol version running on the target.
++
++3. After the target receives the hello response, it initiates the data
++   transfer by requesting the size of DDR training/calibration data.
++
++4. The host sends back the DDR training/calibration data to the target.
++
++5. The target decodes the training data and does not find valid DDR
++   calibration data, target sends END_IMAGE_TX to interrupt the transfer.
++
++6. The host sends DONE after receives END_IMAGE_TX.
++
++7. The target sends DONE_RESP with mode = IMAGE_TX_PENDING because it has
++   not received all images.
++
++8. The target executes DDR training process to generate valid DDR calibration
++   data and prepares to push back to host.
++
++9. The target initiates protocol by sending a hello packet with COMMAND_MODE
++   to the host.
++
++10. The host sends a hello response packet with a success status and sets the
++    mode to COMMAND_MODE.
++
++11. The target sends CMD_READY to the host.
++
++12. The host receives CMD_READY and starts to get command IDs to be executed.
++
++13. The target sends CMD_ID = 9 to push DDR calibration data to host.
++
++14. The host executes CMD_ID = 9 to get DDR calibration data from the target.
++
++15. The target sends RAW_DATA with the payload which contains DDR calibration
++    data to host.
++
++16. The host saves training data in the kernel buffer and exposes to userspace
++    via the sysfs entry. The host sends CMD_SWITCH_MODE with the mode set to
++    IMAGE_TX_PENDING to continue booting.
++
++17. After the target receives the CMD_SWITCH_MODE command, it sends HELLO to
++    the host with the mode set to IMAGE_TX_PENDING. The target and the host
++    repeat the packet flow for image transfer to get all booting-required
++    images.
++
++18. Upon successful transfer of all images, the target sends an END_IMAGE_TX
++    packet with a success status to the host.
++
++19. The host sends DONE after it receives END_IMAGE_TX.
++
++20. The target sends DONE_RESP with the mode set to IMAGE_TX_COMPLETE because
++    it has received all images. The process has been completed after the host
++    receives DONE_RESP with the mode set to IMAGE_TX_COMPLETE.
++
++Subsequent boot scenario with valid DDR calibration data
++--------------------------------------------------------
++
++The below firgure shows the subsequent boot scenario with valid DDR calibration
++data process being loaded from host to target.
++
++.. code-block:: text
++
++                        Host                       Target
++                          |          HELLO            |
++                          |   (mode = image transfer) |
++                          |<--------------------------|
++                          |                           |
++                          |         HELLO RESP        |
++                          |   (mode = image transfer) |
++                          |-------------------------->|
++                          |                           |
++                          |         READ_DATA         |
++                          |   (img ID:34, 0, offset,  |
++                          | size of DDR training data)|
++                          |<--------------------------|
++                          |                           |
++                          |         RAW_DATA          |
++                          |(size of DDR training data)|
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |       END_IMAGE_TX        |
++                          |<--------------------------|
++                          |                           |
++                          |                           |
++                          |          DONE             |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |         DONE_RESP         |
++                          | (mode = IMAGE_TX_PENDING) |
++                          |<--------------------------|
++                          |                           |
++                          | Subsequent boot scenario  |
++                          | (valid calibration data)  |
++                          | DDR driver configures DDR |
++                          | using valid calibration   |
++                          | data                      |
++                          |                           |
++                          |                           |
++                          |          HELLO            |
++                          | (mode = IMAGE_TX_PENDING) |
++                          |<--------------------------|
++                          |                           |
++                          |         HELLO RESP        |
++                          | (mode = IMAGE_TX_PENDING) |
++                          |-------------------------->|
++                          |                           |
++                          | Boot/Load rest of the     |
++                          |    images....             |
++                          |                           |
++                          |       END_IMAGE_TX        |
++                          |<--------------------------|
++                          |                           |
++                          |                           |
++                          |          DONE             |
++                          |-------------------------->|
++                          |                           |
++                          |                           |
++                          |         DONE_RESP         |
++                          |(mode = IMAGE_TX_COMPLETE) |
++                          |<--------------------------|
++                          |                           |
++
++The packet flow is as follows:
++
++1. The target sends the hello packet to the host to initiate the protocol
++   with the mode set to image transfer pending.
++
++2. The host sends a hello response packet with a success status and sets the
++   mode to image transfer pending after it receives the hello packet and
++   validates the protocol version running on the target.
++
++3. After the target receives the hello response, it initiates the images
++   transfer by requesting the training/calibration data from the host.
++
++4. The host sends back the DDR training/calibration data to the target.
++
++5. The target decodes the DDR training/calibration data and finds valid DDR
++   calibration data.
++
++6. The host sends RAW_DATA with the size of the DDR calibration data to the
++   target.
++
++7. Upon successful transfer of DDR calibration data, the target sends an
++   END_IMAGE_TX packet with a success status.
++
++8. The host sends DONE after it receives END_IMAGE_TX.
++
++9. The target sends DONE_RESP with mode = IMAGE_TX_PENDING because it has not
++   received all images.
++
++10. The target continues booting with valid DDR calibration data.
++
++11. The target and the host repeat the packet flow for image transfer to get
++    all booting-required images.
++
++12. After successful transfer of all images, the target sends an END_IMAGE_TX
++    packet with a success status to the host.
++
++13. The host sends DONE after it receives END_IMAGE_TX.
++
++14. The target sends DONE_RESP with the mode set to IMAGE_TX_COMPLETE because
++    it has received all images. The process has been completed after the host
++    receives DONE_RESP with the mode set to IMAGE_TX_COMPLETE.
 
-Changes in v7:
-- Addressed review feedback by correcting documentation punctuation and
-  removing an unrelated formatting-only change.
-- Passed the QDU100 Sahara firmware mapping through struct mhi_pci_dev_info
-  instead of selecting it with a device-specific conditional in PCI probe.
-- Clarified the userspace persistence filename for captured DDR training data:
-  qcom/<fw_folder>/mdmddr_0x<serial_no>.mbn.
-- Link to v6: https://lore.kernel.org/r/20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com
-
-Changes in v6:
-- Used BIN_ATTR_RO() instead of struct bin_attribute.
-- Link to v5: https://lore.kernel.org/r/20260416-sahara_protocol_new_v2-v5-0-6aebf005e4ba@oss.qualcomm.com
-
-Changes in v5:
-- Sahara protocol documentation is moved to Documentation/mhi/ directory.
-- Sahara driver is now moved to drivers/bus/mhi/host/clients/ directory.
-- Squashed v4 patch 3 with v4 patch 5.
-- Squashed v4 patch 9 with v4 patch 8.
-- Firmware image tables are now moved to respective MHI controller files.
-- Removed redundant if-else conditions when loading DDR training data image.
-- Corrected commit subjects and messages.
-- Removed Sahara variant structure and introduced mhi_sahara_fw_table structure.
-- Link to v4: https://lore.kernel.org/r/20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com
-
-Changes in v4:
-- Updated the series based on review feedback.
-- Link to v3: https://lore.kernel.org/r/20260310-sahara_protocol_new_v2-v3-0-994ea4b0d5ad@oss.qualcomm.com
-- Link to v3: https://lore.kernel.org/r/20260310-sahara_protocol_new_v2-v3-0-994ea4b0d5ad@oss.qualcomm.com
-
-Changes in v3:
-- Dropped the explicit image table entry for the boot critical image ID and
-  added a generic image ID based firmware lookup fallback.
-- Link to v2: https://lore.kernel.org/r/20260307-sahara_protocol_new_v2-v2-0-29dc748b5e9c@oss.qualcomm.com
-
-Changes in v2:
-- Rebased onto latest linux-next tip.
-- Reworked commit messages to clearly start with the problem being solved and
-  end with a technical description of the change.
-- Moved the Sahara driver to drivers/bus/mhi instead of drivers/soc/qcom,
-  reflecting that its an MHI protocol driver rather than a SoC specific driver.
-- Removed client side image table registration and consolidated firmware
-  selection directly in the sahara driver using a probe-time variant
-  mechanism.
-- Ensured each patch is self-contained and does not break the build or runtime
-  behavior at any intermediate point.
-- Simplified state handling and lifetime management to avoid duplicated state
-  tracking and ad-hoc cleanup.
-- Updated sysfs handling to use controller-scoped devres and avoid one-shot
-  reads or manual teardown.
-- Link to v1: https://lore.kernel.org/r/20250825101926.2160554-1-kishore.batta@oss.qualcomm.com
-
----
-Kishore Batta (7):
-      Add documentation for Sahara protocol
-      bus: mhi: Move Sahara protocol driver under MHI host client drivers
-      bus: mhi: Centralize Sahara firmware image table selection at probe time
-      bus: mhi: Add QDU100 Sahara variant and firmware fallback
-      bus: mhi: Load DDR training data using device serial number
-      bus: mhi: Capture DDR training data via command mode
-      bus: mhi: Expose DDR training data via controller sysfs
-
- .../ABI/testing/sysfs-bus-mhi-ddr_training_data    |   19 +
- Documentation/mhi/index.rst                        |    1 +
- Documentation/mhi/sahara_protocol.rst              | 1241 ++++++++++++++++++++
- drivers/accel/qaic/Kconfig                         |    1 +
- drivers/accel/qaic/Makefile                        |    3 +-
- drivers/accel/qaic/mhi_controller.c                |   61 +
- drivers/accel/qaic/qaic_drv.c                      |    9 -
- drivers/accel/qaic/sahara.h                        |   10 -
- drivers/bus/mhi/host/Makefile                      |    2 +-
- drivers/bus/mhi/host/clients/Kconfig               |    6 +
- drivers/bus/mhi/host/clients/Makefile              |    1 +
- drivers/bus/mhi/host/clients/sahara/Kconfig        |   15 +
- drivers/bus/mhi/host/clients/sahara/Makefile       |    2 +
- .../qaic => bus/mhi/host/clients/sahara}/sahara.c  |  514 ++++++--
- drivers/bus/mhi/host/pci_generic.c                 |   41 +
- include/linux/mhi.h                                |   17 +
- 16 files changed, 1851 insertions(+), 92 deletions(-)
----
-base-commit: 0b1883ca75c0005ab5ca52c7bc1a26329bc39746
-change-id: 20260307-sahara_protocol_new_v2-662854773cf7
-
-Best regards,
 -- 
-Kishore Batta <kishore.batta@oss.qualcomm.com>
+2.34.1
 
