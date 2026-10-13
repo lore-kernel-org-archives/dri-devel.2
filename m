@@ -4,32 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 942F6CC6B16
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 15:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E04EDCC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 15:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B73A010E0E4;
-	Tue, 13 Oct 2026 15:44:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F39A410E4C7;
+	Tue, 13 Oct 2026 15:47:04 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8D7010E0E4;
- Tue, 13 Oct 2026 15:44:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D77C10E4C7;
+ Tue, 13 Oct 2026 15:46:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 61BCF42E9A;
- Tue, 13 Oct 2026 15:44:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47E41F000FF;
- Tue, 13 Oct 2026 15:44:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4EA2440F7D;
+ Tue, 13 Oct 2026 15:46:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB201F000FF;
+ Tue, 13 Oct 2026 15:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791906277;
- bh=o/DpTvlnWWp99dowUQXU1BLV47DN0YMWpoqq38I7qzM=;
+ s=k20260515; t=1791906419;
+ bh=zrrwM+OoTQ5n+oUmClj8UHVrIw8n458ireLa+GKP5qM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=I8D9GRAwFmo1rdK/lDmYrdYP1YtZci3aovsdFYF6SlUWAmrRy6mV2wciVLzUMiFEf
- 0LFgtUNNx2SIuZBrwH/T1ItrWhdZWqkeC1tBUrlPaxjC0Mr6nxhUvGLOujWy1YLOg4
- 9NEbdJY/QRp1sIgZ6Us2XxzCei/qNgx18/UlWVSm3fRMrrKzDeY9HvpWpA3BNBq4bK
- b7OefKLXCbieobbOpN04MxglenF/Xaoj6LcWWvFoJEj2d8LSYZ1347LawCsnbyBeJK
- jumvzfADljgZcIcLRYs1Gx09iTkpCwlhqR+DgQUlNG9p10kBQe3JqbsXncWo2OAW2p
- dSgG+v5dFQZmg==
-Date: Tue, 13 Oct 2026 17:44:34 +0200
+ b=BdqC9gMjE6f5EWWl1Xlpzgq2aOqELdaPtElELJu1ZCWu54KCsQoAD9g8r5t2rDi4o
+ djw2jbEX0/MkPGgXpPDTCGuKmo24p0IuekQLxf6x1cuLJdDC3cunM45pw8Az2kWEfM
+ ePK9sXqi3/K6TN1zi7I0dicxeuCMvq1uXcQUYNiL1HyCx5QjqM9G9Dnajn4MMimxwt
+ JyEWcIJ1rbyqOG0SOgwVo+XP4LXaRm4mDWWNR/Agx7cClMcB7mcsuVYj4ZlED/P7Yd
+ murSJvxLGW7OiJnPcKNfmu+pcczAFox3+JODJeTxENdI/IH+xarXL8w2KS7H0NrGug
+ w0poGpFVwgbfg==
+Date: Tue, 13 Oct 2026 17:46:56 +0200
 From: Thierry Reding <thierry.reding@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
+To: Sasha Levin <sashal@kernel.org>, Aaron Kling <webgeek1234@gmail.com>, 
+ Diogo Ivo <diogo.ivo@bootlin.com>
 Cc: Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
  Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -44,16 +45,15 @@ Cc: Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>,
  nouveau@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] drm/nouveau/tegra: Keep the fuse clock enabled while
- the GPU is powered
-Message-ID: <as5Q_Ukc9Ivzpzg0@orome>
+Subject: Re: [PATCH 1/3] dt-bindings: gpu: nvidia,gk20a: Allow a fuse clock
+ after the reference clock
+Message-ID: <as5R_xrDv4eVPdtz@orome>
 References: <20261013145210.103565-1-sashal@kernel.org>
- <20261013145210.103565-3-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="rs5rzstks4prssel"
+ protocol="application/pgp-signature"; boundary="nnyddv2boxnoq3dq"
 Content-Disposition: inline
-In-Reply-To: <20261013145210.103565-3-sashal@kernel.org>
+In-Reply-To: <20261013145210.103565-1-sashal@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,78 +70,50 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---rs5rzstks4prssel
+--nnyddv2boxnoq3dq
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/3] drm/nouveau/tegra: Keep the fuse clock enabled while
- the GPU is powered
+Subject: Re: [PATCH 1/3] dt-bindings: gpu: nvidia,gk20a: Allow a fuse clock
+ after the reference clock
 MIME-Version: 1.0
 
-On Tue, Oct 13, 2026 at 10:52:10AM -0400, Sasha Levin wrote:
-> Since the GPU on the Jetson TX1 was enabled in commit d1b725476104
-> ("arm64: tegra: p2180: Explicitly enable GPU"), nouveau often fails to
-> bring up the GM20B. Either BOOT_0 reads back garbage ("unknown chipset
-> (5ffefa47)"), or PRI reads of the GPC PLL time out ("MMIO read of
-> 00000000 FAULT at 137000 [ TIMEOUT ]"), or the first register reads in
-> nvkm_device_ctor() stall until an asynchronous SError. How often depends
-> on the board; one board fails on every boot.
+On Tue, Oct 13, 2026 at 10:52:08AM -0400, Sasha Levin wrote:
+> GM20B needs both its reference clock and the fuse clock while it is
+> powered, so allow "fuse" as a fourth clock after "ref".
 >=20
-> nouveau powers the GPU up with the fuse clock gated: since commit
-> 24a15252ff04 ("soc/tegra: fuse: Add runtime PM support"), the Tegra fuse
-> driver only enables that clock around its own fuse reads. NVIDIA's
-> downstream nvgpu driver enables the fuse clock along with the other GPU
-> clocks whenever the GPU is powered. Do the same: take an optional "fuse"
-> clock and keep it enabled from before the GPU rail is turned on until
-> after it is turned off.
->=20
-> Tested on eight Jetson TX1 devkits, on mainline and on v6.18. Without
-> this patch, the GPU failed to come up in 27 of 109 boots; with it, in 11
-> of 291, none of them with a garbage BOOT_0. On the board that failed on
-> every boot, 38 of 40 boots now succeed. The remaining failures are
-> mostly a register read that stalls until an SError; wherever the console
-> shows when, nouveau had already finished probing. Such stalls also occur
-> without this patch and are a separate problem. The Jetson Nano, which
-> shares the Tegra210 GPU node, still works (24 of 24 boots).
->=20
-> Fixes: d1b725476104 ("arm64: tegra: p2180: Explicitly enable GPU")
 > Assisted-by: LLM
 > Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h  |  1 +
->  drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c | 13 +++++++++++++
->  2 files changed, 14 insertions(+)
+>  Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Given the failure rates, I'm almost tempted to say we need to break DT
-ABI and consider the FUSE clock to be required, in which case the driver
-should use the regular devm_clk_get() instead of the optional variant.
+Aaron, Diogo,
 
-As you said, we probably got away with this for a long time because we
-either didn't enabled the GPU by default or because the FUSE clock was
-always turned on. Or we might've tested GPU as built-in, in which case
-the FUSE clock might have still been on (not disabled after early boot
-yet).
+I'm fairly sure I remember at least one of you mentioning that GM20B
+wasn't always working reliably. Would you mind giving this series a spin
+on your devices to see if it fixes any issues you were seeing, too?
 
 Thierry
 
---rs5rzstks4prssel
+--nnyddv2boxnoq3dq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOUeIACgkQ3SOs138+
-s6E7Jw//Ra2WC610+ntOAnEJIGZQnFcG+pqpEU+qyfYMtfOhjSe/1LsDl+RjcyWP
-L5QyNudF3CgNdrrdIX4GgSiP9GTndRC/HpSlzhiVE+dzC09OIzeBW7+DQhkqE+b5
-hrA/50PY72fOmVnVQMh+0hJZCpuLXBXsKACfOxe436YP3KRm5ifKIrDw6ISn1NTL
-YwZzwfForf/VA07oeGPYhEiKoQ4aTBnz16Wo3lPO5l3lJySvPR4LHt4TLvOxq9IP
-asx5zqy1CGrQ4Y/WLBvY/ken6ftOqLhfj1vwGa9nY8z8LdQVzB7FBn0icnF4YhQy
-PPvmUlVYLOS0wr0bZUBkzgMXf8oTa4QTSFgd9RBnowKaFSFTvpyZBsLLaSSngvI8
-se1zFuCL+Y24z4ymXkC1G3cWnHBUdWRHEwW8YIXDLmo4BupTwuSaBmoMRI/koO1K
-05ZaItgd6Mg+KRGGjdhxtKGDpC+mui3bgaCnI20yJ+c/7sgoge/7yJc6v+l5mEIJ
-mXQoJStSjCcFI1otGSomsqYrdhr+GSDdz/F94iA4YBj4mImVgr3elFAYwOD5KCqw
-AgrHyC2Ji0/wOC5RIQGsQ5AcSavBD12YN6pLIxUkOQiq9MB4MDqZtpdSx2a2IACw
-HQ+iUVypNFyvsry686OpVM1gnyNIYUQtDvOZuCoXfismGNlLwM0=
-=3s21
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOUnAACgkQ3SOs138+
+s6E07xAAhV16aE/vTmdXCWNQFDANmFHYGGkbT8iB51pQecVSkYApSpthdGshj822
+8aL9r+P3JKo6enP2M0iITNX71JEw6W/s7btdKO9ur0lAmT7OQkZbr0cBbHFDkeek
+Rx5fZYDM8M/Xf5t3/Yka+rQTJpmPSWwqljLYcqcQBChdPkG35VuWS/Df5PwTK5tu
+9j+SWtpNRg1CPCNIvNiZzltE8Vdkp662vSrucQyzTp9UWws5DIgPI3qhPGTQlbjt
+rZVi7cWLawCw2Tnl4WeXOlEPDS0s0sh+w9dmQhpgjeJWBGJYhTms06X7qX7lJ0fd
+2ncmditmQrBk0JCu94YQFx7tjSxjUSXTXSPPw+HzZXDtPuHaRAp5+75jqeqg2wIg
+zG6Tv3+QIpEONMXKZtdu72/o8cPJuXFnXNTWqMY2GITRFmBR+3zt+DnVgXXwvj7V
+JHr0iYWp40CRIZTgq9lcNlQdMnqzjm1g8oV7g1RAXdhZHp3FU6RBpAoe0kUOmyFw
+RAqb6V/lXF89WgzrZ0qlSG9s/8NkjmJaMj04wiU7YA3xLNCeBPw4rzR8hMNzteV0
+VyK7BQeV8T39SBG+D1Muwyq4quFQO0QLHen6YmPSf3SMdEikNwl5JT2ZGziUGtKq
+X/IOENvD1mK9kvYwQFnZ6YCdez2KwN45NDtWe+Tm6MFviXE0WNU=
+=ovYf
 -----END PGP SIGNATURE-----
 
---rs5rzstks4prssel--
+--nnyddv2boxnoq3dq--
