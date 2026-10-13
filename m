@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63AEFCC6B14
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 09:33:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54A3DCC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 09:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E19F10F67E;
-	Tue, 13 Oct 2026 09:33:23 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCE3D10F683
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 09:33:13 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-48b03f23305so2298612f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:33:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A885510F683;
+	Tue, 13 Oct 2026 09:33:30 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B0010F684
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 09:33:20 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4a022fee0caso24751015e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:33:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791883992; x=1792488792; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791883999; x=1792488799; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=m2zoYDz7tkLEOcidCJHUPELWMh9Gsou7ImUMY6ioATo=;
- b=c4yQ0vZhrAn8Q90TlbzCd2pcI9vYdUtUz1X/uZkVhuzhfq7Bs9LvvasxUpP6eYges2
- aHWOqqdedL04V7Ih2e9DmfK54w9mn7S59qR3JuMMTJrkAfCyKqr5sygNyxElqtw99+kH
- 8hArA/u45liHj5KwjDoDXU7WiNM3w9BYBjBOuXxQvuK60uViXAQ1Yfm+G4Hiwye7LQKS
- EMOzKti5OuoCm8UblhOkjh+ZswIYoBEKkEDnLfRJIrut7nnXhGzLUjakAhZNdO6aB3fd
- a1bHWlD4ybPOHnojBAZwGr9EMFrHXwJj1T2PhrB1HVF3ZnwnaCXFLuYXmDV24ZUKPe60
- /5UA==
+ bh=SMrszHPts9jJFmkFoLQcKwLTspqwv7GzQwp5uF+Uup0=;
+ b=NW7IOhV85nDQ+45zFys/y+h+5M0vi6FRW3AQjYK+FTNpnZMa8sR3q5BLxiwt4wAOvg
+ j4PhEkUlf0gq+jPbJgK+D8GuU6xu2Jk5lLAuGi+grY7L+uxs1KZeqKDCq7ko7FZs2EJa
+ dR92D8aSXRVMWWm8OjaXmayWmq9/mg/iH8WmQWiCAJp11s75VzhG18A83bBMDv08CR6O
+ 9PrAuf9fR4oAr1A7MqVOm13e1fPeT53Zy3f4NRb6CgxJwSMFPDkvq7LX+AVYTlhZdgGa
+ pJ4NjuzISPJpQY9DOkIhM8kfmeobTG2s4xvPXAaTSm6S8YEIt5VN0I6WhjFo0yuQ8GyP
+ 9Unw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791883992; x=1792488792;
+ d=1e100.net; s=20260707; t=1791883999; x=1792488799;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=m2zoYDz7tkLEOcidCJHUPELWMh9Gsou7ImUMY6ioATo=;
- b=gMP0MIqS/qosIn2Rbv80y25d9x/eb/Kfbhap0EiMKsseUF+w/2H1/S1AwK5K7VKQsh
- l8Z4ekaUU2NoH67Zh2a6YUUmyqg0K/Cdm2YlFhHHy2F+/asiBlahUzyg61hO7dF0yXUs
- o7XkveZAM6Lmjh7oA1S8fA+fcJ6m4cnlxi3Iy3AdqVSK3YP7usEXQiw2SMINfUdpUQku
- oQ4ldfsFW2vgb1MsAzDUW5qAVZCoHqNsH6q6Ee3tL5cowFMHAsBRgVscsEhNuA8dTB0f
- cUi0xg6a+v0BrKw9HiRHDNOnJftjpJLMYTaLlBYpJVVsPzwoIwawUjh1w2YylQY1Uu5f
- tx9w==
+ bh=SMrszHPts9jJFmkFoLQcKwLTspqwv7GzQwp5uF+Uup0=;
+ b=Cfg9dzAz3Epz/Ag4j1Q2Z9rPu6BV3eVN3j3SF6KsYG3GebJjeLdgFsEZ3YpeDiyW1U
+ aVuAUbZmRRrG0OtC+MTZ+q/l3Ing6wwnpTD3HVpNyUVsIWRwMAFTijYEAnT9lawkJy8m
+ K8ENJ0cj2Z5DnsnmVFOEo4xyvezKggQOaAlgIts3bHsqCu/qAEZnX4HgelwI2ecWFccE
+ XAh+kPZPV0b0joNngnLW80SdlRrsMyVuuKhr6K+3LihsMSsaN7sloQM7C0VYydBAV45l
+ jHrgUyczfwZEYG+cH4zfEVfmLxZcTq32RzhEfGLxMv7hePFHgqvhJoSIWm07Kxf6IGoz
+ 0ABQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzw4llMtIQIymQ/KFvoMseQ+8EA3YtV3RWX+B0gtSB+uYg7tHObhvwlcgEUQCTFRIz2eHmAnF8MEUE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLKrottvSzJlRjGSIbtWLMKmd9BZNzR5WLM/xZZOlQFjuWKfXch
- PDeaQ0xB/VNBNXfi3mVNWnWW80YprMT/XFVqbbZqx7JU/IzsnulUvo9X
-X-Gm-Gg: AYBFou3UoPuBAOI0Tk09dV2Y9EerTltBladT+geOwnfsIRWIA6q4PlcHgw7lQyxzTPK
- 8xHgVwJzZXx/Tksarqs7whtu/45MQi0JkpMRbcJB/290mxfJ8ld32e1fuQzIuva4AZH5EzctXnm
- QZKCLJmpiWmStollWnylKh5yDZkPU1EgViNUofdbAONbwYTF+QVl1FJDFvShAC9cQxyJaOts9xm
- DDcZiv+5yhGvaqoJKqmirvuIsmXdTz4i1TkqovQm8Q0qGdnFmwpRF8VePNQf2W3vrFGlDpngYoB
- FHA9skGilt72zYQh7RFKm4RHKSoP2x/j4V3AiKZ66imVlYZwWslpb34jhezoQv7YkJ4+47wWkeK
- S3j5HSHEOiBfrrc/8jLlR3Bn/D0zW36wXPbRu9lHBls4/2e0vMltu/0835TWWRmlsGXmiJ9s2J9
- wTP48Kn3bOZsBTUoBIWxJHNZYvbpQ76npeqPmlSgEfKP2xIkwcSg8kMw28azG17ZIptBOYEFbhO
- mFqs7v6Mswuo6ogv3VZFCyE
-X-Received: by 2002:a05:6000:4310:b0:48a:f1fb:e165 with SMTP id
- ffacd0b85a97d-48dbaae39e0mr21823017f8f.21.1791883992057; 
- Tue, 13 Oct 2026 02:33:12 -0700 (PDT)
+ AKwUvBzC4geDwefYwoz1nfAMvd3TPVvhuYTFE/bZ6GKQ2JXsancQ5UwxeP1BKZT7O+gp0002SfmCvM17H2E=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIBaMmcXcmPJTJ/F/+zbW+POctpa6SHDNhvg8BJEGaFVTl4Ghun
+ IuEGzxRCSvUg647L1rfVKh/QcFNZMr7bYKNTJfLXrkPxuaelx5kaUnSV
+X-Gm-Gg: AYBFou3/KoyQSWpya2uGu4pWMa/NCSK0d9OsNmMManTV3vYtoSRkeFJTfPItalmm4PQ
+ z8xYz5iNBybbDlM251k7aQo1LbYBKjzGz7UMc4DXpsxCledOCbplMe9ulCKfgikxY2gdFMGzMNj
+ 5TsIl4SrVC2gCjfaQcKLUso6S6/aPS7KFk7be0eZKzakgE4uAV1oKQHTl8zrB1kDQEmwqCL/+C0
+ RSoytGVOgcE8tm+vKaca1SiDuHWKPap2wjHrx6UhAZw2M0kjhUVSq+GaUWqawDkInU7BU+qPoxC
+ qpQWb629b135m2aX7N+hWu6wRL0tyffHl1Aw2B/vCfo8sPAurUNeW5M90870CZDsOC2wP6KKjaL
+ Gsb0CeyHpycM5H2N4jGw+OyiwzbfuQg2viaVI7Zd8AvLGu75X2QMR2sJft+tHWre6PL2kfLh+DP
+ Gr5+RILK6asgrg9XkJNWiCFhLKSpMOzWtLmASxVSDYhibylO2UP+ULZvOiSpZoDLMI519T8qVhc
+ nCj4uos2xaq+vrK5fk0ScBt
+X-Received: by 2002:a05:600c:609b:b0:4a1:83f0:7c91 with SMTP id
+ 5b1f17b1804b1-4a18e4ca1dcmr219812565e9.18.1791883998571; 
+ Tue, 13 Oct 2026 02:33:18 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48de0bc4ec6sm3986774f8f.48.2026.10.13.02.33.10
+ ffacd0b85a97d-48de0bc4ec6sm3986774f8f.48.2026.10.13.02.33.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2026 02:33:11 -0700 (PDT)
+ Tue, 13 Oct 2026 02:33:18 -0700 (PDT)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -80,10 +80,10 @@ Cc: Francesco Valla <francesco@valla.it>,
  devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
  linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v5 10/13] drm/client: splash: take the background colour from
- the image source
-Date: Tue, 13 Oct 2026 11:32:40 +0200
-Message-Id: <20261013093243.505776-11-maximpedraza@gmail.com>
+Subject: [PATCH v5 13/13] drm/client: splash: document the image sources and
+ parameters
+Date: Tue, 13 Oct 2026 11:32:43 +0200
+Message-Id: <20261013093243.505776-14-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261013093243.505776-1-maximpedraza@gmail.com>
 References: <20261013093243.505776-1-maximpedraza@gmail.com>
@@ -105,138 +105,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A logo designed for a light background looks wrong framed in black, and
-products that share a board support package differ in their colours as
-much as in their logos. The background colour belongs with the image,
-so take it from the same place:
+The overview only said that the client draws a colour or an image. By
+now the image can come from four places in a set order, be placed and
+turned, and every part of that can be overridden from the command line,
+each parameter for its own part only. Write it down: the sources and
+their order, the image format, placement and rotation, the background,
+every parameter with its format, and what a parameter given alone
+keeps from the image source.
 
-- a device tree image uses the optional "background-color" of its node;
-- the BGRT carries no colour, and firmware splashes sit on black, so it
-  uses the kernel's default;
-- the BMP loaded as firmware is named on the command line, and so is its
-  colour, through drm_client_lib.splash_color, which also covers the
-  screen when there is no image at all.
+Also note that the splash rules out fbdev emulation on the same device,
+and that a bootloader that loads no image into a reserved region has to
+disable or remove the node, since the region can keep the previous
+image across a reset and even a short power cycle.
 
-CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR remains the default wherever
-the source says nothing. The command line no longer overrides a device
-tree image: a bootloader that wants another colour for a given boot,
-say to flag a failed test on a production line, changes the node.
+Pull the overview into Documentation/gpu/drm-client.rst, which covers
+the in-kernel clients, so that it is published.
 
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
 ---
- drivers/gpu/drm/clients/Kconfig      |  7 ++++--
- drivers/gpu/drm/clients/drm_splash.c | 36 +++++++++++++++++++++-------
- 2 files changed, 32 insertions(+), 11 deletions(-)
+ Documentation/gpu/drm-client.rst     |  6 +++
+ drivers/gpu/drm/clients/drm_splash.c | 79 +++++++++++++++++++++++++++-
+ 2 files changed, 84 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
-index aef3781cc110..f471019bab87 100644
---- a/drivers/gpu/drm/clients/Kconfig
-+++ b/drivers/gpu/drm/clients/Kconfig
-@@ -105,8 +105,11 @@ config DRM_CLIENT_SPLASH_BACKGROUND_COLOR
- 	help
- 	  The default splash background color, in RGB888 format.
+diff --git a/Documentation/gpu/drm-client.rst b/Documentation/gpu/drm-client.rst
+index cbcfe30de777..a58d6440d9f2 100644
+--- a/Documentation/gpu/drm-client.rst
++++ b/Documentation/gpu/drm-client.rst
+@@ -16,3 +16,9 @@ Kernel clients
  
--	  The color can be overridden through the drm_client_lib.splash_color
--	  kernel command line parameter.
-+	  The background color comes from the same place as the image. A
-+	  device tree image can carry its own, and the drm_client_lib.splash_color
-+	  kernel command line parameter sets it for a BMP loaded as firmware,
-+	  or for the whole screen when there is no image. This color is used
-+	  otherwise, and always with the BGRT image, which carries none.
- 
- config DRM_CLIENT_SPLASH_SRC_DT
- 	bool "Device tree as splash source"
+ .. kernel-doc:: drivers/gpu/drm/drm_client_event.c
+    :export:
++
++Splash client
++=============
++
++.. kernel-doc:: drivers/gpu/drm/clients/drm_splash.c
++   :doc: overview
 diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-index fdf398987007..463aff27c747 100644
+index 46faae025ec2..1092143df1f0 100644
 --- a/drivers/gpu/drm/clients/drm_splash.c
 +++ b/drivers/gpu/drm/clients/drm_splash.c
-@@ -42,7 +42,8 @@
+@@ -37,7 +37,84 @@
+  * DOC: overview
+  *
+  * This is a simple graphic bootsplash, able to display either a plain color or
+- * a static image.
++ * a static image. It draws once the display driver has registered, and stays
++ * until userspace takes the display over.
++ *
++ * It is selected with ``drm_client_lib.active=splash`` or
++ * CONFIG_DRM_CLIENT_DEFAULT_SPLASH. A device has a single in-kernel client, so
++ * with the splash there is no fbdev emulation: no ``/dev/fb0`` and no
++ * framebuffer console.
++ *
++ * Image sources
++ * -------------
++ *
++ * The image is a BMP with a 40 byte BITMAPINFOHEADER, 24 bits per pixel and no
++ * compression. It comes from the first of these that provides one:
++ *
++ * 1. a BMP loaded as firmware and named on the command line with
++ *    ``drm_client_lib.splash_bmp=``; ``splash_bmp=none`` asks for no image at
++ *    all, and a named file that is missing gives no image rather than falling
++ *    back to the sources below;
++ * 2. a "boot-logo" node under ``/chosen`` in the device tree, carrying the BMP
++ *    itself or pointing at a reserved memory region the bootloader loaded it
++ *    into (see Documentation/devicetree/bindings/display/boot-logo.yaml);
++ * 3. the EFI BGRT, the image the firmware showed;
++ * 4. ``drm_splash.bmp`` loaded as firmware, for instance built into the kernel
++ *    with CONFIG_EXTRA_FIRMWARE.
++ *
++ * With none of them, only the background is drawn.
++ *
++ * A reserved memory region keeps its contents across a reset, and may even
++ * across a short power cycle, and the kernel cannot tell a stale image from a
++ * fresh one: a bootloader that loads no image there disables the node, or
++ * removes it.
++ *
++ * Placement
++ * ---------
++ *
++ * The image is placed at a position in screen pixels, where -1 centres it on
++ * that axis, and an offset is added afterwards; the result is clamped so that
++ * the whole image stays on screen. A rotation of 90, 180 or 270 degrees
++ * counter clockwise turns the image and not the screen: position and offset
++ * stay in screen pixels, and a quarter turn only swaps how much room the image
++ * takes up.
++ *
++ * A device tree image is placed and turned as its node says. A BGRT image is
++ * placed at the table offsets and turned as its orientation bits say, the
++ * offsets then being given on the upright screen. Any other image is centred
++ * and upright.
++ *
++ * Background
++ * ----------
++ *
++ * The rest of the screen is filled with the node's "background-color" for a
++ * device tree image, and with CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR
++ * otherwise.
++ *
++ * Command line
++ * ------------
++ *
++ * What the command line gives wins over every source, each parameter only for
++ * what it says, and only when it is given:
++ *
++ * ``drm_client_lib.splash_bmp=NAME``
++ *   BMP to load as firmware, or ``none`` for no image.
++ * ``drm_client_lib.splash_color=0xRRGGBB``
++ *   background color, whatever the image.
++ * ``drm_client_lib.splash_pos=X,Y``
++ *   position; ``-1,-1`` centres, ``-1,183`` centres horizontally only.
++ * ``drm_client_lib.splash_offset=DX,DY``
++ *   offset added to the position, for instance ``0,80``.
++ * ``drm_client_lib.splash_rotation=DEGREES``
++ *   0, 90, 180 or 270, counter clockwise.
++ *
++ * Positions take both values, or are ignored with a warning. Since each
++ * parameter only replaces its own part, the rest keeps coming from the image
++ * source: ``splash_offset=`` alone moves the image from where the source puts
++ * it, centred for a BMP loaded as firmware, and ``splash_pos=`` alone keeps a
++ * device tree node's "logo-offset". Give both to place the image exactly. A
++ * BGRT image placed from the command line is placed in screen pixels like any
++ * other: the table offsets are then not used.
+  */
  
- static unsigned int splash_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
- module_param(splash_color, uint, 0400);
--MODULE_PARM_DESC(splash_color, "Splash background color (RGB888)");
-+MODULE_PARM_DESC(splash_color,
-+		 "Background color (RGB888) around the BMP loaded as firmware, or of the whole screen with no image");
- 
- #if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP)
- #define DEFAULT_SPLASH_BMP "drm_splash.bmp"
-@@ -133,6 +134,8 @@ struct drm_splash {
- 	s32 off_x, off_y;
- 	/* One of DRM_MODE_ROTATE_*: turns the image, not the screen */
- 	unsigned int rotation;
-+	/* RGB888, from the same place as the image */
-+	u32 bg_color;
- };
- 
- static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
-@@ -271,12 +274,18 @@ static struct device_node *drm_splash_dt_node(struct drm_splash *splash)
- 	return NULL;
- }
- 
--/* The optional placement properties of the node, read once */
--static void drm_splash_dt_placement(struct drm_splash *splash,
--				    struct device_node *np)
-+/* The optional properties of the node, read once */
-+static void drm_splash_dt_props(struct drm_splash *splash,
-+				struct device_node *np)
- {
- 	u32 val[2];
- 
-+	/* The colour travels with the image, or it is the kernel's default */
-+	if (!of_property_read_u32(np, "background-color", &val[0]))
-+		splash->bg_color = val[0] & 0xffffff;
-+	else
-+		splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
-+
- 	if (!of_property_read_u32_array(np, "logo-position", val, 2)) {
- 		splash->pos_x = (s32)val[0];
- 		splash->pos_y = (s32)val[1];
-@@ -365,8 +374,8 @@ static struct device_node *drm_splash_dt_node(struct drm_splash *splash)
- 	return NULL;
- }
- 
--static void drm_splash_dt_placement(struct drm_splash *splash,
--				    struct device_node *np)
-+static void drm_splash_dt_props(struct drm_splash *splash,
-+				struct device_node *np)
- {
- }
- 
-@@ -780,13 +789,22 @@ static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
- 
- 	np = drm_splash_dt_node(splash);
- 	if (np) {
--		drm_splash_dt_placement(splash, np);
-+		drm_splash_dt_props(splash, np);
- 		of_node_put(np);
- 		return DRM_SPLASH_SRC_DT;
- 	}
- 
--	if (drm_splash_bgrt_available(splash))
-+	/* The BGRT carries no colour: firmware splashes sit on black */
-+	if (drm_splash_bgrt_available(splash)) {
-+		splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
- 		return DRM_SPLASH_SRC_BGRT;
-+	}
-+
-+	/*
-+	 * The BMP loaded as firmware is named on the command line, and so is
-+	 * its colour, which also covers the screen when there is no image.
-+	 */
-+	splash->bg_color = splash_color & 0xffffff;
- 	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
- 		return DRM_SPLASH_SRC_BMP;
- 
-@@ -844,7 +862,7 @@ static int drm_splash_render_thread(void *data)
- 
- 			if (!scanout->bg_drawn) {
- 				drm_dbg(client->dev, "draw background for scanout %d", i);
--				u32 color = drm_draw_color_from_xrgb8888(splash_color,
-+				u32 color = drm_draw_color_from_xrgb8888(splash->bg_color,
- 									 scanout->format);
- 				drm_splash_fill_solid_color(scanout->buffer, color);
- 				scanout->bg_drawn = true;
+ /*
 -- 
 2.39.5
 
