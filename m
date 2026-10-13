@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 667D3CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A124FCC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A64C112191;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 641F8112194;
 	Thu, 15 Oct 2026 07:57:19 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C315210E0C3
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:23:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C057C10E0C6
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:13:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A59A14379B;
- Tue, 13 Oct 2026 15:23:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597701F000FF;
- Tue, 13 Oct 2026 15:22:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A940741969;
+ Tue, 13 Oct 2026 15:13:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95521F000FF;
+ Tue, 13 Oct 2026 15:13:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791905004;
- bh=7cT+sAoBoDYEP7l2gJz8zJ3nNAI7H4A6WsbIM/2PMHw=;
+ s=k20260515; t=1791904411;
+ bh=vNT7r4CjRxGgpmU98KAjnsq2tgE7lxMRwVW+eBf5yTA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SI6nKVl2y9xyjOw4xsAdCsG3OU+DC/viH2V7mID8rkM7Ru02HPw2WTFy+T8UY4pRV
- LlKZ1VKOtRlx7uOgkhUWPl8p19KbialuIR13iV7LWW7aw/dAE/vCeshFlNJ0caySo7
- khtBZ6WOjnPcwjqZjAFDDcSVbHWpJBwMUSJLP/LtT/JPicCIQOtWPhee8gYAmLB8wC
- PN/yqx2AaiB27UAuKYlAqUz7dd1mDeM1ou7+sjX/fjDR2I3VqEOxykJoJJz4yN59Vs
- Q/2JQqmKSOhK/XJHTOtJ6nfuFQxfOPwGNzyVIe14PCmyiXvaqU8zel5ObkXrA3enbv
- ZA+3bvYIGlyyg==
+ b=Ve2o1nPVh+LHGy9ixY1aQf7xWWVVO7dZYQvgBI6O7+bRF/qj5gbUCIwvmDf7pX8mJ
+ XdyU8DZVrerNAPmugb5rzySHLdqP/BLHqVF9/qikHT89JOpkW5ujxM4YbsIjjHq1Lt
+ VaWgxxBRXFyQVNUw+Gq+zWnh7sQCZFgEwYaCARQbHIsPzs105epjjHvgGKrG/jvnvD
+ sKfRV17R8h6abdWpcUa4Q8FVNeSnIxbMqZl68cBPFzjYsf/6XQWtcdsLJqEqIxw/dK
+ Y3pYTWg1bNPVDYDnXo5Dm+CQQ0gyUwNHq+N53JICY6cYQrLs2VJBjzt9/OGxMWVxn1
+ TLWvmbBlLEX5w==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:05:13 +0100
-Subject: [PATCH v6 33/39] mm/madvise: use predicates for madvise(...,
- MADV_DOFORK)
+Date: Tue, 13 Oct 2026 16:04:54 +0100
+Subject: [PATCH v6 14/39] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-33-1aa3c9b139f9@kernel.org>
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-14-1aa3c9b139f9@kernel.org>
 References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -117,14 +117,15 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1489; i=ljs@kernel.org;
- h=from:subject:message-id; bh=gjthDvZqFXHZuZFdwHubOhomh77PBTrGmxDvpVKzPR0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZwJMGoxqvgw18zVxyA33e5ZfXDP3j0edZsuWW1qq
- 36tX6TcUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIkwhDAy3ChrLqvbbFLydS/3
- tAv5E35Y8B8OZnzmZJ1j/HNrek/xK0aGX1c2JLHP/Gni/5vnpv3sG8ECfYuWPdDtSbu09EvcdY+
- 3zAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2233; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=YL/D7PzUYFsfQy4n4374d+RxPJLgGfcMIAq9i3+xHok=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZzMvhTb99+L8cqk44+Wxp1wnGvfvN2Mhdsy2Ypr4
+ se5jcdMO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRyL8M/xP5Z71p5O1Lq/bw
+ 6rzs+GXJFIbK5OVKqwTC9+0SXzk/pYOR4R7nXs9teXv9bTjFY+V87rTrrApYtrB6mlftu1DXDQe
+ UGAE=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
@@ -143,47 +144,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Make it clear what we're blocking in MADV_DOFORK. Previously we simply
-disallowed VM_SPECIAL i.e. mappings not managed by core mm, fixed mappings
-and VMA_IO_BIT.
+The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
+one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
+or arena_map_mmap().
 
-Now the invariant is established that mm-managed mappings may not set
-VMA_IO_BIT, the VMA_IO_BIT check is redundant.
+It is convention in mm to mark mappings whose pages the kernel manages
+itself with VM_MIXEDMAP, so core mm knows not to treat them as ordinary
+page cache or anonymous memory.
 
-The rest is equivalent to testing for a fixed or non-mm-managed mapping,
-i.e. a mapping which is not mm-backed, or hugetlb, which is specifically
-excluded.
+The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
+use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
+marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
+explicitly.
 
-This was established by commit 0b2758f48f22 ("Require (reasonably) normal
-mappings for MADV_DOFORK") containing my hands-down favourite call out of
-all time.
+However, the exception to this is arena_map_mmap(), which doesn't set the
+flag.
 
-Express the same thing using the predicates - only mm-backed mappings may
-have their copy-on-fork behaviour changed, retaining the eternal exception
-to all rules, hugetlb.
+This patch corrects this and updates the comment to reflect it.
 
-No functional change intended.
+The pages are refcounted and vm_normal_page() finds them regardless of the
+flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
+thus unmergeable). The one effect is that NUMA balancing now skips these
+VMAs, as it already does for the other bpf map mappings, which is the
+reason array_map_mmap() gives for setting the flag.
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+The intent of this patch is to be able to establish the invariant that only
+PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
+in bpf_map_mmap().
+
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/madvise.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/bpf/arena.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 7e14b3fd92f6..e050a21e4db1 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1565,7 +1565,7 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
- 		new_flags |= VM_DONTCOPY;
- 		break;
- 	case MADV_DOFORK:
--		if (new_flags & VM_SPECIAL)
-+		if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma))
- 			return -EINVAL;
- 		new_flags &= ~VM_DONTCOPY;
- 		break;
+diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+index 7b6847200b43..b69fe5e34339 100644
+--- a/kernel/bpf/arena.c
++++ b/kernel/bpf/arena.c
+@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
+ 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
+ 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
+ 	 * being copied into the child process on fork.
++	 * This is a kernel page so set VM_MIXEDMAP.
+ 	 */
+-	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
++	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
+ 	vma->vm_ops = &arena_vm_ops;
+ 	return 0;
+ }
 
 -- 
 2.55.0
