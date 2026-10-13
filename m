@@ -4,78 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 282A6CA9ED0
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 02:38:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BA48CA9EDE
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 03:43:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB2010E6FA;
-	Tue, 13 Oct 2026 02:37:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A0B10E6F9
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3C2294450D;
- Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E8727C2BCFA;
- Tue, 13 Oct 2026 02:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1791858998;
- bh=lwKPfRvPiEoqp6grP5U2rEmV9LHXxEqHpKxBf13aYJk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=q2vr6VR49lpX6ttu6FELxp8tw44pf9g5wcObZrtSjeven4JGaCaRlpM0aDuW714t+
- yfZ6anqrlD2pQz1JlsnUsqAem2gZFnt+sJZ8747HN7BvJ64ih5E+exPUyDhD0h+8xc
- 0VzSUCo44O/HUikDuI1/VG9HoBvmOKrgKOQ4TnHW9Pxcba2A0TLOQzPmojmmfsVGGa
- TAj2ht/nB8nZADuisZ+0szh5w9LdeTYQVpuC5X5D7DcmcvurGgseqwCistl+9zxxM0
- 9SkKClpGZXhIrAn5X4hFEvnrNReQijTQQUhSU89EIQHJe6VvmiQjvwdHeLJhf4FhvU
- NXfAeiUvgiJOw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id C589FCC6B01;
- Tue, 13 Oct 2026 02:36:37 +0000 (UTC)
-From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Mon, 12 Oct 2026 20:36:33 -0600
-Subject: [PATCH v12 02/40] vmlinux.lds.h: refactor BOUNDED_SECTION_* macros
- into bounded_sections.lds.h
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4BF210E4B9;
+	Tue, 13 Oct 2026 03:43:41 +0000 (UTC)
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
+ [74.125.224.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F24D10E4B9
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 03:43:36 +0000 (UTC)
+Received: by mail-yx1-f49.google.com with SMTP id
+ 956f58d0204a3-677af43eed4so2045568d50.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 20:43:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791863015; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Oja/Tp+8L2ELf5M577NTQf08QK+27a2R5ZiI8VpsMJ0QQVlZo0z1AaJGDOX2RG94A6
+ pnZV5NOcP7AVWxhHN08zyIm9iv15goKdv5dgH2x9X39OWe1siSUNk6Z+xiienRDUDmjo
+ uHf88eDQ83ROTJsVjOau754je7jIourtZ8lnDRJ7WBl33zjA93iIW03CYlzfmrDTzcir
+ jG7ZdyCTvas5shR45qLnvvgIEj+/WsbZjYIqC6IP6byeHwcJ8MNzpsoggzJTVCdkbRHV
+ 6YXGWHrcbq6pNgw386q0gt4rG5vJdA+w6g1s/oO6iGmCtpVFKj2MQZxcwnKklPtyTYcR
+ +0kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=g1Xe8/t57+Y9BLtJJ1DCvjjCumMN4aWsrAavgy8Razw=;
+ fh=V6PAiM/KZ7fr+geqjl4xe4OdTp6ZnMbcXcrtjElj2j4=;
+ b=dEiQYRsF//S8JKJC0dsp3aQXIwZGOnUdGoVI1KDML6ACpkmqQz8gfydf+SAYsX94NU
+ x+8fLczK0w+e3AucamzFzOyqsli24xbGlofqMjDTEYhzooyW1IiicHotm8+FQ0V7XV5r
+ fE5ZnXRFiwmrtL48KfzRSWlN6c5p6jS9vBY9YZHp4hAWrB11wz2x8cwL/9XMGBWxvcLr
+ NiRZ3ZSwUn0yIx77Jpt4LiaDpaNdCYlkBZHQVasxPm7AjUni25Z4ead6brnu2rG2ittr
+ Un19yV2LVtSPUyV51G7/1ITiXRJjOvTvBCgp7DNLbjljvfEl+KHgPXp08OoqqFD6ro1F
+ /sOw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791863015; x=1792467815; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=g1Xe8/t57+Y9BLtJJ1DCvjjCumMN4aWsrAavgy8Razw=;
+ b=O30z5p04pklVK8HPslWb6AtGU0yPTxGwx/ss7c73B9bEMBzSoB/2v68EaJz6NQ5r+L
+ 6oK0TtLtH6wOZ6n/EUM1+GNH1CrL6sd5f0oW/GAvugmLWI+6IZoqu6KEQQyNReDZJcDL
+ hCObLtLRnEQIwMAxrwJcCKWQVd3MN+T/YES7PPxVMVkcMdZDzVon14ON17IQpfUP14CS
+ vcHv8DnvgZp1I+tjlD3fmh3W1BYPucGXU/fC1m/1N5qkNq6PWkKCAauYw+NyUHJ8kbwu
+ cZvNlSxYg24YFu42HYX6/QEyYdwIkTb3FsEX4IobfTxF6MU5nG41/8wHg9I2Bg8K3wE5
+ j92g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791863015; x=1792467815;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=g1Xe8/t57+Y9BLtJJ1DCvjjCumMN4aWsrAavgy8Razw=;
+ b=dB+VFNLhaMYSJ1hSQhmledHWUJEGx3W9XdTognu4+j75rH0gJShGfTLdhlaI3cEqw+
+ 6MUQsARLGaErBZ02G2bMJ3Aa5m7BnlG8wkTI74siaUgqL9GxvKpSg+Gy/DyptdL7UA7w
+ Lr13bbpIoA9q2fhBIEisYtFc+GF2X/uzgftYRhBJGkIqx3XmWsnmRzetT+xcPTxCiG2i
+ fPwou/jsSQDZRKOT3ez07vptw57NUVhyxLYA5IJngCMM5Okwy/gMATU8K8WNZLUQZhDj
+ nlVjoMMKCRUHVvDVSzj77ofb4m1IkDbfNh+aL5De04hV2svjHg4bhtuH2aAw/3osQkv2
+ Q1HQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxw9LAQnj06G+w7U69NV+cMYbzN7mVI8RZGWJcZ2lO3roFn6F9uT010jyfeYxKLq+YpW9QsOzLZD8A=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJtA6Deu+mMttDtisZHpOuQD3cKmop7KUUS0ptmMylowWGI68Ut
+ eqqBdgtgPUb3l2zHBYBUPMekNH4XK6uigzH9TWVXsekdVF+OxnRC4OhlmXbe7WJa0hm05pI5jDZ
+ DkNY3Nc5eHRMVsn3n29Cd9QIJYe2yIqo=
+X-Gm-Gg: AYBFou0urh51goF2BFmXirgMRrl5AbKqnK0jnf9uZWe8Xu4fNfHe/ymwLygl7jiC0/0
+ 08NlVS0sH7B9T2u6EtA3JkCfRxEdx+JdQ50JBBC5ShLpoN+9D96iDrKztVE2G5HqJUefgxs7Epi
+ SKjgO22TvVaQ1WUo1/sMuMQzlJ+lGIu3/5auRYrhaXptD3cxe0cGkG5PNN9/qUaebjmSTyDOGf8
+ uw+hbeRCIXoTL6Hc6UCgWQghKzmd3SDTW2LZ32MaFQ5f0RQWJogdVFRqpgEdT9/bj3GxaFXq80q
+ ciVIjr3GQjlg1zRDRiNZr5r+EP4o+im0pNrOZ4DkBI/vgCjVEP5BnQ4aJA==
+X-Received: by 2002:a05:690e:4102:b0:677:c605:b736 with SMTP id
+ 956f58d0204a3-679369ec2dfmr4046021d50.43.1791863014837; Mon, 12 Oct 2026
+ 20:43:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-dd-cmap-part2-clean-v12-2-3c8cc5725def@gmail.com>
-References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
-In-Reply-To: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
-To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Jonathan Corbet <corbet@net.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
- John Ogness <john.ogness@linutronix.de>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=4249;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=IfyJDb7+5IpRdexBxlsmGvn/hmtnbKQYugc2kC3D/aw=;
- b=k13GuyqP0iHa5NTQGx7il/o45vP4ocuInEfbmk2KThfD1BoP4SHee4Gho5qLXNTb6SnR7xwDm
- lhTlw0Qfb6tBgVK7B4x1GYopwm6hIwKktSVZGLCPS0COzUC9q6GIygU
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
- auth_id=958
-X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
+ <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Tue, 13 Oct 2026 12:43:22 +0900
+X-Gm-Features: AclHuK9taASNrgAMmV3Z1NS8TfpfNKzvhhsyrCVDqQveBDVwje9B5oj9wzDDHuo
+Message-ID: <CAKbEznugM-HxPxHwZ7RxC2iLC0TDH0qi9649hWATiPYXF+urfw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] drm/imagination: don't gate the runtime PM
+ callbacks on drm_dev_enter()
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,130 +105,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: jim.cromie@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jim Cromie <jim.cromie@gmail.com>
+Hi Ryan,
 
-Move BOUNDED_SECTION_* macros to a new helper file:
-include/asm-generic/bounded_sections.lds.h and include it back into
-vmlinux.lds.h.  This allows its reuse later to fix a failure to keep
-dyndbg sections in some circumstances.
+>  int
+> @@ -398,33 +397,24 @@ pvr_power_device_resume(struct device *dev)
+>         struct platform_device *plat_dev = to_platform_device(dev);
+>         struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
+>         struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
+> -       int idx;
+>         int err;
+>
+> -       if (!drm_dev_enter(drm_dev, &idx))
+> -               return -EIO;
+> +       if (pvr_dev->lost)
+> +               return 0;
+>
 
-NOTES:
+'lost' looks protected by reset_sem, but it's read here without the
+lock. Shouldn't this at least be READ_ONCE()?
 
-These macros are only for use in vmlinux.lds.h, where the _start &
-_end symbols are needed.  Modules keep sections separate in ELF
-sections, with their boundaries known, so the _start and _end are not
-useful, and may confuse tools not expecting them.
-
-This patch ignores a checkpatch warning, because new file is covered
-by "GENERIC INCLUDE/ASM HEADER FILES" in MAINTAINERS
-
-CC: Arnd Bergmann <arnd@arndb.de>
-CC: linux-arch@vger.kernel.org
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
-v3: move include to top
----
- include/asm-generic/bounded_sections.lds.h | 36 ++++++++++++++++++++++++++++++
- include/asm-generic/vmlinux.lds.h          | 31 +------------------------
- 2 files changed, 37 insertions(+), 30 deletions(-)
-
-diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
-new file mode 100644
-index 000000000000..8c29293ca7fb
---- /dev/null
-+++ b/include/asm-generic/bounded_sections.lds.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
-+#define _ASM_GENERIC_BOUNDED_SECTIONS_H
-+
-+#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	_BEGIN_##_label_ = .;						\
-+	KEEP(*(_sec_))							\
-+	_END_##_label_ = .;
-+
-+#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	_label_##_BEGIN_ = .;						\
-+	KEEP(*(_sec_))							\
-+	_label_##_END_ = .;
-+
-+#define BOUNDED_SECTION_BY(_sec_, _label_)				\
-+	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+
-+#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
-+
-+#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
-+	_HDR_##_label_	= .;						\
-+	KEEP(*(.gnu.linkonce.##_sec_))					\
-+	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
-+
-+#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
-+	_label_##_HDR_ = .;						\
-+	KEEP(*(.gnu.linkonce.##_sec_))					\
-+	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
-+
-+#define HEADERED_SECTION_BY(_sec_, _label_)				\
-+	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+
-+#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
-+
-+#endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index b2988aa12f66..b4ece391f7b1 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -50,6 +50,7 @@
-  *               [__nosave_begin, __nosave_end] for the nosave data
-  */
- 
-+#include <asm-generic/bounded_sections.lds.h>
- #include <asm-generic/codetag.lds.h>
- 
- #ifndef LOAD_OFFSET
-@@ -211,36 +212,6 @@
- # endif
- #endif
- 
--#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
--	_BEGIN_##_label_ = .;						\
--	KEEP(*(_sec_))							\
--	_END_##_label_ = .;
--
--#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
--	_label_##_BEGIN_ = .;						\
--	KEEP(*(_sec_))							\
--	_label_##_END_ = .;
--
--#define BOUNDED_SECTION_BY(_sec_, _label_)				\
--	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
--
--#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
--
--#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
--	_HDR_##_label_	= .;						\
--	KEEP(*(.gnu.linkonce.##_sec_))					\
--	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
--
--#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
--	_label_##_HDR_ = .;						\
--	KEEP(*(.gnu.linkonce.##_sec_))					\
--	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
--
--#define HEADERED_SECTION_BY(_sec_, _label_)				\
--	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
--
--#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
--
- #ifdef CONFIG_TRACE_BRANCH_PROFILING
- #define LIKELY_PROFILE()						\
- 	BOUNDED_SECTION_BY(_ftrace_annotated_branch, _annotated_branch_profile)
+>         err = pvr_dev->device_data->pwr_ops->power_on(pvr_dev);
+>         if (err)
+> -               goto err_drm_dev_exit;
+> +               return err;
+>
+>         if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
+>                 err = pvr_power_fw_enable(pvr_dev, true);
+> -               if (err)
+> -                       goto err_power_off;
+> +               if (err) {
+> +                       pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
+> +                       return err;
+> +               }
+>         }
+>
+> -       drm_dev_exit(idx);
+> -
+>         return 0;
+> -
+> -err_power_off:
+> -       pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
+> -
+> -err_drm_dev_exit:
+> -       drm_dev_exit(idx);
+> -
+> -       return err;
+>  }
+>
+>  int
+>
+> --
+> 2.55.0
+>
 
 -- 
-2.56.0
-
-
+Thanks,
+Gyeyoung
