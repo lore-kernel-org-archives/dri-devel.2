@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BBDCCC6B15
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 23:07:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DBECC6B0F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 23:13:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67E2610EA4A;
-	Tue, 13 Oct 2026 23:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4B4A10E989;
+	Tue, 13 Oct 2026 23:12:54 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50A7C10EA4A
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 23:07:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A48A310E989
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 23:12:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 21C2E4030C;
- Tue, 13 Oct 2026 23:07:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A4E1F00893;
- Tue, 13 Oct 2026 23:07:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5CC4B42D61;
+ Tue, 13 Oct 2026 23:12:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E585B1F000FF;
+ Tue, 13 Oct 2026 23:12:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791932861;
- bh=W5r5eEYIFgRBhU6ZRqEzQqGi+fZeUNx978VT+rG2aaE=;
+ s=k20260515; t=1791933168;
+ bh=MwwSZ9tU4MCrJ5+lp72ySnRVD9y8LVCfzIVRG0+uc6o=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CtBi7SgaRT8zVHG8HbaMkh/1Hjeq0D/B0hysWPx1wx9KqddJ1WYNlTWeQ7tEhQmVP
- Fh2Y9IxL1VwUswFya1Rk8rI+zRZASBvK1XGXBfIEuZCb0wPA2gogV3Rimk7NqtqPes
- StKCkf4KKp9Q55tVFwuZI7NMjW1oPldipYdg/Ty3jRM67RvJ1XA8jF0jXxXfwqaFQ8
- DsVi+RAlHa6kGskubmBQENJwIg9Hqi31MYTzBmbwZxzQMOa7m7Ty3Zu71RsAawKH6O
- NqMum9L9hwk3qMM6GgEsBfkGKDif75bZwLsuTk/rTFt0dpKwZrtd/1TsEaxtHgFLao
- 4DT14BPvcmnMg==
-Message-ID: <sashiko-outbox-170627@kernel.org>
+ b=lrv0dJO6c/RTVWqVzCns6Gu7KkB4w1TPgQCmxZ0RaFVYxPu4MXKofTjma+5TcZAvB
+ QK7Sc3DpFr1MogqvsYpf2ObwoZtbvHUmfbDqXnJjcMNsz9zK6+Ryb6NXlg5A9X5ngl
+ oqIvivXCD9zWT8oudMmTln44+/UzfZIe9K89KFAlAxLavPwt+ufn4/64buzWmOB4Jg
+ POdwXbzQIwwdCMafMhLK9mwuXSnItivWqwd+W3bUgn/2iquYnGhxhe/AhsmtyQOj4l
+ TubAsxciNuJ7y3WBiu8+3keI2EOj6lEjXTtE9nzYNR618CVizleu7/c/XsnSEKy1rf
+ Rc5UxFFyyLm7w==
+Message-ID: <sashiko-outbox-170630@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/15] drm/rockchip: vop2: Reset AXI and DCLK to
- improve robustness
+Subject: Re: [PATCH v5 13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit
+ YUV422 output format
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-7-6fab0fe43a9b@collabora.com>
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-13-6fab0fe43a9b@collabora.com>
 References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
- <20261014-dw-hdmi-qp-yuv-v5-7-6fab0fe43a9b@collabora.com>
+ <20261014-dw-hdmi-qp-yuv-v5-13-6fab0fe43a9b@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 23:07:40 +0000
+Date: Tue, 13 Oct 2026 23:12:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,113 +56,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] devm_reset_control_get_optional_exclusive in component bind causes=
- -EBUSY on rebind
-- [Medium] drm/rockchip: vop2: AXI reset is ineffective if clocks are gated=
- during bind
-- [Medium] drm/rockchip: asymmetrical teardown disables PM runtime before c=
-ore clocks
+- [High] drm/rockchip: dw_hdmi_qp: state leak in atomic_check corrupts PHY =
+bpc configuration
 --
 
-commit e900afe14d3a61065ef92e05c15c885d78bc0d20
+commit 197f61f0c784edd007d1f4b375c9dad379eab849
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/rockchip: vop2: Reset AXI and DCLK to improve robustness
+drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
 
-Assert the AXI reset in the bind and CRTC disable paths, and the VP DCLK
-reset in the enable path. These resets are intended to leave the hardware
-in a clean state for the next use.
+This patch adds support for 10-bit YUV 4:2:2 output to the Rockchip DW HDMI=
+ QP
+encoder by using the MEDIA_BUS_FMT_UYVY10_1X20 format. It also forces 8 bpc
+when YUV 4:2:2 is used to keep the PHY PLL output aligned with the TMDS
+character rate.
 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index 14c073f61c646..afa4bc6cbcc4d 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index db1933d75ced5..380dd9ca6870d 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 [ ... ]
-
-> @@ -953,6 +974,8 @@ static int vop2_enable(struct vop2 *vop2)
+> @@ -229,7 +230,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_=
+encoder *encoder,
+>  	}
 > =20
->  static void vop2_disable(struct vop2 *vop2)
->  {
-> +	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
-> +
->  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
+>  	phy_cfg.hdmi.tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
+> -	phy_cfg.hdmi.bpc =3D conn_state->hdmi.output_bpc;
+> +	/*
+> +	 * YUV422 always transmits two 12-bit components per clock cycle,
+> +	 * regardless of the color depth, which from a rate perspective is
+> +	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
+> +	 * keep the PHY PLL output aligned with the TMDS character rate.
+> +	 */
+> +	phy_cfg.hdmi.bpc =3D (s->output_mode =3D=3D ROCKCHIP_OUT_MODE_YUV422 ?
+> +				8 : conn_state->hdmi.output_bpc);
 > =20
->  	pm_runtime_put_sync(vop2->dev);
-
-[Severity: Medium]
-This problem wasn't introduced by this patch, but does the hardware
-support having the PM runtime domain disabled before the core clocks?
-
-In vop2_disable(), pm_runtime_put_sync() drops the device's PM reference,
-which can power off the domain. However, the core clocks (pclk, aclk, hclk)
-are disabled later in vop2_core_clks_disable_unprepare().=20
-
-Dropping the power domain while functional clocks are still running might
-violate hardware teardown sequencing and cause lockups. Since this patch
-modifies the disable sequence by adding the reset, could the asymmetry be
-corrected here as well?
-
-[ ... ]
-
-> @@ -2596,6 +2621,12 @@ static int vop2_create_crtcs(struct vop2 *vop2)
->  			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
->  					     "failed to get %s\n", dclk_name);
-> =20
-> +		vp->dclk_rst =3D devm_reset_control_get_optional_exclusive(vop2->dev,
-> +									 dclk_name);
+>  	ret =3D phy_configure(hdmi->phy, &phy_cfg);
+>  	if (!ret) {
 
 [Severity: High]
-Will this leak the exclusive reset handle if the DRM master is unbound
-and later rebound?
+Does calling phy_configure() in this atomic check function leak test-only
+state to the PHY driver?
 
-Since devm_reset_control_get_optional_exclusive() is tied to the component
-device (vop2->dev) rather than the aggregate DRM master device, the devres
-allocation won't be released when the component unbind callback executes
-because the component device itself isn't removed.
+Because dw_hdmi_qp_rockchip_encoder_atomic_check() executes during
+DRM_MODE_ATOMIC_TEST_ONLY commits, calling phy_configure() here updates the
+PHY driver's cached state (like hdmi_cfg.bpc) with test configurations. It
+also mutates the global encoder state when it sets hdmi->tmds_char_rate on
+success.
 
-Upon rebind, a second call to this function will find the reset line
-already exclusively acquired. This triggers a WARN_ON() in the reset core
-and fails the bind with -EBUSY, breaking the driver after an unbind cycle.
+If a TEST_ONLY commit changes output_bpc while tmds_char_rate remains
+unchanged, the new bpc is cached by the PHY.
 
-[ ... ]
+A subsequent full modeset on the active state could then hit the early
+return earlier in this function:
 
-> @@ -2955,6 +2986,13 @@ static int vop2_bind(struct device *dev, struct de=
-vice *master, void *data)
->  		return dev_err_probe(drm->dev, PTR_ERR(vop2->pll_hdmiphy1),
->  				     "failed to get pll_hdmiphy1\n");
-> =20
-> +	vop2->axi_rst =3D devm_reset_control_get_optional_exclusive(vop2->dev, =
-"axi");
+	if (hdmi->tmds_char_rate =3D=3D conn_state->hdmi.tmds_char_rate &&
+	    s->output_bpc =3D=3D conn_state->hdmi.output_bpc &&
+	    s->bus_format =3D=3D ingest_fmt)
+		return 0;
 
-[Severity: High]
-Similar to the dclk_rst allocation in vop2_create_crtcs(), will allocating
-this device-managed resource here in the component bind path cause an
--EBUSY failure on rebind?
-
-> +	if (IS_ERR(vop2->axi_rst))
-> +		return dev_err_probe(drm->dev, PTR_ERR(vop2->axi_rst),
-> +				     "failed to get axi reset\n");
-> +
-> +	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
-
-[Severity: Medium]
-Will this synchronous reset be effective if the AXI and AHB clocks are
-gated at this point?
-
-The reset pulse is sent immediately after acquiring the handle in
-vop2_bind(), but this happens before pm_runtime_enable() is called and
-before the core clocks are explicitly prepared and enabled.
-
-If the driver is loaded as a module or probed late, the kernel's unused
-clock framework may have already gated the clocks. Pulsing a synchronous
-reset while the IP block's clocks are gated usually acts as a silent
-no-op. When vop2_enable() later powers on the domain, the hardware might
-wake up with its previous dirty state, defeating the purpose of the reset.
+This would bypass phy_configure() and allow phy_power_on() to apply the
+leaked TEST_ONLY bpc state, potentially desynchronizing the PHY PLLs and
+corrupting display output.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-dw-hdmi-qp=
--yuv-v5-0-6fab0fe43a9b@collabora.com?part=3D7
+-yuv-v5-0-6fab0fe43a9b@collabora.com?part=3D13
