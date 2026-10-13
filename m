@@ -4,106 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5609CCC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E74CC6B1A
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3D8D10E8B9;
-	Tue, 13 Oct 2026 17:58:18 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 370FB10E8B9
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:58:04 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id E933FC653F6
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:49:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 54A0460362
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:48:31 +0000 (UTC)
-Received: by mail.galae.net (Postcow, from userid 0)
- id 9C90111D7188E; Tue, 13 Oct 2026 19:48:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1791913710; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=WqTRuxy4JCbeUVmltZ7TumMmhfcU2SDhW7r+G3YaiPw=;
- b=YlmioIGcbRnygoCb6zo9cksVBqMaNs380a/kBkPzMI9e/5Awjj7VTU3WGxWGUliD/CH88C
- lu6V55X50eEX76eo3nvOahh8madyZK0pGDUSE7665nV1xRyAqi3m5ITWkwIkZRLFEAuQWy
- CEHhe9Bzf1E0iZEJ9Kb9ZNlqyeaYBq/pIn84mmojGdxp/lXcAELM2a3n4hFw3iFqsVrmzi
- nDO8ZHlOdbl4zBYSws/N+NrDkk+J0wusA5rXq4A9OwBzOoYTwKlBttx0wTJdsnavFpAn/F
- 7ELFFqa7eod1Mox+J0mVTVG0MvMYI6xGRejI5Hmi4huQIsExNv2lxQAHXL6aGw==
-Authentication-Results: mail.galae.net;
-	none
-Received: from mail.galae.net ([172.22.1.253]) by 9e7fea892943 with LMTP
- id AM3UEsD4zGrDjREAtaWaaQ (envelope-from <kory.maincent@bootlin.com>)
- for <kory.maincent@bootlin.com>; Mon, 12 Oct 2026 17:12:00 +0200
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CF73911D70C32; 
- Mon, 12 Oct 2026 17:11:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1791817917; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=WqTRuxy4JCbeUVmltZ7TumMmhfcU2SDhW7r+G3YaiPw=;
- b=G5ut7oNHjVKVIx50wI9DjoIKDf7EaY9AeJjHYHX0+KaBnubMvRVbjCIPJ8BuPVcKd85Ywr
- IakX/TO8DcCGyoVbrugimLOGUmJcZkx1xrxqaVbTr2F+fACcS9BCrDbkMKHDDPO4TghOyM
- rsnzbI528489igc5MNAC1DNLs3ylb/jzUvdifqWpqFgcO3dTZtej5lTKFRxgCawRmA0Y/S
- ji/K/pY2N7T++W/0koUKS68wV0m7mTifJPnefQn5DstO2JEFaOUABTmdvAP9TZadTDepIq
- cSHtd3plN3poUO/yX3y6FQW6WOq+ZBTUWuFGrX5HgY9CqMmB6B5/a0TcGnH4hQ==
-From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Mon, 12 Oct 2026 17:10:59 +0200
-Subject: [PATCH RFC v3 4/8] drm/i915/display/dp: Read DPCD DSC capabilities
- in any case
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2C5510E8B7;
+	Tue, 13 Oct 2026 18:09:52 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D36C710E64F
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:09:46 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-48af4d4e61fso2360743f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 11:09:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791914985; x=1792519785; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4Ni5fu/M2p02kW2mgvbfBzY77o7xL0dnmXboaLsv73E=;
+ b=kUIUbwlJVgw/DFc+ORfo7SLDvvbqp1F6OjFEmF7uMVHEmNuyKS9n82MBQ6tjpK9JAs
+ b0NTI+OGGR/KlCDlk/yL7X6JKyycs08LbKZLYPiWej50VUgqkT7chgOgWUO6Mzvqh9KJ
+ NzPNy4qsZiXbEMA1lWKwGHNE1dV2MlKQdt8vb1FKn3UhRJg8TiHfyXZcGN79kN55i8ix
+ NV8c0hwSRf3jvU8lMHFlrmlU0Y5Ui7jHP2bVLsA8MtGbxoHl6AIpRu0ntQqkLYmcqqpz
+ yQoYlbc+UihQrWryMM3qgL6ABZP7B5gPChciq+OlczvJImlmzU7hVeSi3JNqQ+39qK3n
+ Q/Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791914985; x=1792519785;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4Ni5fu/M2p02kW2mgvbfBzY77o7xL0dnmXboaLsv73E=;
+ b=SHvbMPryVRWkTfc1H5smAGu1DTlpHwON4I6koKRIbNiY5P7pBlYWB0am6eNAblrxtq
+ J++TIQIVzNQEHVwhouJFygiY1Ue1W1o3DddCXa2QdlK++fu8COa3bruZ5RfAyp0nQlRO
+ b2a3WwrVLLmqR8+NS9VF7MoN2atgkxeywx80crWZfzuTfRIAHVqFXMJeXf9TigcMRkab
+ ItB3asT88WqHVcVHqLUvqv0WrzAsBUy6VEvMIS5HhPfNUv+OniwTzFTfCQ4RuB3pbttJ
+ yEEtiLLHBdrDUXpA0drry7KnNNF4KijacQpdf7aHTdKn/h1wRdCQE7PP4TB5od3JVdFX
+ E9hQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzqv7tCng0yBfRq1Wg1RooqPIEQcnCG0hjynp7SOwMh07UitqeQJkFe2hNN5XjQd6gZZCOOhHA+8jw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIzNfAdRjOWEqNSgVpUpUVPd8M6plgECO20p3S4z/+KkK9Te7Yz
+ 1ZJqKJkdyX1Ynx81u4euc5eet0qLN2JpojhLjMYiJldDdxRU5eR2FMC4
+X-Gm-Gg: AYBFou0FmkNrGMBhNSLa3S6Aqg3pNK8jr8xxRan/EeuxhbiVFMeYmIMnCE+4adM7AAz
+ hb2nWn+xXFEM2DaHSaZRkf/YIe+/wzrX0ErM1mFvo4rUv0Sq4u263ClMMUIOe46tXITfqBNBzXh
+ OEaMJjAvNGJo30DYRCkStPv/uZCtxBkrEN91GNRtxs5OIQRbDYyDsBIKr99uHv8XUFS1iLr0Kgo
+ zkkYwrUYxjL2tqhv1AuV+T/0GaBs5b04CQKaJO12nOGcHoDFiz52i/SrIU8ZCZ27WNatQI8ci6z
+ kYj/AeW00LWywMEtOHv0UgLw8rny/RdWqTltFF6zlZzQ83T34i6Imd6ZEEiU4weXq6pDmJ2DmRD
+ dSmcDQLMA+ug17XwYIqG6517ivhlKF1EuQ/fG5ocmWK+XBQ7U7EjuzuoDX2yU//l+gjH1hxhrdX
+ cDtXxcmrBarJ/TyCoAQD1A01ybEm8j8Y6b8rX1hpAFacuj1XCb5CyjjViN5XUVeNZAq6UXXLvjK
+ uOivBtfaiJQtPXVNnMd+7aetprn+Q==
+X-Received: by 2002:a5d:5545:0:b0:487:27f6:a4e5 with SMTP id
+ ffacd0b85a97d-48dbad4b6d5mr19310156f8f.53.1791914985161; 
+ Tue, 13 Oct 2026 11:09:45 -0700 (PDT)
+Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48de0aaaaebsm6854498f8f.14.2026.10.13.11.09.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Oct 2026 11:09:44 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v3 0/4] mfd: aat2870: Convert to use OF bindings
+Date: Tue, 13 Oct 2026 21:09:29 +0300
+Message-ID: <20261013180933.487013-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-feat_link_cap-v3-4-7517f4aba0f3@bootlin.com>
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, 
- Manasi Navare <navaremanasi@google.com>, 
- Drew Davenport <ddavenport@google.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- Kory Maincent <kory.maincent@bootlin.com>
-X-Mailer: b4 0.16.1-dev-17221
-X-Last-TLS-Session-Version: TLSv1.3
-X-Last-TLS-Session-Version: None
-X-Rspamd-Queue-Id: 9C90111D7188E
-X-Spamd-Result: default: False [2.48 / 30.00]; SUSPICIOUS_RECIPS(1.50)[];
- DATE_IN_PAST(1.00)[26]; RCVD_NO_TLS_LAST(0.10)[];
- MIME_GOOD(-0.10)[text/plain]; BAYES_HAM(-0.02)[50.23%];
- BCC(0.00)[]; TAGGED_RCPT(0.00)[];
- DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FORWARDED(0.00)[kory.maincent@bootlin.com]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[35]; MIME_TRACE(0.00)[0:+];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,intel.com,ursulin.net,linaro.org,ideasonboard.com,kwiboo.se,bootlin.com,pengutronix.de,collabora.com];
- MID_RHS_MATCH_FROM(0.00)[];
- PREVIOUSLY_DELIVERED(0.00)[kory.maincent@bootlin.com];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_DN_SOME(0.00)[];
- URIBL_BLOCKED(0.00)[localhost:rdns,localhost:helo,bootlin.com:mid,bootlin.com:email];
- MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
- RECEIVED_HELO_LOCALHOST(0.00)[]; NEURAL_HAM(-0.00)[-1.000];
- FROM_EQ_ENVFROM(0.00)[]
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,36 +88,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In preparation for the support of reporting the sink capabilities we
-need to read the DSC sink capabilities even if the source does not
-support it.
+Document Skyworks AAT2870 into schema, convert existing driver to
+use OF bindings and remove platform data, add support for
+in-supplies.
 
-Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
-Change in v3:
-- New patch
----
- drivers/gpu/drm/i915/display/intel_dp.c | 5 -----
- 1 file changed, 5 deletions(-)
+Changes in v2:
+- fixed led-max-microamp scaling
+- fixed max_brightness parsing
+- fixed regulator init_data and of_node passing
+- of_platform_populate > devm_of_platform_populate
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 830fe6eda17d7..b769723a1c0fd 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4521,12 +4521,7 @@ static void intel_edp_get_dsc_sink_cap(u8 edp_dpcd_rev, struct intel_connector *
- static void
- intel_dp_detect_dsc_caps(struct intel_dp *intel_dp, struct intel_connector *connector)
- {
--	struct intel_display *display = to_intel_display(intel_dp);
--
- 	/* Read DP Sink DSC Cap DPCD regs for DP v1.4 */
--	if (!HAS_DSC(display))
--		return;
--
- 	if (intel_dp_is_edp(intel_dp))
- 		intel_edp_get_dsc_sink_cap(intel_dp->edp_dpcd[0],
- 					   connector);
+Changes in v3:
+- removed max-brightness property
+- switched from dedicated max_brightness property to dynamically
+  calculating brightness steps
+- update regulator registration to use mostly core regulator framework
+---
+
+Svyatoslav Ryhel (4):
+  dt-bindings: mfd: Document Skyworks AAT2870
+  mfd: aat2870: Derive brightness steps from max current
+  mfd: aat2870: Convert to use OF bindings
+  mfd: aat2870: Add support for VIN and IN-LDO power supplies
+
+ .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++
+ drivers/mfd/aat2870-core.c                    | 120 ++++---------
+ drivers/regulator/aat2870-regulator.c         | 160 ++++++++----------
+ drivers/video/backlight/aat2870_bl.c          |  77 ++++-----
+ include/linux/mfd/aat2870.h                   |  95 +----------
+ 5 files changed, 259 insertions(+), 317 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
 
 -- 
-2.43.0
+2.53.0
 
