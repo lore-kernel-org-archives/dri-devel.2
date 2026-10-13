@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F96CCC6B15
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:52:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F13E4CC6B0F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:52:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5A6910FA1C;
-	Tue, 13 Oct 2026 22:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39CB310FA1D;
+	Tue, 13 Oct 2026 22:52:21 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E63B810FA10
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:51:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 480D510EA40
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:52:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791931915;
- bh=eFcaLJbV3onLWXX76Dq0oKLZVVUoH0YvgLpoIYptoKU=;
+ s=mail; t=1791931921;
+ bh=UsF0ka6JQJB52yMGxTjsFQSKOLo4iowxPUK1+eAGX70=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=QDqPLdLpUwLITLJWpDFYHjaxRbGYhpkddjc6fE7EgQIZOI+2y4475KzCprSb7hzeN
- 1eRAoKJAQArBEQmq4DdJAW0lG5YZmUB3zUfTtl02CifcOqnyPCcH0swmkNHUJE8NRu
- f1+f/xMxp+gkPXpztJBRLy3ED+09FnB/cXhheH6eUwpUmwxCoxSCjSKQYDbTn9jhgL
- dzIprO8YmTf4+lOsgsppCnGNKOGNfkAm+CPM/20k8jAhck3PJH+yTid/FW+T9mAOg2
- On29pSLk4yT9wNd3OqyvKO9wukXpDFyK9AOkz/UXgFJJkHRanrFcQnmsmHbd9pZ7oQ
- xcAw/2COfQitQ==
+ b=QGw0Bk0gKZOn8zHLWvJlJcNneUtCBNqyYXbvVZ3vTVvE2L5yyUOxHZzmQFBFlqpQW
+ mRU1CZvhyvh1MRDBKRxctawdHAnb5tLltf4TYqj165v4LttEqd9OTwf6a8bQk0qfxb
+ bNGb8wCjs5ISARnzeXdoOJkik1o2BCQsJsHl1gQku25fGWVCVnUaQFonyI576MqL9w
+ Muk1GPtEloHEe0lEoprAnf57vpJ26ctIaDPyLROgrNg+iD/iQyKfZGvMvFA2o6DlbK
+ 0DIJBsoM9RzjcarNqUppU+k9SW5Z3OHrKxxIgmQAz3zZWC44G/4asa8rfL5eBvr3My
+ TrmjTLcLbmInQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E106C17E0EB0;
- Wed, 14 Oct 2026 00:51:54 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2F98217E15B4;
+ Wed, 14 Oct 2026 00:52:01 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 01:51:23 +0300
-Subject: [PATCH v5 06/15] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
- overflow on 32-bit
+Date: Wed, 14 Oct 2026 01:51:32 +0300
+Subject: [PATCH v5 15/15] arm64: dts: rockchip: Add RK3588 VOP2 resets
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-dw-hdmi-qp-yuv-v5-6-6fab0fe43a9b@collabora.com>
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-15-6fab0fe43a9b@collabora.com>
 References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -60,8 +59,7 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Igor Paunovic <royalnet026@gmail.com>
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,50 +76,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-VOP2_MAX_DCLK_RATE is defined as an unsigned long and is used scaled by
-the color-depth ratio when computing the maximum DCLK the HDMI PHY PLL
-can source.
+Add the missing reset properties to VOP2 on RK3588.
 
-On architectures where unsigned long is 32-bit, VOP2_MAX_DCLK_RATE * 8
-is evaluated in 32-bit arithmetic and overflows: 4800000000 wraps to
-505032704 before it is promoted to the 64-bit argument of
-DIV_ROUND_CLOSEST_ULL().  At 8 bpc this collapses max_dclk from the
-intended 600 MHz down to roughly 63 MHz.
-
-As a result, low-resolution modes (e.g. 640x480 or 720x480, whose pixel
-clocks are well under 30 MHz) still pass the clock <= max_dclk check and
-are reparented to the HDMI PHY PLL as expected, but higher-resolution
-modes such as 1280x720 (~74 MHz), 1920x1080 (~148 MHz) and above are
-wrongly rejected and fall back to the system CRU as the DCLK source.
-
-Define the constant as unsigned long long so that every expression using
-it is evaluated in 64-bit arithmetic, independent of the width of
-unsigned long.  This future-proofs any additional users of the macro as
-well.
-
-Fixes: b0362c45c401 ("drm/rockchip: vop2: Check bpc before switching DCLK source")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
-Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
+Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 5a870a843dae..14c073f61c64 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -102,7 +102,7 @@ enum vop2_afbc_format {
- 	VOP2_AFBC_FMT_INVALID = -1,
- };
- 
--#define VOP2_MAX_DCLK_RATE		600000000UL
-+#define VOP2_MAX_DCLK_RATE		600000000ULL
- 
- /*
-  * bus-format types.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e0786..574264b9cd9c 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1651,6 +1651,18 @@ vop: vop@fdd90000 {
+ 			      "pll_hdmiphy0";
+ 		iommus = <&vop_mmu>;
+ 		power-domains = <&power RK3588_PD_VOP>;
++		resets = <&cru SRST_A_VOP>,
++			 <&cru SRST_H_VOP>,
++			 <&cru SRST_D_VOP0>,
++			 <&cru SRST_D_VOP1>,
++			 <&cru SRST_D_VOP2>,
++			 <&cru SRST_D_VOP3>;
++		reset-names = "axi",
++			      "ahb",
++			      "dclk_vp0",
++			      "dclk_vp1",
++			      "dclk_vp2",
++			      "dclk_vp3";
+ 		rockchip,grf = <&sys_grf>;
+ 		rockchip,vop-grf = <&vop_grf>;
+ 		rockchip,vo1-grf = <&vo1_grf>;
 
 -- 
 2.55.0
