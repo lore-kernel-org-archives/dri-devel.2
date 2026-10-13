@@ -4,42 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C38D0CC6B0E
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 127EACC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 237A110E917;
-	Tue, 13 Oct 2026 17:15:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3419710E917
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:15:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1CFCB41AC6;
- Tue, 13 Oct 2026 17:15:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A879A1F00893;
- Tue, 13 Oct 2026 17:15:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791911743;
- bh=bN4RiUcBpF7GCOc9k2/wLqIH+Z/bMrbk3r/RI458mW4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TX1Kapzpk0Q9Rdml9RrXlY8RmH7Kb0pThCRGXPtQdC9IL0DCKvZ4AS9aBEqepQpbI
- 5d3S9vbqszTfWq/RXcuS+CvAUZwHRL+GyUEf/glr6Bf2faIcymmbxSXqfuuQtgGZT8
- R86TxOfWrGCEmE8aMRiEPYdgR49oV2Iebl264r4jk/UuNUPV/stS4dk0OYgxprilW4
- jB5TFcrTwM9EUXU/urAIeHqJMnqLedq96jQ4aeJ9ruiSRjzYfMKp4O29th7EqtxGlf
- +BOPK1vOg1Gk7+Ta499wrONHxu8kqPAFZ9vS8V0NRm/PS/ikXLoLBn1NdgJP8Wqqak
- Jy1PXPXdSYwZA==
-Message-ID: <sashiko-outbox-170200@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/7] rust: clk: replace `OptionalClk` with
- `Clk::get_optional()`
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
- ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20261013-clk-type-state-v6-2-a5e9977b3509@collabora.com>
-References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
- <20261013-clk-type-state-v6-2-a5e9977b3509@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 17:15:42 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 425F510E149;
+	Tue, 13 Oct 2026 17:40:07 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013055.outbound.protection.outlook.com
+ [40.93.196.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BEAD10E133;
+ Tue, 13 Oct 2026 17:40:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pfucchGE5yIFXhc1hR5ULRYoBt+CgHQJXaV3XN+RexjAukv/1oMorx86CXdmk2DqzRM125wa/LpNruFfO4sK2em+NW8kCcGwMaR3gsaEtiO4UQL5D+w/stJKALsrbLWLMG1YXcEdo7/+JXzemaMYFTLhlkHM+vrDavDj1UylS/ErFM677+8czySf3QNt9xtHH7+ZHg/j7OwiVUJCggdXHjQ/5PSqKxjNwm687zgfj7mpSM4x8+SYX7f7QoAkdMR9KI3Tk09e8yrCKSz8oVxlrYF6RkneTwpVEnOIh5I1Oe7j9x7X+Id6CR0YhSAXgfPWDMiGI4Zhr2M1wj0C+uPx3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KxX/OWG5qV+b3qb8VF54mpIKNbp0GWuHJzZ3J7YNev4=;
+ b=TzD9uhqEQo3FXf8C5T37xmRGsZePmeqq4ffmQDXIDXnTBU5ofNdFoU7brYCHy4j5S2lsVGOr5TOuR2Y9LaOgCRc4n/luaQhSjrD3PH9P7JPPzfmMH1q3RoT8tZ8yPL+Wjr1n8vJEUKCwwgI5/SstagLqemt57BxLxQyL1xSw2Oc5R3i9Guea2zhGPRx1lQhRfZjPHfh4BevBo1TSyWcGm+oXKrYKMir38VcONQCqMzcpl/l0pck+xsYLN7xcvnEQzXtmMwgoWfiQBGlF9iDtR2x+vK49lHaMWXGO9wK8Yob8HscerU4yTqdkPRBg2/8jmGID/QVdw6E/kxGGf5BEAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KxX/OWG5qV+b3qb8VF54mpIKNbp0GWuHJzZ3J7YNev4=;
+ b=l45XppXp8vq8Xyo8ZtmVyYkgHp2sLtNh2kXRSfG4UhGhNKMJMTWnb0vSQTtzZBQqaDh69LrOLmnFM7xhsTk+RlMRGIyR4rQgL9Wx7Ki+f+JsHDiVLBPIFd2TNk/uziBNxCQMaQFPtz7K0vwaTs51EAntuT+goyHQKHJeXBhe6mw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by PH7PR12MB8777.namprd12.prod.outlook.com
+ (2603:10b6:510:26b::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 17:39:56 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 17:39:55 +0000
+Message-ID: <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
+Date: Tue, 13 Oct 2026 13:39:53 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] amdkfd: fix doorbell allocation race creating
+ duplicate allocations
+To: Henry Martin <bsdhenrymartin@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
+ <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0212.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ad::10) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|PH7PR12MB8777:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e3241f5-7878-4228-e9b7-08df2950fe43
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|56012099006|11063799006|4143699003|22082099003|18002099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: 17iCFOV76jd1Q5T14w2jlvnxwl2v0pz+uJgkDBcEUYIBDvV/7EzDnz97eMUdqqjXRMol7qoXuf5JVCAPjlh1hRYO4qVI0BLhAwZ1QscCUWe/xB9SCpIQGJIWKKmWMvVr+8EZ39nMo56fy0rHSXCJyS7k1l9hoCHNPxKAYMtEZcz6d87ptF4cJ/CtFbX9eF4NahwDv8P7jl4lDPhxH+ZxsOaDB4JeiH4RqohwRjm7d/EdhQvhbLFq+75Y0E7eD9R9Zsnc60efQTLPJUGOnOZh1Q0Ghd5HOUxY7XliOA/kT+XQR6zsKvhh9y2HUtVFt4AJ3IzATljlsTIBViPvwvnmfBpvPZGFgs4K5U7f/+ZVSCVNRq61ghHa1X3/SmRsHUvAk4GiEUCRcuHIrsP+k/7Z+mxxgojYk6hSlUQ7L1jKweCp55XjlDRL9GvgvsS00GSnK1Bf8Bf4SsShDqIHLkxOQ4HUEVg4j/CGx8bwM3T+OwBqqN6oWrZOkrqDF1JswdVHJuync3AmuBTe14vH2+fYNGIbZSwSBUSWhVfqPydYAmlmVaouxQtSJJ9a2aZh8yCSu0+0FZOYGkhEe2vuMvhy5OUJuKS2UpFpknlQWSkjo0G88cxCDlAqM3q9P2tFNh9ftg0GEuUYbIIQxu6R6vVLzKgil4p/MchRAXQjhYO9hfc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(261009223027099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDV5dE5pTnRDWXloTElnb1kycjE2RCttYlp2c1I5VFNVK05FR1loc0MzM0lG?=
+ =?utf-8?B?S0J3bzhYZ20wSGpZNXhLMUtCTTQ3VGRaeDRVR0pjSHdiMFZVSDl4TVpJcGRj?=
+ =?utf-8?B?ZHFQZ2xrUm9sRjUxS1p5M2pJYXh6SmNsOFRXWWJ6R0hDQnZMWXQ2TnBvYWEw?=
+ =?utf-8?B?ZERnMXBkeDRQM0loOFVhZGlxeUo4T1J6THpUdGlnNXBFcXhRRDVYajhYSkZi?=
+ =?utf-8?B?V0dna0I5ZEJzdGkvYVRiODVPZTFpVFRGYTN3ZVVPdkc5cEJ0SlJvVTVpYS9S?=
+ =?utf-8?B?WjhUK09kS1lGbkZ2eU1wNHFDNkdXNEhZNjMzOVRMZ1Q4a3JucGhhNGZadlF3?=
+ =?utf-8?B?bnQ3bVNWcGZEbTB6cW84cHVUQ0N0ZUZoOGowQjdhc2NrbGJhd0czbittQjhB?=
+ =?utf-8?B?Y3ZPQk5USUNwZDN6cEUzUlNFM3EwTE9lVFVld1R3bW5zQy9kYS9qcmdEYXVX?=
+ =?utf-8?B?a21sc0JYdzZSRCtvNkFXSzRYeDMzMFUraVJmQnpnRzM2MFhyQmpqK3pWZ3Fk?=
+ =?utf-8?B?UGdqWG1zYXFNZElIVWZCeW5pMlZpcXNQdjJNQmZwRXNFZTdMczNZSzFFdDlu?=
+ =?utf-8?B?S3plajBBWlZibU0rbWxIcTRIS0hnUzQvTkViM3F0M3BGRXNJaGJnQXJUc3k0?=
+ =?utf-8?B?Z3NHSTIxRXNjUnZ4RjVlbVJuMC9SZHpqS1E3RkFBcG13WXdKWjNDSUwzWkFm?=
+ =?utf-8?B?eEtXOHU4Y2doVTZ1UGN3RzYxTGRLU3VFdHc3Qjl3TEpkcVhaU0hjYnJmNTVT?=
+ =?utf-8?B?QktrRGxSN09BWUVlVHYvc2RnY29UbkdDZUZVQytvVy9LanFrOHU3aUVWaTln?=
+ =?utf-8?B?bENDQ25lMTRma0tDVWVaV2FYYXZGNzQ4UkFTZlQ1eFVvSjgxSzEvbUN2Z1Vx?=
+ =?utf-8?B?ZnVIMU9XSU5ValpGM3FoTTQ2YmJldHY2TGdnZFhjM2ZuVW5oK3Vxd29Hckdt?=
+ =?utf-8?B?SlZhYjk0MG5IMU9GRDFKWTlnNWJWQU9qUWoxMVNqS1BvWmhsN2pqc3dCOVdx?=
+ =?utf-8?B?eDdlUERMVDVhS2JoaXNsN2c0MGd3dGZXemo2WDNwZys0a3hGa21Rb3I2Ky96?=
+ =?utf-8?B?eUNUSytoMUJ1YWthaDFmUFErSWFGSmgzaFVkUzdyckRqOTlXRnkyQUp1a0xD?=
+ =?utf-8?B?akJ0cjBrQ3VTTVpxSkdrM0U0Smljc0VraTY4R1R4di9iMGVjbGdJNEkwRjhZ?=
+ =?utf-8?B?djgyaFYyZW1JUWtyU2FGU2pSYTRza1dHcUN4KzU4MTRmbWlYVS8zWDRLNWdq?=
+ =?utf-8?B?Q3BPVVJYdVZqZjhyTll3TElBcTBlb3lYaU04eHIzQWpRelBWZlptRm12R2J0?=
+ =?utf-8?B?ZjNlOCtzZ2ZhYy9USFV6bThUNnFHMFdweDZJaUNHb0RLajQ1ODFwY0l4ekYv?=
+ =?utf-8?B?R1MvZnRISHVmNWlFd2VJLzFZclZtMG9vRVJmQ2V6d0hXTmhRVFBpTXcvQVdt?=
+ =?utf-8?B?WTVzeTNDMndoVzNyTUZldHpKQnZROWtRSklSVHBIZkJWS3JvOUlSSVNhQTVQ?=
+ =?utf-8?B?aktTZXJpaEwrK3dKRTlZNjRCSXQ3MjVzTjZudVQ3TkI0b0p3aENibjZRK2Fu?=
+ =?utf-8?B?WUxsbUpQNGVFNHlzZGNRMHlHbWpydGRPLzAwWTNVcUJMQVdsMUdENzhiK2dx?=
+ =?utf-8?B?K2RSYzZrMXI5RzdpUmNENUlVempCWDBBTU5JL0FlUWJ5VnNIaTVSd2NaczhS?=
+ =?utf-8?B?TzdPY2o0bzNCNHd2N0U0aWhoOE9mYUdHd2RwMjhPLyt5a01IZWxZdVZGVDln?=
+ =?utf-8?B?N2twU01LTGJGNW5GdGFzTmVHeXE3cjQ3NUZ5YVNJSXdMZzBiSW0wQ25jdkdw?=
+ =?utf-8?B?SXpOOUpXQmdTL1cxdVVtYlpmVkFPcU14YzlmdmJoQzVyV3V5WDlqYlNVT3Rh?=
+ =?utf-8?B?ZEpLeU43S1pTalp4UkVNbTJ5NVpyUUZlcGVrdHZXb0ZyaGUzNnhHOEx1Mkhi?=
+ =?utf-8?B?bFZDaXdQdmFzbmJLcmhHRCs2cG1INDE5a2xBYUdFZVJiNW95TTJjQ3JFVzg1?=
+ =?utf-8?B?L1YwNzkrcXhnVWJ3eGxXRXI5UEs0a1A2QXZ0cUF1dHNxWDFJYUpQUDkxbUZS?=
+ =?utf-8?B?cG5qdkxpbjRINVBXcTl0cHNGZ0NJdUFqalRqTzlkc0c1OWt6UGNoRzZZRU1L?=
+ =?utf-8?B?U28xSVFIMnJrT3dycUVWMlZaY2VVSS9rQlZqYk80UXZyeGlRZzB2RGtSRGFk?=
+ =?utf-8?B?OGxqMWpaRktwdmx5S0hVUWhyNzcwYzFabi85dlVCR3VjbmhyVlhYTVUxbDBF?=
+ =?utf-8?B?TjdTNnZPUEhMTXVNQXRsUkJnUkdoY2N0eDdDK3gxZ3VERFp6aEFDbDRCTW1W?=
+ =?utf-8?B?YWYrSndZdVdKRHZBUmlhTUFzSWhBZlkyNTAvM1lUdStGUU0rN0pkdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e3241f5-7878-4228-e9b7-08df2950fe43
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:39:55.2420 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7VnyCDokTS/KXQ6DC0PNpmiGhEpJtWVUDd3WidOi9aj0+7omJ0b+y3ApYOXbAQa6NodzPs58kWb0u24vCmZ4hA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8777
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,72 +137,127 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] rust: clk: missing #[inline] on get_optional() abstraction wrapper
---
+On 2026-10-09 23:02, Henry Martin wrote:
+> The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+> lockless at every call site of kfd_alloc_process_doorbells():
+> kfd_get_process_doorbells() (mmap of /dev/kfd),
+> kfd_ioctl_create_queue() and the CRIU restore path each test the
+> pointer under different locking (or none), so two racing threads can
+> both observe NULL and each allocate a doorbell BO and bitmap,
+> orphaning one allocation and handing the two mappings different
+> backing pages.
+>
+> Move the serialization into kfd_alloc_process_doorbells() itself,
+> using a new per-process-device mutex so all three call sites are
+> covered regardless of their own locking.  The device-global
+> kfd->doorbell_mutex is not suitable here: it is acquired under
+> dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
+> kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
+> the sleeping allocations above would create a lock-ordering
+> inversion with dqm->lock via TTM eviction, and it would also
+> serialize doorbell setup of unrelated processes behind a
+> device-wide lock for per-process state.
+>
+> This issue was discovered by Tencent CodeBuddy Security.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 2105a15a2046 ("drm/amdgpu: use doorbell mgr for kfd process doorbells")
 
-commit 796077cfd7119a6144686ab76ca00413f2a3071b
-Author: Daniel Almeida <daniel.almeida@collabora.com>
-rust: clk: replace OptionalClk with Clk::get_optional()
+I don't think the Fixes tag is correct, even though that's what Claude 
+suggested. As far as I can see, the code had the same possible race 
+condition before that change. I believe the problem goes back all the 
+way to 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed"). 
+If you don't mind, I'll update that in the commit description before I 
+submit your patch. With that, the patch is
 
-This commit replaces the OptionalClk wrapper with a get_optional() method
-on the Clk struct, as clk_get_optional() already returns a valid struct clk
-pointer. The tyr driver is converted to use this new API.
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-> diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs
-> index c73fe7c572511..1de2484df8cf5 100644
-> --- a/rust/kernel/clk.rs
-> +++ b/rust/kernel/clk.rs
-[ ... ]
-> @@ -175,6 +172,25 @@ pub fn get(dev: &Device, name: Option<&CStr>) -> Res=
-ult<Self> {
+Thanks,
+   Felix
 
-[Severity: Low]
-This problem wasn't introduced by this patch, but should this preexisting
-function have an #[inline] attribute? According to the Rust subsystem
-guidelines, small functions or functions forwarding to a C binding call in
-abstraction crates should be annotated with #[inline].
 
->              })?))
->          }
-> =20
-> +        /// Behaves the same as [`Self::get`], except when there is no c=
-lock
-> +        /// producer. In this case, instead of returning [`ENOENT`], it =
-returns
-> +        /// a dummy [`Clk`].
-> +        ///
-> +        /// Equivalent to the kernel's [`clk_get_optional`] API.
-> +        ///
-> +        /// [`clk_get_optional`]:
-> +        /// https://docs.kernel.org/core-api/kernel-api.html#c.clk_get_o=
-ptional
-> +        pub fn get_optional(dev: &Device, name: Option<&CStr>) -> Result=
-<Self> {
-
-[Severity: Low]
-Should this new function also include the #[inline] attribute? Since it
-primarily prepares arguments and forwards them to
-bindings::clk_get_optional(), adding #[inline] would align it with the
-subsystem guidelines for abstraction wrappers.
-
-> +            let con_id =3D name.map_or(ptr::null(), |n| n.as_char_ptr());
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> ---
+>
+> v2: Use a per-process-device mutex instead of kfd->doorbell_mutex
+>      (avoids the dqm->lock ordering inversion and the device-wide
+>      serialization) and correct the Fixes tag.  Pointed out by Felix
+>      Kuehling.
+>
+>   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  1 +
+>   3 files changed, 18 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> index fdcf7f2d1b5b4..55acadc986bee 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+>   	int r;
+>   	struct qcm_process_device *qpd = &pdd->qpd;
+>   
+> +	mutex_lock(&pdd->doorbell_mutex);
 > +
-> +            // SAFETY: It is safe to call [`clk_get_optional`] for a val=
-id device pointer.
-> +            //
-> +            // INVARIANT: The reference-count is decremented when [`Clk`=
-] goes out of scope.
-> +            Ok(Self(from_err_ptr(unsafe {
-> +                bindings::clk_get_optional(dev.as_raw(), con_id)
-> +            })?))
-> +        }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-clk-type-s=
-tate-v6-0-a5e9977b3509@collabora.com?part=3D2
+> +	/* Another thread may have won the check-and-allocate race */
+> +	if (qpd->proc_doorbells) {
+> +		mutex_unlock(&pdd->doorbell_mutex);
+> +		return 0;
+> +	}
+> +
+>   	/* Allocate bitmap for dynamic doorbell allocation */
+>   	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
+>   					     GFP_KERNEL);
+>   	if (!qpd->doorbell_bitmap) {
+>   		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
+> -		return -ENOMEM;
+> +		r = -ENOMEM;
+> +		goto unlock;
+>   	}
+>   
+>   	r = init_doorbell_bitmap(&pdd->qpd, kfd);
+> @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+>   		DRM_ERROR("Failed to allocate process doorbells\n");
+>   		goto err;
+>   	}
+> +
+> +	mutex_unlock(&pdd->doorbell_mutex);
+>   	return 0;
+>   
+>   err:
+>   	bitmap_free(qpd->doorbell_bitmap);
+>   	qpd->doorbell_bitmap = NULL;
+> +unlock:
+> +	mutex_unlock(&pdd->doorbell_mutex);
+>   	return r;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index d8631847f0eb9..96e59133fee02 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -779,6 +779,9 @@ struct kfd_process_device {
+>   	/* per-process-per device QCM data structure */
+>   	struct qcm_process_device qpd;
+>   
+> +	/* Serializes process doorbell allocation for this device */
+> +	struct mutex doorbell_mutex;
+> +
+>   	/*Apertures*/
+>   	uint64_t lds_base;
+>   	uint64_t lds_limit;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 0a7c1900da959..4efe4dae79c13 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1788,6 +1788,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
+>   	pdd->dev = dev;
+>   	INIT_LIST_HEAD(&pdd->qpd.queues_list);
+>   	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
+> +	mutex_init(&pdd->doorbell_mutex);
+>   	pdd->qpd.dqm = dev->dqm;
+>   	pdd->qpd.pqm = &p->pqm;
+>   	pdd->qpd.evicted = 0;
