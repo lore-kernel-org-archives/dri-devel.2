@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0498FCC6B1E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6AABCC6B12
 	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:52:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 821A810FA12;
-	Tue, 13 Oct 2026 22:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6B410FA1A;
+	Tue, 13 Oct 2026 22:52:09 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA1FA10FA1C
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:52:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B206210EA40
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:51:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791931918;
- bh=dbYuYcmwWQ0Rwvy6m5XUxd+zzK5ANGcRgXEHBixh4O0=;
+ s=mail; t=1791931912;
+ bh=aGe8nmSYDlD89HTgEIf0ZL1zah8iMagTLLYRYG/Zwn4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=WYY2kXW7I/2TbIG3X6zK7WLe7rJ3GlD+ZbNj9xcEDCg9s4qyB+g0eY7KcjyzZpzro
- uiMFXEDCjSXPhf0uO1td8t/sjWDYnZ+akEduPmWie8EgoDFLzGkcdA6784nt77dGbS
- NZmiTNnt+6r/D1BcQhotpw4lYE0M25l1X0Ru8rN/FCWlA/5YIUxGB3zDddSwYb6WVk
- uLK+P+gAAjmh1uspennkyGKXxBVf7JAcEf+tIuFkJEwGC8/SZ/o15VBBgUUgFEKmg0
- erUuDjHLVPKWdybKrKJUIsXrxLJzcjr0Qnw7AVXDJW+oVfdM7Qa6z5JZpxmpaGXF29
- bdFsblqkVrJoQ==
+ b=hz/RgD9z8WHcN3LTL8qA4lGYsKX7/T/GZJJAAVzXeAsmKvIaUkUtuRGj9UC/P4GqD
+ M4s7XzYid6QbMcNhYIXsTx80WEEOssdwSJZSQtACTHrOnUYU/Bd5S3LEeAxwIP20N9
+ LCM7cox81TSZtOQp5avw9mKGZlf1c89RLt2svn+wwqCajPbJhsIWkocMkMtsRJYniK
+ SrD3Zyzw1jCKiw1GrM7U4phVpHD+x9zm2aKvxugxHFv+MsBdPKEM6ZR8I7okVOb/8B
+ yedvfJyUOodJNdVRlsPBTH7HwWIYSybZhZZ3E9YMCx2N3V/p48W7gEbXLgl5rsTQqE
+ 4Ixm8KFEdujLQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 605D217E14EF;
- Wed, 14 Oct 2026 00:51:58 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2873617E0962;
+ Wed, 14 Oct 2026 00:51:52 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 01:51:28 +0300
-Subject: [PATCH v5 11/15] drm/bridge: dw-hdmi-qp: Log resolution and
- refresh rate in atomic_enable()
+Date: Wed, 14 Oct 2026 01:51:19 +0300
+Subject: [PATCH v5 02/15] drm/rockchip: vop2: Fix resource leak on
+ vop2_enable() error path
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-dw-hdmi-qp-yuv-v5-11-6fab0fe43a9b@collabora.com>
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-2-6fab0fe43a9b@collabora.com>
 References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -60,7 +60,8 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,60 +78,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The debug entry in the HDMI branch of dw_hdmi_qp_bridge_atomic_enable()
-previously printed the literal string 'HDMI' as the mode field, giving
-no information about the actual display timing being configured.
+vop2_enable() returns void, so callers cannot tell whether powering up
+the VOP2 succeeded.
 
-Extend it to include the active resolution and refresh rate by
-retrieving the CRTC mode from the incoming atomic state:
+Additionally, if rockchip_drm_dma_attach_device() fails, vop2_enable()
+returns without disabling the core clocks or dropping the runtime PM
+reference taken earlier, leaking both.
 
-  dw_hdmi_qp_bridge_atomic_enable mode=HDMI:1920x1080@50Hz fmt=RGB rate=185625000 bpc=10
+Make vop2_enable() return int and unwind all resources on every failure
+path.  As disabling the core clocks is also needed in vop2_disable(),
+factor it out into a local helper used by both.
 
-This makes the log line self-contained and directly useful when
-debugging mode-setting issues, format negotiation, or TMDS rate
-mismatches without having to cross-reference a separate mode dump.
-
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 39 +++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index b268c9376087..c6551f4cbf93 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -539,6 +539,8 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 	struct drm_connector_state *conn_state;
-+	const struct drm_display_mode *mode;
-+	struct drm_crtc_state *crtc_state;
- 	struct drm_connector *connector;
- 	unsigned int op_mode;
- 	int ret;
-@@ -552,6 +554,9 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index bfb384142568..e0caea93a896 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -860,6 +860,13 @@ static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
+ 	return ret;
+ }
  
- 	if (connector->display_info.is_hdmi) {
-+		crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+		mode = &crtc_state->mode;
++static void vop2_core_clks_disable_unprepare(struct vop2 *vop2)
++{
++	clk_disable_unprepare(vop2->pclk);
++	clk_disable_unprepare(vop2->aclk);
++	clk_disable_unprepare(vop2->hclk);
++}
 +
- 		op_mode = 0;
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ {
+ 	u32 pd;
+@@ -871,7 +878,7 @@ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ 	vop2_writel(vop2, RK3588_SYS_PD_CTRL, pd);
+ }
  
-@@ -559,7 +564,10 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		if (ret)
- 			dev_warn(hdmi->dev, "Failed to enable scrambling: %d\n", ret);
+-static void vop2_enable(struct vop2 *vop2)
++static int vop2_enable(struct vop2 *vop2)
+ {
+ 	int ret;
+ 	u32 version;
+@@ -879,25 +886,24 @@ static void vop2_enable(struct vop2 *vop2)
+ 	ret = pm_runtime_resume_and_get(vop2->dev);
+ 	if (ret < 0) {
+ 		drm_err(vop2->drm, "failed to get pm runtime: %d\n", ret);
+-		return;
++		return ret;
+ 	}
  
--		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u scramb=%d\n", __func__,
-+		dev_dbg(hdmi->dev,
-+			"%s mode=HDMI:%ux%u@%uHz fmt=%s rate=%llu bpc=%u scramb=%d\n",
-+			__func__, mode->hdisplay, mode->vdisplay,
-+			drm_mode_vrefresh(mode),
- 			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
- 			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc,
- 			connector->hdmi.scrambler_enabled);
+ 	ret = vop2_core_clks_prepare_enable(vop2);
+-	if (ret) {
+-		pm_runtime_put_sync(vop2->dev);
+-		return;
+-	}
++	if (ret)
++		goto err_put_pm;
+ 
+ 	ret = rockchip_drm_dma_attach_device(vop2->drm, vop2->dev);
+ 	if (ret) {
+-		drm_err(vop2->drm, "failed to attach dma mapping, %d\n", ret);
+-		return;
++		drm_err(vop2->drm, "failed to attach dma mapping: %d\n", ret);
++		goto err_disable_clks;
+ 	}
+ 
+ 	version = vop2_readl(vop2, RK3568_VERSION_INFO);
+ 	if (version != vop2->version) {
+ 		drm_err(vop2->drm, "Hardware version(0x%08x) mismatch\n", version);
+-		return;
++		ret = -EINVAL;
++		goto err_detach_dma;
+ 	}
+ 
+ 	/*
+@@ -932,6 +938,17 @@ static void vop2_enable(struct vop2 *vop2)
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
+ 	vop2_writel(vop2, RK3568_SYS1_INT_EN,
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
++
++	return 0;
++
++err_detach_dma:
++	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
++err_disable_clks:
++	vop2_core_clks_disable_unprepare(vop2);
++err_put_pm:
++	pm_runtime_put_sync(vop2->dev);
++
++	return ret;
+ }
+ 
+ static void vop2_disable(struct vop2 *vop2)
+@@ -942,9 +959,7 @@ static void vop2_disable(struct vop2 *vop2)
+ 
+ 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+ 
+-	clk_disable_unprepare(vop2->pclk);
+-	clk_disable_unprepare(vop2->aclk);
+-	clk_disable_unprepare(vop2->hclk);
++	vop2_core_clks_disable_unprepare(vop2);
+ }
+ 
+ static bool vop2_vp_dsp_lut_is_enabled(struct vop2_video_port *vp)
 
 -- 
 2.55.0
