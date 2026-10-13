@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14229CC6B0E
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F0F4CC6B19
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 17:08:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E03510E54B;
-	Tue, 13 Oct 2026 17:08:27 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7942C10E54B
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:08:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791911297; cv=none; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86B8B10E68E;
+	Tue, 13 Oct 2026 17:08:36 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2A3810E68E
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:08:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1791911305; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=LCDAZshFs9QieBawKJLTiEZ04vnvyc3jjuj6TIj2kXSSccaEYlrXyepR3YL+J+zlJuFymqXBVmduxyJQ7QozZ5W/B7kqMuoHv8f6yaRV4WowKk5qo1QidePDpQ3qCJ7X1lBQVp5bCVZ3mgW1ZkCAGmD7+WNZ8SN9Ww9EG2X4s5I=
+ b=IlcHkblCN52pkgXAAk/K7ekpCb1ZD1YNcc7sGxi7SqHdZUdLNgKC6VmK4/hxwMu7hYD6KhvWw84KIE/UVMJlb/YMQmwDsavxLgHv/PeMCmvZ8pS3K+6SmabAw43dbXwMk6T0YmFZbqpdOGOuwK4mgXC64S9P0ZI90oaEw3fbIAs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791911297;
+ s=zohoarc; t=1791911305;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=dl02gomnqfiM20wyvBMjwA2Z00g8ChZY513BoOmAVuU=; 
- b=P5JLmwvKEIo3HqWJromlvdPMhvOvHVW5qE1c5w29PPGb8t3q6JWzfpUzofKtz3fpmAXJ4GpM+5lo1dku9f798yQCBRNTNPWo1NAaK27sUwTA1IUChO0jSnwQMwKSMrwz0ZnZ0XKoqwAQdMo5LqlISKnExjZmS73xWVKMDmUe+hg=
+ bh=ILpqW1RV3YBzeKcgdsbXRsCeTLIqxgSLLgowM5WUL0k=; 
+ b=hOVszWZeFv5A5YQrhEBef3R8Un4LPknO68IOjEaJVRMVMXbn1weXP0sNfPzLtnGHwR3rw6xxsRc2GTrDU3kcT3BGFWOH6UWWCjm07nQvJuafELzYW6IXgzXpBc0cL/N/ImNcB4tlebDKsCNDMX0Sis19+E/NvfDv8kFJJoiquCg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791911297; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791911305; 
  s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=dl02gomnqfiM20wyvBMjwA2Z00g8ChZY513BoOmAVuU=;
- b=KiapTGFzcW9BMa5iEWRzL4ywGVomeQ2dCpA4fUivCmVeDKn30aV5KJBW/25XNi1G
- mJuBdVZkKoyx5DaqbA33jQoE4TNhUwSbjItC81Hh5T3P6hka743Dqv1KA8koG7csbHi
- djZv5th67bTQuW6WcTDLW2ktFf4miBL/FM+xcJ2k=
-Received: by smtp.zohomail.com with SMTPS id 1791911295666526.175192816721;
- Tue, 13 Oct 2026 10:08:15 -0700 (PDT)
+ bh=ILpqW1RV3YBzeKcgdsbXRsCeTLIqxgSLLgowM5WUL0k=;
+ b=KH+sEfDc80nVOoRf8Iul1ahPF2tKoZcdCGCza5NTgWQZT9MwU6RzYh8YbHVB3QKr
+ npdCrKHtZB9h48f7BmOni27NYJ5hw3K473XVFsW/d/atAiRpE7fP6iY1m0SAluPSDAC
+ F6zPxQ9shreDhF6vTAe8Ywq7qKZooDxKXc4lsKSs=
+Received: by smtp.zohomail.com with SMTPS id 1791911303174895.2350669489024;
+ Tue, 13 Oct 2026 10:08:23 -0700 (PDT)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Tue, 13 Oct 2026 14:07:40 -0300
-Subject: [PATCH v6 1/7] rust: clk: use 'kernel vertical style' for imports
+Date: Tue, 13 Oct 2026 14:07:41 -0300
+Subject: [PATCH v6 2/7] rust: clk: replace `OptionalClk` with
+ `Clk::get_optional()`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261013-clk-type-state-v6-1-a5e9977b3509@collabora.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-clk-type-state-v6-2-a5e9977b3509@collabora.com>
 References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
 In-Reply-To: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, 
@@ -83,73 +84,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert all imports to use the new import style. This will make it easier
-to land new changes in the future. Drop the `Result` import, which the
-prelude already provides.
+OptionalClk wraps a Clk whose pointer may be NULL and derefs to it.
+There is no struct optional_clk in C. clk_get_optional() returns a
+struct clk pointer that is NULL when the clock has no producer, and the
+clk functions that Clk wraps accept NULL. The type invariant of Clk
+already allows a NULL pointer, so the wrapper is not needed.
 
-No change of functionality implied.
+Add Clk::get_optional() and remove OptionalClk. Convert tyr, its only
+user.
 
-Link: https://docs.kernel.org/rust/coding-guidelines.html#imports
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Onur Özkan <work@onurozkan.dev>
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- rust/kernel/clk.rs | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/tyr/driver.rs | 13 +++---
+ rust/kernel/clk.rs            | 98 +++++++++----------------------------------
+ 2 files changed, 25 insertions(+), 86 deletions(-)
 
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index bfb0ba19caff..c382a26904ee 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -1,10 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0 or MIT
+ 
+ use kernel::{
+-    clk::{
+-        Clk,
+-        OptionalClk, //
+-    },
++    clk::Clk,
+     device::{
+         Bound,
+         Core,
+@@ -117,8 +114,8 @@ fn probe<'bound>(
+         _info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         let core_clk = Clk::get(pdev.as_ref(), Some(c"core"))?;
+-        let stacks_clk = OptionalClk::get(pdev.as_ref(), Some(c"stacks"))?;
+-        let coregroup_clk = OptionalClk::get(pdev.as_ref(), Some(c"coregroup"))?;
++        let stacks_clk = Clk::get_optional(pdev.as_ref(), Some(c"stacks"))?;
++        let coregroup_clk = Clk::get_optional(pdev.as_ref(), Some(c"coregroup"))?;
+ 
+         core_clk.prepare_enable()?;
+         stacks_clk.prepare_enable()?;
+@@ -219,8 +216,8 @@ impl drm::Driver for TyrDrmDriver {
+ 
+ struct Clocks {
+     core: Clk,
+-    stacks: OptionalClk,
+-    coregroup: OptionalClk,
++    stacks: Clk,
++    coregroup: Clk,
+ }
+ 
+ impl Drop for Clocks {
 diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs
-index f04f5c4a03d6..c73fe7c57251 100644
+index c73fe7c57251..1de2484df8cf 100644
 --- a/rust/kernel/clk.rs
 +++ b/rust/kernel/clk.rs
-@@ -96,11 +96,17 @@ mod common_clk {
-     use super::Hertz;
-     use crate::{
-         device::Device,
--        error::{from_err_ptr, to_result, Result},
--        prelude::*,
-+        error::{
-+            from_err_ptr,
-+            to_result, //
-+        },
-+        prelude::*, //
+@@ -103,10 +103,7 @@ mod common_clk {
+         prelude::*, //
      };
  
--    use core::{ops::Deref, ptr};
-+    use core::{
-+        ops::Deref,
-+        ptr, //
-+    };
+-    use core::{
+-        ops::Deref,
+-        ptr, //
+-    };
++    use core::ptr;
  
      /// A reference-counted clock.
      ///
-@@ -119,9 +125,11 @@ mod common_clk {
-     /// The following example demonstrates how to obtain and configure a clock for a device.
-     ///
-     /// ```
--    /// use kernel::clk::{Clk, Hertz};
-+    /// use kernel::clk::{
-+    ///     Clk,
-+    ///     Hertz,
-+    /// };
-     /// use kernel::device::Device;
--    /// use kernel::error::Result;
-     ///
-     /// fn configure_clk(dev: &Device) -> Result {
-     ///     let clk = Clk::get(dev, Some(c"apb_clk"))?;
-@@ -293,9 +301,11 @@ fn drop(&mut self) {
-     /// device. The code functions correctly whether or not the clock is available.
-     ///
-     /// ```
--    /// use kernel::clk::{OptionalClk, Hertz};
-+    /// use kernel::clk::{
-+    ///     Hertz,
-+    ///     OptionalClk,
-+    /// };
-     /// use kernel::device::Device;
--    /// use kernel::error::Result;
-     ///
-     /// fn configure_clk(dev: &Device) -> Result {
-     ///     let clk = OptionalClk::get(dev, Some(c"apb_clk"))?;
+@@ -175,6 +172,25 @@ pub fn get(dev: &Device, name: Option<&CStr>) -> Result<Self> {
+             })?))
+         }
+ 
++        /// Behaves the same as [`Self::get`], except when there is no clock
++        /// producer. In this case, instead of returning [`ENOENT`], it returns
++        /// a dummy [`Clk`].
++        ///
++        /// Equivalent to the kernel's [`clk_get_optional`] API.
++        ///
++        /// [`clk_get_optional`]:
++        /// https://docs.kernel.org/core-api/kernel-api.html#c.clk_get_optional
++        pub fn get_optional(dev: &Device, name: Option<&CStr>) -> Result<Self> {
++            let con_id = name.map_or(ptr::null(), |n| n.as_char_ptr());
++
++            // SAFETY: It is safe to call [`clk_get_optional`] for a valid device pointer.
++            //
++            // INVARIANT: The reference-count is decremented when [`Clk`] goes out of scope.
++            Ok(Self(from_err_ptr(unsafe {
++                bindings::clk_get_optional(dev.as_raw(), con_id)
++            })?))
++        }
++
+         /// Obtain the raw [`struct clk`] pointer.
+         #[inline]
+         pub fn as_raw(&self) -> *mut bindings::clk {
+@@ -280,80 +296,6 @@ fn drop(&mut self) {
+             unsafe { bindings::clk_put(self.as_raw()) };
+         }
+     }
+-
+-    /// A reference-counted optional clock.
+-    ///
+-    /// A lightweight wrapper around an optional [`Clk`]. An [`OptionalClk`] represents a [`Clk`]
+-    /// that a driver can function without but may improve performance or enable additional
+-    /// features when available.
+-    ///
+-    /// # Invariants
+-    ///
+-    /// An [`OptionalClk`] instance encapsulates a [`Clk`] with either a valid [`struct clk`] or
+-    /// `NULL` pointer.
+-    ///
+-    /// Instances of this type are reference-counted. Calling [`OptionalClk::get`] ensures that the
+-    /// allocation remains valid for the lifetime of the [`OptionalClk`].
+-    ///
+-    /// # Examples
+-    ///
+-    /// The following example demonstrates how to obtain and configure an optional clock for a
+-    /// device. The code functions correctly whether or not the clock is available.
+-    ///
+-    /// ```
+-    /// use kernel::clk::{
+-    ///     Hertz,
+-    ///     OptionalClk,
+-    /// };
+-    /// use kernel::device::Device;
+-    ///
+-    /// fn configure_clk(dev: &Device) -> Result {
+-    ///     let clk = OptionalClk::get(dev, Some(c"apb_clk"))?;
+-    ///
+-    ///     clk.prepare_enable()?;
+-    ///
+-    ///     let expected_rate = Hertz::from_ghz(1);
+-    ///
+-    ///     if clk.rate() != expected_rate {
+-    ///         clk.set_rate(expected_rate)?;
+-    ///     }
+-    ///
+-    ///     clk.disable_unprepare();
+-    ///     Ok(())
+-    /// }
+-    /// ```
+-    ///
+-    /// [`struct clk`]: https://docs.kernel.org/driver-api/clk.html
+-    pub struct OptionalClk(Clk);
+-
+-    impl OptionalClk {
+-        /// Gets [`OptionalClk`] corresponding to a [`Device`] and a connection id.
+-        ///
+-        /// Equivalent to the kernel's [`clk_get_optional`] API.
+-        ///
+-        /// [`clk_get_optional`]:
+-        /// https://docs.kernel.org/core-api/kernel-api.html#c.clk_get_optional
+-        pub fn get(dev: &Device, name: Option<&CStr>) -> Result<Self> {
+-            let con_id = name.map_or(ptr::null(), |n| n.as_char_ptr());
+-
+-            // SAFETY: It is safe to call [`clk_get_optional`] for a valid device pointer.
+-            //
+-            // INVARIANT: The reference-count is decremented when [`OptionalClk`] goes out of
+-            // scope.
+-            Ok(Self(Clk(from_err_ptr(unsafe {
+-                bindings::clk_get_optional(dev.as_raw(), con_id)
+-            })?)))
+-        }
+-    }
+-
+-    // Make [`OptionalClk`] behave like [`Clk`].
+-    impl Deref for OptionalClk {
+-        type Target = Clk;
+-
+-        fn deref(&self) -> &Clk {
+-            &self.0
+-        }
+-    }
+ }
+ 
+ #[cfg(CONFIG_COMMON_CLK)]
 
 -- 
 2.56.0
