@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8F71CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0DCFCC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF39E112161;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98BEF11215D;
 	Thu, 15 Oct 2026 07:56:49 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0297810E0D7
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:07:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD86610E929
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:21:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DA7C442D71;
- Tue, 13 Oct 2026 15:07:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17E71F000FF;
- Tue, 13 Oct 2026 15:06:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B349940A49;
+ Tue, 13 Oct 2026 15:21:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C094D1F000FF;
+ Tue, 13 Oct 2026 15:20:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791904043;
- bh=XQQXLmuz/mYy2m0DRCE2BDh2jZAsmGDyji4q3SA7eeo=;
+ s=k20260515; t=1791904882;
+ bh=5upPOtDABwwVpDceVPyuSA83QzDcrZ56JA1+Hc43xbI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=W0CJyDQetBRxIuAkvUzo9XSWPFP2uj49nmF5Ola6oDkax5fLOw4htdgKdsytOaX5D
- fKB/AqLxOYHFOHmAjt8ojXPCgCA78WqENnldOw0as4l4mcCFFYyBHAyH7TsB63TSr8
- 5h6dyJ6dR5KmSY3dMcYRX2XLk+RphbYhT3pyBjr6eNFn4SarroRPDThxbNL29Q3xJ9
- lVXkpNZnmVdJfWIqYlVnErwk2NwZNrj/UnmG0wshn07J1ICxsMnOLpUqb4+uJZr9sn
- MbIqT+7Tz99hZmqryEVpBVBnwG1IqyInMH98GC0PV7qV1CHNet8nfbYk/cY1ufQyBm
- XE6okl5ntOaow==
+ b=AW5Rags63C6td5M6b7VqigkXIDFfXKaHR+C8fTp9LHbiL0+Vw36DizQSNaLH9JI/l
+ LhijdbZAsP4Vjbp3e8O6o4aNg5O7t60HCmhVvL25GBFb/mRiNnI8GLLIDgcKOCqrYX
+ TYxWT0W1SNtr8iRRruzTFFlQuX7r+5+Y1fmtuvvOHPtrKVNc5Uj/y2uGreaaaYtn0J
+ TfjB7jrnK0bigDG0bYZG0JiWnB8WKgkjMNbRjgaKXW8dRuNsTKriIkLJyX7gEbgeqh
+ //ChXeuNvMX3v1EwgHfQF6ubT1qWJRaCCBcKiln1bt9u0LrQA4UUd9w8/gXboPSQgl
+ wwu6fHTQismhA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:42 +0100
-Subject: [PATCH v6 02/39] mm/vma: introduce and use vma_[flags_]can_merge()
+Date: Tue, 13 Oct 2026 16:05:09 +0100
+Subject: [PATCH v6 29/39] mm: drop some redundant checks around hugetlb
+ VMAs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-2-1aa3c9b139f9@kernel.org>
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-29-1aa3c9b139f9@kernel.org>
 References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -118,12 +119,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3865; i=ljs@kernel.org;
- h=from:subject:message-id; bh=EYqw+AtDKpEde3pCckMQkm9HGGlkplYL0cvv0S5EwV8=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeRxvNhVoP3Z94qSsOTNyr06esJ1D4lZRjFPX1NurP
- rp0qphs7ShlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBELr9k+Cu0JUL1uEbhkaO7
- YgPmbmHhObXOcNvNOTEZ3NJSb6u+PbvIyLDkrPhkFo5anxrGB92nAo5K7TKVOrbk3qT7yqYyfLZ
- qHzgA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2822; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=ULLCLMudbM+nA5DIlUO12EUl7FbXJrpgl/45EV2ltd8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZz2u3rtJtORho/pMxS3nrRQcKoUVdwombjMQ3Sx2
+ OZA2bt1HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhI2FRGhjUhF9V7RU/KZi/8
+ df7ZrFTZJo2FMgJ2GfvEJuiHOgefl2Fk2Lpv2f5D14OmsuQKmSinfahx2HXq7sdlNxcuPMK87u2
+ EU/wA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
@@ -142,115 +143,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the open-coded VMA_SPECIAL_FLAGS check in the VMA merge logic with
-two new functions vma_flags_can_merge() and vma_can_merge() and update the
-merge logic to use the former.
+Adjust code which inadvertently perform redundant checks on hugetlb VMAs
+and clean them up:
 
-This abstracts the check and expresses it in terms of the desired behaviour
-rather than an arbitrary and confusing VMA flag.
+* hugetlb VMAs have VMA_DONTEXPAND_BIT set so a VMA_SPECIAL_FLAGS check
+  suffices. (migrate_vma_setup() regains an explicit hugetlb test later in
+  the series, once VMA_SPECIAL_FLAGS is removed.)
 
-This also lays the groundwork for making further improvements in VMA flag
-usage.
+* hugetlb VMAs unconditionally set vma->vm_ops, so they are never
+  anonymous.
 
-Also update the userland VMA tests to reflect the change.
+* hugetlb VMAs do not set VMA_PFNMAP_BIT so checking for this is redundant.
+
+While we're here also drop a VM_BUG_ON() which the simplified check above
+makes unreachable, and use the new VMA flag API.
 
 No functional change intended.
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Marc Zyngier <maz@kernel.org>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mm.h              | 21 +++++++++++++++++++++
- mm/vma.c                        | 19 +++++++++++--------
- tools/testing/vma/include/dup.h |  5 +++++
- 3 files changed, 37 insertions(+), 8 deletions(-)
+ arch/arm64/kvm/mmu.c         | 4 +---
+ drivers/gpu/drm/drm_gpusvm.c | 3 +--
+ mm/migrate_device.c          | 4 ++--
+ 3 files changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 969594074fd2..68250ece4219 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1612,6 +1612,27 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
- 	return is_shared_maywrite(&vma->flags);
- }
- 
-+/**
-+ * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
-+ * merged with another?
-+ * @flags: The VMA flags to test.
-+ * Returns: true if the flags permit merging, false otherwise.
-+ */
-+static inline bool vma_flags_can_merge(const vma_flags_t *flags)
-+{
-+	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
-+}
-+
-+/**
-+ * vma_can_merge() - Do @vma's flags permit it to be merged with another VMA?
-+ * @vma: The VMA to test.
-+ * Returns: true if the flags permit merging, otherwise false.
-+ */
-+static inline bool vma_can_merge(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_can_merge(&vma->flags);
-+}
-+
- /**
-  * vma_kernel_pagesize - Default page size granularity for this VMA.
-  * @vma: The user mapping.
-diff --git a/mm/vma.c b/mm/vma.c
-index c27aea6d58d9..8f8c554d5c07 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -924,13 +924,14 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
- 
- 	vmg->state = VMA_MERGE_NOMERGE;
- 
-+	if (!vma_flags_can_merge(&vmg->vma_flags))
-+		return NULL;
- 	/*
--	 * If a special mapping or if the range being modified is neither at the
--	 * furthermost left or right side of the VMA, then we have no chance of
--	 * merging and should abort.
-+	 * If the range being modified is neither at the furthermost left or
-+	 * right side of the VMA, then we have no chance of merging and should
-+	 * abort.
- 	 */
--	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
--	    (!left_side && !right_side))
-+	if (!left_side && !right_side)
- 		return NULL;
- 
- 	if (left_side)
-@@ -1152,9 +1153,11 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
- 
- 	vmg->state = VMA_MERGE_NOMERGE;
- 
--	/* Special VMAs are unmergeable, also if no prev/next. */
--	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
--	    (!prev && !next))
-+	if (!vma_flags_can_merge(&vmg->vma_flags))
-+		return NULL;
-+
-+	/* VMAs with no prev/next are unmergeable. */
-+	if (!prev && !next)
- 		return NULL;
- 
- 	can_merge_left = can_vma_merge_left(vmg);
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 16c09dac59d9..2fd422789717 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1647,3 +1647,8 @@ static inline bool file_is_dev_zero(const struct file *file)
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index a7968f8d24bf..3c1240ffc38d 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1463,14 +1463,12 @@ static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
  {
- 	return file && file->f_op == &zero_fops;
- }
-+
-+static inline bool vma_flags_can_merge(const vma_flags_t *flags)
-+{
-+	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
-+}
+ 	unsigned long pa;
+ 
+-	if (vma_is_hugetlb(vma) && !(vma->vm_flags & VM_PFNMAP))
++	if (vma_is_hugetlb(vma))
+ 		return huge_page_shift(hstate_vma(vma));
+ 
+ 	if (!(vma->vm_flags & VM_PFNMAP))
+ 		return PAGE_SHIFT;
+ 
+-	VM_BUG_ON(vma_is_hugetlb(vma));
+-
+ 	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+ 
+ #ifndef __PAGETABLE_PMD_FOLDED
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index a1d4989b0b61..fab34fea99c2 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1141,8 +1141,7 @@ drm_gpusvm_range_find_or_insert(struct drm_gpusvm *gpusvm,
+ 	 * limitations. If/when migrate_vma_* add more support, this logic will
+ 	 * have to change.
+ 	 */
+-	migrate_devmem = ctx->devmem_possible &&
+-		vma_is_anonymous(vas) && !vma_is_hugetlb(vas);
++	migrate_devmem = ctx->devmem_possible && vma_is_anonymous(vas);
+ 
+ 	chunk_size = drm_gpusvm_range_chunk_size(gpusvm, notifier, vas,
+ 						 fault_addr, gpuva_start,
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index c38cbaaef5a4..b9c453c28795 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -743,8 +743,8 @@ int migrate_vma_setup(struct migrate_vma *args)
+ 
+ 	args->start &= PAGE_MASK;
+ 	args->end &= PAGE_MASK;
+-	if (!args->vma || vma_is_hugetlb(args->vma) ||
+-	    (args->vma->vm_flags & VM_SPECIAL) || vma_is_dax(args->vma))
++	if (!args->vma || vma_test_any_mask(args->vma, VMA_SPECIAL_FLAGS) ||
++	    vma_is_dax(args->vma))
+ 		return -EINVAL;
+ 	if (nr_pages <= 0)
+ 		return -EINVAL;
 
 -- 
 2.55.0
