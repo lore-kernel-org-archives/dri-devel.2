@@ -4,58 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B70CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBEA1CC6B10
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6578A10F5CA;
-	Tue, 13 Oct 2026 07:53:49 +0000 (UTC)
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
- by gabe.freedesktop.org (Postfix) with ESMTP id 97F1B10E00C;
- Tue, 13 Oct 2026 00:21:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0762C10F5C1;
+	Tue, 13 Oct 2026 07:53:50 +0000 (UTC)
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
+ [74.125.224.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 546C910E714
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:35:50 +0000 (UTC)
+Received: by mail-yx1-f47.google.com with SMTP id
+ 956f58d0204a3-677bf06de21so1742636d50.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-ID:MIME-Version:Content-Transfer-Encoding; bh=7qFgjGaUkR
- ZudxR5rXzD5LEzR7NVO8WD+Q8LXfOl/7s=; b=YO+fu6rPfZTLYYRcKKFSy1ZxkM
- 1rXIIrcdbEZr+6EVVa6VHGOG32qXeeBu+YlvoWEu4dXGdhV2ygvLeijTTJy/IFdy
- MFnDxo4jQwVXLASBVT6hQDXGMe4EiyuHZYIQa6quW4Jwc+i7lHY1j0XImunzF4J9
- fxEW4chx5a/6UN+Ko=
-Received: from 5700g-x8664.ustc.edu.cn (unknown [114.214.192.228])
- by mailimap2024 (Coremail) with SMTP id 3pYKCgCHbBOEec1qS7HcAQ--.928S2;
- Tue, 13 Oct 2026 08:21:24 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: dri-devel@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
-Subject: [PATCH] drm/msm/dpu: add the missing GC block to the SM8750 DSPP
- catalog
-Date: Tue, 13 Oct 2026 08:21:23 +0800
-Message-ID: <20261013002124.332074-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
+ d=gmail.com; s=20251104; t=1791866149; x=1792470949; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=uZmMXlQEPn/Zuz4J8J6iJ6oFHFWuuc9FMm2/aQX315E=;
+ b=dwYCdnd57ulMoCT2jJ8O481d/6WHB0y9arLqel8/wjvhN7dUlCCEe/F7oqxNriScX6
+ gzRj69uX+x9v0YslNWobWPtkDxcH9jBDY6Akf6vxDB7tuTHQ/MCWIkJGr2HwVTbK5Z81
+ MDS2P7hUS+xqp/q9tIl2sMFVAL1ER0lCHa+ncCZGOWLpJPnv6tXmmYPrWnYM8nXjaRA/
+ 3Ukz1Zv2gRjxjy4Xv8krQEiFQhtYedvK0giNBONpgbXUza5TjNHVlvqTSPdd8KSVeqnn
+ XkPaX9M/YaOWd6EfqaQ/n/b/pJCXkvOC+m+C5KQH7aOStNdD9swhq/QWagDcRT+ixqWk
+ T/OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791866149; x=1792470949;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=uZmMXlQEPn/Zuz4J8J6iJ6oFHFWuuc9FMm2/aQX315E=;
+ b=00s9DJWgoWTkN1ijjRFVPr3hKFUvw60wkODqODU9IruXfbcdoLrZzPtdjle7jvWeXK
+ U9WAJOGW72lFNX+2x/i2w4RuISb7ZTiluDdDXFMD6QNIgMr8nGUOazr+WuLRGQPJDZBO
+ oBTwrZ7eiuXhiMdFeiXdVTNLQymGniTDlqBX1W5T7HlXT2JIEl2HkOn/1K4ByJQBb2Wz
+ oOBZaHAsJl4DFuyKRIWIBMTHd8B+pDbXQyySQHsVtYfpt23CfkE/IkgJgS2p8TKUeZ/t
+ vMaI42wAu/Nzu37LEcdnpbgES42S1MMAs7csjl+ppqNmwrLvEIexVTng+b0j+6TfoZ8j
+ HfTQ==
+X-Gm-Message-State: AFq9FYL045yg4SStPIi0gaShGPTnH4kprT6No/l4wt45HMnoTFJSfdNr
+ si5uWaLP8b3UYxfJwj+ou2+tcQk8yvblPepeqeH8hU4AMeWJUtFSdGRO
+X-Gm-Gg: AYBFou3npLbIN/PPuBAf+OI5pxCMn+Vo6TEWfAeeIkU5ZPfZYIpFwgrRscL2B/HwPha
+ fJC1NYdoO7xuk+8CXKt0XXEGvr7FA8cDvpV5cKhSm05bKM7q64T0cKjccmDOfvNemJv+e/MW6IM
+ FlnGc0WTAJRE0X4Hzs5wdiutvd1vv1FYKiF4FPti1xJjpt+xIzg8XpKdrtDmnGZOVLHs8XMS+xZ
+ r5KBSNMZBa8gbk2bseYQx0t8GlwKIchFHBWoJTJFujzJ2GcX47KhNxHWWFPWjMcWJf8Z+CFgW4k
+ 9nTbOVw0NSsdiPlCmFNCpkIuVOT0uPwmNCX1fUzFP1nHUytaHlkoPtbE0LSX++Vht5ZAX810lxf
+ ETSuK507uuCpKkf5jtjCs0bheVdUlx/WdpLIlbiRK/5eClEQFp3NENOLu87n3sEShNqL2BlMyE4
+ e/bIX5b0kyqQYllejyxmwIv70MBSZxu+jA57uq+ZdBsjwV0NLpP51AAUQCRbOhsHMkAfdjg+Pem
+ 4GiG4s5TlrqvQ==
+X-Received: by 2002:a05:690e:d59:b0:674:a21e:bd20 with SMTP id
+ 956f58d0204a3-67936267934mr2403854d50.78.1791866149013; 
+ Mon, 12 Oct 2026 21:35:49 -0700 (PDT)
+Received: from [192.168.1.71] ([2600:1702:56e9:4b40:e3a9:78c5:641e:a58c])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-67935606f5esm4448152d50.4.2026.10.12.21.35.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 21:35:47 -0700 (PDT)
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+Subject: [PATCH 0/4] drm/panel: Convert four panel drivers to
+ mipi_dsi_*_multi()
+Date: Mon, 12 Oct 2026 23:34:35 -0500
+Message-Id: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: 3pYKCgCHbBOEec1qS7HcAQ--.928S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1ftry8WF15GrykXF18Zrb_yoW8AF43pF
- 17AFy5AFyDJa1SvFn7Cr1Dua13CF4vqrWxKr1qk3sIvr1Iyw1IyFZ8Aa9xCryDJry2yr1a
- qFsFkry3XF18XwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
- 1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
- 7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
- 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
- 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
- IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
- MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
- W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
- 6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
- BIdaVFxhVjvjDU0xZFpf9x0JUL0edUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARETB2rNcIkC0AALsD
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0ND3dzMgkzd3NKckkxdiFZds2RLi6TUZINkc9NUJaC+gqLUtMwKsJn
+ RsbW1ANERJ+RjAAAA
+X-Change-ID: 20261011-mipi-multi-series-6c98bec0c75e
+To: Doug Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Akash Sukhavasi <akash.sukhavasi@gmail.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Chris Morgan <macromorgan@hotmail.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,46 +96,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+This series converts deprecated mipi_dsi_dcs_*() calls to their
+_multi() equivalents in four panel drivers: leadtek-ltk500hd1829,
+kingdisplay-kd097d04, innolux-p079zca, and newvision-nv3051d. The
+first two drivers also convert mipi_dsi_generic_write().
 
-SM8750's DSPP sub-block description only lists PCC, but the hardware (and
-the SM8650/SDM845 catalogs) also expose the gamma-correction block at
-0x17c0.
+In patches 2-4, unprepare() previously returned early when
+enter_sleep_mode() failed, skipping GPIO and regulator teardown.
+Because drm_panel_unprepare() leaves panel->prepared set when the
+callback returns an error, the panel could not be prepared again.
+These patches remove the early return, so GPIO and regulator
+teardown always runs, and have unprepare() always return 0, so
+drm_panel_unprepare() clears panel->prepared. Patches 2 and 3
+likewise stop returning regulator disable errors from unprepare().
 
-dpu_crtc_create() only calls drm_crtc_enable_color_mgmt() when
-dspp->sblk->gc.base is non-zero, so on SM8750 boards no CRTC advertised
-GAMMA_LUT and userspace could not do night light/color temperature
-adjustment, even though the hardware supports it.
+In patches 1, 3, and 4, the original code treated a set_display_off()
+failure as non-fatal and still attempted enter_sleep_mode(). These
+patches clear accum_err after set_display_off_multi() to keep that
+behaviour.
 
-Add the GC block to sm8750_dspp_sblk, matching the offset/version used by
-the other DSPP catalogs.
+All four patches are compile tested only. checkpatch and a W=1 build
+are clean. Tested-by tags would be very welcome.
 
-Tested on Lenovo Legion Y700 Gen4 (TB322FC, SM8750P): GAMMA_LUT appears as
-a CRTC property and changing it visibly shifts the color temperature.
+While converting nv3051d, I noticed that panel_nv3051d_init_sequence()
+always returns 0, so init sequence errors never reach prepare(). This
+series leaves that unchanged, and I plan to send a separate fix.
 
-Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Akash Sukhavasi (4):
+      drm/panel: leadtek-ltk500hd1829: Use mipi_dsi_*_multi()
+      drm/panel: kingdisplay-kd097d04: Use mipi_dsi_*_multi(); fix minor bugs
+      drm/panel: innolux-p079zca: Use mipi_dsi_*_multi(); fix minor bugs
+      drm/panel: newvision-nv3051d: Use mipi_dsi_*_multi(); fix minor bugs
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 9a993cdfab..11dc08e4a4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -428,6 +428,13 @@ static const struct dpu_dspp_sub_blks sdm845_dspp_sblk = {
- static const struct dpu_dspp_sub_blks sm8750_dspp_sblk = {
- 	.pcc = {.name = "pcc", .base = 0x1700,
- 		.len = 0x90, .version = 0x60000},
-+	/*
-+	 * SM8750 has the same GC block as SM8650/SDM845.  Without it
-+	 * dpu_crtc.c does not call drm_crtc_enable_color_mgmt(), so no
-+	 * CRTC exposes GAMMA_LUT (night light/color temperature).
-+	 */
-+	.gc = {.name = "gc", .base = 0x17c0,
-+		.len = 0x40, .version = 0x10008},
- };
- 
- /*************************************************************
+ drivers/gpu/drm/panel/panel-innolux-p079zca.c      | 43 +++++++-----------
+ drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c | 53 ++++++++--------------
+ drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c | 40 ++++++----------
+ drivers/gpu/drm/panel/panel-newvision-nv3051d.c    | 36 ++++++---------
+ 4 files changed, 61 insertions(+), 111 deletions(-)
+---
+base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
+change-id: 20261011-mipi-multi-series-6c98bec0c75e
+
+Best regards,
 -- 
-2.53.0
+Akash Sukhavasi <akash.sukhavasi@gmail.com>
 
