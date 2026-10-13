@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35EDBCC6B08
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 02:37:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CE47CC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 02:37:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D53F210F45A;
-	Tue, 13 Oct 2026 02:37:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4C1F10F455;
+	Tue, 13 Oct 2026 02:37:18 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3A1210E717
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:36:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A83710E70A
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:36:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 274BB448DE;
- Tue, 13 Oct 2026 02:36:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 02E4FC2BD04;
- Tue, 13 Oct 2026 02:36:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CAEAC447DD;
+ Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A8E4CC2BD05;
+ Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1791859001;
- bh=DGJL1z64q5OpfI49SgGzWAOsK/0AzCAccuYpsC3tGj0=;
+ s=k20201202; t=1791858998;
+ bh=3S5NgncGfB7sNfDWfROoI22dCDAFFPjTX/lo/at1SX0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=sEb0eHHTOMU92Bb6Km2urpuMwjlx52j3SxcrntK0iNTRRt5f2qwczrjBrPXNxBLeS
- i32o8fcyAcDwqTfuLX7Hp18CtOf8BNWJbRTK8UU8Ifl7OvycNURQh7xcPSsUoPZYH9
- yJF9yzIETCz+n15A1J3oe6IERJ/wRaVJDMGi7RGJMDA7uQeCzMFCuHiScZptK6vJ/X
- 4mfz7kYNsdLXR9PSwLRhVhqp2Cvc1USOy6TD7QIRo4+8IvQBqnemgkCagIStk7Z3Bx
- RoDbpTKL9bSBDpMN0U+uoAewHSaM2B85WSYyFc06OijdxamSnUKnpkX9r11VtZ3GUB
- 6vKGGwTpetvwg==
+ b=O2nBr9MvvSSB1EB2oi1a+oaACxqB9MZjsJrFuMvtJfZnfGcBGh/SDdL8FhfY+Uk3R
+ I0YHJ++9U43Lf46qjf+9OWn3N/lM+mJKfhfRtR9iBrSk9OUqrRRWqo9tKyvm5xgeE3
+ mhI6qTxyhV67iTauuNeHAKR0AY0YXOwECBdWd6LOQSGs0qhI6NF770Mp+y3azCFIaV
+ EbzOWGnxO1Gl6lvcD8MparD/EcLvoVIV7StHK+xlOC8+oeAzTSllTDZ6Atu7/DKmeQ
+ 2rI1mstEMFI/K4rrIbqyoG/mb/yFE7omk60SloVL717VyMiXGI0fGkjQf5kopWp2pB
+ gpfLbzV4Tv4Qg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E41ECCC6B08;
- Tue, 13 Oct 2026 02:36:40 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 96116CC6B01;
+ Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Mon, 12 Oct 2026 20:37:08 -0600
-Subject: [PATCH v12 37/40] dyndbg: add DEBUG-biased fallback stubs for
- _dynamic_func_call_cls
+Date: Mon, 12 Oct 2026 20:36:43 -0600
+Subject: [PATCH v12 12/40] dyndbg: bump num-tokens in a query-cmd from 9 to 15
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-dd-cmap-part2-clean-v12-37-3c8cc5725def@gmail.com>
+Message-Id: <20261012-dd-cmap-part2-clean-v12-12-3c8cc5725def@gmail.com>
 References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
 In-Reply-To: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -64,13 +63,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>, kernel test robot <lkp@intel.com>
+ Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=2698;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=3086;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=gK9H6qdXFhLum5gK1CZ/NZb16/SKE4lxiU0/dKCwx/0=;
- b=JyeKj4+SPXFdpil8mY+g6SJ7WxquulAAIujPjFK/OUnIn1GWlCR/fhfP1nHqgGGp7OP8gtGaz
- 3uxQHSU+leMAPU+pnkMBFihTy9r0dUXZnGLS61evwcunHg42SMaNcC4
+ bh=2qWyi6+YSKFFZjxBlAqzRhGNiwVTqFgEdchNvFaIvH0=;
+ b=XYTRrM+tZRfQZKJpa58fm0crxCszrz4MUeP11sSmCj5wE6AfzDJvwVPY7diCxnjscvdXyFaxv
+ M/lL81f1u04DjGyOuzaC7mvA7PH9bC5ZrElQyTUVDKE7QaOMK+g/7U9
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -94,63 +93,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-When the dynamic debug core is enabled (CONFIG_DYNAMIC_DEBUG_CORE=y) but
-the global CONFIG_DYNAMIC_DEBUG is disabled, subsystems can opt-in to
-dynamic debug by defining DYNAMIC_DEBUG_MODULE.
+Current MAXWORDS in ddebug_exec_query() is too small to accept a legal
+query-command using all 6 keywords.  We *need* 13, but this adds a few
+extra to allow certain errors to fail on subsequent, more meaningful
+grammar checks.
 
-However, for built-in code (like DRM core) where DYNAMIC_DEBUG_MODULE
-is not defined, the macros fall back to the disabled #else block in
-include/linux/dynamic_debug.h.
-
-In this block, the family of _dynamic_func_call_cls macros were
-completely undefined. This caused build failures (implicit declarations)
-in subsystems (like DRM) that attempt to use these macros to wrap their
-own debug functions even when dynamic debug is disabled.
-
-Add stub definitions that mirror the enabled behavior and respect the
-DEBUG macro, similar to pr_debug. If DEBUG is defined, they inject NULL
-as the first argument (to satisfy the expected descriptor pointer) and
-pass the arguments through, allowing the wrapped function's own slow-path
-fallback logic to execute. If DEBUG is not defined, they use an if (0)
-statement-expression to compile out the call while returning 0, achieving
-zero overhead while maintaining compile-time argument checking.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202605201408.x1sHT6fx-lkp@intel.com/
-Assisted-by: Gemini-CLI:gemini-2.5-pro
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ lib/dynamic_debug.c                                      |  2 +-
+ tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh | 12 ++++++------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index d228b4a852c3..2bd464f1081d 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -535,6 +535,23 @@ void ddebug_increment_call_count(void);
- #define DYNAMIC_DEBUG_BRANCH(descriptor) false
- #define DECLARE_DYNDBG_CLASSMAP(...)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index a39144fd7c8c..a0723343e2a7 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -558,7 +558,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ {
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+-#define MAXWORDS 9
++#define MAXWORDS 15
+ 	int nwords, nfound;
+ 	char *words[MAXWORDS];
  
-+#if defined(DEBUG)
-+#define _dynamic_func_call_cls(cls, fmt, func, ...)		\
-+	do { func(NULL, ##__VA_ARGS__); } while (0)
-+#define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)	\
-+	do { func(__VA_ARGS__); } while (0)
-+#else
-+#define _dynamic_func_call_cls(cls, fmt, func, ...)		\
-+	do { if (0) func(NULL, ##__VA_ARGS__); } while (0)
-+#define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)	\
-+	do { if (0) func(__VA_ARGS__); } while (0)
-+#endif
-+
-+#define _dynamic_func_call(fmt, func, ...)			\
-+	_dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-+#define _dynamic_func_call_no_desc(fmt, func, ...)		\
-+	_dynamic_func_call_cls_no_desc(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-+
- #define dynamic_pr_debug(fmt, ...)					\
- 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
- #define dynamic_dev_dbg(dev, fmt, ...)					\
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index c1475c755542..5e52d957e2fd 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -320,8 +320,8 @@ function GOLDEN_RECORDS {
+ #K= b9a397e807148d13ba07da7db7e69817 FT_grammar_errs.2
+ #K= 5abefa504937a329f974504f1896e368 FT_grammar_errs.3
+ #K= 1d94d0f239bf40bf51280caeab499de0 FT_grammar_errs.4
+-#K= 135035c8a17ae100cc4ec954c4d75b2f FT_grammar_errs.5
+-#K= a9cc14244f91a12d3174ad1314144a8e FT_grammar_errs.6
++#K= 9a5e1c1856f1ebbe57a4afdfc4c9703a FT_grammar_errs.5
++#K= b3809a6f9f643f049f1ef30827d4b001 FT_grammar_errs.6
+ #K= 5d400aad1a7d71f548b6b81274d00a55 FT_grammar_errs.7
+ #K= 61cd359b10f9051862d3745eda07a295 FT_grammar_errs.8
+ #K= 567379f4f4d099f00f37d1469d9370bd FT_grammar_errs.9
+@@ -340,8 +340,8 @@ function GOLDEN_RECORDS {
+ #K= 1f6fedfe222af475211b3bfc6d08bc63 FT_grammar_errs.22
+ #K= c67dfeca97697b707acdd70672816dff FT_grammar_errs.23
+ #K= 9574dbfdac063409b41a44e6251fbcd9 FT_grammar_errs.24
+-#K= 644b81753949ac1285e38ac995eeba46 FT_grammar_errs.25
+-#K= 1bf2a93a39961f40e0c2dd4c5e2edc6d FT_grammar_errs.26
++#K= 3c694a0ee2cf3a1d39f2ca8a9f3b9094 FT_grammar_errs.25
++#K= c23be05426c8727be833ff055944aa96 FT_grammar_errs.26
+ #K= cdddf4ffd7fde3c12eb0c73770b872bf FT_grammar_errs.27
+ #K= cdf7a2e2740ec007efbd29feda478420 FT_grammar_errs.28
+ #K= f6650d69963cef433c50e1f2acb899fc FT_grammar_errs.29
+@@ -360,8 +360,8 @@ function GOLDEN_RECORDS {
+ #K= 1a402ada248d0d50cec13a1af150ea33 FT_grammar_errs.42
+ #K= 5b46a8eb0d74009462f74cf7553e3228 FT_grammar_errs.43
+ #K= 546e440044828d86135dd63f1eb9ed17 FT_grammar_errs.44
+-#K= 644b81753949ac1285e38ac995eeba46 FT_grammar_errs.45
+-#K= 1bf2a93a39961f40e0c2dd4c5e2edc6d FT_grammar_errs.46
++#K= 3c694a0ee2cf3a1d39f2ca8a9f3b9094 FT_grammar_errs.45
++#K= 37b7ab754e579683a28ce086c470cdc9 FT_grammar_errs.46
+ #K= 3e3acfb800cfb1bcb0cc07f33b75830a FT_grammar_errs.47
+ #K= 42dc6cb4fe938bb82b64c82924ef28d8 FT_grammar_errs.48
+ #K= cf9320d2188f5b48d508d610d95298b2 FT_grammar_errs.49
 
 -- 
 2.56.0
