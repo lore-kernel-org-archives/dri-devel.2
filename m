@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BA25CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:56:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12BCDCC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:56:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8C8D10E7A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D569D10EB80;
 	Thu, 15 Oct 2026 07:56:37 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B60DE10E0D7
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:09:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8827410E0C6
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:13:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0393E60A5A;
- Tue, 13 Oct 2026 15:09:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 699EF1F00893;
- Tue, 13 Oct 2026 15:09:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4C0664198A;
+ Tue, 13 Oct 2026 15:13:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7581F00893;
+ Tue, 13 Oct 2026 15:12:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791904196;
- bh=pqjij0GQHv0uGr5m3MLqkx9Z/Edu8SdGUtOw7ak7aEU=;
+ s=k20260515; t=1791904381;
+ bh=GMtIN+4F9Qb+gUfI9aB/QG5XlGE+8TEC3chxVq3fBvM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=QaMMPvoBkRQFAMn/jOf8exJm85hwBU5pSElCP/Er+C40M6N+nEcPRKHuZe7qiGCoi
- FMiKMiqdGgyIWPe3gPJwJ7y+l+nzSPqsSYMIwYHywtyX4x/hEzxvxSoUiwP48W61S8
- /K1Q3HENunFrDm14o2cQDUwlnzKVqNoVxn0iE61EgkEUdMRY8R4+LWEJEa7vrkBQLZ
- EbUqY952L3/osbrWlw36bO6EczAH1Xviw7prpI9EIF5yss6+RXyVBcjYshcFZ5laN3
- Y8ILMCLkC9O0UPqru/KG6ii8DhSkgmlKBPfMEJvkp7fNYJ5kVy278xiAGZTGWPlERj
- 5Jcp8ZDSHQVUA==
+ b=ixcsJGDv2gXgIS4jGBI7EAE4DlkrwlHt1eLiJ8ovFfYoa22s7vr2T9kSCoCv1qRmf
+ q2qeZ/wXO3QSzD70TNeJBCNbUC65BF2IbQ0jqJ2xw/4bNhW2xT7Ukokz5cjfRWQQBF
+ ahhuyGrMne9PTkLZYKUSEc2XZCt6S9Aw5tw0X1hvj0gqloiiqNcRNUbKxk4pQuJusx
+ hw4oi+etGB9cMNxuy1wKs5uBu41NeNQyCLp8UIzPzR0uapTC9giu+yld870QQnFUL3
+ U3wJlvLQqwI7VWVD+b9OxalSEZy8StvliGgPnRTT5iB9tauY0KoMXbDnMh9LOK1EXQ
+ zfBE1M6H6iRdQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:47 +0100
-Subject: [PATCH v6 07/39] mm: assert mmap lock held, use new flags API in
- vm_insert_page[s]
+Date: Tue, 13 Oct 2026 16:04:53 +0100
+Subject: [PATCH v6 13/39] ALSA: pcm: use vm_insert_page() to map PCM status
+ page
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-7-1aa3c9b139f9@kernel.org>
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-13-1aa3c9b139f9@kernel.org>
 References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -117,14 +117,15 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Takashi Iwai <tiwai@suse.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1941; i=ljs@kernel.org;
- h=from:subject:message-id; bh=TbqTPYaAeeKYfJzERyfDmnse82FvI3oUPXbYIaX+sow=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZxgd3q2ZYbv9L0VRdKmsr5XjkcJfTodf1Xzyqz5T
- aVJd/++6yhlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEmmwY/hdv2LP/+bo1Rb0a
- Z7aZGO1/1b9r9sE6WSsflZSsF/vCrhQw/Pcxmb1B2vSNUxRXUMPJeh3lDYGrouy+/4x6+uiN8Tf
- ttdwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2824; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=9ugH4FT9/gtznAktS44gGpUEq4pOXZMJ2VeeFOF3Z44=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZzUYFE18/JTq3IT5lgYd0l6kcipCwzfdp0PUWX8u
+ ej+SaXEjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAExkkS0jw9GNStN2+eculLc4
+ J/Uy7cK+1C0e1Zdc84TqdrLdtT0wcxbDP6s1izVucIj7pt3InPRBrZQ9MmzjUs/o4JtMN1KN5nA
+ 5cAAA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
@@ -143,56 +144,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The existing logic asserts that an mmap write lock is held, bizarrely, by
-asserting that an mmap_read_trylock() fails (which is not the same thing).
+There's no need to keep a fault handler around for this, instead map on
+mmap.
 
-Assert the mmap write lock here and switch to using the new VMA flags API
-while here.
+While we're here, rename area to vma to be consistent.
 
-Note that the vma_start_write() is explicitly broken out from
-vm_flags_set() here in order to use vma_set_flags() safely.
+This correctly makes the mapping a mixed map mapping.
 
+This works towards establishing the invariant that only PFN mapped or mixed
+map mappings may clear the VM_MAYWRITE flag. The status page mapping clears
+VM_MAYWRITE, so it must not be mm-managed; the control page mapping remains
+writable and is left fault-based.
+
+The assumption is made that the struct pcm_mmap_status structure is at most
+a page in size, which is asserted as a build bug.
+
+This is safe to assume, as the size of the structure is 56 bytes at most.
+
+Acked-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/memory.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ sound/core/pcm_native.c | 38 +++++++++++++-------------------------
+ 1 file changed, 13 insertions(+), 25 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 448342883e9d..a35cca09eb71 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2599,10 +2599,11 @@ int vm_insert_pages(struct vm_area_struct *vma, unsigned long addr,
- 
- 	if (!range_in_vma(vma, addr, end))
- 		return -EFAULT;
--	if (!(vma->vm_flags & VM_MIXEDMAP)) {
--		VM_WARN_ON_ONCE(mmap_read_trylock(vma->vm_mm));
--		VM_WARN_ON_ONCE(vma->vm_flags & VM_PFNMAP);
--		vm_flags_set(vma, VM_MIXEDMAP);
-+	if (!vma_test(vma, VMA_MIXEDMAP_BIT)) {
-+		mmap_assert_write_locked(vma->vm_mm);
-+		VM_WARN_ON_ONCE(vma_test(vma, VMA_PFNMAP_BIT));
-+		vma_start_write(vma);
-+		vma_set_flags(vma, VMA_MIXEDMAP_BIT);
- 	}
- 	/* Defer page refcount checking till we're about to map that page. */
- 	return insert_pages(vma, addr, pages, num, vma->vm_page_prot);
-@@ -2675,10 +2676,11 @@ int vm_insert_page(struct vm_area_struct *vma, unsigned long addr,
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 62324282fcae..c98fb3df14f3 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -3760,39 +3760,27 @@ static __poll_t snd_pcm_poll(struct file *file, poll_table *wait)
+ /*
+  * mmap status record
+  */
+-static vm_fault_t snd_pcm_mmap_status_fault(struct vm_fault *vmf)
++static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, struct file *file,
++			       struct vm_area_struct *vma)
  {
- 	if (addr < vma->vm_start || addr >= vma->vm_end)
- 		return -EFAULT;
--	if (!(vma->vm_flags & VM_MIXEDMAP)) {
--		BUG_ON(mmap_read_trylock(vma->vm_mm));
--		BUG_ON(vma->vm_flags & VM_PFNMAP);
--		vm_flags_set(vma, VM_MIXEDMAP);
-+	if (!vma_test(vma, VMA_MIXEDMAP_BIT)) {
-+		mmap_assert_write_locked(vma->vm_mm);
-+		VM_WARN_ON_ONCE(vma_test(vma, VMA_PFNMAP_BIT));
-+		vma_start_write(vma);
-+		vma_set_flags(vma, VMA_MIXEDMAP_BIT);
- 	}
- 	return insert_page(vma, addr, page, vma->vm_page_prot, false);
+-	struct snd_pcm_substream *substream = vmf->vma->vm_private_data;
++	const unsigned long size = vma->vm_end - vma->vm_start;
+ 	struct snd_pcm_runtime *runtime;
+-	
+-	if (substream == NULL)
+-		return VM_FAULT_SIGBUS;
+-	runtime = substream->runtime;
+-	vmf->page = virt_to_page(runtime->status);
+-	get_page(vmf->page);
+-	return 0;
+-}
++	struct page *page;
+ 
+-static const struct vm_operations_struct snd_pcm_vm_ops_status =
+-{
+-	.fault =	snd_pcm_mmap_status_fault,
+-};
++	BUILD_BUG_ON(sizeof(struct snd_pcm_mmap_status) > PAGE_SIZE);
+ 
+-static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, struct file *file,
+-			       struct vm_area_struct *area)
+-{
+-	long size;
+-	if (!(area->vm_flags & VM_READ))
++	if (!(vma->vm_flags & VM_READ))
+ 		return -EINVAL;
+-	size = area->vm_end - area->vm_start;
+-	if (size != PAGE_ALIGN(sizeof(struct snd_pcm_mmap_status)))
++	if (size != PAGE_SIZE)
+ 		return -EINVAL;
+-	area->vm_ops = &snd_pcm_vm_ops_status;
+-	area->vm_private_data = substream;
+-	vm_flags_mod(area, VM_DONTEXPAND | VM_DONTDUMP,
++
++	vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP,
+ 		     VM_WRITE | VM_MAYWRITE);
++	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+ 
+-	return 0;
++	runtime = substream->runtime;
++	page = virt_to_page(runtime->status);
++	return vm_insert_page(vma, vma->vm_start, page);
  }
+ 
+ /*
 
 -- 
 2.55.0
