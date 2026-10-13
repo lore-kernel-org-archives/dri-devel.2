@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B15ACC6B0A
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 02:37:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF50CC6B09
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 02:37:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 192CA10E72B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75B2C10F430;
 	Tue, 13 Oct 2026 02:36:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A21FD10F425
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:36:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B878710F430
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:36:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1D85460A60;
+ by sea.source.kernel.org (Postfix) with ESMTP id DC665448C6;
  Tue, 13 Oct 2026 02:36:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C1E2DC2BCC7;
- Tue, 13 Oct 2026 02:36:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B9A95C2BCFD;
+ Tue, 13 Oct 2026 02:36:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1791858999;
- bh=5MqhZbVxaeKraNu6Myt0NOI0isnifLz3rT1an4COdCo=;
+ s=k20201202; t=1791859000;
+ bh=AU/DwvulqIXGLDe/+nTi2/ex4kbr3buY81VVuUnBnJA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=mtHQd1Lj2WmO5HNa/X9Kcq84VHviGLmNdMwRhA6rUu3fTLzSioPM6c+DYUqOnXy9H
- /TJ7WMEQ0lsa9APyuapH4XPTDCVNbhh9IHnGIsuMrlYTZhp4Z+1ypwoMnVtGhSus87
- SLbbSTlr92Jul1JfBNsH0mCwmy3NJaMowNIyWWMONAYwp9L8BuGbYwqcVtzzfZVJHF
- 7Hm2zCz4w1taWU2BJGZYn8K+9qlzWohqDdzKOz0R4z/Elpa/AjRnLGjTzUl9wZVaJT
- +pCCFiDDsTHwR9xcH7w09f2YCVAYUtx1vMMiQHzX3w8ay0BybkRdV0Svta1JOrBqBB
- r8zvqElUX67ng==
+ b=sKQsjNj+Dob3pm3dSnkFzHizLFIHjMd4e8BWrRFSmYa7vqaCpYd1e6k69nXco5NVl
+ SySfQi72U9xWrprnn88nwuKbMkJ7OemEgQmWxQf02IzA1PV3f9E7wNIKWSTeOp7B+S
+ WZhbBohxsCyObi3NP5zVjMO5W9uVzy6onHXp4/Kn6Hsi9NmWQxnMk91B+4rbxSNgYz
+ gt83utHj2JHye3aGNn06yf7J0aQ1gmu7FXh5vtnBH3Hplos4XyZ57Ws8GxQeumyrl/
+ 5NMBRSSAxYtyTeXeGzIJkupIJrpsQvOsPNx3Xl6dAfhWYxXuaVo3Q8trpRTdA48GZm
+ 5bqQFgfl/HRAg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id ACD4CCA9EC5;
- Tue, 13 Oct 2026 02:36:39 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id A70ABCC6B09;
+ Tue, 13 Oct 2026 02:36:40 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Mon, 12 Oct 2026 20:36:54 -0600
-Subject: [PATCH v12 23/40] selftests/dyndbg: Enable FT_classmap_inheritance
+Date: Mon, 12 Oct 2026 20:37:05 -0600
+Subject: [PATCH v12 34/40] dyndbg: add epilogue to dynamic_debug/control file
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-dd-cmap-part2-clean-v12-23-3c8cc5725def@gmail.com>
+Message-Id: <20261012-dd-cmap-part2-clean-v12-34-3c8cc5725def@gmail.com>
 References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
 In-Reply-To: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -65,11 +65,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=6117;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=2252;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=V56EEDcRGt6JKsWQhDEK4wud4js/K7zA4u/rPyKawVY=;
- b=hds8wvNad8uhoNUtXe6rEZBvh+J26NlRBJsBe8S8xW2io7z+w0zcHfA13WiPw7SuX7g7EZrA+
- lzYDXODeulIB8Sbg8YxglW5JLtpbw3VQtmOSK4qRQBTU5CvCfC+ypaF
+ bh=V9XIK1iVmGPQhMBcQ7oh5zL/IVhph4cS5i0ugL5KcBY=;
+ b=8iP/LNq7zNltMSUZlq4aqfiX8bvTfNKdQ1A5FalGkdKfJM9MDW6ZED5BLfCa0R69M1ZVMVrVI
+ qj4fk+Ysfz4DJUCIOTrZXPBJfogswPhf43y7kkwAL3J5WjUafUJmgGB
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -93,147 +93,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Exercise classmap state inheritance between supermod and submod,
-verifying that class settings and controlling parameter states propagate
-from parent classmap definitions to dependent class users upon module
-load and during runtime reconfiguration.
+Add an epilogue to the control-file, to allow display of statistics
+etc, without disturbing the header.
 
-Add FT_classmap_inheritance to exercise classmap parameter propagation
-across test_dynamic_debug and test_dynamic_debug_submod. Enable it under
-modular_tests and register its 8 golden record checksums.
-
-Uncomment the 5-keyword query in FT_grammar_ok now that commit 12
-("dyndbg: bump num-tokens in a query-cmd from 9 to 15") expands
-MAX_WORDS to accommodate queries with >9 tokens.
+NB: epilogue lines should start with "#: " to distinguish them from
+lines describing pr_debugs (and from the header line).  No new lines
+are added here, only the place to do so.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../selftests/dynamic_debug/dyndbg_selftest.sh     | 84 +++++++++++++++++++++-
- 1 file changed, 83 insertions(+), 1 deletion(-)
+v9:
+. update ddebug_proc_start() to return EPILOGUE_TOKEN when seeking directly to epilogue.
+---
+ lib/dynamic_debug.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index c279c795867b..d759243a4cbe 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -64,6 +64,7 @@ function ifrmmod {
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index f6e94a2ef346..efde85c7a9c1 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1182,6 +1182,9 @@ static struct _ddebug *ddebug_iter_next(struct ddebug_iter *iter)
+  * read() call from userspace.  Takes the ddebug_lock and
+  * seeks the seq_file's iterator to the given position.
+  */
++static char ddebug_epilogue_token;
++#define EPILOGUE_TOKEN (&ddebug_epilogue_token)
++
+ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
+ {
+ 	struct ddebug_iter *iter = m->private;
+@@ -1197,7 +1200,9 @@ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
+ 	dp = ddebug_iter_first(iter);
+ 	while (dp != NULL && --n > 0)
+ 		dp = ddebug_iter_next(iter);
+-	return dp;
++	if (dp)
++		return dp;
++	return n <= 1 ? EPILOGUE_TOKEN : NULL;
  }
  
- # Clean up any leftover loaded test modules at initialization
-+ifrmmod test_dynamic_debug_submod
- ifrmmod test_dynamic_debug
+ /*
+@@ -1210,12 +1215,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ 	struct ddebug_iter *iter = m->private;
+ 	struct _ddebug *dp;
  
- # ===========================================================================
-@@ -189,7 +190,7 @@ function FT_grammar_ok {
- 
-     # use 4 keywords (max 9 words inc flags)
-     ddcmd "module foo file bar.c func buz class D2_CORE +_"	# 4 keywords
--    #ddcmd "module foo file bar.c func buz class D2 line 100 +_" # 5 keywords
-+    ddcmd "module foo file bar.c func buz class D2 line 100 +_" # 5 keywords
- 
-     # 3. Dedicated lineno range grammar assertions (side-effect-free proofs)
-     ddcmd "line 42 +_"		# test exact line syntax
-@@ -291,6 +292,78 @@ function FT_basic_queries {
-     ddcmd "file $f =_" "$f"
++	(*pos)++;
++
++	if (p == EPILOGUE_TOKEN)
++		return NULL;
++
+ 	if (p == SEQ_START_TOKEN)
+ 		dp = ddebug_iter_first(iter);
+ 	else
+ 		dp = ddebug_iter_next(iter);
+-	++*pos;
+-	return dp;
++
++	if (dp)
++		return dp;
++
++	return EPILOGUE_TOKEN;
  }
  
-+function FT_classmap_inheritance {
-+    v_echo "${GREEN}# TEST_MOD_SUBMOD ${NC}"
-+
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+
-+    # modprobe with plain-old +p & 3 class enablements
-+    my_modprobe test_dynamic_debug \
-+	"dyndbg=+p;class D2_CORE +pf;class D2_KMS +pt;class D2_ATOMIC +pm"
-+    verify_control_slice '\[test_dynamic_debug\]'
-+
-+    set_param 5 /sys/module/test_dynamic_debug/parameters/p_level_num
-+    verify_control_slice '\[test_dynamic_debug\]'
-+
-+    my_modprobe test_dynamic_debug_submod
-+    verify_control_slice 'test_dynamic_debug_submod'
-+
-+    # fresh start, to clear all above flags (test-fn limits)
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+
-+    # load submod, which loads supermod
-+    my_modprobe test_dynamic_debug_submod \
-+	"dyndbg=+p;class D2_CORE +pfs;class D2_KMS +pts;class D2_ATOMIC +pmf"
-+    verify_control_slice 'test_dynamic_debug'
-+
-+    # runtime changes to both
-+    set_param 0x57 /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    set_param 4 /sys/module/test_dynamic_debug/parameters/p_level_num
-+    verify_control_slice 'test_dynamic_debug'
-+
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+
-+    # set super-mod params at load-time
-+    my_modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
-+    verify_control_slice '\[test_dynamic_debug\]'
-+
-+    # see them picked up by submod
-+    my_modprobe test_dynamic_debug_submod
-+    verify_control_slice 'test_dynamic_debug'
-+
-+    # Real-time mathematical proof that load-time (modprobe) parameter parsing
-+    # and runtime (sysfs write) parameter configurations are perfectly equivalent!
-+    local hash_modprobe=$(slice_and_hash_ddctrl '\[test_dynamic_debug*\]')
-+
-+    # Fresh load with default parameters, then configure them dynamically at runtime
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    my_modprobe test_dynamic_debug
-+    my_modprobe test_dynamic_debug_submod
-+    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 5 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+
-+    local hash_sysfs=$(slice_and_hash_ddctrl '\[test_dynamic_debug*\]')
-+    if [ "$hash_modprobe" != "$hash_sysfs" ]; then
-+        echo -e "${RED}: Load-time vs runtime parameter equivalence check failed!${NC}"
-+        exit $ksft_fail
-+    else
-+        v_echo "${GREEN}: Proven: parameter load-time (modprobe) " \
-+            "and runtime (sysfs write) are equivalent!${NC}"
-+    fi
-+    # --- Live Content Fingerprinting Phase ---
-+    log_start
-+    echo 1 > /sys/module/test_dynamic_debug/parameters/do_prints
-+    echo 1 > /sys/module/test_dynamic_debug_submod/parameters/do_prints
-+    log_stop
-+
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+}
-+
- # Built-in Feature Tests (Can run on any CONFIG_DYNAMIC_DEBUG kernel, modular or monolithic)
- builtin_tests=(
-     FT_grammar_ok
-@@ -300,6 +373,7 @@ builtin_tests=(
+ static bool ddebug_class_map_in_range(const int class_id, const struct ddebug_class_map *map)
+@@ -1267,6 +1280,10 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 			 "# filename:lineno [module]function flags format\n");
+ 		return 0;
+ 	}
++	if (p == EPILOGUE_TOKEN) {
++		/* use this soon */
++		return 0;
++	}
  
- # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
- modular_tests=(
-+    FT_classmap_inheritance
- )
- 
- # ==============================================================================
-@@ -383,6 +457,14 @@ function GOLDEN_RECORDS {
- #K= 02e4fd94602e108cb89bfc70d47a5dad FT_basic_queries.5
- #K= f03a7ca7316e8db4c0e16523dc41e75d FT_basic_queries.6
- #K= c518a50ba30ba8099d0dc874a27ecf16 FT_basic_queries.7
-+#K= fb294f02a4207b28b2a874524ef07afd FT_classmap_inheritance.1
-+#K= 7a0b87016fdc237077dfe96bbbb3661b FT_classmap_inheritance.2
-+#K= 2784d60f5056fc5cc03b3ceb854293f5 FT_classmap_inheritance.3
-+#K= bf66aaf8ff612272c0cda29778ed2131 FT_classmap_inheritance.4
-+#K= 49fdd29d91a4c1d16f8b59bb431e741b FT_classmap_inheritance.5
-+#K= a8aa244285d048b5ebe33061fa99c424 FT_classmap_inheritance.6
-+#K= 3060b86a0f553dd5a826bb7023284925 FT_classmap_inheritance.7
-+#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.8
- EOF
-         # Read the K-recs and skip those for tests that can't run
-         while read -r line; do
+ 	seq_printf(m, "%s:%u [%s]%s =%s \"",
+ 		   trim_prefix(dp->filename), dp->lineno,
 
 -- 
 2.56.0
