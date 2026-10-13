@@ -4,113 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1B29CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:56:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12AECCC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:56:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA879112124;
-	Thu, 15 Oct 2026 07:56:37 +0000 (UTC)
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A14710FB7E
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 07:20:55 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-354ba08cfd1so6450070eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 00:20:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791962454; cv=none;
- d=google.com; s=arc-20260327;
- b=GkONXPfi5rr1AQIWzvVV89k2kkcPs2EsSDCdMogctyDUpjMChbA04oP76kxU4Op8nj
- QpThVI31QAu2hKl+kqVZ7kpnxJOQJsAQAG5yleo0phSmlPAOIyJAfZOQAK60HNK9HUNx
- 1GxgsvHDHjoOVzyxy0r4V/Ud8hVHVPQ5cLWpRtT7knmebridUDKm2bRh2f0d6+vhr7Ah
- lHXaEXyOaIm60/z+llo+bGZgs0CwiqN22LQV/iJdidcr9vj8n4uRGSyFevLWtplak+hl
- LAHKaYB1z/k/A9j83pm2/C8f8MJCtnzdTYXPzm8fWHRYQmryBcfsW7EdbKJMl7+Aqn0b
- nhxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=lOqIiE4c6ssXVSy50LPJhAKLmMDJn1HolGWfMJ3me+U=;
- fh=50oHhaAEQt+QYO9n5IYvm78cCCd3PxBbRS+ph53Dcac=;
- b=Y4v7tkq09OgeKgKEAQ72RihMhBOCOdag2u7YXDzdwgk12uQDvAHGVRLbBKM7BO6tJF
- cto8D6r9LJ/cT5/m6IyvBSRiJ9YxCudFo3nzapKfTQiI3NP8t2/xfPII2ZgA+p14aAkw
- cTQ/IhWPPXlnMutZmv7qdGpH+U2T6ctDs8r9nA2lZMbzkErGjVZr6GAuzUPe/hVOfB2z
- If4Egw20VsAMj3BDjwAYOMq0TZ9cXHn9RI90w2hxyTPK5BFHYEJqLaiGqT5O9xZ4vNKq
- LwvZAOYV5v4GrW/JNLeHrcolYI2IQw71peA6AlXHR0q75DB2m0Ug2VyzG0cUYtEHElhr
- NuqA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791962454; x=1792567254; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lOqIiE4c6ssXVSy50LPJhAKLmMDJn1HolGWfMJ3me+U=;
- b=SD0crtxhOMGof6+0VwFxV3DlRmgdvobep0Ja9fKKdUSpZ1aw1s3l72QzgjIDMSU88M
- STOapwUVOgWkFuvdB0xyzD7GpzqhWYov3Mzc2wwp39D+9IEeGo5Lr2wAaO+ooo/E6h4y
- HrNc5IcwksU1b/azOrJ3G8CCmRy4Ld2C1gYOGBdCCBMlTIYD/ErTHX5DcJRECa68+yvP
- iIPkwdpcEyD1DSj9wVnnJS8DCL/L4Bg3szxpd9yq2OZfVK1EAYSd/JBtSrLUHvGYFU7a
- 5VBokgkv15YEXa4fWRU5lOvo07wEXDyDSAazlH5i8BECBYxhiCIN/c4TT/2x69iaS3Mt
- Zxxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791962454; x=1792567254;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lOqIiE4c6ssXVSy50LPJhAKLmMDJn1HolGWfMJ3me+U=;
- b=mH9Dnnp1tM4C08kNEVK6CaUtAVlP1QrpMJv8wBR/dC25BpA30k5sEP6xLA778FLlUD
- czDTu9WJ6vRc3BEzNlrJRVWPqu8eiCN18W8daQGImWb6lVRbNjmqFBypKWY0fCJSzwzk
- HIOGeKRe36yBgY7XGrgmbIBwKP7+qYJ+ETARh7YYv3ZR1lIFvLaWkgC0yTFLtOdyAuJx
- oM+a6G/E0JnUliiA+sS7lkte3bC6VLnS9KMUM754/oNLggfTnaBLaLXyLTWgnaXJlXsu
- MnZWbhBn8CHzQ2CkHFTYDlrwUpHT3mtqHo0ZJckOXTevgokorLJIbQWxcoTwVa4f6vqZ
- egpg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwQoy5mO2XWSM7HQTenU10cufF6q9CNifkFX8g90UnTPRhLvCwrhW7nOAXVrv9QR3l+0W3NpRREZGo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK3ysIPPVoFnqLvSVldM+CoTizARKwHCetCc0GkTdydRrijdhuM
- H3dhVfjRTp2Fd1sBJUv8vf67OCvzqRbodJ56NZ+DL9jHI3PglL3aA3Q5zmvDriiiiRl14CrXzzb
- 6QAExhcz4Sdz5NlWIGqzM+iY1hBlMSXE=
-X-Gm-Gg: AYBFou1tlK4q85lOcoJn/iHJeXph/rq+Znk9fI7/peWh3kpDUSf7lceBmve3rbPHSgC
- RcXOS7HpxN2K1eC7dzhldAD7TMKhVtL6Tgxn2kh9Uo5mdErVxMCjdH4iSnoxsIYnIyxgJzDh34d
- detchQIZuCRhtCjOsZ8wCadRr9AnaT+8bj9KqHMSzy3xui49g6unDphl4HQTXmghuHzz916Wk3S
- N6/bhdxJupa8AvVE3GWEdY3iC+iHlSTquVJBb7YgTX6BQQyKPwGAC1Seznuu2WwUu8bkiCTBSOJ
- tFj+FzeB6i1LLkaI7P6PafugkDqQtPTcQBU8AHvyFVp9WPPeZHMeOlB83kIIKzR+6hP/axFmReK
- g61G8oxHxqH/nRQjMmCF9Z1DTuSieTo+dhb+7xmJegbgxaGGyhS5B1+JisqPSUd2rUt8WYNPSyz
- si49O4r+ed0YZileoW5HN4ig==
-X-Received: by 2002:a05:7300:7f21:b0:34e:f5f1:2f46 with SMTP id
- 5a478bee46e88-3537e03ef03mr21519176eec.6.1791962454025; Wed, 14 Oct 2026
- 00:20:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DB1112139;
+	Thu, 15 Oct 2026 07:56:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50EE010E0D7
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:08:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C534760A5E;
+ Tue, 13 Oct 2026 15:08:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB9081F000FF;
+ Tue, 13 Oct 2026 15:07:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791904105;
+ bh=rm+C7Ys434hUmEU+Xa4zb6DLDJf/YI3CeF+AWIPMT3w=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=FtXxcSi58gS3uZ0vS44Aou+kW6lvIPxlA7zTYy04S2BLjSQ9x1Rdw5K2VD7fjm5Cr
+ knPhdM3bKcTZ/nUqqKn0fe/lm3x2wgVIFsqQ8qLXwUlgxXsgcE18/cKJbVcWCwYrJo
+ Ixy77/AT3epQrcKWrWpXjz1mrznFtf0xiKEuB5hNzmj+gkWrN6BLNlLqos9izVokhw
+ os4stsgykj0J1ATFRYf05iw8uKz8K0NeXzD2wKU2+W2L9D1OuswmcAOQ5vKjjkLYFJ
+ fm0Tk8YFuOzl/5bcm7k6rPRZuSLYWjbhWyBnSWTxNyW87nNxtiv+p7b1WXOGjb5hsq
+ WPV3/ee2ispHQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 13 Oct 2026 16:04:44 +0100
+Subject: [PATCH v6 04/39] mm/vma: ensure mmap_prepare doesn't set actions
+ on a mergeable vma
 MIME-Version: 1.0
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
- <aryYkkB9j14xnWo3@yury> <DLTA93JE6VF2.37UGB3SWU6ID6@nvidia.com>
- <ase7IBtZjQsPVWSN@yury> <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
- <CABwQupMVzUOsqP_fTZQdwUU+xEO1k2Q4=RQQuq2qd5HCYY0ZUg@mail.gmail.com>
- <DM46Y905AJVV.1K0F8AK1ZP4IO@nvidia.com>
-In-Reply-To: <DM46Y905AJVV.1K0F8AK1ZP4IO@nvidia.com>
-From: Burak Emir <burak.emir@gmail.com>
-Date: Wed, 14 Oct 2026 09:20:41 +0200
-X-Gm-Features: AclHuK9j0P8UdZSidrrjx2Ojz1IkBJh5CagOtrg90NI1i0FixMsvpGr1DSVhkR4
-Message-ID: <CABwQupOYBBev5WkQry3oOoX5tGCs-ggDE4L_nK8BBYvrO=81bA@mail.gmail.com>
-Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
- Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-4-1aa3c9b139f9@kernel.org>
+References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1712; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=c0okmVqdd7ip0u4PvV3oDEa2CETwat0gzMSLDhHRBRg=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeRyvyMypKfLbU7hhlVb/osVCmnKzOkzKucp/C/LGc
+ XHGHW/vKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwERmNTIy/GD13C5en1vzwu7N
+ 4S0HTq31rbzyxDVo/dJ5HBXZU6fMqmH4H39tTuXZpzNWCc05fS9/sov6DAa1//ZnUn4nLhRiXKd
+ UxQUA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,177 +143,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HI Alexandre!
+When a user requests an mmap_action be performed in mmap_prepare, this
+involves populating the VMA range with data.
 
-On Wed, Oct 14, 2026 at 4:04=E2=80=AFAM Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
->
-> Hi Burak,
->
-> On Sat Oct 10, 2026 at 3:48 AM JST, Burak Emir wrote:
-> > On Fri, Oct 9, 2026 at 4:07=E2=80=AFPM Alexandre Courbot <acourbot@nvid=
-ia.com> wrote:
-> >>
-> >> On Fri Oct 9, 2026 at 12:47 AM JST, Yury Norov wrote:
-> >
-> >> > If you still think that you need 0-length bitmaps in Rust, can you p=
-lease
-> >> > give the clear and thorough explanation why rust needs those 0-lengt=
-h
-> >> > bitmaps. Are there any in-kernel examples? Any language concepts req=
-uiring
-> >> > it? If not, it's still a NAK.
-> >>
-> >> I don't know of an in-kernel example, but please look at the
-> >> `bitmap_vec_new` test which has been here since the API was initially
-> >> merged last year: the first thing it does is create a zero-sized bitma=
-p.
-> >
-> > Well, yeah: I wanted the behavior that the implementation rounds up
-> > documented so it can be recognized as intentional.
-> > Later, the `new_inline` method was added, which is a clearer way to
-> > get the largest non-allocating BitmapVec.
-> >
-> > I think the problem in this discussion is that we want to treat
-> > capacity like length, which is maybe suggested by the BitmapVec name
-> > and its len method.
-> >
-> > With the minimum capacity behavior documented, it is as if we have a
-> > specification right now that no IdPool instances can ever have less
-> > capacity than BitmapVec::MAX_INLINE_LEN bits. This patch here proposes
-> > to change that.
-> >
-> > It is not clear though why client code would be happy about *less capac=
-ity*?
-> >
-> > In other words, why should the client of the IdPool have the right to
-> > control the *exact* initial capacity, even if it is below documented,
-> > free-of-charge minimum capacity?
->
-> The ID pool is used in Nova to track the number of hardware channels, of
-> which we have an exact, fixed number. For this use-case rounding up is
-> not "free-of-charge", it just allows to allocate IDs that are invalid as
-> there is no hardware resource to back them up.
+However, if the VMA is mergeable, it might then mistakenly be merged with
+another VMA without having populated the range.
 
-This makes sense, and I'm glad you can reuse the code.
-The origin of the bitmap IdPool to isolate the Binder-specific
-spin-lock-compatible resizing functionality.
-In the Binder use cases, an "allocated ID" corresponds to a bit that
-is set to 1.
+Every mmap action currently available sets VMA flags such that the VMA
+cannot be merged.
 
-> >
-> > The IdPool, despite being backed by a BitmapVec, is not meant to be
-> > used like a vector: it does not grow by itself but client code calls
-> > grow and shrink explicitly, and client code has no control over how
-> > much that growing and shrinking happens.
-> >
-> > Like, you cannot grow to 65 and expect to get a capacity 65. So why
-> > insist on exact small sizes?
->
-> Actually with the current code you can call `IdPool::with_capacity(65)`
-> and you will get exactly 65 IDs. And if you call grow the new capacity
-> will be `65 * 2`.
+However, to ensure that no future mmap action falls foul of this, assert
+that this is the case upon mmap_prepare validation.
 
-Touche, I was too anchored in my "IdPool is just for resizing" thinking.
-I meant, when starting from a no-allocation size that one only gets
-multiples of word length.
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/vma.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-However, I do understand that you would like IdPool to track for sizes
-below 64, so ChannelIdPool does not have to.
+diff --git a/mm/vma.c b/mm/vma.c
+index cedc24dcdf3c..c067d6a4c826 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2815,6 +2815,18 @@ static int mmap_validate(unsigned long orig_start, unsigned long orig_end,
+ int mmap_prepare_validate(const struct vm_area_desc *orig_desc,
+ 			  const struct vm_area_desc *desc)
+ {
++	/*
++	 * It is not valid to execute mmap actions for VMAs which can be merged,
++	 * as any such merge would leave portions of the mapping incorrectly
++	 * unmapped.
++	 *
++	 * This is checked after mmap_action_prepare(), as it may update the VMA
++	 * flags and therefore whether the VMA can be merged.
++	 */
++	if (vma_flags_can_merge(&desc->vma_flags) &&
++	    WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
++		return -EINVAL;
++
+ 	return mmap_validate(orig_desc->start, orig_desc->end,
+ 			     desc->start, desc->end,
+ 			     &orig_desc->vma_flags, &desc->vma_flags);
 
-> The point being that in the current code the initial capacity is exact
-> for every value *except* those below `MAX_INLINE_LEN`, which doesn't
-> come across as consistent. All this patch does is remove that exception
-> for which I don't see a justification.
-> I think we are conflating capacity with length to some degree. Actually
-> the code does exactly that:
->
->   impl IdPool {
->       pub fn capacity(&self) -> usize {
->           self.map.len()
->       }
->   }
->
+-- 
+2.55.0
 
-Yes, the original IdPool is "conflated by design", since for Binder ID
-allocation means something different.
-- "length" for BitmapVec is length of the underlying bitmap in bits.
-- "capacity" in (binder-specific...) IdPool means "we can allocate
-this many IDs in total without resizing.
-
-> >
-> >> It is also easy to imagine a user starting with an empty pool and
-> >> growing it on-demand. Having the ability to create a zero-sized pool i=
-s
-> >> convenient to avoid special-casing user code, and in this case I'd say
-> >> expected, just like you can create a zero-sized vector. Again a size o=
-f
-> >> zero does not trigger anything that a larger capacity cannot trigger, =
-so
-> >> I don't see a reason to forbid it.
-> >
-> > With an initial capacity of minimum MAX_INLINE_LEN capacity, it is not
-> > about forbidding, it is that the added capacity already comes for
-> > free.
-> > You could say "not enabling" instead of "forbidding", but pretending
-> > that the capacity is somehow not there does not seem to buy us
-> > anything.
->
-> The capacity is not necessarily there when allocating IDs for finite
-> resources. I suspect that's where the misunderstanding stems from, as
-> Nova is using the ID pool for a new use-case. But I think we can agree
-> that this use-case is not particularly specific and matches what one can
-> expect from an ID allocator, so it makes sense to support it, especially
-> as it doesn't affect other users (`with_capacity` has no caller in the
-> tree at the moment).
-
-It makes complete sense to support it.
-IMO it is less of a misunderstanding, but a design decision to juggle
-the requirements.
-This IdPool thing was not meant as a general-purpose ID allocator.
-But I do see the appeal to generality.
-
-> >
-> > Do the other patches in this series need this, or can we just drop this=
- patch?
-> > If they do, maybe a demonstration of how significant the special-case
-> > handling is that can be avoided with the exact small capacity could be
-> > part of the commit message?
->
-> The next patch in this series needs this to implement `ChannelIdPool`.
-> The alternative would be to track the actual length of the pool and
-> return an error if `IdPool` returns an ID after that value, which is
-> what v5 [1] was doing (see `num_chids` in the v5 code).
->
-> That's the special-case handling that this patch is designed to avoid,
-> and I hope we can agree that it isn't a satisfying workaround,
-> especially when the backing `BitmapVec` *does* support exact sizes and
-> that artificial limitation is introduced by `IdPool` itself.
->
-> [1] https://lore.kernel.org/all/20260812-chid-v5-5-6c767770b3f4@nvidia.co=
-m/
-
-Thanks for the link.
-To me, having IdPool support exact size seems nice-to-have.
-
-We are changing the design in light of different requirements, it is a
-defensible but not critical generalization.
-I was worried that we may need to have proper separate length and
-capacity fields (which contradicts the binder use case), but that is
-not the case.
-
-I checked the grow_request and grow dance now, it seems that even with
-exact small sizes we avoid allocating a bitmap.
-So I am not opposed. Like Yury, I find the 0 case slightly odd, but
-unlike Yury, I find that tolerable.
-
-The phrasing as "dropping an artificial limitation" does not
-adequately reflect that IdPool was done for a specific use case where
-the design made sense and is not actually a limitation.
-
-I wanted to highlight this perspective, because notwithstanding the
-name, IdPool was not meant to join the set of kernel's dedicated
-supported ID allocation mechanisms.
-
-cheers,
-Burak
