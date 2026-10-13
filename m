@@ -4,48 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 884C6CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 12:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95A9CCC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 12:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CC0010F7BD;
-	Tue, 13 Oct 2026 12:05:02 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF59E10F7BD
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 12:04:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1791893094;
- bh=b30tYFBmUTaS3zxQfRBfgyhMiRzxN0xSDIkj7tzLIwY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=j8Oj76L7H3Nk4J2a6acAuondTqocX9HA/QzYMnV6sbFl9y7qMYyK+pe5duzNPWu4d
- SkTS/raIlM1oDlzTfntwSOtPQvK/uqxo+YIw0q1ad2wcBY9M2WT92MhnDmwHgCtEMQ
- fv69NpzaBhpiMLSOf+DG97EJdUNz7FPDK4ujogpRap6kl/fw2dRJ9csAZOyByjpbpw
- wY5LA/8JzieK2bqwkcsF8o33RXxL3yMnlIUV3ykEgli0c4Dq9N4sYGrX3SQkW6BhkA
- I72zQhsetcICUf7BEOOQyqtignepf4tBmW/IwmzKb6LShhDIBiyWFRseIeTtetJUsH
- RAeiOMbFAAtFQ==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tLX2QYNz4xh2;
- Tue, 13 Oct 2026 23:04:52 +1100 (AEDT)
-Message-ID: <6bd77a8c-9ff9-40af-9cbe-23139b20f822@ozlabs.org>
-Date: Tue, 13 Oct 2026 13:04:49 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id E911210E7D9;
+	Tue, 13 Oct 2026 12:08:19 +0000 (UTC)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F8410F7C5
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 12:08:13 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-3a7cfe8f761so2925045a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 05:08:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791893293; x=1792498093; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=SL2wq6QLb6u6b9Wwd0Sv7tNMSJxrgLs/vOJ5VBrZl6o=;
+ b=nPeDezwxt2qTRW3OVrobNSRYMf1pKtQ+bgz1JFnUZjNx1tjI9Htehh1sU+Ko+3OaI9
+ e3WRghgAN9QGXO9MgRLQ4HsfaJsOZu0y0CoYGeSngE0YnU0MvNQbhOltaU42cX10E20f
+ 6zqhKHMM7AlxJLuPAfW682Ame6tLxCLocI6yMuvE2HD2BLX9rrZ3XpyuCrtFa5X6B2ca
+ cPIQ10Lzrr+8Lli7sSWR5jk7CNnD/cso+HMnJTSzDmFAzfv/+NjUMd0sUVt5ecaDh9Qv
+ KlsIhpzTXxj6aE4lQqslNWwrOuKIYE+62X6QX2uXI79tnwpOJ69AYwf5FbSDnLWJ6+nO
+ Exhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791893293; x=1792498093;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=SL2wq6QLb6u6b9Wwd0Sv7tNMSJxrgLs/vOJ5VBrZl6o=;
+ b=Ytw2vwKgJoVwxyuwLSX6SRdhcSxzmaAa5v06bZjHtRMFTfADkUDctCKC9P0fnG0Av+
+ y3NluRzQauA4BpJx4d/WjcvPd4W84KmO9HVZ9Bebfil+6dz8WtYdda+iwGC+eiwqQw2Q
+ 6u6gZmrnDpjdlfwhSYusEtkE8N5A1Ko22f9S4zSbtOrfHS159zskAj4kqiWB2e2gzrDR
+ qXCGmSWjtO2ZutsF1a9ZlD5xPJYt1Svf/SEY4sDLegENRmxm/UCcYrG6P/zr+rNiKwU9
+ GPfVNWl0DJDv5Foe835RZrdoEhVYbr4x3luZizmvlmlzcM1N7LXG4N8ZVdmp5RWH/i3h
+ T/wQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByR31M+KuTstz7pC+rtTatLTryzxuqsR27O5r1Z38kniGfYt8+yrGB6rZBLGQ3IMZizlpvQl4eACt0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJi8R5192EAp8IJ30kP5dLgPff3jylVrf1bQZdzaw7aWILRCU77
+ nkAbb2GxdwRxS8ufN7DjDxYcY36cXPTSrbV3Zsshcst5YrSmRTGfUqJF
+X-Gm-Gg: AYBFou1JTHCd7hnNB58s5Xojpq+gKvS6rBr+mJBIhKAKqq85FdYVL+QrxLrnKyf+L8d
+ +VUZTALpMD4LBetaobEU8fV1IcSBFQhHrcBWru35hUD+Hndb59i2o2i0Jyojd2u2DTmzS0snjDL
+ BCt0Slp6/cqaTpoiwhExQTPiywb9ySRDYY8dQ256EhQjabc4ORmVpXGEiP/xV0lYElhSTfBP4GR
+ TgCO04au7AlY8cnthYbd+DTLOuq31ASx+5CzaK7Lg8uPWaFLGvLi9a7wVXoemP60rx4IjQfagdq
+ 9vtTqogZFqV1YdwcxNUKtVYSUMEU+PTIanuz78bdMs5VS268SfyH/GPiyAp6+a1+Ln9mBLtyV/u
+ VpLxaY6j5ZPcbgxP8GuJzPzl9Z4udPpgrOTHt7sgvqic2Oa2/k0KHiCqXZVRJ8JGHz253ep3xJ6
+ 6iFAh/f77VyXgMQKQpigNFL4k0ZubT1xHxeIIK50jgf6eimh5+oBudz9TUphVDmXXkFbMUrGBYf
+ +PIfGHcxHPnycN26mw7jMt3FszyE1Jdhg==
+X-Received: by 2002:a17:90b:384b:b0:3a0:295e:6e61 with SMTP id
+ 98e67ed59e1d1-3ab3a953717mr6170484a91.12.1791893292679; 
+ Tue, 13 Oct 2026 05:08:12 -0700 (PDT)
+Received: from localhost (softbank126159121187.bbtec.net. [126.159.121.187])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ab37817414sm21827776a91.2.2026.10.13.05.08.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Oct 2026 05:08:12 -0700 (PDT)
+Date: Tue, 13 Oct 2026 21:08:10 +0900
+From: Zhenyu Wang <zhenyuw.linux@gmail.com>
+To: Yuho Choi <oss.patchbox@gmail.com>
+Cc: Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Xiaolin Zhang <xiaolin.zhang@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, zhiw@nvidia.com
+Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
+ still in use
+Message-ID: <as4fKufR2O21NWk5@dell-wzy>
+References: <20261004212403.208681-1-oss.patchbox@gmail.com>
+ <asm4DV84UitLCbve@dell-wzy>
+ <CAGG=RgApzG=MeZ9xbpeBzqE0i0Q6RCPXtnyS-30JfEDPDKNN0Q@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] dma-buf: Annul dmabuf->file on file release
-Content-Language: en-GB
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org,
- sashiko-reviews@lists.linux.dev
-References: <20261009123601.94079-1-matt@ozlabs.org>
- <20261009123601.94079-3-matt@ozlabs.org> <sashiko-outbox-165603@kernel.org>
- <749905e4-52ea-490b-98c7-3923655a52ba@ozlabs.org>
- <072d1780-1f69-40fe-8a6e-a588a7967a99@amd.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <072d1780-1f69-40fe-8a6e-a588a7967a99@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGG=RgApzG=MeZ9xbpeBzqE0i0Q6RCPXtnyS-30JfEDPDKNN0Q@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,97 +97,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
-
-On 12/10/2026 18:48, Christian König wrote:
-> On 10/12/26 17:27, Matt Evans wrote:
->> Hi Christian, Alex,
->>
->> I'd be very grateful for your help on this:
->>
->> On 09/10/2026 14:11, sashiko-bot@kernel.org wrote:
->>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->>> - [High] dma-buf: NULL pointer dereference of dmabuf->file in exporter drivers
->>> -- 
->>>
->>> commit b5be810d5fa3244638a9bad8503cacb8ca86027e
->>> Author: Matt Evans <matt@ozlabs.org>
->>>
->>> dma-buf: Annul dmabuf->file on file release
->>>
->>> This patch sets dmabuf->file to NULL in dma_buf_file_release() to prevent a
->>> use-after-free window if the dentry outlives the file. By clearing the
->>> pointer, exporters using get_file_active() can safely observe that the file
->>> is closed.
->>>
->>>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->>>> index 36cdc342627ee..d0f8b766e8fd1 100644
->>>> --- a/drivers/dma-buf/dma-buf.c
->>>> +++ b/drivers/dma-buf/dma-buf.c
->>>> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
->>>>      static int dma_buf_file_release(struct inode *inode, struct file *file)
->>>>    {
->>>> -    if (!is_dma_buf_file(file))
->>>> -        return -EINVAL;
->>>> +    struct dma_buf *dmabuf = file->private_data;
->>>> +
->>>> +    if (!dmabuf)
->>>> +        return 0;
->>>>    -    __dma_buf_list_del(file->private_data);
->>>> +    __dma_buf_list_del(dmabuf);
->>>>    +    /*
->>>> +     * As the file is being closed, dmabuf->file is no longer
->>>> +     * valid and NULL replaces an otherwise stale pointer.  If a
->>>> +     * reference to the file isn't already held, the file can be
->>>> +     * closed at any time, including before dmabuf->ops->release()
->>>> +     * happens: dmabuf->file _must not_ be accessed directly.  An
->>>> +     * exporter should use get_file_active(&dmabuf->file) which
->>>> +     * atomically tests and acquires a reference to the file (or
->>>> +     * returns NULL if the file has closed).  The barrier ensures
->>>> +     * get_file_active() observes the store before file_free()
->>>> +     * frees the memory.
->>>> +     */
->>>> +    smp_store_mb(dmabuf->file, NULL);
->>>
->>> [Severity: High]
->>> Does setting dmabuf->file to NULL here cause a NULL pointer dereference in
->>> exporter drivers that still hold a reference to the dma_buf?
->>>
->>> For example, if a GEM object is exported to a DMA-BUF and the file descriptor
->>> is closed, the dma_buf is kept alive by the GEM object. If a user then reads
->>> the debugfs file, amdgpu_bo_print_info() in
->>> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c dereferences dmabuf->file:
->>>
->>>          seq_printf(m, " imported from ino:%llu", file_inode(dma_buf->file)->i_ino);
->>>      else if (dma_buf)
->>>          seq_printf(m, " exported as ino:%llu", file_inode(dma_buf->file)->i_ino);
->>>
->>> Similarly, during cleanup, amdgpu_ualink_cleanup_imp_xa_node() in
->>> drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c attempts to read the file count:
->>>
->>>      dev_dbg(adev->dev,
->>>          "IMP-CLEANUP: dmabuf free for NPA:%llx handle:%llx:%llx, fc:%lu\n",
->>>          imp_xa_node->npa_addr, imp_xa_node->handle.handle_hi,
->>>          imp_xa_node->handle.handle_lo,
->>>          file_count(imp_xa_node->dmabuf->file));
->>>
->>> Could these routines trigger a kernel panic when dmabuf->file is NULL?
->>
->> I am out on a limb here, being the first time I've read this driver. :-I  It _looks_ like there's a live dmabuf->file because a get_dma_buf()-style reference is held here (so a false positive from Sashiko).  But I'm quite uncertain.
->>
->> Christian, that you hadn't already mentioned this hints to me that this is safe, is that fair?
+On Mon, Oct 12, 2026 at 12:01:31AM -0400, Yuho Choi wrote:
+> Thanks for the review!
 > 
-> The Sashiko comment is nonsense. Each GEM object which has a DMA-buf (either through import or export) holds a reference to the DMA-buf file.
+> On Fri, 9 Oct 2026 at 23:59, Zhenyu Wang <zhenyuw.linux@gmail.com> wrote:
+> >
+> > I don't think this is *real*, as code would simply destroy entry in
+> > that case, and there won't be on-the-fly dma operation on that, as
+> > guest mem setup is totally before execlist submission, if guest driver
+> > changed mapping by ignoring gvt emulated execlist status, that's just bad...
 > 
-> The only case where it is temporarily not holding the reference is during the destruction dance, e.g. handle ref goes to zero, DMA-buf is released and freed, GEM object is released and freed.
+> You know this code much better than I do, and I can't test it without
+> GVT-g hardware, so I may well be missing something.
+
+I can understand that but I think for any non-trivial change or
+for sensitive part, testing is a must...
+
 > 
-> Additional to that this is for debugfs which is meant to be used for debugging only and is not really stable. We literally have tons of debugfs files which do very questionable things with locks and/or RCU and sometimes just returns random data because the object in question is about to be destroyed.
+> The case I had in mind is the guest mapping the same page at both sizes
+> and keeping both, e.g. 2M in the PPGTT of one context and 4K in the GGTT
+> or in another context's PPGTT. If the second request replaces the entry,
+> the first shadow entry seems to keep the old DMA address, as
+> shadow_ppgtt_mm() reuses a PPGTT that is already shadowed. Is that ruled
+> out somewhere? Please let me know if so.
+
+Shadow ppgtt is created by a PV interface, so each context would have
+separate shadow ppgtt or shadow mm. GVT handles guest page's dma
+mapping per-vgpu as for per-VM. But GVT handles context submission in
+order, shadow ppgtt is populated for each submission. I think even in
+your example that possible one page mapped in different context as 4K
+or 2M, it would be remapped as size doesn't match for each submission,
+so no invalide dma address access.
+
+I doubt if i915 could possibly have such case in reality..
+
 > 
-> A NULL pointer deref is a bit more problematic. But in general most people don't care much, it's debugfs.
-
-That makes sense, and I really appreciate the explanation.  Thanks for 
-the help.
-
-
-Matt
-
+> > So this change would always force 2M to split into 4K? why?
+> 
+> No, only when a 4K entry for the same gfn is cached at the time of the
+> 2M request. With no entry or a 2M entry nothing changes, and a 4K
+> request now reuses an existing 2M entry instead of replacing it.
