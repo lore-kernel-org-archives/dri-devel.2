@@ -4,110 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E7BCC6B0F
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:47:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 069ECCC6B0F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 13:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11D6F10E83B;
-	Tue, 13 Oct 2026 13:47:34 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC82910E83B
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:47:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AA67560A60;
- Tue, 13 Oct 2026 13:47:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2989B1F0089C;
- Tue, 13 Oct 2026 13:47:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791899246;
- bh=ufMZp4Qc9d80hvvRB3vNUruXIvuXEMAYVkTpkYEJ0aU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=S32sFMdJ2NY/boJZiq7qHgwrDvnfacP5JNU8mgaJyQiC/aJSf/o6u1yYss44okWo+
- Sjga82Sb2QOdchZ1LbH0ux4IvEmSVJYxDuqsW2hn+bGfVieTjBjqpSHEZOrRJigUno
- Px/tm8jUDyk1sC2fW1OcOVHLHHQvxIxtYjd1Q9Yv72c3MLoEPN+IRXDvhqPnrpGeFv
- wDS7604PLG+GDAQq4ZB6hDi1UaV9y9t8Kh+H+s/ulOnRB0aWSsvTUCvQRS756SbO3C
- aRc+OXw5d+p7xFNvkD8MgBaeVjQN7uppe/zdzAtPLcpNJmMMBmFatZswffJxTVZJ3G
- jQSn9tSa+g88w==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfauth.ams.internal (Postfix) with ESMTP id 01726198003A;
- Tue, 13 Oct 2026 09:47:11 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 09:47:21 -0400
-X-ME-Sender: <xms:XzbOan8Y8kGba8pRx5mgpWDM4YXW1EMocY6hBF154p4NE_F875UjkA>
- <xme:XzbOasWum8CcjS-iK132ufVMOimRtEOpWN8JV7dRfEX1h1Dp_3dY_DtQtcao6Ny_a
- yYaAPEJ0M59QTbNoSdl3ZanKVC4FYisPINrKzr_mvgREULtKWqsDGvx>
-X-ME-Received: <xmr:XzbOap0ub0Qc1GVOIpPOLwa49EH1LI7JGZhO_dy3oWX53Pt7ElSMpyHzD84>
-X-ME-Proxy-Cause: dmFkZTE4j+cS9gh3PxGqMjY7PyaLxMVg3dj8MlDzlM7GN7gdgiVxP0yJ//GkJN0wCahlMx
- 5JdZXyer7uBv1S7r9zKudGJTVsIfvIDNMUthTv4zHTDadaydFl5J3WM5oOjG7bueTu1P/y
- ErJcoDmdDlf2mbevwhHQ61prG/aGc64Y1+ArTq02T6BN55y6XBoncRB7eE5H2SYOX4r3El
- YrSBfcjthcbdK9TH5Jj2U1yRZNxzXvJ0LVkfeDISJaGmLMzoC8igk5XBTY+38fhiHSyGiL
- +cnpmehXA2/flj223aR6gM8IWtENoV0RxoyPyt9udox5uLVBfm0KgCcO5tiVN9eCvh/5JM
- aTKNqGwu/2rDhCkM1c+ix5JpPW+GGwuxufWlSR9jnyihSU+e9+lhP2kVKcTNhuePk4D7h4
- 2Q/OqvXjwTCM/tEN3XsDlSmc1l8yzmlZPtSQ3+C0mMNsQsEFPswQDCtfmGg67K80Az+PVL
- LRd83YGI28XR3lRflIQMmdCsHVNKROP4bmpOl8lfPNG/peUSuiL9LZu5QLVVUe3NoZwPGs
- g7i+lcpjCaoYEqyEbFS/GsC8fY2i0+IyggX935VBX1nvot5c71LozqkHm+PSwQtEOzOylc
- ws01IE6e2mhHKHvxbwqIw1oJJoQYx5BwXuQtZfTdhwj1Ef1bu0vOINgdPZAw
-X-ME-Proxy: <xmx:XzbOavjAdgGfkkFd30Sl97e4fKs0AXQI0rmS1xtCq9gumhdIOAyBRQ>
- <xmx:XzbOamTbl7FUwBPXlrXZ5UPMDMEsm-qJQemClGWaBNm7JvXRJNgTWQ>
- <xmx:XzbOahFtiScMJxuiSy8_Pg59KzrCRLfao8Sx9nm0MSTSvPdPM-8nyw>
- <xmx:XzbOau_9QagkSr9Gcvi2fyeWTN6rOk-E4VNxPyjkfdaOI5zuhHPpVw>
- <xmx:XzbOanGVoJjyM8cI1RPfiSHx1bWBKrDdsr6nob_WZdZmjMxe9r7CI-pk>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 09:47:09 -0400 (EDT)
-Date: Tue, 13 Oct 2026 14:47:08 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, 	Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, 	Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 	Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, 	Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, 	linux-media@vger.kernel.org,
- linux-mm@kvack.org
-Subject: Re: [RFC PATCH v8 02/14] mm: Zero memory during shared memory
- transitions
-Message-ID: <as4q9FlxUy9EFJZK@thinkstation>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
- <20260924100529.1398790-3-aneesh.kumar@kernel.org>
- <arZkEugXwCtKHH64@thinkstation> <yq5azewiqj39.fsf@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5azewiqj39.fsf@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA7310E880;
+	Tue, 13 Oct 2026 13:47:43 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1229F10E85B
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 13:47:36 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 8E41DC653ED;
+ Tue, 13 Oct 2026 13:48:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C31006075C;
+ Tue, 13 Oct 2026 13:47:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 5A46D11D7152C; 
+ Tue, 13 Oct 2026 15:47:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1791899247; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=/QTI9ocIwxDrICmupBcnt6yYBFq9ABOE/kC6kYQ+y2E=;
+ b=j8LPKNmuWjOc89bbqryTjh2mFaBVGvdBpmvsGoiXlDg1um4sn42m7kEfgMClmS0f7Bt86E
+ MvSjq0cPpdez22kyAdV9Bv4x5J9ZT3Ir/oYbPMttE2832nsIs9rQd+/NcULu8wpu8voXPT
+ 2IrCQQvmo5hGtJx17gW5UCUa7/xVDubkcdFG50u4s1RGqRKQ7lg6+CJ6SiEnmpjI47Vrv1
+ 0eGyawMZnXNcikNX66tH1pOJwvkduqVKEq3NDizn2POjLf/px3Yk7L3foZUhwjrDnCkE2K
+ CGcVP2PkT9KmAeBMddz6oMXwzWvkTj7R0HCIWdV/3g5zKLj1MhRlFw3PMquFEA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 15:47:15 +0200
+Message-Id: <DM3R9KIGS2XF.35DX6I83JKPYO@bootlin.com>
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
+ <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
+ "Jessica Zhang" <jesszhan0024@gmail.com>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Val Packett" <val@packett.cool>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Maxime Ripard"
+ <mripard@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+ <asyAObcpbFy3OeE2@houat>
+ <7pptulwzceqg7xozps5boncgcpd5fpw2pdabcslp4den34ixjn@rzgkoe36itwm>
+ <as3sI-N3VeG_pL0U@houat>
+ <lm7u5tcnccbtbxqeyyqzzvmmhpy2dfhgnyz3giqtt5toejy7pj@7bwixidtqxfz>
+In-Reply-To: <lm7u5tcnccbtbxqeyyqzzvmmhpy2dfhgnyz3giqtt5toejy7pj@7bwixidtqxfz>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,54 +75,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026 at 10:42:58AM +0530, Aneesh Kumar K.V wrote:
-> Kiryl Shutsemau <kas@kernel.org> writes:
-> 
-> > On Thu, Sep 24, 2026 at 03:35:17PM +0530, Aneesh Kumar K.V (Arm) wrote:
-> >> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-> >> index f904a636d449..1f1f39082391 100644
-> >> --- a/arch/x86/coco/tdx/tdx.c
-> >> +++ b/arch/x86/coco/tdx/tdx.c
-> >> @@ -978,6 +978,9 @@ static bool tdx_enc_status_changed(unsigned long vaddr, int numpages, bool enc)
-> >>  static int tdx_enc_status_change_prepare(unsigned long vaddr, int numpages,
-> >>  					 bool enc)
-> >>  {
-> >> +	if (!enc)
-> >> +		memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
-> >> +
-> >>  	/*
-> >>  	 * Only handle shared->private conversion here.
-> >>  	 * See the comment in tdx_early_init().
-> >
-> > This doesn't make sense to me.
-> >
-> > On TDX the memset zeroes a page that is about to be dropped.
-> > MapGPA(shared) makes the VMM back the GPA with different memory, and
-> > what the guest reads afterwards through the shared mapping is whatever
-> > the host has there.
-> >
-> 
-> Does TDX require the guest contents to be preserved when pages are
-> converted to shared?
+On Tue Oct 13, 2026 at 1:57 PM CEST, Dmitry Baryshkov wrote:
+> On Tue, Oct 13, 2026 at 10:37:19AM +0200, Maxime Ripard wrote:
+>> On Tue, Oct 13, 2026 at 10:51:38AM +0300, Dmitry Baryshkov wrote:
+>> > On Mon, Oct 12, 2026 at 08:40:33AM +0200, Maxime Ripard wrote:
+>> > > On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
+>> > > > Panel drivers don't have an atomic state and so they can't handle
+>> > > > additional data to be stored at the atomic_check time or to be ret=
+rieved
+>> > > > at the enable/disable time. For example, it prevents panel drivers=
+ from
+>> > > > supporting multiple display modes or making DSC being optional in =
+a
+>> > > > clean way. Drivers like panel-novatek-nt35950, save the connector
+>> > > > pointer in get_modes() and later dereference
+>> > > > connector->state->crtc->state from prepare() without holding any l=
+ocks.
+>> > > > The panels also have no way to reject the configuration they cann'=
+t
+>> > > > handle, as it doesn't take part in the atomic check.
+>> > > >
+>> > > > The panel already embeds a drm_bridge, and the bridge has an atomi=
+c
+>> > > > state which is property handled. Subclass it to provide atomic sta=
+te for
+>> > > > the panels. The callbacks can find the state of the other related
+>> > > > objects (e.g. CRTC state to get the display mode).
+>> > > >
+>> > > > The atomic state is opt-in. A panel that doesn't implement the sta=
+te
+>> > > > callbacks keeps working exactly as before, with the plain bridge s=
+tate,
+>> > > > so there is no need to touch the existing drivers. The panels whic=
+h do
+>> > > > implement them can only be driven through the embedded bridge, sin=
+ce
+>> > > > there is no commit to hand over when the host calls drm_panel_prep=
+are()
+>> > > > and friends directly. Those entry points warn and refuse to handle=
+ such
+>> > > > panels. There are still a dozen of display drivers calling these
+>> > > > functions, and the panels used with them can not be converted unti=
+l the
+>> > > > hosts are switched to the panel bridge.
+>> > >
+>> > > I really don't think we should extend the panel API. All panels are
+>> > > bridges now, consumers only care about bridges as well, and the brid=
+ges
+>> > > API provides what you want already.
+>> > >
+>> > > Why not simply turn the panel drivers we want into bridges, possibly
+>> > > with a bunch of specialized helpers to manage a panel state, and cal=
+l it
+>> > > a day?
+>> >
+>> > I think that panels provide good abstraction on top of the drm_bridge.
+>> > For example, bridges don't have orientation, panels do.
+>>
+>> That's easy to add.
+>
+> What would it mean for the bridge? I was thinking about pulling
+> orientation from the per-panel code to a generic code path, including
+> reading and handling it. I'm not sure if it should be done in the
+> drm_bridge code if we declare drm_panel deprecated.
+>
+>> > Also panels have followers, while bridges do not.
+>>
+>> Ditto
+>>
+>> > I don't think that either of those APIs make sense for bridge.
+>>
+>> Why not? In a world where we have bridge hotplug for example, it would
+>> make total sense to me to have bridge followers. I think Luca even had
+>> that at some point in his series (and still might?).
 
-No.
+There's a simple notifier mechanism: see core [0] (with currently psoposed
+events [1]) and users [2][3].
 
-From the host perspective, the private page is withdrawn from the TD.
-Its contents are encrypted with the TD's key and do not carry over. Then
-the host inserts some page (maybe the same one) as shared.
+The events [1] and their semantics are not well defined as of now, so we
+are still on time to decide from the beginning whether it should be very
+bridge-hotplug-specific or have a wider scope.
 
-So the memset() in the prepare callback zeroes a page the guest is about
-to lose, and it does nothing to what the caller sees. With the
-post-conversion memset() gone from dma_direct_alloc(),
-dma_alloc_coherent() in a TDX guest returns whatever the host has at
-that GPA.
+[0] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-14-8e34986d=
+cb68@bootlin.com/
+[1] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-14-8e34986d=
+cb68@bootlin.com/#Z31include:drm:drm_event_notifier.h
+[2] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-15-8e34986d=
+cb68@bootlin.com/
+[3] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-16-8e34986d=
+cb68@bootlin.com/
 
-TDX needs the same ordering as CCA: zero in
-tdx_enc_status_change_finish() after tdx_enc_status_changed(). No flag
-is needed for that.
+Luca
 
-But, again, shared memory is under host control and you cannot assume it
-will stay zeroed.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
