@@ -4,128 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E50CC6B1A
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:51:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A112CC6B1A
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 18:56:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEA610EFC4;
-	Tue, 13 Oct 2026 18:51:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6463210E2A8;
+	Tue, 13 Oct 2026 18:56:34 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 620CF10EA72
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:50:46 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2036410EF7A
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:56:23 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69DHuw3K1125314
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:50:46 GMT
+ 69DE3w5a1492053
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:56:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CU7IDZhSwsFbiiRw6REpkR9M9TsmBZVPn1ZvgDZyk8k=; b=J5OK1XFlmtVmGlYw
- bXhJFQIYOyGR2zofcF9riYiqLzsJ09HW8KiVhETCaKTa0jjMtdnoiSAr67A0SHXU
- +5VZmFV6EP7XnlP31tCLwRGqOS51wdSSaFkzL6g88y9noDVC8YWi97+VSfuULMGz
- 3aaNyRmGc2L8vc/fs4gPVqgjUZPeyl91N1hDIhSueOtJBPRfHvnD6OK2zPbympIn
- 6Fs4XRXj1luUoL6MH4jaQnCpIawwfixPWQzOPruGvnvwl26TjLDKKUQoFsvX8I88
- SAgDIxxrYmpsy7SGI0ZH1rbzqdIvXa0ivyKxhVkIFvearp/n7bLzulitaTv5icu/
- IsRbYA==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sg8094y-1
+ dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=; b=LyfNmFNMtY8X499b
+ 2LyB1tCvlZ8nclC5N7sgYScrqzUIsLNu3+SFUC3pZsurc51YQrZiSVpHkxj5EYFN
+ qkuIxvjobU9LZtXEkmWEGvI1mlaDFL1L4iXudWdwHiwSj36z3EVTGzE0wrRxtEam
+ fa8mdjUavJv/yl7SUgduojWx8kWcWVPMkQRjJVhLmKY5H3MEnZzWVTD9OXWY6TLu
+ bcCA+9WieeZwOIeZtStqWQPK4EO2cIiDjOBlb+03D7M2zb51JEHEv1t146UDRf9y
+ gw95ob1mJyLZdufBgK/hHD0LivQu0YJ71JovqpY9U2cY0uWjBIvkka87OFaGJG55
+ Fuw8fA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9daquskm-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:50:45 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id
- a92af1059eb24-16bc6f3fdb1so2883852c88.0
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 11:50:45 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:56:22 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-341eff9e381so8943234eec.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 11:56:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791917445; x=1792522245;
+ d=oss.qualcomm.com; s=google; t=1791917782; x=1792522582;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=CU7IDZhSwsFbiiRw6REpkR9M9TsmBZVPn1ZvgDZyk8k=;
- b=VZY+Ksb9SPGNe3fzPsN95cS7v5fiwWMwDwi5EGXnNtPoAQc6C+xACZSbh1xIo0Lhzn
- AZzwqXewfZS/JHm83/XbrK0jQpA7lmhqsH6GwLTabA935t3HgKdeZgj88bWGTcKArjWW
- 3a8RC57So53ZlbvhoxUCI+wNN5YKWOnGgREUkHTUyMqtrv9nAcAp4A3ImjAEW7ZAGCyN
- a9dev7bpYJe/5NUGifSRXuEJEraRs5SBSUL6/ubIgGTx//fvl0U6rMh0NBnIL0zbOpEu
- qV47bP/ZRujAXGAQrUvqVtX4ikWohPHVXvR3FtD14RedgAq+i62F0k07wWZ5+XFb56i1
- +tNg==
+ :content-type; bh=dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=;
+ b=cTCYHJ2RR8L4RvwoctkQeqaQf5bTgLMSLE4J8qx/9WRWqc07HuyLwqWGcNMppSObnj
+ FUvnVDTu0ypOolz0pHvG/VAUPh4neYd1SdgpMUS0kgLiqH3jAWUEvzt+6AkQk1q1GEpN
+ ZYf7xqCfwuZDCcZC6ULyPJjIIGax9t831Odk1xaxoimG2XXsD91PqRZ8e2uGgHA3RkQp
+ X5JdLvnaFnsB0FLxULeliCEHmNa1Tm5y1r184hgFCjBXkI2/i2xP3wGDBd4w9xQDCqUu
+ EDOHcikLobQyH3UrkxxnibKWHAy8kUJf9jmN5RgprV0Z9h35M72VH/CcS2BPEkFrrVkM
+ a96w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791917445; x=1792522245;
+ d=1e100.net; s=20260707; t=1791917782; x=1792522582;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=CU7IDZhSwsFbiiRw6REpkR9M9TsmBZVPn1ZvgDZyk8k=;
- b=BjvSWcZvcJ1XGG2wkZOkIPLZqndE8NF9l/GZgbmga8eQXepAvzEHsSm+M95ExG5eG3
- NLmh+NIhd34IqYSggpFF/uy0jBRgTchFEouYLY2zt/lZU1ZWFxGkRJrrY8MdrYm+wj0O
- l/kKg2ayI4s/E9cM1okX/+3MGB2z2+mjVJBo4dpQ09E4UBN6J/vf5QvnjegQDXQJQnMC
- tqcXcBfQqf1ga6R8kzIIUhnbfuNtOPMg91W8D7cQwQYeGvSFDlhLfoZKQ/zYcWW6oXSi
- xWv3505GIV5zSvm3c6dKkw8/Kfe9JmpmFVlOWE9JM0fUuu7c7I4FIpAXPQq9vO2BvH9V
- n1+w==
+ bh=dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=;
+ b=Q0aQK/hPZdV3Gj/oE6sAeDS1HBcJcEV641zaQ70jp5pPv73xn7DSlUEnI92ya+lTNd
+ Vu1WEWqSrudXZlzUsKY0Euz9DVEUIzzJtY6w0pCrtaPtft+CZJzkVgY6FqSGSRRegss5
+ 74OKIVoelgJfbXSxyjtex/wMg2/WKGRpJrfpo0kO7ncvWB9y5n98H5FsvwNE2p0PATDv
+ P9evnixri/0QGqo+EW2Nj1LeKnyh17FyJ0u9OdC0oCK1+Aywo7iP5yBLoP+KmG/JNQGU
+ I8bCEPaqzwoeH/0PjRHt5bDXEJyyPwgmA/R7ok+QLL/9Lt0yfK4YCcg1s73nl3O5HoHx
+ QxFw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz1zHvmjYwUp+JLYxjc8PFdTdlXajYjfbJ7UQ2KJSPbcJ3QxC2G1BNhgMuPvF0QV2oA0sy6VLzkzww=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI2YH+nsE5Ikb9C6QFagWdquiYJAPaJXQCd7715Ri9jhYWutLAg
- akvy6ADFEHlp0M5GwYs5I0Z6x1eVjznETf6CsvuUO0woOVIhjZ/VqtkRrL9DD5nJPiX7onZWvkJ
- A9ATotRRf9iHS7CYElKAKsrQjYB9PKgAKyOkSrMAOxlVGAidbtkdONX58caKbdl5aEhH4aws=
-X-Gm-Gg: AYBFou3XoNlM3T59YQL86sA1ZLfGebeVzyZ2SUi0EYTvlT7shgvhJtCzlQliSaemxnn
- fxJXftJnRGzuc5grCfD0VMt7UYeVJG4JI1sPWLzAJVl/DGwua2tVausl4JSqix6PQnrNZJV2P9g
- k/89NmbK/n5sifB95qUELNmyZjBV46f/GcQmEyI/3++BhrPysjZG+xj5xnG2AFNl5tAHphvZ0E/
- QtanD2ZBAZ7CCTsLinxyd0CJdk+1LFDOChIipjqNDAYrZFgJcO+vZmm5Txh4jKayKcpPJYoi/UT
- ynxH1Ugy2Je4HP6prckgBfwU0NP6i//JnW68zOSYgG+syu8+uUexEngSjgXCCMI7bC4NA/8lSNq
- Rj0aA3lGrFawTmWXvZGS3DscXAAfhXQ22wmdf9lKvzEDmE2HhhA==
-X-Received: by 2002:a05:701b:205b:10b0:148:722b:7cbc with SMTP id
- a92af1059eb24-16a5dbfe430mr18480531c88.14.1791917444693; 
- Tue, 13 Oct 2026 11:50:44 -0700 (PDT)
-X-Received: by 2002:a05:701b:205b:10b0:148:722b:7cbc with SMTP id
- a92af1059eb24-16a5dbfe430mr18480483c88.14.1791917443835; 
- Tue, 13 Oct 2026 11:50:43 -0700 (PDT)
+ AKwUvBwrfTSWby5OaeG455drltFQ8bAuiOmwe3VmS2VLwb6sNoOnGzuXYBMLyi+yi6K1kfWUlD+sRkxOl7Y=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI1C7+OE1qGBjUvI7gGfSvO7HPj4KCx3tRfR8lmuJPPSQjSgQYN
+ QvNkXl7NZRLkdLIeHRCn6lfkba/fIuOB/PLT/V0TTRxDUpmxKOdVB10+Xu04VklEXYhYeOvnPf8
+ 9WRrIZA2v1dFh5mkd1t1mhDqd+oznXeqyEp3eUllIJomj/BhgzFHxN6glAMeHvKlW9plZIOY=
+X-Gm-Gg: AYBFou00HFfBurknrfuruJFLPvo/lRHWdGnfaB7kM4qIei/8hFAJ5sZj62PqIs2Nh7n
+ ptqBnYQv3Xw1/U5PhtCsTZj4tcBv6F/jlrVl5A2eIafwSal/haiHu1Pk09RujhDC0ZZQ2+sG6Fw
+ lz+gaVKAcnXN/dVSd1q8rBk3j1NODwxWIhqkL8mjIRAoFVHnhh5vlkM2cifwALs8lNe0GCcrtoh
+ LebH8Vyhn9ieFrTn5DOVDN5oKHOnQH4SFJtCGU5csocA1f48UKbrFpO0EJEh5jUCfLPNu0kgNoO
+ UArW8g+10a/8FOqsbmiKRYdCFPNR8tlYX6VKtyWI+nxsLHCvRmizu8DM99tKW0zY5JkSoYb/Ue5
+ qVj4dgcLPRDvvYaZDsQ69m+tuAUgz5AtNF2POxo9PZJb4NTHN0A==
+X-Received: by 2002:a05:7022:5f18:b0:143:298f:33b6 with SMTP id
+ a92af1059eb24-16a6203ab5emr17121155c88.46.1791917781371; 
+ Tue, 13 Oct 2026 11:56:21 -0700 (PDT)
+X-Received: by 2002:a05:7022:5f18:b0:143:298f:33b6 with SMTP id
+ a92af1059eb24-16a6203ab5emr17121056c88.46.1791917779716; 
+ Tue, 13 Oct 2026 11:56:19 -0700 (PDT)
 Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1746482c978sm20027730c88.13.2026.10.13.11.50.39
+ a92af1059eb24-1698de65af7sm43594045c88.0.2026.10.13.11.56.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Oct 2026 11:50:41 -0700 (PDT)
-Message-ID: <15ec8059-b73b-4c28-a326-ca9a8ef7cec6@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 12:50:39 -0600
+ Tue, 13 Oct 2026 11:56:19 -0700 (PDT)
+Message-ID: <e6a86bf0-86bd-4010-9d95-5b87bb2a3009@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 12:56:14 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/qaic: Add support for AI200 virtual functions
-To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>,
- carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com,
- zachary.mckevitt@oss.qualcomm.com
-Cc: ogabbay@kernel.org, lizhi.hou@amd.com, karol.wachowski@linux.intel.com,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sashiko <sashiko-bot@kernel.org>, Troy Hanson <thanson@qti.qualcomm.com>
-References: <20260831135008.1418190-1-youssef.abdulrahman@oss.qualcomm.com>
+Subject: Re: [PATCH] accel/qaic: Protect perf stats BO state with bo->lock
+To: Shuvam Pandey <shuvampandey1@gmail.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <6a115824.a0bed9bd.3c0137.9edf@mx.google.com>
 Content-Language: en-US
 From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260831135008.1418190-1-youssef.abdulrahman@oss.qualcomm.com>
+In-Reply-To: <6a115824.a0bed9bd.3c0137.9edf@mx.google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 8ZsrO7XQllyXizEFmvQB2nh8QyKBIBY1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3NSBTYWx0ZWRfX6Us1B5lXdXRY
- SBeG0dzbR+eVChp7G2PvfRiAqwecqBmbnG1lcRVVYSUeVbNvoUoi9oJ/0o8L9Y6dURNXKKlca12
- NjOELdhPYmYJ7K8r60ACle9qeQcvkH4=
-X-Proofpoint-ORIG-GUID: 8ZsrO7XQllyXizEFmvQB2nh8QyKBIBY1
-X-Authority-Analysis: v=2.4 cv=PYJqFShd c=1 sm=1 tr=0 ts=6ace7d85 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-GUID: vqBgYL57iz5jUlTZNINSUnj4j-5zfvsw
+X-Authority-Analysis: v=2.4 cv=FZuiV5+6 c=1 sm=1 tr=0 ts=6ace7ed6 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PocSdXh09T82xRbmK9gA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3NSBTYWx0ZWRfXxgIQ6MaYAKkr
- UC0c91BW3XyoZ+4nqlhkTCvYN2Gfntbu45W5qJwM0NabJBGscog6/DICYl3Mctz1NCSkFLrNrga
- xxm3c5NY0NFIqhbPxiAnXNy6R3OYFjAfSco0QVhsMjIkl6SQw5qv/12haRtnsYd3ut1jQ45SsS2
- JI+2Q3WgaEYVHX321qPZV3ZjHSM3C/Br7pF7abkjMlV3hTHmwWnpr6XHywTTTWb85iczecI+l9i
- H0fLu1gCXNiu20Zi+ouiMak5x348FBN9vtBQ9TVshKru1oDjLHbMt7SLqK8qfFhk8nQVIjU8xRp
- COyRE1Ao77gbnQvrfogODZ8NM/HrCV1AkQErOfDyZl3nYBJoKJg3jvGVUfDxFgjoWfv8TrwPII6
- d701Ht7NWEaK2TcxT8B2SeXGNW21eWkzAH3/W9mZnXHnriT3ygTTMCvNX50mFk8oJ07Nf426ptI
- d4XT5IcbOm2eDw+Z7mQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=MIdiunF4UWRBeV6dtGUA:9 a=QEXdDO2ut3YA:10
+ a=zgiPjhLxNE0A:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3NSBTYWx0ZWRfX5cjXC58lijTW
+ xA/KzorQP9aHqYcQyHHiU9/mNoUjB+Xhcu9ydVpSwhROX2Z1Ih3yG2igIcSd0AstTeP1/k1l14u
+ 8jXEfZRFXJihe+5sb5lb8mxFmyH0BB4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3NSBTYWx0ZWRfX+5+zL+6+vj4Z
+ 5pvGQGBzYB5jmaEIb1fQ+Ur2i1ZoC8E4Os2lfPC+rZepsOGDNvzeRcGhLfWhCnLkSWNq1sd88qH
+ BjeImfmLkD25rcjIDVqeVbKuanJl3uhKrx5SJ8AdXp0qist7SX9T112awKXQhh19/BAI5u+B1k3
+ XKWorfFn7j1FO/zdpzQ9ScjkxihuzJOR0nKMEdMYolUL6OHy2UOIQOjNONMmzkWoOUqTQkKJkSw
+ /UgYXnByIake7wGygCAB4dYgoySBaSexwIjeUZpCj9j9KiuUS/KIZnrLW4z1HAM1EAD6nxl9xwd
+ kwR8XGX8j2i+Xhxr+2a7BAqfZ1WIxrDp7nZL/OwRh8a3+qB3PISXvI7TE+llASP5XeJILWPprnn
+ KkwlC/VQNIIgiw1RUoDE40qVpUlKNCg6cyV24Pp3qYvh2kTa/vmJT07VMw7ObL7urSZu0iMsQTC
+ O9GoBTBADFmvbFWL0jQ==
+X-Proofpoint-ORIG-GUID: vqBgYL57iz5jUlTZNINSUnj4j-5zfvsw
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- spamscore=0 impostorscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130075
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130075
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,21 +142,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/31/2026 7:50 AM, Youssef Samir wrote:
-> From: Zack McKevitt <zmckevit@qti.qualcomm.com>
+On 5/23/2026 1:32 AM, Shuvam Pandey wrote:
+> qaic_perf_stats_bo_ioctl() validates each BO by checking bo->sliced and
+> bo->dbc before returning its perf stats. These fields are changed by the
+> detach paths while holding bo->lock, but the perf stats ioctl reads them
+> without that lock.
 > 
-> Register the qaic_pci_sriov_configure() callback to allow VFs to be
-> created through AIC200's sysfs numvfs entry. Additionally, define
-> a new MHI family for the 5 channels supported by AIC200 VFs: NNC,
-> Telemetry, IPCR, Loopback and SSR.
+> A concurrent detach can clear bo->dbc and mark the BO unsliced while the
+> perf stats ioctl is validating the BO. Take bo->lock while checking the
+> BO state and copying the per-BO stats into the temporary result buffer.
 > 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/all/20260814165907.C76841F00A3A@smtp.kernel.org/
-> Co-developed-by: Troy Hanson <thanson@qti.qualcomm.com>
-> Signed-off-by: Troy Hanson <thanson@qti.qualcomm.com>
-> Signed-off-by: Zack McKevitt <zmckevit@qti.qualcomm.com>
-> Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+> Fixes: 4ddf4ddfceb4 ("accel/qaic: Ensure entry belongs to DBC in qaic_perf_stats_bo_ioctl()")
+> Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
 
-Applied to drm-misc-next
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+
+Pushed to drm-misc-next.
 
 -Jeff
