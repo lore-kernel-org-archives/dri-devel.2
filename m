@@ -4,56 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E04EDCC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 15:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17125CC6B12
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 15:56:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F39A410E4C7;
-	Tue, 13 Oct 2026 15:47:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D77C10E4C7;
- Tue, 13 Oct 2026 15:46:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4EA2440F7D;
- Tue, 13 Oct 2026 15:46:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB201F000FF;
- Tue, 13 Oct 2026 15:46:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791906419;
- bh=zrrwM+OoTQ5n+oUmClj8UHVrIw8n458ireLa+GKP5qM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=BdqC9gMjE6f5EWWl1Xlpzgq2aOqELdaPtElELJu1ZCWu54KCsQoAD9g8r5t2rDi4o
- djw2jbEX0/MkPGgXpPDTCGuKmo24p0IuekQLxf6x1cuLJdDC3cunM45pw8Az2kWEfM
- ePK9sXqi3/K6TN1zi7I0dicxeuCMvq1uXcQUYNiL1HyCx5QjqM9G9Dnajn4MMimxwt
- JyEWcIJ1rbyqOG0SOgwVo+XP4LXaRm4mDWWNR/Agx7cClMcB7mcsuVYj4ZlED/P7Yd
- murSJvxLGW7OiJnPcKNfmu+pcczAFox3+JODJeTxENdI/IH+xarXL8w2KS7H0NrGug
- w0poGpFVwgbfg==
-Date: Tue, 13 Oct 2026 17:46:56 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Sasha Levin <sashal@kernel.org>, Aaron Kling <webgeek1234@gmail.com>, 
- Diogo Ivo <diogo.ivo@bootlin.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Aaron Kling <webgeek1234@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: gpu: nvidia,gk20a: Allow a fuse clock
- after the reference clock
-Message-ID: <as5R_xrDv4eVPdtz@orome>
-References: <20261013145210.103565-1-sashal@kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="nnyddv2boxnoq3dq"
-Content-Disposition: inline
-In-Reply-To: <20261013145210.103565-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5149010E8BC;
+	Tue, 13 Oct 2026 15:56:47 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D096B10E8BC
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:56:40 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 181871A1214;
+ Tue, 13 Oct 2026 15:56:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D32E260362;
+ Tue, 13 Oct 2026 15:56:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 33C6C11D717F3; 
+ Tue, 13 Oct 2026 17:56:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1791906994; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=354zwLB4JSBzC6TqObl0kjMSQwxU/dQftIBcAR5WAQs=;
+ b=SR51IdX+cqmSpy3ZmcfhTl/74buqACNKiOJK198dtlEBesTTLuXjG9o58dHpHqnBGPvkfm
+ eGWOh3LMmAY6smt4dhYTbcMtALArKqPWOH8c/zl3wZzHsip9rXzCZtPeWIm7icU8a8vquN
+ 90ZVVtgKn2vrn1P+gLHiSKsXcljOhNgBrc5PVtUlkCp8JesuFbnwGOcrjkbOLZyJBUGe2y
+ coPQtg34PjcJvyrlR8l81++Wgc6aT+1bjQs2TE/HiG1r2bhOj/Wv6t1oTCqnU8v4Od6lxb
+ MnZiHT/O4KZ29UGlNM/gZNzrIo7n/2etAh1fGT+jaAjexb4XhyFTPsJJcrXvyQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 17:56:32 +0200
+Message-Id: <DM3U0JWSFAS4.2J8MSWTKYBDBN@bootlin.com>
+Subject: Re: [PATCH v3 2/3] drm/vc4: dsi: stop using deprecated
+ drmm_of_get_bridge()
+Cc: <dri-devel@lists.freedesktop.org>
+To: <sashiko-reviews@lists.linux.dev>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20261013-drm-fix-of_get_bridge-build-regression-v3-0-0b4c0b65be82@bootlin.com>
+ <20261013-drm-fix-of_get_bridge-build-regression-v3-2-0b4c0b65be82@bootlin.com>
+ <sashiko-outbox-170020@kernel.org>
+In-Reply-To: <sashiko-outbox-170020@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +62,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue Oct 13, 2026 at 5:35 PM CEST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] drm/vc4: reference leak of next_bridge on component unbind/reb=
+ind
+> --
+>
+> commit 01a94378aeae8cb42a9f68ed6384a34ccaa162a0
+> Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>
+> drm/vc4: dsi: stop using deprecated drmm_of_get_bridge()
+>
+> drmm_of_get_bridge() is deprecated, switch to
+> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
+ns
+> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+>
+>> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi=
+.c
+>> index 0148f2befed14..675bd0fc13913 100644
+>> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
+>> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+> [ ... ]
+>> @@ -1775,9 +1774,13 @@ static int vc4_dsi_bind(struct device *dev, struc=
+t device *master, void *data)
+>>  	if (ret)
+>>  		return ret;
+>>
+>> +	dsi->bridge.next_bridge =3D drm_bridge_get(next_bridge);
+>> +
+>
+> [Severity: Medium]
+> Does this code introduce a regression that leaks the bridge reference acr=
+oss
+> component unbind/rebind cycles?
+>
+> During component unbind, vc4_dsi_release_action() only drops the referenc=
+e
+> to dsi->bridge acquired during bind:
+>
+> static void vc4_dsi_release_action(struct drm_device *drm, void *ptr)
+> {
+> 	struct vc4_dsi *dsi =3D ptr;
+>
+> 	drm_bridge_put(&dsi->bridge);
+> }
+>
+> Because dsi->bridge outlives the component unbind, __drm_bridge_free() is
+> not executed, and the reference to next_bridge is not automatically relea=
+sed.
+>
+> When the component is subsequently rebound, vc4_dsi_bind() overwrites
+> dsi->bridge.next_bridge here without freeing the previous pointer,
+> permanently leaking the bridge reference. Does next_bridge need to be
+> explicitly cleared in the teardown path?
 
---nnyddv2boxnoq3dq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/3] dt-bindings: gpu: nvidia,gk20a: Allow a fuse clock
- after the reference clock
-MIME-Version: 1.0
+Ah, right. I'm fixing this in v4 by calling
+drm_bridge_clear_and_put(&dsi->bridge.next_bridge).
 
-On Tue, Oct 13, 2026 at 10:52:08AM -0400, Sasha Levin wrote:
-> GM20B needs both its reference clock and the fuse clock while it is
-> powered, so allow "fuse" as a fourth clock after "ref".
->=20
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+Not sure adding it to vc4_dsi_release_action() would be correct in case of
+unbind/rebind, so I'm probably adding a new vc4_dsi_unbind() for that.
 
-Aaron, Diogo,
+Luca
 
-I'm fairly sure I remember at least one of you mentioning that GM20B
-wasn't always working reliably. Would you mind giving this series a spin
-on your devices to see if it fixes any issues you were seeing, too?
-
-Thierry
-
---nnyddv2boxnoq3dq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOUnAACgkQ3SOs138+
-s6E07xAAhV16aE/vTmdXCWNQFDANmFHYGGkbT8iB51pQecVSkYApSpthdGshj822
-8aL9r+P3JKo6enP2M0iITNX71JEw6W/s7btdKO9ur0lAmT7OQkZbr0cBbHFDkeek
-Rx5fZYDM8M/Xf5t3/Yka+rQTJpmPSWwqljLYcqcQBChdPkG35VuWS/Df5PwTK5tu
-9j+SWtpNRg1CPCNIvNiZzltE8Vdkp662vSrucQyzTp9UWws5DIgPI3qhPGTQlbjt
-rZVi7cWLawCw2Tnl4WeXOlEPDS0s0sh+w9dmQhpgjeJWBGJYhTms06X7qX7lJ0fd
-2ncmditmQrBk0JCu94YQFx7tjSxjUSXTXSPPw+HzZXDtPuHaRAp5+75jqeqg2wIg
-zG6Tv3+QIpEONMXKZtdu72/o8cPJuXFnXNTWqMY2GITRFmBR+3zt+DnVgXXwvj7V
-JHr0iYWp40CRIZTgq9lcNlQdMnqzjm1g8oV7g1RAXdhZHp3FU6RBpAoe0kUOmyFw
-RAqb6V/lXF89WgzrZ0qlSG9s/8NkjmJaMj04wiU7YA3xLNCeBPw4rzR8hMNzteV0
-VyK7BQeV8T39SBG+D1Muwyq4quFQO0QLHen6YmPSf3SMdEikNwl5JT2ZGziUGtKq
-X/IOENvD1mK9kvYwQFnZ6YCdez2KwN45NDtWe+Tm6MFviXE0WNU=
-=ovYf
------END PGP SIGNATURE-----
-
---nnyddv2boxnoq3dq--
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
