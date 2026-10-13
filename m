@@ -4,84 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03564CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 05:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9126FCC6B0E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 05:33:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23E7010E719;
-	Tue, 13 Oct 2026 05:13:23 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D807210E719
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 05:13:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CAE90600D1;
- Tue, 13 Oct 2026 05:13:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E989C1F000FF;
- Tue, 13 Oct 2026 05:13:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791868395;
- bh=GJNXTxAKDlJNxNUfVhfSQZRthKiPsKwpUGRTdAWw5nk=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=VzCrDEQbQkLh3MKfOcrVWwIP8JEXomYf5WXOVtkxPNomqYwc62kenfaWt4EtjgLr1
- 56jB5oIiN8pzQZeIE3LFciZow2fKaUlTkUhbRzOM+dcbTemWxjNlaDACdigHCayE87
- aOYeG7A0j8blwTWF/PhrjdF/yqcwVCBZgEXlTLggA50DrIt7DidbhXOeZDYqd2wlwf
- 5VM61psLu8x0NOTS6zsnpsRtNRWIIa6D/I6cZXFg4QLjCBQLZUYg8H0fnCR6pdxExb
- Rlsmno4/IPgxywaV4sYkjL4r0KtaTtxGQIturB/lLm5ZpL/LuERHtKpU8HslKH1Kgj
- Tp4Z6gqmgQAbg==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-media@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [RFC PATCH v8 02/14] mm: Zero memory during shared memory
- transitions
-In-Reply-To: <arZkEugXwCtKHH64@thinkstation>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
- <20260924100529.1398790-3-aneesh.kumar@kernel.org>
- <arZkEugXwCtKHH64@thinkstation>
-Date: Tue, 13 Oct 2026 10:42:58 +0530
-Message-ID: <yq5azewiqj39.fsf@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D367910E723;
+	Tue, 13 Oct 2026 05:33:15 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010047.outbound.protection.outlook.com [52.101.56.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85B3410E723
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 05:32:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rVFfqu+H+4C0gXGeFRr1LLV70Xvk5zS7yKRWV9/9JWtQStU20dYmzxDgMGNoo1fLpHFzpOYG17V+Drv5mzg1AWMAcUBYhTPn1NJATUtZyVPTqjUvW5VF0CZz3AOjjThsI/eMFOj5aDT5xre/HPWR4UnpCaH3szzdOCISv3VuslA9i2qrzydw5nbstv0JuId4+NJ0D1cx1+2iFekioXKdaBvMc9nzc9GQMKzzwgnT2hkRq9C/zOl7kU0cmiCkZzTxuIZo/JkmEP5u2y6qQEV529jxrX7OZBDkfYTjLZVDAXmmjr/fZ2YRKJSpmjSr8qx1IBs+X1322k0x77lyT8bOuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K8VQXQmUVa0Z1a9lKoKA8Za5Ck+uwHEa63Py6ca9DmQ=;
+ b=Olf+X4z/Y8aWcEyaTmWsOFx8/icLo7irIvGKiTbC/EIiDkmx1zbKg0fqXafUOffExcFGpUaYyvyRxCvdjmYxLppZh9K8lUe0toXkrrLU2xGQVhnNMYoFAhr6BcdEwO4irkEVKcyV92Rog2YYlzcxJHHUeDqcGX5byaQLwgp9PGpYpVE3YHX8H/7sGWN8URMXMpMmmeai5tmvqj6sTXIfmBrCpqajwQenL6wMwMLsZ9vyv6Sq5oqJB8aumXKvZoDoNEOiJ9giOl1VsEU2aa8Hv1NHQobDm/bpPeSatCoPso+vUDbrJpP5RNROLCxEo9BFhaBtjXTLyYIIxXp+n8kGKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K8VQXQmUVa0Z1a9lKoKA8Za5Ck+uwHEa63Py6ca9DmQ=;
+ b=blbTBsZIpwEVzpk58DzjvuPFZdd8XWj45dyOg72wlntVfgx2cCZyS84BPJKUbVI6bCIYxZWmvU6zbWjG+ATwFEu6Jw/TY9VUQwsX+CPLloZ29hJfn02T68vZ66lM8YhY/yEt5xuck2K64N087XWl992WDdaGuWSSIYl8fAUoi+U=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by SA1PR12MB6752.namprd12.prod.outlook.com (2603:10b6:806:259::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Tue, 13 Oct
+ 2026 05:32:43 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 05:32:42 +0000
+Message-ID: <317cc6e9-8e15-462d-9e9c-2657011b7128@amd.com>
+Date: Tue, 13 Oct 2026 13:32:28 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
+ airlied@redhat.com, kraxel@redhat.com
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <dfa2f117-1094-40b9-9445-ab2bbf62ff2e@collabora.com>
+ <7c32c182-5b49-4dc0-9c97-a4238743f28c@amd.com>
+ <efd5fa89-e888-469a-ac80-e6e605f9a015@collabora.com>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <efd5fa89-e888-469a-ac80-e6e605f9a015@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TPYP295CA0045.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::6)
+ To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|SA1PR12MB6752:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3df93b3f-edd5-4843-570a-08df28eb6734
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|23010399003|4143699003|11063799006|56012099006|18002099003|22082099003|261009221227099003|10067099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: Xl7cSjGxoJX5ndXiCQNL12bLFgbciipzG8YEHBfL4LO9edq3Dj517wVFqxqXNi8r54dPH8F+BeR9GIdd+7kq75Vz15sKk1oUVDGHdZ1vlXlSqqgECjWllFoNEUuLFW0ZZUiFL7RW7KLil2CsWhUat/d+ozf5SBeKX63fey3cx6AIOZxRNAo8PwrqRSsQul5H45LVEYHYWfrLlCxpOAyDHdrNQ7ron141OPpGVGMbYZf0RqgeIgDZ50cU95ViZBdT15rfWVcf1Sh3cCaqgOSX62CGM7P76mAgJJyR8qnV5NunzEe1x0fC51I7gTZ9bn2D1/b+OzFU1m/WQvaYMneqRoBa1wRq0r8I1xINKbSFR0XWi+A1nmU7Tal40xWzgZOTEhXLFd7GlirLt5MGSCT85c8FZDVmALL7bKIx7u3X6GBjcbbOQiykku+CXsmNJFAZM5PCbSDHW//dOa5WyQ5WLpPhz6YdndXsSnI7lDqsxXsZ4yz12c/jULUl5BgFXVVLmPS4FiATX8qw7bTZ7x0A7z1NxX4eKf5i2yN5dpLGCp1iS/qJO4zd0dQwLCuPrfKy3PnfuBkj/GEGDOnZGGQLhquxydjTgU95UXatM+ZycT96PEzx6aeNhUegxxl/KD5c
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(261009221227099003)(10067099003)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clZ4Qi9LOVBxVFQxT2I0NlRUZWk1ZEJjaG9rQnR1ekwrR1Q0b21EV0hUd0xC?=
+ =?utf-8?B?WGtnZUF2ODlzZHliUytHRlVtTEhMRHE0UnE5bURmN1picmpMTUpkV0tVM01C?=
+ =?utf-8?B?WmgvODNtdkhjaTJaVWdxcEk5dlV2cDdsYzlMbzNseno2QnFOcUl5MW9SUGtS?=
+ =?utf-8?B?REdHVGdpd3FYc1JXT25vZ2hJZkYrelpFNkUvNHpkeTZESWJHaGpLS2dyUVNs?=
+ =?utf-8?B?N0s3Y0tKa3RzYkkxRXlDdGxPSnc1Qk9CalVETHZqWExaTDFHc3c5alVjdUxL?=
+ =?utf-8?B?QUZRZmdoWklXRlAwNi9sTGsrTGpTRzdVTmdYQnM3RXF5djVsNmNaaEg1MVk0?=
+ =?utf-8?B?bzJtV3NhNDZLUE5ZOVNZM050OHR5YSsvV05FblVnTVBmK3JtdTVFZ0w1ZXA3?=
+ =?utf-8?B?dUlFalovY2VXSll2b2R2RTd2cW5uNGlkbkdoT0luMXRCS1hCczRNTXhSdHY2?=
+ =?utf-8?B?U21IYVJxNXBFdXRYVnJuY1BGQnNqVVBZSW1mTVZUVG1RZ2h4MDJLaG9FZDVQ?=
+ =?utf-8?B?RVdKZFZpcXhlRVhLWlBHb0JJRTROMXJROGFsUHI0YlIwaXhUQXBDU3psWUo3?=
+ =?utf-8?B?bXNYdDVxVVU3YURXSExIZ3U3Z0pxSGNSZjBST05Hd2NMU2p6cjlKZkVHbFU5?=
+ =?utf-8?B?a1pvc3htbFFhQU9nWG5CeExHMGJpWXpXY3JQei95VXluQkFjZ0REUUxoaGNq?=
+ =?utf-8?B?cDYzNkVPTjlwWThFakMrc2JlNGVzWDNudjJXN2poMHppNktqSDZNQ0FpeFd0?=
+ =?utf-8?B?akE2VlI2WUNieG9MZ1FpT0tZRll0VW1vRkM5czV3OHpzY3NuSVhib1UyeU9q?=
+ =?utf-8?B?QWZEb2I1ZzZPNkN3dmhsTUtRMlZzSjhJQkZWaE5SaC9GRXZmQ3VUOCtBM21Q?=
+ =?utf-8?B?aG5Hc0ppV0VHMmhHdlQ5elJjQ2c5TU5zZG12L2hweDE0bVlXWE9KdktvQkNl?=
+ =?utf-8?B?QU1iL2lYLzU1Q0RUMmZnY29RWUpkUUpPMnJzUnRZNTNFdHFmWi9WdDQvYVdE?=
+ =?utf-8?B?YmwvSVh1a041Q0I4eWhaMEpZMzFFTEVnNzBZbVplNnRlL25kM3I3eUpIQmlt?=
+ =?utf-8?B?SXgxT3hJSGlObjg1ZW5QRVNoSmZmb2R2U3lhVXpkWUw1N0N6c0t0R1JZeFpZ?=
+ =?utf-8?B?ait4S1IwMUsvdEpKZDBGSWc2UUVxK2traUowTVk5M0VUV2tZTVZIdnVNTUpv?=
+ =?utf-8?B?OWY5bjVEN1dLMTNRZzhWQ0QrU1ZXMGtPcTlBd2NlTld0NGtSR2NLUEZvY3Vr?=
+ =?utf-8?B?QTRZV1RJYzMyVHVYNC8xemxqQXJpTzlCZ28zTFQ1TGNuZHFDQ2liUHhPVS9v?=
+ =?utf-8?B?TG9Ub0IxMVpxdllHQituTVdhUmdkNlFsL0U3YTNWT2VYU3U3am5DTTlJU0Fz?=
+ =?utf-8?B?ZEVXN0JzNWg0K2lvNVFwdzMvWXhyMHpUQ0ZjZ0x2M01yTjNCeEQzUmd2NS91?=
+ =?utf-8?B?c21WOWNuZGNRNGE4V3R0OFlaeGFGTVNtc0FFc1RIR3dObzBXcXNmamtYOC9W?=
+ =?utf-8?B?WnZvRDNqRFZVS2plTDRDQUNrM0tKR0hsRXVxMVdjZHlMZFJnWlBJTzBTTGNx?=
+ =?utf-8?B?YmgrQ2t1dXdyZVFmUVpNa1hkWUJEd1VVUHNTc1dkS2hQenZ2SStxRXhNS2RG?=
+ =?utf-8?B?V2U3SjJZRzcwRUdSQzRHandyWjhZbUxvQVNzTUdyOUxNM2JzRWh0dmRBYkM0?=
+ =?utf-8?B?dFUvRjgwKytPNHJrelRCYXAxVUhjWWh6OC9uZDNMT2F1VERTdlJyQXJLejlF?=
+ =?utf-8?B?NjlwVTVmQmpvR1pXNHpXM3ZwM2pDOEM1ZXQyOWxCeFB2a0lHd3IyRzVWdnVi?=
+ =?utf-8?B?bU80WkZka1hSdWdKNUlDbS9iN0U2cEUwNFVzSldPamErd1h5aE8xOHhDa1p4?=
+ =?utf-8?B?K0xNM0Z3ZGdaQzNkUHZONHZKUlY4UFFjZDByT1pDUkI2MXdmSGo4OTMxNy9o?=
+ =?utf-8?B?S2MvaWFweFpsTjU4enVHN2U2UWFQNXdwZWxMV0pCTW8xdXZLS3VMQ0Y3TFJi?=
+ =?utf-8?B?QnRDUVpJQklRLzhXK3ZSZ3R1S2Q1VUpUV0lwTGZHeFBRbVV6MFg3RkM5b3NU?=
+ =?utf-8?B?NDNpcGF4Zzk0cnRhUEdKR2lzUHVsSDNncXZqUXdDTUh0ZlVhWm8zWHhTdytu?=
+ =?utf-8?B?UDF0a2ZsL3BraXQ5bTVGWExHcmpqcnpNdjZYZU9VdndrOEI0WEtOU1VIdEww?=
+ =?utf-8?B?ZHVGZGhpTHkrQ0gwUzBxcWJnckFweENpSlNoSzlqYmpBU044WjlBUjVWZ0d0?=
+ =?utf-8?B?Q0I5ZGs2bUFxMEFkOUlYOUR1MVpHai9FZ2pneENNdjJYQjlzeHhtWmhrNVpn?=
+ =?utf-8?Q?t0nP/t3wYNf8su9scD?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3df93b3f-edd5-4843-570a-08df28eb6734
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 05:32:42.6772 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Be3QdUSb1tPsbNLiVHg+1OSbj3k2uP6Bs7yCsNx+AM/2ryymr7V57EoztoamVyZiy/0TApugxpHzQz3Z2MshiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6752
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,57 +138,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Kiryl Shutsemau <kas@kernel.org> writes:
 
-> On Thu, Sep 24, 2026 at 03:35:17PM +0530, Aneesh Kumar K.V (Arm) wrote:
->> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
->> index f904a636d449..1f1f39082391 100644
->> --- a/arch/x86/coco/tdx/tdx.c
->> +++ b/arch/x86/coco/tdx/tdx.c
->> @@ -978,6 +978,9 @@ static bool tdx_enc_status_changed(unsigned long vaddr, int numpages, bool enc)
->>  static int tdx_enc_status_change_prepare(unsigned long vaddr, int numpages,
->>  					 bool enc)
->>  {
->> +	if (!enc)
->> +		memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
->> +
->>  	/*
->>  	 * Only handle shared->private conversion here.
->>  	 * See the comment in tdx_early_init().
->
-> This doesn't make sense to me.
->
-> On TDX the memset zeroes a page that is about to be dropped.
-> MapGPA(shared) makes the VMM back the GPA with different memory, and
-> what the guest reads afterwards through the shared mapping is whatever
-> the host has there.
->
 
-Does TDX require the guest contents to be preserved when pages are
-converted to shared?
+On 10/10/2026 8:50 PM, Dmitry Osipenko wrote:
+> On 10/10/26 10:37, Huang, Honglei wrote:
+>>
+>>
+>> On 10/10/2026 2:53 AM, Dmitry Osipenko wrote:
+>>> 24.09.2026 12:55, Honglei Huang пишет:
+>>>> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
+>>>> +                  struct drm_file *file,
+>>>> +                  struct virtio_gpu_object_params *params,
+>>>> +                  struct virtio_gpu_object **bo_ptr)
+>>>> +{
+>>>> +    struct virtio_gpu_object_userptr *userptr;
+>>>> +    struct virtio_gpu_mem_entry *ents = NULL;
+>>>> +    struct sg_table *sgt;
+>>>> +    struct mm_struct *mm;
+>>>> +    unsigned long lock_limit;
+>>>> +    unsigned long start;
+>>>> +    unsigned long end;
+>>>> +    s64 new_pinned;
+>>>> +    unsigned int nents;
+>>>> +    int ret;
+>>>> +
+>>>> +    *bo_ptr = NULL;
+>>>> +
+>>>> +    if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
+>>>> +        params->userptr != (unsigned long)params->userptr)
+>>>> +        return -EINVAL;
+>>>> +
+>>>> +    start = params->userptr;
+>>>> +    if (!IS_ALIGNED(start, PAGE_SIZE) ||
+>>>> +        check_add_overflow(start, (unsigned long)params->size, &end))
+>>>> +        return -EINVAL;
+>>>
+>>> There is new vgdev->blob_alignment defining host page size as it may
+>>> differ from guest's page. Will be good to validate both.
+>>>
+>>
+>> Will add blob_alignment check in next version, thanks for the review.
+> Missed that verify_blob() already should be validating the userptr
+> blob_alignment. The patches look good.
+> 
+> BTW, previously the extra AMD KFD patches were needed on host kernel,
+> did they land upstream?
 
-The memset() is done here because CoCo shared-memory allocations now
-ignore __GFP_ZERO and instead always zero the memory explicitly. For
-CoCo architectures such as CCA, this must be done after the memory is
-converted to shared because shared memory uses a different encryption
-context.
+According to KFD maintainer, they want to us to add those virtio 
+specific feature into drm svm, a new SVM frame work based on drm svm 
+helpers. We are working on it:
+https://lore.kernel.org/amd-gfx/20260804094246.1719318-1-ray.huang@amd.com/
 
-The full patch avoids zeroing the memory twice. If __GFP_ZERO is used
-for a CoCo shared-page allocation, the page is first zeroed during
-allocation, then converted to shared, and must be zeroed again. I only
-changed Arm CCA  in this series because I was unsure whether the other
-architectures required similar changes. Therefore, every CoCo
-architecture other than CCA currently performs the memset() before
-conversion, while CCA performs it afterward.
+And the amdgpu VM maintainer has agreed that he will help to consider 
+how to intergate the virtio requirements into the design of amdgpu drmsvm.
 
-If the host expects to see the guest contents from before the conversion
-to shared, we will have to pass the allocation flags down to these
-helpers and perform the memset() only when __GFP_ZERO was requested,
-along the lines of:
+And for now we can use a user space method to replace the AMD KFD 
+patches function, it is mremap, it also works, we tested it, but
+it has some performance loss, I will update the whole thing when all the 
+components code are ready.
 
-https://lore.kernel.org/all/yq5aa4p82sqt.fsf@kernel.org
+Regards,
+Honglei
 
-To keep the changes minimal, the current approach always performs the
-memset() rather than passing down a flag.
 
--aneesh
+> 
+
