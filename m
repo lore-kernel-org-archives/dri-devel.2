@@ -4,43 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B794CA9ED2
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 08:32:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C7BBCC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 08:37:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF3AF10E75D;
-	Tue, 13 Oct 2026 08:31:58 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD2B10E75D
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:31:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:From:Reply-To;
- bh=9JlqceaW4Z8vjAr0ORd+79aNIdJmpMYabQrXzFtD9l8=; b=kMHlGNzExMltJCnBzmXRKlp7sB
- xhLCrtUqz7hVcjAGPRpiabLAZgavf5IzkPalSbSJ6qJuEo4o8qrHHEajcDqIsmVrjSaI0Zpkgijk0
- vTyEwSa/J5A2kowRYbvMrj3SzqmcAMBawT0ChQQ2JNAx0dsv5gCaUKnrJ+wv0D6wKyG4Jm+511WpJ
- 7KTKbwP1ZiZ6PA2tzPcafx8V0cz98WH9pz7lOCBC0rqf8ETwarYBgmkS468ugJBrA4qfezGb8izqZ
- k68Cknkz6bi4zHtAWlbK8f99BEJviPksdyhUqD5l0473YE5FdsZewn0jXh4PRgOz8KeoP7xMD4tNA
- 9FOQl9Sw==;
-Received: from 89.141.155.109.dyn.user.ono.com ([89.141.155.109]
- helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xGXvG-00Gxfl-JC; Tue, 13 Oct 2026 10:31:46 +0200
-Message-ID: <41ecc5aba207d2de26a9a5dddfc382dd66c1a41f.camel@igalia.com>
-Subject: Re: [PATCH 00/11] drm/vc4: Split and shrink job_lock
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Maxime Ripard
- <mripard@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Date: Tue, 13 Oct 2026 10:31:35 +0200
-In-Reply-To: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
-References: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E335F10F5F8;
+	Tue, 13 Oct 2026 08:37:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 047B610F5E7
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:37:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2792B60261;
+ Tue, 13 Oct 2026 08:37:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A7A1F000FF;
+ Tue, 13 Oct 2026 08:37:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791880642;
+ bh=WRpmvYv+ZNHPv0I7UH9P9Kj0D4/Ue1p27eqvcGdqnKE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=eiJ5VlVDu+UtR3o0UbErr8NQLnWfLuLzU18bppw7mY67CzJ62MegODL0S3vyVE40l
+ ARmcEUb6vjfKBQOwsfAeO7UdzKmQ1aekbTlT/PnDMQ0u4x7UxKU5A8RCALumAJnGFI
+ ff965vRfHrBzwkmDRdCmRahdAbvgn4L8Hi9S2mKMHGDDHBs5Bz6vIKoX+9gZJUTQl5
+ rjtsvys512F+XvenGtUjLF5bitxr13v8ekaQOiWV2/fnx240C0pdbMFBfeo831900P
+ 0ZIdGGAy6pwI6EdlGGSf8Iirx320lLfxd4fYGQBnbBwFrQ7ko2ow3H9g/UeIiyXG3T
+ QNFXH9uNGc3fQ==
+Date: Tue, 13 Oct 2026 10:37:19 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Val Packett <val@packett.cool>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+Message-ID: <as3sI-N3VeG_pL0U@houat>
+References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+ <asyAObcpbFy3OeE2@houat>
+ <7pptulwzceqg7xozps5boncgcpd5fpw2pdabcslp4den34ixjn@rzgkoe36itwm>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="krwoug773liv5dfc"
+Content-Disposition: inline
+In-Reply-To: <7pptulwzceqg7xozps5boncgcpd5fpw2pdabcslp4den34ixjn@rzgkoe36itwm>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,97 +69,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This looks good to me, I asked a couple of questions about patches 1
-and 5, everything else is:
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+--krwoug773liv5dfc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+MIME-Version: 1.0
 
-El dom, 04-10-2026 a las 12:42 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+On Tue, Oct 13, 2026 at 10:51:38AM +0300, Dmitry Baryshkov wrote:
+> On Mon, Oct 12, 2026 at 08:40:33AM +0200, Maxime Ripard wrote:
+> > On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
+> > > Panel drivers don't have an atomic state and so they can't handle
+> > > additional data to be stored at the atomic_check time or to be retrie=
+ved
+> > > at the enable/disable time. For example, it prevents panel drivers fr=
+om
+> > > supporting multiple display modes or making DSC being optional in a
+> > > clean way. Drivers like panel-novatek-nt35950, save the connector
+> > > pointer in get_modes() and later dereference
+> > > connector->state->crtc->state from prepare() without holding any lock=
+s.
+> > > The panels also have no way to reject the configuration they cann't
+> > > handle, as it doesn't take part in the atomic check.
+> > >=20
+> > > The panel already embeds a drm_bridge, and the bridge has an atomic
+> > > state which is property handled. Subclass it to provide atomic state =
+for
+> > > the panels. The callbacks can find the state of the other related
+> > > objects (e.g. CRTC state to get the display mode).
+> > >=20
+> > > The atomic state is opt-in. A panel that doesn't implement the state
+> > > callbacks keeps working exactly as before, with the plain bridge stat=
+e,
+> > > so there is no need to touch the existing drivers. The panels which do
+> > > implement them can only be driven through the embedded bridge, since
+> > > there is no commit to hand over when the host calls drm_panel_prepare=
+()
+> > > and friends directly. Those entry points warn and refuse to handle su=
+ch
+> > > panels. There are still a dozen of display drivers calling these
+> > > functions, and the panels used with them can not be converted until t=
+he
+> > > hosts are switched to the panel bridge.
+> >=20
+> > I really don't think we should extend the panel API. All panels are
+> > bridges now, consumers only care about bridges as well, and the bridges
+> > API provides what you want already.
+> >=20
+> > Why not simply turn the panel drivers we want into bridges, possibly
+> > with a bunch of specialized helpers to manage a panel state, and call it
+> > a day?
 >=20
-(...)
+> I think that panels provide good abstraction on top of the drm_bridge.
+> For example, bridges don't have orientation, panels do.
 
-> On a Raspberry Pi 3B+ running `glmark2-wayland --off-screen`,
-> lock_stat
-> shows job_lock contentions reduced by 90% (2093 -> 207 per run) and
-> total
-> wait time by 96% (14.7 ms -> 0.6 ms). The longest job_lock hold,
-> during
-> which interrupts are disabled, drops from 747 us to 27 us, as the
-> render
-> done handler no longer signals fences under the lock. The workload is
-> GPU-bound, so the glmark2 score is unchanged (239.6 vs 240.2) [1].
+That's easy to add.
 
-If you want to force a CPU bound scenario you may be able to achieve
-that by dropping output resolution to a minimum (passing something like
--s 32x32) . That would make GPU-side work very small and CPU work might
-become dominant.
+> Also panels have followers, while bridges do not.
 
-Iago
+Ditto
 
->=20
-> About 99k acquisitions per run move off job_lock onto the per-fence
-> locks,
-> and 185k more onto bin_alloc_lock, with little contention on either.
->=20
-> Considering that glmark2 is a GPU-bound client, it's important to
-> notice
-> that contention improvements might be higher with several clients or
-> a
-> CPU-bound workload, which I did not measure.
->=20
-> This series applies on top of "drm/vc4: Fix binner slot allocation
-> failing
-> on an idle GPU" [2].
->=20
-> [1] `glmark2-wayland --off-screen` scores are the mean of 5 runs per
-> kernel
-> without CONFIG_LOCK_STAT enabled. The lock data is the mean of 3 runs
-> from
-> CONFIG_LOCK_STAT builds.
->=20
-> [2]
-> https://lore.kernel.org/dri-devel/20260930182204.1877361-1-mcanal@igalia.=
-com/T/
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> ---
-> Ma=C3=ADra Canal (11):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Publish the output fence outside =
-of job_lock
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Drop the BO reservations outside =
-of job_lock
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Refcount vc4_exec_info
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Return the seqno of the submitted=
- job
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Attach the job fences outside of =
-job_lock
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Use the inline fence lock
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Signal the render fence outside o=
-f job_lock
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Take job_lock only once to drain =
-job_done_list
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Protect perfmon state with a dedi=
-cated lock
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Protect the hang state with a ded=
-icated lock
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Split out bin_alloc_lock
->=20
-> =C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 20 ++=
-+++--
-> =C2=A0drivers/gpu/drm/vc4/vc4_gem.c=C2=A0=C2=A0=C2=A0=C2=A0 | 106 +++++++=
-++++++++++++---------
-> ----------
-> =C2=A0drivers/gpu/drm/vc4/vc4_irq.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 80 ++=
-++++++++++++++------------
-> =C2=A0drivers/gpu/drm/vc4/vc4_perfmon.c |=C2=A0 40 +++++++++-----
-> =C2=A0drivers/gpu/drm/vc4/vc4_v3d.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=
- 2 +-
-> =C2=A05 files changed, 146 insertions(+), 102 deletions(-)
-> ---
-> base-commit: 64eded63d88ea70466c57cf433761bb1efea37a4
-> change-id: 20261002-vc4-misc-fixes-2b313622f570
->=20
->=20
+> I don't think that either of those APIs make sense for bridge.
 
+Why not? In a world where we have bridge hotplug for example, it would
+make total sense to me to have bridge followers. I think Luca even had
+that at some point in his series (and still might?).
+
+> Last, but not least, we have drivers that were not converted to the
+> bridged approach (*).
+
+I'm not disputing that, but it's a matter of months at this point, Luca
+already did a significant part of it.
+
+> As such I think we should evolve the drm_panel, extending it to
+> support atomic state.
+
+I still think that drm_panel is on the way out with bridges taking over
+for years now, and we should accept it. Otherwise we'll just end up with
+two concepts with the same purpose which isn't great.
+
+Maxime
+
+--krwoug773liv5dfc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCas3tvgAKCRAnX84Zoj2+
+dqdUAYDG1uETAxbovMuzj2lX6QLl8c6ZN+NPH2rJwTfXhWLIgRv253UOgKpAcO4g
+kuNDHrEBgIoCWY+u4UcbXTezQO7PslGrfeFXHodgFWdP4xUUu88iHQd0XVVIOoMs
+vvVCAFGAwg==
+=FeOJ
+-----END PGP SIGNATURE-----
+
+--krwoug773liv5dfc--
