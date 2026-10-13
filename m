@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCF0ACC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3015CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E5B9112158;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2C511215F;
 	Thu, 15 Oct 2026 07:56:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 471DA10E0C6
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:14:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8360C10E929
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:25:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 23D2A432DA;
- Tue, 13 Oct 2026 15:14:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613AA1F000FF;
- Tue, 13 Oct 2026 15:14:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 03747602C3;
+ Tue, 13 Oct 2026 15:25:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C948B1F00893;
+ Tue, 13 Oct 2026 15:25:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791904472;
- bh=0bnu6UG4IVOs8k1+HPoNuLyLEAARmeUBUO1+fNpEoMo=;
+ s=k20260515; t=1791905157;
+ bh=brSHanJN25qJ54Niea2K3A3DIc/HKTRx7GaGCKmRkSY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=DJxoQW45L0WEIzWaYdq/0lXV8eINLp+/fpnrparhMe5MG9AzSehV4ukQfCXiulbH4
- KMBNwPuOg+U4yWCQO1euexl6hY2jhzdR8wi/ukfqvioKd+JNNcKEfWOPf5AOfauu77
- AgQkxbzNyRjjuPeMIPOa4jHL84oahLD9POgs4m19S4xwVjJ+CpxKJnln0kXlZ3Wzab
- 3dhsXSFqtXLPBsZha2SAd4yLHzLKWurjaNEBAOCkBMLX8L+SZgA9ZYiSLtCv6aoU6p
- SZRoJL9Mhx4vLrwPIONT7Vq2ClIIE8BmdRRVOAwi7hCFDR9M/KxusscElO8/Z1sHBA
- OHfc5zd/43WAw==
+ b=YMHlsDIYA6c+rskCJjZiIz071UzQ0h5CHw7Oa0sGmgBzY3Sd/UCi9xHgKJsA4Rrmw
+ C9aAZ6VmbE+QMPfKIU+++8LDbRhtx95pfES908caFgmMHtj1a7HQBt07rM1S3509XA
+ 8tkNvD9X+sj40UXprK/1HZJ297bIA1tbtS658KoM6TMH9CsAuEa7Fw47+MwXt4y5zR
+ QwUgLqrEZzBrpUFuHd2WHcD4SKbnK8GFQemshFGcwB2X2W3UbM6HtZ0y9p+AVdnRt0
+ fnasxZejhYeM3jJmmT7jJuYNaJwgZ8OjEN9GonJFuJH8K3NmQc7xeBT5DqDaGbLlTV
+ +NpMPo9xhuHUw==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:56 +0100
-Subject: [PATCH v6 16/39] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT
- if not mm-managed
+Date: Tue, 13 Oct 2026 16:05:18 +0100
+Subject: [PATCH v6 38/39] fuse: dax: do not set VM_MIXEDMAP
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-16-1aa3c9b139f9@kernel.org>
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-38-1aa3c9b139f9@kernel.org>
 References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -119,12 +118,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
  Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2352; i=ljs@kernel.org;
- h=from:subject:message-id; bh=QlFqjTLTYzRUYg3EKhTpkPQpznpxyXAxuZd3Zxh5TsA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZx0rjt68Vui83tvJ9uLzP4vG0v53iQLzkjZ5X7hh
- mhIpufKjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkSjwjw63a7keHP/7YX8Ho
- +DDwZUn/ZPa/Qg3Xnx68KXc9/0ituj4jw7sLR07XPL7w71iLE+esqZ9OMgVcmJTdc2IV190Pwar
- hUUwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1534; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=tfz3ccYwKEyTRVC6abtstchqWCa1ts0/TLS9J4UHnV4=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZydtu2sxIVFl3ffj4h7f3LSy6/Nc2uWt62vzll1t
+ tY3a5/SnI5SFgYxLgZZMUWW51/E9weJhM3rvODvBjOHlQlkCAMXpwBMhCOHkeH9Y+ZdmgmzPs72
+ KFNtPdjOn+kt90Cqdoahmdem+LLIyh5GhnX5HCp7vC5UL3q4Vv/8ze1nHydNs876IsGmNn0yn/S
+ bA+wA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
@@ -143,68 +142,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
-the underlying file is itself read-only.
+Commit e1fb4a086495 ("dax: remove VM_MIXEDMAP for fsdax and device dax")
+prevented fsdax and device-dax from setting VM_MIXEDMAP, as DAX no longer
+relies on it to direct core mm paths.
 
-This means that mprotect() cannot mark a shared mapping of a read-only file
-as read/write, as doing so would violate the read only attribute, and
-permit writes.
+The fuse DAX implementation, added later, copied the old pattern and still
+sets it.
 
-In general, we do not want file systems to be able to do this for
-read/write files.
+Fuse DAX maps pages the same way fsdax does, via dax_iomap_fault() and
+ultimately vmf_insert_page_mkwrite() and vmf_insert_folio_pmd(), which
+insert ordinary refcounted pages and so do not require VM_MIXEDMAP.
 
-Doing so would violate fundamental user expectation of file attributes and
-likely break userspace.
+Setting it only serves to mark the mapping as not mm-managed, making fuse
+DAX the sole DAX implementation whose mappings are unmergeable, cannot be
+mlock()'d, eagerly copy page tables on fork and reject MADV_DOFORK and
+MADV_DODUMP.
 
-However, drivers pose a tricky problem here - the /dev/xxx file may be
-read/write but provide access to a resource which is fundamentally
-read-only.
+It also requires vma_is_special_huge() in mm/huge_memory.c to carve DAX out
+of its check for mappings not managed by core mm explicitly.
 
-Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
+There is no reason for fuse DAX to keep on using this flag so drop it.
 
-To achieve both of these things, forbid this for mm-managed mappings as
-identified by vma_flags_is_mm_managed().
-
-This constrains this ability to drivers which own the mapping's contents,
-whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
-map themselves, and so define its semantics.
-
-Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
-across drivers, filesystems and bpf, establishes a mapping which is not
-mm-managed,
-with usbmon and the ALSA PCM status page converted earlier in this series
-to do so.
-
-Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
-disable MAP_PRIVATE-file-backed mapping CoW semantics.
-
-This is perhaps not always intended, but we retain this capacity to
-maintain existing behaviour.
-
-As no driver which clears VMA_MAYWRITE_BIT establishes an mm-managed
-mapping, no functional change is intended.
-
-Acked-by: Zi Yan <ziy@nvidia.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/vma.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/fuse/dax.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index c067d6a4c826..39ceb03023e2 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2801,6 +2801,11 @@ static int mmap_validate(unsigned long orig_start, unsigned long orig_end,
- 	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
- 		return -EINVAL;
- 
-+	/* mm-managed mappings may not clear VMA_MAYWRITE_BIT. */
-+	if (vma_flags_is_mm_managed(curr_flags) &&
-+	    WARN_ON_ONCE(was_maywrite && !is_maywrite))
-+		return -EINVAL;
-+
- 	return mmap_validate_vma_flags(curr_flags);
+diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
+index 85cdf0199bc0..a5994f1c637d 100644
+--- a/fs/fuse/dax.c
++++ b/fs/fuse/dax.c
+@@ -826,7 +826,7 @@ int fuse_dax_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+ 	file_accessed(file);
+ 	vma->vm_ops = &fuse_dax_vm_ops;
+-	vm_flags_set(vma, VM_MIXEDMAP | VM_HUGEPAGE);
++	vma_set_flags(vma, VMA_HUGEPAGE_BIT);
+ 	return 0;
  }
  
 
