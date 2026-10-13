@@ -4,102 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF99DCC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 04:10:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9693CA9ED0
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 04:16:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97ADB10E41D;
-	Tue, 13 Oct 2026 04:10:37 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010015.outbound.protection.outlook.com [52.101.201.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FEF610E41D
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:10:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PA9CgeTFYsk0K1yzzHkLx6Zk++KA0H6FBbXg86S8mFAvBwPGOafD3dhIzn7cn8OlsYw7EDzdpg6Ku8zB3ypa6PROS++H+RohQ0vSx+MDMQoMUMDYwGPE6GNg4ZVRrEY3gxElb0vjCsnZUpbIg4kAoQMHCr9uOzeCQEJeLlI8BKXl5KYwnMq2rv05Cqldykvv2FaMuFmXj0JXmEhwJvowY0cSTDI0oiPytlqR4zv2LFbWFYX+emd8BctdtZ6NDiFs3oFM58RgSFCS/HSqrOpkce2n7GCbNHa5D4T94DHOREayHBAA+YuNN6fuLyp1ZTz8jotNnIS/SgSzlX7EPUOENQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G+nfHRF1jZra03RiUTJD7epk1GM0uUgLOcZRZZV3JAQ=;
- b=ooBEzGemJlff3rtNmKOuXzLu1Jc3wHFS5QXuFe0LtsxNMO4VUyf3Qbrh9y7bqS/P3Nd7WYIuAC/bvEVHtPYLVgDL+Bw9KeToTcIybq49pqjqnsFLfSPuX3m2oBz7TFSofHNHzkAv5jSP4BUccCZ15OYu2vjZZg5RSZEhcP9hzWfg5ixWFI5FcWIkQAZUVJmKGZsChTZw+bESoNib4DpsbRTTnfA3AXzniyO2LI9C0MvYiT54PmmRnCEtF1sqAWM7bUwWVUwMGiKa1Eu+0KSBXtpV59vgpFSLVyszWbZDwBBuPKadSRcyVGGxbmwmaPY6jNNJuap/AxjlU6iDiQmiog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G+nfHRF1jZra03RiUTJD7epk1GM0uUgLOcZRZZV3JAQ=;
- b=g/LOYpD+KTkElZtDRHeNwpn2ZCzHu0u22cBK//UKnsN8QSpV5BKc5XZrRc6WoUjhjGhxDUllxypeApm/aSq875aNkoiAdxiRTfCVxIiHydPapod7O8Dezwy/SfJ5/flD7O7De8nzn64gpH00eoZTtTyvkYdDAeRNh5m86g3N1gw=
-Received: from BN9PR03CA0241.namprd03.prod.outlook.com (2603:10b6:408:ff::6)
- by IA0PR12MB8325.namprd12.prod.outlook.com (2603:10b6:208:407::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Tue, 13 Oct
- 2026 04:10:23 +0000
-Received: from BN3PEPF00022BCA.namprd03.prod.outlook.com
- (2603:10b6:408:ff:cafe::48) by BN9PR03CA0241.outlook.office365.com
- (2603:10b6:408:ff::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 04:10:22 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BCA.mail.protection.outlook.com (10.167.248.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 04:10:22 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 23:10:16 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 23:10:16 -0500
-Received: from [192.168.0.235] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 23:10:15 -0500
-Message-ID: <7a29937c-b591-40fc-95cf-021799ea52a7@amd.com>
-Date: Mon, 12 Oct 2026 21:10:15 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4810C10E6DF;
+	Tue, 13 Oct 2026 04:16:25 +0000 (UTC)
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB1FD10E6F5
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:16:18 +0000 (UTC)
+Received: by mail-qt1-f177.google.com with SMTP id
+ d75a77b69052e-5339733feb9so24307681cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:16:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791864977; cv=none;
+ d=google.com; s=arc-20260327;
+ b=LSwA60lUeDbdWgi6IAIM5YHkJFjYz5zFlsDg2YFriyOaoSGq2Z2+9hSsZMfRcx/41k
+ fHR012jI5Q6HzadZuGT1K6GHOBmT1ommi6KKguS+Qkl3QlJUW2G2XzBrbRxWuHyibvvQ
+ owYUGclMtwDtHn+FAQG13CwrlyhoKrZonzNZsLTxSGKvET9VaML4sFfMNUxApjHo0WLk
+ yelIaj8CUJqtTOYnf4YZv30C8VZ3ciglOyhXy2j+Q0UNjTLgLfoweITfjT24XBNKQfvh
+ niSEDYDUwBouI5ItB4CqwqQZtkh+A3a/LO+xCrc5OoiBrlkuB7ypnPpPqpBeqih0g8oz
+ 3Ysw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=s9nsO0UGothDGSbTzPgGoq1CEP4hbj1NtB+IcAtJLLI=;
+ fh=jr0bxnIBwVasogniuQNwUUSobLi2AxxupSmv7DHyh+o=;
+ b=NtMEpWp6bZ5eV5sRvqxZwiyAHkmWZUTq0ORhR23nJ9+x4Ug361XeBJXiKpJbW4Ep+2
+ cU48xlnAAJwT4cnr9oA/6GYrGseGig6cU0RQiOJ99hyz0488gRTjRLZ16gLEvLoj1WPE
+ a/UQcdK7oQh2Ckbay65UJdjjMIjJprqc/7BwratiCCzmZ/0uexzFY+MwyRsan9bzrDrh
+ PCWyjFerqmQPARpdAdESLG1vAfv8pQ4dfS+0LoFJKzcjV0UA1v90X5KhHbb2czPX+PWC
+ o3ToKdPccl3UwAezeBH4EiebaIkYNSs6hXsRnLz9FmuFWzokv5CD7BaATKG78oWWvmy5
+ 4Lyw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791864977; x=1792469777; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=s9nsO0UGothDGSbTzPgGoq1CEP4hbj1NtB+IcAtJLLI=;
+ b=W5AV+oLo2zMFGrVFYuwOcst31SoFbb1H+VChhuX+WSzK8Bz/TVEUWR+WNs1wIrJ4uY
+ ymg0RKDSAn//9B39S0KCpALpY+fAwoD0mCToXIuNfCLtXsN+M+0BXZRoPe0632TPAYb3
+ qPXRcqOXb3ycwt/jgrSh0R4sRKqbARMDI5Z481N9ONsggrFb89KKZZLKdwNmMz4pl/rU
+ Z812T1nYxnTu54IdnoBDvOX5tRFUc2kZzou1XGhwcId1CcFuRi5Wwh58e1yaI4mVVIZ4
+ H5+UtYqa3qgMx9ZrBkBk+EE3HU4CGzHEEsZBqyvR5R8Len617tnHJONtjR69cQ5Awu/2
+ Ogjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791864977; x=1792469777;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=s9nsO0UGothDGSbTzPgGoq1CEP4hbj1NtB+IcAtJLLI=;
+ b=Pu2Wb2aP6I9ivr6ZTXqYQPZw+XowtYN3ZL558ieIX1d1cDVdpklMw8XnDHd0X5X6mC
+ mPPhwiKy80dS5PMNQgfMbIHIZSVEJz8YQHAcbHtfY6UIsba5fs0kjyN6p5CJxE0J/Gzk
+ FAQF2uvGYyjzgmre4vuf3ZEV8V5ZWDf16wvCqDJoiYi3I0IQioqNLcXldoxdpSyxfJ+U
+ gn4uq4njdOcmeM4K2c4u39GADBcVf73qkM8TRgZzAX1MUoxSGVon0pFgRjsP6IrB5jTQ
+ ETE4V/4xFYL9rB+bNHhqEZTJwnPO+F+Yx8sNiJt/rG17qINUdhlNfx0wf/8wVWFs5LiN
+ iN6w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByyeMdu+3lrqL6TGnXeK3nYQt1YAYOJKSc2wD8UMc6JUU8RUHFEVPrzfqrah+HYZ6IVOQV4k3r41YE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJiM0qSY3TDZd4V9K1nRf/eM0qm2I5Wu3i9j9jpceKdlDU8id0t
+ TkTs8CQJ95v0gTY7dKUEQL7ehyTdpcgaUly2g3aFKz+kBFL+bxZh6lxXTpUgyMP0UyenUwSK0Bz
+ anDDqT3OmSmJVKp7yMLWH0SATkPm+jJ4=
+X-Gm-Gg: AYBFou34LYeY8f5hEmiYetN0V+L/DiUVF6P5pz7XbAseBEw1Bc582iSaSBekvc+TQib
+ 5OPhQlcXeGbgAIXzmR20PGGjGDIxmCbK/Vm9ODIlVO3T03P3bR0gwqDziDQce9/C3XEiLQjFI3n
+ 2hOfj2zkoqwMA/6gaZRKEBt3zNhnaOd4TQRUQQ+6ztJxuisaEvELsNP80rqQiINh37ez4YYuc9v
+ bx+mhIrR0yb4H1AjExyAuza1o9foC1P5eVzeKcre1WN5+QFqCqsirL4AY/V/rw1JmQU90hOfVhI
+ jqlCV8THzdv2gqnQUvAEZVmliDZbmZZJ6Bt1trpfkX32KA4VlQ4G2SZ1roVfS3Bn+vhWn1OdDZD
+ CIBjlPnyb7MRKdxqwHxuweFbeVp+q0XmGl23ZsNKu
+X-Received: by 2002:a05:622a:4d89:b0:533:a8fe:e43b with SMTP id
+ d75a77b69052e-5359fb65378mr173702381cf.38.1791864977501; Mon, 12 Oct 2026
+ 21:16:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
-To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20261012203139.2573687-1-lizhi.hou@amd.com>
-Content-Language: en-US
-From: Max Zhen <max.zhen@amd.com>
-In-Reply-To: <20261012203139.2573687-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCA:EE_|IA0PR12MB8325:EE_
-X-MS-Office365-Filtering-Correlation-Id: c50979ca-12d9-40c8-d841-08df28dfe70c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|56012099006|11063799006|18002099003|10067099003|22082099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: A8YqY89d6EKNfXyjnqb7xq/P01X2m2ujfJk7iovqh3ajx5aaXyjARvit7xLpjXjM43YvEBjXwELak1ynNP+etwDzrPVwBoGI/KXs7WH7dKtWHD6i6dT6LV9N9mBhnd8M9vFct+x2SnleJd2H9/xjskD0M6NBjr9RI1YcYlR7QpDYl/Zppwt17M9qzwunHvaE+ptliZbSMkO5ii6J6CZXXpOOKKmJKLsOHBHB3TwU4pJnLWPA3SF0Qckn0n+HwK361y2nX0IM8eD66TdKNTOCwpWXCM4kkMjPar0WFHSiB2l1eBgCHGQWIBlCbTMzdmmTzi52AZtRzB+Y4eM+ex15ydYgtxLIL/dXTKGQ+894Hx0vcLVXIhQWiwA225oZXpe479xZl/kbvpySuKrWgkMr+W1KycoHJIWO5y9rqjkNqGnIHnTA2MPW4IVSaOPABI7LGvo5ckWyWVqnrzGRakgGkYSz5J2Debq97AbGB/nzfl47+6wcyy+siCBtFtAiyxrDrLKQQUY4cUEIShz5/b+Yvr+ILKbi+y38sTsJZgkeKmJ2ovZLkP6z7Iwm+p7qtWZCvrEuTStGhSIEKX1EIkIUmP/pFd4MzfCuoMn9QhlHs9CE2vlO4FiImEx8c+mBsVRQ6RY/GkGSz3fj6HLBDXYjvTU0yPZL1/FwBmVyD/Lx1jw1+dFeAhTtyYXLxLq7SZnW3pIkjWz9TYxiK3brjhN80w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(56012099006)(11063799006)(18002099003)(10067099003)(22082099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mDaDZp2UtGMoYlbX9AwEmtcsT2Cx+fQDGUz4EXsE98/YHRhgDX3NcYsH8CIVIwJque2HlEn5v7IvFofF8sJ6+eiBXSSPtwpB6AR45/irggOx0JMjtl++VkzXNXjbsRdyMqzJw1UcfvbywaP2VO8DIBhA4cy9W0fbVp+PQuEVFogflxbdRqcC9HM6AGslb/lzCgeAGrhLqr/xKLIT5Zc2tAUJxBpLvgkP/xISZBkaLy9NvhcP88d/RFk4KAgkL983gbwNqOSEvSAEWiyuJs0Bz+PHoAl5f3CLwGMpZ5RDP0yjOOD18Dn8qN1NqCbtyG7XaDiDQ69GIngn3+JAOlkChI/7vgXZ92X1lfcxz4WY39LQe1rCtrOgPa4SNphk/8PdVORncPrqIZfEpOF9Hbo8tHrKvoxdRElLMsj9teIw1f2i0U7M4bsMlhJumpqzs7f7
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 04:10:22.5611 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c50979ca-12d9-40c8-d841-08df28dfe70c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BCA.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8325
+References: <20260913084907.520877-2-david@davidgow.net>
+In-Reply-To: <20260913084907.520877-2-david@davidgow.net>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 13 Oct 2026 14:16:05 +1000
+X-Gm-Features: AclHuK_SP0l1zjHTbNHKw24D3i8q_PEVEt7AWawe0CGqkzoKBq90LKfm_nii028
+Message-ID: <CAPM=9twi62M3zJJMGa4M8WybEXhX6VK7VGtGBjrBUX4YQRs9+A@mail.gmail.com>
+Subject: Re: [PATCH v3] drm_buddy: fix power-of-2 rounding errs
+To: David Gow <david@davidgow.net>
+Cc: Jim Cromie <jim.cromie@gmail.com>, "Maciej W . Rozycki" <macro@orcam.me.uk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Matthew Auld <matthew.auld@intel.com>, 
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, 
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,93 +106,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Sun, 13 Sept 2026 at 18:49, David Gow <david@davidgow.net> wrote:
+>
+> The standard roundup_pow_of_two() and rounddown_pow_of_two() macros use
+> unsigned long internally, which on 32-bit architectures (like arm32) is
+> a 32-bit type.
+>
+> drm_test_buddy_alloc_exceeds_max_order() uses these on a u64 value,
+> where they silently truncate the 10GB allocation, giving unexpected
+> success in DRM-CI.  (see below the snip).
+>
+> Fix this by replacing the those macros with safe 64-bit power-of-two
+> calculations using ilog2().
 
+If we are going to do this, but fix it properly later, I'd rather we
+add the 2 64-bit macros to the buddy allocator and use them,rather
+than open-coding this, then knowing we did it later.
+so add 64-bit rounddown/roundup macros earlier in this file with a
+comment, then use them here.
 
-On 10/12/2026 Mon 13:31, Lizhi Hou wrote:
-> Two hardware contexts can submit jobs that use the same GEM object while
-> a user mapping is invalid. aie2_cmd_submit() drops the reservation and
-> notifier_lock before aie2_populate_range(), and that function takes a
-> reference on the first invalid umap without clearing invalid until the
-> fault returns. Both submissions then call
-> hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
-> structure is not safe for concurrent callers. The calls write
-> notifier_seq and hmm_pfns[] at the same time, so mmu_interval_read_retry()
-> can see the other call's sequence, miss an invalidation, and clear
-> invalid. The job is then pushed while the pages may already be gone.
-> Give each umap its own mutex and hold it from the fault through the retry
-> check and the store that clears invalid. notifier_lock is dropped before
-> this mutex is taken, and the fault drops mmap_lock before notifier_lock
-> is taken again.
-> 
-> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Max Zhen <max.zhen@amd.com>
+Dave.
+>
+> Fixes: 0a1844bf0b532 ("drm/buddy: Improve contiguous memory allocation")
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> Signed-off-by: David Gow <david@davidgow.net>
 > ---
->   drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
->   drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
->   drivers/accel/amdxdna/amdxdna_gem.h | 1 +
->   3 files changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-> index d927c8c9d557..4db67a789c34 100644
-> --- a/drivers/accel/amdxdna/aie2_ctx.c
-> +++ b/drivers/accel/amdxdna/aie2_ctx.c
-> @@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
->   		return -EFAULT;
->   	}
->   
-> +	mutex_lock(&mapp->lock);
->   	ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
-> -	if (ret)
-> +	if (ret) {
-> +		mutex_unlock(&mapp->lock);
->   		goto put_mm;
-> +	}
->   
->   	down_write(&xdna->notifier_lock);
->   	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
->   		up_write(&xdna->notifier_lock);
-> +		mutex_unlock(&mapp->lock);
->   		amdxdna_umap_put(mapp);
->   		mmput(mm);
->   		goto again;
->   	}
->   	mapp->invalid = false;
->   	up_write(&xdna->notifier_lock);
-> +	mutex_unlock(&mapp->lock);
->   	amdxdna_umap_put(mapp);
->   	mmput(mm);
->   	goto again;
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index f14484bc31ec..37bfa5058095 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
->   	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
->   
->   	mmu_interval_notifier_remove(&mapp->notifier);
-> +	mutex_destroy(&mapp->lock);
->   	kvfree(mapp->range.hmm_pfns);
->   	kfree(mapp);
->   }
-> @@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
->   		goto free_pfns;
->   	}
->   
-> +	mutex_init(&mapp->lock);
->   	down_write(&xdna->notifier_lock);
->   	if (list_empty(&abo->mem.umap_list))
->   		abo->mem.uva = addr;
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
-> index 9b4aa21a37c9..456a537eb68c 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.h
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
-> @@ -19,6 +19,7 @@ struct amdxdna_umap {
->   	struct kref			refcnt;
->   	bool				invalid;
->   	bool				unmapped;
-> +	struct mutex			lock; /* protect range */
->   };
->   
->   struct amdxdna_mem {
-
+>
+> This is a straightforward rebase of patch 39 of v12 of this series:
+> https://lore.kernel.org/all/20260326185413.1205870-40-jim.cromie@gmail.com/
+>
+> The only changes are updating the buddy path (as it's no longer a part of
+> DRM), and adding the Fixes tag.
+>
+> This is a fairly hacky solution: I've got a nicer series which adds clearer
+> helpers and generally cleans up all of these macros on 32-bit systems, but
+> it's much larger (and growing as more things need cleaning up), so I'd
+> rather have this more urgent fix go in immediately, and save the cleanup
+> for a less-urgent follow-up series:
+> https://lore.kernel.org/all/20260830103321.2042968-1-david@davidgow.net/
+>
+> As noted in the original series, this is causing KUnit test failures on
+> all 32-bit architectures:
+> [09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: EXPECTATION FAILED at drivers/gpu/tests/gpu_buddy_test.c:1429
+> [09:01:26]     Expected err == -22, but
+> [09:01:26]         err == 0 (0x0)
+> [09:01:26] WARNING: drivers/gpu/buddy.c:508 at gpu_buddy_fini+0x244/0x2e0, CPU#0: kunit_try_catch/1595
+> [09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:508: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
+> [09:01:26] WARNING: drivers/gpu/buddy.c:516 at gpu_buddy_fini+0x284/0x2e0, CPU#0: kunit_try_catch/1595
+> [09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:508: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
+> [09:01:26] WARNING: drivers/gpu/buddy.c:516 at gpu_buddy_fini+0x284/0x2e0, CPU#0: kunit_try_catch/1595
+> [09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:519: gpu_buddy_assert(!mm->used_scoreboard[i])
+> [09:01:26] [FAILED] gpu_test_buddy_alloc_exceeds_max_order
+>
+> Cheers,
+> -- David
+>
+> ---
+>  drivers/gpu/buddy.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 26e7a48b55f3..964a5ae78f1b 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1188,7 +1188,7 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>         u64 modify_size;
+>         int err;
+>
+> -       modify_size = rounddown_pow_of_two(size);
+> +       modify_size = 1ULL << ilog2(size);
+>         order = ilog2(modify_size) - ilog2(mm->chunk_size);
+>         if (order == 0)
+>                 return -ENOSPC;
+> @@ -1435,7 +1435,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>
+>         /* Roundup the size to power of 2 */
+>         if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+> -               size = roundup_pow_of_two(size);
+> +               size = 1ULL << (ilog2(size - 1) + 1);
+>                 min_block_size = size;
+>                 /*
+>                  * Normalize the requested size to min_block_size for regular allocations.
+> --
+> 2.55.0
+>
