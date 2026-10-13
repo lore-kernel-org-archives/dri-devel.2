@@ -4,138 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 083C6CC6B08
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 08:46:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03EA8CA9ED2
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 08:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CFBB8989E;
-	Tue, 13 Oct 2026 08:46:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65BA710F605;
+	Tue, 13 Oct 2026 08:47:25 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5753710F61B
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:46:21 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D0810F605
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:47:14 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69D45uVe173399
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:46:21 GMT
+ 69D7OXIs015275
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:47:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- tEMDLqN5fZ9ZGGYYJqvC0hdrVOQfVxW/wGFukiEhFuo=; b=ToK7AUuKKvprRMkK
- Bv20C+OO4z9VjXP53d0EasiU3syfGYuVdQIAu6Cs+vET01lakCnHdy/9ty0OOIf6
- P5KBN8sc4YG05TQ/wCzT8EKKgd0tTX3d47MrGMq1awbBCeVT96q3H3WJi+kNI/oM
- IwFvUHA8iOmGkI6tRPouEryP/+Hi+IgyqfGNyuUDbp3yb/qKkVRx7mhXUd0D+9H+
- z5qLeMYm7byIglSNIAsuBWcty6Ha5lB1pBsyMGfn6XRkqey8feHcArNZVwJIA/gf
- i+BJNoKh8ERbG5WPbsarFP5uLGRnrqs0+7j/Bh0pcH9kq48EudnCKvZ4Vbzyd9Qg
- geCm0Q==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9daqs266-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=IxEa8Pb0nd9li3Y0xVvL05fY
+ BOkeTK7g0eV66MENLQI=; b=KEkVwhbk0wuOcnJ1TkMKcfb2hCTRrP5E8RJDZFHh
+ /bMRgihMcV7Q/HmXwIGZTJRsAQP1C+HWCs57+KLsjhrk/TEAVZjgnPowKqkictTV
+ kT2c/HHbe1z5X6G7jNaFLEHSsFzniX65KDDkZzaPmcSfFSkBK9WZTZfS4kDs1Lh4
+ kOqQi2ptLoa9s2Yvm8i4D9IHuDILe+nhmqXwkVo4nrIEDUwNdIIGzY6dcl95j14U
+ 9xd9G0Tt3R/lF+02bVJ+SqVeimUFBqCnZqrE1PtM5ps58F9ErlCrgYTH2z8HwY8t
+ p71DX1IR8z56Y5vAOG06LAhcq7niRCW3dX1jVoZjg9i7qA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7ugavn-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:46:20 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-88732460a55so2166445b3a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 01:46:20 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 08:47:13 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93dea1b6c89so526400285a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 01:47:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791881180; x=1792485980;
+ d=oss.qualcomm.com; s=google; t=1791881232; x=1792486032;
  darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=tEMDLqN5fZ9ZGGYYJqvC0hdrVOQfVxW/wGFukiEhFuo=;
- b=cOXLhtKRfXaPyy61vC2bUUAsk3Otr+hTdFnJWJ51Jgk1TUgiUxTLvSaiJcAtYwvuRd
- vSawbTZuDCJ7gkBCvfXWXzrdq3GgQH9n/XnO4QLRuccXZymZF36ylrCSYitlEiCMBcid
- 6wk5gaZlol05hcWcIrDd98PofhPkCUgSiRcEAkAD+UcnGCxkWADFqQYv9LfGM/TUgnfy
- HkUf2vl0/p0YaDP33gDSiOFTYQeS5wzOgLq8Sh38PDJIXx8PdaqXMBubm0gLZdsgyh3i
- MuynT4W6AdHRl77JF1/PI8Wi2SfS06v+E4GWiTmhz/VvRMpSwgQ6iT3koUBGBIWGaq4W
- r8aw==
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=IxEa8Pb0nd9li3Y0xVvL05fYBOkeTK7g0eV66MENLQI=;
+ b=hqPwuuA6P/xXDwzRa8EfVxDmSyVYhGOSOAh/pQa120bXjR5DIjZolnZP8uONL2FBIw
+ lqqrqXo8RQlhEVrVFaCXPUsabJ7+ohwwD5NkBGfEKVZUZRb8rzFXy+V0CtELOK6BXGU2
+ 7v5GPZEE7584mru+ovnglgVm2GdpkYXuOaOhWw011vXLzL2eLjIDC8C/bMQcvDiAFN/t
+ zaVilXzp04FL3M6mFWdkrmHmwe50jIUCjYF7/V7CS3kVqlDZjmvjuTyJrYfNgApgXd6O
+ ZoAvkOBdcQHw4QMCLqu/lhM3V6LbAvfiAOn3OLFfu0bFE1/l0qvxsYRJEeG4wqDpQDNM
+ RWLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791881180; x=1792485980;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
+ d=1e100.net; s=20260707; t=1791881232; x=1792486032;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=tEMDLqN5fZ9ZGGYYJqvC0hdrVOQfVxW/wGFukiEhFuo=;
- b=xAWjgVR0Ssv9tusi14jkFqEI3ZkWVRcDSM4YvE1A+2J/GLsaSoTwRiQJ85CPomJgcw
- rP0k1koHsadinStpTVQHf54fT7S06xKybDQGXcMZw8qJ6XyXovtw92lhZmB16ZfHsfV2
- A4alv4YZXIvEKm98ldX4TIy7aK9xOjx3ssVd6EndlFyfdPQJiIDqYsFblllvwO9HLGha
- iUQ7uFQ1LenIemwEm9EIMYZ8f19tZSC0wxNBD3CaLA/F8J8T55W1BxZjvBf5Ntfvwr4Z
- uhS4AcKk7m3VEoSHnbl5y9lBzz4HNrXPLovJfcj7ddfJ/qsIAXEvDe8S6tiy0X9eqA/v
- swHQ==
+ bh=IxEa8Pb0nd9li3Y0xVvL05fYBOkeTK7g0eV66MENLQI=;
+ b=M0JrQ990/st5j50foxvp5HdelzBR1bgW1eqbj8sc9iPhvUYo5IeJdg9HbiNEsGMS92
+ j3F8YrKhJwFHy0rAwscNTtYhLPeUmNquYrC25Q7D5aS2xkTlq3mxTtyhwWUKxvkvXLVF
+ M1oOa17xcGc8dS9vAvdEtzqcuheOK+6EnGwVTknDuhRuuqnD9yX+0QOetCS2sthbNzRG
+ /J9w7EhWWs4bVmxjdLF+rwHrkPbtGetijR/j/Td+DFFOGosKOLVaeCVN30DKEEq1CqsE
+ o+h7FmnE8QqptpUJQXc4TGAhD35O2uxjbLGwzOTBH+1yklWhhNeK9jjaok78q63akk6X
+ A9lQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz/cyZlrGyn4TdIeVSEaBg0dpI+DspHxRSZf+dHOHRZWMgEqgeOhPulWlY6SelFESoJhC9JsLpT1fA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL7mHTbjaRc+N3misjKa4qQcxC8vBBHDGj4nRVf+Gkvlb4qACuy
- hiU2/+PM0D2w4kfZG2wYoOQX8M4pdroOLtTRBU1nVfoHIk9bSAoqNBGgjw6skOasQUlQew5XIU3
- Oao0Yols8bBECJo8yxZnC8o2qbD9cbQb2s8RvJK3OFJIZvnandcMhKzMIW4ivfFun9OLWFo0=
-X-Gm-Gg: AYBFou1dKNmmwH9Mvs3M3TztaQwNan0XlapXIqp6i52lvcl7FuxQjT3Oa2MCvvihr9m
- z4mfN01H9S9mMbSiRziOal1+Uh0hLaVpfrP3gVculMKVm6L/BnT71QPjBCAWW+TUrEczPOndazr
- tFNiPoCRAPdkRyZD/rtSpnj1eVLzWTXAtVndyKB0v/1ogRdar2TLeDFyy0pDo4Ap/jHHN089yVh
- hsnlqJJMTDK409sHaNNoCeypt+Q/iAnDxw53ive5QmZi8ZDohaoTkmAievZvmViJiNzY9DvWrSm
- TZk0nGtoA2y0ytBavvZosqiCNwWvpOWxLCKWJnrywVMggBox0qMAB5c+rO4q/m6G7qgOw0v0nnZ
- 4NS4ZqyZGptk4+o1ns4r/1lHseEBk
-X-Received: by 2002:a05:6a21:4598:b0:3dd:a197:cf2a with SMTP id
- adf61e73a8af0-3e16bf4c2b2mr9630304637.78.1791881179851; 
- Tue, 13 Oct 2026 01:46:19 -0700 (PDT)
-X-Received: by 2002:a05:6a21:4598:b0:3dd:a197:cf2a with SMTP id
- adf61e73a8af0-3e16bf4c2b2mr9630279637.78.1791881179313; 
- Tue, 13 Oct 2026 01:46:19 -0700 (PDT)
-Received: from hu-batta-hyd.qualcomm.com ([202.46.23.25])
+ AKwUvBxI3yPst+wH7xma+ZtBQ7iIewcZm2AI/YXVggvwbSYsDGb82Khw9XVwLSaP3sSlOMFWv+ng9e981Jo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLfxPIh+24wh136/pwDpt4MQhecBG4GjDb3r8E64SZuuq7vv/WH
+ KPZKlCtW2umqatjcaO5V1oK10gb/iFD7CV3uYSlrykQfsUoqdEmMrmFHEwT3Z1zv36VsODWQZ3b
+ VTbkYX2tI8YuzpOVmhoVKST7iuN3UXF+PQW62ovlR7JYuRUdMs47Ly3inedWI+PYyNe1vhiI=
+X-Gm-Gg: AYBFou0qYvMIOomUG2PWah60r6ssO7gJZwvPDq4nxcuURb0TopSC4IJ7wWLpzLnwFYf
+ 33s+A+KkI+VSJuOpj/qtFWHmhcWif59JNTjwWGdSSs1PsN8uWWZxD6BR6MzeXNA2LH6D7zCFwgA
+ gunrcmhtCeReW5tkUc4jqWp+PlCdAXhIhzVt8iJempr6oyd+3KS3n8RwS/NUY2YL7A5ztEezELY
+ OwK12oaYGsoRbCyqXwDV0YDzSxkPWUcYDgPGLVcS3MiXkA7ZT2P187R8MwRu7Ej3t/l7K4JQuWA
+ 8wJ3gfNAd/YKdRPwD3SuO0jtTuY93gDmw6AiWx6y4H0gtqWMYxhwfvukOtmS4GZXDxscK1bWct4
+ +EcUz1qe0LZomuqY=
+X-Received: by 2002:a05:620a:4689:b0:93c:70da:e45e with SMTP id
+ af79cd13be357-93ebd223c74mr2039228985a.36.1791881232240; 
+ Tue, 13 Oct 2026 01:47:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:4689:b0:93c:70da:e45e with SMTP id
+ af79cd13be357-93ebd223c74mr2039224385a.36.1791881231577; 
+ Tue, 13 Oct 2026 01:47:11 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.215])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cd3da0596f9sm5384721a12.31.2026.10.13.01.46.15
+ 5b1f17b1804b1-4a18d12fe04sm215536315e9.4.2026.10.13.01.47.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2026 01:46:19 -0700 (PDT)
-From: Kishore Batta <kishore.batta@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 14:15:38 +0530
-Subject: [PATCH v9 7/7] bus: mhi: Expose DDR training data via controller sysfs
+ Tue, 13 Oct 2026 01:47:10 -0700 (PDT)
+Date: Tue, 13 Oct 2026 11:47:08 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH v2 10/13] phy: qcom: edp: Add Nord spread-spectrum
+ clocking configuration callback
+Message-ID: <7cojksxbq3mznhkn7g6rxxxl2kmgd4hpkup35oj4qdbcqnqjsi@c63o5bgxps3y>
+References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-10-a2ab9af954d2@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-sahara_protocol_new_v2-v9-7-dc9f24357c4a@oss.qualcomm.com>
-References: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
-In-Reply-To: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
-To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mhi@lists.linux.dev, Kishore Batta <kishore.batta@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791881139; l=5269;
- i=kishore.batta@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=68D+ZsKS1NidI8QaJpqFgyA6M80R4nxiC7ber19l0Ek=;
- b=m2DDfLs2by6LxBIHhmbf4ndcQniRip7Q5gsIwBvBeAZ+C6RhEDcmdeJ5XhIthHvkq7Jac72k4
- C529vdY8Rc7AvXpHwQtfRxOgIxqLYGYukoKZ5q572KQDPFeOeS6Vmr1
-X-Developer-Key: i=kishore.batta@oss.qualcomm.com; a=ed25519;
- pk=vJo8RvTf+HZpRLK2oOIljmbn9l3zFkibCGh+blaqZCw=
-X-Proofpoint-GUID: x-sl9_4PI8h-IRsrg5h3lMx4shkbAgKP
-X-Authority-Analysis: v=2.4 cv=FZuiV5+6 c=1 sm=1 tr=0 ts=6acdefdc cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=NePjL4a1hEawMabAjiMA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfXwDCYHMeP0npW
- Q/So9QfrEX5M+q1pXKoFvZosh+adujp1eU962TdtyeIbUyN5Yq4IWJPPx0OEi3y7PA4391buQ1T
- tlXH0T2JeIPveI9RFbT8OeBoVRBv0BE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX/s8+2Ns1hnzQ
- GHd6YGTmB/q6klFEm7AtTs8e5hsVl1AXj91SBdC07t9UeECMFZx5LGPT+BqDjHVEwI/eRV+YEjN
- CnKPbd/dwc23IHvXDky0A/HALCcQgAy1bz8nbykua97qP5Oj13Ah31/vTqOGRI3jjrJDZQ4zLUP
- apTyUuRvAqiq7QFHRirw2IrZXHmuO4GNWFej2vL2lKISpqwbGOhJ4NbJ6ta/dgvlyIKd/wIe7CT
- unOn7orVv7iKWri3pD4aQWlBBYj05Yr3kzAO1niICCbIvei3/HiWli5TdmB49Y+04FnuvqeJZdd
- 4d9uEF/PnJvn57ptqZuamjeBoIdljYGKYEwyGZHJk6jitU96QEhrLfcmDxGF/3bbft9Sv0nhuF9
- +L8I9orsa8XyLzTNcvf6NNF3YgCQ7UGEgvspnyE0Dx7KNmf7SyotvVFLUjns6ZqFbfSrZzpC2k8
- h4v/VS787FgXRTlTo7w==
-X-Proofpoint-ORIG-GUID: x-sl9_4PI8h-IRsrg5h3lMx4shkbAgKP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-nord-drv-dt-v2-10-a2ab9af954d2@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX/5407WCWPjoo
+ wRF6i5hznuMA3/IWiYHfe3odfyrusYknrBBdM2RSsJX8w/u7Od+ULq3FtzLB711DVFzfNc5gCuv
+ AbGSIPTF24zkUpXPBN66VmvB1MWqytWwGTsAy2LqzVjl7WkO7Moydt/zdRRCTI+dugBfplJ6NK+
+ Uy2PPZITDyP4/65qHktI7tYbEtRIInoYHSrHmS1H66Q2DcEOgZ+lABh8HYdWNnUZOe8h3zfj5CS
+ PnA1ipj30J0v1G6yeVZQ5vGLTC9KhhRWRz5WzwVjgb2MV9V/ck1NYDHc6Yi4PquK9d6fRYS0EXN
+ tBKI8ERAI+ZsJWlJfuUChSlYhldu1oBdk6jg9HK1xpxROqmSeyVJj8l/9OSWxsjgBs1LzH2yPpC
+ 5jRAyP3wcSFLH1fJ2XeqGpd0/Qk9fQCAcsxRNwSvrc0E6Q4oxAlDBcb56astZyVLNjQlq5wYbCN
+ kPFokyJrFOtV90MJTeQ==
+X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6acdf011 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Rt3kCFFBWhWisHNmluDamg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=2vP-gcZVKESdWMdgu4kA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: z6dXdvikc63ZRG2LLXDEhqsxiMjjFIVZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfXyBzgpD6bO+Qy
+ KwFjHivQtDurWBPURG5+Thy09XqSQo+d21gGC9bIhVMR13JMkocXcMrxc2Knopg7BdeBfJn4vOG
+ 8toSb4iLJw+XBOTzdgqhkrfEuEKpPg0=
+X-Proofpoint-GUID: z6dXdvikc63ZRG2LLXDEhqsxiMjjFIVZ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 impostorscore=0
- adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130034
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130034
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,147 +156,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DDR training data captured during Sahara command mode needs to be
-accessible to userspace so it can be persisted and reused on subsequent
-boots. Currently, the training data is stored internally in the driver
-but has no external visibility once the Sahara channel is torn down.
+On 26-10-12 19:02:20, Nabige Aala wrote:
+> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> 
+> Nord requires different SSC register values compared to existing SoCs.
+> Add qcom_edp_com_configure_ssc_nord() which programs SSC_PER1/2 with
+> fixed values and link-rate-dependent SSC_STEP_SIZE1/2 for RBR, HBR,
+> HBR2 and HBR3, per HPG Table 2-9.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-edp.c | 36 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
+> index c63f721702b1..66c31684c48e 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
+> @@ -1601,6 +1601,42 @@ static const struct qcom_edp_swing_pre_emph_cfg nord_dp_swing_pre_emph_cfg = {
+>  	.pre_emphasis_hbr3_hbr2	= &nord_dp_pre_emp_hbr2_hbr3,
+>  };
+>  
+> +static int qcom_edp_com_configure_ssc_nord(const struct qcom_edp *edp)
+> +{
+> +	const struct phy_configure_opts_dp *dp_opts = &edp->dp_opts;
+> +	u32 step1;
+> +	u32 step2;
+> +
+> +	switch (dp_opts->link_rate) {
+> +	case 1620:
+> +		step1 = 0x83;
+> +		step2 = 0x02;
+> +		break;
+> +
+> +	case 2700:
+> +	case 5400:
+> +		step1 = 0x18;
+> +		step2 = 0x02;
+> +		break;
+> +
+> +	case 8100:
+> +		step1 = 0x5b;
+> +		step2 = 0x02;
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	writel(0x01, edp->pll + DP_QSERDES_V8_COM_SSC_EN_CENTER);
+> +	writel(0x00, edp->pll + DP_QSERDES_V8_COM_SSC_ADJ_PER1);
+> +	writel(0x6b, edp->pll + DP_QSERDES_V8_COM_SSC_PER1);
+> +	writel(0x02, edp->pll + DP_QSERDES_V8_COM_SSC_PER2);
+> +	writel(step1, edp->pll + DP_QSERDES_V8_COM_SSC_STEP_SIZE1_MODE0);
+> +	writel(step2, edp->pll + DP_QSERDES_V8_COM_SSC_STEP_SIZE2_MODE0);
+> +
+> +	return 0;
+> +}
 
-Expose the captured DDR training data via a read-only binary sysfs
-attribute on the MHI controller device:
+Why is this a separate patch?
 
-/sys/bus/mhi/devices/<mhi_cntrl>/ddr_training_data
-
-The sysfs read callback serves data directly from controller scoped storage
-and protects access with the controller training data lock. The attribute
-lifetime is tied to the controller device via devres, allowing the data to
-remain readable after Sahara channel teardown and ensuring automatic
-cleanup when controller device is removed.
-
-Userspace flow:
-1. For each controller device, userspace reads the ddr_training_data sysfs
-   attribute.
-2. If the read returns non-zero data, userspace persists it using a
-   serial specific filename (for example, mdmddr_0x<serial_no>.mbn).
-3. On subsequent boots, the Sahara driver attempts to load this serial
-   specific DDR training image before falling back to the default
-   training image, restoring DDR calibration data and avoiding retraining.
-
-Add ABI documentation for the DDR training data sysfs attribute exposed by
-Sahara MHI driver.
-
-Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
----
- .../ABI/testing/sysfs-bus-mhi-ddr_training_data    | 19 +++++++
- drivers/bus/mhi/host/clients/sahara/sahara.c       | 63 ++++++++++++++++++++++
- 2 files changed, 82 insertions(+)
-
-diff --git a/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data b/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data
-new file mode 100644
-index 0000000000000000000000000000000000000000..810b487b5a5fdba133d81255f9879844e3938a10
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data
-@@ -0,0 +1,19 @@
-+What:                   /sys/bus/mhi/devices/<mhi-cntrl>/ddr_training_data
-+
-+Date:                   March 2026
-+
-+Contact:                Kishore Batta <kishore.batta@oss.qualcomm.com>
-+
-+Description:            Contains the DDR training data for the Qualcomm device
-+                        connected. MHI driver populates different controller
-+                        nodes for each device. The DDR training data is exposed
-+                        to userspace to read and save the training data file to
-+                        the filesystem. In the subsequent boot up of the device,
-+                        the training data is restored from host to device
-+                        optimizing the boot up time of the device.
-+
-+Usage:                  Example for reading DDR training data:
-+                        cat /sys/bus/mhi/devices/mhi0/ddr_training_data
-+
-+Permissions:            The file permissions are set to 0444 allowing read
-+                        access.
-diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
-index aa684355b7a31674f81a43a3783d5c4158b824b1..be5318fc5e221d0c91fdd9c4b6c908ef1fa4e852 100644
---- a/drivers/bus/mhi/host/clients/sahara/sahara.c
-+++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-@@ -272,6 +272,67 @@ static struct sahara_cntrl_training_data *sahara_cntrl_training_get(struct devic
- 	return ct;
- }
- 
-+static ssize_t ddr_training_data_read(struct file *filp, struct kobject *kobj,
-+				      const struct bin_attribute *attr, char *buf,
-+				      loff_t offset, size_t count)
-+{
-+	struct device *dev = kobj_to_dev(kobj);
-+	struct sahara_cntrl_training_data *ct;
-+	size_t available;
-+
-+	ct = sahara_cntrl_training_get(dev);
-+	if (!ct)
-+		return -ENODEV;
-+
-+	mutex_lock(&ct->lock);
-+
-+	/* No complete data yet or offset past end */
-+	if (!ct->data || ct->receiving || ct->copied != ct->size ||
-+	    offset >= ct->size) {
-+		mutex_unlock(&ct->lock);
-+		return 0;
-+	}
-+
-+	available = ct->size - offset;
-+	count = min(count, available);
-+	memcpy(buf, (u8 *)ct->data + offset, count);
-+
-+	mutex_unlock(&ct->lock);
-+
-+	return count;
-+}
-+static BIN_ATTR_RO(ddr_training_data, 0);
-+
-+static void sahara_sysfs_devres_release(struct device *dev, void *res)
-+{
-+	device_remove_bin_file(dev, &bin_attr_ddr_training_data);
-+}
-+
-+static void sahara_sysfs_create(struct mhi_device *mhi_dev)
-+{
-+	struct device *dev = &mhi_dev->mhi_cntrl->mhi_dev->dev;
-+	void *cookie;
-+	int ret;
-+
-+	if (devres_find(dev, sahara_sysfs_devres_release, NULL, NULL))
-+		return;
-+
-+	ret = device_create_bin_file(dev, &bin_attr_ddr_training_data);
-+	if (ret) {
-+		dev_warn(&mhi_dev->dev,
-+			 "Failed to create DDR training sysfs node (%d)\n", ret);
-+		return;
-+	}
-+
-+	cookie = devres_alloc(sahara_sysfs_devres_release, 1, GFP_KERNEL);
-+	if (!cookie) {
-+		device_remove_bin_file(dev, &bin_attr_ddr_training_data);
-+		return;
-+	}
-+
-+	devres_add(dev, cookie);
-+}
-+
- static int sahara_find_image(struct sahara_context *context, u32 image_id)
- {
- 	char *fw_path;
-@@ -1129,6 +1190,8 @@ static int sahara_mhi_probe(struct mhi_device *mhi_dev, const struct mhi_device_
- 		return ret;
- 	}
- 
-+	sahara_sysfs_create(mhi_dev);
-+
- 	return 0;
- }
- 
-
--- 
-2.34.1
-
+I think you can squash patches 10 to 13 in a single patch.
