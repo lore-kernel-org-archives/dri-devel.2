@@ -4,94 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58BD3CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 04:35:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C556CC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 04:38:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 846AE10E6F5;
-	Tue, 13 Oct 2026 04:35:23 +0000 (UTC)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF4C10E714
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:35:17 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-6acbdbc1725so3161513a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791866115; cv=none;
- d=google.com; s=arc-20260327;
- b=tBph3gOmWlIovo7RiA9mv7SUnq6jcAyAEGWnZtplv/l3BugBZGnFM1iV4AXfp8tirJ
- eGekF/7vY0/FDAwQGwk2Mz32FLhW28+ly5Z449h3p5Ks2OIM04JhzhIixEdxEv+W/AY3
- pxYjlyHc+bSxdaDhsSOsnCxX2iD4zoIvKYHzX9IuCYhCZ1nekcue8y0UX61JhVvgjCp4
- hkjAMyb4TGL+sC+TaAo/0neRnDiqRm9ag0BkGdEZVrObr1JEbZcC8URmuZAs6UmD0cyo
- awe0bQhocSNInRF/5cWUSrhtbsnRyGhwfQojzRqNJ+v/FvmQwXYFHf7Lb9GSzPFUoGul
- dB1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=AQdu3Cn6BCMgBdzZkTGzVwhW9c7f9RIM4c7739SyCYs=;
- fh=Egn/RDuB+WEc65oI8heaktMWLmdNi9bgZUK79NLZUnY=;
- b=RTsEai+tHMsbotHK2h0rwdkJjbaYdi5tN0SaJcy2DID4aKn+baJxtvRgV5nvpsYPx2
- qDqLWF3A+hocEldrQCI56NxzyKr+GAY5rtjvAE7sSVrYnJjQ+LQeSKllDkYL3O9mMLhs
- i+KTGgJcZENK6kMUU+jhV++R0/GhgXfkRUGywQSggY5JUZGGfmPxqOsoHhPJNj6IxabI
- 1i0hl+Hjcp48LyDWleDU22PD0H9I24zXsVZ4aSsXQkfsnMH4t9KTa79BAAnKfWJwnJHG
- q/5ApLv7Ejgzy+zv43x2cFVERdXZi9kZvZG/Pqs0Mb5NY3uR64H7m+08EdwD04aYseeU
- dtLg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791866115; x=1792470915; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=AQdu3Cn6BCMgBdzZkTGzVwhW9c7f9RIM4c7739SyCYs=;
- b=a1fljnNzJPwaSor/KGQfrOPVEPXxmT6i/eUsv0idcYpR8Fv5e9890Zgeeb0l4qXSIJ
- 1bXBgqKD/3A1+lb+pX4bi+gKIxtbXxqq/QoU7CsrDeemlpmFNToOYxzabxwFu1KKy/kY
- THrL/rM35jcbKC6O0M1KJUEVHkTT28BiIh3gnUEmm95JbEdP+NpH8gH9L8atj+bqYAPc
- 9iXaxxTYHFy8pclUlNkNbM6/wilLvo3OVVV+JhViTwlRtQ6JPlTNF60S2ZvVRswwYyhx
- FfOJEag9TfCVAAYl5n2LPAier8CnxWAt8FL01Tz+AQUr7PpuHJ4UpdzQdVT2l5kYvMNy
- eE7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791866115; x=1792470915;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=AQdu3Cn6BCMgBdzZkTGzVwhW9c7f9RIM4c7739SyCYs=;
- b=W+XCiPVFImwE3cNrPIAv9c/1dcH/GCdAyLIIOMTGL8qFQxTRsCsqezxt7HfQmi9b2B
- FGCJAetv9NbO0Z7KPOYAMCtd1vtzALwEQ7/PLWxoH5Rry/1UC0w+/1wsdxtgVC3L6L+e
- BQtMNK53qqXspWs7+ueBSsJSmM++yejq3V+cs6TQK3PDs4AnPBPpGWdLY/c4fPCdTql6
- 9wc2k1rU1Kq8C1VrmrY/90nyEg81zWGfJ5U2jkUzJtuejuT/qn22VglEI+tl+vjMxlF2
- GIadUjzfMdXDQRZhVN5KPGd1Xgjo2qz1Mb3g7tZNak9vWKQEg2GOKHSoVh1O0yJitsHC
- 7PHQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxsF7CYym9xPrVSjDS5gSZKlE4316schvbVhTiVajYglkMBE0n4Dxnje2MCCJslhx64dkChp9IqFPM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJijou+jFpK3XQOq9BdzMIElrtmZfrkOiM3zU7Gym0qqNeFw63Z
- o8tD2+2TGs8bK2QzVFwwzAFh4hUNIKIUBRzLUi9rU2eIjhqDkDgIRkIWEE3uvpa4PTeEH5lMtrV
- VldF3/w2y4nIqT4tfaRrSnLonPQd0BZA=
-X-Gm-Gg: AYBFou1X0JQweAMExYhVmWuzFBTq8t533v/P4CnL8T2/AR1Afrk/CikcSCnI2H+sk2O
- jgYSn6/huOXT5+o/zUh+0lZ82zlMV9/pLJ1WIxfmgn8psP6qQvyfkv1q7EzcZ/pRsh1OV6OIR0U
- zf0xXgAofaii38Jg8VzqQEkBNfwM+H/boX59Sz7vlI+6mOnfOA35IyDkfqfabeOezVTW2FbM3If
- aNjUWGP9t5E23KvEZt9yY+/bPsbcpxfYe3EHS9p1oHR8aRVFDlPSdZIwkccimVWiw09EZEztk5r
- 0jx1AxJG8puKjCY4nCRC7mbANdE2ZUm/Rii+d5Xecoqim5g0OLGnKjRF30ZPRvSgnUkDi2uHioB
- kXVGUUgWE2Dqr
-X-Received: by 2002:a05:6402:11ca:b0:6aa:f85a:9e06 with SMTP id
- 4fb4d7f45d1cf-6b17c25d5b8mr9436534a12.22.1791866114990; Mon, 12 Oct 2026
- 21:35:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 647CF10E714;
+	Tue, 13 Oct 2026 04:38:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5252910E714
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791866293; x=1823402293;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=RC3o6kzfN738FIz2i/3a/KSL8kzVNho2+zr7f77b2uY=;
+ b=k1mp5+OeuRzyx9paclHUSLW+ngbkk4MbnvSKDb5md8e2KsmCL1PwcdpH
+ 0EGd5KhlUERNUOYf7wN3V0XA/VyCkfCGG+zNtEcxHnTVoUCJ83cSM0009
+ pJ4n6rrZNcA/uwhy6ihtxwoD6xtbSg9eIi7+2j54TxxiLXcu2Xkw4FKiE
+ 4dYfa1G9yTNtxRsIVMDP9a+zqTB6K0b8kHNBoroxXkqAaaw3ZBbrO4Y6n
+ qod13co9Okq2vJL20x/fXYy6sLUApesNX2mnkA13BQeM5zNhWIlrABaH5
+ z8h/VH+0oMfRZdb4J8+1sOIxtmXFR0x056YgRfFQ0zeMv5EDmXnF12KAe A==;
+X-CSE-ConnectionGUID: SDuYp7m/QCWMUr0JtW/O5g==
+X-CSE-MsgGUID: LPMvbBXrSzipMKhV0N5uow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="462301"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="462301"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2026 21:38:12 -0700
+X-CSE-ConnectionGUID: 4kyS6DFLTj6JmkqquCKLsA==
+X-CSE-MsgGUID: JCWbwZ6oRZeQ+0CWMZQx6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1256888"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2026 21:38:10 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 21:38:09 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 21:38:09 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.15) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 21:38:08 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jVi4jtUZC8OIxN0ojKUPnQ+RS2xeZj8UopVmopNhCX45gfxRB7xY74xgpdKxFH2FXqAOOK40V9YHqhuD9VzQ61VvtWMHTSo5whg/mAzLYq8H54PMXa4KQOIWXJaEI/dC9VOPxWvJAZshAqPP4O0lsRX1ntD5dlVbcrcl2AQ2DykiLF165Twg2LbN24/1LYfJda2FvZgi/6itSUfpps+jdypBAUo36Y1L9Q2JeAtGc7OJzucZYzfAY1WK9FtWUSHZ8yGheix82VJUuv2uPg4cWF8H2Vt8BuScUvaeHwZQIRZn268ICnDoGP5Ke43GxHL2s6+hizmCGoCmPuvcnimq7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2W4nH/b3JDrHxpox0YHBzgQKOLn/MAklwIliZixzH+4=;
+ b=JNCYkTT3jLxk5BvX0LNeAa3mUfxjEn/sV4KumXwUZ544XpTO8+jS0elvltPGi1z6iXL+4BChC1F0eicslva/p6oRxUpwW9tcAs78LY8nkmYd2O7a4lov3YiUqcbBAng1oq2xh//YaQs/eshiPT47nw+hmAdUpJXLnKl8fFS7rrnu74MNyLbBhHBgVv0xoAtOuNstGo6vN0sy+SqnDdUOGj71E2vsw95BDtGmAcljfWBb+aTzz6zLMzkun2GWBKYscegEgTtw5y8dZIPMO24wP1gkYp2DSmWPcwLMHM//oxzXXseSApXkCh8Mm84kFV5xyhH/ZEdMkEUiN+ywVrxY2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by PH3PPFC0CDE789E.namprd11.prod.outlook.com (2603:10b6:518:1::d49)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 04:38:05 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 04:38:05 +0000
+Date: Mon, 12 Oct 2026 21:38:02 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Max Zhen <max.zhen@amd.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>,
+ <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+Subject: Re: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
+Message-ID: <as21qsFsf9HepYok@gsse-cloud1.jf.intel.com>
+References: <20261012203139.2573687-1-lizhi.hou@amd.com>
+ <7a29937c-b591-40fc-95cf-021799ea52a7@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <7a29937c-b591-40fc-95cf-021799ea52a7@amd.com>
+X-ClientProxiedBy: SJ0PR03CA0079.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::24) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 MIME-Version: 1.0
-References: <179184923104.248043.14168731037113716140@mail.ustc.edu.cn>
-In-Reply-To: <179184923104.248043.14168731037113716140@mail.ustc.edu.cn>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Tue, 13 Oct 2026 12:34:58 +0800
-X-Gm-Features: AclHuK9M-oODPL_1kUCPzBH3DIoST7Vl7UTNmToAHGmTMf_5hcJgrvJZBXIrUxM
-Message-ID: <CAH2e8h6_pACX_j8YBDhhSZzbfs45waF-Y6KJo82_2c6BT0suEg@mail.gmail.com>
-Subject: Re: [REPORT] SM8750 bonded dual-DSI + NT36536: first DCS command-DMA
- timeout on cold boot (DMA engine stays latched;
- DSI-side reset does not clear it)
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, dmitry.baryshkov@oss.qualcomm.com, 
- neil.armstrong@linaro.org, abelvesa@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|PH3PPFC0CDE789E:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91e61186-af42-4d92-5094-08df28e3c5d7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|10067099003|22082099003|18002099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: eQN3dj+iKXfn+nXB5C9ceIB1EQ6NptA5KfqM9w+vMgjdhJLihnucvA+tqkqNvWIer3/mIp283j3/dz1mU4C8YcuiMZdzH+5vH7Q6xBcdRzvnql63X2Kwq3Cg7kFjnsE92gr45kxSxYezZUX7kRMhKjEnpKKj3nv/48YVmWjzomZiOFN5vSRMYMSZiWcdHCGzGPa0zV/LRNnGlr+F962DG0fuUWkfBVN8ijw5sn3GKbIqz7DHKWV1W5yUUKBnB13LdH4lEA+Lxj4/id1/pTHnFYHwdBHNl43NuejVDTn3e5IpG7ApZGvDe1YXz8Cazpyfqp+5bVEql2pEcGQZLqNi6MhOnrdb6akx+5ZgbIdFYq0RpZFoc04u9ZoqLXhllaJeZ/eXr02Uh2+1/Zrfxqbp4PBrzHwMD07Lk7TTgg+MWywATVWoBQyuWjeZTlYGiGCVaI7Ek9Wh9FlRsXCibDAsw9JcY1l6yDQVy3/kxVU/mtaLczOK6n1j5HWwNOChU8bq7sWzeBeeZUNBzfoma2frbkuXOVxCtcrtcYlg3GucKDYoHQxkKue5nkiN07IMNETu1MZIg+YXyKQgJeIHIt2QCROLRFE/Wq3P7I/R2he1fSs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?q8/HqQn1X4NLRsFSMrK/acAKUFipB6TR0phOytIEKCroiz6KDgkRrE9TjOSP?=
+ =?us-ascii?Q?+jqYRrm636V5uLEHbh19KDQngN5MJbysks73VScQauAhWVeCnNDzcXJ8tylI?=
+ =?us-ascii?Q?QP4lfYl6wELZVXzP91wgN8oioCXtLdVJda/iedj4VkIuEPbcA5cxejC+OA3W?=
+ =?us-ascii?Q?1WtUqJm8h4jmm1odyhYtsmBn2rFNqfKkq2oMEDxb/I3jTdu5Q2odcXPVjGAe?=
+ =?us-ascii?Q?K9L82ElxsEjHHFCZUbzQuvZRy4PH2Mi8Lpss9mcLq8weGOZzd04l5RBz9q9K?=
+ =?us-ascii?Q?MsIdDJl2/I6w3ZBfe4EGaCAB93fiGVYUboegKIfSwLOjvHyNjAanCIrE2qL9?=
+ =?us-ascii?Q?6YWlyuaAYtLjQkMev2prSZ7gSD6FlbaE93R8ZSKXOGCQKZLyV68nM8ZZBHJu?=
+ =?us-ascii?Q?cQ3J1jM4N0GPsFC2qmB1Gl5alJj6ezSQFB7rwsfADwjbOQ2xZC9ItIigcn9H?=
+ =?us-ascii?Q?739+OLg9Mm+AUjATw5c5HbaQSPTi3+pAEYLgEJ/Ps7XN6IUxJykN9Szp93Bn?=
+ =?us-ascii?Q?I2krOH3/Io8una88X5VlN/p/uowzha9DTackwybdewixFOYHUg1qZ/8WYY6D?=
+ =?us-ascii?Q?bMBMc3OChBcSqnAG9s+fLuMQgw9QY+MVO4mgzwSI/X8sdlwABvGxJzKM/zWH?=
+ =?us-ascii?Q?jTNfLi6aRJgVHZw2X5zIMOwEuBc9u+B6X1GIBHE2w2A+scRdkcEyWqC3N3YM?=
+ =?us-ascii?Q?6xmMfhBtlLEIJPrZSTlVdOlaXNc+vF2CtZVWvuGlZybpPsSSHbZcsIRSoidp?=
+ =?us-ascii?Q?Lot9FOFPPcVpcvuuKalUb2mhugi41pPCVOsFfu6LvaWoRFwVGNnlUekp5Oq/?=
+ =?us-ascii?Q?rpX6Gi10cJx75AxnB/jPGgq4Y/I0Kx8Rs3eVF6coKnoUTsct4Gt/+OzltwSs?=
+ =?us-ascii?Q?ucR8Z1X8rGwCVaX0b7ToiCFnrhJqDc8ngmCi3s3MTAhU2x9iMjr6ng+bGz34?=
+ =?us-ascii?Q?g/celaADAFzpO7b95dI6RiN36Wo88HFigGXwbYny+aGDB6e9HsZ4QY7rfCHF?=
+ =?us-ascii?Q?qdJTb0K2Omzq5LaDXoMghGhd1kUpfjpkOoi4bOa8jZfJC/LXchyLUQADmHxR?=
+ =?us-ascii?Q?F4KkIk5rxsb+nMWrybnpNZsdBFC+E1jVqoJ0gsDd9df0fj8ESl6rNBSS0Y7D?=
+ =?us-ascii?Q?VS/akd9JQOsoTqzuTYv0xwClVrJIoTMGa68/SJnhNy6q/1jZUGVx0xLF30Jk?=
+ =?us-ascii?Q?pJ7Kv/yedyaBDf4vkN8BS2iAlvVamkoz+q3d4aOiZzdwHjk2A/9L4r/lxny4?=
+ =?us-ascii?Q?F0g+LujC8lMG8EgRXWtNSN9sgcDIoFeQO7c+YEG78KxarnUoD/md9NNp1+Ey?=
+ =?us-ascii?Q?Y4DbI727gZn1DUbqX01Rq4C9z+wREiuRaG2hgiodEqmCeio8orMkGv6xblsI?=
+ =?us-ascii?Q?KhHmVHlGeRrvVccfDohQB75okxuQ14GCazrmE59BnGTQZ89bLJyRnsCFc91e?=
+ =?us-ascii?Q?qDmQAzYS4AAZSNG1VPDRZPXrFx4jpOwPUamOCoKyF9ynQtgDTXXJ3K7pbnvl?=
+ =?us-ascii?Q?Z3m5RDVSG0QdPL7MNDawjeofrTm/aseaq33EHZTz75gIjHvI14C2WlAXazCw?=
+ =?us-ascii?Q?nPKBI1bwDD6BjUPG2JKcvD0V+IFGRvlKiRxBugwvIWBlkDHs2gCDC1rE/n5+?=
+ =?us-ascii?Q?cU0+BvN10QlqJTsSN4cwBxAJQqTLc9Kc9w5X4ytiny8WeQQFmrB/lG7auCZo?=
+ =?us-ascii?Q?1RRCNCiZOTg6kGcGdHdpYLI1RCoCZDROKG1GINNLqDfH5YBcabpBJs3bJxZC?=
+ =?us-ascii?Q?wtoRu7B5Drd6iipE6diQGYfaaaJpuuA=3D?=
+X-Exchange-RoutingPolicyChecked: wA6be+KCMTPB1VIDpl5if9Q2TjAte0a/F7ai2wBO7bbFPzM5HjL5S2aR27P6DdKvNw5HFuIpUG5hktJZfg12tbN1jSX89TCUGjhXVfOL10pXYb0S8ZsAqPSW4SlILwhv4UZuR4ebELP0YUkPPNV+GgTiwOYdRRygdL66r2zCfocu1jdvsCDGeLY63slQxdcsiL/AT4m20NlCeC6ZO0rg8GSOdNnKge0kvzzEtrRTTl+AMoHNDGDGzbMtPOwrJyzH4HXkXdfdO5LOKxSan/vixeDMxdt02B4YkjuYJSfLSOz4vmYArSi5IGNvzESYP6lBJTGcLC93xdxLp9L+GZcOMg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91e61186-af42-4d92-5094-08df28e3c5d7
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 04:38:05.2618 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x2n4vb14B009GG4Z3xpc43dAkK7Ip5JLi2bSak8rV/JZmRERaJAMgVV9P7QrnZE2dsPpNJssY9T/ZiTt5zux+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPFC0CDE789E
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,212 +160,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026 at 7:53=E2=80=AFAM Qianhui Xu <xiaqinghuan@mail.ustc.e=
-du.cn> wrote:
->
-> Hi,
->
-> We are bringing up a Lenovo Legion Y700 (2025) tablet, TB322FC / Qualcomm
-> SM8750P, with a Novatek NT36536 panel (1904x3040, DSC, video mode) driven=
- by
-> bonded dual DSI (ae94000.dsi master, ae96000.dsi peer).  Our tree is
-> GEEKiDOS/linux, a 7.2-based tree that carries the bonded command path
-> (dsi_mgr_bonded_cmd_xfer() plus the "bonded command DMA failed" / "peer c=
-ommand
-> DMA timeout" messages).  We could not find that path in the vanilla 7.2 s=
-ources
-> we compared against, so question 1 is partly whether it is upstream-suppo=
-rted
-> at all.
->
+On Mon, Oct 12, 2026 at 09:10:15PM -0700, Max Zhen wrote:
+> 
+> 
+> On 10/12/2026 Mon 13:31, Lizhi Hou wrote:
+> > Two hardware contexts can submit jobs that use the same GEM object while
+> > a user mapping is invalid. aie2_cmd_submit() drops the reservation and
+> > notifier_lock before aie2_populate_range(), and that function takes a
+> > reference on the first invalid umap without clearing invalid until the
+> > fault returns. Both submissions then call
+> > hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
+> > structure is not safe for concurrent callers. The calls write
+> > notifier_seq and hmm_pfns[] at the same time, so mmu_interval_read_retry()
+> > can see the other call's sequence, miss an invalidation, and clear
+> > invalid. The job is then pushed while the pages may already be gone.
+> > Give each umap its own mutex and hold it from the fault through the retry
+> > check and the store that clears invalid. notifier_lock is dropped before
+> > this mutex is taken, and the fault drops mmap_lock before notifier_lock
+> > is taken again.
+> > 
+> > Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
+> > Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> Reviewed-by: Max Zhen <max.zhen@amd.com>
 
-In a word, the panel driver is supported, the DPU may not be.
+I was browsing dri-devel and this hmm interaction annoyed me enough to
+ask my AI to fix this and converge properly on a DRM framework:
 
-I think most drivers for dual dsi dual dsc panels in the upstream are
-alright, but they may still not work due to the DPU. Once I upstreamed
-partial patches, but it is not enough, we need more, like we need to
-hack the dsi clk source select for the 10-bit CPHY plane, etc.
-Integrating such kind of patch to upstream is time-consuming and
-troublesome for me. Even if it works in Ver, nobody would ensure that
-it still works in Ver + 0.1, as there would be many features and
-regressions for the DPU when promotion.
+https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/local_dev/amd_hmm_cleanup
 
-I cannot help with this for now, sorry about that, I have not focused
-on this for a while due to things irl,  You can find some threads in
-LKML about 10bpc 10bpp support on DPU discussions that I was involved
-in, it may give you some insight. You can also find some records about
-bringup, for instance, please check the image in this thread if you
-are confused about if it is __really__ supported(i.e.
-https://postimg.cc/xJr11DK5, and another snapshot for GPU bringup
-https://postimg.cc/0zz30h8P).
+Improper HMM or abuse affects the entire kernel, hence we should
+converge.
 
-Best wishes,
-Pengyu
+Please consider the AI suggestions (last 3 patches) instead of open
+coding this.
 
-> SYMPTOM
->
-> On a *cold* boot (power off -> bootloader -> fastboot boot <image>) the v=
-ery
-> first DCS command of the panel init intermittently times out and the pane=
-l is
-> never enabled.  Warm reboots do not reproduce this signature (a warm rebo=
-ot
-> reproducibly ends up in mode (b) below); all three modes are cold-boot on=
-ly.
-> Signature, identical in all failing samples:
->
->   [    9.032148] msm_dsi ae94000.dsi: command DMA timeout: status=3D0x220=
-0200
->   [    9.037910] msm_dsi ae96000.dsi: peer command DMA timeout: status=3D=
-0x2200200
->   [    9.037912] msm_dsi ae94000.dsi: bonded command DMA failed: master=
-=3D-110 peer=3D-110
->   [    9.037914] panel-novatek-nt36536 ae94000.dsi.0: sending dcs data ff=
- 20 failed: -110
->   [    9.096078] panel-novatek-nt36536 ae94000.dsi.0: Failed to initializ=
-e panel: -5
->   [    9.102187] [drm:dpu_encoder_phys_vid_prepare_for_kickoff:576] [dpu =
-error]enc35 intf1 ctl 1 reset failure: -22
->   [   10.176852] msm_dpu ae01000.display-controller: [drm] vblank wait ti=
-med out on crtc 0
->
-> On a good boot the same step prints "panel prepared: scheduling firmware
-> upload".  "DSI PLL(0) lock failed" x4 and device-link warnings also appea=
-r on
-> good boots (we treat them as benign noise).
->
-> THREE FAILURE MODES, ALL COLD-BOOT ONLY
->
-> (a) panel-init timeout with the system up: card0 exists, DSI-1 connected,=
- SSH
->     reachable, only backlight - the signature above.  Most common.
-> (b) no card0 at all (DSI host probe fails earlier).
-> (c) *new* 2026-10-13: bootloader ACKs the image, but there is no SSH and =
-no
->     fastboot at all for 30+ minutes, backlight only.  In this mode the ma=
-chine
->     never reaches userspace, so even an on-device watchdog cannot recover=
- it.
->
-> REGISTER-LEVEL EVIDENCE (bad boot, instrumented)
->
-> We patched the DSI path to dump state around the failure and to attempt
-> recovery.  Bad boot, all timestamps in one boot:
->
->   first DCS times out (status=3D0x2200200)
->   before-reset : CTRL=3D0x175  STATUS0=3D0x20003  CLK_STATUS=3D0x3743  CM=
-D_DMA_CTRL=3D0xd4000000  INTR_CTRL=3D0x2200200
->   after our reset (see below): CTRL=3D0x0 CLK_CTRL=3D0x0 CLK_STATUS=3D0x1=
-403
->   after link re-power-on    : CTRL=3D0x171  STATUS0=3D0x20003  CLK_STATUS=
-=3D0x1743  CMD_DMA_CTRL=3D0x14000000
->   retry of the first DCS    : failed: -110 (identical registers, three at=
-tempts in a row)
->
-> What we did in that window: cleared the driver-side failure latch, powere=
-d the
-> link down and up again (clock rate set, clock enable, PHY reset/re-lock, =
-ctrl
-> enable), and additionally forced the terminal state of the stock
-> ctrl_reset() sequence (engines off, CLK_CTRL =3D 0x00) on both controller=
-s before
-> re-enabling.  The last step *did* take effect - CLK_STATUS dropped from 0=
-x3743
-> to 0x1403, i.e. the DYN_PCLK / DYN_CMD_PCLK / CMD_PCLK bits were cleared =
-while
-> CLK_CTRL was 0 - but as soon as the link is powered on again CLK_STATUS r=
-eturns
-> to 0x1743 and STATUS0 stays 0x20003 (ENGINE|DMA busy).
->
-> So: the failure is not a state we can clear from inside the DSI controlle=
-r.  It
-> looks like the dynamic pixel-clock request is re-asserted during link pow=
-er-on
-> and the command engine stays busy; PLL_UNLOCKED is not set (the PLL is lo=
-cked),
-> the DSI interrupt counters do not advance while the engine is busy, and t=
-he
-> registers before the first command are byte-identical to those of a good =
-boot.
->
-> WHAT WE RULED OUT (controlled, same images)
->
-> * Kernel build identity: 2-digit vs 3-digit KBUILD_BUILD_VERSION, same so=
-urce
->   rebuilt, empty-commit / one-line-pr_info arms, 20+ cold boots.  We firs=
-t
->   measured "0 bad / 20+" for 3-digit builds; that window simply contained=
- no
->   failure, and the same class of images later failed 4/7.  Pairing #60 ag=
-ainst
->   a 3-digit arm inside one window showed no measurable identity effect.
-> * Failures cluster in time: adjacent cold boots fail, and a clean window =
-can
->   give 10 good boots in a row.  Rate drifts with session/environment, not=
- with
->   the image.
-> * Upstream 2028280686f4 ("round the byte clock rate after reparenting to =
-the
->   PHY PLL"): ported to this tree with upstream semantics (rounding inside
->   dsi_link_clk_set_rate_6g(), byte-intf rate from byte_intf_clk_div_2).  =
-First
->   cold boot still fails with the identical signature.
-> * Driver-side recovery: clearing the failure latch and resetting DSI ctrl=
-+PHY
->   (both links) + retrying, as described above.
-> * Forcing the stock ctrl_reset() terminal state (CLK_CTRL =3D 0x00) befor=
-e
->   re-enabling - the DYN bits come back on power-on (see above).
-> * Using the standard broadcast command path instead of the tree's custom =
-bonded
->   sequence: same hang, different error path.
-> * Enabling-time dynamic force-on (vendor-style CLK_CTRL force-on around D=
-SI_EN,
->   both transient and held for the whole panel-init window): still fails, =
-and the
->   DYN bits are latched in the forcing case too.
-> * ramdisk/initramfs variants, DTB variants, strict 30 s power-off POR: no=
- effect.
-> * Runtime recovery by rebinding panel / msm_dsi: this tears DRM down (car=
-d0
->   disappears, fb switches to dummy, GPU hangcheck) instead of recovering.
->
-> QUESTIONS
->
-> 1. Is there a documented ordering requirement for the bonded command path
->    (DSI0 master / DSI1 peer) for the *first* DCS after PHY enable / PLL l=
-ock?
->    Our engine latches with STATUS0 =3D 0x2200200 and TRIG_DMA never self-=
-clears.
-> 2. Given that a DSI-side reset cannot clear it, is the dynamic pixel-cloc=
-k
->    request supposed to be dropped by the client (dispcc / INTF) side, and=
- is
->    there a known issue with that handshake on SM8750?  Should the DSI dri=
-ver
->    wait for the DYN domain to settle before the first command?
-> 3. Should this timeout be recoverable in the driver (reset host/PHY and
->    re-issue) instead of failing panel init permanently?  Is there an upst=
-ream
->    precedent we should follow?
-> 4. Any known SM8750 / DSC video-mode erratum for the first DCS after a co=
-ld
->    boot?  We looked at the PLL re-lock series (6cd33b6f4155 and 202828068=
-6f4);
->    the symptom does not match.
-> 5. Would you like the full dmesg, DSI/PHY register dumps, CLK_STATUS, RPM=
-h
->    votes, and our repro scripts, from both a good and a bad boot?  We hav=
-e both
->    and can attach them.
->
-> Thanks,
-> Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
->
-> The bring-up tree is GEEKiDOS/linux plus local patches; we are happy to p=
-ublish
-> the repro scripts (cold-boot runner, three-state probe) and the failing-b=
-oot
-> captures if that helps.  Happy to test any patch you suggest on the devic=
-e.
->
+Matt
+
+> > ---
+> >   drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
+> >   drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
+> >   drivers/accel/amdxdna/amdxdna_gem.h | 1 +
+> >   3 files changed, 9 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> > index d927c8c9d557..4db67a789c34 100644
+> > --- a/drivers/accel/amdxdna/aie2_ctx.c
+> > +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> > @@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+> >   		return -EFAULT;
+> >   	}
+> > +	mutex_lock(&mapp->lock);
+> >   	ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
+> > -	if (ret)
+> > +	if (ret) {
+> > +		mutex_unlock(&mapp->lock);
+> >   		goto put_mm;
+> > +	}
+> >   	down_write(&xdna->notifier_lock);
+> >   	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
+> >   		up_write(&xdna->notifier_lock);
+> > +		mutex_unlock(&mapp->lock);
+> >   		amdxdna_umap_put(mapp);
+> >   		mmput(mm);
+> >   		goto again;
+> >   	}
+> >   	mapp->invalid = false;
+> >   	up_write(&xdna->notifier_lock);
+> > +	mutex_unlock(&mapp->lock);
+> >   	amdxdna_umap_put(mapp);
+> >   	mmput(mm);
+> >   	goto again;
+> > diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> > index f14484bc31ec..37bfa5058095 100644
+> > --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> > +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> > @@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
+> >   	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
+> >   	mmu_interval_notifier_remove(&mapp->notifier);
+> > +	mutex_destroy(&mapp->lock);
+> >   	kvfree(mapp->range.hmm_pfns);
+> >   	kfree(mapp);
+> >   }
+> > @@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+> >   		goto free_pfns;
+> >   	}
+> > +	mutex_init(&mapp->lock);
+> >   	down_write(&xdna->notifier_lock);
+> >   	if (list_empty(&abo->mem.umap_list))
+> >   		abo->mem.uva = addr;
+> > diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
+> > index 9b4aa21a37c9..456a537eb68c 100644
+> > --- a/drivers/accel/amdxdna/amdxdna_gem.h
+> > +++ b/drivers/accel/amdxdna/amdxdna_gem.h
+> > @@ -19,6 +19,7 @@ struct amdxdna_umap {
+> >   	struct kref			refcnt;
+> >   	bool				invalid;
+> >   	bool				unmapped;
+> > +	struct mutex			lock; /* protect range */
+> >   };
+> >   struct amdxdna_mem {
+> 
