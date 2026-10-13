@@ -4,144 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA38CC6B03
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 09:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 824A9CC6B08
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 09:33:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56F5510F664;
-	Tue, 13 Oct 2026 09:28:45 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B582010F664
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 09:28:34 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69D6Z3ev3209360
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 09:28:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=AwVrOQAST10OpocMcgq2xe5E
- 4xD7N2fSB7icU0QeQ7s=; b=Ckxqoo6EAZlcrDMj0F4eefX6HbXJeXaByFh5SkDp
- Nvw/8uL2qUT6+EahYM4zs3007fQ+2db1+kOKUcHnhfJpQbX9VbFIblyNof8FRAcy
- R0wnsVVa2iFeACk68sPtCc988ESMyeC5a+SMZyE+NZjE+1fEtlpVZsinRZJ3NizK
- 1i/dfxZHL3Sv4Lnbu2TNPaVVrCc/o8WipvshYcS6fYK8q5IEuPD6IYcgJ6B7P8Zu
- PmV04zNc5K/JZu2eYh68WBtiFNPxKjqJnwtCuornHyTCsIJnbz0J3W0Fg0L7QtZu
- 6LTlv9V4do9Q6ItmYqOnzUyncCqtOSYT/grYLZwiWI80IQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9fgjgq3u-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 09:28:34 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93e46c120dfso284651785a.1
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:28:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25DC10F66F;
+	Tue, 13 Oct 2026 09:32:55 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6982810F66F
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 09:32:50 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-487049569b6so1892076f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 02:32:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791883713; x=1792488513;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=AwVrOQAST10OpocMcgq2xe5E4xD7N2fSB7icU0QeQ7s=;
- b=NVTfacIQUJDmx9i56Az64Vt9Kj/pM6TsjLZOiQXbcOXN/o8mroJA18vlHV5mabJtp6
- paexdfN7HEYa+I5hiRoNyTq9F4fKiQ48/2CF/NsuhbFoDP1umMyqHyKyhMkZNpjgAq3E
- vH7X1UICv2t4xx3K0bpiqAMSU/fi4LBPpFxE8p+TILIS7FmSS9DGd7tCo5OzSjXBFzBm
- 470GIiK5i+9PeE9IQ8fH2qW2BB7kPbt4Jza2lJhZ05zWhbvU1zeCxXWYG3AnM6hkv13G
- hvhPnSIM9Mf141b2jqyWPS3b3X3pDiO7enzaTjra9NidTE0ubR4wpP+JZlPgtBEcbrmb
- /8jQ==
+ d=gmail.com; s=20251104; t=1791883969; x=1792488769; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rrwyteEkSmVugKNDSB7rq3Nq/U0fxherldXaw1AGqq8=;
+ b=SPFE17xj4Fe23kkO4vz8Kmzj/j1bPzKfZchDjAAf9DvM0rDbi4piS6CBtbA6hh8da1
+ V6+FWBfNNYy/AvxieQdfYoHRaeWA4I3DGGQt1sqwLc84upa/643bufYJDtfw6Uv4Mcug
+ WCT5FdAFrCdTDiSU8MIfrXqyAkAmrOvG5rwZ1MNGXqszdYdKyXTo9k1Msy0cqu3hzWPs
+ NXurn+DXzOruqjC7zxYcDvT3DpFLo/qzDOxOwMbpvkvWLszOdnd1KLYOt6XTru1KrPv7
+ 39AuHkdWd8TnmbjP2qZRPUVA+Tfnnpi3HBAO1NAgbUzgrMMj9P/EYT6zNg33eqadqpfw
+ ErnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791883713; x=1792488513;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=AwVrOQAST10OpocMcgq2xe5E4xD7N2fSB7icU0QeQ7s=;
- b=1Y2FcYcuExLylMuLmrkN2Wf6ZH+TJOhEpGY+fk1Pxs4GRXkF1IbeZ7OxxqNetRAkmC
- oMC6N+Aemf6qDERFuflWlUhqJJRvxY+rL7QS5OEPTibqCZNv0WjF7gdyBOoDlTPnBq4H
- ffE6mIT5c8QXqk6F+gQ+ZuGA5/hy5KF9K58aah6i87Z/HcOZsc61vUPL10Idt7+ErZCY
- OMg5eIHPgoLxrSDDmIcwql+fzp/WbtbGZfIqlpA+WN8z4LFWNT3hRRahSJJg8dQufddP
- rU/+vjKkltj4q6jq9IJxJV54pPCodjSBuK2m2ghYZ01bJMfI1LyhhJM24uiG31/PGzU/
- jWHA==
+ d=1e100.net; s=20260707; t=1791883969; x=1792488769;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=rrwyteEkSmVugKNDSB7rq3Nq/U0fxherldXaw1AGqq8=;
+ b=pbsIfPkcYZDl488aDerG38OF3T2gJuqSxGbK0N62GHsSNQEZfdu5sryKRgkGKcYowP
+ 3TAQHkbJWzA15Fpm8xhSUQTOaczdjY3y9NSIgC+PJbYTtrSnQUxEtiKnWBosBm2ACLff
+ KIbXCS22YTAg+L26Fysb6+s6PCZ7zLdp7cJRBZVNMHhaMiGEKF3vJLV1Zl51rOI3+dvk
+ GjU3cHC4AK0KJ9HsED2/FNM3T9/JDOn9iy+F4nUeQGcL4EvsoVGkQ/WjqMiPy0bTrdPl
+ FbfntNksiAXpApRnKFKtlwPRXNDnrz5POAWjFKyJWwMtAHA6/NOVrU1lClBJQuOCw1f0
+ L5fQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzsRIxecDlp4cXi3PEmEiym9B8wjtlYhO2Wf2NBH+QEj/Y+hHGbbGk+CbBgO4B1m2qnAm72hA/7UR8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLn0O0KRm3IpiVNwpa3VASPw658b7NwXi7NCPelaTme0dNK5ZHU
- th136kX4obMimRsfbIAHx6/gUemvSSZrTRhNtSi/7dWzTXLhrPlwavlkOM/Yw9NiMIjw85hD0NL
- 7+Pba4wZgPrz9Kwal1bDxRlWKSVJLS1Ci72L7eA6QwoiHZ+ADxWlqspzpo44q1XHc4FVGIX4=
-X-Gm-Gg: AYBFou0LAsoD8Zzl07D3ptZhZea1NTEVkfKOFsJIXTQ0e3XQChsVQRJz+g0J43HmxGY
- ein+qpDyuho+quUOEs9CTBRH9UM2buiJ8uSnV2uEDeyDS48qJZbAiw/6m6aPj5NRCHJITguH2xN
- RVdgVqCMXZsSnS8rvVUSYB0aFKEaLz473sVoLWekCK/YWZTArE+JtNrpYEGxzIVu50ZIWAy1zY3
- pHW8PlSMb7uuLwZ97o6dUNupoYGIVkzCe6wBl3SSMBOfzB8AxhZh8bNAGYWENuwQtFbkNl1IpnJ
- H4hNhTE+TfqJBRxECS6LTkZWn5Oep//yIbpFdY/owxbQC8sDliOWOIIYyiyH8zzm4kzG1+t+Bw2
- Jrh64reFwtQsSN/rO/kgMwX11yqURYt2cJVELuKrL1ItoLSMHrgN8G56lcV3UkZf1r/87HBKum8
- l81p7qPxmTSPxq
-X-Received: by 2002:a05:620a:199a:b0:93c:746d:7c72 with SMTP id
- af79cd13be357-93ebd29a3b1mr1894160185a.64.1791883712923; 
- Tue, 13 Oct 2026 02:28:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:199a:b0:93c:746d:7c72 with SMTP id
- af79cd13be357-93ebd29a3b1mr1894157385a.64.1791883712361; 
- Tue, 13 Oct 2026 02:28:32 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AKwUvBwuv6jbDVI+P9jvxqPXV9RYVTcIcn0rHUH8tbLHOrUyG5wxYICov0Z7EGorIYabmjSLDjHWznyqW+4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ7PyG1GSV6++FAeP9wU5wfxExq5LNuUS0OlvLZILWq7RLYiiL0
+ tzxzgM0l91hduOK5dLpcE3LLV1/j10hbuhai+4TjAH4Of6/z0AcfXF/H
+X-Gm-Gg: AYBFou2Vfk+MOXEEXzKvTiMCZyzdbWmv1bwjKiWwNZ0NI9L5Czy/TItu7E2rJkJvfLx
+ 5qKKoe4sad4uFnyZ1+06VbQ0pthLRY/SgAWXfjyVRajEIuXa2jOTwZLPiHWdaWD0JXhQ75l8J0c
+ HyMUN+CUo7s+ijmzB5Ic3iz6R5FL2JX0g/QU+fHK8G037kw/FgOxHJ7Ozx9X06QtjkNCom7lNIz
+ C86Q/RfififdQpupczZDMnZ06iCtsp/tmZsifycvsglFWu9kE+WVSU/SgJf/1GCsK5ak5+R6qDl
+ Rvw37TWrtsin7p/ZcdwmSeN4FxCZVDVcmeJTl+/7tmXutpTE0SLtQ9RbvtYDux+Z8bXBbEcVDQQ
+ kChdykuVAbZXh5CwvcvM0DvuHRm0dPt50uyuTlxuRoD2HS+nsiX5Ztazo0x+54EHbCo+DiNTtln
+ GqZ4oZU3mFVH17wqLTW0n4I/PcE858SBHifndUtrgkjYbxVwU0RSBfwKN8tBljwIrVS2a8MPVOF
+ JVulhq9wfyb+/Wcc+eZTcvahxLthfXSUko=
+X-Received: by 2002:adf:e009:0:10b0:48c:7dac:8957 with SMTP id
+ ffacd0b85a97d-48dbacda6b7mr16184465f8f.32.1791883968322; 
+ Tue, 13 Oct 2026 02:32:48 -0700 (PDT)
+Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a9c3cd5adbsm32808981fa.29.2026.10.13.02.28.30
+ ffacd0b85a97d-48de0bc4ec6sm3986774f8f.48.2026.10.13.02.32.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2026 02:28:31 -0700 (PDT)
-Date: Tue, 13 Oct 2026 12:28:29 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Tue, 13 Oct 2026 02:32:45 -0700 (PDT)
+From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v2 04/13] drm/msm/dpu: Add support for DPU 12.1 on Nord
-Message-ID: <vn75stw4ni6y7gk4reo4z25leimkahfocqrsvhw3pmappzwfvy@2pzxjkwbd7pk>
-References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-4-a2ab9af954d2@oss.qualcomm.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Francesco Valla <francesco@valla.it>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v5 00/13] Add splash DRM client
+Date: Tue, 13 Oct 2026 11:32:30 +0200
+Message-Id: <20261013093243.505776-1-maximpedraza@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-nord-drv-dt-v2-4-a2ab9af954d2@oss.qualcomm.com>
-X-Proofpoint-GUID: rZQpUO-Uzv4PUoZiigbG2z2BfqR41piq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNyBTYWx0ZWRfXw1tosNzYvP9K
- 1/KTvpUuA7gc7qyfx+1BWu6mS6yQwNzDm2fK6Ts1d6uEmjp9mRwBic5HA1+16B6GwI7S0UoyWSI
- nOFEk1Qit/MVU4VR5O/KI8movPOwhUZrH94YkNNI+Y+nXAgX13ueMgDfAj3UNkaY36ErD8lf9b+
- ZafD0i1EBlyhZUcbe09etSMdYjqYNm6NytDDghWZiPE2gXGWUztHosQD4EFQYyoQFHd7Y4Az4wr
- kwZJl2NNFLEBXz9tXSKHbSuntxvxSv8uDOxb2Rzs2YwL/TsY916Wh9eb6iIc4EAgkzHbFYCV5K2
- Sb7w6Le2sfoKalLqx1JkuR2YG97AfNtIbQjOnoqxK7b0bCa2beFy2n9cLgSIuUg08jE4zCBrr8G
- THtMA/7dIHF3a4mje3oURcOpwxOKKqotOYwxnzRqVZLMKak5sybP6VQQvCzuJ+U3UjKJqsACGvu
- +dJYmHUFNiCiRFL15gg==
-X-Proofpoint-ORIG-GUID: rZQpUO-Uzv4PUoZiigbG2z2BfqR41piq
-X-Authority-Analysis: v=2.4 cv=PedqFShd c=1 sm=1 tr=0 ts=6acdf9c2 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=VbBZhAhFZuLLlrQ6NhAA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNyBTYWx0ZWRfX7uC6yxDM6jbK
- 5pH1ZgM+Enxr27jQPsGkNGmph+/zrds2H4jpjoae3LEXSDJZUyh1ZYC42p8T7aeI9PHLuchEBQv
- bEYdl3ujvrmMlkIIjeucmCx0xZd4mX0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 priorityscore=1501 clxscore=1015
- adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130037
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,42 +100,234 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2026 at 07:02:14PM +0530, Nabige Aala wrote:
-> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> 
-> Add the DPU catalog entry for the Qualcomm Nord SoC (MDSS 12.1, DPU
-> 1499A). Nord is DP-only with no DSI, and provides 8 DSPP blocks, 2
-> writeback blocks, 8 interfaces and 2 DP controllers.
-> 
-> Extend enum dpu_intf with INTF_9 and INTF_10, which Nord is the first
-> platform to use. The new entries are inserted before MDP_INTF1_TEAR_INTR
-> and MDP_INTF2_TEAR_INTR in enum dpu_hw_intr_reg, preserving the
-> contiguous MDP_INTF0_INTR..MDP_INTF10_INTR block that the
-> MDP_INTFn_INTR() macro relies on for correct index arithmetic.
-> 
-> Corresponding register entries are added to dpu_intr_set_7xxx (required
-> for Nord, which has core_major_ver = 12) and dpu_intr_set_13xx (for
-> consistency and to avoid a latent bug on future 13xx-family SoCs that
-> use INTF 9 or 10).
+This is the fifth version of the splash client, which I took over from
+Francesco with v4 [1]. The changes are the review of v4: the BGRT is now
+read through accessors in efi-bgrt.c rather than exported data, as Jani
+asked, and the issues sashiko found are fixed. Testing now also covers
+several outputs, a tiled display, the error paths and Falcon mode.
 
-Which latent bug? Please split INTF_9 / INTF_10 handling to a separate
-patch.
+Why this is in the kernel
+-------------------------
 
-> 
-> Assisted-by: LLM
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  .../gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h  | 544 +++++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  |  20 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
->  7 files changed, 571 insertions(+)
-> 
+Maxime asked in v1 why this should not be left to userspace or to the
+bootloader. The cases it is for are the ones neither covers:
 
+  - Nothing initialises the display before the kernel does. U-Boot's
+    Falcon mode, meant to cut boot time, starts the kernel from the SPL
+    and never runs U-Boot proper, where display support lives: there is
+    no bootloader splash to hand over, and the device tree is the only
+    thing that reaches the kernel. Userspace comes seconds later.
+
+  - One kernel image for several products. An image built into the
+    kernel, with CONFIG_EXTRA_FIRMWARE, means one kernel per logo, or
+    every logo in every product's kernel, all of them staying in memory
+    for good. Francesco described exactly this case in v2: one board
+    support package for a family of devices, each with its own logo and
+    background, picked by the bootloader.
+
+  - A splash handed over from the bootloader does not always survive the
+    native driver taking over the display.
+
+Where the image comes from
+--------------------------
+
+In this order: a BMP named on the command line, the device tree, the
+EFI BGRT, and "drm_splash.bmp" loaded as firmware; with none of them,
+only the background is drawn.
+
+The device tree node lives under /chosen (patch 6) and carries the BMP
+either in the node, which dtc fills in with /incbin/, or in a reserved
+memory region the bootloader loaded it into. The region keeps the image
+out of the device tree, so that it can be changed from userspace by
+updating a partition, as Francesco suggested. A node is only there if
+someone put it there for that board, so it goes before the BGRT.
+
+The command line wins over everything else, each parameter for its own
+part only, as console= wins over stdout-path: splash_bmp (or "none"),
+splash_color, splash_pos, splash_offset and splash_rotation. Without it
+a BMP loaded as firmware could be neither placed nor turned, and it lets
+a placement be tried without rebuilding a device tree.
+
+Placement uses a position with -1 centring an axis, plus an offset, in
+screen pixels. A rotation turns the image and not the screen, counter
+clockwise as for panels and as DRM_MODE_ROTATE_* count. A device tree
+image is placed as its node says, a BGRT image at the table offsets, and
+anything else is centred; placement given on the command line applies
+whatever the source.
+
+BGRT images with the ACPI 6.2 orientation bits set are no longer skipped
+but turned (patch 11). I took the meaning of the bits and of the offsets
+from Plymouth, the main user of the BGRT, so that the kernel and
+Plymouth put the image in the same place and the handover does not
+jump. I have not found the specification text to check against;
+corrections are welcome.
+
+Changes since v4
+----------------
+
+  - efi: bgrt: patch 2 adds accessors for the boot graphics instead of
+    exporting bgrt_tab and bgrt_image_size, with stubs in efi-bgrt.h for
+    CONFIG_ACPI_BGRT=n (Jani [2]); both variables are __ro_after_init
+    (Ard [3]). Ard, this is the shape we discussed [4]: it is no longer
+    the patch you acked, so I have not carried your Acked-by.
+  - The client reads the BGRT through those accessors only, and drops
+    its own wrappers, its stubs and the #ifdef around them; no "static
+    inline" in drm_splash.c any more (Jani [5]).
+  - Fixes from sashiko's review [6]:
+    - when the render thread could not be created, the framebuffers
+      were freed but the modesets still pointed at them, and the next
+      restore committed them: a use-after-free that closing the last
+      DRM file is enough to trigger;
+    - when no buffer could be created, the scanouts were not freed, and
+      a later restore committed a mode without a framebuffer;
+    - a BMP loaded as firmware that arrived after the render thread had
+      left (another master took over) was kept until unbind; it is now
+      released when it arrives.
+  - The binding and the documentation now ask a bootloader that loads no
+    image into the reserved region to disable or remove the node, rather
+    than to clear the region, which left the kernel an invalid image to
+    complain about on every boot (sashiko [7]).
+  - Dropped the RFC tag: v4 drew no objection to the approach, and I
+    consider the series ready to be applied.
+
+Changes in v4
+-------------
+
+Fixes to Francesco's patches, folded in and listed in the commit notes;
+most of them were also in sashiko's review of v3 [9]:
+
+  - the render thread stayed in TASK_UNINTERRUPTIBLE for good when the
+    BMP firmware was missing (hung task warning), could miss a wake up,
+    and kthread_stop() was called on a thread that had already exited
+    (use-after-free), never existed or failed to start;
+  - a use-after-free on unbind: the image was released after
+    drm_client_release(), which frees the client;
+  - a use-after-free in the firmware callback when the device goes away
+    first, as the request cannot be cancelled; unregister now waits;
+  - the BMP bounds check could overflow and let a crafted bitmap offset
+    read 4 GiB away;
+  - the 24 bit blitters read a byte past the image;
+  - buffers went to the wrong modesets when one was skipped, tiled
+    groups dereferenced a buffer before creating it and swapped width
+    and height, a failed dumb buffer left an ERR_PTR behind, and the
+    modeset list was walked without modeset_mutex;
+  - the BGRT symbols are exported (Mario's report [10]), GPL only;
+  - the DRM_CLIENT_DEFAULT entry is indented with tabs (patch 1).
+
+Additions: the device tree source and its binding, placement, rotation,
+the background colour following the image, BGRT orientation, the
+command line parameters, and the documentation.
+
+Testing
+-------
+
+  - QEMU versatilepb (pl111, 16 bpp): 39 cases for the device tree
+    source (inline and region, invalid nodes, placement, clamping,
+    rotations, rows with and without padding, backgrounds), plus 17 for
+    the command line and the order of the sources, each compared pixel
+    by pixel.
+  - QEMU virt arm64 (virtio-gpu, 32 bpp) with KASAN, with the BMP loaded
+    as firmware from an initramfs and the driver unbound afterwards: no
+    reports, also with a crafted bitmap offset and with the firmware
+    arriving only after the unbind (sysfs fallback).
+  - Several outputs, on virtio-gpu with two heads: with the first output
+    off and the second on, v3 put the buffer on the dead output and left
+    the live one blank; now the splash is on the live one.
+  - A tiled display, simulated by forcing on two virtio-gpu heads EDIDs
+    with a DisplayID tiled topology block (2x1 tiles of 1024x768): one
+    2048x768 buffer, the image centred across both tiles; v3 oopsed on
+    such a display.
+  - The error paths sashiko pointed at, with a debug patch forcing them:
+    without the fix, a failed thread creation followed by a restore gives
+    KASAN use-after-free reports, and a failed buffer creation a WARN in
+    the atomic code; with it, neither.
+  - x86-64 with OVMF for the BGRT through the new accessors, including
+    forced orientation bits, and drm_client_lib built as a module.
+  - An AM335x board (tilcdc, 800x480 panel of which only the bottom 297
+    lines are visible, 16 bpp), booting over TFTP and NFS: 27 cases,
+    plus 9 with the BMP loaded as firmware from an initramfs, checked
+    by reading the scanout buffer back through /dev/mem.
+  - The handover on the same board, with the product's Qt5 application
+    drawing through EGLFS and the SGX GPU: it takes the display straight
+    from the splash, and when it exits the splash is restored, pixel for
+    pixel.
+  - Falcon mode, on an AM335x board booting from NAND: the SPL starts
+    the kernel directly, with the device tree appended to it and the
+    image inline in the node, and U-Boot proper never runs. The splash
+    comes up as the node asks, checked pixel by pixel.
+  - W=1 and sparse clean; every patch builds on its own on arm and
+    x86-64; checkpatch --strict clean apart from a quoted modpost line
+    and the MAINTAINERS reminder answered by the next patch;
+    dt_binding_check clean for the binding.
+
+Not tested: a BGRT with orientation bits from real firmware.
+
+Open questions
+--------------
+
+  - Rob: how the image should be described, a BMP in a property or raw
+    pixels described like simple-framebuffer [8]. The binding here uses
+    the BMP; the client would need a second drawing path for the other.
+  - Once the binding settles I will send the dt-schema change that lets
+    the node live under /chosen; until then dtbs_check flags it.
+  - The splash is a DRM client, so a device using it has no fbdev
+    emulation and no /dev/fb0. That rules it out where userspace still
+    draws through fbdev.
+
+Based on drm-misc-next as of 2026-10-12 (725953d4da85).
+
+[1] https://lore.kernel.org/all/aryqYhHqFk3cXh9d@bywater/
+[2] https://lore.kernel.org/all/5c92c6f27b0778124d2365603374f70bd9b69b8d@intel.com/
+[3] https://lore.kernel.org/all/001eb42a-ec22-474a-83c6-371f1f4b2b8c@app.fastmail.com/
+[4] https://lore.kernel.org/all/9cf259a5-6083-433c-8544-ca3f6286334e@app.fastmail.com/
+[5] https://lore.kernel.org/all/1800459b75ea057c42f8c601a09646cca938b3db@intel.com/
+[6] https://lore.kernel.org/all/20261002091339.B64EB1F00893@smtp.kernel.org/
+[7] https://lore.kernel.org/all/20261002091338.E12D61F000FF@smtp.kernel.org/
+[8] https://lore.kernel.org/all/CAEUXW=Gh6wMk1i=x_KT0eSdkHeHs8Hkxkj4hfsuTRyY6=aphpw@mail.gmail.com/
+[9] https://sashiko.dev/#/patchset/20260510-drm_client_splash-v3-0-a9aee9f0b2fc%40valla.it
+[10] https://lore.kernel.org/dri-devel/5d7067de-97b7-4232-9cf6-e4b978696482@amd.com/
+
+v4: https://lore.kernel.org/r/20261001195847.141192-1-maximpedraza@gmail.com
+v3: https://lore.kernel.org/r/20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it
+v2: https://lore.kernel.org/r/20260106-drm_client_splash-v2-0-6e86a7434b59@valla.it
+v1: https://lore.kernel.org/r/20251027-drm_client_splash-v1-0-00698933b34a@valla.it
+
+Màxim
+
+Francesco Valla (3):
+  drm: client: add splash client
+  MAINTAINERS: add entry for DRM splash client
+  drm: docs: remove bootsplash from TODO
+
+Màxim Pedraza Padilla (10):
+  drm/clients: Kconfig: indent DRM_CLIENT_DEFAULT with tabs
+  efi: bgrt: add accessors for the boot graphics
+  dt-bindings: display: add a boot logo node under /chosen
+  drm/client: splash: add a device tree image source
+  drm/client: splash: place the device tree image where it asks
+  drm/client: splash: turn the device tree image as it asks
+  drm/client: splash: take the background colour from the image source
+  drm/client: splash: turn the BGRT image on panels mounted turned
+  drm/client: splash: prefer what the command line asks for
+  drm/client: splash: document the image sources and parameters
+
+ .../bindings/display/boot-logo.yaml           |  151 ++
+ Documentation/gpu/drm-client.rst              |    6 +
+ Documentation/gpu/todo.rst                    |   17 -
+ MAINTAINERS                                   |    9 +
+ drivers/firmware/efi/efi-bgrt.c               |   74 +-
+ drivers/gpu/drm/clients/Kconfig               |   91 +-
+ drivers/gpu/drm/clients/Makefile              |    1 +
+ drivers/gpu/drm/clients/drm_client_internal.h |    9 +
+ drivers/gpu/drm/clients/drm_client_setup.c    |    8 +
+ drivers/gpu/drm/clients/drm_splash.c          | 1465 +++++++++++++++++
+ include/linux/efi-bgrt.h                      |   39 +-
+ 11 files changed, 1844 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/boot-logo.yaml
+ create mode 100644 drivers/gpu/drm/clients/drm_splash.c
+
+
+base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
 -- 
-With best wishes
-Dmitry
+2.39.5
+
