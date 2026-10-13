@@ -4,67 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A15BDCC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:57:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C85F1CC6B15
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 23:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0519710FA2B;
-	Tue, 13 Oct 2026 22:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 158BD10E173;
+	Tue, 13 Oct 2026 23:04:14 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBEFC10FA2B
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:57:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2819510FA2D
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 23:04:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C6F442DDE;
- Tue, 13 Oct 2026 22:57:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 184311F000FF;
- Tue, 13 Oct 2026 22:57:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E96C041330;
+ Tue, 13 Oct 2026 23:04:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75E3E1F000FF;
+ Tue, 13 Oct 2026 23:04:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791932258;
- bh=/tsBWa/AeIHpWYnSfggb/tcEzc59MfiSDgJMKAguNHg=;
+ s=k20260515; t=1791932647;
+ bh=XcrHCguC6sgAHfwM3zk2+fPmspvT64Oze4rNPv6wWVE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MgFLhfUM1TXGEfGMJsgcAb6Y1wRILjIj+J3R430oMlOvQtyf5Jv0IB+lzvt1e4uzL
- 67Q2NgzwDZcj0h0Gp+T4ZaD9fgQpqhU9WOBXb6JeIcXDiW/RmANUUDfYQ0h6pl/r4I
- hsAFKKlxYOd3LPAKeNTyC54ujuxFojj1SrrMesYXyVNqoCUi6IKFL2xce+4dIemMTs
- G6MjJFNmZLll7yoqdBaXLsVLdEvTrtoUCVBTfMvaHLChoNrsUz/e7sCt7ZqvxZmfgO
- q+KVRFyMjefBCAo4ERPG6jZrtvjqAE5PcsoFqWN9Ygr1Yn5uKAyTcrdqfg2Tg5EKX0
- R3ORV5tNZHeLQ==
-Message-ID: <sashiko-outbox-170614@kernel.org>
+ b=ZtPE9HtG14tbOQCUF1r2zsrXO5q6AyYvrOcft3x+aID1pK6yZcS6TzdC+A8Jgu8g6
+ VftXVmr149Gtlj/qB1zEvYp9idKf8u98hGo/kFA3fl6d41q7yhiF3xIMwbq5HpFJ7r
+ HaSBwe+2mrtBM1pNZHJuycFTD2BSEkTT5DHzwfKY8DCmviiRpmBE/1gQfiSlPFzIHV
+ A54Spbt7AwxGNLJVEwqHWPec0CO7Aw4LJUyrlgjLW5hGU0fLVJV0Yrq3durSHr59eU
+ kp+FjfEMmB1mLqsVMbeiDc6Efv/TdJinzpcaQpOhZ1QWlWIm79DcU/QUto/SaBtzb/
+ LaTdvSF+IAfHw==
+Message-ID: <sashiko-outbox-170620@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/11] drm/amdkfd: Free queue in procfs_queue_type
- kobject release callback
-To: "Ian Rogers" <irogers@google.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael
- J . Wysocki" <rafael@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Kees Cook" <kees@kernel.org>, "Nathan
- Chancellor" <nathan@kernel.org>
-Cc: "Nick Desaulniers" <ndesaulniers@google.com>,
- "Bill Wendling" <morbo@google.com>, "Justin
- Stitt" <justinstitt@google.com>, "Jonathan Corbet" <corbet@lwn.net>, "Madhavan
- Srinivasan" <maddy@linux.ibm.com>, "Michael Ellerman" <mpe@ellerman.id.au>,
- "Nicholas
- Piggin" <npiggin@gmail.com>, "Christophe Leroy" <chleroy@kernel.org>, "Nayna
- Jain" <nayna@linux.ibm.com>, "Yoshinori Sato" <ysato@users.sourceforge.jp>,
- "Rich Felker" <dalias@libc.org>,
- "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>, "Viresh
- Kumar" <viresh.kumar@linaro.org>, "David Teigland" <teigland@redhat.com>,
- "Alexander
- Aring" <aahringo@redhat.com>, "Juergen Gross" <jgross@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>,
- "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
- Gordeev" <agordeev@linux.ibm.com>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Sven
- Schnelle" <svens@linux.ibm.com>, "Richard Weinberger" <richard@nod.at>, "Zhihao
- Cheng" <chengzhihao1@huawei.com>, "Felix Kuehling" <Felix.Kuehling@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>,
- =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>,
- linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261013223946.1836757-11-irogers@google.com>
-References: <20261013223946.1836757-1-irogers@google.com>
- <20261013223946.1836757-11-irogers@google.com>
+Subject: Re: [PATCH v5 12/15] drm/rockchip: dw_hdmi_qp: Do not mask error
+ code in atomic_check()
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-12-6fab0fe43a9b@collabora.com>
+References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
+ <20261014-dw-hdmi-qp-yuv-v5-12-6fab0fe43a9b@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 22:57:36 +0000
+Date: Tue, 13 Oct 2026 23:04:06 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,65 +58,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] sysfs: WARNING in kernfs_remove_by_name_ns due to unconditionall=
-y deleting uninitialized kobject
+- [High] drm/rockchip: dw_hdmi_qp: state corruption in atomic_check()
 --
 
-commit a813e5e5e38ff926a8859f22732d8fde3e0ed689
-Author: Ian Rogers <irogers@google.com>
+commit af42e0a2c16e4fdcedcd0540fb2c150fc25ebb0c
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/amdkfd: Free queue in procfs_queue_type kobject release callback
+drm/rockchip: dw_hdmi_qp: Do not mask error code in atomic_check()
 
-This commit adds a release callback to free the struct queue from the kobje=
-ct
-release function to prevent a use-after-free, and adjusts the kobject_put()
-locations accordingly.
+This commit changes dw_hdmi_qp_rockchip_encoder_atomic_check() to
+propagate the error code returned by dw_hdmi_qp_rockchip_get_vop_format()
+instead of masking it with -EINVAL. This ensures that -EDEADLK can be
+propagated up to the DRM core to trigger the ww_mutex backoff mechanism.
 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-[ ... ]
-> @@ -701,7 +708,6 @@ void kfd_procfs_del_queue(struct queue *q)
->  		return;
+Link: https://lore.kernel.org/all/20260902230603.AF5C61F000E9@smtp.kernel.o=
+rg/
+
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index f2a1ea8dfefa5..db1933d75ced5 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> @@ -203,7 +203,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_e=
+ncoder *encoder,
 > =20
->  	kobject_del(&q->kobj);
+>  	ingest_fmt =3D dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
+>  	if (ingest_fmt < 0)
+> -		return -EINVAL;
+> +		return ingest_fmt;
+> =20
+>  	if (hdmi->tmds_char_rate =3D=3D conn_state->hdmi.tmds_char_rate &&
+>  	    s->output_bpc =3D=3D conn_state->hdmi.output_bpc &&
 
-[Severity: Medium]
-Can this trigger a kernel warning if sysfs creation fails?
+[Severity: High]
+Does this function improperly mutate hardware state during the
+validation-only atomic_check phase?
 
-If kfd_procfs_add_queue() fails (for example, due to a memory allocation fa=
-ilure
-in sysfs), q->kobj.state_in_sysfs remains 0 and q->kobj.sd is null. However,
-pqm_create_queue() may ignore this sysfs failure and keep the queue operati=
-onal.
+The DRM atomic framework uses atomic_check for configuration validation,
+which executes during TEST_ONLY commits that are never applied to hardware.
 
-Later, when pqm_destroy_queue() calls kfd_procfs_del_queue(), kobject_del()=
- is
-called unconditionally.
+However, further down in dw_hdmi_qp_rockchip_encoder_atomic_check(), the
+code calls phy_configure() and updates global driver state:
 
-This results in a call chain to __kobject_del() which invokes
-sysfs_remove_groups() with a null kobj->sd. This eventually propagates to
-kernfs_remove_by_name_ns(), where a warning is triggered explicitly when
-its parent argument is null:
+	ret =3D phy_configure(hdmi->phy, &phy_cfg);
+	if (!ret) {
+		hdmi->tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
+		s->output_type =3D DRM_MODE_CONNECTOR_HDMIA;
+		s->output_bpc =3D conn_state->hdmi.output_bpc;
+		s->bus_format =3D ingest_fmt;
+	} else {
 
-fs/kernfs/dir.c:kernfs_remove_by_name_ns() {
-    ...
-    if (!parent) {
-        WARN(1, KERN_WARNING "kernfs: can not remove '%s', no directory\n",=
- name);
-        return -ENOENT;
-    }
-    ...
-}
+If userspace issues a TEST_ONLY commit with a new mode, the hardware PHY
+state and driver tracking (hdmi->tmds_char_rate) are modified to reflect the
+test configuration.=20
 
-Should we check if the kobject was successfully added to sysfs (such as che=
-cking
-q->kobj.state_in_sysfs) before calling kobject_del()?
+If the commit is then aborted, the hardware state and driver tracking become
+out of sync.
 
-> -	kobject_put(&q->kobj);
->  }
+Could this cause a subsequent valid commit to break display output by
+incorrectly skipping the necessary configuration due to the fast-path
+check shown in the diff above?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013223946.1836=
-757-1-irogers@google.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-dw-hdmi-qp=
+-yuv-v5-0-6fab0fe43a9b@collabora.com?part=3D12
