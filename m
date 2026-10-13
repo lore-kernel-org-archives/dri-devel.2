@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E076CC6B1D
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:52:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C28ECC6B1F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:52:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE2610FA23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5E610FA27;
 	Tue, 13 Oct 2026 22:52:22 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A49EE10FA04
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24C7F10FA18
  for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791931919;
- bh=t4xm3scI4l7rWR2iBzxLstmE0RTUxpACdTblDz3oXNQ=;
+ s=mail; t=1791931917;
+ bh=KiRqqrlaf8HazlzQcUHaYydMUHKelMqz701+av4CyKA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=CFVeqWm9bZ+b2qYqAyW6WEpI8vPhOwqd06tI38Fo7G+7VirPG5DQgRCp1R/nABSVf
- qQkR8ZzJ2LDrzOleN4SQWWjn/3+1gVpn1cFFupHnNq/CE4/TZTjXWP9JzYv8Ddkh99
- SOq3lCVBniNaGs5lVLfhwGI5xso2ykivJ8urd5cMpxubp41BZRR4La+NoP5e4dMm02
- +LeLuMKMLWqjmEdj6+Tn2uNQZQIB5AmdZfQl9x1iHZYF36Q7PMqq+TA5mjhftczIVT
- +usZqzS25oWkvGTZ2ARJG0braLal0GO55OFZEKUjClBPPAeKCTuWJ0/udB9/NJHQZT
- SSy5iZ9kpRc9g==
+ b=fMZN61CsPtxfilKjKFZHI1ApDChIuDnDGWKYRnFxrf/2r/O4toGECNBnKzAMoNJt0
+ S/4nxzwjhldCg6CyED18/0YZRIY1h7XqZThvzGrPSNNrM6Iwf9l4AxVT4uQ+9gHUoU
+ ergJqUBoNf7VdtaCp8mm0bG/yE+RdyI5LvNbW5EbCX54uSXJvQLrUDrNyn8tb0nIbe
+ FQZIILAqdaHVnoigxm4qweXdNQYKyPziZOZDrDId2yg1EgprIMyQxoVluWUgE05W0G
+ xwZGIUvJ2ATI+Abrf2Ak/PjA0JXFIKLG8H8kRLiP63WFHVXRzuPljBZQ9wZew0AvDY
+ gtnszGRmGyEIQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1726417E1509;
- Wed, 14 Oct 2026 00:51:59 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A999F17E12B9;
+ Wed, 14 Oct 2026 00:51:57 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 01:51:29 +0300
-Subject: [PATCH v5 12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code
- in atomic_check()
+Date: Wed, 14 Oct 2026 01:51:27 +0300
+Subject: [PATCH v5 10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-dw-hdmi-qp-yuv-v5-12-6fab0fe43a9b@collabora.com>
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-10-6fab0fe43a9b@collabora.com>
 References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -60,7 +59,7 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,41 +76,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dw_hdmi_qp_rockchip_get_vop_format() calls
-drm_atomic_get_bridge_state(), which takes the bridge private object
-lock through the atomic state's ww acquire context and may therefore
-fail with -EDEADLK when the lock is contended.
+Improve code readability in vop2_setup_csc_mode() by using enum
+vop_csc_format for the csc_mode variable, as well as for the return type
+of the vop2_convert_csc_mode() helper, which already returns CSC_*
+enumerators.
 
-The DRM core expects -EDEADLK to be propagated up from atomic_check()
-so it can drop all held locks and restart the commit.  Replacing it
-with a hardcoded -EINVAL defeats this backoff mechanism, making
-otherwise valid commits fail spuriously when multiple threads perform
-atomic commits concurrently.
+While at it, replace the nonsensical 'csc_mode = false' assignment in
+the no-conversion branch with the equivalent CSC_BT601L, which carries
+the same value (0) but is type-correct.
 
-Propagate the error code returned by the helper instead of
-unnecessarily overriding it.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260902230603.AF5C61F000E9@smtp.kernel.org/
-Fixes: a18aa0dd7a0b ("drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property")
+Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index f2a1ea8dfefa..db1933d75ced 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -203,7 +203,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 45f3acbfa634..1b0f72958763 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
+ 	}
+ }
  
- 	ingest_fmt = dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
- 	if (ingest_fmt < 0)
--		return -EINVAL;
-+		return ingest_fmt;
+-static int vop2_convert_csc_mode(int csc_mode)
++static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
+ {
+ 	switch (csc_mode) {
+ 	case V4L2_COLORSPACE_SMPTE170M:
+@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	int input_csc = V4L2_COLORSPACE_DEFAULT;
+ 	int output_csc = vcstate->color_space;
+ 	bool r2y_en, y2r_en;
+-	int csc_mode;
++	enum vop_csc_format csc_mode;
  
- 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
- 	    s->output_bpc == conn_state->hdmi.output_bpc &&
+ 	if (is_input_yuv && !is_output_yuv) {
+ 		y2r_en = true;
+@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	} else {
+ 		y2r_en = false;
+ 		r2y_en = false;
+-		csc_mode = false;
++		csc_mode = CSC_BT601L;
+ 	}
+ 
+ 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
 
 -- 
 2.55.0
