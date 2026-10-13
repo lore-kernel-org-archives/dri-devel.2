@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1DE6CC6B10
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFFE3CC6B13
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:54:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2C4D10F5B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F29C410F5C9;
 	Tue, 13 Oct 2026 07:53:48 +0000 (UTC)
 Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
  [74.125.224.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D69C210E714
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:35:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8C8A10E731
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 04:35:53 +0000 (UTC)
 Received: by mail-yx1-f41.google.com with SMTP id
- 956f58d0204a3-66c9995ca60so4278006d50.1
- for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:56 -0700 (PDT)
+ 956f58d0204a3-679334baa1fso1871680d50.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 12 Oct 2026 21:35:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791866156; x=1792470956; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791866153; x=1792470953; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=rPZxZeQ1MN5oxdqJmVTe39KchSUoN5mtLJpoRFFbDDY=;
- b=LNWw+H7yr7Lkim7SytdJtSUtOMyIvoScJTLzbhlOuiO7EEwbpWD/EWj8rcfcJqvhjj
- 13ITX4Ystcu7a5RmRFP+gfyCp3HpB8whoJt9Cm0l3WmbSjIq8GtuIyg1WUM/QMIEwDGM
- Mt2QM2E1ChQkRaf5f8UActsWaalkBGaaL6vr9vhYczK/C5g6FXoEamjfz1c39t5O8fxe
- RZVpFY9FPCuQcLqSn7s0SZuJttFly3vckIOD5C/hwyb3XynZdfpsjqhbYx46qdA6qc0L
- +MY37BhgTOCg1vXw/Ytot5rmhpPyF2sQyOIg5k/xzkPRGn9a1EmxTizLw4gNJjVc7WQT
- dApg==
+ bh=ZJYJafIRYHrf+Y6ybXa+ws4RGB1oa5Cfi7dRuSbb02U=;
+ b=GDsHZ+2rR/Gr9KcEtO1LkVKKvMa9EFaqBDQcOWeevnXiFfg6t3cxdebqe5BQrNCIDE
+ c93ohMwRihnGucfaFmtD90Cee7V20htsZQsql48Wo4dQzJy5eUTI+k9VQvmkmJ5tF21T
+ qkh+7tZ3Ls+lgNKS0MTbYwwGt/qu/PhMwRIPcfCRdYPDoyE8agOd7sMyWepYioDuiv4r
+ SKxmSrQBtm6VamONCRsGx+ARAWshf+f0cKzXalaYpvEsMm1gu0bXSMPv9v7ciiWBTa50
+ hAtZynsyt9VoUkRLQdbQeMjKXLcafYFqi8R/3Fm8djBx0LnzQczGVVZHDzOu/Hb1OIvA
+ RDLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791866156; x=1792470956;
+ d=1e100.net; s=20260707; t=1791866153; x=1792470953;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=rPZxZeQ1MN5oxdqJmVTe39KchSUoN5mtLJpoRFFbDDY=;
- b=lazsY6FgI+gT6kfjtLFvrjss+B8XZvnYWWhH55e9o+uUJfEK9ZpcVAmqrPfArYCrNf
- 4uuaH88XszQ5cMaj0XPJLWXGkqpSH5qmW9gk1cjsNJezDcf/wr893Jq/xoregeQ0a9G9
- Gkt5XUttjaasfQdrJB6TaWQy+hgLCUdQlRNOOW3pGXhtj6U7+1MKhm/HzxeFZDi9Y96M
- IzSRj2hdt0OwDU7M/I2k3nhspfjkQi4uJ9R2FJLYXMhasdG4nTMA+2HS7FezfHvl/mz4
- KDX9G/K8MgO06e3McDOdiVgwH85MFyeVXe6p18sBmWXgk3HmC3ylNWdGzztJwRt/zS3T
- sjjQ==
-X-Gm-Message-State: AFq9FYLvBRHxRMfVHnUqyK8i0LB/l+T32BpuT05HAebt1zoVdFhRxyko
- dbHf8JIlE4UQQpzhHGJV5Td4IZH0kQTNhThYmuQH/nM4VohTWuu0GHZP
-X-Gm-Gg: AYBFou3Nh/jukYVUQ52kryxa7i0AMcBN6PLZKUlxN2Ub85L+pumSHhXwc4VEX/KkJeu
- 6ZKpEHzHMlM6QQTsZ0+Z+WwFgfGBiaKhOdtPGK1KrlYjaH00spD4mt2sWYfkW0DnO5G8PV9S1RH
- 5Ks2YkB6AmgRrbBZbX9CNNiFtDbjCs2Ew1xbDrwUUuxEFMQvNVYotIPTP9m82T+SZEpg/qKC1RH
- WvuYolRVLYVEIa19G36fWj0HqTsAH2Vg+pzPf1VYfHBxLRMDFexdIGgVjO/txEXTeCBoxPunLFN
- DDurb/nT8X2ULuuy0GKe5yUpx3UEN1dm+8znXfaJnGINgjzvo80NE6V50ZZQRPiXdgn3VaoRvN+
- mO3iPTDW+adbNvs5IDB4o+k+WowFgJeaJ2xORhjiod+Y3FMlIrb76WMZKKYs4CkLSJWMHOTaxtc
- UoKErEtA8Qd9YuaDIExR4o3aSJaHIY1GKLGRkzRat/IrO35ULuGG818bFM0030sD6cAD0QvPyTG
- pip3zFQupBZtw==
-X-Received: by 2002:a05:690e:11c8:b0:677:d5bd:8336 with SMTP id
- 956f58d0204a3-67938974c0cmr3660343d50.16.1791866155837; 
- Mon, 12 Oct 2026 21:35:55 -0700 (PDT)
+ bh=ZJYJafIRYHrf+Y6ybXa+ws4RGB1oa5Cfi7dRuSbb02U=;
+ b=QP3IKDOJ5LqFMNVSY947q3vWbIZydWZHx1ePJEPhJFyX7A5xxS0XoVBM+O6zPoy2dI
+ VMAeuV9ISCdcI3qCj3s8aVZEtt2Bb4uEwlAE1lzJyJ7/sI1s+K4W92/torxdM+G4KSTU
+ 93Wk2QSDf0FDyILElKRkOhIpsOmnfPQU1bXvdLe7jiCW/7MYBM6s2cYtR/MMFi96iWog
+ 2XBuFUmCWXpdUdFj40IKNKZzPGB5Qnpng6TZH5YuFwtqOnlM7mm8dhwPPimYM3A/Mutp
+ gv66HL7czeSTUFyHa0zpyPON84BpeoBfY6B70Qb8tcmV98qm6+W4E5J7mocVvSzSU8zq
+ azDA==
+X-Gm-Message-State: AFq9FYK1OAUKJIo4Na0F5vReVWf2oinZWFbfvO4TVXoFJZK/0vr+8Mrz
+ cAC78kO3ycClyDZARv5r2ayN8WoUpEGWSi4QIiLbrC2N0YmZZuhbQGPj
+X-Gm-Gg: AYBFou3UUJtAP+sxhQOXh759PxuN6DuC2EDyExGFZ1jkjKy6IcvRldfdGHwtflgXZ2D
+ LjYhDkzlahUTz6ZOTyZQptOMBoIe4FksblQvxiKUg8nImpQq98O4UX8pwh+SwJZrrcpqsLiNJxV
+ VdvpsUlS+pv85SKK//dQNLK9cyHB9ejKwm7z91/aRhk1GV/NV6nfi0TXG+G3xRdp3jTzqBCPLkW
+ vsQpyVzvDg+ldPZ16hwHG+AjKGnO1zTylp+FuBdQCZjhDsbUf97GAh4xVAfOJAI2KDWZWjUXEV8
+ hYOQnZoRFPArJc8miEeh8cC/a/4MpOpaVQvaiiXB2mYrDzWxYb3nErWcjIfTEHtvt2zDCTeT4Q3
+ PbYcokDsPl1jGhKj3RrbtrKQHw/8cRz/VNeB+iDZJrAlFBre0wd6NRw0V5C7sSn4ZZaOECD3V52
+ MeBAqKHrI62aJ4FpPV3eER1AHJLVcfvjihwDoA9LvWlbYNXtDGsC3EgHcIjNaUSbpXDH9kCRJVw
+ 6SlDNZvEKD5xYqgzQ22SjrJ
+X-Received: by 2002:a05:690e:e8a:b0:677:ceec:5eac with SMTP id
+ 956f58d0204a3-679362efcc4mr3015665d50.107.1791866152700; 
+ Mon, 12 Oct 2026 21:35:52 -0700 (PDT)
 Received: from [192.168.1.71] ([2600:1702:56e9:4b40:e3a9:78c5:641e:a58c])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-67935606f5esm4448152d50.4.2026.10.12.21.35.54
+ 956f58d0204a3-67935606f5esm4448152d50.4.2026.10.12.21.35.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2026 21:35:55 -0700 (PDT)
+ Mon, 12 Oct 2026 21:35:51 -0700 (PDT)
 From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-Date: Mon, 12 Oct 2026 23:34:38 -0500
-Subject: [PATCH 3/4] drm/panel: innolux-p079zca: Use mipi_dsi_*_multi();
- fix minor bugs
+Date: Mon, 12 Oct 2026 23:34:36 -0500
+Subject: [PATCH 1/4] drm/panel: leadtek-ltk500hd1829: Use
+ mipi_dsi_*_multi()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-mipi-multi-series-v1-3-6a29add1ec92@gmail.com>
+Message-Id: <20261012-mipi-multi-series-v1-1-6a29add1ec92@gmail.com>
 References: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
 In-Reply-To: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
 To: Doug Anderson <dianders@chromium.org>, 
@@ -76,7 +76,8 @@ To: Doug Anderson <dianders@chromium.org>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Akash Sukhavasi <akash.sukhavasi@gmail.com>
+ Akash Sukhavasi <akash.sukhavasi@gmail.com>, 
+ Heiko Stuebner <heiko@sntech.de>
 X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Tue, 13 Oct 2026 07:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,64 +95,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The mipi_dsi_dcs_*() functions used by this driver are deprecated in
-favour of their _multi() counterparts, as noted in
-Documentation/gpu/todo.rst. The _multi() variants record the first
-error in a context structure and skip subsequent calls once an error
-is set, removing the need to check the return value after each command.
-They also log failures internally, making the per-call dev_err() calls
-redundant.
+The mipi_dsi_dcs_*() and mipi_dsi_generic_write() functions used by
+this driver are deprecated in favour of their _multi() counterparts,
+as noted in Documentation/gpu/todo.rst. The _multi() variants record
+the first error in a context structure and skip subsequent calls once
+an error is set, removing the need to check the return value after
+each command. They also log failures internally, making the per-call
+dev_err() calls redundant.
 
 Convert prepare() and unprepare() to use the _multi() equivalents.
 
-In prepare(), use mipi_dsi_msleep() and mipi_dsi_usleep_range() instead
-of plain msleep()/usleep_range() for delays between DSI commands, so
-they are skipped on prior error since the function will clean up via the
-existing poweroff label anyway.
+In prepare(), use mipi_dsi_msleep() instead of plain msleep() so the
+delay is skipped on prior error, since the function will clean up
+via the existing disable_iovcc label anyway.
 
-In unprepare(), keep plain msleep() since the hardware delays must
-execute regardless of any prior DSI error. The original code logged a
-set_display_off() failure and still attempted enter_sleep_mode(), so
-clear accum_err after set_display_off_multi() to keep that behaviour.
+In unprepare(), keep plain msleep() since the hardware delay must
+execute regardless of any prior DSI error. The original code logged
+a set_display_off() failure and still attempted enter_sleep_mode(),
+so clear accum_err after set_display_off_multi() to keep that
+behaviour. An enter_sleep_mode() failure was also only logged, and
+that stays the same.
 
-This also fixes a bug where a failure in enter_sleep_mode would return
-early, skipping the sleep-mode delay, GPIO deassertion, power-down
-delay, and regulator teardown, leaving the panel stuck in a prepared
-state. Because drm_panel_unprepare() does not clear panel->prepared
-when the callback returns an error, drm_panel_prepare() would return
-early on the next call, leaving the panel unable to be re-initialised.
-
-For the same reason, stop returning the regulator_bulk_disable() error
-from unprepare(). Returning it would leave the panel in the same stuck
-state.
-
+Cc: Heiko Stuebner <heiko@sntech.de>
 Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
 ---
 Compile tested only, no hardware available. checkpatch and a W=1
 build are clean.
 ---
- drivers/gpu/drm/panel/panel-innolux-p079zca.c | 43 ++++++++++-----------------
- 1 file changed, 16 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c | 40 ++++++++--------------
+ 1 file changed, 14 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-innolux-p079zca.c b/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-index 80afeeab9475..8da2f9b2ddde 100644
---- a/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-+++ b/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-@@ -54,17 +54,13 @@ static inline struct innolux_panel *to_innolux_panel(struct drm_panel *panel)
- static int innolux_panel_unprepare(struct drm_panel *panel)
+diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
+index ff35b62a327e..ee65506477df 100644
+--- a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
++++ b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
+@@ -489,16 +489,13 @@ static int ltk500hd1829_unprepare(struct drm_panel *panel)
  {
- 	struct innolux_panel *innolux = to_innolux_panel(panel);
--	int err;
+ 	struct ltk500hd1829 *ctx = panel_to_ltk500hd1829(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
+-	int ret;
 -
--	err = mipi_dsi_dcs_set_display_off(innolux->link);
--	if (err < 0)
--		dev_err(panel->dev, "failed to set display off: %d\n", err);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = innolux->link };
+-	ret = mipi_dsi_dcs_set_display_off(dsi);
+-	if (ret < 0)
+-		dev_err(panel->dev, "failed to set display off: %d\n", ret);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
  
--	err = mipi_dsi_dcs_enter_sleep_mode(innolux->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to enter sleep mode: %d\n", err);
--		return err;
+-	ret = mipi_dsi_dcs_enter_sleep_mode(dsi);
+-	if (ret < 0) {
+-		dev_err(panel->dev, "failed to enter sleep mode: %d\n", ret);
 -	}
 +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
 +	/* Reset error to continue power-down sequence even if display off failed */
@@ -159,61 +150,51 @@ index 80afeeab9475..8da2f9b2ddde 100644
 +	/* Enter sleep mode; error does not prevent power-off */
 +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
  
- 	if (innolux->desc->sleep_mode_delay)
- 		msleep(innolux->desc->sleep_mode_delay);
-@@ -74,10 +70,8 @@ static int innolux_panel_unprepare(struct drm_panel *panel)
- 	if (innolux->desc->power_down_delay)
- 		msleep(innolux->desc->power_down_delay);
- 
--	err = regulator_bulk_disable(innolux->desc->num_supplies,
--				     innolux->supplies);
--	if (err < 0)
--		return err;
-+	regulator_bulk_disable(innolux->desc->num_supplies,
-+			       innolux->supplies);
- 
- 	return 0;
- }
-@@ -85,6 +79,7 @@ static int innolux_panel_unprepare(struct drm_panel *panel)
- static int innolux_panel_prepare(struct drm_panel *panel)
+ 	/* 120ms to enter sleep mode */
+ 	msleep(120);
+@@ -513,6 +510,7 @@ static int ltk500hd1829_prepare(struct drm_panel *panel)
  {
- 	struct innolux_panel *innolux = to_innolux_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = innolux->link };
- 	int err;
+ 	struct ltk500hd1829 *ctx = panel_to_ltk500hd1829(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 	unsigned int i;
+ 	int ret;
  
- 	gpiod_set_value_cansleep(innolux->enable_gpio, 0);
-@@ -108,24 +103,18 @@ static int innolux_panel_prepare(struct drm_panel *panel)
- 			goto poweroff;
- 	}
+@@ -535,27 +533,17 @@ static int ltk500hd1829_prepare(struct drm_panel *panel)
+ 	/* tRT: >= 5ms */
+ 	usleep_range(5000, 6000);
  
--	err = mipi_dsi_dcs_exit_sleep_mode(innolux->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to exit sleep mode: %d\n", err);
--		goto poweroff;
+-	for (i = 0; i < ctx->panel_desc->num_init; i++) {
+-		ret = mipi_dsi_generic_write(dsi, &ctx->panel_desc->init[i],
++	for (i = 0; i < ctx->panel_desc->num_init; i++)
++		mipi_dsi_generic_write_multi(&dsi_ctx, &ctx->panel_desc->init[i],
+ 					     sizeof(struct ltk500hd1829_cmd));
+-		if (ret < 0) {
+-			dev_err(panel->dev, "failed to write init cmds: %d\n", ret);
+-			goto disable_iovcc;
+-		}
 -	}
 -
+-	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
+-	if (ret < 0) {
+-		dev_err(panel->dev, "failed to exit sleep mode: %d\n", ret);
+-		goto disable_iovcc;
+-	}
+ 
 +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
- 	/* T6: 120ms - 1000ms*/
+ 	/* 120ms to exit sleep mode */
 -	msleep(120);
 +	mipi_dsi_msleep(&dsi_ctx, 120);
 +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	/* T7: 5ms */
-+	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
  
--	err = mipi_dsi_dcs_set_display_on(innolux->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to set display on: %d\n", err);
+-	ret = mipi_dsi_dcs_set_display_on(dsi);
+-	if (ret < 0) {
+-		dev_err(panel->dev, "failed to set display on: %d\n", ret);
 +	if (dsi_ctx.accum_err) {
-+		err = dsi_ctx.accum_err;
- 		goto poweroff;
++		ret = dsi_ctx.accum_err;
+ 		goto disable_iovcc;
  	}
  
--	/* T7: 5ms */
--	usleep_range(5000, 6000);
--
- 	return 0;
- 
- poweroff:
 
 -- 
 2.56.0
