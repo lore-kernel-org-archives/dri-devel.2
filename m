@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95936CC6B0E
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 14:37:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C7CDCC6B0E
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 14:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C735910E8E4;
-	Tue, 13 Oct 2026 14:37:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C04110E8E4
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 14:37:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93D0B10E083;
+	Tue, 13 Oct 2026 14:44:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9255E10E083
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 14:44:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 67F3D42202;
- Tue, 13 Oct 2026 14:37:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E700C1F000FF;
- Tue, 13 Oct 2026 14:37:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B59D8602C3;
+ Tue, 13 Oct 2026 14:44:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155CC1F000FF;
+ Tue, 13 Oct 2026 14:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791902259;
- bh=3xHLXtkWQqlyDGWx00uFDUUYhCcz7ualavf3DytNyic=;
+ s=k20260515; t=1791902678;
+ bh=S5XZjEefQh4EdB8bPyGtES7lAp11auEruiseyw9G5YA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lrcNYprIU8NVDrpuELs2hhzWpp6f864UPr1Fz8qnc5P9GiFuj+gtTxas4MJ26EDES
- rYxmS10Mw6IJA2fb7/MH73O6S/6UbLqEHxPEuVwB4WGZqv5nOG84ddcgicjaxLy97/
- 2zpCqNu/yqkTVVPsaD6nQtlFYn3645ibzc4ima9QGfHQhNeQjCBgLARstLFhuPNR8Q
- iwJcUBPscc7E05pHBBinfdhfC+hgZxYBF+kqYF5R9JR4YqPj4gWXDFWtYejp7VZUlv
- fER+JKiwry5vEegESThlptJoXsdSv+TYF6ZmZwGLc70d+P3Os7qvSYv6+tSUsYn1oH
- Pqim5/toy4fYA==
-Message-ID: <sashiko-outbox-169923@kernel.org>
+ b=G67LPayEaPri6jX7U5aHSF1SoPf+InmeNCiNXfrvN6JmLfx/cThKUlw47VO475TOm
+ 5AujQBlSTAePAMTMZF7yiBJF633Y6PyePVnEcLi/EEBMB8T5ptdGj/0HhhELA7XoB3
+ d6txSnyju2ccA6ICBkVPOs9xwrFub1e4Z5dwygC2S4dePYWGtal9bWQOxsO39e6FsY
+ 8vEFBFKZuy7hSw9YImsrCi+qmqlkI4emnqAUbQDAx/TgZlXjx8z9GbG5rYQv7AJ/Nq
+ 90AjfRnX2WMX4spgriJFjhOkwcoDakw1F00ny8fM7/caqQFEicyDIJopG1yqNxDtGu
+ um6rpmKSMRaCg==
+Message-ID: <sashiko-outbox-169930@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 09/19] PCI/P2PDMA: Route Relaxed Ordering
- Completions directly
+Subject: Re: [PATCH v11 01/19] PCI/P2PDMA: Honor device-specific ACS
+ redirection
 To: "Leon Romanovsky" <leon@kernel.org>
 Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-rdma@vger.kernel.org, kvm@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261013-fix-p2p-acs-v4-0-v11-9-72cf8c96e617@nvidia.com>
+In-Reply-To: <20261013-fix-p2p-acs-v4-0-v11-1-72cf8c96e617@nvidia.com>
 References: <20261013-fix-p2p-acs-v4-0-v11-0-72cf8c96e617@nvidia.com>
- <20261013-fix-p2p-acs-v4-0-v11-9-72cf8c96e617@nvidia.com>
+ <20261013-fix-p2p-acs-v4-0-v11-1-72cf8c96e617@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 14:37:38 +0000
+Date: Tue, 13 Oct 2026 14:44:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,83 +58,73 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] pci/p2pdma: false positive warning if Relaxed Ordering route succee=
-ds
+- [High] pci/p2pdma: deadlock in calc_map_type_and_dist() calling xa_store(=
+) from softirq
 --
 
-commit e6e15dbbdb2b5d6dee258b1197f71025a221015f
+commit 6120f97b22446453f3e4fa09135e1a44135ecfe8
 Author: Leon Romanovsky <leon@kernel.org>
 
-PCI/P2PDMA: Route Relaxed Ordering Completions directly
+PCI/P2PDMA: Honor device-specific ACS redirection
 
-ACS P2P Completion Redirect leaves Completions carrying Relaxed Ordering
-alone, per PCIe r7.0 sec 6.12.1.1. A Completion copies that attribute from
-its Request, so a client setting it on Non-Posted Requests need not use the
-host bridge solely because Completion Redirect is enabled.
-
-Route Completions directly for PCI_P2PDMA_TLP_RELAXED_CPL unless a device
-quirk redirects them or the Completer lacks an internal route to its
-sibling. Neither restriction promises a Relaxed Ordering exception. No
-caller selects these classes yet.
+This commit updates PCI P2PDMA to respect device-specific ACS redirection
+quirks for switches and ports that redirect peer-to-peer traffic without a
+standard ACS capability. It queries quirks to set Request and Completion
+Redirect flags and modifies how affected ports are warned about.
 
 > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index 9d416329aa4b8..785e4668a2af5 100644
+> index 45260423dfb09..ba94b0f339285 100644
 > --- a/drivers/pci/p2pdma.c
 > +++ b/drivers/pci/p2pdma.c
-> @@ -580,11 +580,15 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_f=
-lags)
->  /*
->   * Decide how a peer-to-peer Completion at an ACS-capable ingress port r=
-outes.
->   * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redi=
-rect
-> - * affects a Completion.
-> + * affects a Completion, and that one leaves Completions carrying the Re=
-laxed
-> + * Ordering attribute alone.
->   */
->  static enum pci_acs_p2pdma_state
->  pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
->  {
-> +	if (tlp_flags & PCI_P2PDMA_TLP_RELAXED_CPL)
-> +		return PCI_ACS_P2PDMA_DIRECT;
-> +
-
-[Severity: Low]
-Now that Relaxed Ordering completions can route directly while strict order=
-ing
-might still redirect, does this cause a false positive warning in
-calc_map_type_and_dist() in drivers/pci/p2pdma.c?
-
-calc_map_type_and_dist() iterates over all PCI_P2PDMA_TLP_CLASSES and sets
-host_fallback =3D true if any class requires the host bridge:
-
-	for (flags =3D 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++) {
-		map_type[flags] =3D pci_p2pdma_route(&path, flags);
-		if (map_type[flags] =3D=3D PCI_P2PDMA_MAP_THRU_HOST_BRIDGE)
-			host_fallback =3D true;
-	}
-
-Later, if the host bridge does not support P2PDMA, it emits an unconditional
-warning for the device:
-
-	if (!cpu_p2pdma && !host_whitelisted) {
-		if (verbose)
-			pci_warn(client, "cannot be used for peer-to-peer DMA...");
-	}
-
-If a caller successfully requests a Relaxed Ordering route that maps direct=
-ly,
-but the strict ordering route required the host bridge, will this
-unconditional warning mislead users into thinking P2P DMA is completely
-broken for their setup?
-
->  	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
->  				   PCI_ACS_P2PDMA_DIRECT;
->  }
-
 [ ... ]
+> @@ -782,15 +867,8 @@ calc_map_type_and_dist(struct pci_dev *provider, str=
+uct pci_dev *client,
+>  		goto done;
+>  	}
+> =20
+> -	if (verbose) {
+> -		/* Drop the final semicolon; the list is not empty here */
+> -		if (!seq_buf_has_overflowed(&acs_list))
+> -			acs_list.buffer[acs_list.len - 1] =3D '\0';
+> -		pci_warn(client, "ACS redirect is set between the client and provider =
+(%s)\n",
+> -			 pci_name(provider));
+> -		pci_warn(client, "to disable ACS redirect for this path, add the kerne=
+l parameter: pci=3Ddisable_acs_redir=3D%s\n",
+> -			 seq_buf_str(&acs_list));
+> -	}
+> +	if (verbose)
+> +		pci_p2pdma_warn_redir(client, provider, &acs_list, &quirk_list);
+> =20
+>  map_through_host_bridge:
+>  	if (!cpu_supports_p2pdma() &&
+
+[Severity: High]
+Does calling xa_store() further down in this function risk a deadlock?
+
+The map_types xarray is initialized with a plain xa_init() (without
+XA_FLAGS_LOCK_IRQ) in pcim_p2pdma_init(). This means its internal lock
+operates as a simple process-context spin_lock.
+
+Since calc_map_type_and_dist() can be called from softirq/hardirq context
+during P2P DMA mapping (e.g., via dma_map_sg()), and xa_store() takes the
+xarray lock without disabling interrupts, a process-context thread interrup=
+ted
+by a DMA mapping on the same CPU could cause a deadlock if they both try to
+access this xarray:
+
+drivers/pci/p2pdma.c:calc_map_type_and_dist() {
+    ...
+done:
+	rcu_read_lock();
+	p2pdma =3D rcu_dereference(provider->p2pdma);
+	if (p2pdma)
+		xa_store(&p2pdma->map_types, map_types_idx(client),
+			 xa_mk_value(map_type), GFP_ATOMIC);
+	rcu_read_unlock();
+	return map_type;
+}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-fix-p2p-ac=
-s-v4-0-v11-0-72cf8c96e617@nvidia.com?part=3D9
+s-v4-0-v11-0-72cf8c96e617@nvidia.com?part=3D1
