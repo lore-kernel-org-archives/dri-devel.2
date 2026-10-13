@@ -4,120 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2492CC6B0E
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 06:50:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0451CC6B0F
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 07:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C67510E746;
-	Tue, 13 Oct 2026 06:50:22 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010043.outbound.protection.outlook.com [52.101.85.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B47EE10E746
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 06:50:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2368110E748;
+	Tue, 13 Oct 2026 07:10:50 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010020.outbound.protection.outlook.com [52.101.56.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D5910E748;
+ Tue, 13 Oct 2026 07:10:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mb7SsSnovGqauuDmu5/ydqsTfViRwOsdLZcLZ6uQ+bJp4wRKNsSXJn3TtLTKQ9G5wTw94vQPWek89T+GBkn9rZctggRXYGcitERAx9KFYMb4slHyjzL/0/1kcBIDaau0T4yWR9sxkQaydYNHovoulZf9nwjLrxmJCb+JNjo/4CAzot02ZlERabnp563Jflp3sZ68t71d3KZPV+7EDRBa6HjnnfSRphWnnx1Kr8lpHN+joe5ElBy4tjbz+yQXEUmxSpxjoudjpIrzLMpANhNUmdE80Kjhs/JC4CWWhRvQ7cd5BlF67WHwAaHedzux4glXTu9kBoOlxPBvnJ+pIlKW7g==
+ b=uIbssjIa7VSx4iSY/4OJq4rOeSgxtqhVqJBhCcYGT4kwAF4nk6ZcbzsNN6VhObGo1dfZAatu4upldjBxQaDhWHa3Iz9FqRDTVAWOLOUU/kByH6xJ+3s2IV1G4dqQaMzHp4Yy08Yjw0Vi7FtrN+uijdnBHT5EP8m0ft1IgPI8R98fyEuH8vPC/g1I0O9uELvzdnyDuOWKDiFzq6yYu0Sd4L15XoaF4J7L1XVF+6RnaNO6bE/K3hYlMLNefJUYsTSTO2QkXjxQuN/HwbU6nSK+148ePMFMsy5vkm65fwoA6YiCNpv9uf2emygtWt/B31DMUc00kLZQOYTxB111jq5d6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bN59amqIJkMSXXpaKA3S6q3EqImK6L0Af0J38AV2bRg=;
- b=Cvmy4QgnGMdx0qzPhCl3I/7JTGtjBehv50UmcgJXSAXfxLK+ZvXNSpX9zzBc85hJWUmkrYkQv3ET5JIudiONEiKhg+qUq9r104SRPbJNM/9LLJ6iqaP3TsWRKfYg1ANIU6wI1KS/6V3YrBIRbeIBkEZ3PEDUUQY0ic9CSE2kR+lslbtc3OXLhCFw5zyCtbiv/ue6eSNb4XnwxLLJpPkT7Pw0y6GFQdCT3JnXUjZ4u8cT0yQ3g2dJGc5/gRy+uE69mX154a+2uak95zfTKmObm5NVB+dhXYIRLUBqF/aW2Fl2rdlByhXKvkkuqdKELjFyn8WCDLwlArpVF9S8/hZZPA==
+ bh=OPLRpTX+NIqCylm4WWwp4l1DLdhzvnrMSlv9iAGJ7Ok=;
+ b=kAFQKRICmI8OZyNj4z51NfJDz4eI61tzjFZ4eqpj3ZqmPRytFNRyTx/1AC3f0G3Eri/XHUvnPzjn+PdSo9pW9+fJPcbbzARvCF+LTMTYkrVdAB2giRbz2JSdwh1uEZSepthlPfZ9S12dIpemjwHr8dnCAxo+4BIQdh856FVpAQF8NzcazGYoLSlRqgoiLrczn+/e/xtCwI5NKjmVBKfvqIJiHOXHWS9tU1OHN9/iJ1uwodJkcfNxZFWtsBr4d3HHaPTSCSOC48G7L3V3mUP+Gd7D0xys4ZA1faGbuqZAXd1IlzjHgaGiyDiR81esIuuB1d5Y+XnWQZlnnnlVmaDm0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bN59amqIJkMSXXpaKA3S6q3EqImK6L0Af0J38AV2bRg=;
- b=s8yovVFWHVAnAGPD5xy4cmhOefX3vdlUF7jxltH1rl9zJ5M1nJaHx5RtTwE/xCf1UuS8555oWuHSega23lE3PywuVD7JMl/9ltETLLMbWULiHBibwCahtXS6zXWrdReYmXWvAphTsyaeY5klGRHTZEX0r7SbaaTBtFmP7ML52YA=
+ bh=OPLRpTX+NIqCylm4WWwp4l1DLdhzvnrMSlv9iAGJ7Ok=;
+ b=eBxAW0ISBdeYoxAzgKKzEZL3fxN6VQiFWfcSQ/5vPp6ft24WfwG2x2DOYoASJIErkOig3gNfdY8ZhzfxuSI0/MOhTy7FbLFNoT+UL88dfphT9sXleuzahIIcAt6bm2HN6uJBg2CKOMLTw1GsVWW6ZLL6asmkNVWrhBIMzD6NOP0MLFMe+hzrB7HSR59rZIOs2vTJe4gze7nqs4cKxj9/nyWyIWTjxNFq7Js95WPuusXVRxni0STe+zTOS6aAnZR47AqC2JZrUvJe13vTjghm1mPor40qCuWG5KLQ842pr5RrbxKRAH3RnztpAlMLc2V9o7GAI76trjB6Ypqb5RIDRg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by IA1PR12MB8493.namprd12.prod.outlook.com (2603:10b6:208:447::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 06:50:12 +0000
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 06:50:11 +0000
-Message-ID: <c783ded7-7d87-433b-814e-0631b0418bcc@amd.com>
-Date: Tue, 13 Oct 2026 08:50:00 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dma-buf/dma-fence: Mark two callbacks as deprecated
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, dakr@kernel.org
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261012171939.390365-2-phasta@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261012171939.390365-2-phasta@kernel.org>
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ PH7PR12MB6418.namprd12.prod.outlook.com (2603:10b6:510:1fe::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 07:08:38 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 07:08:38 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0355.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::8) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+Date: Tue, 13 Oct 2026 16:08:34 +0900
+Message-Id: <DM3ISBKLJ754.GDSHT5NYU0G5@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 4/8] gpu: nova-core: add NVKV encoder
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-4-f04504c262c2@nvidia.com>
+ <DLYAO1NDXB2L.3NUUCWAWFK188@nvidia.com>
+ <DLYARWONCNC4.16TY7TATZG2DX@nvidia.com>
+ <4ac83051-6ac3-4919-b230-bfa059ff956f@nvidia.com>
+ <DLYL5E2GFSM7.3SMUQUX8LN0C1@nvidia.com>
+In-Reply-To: <DLYL5E2GFSM7.3SMUQUX8LN0C1@nvidia.com>
+X-ClientProxiedBy: TY6P301CA0009.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3be::6) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|IA1PR12MB8493:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0888d1f-9135-4937-b27b-08df28f63a5f
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB6418:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6811484-ef63-4932-3d91-08df28f8ce18
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: YTKr3QcsDb3VCT01C77wIEyqGKWDFg9z1P+Bz1KSX32fnqA4w/0CvXs5gTsF3i7BW2W3ElKy8XZQ+Cuc3li9f1lpR1mNRKwpTacEqRe1jPEPvIRnLjQ3YIJSwLfq2rqndHGzDQgsspu8HiMCTP5BRPPpKv2OHQYctZoWzk83uG+MYiDENgQyhoeUlUZWpz4+utMTQdcsutcWXmm5LreKA47OWtro3Jl1dTf1BzDFRTll4anZNbUo1UCvwdApgG8nNCWqmUsW7m3N7CQLovnPNXuheq5HWcLo+qUCq7u+KJ6HpAFeTS33AM+dCDBV7fi+ZprjytKW1UsLcUN1ic2n9wko2fqm+7kdx8dGptcoV7/UVEHTFf8QBTqf6wnFAx7IKROCUvQfGHP+IjMry98SK97sqfZO13rhvb5hsMXvY8qahJQ3KFTh3PXsW3V8aHVX0lHILLSixvYYoasKUQbRPqPGDxEct7q6HuhMHSJFJFe/WQsnL5xOawIMGZ3Y2amq09M/TkX0YDjluWayjaoDMsMurE6iHCYyO7IEczZVqjq0MmxSxhbZR7f8hSUnYqo91C0gUkGRF0YJAPc/XLULGWip96It/BjcFSepmAtNdehvdcoS3dTngey9xxdFUstj0gW40YUbMVYn2uIz7/eE6NgRxqEAlokqAdUfGPCPkRQ=
+ ARA:13230040|376014|366016|7416014|10070799003|1800799024|23010399003|11063799006|4143699003|18002099003|56012099006|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info: 4yJSv5hxBjBPSG7GDAbpcMThHb9/VVt8szHg+05dN3ScUfT8nooYBeRAgevgMv2hpE7ifqnUq9I+GtQSwIORAQjlY3vHt8LCnDB4du3ANqUkMLQP9ygIn17/xvUQlhjwWbK8+8G1IM0KckK8K9TFB56VNyuUYFS6x8Ey0LyKGYoiIhb2QDVP37w84y/vaNKtdKE4+xt3jZuzWj5RCtE4JNDXS+kaeLRPXI/MKo8nI/Y3N64N2kjzovXsOsndekMpfZ+c0p+Oi3qy+bKBa1GqQLtVFraoxMngWNt/zZSi5G+jHtC7wnuhAaqX7+BycQV4AUpaD4I5BbvxZzr0P/RxzBjsdGVDZEPkGwrHI0maCMWPnmSuQzACQd7ne6bBu5puk3h7bht4/+EPkSD+uMkIMP9ExXDtDy6KRb490h+CqWBX/QEKvfDXIMfW8rg67pbkG3IVHQgkRnSgcJ28TEPbOwAbBrjo4wtRTYNJW1xdpLL2F+4ow2/S/xiP23SYqoQummnSVhy46acGHNPbVWpqWB3vXf7Kfd69QNiGWQbjTk/7ZRRDyijVeQ3mc1Gm2lhQeXVVfRnofLckDWj7nocuGD6orv13f7cHPw2FEgtZqR3zYLD2jwelmhcwev7y+bptfDhDGoAo+3nAU6gaybOJQBVXhrBnksINWdAl4hNYTn4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(10070799003)(1800799024)(23010399003)(11063799006)(4143699003)(18002099003)(56012099006)(22082099003)(10067099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VytOZWJOY1kzQTE5TmJYRXh1SkhnaHlVYmROTHNyZG50TkY1THBoUk9GOTJa?=
- =?utf-8?B?ZHlvMytkNGZidlozWFhHK1FQZXppMlJsYW43RjhHQk0yb01OSFFkMEZPa04y?=
- =?utf-8?B?NW82MDI1NHc0bW9VTi9vQmVIU1p2QjhLZml6cmg2OGJHd0pUT3JZRTZGZnY5?=
- =?utf-8?B?SHEvclo4SVExRXhRUnNNY0lYeTlZYXhMdG5MMTBhK2RxWktsMzUyRXhROU1R?=
- =?utf-8?B?bVk2TlZuWjJKbUxINHFKeGFnUVZFRlNmMnhRdEV2R2hPVEZwNjdFQW52ZjFx?=
- =?utf-8?B?eitZUjlOQ0NRbzVKN3dGMFBnZUI2UUVzaUJLUXBiY3ZndHJXSjltbmNaaUta?=
- =?utf-8?B?Zm1PMm5ORElUcnAvRVlwRGxCL01CVi8wNjE0VmVzQmJpVUw3bmptOEpKcUFH?=
- =?utf-8?B?YzZPQXV1TDV4TDlYalpHUnhCbmQxVkhLak5ROU9SQW5aMjcyL21CNTlqMm1J?=
- =?utf-8?B?VDJueUw2c2FURXp5S2c2cStQWTQ1QVpEUFp1ODYvR0NyRG4rcC9nbnJxQjFB?=
- =?utf-8?B?MmYzVS83bXFNVldqTWF0enh6S2t3Tk5GVWlqRkZ2a1NGSzRLb3RHVnBqNjRh?=
- =?utf-8?B?RWphSTdYTjZMSjgwaWtaRTVneDNyaitKYUNPT3E2U2Vza01WcG9wcko4Nm14?=
- =?utf-8?B?bGlERU40NjN5NDVWWGRiUjluc0hPb2Ftb1JqajhSSHo1Y1hiMkdnUXRSc2V2?=
- =?utf-8?B?V2tvelZ1dU42RWhJN1IxQjhFcDd5K0dPbDh5cGtERC9ERll1aHRTRVpSOGND?=
- =?utf-8?B?UEFWOEpUUCthZ1VkaVNVbVVBcGQ5NlYvZlNqejRONHNFYlNYQzQ1MnRRcEtV?=
- =?utf-8?B?bEhZMnZsSWFNUFhsS1EzVGMwSmZjK1kvZVVyVU81LzZON0hwU3NxTnVUSWFr?=
- =?utf-8?B?NkZvcWVPcFFNOWhqalVvUGdFdDhVNUhnTUhJQWx0a2xTa3RzOVhOMXE1ejBJ?=
- =?utf-8?B?YlZ1ZWxHSktFTTFkMVFiSmZaVHQzMDdJZWtIRElESTVwcXE3bUFKdEJVcmlV?=
- =?utf-8?B?VndiZ3VVZ2MxTFNCbWRZSzhlZk9jbnlzZGRFWlk5Nmw4eDZ3NG95NFN4dkVZ?=
- =?utf-8?B?ejlYQksvU3NFaUxZS3Z3cS9LRjlFcEhCdHU2M09HM0RkOFk4Tmdhc1k4MG54?=
- =?utf-8?B?ajRzRGVNZWc0WEJabmZPK2hJYS9vbWR4QTQ3YXZkOHJvNmYwL01maENUUmZs?=
- =?utf-8?B?eFhRbXZIMU44NXlhdjI1clhmYkl2YTQzM1VUYjM0TTJnbysvZ2pNcHdMelF6?=
- =?utf-8?B?aUVqUFcyeFRRMXNNNnhFenVDd1ZUaGFhQTFWazhSSzZTZkp3VTlld2tsU0to?=
- =?utf-8?B?R2puMWlIWWhJcjVxcmVybU9kTUtSc041dTUzSFJuc2FjR0NkQnhDNml0bTNr?=
- =?utf-8?B?U3lzd2w4c2d5YTF6ZmVyS0RKejQ0c3ZoZEZFQ29MNWI0eVZab3ZYVHNLSjF5?=
- =?utf-8?B?d21GdGNEVXZzMnFzc1NheTViQ1JZQWkwSjMyL05Rak5sV3E2Y0E1MUVHMTRW?=
- =?utf-8?B?V0FBN2ViNXlYTzVBK1lQbEdaTzhQdlB5UE8xRnl4UENJQXcrL0ZHUlFBZW9G?=
- =?utf-8?B?ZXc1S1d0RGtUZ01wY3hzYm5kRkJIT3FNdndxRk13WWlZaVBFMXZXUXAySU5X?=
- =?utf-8?B?aDQ3cWRoUmIxTFdJRWx6OGx6R1BQdlJITy9PVC9lTy85ekJHR09QNEZQZnJZ?=
- =?utf-8?B?M2loNDU0OXg2MW9tMURKVGFsckRGYVN5M2RnV0FuWUlOYkprbUtiM3ZTOVFY?=
- =?utf-8?B?ekZsaEJrMFNjMkttd0JaT2JMRHZKMnRSOU92cE94OGljVGVZcUdkRW5PQTdn?=
- =?utf-8?B?dGIrV0x3c3gxSWtidzF5NUppeGlRRC9NZncyd2MzVnB5QlhOVTlyQ3BrMVpC?=
- =?utf-8?B?bVFzTXVVMEwrZnNNWjQ2cnF1QWs3NVlpWFMzTlVwcHJCUGl5RjdEeTFLT0Fs?=
- =?utf-8?B?d0grTWh5SXk4UzU5Wi9ueXNxTFRBNGgrRXdHNVo0eHZ3SWhzQW41MkorbXln?=
- =?utf-8?B?RGdkQnhaVlRjOGdHOTdZQ3Q1K0IvdUZ5Snh5U2pMb0RzSmZ2VGZJaVhjQ3Ri?=
- =?utf-8?B?blhzaXRPT1o1T2dmRkYyZUJ3V3dkbC9vOFk2all1Qjh1WGdqYnpxK09CaC9T?=
- =?utf-8?B?NjUyNU9uckJrTlJnalhhZ2ZaZmtWSTN4RU9lbHFRaitVQ1hNMFpiL0UxTW9M?=
- =?utf-8?B?eHFjb2E1TmIzQ2NjaEYzb3VyNG1uVGk2emlCNllJVyt3SVppMHMzcWZQd3I0?=
- =?utf-8?B?L2xVUGtXRWUwbWNFZGpGT2dXZHFETjJmTklXUGRTcm9ZdEFmQjRVWTQvU3hK?=
- =?utf-8?Q?rOvnh8vbJf/IKHdtr1?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0888d1f-9135-4937-b27b-08df28f63a5f
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWNWNUZlTGZna1crN01yVWhsKzlMMEprMnZsZXRMZUpGcHRVYmNodjV5Sk1O?=
+ =?utf-8?B?Vmk5QmlkbzMwNmJ6TGs0S243bnl4czU1MGJYdGlSMDVlSUhNenIvYktndEZB?=
+ =?utf-8?B?b3lUQjhMUEJSUGZrNEZmYjhTZEEzRU0rMTNVNDJuOFp0SnRTSEJUWlhLeDYy?=
+ =?utf-8?B?QitqeDA1akZWSjJPNk1mbGZVdzM0bU1sUVZXbEtQVkU5RnVZcnpDYTdJUTdu?=
+ =?utf-8?B?dXZKa0JOSDBQNWNvc2xkWWhWNEpDSnFSV0ltc2tldnFuQVp3Z1YzclM5MC9t?=
+ =?utf-8?B?bWRlRTkyeEl3Q3htekFta2JmRlJBV1RtWDlPQWx0T1cvYjVNTGZwSGVoazBi?=
+ =?utf-8?B?bEtIeEU0NUVFN05wMXdJNmo3ZUxEUzhobHNnZkZoRHNIRFNDZW84bmFvc0hF?=
+ =?utf-8?B?RjR4MkFuakFpNjVSOFBzdlZTSzVMYWppaEtCOTFHSHRUMjYwK3RuQW1Vb0JO?=
+ =?utf-8?B?cE9nb0FjN3BFV0ZIdmVidUZqdWovb1RQWW45OGZ5Y2RkWXhCOTlERHdxL013?=
+ =?utf-8?B?QWFNZXhNK056S2VxWnhvazRFbzFDNExIVzU1SEdyNG1MeHpWOXZPRkc3RXpS?=
+ =?utf-8?B?bFNkeEU1djB3cS91aEVIdXM4YzZNTXJUaVJ1WnZ6V21nYnhBWm1KMDQ5aXBu?=
+ =?utf-8?B?TFN5WTFhVlgzdkFvYTM3QnVjUFo0OGdqdDVoV08yM2lTbVNwbUNiSlI4dzZF?=
+ =?utf-8?B?Wm9RZ0V0OC82MXVDZE1POUFDL002WVBHVGVaVU44NXZjbFMzQ1BBajN3MjZO?=
+ =?utf-8?B?emc4RUVqYXRvcVdVeTRUcm9CMTBCalk4cnVDdmxpeG5HVXg5bnhhUkFxVnI5?=
+ =?utf-8?B?cGJuQXRrRVdYbDBMdkc1Vmp4VlY1MkcxcDZPWk10YTZrdzNIQUlGeXVhbUxu?=
+ =?utf-8?B?Y3ZnZW5TSlMzUUdRM3I3bTNqdVMyb0c3VmNVc1JLTVJYOG5qS1JteXg0cWo5?=
+ =?utf-8?B?bEk2WHcvMFViVVg4Z1JiQnVhdEhnRXhsK2RMWlowNVBWWldGQXM4RHgvbFlW?=
+ =?utf-8?B?VnFOMXZiY1M5Zk5yeVBPdzFudVgzWkhRQ0ZlY09TSmVqYWdoTUdqMFJQREVm?=
+ =?utf-8?B?aEhqbExzUkk0Y3dIS3lWNjFMZmJqOXhpcEE5SUhSakdxYjlqZjI2emZRMHVj?=
+ =?utf-8?B?Q0VIb2w0OHdiSVE2eDZVNTFwSnVmRCtTcG9vM3hra0RJSVYvWWlOR0syRFJh?=
+ =?utf-8?B?U2R2aFhRUGtaeUtxNTJzTEFwSUtiVXRQcjRNU0lubUpZQWhRdkhhblFNSTV0?=
+ =?utf-8?B?UzNZbUM1bjN6TTJ3MkdVVEdTWStRZExXT1RWNDBDTlEvTlJMbVJVTnNIWC95?=
+ =?utf-8?B?L1F0Nk80NTJZZ2pUYjRSOFpkalhaR3BoMFhIRmVPc0ljYXRaWmN2b0VrQXVO?=
+ =?utf-8?B?Z3dSYWhnT09nM2hnaXN1dTNVT1RKb1Z2KysvcTdZZDRoNG9ZNy9xTElLV2Mr?=
+ =?utf-8?B?UDd4ckZBVGtSbVB1Nkl3WDdUSFpxTC8wQ0huOGZvdEtoOXNKTTZQdWUxSHlY?=
+ =?utf-8?B?Nk5mQXlWSzAweCtncjdsTG00ajFDQU8rK0phOERzNnhPNDFMUEhMdkNqWXJV?=
+ =?utf-8?B?T2pqOFM5QXZWa0dDNDRQSzU5ZERNeklHWXdMVUg5aE9KWGQ3OW9XTVpCY2lJ?=
+ =?utf-8?B?M3g2eUJPS2NTSmxHbVF4cWF3Rk8zb3A4b0hzcEgvWndDeFFISDlmaTFqSUZB?=
+ =?utf-8?B?VjAyS1BNUThJbFUwSEdrb0Z3K0llWnZlaTJlTmt5R1pXeFkxbzlzcnVDRThY?=
+ =?utf-8?B?aHA5MXNwS1NSbi8zUmY1KzljR0RCYmFxbTg5YWVGdjB6RzkvVjRZSHgzUHh6?=
+ =?utf-8?B?Z0JjaUdhRFZLTTRmb3h4YkRpanNWTWlGdjZ6V3JZc3FjZFBHYUN4dVRKREg4?=
+ =?utf-8?B?TnZvRHVPazdVOEtQc1R6RDJIOHh4Tmk5cHE1UmY4Q2lTbm5RaDlnM0p4dTMr?=
+ =?utf-8?B?MENLWXNKSWJnOGNsWGZ3WVBxUlUrRXg1dHlHSTZRMzdMdUdieVh1WlpjRDU5?=
+ =?utf-8?B?TENZbHZHL3czcGpxV2ZxUDY5M0V3bkIybUplZlVvcGZnR2dmK2pUeDR0VWNH?=
+ =?utf-8?B?ZlRXWFJCQXJFdUdIUHdFZzloa2xsK2RuaXJDaDB5S1VvL0c2enJnOGtqcytH?=
+ =?utf-8?B?NGw4NVNySnkwaXlHYnlSVXZsVXVNdWVVWDVsTnBsZHdNV3lKK3hvQ2dXeGdr?=
+ =?utf-8?B?Z3dINUZBSjhNdk40bW1UUFJBWjl6RldnejBxRzFvc2pwbEo0RmpqQmtmL3pE?=
+ =?utf-8?B?UVVFNk5yTnVNbEVHejEydElXdVhseEcrL2l3OUhmenFMOVhCTDgxNUViWjVl?=
+ =?utf-8?B?anlLRkhxN05PNjBLN1ZpNTA1dGluYmRBdUhiQ0dCTVZsMXIzbkFlaERNRWRZ?=
+ =?utf-8?Q?IinjbaIMsaueaNmtItUxEzd/GjRsEvHY+pF9mUcm4cmIG?=
+X-MS-Exchange-AntiSpam-MessageData-1: CffN3oRklSLsrw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6811484-ef63-4932-3d91-08df28f8ce18
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 06:50:11.8259 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 07:08:38.6314 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S52PF5I2t0/2mO0TdMz/b0j2tHpK2AzDrVJbSGdlwnbIGi/v/RVEjhQ+Ugynupff
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8493
+X-MS-Exchange-CrossTenant-UserPrincipalName: l028mYM0myE3atugmFMKPMX7kLf8VSgRda1dvOtShC6c2jXucQ8+GaDszBYtZYLSzanjcmRvU1VgGGTUm5uaLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6418
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,67 +153,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/12/26 19:19, Philipp Stanner wrote:
-> dma_fence's backend_ops functions ops->wait() and ops->release() are
-> problematic because they prevent fence producers from unloading.
-> Moreover, they can easily be implemented through simpler means more
-> aligned with the dma_fence contract.
-> 
-> Since the declared goal of dma_fence is to move towards an
-> implementation that supports driver-unload in all circumstances, we must
-> prevent more parties from implementing those callbacks.
-> 
-> Deprecate ops->release() and ops->wait() and document what users should
-> do instead.
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+On Wed Oct 7, 2026 at 8:56 PM JST, Alexandre Courbot wrote:
+> On Wed Oct 7, 2026 at 8:33 PM JST, John Hubbard wrote:
+>> On 10/7/26 5:48 AM, Alexandre Courbot wrote:
+>>> On Wed Oct 7, 2026 at 12:43 PM JST, Alexandre Courbot wrote:
+>>>> On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+>>>> <...>
+>>>> ... and that's all I could find on this patch. I particularly like how
+>>>> the examples have turned out!
+>>>=20
+>>> ... although maybe the Sashiko comments are worth considering too. Nova
+>>> does depend on little-endian, but it probably wouldn't cost us much to
+>>> e.g. call `to_le_bytes` instead of `to_ne_bytes` to make the code more
+>>> portable.
+>>
+>> I recall having this conversation before, and I've tried to consistently
+>> say "no". It's not a real thing, and if it ever becomes one it will be
+>> a very big deal, not something we would overlook.
+>
+> I agree on principle when writing endian-neutral code requires some
+> extra infrastructure or considerably more code, but here we are talking
+> about trading a call to `to_ne_bytes` for one to `to_le_bytes`, which is
+> zero effort.
+>
+> ... although the Sashiko warning on `extend_with_padding` *would*
+> require more than just a method call to properly manage arrays of `u32`
+> and `u64`, so maybe we don't need to fix them all, or any at all for
+> that matter since half-fixed code is still broken code.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+If I see some code that is explicitly written to handle endianness, it's
+confusing, because it implies that some or all of the code is meant to
+work with variable endianness. But that's not the case, and would leave
+me wondering why just this bit was written in an endianness-neutral way.
+I think we agree on this part though.
 
-Going to push it to drm-misc-next later today.
+For the case where it requires no extra effort, e.g. `to_ne_bytes` vs
+`to_le_bytes`, I think we shouldn't use review time on it. So IMO
+`to_le_bytes` is conceptually slightly more correct here because NVKV is
+little endian regardless of the host CPU, but I would not want to use
+review time on this in the future because:
 
-> ---
-> Changes in v2:
->   - Drop confusing sentence (Christian).
-> ---
->  include/linux/dma-fence.h | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index dd07d128adc3..388c07d11e70 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -220,6 +220,8 @@ struct dma_fence_ops {
->  	/**
->  	 * @wait:
->  	 *
-> +	 * DEPRECATED!
-> +	 *
->  	 * Custom wait implementation, defaults to dma_fence_default_wait() if
->  	 * not set.
->  	 *
-> @@ -243,6 +245,8 @@ struct dma_fence_ops {
->  	/**
->  	 * @release:
->  	 *
-> +	 * DEPRECATED!
-> +	 *
->  	 * Called on destruction of fence to release additional resources.
->  	 * Can be called from irq context.  This callback is optional. If it is
->  	 * NULL, then dma_fence_free() is instead called as the default
-> @@ -254,6 +258,12 @@ struct dma_fence_ops {
->  	 *
->  	 * If the callback is implemented the memory backing the dma_fence
->  	 * object must be freed RCU safe.
-> +	 *
-> +	 * Deprecated because it prevents the producer of a fence from
-> +	 * unloading. No new users must be implemented. Parties with a
-> +	 * hypothetical need for this callback can instead simply and directly
-> +	 * perform their custom release operations one RCU grace period after
-> +	 * they have signaled the fence.
->  	 */
->  	void (*release)(struct dma_fence *fence);
->  
-> 
-> base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
-
+1. it's wonky to change just some of the handling, and changing more (as
+   you've noted) can require extra infra/copies/affect performance.
+2. I think assessing each `to_*_bytes` call every time it comes up for
+   which one is more conceptually correct (is it host-related, or
+   GSP-related, or if it's both, which one to choose since we're not
+   going to bother adding extra infra for it) is just gonna waste review
+   time.
