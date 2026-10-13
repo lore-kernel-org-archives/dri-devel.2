@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDD4CA9ED2
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 08:48:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E54B3CC6B03
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 08:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B91910F61B;
-	Tue, 13 Oct 2026 08:48:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B25310E75A;
+	Tue, 13 Oct 2026 08:48:46 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E76B10F61B;
- Tue, 13 Oct 2026 08:48:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 093EB10E75A;
+ Tue, 13 Oct 2026 08:48:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5228F600D1;
- Tue, 13 Oct 2026 08:48:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227BF1F000FF;
- Tue, 13 Oct 2026 08:48:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7F77A60261;
+ Tue, 13 Oct 2026 08:48:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E0F1F00893;
+ Tue, 13 Oct 2026 08:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791881290;
- bh=F2rK+drwDeSxyN8ny18ofHQWTkBYjp74CzzmzODAL4s=;
+ s=k20260515; t=1791881319;
+ bh=36P5CpgdnuQ4CoV44/SKhsr0TCOPh6qxQXHvG9Dgu5A=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SHbVJfjg2bgSFzJly48JojF5qxD+CKOEDXscma8WDUgAjuU1nCfRsleU5yMoZc+Fp
- P1VczgGgyLA2b4F2VGO9sQTe0615B2JTukdBjFHBcf1rEMsoF30rzuNWLurJfgQQu3
- d5+RqvRaInR2z47lQ1GuANHAGtqIzi7CHd8/FFIqU9XpcWakUFWNzLlVCM64pJ/Gph
- dWUXZo0HE0Cyq3Sg0MyGWyEzG2mPfmgLbnkmEtU5bBxnaWslvC5N4NSPKkigXx104+
- FAMLslp8qB5ATeemLaB7YfFg/kOQUBWNMkSWw1qA+Zwy94AmY1DKyG81YzBjWZZxmk
- /8+nNJ/xXpCPQ==
-Date: Tue, 13 Oct 2026 10:48:06 +0200
+ b=bGXGjOhcc9psij0rrEqM/LpPPJCe3tWvDn7YM7khlzZlzUZhnVTd6hOsrFRnKdgvh
+ oyGFczU1xntEjvmvoagTrbIe0yySuqByu73Gtf6CkPiBg1uIbqU151QTy+sVuBd7fu
+ 2itMFOi5JYJlen3w003Y7h739T62k9buitqneKGhhp1eh6BtxA7Lk/cAx8/FAjl+uV
+ czBZoUK14IZZi8y3wwNiedPDlFDsfERM9g80F/9JrR3kQC1okmoTQhjs12Rrun2Z/Z
+ tU4b9m+RBQE0LLOVaVh2ceBFrux/bRg4ra9I9ftkFuY8P6JSffx3rTtRpi6v8fRZ+Y
+ v+kM/2oHg/idg==
+Date: Tue, 13 Oct 2026 10:48:35 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Nabige Aala <nabige.aala@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -47,14 +47,16 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>, 
  Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v2 03/13] dt-bindings: display/msm: Document Nord MDSS
-Message-ID: <20261013-vigilant-penguin-of-glory-b2d055@quoll>
+Subject: Re: [PATCH v2 02/13] dt-bindings: display: msm: Document the Nord
+ DiplayPort controller
+Message-ID: <20261013-honored-bear-of-cleaning-bd8108@quoll>
 References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-3-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-2-a2ab9af954d2@oss.qualcomm.com>
+ <20261013-tangible-wakeful-swift-a38f8f@quoll>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261012-nord-drv-dt-v2-3-a2ab9af954d2@oss.qualcomm.com>
+In-Reply-To: <20261013-tangible-wakeful-swift-a38f8f@quoll>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,21 +72,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2026 at 07:02:13PM +0530, Nabige Aala wrote:
-> +  interconnect-names:
-> +    items:
-> +      - const: mdp0-mem
-> +      - const: cpu-cfg
-> +
-> +patternProperties:
-> +  "^display-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        const: qcom,nord-dpu
+On Tue, Oct 13, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
+> On Mon, Oct 12, 2026 at 07:02:12PM +0530, Nabige Aala wrote:
+> > From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> > 
+> > Nord uses MDSS 12.1 with two independent DP controller instances,
+> > each exposing two DP cores at new IO offsets. None of the existing
+> > compatibles match this layout, so add qcom,nord-dp.
+> > 
+> > Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> > Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> 
+> Do I understand correctly:
+> Device is fully compatible with qcom,sa8775p-dp, but a simple to fix
+> driver limitation is preventing compatibility?
+> 
+> If so, let's fix the driver - just add more addresses to the
+> msm_dp_desc_sa8775p array?
 
-Where are the bindings for qcom,nord-dpu?
+Or it does not matter, because top-level MDSS anyway cannot use
+compatibility?
 
 Best regards,
 Krzysztof
