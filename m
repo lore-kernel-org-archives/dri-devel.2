@@ -4,60 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C93EDCC6B12
-	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6E63CC6B15
+	for <dri-devel@archiver.kernel.org>; Tue, 13 Oct 2026 22:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B8A910E054;
-	Tue, 13 Oct 2026 22:17:19 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 762ED10E959
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:17:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791929824; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Yk4rBXovmUFk6eKK66VVbtNchh49n30GnbnkTzkiXeAA6MzAsJIrLtNtDzlq2Vp3TLMn+x2CHd0g0XKVQ7mOdLfrDLFt/bltW5Tsj4yd8C6jPyannuBrqyXMrmNXmkn5OA6VVnxw33oMsPj0GH1tl/Rk/tjLCdZB60GvpfhdPAk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791929824;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=hAUVqH5LFcZWXZcpTpzwv3BreH7B5rvcbLwTNqdkXLU=; 
- b=eWBhwkIRGUavkfyihRjwW2zTiQPpbDNQnxyhVG+QIxTRFfVckCZ+YzFdKum8B8jVU/r24dHiQPeLU+Rb3XIesQ55p1HxHkxMJp3pZMKzmKUTG9l5gCvvHfbYB4scedmg/Yi4MlkdcypPo7+t4FCBe2hA6B0m2G6T4GSNjQSjnHw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791929824; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=hAUVqH5LFcZWXZcpTpzwv3BreH7B5rvcbLwTNqdkXLU=;
- b=j34/J2XoLuWGhJXwlCkDxD2pQqlGy7ThbTCijUeU1P3XVx2LFCLNgwNSbaXcg3y4
- gWSWPjhIHZRf1tWyupnSNnGx/H5tVyLFhgF6AORr/UJlw9Z8IT1jRf2g9gUiZ/DeIhY
- l2F4BxSt4JdMBvDXedXSdP+/cfHcJySk5KzHvJmY=
-Received: by smtp.zohomail.com with SMTPS id 1791929822632526.8167997651227;
- Tue, 13 Oct 2026 15:17:02 -0700 (PDT)
-Message-ID: <537679fc-8aea-472f-a7af-b15bd3cf27fd@collabora.com>
-Date: Wed, 14 Oct 2026 01:16:57 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: Destroy obj_restore_lock on the final
- drm_dev_put()
-To: Abhin Parekadan Jose <abhinjoses@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Dongwon Kim <dongwon.kim@intel.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
-References: <20260929070714.169412-1-abhinjoses@gmail.com>
- <asxz0Xvv5jO9gAol@home-desktop>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <asxz0Xvv5jO9gAol@home-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06B7810EC29;
+	Tue, 13 Oct 2026 22:40:21 +0000 (UTC)
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3569D10E998
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:14 +0000 (UTC)
+Received: by mail-dl1-f69.google.com with SMTP id
+ a92af1059eb24-151ba226e1bso3776248c88.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1791931213; x=1792536013;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6CWZGGdh7JOQ6UqV1gxmMbPkjK0LPv1nbOU26QpmZ10=;
+ b=euy1X/o4emQDhM7kbhBc3OacqlLPUOIkj1fXi2jePSt/jsBNzRUeN+7WtvchfnHtfZ
+ FccSW8Oc0SWPZZleNchGp2XvcuiXBlAWYfExzCkPaNalcns0Di8CouYg3cFfo1uJ/Ctt
+ RpEPe0OKzi5riM+1kdL14d6XwybXqlVYfp7bKN7EDiNS5NI6SDwmsH2q4G23urRJlg/G
+ IhRP6YREhYmtmVfzOu+vI5Pk/lBzg4ZB1xWBJE8Z2duWLcytrclyx/A5kYI73xNMxQdo
+ 72kKI3wqTztgX4Ch/je5ob7jxdJ01HLwU7bvDxu/tcXzBi0O3/MLVRGP5/+LvaAMAb0s
+ VmVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791931213; x=1792536013;
+ h=content-type:cc:to:from:subject:message-id:mime-version:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=6CWZGGdh7JOQ6UqV1gxmMbPkjK0LPv1nbOU26QpmZ10=;
+ b=hMhotNtHf0krC3phj1lR1ij9kpHLUIe/qjiKe0udYln0EGWPoo27hW/qq5UEj7hj9s
+ qcfc0GVfT9H+bK9JSjwYfQgWIavY5ZOErgMn7O3nnaMbEQv8c2kyqIGfvEPoE++fXCPI
+ A1FUmFsg5vZOs93ZgSEfhdPaMPEE12pMHFlZK+3m86Kz6AUIuQxf5XJEL2jPREkkdfcF
+ 3VY08x7McKQrpnv6j6g7xyRJguBLobCYvjD8ExRr1rx/i8XMoTPKcMjQvfnjeOcHAm4R
+ EZX0tPClkbUiG+C2Zp9ReFze2OYi46lo6eWXeRiZtzqfBGBEh4CNd8mjf5ZsOrF0ctis
+ 7rbQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwKOzk9ILQrdkge3qnKwwUsoOmsxFe9xQF8OaHba7ZpASyYEcK3FviwLIRaatoyyFF9gNkV0TEu3Wg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJcUyd0kV/+Hu7w1Gs6G9rcnY3/2s4pMSNc3sf1sfBBBdLRhiP2
+ MzSeixqjvqTV2apG7WBVQQYr8oh4a1/VsS/8bBgbAHN58+y1x1L4m/SYXPnfWjA1yO4029KyfoS
+ SsOZaeSLhEQ==
+X-Received: from dlak14.prod.google.com ([2002:a05:701b:290e:b0:14e:f9ab:6f83])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:2309:b0:153:7a27:b89
+ with SMTP id a92af1059eb24-16a5ed4008cmr22709999c88.21.1791931212336; Tue, 13
+ Oct 2026 15:40:12 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:39:35 -0700
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261013223946.1836757-1-irogers@google.com>
+Subject: [PATCH 00/11] kobject: Require explicit initialization of struct
+ kobj_type::release
+From: Ian Rogers <irogers@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Nayna Jain <nayna@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ driver-core@lists.linux.dev, 
+ llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,95 +106,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/12/26 08:44, Abhin Parekadan Jose wrote:
-> Gentle ping on this fix for the syzbot report.
-> 
-> Dmitry, Gerd, do you have a preference between moving mutex_destroy()
-> to virtio_gpu_release() (this patch) and using drmm_mutex_init()? I can
-> send a v2 with the other option if you prefer it.
-> 
-> Thanks,
-> Abhin
-> 
-> On Tue, Sep 29, 2026 at 07:07:14AM +0000, Abhin Parekadan Jose wrote:
->> virtio_gpu_deinit() calls mutex_destroy() on obj_restore_lock, but
->> deinit runs from virtio_gpu_remove() at unbind or PCI remove, and GEM
->> objects can outlive that. An open /dev/fb0 keeps the fbdev buffer
->> alive, and the fbdev DRM client holds a drm_device reference. When the
->> fd is finally closed, the buffer is freed and takes the destroyed lock:
->>
->>   fb_release()
->>     drm_fbdev_shmem_fb_destroy()
->>       drm_client_buffer_delete()
->>         virtio_gpu_free_object()
->>           virtio_gpu_remove_from_restore_list()
->>             mutex_lock(&vgdev->obj_restore_lock)
->>
->>   DEBUG_LOCKS_WARN_ON(lock->magic != lock)
->>   WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0xf2c/0x12ec
->>
->> virtio_gpu_deinit() should only do hardware teardown in this case
->> related virtio, its queues and others. Software state that GEM callbacks
->> still use belongs in virtio_gpu_release(), which runs on the final
->> drm_dev_put().
->>
->> There are two equivalent ways to tie the mutex lifetime to the
->> drm_device:
->>
->>  1) Move mutex_destroy() from virtio_gpu_deinit() to the end of
->>     virtio_gpu_release(). This is what this patch does. It is the
->>     smallest change and keeps the teardown next to the rest of the
->>     final-put software cleanup.
->>
->>  2) Initialise the lock with drmm_mutex_init() (checking its return
->>     value) and drop mutex_destroy() from virtio_gpu_deinit(), so DRM's
->>     managed release destroys it. This also covers the virtio_gpu_init()
->>     error path, where release returns early because dev_private is
->>     NULL. Skipping mutex_destroy() there is harmless, since it only
->>     matters for mutex debugging.
->>
->> Either fix removes the WARN. Option 1 is sent as the smaller change,
->> and option 2 can be done instead if preferred.
->>
->> Reproduced on arm64 QEMU (-device virtio-gpu-pci) with DEBUG_MUTEXES
->> and PROVE_LOCKING: open /dev/fb0, write 1 to
->> /sys/bus/pci/devices/0000:00:01.0/remove, then close the fd. With this
->> patch the WARN is gone, and rebinding brings back /dev/fb0 and
->> /dev/dri/card0.
->>
->> Fixes: 54a970048296 ("drm/virtio: Add support for saving and restoring virtio_gpu_objects")
->> Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
->> Assisted-by: LLM
->> Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
->> ---
->>  drivers/gpu/drm/virtio/virtgpu_kms.c | 3 ++-
->>  1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
->> index 1d4d3bf46a20..0ec755c35050 100644
->> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
->> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
->> @@ -354,7 +354,6 @@ void virtio_gpu_deinit(struct drm_device *dev)
->>  	virtio_reset_device(vgdev->vdev);
->>  	virtio_gpu_reclaim_vbufs(vgdev);
->>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
->> -	mutex_destroy(&vgdev->obj_restore_lock);
->>  }
->>  
->>  void virtio_gpu_release(struct drm_device *dev)
->> @@ -370,6 +369,8 @@ void virtio_gpu_release(struct drm_device *dev)
->>  
->>  	if (vgdev->has_host_visible)
->>  		drm_mm_takedown(&vgdev->host_visible_mm);
->> +
->> +	mutex_destroy(&vgdev->obj_restore_lock);
->>  }
->>  
->>  int virtio_gpu_driver_open(struct drm_device *dev, struct drm_file *file)
-Calling virtio_gpu_deinit() from virtio_gpu_release() might be a better
-option
+Clang supports the 'require_explicit_initialization' attribute on struct
+fields to enforce that the field is explicitly initialized when an
+aggregate object is constructed, emitting -Wuninitialized-explicit-init
+(enabled by default) if the field is omitted.
+
+Following discussion at the Linux Plumbers Conference [1], this series
+introduces __require_explicit_initialization in
+include/linux/compiler_attributes.h and applies it to
+struct kobj_type::release.
+
+As Documentation/core-api/kobject.rst notes:
+  "One important point cannot be overstated: every kobject must have a
+  release() method, and the kobject must persist (in a consistent state)
+  until that method is called. If these constraints are not met, the code
+  is flawed."
+
+Annotating struct kobj_type::release caught 30 struct kobj_type
+definitions across the tree that omitted .release:
+- Patches 2-10 fix 10 struct kobj_type definitions where dynamically
+  allocated kobjects, ksets, or enclosing structures were either leaked on
+  kobject_put() or freed prematurely before kobject release (risking a
+  use-after-free when CONFIG_DEBUG_KOBJECT_RELEASE=y).
+- Patch 11 annotates struct kobj_type::release with
+  __require_explicit_initialization and explicitly sets .release = NULL
+  (with explanatory comments) on the remaining legacy struct kobj_type
+  definitions whose kobjects are static, per-CPU, or embedded in devm- or
+  parent-managed structures.
+
+[1] https://lpc.events/event/20/contributions/2392/
+
+Ian Rogers (11):
+  Compiler Attributes: Add __require_explicit_initialization macro
+  powerpc/secvar: Add missing kobject release callback to secvar_ktype
+  sh: sq: Add missing kobject release callback to ktype_percpu_entry
+  cpufreq: Initialize kobj_type release callback in ondemand and
+    conservative governors
+  ACPI: CPPC: Free cpc_desc in kobject release callback
+  dlm: Free dlm_ls in kobject release callback
+  xen/sys-hypervisor: Add release callback to hyp_sysfs_kobj_type
+  s390/sclp_mem: Allocate struct sclp_mem dynamically and add kobject
+    release
+  ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
+  drm/amdkfd: Free queue in procfs_queue_type kobject release callback
+  kobject: Require explicit initialization of struct kobj_type::release
+
+ Documentation/conf.py                         |  1 +
+ arch/arm64/kernel/cpuinfo.c                   |  2 +
+ arch/powerpc/kernel/secvar-sysfs.c            |  6 ++
+ arch/sh/kernel/cpu/sh4/sq.c                   |  6 ++
+ drivers/acpi/cppc_acpi.c                      | 39 +++++-----
+ drivers/acpi/sysfs.c                          |  2 +
+ drivers/cpufreq/cpufreq_conservative.c        |  5 +-
+ drivers/cpufreq/cpufreq_governor.c            |  3 +-
+ drivers/cpufreq/cpufreq_governor.h            |  1 +
+ drivers/cpufreq/cpufreq_ondemand.c            |  5 +-
+ drivers/dma/ioat/sysfs.c                      |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |  4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 10 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  5 +-
+ drivers/infiniband/hw/hfi1/sysfs.c            |  2 +
+ drivers/infiniband/hw/usnic/usnic_ib_sysfs.c  |  2 +
+ drivers/parisc/pdc_stable.c                   |  2 +
+ drivers/power/supply/ab8500_fg.c              |  2 +
+ drivers/s390/char/sclp_mem.c                  | 73 +++++++++----------
+ drivers/soc/hisilicon/kunpeng_hccs.c          |  6 ++
+ .../fbdev/omap2/omapfb/dss/display-sysfs.c    |  2 +
+ .../fbdev/omap2/omapfb/dss/manager-sysfs.c    |  2 +
+ .../fbdev/omap2/omapfb/dss/overlay-sysfs.c    |  2 +
+ drivers/xen/sys-hypervisor.c                  |  6 ++
+ fs/dlm/lockspace.c                            | 19 +++--
+ fs/erofs/sysfs.c                              |  4 +
+ fs/f2fs/sysfs.c                               |  6 ++
+ fs/ocfs2/cluster/masklog.c                    |  2 +
+ fs/ubifs/sysfs.c                              | 24 ++----
+ include/linux/compiler_attributes.h           | 11 +++
+ include/linux/kobject.h                       |  2 +-
+ scripts/checkpatch.pl                         |  1 +
+ tools/lib/python/kdoc/xforms_lists.py         |  1 +
+ 33 files changed, 170 insertions(+), 90 deletions(-)
 
 -- 
-Best regards,
-Dmitry
+2.56.0.385.gd3acb90ef8-goog
+
