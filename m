@@ -4,121 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DDB8CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F0A0CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C274C11216B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0901112169;
 	Thu, 15 Oct 2026 07:56:55 +0000 (UTC)
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11020100.outbound.protection.outlook.com [52.101.69.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86CCB10E327
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:15:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hQi9DYqaKicKSx8l/yhbvO/Ugy8aI19GWD0KQ5oXZ9tB7d+7SVW6affLt7/iSqfFPjPpAX9ZPmLo6nvHa+NhgOPP3/0GXQ3ddvkG58LlKZ6QO5IM8fKQCWt2B2BMLiyna+3L5aWieJAdHRLyGQ0/px1ZFIiwSRk/n/q9iBKqdhi13hzlQAvSrQXQ9wr+Itc08M0xJoX/8wsnrNsYo3NBPbzgcMZJ2xdJeooS2YvRwVYpJ7Bgflu77TXjlugwVktCBIohmyABZmplNnqGmwAeb4/5K8RudpRRhRbn3vcBWoO+kDZOx4CDBjmz9RH8gN9+THON9y/oMTNCXEwrNyf8FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3MwilO3ptPoghCNspXfhkYCu4LizynKKr/YLWXGEepg=;
- b=t6wtFNqJE5tUA5QVAFiXdNaPny7dVLGU9UwrFRcvZMLF3bIzR21voYyOSa0yHe0eEdqyff7IJs5/tP/fVcTpVLpxpJKCKNerLIlMXIwXG/8v2SO/IbaXdJVTAREdn+hIrhYBQ/mEk8ZBt3xVUTtpQWd4EGwlRdefNyo2kRO4+k7YmDTvwFnHMHNUsTHYQxD6waH5hZVcGzEIwEprajpw9Ke/PrgkpuI5JSiy3SiS25sU0UULDb5ptgjRbNI4HRV/sMiB+z3VMDubPLd3ufcPX1qPb3q1a8am8iDwapjnJD7IBmu0hiIhxQuXmB13U/4Kmy7IyFpR0NHnV0IT9ehIMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3MwilO3ptPoghCNspXfhkYCu4LizynKKr/YLWXGEepg=;
- b=KkYf5o354TQQdj81hDqFTOMgkTmW1jfJyPOSVoTdP5AC9cWARQkODMsWRNTf9vvp2byH6bkv6YVsC2q3Vi/l/gL0Nq7GPnKUcnu4SFImAtsZtFxPNoj1yp6cgeQwvEwGXKN0NpMcYIgm3maXNrkWk5Pa4o7kaIS8fucNk7dzbT5ZiG8X09N14a5oWCvok21nvAFJaZWgqA38uPnyhZSOqyx78UOQsS4OpmGSnaQY0PvDX4sGnN5YamVYJtJDrLVw8H6Z5PjC1CdwwsSVGAr6Dt10qy2u35OLbam5zfX6nMKUdtCf2AY97dS2uqg1HwBOol1+bQSdpyhhBy+rjW3Q6A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20) by ZR6PR08MB999901.eurprd08.prod.outlook.com
- (2603:10a6:910:d2::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.11; Wed, 14 Oct
- 2026 13:15:20 +0000
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 13:15:19 +0000
-Message-ID: <a63c77db-4b1c-440e-b9d2-cc4d7507e096@virtuozzo.com>
-Date: Wed, 14 Oct 2026 15:15:18 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: recheck a special PMD under the lock in
- copy_huge_pmd()
-To: sashiko-reviews@lists.linux.dev
-Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com>
- <sashiko-outbox-171250@kernel.org>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <sashiko-outbox-171250@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0043.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::16) To PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D7710E8AA
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:15:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AF50A41762;
+ Tue, 13 Oct 2026 15:15:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806871F00893;
+ Tue, 13 Oct 2026 15:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791904502;
+ bh=D64A0FyPbpB3tjb5UBGU9hKY5JLuh1oCwyYrtY/p4P4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=bvoldU8QpJo3JQxVK4J2tjQ1CB5qxRjNJojatUoKUKSimKeRUZ21DFIkxNXHWag0F
+ WYEsWGQT3Zk1tYNBmKwrdf19JHYSmjOvpxDzdUVmWTp+SBROvYaFS7eCDz1G/oNkOr
+ /XIBf4DTxzP6Upe4D4NtJ7vCow6X+nFdXwdGhfxIPELv9bXSydERUr0PzrcoZr6VRR
+ PDLyXvuQm5rMEiRem/EcBBiDb6/MCP4ve0UV+goQj3EYY7qdZlJ1lUb/W2eFM7aE89
+ yavwMKs4NICKcEc5ZKJ41gOo+PEh6CY/gf3RIY3AhySm0g6DIR/7WJH3UUhODYbfEy
+ ZTE3m0fGS6V7A==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 13 Oct 2026 16:04:57 +0100
+Subject: [PATCH v6 17/39] mm/vma: add and use vma_[flags]_is_fixed_mapping
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|ZR6PR08MB999901:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7930007-fbf2-4b65-2a60-08df29f53249
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|56012099006|4143699003|261009223027099003|260925021911599003|10067099003|260925022911599003|18002099003|22082099003|260925021311599003;
-X-Microsoft-Antispam-Message-Info: BIz6Yiv2F2qHgFbjZZMFLW6K+DxbXsRDmb1+M1w8tMkBd50ZX9IH21ecaEMXquNGuyIwjbWUmQuMxyUXiIIIlWv6E2WN//caCnu7VpAxzzBBAT/ga3nk5z4x47GhWqbxlKBbWaLWiAF+2hLwNlHKbf0ISXRexFlxvaQPas4sOE1CXP8naPj1yUyWdF3mHJwW9CZruv9HYSESsWyM+RmvJPvNDuVs5cchurbgPxomY0ClfV6a/QWGUjCoz8D+OiOZzdAX03Ii0z+NqSeN2CvY6AzSnlQsIC6fikVf4SQObSJGwcGxIxbjE76LR/ohw+LRpcE2Llu6ARrkwxx1CfeiM+UiI2TV1l4Nsc22TsUXqGY6+aDw8Jgl54QWn5hOJr+DznTd5dax1cauYSxXVMwPRFrkE9nx4QZoCciNjW1+eLA9Qzzettbccr51O2whQwcj/zvBP9+VqfHWtqZMs3mzpIDBHGAZ+q9IJIBUMOwTJSUEdkNswH5xqqz1xRvZQ00/cYQLSX3zqsN1TfSgHAlml6WIOHANRjp4q3R1B93LCjaMjpzd4wUrXmOOi85UROWT5nBzbg9DFXJ5/hx/+F26FdW1MMF4IyL+9feSDGz7xws=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PA6PR08MB10708.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(56012099006)(4143699003)(261009223027099003)(260925021911599003)(10067099003)(260925022911599003)(18002099003)(22082099003)(260925021311599003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzdGYlpxNWJMbGtOeDhTb3RqN3liOTVtVFJ2VkNqbDBWeURaeE40UjlIbHVu?=
- =?utf-8?B?cEljMk42bzZmQW5ENkh2TDgvREp2a1p2VXNjN1F0SkFwYi9QVytjcGhaSW9U?=
- =?utf-8?B?SnJEdGRYc01MMDNWRWpxM0RMNmFtMU01VXZzU2wwUFB4eWl5U3dIbldnNmZl?=
- =?utf-8?B?akhrUG9sNUJac1crUTFtdklyTllzTGZld0h4eEdoYVl6YTgzWDJtS0lnWDNm?=
- =?utf-8?B?cVdlOTJ4WllRZGRpalNGUFJNazJtek9pcGhWZkM4cCthZWVPTDRvckhGaWpi?=
- =?utf-8?B?a0Z5WnB0bTJ2TkppM0lMNlE3L2U1djM2QzZjb2tsbnlIYjM0WUpXNHZmRzl5?=
- =?utf-8?B?RFF0VzgvQ0UwandsQVVselVLOWtON0JKWDhJSEd1T091MEtsaWZiL3pPTVlr?=
- =?utf-8?B?UG5XRGNqUWZGRVVZamVoRDZ4MlhkRU1iWlVMSW50NTJGb3NyZGFWMk1jRU0v?=
- =?utf-8?B?c3hpRHU1TkF2d2ZQRDV0d0xqVlhNYW93L1ZRdCszUy96YU5HMWF4Q2pmdWZt?=
- =?utf-8?B?ajZ1MHZDNkUwekMwOVhaN0h6M3ZaQUVubmJsYXRZeWErak43RWJzTS8wcXVN?=
- =?utf-8?B?cGlMYjJiQXl2YWhDM0J3eUUvakU0VnhSeVVnSHJHa0JBMFJOZ0xETFNmTXkw?=
- =?utf-8?B?L0dzZTkxVitWNXU3b2lkdi9XeHlFZEJFZHdLQTU3UUdSNHNUTzZuK2pRR2NV?=
- =?utf-8?B?YmRxUXFMaG5USS9vaUJFZGRJTUhNL1cvb0tIM3JUREQyd2hDVGpwTnhMRk9l?=
- =?utf-8?B?UTRQcUFzRXNsUGNiZlFxcHhkeEd2OGRPMGY3c1hibkxyNGY3WGdwd3Y0UGFj?=
- =?utf-8?B?cXd1cUtFbDVOTGdwc09OMzFqL0pGeHl6enFwWnlaa2VnaGlsQi8zSUwrcXk3?=
- =?utf-8?B?d2kvbkY2Um55eG9NQi9EYzV5cGJhWnVCdXhEM1ZDTUpRRHI2S05iYzU5WkFp?=
- =?utf-8?B?bWNxY3lzbUJUS3NBemo5YXRJZ1lIV2xlZnhyTlcwZW9oKy9ScTV6K090WTlG?=
- =?utf-8?B?cG5CdU5HSjhYTUdhYjY4WVVsb3A3V0QvZUtmTkg0dGVILzVFZHJaREFYUE5Z?=
- =?utf-8?B?M2RoUFV4TFE5Si9EOE9xTWMyMHo0ZUxLbWJ2TXNCRVlDd3dGTXpNQXNSazVQ?=
- =?utf-8?B?TlNyRVp1eDBlckUyZUo0YzBHODRDVHVESDYvS01JTy8rTWNLQysxeUFYRFJz?=
- =?utf-8?B?UUthZ2dVUXFhMG9xdFViRnBFaFJZT0dCcExYSXQ3SjBTdjVqUzYvUWREZFli?=
- =?utf-8?B?TmRRdENiUVZXRUY4OGZrSlM1ZHpiWnp4T093d2Q5RUZJdXhiYmVMUWlnOGlq?=
- =?utf-8?B?STA3Tzk0WDJpOXIycUxGODgxUnc2VFU5bHN1ak9mcmZVZ2pXZGR1cTY2Q2V0?=
- =?utf-8?B?WkxpSGFHRUQzaVB0M1FMVmxkTHZoak1GYnBNdTNhbFd5dS9uY25LUGZZNXNR?=
- =?utf-8?B?N3hzeUpOZXdDaWJ5REhhakFOS0dZZHN0azJXVWVCK21EZ0FSSitJajlvVm5W?=
- =?utf-8?B?c1pLMDdVR3h3amdzZ05TMDVER1pGYk5zZmhBTWMwMEhrcU1aTmx3cE5RZ2Vp?=
- =?utf-8?B?ZGVVOWdQcW9EYWpPc0J4eVRYVC9yTXV2a0NYSzVFMmpFYXltRG5EWE9yRm5W?=
- =?utf-8?B?aGI5UHQ2Z1RJWi9EUk1TUDVoRytjOVY0OG5MSC91SmhCK2lqeDgxYzZ0emNI?=
- =?utf-8?B?SEdCaS9IWllvQTBYUFZNTkNsTjkzZGMvNVlrc1I0WXRIOUtkWW5HRUxJRFA2?=
- =?utf-8?B?a0xtZGV0aXRLUXVOSk1xeFJpcEtSdWlpN2VDeFpOenZnOVp4RjBYbUtlUmpo?=
- =?utf-8?B?a09mZ1lBamtOQUd1UXY4TDVWZDhrTGZER2o2Ky9TZEhyUXRQWTM0L0c3OTM2?=
- =?utf-8?B?T1pjNURVQ0lNUUx6bDlMNGpyMDVWQmRudXdMRXZnaXMremRjc2NHSUYxOUtx?=
- =?utf-8?B?Rkx4OE9OZWpLN3A5S2NaanlIOWFXMEhKQ3RINXgwdnl2OTdmUlV2em56OXc2?=
- =?utf-8?B?Nzl0b0dMbld3QXV5ZHVMbGovZWNQdzJqbEZRZGJRZnlXSlRGbks1aUhoV2Mx?=
- =?utf-8?B?NWFoQzE2Mlh3dDRmRCtITTZyUFAxSFRKeHVRS0Y4STlvYUVjcmpPZ3h5UTEx?=
- =?utf-8?B?akJRRnFGcG93eFV0SzI3RzVWSStqbTFwNjhaY3BxQ2wvbTNvSG5vTEJrejNI?=
- =?utf-8?B?NXA4NmF3Y1NVNjY2a3VjS3dlSldiVEVnQUY0dHVsZURLN2VOTkU1bFcySDd3?=
- =?utf-8?B?ZmdUcFh1NHpXeWd4OXhrM2oxblNhUi9rNnZzaHp6ZmREZmlHNnNhbEFaQ3RX?=
- =?utf-8?B?cWY1UHo0dzQ3VUtjektIcU5XYnNUbHI3U2ZrVnJFM1ZTN2x1TkxQQT09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7930007-fbf2-4b65-2a60-08df29f53249
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 13:15:19.8622 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ruxztXe2ApOQTOabwuyKaYOcJuB0hNT9faiDQJR2JMWebAym9cbmeTKHpYP9upTUJfAEzI/x2F6VUKDIg1YUnQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR08MB999901
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-17-1aa3c9b139f9@kernel.org>
+References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6660; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=dXM3F0LVCDO3gk2G109Oq5R7FFl/u4sVnffApMdLzBc=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZw0WLT2vsW6382XLk08tzdngmbyisdsLXsv7Fz25
+ p9gvPvbhx2lLAxiXAyyYoosz7+I7w8SCZvXecHfDWYOKxPIEAYuTgGYyLdUhj+c05qbb8jHzzv4
+ 4cLWybuX+S7XXXLkoLr2LNUMk3unbqw0Zfif8WdC5Neji/qrzeaUr5NmiGQ+nflAi0183/M1tfP
+ yGk8xAAA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,109 +142,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/14/26 14:15, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] mm: NULL pointer dereference in zap_huge_pmd() for special PMDs on PowerPC
-> --
-> 
-> commit 5100f57130de5473973d1370273238b4778fae24
-> Author: Konstantin Khorenko <khorenko@virtuozzo.com>
-> 
-> mm/huge_memory: recheck a special PMD under the lock in copy_huge_pmd()
-> 
-> copy_huge_pmd() reads the source PMD without the page table lock and,
-> for a special PMD, installs that value in the child without reading it
-> again under the lock. This commit reads the PMD again under the lock to
-> ensure it wasn't cleared concurrently by unmap_mapping_range().
-> 
->> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> index 1e5d68acf62a5..fcea98f0d8865 100644
->> --- a/mm/huge_memory.c
->> +++ b/mm/huge_memory.c
->> @@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->>  		src_ptl = pmd_lockptr(src_mm, src_pmd);
->>  		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
->>  		/*
->> -		 * No need to recheck the pmd, it can't change with write
->> -		 * mmap lock held here.
->> -		 *
->> -		 * Meanwhile, making sure it's not a CoW VMA with writable
->> -		 * mapping, otherwise it means either the anon page wrongly
->> -		 * applied special bit, or we made the PRIVATE mapping be
->> -		 * able to wrongly write to the backend MMIO.
->> +		 * The mmap and VMA write locks of the source keep faults
->> +		 * out, but unmap_mapping_range() does not take the mmap
->> +		 * lock and may have cleared the pmd since the lockless
->> +		 * read. Let copy_pmd_range() skip it then.
->> +		 */
->> +		pmd = pmdp_get(src_pmd);
->> +		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
->> +			spin_unlock(src_ptl);
->> +			spin_unlock(dst_ptl);
->> +			return -EAGAIN;
->> +		}
->> +		/*
->> +		 * Make sure it's not a CoW VMA with writable mapping,
->> +		 * otherwise it means either the anon page wrongly applied
->> +		 * special bit, or we made the PRIVATE mapping be able to
->> +		 * wrongly write to the backend MMIO.
->>  		 */
->>  		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
->>  		goto set_pmd;
-> [Severity: High]
-> Does this code cause a NULL pointer dereference on PowerPC when a special
-> PMD is unmapped by the child?
-> 
-> Because the jump to set_pmd bypasses pgtable allocation and deposition
-> for the child process's new special PMD, no pgtable is deposited.
-> Later, when the child unmaps the VMA or exits, zap_pmd_range() calls
-> zap_huge_pmd().
-> 
-> On architectures like PowerPC (hash mode) where
-> arch_needs_pgtable_deposit() is true, this leads to:
-> 
-> mm/huge_memory.c:zap_huge_pmd() {
->     ...
->     if (has_deposit)
->         zap_deposited_table(mm, pmd);
->     ...
-> }
-> 
-> This will unconditionally assume a deposited table exists and try to
-> withdraw it. Then in zap_deposited_table():
-> 
-> mm/huge_memory.c:zap_deposited_table() {
->     ...
->     pgtable = pgtable_trans_huge_withdraw(mm, pmd);
->     pte_free(mm, pgtable);
->     ...
-> }
-> 
-> Since no page table was ever deposited, pgtable_trans_huge_withdraw()
-> returns NULL, and passing NULL to pte_free() leads to a kernel crash.
+This determines whether a VMA cannot be expanded or merged because what
+they mapped was determined to be a set size at mmap time.
 
-Thanks, that is a real bug, but it is not introduced by this patch: the
-special PMD branch of copy_huge_pmd() has never deposited a page table
-for the child, since commit bc02afbd4d73 ("mm/fork: accept huge pfnmap
-entries"). This patch only rereads the PMD under the lock in that
-branch and does not change what it installs.
+This typically refers to mappings not managed by core mm, however
+VMA_DONTEXPAND_BIT
+is not reliably set alongside VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT, so we
+must explicitly test for this for now.
 
-It is also worse than the zap: on ppc64 in hash mode the child's first
-hash fault on that PMD already dereferences the missing table, in
-__hash_page_thp() through get_hpte_slot_array(), and the zap then hits
-the memset() in hash__pgtable_trans_huge_withdraw() before pte_free().
+We also explicitly test for VMA_PFNMAP_BIT as VMA_DONTEXPAND_BIT may not be
+set for VMA_PFNMAP_BIT's despite the one implying the other.
 
-I will send a v2 with a separate patch on top of this one that
-allocates and deposits the table when arch_needs_pgtable_deposit() is
-true, as insert_pmd() does.
+Use this predicate in vma_flags_can_merge() and in check_prep_vma() in the
+mremap logic testing to see if mremap() can expand the VMA. The criteria
+for khugepaged and MADV_COLLAPSE eligibility in
+__thp_vma_allowable_orders() are precisely those for mergeability, so use
+vma_can_merge() there (with an expanded comment).
 
---
-Best regards,
+This obviates the need for the VM_NO_KHUGEPAGED mask, so remove it.
 
-Konstantin Khorenko,
-Virtuozzo Linux Kernel Team
+Hugetlb VMAs remain excluded from khugepaged as hugetlbfs always sets
+VMA_DONTEXPAND_BIT.
 
-> 
-> -- Sashiko AI review · https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
-> 
+Also update the userland VMA tests to reflect the change.
+
+No functional change intended.
+
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/mm.h              | 39 +++++++++++++++++++++++++++++++++++----
+ mm/huge_memory.c                | 11 +++++++----
+ mm/mremap.c                     |  5 ++---
+ tools/testing/vma/include/dup.h | 16 +++++++++++++++-
+ 4 files changed, 59 insertions(+), 12 deletions(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index df8a5a1eb9c3..2ecf39bc857b 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -600,9 +600,6 @@ enum {
+ #define VMA_REMAP_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,	\
+ 				     VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT)
+ 
+-/* This mask prevents VMA from being scanned with khugepaged */
+-#define VM_NO_KHUGEPAGED (VM_SPECIAL | VM_HUGETLB)
+-
+ /* This mask defines which mm->def_flags a process can inherit its parent */
+ #define VM_INIT_DEF_MASK	VM_NOHUGEPAGE
+ 
+@@ -1647,6 +1644,40 @@ static inline bool vma_is_mm_managed(const struct vm_area_struct *vma)
+ 	return vma_flags_is_mm_managed(&vma->flags);
+ }
+ 
++/**
++ * vma_flags_is_fixed_mapping() - Do the specified VMA flags indicate that this
++ * is a fixed mapping that cannot be expanded or merged?
++ * @flags: The VMA flags to test.
++ *
++ * Fixed mappings are those whose size is set at the point of mmap (for
++ * instance, a mapping of a fixed range of memory established by a driver),
++ * and thus cannot be expanded or merged.
++ *
++ * Returns: true if the flags indicate a fixed mapping.
++ */
++static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
++{
++	/*
++	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
++	 * only the former.
++	 */
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
++}
++
++/**
++ * vma_is_fixed_mapping() - Is this VMA a fixed mapping that cannot be
++ * expanded or merged?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_fixed_mapping() for a description of this property.
++ *
++ * Returns: true if the VMA maps a fixed mapping.
++ */
++static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_fixed_mapping(&vma->flags);
++}
++
+ /**
+  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
+  * merged with another?
+@@ -1668,7 +1699,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ 	if (!vma_flags_is_mm_managed(flags))
+ 		return false;
+ 	/* VMA explicitly marked as being unmergeable. */
+-	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++	if (vma_flags_is_fixed_mapping(flags))
+ 		return false;
+ 
+ 	return true;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 4cd917f77f3f..87e8bf8029ab 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -212,11 +212,14 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 		return in_pf ? orders : 0;
+ 
+ 	/*
+-	 * khugepaged special VMA and hugetlb VMA.
+-	 * Must be checked after dax since some dax mappings may have
+-	 * VM_MIXEDMAP set.
++	 * khugepaged moves data from VMAs once collapsed, after they have been
++	 * faulted in, relying on refaulting for file-backed memory.
++	 *
++	 * Mappings not managed by core mm cannot be reliably reconstructed from
++	 * page faults, and fixed mappings (including hugetlb) may well be
++	 * mm-managed - precisely the mappings which cannot be merged.
+ 	 */
+-	if (!in_pf && !smaps && (vm_flags & VM_NO_KHUGEPAGED))
++	if (!in_pf && !smaps && !vma_can_merge(vma))
+ 		return 0;
+ 
+ 	/*
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 7c368440fafe..ed19b47c2caf 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1788,8 +1788,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 		return -EINVAL;
+ 	}
+ 
+-	if ((vrm->flags & MREMAP_DONTUNMAP) &&
+-	    vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
++	if ((vrm->flags & MREMAP_DONTUNMAP) && vma_is_fixed_mapping(vma))
+ 		return -EINVAL;
+ 
+ 	/*
+@@ -1827,7 +1826,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 	if (pgoff + (new_len >> PAGE_SHIFT) < pgoff)
+ 		return -EINVAL;
+ 
+-	if (vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
++	if (vma_is_fixed_mapping(vma))
+ 		return -EFAULT;
+ 
+ 	if (!mlock_future_ok(mm, vma_test(vma, VMA_LOCKED_BIT), vrm->delta))
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 89c645a6ad60..442ea9eb098d 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1676,6 +1676,20 @@ static inline bool vma_is_mm_managed(const struct vm_area_struct *vma)
+ 	return vma_flags_is_mm_managed(&vma->flags);
+ }
+ 
++static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
++{
++	/*
++	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
++	 * only the former.
++	 */
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
++}
++
++static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_fixed_mapping(&vma->flags);
++}
++
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+ 	/*
+@@ -1691,7 +1705,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ 	if (!vma_flags_is_mm_managed(flags))
+ 		return false;
+ 	/* VMA explicitly marked as being unmergeable. */
+-	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++	if (vma_flags_is_fixed_mapping(flags))
+ 		return false;
+ 
+ 	return true;
+
+-- 
+2.55.0
 
