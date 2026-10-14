@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4743CC6B2D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:31:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6393C3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00E1210FF08;
-	Wed, 14 Oct 2026 17:31:23 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5D710FF0D
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:31:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1318610FF11;
+	Wed, 14 Oct 2026 17:31:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9DFD10FF17
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:31:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 627714398C;
- Wed, 14 Oct 2026 17:31:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6A5D1F000C6;
- Wed, 14 Oct 2026 17:31:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2D96E60230;
+ Wed, 14 Oct 2026 17:31:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D1B21F000C6;
+ Wed, 14 Oct 2026 17:31:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791999076;
- bh=ylIvmJ1fWT+/RvL3mp/BYepBkoLinQI+HeoHPbwUvEY=;
+ s=k20260515; t=1791999079;
+ bh=lqlhvGYNTaAZNeyc3JYp6Qmo022t/NPaKqP94NCwIWU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=OgEQ9SKToqaft4PCMVbkOqXlfrTgdUoQQXI2cNVaETzQNgUxhLrunXeUWBp9NcFXj
- CJmOAOzR+bkpv4kKKMCt2584+ZNk4i6fWz+QZIgY/386EGy8A7mRKcYT9kJ7q5n3Vv
- saXo9E878Af6lmzY9rTNxn67obcKqKGh7IHO6p7KAi0nRWKAQMokuZDT4uAgsOqIvF
- wpCifL/Sk7Kb0PJIbHRjevRHj1KMN3dHz1N2EqLA8LJqXEY/o27zbnn3KgTegeXUGS
- ZuftVI64tkTuKqPlPlFIxouyHtfxVf6oPuCfXVjjBXpdO/c8ksm64Iei3KyWUOQJ9t
- DgEE1/RdIaKmQ==
+ b=QwU7CGsFAm1WALdTzymXcR1xjjY9j2bBVqmv4EYgEUXtagjix8WWTXiEeIb4PHpRT
+ ecJevc9t2P8UDhMji01IFhtSXVDsxgouEGgH/DGXMFJ1PV4tVzQhTLneF4YuXUaR26
+ R9Pkvoc6KlB/+NQL/VHhbveF49Ju661FzTdRB0A7k3PH+PDDD/8BahSVVGEWP2Mccq
+ 4AfI1/gecpVgmJB8TRmliJMgl4etagwXwF7QfR7BHgFkNqMrWIttub7mz/nOTMchML
+ zSx5poFw6kI1NElk2W56SkZeP4z7Xpk8LrsznAz+njW41ZHi1VZ/ZipPQadhq9wRRL
+ H2cj7uJCM43rQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 14 Oct 2026 19:27:30 +0200
-Subject: [PATCH 67/75] drm/malidp: Convert to atomic_create_state
+Date: Wed, 14 Oct 2026 19:27:31 +0200
+Subject: [PATCH 68/75] drm/ast: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-drm-no-more-connector-reset-v1-67-586c9c026823@kernel.org>
+Message-Id: <20261014-drm-no-more-connector-reset-v1-68-586c9c026823@kernel.org>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Liviu Dudau <liviu.dudau@arm.com>
+ Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2359; i=mripard@kernel.org;
- h=from:subject:message-id; bh=xWlkU5Ox3RrBinU9oqiBhf+uDT38OomMGDksRvvpvN8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnnd6fzhRy5dGlZpP0ftnMc33qzX7p+SRP/cKBb5m9u6
- +2q+R6LO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE+jsZ6xTzbyhstp748WWo
- 4qOSzYwN6Yq+LnzmaW5Bq4591/VfHhkivzHiabpRoihr2mH/SIOnjA1bOi7cWeMdH/fme9ySezE
- zZzseuORkG/akc9XRd38eq/+U4Vu2tqFUcv6Dj+8rb11a8SUMAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2516; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=1OI9boqL+nAqL6tJfef2fTqG8bbHFfDNXe96y1d79Zg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnnd2fo7J1h8uvm/urOh/tW3WA69+ucVYO5s1v4EVvuH
+ gtTp6BpHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAinw8xNjSnXjJxfXj7wIHL
+ Ch9lvn67WGfAkHvlbdXmc68+/zz167HF+fwf65Zk3j+wXfuexd2A36qM9TFd5rsDJ9j7i9+f59Z
+ y+u2LJ0f/LeOaFOHf7S98kiN5U97jFZcfSzRev7hAv80gplHEBgA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -65,66 +65,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The malidp writeback connector reset implementation creates a custom
+The ast DisplayPort connector reset implementation creates a custom
 state subclass, but only initializes a pristine state without resetting
 any hardware. This is equivalent to what atomic_create_state expects.
 Convert to it.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
 ---
- drivers/gpu/drm/arm/malidp_mw.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/ast/ast_dp.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
-index f8be65119e3b..edd924ba722d 100644
---- a/drivers/gpu/drm/arm/malidp_mw.c
-+++ b/drivers/gpu/drm/arm/malidp_mw.c
-@@ -62,22 +62,22 @@ malidp_mw_connector_mode_valid(struct drm_connector *connector,
- static const struct drm_connector_helper_funcs malidp_mw_connector_helper_funcs = {
- 	.get_modes = malidp_mw_connector_get_modes,
- 	.mode_valid = malidp_mw_connector_mode_valid,
+diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
+index f22c0c215a21..7708169d0254 100644
+--- a/drivers/gpu/drm/ast/ast_dp.c
++++ b/drivers/gpu/drm/ast/ast_dp.c
+@@ -467,21 +467,22 @@ static int ast_astdp_connector_helper_detect_ctx(struct drm_connector *connector
+ static const struct drm_connector_helper_funcs ast_astdp_connector_helper_funcs = {
+ 	.get_modes = ast_astdp_connector_helper_get_modes,
+ 	.detect_ctx = ast_astdp_connector_helper_detect_ctx,
  };
  
--static void malidp_mw_connector_reset(struct drm_connector *connector)
-+static struct drm_connector_state *
-+malidp_mw_connector_create_state(struct drm_connector *connector)
+-static void ast_astdp_connector_reset(struct drm_connector *connector)
++static struct drm_connector_state *ast_astdp_connector_create_state(struct drm_connector *connector)
  {
--	struct malidp_mw_connector_state *mw_state = kzalloc_obj(*mw_state);
-+	struct malidp_mw_connector_state *mw_state;
+-	struct ast_astdp_connector_state *astdp_state = kzalloc_obj(*astdp_state);
++	struct ast_astdp_connector_state *astdp_state;
  
 -	if (connector->state)
--		__drm_atomic_helper_connector_destroy_state(connector->state);
-+	mw_state = kzalloc_obj(*mw_state);
-+	if (!mw_state)
+-		connector->funcs->atomic_destroy_state(connector, connector->state);
++	astdp_state = kzalloc_obj(*astdp_state);
++	if (!astdp_state)
 +		return ERR_PTR(-ENOMEM);
  
--	kfree(connector->state);
--	connector->state = NULL;
-+	__drm_atomic_helper_connector_state_init(&mw_state->base, connector);
- 
--	if (mw_state)
--		__drm_atomic_helper_connector_reset(connector, &mw_state->base);
-+	return &mw_state->base;
+-	if (astdp_state)
+-		__drm_atomic_helper_connector_reset(connector, &astdp_state->base);
+-	else
+-		__drm_atomic_helper_connector_reset(connector, NULL);
++	__drm_atomic_helper_connector_state_init(&astdp_state->base,
++						 connector);
++
++	return &astdp_state->base;
  }
  
- static enum drm_connector_status
- malidp_mw_connector_detect(struct drm_connector *connector, bool force)
+ static struct drm_connector_state *
+ ast_astdp_connector_atomic_duplicate_state(struct drm_connector *connector)
  {
-@@ -109,11 +109,11 @@ malidp_mw_connector_duplicate_state(struct drm_connector *connector)
- 
- 	return &mw_state->base;
+@@ -511,11 +512,11 @@ static void ast_astdp_connector_atomic_destroy_state(struct drm_connector *conne
+ 	__drm_atomic_helper_connector_destroy_state(&astdp_state->base);
+ 	kfree(astdp_state);
  }
  
- static const struct drm_connector_funcs malidp_mw_connector_funcs = {
--	.reset = malidp_mw_connector_reset,
-+	.atomic_create_state = malidp_mw_connector_create_state,
- 	.detect = malidp_mw_connector_detect,
+ static const struct drm_connector_funcs ast_astdp_connector_funcs = {
+-	.reset = ast_astdp_connector_reset,
++	.atomic_create_state = ast_astdp_connector_create_state,
  	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.destroy = malidp_mw_connector_destroy,
- 	.atomic_duplicate_state = malidp_mw_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+ 	.destroy = drm_connector_cleanup,
+ 	.atomic_duplicate_state = ast_astdp_connector_atomic_duplicate_state,
+ 	.atomic_destroy_state = ast_astdp_connector_atomic_destroy_state,
+ };
 
 -- 
 2.55.0
