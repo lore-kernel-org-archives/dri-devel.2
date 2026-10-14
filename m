@@ -4,110 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B03EDCC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:58:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5D8BCC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:58:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25F141121A3;
-	Thu, 15 Oct 2026 07:57:31 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D64210E9D8
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 18:50:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8A05C42E7D;
- Tue, 13 Oct 2026 18:50:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B161F00898;
- Tue, 13 Oct 2026 18:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDBE811217C;
+	Thu, 15 Oct 2026 07:57:36 +0000 (UTC)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1D7910EA91
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:58:31 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5bcb0f245e0so3398033e87.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:58:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791997110; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Ez+1CtRPrcQ09h09cbfzREEY+PLvfpBM0ji5XtduFzyR6kGxfgGTdeW98sW93GRwPD
+ S/ZsqSRYcjtfdEMd76rt32wMnG01m2P/bhwpYuQuwnAn2CUn1eRsr/0lPKWQZ6V38Tkq
+ SlQEYynD2ICa+9Cp+g7YhZwue7A0pOhdJMTAuO/aNU8W90PPGTL1eIk8jxEjHJkuPS5V
+ 29obLiVqohuFpLcglVczihsZYgKgwgCxmlSTf+isoULfY3GIi+DOpWx5UToSZ358+nJb
+ wRM36vexQbG1O+FRQ2bBZRj8lHoj8/aKpTlAsNZYgVx2+QtSiS0qzzHNx2TnWei6gkq1
+ qzOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=PeoY0yWKZRmwA+3BQa6rH8gq2X5w0eejzi+aqnvivA0=;
+ fh=s8+5RPGJ7X0Psm0kF07Q5tpmA1bc12Ly4TSXJCupYfs=;
+ b=WazVNBk1gOWAULKgvPcIfeiostyfej4u+oz5Z0AaMlu3KJwnEpzXgnvzKlhdgjtON5
+ IitG7QBIhYjBTaKU0nmzt45smHO5U+bDkk4B5jKl62KI3/DKZydmZMfuMi/gUwOk2rnM
+ jy4+k44ryukVGRzAulhkLJrZ14N8spDxpHuYGC6VGLg/3gHwEa5amS8LP+yutrcdNC3i
+ 59oQTKcQVe7EVq5aAOA5dsW2CqpiY0PIj7pz0SIF54COn4aIvOTL4WgOThGiTtutGVAQ
+ DYiWWHeRL/6dr1VEf2dqVn736SIrr5uRj3EP9Bi2TBfaVeLzhIALXAYxc1dwlK7x8mJp
+ G7PA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1791917444;
- bh=MuZf8a4s4KeYVJq+WlBcJeJCEq4B3iFccAJsrfXV9NM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=EQ4XU1XCFoj78Yyeld7YNcnP/9noZdX9lN5UCdmZcoKGQgrlrhgFY+A4mTo+auY+J
- 3Rac6nV/fZjHnfKTsq26wtuqYJMvkhuUDd/fkVCVq1fYNre1356490QbzZy183nF+c
- /ycTbc039NpvwigJiKoRCcMhob/ZU3R3AoCJM5Mw=
-Date: Tue, 13 Oct 2026 11:50:40 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
- <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Dennis Dalessandro
- <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
- <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya
- Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, Ryan
- Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
- <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert
- <dgilbert@interlog.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
- <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, Helge Deller
- <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, John Hubbard
- <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra
- <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>, Harry Yoo
- <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann
- <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
- <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
- Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, Oliver Upton
- <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Madhavan
- Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, Claudio Imbrenda
- <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens
- <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, Alexander
- Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
- <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park
- <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, Chris
- Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng Shi
- <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, Johannes
- Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Chengming
- Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, Miklos
- Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org,
- selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, Bert
- Karwatzki <spasswolf@web.de>, Takashi Iwai <tiwai@suse.de>, Emil Tsalapatis
- <emil@etsalapatis.com>
-Subject: Re: [PATCH v6 00/39] mm: make VMA flag semantics explicit,
- eliminate VM_SPECIAL
-Message-Id: <20261013115040.1583b1d8e85c4b5d65a1ae0e@linux-foundation.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ d=aleph0.ai; s=google; t=1791997110; x=1792601910; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PeoY0yWKZRmwA+3BQa6rH8gq2X5w0eejzi+aqnvivA0=;
+ b=xo7Tz5d9bYCgLIP6QDQAWIz6bV/SqAXjftgJd1RcHnGlbaD04CfR2rD/42DP/N4D1I
+ eQv/Pgk+oDOI46RQekvblHZdbNYZedNlmfULBPOsk3AKJsU2k+87gbutvzTphTXb6L2T
+ 7P3dFb6CpkE9VY6GyappjPOm68/OkmYoAcUVwhZWk6NkQUFeQ9KjhDdGg0lUDTQcVqQ4
+ holMtgAnXG8NDi2G3YVecE6a1qK/grEGE4kxo3T13mT2vqb506g/CbMnFZwwMmOM4JyN
+ xq2wTjbCWjuMdtTv8MCV/R+3JKEsvX4tDzbqDqD5+qtIJzQ0WyIHJNUgtbxGdnCWIlVW
+ hD1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791997110; x=1792601910;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=PeoY0yWKZRmwA+3BQa6rH8gq2X5w0eejzi+aqnvivA0=;
+ b=veRjexky2DFlczy5NJ4tqwB/PZ6JfTwiqgcEM7QlJStjjQpFNrvmUPI1SC9zf5anL3
+ 7sWhD4EPkk6gyfbRhG9V5oP4hRRy40w1ObzPhdFFh9QLxXx1BjnMxNcC4ZGy7+cVWCuc
+ xpRsxuUWzWK5WLVwN1+9KT9MGFJahj6rXq/e87T1n3McKE02aAQ4KUffKXhy5VY5zzQF
+ bxpcpYVLiKvpzdxeKc/i0Je302I5UPbJdQwxEllDFsgozKX93XCyvpBanbmBlx/3jFF3
+ T6AD5yFGSVbfPHgQUFlUj0XFu9SLHZ4YuZTHQ0rr1essEAcw5bYkp3HFX+yAx9bOacTT
+ 7tcg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy+q9NAUJqIwtmIqpCTyZgCFOUL75H2ja+MEz+xaoL5HxL6E67286eKDfX+IIWfF2/HBgjr/q4WsoY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKwO3teDlU6COR3AM2MicfgLuo0FcTBhxpOBtso/0XYPZHyvUf5
+ k/OVql0jqpSK0HfElD/XGcQ7yi0RgZtkjFHNdG+PCInnDUfBNoQ2zuMFZTscnfVY6zElxf0az1F
+ PQtccW10iVDh2BLJMNYW91cMdrr1qC4OQjCZuUEUkuw==
+X-Gm-Gg: AYBFou3UcDJKJwvaQdCQkJlaLG+QtaeMVq67GlQ8ORpalMK8iIpc5g/RbtDLDDlHYBR
+ xGHMpmOSr0n1HE5IdCZjyOpmyvhWJuhdDr7PkzM8OR73BPUHk92XrFiAgTEvwtV2ln2uAAkbyJI
+ S7VQzKNkkzwx7IL5wO4udyUpF6+iaDwcUS5wsDpCfS/bOWo0RSLKLNzjfqfLIcgO8kCHwQxifiR
+ cJlQHYBGux6HtBkjUFGgHdk2oobeD0hFhFZa/I0dWzSXDWR1uWQTp+sdgo+Cw9sPH6z4JjTGz2y
+ C7J5XCoZi0LjccUYS0tL0m2Wvm+MCaQMc9yPdtItX+zRNMGRDoc+Ga95uqqWnmIfurSGA9C1Qvd
+ TrsDm5MPnoqxJN+NpNAaoHZ1Nmg==
+X-Received: by 2002:a05:6512:3187:b0:5b8:bc5e:d0fe with SMTP id
+ 2adb3069b0e04-5bcde6d0062mr5550632e87.40.1791997109796; Wed, 14 Oct 2026
+ 09:58:29 -0700 (PDT)
+MIME-Version: 1.0
+References: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
+ <as9lLU0VnFW6JLKf@intel.com>
+In-Reply-To: <as9lLU0VnFW6JLKf@intel.com>
+From: Vladyslav Yamkovyi <hex@aleph0.ai>
+Date: Wed, 14 Oct 2026 18:58:13 +0200
+X-Gm-Features: AclHuK9DejIsKpYNlJitvulcu8uweG4HpEyel77BVIQowt9vPUrR_69jHdifP7A
+Message-ID: <CAGkn_9h6TMgEk6e0JEROYx_O08Dtpn=_Jyd=T+HuiJZmyGynCA@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915/psr: Send a frame change notification for async
+ flips
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?UTF-8?Q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>, 
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,534 +114,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 13 Oct 2026 16:04:40 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+There was indeed an error in my testing. I ran a synthetic reproducer
+separately from my compositor work where I originally encountered
+the issue, but failed to enable VRR in that test. I do observe the
+errors now.
 
-> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
-> properties:
-> 
-> * Is this managed by core mm, or by a driver mapping MMIO, kernel-allocated
->   pages, or even ordinary pages itself?
-> * Can it be expanded or merged?
-> * Is this a 'weird' case like mlock where migration might race and we
->   'have' to set invalid flags to notify?
-> * Is it another 'weird' case where we just want to stop GUP from touching
->   it?
-> 
-> Driver writers have often been confused about this, and who can blame them?
-> 
-> It also interacts badly with the eternal edgecase known as hugetlb - which
-> sets VMA_DONTEXPAND_BIT but doesn't also want to be treated like a
-> 'special' flag.
-> 
-> Another issue is that we cannot make sensible assumptions about flag
-> use. It's not possible to assume VMA_IO_BIT means iommu because drivers
-> abuse it and mlock abuses it.
-> 
-> Special is also an overloaded term in mm. VDSO and VVAR mappings are also
-> called 'special' but they're special in a... special way.
-> 
-> Sometimes things are called special that are a subset of
-> VMA_SPECIAL_FLAGS (VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT for instance when it
-> comes to zapping or vm_normal_folio()).
-> 
-> There's a specific kind of special for THP too, which considers
-> PFN map, mixed map 'special' but DAX not.
-> 
-> It's all rather a mess.
-> 
-> This series brings some order to things by both limiting what drivers can
-> do with VMA flags and switching to using predicates that describe
-> behaviour, not arbitrary flags.
+I withdraw this patch. I will review the logic more thoroughly,
+particularly mentioned vblank evasion code, and try to investigate
+sending TRANS_PUSH consistently and if this is worth pursuing.
+If it will not inspire confidence, I will seek to reliably disable PSR
+trans push usage.
 
-Thanks, I've updated mm-unstable to this version.
+--
+Vladyslav Yamkoyi
 
-> v6:
-> * Applied tags (thanks David!)
-> * Added 7/39 to split out the vm_insert_page() / vm_insert_pages()
->   mmap lock assertions and VMA API changes out into their own patch,
->   as per David.
-> * Updated 8/39 (was 7/38) to collapse the discontig single page case to
->   a single one and to rename things, as per David.
-> * Updated 9/39 (was 8/38) to update the discontig docs to reflect the
->   change.
-> * Updated 23/39 (was 22/38) to put expression on single line, as per David.
-> * Updated 25/39 (was 24/38) to mention the open-coding in the commit
->   message (fixed in next commit), as per discussion with David.
-> * Updated 26/39 (was 25/38) to clarify the commit message around the
->   removal of the VMA_IO_BIT check in vma_flags_is_mm_managed(), as per
->   David.
-> * Updated 30/39 (was 30/38) to no longer exclude droppable mappings from
->   vma_flags_is_mm_backed(), as it doesn't quite fit into the broader
->   definition, as per David.
-> * Updated 30/39 (was 30/38) to express vma_flags_can_merge() in terms of
->   vma_flags_is_mm_backed() (with an explicit hugetlb exclusion), and to
->   no longer use vma_can_merge() in __thp_vma_allowable_orders().
-> * Updated 31/39 (was 29/38) to use vma_is_mm_backed() (with hugetlb
->   exclusion) rather than vma_can_merge(), as guard regions have nothing to
->   do with mergeability.
-> * Updated 32/39 (was 31/38) to retain an explicit droppable check in
->   vma_can_userfault(), as per David.
-> * Updated 33/39 (was 32/38) to use vma_is_mm_backed() with an explicit
->   hugetlb exclusion, rather than vma_can_merge() which makes no sense here.
-> * Updated 34/39 (was 33/38) to retain explicit droppable checks in
->   vma_supports_mlock() and ksm_compatible(), as per David.
-> * Updated 34/39 (was 33/38) to use vma_is_mm_backed() in should_skip_vma(),
->   based on discussion with David.
-> * Updated 35/39 (was 34/38) to use vma_is_mm_backed() in
->   lru_gen_look_around(), as per David.
-> * Updated 36/39 (was 35/38) to use vma_is_mm_backed() with an explicit
->   hugetlb exclusion in migrate_vma_setup(), as per David.
-
-Here's how v6 altered mm.git.
-
-
- Documentation/filesystems/mmap_prepare.rst |    2 
- include/linux/mm.h                         |  120 +++++++++----------
- include/linux/mm_types.h                   |    6 
- mm/huge_memory.c                           |    7 -
- mm/internal.h                              |    3 
- mm/ksm.c                                   |    3 
- mm/madvise.c                               |   11 +
- mm/memory.c                                |   16 +-
- mm/migrate_device.c                        |    4 
- mm/userfaultfd.c                           |    3 
- mm/vma.c                                   |    4 
- mm/vmscan.c                                |    7 -
- tools/testing/vma/include/dup.h            |   44 +++++-
- 13 files changed, 128 insertions(+), 102 deletions(-)
-
---- a/Documentation/filesystems/mmap_prepare.rst~b
-+++ a/Documentation/filesystems/mmap_prepare.rst
-@@ -240,7 +240,7 @@ In the ``get`` hook, the user must choos
-   compound pages (if the compound page is bigger than the remaining pages in the
-   VMA, then only those pages that fit will be mapped). For a compound page, the
-   head page must be passed.
--* ``discontig_kernel_map_page_range()`` - Map an array of pages of a specified
-+* ``discontig_kernel_map_pages()`` - Map an array of pages of a specified
-   size. As with a compound page, if more pages are specified than remain in
-   the VMA then only those that fit will be mapped.
- 
---- a/include/linux/mm.h~b
-+++ a/include/linux/mm.h
-@@ -1695,57 +1695,22 @@ static inline bool vma_is_fixed_mapping(
- }
- 
- /**
-- * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
-- * merged with another?
-- * @flags: The VMA flags to test.
-- * Returns: true if the flags permit merging, false otherwise.
-- */
--static inline bool vma_flags_can_merge(const vma_flags_t *flags)
--{
--	/*
--	 * VMA merging assumes that a VMA's flags and fields completely describe
--	 * its state.
--	 *
--	 * However, mappings which are not mm-managed may have established state
--	 * upon mapping not embodied in any attribute of the VMA.
--	 *
--	 * Additionally, private (CoW) PFN maps encode the source PFN of the
--	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
--	 */
--	if (!vma_flags_is_mm_managed(flags))
--		return false;
--	/* VMA explicitly marked as being unmergeable. */
--	if (vma_flags_is_fixed_mapping(flags))
--		return false;
--
--	return true;
--}
--
--/**
-- * vma_can_merge() - Do @vma's flags permit it to be merged with another VMA?
-- * @vma: The VMA to test.
-- * Returns: true if the flags permit merging, otherwise false.
-- */
--static inline bool vma_can_merge(const struct vm_area_struct *vma)
--{
--	return vma_flags_can_merge(&vma->flags);
--}
--
--/**
-  * vma_flags_is_mm_backed() - Do the specified VMA flags imply the mapping is
-  * backed by core mm?
-  * @flags: The VMA flags to test.
-  *
-  * An mm-backed mapping is one managed by core mm (see
-- * vma_flags_is_mm_managed()) for which two further things are true:
-+ * vma_flags_is_mm_managed()) whose contents are established by core mm's own
-+ * fault path rather than a custom ->fault handler.
-  *
-- * 1. Everything mapped was placed there by core mm's fault path (no custom
-- *    ->fault).
-- * 2. What is mapped stays there until it is zapped or unmapped by the user.
-- *
-- * These mappings are the only ones which can be sensibly locked, merged, dumped
-- * or be subject to uffd faulting, as all of these assume core mm and core mm
-- * alone manages these, and that the mappings will remain there.
-+ * Mappings not managed by core mm are populated by their owner, and fixed
-+ * mappings may be mm-managed but have their contents established by a custom
-+ * ->fault handler, so neither are mm-backed. hugetlb mappings are fixed, but
-+ * core mm owns them entirely, so they are.
-+ *
-+ * These are the only mappings which can sensibly be merged, locked, dumped or
-+ * be subject to uffd faulting, as all of these assume core mm and core mm
-+ * alone manages their contents.
-  *
-  * Returns: true if the flags imply an mm-backed mapping, otherwise false.
-  */
-@@ -1761,11 +1726,7 @@ static inline bool vma_flags_is_mm_backe
- 	 * by a custom ->fault handler, so core mm cannot assume ordinary fault
- 	 * semantics over them.
- 	 */
--	if (!vma_flags_is_mm_managed(flags) ||
--	    vma_flags_is_fixed_mapping(flags))
--		return false;
--	/* Core mm may discard droppable memory at any time. */
--	return !vma_flags_test_single_mask(flags, VMA_DROPPABLE);
-+	return vma_flags_is_mm_managed(flags) && !vma_flags_is_fixed_mapping(flags);
- }
- 
- /**
-@@ -1782,6 +1743,43 @@ static inline bool vma_is_mm_backed(cons
- }
- 
- /**
-+ * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
-+ * merged with another?
-+ * @flags: The VMA flags to test.
-+ * Returns: true if the flags permit merging, false otherwise.
-+ */
-+static inline bool vma_flags_can_merge(const vma_flags_t *flags)
-+{
-+	/*
-+	 * VMA merging assumes that a VMA's flags and fields completely describe
-+	 * its state, which is only the case for mm-backed mappings.
-+	 *
-+	 * Mappings which are not mm-managed may have established state upon
-+	 * mapping not embodied in any attribute of the VMA.
-+	 *
-+	 * Additionally, private (CoW) PFN maps encode the source PFN of the
-+	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
-+	 */
-+	if (!vma_flags_is_mm_backed(flags))
-+		return false;
-+	/*
-+	 * hugetlb mappings contain per-VMA state, so their flags and fields do
-+	 * not completely describe them.
-+	 */
-+	return !vma_flags_is_hugetlb(flags);
-+}
-+
-+/**
-+ * vma_can_merge() - Do @vma's flags permit it to be merged with another VMA?
-+ * @vma: The VMA to test.
-+ * Returns: true if the flags permit merging, otherwise false.
-+ */
-+static inline bool vma_can_merge(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_can_merge(&vma->flags);
-+}
-+
-+/**
-  * vma_kernel_pagesize - Default page size granularity for this VMA.
-  * @vma: The user mapping.
-  *
-@@ -4824,28 +4822,26 @@ discontig_kernel_map_abort(struct discon
- 
- static inline void
- discontig_kernel_map_page(struct discontig_kernel_page_state *state,
--			  struct page *page)
-+		struct page *page)
- {
- 	struct folio *folio = page_folio(page);
-+	unsigned long nr_pages = 1;
- 
- 	if (folio_test_large(folio)) {
- 		VM_WARN_ON_ONCE(page != folio_page(folio, 0));
--		state->action = DISCONTIG_KERNEL_PAGE_MAP_COMPOUND_PAGE;
--		state->__folio = folio;
--		state->__nr_pages = min(state->nr_pages_remain,
--					folio_nr_pages(folio));
--	} else {
--		state->action = DISCONTIG_KERNEL_PAGE_MAP_PAGE;
--		state->__page = page;
--		state->__nr_pages = 1;
-+		nr_pages = folio_nr_pages(folio);
- 	}
-+
-+	state->action = DISCONTIG_KERNEL_PAGE_MAP_CONTIG_PAGES;
-+	state->__page = page;
-+	state->__nr_pages = min(nr_pages, state->nr_pages_remain);
- }
- 
- static inline void
--discontig_kernel_map_page_range(struct discontig_kernel_page_state *state,
--				struct page **page_arr, unsigned long nr_pages)
-+discontig_kernel_map_pages(struct discontig_kernel_page_state *state,
-+		struct page **page_arr, unsigned long nr_pages)
- {
--	state->action = DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE;
-+	state->action = DISCONTIG_KERNEL_PAGE_MAP_PAGES;
- 	state->__page_arr = page_arr;
- 	state->__nr_pages = min(nr_pages, state->nr_pages_remain);
- }
---- a/include/linux/mm_types.h~b
-+++ a/include/linux/mm_types.h
-@@ -825,9 +825,8 @@ enum mmap_action_type {
- 
- enum discontig_kernel_page_action {
- 	DISCONTIG_KERNEL_PAGE_ABORT,
--	DISCONTIG_KERNEL_PAGE_MAP_PAGE,
--	DISCONTIG_KERNEL_PAGE_MAP_COMPOUND_PAGE,
--	DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE,
-+	DISCONTIG_KERNEL_PAGE_MAP_PAGES,	/* Array of individual pages. */
-+	DISCONTIG_KERNEL_PAGE_MAP_CONTIG_PAGES,	/* 1..N contiguous pages. */
- };
- 
- struct discontig_kernel_page_state {
-@@ -847,7 +846,6 @@ struct discontig_kernel_page_state {
- 	enum discontig_kernel_page_action action;
- 	union {
- 		struct page *__page;
--		struct folio *__folio;
- 		struct page **__page_arr;
- 	};
- 	unsigned long __nr_pages;
---- a/mm/huge_memory.c~b
-+++ a/mm/huge_memory.c
-@@ -207,11 +207,10 @@ unsigned long __thp_vma_allowable_orders
- 	 * khugepaged moves data from VMAs once collapsed, after they have been
- 	 * faulted in, relying on refaulting for file-backed memory.
- 	 *
--	 * Mappings not managed by core mm cannot be reliably reconstructed from
--	 * page faults, and fixed mappings (including hugetlb) may well be
--	 * mm-managed - precisely the mappings which cannot be merged.
-+	 * Only mm-backed mappings can be reliably reconstructed from page
-+	 * faults, and hugetlb mappings cannot be collapsed.
- 	 */
--	if (!in_pf && !smaps && !vma_can_merge(vma))
-+	if (!in_pf && !smaps && (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma)))
- 		return 0;
- 
- 	/*
---- a/mm/internal.h~b
-+++ a/mm/internal.h
-@@ -1114,6 +1114,9 @@ static inline bool vma_supports_mlock(co
- {
- 	if (!vma_is_mm_backed(vma))
- 		return false;
-+	/* Core mm may discard droppable memory at any time. */
-+	if (vma_test_single_mask(vma, VMA_DROPPABLE))
-+		return false;
- 	if (vma_is_dax(vma) || vma_is_hugetlb(vma))
- 		return false;
- 	return vma != get_gate_vma(current->mm);
---- a/mm/ksm.c~b
-+++ a/mm/ksm.c
-@@ -749,6 +749,9 @@ static bool ksm_compatible(const struct
- 		return false;
- 	if (!vma_flags_is_mm_backed(&vma_flags))
- 		return false;
-+	/* Core mm may discard droppable memory at any time. */
-+	if (vma_flags_test_single_mask(&vma_flags, VMA_DROPPABLE))
-+		return false;
- 	if (file_is_dax(file))
- 		return false;
- #ifdef VM_SAO
---- a/mm/madvise.c~b
-+++ a/mm/madvise.c
-@@ -1069,10 +1069,10 @@ static bool is_valid_guard_vma(const str
- 		return false;
- 	/*
- 	 * Guard regions require a VMA whose page tables are managed solely by
--	 * the core, which is also what merging requires, so disallow any flags
--	 * that would prevent a merge.
-+	 * core mm, so the VMA must be mm-backed (excluding hugetlb, in which
-+	 * guard markers cannot be installed).
- 	 */
--	if (!vma_can_merge(vma))
-+	if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma))
- 		return false;
- 
- 	return true;
-@@ -1402,7 +1402,7 @@ static int madvise_vma_behavior(struct m
- 		new_flags |= VM_DONTCOPY;
- 		break;
- 	case MADV_DOFORK:
--		if (!vma_can_merge(vma))
-+		if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma))
- 			return -EINVAL;
- 		new_flags &= ~VM_DONTCOPY;
- 		break;
-@@ -1424,6 +1424,9 @@ static int madvise_vma_behavior(struct m
- 		/* Only mm-backed memory can be meaningfully dumped. */
- 		if (!vma_is_mm_backed(vma))
- 			return -EINVAL;
-+		/* Core mm may discard droppable memory at any time. */
-+		if (new_flags & VM_DROPPABLE)
-+			return -EINVAL;
- 		new_flags &= ~VM_DONTDUMP;
- 		break;
- 	case MADV_MERGEABLE:
---- a/mm/memory.c~b
-+++ a/mm/memory.c
-@@ -2674,26 +2674,24 @@ int map_discontig_kernel_pages_prepare(s
- }
- 
- static int apply_discontig_action(struct vm_area_struct *vma,
--				  struct discontig_kernel_page_state *state)
-+		struct discontig_kernel_page_state *state)
- {
- 	unsigned long nr_pages = state->__nr_pages;
- 	unsigned long addr = state->addr;
- 	unsigned long i;
- 
--	if (state->action == DISCONTIG_KERNEL_PAGE_MAP_PAGE)
--		return insert_page(vma, addr, state->__page,
--				   vma->vm_page_prot, /*mkwrite=*/false);
--	if (state->action == DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE)
-+	if (state->action == DISCONTIG_KERNEL_PAGE_MAP_PAGES)
- 		return insert_pages(vma, addr, state->__page_arr,
--				    &nr_pages, vma->vm_page_prot);
-+				&nr_pages, vma->vm_page_prot);
- 
--	/* Compound folio - have to iterate through each page. */
-+	VM_WARN_ON_ONCE(state->action != DISCONTIG_KERNEL_PAGE_MAP_CONTIG_PAGES);
-+	/* Contiguous pages - have to iterate through each one. */
- 	for (i = 0; i < nr_pages; i++, addr += PAGE_SIZE) {
--		struct page *page = folio_page(state->__folio, i);
-+		struct page *page = state->__page + i;
- 		int err;
- 
- 		err = insert_page(vma, addr, page, vma->vm_page_prot,
--				  /*mkwrite=*/false);
-+				/*mkwrite=*/false);
- 		if (err)
- 			return err;
- 	}
---- a/mm/migrate_device.c~b
-+++ a/mm/migrate_device.c
-@@ -746,8 +746,8 @@ int migrate_vma_setup(struct migrate_vma
- 	args->end &= PAGE_MASK;
- 	if (!vma)
- 		return -EINVAL;
--	if (!vma_is_mm_managed(vma) || vma_is_fixed_mapping(vma) ||
--	    vma_is_dax(vma))
-+	/* The migrate_vma page walk has no hugetlb support. */
-+	if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma) || vma_is_dax(vma))
- 		return -EINVAL;
- 	if (nr_pages <= 0)
- 		return -EINVAL;
---- a/mm/userfaultfd.c~b
-+++ a/mm/userfaultfd.c
-@@ -2156,6 +2156,9 @@ static bool vma_can_userfault(struct vm_
- 	/* Only mm-backed memory can have its faults handled by userspace. */
- 	if (!vma_is_mm_backed(vma))
- 		return false;
-+	/* Core mm may discard droppable memory at any time. */
-+	if (vma_test_single_mask(vma, VMA_DROPPABLE))
-+		return false;
- 	/* The shadow stack should not be written to by userspace. */
- 	if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
- 		return false;
---- a/mm/vma.c~b
-+++ a/mm/vma.c
-@@ -2654,9 +2654,7 @@ static int __mmap_new_file_vma(struct mm
- 	 * VMA_LOCKED_BIT and/or VMA_LOCKONFAULT_BIT flags.
- 	 */
- 	if (vma_supports_mlock(vma)) {
--		const vma_flags_t mask =
--			vma_flags_and_mask(&map->vma_flags,
--					   VMA_LOCKED_MASK);
-+		const vma_flags_t mask = vma_flags_and_mask(&map->vma_flags, VMA_LOCKED_MASK);
- 
- 		vma_set_flags_mask(vma, mask);
- 	}
---- a/mm/vmscan.c~b
-+++ a/mm/vmscan.c
-@@ -3521,8 +3521,7 @@ static int should_skip_vma(unsigned long
- 	if (!vma_has_recency(vma))
- 		return true;
- 
--	if (vma_test(vma, VMA_LOCKED_BIT) || !vma_is_mm_managed(vma) ||
--	    vma_is_fixed_mapping(vma))
-+	if (vma_test(vma, VMA_LOCKED_BIT) || !vma_is_mm_backed(vma))
- 		return true;
- 
- 	if (vma == get_gate_vma(vma->vm_mm))
-@@ -4462,8 +4461,8 @@ bool lru_gen_look_around(struct page_vma
- 	if (spin_is_contended(pvmw->ptl))
- 		return true;
- 
--	/* exclude fixed and non-mm-managed VMAs containing anon pages from COW */
--	if (!vma_is_mm_managed(vma) || vma_is_fixed_mapping(vma))
-+	/* exclude non-mm-backed VMAs containing anon pages from COW */
-+	if (!vma_is_mm_backed(vma))
- 		return true;
- 
- 	/* avoid taking the LRU lock under the PTL when possible */
---- a/tools/testing/vma/include/dup.h~b
-+++ a/tools/testing/vma/include/dup.h
-@@ -1681,23 +1681,49 @@ static inline bool vma_is_fixed_mapping(
- 	return vma_flags_is_fixed_mapping(&vma->flags);
- }
- 
-+static inline bool vma_flags_is_hugetlb(const vma_flags_t *flags)
-+{
-+	return IS_ENABLED(CONFIG_HUGETLB_PAGE) &&
-+	       vma_flags_test(flags, VMA_HUGETLB_BIT);
-+}
-+
-+static inline bool vma_flags_is_mm_backed(const vma_flags_t *flags)
-+{
-+	/* hugetlb is a fixed mapping, but core mm owns it entirely. */
-+	if (vma_flags_is_hugetlb(flags))
-+		return true;
-+	/*
-+	 * Mappings not managed by core mm are populated by their owner.
-+	 *
-+	 * Fixed mappings may be mm-managed, but their contents are established
-+	 * by a custom ->fault handler, so core mm cannot assume ordinary fault
-+	 * semantics over them.
-+	 */
-+	return vma_flags_is_mm_managed(flags) && !vma_flags_is_fixed_mapping(flags);
-+}
-+
-+static inline bool vma_is_mm_backed(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_mm_backed(&vma->flags);
-+}
-+
- static inline bool vma_flags_can_merge(const vma_flags_t *flags)
- {
- 	/*
- 	 * VMA merging assumes that a VMA's flags and fields completely describe
--	 * its state.
-+	 * its state, which is only the case for mm-backed mappings.
- 	 *
--	 * However, mappings which are not mm-managed may have established state
--	 * upon mapping not embodied in any attribute of the VMA.
-+	 * Mappings which are not mm-managed may have established state upon
-+	 * mapping not embodied in any attribute of the VMA.
- 	 *
- 	 * Additionally, private (CoW) PFN maps encode the source PFN of the
- 	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
- 	 */
--	if (!vma_flags_is_mm_managed(flags))
-+	if (!vma_flags_is_mm_backed(flags))
- 		return false;
--	/* VMA explicitly marked as being unmergeable. */
--	if (vma_flags_is_fixed_mapping(flags))
--		return false;
--
--	return true;
-+	/*
-+	 * hugetlb mappings contain per-VMA state, so their flags and fields do
-+	 * not completely describe them.
-+	 */
-+	return !vma_flags_is_hugetlb(flags);
- }
-_
-
+On Wed, 14 Oct 2026 at 13:19, Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
+>
+> On Tue, Oct 13, 2026 at 05:16:07PM +0200, Vladyslav Yamkovyi via B4 Relay=
+ wrote:
+> > From: Vladyslav Yamkovyi <hex@aleph0.ai>
+> >
+> > On platforms using TRANS_PUSH for PSR frame-change notifications,
+> > intel_pipe_update_end() exits early for asynchronous flips, before send=
+ing
+> > the push. The register-based notification is disabled on these platform=
+s,
+> > and an ORIGIN_FLIP frontbuffer flush does not force PSR to exit.
+> >
+> > This can leave an accepted async flip without a completion event after
+> > PSR2 enters DEEP_SLEEP. On Panther Lake, scanout freezes and the kernel
+> > reports "[CRTC:152:pipe A] flip_done timed out". Intel IGT kms_async_fl=
+ips
+> > reproduces the failure with the compositor inactive when a 200 ms idle
+> > interval is inserted before an asynchronous atomic flip.
+> >
+> > Send the PSR frame-change notification after plane programming and befo=
+re
+> > releasing the existing PSR lock. Restrict the push to CRTC states that =
+use
+> > TRANS_PUSH for PSR, leaving other async flips and the synchronous and D=
+SB
+> > paths unchanged.
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9582
+> > Fixes: 129a4da11707 ("drm/i915/psr: Use TRANS_PUSH to trigger frame cha=
+nge event")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM sparse smatch
+> > Signed-off-by: Vladyslav Yamkovyi <hex@aleph0.ai>
+> > ---
+> > Based on drm-tip (2026-10-13); also applies to v7.3-rc7.
+> >
+> > Runtime-tested on Panther Lake (xe, eDP-1, 2880x1800) with Ubuntu-based
+> > 7.3.0-rc6 kernels, before and after this fix. IGT kms_async_flips,
+> > async-flip-with-page-flip-events-tiled-atomic, dynamic subtest
+> > pipe-A-eDP-1-4-rc-ccs, fails with Flip Timeout before the fix and passe=
+s
+> > afterwards. An LD_PRELOAD interposer inserts one 200 ms idle interval
+> > before the eighth async atomic commit without changing its request or
+> > flags. Both runs enter PSR2 Early Transport DEEP_SLEEP with selective
+> > fetch enabled before that commit.
+> >
+> > Clang 23.1.2, W=3D1 builds and Sparse/Smatch checks of the CRTC, PSR an=
+d VRR
+> > translation units for i915 and Xe produced no new diagnostics.
+> >
+> > OpenAI Codex (GPT-6-Astra) assisted diagnosis, reproducer and fix
+> > development, validation and patch preparation, following requests to
+> > reproduce the freeze independently, trace its driver cause and prepare =
+a
+> > tested upstream fix. I take direct responsibility for this contribution=
+,
+> > have carefully reviewed the change and ensured rigorous local testing.
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_crtc.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/dr=
+m/i915/display/intel_crtc.c
+> > index 10ed9bdfee76..8ef24cddbaa6 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_crtc.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+> > @@ -736,8 +736,16 @@ void intel_pipe_update_end(struct intel_atomic_sta=
+te *state,
+> >
+> >       drm_WARN_ON(display->drm, new_crtc_state->use_dsb);
+> >
+> > -     if (new_crtc_state->do_async_flip)
+> > +     if (new_crtc_state->do_async_flip) {
+> > +             /*
+> > +              * LNL+ uses TRANS_PUSH for PSR frame-change notification=
+s.
+> > +              * Async flips skip the vblank path below, but still need=
+ to
+> > +              * notify PSR after programming the new surface address.
+> > +              */
+> > +             if (intel_psr_use_trans_push(new_crtc_state))
+> > +                     intel_vrr_send_push(NULL, new_crtc_state);
+>
+> This will make the behaviour of async flips + VRR inconsistent
+> between platforms where trans push is used for PSR vs. platforms
+> where it's not used. We don't want that.
+>
+> So either we want to start doing trans pushes for all async
+> flips+VRR cases, or we want to disable the PSR trans push usage
+> when async flips are happening. The latter would be the safer
+> option since the mailboxy trans push usage this would cause
+> hasn't been done before. The vblank evasion code does try to
+> handle it, but it's not actually tested.
+>
+> >               goto out;
+> > +     }
+> >
+> >       trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
+> >
+> >
+> > ---
+> > base-commit: eb1bf4700d3b25a1a1e670ef31cc06969fa08019
+> > change-id: 20261013-fix-psr-async-trans-push-bfa6550270c7
+> >
+>
+> --
+> Ville Syrj=C3=A4l=C3=A4
+> Intel
