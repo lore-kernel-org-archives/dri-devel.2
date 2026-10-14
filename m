@@ -4,85 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA69CC6B1D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 13:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 818E0CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 13:24:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25C4110E0DB;
-	Wed, 14 Oct 2026 13:07:10 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5367C10E0DB
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:07:03 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4a19cba5c14so35042455e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 06:07:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791983222; x=1792588022; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=k5Xx2GBklmLYql9VZXZ+CeE2dU9lwoFm77pkgYHcd38=;
- b=GdRm/ikw+5657eCP1QIt/Oy7I8fSOOS2+Q2lvlZwB+C9qTSzxg4YYGTcfpSUEcrWbX
- 5WI2MZZju+wke4GJqKP4bqQiV64fa12zelk8g50SKz1J28C2cMPA6WkwLujyN/eiz7eB
- r/FknksLH7RWVeTTXIRNfHzTHY5PUeH0OayfDXadZ1IOCNChbXiz6sHDVVxmt3bTb5J9
- bmjczAmLVdbiMLStMqnsqG8Np8rrn/vqOgCVsYBDH9ykBCOYQgEt2FLzMv5Vfr/HNbSj
- ry/XaLH5ZCKNicbj3U2GMN5x1xeW6RxuVtw+3dETh2ALs7SzoPbD6BwI4b0fk61ORJe2
- +u3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791983222; x=1792588022;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=k5Xx2GBklmLYql9VZXZ+CeE2dU9lwoFm77pkgYHcd38=;
- b=2FB/617XuyWMVNNarCeXgXDt6t1gZIj2R4iK+c5qtLku5kubAaOrPBmvJvdtcarW1V
- /HCL/1BLiHIY662zgrtXG1CdwQgR8cLjV9WM8VUG+aOnRt4XiVRCCPqyja9N0GTL9kbC
- UwvCYtv4RRRJrYaTWs+0421bxjZ4ICHEMy4+WLZg8yAnzrSV7a1Nwwc3jMav7L3BqZkj
- 3QMAHAS+STAkLD+yIVe4pTalauZgZ3pjo8Ag83RiIlCb4NzchgxAYPVixeqe4CQ5O1w1
- ILXXPA7Yy7T29fGinI2ujGmTGo394qSHklL+iTe0A2iKElbI/Y6/K02sMLUgWctk9YLn
- HIhA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByLOwPEcWKELa78Hxgp/qHywWz8GPsSA6bRnpCScIS0UX3xK+kward8pduAQmFmRZUFDVqYx6wvs8s=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI6dYn3qznnKnDddNTUj0bPDeQiF/UbHIf/BmSWRLaLAxYPSU1i
- ErHTgnVSv9QDpfrlNKplpXOZKv+asT/OLcOc9zSOzbIf1d1TMNZ/Mbvg
-X-Gm-Gg: AYBFou0bhjTcdtAIgTE2d8vipJDUYVXn+3ctFcV7CsV01mXjI72RBRbgDFevb1eKVHP
- terh/kDspbjn2wj5EwxV3ruaDw6SXX30EfUprCINZza9A1TFM63ZU0nzpwh+pk1+VR0M/3/Hlux
- SpT0GUrvDiTqpW55CobOx7838yuj/8lquoE0fxsex5FxZSUZrkZDreUvWdJikzRlvfHCjOgCeko
- /IrfxiWCDqjLuZF/iylrM03i+s5r0GlTAWKijspNBJgS4rqrc6Jfuj90nvTt0DGc1u2/qU84K2r
- Qai98JrxKmlzQSW545Ahxxd2//O6R5cc2gRouqmTyuJWRkn03ZBH7ubn3PsFZ2haC+kDzy6dfwZ
- VNR4oN7yzqqEXAxMGoXdzVGLFwDppZSQYdtiZAHpaRMge1UnwwX+7Ss0G0HV+GrdYwDI4yng5xV
- Sf3/2LACjunqWlyPbFGoAb7BoUg/+w58Ci98oRQMNrqLiU5uTioL8BYilqYh9vLfmBoFuD+0PMO
- vI2rNUlpNs45R1YPFVx7zh9V4aixWEKVRwduNLQr2eJZXf6FX98/zQyzpfbRT0RJwRoBuIHymF2
- wUz71EwVnb9jw+JGFqZ5/fJuTLXe7XXf/OoKGmAqJPndCCLaZw==
-X-Received: by 2002:a05:600c:6994:b0:49c:dada:30b7 with SMTP id
- 5b1f17b1804b1-4a18e446f3bmr313643615e9.2.1791983221508; 
- Wed, 14 Oct 2026 06:07:01 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
- ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1b3602990sm52779585e9.0.2026.10.14.06.07.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Oct 2026 06:07:00 -0700 (PDT)
-Message-ID: <8d0e7d1e-086b-413a-87de-20e21f519daa@gmail.com>
-Date: Wed, 14 Oct 2026 14:06:59 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 01/13] dma-buf: introduce initial file I/O
- infrastructure
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8CB510E56D;
+	Wed, 14 Oct 2026 13:24:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43BC810E56D
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:23:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D57E64451B;
+ Wed, 14 Oct 2026 13:23:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885C91F000FF;
+ Wed, 14 Oct 2026 13:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791984234;
+ bh=zh7/Ug58+Id/pjTRVFnSqm3xMVxCch1on+6+IzYcFOo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=VY1TVQtlH3RX+/ZXBgKvz5jDQWSl87MupN8zI9hC24rJvxTxwxBJ4XPc3k8kRNP73
+ BJUQ8gOni1xH2vxvOF7XI7TKoskBT6qkRLbiR7u5xhazxbzMIlK/RpjbBC6lBp+AVj
+ gkt6iyd/HWLGsXX5bI3inKNXCzcuB81i3Bi01jNQ2FMCvJRHv6Po/8i3vEZIo63f9g
+ TaU5SxADJQiyj42AB8bP1vly6Wa+mrd/1/KIY4SwlLHCs93QU/imKD1M2mJndebfi4
+ n+1QmTBNHvqDZ51qsxO3RDQuiAZXeMnp0pXpWcRVh8cP4p/5V/LPvX7YZ/pScmF3an
+ 4AflKGZkey73g==
+Date: Wed, 14 Oct 2026 08:23:53 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, dm-devel@lists.linux.dev
-References: <cover.1791975048.git.asml.silence@gmail.com>
- <49e24334953262e85d5616c9afde88c680e4f3a3.1791975048.git.asml.silence@gmail.com>
- <b461d367-8965-4798-b7ac-cffd4301cd1b@amd.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <b461d367-8965-4798-b7ac-cffd4301cd1b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v11 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261014132353.GA1625948@bhelgaas>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014065347.GW219304@unreal>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,36 +68,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/14/26 13:30, Christian König wrote:
-> On 10/14/26 13:01, Pavel Begunkov wrote:
-...>> +static void dma_buf_io_kill_map(struct dma_buf_io_ctx *ctx)
->> +{
->> +	struct dma_buf_io_map *map;
->> +
->> +	dma_resv_assert_held(ctx->dmabuf->resv);
->> +
->> +	map = rcu_dereference_protected(ctx->map,
->> +				dma_resv_held(ctx->dmabuf->resv));
->> +	if (!map)
->> +		return;
->> +
->> +	rcu_assign_pointer(ctx->map, NULL);
->> +	percpu_ref_kill(&map->refs);
->> +	/* make sure the map is not visible via ctx->map */
->> +	synchronize_rcu_expedited();
->> +	wait_for_completion(&map->drained);
->> +	dma_buf_io_map_release(map);
->> +}
->> +
->> +int dma_buf_io_init_map(struct dma_buf_io_ctx *ctx, struct dma_buf_io_map *map,
->> +			struct sg_table *sgt)
+On Wed, Oct 14, 2026 at 09:53:47AM +0300, Leon Romanovsky wrote:
+> On Tue, Oct 13, 2026 at 05:25:08PM +0300, Leon Romanovsky wrote:
+> > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+> > This misclassifies asymmetric and nested switches, and reports one answer
+> > for every kind of TLP.
+> > 
+> > Three ACS controls act on TLP attributes the Requester chooses rather
+> > than on the topology: Translation Blocking and Direct Translated P2P act on
+> > a Request's Address Type, and Completion Redirect skips Completions carrying
+> > Relaxed Ordering.
+> > 
+> > Evaluate each direction at the path divergence, decide every class from the
+> > one walk, and treat a client with ATS enabled as translating unless its
+> > driver declares per-mapping ATS.
+> > 
+> > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
+> > 
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> > Changes in v11:
 > 
-> You somehow forgotten the kerneldoc I asked for here.
+> 
+> Bjorn,
+> 
+> Could you please save me from the AI-bot attack? Every rebase seems to
+> uncover another bizarre pre-existing issue. It never ends.
 
-Ah yes, missed that function. I'll add it but perhaps in a separate
-patch, if you don't mind, depending whether we queue it for 7.4.
+Can you elaborate?  I'm not sure what you'd like me to do here.  I
+don't control the Sashiko reviews, and I thought Sashiko was recently
+changed to put pre-existing issues in a database but not in the email
+responses.
 
-> Apart from that still looks good, but I had only time to skim over it.
--- 
-Pavel Begunkov
-
+Bjorn
