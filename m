@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB42CC6B1D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 13:51:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CC3FCC6B1D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 13:51:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E056010FEB5;
-	Wed, 14 Oct 2026 13:50:54 +0000 (UTC)
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BAA910FEB5
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:50:48 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-cc751eddf25so2528573a12.3
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 06:50:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48CDC891B4;
+	Wed, 14 Oct 2026 13:50:58 +0000 (UTC)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA4A410FEC9
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:50:51 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-8935f42e8f0so260513b3a.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 06:50:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791985848; x=1792590648; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791985851; x=1792590651; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=24RQVoLsUurrQma53DK6RaZwJpCvuTQH/vyoxxKrEHQ=;
- b=CKJqgJHZAJsB7JA9EU6vxLiTRx16jxTy3J8xNu8SC3tvkT7l1PBaYXOCccEpDOEqtu
- bfP+UDg9z2ZLV1HsjK7I2RAbxnm89NZhuSf4af1UCL8Tfrr83PRWLAhMrzXqISqH+VBX
- xaZ3W2XnJj6cB/G0HtMR55A54GQ4XIHNSyCMHTu8O0sh+sM/xb4UCtZ6ZQDZlLVqClmw
- fSgy7qBwzaz4dWb60W3U+CVujX9W52CaGRO4+lITheIaC06VSGl18I8yyf7h7xnFOkyI
- QBV5ZQYbgxP3bSACJeTtxM7dG7bLIofnPpyrPdmt/ZPnRW4b2epJVb2n+HWpws5FE0OV
- o4PA==
+ bh=9N60FEJPn+sUP2TONC0z9cgEmKUwGGHP2BKqTLaIgb8=;
+ b=DgoDtG1B5YjQoSOiHne+AvcAVsYShI3YOs4bzjEg+mofEtOcwSA2jk3VrsYI1yMgp/
+ BRCcHWoMk36BdgxssP9Hjme/sTPBe3NGj/osfsiP/IPhSv8XWiatAsV0n+1MnGQlsn16
+ AqKmuDlhAHCKEDMn0uD1Qhu66awVaMjA758Htsm2yV43F4QWw7IocZtyDuaimpbNYAt0
+ Ypdb3LMTIlPrwC2Myq2+K55BbpHiBZXXfn1mVKVvZ0zI5AHon/dCXPJGeNRa91f5hBNZ
+ Hq2k9A6WGwqxLXY3WL3CTyaqvPF79Zhpptf1tG+YKvRDEnQ7W2+IiFDIB29bHblo5qK9
+ ochw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791985848; x=1792590648;
+ d=1e100.net; s=20260707; t=1791985851; x=1792590651;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=24RQVoLsUurrQma53DK6RaZwJpCvuTQH/vyoxxKrEHQ=;
- b=DOqGHBh7G0J0AffU/MIdWMGgHZ1/XY8YCasd1hAMJ1s8LS6DVfe4AHc4ihYN8DeyPq
- jC+htRImIXj+op/Ck1wprj8LyMew4Q7ROhkuFrNkpjj7pUeeTubFWsf8HVBNYExfXzzz
- WmrJEl4JLSHeMuMH7b5qc6GGF/CYHAumkCFkSmBtT/VcAqJZkVTZBWkMkIdeufQi3g8j
- whT1k1nsHA6Twtv5t1lAxXRKWN7ScE5CBV4wFhiFN2HlQ+Pwmby+LwYgtgoizLxmuykr
- PVpkiowmTZqoN+3FlfCWMdqSr0zMoHvME3ZqQ7JiOT+Q5TLvQskxFSoScugoXi4I7uRF
- PWKA==
+ bh=9N60FEJPn+sUP2TONC0z9cgEmKUwGGHP2BKqTLaIgb8=;
+ b=JwqXPykCCULkvbpJi0fjtubopOqcrEjm6afWbLOoE8Fx6wK6qA5Jl3MUBq7WeaiodL
+ EqEqyQAyYHFQfwEGxB2qUG2Kj6zLBCiJow89Mz6yYWxzDE1iT0noZI5molQoxTWwsWHJ
+ 6ySRbX37wJxV8itpLu2IoM1ARgd0BQj0Y6g96FefZYDMJV1qsfvWn7CqJGU33uz2EYA8
+ mPC8hFmMgIUnUO3zw0aRDixzgCJzdg5YyaFDo8a2trUkEpno7lADAtvEQSs0+9nfPcUU
+ t9amNctS8kE/RbmiAHEJFl03TtxBfU0zSW7mCjakwLi89W/i0z9SLmY8lHHvgtO/vAMT
+ snDA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByxbXvJ3lUDrxDQb4ruwEpIOw4FOOYuXwq1qQUzzge5mNEiMomcxxyjcbkdmCDIOL08Fb/GdoFZIXg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIdJIsLFaK0ln4ZyZriRLp9tga3B2BIh1mE18Y4wpRMv0d+QJAS
- id3bK0aeV6iQjsaJuEbLVysrqBE3HX3xIQLlKbbAZKXSlExv10hz19uH
-X-Gm-Gg: AYBFou2x66aNE2KXllLVWnr0keAktNarRZ3RMINQjSdQgEGfBU2imMa2VVlnsBNePj8
- VpvX0ioopaFYrjaYdiBlUC5O9Yv8DRaxKzLD7mBhtLXBlswjMUCZDvAPi1IhVCE/Xyp4TRvqSMd
- tu6SRYlVwWhbIhI74Oueihybbr1URuC4iX9Xuq7kMKHsJDsN5UGOWt7CtqsjrU1ibbsOCrYWRBx
- 19CtDjk3eZcCJ7Tf+bBbI27oB9GK87rE8VrI5LohDFVqtwmh4JrppqmE3j66qDaS1Kb8YU5vU1p
- NAs35VfyENXYg/h1n8g9elnVZwPN6hieT3OoWNjKbovbRPWrnhRPcCHudOq8yQsPUdhzvohQLJp
- fPybcsmi3NXYQsjJ6fFgXdNcaMVjLaKxVWGo9NlclKWxV7zeHSIugF5fAqy9mhPcE7C3PlGRrGD
- Pps3x3sOMpcT6CRZpx3apW/Ofo2QqwWIIoZSnPZowdFUkvVVaQjGpndEOpxLsrfSCbTDiiRnuMp
- s6tTYMKhMivMHJ54LJ2a0Gw8TEmCKHvoi8At9IhHtuEuvHM8muPXSRZsXi7UP8PRWt/hLaMQt4K
- T5cQVE+VOAEdhB7GVjCmlPhGJsp/g9Q5HmdP6vuWFppKiw==
-X-Received: by 2002:a05:6a21:3289:b0:3e1:c2e4:217a with SMTP id
- adf61e73a8af0-3e1c2e434a6mr5231397637.69.1791985847807; 
- Wed, 14 Oct 2026 06:50:47 -0700 (PDT)
+ AKwUvBzDbUdSBSHfR8ZhD3+t2WgB/qaO+Eg2LGaa+QY7LICxDQ2W5Wnf3KuORPxnBo9bIyKbi/BkJEdteLY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJTDV1bl4/l70kbCcRdFcMD6Tj1FpyjwCGaEP834x11mvoAy7nF
+ Thf/MEwHuupvXFdJPIQrmgoS8Ep+EWvjJ9BPHnlmZX6o8Z94FPkNtFku
+X-Gm-Gg: AYBFou3JpWy+njYtvSO4gMJe+deR5ykj/m2FEqQIwgHKxTeYBhiJ9XvyjCV2WvS0YTI
+ GNp6ZvEloRc965BB3cOftz3wK2N/N2ovD0HlRZ6pa+smTSMpvXMPOsWfurgk8WNn42UWlfLaarC
+ qY7m2bDjve/t5Jfb+7vavPXAdGd2ErJHx8Qd7Ar56qaGjBcRsl9xphitk03F3bHFUf5muGTbIcr
+ xXVnk1SAsvNbOfIqMxFw8JUF3WzE370OrmEK/fyQwJ1tg4Hkf8wTig2yQFmXdeWvVIdIG/myxh4
+ WwSY/XzF5H+L1wQGsm8m5FBfsAGAISZ2sJfmXq/Q7ioVvmUiqU4zNO2mP546Eze1d/BnWWAc27Z
+ TJHVTWc/7SF0zBoNC9ZxK7S4Xy4ysv8FCqRjD4C1Wd3ktU1DbRSTmFxzEqlWSwcr7fg/p/2N2nL
+ 9wS/FJKL8eTdpLof0tCsYR2g+CkcuRUdr5e2jwtBLheVObDNcsSURsThdGqqxxN7c1y+PUdbyQ3
+ CvDZuJq/B6Yz6B6T5ePm8Ryn0oiKO5IQmsdBev/4oMRLAtemoK7AlN/EOxjKFWQsTxrk/kq4UNz
+ g0YK9h9FLUkYxO4cUoKfQ0O6BkcbvA08yHlAxiMSIKWmSg==
+X-Received: by 2002:a05:6a00:928b:b0:882:26ea:cd56 with SMTP id
+ d2e1a72fcca58-897c73f3112mr13158156b3a.35.1791985851084; 
+ Wed, 14 Oct 2026 06:50:51 -0700 (PDT)
 Received: from NB150512.ADVANTECH.CORP
  (2001-b011-6c00-3d72-751d-cebe-164a-ae70.dynamic-ip6.hinet.net.
  [2001:b011:6c00:3d72:751d:cebe:164a:ae70])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-89d804e514bsm1168418b3a.41.2026.10.14.06.50.43
+ d2e1a72fcca58-89d804e514bsm1168418b3a.41.2026.10.14.06.50.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Oct 2026 06:50:46 -0700 (PDT)
+ Wed, 14 Oct 2026 06:50:50 -0700 (PDT)
 From: Hsieh Hung-En <hungen3108@gmail.com>
 To: dianders@chromium.org, neil.armstrong@linaro.org, jesszhan0024@gmail.com
 Cc: jagan@amarulasolutions.com, osama.abdelkader@gmail.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@gmail.com, simona@ffwll.ch, Hsieh Hung-En <hungen3108@gmail.com>
-Subject: [PATCH 1/3] drm/panel: feiyang-fy07024di26a30d: Use
- mipi_dsi_*_multi() functions
-Date: Wed, 14 Oct 2026 21:50:26 +0800
-Message-ID: <20261014135028.1438841-2-hungen3108@gmail.com>
+Subject: [PATCH 2/3] drm/panel: raydium-rm68200: Use mipi_dsi_*_multi()
+ functions
+Date: Wed, 14 Oct 2026 21:50:27 +0800
+Message-ID: <20261014135028.1438841-3-hungen3108@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261014135028.1438841-1-hungen3108@gmail.com>
 References: <20261014135028.1438841-1-hungen3108@gmail.com>
@@ -94,105 +94,82 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Replace the deprecated MIPI DSI DCS helpers with their _multi variants,
-as suggested in Documentation/gpu/todo.rst. Also convert
-mipi_dsi_dcs_write_buffer() for consistency.
+as suggested in Documentation/gpu/todo.rst.
 
-In prepare(), the first failed command prevents subsequent DSI transfers
-and its error is returned, as before. The new helper also logs the error.
+In prepare(), use mipi_dsi_msleep() to skip delays after a failed
+command, preserving the existing error handling. The helpers also
+log command failures.
 
 In unprepare(), clear accum_err between commands so that ENTER_SLEEP_MODE
-is still attempted if SET_DISPLAY_OFF fails, preserving the original
-error handling behavior.
+is still attempted if SET_DISPLAY_OFF fails. The helpers now log failures
+at error level instead of warning level.
 
-In disable(), ignore SET_DISPLAY_OFF errors to allow drm_panel_disable()
-to clear panel->enabled, avoiding a stale enabled state after the panel
-is powered off. This follows commit 00efe8a68565 ("drm/panel:
-ronbo-rb070d30: Ignore DCS errors in disable()"). Command failures
-remain logged by the helper.
+Leave the initialization sequence unchanged, as converting its write
+helpers would change error handling. This is addressed in the next patch.
 
 Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
 ---
- .../drm/panel/panel-feiyang-fy07024di26a30d.c | 35 +++++++++++--------
- 1 file changed, 21 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/panel/panel-raydium-rm68200.c | 27 ++++++++-----------
+ 1 file changed, 11 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-index c1d8ca5ca6e1..24934b9d430b 100644
---- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-+++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-@@ -46,7 +46,7 @@ static const struct feiyang_init_cmd feiyang_init_cmds[] = {
- static int feiyang_prepare(struct drm_panel *panel)
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+index c535dc931903..971d075bb060 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+@@ -232,15 +232,13 @@ static int rm68200_unprepare(struct drm_panel *panel)
  {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
--	struct mipi_dsi_device *dsi = ctx->dsi;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 	unsigned int i;
+ 	struct rm68200 *ctx = panel_to_rm68200(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
+-	int ret;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 
+-	ret = mipi_dsi_dcs_set_display_off(dsi);
+-	if (ret)
+-		dev_warn(panel->dev, "failed to set display off: %d\n", ret);
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+ 
+-	ret = mipi_dsi_dcs_enter_sleep_mode(dsi);
+-	if (ret)
+-		dev_warn(panel->dev, "failed to enter sleep mode: %d\n", ret);
++	/* Attempt to enter sleep mode even if display off failed. */
++	dsi_ctx.accum_err = 0;
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+ 
+ 	msleep(120);
+ 
+@@ -258,6 +256,7 @@ static int rm68200_prepare(struct drm_panel *panel)
+ {
+ 	struct rm68200 *ctx = panel_to_rm68200(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
  	int ret;
  
-@@ -81,44 +81,51 @@ static int feiyang_prepare(struct drm_panel *panel)
- 		const struct feiyang_init_cmd *cmd =
- 						&feiyang_init_cmds[i];
+ 	ret = regulator_enable(ctx->supply);
+@@ -275,19 +274,15 @@ static int rm68200_prepare(struct drm_panel *panel)
  
--		ret = mipi_dsi_dcs_write_buffer(dsi, cmd->data,
-+		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, cmd->data,
- 						FEIYANG_INIT_CMD_LEN);
--		if (ret < 0)
--			return ret;
- 	}
+ 	rm68200_init_sequence(ctx);
+ 
+-	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
+-	if (ret)
+-		return ret;
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+ 
+-	msleep(125);
++	mipi_dsi_msleep(&dsi_ctx, 125);
+ 
+-	ret = mipi_dsi_dcs_set_display_on(dsi);
+-	if (ret)
+-		return ret;
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+ 
+-	msleep(20);
++	mipi_dsi_msleep(&dsi_ctx, 20);
  
 -	return 0;
 +	return dsi_ctx.accum_err;
  }
  
- static int feiyang_enable(struct drm_panel *panel)
- {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 
- 	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
- 	msleep(200);
- 
--	return mipi_dsi_dcs_set_display_on(ctx->dsi);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+
-+	return dsi_ctx.accum_err;
- }
- 
- static int feiyang_disable(struct drm_panel *panel)
- {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 
--	return mipi_dsi_dcs_set_display_off(ctx->dsi);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+
-+	/*
-+	 * Returning an error would leave panel->enabled set, causing the
-+	 * next enable to be skipped even after unprepare powers off the panel.
-+	 * The helper above already logs any command failure.
-+	 */
-+	return 0;
- }
- 
- static int feiyang_unprepare(struct drm_panel *panel)
- {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
--	int ret;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 
--	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
--	if (ret < 0)
--		dev_err(panel->dev, "failed to set display off: %d\n", ret);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
- 
--	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
--	if (ret < 0)
--		dev_err(panel->dev, "failed to enter sleep mode: %d\n", ret);
-+	/* Attempt to enter sleep mode even if display off failed. */
-+	dsi_ctx.accum_err = 0;
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
- 
- 	/* T13 (backlight fall + video & logic signal fall) T13 >= 200ms */
- 	msleep(200);
+ static int rm68200_get_modes(struct drm_panel *panel,
 -- 
 2.43.0
 
