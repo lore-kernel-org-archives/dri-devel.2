@@ -4,33 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82C5DCC6B1F
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 02:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CC64CC6B1D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 02:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B663710FA86;
-	Wed, 14 Oct 2026 02:37:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB62710FA8C;
+	Wed, 14 Oct 2026 02:37:04 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E35AF10FA85
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 02:36:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C41F10FA86
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 02:36:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BF0E144003;
- Wed, 14 Oct 2026 02:36:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB7C1F00893;
- Wed, 14 Oct 2026 02:36:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ECA6444785;
+ Wed, 14 Oct 2026 02:36:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DEFA1F000FF;
+ Wed, 14 Oct 2026 02:36:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791945415;
- bh=WY4xhORG1iGiMkgZO+2fclzPuh36JIZZLK8hPc+lEV4=;
+ s=k20260515; t=1791945417;
+ bh=KAq2Bz7FaZcJL38Vo13nCjImfnA9ikGPoe2ZVW19bqk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KYIENPkq2Umuxpg8ZAYC5lec3SOt1St5eARcv5U7ASIvYVmkscnfJrkWndo7tVZYl
- mUWiGuih6GNbnBPR1vsva/CT7nhjL8tJplK2F8rXxWWxw9kCSzVT6qKA7HLW48XlWe
- VSMW/cEt3j1/nFiDEtoL5Q4vdBtR7NJxrsSrW0hyPXn4+PI88jJpIWfbRh9y1MXDAZ
- Wsm3s4YfWG0/7ZqB/n75FbOh57PqUDh0XShA1xxYFRASOysYZfXBDdcfYnxrkkwdKB
- SUhrCujkzUZCD9qO2AEmzvJLyeTYYPotZIEfjETFHWUTzlnzKINgXX5+9Hy63rlZK1
- +1WCaGbxrYR8Q==
-Message-ID: <sashiko-outbox-170708@kernel.org>
+ b=HLIkUzuEA6HLyZVn4lXATs3F31nUhLBTQ6/IItGj+DOIadyu6neszJnPuRvDu3lIl
+ 8jToSYXvYg2WgEPwZDSbBEVJvwQOw44rg2kgaP4y9rgRJm1kfM9nQeumYzOQ3DcLGG
+ q+3UsjY+2l2YPkxKzHhv8xABIqlLEagB732lu6fgbIADKDk0MADRMswqANeI/whka7
+ IsCImJgU6vfxXT0xxk81OV7RADPfeCkdHvfvGxFaVtgFl1JVFUctrYtvwWmY+OrK4j
+ sQGeGjM0i61WbOiEfw/OFARNbhrsJw2gjJkWzd/pLtOy5+ICSBt5aeRi0VJQgJD5VH
+ Whnm9AnEtO7rA==
+Message-ID: <sashiko-outbox-170721@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 01/40] selftests/dyndbg: Add kselftest script to
- verify dynamic-debug
+Subject: Re: [PATCH v12 22/40] dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
 To: "Jim Cromie" <jim.cromie@gmail.com>, "Jason Baron" <jbaron@akamai.com>,
  "Shuah
  Khan" <shuah@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Maarten
@@ -52,13 +51,13 @@ To: "Jim Cromie" <jim.cromie@gmail.com>, "Jason Baron" <jbaron@akamai.com>,
  "Sergey Senozhatsky" <senozhatsky@chromium.org>, 
  =?utf-8?b?VGhvbWFzIFdlacOfc2NodWg=?= <linux@weissschuh.net>
 Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
- linux-kbuild@vger.kernel.org
-In-Reply-To: <20261012-dd-cmap-part2-clean-v12-1-3c8cc5725def@gmail.com>
+ linux-kbuild@vger.kernel.org, "Louis Chauvet" <louis.chauvet@bootlin.com>
+In-Reply-To: <20261012-dd-cmap-part2-clean-v12-22-3c8cc5725def@gmail.com>
 References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
- <20261012-dd-cmap-part2-clean-v12-1-3c8cc5725def@gmail.com>
+ <20261012-dd-cmap-part2-clean-v12-22-3c8cc5725def@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 02:36:53 +0000
+Date: Wed, 14 Oct 2026 02:36:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,97 +74,124 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] selftests: test flakiness from unfiltered dmesg temporal slicing
-- [Medium] selftests: test failure coupled to unrelated kernel/params.c pr_=
-debug churn
+- [Medium] dyndbg: TOCTOU race causes module debug state desynchronization
+- [Low] dyndbg: Missing ARRAY_SIZE include in DYNAMIC_DEBUG_CLASSMAP_DEFINE
+- [Low] dyndbg: Unreachable return statement in param_get_dyndbg_classes
 --
 
-commit 56bb89808ed29ee403a2b674106329de27cb9b06
+commit b545d297dc88b17fae1f9dd05bfa8c4854dc7fac
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-selftests/dyndbg: Add kselftest script to verify dynamic-debug
+dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
 
-This commit introduces a dynamic-debug selftest script and a reusable helper
-library for baseline-change-verify testing. It uses spatial control-file
-slicing and temporal syslog slicing to verify valid syntax, error handling,
-and basic queries against the built-in kernel/params.c file.
+This commit replaces DECLARE_DYNDBG_CLASSMAP with an explicit client-server
+model using DYNAMIC_DEBUG_CLASSMAP_DEFINE and DYNAMIC_DEBUG_CLASSMAP_USE.
+This allows resolving references to parent classmaps and automatically
+applying the initial bitmap to the loading module at load time.
 
-> diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/t=
-ools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-> new file mode 100755
-> index 0000000000000..c1475c7555429
-> --- /dev/null
-> +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+> --- a/include/linux/dynamic_debug.h
+> +++ b/include/linux/dynamic_debug.h
+> @@ -121,17 +138,86 @@ struct ddebug_class_param {
+> [ ... ]
+> + * DYNAMIC_DEBUG_CLASSMAP_DEFINE - define debug classes used by a module.
+> + * @_var:   name of the classmap, exported for other modules coordinated=
+ use.
+> + * @_mapty: enum ddebug_class_map_type: 0:DISJOINT - independent, 1:LEVE=
+L - v2>v1
+> + * @_base:  reserve N classids starting at _base, to split 0..62 classid=
+ space
+> + * @classes: names of the N classes.
+> + *
+> + * This tells dyndbg what class_ids the module is using: _base..+N, by
+> + * mapping names onto them.  This qualifies "class NAME" >controls on
+> + * the defining module, ignoring unknown names.
+> + */
+> +#define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)		\
+> +	static const char *_var##_classnames[] =3D { __VA_ARGS__ };	\
+> +	extern struct ddebug_class_map _var;				\
+> +	struct ddebug_class_map __aligned(8) __used			\
+> +		__section("__dyndbg_class_maps") _var =3D {		\
+> +		.mod =3D THIS_MODULE,					\
+> +		.mod_name =3D KBUILD_MODNAME,				\
+> +		.base =3D (_base),					\
+> +		.map_type =3D (_mapty),					\
+> +		.length =3D ARRAY_SIZE(_var##_classnames),		\
 
-[ ... ]
+[Severity: Low]
+Does this macro rely on ARRAY_SIZE without including <linux/array_size.h>
+or <linux/kernel.h> in <linux/dynamic_debug.h>?
 
-> +function FT_basic_queries {
-> +    v_echo "${GREEN}# BASIC_TESTS ${NC}"
-> +    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-> +	echo "SKIP - test requires dynamic_debug built into kernel"
-> +	return
-> +    fi
-> +    local f=3D'kernel/params.c'
-> +    ddcmd =3D_ # zero everything
+This can cause implicit declaration build errors for modules that use
+this macro without independently including the required headers.
+
+> +		.class_names =3D _var##_classnames,			\
+> +	};								\
+> +	EXPORT_SYMBOL(_var)
+>
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -773,6 +795,7 @@ int param_get_dyndbg_classes(char *buffer, const stru=
+ct kernel_param *kp)
+>  	default:
+>  		return -1;
+>  	}
+> +	return 0;
+
+[Severity: Low]
+Is this return statement reachable?
+
+The switch statement on map->map_type exhaustively handles the valid cases
+and the default case, returning from all branches. This appears to make
+the subsequent return 0 dead code.
+
+>  }
+>  EXPORT_SYMBOL(param_get_dyndbg_classes);
+> [ ... ]
+> @@ -1210,163 +1404,163 @@ static const struct proc_ops proc_fops =3D {
+> [ ... ]
+> +static void ddebug_sync_classbits(const struct kernel_param *kp, const c=
+har *modname)
+> +{
+> +	const struct ddebug_class_param *dcp =3D kp->arg;
+> +	u32 val, new_bits;
 > +
-> +    ddcmd "file $f +mf" "$f"
+> +	if (!dcp || !dcp->map)
+> +		return;
+> +
+> +	switch (dcp->map->map_type) {
+> +	case DD_CLASS_TYPE_DISJOINT_BITS:
+> +		val =3D READ_ONCE(*dcp->bits);
+> +		new_bits =3D val;
+> +		v2pr_info("  %s: classbits: 0x%x\n", KP_NAME(kp), new_bits);
+> +		ddebug_apply_class_bitmap(dcp, &new_bits, 0, modname);
 
 [Severity: Medium]
-By strictly validating the exact state of kernel/params.c and hashing the
-normalized text, won't this test break if an unrelated upstream commit
-legitimately adds or removes a pr_debug() in kernel/params.c? Does this
-inadvertently couple the selftest to unrelated core kernel changes?
+Can this lockless read of the global parameter lead to a desynchronization
+of the module debug state?
 
-> +    ddcmd "file $f +l"  "$f"
-> +    ddcmd "file $f -m"  "$f"
-> +    ddcmd "file $f =3D_"  "$f"
+If a concurrent sysfs write to the parameter occurs via
+param_set_dyndbg_module_classes(), it reads the old value, applies the
+new state to all modules, and then updates the global parameter.
 
-[ ... ]
+If the module load thread in ddebug_sync_classbits() reads the global
+parameter locklessly before the sysfs thread updates it, it will see the
+old value and apply it to the new module, overwriting the sysfs changes.
 
-> diff --git a/tools/testing/selftests/dynamic_debug/syslog_hash_validation=
-.sh b/tools/testing/selftests/dynamic_debug/syslog_hash_validation.sh
-> new file mode 100644
-> index 0000000000000..8c6e91f5d9c27
-> --- /dev/null
-> +++ b/tools/testing/selftests/dynamic_debug/syslog_hash_validation.sh
+The sysfs thread would then complete, leaving the global parameter updated
+but the new module stuck with the old state.
 
-[ ... ]
-
-> +function verify_dmesg_slice {
-> +    # Slices dmesg, computes its hash, and verifies it against the datab=
-ase.
-> +    # $1 - unique test key (e.g. normal_513)
-> +    # $2 - optional start marker (defaults to ${APP}_START_${label})
-> +    # $3 - optional end marker (defaults to ${APP}_END_${label})
-> +
-> +    local label=3D"$1"
-> +    local app=3D"${APP:-DYNDBG}"
-> +    local start_marker=3D"${2:-${app}_START_${label}_$$}"
-> +    local end_marker=3D"${3:-${app}_END_${label}_$$}"
-> +
-> +    # 1. Capture the log slice (exactly once!)
-> +    local log_slice=3D$(dmesg | sed -n "/$start_marker/,/$end_marker/p" =
-| \
-> +	grep -E -v "$start_marker|$end_marker" | \
-> +        sed -E -e 's/^(\[[^]]*\][[:space:]]*)+//' )
-
-[Severity: Medium]
-Since verify_dmesg_slice captures all kernel logs between test markers and
-hashes the entire block without filtering for test-specific messages, could
-concurrent unrelated kernel subsystems (like networking or RCU) emit printk
-logs that alter the MD5 hash and cause false positive test failures?
-
-> +
-> +    # 2. Compute its fingerprint
-> +    local fingerprint=3D$(echo "$log_slice" | tr -d '\r' | md5sum | cut =
--d' ' -f1)
-> +
-> +    # 3. Verify
-> +    verify_fingerprint "$label" "$fingerprint" "Dmesg Log" "$log_slice"
-> +}
+> +		break;
+> +	case DD_CLASS_TYPE_LEVEL_NUM:
+> +		val =3D READ_ONCE(*dcp->lvl);
+> +		new_bits =3D CLASSMAP_BITMASK(val);
+> +		v2pr_info("  %s: lvl:%d bits:0x%x\n", KP_NAME(kp), val, new_bits);
+> +		ddebug_apply_class_bitmap(dcp, &new_bits, 0, modname);
+> +		break;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-dd-cmap-pa=
-rt2-clean-v12-0-3c8cc5725def@gmail.com?part=3D1
+rt2-clean-v12-0-3c8cc5725def@gmail.com?part=3D22
