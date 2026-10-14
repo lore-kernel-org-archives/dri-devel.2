@@ -4,68 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40001CC6B19
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 00:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D9FCC6B19
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 00:30:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86CED10E983;
-	Wed, 14 Oct 2026 00:11:37 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A77C10E983
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 00:11:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791936687; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=A5vSWpTRbU3aybI2eZ4bWu31FH9JMEUvPl1dx5fSyhofvK3W8OpljKkSYaK78zCWDgFL3r2OM6ft+wKXk3R67v8IJ3JVQWlI3Wz+9z6nlPCEIk2GYghIM+QUW1WOtdAq5L/619w5bEGHMOe5BSjWYqHm0isecrG1rzra007nc/s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791936687;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=31RYT1NeKYC/yx5MWS0uypGHxzMJAgXasfC8mMXP0jU=; 
- b=l8OGgWMFz0yalA9cBHXEzxupyUm0purbkguZeQxHCIsDEOtgbzkvfX71GC1TT9ybz/q56ibzhyUSsWbxYkXY1lNLY6ucP++ULrA8NhG2Pa3n7sgeggv2eDDrypQ6e432gBEQKFFocb0hvOewW8lPGI0pN9jnh2ijmKxQSe2H88Y=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791936686; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=31RYT1NeKYC/yx5MWS0uypGHxzMJAgXasfC8mMXP0jU=;
- b=AFjnC2fxNenyy/0OM0XTvcgpC5e4cGZr/A/vDN4Vy2BPywkWgmEkU3EsvwGVlDVx
- Ep0ttlN1eh8/22xHZ7sH2oFMYWlA4cvJ6Bsef5O+W1ueGNxTSJXrNdubaN2HPRMLhb1
- x/HF+IPuSAYQQNvbbRe5ZxbqmEMXSmK8gLuJrW2w=
-Received: by smtp.zohomail.com with SMTPS id 179193668404267.12973937554386;
- Tue, 13 Oct 2026 17:11:24 -0700 (PDT)
-Date: Tue, 13 Oct 2026 17:11:22 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: Ke Sun <sunke@kylinos.cn>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>,
- rust-for-linux@vger.kernel.org, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev,
- Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v3 04/11] drm/tyr: add per-file VM pool
-Message-ID: <as7IqjINtIURG4yi@um790>
-References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
- <20260929-tyr-ioctls-v3-4-26955fb111d5@kylinos.cn>
- <aspyoBHaSaJpMxJv@um790>
- <B20D93F5-4950-4E9C-8E3B-E2DC476DA539@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6604610E9A6;
+	Wed, 14 Oct 2026 00:29:56 +0000 (UTC)
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
+ [209.85.221.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B073B10E11F
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 00:29:44 +0000 (UTC)
+Received: by mail-vk1-f173.google.com with SMTP id
+ 71dfb90a1353d-5e78346891fso2841478e0c.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 17:29:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791937783; x=1792542583; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5gCpZntt7rlk90yQDGnnj9e91a6SUbPGGE+tmaduhpU=;
+ b=jfNLu2Oee2gO/ZN9UTI7UjW/m2VLve61bEI+ZesYpDHZUw9QuYEFosbc/mwJ+U0ueA
+ LzvtjpV2Tq2WuhnHq5QrOTzta4M+v6G8uhAgfTtG5parUR7TI7fQ2ReYcCnpxfUiIJAI
+ hswAMk5BQuUz+71rW+dM1xzxQoBU0SQjDSmHxmyCNgSM6FOo34k9mekJukx+dthxJe9+
+ 2zvjMCVu9OU8rfR7BY4uE043N7KjBFMlJwz0JyE31O5Wj00kwHs5TAeYHrxSYNcRXaBe
+ tlgGCdP5HrwCYvejX4Ll40Zn77nR1VccCZvl9wsSfheAzIkh+VX5MSTNa/P7ElL3MLOy
+ ia1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791937783; x=1792542583;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5gCpZntt7rlk90yQDGnnj9e91a6SUbPGGE+tmaduhpU=;
+ b=Frkoza9Hme1g7aRg1cFQVqnrwv2v94SApMm5UlHyD/RDTI/QBOlxaEYeeoWqoZVd8y
+ e0ZAZHWHkBkAoOcVWQk+Z60gp++DZqZDhtytbguMs2XT92sV5L9/V2JuMFUpF5CmNGYZ
+ kq8W+Q5+K+J+MZZ0COu2SlIOg08ozLMl5HKj6OJFJqcK7X/ifufdwMv+bui7a7WxZC5X
+ 1siFt2UkdjE6qzqQgvwR869X+t1TRjAKCQpSV3+iR/dfWqm5ByOq6vIg2KaTF16OnBxG
+ CkgBfnfO7Flv0Oe+UEcN9hWX+XRG120j+vMzzdiaHSlVjXYEF8la9x9fgi1grV2/uQhA
+ M8EQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByfFP+m43LfZ2SYPCPbEvAHrBzCJi1oq3frPpePEjOOD2WPvE5N7H4cXtfRv7Wpf12Oy4hHOJX+sno=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIZAx9uRWJ1Zsq+U+8BsErQJX/xdcHGlxE2N9N3wrKXLFe1Vx1z
+ zf9XW3FY/IocJflV0qDgcJF+SXYDl9m9+fT8Jqq+S56DVHWip/+xWxjO
+X-Gm-Gg: AYBFou2bA6kr0b0Kh7aWM7WnUVBGGC86k9IJDc2yBSctMC788YGIU/DhN4UUFp8FJD7
+ 1NNhmsyv0fN7pdD8r9XOeBwJmpku6YVMnLf7dQTB9PY4nb/YjMV8sG217mArP26P6iy34PSWWqR
+ cp1qfKMkClrCPWiHY4V4Dx3DndsvGdQu31OKhj5apuVAfduuoCOu8rh1U0DcJNpgT7or53SxLlr
+ iwQkME5+cq4qUEyo3uGuJ+KJ4OhqrP4s+rRAOztbr5NLUg/MNiaN8IewkOB4hjl15tLZ0zO3JKc
+ naOvLBHcjQrdwZAfXN82yMbX3ibepIsCAv0Ce+43Nnr5j6U9OiMCuInwQljXePA+yf2RNE0PviP
+ EKipToe9BD9UiAKr83rEGTMvSmZNbWrBstDAIXdbzqCPUS7ajyqAtQSu25+v8zARXtRyHVqYXno
+ t9mOAxBfjUwouGZXd+FqP8XGQ3Z8RWm0Pgupdw3e7Acizt3W0hkvFSmgeyyPqMbOED1Bvw8tcs0
+ cjAygFgJYtPzk5VkkPBkMipUSVljCe+eJ2Z8Pxv
+X-Received: by 2002:a05:6122:6161:b0:5c9:a60c:2732 with SMTP id
+ 71dfb90a1353d-5e91f44e07cmr4861188e0c.10.1791937783452; 
+ Tue, 13 Oct 2026 17:29:43 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2804:5698:10bd:5700:de7a:f49a:c785:d4aa])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5e91cb3117esm10165836e0c.9.2026.10.13.17.29.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Oct 2026 17:29:42 -0700 (PDT)
+From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+To: alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Subject: [PATCH] drm/amdgpu/gfx8: remove redundant RLC cleanup
+Date: Tue, 13 Oct 2026 21:28:58 -0300
+Message-ID: <20261014002858.172853-1-williandossantosdeoliveira287@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <B20D93F5-4950-4E9C-8E3B-E2DC476DA539@collabora.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.928.13
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,48 +86,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Oct 10, 2026 at 04:33:32PM -0300, Daniel Almeida wrote:
-> Hi Deb,
-> 
-> I find it unidiomatic to have containers destroy an item if addition fails. A
-> more common pattern is to return the item in an error. Something like:
-> 
-> pub(crate) struct AddError<'drm> {
->     pub(crate) error: Error,
->     pub(crate) vm: Arc<Vm<'drm>>,
-> }
-> 
-> This would not convert automatically to Error, so callers could not simply "?"
-> it, they have to handle it:
-> 
-> pool.add(vm).map_err(|e| {
->     e.vm.kill();
->     e.error
-> })?;
+gfx_v8_0_sw_fini() already releases the RLC objects used by gfx8
+(clear_state_obj and cp_table_obj). The generic
+amdgpu_gfx_rlc_fini() also frees save_restore_obj, which is not used
+by gfx8.
 
-Interesting, I see what you mean because it would give the caller control
-over the vm and managing its tear down. And it would be nice to separate
-the creation of the vm from inserting it into the pool. I implemented this
-myself and that's fine if you want to go with adding a custom VmAddError
-or something like that.
+Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-But, would you also consider going the other way and actually creating
-the vm inside VmPool::add()?
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 7f91186ef1d1..088428e41f44 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -2059,7 +2059,6 @@ static int gfx_v8_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	amdgpu_gfx_kiq_fini(adev, 0);
+ 
+ 	gfx_v8_0_mec_fini(adev);
+-	amdgpu_gfx_rlc_fini(adev);
+ 	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
+ 				&adev->gfx.rlc.clear_state_gpu_addr,
+ 				(void **)&adev->gfx.rlc.cs_ptr);
+-- 
+2.47.3
 
-One advantage of this approach is that we don't have to create the vm at
-all if there are no ids available so we can just return ENOSPC.
-
-And, since we have to kill a prev_vm if store unexpectedly returns a vm,
-then this would centralize vm creation, registration, and failure cleanup
-all in a single place. It would also be consistent with planned revisions
-to VmPool::remove() which is going to take responsibility for tearing
-down the vm.
-
-> 
-> Don't worry, I plan to remove the need to manually call kill() soon, so this
-> subject will become outdated in the near future.
-> 
-> Paths where the Vm is already in the pool can call kill() though, this includes
-> remove().
-> 
-> -- Daniel
