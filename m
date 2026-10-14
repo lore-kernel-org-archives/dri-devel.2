@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BECFACC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 07:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62459CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 07:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24EC810E034;
-	Wed, 14 Oct 2026 07:53:19 +0000 (UTC)
-X-Greylist: delayed 495 seconds by postgrey-1.36 at gabe;
- Wed, 14 Oct 2026 07:53:12 UTC
-Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
- [109.224.244.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF58F10E034
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 07:53:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1791963900; x=1792223100;
- bh=0J4sh4csOcn3zKERB6o1fbX9FtthYRH58NuaSeRekLI=;
- h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=c+5sWshyMQncl2L3LT6dSL/EKpkMoMTQQMmryuiSSJmH29pskYnQ+2GsnNNj5rwMF
- Ug3jWmIOZdmLYJz+zwLWcxm9X1QJVtlJ/jrWYKxYVnu5PZCeS+qvR9IEqWx+2uHmgq
- LwTYffGZQQBV7W3h96p/z/yYrGPxo7iL+yyIo6eBvRahrkwAxYT6DuTNCng3Xc0oNN
- u7E3Eb+yAPySH9oVPVNkY5rgAqm0j50z3MBka0FUiPMYe8AknjwtIbRWtE+VAtm7ad
- 8yrwJO16qOX+8jY/HnZx73PR6Ko8NnZxgb6sMTmthJaYbeLw5SOA1Wd0H6wcH/o4HC
- p/cxlaQeSNAag==
-X-Pm-Submission-Id: 4j4NXB72pGz1DDLm
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 14 Oct 2026 09:44:44 +0200
-Subject: [PATCH RESEND v4 3/4] drm/bridge: nwl-dsi: Correct auto-insert
- EOTP behavior
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C7B10FBE2;
+	Wed, 14 Oct 2026 07:57:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4365210FBE2
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 07:57:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2BAC760214
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 07:57:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91BD1F0089B
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 07:57:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791964623;
+ bh=sl6IW0nnvVtp07vNT44AV7L0erWrDL8jBfOworvsToI=;
+ h=From:In-Reply-To:References:Date:Subject:To:Cc;
+ b=co9OoteDp2WuxaM8YqiplSwL9GnSd9In+175+3Te3DpvnRRfRQnFkFo+66Rxr8uTx
+ fJYP8sycpWgurlsHVS+fCyw7p0VkLM5hgv1fQct5k3l5MryucUFTUwW8D16h6rKYJg
+ qC4Sw6Yl0Vw/3h8SiPgyDEjGvfrAQ7z9DAOU1XID9Fw9QCjsHRSI9Zp4EufxvqDtdj
+ OEQz2ODYL3dahOwI1VJmJpeVa78kuo8g0w91NTk7fJCZz3zCIfoCumI482++PTfRGZ
+ KioZJz1346e+z5inJu/Mi6i3b47QXZAtTuEh6hOOvlz2sD33rq1jc+BXpeoUaXnX5i
+ KjDhwntvI9xiQ==
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-3a75f960be3so9132801fa.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 00:57:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxXC1aP6V7xFl3CZZBJNjdbn82EBByE8+zcU0XZFeguEeE4oFa/5S9lJXm/NnMiWp3UPI7nVgq0jWY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLvgFA0uXczyAviMsTeybmm4odJ2P6QGTrkELIOKgwcd+5T7G+a
+ i8lrXVN2RFx6y9S7hK7rnhXE7lCLTxcmjGW55PSDGO4sSCzCrICz3nldlheqPyxDRujTwocHADU
+ G4J9WELAFfCUpFesVcheCqs756MNlwIu6RXuX4vrSyQ==
+X-Received: by 2002:a05:651c:1542:b0:3a6:692d:b7ed with SMTP id
+ 38308e7fff4ca-3a9c539343dmr40055691fa.20.1791964622555; Wed, 14 Oct 2026
+ 00:57:02 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Oct 2026 00:57:01 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Oct 2026 00:57:01 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260814075624.16639-1-pengpeng@iscas.ac.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-nwl-dsi-fixes-v4-3-b9138ea5e12c@geanix.com>
-References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
-In-Reply-To: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
- Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791963890; l=1534;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=ph/ko3JZuF/EGwW8CMFFQ2PCEUquZd0uUQmZBRXKKT0=;
- b=g3xAhBhs1nP3jD7qEDuvgH/Ez0EBlVa15PCrsH+2UhGLeF+v/OTntYTAVfmS2Sq/usCFS/NQG
- irMmo6AkimyAXc16Z2AfYX20B7kN2Dkx2ivw4H0TwT2YBQqKrGLMBkX
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+References: <20260814075624.16639-1-pengpeng@iscas.ac.cn>
+Date: Wed, 14 Oct 2026 00:57:01 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Me3kH8rrifW20xw2JqECydKrbBfQ2ZfFsTrL6KwD8+9=A@mail.gmail.com>
+X-Gm-Features: AclHuK_kQw-qSVTPtUkRCZuiCj0gamOTj8vq5XddbmqNqJG15Vf0yUsge2wg9SY
+Message-ID: <CAMRc=Me3kH8rrifW20xw2JqECydKrbBfQ2ZfFsTrL6KwD8+9=A@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: davinci_all_defconfig: enable the current ST7586
+ symbol
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: David Lechner <david@lechnology.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Bartosz Golaszewski <brgl@kernel.org>, Russell King <linux@armlinux.org.uk>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,46 +72,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Robert Chiras <robert.chiras@nxp.com>
+On Fri, 14 Aug 2026 09:56:24 +0200, Pengpeng Hou <pengpeng@iscas.ac.cn> said:
+> The ST7586 DRM provider is now built by CONFIG_DRM_ST7586.
+> davinci_all_defconfig still enables the removed DRM_TINYDRM and
+> TINYDRM_ST7586 carrier symbols.
+>
+> Replace those stale entries with the current provider symbol.
+>
+> Assisted-by: Codex:gpt-5
 
-In order to respect the DSI protocol, make sure that auto-insert EOTP is
-enabled according to the NO_EOT_PACKET flag instead of the
-CLOCK_NON_CONTINUOUS flag.
+Should be Assisted-by: LLM but even that tag is going away[1].
 
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Esben Haabendal <esben@geanix.com>
-Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
----
- drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+> Changes since v1: https://lore.kernel.org/all/20260624082029.18675-1-pengpeng@iscas.ac.cn/
+> - no source-code changes
+> - rebase davinci_all_defconfig
+> - route the revision to DaVinci and ST7586 maintainers
+> - add the coding-assistant disclosure
+>
+> The Kconfig/provider mapping was reviewed statically; no DaVinci kernel
+> build was performed.
+>
+>  arch/arm/configs/davinci_all_defconfig | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/arch/arm/configs/davinci_all_defconfig b/arch/arm/configs/davinci_all_defconfig
+> index 72703ef0c51c..ac0029701283 100644
+> --- a/arch/arm/configs/davinci_all_defconfig
+> +++ b/arch/arm/configs/davinci_all_defconfig
+> @@ -144,8 +144,7 @@ CONFIG_VIDEO_ADV7343=m
+>  CONFIG_DRM=m
+>  CONFIG_DRM_TILCDC=m
+>  CONFIG_DRM_SIMPLE_BRIDGE=m
+> -CONFIG_DRM_TINYDRM=m
+> -CONFIG_TINYDRM_ST7586=m
+> +CONFIG_DRM_ST7586=m
+>  CONFIG_FB=y
+>  CONFIG_FB_DA8XX=y
+>  CONFIG_BACKLIGHT_PWM=m
+> --
+> 2.50.1 (Apple Git-155)
+>
+>
 
-diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 1aab46e1a168..f3f4334136c0 100644
---- a/drivers/gpu/drm/bridge/nwl-dsi.c
-+++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
- 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
- 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
- 
--	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
-+	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
--		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
--	} else {
-+	else
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
-+
-+	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
--	}
-+	else
-+		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
- 
- 	/* values in byte clock cycles */
- 	cycles = ui2bc(cfg->clk_pre);
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
--- 
-2.56.0
-
+[1] https://lore.kernel.org/lkml/20261009083137.3-1-sashal@kernel.org/
