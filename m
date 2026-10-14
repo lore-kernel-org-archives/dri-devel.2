@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E6ACC6B19
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 01:03:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D04EECC6B22
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 01:03:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4E5D10E17B;
-	Wed, 14 Oct 2026 01:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E84B410EA54;
+	Wed, 14 Oct 2026 01:03:38 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB6110E17B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2DFE10E165
  for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 01:03:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1791939808;
- bh=ccpopn9Y9LAmIjVmaGfBkmnfpoFJvMf4XBoclWEOsYY=;
+ s=mail; t=1791939809;
+ bh=VZ3TAZNBxqqfdza/aL8Ylg5fv5lsNNMVwLTvIMhkWZw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ZK968R6An9g192Divilug2aqf7VKIPOmr2LnyX3rDb/d6crg4OyEl02eXHSWZmOw0
- eguDWFLp0Dq4C8nhmDWqpnmdkUZm6O/lN0ZkTy2l0UregbFFaUIbHXFu2lSlPLGf3M
- 3CgQe6cGL+bjsbyocHvP9zhwTgQcc3miyB+q/TpjAPdAcwcQa5YCVT5rLOIHh0cRzm
- qsgj1pJTFgUGlQbeKjxsb71V2R8pqjURWvx1etluDX23palVliV+Y/HMg0uqh+jCMu
- JqB2+hB43Sg5H/NZrjW0ID2gVEa49FNAHgGw6UIGAlcMqpxAPj0O0lNagtlaVsXnId
- Sn2qcOj7E4lsQ==
+ b=PnVm+RCh59JqZ9IDNFmLr18qXnSAGGSuWraPWexLbMp7veLaQTWVIw/k1dVX4K/fT
+ Rkoja/PyEmaMQpxgTJMdzTV0lGSzZjOtUwiCv7uPIy6j/vGu+DS1hfOIoTQQkDaOfS
+ jCIefaxTKwrAYPpI8a58BjUi6qbVSufMBXmaz+0FMw6LYSx8obtxhfsWQV1KcOGL0K
+ 7cAUgGt6V1MP/mMtW7+7qAU8AzdyE/+1unAZmKJbkUc8I7j5b2rhJAtoKdAz1ODetY
+ gz911/Zu+9KTgMa47R1be6LrxTD5GXcymklo8jySCws4ohPYSc8vbptF+chGMs4Oy6
+ vJ+hb2i7Zl/DA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7CFFF17E043C;
- Wed, 14 Oct 2026 03:03:28 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 53BDC17E0A33;
+ Wed, 14 Oct 2026 03:03:29 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 04:03:08 +0300
-Subject: [PATCH v3 1/9] drm/vc4: hdmi: Use common TMDS char rate constants
+Date: Wed, 14 Oct 2026 04:03:09 +0300
+Subject: [PATCH v3 2/9] drm/vc4: hdmi: Switch to
+ drm_hdmi_mode_needs_scrambling()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-vc4-common-scramb-v3-1-c68d58d959a2@collabora.com>
+Message-Id: <20261014-vc4-common-scramb-v3-2-c68d58d959a2@collabora.com>
 References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
 In-Reply-To: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -64,105 +65,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace HDMI_14_MAX_TMDS_CLK defined locally with
-HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ provided by linux/hdmi.h.  Note this
-incorrectly referenced HDMI 1.4, as the 340 MHz maximum TMDS character
-rate was actually introduced in HDMI 1.3.
+The VC4 HDMI driver has a local helper to check whether a mode requires
+scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
+use the common helper instead.
 
-Similarly, use HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ instead of the 600000000
-magic number.
+No functional change intended.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 3a90dbb61f4e..8e4623ccc4f8 100644
+index 8e4623ccc4f8..26c63ce2dc2f 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -45,6 +45,7 @@
- #include <linux/clk.h>
- #include <linux/component.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/hdmi.h>
- #include <linux/i2c.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
-@@ -113,8 +114,6 @@
- #define HSM_MIN_CLOCK_FREQ	120000000
- #define CEC_CLOCK_FREQ 40000
- 
--#define HDMI_14_MAX_TMDS_CLK   (340 * 1000 * 1000)
--
- static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
- {
- 	struct drm_display_info *display = &vc4_hdmi->connector.display_info;
-@@ -137,7 +136,7 @@ static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
- {
- 	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
- 
--	return clock > HDMI_14_MAX_TMDS_CLK;
-+	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+@@ -130,15 +130,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+ 	return true;
  }
  
+-static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+-					   unsigned int bpc,
+-					   enum drm_output_color_format fmt)
+-{
+-	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+-
+-	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+-}
+-
  static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
-@@ -1728,7 +1727,7 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
- 	if (clock > vc4_hdmi->variant->max_pixel_clock)
- 		return MODE_CLOCK_HIGH;
+ {
+ 	struct drm_debugfs_entry *entry = m->private;
+@@ -313,7 +304,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
+ 		return 0;
+ 	}
  
--	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_14_MAX_TMDS_CLK)
-+	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
- 		return MODE_CLOCK_HIGH;
+-	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
++	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
+ 							   vc4_hdmi->output_bpc,
+ 							   vc4_hdmi->output_format);
+ 	if (!scrambling_needed) {
+@@ -443,7 +434,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+ 		const struct drm_display_mode *mode;
  
- 	/* 4096x2160@60 is not reliable without overclocking core */
-@@ -3254,7 +3253,7 @@ static int vc4_hdmi_bind(struct device *dev, struct device *master, void *data)
- 	 * vc4_hdmi_disable_scrambling() will thus run at boot, make
- 	 * sure it's disabled, and avoid any inconsistency.
- 	 */
--	if (variant->max_pixel_clock > HDMI_14_MAX_TMDS_CLK)
-+	if (variant->max_pixel_clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
- 		vc4_hdmi->scdc_enabled = true;
+ 		list_for_each_entry(mode, &connector->probed_modes, head) {
+-			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
++			if (drm_hdmi_mode_needs_scrambling(mode, 8,
++							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
+ 				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
+ 				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
+ 			}
+@@ -803,7 +795,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+ 	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
+ 		return;
  
- 	ret = variant->init_resources(drm, vc4_hdmi);
-@@ -3384,7 +3383,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi0_regs",
- 	.card_name		= "vc4-hdmi-0",
--	.max_pixel_clock	= 600000000,
-+	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc5_hdmi_hdmi0_fields,
- 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi0_fields),
- 	.phy_lane_mapping	= {
-@@ -3413,7 +3412,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
- 	.debugfs_name		= "hdmi1_regs",
- 	.card_name		= "vc4-hdmi-1",
--	.max_pixel_clock	= HDMI_14_MAX_TMDS_CLK,
-+	.max_pixel_clock	= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc5_hdmi_hdmi1_fields,
- 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi1_fields),
- 	.phy_lane_mapping	= {
-@@ -3442,7 +3441,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi0_regs",
- 	.card_name		= "vc4-hdmi-0",
--	.max_pixel_clock	= 600000000,
-+	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc6_hdmi_hdmi0_fields,
- 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi0_fields),
- 	.phy_lane_mapping	= {
-@@ -3469,7 +3468,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
- 	.debugfs_name		= "hdmi1_regs",
- 	.card_name		= "vc4-hdmi-1",
--	.max_pixel_clock	= 600000000,
-+	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc6_hdmi_hdmi1_fields,
- 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi1_fields),
- 	.phy_lane_mapping	= {
+-	if (!vc4_hdmi_mode_needs_scrambling(mode,
++	if (!drm_hdmi_mode_needs_scrambling(mode,
+ 					    vc4_hdmi->output_bpc,
+ 					    vc4_hdmi->output_format))
+ 		return;
 
 -- 
 2.55.0
