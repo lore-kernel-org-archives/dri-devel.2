@@ -4,55 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 123EEC3DA7A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:08:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCBFC3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:08:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70B1210E1AA;
-	Wed, 14 Oct 2026 18:08:02 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8EE10EA99
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1792001275;
- bh=DBsylmieXlH7jN4lQzs3+azlJUaS53ZlHvjnKa/pZyU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=G3P/Joh8VxsWKZD77wjVjEsdrEuCe0iMj5OoD+01Tc4snAwR0d0ut2CGkYADYIVWO
- lVd3paktWgKEkNFfCS04XvlDnw9WXH6ROInP1ff43Unn3dN2s6jGQLj3Y8/CLt/Msk
- 6hbpzuGQ5lvJQW2Lii1rTzFnibHWD3vW3pHbmjhhaxQFlyt/ui4tRbNU/JPW0mXamJ
- lotdYno1jCLuv2jbaY0cSWgxE5d39w0RS+qczN9qArNLXkR96A0igpzLbjtkHtXGdK
- pMyiWuQTz9WB/VYpj62fiSVbURyvFTF85lIr7NbPrDnfh1kg8rzS1tKDwltF6piA5I
- AN+3ZbullBfyA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519) (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4fLr3nYgz4wDf;
- Thu, 15 Oct 2026 05:07:48 +1100 (AEDT)
-Message-ID: <2d454220-61e1-48e2-8515-112393ffb3ad@ozlabs.org>
-Date: Wed, 14 Oct 2026 19:07:46 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 7/9] vfio/pci: Clean up BAR zap and revocation
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-8-matt@ozlabs.org>
- <20261013171352.1c467040@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20261013171352.1c467040@shazbot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4E4610EA88;
+	Wed, 14 Oct 2026 18:08:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76BF910EA88
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:08:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2CAEF414C0
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:08:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD9301F000C5;
+ Wed, 14 Oct 2026 18:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792001303;
+ bh=aORF5Paq9pA6RqT6h54XsidXEbg1AOyu/T8W7o94gsU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LNCQPmGn0I3kuQlWMfqj5c+CVQO5VjBo4F1oIFB74bLbYIGh88mvEeZTsIJ+NbrOz
+ mHC6KgNSfL8eQzPTaTOalVnbUTegI1b9VpbhHKFI5YdKcBbltHz29UqbV/RO2AC4sY
+ pws18GnNSjW9a1yi8vVzHtN+OknR3boFrjlQ9ADVcBb5xZNMmOntJ8fdHm3K/lF73Q
+ YSC3MEORSwKYll0O+ZgeCIkdCI/xlO2tPtM7vGKgZPB4g2Qmpw6S7m5G+Jb5aG7xrT
+ EXVZWSpyVk7HoaaQbrPEB8Ob5PW20l0phOKt3z0X2gi5NsM4+f5++fbuh3CGmYJnqZ
+ nV20hNl7Yk76g==
+Message-ID: <sashiko-outbox-171662@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 61/75] drm/sun4i: tv: Convert to atomic_create_state
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-61-586c9c026823@kernel.org>
+References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
+ <20261014-drm-no-more-connector-reset-v1-61-586c9c026823@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 18:08:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,52 +50,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 14/10/2026 00:13, Alex Williamson wrote:
-> On Tue,  6 Oct 2026 20:36:35 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
->> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
->> index cb0e4865d110..986852b1d44f 100644
->> --- a/drivers/vfio/pci/vfio_pci_core.c
->> +++ b/drivers/vfio/pci/vfio_pci_core.c
->> @@ -1337,13 +1338,18 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
->>   	 * have NoSoftRst-, the reset function can cause the PCI config space
->>   	 * reset without restoring the original state (saved locally in
->>   	 * 'vdev->pm_save').
->> +	 *
->> +	 * The zap is done after making the device accessible in D0,
->> +	 * because a DMABUF importer could access the device as part
->> +	 * of its revocation cleanup.
-> 
-> Nit, s/zap/revoke/
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm: NULL pointer dereference when initializing TV connector state
+--
 
-Doh, done.  Also cleaning up a "zap/revoke" in the 
-vfio_pci_dev_set_hot_reset chunk.
+commit a85a6a0ad13c063d072cdcda87267ea8867cafa3
+Author: Maxime Ripard <mripard@kernel.org>
 
-Thanks
+drm/sun4i: tv: Convert to atomic_create_state
 
+The sun4i TV connector reset implementation is converted to an
+atomic_create_state hook. It creates the pristine state and initializes
+the analog TV properties.
 
-Matt
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tv.c b/drivers/gpu/drm/sun4i/sun=
+4i_tv.c
+> index ea86f8a6a35e7..a68e5f7a03d2c 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_tv.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tv.c
+[ ... ]
+> -static void sun4i_tv_connector_reset(struct drm_connector *connector)
+> +static struct drm_connector_state *
+> +sun4i_tv_connector_create_state(struct drm_connector *connector)
+>  {
+> -	drm_atomic_helper_connector_reset(connector);
+> -	drm_atomic_helper_connector_tv_state_init(connector->state, connector);
+> +	struct drm_connector_state *connector_state;
+> +
+> +	connector_state =3D drm_atomic_helper_connector_create_state(connector);
+> +	if (IS_ERR(connector_state))
+> +		return connector_state;
+> +
+> +	drm_atomic_helper_connector_tv_state_init(connector_state, connector);
 
+[Severity: High]
+Does this trigger a NULL pointer dereference during initialization?
 
-> 
-> Thanks,
-> Alex
-> 
->>   	 */
->>   	vfio_pci_set_power_state(vdev, PCI_D0);
->>   
->> -	vfio_pci_dma_buf_move(vdev, true);
->> +	vfio_pci_revoke_bars(vdev);
->> +
->>   	ret = pci_try_reset_function(vdev->pdev);
->>   	if (__vfio_pci_memory_enabled(vdev))
->> -		vfio_pci_dma_buf_move(vdev, false);
->> +		vfio_pci_unrevoke_bars(vdev);
->>   	up_write(&vdev->memory_lock);
->>   
->>   	return ret;
-> 
+When the DRM core resets the connector state, it explicitly clears the old
+state before invoking the .atomic_create_state hook:
 
+drm_mode_config_connector_reset_with_create_state() {
+        ...
+        if (connector->state) {
+                ...
+                connector->state =3D NULL;
+        }
+        return drm_mode_config_connector_create_state(connector);
+}
+
+The core helper drm_atomic_helper_connector_tv_state_init() then mistakenly
+passes the unassigned connector->state down to the margins initialization
+instead of the newly allocated state:
+
+drm_atomic_helper_connector_tv_state_init() {
+        ...
+        drm_atomic_helper_connector_tv_margins_state_init(connector->state,
+                                                          connector);
+}
+
+This causes drm_atomic_helper_connector_tv_margins_state_init() to
+unconditionally dereference the NULL state pointer:
+
+drm_atomic_helper_connector_tv_margins_state_init(state, ...) {
+        ...
+        state->tv.margins.left =3D cmdline->tv_margins.left;
+        ...
+}
+
+The previous .reset hook implementation masked this core helper bug because
+it assigned connector->state prior to calling the TV state initialization
+helper.
+
+Could we fix the core helper to pass the correct state pointer, or should
+this driver handle the initialization differently to avoid the crash?
+
+> +
+> +	return connector_state;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-drm-no-mor=
+e-connector-reset-v1-0-586c9c026823@kernel.org?part=3D61
