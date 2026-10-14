@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B260CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D268C3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:27:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE1610E192;
-	Wed, 14 Oct 2026 17:27:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD9510FEB2;
+	Wed, 14 Oct 2026 17:27:40 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB20D10FE7D
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:27:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6349210FE8A
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:27:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B427D43668;
- Wed, 14 Oct 2026 17:27:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142411F000C4;
- Wed, 14 Oct 2026 17:27:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4B41141353;
+ Wed, 14 Oct 2026 17:27:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1F41F000C5;
+ Wed, 14 Oct 2026 17:27:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791998850;
- bh=XCEs4HiwOfD+U76GjJVnbW2687wo/+K5ZM3/XEWH3c8=;
+ s=k20260515; t=1791998854;
+ bh=2MXREJ2IxBu2OWHzKRRdTvQR2F30ZPR01icm+aivTlM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=VIyc49ZM28DVr8QD/ojPKC35DrtiVabN8LYCffNrfyQYb2ltPILc1nE39LT7Zclsi
- E2IN8DTwHxh/OwvKl8AqavNJW3dZaY9WkT/TwnhlcMQra+m10TfzCgW+Wt5vRrdzcv
- FiRgghFQxh9Rf8VRaN84tyDO3q86BoD4jbP1Ecw1rrIs6JNynndK5b8CL1VtFdeyGH
- 5kMCZN8mEw96V9axrJWSFr+0w5IeyplYC/XXNepd+6Ey9/aG9+GhtlLYNO52j+yrBP
- /U0hZKWEY58x7kM5qvtUAdyKv4pikSTSep9JahlwOsPdrJzq8EceKasq+JOmuiLDWw
- KeVI32Wp/QMvg==
+ b=HoaIWHyGmM7kCdJ5FPOo93VSKrYERwsGf4gCGCDaH/88PhwDaT+z4k5l2G/xkqzpC
+ Yy5f+8sstvQkHOIm7KX0vSI1G+nA2Ck/Og0Pv2ot/NGk11bBluYYmLrBJz7DRyVCSm
+ /pZkKo/tr5m8m3mOVSlDmU5QJg02VP8mBZ2LdbK23ARmMB7/n/fgUSaIQUGuZtxiB4
+ UjARBleJPOJnLqSEY7nlN1tF4XAqSjx3gFoOBH3uZikiUaDkFuIDPzfGqK0XewwYkr
+ WBwRHbqLZ5+q2U4hYOI6KIOzgLNoKTi3ur63YqjDv4pvR892j/42vnq3LnyONR96b3
+ U02cNiBVW6JpA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 14 Oct 2026 19:26:28 +0200
-Subject: [PATCH 05/75] drm/arm: komeda: Switch to
+Date: Wed, 14 Oct 2026 19:26:29 +0200
+Subject: [PATCH 06/75] drm/aspeed: Switch to
  drm_atomic_helper_connector_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-drm-no-more-connector-reset-v1-5-586c9c026823@kernel.org>
+Message-Id: <20261014-drm-no-more-connector-reset-v1-6-586c9c026823@kernel.org>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Liviu Dudau <liviu.dudau@arm.com>
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1368; i=mripard@kernel.org;
- h=from:subject:message-id; bh=7++md8d5rKESR10CRVcqVLFwSqB8eTKqtFpM+QpA4O0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnnd/vI93+el2y8LiDrD2PO4QlrdeREDd7MedHA80HeN
- 2Xz5aolHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAif18w1vvdf6d88LWm+4Wt
- i8zUr4nd0c+YcU/U0uVD2BFDbfHZa0VObxc7WB7W/CWSVTL03+ZVSYz1np8K52x02/C+TMvj5uT
- glvY/4tZ8/NMXmmzev/23XErfr/XHs7s3+IWvlp41//T6jF/FAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1259; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=B9xwgUcvkbBfiXZC5ULwIG8FNaFKJyXzCOEaOuyruaM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnnd/uazp2peGrivOnTrqvol7l+fP0j1sP+3tVTT5cpS
+ u8+NXnW3o6pLAzCnAyyYoosT2TCTi9vX1zlYL/yB8wcViaQIQxcnAIwEe19jPVx2wX2KYjnWH3v
+ WdG0ZIlGU8Kh9X5lhy677e+wc5i/RSH/zvLoxMzN+Wn/hT+V/lzyQpKxhkvAyfPyj3X3RVbc25E
+ avXxiz6M7GUtsvyrfET+/c65unmjF/1ki8v4r4gS/3WBIFc6SAgA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,35 +66,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The arm: komeda connector implementation uses the deprecated
+The aspeed connector implementation uses the deprecated
 drm_atomic_helper_connector_reset() as its reset hook.
 
 Switch to drm_atomic_helper_connector_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Joel Stanley <joel@jms.id.au>
 ---
- drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c | 2 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_out.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-index 4872253a2449..f394971c0edb 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-@@ -126,11 +126,11 @@ static void komeda_wb_connector_destroy(struct drm_connector *connector)
- 	drm_connector_cleanup(connector);
- 	kfree(to_kconn(to_wb_conn(connector)));
- }
+diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_out.c b/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
+index 78775e0c853f..83bf5561bf81 100644
+--- a/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
++++ b/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
+@@ -19,11 +19,11 @@ drm_connector_helper_funcs aspeed_gfx_connector_helper_funcs = {
+ };
  
- static const struct drm_connector_funcs komeda_wb_connector_funcs = {
+ static const struct drm_connector_funcs aspeed_gfx_connector_funcs = {
+ 	.fill_modes		= drm_helper_probe_single_connector_modes,
+ 	.destroy		= drm_connector_cleanup,
 -	.reset			= drm_atomic_helper_connector_reset,
-+	.atomic_create_state	= drm_atomic_helper_connector_create_state,
- 	.detect			= komeda_wb_connector_detect,
- 	.fill_modes		= komeda_wb_connector_fill_modes,
- 	.destroy		= komeda_wb_connector_destroy,
++	.atomic_create_state = drm_atomic_helper_connector_create_state,
  	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
  	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+ };
+ 
+ int aspeed_gfx_create_output(struct drm_device *drm)
 
 -- 
 2.55.0
