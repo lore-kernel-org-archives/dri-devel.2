@@ -4,128 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 096D8CC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB33CC6B2F
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6AEF112160;
-	Thu, 15 Oct 2026 07:56:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D31F10E0D7
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:09:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0C480413D9;
- Tue, 13 Oct 2026 15:09:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A69E1F000FF;
- Tue, 13 Oct 2026 15:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791904165;
- bh=+lV50szqwhlOdZvvntvc8L71JtBIxPo0bLUpU4NKXmU=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ktqeL2zXS70o90j0mLV87aoV59vXbCAA5RZbizjqijewnPcZxxXxcgaVuM/cJHeZD
- +77tfbvmmOOOQzog02DPrCynPFoOSlQGvX65HJWvxXvL3oMYLxXPhSoVSa+3ff8mi8
- 87JKEIDRjPdM3T36BB+eyice44zILgmAzlQTVOqSI3Bo1nj6l5lq4S4VJC93zGxPJs
- eoBsrTqZ1+SgldZldpqy8abg87G9p6tBnin/ovgydcju28x8wXmBn0l0e8wHty3bI7
- KxAthEl6r5seQO0FEQzhLLhYkzrc37hYn3auAEejPtkuMirgsi05/hXcCmHwI0gDDI
- DwHa0lmyqP51w==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:46 +0100
-Subject: [PATCH v6 06/39] mm/vma: tidy up map kernel pages enum values
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABA03112162;
+	Thu, 15 Oct 2026 07:56:53 +0000 (UTC)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAB710FFD8;
+ Wed, 14 Oct 2026 22:30:48 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j4mBG6Jw6zMlDm;
+ Thu, 15 Oct 2026 00:30:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1792017046;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iH6VgiGj5KrB23VvD5r/W6aj7P6EbpDpdOeMlYANEW8=;
+ b=m8V6J7tuZz+jCiDBwrq1wUb0NwR+l7hMxFKi5VUDHJ52vz+ZKV6WhvFDdlqnShja/l0M0h
+ gghMMqza4Nbs/S5NE8FwCvfMSRsOSyaALAOfjf5CVfBDoIq61343ltIbO3eKOf7rrV4hhB
+ LeDJBFamz18VvmtQFTjOmwyWI8hYkFAIx+A7ympaL1kmMqDsDA7o5u3GGh1v3UiYT1G4C+
+ QBqT/kQE6JPgOPXwie8BGbfD6b1ofEpcvoTvCvUnbnoD/j+cTfbED4WAPFmzPuo1N8+sU8
+ PWqKYUJSg6/jWSfON9N+Vg+RiA/RFmnbB3xAKMn2Bf1z4/jHDuA6SmSxabdTGg==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, Hugo Sales <hugo@hsal.es>
+Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the eDP/LVDS native
+ mode fallback
+Date: Wed, 14 Oct 2026 23:30:41 +0100
+Message-ID: <20261014223041.171317-3-hugo@hsal.es>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014223041.171317-1-hugo@hsal.es>
+References: <20261014223041.171317-1-hugo@hsal.es>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-6-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4144; i=ljs@kernel.org;
- h=from:subject:message-id; bh=nvhkE4iVPWt6ZMbpDqr0VjZaPTTvkSGU9Bdm3A6LGuc=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeRz/czLo4Yv3x6sv1ycktzhI6BvPSbA3Vt26R7t6U
- 9h3++r3HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjI3B0M/4s/fmjaVPJkAXMV
- SytPWMj7OHntZu7UVjF+U9MT1TKtsgz/4wuqT0tnfZ6X1lgsOuH1seNX+dQSXLKMpls+vxFZtci
- QBQA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4j4mBG6Jw6zMlDm
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,122 +65,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied by
-MMAP.
+Leave only a scaled mode in connector->modes and put the larger native
+mode in the encoder, as a size-limited probe does. On eDP and LVDS,
+create_stream_for_sink() must build a stream with the native timing and
+the scaled mode as its source size. On HDMI it must keep the first mode
+in the list as the timing
 
-Also while we're here delete useless comments for mmap actions whose names
-clearly indicate what they are for.
-
-Also update the userland VMA tests to reflect this change.
-
-No functional change intended.
-
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- include/linux/mm.h              | 2 +-
- include/linux/mm_types.h        | 8 ++++----
- mm/util.c                       | 8 ++++----
- tools/testing/vma/include/dup.h | 8 ++++----
- 4 files changed, 13 insertions(+), 13 deletions(-)
+ .../tests/amdgpu_dm_connector_test.c          | 112 ++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 0c17f0932b76..a1f2d375cf7d 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4623,7 +4623,7 @@ static inline void mmap_action_map_kernel_pages(struct vm_area_desc *desc,
- {
- 	struct mmap_action *action = &desc->action;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 56fd133bc..55e2c3849 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -4547,6 +4547,115 @@ static void dm_test_create_stream_hdmi_vsif(struct kunit *test)
+ 	dc_sink_release(sink);
+ }
  
--	action->type = MMAP_MAP_KERNEL_PAGES;
-+	action->type = MMAP_KERNEL_PAGES;
- 	action->map_kernel.start = start;
- 	action->map_kernel.pages = pages;
- 	action->map_kernel.nr_pages = nr_pages;
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 5413bd10fff2..9ca2ea3664bc 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -815,11 +815,11 @@ struct pfnmap_track_ctx {
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
++/*
++ * Build a stream after a probe with size limits below the native mode, such as
++ * fbdev emulation's. That probe leaves only a 1920x1200 scaled mode in the
++ * connector's mode list, while the encoder keeps the 3840x2400 native mode
++ */
++static struct dc_stream_state *
++dm_test_native_mode_pruned_stream(struct kunit *test, int connector_type)
++{
++	static const u8 edid[EDID_LENGTH];
++	struct dm_test_stream_ctx *ctx = dm_test_stream_ctx_alloc(test);
++	struct amdgpu_encoder *aenc;
++	struct dc_stream_state *stream;
++	struct drm_display_mode *native;
++
++	ctx->aconnector->base.connector_type = connector_type;
++
++	aenc = drmm_kzalloc(ctx->drm, sizeof(*aenc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aenc);
++	KUNIT_ASSERT_EQ(test, drmm_encoder_init(ctx->drm, &aenc->base, NULL,
++						DRM_MODE_ENCODER_TMDS, NULL), 0);
++	KUNIT_ASSERT_EQ(test, drm_connector_attach_encoder(&ctx->aconnector->base, &aenc->base), 0);
++
++	native = &aenc->native_mode;
++	native->clock = 592500;
++	native->hdisplay = 3840;
++	native->hsync_start = 3888;
++	native->hsync_end = 3920;
++	native->htotal = 4000;
++	native->vdisplay = 2400;
++	native->vsync_start = 2403;
++	native->vsync_end = 2409;
++	native->vtotal = 2469;
++	/* Cached by the first, unlimited probe */
++	drm_mode_copy(&ctx->aconnector->freesync_vid_base, native);
++
++	drm_mode_copy(ctx->mode, native);
++	ctx->mode->hdisplay = 1920;
++	ctx->mode->vdisplay = 1200;
++	drm_mode_set_crtcinfo(ctx->mode, CRTC_INTERLACE_HALVE_V);
++	dm_test_stream_add_mode(test, ctx, 0);
++	ctx->dm_state->scaling = RMX_FULL;
++
++	ctx->aconnector->drm_edid = drm_edid_alloc(edid, sizeof(edid));
++	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector->drm_edid);
++
++	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
++					ctx->dm_state, NULL, 8,
++					PIXEL_ENCODING_RGB, false);
++
++	drm_edid_free(ctx->aconnector->drm_edid);
++	KUNIT_ASSERT_NOT_NULL(test, stream);
++
++	return stream;
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_edp - Test eDP gets native timing
++ * @test: The KUnit test context
++ *
++ * The scaled mode must still be driven with the panel's native timing, kept in
++ * the encoder
++ */
++static void dm_test_create_stream_native_mode_pruned_edp(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_eDP);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_lvds - Test LVDS gets native timing
++ * @test: The KUnit test context
++ */
++static void dm_test_create_stream_native_mode_pruned_lvds(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_LVDS);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_hdmi - Test HDMI uses the first mode
++ * @test: The KUnit test context
++ *
++ * On a connector that is not a panel, mode_valid may have dropped the native
++ * mode, so the first mode left in the list must drive the timing
++ */
++static void dm_test_create_stream_native_mode_pruned_hdmi(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_HDMIA);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 1200);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
+ /* Tests for amdgpu_dm_connector_detect() */
  
  /*
-diff --git a/mm/util.c b/mm/util.c
-index d809e08c7b4d..1660910e2a22 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1467,7 +1467,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 		return io_remap_pfn_range_prepare(desc);
- 	case MMAP_SIMPLE_IO_REMAP:
- 		return simple_ioremap_prepare(desc);
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		return map_kernel_pages_prepare(desc);
- 	}
- 
-@@ -1498,7 +1498,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 		err = remap_pfn_range_complete(vma, action);
- 		break;
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		err = map_kernel_pages_complete(vma, action);
- 		break;
- 	case MMAP_IO_REMAP_PFN:
-@@ -1521,7 +1521,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle these. */
- 		break;
- 	}
-@@ -1542,7 +1542,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle this. */
- 
- 		err = -EINVAL;
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 077df510a311..023ad6092e9c 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -454,11 +454,11 @@ static __always_inline bool vma_flags_empty(const vma_flags_t *flags)
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from an array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
- 
- /*
-
+@@ -10246,6 +10355,9 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_create_stream_dp_vsc_colorimetry),
+ 	KUNIT_CASE(dm_test_create_stream_dp_colorimetry_quirk),
+ 	KUNIT_CASE(dm_test_create_stream_hdmi_vsif),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_edp),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_lvds),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_hdmi),
+ 	/* amdgpu_dm_connector_detect */
+ 	KUNIT_CASE(dm_test_detect_force_on),
+ 	KUNIT_CASE(dm_test_detect_force_on_digital),
 -- 
 2.55.0
 
