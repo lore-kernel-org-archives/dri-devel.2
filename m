@@ -4,39 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92F45CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 09:35:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E97BCC6B1D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 09:36:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D16AA10FC5B;
-	Wed, 14 Oct 2026 09:35:24 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF8F10FC8B
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:35:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A00A941A3E;
- Wed, 14 Oct 2026 09:35:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599251F00898;
- Wed, 14 Oct 2026 09:35:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791970517;
- bh=ihMrK05lLCPM4fV/n6MP2ep+Vl4w2hABHIdfcnciJSI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QqAVTTQJAjNVFChIui+vGGEm1jEOXK8u3O2jSoD58KJFZuC/Q0LSB/43ZbASk39u0
- BPlbUYqAkO5A2n/sDntfv+aV5zKmu6ZY1jRWkbHpvpw+SPnwlabC58WC6NoJ7I2ZIS
- /Yiyq7xkvlPP9W5/uqP9739UaJXqM83nuVw1yR2qrzan68M5qoTPlYRfLTSiCSU4WM
- Lm411IcPXoqtFBkZoH1LZ5W9UGBlnWAdkPzsbUJIx+pjnwXw6Sfo2UDnQd5CVdjnaP
- IR3HVezY7JCADkzoMSG5S60ts958cBEALTwVas8GtrxEthevHFnxZf8eb8+8QvKCBW
- srRtjqSHF8lPQ==
-Message-ID: <sashiko-outbox-171079@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] fbcon: Rebuild rotated font buffer on font change
-To: "Yao Yiqi" <yaoyiqi3@huawei.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261014085102.497789-1-yaoyiqi3@huawei.com>
-References: <20261014085102.497789-1-yaoyiqi3@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 09:35:16 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74C2410FC87;
+	Wed, 14 Oct 2026 09:36:28 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 905D910FC87
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:36:21 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4980fe6b3beso30632055e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 02:36:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1791970580; x=1792575380; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=9nFXolfpittgi2Lah9fQ/bqQ/j+/1tOBiVSyiO7ElMg=;
+ b=EA/2AjJkc8hREjt720hCz8fiz4loJZawCZrmhXOPOnYizlOpDdojgBdAg2L0K/bN8l
+ hy07NftemPTpjrp1mXiJtLWwOLI6Jg0pn/VmJqcBHQZ1BVLk2UAK2HC2HzgMuQo2nGwk
+ DOVHsE6kTR7hCMowxrbq0V/DE5RUvd7urHAWHBuyK8bpf+W8kRX3R7xFui7uMLuimTEn
+ QydjVZQsMQg/1LdVmKDMou77jVo+XC52Rl9o7YqsWqk/5ea2fIdWhFY3GzO6BQBvSgzr
+ vjw6zGPrTmC+aeMvxCRO1xRVMj4uOAMiAk1PWMiXw8hgiT2BHHT4Cu0+r3LVubj6HEDL
+ /WWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791970580; x=1792575380;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9nFXolfpittgi2Lah9fQ/bqQ/j+/1tOBiVSyiO7ElMg=;
+ b=hvhXcvf+3bq7H3EePM1EZrAWZ14MpFg8+bIeNEEfAEOFoaTD5PuWruC3Ru6S/5M0/F
+ ekx8VSjUJnk00QUa4hZcgB3GdFYxy4oOlPyb4LaHXR12pj+PVB/h6ZHvUcoQxq2VIfeO
+ YDVHvgWsBUR2PxsMwzZGvLXuxT22hzZZJhSlMtVOA5mPgVUbiysRf9jhxka7eE4ZC6A0
+ L9JC2ED1bPlX9W0sh9BlMBEvDltMTmVZKaTtVdRgU96owsxRsEgHL95OKrRI6XfdWXN3
+ pxYguOGVNsNz8IlpyjyNMHr55GT4vK31AqDtkdIQmTqVLa/2qfgMogFN82XYBNFXT0Ae
+ +p2w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx8sssCBhyhun+LpghQ1hHmVjCEzBylaJim69zJPaRBPQ9VICmrY4SISEru2EOqom0x/HSXpZa1mI8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIXqFhGNQpLKaPv1KH66NdYB7rKNX7bzBl+g7z9aqmg0r/nOEbu
+ KVsKrEO3h+adyRE36dL8XEdkWvTbLbF9RRvPpn8RoGgC6Fy5rBbUeeNCGNutw/YDqL8=
+X-Gm-Gg: AYBFou3fzxbqS5fDanddebeQZvn/nV5fGiQeTL6dXKaV4GhWFP8EqT36uBG7e8rqBpm
+ IFmzlFrYP/NbszTOyAFSgOIU6QehGLS486Zzp0xVc+pfzsU1cHsF0yxSHTxsTqFlHKOCDhf2/x3
+ JAjUeIX0UmfUIETMBa/WSOt/jiBtVFwZjfRqmHJQpxttMIvl9N+WyrEOgh0AIN4X6WelpMR6QJC
+ GC2CYB7YZB3QPrg3OD/11v1Dww10pm5e5GsSrE6pKL5HkAIQdmt+2OwvmTXiOx4myd/yvX5bxjP
+ 5GWuPNEyajceIXT2VAfghbsy6TSDFtG4Tv26IKS7vBF2yfTHvsXPXd0Tm8/QU+P/7PC+fBHL8XH
+ oZr4cMjUzqZX/heLCeQ9DXyDm95V1/XjHSriC4QGfkc8jFdyRvlgXngjvD/Cu91DGJebtWJ/qWV
+ c3hqrjuIqOMKSU9p8KVptYiBelPFJfeBD3OkU0f3dBgHG4IQ4ic3SySbIVv/+gM1ZQtQ9mQQuS+
+ hAohfVkUK1v9miAGvU1I63zRMeoyveZ3kcqmQaRUMKXl+Rttgax2XJq2I2jdgThDXZhs+RFvKiS
+ 9PEtxjBbVvudh62ubbgJWluwMmC9qUVvWuGLszwM
+X-Received: by 2002:a05:600c:8a09:20b0:4a1:9c98:b9b8 with SMTP id
+ 5b1f17b1804b1-4a19c98c153mr160846965e9.11.1791970579795; 
+ Wed, 14 Oct 2026 02:36:19 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
+ (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
+ [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48de0aaaa3fsm10907378f8f.10.2026.10.14.02.36.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Oct 2026 02:36:19 -0700 (PDT)
+Message-ID: <2e88806e-57dd-47e0-a9ef-a8507d22aa3e@suse.com>
+Date: Wed, 14 Oct 2026 11:36:17 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] Remove obsolete __MODULE_STRING()
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rudolf Marek <r.marek@assembler.cz>, Andi Shyti <andi.shyti@kernel.org>,
+ Chris Snook <chris.snook@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>,
+ Chas Williams <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,86 +116,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] fbcon: dangling pointer in par->rotated.fontdata causes ABA vulner=
-ability
-- [High] fbcon: OOB read and UAF in fbcon_do_set_font error path
---
+On 10/2/26 10:31 AM, Petr Pavlu wrote:
+> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+> MODULE_PARM support for older modules" [1] in 2002-12. That change also
+> moved it to the graveyard section at the end of linux/module.h
+> 
+> Replace the remaining uses of __MODULE_STRING() with __stringify() and
+> remove the macro.
+> 
+> Apologies for the wide distribution. Acked-bys are appreciated.
+> 
+> [1] https://git.kernel.org/tglx/history/c/136839a1b4
 
-commit 40ac874a29ca63690bb8c7dfaad9a195bb52891d
-Author: Yao Yiqi <yaoyiqi3@huawei.com>
+I've queued the second patch ("drivers: Replace __MODULE_STRING() with
+__stringify()") on modules-next for v7.4-rc1. Thanks for the Acked-byes
+and reviews.
 
-fbcon: Rebuild rotated font buffer on font change
+The first patch ("hwmon: Replace __MODULE_STRING() with __stringify()")
+should go through the hwmon tree. Once these changes are in mainline,
+I plan to pick up the final patch ("module: Remove obsolete
+__MODULE_STRING()").
 
-fbcon_rotate_font() caches a rotated copy of the console font in
-par->rotated.buf. This commit fixes a slab-out-of-bounds read in
-fbcon when changing the console font by explicitly rebuilding the
-rotated font buffer before the redraw is triggered.
-
-> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
-fbcon.c
-> index 615fa596b7cce..caad4e06944ea 100644
-> --- a/drivers/video/fbdev/core/fbcon.c
-> +++ b/drivers/video/fbdev/core/fbcon.c
-> @@ -2431,6 +2431,17 @@ static int fbcon_do_set_font(struct vc_data *vc, i=
-nt w, int h, int charcount,
->  	else if (!vc->vc_hi_font_mask && charcount =3D=3D 512)
->  		set_vc_hi_font(vc, true);
-> =20
-> +	/*
-> +	 * The rotated font buffer is sized from the new font's width, height
-> +	 * and charcount. Rebuild it for the visible console before the redraw
-> +	 * below, as fbcon_switch() and fbcon_modechanged() already do. The
-> +	 * redraw reaches the rotated bitops through hide_cursor(), and those
-> +	 * index the buffer with the new cell size and character codes, so a
-> +	 * stale, too-small buffer is read out of bounds.
-> +	 */
-> +	if (con_is_visible(vc) && par->bitops->rotate_font)
-> +		par->bitops->rotate_font(info, vc);
-> +
-
-[Severity: High]
-If vc_resize() fails below this point (e.g., due to -ENOMEM from screen buf=
-fer
-allocation), the err_out path reverts the console font metrics but leaves t=
-he
-rotated buffer and pointer out of sync.
-
-Could this leave par->rotated.buf sized for the new font, while the font
-metrics are restored to the old font? If a subsequent call uses a smaller f=
-ont,
-the buffer could be allocated exactly to the smaller size. If vc_resize() t=
-hen
-fails, the metrics are restored to the larger font, which could cause a
-slab-out-of-bounds read during subsequent redraws (such as cursor blink).
-
-Furthermore, the err_out path drops the new font's refcount via
-font_data_put(data), and the memory is subsequently freed by the caller.
-
-Does this leave par->rotated.fontdata as a dangling pointer to this freed
-memory?=20
-
-If a future font allocation reuses this exact slab address, the ABA logic in
-fbcon_rotate_font():
-
-	if (par->p->fontdata =3D=3D par->rotated.fontdata &&
-	    par->rotate =3D=3D par->rotated.buf_rotate)
-		return 0;
-
-would incorrectly assume the font hasn't changed and skip rebuilding the
-buffer, perpetuating the metric mismatch and leading to further out-of-boun=
-ds
-accesses.
-
->  	if (resize) {
->  		int cols, rows;
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014085102.4977=
-89-1-yaoyiqi3@huawei.com?part=3D1
+-- Petr
