@@ -4,55 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A050CC6B1D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:04:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49422CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:08:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFEE10FE94;
-	Wed, 14 Oct 2026 16:04:50 +0000 (UTC)
-Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13F2710FE88
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:04:43 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=PI0fOAv5zzJ41Ji3Z2QtwoPTiCXvJem5/RFTA0ekY0U=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791993881; v=1; x=1792598681;
- b=FB2ic1WGugcHaPbviCEivRkLZWw6rAaFPdy2BZYb5aDlbMVpLQ4QRp/EaFsTU3lA6tRJugoS
- l/P+Y1zD2kd/5w573b/aFKTNx03vEhPg5K6XeQ/2N/QhYiJ3qoDoGXWldnKvH6p88DlRCbbU0h+
- /CIC+skOEpBCvkjLuyFJijRo=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 0ac52b3081cf7048;
- Wed, 14 Oct 2026 16:04:41 +0000
-X-Mizu-Trace-ID: 0ac52b3081cf7048
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <73f0dafd-5b26-42b9-a77b-90c32976942f@linux.dev>
-Date: Thu, 15 Oct 2026 00:04:23 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] mm/huge_memory: fix the copy of special PMDs at
- fork
-Content-Language: en-US
-To: Konstantin Khorenko <khorenko@virtuozzo.com>, Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>,
- Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
- <F6337325-E635-43BB-9E5E-DCD25F4FC951@nvidia.com>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <F6337325-E635-43BB-9E5E-DCD25F4FC951@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3DFF10FEDC;
+	Wed, 14 Oct 2026 16:08:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C4C110FED5
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:08:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3D8FB60229;
+ Wed, 14 Oct 2026 16:08:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C767B1F000C5;
+ Wed, 14 Oct 2026 16:08:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791994081;
+ bh=Bv73iyadVQ67bnq00A+ChXym7wHBc9O9r4vRPKrK2uc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZsZh5DfP8mB5DvlN5BTaB9F0vCVyxXGZvhLdL5MfzI2kNxIoqF226EQ6Bi1yW1swP
+ pwsPsStFkEHLJqZvklucA17E51y0fDrdeztQVFM2bZ2+CWs/qUFHQgavFTz0uQREDC
+ KyIE1CQ1CIllA6w8IAKTJRvnNphtotgfxQLi43dlUQnaaLW5ODft0ApskW0mHQzyiR
+ 4q+9Lk9PLQDy9Vw+M+ZyDUrFuIHzK5UXTBKJ9nguo7Pni0uydKECPYHOL+lELBxhJC
+ Hp98vw2a5wx7P7AYZoh5GFoqJb1Ch0lFhdh/wyrDid3gxfYfbTYXHuw7PWAItUwqZ1
+ wSzhEYytHzi6Q==
+Message-ID: <sashiko-outbox-171514@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] drm/amdkfd: fix doorbell allocation race creating
+ duplicate allocations
+To: "Felix Kuehling" <felix.kuehling@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261014154959.540809-1-felix.kuehling@amd.com>
+References: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
+ <20261014154959.540809-1-felix.kuehling@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 16:08:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,65 +51,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/amdkfd: pdd memory leak on kfd_init_apertures() error path
+--
 
+commit d555bec2fa5191157e4dad2138f047c49150f26e
+Author: Henry Martin <bsdhenrymartin@gmail.com>
 
-On 2026/10/14 23:57, Zi Yan wrote:
-> On 14 Oct 2026, at 11:46, Konstantin Khorenko wrote:
-> 
-> <snip>
-> 
->>
->>
->> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
->> ---
->> Changes in v3:
->> - Patch 1: recheck the PMD with pmd_none(), as only a zap can change
->>    it and a zap leaves it none (Lance Yang).
->> - Link to v2: https://patch.msgid.link/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com
->>
->> Changes in v2:
->> - Add patch 2, the page table deposit for ppc64 hash, reported by
->>    Sashiko.
->> - Patch 1: name panthor instead of drm_gem_shmem as the driver whose
->>    stale child mapping reaches freed pages: drm_gem_shmem keeps the
->>    pages of a purged object until the last mapping goes away.
->> - Link to v1: https://patch.msgid.link/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com
->>
-> 
-> Please stop sending new versions of a patchset repeatedly.
-> Wait at least a day for others to catch up.
+    drm/amdkfd: fix doorbell allocation race creating duplicate allocations
 
-+1
+This patch introduces a per-process-device mutex to serialize process doorb=
+ell
+allocation. It adds mutex initialization and destruction to the kfd process
+lifecycle.
 
-Please slow down a bit. You don't need to respin every few
-hours. That just makes everyone start over ...
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_process.c
+> index 226f52626e849..51b0df4984945 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
 
-Post a version, wait for feedback, then revise. Twice a week
-is plenty, honestly :)
+[ ... ]
 
-Cheers, Lance
+> @@ -1802,6 +1803,7 @@ struct kfd_process_device *kfd_create_process_devic=
+e_data(struct kfd_node *dev,
+>  	pdd->dev =3D dev;
+>  	INIT_LIST_HEAD(&pdd->qpd.queues_list);
+>  	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
+> +	mutex_init(&pdd->doorbell_mutex);
+>  	pdd->qpd.dqm =3D dev->dqm;
+>  	pdd->qpd.pqm =3D &p->pqm;
+>  	pdd->qpd.evicted =3D 0;
 
-> Thanks.
-> 
->> ---
->> Konstantin Khorenko (2):
->>        mm/huge_memory: recheck a special PMD under the lock in copy_huge_pmd()
->>        mm/huge_memory: deposit a page table for a special PMD copied by fork
->>
->>   mm/huge_memory.c | 34 +++++++++++++++++++++++++++-------
->>   1 file changed, 27 insertions(+), 7 deletions(-)
->> ---
->> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
->> change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
->>
->> Best regards,
->> --
->> Konstantin Khorenko <khorenko@virtuozzo.com>
-> 
-> 
-> Best Regards,
-> Yan, Zi
+[Severity: Medium]
+Will this mutex and the pdd struct be leaked if kfd_init_apertures() fails?
 
+Looking at create_process(), if kfd_init_apertures() successfully allocates
+one or more pdd structs but then encounters an error and fails, the error
+handling path jumps to err_init_apertures:
+
+create_process() {
+    ...
+    err =3D kfd_init_apertures(process);
+    if (err !=3D 0)
+        goto err_init_apertures;
+    ...
+err_init_svm_range_list:
+    kfd_process_free_outstanding_kfd_bos(process);
+    kfd_process_destroy_pdds(process);
+err_init_apertures:
+    pqm_uninit(&process->pqm);
+    ...
+}
+
+Because err_init_apertures bypasses the call to kfd_process_destroy_pdds(),
+does this mean the newly initialized doorbell_mutex and the allocated pdd
+structs are leaked?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014154959.5408=
+09-1-felix.kuehling@amd.com?part=3D1
