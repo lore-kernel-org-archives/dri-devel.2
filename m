@@ -4,115 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E85B1CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5958CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA83112171;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D915611217F;
 	Thu, 15 Oct 2026 07:57:07 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11022113.outbound.protection.outlook.com [52.101.48.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC28610E21B;
- Tue, 13 Oct 2026 18:21:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y80PkwviEy5VJoYasD2Gu9X1D+szOBz759TCM8mc831bgQEVY71+CH5Hts6oczgD8YPUY4aO4UusPyWXJONSfxY+LVpYbdYg5t55ftqH5w8cizATFNdsHr4DWavnQq+ln69rMZbdRNFeSPuVq3Nccnw0tyZ0cBVo5Q84FMtQMGoJf+b4iSD7B7c+vKKU8fuZIh5dzK53Anhp/EHLILGjaNLj6rq5e29ZNNCIYHwtofMi8ZljxWAPbr5V/+kn2/plRncg3L5AGqCKbV7t5FBx8jmPamROF4EAhB/xtcBR2Gsi6iyf+pRQ4PZ8Ndom/1SPEpYGoLcKewfhp0dMbEU8zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VVIHQjqVoSakUPUuM2JvbCsWTpG9ZApxO6NIP/sSMTc=;
- b=MKEly5MiN4cetZnnlgctFh1jboUI1lNsZ0uXYwgerCuGhJM4xDN3l0wLupsyxUPjQDTRmyLe6xsicYgWaYwldj/HBjomcfjTrimeo0ptATqUSsARCXBgoZRAKhdFqsqhPInuL7h3GpdKDf1NELt4gHEiiJXXORgOlWQMaytnklAY08pxp4yParH/f82Ql9mOxpt/UpwmM+FoWRTxc5eoj0VS6WcZMHOnD1S18fm2LPtoksP1TFdQ8zw1RH6shDsZ+eyS8UJHGU5Ci+qqBTFhlIRNjch5ZEl8JbEvlIF1P3NlfI2mu9MZAFc9okxaMR9Mtblv7HsRoBp0435MC0dnyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=trailworks.io; dmarc=pass action=none
- header.from=michaelburch.net; dkim=pass header.d=michaelburch.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=michaelburch.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VVIHQjqVoSakUPUuM2JvbCsWTpG9ZApxO6NIP/sSMTc=;
- b=eCn8LsKXiKGtu/ITunYsOLQq8ofSLZjZN8Wxt2y3jx0uEiPkd1jAcb/vwCof5SNwtWw06998VWEA4ERB6GwaC4s0N9GgnOjCDalsvb26OiKSMUwrC3K79cySsg0RK48ulItlz6q7bt3iHCfLtYj0Y3vAHpB9x3+hhsXO6L17f6FqefNmw4QNt0IhwELYPLi3nKxyBhnYMp/SenSBU9wFfeIgsipR6cZU03DI7szjCOWNSZ1v7+DtW8ZkByUMA8vRG1OcTFagKrm/LNUH3+6BKqmjJ9AdUaLhliDHRF8Yzm8UWLR1UTvLbqLSnv50M/RU6uZT2c9gjSBxjRmaiCxuJQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=michaelburch.net;
-Received: from SA1PR01MB8112.prod.exchangelabs.com (2603:10b6:806:325::5) by
- CH3PR01MB8648.prod.exchangelabs.com (2603:10b6:610:1b9::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.23; Tue, 13 Oct 2026 18:21:25 +0000
-Received: from SA1PR01MB8112.prod.exchangelabs.com
- ([fe80::1e71:8f1d:29d1:8217]) by SA1PR01MB8112.prod.exchangelabs.com
- ([fe80::1e71:8f1d:29d1:8217%6]) with mapi id 15.21.0496.015; Tue, 13 Oct 2026
- 18:21:25 +0000
-From: Michael Burch <me@michaelburch.net>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2] drm/msm/dpu: count the pending frame before kicking it
- off
-Date: Tue, 13 Oct 2026 13:21:15 -0500
-Message-ID: <20261013182117.759725-1-me@michaelburch.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <sashiko-outbox-170245@kernel.org>
-References: <20261013172703.12273-1-me@michaelburch.net>
- <sashiko-outbox-170245@kernel.org>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SA1PR02CA0006.namprd02.prod.outlook.com
- (2603:10b6:806:2cf::15) To SA1PR01MB8112.prod.exchangelabs.com
- (2603:10b6:806:325::5)
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A8A010E8D9
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 15:46:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+ :From; bh=7vC0C3sp4wt6zauR/zTBNv+UfY1Rq7XzZhYx35u+Pg0=; b=pyMcdMZQB5ZqvVLfY1c
+ 7rwJCGcTAyuR7AiTeZGd0MdA2aYDFZJzn58phDbodFcBKdGH7IN2YcOx3wdqcl5v26RPIOQRJk+9W
+ wdmRJF/vyDaBrq3xJRM0EjzN0coRIHYANvzMBDssbnclJzBt4qh4LA9B8GdUKXYM6PFonfPMLYXdd
+ wZZu00DxSxjZ9mCUYfoW3kg7GiCkivih1R3rIox90CkrPBOdH7kkAFvASow/eK1Jd0T76aGIHteb5
+ XSnMa3S42jsDsfOC4EyCiu1su0r/rdLS4S/NgC22IbUqLTpbtr/ZPXCK5sTWpIdaEyU1lhmwn/6nK
+ ETmdNvppmvsaPeQ==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+ by relay.virtuozzo.com with esmtp (Exim 4.96)
+ (envelope-from <khorenko@virtuozzo.com>) id 1xH17r-006OFq-1f;
+ Wed, 14 Oct 2026 17:46:15 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 14 Oct 2026 17:46:10 +0200
+Subject: [PATCH v3 2/2] mm/huge_memory: deposit a page table for a special
+ PMD copied by fork
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR01MB8112:EE_|CH3PR01MB8648:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f847a38-3384-4d49-e78f-08df2956ca88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|6133799003|22082099003|10067099003|18002099003|3023799007|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: WpmjbCy6s2blDCbK3+0Mbe/qDsm3UTQUIbDwfqzbaTWB/+/mxVtupJfqFBXRV8drb9AsYCdh4+uuPwgnre8gh8ugioLPmX5T2DNeKcNjUM3cx0SyrHPI5cWUWX+5Ie+VUekj+6iV0oDrCtqdBtVLLLBXsnf8RixZH5z3F3T28EAipMLgcAzaYBjD/liG7rDvvPNhbIjwyCqxwTpgxVcxp68Jk+kUWOVDiCSDTkvOsJoRNUbmXGGWD4o0cQfHCgK9Fd0a/Dx2K6QZTWBKJ/KAi6x4bn3c4K7ki2RoZ2QXFq3fkpklFKJL1l3Cv108odCY+93hzJOxw9ky6xxbwRRwLjcIc5IN8Ve+taGG5hgfNQESuLJRBKx1xX+kLPXciAPX0twU+CipfXF2vvK9S6mSxdPJIfSZhdjED7xkLCWlbPX0vkIM+iaMv6Ingq9Gj16D3ZN4ervu1grEAziRvrxoPNljzVUXs0mJq+IjXHdyHXdaOb4v09rpvhpfBH8JYxMauKcNr8xD0U3Ut2GgtFNn4Z6yY3Sarellj5oyRV8f0PBC/W3d0g0poR7K0/t6nlULzhvju5t+FSYwW1DQymcGLrY3a59q7qLS5p3VzvChfsI05kZZYLzC/CiMoxiPKVL7+hU1GfpFUQYmujHv2lq20ZQdGDGQuJvPrCyrXA9Ooek=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR01MB8112.prod.exchangelabs.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(3023799007)(4143699003)(261009223027099003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zR56b6Qmc2eD72Id0WQgMHMbcPPzGcQIiIuQb13BeJZaWxLQSNAiqlY8R19G?=
- =?us-ascii?Q?ChAq11s3HKtWc6/+yxQyBX875FYsaMwSsfugos22WHMJf5KcQ6aVL6st1bfI?=
- =?us-ascii?Q?o3ypCqpxBDvK2U23VxeSD/dGWC2O0resZ0P/45XnLRRCbrg/P9PYCq8il3DY?=
- =?us-ascii?Q?gwLM1lur6LVo8K38jAYTGhBYAsmze9YMKz7lEGWlf8oCKs5CG77CSgoZDMyp?=
- =?us-ascii?Q?NWHEFBVrNB9qu71wczNhDueleZpGvryX74eI/tiOCrQVDUjaRrwXVTMPLA7+?=
- =?us-ascii?Q?Z23O1uaUUCOuscHawA57qFQ59ABuVvFUxoolD0MTugHiOnBfa+Z9k9zyEDcn?=
- =?us-ascii?Q?m+AQ6tiSdLVpueCaS9x+8k2TdKqXKmBbyFMgU9K9YrvWHxXRHXFk7xCwJMCe?=
- =?us-ascii?Q?EbWtr9axUS4R1wmMplJdZ9uOfikdx+frV7zoyKGxZVqDewTbVgZargM5Zavf?=
- =?us-ascii?Q?ZLgW7+H89PT4oLuKJHaZj7sb0DDpuygRsWRZXi/Sfr7Oyv25SViWf7RdfiAO?=
- =?us-ascii?Q?r/n9kg268XHSANFjXsrl8/CxbxnsJRypLjLkevChhdX8LyjxSENgESkfkQ2N?=
- =?us-ascii?Q?xIbJIZMCJoVVQnII7UnCtpAV59N6bRiQGdOodn/1113Deni3aZCCZ0T6iLrH?=
- =?us-ascii?Q?R5nBxwEtmWYTu5jSF8yQFNpknvHOr5K0XPElnvMPNOldBvyTMIfALOWtl+ss?=
- =?us-ascii?Q?S4EY+q/Z3ifQCXoPwt2jPUB29UvThQ11XVTcKE5g/mKdmcfSersaKjkHXLoj?=
- =?us-ascii?Q?g2BIK7DWA9Z9Bvc0x+/ua2MVCfCtsi6NVZZMpUlpFq4ESU0iPz/b8YpBWGL5?=
- =?us-ascii?Q?4zuydhZGEb49qL5NzRlz6CWFmxqDyB8VNQjNHIXF7QkY7ES3yvM6e6cJFfNN?=
- =?us-ascii?Q?ElqN8nQocJTjSk6DmIt9VYe5uRIuiecNV/Em0g4MCDNV5BoMiwdkSt7kAJjj?=
- =?us-ascii?Q?vg7/zRN3tB/CC70AI0MvlD04XSt5IidIUBVt7p6bSJdXyzmCKUG8GC1Scn4t?=
- =?us-ascii?Q?IKtTd0snQaoLMRKwt8pbbncjJB7SWRDQrhJm0jHu0Hte1gUTdBg3RV4VIyJr?=
- =?us-ascii?Q?AZv9eyuiQ9hYrk3avYLd4x8R9RigZ2rqki2fCGvrKLNey8B4jkPNQKQbFTcM?=
- =?us-ascii?Q?93RG6Rof/8Ps1TyUP/1ir/G01WN9Qnjg0Mw0W5rM+FfPTLe4M3a2Bhww4k/E?=
- =?us-ascii?Q?qA9YJmu0BUDBN6YtUK5qSA5PyW1xPLaZX8LXgQ+ljWJPOpZzBCIFBnJG7RSq?=
- =?us-ascii?Q?/jGfGBIPb13lMoDh5VU4vLJ4z9xUsSz5Dw/Ko6JEOAy8Rj4fhQPvw7/1POYx?=
- =?us-ascii?Q?lh60Is4rG42GUSq9okKGsrhAa91Ebw6Z6zDUageA0P3a9LgRq/r+YilY/yEW?=
- =?us-ascii?Q?fm3cFRM1UmicWKJ6ObvkZRsf8yrFqQTirfZ1DmSp9mtVHt/GcFUqE/TttGrM?=
- =?us-ascii?Q?kJa97vSqgzKNG/GAxuTlbWIBXqnQ/qDZmIvptVo7gkzSjp0S8dINE0rMUm0r?=
- =?us-ascii?Q?xcDX3TUPa5/O7bN0vUBLkZ70QoYyReVuCWnwqFjnxWefoY+zstvgb/nJgd5E?=
- =?us-ascii?Q?4bSpVBQBdTPiD07m1PrhTTorWO8r6rAvJrIhrO3xDBdGO1LJL6ZxV8dwzU1B?=
- =?us-ascii?Q?Vdzx/8KtLFknshUz/IEBTFJ6Pifq/9a0Ti5Wtnhy3gYauixgGxbVZIniXPwf?=
- =?us-ascii?Q?N2uhee1ktB7+SJepE5Qrsp8yBkezBNYeSa7EyC6bTQz0mHhEn42aK9tPq80z?=
- =?us-ascii?Q?dkQkyVGW9g=3D=3D?=
-X-OriginatorOrg: michaelburch.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f847a38-3384-4d49-e78f-08df2956ca88
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR01MB8112.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 18:21:25.3656 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8256b244-08e6-4df2-b146-877069d9ce10
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IJc738aIZo72nSaWWKSUIvoxsodFzycIGzuVamCKL4wNgTSFKJoDweeT3Y7DiLxKgro+4cTKb3QGD+n0bS677g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR01MB8648
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-2-85eaec8417f6@virtuozzo.com>
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Sashiko <sashiko-bot@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2295;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=ccKR6pewzp3zZMmycW2Bk4rHSSS9C7rwMGxwqRO0ZTE=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz6PFClTyKPLrnnz2A76nCcPaPtA7BJ8STorQS
+ 2LGmEvfjtGJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas+jxQAKCRBRlgpH+WFc
+ KiGVEACF48BxKLRtenct26B7UErEMP4cCXXKBBh2OQTdVQG/gTnTUQmsq/rRFofn4M3McyTNw82
+ ySfEk1gWQrQAKYowENQdUkKwKyDbgkCZOtL5nnOp40ZO6LPu35KF7+CNCkxOzXX0ZK4KnCz1ZTl
+ x8DcoUMCJPp2pneC9getMw4C6zGaSomDz7heiaT1Rjzl69SToQWP/YEjdBfkVqbepbWKDUkFdSf
+ P3FiHQ+K9+uVwKO0rUM+RpUW4x6PoDxfAC9pYTYVGENU76vAHXbbQWjLLQ496MoINpTBeQ+icLy
+ FodLaYFVmgD0y597BAwMwDAp/8OTUeMF46epEQ4Qg05XHsn1mWEm7qZEYY4u/vdLRdmwt6PiHRj
+ TGZJnxg9ywOfkLjRQtnfTh7AQtXhed6tvMcaZ3dZqXIe9kWA3sy2puP1B/Gy8lmWRiXmYAVYY74
+ 9cmCRDVPu9RcTZZrkdjaDI6kLpuntZeN0JyPiFsJNTxVpkLjCj02cZLuQTGrFJMwQhF8DNCfL3H
+ gxbA1Ha344ZOgRPMoKvyFErRvSqB59yIGmamAXa8eIVTo93ZTzYGEnj5fJs6FFsO/EdoTML9NuM
+ hZSVV8SY3dYfeBR/monHq2Hq0CZszYYxdozeXI6Zr8RcwERZH/RGXyPJdHgD+df7ZHvxIcRlnD3
+ 9o96Qx7HyTFbI3g==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -129,46 +84,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026, sashiko-bot@kernel.org wrote:
-> > +	dpu_crtc_count_pending_frame(crtc);
-> > +
-> >  	/*
-> >  	 * Kickoff real time encoder last as it's the encoder that
-> >  	 * will do the flush
-> >  	 */
-> >  	dpu_encoder_kickoff(wb_encoder);
-> >  	dpu_encoder_kickoff(rt_encoder);
->
-> Does this code introduce an unbalanced decrement of frame_pending?
->
-> In dpu_crtc_kickoff_clone_mode(), dpu_crtc_count_pending_frame() increments
-> frame_pending once per CRTC commit. However, the function subsequently kicks
-> off both wb_encoder and rt_encoder independently.
-[...]
-> If multiple clone-mode commits are interleaved, could the second event from an
-> earlier commit arrive after the next commit sets frame_pending to 1?
+Where arch_needs_pgtable_deposit() is true, every huge PMD needs a
+deposited page table. ppc64 in hash mode keeps the hash slot array of
+the huge page in it, so vmf_insert_pfn_pmd() deposits one for each
+special PMD it maps.
 
-Yes, the accounting is unbalanced in clone mode, but it is not
-introduced by this patch. Without it, dpu_crtc_commit_kickoff() also
-counts one frame per commit, and both the writeback and the real-time
-encoder report FRAME_EVENT_DONE (and, on a frame-done timeout,
-FRAME_EVENT_ERROR) to the CRTC. The patch changes where the frame is
-counted, not how many times, so clone mode needs a separate fix.
+copy_huge_pmd() copies a special PMD into the child without a table.
+The child then dereferences a NULL table:
 
-The encoder already identifies the writeback encoder of a clone-mode
-CRTC: dpu_encoder_kickoff() skips its flush when
-drm_enc->encoder_type == DRM_MODE_ENCODER_VIRTUAL && dpu_enc->cwb_mask.
-Applying the same test in dpu_encoder_frame_done_callback() and
-dpu_encoder_frame_done_timeout(), so that only the real-time encoder
-reports to the CRTC, would keep one event per counted frame. The
-writeback job is still completed through
-drm_writeback_signal_completion(). Jessica, does that fit the CWB
-design?
+- on the first hash fault on the PMD, in __hash_page_thp();
+- on the zap at munmap() or exit, in hash__pmdp_huge_get_and_clear().
 
-I cannot test this here. dpu_encoder_get_clones() pairs writeback only
-with DSI encoders, so on X1E80100, where the panel is eDP, no encoder
-can share a CRTC with writeback and the DRM core rejects such a commit.
-That also corrects my test notes: this machine does expose a Writeback
-connector (WB_2); what it cannot do is clone mode.
+Allocate a table before taking the page table locks and deposit it
+with the copy, as insert_pmd() does.
 
-Michael
+Fixes: d1503aa9ab805 ("powerpc/64s: Add support for huge pfnmaps")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+ mm/huge_memory.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bf788bb231691..2380e4e877f82 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1961,6 +1961,11 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	pmd = pmdp_get_lockless(src_pmd);
+ 	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+ 		     !is_huge_zero_pmd(pmd))) {
++		if (arch_needs_pgtable_deposit()) {
++			pgtable = pte_alloc_one(dst_mm);
++			if (unlikely(!pgtable))
++				goto out;
++		}
+ 		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+ 		src_ptl = pmd_lockptr(src_mm, src_pmd);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+@@ -1974,6 +1979,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		if (unlikely(pmd_none(pmd))) {
+ 			spin_unlock(src_ptl);
+ 			spin_unlock(dst_ptl);
++			if (pgtable)
++				pte_free(dst_mm, pgtable);
+ 			return -EAGAIN;
+ 		}
+ 		/*
+@@ -1983,6 +1990,10 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		 * wrongly write to the backend MMIO.
+ 		 */
+ 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
++		if (pgtable) {
++			mm_inc_nr_ptes(dst_mm);
++			pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
++		}
+ 		goto set_pmd;
+ 	}
+ 
+
+-- 
+2.43.0
+
