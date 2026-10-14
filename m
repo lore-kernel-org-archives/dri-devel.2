@@ -4,90 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00DABCC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20313CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F5F112179;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1447811217B;
 	Thu, 15 Oct 2026 07:57:02 +0000 (UTC)
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com
- [74.125.227.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B4B510E2F0
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 11:06:40 +0000 (UTC)
-Received: by mail-pj2-f10.google.com with SMTP id
- 98e67ed59e1d1-3abe4fb64d2so1741944a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 04:06:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791976000; x=1792580800; darn=lists.freedesktop.org;
- h=message-id:date:references:in-reply-to:cc:to:from:subject
- :content-transfer-encoding:content-type:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=E41qJNRzVmPfHenlZSA2Vl9639pSTN9ZvaDbaLPA2p0=;
- b=MDO7uhCydGKYF7F3itCr3b6vQOFQIUBFhqaGhgs0uTfxAswZjzi3EVGmAk+9EwMPh2
- FDTeWnADuOAKD+zw0nvZ7FmXXW42ygvLEcBFECF0YFvXobnAwjiWtwlblwClZKiw0ZfE
- YftXT9fNwlrhGtghOkZJSRqvBzOPEW8UBNBVUxojT6ZBAN+KtbrmB4gqtBQyl7SUSgA7
- 6rRZ3CDUaedyfgVVWaW9XquM0fNi0M41h/PLbWz3To1e5R3Ur+wmqdT/wn1JqZkTOUKi
- 2Xbdlyz4tIKXBpR1Xy6guFSkKEoyx6o/2db96phpEMh2yzzdsLDtlMAPmXMXs8tej8Q9
- +4eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791976000; x=1792580800;
- h=message-id:date:references:in-reply-to:cc:to:from:subject
- :content-transfer-encoding:content-type:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=E41qJNRzVmPfHenlZSA2Vl9639pSTN9ZvaDbaLPA2p0=;
- b=XOVfEQOtqVlPwEdFlncVy3XX6Z6J++fIh745HlCDe/gkvKAUNi+3OV8JwWTT2tIUG0
- c74StEf9MyQh+nkuZOlG2Lm87vfzec8nlEnS0FECAlZ4DwExrPDDBRuHz8J1aEgOst+3
- +QZcr4NSwcWCXJV0LMoiuh6SqmjieYbw2tgPEfAWhGVaWcZWrScXAx0E2tw4ElSKbnni
- P4/5UHitIObQXPAgIWtr1VYN9iJNbffRPFVb9PP1ewEK2qqm/P6/gPNvbRGcxJnr/fay
- FB/37CgY8CnM7aSDtzhTPnfO3bFn9nw4R1Ft/8CUT9mj941cZNfzXFlG8GTC/xm5W1Sj
- B/Jw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxzzb2dGHVh3h179KTCW1oKF9Rktd/sz+enZdYWWkDTjn6D1nX4BQN7Ht+hZ1+tIjmTQKq9WCgqBgY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLx/mtaE2HkL5vZV7mSX/cv+xXh7UpX2Pio9CkPP86l2NOdJvB3
- ZkI5Nx8ZK6UU9Vw7O5YYZSGifKQ9hVVhPkYCwlXJYQueqB0FJWaEjVp1
-X-Gm-Gg: AYBFou1pSdRplo7GS66rqXAtsiPBejST7snPttNAVoo2MbGMcMOgIEwwOwtME+yFl2/
- kV4u67pqpcQlsK8DkLnHiMJFae5BnExiqrc7UdEkxw3niK6RHha3syIn+CjHT/zU0w5HForSdGi
- FZuYhh1iVNLzKboAFl6oCDDrzHCEkqtvxHtzvnXoj9J5HDcoHv3nnSNk6X7sYzMpiPVkMYEOVS/
- w9xSJqFwW0kN0ORkmdPL9puiDUAY4ia8ikOoAS/8X8E/7eHcxSmis+7eh6fFau7mhnG71ZbR/6X
- W0P5CluJ7ivUo3v/iOLconuvQ9leIiARbqnVEXsq1aOlgl1NyGTGPEC/0RRCTRFRcxXg57E3hqx
- V+8tUbAqALr3SroDpPE2rW13Gje/6aYSWqvsFHaM2rZ+viTaLs6Fjao24vWx4LXdgFGOSogjMDv
- +UfUp5s+Klgfu1xcve05u/mUky/qGQVxAJx2I3dy3/WwGp1e+Si37Ks99ETQNQZCPGiVbeM6r/J
- W20ubEb4srWkyGNrAGcPP03RXOXzHY=
-X-Received: by 2002:a17:90b:4a08:b0:3ac:4e91:bff7 with SMTP id
- 98e67ed59e1d1-3ac4e91c1b6mr2825151a91.48.1791975999552; 
- Wed, 14 Oct 2026 04:06:39 -0700 (PDT)
-Received: from [172.20.10.4] ([240e:471:300:dde:5eec:32d6:f33:1d4b])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cd5e2b79df5sm5281837a12.19.2026.10.14.04.06.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Oct 2026 04:06:38 -0700 (PDT)
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com
+ [113.46.200.220])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9D2B10FC4F
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:09:42 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=no8UksaLDXaLjS5OYlOdeSrGlrw0y7An++0sfqkG2yk=;
+ b=S6sbRlMk7yfHk2lzfRo5iWjIj8e7rtJiRuB3reuV3SxWnwZCcStXOeZLHuVm4zRIHzarmQ4m2
+ V9VM1ZtIFdjW9Zf2kD+c7Fomdx0w05uaYhHuJo2etMdetKqS8wkq+6gt0/3Qav9NzVnNwhYJBED
+ riv4Jlitu9KHPsKkB9TEb3o=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+ by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j4Q895GCVz12LHj;
+ Wed, 14 Oct 2026 16:57:45 +0800 (CST)
+Received: from whupemp100012.china.huawei.com (unknown [7.152.185.135])
+ by mail.maildlp.com (Postfix) with ESMTPS id BFD8C4056D;
+ Wed, 14 Oct 2026 17:09:39 +0800 (CST)
+Received: from huawei.com (10.67.174.121) by whupemp100012.china.huawei.com
+ (7.152.185.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 14 Oct
+ 2026 17:09:38 +0800
+From: Yao Yiqi <yaoyiqi3@huawei.com>
+To: <deller@gmx.de>, <tzimmermann@suse.de>, <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] fbcon: Rebuild rotated font buffer on font change
+Date: Wed, 14 Oct 2026 08:51:01 +0000
+Message-ID: <20261014085102.497789-1-yaoyiqi3@huawei.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 0/2] HID: picolcd: Fix output-request and
- framebuffer locking
-From: Aveline Noir <jm5905938@gmail.com>
-To: Aveline Noir <jm5905938@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, 
- bigeasy@linutronix.de, linux-rt-devel@lists.linux.dev, deller@gmx.de, 
- simona@ffwll.ch, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org
-In-Reply-To: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
-References: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
-Date: Wed, 14 Oct 2026 19:06:31 +0800
-Message-Id: <179197599193.532954.6543599494592547892.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1791975994; l=2119;
- i=jm5905938@gmail.com; h=from:subject:message-id;
- bh=Q4sS6ysJkh6bVqmDm0t8nwutvdPtgGri+t2E+qvwZrQ=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgboJ0y2WZIrQV0H4HJI1WEQ5sxS6pM
- Nc/XEYGLW8ee6wAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QJSB+KMp1PvZyKEm4roi9iB1DW2hPjN7sh98ZjltMhWCFYkG+UkBAjTEszr3F5A7A+M39+3Sa31
- Dwagjpf+n0w0=
-X-Developer-Key: i=jm5905938@gmail.com; a=openssh;
- fpr=SHA256:oSxqik6Pl1M8EjQW1QXKHoylm1jy0sguOWFFJlA9zf0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.67.174.121]
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemp100012.china.huawei.com (7.152.185.135)
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,53 +59,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jiri, Benjamin,
+fbcon_rotate_font() caches a rotated copy of the console font in
+par->rotated.buf. The buffer is sized from the font's width, height and
+charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
+fbcon_modechanged(), but not in fbcon_do_set_font().
 
-Just a quick ping on this v2 series. Have you had a chance to take a look?
+When the console font is changed through KDFONTOP/KD_FONT_OP_SET, the new
+font data and geometry are installed and vc_resize() is called. The
+resulting redraw reaches the rotated bitops before the buffer is rebuilt:
+hide_cursor() drives both con_cursor() -> soft_cursor() and fbcon_putc()
+-> *_putcs(), and they index par->rotated.buf with the new cell size and
+character codes. A stale, too-small buffer is read out of bounds.
 
-Both fixes have been tested with QEMU/UHID, though not on physical hardware. I'd appreciate any feedback and would be happy to make changes or run additional tests if needed.
+KASAN reports, for example:
 
-Thanks,
-Aveline
+  BUG: KASAN: slab-out-of-bounds in soft_cursor
+  Read of size 64 at addr ...
+   memcpy
+   soft_cursor
+   cw_cursor
+   fbcon_cursor
+   hide_cursor
+   redraw_screen
+   vc_do_resize
+   fbcon_do_set_font
+   fbcon_set_font
+   con_font_op
+   vt_ioctl
 
-On 2026-09-28 18:15 +0200, Aveline Noir wrote:
-> This series fixes two PicoLCD locking problems. The first moves output
-> requests into sleepable context and serializes LED state updates. The
-> second breaks the last-close/deferred-worker lock dependency using a
-> private framebuffer update mutex.
-> 
-> The first patch was tested separately with the original syzkaller C
-> reproducer and bounded concurrent sysfs/UHID-destroy workloads on
-> PREEMPT_RT. The complete series additionally passed repeated framebuffer
-> open/write/close and persistent-open framebuffer tests. Pre-fix modules
-> reproduced the respective failures. Physical hardware, prolonged stress
-> and suspend/resume have not been tested.
-> 
-> Patch 2's Fixes tag identifies the fbdev change that began draining
-> deferred work from fb_release() while holding info->lock. Patch 1's Fixes
-> tag was checked against the upstream transport-conversion diff.
-> 
-> Changes in v2:
-> - Address Sebastian Andrzej Siewior's feedback: clarify that the issue
->   is not specific to PREEMPT_RT and identify picolcd_data::lock as a
->   spinlock_t in patch 1. The code changes are identical to v1.
-> 
-> Aveline Noir (2):
->   HID: picolcd: Move output requests out of spinlocked sections
->   HID: picolcd: Avoid framebuffer last-close deadlock
-> 
->  drivers/hid/hid-picolcd.h           |  4 +++
->  drivers/hid/hid-picolcd_backlight.c |  7 ++--
->  drivers/hid/hid-picolcd_core.c      | 46 +++++++++++++++---------
->  drivers/hid/hid-picolcd_fb.c        | 56 ++++++++++++++++++-----------
->  drivers/hid/hid-picolcd_lcd.c       |  7 ++--
->  drivers/hid/hid-picolcd_leds.c      | 31 +++++++++-------
->  6 files changed, 93 insertions(+), 58 deletions(-)
-> 
-> 
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-> -- 
-> 2.55.0
-> 
+Rebuild the buffer for the visible console right after the new font
+geometry has been installed and before any redraw, as fbcon_switch() and
+fbcon_modechanged() already do.
 
+Unlike those callers, this one does not fall back to unrotated rendering
+on failure. The "par->rotate = FB_ROTATE_UR; set_blitting_type(vc, info);"
+fallback they use does not actually switch to unrotated rendering:
+set_blitting_type() calls fbcon_set_rotation(), which immediately
+re-derives par->rotate from par->p->con_rotate. Replicating that pattern
+here would not change the outcome; a failed rebuild leaves
+par->rotated.buf NULL, so the rotated ops skip drawing, and the following
+patch retries the allocation on the next call.
+
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+---
+ drivers/video/fbdev/core/fbcon.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 01715873ea49..5cef18043bdb 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2432,6 +2432,17 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!vc->vc_hi_font_mask && charcount == 512)
+ 		set_vc_hi_font(vc, true);
+ 
++	/*
++	 * The rotated font buffer is sized from the new font's width, height
++	 * and charcount. Rebuild it for the visible console before the redraw
++	 * below, as fbcon_switch() and fbcon_modechanged() already do. The
++	 * redraw reaches the rotated bitops through hide_cursor(), and those
++	 * index the buffer with the new cell size and character codes, so a
++	 * stale, too-small buffer is read out of bounds.
++	 */
++	if (con_is_visible(vc) && par->bitops->rotate_font)
++		par->bitops->rotate_font(info, vc);
++
+ 	if (resize) {
+ 		int cols, rows;
+ 
+-- 
+2.34.1
 
