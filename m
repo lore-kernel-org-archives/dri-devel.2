@@ -4,130 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E285DCC6B19
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 01:00:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E6ACC6B19
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 01:03:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49D9310E177;
-	Wed, 14 Oct 2026 01:00:33 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011039.outbound.protection.outlook.com [52.101.57.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38DB310E177;
- Wed, 14 Oct 2026 01:00:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uo+jJnCHJtnLHrFsXvGSNgfDbSukYvQQRUVxWigIGhLnLEL3j81fGXfefHix2meyUF0LUwV+u5k4bX8Y3pKLFmtoGL5PHClG95JVAyUFDmQYuZJmLy5xvR5Oq8Lpv3EjkFPvNdodtIerv3A8qzTQqowQBDDvNds56nCuc18SrXMjLJzH3R+ZpfpPVEo1BpLezwxVgEcw1h2FM0NfHp6RPJ9i2jArQRO0eZ01lmDs+eSmoNK2jCVFyqtvoRL69SH7hKf3n0zvR1hjksqwBV2PDcF4v6aAPX7nOWzOea54LCfEMBDAe2gzFYiZf9s/YpfGjeD8K9ooT9PMWYKDVk/ueQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CNdRuNd3tqxkuhBr8GZMs7d5vGORbSmUvGEwMq29WdI=;
- b=IGNZltVbYhr9k58ON4G8X/q5urbdj3s4eKLZ3fNIrp3A/ayoCr27F88U6wsxB6dU5dTw5NqaXI4BOFO2+pvsq/xJ38+/ClN6oRqZtPmiPNlsQKGviU/SvZtRtlWLEqieI6GVTtQRBWVk+ag4cYOGZDXZM7f19uJmIbP/a/epZ5WF2LYV3OhswA+ps6xIRYMFUoMVtMf4mVc504GZjvP7cMOnm6KmEnwTjH0VkVDMRCgMShgtUyKJnjso60B2R8itJFthrisoqLZ3WxGUvncuzb4qfYTtVmdg2k0icN+nSf/uULWe6v7nbKhF6AalhvNg9gCg/3LyeabhtnMP+7PhXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CNdRuNd3tqxkuhBr8GZMs7d5vGORbSmUvGEwMq29WdI=;
- b=VBvK9FbC8evOGcyLJzckEuxq2a8QifRrXkR8iDQo3SW81BQNdRnX5wJH7DkF5OfGaY524ydt7LhxTN/ftbU2X00+GTJYj2+GaltFIGjil0TcV/v6Zj3ZSpYcgasEy5X/hwBBG8MkYWWA2FG8xGY+ma2V23LQhRRYPrmXvqPG7ul8QnND8gw9WxDCzaDHcprc3cHv4aKWXAiaNY7KiSWK06il5fu2Yorg7rcXCwKGaaWKrTR0i//gIyQWOeE/5hdJVTxzRbbuKQv/By1tYFQKmGE0z+RAfda/QAsRkopTxBEh8fB20MGgc1nsD+MDVdwPyk6H2G1I/tPAAGj3w1BsRg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- SJ0PR12MB6926.namprd12.prod.outlook.com (2603:10b6:a03:485::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.23; Wed, 14 Oct 2026 01:00:19 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 01:00:19 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 14 Oct 2026 10:00:15 +0900
-Message-Id: <DM45KUU32XJY.3SEO01811QCUP@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v4 06/10] gpu: nova-core: gsp: cmdq: move RPC message
- logging to RpcMessage
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261009-cmdq-rpc-v4-0-c9ab8de1d3f2@nvidia.com>
- <20261009-cmdq-rpc-v4-6-c9ab8de1d3f2@nvidia.com>
-In-Reply-To: <20261009-cmdq-rpc-v4-6-c9ab8de1d3f2@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0122.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::8) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4E5D10E17B;
+	Wed, 14 Oct 2026 01:03:35 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB6110E17B
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 01:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1791939808;
+ bh=ccpopn9Y9LAmIjVmaGfBkmnfpoFJvMf4XBoclWEOsYY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=ZK968R6An9g192Divilug2aqf7VKIPOmr2LnyX3rDb/d6crg4OyEl02eXHSWZmOw0
+ eguDWFLp0Dq4C8nhmDWqpnmdkUZm6O/lN0ZkTy2l0UregbFFaUIbHXFu2lSlPLGf3M
+ 3CgQe6cGL+bjsbyocHvP9zhwTgQcc3miyB+q/TpjAPdAcwcQa5YCVT5rLOIHh0cRzm
+ qsgj1pJTFgUGlQbeKjxsb71V2R8pqjURWvx1etluDX23palVliV+Y/HMg0uqh+jCMu
+ JqB2+hB43Sg5H/NZrjW0ID2gVEa49FNAHgGw6UIGAlcMqpxAPj0O0lNagtlaVsXnId
+ Sn2qcOj7E4lsQ==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7CFFF17E043C;
+ Wed, 14 Oct 2026 03:03:28 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Wed, 14 Oct 2026 04:03:08 +0300
+Subject: [PATCH v3 1/9] drm/vc4: hdmi: Use common TMDS char rate constants
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SJ0PR12MB6926:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3d5989c-ffae-46da-e566-08df298e8423
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|10070799003|23010399003|56012099006|4143699003|11063799006|22082099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: k8dlGE20726L0zT5Ubin2268XHzT/l9g1QD2y7pDQMKXOyaXO+s2reBS6vVfBw+vH2U39cxkEF4ha2PUlUS2YFJmsWgFx/nPb944aq+cukvDwGesSxnlQnXVmkPErtQ5mmumx5Q63Eow9c5uxfBG9fOBuYyy/deI2sUfaRkgYRTc4392RgZ+uzL4jJp8OZ5iSNny46el6dw7rjG3njN8bv/UjoepRYCZ2GI6RhH9o9V8fm9U+Uls3j/h4yLeT+ZYMhp2O8nWEFvFf0J56h0mLv2It0kCyLn7Fojy6+E63HzSi4qM6zWclQUWc8lC4Kq7ylxFY3MpQUzUfJKHZkHhILvLYWIhaeSXjctipVoowG9MAb6/BTvvmhqCLRQblFUImp7uLHccRH4rjH8886iIS4yynxbCID3zQ0YJ1huLWSVijoYsUQUpVWrFuJ8rht3T8of13xXFxVDC1pUtZGZg1BQOSqlLzqYKdKVnVkvInDUZzsT24ZUkcVyK9KIjNeSXmE68RPO21ln3mkO669ttn5hw0Njb3HxtDwfOuQGO0qLu4frAcyGVoexBf08pLc3zFC+m0peHZRzD9Tpwf72YsdtJvu1Bomp+n6iaZ3zew9yMCgWJQSyuRcxJ5vOY0Y+5UT+/4oh9fry99nRuQmspMLPrB30ywBoBukiLyhSdNFA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(10070799003)(23010399003)(56012099006)(4143699003)(11063799006)(22082099003)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1prTlNZN0UzN1hBZzhtUnE0MVgyd2cxTUVZaFdsTVJJQkZadHB6RXAwZWtt?=
- =?utf-8?B?Z3ZPTXlMYmFYc3JMb3UxeXdRZ0NpeEZNWExsNjBiTFRlOUx2TTdoVVZvdEtP?=
- =?utf-8?B?OXlYQzRpdzlMbFZjZTZFRW9ZQUlwNk1SSm1GQWI0TXlxL2wrcy8xQXF4QnlU?=
- =?utf-8?B?RXpZNUwwc05ESFRXd05RdVVGeExGMWxQaFBWY3AxYUY5dnNwTGdFcHhYbHMv?=
- =?utf-8?B?cStjNFc3WktyTXJWN2RFeGtUQ0hYVmJZWG02VUI1Z2I4TWhHZHFkdHBXL0xD?=
- =?utf-8?B?MlRZcExUQnF5MXZIRHpETGFOWVU3Vk9veHlXcjgxekNOaW9kamFqVDZuLzFl?=
- =?utf-8?B?U0FaaHhLS0lzZHpCeEZmNDBiQTB6dTlzb0dTejdUNC8xc0w2bVF5N3JSczJh?=
- =?utf-8?B?bFh2VkhUZTBGbUswSllLdGo2bDV5b0xGYzRtYkdQbHBWbVllR2thK0l2aE54?=
- =?utf-8?B?U2F3OGtRQWdiR2ZmUnVkK0ZNZ1paK2NWaEkvdG00eU1LdTg5cWJNUFFCTklO?=
- =?utf-8?B?alczYmhENTlaR1hsYTVxaEhjbnlwcHAyS2JKUmExNkxRQ0FnTTFnaENDNDBl?=
- =?utf-8?B?MWdINUtXa2NKblQ1ZnZrMTBnY1gxaUY2NzEzOUdVV2hrTkpBYUlvUWYxRHEx?=
- =?utf-8?B?ZUE5NlNYakh0c2VrOStLeWlSTlpDNWFVQzJ6TllmVTF6Z1dDUU4vTzVkMEI0?=
- =?utf-8?B?S3lkUG5MU3lMOFFQUU9oTGlvMC9DWUQ5djVGL204UkQ3dU1MMDlSVlg2K2g3?=
- =?utf-8?B?QU5sOG45RlhSRTdhQjREM1JzMEQ0V0VKRVNPQzJjNkZpZVBCUmFyK0tXQUto?=
- =?utf-8?B?VVVHbUtwbFcxTFgwUXp0ZDZ3dGlXYXJkOXhlYllEczNwVVIwajg1amlockRm?=
- =?utf-8?B?NWpJT3NsclZzaEpBNDZqM2cxdHJRbDFCalVmMkVJQTF2TkxmQ1ZxWjUyNUJp?=
- =?utf-8?B?K1h0TmhYbUhUWUUvckFnVWRCbEJmTWZZQUd5c3RjT0FiM2lVR0hnZ3djZmhi?=
- =?utf-8?B?R2ZMMDM4UEQxRm5POVUyZk53R2VKcTNtbG1IVkYxb0IyWjBmcHJFRkpnYWZL?=
- =?utf-8?B?UlBhRGtjeTRId3d2dG1HZ0s1S0hlcnNVcDRwcUFmMm5qcmMzME1DMytBM1Jr?=
- =?utf-8?B?TDJtTDl1OXNwcHZuWEp2WS9nRXphc2Zpb3JURlo5ekVpK0ZBUmZrZFBhaThO?=
- =?utf-8?B?YXJ4ZERVSGcwTDJjZitRL1hJeW01dkYyZ29lTmprby92U3RLRFVZN0JwSXFz?=
- =?utf-8?B?NnFuWGt4WkdDaWlSNDBhSkhScWp6QXZQdzIwbFY3SDROTVBLRnlyUDNkR1lM?=
- =?utf-8?B?MmVkQVFIeEdaN1hDd1o1ak5PMmxKSDFiRXV5Nk5WWXJweVRCM0t1M3QxZ2NM?=
- =?utf-8?B?Q1U2N08ydXhvYVFyVHpQekhvYVViWjVuODZiTHA0RzJxU3VseXV3SVFCcjZY?=
- =?utf-8?B?a24yOEZnOWhhaVBrSGozN3NYRlgyR1hLSnBQdEVXdXhWbGQ4T3lOQkRuQ29y?=
- =?utf-8?B?M25PUlJ0QTBTd0pXRVlqZHhsZnZRWGh1V2ZPRjhNR0hQbU1FV0RwL2ZpL0JP?=
- =?utf-8?B?ZktQNmZxaGRxdFBNZkhQQWRMWjErSWFIWXpQRUs2OFNIVFVBRk1DVEFJc05D?=
- =?utf-8?B?MFMzcnVMRkJSQm84ejI2NjFPM2x2U1VnYXl6MXFmUmdWZUNSUXlBNEJkZFdS?=
- =?utf-8?B?K0FaTC90anR6cUxrRjdUY0h2YzdXMDZDR1ZYa0JnVCtyMEkwcDRBYmZrUE5k?=
- =?utf-8?B?VmFWeGdOS1Z4YlZiMDJ2VDVUQmNlMm5Pa1FMZ1kyb1paQ21wajR1MXM4aUhO?=
- =?utf-8?B?anlDNmkwMWNqTEtSYlhGODdFT2ErelhBQTdkemVjOC9Ld2hKYkRxRFRzM0FI?=
- =?utf-8?B?R2labktxSjdlVXhTNHg0M2RNK1FRaW4zaW5VTVdoTWJvMTBmb3ppYmpIRks5?=
- =?utf-8?B?S0ZraXpMSVkrYUszbUVkQkZ4OWpia1BJbFBtajBxOW9qK1diWHVwQWlXakZT?=
- =?utf-8?B?eGFzMXBiQTFqL3M1SnYvTkRkUm5xL1BvdXdQcFQvUXNkWjNHTW5TdzdqZFg5?=
- =?utf-8?B?Yk5jU3ZIK2FCbTZIOWVJTmNGcFd1eXlZRDRtWVZFb0dQaGlGcWNZQlRjWU1N?=
- =?utf-8?B?bVN3Y0RNYU0rTCs5a3BiUU1SaWpUcVc5NWxJTGdweXZDbU5la2lPSytOTG5M?=
- =?utf-8?B?NS9XalBacUU3Y09iYThsY2UwN1Nsdi81TDJGWlA4c2J3OTY3MWtTL0pBRHly?=
- =?utf-8?B?RWJNT0d4dWtDdkpYU0h0eHFkTmRpZFBvQVY1RGlIbEZUZ1RFd1dwclJjcmxP?=
- =?utf-8?B?aFdHdTN3c1JGWkw4UC8xZlVqZkNXVEJERjZOZW4vdHdPTzZqTEdoSDFRVTdG?=
- =?utf-8?Q?Q787mEC6jZmE57wWfqD05BKbhliBFk6axSgVelTt+ZmKj?=
-X-MS-Exchange-AntiSpam-MessageData-1: k9MeAd2FCCUpFg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3d5989c-ffae-46da-e566-08df298e8423
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 01:00:19.0992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H+mwZ7CXOpQp7/Qah7xBYnF5Wd31Ky0+OTQKdTYybDc4Z2uT4YtskPNYHfIjcxNoXOaXms/SoS/1TYS1tUxoTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6926
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-vc4-common-scramb-v3-1-c68d58d959a2@collabora.com>
+References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+In-Reply-To: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,13 +64,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Oct 9, 2026 at 8:54 PM JST, Alexandre Courbot wrote:
-> The `RpcMessage` type is the right container for the `log_event` method,
-> since it contains all the data we passed to it. Move it there so callers
-> don't need to extract the required data themselves.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+Replace HDMI_14_MAX_TMDS_CLK defined locally with
+HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ provided by linux/hdmi.h.  Note this
+incorrectly referenced HDMI 1.4, as the 340 MHz maximum TMDS character
+rate was actually introduced in HDMI 1.3.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+Similarly, use HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ instead of the 600000000
+magic number.
+
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Acked-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 3a90dbb61f4e..8e4623ccc4f8 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -45,6 +45,7 @@
+ #include <linux/clk.h>
+ #include <linux/component.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+@@ -113,8 +114,6 @@
+ #define HSM_MIN_CLOCK_FREQ	120000000
+ #define CEC_CLOCK_FREQ 40000
+ 
+-#define HDMI_14_MAX_TMDS_CLK   (340 * 1000 * 1000)
+-
+ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+ {
+ 	struct drm_display_info *display = &vc4_hdmi->connector.display_info;
+@@ -137,7 +136,7 @@ static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+ {
+ 	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+ 
+-	return clock > HDMI_14_MAX_TMDS_CLK;
++	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+ }
+ 
+ static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
+@@ -1728,7 +1727,7 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
+ 	if (clock > vc4_hdmi->variant->max_pixel_clock)
+ 		return MODE_CLOCK_HIGH;
+ 
+-	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_14_MAX_TMDS_CLK)
++	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+ 		return MODE_CLOCK_HIGH;
+ 
+ 	/* 4096x2160@60 is not reliable without overclocking core */
+@@ -3254,7 +3253,7 @@ static int vc4_hdmi_bind(struct device *dev, struct device *master, void *data)
+ 	 * vc4_hdmi_disable_scrambling() will thus run at boot, make
+ 	 * sure it's disabled, and avoid any inconsistency.
+ 	 */
+-	if (variant->max_pixel_clock > HDMI_14_MAX_TMDS_CLK)
++	if (variant->max_pixel_clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+ 		vc4_hdmi->scdc_enabled = true;
+ 
+ 	ret = variant->init_resources(drm, vc4_hdmi);
+@@ -3384,7 +3383,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
+ 	.debugfs_name		= "hdmi0_regs",
+ 	.card_name		= "vc4-hdmi-0",
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc5_hdmi_hdmi0_fields,
+ 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi0_fields),
+ 	.phy_lane_mapping	= {
+@@ -3413,7 +3412,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
+ 	.debugfs_name		= "hdmi1_regs",
+ 	.card_name		= "vc4-hdmi-1",
+-	.max_pixel_clock	= HDMI_14_MAX_TMDS_CLK,
++	.max_pixel_clock	= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc5_hdmi_hdmi1_fields,
+ 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi1_fields),
+ 	.phy_lane_mapping	= {
+@@ -3442,7 +3441,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
+ 	.debugfs_name		= "hdmi0_regs",
+ 	.card_name		= "vc4-hdmi-0",
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc6_hdmi_hdmi0_fields,
+ 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi0_fields),
+ 	.phy_lane_mapping	= {
+@@ -3469,7 +3468,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
+ 	.debugfs_name		= "hdmi1_regs",
+ 	.card_name		= "vc4-hdmi-1",
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc6_hdmi_hdmi1_fields,
+ 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi1_fields),
+ 	.phy_lane_mapping	= {
+
+-- 
+2.55.0
 
