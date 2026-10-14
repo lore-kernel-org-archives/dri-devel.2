@@ -4,36 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 845A7CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:06:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 123EEC3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9DE10E391;
-	Wed, 14 Oct 2026 18:06:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70B1210E1AA;
+	Wed, 14 Oct 2026 18:08:02 +0000 (UTC)
 Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC5710E391
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:05:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8EE10EA99
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:07:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1792001154;
- bh=A/YfHX/3fZumK9vHo0wbkd9nVZibQ7MqdJzxO23iME4=;
+ s=201707; t=1792001275;
+ bh=DBsylmieXlH7jN4lQzs3+azlJUaS53ZlHvjnKa/pZyU=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=HhdSgVuZBt417lj3wDa1A+PxkTvAr5bXI0LE/oI7VfZxn5COesZJa5cfaQFFWKpfj
- 5hfIQqivjglbjEMEwsCSUbSqRxldmtac296JYUBKBGnv51kf318CoSJMYiwslBJ3mr
- 8mHhJ0saap1EuUqZttcj2x3T3hNno+DL7tmkT1FnQxY3WfK2CD6zya/j2vCtCMUhLn
- 306i4dWpRYJW/1DHqUwJYlv9Stmrqw2SC+rTClTAEAE+QPRFopgymrduAyUBIKRpAv
- Mls9PON2h6YvKoz9d6WupX1Gwf8M1e+ycgRsW1nMRyb+kHhXSBXZao2pbbC0TxMLVL
- WwzZM7cP9gkSQ==
+ b=G3P/Joh8VxsWKZD77wjVjEsdrEuCe0iMj5OoD+01Tc4snAwR0d0ut2CGkYADYIVWO
+ lVd3paktWgKEkNFfCS04XvlDnw9WXH6ROInP1ff43Unn3dN2s6jGQLj3Y8/CLt/Msk
+ 6hbpzuGQ5lvJQW2Lii1rTzFnibHWD3vW3pHbmjhhaxQFlyt/ui4tRbNU/JPW0mXamJ
+ lotdYno1jCLuv2jbaY0cSWgxE5d39w0RS+qczN9qArNLXkR96A0igpzLbjtkHtXGdK
+ pMyiWuQTz9WB/VYpj62fiSVbURyvFTF85lIr7NbPrDnfh1kg8rzS1tKDwltF6piA5I
+ AN+3ZbullBfyA==
 Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4fJT5wqSz4wCt;
- Thu, 15 Oct 2026 05:05:45 +1100 (AEDT)
-Message-ID: <20051ac9-43d0-4143-88fe-1198ebb6383e@ozlabs.org>
-Date: Wed, 14 Oct 2026 19:05:41 +0100
+ key-exchange x25519) (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4fLr3nYgz4wDf;
+ Thu, 15 Oct 2026 05:07:48 +1100 (AEDT)
+Message-ID: <2d454220-61e1-48e2-8515-112393ffb3ad@ozlabs.org>
+Date: Wed, 14 Oct 2026 19:07:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/9] vfio/pci: Remove DMABUF export dependency on
- vdev->memory_lock
+Subject: Re: [PATCH v8 7/9] vfio/pci: Clean up BAR zap and revocation
 Content-Language: en-GB
 To: Alex Williamson <alex@shazbot.org>
 Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
@@ -49,10 +47,10 @@ Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
  linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
  linux-pci@vger.kernel.org
 References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-2-matt@ozlabs.org>
- <20261013171416.40b00e73@shazbot.org>
+ <20261006193643.76330-8-matt@ozlabs.org>
+ <20261013171352.1c467040@shazbot.org>
 From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20261013171416.40b00e73@shazbot.org>
+In-Reply-To: <20261013171352.1c467040@shazbot.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,60 +68,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex,
-
-On 14/10/2026 00:14, Alex Williamson wrote:
-> On Tue,  6 Oct 2026 20:36:29 +0100
+On 14/10/2026 00:13, Alex Williamson wrote:
+> On Tue,  6 Oct 2026 20:36:35 +0100
 > Matt Evans <matt@ozlabs.org> wrote:
+>> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+>> index cb0e4865d110..986852b1d44f 100644
+>> --- a/drivers/vfio/pci/vfio_pci_core.c
+>> +++ b/drivers/vfio/pci/vfio_pci_core.c
+>> @@ -1337,13 +1338,18 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+>>   	 * have NoSoftRst-, the reset function can cause the PCI config space
+>>   	 * reset without restoring the original state (saved locally in
+>>   	 * 'vdev->pm_save').
+>> +	 *
+>> +	 * The zap is done after making the device accessible in D0,
+>> +	 * because a DMABUF importer could access the device as part
+>> +	 * of its revocation cleanup.
 > 
->> The VFIO_DEVICE_FEATURE_DMA_BUF export previously used
->> vdev->memory_lock to protect VFIO's list of exported DMABUFs
->> (vdev->dmabufs) and their revocation status.  When adding a new
->> export, memory_lock was taken for write.
->>
->> A future commit will refactor DMABUF export into a function used from
->> mmap(), which would create a new mmap_lock -> memory_lock dependency.
->>
->> In preparation, this commit introduces a vdev->dmabuf_lock that
->> protects the dmabufs list, per-DMABUF revocation state, and a new
->> bars_revoked flag.  The flag tracks the device-wide BAR revocation
->> state set via vfio_pci_dma_buf_move() under dmabuf_lock, removing the
->> test of __vfio_pci_memory_enabled() and dependency on
->> vdev->memory_lock.
-> 
-> There's a subtle change here that I'm not sure is worth mentioning, so
-> I'll at least put it on the list for posterity.  The initial revoked
-> state of a newly minted DMABUF is now governed by the device-wide BAR
-> revocation state set via vfio_pci_dma_buf_move().  This is subtly
-> different from the current behavior where the initial state is based on
-> instantaneous BAR accessibility tested under vdev->memory_lock.  Thanks,
+> Nit, s/zap/revoke/
 
-Yes right, that's good to capture here.
+Doh, done.  Also cleaning up a "zap/revoke" in the 
+vfio_pci_dev_set_hot_reset chunk.
 
-The new lifecycle is then _only_ coupled to the revocation state both 
-(with this patch) at creation time and (already) thereafter.
-
-We sorta have two mechanisms to track "BARs accessible", via 
-__vfio_pci_memory_enabled() and the changes initiated by 
-vfio_pci_dma_buf_move() (which already exist, but the new
-vdev->bars_revoked flag now tracks).  They shouldn't really differ, i.e. 
-a BAR is accessible or not (whether by CPU or P2P) and we should clean 
-this up in future.  In this patch, creating it from the bars_revoked
-state makes the state consistently set from one place, at least.
-
-Cheers,
+Thanks
 
 
 Matt
 
 
 > 
+> Thanks,
 > Alex
 > 
->> This is a cleanup currently, but allows the future export path to
->> avoid holding memory_lock under mmap_lock and a therefore avoid a
->> deadlock scenario (a fault handler attempting to take mmap_lock in a
->> vfio-pci variant driver thread that holds memory_lock, vs another
->> thread doing an mmap/export holding them both in the other order).
+>>   	 */
+>>   	vfio_pci_set_power_state(vdev, PCI_D0);
+>>   
+>> -	vfio_pci_dma_buf_move(vdev, true);
+>> +	vfio_pci_revoke_bars(vdev);
+>> +
+>>   	ret = pci_try_reset_function(vdev->pdev);
+>>   	if (__vfio_pci_memory_enabled(vdev))
+>> -		vfio_pci_dma_buf_move(vdev, false);
+>> +		vfio_pci_unrevoke_bars(vdev);
+>>   	up_write(&vdev->memory_lock);
+>>   
+>>   	return ret;
 > 
 
