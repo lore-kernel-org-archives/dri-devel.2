@@ -4,186 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39B20C3DA7A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 19:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F36BC3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 20:13:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 991F610E1D6;
-	Wed, 14 Oct 2026 19:58:29 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD2610E1D6
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 19:58:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1792007891; x=1792612691; i=deller@gmx.de;
- bh=Yl7JqLTaI04NIle4YxtSuidm484vog6XzRS8D10VVIM=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=DQ/tf0kwepa7XuYxNIYvRiaHG/CaGVaPNmTtKi6XeYByBUq0F076dEYvJkRI+g9c
- KIsPCpe7kRqxFJVVdeMWE6OSA+06gTRpQvBuyp0MBSwYXHq49DQ/xLsdXTSidKZIB
- tu3w6T55w6gsIF+JcNrGKfVMiOcaaCIjy2hp/BwMAckhiKpfae3gI9G6haKZn0UK0
- LdPjbrqJSQgOFJPLGNc6LfCLQclZvtM17k3TjL8JvcXwOv04QLb4ZAZW+e2fZG743
- o/A7SUBlBsfI8vyBC31EiuyNUAk6uNm067I2wPy+aPKkifVZ9hkH09yLszjZ7KQJz
- SCfgD4GzUZPYZQSniw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MuDXp-1wMUWN40vV-00sAd0; Wed, 14
- Oct 2026 21:58:11 +0200
-Message-ID: <116870de-c54d-4de5-afad-11f9f6cfdd7c@gmx.de>
-Date: Wed, 14 Oct 2026 21:58:07 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0280E10E1CA;
+	Wed, 14 Oct 2026 20:12:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3991210E1CA;
+ Wed, 14 Oct 2026 20:12:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792008770; x=1823544770;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=3TtRVDy/+gNFXdTibeAvqDr3Txvt/TkFHvXjNBwxyAs=;
+ b=E0k8FSvAOdjWy2aRYlLLGNpyPI8f1nmaTVIaIVagqztDjDJK7mBGP9/H
+ hJV3ci1wR5XnXxW3Z8J1kqRlaUqtyIXkkLKn7B5fcccmD4wEL6e7caFUC
+ aMkJ9AqNPfKMtiufQoNjPWiaXt5hBUOPMzC/QnvZj5adHgyruIEnat21d
+ QlAYgzmQdMNAjz6wLu1GuYpxML6CN8G2aNIOjG6bveULgHrMQdoqsQIaU
+ qkspwyaNP8NUA+90q3cJxQ1cHYUTqaNkGypKffMiiN1L5CUm2Xz4Xruo1
+ t5tYyVqKEthabYMAiLZ6z3X3pWcrbLFs4IoMeTzVMpaPgdE6zvpIJs8gu g==;
+X-CSE-ConnectionGUID: xWRC35+ES32rrA1l3URb1A==
+X-CSE-MsgGUID: Lh2pn4quRga/hUfzK4ooTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="665713"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="665713"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2026 13:12:49 -0700
+X-CSE-ConnectionGUID: KMueiIw0QSeQM+mXllwnww==
+X-CSE-MsgGUID: +j9wI3LUQt2U39u1ArOFdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1594498"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2026 13:12:49 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 13:12:49 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 14 Oct 2026 13:12:49 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.19) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 13:12:49 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NEWzOxv31J5AR7sBTLSuvp8eYPbYTpsdz4VI19JHn5KzafBPA0OMEaIw3X2KcX30k1mVZ0Zw7kX6SlsTVgdMB9Ygj9Ofp79n90MU8v1mLGO69WfYcFfROyrtaciW9ji/pr6LIZBdW795EVsA5PjRZml0lgKh5mL9cNEgpCn2F7yaBJDXZ15cAuLzBICSe+6IjtkBBEw0zm/KNu7rlpvcZRAn4iW6Lf9CynavZQPChLO7CMaADweYpZRYrSJlP4qc+qAqmz87myk1zns4LEnHHGoJEWNdClBlzedoLPR8NTDzALMFZuwC4s16cRXxbSA0vX61Keh+Yuz/tAZCai/YYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JRYHNqgZxiL/1VJ2YbbcB0XXw+9JGjwIVyWqUGGxfC0=;
+ b=q6i7//6bn9NFCt9Wgj318zobxrsNmQqSOp+6u0PIs0EI5sN+HKQGxZE7L2R3pAICtWW9b7Nqzrrhd6mVVMyJgXOyHo/jhhr3EDsli9XJxkt7O7WAg+lchdL+uGQ+EICy/V3Ypc1BNYtQrHwZwTV9YPVltlLeFGNxU3pn7Wgn0Rf4rhgKBSK5Rj6LX6oKgHZrKJb1gkj5ms79e0AF+bxpu1UpHbPhTGpOgdtXMD8QwP3s9FVHLSMH7jq3c3wUP841mQ1y7V8C0TaPWqc/r2f3beWnr0FGSn8D6wweNa9OMRrROOkBwQQUXo5y5avgtRPjB3/+U4Rztx8oeKcgzsrcQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
+ by SJ5PPF56FDAD370.namprd11.prod.outlook.com
+ (2603:10b6:a0f:fc02::82a) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 20:12:46 +0000
+Received: from CH3PR11MB7180.namprd11.prod.outlook.com
+ ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
+ ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
+ 20:12:46 +0000
+Date: Wed, 14 Oct 2026 16:12:41 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Constantinos Chalkias <cch@e-psn.eu>, Bata Roland
+ =?iso-8859-1?Q?Kriszti=E1n?= <batarolandkrisztian@gmail.com>
+CC: <intel-xe@lists.freedesktop.org>, <matthew.brost@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/xe/hwmon: refresh Battlemage thermal telemetry under
+ force-wake
+Message-ID: <as_iOd6A_Yncj8Gt@intel.com>
+References: <20261012104245.2108030-1-cch@e-psn.eu>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261012104245.2108030-1-cch@e-psn.eu>
+X-ClientProxiedBy: SJ0PR03CA0066.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::11) To CH3PR11MB7180.namprd11.prod.outlook.com
+ (2603:10b6:610:148::5)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] fbcon: Rebuild rotated font buffer on font change
-To: Yao Yiqi <yaoyiqi3@huawei.com>, tzimmermann@suse.de, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261014085102.497789-1-yaoyiqi3@huawei.com>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20261014085102.497789-1-yaoyiqi3@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:1DPg+3xDaSgwWwXCcXCwVe+32KnMiW79ZXgS9UPQ5LaBtdcYhs3
- RJITOOWQVIzZDEVc7PljCU06wMpr/rO1V+74qiaJZwtiswDxanxl5LsIGkx8m7GA9M2gyfJ
- HykUiDIHSfJJZVtYZyAkrR3zhB+4a0+ARxldxFIuKUzfTwSJPnAbPoykZIhiqXWRZu5SPPJ
- h2dBeyiA1V9Go1JK2IHTg==
-UI-OutboundReport: notjunk:1;M01:P0:LS/o1SwxBSY=;oyITkgtRczn+tEu17ovdibligT6
- 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
- uZrRE17A==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|SJ5PPF56FDAD370:EE_
+X-MS-Office365-Filtering-Correlation-Id: 042511c8-e07d-44d5-01fd-08df2a2f8313
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|10067099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 1GOoYFVghdo+k/JOsAbrHovnwsjI5esRu7s+nEQzhEZG05GF59ohFJbr8gQLi+8KuMUWyd7kZfQzUWJqPf1XvkEljO5OejNQ0RT7mWh8jOqRfzuWR24pfKg/m4N9ApcI4CVMgIIZMmTeLoL3oxUTLC/5vHJJcmhQzDIlnSaZEhRY+W3UWZCZnjPOS/IO2cBIMemz7aPo/KuDx0gxY3hbInD2A/Mava/D+yDorUKoVjH6eKGqTJFx2YD9fUzcT6rp3S4FMadaB1HncgjC2pI/wNXC0UU8Lgxm8+qH7QvskReBhyhBDL7POhm71O+6bBMHkAW0FvGHF4HAez2qyZpz49EMkrmPzn4u+phgiZ1SsFIR97wTndQqXWJ2UnGtIMPvJEnBIa72h1v0Ps/96tKS5MH9aN7/Hn8lR0xZKWfPMCGHOONmVjlBlkCAgurj33XfbUdxxjWrYeachWeZKsDH7YK22PvMBX50hW6DcYH7Hsru3CItRaPTNzZhKg2uzx4dRvf0An/SRZcAG/t9rwjZgNqWTUBG6G8C+kYq1n+4TigRUmxVqZev0kxyier77SklNKC2V7s/IkfeAqAZKrdGNat+dAMnqx1QAIKTLieEMB+8OOmdoRYO58+JnTIMUA3c
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR11MB7180.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(10067099003)(11063799006)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?THCWiz2OeOtSvi+yjkl2NKvUwnJ43wsjBlGmtjukXH1R7uKCqbwaOARRcN?=
+ =?iso-8859-1?Q?sxT5fWOjFJIqjlPZYBSezzpkPLpVyd5z/VwTPALD0YZXDbzUGmPuDq/MRr?=
+ =?iso-8859-1?Q?PtWV12x1n3iZXuHhjizLy9vUUrTz1viA0JeIZH/Gr8+lhk/hLYTpyRcc63?=
+ =?iso-8859-1?Q?t3/MdIM4/BY4mZ+12hr+3OtgbgrlgfnzqaS3DvgY7Izr4siVM9m+amYGr5?=
+ =?iso-8859-1?Q?sgoRmGnp6rvPfZZaloR9LYrtjQYIph9WUkbOG0OqI5QmKKs0JlpSDelToG?=
+ =?iso-8859-1?Q?GZabi9KhjLSNgs456/HEmYbH3Ww0HRlpy2cgmf0D9CND6oTI52rQ9iO4zX?=
+ =?iso-8859-1?Q?kNdjCPGhFB6SdRvWPGn9X/tJ+eaC16L0DYlLdkB+YQ2SVZqvp061NZU5Nk?=
+ =?iso-8859-1?Q?q6en/P4xQy5sdOSFRKL+JkLeb7JktIRDW+HanLSZuJ66rFwhigQpETpgR8?=
+ =?iso-8859-1?Q?c1jlEeydvGSZM3eYXQlKo1vAB72fl/bvavOzOqWpaqmqis/XUj7n6NtE+H?=
+ =?iso-8859-1?Q?J3R5fh7YsE0RxaRgirrEZQ+EKDdb7B4JC0ywuxHwUW5A9mr+aOrQSs3coN?=
+ =?iso-8859-1?Q?QvicamyETAG12UikTfLfWNME1zOAWf7wTTi2jioZ7A2iV3bRHPaGEpcUNu?=
+ =?iso-8859-1?Q?5iK5knMExQ1IsWqsgLIDwOoye6hgVtYTtKT+Ya9Gx5Ue6a3yeZXyVyXkGk?=
+ =?iso-8859-1?Q?myGs1jQaLSkPcuT3aI/eJXVsirnH4fQSsUgYyKsaDZri1PaecnG+0waVm1?=
+ =?iso-8859-1?Q?H/QkfpLR9PVWF8R8zlNoJ51P1qXdT7ZTbSknEThYgaBBbs92EEH93ZASxr?=
+ =?iso-8859-1?Q?Vo+NdJIcpXDQw0R9Y2HbU/L56Kuqr/bUwyIe/0fsRIXnnzPfNttEH74LDM?=
+ =?iso-8859-1?Q?Y1QCYyrKRKQ2G8IVZyLO1Mt6rs81kvNQpXqJjetOpIgO4hlvpq1HuqfAxl?=
+ =?iso-8859-1?Q?0AEMzFSlokSYFlBjBi5fVlsS8q5KeSUy61Iy5pAfm+4tUALnNbE3ChuFj+?=
+ =?iso-8859-1?Q?1deV5DFjyEGaE6RAClsc6MmnjchkBv7qzJJM4IPr5MKcMxK31JzebpKHI3?=
+ =?iso-8859-1?Q?vJYoNWfGXX0vZzlEAOgsqW4xEF7sfnXr5t316jnCECbLXiEdLKOrH+qz8E?=
+ =?iso-8859-1?Q?uygkewvGd3YJmTtrtO0V4MKsWDqx4jV/5afLCvV8o+l8YM4daCsvnJwvwJ?=
+ =?iso-8859-1?Q?1KUqySyzYqzcMkbQLYgdcwZQ4OkCHrmhgdr2qM4TQBzSzNusJZ6XXcp/Vw?=
+ =?iso-8859-1?Q?qmi3uOGdP90umNe2r0GEpuO+HPXaGthy3zNbPfjt+q9pqeLXRJFOr0jwpQ?=
+ =?iso-8859-1?Q?6wi8XYFdWKKJzpbbC9Ry78QVdJBJFFT/ZJRqywVgdQAKPdmmp3xMY28EYv?=
+ =?iso-8859-1?Q?gyN0+Kp0k7Z3aNsiMUR3ubwPiIrXDs+gRhQfr4kLJ45gB7e/npVxLAOIXC?=
+ =?iso-8859-1?Q?LwioiykTndi/yH+13X3fM1sllCjiLB9l0CmpnGx1WDCMMd4qoImyxrzP37?=
+ =?iso-8859-1?Q?vloc8Xax29FDLcqPAPWDkF+BG9QxQeEReA7Re7FO78y+7v/AJl3u/HnDlP?=
+ =?iso-8859-1?Q?JI6O2Fmop6FmLMmj5DiKFGPFr6640pzALMGm4UPihtU7iegaz03DY3wTqE?=
+ =?iso-8859-1?Q?+LrPp7Dt1QRebnWQkyrDdLO81fbL1VNc3Fo9XMPrtPB8PIZ27cD8HPc7P6?=
+ =?iso-8859-1?Q?q1IbeKb2Bfzo1mxY7i/CDUH0LWQu4zRg2PKlPNxaazAc9qSIsRSEFu502T?=
+ =?iso-8859-1?Q?PzxRPtgx8FD70mm3rYf1BJGWfcBed5JMqOKw7/hvgg0Xzzmz4f4MqlIVyl?=
+ =?iso-8859-1?Q?XuitkBAKww=3D=3D?=
+X-Exchange-RoutingPolicyChecked: FJouS/ysoF25Sm2XAbEhUi3ry6u/yJzzsxUv8tdfR79DFDsY/z9ywqAwG3Og+TsBd1YFzAgjc5VWoz6VjtsCc3c0l/DvX3mtrhFEyQwMVYeN/TluwGOQ5fiTS5ABW96NqlZYWVx9ZxJnKvwpRbNTigXUKsZwtU5PABe7Z80nRvj5WI/MrJfwR0+rHu+iBomC6+4chv9ZnfaLwJR50rb5Z8EQXNTxPA4f97yzvxVnClH57Ykc+AfTnjJBlo3SVB+x5NzpSkRBNsKlfEbbNV/R3antbNdePqRxh1dkwh5IQ5I23MAfvXb7gDuqNI2BTpMiX5QxPQp4ZQldsDAWsQO9ag==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 042511c8-e07d-44d5-01fd-08df2a2f8313
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 20:12:46.3060 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BoO9OQ4HtPYIBiW92FTQWNaNqKncMr1HkfGOkasLREwKcq4uAvM8pdbSMO2k99bKmpCg4i1kCbVJCUgUcKITJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF56FDAD370
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -199,60 +162,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/14/26 10:51, Yao Yiqi wrote:
-> fbcon_rotate_font() caches a rotated copy of the console font in
-> par->rotated.buf. The buffer is sized from the font's width, height and
-> charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
-> fbcon_modechanged(), but not in fbcon_do_set_font().
->=20
-> When the console font is changed through KDFONTOP/KD_FONT_OP_SET, the ne=
-w
-> font data and geometry are installed and vc_resize() is called. The
-> resulting redraw reaches the rotated bitops before the buffer is rebuilt=
-:
-> hide_cursor() drives both con_cursor() -> soft_cursor() and fbcon_putc()
-> -> *_putcs(), and they index par->rotated.buf with the new cell size and
-> character codes. A stale, too-small buffer is read out of bounds.
->=20
-> KASAN reports, for example:
->=20
->    BUG: KASAN: slab-out-of-bounds in soft_cursor
->    Read of size 64 at addr ...
->     memcpy
->     soft_cursor
->     cw_cursor
->     fbcon_cursor
->     hide_cursor
->     redraw_screen
->     vc_do_resize
->     fbcon_do_set_font
->     fbcon_set_font
->     con_font_op
->     vt_ioctl
->=20
-> Rebuild the buffer for the visible console right after the new font
-> geometry has been installed and before any redraw, as fbcon_switch() and
-> fbcon_modechanged() already do.
->=20
-> Unlike those callers, this one does not fall back to unrotated rendering
-> on failure. The "par->rotate =3D FB_ROTATE_UR; set_blitting_type(vc, inf=
-o);"
-> fallback they use does not actually switch to unrotated rendering:
-> set_blitting_type() calls fbcon_set_rotation(), which immediately
-> re-derives par->rotate from par->p->con_rotate. Replicating that pattern
-> here would not change the outcome; a failed rebuild leaves
-> par->rotated.buf NULL, so the rotated ops skip drawing, and the followin=
-g
-> patch retries the allocation on the next call.
->=20
-> Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to r=
-otate font bitmap")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
-> ---
->   drivers/video/fbdev/core/fbcon.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-series applied for further testing to fbdev/for-next.
+On Mon, Oct 12, 2026 at 01:42:45PM +0300, Constantinos Chalkias wrote:
+> On Battlemage, thermal telemetry can remain stale after the GT returns
+> to RC6 following sustained workloads.
+> 
+> On an Intel Arc Pro B70, package and VRAM temperature telemetry may stop
+> refreshing after a long inference workload. Fan telemetry can also
+> become invalid while the physical blower remains elevated.
+> 
+> Acquire the GT force-wake domain around Battlemage thermal MMIO reads
+> and allow a short settling interval before reading the register. Route
+> package, VRAM and VRAM-channel availability reads through the helper.
+> 
+> Testing showed that an immediate read, as well as a 100-300 us delay,
+> could leave telemetry stale. A 500-1000 us delay recovered correctly
+> across repeated inference-to-idle cycles.
+> 
+> The change is restricted to Battlemage, where the behavior has been
+> reproduced and validated.
+> 
+> Signed-off-by: Constantinos Chalkias <cch@e-psn.eu>
 
-Thanks!
-Helge
+Cc: Bata Roland Krisztián <batarolandkrisztian@gmail.com>
+
+https://lore.kernel.org/intel-xe/179041811564.526373.13204522833274380927.b70-hwmon-rfc@gmail.com/
+
+I believe you guys are facing the same dificulties and arriving to similar
+conclusions.
+
+If the consensus is that we need this forcewake, let's do it.
+
+Let's just avoid duplication of efforts in here.
+
+And thank you all for the contributions.
+
+> ---
+>  drivers/gpu/drm/xe/xe_hwmon.c | 51 ++++++++++++++++++++++++++++++-----
+>  1 file changed, 45 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_hwmon.c b/drivers/gpu/drm/xe/xe_hwmon.c
+> index 5edeac961ec3..fee358ab9a6b 100644
+> --- a/drivers/gpu/drm/xe/xe_hwmon.c
+> +++ b/drivers/gpu/drm/xe/xe_hwmon.c
+> @@ -3,6 +3,7 @@
+>   * Copyright © 2023 Intel Corporation
+>   */
+>  
+> +#include <linux/delay.h>
+>  #include <linux/hwmon-sysfs.h>
+>  #include <linux/hwmon.h>
+>  #include <linux/jiffies.h>
+> @@ -14,6 +15,7 @@
+>  #include "regs/xe_mchbar_regs.h"
+>  #include "regs/xe_pcode_regs.h"
+>  #include "xe_device.h"
+> +#include "xe_force_wake.h"
+>  #include "xe_hwmon.h"
+>  #include "xe_mmio.h"
+>  #include "xe_pcode.h"
+> @@ -946,14 +948,43 @@ static void xe_hwmon_get_voltage(struct xe_hwmon *hwmon, int channel, long *valu
+>  	*value = DIV_ROUND_CLOSEST(REG_FIELD_GET(VOLTAGE_MASK, reg_val) * 2500, SF_VOLTAGE);
+>  }
+>  
+> -static inline bool is_vram_ch_available(struct xe_hwmon *hwmon, int channel)
+> +static int xe_hwmon_temp_mmio_read(struct xe_hwmon *hwmon,
+> +				   struct xe_reg reg, u32 *reg_val)
+>  {
+>  	struct xe_mmio *mmio = xe_root_tile_mmio(hwmon->xe);
+> +
+> +	if (hwmon->xe->info.platform == XE_BATTLEMAGE) {
+> +		struct xe_gt *gt = xe_root_mmio_gt(hwmon->xe);
+> +
+> +		CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FW_GT);
+> +
+> +		if (!xe_force_wake_ref_has_domain(fw_ref.domains, XE_FW_GT))
+> +			return -ETIMEDOUT;
+> +
+> +		/*
+> +		 * Allow thermal telemetry to refresh after leaving RC6
+> +		 * before reading the temperature register.
+> +		 */
+> +		usleep_range(500, 1000);
+> +
+> +		*reg_val = xe_mmio_read32(mmio, reg);
+> +		return 0;
+> +	}
+> +
+> +	*reg_val = xe_mmio_read32(mmio, reg);
+> +
+> +	return 0;
+> +}
+> +
+> +static inline bool is_vram_ch_available(struct xe_hwmon *hwmon, int channel)
+> +{
+>  	int vram_id = channel - CHANNEL_VRAM_N;
+>  	struct xe_reg vram_reg;
+> +	u32 reg_val;
+>  
+>  	vram_reg = xe_hwmon_get_reg(hwmon, REG_TEMP, channel);
+> -	if (!xe_reg_is_valid(vram_reg) || !xe_mmio_read32(mmio, vram_reg))
+> +	if (!xe_reg_is_valid(vram_reg) ||
+> +	    xe_hwmon_temp_mmio_read(hwmon, vram_reg, &reg_val) || !reg_val)
+>  		return false;
+>  
+>  	/* Create label only for available vram channel */
+> @@ -1025,15 +1056,19 @@ xe_hwmon_temp_is_visible(struct xe_hwmon *hwmon, u32 attr, int channel)
+>  static int
+>  xe_hwmon_temp_read(struct xe_hwmon *hwmon, u32 attr, int channel, long *val)
+>  {
+> -	struct xe_mmio *mmio = xe_root_tile_mmio(hwmon->xe);
+> -	u64 reg_val;
+> +	u32 reg_val;
+> +	int ret;
+>  
+>  	switch (attr) {
+>  	case hwmon_temp_input:
+>  		switch (channel) {
+>  		case CHANNEL_PKG:
+>  		case CHANNEL_VRAM:
+> -			reg_val = xe_mmio_read32(mmio, xe_hwmon_get_reg(hwmon, REG_TEMP, channel));
+> +			ret = xe_hwmon_temp_mmio_read(hwmon,
+> +						      xe_hwmon_get_reg(hwmon, REG_TEMP, channel),
+> +						      &reg_val);
+> +			if (ret)
+> +				return ret;
+>  
+>  			/* HW register value is in degrees Celsius, convert to millidegrees. */
+>  			*val = REG_FIELD_GET(TEMP_MASK, reg_val) * MILLIDEGREE_PER_DEGREE;
+> @@ -1043,7 +1078,11 @@ xe_hwmon_temp_read(struct xe_hwmon *hwmon, u32 attr, int channel, long *val)
+>  		case CHANNEL_PCIE:
+>  			return get_pcie_temp(hwmon, val);
+>  		case CHANNEL_VRAM_N...CHANNEL_VRAM_N_MAX:
+> -			reg_val = xe_mmio_read32(mmio, xe_hwmon_get_reg(hwmon, REG_TEMP, channel));
+> +			ret = xe_hwmon_temp_mmio_read(hwmon,
+> +						      xe_hwmon_get_reg(hwmon, REG_TEMP, channel),
+> +						      &reg_val);
+> +			if (ret)
+> +				return ret;
+>  			/*
+>  			 * This temperature format is 24 bit [31:8] signed integer and 8 bit
+>  			 * [7:0] fraction.
+> -- 
+> 2.56.0
+> 
