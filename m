@@ -4,131 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39AF3CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 07:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92F7CCC6B24
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 07:27:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5172310E74D;
-	Wed, 14 Oct 2026 07:22:29 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C05210E74D;
- Wed, 14 Oct 2026 07:22:17 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BD06322185;
- Wed, 14 Oct 2026 07:22:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1791962535; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kMb2PUq7ja7EUiS+Q08ZX7s6AL5bu9ht7JoEhjzDB/Y=;
- b=OsZFwrhyCGP2CK9sIweImaTQVBlFQLjWJ2zDoS35N5fFD3RNZ/Hb74Mm/v0MRZmb3Sam/H
- ruFn6TMVGnvfqgDpqMRLqZCsNLrGGmgqqKWlCg6vhcqctaR3MZhmBaaYmtinrR0aPzTcZQ
- 6L6JOQzTHXM1G3BtgyLu9OkFWWpBZhk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1791962535;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kMb2PUq7ja7EUiS+Q08ZX7s6AL5bu9ht7JoEhjzDB/Y=;
- b=DyivhN+l9TnVcDQJxLmGjHCiUEuoFAwmDGz7BNINi3WzCmyc3mQeIAI2KIyDQfCKKwAFQY
- 20MpBTXdFt90e5CQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=bSOT9hPB;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=S7dMPvNW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1791962534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kMb2PUq7ja7EUiS+Q08ZX7s6AL5bu9ht7JoEhjzDB/Y=;
- b=bSOT9hPBWuS8oOM79pgTMvYI/6N3QzcsDHQvc0e3YU0R+4fXlap/nw/kJS9S5QvJnidrXu
- yzG0qBqSxPVHcWX6rjT3zvoLR9CBe1+60hlNbwZOYsYxLEfcbmlq+6rC24Ka+XLgMax0Gb
- iS1/laF14DHmohyoQMjMlnkT254bKgI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1791962534;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kMb2PUq7ja7EUiS+Q08ZX7s6AL5bu9ht7JoEhjzDB/Y=;
- b=S7dMPvNWeUge/CdyZT6sOdkHqSPaDSXLD1M/9oUBQRbl4utXt+iclO8RWkzkBU9m5mSbrv
- foseAulltNNZmQDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7909413726;
- Wed, 14 Oct 2026 07:22:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Mr4wFKYtz2p/cwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 14 Oct 2026 07:22:14 +0000
-Message-ID: <d39bd8f3-0fe0-4537-bba5-8eba5bb36704@suse.de>
-Date: Wed, 14 Oct 2026 09:22:13 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB0B10FB9B;
+	Wed, 14 Oct 2026 07:27:31 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012054.outbound.protection.outlook.com [52.101.48.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6467710FB90;
+ Wed, 14 Oct 2026 07:27:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FISzAHiyNbFXskWG/Ho8O80P7g35WBz16PT4/am950CgFDmdHqgRRvhedZDNRhdkYv28T23UNg7oXsXvjpXFeFp56GimBLpvTn4F2t7JrNqMlcEQOApIcYSrN2zMkTHHCb8o+c40x4gKRMhpYmulRN8r/S2c5IGmG0MBLZJUFlhB5IyoLXl9Q1zAsh0RqRYlS5FJf9M50LfF5gp+1qVW14xgWX0R/E0RD0qGQSVh7Q9A6tOBbmBjHUFFKjUDSEBS0xdEBIZ9GY+++HC+2ZtvbpA36+/xNpSZGgyITkb7fvjKDvybzsVus4C/MprWBKxSDUngK1D1Lj5G6DA9WTVB3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cdegQbfVYb7rxAdhJuisV8UafP7vtVKjc+m8LO/6j2g=;
+ b=pu6QGJoh/56Lb1POVcPzfnJEIfJr0wus/q0S8WmhKbkN+62J+KhwPPqnJ3LGAJIEIwJlg0vGUobIS5NJmh2N9TOW2ue9hyn2Z674roWq0B8bn5xrxrKwdtOwt6yrIy3qVWzIM2L0xyv0D11hFVtOwW5T0wNsv7FnFlbxGWFbEVsXa4pA8Ss4XiPwhfVRU7JV0rkEUvPehLFtlBVzSiDmG6zDbRIES3uf7xFSgqZIjCw6koTdb0CnlrZbg4Xjf/NAr1aka8Zo6bpBFjEohmRxqtG7eXO00vkZyY5VlG1zpyZt+/Rr7GNwt5/qewZ0MODMA/1Inc9cOcxB8NoTZQGVhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cdegQbfVYb7rxAdhJuisV8UafP7vtVKjc+m8LO/6j2g=;
+ b=sAFOQ5PXqZaWSun2nl3bjv0V6n8jV+j3ysNCff7Myus6Ss6iIUMhY0DRMHPlKq3NgGbEG47gVVAELNy3xE5OF7lBSYxBHiYVpOzAGhmV1kN71ZOZwF6s2sbOcNRvN6hRTDq8BkIfKO+Rg0fxN3CQnVR8k6mQsDkEfyqHVZdf8m0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY1PR12MB9557.namprd12.prod.outlook.com (2603:10b6:930:fe::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 07:27:18 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
+ 07:27:18 +0000
+Message-ID: <4154bb7d-c97a-402b-979a-0f49d7a02c53@amd.com>
+Date: Wed, 14 Oct 2026 09:27:06 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/6] drm/gem: add drm_gem_prime_dma_buf_to_gem()
- self-import helper
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-References: <20261013010614.1516799-8-niranjana.vishwanathapura@intel.com>
- <20261013010614.1516799-11-niranjana.vishwanathapura@intel.com>
- <as2LL7IIs6EcL6Pj@gsse-cloud1.jf.intel.com>
- <ff266a33-2729-47b4-8a1e-ff96bb456782@suse.de>
- <as56X/w+CLUE2kQI@gsse-cloud1.jf.intel.com>
+Subject: Re: [PATCH 01/11] Compiler Attributes: Add
+ __require_explicit_initialization macro
+To: Ian Rogers <irogers@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Viresh Kumar <viresh.kumar@linaro.org>, David Teigland
+ <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>,
+ Zhihao Cheng <chengzhihao1@huawei.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, linux-hardening@vger.kernel.org,
+ linux-doc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-sh@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-acpi@vger.kernel.org, gfs2@lists.linux.dev,
+ xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org,
+ linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261013223946.1836757-1-irogers@google.com>
+ <20261013223946.1836757-2-irogers@google.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <as56X/w+CLUE2kQI@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; ARC_NA(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,intel.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: BD06322185
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261013223946.1836757-2-irogers@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0327.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:eb::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY1PR12MB9557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41e289b2-7011-4388-a159-08df29c493bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|23010399003|56012099006|11063799006|4143699003|261009221227099003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: BdC3OWiE215+NFZJKX+JRn/yJtBkqqprUiCnha4t5KMYNF49oIdBwAYRi5wxOcsQ1sWQH+Qhcl4te21euxRgP1H6RqN89sZG6HVaDYD4lL2fu0hEDDbHTekwYfAypN6i+nPVzQSsA6X+Vtoo9I9xRUPkm+gLkaxVm9rWOVoTjJY23USSMb8FH4Ooxjzf2etLU/BBQ8fUb1nSJ0K/P0jWBishZQfDFNNz5EjjJg9ctul7zw3+GPOw8GGQGeZiet1XePOj8QRwfzr9frlFox1TqNtjDFhJz284KRYInuJl0MYYQMF40w4dlgakZ49HD3bzByLpck+pm8LlBt15XNve8CrL0vK/dRKYBKTOtaF8Y/XTGyslLZTFAiTri3kSAciGuzY54FOobZa75FW0gxOIAYoyPQnslbORp0TeD8ylPOzXP1Dq49CH890BlZhnce0wHsE4pMmwodrs6LruRZindtAYO8j0CkvFQZ2/zfaBcZn9ZaJAj7xK9hmmss4PHSWvxQNg7vS/mhu2GCWQO9mZQ/9EAWJndH7EUbtk8PV+tNL5eVdIqjwXb7hOC/clRHNoZHBgWsN4CgMLZdtLT4egUf6pLiIRKfWSgWPboNWevc5zXrv2F0dsvwll6dIys/yY
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(56012099006)(11063799006)(4143699003)(261009221227099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1I0S1dyeTBoWFhsbzNHS3RoVVNISG44WThsVENqZEF6WlpDWlp3WmZkY3hY?=
+ =?utf-8?B?cUhHTmN1bXg1VlM2QWFyYnVEaUNqN3lzZzFWVUNyM1NUZXlxTTNrR3U5bEZa?=
+ =?utf-8?B?a2d5YmphWEwvQzN4enNyWi9EQkVuVzltYjhEdXBqbEFWRGh6ZmFqTlBJeExC?=
+ =?utf-8?B?RWo1WmRhQldMSkNKSHF1MVEzbm1oQmV0dVhDMk9vN2xqeEw4OGdYa1pNMlpI?=
+ =?utf-8?B?MkgzSjZwYkhUSHE2QkNMYkhFWFladWxmZFY0MllLUllUbmRlaGhWemJ6cXk1?=
+ =?utf-8?B?K01FRzQwOUJsTnNIRXB6S1ZtMjhyb1RJZVRKUnNkbXVPL2FNaVpKQncydVox?=
+ =?utf-8?B?U1lWbG1IY1V1d1BSSEUwZHUycW9KblhQL2pLUjgyQTJjU29nYTU1VUlvbzhx?=
+ =?utf-8?B?RHA5eHErWEI5b0xoWk9jSE81M296QlozSnBkYnB5dTVqU0c0TzczbUM2MFNr?=
+ =?utf-8?B?bUZETjJiTDM5c2p1WWtTbHJlaXQrb2lUYVdJZEgrc29MRllzbGhzNlJDMWIv?=
+ =?utf-8?B?T3RJQVhjUFE0dVRSWE9NenlMWjVhdVlSaWRGdlJyS0o5RnFhbmxCWUpmbFN4?=
+ =?utf-8?B?bGlDTEJxQ1gweWJrdm5OdEJqT2tzejlRVlArdzI5bks2MU5JTmRxS3pQY2pi?=
+ =?utf-8?B?YndQRHhSNDJjWmZkYUlkemxha0pxSVFocTlxMzhMSVE2dFdOOGRocTNTTDE1?=
+ =?utf-8?B?eVlzWEpLaHVTdWtjeE83eGQwY01KeFdvSVNwVG1pWnpOWUhnN1lLUG4vendI?=
+ =?utf-8?B?bWFRSEM1UWpJd3JwQm05M3FLRFBkdjFuZTN5ZXFpTjJ4eEpzb2Y2K3ExVThX?=
+ =?utf-8?B?eS9OVzFWQ3I1T3BrbmpYeFNFVWMwQk55cVhnQWNJQUN2SzBpK2owTVM5RHdn?=
+ =?utf-8?B?KzVRbjYwc1VQQzlxRWRzVXAwWk1kOEh5R2dYSmNtUlFaOGRTdGRpemZjMEto?=
+ =?utf-8?B?UHI4bzV6NE1FdFdUMnBjZDJrVWIwb3ZLSWw5c2tiVWpvWnFHcXp1dE15c25q?=
+ =?utf-8?B?RVV1NlNRY2N1b3hndUNyTmM2YlVyOHZiVVZtT1o3ckNHSW1PcVVtS0p0dEI2?=
+ =?utf-8?B?a0VxWWQzc2czNlpDZTFZay83emgvejZoclVJK2k2Rnhpa0FOMXQxam84OUwr?=
+ =?utf-8?B?ZUJyNmxDMXNJTTEvT1hHdDRVUjhHT1ZmblBTVzY0aVVadFpFSFJrN0JIRDVY?=
+ =?utf-8?B?ZCsrMW9KRmZVTXcwK3hucVNpSFAxTDh3cllwV0lhR2wrR0xNWGY2bkFIeTF0?=
+ =?utf-8?B?MjVlajA2VllCSUowcGNQa1QxcmhFL1FlNGptQThjelUwTmRwaUVoNTFoYWJv?=
+ =?utf-8?B?WUdtaXlKSE9jd3J2eVhkRFVsSFZORkhWZ2J1enZ5T3FMZldNYWk0YS9tQllE?=
+ =?utf-8?B?ZkdibW4yZ1VGWVh0K3p2Q3E3RVBndll3RWNrN2QvUEt5ZFcyU3RKWVZWbHZv?=
+ =?utf-8?B?VS9iVDA1VTRTVkFjWkEzVTU1VzFINXJWTW1aUnp0Y1gxSnNibHpZSUtzYkhm?=
+ =?utf-8?B?eGkrcnhWZ21sbWcrU3E2S1dsZkFhVGxmY1YvU29kbnFBUlRXUVh3UkhXbDB2?=
+ =?utf-8?B?bVpFWUdrY2t3dTFJbE5qRmFjTVplZncreXNNQ3lIZitWQmdrdVk1QytpZVRF?=
+ =?utf-8?B?MVptMXlxbERhb3pQUk4zcTBDZU5yL091bmFvbDlnQ1JnNDhUaE1FSWw2NU5Y?=
+ =?utf-8?B?bFV0QTliYmlMdTZoWU9ZUnBvK242aERMSnlKVTdjZGwwTUVUeHVmTUJRczZt?=
+ =?utf-8?B?ejVReSt1UUEzaXFMdmZHOWpHQmdkNzZDdzRpUkRLSml5UitoWS9MNGJpMllo?=
+ =?utf-8?B?S05SUm1WUVNlM2oxdEJvUDdYYkw4cVVOZEFsSFp1NElRWjJlb2hiRXlFVXZm?=
+ =?utf-8?B?S3hJK2RHUmpWMHBjZmNQNGFyWURERzc4dDhqYlBNcDZzSXVzZTdKbkRYLytp?=
+ =?utf-8?B?bjE1U3pYNFRxQ3pCeURKdTlKYjlDMjdFcVZ1MmRXYWFYSGNjc202NjNvaFc5?=
+ =?utf-8?B?bWhwMFgwZFFvalcvK29tRXN1ZTRwUUprMlludG84VWFYNE9manVFTlRLdG95?=
+ =?utf-8?B?UlVRbGZzeE8yazFjcjRXTHZiK1hwSVAxV3RFVGFsYlIvUHpjODR3WW9WVGFT?=
+ =?utf-8?B?a0xJcGpSdXBpSFdtajBOUVc5NTV5MElDSUpnMEpOalFUbnMrcElYeHVEcUlh?=
+ =?utf-8?B?V0NEenIyLzJtUFVrcHJiN2VIQW9zK3RLcWVpRWo4ejltVW9oWE8rU2xuVjIv?=
+ =?utf-8?B?N1hUZUNFTDU1N01SUnhyV1BXZ1JGallORXRRZ3NocUFkbE9zVkcwNGNIMVND?=
+ =?utf-8?Q?hrqF6gI8LVp4KZy4bx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41e289b2-7011-4388-a159-08df29c493bc
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 07:27:18.1391 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EPCX3t4rIs/vo7QVV+VbzZJKjMFIcuzUma/vpFm4ZHQP4jkDSIXRKWx/DcFcaCPG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9557
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,179 +162,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 10/14/26 00:39, Ian Rogers wrote:
+> Clang supports the 'require_explicit_initialization' attribute on struct
+> fields to indicate that a field must be initialized explicitly by the
+> user when the object is constructed. When an aggregate initializer or
+> uninitialized variable omits an annotated field, Clang emits a
+> -Wuninitialized-explicit-init warning (enabled by default).
+> 
+> Add the __require_explicit_initialization macro to
+> include/linux/compiler_attributes.h (which is included by
+> include/linux/compiler_types.h and include/linux/compiler.h) so kernel
+> structs with error-prone initialization (such as mandatory callbacks or
+> cleanup handlers) can enforce explicit initialization at compile time,
+> as discussed at the Linux Plumbers Conference.
 
-Am 13.10.26 um 20:37 schrieb Matthew Brost:
-> On Tue, Oct 13, 2026 at 09:17:53AM +0200, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 13.10.26 um 03:36 schrieb Matthew Brost:
->>> On Mon, Oct 12, 2026 at 06:06:15PM -0700, Niranjana Vishwanathapura wrote:
->>>> drm_gem_is_prime_exported_dma_buf() is a bool predicate that open-codes
->>>> the core PRIME self-import check. Its only caller, the shmem importer,
->>>> then repeats the dma_buf->priv lookup and the reference get.
->>>>
->>>> Replace it with drm_gem_prime_dma_buf_to_gem(), a thin wrapper around
->>>> drm_gem_prime_self_import() that returns the backing GEM object -- with
->>>> a reference taken -- for a core-PRIME self-export, or NULL otherwise.
->>>> This consolidates self-import handling onto drm_gem_prime_self_import()
->>>> and lets drm_gem_shmem_prime_import_no_map() reuse the object directly.
->>>>
->>>> Unlike the removed predicate, the helper takes a reference on the
->>>> returned object; the sole caller already wanted the referenced object.
->>>>
->>>> Assisted-by: GitHub-Copilot:claude-opus-4.8
->>> Assisted-by: LLM
->>>
->>> I was going to suggest this last rev too as I noticed
->>> drm_gem_shmem_prime_import_no_map called
->>> drm_gem_is_prime_exported_dma_buf which should prefer the new helper but
->>> shmem couldn't look at drm_gem_prime_dmabuf_ops.
->>>
->>> This is a good cleanup:
->> No it's not. Please see my reply to the cover letter.
->>
-> Ok, I can't say I agree, but I'm not going to die on this hill. Still,
-> here's my two cents.
->
-> I'm not sure I agree that comparing a vfunc is a hack, but let's assume
-> it is. Is it better to have four drivers plus two cases in DRM core all
-> open-coding this logic, or to consolidate it in a single place so that
-> if we find a better approach later, we have a central point where it can
-> be changed?
+Oh yes please! That is so nice to have, I have like halve a dozen use cases for this in the stuff I'm maintaining just of hand :D
 
-The helper leaks the prime implementation to the outside world. That 
-alone is a problem. In practice there's no real guarantee that it works 
-with drivers that do not fully use prime, such as amdgpu.
+I'm not an expert for compiler interaction so I can't really review this patch, but please leave me a note when that is merged.
 
-The importer whats to know if it has exported the dma_buf, but there's 
-no clear unique identifier. So it checks the device pointer stored in 
-priv. Because it cannot know if priv contains a device pointer, it first 
-compares the vtable.  All of that really is a hack. A driver could use 
-different vtables for the exported dma-bufs, or also have multiple 
-memory managers that share the same vtable for exported dma-bufs.  
-Neither would work with the current workarounds.
+Thanks a lot for that,
+Christian.
 
-What the importer needs a  unique identifier for each dma-buf allocator. 
-That workaround is just the next best thing.
-
-Best regards
-Thomas
-
-
->
-> To me, the answer is obvious, but again, I'm fine with ignoring this.
->
-> Matt
->
->> Best regards
->> Thomas
->>
->>> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
->>>
->>>> Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
->>>> ---
->>>>    drivers/gpu/drm/drm_gem_shmem_helper.c | 14 ++++++--------
->>>>    drivers/gpu/drm/drm_prime.c            | 26 +++++++++++++++-----------
->>>>    include/drm/drm_prime.h                |  4 ++--
->>>>    3 files changed, 23 insertions(+), 21 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
->>>> index d654a22a30de..a0e161f2333e 100644
->>>> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
->>>> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
->>>> @@ -954,15 +954,13 @@ struct drm_gem_object *drm_gem_shmem_prime_import_no_map(struct drm_device *dev,
->>>>    	size_t size;
->>>>    	int ret;
->>>> -	if (drm_gem_is_prime_exported_dma_buf(dev, dma_buf)) {
->>>> -		/*
->>>> -		 * Importing dmabuf exported from our own gem increases
->>>> -		 * refcount on gem itself instead of f_count of dmabuf.
->>>> -		 */
->>>> -		obj = dma_buf->priv;
->>>> -		drm_gem_object_get(obj);
->>>> +	/*
->>>> +	 * Importing a dmabuf exported from our own gem increases the refcount
->>>> +	 * on the gem itself instead of the f_count of the dmabuf.
->>>> +	 */
->>>> +	obj = drm_gem_prime_dma_buf_to_gem(dev, dma_buf);
->>>> +	if (obj)
->>>>    		return obj;
->>>> -	}
->>>>    	attach = dma_buf_attach(dma_buf, dev->dev);
->>>>    	if (IS_ERR(attach))
->>>> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
->>>> index 588910c250b8..275c5661528d 100644
->>>> --- a/drivers/gpu/drm/drm_prime.c
->>>> +++ b/drivers/gpu/drm/drm_prime.c
->>>> @@ -933,23 +933,27 @@ EXPORT_SYMBOL(drm_gem_prime_export);
->>>>    /**
->>>> - * drm_gem_is_prime_exported_dma_buf -
->>>> - * checks if the DMA-BUF was exported from a GEM object belonging to @dev.
->>>> + * drm_gem_prime_dma_buf_to_gem - GEM object backing a self-exported PRIME dma-buf
->>>>     * @dev: drm_device to check against
->>>>     * @dma_buf: dma-buf object to import
->>>>     *
->>>> - * Return: true if the DMA-BUF was exported from a GEM object belonging
->>>> - * to @dev, false otherwise.
->>>> + * If @dma_buf is a PRIME export of a GEM object that belongs to @dev and uses
->>>> + * the core PRIME dma-buf ops, return that GEM object with an extra reference
->>>> + * taken, so a self-import reuses the GEM object instead of referencing the
->>>> + * dma-buf file. Returns NULL for a foreign dma-buf or one using driver-private
->>>> + * ops; such drivers call drm_gem_prime_self_import() with their own ops.
->>>> + *
->>>> + * The returned object carries a reference the caller must drop with
->>>> + * drm_gem_object_put().
->>>> + *
->>>> + * Return: the referenced GEM object on self-import, or NULL otherwise.
->>>>     */
->>>> -
->>>> -bool drm_gem_is_prime_exported_dma_buf(struct drm_device *dev,
->>>> -				       struct dma_buf *dma_buf)
->>>> +struct drm_gem_object *drm_gem_prime_dma_buf_to_gem(struct drm_device *dev,
->>>> +						    struct dma_buf *dma_buf)
->>>>    {
->>>> -	struct drm_gem_object *obj = dma_buf->priv;
->>>> -
->>>> -	return (dma_buf->ops == &drm_gem_prime_dmabuf_ops) && (obj->dev == dev);
->>>> +	return drm_gem_prime_self_import(dev, dma_buf, &drm_gem_prime_dmabuf_ops);
->>>>    }
->>>> -EXPORT_SYMBOL(drm_gem_is_prime_exported_dma_buf);
->>>> +EXPORT_SYMBOL(drm_gem_prime_dma_buf_to_gem);
->>>>    /**
->>>>     * drm_gem_prime_import_dev - core implementation of the import callback
->>>> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
->>>> index d378404f8ab4..02665205aed1 100644
->>>> --- a/include/drm/drm_prime.h
->>>> +++ b/include/drm/drm_prime.h
->>>> @@ -101,8 +101,8 @@ struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
->>>>    unsigned long drm_prime_get_contiguous_size(struct sg_table *sgt);
->>>>    /* helper functions for importing */
->>>> -bool drm_gem_is_prime_exported_dma_buf(struct drm_device *dev,
->>>> -				       struct dma_buf *dma_buf);
->>>> +struct drm_gem_object *drm_gem_prime_dma_buf_to_gem(struct drm_device *dev,
->>>> +						    struct dma_buf *dma_buf);
->>>>    struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
->>>>    						struct dma_buf *dma_buf,
->>>> -- 
->>>> 2.43.0
->>>>
->> -- 
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
->>
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+> 
+> Also teach Sphinx (Documentation/conf.py), kernel-doc
+> (tools/lib/python/kdoc/xforms_lists.py), and checkpatch.pl about the new
+> attribute macro.
+> 
+> Link: https://lpc.events/event/20/contributions/2392/
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  Documentation/conf.py                 |  1 +
+>  include/linux/compiler_attributes.h   | 11 +++++++++++
+>  scripts/checkpatch.pl                 |  1 +
+>  tools/lib/python/kdoc/xforms_lists.py |  1 +
+>  4 files changed, 14 insertions(+)
+> 
+> diff --git a/Documentation/conf.py b/Documentation/conf.py
+> index 5ab26ce89daf..3e5cb9ca0970 100644
+> --- a/Documentation/conf.py
+> +++ b/Documentation/conf.py
+> @@ -203,6 +203,7 @@ c_id_attributes = [
+>      "__noreturn",
+>      "__packed",
+>      "__pure",
+> +    "__require_explicit_initialization",
+>      "__section",
+>      "__always_unused",
+>      "__maybe_unused",
+> diff --git a/include/linux/compiler_attributes.h b/include/linux/compiler_attributes.h
+> index 476c4c560d17..60522ab80c5a 100644
+> --- a/include/linux/compiler_attributes.h
+> +++ b/include/linux/compiler_attributes.h
+> @@ -322,6 +322,17 @@
+>   */
+>  #define __pure                          __attribute__((__pure__))
+> 
+> +/*
+> + * Optional: not supported by gcc
+> + *
+> + * clang: https://clang.llvm.org/docs/AttributeReference.html#require-explicit-initialization
+> + */
+> +#if __has_attribute(__require_explicit_initialization__)
+> +# define __require_explicit_initialization __attribute__((__require_explicit_initialization__))
+> +#else
+> +# define __require_explicit_initialization
+> +#endif
+> +
+>  /*
+>   *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-section-function-attribute
+>   *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Variable-Attributes.html#index-section-variable-attribute
+> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+> index 8a7787d228a6..4a3ae6b0100a 100755
+> --- a/scripts/checkpatch.pl
+> +++ b/scripts/checkpatch.pl
+> @@ -6871,6 +6871,7 @@ sub process {
+>                                 "noreturn"                      => "__noreturn",
+>                                 "packed"                        => "__packed",
+>                                 "pure"                          => "__pure",
+> +                               "require_explicit_initialization" => "__require_explicit_initialization",
+>                                 "section"                       => "__section",
+>                                 "used"                          => "__used",
+>                                 "weak"                          => "__weak"
+> diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+> index e3dda2fe8a53..32066fbbe763 100644
+> --- a/tools/lib/python/kdoc/xforms_lists.py
+> +++ b/tools/lib/python/kdoc/xforms_lists.py
+> @@ -36,6 +36,7 @@ class CTransforms:
+>          (CMatch("CRYPTO_MINALIGN_ATTR"), ""),
+>          (CMatch("__private"), ""),
+>          (CMatch("__rcu"), ""),
+> +        (CMatch("__require_explicit_initialization"), ""),
+>          (CMatch("____cacheline_aligned_in_smp"), ""),
+>          (CMatch("____cacheline_aligned"), ""),
+>          (CMatch("__cacheline_group_(?:begin|end)"), ""),
+> --
+> 2.56.0.385.gd3acb90ef8-goog
+> 
 
