@@ -4,134 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74756CC6B1D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 12:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD833CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 12:37:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF41610E112;
-	Wed, 14 Oct 2026 12:33:46 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011046.outbound.protection.outlook.com
- [40.93.194.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 276CC10E112
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 12:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30F5F10E1A3;
+	Wed, 14 Oct 2026 12:37:23 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012055.outbound.protection.outlook.com
+ [40.107.200.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41EA010E1A3
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 12:37:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HL32y1WdZnSVNSQFZuoadFRe7ebZdqbJLsQr72hMCFP2hVRMcq8IOtzl0L3x3xlR5cRxu8NhB0K55DJZL3rtQTrizXuocXlw5ovkOq8zRXdzjNfXZSWRNp6KMbPEBh2nIuO4oVuoEF91F+v0zTr1cTaarplJG2ztAhYYxptz0gXHA6H7WH0a7ayJqzTF2V/Z3sZ+k+H8oVnt9I2qD2kWrL9GHubFLUpL5fc1GvvA2fm9ObIkM9o+qFQdh3NXVBvURbVrjYK/IRbL17Tk4Q/XLq7wjbF/828dpdPmETG17HE6K1aeoVKNQ1mhm9NRiCuOLX2HY6d+tCoMpJArPKJDxw==
+ b=ebBm5j+8i69OgxgPS/Pgp6x0ppn9vVmNGm6Z5MjNlGMkLN2r7T57gAjofYcDSvbz9B7p5nLAJzPBiEZD9k0XpIQDrWqSRP7feeN4y3fb2hyaACCdgN+/cmo9WMSw8rnq6PKy+ZyKgFSWTXnoOfrzZLCUV95qR6eTUU6DSl9piT/KhoFZuLlNch0KOB2MJSzlzPsZD6gBsZFY+uFhIIPGHUGrKncq1xc/sM/xoCReWU0ngfRuc3sgp6/CJLdE9uzaTdXjX/E6QOtDf5qK138emg6vM0WzrgHHrJ6SYasvPEewBuASvFmuSswHM2IeolafiPBZQjPVL+cF7JzEcarv/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xvxkm4rSNh7RtMSRGfkfRa7xPJlWbYJjmFytknBiwyQ=;
- b=agiZoGzIPc1WcUdFumH0iuMpPUAPRQZnhCOd+qbRqjTOoP0dC+i9Xy03euuFX9TuaIPvxtLq+/7s+w70mSdfjg5oO8rHzmsq+mrbFcS510dciPvROprV3Vo6YAZBS9qeFnX+UQk/w1w9M03klkflbr+7Q1yft7GKjFvSh8SInc5bFkDCWeR67tyaXfpVXOj01uYCQYDO6lcdBkCvHZSyDdsA3n9gOsV/mzDanzABemzZ/tkcZbAjNC0EezjXVYo3UfgY2o3YTqMbxDC0vL+QwQmIuIZd52It6bohGulqyEl40gglqBke643aPKUi0T7sVCTB1EUi8ExxL7qF1I16aA==
+ bh=zeA4qNXckNWoMyKSJ6jNtiW2yKjvewAObfxw15glUks=;
+ b=cbOdCDNeFHjrWns2WMeXoBrE3vdImR9KHdUTHaQRuM+K93s5JG6mZZWP1e428HLvYyRhwVhmN7CbLoDj1x6JPeCcyrFMd2cv5V4nR4I8Yk9x4+V4CfOXBIyYJl4kCOrDSrhPLYx31XUl0fSIKFwD1dG5fJ0XOgBfx6covEvixr7GCt7aYSjbyAg/8cvD9sopaVcssk4NLlvyuLjYAU8T7ojEwalClgA4JUkAgO/IV5jOIxAb+1X8Nrm7X63Om1hHtNQ4lOsRQplDFrvj3gtfvyOVfYMQocJqKcXDKD8WbrcQiXWFljTFxQxaS9wO9lW32yWtHue9oMsGTnEdZWEihg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xvxkm4rSNh7RtMSRGfkfRa7xPJlWbYJjmFytknBiwyQ=;
- b=Epifzy4ss602yRqv1zmIbZGvQr8UbZ2c5BPrI37TUKqjgQ7b/RM9TZ5HjQiHYkAjkRIXA3Z6kjqCxMez1pR5t9ldGIpv+Me8JxXairoH0aARJsqWA7W9lbpkPyrld40ef2HErlUhxNyNog+4DGBJFwBMkGVvyYrYfcDOHeadCXv3YxjLCzpctvGgmrpHX4j2Z3BuGrgXG3cKCdPdQPqMHUhOQ5XBz5EVnEBtKvJAi4vKEBShxytnpNp7lJFJTMXx2TnMz/e5JJqQLdH5DUObDCL9it9v6tBSRNFeVqfVJcKXdAucHa1S32UGbFdR+/VkPgNwoEnBwCX4ML8MQDvNzg==
+ bh=zeA4qNXckNWoMyKSJ6jNtiW2yKjvewAObfxw15glUks=;
+ b=isRy54UIqOlvEMsHNAo1a+gSHf+m5PcxzxHbFRGGZyT+BfCHLEO3s13yrX6zS66SWCQn9qNgq/4xfZxLVvzHRggZTYJ3+DrQ+qzQAlwKlztkAf+63CXMMp2h/v0AZ9CZ4FUj3coWLrggwwJUuItzN9nMazsDOImzse0Gwa0EV5o=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH1PR12MB9647.namprd12.prod.outlook.com (2603:10b6:610:2b0::10)
- by LV8PR12MB9690.namprd12.prod.outlook.com (2603:10b6:408:296::16)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB7868.namprd12.prod.outlook.com (2603:10b6:a03:4cd::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 12:33:35 +0000
-Received: from CH1PR12MB9647.namprd12.prod.outlook.com
- ([fe80::228c:766a:191d:77b2]) by CH1PR12MB9647.namprd12.prod.outlook.com
- ([fe80::228c:766a:191d:77b2%3]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 12:33:35 +0000
-Message-ID: <ff7cd77d-a7c6-42ec-a1bc-3790aee8b727@nvidia.com>
-Date: Wed, 14 Oct 2026 14:33:28 +0200
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net v2 0/4] net: devmem: fix RX and TX binding teardown on
- device unregistration
-To: Mina Almasry <almasrymina@google.com>, Jakub Kicinski <kuba@kernel.org>,
- David Wei <dw@davidwei.uk>, Pavel Begunkov <asml.silence@gmail.com>,
- Taehee Yoo <ap420073@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
- Paolo Abeni <pabeni@redhat.com>, Kaiyuan Zhang <kaiyuanz@google.com>,
- Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nikolay Aleksandrov <razor@blackwall.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>,
- Kaifeng Wang <kaifengw@google.com>
-References: <20261012174300.2338784-1-almasrymina@google.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Wed, 14 Oct
+ 2026 12:37:08 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
+ 12:37:08 +0000
+Message-ID: <8e1c50f7-8d1a-4b78-8524-2897c52ff384@amd.com>
+Date: Wed, 14 Oct 2026 14:37:04 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dma-buf/test: add KUnit case for
+ dma_fence_dedup_array() empty input
+To: Baineng Shou <shoubaineng@gmail.com>
+Cc: sumit.semwal@linaro.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+References: <20260630060436.1527498-1-shoubaineng@gmail.com>
+ <20261014024909.1769215-1-shoubaineng@gmail.com>
 Content-Language: en-US
-From: Dragos Tatulea <dtatulea@nvidia.com>
-In-Reply-To: <20261012174300.2338784-1-almasrymina@google.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261014024909.1769215-1-shoubaineng@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0057.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::17) To CH1PR12MB9647.namprd12.prod.outlook.com
- (2603:10b6:610:2b0::10)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0076.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PR12MB9647:EE_|LV8PR12MB9690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dfe72f8-912c-4284-6793-08df29ef5d8a
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB7868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7871badc-80bf-49f8-84c6-08df29efdc40
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|7416014|366016|56012099006|11063799006|5023799004|261009223027099003|10067099003|18002099003|22082099003|6133799003|921020;
-X-Microsoft-Antispam-Message-Info: NbNeZXCm+gdHwETjAqi4vvt6koUpcvJqYKyVHnLfJbKrxWS8Aqj6051aHWPeuqkkTLGHUrdH3gMMWvNj2VV1R44FjVUtQXZLQPLEyKEtL3pI0Vu5QypDWs/HvqwCfl15BZGpzzNCRNkpiZjloV6hP1JvhZguXwUGT91kd5QL6EKscFnumpt4aJ4XDPw2D4mC66yoU1qUYLM1WYSR6vOiR0F5MIdGEw9avM8xg+sPilOMkQKDEbG5vMXQvn49pcZmYElMgy4OulF0/tRq3Pj8ci2/ToKsy6yCmpuhxWO18/s1CGnD4mEaKzCEZhRhOeDIHDVFwKn8UOlxIVDDi2eIHff3HcKdZedY+cdw+RH8X5h0OgDXcFbMj2E6MwopRpEHwrbQpxy+sjjhDMZVQlQnaQtgdJbgbgl4hC5vUvfa1tE7bmeWuHMwxbjDePe7O7xzgU97UYt3QCCmG8uA95BuKe2Jkps0vSRy8Z6FZ69uPDmpqqMh07UoMesx2m4iDXRzUY62IoKqorJ+JesgS2pEQAASFKfXiV2msJ+W28Vi6q3oY0+H5pw2xU/UH85CRzDymAlDJGoJMUmokt1xEZJUZvhGiEJi3DHEB1rWNt+/6epOKZSAK+r02OXWdAB2C3xV8yG4lr69BaBvN80YuSVV0qfQVYYAK9G5K7WZg+Wg0WeENNSwccjXBT67VFCHlkOnV1pUjEzzFOX7ZR1+agWbWA==
+ ARA:13230040|366016|1800799024|376014|23010399003|4143699003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: /VnGAc1eL5CkcpDZfQvJUYwqgGXTJ6Zzo2gHMfC86Xv2UlhaRg4VIYTq9ksZCYwQhJMT1dRy2+dncxEOkyB6YpCJZ4/Q6/k3nERoik92+gfwktZzWtzVcGmfw8ixLuuFYNoo3kxmGJyPFi06TSqiLLbwOmSw80mZbvUcIvSOwo1hh63BlKP6E8EV1G0wYglKu9zEzQZ6nXsDJpO2RfItld1kjdkDo3DobPEYpax+pkroV2+UdpBFC7jXWea9covDlw5bccvKAbtBlcS2G2QEDVdHNfEYnwXaqKjqo4VZK+CE31/axRFG6kpZscxBcag5lG3tU+yjnD+Gug+ob+Jtk4gMLQrfDGC4Zyu8LNIIp2ci2UX8KUsF5tK//Nhp30hLqhi12NbMBEb7EvO7z2B+c5bBgsJsx0AN8nqxFFaEsmvY3jM7Q886nzzRtzQeXQRlsyO/tKbTTAhHkiZcaezIKpWu9CCaMupc5rfFtSAis6St82wgWiq4lTmBvRRyOGcZ6ygOMiruWJApNAv3d2XQYaotTlJi1QekTGwV84z2UEcWqanyXjo91KdDfiG9g0JbY2v5376ea2VxKKXkv0KSTtv8bbAwKR2uMMDbpNWbqLU45q96rhQYQIUVOPM/MOeCIHxuXuqwfz+a4UfVpA1nk0aPojfvImHgRBJrNdiAc/E=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH1PR12MB9647.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(7416014)(366016)(56012099006)(11063799006)(5023799004)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(921020);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(4143699003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1RTUTFSQVZOUU5hU0kvNU9GNTREeVY4RGM4SVJTalBnRHF1SEJFZGwxb3Ni?=
- =?utf-8?B?VlhnUmhmTEZ5d3NlelcvU3hON01JQjkwdll1V2h2ZEhlcU8vdDk3ZE1Sc0d1?=
- =?utf-8?B?Tys0aFNsNzN0YlNDcDFkYnJRcFpZeU9jSWZjNzZhUmtwRDRIcFlQQ1pPOXVx?=
- =?utf-8?B?Q1BnUlI0emNEWmlOODlzTE5PanZLOWNJcEJ4aDk0OHpHWjh0cDdxMmdqNG9F?=
- =?utf-8?B?VDBlUmQzTTF4VlgrWk9rWVV1SEwrdlpSa05rUVhJOUdMdmdBUDhlellVM3JN?=
- =?utf-8?B?VW1kcHROWEZvQUVJK01oY3A3OXdRRXp3Vm1Sd2F6Q3NHbGM4dVh2azRocVRM?=
- =?utf-8?B?SDJtVkhQNHQ0UXRPUXRHQmxnMWxvNjFoaXhQTTZvaStqWjBQU2U5Zk5uYmQ4?=
- =?utf-8?B?RWlmd2daOVhLMXovTjFYYnN5Q0ZRNEVIa04xMUtkdzVBZ3o4VitnN1E3c1Ni?=
- =?utf-8?B?ME1Vakl1STl1ZkRPV2pnQ3VJU1cxM0Myd01rNUx1OUVSd0pMVEZUOXFJcVZI?=
- =?utf-8?B?blAzeUVFa1VFU3BKTVRaMkdLVXdmRmdWak55U3duOW1pQ1JlOVlxSjF0cHZ3?=
- =?utf-8?B?MVdzay9sT3hXakpRZE5FOWROcTVCb3RMT3lUdnoydzZvNzJIdkt3WW5WdkpU?=
- =?utf-8?B?a3RaN3k4L3RoWVJ4LzFXYkY2ZFZaYnhwb1hxRTM3L252TmdzeCtRekRNQ05G?=
- =?utf-8?B?a3p3c05jSmROZGk1VS9IZ3VBOUdTWXV5YUZPYVNiVE5KVFhWYkIxWWQ5b2M3?=
- =?utf-8?B?Z3UrMThLQW5yakNIYVdXbmd4aFRlQkUvOTFMTS9penEwUS9vT1lCZDl6Y1lW?=
- =?utf-8?B?bkp3UGhtRjlEWFlLcDJQTlI3QUJsejA4bVlzbE50SWduaEZSOTVVVnI0NmRF?=
- =?utf-8?B?UzU1a1phZzEvWDBoNDZNamtpc0x2dlF1T1NNbTZvMnJuRzFUUXZsOGlmNVdv?=
- =?utf-8?B?b2M1SjJRU05pQVpNb1lzSUlQeVpyM0dud056bGJVVElGNFQvc2l2V0JtaFlN?=
- =?utf-8?B?UkhzQVRlVFJoUVkwNktTUTdERkY1NlNUbGowL1ZFZjBLcXdEM2JnK3M4Q05S?=
- =?utf-8?B?Y1MwTTVtalVPOHBHdWtUL3JNb1ZUNFcyZGJTZkJzcGRVYnQ5cmd5TUJrdmJj?=
- =?utf-8?B?V015ZGk1MDZhMzhuTkpXMTRkOVdWeUsvVHV2WEQ5Y1E2T1pzL211V01FNmJp?=
- =?utf-8?B?NG1mY0Y1L3YrS3VsOHVqWER1eVg3UTF0aFN0RkxTVXJtQXEwcFdCN21rZG1t?=
- =?utf-8?B?akJ4QWlIUnI3MWh1Z1ZkQXVUeHJGMFJSbExkMC9md21JcEhxWmUrZHRkV2ZS?=
- =?utf-8?B?R1Q5SVJGK0o4OHFQREJRWFErdDNzcWFkMFErVkJ3RXRscGVuN3FXVDdvV1VX?=
- =?utf-8?B?Wituelcvdk5HTCszRXMxMlRTY1l4czFQd0EzZUhBcEhEM2xIVzA1d3VMbGNh?=
- =?utf-8?B?V1MzaDVaMkFLbyszQlQyU0FiOVZ0bTI4c1JMdHF3bTF1NGY4R3VhT0NzbnNo?=
- =?utf-8?B?YnVoWW4vcTlLWlo3T1IvQnpaQkRrZzNXVEJGcnhlQnBSVFFaQjh5M1dncmFx?=
- =?utf-8?B?REh6V3ZZMG9vZW1TSHpSWmZEd1dyMDhtK3pjR2tQZ3FuQjU5bmFreHZHTXZh?=
- =?utf-8?B?MGpQbDdBeWdSc0tKb2hoRE5mQjhXaTcxVmRxcDNVb0Y3S2h6bWdITlNFNld2?=
- =?utf-8?B?UkxtRHFVaGJFNWVyb1ROR3NacTRxaGVRNld2Smh4TWhDWE9aM2RQZFFjcm1h?=
- =?utf-8?B?cElsTGh3VXZ0Q1JWL05zR2QyNzkxeHlPUGd0RWEvOHdEV0RhejBqMC9xOHdN?=
- =?utf-8?B?VGN5ZlF1OUpsenZTN3JZdHU5VmpCVjhGTE5YWlFFYWdpa2dUWnFLeTJRWGMx?=
- =?utf-8?B?eDBGSnVsOHNtQ0p4dytyc2toRGk4SU4rSFJ6TWZRRStHVzJ6UVF4bXJlQzI1?=
- =?utf-8?B?UUxyY2hzNmV2d3dxaStta0VMaG5oQ1BOdTlsbjMrcFJaUS9LSUpIakl4YTYv?=
- =?utf-8?B?QWFPNFJXTzZqMWQ3TllSdFQ1Qzc3TXp1ZTJDOFJUWkdlbHpHaitWV0lHR3Ex?=
- =?utf-8?B?U2RNQUZhMEtUNnFKS1pDbnpUKzh4aXM0dExDYjR3SkkwNVloYlo3Snkra2Qy?=
- =?utf-8?B?V1J0TG9PRlNwRTdFSTJkczNlQVpTeXVvOXkyQ0phb1crdHVZa2FGS0h1MVE4?=
- =?utf-8?B?d3Q2Sjk1dTQ1WWQ2Mm4wYUEzcmZWT0R2NUFuaVdyMFVQcWlzbldTWHFHaWd0?=
- =?utf-8?B?RUUwTTRCb1lVeDZwM0VLcGVGc0E2SXBRRVpwWmJtOXoyQXhTTC8yRGI4MHli?=
- =?utf-8?B?RGtlSGovNlkxV3dwT1hIVFFHaXhTSXplZmpLUnRObldHRkRYODlvdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dfe72f8-912c-4284-6793-08df29ef5d8a
-X-MS-Exchange-CrossTenant-AuthSource: CH1PR12MB9647.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U0JhOUt2b0I4VFU2Ti9aaTZoREpWbmkwV1UrN3FKOHJNM1FwakJSVEFUUFFs?=
+ =?utf-8?B?NHZFajBYcmd0K2JUNDVZdTk0Mm5BTVpxTXA5elU5dGREdnhaSDVKcFd6Q2ph?=
+ =?utf-8?B?UDFic1djNzJIajJKK2p6S0g5M3g2MFo4Qk1BbXlHRU8xZW54a3ljQ1dRRWhv?=
+ =?utf-8?B?dGtHZTRxc0pzMkFNTUh6ZlV0NXhGWXh5SVJCTmFZTjFSU1ZNaERySHdCZEVp?=
+ =?utf-8?B?VDNaaXRya2JIQ2p0bXNyOEgvbzd5Y2R1cGVyVnNnZEMvUjUwK2xOMTZLZmFD?=
+ =?utf-8?B?MC95bUt4NmEzRzFTM0d6YnA0d0M3NE5RK0Q0VVRKaGZ1bkp3U3A0WVN3SVlJ?=
+ =?utf-8?B?ZWIvdnZZdXVta0xITkxBU2d1alRYVVRuK0l5Nm1FeVdJMWxITXEzZmpVaWx5?=
+ =?utf-8?B?NVAzMmtIVGNnODRORHRKTWhNd1VmZHczbGtQT1FMYnJtSXdXMjIzOEd1S21o?=
+ =?utf-8?B?L3duTlllZkR0TC8zRm5YVzVJclZ0ejQ2akx5YVJRZTNnWTJ3Tm92Vzh1WEJw?=
+ =?utf-8?B?RC9RM0wzYWdDNm1aQ2RUNXJRMWhmOGJMajN6bmttUVU1SmdGRnVTZ1JCb0c4?=
+ =?utf-8?B?RnExcUhESjZrdFFDeXU2WVY1UTR1aDNZL0VKWGo2L1FpZktIUUtqU3hYUXhE?=
+ =?utf-8?B?WW5SUE5TdTYzdmk3aVZ6RWRkaXVLcW9FZ1NwR1I3ZnYzblVJcnpQVG5OY3VR?=
+ =?utf-8?B?T1R6RXZCUHJUODVWODdBKzhjZ0VlQTZqL2tvS1V6SmdaelI2RWNZVGJ1YjNn?=
+ =?utf-8?B?RVhwWElJd1krNDBuNFZtSW1FV09YODBVT2orMVdLQlREWHp6dlFNVUVQRUNO?=
+ =?utf-8?B?dVhJeVR6bU5YYmx5VmRVU2FTNFZlVkU4MWxhWUhzZXFVNGNsaWhRcDNPcDl4?=
+ =?utf-8?B?VVg3c0VCUm9KbWxBT0Z2ZDdHcnViSnFScEFucm1hRjk2RjZjb25wUFJVTU5E?=
+ =?utf-8?B?dnlka0haRFhKRGZOYjRMSG83T1pieXZ5YTV2Q3RlZVVyZHE3VWlyckxoTzkw?=
+ =?utf-8?B?SVNncllFbW5oZDg1UWl1WnlmTUpUalUvWU04OTZ5cmhoSGdNM0hnTVNzTVdU?=
+ =?utf-8?B?cHN1NUt5bmNnSEZ5SkhjZlFBTTMvblJDNThaSG5LMWxXTmhERitLZWlVdFZk?=
+ =?utf-8?B?OHA0NHFzalhVUFEvazJBK2lEYlNNWUJRUnJ5cmJGMjlabk1KMGhwYUhILzdo?=
+ =?utf-8?B?OXFyUDVDV0RQUmZhL3A1MTREdDVBbUYxejdJTnZiRlpBVUg4OVFnbTkrVjRZ?=
+ =?utf-8?B?MHROa3BpR1hzZnhVa3BwZmU0M3B0eGNZTlRVcVZVNGFlMUptN2Jtdnl4TlFl?=
+ =?utf-8?B?QTJWZHVQOS9mT0orczlPS0FXWVN1SnBXZ0lBUmNWSFU3RmlCQk9GTW5IdHkr?=
+ =?utf-8?B?NTVEZFNTQnQ5Yzd5d1gxaGNnTFY2OUFod0V4YUhXSE91anltWEp3SU9MdWVm?=
+ =?utf-8?B?eHROREtjTlE1c2FvRVY1RHlrVGdvRjdpaFUwYkVYR3hZN2JYZzBjaS9tK00y?=
+ =?utf-8?B?Y3ROZ25IMHFGOEFsVmZrbFRYQktPbVpkR2htUXl1MnYwdUg2UmFZdXZtdEZw?=
+ =?utf-8?B?M2FwYmNMZjRWR09FeHp6bmZOZTNoU210cXRHbWFVa1QxQm1nVDk4ZGFXdllH?=
+ =?utf-8?B?RmcrT2QrL3VRS05Gb05BOFl5RFErWTZWSUFtOGEwUGU5a3VBR2Z1QTRKZnV1?=
+ =?utf-8?B?WGd2K1FLME5GOWVkN3ZXREhjL3ZwUEkwczNvcWxDTEd4SHN4b3NkQmVsN0lY?=
+ =?utf-8?B?TFFSWG9ZZ3BzbTBSU3NwdUJtNVRIT3l6eFN5NlcwaGJobHdncEdYVG9qYmFp?=
+ =?utf-8?B?OHRwVWNjeGRXQnVjU09MZC8wdVpHcVBJMld4ZUo3N3pTV3JXSnB6TGFQNFY3?=
+ =?utf-8?B?Z2lYd2FhbzFoRUo5bWJjcEFRS0hWT20zYTV2NzZyTUQ0WDlPTDd5dWtYazBY?=
+ =?utf-8?B?ZmNwdFZvVlhVNHgwS1I3S2ZTeTRyaE1nbE1aMUF3cVhmMmhtQURlWThTNjJl?=
+ =?utf-8?B?N0NTWkEvVDJSUXdlVGFBdVpXZThyaVFzaG9IMVdzRlp0OWtnSGVNRmtqbW1P?=
+ =?utf-8?B?dksrSHlMVGNkT1ZkWk9KMFlDNlpUL0FxZmJyMUpvTFVGUUFIV25lRzNPa0VH?=
+ =?utf-8?B?Wk5vYXp6NmovNTBYcVk0clpBVWxNcUM4UHdpQTlpTFNkT0o4cVZ5TmVoOHpq?=
+ =?utf-8?B?ZUd2c2hWYm9XYkZSVi9EcS9NMGQyQ1BGSGkxWEFBMWdtOHpuU0NDSkhhVGN0?=
+ =?utf-8?B?NU5VVzdlU29lOVF5UE1kcmMrYXRVTWFuYXd0bnQwUDA2RThTOU5sTTVsM3Nt?=
+ =?utf-8?Q?3VJQ84dYLDhvsX6PAI?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7871badc-80bf-49f8-84c6-08df29efdc40
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:33:35.5387 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:37:08.0677 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LaM9HOonUnyNMJhYfSPtVd1jzrGW0g/WrFjJ8OU1J/zAKrT3ho9OQUYY/HJAN8jhrKujrT5dzP5u+zaIdCPnTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9690
+X-MS-Exchange-CrossTenant-UserPrincipalName: zqD6XWK9Yq7lMsjlrqYI1rqWvOXxBPYBxhykwr16nrrKfgXY4nMvJZnJah0LNboF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7868
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,72 +136,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 10/14/26 04:49, Baineng Shou wrote:
+> Add a KUnit case verifying that dma_fence_dedup_array() returns 0,
+> not 1, when called with num_fences == 0. This locks down the
+> contract documented in the kernel-doc and prevents a regression
+> of commit 77a9298741f8 ("dma-fence: Make dma_fence_dedup_array()
+> robust against 0-count input").
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 
+Thanks for the reminder, I had to wait for the -fixes backmerge to push this.
 
-On 12.10.26 19:42, Mina Almasry wrote:
-> Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
-> add netdevsim support plus selftests covering both RX and TX device
-> unregistration:
-> 
-> 1. net: devmem: unmap dma_buf synchronously on queue uninstall
->    Synchronously unmap and detach binding->attachment under binding->lock
->    when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall(),
->    and unmap RX bindings that were already unbound on NETDEV_UNREGISTER,
->    preventing slab-use-after-free in dma_unmap_sg_attrs() when the binding
->    is freed after dma_dev.
-> 
-> 2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
->    Extend net_devmem_dev_unregister() to fully detach and unmap TX
->    bindings when binding->dev unregisters, or clear binding->vdev alone
->    when only a virtual device unregisters while binding->dev lives.
-> 
-> 3. netdevsim: support devmem RX and TX bindings
->    Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
->    on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
->    can be exercised in software selftests.
-> 
-> 4. selftests: net: add devmem RX and TX netdev unregister tests
->    Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
->    to tools/testing/selftests/net/nl_netdev.py.
-> 
-> Cc: Tariq Toukan <tariqt@nvidia.com>
-> Cc: Kaifeng Wang <kaifengw@google.com>
-> 
+I've just pushed the patch to drm-misc-next.
+
+Regards,
+Christian.
+
 > ---
-> v2:
-> - 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
->   net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
->   xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
->   the binding->lock and binding->ref comments. (Sashiko)
-> - 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
->   which now also covers unbound TX bindings, and clear the LIVE mark
->   instead of erasing the ID. The walk no longer uses RCU or takes
->   binding references (Stanislav).
-> - Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
 > 
-> Mina Almasry (4):
->   net: devmem: unmap dma_buf synchronously on queue uninstall
->   net: devmem: detach TX bindings on NETDEV_UNREGISTER
->   netdevsim: support devmem RX and TX bindings
->   selftests: net: add devmem RX and TX netdev unregister tests
+> Changes in v2:
+> - Add Reviewed-by from Christian.
+> - Rebase onto v7.3-rc7.
 > 
->  drivers/net/netdevsim/bus.c              |   1 +
->  drivers/net/netdevsim/netdev.c           |  21 ++--
->  net/core/devmem.c                        | 121 ++++++++++++++++++++---
->  net/core/devmem.h                        |  10 +-
->  net/core/netdev-genl.c                   |   1 +
->  tools/testing/selftests/net/nl_netdev.py | 108 +++++++++++++++++++-
->  6 files changed, 236 insertions(+), 26 deletions(-)
+>  drivers/dma-buf/st-dma-fence-unwrap.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 > 
-> 
-> base-commit: 4f6ac74fa594a918d41255c941256e1d51592d3b
+> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
+> index 4d9d313b460c..c5353b36f0e4 100644
+> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+> @@ -370,6 +370,15 @@ static void test_unwrap_merge_seqno(struct kunit *test)
+>  	dma_fence_put(f1);
+>  }
+>  
+> +static void test_dedup_empty(struct kunit *test)
+> +{
+> +	struct dma_fence *fence[1] = { NULL };
+> +	int ret;
+> +
+> +	ret = dma_fence_dedup_array(fence, 0);
+> +	KUNIT_EXPECT_EQ(test, ret, 0);
+> +}
+> +
+>  static void test_unwrap_merge_order(struct kunit *test)
+>  {
+>  	struct dma_fence *fence, *f1, *f2, *a1, *a2, *c1, *c2;
+> @@ -595,6 +604,7 @@ static struct kunit_case dma_fence_unwrap_cases[] = {
+>  	KUNIT_CASE(test_unwrap_merge_order),
+>  	KUNIT_CASE(test_unwrap_merge_complex),
+>  	KUNIT_CASE(test_unwrap_merge_complex_seqno),
+> +	KUNIT_CASE(test_dedup_empty),
+>  	{}
+>  };
+>  
 
-Went through the series and it looks good to my feeble human brain:
-
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-
-I am biased though because I need Mina's code to add support for
-unbinding the dma device for data-direct.
-
-Thanks,
-Dragos
