@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FA71CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 08:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73D30CC6B29
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 08:40:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77BE810FC00;
-	Wed, 14 Oct 2026 08:34:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDD4310FC2D;
+	Wed, 14 Oct 2026 08:40:45 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E458210FC00
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 08:34:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB66D10FC28;
+ Wed, 14 Oct 2026 08:40:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4239560213;
- Wed, 14 Oct 2026 08:34:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12D51F000FF;
- Wed, 14 Oct 2026 08:34:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0DEC960213;
+ Wed, 14 Oct 2026 08:40:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B94C1F000FF;
+ Wed, 14 Oct 2026 08:40:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791966887;
- bh=g/A4ed/3QPIKe4S9VB4gI6vDlsl4j9J8jt6fuk/31j4=;
+ s=k20260515; t=1791967238;
+ bh=SlXHMx6hon0Cj1iTj1cb6JD1sfElX9hEVQ51/FVZ7PA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=L101eVtUXOWsV/CSblrUcKEhXkqPmo/R1nfjzmI47uGg1mnzv1o6odOghy7YBtT+R
- QjKigACg17T2DN6vrrtGFIXtx5XdS2tSugXxs0WmWfUlwQk8vKUlwwQskxiReXw92P
- ZREkVO6Cm6uiRrvXeFn1zqvSko5FydK7YH0oj9dwVf0PeK4A1k+gv4RYz0OcK0LnEC
- N72QHATxLaAYl8X2ZrN1ChQTfLGn/INkmoHZJR9tDqy623Ql2QoxNtl2Rw302cC/Ss
- BXe9nxGcG+o8rffFtXoOh17SZEcUqPV0cQiOwdY0Zt1aF8bntIa1h+JdGo6jsCpjAB
- yCM3/r5oZJlJA==
-Message-ID: <sashiko-outbox-171019@kernel.org>
+ b=KOb9fMnstYgOE3YuRjY8VkcxwnxUZys7B7iRdSquMBbw4sjjfiC0LQ+cVPvEK6bZx
+ Z5r1FgYd968RE8xphsqZTRA1tTeXeG4gc/x5FH6r4TuouUGzMqL2uJ5rolis53FiMl
+ +LJ5zpTzVqolNFm/4shb2KHu4N454L7Eeqq9fkmP/huwDSuMq0Xlvf/Z0LDyd9mz60
+ pt+ShgLjfUPGeokXlmBIiYRTJviBnatOGkwbUJbX185fftO/0IpOhrl3xtD/pgxcI3
+ vItNNPIfBXajBqAS7iarFAyKE7MDZJG/B3xQNqe5VooQ6mZZzOpXCCemHUFLnE1fiO
+ IFiow1M8rvpSQ==
+Message-ID: <sashiko-outbox-171030@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/imagination: Simplify MIPS PTE definitions
-To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
+Subject: Re: [PATCH] drm/i915/dp: clear and restore MSTM_CTRL around MST
+ DPMS off/on
+To: "Xiao Lu" <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261014-b4-simplify-mips-pte-defs-v1-4-b4ad7bb68e22@imgtec.com>
-References: <20261014-b4-simplify-mips-pte-defs-v1-0-b4ad7bb68e22@imgtec.com>
- <20261014-b4-simplify-mips-pte-defs-v1-4-b4ad7bb68e22@imgtec.com>
+In-Reply-To: <20261014081448.2320363-1-xiaolu.xie@intel.com>
+References: <20261014081448.2320363-1-xiaolu.xie@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 08:34:46 +0000
+Date: Wed, 14 Oct 2026 08:40:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,79 +55,92 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] mm: PTE state consistency violation in get_mips_pte_flags() for =
-write-only mappings
-- [Low] drm/imagination: Broken macro reference in PVR_MIPSFW_TLB_GET_PA
+- [High] drm/i915/dp: clearing DP_MSTM_CTRL on DPMS OFF breaks MST topology
 --
 
-commit a6fd7c6870a5757f18024650beba88d0d531dd3a
-Author: Matt Coster <opensource@mtcoster.net>
+commit 7efe593dfb9be6f1dddd0b7978cd417266811e58
+Author: Xiao Lu <xiaolu.xie@intel.com>
 
-drm/imagination: Simplify MIPS PTE definitions
+drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS off/on
 
-This commit simplifies the MIPS PTE format definitions by using BIT() and
-GENMASK() macros. It also removes some unused definitions that add no value.
+This commit modifies the MST stream disable path to clear MSTM_CTRL before
+sending D3, and restores it on re-enable. This is done so the hub is back
+in MST mode before processing the PHY power-up and retraining downstream
+links.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_mips_internal.h b/drivers/gp=
-u/drm/imagination/pvr_mips_internal.h
-> index 732730d64bf54..2b25a69003b31 100644
-> --- a/drivers/gpu/drm/imagination/pvr_mips_internal.h
-> +++ b/drivers/gpu/drm/imagination/pvr_mips_internal.h
-[ ... ]
-> -/* Mask used for the MIPS Page Table in case of physical bus on more tha=
-n 32 bit. */
-> -#define PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT (0x3FFFFFC0)
-[ ... ]
-> +#define PVR_MIPSFW_ENTRYLO_PFN_ABOVE_32BIT GENMASK_U32(29, 6)
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> index a46ab5d3d70fc..7e4e18345ec17 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -3163,6 +3163,8 @@ static void intel_ddi_post_disable_dp(struct intel_=
+atomic_state *state,
+>  	 * Power down sink before disabling the port, otherwise we end
+>  	 * up getting interrupts from the sink on detecting link loss.
+>  	 */
+> +	if (is_mst)
+> +		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_MSTM_CTRL, 0);
 
-[Severity: Low]
-Could this deletion break compilation for PVR_MIPSFW_TLB_GET_PA()?
+[Severity: High]
+Does clearing DP_MSTM_CTRL to 0 here cause the entire MST topology to be
+torn down unexpectedly?
 
-While the macro PVR_MIPSFW_TLB_GET_PA() isn't used in this patch, it still
-references the deleted PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT constant in
-drivers/gpu/drm/imagination/pvr_mips_internal.h:
+By wiping the MST hardware state on the hub without notifying the software
+topology manager, if a user-space compositor or sysfs polls the connector
+during DPMS OFF, intel_dp_detect() will read DP_MSTM_CTRL as 0.
 
-#define PVR_MIPSFW_TLB_GET_PA(entry_lo) (((u64)(entry_lo) & \
-					  PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT) << 6)
+In intel_dp_mst_verify_dpcd_state():
+	ret =3D drm_dp_dpcd_read_byte(intel_dp->mst.mgr.aux, DP_MSTM_CTRL, &val);
 
-Leaving a broken macro with an undeclared identifier could cause an immedia=
-te
-compilation failure if any future code attempts to use it.
+	if (ret < 0 || val !=3D (DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC)) {
+		...
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_vm_mips.c b/drivers/gpu/drm/=
-imagination/pvr_vm_mips.c
-> index 40495b1486a26..7f49314bc6be4 100644
-> --- a/drivers/gpu/drm/imagination/pvr_vm_mips.c
-> +++ b/drivers/gpu/drm/imagination/pvr_vm_mips.c
-[ ... ]
-> @@ -145,15 +147,15 @@ get_mips_pte_flags(bool read, bool write, u32 cache=
-_policy)
->  	u32 flags =3D 0;
+This will return false, causing intel_dp_detect() to force a connector
+disconnect:
+
+	if (status !=3D connector_status_disconnected &&
+	    !intel_dp_mst_verify_dpcd_state(intel_dp))
+		...
+		status =3D connector_status_disconnected;
+
+>  	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
 > =20
->  	if (read && write) /* Read/write. */
-> -		flags |=3D PVR_MIPSFW_ENTRYLO_DIRTY_EN;
-> +		flags |=3D PVR_MIPSFW_ENTRYLO_DIRTY;
->  	else if (write)    /* Write only. */
-> -		flags |=3D PVR_MIPSFW_ENTRYLO_READ_INHIBIT_EN;
-> +		flags |=3D PVR_MIPSFW_ENTRYLO_READ_INHIBIT;
+>  	if (DISPLAY_VER(display) >=3D 12) {
 
-[Severity: Medium]
-Will this construct a non-writable mapping for write-only pages?
+[ ... ]
 
-For MIPS hardware, the DIRTY bit functions as the hardware write-enable bit,
-and a writable PTE must have this bit set; otherwise, any store operation
-triggers a TLB Modified exception.
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_mst.c
+> index 7023619aaaba9..4109bb9284fd0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -1270,8 +1270,12 @@ static void mst_stream_pre_enable(struct intel_ato=
+mic_state *state,
+>  	drm_WARN_ON(display->drm, DISPLAY_VER(display) >=3D 12 && first_mst_str=
+eam &&
+>  		    !intel_dp_mst_is_master_trans(pipe_config));
+> =20
+> -	if (first_mst_stream)
+> +	if (first_mst_stream) {
+>  		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+> +		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_MSTM_CTRL,
+> +				       DP_MST_EN | DP_UP_REQ_EN |
+> +				       DP_UPSTREAM_IS_SRC);
+> +	}
+> =20
+>  	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, t=
+rue);
 
-In this write-only branch in get_mips_pte_flags(), the code sets
-PVR_MIPSFW_ENTRYLO_READ_INHIBIT but fails to set PVR_MIPSFW_ENTRYLO_DIRTY.
-This will cause firmware writes to these pages to trap and crash the
-firmware. Should this branch also set the DIRTY bit?
+[Severity: High]
+Since DP_MSTM_CTRL is restored here on DPMS ON, the hardware returns to MST
+mode, but the software manager (drm_dp_mst_topology_mgr) is unaware of the
+reset and hasn't been prompted to send a LINK_ADDRESS broadcast.
 
->  	else
->  		WARN_ON(!read);
+Will the immediate drm_dp_send_power_updown_phy() sideband message fail
+because the hub lacks downstream routing?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-b4-simplif=
-y-mips-pte-defs-v1-0-b4ad7bb68e22@imgtec.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014081448.2320=
+363-1-xiaolu.xie@intel.com?part=3D1
