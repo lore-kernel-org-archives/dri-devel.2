@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B81D8CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AFD6CC6B2D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:30:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 196CB10FEFB;
-	Wed, 14 Oct 2026 17:30:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F26B10FEFD
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:30:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF68010FF07;
+	Wed, 14 Oct 2026 17:30:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B3F610FF07
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:30:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C62A66022E;
- Wed, 14 Oct 2026 17:30:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21ED1F000C4;
- Wed, 14 Oct 2026 17:30:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 339D041FC4;
+ Wed, 14 Oct 2026 17:30:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902B21F000C4;
+ Wed, 14 Oct 2026 17:30:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791999032;
- bh=pmgAVG8no9993DhxcxKYA6kknNN3iHfYrrs08uflq8g=;
+ s=k20260515; t=1791999036;
+ bh=d+m2MK+IJdwEt/BFD2LzEho7d6ce+ChRZEHGwMNQO1o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Yg+0hiqcKe2QmiYQoyqBdCviN0Bb6e0ftp8qmbAbYaOkoxOUEf95PlTr8uMhnb0ue
- 2jiBB9dK0kmsMPwDSmmmYKB8ZhT1U4pC2Mhi0qoWydqyBheV+txsbQy2ytWyfWzPOQ
- cbJbeeMdHbzgIRTZdlMcKUBFverUqOxQKm/jLfYr/yIKUTgWnYGgKDEVcBqDa4IMjl
- kspFES2KJA7uOE9JzHKGoKzbM88S2KR6m2WxTTiIy5ejxaXc7j60sLVJYoowBIeVJz
- bjuDEvN7BPB8WP4Jc2CQ8rdkFgfDqT/C8x2pmysZaRW3nZHhcvW76WDxQBjcbatDSq
- J92KgWAQ2SCGQ==
+ b=icar3pqgKFkZAn6aYBNl3AIBVBIb+eGrnu6dK5h9uX7GMTrDFQLrMwnPJ2wbZGbCS
+ /uD6fZBqJ6vVNBF6uudc4mX4kLbrFEyNpGVVaZKaVVBXGp0E30WMqPnXWZjjrvxVo0
+ ONk3bqoHh00OhdWpUnPtotYXQLKLKPEJOjbbA0gy1P2KirfdGDHI7Kqa8FuyHBU+P9
+ +vFuiG2Gv0m/b1RJPbxCzDCBk/MssyNidiYoyIlxkuYwEfvHe3kRA7+3eRaXp+oRB6
+ O5t/6I+FNwoI48QOxHUWaoASy/xwh3NBWjbuFCcnvumDFUn87wYy8m6F/1ncxi9AGB
+ 1ewoNeh8dIydw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 14 Oct 2026 19:27:18 +0200
-Subject: [PATCH 55/75] drm/atomic-state-helper: Rename
- connector_tv_margins_reset to state_init
+Date: Wed, 14 Oct 2026 19:27:19 +0200
+Subject: [PATCH 56/75] drm/atomic-state-helper: Rename connector_tv_reset
+ to state_init
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261014-drm-no-more-connector-reset-v1-55-586c9c026823@kernel.org>
+Message-Id: <20261014-drm-no-more-connector-reset-v1-56-586c9c026823@kernel.org>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -42,16 +42,17 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, 
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Ruben Wauters <rubenru09@aol.com>
+ Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6203; i=mripard@kernel.org;
- h=from:subject:message-id; bh=na7ehGrt/jk27d7BAov2bCwf/ccmv0sKzBKRZZ6prdc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnndycpiPx4n7ztfoD432VHvzXyunM6Sh9W3iC62E/j+
- v2Hb3QPdkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJzHjAWKfX9vUJv86+GlGF
- oMfXG5MnND+an+47ZwtnqSpfpBOLq1+hk4ruU00twcNLPOsPTSitZazTT/i/4JPX0yPKq5ZfP+n
- JsFLinMwbh0jeqVEeK+O+V3rKbir7FuFXeVfwWDnPk6eveO4CAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5688; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=xXF1QFT9UKpEXLDQKR376S3M5YzESlM+RLSaRnFDWqI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnndycr2afu5ZaZeGtZpPj8GTvnF5zQ/hLtJ6CwiNOmt
+ 8LP8YBVx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiICjtjDYeoQsy2iW35z1dJ
+ PW0qFTrNcGTJ+4P7eixXFOz4f6DDo20v16PIPecT7hh8WMQ0P5mXhbHeI1zKeFoZ037fniLRuSY
+ 9x89ay4SqP34xK+mcRurk5ivptlu2Xo+uqDi2aK+t/Pf5RZIA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,135 +74,126 @@ Recent commits renamed other reset helpers to use the state_init
 suffix when they only initialize properties rather than allocate or
 update the object state itself.
 
-drm_atomic_helper_connector_tv_margins_reset() falls in the same
-category: it initializes the TV margin properties from the kernel
-command line without allocating any state. It also reads the
-connector state through connector->state, coupling it to the reset
-path.
+drm_atomic_helper_connector_tv_reset() falls in the same category:
+it initializes the analog TV properties from the kernel command line
+defaults without allocating any state. It also reads the connector
+state through connector->state, coupling it to the reset path.
 
-Rename it to drm_atomic_helper_connector_tv_margins_state_init() and
-pass the connector state explicitly as a parameter. This decouples
-it from the reset hook and prepares for the conversion to
+Rename it to drm_atomic_helper_connector_tv_state_init() and pass
+the connector state explicitly as a parameter. This decouples it
+from the reset hook and prepares for the conversion to
 atomic_create_state where connector->state is not yet assigned.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
 Cc: "Maíra Canal" <mcanal@igalia.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>
 Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Ruben Wauters <rubenru09@aol.com>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: linux-sunxi@lists.linux.dev
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 14 ++++++++------
- drivers/gpu/drm/gud/gud_connector.c       |  3 ++-
- drivers/gpu/drm/vc4/vc4_hdmi.c            |  3 ++-
+ drivers/gpu/drm/drm_atomic_state_helper.c | 11 ++++++-----
+ drivers/gpu/drm/sun4i/sun4i_tv.c          |  2 +-
+ drivers/gpu/drm/vc4/vc4_vec.c             |  2 +-
  include/drm/drm_atomic_state_helper.h     |  3 ++-
- 4 files changed, 14 insertions(+), 9 deletions(-)
+ 4 files changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 406157a3660f..6238066fd5d6 100644
+index 6238066fd5d6..1424c4873251 100644
 --- a/drivers/gpu/drm/drm_atomic_state_helper.c
 +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -480,26 +480,27 @@ drm_atomic_helper_connector_create_state(struct drm_connector *connector)
- 	return state;
+@@ -499,20 +499,21 @@ void drm_atomic_helper_connector_tv_margins_state_init(struct drm_connector_stat
+ 	state->tv.margins.bottom = cmdline->tv_margins.bottom;
  }
- EXPORT_SYMBOL(drm_atomic_helper_connector_create_state);
+ EXPORT_SYMBOL(drm_atomic_helper_connector_tv_margins_state_init);
  
  /**
-- * drm_atomic_helper_connector_tv_margins_reset - Resets TV connector properties
-+ * drm_atomic_helper_connector_tv_margins_state_init - Initializes TV connector properties
+- * drm_atomic_helper_connector_tv_reset - Resets Analog TV connector properties
++ * drm_atomic_helper_connector_tv_state_init - Initializes Analog TV connector properties
 + * @state: the DRM State object
   * @connector: DRM connector
   *
-- * Resets the TV-related properties attached to a connector.
-+ * Initializes the TV-related properties attached to a connector.
+- * Resets the analog TV properties attached to a connector
++ * Initializes the analog TV properties attached to a connector
   */
--void drm_atomic_helper_connector_tv_margins_reset(struct drm_connector *connector)
-+void drm_atomic_helper_connector_tv_margins_state_init(struct drm_connector_state *state,
-+						       struct drm_connector *connector)
+-void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector)
++void drm_atomic_helper_connector_tv_state_init(struct drm_connector_state *state,
++					       struct drm_connector *connector)
  {
+ 	struct drm_device *dev = connector->dev;
  	struct drm_cmdline_mode *cmdline = &connector->cmdline_mode;
 -	struct drm_connector_state *state = connector->state;
+ 	struct drm_property *prop;
+ 	uint64_t val;
  
- 	state->tv.margins.left = cmdline->tv_margins.left;
- 	state->tv.margins.right = cmdline->tv_margins.right;
- 	state->tv.margins.top = cmdline->tv_margins.top;
- 	state->tv.margins.bottom = cmdline->tv_margins.bottom;
- }
--EXPORT_SYMBOL(drm_atomic_helper_connector_tv_margins_reset);
-+EXPORT_SYMBOL(drm_atomic_helper_connector_tv_margins_state_init);
- 
- /**
-  * drm_atomic_helper_connector_tv_reset - Resets Analog TV connector properties
-  * @connector: DRM connector
-  *
-@@ -568,11 +569,12 @@ void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector)
+ 	prop = dev->mode_config.tv_mode_property;
  	if (prop)
- 		if (!drm_object_property_get_default_value(&connector->base,
- 							   prop, &val))
+@@ -572,11 +573,11 @@ void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector)
  			state->tv.hue = val;
  
--	drm_atomic_helper_connector_tv_margins_reset(connector);
-+	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
-+							  connector);
+ 	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
+ 							  connector);
  }
- EXPORT_SYMBOL(drm_atomic_helper_connector_tv_reset);
+-EXPORT_SYMBOL(drm_atomic_helper_connector_tv_reset);
++EXPORT_SYMBOL(drm_atomic_helper_connector_tv_state_init);
  
  /**
   * drm_atomic_helper_connector_tv_check - Validate an analog TV connector state
-diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
-index 8141c3a1e30a..a57f2565d33e 100644
---- a/drivers/gpu/drm/gud/gud_connector.c
-+++ b/drivers/gpu/drm/gud/gud_connector.c
-@@ -352,11 +352,12 @@ static void gud_connector_reset(struct drm_connector *connector)
- 	struct gud_connector *gconn = to_gud_connector(connector);
+  * @connector: DRM Connector
+  * @state: the DRM State object
+diff --git a/drivers/gpu/drm/sun4i/sun4i_tv.c b/drivers/gpu/drm/sun4i/sun4i_tv.c
+index ce22f1662c0c..ea86f8a6a35e 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_tv.c
++++ b/drivers/gpu/drm/sun4i/sun4i_tv.c
+@@ -406,11 +406,11 @@ static const struct drm_connector_helper_funcs sun4i_tv_comp_connector_helper_fu
+ };
  
- 	drm_atomic_helper_connector_reset(connector);
- 	connector->state->tv = gconn->initial_tv_state;
- 	/* Set margins from command line */
--	drm_atomic_helper_connector_tv_margins_reset(connector);
-+	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
-+							  connector);
- 	if (gconn->initial_brightness >= 0)
- 		connector->state->tv.brightness = gconn->initial_brightness;
- }
- 
- static const struct drm_connector_funcs gud_connector_funcs = {
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 3a90dbb61f4e..cf84eff847d1 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -507,11 +507,12 @@ static int vc4_hdmi_connector_atomic_check(struct drm_connector *connector,
- 
- static void vc4_hdmi_connector_reset(struct drm_connector *connector)
+ static void sun4i_tv_connector_reset(struct drm_connector *connector)
  {
  	drm_atomic_helper_connector_reset(connector);
- 	__drm_atomic_helper_connector_hdmi_state_init(connector, connector->state);
--	drm_atomic_helper_connector_tv_margins_reset(connector);
-+	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
-+							  connector);
+-	drm_atomic_helper_connector_tv_reset(connector);
++	drm_atomic_helper_connector_tv_state_init(connector->state, connector);
  }
  
- static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
- 	.debugfs_init = drm_hdmi_connector_debugfs_init,
- 	.force = drm_atomic_helper_connector_hdmi_force,
+ static const struct drm_connector_funcs sun4i_tv_comp_connector_funcs = {
+ 	.fill_modes		= drm_helper_probe_single_connector_modes,
+ 	.destroy		= drm_connector_cleanup,
+diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
+index 792b7b39be59..98cece1e48d8 100644
+--- a/drivers/gpu/drm/vc4/vc4_vec.c
++++ b/drivers/gpu/drm/vc4/vc4_vec.c
+@@ -379,11 +379,11 @@ vc4_vec_connector_detect(struct drm_connector *connector, bool force)
+ }
+ 
+ static void vc4_vec_connector_reset(struct drm_connector *connector)
+ {
+ 	drm_atomic_helper_connector_reset(connector);
+-	drm_atomic_helper_connector_tv_reset(connector);
++	drm_atomic_helper_connector_tv_state_init(connector->state, connector);
+ }
+ 
+ static int
+ vc4_vec_connector_set_property(struct drm_connector *connector,
+ 			       struct drm_connector_state *state,
 diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-index 4706eeab52c1..4dac741af22c 100644
+index 4dac741af22c..5e8619aeef21 100644
 --- a/include/drm/drm_atomic_state_helper.h
 +++ b/include/drm/drm_atomic_state_helper.h
-@@ -72,11 +72,12 @@ void drm_atomic_helper_connector_reset(struct drm_connector *connector);
+@@ -69,11 +69,12 @@ void __drm_atomic_helper_connector_state_init(struct drm_connector_state *conn_s
+ void __drm_atomic_helper_connector_reset(struct drm_connector *connector,
+ 					 struct drm_connector_state *conn_state);
+ void drm_atomic_helper_connector_reset(struct drm_connector *connector);
  struct drm_connector_state *
  drm_atomic_helper_connector_create_state(struct drm_connector *connector);
- void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector);
+-void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector);
++void drm_atomic_helper_connector_tv_state_init(struct drm_connector_state *state,
++					       struct drm_connector *connector);
  int drm_atomic_helper_connector_tv_check(struct drm_connector *connector,
  					 struct drm_atomic_commit *state);
--void drm_atomic_helper_connector_tv_margins_reset(struct drm_connector *connector);
-+void drm_atomic_helper_connector_tv_margins_state_init(struct drm_connector_state *state,
-+						       struct drm_connector *connector);
+ void drm_atomic_helper_connector_tv_margins_state_init(struct drm_connector_state *state,
+ 						       struct drm_connector *connector);
  void
- __drm_atomic_helper_connector_duplicate_state(struct drm_connector *connector,
- 					   struct drm_connector_state *state);
- struct drm_connector_state *
- drm_atomic_helper_connector_duplicate_state(struct drm_connector *connector);
 
 -- 
 2.55.0
