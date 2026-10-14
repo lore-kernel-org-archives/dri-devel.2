@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B9E3CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:32:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AC51C3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:34:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F27810FEC3;
-	Wed, 14 Oct 2026 16:32:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9FB010FE84;
+	Wed, 14 Oct 2026 16:34:16 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB7110FEBD
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:32:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8376610FE71
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:34:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 54F7760229;
- Wed, 14 Oct 2026 16:32:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A07051F000C4;
- Wed, 14 Oct 2026 16:32:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BDACC60230;
+ Wed, 14 Oct 2026 16:34:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241CF1F000C4;
+ Wed, 14 Oct 2026 16:34:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791995556;
- bh=WugKqNWDagJkCYw+gyR9YtW0vgdFoHCnPeWVVs+DThc=;
+ s=k20260515; t=1791995648;
+ bh=y1oqGte81QPkuu3Nzh/KYdoOan/7YE75ei9LVzMCaRg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=d7rbNsmt0QRNMrSW07NFzav91k33a4AeKdIW/lso/Kz9nHKcUJQEDEnBMjFVdte3A
- 6N64q78dr0VXmZEtbwIzoxE63I54PrV0lzPjCiOo9wZ9grShrzGlvDIDVk7uwWshIy
- /zcdE9Of0u7QTNA/kZsyu8hOp8DoJhJXz6KSWf9m5CP2bzxTPgyhG9cdF5ChYJPtpL
- AQrOis453K88sHv3a9H08Clbi9037is9wIf5EsjXtrf+9fEza3py4pHWxbjh5houQA
- d8rXJvSCtGDVlD2a4J5HlqyuOkvkTkMFHVEHWhBsEw7skh5dPEo2t29n9eOTUo4Rxq
- gdQiMDGwCaeKg==
-Message-ID: <sashiko-outbox-171534@kernel.org>
+ b=Gl5tFEUGljMWk1XHidANSkZjbppuzB0ONJmoBWzo2w5WQUqAPCj7r9GJsVxEFM54L
+ djij+SKw8DMrbll25e9oeSnqo02J6ExbWh3jNCnQJYVPtR1x8lnzzkn6589Hf/RrCS
+ pTRqRU4hxpEgbmux98Wa843RkloFSQrUbVjk4s5Y4m1+XlKmkh+02AbVrKoa+KUFTS
+ A9ALliIusrm2Z89jsLtmytD7TzyRDkKmO5dwcL1qWBdkMov95BtNb37h+yfpRyfSkY
+ 9JGy2oaHDzWt4mgBfWFcnx9qQeyq2CUrH1/ZCRJMoDhWvSTgASxBRuxRvkw2mzATT0
+ Sy2kP1fCGvJ3A==
+Message-ID: <sashiko-outbox-171536@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] drm/panel: add Novatek NT36850 panel driver
+Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: sdm845-hdk: add display card
+ overlay
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014-sdm845-hdk-v2-2-6d0b4b42f267@oss.qualcomm.com>
+In-Reply-To: <20261014-sdm845-hdk-v2-5-6d0b4b42f267@oss.qualcomm.com>
 References: <20261014-sdm845-hdk-v2-0-6d0b4b42f267@oss.qualcomm.com>
- <20261014-sdm845-hdk-v2-2-6d0b4b42f267@oss.qualcomm.com>
+ <20261014-sdm845-hdk-v2-5-6d0b4b42f267@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 16:32:35 +0000
+Date: Wed, 14 Oct 2026 16:34:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,66 +58,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/panel: uninitialized dsi_info causes empty secondary DSI dev=
-ice name
+- [Medium] dts: qcom: sdm845-hdk: missing mode select line configuration
 --
 
-commit d78556555a8b667c80856e68aa43c5f0f311c5d4
+commit 054d071f82b9427b1a9e8eba69c5018761cb4d20
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/panel: add Novatek NT36850 panel driver
+arm64: dts: qcom: sdm845-hdk: add display card overlay
 
-This commit adds support for the Truly WQHD dual-DSI command mode panel
-using the Novatek NT36850 controller. It configures power sequences,
-initialization commands, and secondary host registration.
+This commit adds a device tree overlay for the SDM845 HDK to support a
+Truly NT36850 WQHD dual-DSI panel.
 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36850.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt36850.c
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-hdk-display-card.dtso b/arch=
+/arm64/boot/dts/qcom/sdm845-hdk-display-card.dtso
+> new file mode 100644
+> index 0000000000000..1022ab096170f
 > --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36850.c
-> [ ... ]
-> +static const struct panel_desc truly_wqhd_desc =3D {
-> +	.mode =3D &truly_wqhd_mode,
-> +	.bpc =3D 8,
-> +	.lanes =3D 4,
-> +	.format =3D MIPI_DSI_FMT_RGB888,
-> +	.mode_flags =3D MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-> +	.init_sequence =3D truly_wqhd_init_sequence,
-> +	.is_dual_dsi =3D true,
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-hdk-display-card.dtso
+[ ... ]
+> +&tlmm {
+> +	disp0_reset_n_active: disp0-reset-n-active-state {
+> +		pins =3D "gpio6";
+> +		function =3D "gpio";
+> +		drive-strength =3D <8>;
+> +		bias-disable;
+> +	};
+> +
+> +	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
+> +		pins =3D "gpio6";
+> +		function =3D "gpio";
+> +		drive-strength =3D <2>;
+> +		bias-pull-down;
+> +	};
+> +
+> +	mdp_vsync: mdp-vsync-state {
+> +		pins =3D "gpio10";
+> +		function =3D "mdp_vsync";
+> +		drive-strength =3D <2>;
+> +		bias-pull-down;
+> +	};
 > +};
 
 [Severity: Medium]
-Because the dsi_info struct field is completely omitted here, it is
-zero-initialized by the compiler.
+The commit message states "the mode select line driven low for the dual
+port mode", but does the &tlmm node actually configure this?
 
-> [ ... ]
-> +static int nt36850_probe(struct mipi_dsi_device *dsi)
-> +{
-> [ ... ]
-> +	/* If the panel is dual dsi, register DSI1 */
-> +	if (pinfo->desc->is_dual_dsi) {
-> +		info =3D &pinfo->desc->dsi_info;
-> [ ... ]
-> +		dsi1_host =3D of_find_mipi_dsi_host_by_node(dsi1);
-> +		of_node_put(dsi1);
-> +		if (!dsi1_host)
-> +			return dev_err_probe(dev, -EPROBE_DEFER, "cannot get secondary DSI ho=
-st\n");
-> +
-> +		pinfo->dsi[1] =3D devm_mipi_dsi_device_register_full(dev, dsi1_host, i=
-nfo);
-
-[Severity: Medium]
-Does passing this zero-initialized info struct to
-devm_mipi_dsi_device_register_full() cause a malformed sysfs representation?
-
-The MIPI DSI core copies info->type into dsi->name. Since info->type is
-empty, it results in an empty string as the device name, creating a broken
-uevent modalias of MODALIAS=3Dmipi: with no actual name.
-
-Should truly_wqhd_desc be updated to include a valid string in .dsi_info
-so the secondary device is properly represented?
+There doesn't appear to be a gpio-hog definition or other configuration
+here to statically drive the mode select line low. Without it, might the
+dual-DSI panel fail to initialize correctly if the hardware defaults
+to the single port mode?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-sdm845-hdk=
--v2-0-6d0b4b42f267@oss.qualcomm.com?part=3D2
+-v2-0-6d0b4b42f267@oss.qualcomm.com?part=3D5
