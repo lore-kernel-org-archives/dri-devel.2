@@ -4,34 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C130CC6B2A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 07:52:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BECFACC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 07:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE13410FBE0;
-	Wed, 14 Oct 2026 07:52:24 +0000 (UTC)
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0027610E4A4
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 07:52:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24EC810E034;
+	Wed, 14 Oct 2026 07:53:19 +0000 (UTC)
+X-Greylist: delayed 495 seconds by postgrey-1.36 at gabe;
+ Wed, 14 Oct 2026 07:53:12 UTC
+Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
+ [109.224.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF58F10E034
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 07:53:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1791963898; x=1792223098;
- bh=jCDXjLH0o/GE9MYk15qJL+R9WHE85tel9vXZOFjSplw=;
+ s=protonmail; t=1791963900; x=1792223100;
+ bh=0J4sh4csOcn3zKERB6o1fbX9FtthYRH58NuaSeRekLI=;
  h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=OuM6zs92EUTSEEtxdypaMHqyl8ScH8Y7m3KZN+oNo5uXhiBVgDvgpZSECDc5/Wk6i
- NnnFb51/FEZrQrJwGSi6tSI61YsS2vnC0vVIuWy07I5D9aE+3mwTa+FWKi1b/i74Wm
- 3tX6zzCMxq5QTMRbHi8Q+hqeuNGODXRzQLDvE8pkUeIrP4QYMbvH0gomIloq407BO7
- r23uFY4Eax5ZrJUqiEgxIgoiHrQ0WXT3eSExzfKF5stBr6zeBqGGOH7C8B5brDnxXM
- HA9wROo+0hEKZ5ZNYXbpqirxbAmk0SI3ga9vQmpFA7D8TZIx7PirwjB3KoAJnZFmT5
- cIpj78MrPfr/Q==
-X-Pm-Submission-Id: 4j4NX82fL9z2ScWt
+ b=c+5sWshyMQncl2L3LT6dSL/EKpkMoMTQQMmryuiSSJmH29pskYnQ+2GsnNNj5rwMF
+ Ug3jWmIOZdmLYJz+zwLWcxm9X1QJVtlJ/jrWYKxYVnu5PZCeS+qvR9IEqWx+2uHmgq
+ LwTYffGZQQBV7W3h96p/z/yYrGPxo7iL+yyIo6eBvRahrkwAxYT6DuTNCng3Xc0oNN
+ u7E3Eb+yAPySH9oVPVNkY5rgAqm0j50z3MBka0FUiPMYe8AknjwtIbRWtE+VAtm7ad
+ 8yrwJO16qOX+8jY/HnZx73PR6Ko8NnZxgb6sMTmthJaYbeLw5SOA1Wd0H6wcH/o4HC
+ p/cxlaQeSNAag==
+X-Pm-Submission-Id: 4j4NXB72pGz1DDLm
 From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 14 Oct 2026 09:44:43 +0200
-Subject: [PATCH RESEND v4 2/4] drm/bridge: nwl-dsi: Limit LCDIF specific
- sync override
+Date: Wed, 14 Oct 2026 09:44:44 +0200
+Subject: [PATCH RESEND v4 3/4] drm/bridge: nwl-dsi: Correct auto-insert
+ EOTP behavior
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-nwl-dsi-fixes-v4-2-b9138ea5e12c@geanix.com>
+Message-Id: <20261014-nwl-dsi-fixes-v4-3-b9138ea5e12c@geanix.com>
 References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
 In-Reply-To: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -46,13 +49,13 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
  Sam Ravnborg <sam@ravnborg.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
+ stable@vger.kernel.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791963890; l=1455;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791963890; l=1534;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=NyE7z2N8QjVqzEVcr4pRB09Epc3pJIKXEuCw0oox6hA=;
- b=1Uzjb6LsfQdYIbNXGsFf52PTqltwbCRqiP3Da9MJJVBDXqJ9qxx294v1yrcNRyol7AqoyukEx
- rIHGKFIWil+DhpiYtzr0Xm4EkvVfc4596AdUDqqFm9Zb+2us3nPLL8x
+ bh=ph/ko3JZuF/EGwW8CMFFQ2PCEUquZd0uUQmZBRXKKT0=;
+ b=g3xAhBhs1nP3jD7qEDuvgH/Ez0EBlVa15PCrsH+2UhGLeF+v/OTntYTAVfmS2Sq/usCFS/NQG
+ irMmo6AkimyAXc16Z2AfYX20B7kN2Dkx2ivw4H0TwT2YBQqKrGLMBkX
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,37 +73,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When using DCSS with NWL, overriding the mode flags to enforce active high
-sync is preventing the use of active low with downstream bridges, such as
-ti-sn65dsi83, which will not see such mode flags set by the panel.
+From: Robert Chiras <robert.chiras@nxp.com>
+
+In order to respect the DSI protocol, make sure that auto-insert EOTP is
+enabled according to the NO_EOT_PACKET flag instead of the
+CLOCK_NON_CONTINUOUS flag.
 
 Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Esben Haabendal <esben@geanix.com>
+Cc: Robert Chiras <robert.chiras@nxp.com>
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 ---
- drivers/gpu/drm/bridge/nwl-dsi.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 80e26a947ae6..1aab46e1a168 100644
+index 1aab46e1a168..f3f4334136c0 100644
 --- a/drivers/gpu/drm/bridge/nwl-dsi.c
 +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -823,10 +823,13 @@ static int nwl_dsi_bridge_atomic_check(struct drm_bridge *bridge,
- 				       struct drm_connector_state *conn_state)
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
+@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
+ 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
+ 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
  
- 	/* At least LCDIF + NWL needs active high sync */
--	adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
--	adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
-+	if (dsi->endpoint == NWL_DSI_ENDPOINT_LCDIF) {
-+		adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
-+		adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
-+	}
+-	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
++	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
+-		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
+-	} else {
++	else
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
++
++	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
+-	}
++	else
++		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
  
- 	/*
- 	 * Do a full modeset if crtc_state->active is changed to be true.
+ 	/* values in byte clock cycles */
+ 	cycles = ui2bc(cfg->clk_pre);
 
 -- 
 2.56.0
