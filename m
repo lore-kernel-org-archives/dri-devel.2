@@ -4,128 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D77A2CC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1990CC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A9D112180;
-	Thu, 15 Oct 2026 07:57:08 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A40010F587
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:26:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8D61360A52;
- Tue, 13 Oct 2026 15:26:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352C01F00898;
- Tue, 13 Oct 2026 15:25:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791905189;
- bh=nfKSMRwRrChtZv71omqSFoDEDYkiNTw1yN9Lgs5eSEE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=gzoVtO52IG+v86EDCc9jjOK3ZpyQBLgQ9SYi/8AD6nkY9wIx8jQmki+yLKtgjBefO
- yJWHmOB+Mekm/VGHZ9nnA05ls9ev7L44EbxduL65MdSZSTnPwHKr/hfI7gSGNhNGHL
- dVWag5TMkpMdZ4TnBr3J/Mu6YUFS3uDJVRZQ77DjRfAnx32erFNZHQD8Yz3fBM2hdU
- 4i1KNcV2aEyIFQyVT+tLjYtIohswMekiLIWDZyzbQj4DeNWVNtmXhqWYYnYPkWy+vA
- hidJm7k9V9fsX6GO/x2/nbVceUTLmQqgesa/Dr80xOWh0aBkVUToE44HNof7ZBecOx
- Oah6TpmSUjMJA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:05:19 +0100
-Subject: [PATCH v6 39/39] mm/huge_memory: remove vma_is_special_huge()
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2848D112175;
+	Thu, 15 Oct 2026 07:57:13 +0000 (UTC)
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA4FA10E191
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 14:43:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+ :From; bh=hcluCPw1guoo6eTwrCk1DCm8wcF/REa2+vS/gGt+sB4=; b=hKxNDQ+Mxr8X0fXgQst
+ /YjlCa98braEHiObqAQKG+I7vG6ASme9WEz7OHdIuQoBQ7mS/yKw92c7UfFjYRlkM/SX9Elk64WQl
+ 0/ybId+BHOwJm25kPFfLmOrrxG/DAnuIgXvag/SiF22z4RCcS2pTdRWnYq3fKXh5qr2aAf8E1RRKh
+ B3xoVHiWYuUjjdZsAy0kefl7DJ2lLt//dRyehTGyoUNkkCb4WrnreGcmv0xP+X+sbEbsyOSrm92UC
+ i4P4L6LPwv0RU40qqChiewDx25NGPpTnyEQGqizEOU6mKIY2CsMbmvnbWr/R1VTz7P7o7d7DXsQ1a
+ meV6BVNBgwjMF2g==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+ by relay.virtuozzo.com with esmtp (Exim 4.96)
+ (envelope-from <khorenko@virtuozzo.com>) id 1xH08B-005A8J-1T;
+ Wed, 14 Oct 2026 16:42:31 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 14 Oct 2026 16:42:22 +0200
+Subject: [PATCH v2 2/2] mm/huge_memory: deposit a page table for a special
+ PMD copied by fork
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-39-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-2-e1548488fa68@virtuozzo.com>
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com>
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
  Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2971; i=ljs@kernel.org;
- h=from:subject:message-id; bh=CGEMQnlTOf3HSf1ca7HiwGzo5wiBm5vCkfKiV5simqA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZxl2b3ax4T7qoBdSue0lL9XZm16LWSy5eScJ1OF2
- Z6d+PxHpaOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATWcDI8Fdueo/Ct6LuhT+3
- TbXrnGSrbPfOMz7Jbl638orMw0uF73EwMtzc/T+yK+jjSxlX+ZNzNintWmS86dwlwScFPFceXf0
- 7YQYzAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Sashiko <sashiko-bot@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2320;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=slTLN+HTnyPRDcPUmB57Ei1RxAqdQ9VfazOYgqTzQcY=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz5TVF9flfaIoTBYEiUAWlbx9oilAi3NU4+UWI
+ atXUxHOcduJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas+U1QAKCRBRlgpH+WFc
+ KjwfD/9U0aEkzB3l6KdM/Gq9P4U7CV+cgd/WlsK1UMK9FIbgJK5laBYK4Ck5WwwgRBu9UZ3HtKf
+ dD7edkPu8wofgeRbl1WdoRIqbuXUG0I25ZocjDd/bU92I4JWUTAgDBVT3MfWlF8qzL9k1dB2v/x
+ 2jUSNletnpdxeWXf3f2Pfs3ir7L0eWLWKyzIb6FjMSLYyuWUkyGc3UoxTgezkHBDEfrsmB3MDHP
+ Mzml9YdTYFrhlm5uLMDQIRz7tw1/tyXwaKXB5Hspr53+rZX2exiKHT7YSXiIQplnc4hSGYGt7bD
+ 5OdsSBg/x8Em5EoTBZyXjEBZ2E9e6FQfIeFs/8TFGdsZs9bABelVioMTVAw8k6qtI3Pvs8hkF+u
+ +lgubCv6nAg80h7jbyf73ScVaQ/q8A7eoDKvlwq0AWIjpCr+qUExs7+xoYiWDiEn6xwKnBu8MVh
+ fKyARguMKFEU5frQbxbblhR5ZEZiTj4lCfHourTERhuUCcLcZhsYpoHjJvlUJUi+Z5ca2jkmtQv
+ f0qsdex4TvgJzEF2NEaHT4FGMDkywzg6MTIzEFOTVmB+/LVcA77yPvXH7IlaNSM+rI5k5Cs/Ed7
+ /hkF7GUMKFLVY+hCE6Owk4FqZF5P1H5FQOWL1zOyU/h6clHjiV+CZAuv5Hva7D33XDc/5Vi5FkJ
+ yiWyJbgY4OozYGA==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,86 +84,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vma_is_special_huge() tests whether either the VMA_PFNMAP_BIT or
-VMA_MIXEDMAP_BIT is set (i.e. whether the VMA is not mm-managed),
-but with a DAX carve-out.
+Where arch_needs_pgtable_deposit() is true, every huge PMD needs a
+deposited page table. ppc64 in hash mode keeps the hash slot array of
+the huge page in it, so vmf_insert_pfn_pmd() deposits one for each
+special PMD it maps.
 
-DAX however no longer sets VMA_MIXEDMAP_BIT, so this carve-out is no longer
-required.
+copy_huge_pmd() copies a special PMD into the child without a table.
+The child then dereferences a NULL table:
 
-Therefore test for !vma_is_mm_managed() instead and also drop the
-VMA_IO_BIT check, as it is now redundant since it is enforced that
-mm-managed mappings may not set VMA_IO_BIT.
+- on the first hash fault on the PMD, in __hash_page_thp();
+- on the zap at munmap() or exit, in hash__pmdp_huge_get_and_clear().
 
-This also eliminates another overloaded use of 'special' within mm.
+Allocate a table before taking the page table locks and deposit it
+with the copy, as insert_pmd() does.
 
-No functional change intended.
-
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: d1503aa9ab805 ("powerpc/64s: Add support for huge pfnmaps")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 ---
- mm/huge_memory.c | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+ mm/huge_memory.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 5b295a7979cd..73575145db7c 100644
+index fcea98f0d8865..d53db73f52676 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -110,14 +110,6 @@ static inline bool file_thp_enabled(const struct vm_area_struct *vma)
- 	return S_ISREG(inode->i_mode);
- }
- 
--/* If returns true, we are unable to access the VMA's folios. */
--static bool vma_is_special_huge(const struct vm_area_struct *vma)
--{
--	if (vma_is_dax(vma))
--		return false;
--	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
--}
--
- static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
- 		enum tva_type type)
- {
-@@ -192,7 +184,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 	/* Check the intersection of requested and supported orders. */
- 	if (vma_is_anonymous(vma))
- 		supported_orders = THP_ORDERS_ALL_ANON;
--	else if (vma_is_dax(vma) || vma_is_special_huge(vma))
-+	else if (vma_is_dax(vma) || !vma_is_mm_managed(vma))
- 		supported_orders = THP_ORDERS_ALL_SPECIAL_DAX;
- 	else
- 		supported_orders = THP_ORDERS_ALL_FILE_DEFAULT;
-@@ -3065,7 +3057,7 @@ int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 	orig_pud = pudp_huge_get_and_clear_full(vma, addr, pud, tlb->fullmm);
- 	arch_check_zapped_pud(vma, orig_pud);
- 	tlb_remove_pud_tlb_entry(tlb, pud, addr);
--	if (vma_is_special_huge(vma)) {
-+	if (!vma_is_mm_managed(vma)) {
- 		spin_unlock(ptl);
- 		/* No zero page support yet */
- 	} else {
-@@ -3221,7 +3213,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+@@ -1961,6 +1961,11 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	pmd = pmdp_get_lockless(src_pmd);
+ 	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+ 		     !is_huge_zero_pmd(pmd))) {
++		if (arch_needs_pgtable_deposit()) {
++			pgtable = pte_alloc_one(dst_mm);
++			if (unlikely(!pgtable))
++				goto out;
++		}
+ 		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+ 		src_ptl = pmd_lockptr(src_mm, src_pmd);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+@@ -1974,6 +1979,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
+ 			spin_unlock(src_ptl);
+ 			spin_unlock(dst_ptl);
++			if (pgtable)
++				pte_free(dst_mm, pgtable);
+ 			return -EAGAIN;
+ 		}
+ 		/*
+@@ -1983,6 +1990,10 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		 * wrongly write to the backend MMIO.
  		 */
- 		if (arch_needs_pgtable_deposit())
- 			zap_deposited_table(mm, pmd);
--		if (vma_is_special_huge(vma))
-+		if (!vma_is_mm_managed(vma))
- 			return;
- 		if (unlikely(pmd_is_migration_entry(old_pmd))) {
- 			const softleaf_t old_entry = softleaf_from_pmd(old_pmd);
-@@ -4764,9 +4756,7 @@ static inline bool vma_not_suitable_for_thp_split(struct vm_area_struct *vma)
- {
- 	if (vma_is_dax(vma))
- 		return true;
--	if (vma_is_special_huge(vma))
--		return true;
--	if (vma_test(vma, VMA_IO_BIT))
-+	if (!vma_is_mm_managed(vma))
- 		return true;
- 	if (vma_is_hugetlb(vma))
- 		return true;
+ 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
++		if (pgtable) {
++			mm_inc_nr_ptes(dst_mm);
++			pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
++		}
+ 		goto set_pmd;
+ 	}
+ 
 
 -- 
-2.55.0
+2.43.0
 
