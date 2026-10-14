@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BA14CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 13:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49BD9CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 14:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD8B111201A;
-	Wed, 14 Oct 2026 13:59:08 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBFA711201A
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:59:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B23B10FDEF;
+	Wed, 14 Oct 2026 14:00:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE29911204D
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:59:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CEDAB409B7;
- Wed, 14 Oct 2026 13:59:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 880B61F00A30;
- Wed, 14 Oct 2026 13:59:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 056C96021D;
+ Wed, 14 Oct 2026 13:59:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923BC1F00A2F;
+ Wed, 14 Oct 2026 13:59:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791986342;
- bh=8bHpkCEI04uNIGwJz7JE3TxYpE/6no/otX8UXR3dFeI=;
+ s=k20260515; t=1791986393;
+ bh=qpFiGwVLgc7gB61+7nZKl3W3q3REI1gHwYJXB2r5caw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ag3UfxCzQoTtCXnLYDh+l1DKDIJd7MxSdK+S8y1cHuLxbTfgt4mMFkJsJWdOGQbg3
- GsAuCANcGmu9a9Q/d+tfX7xsBswKX9ke30hdmTEBhkh6xe4DcbXObIlcKc/uNNTNMc
- hGH6gEUBt8N2sM0WAqWOycWGGNYKfRYUzAZMVynQ1qb9PdMjcYsdiA4dYU8lr7PRtK
- G/Y9sGvx5+ZMf2Ns7RJrPIAqkCImZVsDMZuhSrJipEhhN+SMdQ8SlQ5Qjlm0HkPxRM
- C0U6ErbA1UscmIZJV4XeaWHcGAHdFJicAkxIBYFL6LUFGaoG/Tmk9hME2kNg6c7nnO
- 2E7aoJJScPqBg==
-Message-ID: <sashiko-outbox-171393@kernel.org>
+ b=UmE3cYl9wpqm8O0EgoddV0uEWSx9LEqV6V3OrmKn4/q33B55NlFMJSkk20BSl/iK1
+ k/ZbhPQXpv02Owr3txWX/6gMH44NAInBegdoQ4IY8mxAM1JzpMu1iwcEUTiGt98Lu7
+ bnfbvQZp/xe4bXe7REkUnok2h1w16djveMat7TG2esKoj+yOu0jHUMRQff67VRROE2
+ UhsI1Eykxp86F0U8jGce7W4fE1EuWVifcYOhRDRg8+Mx6sN3XoZJ0E9tP7q+uoA1i1
+ MMp9VEGi18JSV/zqI9KtzGAoM6NfmFrdZsh4efW47mKOm9Ro10VhYKFa3So2pn3yXE
+ AVRjI4VL+IrPw==
+Message-ID: <sashiko-outbox-171394@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/panel: raydium-rm68200: Use mipi_dsi_*_multi()
- functions
+Subject: Re: [PATCH 3/3] drm/panel: raydium-rm68200: Use multi-context
+ helpers for init sequence
 To: "Hsieh Hung-En" <hungen3108@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261014135028.1438841-3-hungen3108@gmail.com>
+In-Reply-To: <20261014135028.1438841-4-hungen3108@gmail.com>
 References: <20261014135028.1438841-1-hungen3108@gmail.com>
- <20261014135028.1438841-3-hungen3108@gmail.com>
+ <20261014135028.1438841-4-hungen3108@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 13:59:02 +0000
+Date: Wed, 14 Oct 2026 13:59:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,39 +57,32 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/panel: resource leak in rm68200_prepare() on error path
+- [Medium] drm/panel: resource leak on rm68200_prepare() error path
 --
 
-commit c6e53b42c5c0d14746a1b84a032e5221f6e17711
+commit 43be4887f342d01dc5322111059b764933197c3c
 Author: Hsieh Hung-En <hungen3108@gmail.com>
 
-drm/panel: raydium-rm68200: Use mipi_dsi_*_multi() functions
-
-This patch replaces the deprecated MIPI DSI DCS helpers with their multi
-variants in the raydium-rm68200 panel driver. It utilizes mipi_dsi_msleep to
-skip delays after failed commands and defers error return to the end of the
-prepare sequence.
+drm/panel: raydium-rm68200: Use multi-context helpers for init sequence
+   =20
+The commit replaces the custom DCS write helpers with the multi-context
+helpers mipi_dsi_dcs_write_seq_multi() and mipi_dsi_dcs_write_var_seq_multi=
+().
+It also shares the multi-context with prepare() so that errors are
+propagated and subsequent commands are skipped after a failure.
 
 > diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/=
 drm/panel/panel-raydium-rm68200.c
-> index c535dc931903e..971d075bb0601 100644
+> index c535dc931903e..a01b2db55c7f0 100644
 > --- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
 > +++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-
 [ ... ]
-
-> @@ -258,6 +256,7 @@ static int rm68200_prepare(struct drm_panel *panel)
->  {
->  	struct rm68200 *ctx =3D panel_to_rm68200(panel);
->  	struct mipi_dsi_device *dsi =3D to_mipi_dsi_device(ctx->dev);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
->  	int ret;
+> @@ -273,21 +248,17 @@ static int rm68200_prepare(struct drm_panel *panel)
+>  		msleep(100);
+>  	}
 > =20
->  	ret =3D regulator_enable(ctx->supply);
-
-[ ... ]
-
->  	rm68200_init_sequence(ctx);
+> -	rm68200_init_sequence(ctx);
+> +	rm68200_init_sequence(&dsi_ctx);
 > =20
 > -	ret =3D mipi_dsi_dcs_exit_sleep_mode(dsi);
 > -	if (ret)
@@ -111,18 +104,28 @@ drm/panel/panel-raydium-rm68200.c
 > +	return dsi_ctx.accum_err;
 
 [Severity: Medium]
-Does this error path leak the regulator reference and leave the reset GPIO
-asserted?
+Does this code leak the regulator enable count?
 
-If a DCS command fails during rm68200_prepare(), the function returns
-dsi_ctx.accum_err. Because drm_panel_prepare() in the DRM core does not set
-panel->prepared =3D true on failure, subsequent calls to drm_panel_unprepar=
-e()
-return early without executing rm68200_unprepare().
+rm68200_prepare() enables the ctx->supply regulator and configures
+ctx->reset_gpio at the beginning of the function.
 
-If that happens, is there anything to disable ctx->supply or reset the
-GPIO?
+The patch changes the execution flow so that if any of the DCS commands fai=
+l,
+their error is recorded in dsi_ctx.accum_err. The function then returns
+dsi_ctx.accum_err directly, without disabling the regulator or asserting the
+reset GPIO.
+
+If funcs->prepare() returns an error, the DRM panel framework does not mark
+the panel as prepared and will never call funcs->unprepare() to clean up.
+
+Consequently, the regulator enable count would be permanently unbalanced and
+the hardware would remain partially powered. While this leak existed
+previously for the sleep and display commands, this patch modifies the error
+return paths and makes it significantly more likely to trigger by now
+aborting on any initialization sequence error as well.
+
+Could an error unwind path be added to clean up the regulator and GPIO?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014135028.1438=
-841-1-hungen3108@gmail.com?part=3D2
+841-1-hungen3108@gmail.com?part=3D3
