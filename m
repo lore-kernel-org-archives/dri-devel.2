@@ -4,41 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73D30CC6B29
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 08:40:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2091CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 09:04:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDD4310FC2D;
-	Wed, 14 Oct 2026 08:40:45 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB66D10FC28;
- Wed, 14 Oct 2026 08:40:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0DEC960213;
- Wed, 14 Oct 2026 08:40:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B94C1F000FF;
- Wed, 14 Oct 2026 08:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791967238;
- bh=SlXHMx6hon0Cj1iTj1cb6JD1sfElX9hEVQ51/FVZ7PA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KOb9fMnstYgOE3YuRjY8VkcxwnxUZys7B7iRdSquMBbw4sjjfiC0LQ+cVPvEK6bZx
- Z5r1FgYd968RE8xphsqZTRA1tTeXeG4gc/x5FH6r4TuouUGzMqL2uJ5rolis53FiMl
- +LJ5zpTzVqolNFm/4shb2KHu4N454L7Eeqq9fkmP/huwDSuMq0Xlvf/Z0LDyd9mz60
- pt+ShgLjfUPGeokXlmBIiYRTJviBnatOGkwbUJbX185fftO/0IpOhrl3xtD/pgxcI3
- vItNNPIfBXajBqAS7iarFAyKE7MDZJG/B3xQNqe5VooQ6mZZzOpXCCemHUFLnE1fiO
- IFiow1M8rvpSQ==
-Message-ID: <sashiko-outbox-171030@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/dp: clear and restore MSTM_CTRL around MST
- DPMS off/on
-To: "Xiao Lu" <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261014081448.2320363-1-xiaolu.xie@intel.com>
-References: <20261014081448.2320363-1-xiaolu.xie@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 08:40:38 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA1B910E4D5;
+	Wed, 14 Oct 2026 09:03:53 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C16910FC29
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:03:42 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 450E01F7C9;
+ Wed, 14 Oct 2026 09:03:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791968620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
+ b=EZnT4x8tH8/9tP3nabsHyj0KdhIq4M6qgrO0dVl82YL3LiNoSkTiiaDfXNXeECWfOrvthu
+ Q06LYLNBiKfM4wjlZRDRx26GTdLIFQ5xSv31oUxq9FEDj01DvBwHYkIac+rsGZhFh/6Mzb
+ YYPkJfOdeIB/xekK6sCukBCOkwv/cNk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791968620;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
+ b=ydFZka5dHSLNjIRth3BY8e0iIjjo0p0Zgp+/+yB7Wwmao6rzR4Cj9+E3HwHq87ssnMLSzP
+ W73/erecWRMnD+Cw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MvYI37zZ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="7gVYws/D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791968619; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
+ b=MvYI37zZBnhhcjMxHvxqbcJb93RFyXenWj+oYl4PYOTV0e2BC3+XirgtfxcMnezx+zbXfe
+ GV0h3SNBp7Gz3m1tf0G0JKLuU5bgDj3tAjP0wNzG01FXMdRWHDz1SvvB/O1MbHh9NB15gt
+ ozh5rEiUgnmz9uwZysP712DMEoYpXok=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791968619;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
+ b=7gVYws/D7fF3RbMAAc+dPQdyy9YF4sys6nSl+8o9/nCvdm68APlq/GVjBh2AgyXkcuDetw
+ 21yDQJQiWPPvF0BA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DE90A133F1;
+ Wed, 14 Oct 2026 09:03:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id xkVaKmpFz2qnEQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 14 Oct 2026 09:03:38 +0000
+Message-ID: <fdc5b911-407f-437f-ab05-33d1287e20da@suse.de>
+Date: Wed, 14 Oct 2026 11:03:38 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
+To: Jie Feng <hjf3108@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
+References: <20261012170857.199561-1-hjf3108@gmail.com>
+ <64707239-eac7-4259-a8ff-7ec43d13860e@suse.de>
+ <CABOQOSXgG2kBzs2sBEE69mmPcO0cKVgjyk_6DG5RST_4uL2+sg@mail.gmail.com>
+ <c9460a8d-3fdf-439f-9655-82b60617b85c@suse.de>
+ <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 450E01F7C9
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org];
+ MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[7]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.de:email, suse.de:dkim, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,96 +146,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/i915/dp: clearing DP_MSTM_CTRL on DPMS OFF breaks MST topology
+Hi
+
+Am 13.10.26 um 15:07 schrieb Jie Feng:
+> On Tue, 13 Oct 2026 at 20:32, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Hi
+>>
+>> Am 13.10.26 um 14:17 schrieb Jie Feng:
+>>> On Tue, 13 Oct 2026 at 15:11, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>>> Hi
+>>>>
+>>>> Am 12.10.26 um 19:08 schrieb Ho Jie Feng:
+>>>>> Add a helper for devices that use packed UYVY but accept XRGB8888
+>>>>> framebuffers.
+>>>> Is there a description of UYVY available somewhere?
+>>> This is for a reverse engineered usb display adapter, which accepts
+>>> input in bytes of U, Y, V, Y in that order. I'm not sure what
+>>> counts as a description, apart from it matching DRM_FORMAT_UYVY?
+>> I see. The format exists already in DRM.
+>>
+>>> This patch is meant to move this out of the driver:
+>>> https://github.com/rhgndf/ms912x/blob/main/ms912x_transfer.c#L153
+>>>
+>>>>> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+>>>>> ---
+>>>>> This is used for a driver, ms912x that I will be submitting. It only
+>>>>> supports uyvy framebuffers.
+>>>> Please resubmit as part of the driver series. We're not going to merge
+>>>> it without callers anyway.
+>>>> ...
+>>>> For naming, please follow the conventions used by the other helpers in
+>>>> this file.
+>>> Will send the driver in with this patch and its fixes, thanks for the review.
+>>>
+>>>> ...
+>>>>> +             v = drm_pixel_rgb2_to_v_bt601(r, g, b);
+>>>>> +             u = drm_pixel_rgb2_to_u_bt601(r, g, b);
+>>>>> +
+>>>>> +             transfer_buffer[dst_offset++] = u;
+>>>>> +             transfer_buffer[dst_offset++] = y1;
+>>>>> +             transfer_buffer[dst_offset++] = v;
+>>>>> +             transfer_buffer[dst_offset++] = y2;
+>>>> Rather that writing bytes individually, use put_unaligned_le32() or a
+>>>> similar helper.  Byte order within a pixel is little endian, although
+>>>> I'm not sure what this means for UYVY.
+>>> This is meant to be sent over a usb transfer, so byte order needs to be
+>>> the same on both little and big endian systems.
+>> DRM formats always refer to little endian. As it is implemented now,
+>> it's not clear what the endianess of your output is. Please duplicate
+>> the other helpers' logic. They all pack the output with appropriate
+>> helpers. If the USB device requires BE, you have to write a separate
+>> conversion helper for that.
+>>
+>> BTW, you have an OOB access if the line width is not a multiple of 2.
+> How should I handle this? Rounding it within the helper doesn't seem
+> to make sense and the function return is a void, so it can't return -EINVAL.
+
+It's the callers responsibility to pass in enough pixels. You'll have to 
+take care of it in the driver by rounding the damage area accordingly. 
+It's not optimal but it's not a big deal either.
+
+In the line-conversion helper, simply round down to the nearest multiple 
+of 2.
+
+>
+> Other helpers ignore the -ENOMEM error when drm_format_conv_state_reserve
+> fails, so should it follow this convention?
+
+Do you have a specific example?
+
+>
+> Alternatively, drm_fb_xfrm can be exported, and let the driver define
+> the rgb->yuv coefficients? But I think it is fine since _to_gray8 also
+> cites BT.601.
+
+The current constants seem fine. With the 2-pixel alignment, there 
+shouldn't be any other cases required.
+
+Best regards
+Thomas
+
+
+
+-- 
 --
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-commit 7efe593dfb9be6f1dddd0b7978cd417266811e58
-Author: Xiao Lu <xiaolu.xie@intel.com>
 
-drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS off/on
-
-This commit modifies the MST stream disable path to clear MSTM_CTRL before
-sending D3, and restores it on re-enable. This is done so the hub is back
-in MST mode before processing the PHY power-up and retraining downstream
-links.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
-915/display/intel_ddi.c
-> index a46ab5d3d70fc..7e4e18345ec17 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -3163,6 +3163,8 @@ static void intel_ddi_post_disable_dp(struct intel_=
-atomic_state *state,
->  	 * Power down sink before disabling the port, otherwise we end
->  	 * up getting interrupts from the sink on detecting link loss.
->  	 */
-> +	if (is_mst)
-> +		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_MSTM_CTRL, 0);
-
-[Severity: High]
-Does clearing DP_MSTM_CTRL to 0 here cause the entire MST topology to be
-torn down unexpectedly?
-
-By wiping the MST hardware state on the hub without notifying the software
-topology manager, if a user-space compositor or sysfs polls the connector
-during DPMS OFF, intel_dp_detect() will read DP_MSTM_CTRL as 0.
-
-In intel_dp_mst_verify_dpcd_state():
-	ret =3D drm_dp_dpcd_read_byte(intel_dp->mst.mgr.aux, DP_MSTM_CTRL, &val);
-
-	if (ret < 0 || val !=3D (DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC)) {
-		...
-
-This will return false, causing intel_dp_detect() to force a connector
-disconnect:
-
-	if (status !=3D connector_status_disconnected &&
-	    !intel_dp_mst_verify_dpcd_state(intel_dp))
-		...
-		status =3D connector_status_disconnected;
-
->  	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
-> =20
->  	if (DISPLAY_VER(display) >=3D 12) {
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index 7023619aaaba9..4109bb9284fd0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -1270,8 +1270,12 @@ static void mst_stream_pre_enable(struct intel_ato=
-mic_state *state,
->  	drm_WARN_ON(display->drm, DISPLAY_VER(display) >=3D 12 && first_mst_str=
-eam &&
->  		    !intel_dp_mst_is_master_trans(pipe_config));
-> =20
-> -	if (first_mst_stream)
-> +	if (first_mst_stream) {
->  		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
-> +		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_MSTM_CTRL,
-> +				       DP_MST_EN | DP_UP_REQ_EN |
-> +				       DP_UPSTREAM_IS_SRC);
-> +	}
-> =20
->  	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, t=
-rue);
-
-[Severity: High]
-Since DP_MSTM_CTRL is restored here on DPMS ON, the hardware returns to MST
-mode, but the software manager (drm_dp_mst_topology_mgr) is unaware of the
-reset and hasn't been prompted to send a LINK_ADDRESS broadcast.
-
-Will the immediate drm_dp_send_power_updown_phy() sideband message fail
-because the hub lacks downstream routing?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014081448.2320=
-363-1-xiaolu.xie@intel.com?part=3D1
