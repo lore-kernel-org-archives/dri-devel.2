@@ -4,129 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 165DECC6B34
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34230CC6B2F
 	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A387112176;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F55711217A;
 	Thu, 15 Oct 2026 07:58:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDAA110E929
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:24:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C66F741B2F;
- Tue, 13 Oct 2026 15:24:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05AC71F000FF;
- Tue, 13 Oct 2026 15:23:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791905065;
- bh=c4rVcjUdWsmZgXR37AiCsblE6rTioP6R1HOXCFtz8Rc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=L4uqKWKS9/emjCwZ6ql1Rngkcefwxadbj2YCnmnNYIqciykzVO3r9n3a1kI1Wc8/v
- pl9+Z026A7Wd99YqDlk/w+flWd4lTTxfZ48mxuxDthLUuk6LYacqflyrOLKPqYaJZZ
- omqtFrV79COMPMT7LVCyNVrlyiTTmuzRgt9IfwRHJycizVUkkXgSzPQrbVEMAJeEUP
- BbP5knG7nsw17y7k3BUf8+9e9+2xWWMmjmvkSw266Xxlae3P8KckZETttYg6ZhhnDR
- G9bLGHM9X+HkvIYzM1tgRV6/E/g49SycB/GbPo4L4HCZGcLzi8zhn0/0eIXG3vEtcz
- bIdqvwIniBgzQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:05:15 +0100
-Subject: [PATCH v6 35/39] mm: eliminate VMA_SPECIAL_FLAGS check in
- lru_gen_look_around()
+X-Greylist: delayed 977 seconds by postgrey-1.36 at gabe;
+ Wed, 14 Oct 2026 12:14:40 UTC
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D26F910FD6A
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 12:14:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+ :From; bh=AQuWHFrsafps3vZ2+dWNxf6KEa+2dvzoz5lME1tRtAw=; b=XDOIZV9V/MlfHVaqTkk
+ hz4m0yRabibao6aEX3VFluzfLMIx39vR6hEU4ncsxMQrbMryUpW6RtyJWmLRTTUiogbUe3i095/G8
+ rko6UrngWRL67w47YwoJYxbvSDqS59KDaKe9RZOOYoPS6r/3DQXWDN3ygEewrDXwZj5Apd10khNR7
+ eojVeVViXq+dAqGt5ls3/hNqoL2pJmipnqovwu9l8Ozm/3wdyD65wFmZCDVen22H0TUlNvY421xMo
+ 4fTbJIX1sx91oSjB2GMC+b8vh2fj+9NNPy+uhRAO2VISoXuZ4U3PkamljcbM2AOECv5qCKnk0MVUQ
+ 5kE/uMIebxmMNqw==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+ by relay.virtuozzo.com with esmtp (Exim 4.96)
+ (envelope-from <khorenko@virtuozzo.com>) id 1xGxYx-0020d1-1Z;
+ Wed, 14 Oct 2026 13:57:59 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 14 Oct 2026 13:57:53 +0200
+Subject: [PATCH] mm/huge_memory: recheck a special PMD under the lock in
+ copy_huge_pmd()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-35-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com>
+X-B4-Tracking: v=1; b=H4sIAEBuz2oC/yWNyw6DIBAAf8XsuZsIIdr2V5rGyLIIfQgBNTbGf
+ y+2x5nDzAaZk+cM12qDxIvPPowFxKkCcv04MHpTGGQtG1ELhVphTBxxyVNIKNTlrFqkED+dmwf
+ u4ttgYnJMT8yRyfcvPJw2tmWrGyFJQomXhvXrb3y7/znP+sE0HTfY9y9d7WK0mgAAAA==
+X-Change-ID: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
 To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
  Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1459; i=ljs@kernel.org;
- h=from:subject:message-id; bh=xwh5wt4sdgjg4CaLiq1dR0SENifKfETJ2iV6aFSDKR0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZzpO7TT1uLbDaHwqVfdp71NnXRWZYXB2o5ygVs/f
- b3E3p+f3lHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJcPYyMswr7d1m7tPoJvY9
- eEvozcqrGhefd38y3KMop/9JeOpB7ruMDP27Y9jecewKPOp2YO2lqwbZ3XV1fcVL70R97RS6N5u
- DkRsA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>, 
+ stable@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13569;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=obgUcPag99aYczZt/zoXOTqJKJ2o3uHSBqIAWhgEeVE=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz25HMkTtVwo963YjiCmGweeAyiFLhT9BXO1vK
+ kF6dH8j7uWJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas9uRwAKCRBRlgpH+WFc
+ Ki+oD/0ZDO42djVfzoSzty+pW8gaxR8jNvr8zvrzkPa56QcC7ZWr4/TZec0wmo8vUUYk2Hggiz8
+ QFQYR6hgsE7o7Y4SpU6D/XPdbZFciPFu4m+/4cR+/AZVSWkj1YKomTAu+FZO3lTWE4vS85NGdBg
+ A3jLq9dAVH3j2RyBR+nj4PGAHXaA8lxC+2+IZOU8JTAYPSvOJhfFvMEJOAp2J7eaZQH4DafwvQz
+ R/xnoqPIH7MNsMS4WYa2rqpymuwU5A/xuyZ/d7s+4bEanbkwiknrITsFLoSM1NxwzsiWIKnr4gq
+ XKtlMhf23fdMMN4i9NFGnr4alFXlDbpSeQHMJQWUtppTGguy4HqdPC5s4hSOVMR5sW6EuDFzwtR
+ fXslgU54jX/AxGtf6URySr/PQTxrbp2UzAfy56K6o2+0oOzWu8Ww7/FafM08sEMr+zYmsUSLXU6
+ Brw/x+knkhb3VCqllR3kesX2xAUgJv4RJXD446TnpIithrU3SkHv7dGdEo9BH7TthPzo0bPeOg2
+ 912R+CJqiQW3poOf4pF5+Yi/hsPJ8LJmQNjpdX0Dz5flkKIAEbF5uZgOwSfkoscA/mWm5vYXe9t
+ dxMdny95i52JULF7i+VaajMkDbmdHRSgUsijIcBq6ouerSiceZuTO8oy6wEYF8LvjDHYCYA+KhS
+ dqYa/gjAaZwyIkA==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,46 +85,362 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A fixed or non-mm-managed mapping is one which sets VMA_PFNMAP_BIT,
-VMA_MIXEDMAP_BIT or VMA_DONTEXPAND_BIT, which is precisely what
-VMA_SPECIAL_FLAGS tests for other than VMA_IO_BIT, which is safe to drop as
-mm-managed mappings may not set it.
+copy_huge_pmd() reads the source PMD without the page table lock and,
+for a special PMD, installs that value in the child without reading it
+again under the lock. The comment says the PMD cannot change while the
+mmap lock is held for write, but unmap_mapping_range() does not take
+the mmap lock: it zaps under i_mmap_rwsem and the PMD lock.
 
-This is equivalent to testing for an mm-backed mapping, except for hugetlb.
+dup_mmap() links the child VMA into the file's i_mmap tree right after
+the parent's VMA before copying the page tables, so a zap visits the
+parent first and the child second. When the zap clears the parent PMD
+after fork has read it, and passes the child before fork installs the
+copy, the child keeps a mapping the zap was meant to remove.
 
-However, hugetlb folios are never placed on the LRU and
-lru_gen_look_around() is only called from LRU shrinkers on reclaim so this
-is fine.
+Drivers that map special PMDs with vmf_insert_pfn_pmd() rely on that
+zap. vfio-pci zaps its BARs when the device memory is disabled or the
+device is reset, so that userspace gets SIGBUS instead of reaching
+disabled MMIO; a stale child mapping still reaches it. drm_gem_shmem
+zaps the mappings of a purged object and then truncates its shmem
+pages; a stale child mapping points to the freed pages.
 
-Using vma_is_mm_backed() rather than checking VMA_SPECIAL_FLAGS makes the
-check self-documenting and helps eliminate confusion around 'special
-flags'.
+Read the PMD again under the lock. The zap clears the parent PMD under
+the same lock, so either the recheck finds it empty, or the copy is in
+place before the zap reaches the child, which then removes it. If the
+PMD is no longer a present special entry, return -EAGAIN: the source
+mmap and VMA write locks keep faults out, so only a zap can have
+cleared it, and copy_pmd_range() then skips the empty PMD. Otherwise
+copy the value read under the lock. pmd_same() would be the wrong
+test: threads of the parent can still set the accessed and dirty bits,
+and -EAGAIN on a present huge PMD makes copy_pmd_range() clear it as a
+bad PMD.
 
-No functional change intended.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 ---
- mm/vmscan.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The window is short: the zap has to clear the parent's PMD and pass
+the child's VMA between fork's lockless read and its taking the page
+table locks. I have not hit it without help, but a delay in that
+window makes it reproducible with vfio-pci, and the patch closes it.
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index aecb157bc379..178a5de6c439 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4417,8 +4417,8 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
- 	if (spin_is_contended(pvmw->ptl))
- 		return true;
- 
--	/* exclude special VMAs containing anon pages from COW */
--	if (vma->vm_flags & VM_SPECIAL)
-+	/* exclude non-mm-backed VMAs containing anon pages from COW */
-+	if (!vma_is_mm_backed(vma))
- 		return true;
- 
- 	/* avoid taking the LRU lock under the PTL when possible */
+Setup: v7.3-rc7, KVM guest with 4 vCPUs and no IOMMU, the guest's QXL
+device bound to vfio-pci in no-IOMMU mode, BAR0 of 64 MB mapped with
+PMDs. The reproducer below forks while a second thread clears
+PCI_COMMAND_MEMORY through the vfio config region after a random
+delay; the child waits for the write to finish and reads one byte of
+each 2 MB of the BAR. A child that reads anything without SIGBUS kept
+a stale mapping.
 
--- 
-2.55.0
+  kernel                  delay in window  forks   stale children
+  7.3-rc7                 none             20900   0
+  7.3-rc7                 2 ms             150     128
+  7.3-rc7 + this patch    none             10600   0
+  7.3-rc7 + this patch    2 ms             400     0
+
+The delay is an mdelay(2) right after pmdp_get_lockless() in the
+special-PMD branch of copy_huge_pmd(), switched on by a test-only
+debugfs knob. The rows without it ran on the same test kernels with
+the knob at 0, except 5000 patched forks that ran on this patch alone.
+The revoke started after a random delay of up to 0.2, 1 or 3 ms
+(max_delay_us 200, 1000, 3000). A counter in the test-only hunk
+confirmed that the forks copied the BAR as PMDs, and in the last 200
+patched forks with the delay the recheck returned -EAGAIN 183 times.
+
+panthor and mshv_vtl map special PMDs with vmf_insert_pfn_pmd() as
+well.
+
+copy_huge_pud() reads the source entry under the lock already, and
+the PTE level does too, so only the PMD path needs the recheck.
+
+Reproducer. It writes the BAR as a control and reads it with the
+memory disabled, which is harmless for QXL VRAM in a guest; do not
+point it at a BAR that holds device registers. Build with
+"gcc -O2 -pthread -o fork_revoke fork_revoke.c", run as root with the
+device bound to vfio-pci; arguments: BDF, iterations, BAR index, max
+revoke delay in microseconds, e.g. "./fork_revoke 0000:00:02.0 100 0
+3000".
+
+    // SPDX-License-Identifier: GPL-2.0
+    /*
+     * Fork while vfio-pci revokes a BAR mapped with huge PMDs.
+     *
+     * The parent maps a BAR of a vfio-pci device and faults it in. A second
+     * thread disables the device memory through the command register, which
+     * makes vfio-pci zap all BAR mappings, while the main thread forks. Once
+     * the memory is disabled, every access to the BAR must raise SIGBUS. A
+     * child that can still read a BAR chunk kept a mapping the zap removed.
+     *
+     * usage: fork_revoke <domain:bus:dev.fn> [iterations [bar [max_delay_us]]]
+     *
+     * The revoke starts after a random delay of up to max_delay_us, so that it
+     * lands at different points of fork.
+     */
+    #define _GNU_SOURCE
+    #include <errno.h>
+    #include <fcntl.h>
+    #include <limits.h>
+    #include <pthread.h>
+    #include <sched.h>
+    #include <setjmp.h>
+    #include <signal.h>
+    #include <stdint.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <unistd.h>
+    #include <sys/ioctl.h>
+    #include <sys/mman.h>
+    #include <sys/wait.h>
+    #include <linux/pci_regs.h>
+    #include <linux/vfio.h>
+
+    #define SZ_2M	(2UL << 20)
+
+    static int dev;
+    static off_t cfg_off;
+    static int go_pipe[2], done_pipe[2];
+    static volatile uint32_t *shared;	/* [0]: iteration whose revoke finished */
+    static unsigned long iter;
+    static unsigned int max_delay_us;
+    static sigjmp_buf jb;
+
+    static void die(const char *what)
+    {
+    	fprintf(stderr, "%s: %s\n", what, strerror(errno));
+    	exit(2);
+    }
+
+    static int device_fd(const char *bdf)
+    {
+    	char path[PATH_MAX], link[PATH_MAX], *group_id;
+    	int container, group, noiommu;
+    	ssize_t len;
+
+    	snprintf(path, sizeof(path), "/sys/bus/pci/devices/%s/iommu_group", bdf);
+    	len = readlink(path, link, sizeof(link) - 1);
+    	if (len < 0)
+    		die("iommu_group");
+    	link[len] = 0;
+    	group_id = strrchr(link, '/') + 1;
+    	snprintf(path, sizeof(path), "/dev/vfio/%s", group_id);
+    	noiommu = access(path, F_OK);
+    	if (noiommu)
+    		snprintf(path, sizeof(path), "/dev/vfio/noiommu-%s", group_id);
+    	container = open("/dev/vfio/vfio", O_RDWR);
+    	group = open(path, O_RDWR);
+    	if (container < 0 || group < 0)
+    		die(path);
+    	if (ioctl(group, VFIO_GROUP_SET_CONTAINER, &container) ||
+    	    ioctl(container, VFIO_SET_IOMMU,
+    		  noiommu ? VFIO_NOIOMMU_IOMMU : VFIO_TYPE1v2_IOMMU))
+    		die("vfio container");
+    	return ioctl(group, VFIO_GROUP_GET_DEVICE_FD, bdf);
+    }
+
+    static void set_memory(int on)
+    {
+    	uint16_t cmd;
+
+    	if (pread(dev, &cmd, 2, cfg_off + PCI_COMMAND) != 2)
+    		die("read PCI_COMMAND");
+    	cmd = on ? cmd | PCI_COMMAND_MEMORY : cmd & ~PCI_COMMAND_MEMORY;
+    	if (pwrite(dev, &cmd, 2, cfg_off + PCI_COMMAND) != 2)
+    		die("write PCI_COMMAND");
+    }
+
+    static void *revoker(void *arg)
+    {
+    	unsigned long i;
+
+    	while (read(go_pipe[0], &i, sizeof(i)) == sizeof(i)) {
+    		if (max_delay_us)
+    			usleep(random() % max_delay_us);
+    		set_memory(0);
+    		shared[0] = i;
+    		if (write(done_pipe[1], &i, sizeof(i)) != sizeof(i))
+    			die("done pipe");
+    	}
+    	return NULL;
+    }
+
+    static void sigbus(int sig)
+    {
+    	siglongjmp(jb, 1);
+    }
+
+    /* Number of 2MB chunks of the BAR that can be read without SIGBUS. */
+    static unsigned long readable(volatile uint8_t *bar, size_t size)
+    {
+    	volatile unsigned long n = 0;
+    	volatile size_t off;
+
+    	for (off = 0; off < size; off += SZ_2M) {
+    		if (sigsetjmp(jb, 1))
+    			continue;
+    		(void)bar[off];
+    		n++;
+    	}
+    	return n;
+    }
+
+    int main(int argc, char **argv)
+    {
+    	unsigned long iterations = argc > 2 ? strtoul(argv[2], NULL, 0) : 1000;
+    	unsigned int index = argc > 3 ? atoi(argv[3]) : 0;
+    	struct vfio_region_info cfg = { .argsz = sizeof(cfg),
+    					.index = VFIO_PCI_CONFIG_REGION_INDEX };
+    	struct vfio_region_info bar = { .argsz = sizeof(bar), .index = index };
+    	unsigned long stale_children = 0, stale_chunks = 0, n;
+    	volatile uint8_t *map;
+    	pthread_t thread;
+    	size_t size, off;
+    	uint8_t *resv;
+    	int status;
+    	pid_t pid;
+
+    	if (argc < 2) {
+    		fprintf(stderr, "usage: %s <bdf> [iterations [bar [max_delay_us]]]\n",
+    			argv[0]);
+    		return 2;
+    	}
+    	max_delay_us = argc > 4 ? atoi(argv[4]) : 0;
+    	signal(SIGBUS, sigbus);
+    	dev = device_fd(argv[1]);
+    	if (dev < 0)
+    		die("device fd");
+    	if (ioctl(dev, VFIO_DEVICE_GET_REGION_INFO, &cfg) ||
+    	    ioctl(dev, VFIO_DEVICE_GET_REGION_INFO, &bar))
+    		die("region info");
+    	if (!(bar.flags & VFIO_REGION_INFO_FLAG_MMAP) || bar.size < SZ_2M) {
+    		fprintf(stderr, "BAR %u: no mmap or smaller than 2MB\n", index);
+    		return 2;
+    	}
+    	cfg_off = cfg.offset;
+    	size = bar.size & ~(SZ_2M - 1);
+
+    	/* A 2MB aligned address lets vfio-pci map the BAR with huge PMDs. */
+    	resv = mmap(NULL, size + SZ_2M, PROT_NONE,
+    		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
+    	if (resv == MAP_FAILED)
+    		die("reserve");
+    	resv = (uint8_t *)(((uintptr_t)resv + SZ_2M - 1) & ~(SZ_2M - 1));
+    	map = mmap(resv, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FIXED,
+    		   dev, bar.offset);
+    	if (map == MAP_FAILED)
+    		die("mmap BAR");
+    	shared = mmap(NULL, 4096, PROT_READ | PROT_WRITE,
+    		      MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    	if (shared == MAP_FAILED)
+    		die("shared page");
+
+    	/* Control: without a revoke the child reads what the parent wrote. */
+    	set_memory(1);
+    	for (off = 0; off < size; off += SZ_2M)
+    		map[off] = (uint8_t)(off / SZ_2M) ^ 0x5a;
+    	pid = fork();
+    	if (!pid) {
+    		for (off = 0; off < size; off += SZ_2M)
+    			if (map[off] != ((uint8_t)(off / SZ_2M) ^ 0x5a))
+    				_exit(1);
+    		_exit(0);
+    	}
+    	if (pid < 0 || waitpid(pid, &status, 0) != pid ||
+    	    !WIFEXITED(status) || WEXITSTATUS(status)) {
+    		fprintf(stderr, "control: child does not see the parent's BAR\n");
+    		return 2;
+    	}
+    	printf("BAR %u: %zu MB, %lu iterations, revoke delay < %u us\n",
+    	       index, size >> 20, iterations, max_delay_us);
+
+    	/* Premise: with the memory disabled the BAR cannot be read. */
+    	set_memory(0);
+    	n = readable(map, size);
+    	set_memory(1);
+    	if (n) {
+    		fprintf(stderr, "memory disabled, parent still reads %lu chunks\n", n);
+    		return 2;
+    	}
+
+    	if (pipe(go_pipe) || pipe(done_pipe))
+    		die("pipe");
+    	if (pthread_create(&thread, NULL, revoker, NULL))
+    		die("thread");
+
+    	for (iter = 1; iter <= iterations; iter++) {
+    		set_memory(1);
+    		for (off = 0; off < size; off += SZ_2M)
+    			(void)map[off];
+    		if (write(go_pipe[1], &iter, sizeof(iter)) != sizeof(iter))
+    			die("go pipe");
+    		pid = fork();
+    		if (pid < 0)
+    			die("fork");
+    		if (!pid) {
+    			while (shared[0] != iter)
+    				sched_yield();
+    			n = readable(map, size);
+    			_exit(n > 255 ? 255 : n);
+    		}
+    		if (read(done_pipe[0], &n, sizeof(n)) != sizeof(n))
+    			die("done pipe");
+    		if (waitpid(pid, &status, 0) != pid || !WIFEXITED(status))
+    			die("child");
+    		if (WEXITSTATUS(status)) {
+    			stale_children++;
+    			stale_chunks += WEXITSTATUS(status);
+    		}
+    	}
+    	set_memory(1);
+    	printf("children with a stale BAR mapping: %lu of %lu (%lu 2MB chunks)\n",
+    	       stale_children, iterations, stale_chunks);
+    	return stale_children ? 1 : 0;
+    }
+---
+ mm/huge_memory.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 1e5d68acf62a5..fcea98f0d8865 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		src_ptl = pmd_lockptr(src_mm, src_pmd);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+ 		/*
+-		 * No need to recheck the pmd, it can't change with write
+-		 * mmap lock held here.
+-		 *
+-		 * Meanwhile, making sure it's not a CoW VMA with writable
+-		 * mapping, otherwise it means either the anon page wrongly
+-		 * applied special bit, or we made the PRIVATE mapping be
+-		 * able to wrongly write to the backend MMIO.
++		 * The mmap and VMA write locks of the source keep faults
++		 * out, but unmap_mapping_range() does not take the mmap
++		 * lock and may have cleared the pmd since the lockless
++		 * read. Let copy_pmd_range() skip it then.
++		 */
++		pmd = pmdp_get(src_pmd);
++		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
++			spin_unlock(src_ptl);
++			spin_unlock(dst_ptl);
++			return -EAGAIN;
++		}
++		/*
++		 * Make sure it's not a CoW VMA with writable mapping,
++		 * otherwise it means either the anon page wrongly applied
++		 * special bit, or we made the PRIVATE mapping be able to
++		 * wrongly write to the backend MMIO.
+ 		 */
+ 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+ 		goto set_pmd;
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
+
+Best regards,
+--  
+Konstantin Khorenko <khorenko@virtuozzo.com>
 
