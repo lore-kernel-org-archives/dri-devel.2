@@ -4,41 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E39E1CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:03:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB8FC3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 492EF10E11A;
-	Wed, 14 Oct 2026 18:03:18 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78A3110E11A
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:03:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 76D4D60098
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:03:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0711F000C4;
- Wed, 14 Oct 2026 18:03:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792000991;
- bh=on7++y1kVxk+KyGl3YCQVu1Vvwafb/0JuLSAqwBBpag=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=U+Xq5y1P9pqCU387xSghyhEcIkUSDj0KgMba2gz6OxetBdePnNA1jFL/uhh5u/Ije
- 4PYMB7NKaJnxnbYFdYmtMoUcP7QmJOALKJtHclMKsMZDuIj5l1M2ud9atqPlQiRph/
- B3+X4ZXmBB4Opl2CgGnbXMOtByBp6XCHLYffbUNWyYwGjcwvDLk1Fk3ti555/9vESZ
- 41PPCLsVQpoGeSoUIwZLxapDL/0OvrzM7jGtAY363CdEKmgL04Gaj6msJbwdIagZcE
- uvYc1/XqknQAthu4oc6Pp2Dpuwga94gjOsi3ryw9y1YErDtwS1NwZF2SE/ksBJXsU0
- OqkkBoS4bsIPg==
-Message-ID: <sashiko-outbox-171648@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 56/75] drm/atomic-state-helper: Rename
- connector_tv_reset to state_init
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-56-586c9c026823@kernel.org>
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-56-586c9c026823@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95D1410E19B;
+	Wed, 14 Oct 2026 18:03:36 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66C5410E19B
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:03:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792001004; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=jqWn29pBLN5f5+3ILfi9EtntgCNHEhrsHz0mY46mJICxw/Q7bNpH/cTQc7ZRoCJpKaQ4H5Ou4ii7HfBJMixOUdlfz+bzcdQLFO+BW7yYE8hj+UgwQuzG9S9u6OyZxuo1tn3z2/izigunZMXNqzcYvPAaIlU4s6naOmNGFpt4zGM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1792001004;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=BPScAGTP2dI9y+1B671zdS/5etpFnAG8cKrd+sZATm8=; 
+ b=JqZzJXzztWOQ8TH7kX57rIp5+qTG+TzGAJT0bRexDmrRfKs5gWRnICKvkaBLktKDvlBooMC7BEY9Q+tmW7pe9HhmKt1fDXAGcrLtBKajuZhJ1Hv/UpGMRh0eu/n/r4N9ui+Wq3T2j0jAscwqEpY3/gUccmY+qG2MSh6/jVosdrA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792001004; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=BPScAGTP2dI9y+1B671zdS/5etpFnAG8cKrd+sZATm8=;
+ b=Zn0klXuSOOBf3l4KcDwiOZNBQ5sihqcI7yT2AUD4CQp0Yj9s4lEqO980gRhu4GY9
+ jMwDf3b0TrhvnYrLP7/nzk6XZ6LaYOeTm1HHJaHYL++p0dvc323hJWA8kBguYqRps3P
+ NRfGQqx+PhcJTBe1gD+8otzsGbWEd6eO0Cq6k12s=
+Received: by smtp.zohomail.com with SMTPS id 1792001002372843.1310964349625;
+ Wed, 14 Oct 2026 11:03:22 -0700 (PDT)
+Date: Wed, 14 Oct 2026 19:03:17 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Christian Hewitt <christianshewitt@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <daniel@ffwll.ch>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panfrost: reset the Amlogic GXM GPU on runtime resume
+Message-ID: <as_A5ygwMkEgGeP4@sobremesa>
+References: <20260930125629.2691968-1-christianshewitt@gmail.com>
+ <179184031154.1056803.12154076398577087527.b4-review@b4>
+ <6B9C57A7-8BE5-461B-B44B-EF91FC2D2D93@gmail.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 18:03:10 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6B9C57A7-8BE5-461B-B44B-EF91FC2D2D93@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.982.13
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,91 +69,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm: Incomplete state decoupling causes NULL deref in tv_margins_s=
-tate_init
---
+Hi Christian,
 
-commit 44e808ff1921e4945725ba2420217e2015fc2db5
-Author: Maxime Ripard <mripard@kernel.org>
+On 13.10.2026 09:02, Christian Hewitt wrote:
+> > On 13 Oct 2026, at 1:25 am, Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> > 
+> > On Wed, 30 Sep 2026 12:56:29 +0000, Christian Hewitt <christianshewitt@gmail.com> wrote:
+> >> After its first runtime suspend, every power-off of the Mali-T820 in
+> >> Amlogic GXM SoCs times out and floods the log with shader, tiler and L2
+> >> power transition timeouts. Following a soft reset the cores report not
+> >> ready but PWRTRANS never clears, however long the driver waits.
+> > 
+> > Would you mind building the driver from the latest drm-misc-next and testing
+> > whether this is still the case? Today I merged a patch series with a fix
+> > for a long-standing bug that prevented the device from going into suspension
+> > because of mismanagement of the PM refcount. It might be that what you report
+> > as an issue triggered by power transitions is something altogether different.
+> 
+> I’d tested with the v12 iteration of your series in my amlogic-7.3.y [0] tree
+> before generating the patch I submitted. I’ve now tested with v15 (as merged)
+> and other recent panfrost patches you submitted (which v15 depends upon) and
+> with this patch reverted, and the timeout issue with T820 remains. I also saw
+> a splat that I wasn’t seeing with the v12 iteration [1].
+> 
+> [0] https://github.com/chewitt/linux/commits/amlogic-7.3.y
+> [1] https://paste.libreelec.tv/desertic-cataleya.log
 
-drm/atomic-state-helper: Rename connector_tv_reset to state_init
+Turns out I was wrong about having easy access to a Khadas VIM2, so whatever I try to
+gather about the existing bug must come from these logs. I see one very interesting
+warning in [1]:
 
-This commit renames drm_atomic_helper_connector_tv_reset to
-drm_atomic_helper_connector_tv_state_init. It adds a connector state
-parameter to decouple the initialization from the reset hook, preparing it
-for contexts like atomic_create_state where the connector state isn't
-assigned yet.
+WARNING: drivers/gpu/drm/panfrost/panfrost_device.c:490 at panfrost_exception_name+0x1c/0x30 [panfrost], CPU#0: swapper/0/0
 
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/=
-drm_atomic_state_helper.c
-> index 6238066fd5d60..1424c4873251c 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-[ ... ]
-> @@ -501,16 +501,17 @@ void drm_atomic_helper_connector_tv_margins_state_i=
-nit(struct drm_connector_stat
->  EXPORT_SYMBOL(drm_atomic_helper_connector_tv_margins_state_init);
-> =20
->  /**
-> - * drm_atomic_helper_connector_tv_reset - Resets Analog TV connector pro=
-perties
-> + * drm_atomic_helper_connector_tv_state_init - Initializes Analog TV con=
-nector properties
-> + * @state: the DRM State object
->   * @connector: DRM connector
->   *
-> - * Resets the analog TV properties attached to a connector
-> + * Initializes the analog TV properties attached to a connector
->   */
-> -void drm_atomic_helper_connector_tv_reset(struct drm_connector *connecto=
-r)
-> +void drm_atomic_helper_connector_tv_state_init(struct drm_connector_stat=
-e *state,
-> +					       struct drm_connector *connector)
->  {
->  	struct drm_device *dev =3D connector->dev;
->  	struct drm_cmdline_mode *cmdline =3D &connector->cmdline_mode;
-> -	struct drm_connector_state *state =3D connector->state;
->  	struct drm_property *prop;
->  	uint64_t val;
-> =20
-[ ... ]
-> @@ -574,7 +575,7 @@ void drm_atomic_helper_connector_tv_reset(struct drm_=
-connector *connector)
->  	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
->  							  connector);
+Something's causing the GPU to report a fault whose status code is at
+present not documented in the driver.
 
-[Severity: High]
-Since the new state parameter is added to decouple this function from
-the reset hook, should this call pass the newly provided state instead of
-connector->state?
+I think that, because this seems like an SoC integration issue, and because of the unknown
+exception being reported by the GPU, we should have some further input from an Amlogic SoC
+subsystem maintainer, and also Steven Price himself.
 
-When a driver like vc4_vec calls this via its atomic_create_state hook,
-connector->state is not yet assigned and is NULL.
+> After reinstating this patch on v15 + dependencies dmesg is clean again [2].
+> 
+> [2] https://paste.libreelec.tv/leptosomatic-cherlyn.log
+> 
+> >> The transitions complete normally when the GPU comes out of a hardware
+> >> reset, as it does at probe. Use runtime PM with reset and clock control
+> > 
+> > panfrost_device_reset() is always called as part of the PM runtime resume
+> > operation, so I'm assuming what you mean here is that reset control is
+> > deasserted at runtime resume when the SoC supports it
+> 
+> I’m firmly at the hobbyist end of kernel contributors and I’m not able to
+> technically explain the patch Claude created. It’s entirely possible that it
+> pokes around in the right area of code but is not the correct fix, but I lack
+> the knowledge to dig further without explicit guidance. I can also give you
+> remote access to a Khadas VIM2 board if that would be easier or useful?
+> 
+> Christian
 
-Passing connector->state here forwards a NULL pointer to
-drm_atomic_helper_connector_tv_margins_state_init(), which then writes
-directly to state->tv.margins.left, leading to a NULL pointer dereference
-during device probe:
-
-void drm_atomic_helper_connector_tv_margins_state_init(struct drm_connector=
-_state *state,
-						       struct drm_connector *connector)
-{
-	struct drm_cmdline_mode *cmdline =3D &connector->cmdline_mode;
-
-	state->tv.margins.left =3D cmdline->tv_margins.left;
-
->  }
-> -EXPORT_SYMBOL(drm_atomic_helper_connector_tv_reset);
-> +EXPORT_SYMBOL(drm_atomic_helper_connector_tv_state_init);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-drm-no-mor=
-e-connector-reset-v1-0-586c9c026823@kernel.org?part=3D56
+Adrian Larumbe
