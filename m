@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 224ECCC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE6E0CC6B27
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBA0210EA8D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB11810EA6F;
 	Wed, 14 Oct 2026 16:18:06 +0000 (UTC)
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
- [74.125.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 185DE10EA8D
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:18:01 +0000 (UTC)
-Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-35c3c370b17so4033457eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:18:01 -0700 (PDT)
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2018210E9DC
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:17:58 +0000 (UTC)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-30c0d568830so8854940eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:17:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791994680; x=1792599480;
+ d=google.com; s=20251104; t=1791994677; x=1792599477;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=wON/Y5KE9qpxqraW/pAdp0YZ1NlG3ckfd93a0Oe+XQc=;
- b=h5wbQ7r4E3ebO32O+2jcIxuDxYyqv3xN/sJuB/zdIRG/1/ZVpvVBWKWjgXju1iluDg
- t6fQNlqfSFFq+uyjL6Awr2trEJ14cpdODh62rvEabX+kLmoaHYX+zdZfVVdxMlZz8HQT
- X79Kc5Kjh3r5TNphpX/jPkwuqsbN74vAKYTmNmUIk5PNcZ9VDu6EXTGiwGyodqjmuMrG
- aUBtMChBCoHS8QRu4sOJ1HgjymEDK1GurJrToxa2TO43y/n0+knzh9a17xXqc0rtetgX
- x+qiQkDiHTWBRyyTufAR43xXImVegDaks2OViKqF/UNjK4dm7Yg9sZLr8B6ZVoxJot0j
- oIkQ==
+ :content-type; bh=oGTWqBG9/pmcsFuKv5MXNPnEB5Ld1efa93sWaiCHZ/Q=;
+ b=avGbnshUjJezDc1K2cMdf/uJf117f91pkk7Uo8U1RNqGJJpdTSMtrt/DYKKb/OprMY
+ 0k993spK632T3hP2WIpvcEVWvnjrtD062AAB8Usz+smmVqpz6uX677aOL+n7bkTclB/J
+ +S9yN/3C/QMGXB9Mh9PIR3uWOaku9nBqjrX7DQcl5kbWYstwuYQ0CVjMd1y+Z1asAlJO
+ k+HYRJRadguN/HP6UirpfPzejIztaA8/nLguV1qZFnHFPUPNDsT1BF655YVCdtflv3QQ
+ EmcKXMtDa8DZOVt7X3sCb0ZGCT8jpdeC5RTsuRw+LNYutv9M9b6LI956PpLwXhN2HkAI
+ IZJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791994680; x=1792599480;
+ d=1e100.net; s=20260707; t=1791994677; x=1792599477;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=wON/Y5KE9qpxqraW/pAdp0YZ1NlG3ckfd93a0Oe+XQc=;
- b=vDQNw47mOk9EVVAdUHQlWejI1ilZp7xK1fAeaGb9vgWV4K/zVUazKhwF8y3tT5jCRL
- 8Xiou+Au/pEBWq3PaYkSQGC15M1rEGAlwjXABuwfwgaQ76i3ip4D03rNXhZSnvrn8pgY
- ZnhYmLR8tjORSOkY4aQIOKStOJUJS47W40H2swwUN09tR1fplJ6IkuqIoFgbRBCEXWYB
- Z7kka5kUSCzXaTxWLEmAUsCVmrHt2ME78xPIKI2k3wnJEYw9d2T4NmC+9eHuwy/ZyQK/
- reAOs9YZYYHMThpJLITvv/OvzsCQopY0PNl/8zav9YaEYwkks8C9nuD+AcR5doAbmPBX
- 9B3Q==
+ bh=oGTWqBG9/pmcsFuKv5MXNPnEB5Ld1efa93sWaiCHZ/Q=;
+ b=T/dPDE2NGWUQc4cffF7AN3Pv7lCpkiwvFstSrlTn/Gaw5Y/aUKnIgWB6pXaoQx+fMZ
+ hSkc3tzGIUVVINpqiyb8O6EnVp0gUnM7ivEXoEiuFJHie3CCqJ9cx2+v8mHTTIUUrB5Y
+ hT1kKxoPQhr2YBZhFi2TCVn/TPy0wB3ZZA7g/efo7ImljCx/Bq+3Zr15BfbJnYrdEbib
+ Q/Eqcx4AtNlE7QRs3TbNnV/dBcqmtsH8lYn6FXJMrmQegcY0Hscvdr9nlrIHZgGsXdyE
+ H8XX1x+GbyIamm5io9qJTcqrV9NS5NfzBd2MW15c+r/PscI8YlUdP628A9PoDOeYIjei
+ 9qtw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxqyCukSLXPAnEqPLjgHMeHnWc9MKxiQ5JlrCVB6IEdmuuoHXB3/0N2Tivb8ljP/gmYdrKUDEKfkSA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKVIvRDnZkXMxW8p3dgs8js9oAlJ5DT3vI8rOwgzmwLBky/Cm8j
- 2nPvhrh48XgsWBxP3hgnW3zfOEN7Zg0W6Q8XJGbcqI4J9k8sOWdva3211h4Ekp7vCAwFgTCPD1p
- JJkLWr1hqAiKreAobD5IglAkSsQ==
-X-Received: from dybvq12.prod.google.com ([2002:a05:7301:77cc:b0:35d:636:2f60])
+ AKwUvBxBwhGBgQcd44a8DcDwMe3bE6/72F7TkKP4n19GYDXOvv+UxBNiWSK3EaNVVh5F93l79/JU4ramYE0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLj2NILXm/6+phcZxbufrDkHoXbY1fT1PBeeSXJl2FEbfFwGQ5K
+ w/v6C6T6weAyC1sTs1J8sSJpt0+Z/l/viQAHsKyrkpMw3hvEfVWHGxCigc4IztOMy+Nd/4sSNge
+ 6vc4yb/3m5KTSrsGnPgrpqrG1uA==
+X-Received: from dybsi13.prod.google.com
+ ([2002:a05:7301:488d:b0:351:4e46:12d1])
  (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:3d10:b0:34d:96cb:d75e with SMTP id
- 5a478bee46e88-3537e069fb9mr34072614eec.27.1791994679866; 
- Wed, 14 Oct 2026 09:17:59 -0700 (PDT)
-Date: Wed, 14 Oct 2026 16:17:54 +0000
+ 2002:a05:693c:2806:b0:353:7f17:4358 with SMTP id
+ 5a478bee46e88-3537f174c08mr19838559eec.24.1791994676658; 
+ Wed, 14 Oct 2026 09:17:56 -0700 (PDT)
+Date: Wed, 14 Oct 2026 16:17:51 +0000
 In-Reply-To: <20261014161754.3782346-1-almasrymina@google.com>
 Mime-Version: 1.0
 References: <20261014161754.3782346-1-almasrymina@google.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261014161754.3782346-5-almasrymina@google.com>
-Subject: [PATCH net v3 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
+Message-ID: <20261014161754.3782346-2-almasrymina@google.com>
+Subject: [PATCH net v3 1/4] net: devmem: unmap dma_buf synchronously on queue
+ uninstall
 From: Mina Almasry <almasrymina@google.com>
 To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
  Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
@@ -91,15 +92,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-to nl_netdev.py to verify that unregistering a netdevsim device while a
-netlink socket holds an active RX or TX devmem binding synchronously
-detaches the dma_buf attachment and cleanly closes the netlink socket
-without use-after-free or page faults.
+When a bound net_device is unregistered while userspace still holds a
+netlink or TCP socket reference on a devmem binding,
+mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
+netdev_nl_sock_priv_destroy() will not touch the unregistered
+net_device, but leaves the dma_buf attachment mapped until
+__net_devmem_dmabuf_binding_free() runs later on socket close.
 
-Add the dma-buf, udmabuf and devmem options the tests need to
-tools/testing/selftests/net/config.
+Because dma_buf_attach() does not take a reference on dma_dev, device
+removal frees dma_dev while the attachment is still mapped. Closing the
+netlink socket afterwards triggers a slab use-after-free in
+dma_unmap_sg_attrs():
 
+  BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
+  Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
+  Workqueue: events __net_devmem_dmabuf_binding_free
+  Call Trace:
+   dma_unmap_sg_attrs+0x76/0x2b0
+   unmap_udmabuf+0x8e/0x100
+   dma_buf_unmap_attachment+0x145/0x330
+   dma_buf_unmap_attachment_unlocked+0x96/0x130
+   __net_devmem_dmabuf_binding_free+0x156/0x2e0
+  Freed by task 9:
+   kfree+0x1b8/0x550
+   nsim_bus_dev_release+0xe/0x60
+   device_release+0xcf/0x250
+
+Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
+and null out binding->sgt and binding->attachment after unmapping so
+unmapping is idempotent across queue uninstall and deferred binding
+destruction. Call it synchronously when the last bound RX queue is
+uninstalled in mp_dmabuf_devmem_uninstall(), except when a leased
+queue is unleased: the physical device is still registered and, if
+restarting its queue failed, may still be using the binding.
+
+The same use-after-free happens when the netlink socket is closed
+before the device is removed but RX tokens or the pending release work
+keep the binding alive. Such bindings are no longer installed on any
+queue and were already erased from net_devmem_dmabuf_bindings. Keep
+bindings in net_devmem_dmabuf_bindings until they are freed, hide
+unbound ones from TX lookups with an xarray mark, and on
+NETDEV_UNREGISTER clear binding->dev of unbound RX bindings for the
+device and unmap them, unless the device is a virtual device leasing
+queues, for the same reason as above. The walk runs under the netdev
+instance lock, so it cannot clear binding->dev while
+net_devmem_unbind_dmabuf() is still closing queues, and under
+net_devmem_lock, which serializes it with the final free. It is skipped
+when the device only moves to another netns.
+
+Fixes: f8350a4358fc ("net: page_pool: add a mp hook to unregister_netdevice*")
+Fixes: 0afc44d8cdf6 ("net: devmem: fix kernel panic when netlink socket close after module unload")
+Cc: Taehee Yoo <ap420073@gmail.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
 Cc: Tariq Toukan <tariqt@nvidia.com>
 Cc: Kaifeng Wang <kaifengw@google.com>
 Assisted-by: LLM
@@ -107,207 +151,240 @@ Signed-off-by: Mina Almasry <almasrymina@google.com>
 Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 ---
 v3:
-- Count attachments of the test's own dma-buf only, and skip instead of
-  passing when debugfs bufinfo is not readable (Sashiko).
-- Close the netlink socket after removing the device, clean up with
-  defer(), and skip on EOPNOTSUPP from bind-rx/bind-tx (Sashiko).
-- Replace the hardcoded UDMABUF_CREATE value with a helper that computes
-  it for the running architecture (Sashiko, Dragos), and close the memfd
-  and /dev/udmabuf fds on errors (Sashiko).
-- Add the needed options to tools/testing/selftests/net/config (Sashiko).
----
- tools/testing/selftests/net/config       |   4 +
- tools/testing/selftests/net/nl_netdev.py | 125 ++++++++++++++++++++++-
- 2 files changed, 126 insertions(+), 3 deletions(-)
+- Run the NETDEV_UNREGISTER walk under the netdev instance lock so it
+  cannot race with net_devmem_unbind_dmabuf() (Sashiko).
+- Skip the walk when the device only moves to another netns (Sashiko).
 
-diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
-index 737e7e6327b37..1e21f0055a2c0 100644
---- a/tools/testing/selftests/net/config
-+++ b/tools/testing/selftests/net/config
-@@ -11,6 +11,7 @@ CONFIG_CRYPTO_ARIA=y
- CONFIG_CRYPTO_CHACHA20POLY1305=m
- CONFIG_CRYPTO_SHA1=y
- CONFIG_CRYPTO_SM4_GENERIC=y
-+CONFIG_DEBUG_FS=y
- CONFIG_DEBUG_INFO_BTF=y
- CONFIG_DEBUG_INFO_BTF_MODULES=n
- CONFIG_DUMMY=y
-@@ -76,6 +77,7 @@ CONFIG_NET_CLS_BPF=m
- CONFIG_NET_CLS_FLOWER=m
- CONFIG_NET_CLS_MATCHALL=m
- CONFIG_NET_CLS_U32=m
-+CONFIG_NET_DEVMEM=y
- CONFIG_NETDEVSIM=m
- CONFIG_NET_DROP_MONITOR=m
- CONFIG_NETFILTER=y
-@@ -120,6 +122,7 @@ CONFIG_OPENVSWITCH=m
- CONFIG_PAGE_POOL_STATS=y
- CONFIG_PSAMPLE=m
- CONFIG_RPS=y
-+CONFIG_SYNC_FILE=y
- CONFIG_SYN_COOKIES=y
- CONFIG_SYSCTL=y
- CONFIG_SYSFS=y
-@@ -131,6 +134,7 @@ CONFIG_TEST_BPF=m
- CONFIG_TLS=m
- CONFIG_TRACEPOINTS=y
- CONFIG_TUN=y
-+CONFIG_UDMABUF=y
- CONFIG_USER_NS=y
- CONFIG_VETH=y
- CONFIG_VLAN_8021Q=y
-diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-index ceb44c8e1fec5..988878b71358c 100755
---- a/tools/testing/selftests/net/nl_netdev.py
-+++ b/tools/testing/selftests/net/nl_netdev.py
-@@ -6,10 +6,14 @@ Tests for the netdev netlink family.
- """
+v2:
+- Don't unmap when a leased queue is unleased (Sashiko).
+- Unmap unbound RX bindings on NETDEV_UNREGISTER; keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by
+  NET_DEVMEM_BINDING_LIVE (Sashiko).
+- Update the binding->lock and binding->ref comments (Sashiko).
+---
+ net/core/devmem.c      | 92 +++++++++++++++++++++++++++++++++++-------
+ net/core/devmem.h      | 10 ++++-
+ net/core/netdev-genl.c |  1 +
+ 3 files changed, 86 insertions(+), 17 deletions(-)
+
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index f4d60654ce7fd..93cc2815d935a 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -20,6 +20,7 @@
+ #include <net/tcp.h>
+ #include <trace/events/page_pool.h>
  
- import errno
-+import fcntl
-+import mmap
-+import os
-+import struct
- from os import system
--from lib.py import ksft_run, ksft_exit
-+from lib.py import ksft_run, ksft_exit, KsftFailEx, KsftSkipEx
- from lib.py import ksft_eq, ksft_ge, ksft_ne, ksft_raises, ksft_busy_wait
--from lib.py import NetdevFamily, NetdevSimDev, NlError, defer, ip
-+from lib.py import EthtoolFamily, NetdevFamily, NetdevSimDev, NlError, defer, ip
++#include "dev.h"
+ #include "devmem.h"
+ #include "mp_dmabuf_devmem.h"
+ #include "page_pool_priv.h"
+@@ -27,6 +28,8 @@
+ /* Device memory support */
  
+ static DEFINE_XARRAY_FLAGS(net_devmem_dmabuf_bindings, XA_FLAGS_ALLOC1);
++#define NET_DEVMEM_BINDING_LIVE XA_MARK_1
++static DEFINE_MUTEX(net_devmem_lock);
  
- def empty_check(nf) -> None:
-@@ -366,6 +370,119 @@ def page_pool_stats_ifindex_check(nf) -> None:
-     ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
+ static const struct memory_provider_ops dmabuf_devmem_ops;
  
+@@ -58,6 +61,21 @@ static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
+ 	schedule_work(&binding->unbind_w);
+ }
  
-+def _udmabuf_create_ioctl() -> int:
-+    """Return UDMABUF_CREATE, _IOW('u', 0x42, struct udmabuf_create)."""
-+    machine = os.uname().machine
-+    if machine.startswith(("alpha", "mips", "ppc", "powerpc", "sparc")):
-+        ioc_write = 4 << 29
-+    elif machine.startswith("parisc"):
-+        ioc_write = 2 << 30
-+    else:
-+        ioc_write = 1 << 30
-+    return ioc_write | 24 << 16 | ord("u") << 8 | 0x42
++static void
++net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
++{
++	lockdep_assert_held(&binding->lock);
 +
++	if (!binding->sgt)
++		return;
 +
-+def _create_udmabuf(num_pages=64) -> int:
-+    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-+    if not os.path.exists("/dev/udmabuf"):
-+        raise KsftSkipEx("/dev/udmabuf is not available")
++	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
++					  binding->direction);
++	dma_buf_detach(binding->dmabuf, binding->attachment);
++	binding->sgt = NULL;
++	binding->attachment = NULL;
++}
 +
-+    size = num_pages * mmap.PAGESIZE
-+    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-+    try:
-+        os.ftruncate(memfd, size)
-+        fcntl.fcntl(memfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
-+        devfd = os.open("/dev/udmabuf", os.O_RDWR)
-+        try:
-+            req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-+            return fcntl.ioctl(devfd, _udmabuf_create_ioctl(), req)
-+        finally:
-+            os.close(devfd)
-+    finally:
-+        os.close(memfd)
+ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+ {
+ 	struct net_devmem_dmabuf_binding *binding = container_of(wq, typeof(*binding), unbind_w);
+@@ -74,9 +92,13 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+ 		  size, avail))
+ 		gen_pool_destroy(binding->chunk_pool);
+ 
+-	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
+-					  binding->direction);
+-	dma_buf_detach(binding->dmabuf, binding->attachment);
++	mutex_lock(&net_devmem_lock);
++	mutex_lock(&binding->lock);
++	net_devmem_dmabuf_binding_unmap(binding);
++	mutex_unlock(&binding->lock);
++	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
++	mutex_unlock(&net_devmem_lock);
 +
+ 	dma_buf_put(binding->dmabuf);
+ 	xa_destroy(&binding->bound_rxqs);
+ 	percpu_ref_exit(&binding->ref);
+@@ -129,10 +151,11 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+ 	unsigned long xa_idx;
+ 	unsigned int rxq_idx;
+ 
+-	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
++	xa_clear_mark(&net_devmem_dmabuf_bindings, binding->id,
++		      NET_DEVMEM_BINDING_LIVE);
+ 
+ 	/* Ensure no tx net_devmem_lookup_dmabuf() are in flight after the
+-	 * erase.
++	 * mark is cleared.
+ 	 */
+ 	synchronize_net();
+ 
+@@ -153,6 +176,38 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+ 	percpu_ref_kill(&binding->ref);
+ }
+ 
++static void
++net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
++			     unsigned long xa_idx, struct net_device *dev)
++{
++	if (xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
++			NET_DEVMEM_BINDING_LIVE) ||
++	    READ_ONCE(binding->dev) != dev)
++		return;
 +
-+def _dmabuf_attach_count(dmabuf_fd) -> int:
-+    """Return the number of devices attached to dmabuf_fd, from debugfs."""
-+    path = "/sys/kernel/debug/dma_buf/bufinfo"
-+    try:
-+        with open(path, "r", encoding="utf-8") as f:
-+            lines = f.read().splitlines()
-+    except OSError as e:
-+        raise KsftSkipEx(f"{path} is not readable: {e}") from e
++	mutex_lock(&binding->lock);
++	WRITE_ONCE(binding->dev, NULL);
++	if (!netif_is_queue_leasee(dev))
++		net_devmem_dmabuf_binding_unmap(binding);
++	mutex_unlock(&binding->lock);
++}
 +
-+    ino = os.fstat(dmabuf_fd).st_ino
-+    found = False
-+    for line in lines:
-+        fields = line.split("\t")
-+        if not found:
-+            found = (len(fields) == 7 and fields[5].isdigit() and
-+                     int(fields[5]) == ino)
-+        elif line.startswith("Total "):
-+            return int(line.split()[1])
-+    raise KsftFailEx(f"dma-buf {ino} not found in {path}")
++void net_devmem_dev_unregister(struct net_device *dev)
++{
++	struct net_devmem_dmabuf_binding *binding;
++	unsigned long xa_idx;
 +
++	if (dev->reg_state != NETREG_UNREGISTERING)
++		return;
 +
-+def _devmem_bind(bind, attrs) -> None:
-+    """Run a devmem bind op, skip the test if the device can't do devmem."""
-+    try:
-+        bind(attrs)
-+    except NlError as e:
-+        if e.error == errno.EOPNOTSUPP:
-+            raise KsftSkipEx(f"devmem binding not supported: {e}") from e
-+        raise
++	mutex_lock(&net_devmem_lock);
++	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
++		if (binding->direction == DMA_FROM_DEVICE)
++			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
++	}
++	mutex_unlock(&net_devmem_lock);
++}
 +
+ int net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
+ 				    struct net_devmem_dmabuf_binding *binding,
+ 				    struct netlink_ext_ack *extack)
+@@ -331,6 +386,8 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ 			      GFP_KERNEL);
+ 	if (err < 0)
+ 		goto err_free_chunks;
++	xa_set_mark(&net_devmem_dmabuf_bindings, binding->id,
++		    NET_DEVMEM_BINDING_LIVE);
+ 
+ 	list_add(&binding->list, &priv->bindings);
+ 
+@@ -359,9 +416,11 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ struct net_devmem_dmabuf_binding *net_devmem_lookup_dmabuf(u32 id)
+ {
+ 	struct net_devmem_dmabuf_binding *binding;
++	unsigned long xa_idx = id;
+ 
+ 	rcu_read_lock();
+-	binding = xa_load(&net_devmem_dmabuf_bindings, id);
++	binding = xa_find(&net_devmem_dmabuf_bindings, &xa_idx, id,
++			  NET_DEVMEM_BINDING_LIVE);
+ 	if (binding) {
+ 		if (!net_devmem_dmabuf_binding_get(binding))
+ 			binding = NULL;
+@@ -529,16 +588,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+ 	unsigned long xa_idx;
+ 
+ 	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
+-		if (bound_rxq == rxq) {
+-			xa_erase(&binding->bound_rxqs, xa_idx);
+-			if (xa_empty(&binding->bound_rxqs)) {
+-				mutex_lock(&binding->lock);
+-				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+-				WRITE_ONCE(binding->dev, NULL);
+-				mutex_unlock(&binding->lock);
+-			}
+-			break;
++		if (bound_rxq != rxq)
++			continue;
 +
-+def devmem_bind_rx_unregister_check(_nf) -> None:
-+    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-+    dmabuf_fd = _create_udmabuf()
-+    defer(os.close, dmabuf_fd)
-+    nf_priv = NetdevFamily()
-+    defer(nf_priv.close)
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    defer(nsimdev.remove)
-+    nsim = nsimdev.nsims[0]
++		xa_erase(&binding->bound_rxqs, xa_idx);
++		if (xa_empty(&binding->bound_rxqs)) {
++			mutex_lock(&binding->lock);
++			ASSERT_EXCLUSIVE_WRITER(binding->dev);
++			WRITE_ONCE(binding->dev, NULL);
++			if (!rxq->lease)
++				net_devmem_dmabuf_binding_unmap(binding);
++			mutex_unlock(&binding->lock);
+ 		}
++		break;
+ 	}
+ }
+ 
+diff --git a/net/core/devmem.h b/net/core/devmem.h
+index 4a293a7d1149c..5c47c8c3c7d2d 100644
+--- a/net/core/devmem.h
++++ b/net/core/devmem.h
+@@ -27,7 +27,7 @@ struct net_devmem_dmabuf_binding {
+ 	 */
+ 	void *vdev;
+ 	struct gen_pool *chunk_pool;
+-	/* Protect dev */
++	/* Protect dev, attachment and sgt */
+ 	struct mutex lock;
+ 
+ 	/* The user holds a ref (via the netlink API) for as long as they want
+@@ -38,7 +38,8 @@ struct net_devmem_dmabuf_binding {
+ 	 *
+ 	 * The binding undos itself and unmaps the underlying dmabuf once all
+ 	 * those refs are dropped and the binding is no longer desired or in
+-	 * use.
++	 * use. The dmabuf may be unmapped earlier, when the device it is
++	 * mapped for is unregistered.
+ 	 *
+ 	 * net_devmem_get_net_iov() on dmabuf net_iovs will increment this
+ 	 * reference, making sure that the binding remains alive until all the
+@@ -100,6 +101,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ 		       struct netlink_ext_ack *extack);
+ struct net_devmem_dmabuf_binding *net_devmem_lookup_dmabuf(u32 id);
+ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding);
++void net_devmem_dev_unregister(struct net_device *dev);
+ int net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
+ 				    struct net_devmem_dmabuf_binding *binding,
+ 				    struct netlink_ext_ack *extack);
+@@ -196,6 +198,10 @@ net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+ {
+ }
+ 
++static inline void net_devmem_dev_unregister(struct net_device *dev)
++{
++}
 +
-+    ip(f"link set dev {nsim.ifname} up")
-+    with EthtoolFamily() as ef:
-+        ef.rings_set({"header": {"dev-index": nsim.ifindex},
-+                      "tcp-data-split": "enabled"})
-+    _devmem_bind(nf_priv.bind_rx, {
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+        "queues": [{"id": 1, "type": "rx"}],
-+    })
-+    ksft_ge(_dmabuf_attach_count(dmabuf_fd), 1)
-+
-+    nsimdev.remove()
-+    ksft_eq(_dmabuf_attach_count(dmabuf_fd), 0)
-+
-+    nf_priv.close()
-+
-+
-+def devmem_bind_tx_unregister_check(_nf) -> None:
-+    """Verify TX devmem bindings detach cleanly on netdev unregister without UAF."""
-+    dmabuf_fd = _create_udmabuf()
-+    defer(os.close, dmabuf_fd)
-+    nf_priv = NetdevFamily()
-+    defer(nf_priv.close)
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    defer(nsimdev.remove)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    _devmem_bind(nf_priv.bind_tx, {
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+    })
-+    ksft_ge(_dmabuf_attach_count(dmabuf_fd), 1)
-+
-+    nsimdev.remove()
-+    ksft_eq(_dmabuf_attach_count(dmabuf_fd), 0)
-+
-+    nf_priv.close()
-+
-+
- def main() -> None:
-     """ Ksft boiler plate main """
-     nf = NetdevFamily()
-@@ -379,7 +496,9 @@ def main() -> None:
-               page_pool_check,
-               page_pool_dump_ifindex,
-               page_pool_ifindex_leak_check,
--              page_pool_stats_ifindex_check
-+              page_pool_stats_ifindex_check,
-+              devmem_bind_rx_unregister_check,
-+              devmem_bind_tx_unregister_check
-               ],
-              args=(nf, ))
-     ksft_exit()
+ static inline int
+ net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
+ 				struct net_devmem_dmabuf_binding *binding,
+diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
+index 33b9f4eb9565a..b04e22937b789 100644
+--- a/net/core/netdev-genl.c
++++ b/net/core/netdev-genl.c
+@@ -1488,6 +1488,7 @@ static int netdev_genl_netdevice_event(struct notifier_block *nb,
+ 		break;
+ 	case NETDEV_UNREGISTER:
+ 		netdev_lock(netdev);
++		net_devmem_dev_unregister(netdev);
+ 		netdev_genl_dev_notify(netdev, NETDEV_CMD_DEV_DEL_NTF);
+ 		netdev_unlock(netdev);
+ 		break;
 -- 
 2.56.0.176.g3575e65682-goog
 
