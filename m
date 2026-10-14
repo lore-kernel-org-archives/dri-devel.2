@@ -4,106 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B621CCC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:24:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60A29CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:26:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B39D10E1C6;
-	Wed, 14 Oct 2026 18:24:53 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010046.outbound.protection.outlook.com [52.101.201.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A6B10E1C6
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:24:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wdj9SHjT3zYY8/7ecSyQhw0UfbFlGPgZS+0KCQEn4wwjhNdUUosq13ls7lAAXXT5D2UdB5+xn0e5VZ5JEiAoq927wQOQdtaoYgm15ovWsnPMSmM4LEBaHeAjzgh5sWfFfXv8cpaAjQD2hQH1Bnc3qexnd2/qs/26gM5Y/8nQYRICcGw6kOpStN2rlBP+W4i8U8DLISJTmOA2HdNJpc7kwg8PsbMD4NmManQAxgryS1CPhT0cabH9g7865HOXTrAfFRP7wZJHOqwHDjxi+ZdnbOJOq0ITeP7Ag3x9CNrTQ13/2u6Tadrax9hmocwaOHR4j0KhpF5ugX3QZNsHC6IasA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vb6oRmlg6RtKi84iWEQ221OmMWXX87v53d4iAE8OcIo=;
- b=JkEh2qDT9cQzWas2IQehi5emsQW9sAD8dPnTzFkcV5ln34BQpfPWfKv+r3oYLDe+tXK40zTIjBM8Fk7KXGNQXLshY9pZiTqKQhjU9zQdv9GrMVJ2Ozc9/Um6XU9It9fZzw8CEpI5B7ASVJ3+rulZVNr/Fhe6ayeWLTlD8GufdzwmDTPyCTF6YtTPQ6TQquL+6a+kHZEIieuEh0OEZ0PxgcKDlRKAjK9Ui2bZVYKB7HfSLWbyO//Ndav2s5erKGMLfiIzw5Xv7NVx3Au850M2pT3op2bNQeF4YVMjDhunkDRwx0674hVkZh0PSZfh1/ACODwI4bEkvI39W0J9Mk+gvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vb6oRmlg6RtKi84iWEQ221OmMWXX87v53d4iAE8OcIo=;
- b=qVE1XTic6E0coauPxP6UxYXDreZaHLRpaWp5Rh1mQPYojmjFQ7L6OZ14Ub+rRx+EYvvo/TPrymcke+jktKUTH3J/zINwy6T3GfjU8Z75/bDAxqofXpS36HgNR3eDwj/j84//wsSBvFhXXUqasYIL+//jQdI2mQhS8EkBM1y4ubI=
-Received: from SJ0PR05CA0022.namprd05.prod.outlook.com (2603:10b6:a03:33b::27)
- by SJ2PR12MB8846.namprd12.prod.outlook.com (2603:10b6:a03:549::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
- 2026 18:24:40 +0000
-Received: from SJ1PEPF000023CC.namprd02.prod.outlook.com
- (2603:10b6:a03:33b:cafe::aa) by SJ0PR05CA0022.outlook.office365.com
- (2603:10b6:a03:33b::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
- Oct 2026 18:24:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023CC.mail.protection.outlook.com (10.167.244.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 18:24:39 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 13:24:33 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 13:24:32 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 14 Oct 2026 13:24:32 -0500
-Message-ID: <058e556d-0dfb-1654-9905-c59279b8c3cb@amd.com>
-Date: Wed, 14 Oct 2026 11:24:37 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id B984810FF13;
+	Wed, 14 Oct 2026 18:25:58 +0000 (UTC)
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D94510FF34
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1792002350;
+ bh=sHgmmvVMprfoOGRefY82u23D8embvuDtkJUdhu4IrFc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=tJLtW8zyYA7xZPbSgycHPwaPvXJOXBZorLUEAUXc1BI7o/a8xBOvnavMqTw1h0w0G
+ MSQfcvcGScxH1C1vsTEtKr7ecTG/n+MwM2x7cNBqdtmD2l05jFwCDohnrOwmIjy93J
+ eSCN1M0GsENTvt/ba6s77GCPlBPCn6RcqLAIbN8MeM93xM/zghkOPXwbfM/SKdiPax
+ TLl5KzV27028WSymNrOjdm+vAtqjSWQ6oH3EzZPq4vy5n/Hh/lt5GdyE0+3UZGGWY8
+ +6pUOO9xw+rM0IaZOsad2JbE5A8n8983ND4cS0USm5QnpSaPYVnJlN5y0ZK3zKesFP
+ xFeAHFRwN751g==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4flW3d1Zz4wCp;
+ Thu, 15 Oct 2026 05:25:43 +1100 (AEDT)
+Message-ID: <a4ee75df-1ee2-4cbd-87c9-5913cb4c4456@ozlabs.org>
+Date: Wed, 14 Oct 2026 19:25:39 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V4 17/19] accel/amdxdna: Enable AIE4 firmware logging to
- DRAM
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
- <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-18-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261009225343.3079074-18-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 4/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20261006193643.76330-1-matt@ozlabs.org>
+ <20261006193643.76330-5-matt@ozlabs.org>
+ <20261013171406.7dc8ba03@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20261013171406.7dc8ba03@shazbot.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CC:EE_|SJ2PR12MB8846:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a797a23-6c2a-4c9d-fde9-08df2a2068f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|11063799006|56012099006|4143699003|261009223027099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: RnTAvrsjaG17B4fR0ILkexK0+jfOlEHtfnqHspdMryx7Hh7phq7El16NZIUlcvRNGT89l0DrGKb4S8lVWL5MAMgdbfEciFYv+XGBEi/iyFZcpBqf8KvANtXbUR2b9Mj/BUxWh+j6znZiHmcMj4TsdF6qAaoBPRm9fHNHT0wewjS9cxIGmARfUSA9DgEXIRS6x70tVZtcsQ8kmsBWMacl8LWOw51qS0YzHQh6RDYBdWVrv9/ZOPklkRnrsHucNHHx5MuYxBgqMTgEXOL/psTKINNP8xG7G3VD0E0FzTBlwvZf5YFz1MW2JVqfCakRJHg2w/7JdNyCP8nlGq20AHpoHDIM/umlMJF7OP3WD2zeMYDwPJWVbbLDYoF2Y6vojVPRafjFoVaYLp4i+EbPL9MGfSs+4BiR7ER3ZnjQffh7vlqGgrXvNmfA8/IaVt0q9tFlK0hBw+EaxlBeAzdeJIKvddiyTx/l22tmY1E9CwmY/ElkiICgs23kQrRaqKEpi03XWKSP37gj5SVsa8T9QXTKeidIjB058OkUNfeH9bcaTk3NLz748xbRW5DepkMeh8Qi6mrpTakpwqFWvenkwxpuQatu+mS4LimWSGb0LCXHkipN1BTsixS7IbTKhSVC4NT2sSO38s9Ovt6YMYLpY1AjnxSbnxLaQJ7VdhEa1G62GBDROR+q2qYjNBVNCTMabYn6q+LIPfL98xKVMg7DDIRzIA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(11063799006)(56012099006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: aCyQfcsRkn16BD13IeyAVQ9rCLL5R49DfXhPhWfmMGdmWTOMxGOnC6VMrX/tEGLhqiwaXJ2rAGH0Yhv7KOorWy8Q0B40TQC30I4NI3d2lJ1L8hrZ4LD+nim55xou773+GvLWxWC+1LJAvo6UVAPNBs56me5jvLMUTgLWSis5V0Jbv+ZOeyid5MWeJLQfpeoK7awGwySdFn7qeSa4t1zdNek7KcdES69Xewh4l674iW/3JXKJcGk2ZezU2mBDAzgRn7d6v5luzldLzF7BuESNn+k9ZSlHaW7QjIf8zes7HWBR3I3SbbMAE5iLU8sTVCw8/BEeAas0UgRqOGhHYGp1llleCwSCLboJ/5xCm/XP9HyLkVuNNfLE5kcOeFwPz4GF15ypkCv2C4+cSghV+eq8hJL8SNm5b55+8gxU0c81kATnLkoSc/Xzsjkwc0ktSHP3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 18:24:39.6716 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a797a23-6c2a-4c9d-fde9-08df2a2068f2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023CC.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8846
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,224 +69,287 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Alex,
 
-On 10/9/26 15:53, David Zhang wrote:
-> Allocate a DRAM buffer for firmware logging, and also set the log level
-> to less verbose. This will give the best performance numbers.
->
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/aie4_message.c  | 20 ++++++++++
->   drivers/accel/amdxdna/aie4_msg_priv.h | 24 ++++++++++++
->   drivers/accel/amdxdna/aie4_pci.c      | 53 +++++++++++++++++++++++++++
->   drivers/accel/amdxdna/aie4_pci.h      |  5 +++
->   4 files changed, 102 insertions(+)
->
-> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-> index 2820cfb6f9ed..96ccc28e5360 100644
-> --- a/drivers/accel/amdxdna/aie4_message.c
-> +++ b/drivers/accel/amdxdna/aie4_message.c
-> @@ -247,6 +247,26 @@ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
->   	return ret;
->   }
->   
-> +int aie4_start_fw_log(struct amdxdna_dev_hdl *ndev, u32 level)
-> +{
-> +	DECLARE_AIE_MSG(aie4_msg_start_fw_log, AIE4_MSG_OP_START_FW_LOG);
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +	int ret;
-> +
-> +	req.buff_addr = ndev->fw_log_buf_addr;
-> +	req.buff_size = ndev->fw_log_buf_size;
-> +	req.log_level = level;
-> +
-> +	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-> +	if (ret)
-> +		XDNA_WARN(xdna, "Failed to start fw log, ret %d", ret);
-> +	else
-> +		XDNA_DBG(xdna, "Started fw log, level %u size 0x%x",
-> +			 level, ndev->fw_log_buf_size);
-> +
-> +	return ret;
-> +}
-> +
->   int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
->   {
->   	DECLARE_AIE_MSG(aie4_msg_power_override, AIE4_MSG_OP_POWER_OVERRIDE);
-> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-> index 636bf8d04c76..566f6abc9e2d 100644
-> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
-> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-> @@ -29,6 +29,7 @@ enum aie4_msg_opcode {
->   	AIE4_MSG_OP_GET_CURRENT_DPM_LEVEL            = 0x30013,
->   
->   	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
-> +	AIE4_MSG_OP_START_FW_LOG                     = 0x40003,
->   };
->   
->   enum aie4_msg_status {
-> @@ -263,4 +264,27 @@ struct aie4_msg_attach_work_buffer_resp {
->   	enum aie4_msg_status status;
->   } __packed;
->   
-> +/* Dynamic firmware log levels. */
-> +enum aie4_fw_log_level {
-> +	AIE4_FW_LOG_LEVEL_OFF,
-> +	AIE4_FW_LOG_LEVEL_ERR,
-> +	AIE4_FW_LOG_LEVEL_WRN,
-> +	AIE4_FW_LOG_LEVEL_INF,
-> +	AIE4_FW_LOG_LEVEL_DBG,
-> +	AIE4_FW_LOG_LEVEL_MAX,
-> +};
-> +
-> +#define AIE4_FW_LOG_BUF_SIZE      SZ_1M
-> +
-> +struct aie4_msg_start_fw_log_req {
-> +	__u64 buff_addr;
-> +	__u32 buff_size;
-> +	__u32 log_level;
-> +	__u32 reserved;
-> +} __packed;
-> +
-> +struct aie4_msg_start_fw_log_resp {
-> +	enum aie4_msg_status status;
-> +} __packed;
-> +
->   #endif /* _AIE4_MSG_PRIV_H_ */
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index 7f4238f76bc2..e09d24d85cdf 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -383,6 +383,16 @@ static int aie4_config_fw(struct amdxdna_dev_hdl *ndev)
->   	if (ret == -ETIME)
->   		return ret;
->   
-> +	/*
-> +	 * Give the firmware high performance DRAM to log into with less
-> +	 * verbose level.
-> +	 */
-> +	if (ndev->fw_log_buf) {
-> +		ret = aie4_start_fw_log(ndev, AIE4_FW_LOG_LEVEL_ERR);
-> +		if (ret == -ETIME)
-> +			return ret;
-> +	}
-> +
->   	return 0;
->   }
->   
-> @@ -941,6 +951,41 @@ static void aie4_free_work_buffer(struct amdxdna_dev_hdl *ndev)
->   	ndev->work_buf = NULL;
->   }
->   
-> +/*
-> + * Firmware logging is best effort: a device that cannot spare the buffer still
-> + * runs, it just does not log. Never fail hw start or probe on this.
-> + */
-> +static void aie4_alloc_fw_log_buffer(struct amdxdna_dev_hdl *ndev)
-> +{
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +	u32 buf_size = AIE4_FW_LOG_BUF_SIZE;
-> +
-> +	ndev->fw_log_buf = amdxdna_alloc_msg_buffer(xdna, &buf_size,
-> +						    &ndev->fw_log_buf_addr);
-> +	if (IS_ERR(ndev->fw_log_buf)) {
-> +		XDNA_WARN(xdna, "Failed to alloc fw log buffer, size 0x%x",
-> +			  AIE4_FW_LOG_BUF_SIZE);
-> +		ndev->fw_log_buf = NULL;
-> +		return;
-> +	}
-> +
-> +	ndev->fw_log_buf_size = buf_size;
-> +	XDNA_DBG(xdna, "FW log buffer allocated: size 0x%x", buf_size);
-> +}
-> +
-> +/* Free logging buffer after firmware execution has stopped. */
-> +static void aie4_free_fw_log_buffer(struct amdxdna_dev_hdl *ndev)
-> +{
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +
-> +	if (!ndev->fw_log_buf)
-> +		return;
-> +
-> +	amdxdna_free_msg_buffer(xdna, ndev->fw_log_buf_size, ndev->fw_log_buf,
-> +				ndev->fw_log_buf_addr);
-> +	ndev->fw_log_buf = NULL;
-> +}
-> +
->   static int aie4_pf_init(struct amdxdna_dev *xdna)
->   {
->   	int ret;
-> @@ -953,6 +998,8 @@ static int aie4_pf_init(struct amdxdna_dev *xdna)
->   	if (ret)
->   		return ret;
->   
-> +	aie4_alloc_fw_log_buffer(xdna->dev_handle);
-> +
->   	ret = aie4_pf_hw_start(xdna->dev_handle);
->   	if (ret)
->   		goto free_work_buf;
-> @@ -960,6 +1007,7 @@ static int aie4_pf_init(struct amdxdna_dev *xdna)
->   	return 0;
->   
->   free_work_buf:
-> +	aie4_free_fw_log_buffer(xdna->dev_handle);
->   	aie4_free_work_buffer(xdna->dev_handle);
->   	return ret;
->   }
-> @@ -987,6 +1035,8 @@ static int aie4_classic_init(struct amdxdna_dev *xdna)
->   	if (ret)
->   		return ret;
->   
-> +	aie4_alloc_fw_log_buffer(xdna->dev_handle);
-> +
->   	ret = aie4_classic_hw_start(xdna->dev_handle);
->   	if (ret)
->   		goto free_work_buf;
-> @@ -994,6 +1044,7 @@ static int aie4_classic_init(struct amdxdna_dev *xdna)
->   	return 0;
->   
->   free_work_buf:
-> +	aie4_free_fw_log_buffer(xdna->dev_handle);
->   	aie4_free_work_buffer(xdna->dev_handle);
->   	return ret;
->   }
-> @@ -1002,6 +1053,7 @@ static void aie4_pf_fini(struct amdxdna_dev *xdna)
->   {
->   	aie4_sriov_stop(xdna->dev_handle);
->   	aie4_pf_hw_stop(xdna->dev_handle);
-> +	aie4_free_fw_log_buffer(xdna->dev_handle);
->   	aie4_free_work_buffer(xdna->dev_handle);
->   }
->   
-> @@ -1013,6 +1065,7 @@ static void aie4_vf_fini(struct amdxdna_dev *xdna)
->   static void aie4_classic_fini(struct amdxdna_dev *xdna)
->   {
->   	aie4_classic_hw_stop(xdna->dev_handle);
-> +	aie4_free_fw_log_buffer(xdna->dev_handle);
->   	aie4_free_work_buffer(xdna->dev_handle);
->   }
->   
-> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index da5aa57bc43f..4b7367af7cf1 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.h
-> +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -105,6 +105,10 @@ struct amdxdna_dev_hdl {
->   	dma_addr_t			work_buf_addr;
->   	u32				work_buf_size;
->   
-> +	void				*fw_log_buf;
-> +	dma_addr_t			fw_log_buf_addr;
-> +	u32				fw_log_buf_size;
-> +
->   	u8				pw_mode;
->   
->   	/* Context switch hysteresis timeout in microseconds. */
-> @@ -125,6 +129,7 @@ int aie4_query_aie_version(struct amdxdna_dev_hdl *ndev,
->   			   struct amdxdna_drm_query_aie_version *version);
->   int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
->   int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev);
-> +int aie4_start_fw_log(struct amdxdna_dev_hdl *ndev, u32 level);
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
->   				    struct amdxdna_drm_query_firmware_version *fw_version);
->   int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
+On 14/10/2026 00:14, Alex Williamson wrote:
+> On Tue,  6 Oct 2026 20:36:32 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
+> 
+>> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+>> find a PFN.
+>>
+>> This supports multi-range DMABUFs, which typically would be used to
+>> represent scattered spans but might even represent overlapping or
+>> aliasing spans of PFNs.
+>>
+>> Because this is intended to be used in vfio_pci_core.c, we also need
+>> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+>>
+>> This move also adds a new member, vma_pgoff_adjust; this is consumed
+>> by vfio_pci_dma_buf_find_pfn(), but will be set in a future commit.
+>> Add it now to reduce the number of functions touched by later commits.
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>> ---
+>>   drivers/vfio/pci/vfio_pci_dmabuf.c | 166 ++++++++++++++++++++++++++---
+>>   drivers/vfio/pci/vfio_pci_priv.h   |  21 ++++
+>>   2 files changed, 174 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> index 847ee5cc78e7..9f10b10fc436 100644
+>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> @@ -9,19 +9,6 @@
+>>   
+>>   MODULE_IMPORT_NS("DMA_BUF");
+>>   
+>> -struct vfio_pci_dma_buf {
+>> -	struct dma_buf *dmabuf;
+>> -	struct vfio_pci_core_device *vdev;
+>> -	struct list_head dmabufs_elm;
+>> -	size_t size;
+>> -	struct phys_vec *phys_vec;
+>> -	struct p2pdma_provider *provider;
+>> -	u32 nr_ranges;
+>> -	struct kref kref;
+>> -	struct completion comp;
+>> -	u8 revoked : 1;
+>> -};
+>> -
+>>   static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>>   				   struct dma_buf_attachment *attachment)
+>>   {
+>> @@ -106,6 +93,159 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>>   	.release = vfio_pci_dma_buf_release,
+>>   };
+>>   
+>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_core_device *vdev,
+>> +			      struct vfio_pci_dma_buf *priv,
+>> +			      struct vm_area_struct *vma,
+>> +			      unsigned long fault_addr,
+>> +			      unsigned int order,
+>> +			      unsigned long *out_pfn)
+>> +{
+>> +	/*
+>> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+>> +	 * search the corresponding DMABUF's phys_vec[] to find the
+>> +	 * range representing the address's offset into the VMA, and
+>> +	 * its PFN.  vdev must be the device that the DMABUF priv was
+>> +	 * exported from; vdev->dmabuf_lock must be held, and priv
+>> +	 * must not be revoked.
+>> +	 *
+>> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+>> +	 * upwards from the buffer offset 0; the actual PFNs might be
+>> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+>> +	 * the desired page given VMA start/pgoff and address, then
+>> +	 * search upwards from 0 to find which span contains it.
+>> +	 *
+>> +	 * On success, a valid PFN for a page sized by 'order' is
+>> +	 * returned into out_pfn.
+>> +	 *
+>> +	 * Failure occurs if:
+>> +	 * - A hugepage would cross the edge of the VMA,
+>> +	 * - A hugepage isn't entirely contained within a range
+>> +	 *   (including where it straddles the boundary between
+>> +	 *   ranges),
+>> +	 * - We find a range, but the final PFN isn't aligned to the
+>> +	 *   requested order.
+>> +	 *
+>> +	 * Upon failure, -ERANGE is returned and the caller is
+>> +	 * expected to try again with a smaller order, which will
+>> +	 * eventually succeed.
+>> +	 *
+>> +	 * It's suboptimal if DMABUFs are created with neighbouring
+>> +	 * ranges that are physically contiguous, since hugepages
+>> +	 * can't straddle range boundaries.  (The construction of the
+>> +	 * ranges should merge them in this case.)
+>> +	 *
+>> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
+>> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
+>> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
+>> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
+>> +	 * To avoid double-offsetting in this scenario, subtracting
+>> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
+>> +	 * the effective offset.  This also removes the VFIO region
+>> +	 * index encoded in vm_pgoff for VFIO BAR mmaps.
+>> +	 */
+>> +
+>> +	const unsigned long pagesize = PAGE_SIZE << order;
+>> +	unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) <<
+>> +				 PAGE_SHIFT;
+>> +	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
+>> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
+>> +	unsigned long fault_offset;
+>> +	unsigned long fault_offset_end;
+>> +	unsigned long range_start_offset = 0;
+>> +	unsigned int i;
+>> +	int ret;
+>> +
+>> +	if (unlikely(!vdev))
+>> +		return -ENODEV;
+>> +
+>> +	/* This prevents the dmabuf revocation state from changing under us */
+>> +	lockdep_assert_held(&vdev->dmabuf_lock);
+>> +
+>> +	if (unlikely(priv->vdev != vdev || priv->revoked))
+>> +		return -ENODEV;
+> 
+> All but the lockdep here smells a bit like the hardening Leon mentions
+> in the previous patch.  There's only one caller of this, we'd segfault
+> there if vdev were NULL and the caller justifies how it knows vdev is
+> not NULL.  vdev is derived from priv->vdev, so the inequality can never
+> be true. 
+
+Well, okay.  And to your point, I'd stated these entry requirements at 
+the start of the comment, and I can't see this fn being (mis)used by any 
+other caller any time soon.  I'll remove them.
+
+> The lockdep annotation is good, but that also indicates the
+> caller is responsible for holding the revocation state stable, which
+> they've already checked.  I won't draw a hard line on these, but they
+> seem a bit pedantic.
+
+I'd added the lockdep annotation (and revocation check) in v6 following 
+your https://lore.kernel.org/all/20260729115210.753ab8ce@shazbot.org/ 
+suggestion.  I'll keep the annotation.  The revoked check isn't strictly 
+necessary (being that unrevoked is stated as a requirement in the 
+comment, and already tested in the caller) so will remove that too.
+
+Cheers,
+
+Matt
+
+> 
+>> +
+>> +	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
+>> +		if (order > 0)
+>> +			return -ERANGE;
+>> +
+>> +		/* A fault address outside of the VMA is absurd. */
+>> +		dev_warn_ratelimited(
+>> +			&vdev->pdev->dev,
+>> +			"Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
+>> +			fault_addr, vma->vm_start, vma->vm_end);
+>> +		return -EFAULT;
+>> +	}
+>> +
+>> +	/*
+>> +	 * fault_offset[_end] is the span within the DMABUF
+>> +	 * corresponding to the faulting page:
+>> +	 */
+>> +	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
+>> +					vma_off, &fault_offset) ||
+>> +		     check_add_overflow(fault_offset, pagesize,
+>> +					&fault_offset_end)))
+>> +		return -EFAULT;
+>> +
+>> +	/*
+>> +	 * Iterate over ranges in the buffer, summing their lengths:
+>> +	 * range_start_offset represents the current range's starting
+>> +	 * offset in the buffer (from 0 upwards).
+>> +	 *
+>> +	 * A failure for order == 0 is unexpected, and triggers a
+>> +	 * fault/warn.
+>> +	 */
+>> +	ret = (order == 0) ? -EFAULT : -ERANGE;
+>> +
+>> +	for (i = 0; i < priv->nr_ranges; i++) {
+>> +		size_t range_len = priv->phys_vec[i].len;
+>> +
+>> +		/* Early exit if range starts after the page end */
+>> +		if (fault_offset_end <= range_start_offset)
+>> +			break;
+>> +
+>> +		if (fault_offset >= range_start_offset &&
+>> +		    fault_offset_end <= range_start_offset + range_len) {
+>> +			/*
+>> +			 * The faulting page is wholly contained
+>> +			 * within the span represented by this range,
+>> +			 * so validate PFN alignment for the order.
+>> +			 * The if() condition ensures the pfn
+>> +			 * arithmetic won't overflow.
+>> +			 */
+>> +			unsigned long pfn =
+>> +				((fault_offset - range_start_offset) +
+>> +				 priv->phys_vec[i].paddr) >> PAGE_SHIFT;
+>> +
+>> +			if (IS_ALIGNED(pfn, 1 << order)) {
+>> +				*out_pfn = pfn;
+>> +				ret = 0;
+>> +			}
+>> +			/*
+>> +			 * Else order > 0; ERANGE retries with smaller
+>> +			 * order
+>> +			 */
+>> +			break;
+>> +		}
+>> +		range_start_offset += range_len;
+>> +	}
+>> +
+>> +	if (order == 0 && ret != 0)
+>> +		/*
+>> +		 * The address fell outside of the span represented by
+>> +		 * the (concatenated) ranges.  As setup of a mapping
+>> +		 * ensures that the VMA is <= the total size of the
+>> +		 * ranges this should never happen.  If it does, warn
+>> +		 * and SIGBUS.
+>> +		 */
+>> +		dev_warn_ratelimited(
+>> +			&vdev->pdev->dev,
+>> +			"No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %u ranges, size 0x%zx\n",
+>> +			fault_addr, order, vma->vm_start, vma->vm_end,
+>> +			vma->vm_pgoff, priv->nr_ranges, priv->size);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>   /*
+>>    * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
+>>    * It allows the two co-operating drivers to exchange the physical address of
+>> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+>> index 4e7162234a2e..786df3a81d9d 100644
+>> --- a/drivers/vfio/pci/vfio_pci_priv.h
+>> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+>> @@ -23,6 +23,20 @@ struct vfio_pci_ioeventfd {
+>>   	bool			test_mem;
+>>   };
+>>   
+>> +struct vfio_pci_dma_buf {
+>> +	struct dma_buf *dmabuf;
+>> +	struct vfio_pci_core_device *vdev;
+>> +	struct list_head dmabufs_elm;
+>> +	size_t size;
+>> +	struct phys_vec *phys_vec;
+>> +	struct p2pdma_provider *provider;
+>> +	u32 nr_ranges;
+>> +	struct kref kref;
+>> +	struct completion comp;
+>> +	unsigned long vma_pgoff_adjust;
+>> +	u8 revoked : 1;
+>> +};
+>> +
+>>   bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
+>>   void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
+>>   
+>> @@ -123,6 +137,13 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+>>   	return (pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA;
+>>   }
+>>   
+>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_core_device *vdev,
+>> +			      struct vfio_pci_dma_buf *priv,
+>> +			      struct vm_area_struct *vma,
+>> +			      unsigned long address,
+> 
+> Nit, address in the prototype here is fault_addr in the actual function
+> definition.  Thanks,
+> 
+> Alex
+> 
+>> +			      unsigned int order,
+>> +			      unsigned long *out_pfn);
+>> +
+>>   #ifdef CONFIG_VFIO_PCI_DMABUF
+>>   int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>>   				  struct vfio_device_feature_dma_buf __user *arg,
+> 
+
