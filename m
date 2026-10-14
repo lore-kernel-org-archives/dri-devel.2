@@ -4,89 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E39BCC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79426CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 268B6112190;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3250E112192;
 	Thu, 15 Oct 2026 07:57:19 +0000 (UTC)
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
- [74.125.82.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 724AC10E472
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 15:55:39 +0000 (UTC)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-33c2520ad38so9757705eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 08:55:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791993339; cv=none;
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8349210EABD
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 19:25:47 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-3a777d4f321so38869781fa.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 12:25:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792005945; cv=none;
  d=google.com; s=arc-20260327;
- b=J4z6PtODnhIQRvWYpDVZTypFBqksSvSqsWQHezeS9LAgsJV2gl5P9VcZapdaJfwWDT
- YH2xYtBqM869ANRfm9IxtdmAL7mBIe15WTFKh0xJEW1T5a2axHRPye1dcgYA/R+YHjSb
- iXPZXH8a86QU+zz28NZ89YuvYi8kbfLufKZ7NNNPlxI+23NUoUr5dB8Pde+vlOAbXoqB
- 7efd7ACBbzThdaIH8+VEwi4leJ9Qoygk1D0lchh0Txfm6JjL9PFi4fJlPNKNiqZ11GEg
- zuUbg5NKqYkQHJgie4H5BeJtfe6k0usHulItL+NrPSLYThdCxuQplnOubWkSBYNdZD1F
- kCCA==
+ b=R0a05L+HgFEwwBa12xdp+X6a6lqyMLdjn9vs5XLWYMEUZkpOl54D5abBr6lr8I3lsl
+ f1b5fLD/BOg6Sv3Yblv5fdxrVJjXxac2kEpxbBt2lsAficQIyLXxtJA2JAC9cz6sZyXF
+ RcdahRbB751neeSEpibj2bYhxM2Khhj3eIHDb5q2mgC6EH7ZWJ9FPZYvRX2l7vXuOTMO
+ qX8Js5oWi6EvVUQ5kzn7Rvsvubonuv64LbsC11ZToBSu3A5PNk5QxTnn52raCZfxGXuD
+ 5yTu6W9aKsW7LXYE+GDfNwxdTbwN35oBd2aIghLzYlpMUR3PaySQIKJ6HwBwDwTzRbuq
+ XbnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=2XXdOgd3LhsMPgu7e26Zyz/aXhCrCbllsm1LzmgfNuM=;
- fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
- b=nR53X3pXodPTt82A17v5DPY8hJtfrKP7JomBpq230bhUobtRSKsmm4tmg8cfnYceUA
- mWpi8hBqdIIxJ5TzMz715zf5UsBTKIBz4HBLIpFk5AfKqRn3kbw7F4TeNtlddDxZDoXc
- O8Rp6iMb4VtT166OC2vizOyDXR83WxjBx/sQfHALBPb3WOK190zXbDNm9CZuc/AIigVC
- TCTXnyM5cBRJfK5e7ytupvN9HIl1bxhRiJJmTEkel2dpJHaNmHSIhdPF0zAzTWECBDY0
- 9IEO4bWRxpq9dZGfH45nruQAyQCD0wii8oUBDIEHZEZo8hKWMslDN73Cr8MmeDaUTSJu
- HIbQ==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=582l4UN9d8ZpIIQBKyvfoe2ud1OuHObN9VtOBwz13Bg=;
+ fh=npddJpSPRUKKA48kYlldySnhtDIJKkWR7iiEZ1ehQqE=;
+ b=L/1D9x4OPI9SOJb7CygfErZiIYF1V9NYw0rcIp88YDwoRWjcAFBtyZo6IJR0PucoWL
+ Ovy3/N8heKIloNfrPDcSYB38ct9/qRC6FWTo8vjUx+ZZm/f0u1GEIOpyJE2TJPsfAD3Z
+ DzpztT5A0MW517/7mXmDmp24o0sI6qudeqCmyeHXvuSmLW5xEVktfu5EDkXrRPkoZea6
+ tPRhzKTzTIA5eXIXWS6QVMJzSfsYiAj+oT95qU9UmI01IXxOFGpqAMcYEwEYIPk/MsMz
+ jom2XZyoswfCPBmQYSvRDHBxtUnk+kM5Q/vVAZkky4qmZOzdJqC6behBVVkwAn7bd52h
+ YrRQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791993339; x=1792598139; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=2XXdOgd3LhsMPgu7e26Zyz/aXhCrCbllsm1LzmgfNuM=;
- b=iV+ncuxQM9C4O1OoWpdOX+KoY0I2m1vI18YkHPVw5n2/CFLL7pevE0je1eC6O4KEI/
- wJZKMFw7w4vKg6j7hRx335UinTHoq/u6XLNSqOXB7qwkdRg1PjGjvCamW5XrjijePwGB
- dB/owNwipbk7+y+HZPN1xbQ9vcf53GGIvtIlqrW+VRPGfj0m9e1F23adVpTZWY5IO10m
- U7dk2HYCT/fzDi36RAE38VOfDuBW9bpPkAeub2xZmbSbD5Mw5Ycrjr6ggQN5l4uSd7aM
- 9WACrg3a1e3MV40w1vp5a+PKM6ve7QHlMq4PO/RNYbawqMMlBOVUP3sqA9lhq0L4uL39
- pRSg==
+ d=gmail.com; s=20251104; t=1792005945; x=1792610745; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=582l4UN9d8ZpIIQBKyvfoe2ud1OuHObN9VtOBwz13Bg=;
+ b=rdhIPjal3xwf5B/fHe2FJrDB0SOqRCRRMc5x8T/yHgYm6BTikN0bMlOKP/i2RJ+tao
+ owsDpw9E7mx3hjheFVVjIF9r22BRTCtr9Pb0qKrvZp7dum/Iu22aR8G3VPhQFf+BvEDK
+ MxCuku7JFrXPb71umQk77M4wewsiSgNUhPj3qMAFCKTFz46EmGIwetcfICWkcHoQgHGi
+ IMDqtWf/UGi7gXhNpqASxyDLMR08+F00DhJAtDAofsTQbrdQvHlHzFq9MLZCczsA7cgc
+ gNrR2QBqwlEdCDHc2cZrtlKt5WEXHaSraUpf+IIqXRl9mwJzRpkbiCrtafze3h1nltmr
+ Hvbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791993339; x=1792598139;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=2XXdOgd3LhsMPgu7e26Zyz/aXhCrCbllsm1LzmgfNuM=;
- b=Joi+ePpoTrV098n6u5Ay9gCNl9TZcGz0Qw353P3RZZpcLhz9ThXrLpdMUmW8uHNzCc
- 45A5UWbMvEYrSbvgB7l6Crlo5i1THDbLLw+ZkSTm9tnZB28QaEZzR0Y9env/0XN/t/62
- uHdVycWBFjtSN7waKj6QkGDkOYgRcoT2Aq0S+gzOq73p8muoJpjuK4QYOj/TzBoFFzM+
- 5gLfWtCL+mFWmPHSqSW1gO7BcZZgSIY6rMlsk7z7JT8rs45YOo1j1Xa7d5UFwFw0nExw
- jh7ITpMQ9IUphULNkGAMoF6ILJs0ySfTiEw6H3VrPaq/uhmHEmKGxxm3rO5T4KfEF2Qn
- ey2A==
-X-Gm-Message-State: AFq9FYLLldPtdxlhSPd13gcW5O1RALLPzoH/E6wcLpWy50O8+U3kuQDn
- ewQNH9ghsI7aE/90fwQ+HvbCpIiA+Nu4TtbLudJwTCUlmWy28Qyb1PnHvM/rLB8lbeNHRf2bTny
- gWXsX7od8doOZZerHv+4wRkjGlXmoIGFsYm/2
-X-Gm-Gg: AYBFou1JBkI/MHQpBHw0qjjaE5l3E/qaPd82oWx6N/9RwDGXTfgSlDWzq6cdxGiVrrt
- nVjuXPRlXT3tDFDp5OXSfZouMtcTNdcveHUpR/TU0G47JTnmGOtC2tZQ4Fc2VAQwFa1toJQp3b0
- lzMG/ukABVdSp7B9wQ6qpUv01R/oTwBj8HYqzCLAF6eXP9kmCN5VEbV9U6WNi3CPtpECnBuKFXo
- ZQBe7YSsiaeZzNXz1ruJsXKkNxZSjg0qFXBszY2VIWF+LlEX/lOGz/xjYpyKhsoHSIDjurZpebg
- TlXmUSOuIOxFW2oV0d73g9nF6B2fGboNLS9IyN/sgsD1i+hDKsSmySzunQ==
-X-Received: by 2002:a05:7300:f582:b0:353:5ae1:b0f5 with SMTP id
- 5a478bee46e88-3537e101bf0mr22008049eec.26.1791993338445; Wed, 14 Oct 2026
- 08:55:38 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1792005945; x=1792610745;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=582l4UN9d8ZpIIQBKyvfoe2ud1OuHObN9VtOBwz13Bg=;
+ b=ILQJ+oT6S3XMNUk8HFAl4Q8eYpVwJrtSCF0r1yxv/+vjYU/dcNef5qIuF0teBmcjbN
+ sdZheX4IvhRBg/XTHqeni5wYupt6rDXOcQUfjxtPKgu5lsAKQqN0Hu+/62GzUTVo08an
+ 5M0sSfvynrg+OqlUvWezXMhdIBTLE/2+cMhr0IJPp6QsDvegS9PBVt1gfFlbyk8f1hZ+
+ oDhnodANybpGtkhDVD2y16jwuoVZVWhYci3hKhyxOx1hqd4TCIjkzvLXmRlGjjlWg/Ic
+ HPmeG3KDKP1qNb4Ey0nE04mOvIvBtdxq5cjCyzpMcR4ZdRTJQMY3zW0Y22pH0uC/CI46
+ Z8/A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByxR7mK9e+k84Ef6ZvNx9rhApjTytkV9VkTmVXo52y3HgTmafS2bP9gZvLYTN+qILjsSCBzuoD+ILo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIcbUmmvjnDmDUF0tWglox0J9/aT26+x8AQDsN2NryEPKO2r7NM
+ CLMrBr81g3kkb22WGtkLKU0bjOq764nq9NX7I/3dA34WTY85xG2JiYC6bTm04nH9EutxE+HtYuG
+ ZBHHwjXHf33G//lqlZlJrTFylSPoAzZk=
+X-Gm-Gg: AYBFou26slcLF68yxa5scEJ9COHH3u/xAIDVDfl2jcbdk3Ga5NUhvun0zs4vZmOp83b
+ s5oGsHbLuLmZZtcl1uPp+H8BWtsv+wXT40jaZrxSkKGX2ZNChcu9FsUgXUjUac4RRFecLvIEBEx
+ 5/sGJX0pT6+ZHNsqt+59IgDK9PuRxBtEXVNn8P87PI5MfXApIkM7baXeoyPnDV/22mKfg94qt/3
+ vTMvOf1t48dIWTdBVueDvXj2lxWOFSkfHhIS50Cqmu1lFemZHALDF6c++LN4oXcDACDv6I0hpsV
+ I33CojWWlHa/py8wMF90tGavufDcTJ+oX9mrThjvAPoHKvoP73WO3KuM
+X-Received: by 2002:a05:651c:b28:b0:3a9:9b0b:e0e9 with SMTP id
+ 38308e7fff4ca-3a9c539ad00mr43922551fa.6.1792005945250; Wed, 14 Oct 2026
+ 12:25:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <20261012190249.3167-1-henryzhang62@gmail.com>
- <20261012190249.3167-3-henryzhang62@gmail.com>
- <sashiko-outbox-168575@kernel.org>
-In-Reply-To: <sashiko-outbox-168575@kernel.org>
-From: Henry Zhang <henryzhang62@gmail.com>
-Date: Wed, 14 Oct 2026 08:55:27 -0700
-X-Gm-Features: AclHuK_eh9bczZI4ebGr5UhWIqsDinkzAv7SQWdD090e4uC4ltYZQMFfxCEVzUk
-Message-ID: <CANTW0yoUt9v5xgMQxRWdOGyWVxTW0x_o1=qwuLPjSCDq_DkkUw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/vc4: dsi: Recover from a timed-out transfer
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
+References: <20261004212403.208681-1-oss.patchbox@gmail.com>
+ <asm4DV84UitLCbve@dell-wzy>
+ <CAGG=RgApzG=MeZ9xbpeBzqE0i0Q6RCPXtnyS-30JfEDPDKNN0Q@mail.gmail.com>
+ <as4fKufR2O21NWk5@dell-wzy>
+In-Reply-To: <as4fKufR2O21NWk5@dell-wzy>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Wed, 14 Oct 2026 15:25:33 -0400
+X-Gm-Features: AclHuK8bWEAIT_jes9eLRLNmTdyx38C_iJwbW3y3L5STgV7Y6fOZaRlXyp6RKPU
+Message-ID: <CAGG=RgDVsPHjLMTEgoqjh17hfnBUg3WUeca93VrDS7NTshHsOg@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
+ still in use
+To: Zhenyu Wang <zhenyuw.linux@gmail.com>
+Cc: Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin Zhang <xiaolin.zhang@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, zhiw@nvidia.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,154 +110,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2026 at 12:16=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+On Tue, 13 Oct 2026 at 08:08, Zhenyu Wang <zhenyuw.linux@gmail.com> wrote:
 >
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
-> - [High] drm/vc4: dsi: premature controller enable during timeout reset c=
-auses hardware instability
-> - [High] drm/vc4: dsi: spurious completion due to IRQ handler TOCTOU race
-> - [Medium] drm/vc4: missing mutex serialization in DSI host transfer
-> --
-Thanks for the review.
+> > You know this code much better than I do, and I can't test it without
+> > GVT-g hardware, so I may well be missing something.
+>
+> I can understand that but I think for any non-trivial change or
+> for sensitive part, testing is a must...
 
-1. Agreed. Mainline's pre_enable ungates the block only after the PHY
-   timings, timeouts and DISP1 are programmed; the restore must follow
-   the same order. Will fix in v2.
-2. Agreed. The race predates this patch, but the timeout path is the
-   right place to close it; v2 will call synchronize_irq() before the
-   reset.
-3. vc4_dsi_host_transfer() has never serialized transfers. I'll add a
-   separate patch in v2 that takes a mutex around host transfers.
+Understood. I'll hold this patch until I can test it on GVT-g hardware.
 
-Henry
+> > The case I had in mind is the guest mapping the same page at both sizes
+> > and keeping both, e.g. 2M in the PPGTT of one context and 4K in the GGTT
+> > or in another context's PPGTT. If the second request replaces the entry,
+> > the first shadow entry seems to keep the old DMA address, as
+> > shadow_ppgtt_mm() reuses a PPGTT that is already shadowed. Is that ruled
+> > out somewhere? Please let me know if so.
+>
+> Shadow ppgtt is created by a PV interface, so each context would have
+> separate shadow ppgtt or shadow mm. GVT handles guest page's dma
+> mapping per-vgpu as for per-VM. But GVT handles context submission in
+> order, shadow ppgtt is populated for each submission. I think even in
+> your example that possible one page mapped in different context as 4K
+> or 2M, it would be remapped as size doesn't match for each submission,
+> so no invalide dma address access.
+>
+> I doubt if i915 could possibly have such case in reality..
 
-> commit b73bc40cfc01c81e251315be152ff0c2c6aa9361
-> Author: Henry Zhang <henryzhang62@gmail.com>
->
-> drm/vc4: dsi: Recover from a timed-out transfer
->
-> When a transfer times out, vc4_dsi_host_transfer() disables the command,
-> resets the FIFOs and returns -ETIMEDOUT. This commit adds a recovery
-> mechanism that resets the DSI block and its analog front end after a
-> timeout and restores the configuration so DSI keeps working without a
-> modeset.
->
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.=
-c
-> index c092a1aaf700a..3783ff3eeac97 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> [ ... ]
-> @@ -1359,6 +1358,93 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_d=
-si_host *host,
->         return ret;
->  }
->
-> +/*
-> + * Reset the DSI block and its analog front end, then restore the
-> + * configuration done in pre_enable. Resetting the FIFOs alone does not
-> + * clear the state the block can be left in after a transfer timed out
-> + * (e.g. on an LP receive timeout): every following transfer then times
-> + * out as well, until the next modeset.
-> + */
-> +static void vc4_dsi_reset_and_restore(struct vc4_dsi *dsi)
-> +{
-> +       u32 ctrl =3D DSI_PORT_READ(CTRL);
-> +       u32 afec0 =3D DSI_PORT_READ(PHY_AFEC0);
-> [ ... ]
-> +       DSI_PORT_WRITE(DISP0_CTRL, disp0);
-> +       DSI_PORT_WRITE(TXPKT1C, 0);
-> +       DSI_PORT_WRITE(CTRL, DSI_CTRL_SOFT_RESET_CFG |
-> +                      DSI_PORT_BIT(CTRL_RESET_FIFOS));
-> +       DSI_PORT_WRITE(PHY_AFEC0, afec0 | DSI_PORT_BIT(PHY_AFEC0_RESET));
-> +       /* AFEC reset hold time */
-> +       mdelay(1);
-> +
-> +       DSI_PORT_WRITE(CTRL, ctrl & ~DSI_CTRL_CAL_BYTE);
-> +       DSI_PORT_WRITE(HSTX_TO_CNT, hstx_to);
-> +       DSI_PORT_WRITE(LPRX_TO_CNT, lprx_to);
->
-> [Severity: High]
-> Can writing ctrl & ~DSI_CTRL_CAL_BYTE back to CTRL prematurely un-gate an=
-d
-> enable the controller before the subsequent writes to timing and PHY
-> configuration registers?
->
-> Since ctrl was read while a transfer was in progress, it contains the ena=
-ble
-> bit (DSI0_CTRL_CTRL0 or DSI1_CTRL_EN).
->
-> Writing it back here enables the hardware block before its timings
-> (HSTX_TO_CNT, HS_CLT0, PHYC, etc.) are restored, which could cause errati=
-c bus
-> behavior and unrecoverable hardware states.
->
-> > +     DSI_PORT_WRITE(TA_TO_CNT, ta_to);
-> [ ... ]
-> +static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
-> +                                    const struct mipi_dsi_msg *msg)
-> +{
-> +       struct vc4_dsi *dsi =3D host_to_dsi(host);
-> +       u32 disp0_ctrl;
-> +       ssize_t ret;
-> +
-> +       ret =3D vc4_dsi_transfer(dsi, msg);
->
-> [Severity: Medium]
-> Does this entry point need a mutex to serialize concurrent transfers?
->
-> If user-space concurrently triggers DCS commands (e.g., via sysfs backlig=
-ht
-> updates and DRM KMS modesets), they can race because vc4_dsi_transfer()
-> modifies shared variables like dsi->xfer_completion without a lock.
->
-> With this patch, a timeout caused by such a race now triggers a full bloc=
-k
-> reset in vc4_dsi_reset_and_restore(), disrupting any interleaved concurre=
-nt
-> transfer.
->
-> +       if (ret !=3D -ETIMEDOUT)
-> +               return ret;
-> +
-> +       /*
-> +        * Leave the block usable for the next transfer. The message is n=
-ot
-> +        * resent: it may already have reached the peripheral, and only t=
-he
-> +        * caller knows whether it is safe to repeat.
-> +        */
-> +       disp0_ctrl =3D DSI_PORT_READ(DISP0_CTRL);
-> +       dev_warn(&dsi->pdev->dev,
-> +                "transfer timed out (stat 0x%08x), resetting DSI\n",
-> +                DSI_PORT_READ(STAT));
-> +       vc4_dsi_reset_and_restore(dsi);
-> +       DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
-> +
-> +       return ret;
-> +}
->
-> [Severity: High]
-> Can a timed-out transfer cause a spurious completion of a subsequent tran=
-sfer?
->
-> If vc4_dsi_transfer() times out, wait_for_completion_timeout() returns.
-> However, if the hardware interrupt had fired and the threaded IRQ handler
-> (vc4_dsi_irq_handler) was preempted before calling
-> complete(&dsi->xfer_completion), it could still be pending.
->
-> Since there is no synchronization (like synchronize_irq()) in this timeou=
-t
-> recovery path to wait for the IRQ handler to finish, it returns immediate=
-ly.
->
-> The caller might retry the transfer, reinitializing dsi->xfer_completion.=
- The
-> preempted IRQ thread could then resume, calling complete() and falsely wa=
-king up
-> the new transfer prematurely while the hardware is still busy.
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012190249.31=
-67-1-henryzhang62@gmail.com?part=3D2
+It does seem to happen: 7366aeb77cd8 was written after the same gfn was
+requested at both 4K and 2M during an OpenCL conformance test.
