@@ -4,124 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C6CC3DA7A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6DC9C3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74D4710FE7A;
-	Wed, 14 Oct 2026 16:44:50 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61AB910FE01
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:44:44 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4a1ad2e2391so15719285e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:44:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791996283; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3714F10FEB4;
+	Wed, 14 Oct 2026 16:47:43 +0000 (UTC)
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com
+ [209.85.217.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44D4310FF2B
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:47:37 +0000 (UTC)
+Received: by mail-vs1-f54.google.com with SMTP id
+ ada2fe7eead31-7c7ffa979fdso103793137.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:47:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791996456; cv=none;
  d=google.com; s=arc-20260327;
- b=CmEfy6TlW9hn2fWtKl5SrhyXyH4GwOjbXs238mf/Gvl8TSL5wozloLSRgCJPAwbIn5
- clCwS1cTx/H3uL5eG++YhBI1ywmZrnDrDKNOEuZqUNjDoB9LuBV8v0GhKCjDZHU7JJwQ
- PfZKeZmyqNMGFhcG1Ol0PHggVLk9QTNwGlJBHkviGeetzB1tG9aStC6YCuirPeqwi6AC
- AyEPlClYAgwKjK45FgjKtGtDQ2oP/fmeSPELiZwE2xR+8wNKPu4yr1DZCQqSz+pVXxAO
- 9rxAm6FzN8JLpzTS2KdqZN6qggHhHlT6b4uB818sYSRoCdBxYwy18XJmLSCRHs5pa92R
- GKPw==
+ b=ikihtDwSDxhW3nl5HdP/+SWQlQz9SLDu9NHwYqj/CMCyr2Mzy/AlbJmB3kthP/4RIk
+ USduiP4bXLsrghu2Y3IQYYQA1Uv0szyKlVy2HPfhbpxsUPrMqRybkbt5rdlsFQHA4JuM
+ mUnvdfPQcrmAagyKcPc/MY+Zu0Dr8+LXy5l7ROhkiviXWfv3UrGr9VWVohwEg2uVG0pR
+ j017mWNpVJGv2XX1nAS/HwfGlBRJdJakMmStqxXUr4FNQhIjyhXdW8+iPuJog9q5yhgH
+ zHB/Z7X0qSm2Gd/2iPi3TZFfKA+w3nBYJ4natQsoZWJDSjrvGSJ7OkwyruQdzhNJWRZq
+ DGiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=hsPwLhsDZInozncTdS3m6Cc033xIb80Yu7bEmy4I9fE=;
- fh=3PzL/biZR3jiDUsLhzSweetJLht8KVwJfu3YXcWRcl8=;
- b=XzY2BF66ns0qPDthtvfJC9KXSWdwRXQqxUXu3IFfSg6IXrLTyuR33qi+/nWe6z+k6j
- AWQA2s+S6FAE791A1UFUImcEwDmoGBITPKrjRGxiVv2y/pkwUFFvWt+7E0EUbTcLrw5e
- cPiTMyx2IMZ2P2Red8JdDMOB/jN/CpxGLljA5hAIXyB4niS7l/RrWJNIq6mEa9iSGbsh
- RyS41/iJQ6JvSsZrDS1dAIipMNTbcwLBIMfTTIL1o9P9htaJ99ZJhlUvdGp8E91/uzXE
- TLug8aAQM3pv9N6uhn3rQFIRyFymr/oKN5OLfFyQfOdzqgZXi0dtJ7ZPt3fllQbfPFS9
- S9Xg==; darn=lists.freedesktop.org
+ bh=aY4wa9XVG4bLBUrDNf/alpBmZD4Uo9u08+8/BssSkZ0=;
+ fh=gUMi4CSbIAKOu2OpuWKl9yy/5xevSjo/rfgeYkZuF+g=;
+ b=st/bLj3r8+ME+TDtLIwnaMOTYuXREo2k2F7Phb/qhd+sHYsnuw2S0AOP+M+Q/9hzrZ
+ D/k1pFUce6APRgfcRzB+bhpuwSzb82WVAih9kcqXDDlvOUeX7PF3W12WPOZycENjubnP
+ JGvg/JhcIOLrUu/01j/0pFyd6fLTl+tn94YjUHp2OItN22X6nsj5xTfqosJSxjobM98y
+ I5cFu5POES7RxI9QEcNC6FtcTvgH/fqYlqlHida/r6lSbnhZ67QQV9isCXLwNPqcXmaf
+ zWNWHVca6KeUPjRJsJzujq+HRNyZ6phJ/akCtiw63fKApNCxdaM2BAnSc6PtA20qeIYp
+ H96g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791996283; x=1792601083;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1791996456; x=1792601256; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=hsPwLhsDZInozncTdS3m6Cc033xIb80Yu7bEmy4I9fE=;
- b=ZReJNgdfC/q5Pfj68Q+6y9L6c/Es/fQ8caAJ9Kq5ytloCYUppTXSPFjPHACHbbLzHw
- z/50jN+e5h1Xjkds3yi5snJZk5VnI7bjSSRA2/bEs9AdDSx4yoKUGPiwMwD+IHmDztlI
- Y3Kqk83zyXj54fJlLq1O15uKCCOQgpbwtmP2j+5UQjiiq6saHLOJHxDbB+5VHt3bx6pr
- VIUrJ1pL0qTVnbSecsIq/sVZJnmJW3PRYTjB5CALSbTjyj6tHwnr1OgfCO2qBngVeS+n
- oNKxX4jK3FIx6W00Cn9etpphccOxlReGmPvOz6md0jNAm0G85V10OsUHr4aMW0m/YBbP
- BhdA==
+ bh=aY4wa9XVG4bLBUrDNf/alpBmZD4Uo9u08+8/BssSkZ0=;
+ b=W3b0BlJZOD8HiXgUbLz+iyk8sjppk90//guEsFE4Z5xj6jCsXPoIb37c9Yy01ULo1L
+ XaRM+G5DtlwAxs0z60sgen+loGoufdF3lJOmJ8LR6AnC4dYvyAfxMX/tPV0Edq6BEmoq
+ 6pkFFcify2aoy2Bf1i6ELlXXNPw6E4qVS/swe7GDzcB2jniZlk/wFMZrSqFKPqIpcJZC
+ 5ac+Lm7YLgH/KJ/4VknA9zaJBCB9IyvDQt11ziAd4mGf8DpGSGEkeEoLPjiPPlODG1rd
+ 7lhUZ7AkVv6qiFOUdxzPsRzTm7+d5Ttk+W12BWmZQpcsextD6sL/5jXes9WodxZYKw9r
+ QM0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791996283; x=1792601083;
+ d=1e100.net; s=20260707; t=1791996456; x=1792601256;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=hsPwLhsDZInozncTdS3m6Cc033xIb80Yu7bEmy4I9fE=;
- b=jgzfsfZCF8hLCNHFXBR472DzoklKBmp8ieEUtfLRkiw9PPX3Hq7w8Lpu1wGY46lF8v
- 6cFUFcGs/w8FCvPaWG7feAVy7jUyTF7lipMOIDS/+aB9h9IJ/1dbuD35OhJ4jhhWqwdv
- cq/2WzgCsmdpWYotHpT0zzL9mI3ftJ5Nz6vW7NLjWJi/F1OSN7HXO9P+hAUOIfR+FH5u
- dvtbXjsRPjIis5Q610pjOueL3zc5wyl1LQTFz5xNHkrQ0Z8y0uV5Pfhub6rA+2ccrVcl
- +WY37RxPSJXNKeVuvN6ytZzm3+brfPWNXyMHzr3Ff2CiVYSDPP7UmUHiyhHO+T/+wnKQ
- AdTg==
+ bh=aY4wa9XVG4bLBUrDNf/alpBmZD4Uo9u08+8/BssSkZ0=;
+ b=XBymysuTxIdgLtJ5aEfTRcGyEBop4yB4u6/mG9RVptGZDpi4zF9VUyjjkXVeryumJe
+ oeSs6Na7R+s+vWk0l2i/dp1ZyUhMg0L3vJWfyZH0dU8K9NirJD6nKHGg9Q+A0PoCAOdF
+ DxM5E2zWu1TywsJ+YaQU/EmxLhRYL+5esvso9ZRfDnSj7HigMQEWvkeuMSe/E0nZF8DG
+ waCLbD05cicg2R+zytCet8SFrV8t4O+3Wu4y+WFgx3R6OPxQ13H85Nc0LYzST4kSoi2G
+ lRcyMc6XH2U2TKe/XhIgoKN2YBb4SKy9JkLyzrQC0hcRJIojC25cG8nLlsYnvFf6m+Qa
+ eeLQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxYsgScmeM8HSiZyZri3WVVnxAd5qiPivVpwEcGs6KdKoA+Y2IALa1gYIRp9ZrTqRbfFlcErssyP0E=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL6CnW9vD6n5/tGFGmA+ivUgbS/0ynVRjtzUGycJXoMAicgxq1w
- Vcsc1W9E+rTHyYLJQ1qwEVNHvfxN9CO8oqA+DN9CE6ULvcu4a4hjSclkcPZFteFFYwTjSzXEH6K
- a8KhBJCesYzJESLQWCkkoGjpkO984GarXnDnRr1u4
-X-Gm-Gg: AYBFou0wyY9kyz8fXA+3SgzXn3rScrZOWItOEQ9jvG7F68ZoMlsz4yM3lXg6X1fP7PX
- zOqYGFUrJ6iibcyODRmIfWKFNeF0PWiobMOW67PXkp+5fvJaA9MAp36FG0D/Wc3410TP9XOTD8F
- gr08SlB7Jb241s02qfOD3qDKrnO6Gx+wSK9pw3JT9BtXKAj/qcf3/VYcEj2BSWVNpnvPyMFgkp8
- ooxYZlmH9PL9GE0iwswgFw4oYOewfVlwXjsYqfQk4wUyuo0zRGGWaZ/qGq4b3ZKKl5qKJMfi2Qs
- xFgw3rfHqisPmvwxV5Ade/gZ4F6HrMxmPvMwebRdzHjTitB8G56YX48O68R+7a1Um+IMUJ2tVEH
- V831tjUkIkq28v7Wc+w5Q5mPCJaxXfoRpqKxGixTUXQJjKuiv36xKDuYa4XLHw9g+aPcoBKqkX5
- KnEIU14JMkJjMJ1g2D3vwgoGT69e0UPqlvLuL9YdBop8sq62DQUDMN
-X-Received: by 2002:a05:600c:354a:b0:49c:d019:70c5 with SMTP id
- 5b1f17b1804b1-4a18e3ef23cmr329192565e9.0.1791996281614; Wed, 14 Oct 2026
- 09:44:41 -0700 (PDT)
+ AKwUvBxe4Pc1ZZdhbxPlqRZy62DNMZb3sTz1waSpD0RtvLT/qhhjr7Zn9fiBefZL54jmciYYt3AgieQL5v4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI8mLci8ppLcm4NTTBeFapCwYHdMtOcdaFhkoRHQ8dD6+F1VLP3
+ SkDF1XIQVhx49dzt7j/RsDPJsozOq/EpR/VlB6Z+pfrYDux7rJtRoGJjcvOx94Nm8lrG0/HV8u+
+ FeW8Ds+hG520TbRSIpYq3gMDOXr6pad0=
+X-Gm-Gg: AYBFou2u4ADZTedYZ9F2Y2HtsGAdUk2YyCcZFLc6TZ4M/+8Bork1fpi1UMc7dowCmtp
+ trg2HyrZjtjEjibOBSNIQm/TFHazFgtK9wG4xv04NJYefHCULwVrz2O41qt9MUc8e3lCOV0WTln
+ hQl83Ir0LWVBdIoEJiemNBfPIboDiEC4EZblOicAWrGG5GTbcxDFKYiLBLxYlefKSHI0Jy69WYI
+ yf15NFuF9JsGrVaxhJvsmRg3w8Dp9AyPCBMJ1P1PYdRayhkStpTZJfMjevkNn0o6njtStZ17cvB
+ o8iBbUo3z5XiPqrRb6/r8X+tscaMpNL1eHmFTM2IsoOUYlxfH9w2ZRwEKlxiYz5EzotXGJ3PJyK
+ XiSCUy2PtYlpaEQQX4ZAtEFui9Ma/VamWCurWsvz8qcezbCkPi9Fu
+X-Received: by 2002:a05:6102:a4d:b0:7c8:3b8c:82ae with SMTP id
+ ada2fe7eead31-7cb372321bdmr4394184137.2.1791996455921; Wed, 14 Oct 2026
+ 09:47:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20261013223946.1836757-1-irogers@google.com>
- <20261013223946.1836757-2-irogers@google.com>
- <CANiq72mLUh1JB=9e=tqStuL_H3=Ormx5v-uFkCDp-0zZm7tBrQ@mail.gmail.com>
- <202610140937.B68C8C9AAC@keescook>
-In-Reply-To: <202610140937.B68C8C9AAC@keescook>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Wed, 14 Oct 2026 09:44:29 -0700
-X-Gm-Features: AclHuK9LUe2FvddsKjj0vYiArabpm2vrSaqioSsrjl7koqqOn_VyYRh6l-6milM
-Message-ID: <CAKwvOdm6nO6skW4-AZtmzpGoNyO126L_AN3Mz2fu23+3QXcshg@mail.gmail.com>
-Subject: Re: [PATCH 01/11] Compiler Attributes: Add
- __require_explicit_initialization macro
-To: Kees Cook <kees@kernel.org>, Ian Rogers <irogers@google.com>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, 
- Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Nayna Jain <nayna@linux.ibm.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- driver-core@lists.linux.dev, llvm@lists.linux.dev, 
- linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261014002858.172853-1-williandossantosdeoliveira287@gmail.com>
+In-Reply-To: <20261014002858.172853-1-williandossantosdeoliveira287@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 14 Oct 2026 12:47:23 -0400
+X-Gm-Features: AclHuK-US1t3rz7_G3sKamqA-AukmKWflQ6FjzYQPCWKb7Z5Q5Xcc6YpUewNkao
+Message-ID: <CADnq5_O0gGsDD96KkCTc71rPh1QJsBnWPw_XVvuwRoRQ9Wbhjg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gfx8: remove redundant RLC cleanup
+To: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -139,49 +104,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2026 at 9:37=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
+On Tue, Oct 13, 2026 at 8:46=E2=80=AFPM Willian Oliveira
+<williandossantosdeoliveira287@gmail.com> wrote:
 >
-> On Wed, Oct 14, 2026 at 01:28:55PM +0200, Miguel Ojeda wrote:
-> > On Wed, Oct 14, 2026 at 12:40=E2=80=AFAM Ian Rogers <irogers@google.com=
-> wrote:
-> > >
-> > > +/*
-> > > + * Optional: not supported by gcc
-> > > + *
-> > > + * clang: https://clang.llvm.org/docs/AttributeReference.html#requir=
-e-explicit-initialization
-> > > + */
-> > > +#if __has_attribute(__require_explicit_initialization__)
-> > > +# define __require_explicit_initialization __attribute__((__require_=
-explicit_initialization__))
-> > > +#else
-> > > +# define __require_explicit_initialization
-> > > +#endif
-> >
-> > The LPC slides mention Clang 14+, but from a quick test in Compiler
-> > Explorer and a `git log --grep` on the LLVM repository to confirm, it
-> > seems the attribute was introduced in Clang 20+, no?
-> >
-> > If that is correct, then it is not available in all LLVM versions we
-> > support (LLVM 17+), so we should add:
-> >
-> >      * Optional: only supported since clang >=3D 20.0
-> >
-> > With that:
-> >
-> > Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> gfx_v8_0_sw_fini() already releases the RLC objects used by gfx8
+> (clear_state_obj and cp_table_obj). The generic
+> amdgpu_gfx_rlc_fini() also frees save_restore_obj, which is not used
+> by gfx8.
 >
-> Yup, I can confirm, I only see it with 20+ too.
+> Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v8_0.c
+> index 7f91186ef1d1..088428e41f44 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -2059,7 +2059,6 @@ static int gfx_v8_0_sw_fini(struct amdgpu_ip_block =
+*ip_block)
+>         amdgpu_gfx_kiq_fini(adev, 0);
+>
+>         gfx_v8_0_mec_fini(adev);
+> -       amdgpu_gfx_rlc_fini(adev);
 
-Fix up the comment and have a coin, witcher.
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+I'd suggest dropping the explicit free calls and just use
+amdgpu_gfx_rlc_fini() for symmetry with other gfx IPs and the rlc init
+calls.
 
->
+Alex
+
+>         amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
+>                                 &adev->gfx.rlc.clear_state_gpu_addr,
+>                                 (void **)&adev->gfx.rlc.cs_ptr);
 > --
-> Kees Cook
-
-
-
---=20
-Thanks,
-~Nick Desaulniers
+> 2.47.3
+>
