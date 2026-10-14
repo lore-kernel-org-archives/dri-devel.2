@@ -4,55 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9ADECC6B2C
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 20:39:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 450B0CC6B2D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 20:58:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4403710E2D1;
-	Wed, 14 Oct 2026 20:39:01 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29BB110E2D1
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 20:38:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1792010330;
- bh=3Terinl8SuwfSYjw1hUDkfwIQWKWVy1NH/KsV7THaRI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=xD7cx5hOso7zpoKz9w0MCwp2erAQ266sRA3Daej6urcADyMwOfxP0ElO1XJcMp8Pz
- Ca5m8lKXvuU3U+Y8WCNGSlsbwncz+8686EtyTWM9KihCTuWAqmFoR5uJ3Kumv2xqFR
- /4dI+G5UnweWCDPPc/MY0UzriL+3nweWEEw8UbVpigliGLmYKn4DgUI2Qr3HbLPFvQ
- LdfOIb4pAhLoLmgUqXsic+24UWzDlqf+UeIgBBVwisiaqViswaM+78/UTSBbR6gLtY
- 5WpiyBZoyQ7n4vXTuLDKRBeiicDA4B6/UOvyiNIjXMzGMwV1jaqauXA0wPHhXi5/yr
- ZshaFLBqn0HHw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4jhy41Mrz4w91;
- Thu, 15 Oct 2026 07:38:41 +1100 (AEDT)
-Message-ID: <0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
-Date: Wed, 14 Oct 2026 21:38:38 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7154E10E55A;
+	Wed, 14 Oct 2026 20:58:06 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 038AB10EB36
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 20:57:54 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69EEb0Lp905401
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 20:57:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Tdom7tnqrfqhiAr3bCDpoJLd
+ konZqaXCM3eCfjDGwls=; b=GkHw6Xh8yvBfUCJGvTj1kZUo/GEDtrYx/IkPailO
+ U9A00x8a4bHWd7+s8NvKGyJnHvCh0ac+SB+ek/pSkxbn4dZrHOaDJh8YmurDNstR
+ 1J2AwTGh72QKS35T8YLeYMhcjMq8yxU5PTTYjHFc4FnmVP9i1kUZx83Iq8Tp0iUM
+ 0bS87QKAB74ukuHfRYfo+nd2H5T58rYMK4JGY6y3m6UxLlMH5hWEuI5NBliTGgDb
+ 5r/qQKwrWx6L/LM0u2EWkOgM3dSXtWGCrkRdcTvZmzokL6/t5xaR/fhfTLaajKWB
+ gp32Pe7sOVcq/O+tg9wj3Umvr661dEUIK4q7vfkFjB8Aqw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha42p3hhx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 20:57:53 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93cc0b31ecaso181240085a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:57:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792011473; x=1792616273;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Tdom7tnqrfqhiAr3bCDpoJLdkonZqaXCM3eCfjDGwls=;
+ b=gpO7QxESvyWoqYUwl9PrbczYSTFrazO8ZveN44AjlS62dYtX9ioLQhuWxI3ZqiSjsB
+ TmUZPTkU1+qsIA0y7x/Zvre6l8i1mam2pO4GzigTLTHz31p83kVZzX/AX7HeYWa0z5xW
+ DEpqP3ZEOOLd+hgHjZbStMsr6NQxs1YDopYYFbrzDl309LmQ3Cr72TGBnqZdMhKJSM9h
+ QNdziJicOhhZcg6rKv2tL8BMcFRMuinGjN+noWACOzfaYZyYt7HyPmk1zKAc8W0vfCNU
+ PNangW3od2vs9j8E8/Fa//cfY4edhOTtKpyy2j2nAJri6+XpAm4cwyEfl/5z9BNSTC7H
+ SXlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792011473; x=1792616273;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Tdom7tnqrfqhiAr3bCDpoJLdkonZqaXCM3eCfjDGwls=;
+ b=AXhExG7zDWQJPITRrMzTziwEQAe28fd6tc7XegpZFNnAqTNulqSZwkwowwnCL+gL0D
+ BhH1PN+AtZU14JNMfAtvZ27hsu7c+bd2pEWKsAJoPY2Fv29DtfKKHxrw1/dbdYNUviKI
+ S1k6jOmlB8HSTyQaj1yNOj9eRmdQdOfvvsXGF9Ns46XUlAD1crRvonoIFd2ntIi5jd5U
+ UunACQF971MVrz96j4IwTCDjka60f6cz1eORv6CRXaiZMmHaWmNmua9LfZdgUIgxRPn0
+ Uyx47cwNIwByTaLRFiQPPWqid4YcmkGrVze3qBlZ/l2AhJ8BkEiaVicQxMyVwuLAEO7M
+ foQg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw2bOfxF9WnkXgjHuJPMfHFJIb3cO4I9LW+hXl5O9hiNB+HupJlV3XeY0EC8jlbiQJI9jrjNjrGdF4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLxkfMJt8dAkgnWAwndzUt4zqvu9rP3AH7JWa87HVxvHygoahkE
+ cS+VtI10jX0oC+hYB8t8JpR1wZUUoF70evq74uagzDiy/oQygzNtP0BTkgTj7IR2gzFkfzW2GLD
+ QJ6tHmCzta8zewA6BL7sj0XWZPdCEXjbh3O/763YbFb5zPZ5bhntOGqYt4vCb9GCzS2Venbc=
+X-Gm-Gg: AYBFou2SCTfEQP2WcShVyMxsU5BjtTarkddJTDx7hcneRxhvF6HfEYzPhKQh2eIF8kE
+ ZK5rzX0TXC8d/I2ftzfeWh/e5OMCnDG4t0u8LGV/eaudlYUPyY5bn9Uct6JWRvi9nT8eIQsgDpu
+ H7r8Mt+IouSl2esa2JAxndYltgAiT5wfey6uGitckCV/UMsJawyh1pPCML1tLed3i9I+T/INnE+
+ XvmcgKt50VGRS1K58bNmzha0tEE+aYWpa05WN5t3YnIAUeI4UH0kjyVRE9vjkGEV2648S/lDxGQ
+ 4Z1eD05FNlIa/oSx2AsYSSSJ4xGe2tEX8DWLU+I06rTEXTdsWUVoAj+daix9HK8u8S9giZnakWg
+ AnjAo4Da3tZqU/ftfHRZG3BkafvOxo5/z+lyw6WZnJyx0i8R8SkOV6lPtPhPiBjhXFy7ABOYRvA
+ SQOx/pkKsj/wWm
+X-Received: by 2002:a05:620a:3194:b0:93c:7d49:7b69 with SMTP id
+ af79cd13be357-93ebd2963bcmr2795853085a.60.1792011472913; 
+ Wed, 14 Oct 2026 13:57:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:3194:b0:93c:7d49:7b69 with SMTP id
+ af79cd13be357-93ebd2963bcmr2795849885a.60.1792011472382; 
+ Wed, 14 Oct 2026 13:57:52 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3aafdefdc4asm1613741fa.30.2026.10.14.13.57.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Oct 2026 13:57:51 -0700 (PDT)
+Date: Wed, 14 Oct 2026 23:57:48 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: add device tree for SDM845-HDK
+Message-ID: <rqsztjjpis5ddd3adpwds56svbbeugoh2zhzlat5jilozkzncx@jrwnidovsh3j>
+References: <20261014-sdm845-hdk-v2-0-6d0b4b42f267@oss.qualcomm.com>
+ <20261014-sdm845-hdk-v2-4-6d0b4b42f267@oss.qualcomm.com>
+ <sashiko-outbox-171533@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>, Alex Mastro <amastro@fb.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-9-matt@ozlabs.org>
- <20261013171347.54e856c7@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20261013171347.54e856c7@shazbot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-171533@kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA4MyBTYWx0ZWRfX8GOwRhvB7/6H
+ 48uVV2mYjIPFnoW6dVbQd/mMdSoojNASZe1mWtjXyAbPWY8VqpQmkzOZ9oARNBfGLITWGxWsP/p
+ pgyHhuzSua7WBUChf0GL2DN6cQcw4m8=
+X-Proofpoint-ORIG-GUID: rkVXM6v5G11TaTLn_jxjbM22eygEG7Qj
+X-Authority-Analysis: v=2.4 cv=aeb0Dhot c=1 sm=1 tr=0 ts=6acfecd1 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=s4Caojyv45IKULvEKnIA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA4MyBTYWx0ZWRfX/RRhiMftAzqv
+ fEe30HD1EPxIM6tApL0GhCXPFCKVTUhVP8nXYulf+KY4VG885OCuQ0ceTzgdqOlxcox97VTODJI
+ UK3fWvoGqGLlvekgvTBa8mlpd6R7C6hWdz3/vwf7+Z7/l4PV1gy9GviMrpyP/xyCJKYwAB5mf+A
+ aLtRAIJTZmoKufbBuH6NaR76jq8dklfB+az0iidzEMIuYdR1nnmtvxSk0viPvghjzE0FtdzguX7
+ 37ZRmkoRGLfwOPFUW8gU+l7vUBb0Ymk2YPZy0idQ6Mt/EdH52se+D70jDVsK6Zg0yxvtLtW8fSa
+ WbLWjt4U5zUAJUGyFrAyMd8V3JUL8vV++yFqJRZ+6enhJaEbuW5bjeKoBFmm5pJClXInR9sw32o
+ Yk1KJEbGL0W+8PSq8a21TTWuOznCJ76ezdz4Le42bWIahYG4Ypor443tjEmFCi93UgnfOnWXeul
+ tZIXg5K7BnK/TctHaBg==
+X-Proofpoint-GUID: rkVXM6v5G11TaTLn_jxjbM22eygEG7Qj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140083
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,117 +141,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alexes,
-
-On 14/10/2026 00:13, Alex Williamson wrote:
-> On Tue,  6 Oct 2026 20:36:36 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
+On Wed, Oct 14, 2026 at 04:31:17PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] dts: usb_1_qmpphy swaps vdda-phy and vdda-pll voltage supplies
+> - [Medium] dts: home_pin_a pinctrl incorrectly configures gpio6 instead of gpio5
+> - [Medium] dts: impossible 1.8V vin-supply for 3.3V fixed regulator vreg_sys_bob_3p3
+> --
 > 
->> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
->> support for mmap() of this fd.  This provides another route for a
->> process to map BARs, in which the process can only map a specific
->> subset of a BAR represented by the exported DMABUF.
->>
->> mmap() support enables userspace drivers to safely delegate BAR
->> sub-ranges to other processes by sharing a DMABUF fd, without having
->> to share the (omnipotent) VFIO device fd with them.
->>
->> Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap() reuses
->> the existing vm_ops.
->>
->> The lifecycle of an exported DMABUF remains decoupled from that of the
->> device fd it came from, i.e. the device fd could be closed with DMABUF
->> VMAs present, meaning a fault on a VMA could happen concurrently with
->> vfio_pci_dma_buf_cleanup().
->>
->> To deal with this scenario, the fault handler now temporarily takes a
->> VFIO device registration to ensure the vdev remains valid, and then
->> vdev locks can be taken.
+> commit 48f1c407e24f3899e533d5dddbd59a77b4901a02
+> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > 
-> This sounds like potentially measurable overhead if something is
-> slamming the fault handler where huge-fault is not supported or active.
-> Have you considered a fast path for the internal dmabuf where the
-> lifecycle is constrained?
+> arm64: dts: qcom: add device tree for SDM845-HDK
+> 
+> This patch adds the device tree for the SDM845-HDK board, a development
+> platform utilizing the modem-less SDA845 SoC. It introduces initial support
+> for features like HDMI display, uSD, UFS, USB, and various onboard peripherals.
+> 
+> > diff --git a/arch/arm64/boot/dts/qcom/sdm845-hdk.dts b/arch/arm64/boot/dts/qcom/sdm845-hdk.dts
+> > new file mode 100644
+> > index 0000000000000..4dd426912d20f
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/qcom/sdm845-hdk.dts
+> 
+> [ ... ]
+> 
+> > +	vreg_sys_bob_3p3: regulator-sys-bob {
+> > +		compatible = "regulator-fixed";
+> > +		regulator-name = "sys_bob";
+> > +		regulator-min-microvolt = <3300000>;
+> > +		regulator-max-microvolt = <3300000>;
+> > +
+> > +		regulator-always-on;
+> > +		regulator-boot-on;
+> > +
+> > +		vin-supply = <&vreg_s4a_1p8>;
+> > +	};
+> 
+> [Severity: Medium]
+> Is vreg_s4a_1p8 the correct vin-supply for this regulator?
+> 
+> vreg_s4a_1p8 provides 1.8V, but vreg_sys_bob_3p3 is defined as a 3.3V fixed
+> regulator. A fixed regulator cannot step up a 1.8V input to 3.3V.
+> 
+> Could this create an incorrect power dependency tree, potentially causing the
+> 1.8V supply to be kept awake unnecessarily or turned off while the 3.3V rail
+> is still needed?
 
-Good question, I did think about this (rationale below) though ended up 
-trying to keep this function simpler/easier to reason about.  I can have 
-another look.
-
-< long info, as AlexM and I were talking about this offline >
-
-The position of your comment sounds like the device registration was 
-part of the concern, but can you clarify please?  I think it's more that
-..._fault() now takes dmabuf->resv plus vdev->dmabuf_lock (on top of the 
-pre-existing vdev->memory_lock) rather than the device registration. 
-The device registration refcount should be cheap (like, not block or 
-contend beyond the atomic op), and wasn't the bit I worry about.  :)
-
-The overhead is the single thread "this function does more stuff", plus 
-the scenario of threads both concurrently faulting.
-
-What's the baseline/fast path?  With an internal/VFIO mmap DMABUF we'd 
-at least need vdev->dmabuf_lock for its status, then the existing 
-memory_lock for existing reasons.  But once you have memory_lock then 
-(aside from the access cost of the atomic op) the new dmabuf_lock will 
-be cheap/uncontended in the absence of a blitz of concurrent exports. 
-(Export vs fault is a new performance dependency.)
-
-[ Aside: when adding vdev->dmabuf_lock it occured that we could revisit 
-the tests in vfio_pci_vmf_insert_pfn() that require memory_lock, and 
-remove that lock from the fault path:  e.g. if we know a DMABUF isn't 
-revoked then that implies vdev->bars_revoked = false, and that should 
-already be in sync with pm_runtime_engaged, __vfio_pci_memory_enabled() 
-...  I haven't traced this all through. ]
-
-The one I worry about more is dmabuf->resv; if there are importers and 
-fencing then this'll now hold up behind them.  (But this is only for 
-explicit DMABUFs, and feels like the price you pay with P2P.  This won't 
-happen for internal/VFIO mmap DMABUFs.)
-
-My gut concern is mostly the straight-line cost of Taking More Locks, 
-rather than that they will be hugely more contended in the threaded case 
-(where threads will already interfere via memory_lock, and taking 
-dmabuf_lock under that is Unlikely to also contend).  Well, and
-dmabuf->resv.
-
-But I don't have measurements of this; more complex will obviously cost 
-more, though we don't yet know whether it's prohibitive or noise.
-
-I'd rather not split this function before it's a problem, so to speak, 
-as it'll be slightly more complicated.  What I'd do:  introduce a flag 
-to vfio_pci_dma_buf to indicate "was internal/external export" then use 
-this to do extra synchronisation, or avoid it for a VFIO mmap VMA. 
-(priv->file != NULL is more or less that, but might be cleaner with a flag.)
-
-Hmm.  I'll hack up a test to try to measure the relative overhead of 
-VMA faults before/after (modulo access to meaningful HW).
-
-> Hopefully we can get those selftests included to avoid regressions.
-
-We'll post more tests separately (there're some extra requirements, e.g. 
-"real devices"/device access to work through).  The existing tests go 
-some way regarding avoiding existing VFIO fd mmap() regressions.  The 
-liability of not bringing the DMABUF-mmap tests into this series is just 
-on that feature, at least.
-
-If anyone has tested this series (whether to see existing VFIO works, or 
-to try the new DMABUF-mmap/revoke) that would be great to know.  AlexM 
-and I have some ideas for further testing internally too.
-
-> Overall, I'm not finding too much to pick on in this series, but it
-> also hasn't collected much in the way of reviews.  For a fundamental
-> change like this, I hope we can get more eyes on it.  Thanks,
-
-I'm glad, I feel it's in a good state now.
-
-100% agree needs more eyes.  FWIW Kevin and Praan reviewed ~all of v5, 
-though I dropped their R-Bs because all of the patches have in some way 
-changed.  (Though most of the changes are very small, am a stickler for 
-process.)  Please, if they or others have time for another pass... <:-)
+This is the least awkward description. This regulator is powered by
+vph_pwr and enabled by S4A. Using S4A as vin-supply is the most logical
+way to express it.
 
 
-Many thanks,
-
-
-Matt
-
+-- 
+With best wishes
+Dmitry
