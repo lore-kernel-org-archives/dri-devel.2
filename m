@@ -4,83 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3490ECC6B2C
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 20:21:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9ADECC6B2C
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 20:39:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8823810EB30;
-	Wed, 14 Oct 2026 20:21:41 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF4B10EB30
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 20:21:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1792009294;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Ok6NdgLf05b7IRXunkY4Z9DoaTee64m/SEUOjmJzvEU=;
- b=CxBmJeG0KwwPIIMbWCG7ecW7Izy+VR069iums6bKabsnGTM5DNIe/+YGFSuwIUfcMsKxGv
- q3A7aqDT+32wLoGcKGXIG8G8WKDbKqexmGp4opSGdPKNnLAQ5J6Myl8cjELZLRcFh6IjOh
- lZqizRxbxTO1IIIJ9O0yeKnWgFUv+cg=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-626-hLhqQMitMD-RNmqQS9kSTg-1; Wed, 14 Oct 2026 20:21:32 +0000
-X-MC-Unique: hLhqQMitMD-RNmqQS9kSTg-1
-X-Mimecast-MFC-AGG-ID: hLhqQMitMD-RNmqQS9kSTg_1792009292
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4a009f82bedso37808795e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 13:21:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792009291; x=1792614091;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Ok6NdgLf05b7IRXunkY4Z9DoaTee64m/SEUOjmJzvEU=;
- b=ieFmraldikCeKWe7LrQzJnwBGL/I95lRhGRlOEuluHVVG7DaVRv9shiVV2vRZnSwqB
- /n/5CgD3VWSOOuflRAFpr6NBAyT/7IhQB3g1uJ2esJY3Acc9OuhVKBuFt1GIVcvthmdq
- ElBT3bMNnc8DRBmtt47baa1xguU3tHEDoe01O2b7llsM0PY+bPXtl8Gat97k76/Gn7ml
- WfCzBmP5/YbBpuV04utObi+cPjt1Ov4L9QRxGv40Ykq3zB63OyKZHGNRuF/vNbLIYlf+
- qzTkMxGz40t7hQenKb1lZwdvjZnQDJaX7bp+DiX7wEQGG11gyGCyd8WYn7Bs0e9o7E87
- xmZQ==
-X-Gm-Message-State: AFq9FYLfcs84QHRdCLwZ8Dw9TQfkBbzKB7/1MgKGJ+eljRf8Bd4JR8b9
- xcwVG+2Wrg73337KgpK94avSzwj8Q2kJkEmhjHY/QbAal79XE+LFaSzEY9oP0YpKJEYvDy/dRPt
- b9LwDAp3ZdVwiuDoiUjtohmCO23Yqnc2dl1PMNlaVW+u/B1fafyLvkdlsb4j63fgw3grr2Q==
-X-Gm-Gg: AYBFou1qYULnH5DMVZLgBxtPv3b1qs8nJxfMZagNcZeMOALZzQge+Bep+lo3tlDgkOT
- 3DdzSstgYLmPkvLAG6V0Yiigin1usEOiSLtSfSb5+wygT48vZlGKuKtyatNUU1cOBmPhTBWOVnE
- PnoDXR2DnIK/2WGkj1GwsBBRYZyB+FWGuAF9OkUnVCB2pyCygJSTsNva3u8nhGD8Y8XtQGf6cet
- nUAgHhs4lwu1dnGrknJQ3WZsmB2SW5l4BmDpZSEraqswlHGnq/4/q3kCQw4rG7ZxlM4wa1sF8zE
- in2S7s2QB8YMxLD7jCFpjQi0SiGYp/HHmuXwSeyVB294V2W0O04QPnyB6p29iyhKMNBL6S7lFP/
- AKk+Ddg6vjyktCua6tmYXeJWRTERMCF/l1jL5O2HohW83dwXUevH7+Tu/QvBbH1PQ8w==
-X-Received: by 2002:a05:600c:6990:b0:4a1:80d8:aed5 with SMTP id
- 5b1f17b1804b1-4a18e49c43bmr340441695e9.6.1792009291549; 
- Wed, 14 Oct 2026 13:21:31 -0700 (PDT)
-X-Received: by 2002:a05:600c:6990:b0:4a1:80d8:aed5 with SMTP id
- 5b1f17b1804b1-4a18e49c43bmr340441385e9.6.1792009291257; 
- Wed, 14 Oct 2026 13:21:31 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1bd9b8b5fsm16434505e9.9.2026.10.14.13.21.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Oct 2026 13:21:30 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH 39/75] drm/sysfb: Switch to
- drm_atomic_helper_connector_create_state
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-39-586c9c026823@kernel.org>
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-39-586c9c026823@kernel.org>
-Date: Wed, 14 Oct 2026 22:21:29 +0200
-Message-ID: <xlv17bjkghiu.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4403710E2D1;
+	Wed, 14 Oct 2026 20:39:01 +0000 (UTC)
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29BB110E2D1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 20:38:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1792010330;
+ bh=3Terinl8SuwfSYjw1hUDkfwIQWKWVy1NH/KsV7THaRI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=xD7cx5hOso7zpoKz9w0MCwp2erAQ266sRA3Daej6urcADyMwOfxP0ElO1XJcMp8Pz
+ Ca5m8lKXvuU3U+Y8WCNGSlsbwncz+8686EtyTWM9KihCTuWAqmFoR5uJ3Kumv2xqFR
+ /4dI+G5UnweWCDPPc/MY0UzriL+3nweWEEw8UbVpigliGLmYKn4DgUI2Qr3HbLPFvQ
+ LdfOIb4pAhLoLmgUqXsic+24UWzDlqf+UeIgBBVwisiaqViswaM+78/UTSBbR6gLtY
+ 5WpiyBZoyQ7n4vXTuLDKRBeiicDA4B6/UOvyiNIjXMzGMwV1jaqauXA0wPHhXi5/yr
+ ZshaFLBqn0HHw==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4jhy41Mrz4w91;
+ Thu, 15 Oct 2026 07:38:41 +1100 (AEDT)
+Message-ID: <0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
+Date: Wed, 14 Oct 2026 21:38:38 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: rvFRbAO_SemHm1WDiwuDYl0IVOMw-awXnB_TsZYsbSE_1792009292
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>, Alex Mastro <amastro@fb.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20261006193643.76330-1-matt@ozlabs.org>
+ <20261006193643.76330-9-matt@ozlabs.org>
+ <20261013171347.54e856c7@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20261013171347.54e856c7@shazbot.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,27 +68,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Maxime Ripard <mripard@kernel.org> writes:
+Hi Alexes,
 
-> The sysfb connector implementation uses the deprecated
-> drm_atomic_helper_connector_reset() as its reset hook.
->
-> Switch to drm_atomic_helper_connector_create_state() instead.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> ---
->  drivers/gpu/drm/sysfb/drm_sysfb_helper.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
+On 14/10/2026 00:13, Alex Williamson wrote:
+> On Tue,  6 Oct 2026 20:36:36 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
+> 
+>> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
+>> support for mmap() of this fd.  This provides another route for a
+>> process to map BARs, in which the process can only map a specific
+>> subset of a BAR represented by the exported DMABUF.
+>>
+>> mmap() support enables userspace drivers to safely delegate BAR
+>> sub-ranges to other processes by sharing a DMABUF fd, without having
+>> to share the (omnipotent) VFIO device fd with them.
+>>
+>> Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap() reuses
+>> the existing vm_ops.
+>>
+>> The lifecycle of an exported DMABUF remains decoupled from that of the
+>> device fd it came from, i.e. the device fd could be closed with DMABUF
+>> VMAs present, meaning a fault on a VMA could happen concurrently with
+>> vfio_pci_dma_buf_cleanup().
+>>
+>> To deal with this scenario, the fault handler now temporarily takes a
+>> VFIO device registration to ensure the vdev remains valid, and then
+>> vdev locks can be taken.
+> 
+> This sounds like potentially measurable overhead if something is
+> slamming the fault handler where huge-fault is not supported or active.
+> Have you considered a fast path for the internal dmabuf where the
+> lifecycle is constrained?
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Good question, I did think about this (rationale below) though ended up 
+trying to keep this function simpler/easier to reason about.  I can have 
+another look.
 
--- 
-Best regards,
+< long info, as AlexM and I were talking about this offline >
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+The position of your comment sounds like the device registration was 
+part of the concern, but can you clarify please?  I think it's more that
+..._fault() now takes dmabuf->resv plus vdev->dmabuf_lock (on top of the 
+pre-existing vdev->memory_lock) rather than the device registration. 
+The device registration refcount should be cheap (like, not block or 
+contend beyond the atomic op), and wasn't the bit I worry about.  :)
+
+The overhead is the single thread "this function does more stuff", plus 
+the scenario of threads both concurrently faulting.
+
+What's the baseline/fast path?  With an internal/VFIO mmap DMABUF we'd 
+at least need vdev->dmabuf_lock for its status, then the existing 
+memory_lock for existing reasons.  But once you have memory_lock then 
+(aside from the access cost of the atomic op) the new dmabuf_lock will 
+be cheap/uncontended in the absence of a blitz of concurrent exports. 
+(Export vs fault is a new performance dependency.)
+
+[ Aside: when adding vdev->dmabuf_lock it occured that we could revisit 
+the tests in vfio_pci_vmf_insert_pfn() that require memory_lock, and 
+remove that lock from the fault path:  e.g. if we know a DMABUF isn't 
+revoked then that implies vdev->bars_revoked = false, and that should 
+already be in sync with pm_runtime_engaged, __vfio_pci_memory_enabled() 
+...  I haven't traced this all through. ]
+
+The one I worry about more is dmabuf->resv; if there are importers and 
+fencing then this'll now hold up behind them.  (But this is only for 
+explicit DMABUFs, and feels like the price you pay with P2P.  This won't 
+happen for internal/VFIO mmap DMABUFs.)
+
+My gut concern is mostly the straight-line cost of Taking More Locks, 
+rather than that they will be hugely more contended in the threaded case 
+(where threads will already interfere via memory_lock, and taking 
+dmabuf_lock under that is Unlikely to also contend).  Well, and
+dmabuf->resv.
+
+But I don't have measurements of this; more complex will obviously cost 
+more, though we don't yet know whether it's prohibitive or noise.
+
+I'd rather not split this function before it's a problem, so to speak, 
+as it'll be slightly more complicated.  What I'd do:  introduce a flag 
+to vfio_pci_dma_buf to indicate "was internal/external export" then use 
+this to do extra synchronisation, or avoid it for a VFIO mmap VMA. 
+(priv->file != NULL is more or less that, but might be cleaner with a flag.)
+
+Hmm.  I'll hack up a test to try to measure the relative overhead of 
+VMA faults before/after (modulo access to meaningful HW).
+
+> Hopefully we can get those selftests included to avoid regressions.
+
+We'll post more tests separately (there're some extra requirements, e.g. 
+"real devices"/device access to work through).  The existing tests go 
+some way regarding avoiding existing VFIO fd mmap() regressions.  The 
+liability of not bringing the DMABUF-mmap tests into this series is just 
+on that feature, at least.
+
+If anyone has tested this series (whether to see existing VFIO works, or 
+to try the new DMABUF-mmap/revoke) that would be great to know.  AlexM 
+and I have some ideas for further testing internally too.
+
+> Overall, I'm not finding too much to pick on in this series, but it
+> also hasn't collected much in the way of reviews.  For a fundamental
+> change like this, I hope we can get more eyes on it.  Thanks,
+
+I'm glad, I feel it's in a good state now.
+
+100% agree needs more eyes.  FWIW Kevin and Praan reviewed ~all of v5, 
+though I dropped their R-Bs because all of the patches have in some way 
+changed.  (Though most of the changes are very small, am a stickler for 
+process.)  Please, if they or others have time for another pass... <:-)
+
+
+Many thanks,
+
+
+Matt
 
