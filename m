@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F2AFCC6B2D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 19:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 014CACC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 19:02:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6025210EAD8;
-	Wed, 14 Oct 2026 19:02:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F22910EAD6;
+	Wed, 14 Oct 2026 19:02:38 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1445110EAB5;
- Wed, 14 Oct 2026 19:02:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0625310EAD0;
+ Wed, 14 Oct 2026 19:02:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792004541; x=1823540541;
+ t=1792004546; x=1823540546;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=/358Y9y13wpTg+FgeQRvuIzpjwey2dRBw09J+ykC6CE=;
- b=lBtxkLVk/UiOKtdrRtaLn7PZlymniQ8TzCQ1GN3LcuEu7pEZpCJFKFft
- kIVjuQ73GZbpvJw8teh6IYQdppOj7cQD0FZ5TrKG+mD1vjdkF2wwr7SEE
- 0F4oFAJbJCYK0pBw88NhgSxQSs0EC0PVvsjEX6qsmaiGhHxDgzUmvBwF2
- 1q4PQ2Hx/Mu8hKa18qXYcVNBhBlK5fNtWpGrYGigP8dHkEdimTiD6DYKC
- kN+YoeRrwIBD2DXMOXdThBluwVfLn6bF5DDu+SOV8fBElWCc+hyerl6Bz
- oNiOv2Hh0Pdh0BunRbflni8WofXkwjAD/Mq0zIr/b7X/SDS78AkagKpVH w==;
-X-CSE-ConnectionGUID: rLXQgya3TGKyGjrd/rx47w==
-X-CSE-MsgGUID: mhIYwZ7/T8+GbuMOyS7JNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="648026"
+ bh=ZIU/l/iiujDSih6o3G3NmkCdEy9SjZ1BV4GOBQj+aeE=;
+ b=V0CZUppI87Y5U/HHhYDw7qT4bY6i4eHX75Jf49CsQHp2WX0kmehayIlw
+ iJIcHGGHsa1rp1T+PUsEuBUcVxtyHZzhgZxC3hSuT9uPd+HFHeB2v0Ujp
+ TtJ/WM9MNS30DJFZ4yabqOceHKeUzTd+TFYkBI2FRol04Emskpy4Dighf
+ pqOYkBaR8c4iSwjEW+oBEymmUV28hAWPkLm1Hb00+K8j3OYsSAYP3xfYj
+ +MkufMCVAvYNPL204aZAZbRsIBBJ4tjfECyncx/6ej15kmEmuAuaaPnAM
+ AOreeWJdDCODk/E0xkt9PQnijRQWwMEHru7qrrdCgPu893BJudGLel+K1 w==;
+X-CSE-ConnectionGUID: ezr8WWDBRe+vbHshewHoDg==
+X-CSE-MsgGUID: Kee2XZLKR8WZIyW+lg9eeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="648028"
 X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="648026"
+   d="scan'208";a="648028"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2026 12:02:10 -0700
-X-CSE-ConnectionGUID: oT0m+95RS2uCx5DvgYn5FA==
-X-CSE-MsgGUID: aSZMaNAeSrCsvxMHjWNJuA==
+X-CSE-ConnectionGUID: Q8E5q9yBQPCT5pjLW36gQg==
+X-CSE-MsgGUID: Uh3+w25kSzGoJVfb88oQPA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1941298"
+   d="scan'208";a="1941301"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.126])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2026 12:02:10 -0700
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  matthew.brost@intel.com, tzimmermann@suse.de
-Subject: [PATCH v3 5/6] drm/panfrost: use drm_gem_prime_self_import() helper
-Date: Wed, 14 Oct 2026 12:02:05 -0700
-Message-ID: <20261014190200.1700470-13-niranjana.vishwanathapura@intel.com>
+Subject: [PATCH v3 6/6] drm/amdgpu: use drm_gem_prime_self_import() helper
+Date: Wed, 14 Oct 2026 12:02:06 -0700
+Message-ID: <20261014190200.1700470-14-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261014190200.1700470-8-niranjana.vishwanathapura@intel.com>
 References: <20261014190200.1700470-8-niranjana.vishwanathapura@intel.com>
@@ -73,32 +73,34 @@ device match and returns the backing GEM object with a reference.
 Assisted-by: GitHub-Copilot:claude-opus-4.8
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_gem.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 3a7fce428898..19fcbffb3e94 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -386,15 +386,11 @@ struct drm_gem_object *
- panfrost_gem_prime_import(struct drm_device *dev,
- 			  struct dma_buf *dma_buf)
- {
--	struct drm_gem_object *obj = dma_buf->priv;
-+	struct drm_gem_object *obj;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index b33c300e26e2..5863f6605308 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -549,17 +549,9 @@ struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
+ 	struct dma_buf_attachment *attach;
+ 	struct drm_gem_object *obj;
  
--	if (dma_buf->ops == &panfrost_dma_buf_ops && obj->dev == dev) {
--		/* Importing dmabuf exported from our own gem increases
--		 * refcount on gem itself instead of f_count of dmabuf.
--		 */
--		drm_gem_object_get(obj);
-+	obj = drm_gem_prime_self_import(dev, dma_buf, &panfrost_dma_buf_ops);
-+	if (obj)
- 		return obj;
+-	if (dma_buf->ops == &amdgpu_dmabuf_ops) {
+-		obj = dma_buf->priv;
+-		if (obj->dev == dev) {
+-			/*
+-			 * Importing dmabuf exported from out own gem increases
+-			 * refcount on gem itself instead of f_count of dmabuf.
+-			 */
+-			drm_gem_object_get(obj);
+-			return obj;
+-		}
 -	}
++	obj = drm_gem_prime_self_import(dev, dma_buf, &amdgpu_dmabuf_ops);
++	if (obj)
++		return obj;
  
- 	return drm_gem_prime_import(dev, dma_buf);
- }
+ 	obj = amdgpu_dma_buf_create_obj(dev, dma_buf);
+ 	if (IS_ERR(obj))
 -- 
 2.43.0
 
