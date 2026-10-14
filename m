@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCBFC3DA7A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 912CAC3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:10:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4E4610EA88;
-	Wed, 14 Oct 2026 18:08:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76BF910EA88
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:08:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4AA410EA81;
+	Wed, 14 Oct 2026 18:10:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1C610EA90
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:10:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2CAEF414C0
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:08:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD9301F000C5;
- Wed, 14 Oct 2026 18:08:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7882D60229
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:10:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F901F000C5;
+ Wed, 14 Oct 2026 18:10:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792001303;
- bh=aORF5Paq9pA6RqT6h54XsidXEbg1AOyu/T8W7o94gsU=;
+ s=k20260515; t=1792001416;
+ bh=vWGVZgYW1wtf1MpuocIzOIjO6MchkbXmbRm3hCcrLAc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LNCQPmGn0I3kuQlWMfqj5c+CVQO5VjBo4F1oIFB74bLbYIGh88mvEeZTsIJ+NbrOz
- mHC6KgNSfL8eQzPTaTOalVnbUTegI1b9VpbhHKFI5YdKcBbltHz29UqbV/RO2AC4sY
- pws18GnNSjW9a1yi8vVzHtN+OknR3boFrjlQ9ADVcBb5xZNMmOntJ8fdHm3K/lF73Q
- YSC3MEORSwKYll0O+ZgeCIkdCI/xlO2tPtM7vGKgZPB4g2Qmpw6S7m5G+Jb5aG7xrT
- EXVZWSpyVk7HoaaQbrPEB8Ob5PW20l0phOKt3z0X2gi5NsM4+f5++fbuh3CGmYJnqZ
- nV20hNl7Yk76g==
-Message-ID: <sashiko-outbox-171662@kernel.org>
+ b=jkFO5kr7wjQFzeC8JzKXH2/GY2h1wHfECpRsfXGo3W4GGhFiKHBxnxYlFy2n8ECZa
+ MU+PV6zQV3sSCst8To3CZMcoo9OfVVXuKBnx8SKm2d1fJPGygUbEkG8FFAUyaE62k8
+ s4qyzj6dmhmJxsGQHdzOdZKGX+DltmtvdT5NZkMlSWjIjyBj+IB2TbogLlPQ1b2qCu
+ oZoyR6X3Jv4G3m0Awvt+zVa96Afx4mZX7v0SJc5dWbryRE0/Dd+Uz9VaNGySN+2Bn5
+ fJQOF/KHNi65TudwzzUtuOwV3DphYPDPtwSL85QrkwnxAsKzTm0cC/EuqXNEh7l3hA
+ jlxs2OK8exjpw==
+Message-ID: <sashiko-outbox-171669@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 61/75] drm/sun4i: tv: Convert to atomic_create_state
+Subject: Re: [PATCH 64/75] drm/vc4: vec: Convert to atomic_create_state
 To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-61-586c9c026823@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-64-586c9c026823@kernel.org>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-61-586c9c026823@kernel.org>
+ <20261014-drm-no-more-connector-reset-v1-64-586c9c026823@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 18:08:22 +0000
+Date: Wed, 14 Oct 2026 18:10:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,27 +56,28 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm: NULL pointer dereference when initializing TV connector state
+- [High] drm/vc4: NULL pointer deref in drm_atomic_helper_connector_tv_stat=
+e_init
 --
 
-commit a85a6a0ad13c063d072cdcda87267ea8867cafa3
+commit 0f9d479612175281e5b2697d74e34321440ab363
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/sun4i: tv: Convert to atomic_create_state
+drm/vc4: vec: Convert to atomic_create_state
 
-The sun4i TV connector reset implementation is converted to an
-atomic_create_state hook. It creates the pristine state and initializes
-the analog TV properties.
+This commit converts the vc4 VEC connector reset implementation to an
+atomic_create_state hook. It creates a pristine state and initializes
+the analog TV properties without performing hardware resets.
 
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_tv.c b/drivers/gpu/drm/sun4i/sun=
-4i_tv.c
-> index ea86f8a6a35e7..a68e5f7a03d2c 100644
-> --- a/drivers/gpu/drm/sun4i/sun4i_tv.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_tv.c
+> diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
+> --- a/drivers/gpu/drm/vc4/vc4_vec.c
+> +++ b/drivers/gpu/drm/vc4/vc4_vec.c
+
 [ ... ]
-> -static void sun4i_tv_connector_reset(struct drm_connector *connector)
+
+> -static void vc4_vec_connector_reset(struct drm_connector *connector)
 > +static struct drm_connector_state *
-> +sun4i_tv_connector_create_state(struct drm_connector *connector)
+> +vc4_vec_connector_create_state(struct drm_connector *connector)
 >  {
 > -	drm_atomic_helper_connector_reset(connector);
 > -	drm_atomic_helper_connector_tv_state_init(connector->state, connector);
@@ -89,45 +90,31 @@ the analog TV properties.
 > +	drm_atomic_helper_connector_tv_state_init(connector_state, connector);
 
 [Severity: High]
-Does this trigger a NULL pointer dereference during initialization?
+Will this cause a NULL pointer dereference during display initialization?
 
-When the DRM core resets the connector state, it explicitly clears the old
-state before invoking the .atomic_create_state hook:
+The core DRM function drm_mode_config_connector_reset_with_create_state()
+explicitly sets connector->state to NULL before invoking the
+atomic_create_state hook.
 
-drm_mode_config_connector_reset_with_create_state() {
-        ...
-        if (connector->state) {
-                ...
-                connector->state =3D NULL;
-        }
-        return drm_mode_config_connector_create_state(connector);
-}
+This means connector->state is NULL when
+drm_atomic_helper_connector_tv_state_init() is called here.
 
-The core helper drm_atomic_helper_connector_tv_state_init() then mistakenly
-passes the unassigned connector->state down to the margins initialization
-instead of the newly allocated state:
+Looking at drm_atomic_helper_connector_tv_state_init() in
+drm_atomic_state_helper.c, it ignores the local state parameter when
+initializing margins and instead passes connector->state:
 
-drm_atomic_helper_connector_tv_state_init() {
+void drm_atomic_helper_connector_tv_state_init(
+        struct drm_connector_state *state,
+        struct drm_connector *connector)
+{
         ...
         drm_atomic_helper_connector_tv_margins_state_init(connector->state,
                                                           connector);
 }
 
-This causes drm_atomic_helper_connector_tv_margins_state_init() to
-unconditionally dereference the NULL state pointer:
-
-drm_atomic_helper_connector_tv_margins_state_init(state, ...) {
-        ...
-        state->tv.margins.left =3D cmdline->tv_margins.left;
-        ...
-}
-
-The previous .reset hook implementation masked this core helper bug because
-it assigned connector->state prior to calling the TV state initialization
-helper.
-
-Could we fix the core helper to pass the correct state pointer, or should
-this driver handle the initialization differently to avoid the crash?
+Because connector->state is NULL in this context, does calling this
+helper result in a guaranteed crash when the margins initializer
+attempts to dereference the state parameter?
 
 > +
 > +	return connector_state;
@@ -135,4 +122,4 @@ this driver handle the initialization differently to avoid the crash?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-drm-no-mor=
-e-connector-reset-v1-0-586c9c026823@kernel.org?part=3D61
+e-connector-reset-v1-0-586c9c026823@kernel.org?part=3D64
