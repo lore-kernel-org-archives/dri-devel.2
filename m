@@ -4,128 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47C7DCC6B1D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 12:05:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14D8ACC6B1D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 12:07:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5964510E4BE;
-	Wed, 14 Oct 2026 12:05:21 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 080D810E4BE;
- Wed, 14 Oct 2026 12:05:16 +0000 (UTC)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69E9waOp2016607; Wed, 14 Oct 2026 12:04:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=ajZHd+qh6V9vTCXwQWUfdpmTLNkyLK
- ozm1g9bOoFoFc=; b=JYQ2N0nSXD/tQ/r+o3naoBOH1U+r2oPu+xjGpN+7txoDex
- Z0IWl63DxMAVur3sx+kmGREDCBqZc6k1HCDRjrOoEK+taOKH1OloSc9taF9O0FWY
- WpVjMbVUV3y+904j6Wquin+qDgUZtE0vakTE5A47rqq/xC7whZpk/bAH05j6NUMo
- GyNvztnXQB+E5AUtc1L0KRpmZ7LHjGzNNOr8tWNd56WpJVQz0J/T0JweCGvwVkOM
- 38Ai7Y5IXwL6To2w1AEdek15AbDAMLoAedQcEW17k9uz90AlYajIG2XNMhTS+zOV
- bWm4qcBhLuQq6bVn5TQRsfV9c0VsPZQvM+kgHPMQ==
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugm5g8-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 14 Oct 2026 12:04:52 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69EAnqN23211855; Wed, 14 Oct 2026 12:04:51 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ymp38-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Oct 2026 12:04:51 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 69EC4l5Q50397474
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 14 Oct 2026 12:04:47 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 287A32004B;
- Wed, 14 Oct 2026 12:04:47 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7EC8420040;
- Wed, 14 Oct 2026 12:04:45 +0000 (GMT)
-Received: from li-0f4bfd12-9554-4bfb-8b14-7ccf0f0767af.ibm.com (unknown
- [9.111.94.206])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Wed, 14 Oct 2026 12:04:45 +0000 (GMT)
-Date: Wed, 14 Oct 2026 14:04:44 +0200
-From: Sumanth Korikkar <sumanthk@linux.ibm.com>
-To: Ian Rogers <irogers@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- David Teigland <teigland@redhat.com>,
- Alexander Aring <aahringo@redhat.com>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- driver-core@lists.linux.dev, llvm@lists.linux.dev,
- linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
- gfs2@lists.linux.dev, xen-devel@lists.xenproject.org,
- linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/11] s390/sclp_mem: Allocate struct sclp_mem
- dynamically and add kobject release
-Message-ID: <as9v3PUb0TymCvsc@li-0f4bfd12-9554-4bfb-8b14-7ccf0f0767af.ibm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68BB110FCF5;
+	Wed, 14 Oct 2026 12:07:05 +0000 (UTC)
+X-Greylist: delayed 920 seconds by postgrey-1.36 at gabe;
+ Wed, 14 Oct 2026 12:06:53 UTC
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80BA110FCF5;
+ Wed, 14 Oct 2026 12:06:52 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=xVlOyYaOJuVGaDfnk3Cn8S4up3VyrQrAPSaBBvMWJK4=;
+ b=NRQ2Wyi38AJGPQbJ80NuIBLnWk6SwO8PaLyJaV87efjwedpEJ9wjoxegROCOJ8+sMuMWLGkWu
+ Rm4/b05wv/F91TtAb5MycVTFxtVEUQvci6R9jyHnyeOMNTzXjiNJSTCZN3PILjcWfI1v2zeSqLV
+ B62e3eM4uUujj0AqiqJDPNY=
+Received: from canpmsgout05.his.huawei.com (unknown [172.19.92.145])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4j4Tzh5p97z1BFSk;
+ Wed, 14 Oct 2026 19:50:40 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=xVlOyYaOJuVGaDfnk3Cn8S4up3VyrQrAPSaBBvMWJK4=;
+ b=NRQ2Wyi38AJGPQbJ80NuIBLnWk6SwO8PaLyJaV87efjwedpEJ9wjoxegROCOJ8+sMuMWLGkWu
+ Rm4/b05wv/F91TtAb5MycVTFxtVEUQvci6R9jyHnyeOMNTzXjiNJSTCZN3PILjcWfI1v2zeSqLV
+ B62e3eM4uUujj0AqiqJDPNY=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+ by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j4Tkr1HPxz12LD9;
+ Wed, 14 Oct 2026 19:39:32 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+ by mail.maildlp.com (Postfix) with ESMTPS id 24D014056E;
+ Wed, 14 Oct 2026 19:51:26 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 14 Oct 2026 19:51:21 +0800
+Subject: Re: [PATCH 09/11] ubifs: sysfs: Use kset_create_and_add() for
+ ubifs_kset
+To: Ian Rogers <irogers@google.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Kees
+ Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>
+CC: Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Jonathan Corbet
+ <corbet@lwn.net>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman
+ <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy
+ <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, Yoshinori Sato
+ <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, John Paul Adrian
+ Glaubitz <glaubitz@physik.fu-berlin.de>, Viresh Kumar
+ <viresh.kumar@linaro.org>, David Teigland <teigland@redhat.com>, Alexander
+ Aring <aahringo@redhat.com>, Juergen Gross <jgross@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
+ Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
+ <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, Felix Kuehling
+ <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ <driver-core@lists.linux.dev>, <llvm@lists.linux.dev>,
+ <linux-hardening@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linuxppc-dev@lists.ozlabs.org>, <linux-sh@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <linux-acpi@vger.kernel.org>,
+ <gfs2@lists.linux.dev>, <xen-devel@lists.xenproject.org>,
+ <linux-s390@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
 References: <20261013223946.1836757-1-irogers@google.com>
- <20261013223946.1836757-9-irogers@google.com>
+ <20261013223946.1836757-10-irogers@google.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <3f6e7a0d-ba41-89dd-012f-9ac24e12da9d@huawei.com>
+Date: Wed, 14 Oct 2026 19:51:20 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013223946.1836757-9-irogers@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6acf6fe5 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1XWaLZrsAAAA:8
- a=1KnzZOXWGbpzuJ82zDMA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: _EktMNlxNi0Zhojhx4ASfWVXd_b7DOlL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NiBTYWx0ZWRfX0fUPhxARNcJa
- 9nS/iCLcc7dEQrcybdImltBqHci5KonN9BgYs2DYbqx1d8S2XOqe29HUtCRqWBLErMceEtiShcs
- 4sOis3II/pHWvCugYS8aQjzU25z5oQrs/O3mU6gDGKNdZjvK+pDPTKbfQLhBgdreLHYt/eXKSLj
- 8iaqk3GpEmiCS1rkaREHPfI9BfxMESceMf6fSb58kgdsHk98lVK94W4Z13ZaUDqucgF8UHsrXAF
- s2Mz0WmLaipai7UjCU1P9wfoh1rJSRoR35Qnnl4GViW47ZEhEXi38+rmYIbdZGaRW5Gb4NFboLC
- VDaNe6VnoQav6/qOqN3N/a+a+5cDALYf91XsQVsXP8nIWP35y0wihJcXC0kc0O7eYfGysmumoj8
- nH3TGHAss/iHicos4JusXZh5QK06OZzsWCTSFTnMelfNV7UtEZDijv++v8M3SGrsGa+NyH77MdL
- 5RJO9I7QJmKjVLI0vig==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NiBTYWx0ZWRfXzh8XCAetvSto
- U4lKpTbi/IJ/4y5zYP4Ex816LutfdS+PI20y7l1acTJ0MKa2avnNDCgOzXRPOLPzbCG+UhRciiw
- hNFMfBzpg0MTAxSwj76JilCNvE6uZfI=
-X-Proofpoint-ORIG-GUID: IbMwSeABL9gn-KtBlV7Mt5gD5Rq_VQT_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140046
+In-Reply-To: <20261013223946.1836757-10-irogers@google.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.174.178.46]
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,32 +98,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026 at 03:39:43PM -0700, Ian Rogers wrote:
-> sclp_init_mem() allocated a single array of struct sclp_mem with
-> kzalloc_objs() and registered each embedded kobject using a kobj_type
-> without a .release callback. Allocate each struct sclp_mem individually
-> with kzalloc_obj() instead and add sclp_mem_release() to free it.
+在 2026/10/14 6:39, Ian Rogers 写道:
+> ubifs_kset was a static struct kset using a custom ubifs_ktype that
+> had no default_groups and no .release callback. With
+> CONFIG_DEBUG_KOBJECT_RELEASE=y, unloading the ubifs module while delayed
+> kobject release is pending causes a use-after-free on the static kset.
 > 
-> Fixes: ff18dcb19aab ("s390/sclp: Add support for dynamic (de)configuration of memory")
+> Replace the static ubifs_kset and empty ubifs_ktype with a dynamically
+> allocated kset via kset_create_and_add().
+> 
+> Fixes: 203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()")
 > Assisted-by: Antigravity:gemini-3.1-pro
 > Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>   fs/ubifs/sysfs.c | 24 +++++++-----------------
+>   1 file changed, 7 insertions(+), 17 deletions(-)
+> 
 
-Hi Ian,
+Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/fs/ubifs/sysfs.c b/fs/ubifs/sysfs.c
+> index dbf967dcf26e..e20931e3a62f 100644
+> --- a/fs/ubifs/sysfs.c
+> +++ b/fs/ubifs/sysfs.c
+> @@ -80,13 +80,7 @@ static const struct kobj_type ubifs_sb_ktype = {
+>   	.release	= ubifs_sb_release,
+>   };
+>   
+> -static const struct kobj_type ubifs_ktype = {
+> -	.sysfs_ops	= &ubifs_attr_ops,
+> -};
+> -
+> -static struct kset ubifs_kset = {
+> -	.kobj	= {.ktype = &ubifs_ktype},
+> -};
+> +static struct kset *ubifs_kset;
+>   
+>   int ubifs_sysfs_register(struct ubifs_info *c)
+>   {
+> @@ -107,7 +101,7 @@ int ubifs_sysfs_register(struct ubifs_info *c)
+>   		goto out_free;
+>   	}
+>   
+> -	c->kobj.kset = &ubifs_kset;
+> +	c->kobj.kset = ubifs_kset;
+>   	init_completion(&c->kobj_unregister);
+>   
+>   	ret = kobject_init_and_add(&c->kobj, &ubifs_sb_ktype, NULL,
+> @@ -139,18 +133,14 @@ void ubifs_sysfs_unregister(struct ubifs_info *c)
+>   
+>   int __init ubifs_sysfs_init(void)
+>   {
+> -	int ret;
+> +	ubifs_kset = kset_create_and_add("ubifs", NULL, fs_kobj);
+> +	if (!ubifs_kset)
+> +		return -ENOMEM;
+>   
+> -	kobject_set_name(&ubifs_kset.kobj, "ubifs");
+> -	ubifs_kset.kobj.parent = fs_kobj;
+> -	ret = kset_register(&ubifs_kset);
+> -	if (ret)
+> -		kset_put(&ubifs_kset);
+> -
+> -	return ret;
+> +	return 0;
+>   }
+>   
+>   void ubifs_sysfs_exit(void)
+>   {
+> -	kset_unregister(&ubifs_kset);
+> +	kset_unregister(ubifs_kset);
+>   }
+> 
 
-The entries under /sys/firmware/memory/memoryX in sclp_mem.c are
-permanent. They are backed by a single array allocated at boot and
-remain for the lifetime of the system.
-
-Memory hotplug can add or remove memory blocks under
-/sys/devices/system/memory/, but it does not remove these firmware
-entries. The /sys/firmware/memory/memoryX kobjects are never
-unregistered or freed, so I think there is no need for
-kobject_put() and no execution of a .release callback.
-
-Instead, could this follow the approach used in Patch 11 of this series?
-static const struct kobj_type ktype = {
-	.release = NULL, /* Permanent firmware kobjects, never freed */
-	.sysfs_ops = &kobj_sysfs_ops,
-};
-
-Thank you
