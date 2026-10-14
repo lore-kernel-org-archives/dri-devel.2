@@ -4,130 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A124FCC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC427CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 641F8112194;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DE65112193;
 	Thu, 15 Oct 2026 07:57:19 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C057C10E0C6
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:13:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A940741969;
- Tue, 13 Oct 2026 15:13:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95521F000FF;
- Tue, 13 Oct 2026 15:13:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791904411;
- bh=vNT7r4CjRxGgpmU98KAjnsq2tgE7lxMRwVW+eBf5yTA=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Ve2o1nPVh+LHGy9ixY1aQf7xWWVVO7dZYQvgBI6O7+bRF/qj5gbUCIwvmDf7pX8mJ
- XdyU8DZVrerNAPmugb5rzySHLdqP/BLHqVF9/qikHT89JOpkW5ujxM4YbsIjjHq1Lt
- VaWgxxBRXFyQVNUw+Gq+zWnh7sQCZFgEwYaCARQbHIsPzs105epjjHvgGKrG/jvnvD
- sKfRV17R8h6abdWpcUa4Q8FVNeSnIxbMqZl68cBPFzjYsf/6XQWtcdsLJqEqIxw/dK
- Y3pYTWg1bNPVDYDnXo5Dm+CQQ0gyUwNHq+N53JICY6cYQrLs2VJBjzt9/OGxMWVxn1
- TLWvmbBlLEX5w==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:54 +0100
-Subject: [PATCH v6 14/39] bpf: arena: mark arena_map_mmap() mappings
- VM_MIXEDMAP
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
+ [209.85.221.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA6B10E9C1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 15:25:31 +0000 (UTC)
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-5db19e2ef99so223367e0c.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 08:25:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791991530; x=1792596330; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ByuDN4/B1x5JlHCJPQ+ueE1qolHJj9yRQEgaRjuCRjU=;
+ b=KuoyUyDqusk96FaKOHHwGZzt4fPAuh6WpvCC2d7gbd7Cdr2jdhIaClzMhiVzsHtzW8
+ ryJk1mjMqbKF7/Bjsw5RJabPWRw9rsZ+pNCgYkjSkO43OLg4sBv5F5DRzud6v+aS3VWV
+ 5Ep1hIZJDlhGBEWqaDVIykDqKUn1K6tsneGcrkuUmhmU/xym+39VnVf8uZov9BtghOXc
+ elB0HwBeqfzIgII/H5Xjhj4HiX7RwzQu0ERiz8LdU8iYw7MwhejYWXICqUOG0Adv6Wpq
+ bKy5bu08HxMna/0OfxKgmQlUEx7zcGjo5D+ZnUpw41zdThDKIshQka9IL7h4BLC8wCJX
+ M18g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791991530; x=1792596330;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ByuDN4/B1x5JlHCJPQ+ueE1qolHJj9yRQEgaRjuCRjU=;
+ b=Hz4Wn20by/7eUVWDvd+dHdioW6yuKf+dEgxyz5r5C3pftB3ED/S1btQ52HYtSJ8GBG
+ 3Ln2gi/plpbQGMmnEtTvL1yK3Pwj6Fu8CD3/s7ts4xWawIMNk8NtSLJARRpe8hVAAnec
+ wQxDD9KWHbnSPh1GhzS+eDBrtrJO9WCUD4H9vw7nRwzJGvcbFZooJDcBT9mkTVnj+l2V
+ zLtW+M6hgwTm3JWxzS67E7PlY1JhJTY928oxzvUSvE2MvArNX1PGhhppWKcZVVkYk9ST
+ F2nvUQ5N3238L9Xr38IW0BhTFZK8wGsrb+i+v1dr3UcJN+aiwWmzgQyoRGaJKmmfm5zs
+ iCIA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzrAIfNJukCI5BKjK1BfYTeiYJ6AWHXMwKpkIQousnErTNATwVB1fKVoHmFfZczXDo/SCTq4K90ASA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLKXhXcquDmh1KW5EJpqjp7JtnWgBYwlDC8nrS8rzA/IwLv36ck
+ 37gHgp2e3Pn8zDh/wkH0ax+fshsu9qk0b0tH4+b+CB4gjqun0wwPMgF9
+X-Gm-Gg: AYBFou2yjew4p9ZdqXkvX+XFIIVFoGQh7+X+7s7dzl+CIZX9x+HU3wuJAr2N4LTKa2p
+ QymgN+kkhySWEBVSvriJgAoRKVsANSEUrklEkUoqfkFqIDQ88g4uJdQ7qdVeOXsx8cnqpZo2GhE
+ SYY0iiwnXiXmKwNcnjq2BoGk0ZGSElXcZDtxfLb+G94Tgd2RRL03emb59tKMOMeQFRuwZCQUkcN
+ bjO1YiAGGJVDk0oLOl+EDVynaOZDqTPRkecH8NGO5yqLWKnJs0JjNIKqQtpDeQswMgUxw8c8nZP
+ tzpQG5+/e5T9zlRB8jAd+yGpX1fpJBlKzilunn4mX6lMbdW6ppnMyXsmrL6lfUZv5dOj5ON/uYu
+ /U0bVJAimnjApOxlfxPi6blWixI6VPwD06GOkxiR8P+2VRej9X0CXBFE82kKfLeMzjYhTzUfhMU
+ FnzbD2idBpyYWp8Gzl4eQk9kDrC+KYcJMD/JU/AlhqmVFSfBFgyg8/5G7hd4zMod/IrvzM88CMp
+ 5k0VUPc944MyCABWsmA+hyYGZN1lvZOcadjVy5bH7ZNLenGZ5sNKpvZFq0ldZxYdRyZhQS0POXD
+ 1qPeOA77QGhSPVN6k8Gd13P3iEU7g9t48OXJER1lzuSRRe/X
+X-Received: by 2002:a05:6122:3b10:b0:5e9:484a:3499 with SMTP id
+ 71dfb90a1353d-5e9484a38e0mr2792831e0c.2.1791991529768; 
+ Wed, 14 Oct 2026 08:25:29 -0700 (PDT)
+Received: from debian-t14-gen1-fuhrysteve.ts.fuhry.app
+ (235.sub-75-230-129.myvzw.com. [75.230.129.235])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91b97c39482sm54744986d6.45.2026.10.14.08.25.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Oct 2026 08:25:29 -0700 (PDT)
+From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>,
+ "Stephen J. Fuhry" <fuhrysteve@gmail.com>
+Subject: [PATCH v2] drm/i915/display: guard intel_alpm_get_error() against
+ non-ALPM sinks
+Date: Wed, 14 Oct 2026 11:25:26 -0400
+Message-ID: <20261014152526.2523534-1-fuhrysteve@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-14-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2233; i=ljs@kernel.org;
- h=from:subject:message-id; bh=YL/D7PzUYFsfQy4n4374d+RxPJLgGfcMIAq9i3+xHok=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZzMvhTb99+L8cqk44+Wxp1wnGvfvN2Mhdsy2Ypr4
- se5jcdMO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRyL8M/xP5Z71p5O1Lq/bw
- 6rzs+GXJFIbK5OVKqwTC9+0SXzk/pYOR4R7nXs9teXv9bTjFY+V87rTrrApYtrB6mlftu1DXDQe
- UGAE=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,58 +93,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
-one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
-or arena_map_mmap().
+intel_alpm_get_error() unconditionally reads DP_RECEIVER_ALPM_STATUS via
+AUX from any DP connection that receives a short-pulse interrupt.
+However, alpm_dpcd is only populated by intel_edp_init_dpcd(), so it is
+zero for all external (non-eDP) DP and DP-MST connections. On such
+connections the AUX read fails, producing a spurious
 
-It is convention in mm to mark mappings whose pages the kernel manages
-itself with VM_MIXEDMAP, so core mm knows not to treat them as ordinary
-page cache or anonymous memory.
+  [drm] *ERROR* Error reading ALPM status
 
-The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
-use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
-marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
-explicitly.
+and setting sink_alpm_error = true, even on hardware that never enabled
+ALPM.
 
-However, the exception to this is arena_map_mmap(), which doesn't set the
-flag.
+intel_alpm_disable() already returns early on !intel_dp->alpm_dpcd;
+apply the same check in intel_alpm_get_error() so it skips the AUX
+transaction when the sink does not support ALPM.
 
-This patch corrects this and updates the comment to reflect it.
+Seen on a ThinkPad T14 Gen 3 (Alder Lake-P) docked through a Lenovo
+ThinkPad USB-C Dock Gen2 with two DP-MST monitors: the error fired once
+on the dock's upstream DP port on every DPMS wake.
 
-The pages are refcounted and vm_normal_page() finds them regardless of the
-flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
-thus unmergeable). The one effect is that NUMA balancing now skips these
-VMAs, as it already does for the other bpf map mappings, which is the
-reason array_map_mmap() gives for setting the flag.
-
-The intent of this patch is to be able to establish the invariant that only
-PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
-in bpf_map_mmap().
-
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 2063174c22da ("drm/i915/lobf: Check for sink error and disable LOBF")
+Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Stephen J. Fuhry <fuhrysteve@gmail.com>
 ---
- kernel/bpf/arena.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+v2:
+- Rebased onto drm-tip. intel_alpm_get_error() now uses
+  drm_dp_dpcd_read_byte(), so v1 no longer applied; the change itself
+  is the same three lines.
+- Carried Jouni's Reviewed-by from v1, since the logic is unchanged.
+- Corrected the hardware in the commit message: the machine is a T14
+  Gen 3 (Alder Lake-P), not a Gen 1.
+- The error was observed with a ThinkPad USB-C Dock Gen2 and has not been
+  retested since the move to a Thunderbolt 4 dock.
 
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index 7b6847200b43..b69fe5e34339 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
- 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
- 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
- 	 * being copied into the child process on fork.
-+	 * This is a kernel page so set VM_MIXEDMAP.
- 	 */
--	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
- 	vma->vm_ops = &arena_vm_ops;
- 	return 0;
- }
+v1: https://lore.kernel.org/intel-gfx/20260611125408.676626-1-fuhrysteve@gmail.com/
 
+ drivers/gpu/drm/i915/display/intel_alpm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index f54b29e..059287d 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -754,6 +754,9 @@ bool intel_alpm_get_error(struct intel_dp *intel_dp)
+ 	int ret;
+ 	u8 val;
+ 
++	if (!intel_dp->alpm_dpcd)
++		return false;
++
+ 	ret = drm_dp_dpcd_read_byte(aux, DP_RECEIVER_ALPM_STATUS, &val);
+ 	if (ret < 0) {
+ 		drm_err(display->drm, "Error reading ALPM status (%pe)\n", ERR_PTR(ret));
 -- 
-2.55.0
+2.47.3
 
