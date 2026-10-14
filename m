@@ -4,129 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16BE1CC6B19
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 04:43:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35119CC6B19
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 05:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5786010E0E7;
-	Wed, 14 Oct 2026 04:43:12 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B641810E0E7
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 04:43:01 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3AD10E065;
+	Wed, 14 Oct 2026 05:22:03 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71FEA10E065
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 05:21:52 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69DMVCkU3103937
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 04:43:00 GMT
+ 69E2TjnY3001160
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 05:21:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9K3cbdb7dFzpqCr6C1BNZjsMaePAgKuPmBno8+Ephi4=; b=iMtg+E714UVPUI52
- b1D/C3M/dbkGmWbv/g2rz5tue+k4RIOEG4lnLOIo/RzQlcHI6z3w3PVxThYerX5C
- MGpyNWnocd4jHJ8vpou2RA0U2CwRNIaOOdf9CAZKWqZ8N1rjEQbqvnoj7yTds8Qv
- aPDC+efYvYZc69IbEvvExDPnAT6dOq8JZvrhPNLcdhXqR0WPM3MnqAJtbOnQUblS
- Wp2BDuF/jjIYCpAaVK3PnuWI4wUhrREGP54l+eNHQUwtVTGocT/dxLvsZ7MZbt04
- ym/JnljrtuLHyQ/gRV4l+Km7tdrU49p7/SZagv7baw1VAcdPjlelTZI0188hvJFT
- RcmCzA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
- [74.125.82.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9wgt1487-1
+ +tmeHKXlwKajtwfy7oLy0X/GGrLlKfCh9j2G3mpjqNg=; b=CtTr0cdDc9I9YEYK
+ MIciJkpVv5UsiYAqdcyE0f7a0/jfs7xjP93Xe9L4ZwFFfGWhAk+NcGqrOGZpvYd2
+ txkIle81II0Jbxwf8bRhPnM76+YPNTp0nzJSmX2HgvlMUHDBze3c25Q16VezldAq
+ UUqV9ff+LP4V6IE9QkBLnlpukr5sUxSPC8HPNFGesd4EVZ4GLHC7g4W6N+0K0hSp
+ Pqrfhlh3xk2LDx25brlWYcPoMgKL0pt6owMo0DPklkIIKJmFL8/wx4pOFdX9lNlQ
+ aS37d0b+q5a98MbalVMolZPSUwfnZMoGpeRs9KBPqzp3ylGceqFRVBVhHFhC9bnf
+ rKQh6w==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sbetacd-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 04:43:00 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-35a04491c56so657482eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 21:43:00 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 05:21:51 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-39deda201bcso6112796a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 22:21:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1791952979; x=1792557779;
+ d=oss.qualcomm.com; s=google; t=1791955311; x=1792560111;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=9K3cbdb7dFzpqCr6C1BNZjsMaePAgKuPmBno8+Ephi4=;
- b=EeHEk/H0yRhxtkATjUSKR4KRyx5InN3xLAIiis9gOG1n7QWFgsI28pBc8IIP5+UU02
- AHxYW7n8BmYUxyOHWCWnJL6oyIzyxlPCh5+ldYd0sDt61e1SnDvF5cmNHe4DS8hQgt2e
- gC3cklD00om4A4nsVwDAP+y0DK00Q6VRuYC6MGMTMPP5uyQEBMdtxEqG+tGrWfPA6R2n
- zvGtRtfIOS5BAW1Fq6CmJuQU4sIDLz9HvUrDzJwEGMkHmQCZwlsIweJ0WuPBuyV+F/jP
- ljZHFtRwZFRQsr74Z/zda6Yi/l+qdsBtmsYMFAyeWlW5M7G/8S/JCoxRswfxKnHYO4J6
- itUw==
+ :content-type; bh=+tmeHKXlwKajtwfy7oLy0X/GGrLlKfCh9j2G3mpjqNg=;
+ b=VCZNHBasxZRQOKq+B1ElLWfkJvYYAVCpPRqh4k1q6Mjp2xzlBunZtUakzYWHMNUWKi
+ tKl/u+u0ci3luELrbW/6dAgnyn8KduDI0WGs65Avr7yFw//IR/GjHPLhF3L7IBoxjey4
+ FUaYCmhX/Gtf1XOGbT3W482RWjEJ6b+vY9K4AOdHBETL4ARqQ2vEAN0/hMIoid3qox34
+ CZY8WyLhK517ZxoxYOUCS5c7exMU5hYWxuEaxxhv74EyazkT8fcbGseEZUJmmYOqCRg/
+ oAUsmNfLVYqpuIqzs/9o2fRQTr0dNLbpj4KyCsBYVeGKwSv30Rw1a8gNcinLYjBQiBdc
+ aiQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791952980; x=1792557780;
+ d=1e100.net; s=20260707; t=1791955311; x=1792560111;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9K3cbdb7dFzpqCr6C1BNZjsMaePAgKuPmBno8+Ephi4=;
- b=NymO52UqekxcW4eVy3GpxK4ckA0EIiQj+bwN9epD8ELWl+bVtwa9xlbrYdVVs58UQR
- aN9rvL5HT0bzF82Hifag0YQy8u6NXSxNjCkJE3butz1k+UO/iw/h0/5Ocb+1mcqLv13W
- rnwLlgvquemKA4+ytsOpyWDZWAQSicDb1kql4Hjddo9EH+aS946vCI9IbPOVZOo2nIXD
- Nq0YXPwVnDo00BAt7vZkgMSRjkOFPGZp+CKbrL8ZVih6j3DG18FicWmP2Czlmtv5SIdB
- d7xxZxK4znMWzp8zQnG7IquocKp/pDBpPR6xa/Qmsj2fuQTopmq4R9ExzKTxBVaUY3Td
- kDbQ==
+ bh=+tmeHKXlwKajtwfy7oLy0X/GGrLlKfCh9j2G3mpjqNg=;
+ b=CDIEIrUCo2reztlMiR+IrjDCj9YHV7dLKjyuR3p/f21vxDy1LxbUfdY2X4DujH3Ry6
+ 86GV7uozD4titr4RlmBEaT6Hj8I1IBtG7XwtYA3NXvnHZIRAXytEHdDq/BuHX03DCzE7
+ 3aU3Hm0RmfdVMmL2KE36S2cBBu0BY7Ok4G6eaYDRv2EcF+0NQLrT3hD/VYZKQpdjaIlN
+ 8oGiHeb++aw5BtFcdPU+lP1qo/IIAFHsHG5knbm0tVXKTdhKSaJ9c6sgNnFo6vDkFwoq
+ cMh+Ed3cOPrnKcanWb5DtJ1qHYYKqxcBQY6a/2PSKAo6xVjRw2xfpNrGLe7XdaADJttA
+ +rlg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwlhfo/dEiB+5r4svQ7hTsgL6vzQdOEfzNG0ZWD4kON4LHy8KQ08tM+RiP/BeTfOfjn9H3jvcU+fnI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIrMpXOTyxGy2Y8gDU7S7DKGMT/hzQmNbWCVxueXPcoA9JEKgNS
- UE0ZWKVgV0Bt/pNgnvfL02YmLucCWAeq/4oADhS62kJ8pzDeUgYtfinlrM6WJExR+AcDPpm4ZsU
- GTGA3uIdSoouhUTdeL9arUw3n+MWtf+epNGESqXJ1hqI6EopFm+IBXqjtdtyDrVoKw0M4WO0=
-X-Gm-Gg: AYBFou2k1S/+dTPK+x+Zi8W5sj2Rw52zvwKZgA+w5UV0KLaF+Oh0UabXLoNxtf3czU0
- h69vCbK9fz0VqsHLR/EVHKG07BcQHO2dFNBw3dvf+gIGNFE2OrAn7TQKCsR0syFbc1315ql/orJ
- CfplQtXIC8JFlgxcBQc6XIk5CGwgDcFw3RPkO/CNzM8m4p+q0BpGgDhhKdrxs1KVwxhb9umftGE
- PJs0rbG+TP47/laX1YvG1TVoEG5f9AgGUeiibGHtNp45IO3fd61+HfHfs5JhEC0uBDhrAGAyde8
- sdOeE/VgzItHLmNoifv3K/X79pZraswUB2UJ4w8HUEoAOnashHLnPb9odIreUKnNUQwW6gu/vDm
- pP6IVRkVjqzq5R5W7Gf8tK/PodsE0
-X-Received: by 2002:a05:7300:c87:b0:33e:61ab:8309 with SMTP id
- 5a478bee46e88-3537b291a93mr28294717eec.23.1791952979284; 
- Tue, 13 Oct 2026 21:42:59 -0700 (PDT)
-X-Received: by 2002:a05:7300:c87:b0:33e:61ab:8309 with SMTP id
- 5a478bee46e88-3537b291a93mr28294648eec.23.1791952978467; 
- Tue, 13 Oct 2026 21:42:58 -0700 (PDT)
+ AKwUvBzvrvE2wm8y74KlbZzPcYrZW5jmd1ADZCrr1bMxvYxjoef3vUlEMAEhqAStfZEOe9TTGZkso1FiSD0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIPnlI91xKhBkjcNfVnbgu5TXvb8CfYW9Q570XxvhP7pm62Sjb8
+ 8zN6fRMLT82boB6B0BnSGJywtoEDKQPq2hxEjBjyUbazJkV20wwGFO8ta4rkb4hQ9JqaXkgi3rD
+ tip5Yxdp9s9lkeN+nCx8lMe5yDkifQNx9nRhvNSYJnL2+PurjzkvgsSFhESoWF3S5JC+oXKA=
+X-Gm-Gg: AYBFou1Gc7t1MSCvEwf700E4ewosTWGFbEBZsTAmmEXeEvACYeZYl8CuM7aCH+f49lm
+ kbxUNB/aHhUG5ZUyv6QRFvMbwdPLDKTgzUED9B3jvr8jM6MJ1YWrd4SaKwdgogEQEMnWAhFK1H3
+ CEAOn5XiomoUmbF1jpOLR+cZ55yqCJhJQ6YREgPrlmlr4mnL27ZY8nu/1gT1c/NZ30JwRFN5POe
+ PupCDbX5ZcBTimX2gP8bYCLnTDpHW0yOzAa7A3XXC7AOwM1dSU29YmHq5TvV4uNpK6uZJgkhFlF
+ M3Byj9W3iyBQYxy3IYOe2iUaearZ0SgK2b4oVjYR+/v6kECLh86o5BgR9wyc1r0Vyg6ofyGzV1k
+ w64gOaaVFGOMHxyaPsqeU6nJwqDEo
+X-Received: by 2002:a17:90b:544f:b0:3a7:8c68:6446 with SMTP id
+ 98e67ed59e1d1-3ab3acf5d75mr11891809a91.63.1791955310822; 
+ Tue, 13 Oct 2026 22:21:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:544f:b0:3a7:8c68:6446 with SMTP id
+ 98e67ed59e1d1-3ab3acf5d75mr11891790a91.63.1791955310244; 
+ Tue, 13 Oct 2026 22:21:50 -0700 (PDT)
 Received: from [10.219.56.188] ([202.46.23.19])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-35c89429484sm11541995eec.23.2026.10.13.21.42.55
+ 98e67ed59e1d1-3ac77441306sm270844a91.2.2026.10.13.22.21.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Oct 2026 21:42:58 -0700 (PDT)
-Message-ID: <6e4d0fc2-3fe6-4dff-bdc1-b6051f3becef@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 10:12:53 +0530
+ Tue, 13 Oct 2026 22:21:49 -0700 (PDT)
+Message-ID: <cf34e58c-29cd-411e-b2fd-e5c6e2fcac08@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 10:51:44 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misc: fastrpc: Add cache maintenance for non-coherent
- platforms
-To: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>,
- srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de
-References: <20260916185850.3686010-1-abhinav.parihar@oss.qualcomm.com>
+Subject: Re: [PATCH v2] misc: fastrpc: map ADSP remote heap into remoteproc
+ IOMMU domain
+To: Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, quic_bkumar@quicinc.com,
+ quic_chennak@quicinc.com
+References: <20261001-fastrpc-kvm-iommu-v2-v2-1-6c32ad6f662f@oss.qualcomm.com>
 Content-Language: en-US
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260916185850.3686010-1-abhinav.parihar@oss.qualcomm.com>
+In-Reply-To: <20261001-fastrpc-kvm-iommu-v2-v2-1-6c32ad6f662f@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxOCBTYWx0ZWRfXy4sQl8LasoNl
- MCMUogUrZFPMd3rMyolA7sAV6Ciq5o7/bLditXKMEiJbbgAUtZ7N8KwC+OHU9LjjSP2EvXZbpio
- GaSlDtumxsRC8t8/askXJby/tIFa5FZq8IGZmW2IcK1Gng94po3b4i3VzKBL81KBT5xu0UyiTzI
- x9qoRn/6otVn17+ADhDLInz1zDrnElm27PjxNyg1wW/9PzrTX/OO6qsgTRzuaQPDxmDCTC6rget
- rt3ID+dfyY22jBepVGF4Sqb+o2cZmYyWuNeDVYaPEBSQ0hhX7JEZsrcjx5SgJMCSteWudukDneF
- Aw8KBfKkwJ2gYrqJAmfYMLWl33qsuP+SNOpitdgdSXjteKDwPVC7OZ2zDf3bzDxHyy7cgbbvV4Y
- RZsaYgHtvbl3sM8TXm53teDgjP2VZdslH3mJznaNAGuo43gW3rGCXOFrztiRuHduNUyoaxVs8tM
- +zQPr7oKM38TMuETsAA==
-X-Authority-Analysis: v=2.4 cv=Jp1kP84C c=1 sm=1 tr=0 ts=6acf0854 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+X-Proofpoint-ORIG-GUID: 9jPUVDk5I7dkQjohrXOhTUGgZGTommgO
+X-Proofpoint-GUID: 9jPUVDk5I7dkQjohrXOhTUGgZGTommgO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAyMSBTYWx0ZWRfX5/y7ymkq/B15
+ iGO8Uk1G/OBhf5o1cAEFcUcjR8/AfOEU62r+gEIcCO4dXav4rKMVOMg6QJMibqZMag727q1oRJs
+ n+ra3pf3emYKjYbCLhwW/dgRSVpwshm54xK5gMMoKZoKgeY/lfz0AnNflUTIuuv+lcKi2WcnsZz
+ u230K3pLXTzt1XvIf6GkR6bjcbG6kpHzbTnAUJNec5dIO8Td7PatOAUlGqTBA6Qm2fSsU64Gby7
+ b/bDdfqopaZxOxb73lf6E4NG3scpvAq+LiPsn/+ox87VR3IW+DsqsM6WeSOfNjEY++lfH2Tc9BH
+ jA99a28xpJ5YxvKbtm8zO4ccOECUE50BsBUF1wTevEGroCe+pHxcoRInE3sflDVaDuPVnuQYLpl
+ /fPznuYjoRTczCHeER5N1acMHYcCkpvD0qOdg2bC63QPNw86AMBcZ8HLtr+iuzc75IzlYghanio
+ HWZWKB/unbu6WFWLggw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAyMSBTYWx0ZWRfXxyMfJAiAUDmG
+ qaFQZcwnRjNI8HfU1BNhkk3iMR1CdlVm6quF3WXdP2ikWJxmCzYVMEjqRhXsM44jEhuvW5h/6eq
+ MwqgxK9c+SosSoqDPWRoHKZk2GsdJ/4=
+X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6acf116f cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=J77KH-JWTt9_r89aEeUA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: C403BXeKATZRs5Ci0iMiMZXmkXcrTyQm
-X-Proofpoint-ORIG-GUID: C403BXeKATZRs5Ci0iMiMZXmkXcrTyQm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxOCBTYWx0ZWRfXwgoCVQN47DTh
- 8dpg1gTGoOvKzoAYJ7HSyfB5bNa4LNSAe0Rf1y5/Euu+tR+ykfruPCZmKOvnjJdM30Nsds4w2+u
- +YEQ/oJVCsdvFUq7yQO4CVnOAWmF+Y8=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ag1SF4gXAAAA:8 a=e5mUnYsNAAAA:8
+ a=COk6AnOGAAAA:8 a=-BeeMIvaIu40gwv0EBMA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=Yupwre4RP9_Eg_Bd0iYG:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
- priorityscore=1501 bulkscore=0 adultscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140018
+ clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140021
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,219 +147,306 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17-09-2026 00:28, Abhinav Parihar wrote:
-> Some platforms using fastrpc do not support DMA coherency on
-> HLOS. On such systems, explicit cache maintenance is
-> required to ensure data consistency for RPC argument buffers.
+On 01-10-2026 20:30, Anandu Krishnan E wrote:
+> On KVM-based targets the kernel runs at EL2 without a separate
+> hypervisor to manage inter-VM memory access control.  In this
+> configuration the remoteproc is assigned its own IOMMU domain, and
+> any memory carveout the DSP must access requires an explicit mapping
+> into that domain before the DSP can reach it.
 > 
-> Add cache maintenance for argument buffers when operating on
-> non-coherent platforms:
-> - Flush input buffers before invoking RPC to ensure CPU writes are
->   visible to the DSP
-> - Invalidate output buffers after RPC completion to ensure DSP
->   writes are visible to the CPU
+> The existing code calls qcom_scm_assign_mem() to transfer ownership
+> of the ADSP remote heap carveout from HLOS to the DSP VM.  This SCM
+> call is only meaningful when a separate hypervisor (e.g. Gunyah) is
+> present to enforce inter-VM memory access control.  On KVM-based
+> targets no such hypervisor exists, so the carveout must instead be
+> mapped into the remoteproc's IOMMU domain via an identity mapping
+> (IOVA == PA) using iommu_map().  Without this mapping the DSP
+> triggers an SMMU translation fault when accessing the remote heap
+> during audio PD static process creation.
 > 
-> Introduce helper functions fastrpc_flush_args() and
-> fastrpc_inv_args() to perform the required dma-buf cache
-> operations. These are invoked only when the device is not marked
-> as DMA coherent.
+> Detect whether the remoteproc has an IOMMU by checking for the
+> "iommus" property on the remoteproc DT node and store the result in
+> a new use_iommu_map flag in fastrpc_channel_ctx.  When the flag is
+> set, map the carveout into the remoteproc's IOMMU domain instead of
+> calling qcom_scm_assign_mem().  Introduce fastrpc_remote_heap_map()
+> and fastrpc_remote_heap_unmap() helpers to encapsulate the IOMMU
+> domain lookup and map/unmap operations.
 > 
-> The coherency capability is determined using the "dma-coherent"
-> device tree property and stored per session context.
-> 
-> This ensures correct data synchronization on platforms lacking
-> DMA coherency, while avoiding unnecessary overhead on coherent
-> systems.
-> 
-> Signed-off-by: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
+> Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+> To: Srinivas Kandagatla <srini@kernel.org>
+> To: Amol Maheshwari <amahesh@qti.qualcomm.com>
+> To: Arnd Bergmann <arnd@arndb.de>
+> To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: ekansh.gupta@oss.qualcomm.com
+> Cc: quic_bkumar@quicinc.com
+> Cc: quic_chennak@quicinc.com
 > ---
+> Changes in v2:
+> - Rebase onto the fastrpc-for-next tree, which now has the remote
+>   heap allocation and reserved-memory handling changes.
+> - Rename has_iommu to use_iommu_map for clarity.
+> - In fastrpc_rpmsg_remove(), the IOMMU unmap path now mirrors the
+>   qcom_scm_assign_mem() path exactly, so the two are handled
+>   consistently instead of leaving the IOMMU case with different
+>   cleanup semantics.
+> - Add fastrpc_get_rproc_node() to fix a device_node refcount leak:
+>   the previous of_get_parent(of_get_parent(node)) pattern never put
+>   the intermediate parent node.
+> - Unmap the remote heap from the remoteproc's IOMMU domain if probe
+>   fails after the mapping succeeds, instead of leaking the mapping
+>   and causing -EEXIST on every subsequent probe attempt.
+> - Log a warning in fastrpc_remote_heap_unmap() on each failure path
+>   (remoteproc node/platform device/IOMMU domain not found, or a
+>   partial iommu_unmap()), instead of silently leaving the mapping in
+>   place with no diagnostic.
 > 
->  Patch [v1]: https://lore.kernel.org/all/20260604194811.2437567-1-abhinav.parihar@oss.qualcomm.com/
-> 
->  Changes in v2:
->   - Fix buffer overlap handling to ensure cache maintenance is performed
->     when input and output buffers overlap and the overlap calculation
->     suppresses the buffer's mstart/mend range.
->   - Add a do_cmo flag to track buffers that require cache maintenance
->     even when their overlap range is clipped.
->   - Invalidate output buffers before sending the RPC request, preventing
->     stale CPU cache lines from being written back while the DSP updates
->     the buffers.
->   - Use DMA_FROM_DEVICE consistently for both begin_cpu_access() and
->     end_cpu_access() when invalidating output buffers.
-> 
->  drivers/misc/fastrpc.c | 77 +++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 76 insertions(+), 1 deletion(-)
+> Link to v1: https://lore.kernel.org/r/20260618-audio_fix_clean_v3-v1-1-ec1ee66fe455@oss.qualcomm.com
+> ---
+>  drivers/misc/fastrpc.c | 149 ++++++++++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 128 insertions(+), 21 deletions(-)
 > 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d4fac2caca86..83d04b9d2ea0 100644
+> index 5ac7b3e78ba7..89f4a80ad9be 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
-> @@ -217,6 +217,7 @@ struct fastrpc_buf_overlap {
->  	u64 mstart;
->  	u64 mend;
->  	u64 offset;
-> +	bool do_cmo;
+> @@ -21,6 +21,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/firmware/qcom/qcom_scm.h>
+>  #include <uapi/misc/fastrpc.h>
+> +#include <linux/iommu.h>
+nit: follow alphabetical order>  #include <linux/of_reserved_mem.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/bits.h>
+> @@ -317,6 +318,8 @@ struct fastrpc_channel_ctx {
+>  	/* Audio PD reserved remote heap region */
+>  	phys_addr_t remote_heap_addr;
+>  	u64 remote_heap_size;
+> +	/* set when remoteproc has an IOMMU; use iommu_map instead of hyp_assign */
+> +	bool use_iommu_map;
+>  	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+>  	struct fastrpc_device *secure_fdevice;
+>  	struct fastrpc_device *fdevice;
+> @@ -2507,9 +2510,90 @@ static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unuse
+>  	{},
 >  };
 >  
->  struct fastrpc_buf {
-> @@ -292,6 +293,7 @@ struct fastrpc_session_ctx {
->  	int sid;
->  	bool used;
->  	bool valid;
-> +	bool coherent;
->  };
->  
->  struct fastrpc_soc_data {
-> @@ -655,7 +657,9 @@ static int olaps_cmp(const void *a, const void *b)
->  static void fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
->  {
->  	u64 max_end = 0;
-> +	int max_raix = -1;
->  	int i;
-> +	int inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
->  
->  	for (i = 0; i < ctx->nbufs; ++i) {
->  		ctx->olaps[i].start = ctx->args[i].ptr;
-> @@ -675,6 +679,9 @@ static void fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
->  			if (ctx->olaps[i].end > max_end) {
->  				max_end = ctx->olaps[i].end;
-should you update max_raix here also?>  			} else {
-> +				if ((max_raix < inbufs && ctx->olaps[i].raix + 1 > inbufs) ||
-> +					(ctx->olaps[i].raix < inbufs && max_raix + 1 > inbufs))
-if ((max_raix < inbufs) != (ctx->olaps[i].raix < inbufs))
-> +					ctx->olaps[i].do_cmo = true;
->  				ctx->olaps[i].mend = 0;
->  				ctx->olaps[i].mstart = 0;
->  			}
-> @@ -684,6 +691,7 @@ static void fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
->  			ctx->olaps[i].mstart = ctx->olaps[i].start;
->  			ctx->olaps[i].offset = 0;
->  			max_end = ctx->olaps[i].end;
-> +			max_raix = ctx->olaps[i].raix;
->  		}
->  	}
->  }
-> @@ -703,6 +711,7 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
->  
->  	INIT_LIST_HEAD(&ctx->node);
->  	ctx->fl = user;
-> +	ctx->sc = sc;
->  	ctx->nscalars = REMOTE_SCALARS_LENGTH(sc);
->  	ctx->nbufs = REMOTE_SCALARS_INBUFS(sc) +
->  		     REMOTE_SCALARS_OUTBUFS(sc);
-> @@ -728,7 +737,6 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
->  	/* Take a reference to user, released in fastrpc_context_free() */
->  	fastrpc_user_get(user);
->  
-> -	ctx->sc = sc;
->  	ctx->retval = -1;
->  	ctx->pid = current->pid;
->  	ctx->client_id = user->client_id;
-> @@ -1067,6 +1075,64 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
->  	return 0;
->  }
->  
-> +static void fastrpc_flush_args(struct fastrpc_invoke_ctx *ctx)
+> +static struct device_node *fastrpc_get_rproc_node(struct device_node *node)
 > +{
-> +	union fastrpc_remote_arg *rpra = ctx->rpra;
-> +	int i, inbufs, outbufs;
+> +	struct device_node *parent, *rproc_node;
 > +
-> +	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
-> +	outbufs = REMOTE_SCALARS_OUTBUFS(ctx->sc);
+> +	parent = of_get_parent(node);
+> +	if (!parent)
+> +		return NULL;
 > +
-> +	for (i = 0; i < inbufs + outbufs; ++i) {
-ctx->nbufs instead of inbufs + outbufs
-> +		int raix = ctx->olaps[i].raix;
-> +		struct fastrpc_map *map = ctx->maps[raix];
+> +	rproc_node = of_get_parent(parent);
+> +	of_node_put(parent);
 > +
-> +		if (raix + 1 > inbufs)
-> +			continue;
-> +		if (!map || !map->buf)
-> +			continue;
-> +
-> +		if (rpra[raix].buf.len && (ctx->olaps[i].mstart || ctx->olaps[i].do_cmo)) {
-> +			dma_buf_begin_cpu_access(map->buf, DMA_TO_DEVICE);
-> +			dma_buf_end_cpu_access(map->buf, DMA_TO_DEVICE);
-> +		}
-> +	}
+> +	return rproc_node;
 > +}
 > +
-> +static void fastrpc_inv_args(struct fastrpc_invoke_ctx *ctx)
+> +static int fastrpc_remote_heap_map(struct device *rdev,
+> +				   struct device_node *rproc_node,
+> +				   phys_addr_t addr, u64 size)
 > +{
-> +	union fastrpc_remote_arg *rpra = ctx->rpra;
-> +	int i, inbufs, outbufs;
+> +	struct platform_device *rproc_pdev;
+> +	struct iommu_domain *domain;
+> +	int ret;
 > +
-> +	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
-> +	outbufs = REMOTE_SCALARS_OUTBUFS(ctx->sc);
-> +
-> +	for (i = 0; i < inbufs + outbufs; ++i) {
-ctx->nbufs> +		int raix = ctx->olaps[i].raix;
-> +		struct fastrpc_map *map = ctx->maps[raix];
-> +
-> +		if (raix + 1 <= inbufs)
-> +			continue;
-> +		if (!rpra[raix].buf.len)
-> +			continue;
-> +		if (!map || !map->buf)
-> +			continue;
-> +
-> +		/*
-> +		 * Skip invalidation if the argument overlaps with the
-> +		 * RPC control header page.
-> +		 */
-> +		if (((uintptr_t)rpra & PAGE_MASK) ==
-> +			((uintptr_t)rpra[raix].buf.pv & PAGE_MASK))
-is this possible? for fd buffers, buf.pv is going to be a userspace VA
-and rpta addr is going to be a kernel VA, those cannot be equal.> +		
-continue;
-> +
-> +		if (ctx->olaps[i].mstart || ctx->olaps[i].do_cmo) {
-> +			dma_buf_begin_cpu_access(map->buf, DMA_FROM_DEVICE);
-> +			dma_buf_end_cpu_access(map->buf, DMA_FROM_DEVICE);
-> +		}
+> +	rproc_pdev = of_find_device_by_node(rproc_node);
+> +	if (!rproc_pdev) {
+> +		dev_err(rdev, "failed to find remoteproc platform device\n");
+> +		return -ENODEV;
 > +	}
+> +
+> +	domain = iommu_get_domain_for_dev(&rproc_pdev->dev);
+> +	if (!domain) {
+> +		put_device(&rproc_pdev->dev);
+> +		dev_err(rdev, "no IOMMU domain for remoteproc\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	ret = iommu_map(domain, addr, addr, size, IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
+> +	if (ret)
+> +		dev_err(rdev, "failed to map remote heap phys=0x%llx size=0x%llx err=%d\n",
+> +			(u64)addr, size, ret);
+> +
+> +	put_device(&rproc_pdev->dev);
+> +	return ret;
 > +}
 > +
->  static struct fastrpc_invoke_buf *fastrpc_invoke_buf_start(union fastrpc_remote_arg *pra, int len)
+> +static void fastrpc_remote_heap_unmap(struct rpmsg_device *rpdev,
+> +				      phys_addr_t addr, u64 size)
+> +{
+> +	struct device_node *rproc_node;
+> +	struct platform_device *rproc_pdev;
+> +	struct iommu_domain *domain;
+> +	size_t unmapped;
+> +
+> +	rproc_node = fastrpc_get_rproc_node(rpdev->dev.of_node);
+> +	if (!rproc_node) {
+> +		dev_warn(&rpdev->dev, "failed to find remoteproc node for heap unmap\n");
+> +		return;
+> +	}
+> +
+> +	rproc_pdev = of_find_device_by_node(rproc_node);
+> +	of_node_put(rproc_node);
+> +	if (!rproc_pdev) {
+> +		dev_warn(&rpdev->dev, "failed to find remoteproc platform device for heap unmap\n");
+> +		return;
+> +	}
+> +
+> +	domain = iommu_get_domain_for_dev(&rproc_pdev->dev);
+> +	if (!domain) {
+> +		dev_warn(&rpdev->dev, "no IOMMU domain for remoteproc during heap unmap\n");
+> +		put_device(&rproc_pdev->dev);
+> +		return;
+> +	}
+> +
+> +	unmapped = iommu_unmap(domain, addr, size);
+> +	if (unmapped != size)
+> +		dev_warn(&rpdev->dev, "partial/failed heap unmap: requested=0x%llx unmapped=0x%zx\n",
+> +			 size, unmapped);
+> +
+> +	put_device(&rproc_pdev->dev);
+> +}
+> +
+>  static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
+>  				     struct device *rdev, u32 domain_id)
 >  {
->  	return (struct fastrpc_invoke_buf *)(&pra[len]);
-> @@ -1191,6 +1257,9 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
->  		}
+> +	struct device_node *rproc_node;
+>  	struct resource res;
+>  	u64 src_perms;
+>  	int err;
+> @@ -2536,6 +2620,19 @@ static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
+>  	if (domain_id == ADSP_DOMAIN_ID) {
+>  		cctx->remote_heap_addr = res.start;
+>  		cctx->remote_heap_size = resource_size(&res);
+> +
+> +		rproc_node = fastrpc_get_rproc_node(rdev->of_node);
+> +		if (rproc_node)
+> +			cctx->use_iommu_map = of_property_present(rproc_node, "iommus");
+> +
+> +		if (cctx->use_iommu_map) {
+> +			err = fastrpc_remote_heap_map(rdev, rproc_node, res.start,
+> +						      resource_size(&res));
+> +			of_node_put(rproc_node);
+> +			return err;
+> +		}
+> +
+> +		of_node_put(rproc_node);
 >  	}
 >  
-> +	if (!ctx->fl->sctx->coherent)
-> +		fastrpc_flush_args(ctx);
+>  	if (!cctx->vmcount)
+> @@ -2611,7 +2708,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  		data->unsigned_support = false;
+>  		err = fastrpc_device_register(rdev, data, secure_dsp, domain);
+>  		if (err)
+> -			goto err_free_data;
+> +			goto err_unmap_heap;
+>  		break;
+>  	case CDSP_DOMAIN_ID:
+>  	case GDSP_DOMAIN_ID:
+> @@ -2619,7 +2716,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  		/* Create both device nodes so that we can allow both Signed and Unsigned PD */
+>  		err = fastrpc_device_register(rdev, data, true, domain);
+>  		if (err)
+> -			goto err_free_data;
+> +			goto err_unmap_heap;
+>  
+>  		err = fastrpc_device_register(rdev, data, false, domain);
+>  		if (err)
+> @@ -2627,7 +2724,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  		break;
+>  	default:
+>  		err = -EINVAL;
+> -		goto err_free_data;
+> +		goto err_unmap_heap;
+>  	}
+>  
+>  	kref_init(&data->refcount);
+> @@ -2655,6 +2752,11 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  	if (data->secure_fdevice)
+>  		misc_deregister(&data->secure_fdevice->miscdev);
+>  
+> +err_unmap_heap:
+> +	if (data->use_iommu_map && data->remote_heap_size)
+> +		fastrpc_remote_heap_unmap(rpdev, data->remote_heap_addr,
+> +					  data->remote_heap_size);
+what about hyp-unassign in case of Gunyah?> +
+>  err_free_data:
+>  	kfree(data);
+>  	return err;
+> @@ -2695,24 +2797,29 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+>  	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+>  		list_del(&buf->node);
+>  
+> -	if (cctx->remote_heap_size && cctx->vmcount) {
+> -		u64 src_perms = 0;
+> -		int err, i;
+> -		struct qcom_scm_vmperm dst_perms;
+> -
+> -		for (i = 0; i < cctx->vmcount; i++)
+> -			src_perms |= BIT(cctx->vmperms[i].vmid);
+> -
+> -		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+> -		dst_perms.perm = QCOM_SCM_PERM_RWX;
+> -
+> -		err = qcom_scm_assign_mem(cctx->remote_heap_addr,
+> -					  cctx->remote_heap_size, &src_perms,
+> -					  &dst_perms, 1);
+> -		if (err)
+> -			dev_err(&rpdev->dev,
+> -				"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
+> -				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
+> +	if (cctx->remote_heap_size) {
+> +		if (cctx->use_iommu_map) {
+> +			fastrpc_remote_heap_unmap(rpdev, cctx->remote_heap_addr,
+> +						  cctx->remote_heap_size);
+> +		} else if (cctx->vmcount) {
+> +			u64 src_perms = 0;
+> +			int err, i;
+> +			struct qcom_scm_vmperm dst_perms;
 > +
->  	for (i = ctx->nbufs; i < ctx->nscalars; ++i) {
->  		list[i].num = ctx->args[i].length ? 1 : 0;
->  		list[i].pgidx = i;
-> @@ -1376,6 +1445,8 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->  	if (err)
->  		goto bail;
->  
-> +	if (!fl->sctx->coherent)
-> +		fastrpc_inv_args(ctx);
->  	/* make sure that all CPU memory writes are seen by DSP */
->  	dma_wmb();
->  	/* Send invoke buffer to remote dsp */
-> @@ -1396,6 +1467,9 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->  
->  	/* make sure that all memory writes by DSP are seen by CPU */
->  	dma_rmb();
-> +	if (!fl->sctx->coherent)
-> +		fastrpc_inv_args(ctx);
+> +			for (i = 0; i < cctx->vmcount; i++)
+> +				src_perms |= BIT(cctx->vmperms[i].vmid);
 > +
->  	/* populate all the output buffers with results */
->  	err = fastrpc_put_args(ctx, kernel);
->  	if (err)
-> @@ -2393,6 +2467,7 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  	sess->used = false;
->  	sess->valid = true;
->  	sess->dev = dev;
-> +	sess->coherent = of_property_read_bool(dev->of_node, "dma-coherent");
-see if you can use of_dma_is_coherent() instead.>  	dev_set_drvdata(dev,
-sess);
->  	sess->sid = sid;
+> +			dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+> +			dst_perms.perm = QCOM_SCM_PERM_RWX;
+> +
+> +			err = qcom_scm_assign_mem(cctx->remote_heap_addr,
+> +						  cctx->remote_heap_size, &src_perms,
+> +						  &dst_perms, 1);
+> +			if (err)
+> +				dev_err(&rpdev->dev,
+> +					"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
+> +					&cctx->remote_heap_addr, cctx->remote_heap_size, err);
+> +		}
+>  	}
+try moving this block to helper function as same can be used in
+fastrpc_rpmsg_probe() error case. Maybe something like this:
+
+static void fastrpc_remote_heap_release(struct fastrpc_channel_ctx
+					*cctx, struct rpmsg_device
+					*rpdev)
+{
+	if (!cctx->remote_heap_size)
+		return;
+	if (cctx->use_iommu_map)
+		fastrpc_remote_heap_unmap(rpdev, ...);
+	else if (cctx->vmcount)
+		fastrpc_remote_heap_unassign(cctx, rpdev);
+}
 >  
+>  	of_platform_depopulate(&rpdev->dev);
+> 
+> ---
+> base-commit: ef071c4906eb45d16b60f09154cf0bc6ec8f5435
+> change-id: 20260930-fastrpc-kvm-iommu-v2-1a7d343ed802
+> 
+> Best regards,
+> --  
+> Anandu Krishnan E <anandu.e@oss.qualcomm.com>
 
