@@ -4,41 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49422CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:08:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80773CC6B1D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:18:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3DFF10FEDC;
-	Wed, 14 Oct 2026 16:08:09 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C4C110FED5
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:08:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3D8FB60229;
- Wed, 14 Oct 2026 16:08:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C767B1F000C5;
- Wed, 14 Oct 2026 16:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791994081;
- bh=Bv73iyadVQ67bnq00A+ChXym7wHBc9O9r4vRPKrK2uc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZsZh5DfP8mB5DvlN5BTaB9F0vCVyxXGZvhLdL5MfzI2kNxIoqF226EQ6Bi1yW1swP
- pwsPsStFkEHLJqZvklucA17E51y0fDrdeztQVFM2bZ2+CWs/qUFHQgavFTz0uQREDC
- KyIE1CQ1CIllA6w8IAKTJRvnNphtotgfxQLi43dlUQnaaLW5ODft0ApskW0mHQzyiR
- 4q+9Lk9PLQDy9Vw+M+ZyDUrFuIHzK5UXTBKJ9nguo7Pni0uydKECPYHOL+lELBxhJC
- Hp98vw2a5wx7P7AYZoh5GFoqJb1Ch0lFhdh/wyrDid3gxfYfbTYXHuw7PWAItUwqZ1
- wSzhEYytHzi6Q==
-Message-ID: <sashiko-outbox-171514@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] drm/amdkfd: fix doorbell allocation race creating
- duplicate allocations
-To: "Felix Kuehling" <felix.kuehling@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261014154959.540809-1-felix.kuehling@amd.com>
-References: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
- <20261014154959.540809-1-felix.kuehling@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 16:08:01 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id E661710E9CA;
+	Wed, 14 Oct 2026 16:18:02 +0000 (UTC)
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0F9010E9CA
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:17:56 +0000 (UTC)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-35c902e0da2so1464012eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:17:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1791994676; x=1792599476;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=BNYbIRDhdg/bji4iVF4z4GKSYuqq0SGaMYsIsVzbu+Y=;
+ b=KamGSlTaDKWt2RuxmQZH3jNQYIjOJdAvjDFqDj2jJOvumhjvQzzUp9qlqkbVNPIj1B
+ gBIdOqW3LIBma3gLtAEyx8ILcj626MNvet6gLFM6/pEfjaDOUyCZUo6XP+Bax25iQ+RC
+ XeGz9V3RbxkhPRM05p2u236OyuG5JUlHLtHCHCiDcBKRgZtN12BAR9XAi5sR7IjWr42Z
+ Klet+9PbRR/P9EVCmbDjOGMk8RM2jNGO6FG94qxlhUzFIcF93pAb/hdINd1Oah8Pq0ei
+ 27wYfmS46hhrRYl1iBUF5Y7nvJsQaY/t4BIZR0x2mxxwl9abtum+dKliYKZ36O7uchEg
+ GlZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791994676; x=1792599476;
+ h=content-type:cc:to:from:subject:message-id:mime-version:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BNYbIRDhdg/bji4iVF4z4GKSYuqq0SGaMYsIsVzbu+Y=;
+ b=H0//6XI7GuwklAzvfb2ti6GZrFmspJ+NaBaT1lem24VDPHwRVXcgoDkzBc6gYEXGeG
+ e0WpJs7fCQrk4K7H14KtwEdcGj6KnQUgNf1VVfZPu9XNEUsUes+qfME8/+B+XS8tbi2t
+ HraukAT/HDdmRxFr598hpEY5wB1PdCjvWrW9CJ8K0b3WUqNyb5pgWxK6RDvakE/Qb9kh
+ jkRRDSnQf7C31kRXT5R45KN/95wYNGjPoXtqGAaWNvQ3v4yD3By3Y2V2HG/zaOe2zRQD
+ iiZ3+uJ5SgycSuS2IZsYeSQ9FPlvHvp8sDbOyLQuPKrOCbeRh/fgqx9RDbhZko09jz0H
+ GtGw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxiwdifxgfzbrHaiU3QhFha3zK89iqiciMFZswMGIe//Z6yjV4UPXq2FwTWUGcM20EodNHlWjTXYoo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIYCfmWF5eT6BZNY+JX7lheeXndg+GgpJVlt5hNhsqLlapja3Tx
+ Zsrk6C5vwK/OhhI3qaiKQhLNfhkiKYdhrSiNEWLPDlfSlBAEJR4f+vrMa++V8Sia0hFAz92vJLG
+ rnz+c+ZtUA5mC2rdlAQXVQiOYuQ==
+X-Received: from dli6-n1.prod.google.com
+ ([2002:a05:7022:286:10b0:15e:bc16:429a])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:c84:b0:146:5f73:d45b with SMTP id
+ a92af1059eb24-16a54fab691mr20502668c88.3.1791994675581; 
+ Wed, 14 Oct 2026 09:17:55 -0700 (PDT)
+Date: Wed, 14 Oct 2026 16:17:50 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+Message-ID: <20261014161754.3782346-1-almasrymina@google.com>
+Subject: [PATCH net v3 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+ Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>, 
+ Kaifeng Wang <kaifengw@google.com>, Dragos Tatulea <dtatulea@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,68 +87,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/amdkfd: pdd memory leak on kfd_init_apertures() error path
---
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration:
 
-commit d555bec2fa5191157e4dad2138f047c49150f26e
-Author: Henry Martin <bsdhenrymartin@gmail.com>
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall(),
+   and unmap RX bindings that were already unbound on NETDEV_UNREGISTER,
+   preventing slab-use-after-free in dma_unmap_sg_attrs() when the binding
+   is freed after dma_dev.
 
-    drm/amdkfd: fix doorbell allocation race creating duplicate allocations
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
 
-This patch introduces a per-process-device mutex to serialize process doorb=
-ell
-allocation. It adds mutex initialization and destruction to the kfd process
-lifecycle.
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> index 226f52626e849..51b0df4984945 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
 
-[ ... ]
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+Cc: Dragos Tatulea <dtatulea@nvidia.com>
 
-> @@ -1802,6 +1803,7 @@ struct kfd_process_device *kfd_create_process_devic=
-e_data(struct kfd_node *dev,
->  	pdd->dev =3D dev;
->  	INIT_LIST_HEAD(&pdd->qpd.queues_list);
->  	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-> +	mutex_init(&pdd->doorbell_mutex);
->  	pdd->qpd.dqm =3D dev->dqm;
->  	pdd->qpd.pqm =3D &p->pqm;
->  	pdd->qpd.evicted =3D 0;
+---
+v3:
+- 1/4: Run the NETDEV_UNREGISTER walk under the netdev instance lock,
+  and skip it when the device only moves to another netns. (Sashiko)
+- 2/4: Detach all matching TX bindings, then synchronize_net() once
+  before unmapping them. (Sashiko)
+- 3/4: Only request page pool DMA mapping with CONFIG_HAS_DMA, refuse
+  pp_hold on memory provider pools, and drop unreadable skbs in the
+  software PSP checksum path. (Sashiko)
+- 4/4: Check only the test's dma-buf in debugfs, skip instead of passing
+  silently, clean up on errors, compute UDMABUF_CREATE per arch, and
+  add the needed config options. (Sashiko, Dragos)
+- Link to v2: https://lore.kernel.org/netdev/20261012174300.2338784-1-almasrymina@google.com/
 
-[Severity: Medium]
-Will this mutex and the pdd struct be leaked if kfd_init_apertures() fails?
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
 
-Looking at create_process(), if kfd_init_apertures() successfully allocates
-one or more pdd structs but then encounters an error and fails, the error
-handling path jumps to err_init_apertures:
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
 
-create_process() {
-    ...
-    err =3D kfd_init_apertures(process);
-    if (err !=3D 0)
-        goto err_init_apertures;
-    ...
-err_init_svm_range_list:
-    kfd_process_free_outstanding_kfd_bos(process);
-    kfd_process_destroy_pdds(process);
-err_init_apertures:
-    pqm_uninit(&process->pqm);
-    ...
-}
+ drivers/net/netdevsim/bus.c              |   1 +
+ drivers/net/netdevsim/netdev.c           |  27 ++++-
+ drivers/net/netdevsim/psp.c              |   5 +
+ net/core/devmem.c                        | 143 ++++++++++++++++++++---
+ net/core/devmem.h                        |  10 +-
+ net/core/netdev-genl.c                   |   1 +
+ tools/testing/selftests/net/config       |   4 +
+ tools/testing/selftests/net/nl_netdev.py | 125 +++++++++++++++++++-
+ 8 files changed, 290 insertions(+), 26 deletions(-)
 
-Because err_init_apertures bypasses the call to kfd_process_destroy_pdds(),
-does this mean the newly initialized doorbell_mutex and the allocated pdd
-structs are leaked?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014154959.5408=
-09-1-felix.kuehling@amd.com?part=3D1
+base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
+-- 
+2.56.0.176.g3575e65682-goog
+
