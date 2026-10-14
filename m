@@ -4,95 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4308FC3DA7A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:43:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF0D4CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 16:44:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA0310E169;
-	Wed, 14 Oct 2026 16:43:34 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58AE110E169
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:43:28 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-49e73611928so39972645e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:43:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 507AF10EA85;
+	Wed, 14 Oct 2026 16:44:38 +0000 (UTC)
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E90810EEB8
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:44:32 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-34c522572bfso548264eec.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:44:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791996272; cv=none;
+ d=google.com; s=arc-20260327;
+ b=biNaOBMweor88Oidad6hnF5JpcOSDOIGJsHCEjCyUOz66y55qdu4D0XHbmNz6afW0n
+ 0HaYl38Bx0nhaZvzDSGGQlsVPqy+qFr9E1QEkjfOUAHtmmQ9jUT+/BvKED7Y6lIL+E4L
+ vIxyp+OGD8UtqnhTTeZptWc71ndixXYPCzoZQEHWQ9bK95tH0TKSNJ3zkiuU+EkqvZ/Q
+ iCJyyN8qsta6m+gObHlrTGpNu/MqWbYu4LYGCZB1M/CoZ+T62h6FN9pInlGNF3tpNpjE
+ A0kvgFYruBRIPfhGi5bdBe215eg+dPoy2QIBFUZlmmQn+8oaYFWrVRfw14j6C0U48naV
+ FHIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=lG5fR4/c9rTkKwB+dH11HXxHn5DhiwcqDirk4k17QlI=;
+ fh=awdRoXa0RCB6aadH1sekwznD8jMsPNya7AAuljEpxPU=;
+ b=dnOtKDtBmBuFvYTxcRcXm4b08eMDznKr3gT8oKIpRCFocudn6R2ku54Zav03t3skOJ
+ jIgiS/a0h4Cy1hd3mBiyGNlMMrbXZFpbmJt5ZUSUEUQu/0k3rT6B9YAKrgWZ5neNwju/
+ ZaqAfr13BnnqlDAkWgy8vlIj3O64uFXjg5gr1GFonMWcbW/QZNwzLzzoeew45yubqWF6
+ Ym9TQRTvHxIzHbmpv+NL/JuD+n2ydt5qWcR/TOsqah71e40NjrZIkJE9/5B7RLgTK2f0
+ PZelf3ZGZm0aAbMuKQHO14S3DQA8aTbY2NNGtT147FFx3D5zZsUhCqKKYgymvdHSs+bD
+ iSvg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791996207; x=1792601007; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=MprqRVTku8rnnoqrNidogE79Hh/sbjcVtJHMk6QO0CA=;
- b=r//jeGLwHoq/ApAN7cmvr/mw6keZzztd1pvyc6eeVjU81ATrgk08cK/v9kb6N4LnxV
- m0MiPcTZ8rILdoSNfT2kiONSRTN2/vrfN/piqWWA1Z+frkvu/P05+ILEEIYrqMwDwlfA
- Xm2UuXagrtR1Jj+dZ7jyArkIboK5Y98Z4FI/qGAxEBH1UCOenNjPOJcH6N/0vC3u44ve
- jj3ishF9d49q2ifYr4k4rc+Hz5Z3+nmV++MDrN2zDTb/iMmFVj3qNvonuriFDrDi/KOD
- DC9I1gS6oaBRqncq22+Sh/dM4EjAOmFxOMDB7Vbnkh/YLOTZVfThYffMbkcFqf8Is6EQ
- P/1Q==
+ d=gmail.com; s=20251104; t=1791996272; x=1792601072; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lG5fR4/c9rTkKwB+dH11HXxHn5DhiwcqDirk4k17QlI=;
+ b=oSJPMTn0eHIyIrptvv3zGySnaRIQReJ33OMq4nLDDuxe4c7bj8c1o9zqOUl2BGZTxw
+ nvovpaEiKKpC3Oh4MI7srbTJj7Di2H1yIs9Yqq3TFWYqjBB56HjoCiC9LBwLNFFgvzOF
+ IE2izTCBth3bLsGVoZi2I7FUKvdqrpB+BlMU2Pv0h0gzdp+wf1zSgY7Bs3lX3H3XBkX2
+ CvkhuHR633s9jmcuByHT5gLinzah5OW4+tv8wYCbKkWxl/RXubvWBdwQYtN8rLWg1b5e
+ IF1Dh261V4Wjbd3Fph5DtTpaoywfaWCovpmwwAzfJ532MRtrymb8WuTdBz3l5AnhI9oL
+ 4U9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791996207; x=1792601007;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=MprqRVTku8rnnoqrNidogE79Hh/sbjcVtJHMk6QO0CA=;
- b=XXI4U4b5ks3zAlRxXy+6AIBovPLs9JaxHhymsrm4ZR+mAs79OaqIlj+pWj7OA7SEVP
- DUv1SYWwxwvTxnl/mYdtTPZ3u16zaFEXGMx9TBFlPa3qBgvk4zOsfiz2qg8FYgrUvHp8
- PX14VfKnsZaJuLQj737YPN6iw0PTtFFclr5Yl5JxatPmBkES+c6hBzKqXxutjzPn8vRj
- rlxK16T1Ofat7lGqZgIS2fIF5NGc+Nk04gmM6vDtJcmckwcwRP97zqrAekRJz8z+61TZ
- UxrikuhNrVf/EuRkXHoOgXo3pgib5N15+r4V94TLd0PgwLLaIYSjqVJLAZQ+BosZ2fil
- 3zZA==
+ d=1e100.net; s=20260707; t=1791996272; x=1792601072;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lG5fR4/c9rTkKwB+dH11HXxHn5DhiwcqDirk4k17QlI=;
+ b=zngQpUbS/Cv8MwSnDgEeebGNZ4n9cMEKAuSFOjcIuo4LTxb54FJ6fKaffwWAdFDuKQ
+ 859cDnO3uCaxXgZjQglOfc61e2BNm09t5jW93rR/gH9d9bp+F1Jr+DbNnD5BBUDjGiqO
+ xg0rgVXhwCKsklC9D0M+53gIVD5+JSdzzeFMmelP8mU+eCFB2BF4/PSdoW+eFe825zBf
+ LXgdY1WxBvwrLEy/TanLEOV384qMj9/cXX/svbl+3n52o9ry8310PAOcs/MQXcea4zR/
+ e56lloGLAY/ZxQVaydXRtIYi9Ryj329Dg5/1uK7HK64oXUim1LojmzktqZ+lEX4mx2v7
+ w4+g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwFLQQWz7YIabJ2ISQUBnRkKErDa0JNEOS5ADh7FGtiKEdfFjPLPIPUdV6gQRFBfEGHezuqK895HHs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKZhn/nmUJXM4eBJ75J9qe4IaCvgOFj35/txUB2InWhp1PAQk7A
- 9eEV5cH7aFM85p3opPxWrIDmvoBcW+qKMtmR5PR7PBwR1aUAO4tFIbN3
-X-Gm-Gg: AYBFou0qvBM/W82KDZgbWK/GoGBTEhSE6slRLvGPFDTcoiiVfgAdmIz62b2jrK6nK+0
- KyXolLu+wfe1qrKhL5CY+8C9WDHruyuRLajdSK9QTnGf6rm1yU6OgH93nUswcDselqDkTpWVcpW
- b1O9JE3HQjckkByD8/ONcJCd875OeWm2z6+XdKd7eCbMIqR2BMvRZEzU5xuP/4eTzBkoN25Vxne
- BqUo9CVOuu4BZqa2qPlCLjsygKHmZ5/ywjXuSAqDZsZDN/zpeamljiZUZeOuIrBH1aHXZrc09Ah
- Xjv50hzhuGSGMDewA7QykHER1eLcuoZ5/LHPx4g4I2QnkluN7j0zXyDu/GNYOHAt8uEfE09OJ3e
- +et7T1NGRbw1bF1ZY8TL2nmeyoTOStHUZDLAF65L4fZoyu8Qz5yV1g4aMg7XagfjHQOOwp7EwLP
- sALGZ/bKuHpODW43nnOzGLcsF/EW9k+hoC4PtDAoH6D1yShpYFwOiAHg6NkAzGVnNsr4TtJ/po7
- miP/QvdruBqW10f3rv9bybVmuyRxESPemZ295Y+s4JgFsvaA8YzvgaBUuU2dit0Hnk1Mka//0Ox
- Bf3l/4ZzqrNM2n6VFzwKIceuoPpEmYS8Ft3AcpTNnJ+OIlb0
-X-Received: by 2002:a05:600c:83cf:b0:4a1:ac66:604b with SMTP id
- 5b1f17b1804b1-4a1ac666a65mr120408565e9.1.1791996206748; 
- Wed, 14 Oct 2026 09:43:26 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
- ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1bd640be0sm4751135e9.1.2026.10.14.09.43.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Oct 2026 09:43:24 -0700 (PDT)
-Message-ID: <7d3c3cc3-5c7b-4d28-82d8-2cdb5e010c29@gmail.com>
-Date: Wed, 14 Oct 2026 17:43:20 +0100
+ AKwUvBz1LRMMmPbsj48ynSw7Cgn0sm8xOIcbroIrGebIUVhQ708D9hKDRKbGJo26snRZuXm8bmZ05YTwJeA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIbOSfJCf8eFEc3Yfif2jexqJHWW6cWvJ/wGJ2Txcc7NJGeUrdO
+ 5uyOVBuOmD2dwaJxiBF8MyZX4PQgv98HYYXgov0wOjxqMXJXqXarWPhWpxvEJ1UysHyqxRk5BLd
+ 6422TqPpMZhQGYWCp2itofqG6JVGojYw=
+X-Gm-Gg: AYBFou2L34FeAPK1aw1VF4Ek3HGzovFUO4MEXdQdZIWICKItfVpYT61upSROX2qlXKt
+ 5hFDmijQ+hyOh1UITx+gFmv91SLa8rxdBpU3fJHT37Zz3EJvjiCobKdilsOJwZkGTSVsZ8+8gLe
+ 8QlmF7dwn8WulwjFsigWlIEVdOUCLmak5uyz9qV7a3CnkU5Nyrb0Vz5kYht1r6mUj8FaPAJ9nv5
+ q3Yg+Omk1LGcfmmWMVmZysU272ELjpTcMdeoJuoed/Yl6B57SN969m4Ljy/wYOKxLo4CKGSa+PT
+ vNo1KMU40kOC5EjocTSk3a71j46ttlXmx+lpsTWS6l6NXSrOJH2FDrLDcX/QWT+5i0D+Ui8eJYj
+ /F1ZMhCUQxVKbHYR1WLqrh0Dy5wpWAQVq4Vtg304HL4QzEebaWZ/F3GVPjkC8p+Y3OzuFs6AqbY
+ JQ0Gx4tIydciGfkEXrc7lyHCRLaTdxsFa/SQnMr4klQnyNTPKdtlY=
+X-Received: by 2002:a05:7301:5413:b0:358:c9f3:b055 with SMTP id
+ 5a478bee46e88-358c9f3b260mr28158500eec.1.1791996271702; Wed, 14 Oct 2026
+ 09:44:31 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 04/13] block: introduce dma map backed bio type
-To: Christoph Hellwig <hch@lst.de>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1791975048.git.asml.silence@gmail.com>
- <39b964cf7510f42755188563da63d3d5acaf2aa9.1791975048.git.asml.silence@gmail.com>
- <20261014131554.GA16467@lst.de>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261014131554.GA16467@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261013223946.1836757-1-irogers@google.com>
+ <2026101425-why-boring-4f2d@gregkh>
+ <202610140932.5F9CFCE5@keescook>
+In-Reply-To: <202610140932.5F9CFCE5@keescook>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 14 Oct 2026 18:44:18 +0200
+X-Gm-Features: AclHuK_d31yoge0njHjovdIQh7JfJY6W-PLjzMLBq14NjY-schAqigzEJUAQwG8
+Message-ID: <CANiq72=4WQ1B1oCSW=69u_Z=FFLE56hYCqDwWr+poQdzSTS31A@mail.gmail.com>
+Subject: Re: [PATCH 00/11] kobject: Require explicit initialization of struct
+ kobj_type::release
+To: Kees Cook <kees@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Ian Rogers <irogers@google.com>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ driver-core@lists.linux.dev, llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,34 +136,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/14/26 14:15, Christoph Hellwig wrote:
-> On Wed, Oct 14, 2026 at 12:02:02PM +0100, Pavel Begunkov wrote:
-...>>   	case REQ_OP_DISCARD:
->> diff --git a/block/blk-mq.c b/block/blk-mq.c
->> index e929f94b25c7..1b7f8cbbda8b 100644
->> --- a/block/blk-mq.c
->> +++ b/block/blk-mq.c
->> @@ -3150,6 +3150,12 @@ void blk_mq_submit_bio(struct bio *bio)
->>   		goto queue_exit;
->>   	}
->>   
->> +	if (unlikely(op_is_dmabuf(bio->bi_opf) &&
->> +		bdev_has_integrity_csum(bio->bi_bdev))) {
->> +		bio_endio_status(bio, BLK_STS_NOTSUPP);
-> 
-> Wrong indentation, conditions are never indented the same level as
-> the following code block, even with the weirdest preferences.
-> 
-> /me note the patch from Anuj on the list actually got this right..
+On Wed, Oct 14, 2026 at 6:37=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
+>
+> I'd really like to have the attribute available, and I've got at least
+> one user I can apply today that don't require fix-ups (seq_file), so
+> if Miguel is okay with it, I'd like to snag patch 1 and send it with
+> my seq_file "first user" for this coming merge window so it's available
+> starting with v7.4-rc1, and we don't end up needing to wait 10 weeks for
+> other subsystems to be able to use it. And the kobj fixups can continue
+> in parallel. Does that sounds okay?
 
-I had to split Anuj's patch in two, should've butchered it
-while hand applying. I'll follow up on that unless Jens
-already applied the change.
+Of course, please feel free to pick it up (with the small tweak I
+requested) if you have a user.
 
-> Otherwise looks good:
-> 
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
+And if you don't pick the user, I could still pick the first patch up
+through the compiler attributes tree if you and other folks want to
+use it after -rc1.
 
--- 
-Pavel Begunkov
+Greg: adding the attribute itself should be safe and would unblock
+others that may want to "protect" themselves, without having to wait
+for every potential user to get fixed (but of course I agree they
+should get fixed -- we should not forget about them, if that is your
+concern).
 
+Cheers,
+Miguel
