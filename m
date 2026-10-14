@@ -4,50 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8495CC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C1FECC6B2F
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4639B11218A;
-	Thu, 15 Oct 2026 07:57:20 +0000 (UTC)
-Received: from host3.o27bbn.ondsl.gr (host3.o27bbn.ondsl.gr [79.129.74.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0590210FFD1;
- Thu, 15 Oct 2026 00:37:34 +0000 (UTC)
-Received: from mail.e-psn.eu (cluster-localnode [10.200.210.1])
- by mail.e-psn.eu (Postfix) with ESMTPA id 8F3173A537AA;
- Thu, 15 Oct 2026 00:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=e-psn.eu; s=default;
- t=1792024651; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E688112182;
+	Thu, 15 Oct 2026 07:57:24 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 329C810E84C
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 22:52:59 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j4mgr1QdzzKp51;
+ Thu, 15 Oct 2026 00:52:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1792018376;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ingnB9AcWDf+xSzk/JYpaVyHALuYuvn8bSdf+q+dJRo=;
- b=ExdDwVWf3kjOzu1Sv0Gc27ZL7YUH8sgPj/EvPF1eEeE1KcxYQMaT0T5Y+zs4qQXb9b0Up6
- +lh11Kr724DOPQDjKaMOqjFfllPbE78DXNeajygFHNtvtDlFKhJwHTA5KxFdkq5hdT2UHl
- OhT+1taOwaz3L2EkxXsrRy8WWVNCwKA/cjf+1rsBmkTaeKJ/w6Mix7wQrgoowke9HCnzYq
- c7CrEfT7IhJDenNIP+wFSXBr32irsMTceqOt9M02E6cUKIfHyMk5zlvwRXA17X72hBSrPJ
- jnSiLU87Dansia8i1N4Oi/1OBkRw9UHAuy4OBETGNGDJt89s0ousKcAiRZuhtw==
+ bh=S9L2yqehEk5J/KJaDjn0UlKtBv2ZJIvg0h4mE1QYUvg=;
+ b=rjhgCuoO0VHM1hfQ3SvNkdgsBrdaoREphAEyYO56y/MhDpYMztRnLPzs+qazk8oR3cazFu
+ Xf80CYrvzVF75ixQ9oOEb5OoNBpOiWu3yxcS6WkZ4mhLhGJfKxIQg46xe7LUi69lYyL05h
+ qW5pPrwueBx2A2xPvWG43Teqn/XoNmpFg2cUZ2fhpoUmNiX3v0xU7cXzOe9GQgkXNQ9B+s
+ Wy34HBGFFoZDtH8H3+eUhHIpcFQwy2exvGtaBvmfCgnS4EdtNM51TRsaAsYbxBhdSVcelb
+ cxZO7JD8mzg31lIrjOYH0n70WSqJYKQd7D+m4EvOqPrNUDUdAQD9tVoB/G1K/Q==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
+Date: Wed, 14 Oct 2026 23:52:55 +0100 (WEST)
+From: Hugo Sales <hugo@hsal.es>
+To: sashiko-reviews@lists.linux.dev, sashiko-bot@kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Message-ID: <1615886072.1467681.1792018375427@app.mailbox.org>
+In-Reply-To: <sashiko-outbox-171985@kernel.org>
+References: <20261014223041.171317-1-hugo@hsal.es>
+ <20261014223041.171317-2-hugo@hsal.es> <sashiko-outbox-171985@kernel.org>
+Subject: Re: [PATCH 1/2] drm/amd/display: Fall back to the native mode, not
+ the first, on eDP/LVDS
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 03:37:31 +0300
-From: Constantinos Chalkias <cch@e-psn.eu>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: =?UTF-8?Q?Bata_Roland_Kriszti=C3=A1n?= <batarolandkrisztian@gmail.com>,
- intel-xe@lists.freedesktop.org, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/xe/hwmon: refresh Battlemage thermal telemetry under
- force-wake
-Mail-Reply-To: cch@e-psn.eu
-In-Reply-To: <as_iOd6A_Yncj8Gt@intel.com>
-References: <20261012104245.2108030-1-cch@e-psn.eu>
- <as_iOd6A_Yncj8Gt@intel.com>
-Message-ID: <046ad11178ef5ab04364e14a0211a68c@e-psn.eu>
-X-Sender: cch@e-psn.eu
-Organization: E-PSN
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Flag-Threshold: 6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Priority: 3
+Importance: Normal
+X-Mailer: Open-Xchange Mailer v8.52.252
+X-Originating-Client: open-xchange-appsuite
+X-Rspamd-Queue-Id: 4j4mgr1QdzzKp51
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:57:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,186 +65,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: cch@e-psn.eu
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Rodrigo,
-Thanks for pointing this out. Yes, this appears to be the same issue, 
-and I agree we should avoid parallel fixes.
-My follow-up testing independently converged on a very similar result. I 
-narrowed the workaround to CHANNEL_PKG only. A 500-1000 us GT force-wake 
-interval was not reliable, while 3000-3500 us was.
-In the most controlled test I disabled both hwmon pollers, stopped the 
-inference workload, and the physical blower remained latched at high 
-speed for more than five minutes while the GPU was otherwise idle. A 
-single package-temperature read using XE_FW_GT with a 3000-3500 us 
-interval immediately caused the blower to return to normal.
-I also saw the later RFC follow-up showing that both GT-only and 
-RENDER-only longer pulses could refresh the telemetry and were followed 
-by fan slowdown, which seems consistent with this result.
-I won't send a competing v2. I'm happy to contribute these measurements 
-to the existing RFC effort and help test whatever implementation you 
-prefer to converge on.
-Thanks,
-Constantinos
+> Should native_mode be zero-initialized or initialized using drm_mode_init=
+()
+> first?
 
-On 2026-10-14 23:12, Rodrigo Vivi wrote:
-> On Mon, Oct 12, 2026 at 01:42:45PM +0300, Constantinos Chalkias wrote:
->> On Battlemage, thermal telemetry can remain stale after the GT returns
->> to RC6 following sustained workloads.
->> 
->> On an Intel Arc Pro B70, package and VRAM temperature telemetry may 
->> stop
->> refreshing after a long inference workload. Fan telemetry can also
->> become invalid while the physical blower remains elevated.
->> 
->> Acquire the GT force-wake domain around Battlemage thermal MMIO reads
->> and allow a short settling interval before reading the register. Route
->> package, VRAM and VRAM-channel availability reads through the helper.
->> 
->> Testing showed that an immediate read, as well as a 100-300 us delay,
->> could leave telemetry stale. A 500-1000 us delay recovered correctly
->> across repeated inference-to-idle cycles.
->> 
->> The change is restricted to Battlemage, where the behavior has been
->> reproduced and validated.
->> 
->> Signed-off-by: Constantinos Chalkias <cch@e-psn.eu>
-> 
-> Cc: Bata Roland Krisztián <batarolandkrisztian@gmail.com>
-> 
-> https://lore.kernel.org/intel-xe/179041811564.526373.13204522833274380927.b70-hwmon-rfc@gmail.com/
-> 
-> I believe you guys are facing the same dificulties and arriving to 
-> similar
-> conclusions.
-> 
-> If the consensus is that we need this forcewake, let's do it.
-> 
-> Let's just avoid duplication of efforts in here.
-> 
-> And thank you all for the contributions.
-> 
->> ---
->>  drivers/gpu/drm/xe/xe_hwmon.c | 51 
->> ++++++++++++++++++++++++++++++-----
->>  1 file changed, 45 insertions(+), 6 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/xe/xe_hwmon.c 
->> b/drivers/gpu/drm/xe/xe_hwmon.c
->> index 5edeac961ec3..fee358ab9a6b 100644
->> --- a/drivers/gpu/drm/xe/xe_hwmon.c
->> +++ b/drivers/gpu/drm/xe/xe_hwmon.c
->> @@ -3,6 +3,7 @@
->>   * Copyright © 2023 Intel Corporation
->>   */
->> 
->> +#include <linux/delay.h>
->>  #include <linux/hwmon-sysfs.h>
->>  #include <linux/hwmon.h>
->>  #include <linux/jiffies.h>
->> @@ -14,6 +15,7 @@
->>  #include "regs/xe_mchbar_regs.h"
->>  #include "regs/xe_pcode_regs.h"
->>  #include "xe_device.h"
->> +#include "xe_force_wake.h"
->>  #include "xe_hwmon.h"
->>  #include "xe_mmio.h"
->>  #include "xe_pcode.h"
->> @@ -946,14 +948,43 @@ static void xe_hwmon_get_voltage(struct xe_hwmon 
->> *hwmon, int channel, long *valu
->>  	*value = DIV_ROUND_CLOSEST(REG_FIELD_GET(VOLTAGE_MASK, reg_val) * 
->> 2500, SF_VOLTAGE);
->>  }
->> 
->> -static inline bool is_vram_ch_available(struct xe_hwmon *hwmon, int 
->> channel)
->> +static int xe_hwmon_temp_mmio_read(struct xe_hwmon *hwmon,
->> +				   struct xe_reg reg, u32 *reg_val)
->>  {
->>  	struct xe_mmio *mmio = xe_root_tile_mmio(hwmon->xe);
->> +
->> +	if (hwmon->xe->info.platform == XE_BATTLEMAGE) {
->> +		struct xe_gt *gt = xe_root_mmio_gt(hwmon->xe);
->> +
->> +		CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FW_GT);
->> +
->> +		if (!xe_force_wake_ref_has_domain(fw_ref.domains, XE_FW_GT))
->> +			return -ETIMEDOUT;
->> +
->> +		/*
->> +		 * Allow thermal telemetry to refresh after leaving RC6
->> +		 * before reading the temperature register.
->> +		 */
->> +		usleep_range(500, 1000);
->> +
->> +		*reg_val = xe_mmio_read32(mmio, reg);
->> +		return 0;
->> +	}
->> +
->> +	*reg_val = xe_mmio_read32(mmio, reg);
->> +
->> +	return 0;
->> +}
->> +
->> +static inline bool is_vram_ch_available(struct xe_hwmon *hwmon, int 
->> channel)
->> +{
->>  	int vram_id = channel - CHANNEL_VRAM_N;
->>  	struct xe_reg vram_reg;
->> +	u32 reg_val;
->> 
->>  	vram_reg = xe_hwmon_get_reg(hwmon, REG_TEMP, channel);
->> -	if (!xe_reg_is_valid(vram_reg) || !xe_mmio_read32(mmio, vram_reg))
->> +	if (!xe_reg_is_valid(vram_reg) ||
->> +	    xe_hwmon_temp_mmio_read(hwmon, vram_reg, &reg_val) || !reg_val)
->>  		return false;
->> 
->>  	/* Create label only for available vram channel */
->> @@ -1025,15 +1056,19 @@ xe_hwmon_temp_is_visible(struct xe_hwmon 
->> *hwmon, u32 attr, int channel)
->>  static int
->>  xe_hwmon_temp_read(struct xe_hwmon *hwmon, u32 attr, int channel, 
->> long *val)
->>  {
->> -	struct xe_mmio *mmio = xe_root_tile_mmio(hwmon->xe);
->> -	u64 reg_val;
->> +	u32 reg_val;
->> +	int ret;
->> 
->>  	switch (attr) {
->>  	case hwmon_temp_input:
->>  		switch (channel) {
->>  		case CHANNEL_PKG:
->>  		case CHANNEL_VRAM:
->> -			reg_val = xe_mmio_read32(mmio, xe_hwmon_get_reg(hwmon, REG_TEMP, 
->> channel));
->> +			ret = xe_hwmon_temp_mmio_read(hwmon,
->> +						      xe_hwmon_get_reg(hwmon, REG_TEMP, channel),
->> +						      &reg_val);
->> +			if (ret)
->> +				return ret;
->> 
->>  			/* HW register value is in degrees Celsius, convert to 
->> millidegrees. */
->>  			*val = REG_FIELD_GET(TEMP_MASK, reg_val) * MILLIDEGREE_PER_DEGREE;
->> @@ -1043,7 +1078,11 @@ xe_hwmon_temp_read(struct xe_hwmon *hwmon, u32 
->> attr, int channel, long *val)
->>  		case CHANNEL_PCIE:
->>  			return get_pcie_temp(hwmon, val);
->>  		case CHANNEL_VRAM_N...CHANNEL_VRAM_N_MAX:
->> -			reg_val = xe_mmio_read32(mmio, xe_hwmon_get_reg(hwmon, REG_TEMP, 
->> channel));
->> +			ret = xe_hwmon_temp_mmio_read(hwmon,
->> +						      xe_hwmon_get_reg(hwmon, REG_TEMP, channel),
->> +						      &reg_val);
->> +			if (ret)
->> +				return ret;
->>  			/*
->>  			 * This temperature format is 24 bit [31:8] signed integer and 8 
->> bit
->>  			 * [7:0] fraction.
->> --
->> 2.56.0
->> 
+Thanks for the catch. I'll switch to drm_mode_init(), like the mode copy
+a few lines above, in v2
+
+> On 10/14/2026 11:39 PM WEST sashiko-bot@kernel.org wrote:
+>=20
+> =20
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] drm: uninitialized stack memory read in create_stream_for_sink=
+()
+> --
+>=20
+> commit c9acc168fa3f685b9a0bbaf87f6642a89b782aef
+> Author: Hugo Sales <hugo@hsal.es>
+> drm/amd/display: Fall back to the native mode, not the first, on eDP/LVDS
+>=20
+> This commit updates create_stream_for_sink() to fall back to the native
+> mode stored in the encoder when the preferred mode is no longer present
+> in the connector's mode list. This is limited to eDP and LVDS panels wher=
+e
+> amdgpu handles scaling automatically.
+>=20
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+>=20
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.=
+c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > index 428a5f9377c62..a1dc3e28764cf 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > @@ -1470,6 +1472,7 @@ create_stream_for_sink(struct drm_connector *conn=
+ector,
+> >  =09struct dc_stream_state *stream =3D NULL;
+> >  =09struct drm_display_mode mode;
+> >  =09struct drm_display_mode saved_mode;
+> > +=09struct drm_display_mode native_mode;
+> >  =09struct drm_display_mode *freesync_mode =3D NULL;
+> >  =09bool native_mode_found =3D false;
+> >  =09bool recalculate_timing =3D false;
+>=20
+> [ ... ]
+>=20
+> > @@ -1529,6 +1532,31 @@ create_stream_for_sink(struct drm_connector *con=
+nector,
+> >  =09=09=09break;
+> >  =09=09}
+> >  =09}
+> > +
+> > +=09/*
+> > +=09 * After a probe with size limits smaller than the preferred mode,
+> > +=09 * connector->modes no longer has that mode, and the first mode lef=
+t
+> > +=09 * would become the stream timing. fbdev emulation probes with limi=
+ts
+> > +=09 * that video=3D can set below the native size. The encoder has a c=
+opy of
+> > +=09 * the preferred mode from amdgpu_dm_get_native_mode(), made on eve=
+ry
+> > +=09 * probe before the limits apply, so use that copy. Only do this fo=
+r eDP
+> > +=09 * and LVDS panels, which take only their native timing. On other
+> > +=09 * connectors mode_valid can also reject the preferred mode, and th=
+en
+> > +=09 * the first valid mode is the right one
+> > +=09 */
+> > +=09if (!native_mode_found && aconnector && !aconnector->mst_root && ac=
+onnector->drm_edid &&
+> > +=09    (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP ||
+> > +=09     connector->connector_type =3D=3D DRM_MODE_CONNECTOR_LVDS)) {
+> > +=09=09struct drm_encoder *encoder =3D amdgpu_dm_connector_to_encoder(c=
+onnector);
+> > +
+> > +=09=09if (encoder && to_amdgpu_encoder(encoder)->native_mode.clock) {
+> > +=09=09=09drm_mode_copy(&native_mode, &to_amdgpu_encoder(encoder)->nati=
+ve_mode);
+>=20
+> [Severity: Medium]
+> Does this result in an uninitialized stack memory read?
+>=20
+> The native_mode variable is declared on the stack without initialization.
+> When passed to drm_mode_copy(), that function starts by attempting to
+> preserve the existing list node pointers of the destination:
+>=20
+> void drm_mode_copy(struct drm_display_mode *dst,=20
+>                    const struct drm_display_mode *src)
+> {
+>         struct list_head head =3D dst->head;
+>=20
+>         *dst =3D *src;
+>         dst->head =3D head;
+> }
+>=20
+> Because native_mode is uninitialized, reading dst->head accesses garbage
+> data. While this won't corrupt an active list (since the garbage is writt=
+en
+> back to a local variable that is never linked), it still triggers undefin=
+ed
+> behavior and can cause Kernel Memory Sanitizer (KMSAN) warnings.
+>=20
+> Could we initialize native_mode when it is declared to avoid this?
+> For example: struct drm_display_mode native_mode =3D { 0 };
+>=20
+> > +=09=09=09drm_mode_set_crtcinfo(&native_mode, CRTC_INTERLACE_HALVE_V);
+> > +=09=09=09preferred_mode =3D &native_mode;
+> > +=09=09=09native_mode_found =3D true;
+> > +=09=09}
+> > +=09}
+>=20
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014223041.17=
+1317-1-hugo@hsal.es?part=3D1
