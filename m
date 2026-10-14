@@ -4,52 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0878CC6B1D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 14:11:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0E24CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 14:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C223610E82D;
-	Wed, 14 Oct 2026 14:11:04 +0000 (UTC)
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007BD10FA5A
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 14:10:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1791987050; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=BdQKtUbE6btzoW3tphzG9X0WF4HVaRG64stM8RZAKZ6FzMLkzME1LMqHj/CdIbtHQXB6JgkY3CQnhx4Vg4/5OaWCLH+fNd7/cYk1xml5WnYa2znWtvdA3ecRdyPRqekCN83yA9cVzBs94T7ysDuTSA1s9W1RYnf9/zjaaSWqdy0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1791987050;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=R9R8NWPN09nGxU8zI3h7F6yn9XPsLeLZNUGXCBmw2dM=; 
- b=BUWM8ATrGSffdgwE4F3vHZ+YW1sfytrP9s/3LB/CCHwdBR4sP+MJ5/IfkaoJuOWJrQfDfzb5yFUOe6sW+xaLrntVhBPzwsqDWNIXiuST3hdjFyAqArLRjfXQEaBGE5UKY11/mY/3f4Yzum+3EnX7QTup3peqPy4jKExgJDtWNFc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791987050; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=R9R8NWPN09nGxU8zI3h7F6yn9XPsLeLZNUGXCBmw2dM=;
- b=T1JRY+h6H9WRaTrI5CDwjIV/FsYFu+Vh4mxx4IEEP3UeCfPyRQF8FbKPAkLD2nvt
- fyOMVvyb3k9mGidBjuR1kdkdiJwLRCfuzqUIcXeKFXxofSozlOfs9gSqNS2r7D8fIQS
- G929FB99wE5keXeuGwTtDGACGolBNM3voFLMs19c=
-Received: by smtp.zohomail.com with SMTPS id 1791987048034761.1535266303295;
- Wed, 14 Oct 2026 07:10:48 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Stone <daniel@fooishbar.org>, santimillang@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel test robot <lkp@intel.com>,
- Santiago =?UTF-8?B?TWlsbMOhbg==?= <santimillang@gmail.com>
-Subject: Re: [PATCH] drm/tests: bridge: Document struct fmt_tuple members
-Date: Wed, 14 Oct 2026 16:10:43 +0200
-Message-ID: <GKOThU5LQ3KRb4Bp1kIrzg@collabora.com>
-In-Reply-To: <20261014-drm-bridge-test-kdoc-v1-1-883f7ec8bcfa@gmail.com>
-References: <20261014-drm-bridge-test-kdoc-v1-1-883f7ec8bcfa@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E01CB10FE03;
+	Wed, 14 Oct 2026 14:50:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B85D210E152
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 14:50:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6D5CC40291;
+ Wed, 14 Oct 2026 14:50:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0002F1F000C4;
+ Wed, 14 Oct 2026 14:50:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791989414;
+ bh=NdWDzbW7Y26htAfpjZvTCflFdSCpG0s8lhU2ZneTFLQ=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject;
+ b=BM+UwMfHAZjW9N+hXqGXqJO9+J70Tu+8At5e5U9AabuLJPkoU+OY5Q1tGeuDSRar7
+ h+ueY9Vo+zchRUUDgnBlJpJjetO+qPXf++oPOSRIyP/PLLyvuOMCgyJOlm++Hbpw60
+ 91hK/nZUCLHOb407EzR1u0TPmbD+57P+JLtsy0JLqNWJLg6hPEMYNaJhx/1+SxKz0d
+ SO9dytJU49vKpXLjbMQzrDTGL+wUdcHlbtIZVVNCRud1aDPerhS0f2Ud7adqwIcLSQ
+ +H4U30KC2ow3o0gXS5ee0f1ShRWTDgZpMUZXwUlPNsa0ImzI79zjWNk1pRc+3suPXr
+ gOVfAi3aygJUg==
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+ by mailfauth.stl.internal (Postfix) with ESMTP id 04A4D780043;
+ Wed, 14 Oct 2026 10:50:12 -0400 (EDT)
+Received: from stl-imap-11 ([10.204.2.102])
+ by stl-compute-04.internal (MEProxy); Wed, 14 Oct 2026 10:50:13 -0400
+X-ME-Sender: <xms:pJbParDoKmXnnnpeCXDM-T7ZQy3mvEAFl8leKVWTW8fxLoSHruK5UQ>
+ <xme:pJbPasUGIp5Y-WerYrbOqfCqOomhS8YNkL3QSuUtKHjrt1PtIhP5Tu_WX_moXYsdi
+ sbHexPhmB_BmED0e-qA-2512EZv-PGP1oM7DEoJZYvBXbW1hOGKzMw>
+X-ME-Proxy-Cause: dmFkZTEBp4CSFP+oEygyR/ha7jJPYfJMSPM5LgWWD6WbfqNZUsOvuFcngQ6E2/sdCMTQyy
+ HijyMuq/lh8owh49Uvpdcd1Ra8UygobWNKOnsEZkYTkmkHBveua5QlCVL0sCLNdxkZT+w3
+ DLhzUNIRhU4ZpiQON0x0kMLOeVf1NUWdQo8JyVcvXXYMchFoGUAJI+xNE/ThwwUpa6FP20
+ cODEKLQFrG3geSG9+uwSFuaKXh/2ud2Hqj5zJA8H7nV9YIwFspm4XSoh0NWLuXc9SN7nF+
+ M0GU0dQmTpL8asKz2BQ4XwgO2/Sbpm/VnJLXVHzZvHTjDZHcObiXGKyIKkXuB2XL3tAzYg
+ g5OGTBD8KSmGCXSDu0gnl3UHb3Lp0SpglQkUX+piCkkNEgINFXYTsBjDIeCtd2BdV9QJQ3
+ mTfP+iSHHMJzo+KhWjJukhVQ8api1RFiaA7pywTevfwudi7iFEWHwbF3fD5qNbbxrYH6AU
+ uYTVm5lCHKo9KUELmKH5bJ67yzCta8QTOKdU30qDP+TjTRIjQ+yKitK4LMuJrfSdbT2I9F
+ XD2Zr3H2f1O2VvIbU3//Z6dHBXNQw8Z3KtlE1yB8wGuWJDbUxnRMiVGCy3EYOa2136W6Bm
+ 7OdRD5lAU7SoYDdBdbK4z9I3J6kegvsNGaHYnREsjFZCq7Mj6bavvPFXsDFw
+X-ME-Proxy: <xmx:pJbPansXMvJtbNWVaV-mNd-qlczn-gGt_SH9XPSu00VX_1SCUwMIlg>
+ <xmx:pJbPavaCY2nnNd54zW53nb1b3n4NiW-6Jz-Ae3Sgp4IwUoSeeyOUxQ>
+ <xmx:pJbPahNykOFC4DtN7tXyMI1gDyWwjUYT8QfRvRRh_Su1dkRJTn2MGA>
+ <xmx:pJbPakut9LU5_6VoGmrV77P8-_f8MaRAa1YriFmU-18E2Z6zPqispA>
+ <xmx:pJbPapJayEVieuXZFLVJRdxfrNSvTiCPGOlJqmlWP5cgxmEZki4NOH5n>
+Feedback-ID: i927946fb:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+ id 90E9119C0067; Wed, 14 Oct 2026 10:50:12 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Date: Wed, 14 Oct 2026 17:49:53 +0300
+From: "Leon Romanovsky" <leon@kernel.org>
+To: "Bjorn Helgaas" <helgaas@kernel.org>
+Cc: "Bjorn Helgaas" <bhelgaas@google.com>,
+ "Logan Gunthorpe" <logang@deltatee.com>,
+ "Jason Gunthorpe" <jgg@ziepe.ca>, "Joerg Roedel" <joro@8bytes.org>,
+ "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ "Tushar Dave" <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ "Chaitanya Kulkarni" <kch@nvidia.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jens Axboe" <axboe@kernel.dk>, "Alex Williamson" <alex@shazbot.org>,
+ "Ankit Agrawal" <ankita@nvidia.com>, "Jonathan Corbet" <corbet@lwn.net>,
+ "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Randy Dunlap" <rdunlap@infradead.org>,
+ "Sumit Semwal" <sumit.semwal@linaro.org>
+Message-Id: <eb8e0edd-4c4d-402e-9875-bdbc6d191edf@app.fastmail.com>
+In-Reply-To: <20261014132353.GA1625948@bhelgaas>
+References: <20261014132353.GA1625948@bhelgaas>
+Subject: Re: [PATCH v11 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,56 +97,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wednesday, 14 October 2026 12:56:02 Central European Summer Time Santiag=
-o Mill=C3=A1n via B4 Relay wrote:
-> From: Santiago Mill=C3=A1n <santimillang@gmail.com>
->=20
-> The kernel-doc comment for struct fmt_tuple does not describe its
-> in_fmt and out_fmt members, so W=3D1 builds warn:
->=20
->   struct member 'in_fmt' not described in 'fmt_tuple'
->   struct member 'out_fmt' not described in 'fmt_tuple'
->=20
-> Add descriptions for both members.
->=20
-> Fixes: 082fbc179c01 ("drm/tests: bridge: Add KUnit tests for bridge chain=
- format selection")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202606120201.5E4O2N7N-lkp@i=
-ntel.com/
-> Signed-off-by: Santiago Mill=C3=A1n <santimillang@gmail.com>
-> ---
->  drivers/gpu/drm/tests/drm_bridge_test.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/te=
-sts/drm_bridge_test.c
-> index 15583ade8494..b79d7b8b2d32 100644
-> --- a/drivers/gpu/drm/tests/drm_bridge_test.c
-> +++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-> @@ -123,6 +123,8 @@ static const struct drm_bridge_funcs drm_test_bridge_=
-bus_fmts_funcs =3D {
-> =20
->  /**
->   * struct fmt_tuple - a tuple of input/output MEDIA_BUS_FMT_*
-> + * @in_fmt: input bus format accepted by the bridge
-> + * @out_fmt: output bus format the bridge can produce from @in_fmt
->   */
->  struct fmt_tuple {
->  	u32 in_fmt;
->=20
-> ---
-> base-commit: dfc3c7b84d43e7de918686e5cd7dd49196a5f45e
-> change-id: 20261014-drm-bridge-test-kdoc-a46e4183b670
->=20
-> Best regards,
-> -- =20
-> Santiago Mill=C3=A1n <santimillang@gmail.com>
->=20
->=20
->=20
-
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
 
+On Wed, Oct 14, 2026, at 16:23, Bjorn Helgaas wrote:
+> On Wed, Oct 14, 2026 at 09:53:47AM +0300, Leon Romanovsky wrote:
+>> On Tue, Oct 13, 2026 at 05:25:08PM +0300, Leon Romanovsky wrote:
+>> > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+>> > This misclassifies asymmetric and nested switches, and reports one answer
+>> > for every kind of TLP.
+>> > 
+>> > Three ACS controls act on TLP attributes the Requester chooses rather
+>> > than on the topology: Translation Blocking and Direct Translated P2P act on
+>> > a Request's Address Type, and Completion Redirect skips Completions carrying
+>> > Relaxed Ordering.
+>> > 
+>> > Evaluate each direction at the path divergence, decide every class from the
+>> > one walk, and treat a client with ATS enabled as translating unless its
+>> > driver declares per-mapping ATS.
+>> > 
+>> > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
+>> > 
+>> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+>> > ---
+>> > Changes in v11:
+>> 
+>> 
+>> Bjorn,
+>> 
+>> Could you please save me from the AI-bot attack? Every rebase seems to
+>> uncover another bizarre pre-existing issue. It never ends.
+>
+> Can you elaborate?  I'm not sure what you'd like me to do here.  I
+> don't control the Sashiko reviews, and I thought Sashiko was recently
+> changed to put pre-existing issues in a database but not in the email
+> responses.
 
+AI reviews are not deterministic and every resubmission gives us slightly different result, which is in this phase of submission is  full of hallucinated flows not applicable to the upstream.
+
+In addition to upstream Sashiko, i run everything through local one with slightly better models which hallucinating even more.
+
+I would ask you to merge the series so it gets real exposure in addition to my kunit and specific hw setup.
+
+Thanks 
+
+>
+> Bjorn
