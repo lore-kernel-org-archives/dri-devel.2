@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA4A0CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:45:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C37B2C3DA7A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1589310EA82;
-	Wed, 14 Oct 2026 17:45:19 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E79410EA82
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:45:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE8510E4B4;
+	Wed, 14 Oct 2026 17:48:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7435C10E4B4
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:48:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EAA9E429F9
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:45:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30921F000C4;
- Wed, 14 Oct 2026 17:45:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9B89A60098
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:48:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 281EE1F000C4;
+ Wed, 14 Oct 2026 17:48:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791999911;
- bh=c2rNAYCsLqEGbWWK+IGQxibrCer5KRAqjWk5GzTymiY=;
+ s=k20260515; t=1792000081;
+ bh=1d2ZoObeTJkxgGU3VY0cfgrZWToJBxZEb5gJ4K2zW2Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=THvmd5pwZ0HcjXZu75+q9a+qePKZVlQVrMUGtPbItmdCWtQj0y7tRiltdqZZQ6t5K
- pa2JGCfiIOqwT/Od6H08XpF0Qa2aAnzePbiW++5pqmwEzVxMY4sG0i239Ymf7cdwwR
- vfuiskLDGuCV5ay+quZy+2adqqGtF/SxYBoRuNaUV4Qq96qeDdOrFU+9ak3sEhKPKm
- 0krnaV2X6Kt/tDVFCXUoqg7hLxUu1ogcBwXLmpbPqztKKMTqGkehoWETjbw86uUeSC
- pn2aDkOlkpUfQKNS587j2y/z3pEpcNO0aEd6usOk2x/ExvjHBigUFvzG9Ry2tJ8qVC
- 6EiToBlTA5l+A==
-Message-ID: <sashiko-outbox-171596@kernel.org>
+ b=iHM57gJn0rXEqN/kG3dzJcYgtgODBkimiV69e6i0TReUr9yCxxVa0DGPOwdVPX7ku
+ wccRV+Zh7l/f1dVb4PoRzBn9N2bFK4p+CUGHPgG+Litl+S8a0tgwZyY9yPVTLA82sX
+ NO2cERg0NFXuU7Yj1uiOHz2J9xmJQsL45pt1OjWdrl7cd4eB2PMF1KpWigZDDpx7IM
+ QUlhriYYWIffeWWjrKEOwYNAHNRo9C0Q/1kBzlGj+/Fe1vJl8J5LdUjHGX4GEHMM9R
+ SgzFOzLDbUuj+VmjVYYUSygmT86zfFhJ4oT1TcMxMKT0PS4UTuDgncimElsp0do1U1
+ Gh63U/63wwSmA==
+Message-ID: <sashiko-outbox-171603@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/75] drm/panel: Add atomic_create_state support
+Subject: Re: [PATCH 14/75] drm/panel: Switch to
+ drm_atomic_helper_connector_create_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-1-586c9c026823@kernel.org>
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-14-586c9c026823@kernel.org>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-1-586c9c026823@kernel.org>
+ <20261014-drm-no-more-connector-reset-v1-14-586c9c026823@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 17:45:11 +0000
+Date: Wed, 14 Oct 2026 17:48:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,74 +57,69 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm: missing drm_connector_cleanup() on atomic_create_state error =
+- [High] drm: Missing drm_connector_cleanup() on atomic_create_state error =
 path
 --
 
-commit 0b1142b139421992608178b6e00be629b73837b5
+commit 4c22451169f59e38b227f793ca15ca81195bb746
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/panel: Add atomic_create_state support
+drm/panel: Switch to drm_atomic_helper_connector_create_state
 
-The panel bridge attach hook calls the connector's reset function to
-initialize the connector state when the device is already registered.
-Now that connectors are being migrated from the reset hook to
-atomic_create_state, prefer it over reset and fall back to the reset
-hook if atomic_create_state is not implemented.
+This commit replaces the deprecated reset hook with the=20
+atomic_create_state callback in the panel bridge connector implementation.
 
 > diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index c00529bfb706b..c9f49e18890ad 100644
+> index c9f49e18890ad..55a1427c7a10a 100644
 > --- a/drivers/gpu/drm/drm_panel.c
 > +++ b/drivers/gpu/drm/drm_panel.c
-> @@ -104,8 +104,18 @@ static int panel_bridge_attach(struct drm_bridge *br=
-idge,
->  	drm_connector_attach_encoder(connector, encoder);
+> @@ -70,9 +70,9 @@ panel_bridge_connector_helper_funcs =3D {
+>  };
 > =20
->  	if (bridge->dev->registered) {
-> -		if (connector->funcs->reset)
-> +		if (connector->funcs->atomic_create_state) {
-> +			struct drm_connector_state *conn_state;
-> +
-> +			conn_state =3D connector->funcs->atomic_create_state(connector);
-> +			if (IS_ERR(conn_state))
-> +				return PTR_ERR(conn_state);
+>  static const struct drm_connector_funcs panel_bridge_connector_funcs =3D=
+ {
+> -	.reset =3D drm_atomic_helper_connector_reset,
+>  	.fill_modes =3D drm_helper_probe_single_connector_modes,
+>  	.destroy =3D drm_connector_cleanup,
+> +	.atomic_create_state =3D drm_atomic_helper_connector_create_state,
 
 [Severity: High]
-Does this early return leak the initialized connector resources?
+Does this change introduce a resource leak and a use-after-free in the error
+path of panel_bridge_attach()?
 
-Earlier in panel_bridge_attach(), drm_connector_init() is called:
+By providing the atomic_create_state callback, panel_bridge_attach() will
+now take a different branch when creating the state:
 
+drivers/gpu/drm/drm_panel.c:panel_bridge_attach() {
+    ...
 	ret =3D drm_connector_init(bridge->dev, connector,
 				 &panel_bridge_connector_funcs,
 				 panel->connector_type);
+    ...
+		if (connector->funcs->atomic_create_state) {
+			struct drm_connector_state *conn_state;
 
-This successfully initializes the connector, allocates its IDA and name str=
-ing,
-and adds it to the DRM device's global connector_list.
+			conn_state =3D connector->funcs->atomic_create_state(connector);
+			if (IS_ERR(conn_state))
+				return PTR_ERR(conn_state);
+    ...
+}
 
-When atomic_create_state() fails and we return PTR_ERR(conn_state) early,
-drm_connector_cleanup() is bypassed. Because the bridge attach failed, the
-caller (drm_bridge_attach()) aborts the setup and will not call the bridge's
-detach hook where drm_connector_cleanup() is typically invoked.
+If drm_atomic_helper_connector_create_state() fails, the function returns
+the error directly.
 
-As a result, the connector remains in dev->mode_config.connector_list while
-its enclosing struct drm_panel memory is tied to the panel driver's lifecyc=
-le.
-If the panel driver unbinds and frees its memory, the DRM core might traver=
-se
-a freed list node during drm_mode_config_cleanup() or subsequent connector
-iterations, potentially leading to a use-after-free crash. Additionally, the
-IDA and name string allocated by drm_connector_init() are leaked.
+Since the connector was successfully initialized by drm_connector_init()
+earlier in the function, returning without calling drm_connector_cleanup()
+appears to leak the connector's resources.
 
-> +
-> +			connector->state =3D conn_state;
-> +		} else if (connector->funcs->reset) {
->  			connector->funcs->reset(connector);
-> +		}
-> +
->  		drm_connector_register(connector);
->  	}
+Could this also lead to a use-after-free when the DRM core later iterates
+over dev->mode_config.connector_list containing a dangling pointer to this
+uncleaned connector?
+
+>  	.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state =3D drm_atomic_helper_connector_destroy_state,
+>  };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-drm-no-mor=
-e-connector-reset-v1-0-586c9c026823@kernel.org?part=3D1
+e-connector-reset-v1-0-586c9c026823@kernel.org?part=3D14
