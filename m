@@ -4,136 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2091CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 09:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B49F4CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 09:19:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA1B910E4D5;
-	Wed, 14 Oct 2026 09:03:53 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C16910FC29
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:03:42 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 450E01F7C9;
- Wed, 14 Oct 2026 09:03:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1791968620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
- b=EZnT4x8tH8/9tP3nabsHyj0KdhIq4M6qgrO0dVl82YL3LiNoSkTiiaDfXNXeECWfOrvthu
- Q06LYLNBiKfM4wjlZRDRx26GTdLIFQ5xSv31oUxq9FEDj01DvBwHYkIac+rsGZhFh/6Mzb
- YYPkJfOdeIB/xekK6sCukBCOkwv/cNk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1791968620;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
- b=ydFZka5dHSLNjIRth3BY8e0iIjjo0p0Zgp+/+yB7Wwmao6rzR4Cj9+E3HwHq87ssnMLSzP
- W73/erecWRMnD+Cw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MvYI37zZ;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="7gVYws/D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1791968619; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
- b=MvYI37zZBnhhcjMxHvxqbcJb93RFyXenWj+oYl4PYOTV0e2BC3+XirgtfxcMnezx+zbXfe
- GV0h3SNBp7Gz3m1tf0G0JKLuU5bgDj3tAjP0wNzG01FXMdRWHDz1SvvB/O1MbHh9NB15gt
- ozh5rEiUgnmz9uwZysP712DMEoYpXok=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1791968619;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
- b=7gVYws/D7fF3RbMAAc+dPQdyy9YF4sys6nSl+8o9/nCvdm68APlq/GVjBh2AgyXkcuDetw
- 21yDQJQiWPPvF0BA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DE90A133F1;
- Wed, 14 Oct 2026 09:03:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xkVaKmpFz2qnEQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 14 Oct 2026 09:03:38 +0000
-Message-ID: <fdc5b911-407f-437f-ab05-33d1287e20da@suse.de>
-Date: Wed, 14 Oct 2026 11:03:38 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1808C10EA6C;
+	Wed, 14 Oct 2026 09:19:39 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 759B410EA6C
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:19:28 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69E5wptr3951349
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:19:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ I9vbNOPgSoW2/s5EmJhhLhQxF1+z/I0nBNc1/Lx6mzA=; b=RZSQxUg8DMWENbz8
+ /2tgFMNww2z5LvmzbTrkdYN9ICez/UgIJRwOx/TMVyQvFAjY3qR4Y8Mm9dNGlfat
+ A1064UEzfyNvw8PSF2d9hDrnNn23L1YXP7hFAL8Kh5SBc1Sv4q6y6ZPI7mwFxNjH
+ m9UsN7zh2CIHVNo5eTvRL7oQAb1E6+3vtAu1tYOdi0E0OuRHHJkvnJ1z1dsZcFFN
+ 8xHSTAl2DVJwQIxTfEr5veeA6ukArm2e6oXEA3lN/FGyhaIJz0wyAsmrT9TWTZ4y
+ yXdXPTtfHdXenKcYL9+rAuaODX1Ac9FAgS8NseC9haHxLCURnbGlLwg3xy9sP1XN
+ 9opTeg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha42p0u3q-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:19:27 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2e6188d1e51so46411215ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 02:19:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791969566; x=1792574366;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=I9vbNOPgSoW2/s5EmJhhLhQxF1+z/I0nBNc1/Lx6mzA=;
+ b=Z5ZIsOWNn6UHcGjzxJEKrFmPKW4U4yDQpqlPCH5T9o3CtPzgniVFi1qjq5uoUb521s
+ Iva+fiZESIRUfxrHGd35M8yVcx8vePS2x9uRsvsnYi/xGy3v4xSudKwtgFlSc5FCvYsZ
+ 6LHt+Q4n/twy/HXZzoB+zvExToYaLeqkDc+qzNCfl1/KfTEbS1dH/itRIKgvhrKnMLqb
+ ECztYI2H5Y0mLtuv3lMOsnc9+TRop4wdtmiwYauvOQAlnkMe6cIqksUBbt7V4tV5h2+m
+ nrvX4UbndqIwMdHU9DTWBhoeOIlgCoeUXkdXiOUzXn+JHP09Jiq8uld8UlpBCBAEolFc
+ NXTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791969566; x=1792574366;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=I9vbNOPgSoW2/s5EmJhhLhQxF1+z/I0nBNc1/Lx6mzA=;
+ b=rAR4tSsfPAenh97xDp++4KlTs9qnHhT+iAe1AE8E5KSXyAtE/TKGsiv1urnVRxq0BD
+ /tznZt9SpU9Ud26/2J8/FPzOV7Viqtkt0JNJmnop1tydjZZaFg1FjL45XIOI2xZnwaeB
+ p8M99gklEr82zAw2+rC6U/KcmsE+daV+v1L/uM7lcPtb/OKSneha+ofD3dy4/5dMZr6C
+ JOVW99J/aGdQOhKDs7xZdeSKZwV7B7OX/vrWBlnfTQLdXRH3hdVDDJk7yqJg4eD+6rMj
+ sn+LollfY9Qbr7PBKUpwPvTSV30C7yqS6G1sNEh8+2WYmAqp5nvDGYjTwelW/9qXJJBp
+ 8N7w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwkNJNvWU0ugoQHDEndboyMbn2R13qcV1OvCB4GhpwLV17sMDPeH33ioiNqht1iSWehqz016f6k4vA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKcm/EaLJr9l4RvXXcjgvCYyKBoC9KDJbOEFbcfN8XiXMW3Q2b3
+ lFCSCNw7oHQjlIXh4aRgsvXp2ywaRBdFJCs2Wk6pC98GC8JWG+YCIZqo6+DaPLDl0xDzFQxiccq
+ JZLcomoHguEGdCXNiz44EL0wSuHmN6uVF+e51NPoEBd/rY9KHMAlhdCNkHoVK4kmHnYbhF+g=
+X-Gm-Gg: AYBFou1qMI5WVQaOJaFubYexru+/xRABjjXgEZz/BVHJjEKjxDZrJEnFWV6UbK31uMn
+ JqtOOLjO104kz7IdQ5T0M/g5ewncbZT4UcevXRVdbJS+Vzn4lAvbjdPclAuiStqvzPcYkxDIWn6
+ 9Ib6Kesb6C3dxNPnoePwwTZ0BRdlmaf2vCFZRkFNnJIZOFy6WDZ4Q9J0CYe+EsXLaN9VXBfDjxX
+ 0Oy6l8qZ3+P0DGo4M4Yzm1R4hcyigVO6TfVEZxQnPauwFcs2/Z/Rt7OmKxjCef9BWwCsSRIY8M9
+ v7BOr63IMJhXbWa/msh7n7JF9D7W7xymRFvtu4b8/oLsBFj39bqV+JuFehtdtX0iuzZsfPVOtpE
+ YIXUNDR2zfISV3aTc853OCqM5Ndus
+X-Received: by 2002:a17:902:cec2:b0:2e8:2f95:764d with SMTP id
+ d9443c01a7336-2e842dfd299mr134805425ad.59.1791969566342; 
+ Wed, 14 Oct 2026 02:19:26 -0700 (PDT)
+X-Received: by 2002:a17:902:cec2:b0:2e8:2f95:764d with SMTP id
+ d9443c01a7336-2e842dfd299mr134804985ad.59.1791969565791; 
+ Wed, 14 Oct 2026 02:19:25 -0700 (PDT)
+Received: from [10.204.78.119] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2e8422b8202sm64057305ad.51.2026.10.14.02.19.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Oct 2026 02:19:25 -0700 (PDT)
+Message-ID: <76ad74bd-e742-428b-b206-9db6cc98f10d@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 14:49:16 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
-To: Jie Feng <hjf3108@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
+Subject: Re: [PATCH v2 06/13] drm/msm/dp: Add support for DP controllers on
+ Nord
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-References: <20261012170857.199561-1-hjf3108@gmail.com>
- <64707239-eac7-4259-a8ff-7ec43d13860e@suse.de>
- <CABOQOSXgG2kBzs2sBEE69mmPcO0cKVgjyk_6DG5RST_4uL2+sg@mail.gmail.com>
- <c9460a8d-3fdf-439f-9655-82b60617b85c@suse.de>
- <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>
+References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-6-a2ab9af954d2@oss.qualcomm.com>
+ <gmsyzeugteg67h5vwzf2y2e7k56eg6aicbonzjl72etgedd5oe@vlizd2npwtn6>
+Content-Language: en-GB
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+In-Reply-To: <gmsyzeugteg67h5vwzf2y2e7k56eg6aicbonzjl72etgedd5oe@vlizd2npwtn6>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 450E01F7C9
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[gmail.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org];
- MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[7]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:email, suse.de:dkim, suse.com:url]
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzNiBTYWx0ZWRfX2k/PnarATFJq
+ v2bLCBVBYIMhd+zbsWTT0BhqjPdmtq9puOYe+RMRPIpYOMEKebdQSy0AxfMWnZoMLFdR41Wcgkq
+ khewt6O84ziLqe5S/ABXAne3wP/34OA=
+X-Proofpoint-ORIG-GUID: ZTxokmmK7gWYxxVWyqIisjlYBUmXEUTs
+X-Authority-Analysis: v=2.4 cv=aeb0Dhot c=1 sm=1 tr=0 ts=6acf491f cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=9x1Nq3F55a8nTBbgZHMA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzNiBTYWx0ZWRfXxuLuTRazYVym
+ FuKbe6QTdKhHJ7nTSOAomU1fAET/1im5W4Zn5UuAja4++7858JZneCOTh8e5NZgdUdU3xATqImC
+ kite9UMKSbudZMkzMz1bSm3TqxMdPWESx/VRzfCETXPsGJrYf6Zl+GqK3fywrJAiS2j+fwjzLQw
+ Dn3kVoMxS+UZuvspuu8rEPSBIdWkHrwqpAJJjCM9JinN2zrppNrMyqRH0xWReRSGBPllK5iueon
+ YEfPw8fHVcVNRQWr35IGtMGvPR++tEau2yoEeETByQetUiae974iEwQu4FMRZqtryRbNmVVcqSd
+ DLDOH1l45nj6sabOFia//e92HkM64pAsSsQOU1HgYTQnFqQFS/XpH+0Uw+Mw/80FMUmUh5ofukG
+ Q7S/aEIFbBFDxlnlK3vZ7nawbBGOwpSeaGaALXRT9S0FyDgoAKnilo/P6CV+TCNdUphC1Kzk+Xs
+ CSypI/KCHz2rhvq18/Q==
+X-Proofpoint-GUID: ZTxokmmK7gWYxxVWyqIisjlYBUmXEUTs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,94 +159,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 13.10.26 um 15:07 schrieb Jie Feng:
-> On Tue, 13 Oct 2026 at 20:32, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Hi
+On 10/13/2026 2:48 PM, Dmitry Baryshkov wrote:
+> On Mon, Oct 12, 2026 at 07:02:16PM +0530, Nabige Aala wrote:
+>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 >>
->> Am 13.10.26 um 14:17 schrieb Jie Feng:
->>> On Tue, 13 Oct 2026 at 15:11, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>>> Hi
->>>>
->>>> Am 12.10.26 um 19:08 schrieb Ho Jie Feng:
->>>>> Add a helper for devices that use packed UYVY but accept XRGB8888
->>>>> framebuffers.
->>>> Is there a description of UYVY available somewhere?
->>> This is for a reverse engineered usb display adapter, which accepts
->>> input in bytes of U, Y, V, Y in that order. I'm not sure what
->>> counts as a description, apart from it matching DRM_FORMAT_UYVY?
->> I see. The format exists already in DRM.
+>> Add the Nord DP desc and compatible. Nord is supporting the
+>> four DP cotnrollers, two per MDSS instance.
 >>
->>> This patch is meant to move this out of the driver:
->>> https://github.com/rhgndf/ms912x/blob/main/ms912x_transfer.c#L153
->>>
->>>>> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
->>>>> ---
->>>>> This is used for a driver, ms912x that I will be submitting. It only
->>>>> supports uyvy framebuffers.
->>>> Please resubmit as part of the driver series. We're not going to merge
->>>> it without callers anyway.
->>>> ...
->>>> For naming, please follow the conventions used by the other helpers in
->>>> this file.
->>> Will send the driver in with this patch and its fixes, thanks for the review.
->>>
->>>> ...
->>>>> +             v = drm_pixel_rgb2_to_v_bt601(r, g, b);
->>>>> +             u = drm_pixel_rgb2_to_u_bt601(r, g, b);
->>>>> +
->>>>> +             transfer_buffer[dst_offset++] = u;
->>>>> +             transfer_buffer[dst_offset++] = y1;
->>>>> +             transfer_buffer[dst_offset++] = v;
->>>>> +             transfer_buffer[dst_offset++] = y2;
->>>> Rather that writing bytes individually, use put_unaligned_le32() or a
->>>> similar helper.  Byte order within a pixel is little endian, although
->>>> I'm not sure what this means for UYVY.
->>> This is meant to be sent over a usb transfer, so byte order needs to be
->>> the same on both little and big endian systems.
->> DRM formats always refer to little endian. As it is implemented now,
->> it's not clear what the endianess of your output is. Please duplicate
->> the other helpers' logic. They all pack the output with appropriate
->> helpers. If the USB device requires BE, you have to write a separate
->> conversion helper for that.
->>
->> BTW, you have an OOB access if the line width is not a multiple of 2.
-> How should I handle this? Rounding it within the helper doesn't seem
-> to make sense and the function return is a void, so it can't return -EINVAL.
-
-It's the callers responsibility to pass in enough pixels. You'll have to 
-take care of it in the driver by rounding the damage area accordingly. 
-It's not optimal but it's not a big deal either.
-
-In the line-conversion helper, simply round down to the nearest multiple 
-of 2.
-
+>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
+>>   1 file changed, 9 insertions(+)
+> Why are they not a part of the existing entries? Is it a newer core?
+Nord has two MDSS instances, each with two DP controllers. The first 
+pair (0x0af54000, 0x0af5c000) is MDSS0 and the second pair (0x08d54000, 
+0x08d5c000) is MDSS1 at a different base. No existing table covers this 
+combination, So I added a new desc entry for Nord.
 >
-> Other helpers ignore the -ENOMEM error when drm_format_conv_state_reserve
-> fails, so should it follow this convention?
-
-Do you have a specific example?
-
->
-> Alternatively, drm_fb_xfrm can be exported, and let the driver define
-> the rgb->yuv coefficients? But I think it is fine since _to_gray8 also
-> cites BT.601.
-
-The current constants seem fine. With the 2-pixel alignment, there 
-shouldn't be any other cases required.
-
-Best regards
-Thomas
-
-
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
