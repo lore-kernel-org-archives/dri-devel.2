@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3BC0CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5FF0CC6B2F
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 17:29:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D48510FEEA;
-	Wed, 14 Oct 2026 17:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 326C710FEC5;
+	Wed, 14 Oct 2026 17:29:01 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A0B310FEB0
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:28:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D5D210FECC
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:28:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 81C47429FD;
- Wed, 14 Oct 2026 17:28:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86D11F000C4;
- Wed, 14 Oct 2026 17:28:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 15FE94398C;
+ Wed, 14 Oct 2026 17:28:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7504A1F000C5;
+ Wed, 14 Oct 2026 17:28:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791998930;
- bh=Akz6hQN2YUvZYPvBNmTl5I05omypO/8ZYEMyxpHlk80=;
+ s=k20260515; t=1791998934;
+ bh=tCV19d4zAY6lsUjiQNpICn9XcY+9ywiaZ95chPpA/yw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZfUIDP9uKMYhSqkQPJL9bWu85UHh0HMWzVismQgbZTnZkdJJOjdklAL5i0OnD67EX
- UVmkwhfVLK2Q9POcVwXPPPgChBNdny3Vikbb6OHD9CawnEXcrCR0pGUqZBGPxIcULa
- faT9Eez0Dplt/BfwuSD35DRRp3LtuWlM6ZIotMB3o4g0Kmx9XfS/lysDxA/ucwz08N
- UGZGYizqSQSrXeQihIGSygyCrUvM1IQeZ69vMGFoc8af2OeDsxQM7Dbwgp/tKXxxVw
- r6M3Wv8pWin1HHLpHlPxTBfw5chk77oNtCRp7JxjvwNpuIhGJa0ffBbgWMyojZeS1+
- 03dNwB+wZDxLg==
+ b=ocbtjVyPNgBKEMfD11Ft097Dyi0lTagrlqs92yGEEEur+TowJ2N1+KhK/2lpbgo3N
+ UdnQ3q8LvRmbhYHEsU/8lH7EXvcxxuwHGXDxcRZUevfyPQOssVU8GaZELAi5HGmadh
+ pA57bsvXxK2MQ+LD07NPV/u6r/k8Ds+Rju0j2LmeXhis7+k649z6pDjlY0mayDMXCR
+ 660PD5cYE5M6+d40z2TKyE+kGa2wfTB+TZFQ0yO9YRGURa9ZfMtTCK5LA2f0ngt+Hn
+ SSbQcIBOTYj6Y7AMGTDS6di01WoLvgbYcsZ3JEQyGK2Bd5WMTWoD7SmddD7kOP5pnM
+ COYDWgPE8lh8w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 14 Oct 2026 19:26:50 +0200
-Subject: [PATCH 27/75] drm/loongson: Switch to
+Date: Wed, 14 Oct 2026 19:26:51 +0200
+Subject: [PATCH 28/75] drm/mgag200: Switch to
  drm_atomic_helper_connector_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-drm-no-more-connector-reset-v1-27-586c9c026823@kernel.org>
+Message-Id: <20261014-drm-no-more-connector-reset-v1-28-586c9c026823@kernel.org>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Huacai Chen <chenhuacai@kernel.org>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
- Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Xi Ruoyao <xry111@xry111.site>
+ Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2946; i=mripard@kernel.org;
- h=from:subject:message-id; bh=PjwcdImhI2udw2OmxYe2lfChhx96/z2YuD8VFay82rM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnnd4f9ftdR+DbrZGGEaN+iNyfuLJ9Qs2KZR3zJ35s+6
- 3LClv4v6pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATWanE2LBNmC99m3CWtyH3
- q6tGMSKHrkRFPHmUFbLw1cIgBZmG60yymxPYdu3erXg1dfqqdwHBRxgb3gak/k96Y/jIRb6EVT7
- ifdv559umf7fZ/+snl6KopooIa4bYze8RLEuCCgxvqC2xu6IHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2355; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=7i7stdL/3DvtYfQ+04qWLbT9xd7MHyX2KzBYGKRs6u4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnnd4cJiO6ccfbRj2xLyW0lJ+t0X74u5pP+GGWWH7gk7
+ fOhKM8zHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiqpmMDXtuvhRxsP/1zeaK
+ yJ7cvzsClgo3dO5VkWkUuc6cl1L2IuSD97bpKq8mcR5NybAWipnfwFgr9ZHvnd3O2S/889Nq7v3
+ p06zmvfOyfXlSiPaH6RWPjvHLhE7W2bRBRnrZI8azCjG2wXsB
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,67 +66,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The loongson connector implementation uses the deprecated
+The mgag200 connector implementation uses the deprecated
 drm_atomic_helper_connector_reset() as its reset hook.
 
 Switch to drm_atomic_helper_connector_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Jianmin Lv <lvjianmin@loongson.cn>
-Cc: Mingcong Bai <jeffbai@aosc.io>
-Cc: Qianhai Wu <wuqianhai@loongson.cn>
-Cc: Xi Ruoyao <xry111@xry111.site>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
 ---
- drivers/gpu/drm/loongson/lsdc_output_7a1000.c | 2 +-
- drivers/gpu/drm/loongson/lsdc_output_7a2000.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/mgag200/mgag200_vga.c     | 2 +-
+ drivers/gpu/drm/mgag200/mgag200_vga_bmc.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/loongson/lsdc_output_7a1000.c b/drivers/gpu/drm/loongson/lsdc_output_7a1000.c
-index 5c483baa3762..3d4562353578 100644
---- a/drivers/gpu/drm/loongson/lsdc_output_7a1000.c
-+++ b/drivers/gpu/drm/loongson/lsdc_output_7a1000.c
-@@ -93,11 +93,11 @@ ls7a1000_dpi_connector_detect(struct drm_connector *connector, bool force)
- 
- static const struct drm_connector_funcs ls7a1000_dpi_connector_funcs = {
- 	.detect = ls7a1000_dpi_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.destroy = drm_connector_cleanup,
--	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_create_state = drm_atomic_helper_connector_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state
+diff --git a/drivers/gpu/drm/mgag200/mgag200_vga.c b/drivers/gpu/drm/mgag200/mgag200_vga.c
+index b07c1362ddd4..a949c6543c2e 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_vga.c
++++ b/drivers/gpu/drm/mgag200/mgag200_vga.c
+@@ -16,11 +16,11 @@ static const struct drm_connector_helper_funcs mgag200_vga_connector_helper_func
+ 	.get_modes = drm_connector_helper_get_modes,
+ 	.detect_ctx = drm_connector_helper_detect_from_ddc
  };
  
- static void ls7a1000_pipe0_encoder_reset(struct drm_encoder *encoder)
-diff --git a/drivers/gpu/drm/loongson/lsdc_output_7a2000.c b/drivers/gpu/drm/loongson/lsdc_output_7a2000.c
-index a9798b3dadee..e2255e6a0d32 100644
---- a/drivers/gpu/drm/loongson/lsdc_output_7a2000.c
-+++ b/drivers/gpu/drm/loongson/lsdc_output_7a2000.c
-@@ -201,20 +201,20 @@ ls7a2000_hdmi1_connector_detect(struct drm_connector *connector, bool force)
- static const struct drm_connector_funcs ls7a2000_hdmi_connector_funcs[2] = {
- 	{
- 		.detect = ls7a2000_hdmi0_vga_connector_detect,
- 		.fill_modes = drm_helper_probe_single_connector_modes,
- 		.destroy = drm_connector_cleanup,
--		.reset = drm_atomic_helper_connector_reset,
-+		.atomic_create_state = drm_atomic_helper_connector_create_state,
- 		.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 		.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- 		.debugfs_init = ls7a2000_hdmi0_late_register,
- 	},
- 	{
- 		.detect = ls7a2000_hdmi1_connector_detect,
- 		.fill_modes = drm_helper_probe_single_connector_modes,
- 		.destroy = drm_connector_cleanup,
--		.reset = drm_atomic_helper_connector_reset,
-+		.atomic_create_state = drm_atomic_helper_connector_create_state,
- 		.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 		.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- 		.debugfs_init = ls7a2000_hdmi1_late_register,
- 	},
+ static const struct drm_connector_funcs mgag200_vga_connector_funcs = {
+-	.reset                  = drm_atomic_helper_connector_reset,
++	.atomic_create_state	= drm_atomic_helper_connector_create_state,
+ 	.fill_modes             = drm_helper_probe_single_connector_modes,
+ 	.destroy                = drm_connector_cleanup,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state   = drm_atomic_helper_connector_destroy_state
+ };
+diff --git a/drivers/gpu/drm/mgag200/mgag200_vga_bmc.c b/drivers/gpu/drm/mgag200/mgag200_vga_bmc.c
+index 805636990b55..1c118dad6d81 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_vga_bmc.c
++++ b/drivers/gpu/drm/mgag200/mgag200_vga_bmc.c
+@@ -98,11 +98,11 @@ static const struct drm_connector_helper_funcs mgag200_vga_connector_helper_func
+ 	.get_modes = mgag200_vga_bmc_connector_helper_get_modes,
+ 	.detect_ctx = mgag200_vga_bmc_connector_helper_detect_ctx,
+ };
+ 
+ static const struct drm_connector_funcs mgag200_vga_connector_funcs = {
+-	.reset                  = drm_atomic_helper_connector_reset,
++	.atomic_create_state	= drm_atomic_helper_connector_create_state,
+ 	.fill_modes             = drm_helper_probe_single_connector_modes,
+ 	.destroy                = drm_connector_cleanup,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state   = drm_atomic_helper_connector_destroy_state
  };
 
 -- 
