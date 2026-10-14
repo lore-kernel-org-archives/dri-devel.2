@@ -4,51 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB33CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E40CC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABA03112162;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5865112163;
 	Thu, 15 Oct 2026 07:56:53 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAB710FFD8;
- Wed, 14 Oct 2026 22:30:48 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j4mBG6Jw6zMlDm;
- Thu, 15 Oct 2026 00:30:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1792017046;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iH6VgiGj5KrB23VvD5r/W6aj7P6EbpDpdOeMlYANEW8=;
- b=m8V6J7tuZz+jCiDBwrq1wUb0NwR+l7hMxFKi5VUDHJ52vz+ZKV6WhvFDdlqnShja/l0M0h
- gghMMqza4Nbs/S5NE8FwCvfMSRsOSyaALAOfjf5CVfBDoIq61343ltIbO3eKOf7rrV4hhB
- LeDJBFamz18VvmtQFTjOmwyWI8hYkFAIx+A7ympaL1kmMqDsDA7o5u3GGh1v3UiYT1G4C+
- QBqT/kQE6JPgOPXwie8BGbfD6b1ofEpcvoTvCvUnbnoD/j+cTfbED4WAPFmzPuo1N8+sU8
- PWqKYUJSg6/jWSfON9N+Vg+RiA/RFmnbB3xAKMn2Bf1z4/jHDuA6SmSxabdTGg==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, Hugo Sales <hugo@hsal.es>
-Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the eDP/LVDS native
- mode fallback
-Date: Wed, 14 Oct 2026 23:30:41 +0100
-Message-ID: <20261014223041.171317-3-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014223041.171317-1-hugo@hsal.es>
-References: <20261014223041.171317-1-hugo@hsal.es>
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05D1410EA8E
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 15:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+ :From; bh=EMv5U2kupUmtXz66ccHe/Yh8rCYgenznf122ZvfNPM8=; b=K2pQMiSkEIH7P8hKJB0
+ JM5g1DAstr85+VMmMKQREcTVvYlyH9242d4WCiMnme2l7EZ6683ckBx09NtVAR74N+DEFqEy45Ygg
+ +kwBM9Ou//dMuU+vxgY5UXvhFDRs17fY0Q3evizQ1hMoE5ZKxA4L3UuuWYr1WG7uO7etcWLy4P/W6
+ 8+PfOCQTiimVpblvv9c7E8go5YzRPbawZ2B4Q0OwapXulYWXR3U4Ht3+LpaWtBYO/wTe34MeN+qSk
+ 0Ht8mvNRpg/Iam3+FYjqACDq/79P17/6Jw6Hm/pQkbUTD2ANqeAQy1Meq/f1bMBKVvZ1wZ6m//Yhc
+ 5c51Kl06sqhD+2w==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+ by relay.virtuozzo.com with esmtp (Exim 4.96)
+ (envelope-from <khorenko@virtuozzo.com>) id 1xH17q-006OFq-2O;
+ Wed, 14 Oct 2026 17:46:14 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 14 Oct 2026 17:46:09 +0200
+Subject: [PATCH v3 1/2] mm/huge_memory: recheck a special PMD under the
+ lock in copy_huge_pmd()
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4j4mBG6Jw6zMlDm
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-1-85eaec8417f6@virtuozzo.com>
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2667;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=sIdp45qCVAMC/oMNtppMSs+1CULAOMEcEyoP7Ygja0s=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz6PFIbb8Nor8wTYNoHR7PZeR1qeybbFlD6+wd
+ +0+taKoZdGJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas+jxQAKCRBRlgpH+WFc
+ Kl0vD/968/kYsYobbUx0cPTui7Rt1ZMQVmfgrr3DIbKM8eppM2P1ghpu6ZGDI2pNa1Xw6oQl1G5
+ LwlXCJFNinaWulXdC/NYm9KA0u8882jh5YO79/fpfVoCvJcMJn4R9iykn+AxafzpQrhpIj2CzNo
+ KZUw7w7OhcnKqKV5guGMyWBPpColCAFKWi3xzCqKHTuotXSjqph4iObqAZjUjdcqkOPkyAf3oAw
+ 1COP5gZaDqln/mQkQoboYGoBlwveqHXOPKQuCHr4LFvgYZKIAemX2NSYpGf83agvdzKEJa+u8Wd
+ oHQsUgGCuHJmkRGn4ivi/yYG1eNvCp8GRJB4yl5jGl/cS09Wl6xfyG/EILJR5uDGBWKWiV/ccSv
+ ryq2Ibk/Wd/GMNzYlqybjO1dGRMecxUlUFBd6Wzuq8yNKZlHESbLDCOFaNqn5jWkGNOv82VVB+a
+ 2R2jssBIGSYbHxJK7/XonDJSrYWZmSXRkfNhmpVjIKWu41f29wWFT/zA8E6MslgeIqMAJkb/g3M
+ Sx8/W1ZSXtfo3qKdQaP/s8qsl3tAk6eJwplqByUemL4DdO6X/Eq2c2J/4SxMzGjSgjirsRQsZkV
+ RA/QV3G4QilnpwHuHKC9PRyrDbOTk82x1iTT34bBNKEL/3+5l9G8la0Q/IQf9TFMTQ84AaaED6q
+ YiB+61jTMlIjbMQ==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,148 +83,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Leave only a scaled mode in connector->modes and put the larger native
-mode in the encoder, as a size-limited probe does. On eDP and LVDS,
-create_stream_for_sink() must build a stream with the native timing and
-the scaled mode as its source size. On HDMI it must keep the first mode
-in the list as the timing
+copy_huge_pmd() reads a special PMD without the page table lock and
+copies that value to the child. The mmap write lock held by fork does
+not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
+lock.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hugo Sales <hugo@hsal.es>
+The zap visits the parent VMA before the child's, as dup_mmap() links
+the child right after the parent in i_mmap. If it clears the parent PMD
+after fork has read it, and passes the child before fork copies it, the
+child keeps a mapping the driver has revoked:
+
+- vfio-pci: the child reaches the BAR after the device memory was
+  disabled or the device was reset, instead of getting SIGBUS;
+- panthor: the child maps the pages of an evicted buffer object after
+  they are freed.
+
+Read the PMD again under the source PMD lock, which the zap takes to
+clear it. Either the zap got there first, and the PMD is none, or the
+copy is in place before the zap reaches the child. Faults are locked
+out, so only a zap can change the PMD, and pmd_none() is the test.
+
+Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 112 ++++++++++++++++++
- 1 file changed, 112 insertions(+)
+ mm/huge_memory.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 56fd133bc..55e2c3849 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -4547,6 +4547,115 @@ static void dm_test_create_stream_hdmi_vsif(struct kunit *test)
- 	dc_sink_release(sink);
- }
- 
-+/*
-+ * Build a stream after a probe with size limits below the native mode, such as
-+ * fbdev emulation's. That probe leaves only a 1920x1200 scaled mode in the
-+ * connector's mode list, while the encoder keeps the 3840x2400 native mode
-+ */
-+static struct dc_stream_state *
-+dm_test_native_mode_pruned_stream(struct kunit *test, int connector_type)
-+{
-+	static const u8 edid[EDID_LENGTH];
-+	struct dm_test_stream_ctx *ctx = dm_test_stream_ctx_alloc(test);
-+	struct amdgpu_encoder *aenc;
-+	struct dc_stream_state *stream;
-+	struct drm_display_mode *native;
-+
-+	ctx->aconnector->base.connector_type = connector_type;
-+
-+	aenc = drmm_kzalloc(ctx->drm, sizeof(*aenc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aenc);
-+	KUNIT_ASSERT_EQ(test, drmm_encoder_init(ctx->drm, &aenc->base, NULL,
-+						DRM_MODE_ENCODER_TMDS, NULL), 0);
-+	KUNIT_ASSERT_EQ(test, drm_connector_attach_encoder(&ctx->aconnector->base, &aenc->base), 0);
-+
-+	native = &aenc->native_mode;
-+	native->clock = 592500;
-+	native->hdisplay = 3840;
-+	native->hsync_start = 3888;
-+	native->hsync_end = 3920;
-+	native->htotal = 4000;
-+	native->vdisplay = 2400;
-+	native->vsync_start = 2403;
-+	native->vsync_end = 2409;
-+	native->vtotal = 2469;
-+	/* Cached by the first, unlimited probe */
-+	drm_mode_copy(&ctx->aconnector->freesync_vid_base, native);
-+
-+	drm_mode_copy(ctx->mode, native);
-+	ctx->mode->hdisplay = 1920;
-+	ctx->mode->vdisplay = 1200;
-+	drm_mode_set_crtcinfo(ctx->mode, CRTC_INTERLACE_HALVE_V);
-+	dm_test_stream_add_mode(test, ctx, 0);
-+	ctx->dm_state->scaling = RMX_FULL;
-+
-+	ctx->aconnector->drm_edid = drm_edid_alloc(edid, sizeof(edid));
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector->drm_edid);
-+
-+	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
-+
-+	drm_edid_free(ctx->aconnector->drm_edid);
-+	KUNIT_ASSERT_NOT_NULL(test, stream);
-+
-+	return stream;
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_edp - Test eDP gets native timing
-+ * @test: The KUnit test context
-+ *
-+ * The scaled mode must still be driven with the panel's native timing, kept in
-+ * the encoder
-+ */
-+static void dm_test_create_stream_native_mode_pruned_edp(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_eDP);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_lvds - Test LVDS gets native timing
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_create_stream_native_mode_pruned_lvds(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_LVDS);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_hdmi - Test HDMI uses the first mode
-+ * @test: The KUnit test context
-+ *
-+ * On a connector that is not a panel, mode_valid may have dropped the native
-+ * mode, so the first mode left in the list must drive the timing
-+ */
-+static void dm_test_create_stream_native_mode_pruned_hdmi(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_HDMIA);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 1200);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
- /* Tests for amdgpu_dm_connector_detect() */
- 
- /*
-@@ -10246,6 +10355,9 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_create_stream_dp_vsc_colorimetry),
- 	KUNIT_CASE(dm_test_create_stream_dp_colorimetry_quirk),
- 	KUNIT_CASE(dm_test_create_stream_hdmi_vsif),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_edp),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_lvds),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_hdmi),
- 	/* amdgpu_dm_connector_detect */
- 	KUNIT_CASE(dm_test_detect_force_on),
- 	KUNIT_CASE(dm_test_detect_force_on_digital),
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 1e5d68acf62a5..bf788bb231691 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		src_ptl = pmd_lockptr(src_mm, src_pmd);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+ 		/*
+-		 * No need to recheck the pmd, it can't change with write
+-		 * mmap lock held here.
+-		 *
+-		 * Meanwhile, making sure it's not a CoW VMA with writable
+-		 * mapping, otherwise it means either the anon page wrongly
+-		 * applied special bit, or we made the PRIVATE mapping be
+-		 * able to wrongly write to the backend MMIO.
++		 * The mmap and VMA write locks of the source keep faults
++		 * out, but unmap_mapping_range() does not take the mmap
++		 * lock and may have cleared the pmd since the lockless
++		 * read. Let copy_pmd_range() skip it then.
++		 */
++		pmd = pmdp_get(src_pmd);
++		if (unlikely(pmd_none(pmd))) {
++			spin_unlock(src_ptl);
++			spin_unlock(dst_ptl);
++			return -EAGAIN;
++		}
++		/*
++		 * Make sure it's not a CoW VMA with writable mapping,
++		 * otherwise it means either the anon page wrongly applied
++		 * special bit, or we made the PRIVATE mapping be able to
++		 * wrongly write to the backend MMIO.
+ 		 */
+ 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+ 		goto set_pmd;
+
 -- 
-2.55.0
+2.43.0
 
