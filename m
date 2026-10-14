@@ -4,129 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76800CC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C011CC6B2F
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4334111218D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86424112178;
 	Thu, 15 Oct 2026 07:57:18 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A591410E0D7
- for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 15:10:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3D5B941FFC;
- Tue, 13 Oct 2026 15:10:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5DAD1F00893;
- Tue, 13 Oct 2026 15:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791904258;
- bh=mU7Y5nNDVHDzKFrw1lrh3bp+5Qbf32xd91WOb6VG+Eg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=K2+L9Q/zk5F1JMZQoVNEvJJrDJntVi7BRnwxv6VxSVhHPIGwIZuO6hsP6antZRApX
- uJutW5uu2S2oKbCLLYqTfVbV5yLuZ4VIAOMRulD5xbCnMFHVOfEekoZbDQSPzErySo
- xoJKnXc+Ul7hckWVUy1rnU5nhunwRAgAVjP/O3fXcZ+T0NAKr5vdjHfla7vtxP6vkk
- l5HYOND8EECqPb3irEk3KXmmEnaoQ7ffjrhf/H1ZpsvesyaIvLGEKDlNSSQqnNO4aT
- x5cP7oPFadXNoagrLSzTBY2couFGw3Z0Z7vIUed7GNHJhZMqjWaMOTWvRjwJGyMDoW
- 4OE2dXSjJ5jjw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:49 +0100
-Subject: [PATCH v6 09/39] docs: filesystems: update mmap_prepare docs for
- discontig kernel pgs
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D05210FE71
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:33:59 +0000 (UTC)
+Received: by mail-pz2-f6.google.com with SMTP id
+ 41be03b00d2f7-cc790c60953so252205a12.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791995639; x=1792600439; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
+ b=fUwDtlfh5wEup5st69Y0l+LI4vrZZ3SDt8TGGZTFdRkSdygCbmgwqBNzJp6WRbcrIj
+ nKmoBFG3m3nuOefJSuwJGcQE8ye7eQlMVsg/xjRQerlQ6PmHeGXaIr733PNBtWug1Qaf
+ LhbWrEVqlYbtBga6xX1nCYMKGcLHXmQ5KpeUjD/Jk9woftnqhrh39eoagjCQo7Ektmfr
+ rJHhaIHfJTlJPu0uuzRdnvchzzF1iDDd6DJUkEY1FUbMv7w8xC2T5WZqudgKDzfMAe2v
+ jBoBKZCjopNvji18XxKJ/C72AgZ0I5u70aCIhiLtf17/Uw9r1JvzyDGIZ7jfBuopnVgT
+ gcPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791995639; x=1792600439;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
+ b=BG66uYOYuLFW8nS3Z1h7REGcPYNMEbJCBhJ7muD99ADuC1Y4kCvnU/exRn6gAI/JsQ
+ qVS4v9xqPOGOdEupobItBZ0pxXSeAMmEW/Z5BHKTJiqDeR4twIWgblv+EXjd0sEVqw8W
+ u3x9xslIJOwqLOwLOnwiedB8UNtCRKVsGU0HW8HtwciU7Jo0b4KyM0m5tS6jwUIpjO8i
+ 8Vl3gLGTChP1UGMlKmqXwovd6P1ZU5qzN5lIYOch2ytbFjc4R40InL1m0YZ4+/JEMs7h
+ sFnZ771cqjEUBDIUAZGjcd+jRdGH+ZfVdrLYPHwAiF+BBIJJvqoKgZ+KcJgaGUvqZjfo
+ 3bAg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz5IGaZEQVgEberiUuuLHtXoagVabFbcDFonTlqgnWtgMSZqFusV41P7uFZovgoVrrF3UVpYznTACg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYICT2vPZOmo0JW72pFAHyAAIWUgDm5p6bfBr2Z1F2nJLHfP/d+6
+ yYhVSap4dHNxEY1S93ImmdJZdJ7ULLvGa9/tybqAIwR44EYCYeJFiGH6
+X-Gm-Gg: AYBFou2LySTobm2426uNWnFINWyllDXU2SotA6ZF7ELH4rFVmBidjhgkgR1Fg+ZH5qx
+ n/K+Nekxvsq8KM/E23nGlmMmNQBxDiqPQmBQWxQygc8xtbvodVrSQGsRMdCM30UZKVhhOCjS13n
+ 139ogd9WXFT7+TTXxTiIVJCeBK8P45MQuRz4kgIqB5aSCOtdGKYU9/r0eAi7X4SYa8h5g/sDSxK
+ 9JUAHfLpggadYHXJkoSSyxBRQwNHNcFj22M1fmkMvtTNLiOfqSrqDXVZxsqX/th5cNwmU/NzZYx
+ GHmMo8/pnqqTw9H5LrjpRkk1TU3ic84LUzJ9j8+2WbwthHunZyVb2K3A4yMukxr3bEXpy94jDga
+ IPYrpZRjHSMVfEl5ldx9kUI0PB+RJZGQNwz5HqDZwm1NhLj24zF7oa+1cZs5sCAQQX1xaeoCKHX
+ f8osIow64W6D2CaR/UCd32d7HJtKPrMUBxzY66R2qU/k/qPqdl5vcyEendsLZY3vLe
+X-Received: by 2002:a05:6a00:8c4:b0:891:a63c:df97 with SMTP id
+ d2e1a72fcca58-897c6443681mr15560946b3a.15.1791995639007; 
+ Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:59::])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-89d80511d47sm1291926b3a.54.2026.10.14.09.33.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Oct 2026 09:33:58 -0700 (PDT)
+Date: Wed, 14 Oct 2026 09:33:38 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
+ Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
+ Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+Message-ID: <as-uBvRisS7HxLHJ@devvm7509.cco0.facebook.com>
+References: <20261012174300.2338784-1-almasrymina@google.com>
+ <20261012174300.2338784-2-almasrymina@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-9-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4636; i=ljs@kernel.org;
- h=from:subject:message-id; bh=of2UYRzW7yp+Q771g+lXdFKJWDHV724vw+P2aUhj3j8=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZzQKHWd53gm5uqihtiapbWCx05c2W61+NmV67/2e
- D24mDw1oKOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATkbdj+M3CWBf53tyX0yFp
- N+O0OiZlv2df96y+p26+eE3mhkpP43uMDF/s1oh3aD4OzFXh12H4fbVLvWRnbZLL1fh3HM+vdDw
- 7wg4A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,110 +102,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Describe the newly introduced discontiguous kernel page mapping mechanism,
-detailing how to use it sensibly and how the API looks.
+On 10/12, Mina Almasry wrote:
+> When a bound net_device is unregistered while userspace still holds a
+> netlink or TCP socket reference on a devmem binding,
+> mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
+> netdev_nl_sock_priv_destroy() will not touch the unregistered
+> net_device, but leaves the dma_buf attachment mapped until
+> __net_devmem_dmabuf_binding_free() runs later on socket close.
+> 
+> Because dma_buf_attach() does not take a reference on dma_dev, device
+> removal frees dma_dev while the attachment is still mapped. Closing the
+> netlink socket afterwards triggers a slab use-after-free in
+> dma_unmap_sg_attrs():
+> 
+>   BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
+>   Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
+>   Workqueue: events __net_devmem_dmabuf_binding_free
+>   Call Trace:
+>    dma_unmap_sg_attrs+0x76/0x2b0
+>    unmap_udmabuf+0x8e/0x100
+>    dma_buf_unmap_attachment+0x145/0x330
+>    dma_buf_unmap_attachment_unlocked+0x96/0x130
+>    __net_devmem_dmabuf_binding_free+0x156/0x2e0
+>   Freed by task 9:
+>    kfree+0x1b8/0x550
+>    nsim_bus_dev_release+0xe/0x60
+>    device_release+0xcf/0x250
+> 
+> Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
+> and null out binding->sgt and binding->attachment after unmapping so
+> unmapping is idempotent across queue uninstall and deferred binding
+> destruction. Call it synchronously when the last bound RX queue is
+> uninstalled in mp_dmabuf_devmem_uninstall(), except when a leased
+> queue is unleased: the physical device is still registered and, if
+> restarting its queue failed, may still be using the binding.
+> 
+> The same use-after-free happens when the netlink socket is closed
+> before the device is removed but RX tokens or the pending release work
+> keep the binding alive. Such bindings are no longer installed on any
+> queue and were already erased from net_devmem_dmabuf_bindings. Keep
+> bindings in net_devmem_dmabuf_bindings until they are freed, hide
+> unbound ones from TX lookups with an xarray mark, and on
+> NETDEV_UNREGISTER clear binding->dev of unbound RX bindings for the
+> device and unmap them, unless the device is a virtual device leasing
 
-Explicitly detail the various discontiguous actions available and how to
-use them.
+[..]
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- Documentation/filesystems/mmap_prepare.rst | 81 ++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+> queues, for the same reason as above. net_devmem_lock serializes that
+> walk with the final free.
 
-diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
-index 82c99c95ad85..b5afbb33e5c8 100644
---- a/Documentation/filesystems/mmap_prepare.rst
-+++ b/Documentation/filesystems/mmap_prepare.rst
-@@ -164,5 +164,86 @@ pointer. These are:
-   sufficient entries in the page array to cover the entire range of the
-   described VMA.
- 
-+* mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
-+  `struct page` pointers over the VMA. They must span from the start of the VMA,
-+  but may terminate prior to the end (leaving the remainder unmapped).
-+
- **NOTE:** The ``action`` field should never normally be manipulated directly,
- rather you ought to use one of these helpers.
-+
-+Discontiguous Actions
-+=====================
-+
-+Some actions can be performed across discontiguous ranges.
-+
-+Map kernel pages
-+----------------
-+
-+To map kernel pages discontiguously, you must provide hooks using ``struct
-+discontig_kernel_page_ops``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_ops {
-+        int (*init)(void *vm_private_data, void **private);
-+        int (*get)(struct discontig_kernel_page_state *state);
-+    };
-+
-+The ``init`` hook is optional and allows state to be established before the
-+operation starts, for instance taking a reference count. Nothing is invoked
-+after the operation, so ``init`` must not leave locks held, and state that must
-+be released once the mapping goes away should be released in
-+``vm_ops->close``.
-+
-+The ``init`` hook, if provided, is invoked prior to the operation starting. It
-+may update what is pointed to by ``vm_private_data`` and/or ``private``. If an
-+error is returned, then the operation is aborted. The ``private`` field can be
-+reassigned.
-+
-+**NOTE:** The operation may sleep between invocations of ``get``, so locks
-+needed to stabilise state must be taken and released within each hook.
-+
-+The ``get`` handler is the key means through which the operation is
-+executed. The current state of the operation is provided through ``struct
-+discontig_kernel_page_state``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_state {
-+        /* Map state. */
-+        unsigned long start;            /* Start address of VMA. */
-+        unsigned long end;              /* End address of VMA. */
-+        unsigned long addr;             /* The current address to be mapped. */
-+        pgoff_t pgoff;                  /* The current pgoff to be mapped. */
-+        unsigned long nr_pages_mapped;  /* The number of pages mapped. */
-+        unsigned long nr_pages_remain;  /* The number of pages remaining. */
-+
-+        /* User-defined state. */
-+        void *vm_private_data;          /* VMA private data. */
-+        void *private;                  /* Mapping private data. */
-+
-+        /* Users should not touch these, use discontig_kernel_map_*() helpers. */
-+        ... internal fields ...
-+    };
-+
-+With ``private`` being an additional user-controllable state variable,
-+initialised via ``mmap_action_map_discontig_kernel_pages()``, and
-+``vm_private_data`` being equal to the ``desc->private_data`` field set in
-+the ``mmap_prepare()`` hook.
-+
-+In the ``get`` hook, the user must choose how to map kernel pages:
-+
-+* ``discontig_kernel_map_abort()`` - Call this to abort the operation, whatever
-+  has been mapped so far will be retained, the rest of the mapping will SIGBUS
-+  if accessed.
-+* ``discontig_kernel_map_page()`` - Maps a single page, correctly handling
-+  compound pages (if the compound page is bigger than the remaining pages in the
-+  VMA, then only those pages that fit will be mapped). For a compound page, the
-+  head page must be passed.
-+* ``discontig_kernel_map_pages()`` - Map an array of pages of a specified
-+  size. As with a compound page, if more pages are specified than remain in
-+  the VMA then only those that fit will be mapped.
-+
-+If an error arises after ``init`` succeeded, the core unmaps the VMA, invoking
-+``vm_ops->close`` if set, which is therefore the place to release any state
-+that ``init`` established.
-
--- 
-2.55.0
-
+Can you explain net_devmem_lock a bit more? In
+net_devmem_dev_unregister, why can you not net_devmem_lookup_dmabuf and
+then rely on the binding->lock? The rest looks good, but the
+new lock seems a bit excessive?
