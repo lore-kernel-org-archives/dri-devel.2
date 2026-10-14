@@ -4,131 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3E64CA9EBD
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 03:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2314CA9EBD
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 04:03:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1CD310E19C;
-	Wed, 14 Oct 2026 03:59:08 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010027.outbound.protection.outlook.com
- [52.101.193.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEB5610E19C;
- Wed, 14 Oct 2026 03:59:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mx+RHwTq76701hqavMFGfwz2WB2yT70yOt1mz8s5cdXWjMfQNOKICAQMeUXQZmL91TR2UeAQgdzYXjRnSDbHCrvNduC33JnkxF45n5CsqfXfGTwbh/UpPhgeqJp87QadURLe6DlYIqD7ttNqoDrbLtOy6Wk6E47zAJDLx/APYOFaKde9KSy3D2GVZEYaod2sC9pRg0YFwDN1jUXELIa2XzLNfycgnrcZroo5nYrw+o5DXhFv1dQYo/6hRmgrRsmN8DoGsyHQzocIiUAxkZddLjKdDSMf2+a80fTLvzLmAyLsS03TIoJi39r2TZ0cVnetCDWcpPJM9NGZnv3Mi8Bhog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pfyw94ZAdQGw40R+dkGblS+m44vZSmVooQlohlbLGA4=;
- b=hyWsvP11RBdk6dELtr4ZQVuFOdfl80DGPteEAImAzv/ayJrnVj/3XryTdrsn+VEjI1BuD2KQGBddbydpOgmVaqWHqHHDgxheb9oR0dEUAh5oAOFv4JKBcosZFHUXeB5PVDJL7DkAsJAVRIoJuAg904hPuc65lkYyB2a11DnzWWdDdf3/CIAjPsNqvvZyFuR+REbkVXa2wugIw8iQTNjP98AavDrXDDI2+tW8MSVb5sfeYSW8XwaZP1rjin8OkwFUTWncYQQcCJcGHOzWrcCz83mBL1L72tZIBH/2HW8gLIkDcd39Ol1i98A6nQVDCVt7x3Ai/CNI4Oc9kj3LGB3Bng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pfyw94ZAdQGw40R+dkGblS+m44vZSmVooQlohlbLGA4=;
- b=B+DSMIo6344kArZuZtC6n+IcrJOkEWkkRq5DVeA4VMyvl+mh45dIoLz73ZCcldDSCWbPnxSrnWZC/dD8sKfThPvk7kSZA2vDaq94tTqjcEMzMiJs4G8Q97dtA6AL3GDX6gfmBeseTJYlWjZSsHZNhtG+KoNUUgt4VK+PZL4if8kiIIFaEVM0d8ZXO6nUK6iiC0PnX5aexcpiUuaKLJvjC6emYnn3ZsJ1iP7tyhQF5RHceCWOYzRmlzRhJjQiUlUGQHL1SwvKSKrrj1oqTlmOlkDT6lwKK3WEdRt7NuxqOrSwjeIbqGvN7/fdhkdbYgGaamUg0aSf8I8om+L4nk6yTg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CY8PR12MB7561.namprd12.prod.outlook.com (2603:10b6:930:94::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.13; Wed, 14 Oct 2026 03:58:59 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 03:58:59 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 14 Oct 2026 12:58:54 +0900
-Message-Id: <DM49DNAJFYZT.3SWL8YOY00ITB@nvidia.com>
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v4 10/10] gpu: nova-core: gsp: add `rpc` to RPC message
- send/receive methods
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261009-cmdq-rpc-v4-0-c9ab8de1d3f2@nvidia.com>
- <20261009-cmdq-rpc-v4-10-c9ab8de1d3f2@nvidia.com>
-In-Reply-To: <20261009-cmdq-rpc-v4-10-c9ab8de1d3f2@nvidia.com>
-X-ClientProxiedBy: TYWP286CA0033.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:262::18) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18DF910E402;
+	Wed, 14 Oct 2026 04:02:51 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4674410E402
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 04:02:40 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69E40xkP2222087
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 04:02:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JpuOO2Gm66RQ1GIkn10c9yAx2q28La2yHABZDw7XjIw=; b=b2F6jXpt1yoBCAgX
+ uA730UdaMVV19gd99S4W5+2Umi43QcBbszWoNZLXgi8CrfRw6GlQnKSiAfGiIxhS
+ yHwNvqae6TijEYTnk8SDZZUCPZrsY/GHr5cXK/I87nBHZhbn/JnZNL/jWDYvToh9
+ I3gYerH0mhDqlnAyx0aCRioOIzcvDPY2Y6GzNvAPljP3oa5P98mRwCYi0UPl/tDM
+ 8eCwGDXUYa8t3k9xelTmURDeW2ULegq8W0mujCbSy1GCqZDHVN2SJ/P3NWyCLsSm
+ 0/GYVvpdFKPhGEBNgvWz+dIgsH2MIitOzXC/qXLq++XzwMAycXeXXaoQd6zMS2DU
+ STkWyQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9txs9m3e-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 04:02:39 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-35cbea41088so891675eec.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 13 Oct 2026 21:02:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791950559; x=1792555359;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JpuOO2Gm66RQ1GIkn10c9yAx2q28La2yHABZDw7XjIw=;
+ b=CL3by0xyuecumvWpwgManUA/ona2Qvrqj27M5O7kDrNCor+9vtBJ4sNspNpkRJSr66
+ 3fXD1XPVdXsy7O6PgcMWvPze/O0Ly2CcaFapxlP4a8nhxAEmgI8CJMR6fdoV6XUxCDAy
+ bVLqIf9bVMSRD4BjZeQs9TLg8LNvyCQyOtlVt9LQDMyJo4yTbP5TNicrOe15Ou8qfAtv
+ JKXwEyTEHEwmKBnzp5vad06fgZ47ndSa5jsgQSpPrA3AzcIL4s3+M9XvX6mToKtFa6E+
+ 9mrkP4E2NqWFZziISAK5GndrS9uY9+rATK0Ddb0qvs7X0DIeCqKy1BmTcONRfS1CQiPn
+ wC8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791950559; x=1792555359;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JpuOO2Gm66RQ1GIkn10c9yAx2q28La2yHABZDw7XjIw=;
+ b=VNoAzRChN6S+B/rOEaWP8Z4CuipXjFSg7avxOYLzND3tt2+TYt2DhSe7/0rEKlpSUl
+ xIQx1bq82Caavxy7wNVVkyeoIHwqey50O7FrxHV0Ip2qiYojgC3u2g5R2QvZx1U6ZB9L
+ fn3fNTeKtkJqBdXQ0rM0xs3frWWcFoa744L01YnFsY3SJeF9nBcBXCYR2OT5FgVyc4zq
+ 9+8F4bXFVTabDNVjAk+Q/oz5NQjLD9DskPN69sDw6+IHlwxqlyWsqby9lD9B17vh6S7j
+ JBHUnkMbZRdtDit0jOEbEcCsqKIrS2FTP6nc4SguWWa0W+c1nVKLTfPhFCDGK+z8HawB
+ +Hjg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx2snTddASnlcUz1d7fjGgrk5J+mJ3CudeHrtxU7WRVNI6cyhMR8aIkd0egwIcI8OtDrkYFEERWJk8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKt9yHKsbPuEcGO+hrRiMkeu+2GJ+MQhE/ONaWJD0mrmbAOzorp
+ dg3/H+SyqOv+oT+xQyfMG0tW1nMUZwQPQ/3FX2FChEPxyNKPkI3KjUX6eKgHeNel2Bmxn+bDv+Q
+ nuP0AdL5k8ZNTDOMv8H/aOZzdkPacLobRccQ0Hb5Hz2RdU8JsVnkmJpHNaP0oofnov29a1c4=
+X-Gm-Gg: AYBFou3/703Lp7qplQXVNAIo1gf/TnjI9WtOCeBcUvV7f3pYjUuAPxCqP56Q3MbbtXI
+ F3l/M/RxV1Z54gC6zE+AhOncfXvNYjF80Z8EGB42Q6ajykDcYuZRSfr/D0Un2d6X3n6oa8AbWI0
+ 1E0qGIHIa4ZVUqZvWKa6vbkttty5hWgqCYmfVhNHRjgeRKyFBH8JwRxb8gOLpJFBIsWIaFUyrcO
+ dVkvkiQ+/5rLHV/FjkYopXjvnP1D6e24dn5rUAZ59dMgw0hwEOddh226dJx8v4W/Rm0nDEchdnD
+ nFnEWyYFLALWrF1VH0LBFvZwDsyMyxGYgN8nnGN71mGaJB0onN7qkwc+sHy8wbwLLSo2nhXUPJo
+ SrHCXxYi12jS+dbHVh0yd5cnuFf8B
+X-Received: by 2002:a05:693c:8110:b0:33c:16f1:2e11 with SMTP id
+ 5a478bee46e88-3537df596f9mr20245659eec.7.1791950558574; 
+ Tue, 13 Oct 2026 21:02:38 -0700 (PDT)
+X-Received: by 2002:a05:693c:8110:b0:33c:16f1:2e11 with SMTP id
+ 5a478bee46e88-3537df596f9mr20245598eec.7.1791950557704; 
+ Tue, 13 Oct 2026 21:02:37 -0700 (PDT)
+Received: from [10.219.56.188] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3537cb2954bsm49774934eec.26.2026.10.13.21.02.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Oct 2026 21:02:37 -0700 (PDT)
+Message-ID: <b773e022-922d-41b4-ba1a-17d570551a1d@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 09:32:32 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CY8PR12MB7561:EE_
-X-MS-Office365-Filtering-Correlation-Id: edf58fb1-ff31-41f5-2859-08df29a779f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|10070799003|1800799024|7416014|366016|23010399003|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: yfyjTRm0xohROjvwZ/eEKBdv2VmwQffw41ttQ0DF1ME++J7kMsu7OJrq2asrVxrYZ5pzqACpoya8Q4rEzO5e2a4lXezSsIjZl72We34wTXR5c/wuu7M1FDDG4F4JkDPP5yUL0oMUdS/sed73IO9f8U3m9lXnedSTx9PV+uCxvwM10SW54iIkssbBkCKqc1dnNxkjMfMeJqAUCX8adpkgqEI0JnEILXqMC70qYZjpOrcgsZmulpkUP0DS0hpBz+j6qaOVTcsl7UPbsJhWkeRp9TWvbxkUHSAqbAcd/XCBj9KXnLVWFwFVLjSIkWH2ijwoS/q9d2wA7zmCcjSuJsge5L/Foj0K8fOSiGm64MIy1+XZ4Uihf6kSndhi6Goj6f/VrjwLuzFnD0777tqLYpUHuSCtqxA28BhodRLA34Nx5pj23LvXCFfx9rntqkCyAZJ7qUmPvYFHwG/3a47+qmSRg2UvtNCtfeA5lgQey1wOm2cNAqfAJbPpugeG31dN413nBkTbpNDTtZJBTJHkVjRDL85Itr+Pm3m+AAtSt3QL0XKDYOKOl2FAaDpQV9Cj45uZKylQMx7MWLQDkKmoNnS1feMc7woBl2awR4+oMVhTp2NWjaFl5pRR65h6D6hLbfYNRLPbhiFs/I72h87Z4XVp9auOTVGBgvjSqXUIiMWKTuA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(10070799003)(1800799024)(7416014)(366016)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2NlRC9SN3dqWkFCaVlhbzIydzk3d0x6ZENjNS9mcUxtYm5GcVRZRlNXczFt?=
- =?utf-8?B?ckd6ZDFta1kyeW5DcDBnWnk0cW81UWlaUUxRc2xzdTdTb3pxVGlqbHNjRmRY?=
- =?utf-8?B?RHgrbURuY3hzL0pzbVpGV0wyUWxJKzQ4SnhOczNIMmtXdjJXb2MwbkRBaUF5?=
- =?utf-8?B?UWJCbXZFYWdHb3RxRWQ3VGcrNi9NWjR0Y3RZR3Y5d3dLWWhjcjVhSWZ5RVRp?=
- =?utf-8?B?bllTa3JmeFBXbzBJVkZMQVRwdzEwOVRsdm1HWWhpVEFzV3doREozRWxSVGx3?=
- =?utf-8?B?RmQxZ1UrYTdxMkE3OVRyR3kvaEE5OW1JQTFzVVF4WE9ZMHNZZU1OVzdHdWJN?=
- =?utf-8?B?c283VS9UaDltVW11TWFjV1NCS1ZQa3ZCV3Z6R2l5dFkrZXU2dTQ1UDdTSWZT?=
- =?utf-8?B?TFRwTEx1S1RXbVpIZE9MaGk5S01JdDRrSTdoVjVLQnZYSEJzcml3bTcyWWJ6?=
- =?utf-8?B?dTJKSDFuUnNPcWNPcW1xVk5NeXR2Rnd5ZnIxRktuaUtqQlMrbGozczdJK09H?=
- =?utf-8?B?MEViVDZsdUIrTENiOFYxK2gzN3JBTEgxL202UWlDSG1ES2Z0N1BmTUhuemRy?=
- =?utf-8?B?L1diSlRSTVVzT01Udm1uV0FBYXl2dEszSGtCSnVhRTdJNHlWUElsRk16Nnlp?=
- =?utf-8?B?Z2N1TEJ1cjJES0w5WkYwNTVzZnk2RzlpUU45UGVwMTU1aGRveWhuQ2p2Ni9p?=
- =?utf-8?B?MEtoRjNoM2JFU0RrUFdJNndMM2R0V0xNSkZQQWRWdkJlS0l5cWN1RERMV3hZ?=
- =?utf-8?B?RFA2QzBKa1M2TGhxK1VqTWZSSmVkc1hHYkIzVFZxMHZvVEJQQWJzNCtydUdV?=
- =?utf-8?B?c2JVejRoODAvRXVtYkVhSzl5Z1krbDRmWTJsU21HVksrOURoVkZsY08rZ0ZS?=
- =?utf-8?B?dm9mcmdhcmVqY0Fza0dnY05nRE9xUG5IUUs5aEVCMG5PRXc2UG1HaFN1bHhm?=
- =?utf-8?B?cGlJdStxZ0JkTnZJOXFlZU5ibE92d3ZwamVqd1ljOTJvOHpjdy9jcDVIRUlx?=
- =?utf-8?B?N3RjMXZXQkpvZytmYys2L1loV09nUTBrSWhqUUdqUXJDMVlYTGR3VmdnR3c2?=
- =?utf-8?B?L0FGM1RUaEZTdWJQdiswbUhWeUYyV3crKzBjdCszbTVRTzN3SlNIaFJIUVh3?=
- =?utf-8?B?M1lCcktiV1lrWVBNbGgwdXd1a3ptMjhROHpIT3htMkwxV0dNamNoNEx1VGFx?=
- =?utf-8?B?T1pzTUl6KzB0K0N3WHdpTmdIdGxQTTNzTGN0bE1tSjhPc0c3T3RkaUdhVGNP?=
- =?utf-8?B?MmZ4c2RueTZiaUlWeUUxUk5nbW5NZEs0Y0laVTdZalZidkhGWi8vRVpobGox?=
- =?utf-8?B?T1dYNEgxMVJZUXYzVGYyUVFSUWN0eWI0bUVMRzJDUjRnYW9LY0RhUk4rK2F2?=
- =?utf-8?B?VHB0Zmo0bFg0ZmhiSDFqUDl2cUZIeWtaQmM4OGoxTWlnMlJCaVBMV0NIa0Jn?=
- =?utf-8?B?b3ZuTnJsaVlQbjdUY3hUZDczTW1tTEhkMHd5T0pZL3RkREpFNnAwNXNiZVFt?=
- =?utf-8?B?V1kzZ3FzbFFsdjNGbWJuZnpGNzNBVmgrbnRxN1BROXlVdXYzWCtPQVZsSkh3?=
- =?utf-8?B?a0kya3pDZHBKblJhajVlcEpRYm1sRUVMNW52eS9OcTZvZjVYRzdlYXpkMXZa?=
- =?utf-8?B?YzNFNUxaSHE3N2Z3WDA2OFpCa2NhVHkxR29rK205YUlpMmFseDdqUkZvV2o1?=
- =?utf-8?B?ZzJDelY3SXVHeDdpR3FsQ01RZzJPWHZBNHJMYlBPNWN6azRZQmY4L2V3VU91?=
- =?utf-8?B?dWZpVE1VMEoya056NVZoZWZwUGRQRXRRNmY3OHVqTUEwZEphOWtYa24xMFNl?=
- =?utf-8?B?eVVrSytZdkRjQUZ4UTRMNUI2WGZabjRrUFdBaTNLZmxNMCtaeHRrby81b3pR?=
- =?utf-8?B?d2Jad21uZXhpT2x4VDlvOWd6dkFGREZRM3BtVWhmK3RhMCtXWWdoNmc2WVg5?=
- =?utf-8?B?Qk9JTlczUWJ5MlN3aTJublp1STZjb3FzcVpEcGU4dDU4V0RGRGZiZmhOVnlG?=
- =?utf-8?B?U3ZUMDFjQ2VKQktoVWZxK3FheDZZVHNXVWRWNFB5cjFXRFlVZjd5aE1BTXZk?=
- =?utf-8?B?eThvK1ZxZFVENXhYT3ZDUEk0UFhGREpURGxjSk9PM1pJOHBwK2VXRjBnZE5w?=
- =?utf-8?B?UWI2U1BQK0t4ck9wdUh5M0hPK0gySUl3TG5DTExIZUFEZlNKemlVTUJaS1dG?=
- =?utf-8?B?UDc0dHp6NGQwZ25EUXNXSmxiSjRXSHE3WE9kblFpS0lXLzJuWnVLc1QvdUJs?=
- =?utf-8?B?UEhSNkhuSTRERHY3bldZZXNGdFJtdkQwQzVCNGxNSWIzYXVZUFJxWkdiZEQ5?=
- =?utf-8?B?QnhvcTNLckJXcFBCanorclNuVUtUWUlhMjJxb0RCd2M2R1l3S2Q5RFRIaGI2?=
- =?utf-8?Q?AT4D9BabmupcGdQQET2QLVvgu/VfA/fUJGL3Z3nlLOZdy?=
-X-MS-Exchange-AntiSpam-MessageData-1: iSpSFu4Bt63kbQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: edf58fb1-ff31-41f5-2859-08df29a779f0
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 03:58:59.3355 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XQGI6aczaeIV0yD5uXGu5Esir8Rrw29Y//DLG8c0ffmEzscHZYtw7NHjvQShordh7uniZdagfTK510+x39Xbqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7561
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] misc: fastrpc: fix NULL rpdev dereference when
+ session alloc fails
+To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thierry Escande <thierry.escande@linaro.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com>
+ <20261001-fastrpc-probe-fixes-v1-1-1376d93b8b3e@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20261001-fastrpc-probe-fixes-v1-1-1376d93b8b3e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxNSBTYWx0ZWRfXwQ4R+w3DBLuR
+ bn7c/jKgCiBWRNE0Q1YUKBYIw/q/HQJLwzjQcvIolnerkTBZgPELazfgsUGouR1H1nHjwA3H1lu
+ cFOMXWFOf99aV+80T/IgVWjwBelmmiUnSKz68pX3cbWKmjtxjeHyG5cDpoBlWcbJq/5ze72iGzB
+ 1x94CCHTHCGvOJUV4JtU0BjmUjfeSxeJxFLDq5jJrzCUl4covA6jbLz9PlhaXSmTAmAwjdE3QET
+ FzaLq0v01XnARbNXr1Lg0lNEfMpvQRUSh4YasiUzXktZW98LaVwaXiqj+aB2tWngjiD5C2YzWMF
+ HQxobg/cM8cGJ2BaOdi2eh5rEN+Klyq4m+SnzOiYtnyN+YsR2kcQsRip24RO6YGTYRthoqeNiMK
+ iPDD3/hGk4GWVVkqraM5bYmllNvgZUL4Nog12+owamz2FNJUGE3J6S3DSSg9ponu/6GCVqfXjps
+ Z0pg28Yy1y4l3hrANEA==
+X-Authority-Analysis: v=2.4 cv=LPPz05W9 c=1 sm=1 tr=0 ts=6acefedf cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=Hi5JtN4IBsk8tPmk4jsA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxNSBTYWx0ZWRfX8PDKUWfR/iLI
+ pUpLIi1oVmWkGhNqu4Ph3Y4vvh90fY5mlDJyZgaS8hmLStA1ioKFaL7RP+f58lk+IPmBvdqYVMO
+ KsBaatxLfQ56chzFlUmuJnutd+MvZJM=
+X-Proofpoint-ORIG-GUID: cTZrwLdi4-weZkOp6qfF4eaO5IOydcuc
+X-Proofpoint-GUID: cTZrwLdi4-weZkOp6qfF4eaO5IOydcuc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 adultscore=0 malwarescore=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140015
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,15 +146,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Oct 9, 2026 at 8:54 PM JST, Alexandre Courbot wrote:
-> Since we are going to introduce a second type of message, add `rpc` to
-> the names of the relevant command queue methods so we can distinguish
-> between the two.
->
-> No functional change intended.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
+On 01-10-2026 16:31, Vinayak Katoch wrote:
+> When a fastrpc client process dies abnormally without closing its file
+> descriptor, fastrpc_device_release() is never called and the compute-cb
+> session slot is never freed. The abnormal client death on the DSP side
+> triggers a glink channel teardown which propagates up through the rpmsg
+> bus and calls fastrpc_rpmsg_remove().
+> 
+> fastrpc_rpmsg_remove() nulls cctx->rpdev before calling
+> misc_deregister(). If a concurrent open() enters fastrpc_device_open()
+> in this window and fastrpc_session_alloc() returns NULL (sessions
+> exhausted by the leaked slot), the error path dereferences
+> cctx->rpdev->dev causing a NULL pointer dereference:
+> 
+>   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+>   pc : fastrpc_device_open+0x1b8/0x258 [fastrpc]
+>   Call trace:
+>    fastrpc_device_open+0x1b8/0x258 [fastrpc] (P)
+>    misc_open+0xd8/0x1a0
+> 
+> Fix by moving misc_deregister() before rpdev = NULL. misc_open() and
+> misc_deregister() both take misc_mtx, so misc_deregister() will either
+> block until fastrpc_device_open() completes or prevent new opens from
+> entering it entirely.
+> 
+> Fixes: 7c11df42d0c7 ("misc: fastrpc: Fix device_open when no session is available")
+> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-nit: should also rename await_msg to await_rpc_msg?
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
