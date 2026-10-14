@@ -4,32 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CC64CC6B1D
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 02:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97BDFCC6B1D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 02:37:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB62710FA8C;
-	Wed, 14 Oct 2026 02:37:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C30F510FA85;
+	Wed, 14 Oct 2026 02:37:09 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C41F10FA86
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 02:36:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA6B10FA85
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 02:37:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ECA6444785;
- Wed, 14 Oct 2026 02:36:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DEFA1F000FF;
- Wed, 14 Oct 2026 02:36:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4523743B2F;
+ Wed, 14 Oct 2026 02:37:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3241F00898;
+ Wed, 14 Oct 2026 02:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791945417;
- bh=KAq2Bz7FaZcJL38Vo13nCjImfnA9ikGPoe2ZVW19bqk=;
+ s=k20260515; t=1791945422;
+ bh=PRtAFEgT5NTm0yqpmOI5RJyAxjmM1xZ3WBSV5mgGrh4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HLIkUzuEA6HLyZVn4lXATs3F31nUhLBTQ6/IItGj+DOIadyu6neszJnPuRvDu3lIl
- 8jToSYXvYg2WgEPwZDSbBEVJvwQOw44rg2kgaP4y9rgRJm1kfM9nQeumYzOQ3DcLGG
- q+3UsjY+2l2YPkxKzHhv8xABIqlLEagB732lu6fgbIADKDk0MADRMswqANeI/whka7
- IsCImJgU6vfxXT0xxk81OV7RADPfeCkdHvfvGxFaVtgFl1JVFUctrYtvwWmY+OrK4j
- sQGeGjM0i61WbOiEfw/OFARNbhrsJw2gjJkWzd/pLtOy5+ICSBt5aeRi0VJQgJD5VH
- Whnm9AnEtO7rA==
-Message-ID: <sashiko-outbox-170721@kernel.org>
+ b=GK6ss6g3ZaAC6nLyY+ZTjYnDl44m1wgvr/DuKtMWZSDixwzLS3AmaZwROGIX63Wjd
+ jD8S7jcnk2RSgIMPSrbolRd0HDcljQoBGhLcwdzYzt+XZd95ANjjkV7yFRS3KgaJxB
+ Q3+2dcPUTPX/51NSIFD/ilLTXKMVEhbmSgoO4rg8RdKjsVtvnTViGSUWKjwAIJN3Jn
+ 8/TdIDfjVIE252ksUD/oVtGPe8CLgFKsbBeE331dkVEPVcWqQWnMHzwb+Xp5UF8B5U
+ YJ0fhMIlg9ads1dP46qqNyz/U56ttMKtLndWuRpUOVX8cMFqEJgm5PE3m7x0iLFFht
+ gD+7fxvSOciaQ==
+Message-ID: <sashiko-outbox-170725@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 22/40] dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
+Subject: Re: [PATCH v12 26/40] dyndbg-test: add do_bulk testpoint, rename
+ do_prints to do_classes
 To: "Jim Cromie" <jim.cromie@gmail.com>, "Jason Baron" <jbaron@akamai.com>,
  "Shuah
  Khan" <shuah@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Maarten
@@ -51,13 +52,13 @@ To: "Jim Cromie" <jim.cromie@gmail.com>, "Jason Baron" <jbaron@akamai.com>,
  "Sergey Senozhatsky" <senozhatsky@chromium.org>, 
  =?utf-8?b?VGhvbWFzIFdlacOfc2NodWg=?= <linux@weissschuh.net>
 Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
- linux-kbuild@vger.kernel.org, "Louis Chauvet" <louis.chauvet@bootlin.com>
-In-Reply-To: <20261012-dd-cmap-part2-clean-v12-22-3c8cc5725def@gmail.com>
+ linux-kbuild@vger.kernel.org
+In-Reply-To: <20261012-dd-cmap-part2-clean-v12-26-3c8cc5725def@gmail.com>
 References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
- <20261012-dd-cmap-part2-clean-v12-22-3c8cc5725def@gmail.com>
+ <20261012-dd-cmap-part2-clean-v12-26-3c8cc5725def@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 02:36:55 +0000
+Date: Wed, 14 Oct 2026 02:37:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,124 +75,173 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] dyndbg: TOCTOU race causes module debug state desynchronization
-- [Low] dyndbg: Missing ARRAY_SIZE include in DYNAMIC_DEBUG_CLASSMAP_DEFINE
-- [Low] dyndbg: Unreachable return statement in param_get_dyndbg_classes
+- [Low] test_dynamic_debug: classmap offset mismatch for submodule classes
+- [Low] locking: param_set_do_repeats blocks param_lock for up to 60s
 --
 
-commit b545d297dc88b17fae1f9dd05bfa8c4854dc7fac
+commit adf504f365302c7db4e37850cebef69f82ed353f
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
+dyndbg-test: add do_bulk testpoint, rename do_prints to do_classes
 
-This commit replaces DECLARE_DYNDBG_CLASSMAP with an explicit client-server
-model using DYNAMIC_DEBUG_CLASSMAP_DEFINE and DYNAMIC_DEBUG_CLASSMAP_USE.
-This allows resolving references to parent classmaps and automatically
-applying the initial bitmap to the loading module at load time.
+This patch renames do_prints to do_classes to better align with its purpose
+and introduces do_bulk to generate high-volume workloads. It adds support f=
+or
+executing these debug operations multiple times or over a timed duration us=
+ing
+shared module parameter callbacks.
 
-> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-> --- a/include/linux/dynamic_debug.h
-> +++ b/include/linux/dynamic_debug.h
-> @@ -121,17 +138,86 @@ struct ddebug_class_param {
-> [ ... ]
-> + * DYNAMIC_DEBUG_CLASSMAP_DEFINE - define debug classes used by a module.
-> + * @_var:   name of the classmap, exported for other modules coordinated=
- use.
-> + * @_mapty: enum ddebug_class_map_type: 0:DISJOINT - independent, 1:LEVE=
-L - v2>v1
-> + * @_base:  reserve N classids starting at _base, to split 0..62 classid=
- space
-> + * @classes: names of the N classes.
-> + *
-> + * This tells dyndbg what class_ids the module is using: _base..+N, by
-> + * mapping names onto them.  This qualifies "class NAME" >controls on
-> + * the defining module, ignoring unknown names.
-> + */
-> +#define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)		\
-> +	static const char *_var##_classnames[] =3D { __VA_ARGS__ };	\
-> +	extern struct ddebug_class_map _var;				\
-> +	struct ddebug_class_map __aligned(8) __used			\
-> +		__section("__dyndbg_class_maps") _var =3D {		\
-> +		.mod =3D THIS_MODULE,					\
-> +		.mod_name =3D KBUILD_MODNAME,				\
-> +		.base =3D (_base),					\
-> +		.map_type =3D (_mapty),					\
-> +		.length =3D ARRAY_SIZE(_var##_classnames),		\
+> diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+> index 01ce07001d4c7..19e27b5747ac2 100644
+> --- a/lib/test_dynamic_debug.c
+> +++ b/lib/test_dynamic_debug.c
+
+[ ... ]
+
+> @@ -28,25 +28,57 @@
+>  #endif
+> =20
+>  #include <linux/module.h>
+> +#include <linux/sched.h>
+> +#include <linux/sched/signal.h>
+> +#include <linux/jiffies.h>
+> =20
+> -/* re-gen output by reading or writing sysfs node: do_prints */
+> +#define TEST_MAX_REPEATS 10000
+> +#define TEST_MAX_SECONDS 60
+> =20
+> -static void do_prints(void); /* device under test */
+> -static int param_set_do_prints(const char *instr, const struct kernel_pa=
+ram *kp)
+> +/* re-trigger debug output by reading or writing sysfs nodes: do_classes=
+ or do_bulk */
+> +static void do_classes(int); /* device under test */
+> +static void do_bulk(int);    /* device under test */
+> +
+> +static int param_set_do_repeats(const char *instr, const struct kernel_p=
+aram *kp)
+>  {
+> -	do_prints();
+> +	int rc, ct;
+> +	void (*repeat_fn)(int) =3D kp->arg;
+> +
+> +	rc =3D kstrtoint(instr, 0, &ct);
+> +	if (rc) {
+> +		pr_err("expecting numeric input, using 1 instead\n");
+> +		ct =3D 1;
+> +	}
+> +	if (ct > TEST_MAX_REPEATS) {
+> +		pr_warn("%s: clamping %d to %d\n", kp->name, ct, TEST_MAX_REPEATS);
+> +		ct =3D TEST_MAX_REPEATS;
+> +	} else if (ct < -TEST_MAX_SECONDS) {
+> +		pr_warn("%s: clamping %d seconds to -%d\n",
+> +			kp->name, ct, TEST_MAX_SECONDS);
+> +		ct =3D -TEST_MAX_SECONDS;
+> +	}
+> +
+> +	repeat_fn(ct);
 
 [Severity: Low]
-Does this macro rely on ARRAY_SIZE without including <linux/array_size.h>
-or <linux/kernel.h> in <linux/dynamic_debug.h>?
+Does this synchronous loop execution block param_lock system-wide?
 
-This can cause implicit declaration build errors for modules that use
-this macro without independently including the required headers.
+When test_dynamic_debug is built-in, writing to its module parameters via
+sysfs triggers param_attr_store() in kernel/params.c, which acquires the
+global param_lock mutex around the .set callback:
 
-> +		.class_names =3D _var##_classnames,			\
-> +	};								\
-> +	EXPORT_SYMBOL(_var)
->
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-> @@ -773,6 +795,7 @@ int param_get_dyndbg_classes(char *buffer, const stru=
-ct kernel_param *kp)
->  	default:
->  		return -1;
->  	}
-> +	return 0;
+kernel/params.c:param_attr_store() {
+    ...
+    kernel_param_lock(mk->mod);
+    if (param_check_unsafe(attribute->param))
+        err =3D attribute->param->ops->set(buf, attribute->param);
+    ...
+}
 
-[Severity: Low]
-Is this return statement reachable?
+Because param_set_do_repeats() invokes the workload synchronously (which
+can run for up to 60 seconds as shown in do_classes() below), this starves
+param_lock, preventing other processes from reading or writing any
+built-in module parameters for the duration.
 
-The switch statement on map->map_type exhaustively handles the valid cases
-and the default case, returning from all branches. This appears to make
-the subsequent return 0 dead code.
-
+> +
+>  	return 0;
 >  }
->  EXPORT_SYMBOL(param_get_dyndbg_classes);
-> [ ... ]
-> @@ -1210,163 +1404,163 @@ static const struct proc_ops proc_fops =3D {
-> [ ... ]
-> +static void ddebug_sync_classbits(const struct kernel_param *kp, const c=
-har *modname)
+
+[ ... ]
+
+> @@ -103,7 +135,10 @@ enum cat_disjoint_bits {
+>  	D2_DRMRES };
+> =20
+>  /* numeric verbosity, V2 > V1 related.  V1 is > D2_DRMRES */
+> -enum cat_level_num { V1 =3D 16, V2, V3, V4, V5, V6, V7 };
+> +enum cat_level_num { V1 =3D 16, V2, V3, V4, V5, V6, V7, V8 };
+> +
+> +/* test _USE_ w offset */
+> +enum cat_level_offset { Vu1 =3D V1 + 8, Vu2, Vu3, Vu4, Vu5, Vu6, Vu7, Vu=
+8 };
+> =20
+>  /* recapitulate DRM's multi-classmap setup */
+>  #if !defined(TEST_DYNAMIC_DEBUG_SUBMOD)
+
+[ ... ]
+
+> @@ -160,6 +183,19 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 =
+/* ,empty */);
+>  DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_maptype, 3, 10, "no such type");
+>  DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
+>  			      "base", "plus", "classes", "length", "too-big");
+> +#endif
+> +
+> +#else /* TEST_DYNAMIC_DEBUG_SUBMOD */
+> +
+> +/*
+> + * in submod/drm-drivers, use the classmaps defined in top/parent
+> + * module above.
+> + */
+> +
+> +DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
+> +DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
+
+[Severity: Low]
+Is this registration macro passing an outdated offset?
+
+The patch adds V8 to map_level_num, increasing its length to 8. While
+cat_level_offset correctly shifts the submodule's class definitions by 8
+(Vu1 =3D V1 + 8) above, this registration macro still tells dyndbg the
+classes start at offset 7.
+
+This mismatch causes submodule debug callsites to map to the wrong class
+IDs, leaving the last class (Vu8) completely out of bounds and
+uncontrollable.
+
+> +
+> +#if defined(DD_MACRO_ARGCHECK)
+>  DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
+>  #endif /* DD_MACRO_ARGCHECK */
+
+[ ... ]
+
+> @@ -210,20 +247,85 @@ static void do_levels(void)
+
+[ ... ]
+
+> -static void do_prints(void)
+> +static void do_classes(int ct)
 > +{
-> +	const struct ddebug_class_param *dcp =3D kp->arg;
-> +	u32 val, new_bits;
+> +	if (ct < 0) {
+> +		unsigned long timeout =3D jiffies + (-ct) * HZ;
 > +
-> +	if (!dcp || !dcp->map)
+> +		pr_debug("%s for %d seconds:\n", __func__, -ct);
+> +		while (time_before(jiffies, timeout)) {
+> +			if (signal_pending(current))
+> +				break;
+> +			do_cats();
+> +			do_levels();
+> +			cond_resched();
+> +		}
 > +		return;
-> +
-> +	switch (dcp->map->map_type) {
-> +	case DD_CLASS_TYPE_DISJOINT_BITS:
-> +		val =3D READ_ONCE(*dcp->bits);
-> +		new_bits =3D val;
-> +		v2pr_info("  %s: classbits: 0x%x\n", KP_NAME(kp), new_bits);
-> +		ddebug_apply_class_bitmap(dcp, &new_bits, 0, modname);
-
-[Severity: Medium]
-Can this lockless read of the global parameter lead to a desynchronization
-of the module debug state?
-
-If a concurrent sysfs write to the parameter occurs via
-param_set_dyndbg_module_classes(), it reads the old value, applies the
-new state to all modules, and then updates the global parameter.
-
-If the module load thread in ddebug_sync_classbits() reads the global
-parameter locklessly before the sysfs thread updates it, it will see the
-old value and apply it to the new module, overwriting the sysfs changes.
-
-The sysfs thread would then complete, leaving the global parameter updated
-but the new module stuck with the old state.
-
-> +		break;
-> +	case DD_CLASS_TYPE_LEVEL_NUM:
-> +		val =3D READ_ONCE(*dcp->lvl);
-> +		new_bits =3D CLASSMAP_BITMASK(val);
-> +		v2pr_info("  %s: lvl:%d bits:0x%x\n", KP_NAME(kp), val, new_bits);
-> +		ddebug_apply_class_bitmap(dcp, &new_bits, 0, modname);
-> +		break;
+> +	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-dd-cmap-pa=
-rt2-clean-v12-0-3c8cc5725def@gmail.com?part=3D22
+rt2-clean-v12-0-3c8cc5725def@gmail.com?part=3D26
