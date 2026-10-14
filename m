@@ -4,69 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0971BCC6B2F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00DABCC6B34
 	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF0EF112177;
-	Thu, 15 Oct 2026 07:57:01 +0000 (UTC)
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4612610E152
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 14:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
- :From; bh=t/UZtKfAP/AOsCTLOqASa/QaRlwucOv4zkWaYhC/wA0=; b=RBgg/XHZEF5N4a/JZiG
- jP43gQhG6kJRhxVD+UVnG/cpXJfYdqXv+tkYtUFWvu6oYafc9fBg4QjYzBGXa9AquIuLEEhhsZ2EU
- 3e6+ppoTzCf9+Ht+c/c1MEsntPoSdw+I4P7Ux97Xk6Ji/bBfgCGaJOM1/4+djhW00mZWnJkcGYLhw
- sti2RK8i+TowPnAQf3dzTp2myVyqjW4kk2UZP9uNz7xKq/AksmQsbro1IeD1OOop2Tug24foQYmWl
- ESOXF5pPFQ73IvLjxdZP/2NfWwwZ0ED2I1i3Sw1mId+dow5gCH2Agj8y4pY5Wkf4byiMFNIrK5Ick
- t3fAIp+ysN+vxGg==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
- by relay.virtuozzo.com with esmtp (Exim 4.96)
- (envelope-from <khorenko@virtuozzo.com>) id 1xH08A-005A8J-2F;
- Wed, 14 Oct 2026 16:42:30 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Wed, 14 Oct 2026 16:42:21 +0200
-Subject: [PATCH v2 1/2] mm/huge_memory: recheck a special PMD under the
- lock in copy_huge_pmd()
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04F5F112179;
+	Thu, 15 Oct 2026 07:57:02 +0000 (UTC)
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com
+ [74.125.227.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B4B510E2F0
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 11:06:40 +0000 (UTC)
+Received: by mail-pj2-f10.google.com with SMTP id
+ 98e67ed59e1d1-3abe4fb64d2so1741944a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 04:06:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791976000; x=1792580800; darn=lists.freedesktop.org;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=E41qJNRzVmPfHenlZSA2Vl9639pSTN9ZvaDbaLPA2p0=;
+ b=MDO7uhCydGKYF7F3itCr3b6vQOFQIUBFhqaGhgs0uTfxAswZjzi3EVGmAk+9EwMPh2
+ FDTeWnADuOAKD+zw0nvZ7FmXXW42ygvLEcBFECF0YFvXobnAwjiWtwlblwClZKiw0ZfE
+ YftXT9fNwlrhGtghOkZJSRqvBzOPEW8UBNBVUxojT6ZBAN+KtbrmB4gqtBQyl7SUSgA7
+ 6rRZ3CDUaedyfgVVWaW9XquM0fNi0M41h/PLbWz3To1e5R3Ur+wmqdT/wn1JqZkTOUKi
+ 2Xbdlyz4tIKXBpR1Xy6guFSkKEoyx6o/2db96phpEMh2yzzdsLDtlMAPmXMXs8tej8Q9
+ +4eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791976000; x=1792580800;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=E41qJNRzVmPfHenlZSA2Vl9639pSTN9ZvaDbaLPA2p0=;
+ b=XOVfEQOtqVlPwEdFlncVy3XX6Z6J++fIh745HlCDe/gkvKAUNi+3OV8JwWTT2tIUG0
+ c74StEf9MyQh+nkuZOlG2Lm87vfzec8nlEnS0FECAlZ4DwExrPDDBRuHz8J1aEgOst+3
+ +QZcr4NSwcWCXJV0LMoiuh6SqmjieYbw2tgPEfAWhGVaWcZWrScXAx0E2tw4ElSKbnni
+ P4/5UHitIObQXPAgIWtr1VYN9iJNbffRPFVb9PP1ewEK2qqm/P6/gPNvbRGcxJnr/fay
+ FB/37CgY8CnM7aSDtzhTPnfO3bFn9nw4R1Ft/8CUT9mj941cZNfzXFlG8GTC/xm5W1Sj
+ B/Jw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxzzb2dGHVh3h179KTCW1oKF9Rktd/sz+enZdYWWkDTjn6D1nX4BQN7Ht+hZ1+tIjmTQKq9WCgqBgY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLx/mtaE2HkL5vZV7mSX/cv+xXh7UpX2Pio9CkPP86l2NOdJvB3
+ ZkI5Nx8ZK6UU9Vw7O5YYZSGifKQ9hVVhPkYCwlXJYQueqB0FJWaEjVp1
+X-Gm-Gg: AYBFou1pSdRplo7GS66rqXAtsiPBejST7snPttNAVoo2MbGMcMOgIEwwOwtME+yFl2/
+ kV4u67pqpcQlsK8DkLnHiMJFae5BnExiqrc7UdEkxw3niK6RHha3syIn+CjHT/zU0w5HForSdGi
+ FZuYhh1iVNLzKboAFl6oCDDrzHCEkqtvxHtzvnXoj9J5HDcoHv3nnSNk6X7sYzMpiPVkMYEOVS/
+ w9xSJqFwW0kN0ORkmdPL9puiDUAY4ia8ikOoAS/8X8E/7eHcxSmis+7eh6fFau7mhnG71ZbR/6X
+ W0P5CluJ7ivUo3v/iOLconuvQ9leIiARbqnVEXsq1aOlgl1NyGTGPEC/0RRCTRFRcxXg57E3hqx
+ V+8tUbAqALr3SroDpPE2rW13Gje/6aYSWqvsFHaM2rZ+viTaLs6Fjao24vWx4LXdgFGOSogjMDv
+ +UfUp5s+Klgfu1xcve05u/mUky/qGQVxAJx2I3dy3/WwGp1e+Si37Ks99ETQNQZCPGiVbeM6r/J
+ W20ubEb4srWkyGNrAGcPP03RXOXzHY=
+X-Received: by 2002:a17:90b:4a08:b0:3ac:4e91:bff7 with SMTP id
+ 98e67ed59e1d1-3ac4e91c1b6mr2825151a91.48.1791975999552; 
+ Wed, 14 Oct 2026 04:06:39 -0700 (PDT)
+Received: from [172.20.10.4] ([240e:471:300:dde:5eec:32d6:f33:1d4b])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cd5e2b79df5sm5281837a12.19.2026.10.14.04.06.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Oct 2026 04:06:38 -0700 (PDT)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-1-e1548488fa68@virtuozzo.com>
-References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com>
-In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
- =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] HID: picolcd: Fix output-request and
+ framebuffer locking
+From: Aveline Noir <jm5905938@gmail.com>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, 
+ bigeasy@linutronix.de, linux-rt-devel@lists.linux.dev, deller@gmx.de, 
+ simona@ffwll.ch, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
+References: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
+Date: Wed, 14 Oct 2026 19:06:31 +0800
+Message-Id: <179197599193.532954.6543599494592547892.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3447;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=24xsS9uHXjbHNUmfuAgnap1aLrWSBY6Mx7i1m77Ij0I=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz5TUTk1Iq6n/aWWXcVJlaLQNo84wp5TFDgCA1
- cPpv8dcbTSJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas+U1AAKCRBRlgpH+WFc
- KnVYD/wNHthVuGM6T21qF1NC3MBC5WWWYhNN2wSERL0OJgSUtoxYYWvBeZGsCrUsmlg6MjLeCjV
- 5Zqdhw5Khly/2gpOYdz1bYUYQS+6+4avGm/L9e/3h+mUkBjEr1Z+p5g7rOoEe9QeAGh7MjoCw0n
- PEYr3RSsywRBLqHoN7iCxNJojbjEmlMgW28z46Cn2PoGPirti16ZxoWpmTvC6EZs8hWrYS/YYeN
- xFTS4RAxPtk+xWGUeDP/jHeEniMBbEKf7/pNy54bbhxrD2Ln9p3EwanHm9V3noI2IFefm/QAvYg
- QBG33/zassG97uUFEjsi6XY+qree+V11hln5c0t7mOpjAv7uc/bdY7hzM7GC4T09QSZvUCTiwYQ
- Fj/VbO1VD8fqG3g45EiAoSOfUkUBdmPhhas2lw4qn5RnDAZHED1uAaFdJAAFBE33nF5aYB2Ehiq
- VZNgSaqnUj5Quue405tJEhJVt0lD5DvR4qBskWeVIX5O8+V9v/S1OSPkV/vBj4sYNFhujEIKoCT
- VYV71TiHUPiyFVQIhOk+RspeWyHi0nRK0KUUW0aXiuvhxDXFmc/qqQXgJE1pzRmGop/0uVgdX67
- XkmRK24Xi41gpTDYGTXE0aZGvvT53/enIROVbAjb+j6k2l6Xx8tA3XOwxm7GyirCDUGC+LieM6f
- CQsQZrrKGsQXv3Q==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791975994; l=2119;
+ i=jm5905938@gmail.com; h=from:subject:message-id;
+ bh=Q4sS6ysJkh6bVqmDm0t8nwutvdPtgGri+t2E+qvwZrQ=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgboJ0y2WZIrQV0H4HJI1WEQ5sxS6pM
+ Nc/XEYGLW8ee6wAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QJSB+KMp1PvZyKEm4roi9iB1DW2hPjN7sh98ZjltMhWCFYkG+UkBAjTEszr3F5A7A+M39+3Sa31
+ Dwagjpf+n0w0=
+X-Developer-Key: i=jm5905938@gmail.com; a=openssh;
+ fpr=SHA256:oSxqik6Pl1M8EjQW1QXKHoylm1jy0sguOWFFJlA9zf0
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,79 +104,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-copy_huge_pmd() reads the source PMD without the page table lock and,
-for a special PMD, installs that value in the child without reading it
-again under the lock. The comment says the PMD cannot change while the
-mmap lock is held for write, but unmap_mapping_range() does not take
-the mmap lock: it zaps under i_mmap_rwsem and the PMD lock.
+Hi Jiri, Benjamin,
 
-dup_mmap() links the child VMA into the file's i_mmap tree right after
-the parent's VMA before copying the page tables, so a zap visits the
-parent first and the child second. When the zap clears the parent PMD
-after fork has read it, and passes the child before fork installs the
-copy, the child keeps a mapping the zap was meant to remove.
+Just a quick ping on this v2 series. Have you had a chance to take a look?
 
-Drivers that map special PMDs with vmf_insert_pfn_pmd() rely on that
-zap. vfio-pci zaps its BARs when the device memory is disabled or the
-device is reset, so that userspace gets SIGBUS instead of reaching
-disabled MMIO; a stale child mapping still reaches it. panthor zaps
-the CPU mappings of a buffer object it evicts and then releases its
-pages; a stale child mapping points to the freed pages.
+Both fixes have been tested with QEMU/UHID, though not on physical hardware. I'd appreciate any feedback and would be happy to make changes or run additional tests if needed.
 
-Read the PMD again under the lock. The zap clears the parent PMD under
-the same lock, so either the recheck finds it empty, or the copy is in
-place before the zap reaches the child, which then removes it. If the
-PMD is no longer a present special entry, return -EAGAIN: the source
-mmap and VMA write locks keep faults out, so only a zap can have
-cleared it, and copy_pmd_range() then skips the empty PMD. Otherwise
-copy the value read under the lock. pmd_same() would be the wrong
-test: threads of the parent can still set the accessed and dirty bits,
-and -EAGAIN on a present huge PMD makes copy_pmd_range() clear it as a
-bad PMD.
+Thanks,
+Aveline
 
-Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
----
- mm/huge_memory.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+On 2026-09-28 18:15 +0200, Aveline Noir wrote:
+> This series fixes two PicoLCD locking problems. The first moves output
+> requests into sleepable context and serializes LED state updates. The
+> second breaks the last-close/deferred-worker lock dependency using a
+> private framebuffer update mutex.
+> 
+> The first patch was tested separately with the original syzkaller C
+> reproducer and bounded concurrent sysfs/UHID-destroy workloads on
+> PREEMPT_RT. The complete series additionally passed repeated framebuffer
+> open/write/close and persistent-open framebuffer tests. Pre-fix modules
+> reproduced the respective failures. Physical hardware, prolonged stress
+> and suspend/resume have not been tested.
+> 
+> Patch 2's Fixes tag identifies the fbdev change that began draining
+> deferred work from fb_release() while holding info->lock. Patch 1's Fixes
+> tag was checked against the upstream transport-conversion diff.
+> 
+> Changes in v2:
+> - Address Sebastian Andrzej Siewior's feedback: clarify that the issue
+>   is not specific to PREEMPT_RT and identify picolcd_data::lock as a
+>   spinlock_t in patch 1. The code changes are identical to v1.
+> 
+> Aveline Noir (2):
+>   HID: picolcd: Move output requests out of spinlocked sections
+>   HID: picolcd: Avoid framebuffer last-close deadlock
+> 
+>  drivers/hid/hid-picolcd.h           |  4 +++
+>  drivers/hid/hid-picolcd_backlight.c |  7 ++--
+>  drivers/hid/hid-picolcd_core.c      | 46 +++++++++++++++---------
+>  drivers/hid/hid-picolcd_fb.c        | 56 ++++++++++++++++++-----------
+>  drivers/hid/hid-picolcd_lcd.c       |  7 ++--
+>  drivers/hid/hid-picolcd_leds.c      | 31 +++++++++-------
+>  6 files changed, 93 insertions(+), 58 deletions(-)
+> 
+> 
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> -- 
+> 2.55.0
+> 
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 1e5d68acf62a5..fcea98f0d8865 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		src_ptl = pmd_lockptr(src_mm, src_pmd);
- 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
- 		/*
--		 * No need to recheck the pmd, it can't change with write
--		 * mmap lock held here.
--		 *
--		 * Meanwhile, making sure it's not a CoW VMA with writable
--		 * mapping, otherwise it means either the anon page wrongly
--		 * applied special bit, or we made the PRIVATE mapping be
--		 * able to wrongly write to the backend MMIO.
-+		 * The mmap and VMA write locks of the source keep faults
-+		 * out, but unmap_mapping_range() does not take the mmap
-+		 * lock and may have cleared the pmd since the lockless
-+		 * read. Let copy_pmd_range() skip it then.
-+		 */
-+		pmd = pmdp_get(src_pmd);
-+		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
-+			spin_unlock(src_ptl);
-+			spin_unlock(dst_ptl);
-+			return -EAGAIN;
-+		}
-+		/*
-+		 * Make sure it's not a CoW VMA with writable mapping,
-+		 * otherwise it means either the anon page wrongly applied
-+		 * special bit, or we made the PRIVATE mapping be able to
-+		 * wrongly write to the backend MMIO.
- 		 */
- 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
- 		goto set_pmd;
-
--- 
-2.43.0
 
