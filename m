@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4EABC3DA7A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:06:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 845A7CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 18:06:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3439210E1B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9DE10E391;
 	Wed, 14 Oct 2026 18:06:02 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6788310E1B5
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:05:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792001148; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=NsbQnA61ZTaqYF+Ge0WNhwJd5YjHvf9TYlu1ewi6OD1Cndwus87hYBGwTtQHEQJRhsIGVoE8mYzhEamYYZ8F9Ae7c+AH9BdqLIqbcldkvSQZcHjBFVhfiUDoFJmae+4YAPqnaig+lBtq8INM/5DjQi/1xebQl7maeJD4R8JP4HI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792001148;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=dRfIeGV/wzE5R3Fwbev1l1gvsAUF7ieD+3RdpMlIcgg=; 
- b=nv2bl2nv58kTurIei8POC43BW45ZGp/na0+le5Kn8V6g2t8CBFYfPisxX48Rq5Pg8lHKpPNyFC07E/yVh3VQSFtR2jXjAlsZT1h585NNe5AeeLYRknBw9QW3FAzNREcpf41qTSpDSC7NjA7D4QEHfJAiFVi033JzRkSCkPcMcqY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792001148; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=dRfIeGV/wzE5R3Fwbev1l1gvsAUF7ieD+3RdpMlIcgg=;
- b=K8EQHOYYr2a/EMtti8/EF1DJZu6Ysl30J0wM6vZ12OqpA0h5110EH2XDyL0dHAtF
- TwP7KKGrFiC96fSBh/+XpNTIYY6kJshfQb0N2DdEw8b0ULH9EEfxFnTqMdM0VFHDrw4
- 2p6VUsEIXdNsSojbNNon6HA+4cH/KjC87WUEHdko=
-Received: by smtp.zohomail.com with SMTPS id 1792001147041308.53039111812893; 
- Wed, 14 Oct 2026 11:05:47 -0700 (PDT)
-Date: Wed, 14 Oct 2026 19:05:42 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Christian Hewitt <christianshewitt@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <daniel@ffwll.ch>, Neil Armstrong <neil.armstrong@linaro.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panfrost: reset the Amlogic GXM GPU on runtime resume
-Message-ID: <as_EPvb8S2rYmeRj@sobremesa>
-References: <20260930125629.2691968-1-christianshewitt@gmail.com>
- <179184031154.1056803.12154076398577087527.b4-review@b4>
- <6B9C57A7-8BE5-461B-B44B-EF91FC2D2D93@gmail.com>
- <as_A5ygwMkEgGeP4@sobremesa>
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC5710E391
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 18:05:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1792001154;
+ bh=A/YfHX/3fZumK9vHo0wbkd9nVZibQ7MqdJzxO23iME4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=HhdSgVuZBt417lj3wDa1A+PxkTvAr5bXI0LE/oI7VfZxn5COesZJa5cfaQFFWKpfj
+ 5hfIQqivjglbjEMEwsCSUbSqRxldmtac296JYUBKBGnv51kf318CoSJMYiwslBJ3mr
+ 8mHhJ0saap1EuUqZttcj2x3T3hNno+DL7tmkT1FnQxY3WfK2CD6zya/j2vCtCMUhLn
+ 306i4dWpRYJW/1DHqUwJYlv9Stmrqw2SC+rTClTAEAE+QPRFopgymrduAyUBIKRpAv
+ Mls9PON2h6YvKoz9d6WupX1Gwf8M1e+ycgRsW1nMRyb+kHhXSBXZao2pbbC0TxMLVL
+ WwzZM7cP9gkSQ==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4fJT5wqSz4wCt;
+ Thu, 15 Oct 2026 05:05:45 +1100 (AEDT)
+Message-ID: <20051ac9-43d0-4143-88fe-1198ebb6383e@ozlabs.org>
+Date: Wed, 14 Oct 2026 19:05:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <as_A5ygwMkEgGeP4@sobremesa>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.982.13
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/9] vfio/pci: Remove DMABUF export dependency on
+ vdev->memory_lock
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20261006193643.76330-1-matt@ozlabs.org>
+ <20261006193643.76330-2-matt@ozlabs.org>
+ <20261013171416.40b00e73@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20261013171416.40b00e73@shazbot.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,66 +70,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CC: Neil Armstrong
+Hi Alex,
 
-On 14.10.2026 19:03, Adrián Larumbe wrote:
-> Hi Christian,
+On 14/10/2026 00:14, Alex Williamson wrote:
+> On Tue,  6 Oct 2026 20:36:29 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
 > 
-> On 13.10.2026 09:02, Christian Hewitt wrote:
-> > > On 13 Oct 2026, at 1:25 am, Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> > > 
-> > > On Wed, 30 Sep 2026 12:56:29 +0000, Christian Hewitt <christianshewitt@gmail.com> wrote:
-> > >> After its first runtime suspend, every power-off of the Mali-T820 in
-> > >> Amlogic GXM SoCs times out and floods the log with shader, tiler and L2
-> > >> power transition timeouts. Following a soft reset the cores report not
-> > >> ready but PWRTRANS never clears, however long the driver waits.
-> > > 
-> > > Would you mind building the driver from the latest drm-misc-next and testing
-> > > whether this is still the case? Today I merged a patch series with a fix
-> > > for a long-standing bug that prevented the device from going into suspension
-> > > because of mismanagement of the PM refcount. It might be that what you report
-> > > as an issue triggered by power transitions is something altogether different.
-> > 
-> > I’d tested with the v12 iteration of your series in my amlogic-7.3.y [0] tree
-> > before generating the patch I submitted. I’ve now tested with v15 (as merged)
-> > and other recent panfrost patches you submitted (which v15 depends upon) and
-> > with this patch reverted, and the timeout issue with T820 remains. I also saw
-> > a splat that I wasn’t seeing with the v12 iteration [1].
-> > 
-> > [0] https://github.com/chewitt/linux/commits/amlogic-7.3.y
-> > [1] https://paste.libreelec.tv/desertic-cataleya.log
+>> The VFIO_DEVICE_FEATURE_DMA_BUF export previously used
+>> vdev->memory_lock to protect VFIO's list of exported DMABUFs
+>> (vdev->dmabufs) and their revocation status.  When adding a new
+>> export, memory_lock was taken for write.
+>>
+>> A future commit will refactor DMABUF export into a function used from
+>> mmap(), which would create a new mmap_lock -> memory_lock dependency.
+>>
+>> In preparation, this commit introduces a vdev->dmabuf_lock that
+>> protects the dmabufs list, per-DMABUF revocation state, and a new
+>> bars_revoked flag.  The flag tracks the device-wide BAR revocation
+>> state set via vfio_pci_dma_buf_move() under dmabuf_lock, removing the
+>> test of __vfio_pci_memory_enabled() and dependency on
+>> vdev->memory_lock.
 > 
-> Turns out I was wrong about having easy access to a Khadas VIM2, so whatever I try to
-> gather about the existing bug must come from these logs. I see one very interesting
-> warning in [1]:
+> There's a subtle change here that I'm not sure is worth mentioning, so
+> I'll at least put it on the list for posterity.  The initial revoked
+> state of a newly minted DMABUF is now governed by the device-wide BAR
+> revocation state set via vfio_pci_dma_buf_move().  This is subtly
+> different from the current behavior where the initial state is based on
+> instantaneous BAR accessibility tested under vdev->memory_lock.  Thanks,
+
+Yes right, that's good to capture here.
+
+The new lifecycle is then _only_ coupled to the revocation state both 
+(with this patch) at creation time and (already) thereafter.
+
+We sorta have two mechanisms to track "BARs accessible", via 
+__vfio_pci_memory_enabled() and the changes initiated by 
+vfio_pci_dma_buf_move() (which already exist, but the new
+vdev->bars_revoked flag now tracks).  They shouldn't really differ, i.e. 
+a BAR is accessible or not (whether by CPU or P2P) and we should clean 
+this up in future.  In this patch, creating it from the bars_revoked
+state makes the state consistently set from one place, at least.
+
+Cheers,
+
+
+Matt
+
+
 > 
-> WARNING: drivers/gpu/drm/panfrost/panfrost_device.c:490 at panfrost_exception_name+0x1c/0x30 [panfrost], CPU#0: swapper/0/0
+> Alex
 > 
-> Something's causing the GPU to report a fault whose status code is at
-> present not documented in the driver.
+>> This is a cleanup currently, but allows the future export path to
+>> avoid holding memory_lock under mmap_lock and a therefore avoid a
+>> deadlock scenario (a fault handler attempting to take mmap_lock in a
+>> vfio-pci variant driver thread that holds memory_lock, vs another
+>> thread doing an mmap/export holding them both in the other order).
 > 
-> I think that, because this seems like an SoC integration issue, and because of the unknown
-> exception being reported by the GPU, we should have some further input from an Amlogic SoC
-> subsystem maintainer, and also Steven Price himself.
-> 
-> > After reinstating this patch on v15 + dependencies dmesg is clean again [2].
-> > 
-> > [2] https://paste.libreelec.tv/leptosomatic-cherlyn.log
-> > 
-> > >> The transitions complete normally when the GPU comes out of a hardware
-> > >> reset, as it does at probe. Use runtime PM with reset and clock control
-> > > 
-> > > panfrost_device_reset() is always called as part of the PM runtime resume
-> > > operation, so I'm assuming what you mean here is that reset control is
-> > > deasserted at runtime resume when the SoC supports it
-> > 
-> > I’m firmly at the hobbyist end of kernel contributors and I’m not able to
-> > technically explain the patch Claude created. It’s entirely possible that it
-> > pokes around in the right area of code but is not the correct fix, but I lack
-> > the knowledge to dig further without explicit guidance. I can also give you
-> > remote access to a Khadas VIM2 board if that would be easier or useful?
-> > 
-> > Christian
-> 
-> Adrian Larumbe
 
