@@ -4,88 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C011CC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E39BCC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86424112178;
-	Thu, 15 Oct 2026 07:57:18 +0000 (UTC)
-Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D05210FE71
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 16:33:59 +0000 (UTC)
-Received: by mail-pz2-f6.google.com with SMTP id
- 41be03b00d2f7-cc790c60953so252205a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 268B6112190;
+	Thu, 15 Oct 2026 07:57:19 +0000 (UTC)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 724AC10E472
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 15:55:39 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-33c2520ad38so9757705eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 08:55:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791993339; cv=none;
+ d=google.com; s=arc-20260327;
+ b=J4z6PtODnhIQRvWYpDVZTypFBqksSvSqsWQHezeS9LAgsJV2gl5P9VcZapdaJfwWDT
+ YH2xYtBqM869ANRfm9IxtdmAL7mBIe15WTFKh0xJEW1T5a2axHRPye1dcgYA/R+YHjSb
+ iXPZXH8a86QU+zz28NZ89YuvYi8kbfLufKZ7NNNPlxI+23NUoUr5dB8Pde+vlOAbXoqB
+ 7efd7ACBbzThdaIH8+VEwi4leJ9Qoygk1D0lchh0Txfm6JjL9PFi4fJlPNKNiqZ11GEg
+ zuUbg5NKqYkQHJgie4H5BeJtfe6k0usHulItL+NrPSLYThdCxuQplnOubWkSBYNdZD1F
+ kCCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=2XXdOgd3LhsMPgu7e26Zyz/aXhCrCbllsm1LzmgfNuM=;
+ fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
+ b=nR53X3pXodPTt82A17v5DPY8hJtfrKP7JomBpq230bhUobtRSKsmm4tmg8cfnYceUA
+ mWpi8hBqdIIxJ5TzMz715zf5UsBTKIBz4HBLIpFk5AfKqRn3kbw7F4TeNtlddDxZDoXc
+ O8Rp6iMb4VtT166OC2vizOyDXR83WxjBx/sQfHALBPb3WOK190zXbDNm9CZuc/AIigVC
+ TCTXnyM5cBRJfK5e7ytupvN9HIl1bxhRiJJmTEkel2dpJHaNmHSIhdPF0zAzTWECBDY0
+ 9IEO4bWRxpq9dZGfH45nruQAyQCD0wii8oUBDIEHZEZo8hKWMslDN73Cr8MmeDaUTSJu
+ HIbQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791995639; x=1792600439; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1791993339; x=1792598139; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
- b=fUwDtlfh5wEup5st69Y0l+LI4vrZZ3SDt8TGGZTFdRkSdygCbmgwqBNzJp6WRbcrIj
- nKmoBFG3m3nuOefJSuwJGcQE8ye7eQlMVsg/xjRQerlQ6PmHeGXaIr733PNBtWug1Qaf
- LhbWrEVqlYbtBga6xX1nCYMKGcLHXmQ5KpeUjD/Jk9woftnqhrh39eoagjCQo7Ektmfr
- rJHhaIHfJTlJPu0uuzRdnvchzzF1iDDd6DJUkEY1FUbMv7w8xC2T5WZqudgKDzfMAe2v
- jBoBKZCjopNvji18XxKJ/C72AgZ0I5u70aCIhiLtf17/Uw9r1JvzyDGIZ7jfBuopnVgT
- gcPA==
+ bh=2XXdOgd3LhsMPgu7e26Zyz/aXhCrCbllsm1LzmgfNuM=;
+ b=iV+ncuxQM9C4O1OoWpdOX+KoY0I2m1vI18YkHPVw5n2/CFLL7pevE0je1eC6O4KEI/
+ wJZKMFw7w4vKg6j7hRx335UinTHoq/u6XLNSqOXB7qwkdRg1PjGjvCamW5XrjijePwGB
+ dB/owNwipbk7+y+HZPN1xbQ9vcf53GGIvtIlqrW+VRPGfj0m9e1F23adVpTZWY5IO10m
+ U7dk2HYCT/fzDi36RAE38VOfDuBW9bpPkAeub2xZmbSbD5Mw5Ycrjr6ggQN5l4uSd7aM
+ 9WACrg3a1e3MV40w1vp5a+PKM6ve7QHlMq4PO/RNYbawqMMlBOVUP3sqA9lhq0L4uL39
+ pRSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791995639; x=1792600439;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20260707; t=1791993339; x=1792598139;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
- b=BG66uYOYuLFW8nS3Z1h7REGcPYNMEbJCBhJ7muD99ADuC1Y4kCvnU/exRn6gAI/JsQ
- qVS4v9xqPOGOdEupobItBZ0pxXSeAMmEW/Z5BHKTJiqDeR4twIWgblv+EXjd0sEVqw8W
- u3x9xslIJOwqLOwLOnwiedB8UNtCRKVsGU0HW8HtwciU7Jo0b4KyM0m5tS6jwUIpjO8i
- 8Vl3gLGTChP1UGMlKmqXwovd6P1ZU5qzN5lIYOch2ytbFjc4R40InL1m0YZ4+/JEMs7h
- sFnZ771cqjEUBDIUAZGjcd+jRdGH+ZfVdrLYPHwAiF+BBIJJvqoKgZ+KcJgaGUvqZjfo
- 3bAg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz5IGaZEQVgEberiUuuLHtXoagVabFbcDFonTlqgnWtgMSZqFusV41P7uFZovgoVrrF3UVpYznTACg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYICT2vPZOmo0JW72pFAHyAAIWUgDm5p6bfBr2Z1F2nJLHfP/d+6
- yYhVSap4dHNxEY1S93ImmdJZdJ7ULLvGa9/tybqAIwR44EYCYeJFiGH6
-X-Gm-Gg: AYBFou2LySTobm2426uNWnFINWyllDXU2SotA6ZF7ELH4rFVmBidjhgkgR1Fg+ZH5qx
- n/K+Nekxvsq8KM/E23nGlmMmNQBxDiqPQmBQWxQygc8xtbvodVrSQGsRMdCM30UZKVhhOCjS13n
- 139ogd9WXFT7+TTXxTiIVJCeBK8P45MQuRz4kgIqB5aSCOtdGKYU9/r0eAi7X4SYa8h5g/sDSxK
- 9JUAHfLpggadYHXJkoSSyxBRQwNHNcFj22M1fmkMvtTNLiOfqSrqDXVZxsqX/th5cNwmU/NzZYx
- GHmMo8/pnqqTw9H5LrjpRkk1TU3ic84LUzJ9j8+2WbwthHunZyVb2K3A4yMukxr3bEXpy94jDga
- IPYrpZRjHSMVfEl5ldx9kUI0PB+RJZGQNwz5HqDZwm1NhLj24zF7oa+1cZs5sCAQQX1xaeoCKHX
- f8osIow64W6D2CaR/UCd32d7HJtKPrMUBxzY66R2qU/k/qPqdl5vcyEendsLZY3vLe
-X-Received: by 2002:a05:6a00:8c4:b0:891:a63c:df97 with SMTP id
- d2e1a72fcca58-897c6443681mr15560946b3a.15.1791995639007; 
- Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:59::])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-89d80511d47sm1291926b3a.54.2026.10.14.09.33.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Oct 2026 09:33:58 -0700 (PDT)
-Date: Wed, 14 Oct 2026 09:33:38 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
- Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
- Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Nikolay Aleksandrov <razor@blackwall.org>,
- Daniel Borkmann <daniel@iogearbox.net>, 
- Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
-Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
-Message-ID: <as-uBvRisS7HxLHJ@devvm7509.cco0.facebook.com>
-References: <20261012174300.2338784-1-almasrymina@google.com>
- <20261012174300.2338784-2-almasrymina@google.com>
+ bh=2XXdOgd3LhsMPgu7e26Zyz/aXhCrCbllsm1LzmgfNuM=;
+ b=Joi+ePpoTrV098n6u5Ay9gCNl9TZcGz0Qw353P3RZZpcLhz9ThXrLpdMUmW8uHNzCc
+ 45A5UWbMvEYrSbvgB7l6Crlo5i1THDbLLw+ZkSTm9tnZB28QaEZzR0Y9env/0XN/t/62
+ uHdVycWBFjtSN7waKj6QkGDkOYgRcoT2Aq0S+gzOq73p8muoJpjuK4QYOj/TzBoFFzM+
+ 5gLfWtCL+mFWmPHSqSW1gO7BcZZgSIY6rMlsk7z7JT8rs45YOo1j1Xa7d5UFwFw0nExw
+ jh7ITpMQ9IUphULNkGAMoF6ILJs0ySfTiEw6H3VrPaq/uhmHEmKGxxm3rO5T4KfEF2Qn
+ ey2A==
+X-Gm-Message-State: AFq9FYLLldPtdxlhSPd13gcW5O1RALLPzoH/E6wcLpWy50O8+U3kuQDn
+ ewQNH9ghsI7aE/90fwQ+HvbCpIiA+Nu4TtbLudJwTCUlmWy28Qyb1PnHvM/rLB8lbeNHRf2bTny
+ gWXsX7od8doOZZerHv+4wRkjGlXmoIGFsYm/2
+X-Gm-Gg: AYBFou1JBkI/MHQpBHw0qjjaE5l3E/qaPd82oWx6N/9RwDGXTfgSlDWzq6cdxGiVrrt
+ nVjuXPRlXT3tDFDp5OXSfZouMtcTNdcveHUpR/TU0G47JTnmGOtC2tZQ4Fc2VAQwFa1toJQp3b0
+ lzMG/ukABVdSp7B9wQ6qpUv01R/oTwBj8HYqzCLAF6eXP9kmCN5VEbV9U6WNi3CPtpECnBuKFXo
+ ZQBe7YSsiaeZzNXz1ruJsXKkNxZSjg0qFXBszY2VIWF+LlEX/lOGz/xjYpyKhsoHSIDjurZpebg
+ TlXmUSOuIOxFW2oV0d73g9nF6B2fGboNLS9IyN/sgsD1i+hDKsSmySzunQ==
+X-Received: by 2002:a05:7300:f582:b0:353:5ae1:b0f5 with SMTP id
+ 5a478bee46e88-3537e101bf0mr22008049eec.26.1791993338445; Wed, 14 Oct 2026
+ 08:55:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
+References: <20261012190249.3167-1-henryzhang62@gmail.com>
+ <20261012190249.3167-3-henryzhang62@gmail.com>
+ <sashiko-outbox-168575@kernel.org>
+In-Reply-To: <sashiko-outbox-168575@kernel.org>
+From: Henry Zhang <henryzhang62@gmail.com>
+Date: Wed, 14 Oct 2026 08:55:27 -0700
+X-Gm-Features: AclHuK_eh9bczZI4ebGr5UhWIqsDinkzAv7SQWdD090e4uC4ltYZQMFfxCEVzUk
+Message-ID: <CANTW0yoUt9v5xgMQxRWdOGyWVxTW0x_o1=qwuLPjSCDq_DkkUw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/vc4: dsi: Recover from a timed-out transfer
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 15 Oct 2026 07:56:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,56 +103,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/12, Mina Almasry wrote:
-> When a bound net_device is unregistered while userspace still holds a
-> netlink or TCP socket reference on a devmem binding,
-> mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
-> netdev_nl_sock_priv_destroy() will not touch the unregistered
-> net_device, but leaves the dma_buf attachment mapped until
-> __net_devmem_dmabuf_binding_free() runs later on socket close.
-> 
-> Because dma_buf_attach() does not take a reference on dma_dev, device
-> removal frees dma_dev while the attachment is still mapped. Closing the
-> netlink socket afterwards triggers a slab use-after-free in
-> dma_unmap_sg_attrs():
-> 
->   BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
->   Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
->   Workqueue: events __net_devmem_dmabuf_binding_free
->   Call Trace:
->    dma_unmap_sg_attrs+0x76/0x2b0
->    unmap_udmabuf+0x8e/0x100
->    dma_buf_unmap_attachment+0x145/0x330
->    dma_buf_unmap_attachment_unlocked+0x96/0x130
->    __net_devmem_dmabuf_binding_free+0x156/0x2e0
->   Freed by task 9:
->    kfree+0x1b8/0x550
->    nsim_bus_dev_release+0xe/0x60
->    device_release+0xcf/0x250
-> 
-> Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
-> and null out binding->sgt and binding->attachment after unmapping so
-> unmapping is idempotent across queue uninstall and deferred binding
-> destruction. Call it synchronously when the last bound RX queue is
-> uninstalled in mp_dmabuf_devmem_uninstall(), except when a leased
-> queue is unleased: the physical device is still registered and, if
-> restarting its queue failed, may still be using the binding.
-> 
-> The same use-after-free happens when the netlink socket is closed
-> before the device is removed but RX tokens or the pending release work
-> keep the binding alive. Such bindings are no longer installed on any
-> queue and were already erased from net_devmem_dmabuf_bindings. Keep
-> bindings in net_devmem_dmabuf_bindings until they are freed, hide
-> unbound ones from TX lookups with an xarray mark, and on
-> NETDEV_UNREGISTER clear binding->dev of unbound RX bindings for the
-> device and unmap them, unless the device is a virtual device leasing
+On Mon, Oct 12, 2026 at 12:16=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+> - [High] drm/vc4: dsi: premature controller enable during timeout reset c=
+auses hardware instability
+> - [High] drm/vc4: dsi: spurious completion due to IRQ handler TOCTOU race
+> - [Medium] drm/vc4: missing mutex serialization in DSI host transfer
+> --
+Thanks for the review.
 
-[..]
+1. Agreed. Mainline's pre_enable ungates the block only after the PHY
+   timings, timeouts and DISP1 are programmed; the restore must follow
+   the same order. Will fix in v2.
+2. Agreed. The race predates this patch, but the timeout path is the
+   right place to close it; v2 will call synchronize_irq() before the
+   reset.
+3. vc4_dsi_host_transfer() has never serialized transfers. I'll add a
+   separate patch in v2 that takes a mutex around host transfers.
 
-> queues, for the same reason as above. net_devmem_lock serializes that
-> walk with the final free.
+Henry
 
-Can you explain net_devmem_lock a bit more? In
-net_devmem_dev_unregister, why can you not net_devmem_lookup_dmabuf and
-then rely on the binding->lock? The rest looks good, but the
-new lock seems a bit excessive?
+> commit b73bc40cfc01c81e251315be152ff0c2c6aa9361
+> Author: Henry Zhang <henryzhang62@gmail.com>
+>
+> drm/vc4: dsi: Recover from a timed-out transfer
+>
+> When a transfer times out, vc4_dsi_host_transfer() disables the command,
+> resets the FIFOs and returns -ETIMEDOUT. This commit adds a recovery
+> mechanism that resets the DSI block and its analog front end after a
+> timeout and restores the configuration so DSI keeps working without a
+> modeset.
+>
+> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.=
+c
+> index c092a1aaf700a..3783ff3eeac97 100644
+> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+> [ ... ]
+> @@ -1359,6 +1358,93 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_d=
+si_host *host,
+>         return ret;
+>  }
+>
+> +/*
+> + * Reset the DSI block and its analog front end, then restore the
+> + * configuration done in pre_enable. Resetting the FIFOs alone does not
+> + * clear the state the block can be left in after a transfer timed out
+> + * (e.g. on an LP receive timeout): every following transfer then times
+> + * out as well, until the next modeset.
+> + */
+> +static void vc4_dsi_reset_and_restore(struct vc4_dsi *dsi)
+> +{
+> +       u32 ctrl =3D DSI_PORT_READ(CTRL);
+> +       u32 afec0 =3D DSI_PORT_READ(PHY_AFEC0);
+> [ ... ]
+> +       DSI_PORT_WRITE(DISP0_CTRL, disp0);
+> +       DSI_PORT_WRITE(TXPKT1C, 0);
+> +       DSI_PORT_WRITE(CTRL, DSI_CTRL_SOFT_RESET_CFG |
+> +                      DSI_PORT_BIT(CTRL_RESET_FIFOS));
+> +       DSI_PORT_WRITE(PHY_AFEC0, afec0 | DSI_PORT_BIT(PHY_AFEC0_RESET));
+> +       /* AFEC reset hold time */
+> +       mdelay(1);
+> +
+> +       DSI_PORT_WRITE(CTRL, ctrl & ~DSI_CTRL_CAL_BYTE);
+> +       DSI_PORT_WRITE(HSTX_TO_CNT, hstx_to);
+> +       DSI_PORT_WRITE(LPRX_TO_CNT, lprx_to);
+>
+> [Severity: High]
+> Can writing ctrl & ~DSI_CTRL_CAL_BYTE back to CTRL prematurely un-gate an=
+d
+> enable the controller before the subsequent writes to timing and PHY
+> configuration registers?
+>
+> Since ctrl was read while a transfer was in progress, it contains the ena=
+ble
+> bit (DSI0_CTRL_CTRL0 or DSI1_CTRL_EN).
+>
+> Writing it back here enables the hardware block before its timings
+> (HSTX_TO_CNT, HS_CLT0, PHYC, etc.) are restored, which could cause errati=
+c bus
+> behavior and unrecoverable hardware states.
+>
+> > +     DSI_PORT_WRITE(TA_TO_CNT, ta_to);
+> [ ... ]
+> +static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
+> +                                    const struct mipi_dsi_msg *msg)
+> +{
+> +       struct vc4_dsi *dsi =3D host_to_dsi(host);
+> +       u32 disp0_ctrl;
+> +       ssize_t ret;
+> +
+> +       ret =3D vc4_dsi_transfer(dsi, msg);
+>
+> [Severity: Medium]
+> Does this entry point need a mutex to serialize concurrent transfers?
+>
+> If user-space concurrently triggers DCS commands (e.g., via sysfs backlig=
+ht
+> updates and DRM KMS modesets), they can race because vc4_dsi_transfer()
+> modifies shared variables like dsi->xfer_completion without a lock.
+>
+> With this patch, a timeout caused by such a race now triggers a full bloc=
+k
+> reset in vc4_dsi_reset_and_restore(), disrupting any interleaved concurre=
+nt
+> transfer.
+>
+> +       if (ret !=3D -ETIMEDOUT)
+> +               return ret;
+> +
+> +       /*
+> +        * Leave the block usable for the next transfer. The message is n=
+ot
+> +        * resent: it may already have reached the peripheral, and only t=
+he
+> +        * caller knows whether it is safe to repeat.
+> +        */
+> +       disp0_ctrl =3D DSI_PORT_READ(DISP0_CTRL);
+> +       dev_warn(&dsi->pdev->dev,
+> +                "transfer timed out (stat 0x%08x), resetting DSI\n",
+> +                DSI_PORT_READ(STAT));
+> +       vc4_dsi_reset_and_restore(dsi);
+> +       DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
+> +
+> +       return ret;
+> +}
+>
+> [Severity: High]
+> Can a timed-out transfer cause a spurious completion of a subsequent tran=
+sfer?
+>
+> If vc4_dsi_transfer() times out, wait_for_completion_timeout() returns.
+> However, if the hardware interrupt had fired and the threaded IRQ handler
+> (vc4_dsi_irq_handler) was preempted before calling
+> complete(&dsi->xfer_completion), it could still be pending.
+>
+> Since there is no synchronization (like synchronize_irq()) in this timeou=
+t
+> recovery path to wait for the IRQ handler to finish, it returns immediate=
+ly.
+>
+> The caller might retry the transfer, reinitializing dsi->xfer_completion.=
+ The
+> preempted IRQ thread could then resume, calling complete() and falsely wa=
+king up
+> the new transfer prematurely while the hardware is still busy.
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012190249.31=
+67-1-henryzhang62@gmail.com?part=3D2
