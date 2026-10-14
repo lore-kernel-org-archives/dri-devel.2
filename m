@@ -4,96 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AFD7CC6B24
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 15:33:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A71B5CC6B1D
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 15:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA22210E9CE;
-	Wed, 14 Oct 2026 15:33:34 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010035.outbound.protection.outlook.com [52.101.201.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 832CD10E9B6;
- Wed, 14 Oct 2026 15:33:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B84FF10E9E1;
+	Wed, 14 Oct 2026 15:36:48 +0000 (UTC)
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011039.outbound.protection.outlook.com [52.101.70.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13D6910E9E1
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 15:36:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eOjO3Su6qvYMOukJkwpHaDSasBO3NLxRrsxidKUBo9uHz+ZygSwLaz5evSeiUyX2riapp5/A4CoGhSkkjlIVlwF/xF2laXgIUozlLfln00Ts93kfl49/PzB5pSRgr/wNzsqGto20QnMBy2NBv/bVf2Qy949Esupf/buMU7eaW6gECi5I17H15OYJatnakdv75HTtj/rxbFn37JmIKvGxKG0WJdjv8UWwf9TjVubuC/pnJACMossaIhJI8K7q4cu6EtznRwJZjsgcdzmaOqCDkPgo+SufOpXQoI3YXBLRvmh9UuaZqZLM6d68Yf8RI+uX4r//rTwRUDyy7zBZ8lCUYw==
+ b=sBKVZo2qZ2HZvKJEHg3ahMrc7tLHmnVLFdzDnun0M27ntYSJgRgzJ/frsIwal4TP3qA1gVfzjPq+boGwH9ooMjMDWnn9W5H32YJxjy1UHw5O55zSKYosZe6aAAe+ah2X3OXoq8RIYU8KFI84Wp0eNP9+Pq4DDFG1zrQEsqarUDIwPQDjG6im3gwsDxWo9T9z9sJxh6h9F1j1tRxoyfNhtGYmiqOK59PRDsSJVHUE9UE9KKnG8oc3pzdrSoWlcX4rr7Bx23WfHCc1KiX7CAORsIX8BoAjYI5sSzkM+OjEFN77wiH44Wl3CfJOCfDs9tWF1L6sbzfRLeVYgr0lDEVD8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R7gM1qFAh36nyYXA0eD4GvmQzUlh4Zilzr9eYDGXOgQ=;
- b=L7wE/7kM2GL+2cGma0GXA/cDXSRSakjwSZrWS9+Kjm2xh4q5BoiOEq4/EpkO6+T6FaDqrAJW56ffYZM35HUzyJxUrBmCnr3QOkwEvM1mk8nyHHTWok0xAQvrFtxkQ2H5nQa6Ff8vfO/lYSvbHyV3CyDROJoiiME2H8YuieoO4/6r9Fqr0azD0Hj0NaBQscrPmu24QjHS4x+Vbj5tJ8Jpx6lRCm77wBIqlx7eec4ncB9uPVSGg+XjNwVNqVJ+wuMqdoJ++gy7B+xCutcNIMpR/eAdo3CP0s+WmvDRezFumccOLcv90/2w0AsO3BsUs8X7GW9eG8EUPclE6C8aJBy5/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=K2zCj8zlMVSrkiC/oNIwRd5jNwLN/is3/Bpmoy3C47g=;
+ b=yJGURvmwegdfvoVFxC10YKrdI2khfay1o/qpYo1YS3q0AUtoDJrt8um4R7mhLmJyl8JsZXDqaKUiQSjOBfvGesuruGWI6PbzzfItui+iPY6BDQ6GkCn7OqOYmzaLiXKTqIymEIPPJgwd+WW3TePh5/iwbil8+iBkg1xIq5mGBIiApy+g7hLbAwHbINs9/aMCopgYxjxVJK+00+c3Jn7HWC4ehBMCDExyKPMx9ZL4+6Za5a/zlx5Qz/lv7lPc+aj5AnICWAinXO6mhMM0woaP3LH0cUPSedBUbryxqIveyURBT+Cb33XNdRojFuReIvyYrciJs1FCm3+JIsTqPShU7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R7gM1qFAh36nyYXA0eD4GvmQzUlh4Zilzr9eYDGXOgQ=;
- b=TAsCu2VoP240ldUTEdQ/ja0zvaYSMfHuXJXMvEAwx4nHBixU9kD8m2TuVWFU/LTagmwqbG3psSsOuTqgegV5d5I0qC9EmERNeLYfcRb2Rev0DVpYWw7fdRi9DuxivmKqFHEkXrYDMDk7Jp592ZkNsR1NG0d+TuZYIBhxX+wuqII=
-Received: from CH5P223CA0007.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::18)
- by PH9PR12MB011960.namprd12.prod.outlook.com (2603:10b6:510:418::21)
+ bh=K2zCj8zlMVSrkiC/oNIwRd5jNwLN/is3/Bpmoy3C47g=;
+ b=OirsuTVav/Y/DGc0fOOXJk6kdSDRMRpyatBYeNlAH+r9jywBk3VGOY6yQ/ff4PTPzkMPFMpKB8dQEDSpM8p3SVuQcFeKqZo/5KLb0BysZId4F6CgF99Ha3lQ6UMdntCEsfgYpQlZZLmU3+//HbJyFtUwxqAhET+pILN7+DDIlUR9qLUzuMyUPdRMb7qbh+xp/adJMDYt0FnS02vRT3Z3+fMSZAnRCRP4CgCQ3peijJen+I8JsEzqnGzGo0Cn/wD16yAh1yiBv//2f8PHQIZ/0yNlUKk5A7AFPRho4JGzAlsB00wBZe+Z6/soU9mbdKO/dhArFlM4qMVKi5ZpC8gNKQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM0PR04MB6932.eurprd04.prod.outlook.com (2603:10a6:208:182::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 15:33:24 +0000
-Received: from BL02EPF0002992B.namprd02.prod.outlook.com
- (2603:10b6:610:1f3:cafe::6c) by CH5P223CA0007.outlook.office365.com
- (2603:10b6:610:1f3::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
- 14 Oct 2026 15:33:23 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 15:33:23 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 10:33:13 -0500
-From: Felix Kuehling <felix.kuehling@amd.com>
-To: <bsdhenrymartin@gmail.com>, <amd-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, <stable@vger.kernel.org>
-Subject: [PATCH v3] drm/amdkfd: fix doorbell allocation race creating
- duplicate allocations
-Date: Wed, 14 Oct 2026 11:32:46 -0400
-Message-ID: <20261014153246.538155-1-felix.kuehling@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
-References: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
+ 2026 15:36:37 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 15:36:37 +0000
+Date: Wed, 14 Oct 2026 10:36:25 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 0/3] Add VGA support for Apalis iMX6
+Message-ID: <as-heYw7PKLPm3yH@SMW015318>
+References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
+ <20261012164054.GA56180@killaraus.ideasonboard.com>
+ <20261013090631.GA33628@francesco-nb>
+ <20261013111158.GG56180@killaraus.ideasonboard.com>
+ <druavdvcgm3rljk3mhano3o424xyelupmcz7kbzguuljdsungx@xuj2ovbvz654>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <druavdvcgm3rljk3mhano3o424xyelupmcz7kbzguuljdsungx@xuj2ovbvz654>
+X-ClientProxiedBy: DM6PR07CA0091.namprd07.prod.outlook.com
+ (2603:10b6:5:337::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|PH9PR12MB011960:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18662f6e-b508-4d51-dbb3-08df2a087bba
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6932:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99fcc377-c82d-411e-20b1-08df2a08ef2e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: EZRewuaeFR6aqIwY3Sry7nXsjoMwNeULP2DNxgKHMlOwN6/hf6ENLRfXGTrwVd00xAZj5QpyrugMgtN5Qnad/7YHd8ma/S4g3ApBvCQ63XhoMuRfSFTMdWdSTLz7SBpt2rANA5MiFc6Hk7s6+4+0qXZ49IiXwZjeMJSbChVVBeccoM8rL1YTyXIF8Y1EbCXkgWNw4crw1AO5BKX/eh8hpkjIO6SHGJILTFrp3BibavScj47JbND7OUEhURcpzYnL+GYZChJ9UhYrN9fc5qkRA4R4LZYZK8cmvVAZHYNBjZwXM8bm+Aoeg0J3Gsf/g0t997Xveu5hV0X6UA+DFQk9i0vXAaG2j44ktiFvi1C7Ku+03n4LXJF/3+j3E30zY1ANyIM45O/7OIxzWB6a/G1VekC1p6a5sjczoOljnywrx/y4XL1fyknKk/f0tbrmjW+a7i07BD4O/kTvMijnjsB4n7UI1i40lRDn1ChdJKDjt4wvJvkUe/1CXt5JduHVbjJdMcDk8xJMzTZj0LjmNeFZiJZlJNf82dvmbqnJ2dkCl1zxVuS8KUuFUm4UTUqcfMqQbfrJhMnhXtnzklJHEC31ik/WQC2eVKA/cF3rpnfVX1kgM0SA4SkzdFjpX+OsxCP5c1oFL8fgP/pRZ2KkN+usqR1HvgvHsCcY1iX0HueuHq5yZ6JAGBkEwSJPdv8nR1HmXxOpoLd1sffibDWeT9TKQw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);
+ ARA:13230040|1800799024|23010399003|366016|376014|7416014|19092799006|56012099006|11063799006|4143699003|261009223027099003|22082099003|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: METUsq93XjYVnfaItmIrREQQwjZ5ONSBvV7WWIhaYR5iCtMedD1/FSPPgYjeocx4wdyuEoIAPiGc0WcGMr6OUktMKlb8sGSsGEFPaHDIaqeZuPLVNtGwDjaXuQDTWsrvuQ3rASGY4ER851Uz8G2BWPQlyZzHJ+MuwaJo9oc92fLg6zYgg+i36HS9tY28ZcUbK72iTESv+RarDbY7TK8N8j2gpKOuifb37syynPmJ7UEaUDuRV2gLmxu/Cq/Nt0O38catk046FPDoF47+PuCxffTqQyC6w88R0viB0fH8M9niisf73ogldOR/zZapWLP4W1pUeFvnpCGrYYkM5YCcUYj0/wdCZXH4rMyF5+SeFY4EsUwUKIU5zJidf1ipkvMU734glJl3X2u2ILrsczAZtodFUl7xF1PEK/BzlTA4GHu1px5/jFYWPrpYf753l2nNkUp2zZH9ZJrW8ODuVQBRUen0ftZCjD5aPrmul7L98NKsTbX2c93iX/L03LwIv3P2L2gt2h1qJpvZA5KbCsT6JeJS9PvL/YGQyYEpHL1puilZFnkeYYFEQ0yA2QnYlqEAHFSQRUhBHnComiBVJzb/69BK6UG3z+HlFXLAU+dx1Qw9vHFMmfaGcBBoP9mPGWuCf8CxVdYQUL3Hc/dQZKzviFSQwrmHOWAtrWg4J3DP5n0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(19092799006)(56012099006)(11063799006)(4143699003)(261009223027099003)(22082099003)(10067099003)(18002099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EqSt0kZoaZfDpLWavd6uWOWMUIk5257EjIMHFW//zf0tMPD6e7G07+GlZfAerMooVvO0+jf6N7acWBOC+nDzX1DBRpYt5K6S6ZtAAmJeI/FuT83ZQDQ4pnDwRKElE7UK0blfdPCdFjR8xaY8v2Bjey2CS/CAfLkozj4+Lkz3FehScd2C/y33zatwF2JGaWABLFVK639isHbu3BxJYbj+Tb2KX6u1D1+8HOnfnVAFKUFWI4bDzWyt+lt7+f6IuI4LJWrn1LU3IfMqS5gcslm+rZk/524oMaaTkd2QbpKBZxQq2QsV5IGGo7extqv00Q3ZXrzeH//HotNN5kORUUjVPtW2N+oFCT403JGUqKxBibJCHAafkf7pWa5S+wBipI83qJ4YB8tk1o4iQ0kMUZG/xvGwu+9Ro/jujZl0K8j4SiD6+8UlRzmMpJvh1xJ6B2iq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:33:23.3390 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18662f6e-b508-4d51-dbb3-08df2a087bba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR12MB011960
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+Cea8tcqfD1VXBaAvDCQLmaj3qMn1GfyUioxiKbLeHjdLpsXT/qEzWcPF2az?=
+ =?us-ascii?Q?KbPAsunGgkcqpGjZi3SHPsncbrf9XPcojDCO5tvcNYkCgcfeIxaCprSFLgbZ?=
+ =?us-ascii?Q?fnZOGPCOgpLgH9U1YzuhbEMei7IYrg5xY8vzmKY+EYECkSd9QZbYybKxY6Rc?=
+ =?us-ascii?Q?audkI5nGlfx2+gDuQ7v0hnmB8aEfHzDs0I7nGVGtLXOH1C8dXhNWd6yVpPUn?=
+ =?us-ascii?Q?bUOouhIZ/QLldbBQJyzXeZ7BH5WjZX0hg3xOK2ApMeF4GCGhrylwLOO36CEr?=
+ =?us-ascii?Q?EU3RY0bB+7kIlmV9F83iQAHjpk0AwL87sP808knz9RHopuZkVWZDL8eerofo?=
+ =?us-ascii?Q?EVn4tRNdk+ZiR7LvGnxw0iXgdF/v/6TnPE/8HI6yCeayslGo6tpoDKEvh1hd?=
+ =?us-ascii?Q?vDzVzDC9xz0EG8Tz/VHDK5LbkRA/RSm3CYTEo7Oz6KEJp9YcElTZu8LdLW+E?=
+ =?us-ascii?Q?PiVnk8sz0krczpSyHfUDuvCazjqn8qFdvnrDSOe63WOwNtWTM6sjR6pqKMLT?=
+ =?us-ascii?Q?/Bvg5QemIhcu1anXvCSIyF3K7kjk90XBKl5928h9zToHMPmENM3/hBEcsG2G?=
+ =?us-ascii?Q?jQ1Lw790AxTwT9dEcW7WArk9fbTStoZXFwbP77/THgB7kBArI8QpQXJfG2La?=
+ =?us-ascii?Q?O4QnqNjHLlyN3JpmMVu/5O94uEKAt+rcQwPVavrB5jfl4FM++bx19gJMPIvL?=
+ =?us-ascii?Q?4BvNZMZlkGjlwg+XazhrCUszEXf8dapzVWWFQrMtEivCkuyCpSuLTOSb5HW2?=
+ =?us-ascii?Q?MT57NA7yrhB2yxLphJk3Pl6fbK89JBLA9Q6I5QwdJwUCgyWS0JrkSJ+hyTM0?=
+ =?us-ascii?Q?cvMNRrAUpj3SmR5IzhR5xyr8mH7qC2EmlnoQn1WAr9YJ5A8C+Q+zfvsiR5I6?=
+ =?us-ascii?Q?Vr6abtsHunxtR4a7/SEoYqv3E+zhOs4BDPacTuxhkwBBL+vE9R/FnVdogKQS?=
+ =?us-ascii?Q?ZhPqXUQ94kaSy5Yam098w86rD49bCNNwZZ0D3zjzB2nrO5/wYpCJzE8qmC7n?=
+ =?us-ascii?Q?ulV1ekhGev9DI9vu0tVVKODGHCASBHQB0oeAZEod2p2p7dh/TbllGa7RDOea?=
+ =?us-ascii?Q?5/pLo1FBfE2Z/tOh8Rtswzn67NYEzkJkKzHfReJ5Dtu0MyRyyyHnbAtatNtM?=
+ =?us-ascii?Q?RRGEFdmR3HsEVMLtGNmPPWx1Hr9s00gQldti95hto7SiZj2J9EoEBvH/R76r?=
+ =?us-ascii?Q?7Cj2HBjMBoc11r/YYYcv7s7Qg89dFOX185kpbTxtV2dB5VoSXWuUmEUzkomQ?=
+ =?us-ascii?Q?UAveManu0EArwGIZzMofCfmW/UFbC1Etxtbc/H4iqqXbMfC74n5ZtAojgcwQ?=
+ =?us-ascii?Q?zZUl48SWtgaQiS4mABJMnnPp4a59WkxAKvDvibnnC5a9qezoRpFzSWxAd0gY?=
+ =?us-ascii?Q?KZfseA+j3YtFAd610MK4Nx3IdxG0zbvPuE9J27MNX4U3UJ8vOJh9PsgGreLQ?=
+ =?us-ascii?Q?iGaODZl0CTD9aYM9LSmFvYWpfHH3F7XJdbdLyUJDFI326yGlWKPjjwvB4m/T?=
+ =?us-ascii?Q?xe/v9Biauf758WmAex30K0nvTJ70BX560u/8ndX/XY90rBz9nVj8kLb3O/79?=
+ =?us-ascii?Q?wYzQEb3EYVjUFDyMQD1Jh/zEOqbkghhUqI01euPc6lVwEj7rHyrjtorn3x4h?=
+ =?us-ascii?Q?U/JfnTFxy4q0TrEsXwiIv8avZOUXCC4LgbiPKSsIob8YPZ3/sgXym4/Wb7K9?=
+ =?us-ascii?Q?jHWSj/g+x0Lqs0BrqcBBnx/Z26uqmamcp4lFK5HcpyOcaxHJPYtlPZY2kz4y?=
+ =?us-ascii?Q?UZ8W6aT8y+e0QDGghNsbS/YUMNaiXfJPbhClkwjD6JbTqnanlo4R?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99fcc377-c82d-411e-20b1-08df2a08ef2e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:36:37.3468 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N8GTFSY/GQkmI5Vdfp++S/ZIQJAtDHwB/Lijm/fBU4k+YHZK9gxiISTzZsDberYi2mPV6B9MXW9MkxJgV2RI7EQhIrL8TcHsN8V3w3s41HTl4Dp1X/9/RB3tmBwx9WTC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6932
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,139 +143,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Henry Martin <bsdhenrymartin@gmail.com>
+On Wed, Oct 14, 2026 at 10:57:40AM -0300, Leonardo Costa wrote:
+> Hi Laurent,
+>
+> On Tue, Oct 13, 2026 at 01:11:58PM +0200, Laurent Pinchart wrote:
+> > Hi Francesco,
+> >
+> > On Tue, Oct 13, 2026 at 11:06:31AM +0200, Francesco Dolcini wrote:
+> > > On Mon, Oct 12, 2026 at 06:40:54PM +0200, Laurent Pinchart wrote:
+> > > > On Mon, Oct 12, 2026 at 04:25:22AM -0300, Leonardo Costa wrote:
+> > > > > This series adds a device tree overlay that enables the VGA output on Apalis
+> > > > > iMX6, which is driven from a parallel RGB interface passing through a
+> > > > > non-programmable video DAC.
+> > > > >
+> > > > > The video DAC is a simple resistor network gated by an active-low
+> > > > > data-enable signal. For the bridge to work properly, this series also
+> > > > > changes the following in the dt-bindings and simple-bridge driver:
+> > > > >
+> > > > > - dt-bindings: Add a new compatible for the bridge in the simple-bridge
+> > > > >   binding. This is necessary because the existing dumb-vga-dac compatible
+> > > > >   doesn't describe a data-enable signal polarity.
+> > > > >
+> > > > > - simple-bridge: Add the VGA bridge match-table entry and timings
+> > > > >   struct, setting the DRM_BUS_FLAG_DE_LOW flag for the bridge.
+> > > >
+> > > > Is there schematics available anywhere ? That would help reviewing the
+> > > > series ?
+> > >
+> > > This circuit is on the SoM, and the SoM schematics are
+> > > confidential and not generally available.
+> > >
+> > > I tried to extract as ascii art the relevant circuit, hope it helps
+> >
+> > Thank you, it makes things clearer.
+> >
+> > The circuit seems fairly generic. Wouldn't it be better to add an
+> > optional property ot the dumb-vga-dac instead of a new compatible string
+> > specific to Apalis ?
+>
+> See the diff below, this was the initial idea we had when working on
+> this. On one hand, at least to me it seems like something that other
+> bridges could use, and a new property seems reasonable. On the other,
+> since we don't know exactly how much configuration is expected from a
+> bridge in the simple-bridge driver, we weren't sure if this would be
+> accepted, and went with the simpler solution of creating a new binding
+> for our bridge, which also seemed less intrusive.
 
-The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-lockless at every call site of kfd_alloc_process_doorbells():
-kfd_get_process_doorbells() (mmap of /dev/kfd),
-kfd_ioctl_create_queue() and the CRIU restore path each test the
-pointer under different locking (or none), so two racing threads can
-both observe NULL and each allocate a doorbell BO and bitmap,
-orphaning one allocation and handing the two mappings different
-backing pages.
+Look like add data-enable-active make sense at this case. You can try it.
 
-Move the serialization into kfd_alloc_process_doorbells() itself,
-using a new per-process-device mutex so all three call sites are
-covered regardless of their own locking.  The device-global
-kfd->doorbell_mutex is not suitable here: it is acquired under
-dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-the sleeping allocations above would create a lock-ordering
-inversion with dqm->lock via TTM eviction, and it would also
-serialize doorbell setup of unrelated processes behind a
-device-wide lock for per-process state.
+Frank
 
-This issue was discovered by Tencent CodeBuddy Security.
-
-v3 (Felix Kuehling):
-- Removed unlocked check in kfd_get_process_doorbell flagged as
-  problematic by Sashiko Bot. Fall back to the locked check inside
-  kfd_alloc_process_doorbells
-- Added missing mutex_destroy
-
-Cc: stable@vger.kernel.org
-Fixes: 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 23 +++++++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  2 ++
- 3 files changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index fdcf7f2d1b5b4..6af268a031f22 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -239,11 +239,9 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
- 	struct amdgpu_device *adev = pdd->dev->adev;
- 	uint32_t first_db_index;
- 
--	if (!pdd->qpd.proc_doorbells) {
--		if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
--			/* phys_addr_t 0 is error */
--			return 0;
--	}
-+	if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
-+		/* phys_addr_t 0 is error */
-+		return 0;
- 
- 	first_db_index = amdgpu_doorbell_index_on_bar(adev,
- 						      pdd->qpd.proc_doorbells,
-@@ -257,12 +255,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 	int r;
- 	struct qcm_process_device *qpd = &pdd->qpd;
- 
-+	mutex_lock(&pdd->doorbell_mutex);
-+
-+	/* Another thread may have won the check-and-allocate race */
-+	if (qpd->proc_doorbells) {
-+		mutex_unlock(&pdd->doorbell_mutex);
-+		return 0;
-+	}
-+
- 	/* Allocate bitmap for dynamic doorbell allocation */
- 	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
- 					     GFP_KERNEL);
- 	if (!qpd->doorbell_bitmap) {
- 		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
--		return -ENOMEM;
-+		r = -ENOMEM;
-+		goto unlock;
- 	}
- 
- 	r = init_doorbell_bitmap(&pdd->qpd, kfd);
-@@ -284,11 +291,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 		DRM_ERROR("Failed to allocate process doorbells\n");
- 		goto err;
- 	}
-+
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return 0;
- 
- err:
- 	bitmap_free(qpd->doorbell_bitmap);
- 	qpd->doorbell_bitmap = NULL;
-+unlock:
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 7a365fca68e4f..42ed0d42c0064 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -784,6 +784,9 @@ struct kfd_process_device {
- 	/* per-process-per device QCM data structure */
- 	struct qcm_process_device qpd;
- 
-+	/* Serializes process doorbell allocation for this device */
-+	struct mutex doorbell_mutex;
-+
- 	/*Apertures*/
- 	uint64_t lds_base;
- 	uint64_t lds_limit;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index e742ef206abd6..f092029f23257 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1231,6 +1231,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 		}
- 
- 		atomic_dec(&pdd->dev->kfd->kfd_processes_count);
-+		mutex_destroy(&pdd->doorbell_mutex);
- 
- 		kfree(pdd);
- 		p->pdds[i] = NULL;
-@@ -1800,6 +1801,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
- 	pdd->dev = dev;
- 	INIT_LIST_HEAD(&pdd->qpd.queues_list);
- 	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-+	mutex_init(&pdd->doorbell_mutex);
- 	pdd->qpd.dqm = dev->dqm;
- 	pdd->qpd.pqm = &p->pqm;
- 	pdd->qpd.evicted = 0;
--- 
-2.43.0
-
+>
+> What are your thoughts about a change like this?
+>
+> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+> index 3fba7002322e..41b00a44983a 100644
+> --- a/drivers/gpu/drm/bridge/simple-bridge.c
+> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
+> @@ -171,6 +171,7 @@ static int simple_bridge_probe(struct platform_device *pdev)
+>  {
+>  	struct simple_bridge *sbridge;
+>  	struct device_node *remote;
+> +	u32 de;
+>
+>  	sbridge = devm_drm_bridge_alloc(&pdev->dev, struct simple_bridge,
+>  					bridge, &simple_bridge_bridge_funcs);
+> @@ -212,6 +213,19 @@ static int simple_bridge_probe(struct platform_device *pdev)
+>  	sbridge->bridge.of_node = pdev->dev.of_node;
+>  	sbridge->bridge.timings = sbridge->info->timings;
+>
+> +	if (!sbridge->bridge.timings &&
+> +	    !of_property_read_u32(pdev->dev.of_node, "data-enable-active", &de)) {
+> +		struct drm_bridge_timings *timings;
+> +
+> +		timings = devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
+> +		if (!timings)
+> +			return -ENOMEM;
+> +
+> +		timings->input_bus_flags = de ? DRM_BUS_FLAG_DE_HIGH :
+> +						DRM_BUS_FLAG_DE_LOW;
+> +		sbridge->bridge.timings = timings;
+> +	}
+> +
+>  	return devm_drm_bridge_add(&pdev->dev, &sbridge->bridge);
+>  }
+>
