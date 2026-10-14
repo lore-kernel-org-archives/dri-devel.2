@@ -4,121 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EA36CC6B1A
-	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 12:17:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 642B1CC6B1A
+	for <dri-devel@archiver.kernel.org>; Wed, 14 Oct 2026 12:28:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05C7210FCF8;
-	Wed, 14 Oct 2026 12:17:54 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011022.outbound.protection.outlook.com [52.101.52.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A267A10FCF8;
- Wed, 14 Oct 2026 12:17:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0D5C10FD10;
+	Wed, 14 Oct 2026 12:28:36 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010068.outbound.protection.outlook.com [52.101.61.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC1210FD10
+ for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 12:28:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d1z9vN/rS/S4+v2R4qy184BUnwO4VNq4C65pXaQuNxHojdaiPpdYlPQ12k/+Tfv6VA6rLHVjlto5oZhtXJCQEp71+C8CJkZgimaAjx2jUH/oh8YcsV711xv3Ck17Ngh64yTJWvv7m1M+q3qbX5yBU/A59te6HFjJMEk7dWPBJFCj1DdxXgjpdFqcdIrgCKVErs0UO0gNrCo+mnPEI4mF0dNMl+ZCkP9g/1Dyt8M2pPS5f5rm0ddGaASyh0/Fll7TAAMHZTKYzGbjjhBElW/UUBBCwiQbmu6hSeoSIm0bfWBz4pZvbrb7xO0f2zkFRLnV8ShuqXepOzlQAwv7kEOZ/w==
+ b=Bhpd71fFxtWzcTvRTkkUXezDwviTHvWge6OD+uPBmyBc5bvZmehpghG5Owct2a9UjF6FoeNYIezSy3hl4Bn61dEj0L6i7vcpknlEJYNApu0JAPjXXvxPOXOZY+C3JuTSmWJPFmjSczAfszX4TVB/JZ0k3UM05u8A9Gt4ZtKhZGejy1p7H0ATYhWe0lzVnRafuIibPDXSEHZzpJHPkzokDrlUvZX/ye6RJboZlr6bfCZlnnLig8OSU716sdemX2iqsES2wgl3JzgpznehRdOw9++RMcOork14D/CA5/ai09XPDB4ldCEbEJxa9bScZiFDX1a9aujM5w3xRUgCEjnIyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7+gNEIKTHvJ/3ICZKuP+POUfb3V7FW5mUNbd8OlUqdQ=;
- b=atfsNyNAj5lcl0iOdjmS6R8zlAc/vUXAzf24XM7868qf5xJ4Sp0o5r/zFaxWv15yoVcQdZyS33+Gqyj9CjNhieCsnrd5DyXrhMpMOGTYPLwklZlZfumslyAAZpgWM4ZdGNaQ/F/6INe1AflSaIN7mimE3gTQofjBjJ9xn0jNr1sFMOgBGfsfiKT97s7NpB+D9r46PFo001IZnoB9XDHpdwDzUrPDXKgAiL5I5rxjIDLn26ysREZucgRXZIp2a/dXhRSfFQBH6nV7g1YQP4ouDird51mJRbHPd9HcaiGPnkX1nCoiT0h9IiReJ1AeiFw3WYdjWsssDuQ0teURRZnNew==
+ bh=I1pg1AxKKYhFfFGDjVBXFHtpWUt2zaTbTJYbKrkJ170=;
+ b=EwlgcHSIf3Q1FL2VrNl9588ZNaZB7tg57jpnaceI68vh+lESy1LIO9c4g6Qj/kpH/jbEQGCVz+8dbeWyzBIkGyvcPn7IExcUObUEYwlf+RK5aKu/GLtU13VnhxRMemy6xxRPjdEwOU/hVQbJmKCmI97uKrT+JsdQtUTILbdHLwle8XfTvY2oRawCx/WqTFX5RnH+uAryBVbAHTdXg2ZTfGLSZrbZMjmVKHADT4WNaYQqAUhuAr6Li+SyCrCSnXh5QP9gYWlnElCv42Au21xBllaSxonMGRyS7yJPI8z/83xfoOaW/V2wWOymVLk4gOXXb0WpCOoExDwfB/DAVCkFPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7+gNEIKTHvJ/3ICZKuP+POUfb3V7FW5mUNbd8OlUqdQ=;
- b=jJgz6G5t529G48LLbNCVlhFkZelJ7Qu4DBazwWKljsHM/o+TPl/YuhR73X2gY6VQSjrYN22hbtCOn2hL0nI8phDpJ2KaF6gnObzqTnijxlzeDHCgYH0e2Nq7NuNzr8hD6NqgQjazDcFvJzbDoX3vGz3y0xcTlaW3fu+JRGsg58c=
+ bh=I1pg1AxKKYhFfFGDjVBXFHtpWUt2zaTbTJYbKrkJ170=;
+ b=AWVsIqRV12T/0rN+xqUNoJQ4STOTZop+TdzA/Kpg/ayoQ9j3DXviTAGPZO7WwJYkmstJttzBSEqyB3vui36K2/NQ0xohhcWy/RAi6KJgR763wu/WfU8hgVdjdAFCegKe77iVQZgLETm2f4B+H5RyMyMYnrPyp+DmJxNu1Gv8RhQoSTwUmvwBl2RdZ+fjpVyRFRpPZonI4gWY0Hl+QB8oxyjwNGeHoL+jwWkwF6dMADQdYrgh1i4HkRFq+Crm0Fccbk0L3KpGgX2C9txcc2YF91DxcTAMKgyS8U6bi1PT9ldhrF31pqTvYPRtlQmYtNAL3Pn++FKYYIjeo02Z/tRqHA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS3PR12MB153673.namprd12.prod.outlook.com (2603:10b6:8:611::23)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH1PR12MB9647.namprd12.prod.outlook.com (2603:10b6:610:2b0::10)
+ by CY5PR12MB6456.namprd12.prod.outlook.com (2603:10b6:930:34::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 12:17:44 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 12:17:44 +0000
-Message-ID: <1ebc177e-2e44-48f1-a462-ff5a64b63d7e@amd.com>
-Date: Wed, 14 Oct 2026 14:17:40 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/exec: don't immediately add prelocked obj to array of
- locked objs
-To: vitaly prosyak <vprosyak@amd.com>, vitaly.prosyak@amd.com,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20261007124657.9664-1-christian.koenig@amd.com>
- <0b8f0025-0a76-47fd-b4e4-bcab26f70366@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.19; Wed, 14 Oct
+ 2026 12:28:14 +0000
+Received: from CH1PR12MB9647.namprd12.prod.outlook.com
+ ([fe80::228c:766a:191d:77b2]) by CH1PR12MB9647.namprd12.prod.outlook.com
+ ([fe80::228c:766a:191d:77b2%3]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 12:28:14 +0000
+Message-ID: <68a658f2-ccf6-4af4-bbdb-0f8384802a40@nvidia.com>
+Date: Wed, 14 Oct 2026 14:28:07 +0200
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net v2 4/4] selftests: net: add devmem RX and TX netdev
+ unregister tests
+To: Mina Almasry <almasrymina@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ David Wei <dw@davidwei.uk>, Pavel Begunkov <asml.silence@gmail.com>,
+ Taehee Yoo <ap420073@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ Paolo Abeni <pabeni@redhat.com>, Kaiyuan Zhang <kaiyuanz@google.com>,
+ Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>,
+ Kaifeng Wang <kaifengw@google.com>
+References: <20261012174300.2338784-1-almasrymina@google.com>
+ <20261012174300.2338784-5-almasrymina@google.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <0b8f0025-0a76-47fd-b4e4-bcab26f70366@amd.com>
+From: Dragos Tatulea <dtatulea@nvidia.com>
+In-Reply-To: <20261012174300.2338784-5-almasrymina@google.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0069.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0055.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::14) To CH1PR12MB9647.namprd12.prod.outlook.com
+ (2603:10b6:610:2b0::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS3PR12MB153673:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b9cc575-80ab-4101-4a6e-08df29ed2684
+X-MS-TrafficTypeDiagnostic: CH1PR12MB9647:EE_|CY5PR12MB6456:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0783d26-b078-4e3f-7f07-08df29ee9dee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|56012099006|4143699003|11063799006|261009223027099003|260925021311599003|260925022911599003|260925021911599003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: xg4GP3QAvnqRgUEaeA2LgnmfTcwhCM5bIO07c8ZWiXz9nlTgFZVGdPIP9PFt3rNeZ1oq3YuNlGzfhaVBdhr2K4+1S3jyYW2loyuJ5Y0OkNeSbsDdX40WlAg+RL+y2wBPA1j3x6BtFbrDiD5EVIoT+7s2WEhH3cqUsq1QFRM/BYQLZLfoz5SNhBZ/m0of5oSPDRkk22Mqc+JN9oExITkc3NS88H7y+u7Of/45EBE9ftCSQPzhy1mCcaQvBuc+NJ7gKODL85TrZLi5z5WA+KsVjokTS+QfGdSfUtiENCy2PIhqboI7SKpYhbG2LcrP4XumeEs8zB/ErHxAKDpYybtHq7HfZ51WwNBS/UX7tp38WB9SvFetKS62LfvHPFFl3XBiRnJ+tGcfS0nTydDCsoAY2zpsGMawXXrht7woSniKt7GWf1trERSxWVts2ecFhH9uVwq8czbM/rpf8FVIqc/y+j7WfuWnyjSh3UYAfmV/1pq7hsUeVQeHZehAmUz1fEesO4AU5Dmm+PTGJDT2fT0iBeAudmVEZliI3IFbEiGiy+wKggnj8PPs9zXDRHVdGCqaU7D4qpXeSGJYDopK1CR5pUrXvT9toQ17Gv5+h9Ho8rZUS4oCOrb72Ua85PxY+PCWKFNV/il/NJbk0BZquyQ3DPUIhtwjZ2E2eAE/kxlYAnM=
+ ARA:13230040|376014|7416014|366016|23010399003|1800799024|11063799006|4143699003|921020|18002099003|56012099006|22082099003|6133799003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: xWVeOmmEYX8Myt3jMgH7RLy9niDLy2tTzYiJbUTIIOv74Lqsd+ze+bM9OJOhGt1gug1y4zJKT9zah5AqbP4NgCrzZcmNYsqRwExAMWMTK0XHkP8EgUGXVLBCw4jOL7s5Oq2wYk7YRqdd3bADkt7maIOOLC2YzfcxJ5sy+06cSvvctoVCPbASry3NV8Yxjg4IPDnhrk8ZbU9HbYKk6qeBQcnrc5IZPpX0snKBITNY48kXJvirvoDoTgBHVHZWdLriXGwx5XZ1htMzEtgO3w2nlE3/jUL5vZ0xnM6dy8fBNOULsanQE0a054Z+Voyz9Qvkb7wRILYiu1374tO/2ra41azLdxbxw7eG/Uua/Cse8YrZT6tnzEZVDuSf0if+o/GkgDzm9cUTr5/OApZ1YYk9voJJmhR35kn+T9zNXQaTWwThTUzV/8L5I0qfVziY0oFA9GpFeiAt9z1qO1tR7r/Zn9iPZIdOMR1TDERTgzDgxeTq2UD4oWbk1/FRIOjXdI5/f9lntTZg4GRB3Q4Y/DWpXh8KoGdYPf7czkkEQO9qbKINH4ntSwoN+NSMyHl4Nvb/cVSvNNK3OQ60mS/XpkitNtw9m5sryAYb4qmV9x6GY+uePruL/Q3zUJP6XCunm6b/8LqgeI4vfgu1gCMUuv8lF54Ni3q8O9lVKW7+d+YzRcub3LAGsiLo8tnT4jnbGP+n1T8e9a7vMJCGxdVBAIt1/A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(261009223027099003)(260925021311599003)(260925022911599003)(260925021911599003)(10067099003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:CH1PR12MB9647.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(11063799006)(4143699003)(921020)(18002099003)(56012099006)(22082099003)(6133799003)(261009223027099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elRiall2aUNGbUF5S08ybkVic3dLL0xaTUIrVDRXYTFTbXQvdklhVDVsTFZ4?=
- =?utf-8?B?bTNXTDhvejY1K1J5Z242WlppWDBJWXlLeFlqeXNBcGVtN1BTMEs2UG1IckI4?=
- =?utf-8?B?bEt4V2xybEpxZXNLVUtOS25BQ1J2STUyNzlUZi8vR1NXTkFVZ21GcURqN1FH?=
- =?utf-8?B?aHdnUy9oQVkrM0Vub3BqRHBMaFkyQ2NIazQ2dHhUQlkxYVMwUzNhOGk2Q0ZD?=
- =?utf-8?B?YUVwbDNUSDV3U2JNUHpIalZRWWJYcmVvQXVlZTdCM3h1THVUTjkvWmY3UDJQ?=
- =?utf-8?B?YVdYc2ZkaW9BSVJPSVRVZTZqYWFReFhVZHE1OEVSN1o4THE1VFV2RVREM0Nz?=
- =?utf-8?B?UVVpeGQwQ1hybTJ0WTN6S1M5MFY0MkdHOGJXNzhTVjdYQ214WGZQRlRKS0wy?=
- =?utf-8?B?Z2FHNUZnV0pwSnE5Sk93ZEhBUmRSYlBianhGMWRlakEvcUswWmRnanh3eksw?=
- =?utf-8?B?cU5RK2NaQm9RazE4ejZlNjhOekNKdHZERGN0YXhwcHBnTUhPTlg1UXhES1Rp?=
- =?utf-8?B?em93SFQ4ODhNSjNKVnI3SWxVOFN6S2NOa3A1NTk1WWo2TGpEUEVrTXd3SFZ5?=
- =?utf-8?B?UHJCWkVTNitRZVhOYkV0S3l3OE9vNzQ5L29rWEdTYVV2c1YyRG5jTUtocFho?=
- =?utf-8?B?RXFUZVlDQUl5WEo2SVdHSENlalg1aldxVFI5OGFodlYvS09VMGJ2T2NCZXBn?=
- =?utf-8?B?dHIyUmQ2TXAxT25jQkFwYmxSVmlDRE1UTjRuSlNBUVovL0E4VEt1U3FWcnl2?=
- =?utf-8?B?ODhJM2l1b0s1MmJCZTc3alFHc2JwQ0lPYm9kRGlZZWhMRy9FMzlMWmoxZHZ3?=
- =?utf-8?B?RUNEem5HNzNibWpCYXpHalpZUlVKdWxMRGtQTWJ6aWFrWlQvdVhnYXdzSkVH?=
- =?utf-8?B?TUp6ODZXdFVsSHBHaEZFSnVnM21hdVdmUUdsT0t2YjhGeVNGZDFmL2FwVDVV?=
- =?utf-8?B?WXlTVjhwK05reGtOVTRublVtM3A1Qlh4em5kNDdOSlMwdEhHSVRJYTFvNHhl?=
- =?utf-8?B?WnVUM295YXppK2tXUE05Z0xYUkZkb2VBd2hpT2RDYTNiTEU5VHVGY3c2Q1J1?=
- =?utf-8?B?ck1GSTJ3VDRNMkxRZjlxRkxJaDhLdFEwNWVaREMwTmY3aStFUkZZQkJ6R0RP?=
- =?utf-8?B?TmZucTc1bWs3NktKaFg4a0Rxd3pwWXpCdUJaRnRZczRWY2NsSXE0bXdrODRq?=
- =?utf-8?B?YzlaSi9LNVllY3pNalpZUFExVVRaV1BzSVljYkNYRkEyTmpkYXF6a3RVS0dZ?=
- =?utf-8?B?VFVKTHBBcEtkczRVRElEaXRmeFBEZkM1b0ZENGRMTU1aK0lUc2lGTUpZRnVE?=
- =?utf-8?B?LzhuQytScXkxMUdSbUt3bWV5REE5ZXQ0ZWlmV3ZKMnQzN0V0eDNHcTBDVyts?=
- =?utf-8?B?RXEwTFJDTlVWZStEUGtsZUVEcGIrRVJaRVZIWmRiVE5YR3cxL1E4TDl6Njli?=
- =?utf-8?B?b0ZPQ0lSeTZQZmJQaklWb2RKeVVMbEhZMWwyQ1JEaWxlQ2F1N29Zei94T25O?=
- =?utf-8?B?WWxZM29yVU0xNVhjVnlDVUxuL0k5ZlhwRExkN3J2enlud2piWWVEcGpzZ2o4?=
- =?utf-8?B?RGpjdUdTMW9wa3I4VjQ1QThqdnJtK1Q0d1RtQkNHRnQzMkVWQktic3dBRFJO?=
- =?utf-8?B?aXJaSG9ZTTZMd3hjZFhyYUhFSExDL0VrRjExbXVxb2N1OE14bE9xREVLdFI3?=
- =?utf-8?B?Zlcra3lxMHVJVDBjeThqbDRlcGpMVWRpQWtXUlpLcDFIbUQyZVFSdTVhdWZI?=
- =?utf-8?B?eGg3UXJiR0ZzZUxvVU8zdnB1MEN1MkxIUCs4dzAzZDBiN20yWWFTWEYyb1Fj?=
- =?utf-8?B?aTBDRmFyd3V6KytnbHRwTDZxN2hNUlZJZFRwMGxMUjB2Q2wyUFJaVlE3QTI2?=
- =?utf-8?B?Z0w5TlU2TGJsMWRUdG1Mb1R1K240c1Zwa0pyVkRseFc0ZGl0QTRsSEhIT2hp?=
- =?utf-8?B?bm5SZXVHbjV4ampSTUpLaGo0Q2ZBYytlZ3lmY1BacGhDU3VTZXhjMzI3OERO?=
- =?utf-8?B?dG5lZit4bVhoY1k3a2VTVHpTVTdjL1pNUTdwVUcyaUVMV0c1WU9GcmhLREsx?=
- =?utf-8?B?SFI0OExuK1hPOVN3RVZlV3F0MGdJZFhGNS9QekJMTlNDRHZWaG0vdUNaL0Fv?=
- =?utf-8?B?TDNxdkdwM205Zm1Ka2VSeEJWRFVpU0lnWlNxbHpTU3l3NEhlSVJ2SGNxbUhC?=
- =?utf-8?B?NjZUS1IrbzFidmRKb0RNMjJ5VTUwczdDQjJrNFpXSVhJb2JLL3VJUU5XM0pE?=
- =?utf-8?B?T21lRkNRbG91bkZJblR1Z096RzhBb2s2SGtEOWxpM3UwQVBVUk93ZlEwQnR5?=
- =?utf-8?Q?27sx8Cr7Er2jPDh82S?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b9cc575-80ab-4101-4a6e-08df29ed2684
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1NEVXM0bTBIRHZXcTBnZzVJaE1MMHJacitqcDhNNnZlTVlrQWc1MVc3VDhG?=
+ =?utf-8?B?UnR1TUxRQWhKelZPYi81UStIb1hBUnM4WHRKZkVCcTU2TVIrY1FjQkNrRWpY?=
+ =?utf-8?B?dGVNT09EQjc1RUk4NWVZdWZ3SnZwSEVuQjRQVTg4S2kvdkNZQW02Vk5vRUc3?=
+ =?utf-8?B?dTQ4ZEM0ZTNOWGZPb1J0eEhxclp0TEU5d2hMc3BPMkwxZnQ2OFhiLzZLdWNR?=
+ =?utf-8?B?cnVBcFZreUtaVkg1QURYKzVvYzRFUXo5TFZpcEljQnV3cVFHTURGWXBFWkVz?=
+ =?utf-8?B?THNQQVBoT0VoY0kvUHUwOEMyTklpQ3RkbEU0V0JMVzg3NmtjM2RuSEFweWxG?=
+ =?utf-8?B?b1Y0ZlRyUjg5MjY3UUUyNFI1QnRuSXFsbWZQUE9jQkdPQURNdjNaT3FBeUVq?=
+ =?utf-8?B?TExaTUNDczNpVkdLdThsZllXRnpFbGMxUi8rZFhpSHRSQVVyTm11YlJ3clV6?=
+ =?utf-8?B?NFloYi9JSGZVK0ZwWlh1eW5MSGxiTEc0Nk45THlINDBPS1B4eUpFOXlldDd5?=
+ =?utf-8?B?c1dLVnQxRE9KZ013VzFrdzkxS0lld2kzZmg0dGxSeHpDWXNWZEk3SnhNQ29k?=
+ =?utf-8?B?VnZuVVdHelhNTlJuZ1BidmJEaUNHeUZSSCtmWDFBaEU0NmRtS1FIbWZ3TE1l?=
+ =?utf-8?B?TFIrRVVvbDNKV3RSK0x3NlZYUFZHUG5kZDNKVkxOSHlRNWVGM2xQci9NVXk0?=
+ =?utf-8?B?OTZMRGxvbWpDbVNCNTc0ekZrZDFKdVg3UUNrbjl2YXR0T1BtdXNwNFA3cGsy?=
+ =?utf-8?B?K3lZbmlEcEt5bHpyRmFKOUpzTmlnK21SQ2tEUlVGeXZ0MUJGNW1uZS9VZlV2?=
+ =?utf-8?B?VXhWZjBHMktTWVE3VVo1QlhoR1FoMWwzcUsrVVlqUjNsWlJBTTRER3Q3ZjUy?=
+ =?utf-8?B?OEM3MmJxM241eW1ZTWlOVUFOY2xWY0kzcGVUd2N3Qk16RjQ2MEZ5bnQ1K0hU?=
+ =?utf-8?B?d3MySEIwMDFCSGVCc1p4SVhYdEJVUitWQ2xMSTFJK2JUT3dnWjFpdGdBZHlK?=
+ =?utf-8?B?THYxU1NPekhmWUhlN1UxL3BKcXBlRGlJdGhyVDc1MWJMV0M1WHhOUnlWelJq?=
+ =?utf-8?B?UCtFdUI2ZzRyajJ2NHpRaGdnRnB0NDJpczZNSWhWTjJFeFAyQXBVSG9TOStQ?=
+ =?utf-8?B?NmlKRzJKTXA4VVFKSFBHcW1SUTBGcnBrWExRbFRkTkluNzVZL0N2M3h6ellN?=
+ =?utf-8?B?Y0VmQ25ML0JkS29EaGZSUy94cndib08vWS9yNVZGampUa0hoeVBPZm9Hbitj?=
+ =?utf-8?B?QThxMmRZR1N0aEZMUnltNTBqK0d0dHJOMjRIMWEwVmwvazFpR0FUNzMzOGs4?=
+ =?utf-8?B?MmNmbVJ0a0NjSGMzL0VnNHlPRUY4dk9aTjFURkhEVEFMUS9OcHJvMHJGd2lz?=
+ =?utf-8?B?OXgrbmtjQW9wOW5WUnlBSmpHbFQ1NUxNT1FveU5MOG5hek1nQWhTclZhNjdj?=
+ =?utf-8?B?UERQN0wyaGtkTng4VURKeUpvRVlrR1NNTkZnL1dWN0JNNTRvNHZicjFXemF3?=
+ =?utf-8?B?MnJ0SDlTR3lPVWZGYWdmU2JNL2JXaTlzUmlOWUVpTXdza3h6eXRSMUVQenEw?=
+ =?utf-8?B?bHRVQy9ldzhHMTNEMXE5VGVHdmdIQTIrcC9ZUGoxeTRqM2J6UzF2YnNXQWkx?=
+ =?utf-8?B?UmVIdDgvOW0zWlFTZ2p6a3BqMmVOemd6bTRydG5nT3ZJL3kyU0c5bUowdGpG?=
+ =?utf-8?B?QWo5VFJ0MzRWUm9jR2c0YWY1VENSK1g0WFUycnByd3FZZnJtRnhCOWR5RkNW?=
+ =?utf-8?B?K09uWEt1TWp1bURxY1NDSGs2c2l5eXRKWE1rRFIrRllmb1BldVh0NUlxQ3dj?=
+ =?utf-8?B?SFpRT3VUUyt6WXNPZ2ZoK01ENnRqSlVEcjR1ZHdHY29PMDJJMGJYOWZMc2FQ?=
+ =?utf-8?B?ai9vVFlwMW4vMlhUTndGNDEzZ0VqM3dDNUdBMC9rSy82UTNkYkFzc0MzMnZi?=
+ =?utf-8?B?ZHI0Sjk1YWpPeXpMV0J5NUNHaTR0U2hUcFF0Z3laelBSTkJIcUh1OXloN05Z?=
+ =?utf-8?B?cEQrbUdvSkpTWDRTWVE1amxEa1NUVnRaZnMvdlhRNU00WGFmTlV5Z3kwakFP?=
+ =?utf-8?B?elBtbVM2UENzMDFhVzZrSzBKM29SN2hJZ05CcG5JcWpQYTZzL2FUMUpjT3F5?=
+ =?utf-8?B?UzBBUWgrWnA0eUhIbW9xR0lZMUFjUGxmaVFyMkZqYS9MUjJpalBzMEpzTHgy?=
+ =?utf-8?B?S3NXZ0hvRnFSRTRiNmh0V1Z1SGsrcyt0dEtRY3c2NWoxMDg5RzEvR25Od3Nk?=
+ =?utf-8?B?b3lnMXhKRjBWYW92bHN6S3RHbFZFRGtUSENZcHhPTmYvOFBkcldXejBVODY3?=
+ =?utf-8?B?a1d2c29RZzFETXVuUHREWjZ3S3BNemJ4aHVicUppUXpmNVJXSlJxQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0783d26-b078-4e3f-7f07-08df29ee9dee
+X-MS-Exchange-CrossTenant-AuthSource: CH1PR12MB9647.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:17:44.5025 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:28:14.1046 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V2M9gfBmn4HqQreZcKTnm7xtj/d+Zi/HsPyds615nyAJ88ZuhyeX3cYZYqrmgXWx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR12MB153673
+X-MS-Exchange-CrossTenant-UserPrincipalName: F2aYd3Ty47alJPew0cR4UmIhsCR7lAywJBrw8SOEB5o4P6+aOQ635L8PbOe2udLkwgezSY1NVD+jpRFi6i1Ufw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6456
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,261 +147,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I've pushed the patch to drm-misc-fixes and are now going to push it to amd-staging-drm-next as well.
+
+
+On 12.10.26 19:43, Mina Almasry wrote:
+> Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+> to nl_netdev.py to verify that unregistering a netdevsim device while a
+> netlink socket holds an active RX or TX devmem binding synchronously
+> detaches the dma_buf attachment and cleanly closes the netlink socket
+> without use-after-free or page faults.
+> 
+> Cc: Tariq Toukan <tariqt@nvidia.com>
+> Cc: Kaifeng Wang <kaifengw@google.com>
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> ---
+>  tools/testing/selftests/net/nl_netdev.py | 108 ++++++++++++++++++++++-
+>  1 file changed, 105 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
+> index ceb44c8e1fec5..bad230ee9dcd2 100755
+> --- a/tools/testing/selftests/net/nl_netdev.py
+> +++ b/tools/testing/selftests/net/nl_netdev.py
+> @@ -6,10 +6,14 @@ Tests for the netdev netlink family.
+>  """
+>  
+>  import errno
+> +import fcntl
+> +import mmap
+> +import os
+> +import struct
+>  from os import system
+> -from lib.py import ksft_run, ksft_exit
+> +from lib.py import ksft_run, ksft_exit, KsftSkipEx
+>  from lib.py import ksft_eq, ksft_ge, ksft_ne, ksft_raises, ksft_busy_wait
+> -from lib.py import NetdevFamily, NetdevSimDev, NlError, defer, ip
+> +from lib.py import EthtoolFamily, NetdevFamily, NetdevSimDev, NlError, defer, ip
+>  
+>  
+>  def empty_check(nf) -> None:
+> @@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
+>      ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
+>  
+>  
+> +def _create_udmabuf(num_pages=64) -> int:
+> +    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
+> +    if not os.path.exists("/dev/udmabuf"):
+> +        raise KsftSkipEx("/dev/udmabuf is not available")
+> +
+> +    size = num_pages * mmap.PAGESIZE
+> +    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
+> +    os.ftruncate(memfd, size)
+> +    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
+> +    devfd = os.open("/dev/udmabuf", os.O_RDWR)
+> +    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
+> +    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
+Nit: this could be a constant
+
+> +    os.close(devfd)
+> +    os.close(memfd)
+> +    return dmabuf_fd
+> +
+> +
+> +def _dmabuf_attached_devs():
+> +    """Return attached device names from debugfs dma_buf/bufinfo if available."""
+> +    path = "/sys/kernel/debug/dma_buf/bufinfo"
+> +    if not os.path.exists(path):
+> +        return None
+> +    with open(path, "r", encoding="utf-8") as f:
+> +        text = f.read()
+> +    attached = []
+> +    in_attached = False
+> +    for line in text.splitlines():
+> +        if line.strip() == "Attached Devices:":
+> +            in_attached = True
+> +            continue
+> +        if in_attached:
+> +            if line.startswith("\t") and line.strip():
+> +                attached.append(line.strip())
+> +            else:
+> +                in_attached = False
+> +    return attached
+> +
+> +
+> +def devmem_bind_rx_unregister_check(_nf) -> None:
+> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
+> +    dmabuf_fd = _create_udmabuf()
+> +    nf_priv = NetdevFamily()
+> +    ef = EthtoolFamily()
+> +    nsimdev = NetdevSimDev(queue_count=2)
+> +    nsim = nsimdev.nsims[0]
+> +
+> +    ip(f"link set dev {nsim.ifname} up")
+> +    ef.rings_set({"header": {"dev-index": nsim.ifindex},
+> +                  "tcp-data-split": "enabled"})
+> +    nf_priv.bind_rx({
+> +        "ifindex": nsim.ifindex,
+> +        "fd": dmabuf_fd,
+> +        "queues": [{"id": 1, "type": "rx"}],
+> +    })
+> +
+> +    attached = _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_ge(len(attached), 1)
+> +
+> +    nsimdev.remove()
+> +
+> +    attached = _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_eq(len(attached), 0)
+> +
+> +    del nf_priv
+> +    os.close(dmabuf_fd)
+> +
+> +
+> +def devmem_bind_tx_unregister_check(_nf) -> None:
+> +    """Verify TX devmem bindings detach cleanly on netdev unregister without UAF."""
+> +    dmabuf_fd = _create_udmabuf()
+> +    nf_priv = NetdevFamily()
+> +    nsimdev = NetdevSimDev(queue_count=2)
+> +    nsim = nsimdev.nsims[0]
+> +
+> +    ip(f"link set dev {nsim.ifname} up")
+> +    nf_priv.bind_tx({
+> +        "ifindex": nsim.ifindex,
+> +        "fd": dmabuf_fd,
+> +    })
+> +
+> +    attached = _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_ge(len(attached), 1)
+> +
+> +    nsimdev.remove()
+> +
+> +    attached = _dmabuf_attached_devs()
+> +    if attached is not None:
+> +        ksft_eq(len(attached), 0)
+> +
+> +    del nf_priv
+> +    os.close(dmabuf_fd)
+> +
+> +
+>  def main() -> None:
+>      """ Ksft boiler plate main """
+>      nf = NetdevFamily()
+> @@ -379,7 +479,9 @@ def main() -> None:
+>                page_pool_check,
+>                page_pool_dump_ifindex,
+>                page_pool_ifindex_leak_check,
+> -              page_pool_stats_ifindex_check
+> +              page_pool_stats_ifindex_check,
+> +              devmem_bind_rx_unregister_check,
+> +              devmem_bind_tx_unregister_check
+>                ],
+>               args=(nf, ))
+>      ksft_exit()
+
+Other than the above nit:
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 
 Thanks,
-Christian.
-
-On 10/8/26 18:17, vitaly prosyak wrote:
-> Hi Christian,
-> 
-> Thanks for the fix. Tested under the same conditions that previously
-> reproduced the crash at dma-resv.c:329; the crash did not reproduce
-> with this patch
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: kernel BUG at drivers/dma-buf/dma-resv.c:329!
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: Oops: invalid opcode: 0000 [#1] SMP NOPTI
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: CPU: 11 UID: 0 PID: 477 Comm: kworker/11:2 Not tainted 7.1.0+ #83 PREEMPT(full) 
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: Hardware name: ASUS System Product Name/ROG MAXIMUS Z790 HERO, BIOS 2703 10/17/2024
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: Workqueue: events amdgpu_userq_restore_worker [amdgpu]
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: RIP: 0010:dma_resv_add_fence+0x2d6/0x2f0
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: Code: 44 8b 88 30 0a 00 00 48 05 18 0d 00 00 50 4c 8b 45 08 48 8b 75 b8 e8 f9 01 35 ff 58 41 8b 45 14 41 39 45 10 0f 82 d2 fe ff ff <0f> 0b 31 d2 45 31 ff e9 ba fe ff ff e8 c9 a5 5c 00 66 0f 1f 84 00
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: RSP: 0018:ffffcb8682e5fb28 EFLAGS: 00010246
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: RAX: 0000000000000000 RBX: 0000000000000003 RCX: 0000000000000000
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: RBP: ffffcb8682e5fb78 R08: 0000000000000000 R09: 0000000000000000
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: R10: 0000000000000000 R11: 0000000000000000 R12: ffff88edd40ca500
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: R13: ffff88ed91d83f00 R14: ffffffffc1c3ee60 R15: 0000000000000000
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: FS:  0000000000000000(0000) GS:ffff88f53e2bc000(0000) knlGS:0000000000000000
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: CR2: 0000756822dd7000 CR3: 000000012e1d4006 CR4: 0000000000f72ef0
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: PKRU: 55555554
-> 2026-10-03T16:00:58-04:00 Intel-system kernel: Call Trace:
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  <TASK>
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  amdgpu_evf_mgr_attach_fence+0x179/0x330 [amdgpu]
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  amdgpu_evf_mgr_rearm+0x1ff/0x2b0 [amdgpu]
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  amdgpu_userq_vm_validate_and_restore_queue+0x8f0/0xc80 [amdgpu]
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  amdgpu_userq_restore_worker+0x64/0xb0 [amdgpu]
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  process_one_work+0x22e/0x780
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  worker_thread+0x1db/0x3d0
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  ? __pfx_worker_thread+0x10/0x10
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  kthread+0xfe/0x140
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  ? __pfx_kthread+0x10/0x10
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  ret_from_fork+0x3bd/0x470
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  ? __pfx_kthread+0x10/0x10
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  ret_from_fork_asm+0x1a/0x30
-> 2026-10-03T16:00:58-04:00 Intel-system kernel:  </TASK>
-> 
-> 
-> My patch preserved the fence-slot request across retries. Your approach
-> instead excludes the implicit prelocked BO from iteration until explicitly
-> requested again, avoiding the extra reservation-count bookkeeping.
-> 
-> A few minor wording corrections:
-> 
-> - "keeping the prelocked object of the array" should be
->   "keeping the prelocked object out of the array".
-> - "Should the prelocked object never been mentioned again" should be
->   "If the prelocked object is never mentioned again".
-> - "might never given to" should be "might never be passed to".
-> - "unecessarily" should be "unnecessarily".
-> 
-> Tested-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> 
-> Thanks,
-> Vitaly
-> 
-> On 2026-10-07 08:46, Christian König wrote:
->> When a contention is detected the drm_exec object grabs a reference to
->> the contended object, unlocks all other objects and pre-locks the
->> contended one before anything else.
->>
->> The problem is that it is possible that this pre-locked object was about
->> to be destroyed and drm_exec is now holding the last reference to it.
->>
->> So we never actually see this pre-locked object again to be explicitly
->> locked and so also never reserve a slot for a dma_fence object on it.
->>
->> Should the driver now use drm_exec_for_each_locked_object() to add a new
->> fence to all locked objects we eventually see a warning or even a
->> BUG_ON() to prevent random memory corruption.
->>
->> Fix this by keeping the prelocked object of the array of locked objs
->> until it was explicitly mentioned by the driver again.
->>
->> Should the prelocked object never been mentioned again by the driver
->> just unlock and drop the reference at the end of the locking loop.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> Reported-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
->> Fixes: 09593216bff1 ("drm: execution context for GEM buffers v7")
->> CC: stable@vger.kernel.org # v6.6+
->> ---
->>  drivers/gpu/drm/drm_exec.c | 73 ++++++++++++++++++++++----------------
->>  include/drm/drm_exec.h     | 15 ++++----
->>  2 files changed, 52 insertions(+), 36 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
->> index 2453ec41360f4..a910b0ad17ce4 100644
->> --- a/drivers/gpu/drm/drm_exec.c
->> +++ b/drivers/gpu/drm/drm_exec.c
->> @@ -48,6 +48,16 @@
->>   * See struct dma_exec for more details.
->>   */
->>  
->> +/* Unlock and put the prelocked obj */
->> +static void drm_exec_drop_prelocked(struct drm_exec *exec)
->> +{
->> +	if (exec->prelocked) {
->> +		dma_resv_unlock(exec->prelocked->resv);
->> +		drm_gem_object_put(exec->prelocked);
->> +		exec->prelocked = NULL;
->> +	}
->> +}
->> +
->>  /* Unlock all objects and drop references */
->>  static void drm_exec_unlock_all(struct drm_exec *exec)
->>  {
->> @@ -58,8 +68,7 @@ static void drm_exec_unlock_all(struct drm_exec *exec)
->>  		drm_gem_object_put(obj);
->>  	}
->>  
->> -	drm_gem_object_put(exec->prelocked);
->> -	exec->prelocked = NULL;
->> +	drm_exec_drop_prelocked(exec);
->>  }
->>  
->>  /**
->> @@ -118,6 +127,14 @@ EXPORT_SYMBOL(drm_exec_fini);
->>  bool drm_exec_cleanup(struct drm_exec *exec)
->>  {
->>  	if (likely(!exec->contended)) {
->> +
->> +		/*
->> +		 * The contended and prelocked object might never given to
->> +		 * drm_exec_lock_obj() again. This can happen when the object
->> +		 * is about to be cleaned up and we now hold the last reference
->> +		 * to it. Make sure that we don't unecessarily keep it around.
->> +		 */
->> +		drm_exec_drop_prelocked(exec);
->>  		ww_acquire_done(&exec->ticket);
->>  		return false;
->>  	}
->> @@ -175,16 +192,16 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
->>  		dma_resv_lock_slow(obj->resv, &exec->ticket);
->>  	}
->>  
->> -	ret = drm_exec_obj_locked(exec, obj);
->> -	if (unlikely(ret))
->> -		goto error_unlock;
->> +	/*
->> +	 * It is perfectly possible that we see another contention before the
->> +	 * first one is fully handled.
->> +	 */
->> +	drm_exec_drop_prelocked(exec);
->>  
->> +	/* We move the reference from contended to prelocked here */
->>  	exec->prelocked = obj;
->>  	return 0;
->>  
->> -error_unlock:
->> -	dma_resv_unlock(obj->resv);
->> -
->>  error_dropref:
->>  	drm_gem_object_put(obj);
->>  	return ret;
->> @@ -212,35 +229,31 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
->>  	if (exec->prelocked == obj) {
->>  		drm_gem_object_put(exec->prelocked);
->>  		exec->prelocked = NULL;
->> -		return 0;
->> -	}
->> +	} else {
->> +		if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
->> +			ret = dma_resv_lock_interruptible(obj->resv,
->> +							  &exec->ticket);
->> +		else
->> +			ret = dma_resv_lock(obj->resv, &exec->ticket);
->> +
->> +		if (unlikely(ret == -EDEADLK)) {
->> +			drm_gem_object_get(obj);
->> +			exec->contended = obj;
->> +			return -EDEADLK;
->> +		}
->>  
->> -	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
->> -		ret = dma_resv_lock_interruptible(obj->resv, &exec->ticket);
->> -	else
->> -		ret = dma_resv_lock(obj->resv, &exec->ticket);
->> +		if (unlikely(ret == -EALREADY) &&
->> +		    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
->> +			return 0;
->>  
->> -	if (unlikely(ret == -EDEADLK)) {
->> -		drm_gem_object_get(obj);
->> -		exec->contended = obj;
->> -		return -EDEADLK;
->> +		if (unlikely(ret))
->> +			return ret;
->>  	}
->>  
->> -	if (unlikely(ret == -EALREADY) &&
->> -	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
->> -		return 0;
->> -
->> -	if (unlikely(ret))
->> -		return ret;
->> -
->>  	ret = drm_exec_obj_locked(exec, obj);
->>  	if (ret)
->> -		goto error_unlock;
->> -
->> -	return 0;
->> +		dma_resv_unlock(obj->resv);
->>  
->> -error_unlock:
->> -	dma_resv_unlock(obj->resv);
->>  	return ret;
->>  }
->>  EXPORT_SYMBOL(drm_exec_lock_obj);
->> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
->> index cc2937185a9f7..c92d69a2c793d 100644
->> --- a/include/drm/drm_exec.h
->> +++ b/include/drm/drm_exec.h
->> @@ -73,13 +73,15 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
->>  
->>  /* Helper for drm_exec_for_each_locked_object(). Internal use only. */
->>  #define __drm_exec_for_each_locked_object(exec, obj, __index)		\
->> -	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); ++__index)
->> +	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); \
->> +	     ++__index)
->>  /**
->>   * drm_exec_for_each_locked_object - iterate over all the locked objects
->>   * @exec: drm_exec object
->>   * @obj: the current GEM object
->>   *
->> - * Iterate over all the locked GEM objects inside the drm_exec object.
->> + * Iterate over all the explicitly locked GEM objects inside the drm_exec
->> + * container, except for the contended and implicit prelocked one.
->>   */
->>  #define drm_exec_for_each_locked_object(exec, obj)			\
->>  	__drm_exec_for_each_locked_object(exec, obj, __UNIQUE_ID(drm_exec))
->> @@ -94,12 +96,13 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
->>   * @exec: drm_exec object
->>   * @obj: the current GEM object
->>   *
->> - * Iterate over all the locked GEM objects inside the drm_exec object in
->> - * reverse locking order. Note that the internal index may wrap around,
->> - * but that will be caught by drm_exec_obj(), returning a NULL object.
->> + * Iterate over all the explicitly locked GEM objects inside the drm_exec
->> + * container in reverse locking order. Note that the internal index may wrap
->> + * around, but that will be caught by drm_exec_obj(), returning a NULL object.
->>   */
->>  #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
->> -	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
->> +	__drm_exec_for_each_locked_object_reverse(exec, obj,		\
->> +						  __UNIQUE_ID(drm_exec))
->>  
->>  /**
->>   * drm_exec_until_all_locked - loop until all GEM objects are locked
+Dragos
 
