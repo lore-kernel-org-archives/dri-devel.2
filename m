@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A34BCC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 12:40:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4263DCC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 12:40:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C483510F6EB;
-	Thu, 15 Oct 2026 12:40:00 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15B3810F228
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:39:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792067992; cv=none; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5910910F228;
+	Thu, 15 Oct 2026 12:40:06 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D6DD10F228
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:40:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792067998; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=i58BRpbrnpqvtcNbC1i7LqNi/QoFYdJ0WQh6PF01d214je4F+9C/2/BUN8QKWvsm9W/MkeH5gWbldx0hGZaXTtPvaQyVPJfR+gyF2RUO/JtSwKyY7gTZ6TmtZwsxQQw9XiqfX/smot5XHnEKMq6E71opb8TT5aNoYnkqeBgvFbk=
+ b=CLYVnIv0YslQQGivCi2x1vd2eoWUHm23qh1dix3svOFnThoMWjSVujyHRNnIlCWE54brbiEAu0U1UZOafyoNd8SqbmnXL/776a8efwh0gQ4EejRqJvGHWjQzifgqpoEW3CO2+cZe2niZmfoyJ3lzTzWI07rzxi/1pqzUNdjNnNM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792067992;
+ s=zohoarc; t=1792067998;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=TEFbSXr8ncrZ1dmHLc4vUbYu+X3AJk5I+ihgStVMv4U=; 
- b=fO4YmgEdlNoPzpN7a9wKaleaJhHA6Aih1fE9Ry6vrHIBa7lyX0np4pOVhZwoRUZobpqwWlrrVZqg2maqVNsJwrVYM67SATUuLDv3LKJFDdrBuw6m3lRTez1q2v7my77MOSIPP+Kf/ppauIeKqHIjXFp5ZrWzbq5CzsyvmXa5tVc=
+ bh=q85EzV/zGA0BWz9e+hHW+D6/t0h0lhxXVushOZlu8W4=; 
+ b=k7LcEcXdeV4bH2xnLGRYyCfaCxiVQzBupS5tvTCFvS6mcTtHusg2XmLNq33B2BDGsxMLVfUJFm61YwmXKtqdoDPGFS+ZyXYSb1qIMNagF6xv5NgTVRJm1RGjCusMcJt+q0zod6nc/uIogHE3f20aeDpvUHxCHp+DGAueSUh2Ets=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792067992; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792067998; 
  s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=TEFbSXr8ncrZ1dmHLc4vUbYu+X3AJk5I+ihgStVMv4U=;
- b=JAhD4p9Y01Gs7U+Orx0P6+SoiyDZdeRVi+cmpECX7uHqBzx8A+Elf6unUIU855vr
- 3nO0nMMCIs+ynjNHNMw+xKhZy0Bbp9iUe9R9w30DgLfeJsnFlIdj5IM826RLwGirA4Q
- n5ayFOXbl9/06RHsVMETx/FTY0+pM40TPobcB/uU=
-Received: by smtp.zohomail.com with SMTPS id 1792067990607904.8150282045541;
- Thu, 15 Oct 2026 05:39:50 -0700 (PDT)
+ bh=q85EzV/zGA0BWz9e+hHW+D6/t0h0lhxXVushOZlu8W4=;
+ b=Te0ofT7WSIzSF7wO9e84VzOKiJYYdRjVdcC4htHGNrc1JcaaQAyaNUVyKHJfDmb8
+ ij1oKIedutEOtWBgPOkIewlmImSe0BbxzBYGPnGOt/6pagrCGHlHwGMdhmEpURbqFQS
+ tx+JZrFSsCOzoPZ/Ox6WZ4pL4Ot79mROmlUEV1rg=
+Received: by smtp.zohomail.com with SMTPS id 1792067995759443.73080526438025; 
+ Thu, 15 Oct 2026 05:39:55 -0700 (PDT)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Thu, 15 Oct 2026 09:39:10 -0300
-Subject: [PATCH 6/7] rust: io: register: add `#[ro]` and `#[wo]` attributes
+Date: Thu, 15 Oct 2026 09:39:11 -0300
+Subject: [PATCH 7/7] drm/tyr: mark read-only and write-only registers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-io-access-modes-v1-6-93611b84b5e3@collabora.com>
+Message-Id: <20261015-io-access-modes-v1-7-93611b84b5e3@collabora.com>
 References: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
 In-Reply-To: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
@@ -77,190 +77,521 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-`register!` gives every register a location with the `ReadWrite` access
-mode, so any register can be read, written and updated, including the
-ones the hardware defines as read-only or write-only.
+The documentation in regs.rs describes some registers as read-only or
+write-only, but nothing enforces it, and most registers do not document
+a mode at all.
 
-Add the `#[ro]` and `#[wo]` attributes, which make the macro use the
-`ReadOnly` or `WriteOnly` mode instead: in the register's `OffsetLoc`
-for fixed registers, and as `RegisterArray::Access` for arrays. Reading
-a write-only register, or writing or updating a read-only one, then does
-not compile. An alias does not inherit the mode of the register it
-aliases. Add an example to the `register!` documentation.
+Declare every read-only and write-only register with the `#[ro]` and
+`#[wo]` attributes of `register!`, so that writing a read-only register,
+or reading a write-only one, does not compile. The modes follow the
+documentation in regs.rs where there is one, and otherwise the register
+permissions in Arm's kbase driver for v10 GPUs. Both halves of a 64-bit
+register get the same mode, and so do the aliases of `GPU_COMMAND`.
 
-The tyr driver uses the attributes in a following patch.
+No existing access goes against these modes, so the driver code does not
+change.
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- rust/kernel/io/register.rs | 53 ++++++++++++++++++++++++++++++++++++++++++++++
- rust/macros/io/register.rs | 35 ++++++++++++++++++++++++------
- 2 files changed, 82 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/tyr/regs.rs | 77 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
 
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 9218dc66017b..5c0188947879 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -147,6 +147,13 @@ impl<Base: ?Sized, T> OffsetLoc<Base, T> {
-     pub const fn new(offset: usize) -> Self {
-         Self(offset, PhantomData)
-     }
-+}
-+
-+impl<Base: ?Sized, T, A> OffsetLoc<Base, T, A> {
-+    #[inline]
-+    pub const fn with_access(offset: usize) -> Self {
-+        Self(offset, PhantomData)
-+    }
+diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
+index 69c901afb28f..6695a292c786 100644
+--- a/drivers/gpu/drm/tyr/regs.rs
++++ b/drivers/gpu/drm/tyr/regs.rs
+@@ -63,6 +63,7 @@ pub(crate) mod gpu_control {
+         base: TyrRegisters;
  
-     #[inline]
-     pub const fn const_offset(self) -> usize {
-@@ -596,6 +603,52 @@ pub const fn element_alias_offset<Base: ?Sized, Alias: RegisterArray<Base = Base
- /// io_project!(io, build: CPU0).write_reg(CPU_CTL::zeroed());
- /// # }
- /// ```
-+///
-+/// ## Access modes
-+///
-+/// Registers are read-write unless declared with the `#[ro]` (read-only) or `#[wo]` (write-only)
-+/// attribute. Reading a write-only register, or writing or updating a read-only one, does not
-+/// compile:
-+///
-+/// ```no_run
-+/// use kernel::io::{
-+///     register,
-+///     Io,
-+///     Region,
-+/// };
-+/// # use kernel::io::Mmio;
-+///
-+/// register! {
-+///     base: Region<0x1000>;
-+///
-+///     #[ro]
-+///     pub R1(u32) @ 0x0 {
-+///         31:0 value;
-+///     }
-+///
-+///     #[wo]
-+///     pub R2(u32) @ 0x4 {
-+///         31:0 value;
-+///     }
-+///
-+///     #[ro]
-+///     pub R3: u8 @ 0x8;
-+/// }
-+///
-+/// # fn test(io: Mmio<'_, Region<0x1000>>) {
-+/// let r1 = io.read(R1);
-+/// let r3 = io.read(R3);
-+/// io.write_reg(R2::zeroed());
-+///
-+/// // Neither of these compiles.
-+/// // io.write_reg(r1);
-+/// // io.read(R2);
-+/// # }
-+/// ```
-+///
-+/// The mode applies to accesses through the register's location only. An alias is read-write
-+/// unless declared `#[ro]` or `#[wo]` itself, and the register's offset can still be accessed
-+/// directly through the I/O region.
- #[macro_export]
- macro_rules! register {
-     ($($tt:tt)*) => {
-diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
-index 2d92c7f41447..171a4c1f96b4 100644
---- a/rust/macros/io/register.rs
-+++ b/rust/macros/io/register.rs
-@@ -63,6 +63,7 @@ struct Reg {
-     attrs: Vec<Attribute>,
-     vis: Visibility,
-     name: Ident,
-+    access: Type,
-     unique: bool,
-     ty: Type,
-     array: Option<RegArrayDef>,
-@@ -72,7 +73,26 @@ struct Reg {
+         /// GPU identification register.
++        #[ro]
+         pub(crate) GPU_ID(u32) @ 0x0 {
+             /// Status of the GPU release.
+             3:0     ver_status;
+@@ -81,6 +82,7 @@ pub(crate) mod gpu_control {
+         }
  
- impl Parse for Reg {
-     fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
--        let attrs = input.call(Attribute::parse_outer)?;
-+        let mut attrs = input.call(Attribute::parse_outer)?;
-+        let modes = attrs
-+            .extract_if(.., |attr| {
-+                attr.path().is_ident("ro") || attr.path().is_ident("wo")
-+            })
-+            .collect::<Vec<_>>();
-+        if let Some(attr) = modes.get(1) {
-+            Err(Error::new_spanned(
-+                attr,
-+                "only one of `#[ro]` and `#[wo]` can be specified",
-+            ))?
-+        }
-+        let access = match modes.first() {
-+            None => parse_quote!(::kernel::io::access::ReadWrite),
-+            Some(attr) if attr.path().is_ident("ro") => {
-+                parse_quote!(::kernel::io::access::ReadOnly)
-+            }
-+            Some(_) => parse_quote!(::kernel::io::access::WriteOnly),
-+        };
-+
-         let vis = input.parse()?;
-         let name = input.parse()?;
+         /// Level 2 cache features register.
++        #[ro]
+         pub(crate) L2_FEATURES(u32) @ 0x4 {
+             /// Cache line size.
+             7:0     line_size;
+@@ -93,12 +95,14 @@ pub(crate) mod gpu_control {
+         }
  
-@@ -161,6 +181,7 @@ fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
-             attrs,
-             vis,
-             name,
-+            access,
-             unique,
-             ty,
-             array,
-@@ -205,6 +226,7 @@ pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
-             attrs,
-             vis,
-             name,
-+            access,
-             unique,
-             ty,
-             array,
-@@ -220,7 +242,7 @@ pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
-             RegOffset::Fixed { offset } => quote!(#offset),
-             RegOffset::Alias { alias } => {
-                 quote_spanned!(alias.span().resolved_at(span) =>
--                    ::kernel::io::register::OffsetLoc::<#base, _>::const_offset(#alias)
-+                    ::kernel::io::register::OffsetLoc::<#base, _, _>::const_offset(#alias)
-                 )
+         /// Shader core features.
++        #[ro]
+         pub(crate) CORE_FEATURES(u32) @ 0x8 {
+             /// Shader core variant.
+             7:0     core_variant;
+         }
+ 
+         /// Tiler features.
++        #[ro]
+         pub(crate) TILER_FEATURES(u32) @ 0xc {
+             /// Log of the tiler's bin size.
+             5:0     bin_size;
+@@ -107,6 +111,7 @@ pub(crate) mod gpu_control {
+         }
+ 
+         /// Memory system features.
++        #[ro]
+         pub(crate) MEM_FEATURES(u32) @ 0x10 {
+             0:0     coherent_core_group => bool;
+             1:1     coherent_super_group => bool;
+@@ -114,6 +119,7 @@ pub(crate) mod gpu_control {
+         }
+ 
+         /// Memory management unit features.
++        #[ro]
+         pub(crate) MMU_FEATURES(u32) @ 0x14 {
+             /// Number of bits supported in virtual addresses.
+             7:0     va_bits;
+@@ -122,11 +128,13 @@ pub(crate) mod gpu_control {
+         }
+ 
+         /// Address spaces present.
++        #[ro]
+         pub(crate) AS_PRESENT(u32) @ 0x18 {
+             31:0    present;
+         }
+ 
+         /// CSF version information.
++        #[ro]
+         pub(crate) CSF_ID(u32) @ 0x1c {
+             /// MCU revision ID.
+             3:0     mcu_rev;
+@@ -164,6 +172,7 @@ pub(crate) mod gpu_control {
+         }
+ 
+         /// IRQ sources to clear. Write only.
++        #[wo]
+         pub(crate) GPU_IRQ_CLEAR(u32) @ 0x24 {
+             /// Clear the GPU_FAULT interrupt, a 1-bit boolean flag.
+             0:0     gpu_fault => bool;
+@@ -202,6 +211,7 @@ pub(crate) mod gpu_control {
+         }
+ 
+         /// IRQ status for enabled sources. Read only.
++        #[ro]
+         pub(crate) GPU_IRQ_STATUS(u32) @ 0x2c {
+             /// GPU_FAULT interrupt status, a 1-bit boolean flag.
+             0:0     gpu_fault => bool;
+@@ -328,11 +338,13 @@ fn from(mode: FlushMode) -> Self {
+         /// - [`GPU_COMMAND::reset()`]
+         /// - [`GPU_COMMAND::flush_caches()`]
+         /// - [`GPU_COMMAND::clear_fault()`]
++        #[wo]
+         pub(crate) GPU_COMMAND (u32) @ 0x30 {
+             7:0     command ?=> GpuCommand;
+         }
+         /// Internal alias for GPU_COMMAND in reset mode.
+         /// Use [`GPU_COMMAND::reset()`] instead.
++        #[wo]
+         GPU_COMMAND_RESET (u32) => GPU_COMMAND {
+             7:0     command ?=> GpuCommand;
+             11:8    reset_mode ?=> ResetMode;
+@@ -340,6 +352,7 @@ fn from(mode: FlushMode) -> Self {
+ 
+         /// Internal alias for GPU_COMMAND in cache flush mode.
+         /// Use [`GPU_COMMAND::flush_caches()`] instead.
++        #[wo]
+         GPU_COMMAND_FLUSH (u32) => GPU_COMMAND {
+             7:0     command ?=> GpuCommand;
+             /// L2 cache flush mode.
+@@ -389,6 +402,7 @@ pub(crate) fn clear_fault() -> Self {
+         base: TyrRegisters;
+ 
+         /// GPU status register. Read only.
++        #[ro]
+         pub(crate) GPU_STATUS(u32) @ 0x34 {
+             /// GPU active, a 1-bit boolean flag.
+             0:0     gpu_active => bool;
+@@ -474,6 +488,7 @@ fn from(access: AccessType) -> Self {
+         base: TyrRegisters;
+ 
+         /// GPU fault status register. Read only.
++        #[ro]
+         pub(crate) GPU_FAULTSTATUS(u32) @ 0x3c {
+             /// Exception type.
+             7:0     exception_type ?=> ExceptionType;
+@@ -493,10 +508,12 @@ fn from(access: AccessType) -> Self {
+         /// Once a fault is reported, it must be manually cleared by issuing a
+         /// [`GPU_COMMAND::clear_fault()`] command to the [`GPU_COMMAND`] register. No further GPU
+         /// faults will be reported until the previous fault has been cleared.
++        #[ro]
+         pub(crate) GPU_FAULTADDRESS_LO(u32) @ 0x40 {
+             31:0    pointer;
+         }
+ 
++        #[ro]
+         pub(crate) GPU_FAULTADDRESS_HI(u32) @ 0x44 {
+             31:0    pointer;
+         }
+@@ -519,39 +536,47 @@ fn from(access: AccessType) -> Self {
+         }
+ 
+         /// GPU cycle counter. Read only.
++        #[ro]
+         pub(crate) CYCLE_COUNT_LO(u32) @ 0x90 {
+             31:0    count;
+         }
+ 
++        #[ro]
+         pub(crate) CYCLE_COUNT_HI(u32) @ 0x94 {
+             31:0    count;
+         }
+ 
+         /// Global time stamp. Read only.
++        #[ro]
+         pub(crate) TIMESTAMP_LO(u32) @ 0x98 {
+             31:0    timestamp;
+         }
+ 
++        #[ro]
+         pub(crate) TIMESTAMP_HI(u32) @ 0x9c {
+             31:0    timestamp;
+         }
+ 
+         /// Maximum number of threads per core. Read only constant.
++        #[ro]
+         pub(crate) THREAD_MAX_THREADS(u32) @ 0xa0 {
+             31:0    threads;
+         }
+ 
+         /// Maximum number of threads per workgroup. Read only constant.
++        #[ro]
+         pub(crate) THREAD_MAX_WORKGROUP_SIZE(u32) @ 0xa4 {
+             31:0    threads;
+         }
+ 
+         /// Maximum number of threads per barrier. Read only constant.
++        #[ro]
+         pub(crate) THREAD_MAX_BARRIER_SIZE(u32) @ 0xa8 {
+             31:0    threads;
+         }
+ 
+         /// Thread features. Read only constant.
++        #[ro]
+         pub(crate) THREAD_FEATURES(u32) @ 0xac {
+             /// Total number of registers per core.
+             21:0    max_registers;
+@@ -565,173 +590,211 @@ fn from(access: AccessType) -> Self {
+         ///
+         /// A bitmap where each bit indicates support for a specific compressed texture format.
+         /// The bit position maps to an opaque format ID (`texture_features_key_t` in spec).
++        #[ro]
+         pub(crate) TEXTURE_FEATURES(u32)[4] @ 0xb0 {
+             31:0    supported_formats;
+         }
+ 
+         /// Shader core present bitmap. Read only constant.
++        #[ro]
+         pub(crate) SHADER_PRESENT_LO(u32) @ 0x100 {
+             31:0    value;
+         }
+ 
++        #[ro]
+         pub(crate) SHADER_PRESENT_HI(u32) @ 0x104 {
+             31:0    value;
+         }
+ 
+         /// Tiler present bitmap. Read only constant.
++        #[ro]
+         pub(crate) TILER_PRESENT_LO(u32) @ 0x110 {
+             31:0    present;
+         }
+ 
++        #[ro]
+         pub(crate) TILER_PRESENT_HI(u32) @ 0x114 {
+             31:0    present;
+         }
+ 
+         /// L2 cache present bitmap. Read only constant.
++        #[ro]
+         pub(crate) L2_PRESENT_LO(u32) @ 0x120 {
+             31:0    present;
+         }
+ 
++        #[ro]
+         pub(crate) L2_PRESENT_HI(u32) @ 0x124 {
+             31:0    present;
+         }
+ 
+         /// Shader core ready bitmap. Read only.
++        #[ro]
+         pub(crate) SHADER_READY_LO(u32) @ 0x140 {
+             31:0    ready;
+         }
+ 
++        #[ro]
+         pub(crate) SHADER_READY_HI(u32) @ 0x144 {
+             31:0    ready;
+         }
+ 
+         /// Tiler ready bitmap. Read only.
++        #[ro]
+         pub(crate) TILER_READY_LO(u32) @ 0x150 {
+             31:0    ready;
+         }
+ 
++        #[ro]
+         pub(crate) TILER_READY_HI(u32) @ 0x154 {
+             31:0    ready;
+         }
+ 
+         /// L2 ready bitmap. Read only.
++        #[ro]
+         pub(crate) L2_READY_LO(u32) @ 0x160 {
+             31:0    ready;
+         }
+ 
++        #[ro]
+         pub(crate) L2_READY_HI(u32) @ 0x164 {
+             31:0    ready;
+         }
+ 
+         /// Shader core power up bitmap.
++        #[wo]
+         pub(crate) SHADER_PWRON_LO(u32) @ 0x180 {
+             31:0    request;
+         }
+ 
++        #[wo]
+         pub(crate) SHADER_PWRON_HI(u32) @ 0x184 {
+             31:0    request;
+         }
+ 
+         /// Tiler power up bitmap.
++        #[wo]
+         pub(crate) TILER_PWRON_LO(u32) @ 0x190 {
+             31:0    request;
+         }
+ 
++        #[wo]
+         pub(crate) TILER_PWRON_HI(u32) @ 0x194 {
+             31:0    request;
+         }
+ 
+         /// L2 power up bitmap.
++        #[wo]
+         pub(crate) L2_PWRON_LO(u32) @ 0x1a0 {
+             31:0    request;
+         }
+ 
++        #[wo]
+         pub(crate) L2_PWRON_HI(u32) @ 0x1a4 {
+             31:0    request;
+         }
+ 
+         /// Shader core power down bitmap.
++        #[wo]
+         pub(crate) SHADER_PWROFF_LO(u32) @ 0x1c0 {
+             31:0    request;
+         }
+ 
++        #[wo]
+         pub(crate) SHADER_PWROFF_HI(u32) @ 0x1c4 {
+             31:0    request;
+         }
+ 
+         /// Tiler power down bitmap.
++        #[wo]
+         pub(crate) TILER_PWROFF_LO(u32) @ 0x1d0 {
+             31:0    request;
+         }
+ 
++        #[wo]
+         pub(crate) TILER_PWROFF_HI(u32) @ 0x1d4 {
+             31:0    request;
+         }
+ 
+         /// L2 power down bitmap.
++        #[wo]
+         pub(crate) L2_PWROFF_LO(u32) @ 0x1e0 {
+             31:0    request;
+         }
+ 
++        #[wo]
+         pub(crate) L2_PWROFF_HI(u32) @ 0x1e4 {
+             31:0    request;
+         }
+ 
+         /// Shader core power transition bitmap. Read-only.
++        #[ro]
+         pub(crate) SHADER_PWRTRANS_LO(u32) @ 0x200 {
+             31:0    changing;
+         }
+ 
++        #[ro]
+         pub(crate) SHADER_PWRTRANS_HI(u32) @ 0x204 {
+             31:0    changing;
+         }
+ 
+         /// Tiler power transition bitmap. Read-only.
++        #[ro]
+         pub(crate) TILER_PWRTRANS_LO(u32) @ 0x210 {
+             31:0    changing;
+         }
+ 
++        #[ro]
+         pub(crate) TILER_PWRTRANS_HI(u32) @ 0x214 {
+             31:0    changing;
+         }
+ 
+         /// L2 power transition bitmap. Read-only.
++        #[ro]
+         pub(crate) L2_PWRTRANS_LO(u32) @ 0x220 {
+             31:0    changing;
+         }
+ 
++        #[ro]
+         pub(crate) L2_PWRTRANS_HI(u32) @ 0x224 {
+             31:0    changing;
+         }
+ 
+         /// Shader core active bitmap. Read-only.
++        #[ro]
+         pub(crate) SHADER_PWRACTIVE_LO(u32) @ 0x240 {
+             31:0    active;
+         }
+ 
++        #[ro]
+         pub(crate) SHADER_PWRACTIVE_HI(u32) @ 0x244 {
+             31:0    active;
+         }
+ 
+         /// Tiler active bitmap. Read-only.
++        #[ro]
+         pub(crate) TILER_PWRACTIVE_LO(u32) @ 0x250 {
+             31:0    active;
+         }
+ 
++        #[ro]
+         pub(crate) TILER_PWRACTIVE_HI(u32) @ 0x254 {
+             31:0    active;
+         }
+ 
+         /// L2 active bitmap.  Read-only.
++        #[ro]
+         pub(crate) L2_PWRACTIVE_LO(u32) @ 0x260 {
+             31:0    active;
+         }
+ 
++        #[ro]
+         pub(crate) L2_PWRACTIVE_HI(u32) @ 0x264 {
+             31:0    active;
+         }
+ 
+         /// Revision ID. Read only constant.
++        #[ro]
+         pub(crate) REVIDR(u32) @ 0x280 {
+             31:0    revision;
+         }
+@@ -739,6 +802,7 @@ fn from(access: AccessType) -> Self {
+         /// Coherency features present. Read only constant.
+         /// Supported protocols on the interconnect between the GPU and the
+         /// system into which it is integrated.
++        #[ro]
+         pub(crate) COHERENCY_FEATURES(u32) @ 0x300 {
+             /// ACE-Lite protocol supported, a 1-bit boolean flag.
+             0:0     ace_lite => bool;
+@@ -866,6 +930,7 @@ fn from(status: McuStatus) -> Self {
+         base: TyrRegisters;
+ 
+         /// MCU status. Read only.
++        #[ro]
+         pub(crate) MCU_STATUS(u32) @ 0x704 {
+             /// Read current state of MCU.
+             1:0 value => McuStatus;
+@@ -897,6 +962,7 @@ pub(crate) mod job_control {
+         /// Clear job interrupts. Write only.
+         ///
+         /// Write a 1 to a bit to clear the corresponding bit in [`JOB_IRQ_RAWSTAT`].
++        #[wo]
+         pub(crate) JOB_IRQ_CLEAR(u32) @ 0x1004 {
+             /// Clear CSG request interrupts.
+             30:0    csg;
+@@ -918,6 +984,7 @@ pub(crate) mod job_control {
+         ///
+         /// This register contains the result of ANDing together [`JOB_IRQ_RAWSTAT`] and
+         /// [`JOB_IRQ_MASK`].
++        #[ro]
+         pub(crate) JOB_IRQ_STATUS(u32) @ 0x100c {
+             /// CSG request interrupt status.
+             30:0    csg;
+@@ -953,6 +1020,7 @@ pub(crate) mod mmu_control {
+ 
+         /// IRQ sources to clear.
+         /// Write a 1 to a bit to clear the corresponding bit in [`IRQ_RAWSTAT`].
++        #[wo]
+         pub(crate) IRQ_CLEAR(u32) @ 0x2004 {
+             /// Clear the PAGE_FAULT interrupt.
+             15:0    page_fault;
+@@ -973,6 +1041,7 @@ pub(crate) mod mmu_control {
+         /// IRQ status for enabled sources. Read only.
+         ///
+         /// This register contains the result of ANDing together [`IRQ_RAWSTAT`] and [`IRQ_MASK`].
++        #[ro]
+         pub(crate) IRQ_STATUS(u32) @ 0x200c {
+             /// PAGE_FAULT interrupt status.
+             15:0    page_fault;
+@@ -1388,6 +1457,7 @@ fn from(cmd: MmuCommand) -> Self {
+             base: TyrRegisters;
+ 
+             /// MMU command register for each address space. Write only.
++            #[wo]
+             pub(crate) COMMAND(u32)[MAX_AS, stride = STRIDE] @ 0x2418 {
+                 7:0     command ?=> MmuCommand;
              }
-             RegOffset::ElementAlias { alias, idx } => {
-@@ -246,15 +268,16 @@ pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
-                 if unique {
-                     outputs.extend(quote!(
-                         impl ::kernel::io::register::FixedIoLoc<#base> for #ty {
--                            type Location = ::kernel::io::register::OffsetLoc<#base, #ty>;
-+                            type Location = ::kernel::io::register::OffsetLoc<#base, #ty, #access>;
-                             const LOCATION: Self::Location = #name;
-                         }
-                     ))
-                 }
+@@ -1517,6 +1587,7 @@ fn from(access: MmuAccessType) -> Self {
+             base: TyrRegisters;
  
-                 outputs.extend(quote_spanned!(span =>
--                    #(#attrs)* #vis const #name: ::kernel::io::register::OffsetLoc<#base, #ty> =
--                        ::kernel::io::register::OffsetLoc::new(#offset);
-+                    #(#attrs)* #vis const #name:
-+                        ::kernel::io::register::OffsetLoc<#base, #ty, #access> =
-+                        ::kernel::io::register::OffsetLoc::with_access(#offset);
-                 ));
+             /// Fault status register for each address space. Read only.
++            #[ro]
+             pub(crate) FAULTSTATUS(u32)[MAX_AS, stride = STRIDE] @ 0x241c {
+                 /// Exception type.
+                 7:0     exception_type ?=> MmuExceptionType;
+@@ -1527,15 +1598,18 @@ fn from(access: MmuAccessType) -> Self {
              }
  
-@@ -283,7 +306,7 @@ impl ::kernel::io::register::Array for #name {}
+             /// Fault address for each address space. Read only.
++            #[ro]
+             pub(crate) FAULTADDRESS_LO(u32)[MAX_AS, stride = STRIDE] @ 0x2420 {
+                 31:0    pointer;
+             }
  
-                     impl ::kernel::io::register::RegisterArray for #name {
-                         type Base = #base;
--                        type Access = ::kernel::io::access::ReadWrite;
-+                        type Access = #access;
-                         const OFFSET: usize = #offset;
-                         const SIZE: usize = #size;
-                         const STRIDE: usize = #stride;
++            #[ro]
+             pub(crate) FAULTADDRESS_HI(u32)[MAX_AS, stride = STRIDE] @ 0x2424 {
+                 31:0    pointer;
+             }
+ 
+             /// MMU status register for each address space. Read only.
++            #[ro]
+             pub(crate) STATUS(u32)[MAX_AS, stride = STRIDE] @ 0x2428 {
+                 /// External address space command is active, a 1-bit boolean flag.
+                 0:0     active_ext => bool;
+@@ -1783,10 +1857,12 @@ fn from(sh: PtwShareability) -> Self {
+             }
+ 
+             /// Extra fault information for each address space. Read only.
++            #[ro]
+             pub(crate) FAULTEXTRA_LO(u32)[MAX_AS, stride = STRIDE] @ 0x2438 {
+                 31:0    value;
+             }
+ 
++            #[ro]
+             pub(crate) FAULTEXTRA_HI(u32)[MAX_AS, stride = STRIDE] @ 0x243c {
+                 31:0    value;
+             }
+@@ -1816,6 +1892,7 @@ pub(crate) mod doorbell_block {
+         base: TyrRegisters;
+ 
+         /// Doorbell request register. Write-only.
++        #[wo]
+         pub(crate) DOORBELL(u32)[NUM_DOORBELLS, stride = STRIDE] @ 0x80000 {
+             /// Doorbell set. Writing 1 triggers the doorbell.
+             0:0    ring => bool;
 
 -- 
 2.56.0
