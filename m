@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E85A3CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89397CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:28:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31BCD10EC36;
-	Thu, 15 Oct 2026 15:24:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95DDD10E300;
+	Thu, 15 Oct 2026 15:28:49 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 093AA10EC36
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:24:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0D9D10E300
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:28:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8138F60120
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:23:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1D21F000C4;
- Thu, 15 Oct 2026 15:23:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D7C1760120
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:28:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70BF91F000C4;
+ Thu, 15 Oct 2026 15:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792077839;
- bh=giUe/0pZH+ILQbdNv7oPE7pXmnONwUClpS+hq0/q0CI=;
+ s=k20260515; t=1792078121;
+ bh=6+PH+ssdXv6GXyAC/kPBehHg10xpvD+4E8eZ2GfM1t8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fUsy0C7pZmai2t9Eut66Yi/WBSb4xyo5X/Fiu9RmMdzSN69SG6lErOhHWFrLDy/jB
- hjRf3csPfwbCtv+hiVrgXu0FQAxXx0aCFDO3cqkSlByf8/QYmFFhAyR4LGzrVOClR1
- iGPSk2iZV3Rk6Zf56p2Jr5eN8Qf0Fi7o9ZWWC5mao6N2rd4VeI0xiYLyiQ9XZgKw/e
- OYR17grdNj6PSTpSZpPLaAlR/rxZrH9zoOu9ue9VKUaAbDJ8w3iUzqC5dxv+0DCO7V
- bVNMdMfPI+LpgKI6bNTi09BmJVXJBrW6r6ruSD9OEO3z2HkPi2bb6gBplihmKzYTQk
- e7OxPxiXN7o9A==
-Message-ID: <sashiko-outbox-173062@kernel.org>
+ b=kJRSGdUQdRdSqgJzrJF2PGDXiZD+aQ3FjuetByNX+z1wrkLY9+1QwBThp3AidCzpm
+ i0myMfllSdEmD5/2T5Ag7lshGc2p1dAYidoYLclhySssNDsmSDTcXTItsMpLshww0n
+ VzGVLJZhdhj79vJIQzA/MlSBdNzUKa/DUHuBeL9LF3MnLa4sNLRBJ4drWiscEECfCl
+ QVnSbR+HhzvvH09GgolaiXmtB3+I6Chuyu8OPFeXN8R0k7PA+d7h0O6jrR1MDQ8FUl
+ x4VvtB/qMnr3cfZ+zTLt7p6Ekjch7yby4mwK6LUHnfWvgC2/cBqAOy0ETkCLqg8++X
+ G6qvA2/AAhEFA==
+Message-ID: <sashiko-outbox-173072@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 01/28] drm/atomic: Fix private obj error handling
+Subject: Re: [PATCH v6 04/28] drm/bridge: Add drm_private_obj_is_bridge()
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261015-drm-state-readout-v6-1-6cc02cd10998@kernel.org>
+In-Reply-To: <20261015-drm-state-readout-v6-4-6cc02cd10998@kernel.org>
 References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
- <20261015-drm-state-readout-v6-1-6cc02cd10998@kernel.org>
+ <20261015-drm-state-readout-v6-4-6cc02cd10998@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 15:23:58 +0000
+Date: Thu, 15 Oct 2026 15:28:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,82 +56,54 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm: double list_del() on private obj init failure
+- [Low] drm/bridge: typo in drm_private_obj_is_bridge NULL guard
 --
 
-commit 4bcc9dc639c9860732e1906f0390e6fdeeb98b4e
+commit 4aa8371c67584717cdc9bfc67e2f423ff8e526fe
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/atomic: Fix private obj error handling
+drm/bridge: Add drm_private_obj_is_bridge()
 
-drm_atomic_private_obj_init() adds the object to the privobj_list before
-calling atomic_create_state(). If atomic_create_state() fails, this patch
-adds an error path that removes the object from the list to avoid a dangling
-entry.
+This commit introduces drm_private_obj_is_bridge() to identify if a private
+object is backed by a bridge. This is necessary because bridges require
+special readout ordering during encoder chain handling.
 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 9bb761eda59f4..9973becb75aee 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1029,6 +1029,8 @@ int drm_atomic_private_obj_init(struct drm_device *=
-dev,
->  				const struct drm_private_state_funcs *funcs)
->  {
->  	struct drm_private_state *state;
-> +	int ret;
-> +
->  	memset(obj, 0, sizeof(*obj));
-> =20
->  	drm_modeset_lock_init(&obj->lock);
-> @@ -1038,12 +1040,19 @@ int drm_atomic_private_obj_init(struct drm_device=
- *dev,
->  	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
-> =20
->  	state =3D obj->funcs->atomic_create_state(obj);
-> -	if (IS_ERR(state))
-> -		return PTR_ERR(state);
-> +	if (IS_ERR(state)) {
-> +		ret =3D PTR_ERR(state);
-> +		goto err_list_del;
-> +	}
-> =20
->  	obj->state =3D state;
-> =20
->  	return 0;
-> +
-> +err_list_del:
-> +	list_del(&obj->head);
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index 447fe6d333b3b..9d5529765f5fb 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -582,6 +582,21 @@ static const struct drm_private_state_funcs drm_brid=
+ge_priv_state_funcs =3D {
+[ ... ]
+> +/**
+> + * drm_private_obj_is_bridge - check if a private object backs a bridge
+> + * @obj: private object to check
+> + *
+> + * RETURNS:
+> + *
+> + * True if @obj is the &drm_private_obj embedded in a &struct drm_bridge,
+> + * false otherwise.
+> + */
+> +bool drm_private_obj_is_bridge(struct drm_private_obj *obj)
+> +{
+> +	return obj->funcs && obj->funcs =3D=3D &drm_bridge_priv_state_funcs;
 
-[Severity: High]
-Does this error path introduce a double list_del() panic during driver
-teardown?
+[Severity: Low]
+Is there a typo in the null guard here?
 
-Several callers of drm_atomic_private_obj_init(), such as vc4_ctm_obj_init()
-and drm_dp_mst_topology_mgr_init(), ignore its return value. They
-unconditionally register their teardown functions, which perform their own
-list_del(&obj->head) via drm_atomic_private_obj_fini().
+If the intent is to protect against a null obj pointer, checking obj->funcs
+first will cause a null pointer dereference.
 
-For instance, in drivers/gpu/drm/vc4/vc4_kms.c:vc4_ctm_obj_init():
+If obj is instead guaranteed to be non-null, the left side of the && is
+redundant dead code, because comparing a potentially null obj->funcs pointer
+to a valid static address safely evaluates to false.
 
-	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager,
-				    &vc4_ctm_state_funcs);
+Should this instead be return obj && obj->funcs =3D=3D ... or just the right
+side if obj is guaranteed to be non-null?
 
-	return drmm_add_action_or_reset(&vc4->base, vc4_ctm_obj_fini, NULL);
-
-If atomic_create_state() fails here, we delete the list head and return an
-error, but the caller ignores it. Then, at teardown,
-drm_atomic_private_obj_fini() executes a second list_del(&obj->head) on the
-poisoned list head, causing a panic.
-
-Will this unwinding cause crashes for these existing callers if initializat=
-ion
-fails?
-
-> +	drm_modeset_lock_fini(&obj->lock);
-> +	return ret;
->  }
->  EXPORT_SYMBOL(drm_atomic_private_obj_init);
+> +}
+> +EXPORT_SYMBOL(drm_private_obj_is_bridge);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-drm-state-=
-readout-v6-0-6cc02cd10998@kernel.org?part=3D1
+readout-v6-0-6cc02cd10998@kernel.org?part=3D4
