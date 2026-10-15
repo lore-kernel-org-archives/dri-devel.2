@@ -4,41 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2CF0CC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 136ACCC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:32:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE41112420;
-	Thu, 15 Oct 2026 16:32:07 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0371E1123E0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:32:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 18D7C60A62
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:32:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A505C1F000C5;
- Thu, 15 Oct 2026 16:31:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792081919;
- bh=Nf37gqU7V2um2nDx7cecpchR5v80lUjDKnvbuAjbfsA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=THam7ijkndz7etciNY19+q7J0iypsPpDYzC7bA79jx87JQ7f3T1/cicbq/2Fw8ihd
- 6gkLZnWSYTZieXhDDXJyrD24OAbrwgewNnTP30bytMiXVtzYGPIk/W/5fLmo1SpFH1
- EROsHTb5Q6jioKOEnjWH6pWdL3an2JOFpRgCICxv057NARFGgK1+WPUQQXVnPhA2kN
- AL2o8+/91pYh6UJe8zRASk/Fv6uSBklNcDuu/MAoWYCRR1tfAjKrowVt3SlMnnEVkl
- uOKO9K3ni3eyiPK39sbr0PGAUJwlyANhg6HahS9Zj3bvHjzlgff+yS6haChry5dSOk
- aABot2wCtGJFQ==
-Message-ID: <sashiko-outbox-173192@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 16/28] drm/atomic_helper: Compare actual and readout
- states once the commit is done
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261015-drm-state-readout-v6-16-6cc02cd10998@kernel.org>
-References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
- <20261015-drm-state-readout-v6-16-6cc02cd10998@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 16:31:59 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 766A610EC39;
+	Thu, 15 Oct 2026 16:32:29 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9CF931123E0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:32:23 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A328614BF;
+ Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
+Received: from [10.0.138.89] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.89])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E966C3F871;
+ Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1792081942; bh=K53bHe/qRL8PgX+fC0aZ/IKukdzfGE2CeH1J1pXxbIw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=QvHiuvww2XMiC1VH5lrEn7YT52tcUfUfqnhqZ6AL7/+1oS59HDeC1lXKxNrpFi1pC
+ t0SbzJpTfupyKQqZc3bVVGYXHq188MRT6NrH01zSEEbyjpLbZx7PQxzYaj0Ht2nEy2
+ xPD7PUul+C++YYvpS1ogXhTXImp3VMZKjPrCVxsE=
+Message-ID: <e8d97f6c-8e22-4c85-b15d-6edade16d789@arm.com>
+Date: Thu, 15 Oct 2026 17:32:18 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 02/15] misc/arm-cla: Add launch operation helpers
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-3-ryan.roberts@arm.com>
+ <2026101542-briskness-most-a8ca@gregkh>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <2026101542-briskness-most-a8ca@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,121 +60,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] drm: null pointer dereference in drm_atomic_sro_readout_and_co=
-mpare() due to missing SRO support checks
-- [High] drm: concurrent hardware state readout races with disjoint atomic =
-commits
---
+On 15/10/2026 17:17, Greg Kroah-Hartman wrote:
+> On Thu, Oct 15, 2026 at 03:25:36PM +0100, Ryan Roberts wrote:
+>> From: Jean-Philippe Brucker <jpb@kernel.org>
+>>
+>> CLA commands are issued by writing optional payload registers,
+>> programming the LAUNCH register and polling LRESP until the hardware
+>> accepts or rejects the operation.
+>>
+>> Add a common launch helper that performs this sequence on the CLA's
+>> local CPU, waits for LRESP completion and translates launch response
+>> codes into Linux errors.
+>>
+>> Build accelerator reset and register read and write support on top of
+>> it. The register read and write helpers split larger accesses into
+>> multiple launch operations when an access crosses an eight-register
+>> window.
+>>
+>> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+> 
+> You forgot to sign off on patches from others :(
 
-commit 54159ebf5886b308c147c6831cca5d526d0cafd5
-Author: Maxime Ripard <mripard@kernel.org>
-Subject: drm/atomic_helper: Compare actual and readout states once the comm=
-it is done
-
-This commit introduces a new hook for every state, atomic_sro_compare_state,
-to read out a new state every time a blocking commit is made, and compare
-the readout one with the committed one.
-
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_at=
-omic_helper.c
-> index 9d006f98413a5..fa8a337650138 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-[ ... ]
-> @@ -2087,6 +2088,45 @@ static void commit_tail(struct drm_atomic_commit *=
-state, bool nonblock)
-> =20
->  	drm_atomic_helper_commit_cleanup_done(state);
-> =20
-> +	/*
-> +	 * drm_atomic_sro_readout_and_compare() will compare the @state new
-> +	 * states with whatever it will read from the hardware.
-[ ... ]
-> +	 * Either way, we're past that point here, so we wouldn't delay the
-> +	 * fence signalling.
-> +	 */
-> +	if (!nonblock)
-> +		drm_atomic_sro_readout_and_compare(state);
-
-[Severity: Critical]
-Will this unconditionally execute for all blocking commits, bypassing any
-check for whether the underlying DRM driver actually supports SRO?
-
-Since this is a newly introduced, optional SRO hook, the vast majority of
-existing DRM atomic drivers do not implement atomic_sro_build_state, and
-some may not even define helper_private.
-
-> +
->  	drm_atomic_commit_put(state);
->  }
-> diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomi=
-c_sro.c
-> index 15ecf88714faa..cd7015f8c333c 100644
-> --- a/drivers/gpu/drm/drm_atomic_sro.c
-> +++ b/drivers/gpu/drm/drm_atomic_sro.c
-[ ... ]
-> @@ -725,3 +789,144 @@ void drm_atomic_sro_install_state(struct drm_atomic=
-_sro_state *state)
-[ ... ]
-> +bool drm_atomic_sro_readout_and_compare(struct drm_atomic_commit *commit)
-> +{
-> +	struct drm_device *dev =3D commit->dev;
-> +	const struct drm_mode_config_helper_funcs *funcs =3D
-> +		dev->mode_config.helper_private;
-> +	struct drm_printer p =3D drm_err_printer(dev, NULL);
-> +	struct drm_private_state *new_obj_state;
-> +	struct drm_private_obj *obj;
-> +	struct drm_plane_state *new_plane_state;
-> +	struct drm_plane *plane;
-> +	struct drm_crtc_state *new_crtc_state;
-> +	struct drm_crtc *crtc;
-> +	struct drm_connector_state *new_conn_state;
-> +	struct drm_connector *conn;
-> +	struct drm_atomic_sro_state *readout_state;
-> +	unsigned int i;
-> +	bool identical =3D true;
-> +
-> +	readout_state =3D funcs->atomic_sro_build_state(dev);
-
-[Severity: Critical]
-Could this result in a NULL pointer dereference for non-SRO drivers?
-
-The function extracts the helper functions via dev->mode_config.helper_priv=
-ate
-and immediately dereferences funcs->atomic_sro_build_state(dev) without
-verifying if the pointer exists. Should the code explicitly verify
-if (funcs && funcs->atomic_sro_build_state) or use
-drm_atomic_sro_device_can_readout(dev) before proceeding?
-
-[Severity: High]
-Does reading the hardware state of unrelated objects here introduce hardware
-data races with concurrent commits?=20
-
-This initiates a device-wide hardware state readout from within
-commit_tail() during a partial atomic commit. An atomic commit only holds
-drm_modeset_locks for the specific objects being modified in that
-transaction.=20
-
-By unconditionally reading the hardware state of all other unrelated,
-unlocked objects across the device, this introduces a data race with
-concurrent atomic commits that may be actively powering down or reconfiguri=
-ng
-those disjoint objects. Reading unclocked or powered-down peripheral
-registers during a concurrent reprogram sequence can trigger bus hangs,
-system lockups, or yield corrupted readout data. Should the readout scope be
-restricted solely to the objects locked within the drm_atomic_commit contex=
-t?
-
-> +	if (WARN_ON(IS_ERR(readout_state)))
-> +		return false;
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-drm-state-=
-readout-v6-0-6cc02cd10998@kernel.org?part=3D16
+Ahh sh*t, sorry about that. Hopefully given this is "just" an RFC that's not a
+big deal? Else, let me know and I'll resend.
