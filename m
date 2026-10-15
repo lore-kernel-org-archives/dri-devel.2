@@ -4,125 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28679CCA462
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 21:39:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39390CC6B38
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 21:43:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7510E1124D6;
-	Thu, 15 Oct 2026 21:39:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EAA310EC27;
+	Thu, 15 Oct 2026 21:43:04 +0000 (UTC)
 Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011025.outbound.protection.outlook.com [52.101.57.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F383A1124D6
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:39:34 +0000 (UTC)
+ (mail-eastus2azon11011029.outbound.protection.outlook.com [52.101.57.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA8210EC27
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:42:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rimqU0Qz4yqIdhCOiaZRSb/Pwwv+sfrjIsc990pogDeA+Oc6bkQQsmmLij6t9vDgt96Eaxrz5WlG3yDhbxCHChSx9SvW7YQRTVovqcND4E3zNS5tMs7Vo0yI+n7kh/5gm6fB5VzBmtybb+ytOkErPlEP7Doii253p/iedbPKugvc2KY/9NlbaLXnoZovFU6kZGRcGj74v2qoWe48TA4kHIJIFugIHcevVIaaQPpXV7phmSIaBI8OFT0VGuc2PmZkvk9Z1uXEJb5earz16AEm0i8FtSn32ZTNoMj17cHpDhkgMMdQDEUnubW+CgOlLyfcLPifVmGofUdZl/0GVJpbDw==
+ b=fjvfTtItxG0J1LDGFAjVBT3SJht+IoZpyFBLQlydcdAcVTWCHhh/DThLdQaUN0iwtVbLb9DPfiBrA7z9f6fWq1xZwKp4L+0IJjOzLcWhLfOGNHCAIKuE61ZsLhtlSAQweNtlg+v/ZMR4btwcaYHK5YPDWS5d0/4wItIy6k1kYlizNSzCNFcvO3HuOwWTzmsEGjgCC8NIQUM5rc+Myj1o7QWgOqozp3v9/HCvR4MR8/12igvYGCgeDP/VkZoujWbwnI8yK7Nbu21+imlCdhGTIYkqIB4HO2B79FJkPboHC8EF9qnuu6IxfRCqO8TICDsVVbkPbLZKh96NjDdGOUvPNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=REFRcfH/JyWihdweeNJF1Rkw9N0azo0+uUZs3Qp2on8=;
- b=fpqBP4Wq0OpMCqJnfXpJrs7T3xXg4IqG2aOJbxbHUW12LUvo8D0OckV5riwg6TTjl9p7bKeNrS65PnLaVTUOnuFK5YjQmLEQb8UK1oaTYYY3pvlA8WHSYUbxtmAvqLsIAZ86YCxZzFkKGTd37M5224ZCaDto9z+hqYPKbF6h3lZ1tQiX0bssvOwZydc0U90az5iX8NSLrUwzkelcsBRZqjn8WND210X7M4g8wWKmaj4H+ySYVEgFUZ32lvTK3f+3qstSTLLGdIWxbGNu0g7QLtazkrElax23hkocu8UNp18QqzY0mAdJF1Ob3r9LpNSXNtSOqxAXAqh3ZyswS60s9w==
+ bh=cQla56rGGZ1Luhe6pk+LA30H+GVJ1b6BUau9lOcjnms=;
+ b=jxk9el+IRgZDQWyeWI0T1/OCXhvyLMuiQrHbX6uCY4UrAgFnF44weGIJ4KfcTigvlqEraMay98PJetkoHdlx8TKymS197VVU5Pl6tavnU77GH9AFiPigZ7R+Lh0XbYfg0gDlnokoHrPbey0YCs2hvADid4R6aju55awFcm9yZ4tZI6LcRnUZqaGUF2AuxBjf9PlJ8fR7aR1rLzfGD0gwE2xAjYYrrlyK9g+JJoEpGBLo8+b4uRNqMtX8LkS5e6a8tKf3FdXcZBga+H2lYGsF6Lz93LMa3WDDvXmOpF2cUZgs5jKALu6g8bQr42h3jebO7/Kn1M5wE4/cnOtsQEb8Mw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=REFRcfH/JyWihdweeNJF1Rkw9N0azo0+uUZs3Qp2on8=;
- b=fOMNUOkxbdOrYJmo3slGGOb3q7W7O7WuvyRhADmnY4JCQxx5ystUFMZyh/f6zVIuY8kaMqvCHOyVBrXlzTt78yaXWjAxlzFrNZMrEonZ3LZzhyOC63YCjIs/zY8y4bYH9Kex36ZY0+WTT1FHnxL1/+VFgdJGETWoT82T57WaZKo=
+ bh=cQla56rGGZ1Luhe6pk+LA30H+GVJ1b6BUau9lOcjnms=;
+ b=xpoqmgmTZPT66yheTsiYeIG4hjx8EK5I/07Aj/8MCS8I2IbU3kH4H/6ccqzVRn2G7BhH7wfQEGi+NWPi3L5OTobNJCX41+Is+5uU0sP521L4tarC1Rz25Ay/DvXc8/1GybmtbBYnbwcLJ5liX3MBpRNB1UAiGijE++yU+YRR22Q=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB9059.namprd12.prod.outlook.com (2603:10b6:8:c5::18) by
  LV1PR12MB999329.namprd12.prod.outlook.com (2603:10b6:408:3f8::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 21:39:32 +0000
+ 2026 21:42:56 +0000
 Received: from DS0PR12MB9059.namprd12.prod.outlook.com
  ([fe80::74da:85c:3e01:6ca3]) by DS0PR12MB9059.namprd12.prod.outlook.com
  ([fe80::74da:85c:3e01:6ca3%4]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 21:39:32 +0000
-Message-ID: <f337ebc7-dbbe-45cd-a635-c35b7c337a5d@amd.com>
-Date: Thu, 15 Oct 2026 14:39:30 -0700
+ 21:42:56 +0000
+Message-ID: <4b8a17b0-efa4-4523-b98f-70bec947ef19@amd.com>
+Date: Thu, 15 Oct 2026 14:42:54 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 07/19] accel/amdxdna: Add get and set power_mode for
- AIE4
-To: Lizhi Hou <lizhi.hou@amd.com>, quic_jhugo@quicinc.com,
- karol.wachowski@linux.intel.com, max.zhen@amd.com, ogabbay@kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: sonal.santan@amd.com, mario.limonciello@amd.com,
- Soham Donwalkar <soham.donwalkar@amd.com>,
- Nishad Saraf <nishad.saraf@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-8-yidong.zhang@amd.com>
- <2de6caa2-bcdc-107d-53d7-80f270512812@amd.com>
+Subject: Re: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
+To: Lizhi Hou <lizhi.hou@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Max Zhen <max.zhen@amd.com>
+Cc: ogabbay@kernel.org, quic_jhugo@quicinc.com,
+ dri-devel@lists.freedesktop.org, mario.limonciello@amd.com,
+ karol.wachowski@linux.intel.com, linux-kernel@vger.kernel.org,
+ sonal.santan@amd.com
+References: <20261012203139.2573687-1-lizhi.hou@amd.com>
+ <7a29937c-b591-40fc-95cf-021799ea52a7@amd.com>
+ <as21qsFsf9HepYok@gsse-cloud1.jf.intel.com>
+ <160b6982-7d87-547c-9d84-cb689b35f04f@amd.com>
 Content-Language: en-US
 From: yidong Zhang <yidong.zhang@amd.com>
-In-Reply-To: <2de6caa2-bcdc-107d-53d7-80f270512812@amd.com>
+In-Reply-To: <160b6982-7d87-547c-9d84-cb689b35f04f@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BY3PR05CA0053.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::28) To DS0PR12MB9059.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0352.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::27) To DS0PR12MB9059.namprd12.prod.outlook.com
  (2603:10b6:8:c5::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB9059:EE_|LV1PR12MB999329:EE_
-X-MS-Office365-Filtering-Correlation-Id: adee351e-fa5c-4f70-3a56-08df2b04cc8c
+X-MS-Office365-Filtering-Correlation-Id: 7e9b57cd-4251-4d25-26b2-08df2b0545e4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|18002099003|18092099006|22082099003|10067099003|3023799007|4143699003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: IPYbgsaYqmr/H5hBep2iRln78pTRb5hMIVGPghVX3HuGS5lFwbB0SG6N3Nq0AJg2L4KzPDry8wj05p6GplX80aUsB3zGva0+/EJRR0tO8hmV6UIWsPrn1Snqvmk2n8+y4GgX8Spe1yJXTZJQPaka+xgmO6IC+SMfKovn/o6pghOpRN4ZZDjfMexzPzt9SDZ3nak1fgYKgHt3yp2nDW0vP2cTB6EEwRXh9NMhZ9zlftAGpgvT0qjs83bI/+MaTK0VY0dK9YN4uF7B9YEXESj04ILPoNOzXLSU8tfpFq6vqnAI90VYiU9C0ggIL5rdvB0Jy6KPLeT+Qb2UTxaV92lAb+jVO42WzcF+xWvnW7YY07RYYB8dki6h/j+7xmbL4hRHs8XE6YBCWmuFsKkepXi7rq9uzZM1LoOY1TzDvjRNwp3FT9y297TYyUcs02j1+S+v0poBa2HUgg6fXYnsH87P3KMd5mAw/8HJk5ln9a4xmpw7vKGTq+qHh0Eadfl5QY8LRriKfcCYdvr/KyI7bHpGgLKXYw0lJUyHPxS1tMYMc96LKkwjGWha319roZK8mGQwHPfKdTRQbsZWrbzgrdQzAbc0QKyDUJgSIxfDu/F7pItZWBWnAM25xNdRFJi9xut3tzfsfjAzXKgdnvHO095KFZC96glATXLk3fM8ld2qwno=
+ ARA:13230040|366016|23010399003|376014|1800799024|18002099003|22082099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: qQdFM4b3XBuaePn0PLB6y/2taZ1NpoCBd6xZ0Hw7J0LF4fKid3xzGXK/4XXiMC2alGjlSRfje1Rw2vUqpEA8ot8zPr/TzODGasNRhKy26hqnJMEibLagSil2UhKS01IjGEubGaYvQi1/04z6vH5ypY75lfsODPTON3EIjZA8zSPKBVJ3ZXnm0DkKJOhM3BYueZ8OyUtlkdKutTGR1b5716w1BlPQq4UoTs1tjxw15MDs+dPc0RAh9QbTABVX27RO7Y2AK0WinL422xtKx5DGWCpNxyJXCxmrobLrO3kr/SFSmfrQjOmIhiVa/AGnW9d1yZ29CFUyYgQzfT5ebjvDF+CJzHdGaHtyPEZxA6C6hp5YSxQMSAg7qtjoxqR0EyP6yj0LOkFt0GoV8bWN7odMkL6ARBuIPyANJXRTC6qTaWP791L3dsq/omS+HuKwRqT0yz+Yd5CYR58V7NZZtdYXqPp0w0gULDv1+ZiLg9RHuyZv25RHZ4QGeHlEOr7JdO2F89e3sYWgrSjDBVu/lU31GmjVLioEF16a65g01wzRPSeLzmtAf//tX6X75HwDGBQBmhxayXkGAe2UWDeeydNq0E1VC6Hk2P6oqIiGs8UT7ZKlK+ijHshI6LK2Vz18IiFS
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB9059.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(18092099006)(22082099003)(10067099003)(3023799007)(4143699003)(261009223027099003)(11063799006)(56012099006);
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUxpVTNzaGx4N3NlbUNjS0UwanV3WHJObndIOEhCUVJUS29MemFMNVU5bkF1?=
- =?utf-8?B?QXJzc3BMcEhBOW9UZk5TZnRvc3U2cnF1OU9BQmprVUdGS3VKR1JCTzd3Z2pE?=
- =?utf-8?B?V1RqYXNWWHN4SHk4SmpOVFRFaWdpbzVRVVVVVXJxenpOSFdpRE1CeTZNM2kx?=
- =?utf-8?B?Tkw4eXgxSTVDMmZiZzdpODJGa3pLZ3AxS0phV3BiOW9WWis1QlZaNm1kSmkz?=
- =?utf-8?B?Z21NTFRicGw1d1UvVlJCV2hRUlVGTmhFQk9OODRzK1NLVlR3QXVjaURxdmNt?=
- =?utf-8?B?dGJ1SWZaMmtpejZOYTFYT0x1Qk0xQnl6aDNLNlRFRmhoeUpPUW1rNnhBalgv?=
- =?utf-8?B?U0Y5Nzk1cTNsUVF6aVZLbXhUeW02Ym9ZOUlGaUIyanJOV3B4QzFYZEJPYlVP?=
- =?utf-8?B?S2VMNmZGUTFCOWlMLzBkakdCVVY2OVRZT1BnQTV4dFRmaW5Db3NscGRoM25S?=
- =?utf-8?B?c2JhUkNIS1o0dnRVUFlEMEpQaUMyMWhUT09PVXN3RVFuTWsxUU1YcHJteUs5?=
- =?utf-8?B?U1Q3TFRBYlVIR25TcmhVQzFFWi85VWVkWkZuYkNsTWxMNzUvRmtrZHFqaEU1?=
- =?utf-8?B?RnpES0JadFVhM2ZLdVVFTHQ4b2ZQT01IbDNVOXU5R0hQdVlzVWt6OFlSRER5?=
- =?utf-8?B?UUt4VHRqUTFxeDhyUjFXOHZFMjU2a3NXQnBCQmxFazBraXNaZ2gwemdjTHY4?=
- =?utf-8?B?b1NjZG15SU04T0h2d1hsRTRDRFhtZUNIZTI5eTlEWmR3VWI1NHprNDE0RTZk?=
- =?utf-8?B?eHlEMGRkU25ZVFgxVFRIVDB2MkQ3aTltcDZzaUFHRTZPbzE3ejdMRGhtdzJG?=
- =?utf-8?B?VXNSb0RPZllBV0lQWVhtSGt2eGR5Vmo4ZTZMSmVxakVTdGpPSFU3dm5jMkp6?=
- =?utf-8?B?NVpsUENOQjJZdEw5TVdEQnhLczZGbHk4U0dUVURETnZ6cDVqK0dreE5JbG1E?=
- =?utf-8?B?K244K0F1c1J5b2RlQ0ZQNjJodENlUHZYeHRlMHZuUFlaQzJaeVZDWTNjSWFo?=
- =?utf-8?B?c1hXS1JqSVlRenpmb0pwVkdtaXhJVXZFVVhkdVdpNDgwMWpadVlFSkFWYWFN?=
- =?utf-8?B?akRXcG9qdDZxdS9KZDFpYTRkZmM5ZVdIY3Y5ZGxmakQ2SFhmdVlCcnN6NUNw?=
- =?utf-8?B?ZkFHM2dzVHd3R015bUtuQ0h4UXZJczBRNTgyMjkwQi9mV1E4cUc0TTJyY0Y5?=
- =?utf-8?B?YmowZ2VtRS9QNy9JbVp2cUFtN2J0NW8xUXhQd0hrNnZFSW1zSnQ2OERrbVl5?=
- =?utf-8?B?ZVlsT0kvL2RnR2FhZVh2bzMrczJmS21tR0tIY1NGd3pSRDBVTHB4WVl4cnJq?=
- =?utf-8?B?dlFIVk94NFkzdStsbkxpZndHeTNqa0FENXF4bzBoRTI5Nm9XbjNadVVROFk4?=
- =?utf-8?B?eVp0TG8xRERSblNPSFRQWG5HNk82OTF3VTljUVN3Nmh3ZHlsZU1OMUlZUEFR?=
- =?utf-8?B?bS9QaEhuUFZpK3BpZndJU2NVNjRXWUkzcXA1c1RQR3VFc0IrU3ZYY3Bvbmh3?=
- =?utf-8?B?ZjFyUWI4SGRLWGlHb3dkWHVnVG1KMFZkMHRmMVZKUkxpaG9WMzBNSWdWRjhP?=
- =?utf-8?B?dFUzc0lLOTdNN2dtalY0KzdYSzFDZDdQMy93ZHg1NS9Fb0F1Q0paWS9yM3Iv?=
- =?utf-8?B?MXFYendPT0k5WVRxU1J3d1VnTldidlMyWTBUZ05LK3JveXZIN29Ca2dRRzN6?=
- =?utf-8?B?cnYyNTQwcDJsVy9RY24vUWRaTHdxbTdDKzIxTTlZeFBSVGxVSjdndVFJVWFT?=
- =?utf-8?B?NzVTcTkvV1JuUkc5UDNwVTF6bXhEOVVxY1NqUG5MMDJMckMwcDYyTHdPL3gz?=
- =?utf-8?B?QVd2RHp2L1pENmx3ZmRWSnZEWkNvNTFGZWMxcG9UOHNLUmduMWdmZzllL1JO?=
- =?utf-8?B?WU1ZVU9QMldSbWpEdDZkOGxndkhpQWU2TlF3WTRERllnV282bUtuNDFiVkg5?=
- =?utf-8?B?OG1FWVFKcGFLZWZ3Z2g1WE4wQXF0b0s0anJIMXlJeUhURU9GNVlKOHUzM0dF?=
- =?utf-8?B?aXhlUFF3UUR3ZTlOWjdJV3NoRjVHQkJjOFFJdDhMaXB6Y2lURXA0Q0c2eWhO?=
- =?utf-8?B?ZCszZjJRWkhXaWF2K24zZ2xtZW1KU1JnN3JNV3BQN3dWK1d3MlR6ek5TeWEx?=
- =?utf-8?B?bCtnRWU5RVZxdGNtMllrOUJuSXBGSkNmVnVDODM1Z1N1a2J0V29OWUEwVG9L?=
- =?utf-8?B?TWR5SUluL2I1Wi80a1k2dEZyT2lVRmtGUTZ0SFJFNkxaVFZFUEdHTTIyTnhD?=
- =?utf-8?B?WXgxNTNUUXZiVVlSVzRQMlZ0UXloWnFxMW1YQldWWEVDa1FnNUtVYk1PbWRD?=
- =?utf-8?B?c21XS3FNRUpHK2IwRWxKa2dVNUEzUDB2SjZNditoRklSbGRPZFFiQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?alZ3ZjdIRUs5ZTVqOEhKaCtQOXRoWG5FbHVVem96M1l3UnE2dHdEK01sYXUx?=
+ =?utf-8?B?dzNXN0NVbHZEQ2JuVDJQK01wNUgydTVVb2Jac0dlaG04blpiRU40WVFLMSsw?=
+ =?utf-8?B?akViZ2ozcHJnQWwvaGE2L2dqUDUxUUVaaVV1YVpHSVM2SGw1Y2lTbGVnQndm?=
+ =?utf-8?B?QmpsNi9MaTlGNW9iNlNCYlR0amJoa2phRFNmemcrMW1IT0NCTHBQRlUvazFY?=
+ =?utf-8?B?akV5akIwV2tJdGZYSTRLa3hON2E2YTZ2WjhxM1Y1cHhCYjBuWldZQUdjclNh?=
+ =?utf-8?B?ZjFydVRrd1VBbHVzRks5dC9HSGdhZzc4YVF2SUpCQlEvRnBhYXRpQXgrN1E5?=
+ =?utf-8?B?b1pVZkdIaURiSkZBUDArd1h5ajcvWGNHUEZTbC81UVR2UGNKQ2ZKZE5RQjZu?=
+ =?utf-8?B?Z3YrTHczaUNjUFdXdHBUTDJPSHZId0dra25pSk84aHV5R1krbjlqeXZjamJ1?=
+ =?utf-8?B?MzRCTlBOWjAwcW13RVQyRVZ1UUtmOTBScEo1WVBoN0tVcVJkK252MVA4M1d6?=
+ =?utf-8?B?U0JxeUlRLzlhUkgrTlVLU3JxRFViNlVEWjNZY3BiSWNBcW8zVE5maFBDVXNR?=
+ =?utf-8?B?akxkSVZab1A5NytWTS9GYkZvVUNqeXhyQy9mT0M4M3JYOTdoNVdIZ3NCdDM1?=
+ =?utf-8?B?SGUrSS9CNXhLM1BkVkFXU3VBQUhOb2s4ZEU0YVVWQ3JyclN3SGIzRlZaUEsr?=
+ =?utf-8?B?dVpVbVNvL3creDMzTW4vNWFaWUJyV2NiQytmUG91MkZIT0xydDhtWGFRQm4x?=
+ =?utf-8?B?QXRta1J4ZnMyQ2dUOHFQWWlpWVJmdHNRbVNCWklOdHRwK0swQ0dDUzFxMGpn?=
+ =?utf-8?B?TEhIQ0dMQ1pOem1UYmNaaStFN05tcTNXQjhoWHAvdHhlTGIyaEhMbXNLdUMr?=
+ =?utf-8?B?TVNleEFyTWIwb1p2RzFPSHlyRHNOcDg1b0pQZGtjdEsyZkF0ZzAxQnRqaVpW?=
+ =?utf-8?B?bjhlOGpiQThvRXc2Mmc4bFY2clB4TUQrSnRwQkM0TC9PbTlsT1lEWXJhYmRE?=
+ =?utf-8?B?NkZEM1BCYmFlNjF2REV0dXNwZ3VZNWNyZzhWeWZxeFNyZU9CTmhDZHZoOHdp?=
+ =?utf-8?B?eGtBS0FOOTE1bW5qREdvVUxPUEtEcndNWXk5MGVtOCs2RmNGUHFrRFR5YjlO?=
+ =?utf-8?B?NFYvaGN6dDlnaUEzTVhMSHFwS2ppYkErYW8xbnZtUGRMVmdJSEkxQkNUdHBQ?=
+ =?utf-8?B?WHFibWs3RGUzNWMyVWRUVjduSjBmWUc2cWFETUdzNjZpdVM4TkdwQy9TMHRv?=
+ =?utf-8?B?Y3dpNEVmWUNoQ09JU2cvS2VCUVpsRjZQUXBvazNiQjhFM1hEbm5jTGc0eXd2?=
+ =?utf-8?B?ODQ0TGZpbGlDQTJNTmlybnlqWExKL0VkVEJOalVlTStiQ1pjMW40NnZMTmEw?=
+ =?utf-8?B?VUN5MDlkMFZFL29kbnJJaGo3dFZCVFpQU0JLWHUwR3FVak9MQ0RIUk1Eb29i?=
+ =?utf-8?B?eWxTRGVFaHJ0bEZ4dlVoQkh6N2VWVlpydUEvOHpNOTcxaUdoSXlBdjNGQytO?=
+ =?utf-8?B?ZDlVNUlwSThpMll5d2VjT3EwbzFwTmh5RXZkS1I2WEpSQVNvRGFxU2FHazFq?=
+ =?utf-8?B?ZExWaGJLV1Rqc2xmYUFFbkx3YjQyTXdXQ3lHd0RiaXoza1pZSVNWVlpkMm9a?=
+ =?utf-8?B?b1d4ZjRhK2RncFllcytNQ3NPQ3dmNU12THpFNEdmWE5SdVFKSi9tem9Kei81?=
+ =?utf-8?B?aDJGTEZyN3dqNk55RGo5NFIzUmdlT0MwNkQ3cnlDcThIeEtpZFZGUklnVGlY?=
+ =?utf-8?B?UVM4MnhmTVNJUjhzU3RIcENycUJ0c3Z2TUlEZUdwdXF4L214TWtpU1hzV3Zk?=
+ =?utf-8?B?ekM2alF5SGF1Z0pPK1haNVl3TjhScnNHbnphN2JtZFhIbDVzRXJKWVlUZUN6?=
+ =?utf-8?B?QmU2RW1wWUR4L2ZJaWlwTXFITEpMcmY4OEh4ZUlMQjNIa0FJMW9WVlI3SjdZ?=
+ =?utf-8?B?NmhaTEhkbXVqZ0dsVng0VFFUbERSa2dVL2pPRzdzK3dldklkaUlGeDk0eUdv?=
+ =?utf-8?B?RndWMnNadGpFRnl1eExtOTY3N1FyS0swVWlzZVV3aWVyU0doQTVXRlpCajNX?=
+ =?utf-8?B?YXFmNThPWGg1N2dab2ZyejZPWSs2eFBMbDlQMEFlREFEUytnZm1sbUhiZ1BK?=
+ =?utf-8?B?eFI2Y0FsWDhzUmg3MFE4UncyUHpEZXU4NWwvOGNFOWg4UW42V0Z2S1djZVU5?=
+ =?utf-8?B?djRuck9rUXJEUk9pSWJ0R3h1VXdUdDcxWkczTlV4SzdnOERQc2xDdDBlQy83?=
+ =?utf-8?B?dzd1T1JvdDlHc1ZVYkM5UkpvRlJpVkMvZXZyOEg4NUZqOWp5Q3EyWmMzZUpF?=
+ =?utf-8?B?WThNRlhXR2JYWnk5T0ZjREcxZ0ptaENBMkk5bHZEdHdtY0RST2N0QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adee351e-fa5c-4f70-3a56-08df2b04cc8c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e9b57cd-4251-4d25-26b2-08df2b0545e4
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB9059.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:39:32.3458 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:42:55.9202 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KcWKlAp1fWi2Mub/MJsgFymSSjVgYdQ6HUXYN/SH83+nBVZV4bSW1BkVfzz31FYIlfkxIV2yjmF+tSgy+g5w0w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: NQASqnEEmLsIdDz1kWjf09ZuSARz/Wj62YNQQf2NeIw9kjcftNzhcqUPWxosh4o1PJoCcKE/DrMRoG3IeHItJQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999329
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,303 +139,112 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 10/12/26 14:29, Lizhi Hou wrote:
+On 10/13/26 14:11, Lizhi Hou wrote:
 >
-> On 10/9/26 15:53, David Zhang wrote:
->> Add power mode support for AIE4 devices via DRM_AMDXDNA_GET_INFO and
->> DRM_AMDXDNA_SET_STATE:
->> - Add AIE4_MSG_OP_POWER_OVERRIDE mailbox support
->> - Add DRM_AMDXDNA_GET_POWER_MODE support
->> - Implement aie4_set_power_mode() and wire .set_aie_state
+> On 10/12/26 21:38, Matthew Brost wrote:
+>> On Mon, Oct 12, 2026 at 09:10:15PM -0700, Max Zhen wrote:
+>>>
+>>> On 10/12/2026 Mon 13:31, Lizhi Hou wrote:
+>>>> Two hardware contexts can submit jobs that use the same GEM object while
+>>>> a user mapping is invalid. aie2_cmd_submit() drops the reservation and
+>>>> notifier_lock before aie2_populate_range(), and that function takes a
+>>>> reference on the first invalid umap without clearing invalid until the
+>>>> fault returns. Both submissions then call
+>>>> hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
+>>>> structure is not safe for concurrent callers. The calls write
+>>>> notifier_seq and hmm_pfns[] at the same time, so mmu_interval_read_retry()
+>>>> can see the other call's sequence, miss an invalidation, and clear
+>>>> invalid. The job is then pushed while the pages may already be gone.
+>>>> Give each umap its own mutex and hold it from the fault through the retry
+>>>> check and the store that clears invalid. notifier_lock is dropped before
+>>>> this mutex is taken, and the fault drops mmap_lock before notifier_lock
+>>>> is taken again.
+>>>>
+>>>> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
+>>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>>> Reviewed-by: Max Zhen <max.zhen@amd.com>
+>> I was browsing dri-devel and this hmm interaction annoyed me enough to
+>> ask my AI to fix this and converge properly on a DRM framework:
 >>
->> Firmware boots in POWER_MODE_DEFAULT after a reload, so re-send the
->> cached user power mode override whenever the hardware starts via
->> aie4_restore_power_mode(). On a fresh probe, pw_mode is
->> POWER_MODE_DEFAULT.
+>> https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/local_dev/amd_hmm_cleanup
+>
+> The patch looks clean.  I pull it on top of latest drm-misc-next and run some regression tests. It works fine too. :) 
+>
+Sure, I will wait for this fix merged then rebase my next patch on top of this fix.
+
+/David
+
+> Lizhi
+>
 >>
->> Co-developed-by: Soham Donwalkar <soham.donwalkar@amd.com>
->> Signed-off-by: Soham Donwalkar <soham.donwalkar@amd.com>
->> Co-developed-by: Nishad Saraf <nishad.saraf@amd.com>
->> Signed-off-by: Nishad Saraf <nishad.saraf@amd.com>
->> Signed-off-by: David Zhang <yidong.zhang@amd.com>
->> ---
->>   drivers/accel/amdxdna/aie4_message.c  |  17 ++++
->>   drivers/accel/amdxdna/aie4_msg_priv.h |   9 ++
->>   drivers/accel/amdxdna/aie4_pci.c      | 116 ++++++++++++++++++++++++++
->>   drivers/accel/amdxdna/aie4_pci.h      |   6 ++
->>   4 files changed, 148 insertions(+)
+>> Improper HMM or abuse affects the entire kernel, hence we should
+>> converge.
 >>
->> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
->> index c83f81a0e65b..8d1cad50cbab 100644
->> --- a/drivers/accel/amdxdna/aie4_message.c
->> +++ b/drivers/accel/amdxdna/aie4_message.c
->> @@ -158,3 +158,20 @@ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
->>         return ret;
->>   }
->> +
->> +int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
->> +{
->> +    DECLARE_AIE_MSG(aie4_msg_power_override, AIE4_MSG_OP_POWER_OVERRIDE);
->> +    int ret;
->> +
->> +    req.power_mode = power_mode;
->> +
->> +    ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
->> +    if (ret)
->> +        XDNA_WARN(ndev->aie.xdna,
->
-> Should be XDNA_ERR(). 
-I will fix this in next version of the patch. 
-Thanks, David
->
-> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->
->> +              "Failed to set power mode %u, ret %d", (u32)power_mode, ret);
->> +    else
->> +        XDNA_DBG(ndev->aie.xdna, "Power mode set to %u", (u32)power_mode);
->> +
->> +    return ret;
->> +}
->> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
->> index 81842fa1d6ce..4c06792df1bd 100644
->> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
->> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
->> @@ -23,6 +23,7 @@ enum aie4_msg_opcode {
->>       AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
->>       AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
->>       AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
->> +    AIE4_MSG_OP_POWER_OVERRIDE                   = 0x3000B,
->>         AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
->>   };
->> @@ -187,6 +188,14 @@ struct aie4_msg_query_cert_firmware_version_resp {
->>       __u16 host_queue_minor;
->>   } __packed;
->>   +struct aie4_msg_power_override_req {
->> +    __u32 power_mode;
->> +} __packed;
->> +
->> +struct aie4_msg_power_override_resp {
->> +    enum aie4_msg_status status;
->> +} __packed;
->> +
->>   #define AIE4_WORK_BUFFER_MIN_SIZE      SZ_4M
->>     struct aie4_msg_attach_work_buffer_req {
->> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
->> index 1cbd1665a28f..6eacdc026ec7 100644
->> --- a/drivers/accel/amdxdna/aie4_pci.c
->> +++ b/drivers/accel/amdxdna/aie4_pci.c
->> @@ -4,6 +4,7 @@
->>    */
->>     #include <drm/amdxdna_accel.h>
->> +#include <drm/drm_drv.h>
->>   #include <drm/drm_managed.h>
->>   #include <drm/drm_print.h>
->>   #include <linux/firmware.h>
->> @@ -16,6 +17,7 @@
->>   #include "amdxdna_mailbox.h"
->>   #include "amdxdna_mailbox_helper.h"
->>   #include "amdxdna_pci_drv.h"
->> +#include "amdxdna_pm.h"
->>     #define NO_IOHUB        0
->>   #define PSP_NOTIFY_INTR        0xD007BE11
->> @@ -300,6 +302,15 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
->>       return 0;
->>   }
->>   +/* Restore cached power mode override across hardware start. */
->> +int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev)
->> +{
->> +    if (ndev->pw_mode == POWER_MODE_DEFAULT)
->> +        return 0;
->> +
->> +    return aie4_msg_set_power_mode(ndev, ndev->pw_mode);
->> +}
->> +
->>   static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
->>   {
->>       int ret;
->> @@ -316,6 +327,10 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
->>       if (ret)
->>           goto mbox_fini;
->>   +    ret = aie4_restore_power_mode(ndev);
->> +    if (ret)
->> +        goto mbox_fini;
->> +
->>       return 0;
->>     mbox_fini:
->> @@ -353,8 +368,14 @@ static int aie4_vf_hw_start(struct amdxdna_dev_hdl *ndev)
->>       if (ret)
->>           goto mailbox_fini;
->>   +    ret = aie4_restore_power_mode(ndev);
->> +    if (ret)
->> +        goto partition_fini;
->> +
->>       return 0;
->>   +partition_fini:
->> +    aie4_partition_fini(ndev);
->>   mailbox_fini:
->>       aie4_mailbox_fini(ndev);
->>       return ret;
->> @@ -394,8 +415,14 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
->>       if (ret)
->>           goto mailbox_fini;
->>   +    ret = aie4_restore_power_mode(ndev);
->> +    if (ret)
->> +        goto partition_fini;
->> +
->>       return 0;
->>   +partition_fini:
->> +    aie4_partition_fini(ndev);
->>   mailbox_fini:
->>       aie4_mailbox_fini(ndev);
->>   stop_fw:
->> @@ -535,6 +562,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->>         ndev->priv = xdna->dev_info->dev_priv;
->>       ndev->aie.xdna = xdna;
->> +    ndev->pw_mode = POWER_MODE_DEFAULT;
->>       xdna->dev_handle = ndev;
->>         xa_init_flags(&ndev->cert_comp_xa, XA_FLAGS_ALLOC);
->> @@ -589,6 +617,24 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->>       return 0;
->>   }
->>   +static int aie4_get_power_mode(struct amdxdna_client *client,
->> +                   struct amdxdna_drm_get_info *args)
->> +{
->> +    struct amdxdna_drm_get_power_mode mode = {};
->> +    struct amdxdna_dev *xdna = client->xdna;
->> +    struct amdxdna_dev_hdl *ndev;
->> +    u32 buf_sz;
->> +
->> +    ndev = xdna->dev_handle;
->> +    mode.power_mode = ndev->pw_mode;
->> +
->> +    buf_sz = min_t(u32, args->buffer_size, sizeof(mode));
->> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, buf_sz))
->> +        return -EFAULT;
->> +
->> +    return 0;
->> +}
->> +
->>   static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
->>   {
->>       struct amdxdna_dev *xdna = client->xdna;
->> @@ -605,6 +651,9 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
->>       case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
->>           ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
->>           break;
->> +    case DRM_AMDXDNA_GET_POWER_MODE:
->> +        ret = aie4_get_power_mode(client, args);
->> +        break;
->>       default:
->>           XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
->>           ret = -EOPNOTSUPP;
->> @@ -615,6 +664,71 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
->>       return ret;
->>   }
->>   +static int aie4_set_power_mode(struct amdxdna_client *client,
->> +                   struct amdxdna_drm_set_state *args)
->> +{
->> +    struct amdxdna_drm_set_power_mode power_state = { 0 };
->> +    struct amdxdna_dev *xdna = client->xdna;
->> +    struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
->> +    u8 power_mode;
->> +    int ret;
->> +
->> +    if (args->buffer_size < sizeof(power_state))
->> +        return -EINVAL;
->> +
->> +    if (copy_from_user(&power_state, u64_to_user_ptr(args->buffer),
->> +               sizeof(power_state))) {
->> +        XDNA_ERR(xdna, "Failed to copy power mode request into kernel");
->> +        return -EFAULT;
->> +    }
->> +
->> +    if (XDNA_MBZ_DBG(xdna, power_state.pad, sizeof(power_state.pad)))
->> +        return -EINVAL;
->> +
->> +    power_mode = power_state.power_mode;
->> +    if (power_mode > POWER_MODE_TURBO) {
->> +        XDNA_ERR(xdna, "Invalid power mode %d", power_mode);
->> +        return -EINVAL;
->> +    }
->> +
->> +    ret = aie4_msg_set_power_mode(xdna->dev_handle, power_mode);
->> +    if (ret)
->> +        return ret;
->> +
->> +    ndev->pw_mode = power_mode;
->> +    return 0;
->> +}
->> +
->> +static int aie4_set_state(struct amdxdna_client *client,
->> +              struct amdxdna_drm_set_state *args)
->> +{
->> +    struct amdxdna_dev *xdna = client->xdna;
->> +    int ret, idx;
->> +
->> +    if (!drm_dev_enter(&xdna->ddev, &idx))
->> +        return -ENODEV;
->> +
->> +    ret = amdxdna_pm_resume_get_locked(xdna);
->> +    if (ret)
->> +        goto dev_exit;
->> +
->> +    switch (args->param) {
->> +    case DRM_AMDXDNA_SET_POWER_MODE:
->> +        ret = aie4_set_power_mode(client, args);
->> +        break;
->> +    default:
->> +        XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
->> +        ret = -EOPNOTSUPP;
->> +        break;
->> +    }
->> +
->> +    amdxdna_pm_suspend_put(xdna);
->> +
->> +dev_exit:
->> +    drm_dev_exit(idx);
->> +    return ret;
->> +}
->> +
->>   static int aie4_alloc_work_buffer(struct amdxdna_dev_hdl *ndev)
->>   {
->>       struct amdxdna_dev *xdna = ndev->aie.xdna;
->> @@ -737,6 +851,7 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
->>       .hwctx_fini        = aie4_hwctx_fini,
->>       .cmd_wait        = aie4_cmd_wait,
->>       .get_aie_info        = aie4_get_info,
->> +    .set_aie_state        = aie4_set_state,
->>   };
->>     const struct amdxdna_dev_ops aie4_classic_ops = {
->> @@ -746,4 +861,5 @@ const struct amdxdna_dev_ops aie4_classic_ops = {
->>       .hwctx_fini        = aie4_hwctx_fini,
->>       .cmd_wait        = aie4_cmd_wait,
->>       .get_aie_info        = aie4_get_info,
->> +    .set_aie_state        = aie4_set_state,
->>   };
->> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
->> index 5ae5e8427a3b..fd2c50dc8080 100644
->> --- a/drivers/accel/amdxdna/aie4_pci.h
->> +++ b/drivers/accel/amdxdna/aie4_pci.h
->> @@ -58,6 +58,8 @@ struct amdxdna_dev_hdl {
->>       dma_addr_t            work_buf_addr;
->>       u32                work_buf_size;
->>   +    u8                pw_mode;
->> +
->>       struct amdxdna_drm_query_firmware_version cert_version;
->>   };
->>   @@ -77,6 +79,7 @@ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
->>                       struct amdxdna_drm_query_firmware_version *fw_version);
->>   int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
->>                        struct amdxdna_drm_query_firmware_version *cert_version);
->> +int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
->>   u32 aie4_msg_pasid(struct amdxdna_client *client);
->>     /* aie4_ctx.c */
->> @@ -84,6 +87,9 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
->>   void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
->>   int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
->>   +/* aie4_pci.c */
->> +int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
->> +
->>   /* aie4_sriov.c */
->>   #if IS_ENABLED(CONFIG_PCI_IOV)
->>   int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
+>> Please consider the AI suggestions (last 3 patches) instead of open
+>> coding this.
+>>
+>> Matt
+>>
+>>>> ---
+>>>>    drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
+>>>>    drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
+>>>>    drivers/accel/amdxdna/amdxdna_gem.h | 1 +
+>>>>    3 files changed, 9 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+>>>> index d927c8c9d557..4db67a789c34 100644
+>>>> --- a/drivers/accel/amdxdna/aie2_ctx.c
+>>>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+>>>> @@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+>>>>            return -EFAULT;
+>>>>        }
+>>>> +    mutex_lock(&mapp->lock);
+>>>>        ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
+>>>> -    if (ret)
+>>>> +    if (ret) {
+>>>> +        mutex_unlock(&mapp->lock);
+>>>>            goto put_mm;
+>>>> +    }
+>>>>        down_write(&xdna->notifier_lock);
+>>>>        if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
+>>>>            up_write(&xdna->notifier_lock);
+>>>> +        mutex_unlock(&mapp->lock);
+>>>>            amdxdna_umap_put(mapp);
+>>>>            mmput(mm);
+>>>>            goto again;
+>>>>        }
+>>>>        mapp->invalid = false;
+>>>>        up_write(&xdna->notifier_lock);
+>>>> +    mutex_unlock(&mapp->lock);
+>>>>        amdxdna_umap_put(mapp);
+>>>>        mmput(mm);
+>>>>        goto again;
+>>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+>>>> index f14484bc31ec..37bfa5058095 100644
+>>>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>>>> @@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
+>>>>        struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
+>>>>        mmu_interval_notifier_remove(&mapp->notifier);
+>>>> +    mutex_destroy(&mapp->lock);
+>>>>        kvfree(mapp->range.hmm_pfns);
+>>>>        kfree(mapp);
+>>>>    }
+>>>> @@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+>>>>            goto free_pfns;
+>>>>        }
+>>>> +    mutex_init(&mapp->lock);
+>>>>        down_write(&xdna->notifier_lock);
+>>>>        if (list_empty(&abo->mem.umap_list))
+>>>>            abo->mem.uva = addr;
+>>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
+>>>> index 9b4aa21a37c9..456a537eb68c 100644
+>>>> --- a/drivers/accel/amdxdna/amdxdna_gem.h
+>>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
+>>>> @@ -19,6 +19,7 @@ struct amdxdna_umap {
+>>>>        struct kref            refcnt;
+>>>>        bool                invalid;
+>>>>        bool                unmapped;
+>>>> +    struct mutex            lock; /* protect range */
+>>>>    };
+>>>>    struct amdxdna_mem {
