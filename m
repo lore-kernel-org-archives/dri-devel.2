@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC741CCA464
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 18:23:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8CB9CCA464
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 18:23:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 237A110F014;
-	Thu, 15 Oct 2026 18:22:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3760610EA98;
+	Thu, 15 Oct 2026 18:23:01 +0000 (UTC)
 Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
  [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3E1A10EA98
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 18:22:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792088563; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58CB10EA98
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 18:22:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792088569; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=llMHVpI9KWmEkCkhxydhiDC7VGfETG2U/OfpbWnZVsNn9gMHZGYkH6UFrKSnA2iHpx38FhdRlFAH1W9nxI+B0xBa4jUlJvNGdXclZilhjJwsdLpZIAI5EHCT1jlof87M8MpToC9Y7USjF7an3bCseFR6juVwEGU+cWlmbz6easI=
+ b=jQg50vSCfIaYAylteLTvHG51/tTp3k43Xjf36At6I7ajrbVekxCXCnJysHsPey1Rtr0nALQXnPE+8atkqcPXA3qMPiQx0MBhKOqvhLvYy2njbVngYDXu1LjTpse/Fwhux8rurWN8gbBsxpk+xjLCahdypGxKlxB/5UGMjcqZGUw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792088563;
+ s=zohoarc; t=1792088569;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=yJdDUQPVa4y5ADqRyDKt6dn6YGuZIo0fYte+RwM2swU=; 
- b=lr1ufY3E/QwwEHQZJlweDUStjKn0W6hIS2nMsy0MOcsWCgrs1xlZMJ4LbBonwgHzBKMBUn2yalhmlC/Ttn42y7RWFU90Y/90ZGVopyC8wnZr6ur8BnBwevMoIR6rUTZBxXxPObR8BIVcivmJ8Bd0reooqFv7xr6VHSeO5piogLA=
+ bh=1xLQGCwRjjzIAUI/7hGQKPW/PzOE6eLoioQdHJEUh7c=; 
+ b=fJjAqXo0VawoL2txzSKB9+ZlMHkA5erN3pvQESLNIG7IRwqKDwVfKlZmN7QDW560wfsqtJySVDfzZbGbjnftVhw7xyk1H5PkZw1nCjyn7QkiuETrMk6fRE4r+OhRK+CHebSK+e0Uy0OshU2USAlRNa/SpS6FK2TceW7+VLY0nDE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792088563; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792088569; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=yJdDUQPVa4y5ADqRyDKt6dn6YGuZIo0fYte+RwM2swU=;
- b=ZUCsRh4c2Znl6FrUjAkch9U+MbE4DJacLQaMVyvPIDLW0WIhCaNbA7sEBCkPihw+
- h4HHSuLrBw6okYBMDg3Eddoawq8r7b6gzRI2HDVooFCUm+f3zN8XNtyTu9vg5Awyv8W
- IQCC+AuzK5q9VSgw3A2q/UiQeC6G98R3+hRYHaVk=
-Received: by smtp.zohomail.com with SMTPS id 1792088561972670.2434922902952;
- Thu, 15 Oct 2026 11:22:41 -0700 (PDT)
+ bh=1xLQGCwRjjzIAUI/7hGQKPW/PzOE6eLoioQdHJEUh7c=;
+ b=bMLgynZdF4Et8Vncmcx7pSc9WoLiFwL+xqMBhsLsnvCfeAkOl7/+GXXEUzT6xun3
+ wElLA1dUiSFjnonKiA4guzmSHcIhTReMwPUtFVcjWkIoOP/B+XCiriC9LZWodhy3/bK
+ f+COlQIJH62Y//wpxwbFckIp1CNBCQKQhUahxKSQ=
+Received: by smtp.zohomail.com with SMTPS id 1792088566807547.4824790606039;
+ Thu, 15 Oct 2026 11:22:46 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Thu, 15 Oct 2026 19:22:31 +0100
-Subject: [PATCH 1/2] drm/panfrost: Enable cycle counting when perfcnt is
- enabled
+Date: Thu, 15 Oct 2026 19:22:32 +0100
+Subject: [PATCH 2/2] drm/panfrost: Fix race when restoring reset state in
+ perfcnt
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-panfrost-reset-races-fixes-v1-1-bb74c1786a0b@collabora.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261015-panfrost-reset-races-fixes-v1-2-bb74c1786a0b@collabora.com>
 References: <20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com>
 In-Reply-To: <20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -52,18 +52,18 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1348;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1420;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=34dmUZ5HQjdwJlYAAASH48+RySk5y82eB9ZXjWt8Jts=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq0RnocH0TtRpwGuy50HvgVBoMWTL6mwnNJQL1R
- 3xFp0Pr9KWJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCatEZ6AAKCRAOJn5M7lND
- PZJKC/4u3J5u5A72UYsx69YA0tiX3YJOc6RMEgssHCwBgf9BS3aOLUQeZpUhtOSIf4c9s4+OdSn
- jyArtX1vwUyVHs30zkBBlnawBqhFoc4hQr3w+pL/dGTTYUPOiRDCmoc14oERr3VyVzk/cNdGwTd
- xh+hUAahGEo+8T2e2OZo0QBvDd8iceRPdOTk1lW7g4+XNJI9DRIGwWuydffbBEzdfVG7f8ckSqE
- B8z2kKoDWu4hCkJ5xYA/KdxQ1wkbUEYHT4AT5GZCbI8yvCQGLc1Ts76uzkut+5baMeQKy6APYMm
- Y+K4YNWIJa7QM/FO2EhE8B9uwOTQ9M3MWqDKSYhwKZOk13Ws3Jm7WzuwilezICRlU2/BKKYUriy
- j/WyCkZs9tuo65Ehli/VUbfkgMF6UTUtc+ZwoQ58k8D+n2COmGOIzaW+BVAp2xBMwR1dPOSE7sN
- X6cDNvVZx+jFtrds4MlO6OVNLnM3d8OH4Wgir2Dqz5guFMWnM4lYOhkemEKn30mP8JS2I=
+ bh=WfeUgxnkv9aSRubswx+ZRJpz/Q3lxEbh608L1APks5M=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq0Rno/ldbu7X8dfP2NJ1OK8sscgRj0Thx5WNp3
+ N5IkoUl4uCJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCatEZ6AAKCRAOJn5M7lND
+ PdznC/4lpVluzmmvR35rWilm4+qek0mGJ5a75kK6feyJCJnJXyKcRnwb71bsI9aJ2eXRtWFpn7w
+ GhaWxNHAXq+nQnC7jK7Hv5M5QH1YR3XwLEd0AiNjuAy56rp/zC+lRWqAadrmVO2l1wF7DEU0iGy
+ NFrvVNItoy3tke8sV6KEyOO4BDFwoNkeC3w2mjVwvusJuf55kAYI4R24SohIymI8sICCmeZTbA0
+ Ui8rLgX2DGfwUtnR8HlUr7ZV/QQ/7YyAanYRNZ1vsUWCQsOBb3GYo/0flAQ6WBBCxK72yptohJb
+ nSJ8X12JXoVGWpa3pXDQ+y7qxBHwLT2Q+3X8Q3SB0S7aKZD9mIyG/vXsUZpLXoyyKHphtF6PR9E
+ u9inVm3hxSpNwIKgiR4thxIjh8cCrSIaBCNL1gwDsmpd32lEGl3s5JNelmJ57R2Wob2wS8LXb5n
+ 5P9gzkrY0FSEDKRRiie6L8CukHugzRL1B0Mzcn93rt00fagtrKShxksVZbv9rJ+A6313I=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,45 +81,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Boris Brezillon <boris.brezillon@collabora.com>
+struct panfrost_perfcnt::state should always be updated atomically, both
+in the dump ioctl and the reset sequence.
 
-If we don't do that, we end up with invalid timestamps in the block
-headers.
-
-Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through unstable ioctls")
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Fixes: 9944dd07f3cf ("drm/panfrost: Fix races between perfcnt and reset sequence")
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index a9def452d5ef..b26da057a1a0 100644
+index b26da057a1a0..d50b6cc2ecfa 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -17,6 +17,7 @@
- #include "panfrost_device.h"
- #include "panfrost_features.h"
- #include "panfrost_gem.h"
-+#include "panfrost_gpu.h"
- #include "panfrost_issues.h"
- #include "panfrost_job.h"
- #include "panfrost_mmu.h"
-@@ -52,6 +53,7 @@ static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
- 	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+@@ -148,18 +148,17 @@ static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u32 *stat
+ 	 */
+ 	ret = wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump_comp,
+ 							msecs_to_jiffies(1000));
+-
+ 	if (!ret)
+ 		ret = -ETIMEDOUT;
  
- 	if (perfcnt->owns_as_ref) {
-+		panfrost_cycle_counter_put(pfdev);
- 		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
- 		perfcnt->owns_as_ref = false;
- 	}
-@@ -84,6 +86,7 @@ static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
- 		return ret;
+-	/* We need to restore perfcnt state so the next successful dump can relay it to UM */
+-	if (ret < 0) {
+-		perfcnt->state |= *state;
+-		*state = 0;
+-		return ret;
+-	}
+-
+ 	scoped_guard(rwsem_read, &pfdev->reset.lock) {
++		/* Restore perfcnt state so the next successful dump can relay it to UM */
++		if (ret < 0) {
++			perfcnt->state |= *state;
++			*state = 0;
++			return ret;
++		}
++
+ 		*state |= perfcnt->state;
  
- 	perfcnt->owns_as_ref = true;
-+	panfrost_cycle_counter_get(pfdev);
- 
- 	as = ret;
- 	cfg = GPU_PERFCNT_CFG_AS(as) |
+ 		/* UM must re-enable their session before requesting new dumps. */
 
 -- 
 2.55.0
