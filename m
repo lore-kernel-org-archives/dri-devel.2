@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2D86CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:26:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11833CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5CC11235E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7943112377;
 	Thu, 15 Oct 2026 14:26:50 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9E80110EC1E
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:26:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8C6FD112346
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:26:39 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E6CE71477;
- Thu, 15 Oct 2026 07:26:38 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CF83E1713;
+ Thu, 15 Oct 2026 07:26:35 -0700 (PDT)
 Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com
  [10.2.198.107])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6BEC33F871;
- Thu, 15 Oct 2026 07:26:39 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E33603F871;
+ Thu, 15 Oct 2026 07:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792074402; bh=PvdO6ybjWfdECdB34WQM6YyFeyokVUC8uljKKclPvzc=;
+ t=1792074399; bh=+nybeMNVzVEOKArJ/Q+m2Hi2eZ6pdWjemjV8TMS/baA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MMui53xcVFnSV+nAov7EKqY4GmNDQjZBjcOtMKkczFyBE7FizLCxhMyDpBVHI3hQB
- 5p3+9x9yMpP8yIHDmW5UaTF8ZM75R2xKXhPHGOga83IOYGvBvXqckPxeaKvtqY6YaV
- Fe+NbtfLYSwESRx52t8Ydqi1Ifixe7NnHan7pK6A=
+ b=hYvSKo5AGCmdhUj81eXiaAZaYth85z7THjaAOcQDoMdWuET8YS30bD2EVziYTdF3f
+ H/7/AjvoXwWg49MbQ8RZz7WSuBMMaMVNWgoeIHEEjlWQWm8DxDF3ZasJI8tLUDP5lW
+ 6Qq90kEjZXBMxd2uFCSMsFLphfsQ2poprLqGJ6Qk=
 From: Ryan Roberts <ryan.roberts@arm.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
@@ -37,10 +37,11 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: Ryan Roberts <ryan.roberts@arm.com>, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
  kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 11/15] KVM: arm64: Export stage-2 MMU config
-Date: Thu, 15 Oct 2026 15:25:45 +0100
-Message-ID: <20261015142552.4128028-12-ryan.roberts@arm.com>
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
+Subject: [RFC PATCH v2 10/15] KVM: arm64: Introduce support to pin VMIDs
+Date: Thu, 15 Oct 2026 15:25:44 +0100
+Message-ID: <20261015142552.4128028-11-ryan.roberts@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
 References: <20261015142552.4128028-1-ryan.roberts@arm.com>
@@ -61,220 +62,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jean-Philippe Brucker <jpb@kernel.org>
+From: Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
 
-Provide an API to drivers that want to share the stage 2 configuration
-of a VM with their device. At the moment it is rather limited:
+Introduce kvm_arm_pinned_vmid_get() and kvm_arm_pinned_vmid_put(), to pin
+a VMID associated with a KVM instance. This will guarantee that VMID
+remains the same after a rollover.
 
-* No invalidation notifiers. The TLBs on the device side, if any,
-  receive CPU TLB invalidations.
+This will allow some devices, such as ones behind an SMMUv3, to have
+their TLB entries tagged with the KVM VMID. In some systems, TLB
+maintenance instructions from the CPU to the Inner Shareable domain can
+invalidate those entries.
 
-* No remote page fault support. All paging still takes the normal data
-  abort route on the CPU. Options are pinning all guest memory or
-  device-specific mechanism for reporting pending faults to the guest.
-
-* No nested VMs. Although we could perhaps support assigning devices to
-  the hyp context of a nested VM, it seems performative.
-
-So for the moment this API works for devices that share the CPU MMU, but
-the SMMU driver could use it with DVM.
-
+Signed-off-by: Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
 Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
 ---
- arch/arm64/include/asm/kvm_host.h |  11 ++++
- arch/arm64/include/asm/kvm_mmu.h  |   1 +
- arch/arm64/kvm/mmu.c              | 102 ++++++++++++++++++++++++++++++
- arch/arm64/kvm/sys_regs.c         |  14 +---
- 4 files changed, 117 insertions(+), 11 deletions(-)
+ arch/arm64/include/asm/kvm_host.h |  3 ++
+ arch/arm64/kvm/vmid.c             | 77 ++++++++++++++++++++++++++++---
+ 2 files changed, 73 insertions(+), 7 deletions(-)
 
 diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 30d0082b15ec..c0932b43f959 100644
+index cd9b9d2462f9..30d0082b15ec 100644
 --- a/arch/arm64/include/asm/kvm_host.h
 +++ b/arch/arm64/include/asm/kvm_host.h
-@@ -235,6 +235,14 @@ struct kvm_s2_mmu {
- 	atomic_t refcnt;
+@@ -148,6 +148,7 @@ int topup_hyp_memcache(struct kvm_hyp_memcache *mc, unsigned long min_pages);
+ 
+ struct kvm_vmid {
+ 	atomic64_t id;
++	refcount_t pinned;
  };
  
-+/* stage 2 MMU configuration, for drivers that speak VMSA */
-+struct kvm_arch_guest_mmu {
-+	u64 hcr;
-+	u64 hcrx;
-+	u64 vtcr;
-+	u64 vttbr;
-+};
-+
- struct kvm_arch_memory_slot {
- };
+ struct kvm_s2_mmu {
+@@ -1359,6 +1360,8 @@ int __init kvm_arm_vmid_alloc_init(void);
+ void __init kvm_arm_vmid_alloc_free(void);
+ void kvm_arm_vmid_update(struct kvm_vmid *kvm_vmid);
+ void kvm_arm_vmid_clear_active(void);
++int kvm_arm_pinned_vmid_get(struct kvm *kvm);
++void kvm_arm_pinned_vmid_put(struct kvm *kvm);
  
-@@ -1720,4 +1728,7 @@ static __always_inline enum fgt_group_id __fgt_reg_to_group_id(enum vcpu_sysreg
- 
- long kvm_get_cap_for_kvm_ioctl(unsigned int ioctl, long *ext);
- 
-+struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm);
-+void kvm_arch_put_guest_mmu(struct kvm *kvm, struct kvm_arch_guest_mmu *mmu);
-+
- #endif /* __ARM64_KVM_HOST_H__ */
-diff --git a/arch/arm64/include/asm/kvm_mmu.h b/arch/arm64/include/asm/kvm_mmu.h
-index 6eae7e7e2a68..8a9d385fe14d 100644
---- a/arch/arm64/include/asm/kvm_mmu.h
-+++ b/arch/arm64/include/asm/kvm_mmu.h
-@@ -185,6 +185,7 @@ int kvm_handle_guest_sea(struct kvm_vcpu *vcpu);
- int kvm_handle_guest_abort(struct kvm_vcpu *vcpu);
- 
- phys_addr_t kvm_mmu_get_httbr(void);
-+u64 kvm_mmu_get_hcr(struct kvm *kvm, u64 hcr);
- phys_addr_t kvm_get_idmap_vector(void);
- int __init kvm_mmu_init(u32 hyp_va_bits);
- 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 2d44cd6a5aed..0bf1dff2a41f 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -2805,3 +2805,105 @@ void kvm_toggle_cache(struct kvm_vcpu *vcpu, bool was_enabled)
- 
- 	trace_kvm_toggle_cache(*vcpu_pc(vcpu), was_enabled, now_enabled);
- }
-+
-+#define HCR_MMU_BITS (HCR_VM | HCR_PTW | HCR_DC | HCR_TGE | HCR_RW |	\
-+		      HCR_CD | HCR_ID | HCR_E2H | HCR_NV | HCR_NV1 |	\
-+		      HCR_FWB | HCR_ATA | HCR_DCT)
-+
-+/* Update MMU-specific host bits of HCR_EL2 */
-+u64 kvm_mmu_get_hcr(struct kvm *kvm, u64 hcr)
-+{
-+	lockdep_assert_held(&kvm->arch.config_lock);
-+
-+	WARN_ON(!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED,
-+			  &kvm->arch.flags));
-+
-+	hcr &= ~HCR_MMU_BITS;
-+	hcr |= HCR_VM | HCR_PTW;
-+
-+	if (has_vhe() || has_hvhe())
-+		hcr |= HCR_E2H;
-+
-+	if (cpus_have_final_cap(ARM64_HAS_STAGE2_FWB))
-+		hcr |= HCR_FWB;
-+
-+	if (kvm_has_mte(kvm))
-+		hcr |= HCR_ATA;
-+
-+	if (!test_bit(KVM_ARM_VCPU_EL1_32BIT, kvm->arch.vcpu_features))
-+		hcr |= HCR_RW;
-+
-+	return hcr;
-+}
-+
-+/**
-+ * kvm_arch_get_guest_mmu - Get a reference to the guest MMU config
-+ * @kvm: KVM instance. Caller must hold a reference.
-+ *
-+ * Get the stage 2 MMU config of an EL1 VM. The returned object contains
-+ * settings that do not change until the object is released with
-+ * kvm_arch_put_guest_mmu(). This function does not support nested VMs.
-+ *
-+ * HCR has lots of settings, some of which differ between vCPUs, but most of
-+ * them control traps. For EL1 VMs, the bits relevant to MMU translation are
-+ * common to all vCPUs:
-+ * - VM, PTW, DC, TGE, CD, ID, NV, NV1, DCT have fixed values.
-+ * - E2H, FWB, ATA depend on host CPU features (respectively VHE, FWB and MTE2).
-+ * - RW depends on vCPU features. This function does not support 32-bit VMs.
-+ *
-+ * HCRX: EnSDERR, EnSNERR set to 0. TODO: is GCSEn relevant?
-+ *
-+ * VTCR is set once for the VM, depends on the VM's IPA size.
-+ *
-+ * VTTBR:
-+ * - VMID is pinned, until kvm_arch_put_guest_mmu() is called.
-+ * - PGD is allocated and freed with the vm (the caller must hold their
-+ *   reference to @kvm). KVM may create and remove page table mappings at any
-+ *   moment, and uses normal TLB maintenance operations to synchronize with
-+ *   page table walkers. KVM does not notify the caller about mapping changes.
-+ * - CNP is a property of the host system.
-+ *
-+ * Return: a new kvm_arch_guest_mmu instance, or an error pointer on failure.
-+ */
-+struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm)
-+{
-+	int ret;
-+	struct kvm_arch_guest_mmu *mmu;
-+
-+	guard(mutex)(&kvm->arch.config_lock);
-+
-+	if (is_protected_kvm_enabled())
-+		return ERR_PTR(-EOPNOTSUPP);
-+
-+	if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags) ||
-+	    test_bit(KVM_ARM_VCPU_EL1_32BIT, kvm->arch.vcpu_features) ||
-+	    test_bit(KVM_ARM_VCPU_HAS_EL2, kvm->arch.vcpu_features))
-+		return ERR_PTR(-EINVAL);
-+
-+	ret = kvm_arm_pinned_vmid_get(kvm);
-+	if (ret < 0)
-+		return ERR_PTR(ret);
-+
-+	ret = -ENOMEM;
-+	mmu = kzalloc_obj(*mmu, GFP_KERNEL_ACCOUNT);
-+	if (!mmu)
-+		goto err_unpin_vmid;
-+
-+	mmu->vtcr = kvm->arch.mmu.vtcr;
-+	mmu->vttbr = kvm_get_vttbr(&kvm->arch.mmu);
-+	mmu->hcr = kvm_mmu_get_hcr(kvm, 0);
-+
-+	return mmu;
-+
-+err_unpin_vmid:
-+	kvm_arm_pinned_vmid_put(kvm);
-+	return ERR_PTR(ret);
-+}
-+EXPORT_SYMBOL_GPL(kvm_arch_get_guest_mmu);
-+
-+void kvm_arch_put_guest_mmu(struct kvm *kvm, struct kvm_arch_guest_mmu *mmu)
-+{
-+	kvm_arm_pinned_vmid_put(kvm);
-+	kfree(mmu);
-+}
-+EXPORT_SYMBOL_GPL(kvm_arch_put_guest_mmu);
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index a2f4e769a428..20277f888380 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -5798,8 +5798,8 @@ static void vcpu_set_hcr(struct kvm_vcpu *vcpu)
+ static inline void kvm_arm_pvtime_vcpu_init(struct kvm_vcpu_arch *vcpu_arch)
  {
- 	struct kvm *kvm = vcpu->kvm;
+diff --git a/arch/arm64/kvm/vmid.c b/arch/arm64/kvm/vmid.c
+index 7fe8ba1a2851..322279f59e88 100644
+--- a/arch/arm64/kvm/vmid.c
++++ b/arch/arm64/kvm/vmid.c
+@@ -25,6 +25,10 @@ static unsigned long *vmid_map;
+ static DEFINE_PER_CPU(atomic64_t, active_vmids);
+ static DEFINE_PER_CPU(u64, reserved_vmids);
  
--	if (has_vhe() || has_hvhe())
--		vcpu->arch.hcr_el2 |= HCR_E2H;
-+	vcpu->arch.hcr_el2 = kvm_mmu_get_hcr(kvm, vcpu->arch.hcr_el2);
++static unsigned long max_pinned_vmids;
++static unsigned long nr_pinned_vmids;
++static unsigned long *pinned_vmid_map;
 +
- 	if (cpus_have_final_cap(ARM64_HAS_RAS_EXTN)) {
- 		/* route synchronous external abort exceptions to EL2 */
- 		vcpu->arch.hcr_el2 |= HCR_TEA;
-@@ -5807,9 +5807,6 @@ static void vcpu_set_hcr(struct kvm_vcpu *vcpu)
- 		vcpu->arch.hcr_el2 |= HCR_TERR;
- 	}
+ #define VMID_MASK		(~GENMASK(kvm_arm_vmid_bits - 1, 0))
+ #define VMID_FIRST_VERSION	(1UL << kvm_arm_vmid_bits)
  
--	if (cpus_have_final_cap(ARM64_HAS_STAGE2_FWB))
--		vcpu->arch.hcr_el2 |= HCR_FWB;
+@@ -47,7 +51,7 @@ static void flush_context(void)
+ 	int cpu;
+ 	u64 vmid;
+ 
+-	bitmap_zero(vmid_map, NUM_USER_VMIDS);
++	bitmap_copy(vmid_map, pinned_vmid_map, NUM_USER_VMIDS);
+ 
+ 	for_each_possible_cpu(cpu) {
+ 		vmid = atomic64_xchg_relaxed(&per_cpu(active_vmids, cpu), 0);
+@@ -98,12 +102,14 @@ static u64 new_vmid(struct kvm_vmid *kvm_vmid)
+ 	if (vmid != 0) {
+ 		u64 newvmid = generation | (vmid & ~VMID_MASK);
+ 
+-		if (check_update_reserved_vmid(vmid, newvmid)) {
+-			atomic64_set(&kvm_vmid->id, newvmid);
+-			return newvmid;
+-		}
 -
- 	if (cpus_have_final_cap(ARM64_HAS_EVT) &&
- 	    !cpus_have_final_cap(ARM64_MISMATCHED_CACHE_TYPE) &&
- 	    kvm_read_vm_id_reg(kvm, SYS_CTR_EL0) == read_sanitised_ftr_reg(SYS_CTR_EL0))
-@@ -5817,12 +5814,7 @@ static void vcpu_set_hcr(struct kvm_vcpu *vcpu)
- 	else
- 		vcpu->arch.hcr_el2 |= HCR_TID2;
+-		if (!__test_and_set_bit(vmid2idx(vmid), vmid_map)) {
++		/*
++		 * If it is pinned, we can keep using it. Note that reserved
++		 * takes priority, because even if it is also pinned, we need to
++		 * update the generation into the reserved_vmids.
++		 */
++		if (check_update_reserved_vmid(vmid, newvmid) ||
++		    refcount_read(&kvm_vmid->pinned) ||
++		    !__test_and_set_bit(vmid2idx(vmid), vmid_map)) {
+ 			atomic64_set(&kvm_vmid->id, newvmid);
+ 			return newvmid;
+ 		}
+@@ -169,6 +175,49 @@ void kvm_arm_vmid_update(struct kvm_vmid *kvm_vmid)
+ 	raw_spin_unlock_irqrestore(&cpu_vmid_lock, flags);
+ }
  
--	if (vcpu_el1_is_32bit(vcpu))
--		vcpu->arch.hcr_el2 &= ~HCR_RW;
--
--	if (kvm_has_mte(vcpu->kvm))
--		vcpu->arch.hcr_el2 |= HCR_ATA;
--	else
-+	if (!kvm_has_mte(vcpu->kvm))
- 		vcpu->arch.hcr_el2 |= HCR_TID5;
++int kvm_arm_pinned_vmid_get(struct kvm *kvm)
++{
++	struct kvm_vmid *kvm_vmid;
++	u64 vmid;
++
++	kvm_vmid = &kvm->arch.mmu.vmid;
++
++	guard(raw_spinlock_irqsave)(&cpu_vmid_lock);
++	vmid = atomic64_read(&kvm_vmid->id);
++
++	if (refcount_inc_not_zero(&kvm_vmid->pinned))
++		return (vmid & ~VMID_MASK);
++
++	if (nr_pinned_vmids >= max_pinned_vmids)
++		return -EINVAL;
++
++	/*
++	 * If we went through one or more rollover since that VMID was
++	 * used, make sure it is still valid, or generate a new one.
++	 */
++	if (!vmid_gen_match(vmid))
++		vmid = new_vmid(kvm_vmid);
++
++	nr_pinned_vmids++;
++	__set_bit(vmid2idx(vmid), pinned_vmid_map);
++	refcount_set(&kvm_vmid->pinned, 1);
++	return (vmid & ~VMID_MASK);
++}
++
++void kvm_arm_pinned_vmid_put(struct kvm *kvm)
++{
++	struct kvm_vmid *kvm_vmid;
++	u64 vmid;
++
++	kvm_vmid = &kvm->arch.mmu.vmid;
++	vmid = atomic64_read(&kvm_vmid->id);
++	guard(raw_spinlock_irqsave)(&cpu_vmid_lock);
++	if (refcount_dec_and_test(&kvm_vmid->pinned)) {
++		__clear_bit(vmid2idx(vmid), pinned_vmid_map);
++		nr_pinned_vmids--;
++	}
++}
++
+ /*
+  * Initialize the VMID allocator
+  */
+@@ -186,10 +235,24 @@ int __init kvm_arm_vmid_alloc_init(void)
+ 	if (!vmid_map)
+ 		return -ENOMEM;
  
- 	/*
++	pinned_vmid_map = bitmap_zalloc(NUM_USER_VMIDS, GFP_KERNEL);
++	if (!pinned_vmid_map) {
++		bitmap_free(vmid_map);
++		return -ENOMEM;
++	}
++	nr_pinned_vmids = 0;
++
++	/*
++	 * Ensure we have at least one empty slot available after rollover when
++	 * the maximum number of VMIDs are pinned. VMID#0 is reserved.
++	 */
++	max_pinned_vmids = NUM_USER_VMIDS - num_possible_cpus() - 2;
++
+ 	return 0;
+ }
+ 
+ void __init kvm_arm_vmid_alloc_free(void)
+ {
++	bitmap_free(pinned_vmid_map);
+ 	bitmap_free(vmid_map);
+ }
 -- 
 2.43.0
 
