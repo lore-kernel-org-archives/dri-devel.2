@@ -4,102 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0935CC6B38
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2DDCCC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:50:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 131C2112424;
-	Thu, 15 Oct 2026 16:46:08 +0000 (UTC)
-Received: from mail-yw1-f226.google.com (mail-yw1-f226.google.com
- [209.85.128.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5F1F112424
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:46:01 +0000 (UTC)
-Received: by mail-yw1-f226.google.com with SMTP id
- 00721157ae682-8b09e07e149so23851327b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:46:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792082760; x=1792687560;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=pSUqp8eKjvwqurszYDObGmTinJCT2VI8J8eUvxqVJqQ=;
- b=QFRlbdS+Ic4QnJoCC3J66hBQsw6864pYJO80katsee6hPcCFJbSJo5HpmgdQQZGG6E
- j6a+Ldn84ulT7TYBkGpjBQEpqn/e5hlflth8vbknrhemuoYaZithoumWUFkzTIBSc9ow
- 8VTist2Jbc8m4Tg2cCbfVFAY8Y2io74PS0Tb310LoFsyzhfg4RZsrCKSlEOlPlmT3zU/
- Ii/bZf752Yi32bDj/uK6ArJEWrTXt4C/JpyQUKzm3tA0fuqEegCHCbo8bidngmN4ZXFj
- boiV2z2hmyYlu/cvlDKxFc5cdRpcJ05HynQke2RKSdB8LIcqpbf3pY9NtWo952MYw0aT
- CQHQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzdwgSEOsDD921YJ+3AXHj0Oq8ce4HIAx98VyQVvBOd0+Fzk8wLH7G/jPDikkroLupT26s1+tvSUoI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK7sh5y8tzw2jsbJDiOLiLDT1W2MKwCI8LkG1+z3aXDWeyc+t/p
- 3bORNpW5M7HRXCiLwgS+hjir4VwmOzfv1daq++3v36Uf+vu0dYnuhJpEmKGnHJ5YgHEfUMt4i4S
- pRzgvs5vjJh7y9ldF3PsmSvXboF9KSITzoPJQS93vycAZ2hO9YCNsBGSfBRtkM7udo+0SrY/pcD
- LDktvrdZWWheKrsaqKelsTsUjmspgu+1u/66h5fT2rWRrmPy7+h3p4tkgVi3crqLp4CB9/ZAui5
- /mR/McnE6oy1si/9Q/K6yw=
-X-Gm-Gg: AYBFou1llaYV24ng9kIkaCTER4qZvnqvM0YUwalwCVPJ8l9axeC5ymsZM0Wkcv7whfZ
- zni2aeTvJdUD6kUfQpVp6fMx9rlzYhkFAIaHQvlkyGGnHI27K60BUsb1yreGUZO+8eXdnYqQOnc
- whvbMKhdazZIbKR320OmfxXLQQ/V4XlmIkSNhit5b3D6cDjeEhxqrOEZjc9ZypD3ygNLtecdGUd
- WgGbTbr0+bDS02Zv0lwcgbICre+RAw8g9HfrIb0NaUy3npV1nT1c4/6+i2hKy73w1m7vzERUwbN
- 0wukJx9z7b+C71LR9Sgz2zC5e3WwxRb6Vi39EB0FY/+EVUbssdQGUToQ67nq4oYknTOK1QBFIOg
- wxCf6Je+BXGaA6duAKdM4Sjes17Liru0WVpfSpmbHP5idSinXTL97WiGTBh+hJ7Eg/AO76Ar8fZ
- Lhis5RYAqNDvmu1uFTHNjspaoCtoX225Rnln0=
-X-Received: by 2002:a05:690c:ec5:b0:8ab:447c:b159 with SMTP id
- 00721157ae682-8b07edf2767mr65939627b3.94.1792082760149; 
- Thu, 15 Oct 2026 09:46:00 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-100.dlp.protect.broadcom.com. [144.49.247.100])
- by smtp-relay.gmail.com with ESMTPS id
- 956f58d0204a3-679b1ebfb41sm8054d50.19.2026.10.15.09.45.59
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Oct 2026 09:46:00 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-35cbea41088so3342709eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:45:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1792082759; x=1792687559;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=pSUqp8eKjvwqurszYDObGmTinJCT2VI8J8eUvxqVJqQ=;
- b=JhNLDE3bJ4R0AtoVYb4nrdebuGYSOXlhCenxoJmWTQlwMbIpz+dUMuKGJHRk9+VjJX
- WztlRAbTHuG57nZ6s/qOhCpnY1U267GtM4twDgMOXUOQ5yQZjra3T1+nWDbOQAARMe4K
- t+OO/iCfyZqPAfq4ipM9sarEfp7jIx55UY130=
-X-Forwarded-Encrypted: i=1;
- AKwUvBzHSVHg8hzrW1kOBmGMB0hMr7WVOZJl20UIRqyP7XLRWdlA2wl4kEfOwAX8N7XI6vnHqcBA7W7/RDs=@lists.freedesktop.org
-X-Received: by 2002:a05:7301:78cd:b0:353:5908:36fc with SMTP id
- 5a478bee46e88-3537dfa8c6cmr25184428eec.17.1792082758474; 
- Thu, 15 Oct 2026 09:45:58 -0700 (PDT)
-X-Received: by 2002:a05:7301:78cd:b0:353:5908:36fc with SMTP id
- 5a478bee46e88-3537dfa8c6cmr25184392eec.17.1792082757800; Thu, 15 Oct 2026
- 09:45:57 -0700 (PDT)
-MIME-Version: 1.0
-References: <20261013120211.135807-1-matt@ozlabs.org>
- <20261013120211.135807-4-matt@ozlabs.org>
-In-Reply-To: <20261013120211.135807-4-matt@ozlabs.org>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 15 Oct 2026 09:45:41 -0700
-X-Gm-Features: AclHuK8gEHzRL7o1P7PbsprYTPQIJqIPg_1G1oX-C1t78VeDlarF5hWwxG694Uw
-Message-ID: <CABQX2QOis8GJK4Mm8FEuH8UtrXF1NbeMoN8vQD5j4Hwcdk8JoA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
-To: Matt Evans <matt@ozlabs.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Zhenyu Wang <zhenyuw.linux@gmail.com>, 
- Zhi Wang <zhi.wang.linux@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="0000000000004638db065de3c88b"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 144DC112416;
+	Thu, 15 Oct 2026 16:50:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D068112416
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:50:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 032F941A66
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:50:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6F01F000C4;
+ Thu, 15 Oct 2026 16:50:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792083004;
+ bh=nBr2dZmTyfKKOJyQbVXXAaoBORsIM+drTq84MO4rZvM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=lA6W+btD/p1KhGuATcMt8DYxSIk06LsLOP6+T2JHFIEQ/d7cJlYrjkqZWurbQpBwv
+ eguqI6Jb4/4Y/ycunJE6Op94ROSiOUV6NlGE4Gm7aIjL/nszDfQ/D3jiIqsBIvkzwM
+ FJrWBGX3FX8C6RC7ckE7yEXFM7LRqMuLtm52XbLflMCbAT0erwiJk5/R2h6pVciN/m
+ GWLR0kpLD2bBe27cGDQgbUC7pSNV5+yQeCchdfL6LGMtdE1u50H/4vrssYzcfm4VoA
+ or5IDUUJyBY4c8H6hDqnWZsteXWQ8KSxTZdToRsGxx/bfjjPuOLciqJwVPkIonax0H
+ gplyjV1LvajHA==
+Message-ID: <sashiko-outbox-173204@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 18/28] drm/atomic-state-helper: Provide
+ atomic_compare_state helpers
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261015-drm-state-readout-v6-18-6cc02cd10998@kernel.org>
+References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
+ <20261015-drm-state-readout-v6-18-6cc02cd10998@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 16:50:04 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,214 +51,278 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000004638db065de3c88b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] drm: atomic SRO state comparison spams on disabled objects
+- [Low] drm/atomic-sro: STATE_CHECK_U32 and STATE_CHECK_BOOL cause static_a=
+ssert build failures
+- [Low] drm/atomic-sro: -Wformat compiler warning in STATE_CHECK_U32_16_16 =
+macro
+- [Low] drm: missing base state fields in atomic comparison helpers
+--
 
-On Tue, Oct 13, 2026 at 5:02=E2=80=AFAM Matt Evans <matt@ozlabs.org> wrote:
->
-> The dmabuf release path is split between file and dentry release:
-> dma_buf_file_release() is called shortly before the file is freed, and
-> dma_buf_release() calls an exporter's dmabuf->ops->release when the
-> dentry is freed.  However, the dentry can outlive the file (for
-> example, if opened with O_PATH), meaning .release might be called some
-> time after the file is freed.
->
-> This presents a window, when closing a DMABUF file, in which
-> dmabuf->file points to freed memory yet .release op has not yet been
-> called.
->
-> For VFIO, if a buffer's .release has not been called it's considered
-> still active and subject to move/cleanup.  If so, it attempts to
-> get_file_active() on dmabuf->file: a file close with dentry held open
-> will call this function with a stale pointer, a UAF.
->
-> To make this pattern safe, set dmabuf->file to NULL in
-> dma_buf_file_release() to reflect that the associated file is now dead
-> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-> sequence concurrent with a file close then only executes as one of:
->
->  - Gets the file before file_ref_put() (dmabuf->file valid)
->  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->  - Observes dmabuf->file =3D NULL (no file)
->
-> Originally, drivers could assume dmabuf->file was valid until .release
-> was called from fops->release.  This assumption was no longer valid
-> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), which moved the callback to the dentry release (by which
-> point the file might have been freed).  With this commit, drivers must
-> still consider that dmabuf->file could be NULL before .release.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentr=
-y_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
->  include/linux/dma-buf.h   |  5 ++++-
->  2 files changed, 22 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..61485fc28b8b 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
->
->  static int dma_buf_file_release(struct inode *inode, struct file *file)
->  {
-> -       if (!is_dma_buf_file(file))
-> -               return -EINVAL;
-> +       struct dma_buf *dmabuf =3D file->private_data;
+commit a2faf4570ad763a12f621476faaa22b5502a3a73
+Author: Maxime Ripard <mripard@kernel.org>
+
+drm/atomic-state-helper: Provide atomic_compare_state helpers
+
+Now that we have introduced some new infrastructure to compare state
+instances, provide helpers for the default states.
+
+> diff --git a/drivers/gpu/drm/drm_atomic_sro_helper.c b/drivers/gpu/drm/dr=
+m_atomic_sro_helper.c
+> index 692a5a24d762c..46a733e4dcce5 100644
+> --- a/drivers/gpu/drm/drm_atomic_sro_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_sro_helper.c
+[ ... ]
+> @@ -408,6 +409,245 @@ int drm_atomic_helper_sro_readout_state(struct drm_=
+device *dev)
+[ ... ]
+> +bool drm_atomic_helper_plane_compare_state(struct drm_plane *plane,
+> +					   struct drm_printer *p,
+> +					   struct drm_plane_state *expected,
+> +					   struct drm_plane_state *actual)
+> +{
+> +	bool ret =3D true;
 > +
-> +       if (!dmabuf)
-> +               return 0;
->
-> -       __dma_buf_list_del(file->private_data);
-> +       __dma_buf_list_del(dmabuf);
->
-> +       /*
-> +        * As the file is being closed, dmabuf->file is no longer
-> +        * valid and NULL replaces an otherwise stale pointer.  If a
-> +        * reference to the file isn't already held, the file can be
-> +        * closed at any time, including before dmabuf->ops->release()
-> +        * happens: dmabuf->file _must not_ be accessed directly.  An
-> +        * exporter should use get_file_active(&dmabuf->file) which
-> +        * atomically tests and acquires a reference to the file (or
-> +        * returns NULL if the file has closed).  The barrier ensures
-> +        * get_file_active() observes the store before file_free()
-> +        * frees the memory.
-> +        */
-> +       smp_store_mb(dmabuf->file, NULL);
->         return 0;
->  }
->
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d15b2b31d3c9..a31eb0ab9ecf 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -303,7 +303,10 @@ struct dma_buf {
->          * @file:
->          *
->          * File pointer used for sharing buffers across, and for refcount=
-ing.
-> -        * See dma_buf_get() and dma_buf_put().
-> +        * See dma_buf_get() and dma_buf_put().  When an exporter holds a
-> +        * common lock with the ->release() callback, it can use
-> +        * get_file_active(&dma_buf->file) to safely acquire a reference;
-> +        * the file could otherwise be closed at any time.
->          */
->         struct file *file;
->
-> --
-> 2.47.3
->
+> +	STATE_CHECK_PTR(ret, p, plane->name, expected, actual, plane);
+> +	STATE_CHECK_PTR(ret, p, plane->name, expected, actual, crtc);
+> +
+> +	if (expected->fb && actual->fb) {
+> +		if (!drm_atomic_helper_fb_compare(p, expected->fb, actual->fb))
+> +			ret =3D false;
+> +	} else if (!(!expected->fb && !actual->fb)) {
+> +		drm_atomic_helper_print_state_mismatch(p,
+> +						       plane->name,
+> +						       "fb",
+> +						       "expected framebuffer is %s, got %s",
+> +						       expected->fb ? "non-NULL" : "NULL",
+> +						       actual->fb ? "non-NULL" : "NULL");
+> +		ret =3D false;
+> +	}
+> +
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, crtc_x);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, crtc_y);
 
-Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
+[Severity: Medium]
+Will this comparison cause false-positive mismatches when the plane is
+disabled?
 
-z
+If expected->fb is NULL, the expected state retains the old coordinates but
+the actual state readout is zeroed. Since these properties are compared
+unconditionally, could this lead to persistent mismatch warnings in the
+kernel log?
 
---0000000000004638db065de3c88b
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+> +	STATE_CHECK_U32(ret, p, plane->name, expected, actual, crtc_w);
+> +	STATE_CHECK_U32(ret, p, plane->name, expected, actual, crtc_h);
+> +	STATE_CHECK_U32_16_16(ret, p, plane->name, expected, actual, src_x);
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIBCL
-84tfrxmEydRsa1w33yx6kN2PzfUL8NyJllPrxqdvMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDU1OVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAGzG9yKhRrbn4VGJFWDcPw20WJoiE/6KD+Cg1KqC
-h6BS1xXVufGiY5gvfwlaKaa0uX1BMOOXBkCA2l+qN82gilIQSEhXBk0XzvoiE1up8Ps0m3ncoAKn
-F8e87A551Eyx/OFtw+fVvLeaVYj2kkn3b+8AY/mVE7puKUU67aQ4nz3A80sIR2S5KfvnuxkXndSA
-+inJYcHuzXJG2OlbN1wvw38nsQCiVR+XbeSCih3eal0TAIO/c2oIUGF9TH5rjMn0ieVUtp1Mcn4J
-3/gCN7TwPt6dfmultyHXyj6LJ/ImFSvZarTc+BRxJziqjHIqJmdez6sAKsbQU4XBT0G8XV42JZE=
---0000000000004638db065de3c88b--
+[Severity: Low]
+This problem wasn't introduced by this patch, but using STATE_CHECK_U32_16_=
+16
+here triggers a -Wformat compiler warning.
+
+The macro uses the %d format specifier for the result of a right shift on a
+u32 (sa->f >> 16):
+
+    "expected %d.%06u, got %d.%06u", \
+    sa->f >> 16, ((sa->f & 0xffff) * 15625) >> 10, \
+
+Since sa->f is required to be u32, the shift result is an unsigned int.
+Passing an unsigned int to %d violates format string rules. Should this be
+changed to %u?
+
+> +	STATE_CHECK_U32_16_16(ret, p, plane->name, expected, actual, src_y);
+> +	STATE_CHECK_U32_16_16(ret, p, plane->name, expected, actual, src_w);
+> +	STATE_CHECK_U32_16_16(ret, p, plane->name, expected, actual, src_h);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, hotspot_x);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, hotspot_y);
+> +	STATE_CHECK_U16(ret, p, plane->name, expected, actual, alpha);
+> +	STATE_CHECK_U16(ret, p, plane->name, expected, actual, pixel_blend_mode=
+);
+> +	STATE_CHECK_U32(ret, p, plane->name, expected, actual, rotation);
+> +	STATE_CHECK_U32(ret, p, plane->name, expected, actual, zpos);
+> +	STATE_CHECK_U32(ret, p, plane->name, expected, actual, normalized_zpos);
+> +	STATE_CHECK_U32(ret, p, plane->name, expected, actual, color_encoding);
+> +	STATE_CHECK_U32(ret, p, plane->name, expected, actual, color_range);
+> +
+> +	// TODO: damage clips
+> +
+> +	STATE_CHECK_BOOL(ret, p, plane->name, expected, actual, ignore_damage_c=
+lips);
+
+[Severity: Low]
+This problem wasn't introduced by this patch, but using STATE_CHECK_BOOL he=
+re
+causes a build failure.
+
+The macro uses static_assert(__same_type(sa->f, true)). In the kernel, true
+expands to 1 (an int). Comparing a bool with an int evaluates to false,
+unconditionally failing the build. Should the macro compare against a boole=
+an
+variable or type instead?
+
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, src.x1);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, src.x2);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, src.y1);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, src.y2);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, dst.x1);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, dst.x2);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, dst.y1);
+> +	STATE_CHECK_S32(ret, p, plane->name, expected, actual, dst.y2);
+> +	STATE_CHECK_BOOL(ret, p, plane->name, expected, actual, visible);
+> +	STATE_CHECK_U32(ret, p, plane->name, expected, actual, scaling_filter);
+> +
+
+[Severity: Low]
+Is the color_pipeline property intentionally omitted from the plane state
+comparison?
+
+If the hardware state mismatches the software state for this field, it seems
+the discrepancy will be silently ignored.
+
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_atomic_helper_plane_compare_state);
+> +
+[ ... ]
+> +bool drm_atomic_helper_crtc_compare_state(struct drm_crtc *crtc,
+> +					  struct drm_printer *p,
+> +					  struct drm_crtc_state *expected,
+> +					  struct drm_crtc_state *actual)
+> +{
+> +	bool ret =3D true;
+> +
+> +	STATE_CHECK_PTR(ret, p, crtc->name, expected, actual, crtc);
+> +	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, enable);
+> +	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, active);
+> +	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, no_vblank);
+> +	STATE_CHECK_U32(ret, p, crtc->name, expected, actual, plane_mask);
+> +	STATE_CHECK_U32(ret, p, crtc->name, expected, actual, connector_mask);
+> +	STATE_CHECK_U32(ret, p, crtc->name, expected, actual, encoder_mask);
+> +
+> +	STATE_CHECK_DISPLAY_MODE(ret, p, crtc->name, expected, actual, mode);
+> +	STATE_CHECK_DISPLAY_MODE(ret, p, crtc->name, expected, actual, adjusted=
+_mode);
+
+[Severity: Medium]
+Will this comparison cause false-positive mismatches when the CRTC is inact=
+ive?
+
+If expected->active is false, the expected mode may contain previous
+user-space values while the actual hardware readout is zeroed. Since these
+properties are compared unconditionally, could this cause persistent mismat=
+ch
+spam in the kernel log?
+
+> +	STATE_CHECK_PROPERTY_BLOB(ret, p, crtc->name, expected, actual, mode_bl=
+ob);
+> +	STATE_CHECK_PROPERTY_BLOB(ret, p, crtc->name, expected, actual, degamma=
+_lut);
+> +	STATE_CHECK_PROPERTY_BLOB(ret, p, crtc->name, expected, actual, ctm);
+> +	STATE_CHECK_PROPERTY_BLOB(ret, p, crtc->name, expected, actual, gamma_l=
+ut);
+> +	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, vrr_enabled);
+> +	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, self_refresh_act=
+ive);
+> +	STATE_CHECK_U32(ret, p, crtc->name, expected, actual, scaling_filter);
+> +
+
+[Severity: Low]
+Is the background_color property intentionally omitted from the CRTC state
+comparison?
+
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_atomic_helper_crtc_compare_state);
+> +
+[ ... ]
+> +bool drm_atomic_helper_connector_compare_state(struct drm_connector *con=
+n,
+> +					       struct drm_printer *p,
+> +					       struct drm_connector_state *expected,
+> +					       struct drm_connector_state *actual)
+> +{
+> +	bool ret =3D true;
+> +
+> +	STATE_CHECK_PTR(ret, p, conn->name, expected, actual, connector);
+> +	STATE_CHECK_PTR(ret, p, conn->name, expected, actual, crtc);
+> +	STATE_CHECK_PTR(ret, p, conn->name, expected, actual, best_encoder);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, link_status);
+
+[Severity: Low]
+This problem wasn't introduced by this patch, but using STATE_CHECK_U32 on =
+an
+enum field causes a build failure.
+
+The STATE_CHECK_U32 macro uses static_assert(__same_type(sa->f, (u32)0)).
+In C, __builtin_types_compatible_p considers enum types incompatible with
+integer types like u32, so this assertion will unconditionally fail when
+checking fields like link_status.
+
+> +
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, tv.select_subconn=
+ector);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, tv.subconnector);
+> +
+> +	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, self_refresh_awa=
+re);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, picture_aspect_ra=
+tio);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, content_type);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, hdcp_content_type=
+);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, scaling_mode);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, content_protectio=
+n);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, colorspace);
+> +
+> +	/*
+> +	 * NOTE: We can't check max_bpc and max_requested_bpc because it
+> +	 * will typically come from userspace and we can't read it out
+> +	 * from the hardware.
+> +	 */
+> +
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, privacy_screen_sw=
+_state);
+> +	STATE_CHECK_PROPERTY_BLOB(ret, p, conn->name, expected, actual, hdr_out=
+put_metadata);
+> +
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, hdmi.broadcast_rg=
+b);
+> +	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.infoframes.=
+avi.set);
+> +	STATE_CHECK_INFOFRAME(ret, p, conn->name, expected, actual, hdmi.infofr=
+ames.avi.data);
+> +	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.infoframes.=
+hdr_drm.set);
+> +	STATE_CHECK_INFOFRAME(ret, p, conn->name, expected, actual, hdmi.infofr=
+ames.hdr_drm.data);
+> +	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.infoframes.=
+spd.set);
+> +	STATE_CHECK_INFOFRAME(ret, p, conn->name, expected, actual, hdmi.infofr=
+ames.spd.data);
+> +	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.infoframes.=
+hdmi.set);
+> +	STATE_CHECK_INFOFRAME(ret, p, conn->name, expected, actual, hdmi.infofr=
+ames.hdmi.data);
+> +	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.is_limited_=
+range);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, hdmi.output_bpc);
+> +	STATE_CHECK_U32(ret, p, conn->name, expected, actual, hdmi.output_forma=
+t);
+> +	STATE_CHECK_U64(ret, p, conn->name, expected, actual, hdmi.tmds_char_ra=
+te);
+> +
+
+[Severity: Low]
+Are color_format and hdmi.scrambler_needed intentionally omitted from the
+connector state comparison?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-drm-state-=
+readout-v6-0-6cc02cd10998@kernel.org?part=3D18
