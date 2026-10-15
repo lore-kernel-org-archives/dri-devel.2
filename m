@@ -4,62 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17BACCC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 06:08:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E70ECC6B2F
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:27:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B305E10EB72;
-	Thu, 15 Oct 2026 06:07:55 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 122A210E9E6;
- Thu, 15 Oct 2026 06:07:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792044469; x=1823580469;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=lIp8Ez5vdPviw3SB6liedxOk3QRt6NrPwQKfX3GxXKI=;
- b=Q4SCcPCnN/9k2Y6W9306Bk72t3//8bC2ot9UzUoxq203RGHlEHxzTNrp
- 8avNnXZ/XeN3XpAOJ8Py5XMHLeX4bmOnZZOvU/KllAKpGKEj3Z9BY4/hL
- JUzcr4XauZT3lOiDeyb6p2TDRPQ1Xm0myzqZa9vrq8/slZSojDQiS0pnJ
- CROdF4qcu+VGi0uZtxd4nAXZlA8yeGUH2I9qM537h70WmX0pdCfplMbAP
- b3ytpgrFau4mVvEkDvcz6etbdRXuggx3166oa4/URpCoXhgs9qkuHoU8a
- /nLOevp9nwGUhVnobu99YB5xVjZ+NBy+Z0DdE5PN4KQaRyTCumglRPKkY g==;
-X-CSE-ConnectionGUID: VL5iFqgYTyyznRUe7WeuvA==
-X-CSE-MsgGUID: Y7jiffb5RSKnxhbxHg/A1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="794096"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="794096"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2026 23:07:49 -0700
-X-CSE-ConnectionGUID: HkAU05ZFTQSWzY1ADhyHFA==
-X-CSE-MsgGUID: tnYNM8jtTkSc5hcu9Ad+Gg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1694045"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.93])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2026 23:07:44 -0700
-Date: Thu, 15 Oct 2026 09:07:42 +0300
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-fixes
-Message-ID: <atBtrhSxjkB7bVwm@jlahtine-mobl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D965D1120B7;
+	Thu, 15 Oct 2026 07:27:21 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10CB71120B7;
+ Thu, 15 Oct 2026 07:27:11 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4A9F622350;
+ Thu, 15 Oct 2026 07:27:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792049229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=OIYOF/+jeZy8xrIz7guVfovJL6fFQzoIoJBUsRPt2s4=;
+ b=LT7i5skM4pCEwOjrtK1UYXEds36DgAYAOQofH3nOf3qSMNynXUIEGjuHsqz9FmI037vhYv
+ ndYR6SI5EGuaF/rx+5bJi1lPdWB6snvVYN38EPo0Cfbz0nPhUyF/ZQ0M7D4f0ZlRM2Qq74
+ 5ZaAoZOjFYUzCAL5WLNkmYTxUGGPiV8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792049229;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=OIYOF/+jeZy8xrIz7guVfovJL6fFQzoIoJBUsRPt2s4=;
+ b=W5przbQN/+WdgcbqWHMRpZHl/UteRjmx3cfZrtMSPhvdxtZE7LHcJfAKZ2KwEE5iSWRMGH
+ AJ9Yjb2bNvplFOAg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LT7i5skM;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=W5przbQN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792049229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=OIYOF/+jeZy8xrIz7guVfovJL6fFQzoIoJBUsRPt2s4=;
+ b=LT7i5skM4pCEwOjrtK1UYXEds36DgAYAOQofH3nOf3qSMNynXUIEGjuHsqz9FmI037vhYv
+ ndYR6SI5EGuaF/rx+5bJi1lPdWB6snvVYN38EPo0Cfbz0nPhUyF/ZQ0M7D4f0ZlRM2Qq74
+ 5ZaAoZOjFYUzCAL5WLNkmYTxUGGPiV8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792049229;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=OIYOF/+jeZy8xrIz7guVfovJL6fFQzoIoJBUsRPt2s4=;
+ b=W5przbQN/+WdgcbqWHMRpZHl/UteRjmx3cfZrtMSPhvdxtZE7LHcJfAKZ2KwEE5iSWRMGH
+ AJ9Yjb2bNvplFOAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 06D001373D;
+ Thu, 15 Oct 2026 07:27:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id R1mfMEyA0GodQAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 15 Oct 2026 07:27:08 +0000
+Message-ID: <af32a6f6-ccee-4265-96bf-d8508d0127b7@suse.de>
+Date: Thu, 15 Oct 2026 09:27:08 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] drm/gem: add helper to detect self-imported PRIME
+ dma-bufs
+To: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ matthew.brost@intel.com
+References: <20261014190200.1700470-8-niranjana.vishwanathapura@intel.com>
+ <20261014190200.1700470-9-niranjana.vishwanathapura@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261014190200.1700470-9-niranjana.vishwanathapura@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 4A9F622350
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,49 +143,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave & Sima,
+Hi
 
-Here goes this week drm-intel-fixes PR towards v7.3(-rc8).
+Am 14.10.26 um 21:02 schrieb Niranjana Vishwanathapura:
+> From: Farah Kassabri <farah.kassabri@intel.com>
+>
+> Add drm_gem_prime_self_import() to detect and handle the case where a
+> PRIME dma-buf being imported was exported by the same DRM device.
+>
+> When the dma-buf originates from the importing device and uses the
+> expected dma-buf ops, the helper returns the associated GEM object and
+> takes an extra reference on it. This allows drivers to bypass the
+> generic PRIME import path and avoid taking an additional reference on
+> the dma-buf file.
+>
+> The helper simplifies self-import handling and avoids duplication of
+> this pattern across DRM drivers.
+>
+> v2: Move drm_gem_prime_self_import() to drm_gem.h as a static inline
+>      helper routine
 
-Fix for ARL-S host bridge detection and a couple DMC firmware loading
-sanity check additions.
+Why even bother submitting this? It is the same series that I already 
+declined with a few cosmetic changes.
 
-Regards, Joonas
+The abstract entry point for importing is drm_driver.gem_prime_import. 
+The implementation is driver specific. No need to over abstract. Keeping 
+drm_gem_object_get() separate from the test is a feature, not a bug BTW.
 
-PS. No drm-intel-next-fixes PR this week.
+If you want to improve the status quo, change dma-buf such that prime 
+works without relying on the vtable and ->priv. I outlined this in my 
+earlier replies.
 
-***
+Best regards
+Thomas
 
-drm-intel-fixes-2026-10-15:
 
-- Fix ARL-S host bridge detection
-- Add sanity checks for malformed DMC firmware
 
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
+>
+> Signed-off-by: Farah Kassabri <farah.kassabri@intel.com>
+> Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>   drivers/gpu/drm/drm_prime.c | 10 ++-------
+>   include/drm/drm_gem.h       | 42 +++++++++++++++++++++++++++++++++++++
+>   2 files changed, 44 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 9b44c78cd77f..7a15c29052eb 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
+> @@ -974,15 +974,9 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
+>   	struct drm_gem_object *obj;
+>   	int ret;
+>   
+> -	if (drm_gem_is_prime_exported_dma_buf(dev, dma_buf)) {
+> -		/*
+> -		 * Importing dmabuf exported from our own gem increases
+> -		 * refcount on gem itself instead of f_count of dmabuf.
+> -		 */
+> -		obj = dma_buf->priv;
+> -		drm_gem_object_get(obj);
+> +	obj = drm_gem_prime_self_import(dev, dma_buf, &drm_gem_prime_dmabuf_ops);
+> +	if (obj)
+>   		return obj;
+> -	}
+>   
+>   	if (!dev->driver->gem_prime_import_sg_table)
+>   		return ERR_PTR(-EINVAL);
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index 885244e375d3..238ec08f0d81 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -646,6 +646,48 @@ static inline bool drm_gem_is_imported(const struct drm_gem_object *obj)
+>   	return !!obj->import_attach;
+>   }
+>   
+> +/**
+> + * drm_gem_prime_self_import - Attempt to import a dma-buf exported by this DRM device
+> + * @dev: DRM device performing the import
+> + * @dma_buf: dma-buf to import
+> + * @expected_ops: dma-buf ops used by this driver
+> + *
+> + * If @dma_buf was exported by this DRM device using @expected_ops, return the
+> + * corresponding GEM object and take an extra reference on it. In this case,
+> + * the import avoids taking a reference on the dma-buf file and instead bumps
+> + * the GEM object's refcount directly.
+> + *
+> + * Comparing @dma_buf->ops against @expected_ops is plumbing: dma-buf has no
+> + * first-class exporter identifier, so the ops pointer is used as a stand-in to
+> + * recognise a buffer this driver exported. A dedicated exporter identity would
+> + * let this be done without reaching into @dma_buf->ops.
+> + *
+> + * Returns:
+> + * A referenced GEM object on success, or %NULL if the dma-buf was not exported
+> + * by this device or does not match @expected_ops.
+> + */
+> +static inline struct drm_gem_object *
+> +drm_gem_prime_self_import(struct drm_device *dev, struct dma_buf *dma_buf,
+> +			  const struct dma_buf_ops *expected_ops)
+> +{
+> +	struct drm_gem_object *obj;
+> +
+> +	if (dma_buf->ops != expected_ops)
+> +		return NULL;
+> +
+> +	obj = dma_buf->priv;
+> +	if (obj->dev != dev)
+> +		return NULL;
+> +
+> +	/*
+> +	 * Importing dmabuf exported from the driver's own gem increases
+> +	 * refcount on gem itself instead of f_count of dmabuf.
+> +	 */
+> +	drm_gem_object_get(obj);
+> +
+> +	return obj;
+> +}
+> +
+>   #ifdef CONFIG_LOCKDEP
+>   #define drm_gem_gpuva_assert_lock_held(gpuvm, obj) \
+>   	lockdep_assert(drm_gpuvm_immediate_mode(gpuvm) ? \
 
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-are available in the Git repository at:
 
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-10-15
-
-for you to fetch changes up to 6a8bf59de3ef47ff51face6ea826395a1098baa0:
-
-  drm/i915/cx0_phy: Fix ARL-S host bridge detection (2026-10-14 17:54:59 +0300)
-
-----------------------------------------------------------------
-- Fix ARL-S host bridge detection
-- Add sanity checks for malformed DMC firmware
-
-----------------------------------------------------------------
-Dibin Moolakadan Subrahmanian (2):
-      drm/i915/dmc: Harden DMC firmware payload parsing
-      drm/i915/dmc: Add sanity check for DMC load address
-
-Dnyaneshwar Bhadane (1):
-      drm/i915/cx0_phy: Fix ARL-S host bridge detection
-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 12 +++--
- drivers/gpu/drm/i915/display/intel_dmc.c      | 76 +++++++++++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_dmc_regs.h | 12 +++++
- 3 files changed, 90 insertions(+), 10 deletions(-)
