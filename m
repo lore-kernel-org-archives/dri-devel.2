@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1542ACC6B33
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6952CC6B3A
 	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:09:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7C0510E188;
-	Thu, 15 Oct 2026 15:09:35 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C2710E188
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:09:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D205310E916;
+	Thu, 15 Oct 2026 15:09:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0975010E861
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:09:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D9C0643BA3;
- Thu, 15 Oct 2026 15:09:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 469AC1F000C5;
- Thu, 15 Oct 2026 15:09:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7A8B66022C;
+ Thu, 15 Oct 2026 15:09:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A817C1F000C4;
+ Thu, 15 Oct 2026 15:09:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792076969;
- bh=7TdQEai0WuwjF9NB5GU+xrkEh3Ocqi3w3SZG0IevMKU=;
+ s=k20260515; t=1792076966;
+ bh=p2TyFfxeyyH+LPP3301I8AUEBoFPxR6ckZtcjZxIxVA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=eab5AZcvAxw5WsjFsQz2aEvgBR+3W+nmP+7Xp85R+il01EUwDwasOeRgsMsMS4YiO
- L3PpHOjrjhs+pXh/xGx8lfb2J4i/mPJF181khIpDz76LQu4E+uTtm0dG1xWKayLlhn
- ez0xgotjwIC15keA1BA4vCJpF+ZzjKZAVflLrx0EJCkRuqdPdokZlhvI5v8XK40HBM
- Dfjoi/pnSh1CVAZ+v2rK1mUOWLgtpr4KO2yhfSkKj6wMlROqt+ewYSae24jra30K/g
- Y0VTj0Dnq0b/38RBoWmj5iQLEHoL5QJ2UCXTpkD1qqVqgCFno1jsH9iECZK9MWzs0z
- 8wAQg4wCVgmEg==
+ b=Q1kKkyrIiw1cBfXtx+GpNbM/pja005208sKHiFyGPh+UcSaDI9OuSlW8khzLUqZLM
+ tVvWVgv9rtZT9OoPgNAW2L8vQFblnDhRj9DMPPJRiKZAAotESGmOiLpBr8O+5es7le
+ fkhc8bqU9jk5fBN75xhMlLG4uiQWHcAS9Gm1MqZrcc56z55/wdiR6jynBkbFFNLn8c
+ Vj7UlR0Hh9Az5skUxzQHq4FOBB7r6cjK3NEPZRIuWSdqIjOyaK4x0X3nIpw7Cv1P1T
+ l1rTvNM/Dhx+maO7/I5h6Fw36JDFFEhvX7CtCFO26E3VGSuYcHc1pwhlPjKmUtUbZC
+ r87lUqysaGo9A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 15 Oct 2026 17:08:56 +0200
-Subject: [PATCH v6 04/28] drm/bridge: Add drm_private_obj_is_bridge()
+Date: Thu, 15 Oct 2026 17:08:55 +0200
+Subject: [PATCH v6 03/28] drm/bridge: Switch print_state to use bridge name
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-drm-state-readout-v6-4-6cc02cd10998@kernel.org>
+Message-Id: <20261015-drm-state-readout-v6-3-6cc02cd10998@kernel.org>
 References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
 In-Reply-To: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,12 +47,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2200; i=mripard@kernel.org;
- h=from:subject:message-id; bh=boA5XNGgoNqoCRcKZhM8RfRKY0G1DvImk6W8E7QE2Jk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkX3vT89gk8cWbKqoZDBy8eWcXV9S/EM0NO1eOASvDPG
- Yr/Iw9f6JjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATWbCEsc6eW1793KWmsnd6
- 5/6x+ylwKm8WfW9Su3nNll2vdHPXh5XWrlzcIyBZIF2w679awAEDK8ZakW9XohQzOxomvdie98J
- x+5WDCf9u1nPfiC13ZjynH20g+qlQPuib5PpajQXxATeSfh8DAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1539; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=j8gEKSoUMbDBy2wf9x/IRD85NYZ4o0CnEXemIS9VtDs=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkX3nS/937j7ugW6OE48Xae/y+NWbliR2W4NnRzcok/4
+ 1r+MpanYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEyktIqxPmDb/ncfEzxilVsL
+ 73GnsJ+wfFlnkul29uHKuVOcZvFe/vm85PPxlzPVZPdWlE7pnvLoE2PDosuGXx8uar5p4K2/2nP
+ 6LLdqz3crrVeuX5O81PXuXeH2yATGyJlmZvOW15y/UBG4iT8QAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,66 +70,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The SRO readout helpers need to distinguish bridge-backed private
-objects from other private objects, because bridges require special
-readout ordering through the encoder bridge chains.
+drm_bridge_atomic_print_priv_state() currently identifies bridges by
+printing the symbol name of bridge->funcs using the %ps format
+specifier. This produces output like a raw function pointer name, which
+is not particularly user-friendly for debugging.
 
-Add drm_private_obj_is_bridge() which checks whether a private
-object's funcs pointer matches the bridge private state funcs.
+Since bridges now carry a human-readable name, switch to printing
+bridge->name instead. This makes the state readout output more
+consistent and easier to interpret.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_bridge.c | 15 +++++++++++++++
- include/drm/drm_bridge.h     |  2 ++
- 2 files changed, 17 insertions(+)
+ drivers/gpu/drm/drm_bridge.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 447fe6d333b3..9d5529765f5f 100644
+index d474d6020411..447fe6d333b3 100644
 --- a/drivers/gpu/drm/drm_bridge.c
 +++ b/drivers/gpu/drm/drm_bridge.c
-@@ -580,10 +580,25 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
- 	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
- 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
- 	.atomic_print_state = drm_bridge_atomic_print_priv_state,
- };
- 
-+/**
-+ * drm_private_obj_is_bridge - check if a private object backs a bridge
-+ * @obj: private object to check
-+ *
-+ * RETURNS:
-+ *
-+ * True if @obj is the &drm_private_obj embedded in a &struct drm_bridge,
-+ * false otherwise.
-+ */
-+bool drm_private_obj_is_bridge(struct drm_private_obj *obj)
-+{
-+	return obj->funcs && obj->funcs == &drm_bridge_priv_state_funcs;
-+}
-+EXPORT_SYMBOL(drm_private_obj_is_bridge);
-+
- /**
-  * drm_bridge_attach - attach the bridge to an encoder's chain
-  *
-  * @encoder: DRM encoder
-  * @bridge: bridge to attach
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 54cf0d223bba..a22a0bdf3251 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1232,10 +1232,12 @@ static inline struct drm_bridge *
- drm_priv_to_bridge(struct drm_private_obj *priv)
+@@ -561,13 +561,13 @@ drm_bridge_atomic_print_priv_state(struct drm_printer *p,
  {
- 	return container_of(priv, struct drm_bridge, base);
- }
+ 	const struct drm_bridge_state *state = drm_priv_to_bridge_state(s);
+ 	struct drm_bridge *bridge = drm_priv_to_bridge(s->obj);
  
-+bool drm_private_obj_is_bridge(struct drm_private_obj *obj);
-+
- bool drm_bridge_enter(struct drm_bridge *bridge, int *idx);
- void drm_bridge_exit(int idx);
- void drm_bridge_unplug(struct drm_bridge *bridge);
+ 	if (bridge->of_node)
+-		drm_printf(p, "bridge: %ps (%pOFfc)\n", bridge->funcs, bridge->of_node);
++		drm_printf(p, "bridge: %s (%pOFfc)\n", bridge->name, bridge->of_node);
+ 	else
+-		drm_printf(p, "bridge: %ps\n", bridge->funcs);
++		drm_printf(p, "bridge: %s\n", bridge->name);
  
- struct drm_bridge *drm_bridge_get(struct drm_bridge *bridge);
+ 	drm_printf_indent(p, 1, "input bus configuration:");
+ 	drm_printf_indent(p, 2, "code: %04x", state->input_bus_cfg.format);
+ 	drm_printf_indent(p, 2, "flags: %08x", state->input_bus_cfg.flags);
+ 	drm_printf_indent(p, 1, "output bus configuration:");
 
 -- 
 2.55.0
