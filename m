@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16810CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 12:39:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 571C6CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 12:39:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C0DD10F19D;
-	Thu, 15 Oct 2026 12:39:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 727BF10F27B;
+	Thu, 15 Oct 2026 12:39:46 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF4410EBAD
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:39:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792067971; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA61110EBAD
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:39:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792067978; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=WF5okEyZHdiWwA2qTru/kgBV4fphcNtggbXs6vD8jAjmpp8WLhrzgpgGd8oqDNuwIDNkCQwOhGNC0u084NvOPMrVhI//fb01ZFA5ZG5EPVFo7lT1zcXN9K6lna7D933Q0Rxo48c+ljAjKdzLuR1gMO8wDpT/CGexNJ38txoO1gE=
+ b=SYR+JcckoeIPBpaSy4Jn5EtpG0RcV/jNU/GdubIgUtb01GPJOpH6QIUoSzAmZYureOg52UJsTYnOs3edSX3c8EzqXwrrG/xyxR8FhNjfMit8zJnIdMnkXOuKfKgikR4GiKKSTTStYtYB0GnQKhf73/ZqwGcWqZ/eO3y4VNEHFJw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792067971;
+ s=zohoarc; t=1792067978;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=4canWF0BmOD+pTDrdjB/WAdCS+NSwCbnQYOFbdxT5zM=; 
- b=QubaMshhQRAeXDDjyWHYCCuErYXVbQhyuz5aKEydiLIKyCE8/D6cAkXnswjVxFRXbU1GS93bMdbPiJXbZJl9G1QtjsgYeKmFH/lS/RH5XB1cOwG2+MA6pvKQ2goYicFrn/73LYcBQGcdrYcZamBCvvQNXzHNwzJIrz4+7jHJtYs=
+ bh=ltzYYSYrndLaIvxs1Wxb7B9oHjD7meehlnBm5QI9WGw=; 
+ b=O/C5NX27pCvfL2pbN3QK4Z8RpbuLxaZtoHz8W4rVrBZMjZe0OIaUrZokyCYMsLFt/PgSX4/nzTrgPob2kB7gwN8OF9KWYRRHi/kTJD2aIbpUsFN1QRgi28h1Jh1s3KrYKLwH0ew8U57VsY1bXdusBMWt7mbyWXEvyiyxhkfWUHo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792067971; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792067978; 
  s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=4canWF0BmOD+pTDrdjB/WAdCS+NSwCbnQYOFbdxT5zM=;
- b=AMBLqnL/oft4JYUic6R+zVhHKuFjLLAsQcLIVbuEiNG5LcNfU0rEM2frSWLOBJtX
- 3zyfJ2o8SpmTCSUqj8eWuPD1AuMygZ7vsXDl2XnAyuTlqN5yQ/R/H5dnTDtGAfAfwY1
- eB9SN1WAgTdvaxXsQTFs6Pv6HuHNDJVIhYt9D7kk=
-Received: by smtp.zohomail.com with SMTPS id 1792067969994426.1811832118665;
- Thu, 15 Oct 2026 05:39:29 -0700 (PDT)
+ bh=ltzYYSYrndLaIvxs1Wxb7B9oHjD7meehlnBm5QI9WGw=;
+ b=HAlsDRYtggV1yZDjQXFrieOSsvt4GGryp4OqBeKbjZDEWm1aX2+MfldWVGScChuO
+ dY10bwOsr1iYT1baFn9f+gHFGq87yYKiyRJn20Ptrl5ctcIboSY8bPlr9Nw4bv/Vbmv
+ kfpInkRBEhlTsmrbZAoZHiWvtXfJY9mu9u3UFIkw=
+Received: by smtp.zohomail.com with SMTPS id 1792067975281355.6348964848903;
+ Thu, 15 Oct 2026 05:39:35 -0700 (PDT)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Thu, 15 Oct 2026 09:39:06 -0300
-Subject: [PATCH 2/7] rust: io: split IoCopyable into IoCopyReadable and
- IoCopyWritable
+Date: Thu, 15 Oct 2026 09:39:07 -0300
+Subject: [PATCH 3/7] rust: io: add read-only and write-only views
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-io-access-modes-v1-2-93611b84b5e3@collabora.com>
+Message-Id: <20261015-io-access-modes-v1-3-93611b84b5e3@collabora.com>
 References: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
 In-Reply-To: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
@@ -78,257 +77,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-`IoCopyable` provides both `copy_from_io` and `copy_to_io`, so a backend
-that supports copies supports them in both directions, and all four copy
-methods of `Io` require both.
+An I/O view can always be both read and written, as long as its backend
+supports both directions. The I/O API has no view that only allows the
+accesses the hardware or firmware permits, such as a status register
+that must not be written or a doorbell that must not be read.
 
-Thus, as done for `IoCapable` in the previous patch, replace `IoCopyable`
-with an `IoCopyReadable` trait holding `copy_from_io` and `copy_read`, and
-an `IoCopyWritable` trait holding `copy_to_io` and `copy_write`, and
-implement both for every backend that implemented `IoCopyable`.
-`copy_read` and `copy_to_slice`, which read from I/O memory, now require
-`IoCopyReadable`, and `copy_write` and `copy_from_slice`, which write to
-it, require `IoCopyWritable`.
+Add `ReadOnly` and `WriteOnly`, which wrap a view of any backend, and
+their backends `ReadOnlyBackend` and `WriteOnlyBackend`. A read-only
+backend implements `IoReadable` and `IoCopyReadable` where the wrapped
+backend does, by forwarding to it, and implements neither `IoWritable`
+nor `IoCopyWritable`, so the write methods of `Io` do not compile on a
+`ReadOnly` view. `WriteOnly` is the converse. Views projected from a
+wrapped view stay wrapped, and the wrapped view cannot be retrieved.
 
-No functional change intended.
+Add `Io::read_only` and `Io::write_only` to create them from any view or
+I/O handle.
+
+There are no users yet. Register locations with an access mode will be
+the first, in a following patch.
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- rust/kernel/dma.rs | 17 +++++++-----
- rust/kernel/io.rs  | 77 ++++++++++++++++++++++++++++++------------------------
- 2 files changed, 53 insertions(+), 41 deletions(-)
+ rust/kernel/io.rs | 176 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 176 insertions(+)
 
-diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-index 7216a78d38c9..c57026368ab8 100644
---- a/rust/kernel/dma.rs
-+++ b/rust/kernel/dma.rs
-@@ -17,7 +17,8 @@
-     io::{
-         IoBackend,
-         IoBase,
--        IoCopyable,
-+        IoCopyReadable,
-+        IoCopyWritable,
-         IoReadable,
-         IoWritable,
-         SysMem,
-@@ -1201,7 +1202,7 @@ fn io_write<'a>(view: Self::View<'a, T>, value: T) {
-     }
- }
- 
--impl IoCopyable for CoherentIoBackend {
-+impl IoCopyReadable for CoherentIoBackend {
-     #[inline]
-     unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-         // SAFETY: Per safety requirement.
-@@ -1209,14 +1210,16 @@ unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-     }
- 
-     #[inline]
--    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
--        // SAFETY: Per safety requirement.
--        unsafe { SysMemBackend::copy_to_io(view.cpu_addr, buffer) }
-+    fn copy_read<T: zerocopy::FromBytes>(view: Self::View<'_, T>) -> T {
-+        SysMemBackend::copy_read(view.cpu_addr)
-     }
-+}
- 
-+impl IoCopyWritable for CoherentIoBackend {
-     #[inline]
--    fn copy_read<T: zerocopy::FromBytes>(view: Self::View<'_, T>) -> T {
--        SysMemBackend::copy_read(view.cpu_addr)
-+    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-+        // SAFETY: Per safety requirement.
-+        unsafe { SysMemBackend::copy_to_io(view.cpu_addr, buffer) }
-     }
- 
-     #[inline]
 diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index fd5dd5f6bda4..ae60099fd4c3 100644
+index ae60099fd4c3..03af0590b0f4 100644
 --- a/rust/kernel/io.rs
 +++ b/rust/kernel/io.rs
-@@ -298,8 +298,8 @@ pub trait IoWritable<T>: IoBackend {
-     fn io_write<'a>(view: Self::View<'a, T>, value: T);
+@@ -540,6 +540,60 @@ fn try_cast<U>(self) -> Result<<Self::Backend as IoBackend>::View<'a, U>>
+         Ok(unsafe { Self::Backend::project_view(view, ptr.cast()) })
+     }
+ 
++    /// Returns a view of this I/O region that can only be read.
++    ///
++    /// The returned view, and every view projected from it, provides the read methods of [`Io`]
++    /// and none of the write methods.
++    ///
++    /// # Examples
++    ///
++    /// ```no_run
++    /// use kernel::io::{
++    ///     Io,
++    ///     Mmio,
++    ///     ReadOnly,
++    ///     Region,
++    /// };
++    ///
++    /// fn do_reads(io: Mmio<'_, Region<0x100>>) -> u32 {
++    ///     let ro: ReadOnly<Mmio<'_, Region<0x100>>> = io.read_only();
++    ///
++    ///     // Reads work as on `io`. A write such as `ro.write32(0, 0x10)` does not compile.
++    ///     ro.read32(0x10)
++    /// }
++    /// ```
++    #[inline]
++    fn read_only(self) -> ReadOnly<<Self::Backend as IoBackend>::View<'a, Self::Target>> {
++        ReadOnly(self.as_view())
++    }
++
++    /// Returns a view of this I/O region that can only be written.
++    ///
++    /// The returned view, and every view projected from it, provides the write methods of [`Io`]
++    /// and none of the read methods.
++    ///
++    /// # Examples
++    ///
++    /// ```no_run
++    /// use kernel::io::{
++    ///     Io,
++    ///     Mmio,
++    ///     Region,
++    ///     WriteOnly,
++    /// };
++    ///
++    /// fn do_writes(io: Mmio<'_, Region<0x100>>) {
++    ///     let wo: WriteOnly<Mmio<'_, Region<0x100>>> = io.write_only();
++    ///
++    ///     // Writes work as on `io`. A read such as `wo.read32(0x10)` does not compile.
++    ///     wo.write32(1, 0x10);
++    /// }
++    /// ```
++    #[inline]
++    fn write_only(self) -> WriteOnly<<Self::Backend as IoBackend>::View<'a, Self::Target>> {
++        WriteOnly(self.as_view())
++    }
++
+     /// Read a value from I/O.
+     ///
+     /// This only works for primitives supported by the I/O backend.
+@@ -1697,6 +1751,128 @@ fn as_view(self) -> IoSysMap<'a, T> {
+     }
  }
  
--/// Trait indicating that an I/O backend supports memory copy operations.
--pub trait IoCopyable: IoBackend {
-+/// Trait indicating that an I/O backend supports memory copy operations from I/O.
-+pub trait IoCopyReadable: IoBackend {
-     /// Copy contents of `view` to `buffer`.
-     ///
-     /// # Safety
-@@ -308,14 +308,6 @@ pub trait IoCopyable: IoBackend {
-     /// - `buffer` should not overlap with `view`.
-     unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8);
- 
--    /// Copy contents from `buffer` to `view`.
--    ///
--    /// # Safety
--    ///
--    /// - `buffer` is valid for volatile read for `view.size()` bytes.
--    /// - `buffer` should not overlap with `view`.
--    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8);
--
-     /// Copy from `view` and return the value.
-     #[inline]
-     fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-@@ -337,6 +329,17 @@ fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-         // SAFETY: `T: FromBytes` guarantee that all bit patterns are valid.
-         unsafe { buf.assume_init() }
-     }
++/// A view that can only be read.
++///
++/// It wraps a view `V` of another I/O backend and provides the read methods of [`Io`] for it, but
++/// none of the write methods. Views projected from it are read-only too, and the wrapped view
++/// cannot be retrieved.
++///
++/// See [`Io::read_only`] for a usage example.
++#[derive(Clone, Copy)]
++pub struct ReadOnly<V>(V);
++
++/// I/O Backend for [`ReadOnly`] views of backend `B`.
++pub struct ReadOnlyBackend<B>(PhantomData<B>);
++
++impl<B: IoBackend> IoBackend for ReadOnlyBackend<B> {
++    type View<'a, T: ?Sized + KnownSize> = ReadOnly<B::View<'a, T>>;
++
++    #[inline]
++    fn as_ptr<'a, T: ?Sized + KnownSize>(view: Self::View<'a, T>) -> *mut T {
++        B::as_ptr(view.0)
++    }
++
++    #[inline]
++    unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
++        view: Self::View<'a, T>,
++        ptr: *mut U,
++    ) -> Self::View<'a, U> {
++        // SAFETY: Per safety requirement.
++        ReadOnly(unsafe { B::project_view(view.0, ptr) })
++    }
 +}
 +
-+/// Trait indicating that an I/O backend supports memory copy operations to I/O.
-+pub trait IoCopyWritable: IoBackend {
-+    /// Copy contents from `buffer` to `view`.
-+    ///
-+    /// # Safety
-+    ///
-+    /// - `buffer` is valid for volatile read for `view.size()` bytes.
-+    /// - `buffer` should not overlap with `view`.
-+    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8);
- 
-     /// Copy `value` to `view`.
-     ///
-@@ -602,7 +605,7 @@ fn write_val(self, value: Self::Target)
-     #[inline]
-     fn copy_read(self) -> Self::Target
-     where
--        Self::Backend: IoCopyable,
-+        Self::Backend: IoCopyReadable,
-         Self::Target: Sized + FromBytes,
-     {
-         Self::Backend::copy_read(self.as_view())
-@@ -629,7 +632,7 @@ fn copy_read(self) -> Self::Target
-     #[inline]
-     fn copy_write(self, value: Self::Target)
-     where
--        Self::Backend: IoCopyable,
-+        Self::Backend: IoCopyWritable,
-         Self::Target: Sized + IntoBytes,
-     {
-         Self::Backend::copy_write(self.as_view(), value);
-@@ -654,7 +657,7 @@ fn copy_write(self, value: Self::Target)
-     #[inline]
-     fn copy_from_slice(self, data: &[u8])
-     where
--        Self::Backend: IoCopyable,
-+        Self::Backend: IoCopyWritable,
-         Self: Io<'a, Target = [u8]>,
-     {
-         assert_eq!(self.len(), data.len());
-@@ -685,7 +688,7 @@ fn copy_from_slice(self, data: &[u8])
-     #[inline]
-     fn copy_to_slice(self, data: &mut [u8])
-     where
--        Self::Backend: IoCopyable,
-+        Self::Backend: IoCopyReadable,
-         Self: Io<'a, Target = [u8]>,
-     {
-         assert_eq!(self.len(), data.len());
-@@ -1275,7 +1278,7 @@ fn io_write(view: <$backend as IoBackend>::View<'_, $ty>, value: $ty) {
- #[cfg(CONFIG_64BIT)]
- impl_mmio_io_capable!(MmioBackend, u64, readq, writeq);
- 
--impl IoCopyable for MmioBackend {
-+impl IoCopyReadable for MmioBackend {
-     #[inline]
-     unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-         // SAFETY:
-@@ -1285,7 +1288,9 @@ unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-             bindings::memcpy_fromio(buffer.cast(), view.ptr.cast(), view.size());
-         }
-     }
-+}
- 
-+impl IoCopyWritable for MmioBackend {
-     #[inline]
-     unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-         // SAFETY:
-@@ -1442,7 +1447,7 @@ fn io_write(view: SysMem<'_, $ty>, value: $ty) {
- #[cfg(CONFIG_64BIT)]
- impl_sysmem_io_capable!(u64);
- 
--impl IoCopyable for SysMemBackend {
-+impl IoCopyReadable for SysMemBackend {
-     #[inline]
-     unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-         // Use `bindings::memcpy` instead of `copy_nonoverlapping` for volatile.
-@@ -1452,15 +1457,6 @@ unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-         unsafe { bindings::memcpy(buffer.cast(), view.ptr.cast(), view.ptr.len()) };
-     }
- 
--    #[inline]
--    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
--        // Use `bindings::memcpy` instead of `copy_nonoverlapping` for volatile.
--        // SAFETY:
--        // - `view.ptr` is in CPU address space and valid for write.
--        // - `buffer` is valid for read for `view.size()` bytes which is equal to `view.ptr.len()`.
--        unsafe { bindings::memcpy(view.ptr.cast(), buffer.cast(), view.ptr.len()) };
--    }
--
-     #[inline]
-     fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-         // SAFETY:
-@@ -1471,6 +1467,17 @@ fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-         // - `T: FromBytes` so all bit patterns are valid.
-         unsafe { view.ptr.read_volatile() }
-     }
++impl<'a, V: IoBase<'a>> IoBase<'a> for ReadOnly<V> {
++    type Backend = ReadOnlyBackend<V::Backend>;
++    type Target = V::Target;
++
++    #[inline]
++    fn as_view(self) -> <Self::Backend as IoBackend>::View<'a, Self::Target> {
++        ReadOnly(self.0.as_view())
++    }
 +}
 +
-+impl IoCopyWritable for SysMemBackend {
++impl<B: IoReadable<T>, T> IoReadable<T> for ReadOnlyBackend<B> {
++    #[inline]
++    fn io_read(view: Self::View<'_, T>) -> T {
++        B::io_read(view.0)
++    }
++}
++
++impl<B: IoCopyReadable> IoCopyReadable for ReadOnlyBackend<B> {
++    #[inline]
++    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
++        // SAFETY: Per safety requirement.
++        unsafe { B::copy_from_io(view.0, buffer) }
++    }
++
++    #[inline]
++    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
++        B::copy_read(view.0)
++    }
++}
++
++/// A view that can only be written.
++///
++/// It wraps a view `V` of another I/O backend and provides the write methods of [`Io`] for it, but
++/// none of the read methods. Views projected from it are write-only too, and the wrapped view
++/// cannot be retrieved.
++///
++/// See [`Io::write_only`] for a usage example.
++#[derive(Clone, Copy)]
++pub struct WriteOnly<V>(V);
++
++/// I/O Backend for [`WriteOnly`] views of backend `B`.
++pub struct WriteOnlyBackend<B>(PhantomData<B>);
++
++impl<B: IoBackend> IoBackend for WriteOnlyBackend<B> {
++    type View<'a, T: ?Sized + KnownSize> = WriteOnly<B::View<'a, T>>;
++
++    #[inline]
++    fn as_ptr<'a, T: ?Sized + KnownSize>(view: Self::View<'a, T>) -> *mut T {
++        B::as_ptr(view.0)
++    }
++
++    #[inline]
++    unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
++        view: Self::View<'a, T>,
++        ptr: *mut U,
++    ) -> Self::View<'a, U> {
++        // SAFETY: Per safety requirement.
++        WriteOnly(unsafe { B::project_view(view.0, ptr) })
++    }
++}
++
++impl<'a, V: IoBase<'a>> IoBase<'a> for WriteOnly<V> {
++    type Backend = WriteOnlyBackend<V::Backend>;
++    type Target = V::Target;
++
++    #[inline]
++    fn as_view(self) -> <Self::Backend as IoBackend>::View<'a, Self::Target> {
++        WriteOnly(self.0.as_view())
++    }
++}
++
++impl<B: IoWritable<T>, T> IoWritable<T> for WriteOnlyBackend<B> {
++    #[inline]
++    fn io_write(view: Self::View<'_, T>, value: T) {
++        B::io_write(view.0, value)
++    }
++}
++
++impl<B: IoCopyWritable> IoCopyWritable for WriteOnlyBackend<B> {
 +    #[inline]
 +    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-+        // Use `bindings::memcpy` instead of `copy_nonoverlapping` for volatile.
-+        // SAFETY:
-+        // - `view.ptr` is in CPU address space and valid for write.
-+        // - `buffer` is valid for read for `view.size()` bytes which is equal to `view.ptr.len()`.
-+        unsafe { bindings::memcpy(view.ptr.cast(), buffer.cast(), view.ptr.len()) };
++        // SAFETY: Per safety requirement.
++        unsafe { B::copy_to_io(view.0, buffer) }
 +    }
- 
-     #[inline]
-     fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
-@@ -1640,7 +1647,7 @@ fn io_write<'a>(view: Self::View<'a, T>, value: T) {
-     }
- }
- 
--impl IoCopyable for IoSysMapBackend {
-+impl IoCopyReadable for IoSysMapBackend {
-     #[inline]
-     unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-         match view {
-@@ -1652,20 +1659,22 @@ unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-     }
- 
-     #[inline]
--    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-+    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-         match view {
--            // SAFETY: Per safety requirement.
--            IoSysMap::Io(l) => unsafe { MmioBackend::copy_to_io(l, buffer) },
--            // SAFETY: Per safety requirement.
--            IoSysMap::Sys(r) => unsafe { SysMemBackend::copy_to_io(r, buffer) },
-+            IoSysMap::Io(l) => MmioBackend::copy_read(l),
-+            IoSysMap::Sys(r) => SysMemBackend::copy_read(r),
-         }
-     }
++
++    #[inline]
++    fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
++        B::copy_write(view.0, value)
++    }
 +}
- 
-+impl IoCopyWritable for IoSysMapBackend {
-     #[inline]
--    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-+    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-         match view {
--            IoSysMap::Io(l) => MmioBackend::copy_read(l),
--            IoSysMap::Sys(r) => SysMemBackend::copy_read(r),
-+            // SAFETY: Per safety requirement.
-+            IoSysMap::Io(l) => unsafe { MmioBackend::copy_to_io(l, buffer) },
-+            // SAFETY: Per safety requirement.
-+            IoSysMap::Sys(r) => unsafe { SysMemBackend::copy_to_io(r, buffer) },
-         }
-     }
- 
++
+ // This helper turns associated functions to methods so it can be invoked in macro.
+ // Used by `io_project!()` only.
+ #[doc(hidden)]
 
 -- 
 2.56.0
