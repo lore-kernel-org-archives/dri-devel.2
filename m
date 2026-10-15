@@ -4,136 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E28CC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 10:29:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71405CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 10:29:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69EEE10EA04;
-	Thu, 15 Oct 2026 10:29:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BAC610EBA6;
+	Thu, 15 Oct 2026 10:29:28 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 226B410EBA6
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:29:02 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79237112286
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:29:17 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69F9jY7S2966392
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:29:01 GMT
+ 69F9jgZF1955865
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:29:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ZK+0FUJaqF1U29xJtyKMuQjx1J7qvdo5xAWj63A0zyY=; b=S/iOEuIx+4KUiWdA
- rGPRbJD6JVBOhU48iuOR9KlYXiZYxF07LGdb0x81+QFWyKg6gYWYfiuzwmRVJ63Q
- v8F1yBxYx+Da7WbAg37PKDOvvmNPDKxxsEBesPQbuTSjxqaF+0nuWykfh2NC5z1s
- m896EAyNwuBiRPdRuYtQqpY0ZVGGCkni+q9D+QLTGFGSFsWqpM8IbxKvdYnYXir+
- 0KGIBCDteWbOk2WDU87pLOOG7oy5rIx/J/J1/L0kdPhNvnCZ7AqxbZ9/4iVL0gsS
- IiNGrlW6me0jODoG/cYdpMTsCqu2FWlxmbjZglHgV8nLC2u1hsnWPma1kbUt+Sjx
- VJ6uAA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hae4wujkq-1
+ OmbFgJmvEHXwXsxMN6rXgxgcJ2kmAcWfcjuPvuxBd9c=; b=FKmpnYOLCBDgEO5q
+ HladjQqGKeXKLtdGw32wme9wR70WmcihhqlJHo/qgxCGfrapBp9t502egD93FLku
+ nLNt44t4DIG2F+0En6xb4kN9346Ek7YqrN8nIEBZlAqvm6o1AG0op3kj57UUYzOw
+ E9v1bwWardp/3KAB6fps9gEoNPQrZTTfv+8Y8ToZj08kZGxIVJzvYUkt3PV3PmQw
+ zmVocD0nwLPkz8Ebwmsed9++xV+5T9MPPZyxpEnOMUTxxO1rrmo5knNfcKXJbkKp
+ 130A8O/LhiMOAmEQNqwXzyyO/BIMuyYBHth7TxtAvKO144GwnQX9HIOFyLc6v10+
+ jwqCAw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakdetcqm-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:29:00 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2df375fb9b2so59589815ad.2
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 03:29:00 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:29:16 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-3a8ae5154e7so6774103a91.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 03:29:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792060140; x=1792664940;
+ d=oss.qualcomm.com; s=google; t=1792060155; x=1792664955;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ZK+0FUJaqF1U29xJtyKMuQjx1J7qvdo5xAWj63A0zyY=;
- b=g+6dti+RlWXqG9PueSq7q4jl3wlBdbWgMhk0MZh3chLubGk2Ci569onwafWAI4NOES
- eXTpAYzqJz7JBYCcqM4rSkKjuKVsn/jH1B6h29b7jujGzhK/hNBj/ia//KkJUVGxaL5h
- cOc7DBNXOv84NO1TR5wXhf/3vWmCI7R/5EsPgm5i5LcKStNRKJl8AwtcBinQQydjdUTu
- cDzMz2CtYGvnYLUu2Nde3uUAWhbg7wsie61WhQ9TLTmKNhmv2sV5U3e4EgH8AumGivln
- RYsXAi3aRuNi2P8/uebKlkc1vKnhXjTEooeGHK1JheeDbroBo+sesLnCcFRyNq3YTPVu
- aUoA==
+ :content-type; bh=OmbFgJmvEHXwXsxMN6rXgxgcJ2kmAcWfcjuPvuxBd9c=;
+ b=hbYvBT0/t0kgyeLJwg5pTl5xoA9W58Uzk4Ff/HWV6GR+TNTBrFSz2v4buOiNpJOYvE
+ uQ8pSgkBqiOV6jhWks0oYZmqruQ08O+rsdDY1g/EZLf4agyVlAe0mvWsaiRHWHXTqYhc
+ 8HfgajXgFjNQQfn1b9OE9hq8y41fB21w/A7Wtn6quAvGUriYY41UnovdQ01HGMjxr9nh
+ aBm4EEprz2AoAhq+g8Rtc6ZIN11PqdoHR18ptHpqB00ILNU9u59GS4JQlE91aL9D5B7p
+ 0+n/melzkW6LUlgtkpQ66NFm6sz17fEyeBaIObzrNoV0oCSXvNu+qmeRv8dnWlq50ku/
+ K12g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792060140; x=1792664940;
+ d=1e100.net; s=20260707; t=1792060155; x=1792664955;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ZK+0FUJaqF1U29xJtyKMuQjx1J7qvdo5xAWj63A0zyY=;
- b=wLIcp098wJNT8/fQznl9CiMabqOQr4IfD/icpHOAeIKZwEF+BDfJE4yO31VGLRn4lQ
- Fa4EHPB8s/jMaXr4BdbAJyQXRp0uQyy3GVtTXyvIKnYWIokSSxAjcgztW3O/5m7QRcDx
- jlg1upFWvdppTc2aOV6TEO1NKWmt/4rTpO/V+27/fgKTj6VvaMwx40h3gG6X0RLzNye6
- adrIl4fBzcGOSYYdRQdrQu8mvpDiZqV8D8iJgPy2gBePsAJA1Af34SiG1rfTiqwMNoyK
- YEvyEzs5ECp4f/a0SbqTiARA9ctg5DeVmH4PZXvT9p9DEMEmX82cUiRSWYmNL5RNtERQ
- HRaA==
+ bh=OmbFgJmvEHXwXsxMN6rXgxgcJ2kmAcWfcjuPvuxBd9c=;
+ b=bcSqnDwXzhTIxbIQjAndW+5G/h5iXdaQsOoG8u6Mk3J0BQ41hFas8hm3Jrgr8JfemN
+ hyaePUpTf2zHRNofMqwUUeOjioyWyYR3PVBsARNhS/5ciPzuuWtXvenOHsZk5hh1HVJD
+ zaXaFxT9EmG+gfeja+irmbmGbpCyvPClascAnMabLPQ1IdTxPoJEdWcqa8capVlwNhz/
+ tY4KVktXEyzAO1ZP7i8gZzPSqNZQw+KxAkZHWdXAblmBMG5lhTtxj8rAM1kY7oZGNFTq
+ /vzQoLiQBbvFicsklYV+xXOoWTKUncCALEd57429OV6pD6p2QHr58uKd1GrafiQI1gSd
+ Jd7Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvByFkLQJWqxVmQohU4igW7gVuNxYu/OROedHROKvGA1UxbGteEtPl2uKlawhKQlXNJvTA/TPEqvX8+c=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLhoRb5lQTFD/uygW0DBMrD1by35bSgEMX52pbpu2fdfKnA8K1k
- X0QccSG6HSep6366Xt+1kLD1PJozYg7gBHGjWs/37e8kms8+ASsJmDeWk0k7uLVH08cSRlcKKJ9
- tn2Hu7rrTa+Car0cyRC4F0t1DYGC0GNW99LyVb+MMF+t7AFAPYbj75qCtnliCGgPMPxi9+jo=
-X-Gm-Gg: AYBFou0chTtQjaLMa4nWhqgDFqhvAM+DIRiQHuD6IMFmYhFv+eDus8RWkdql4N9bCBM
- /NyNxVJDnmV+ScxACKNeh5AiGOJanp0YTFPbXrBVzYYLz0xqnZ9ME/AphsXA9DjhGaob3/N19ni
- qbvX+KTlbSmD2XSUfGh6CqzWbGTz9pJ4S3nxA50qHmPP4pp/ws6n9CY9sX6CCnZ0vvfjjCpaCHn
- YyEoeF+RXkHf1NU9Rb7vGjPb+hT9nxcKAXVMFKS9Qlww/HANkMhB6VunOc1fuKysZqnuZ7o60vK
- yeV6adTPk9AosBBzuDfv17hyiO4zTVgbFXOXvppaIRlZxTB1zNtd+3dEIh25D+CX9KHPtGnp1NF
- rDmILPhV8xXq+/KjRvhCzZvuN0KA=
-X-Received: by 2002:a17:902:cec2:b0:2dd:c0ff:e72b with SMTP id
- d9443c01a7336-2e842e02a57mr148391795ad.61.1792060139920; 
- Thu, 15 Oct 2026 03:28:59 -0700 (PDT)
-X-Received: by 2002:a17:902:cec2:b0:2dd:c0ff:e72b with SMTP id
- d9443c01a7336-2e842e02a57mr148391435ad.61.1792060139204; 
- Thu, 15 Oct 2026 03:28:59 -0700 (PDT)
+ AKwUvBzCNWMBNIddEsqRWPtHvzD1L5ySyEnF2Z5G4+0VVPE2Ez/7hBZC/AhNKS7U79SYQ6VhjqYwLLGbygE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL3Ry7/Yeqc07xKCKCJDuY1XH5b5t7HGaV5lRu8XkQNmVcAnr1t
+ yfzSTiRc/OTRZrukcjepz2yASKeSikGsbNlzsmhO3bcsn/zme5rh38OGJU/M8I43D9pke4lkRdO
+ 9JoVup7zsXgzDHytF8Rdjzw1hSCAyLOIZyCvL9mL8jBpaN9NaApw1WVCLXf/YgfvNeGeul7c=
+X-Gm-Gg: AYBFou0k1b1/O4/GrNc7YtQBzeaXnofWLxONB3ydguRBpnfOcw6QLQmQAcvp/txJlx0
+ /iDkRBfIulGAmZBqlQtrj7kmz3RY6wzMUVeR6UclFYhFHUspEAi0RsnUtL8mRytJ5NiWc4IXYlB
+ Rc9ginowLELKkO4wWXp1aunJzO91HMZT/FZO8AMCyLJD2TAV0zS7DgTwkN5m8r7dYXV/+4rr09j
+ Jjz73ZZXyZ1v4UBFyDSzu4eqj9GOjd0hkLyqoNWDwKmW9CHc6kGtHyuSMbjMrlX9U+PHjTaNC6i
+ ng5ZDAu7P/0d3SLI/iI6DuslL2lOKKDs3Sl3GQdgCoETDNW4prXbzKA7XS2FYxZwr9eBwXq15th
+ 1dhT0d29ZD1JajObznKhYB+I7AV4=
+X-Received: by 2002:a17:90b:134e:b0:3ac:9259:1234 with SMTP id
+ 98e67ed59e1d1-3ac92591527mr2146601a91.39.1792060155112; 
+ Thu, 15 Oct 2026 03:29:15 -0700 (PDT)
+X-Received: by 2002:a17:90b:134e:b0:3ac:9259:1234 with SMTP id
+ 98e67ed59e1d1-3ac92591527mr2146578a91.39.1792060154527; 
+ Thu, 15 Oct 2026 03:29:14 -0700 (PDT)
 Received: from [10.64.69.173] ([114.94.8.21]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2e8422ba80asm80869785ad.63.2026.10.15.03.28.54
+ 98e67ed59e1d1-3ac945e74bcsm3856778a91.3.2026.10.15.03.29.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Oct 2026 03:28:58 -0700 (PDT)
-Message-ID: <ebf962ad-6b55-4741-bbb3-783f56c1106f@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 18:28:52 +0800
+ Thu, 15 Oct 2026 03:29:13 -0700 (PDT)
+Message-ID: <3bec0e74-3f69-41a8-907f-983becfc8914@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 18:29:11 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 08/35] drm/msm/dp: add support to send ACT packets for
- MST
+Subject: Re: [PATCH v7 12/35] drm/msm/dp: add support for sending VCPF packets
+ in DP controller
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org
 References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
- <20260929-msm-dp-mst-v7-8-4b81473185e7@oss.qualcomm.com>
- <aolbmfnrk6qkfifib6bmhslaro5z2734ydfip4mnn3go4efpsy@2d4m6nnh7ogv>
- <3c28f89e-8b49-4937-b4c8-66da180a5706@oss.qualcomm.com>
- <fx5njelx53gciz6rguzjybxgbyxbfqweelsuy4j3aab2n5awrf@n27xvmre7ztu>
+ <20260929-msm-dp-mst-v7-12-4b81473185e7@oss.qualcomm.com>
+ <20260929045000.55AE01F000FF@smtp.kernel.org>
+ <t3klzrnzq3oicg6djkv6ixwy6oteo6c6zvnpddbqk5pjhsodoh@qz7pcou23no7>
+ <f7e864e9-8500-430c-8f02-915a162bd2a2@oss.qualcomm.com>
+ <rd73b5ovrmqlanussaj5cugi4fx5yzuvwam2kzcizdiusmxzib@ko5xasxrjrzx>
 Content-Language: en-US
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <fx5njelx53gciz6rguzjybxgbyxbfqweelsuy4j3aab2n5awrf@n27xvmre7ztu>
+In-Reply-To: <rd73b5ovrmqlanussaj5cugi4fx5yzuvwam2kzcizdiusmxzib@ko5xasxrjrzx>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MSBTYWx0ZWRfXyn7wthfaJyr0
- 80y4wq1jEjAit/XNa38ArwC73iERt5U98Pbw7wzSPrKV7NxYsQuXDrUoufKtwMOje+4x7cZMjie
- GIba/wCgmPhIyPhqp+joTToayRurNvQ=
-X-Proofpoint-ORIG-GUID: yw9piesTCzSfqQuJcE1XG9AgvFUVndkw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MSBTYWx0ZWRfX7blNlw7AIzqB
- KsBLw+ALna3CXpJkshpqxOiTwDSl8t9yxpAJmX/ceyYFsdE1QR+k/VNgSvD2yOLsMFpkKDp2AH+
- Gz237J+W9zHcUa0NMuzXJM35G8cOUekRTrOqBWz5/W2Meig/cIvyQnCi5Y4oJvHCxImGVgod6kk
- WaZgAy8Rd5wy6OZXNjFe+/aElL8uVMcEi5MebS34mV2sNhrAmGjYFseSaeXP2teA5GLEP4bVYGY
- i92fUYmwn2mGF+0GAYbO8mtT5Yno2pV0Nl8H3HUenINhy1pKkQcP1kSytwlodhwV8059DRF8Pkp
- SBFVwWLuzJ7/nLD7nlhzw0rWFm56K6aUEiXvV5npvGK8lCSeXnCdMaPolBeD29KXDipr3jo8Uz0
- pvmNpst8gJXIymrZATEMkDkMhGmPaNyVogEPhlsBNAiSKRSOuBC4v9BONC4jDQ9PkDP9Z6gDr07
- F7Ybf50rkeCHaa642Ug==
-X-Authority-Analysis: v=2.4 cv=E8BYNqdl c=1 sm=1 tr=0 ts=6ad0aaec cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+X-Authority-Analysis: v=2.4 cv=OdENnRTY c=1 sm=1 tr=0 ts=6ad0aafc cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=laV4OcfiDC6K5KK7Cz4A:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: yw9piesTCzSfqQuJcE1XG9AgvFUVndkw
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=pcNVBdCq2x3xfCSnuIwA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: p6Rm9BuGaN28f4b06VhyIMAIgm1y9kMl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MSBTYWx0ZWRfX0VfGRWdHNTX/
+ Vd8kwmwht6XhLoXVlzXswc7ySk6561NogsDUjiGJS1x/tKtq+Zmsgh+wi8m3AMWfGkL57CQ1aIl
+ qTLnayJjPs7p4gOTDrRSqGUv9hDs1wP0FM5IH79rrNSkVUQFjDWeOTiiTL4aWLWTVBpJ998Ulc8
+ Cyuw5QfoseNLUcHo41HKRlBUoeqxXlUnDq0FRQeMtQBA8xKB1rLF5nJewFH/zxFcjnaqxfARMPt
+ Syz+k6b/S18pWa6gzNzV4anbskX6nI2AdpGtZ2LtitbX+9yd2/vtTYxU037EjfsxLwgIWCJZag/
+ ugDX4rICw+NBSaVzIziFZR8vnrv82VcOCYHlIHZXQu3Ry+1+NHRvIf55lP1v2QsBtTWRx6g3Idy
+ g49XBh6ASuIV/TC1KrPHdiavRoRJ8chtBWj7GSdfunCVTKWGqjIgxUxlpRIcBq+cCIxnTDvPkPW
+ dYk3aNAwkUocJI5+dzQ==
+X-Proofpoint-GUID: p6Rm9BuGaN28f4b06VhyIMAIgm1y9kMl
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MSBTYWx0ZWRfX22JWCv6MrD2A
+ 6qIiZEtUEJx9CjHijOYdTRtyK+//9yS6j4fWHIdf+5ihIP91ZbMXWC3xYWslBMPzSf5Y1dwL6Gx
+ yqw+np519pkk+sdOtOJXJxRxcTMsmfY=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150041
+ bulkscore=0 spamscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150041
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,91 +146,71 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 10/12/2026 8:23 PM, Dmitry Baryshkov wrote:
-> On Mon, Oct 12, 2026 at 04:44:06PM +0800, Yongxing Mou wrote:
+On 10/12/2026 8:24 PM, Dmitry Baryshkov wrote:
+> On Mon, Oct 12, 2026 at 05:08:53PM +0800, Yongxing Mou wrote:
 >>
 >>
->> On 10/1/2026 6:32 PM, Dmitry Baryshkov wrote:
->>> On Tue, Sep 29, 2026 at 12:25:32PM +0800, Yongxing Mou wrote:
->>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> On 10/1/2026 6:34 PM, Dmitry Baryshkov wrote:
+>>> On Tue, Sep 29, 2026 at 04:49:59AM +0000, sashiko-bot@kernel.org wrote:
+>>>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+>>>> - [Medium] drm/msm/dp: bitwise OR of STATUS5 and STATUS7 without masking in ISR
+>>>> --
 >>>>
->>>> Whenever virtual channel slot allocation changes, the DP
->>>> source must send the action control trigger sequence to notify
->>>> the sink about the same. This would be applicable during the
->>>> start and stop of the pixel stream. Add the infrastructure
->>>> to be able to send ACT packets for the DP controller when
->>>> operating in MST mode.
+>>>> commit 987123505b6cfcc4664c72feae6b070ad91b79a8
+>>>> Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 >>>>
->>>> Add REG_DP_MST_ACT, the ACT trigger register used by this sequence.
+>>>> drm/msm/dp: add support for sending VCPF packets in DP controller
 >>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/dp/dp_ctrl.c    | 44 ++++++++++++++++++++++++++++++++++++-
->>>>    drivers/gpu/drm/msm/dp/dp_ctrl.h    |  5 ++++-
->>>>    drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
->>>>    drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->>>>    drivers/gpu/drm/msm/dp/dp_reg.h     |  1 +
->>>>    5 files changed, 51 insertions(+), 3 deletions(-)
+>>>> This commit adds support for sending VC Payload Fill (VCPF) sequences in the
+>>>> MSM DP controller when stream symbols are absent. It introduces interrupt
+>>>> handling for streams 0-3 using the STATUS5 and STATUS7 registers to signal
+>>>> VCPF completion.
 >>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> index e1614bc49a7c..65d22505c2b6 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> @@ -142,6 +142,7 @@ struct msm_dp_ctrl_private {
->>>>    	bool core_clks_on;
->>>>    	bool link_clks_on;
->>>>    	bool stream_clks_on[DP_STREAM_MAX];
->>>> +	bool mst_active;
+>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>> index 9a0c9737e6d00..929e0f94f8ddb 100644
+>>>>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>
+>>>> [ ... ]
+>>>>
+>>>>> @@ -2801,6 +2877,16 @@ irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl,
+>>>>>    		ret = IRQ_HANDLED;
+>>>>>    	}
+>>>>> +	isr = msm_dp_ctrl_get_mst_vcpf_interrupt_0_1(ctrl);
+>>>>> +	if (ctrl->num_pixel_clks > DP_STREAM_2)
+>>>>> +		isr |= msm_dp_ctrl_get_mst_vcpf_interrupt_2_3(ctrl);
+>>>>> +
+>>>>> +	if (isr & (DP_INTR_MST_DP0_VCPF_SENT | DP_INTR_MST_DP1_VCPF_SENT |
+>>>>> +		   DP_INTR_MST_DP2_VCPF_SENT | DP_INTR_MST_DP3_VCPF_SENT)) {
+>>>>
+>>>> [Severity: Medium]
+>>>> Does this bitwise OR of two different status registers cause false positives?
+>>>>
+>>>> The msm_dp_ctrl_get_mst_vcpf_interrupt_*() functions return the unmasked
+>>>> register values. Since the values from REG_DP_INTR_STATUS5 and
+>>>> REG_DP_INTR_STATUS7 are ORed together here, bits from one register could
+>>>> overlap with the VCPF bits checked for the other.
+>>>>
+>>>> For example, if an unrelated interrupt sets bit 18 in REG_DP_INTR_STATUS5,
+>>>> and it gets ORed into `isr`, the condition will see bit 18 set and assume
+>>>> it's DP_INTR_MST_DP2_VCPF_SENT (which is bit 18 of REG_DP_INTR_STATUS7).
+>>>>
+>>>> This could cause a spurious completion of ctrl->idle_comp during a VCPF push,
+>>>> allowing the driver to proceed while the hardware is still executing the
+>>>> pattern.
+>>>>
+>>>> Should the return values of msm_dp_ctrl_get_mst_vcpf_interrupt_*() be masked
+>>>> against their respective VCPF bits before returning, or should they be checked
+>>>> independently instead of ORing them together?
 >>>
->>> I really don't like the idea of having this flag in two locations. Here
->>> and in the msm_dp_display_private. Can we have it in one place only?
+>>> Please respond to this comment.
 >>>
->> These two fields are intended to represent different states with different
->> lifetimes.
->>
->> msm_dp::mst_active tracks whether the DP connection has an active MST
->> session. The controller field records whether the current controller/link is
->> operating in MST mode and remains valid until the link is shut down.
->>
->> I agree that using mst_active for both fields makes them look like
->> duplicated state. I propose renaming the controller field to mst_mode while
->> keeping the display-side field as mst_active.
->>
->> Would you agree with this change?
+>>   Thanks for pointing this out. The issue is valid, and we will fix it in the
+>> next revision. >>
 > 
-> What is the difference between these two? I.e. what os the difference
-> between those two?
-> 
-The difference between these two states mainly shows up during unplug. 
-mst_active is cleared when dp_display starts handling the unplug, while 
-dp_ctrl needs to keep the MST state until all streams are disabled and 
-the link is shut down.
-
-So there is a period during teardown where these two states are 
-different, which is expected.
-
-My concern with keeping only one state is that we would need to pass the 
-MST mode through multiple dp_ctrl APIs, which would make the code more 
-complicated. Would it make sense to keep this state in dp_ctrl and 
-rename it to mst_mode to make the distinction clearer?
->>>>    };
->>>
->>> [...]
->>>
->>>>    static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
->>>> index 83117e7619f3..472429d09200 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
->>>> @@ -19,6 +19,7 @@ struct msm_dp {
->>>>    	struct drm_bridge *bridge;
->>>>    	bool audio_enabled;
->>>>    	bool power_on;
->>>> +	bool mst_active;
->>>>    	unsigned int connector_type;
->>>>    	bool is_edp;
->>>
->>
-> 
+> Please respond to other Sashiko comments too. You got a review. It's a
+> nice practice to respond to them (unless you agree to all of them and
+> are going to fix all of the findings in the next revision).
+> Thanks for the reminder. I'll respond to the Sashiko comments that need 
+changes and address them in the next revision.
 
