@@ -4,52 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CC57CCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26A34CC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71BEA112653;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B01B0112662;
 	Fri, 16 Oct 2026 07:35:42 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 477AA1124BE
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:25:52 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j5Lht3mYnzKp6j;
- Thu, 15 Oct 2026 23:25:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1792099550;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2XuJhNfjGucHhAObYOA10HejVry4A1chjwC3rTMjxNQ=;
- b=ZyXzzWUh4SJ7TIsKT/Upe4sKD5jNfPYTAG1lyaL+2Mut3j6z7U2Hm+rVdRG58Grum2HxcW
- rG5KLSdRwnYmXgUehkz7y4T2zOs7nXseo++rGy6pTDoJuC9y+MgCA+4VfWYE4abnkS0LHG
- ABMqef7PCTHGeRPmEcEmdpDZvkM84Yxy0/WDGd/W6rTDEuMEd90LbDBefvsBYcDzo+ShLC
- KVmaZAoHADsI8JbaET5HqH9bqvDdfB9jjs1IEl4MzPFCibJg5pxgBXjhGtdt5kxz+usHiN
- jwtvYhzPf3yujVH7tPR0AR4zN20J4G35MlwDew6AJs7+tQkyhBwFpXyTFGc55Q==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, ville.syrjala@linux.intel.com, jfalempe@redhat.com,
- javierm@redhat.com, Hugo Sales <hugo@hsal.es>
-Subject: [PATCH 1/2] drm/client: Probe connectors with the device's mode size
- limits
-Date: Thu, 15 Oct 2026 22:25:44 +0100
-Message-ID: <20261015212545.1989962-2-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015212545.1989962-1-hugo@hsal.es>
-References: <20261015212545.1989962-1-hugo@hsal.es>
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB45710EC2C
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 22:13:30 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-93e64d52949so550469085a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:13:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792102409; cv=none;
+ d=google.com; s=arc-20260327;
+ b=BuhvyNmERi/prBbsdhDeyQg1V5Rfn3oB0My8rFEQmIB7l4vORoIzyBVyuyBUbsGCYX
+ Tn68y4hG5dgkpw4N4cVevs+hLM7Uk33+ExFEcyOU940jHxFTvyGXPLlhaWGF49EQWUy3
+ kJ/blXDKsJ58Lri/Th5NuE+oYySZ7tEKEOC8drL/eIaJ5YvA0eOlqLAMuaLmI9kmm+Jw
+ IJyMnPj1wJ1UNzwjc9U9KkgDj9pkjIN0MBAa586yET1L4D5/OK//Dr1MEWnYy66c4QGH
+ TXfzxDvYA0i3P+uu/QH2Fp4NIqI643qdqBT87MGJkQpiEugiN3kmiY2kM7tzMkz7K8g3
+ vzuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
+ fh=iNdS+R3NFOOsSuPFyl7u1Qy9cwWGACALzX9tjb8gvfM=;
+ b=eeor50lID3raHWKEAykB9e+iMyWZogTnnjvLnnFWFGWXFUTjpCL9Xtl3V0RiPQU44p
+ JCgY2Ojp2DtlunNtoQFX67hdYjEu1NLsfcxIb9+MH9ajWpoAqW89/PgbeBQihj3yiH0h
+ XTdu0kY+o49sNybbwTfePvEN41CxfdrNi1uzaUIYqhssWZTfCU0L7yDi/xNi+C7Iut/z
+ /VIRaGc3sLSsnmwrr7jPnQRkLHUl1sOhc+XACB3Jqcrpx/JHsGJXC2xd2BXjGOOAHC6T
+ QEVpSnTF8I4qpJQfHr5EgCYigWd0F+8BJaAoXR/riqcI7s5dB9JpsfhoipgxC3OsmRbo
+ UvEA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tototo.si; s=acc; t=1792102409; x=1792707209; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
+ b=hieu4mAHgK+32CCIpnXCJTszN5UJBdKq2C+atPipykD3xQ+6XHhjLOH4/+YdsXjW6J
+ GT1TrYcv33nr/nVrkLVzIILAvuHBzQ0Jpw5CW8/IMR1UNA2fofNvh4ug9UW/pn8GyDP0
+ pPQHVyPgCioyD2yTLRW9drjC6qGlcVPzXq45eby2dmTgbsAEm9YI/PSICcGmxQzeNPKL
+ Zn4VNKClvd4oaC8oLv5ze/4I8Hbtq5KgPWkcBiBYrAMunBEV2mFM4xHlh5SWM2HWq/B5
+ Gwd0nH9I+RbwuOEqsQ6BCJAucL4aTCmlqq9t4xrt16g8JLgoqFWTz7qURuZ5dNPTAXCu
+ X7QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792102409; x=1792707209;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
+ b=zVDfFCiZ/dxW8nz8eBKGbwWg0+K7AlQNXiMBA1lFOE6A2/gOMedyvFM2iGBNJmTvsx
+ lce6BDE4kQXBqA563PsGiEf9eB6ipceYbM1HHLZ+Y3uGI0keOSBEZDd5ev3Am75o1uED
+ nhA6zGAFgV58wr0UBB/AY3630O+EfwSsqyKy1DQ8OQww6C11DzuA4BP46FS9K1YP8Spq
+ HymcpIirfS5dNOaKvb0t9ChKcz42toUBLAd6hPu0uGiWOHTyrPk1chKHJ20RTyReSNf5
+ 2G71iwaAaR9lAI9FFMvay8l2LI4fHk+IB6drej2nMCQV57o01g+hpoWWUQSzcrFIBY15
+ N2Aw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxUMic0PyYIFnepKn/9TdHsFI8ob5GIK8BWpnxz74xcR5ELJBkQfc+wKXYkL31ACCixAP42A/wZcgM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK8FEUO8Kzo5jzL4Jc7bianRGakAwSmmvNQ2aZGxNizVnHCakzX
+ JCRR25BwfrtAFe9RqGahliZJVSG/KxrjFkJzpFGDldhb3/krRrhuDLfF/Taa7T8rblxhBq8B//i
+ ptlgGP+MvOEKoHlEXBy/tM/I2ZUVwkPJzyV9ZMQW4Yg==
+X-Gm-Gg: AYBFou05QbjSssGxVBM8LtQLLEGxq+CCPIXTr0YvJByhGchu6sJLuhG76XbmjU+1wfX
+ 2IEj0QjAx6j9WHzUmOb5ZEZEOSEQYFTf28odL33X5dBo7ktDk7KvKa0qW+lyWvsRvgQC8eQmbP0
+ DTV8pVKAgmnjn9KSA2PmorgRBzsUJZR6VizlNgqxvBULNZzj6d0k7g/EXZDOGBg34RbY6xqL/Pl
+ 6EyRlbB7Fi0gFZr08cTl1RtLSjeMfDWNAaOTzvByDLyLF4CTv/cKmPYjteBHRhK22jKxk+FC/cs
+ Go7egWRpkzaZHMrvLVeWKfqngobBljoNM2OW8W70hYInMyVIXc9MwX9Rq33MvrsX0O0ItrjAKd2
+ d1zme1zIl15zy8QDFPag3vTPiIAXpVEdJQOicAVgErpmr
+X-Received: by 2002:a05:620a:6301:20b0:93e:c12c:f123 with SMTP id
+ af79cd13be357-93ec12d0765mr2319680685a.79.1792102409418; Thu, 15 Oct 2026
+ 15:13:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4j5Lht3mYnzKp6j
+References: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
+ <E1AEF567-3705-4AE7-B409-6E6D70C505AC@linux.dev> <atE25_ZrIQct41wt@wunner.de>
+In-Reply-To: <atE25_ZrIQct41wt@wunner.de>
+From: Vasilij <vasilij.kernel@tototo.si>
+Date: Fri, 16 Oct 2026 00:13:18 +0200
+X-Gm-Features: AclHuK9I0yDPNPLitjPqdTfv5HCtW4bWJD7j6t3Cj0jJn68j6aocr7GGsKF-5Uw
+Message-ID: <CAC=+NRGqTxz33PZL9dLPfbFbQDNvxyp3PXBSEQEmkh_Vbave5A@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/appletbdrm: Add suspend and resume support
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Aditya Garg <aditya.garg@linux.dev>, Aun-Ali Zaidi <admin@kodeit.net>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Kerem Karabay <kekrby@gmail.com>,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 16 Oct 2026 07:35:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,232 +109,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, drm_client_modeset_probe() passes the client's width and
-height to ->fill_modes(), and the probe helper leaves every larger mode
-out of connector->modes. drm_log, fbdev's initial setup and the
-GETCONNECTOR ioctl already probe with the device's limits, but on a
-hotplug fbdev passes its framebuffer size. After that, the list that
-userspace and the driver share lacks every mode larger than the
-framebuffer. That includes the panel's preferred mode when video= sets
-a smaller one
+On Thu, Oct 15, 2026 at 10:26:15PM +0200, Lukas Wunner wrote:
+> I'd love to, but both v1 and v2 have sashiko findings that nobody bothered
+> to debunk or fix.  (The fix for v1 consisted of removing a callback, which
+> triggered other sashiko findings.)  I'm neither an expert on this driver
+> nor the tiny drm library, but I'd like to help improve Linux Mac support.
+> Please help me understand whether the sashiko findings are valid.
 
-Probe with the device's limits instead. Make the mode pickers skip
-modes that don't fit width x height, using the drm_mode_validate_size()
-check the probe helper applied before. The probe helper still runs
-mode_valid on every mode, so only the size check moves
+Thanks for looking at it, and sorry for leaving the findings
+unanswered. I went through all of them; in short, the v1 finding and
+the first two v2 findings are valid. v3 brings back reset_resume with
+the error path fixed:
+https://lore.kernel.org/all/20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si/
 
-fbdev picks the same modes as before, with one exception. A DisplayPort
-sink with no mode that fits used to end up with an empty list, so the
-probe helper added its 640x480 fallback modes. Its list now keeps the
-larger modes, and fbdev leaves that output off
+v1, "memory leak of suspend_state on reset_resume error": valid. If
+appletbdrm_get_information() or appletbdrm_signal_readiness() fails,
+reset_resume returns before drm_mode_config_helper_resume(), so the
+state saved by drm_mode_config_helper_suspend() is never put, and
+fbdev/polling stay suspended. The USB core only logs a reset_resume
+error and keeps the driver bound, so nothing else cleans it up. v3
+logs the handshake error and still calls
+drm_mode_config_helper_resume(), the same way udl and gm12u320 do it.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
- drivers/gpu/drm/drm_client_modeset.c          | 57 +++++++++++++------
- .../gpu/drm/tests/drm_client_modeset_test.c   |  4 +-
- 2 files changed, 43 insertions(+), 18 deletions(-)
+v2, "missing reset_resume breaks reset recovery": valid, and not only
+in theory. v2 dropped reset_resume because the device was not reset
+on resume, but with the current t2linux 7.2.11 kernel (which carries
+v2) the Touch Bar is reset on every resume here (MacBookPro16,2, S3):
 
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index 0080a8e9556a..e79c7257aaa2 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -121,11 +121,13 @@ drm_client_find_modeset(struct drm_client_dev *client, struct drm_crtc *crtc)
- }
- 
- static const struct drm_display_mode *
--drm_connector_get_tiled_mode(struct drm_connector *connector)
-+drm_connector_get_tiled_mode(struct drm_connector *connector, int width, int height)
- {
- 	const struct drm_display_mode *mode;
- 
- 	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_validate_size(mode, width, height) != MODE_OK)
-+			continue;
- 		if (mode->hdisplay == connector->tile_h_size &&
- 		    mode->vdisplay == connector->tile_v_size)
- 			return mode;
-@@ -134,11 +136,13 @@ drm_connector_get_tiled_mode(struct drm_connector *connector)
- }
- 
- static const struct drm_display_mode *
--drm_connector_fallback_non_tiled_mode(struct drm_connector *connector)
-+drm_connector_fallback_non_tiled_mode(struct drm_connector *connector, int width, int height)
- {
- 	const struct drm_display_mode *mode;
- 
- 	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_validate_size(mode, width, height) != MODE_OK)
-+			continue;
- 		if (mode->hdisplay == connector->tile_h_size &&
- 		    mode->vdisplay == connector->tile_v_size)
- 			continue;
-@@ -163,14 +167,19 @@ drm_connector_preferred_mode(struct drm_connector *connector, int width, int hei
- }
- 
- static const struct drm_display_mode *
--drm_connector_first_mode(struct drm_connector *connector)
-+drm_connector_first_mode(struct drm_connector *connector, int width, int height)
- {
--	return list_first_entry_or_null(&connector->modes,
--					struct drm_display_mode, head);
-+	const struct drm_display_mode *mode;
-+
-+	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_validate_size(mode, width, height) == MODE_OK)
-+			return mode;
-+	}
-+	return NULL;
- }
- 
- static const struct drm_display_mode *
--drm_connector_pick_cmdline_mode(struct drm_connector *connector)
-+drm_connector_pick_cmdline_mode(struct drm_connector *connector, int width, int height)
- {
- 	const struct drm_cmdline_mode *cmdline_mode;
- 	const struct drm_display_mode *mode;
-@@ -183,6 +192,8 @@ drm_connector_pick_cmdline_mode(struct drm_connector *connector)
- 	 */
- 
- 	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_validate_size(mode, width, height) != MODE_OK)
-+			continue;
- 		if (mode->type & DRM_MODE_TYPE_USERDEF)
- 			return mode;
- 	}
-@@ -199,6 +210,8 @@ drm_connector_pick_cmdline_mode(struct drm_connector *connector)
- 	prefer_non_interlace = !cmdline_mode->interlace;
- again:
- 	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_validate_size(mode, width, height) != MODE_OK)
-+			continue;
- 		/* check width/height */
- 		if (mode->hdisplay != cmdline_mode->xres ||
- 		    mode->vdisplay != cmdline_mode->yres)
-@@ -321,7 +334,7 @@ static bool drm_client_target_cloned(struct drm_device *dev,
- 			continue;
- 
- 		mode_replace(dev, &modes[i],
--			     drm_connector_pick_cmdline_mode(connectors[i]));
-+			     drm_connector_pick_cmdline_mode(connectors[i], width, height));
- 		if (!modes[i]) {
- 			can_clone = false;
- 			break;
-@@ -357,6 +370,8 @@ static bool drm_client_target_cloned(struct drm_device *dev,
- 			continue;
- 
- 		list_for_each_entry(mode, &connectors[i]->modes, head) {
-+			if (drm_mode_validate_size(mode, width, height) != MODE_OK)
-+				continue;
- 			if (drm_mode_match(mode, dmt_mode,
- 					   DRM_MODE_MATCH_TIMINGS |
- 					   DRM_MODE_MATCH_CLOCK |
-@@ -472,7 +487,7 @@ static bool drm_client_target_preferred(struct drm_device *dev,
- 
- 		mode_type = "cmdline";
- 		mode_replace(dev, &modes[i],
--			     drm_connector_pick_cmdline_mode(connector));
-+			     drm_connector_pick_cmdline_mode(connector, width, height));
- 
- 		if (!modes[i]) {
- 			mode_type = "preferred";
-@@ -483,7 +498,7 @@ static bool drm_client_target_preferred(struct drm_device *dev,
- 		if (!modes[i]) {
- 			mode_type = "first";
- 			mode_replace(dev, &modes[i],
--				     drm_connector_first_mode(connector));
-+				     drm_connector_first_mode(connector, width, height));
- 		}
- 
- 		/*
-@@ -499,14 +514,16 @@ static bool drm_client_target_preferred(struct drm_device *dev,
- 			    connector->num_h_tile * connector->num_v_tile ||
- 			    (connector->tile_h_loc == 0 &&
- 			     connector->tile_v_loc == 0 &&
--			     !drm_connector_get_tiled_mode(connector))) {
-+			     !drm_connector_get_tiled_mode(connector, width, height))) {
- 				mode_type = "non tiled";
- 				mode_replace(dev, &modes[i],
--					     drm_connector_fallback_non_tiled_mode(connector));
-+					     drm_connector_fallback_non_tiled_mode(connector,
-+										   width, height));
- 			} else {
- 				mode_type = "tiled";
- 				mode_replace(dev, &modes[i],
--					     drm_connector_get_tiled_mode(connector));
-+					     drm_connector_get_tiled_mode(connector,
-+									  width, height));
- 			}
- 		}
- 
-@@ -721,7 +738,7 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
- 
- 		mode_type = "cmdline";
- 		mode_replace(dev, &modes[i],
--			     drm_connector_pick_cmdline_mode(connector));
-+			     drm_connector_pick_cmdline_mode(connector, width, height));
- 
- 		if (!modes[i]) {
- 			mode_type = "preferred";
-@@ -732,7 +749,7 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
- 		if (!modes[i]) {
- 			mode_type = "first";
- 			mode_replace(dev, &modes[i],
--				     drm_connector_first_mode(connector));
-+				     drm_connector_first_mode(connector, width, height));
- 		}
- 
- 		/* last resort: use current mode */
-@@ -750,7 +767,8 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
- 		    num_tiled_conns < connector->num_h_tile * connector->num_v_tile) {
- 			mode_type = "non tiled";
- 			mode_replace(dev, &modes[i],
--				     drm_connector_fallback_non_tiled_mode(connector));
-+				     drm_connector_fallback_non_tiled_mode(connector,
-+									   width, height));
- 		}
- 		crtcs[i] = crtc;
- 
-@@ -865,8 +883,15 @@ int drm_client_modeset_probe(struct drm_client_dev *client, unsigned int width,
- 	mutex_lock(&client->modeset_mutex);
- 
- 	mutex_lock(&dev->mode_config.mutex);
-+	/*
-+	 * Probe with the device limits, not width x height. connector->modes is
-+	 * shared with userspace and the driver, so it must keep modes larger
-+	 * than this client's size. The mode pickers skip those instead
-+	 */
- 	for (i = 0; i < connector_count; i++)
--		total_modes_count += connectors[i]->funcs->fill_modes(connectors[i], width, height);
-+		total_modes_count += connectors[i]->funcs->fill_modes(connectors[i],
-+								      dev->mode_config.max_width,
-+								      dev->mode_config.max_height);
- 	if (!total_modes_count)
- 		drm_dbg_kms(dev, "No connectors reported connected with modes\n");
- 	drm_client_connectors_enabled(connectors, connector_count, enabled);
-diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/drm/tests/drm_client_modeset_test.c
-index ec58fe064d86..00f43fca9795 100644
---- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
-+++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
-@@ -112,7 +112,7 @@ static void drm_test_pick_cmdline_res_1920_1080_60(struct kunit *test)
- 	mutex_unlock(&drm->mode_config.mutex);
- 	KUNIT_ASSERT_GT(test, ret, 0);
- 
--	mode = drm_connector_pick_cmdline_mode(connector);
-+	mode = drm_connector_pick_cmdline_mode(connector, 1920, 1080);
- 	KUNIT_ASSERT_NOT_NULL(test, mode);
- 
- 	KUNIT_EXPECT_TRUE(test, drm_mode_equal(expected_mode, mode));
-@@ -151,7 +151,7 @@ static void drm_test_pick_cmdline_named(struct kunit *test)
- 	mutex_unlock(&drm->mode_config.mutex);
- 	KUNIT_ASSERT_GT(test, ret, 0);
- 
--	mode = drm_connector_pick_cmdline_mode(connector);
-+	mode = drm_connector_pick_cmdline_mode(connector, 1920, 1080);
- 	KUNIT_ASSERT_NOT_NULL(test, mode);
- 
- 	expected_mode = params->func(drm);
--- 
-2.55.0
+  usb 5-6: reset high-speed USB device number 7 using t2bce_core
+  [drm] Initialized appletbdrm 1.0.0 for 5-6:2.1 on minor 2
 
+Without reset_resume the USB core unbinds and probes the driver
+again, tiny-dfr loses its device and the Touch Bar stays dark, which
+is the bug the patch is meant to fix. With v1 (reset_resume doing the
+probe handshake) on the same kernel the reset still happens, but the
+driver is not probed again and the Touch Bar works after resume.
+
+v2, "suspend_state leaked on unbind while suspended": with
+reset_resume back, a reset no longer unbinds the driver, which was
+the scenario sashiko described. What is left is the device going
+away while the system sleeps: then disconnect runs without a resume
+and the saved state is not freed. As far as I can see udl and
+gm12u320 have the same gap, and drm_mode_config_cleanup() does not
+free suspend_state either. v3 leaves it out; I can drop the saved
+state in appletbdrm_disconnect() in a follow-up, or it could be fixed
+once in the helpers if the DRM maintainers prefer that.
+
+v3 is tested on the t2linux 7.2.11 kernel: 7 suspend/resume cycles,
+the Touch Bar was reset on each resume, the driver was not probed
+again, tiny-dfr kept running and the Touch Bar worked every time.
+(I went through the findings with the help of an AI assistant,
+Claude; the logs and tests are from my machine.)
+
+Thanks,
+Vasilij
