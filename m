@@ -4,146 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BB6CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:49:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E920CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:09:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AA9A112388;
-	Thu, 15 Oct 2026 14:49:20 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C36D1123A9
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:49:10 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69FAPti01596357
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:49:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 0ieEJs/BWB4adN/CPzHmGs4+przVlyrjuLYc8uLfGhQ=; b=oMRaOIGh/vAinRbc
- IIWDc0kEgaACGgan4xoD6xDYDPm+RzNyOkkz7TM51hbBKbOjQb1ILunCf5VbMU27
- sN3FAVVmoaU2fOFriiMN9P8xIiwH1+4Y9aS5wKiivJnqDP4DCqna4Y5DFSeFwBrE
- DDap1AqxDjV7beRhj3x3TKUxJ69iCO5SlSeOdmwmwMuVvw0cv3bQpv8TsFzegaob
- 0EeooP4PM2j4QnWeyPeHEgONSvsfeoTRusutVcLXzc+1W/e92f2IXJOdiPMA4RfB
- ieflyfGRnweFPpXbDoSXHKTShXQqHER1p6oR3LMDFxUOKwLoS5VGPpNLM0ld1lx/
- U2iKzw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haw2v91pe-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:49:09 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93edac58b24so79137885a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:49:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792075748; x=1792680548;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=0ieEJs/BWB4adN/CPzHmGs4+przVlyrjuLYc8uLfGhQ=;
- b=Any0zTJfn5mve/eqSE/aZyLIUwAiKcoNVEgifWz4T3oyntJNgSfPFRc1c5T+m4Qiq+
- opWGtTrHQEv4n4iLMjWhf1rYPd/W9DSFKs9c84wB5mT1+A+u757zwD1AHgMCjvGtTWpf
- vfuXTDaR7GtOCT3diTKNrLvsCbSPeupgpjV5xkp7sKCwqfuU7twZ25j58V3afRPsFzYq
- NMkdBa8+KPMDCV2wr6S+qgBZmK/4e8Jsd5bD91tlPu+SJZ/pdYTKhCAjnPwfY6UsFoPS
- B0kYlCHL4yjeMzpKNTTiG9yw2O2jbFqBjK8Py4Qdgc+QcmPm09fABNTVM0rIhm1E1C5k
- ooCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792075748; x=1792680548;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=0ieEJs/BWB4adN/CPzHmGs4+przVlyrjuLYc8uLfGhQ=;
- b=wZ924uOV68w/VEUKNx9j2JsmJ85lC+2PEN2+4jzYmU80uVLVtTq/6nXXy1gabRVwYz
- KT0ftAMBNbDZD4skuirHg8uRYp8BohhJEMTTGcTvpyRCJ/RIxmGMejABZj9wNHyDLl8K
- eZ9BlrfB5oK2NdyShjPlxFvs4otnXxHCb5z7uSGvYQzB2fX/IfhWMNPcldcNJFjwlvm+
- v1GzNukc3tanb+RZdpot6rhWRfWsfemXeZp4jNmhbETbcLpSZyJkt+O9ou/lJxWgE0lv
- 2CEdHyvEAf2gdtPl8PCO7qIq1Nggrm81/ud3k6MUs4NAakQ72qQuWzEBcVXaml/s9XaG
- NeVg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz7J9z4NpsmjWYJV5i6T8392GCuDKDF1wfmAJNrNZCOrZY3zCC3XCN0R/unMCusVU5UHjPs13Wqp+8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJhtYfJlMVVya5G/veD9xZIYSgVIstL8cTfSUucAsJRu7abKmVK
- c+7pJGEHvJn44VJeGsRZFdPeyVJKcL6c+uIDpTCRTzBGQvHvIa9z6rpfUPTglMD6+gN/GP1ag7G
- JydmqQiyEv6GZnyG7vsM1EG0j+iCONmJV7jdAS/RGJYBdWfcmHZi1VT4nTcVnznrNUh+7WLw=
-X-Gm-Gg: AYBFou18kszYEOAjACoOhP80Kj9qh8+jUq+ytgxwuMm/wbtdeKilNKoUbeSP5TUwQ/p
- eAUdxBHUYrf36ChTAA1xZI6+6fyCGS00ZLPo28XlyqLIfC4MtAxhdXElPjC4c5WTldZuK+O42oI
- b2OVv58VcmtrLMGOX0pPuq6HRpTSFv7SrZ/uImISL+Pinin9rnO4Of3Vbt8TcyYAPG4OtHCX4jJ
- wjhozq2K72zs05f7xaInfMzUD9nM/RgN/gHhBRAqRVDfg2SHrbvb9MXEZlqPH9OUdBphZQHJcS5
- uTGIACiwIYdZ1Sq5BYOIVTiFUoBJVmBey6pQzDSfQRD8R7Q/yyeVDGOyTUm7JxK8EOa6lEa/6t4
- eayjsvLF2OIkyhexvj2t7Kg==
-X-Received: by 2002:a05:620a:390c:b0:93f:a34:d9fa with SMTP id
- af79cd13be357-93f0a34dd2bmr842945285a.1.1792075747487; 
- Thu, 15 Oct 2026 07:49:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:390c:b0:93f:a34:d9fa with SMTP id
- af79cd13be357-93f0a34dd2bmr842938185a.1.1792075746898; 
- Thu, 15 Oct 2026 07:49:06 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3aafdefdc4asm7442501fa.30.2026.10.15.07.49.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Oct 2026 07:49:04 -0700 (PDT)
-Message-ID: <300889d8-cb0f-4939-9b67-c60d0b1499d3@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 16:49:00 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5345C10E15D;
+	Thu, 15 Oct 2026 15:09:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CE3D10E15D
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:09:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3501843BA3;
+ Thu, 15 Oct 2026 15:09:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA201F000C4;
+ Thu, 15 Oct 2026 15:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792076955;
+ bh=0oT7ReOamGm0Opc4ItoiumWcZtNr5O2GeXyfw9JYBAo=;
+ h=From:Subject:Date:To:Cc;
+ b=eGCWy+WvU9Pqm6a28WRChnkI0W6pk4y0tEPZQf4HweqwkY2CV0S+WtJ48j7HNmmDo
+ 8D2EBLbSxgi65PlFenCq4PvC7BOCBrEDGg1kObwfekjajKR+rjc0oD7TtZ104Mlynp
+ 9O8+bzv+RvRaicUMqJVen9IxAOCO0XIE1INqiKQCaFsl7F6k64/K2SEcwJXLh/m2Nw
+ uL49Wo5m6PWtYP1DktdEU5ZFSjNPAHLZX4BWJVRA0WKyy4QcPr+6cZUmuFqF+gZp9F
+ Xj8zxnzK5uy0QHr/hnxbxzC4Qn48XFAPkx3eGcTJ6DslV8RKhwrpBInpyAcz6A/has
+ He0aWWB6DoQNA==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v6 00/28] drm: Implement state readout support
+Date: Thu, 15 Oct 2026 17:08:52 +0200
+Message-Id: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] arm64: dts: qcom: Add Microsoft Surface Laptop 8th
- Edition
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maximilian Luz
- <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
- Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
- Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
- <179207449898.13793.6897763208667873901.b4-ty@b4>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <179207449898.13793.6897763208667873901.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX3SSMo4ZWZovF
- IP0KbRqP6Of8qlZOX76Sep9m0k3CstzhCIM1WMne0Jl7ooCQQojUto08516iJvVK02gNbPF1Pw1
- ZfLEX1l9MHcy7RXjDf9+S4FDP406Wb7UOn+wQed0yBFhLYPhDUAj18wDlEgGE+wmKuu63rNKeUf
- OhQ5+JbQEc3qrRJXPz0LpVWsA58perPVjVZZhvWQunREsANihaLRCIwYQ72DehpuHwka8Uk7pHv
- /rAeZ1Y5dnUc6Z/hCZtCrvThSxgcEWoswasfXWdVUXOCh2sGxc7uoB9UIb7ieBGQWNCe4kqBw2A
- ua1gPBkeoqmDePeH4P4cEInejKPwVC4sfJj4LnN+gGbHFx2+u6EEFVTcLxiw9im6J86Ojo/bbDu
- lOAyzaGQvF8+twiiPpFSNcOtacQ+fK0Q5YXHzvHshKNOd2saArkOgpl6Vt5d5rFkHjs2rT3b79m
- eASvGayT3IzR7b/n/ow==
-X-Proofpoint-ORIG-GUID: cZM9RCkgb9LcQYdZby01ZKFcxPTWwjWQ
-X-Proofpoint-GUID: cZM9RCkgb9LcQYdZby01ZKFcxPTWwjWQ
-X-Authority-Analysis: v=2.4 cv=G/CJgNk5 c=1 sm=1 tr=0 ts=6ad0e7e5 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=-rt_0zctJVaUuj_7EdMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX15U7a0k3AuYM
- y/4lt2OlCy+IgMXIsjH2oF/tXRl5NOiWQ2GF2Y/ysKQESVqpDCV1HV9qt9OH/S2c2sQ1vN3L4sr
- 5S50VzGG29Pou4jF+wmMkm/W7u2YT2w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 bulkscore=0
- impostorscore=0 suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150058
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23PTW7CMBAF4KtEXuNq/BubVe9RdWHsMUQlMdgha
+ oW4e02iCiqyHMvvmzdXUjB3WMi2uZKMU1e6NNRBbxriD27YI+1CnQkHrqAVQEPuaRndiDSjC+k
+ yUgYmgrGeeQGk5k4ZY/c9mx+fy5zxfKn0uDySnStIfer7btw20lhnlLDe6Uju/w9dGVP+mStNb
+ A7M2y3wle0To0CZdEEJpoIT8f0L84DHt5T3MzfxP0KD5GKN4JUwStpoWr+zrXkhxIPQXK8RohJ
+ BGa5QcFsPeiHkM2HXCFkJZbXWqrUGMDwTm2aJWrZsHxLtU0Z6OrrhThSsgKpAVBYCBxCR+5cO6
+ tHBQrvW4U6o6JjzrVNM/j/jdrv9Ag0sqJgwAgAA
+X-Change-ID: 20250730-drm-state-readout-108f089c1c30
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8354; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=g70UgJTWNa0ZcredC9KaNvXd3VlWQX8JXS+Ke7Q60Qk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkX3nQdEcm59nBrX+nXda1BKVumyP45tK//geRL0U1xr
+ ifOnE9Q75jKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQAT0bRkbDj8//nJerVpU9h3
+ n+8s7L70oyjg9P55y/v3X9hqk9L8Nrg1q939a3X1vjCWBR0PZrU97WBsmPPlcvkCrmprwzVpvZ4
+ GrzRCnMvOtBU0TdrQxXr7+MM09oMNExhU5v52+Ckj0Ps38NsNAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,41 +77,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/15/26 4:28 PM, Ilpo Järvinen wrote:
-> On Tue, 06 Oct 2026 02:50:26 -0700, Gopikrishna Garmidi wrote:
-> 
->> This series adds initial support for the Microsoft Surface Laptop 13.8"
->> 8th Edition. It's built on Mahua, the 12-core variant of Glymur with
->> cluster2 fused off.
->>
->> As on the Surface Laptop 7, the keyboard, fan and platform profile are
->> handled by the Surface Aggregator Module over UART. The rest of the
->> board is close to the Qualcomm reference design.
->>
->> [...]
-> 
-> Thank you for your contribution, it has been applied to my local
-> review-ilpo-next branch. Note it will show up in the public
-> platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-> local branch there, which might take a while.
-> 
-> FYI [if applicable to your patch], as per Linus' policy change, also
-> fixes are mostly routed through for-next unless the fix is for a
-> commit introduced in the most recent cycle or is clearly a regression
-> fix.
-> 
-> The list of commits applied:
-> [1/5] dt-bindings: arm: qcom: Document Microsoft Surface Laptop 8th Edition
->       (no commit info)
-> [2/5] firmware: qcom: scm: Allow QSEECOM on Surface Laptop 8th Edition
->       (no commit info)
-> [3/5] platform/surface: aggregator_registry: Add Surface Laptop 8th Edition
->       commit: e93536b1fcf775356b06ddc845461e64d4c87313
-> [4/5] drm/panel-edp: Add Sharp LQ138P1JX61 (Surface Laptop 8th Ed.)
->       (no commit info)
-> [5/5] arm64: dts: qcom: Add Microsoft Surface Laptop 8th Edition
->       (no commit info)
+Hi,
 
-I'm hoping that's the tool acting up?
+Here's a series that implement what i915 calls "fastboot", ie,
+initializing the initial KMS state from the hardware state at boot, to
+skip the first modeset if the firmware already set up the display.
 
-Konrad
+This series creates the infrastructure in KMS to create that state by
+relying on driver specific hooks. It also implements some infrastructure
+to check during non-blocking commits that the readout helpers work
+properly by reading out the state that was just committed and comparing
+it to what was supposed to be committed.
+
+This relies on another set of driver hooks to compare the entities
+states, with helpers providing the default implementation.
+
+It then implements the readout support in the TIDSS driver, and was
+tested with the SK-AM62 board. This board in particular is pretty
+interesting, since it relies on an DPI to HDMI bridge, and uses the
+drm_bridge_connector infrastructure.
+
+So the readout works with the current state of the art on embedded-ish
+platforms.
+
+Unlike the earlier RFCs, it now works fine: the state is picked up
+properly, doesn't trigger a modeset if what was programmed is the one
+the first modeset tries to pick as well, will switch properly if it
+isn't, etc.
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v6:
+- Fix private_obj_init error handling
+- Fix bridge name lifetime
+- Show the bridge name in print_state
+- Rebase on current drm-misc-next
+- Link to v5: https://lore.kernel.org/r/20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org
+
+Changes in v5:
+- Implement readout for bridge/display-connector
+- Implement readout for tidss encoders
+- Fix sii902 readout implementation
+- Add atomic_print_state implementation to tidss crtc
+- Rebase over latest changes. In particular, the CRTC conversion to
+  atomic_create_state and the introduction of crtc's hw_reset made me
+  create a new helper and hook to trigger a device-wide hw_reset
+- Add a bunch of NULL pointer checks everywhere
+- Fix compare macros calls to __stringify
+- Create documentation section for sro
+- Fix error path in drm_atomic_sro_state_init
+- Improve bisectability
+- Link to v4: https://lore.kernel.org/r/20260629-drm-state-readout-v4-0-5966657980ed@kernel.org
+
+Changes in v4:
+- Dropped the HACK patch that went into the v3 resend
+- Hopefully the kernel.org smtp works this time
+- Link to v3: https://lore.kernel.org/r/20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org
+
+Changes in v3:
+- Rebase on top of the current drm-misc-next, with rename of
+  drm_atomic_state and the various preliminary series merged.
+- Use drm_printf_indent when possible
+- Change the access mode for the atomic_readout parameter from 000 to
+  400
+- Use drm_drv_uses_atomic_modeset() instead of drm_core_check_feature()
+- Introduce a hw_reset hook to deal with device hardware reset when
+  needed (ie, SRO fails or is disabled)
+- Improve mode flags readout
+- Fix plane alpha readout
+- Add sii902x state readout
+
+- Link to v2: https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org
+
+Changes in v2:
+- Get rid of patches already applied
+- Rebase on top of the current atomic_create_state work
+- Use the SRO prefix everywhere
+- Create our own states container structure instead of trying to plumb
+  it into a drm_atomic_state
+- Make a lot more use of helpers
+- Add a hook to enable the hardware resources when the readout state
+  becomes active
+- Move all the tidss readout code into tidss_dispc.c
+- Write documentation
+- Add drm_private_obj and drm_bridge name for easier debugging
+- Add drm_private_obj_is_bridge()
+- Link to v1: https://lore.kernel.org/r/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org
+
+---
+Maxime Ripard (28):
+      drm/atomic: Fix private obj error handling
+      drm/atomic: Add drm_private_obj name
+      drm/bridge: Switch print_state to use bridge name
+      drm/bridge: Add drm_private_obj_is_bridge()
+      drm/atomic: Export drm_atomic_*_print_state
+      drm/atomic_sro: Create drm_atomic_sro_state container
+      drm/atomic_sro: Create kernel parameter to force or disable readout
+      drm/atomic_sro: Add atomic state readout infrastructure
+      drm/atomic_sro: Add function to install state into drm objects
+      drm/atomic_sro: Create documentation
+      drm/bridge: Handle bridges with hardware state readout
+      drm/mode-config: Read out hardware state in drm_mode_config_create_state
+      drm/atomic_sro: Provide helpers to implement hardware state readout
+      drm/mode-config: Introduce hw_reset hook
+      drm/modeset-helper: Add drm_mode_config_helper_hw_reset()
+      drm/atomic_helper: Compare actual and readout states once the commit is done
+      drm/atomic-state-helper: Provide comparison macros
+      drm/atomic-state-helper: Provide atomic_compare_state helpers
+      drm/atomic-helper: Document State Read-Out as a state initialization approach
+      drm/encoder: Create atomic_sro_get_current_crtc hook
+      drm/bridge: display-connector: Implement readout support
+      drm/bridge_connector: Implement hw readout for connector
+      drm/tidss: crtc: Add atomic_print_state implementation
+      drm/tidss: dispc: Improve mode checking logs
+      drm/tidss: Implement hw_reset
+      drm/tidss: Implement readout support
+      drm/tidss: encoder: Implement atomic_sro_get_current_crtc
+      drm/bridge: sii902x: Implement hw state readout
+
+ Documentation/gpu/drm-kms-helpers.rst              |  26 +
+ drivers/gpu/drm/Makefile                           |   2 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   1 +
+ .../drm/arm/display/komeda/komeda_private_obj.c    |   8 +
+ drivers/gpu/drm/bridge/display-connector.c         |  64 ++
+ drivers/gpu/drm/bridge/sii902x.c                   |  82 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  35 +
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |   2 +-
+ drivers/gpu/drm/display/drm_dp_tunnel.c            |   1 +
+ drivers/gpu/drm/drm_atomic.c                       |  41 +-
+ drivers/gpu/drm/drm_atomic_helper.c                |  40 +
+ drivers/gpu/drm/drm_atomic_sro.c                   | 932 +++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_sro_helper.c            | 679 +++++++++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c          |  20 +-
+ drivers/gpu/drm/drm_bridge.c                       | 116 ++-
+ drivers/gpu/drm/drm_internal.h                     |  12 +
+ drivers/gpu/drm/drm_mode_config.c                  |  55 +-
+ drivers/gpu/drm/drm_modeset_helper.c               |  24 +
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |   1 +
+ drivers/gpu/drm/ingenic/ingenic-ipu.c              |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   1 +
+ drivers/gpu/drm/omapdrm/omap_drv.c                 |   1 +
+ drivers/gpu/drm/tegra/hub.c                        |   1 +
+ drivers/gpu/drm/tidss/tidss_crtc.c                 | 104 +++
+ drivers/gpu/drm/tidss/tidss_dispc.c                | 334 +++++++-
+ drivers/gpu/drm/tidss/tidss_dispc.h                |  16 +
+ drivers/gpu/drm/tidss/tidss_encoder.c              |  57 ++
+ drivers/gpu/drm/tidss/tidss_kms.c                  |  20 +-
+ drivers/gpu/drm/tidss/tidss_plane.c                | 154 ++++
+ drivers/gpu/drm/vc4/vc4_kms.c                      |   3 +
+ include/drm/drm_atomic.h                           |  73 +-
+ include/drm/drm_atomic_sro.h                       |  59 ++
+ include/drm/drm_atomic_sro_helper.h                | 276 ++++++
+ include/drm/drm_bridge.h                           |  87 ++
+ include/drm/drm_connector.h                        |  69 ++
+ include/drm/drm_crtc.h                             |  69 ++
+ include/drm/drm_encoder.h                          |  18 +
+ include/drm/drm_mode_config.h                      |  50 ++
+ include/drm/drm_modeset_helper.h                   |   1 +
+ include/drm/drm_modeset_helper_vtables.h           |  23 +
+ include/drm/drm_plane.h                            |  69 ++
+ 42 files changed, 3575 insertions(+), 53 deletions(-)
+---
+base-commit: 489a8539ca6f347102c1334c2f08198abacc86c8
+change-id: 20250730-drm-state-readout-108f089c1c30
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
