@@ -4,50 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 136ACCC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97FBACC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:39:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 766A610EC39;
-	Thu, 15 Oct 2026 16:32:29 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9CF931123E0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:32:23 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A328614BF;
- Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
-Received: from [10.0.138.89] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.89])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E966C3F871;
- Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792081942; bh=K53bHe/qRL8PgX+fC0aZ/IKukdzfGE2CeH1J1pXxbIw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=QvHiuvww2XMiC1VH5lrEn7YT52tcUfUfqnhqZ6AL7/+1oS59HDeC1lXKxNrpFi1pC
- t0SbzJpTfupyKQqZc3bVVGYXHq188MRT6NrH01zSEEbyjpLbZx7PQxzYaj0Ht2nEy2
- xPD7PUul+C++YYvpS1ogXhTXImp3VMZKjPrCVxsE=
-Message-ID: <e8d97f6c-8e22-4c85-b15d-6edade16d789@arm.com>
-Date: Thu, 15 Oct 2026 17:32:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 02/15] misc/arm-cla: Add launch operation helpers
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-3-ryan.roberts@arm.com>
- <2026101542-briskness-most-a8ca@gregkh>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <2026101542-briskness-most-a8ca@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id F02891123EF;
+	Thu, 15 Oct 2026 16:39:23 +0000 (UTC)
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF6FA10EC0D
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:39:17 +0000 (UTC)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-3425098ae4bso189694eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:39:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1792082357; x=1792687157;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=DD74npn17j4yI5LDxhcNiaGvijuuU+ohVy4Pfwe/27o=;
+ b=b8wo15Tppp/VL4xuG2uasMTdTx3fpDHRK6ms++swSILrFWPQDBeY/4rXLHrth38TbS
+ u53eixrXY3oZ0Wp5OvH7uRNEisUwRtmSqxP9zlzKv2dgyw2+MD/TBDoN1DTjZD4ZGeJk
+ zhEJaSpy//hX5/GEB2GooUwfJeqvwzmMA4TWZIyt6s4FW/x5Udn4nog58K5h1IeRMLJP
+ 4MpD9H40REwf7DY3Q9BtACYteVZhan1KCvOwNiQG+5h4xm5em0mv6ZK/zsWpxEMhnYJI
+ R9SnMmJhpVIjyIeV/7ZWwopWVM0oZViXHY6JzqKIjJ3QPL7kDwiqnNehyNp3WHq+rxpL
+ PqFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792082357; x=1792687157;
+ h=content-type:cc:to:from:subject:message-id:mime-version:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=DD74npn17j4yI5LDxhcNiaGvijuuU+ohVy4Pfwe/27o=;
+ b=acRjDtL2DtYxhx+8fkrgmYVld8eycXmfzqpoGsCbOaEZphVohHoH6An4TXIejLKsf0
+ 30PNZAyw2sN2cl8WuoJeonK9fJGN5oPtClT8gkd9OLKm2nk2Y4z5Kq5ZiLsMZbmNsfTs
+ wRYOxIJntJDKn4qwpVjalxmEuXG0OW4int5a41KSUFl5hKyImrtKq8CMeNXPtx2HfeN2
+ YZOijSFZGZ5x8+8/N7UK0Mz9kRcjumg+8EOTE1fyrSqY/YOEggS/YfRmPvYmEluhwTTb
+ 7sRPUK5aczuJud3PjIXgJ2tdOtQKbrOq7vcitVf4//+n1oOJDjSUks9a7FFM25j5Yn2J
+ kCnA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz3vbb430jCI3rDQyfH6f3UrgNMTbOSfO++n5bGwvrJE5W5k5e/JGlcTo/vjKK3ns7NiuuJ6E5Fl6g=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIXOPRhXgGSLm2LmWIoR3yQGO4W5P1ghHb8AWV6zYUoq/XpYZ8g
+ SQu8d+cEMcgr/BISKzvCOHsS+LbaTSdDDabOrCuo00XinRXy0mT4za2hZ5Za002mooGqbrzG2Vs
+ gJFefERDhyAqUaWw5JTfGT8uRWw==
+X-Received: from dlbut14.prod.google.com
+ ([2002:a05:7022:7e0e:b0:152:9a82:8c78])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:6b9b:b0:156:d588:c881 with SMTP id
+ a92af1059eb24-182500534eemr688262c88.2.1792082356249; 
+ Thu, 15 Oct 2026 09:39:16 -0700 (PDT)
+Date: Thu, 15 Oct 2026 16:39:11 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+Message-ID: <20261015163915.1166043-1-almasrymina@google.com>
+Subject: [PATCH net v4 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+ Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Dragos Tatulea <dtatulea@nvidia.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,26 +92,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 15/10/2026 17:17, Greg Kroah-Hartman wrote:
-> On Thu, Oct 15, 2026 at 03:25:36PM +0100, Ryan Roberts wrote:
->> From: Jean-Philippe Brucker <jpb@kernel.org>
->>
->> CLA commands are issued by writing optional payload registers,
->> programming the LAUNCH register and polling LRESP until the hardware
->> accepts or rejects the operation.
->>
->> Add a common launch helper that performs this sequence on the CLA's
->> local CPU, waits for LRESP completion and translates launch response
->> codes into Linux errors.
->>
->> Build accelerator reset and register read and write support on top of
->> it. The register read and write helpers split larger accesses into
->> multiple launch operations when an access crosses an eight-register
->> window.
->>
->> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
-> 
-> You forgot to sign off on patches from others :(
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration:
 
-Ahh sh*t, sorry about that. Hopefully given this is "just" an RFC that's not a
-big deal? Else, let me know and I'll resend.
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall()
+   or closed in net_devmem_unbind_dmabuf(), and unmap unbound RX bindings
+   whose queue failed to restart on NETDEV_UNREGISTER, preventing
+   slab-use-after-free in dma_unmap_sg_attrs() when the binding is freed
+   after dma_dev.
+
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
+
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
+
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
+
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+Cc: Dragos Tatulea <dtatulea@nvidia.com>
+
+---
+v4:
+- 1/4: Unmap RX bindings in net_devmem_unbind_dmabuf() once their queues
+  are closed, and make netif_mp_close_rxq() report queue restart
+  failures, so the NETDEV_UNREGISTER walk only handles bindings whose
+  queue failed to restart. Drop net_devmem_lock: walk the bindings under
+  the xarray lock and take the instance lock of binding->dev in the
+  final free. (Stanislav) Record a queue in bound_rxqs before opening
+  it. (Sashiko)
+- 2/4: Detach and unmap TX bindings directly from the walk, without a
+  grace period or a second pass. (Stanislav)
+- Link to v3: https://lore.kernel.org/netdev/20261014161754.3782346-1-almasrymina@google.com/
+
+v3:
+- 1/4: Run the NETDEV_UNREGISTER walk under the netdev instance lock,
+  and skip it when the device only moves to another netns. (Sashiko)
+- 2/4: Detach all matching TX bindings, then synchronize_net() once
+  before unmapping them. (Sashiko)
+- 3/4: Only request page pool DMA mapping with CONFIG_HAS_DMA, refuse
+  pp_hold on memory provider pools, and drop unreadable skbs in the
+  software PSP checksum path. (Sashiko)
+- 4/4: Check only the test's dma-buf in debugfs, skip instead of passing
+  silently, clean up on errors, compute UDMABUF_CREATE per arch, and
+  add the needed config options. (Sashiko, Dragos)
+- Link to v2: https://lore.kernel.org/netdev/20261012174300.2338784-1-almasrymina@google.com/
+
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
+
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
+
+ drivers/net/netdevsim/bus.c              |   1 +
+ drivers/net/netdevsim/netdev.c           |  27 +++-
+ drivers/net/netdevsim/psp.c              |   5 +
+ include/net/page_pool/memory_provider.h  |   4 +-
+ net/core/devmem.c                        | 157 +++++++++++++++++++----
+ net/core/devmem.h                        |  11 +-
+ net/core/netdev-genl.c                   |   1 +
+ net/core/netdev_rx_queue.c               |  26 ++--
+ tools/testing/selftests/net/config       |   4 +
+ tools/testing/selftests/net/nl_netdev.py | 125 +++++++++++++++++-
+ 10 files changed, 314 insertions(+), 47 deletions(-)
+
+
+base-commit: aa07285705f8d5bac464eb1c5b7412f8e88b91e1
+-- 
+2.56.0.176.g3575e65682-goog
+
