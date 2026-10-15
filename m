@@ -4,74 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D87ACCA466
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 18:56:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95D92CCA466
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 18:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C49F7112443;
-	Thu, 15 Oct 2026 18:56:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C516611244B;
+	Thu, 15 Oct 2026 18:56:40 +0000 (UTC)
 Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
  [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDED112425
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 18:56:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7DF6112437
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 18:56:32 +0000 (UTC)
 Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-49ff680331aso27495515e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:56:30 -0700 (PDT)
+ 5b1f17b1804b1-4956869750eso37093935e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:56:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792090589; x=1792695389; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=WFz+OPWq9luKuBDqe0uuJVjFv3DbmqRC69UJmoS/3w4=;
- b=ddMgjg5tLxqJr+TmmIGrCGwCQtUIE2DDPr7S+riPHzy1093A4ZfZdVVBc/Hf5nwgZ+
- gXt6CT273cT8Wv93bJ0K/O3K19rQz7LI2JuyOcegFeErmT+aTE8YiK6f7AeQo9UGG5Fb
- cbdrD8+LnFXB4MfRaEhoqdWjMm3KrSm05KyhyL0OSq0g//u70/meRxct16ApX4+YfscO
- emu8e6WHpsHOQ9qSBpP3OTSc8cwPRJ9sYunO43gpap/Em+bDbbdYgxtMnIDoJmeghnNK
- IN9IIRYo5pl6fLcCubQejhjijXjyGL7r0Nd4b4b25+xHmbz657wb+61tuRLNtneivij4
- 96RA==
+ d=gmail.com; s=20251104; t=1792090591; x=1792695391; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=j8DFjBs5Cy+cqLEmVTjSkVi2zwWGVHnAGbcDhQszah4=;
+ b=PGxEfjmPStqAmnYA+WWUkIYs0lOKt5yu0nbLTPt1cpvIcJbhM1nT6hp5L9XuRDjFHZ
+ rstQfCjELjRmz277Q2HSqdzg2nWdq4tLHzU7fOiPV2nsVVKU9xVedASjllviP9M2Z+E5
+ TsZ+y5POVBGshS0N07q0iTwHZe5AUAxsAgy0jKaPABtPvcMlDzbzj4EISrxhhgjfNe6q
+ LdgylZScXIXgZg94y5+GLafY+KnqXTN+yFuSq3jpYou+i1BT/Anqo9e7IXoIa4q4PQsh
+ 6IKq2KWLrKByHRCJYk6+XHRxsMS3pRoq/qKjUE+j84vzDRLc4GC+iANvFeu+wDArhtxA
+ 8RfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792090589; x=1792695389;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=WFz+OPWq9luKuBDqe0uuJVjFv3DbmqRC69UJmoS/3w4=;
- b=UnX/l0izPNv0MFGo/jydejDn0AWKsCr08u6h382AJghaL3YwPTptFSGGnPvGiz8SJT
- w3djXHgE3dEV2JvgRlPOWsAY5sUoPvMnWWGzdNpUrsfpdZqVz8MoBiMy0Yeib0/8VnMY
- G68uOBWX8Xb6C3v8tQQmEUQE7b/A1eMEr7rpXC55m/JXE2kAa+jo9PAmNp8YCEV0ADI7
- 2JqJn5DiS2XWL80Zzuf+cua0MEUToPT9m/mG1UoNtoL+c6w6K7VJ2z6S06izerPYGP8N
- eRnSMqYgkJatb66jRPuhdx+s3cMQmNNpd3dxa4BzOoxq4hH4FldzgNnlsjJPMvy0tShx
- 0QmA==
+ d=1e100.net; s=20260707; t=1792090591; x=1792695391;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=j8DFjBs5Cy+cqLEmVTjSkVi2zwWGVHnAGbcDhQszah4=;
+ b=RqTNTcP6AmzBnS/ski4gLNnPJ9IAD5urXTgW9LGuYiYNQ6RelaNZNKZ8VsWUnn7CD0
+ ygv02CAvAIX634IOu2dxtmdpkSeFneSfP9U8RZQR/aBvARGQiVIJVl99+dyH2MSsZJGv
+ 2HlCBpK6DzBbU3ghX0oGCqLBszk2XBhX8ym7YOBLhMmBA2e60zZVHruObBWpsnBMZrMA
+ tieyXptfqB9wSPDcqMhJqeJ1vCDYMnrBc044SlooOyZbcqh6jfPtv+zwiPKYKLFCCkFf
+ xIWDf4CQepgBsnoHK+AoC9RT/M5jSm/57oaHiPYgeWOz00GeKQ8s2rfT6redLdvE+vpq
+ qYZg==
 X-Forwarded-Encrypted: i=1;
- AKwUvByr8ywsc3n+mVwUkNJ30upJo/GwFPU/GB59rQUQ5kwAAlGa4wztg6l8mjJ1jrnP+0e2yR7Hsdmtu4Q=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJFbDCgcbWQaRytGBBi2kRxZtidvGEzL9bJTttso08mkBZI4ubO
- qkTnsvuhlqlIQdXxj1R4Qio7/d1/ukCohQUsg4XzV0hbWq43Y+5BlshA
-X-Gm-Gg: AYBFou1vkgRzy/oETvq4BrQuqa72VAqqV1HtaMi4sf4EZQjIKB74ScEYRNKf7Ith/Jn
- 5Va9FNhbtntS0kMNv/KMNTp9do+X1QHui26efcurIG3RhtFGscoRMBN4tRDlBPspb8doUe5xCwH
- NYAbp8OZ9ynbVIn9KRenuclxLeiM2kSXwpF2dUBY/GjZOqQhtk4oWwZRVjLpElkAL6Aw8ve6V3N
- Q49FoqCjU8EnYcHj3UMaibMlgKiLQk7eM0mx2fZZ4CK54nNOZioVCfysW/dgIxe60fpyz5YCXfo
- y4FaKFNQeLUon21Q3qHd6DAD1lBdTYEvEiAZ32qKkDxCb5Mj4g08cbp9O18rDxHBS78pod2U1dm
- rO0Jm9GCufSDpK2uzGnUZwg7drRtFy2iXr4t9d1VpCfSviiBPfYudHrVyjMZZSIE54zWMQg8Dk4
- os6JIR6irM+Upe6EUZBcgwzKJmmG3sgetlzQg0hip9LkKjJER4wxPAc5+UKBuw49oYRmkcFv6bO
- zuB7/lXeBzSIhZAVIqM1fS1uL5veqn0EQrlhAeFnA==
-X-Received: by 2002:a05:600c:3144:b0:4a0:2423:946 with SMTP id
- 5b1f17b1804b1-4a18e48d362mr400641705e9.15.1792090589045; 
- Thu, 15 Oct 2026 11:56:29 -0700 (PDT)
+ AKwUvBy+YJSt6JUxbnPpcuQXQRLrrViTjHUEZJXxapMEXkdSEmpe+FDOo2CV8HqgCJnH+5VwloTe5WMYKRs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLwyS8MnUjoxUVOYrjNZQ74Pyo2uZnWp9k0rZAXtINw+FxIlvu8
+ KX29bAIgzvm+7K1Eooe5ZVJXxEcCGbZ4ZbipBS4mX7UHrBv9uMbDtqXS
+X-Gm-Gg: AYBFou15BxyjFF2Pre8UrTaoy7LnRDulnawmmao5aiQPD2Fbwq9F9W4Oj4BchIVwDty
+ de53H58FTLfU3U9p/SxessH6r9676KbEZIB/8kwiOpOdOKVDmU5d3ZfZz1QH6GQRKsCEJkFL2wo
+ wI5L3BTcWD++zavf65V0Ejs3ISdz4o3RwDLWP72UB0rfqVzYq/FdZQN2lxNAFFjZgG8QM4/iz6t
+ V2GbH5oWZxbVizcnLZ9w0uVc6pqB5EQcFZ9BDpI5JxTMJdshJnq8WMFJOKur8whG6+MrLbV3lXO
+ wvw8ogvZr7DscNo4HPVsbRa3oHypQZss3d8f4awOHzMELjSwATf8xUJYZaFGsKtAxHlL5HkbxJS
+ baZsGxE3gj8gJwEBgumVhlTOHGEnG540FeG7a8zoWjTieS0nYn64P07qw5O0wxbq12uTjNNsLe5
+ fp2A5ojEsRlFFF9kNuQZIcumQtvWd7u6yUMLVkwI/5PlSCs8Ylhrqwy5CGTzosTFNYu8MJV5L8c
+ BOXWVKhc8FYVmGQMCllyPreAjBjpuv8iEgmZHttdw==
+X-Received: by 2002:a05:600c:4747:b0:4a1:88de:9e8b with SMTP id
+ 5b1f17b1804b1-4a18e49d65dmr398603945e9.5.1792090590951; 
+ Thu, 15 Oct 2026 11:56:30 -0700 (PDT)
 Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.239.213])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1bdc036a4sm106148295e9.11.2026.10.15.11.56.27
+ 5b1f17b1804b1-4a1bdc036a4sm106148295e9.11.2026.10.15.11.56.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 11:56:28 -0700 (PDT)
+ Thu, 15 Oct 2026 11:56:30 -0700 (PDT)
 From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Subject: [PATCH RFC 0/2] riscv: dts: spacemit: Enable PowerVR GPU on
- OrangePi RV2
-Date: Thu, 15 Oct 2026 20:56:04 +0200
-Message-Id: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
+Date: Thu, 15 Oct 2026 20:56:05 +0200
+Subject: [PATCH RFC 1/2] riscv: dts: spacemit: k1: add PowerVR GPU device node
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDE0Nj3fwikGhBpm56QamugVGKhbFlipmpgVmaElBLQVFqWmYF2LhopSA
- 3Z6XY2loAe3MpI2MAAAA=
-X-Change-ID: 20260413-orangepi-gpu-02d839d6506f
+Message-Id: <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
+References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
+In-Reply-To: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
  Luigi Santivetti <luigi.santivetti@imgtec.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -101,49 +99,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable the Imagination PowerVR Rogue GPU (BXE-2-32) on the SpacemiT K1
-SoC for the OrangePi RV2 board.
+Add device tree node for the Imagination Technologies PowerVR Rogue GPU
+(BVNC 36.29.52.182 / BXE-2-32) found in the Spacemit K1 SoC.
 
-This series depends on:
-- Yixun Lan's power domain series [1], which provides the genpd-based
-  GPU power domain driver required for proper power sequencing.
-- Baihui Liang's dt-bindings patch [2], which adds the spacemit,k1-gpu
-  compatible string to the img,powervr-rogue binding.
+The GPU is located at address 0xcac00000 and uses:
+- CLK_GPU for core clock from APMU controller
+- RESET_GPU for reset control from APMU controller
+- K1_PMDOMAIN_GPU for power management from syscon_apmu provider
+- IRQ 75 for interrupt handling
 
-The GPU firmware is not yet available upstream. A copy can be found
-at [3].
-
-With this series applied on top of [1] and [2], the full GPU bring-up
-path works end-to-end on hardware:
-- Power domain: GPU power island on/off via APMU
-- Clock: GPU clock enabled/gated through CCU
-- Reset: GPU reset line deasserted
-- Firmware: PowerVR RISC-V firmware loads and signals ready
-- DMA: dma-ranges correctly maps CPU-to-GPU physical addresses
-- DRM: kernel exposes /dev/dri/card0 and /dev/dri/renderD128
-- IRQ: GPU interrupt registered, firmware watchdog running
-
-Userspace rendering requires Mesa's PowerVR Vulkan driver
-(imagination-experimental).
-
-[1] https://lore.kernel.org/linux-riscv/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org/
-[2] https://lore.kernel.org/linux-riscv/20261015-spacemit-gpu-binding-v1-1-a7a23c7e7788@linux.spacemit.com/
-[2] https://gitlab.freedesktop.org/imagination/linux-firmware/-/blob/powervr/powervr/rogue_36.29.52.182_v1.fw
+Disabled by default; boards enable it individually.
 
 Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
 ---
-Iker Pedrosa (2):
-      riscv: dts: spacemit: k1: add PowerVR GPU device node
-      riscv: dts: spacemit: k1-orangepi-rv2: enable GPU
+ arch/riscv/boot/dts/spacemit/k1.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts |  4 ++++
- arch/riscv/boot/dts/spacemit/k1.dtsi             | 12 ++++++++++++
- 2 files changed, 16 insertions(+)
----
-base-commit: 7e986b457d43edf8dd3eb3f6c34e55e92cd545f3
-change-id: 20260413-orangepi-gpu-02d839d6506f
+diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+index 3fabfd34114b..82cade2f76fe 100644
+--- a/arch/riscv/boot/dts/spacemit/k1.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+@@ -5,6 +5,7 @@
+ 
+ #include <dt-bindings/clock/spacemit,k1-syscon.h>
+ #include <dt-bindings/phy/phy.h>
++#include <dt-bindings/power/spacemit,k1-power.h>
+ 
+ #include "k1-pdma.h"
+ 
+@@ -1119,6 +1120,17 @@ multimedia-bus {
+ 			#size-cells = <2>;
+ 			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
+ 				     <0x0 0x80000000 0x1 0x00000000 0x3 0x80000000>;
++
++			gpu: gpu@cac00000 {
++				compatible = "spacemit,k1-gpu", "img,img-bxe-2-32", "img,img-rogue";
++				reg = <0x0 0xcac00000 0x0 0x80000>;
++				interrupts = <75>;
++				clocks = <&syscon_apmu CLK_GPU>;
++				clock-names = "core";
++				resets = <&syscon_apmu RESET_GPU>;
++				power-domains = <&syscon_apmu K1_PMDOMAIN_GPU>;
++				status = "disabled";
++			};
+ 		};
+ 
+ 		network-bus {
 
-Best regards,
 -- 
-Iker Pedrosa <ikerpedrosam@gmail.com>
+2.56.0
 
