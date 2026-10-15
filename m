@@ -4,75 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA983CCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF3ECCA48B
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:35:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97F91112659;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA17F112669;
 	Fri, 16 Oct 2026 07:35:42 +0000 (UTC)
-Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4206E10E3F9
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 03:45:47 +0000 (UTC)
-Received: by mail-dy2-f6.google.com with SMTP id
- 5a478bee46e88-35adc681e1aso2618969eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 20:45:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792122346; x=1792727146; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=R0y1dJ5AAiyMzBzdNY5zHpT5jRGPheygtScQcJ1Wvm4=;
- b=VC7UU71PrS0uK/VWUShe42Wr/s3BT2Vt3TNoZDQkeSRwM9W6x0BlTefRXnnjo17a6M
- 5ECfP9lyUOLN9BzxLmf3bErphbC0rAp8h8ELPM3kE2nOH72zFV889/IGiS/bwVIsxzsd
- tY1FfXoHm0eNH104ZK3+di3v0knfjxNgZXnJSvOSw2JPAEjBg4aebVqvE68Bo6PCMUhN
- AdRIU/S6fNQQX5ZiaeflRgpbntJ3+HGQIOq/yt/EOD/uloLschn/P4viey+TTEcR83Vz
- JA2NaLfz1MNUbcqkCDLr5At5YMyN1LFrqX4vNSD/8owXQ9xwK1IqUvCb4xV+VDlS5Yu/
- 4xKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792122346; x=1792727146;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=R0y1dJ5AAiyMzBzdNY5zHpT5jRGPheygtScQcJ1Wvm4=;
- b=LLJN6+oZnY4cTdqKQlbR/uxjHWcXzUPOyUygP6l+1Xi4iXDJWJVr2sgyUThmJas8lQ
- ljuVGijGqGaAZXwbE16MQKCcVc60xaJBJIvlwBQ/MSF6zMebp9x8jej88OX3Gp0RGxY6
- g+p/WP+5N+iU1V1y0YgRpQKj1AldaBfLf8WKyzEFQ2C4zPZCPyTf8L8LrNGlo97ItvoR
- WDRM1vXTRJ4ZXLmG7/Lauv9DaSO+PvXdqJKZISe3OeBAz+/pRGN7mglV6jaG3TlZS7ZN
- 75ZsZ0nzXEQEcVbPqdNMcOn/h3C0Tg1Ma+zf5MLiz1eDhyUgEBbzkIrb9IXpvRg6izdM
- EB1Q==
-X-Gm-Message-State: AFq9FYKKSKIdNSepmo7YHzoy53nMJ9Fe1kupvFmbUdsRPDYeJ/zq1FQO
- Rh+2VyQh3HwlONWHTGyZ3EikcJifKtglrF10JlKTH5fLigMNPiiZjwJz
-X-Gm-Gg: AYBFou2LezBm8b3YFqWmJ4FGYoL9cn86k3TAMkWzqtSTCBItimUYcJarqaWFf5K7HYV
- ptO7tQKu3j/2l4fXD7Xizh4ZyG38wO7nchOK28YrxKq6Gfir527HDwG+s01WghmlAkx0h9MRcmb
- 3rqgEkMXLZxyfMd5ZzyUCYp0QrP2Ea4MC6HSmfcAUPI1VrQjmnt7Ll0UdZneCq5hlxOzYtK4qXj
- ciP/aAU06QICsxz5rAPlY+QF8uwlo5Yz3yc0P20JGy+DsL+oFPCZqpOzNNm2EpePr2bIwwOELmM
- 7mCPZjjSm3dYARw8nKcMvlsZ9JrDCeCYvvUoyzVdDcYmbYnT/6FRetrN1tJ1rlwBWE+zWHQz6sE
- zcWL4J8rOQp34I1q2Ch4+/8VeuPwUCsBIyafGmWdJ+yfgyePeZf2Xob5QZmJ/yCnTkxuHw4hdr4
- XrcLpksh8MNrPs0oamdUTkKA4pnRtA/RQXJe2vxfomUhK4yx1zavx1xgpnIIdrxnKuOc0ZTK9ys
- xuv9AG9on4GAJVq/GGl3Z//IpQGV1164N+buv0=
-X-Received: by 2002:a05:7300:c8cb:b0:35f:f4c3:6403 with SMTP id
- 5a478bee46e88-35ff4d2b879mr3439491eec.36.1792122346157; 
- Thu, 15 Oct 2026 20:45:46 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com.
- [104.194.64.109]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3608297f4f7sm2434229eec.23.2026.10.15.20.45.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 20:45:45 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-X-Google-Original-From: Yao Yiqi <yaoyiqi3@huawei.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com,
- Yao Yiqi <yyaqia@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH v2 1/3] fbcon: Include font geometry in the rotated font cache
-Date: Fri, 16 Oct 2026 11:45:31 +0800
-Message-ID: <20261016034533.445862-2-yaoyiqi3@huawei.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016034533.445862-1-yaoyiqi3@huawei.com>
-References: <20261016034533.445862-1-yaoyiqi3@huawei.com>
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A81A21124C0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:25:54 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j5Lhx0DTMzKnCy;
+ Thu, 15 Oct 2026 23:25:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1792099553;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7mcgoV3INGnoJVrXhx5IiQEBNo5YI0Bqb7zeSJExZ80=;
+ b=gLrVtBBEPfKVeqiy+wHhR5f3z3mJ70qrvmnfoVnPFJOklj/qPgT7MeXQTslHy5XvFRtBLR
+ 6cqJO8oBgHkLAiq4VqYMhWKcTQNUmI2HVkPxsg7IEIFVVGvzToGbOpMrlMOg8Q9N3y5rp6
+ 16PVhQ6hW+YmAKiajquvc3JF06VKof/uiZn6/P8wfoOwAU3SbdU91bK0VR/FJDZrnyPsBN
+ B0gzwGr5uK5g+owbB5nKqgoOB609jlPA6q+sg9AoG7VkyRVN6I6V2oavFiw8G9D5Ys9Pgi
+ 7LBYH4Y5I1zANV4AimquqlCGrXab1XS2AD41/ZXQm3foyEKkyz7MN6LjIJ+0ww==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, ville.syrjala@linux.intel.com, jfalempe@redhat.com,
+ javierm@redhat.com, Hugo Sales <hugo@hsal.es>
+Subject: [PATCH 2/2] drm/tests: Add KUnit tests for the client mode size limits
+Date: Thu, 15 Oct 2026 22:25:45 +0100
+Message-ID: <20261015212545.1989962-3-hugo@hsal.es>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015212545.1989962-1-hugo@hsal.es>
+References: <20261015212545.1989962-1-hugo@hsal.es>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4j5Lhx0DTMzKnCy
 X-Mailman-Approved-At: Fri, 16 Oct 2026 07:35:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,104 +65,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Yao Yiqi <yyaqia@gmail.com>
+Test that the first-mode, cmdline, tiled and clone pickers skip modes
+larger than the client's size, and that drm_client_modeset_probe() keeps
+the preferred mode in connector->modes when the client is smaller than
+it
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+The probe test calls drm_client_modeset_create() directly, because
+drm_client_init() needs a dumb_create callback the test driver doesn't
+have
 
-fbcon_rotate_font() caches a rotated copy of the console font in
-par->rotated.buf and skips the rebuild when the cache appears to be
-up to date. The cache is keyed on the source font's data pointer and
-the rotation alone, on the assumption that an unchanged fontdata
-pointer implies an unchanged font.
-
-That assumption does not hold. Raw font data (font_data_t) stores no
-glyph geometry; width, height and charcount are tracked separately in
-vc->vc_font. When a font is uploaded, fbcon_set_font() deduplicates
-it against the fonts of all consoles with font_data_is_equal(), which
-compares only the byte count, the checksum and the raw bytes. Two
-uploads of the same data that declare different dimensions therefore
-end up sharing one font_data_t, and a console can install a new
-geometry while its fontdata pointer stays the same.
-
-The early-out in fbcon_rotate_font() then skips the rebuild, and the
-rotated blitting routines index the stale buffer with cell sizes
-computed from the new geometry:
-
-	src = par->rotated.buf + (scr_readw(s) & charmask) * cellsize;
-
-Rotation swaps a glyph's width and height, so the size of the rotated
-cell depends on pitch rounding and differs between geometries. A 4x16
-font whose 4096 bytes are re-uploaded as 16x8 on a CW-rotated console,
-for example, grows the rotated cell size from 8 to 16 bytes, and the
-largest character then reads past the end of the 2048-byte buffer that
-was built for the 4x16 geometry.
-
-The key has never included the geometry. Its exposure was limited,
-but not eliminated, while the deduplication in fbcon_set_font() also
-compared the consoles' font widths and total byte counts: with the
-charcount restricted to 256 or 512, differing uploads could then only
-trade height against charcount (such as 4x18x256 against 4x9x512),
-and even those can change the rotated cell size. Commit 1e3c49aa03fb
-("lib/fonts: Compare font data for equality with font_data_is_equal()")
-dropped the width comparison, so identical bytes now share font data
-across arbitrary dimensions.
-
-Record the geometry that the buffer was built from and compare it in
-the early-out, so a geometry change always triggers a rebuild.
-
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
- drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
- 2 files changed, 14 insertions(+), 4 deletions(-)
+ .../gpu/drm/tests/drm_client_modeset_test.c   | 218 +++++++++++++++++-
+ 1 file changed, 217 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 407d207b14f1..bfbd70f8b1cd 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -89,10 +89,13 @@ struct fbcon_par {
- 	char  *cursor_data;
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
- 	struct {
--		font_data_t *fontdata;  /* source font */
--		u8 *buf;                /* rotated glyphs */
-+		font_data_t *fontdata;       /* source font */
-+		u8 *buf;                     /* rotated glyphs */
- 		size_t bufsize;
--		int buf_rotate;         /* rotation of buf */
-+		int buf_rotate;              /* rotation of buf */
-+		unsigned int buf_width;      /* geometry of source font */
-+		unsigned int buf_height;
-+		unsigned int buf_charcount;
- 	} rotated;
- #endif
- 	u8    *cursor_src;
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 6cdbc96eeca6..660a3fa81bae 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	unsigned char *buf;
- 	int ret;
+diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+index 00f43fca9795..93aa919d4f31 100644
+--- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
++++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+@@ -18,6 +18,8 @@ struct drm_client_modeset_test_priv {
+ 	struct drm_device *drm;
+ 	struct device *dev;
+ 	struct drm_connector connector;
++	struct drm_connector second_connector;
++	struct drm_encoder encoder;
+ };
  
--	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
-+	if (par->p->fontdata == par->rotated.fontdata &&
-+	    par->rotate == par->rotated.buf_rotate &&
-+	    vc->vc_font.width == par->rotated.buf_width &&
-+	    vc->vc_font.height == par->rotated.buf_height &&
-+	    vc->vc_font.charcount == par->rotated.buf_charcount)
- 		return 0;
+ static int drm_client_modeset_connector_get_modes(struct drm_connector *connector)
+@@ -48,9 +50,23 @@ static const struct drm_connector_helper_funcs drm_client_modeset_connector_help
+ 	.get_modes = drm_client_modeset_connector_get_modes,
+ };
  
- 	par->rotated.fontdata = par->p->fontdata;
- 	par->rotated.buf_rotate = par->rotate;
-+	par->rotated.buf_width = vc->vc_font.width;
-+	par->rotated.buf_height = vc->vc_font.height;
-+	par->rotated.buf_charcount = vc->vc_font.charcount;
++static int drm_client_modeset_connector_get_modes_preferred(struct drm_connector *connector)
++{
++	int count = drm_add_modes_noedid(connector, 1920, 1080);
++
++	drm_set_preferred_mode(connector, 1920, 1080);
++
++	return count;
++}
++
++static const struct drm_connector_helper_funcs drm_client_modeset_preferred_helper_funcs = {
++	.get_modes = drm_client_modeset_connector_get_modes_preferred,
++};
++
+ static const struct drm_connector_funcs drm_client_modeset_connector_funcs = {
+ 	.atomic_destroy_state   = drm_atomic_helper_connector_destroy_state,
+-	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.fill_modes             = drm_helper_probe_single_connector_modes,
+ };
  
- 	if (info->fbops->fb_sync)
- 		info->fbops->fb_sync(info);
+ static int drm_client_modeset_test_init(struct kunit *test)
+@@ -197,6 +213,206 @@ static struct kunit_suite drm_test_pick_cmdline_test_suite = {
+ 
+ kunit_test_suite(drm_test_pick_cmdline_test_suite);
+ 
++static void drm_test_pick_first_mode_within_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connector = &priv->connector;
++	const struct drm_display_mode *mode;
++	int ret;
++
++	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
++
++	mutex_lock(&drm->mode_config.mutex);
++	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
++	mutex_unlock(&drm->mode_config.mutex);
++	KUNIT_ASSERT_GT(test, ret, 0);
++
++	mode = drm_connector_first_mode(connector, 1920, 1080);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
++
++	KUNIT_ASSERT_NULL(test, drm_connector_preferred_mode(connector, 1024, 768));
++
++	mode = drm_connector_first_mode(connector, 1024, 768);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
++
++	KUNIT_EXPECT_NULL(test, drm_connector_first_mode(connector, 320, 240));
++}
++
++static void drm_test_pick_cmdline_mode_within_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connector = &priv->connector;
++	struct drm_cmdline_mode *cmdline_mode = &connector->cmdline_mode;
++	const struct drm_display_mode *mode;
++	int ret;
++
++	KUNIT_ASSERT_TRUE(test, drm_mode_parse_command_line_for_connector("1920x1080", connector,
++									  cmdline_mode));
++
++	mutex_lock(&drm->mode_config.mutex);
++	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
++	mutex_unlock(&drm->mode_config.mutex);
++	KUNIT_ASSERT_GT(test, ret, 0);
++
++	mode = drm_connector_pick_cmdline_mode(connector, 1920, 1080);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
++
++	KUNIT_EXPECT_NULL(test, drm_connector_pick_cmdline_mode(connector, 1024, 768));
++}
++
++static void drm_test_pick_tiled_mode_within_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connector = &priv->connector;
++	const struct drm_display_mode *mode;
++	int ret;
++
++	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
++	connector->tile_h_size = 1920;
++	connector->tile_v_size = 1080;
++
++	mutex_lock(&drm->mode_config.mutex);
++	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
++	mutex_unlock(&drm->mode_config.mutex);
++	KUNIT_ASSERT_GT(test, ret, 0);
++
++	mode = drm_connector_get_tiled_mode(connector, 1920, 1080);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
++
++	KUNIT_EXPECT_NULL(test, drm_connector_get_tiled_mode(connector, 1024, 768));
++
++	mode = drm_connector_fallback_non_tiled_mode(connector, 1024, 768);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
++}
++
++static void drm_test_pick_clone_mode_within_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connectors[] = { &priv->connector, &priv->second_connector };
++	const struct drm_display_mode *modes[ARRAY_SIZE(connectors)] = {};
++	struct drm_client_offset offsets[ARRAY_SIZE(connectors)] = {};
++	bool enabled[ARRAY_SIZE(connectors)] = { true, true };
++	unsigned int i;
++	int ret;
++
++	ret = drmm_connector_init(drm, &priv->second_connector,
++				  &drm_client_modeset_connector_funcs,
++				  DRM_MODE_CONNECTOR_Unknown,
++				  NULL);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	drm_connector_helper_add(&priv->second_connector,
++				 &drm_client_modeset_connector_helper_funcs);
++
++	mutex_lock(&drm->mode_config.mutex);
++	for (i = 0; i < ARRAY_SIZE(connectors); i++) {
++		ret = drm_helper_probe_single_connector_modes(connectors[i], 1920, 1080);
++		KUNIT_EXPECT_GT(test, ret, 0);
++	}
++	mutex_unlock(&drm->mode_config.mutex);
++
++	KUNIT_EXPECT_TRUE(test, drm_client_target_cloned(drm, connectors, ARRAY_SIZE(connectors),
++							 modes, offsets, enabled, 1024, 768));
++	for (i = 0; i < ARRAY_SIZE(connectors); i++) {
++		KUNIT_ASSERT_NOT_NULL(test, modes[i]);
++		KUNIT_EXPECT_EQ(test, modes[i]->hdisplay, 1024);
++		KUNIT_EXPECT_EQ(test, modes[i]->vdisplay, 768);
++	}
++	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
++
++	KUNIT_EXPECT_FALSE(test, drm_client_target_cloned(drm, connectors, ARRAY_SIZE(connectors),
++							  modes, offsets, enabled, 800, 600));
++	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
++}
++
++KUNIT_DEFINE_ACTION_WRAPPER(drm_client_modeset_free_wrapper, drm_client_modeset_free,
++			    struct drm_client_dev *);
++
++static void drm_test_probe_keeps_modes_above_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connector = &priv->connector;
++	const struct drm_display_mode *mode;
++	struct drm_client_dev *client;
++	struct drm_encoder *encoder = &priv->encoder;
++	struct drm_plane *plane;
++	struct drm_crtc *crtc;
++	int ret;
++
++	drm->mode_config.max_width = 4096;
++	drm->mode_config.max_height = 4096;
++
++	plane = drm_kunit_helper_create_primary_plane(test, drm, NULL, NULL, NULL, 0, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane);
++
++	crtc = drm_kunit_helper_create_crtc(test, drm, plane, NULL, NULL, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
++
++	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_NONE, NULL);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	encoder->possible_crtcs = drm_crtc_mask(crtc);
++
++	ret = drm_connector_attach_encoder(connector, encoder);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
++
++	client = kunit_kzalloc(test, sizeof(*client), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, client);
++	client->dev = drm;
++
++	ret = drm_client_modeset_create(client);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = kunit_add_action_or_reset(test, drm_client_modeset_free_wrapper, client);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_client_modeset_probe(client, 1024, 768);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	mode = client->modesets[0].mode;
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
++
++	mode = drm_connector_preferred_mode(connector, 1920, 1080);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
++}
++
++static struct kunit_case drm_test_pick_mode_limits_tests[] = {
++	KUNIT_CASE(drm_test_pick_first_mode_within_limits),
++	KUNIT_CASE(drm_test_pick_cmdline_mode_within_limits),
++	KUNIT_CASE(drm_test_pick_tiled_mode_within_limits),
++	KUNIT_CASE(drm_test_pick_clone_mode_within_limits),
++	KUNIT_CASE(drm_test_probe_keeps_modes_above_limits),
++	{}
++};
++
++static struct kunit_suite drm_test_pick_mode_limits_test_suite = {
++	.name = "drm_test_pick_mode_limits",
++	.init = drm_client_modeset_test_init,
++	.test_cases = drm_test_pick_mode_limits_tests
++};
++
++kunit_test_suite(drm_test_pick_mode_limits_test_suite);
++
+ /*
+  * This file is included directly by drm_client_modeset.c so we can't
+  * use any MODULE_* macro here.
 -- 
-2.56.0
+2.55.0
 
