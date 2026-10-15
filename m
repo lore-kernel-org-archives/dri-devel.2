@@ -4,73 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62199CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 10:41:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2DB6CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 10:47:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C57561122A9;
-	Thu, 15 Oct 2026 10:41:18 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C83881122B0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=PWYj8ru7BPIHqOSp/fiXglh4U22uI39N69/dLvV/sG0=; b=UWsBALM+RA+8VflVD8dZiyh6HP
- Hiom+jMGVoHnfzKB+q8TfE+vP2dLVDTCZoDG7DR1KjlS6jWtlFmUU1XnIeO+ii8IzMmJGkEgxivjy
- /TyIlCzyrCdYo+QRu/OrCmraUeR0uBkoLITGDZpCIfsDvrQk1dgRNkk4I0Ynyf/rp1WCvluygj8va
- kbRve4NGaZpWNuRvrQXewE2vBQeUhrsfuExGmDgxmEfKQpjTrkC0b2ooxHnpev1bnzduzlX3IcZb+
- y60sclHI6wxTwqkOeWJfNuNJkxsW1JB1F7lE2mEwBv+gshbQGR2bTOdtXxQLrlQXhjWA6Zh74aVm1
- Pm14OQCw==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xHItS-000Uy3-21; Thu, 15 Oct 2026 12:41:02 +0200
-Message-ID: <351cced9-29f0-45e9-9264-615d5f4477cf@igalia.com>
-Date: Thu, 15 Oct 2026 07:40:57 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2082C1122B6;
+	Thu, 15 Oct 2026 10:46:52 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8F181122BA
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:46:40 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69F9jTrI2809328
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:46:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ O18SBrU7L9QrFSh6HrVkIKkdn/UBtVI5QfKtA2OKja4=; b=AVJh1QPEE1xL6NOU
+ 5JA6WjsNz3q6/xIgMbFw/5D2DZPNozgYtissPFIO7qxyrQ7h49jiNzo3c6vVYzGb
+ JpNhxsXQys3NRPOrODWN1I8k9FbuKdKi9mMZdk5Re1gkY0PERpFDd8MlSbrRZqnH
+ qHjYkFnZ1hN0DbHD/xmp83kuJZkJGVzCET+nYRY1GuSzVyOyitOsSVw6p1/rgy9m
+ ZZ4p456kwgfO3Cfe7PO2a7Kk5xN/BqEeXo3A2MsPDXFpahnz+twYMsHv2IF0K3Uj
+ EdTgi5lpTYkNSdQp/GVbD4xygxxISzvRpCHU6cadfLyfHYTBy1XpKc1CmXGPfpv/
+ jYSeSA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4han54t58d-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:46:39 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93ea8a9cfe6so89660985a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 03:46:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792061199; x=1792665999;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=O18SBrU7L9QrFSh6HrVkIKkdn/UBtVI5QfKtA2OKja4=;
+ b=al3VudFi6K6WEEQcGdHkaeS+c2mPPdtnLAWvTEUk1XaumVzldIYtMfX+QoFkpsEzl3
+ EZMhoweWDOoHpmZ5mFvzCU6bOhasYcJyatI9ADx8+uMl50z8bcANGxcrYkbrTwhg9CQ+
+ +KaLb37IqgNbVZ9b6w43JcRpdH/PcJn82vywBV2YtorF8z9lGThl44c2xPu6ClU61Y41
+ jhMtYkdsVHqJqxUWIvuBFuv1NAGKckNBD5wHWSKw1QJKXrf331R+JQ1xPtCA9Ua1oA/n
+ SsmmdyvOc93uOXuEXnEU0uPXZQWTcZPK0CLjr9SiFw27e+tH+Rc0yd9Kji3wyUoOGBD9
+ gkjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792061199; x=1792665999;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=O18SBrU7L9QrFSh6HrVkIKkdn/UBtVI5QfKtA2OKja4=;
+ b=J/jeTV2efyuEMMnGyJMVErOS9Id+iT3SRD22sj+fJ1MrrUVSpvl7TL3BcYZ8MPVMlg
+ TwAc3N3D2yd5eYRSlxoLg0gUd1C/OSYVWOfM1FcM01CEzER60Bn43tP/ey/5XvFChcjO
+ T5IO2yFnHmWq7sXPjpA3+vVxN56lX1K8UflK50Il1gdDNz7sPZpFDFTQgT6bYWDagbMu
+ c2PV9i98lh0HMVnW/nBmjoqVoBneYbPrd98+uIq30oMGIum77wj8zraSxW6KbxtLGFAg
+ QOL4CGkmR1sfKfIAwdTAUPRsO18LVoWdScxBUih7xJV8+wVyscHlh+/rlD5GZA4StzQA
+ AjBA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz08Ynh6eWHKTBkuOSt52J+MlRSEiGyS9XeyCm3zQuD5zYJvzTWyCVgOMOjoD7bIUk2Fk6EMQJL+3g=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ4tl74+SEtx1YcUoLn0th/uDi/qPZFOlsFxA+U5nhg538gY+r1
+ z7DBLPV/i1day/3A6x19Ys7lv/69NFz78V0sAWlzSHups8F+OFylnupOHeeKf3b0Yk/PCIagZQe
+ yllbmOQCdUsMLpxakglHPoVh4+ttKVzxHXvfVHycVUXZ0lgkU6rfgSQYMR3C8UspZLaZnKeM=
+X-Gm-Gg: AYBFou0h/Do9AkROiYogbBYhIuthLxs/TSKA/0wlOvSsZsZsOIt6uLMe8n4pJ9OPEZm
+ 5bV83pbxIC8LaxWeabp3f3OSL3WYU9MYX+t/KbcHq4/EMDJX5flACUfN8DmfLt3mhHWIZeMFSVO
+ 7jfo09sf0kH37z1AwdOcpI3DidyCZQ6dteK3tA0SYbfvLfrZ5zTklQ535JyP+/SW7Zx3t5ocx/p
+ 1F9RiRNuPqTgZimv7qKGLQGYkKloTIhqMgCsTcXHaxRg9GTSJeO3MBVDeW0EFRlNrAqKVVPeceI
+ OuQxe4WAkuNUDk8+LjtmcCR/kjI1AQSqxpEiL35/7RW0WeI9Rae2lXcwn4aoRCsSEF9+L8XDYbh
+ m/RkIdT1DdxG3XnTXTYTkcg==
+X-Received: by 2002:a05:620a:6506:b0:93e:508b:7800 with SMTP id
+ af79cd13be357-93ebcd29970mr3116765785a.0.1792061199035; 
+ Thu, 15 Oct 2026 03:46:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:6506:b0:93e:508b:7800 with SMTP id
+ af79cd13be357-93ebcd29970mr3116762485a.0.1792061198512; 
+ Thu, 15 Oct 2026 03:46:38 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c3eda62d2ebsm107780266b.74.2026.10.15.03.46.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Oct 2026 03:46:37 -0700 (PDT)
+Message-ID: <0f3f754b-c612-406e-9d35-6966e64a876a@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 12:46:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 55/75] drm/atomic-state-helper: Rename
- connector_tv_margins_reset to state_init
-To: Maxime Ripard <mripard@kernel.org>,
+Subject: Re: [PATCH v2 1/8] arm64: dts: qcom: sm6350-lena: Add flash LED
+To: erebion <erebion@erebion.eu>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Ruben Wauters <rubenru09@aol.com>
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-55-586c9c026823@kernel.org>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-55-586c9c026823@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=RYQFmFtv c=1 sm=1 tr=0 ts=6ad0af0f cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=JgZe5hknAAAA:8 a=INp5xvtxXxILuIktMPQA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=ODtDA1adfiiB3BH7YLNA:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfX4gyPocID0OKL
+ YpT1bPqwMLyOGrMjj/l5tsjPJKva+nphu8MnBftfUQcwrLSTAViVHQ0DrwR9rVQp0iIaWxrT79r
+ vzcylOQ9hTDv7qj5qeZ1gxRCalOAFg/IlCQ+858zWjSoUfa87+VqnaDGOIadsUZz3Z+u7wFsSzd
+ C15F9kag+rlpPV3bhWWY7N33espWF4ah+pdr9n78B4YWb/qh4oPHWoonuxCyqVf0iEMBHS0mOiH
+ GxvKvdv+m7ToGkvWIfZiPb3srxWZfGoc14be7tct3e/UoFT+quJmrQroYKblHTxtM60T61oY/XQ
+ wPPABTuPUNv4LUW7mKIxLtG704opQkCSAGwzlcDqIgbAgRczeNSIjn8qzt7lyI/WCa7eVoBlRZ6
+ tPTRe64UoQ6c/VULoun9h7t+7S1YMkfw1i5XgjnYCSvUgMUXMEdLDZ0mhVWIh8xrx4dK52TWu3V
+ B1Ju1lAjJBLgTFqG+vg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfX/Sk/Dia51k3A
+ I9xKBtEHAYUq3/Z4wSDziR5BeKGVPAXBA9/pRYKLQ20NhhgEAN8dpB5aZuA4ZCuPJw7Gh8IvVWP
+ ceY5ji9OCijVaEsf0KsmzYe+6EDjYkw=
+X-Proofpoint-GUID: cTFUkXiUnZAqFdHYOsW-gAAOY3w3OBrg
+X-Proofpoint-ORIG-GUID: cTFUkXiUnZAqFdHYOsW-gAAOY3w3OBrg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150042
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,145 +149,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 14/10/26 14:27, Maxime Ripard wrote:
-> Recent commits renamed other reset helpers to use the state_init
-> suffix when they only initialize properties rather than allocate or
-> update the object state itself.
+On 9/26/26 4:00 PM, erebion wrote:
+> Add a node for the camera flash LED found on the Xperia 10 III
 > 
-> drm_atomic_helper_connector_tv_margins_reset() falls in the same
-> category: it initializes the TV margin properties from the kernel
-> command line without allocating any state. It also reads the
-> connector state through connector->state, coupling it to the reset
-> path.
-> 
-> Rename it to drm_atomic_helper_connector_tv_margins_state_init() and
-> pass the connector state explicitly as a parameter. This decouples
-> it from the reset hook and prepares for the conversion to
-> atomic_create_state where connector->state is not yet assigned.
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
-
-Best regards,
-- Maíra
-
+> Signed-off-by: erebion <erebion@erebion.eu>
 > ---
-> Cc: "Maíra Canal" <mcanal@igalia.com>
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> Cc: Ruben Wauters <rubenru09@aol.com>
-> ---
->   drivers/gpu/drm/drm_atomic_state_helper.c | 14 ++++++++------
->   drivers/gpu/drm/gud/gud_connector.c       |  3 ++-
->   drivers/gpu/drm/vc4/vc4_hdmi.c            |  3 ++-
->   include/drm/drm_atomic_state_helper.h     |  3 ++-
->   4 files changed, 14 insertions(+), 9 deletions(-)
+>  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> index 406157a3660f..6238066fd5d6 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -480,26 +480,27 @@ drm_atomic_helper_connector_create_state(struct drm_connector *connector)
->   	return state;
->   }
->   EXPORT_SYMBOL(drm_atomic_helper_connector_create_state);
->   
->   /**
-> - * drm_atomic_helper_connector_tv_margins_reset - Resets TV connector properties
-> + * drm_atomic_helper_connector_tv_margins_state_init - Initializes TV connector properties
-> + * @state: the DRM State object
->    * @connector: DRM connector
->    *
-> - * Resets the TV-related properties attached to a connector.
-> + * Initializes the TV-related properties attached to a connector.
->    */
-> -void drm_atomic_helper_connector_tv_margins_reset(struct drm_connector *connector)
-> +void drm_atomic_helper_connector_tv_margins_state_init(struct drm_connector_state *state,
-> +						       struct drm_connector *connector)
->   {
->   	struct drm_cmdline_mode *cmdline = &connector->cmdline_mode;
-> -	struct drm_connector_state *state = connector->state;
->   
->   	state->tv.margins.left = cmdline->tv_margins.left;
->   	state->tv.margins.right = cmdline->tv_margins.right;
->   	state->tv.margins.top = cmdline->tv_margins.top;
->   	state->tv.margins.bottom = cmdline->tv_margins.bottom;
->   }
-> -EXPORT_SYMBOL(drm_atomic_helper_connector_tv_margins_reset);
-> +EXPORT_SYMBOL(drm_atomic_helper_connector_tv_margins_state_init);
->   
->   /**
->    * drm_atomic_helper_connector_tv_reset - Resets Analog TV connector properties
->    * @connector: DRM connector
->    *
-> @@ -568,11 +569,12 @@ void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector)
->   	if (prop)
->   		if (!drm_object_property_get_default_value(&connector->base,
->   							   prop, &val))
->   			state->tv.hue = val;
->   
-> -	drm_atomic_helper_connector_tv_margins_reset(connector);
-> +	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
-> +							  connector);
->   }
->   EXPORT_SYMBOL(drm_atomic_helper_connector_tv_reset);
->   
->   /**
->    * drm_atomic_helper_connector_tv_check - Validate an analog TV connector state
-> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
-> index 8141c3a1e30a..a57f2565d33e 100644
-> --- a/drivers/gpu/drm/gud/gud_connector.c
-> +++ b/drivers/gpu/drm/gud/gud_connector.c
-> @@ -352,11 +352,12 @@ static void gud_connector_reset(struct drm_connector *connector)
->   	struct gud_connector *gconn = to_gud_connector(connector);
->   
->   	drm_atomic_helper_connector_reset(connector);
->   	connector->state->tv = gconn->initial_tv_state;
->   	/* Set margins from command line */
-> -	drm_atomic_helper_connector_tv_margins_reset(connector);
-> +	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
-> +							  connector);
->   	if (gconn->initial_brightness >= 0)
->   		connector->state->tv.brightness = gconn->initial_brightness;
->   }
->   
->   static const struct drm_connector_funcs gud_connector_funcs = {
-> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> index 3a90dbb61f4e..cf84eff847d1 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> @@ -507,11 +507,12 @@ static int vc4_hdmi_connector_atomic_check(struct drm_connector *connector,
->   
->   static void vc4_hdmi_connector_reset(struct drm_connector *connector)
->   {
->   	drm_atomic_helper_connector_reset(connector);
->   	__drm_atomic_helper_connector_hdmi_state_init(connector, connector->state);
-> -	drm_atomic_helper_connector_tv_margins_reset(connector);
-> +	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
-> +							  connector);
->   }
->   
->   static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
->   	.debugfs_init = drm_hdmi_connector_debugfs_init,
->   	.force = drm_atomic_helper_connector_hdmi_force,
-> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-> index 4706eeab52c1..4dac741af22c 100644
-> --- a/include/drm/drm_atomic_state_helper.h
-> +++ b/include/drm/drm_atomic_state_helper.h
-> @@ -72,11 +72,12 @@ void drm_atomic_helper_connector_reset(struct drm_connector *connector);
->   struct drm_connector_state *
->   drm_atomic_helper_connector_create_state(struct drm_connector *connector);
->   void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector);
->   int drm_atomic_helper_connector_tv_check(struct drm_connector *connector,
->   					 struct drm_atomic_commit *state);
-> -void drm_atomic_helper_connector_tv_margins_reset(struct drm_connector *connector);
-> +void drm_atomic_helper_connector_tv_margins_state_init(struct drm_connector_state *state,
-> +						       struct drm_connector *connector);
->   void
->   __drm_atomic_helper_connector_duplicate_state(struct drm_connector *connector,
->   					   struct drm_connector_state *state);
->   struct drm_connector_state *
->   drm_atomic_helper_connector_duplicate_state(struct drm_connector *connector);
-> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index 6e2bbf4f060ac..79aa2521aed40 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> @@ -4,9 +4,11 @@
+>   */
+>  /dts-v1/;
+>  
+> +#include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  #include "sm6350.dtsi"
+> +#include "pm6150l.dtsi"
+>  #include "pm6350.dtsi"
+>  
+>  / {
+> @@ -302,6 +304,19 @@ touchscreen@48 {
+>  	};
+>  };
+>  
+> +&pm6150l_flash {
+> +	status = "okay";
+> +
+> +	led-0 {
+> +		function = LED_FUNCTION_FLASH;
+> +		color = <LED_COLOR_ID_WHITE>;
+> +		led-sources = <1>;
+> +		led-max-microamp = <180000>;
 
+GPT suggests 500mA here
+
+> +		flash-max-microamp = <1000000>;
+
+and 1500 here
+
+but the downstream DT is noisy.. please verify once again
+
+Konrad
