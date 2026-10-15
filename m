@@ -4,33 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6279ACC6B3C
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:17:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05D4BCC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1CD5112305;
-	Thu, 15 Oct 2026 11:16:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 251E011230D;
+	Thu, 15 Oct 2026 11:17:01 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF85D1122EF
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39A821122D6
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:40 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 48ADF2F8;
- Thu, 15 Oct 2026 13:14:32 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6B66A4F1;
+ Thu, 15 Oct 2026 13:14:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1792062873;
- bh=YvPKvR3k8goQxkf8tDWUsDTJ1X7cwwMqAe7zy8YJqmM=;
+ s=mail; t=1792062876;
+ bh=WcUMVWweb5f3swf9yKUqGoVDO5r8H/qimMUgyzAtyXQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ZRbWpj4yXRt1q0Nej4RrT73tJwRwKei/4mFS4+cWFJMa3uBhhFcF0dpLfT30ycZ8u
- OFmPZZu3tBDsEVY88s3lGOuik9E2gw3XVJMoI3SsBDPHFbXBUW6c63Uwu7oqf1m+D8
- NvLv1LrfdmAg6kF6U9+uLzEPFxab/mYuPYFBLywI=
+ b=RREF5pKNe5swA+BS/Nj4mxZFtW+CxEXyJl7Sy2DEP7uCs1a0FR02OX39L+wHC2iQV
+ vcY5UUV7v4qCSoo9sOhZTxdE7IBlG/NKZNYqucMVtSzYDCPlhrVCBTMt4ljXOnd/Ct
+ HknobpsrCGYF6O8lq/3/D8dIdh+X66OOfBF22o6o=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:16:00 +0300
-Subject: [PATCH v5 09/13] drm/bridge: tc358762: Fix sync polarities
+Date: Thu, 15 Oct 2026 14:16:03 +0300
+Subject: [PATCH v5 12/13] drm/bridge: tc358762: Set DE_POL and DCLK_POL
+ properly
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-9-7cd721a6451b@ideasonboard.com>
+Message-Id: <20261015-tc358762-fixes-v5-12-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -44,21 +45,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=944;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2009;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=YvPKvR3k8goQxkf8tDWUsDTJ1X7cwwMqAe7zy8YJqmM=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYHMIxIwLJncouR4zT7ki6jZn1uKfsD531IE
- pAEHjUQyQeJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BwAKCRD6PaqMvJYe
- 9dyCEACAiD7z3zj1Ru1PevHY7ohFpcM85fmnK3NhTy9BO1JbBy7FnYYOONVRVxkZpp12gOhEWDj
- BVbUE3z4YAGIClZQ59neOHUBlcJ/c+P2DqjuL3cv2JBA5RQz/2Q31APADs2b3u6aFW6PlOP9nnd
- GNlv3xqlRhs81rqC17VZ+5tnb4UCsVA3HHS37owJJi/7hyIAidmCx5GxfEeto5sQlM6XOLgZfDw
- gKbB2AqB6HbmqZNtT+LdRtSM6WOUkvInMdyQ5pzw0b4JBnswOOhYNVzyEjqY4Bd9HCWp6EzOEp1
- AKF67o8PuJmld/FsWns4xc/33lxU65a+5DSEw/18q6jE+PaFvgOcCLOWVfiJzy+V3Xqna/eG/0E
- uqaAZ1CGCZcOpKV5Sw3QEwGYEuvmTkLdwEa4W7upzSehLIDsYh31AdbwhUnZxjh5O1ppTHA2B5X
- eP8EXzLJh624qLcb+FofxmMgV1m+Kibuzl8Xr580o5RFgGXBLBJoZXSB3JY4XB+ObXu2xWwIAbL
- aJxJ4DSoDYBO6ChGCnKrrd6tPjkEGkpapOC65fIfY7oubuCAzqtxMbNQ/g5sBeC0Sg1iwo9bHCk
- nHGWJgIof+0vjaUr3zCh1vG0wLohFx1iv5P9vKeY6FjEN2x2eCyIceFX7wdVLRgBsyHvK3ai1bY
- l5TY2DYGGiN+J3w==
+ bh=WcUMVWweb5f3swf9yKUqGoVDO5r8H/qimMUgyzAtyXQ=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYI8nRBuy9YExz+dQqxuVtKqII8+bBrL/TCe
+ COLDduReYCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2CAAKCRD6PaqMvJYe
+ 9QiEEACv/uAbwbzqr5meeYt8HhYiFtLb4do0deiqi4HcWm0VZnfBUCX2JNtXTh3VK3cTwlWnApZ
+ Qz2ItKM05uAhKjspsxDmB3a0fy4drW+YiX8J7uu63+pwrK8dB+1j/w3B/QNjyxRaQ5yTNSx2PJl
+ fNUOzZG9BCKVF1ohDETxrMmNMz0/f6piIKnPqVUGGHusDq3WjI2aCTO5koyIu070i0GpYwcoMGh
+ IDeUnAs4VXC8cAGKCyhMJKtDYdxRFaaOltK24wyr1pWr6seNdSGCr6S92U4nk8q515Xx6Wfi7Mz
+ 6jF4weShfHyQbL3o3Vt+uws1hg6aVT4AwEsvsJ5affi0TDCupEj27o5zOgtZGETCC9fZUbm1kqj
+ tf97lnWBNT1nE+beMMijM9kemghc4QkjyGWJmVpjd7BPZ9Y35eULluCWJFzQpHRRjyF0ep5oeK2
+ gwAy48xL6xZO9Kq+o7hTfdfvnonwfIuJce0+X7Ga5nbXf4QSq9X0kfW8IeEWzytktIPW/dYIcla
+ bKYaJ3jD/yOjp1EGNFN6fL43Eg5hnCJdJbE70R96wvd5xyHe8O8rCTKe7cjNoVNSzUnUebAWYRV
+ hXH+uiwepo2ErJnHkfp345jr/V4e4LgtQgN9ab8K+LkKYle2ITAo0oP4D2U1a4o9njczqoY+vvJ
+ R6t2KNkWJIEdM6w==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,31 +77,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Setting LCDCTRL_HSYNC_POL and LCDCTRL_VSYNC_POL will make the respective
-sync signal active high. The driver does this in inverse. Fix it.
+The driver hardcodes LCDCTRL_DCLK_POL and ~DE_POL, ignoring what the
+panel actuall wants. Fix this by looking at the
+bridge_state->output_bus_cfg.flags, and set the polarities correctly.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 1fb5626a35ab..2baacef685a5 100644
+index 33312300e606..e73be376e33c 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -190,10 +190,10 @@ static int tc358762_init(struct tc358762 *ctx)
+@@ -186,12 +186,15 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ {
+ 	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+ 	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
+ 	struct drm_crtc_state *crtc_state;
+ 	struct drm_connector *connector;
+ 	struct drm_display_mode *mode;
+ 	u32 lcdctrl;
+ 	int ret;
  
- 	lcdctrl |= LCDCTRL_DCLK_POL;
++	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
++
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+ 	conn_state = drm_atomic_get_new_connector_state(state, connector);
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+@@ -243,7 +246,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ 	if (ctx->use_vtg)
+ 		lcdctrl |= LCDCTRL_VTGEN;
  
--	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
-+	if (ctx->mode.flags & DRM_MODE_FLAG_PHSYNC)
+-	lcdctrl |= LCDCTRL_DCLK_POL;
++	/* Note: DCLK_POL affects pixdata, de and syncs */
++	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE)
++		lcdctrl |= LCDCTRL_DCLK_POL;
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
  		lcdctrl |= LCDCTRL_HSYNC_POL;
- 
--	if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
-+	if (ctx->mode.flags & DRM_MODE_FLAG_PVSYNC)
+@@ -251,6 +256,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ 	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
  		lcdctrl |= LCDCTRL_VSYNC_POL;
  
++	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
++		lcdctrl |= LCDCTRL_DE_POL;
++
  	tc358762_write(ctx, LCDCTRL, lcdctrl);
+ 
+ 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
 
 -- 
 2.43.0
