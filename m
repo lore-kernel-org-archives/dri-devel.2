@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB02CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98300CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE55E112380;
-	Thu, 15 Oct 2026 14:38:40 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8847112384
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:38:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD333112384;
+	Thu, 15 Oct 2026 14:40:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B34C8112384
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:40:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A7F0D43BBF;
- Thu, 15 Oct 2026 14:38:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052C21F000C4;
- Thu, 15 Oct 2026 14:38:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0614560120;
+ Thu, 15 Oct 2026 14:40:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D041F000C4;
+ Thu, 15 Oct 2026 14:40:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792075114;
- bh=ZPllHFkd2/41T9i7XIV50qq2n8bSLRO3ec7naV8MZSg=;
+ s=k20260515; t=1792075226;
+ bh=X+//KzDIidIUzfc5n59pBr5CNd07A7Z+jhwGLIpbXag=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YkjWbEI3yJ5kawSgkClleLWVOI00vwHYbHg0TFw6M49By5ig/+aDRXjos9a7U4pOR
- WhScltQCno5viPoSiHWuZSbzTRUxwrLHkjTb9P/0WpHZDfzcXMhGboxeoBequwL+Er
- yeaw9bEPElYK8nrMJktjFLqdwk6w+FkXvGOMrYZUC2I281FWtWWUxFE2N7C6R8McRP
- VOOhdswDFuGr56JdoHCTUq5Ou4PjKEloHR9uwSzJElvunjwzLaUydX5lV87ULf4q29
- LG6nhscvtys12LaLykDj7MXf9z7dY2S/fKIPZPdoWjT+RxFstEF2E2Ww+pdHiTSSaF
- uxoHX8erElVKQ==
-Message-ID: <sashiko-outbox-172968@kernel.org>
+ b=AwBDerW32w3zzsaF/0H2Uq8vyuJ9q3f+tzwIgTIaQ7TJh2WH4EOO6Dpcesm+fT/Pw
+ K2pR3DTBaSnKZVybneflfqEJj4kTYF3kN24BsLuUYOFHHsd5CM21s2gn4Hf+rnPr42
+ r9qTFqTvgyuPfgYmfcTCCqlNfZrpScKaUpqn9eMdkUbTxv+NsDtnZJmq6t0cbt1pij
+ 7H4hkClgQZboSonsYgridO2g8ZQYHxl/1SgpOulsDhdOiZlIkfXLDIM9p46Lh3DTtP
+ FNzvwyminXOd7rx1xNyd72ggeHWmu8oJkvAehdI9iMiauOnWKubZ4cc+G63nH6Mmpt
+ CzTo4Q6fcvtxw==
+Message-ID: <sashiko-outbox-172969@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 10/15] KVM: arm64: Introduce support to pin VMIDs
+Subject: Re: [RFC PATCH v2 13/15] misc/arm-cla: Add stage-2 MTC and VM
+ context switch
 To: "Ryan Roberts" <ryan.roberts@arm.com>
 Cc: kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, "Oliver
  Upton" <oupton@kernel.org>, "Marc Zyngier" <maz@kernel.org>
-In-Reply-To: <20261015142552.4128028-11-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-14-ryan.roberts@arm.com>
 References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-11-ryan.roberts@arm.com>
+ <20261015142552.4128028-14-ryan.roberts@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 14:38:30 +0000
+Date: Thu, 15 Oct 2026 14:40:25 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,100 +57,88 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] kvm: arm64: integer underflow in max_pinned_vmids allows slab =
-OOB write
+- [High] kvm: use-after-free and refcount underflow in cla_ctx_create()
+- [Medium] arm-cla: late validation of VHE mode breaks device domain
 --
 
-commit 5166cc2f774d24bbef4a1dfb451334ee93c6273a
-Author: Shameer Kolothum <skolothumtho@nvidia.com>
-KVM: arm64: Introduce support to pin VMIDs
+commit fd14d79171a8956e71dc07a1dfa6797aaef533a8
+Author: Jean-Philippe Brucker <jpb@kernel.org>
 
-Introduce kvm_arm_pinned_vmid_get() and kvm_arm_pinned_vmid_put(), to pin
-a VMID associated with a KVM instance. This will guarantee that VMID
-remains the same after a rollover.
+misc/arm-cla: Add stage-2 MTC and VM context switch
 
-> diff --git a/arch/arm64/kvm/vmid.c b/arch/arm64/kvm/vmid.c
-> index 7fe8ba1a2851c..322279f59e881 100644
-> --- a/arch/arm64/kvm/vmid.c
-> +++ b/arch/arm64/kvm/vmid.c
+Add functions to switch the guest MTC. Reset the accelerators and CLA
+registers on switch. No save/restore of accelerators at the moment, we
+only restore the kernel's PL0CTL.
+
+> diff --git a/drivers/misc/arm-cla/cla-ctx.c b/drivers/misc/arm-cla/cla-ct=
+x.c
+> --- a/drivers/misc/arm-cla/cla-ctx.c
+> +++ b/drivers/misc/arm-cla/cla-ctx.c
 [ ... ]
-> @@ -169,6 +175,49 @@ void kvm_arm_vmid_update(struct kvm_vmid *kvm_vmid)
->  	raw_spin_unlock_irqrestore(&cpu_vmid_lock, flags);
->  }
+> @@ -48,8 +79,12 @@ struct cla_ctx *cla_ctx_create(struct cla_domain *doma=
+in,
+>  	INIT_LIST_HEAD(&ctx->queue_node);
+>  	init_waitqueue_head(&ctx->waitq);
 > =20
-> +int kvm_arm_pinned_vmid_get(struct kvm *kvm)
-> +{
-> +	struct kvm_vmid *kvm_vmid;
-> +	u64 vmid;
-> +
-> +	kvm_vmid =3D &kvm->arch.mmu.vmid;
-> +
-> +	guard(raw_spinlock_irqsave)(&cpu_vmid_lock);
-> +	vmid =3D atomic64_read(&kvm_vmid->id);
-> +
-> +	if (refcount_inc_not_zero(&kvm_vmid->pinned))
-> +		return (vmid & ~VMID_MASK);
-> +
-> +	if (nr_pinned_vmids >=3D max_pinned_vmids)
-> +		return -EINVAL;
+> -	mmgrab(key->mm);
+> -	get_file(key->file);
+> +	if (cla_ctx_is_pl0(ctx)) {
+> +		mmgrab(key->mm);
+> +		get_file(key->file);
+> +	} else {
+> +		WARN_ON(!cla_ctx_get_pl1(ctx));
+> +	}
 
-[Severity: Critical]
-Does this capacity check protect against pinning exhaustion if max_pinned_v=
-mids
-underflows?
+[Severity: High]
+If cla_ctx_get_pl1() fails and returns false (for example, if the KVM=20
+instance is dying and its refcount is zero), does execution continue here
+with an unreferenced and potentially freed kvm pointer?
 
-On ARM64 systems with 8-bit VMIDs (NUM_USER_VMIDS=3D256) and 255 or more CP=
-Us,
-the subtraction used to set max_pinned_vmids in kvm_arm_vmid_alloc_init() w=
-ill
-wrap around to a huge unsigned value.
+If so, this unreferenced pointer is later passed to cla_mtc_get_ctx() and
+then cla_mtc_get_s2_ctx(), which calls kvm_arch_get_guest_mmu(). That
+function dereferences the invalid pointer when acquiring the config_lock:
 
-This allows userspace to bypass this check and exhaust all VMIDs by pinning
-them. Once fully exhausted, new_vmid()'s fallback find_next_zero_bit() retu=
-rns
-256, and then falls through to the set_vmid label:
-
-arch/arm64/kvm/vmid.c:new_vmid() {
-	...
-set_vmid:
-	__set_bit(vmid, vmid_map);
-	...
+arch/arm64/kvm/mmu.c:kvm_arch_get_guest_mmu() {
+        ...
+        guard(mutex)(&kvm->arch.config_lock);
+        ...
 }
 
-Can this write past the end of the 256-bit bitmap and corrupt adjacent slab
-memory?
+Could this lead to a use-after-free? Furthermore, if execution reaches the
+err_free error path, cla_ctx_put_pl1() is called unconditionally, which
+calls kvm_put_kvm() and could cause a refcount underflow. Should this path
+return an error immediately if the KVM reference cannot be acquired?
 
+> diff --git a/drivers/misc/arm-cla/cla-mtc.c b/drivers/misc/arm-cla/cla-mt=
+c.c
+> --- a/drivers/misc/arm-cla/cla-mtc.c
+> +++ b/drivers/misc/arm-cla/cla-mtc.c
 [ ... ]
-> @@ -186,10 +235,24 @@ int __init kvm_arm_vmid_alloc_init(void)
->  	if (!vmid_map)
->  		return -ENOMEM;
+> @@ -137,6 +205,49 @@ static int cla_mtc_uninstall_s1(struct cla_dev *dev)
+>  	return cla_op_setctx(dev, cla_kernel_mtc + CLA_MTC_TTBR0, 1, &ttbr0);
+>  }
 > =20
-> +	pinned_vmid_map =3D bitmap_zalloc(NUM_USER_VMIDS, GFP_KERNEL);
-> +	if (!pinned_vmid_map) {
-> +		bitmap_free(vmid_map);
-> +		return -ENOMEM;
-> +	}
-> +	nr_pinned_vmids =3D 0;
+> +static int cla_mtc_install_s2(struct cla_dev *dev, struct cla_ctx *ctx)
+> +{
+> +	struct cla_mtc_s2 s2 =3D {};
+> +	const size_t num_regs =3D sizeof(s2) / sizeof(u64);
 > +
-> +	/*
-> +	 * Ensure we have at least one empty slot available after rollover when
-> +	 * the maximum number of VMIDs are pinned. VMID#0 is reserved.
-> +	 */
-> +	max_pinned_vmids =3D NUM_USER_VMIDS - num_possible_cpus() - 2;
+> +	if (WARN_ON(cla_kernel_pl !=3D 2))
+> +		return -EINVAL;
 
-[Severity: Critical]
-Is it possible for this subtraction to underflow?
+[Severity: Medium]
+Because this validation occurs during the context switch path (called by
+the scheduler), is it too late to gracefully reject an unsupported VM
+configuration?
 
-If a system has 8-bit VMIDs (NUM_USER_VMIDS =3D 256) and 255 or more CPUs,
-this will result in a negative value that wraps around to ULONG_MAX.
-
-While there is a WARN_ON(NUM_USER_VMIDS - 1 <=3D num_possible_cpus()) earli=
-er
-in kvm_arm_vmid_alloc_init(), it only emits a warning and does not prevent
-the initialization from proceeding and setting this underflowed value.
+If this WARN_ON is hit after the PL1 context has already been created and
+queued, returning an error during the context switch might cause the
+hardware domain to be permanently marked as broken and leak resources.
+Would it be safer to perform this capability check upfront during context
+creation, for example in cla_mtc_get_s2_ctx()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015142552.4128=
-028-1-ryan.roberts@arm.com?part=3D10
+028-1-ryan.roberts@arm.com?part=3D13
