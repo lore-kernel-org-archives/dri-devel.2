@@ -4,33 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EDFCC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:16:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 802F6CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:17:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3AE91122D6;
-	Thu, 15 Oct 2026 11:16:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFE381122D9;
+	Thu, 15 Oct 2026 11:16:54 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD5AF1122FD
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 164E11122D9
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:41 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 408521552;
- Thu, 15 Oct 2026 13:14:29 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 677C21D12;
+ Thu, 15 Oct 2026 13:14:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1792062870;
- bh=Ce/IUl8m0EIXqaAmMjx6Mj55YSBD7+khbCWc5Mp8TZY=;
+ s=mail; t=1792062877;
+ bh=fw6HWt4qWZk1Je5fhTr7Rh66OKoDT2cP4tY+lFPvw1k=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=X6sLe+jV6y++wZL5uy+GSJPLMRY9MawpYnGuLuBaZwWvgwqZNsvUdu9W1a2zMnU+t
- zg+rqS7Vd55zzPTYSNgMzJyolbfiULkT79/pSXAiiilRrHjPkToBJVAFGxZXj1O+xc
- 2MmATU2lbNSfD01xXW6yOh/+jbKqxVOuW1cF8whU=
+ b=IAKAZ04oU9Cj45/XYdJq2WgcKmUagAlI6Qo/W2mZcTnIlQSYNes1hRAgqT2V1fWLt
+ x15Iq018Kfhi0421pnVzMpfUZBZlQqWq/+bzmkRVsF+otS1AKJt2jwU7I/hgfg4sCg
+ zlVScb2t4qpZOA6bo3hFpR12oHid9YJB4V5QAEqc=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:15:57 +0300
-Subject: [PATCH v5 06/13] drm/bridge: tc358762: Improve DPI enable handling
+Date: Thu, 15 Oct 2026 14:16:04 +0300
+Subject: [PATCH v5 13/13] drm/panel-simple: Fix powertip,ph800480t013-idf02
+ timings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-6-7cd721a6451b@ideasonboard.com>
+Message-Id: <20261015-tc358762-fixes-v5-13-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -44,21 +45,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1676;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2487;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=Ce/IUl8m0EIXqaAmMjx6Mj55YSBD7+khbCWc5Mp8TZY=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYGbzQc28JrSZFi0DhYt8mcNpjIK+Km61l+j
- j+uoGPD4eGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BgAKCRD6PaqMvJYe
- 9QSLD/4nZNbNw4NeanW0sJhDejFKjKRqRxNb4seo8652MzisVSsHHGjbdJYmmVWcj5nu2UHV89d
- cyEPx3CTwI5uObmkeVVSZZDSBKO/c+4XenqzMfcit51CL9KtcFQRIPESKfoLzvgpNkUw67y1zHU
- 0cHHQvG+Fz44xBi59lexhHoatexsX4iodQh6SRx3QLdNJoNgGnDhO9m+jv/tkwE+lb7u0MGQaay
- AZNAKuIAjxaNCogNPEbJtiSNUnsxURg4t+FvHxdJguL0oJBmFnKFslWmnmhfxRxy/KzDyidXOeb
- Q7ufTLj78ms4g1ITpF6ZCrIQngjnVKZFbpPmvbT0qiyrDV3tdMLgUvlRg8+I+fKsgOz9jxaqf5v
- 6TBhkBFK7J9malgIEdLbxByOu9thLEZm1OTfGfRf7yMfKEuj6MEqMoMAVas4zBPvS430g7RoVzp
- GNeLkEQL+cE39adGjibdmrSUkW8Bj+hf6IRbv7Zz3wlpK1gGngzcMkrLvC3xMUbme6LbpuwEOF6
- LMVhuKZq1vu9+esKJA82cz7Bodce4qNDgHb/SM+VqQhLykaaQUUBCloq+bYHSGojfrPkoDB11UO
- /MNlFUQprpBmyhzvWZoWmk3GzHNKQhEnfMGT83jZOi9lBKxEjDmuInrqI5YlzN5boUtjAWCv+w5
- sfROr1cNezS7HKw==
+ bh=fw6HWt4qWZk1Je5fhTr7Rh66OKoDT2cP4tY+lFPvw1k=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYJeY5qBXBVVYD3iUA8UgrkzdfZ3PZisDw3t
+ o1904SKUzOJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2CQAKCRD6PaqMvJYe
+ 9XdDD/9qK1ytb75oiW/t5TnfgzdOhN8/UAMzVq/j87Gwthv2RhGjEnOHisf2M9U3cFXvmomnF3h
+ DnYA+sJ+/hjdLx8lxZqdrvUrrbRwLdZoIJGKTaDQDoQgDxyiyNJoB6cU9/SNCjvaU9he73C2IcH
+ lFyeJZJvdyYvc77SI6st01RonGmshtYyP3m/1+TikFa+LyDTYh/bPIXKG0Zi1RDV9HXI1OBNCFt
+ 6xXxT9/vL8h0rKoQb9E6zaobfavDWv/Drxq8KMoL7lW0oEaZ6Paq9VGRQuh/E9bQjSLLpu+pHNW
+ D9ApslFVP2UvADmABiRWMGTIhB6J7wAvbpWfp9meSqwlf5GOxyJ+tGhPg+wY6hNQOQ2UVaeBRBF
+ BTmAet9xNEeBreUGunB3qieD2roaHFs7cU0YStlPMu94jxfZiNgVJoqqVOcyk2XTUXd7Ny9B3pS
+ aPY2HzbYfpX5HdxBYk756Q+3I2PsfrnSxQIi154UAsnDJNTmGmt21PW1hN6uGFW+qkKwP1Y258J
+ K9a10T6xLaOru5CHD6FHZqZrlruEAE5BcOqHO/aLIl5q7Iq6DTiEkub1aEjVHizZ6BsWfHkWDFc
+ DmBWtwKXJrTtLfqY0SsT341X1ajb/9xk8o83a4TZnL2PTaUYF0zMVeefUUeZAogcdoJccFuQkAY
+ /4YIHs0BUM4BybA==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,50 +77,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HW reset defaults has DPIENABLE bit as set. In the current driver we
-configure and enable various things while DPIENABLE is set. This results
-in a temporary DPI output with wrong timings, which may cause artifacts
-on the panel.
+The powertip,ph800480t013-idf02 panel was added to panel-simple, and
+with the tc358762 driver, enabled the use of RaspberryPi 7" DSI display.
 
-Fix this by clearing DPIEANBLE as the first thing when we start to
-enable the display. DPIENABLE is set later with the rest of the LCDCTRL
-configuration, and at that time we have done all the other
-configurations.
+I have been testing the RaspberryPi 7" DSI display module with TI's
+BeagleY-AI, and I can't get a good image with the current panel timings.
 
-Also, for symmetry and possibly improving the DPI output at disable
-time, explicitly disable DPIENABLE when disabling the bridge.
+It's been quite difficult to figure out exactly what are the issues.
+Possibly RPi DSI TX and TI DSI TX have their own quirks which affect
+this also. However, now that the tc358762 driver has been fixed wrt. the
+signal timings it sends, this patch makes the panel work fine on
+BeagleY-AI.
 
+Fix the timings according to the datasheet:
+
+- hsw + hbp must equal to 46. This was correct in the timings, but the
+  hsw was very tight, and at least Cadence DSI has trouble with such
+  short hsync. Increase hsw to the middle of the hsw range from the
+  datasheet, and decrease hbp accordingly.
+- vsw + vbp must equal to 23. This was 24, resulting in slight shift in
+  the image.
+- The upstream timings seemed to aim for 50 fps, but this is a normal 60
+  fps panel, so adjust the timings to get 60 fps. As there's no strict
+  rule what numbers to pick here, I used the "typical" values from panel
+  datasheet for pclk, hfp and vfp. However, vfp of 23 instead of the
+  datasheet's 22 give us a closer match to 60 fps, so I used that.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/panel/panel-simple.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 91bc79d36a74..19f328b6e798 100644
---- a/drivers/gpu/drm/bridge/tc358762.c
-+++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -134,6 +134,12 @@ static int tc358762_init(struct tc358762 *ctx)
- {
- 	u32 lcdctrl;
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index c95964ba25a9..2e84a8ea518f 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -4191,15 +4191,15 @@ static const struct panel_desc powertip_ph128800t006_zhc01 = {
+ };
  
-+	/*
-+	 * DPIENABLE has reset default of 1. Make sure we don't output on
-+	 * DPI until we have finished the coniguration.
-+	 */
-+	tc358762_write(ctx, LCDCTRL, 0);
-+
- 	tc358762_write(ctx, SYSCTRL,
- 		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
- 		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
-@@ -185,6 +191,9 @@ static void tc358762_post_disable(struct drm_bridge *bridge,
- 
- 	ctx->pre_enabled = false;
- 
-+	/* Turn off the DPI output */
-+	tc358762_write(ctx, LCDCTRL, 0);
-+
- 	if (ctx->reset_gpio)
- 		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+ static const struct drm_display_mode powertip_ph800480t013_idf02_mode = {
+-	.clock = 24750,
++	.clock = 33333,
+ 	.hdisplay = 800,
+-	.hsync_start = 800 + 54,
+-	.hsync_end = 800 + 54 + 2,
+-	.htotal = 800 + 54 + 2 + 44,
++	.hsync_start = 800 + 210,
++	.hsync_end = 800 + 210 + 20,
++	.htotal = 800 + 210 + 20 + 26,
+ 	.vdisplay = 480,
+-	.vsync_start = 480 + 49,
+-	.vsync_end = 480 + 49 + 2,
+-	.vtotal = 480 + 49 + 2 + 22,
++	.vsync_start = 480 + 23,
++	.vsync_end = 480 + 23 + 2,
++	.vtotal = 480 + 23 + 2 + 21,
+ 	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
+ };
  
 
 -- 
