@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39336CC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 12:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E83E2CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 12:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49BF610E2CE;
-	Thu, 15 Oct 2026 12:39:30 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D775B10E2CE
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:39:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792067961; cv=none; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4933710EA27;
+	Thu, 15 Oct 2026 12:39:36 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D877310EA27
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:39:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792067968; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Tjon6KLoMZGTD3gYcYFkxUTwF+kL/rEvtPXr/cLuEUe0xAJZEi4CaPX5SAOalGxj47gyaa7EUmOWssido+ThW29/sXeDlFM4k2lnvT5Wh2kUBslvTcUoOp3UumqasYY72nBCuqqKkyIAHS4U1E4B/efPA3B0+5GyJsE/aLw+qLQ=
+ b=HXlYleMGYoR4L6lEUytje1PlZGP7V2yEObe0tnu83z/06mV8iU8cOmn6rAzKG3SuLlTveQxnPu0RQYIiHXfD7D7ej1rGFXcKiwUrS64wm9RHcKkJKrRVEC9xpUFeCYjpL4vFkkX9VfBSujF1ugIrQZn6RW2q0FDaEwD0sTKgrrQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792067961;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=b8QxlcXuE8fvWepGOYNbeyD9I1BGJwMpPeaLkpEcykM=; 
- b=Fpk+np0RBTlIkbUHRGiugJ20uaCXC0VsxEl2oFYM8i4oxQKATFX3oSlr4dGQKBN28JExT0xlke9QmFGWgUnDmBpOyIdlM2GKKHIQq9gBGu6GwyjCmzhVVgTo4IjLrGzv9CUDTtD/fTAYVjiEV7QC3rbX0L2x3tOoZMZnnpsZgnk=
+ s=zohoarc; t=1792067968;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=3E1bdrq4gqFYtbBaaweOh7zV8x4SqRbEvntWxZX2Fbg=; 
+ b=bNYvQmWb+FS8RpOmYw8AdoMdTzxK8+y4Pq2LmC7TAHc1FpmYm0++TE11oUql0lfyzyxgcs5pwxQv4OkaoXwNA79blJjFZlZNobPh7ExWnYIqJTtutN7acQtv6Sf6LOgoQytIqeMRxQBljBUE2K1oKQjeiZwTTkmdJUFGIfI82pU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792067961; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792067967; 
  s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=b8QxlcXuE8fvWepGOYNbeyD9I1BGJwMpPeaLkpEcykM=;
- b=QdSJw4To7te5oLZBwuxM/5Rm1bpc3a31680SH4Uhs+gIggIWD/6BUt+jejrwcLiW
- 9LH6cnMbzu/uzMhEaEtQb6R5kuIY1KWIw0N2xRl4/6vrQxvL2KMH7YpIbkwamL3e6fF
- yPlMA+B2TCNfJwyQRiScx8bSmHtRo6NkqtslmNLY=
-Received: by smtp.zohomail.com with SMTPS id 1792067959377676.561264213707;
- Thu, 15 Oct 2026 05:39:19 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=3E1bdrq4gqFYtbBaaweOh7zV8x4SqRbEvntWxZX2Fbg=;
+ b=ArFmEJE9eFZD4SNTUMDpxsswzqIvZC77SC8WU4lXGVoXosYu8yuyTSEFjIPUEuMy
+ W78d4MTPPngtio6K1vm5ThEBwGuBMm+AzRvCvLIJjIrz09eVaaLbedsus0utzL485rg
+ O4noIZU5iCVq6e9qbNqzVxtKuXnmmI4bYS39HTo0=
+Received: by smtp.zohomail.com with SMTPS id 1792067964754958.2798476402018;
+ Thu, 15 Oct 2026 05:39:24 -0700 (PDT)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Subject: [PATCH 0/7] rust: io: add read-only and write-only views and registers
-Date: Thu, 15 Oct 2026 09:39:04 -0300
-Message-Id: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
+Date: Thu, 15 Oct 2026 09:39:05 -0300
+Subject: [PATCH 1/7] rust: io: split IoCapable into IoReadable and IoWritable
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1g3MjFS0VyldxJhqhDoyURHEu
- 3dsl2/x/wEmScXgURyQZFPTOGX4WwE80NQLapcNwYXKO39HjUjMYoaf2Imhb4hD64hCWUOu5iR
- v3X/H5+tvW9tReLk2cJ5fAraH63MAAAA=
-X-Change-ID: 20261015-io-access-modes-19ac2b0aa238
+Message-Id: <20261015-io-access-modes-v1-1-93611b84b5e3@collabora.com>
+References: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
+In-Reply-To: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
  Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
  Robin Murphy <robin.murphy@arm.com>, 
@@ -79,63 +77,465 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds read-only and write-only I/O views, and the #[ro]
-and #[wo] attributes to register!. An access in the wrong direction
-then does not compile.
+`IoCapable<T>` provides both `io_read` and `io_write`, so a backend that
+supports accesses of type `T` supports them in both directions, and every
+(non-copy) `Io` method that reads or writes a value requires both. There
+is no way to express a backend, or a view, that can only be read or only
+be written.
 
-This is needed by Tyr, where the doorbell registers are write-only and
-the CSF control and output blocks shared with the firmware must only be
-read by the driver. Laura's CSF interface series [1] will be the second
-user.
+Thus, replace `IoCapable<T>` with an `IoReadable<T>` trait holding
+`io_read` and an `IoWritable<T>` trait holding `io_write`, and implement
+both for all existing backends. The non-copy `Io` methods that read a
+value now require `IoReadable` and those that write one require
+`IoWritable`. `update` and `try_update` read and then write, so they
+require both.
 
-Patches 1 and 2 split IoCapable into IoReadable and IoWritable, and
-IoCopyable into IoCopyReadable and IoCopyWritable.
+The copy methods use `IoCopyable` and are not changed here.
 
-Patch 3 adds the ReadOnly and WriteOnly views, returned by
-Io::read_only() and Io::write_only(). They wrap any view, and the views
-projected from them keep the restriction.
-
-Patch 4 makes the primitive accessors (read32() and friends) project the
-view directly instead of going through the generic read and write
-methods.
-
-Patch 5 lets an IoLoc carry an access mode, which is applied to the view
-projected through it.
-
-Patch 6 adds the #[ro] and #[wo] attributes to register!.
-
-Patch 7 marks the read-only and write-only registers in Tyr. Where
-regs.rs does not document a mode, it follows the register permissions
-for v10 GPUs in Arm's kbase driver (r54p1).
-
-This is based on drm-rust-next.
-
-[1] https://lore.kernel.org/r/20260915-tyr-interfaces-v1-6-5d28f1f75aca@collabora.com
+No functional change intended. This prepares for read-only and write-only
+views, added in a following patch.
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
-Daniel Almeida (7):
-      rust: io: split IoCapable into IoReadable and IoWritable
-      rust: io: split IoCopyable into IoCopyReadable and IoCopyWritable
-      rust: io: add read-only and write-only views
-      rust: io: project primitive accessors directly
-      rust: io: let I/O locations carry an access mode
-      rust: io: register: add `#[ro]` and `#[wo]` attributes
-      drm/tyr: mark read-only and write-only registers
+ rust/kernel/dma.rs    |  12 ++++--
+ rust/kernel/io.rs     | 101 +++++++++++++++++++++++++++++---------------------
+ rust/kernel/pci/io.rs |  10 +++--
+ 3 files changed, 75 insertions(+), 48 deletions(-)
 
- drivers/gpu/drm/tyr/regs.rs |  77 ++++++++
- rust/kernel/dma.rs          |  29 +--
- rust/kernel/io.rs           | 416 +++++++++++++++++++++++++++++++++-----------
- rust/kernel/io/access.rs    |  76 ++++++++
- rust/kernel/io/register.rs  |  71 +++++++-
- rust/kernel/pci/io.rs       |  10 +-
- rust/macros/io/register.rs  |  34 +++-
- 7 files changed, 595 insertions(+), 118 deletions(-)
----
-base-commit: 5a1b7121a6c4db6c0239d3ac3fd1c2bb33a40025
-change-id: 20261015-io-access-modes-19ac2b0aa238
+diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
+index 4ce914b7d1da..7216a78d38c9 100644
+--- a/rust/kernel/dma.rs
++++ b/rust/kernel/dma.rs
+@@ -17,8 +17,9 @@
+     io::{
+         IoBackend,
+         IoBase,
+-        IoCapable,
+         IoCopyable,
++        IoReadable,
++        IoWritable,
+         SysMem,
+         SysMemBackend, //
+     },
+@@ -1180,15 +1181,20 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
+     }
+ }
+ 
+-impl<T> IoCapable<T> for CoherentIoBackend
++impl<T> IoReadable<T> for CoherentIoBackend
+ where
+-    SysMemBackend: IoCapable<T>,
++    SysMemBackend: IoReadable<T>,
+ {
+     #[inline]
+     fn io_read<'a>(view: Self::View<'a, T>) -> T {
+         SysMemBackend::io_read(view.cpu_addr)
+     }
++}
+ 
++impl<T> IoWritable<T> for CoherentIoBackend
++where
++    SysMemBackend: IoWritable<T>,
++{
+     #[inline]
+     fn io_write<'a>(view: Self::View<'a, T>, value: T) {
+         SysMemBackend::io_write(view.cpu_addr, value)
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index de8ef8e2aec4..fd5dd5f6bda4 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -247,9 +247,9 @@ fn io_view_as_repr<'a, IO: Io<'a, Target = T>, T: AsRepr>(
+ /// backends (e.g. MMIO, PCI config space, etc.).
+ ///
+ /// The base trait only defines the projection operations; which I/O methods are available depends
+-/// on which [`IoCapable<T>`] traits are implemented for the type. For example, for MMIO regions,
+-/// all widths (u8, u16, u32, and u64 on 64-bit systems) are typically supported. For PCI
+-/// configuration space, u8, u16, and u32 are supported but u64 is not.
++/// on which [`IoReadable<T>`] and [`IoWritable<T>`] traits are implemented for the type. For
++/// example, for MMIO regions, all widths (u8, u16, u32, and u64 on 64-bit systems) are typically
++/// supported. For PCI configuration space, u8, u16, and u32 are supported but u64 is not.
+ ///
+ /// This trait is separate from the `Io` trait as multiple different I/O types may share the same
+ /// operation.
+@@ -276,18 +276,24 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
+     ) -> Self::View<'a, U>;
+ }
+ 
+-/// Trait indicating that an I/O backend supports operations of a certain type and providing an
+-/// implementation for these operations.
++/// Trait indicating that an I/O backend supports reads of a certain type and providing an
++/// implementation for these reads.
+ ///
+ /// Different I/O backends can implement this trait to expose only the operations they support.
+ ///
+-/// For example, a PCI configuration space may implement `IoCapable<u8>`, `IoCapable<u16>`,
+-/// and `IoCapable<u32>`, but not `IoCapable<u64>`, while an MMIO region on a 64-bit
++/// For example, a PCI configuration space may implement `IoReadable<u8>`, `IoReadable<u16>`,
++/// and `IoReadable<u32>`, but not `IoReadable<u64>`, while an MMIO region on a 64-bit
+ /// system might implement all four.
+-pub trait IoCapable<T>: IoBackend {
++pub trait IoReadable<T>: IoBackend {
+     /// Performs an I/O read of type `T` at `view` and returns the result.
+     fn io_read<'a>(view: Self::View<'a, T>) -> T;
++}
+ 
++/// Trait indicating that an I/O backend supports writes of a certain type and providing an
++/// implementation for these writes.
++///
++/// Like [`IoReadable`], it is implemented for each type the backend supports.
++pub trait IoWritable<T>: IoBackend {
+     /// Performs an I/O write of `value` at `view`.
+     fn io_write<'a>(view: Self::View<'a, T>, value: T);
+ }
+@@ -548,7 +554,7 @@ fn try_cast<U>(self) -> Result<<Self::Backend as IoBackend>::View<'a, U>>
+     fn read_val(self) -> Self::Target
+     where
+         Self::Target: AsReprMut,
+-        Self::Backend: IoCapable<<Self::Target as AsRepr>::Repr>,
++        Self::Backend: IoReadable<<Self::Target as AsRepr>::Repr>,
+     {
+         Self::Target::from_repr(Self::Backend::io_read(io_view_as_repr(self)))
+     }
+@@ -570,7 +576,7 @@ fn read_val(self) -> Self::Target
+     fn write_val(self, value: Self::Target)
+     where
+         Self::Target: AsRepr,
+-        Self::Backend: IoCapable<<Self::Target as AsRepr>::Repr>,
++        Self::Backend: IoWritable<<Self::Target as AsRepr>::Repr>,
+     {
+         Self::Backend::io_write(io_view_as_repr(self), Self::Target::into_repr(value))
+     }
+@@ -695,7 +701,7 @@ fn copy_to_slice(self, data: &mut [u8])
+     fn try_read8(self, offset: usize) -> Result<u8>
+     where
+         usize: IoLoc<Self::Target, u8>,
+-        Self::Backend: IoCapable<u8>,
++        Self::Backend: IoReadable<u8>,
+     {
+         self.try_read(offset)
+     }
+@@ -705,7 +711,7 @@ fn try_read8(self, offset: usize) -> Result<u8>
+     fn try_read16(self, offset: usize) -> Result<u16>
+     where
+         usize: IoLoc<Self::Target, u16>,
+-        Self::Backend: IoCapable<u16>,
++        Self::Backend: IoReadable<u16>,
+     {
+         self.try_read(offset)
+     }
+@@ -715,7 +721,7 @@ fn try_read16(self, offset: usize) -> Result<u16>
+     fn try_read32(self, offset: usize) -> Result<u32>
+     where
+         usize: IoLoc<Self::Target, u32>,
+-        Self::Backend: IoCapable<u32>,
++        Self::Backend: IoReadable<u32>,
+     {
+         self.try_read(offset)
+     }
+@@ -725,7 +731,7 @@ fn try_read32(self, offset: usize) -> Result<u32>
+     fn try_read64(self, offset: usize) -> Result<u64>
+     where
+         usize: IoLoc<Self::Target, u64>,
+-        Self::Backend: IoCapable<u64>,
++        Self::Backend: IoReadable<u64>,
+     {
+         self.try_read(offset)
+     }
+@@ -735,7 +741,7 @@ fn try_read64(self, offset: usize) -> Result<u64>
+     fn try_write8(self, value: u8, offset: usize) -> Result
+     where
+         usize: IoLoc<Self::Target, u8>,
+-        Self::Backend: IoCapable<u8>,
++        Self::Backend: IoWritable<u8>,
+     {
+         self.try_write(offset, value)
+     }
+@@ -745,7 +751,7 @@ fn try_write8(self, value: u8, offset: usize) -> Result
+     fn try_write16(self, value: u16, offset: usize) -> Result
+     where
+         usize: IoLoc<Self::Target, u16>,
+-        Self::Backend: IoCapable<u16>,
++        Self::Backend: IoWritable<u16>,
+     {
+         self.try_write(offset, value)
+     }
+@@ -755,7 +761,7 @@ fn try_write16(self, value: u16, offset: usize) -> Result
+     fn try_write32(self, value: u32, offset: usize) -> Result
+     where
+         usize: IoLoc<Self::Target, u32>,
+-        Self::Backend: IoCapable<u32>,
++        Self::Backend: IoWritable<u32>,
+     {
+         self.try_write(offset, value)
+     }
+@@ -765,7 +771,7 @@ fn try_write32(self, value: u32, offset: usize) -> Result
+     fn try_write64(self, value: u64, offset: usize) -> Result
+     where
+         usize: IoLoc<Self::Target, u64>,
+-        Self::Backend: IoCapable<u64>,
++        Self::Backend: IoWritable<u64>,
+     {
+         self.try_write(offset, value)
+     }
+@@ -777,7 +783,7 @@ fn try_write64(self, value: u64, offset: usize) -> Result
+     fn read8(self, offset: usize) -> u8
+     where
+         usize: IoLoc<Self::Target, u8>,
+-        Self::Backend: IoCapable<u8>,
++        Self::Backend: IoReadable<u8>,
+     {
+         self.read(offset)
+     }
+@@ -789,7 +795,7 @@ fn read8(self, offset: usize) -> u8
+     fn read16(self, offset: usize) -> u16
+     where
+         usize: IoLoc<Self::Target, u16>,
+-        Self::Backend: IoCapable<u16>,
++        Self::Backend: IoReadable<u16>,
+     {
+         self.read(offset)
+     }
+@@ -801,7 +807,7 @@ fn read16(self, offset: usize) -> u16
+     fn read32(self, offset: usize) -> u32
+     where
+         usize: IoLoc<Self::Target, u32>,
+-        Self::Backend: IoCapable<u32>,
++        Self::Backend: IoReadable<u32>,
+     {
+         self.read(offset)
+     }
+@@ -813,7 +819,7 @@ fn read32(self, offset: usize) -> u32
+     fn read64(self, offset: usize) -> u64
+     where
+         usize: IoLoc<Self::Target, u64>,
+-        Self::Backend: IoCapable<u64>,
++        Self::Backend: IoReadable<u64>,
+     {
+         self.read(offset)
+     }
+@@ -825,7 +831,7 @@ fn read64(self, offset: usize) -> u64
+     fn write8(self, value: u8, offset: usize)
+     where
+         usize: IoLoc<Self::Target, u8>,
+-        Self::Backend: IoCapable<u8>,
++        Self::Backend: IoWritable<u8>,
+     {
+         self.write(offset, value)
+     }
+@@ -837,7 +843,7 @@ fn write8(self, value: u8, offset: usize)
+     fn write16(self, value: u16, offset: usize)
+     where
+         usize: IoLoc<Self::Target, u16>,
+-        Self::Backend: IoCapable<u16>,
++        Self::Backend: IoWritable<u16>,
+     {
+         self.write(offset, value)
+     }
+@@ -849,7 +855,7 @@ fn write16(self, value: u16, offset: usize)
+     fn write32(self, value: u32, offset: usize)
+     where
+         usize: IoLoc<Self::Target, u32>,
+-        Self::Backend: IoCapable<u32>,
++        Self::Backend: IoWritable<u32>,
+     {
+         self.write(offset, value)
+     }
+@@ -861,7 +867,7 @@ fn write32(self, value: u32, offset: usize)
+     fn write64(self, value: u64, offset: usize)
+     where
+         usize: IoLoc<Self::Target, u64>,
+-        Self::Backend: IoCapable<u64>,
++        Self::Backend: IoWritable<u64>,
+     {
+         self.write(offset, value)
+     }
+@@ -894,7 +900,7 @@ fn try_read<T, L>(self, location: L) -> Result<T>
+     where
+         T: AsReprMut,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
++        Self::Backend: IoReadable<<T as AsRepr>::Repr>,
+     {
+         Ok(io_read!(self, try: location))
+     }
+@@ -927,7 +933,7 @@ fn try_write<T, L>(self, location: L, value: T) -> Result
+     where
+         T: AsRepr,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
++        Self::Backend: IoWritable<<T as AsRepr>::Repr>,
+     {
+         io_write!(self, try: location, value);
+         Ok(())
+@@ -973,7 +979,7 @@ fn try_write_reg<T, L, V>(self, value: V) -> Result
+         T: AsRepr,
+         L: IoLoc<Self::Target, T>,
+         V: LocatedRegister<Self::Target, Location = L, Value = T>,
+-        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
++        Self::Backend: IoWritable<<T as AsRepr>::Repr>,
+     {
+         let (location, value) = value.into_io_op();
+ 
+@@ -1007,7 +1013,7 @@ fn try_update<T, L, F>(self, location: L, f: F) -> Result
+     where
+         T: AsReprMut,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
++        Self::Backend: IoReadable<<T as AsRepr>::Repr> + IoWritable<<T as AsRepr>::Repr>,
+         F: FnOnce(T) -> T,
+     {
+         let view = io_project!(self, try: location);
+@@ -1041,7 +1047,7 @@ fn read<T, L>(self, location: L) -> T
+     where
+         T: AsReprMut,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
++        Self::Backend: IoReadable<<T as AsRepr>::Repr>,
+     {
+         io_read!(self, build: location)
+     }
+@@ -1072,7 +1078,7 @@ fn write<T, L>(self, location: L, value: T)
+     where
+         T: AsRepr,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
++        Self::Backend: IoWritable<<T as AsRepr>::Repr>,
+     {
+         io_write!(self, build: location, value);
+     }
+@@ -1116,7 +1122,7 @@ fn write_reg<T, L, V>(self, value: V)
+         T: AsRepr,
+         L: IoLoc<Self::Target, T>,
+         V: LocatedRegister<Self::Target, Location = L, Value = T>,
+-        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
++        Self::Backend: IoWritable<<T as AsRepr>::Repr>,
+     {
+         let (location, value) = value.into_io_op();
+ 
+@@ -1150,7 +1156,7 @@ fn update<T, L, F>(self, location: L, f: F)
+     where
+         T: AsReprMut,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
++        Self::Backend: IoReadable<<T as AsRepr>::Repr> + IoWritable<<T as AsRepr>::Repr>,
+         F: FnOnce(T) -> T,
+     {
+         let view = io_project!(self, build: location);
+@@ -1237,17 +1243,20 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
+     }
+ }
+ 
+-/// Implements [`IoCapable`] on `$backend` for `$ty` using `$read_fn` and `$write_fn`.
++/// Implements [`IoReadable`] and [`IoWritable`] on `$backend` for `$ty` using `$read_fn` and
++/// `$write_fn`.
+ macro_rules! impl_mmio_io_capable {
+     ($backend: ident, $ty:ty, $read_fn:ident, $write_fn:ident) => {
+-        impl IoCapable<$ty> for $backend {
++        impl IoReadable<$ty> for $backend {
+             #[inline]
+             fn io_read(view: <$backend as IoBackend>::View<'_, $ty>) -> $ty {
+                 // SAFETY: `$backend::as_ptr(view)` is a valid pointer for MMIO operations for both
+                 // `MmioBackend` and `RelaxedMmioBackend`.
+                 unsafe { bindings::$read_fn($backend::as_ptr(view).cast_const().cast()) }
+             }
++        }
+ 
++        impl IoWritable<$ty> for $backend {
+             #[inline]
+             fn io_write(view: <$backend as IoBackend>::View<'_, $ty>, value: $ty) {
+                 // SAFETY: `$backend::as_ptr(view)` is a valid pointer for MMIO operations for both
+@@ -1396,11 +1405,11 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
+     }
+ }
+ 
+-/// Implements [`IoCapable`] on `SysMemBackend` for `$ty` using `read_volatile` and
+-/// `write_volatile`.
++/// Implements [`IoReadable`] and [`IoWritable`] on `SysMemBackend` for `$ty` using
++/// `read_volatile` and `write_volatile`.
+ macro_rules! impl_sysmem_io_capable {
+     ($ty:ty) => {
+-        impl IoCapable<$ty> for SysMemBackend {
++        impl IoReadable<$ty> for SysMemBackend {
+             #[inline]
+             fn io_read(view: SysMem<'_, $ty>) -> $ty {
+                 // SAFETY:
+@@ -1411,7 +1420,9 @@ fn io_read(view: SysMem<'_, $ty>) -> $ty {
+                 // - The macro is only used on primitives so all bit patterns are valid.
+                 unsafe { view.ptr.read_volatile() }
+             }
++        }
+ 
++        impl IoWritable<$ty> for SysMemBackend {
+             #[inline]
+             fn io_write(view: SysMem<'_, $ty>, value: $ty) {
+                 // SAFETY:
+@@ -1601,10 +1612,10 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
+     }
+ }
+ 
+-impl<T> IoCapable<T> for IoSysMapBackend
++impl<T> IoReadable<T> for IoSysMapBackend
+ where
+-    MmioBackend: IoCapable<T>,
+-    SysMemBackend: IoCapable<T>,
++    MmioBackend: IoReadable<T>,
++    SysMemBackend: IoReadable<T>,
+ {
+     #[inline]
+     fn io_read(view: Self::View<'_, T>) -> T {
+@@ -1613,7 +1624,13 @@ fn io_read(view: Self::View<'_, T>) -> T {
+             IoSysMap::Sys(r) => SysMemBackend::io_read(r),
+         }
+     }
++}
+ 
++impl<T> IoWritable<T> for IoSysMapBackend
++where
++    MmioBackend: IoWritable<T>,
++    SysMemBackend: IoWritable<T>,
++{
+     #[inline]
+     fn io_write<'a>(view: Self::View<'a, T>, value: T) {
+         match view {
+diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+index 953e16735c6e..426e914e15c2 100644
+--- a/rust/kernel/pci/io.rs
++++ b/rust/kernel/pci/io.rs
+@@ -10,7 +10,8 @@
+     io::{
+         IoBackend,
+         IoBase,
+-        IoCapable,
++        IoReadable,
++        IoWritable,
+         Mmio,
+         MmioBackend,
+         MmioRaw,
+@@ -111,10 +112,11 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
+     }
+ }
+ 
+-/// Implements [`IoCapable`] on [`ConfigSpace`] for `$ty` using `$read_fn` and `$write_fn`.
++/// Implements [`IoReadable`] and [`IoWritable`] on [`ConfigSpace`] for `$ty` using `$read_fn`
++/// and `$write_fn`.
+ macro_rules! impl_config_space_io_capable {
+     ($ty:ty, $read_fn:ident, $write_fn:ident) => {
+-        impl IoCapable<$ty> for ConfigSpaceBackend {
++        impl IoReadable<$ty> for ConfigSpaceBackend {
+             fn io_read(view: ConfigSpace<'_, $ty>) -> $ty {
+                 // CAST: The offset is cast to `i32` because the C functions expect a 32-bit
+                 // signed offset parameter. PCI configuration space size is at most 4096 bytes,
+@@ -128,7 +130,9 @@ fn io_read(view: ConfigSpace<'_, $ty>) -> $ty {
+                 let _ = unsafe { bindings::$read_fn(view.pdev.as_raw(), addr, &mut val) };
+                 val
+             }
++        }
+ 
++        impl IoWritable<$ty> for ConfigSpaceBackend {
+             fn io_write(view: ConfigSpace<'_, $ty>, value: $ty) {
+                 // CAST: The offset is cast to `i32` because the C functions expect a 32-bit
+                 // signed offset parameter. PCI configuration space size is at most 4096 bytes,
 
-Best regards,
---  
-Daniel Almeida <daniel.almeida@collabora.com>
+-- 
+2.56.0
 
