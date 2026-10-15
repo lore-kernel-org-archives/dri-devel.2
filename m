@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56A35CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:10:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33150CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:10:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8524110F27C;
-	Thu, 15 Oct 2026 15:10:13 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34EF410EF65
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:09:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CDA010F2F8;
+	Thu, 15 Oct 2026 15:10:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BDB710EF65
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:10:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1DDE543A98;
- Thu, 15 Oct 2026 15:09:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D3B1F000C4;
- Thu, 15 Oct 2026 15:09:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F41AD6022B;
+ Thu, 15 Oct 2026 15:10:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316741F000C4;
+ Thu, 15 Oct 2026 15:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792076995;
- bh=CExQp63wZ4Yn3P0bi8xe8v60B4PaPX3aMlJwthM6Ic4=;
+ s=k20260515; t=1792077005;
+ bh=VrnJfv+VVqd1oFkyVzgv4ptN5fpXMDOGz41KE1sHgL8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=R/zo285Vtc5Hev5GXP65Vk4ZUmTmKqpWKZICfeTYrZcJlruhCzTuOdK+rpQBYBvn6
- BnI6tHVfSFeJHUGn7F5h+hz9VIXBkThHn2NuamYLDZ0+swMAb8I9lGj2/VGR+GoOLd
- akRhbkNMe6qyDtmAnJ0RTL6LdO5yT7G/orIPorp/dXN9ravA5mAy2k7y1E2MegRkzE
- s0DQORhuR5AZxKz6qmBOGjb+b/1ddksWie9oFQ+j5CtZiEdTlAjF1xaxj5bf/m2vAM
- royNHkfwueOuE+1W8GJWhVGNt12z/rc0qz7R1T+ope6BdIfkMshfwi67YWUzD1f9gV
- 5/viKKJ26Rmhw==
+ b=aO0viE496vh2tsYDzs6DG0y710oBXHlYe9gy7bsktV+vqFHkOVEQBjQeuXEiDIOqz
+ Kq4XAwTW62ZOoCfHo0+3P+SI/cKtiW/9We1g+/bGaocSxsWpb+oxSI1jnbcQ5Tkz3D
+ g0tAAJBa5lNID01QnFBxLKGb95ZtCeXkEaGk74bbpVVc2oeCvRpf8EKQ7JzZi8+tp+
+ UDtbWbCC9YxNY1RVjDRzSUopyC1iHFvwHjyBM9ED3UWHJ1nMi1uVee1ZAU3vxS6Rc/
+ aqZPo6OyTVmXBl+ia1dnbhZ10QJF4gSo7UKVlRPU7aWoKsoyEHyj8PLZsQOKnZCOOW
+ nRY/1qEZkNDZw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 15 Oct 2026 17:09:03 +0200
-Subject: [PATCH v6 11/28] drm/bridge: Handle bridges with hardware state
- readout
+Date: Thu, 15 Oct 2026 17:09:06 +0200
+Subject: [PATCH v6 14/28] drm/mode-config: Introduce hw_reset hook
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-drm-state-readout-v6-11-6cc02cd10998@kernel.org>
+Message-Id: <20261015-drm-state-readout-v6-14-6cc02cd10998@kernel.org>
 References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
 In-Reply-To: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +47,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5769; i=mripard@kernel.org;
- h=from:subject:message-id; bh=bYzbc4GS68HXieiRhGkMxSA276nCm+W7fiYSgYbXvvU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkX3vQ/SuhSdPLxWjH1gaF39I35E478CzTnk2h0jXsk/
- 3u1wNyfHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiAXMYG3YebN50TsxoXumZ
- exfYVmaV/D7TM+vwfuZ1Tz6UHXr+qCjgQer9MxXvP24UmeS5t0G4XZixYcXfD3MmtzyYbPH6sbf
- cLqPocw4Cr0QFFsYbT979+nzKn7/2NTcsdC180/uXr/Gy8tP+BAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5080; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=pF9aHP+XE5Q+eJ7OLUS086MCNZpBXNUMNWFQxyA4qLQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkX3kxgnfJK9tiSqukb/hYe3tczz/ojW+iMCRdOBxmaL
+ WzpWf5rYcdUFgZhTgZZMUWWJzJhp5e3L65ysF/5A2YOKxPIEAYuTgGYiNpuxobPpsenvqiJv3c7
+ VTDgs8/mJ5/meH149kGrwX/RXHfJEqds/a02y4Sy/s8qPHoi1Mr4Wjhjvduu4pJ++517vvRenTi
+ v6ulMyxs5hsssFu34YdE4M73y3p+cRH/+yj+1E6dlbY7cyH7wMgA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,166 +70,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges use drm_private_obj for their atomic state, but their readout
-needs special handling compared to other private objects.
+drm_mode_config_create_initial_state() tries to read out the current
+hardware state to build the initial atomic state. If state readout is
+disabled or fails, it falls back to creating pristine software state
+using the objects' atomic_create_state callbacks.
 
-Bridge drivers need the CRTC and connector states for their pipeline
-to properly read out their own state. Since bridge registration does
-not guarantee ordering, the readout must traverse each encoder's
-bridge chain to ensure each bridge can query the state of preceding
-bridges.
+However, creating pristine state without resetting the hardware leaves
+the hardware and software states out of sync. The legacy
+drm_mode_config_reset() handles this by calling per-object .reset
+callbacks that both reset the hardware and allocate new state, but these
+two concerns are intertwined and cannot be reused independently.
 
-Add a drm_bridge_atomic_readout_priv_state() wrapper that looks up
-the connector and CRTC states for the bridge's encoder, then forwards
-to the bridge's atomic_sro_readout_state hook. Create a separate
-drm_private_state_funcs vtable for bridges that support SRO so that
-drm_atomic_sro_device_can_readout() can properly discriminate bridges
-with and without SRO support.
+Introduce a new hw_reset hook in drm_mode_config_funcs that only
+performs the hardware reset, without allocating any software state. Call
+it in drm_mode_config_create_initial_state() after state readout fails,
+right before falling back to drm_mode_config_create_state(). This
+separates the hardware reset from state creation, allowing drivers that
+implement state readout to share their reset logic with the fallback
+path.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_bridge.c | 80 ++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 77 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_mode_config.c | 14 ++++++++++----
+ include/drm/drm_mode_config.h     | 32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 42 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 9d5529765f5f..8aa94f842634 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -27,10 +27,11 @@
- #include <linux/media-bus-format.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/srcu.h>
- 
-+#include <drm/drm_atomic_sro.h>
- #include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_debugfs.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_encoder.h>
-@@ -553,10 +554,68 @@ drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
- 		return ERR_CAST(state);
- 
- 	return &state->base;
- }
- 
-+static struct drm_connector_state *
-+find_connector_state_for_encoder(struct drm_atomic_sro_state *state,
-+				struct drm_encoder *encoder)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+
-+	drm_connector_list_iter_begin(drm_atomic_sro_state_get_device(state),
-+				      &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		struct drm_connector_state *conn_state =
-+			drm_atomic_sro_get_connector_state(state, connector);
-+
-+		if (WARN_ON(!conn_state))
-+			continue;
-+
-+		if (encoder == conn_state->best_encoder) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			return conn_state;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return NULL;
-+}
-+
-+static int
-+drm_bridge_atomic_readout_priv_state(struct drm_private_obj *obj,
-+				     struct drm_atomic_sro_state *state,
-+				     struct drm_private_state *priv_state)
-+{
-+	struct drm_bridge *bridge = drm_priv_to_bridge(obj);
-+	struct drm_encoder *encoder = bridge->encoder;
-+	const struct drm_bridge_funcs *bridge_funcs = bridge->funcs;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_bridge_state *bridge_state;
-+	struct drm_connector_state *conn_state;
-+	int ret;
-+
-+	conn_state = find_connector_state_for_encoder(state, encoder);
-+	if (!conn_state)
-+		return -EINVAL;
-+
-+	crtc_state = drm_atomic_sro_get_crtc_state(state, conn_state->crtc);
-+	if (!crtc_state)
-+		return -EINVAL;
-+
-+	bridge_state = drm_priv_to_bridge_state(priv_state);
-+	if (bridge_funcs->atomic_sro_readout_state) {
-+		ret = bridge_funcs->atomic_sro_readout_state(
-+			bridge, state, bridge_state, crtc_state, conn_state);
-+		if (WARN_ON(ret))
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static void
- drm_bridge_atomic_print_priv_state(struct drm_printer *p,
- 				   const struct drm_private_state *s)
- {
- 	const struct drm_bridge_state *state = drm_priv_to_bridge_state(s);
-@@ -580,10 +639,18 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
- 	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
- 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
- 	.atomic_print_state = drm_bridge_atomic_print_priv_state,
- };
- 
-+static const struct drm_private_state_funcs drm_bridge_priv_state_funcs_with_sro = {
-+	.atomic_sro_readout_state = drm_bridge_atomic_readout_priv_state,
-+	.atomic_create_state = drm_bridge_atomic_create_priv_state,
-+	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
-+	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
-+	.atomic_print_state = drm_bridge_atomic_print_priv_state,
-+};
-+
- /**
-  * drm_private_obj_is_bridge - check if a private object backs a bridge
-  * @obj: private object to check
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index 13e7d7f40d0a..9277ec94d640 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -402,17 +402,18 @@ static int drm_mode_config_create_state(struct drm_device *dev)
   *
-  * RETURNS:
-@@ -591,11 +658,13 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
-  * True if @obj is the &drm_private_obj embedded in a &struct drm_bridge,
-  * false otherwise.
+  * This functions creates the initial state for all the objects. Drivers
+  * can use this in e.g. probe to initialize their state.
+  *
+  * It creates the initial state in several steps. It first tries to
+- * read-out the initial state from the hardware for all objects if state
+- * read-out is enabled and the driver supports it. Then, if state
+- * read-out isn't supported or fails, it creates a new, pristine state
++ * read out the initial state from the hardware for all objects if state
++ * readout is enabled and the driver supports it. Then, if state
++ * readout isn't supported or fails, it resets the hardware using
++ * &drm_mode_config_funcs.hw_reset() and creates a new, pristine state
+  * using the objects atomic_create_state callback.
+  *
+  * For historical reasons, drm_mode_config_reset() is similar, but
+- * doesn't support state read-out, and will always reset the hardware.
++ * doesn't support state readout, and will always reset the hardware.
+  * It will also ignore all &drm_private_obj.
+  *
+  * Returns: 0 on success, negative error value on failure.
   */
- bool drm_private_obj_is_bridge(struct drm_private_obj *obj)
- {
--	return obj->funcs && obj->funcs == &drm_bridge_priv_state_funcs;
-+	return obj->funcs &&
-+	       (obj->funcs == &drm_bridge_priv_state_funcs ||
-+		obj->funcs == &drm_bridge_priv_state_funcs_with_sro);
- }
- EXPORT_SYMBOL(drm_private_obj_is_bridge);
- 
- /**
-  * drm_bridge_attach - attach the bridge to an encoder's chain
-@@ -664,12 +733,17 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
- 		ret = bridge->funcs->attach(bridge, encoder, flags);
- 		if (ret < 0)
- 			goto err_reset_bridge;
+ int drm_mode_config_create_initial_state(struct drm_device *dev)
+@@ -423,10 +424,15 @@ int drm_mode_config_create_initial_state(struct drm_device *dev)
+ 		ret = dev->mode_config.funcs->atomic_sro_readout_state(dev);
+ 		if (!ret)
+ 			return 0;
  	}
  
--	drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
--				    &drm_bridge_priv_state_funcs);
-+	if (bridge->funcs &&
-+	    bridge->funcs->atomic_sro_readout_state)
-+		drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
-+					    &drm_bridge_priv_state_funcs_with_sro);
-+	else
-+		drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
-+					    &drm_bridge_priv_state_funcs);
++	/* Reset the hardware first ... */
++	if (dev->mode_config.funcs->hw_reset)
++		dev->mode_config.funcs->hw_reset(dev);
++
++	/* ... then allocate a new pristine state */
+ 	return drm_mode_config_create_state(dev);
+ }
+ EXPORT_SYMBOL(drm_mode_config_create_initial_state);
  
- 	return 0;
+ /*
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index 94c0078179f8..ea2f4bacfce3 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -107,10 +107,42 @@ struct drm_mode_config_funcs {
+ 	 * should be checked in the .mode_valid() hook for each specific object.
+ 	 */
+ 	enum drm_mode_status (*mode_valid)(struct drm_device *dev,
+ 					   const struct drm_display_mode *mode);
  
- err_reset_bridge:
- 	bridge->dev = NULL;
++	/**
++	 * @hw_reset:
++	 *
++	 * Optional hook for device-specific hardware reset.
++	 *
++	 * Unlike drm_mode_config_reset(), which both resets hardware
++	 * and creates new software state through per-object .reset
++	 * callbacks, this hook only resets the hardware to a known good
++	 * state without touching the software state at all.
++	 *
++	 * This hook is called by
++	 * drm_mode_config_create_initial_state() when the hardware
++	 * state readout (atomic_sro_readout_state) is not supported
++	 * or fails. The call sequence is:
++	 *
++	 * 1. Try atomic_sro_readout_state() to read the hardware state
++	 * 2. If that fails, call hw_reset() to put the hardware in a
++	 *    known state
++	 * 3. Create pristine software state via atomic_create_state
++	 *    callbacks
++	 *
++	 * Drivers that implement state readout and need a hardware
++	 * reset on the fallback path should implement this hook.
++	 * Drivers that don't implement state readout at all can keep
++	 * using drm_mode_config_reset() instead.
++	 *
++	 * This hook is optional. If not provided, the fallback path
++	 * will create software state without resetting the hardware
++	 * first.
++	 */
++	void (*hw_reset)(struct drm_device *dev);
++
+ 	/**
+ 	 * @atomic_check:
+ 	 *
+ 	 * This is the only hook to validate an atomic modeset update. This
+ 	 * function must reject any modeset and state changes which the hardware
 
 -- 
 2.55.0
