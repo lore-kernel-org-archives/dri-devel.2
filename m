@@ -4,58 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99711CCA462
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83498CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:18:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A12C610FACC;
-	Thu, 15 Oct 2026 15:11:05 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1130210F66E
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:10:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8807D60200;
- Thu, 15 Oct 2026 15:10:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABBB1F000C4;
- Thu, 15 Oct 2026 15:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792077053;
- bh=SPEO8/kOBmQuC0kErJSms70HjQspFJbY8FZH7tt11p4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=eYcLsVIW60y5wG970n6LshywpyV0gYKvquJV7YAro0/1GkBseH7fIXfG3k7NYQMKu
- Fm/l8xOzUrFZqWWVave4nJkstXqduxWXRNdQu02+SgnR/xSxPONWf0brEfqO/H0GLk
- ptawrnrVQaywSvKVMNwH5N2xA10TQXKwGUmF9QUeQZT5r4N8uqAnhn7psY+RlAtaRY
- CwnOq/UbT096HYgH8EoxSyM9YHOl7Ai9Fx+VrUiMLSJyydsYrUWfUEp3pPqkoFSwKI
- +P9XMPgT4TNuW53pevkyBlF6W+QVHRRAMOEn6DgEdoZvXaRpDoWOrDOOA5VvPe9XFt
- wKKH24eNCcDPg==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 15 Oct 2026 17:09:19 +0200
-Subject: [PATCH v6 27/28] drm/tidss: encoder: Implement
- atomic_sro_get_current_crtc
+	by gabe.freedesktop.org (Postfix) with ESMTP id B171710EC2B;
+	Thu, 15 Oct 2026 15:18:41 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013020.outbound.protection.outlook.com
+ [40.107.162.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02E4C10EA0C
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:18:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bPyf6vlmvicU5PApI2Am/Wi23JQF4ab4EzvvmX+l3kCwhaU5zv84utU1YvMy7Ws8wydzXDKtG/2yYtEjjVJ6E8dceadPPTgc093GFO5D4GKxJj9ZwXnZ/zjl6CNfif3mfk0PqP7pWAurDr5WRzw554Xzq4cf7Axde3adOMGUIYS8IK6ZLwkbbKZB+39kzT7r0trfhKZGKpEh4rfc9lvIjCP9Cv1qcmUIv18wUMBdcy1qPEi3gCqRnp34vYsGMgj5XQ4Oz5pSKXGAzKQAVsYzx/HyrxabKycYTVTMhAmb9XnxrerEZIyCZcSyVgtgS7tL9APR2mD5IohO8qyBr+K8tA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9/9B5hdtEBe5QU/MUyI1cuMNyqZhWk0MNnmjfJFJmak=;
+ b=Uo69r2w9z+xIgad1dRwEl3KnfTdJ518smDk27rpMFMERrNEaviJMdzR6bEihwDa098H9TS/iEYiAzhq3ZMHLeY3HQZ+90UCsuBflKS8/jvqJ6ZFLzHpAjMaos8GkdqgVbXNVoklpBTAL7HFciNybvIq8tiB059PxKMqozLcG8lURD5OJ8Ho+/sRUosewZoDDvL2DVLA8dgGgAcZHm2Ep90CPbz/pLHzjWId6acxnPs0+UZEC/KPqzphG7aJAKgtD4HvxcU8Al/4HCnU8lu4cLScvC6sVap0ws3Japv5wAl6Qer9gYeiKnPLxbhsq7kWxOxGOm/WDvHwI2nxTTm/gUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9/9B5hdtEBe5QU/MUyI1cuMNyqZhWk0MNnmjfJFJmak=;
+ b=Y3wzAdHJZVEKJwgmGKVTjAztfnB8fUwdamFuQWss6fk5a1of9JA5f7x8uIH2sbVAalxoPHaYbwcLuWy8vkM+f4oapD3COzSGKSSsx9xZNsxkWz1MrpwjrFOwoyNwCf4JTdeNIdh+8TEnMLEz+NOG2KZ/b1gqRIaXbF19eZmZnrzUguW4qUCvMiMpTVe+dCe2+d4VJj8XKnT3Kk1QXB03DlSbnh7ADmq/VQWtnyEuF7esPWN7R4LfxRwU6Z0yUZq+XlRe4jHRFmRTNfW34c/6tK7wPV2gqUvd+Dh+fBfkpGSFqpNlSrNVs1m1Q63mpMmiDtZufHJt4cfvnF/zeS2icw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MI9PR04MB991975.eurprd04.prod.outlook.com (2603:10a6:290:85::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 15:18:31 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 15:18:31 +0000
+Date: Thu, 15 Oct 2026 10:18:19 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
+ Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, "Oliver F. Brown" <oliver.brown@oss.nxp.com>
+Subject: Re: [PATCH RESEND v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI
+ horizontal sync timing
+Message-ID: <atDuuwqIm_Du3GJi@SMW015318>
+References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
+ <20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
+ <179207245898.1117464.4430806907649454372.b4-review@b4>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179207245898.1117464.4430806907649454372.b4-review@b4>
+X-ClientProxiedBy: BY3PR04CA0018.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-drm-state-readout-v6-27-6cc02cd10998@kernel.org>
-References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
-In-Reply-To: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1760; i=mripard@kernel.org;
- h=from:subject:message-id; bh=+pVbVwdlCvDiSzBb0dvHg2XJCgEw9Rk2ihi2oD0Vv68=;
- b=kA0DAAkTJ1/OGaI9vnYByyZiAGrQ7Jai7cCJHg0IkArUqKsNDFlxSiBRI89/2eYmk+RRTVwe4
- 4iVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmrQ7JYACgkQJ1/OGaI9vnaDUwGA3cUE
- WuTOy1GthpF4QeQ9TnlXUaVQDdarN7WVYbd/ps3xEWqoF/cWHsEuMom6Vk2GAYDGoWGAG12AzdQ
- g1SbzfSC5BZGg7HN7XBX44g7WdF4GvYAA3hiDXpisIhbfd4WDqRg=
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB991975:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75953015-7006-48ba-c87f-08df2acf923e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|1800799024|376014|366016|7416014|23010399003|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: mPllgTc9/rxF5kHAG3Yu5WkQD5FyWBu02LlmckmOP51ISo1R2q77yzXJ1PChYnV4nfc7MUj7bTJrUWakQp/fwimHWenKPTPNCnNwlc5eTQtaeyXhSnlZzbKNDY68JGyG2ApEPBxYs9hzqjTwpNGNJGKfgE0KfxIl04/4SZH91i+nCB0PBXAbiFHMjbzNvxjswCMqmZO53/8zIFCLrTOo0LCiRHyxawXKw+NK4MotQIt6c55fpRexqX/WMaLFMa+o670EayKoozSP6R5hKE7hoNuZIwUJiZ30OnjO5oqzKSHESu9ouF/gIzYUGAkooYtTcYqFvQQ49mEB5olwo75anC5lfnVpQS2OXLC5ch+yo7zelE2jrTzH2OJCc8L6R7pdAXkzCero6r0KNuf5cFzN7fZPxPKBwMBdiNAvC1uB6DRf5novKnZpoZ1E4yTDcoikPzNiCFzpkVDz0OZ0JvDU3fketM3TVpjfvdcOTmh47Ylaqd9Gwr5vLhu6GHl6Inkk9HzjUs2VWF+ahi2TwJbvBqpdAoLPdYbwLigB9VFpkremiTIIyPdbaAsunP6WP7VVMSUlKSA1TGlN3reCcGTCHmdCjYBuKxi1HazY8XzlR4w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(1800799024)(376014)(366016)(7416014)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?q+9WsJgdf42NjYFI8EesJ+uqB3kCCu6KS9bJLrAFNx8hS1MMqyc07jJUMwag?=
+ =?us-ascii?Q?3NwHYptgRMmKY1cSz24slXSVMJNIShvd38hxSXpYw5WpkS4ZuM2eFzd2nO0L?=
+ =?us-ascii?Q?4HKhivUTYsz3MJcciJnJeTJdBHalTzBUmAS2/5uvLCeuESZ/dzOoKe9WxGsz?=
+ =?us-ascii?Q?SC39e+FvX/+P+pSHZJCEYvbxMSYPnziVyDZ7ieVT7vsNvNdjy/6j1EgGSr+c?=
+ =?us-ascii?Q?lOsYOiMSGLUR7a4AeY+8Tbv/0tDM69MYLxiim1LIyv0rNAp9d7dFIxqqjd/u?=
+ =?us-ascii?Q?+AjywmAMEVo2WFfaIi/llIRL1zflD4WrsKYN4uQZ9DdyzJvyGopXml5Sz9Dh?=
+ =?us-ascii?Q?NDx364Usfj2BmP6ZDDoVFCT+QvCwO8X7ds3IohT1pUG/EaYwaXubZLYmrmIf?=
+ =?us-ascii?Q?aenTJVClmqheVihjoHbam5sIS5Im3vi9qrvIVQ+EYPp1pGNukROlLX8ZvkXN?=
+ =?us-ascii?Q?zSoeExWNMfCwp8PJGNDX6izbUeIL8VzhKeO9zhb3aamRnsmA3AIWxRpU9JwW?=
+ =?us-ascii?Q?7vE9xw0HHJJs80R/zKcfBH6FPH1WQIGEX4zrAfshJupD/4vATfaiODVnlkk7?=
+ =?us-ascii?Q?JU/Ig4C+ih2bW4hZut3gUYft6OXRO63GI5ja2FdhyVFIW36Wk5iXYJRh+yfu?=
+ =?us-ascii?Q?5VG1LgTegSKG5bhWcuTtm3J97s9fOFm9fi8dNE+e/oLX7wG++fcA/NP0Lngv?=
+ =?us-ascii?Q?BwnnkznrSVD9mOc6WWhHssVAZyhy08lRxNiz9JEUaWs4jsz7QTkeqVX6y0ZX?=
+ =?us-ascii?Q?jzmv2gc7JInTCBFUluw3McjIZvha2DRN2yQ8CzR2slEuO3dBMxilLeln7CE1?=
+ =?us-ascii?Q?xRzsOqVOfKXQsikkdgb/AWC0QuwDwDQkPJTyVFNNQPmvHxvUnE8kylnwxcBE?=
+ =?us-ascii?Q?w4Qj/YfnqI3tHMFnqX6tnl1TGmlNpKjJdxmoC8ja5nl0bFpoAQOfXF5aKNeV?=
+ =?us-ascii?Q?aV42lkYVfT03zaMrq91G2CNFOWxeG35RJFeJ2SffHvwON+9ryYuMIhB76XCV?=
+ =?us-ascii?Q?IFOx8UUbGa2Z93Yn9rvWVTC8I0YdXw14CzS2uVxhwt8cxNqQuaELM1BZBDD6?=
+ =?us-ascii?Q?LOQylpCYtRloemva7rkJwQde2Tfwt/WSV9TqELsKVd33Vsj9/SfoKa0Cr/Er?=
+ =?us-ascii?Q?5y/o21R7ySUlKshPxSI3Zt24EdjMXpzmm2lBZfXJ7KJPx+wnVMqBburX7CqL?=
+ =?us-ascii?Q?ojkXp5fy7rqYKj3hvf4Jd/M3pWrzacIBkoDo1AvYFwH+rNvbmH9EYIVkUSRy?=
+ =?us-ascii?Q?DSYz96DAHAuim/vCdWLDpGN+mt4PBDT6YAdoBy1ERzfz+fi7aH7r2B9EpFv/?=
+ =?us-ascii?Q?cJY2vo2cDkU6086WVkU9VdaK2E2cxLl5gaQUKyN1juIVAVUO4jdL/oj5Huy5?=
+ =?us-ascii?Q?BtJmJPRTrqgv/1vVkdrGNfzonq/Uw1dvN1MiBxRUopcA8mPeALoMfuQmUBSg?=
+ =?us-ascii?Q?4sVw0Uof+/kckwHSlkXvcrQr+9a7O3qVpusZChOzVvcR/US6P85SLmd2T4aR?=
+ =?us-ascii?Q?wrZBMRqe5L4cBSyUARWr6df1tFyMgYUvu8ZzIbyi2zCVkLn0uvZVkYB5c2ta?=
+ =?us-ascii?Q?QeUVfdFi8d7GoG2Rc8c2XvrD0mu83uhuGScIR6j7EKQ5BBaAfKazsZhalM5f?=
+ =?us-ascii?Q?4sf+pYJeJ6STi1GfoOtfu1/y0FV3SktfinKC9nnRQQATeaOYlSX8w918Mm1H?=
+ =?us-ascii?Q?NupmDTmzMb9382syP9skG+aaYD1VWeYbg422LWSYkDzpoBIfjGZakNZ6SBp5?=
+ =?us-ascii?Q?Hj5GLhjRQQEuWilU62NtRwf4b9Ia0hnzzBqO7A194abStnDGKS/o?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75953015-7006-48ba-c87f-08df2acf923e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:18:31.3439 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MvvH8Rs5TgLMe5GUuCQeKKZswmAbet4fHKMdwmVAZte7IoofLrMnWmIJJflMr2vQGvu9FMJDqBl+KylauQSx6rCp+Zd4v4J84lYvA6rP8QlJrHaHqSLpQP7YkUOrCITN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB991975
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,54 +136,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The tidss driver doesn't really implement anything with encoders, it
-just relies on simple encoders, bridges and drm_bridge_connector.
+On Thu, Oct 15, 2026 at 03:54:18PM +0200, Luca Ceresoli wrote:
+> Hello Robert, Oliver, Frank, all,
+>
+> > The NWL MIPI Host controller registers specifies the horizontal front
+> > porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
+> > not in pixel clocks).
+> >
+> > The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
+> > the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
+> > Manual (rev. 3.1). The formula shown there does not take packet header size
+> > into account though.
+> >
+> > The formula implemented here converts the hfp, hsa, and hbp to DSI packet
+> > bytes and then subtracts the number of packet header bytes.
+> >
+> > It is worth noting that these values only needs to match approximately,
+> > according to the reference manual.
+> >
+> > Based on commit in NXP vendor tree
+> > commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
+> >
+> > Signed-off-by: Esben Haabendal <esben@geanix.com>
+> > Cc: Robert Chiras <robert.chiras@nxp.com>
+> > Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
+>
+> It would be great to have this reviewed by someone at NXP.
+>
+> @Frank, do you think you can help with this?
 
-In order to figure out the CRTC -> connector association from the
-hardware state, we do need encoder support though, through the
-get_current_crtc callback.
+Let me talk with oliver, I am not familar with this part.
 
-Since the tidss encoders are always connected to a single CRTC, we don't
-really need to read the hardware state though, we can simply return the
-one we know we are always connected to.
+Frank
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/tidss/tidss_encoder.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/drivers/gpu/drm/tidss/tidss_encoder.c b/drivers/gpu/drm/tidss/tidss_encoder.c
-index cb4b8feb90d2..ec995335953b 100644
---- a/drivers/gpu/drm/tidss/tidss_encoder.c
-+++ b/drivers/gpu/drm/tidss/tidss_encoder.c
-@@ -121,11 +121,26 @@ static const struct drm_bridge_funcs tidss_bridge_funcs = {
- 	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
- 	.atomic_sro_readout_state	= tidss_readout_state,
- 	.atomic_sro_compare_state	= drm_atomic_helper_bridge_compare_state,
- };
- 
-+static struct drm_crtc *tidss_encoder_get_current_crtc(struct drm_encoder *encoder)
-+{
-+	struct drm_crtc *crtc;
-+
-+	WARN_ON(hweight32(encoder->possible_crtcs) > 1);
-+
-+	drm_for_each_crtc(crtc, encoder->dev) {
-+		if (encoder->possible_crtcs == (1 << drm_crtc_index(crtc)))
-+			return crtc;
-+	}
-+
-+	return NULL;
-+}
-+
- static const struct drm_encoder_funcs tidss_encoder_funcs = {
-+	.atomic_sro_get_current_crtc = tidss_encoder_get_current_crtc,
- 	.destroy = drm_encoder_cleanup,
- };
- 
- int tidss_encoder_create(struct tidss_device *tidss,
- 			 struct drm_bridge *next_bridge,
-
--- 
-2.55.0
-
+>
+> On my side I don't know the hardware and didn't check the maths
+> implemented. Still LGTM:
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>
