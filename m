@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A550CC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:26:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 084E0CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:26:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 366FC112372;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD446112374;
 	Thu, 15 Oct 2026 14:26:43 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1B33D10EC1E
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:26:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 308D811235A
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:26:32 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4F8F61576;
- Thu, 15 Oct 2026 07:26:32 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 837C116F8;
+ Thu, 15 Oct 2026 07:26:28 -0700 (PDT)
 Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com
  [10.2.198.107])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D9393F871;
- Thu, 15 Oct 2026 07:26:32 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F8AB3F959;
+ Thu, 15 Oct 2026 07:26:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792074395; bh=wB4MTPixrrjJCP1k8dsbnh9C7KUEDgE8i3GREwrcmnc=;
+ t=1792074391; bh=J4LmOj3stGsqQq4K4suRvHIrX2lMfgD++n0EEU7SqhE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=g+H2F8RAL/0mCdSAIr3PWIg8+LTLhBpdtel4jpkuCGOwNCqHAmI34T0S55dajBE/W
- DGp5IVLPrvQyhDlO6JbvFKqFm98L2OdGV7jaivK1TjfGtF2dISD7DOEhDpPfUytxRS
- fHJzvbY7wUWFIQ3CPyGzt9mxEYG4iTbRJ3T7CU/8=
+ b=KXBAI+KYWyRcOxdb6aCY6btJhPNygaSka4qG4/ydw0eg3gPS7av8+4BDkCwGmkN7W
+ 6tldsK4KUkq5qNPXG76d47mtDVpp4y1JytJ44C8xTcbmdrVEKFIGD5n3UAiwE/jpwp
+ zzMmgIS3iomzSQrb9mEX5kwzDBd62FLe8XE99SCU=
 From: Ryan Roberts <ryan.roberts@arm.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
@@ -38,9 +38,9 @@ Cc: Ryan Roberts <ryan.roberts@arm.com>, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
  kvm@vger.kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 09/15] misc/arm-cla: Add userspace interface
-Date: Thu, 15 Oct 2026 15:25:43 +0100
-Message-ID: <20261015142552.4128028-10-ryan.roberts@arm.com>
+Subject: [RFC PATCH v2 08/15] misc/arm-cla: Manage domain contexts
+Date: Thu, 15 Oct 2026 15:25:42 +0100
+Message-ID: <20261015142552.4128028-9-ryan.roberts@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
 References: <20261015142552.4128028-1-ryan.roberts@arm.com>
@@ -61,967 +61,1098 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expose CLA devices through a character device so userspace can enumerate
-the available hardware and map accelerator register frames.
+A CLA domain cannot be used by multiple address spaces concurrently
+because its devices share a memory translation context and may
+communicate without isolation. Represent each user of a domain with a
+context keyed by the mm_struct and device file description, and track
+contexts in a per-domain hash table.
 
-Provide ioctl interface to report device topology, CPU affinity, domain
-membership, mmap offsets, architecture version and attached accelerator
-masks, together with the IIDR, DEVARCH and REVIDR of each accelerator.
+Add a domain scheduler that queues contexts for assignment and gives
+each one a fixed time slice. Before switching, revoke the outgoing
+context's mappings from all VMAs for the device file. Then save its
+accelerator state and remove its MTC, before installing the incoming
+context's MTC and restoring the incoming accelerator state.
 
-CLA registers can only be read from the CPU local to the device, while
-enumeration may occur on any CPU. Validate the supported CLA
-architecture version during device setup and cache the CLA and
-accelerator identification registers for later ioctl queries.
+Run hardware operations through CPU-bound kthread workers, since each
+CLA can only be accessed from its local CPU. Coordinate the per-device
+workers with a domain worker so that every CLA in the domain is switched
+as a single assignment unit.
 
-Support shared read-write mmap of one or more CLA register pages. Create
-a context for every domain covered by the mapping and resolve faults
-only while that context owns the domain. Queue unassigned contexts with
-the domain scheduler, drop mmap_lock while waiting for assignment and
-retry the fault after the context is woken.
+Treat a failure on any device as a failure of the whole domain. Stop
+further assignments and wake all waiters when a domain becomes unusable.
 
 Co-developed-by: Jean-Philippe Brucker <jpb@kernel.org>
 Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
 Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
 ---
- MAINTAINERS                         |   1 +
- drivers/misc/arm-cla/Makefile       |   3 +-
- drivers/misc/arm-cla/arm-cla-regs.h |   2 +
- drivers/misc/arm-cla/arm-cla.h      |  14 +
- drivers/misc/arm-cla/cla-init.c     |  27 ++
- drivers/misc/arm-cla/cla-regs.c     |  10 +
- drivers/misc/arm-cla/cla-user.c     | 541 ++++++++++++++++++++++++++++
- include/uapi/linux/arm-cla.h        | 198 ++++++++++
- 8 files changed, 795 insertions(+), 1 deletion(-)
- create mode 100644 drivers/misc/arm-cla/cla-user.c
- create mode 100644 include/uapi/linux/arm-cla.h
+ drivers/misc/arm-cla/Makefile       |   2 +
+ drivers/misc/arm-cla/arm-cla.h      | 118 +++++++
+ drivers/misc/arm-cla/cla-ctx.c      | 146 +++++++++
+ drivers/misc/arm-cla/cla-init.c     |  62 ++++
+ drivers/misc/arm-cla/cla-regs.c     |  26 +-
+ drivers/misc/arm-cla/cla-sched.c    | 473 ++++++++++++++++++++++++++++
+ drivers/misc/arm-cla/cla-topology.c |  23 ++
+ 7 files changed, 841 insertions(+), 9 deletions(-)
+ create mode 100644 drivers/misc/arm-cla/cla-ctx.c
+ create mode 100644 drivers/misc/arm-cla/cla-sched.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 98a25b3de9b4..f77d75e8a9a8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2216,6 +2216,7 @@ S:	Supported
- F:	Documentation/devicetree/bindings/misc/arm,cla.yaml
- F:	Documentation/misc-devices/arm-cla.rst
- F:	drivers/misc/arm-cla/
-+F:	include/uapi/linux/arm-cla.h
- 
- ARM ETHOS-U NPU DRIVER
- M:	Rob Herring (Arm) <robh@kernel.org>
 diff --git a/drivers/misc/arm-cla/Makefile b/drivers/misc/arm-cla/Makefile
-index a92c3594e5c9..f848c608e8f1 100644
+index df3ad7e4a1b4..a92c3594e5c9 100644
 --- a/drivers/misc/arm-cla/Makefile
 +++ b/drivers/misc/arm-cla/Makefile
-@@ -7,6 +7,7 @@ arm-cla-y := \
+@@ -2,9 +2,11 @@
+ 
+ arm-cla-y := \
+ 	cla-init.o \
++	cla-ctx.o \
+ 	cla-mtc.o \
  	cla-ops.o \
  	cla-regs.o \
- 	cla-sched.o \
--	cla-topology.o
-+	cla-topology.o \
-+	cla-user.o
++	cla-sched.o \
+ 	cla-topology.o
  
  obj-$(CONFIG_ARM_CLA) += arm-cla.o
-diff --git a/drivers/misc/arm-cla/arm-cla-regs.h b/drivers/misc/arm-cla/arm-cla-regs.h
-index d20a88780032..167e9ab64051 100644
---- a/drivers/misc/arm-cla/arm-cla-regs.h
-+++ b/drivers/misc/arm-cla/arm-cla-regs.h
-@@ -64,6 +64,8 @@
- 					 CLA_STATUS_EXCEPT | \
- 					 CLA_STATUS_SRMODE)
- 
-+#define CLA_AIDR_PREP(maj, min)		((ULL(maj) << 8) | ULL(min))
-+
- /* Standard accelerator registers */
- #define CLA_REG_IIDR			0x0000
- #define CLA_REG_DEVARCH			0x0001
 diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cla.h
-index a797330956d9..e047094dd49c 100644
+index 40e95d3128ad..a797330956d9 100644
 --- a/drivers/misc/arm-cla/arm-cla.h
 +++ b/drivers/misc/arm-cla/arm-cla.h
-@@ -42,6 +42,12 @@ struct cla_call_on_cpu {
- 	struct kthread_work switch_ctx;
- };
+@@ -7,8 +7,19 @@
+ #ifndef _ARM_CLA_H_
+ #define _ARM_CLA_H_
  
-+struct cla_accel_desc {
-+	u64 iidr;
-+	u64 devarch;
-+	u64 revidr;
++#include <linux/atomic.h>
++#include <linux/cdev.h>
+ #include <linux/device.h>
+ #include <linux/io.h>
++#include <linux/kref.h>
++#include <linux/kthread.h>
++#include <linux/list.h>
++#include <linux/mm.h>
++#include <linux/mm_types.h>
++#include <linux/mutex.h>
++#include <linux/rhashtable-types.h>
++#include <linux/wait.h>
++#include <linux/workqueue.h>
+ 
+ #include "arm-cla-regs.h"
+ 
+@@ -17,8 +28,20 @@
+ #define CLA_NUM_DATA_REGS	8
+ #define CLA_SRSTATE_LEN		8
+ 
++/* Quantum of CLA assignment */
++#define CLA_SLICE_MS		100
++
+ struct cla_domain;
+ 
++struct cla_call_on_cpu {
++	int ret;
++	struct {
++		struct cla_ctx *prev_ctx;
++		struct cla_ctx *next_ctx;
++	} sched;
++	struct kthread_work switch_ctx;
 +};
 +
  /**
   * struct cla_dev - CLA device
   *
-@@ -54,6 +60,8 @@ struct cla_call_on_cpu {
-  * @pg_offset:		Mmap offset of this device.
-  * @iassizes:		Combined regstate of all accels in bytes.
-  * @domain:		The domain this CLA belongs to.
-+ * @aidr:		CLA Architecture ID.
-+ * @accel_descs:	Accelerator ID registers.
-  *
+@@ -35,6 +58,8 @@ struct cla_domain;
   * Mutable, protected by CPU hotplug locking:
   * @discovered:		Discovered state is cached.
-@@ -70,6 +78,8 @@ struct cla_dev {
- 	unsigned long pg_offset;
- 	unsigned long iassizes;
- 	struct cla_domain *domain;
-+	u64 aidr;
-+	struct cla_accel_desc accel_descs[CLA_NUM_ACC];
+  * @broken:		Hardware failure.
++ * @worker:		CPU-bound worker to communicate with CLA.
++ * @call:		Scheduling work.
+  */
+ struct cla_dev {
+ 	unsigned int cpu;
+@@ -48,22 +73,45 @@ struct cla_dev {
  
  	bool discovered;
  	bool broken;
-@@ -291,4 +301,8 @@ int cla_mtc_get_ctx(struct cla_ctx *ctx);
- void cla_mtc_put_ctx(struct cla_ctx *ctx);
- void cla_mtc_leak_ctx(struct cla_ctx *ctx);
++	struct kthread_worker *worker;
++	struct cla_call_on_cpu call;
+ };
  
-+int cla_user_init(void);
-+void cla_user_exit(void);
-+u8 cla_user_accels(struct cla_dev *dev, struct file *file);
+ /**
+  * struct cla_domain - Collection of cla_dev
+  *
++ * The whole domain is assigned to a single cla_ctx at a time.
++ *
+  * Immutable state:
+  * @id:			Consecutive userspace domain identifier.
+  * @pg_offset:		Mmap offset of the first device.
+  * @nr_devs:		Number of devices in the domain.
+  * @devs:		Devices.
++ *
++ * Mutable, only accessed under @lock:
++ * @lock:		Protects the following members.
++ * @ctxs:		All live contexts, keyed on cla_ctx_key.
++ * @queued_ctxs:	Queue of contexts waiting for assignment.
++ * @worker:		Kthread worker to coordinate reassignment.
++ * @reassign:		Delayed work that switches contexts with time slicing.
++ *
++ * Mutable, some reads outside the lock:
++ * @broken:		Hardware failure in any device in the domain.
++ * @assigned_ctx:	Context to which domain is currently assigned.
+  */
+ struct cla_domain {
+ 	unsigned int id;
+ 	unsigned long pg_offset;
+ 	unsigned int nr_devs;
+ 	struct cla_dev **devs;
 +
- #endif /* _ARM_CLA_H_ */
++	struct mutex lock;
++	bool broken;
++	struct rhashtable ctxs;
++	struct list_head queued_ctxs;
++	struct cla_ctx *assigned_ctx;
++	struct kthread_worker *worker;
++	struct kthread_delayed_work reassign;
+ };
+ 
+ /**
+@@ -93,10 +141,48 @@ struct cla_ctx_key {
+ 	struct file *file;
+ };
+ 
++#define CLA_CTX_KEY_PL0(_mm, _file)		\
++	{					\
++		.mm = (_mm),			\
++		.file = (_file),		\
++	}
++
++/**
++ * struct cla_ctx - Domain context
++ *
++ * Immutable state:
++ * @domain:		The domain of this context.
++ * @key:		Key in cla_domain::ctxs hashtable.
++ * @node:		Node in cla_domain::ctxs hashtable.
++ *
++ * Mutable, reference counted:
++ * @refcnt:		All references to this context. Context is freed
++ *			when this drops to zero.
++ *
++ * Mutable, protected by domain::lock:
++ * @queue_node:		Node in cla_domain::queued_ctxs.
++ * @waitq:		Faulting threads sleep until assignment.
++ *
++ * Mutable, protected by domain::lock, some reads outside the lock:
++ * @users:		Users accessing this context. Context is killed when
++ *			this drops to zero.
++ *
++ * Mutable, written by domain reassignment, device work, and CPU hotplug:
++ * @regs:		State for each device in domain.
++ * @asid:		Pinned ASID of live context.
++ */
+ struct cla_ctx {
++	struct kref refcnt;
++	struct rhash_head node;
++
++	struct cla_domain *domain;
+ 	struct cla_ctx_key key;
++
++	refcount_t users;
++	struct list_head queue_node;
+ 	void **regs;
+ 	unsigned int asid;
++	wait_queue_head_t waitq;
+ };
+ 
+ extern struct xarray cla_domains;
+@@ -142,7 +228,39 @@ static inline void cla_reg_write(struct cla_dev *dev, off_t reg, u64 val)
+ 
+ struct cla_domain *cla_dev_domain_get(struct cla_dev *dev);
+ int cla_domains_finalise(void);
++void cla_domains_sched_exit(void);
+ void cla_domains_free(void);
++int cla_domain_sched_init(struct cla_domain *domain);
++void cla_domain_sched_exit(struct cla_domain *domain);
++void cla_domain_set_broken(struct cla_domain *domain);
++struct cla_ctx *cla_domain_lookup_ctx(struct cla_domain *domain,
++				      struct cla_ctx_key *key);
++int cla_domain_insert_ctx(struct cla_domain *domain, struct cla_ctx *ctx);
++void cla_domain_remove_ctx(struct cla_domain *domain, struct cla_ctx *ctx);
++void cla_domain_schedule_reassignment(struct cla_domain *domain);
++struct cla_ctx *cla_ctx_create(struct cla_domain *domain,
++			       struct cla_ctx_key *key);
++void cla_ctx_destroy(struct cla_domain *domain, struct cla_ctx_key *key);
++void cla_ctx_free(struct kref *ref);
++
++static inline void cla_ctx_get(struct cla_ctx *ctx)
++{
++	kref_get(&ctx->refcnt);
++}
++
++static inline void cla_ctx_put(struct cla_ctx *ctx)
++{
++	kref_put(&ctx->refcnt, cla_ctx_free);
++}
++
++static inline bool cla_ctx_is_dying(struct cla_ctx *ctx)
++{
++	return refcount_read(&ctx->users) == 0;
++}
++
++void cla_dev_switch_ctx_work(struct kthread_work *work);
++int cla_dev_switch_ctx(struct cla_dev *dev, struct cla_ctx *prev_ctx,
++		       struct cla_ctx *next_ctx);
+ 
+ int cla_op_wait_lresp(struct cla_dev *dev, u64 *lresp);
+ int cla_op_reset(struct cla_dev *dev, unsigned int accid);
+diff --git a/drivers/misc/arm-cla/cla-ctx.c b/drivers/misc/arm-cla/cla-ctx.c
+new file mode 100644
+index 000000000000..6a9c95769724
+--- /dev/null
++++ b/drivers/misc/arm-cla/cla-ctx.c
+@@ -0,0 +1,146 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/err.h>
++#include <linux/file.h>
++#include <linux/gfp.h>
++#include <linux/sched/mm.h>
++#include <linux/slab.h>
++
++#include "arm-cla.h"
++
++/**
++ * cla_ctx_create - Create a context or increase its user count
++ * @domain: CLA domain
++ * @key: Context identifier
++ *
++ * Reuse an existing context for the same @key, or allocate and insert a new
++ * context into @domain. The context user count is incremented before returning.
++ *
++ * Return: the context on success, or an error pointer on failure
++ */
++struct cla_ctx *cla_ctx_create(struct cla_domain *domain,
++			       struct cla_ctx_key *key)
++{
++	struct cla_ctx *ctx;
++	int ret = -ENOMEM;
++
++	mutex_lock(&domain->lock);
++	ctx = cla_domain_lookup_ctx(domain, key);
++	if (ctx) {
++		refcount_inc(&ctx->users);
++		mutex_unlock(&domain->lock);
++		return ctx;
++	}
++
++	if (domain->broken) {
++		ret = -EIO;
++		goto err_unlock;
++	}
++
++	ctx = kzalloc_obj(*ctx, GFP_KERNEL_ACCOUNT);
++	if (!ctx)
++		goto err_unlock;
++
++	kref_init(&ctx->refcnt);
++	refcount_set(&ctx->users, 1);
++	ctx->domain = domain;
++	ctx->key = *key;
++	INIT_LIST_HEAD(&ctx->queue_node);
++	init_waitqueue_head(&ctx->waitq);
++
++	mmgrab(key->mm);
++	get_file(key->file);
++
++	/*
++	 * Test if the mm or kvm is compatible. If cla_mtc_get_ctx() fails
++	 * during context switch, it breaks the domain.
++	 */
++	ret = cla_mtc_get_ctx(ctx);
++	if (ret)
++		goto err_free;
++	cla_mtc_put_ctx(ctx);
++
++	ret = cla_ctx_alloc_regs(domain, ctx);
++	if (ret)
++		goto err_free;
++
++	ret = cla_domain_insert_ctx(domain, ctx);
++	if (ret)
++		goto err_free_regs;
++	mutex_unlock(&domain->lock);
++
++	return ctx;
++
++err_free_regs:
++	cla_ctx_free_regs(domain, ctx);
++err_free:
++	mmdrop(key->mm);
++	fput(key->file);
++	kfree(ctx);
++err_unlock:
++	mutex_unlock(&domain->lock);
++	return ERR_PTR(ret);
++}
++
++/**
++ * cla_ctx_destroy - Drop a context user
++ * @domain: CLA domain
++ * @key: Context identifier
++ *
++ * When the final user is removed, wake waiters, remove the context from
++ * @domain, schedule deassignment if needed, and drop the user's reference.
++ */
++void cla_ctx_destroy(struct cla_domain *domain, struct cla_ctx_key *key)
++{
++	struct cla_ctx *ctx;
++
++	mutex_lock(&domain->lock);
++	ctx = cla_domain_lookup_ctx(domain, key);
++	WARN_ON(!ctx);
++
++	if (!refcount_dec_and_test(&ctx->users)) {
++		mutex_unlock(&domain->lock);
++		return;
++	}
++
++	/* Notify waiters that their context is dying. */
++	wake_up_all(&ctx->waitq);
++	cla_domain_remove_ctx(domain, ctx);
++	list_del_init(&ctx->queue_node);
++
++	/*
++	 * Since we're holding the mmap_lock for writing, and reassignment work
++	 * may be waiting to grab it for reading, we cannot wait for
++	 * reassignment here. The context holds a reference to mm_count, so the
++	 * mm_struct or pgd are not going away until cla_ctx_free().
++	 * If the mm is exiting, the accelerators will now access memory through
++	 * an empty pgd and fault silently.
++	 *
++	 * Assignment holds a reference until deassignment completes. If this
++	 * context is being assigned, reassignment will notice that it is dying
++	 * and schedule its deassignment once it re-takes the domain lock.
++	 */
++	if (domain->assigned_ctx == ctx)
++		cla_domain_schedule_reassignment(domain);
++	mutex_unlock(&domain->lock);
++
++	/* Release initial reference from cla_ctx_create(). */
++	cla_ctx_put(ctx);
++}
++
++/**
++ * cla_ctx_free - Free a CLA domain context
++ * @ref: context reference counter
++ *
++ * Release resources held by a dying context after final reference is dropped.
++ */
++void cla_ctx_free(struct kref *ref)
++{
++	struct cla_ctx *ctx = container_of(ref, struct cla_ctx, refcnt);
++
++	WARN_ON(!cla_ctx_is_dying(ctx));
++	mmdrop(ctx->key.mm);
++	fput(ctx->key.file);
++	cla_ctx_free_regs(ctx->domain, ctx);
++	kfree(ctx);
++}
 diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-init.c
-index e1694f84e05d..1afe20aa877f 100644
+index 58f37787a59c..e1694f84e05d 100644
 --- a/drivers/misc/arm-cla/cla-init.c
 +++ b/drivers/misc/arm-cla/cla-init.c
-@@ -84,6 +84,7 @@ static int cla_reset_pmu(struct cla_dev *dev, unsigned int accid)
-  */
- static int cla_dev_discover_accel(struct cla_dev *dev, unsigned int accid)
- {
-+	struct cla_accel_desc *desc = &dev->accel_descs[accid];
- 	unsigned long iassizes;
- 	u64 iassize;
- 	u64 acap;
-@@ -102,6 +103,20 @@ static int cla_dev_discover_accel(struct cla_dev *dev, unsigned int accid)
- 		return 1;
+@@ -186,7 +186,10 @@ static void cla_dev_reinit(struct cla_dev *dev)
+ 
+ 	if (WARN_ON(cla_op_reset_all(dev)) ||
+ 	    WARN_ON(cla_mtc_clear(dev))) {
++		mutex_lock(&dev->domain->lock);
+ 		dev->broken = true;
++		cla_domain_set_broken(dev->domain);
++		mutex_unlock(&dev->domain->lock);
+ 		return;
  	}
  
+@@ -198,6 +201,37 @@ static void cla_dev_reinit(struct cla_dev *dev)
+ 	cla_reg_write(dev, CLA_REG_LRESP, 0);
+ }
+ 
++static int cla_dev_worker_init(struct cla_dev *dev, int cpu)
++{
++	struct kthread_worker *worker;
++
++	worker = kthread_run_worker_on_cpu(cpu, 0, "cla-dev-worker/%u");
++	if (IS_ERR(worker))
++		return PTR_ERR(worker);
++
++	WARN_ON(dev->worker);
++	dev->worker = worker;
++
++	return 0;
++}
++
++static void cla_dev_worker_destroy(struct cla_dev *dev)
++{
++	if (!dev->worker)
++		return;
++
 +	/*
-+	 * Cache some standard accelerator registers that user space may query
-+	 * via ioctl from a remote CPU.
++	 * CPU offlining excludes submitters holding cpus_read_lock(). During
++	 * module removal, submitters are stopped before removing the hotplug
++	 * callbacks, which only takes the hotplug read lock.
 +	 */
-+	ret = cla_op_regread(dev, accid, CLA_REG_IIDR, 1, &desc->iidr);
-+	if (ret)
-+		return ret;
-+	ret = cla_op_regread(dev, accid, CLA_REG_DEVARCH, 1, &desc->devarch);
-+	if (ret)
-+		return ret;
-+	ret = cla_op_regread(dev, accid, CLA_REG_REVIDR, 1, &desc->revidr);
-+	if (ret)
-+		return ret;
++	kthread_destroy_worker(dev->worker);
++	dev->worker = NULL;
 +
- 	ret = cla_op_regread(dev, accid, CLA_REG_IASSIZE, 1, &iassize);
- 	if (ret)
- 		return ret;
-@@ -248,6 +263,12 @@ static int cla_dev_setup(unsigned int cpu)
- 		return -EINVAL;
- 
- 	if (!dev->discovered) {
-+		dev->aidr = cla_reg_read(dev, CLA_REG_CLAAIDR);
++	/* Clear work->worker before any later flush or reuse with a new worker. */
++	kthread_init_work(&dev->call.switch_ctx, cla_dev_switch_ctx_work);
++}
 +
-+		/* Check for supported CLA architecture version. */
-+		if (dev->aidr != CLA_AIDR_PREP(2, 0))
-+			return -EPROTONOSUPPORT;
-+
- 		/* Discard partial results from an earlier, failed discovery. */
- 		dev->accelerators = 0;
- 		dev->iassizes = 0;
-@@ -498,6 +519,11 @@ static int __init cla_module_init(void)
- 		cla_cpuhp_state = ret;
+ static int cla_dev_setup(unsigned int cpu)
+ {
+ 	int i;
+@@ -252,8 +286,23 @@ static int cla_dev_setup(unsigned int cpu)
+ 			 dev->accelerators);
  	}
  
-+	/* Must be last fallible step; see cla_user_init(). */
-+	ret = cla_user_init();
++	ret = cla_dev_worker_init(dev, cpu);
 +	if (ret)
-+		goto err_hardware;
++		goto err;
 +
++	/* Restore context if domain has an assigned context. */
++	mutex_lock(&dev->domain->lock);
++	ret = cla_dev_switch_ctx(dev, NULL, dev->domain->assigned_ctx);
++	if (ret)
++		cla_domain_set_broken(dev->domain);
++	mutex_unlock(&dev->domain->lock);
++	if (ret)
++		goto err_worker;
++
+ 	dev->discovered = true;
+ 	return 0;
++err_worker:
++	cla_dev_worker_destroy(dev);
+ err:
+ 	cla_dev_reinit(dev);
+ 	return ret;
+@@ -262,6 +311,7 @@ static int cla_dev_setup(unsigned int cpu)
+ static int cla_dev_teardown(unsigned int cpu)
+ {
+ 	struct cla_dev *dev;
++	int ret;
+ 
+ 	/*
+ 	 * Careful what we return here, the teardown path isn't really allowed
+@@ -271,6 +321,15 @@ static int cla_dev_teardown(unsigned int cpu)
+ 	if (!dev)
+ 		return 0;
+ 
++	cla_dev_worker_destroy(dev);
++
++	/* Save context if domain has an assigned context. */
++	mutex_lock(&dev->domain->lock);
++	ret = cla_dev_switch_ctx(dev, dev->domain->assigned_ctx, NULL);
++	if (ret)
++		cla_domain_set_broken(dev->domain);
++	mutex_unlock(&dev->domain->lock);
++
+ 	cla_dev_reinit(dev);
+ 
+ 	return 0;
+@@ -314,6 +373,7 @@ static struct cla_dev *cla_dev_alloc(struct device *parent, int cpu,
+ 	dev->cpu = cpu;
+ 	dev->dev = parent;
+ 
++	kthread_init_work(&dev->call.switch_ctx, cla_dev_switch_ctx_work);
+ 
+ 	/* Attempt to find device domain, or allocate a new one */
+ 	dev->domain = cla_dev_domain_get(dev);
+@@ -441,6 +501,7 @@ static int __init cla_module_init(void)
  	return 0;
  
  err_hardware:
-@@ -512,6 +538,7 @@ static int __init cla_module_init(void)
++	cla_domains_sched_exit();
+ 	if (cla_cpuhp_state >= 0)
+ 		cpuhp_remove_state(cla_cpuhp_state);
+ 	cla_domains_free();
+@@ -451,6 +512,7 @@ static int __init cla_module_init(void)
  
  static void __exit cla_module_exit(void)
  {
-+	cla_user_exit();
- 	cla_domains_sched_exit();
++	cla_domains_sched_exit();
  	cpuhp_remove_state(cla_cpuhp_state);
  	cla_domains_free();
+ 	platform_driver_unregister(&cla_driver);
 diff --git a/drivers/misc/arm-cla/cla-regs.c b/drivers/misc/arm-cla/cla-regs.c
-index d8ed74230e16..d48311d0ef92 100644
+index 2452a7601990..d8ed74230e16 100644
 --- a/drivers/misc/arm-cla/cla-regs.c
 +++ b/drivers/misc/arm-cla/cla-regs.c
-@@ -162,6 +162,8 @@ static int cla_regs_install_pl0(struct cla_dev *dev, struct cla_ctx *ctx,
- {
- 	int i;
- 	int ret;
-+	u64 pl0ctrl = 0;
-+	u8 accelerators;
- 	unsigned int accid;
- 	size_t regstate_off = 0;
- 	struct cla_regs_pl0 *regs = ctx->regs[ctx_id];
-@@ -192,6 +194,14 @@ static int cla_regs_install_pl0(struct cla_dev *dev, struct cla_ctx *ctx,
- 		cla_reg_write(dev, CLA_REG_DATA(i), regs->data[i]);
- 	cla_reg_write(dev, CLA_REG_LRESP, regs->lresp);
+@@ -128,16 +128,23 @@ static int cla_regs_uninstall_pl0(struct cla_dev *dev, struct cla_ctx *ctx,
+ 	if (ret)
+ 		return ret;
  
-+	/* Restrict which accelerators this context can access at PL0. */
-+	accelerators = cla_user_accels(dev, ctx->key.file);
-+	cla_for_each_accid(dev, accid) {
-+		if (accelerators & BIT(accid))
-+			pl0ctrl |= CLA_PLxCTRL_PREP(accid, CLA_PLxCTRL_AVAIL);
+-	for (i = 0; i < CLA_NUM_DATA_REGS; i++)
+-		regs->data[i] = cla_reg_read(dev, CLA_REG_DATA(i));
++	/*
++	 * No need to save a dying context. Note that we're not holding the
++	 * domain lock during this check and the context might be about to die,
++	 * but it's only an optimisation.
++	 */
++	if (!cla_ctx_is_dying(ctx)) {
++		for (i = 0; i < CLA_NUM_DATA_REGS; i++)
++			regs->data[i] = cla_reg_read(dev, CLA_REG_DATA(i));
+ 
+-	cla_for_each_accid(dev, accid) {
+-		ret = cla_regs_save_accel(dev, accid, regs, &regstate_off);
+-		if (ret)
+-			return ret;
+-	}
++		cla_for_each_accid(dev, accid) {
++			ret = cla_regs_save_accel(dev, accid, regs, &regstate_off);
++			if (ret)
++				return ret;
++		}
+ 
+-	regs->accel_valid = true;
++		regs->accel_valid = true;
 +	}
-+	cla_reg_write(dev, CLA_REG_PL0CTRL, pl0ctrl);
-+
- 	return 0;
- }
  
-diff --git a/drivers/misc/arm-cla/cla-user.c b/drivers/misc/arm-cla/cla-user.c
+ 	/*
+ 	 * "If the accelerator is non idle when ENTERSR is launched, then a
+@@ -218,7 +225,8 @@ int cla_regs_install(struct cla_dev *dev, struct cla_ctx *ctx,
+  *
+  * Uninstall a user context, and restore the kernel context if necessary.
+  *
+- * PL0 context: Save the DATA and LRESP registers and accelerator state.
++ * PL0 context: Save the DATA registers and accelerator state unless
++ * cla_ctx_is_dying() is true, since a dying context will not be restored.
+  *
+  * When this completes, all accelerators are idle. If this fails, some
+  * accelerators may still be running.
+diff --git a/drivers/misc/arm-cla/cla-sched.c b/drivers/misc/arm-cla/cla-sched.c
 new file mode 100644
-index 000000000000..41cd5e4a7d01
+index 000000000000..6b5b782ac33e
 --- /dev/null
-+++ b/drivers/misc/arm-cla/cla-user.c
-@@ -0,0 +1,541 @@
++++ b/drivers/misc/arm-cla/cla-sched.c
+@@ -0,0 +1,473 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Arm CLA driver - userspace interface
++ * Arm CLA driver - domain scheduling
 + *
 + * Copyright 2026 Arm Limited.
 + */
 +
-+#include <linux/cdev.h>
-+#include <linux/cpu.h>
-+#include <linux/device.h>
-+#include <linux/fs.h>
-+#include <linux/kernel.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/slab.h>
-+#include <linux/uaccess.h>
++#include <linux/cpuhplock.h>
++#include <linux/rhashtable.h>
 +
 +#include "arm-cla.h"
-+#include <uapi/linux/arm-cla.h>
 +
-+static struct class *cla_class;
-+static dev_t cla_devt;
-+static struct cdev cla_cdev;
-+static bool cla_cdev_added;
-+static unsigned int cla_nr_minors;
-+static unsigned int cla_nr_classes;
-+static struct cla_accel_class **cla_accel_classes;
++static struct cla_ctx invalid_ctx;
 +
-+struct cla_accel_class {
-+	struct cla_accel_desc desc;
-+	struct device dev;
++static const struct rhashtable_params ctxs_rht_params = {
++	.head_offset = offsetof(struct cla_ctx, node),
++	.key_offset = offsetof(struct cla_ctx, key),
++	.key_len = sizeof(((struct cla_ctx *)0)->key),
++	.automatic_shrinking = true,
 +};
 +
-+static bool cla_accel_class_same(const struct cla_accel_desc *a,
-+				 const struct cla_accel_desc *b)
++static int __cla_domain_switch_ctx(struct cla_domain *domain,
++				   struct cla_ctx *prev_ctx,
++				   struct cla_ctx *next_ctx)
 +{
-+	u64 mask = CLA_IIDR_IMPLEMENTER | CLA_IIDR_PRODUCTID;
-+
-+	return (a->iidr & mask) == (b->iidr & mask);
-+}
-+
-+u8 cla_user_accels(struct cla_dev *dev, struct file *file)
-+{
-+	struct cla_accel_class *aclass = file->private_data;
-+	struct cla_accel_desc *desc = &aclass->desc;
-+	unsigned int accid;
-+	u8 mask = 0;
-+
-+	cla_for_each_accid(dev, accid) {
-+		if (cla_accel_class_same(&dev->accel_descs[accid], desc))
-+			mask |= BIT(accid);
-+	}
-+
-+	return mask;
-+}
-+
-+#define dev_nospec(idx) array_index_nospec(idx, cla_nr_devs)
-+#define accel_nospec(idx) array_index_nospec(idx, CLA_NUM_ACC)
-+
-+#define cla_for_each_mapped_domain(_vma, _domain)			\
-+	for (unsigned long __pg = (_vma)->vm_pgoff;			\
-+	     __pg < (_vma)->vm_pgoff + vma_pages(_vma) &&		\
-+	     ((_domain) = cla_lut_pg[dev_nospec(__pg)]->domain);	\
-+	     __pg = (_domain)->pg_offset + (_domain)->nr_devs)
-+
-+static long cla_ioctl_validate_param(struct file *file,
-+				     struct arm_cla_param *param)
-+{
-+	u8 accelerators;
-+	int accel_id;
-+	int dev_id;
-+
-+	switch (param->param) {
-+	case ARM_CLA_PARAM_DEV_NR:
-+		if (param->index != 0)
-+			return -EINVAL;
-+		break;
-+	case ARM_CLA_PARAM_DEV_CPU_ID:
-+	case ARM_CLA_PARAM_DEV_DOMAIN_ID:
-+	case ARM_CLA_PARAM_DEV_PGOFF:
-+	case ARM_CLA_PARAM_DEV_AIDR:
-+	case ARM_CLA_PARAM_DEV_ACCELS:
-+		if (param->index >= cla_nr_devs)
-+			return -EINVAL;
-+		break;
-+	case ARM_CLA_PARAM_ACCEL_IIDR:
-+	case ARM_CLA_PARAM_ACCEL_DEVARCH:
-+	case ARM_CLA_PARAM_ACCEL_REVIDR:
-+		dev_id = ARM_CLA_PARAM_INDEX_DEV(param->index);
-+		accel_id = ARM_CLA_PARAM_INDEX_ACCEL(param->index);
-+		if (dev_id >= cla_nr_devs || accel_id >= CLA_NUM_ACC)
-+			return -EINVAL;
-+		dev_id = dev_nospec(dev_id);
-+		accelerators = cla_user_accels(cla_lut_pg[dev_id], file);
-+		if ((accelerators & BIT(accel_id)) == 0)
-+			return -ENODEV;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static long cla_ioctl_get_param(struct file *file, unsigned long arg)
-+{
-+	struct arm_cla_param __user *uparam = (void __user *)arg;
-+	struct arm_cla_param param;
-+	int accel_id;
-+	int dev_id;
-+	int ret;
-+
-+	if (copy_from_user(&param, uparam, sizeof(param)))
-+		return -EFAULT;
-+
-+	ret = cla_ioctl_validate_param(file, &param);
-+	if (ret)
-+		return ret;
-+
-+	dev_id = dev_nospec(ARM_CLA_PARAM_INDEX_DEV(param.index));
-+	accel_id = accel_nospec(ARM_CLA_PARAM_INDEX_ACCEL(param.index));
-+
-+	switch (param.param) {
-+	case ARM_CLA_PARAM_DEV_NR:
-+		param.value = cla_nr_devs;
-+		break;
-+	case ARM_CLA_PARAM_DEV_CPU_ID:
-+		param.value = cla_lut_pg[dev_id]->cpu;
-+		break;
-+	case ARM_CLA_PARAM_DEV_DOMAIN_ID:
-+		param.value = cla_lut_pg[dev_id]->domain->id;
-+		break;
-+	case ARM_CLA_PARAM_DEV_PGOFF:
-+		param.value = cla_lut_pg[dev_id]->pg_offset;
-+		break;
-+	case ARM_CLA_PARAM_DEV_AIDR:
-+		param.value = cla_lut_pg[dev_id]->aidr;
-+		break;
-+	case ARM_CLA_PARAM_DEV_ACCELS:
-+		param.value = cla_user_accels(cla_lut_pg[dev_id], file);
-+		break;
-+	case ARM_CLA_PARAM_ACCEL_IIDR:
-+		param.value = cla_lut_pg[dev_id]->accel_descs[accel_id].iidr;
-+		break;
-+	case ARM_CLA_PARAM_ACCEL_DEVARCH:
-+		param.value = cla_lut_pg[dev_id]->accel_descs[accel_id].devarch;
-+		break;
-+	case ARM_CLA_PARAM_ACCEL_REVIDR:
-+		param.value = cla_lut_pg[dev_id]->accel_descs[accel_id].revidr;
-+		break;
-+	}
-+
-+	if (copy_to_user(uparam, &param, sizeof(param)))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
-+static void cla_vma_open(struct vm_area_struct *vma)
-+{
-+	/*
-+	 * A vma previously created with cla_file_mmap() has been duplicated
-+	 * within the same mm (most likely due to mremap). While this could also
-+	 * be called for duplication into a new mm (via fork), we set
-+	 * VM_DONTCOPY on the original mmap, so this will never happen. So the
-+	 * contexts covered by this new vma already exist.
-+	 */
-+	struct cla_ctx_key key = CLA_CTX_KEY_PL0(vma->vm_mm, vma->vm_file);
-+	struct cla_domain *domain;
-+
-+	cla_for_each_mapped_domain(vma, domain)
-+		cla_ctx_create(domain, &key);
-+}
-+
-+static void cla_vma_close(struct vm_area_struct *vma)
-+{
-+	struct cla_ctx_key key = CLA_CTX_KEY_PL0(vma->vm_mm, vma->vm_file);
-+	struct cla_domain *domain;
-+
-+	/* On munmap() or exit_mmap(), kill the context. */
-+	cla_for_each_mapped_domain(vma, domain)
-+		cla_ctx_destroy(domain, &key);
-+}
-+
-+static vm_fault_t cla_vma_fault(struct vm_fault *vmf)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	struct cla_ctx_key key = CLA_CTX_KEY_PL0(vma->vm_mm, vma->vm_file);
-+	struct cla_domain *domain;
-+	struct cla_dev *dev;
-+	struct cla_ctx *ctx;
-+	unsigned long pg;
-+
-+	/*
-+	 * Reassignment needs mmap_lock, so we cannot wait while holding it.
-+	 * The private futex fault-in path can reach here without allowing
-+	 * mmap_lock to be dropped. Reject faults that do not allow retry.
-+	 */
-+	if (!(vmf->flags & FAULT_FLAG_ALLOW_RETRY))
-+		return VM_FAULT_SIGBUS;
-+
-+	pg = vma->vm_pgoff + ((vmf->address - vma->vm_start) >> PAGE_SHIFT);
-+	dev = cla_lut_pg[pg];
-+	domain = dev->domain;
-+
-+	mutex_lock(&domain->lock);
-+	ctx = cla_domain_lookup_ctx(domain, &key);
-+	if (WARN_ON(!ctx) || cla_ctx_is_dying(ctx) || domain->broken) {
-+		mutex_unlock(&domain->lock);
-+		return domain->broken ? VM_FAULT_SIGBUS : VM_FAULT_SIGSEGV;
-+	}
-+
-+	/* If our ctx is the assigned one, map the device into memory. */
-+	if (domain->assigned_ctx == ctx) {
-+		vm_fault_t ret;
-+
-+		ret = vmf_insert_pfn(vma, vmf->address, dev->pfn);
-+		mutex_unlock(&domain->lock);
-+		return ret;
-+	}
-+
-+	/* Enqueue if not already, starting current assignee's time slice. */
-+	if (list_empty(&ctx->queue_node)) {
-+		bool was_empty = list_empty(&domain->queued_ctxs);
-+
-+		list_add_tail(&ctx->queue_node, &domain->queued_ctxs);
-+		if (was_empty)
-+			cla_domain_schedule_reassignment(domain);
-+	}
-+
-+	mutex_unlock(&domain->lock);
-+
-+	/* If waiting is not permitted, return indicating we need to retry. */
-+	if (vmf->flags & FAULT_FLAG_RETRY_NOWAIT)
-+		return VM_FAULT_RETRY;
-+
-+	/*
-+	 * Drop the fault lock prior to sleeping and return VM_FAULT_RETRY when
-+	 * we wake up to rerun the fault. We must get the ctx while sleeping to
-+	 * prevent it from being freed while we are asleep on the contained wait
-+	 * queue.
-+	 */
-+	cla_ctx_get(ctx);
-+	release_fault_lock(vmf);
-+	wait_event_interruptible(ctx->waitq,
-+				 READ_ONCE(domain->assigned_ctx) == ctx ||
-+				 cla_ctx_is_dying(ctx) ||
-+				 READ_ONCE(domain->broken));
-+	cla_ctx_put(ctx);
-+	return VM_FAULT_RETRY;
-+}
-+
-+static int cla_vma_may_split(struct vm_area_struct *vma, unsigned long addr)
-+{
-+	/*
-+	 * Forbid splitting cla mappings to prevent refcount leaks.
-+	 * cla_file_mmap()/cla_vma_open() track a context per domain mapped by
-+	 * the vma. If there were fewer domains mapped by the vma at
-+	 * cla_vma_close() then contexts would get leaked.
-+	 */
-+	return -EINVAL;
-+}
-+
-+static const struct vm_operations_struct cla_vma_ops = {
-+	.open = cla_vma_open,
-+	.close = cla_vma_close,
-+	.fault = cla_vma_fault,
-+	.may_split = cla_vma_may_split,
-+};
-+
-+static int cla_file_mmap(struct file *file, struct vm_area_struct *vma)
-+{
-+	unsigned long nr_pages = vma_pages(vma);
-+	struct cla_ctx_key key = CLA_CTX_KEY_PL0(vma->vm_mm, vma->vm_file);
-+	struct cla_domain *rollback;
-+	struct cla_domain *domain;
-+	struct cla_ctx *ctx;
-+
-+	/* Ensure the requested mapping is within range. */
-+	if (!nr_pages)
-+		return -EINVAL;
-+	if (vma->vm_pgoff >= cla_nr_devs)
-+		return -EINVAL;
-+	if (nr_pages > cla_nr_devs - vma->vm_pgoff)
-+		return -EINVAL;
-+
-+	/* Only allow shared RW mappings. Nothing else makes sense for CLA. */
-+	if (!(vma->vm_flags & VM_SHARED))
-+		return -EINVAL;
-+	if (!(vma->vm_flags & VM_READ))
-+		return -EINVAL;
-+	if (!(vma->vm_flags & VM_WRITE))
-+		return -EINVAL;
-+	if (vma->vm_flags & VM_EXEC)
-+		return -EINVAL;
-+
-+	/*
-+	 * Iterate over each domain covered by the vma and get-or-alloc its
-+	 * context. If any fails, we need to rollback with a put.
-+	 */
-+	cla_for_each_mapped_domain(vma, domain) {
-+		ctx = cla_ctx_create(domain, &key);
-+		if (IS_ERR(ctx)) {
-+			cla_for_each_mapped_domain(vma, rollback) {
-+				if (rollback == domain)
-+					return PTR_ERR(ctx);
-+				cla_ctx_destroy(rollback, &key);
-+			}
-+		}
-+	}
-+
-+	vm_flags_mod(vma, VM_DONTCOPY | VM_DONTDUMP | VM_DONTEXPAND |
-+			  VM_IO | VM_PFNMAP, VM_MAYEXEC);
-+	vma->vm_page_prot = pgprot_device(vma->vm_page_prot);
-+	vma->vm_ops = &cla_vma_ops;
-+
-+	return 0;
-+}
-+
-+static long cla_file_ioctl(struct file *file, unsigned int cmd,
-+			   unsigned long arg)
-+{
-+	switch (cmd) {
-+	case ARM_CLA_IOCTL_GET_PARAM:
-+		return cla_ioctl_get_param(file, arg);
-+	default:
-+		return -ENOTTY;
-+	}
-+}
-+
-+static int cla_file_open(struct inode *inode, struct file *file)
-+{
-+	unsigned int index = iminor(inode) - MINOR(cla_devt);
-+
-+	if (index >= cla_nr_classes)
-+		return -ENODEV;
-+
-+	file->private_data = cla_accel_classes[index];
-+
-+	return 0;
-+}
-+
-+static const struct file_operations cla_fops = {
-+	.owner = THIS_MODULE,
-+	.open = cla_file_open,
-+	.mmap = cla_file_mmap,
-+	.unlocked_ioctl = cla_file_ioctl,
-+	.compat_ioctl = compat_ptr_ioctl,
-+};
-+
-+static char *cla_devnode(const struct device *dev, umode_t *mode)
-+{
-+	if (mode)
-+		*mode = 0666;
-+	return kasprintf(GFP_KERNEL, "cla/%s", dev_name(dev));
-+}
-+
-+static void cla_accel_class_release(struct device *dev)
-+{
-+	kfree(container_of(dev, struct cla_accel_class, dev));
-+}
-+
-+static bool __init cla_accel_class_seen(unsigned int dev_id, unsigned int accid)
-+{
-+	const struct cla_accel_desc *desc = &cla_lut_pg[dev_id]->accel_descs[accid];
-+	unsigned int i, j;
-+
-+	for (i = 0; i <= dev_id; i++) {
-+		struct cla_dev *dev = cla_lut_pg[i];
-+
-+		cla_for_each_accid(dev, j) {
-+			/* Only compare accelerator slots preceding this one. */
-+			if (i == dev_id && j == accid)
-+				return false;
-+			if (cla_accel_class_same(desc, &dev->accel_descs[j]))
-+				return true;
-+		}
-+	}
-+
-+	return false;
-+}
-+
-+static int __init cla_accel_class_add(const struct cla_accel_desc *desc)
-+{
-+	struct cla_accel_class *aclass;
++	int ret = 0;
 +	unsigned int i;
-+	int ret;
++	struct cla_dev *dev;
++	struct cla_call_on_cpu *call;
 +
-+	/* Check if an appropriate accel class was already created. */
-+	for (i = 0; i < cla_nr_classes; i++) {
-+		if (cla_accel_class_same(desc, &cla_accel_classes[i]->desc))
-+			return 0;
-+	}
++	lockdep_assert_cpus_held();
 +
-+	aclass = kzalloc_obj(*aclass);
-+	if (!aclass)
-+		return -ENOMEM;
-+
-+	aclass->desc = *desc;
-+	device_initialize(&aclass->dev);
-+	aclass->dev.class = cla_class;
-+	aclass->dev.devt = cla_devt + cla_nr_classes;
-+	aclass->dev.release = cla_accel_class_release;
-+
-+	ret = dev_set_name(&aclass->dev, "%03lx:%03lx",
-+			   FIELD_GET(CLA_IIDR_IMPLEMENTER, desc->iidr),
-+			   FIELD_GET(CLA_IIDR_PRODUCTID, desc->iidr));
-+	if (ret)
-+		goto err_put;
-+
-+	/* The node cannot be opened until cla_user_init() adds the cdev. */
-+	ret = device_add(&aclass->dev);
-+	if (ret)
-+		goto err_put;
-+
-+	cla_accel_classes[cla_nr_classes++] = aclass;
-+	return 0;
-+
-+err_put:
-+	put_device(&aclass->dev);
-+	return ret;
-+}
-+
-+/**
-+ * cla_user_init - Initialize and publish the CLA userspace interface
-+ *
-+ * Create a device for each unique accelerator class, then publish all class
-+ * minors through a single cdev. Device discovery must have completed before
-+ * calling this function.
-+ *
-+ * This must be the last fallible step of module initialization: cdev_add()
-+ * cannot fail after making the devices openable. On failure, all resources
-+ * allocated here are released without allowing any opens.
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int __init cla_user_init(void)
-+{
-+	unsigned int dev_id, accid;
-+	int ret;
-+
-+	if (!cla_nr_devs)
-+		return -EINVAL;
-+
-+	/* Count unique classes before allocating the minor range and lookup. */
-+	for (dev_id = 0; dev_id < cla_nr_devs; dev_id++) {
-+		struct cla_dev *dev = cla_lut_pg[dev_id];
-+
-+		cla_for_each_accid(dev, accid) {
-+			if (cla_accel_class_seen(dev_id, accid))
-+				continue;
-+			if (++cla_nr_minors > MINORMASK + 1)
-+				return -EINVAL;
-+		}
-+	}
-+
-+	if (!cla_nr_minors)
++	if (!prev_ctx && !next_ctx)
 +		return 0;
 +
-+	cla_class = class_create("arm-cla");
-+	if (IS_ERR(cla_class))
-+		return PTR_ERR(cla_class);
-+	cla_class->devnode = cla_devnode;
++	for (i = 0; i < domain->nr_devs; i++) {
++		dev = domain->devs[i];
++		call = &dev->call;
 +
-+	ret = alloc_chrdev_region(&cla_devt, 0, cla_nr_minors, KBUILD_MODNAME);
-+	if (ret)
-+		goto err_class_destroy;
++		call->sched.prev_ctx = prev_ctx;
++		call->sched.next_ctx = next_ctx;
++		call->ret = 0;
 +
-+	cla_accel_classes = kvzalloc_objs(*cla_accel_classes, cla_nr_minors);
-+	if (!cla_accel_classes) {
-+		ret = -ENOMEM;
-+		goto err_user_exit;
++		if (dev->broken)
++			ret = -EIO;
++		else if (dev->worker)
++			kthread_queue_work(dev->worker, &call->switch_ctx);
 +	}
 +
-+	/* Prepare every unique accelerator class before publishing the cdev. */
-+	for (dev_id = 0; dev_id < cla_nr_devs; dev_id++) {
-+		struct cla_dev *dev = cla_lut_pg[dev_id];
++	for (i = 0; i < domain->nr_devs; i++) {
++		dev = domain->devs[i];
++		call = &dev->call;
 +
-+		cla_for_each_accid(dev, accid) {
-+			ret = cla_accel_class_add(&dev->accel_descs[accid]);
-+			if (ret)
-+				goto err_user_exit;
++		kthread_flush_work(&call->switch_ctx);
++
++		/*
++		 * kthread worker and kthread_flush_work() both take the worker
++		 * lock to respectively write and read the current_work,
++		 * providing the desired memory ordering for ret.
++		 */
++		if (call->ret)
++			ret = call->ret;
++	}
++
++	return ret;
++}
++
++static int cla_domain_switch_ctx(struct cla_domain *domain,
++				 struct cla_ctx *prev_ctx,
++				 struct cla_ctx *next_ctx,
++				 struct cla_ctx **assigned_ctx)
++{
++	int ret;
++
++	/* Remove prev_ctx from all devices in the domain */
++	*assigned_ctx = prev_ctx;
++	ret = __cla_domain_switch_ctx(domain, prev_ctx, NULL);
++	if (ret)
++		return ret;
++
++	*assigned_ctx = NULL;
++	if (prev_ctx)
++		cla_mtc_put_ctx(prev_ctx);
++	if (next_ctx) {
++		ret = cla_mtc_get_ctx(next_ctx);
++		if (ret)
++			return ret;
++	}
++
++	/* Install next_ctx into all devices in the domain */
++	*assigned_ctx = next_ctx;
++	return __cla_domain_switch_ctx(domain, NULL, next_ctx);
++}
++
++/*
++ * Run on the cla's local CPU, either in its worker or a CPU hotplug callback.
++ * Work submitters hold cpus_read_lock() until completion, excluding hotplug
++ * callbacks and keeping the worker bound. Hotplug callbacks hold domain->lock
++ * to protect the assigned context. Other devices may switch concurrently.
++ * On failure, mark the device broken; the caller handles domain failure.
++ */
++int cla_dev_switch_ctx(struct cla_dev *dev, struct cla_ctx *prev_ctx,
++		       struct cla_ctx *next_ctx)
++{
++	unsigned int ctx_id = dev->pg_offset - dev->domain->pg_offset;
++	int ret;
++
++	if (WARN_ON(smp_processor_id() != dev->cpu)) {
++		ret = -EINVAL;
++		goto err;
++	}
++
++	/* Save state for outgoing ctx. */
++	if (prev_ctx) {
++		ret = cla_regs_uninstall(dev, prev_ctx, ctx_id);
++		if (ret) {
++			cla_err(dev, "failed to remove regs: %d\n", ret);
++			goto err;
++		}
++
++		ret = cla_mtc_uninstall(dev, prev_ctx);
++		if (ret) {
++			cla_err(dev, "failed to remove mm: %d\n", ret);
++			goto err;
 +		}
 +	}
 +
-+	/*
-+	 * Once cdev_add() succeeds, user space can open the device file. Module
-+	 * initialization must not fail after this point because the cdev
-+	 * depends on the module.
-+	 */
-+	cdev_init(&cla_cdev, &cla_fops);
-+	cla_cdev.owner = THIS_MODULE;
-+	ret = cdev_add(&cla_cdev, cla_devt, cla_nr_classes);
-+	if (ret) {
-+		kobject_put(&cla_cdev.kobj);
-+		goto err_user_exit;
++	/* Restore state for incoming ctx. */
++	if (next_ctx) {
++		ret = cla_mtc_install(dev, next_ctx);
++		if (ret) {
++			cla_err(dev, "failed to setup mm: %d\n", ret);
++			goto err;
++		}
++
++		ret = cla_regs_install(dev, next_ctx, ctx_id);
++		if (ret) {
++			cla_err(dev, "failed to setup regs: %d\n", ret);
++			goto err;
++		}
 +	}
-+	cla_cdev_added = true;
 +
 +	return 0;
-+
-+err_user_exit:
-+	cla_user_exit();
-+	return ret;
-+err_class_destroy:
-+	class_destroy(cla_class);
++err:
++	dev->broken = true;
 +	return ret;
 +}
 +
-+/**
-+ * cla_user_exit - Remove the CLA userspace interface
-+ *
-+ * Remove the cdev, unregister the accelerator class devices, and release the
-+ * minor lookup, device numbers and device class.
-+ *
-+ * Called during module exit or by cla_user_init() to unwind a failure before
-+ * cdev publication. No open files may remain: the module references held by
-+ * open files ensure this during normal module removal.
-+ */
-+void cla_user_exit(void)
++void cla_dev_switch_ctx_work(struct kthread_work *work)
 +{
-+	unsigned int i;
++	struct cla_call_on_cpu *call =
++		container_of(work, struct cla_call_on_cpu, switch_ctx);
++	struct cla_dev *dev = container_of(call, struct cla_dev, call);
 +
-+	if (!cla_nr_minors)
++	call->ret = cla_dev_switch_ctx(dev, call->sched.prev_ctx,
++				       call->sched.next_ctx);
++}
++
++static inline struct cla_ctx *cla_domain_get_next_ctx(struct cla_domain *domain)
++{
++	return list_first_entry_or_null(&domain->queued_ctxs, struct cla_ctx,
++					queue_node);
++}
++
++static inline struct cla_ctx *cla_domain_get_prev_ctx(struct cla_domain *domain,
++						      struct cla_ctx *next_ctx)
++{
++	if (domain->assigned_ctx && (next_ctx || cla_ctx_is_dying(domain->assigned_ctx)))
++		return domain->assigned_ctx;
++	return NULL;
++}
++
++static void cla_vma_zap_domain(struct vm_area_struct *vma, struct cla_domain *domain)
++{
++	unsigned long vma_start = vma->vm_pgoff;
++	unsigned long vma_end = vma_start + vma_pages(vma);
++	unsigned long domain_start = domain->pg_offset;
++	unsigned long domain_end = domain_start + domain->nr_devs;
++	unsigned long start = max(vma_start, domain_start);
++	unsigned long end = min(vma_end, domain_end);
++	unsigned long addr;
++	unsigned long size;
++
++	if (start >= end)
 +		return;
 +
-+	if (cla_cdev_added) {
-+		cdev_del(&cla_cdev);
-+		cla_cdev_added = false;
++	addr = vma->vm_start + ((start - vma_start) << PAGE_SHIFT);
++	size = (end - start) << PAGE_SHIFT;
++	zap_special_vma_range(vma, addr, size);
++}
++
++static void cla_domain_zap(struct cla_domain *domain, struct cla_ctx *ctx)
++{
++	struct vm_area_struct *vma;
++	struct vma_iterator vmi;
++
++	/*
++	 * If the context is dying it has already been unmapped, no need to zap
++	 * it here.
++	 */
++	if (!ctx || cla_ctx_is_dying(ctx))
++		return;
++
++	if (!mmget_not_zero(ctx->key.mm))
++		return;
++
++	/*
++	 * Iterate over vmas in prev_ctx's mm, looking for vmas that map
++	 * prev_ctx's file. Zap any portions of those vmas that map the domain.
++	 */
++	mmap_read_lock(ctx->key.mm);
++	vma_iter_init(&vmi, ctx->key.mm, 0);
++	for_each_vma(vmi, vma) {
++		if (vma->vm_file != ctx->key.file)
++			continue;
++
++		cla_vma_zap_domain(vma, domain);
++	}
++	mmap_read_unlock(ctx->key.mm);
++	mmput(ctx->key.mm);
++}
++
++static void cla_domain_reassign(struct kthread_work *work)
++{
++	struct cla_ctx *assigned_ctx = NULL;
++	struct cla_ctx *prev_ctx = NULL;
++	struct cla_ctx *next_ctx = NULL;
++	struct cla_domain *domain;
++	int ret;
++
++	domain = container_of(work, struct cla_domain, reassign.work);
++
++	/*
++	 * Exclude cpuhp until assigned_ctx reflects the hardware again. cpuhp
++	 * callbacks use it to save/restore the local device and must not see
++	 * invalid_ctx. Take before domain->lock, also used by cpuhp callbacks.
++	 */
++	cpus_read_lock();
++	mutex_lock(&domain->lock);
++	if (domain->broken)
++		goto out_unlock;
++
++	/* Figure out prev_ctx and next_ctx. NULL indicates don't [un]assign. */
++	next_ctx = cla_domain_get_next_ctx(domain);
++	prev_ctx = cla_domain_get_prev_ctx(domain, next_ctx);
++
++	if (!prev_ctx && !next_ctx)
++		goto out_unlock;
++
++	/* prev_ctx already holds its assignment reference. */
++	if (next_ctx)
++		cla_ctx_get(next_ctx);
++
++	/*
++	 * We need to grab mmap_lock, but can't do so while holding the domain
++	 * lock (since cla_vma_fault() grabs the domain lock while holding
++	 * mmap_lock). The queue may change and contexts may be killed by
++	 * cla_ctx_destroy() while the lock is dropped.
++	 *
++	 * No user is allowed to access CLA while we are reassigning. Disable
++	 * assigned_ctx before zapping so cla_vma_fault() won't re-map the
++	 * domain during reassignment. The sentinel also defers broken-domain
++	 * cleanup until we know which context hardware may still access.
++	 */
++	WRITE_ONCE(domain->assigned_ctx, &invalid_ctx);
++	mutex_unlock(&domain->lock);
++
++	/* Prevent prev_ctx from accessing any device in the domain. */
++	cla_domain_zap(domain, prev_ctx);
++
++	/* cpus_read_lock() ensures workers remain cpu-bound and alive. */
++	ret = cla_domain_switch_ctx(domain, prev_ctx, next_ctx, &assigned_ctx);
++
++	mutex_lock(&domain->lock);
++	WRITE_ONCE(domain->assigned_ctx, assigned_ctx);
++
++	/* Also handle failure reported by another thread during the switch. */
++	if (ret || domain->broken) {
++		cla_domain_set_broken(domain);
++		goto out_unlock;
 +	}
 +
-+	for (i = 0; i < cla_nr_classes; i++)
-+		device_unregister(&cla_accel_classes[i]->dev);
++	/*
++	 * Remove next_ctx from the queue and wake up all waiters so that the
++	 * fault handler can map the domain into the newly assigned process.
++	 * assigned_ctx must have been updated prior to waking the waiters.
++	 *
++	 * If next_ctx was killed while we were assigning it, schedule another
++	 * reassignment to deassign it.
++	 */
++	if (next_ctx) {
++		if (cla_ctx_is_dying(next_ctx)) {
++			cla_domain_schedule_reassignment(domain);
++			goto out_unlock;
++		}
++		list_del_init(&next_ctx->queue_node);
++		wake_up_all(&next_ctx->waitq);
++	}
 +
-+	kvfree(cla_accel_classes);
-+	cla_accel_classes = NULL;
-+	cla_nr_classes = 0;
-+	unregister_chrdev_region(cla_devt, cla_nr_minors);
-+	cla_nr_minors = 0;
-+	class_destroy(cla_class);
++	/* If there are more queued ctxs, schedule the next reassignment. */
++	if (!list_empty(&domain->queued_ctxs))
++		cla_domain_schedule_reassignment(domain);
++
++out_unlock:
++	mutex_unlock(&domain->lock);
++	cpus_read_unlock();
++
++	/* Deliberately put references outside of the locks. */
++	if (next_ctx && next_ctx != assigned_ctx)
++		cla_ctx_put(next_ctx);
++	if (prev_ctx && prev_ctx != assigned_ctx)
++		cla_ctx_put(prev_ctx);
 +}
-diff --git a/include/uapi/linux/arm-cla.h b/include/uapi/linux/arm-cla.h
-new file mode 100644
-index 000000000000..f65f1b760c34
---- /dev/null
-+++ b/include/uapi/linux/arm-cla.h
-@@ -0,0 +1,198 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+/*
-+ * UAPI definitions for the CLA character device.
-+ */
-+
-+#ifndef _UAPI_LINUX_CLA_H
-+#define _UAPI_LINUX_CLA_H
-+
-+#include <linux/ioctl.h>
-+#include <linux/types.h>
-+
-+#define ARM_CLA_IOC_MAGIC	'C'
 +
 +/**
-+ * define ARM_CLA_IOCTL_GET_PARAM - Get the value of a parameter.
++ * cla_domain_sched_init - Initialize scheduling for a CLA domain
++ * @domain: CLA domain
 + *
-+ * ioctl command whose argument is a pointer to &struct arm_cla_param.
-+ * &arm_cla_param->param and &arm_cla_param->index are input parameters.
-+ * &arm_cla_param->value is an output parameter.
++ * Initialize domain context table, scheduling queues, worker, and work items.
 + *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - Unrecognised param or param does not support GET
-+ * * Return code as defined for param
++ * Return: 0 on success, or an error
 + */
-+#define ARM_CLA_IOCTL_GET_PARAM	\
-+	_IOWR(ARM_CLA_IOC_MAGIC, 0x00, struct arm_cla_param)
++int cla_domain_sched_init(struct cla_domain *domain)
++{
++	int ret;
++
++	INIT_LIST_HEAD(&domain->queued_ctxs);
++	WRITE_ONCE(domain->assigned_ctx, NULL);
++
++	ret = rhashtable_init(&domain->ctxs, &ctxs_rht_params);
++	if (ret)
++		return ret;
++
++	domain->worker = kthread_run_worker(0, "cla-domain-worker");
++	if (IS_ERR(domain->worker)) {
++		rhashtable_destroy(&domain->ctxs);
++		return PTR_ERR(domain->worker);
++	}
++	kthread_init_delayed_work(&domain->reassign, cla_domain_reassign);
++
++	return 0;
++}
 +
 +/**
-+ * define ARM_CLA_PARAM_DEV_NR - Number of attached CLA devices (RO).
++ * cla_domain_sched_exit - Tear down scheduling for a CLA domain
++ * @domain: CLA domain
 + *
-+ * &arm_cla_param->index must be 0.
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - index not 0
++ * Drain final deassignment, destroy the domain worker, and destroy the context
++ * table. All context users must have exited before calling this.
 + */
-+#define ARM_CLA_PARAM_DEV_NR		1
-+
-+/**
-+ * define ARM_CLA_PARAM_DEV_CPU_ID - CPU to which the CLA is attached (RO).
-+ *
-+ * &arm_cla_param->index is the dev_id in range [0, DEV_NR).
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - dev_id (index) not in range
-+ */
-+#define ARM_CLA_PARAM_DEV_CPU_ID	2
-+
-+/**
-+ * define ARM_CLA_PARAM_DEV_DOMAIN_ID - Domain to which the CLA belongs (RO).
-+ *
-+ * &arm_cla_param->index is the dev_id in range [0, DEV_NR).
-+ *
-+ * A CLA domain contains a set of CLA devices whose accelerators can communicate
-+ * with each other. All CLA devices within a CLA domain are atomically assigned
-+ * to a single context at a time.
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - dev_id (index) not in range
-+ */
-+#define ARM_CLA_PARAM_DEV_DOMAIN_ID	3
-+
-+/**
-+ * define ARM_CLA_PARAM_DEV_PGOFF - CLA's ``mmap()`` page offset (RO).
-+ *
-+ * &arm_cla_param->index is the dev_id in range [0, DEV_NR).
-+ *
-+ * The page offset at which the selected CLA device's register page is exposed
-+ * through ``mmap()``.
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - dev_id (index) not in range
-+ */
-+#define ARM_CLA_PARAM_DEV_PGOFF		4
-+
-+/**
-+ * define ARM_CLA_PARAM_DEV_AIDR - CLA Architecture Identification Register
-+ * (RO).
-+ *
-+ * &arm_cla_param->index is the dev_id in range [0, DEV_NR).
-+ *
-+ * The CLA Architecture Identification Register is used to obtain version
-+ * information of the CLA Programming model.
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - dev_id (index) not in range
-+ */
-+#define ARM_CLA_PARAM_DEV_AIDR		5
-+
-+/**
-+ * define ARM_CLA_PARAM_DEV_ACCELS - CLA accelerators in opened class (RO).
-+ *
-+ * &arm_cla_param->index is the dev_id in range [0, DEV_NR).
-+ *
-+ * A bitmask of accelerator slots on the selected CLA device that belong to the
-+ * class of the opened character device. Class membership is determined by
-+ * matching IIDR.IMPLEMENTER and IIDR.PRODUCTID.
-+ *
-+ * Each bit corresponds to an accel_id in the range [0, 8). The mask is zero if
-+ * the selected CLA has no accelerators belonging to the opened class.
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - dev_id (index) not in range
-+ */
-+#define ARM_CLA_PARAM_DEV_ACCELS	6
-+
-+/**
-+ * define ARM_CLA_PARAM_ACCEL_IIDR - Accelerator IIDR register (RO).
-+ *
-+ * &arm_cla_param->index is ARM_CLA_PARAM_ACCEL_INDEX(accel_id, dev_id).
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - dev_id not in range
-+ * * %-EINVAL - accel_id not in range
-+ * * %-ENODEV - accel_id not attached or does not belong to opened class
-+ */
-+#define ARM_CLA_PARAM_ACCEL_IIDR	7
-+
-+/**
-+ * define ARM_CLA_PARAM_ACCEL_DEVARCH - Accelerator DEVARCH register (RO).
-+ *
-+ * &arm_cla_param->index is ARM_CLA_PARAM_ACCEL_INDEX(accel_id, dev_id).
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - dev_id not in range
-+ * * %-EINVAL - accel_id not in range
-+ * * %-ENODEV - accel_id not attached or does not belong to opened class
-+ */
-+#define ARM_CLA_PARAM_ACCEL_DEVARCH	8
-+
-+/**
-+ * define ARM_CLA_PARAM_ACCEL_REVIDR - Accelerator REVIDR register (RO).
-+ *
-+ * &arm_cla_param->index is ARM_CLA_PARAM_ACCEL_INDEX(accel_id, dev_id).
-+ *
-+ * Return:
-+ * * %0 - OK
-+ * * %-EINVAL - dev_id not in range
-+ * * %-EINVAL - accel_id not in range
-+ * * %-ENODEV - accel_id not attached or does not belong to opened class
-+ */
-+#define ARM_CLA_PARAM_ACCEL_REVIDR	9
-+
-+/**
-+ * ARM_CLA_PARAM_ACCEL_INDEX() - encode index for specific accelerator.
-+ * @accel_id:	accelerator id in the range [0, 8).
-+ * @dev_id:	CLA device id in the range [0, DEV_NR).
-+ *
-+ * Return: encoded index for use in &arm_cla_param->index.
-+ */
-+#define ARM_CLA_PARAM_ACCEL_INDEX(accel_id, dev_id) \
-+	(((accel_id) << 24) | (dev_id))
-+
-+/**
-+ * ARM_CLA_PARAM_INDEX_ACCEL() - extract accel_id from index.
-+ * @index:	Encoded index as returned by ARM_CLA_PARAM_ACCEL_INDEX()
-+ *
-+ * Return: extracted accel_id.
-+ */
-+#define ARM_CLA_PARAM_INDEX_ACCEL(index) (((index) >> 24) & 0xff)
-+
-+/**
-+ * ARM_CLA_PARAM_INDEX_DEV() - extract dev_id from index.
-+ * @index:	Encoded index as returned by ARM_CLA_PARAM_ACCEL_INDEX()
-+ *
-+ * Return: extracted dev_id.
-+ */
-+#define ARM_CLA_PARAM_INDEX_DEV(index) ((index) & 0xffffff)
-+
-+/**
-+ * struct arm_cla_param - Get/Set CLA parameters.
-+ */
-+struct arm_cla_param {
-+	/**
-+	 * @param: Param selector - One of the ARM_CLA_PARAM_* values.
++void cla_domain_sched_exit(struct cla_domain *domain)
++{
++	/*
++	 * Wait for any in-flight assignment and prevent it from requeuing
++	 * itself. Otherwise, it could move the final reassignment past the
++	 * flush barrier, leaving an assignment reference behind.
 +	 */
-+	__u64 param;
++	kthread_cancel_delayed_work_sync(&domain->reassign);
++	WARN_ON(!list_empty(&domain->queued_ctxs));
 +
-+	/**
-+	 * @index: Index for params that have multiple instances.
++	/*
++	 * All context users have exited, so this run can only deassign the
++	 * remaining context and release its assignment reference. It cannot
++	 * requeue itself, so destroying the worker also drains this final run.
 +	 */
-+	__u64 index;
++	kthread_mod_delayed_work(domain->worker, &domain->reassign, 0);
++	kthread_destroy_worker(domain->worker);
++	WARN_ON(READ_ONCE(domain->assigned_ctx));
 +
-+	/**
-+	 * @value: Param value.
++	rhashtable_destroy(&domain->ctxs);
++}
++
++/**
++ * cla_domain_set_broken - Mark a CLA domain as broken
++ * @domain: CLA domain
++ *
++ * Prevent further assignment and wake contexts waiting for assignment. Release
++ * the assignment reference while retaining resources that failed hardware may
++ * still access. The caller must hold the domain lock.
++ */
++void cla_domain_set_broken(struct cla_domain *domain)
++{
++	struct cla_ctx *ctx;
++
++	lockdep_assert_held(&domain->lock);
++	WRITE_ONCE(domain->broken, true);
++
++	/* Notify any waiter that their context isn't getting reassigned. */
++	list_for_each_entry(ctx, &domain->queued_ctxs, queue_node)
++		wake_up_all(&ctx->waitq);
++
++	/*
++	 * During a switch, assigned_ctx is invalid_ctx. Ignore for now; we will
++	 * be called again at the end of the switch once the real context is
++	 * reinstalled in assigned_ctx.
 +	 */
-+	__u64 value;
-+};
++	ctx = domain->assigned_ctx;
++	if (ctx && ctx != &invalid_ctx) {
++		WRITE_ONCE(domain->assigned_ctx, NULL);
++		cla_mtc_leak_ctx(ctx);
++		cla_ctx_put(ctx);
++	}
++}
 +
-+#endif /* _UAPI_LINUX_CLA_H */
++/**
++ * cla_domain_lookup_ctx - Look up a context in a CLA domain
++ * @domain: CLA domain
++ * @key: Context identifier
++ *
++ * The caller must hold the domain lock.
++ *
++ * Return: the matching context, or %NULL if no context was found
++ */
++struct cla_ctx *cla_domain_lookup_ctx(struct cla_domain *domain,
++				      struct cla_ctx_key *key)
++{
++	lockdep_assert_held(&domain->lock);
++	return rhashtable_lookup_fast(&domain->ctxs, key, ctxs_rht_params);
++}
++
++/**
++ * cla_domain_insert_ctx - Insert a context into a CLA domain
++ * @domain: CLA domain
++ * @ctx: context to insert
++ *
++ * The caller must hold the domain lock.
++ *
++ * Return: 0 on success, or an error
++ */
++int cla_domain_insert_ctx(struct cla_domain *domain, struct cla_ctx *ctx)
++{
++	lockdep_assert_held(&domain->lock);
++	return rhashtable_insert_fast(&domain->ctxs, &ctx->node, ctxs_rht_params);
++}
++
++/**
++ * cla_domain_remove_ctx - Remove a context from a CLA domain
++ * @domain: CLA domain
++ * @ctx: context to remove
++ *
++ * The caller must hold the domain lock.
++ */
++void cla_domain_remove_ctx(struct cla_domain *domain, struct cla_ctx *ctx)
++{
++	lockdep_assert_held(&domain->lock);
++	rhashtable_remove_fast(&domain->ctxs, &ctx->node, ctxs_rht_params);
++}
++
++/**
++ * cla_domain_schedule_reassignment - Schedule domain reassignment
++ * @domain: CLA domain
++ *
++ * The caller must hold the domain lock. If a live context is currently
++ * assigned, schedule with a delay (CLA_SLICE_MS), otherwise reassign
++ * immediately. Do nothing if the domain is broken or a switch is in progress;
++ * the running switch handles new requests before returning. If reassignment is
++ * already scheduled, the delay is modified.
++ */
++void cla_domain_schedule_reassignment(struct cla_domain *domain)
++{
++	struct cla_ctx *ctx = domain->assigned_ctx;
++	unsigned long delay_jfs = 0;
++
++	lockdep_assert_held(&domain->lock);
++
++	if (domain->broken || ctx == &invalid_ctx)
++		return;
++
++	if (ctx && !cla_ctx_is_dying(ctx))
++		delay_jfs = msecs_to_jiffies(CLA_SLICE_MS);
++
++	kthread_mod_delayed_work(domain->worker, &domain->reassign, delay_jfs);
++}
+diff --git a/drivers/misc/arm-cla/cla-topology.c b/drivers/misc/arm-cla/cla-topology.c
+index 5137a0e041e5..ed7acec70019 100644
+--- a/drivers/misc/arm-cla/cla-topology.c
++++ b/drivers/misc/arm-cla/cla-topology.c
+@@ -37,6 +37,8 @@ static struct cla_domain *cla_domain_alloc(struct cla_dev *dev, unsigned int fwi
+ 	if (!domain)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	mutex_init(&domain->lock);
++
+ 	ret = xa_insert(&cla_domains, fwid, domain, GFP_KERNEL);
+ 	if (ret < 0)
+ 		goto err_free_domain;
+@@ -49,8 +51,14 @@ static struct cla_domain *cla_domain_alloc(struct cla_dev *dev, unsigned int fwi
+ 	}
+ 	domain->devs[0] = dev;
+ 
++	ret = cla_domain_sched_init(domain);
++	if (ret)
++		goto err_free_devs;
++
+ 	return domain;
+ 
++err_free_devs:
++	kfree(domain->devs);
+ err_free_id:
+ 	xa_erase(&cla_domains, fwid);
+ err_free_domain:
+@@ -149,6 +157,21 @@ int __init cla_domains_finalise(void)
+ 	return ret;
+ }
+ 
++/**
++ * cla_domains_sched_exit - Drain and stop all domain schedulers
++ *
++ * All context users must have exited. Keep domains and lookup tables alive for
++ * CPU hotplug callbacks until those callbacks have been removed.
++ */
++void cla_domains_sched_exit(void)
++{
++	unsigned long fwid;
++	struct cla_domain *domain;
++
++	xa_for_each(&cla_domains, fwid, domain)
++		cla_domain_sched_exit(domain);
++}
++
+ /**
+  * cla_domains_free - free CLA domains and lookup tables
+  *
 -- 
 2.43.0
 
