@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9892CC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:34:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 636D4CC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F30E010E5A0;
-	Thu, 15 Oct 2026 15:34:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 417A510E3A4;
+	Thu, 15 Oct 2026 15:41:29 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F01910E5A0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:34:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B580610E28E
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:41:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F19734349E
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:34:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9EA91F000C4;
- Thu, 15 Oct 2026 15:34:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 695BD408E1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:41:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DABA1F000C4;
+ Thu, 15 Oct 2026 15:41:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792078465;
- bh=mnkAdyElXCuJ9bIcx6QldQtZNsm8U6339XuGjm7fm2Y=;
+ s=k20260515; t=1792078882;
+ bh=XA2t6w+BUSrtJbEmBrIdFa9fvjLSKvlH+IbWQ+2ttw8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iO8sGEBbDA73QMWQngHEpqlu+VTGzWnpNz2ByIotsT6A6fyLJte5J+UiRQCksuGVQ
- ey073ArDKoejM/DdZ/fMPs2E/YY+aSfY2MLtQx0nPQoPcj6qPdzJu5WPO6VLaRxlBV
- PXhcTjOsRzs5rf8/4P6Hq3VQYr0IDL9ZLhFtacPTKJAdwxHfi9hAM2rneeNMJQJ4xa
- G2DFxW6pPN7en3c19USBHz0PJcqFC1fVISe6mfm7Nvk9a6qfE8tCXjayLdoYSiO7bL
- TGhPBRtsTLgAw37JqBKyJytqsD+UZMH/ZktbRdSM7Q+bz1UbDPlJYSNKVZVgAA3L77
- Xza47wldLFh/Q==
-Message-ID: <sashiko-outbox-173079@kernel.org>
+ b=gxwVk2YndHYCR1igJhxX+OFuNbSR0wIisYp90n7nRYF6VAcq7X9jlVGIN913wRJce
+ g+8HtihcJoWqgcKMh8oifWXjARbh7NGDjZzeI1X/hd9DNDF8r3wtdRtSpjUR9ezYJS
+ jvUHyvj97Qep7TmUeU3UbZvkygt7Y1ZZYLLtuTNx/NDTaIEUxTJ6r2rS10SLe1bD3L
+ OfDqOPvZmj9X5FUJKVqci7E68X4Uo8+sLyemttsyDNMDNwN8mnA39srFHhvY2ASMkQ
+ hoWEezSy/0zV1Axm0XHWDRZtVHbypcGs+IvJ4A5NQ+R9f0G2uK56PICKRV06qfsMHn
+ zM0D7Wcm9mayg==
+Message-ID: <sashiko-outbox-173085@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/28] drm/bridge: Switch print_state to use bridge name
+Subject: Re: [PATCH v6 06/28] drm/atomic_sro: Create drm_atomic_sro_state
+ container
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261015-drm-state-readout-v6-3-6cc02cd10998@kernel.org>
+In-Reply-To: <20261015-drm-state-readout-v6-6-6cc02cd10998@kernel.org>
 References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
- <20261015-drm-state-readout-v6-3-6cc02cd10998@kernel.org>
+ <20261015-drm-state-readout-v6-6-6cc02cd10998@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 15:34:25 +0000
+Date: Thu, 15 Oct 2026 15:41:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,90 +55,224 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm_bridge: ignored return from drm_atomic_private_obj_init causes=
- crash
-- [Low] drm_bridge: degraded debug output for statically allocated bridges
+- [High] drm/atomic_sro: heap out-of-bounds array access due to sparse conn=
+ector IDA
+- [Medium] drm: connector reference leak in drm_atomic_sro_state_free() whe=
+n conn_state is NULL
+- [Low] drm: incorrect error code -EINVAL on OOM in drm_atomic_sro_state_al=
+loc()
 --
 
-commit e5b998c537e0f9eb83be0fe1e66e8f70427ccfcc
+commit 7fa33b0c7c68e508f3bb44a6225923e6e800d132
 Author: Maxime Ripard <mripard@kernel.org>
-Subject: drm/bridge: Switch print_state to use bridge name
 
-This commit updates drm_bridge_atomic_print_priv_state() to print the
-human-readable bridge->name instead of the function pointer bridge->funcs.
-This is intended to make the state readout output more consistent and
-easier to interpret.
+drm/atomic_sro: Create drm_atomic_sro_state container
 
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index d474d60204110..447fe6d333b3b 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -563,9 +563,9 @@ drm_bridge_atomic_print_priv_state(struct drm_printer=
- *p,
->  	struct drm_bridge *bridge =3D drm_priv_to_bridge(s->obj);
-> =20
->  	if (bridge->of_node)
-> -		drm_printf(p, "bridge: %ps (%pOFfc)\n", bridge->funcs, bridge->of_node=
-);
-> +		drm_printf(p, "bridge: %s (%pOFfc)\n", bridge->name, bridge->of_node);
->  	else
-> -		drm_printf(p, "bridge: %ps\n", bridge->funcs);
-> +		drm_printf(p, "bridge: %s\n", bridge->name);
+The SRO infrastructure needs a state container to collect the readout states
+for all KMS objects. Unlike drm_atomic_commit which tracks old and new stat=
+es
+for atomic commits, this container only holds a single state per object. Th=
+is
+commit creates struct drm_atomic_sro_state with arrays for planes, CRTCs,
+connectors, and private objects.
 
-[Severity: Low]
-In drivers/gpu/drm/drm_bridge.c:drm_bridge_atomic_print_priv_state(),
-for bridges that do not use devm_drm_bridge_alloc() (e.g., legacy or
-statically allocated bridges), bridge->name is never initialized and
-remains NULL.
-
-When bridge->name is NULL, vsprintf safely intercepts the NULL pointer
-and prints '(null)'.
-
-Does this degrade the debug output compared to the previous behavior
-(which printed the function pointer symbol for identification), defeating
-the goal for these bridges?
+> diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomi=
+c_sro.c
+> new file mode 100644
+> index 0000000000000..096fdb7088190
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_atomic_sro.c
+[ ... ]
+> +static int drm_atomic_sro_state_init(struct drm_device *dev,
+> +				     struct drm_atomic_sro_state *state)
+> +{
+> +	int err;
+> +
+> +	state->planes =3D
+> +		kzalloc_objs(*state->planes, dev->mode_config.num_total_plane);
+> +	if (!state->planes)
+> +		return -ENOMEM;
+> +
+> +	state->crtcs =3D kzalloc_objs(*state->crtcs, dev->mode_config.num_crtc);
+> +	if (!state->crtcs) {
+> +		err =3D -ENOMEM;
+> +		goto err_free_planes;
+> +	}
+> +
+> +	state->connectors =3D kzalloc_objs(*state->connectors,
+> +					 dev->mode_config.num_connector);
 
 [Severity: High]
-While looking into the bridge->name changes, I noticed a related issue in
-drivers/gpu/drm/drm_bridge.c:drm_bridge_attach(), where the return value
-of drm_atomic_private_obj_init() is ignored.
+Does allocating the array using num_connector account for sparse IDA indice=
+s?
+Connector indices are allocated dynamically and can exceed the active
+connector count if connectors are hotplugged or removed. Using num_connector
+as the size limits the array, which may cause out-of-bounds access when
+indexed directly.
 
-A preceding patch in this series added a dynamically allocated name
-parameter to drm_atomic_private_obj_init() which fails with -ENOMEM if
-the allocation fails:
+> +	if (!state->connectors) {
+> +		err =3D -ENOMEM;
+> +		goto err_free_crtcs;
+> +	}
+> +
+> +	state->private_objs =3D
+> +		kzalloc_objs(*state->private_objs, count_private_obj(dev));
+> +	if (!state->private_objs)  {
+> +		err =3D -ENOMEM;
+> +		goto err_free_connectors;
+> +	}
+> +
+> +	state->num_private_objs =3D 0;
+> +
+> +	drm_dev_get(dev);
+> +	state->dev =3D dev;
+> +
+> +	return 0;
+> +
+> +err_free_connectors:
+> +	kfree(state->connectors);
+> +err_free_crtcs:
+> +	kfree(state->crtcs);
+> +err_free_planes:
+> +	kfree(state->planes);
+> +	return err;
+> +}
+> +
+> +/**
+> + * drm_atomic_sro_state_alloc - allocate an SRO state container
+> + * @dev: DRM device to allocate the state for
+> + *
+> + * Allocates and initializes a &struct drm_atomic_sro_state that can hold
+> + * readout states for all KMS objects on @dev.
+> + *
+> + * The returned state must be freed with drm_atomic_sro_state_free().
+> + *
+> + * RETURNS:
+> + *
+> + * A new &struct drm_atomic_sro_state on success, an error pointer on
+> + * failure.
+> + */
+> +struct drm_atomic_sro_state *drm_atomic_sro_state_alloc(struct drm_devic=
+e *dev)
+> +{
+> +	struct drm_atomic_sro_state *state;
+> +	int ret;
+> +
+> +	state =3D kzalloc_obj(*state);
+> +	if (!state)
+> +		return ERR_PTR(-EINVAL);
 
-drivers/gpu/drm/drm_atomic.c:drm_atomic_private_obj_init() {
-    ...
-	obj->name =3D kstrdup(name, GFP_KERNEL);
-	if (!obj->name) {
-		ret =3D -ENOMEM;
-		goto err_lock_fini;
-	}
-    ...
-}
+[Severity: Low]
+Should this return -ENOMEM instead of -EINVAL when memory allocation fails?
 
-Because bridge->name is NULL for statically allocated bridges,
-kstrdup(NULL) returns NULL, causing drm_atomic_private_obj_init() to
-unconditionally fail. Since drm_bridge_attach() ignores the return value:
+> +
+> +	ret =3D drm_atomic_sro_state_init(dev, state);
+> +	if (ret) {
+> +		kfree(state);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	return state;
+> +}
+> +EXPORT_SYMBOL(drm_atomic_sro_state_alloc);
+> +
+> +/**
+> + * drm_atomic_sro_state_free - free an SRO state container
+> + * @state: SRO state to free
+> + *
+> + * Frees a &struct drm_atomic_sro_state previously allocated with
+> + * drm_atomic_sro_state_alloc().
+> + */
+> +void drm_atomic_sro_state_free(struct drm_atomic_sro_state *state)
+> +{
+> +	struct drm_device *dev =3D state->dev;
+> +	unsigned int i;
+> +
+> +	for (i =3D 0; i < state->num_private_objs; i++) {
+> +		struct drm_private_obj *obj =3D state->private_objs[i].ptr;
+> +		struct drm_private_state *obj_state =3D state->private_objs[i].state;
+> +
+> +		if (!obj || !obj_state)
+> +			continue;
+> +
+> +		obj->funcs->atomic_destroy_state(obj, obj_state);
+> +		state->private_objs[i].state =3D NULL;
+> +		state->private_objs[i].ptr =3D NULL;
+> +	}
+> +
+> +	kfree(state->private_objs);
+> +
+> +	for (i =3D 0; i < state->dev->mode_config.num_connector; i++) {
 
-drivers/gpu/drm/drm_bridge.c:drm_bridge_attach() {
-    ...
-	drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
-				    &drm_bridge_priv_state_funcs);
+[Severity: High]
+Does iterating up to the live num_connector cause out-of-bounds reads?
+Since num_connector can increase after the SRO state was allocated if
+connectors are added, this loop might read past the end of the originally
+allocated state->connectors array.
 
-	return 0;
-}
+> +		struct drm_connector *conn =3D state->connectors[i].ptr;
+> +		struct drm_connector_state *conn_state =3D
+> +			state->connectors[i].state;
+> +
+> +		if (!conn || !conn_state)
+> +			continue;
 
-The private object is left zeroed and uninitialized.
+[Severity: Medium]
+Does this skip drm_connector_put() and leak the reference if conn is valid =
+but
+conn_state is NULL?=20
+In drm_atomic_sro_set_connector_state(), drm_connector_get() unconditionally
+takes a reference on conn and stores it. If conn_state is NULL during clean=
+up,
+the early continue bypasses drm_connector_put() completely.
 
-Will this cause a deterministic NULL pointer dereference during teardown
-when drm_bridge_detach() calls drm_atomic_private_obj_fini(), which
-executes list_del(&obj->head) on a zeroed list_head? Does it also cause a
-crash during atomic commits when drm_atomic_helper_swap_state() attempts
-to dereference old_obj_state->state?
+> +
+> +		conn->funcs->atomic_destroy_state(conn, conn_state);
+> +		state->connectors[i].state =3D NULL;
+> +		state->connectors[i].ptr =3D NULL;
+> +		drm_connector_put(conn);
+> +	}
+> +
+[ ... ]
+> +/**
+> + * drm_atomic_sro_set_connector_state - store a connector state into an =
+SRO state
+> + * @state: SRO state container
+> + * @conn: connector the state belongs to
+> + * @conn_state: connector state to store
+> + *
+> + * Takes a reference on @conn which is released when the state is
+> + * installed or freed.
+> + */
+> +void drm_atomic_sro_set_connector_state(struct drm_atomic_sro_state *sta=
+te,
+> +					struct drm_connector *conn,
+> +					struct drm_connector_state *conn_state)
+> +{
+> +	unsigned int index =3D drm_connector_index(conn);
+> +
+> +	drm_connector_get(conn);
+> +	state->connectors[index].ptr =3D conn;
+
+[Severity: High]
+Can this write out of bounds?
+Since the connectors array was allocated using num_connector rather than
+accommodating sparse indices, a connector with an index greater than or equ=
+al
+to num_connector will cause this write to overwrite heap memory.
+
+> +	state->connectors[index].state =3D conn_state;
+> +
+> +	drm_dbg_atomic(conn->dev,
+> +		       "Added [CONNECTOR:%d:%s] %p state to readout state %p\n",
+> +		       conn->base.id, conn->name, conn_state, state);
+> +}
+> +EXPORT_SYMBOL(drm_atomic_sro_set_connector_state);
+> +
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-drm-state-=
-readout-v6-0-6cc02cd10998@kernel.org?part=3D3
+readout-v6-0-6cc02cd10998@kernel.org?part=3D6
