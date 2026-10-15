@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21752CC6B30
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 10:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EACA6CC6B30
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 10:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 787981122C8;
-	Thu, 15 Oct 2026 10:48:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BE121122CA;
+	Thu, 15 Oct 2026 10:49:02 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 481671122C4
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:48:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC3441122C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:48:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1792061320;
+ s=mimecast20190719; t=1792061333;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0vP2T14fdZ9XceyUCbSqZEpcWzH3VTeyPfkjXOwntFs=;
- b=L48KIk6kfaSzjn+3Bi6ys16usgiqXMsSNH47RRyKO/S/ksH87ois7a2hNhVPrersTwl7Nj
- xbP+uFliFfuzTDW4VlhuifO+7Iyu9acJLV5AOgjEYy6glrl4BDt8xZx6yjZASnzJnDfXTn
- 6Qa5UYQTf002GAN7HDhyfo7hffBtL70=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=cdVLMAZy6yX+rhcPQgA+e1xHnyjEu1yIo4gqZ1n+w9E=;
+ b=QfoNsspfJ9srtkjjI5NlZWv4AAax3ZjfVlWLJMyf47lDoOpY7VP3a499JbZXlNhW+w4+B6
+ 4ZT0urqMOZkQbS35uyWMcEs09o1CwVUyf9t9GyxhER2r+0HkzgwOwfAaOkN5ZXkSa10P9I
+ elmdVulVzXWLii8r00M7ZG3jgwZEM90=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-678-_Hx_cXgaPueW_C_7TJMSig-1; Thu, 15 Oct 2026 10:48:37 +0000
-X-MC-Unique: _Hx_cXgaPueW_C_7TJMSig-1
-X-Mimecast-MFC-AGG-ID: _Hx_cXgaPueW_C_7TJMSig_1792061316
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4a1813fea7dso75847605e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 03:48:37 -0700 (PDT)
+ us-mta-408-lHgfhiooM4WKQkjusHtLIw-1; Thu, 15 Oct 2026 10:48:51 +0000
+X-MC-Unique: lHgfhiooM4WKQkjusHtLIw-1
+X-Mimecast-MFC-AGG-ID: lHgfhiooM4WKQkjusHtLIw_1792061330
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-48c437ae81eso1032183f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 03:48:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792061316; x=1792666116;
+ d=1e100.net; s=20260707; t=1792061330; x=1792666130;
  h=content-type:mime-version:message-id:date:references:in-reply-to
  :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=0vP2T14fdZ9XceyUCbSqZEpcWzH3VTeyPfkjXOwntFs=;
- b=biC1Oyv8Pl4cUpR/4L/nI6gBqTZkTnadXAanIeaYjwumCMrWAdMKlj6axNb4R4eDHE
- B53am6kKrq/N5IyWJFydp1aKtEYeT63vaR1/bopTl/PwB8Vrq+SlLf/JJta8/b1lhd3+
- kcG3uC9v5aUwoa7FsD/YyEymRMspJbWOh+ROnr9eK7wM1CmP2/k45MufCIq0VtXUfXx4
- GXijWiFJzVvO4W+PXNO4bP2MKqYdSRuvnKBYW4h8nrFIgwiYVqoHcXp9nZh5u4kAijY5
- 6HES1Gg2ipYzk8LImtPatT6TphHIdczej7K151b+MbGZD2xpwVE8msjQYwv1SE90It3V
- LqRA==
+ bh=cdVLMAZy6yX+rhcPQgA+e1xHnyjEu1yIo4gqZ1n+w9E=;
+ b=irNfrn45G7qyMaGG4UHktUoVO+hrUIHS9Ya1/bdfH/FOe615shFdT8C0lRAFRZnxmu
+ YrbxoIO44MTezCfTZIYlsUZOmuR9VaoBx46N1DdiEF1mJgnr94h4SYbvC2zfwLtEkV5+
+ LexBUZsbbkGBSxRPkaoiuPpf2cJI0rkBoTIE1Qnuv75QOS0Dq7b99g7/FBIM7aU85fEF
+ piZrFMQ6SPZcS7ufR/Be/+kzWGvMyixAKUsJoXyImT1VrNRNnrqIMDUUtx1GMd1OFbYF
+ K6toBSExf1+2fTWHshjwwYWfh/tG6grSmNTe8djwIzIlbis28gFcYFKfkvPkCeyOvZg8
+ 9O1g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwX+PBQ46ZXkco2MjNj9DVM8iSm2jcdrOqZKyKfpov7r62SIZxX6ukQCi/FvWoWbbT26M7qTUpWzmI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLiqxLV3aC2KOTOiYvyI0hfeBDfOldOKCIOJLtDYHCYhSnxS8dE
- O4EV82k7HQ9n44HHIQg1JHn5Wm/xCZHtF2X1KEqMGoBuRIHlz8f+8CWVudSFhSpIEnsirmCX7Fx
- /7zb8woiS6jSAp7N+Qbt+YfhBFuad+sdKOrehxdENjIxlmE6JLLsjprDGx2cqGsUYN7wkcg==
-X-Gm-Gg: AYBFou2BU7yu8SvJ++IEI4cVn3TGElS/hpxsdlpaWKXW8UvZ4QD22Bdm+9PCPSQ1zLl
- y/lr17KeT2DyvGktIzXXh7ul4SHZCfnxDqpT+IQNV17KEx3oR2uvw/Qy2r+SIEatOnoNVrF7iLi
- +A9DNN3dEMKWo0l4Z2KmH1LJB0OF3S13FzM0FS9rI9yUpw5HAXLm0kB91K4B9WSlGddfzRLbXHR
- 97z3jtJBhuf9dN94ADKxb/ToUBMUA5lP12Bv3XdQmiiWO/x3UaSmDdENtfWnys5s2p6nRAJGZCs
- cS4f7LiHDMzUt5oFxdWtuP6sNMoSf+ZBXxBQ1axVN2U53OVPFPbJSDgHMp5C+vm7ZSTfBl7opDd
- xKeXx7pZqvYc2D48On/8m5rcYKjDLygyBOaB7Mr0+Yd25lSYtgUSDrusNbnps4rb6Dg==
-X-Received: by 2002:a05:600c:6285:b0:4a1:70da:3350 with SMTP id
- 5b1f17b1804b1-4a18e4b8c6emr349772725e9.32.1792061315938; 
- Thu, 15 Oct 2026 03:48:35 -0700 (PDT)
-X-Received: by 2002:a05:600c:6285:b0:4a1:70da:3350 with SMTP id
- 5b1f17b1804b1-4a18e4b8c6emr349772275e9.32.1792061315579; 
- Thu, 15 Oct 2026 03:48:35 -0700 (PDT)
+ AKwUvBwGdI2z0Bzox1ocPVAqqSaBVS/cU/6KIXn4rj3fr2ONL5iZ/28DS7b7O2nY7cNgaji5v93pqcL8yvY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLq0HofmboiiS4dVlc6S1DaLN+cgTY8AAnNGWQMcc8g9OidGdFB
+ 9iy9XhEmY35tokQu4Ihb7IarhH5HgvOZBT4bCLCzNflvcxLx3/oEUJjpfmO9ZQA5KmmsnMxxc8X
+ IQMYrhGiei7wSkFkhyLJGe/wkyjiwPKvC3fiKxU42lbPBTRDx9J88KH3Q1FrjmtU5r5vUTw==
+X-Gm-Gg: AYBFou1Z/asYOPFVnDg03WX57KzDg2Az4wDYutxVdDgt+LL6MxmZdS3R2LX6lrXZP16
+ k1OToSk7/jEI8LGI6c3X3o4J088eocDmlpx+Y24dA2K/RUP3DP5rd4medzoK1/D0HGHTSTq6Os3
+ C99HZMPDHYrI+FIVPI8TbMVS5bz1O1GtqcmRctB5ZaBLZTtOkJZX6aewyOW7d7dp/qi06bc4v3X
+ zgvAjVGM1mn/pp+B0ezJ0IaHxA6P/RVirP8l5rZPTPtqOMLUHNIKjI6zxbywFk5t8aKVNpnxWdL
+ pRZoMMGpDg4817O8XtBqJrHQG+/7wPWxQFhthPcsjGT5xDBew/uuN9UXPCcoVNzxJwrU6Zy5NDC
+ WriCppKgWS7RB8i75d7LbFQaHfbv88zQj6kDyxGjObC6JZGWfHWi2tx8rOWoLZc5VCA==
+X-Received: by 2002:a05:6000:26c7:b0:48d:f851:ee5f with SMTP id
+ ffacd0b85a97d-48df851f00dmr1880331f8f.24.1792061330376; 
+ Thu, 15 Oct 2026 03:48:50 -0700 (PDT)
+X-Received: by 2002:a05:6000:26c7:b0:48d:f851:ee5f with SMTP id
+ ffacd0b85a97d-48df851f00dmr1880255f8f.24.1792061329842; 
+ Thu, 15 Oct 2026 03:48:49 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1bd9b303csm58389045e9.8.2026.10.15.03.48.33
+ ffacd0b85a97d-48df50bd11asm3806219f8f.8.2026.10.15.03.48.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 03:48:34 -0700 (PDT)
+ Thu, 15 Oct 2026 03:48:48 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Phong LE <ple@baylibre.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Hajda
@@ -79,16 +79,15 @@ Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Luca
  Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 2/3] drm/bridge: ite-it66121: log an error if the IDs do
- not match
-In-Reply-To: <20261015-drm-ite-it66121-log-probe-errors-v1-2-7fd6994e0be0@bootlin.com>
+Subject: Re: [PATCH 3/3] drm/bridge: ite-it66121: make successful probe quiet
+In-Reply-To: <20261015-drm-ite-it66121-log-probe-errors-v1-3-7fd6994e0be0@bootlin.com>
 References: <20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com>
- <20261015-drm-ite-it66121-log-probe-errors-v1-2-7fd6994e0be0@bootlin.com>
-Date: Thu, 15 Oct 2026 12:48:33 +0200
-Message-ID: <xlv1v773fddq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <20261015-drm-ite-it66121-log-probe-errors-v1-3-7fd6994e0be0@bootlin.com>
+Date: Thu, 15 Oct 2026 12:48:47 +0200
+Message-ID: <xlv1se27fddc.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ZHC8-kCzg1ZH1pX8KBc2AWogsTXUF8kHtdTXCmrkMSM_1792061316
+X-Mimecast-MFC-PROC-ID: UA1QEBIuAFAKHdtk0QddUBHvIUNZsF6e8tKnYA-ph44_1792061330
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -108,15 +107,13 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Luca Ceresoli <luca.ceresoli@bootlin.com> writes:
 
-> If the IDs read from the chip do not match any of the known models,
-> it66121_probe() fails silently, making troubleshooting unnecessarily
-> difficult. Log an error to clarify the failure reason, showing the IDs read
-> from the hardware.
+> When drivers are working properly they should be quiet. Turn the dev_info()
+> into a dev_dbg(). While there, also make it more informative.
 >
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 > ---
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
 
 -- 
 Best regards,
