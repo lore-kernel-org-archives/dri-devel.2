@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F431CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:08:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 466D6CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:09:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DFA31122D7;
-	Thu, 15 Oct 2026 11:08:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65417112298;
+	Thu, 15 Oct 2026 11:09:30 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B8F11122D6
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:07:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18910112298
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:09:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=4Hj9kWH5qoRG+jQr1gKyl09XYExSBMsDJ5EWUBR683I=; b=d4fh+76iC4MoEtjhSut94qZW+d
- Y0FfGXaRv9oNHKbQXsD9/hZ17+e0xkdzELgEQ+PNLQ/W874UjpI3wcefbwuY5U4IMatI161JTKalT
- ZZWeLa4d5IFigFhdKUxHiyWRworLv/8gyOPAuOzOGKHK7ZUPqGmrrstYX6d9eN+9TiLR3YFV3GDv1
- hlTNvT04GZnO2PixTeBz4YeGhP/0MW2beipxeii707h7wpkcoEkxcY+WOyoBEbsBdf5enGcDmvDDm
- a4Tm0sbTD4s4hVzQMEi7tPX1803rOnCGFkIH2A0jlDIR4gjAn0xYpZR7UhDPX2HYDuDDbVdprFz3l
- CzapY1xA==;
+ bh=Qf9hY5yuFBtY85XDP8XZE1Z/v/nFfBXpktszx/8NGu8=; b=OGzULFtbcIcfJh/+CRyn72S4a7
+ ehZMQGfjT1LA7Sq6pLYo9yCxu7RbJ0HI6frVgiM8FIVb3KkuADW+A65kEdCn9ok6feV+zVEJ5OjtB
+ /Fn09aZK4emxypDsQrhqltavxykK8OPAHT5eQuJAWMVHLv/wTNqfFCKwmJK4e+DS9fyGZKxq9l/YH
+ QQMftT/CEw7IdGAkhg/iA/9rAZq12Otf9BvhaiXCf2KkPrxbEYMDbJ03E+ghP2B3fXK3bPlykAf96
+ 25jX+VtINJFRowQDDN5Gsgkv8lWGe+r4V5g43WZyHpMUi7gaRtByAzGqHGK/S9Ec30VLzB16hRHE4
+ L3dhxRDw==;
 Received: from [179.105.94.163] (helo=[192.168.0.2])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xHJJN-000VUk-L4; Thu, 15 Oct 2026 13:07:49 +0200
-Message-ID: <c0f448b2-128e-47ae-b63e-168948673b89@igalia.com>
-Date: Thu, 15 Oct 2026 08:07:45 -0300
+ id 1xHJKm-000VWI-9Z; Thu, 15 Oct 2026 13:09:16 +0200
+Message-ID: <e31261da-5e67-491d-98bc-0b8df9a07141@igalia.com>
+Date: Thu, 15 Oct 2026 08:09:13 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 63/75] drm/vc4: hdmi: Convert to atomic_create_state
+Subject: Re: [PATCH 64/75] drm/vc4: vec: Convert to atomic_create_state
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
@@ -39,7 +39,7 @@ Cc: dri-devel@lists.freedesktop.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-63-586c9c026823@kernel.org>
+ <20261014-drm-no-more-connector-reset-v1-64-586c9c026823@kernel.org>
 From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Content-Language: en-US
 Autocrypt: addr=mcanal@igalia.com; keydata=
@@ -66,7 +66,7 @@ Autocrypt: addr=mcanal@igalia.com; keydata=
  Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
  uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
  raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-63-586c9c026823@kernel.org>
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-64-586c9c026823@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,12 +84,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
-
 On 14/10/26 14:27, Maxime Ripard wrote:
-> The vc4 HDMI connector reset implementation creates a pristine state,
-> initializes the HDMI state, and sets the TV margins. It does not
-> perform any hardware reset.
+> The vc4 VEC connector reset implementation creates a pristine state
+> and initializes the analog TV properties. It does not perform any
+> hardware reset.
 > 
 > Since this is equivalent to what atomic_create_state expects, convert
 > the reset function to an atomic_create_state hook that returns the
@@ -97,88 +95,60 @@ On 14/10/26 14:27, Maxime Ripard wrote:
 > 
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-The order of the parameters in
-__drm_atomic_helper_connector_hdmi_state_init() bothers me a bit, as
-it's the reverse of drm_atomic_helper_connector_tv_margins_state_init(),
-but anyway:
-
 Reviewed-by: Maíra Canal <mcanal@igalia.com>
 
 Best regards,
 - Maíra
-
 > ---
 > Cc: "Maíra Canal" <mcanal@igalia.com>
 > Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
 > Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 > ---
->   drivers/gpu/drm/vc4/vc4_hdmi.c | 31 ++++++++++++++++++++++++-------
->   1 file changed, 24 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/vc4/vc4_vec.c | 16 ++++++++++++----
+>   1 file changed, 12 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> index cf84eff847d1..bf4b19910e56 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> @@ -503,23 +503,33 @@ static int vc4_hdmi_connector_atomic_check(struct drm_connector *connector,
->   	}
->   
->   	return drm_atomic_helper_connector_hdmi_check(connector, state);
+> diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
+> index 98cece1e48d8..43124ffc7349 100644
+> --- a/drivers/gpu/drm/vc4/vc4_vec.c
+> +++ b/drivers/gpu/drm/vc4/vc4_vec.c
+> @@ -376,14 +376,22 @@ static enum drm_connector_status
+>   vc4_vec_connector_detect(struct drm_connector *connector, bool force)
+>   {
+>   	return connector_status_unknown;
 >   }
 >   
-> -static void vc4_hdmi_connector_reset(struct drm_connector *connector)
+> -static void vc4_vec_connector_reset(struct drm_connector *connector)
 > +static struct drm_connector_state *
-> +vc4_hdmi_connector_create_state(struct drm_connector *connector)
+> +vc4_vec_connector_create_state(struct drm_connector *connector)
 >   {
 > -	drm_atomic_helper_connector_reset(connector);
-> -	__drm_atomic_helper_connector_hdmi_state_init(connector, connector->state);
-> -	drm_atomic_helper_connector_tv_margins_state_init(connector->state,
+> -	drm_atomic_helper_connector_tv_state_init(connector->state, connector);
 > +	struct drm_connector_state *connector_state;
 > +
 > +	connector_state = drm_atomic_helper_connector_create_state(connector);
 > +	if (IS_ERR(connector_state))
 > +		return connector_state;
 > +
-> +	__drm_atomic_helper_connector_hdmi_state_init(connector,
-> +						      connector_state);
-> +
-> +	drm_atomic_helper_connector_tv_margins_state_init(connector_state,
->   							  connector);
+> +	drm_atomic_helper_connector_tv_state_init(connector_state, connector);
 > +
 > +	return connector_state;
 >   }
 >   
->   static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
->   	.debugfs_init = drm_hdmi_connector_debugfs_init,
->   	.force = drm_atomic_helper_connector_hdmi_force,
+>   static int
+>   vc4_vec_connector_set_property(struct drm_connector *connector,
+>   			       struct drm_connector_state *state,
+> @@ -488,11 +496,11 @@ vc4_vec_connector_get_property(struct drm_connector *connector,
+>   }
+>   
+>   static const struct drm_connector_funcs vc4_vec_connector_funcs = {
+>   	.detect = vc4_vec_connector_detect,
 >   	.fill_modes = drm_helper_probe_single_connector_modes,
-> -	.reset = vc4_hdmi_connector_reset,
-> +	.atomic_create_state = vc4_hdmi_connector_create_state,
+> -	.reset = vc4_vec_connector_reset,
+> +	.atomic_create_state = vc4_vec_connector_create_state,
 >   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
 >   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>   	.atomic_get_property = vc4_vec_connector_get_property,
+>   	.atomic_set_property = vc4_vec_connector_set_property,
 >   };
->   
->   static const struct drm_connector_helper_funcs vc4_hdmi_connector_helper_funcs = {
-> @@ -566,12 +576,19 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
->   
->   	/*
->   	 * Some of the properties below require access to state, like bpc.
->   	 * Allocate some default initial connector state with our reset helper.
->   	 */
-> -	if (connector->funcs->reset)
-> -		connector->funcs->reset(connector);
-> +	if (!connector->state) {
-> +		struct drm_connector_state *conn_state;
-> +
-> +		conn_state = vc4_hdmi_connector_create_state(connector);
-> +		if (IS_ERR(conn_state))
-> +			return PTR_ERR(conn_state);
-> +
-> +		connector->state = conn_state;
-> +	}
->   
->   	/* Create and attach TV margin props to this connector. */
->   	ret = drm_mode_create_tv_margin_properties(dev);
->   	if (ret)
->   		return ret;
 > 
 
