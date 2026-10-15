@@ -4,77 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 093BACC6B30
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 00:24:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B3ACC6B2D
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 01:02:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5553A112013;
-	Thu, 15 Oct 2026 00:24:18 +0000 (UTC)
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com
- [209.85.222.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4A2112013
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 00:24:12 +0000 (UTC)
-Received: by mail-ua1-f43.google.com with SMTP id
- a1e0cc1a2514c-99075306daaso36350241.3
- for <dri-devel@lists.freedesktop.org>; Wed, 14 Oct 2026 17:24:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792023851; x=1792628651; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sRi2ZkH0cqeF76lnycKi5TJ2g+qZsmxD4so7+Rdq55w=;
- b=d5eTP6rbN53jz6Oyuc+jd+ifNG9inH8cPLmKgVZ2Hamoytyi9mtiF7ooTUx6JY2TF0
- 3qzMwrxs0TG2tK9ZmrB/OOq6VTZlsJmYC/JlSvh3MroVueHvhaYmKZgUz9fLVxHpEs/t
- Vx6xieqAoHahTrxuyqmgqP5/3qP2tHQOpoT8diJ98clpTaQJIv5KpCikY4C3Kip+4ujl
- K0bDNu5QRb0qI4UJ5FRN05X1D1h23Uh6INhAQWMyoUO8axLapp5g2QOOrzZicBJ1hv8m
- UDjZ5G1GCqkc2z0/lcUOhB3laGaICN3Je8fbeKTKb7xNCIEVkhDIucxgeHR8jfZXXJxN
- Dj5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792023851; x=1792628651;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=sRi2ZkH0cqeF76lnycKi5TJ2g+qZsmxD4so7+Rdq55w=;
- b=xNVgtCes76A1fK5E+B59URZzWs1dek4aTJNi02w0uqzjFnjJ3O+h+pnQ+uwUvzNKby
- xjGi5H5Mp4ZaHgGl91iaPaYtpv/HrIPHefktSijOdHoCHRVgyWwx8mfqk3EYZpp5ZpId
- 9h8orhY6a+F/b5OGQDdY4vIHkNvkubJwrt1uhJ4/xRjqnrqShxGosBIICaIaMUzRVGzz
- 30DK8+bs3YGYOnFI9zVfdI2PlrWON3hiizi1AOe6isdLjz9kkHPMNUvVpXyjbjOiXNrP
- VXATXY0UnoZnYpHEpUun8ZGMecqfG3FNpvPEvL2cF+EQjXOC8OAQnP0TgUjsaQwqRmbh
- vqxA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxo2jdHkM51Fo2nynmLSJflwWBIqifFOh3Lb2TB40Hs9q77kEBUoZkvCsOLmBjym2/Jwxce6EfnfzM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJqhVg+HhvL7aVP5K+hSQKJRTg1JwZnYcQ/5kMNidRGCzY660lK
- 4pJGcRboyj9ZiH3APCdkioLrMemoEfd5Q1ouP8TKHGsayWAOFfwOizRr
-X-Gm-Gg: AYBFou1qXHLP+iGW8eEKWK623nTd8SXvzX89QfHST264lttT7Vn3CnosW7MctAiekwh
- QKDQtusWNKePm/6Mg+QWu/dtB8l8BqRBTYyJ4NbA3PTSpms9D3ILvGCdHSdfEjHLE29KAq+rCPO
- UmEAOhrglr9qoX5MaRDq00v1UNg+LTWlja5h21PaLe6SrrnfkyOBzV+MKT/0qdX+/82gS+hEhq0
- PLbUPAqAYb01jhOLGDrfcuUkC7BEfy3doEM28gzMnXNkBXvEx8v+ElEhEbK5L15BlSo30puOSOc
- am4wqcbQwnovagUUKqw4H6pq2SEbKjDAnODnZVdTI9Ww7Ng+s8Ur9uuk5RV72z3dI9jSJ/l1Uqp
- oSBSA082swxr91p7bD6vJdi5yVeH/3naccSzxdKVf4oN8vDjUNhmsz4TZvGVdYzlBALU42GeEnr
- I2STKGTeXeHR0Tea413fmpU8BI+NZkzKvgI6l+mtkHMadu4PkKiE0pcnGQYJ6vBsO4+iV4FE3zk
- 7jwIHvjgAGVvH778Gvzmo7EE7cOMDOxbvohEGfy
-X-Received: by 2002:a05:6102:f9f:b0:7bb:a70:4708 with SMTP id
- ada2fe7eead31-7cb372f5c52mr5241177137.17.1792023850833; 
- Wed, 14 Oct 2026 17:24:10 -0700 (PDT)
-Received: from localhost.localdomain
- ([2804:5698:10de:1f00:932f:8780:96fa:a0f5])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7cbbd178e4csm6445671137.2.2026.10.14.17.24.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Oct 2026 17:24:10 -0700 (PDT)
-From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-To: alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-Subject: [PATCH v2] drm/amdgpu/gfx7,8: remove redundant RLC cleanup
-Date: Wed, 14 Oct 2026 21:23:44 -0300
-Message-ID: <20261015002344.98683-1-williandossantosdeoliveira287@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CADnq5_O=kVgSZoqe_ZVQDmVTWNb+OZ2XhmVx=0CPQQfCaf2idg@mail.gmail.com>
-References: <CADnq5_O=kVgSZoqe_ZVQDmVTWNb+OZ2XhmVx=0CPQQfCaf2idg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED6DC10EB53;
+	Thu, 15 Oct 2026 01:02:35 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EAA010EB53
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 01:02:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792026143; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=GP1L/jtP7DrJ7QJoSmSnld9D3L43R/tNhAM9W/r4Xs0UHMPa2Ztvif9AdMxaFb5icU8njM4rQrhWkILeSIuoIzuUdeAkO/EEsONDd/JKQJI5XM9507+2rwThihvC/ICDwg2GT2ofol9ZS/M5HI7emtgxZgnERZ8c41dJ8AuyW68=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1792026143;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ZLfGeZI4u4aHgotCmZSC6LpPADowbtpwUTlXNmQWkQE=; 
+ b=eurUnNzCYxqcjgZnQldpNDJWyVu5JsCdh1Lw0iu6LY1/CLonuN6Ssro+Fy0JfrHQTdSvnXFdmzWMFOAn6cfkGgOG3W50M8dk0UnCSS4pMiv5dB/sel+uMXTA4BNPFcyxZ7R9utgFG9IyxoGd79J231tdk3/J4pDxZKbftNbPRBA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792026143; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=ZLfGeZI4u4aHgotCmZSC6LpPADowbtpwUTlXNmQWkQE=;
+ b=W2W55KxJRiaSzB//Go80ZKTV+gVE5rwv9llz5CWkOxQ+fjdjfoS3VR2KAPL0pAmP
+ qXNlBPEDEDIn09AexRQXaoTIkWtzob72lRV17Vdp9mOaIuhZCrO8KRuOpPeqyGzY4CR
+ fr8k3igjmiV+m3gwo1jTQ6Tfl6/Q8OGmEfJYiD+s=
+Received: by smtp.zohomail.com with SMTPS id 1792026141942704.1542737296895;
+ Wed, 14 Oct 2026 18:02:21 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Subject: [PATCH 0/2] drm/tyr: allow mismatched buffers for dev_query
+Date: Wed, 14 Oct 2026 18:02:02 -0700
+Message-Id: <20261014-b4-dev_query_fixes-v1-0-92043100b472@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3L0QpAMBSH8VfRubba1knxKpKGP87NsEW0vLvl8
+ tfXlygiCCI1RaKAS6JsPsOUBY2r8wuUTNlkta2MNqwGVhOu/jgRnn6WG1ExtBu0ZVuzozzuAX/
+ IX9u97wd1NiNeZAAAAA==
+X-Change-ID: 20261014-b4-dev_query_fixes-4e0ab024294a
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=809;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=OwWdTR3XhajPl3U4zGrx0KdjDKksTiLlAAPouO5QtDA=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFkX1GQUfvdOYrezyPhlaiAt/PXFcknOybM/lHDeWJpjV
+ 7V0HbdaRykLgxgXg6yYIstZe6Me8ar3Rrrz/zfDzGFlAhnCwMUpABOpzWb477hMxbZx0fwL09u4
+ I0unVKyZf3Z1b+f5e0t/c5u5riiy7GNkOMvscvumt6FwxLa2EPPwu+uPZKubPTuwqG2D3pMl4ZF
+ f+QE=
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,63 +84,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gfx_v7_0_sw_fini() and gfx_v8_0_sw_fini() already call
-amdgpu_gfx_rlc_fini(), which releases the RLC objects used by these
-IP blocks.
+Panthor UAPI for DRM_IOCTL_TYR_DEV_QUERY allows userspace to provide
+a smaller or larger buffer than the kernel needs. Revise Tyr's
+implementation to match the expected UAPI behaviour.
 
-Remove the duplicated explicit frees of clear_state_obj and
-cp_table_obj.
-
-Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
-v2:
-- Keep amdgpu_gfx_rlc_fini() and remove the explicit RLC object frees
-  as suggested by Alex Deucher.
-- Apply the same cleanup to gfx7.
+Deborah Brouwer (2):
+      rust: uaccess: add UserSliceWriter::clear()
+      drm/tyr: allow userspace buffers to be mismatched
 
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 8 --------
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 9 ---------
- 2 files changed, 17 deletions(-)
+ drivers/gpu/drm/tyr/file.rs | 45 +++++++++++++++++++++++++++++++++++++--------
+ rust/helpers/uaccess.c      |  6 ++++++
+ rust/kernel/uaccess.rs      | 23 +++++++++++++++++++++++
+ 3 files changed, 66 insertions(+), 8 deletions(-)
+---
+base-commit: 5a1b7121a6c4db6c0239d3ac3fd1c2bb33a40025
+change-id: 20261014-b4-dev_query_fixes-4e0ab024294a
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 5fc19fefca81..7c56e36665c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4454,14 +4454,6 @@ static int gfx_v7_0_sw_fini(struct amdgpu_ip_block *ip_block)
- 	amdgpu_gfx_mqd_sw_fini(adev, 0);
- 	amdgpu_gfx_rlc_fini(adev);
- 	gfx_v7_0_mec_fini(adev);
--	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
--				&adev->gfx.rlc.clear_state_gpu_addr,
--				(void **)&adev->gfx.rlc.cs_ptr);
--	if (adev->gfx.rlc.cp_table_size) {
--		amdgpu_bo_free_kernel(&adev->gfx.rlc.cp_table_obj,
--				&adev->gfx.rlc.cp_table_gpu_addr,
--				(void **)&adev->gfx.rlc.cp_table_ptr);
--	}
- 	gfx_v7_0_free_microcode(adev);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 7f91186ef1d1..27fbb5b59645 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -2060,15 +2060,6 @@ static int gfx_v8_0_sw_fini(struct amdgpu_ip_block *ip_block)
- 
- 	gfx_v8_0_mec_fini(adev);
- 	amdgpu_gfx_rlc_fini(adev);
--	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
--				&adev->gfx.rlc.clear_state_gpu_addr,
--				(void **)&adev->gfx.rlc.cs_ptr);
--	if ((adev->asic_type == CHIP_CARRIZO) ||
--	    (adev->asic_type == CHIP_STONEY)) {
--		amdgpu_bo_free_kernel(&adev->gfx.rlc.cp_table_obj,
--				&adev->gfx.rlc.cp_table_gpu_addr,
--				(void **)&adev->gfx.rlc.cp_table_ptr);
--	}
- 	gfx_v8_0_free_microcode(adev);
- 
- 	return 0;
+Best regards,
 -- 
-2.47.3
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
