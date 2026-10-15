@@ -4,34 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E895CC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:16:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EDFCC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:16:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23144112300;
-	Thu, 15 Oct 2026 11:16:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3AE91122D6;
+	Thu, 15 Oct 2026 11:16:48 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 619A81122D9
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD5AF1122FD
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:34 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3DC47157F;
- Thu, 15 Oct 2026 13:14:30 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 408521552;
+ Thu, 15 Oct 2026 13:14:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1792062871;
- bh=fdg8eV/QDnydJFYV748UJ0GYkCe4BYsEnmoO5CBavJs=;
+ s=mail; t=1792062870;
+ bh=Ce/IUl8m0EIXqaAmMjx6Mj55YSBD7+khbCWc5Mp8TZY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Iwj9r/vKQaUpVYf0Dn0y4+c7ISakMtRKiVCGq1gvuEU6/zHEHG7nhcN8nlq4IGE6C
- gvgKO3MOjXan0Z2kRGEBCndLnIbB+XhwqPnQnEzYs4KG8zxNfkUUKD+/DtCydnEABy
- rjVgrKqrz1eqG59/fGIG7eCEzOvEfLgAEi66WV3A=
+ b=X6sLe+jV6y++wZL5uy+GSJPLMRY9MawpYnGuLuBaZwWvgwqZNsvUdu9W1a2zMnU+t
+ zg+rqS7Vd55zzPTYSNgMzJyolbfiULkT79/pSXAiiilRrHjPkToBJVAFGxZXj1O+xc
+ 2MmATU2lbNSfD01xXW6yOh/+jbKqxVOuW1cF8whU=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:15:58 +0300
-Subject: [PATCH v5 07/13] drm/bridge: tc358762: Update comment about the
- number of lanes
+Date: Thu, 15 Oct 2026 14:15:57 +0300
+Subject: [PATCH v5 06/13] drm/bridge: tc358762: Improve DPI enable handling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-7-7cd721a6451b@ideasonboard.com>
+Message-Id: <20261015-tc358762-fixes-v5-6-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -45,21 +44,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1121;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1676;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=fdg8eV/QDnydJFYV748UJ0GYkCe4BYsEnmoO5CBavJs=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYHH7U8w/F7jAXbT6GDiP5ya/i+WqIi7wKf/
- B87Io+SeXuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BwAKCRD6PaqMvJYe
- 9R2lEACfytEUffqHntXsShVoibCaBEit2fn+1RVczBtgke2Dy6o3NASTjvs9jbCHmGxkVd4y+Vl
- snMZ5qlIJKn1dY8GSpm3n6qEdphwveKzfKuz+l89rtjdCSOZcDbKOe2mMJ5EldIaUaE5+ThFAHP
- qnm8WTzCtDXj+kR21ZEsreWQTKDQTR5IpJ8FqdhaVE9AiKjZVbC2b4bIwJS8Q++Bom2BE0VRkul
- k0i/zM90536YqYAWQ9b4/c2KMZOnEtc4QTRY7Ic8EMLOpjJgfuHJJsmtovId/RnVspz40oWKYhG
- jVpRFpuqJ4sXpm3GnfdVLHfQgKLXJA2JaxfsTLsJucgLnL1WymhyAHylQVsF60QcxSYlJsC7P8b
- 7IqIor+tvSCu7TauYe5vLjx9OkiuHFHyXMF7R+USgIyR7hmaP4hkWZDiNg5WvonVxB8JhbTYRa5
- lX+kbS5f2Bmwdqv4Wg7euTMlNuPk9F5UFULHT5KVXWQHSiJcnkPQ4RI9MURItFhVxVD/TtP8MMl
- MpHfIBVvmbbx15R734t1Xlu35fQ1UH4ExyYhbjyEk2UtQ4wI6qiZnojU233RePw0aIWaycTzy0B
- kuX+YKEZRJEbMaLwkqvyK5JxUOKgwrxML4+svNHHOUcZhVaDhNB1CUgJhF9hUgq8RKEBV8lKeGO
- GdMtxRhvZ3Ue+5A==
+ bh=Ce/IUl8m0EIXqaAmMjx6Mj55YSBD7+khbCWc5Mp8TZY=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYGbzQc28JrSZFi0DhYt8mcNpjIK+Km61l+j
+ j+uoGPD4eGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BgAKCRD6PaqMvJYe
+ 9QSLD/4nZNbNw4NeanW0sJhDejFKjKRqRxNb4seo8652MzisVSsHHGjbdJYmmVWcj5nu2UHV89d
+ cyEPx3CTwI5uObmkeVVSZZDSBKO/c+4XenqzMfcit51CL9KtcFQRIPESKfoLzvgpNkUw67y1zHU
+ 0cHHQvG+Fz44xBi59lexhHoatexsX4iodQh6SRx3QLdNJoNgGnDhO9m+jv/tkwE+lb7u0MGQaay
+ AZNAKuIAjxaNCogNPEbJtiSNUnsxURg4t+FvHxdJguL0oJBmFnKFslWmnmhfxRxy/KzDyidXOeb
+ Q7ufTLj78ms4g1ITpF6ZCrIQngjnVKZFbpPmvbT0qiyrDV3tdMLgUvlRg8+I+fKsgOz9jxaqf5v
+ 6TBhkBFK7J9malgIEdLbxByOu9thLEZm1OTfGfRf7yMfKEuj6MEqMoMAVas4zBPvS430g7RoVzp
+ GNeLkEQL+cE39adGjibdmrSUkW8Bj+hf6IRbv7Zz3wlpK1gGngzcMkrLvC3xMUbme6LbpuwEOF6
+ LMVhuKZq1vu9+esKJA82cz7Bodce4qNDgHb/SM+VqQhLykaaQUUBCloq+bYHSGojfrPkoDB11UO
+ /MNlFUQprpBmyhzvWZoWmk3GzHNKQhEnfMGT83jZOi9lBKxEjDmuInrqI5YlzN5boUtjAWCv+w5
+ sfROr1cNezS7HKw==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,33 +76,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update comment about the number of lanes.
+The HW reset defaults has DPIENABLE bit as set. In the current driver we
+configure and enable various things while DPIENABLE is set. This results
+in a temporary DPI output with wrong timings, which may cause artifacts
+on the panel.
+
+Fix this by clearing DPIEANBLE as the first thing when we start to
+enable the display. DPIENABLE is set later with the rest of the LCDCTRL
+configuration, and at that time we have done all the other
+configurations.
+
+Also, for symmetry and possibly improving the DPI output at disable
+time, explicitly disable DPIENABLE when disabling the bridge.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/tc358762.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 19f328b6e798..fd82274643db 100644
+index 91bc79d36a74..19f328b6e798 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -305,7 +305,14 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
- 	ctx->dev = dev;
+@@ -134,6 +134,12 @@ static int tc358762_init(struct tc358762 *ctx)
+ {
+ 	u32 lcdctrl;
+ 
++	/*
++	 * DPIENABLE has reset default of 1. Make sure we don't output on
++	 * DPI until we have finished the coniguration.
++	 */
++	tc358762_write(ctx, LCDCTRL, 0);
++
+ 	tc358762_write(ctx, SYSCTRL,
+ 		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
+ 		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
+@@ -185,6 +191,9 @@ static void tc358762_post_disable(struct drm_bridge *bridge,
+ 
  	ctx->pre_enabled = false;
  
--	/* TODO: Find out how to get dual-lane mode working */
-+	/*
-+	 * When using DSI clk for pixel clock (only mode supported in the driver),
-+	 * the pclk is derived directly from the DSI byteclk via simple divider,
-+	 * which is either 2 or 3.
-+	 * The required divider can be calculated with bitspp / 8 / nlanes. Thus,
-+	 * for RGB888, only nlanes = 1 works as nlanes = 2 would require divider
-+	 * of 1.5.
-+	 */
- 	dsi->lanes = 1;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
++	/* Turn off the DPI output */
++	tc358762_write(ctx, LCDCTRL, 0);
++
+ 	if (ctx->reset_gpio)
+ 		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+ 
 
 -- 
 2.43.0
