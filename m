@@ -4,33 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C59CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACAD1CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:16:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E861112306;
-	Thu, 15 Oct 2026 11:16:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5B9B1122EF;
+	Thu, 15 Oct 2026 11:16:42 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 102A11122EF
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC0B11122D9
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:29 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 29727593;
- Thu, 15 Oct 2026 13:14:26 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2B0234F1;
+ Thu, 15 Oct 2026 13:14:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1792062867;
- bh=AHpHmx1iq7PtcLkgGBG60RlQSwRRh2zNkf8geQNcRlY=;
+ s=mail; t=1792062866;
+ bh=vMRxXhglv4vVPhAZNH0VGgacBEqPuhZmuWkk5p8x4sU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=rVXGefDvy2f01YzDiY2nZfNC3rY/xBvCNyizhRNo5zb1FtBK1T/O6e+XZklSyXiFI
- YMF6WuriyK6bT/UuqQ+1qc5xRZiJDHbZUIh5Z4SgjGKWn6XOHgu7kOaI2zg8QQykhu
- GlH3JvFeNi47+JUnmKmy1RVPRWhj9V7Kgt98qNng=
+ b=XBoizUm4I+K7kxEzdivVVLhZBJxpAFbbOzkdKLGYBf92rG+1iDxJxsqK1V4VKYicP
+ VfqOpsPeDZSbt0204J41Kf43iRolgBbUpxXk+b5kom/w/xEicw6vMLYZUnT3OlhK7v
+ OY/6U2oq4yMy2LEgwh/NsvGdLbWNioX0ldjQOe38=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:15:54 +0300
-Subject: [PATCH v5 03/13] drm/bridge: tc358762: Improve LCDCTRL defines
+Date: Thu, 15 Oct 2026 14:15:53 +0300
+Subject: [PATCH v5 02/13] drm/bridge: tc358762: Improve SYSCTRL register
+ defines
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-3-7cd721a6451b@ideasonboard.com>
+Message-Id: <20261015-tc358762-fixes-v5-2-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -44,21 +45,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3005;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1738;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=AHpHmx1iq7PtcLkgGBG60RlQSwRRh2zNkf8geQNcRlY=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYFfh4j6CWZmu6hiy2lL3y1mbx2IZ0CjeHbb
- w2OYj6AgxqJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BQAKCRD6PaqMvJYe
- 9dqrEACG5Xb+8K4Gqz4ZxvbB1j1rmdy28F8bpPsM9efftpaNV6lg7CV60M+Qzo7TZsHkmk8d/DJ
- XnSIEWz+dkp/GKJuVURRDWG5AAgR+IPNeLVplrdBlAqxQ3ys8uUsmWqXbgUsYGVw/+zic2zVjfq
- LZSYi+pr5i6vutZFIaEISYZDnS8AFdS4JsBQTJ//Dia5blglTHOJvZTRFEPiEAhD/NaxKPkKB8s
- bMAlXF4vf7x5e/hYGPk0pz7S1ysYEZ2aaJjAvxU7Q7GaCFfiGuYMDiD/Z+LU2DVKJgJOie37Hlt
- vU5Z6/osO55AI/6cJHlExMc2Xh6XZ0vkeL1TZQRHT4UAFDLGa+d8+OEjeCfIfcylTuArO36h6+a
- 6Q3EQlQt6xbFZu5itI1+m5jfS/KQhnLl0M6tHvd2yArXjBx9u319xOA3vygddlbKs3Qhymo8Ebe
- PTRs1KfBBp0loYNzWQcEr/yUS4PWxmuPlU29VUty6kPAOK7HonMW0QXsOY+3q61CEKAX6yA4+mY
- rL1DKuZAEYJj/SDyw55TQV7ymfgteNSBPvlVrgrMLlY5WytqryAQSf6Ttb37gmHKUljt6Ewu4hY
- vtGslRyOWbnw6yaK17Us0C4w4ER/iB6+mTBGpup50/a5slXDOekWaZuYZVJLoDUzFwQ632m0BD9
- olh+fx6mvZAICoA==
+ bh=vMRxXhglv4vVPhAZNH0VGgacBEqPuhZmuWkk5p8x4sU=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYFzpQSSsxHaEjdJaXmbgJMmCHvenXxRrzqB
+ dpFtpcgJTuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BQAKCRD6PaqMvJYe
+ 9U/oD/0XQiGRVD4fVPYguEfUq1wrCzXPctFbdW96Y8qr9yk1FIVE92Y1ibALeZeh3Gll2u8SacO
+ +Txlf/s25eIiymbVgC+hq73NKx9WGM+2paqeOM490XnGoS7DxceW2naD5xFklz6bqljY7xSm+Xb
+ ZGBFdFsRwHY8OJz07U+vPB233i6g/l4iBkUCz+RYY/Pw2i0kwrTsugsuZruzyarENp7aEgY3ON4
+ 3nUUYuUNleg9ptLyEF42vXnPZxmO1xV9MSRHb7e4ZyPwena8S6MKSdJmt7eD7YJY2dsw9THRCYF
+ nNppyhSeDF/lTGxQJfnokaZh7RZP13RQWi4jgxerpwbDDIVJRdHNuNjqhSDFUi5U1LGp+mO5ARq
+ FwHTfLCLxBOMb2ApCXHfNOsFL6FGCf+/lQ2lrDuuWcJqte7a0v+7jjORTaJ088Z/JRkjoA8j/vX
+ O4MquN+yrsSSvEFqJ2gLQTORF8/BHb9UKwNKEUav8i+v8g+HjT7SEOAxTSKNGq/XsmU7sbZRTsk
+ x020h87pdSXff4h2PB7+cwVWfaIWKE0SzuBVZw5lA6M/odL5Gf85za2HjFeFHe7Ku9QVnB/pQh3
+ mpFgQm/8RFtshHoA2t7I4Q7PdLfQu2TVFlvwfbC4AKn7B5Ill4Qi2XzE+q/uBogGGSxbmZd9Eoi
+ MWlo3jKGc3HpogA==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,79 +77,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-LCDCTRL fields are quite wrong in the driver. Fix the field defines.
-
-A few notes about the wrong fields:
-
-LCDCTRL_VSDELAY(1) actually sets LCDCTRL_DCLK_POL
-LCDCTRL_UNK6 | LCDCTRL_VTGEN actually set LCDCTRL_PXLFORM_RGB888
-LCDCTRL_RGB888 actually sets LCDCTRL_DPI_EN
-
-The total still resulted in a working display even if the defines were
-quite wrong.
+Define SYSCTRL fields. No functional changes.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 33 ++++++++++++++++++++-------------
- 1 file changed, 20 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 59c68432f8e1..26671dc66874 100644
+index 097d2f331a16..59c68432f8e1 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -46,17 +46,22 @@
- #define DSI_LANEENABLE_L0EN	BIT(1)
- #define DSI_LANEENABLE_L1EN	BIT(2)
+@@ -10,6 +10,7 @@
+  *  Eric Anholt <eric@anholt.net>
+  */
  
--/* LCDC/DPI Host Registers, based on guesswork that this matches TC358764 */
-+/* LCDC/DPI Registers */
- #define LCDCTRL			0x0420 /* Video Path Control */
- #define LCDCTRL_MSF		BIT(0) /* Magic square in RGB666 */
--#define LCDCTRL_VTGEN		BIT(4)/* Use chip clock for timing */
--#define LCDCTRL_UNK6		BIT(6) /* Unknown */
--#define LCDCTRL_EVTMODE		BIT(5) /* Event mode */
--#define LCDCTRL_RGB888		BIT(8) /* RGB888 mode */
--#define LCDCTRL_HSPOL		BIT(17) /* Polarity of HSYNC signal */
--#define LCDCTRL_DEPOL		BIT(18) /* Polarity of DE signal */
--#define LCDCTRL_VSPOL		BIT(19) /* Polarity of VSYNC signal */
--#define LCDCTRL_VSDELAY(v)	(((v) & 0xfff) << 20) /* VSYNC delay */
-+#define LCDCTRL_VTGEN		BIT(1) /* Use chip clock for timing */
-+#define LCDCTRL_PXLFORM		GENMASK_U32(6, 4)
-+#define LCDCTRL_PXLFORM_RGB666		0	/* x:R:G:B 6:8:8:8 */
-+#define LCDCTRL_PXLFORM_RGB666_24	1	/* x:R:x:G:x:B 2:6:2:6:2:6 */
-+#define LCDCTRL_PXLFORM_RGB565		2	/* x:R:G:B 8:5:6:5 */
-+#define LCDCTRL_PXLFORM_RGB565_1	3	/* x:R:x:G:x:B 3:5:2:6:3:5 */
-+#define LCDCTRL_PXLFORM_RGB565_2	4	/* x:R:x:G:x:B:x 2:5:3:6:2:5:1 */
-+#define LCDCTRL_PXLFORM_RGB888		5	/* R:G:B 8:8:8 */
-+#define LCDCTRL_DPI_EN		BIT(8)
-+#define LCDCTRL_HSYNC_POL	BIT(17) /* Polarity of HSYNC signal */
-+#define LCDCTRL_DE_POL		BIT(18) /* Polarity of DE signal */
-+#define LCDCTRL_VSYNC_POL	BIT(19) /* Polarity of VSYNC signal */
-+#define LCDCTRL_DCLK_POL	BIT(20) /* Polarity of pixel clock */
++#include <linux/bitfield.h>
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/module.h>
+@@ -63,6 +64,19 @@
  
- /* SPI Master Registers */
- #define SPICMR			0x0450
-@@ -139,14 +144,16 @@ static int tc358762_init(struct tc358762 *ctx)
+ /* System Controller Registers */
+ #define SYSCTRL			0x0464
++#define SYSCTRL_DPIDATA_IO_MASK GENMASK_U32(1, 0)
++#define SYSCTRL_DPIDATA_IO_1MA	0
++#define SYSCTRL_DPIDATA_IO_2MA	1
++#define SYSCTRL_DPIDATA_IO_3MA	2
++#define SYSCTRL_DPIDATA_IO_4MA	3
++#define SYSCTRL_DPISTB_IO_MASK	GENMASK_U32(3, 2)
++#define SYSCTRL_DPISTB_IO_1MA	0
++#define SYSCTRL_DPISTB_IO_2MA	1
++#define SYSCTRL_DPISTB_IO_3MA	2
++#define SYSCTRL_DPISTB_IO_4MA	3
++#define SYSCTRL_PCLKDIV_MASK	GENMASK_U32(11, 8)
++#define SYSCTRL_PCLKDIV_DIV_2	2
++#define SYSCTRL_PCLKDIV_DIV_3	4
  
- 	tc358762_write(ctx, SPICMR, 0x00);
+ #define LPX_PERIOD		3
  
--	lcdctrl = LCDCTRL_VSDELAY(1) | LCDCTRL_RGB888 |
--		  LCDCTRL_UNK6 | LCDCTRL_VTGEN;
-+	lcdctrl = FIELD_PREP(LCDCTRL_PXLFORM, LCDCTRL_PXLFORM_RGB888) |
-+		  LCDCTRL_DPI_EN;
-+
-+	lcdctrl |= LCDCTRL_DCLK_POL;
- 
- 	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
--		lcdctrl |= LCDCTRL_HSPOL;
-+		lcdctrl |= LCDCTRL_HSYNC_POL;
- 
- 	if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
--		lcdctrl |= LCDCTRL_VSPOL;
-+		lcdctrl |= LCDCTRL_VSYNC_POL;
+@@ -136,7 +150,11 @@ static int tc358762_init(struct tc358762 *ctx)
  
  	tc358762_write(ctx, LCDCTRL, lcdctrl);
  
+-	tc358762_write(ctx, SYSCTRL, 0x040f);
++	tc358762_write(ctx, SYSCTRL,
++		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
++		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
++		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
++
+ 	msleep(100);
+ 
+ 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
 
 -- 
 2.43.0
