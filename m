@@ -4,95 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A46DDCCA462
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 22:10:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3190ACC6B38
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 22:29:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 050291124F0;
-	Thu, 15 Oct 2026 22:10:22 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013032.outbound.protection.outlook.com
- [40.107.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A2FA1124EE;
- Thu, 15 Oct 2026 22:10:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uK+uSpT6EQFvDWZPk/aMlzgcc1xYd8ErNUNB1X3yJujA11JTiAlxDQsWhzawNoh2wm374/riZuODnrBTFOZlDGhdvAkEx/A5+XZ8G9vFVBmnayy6fD8slVpmJ6w9ZYJGT1G5Qg8KWDpe0wKeEUgpDmn+Dy4ebru2NzSB3m1xaFtGzHkIrf/Y+gYnZrj27ZZ64GuaJ6abLmP7e4+YM86i/Fq/J5je3FKbby7P1Y/UpUto+ZudxEEJ+gIicPs2sT76QDvTKSg2KHKjlZ+ULaJYCiirILpO4zOAnjL2TxpqCpqtYd6BzArQ5rNT0GD4Eg7TBsOkmu2wLazBcHpAU91Ahw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O8u1VZapl7r/4GmwPCC2lGfbxWFO2JhwHlVfuViJaQY=;
- b=iZL3f2ZCLorrP5XoJ8yR/NP7jC1vJ18Atzj3XJcywDxE87x2wp/0QKBh217rLdCQP/llr2dSDdHy1XCLABM5J/eMoLYTht/RJ+I538LbInZ4xYCbQqzQV1gyLOffL7U75yimw+CRm/aASJzzGvCW3Bbm4IrIA+DmljTfOfBX91XLuIn8RDfjGvzNVf+mJgbs9aWUqD00ux38T2XP/2ZnI8qgQ/OkdfCpntqhRfyB41a1X++VxV5d10Xo7R2P8EIYibVNZd0Woxf72p5zsmz0Y8OPXNgDnQuTr7TWA8Mmr9lw+EEw6g3VPg7L/bZASgqcUwwSTlIYVWnSnfL7YzuAUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O8u1VZapl7r/4GmwPCC2lGfbxWFO2JhwHlVfuViJaQY=;
- b=j7Q72mUABt3eVq1KAK0ioy8roHTy5tOGWs5rmXJNw3aiwA/RWR0RzVDtTUjuK2u6RsceV5tAgR/wapNEQfqwIybGBXWMl/qoaTTK8GgWZNT4s4wr6PQvx7xr7QdQwWsAUhzqDVMm8ZOzVKa+VUrEp9J9Pii4qxGrMF0P2qT0wl4=
-Received: from MW4P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::19)
- by IA4PR12MB749807.namprd12.prod.outlook.com (2603:10b6:207:128::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
- 2026 22:10:12 +0000
-Received: from MWH0EPF000A6735.namprd04.prod.outlook.com
- (2603:10b6:303:8b:cafe::2d) by MW4P221CA0014.outlook.office365.com
- (2603:10b6:303:8b::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
- Oct 2026 22:10:12 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A6735.mail.protection.outlook.com (10.167.249.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 22:10:11 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
- 2026 17:10:05 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 15 Oct 2026 17:10:04 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu drm-fixes-7.3
-Date: Thu, 15 Oct 2026 18:10:02 -0400
-Message-ID: <20261015221002.1728931-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E32410E311;
+	Thu, 15 Oct 2026 22:29:34 +0000 (UTC)
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
+ [74.125.224.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3A710E311
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 22:29:28 +0000 (UTC)
+Received: by mail-yx1-f53.google.com with SMTP id
+ 956f58d0204a3-679aeeddc6bso662922d50.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:29:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792103367; cv=none;
+ d=google.com; s=arc-20260327;
+ b=r7iIFvjnxrFoEBuBFMpv1MtbU0E1Yghue/2WQoV+Po8aJz5+VTqKQVMKcklWmHlipa
+ G/FKVJVUULAv705Wjvjv4yOQwBwOiZM6jPRvgywXXkyGw/4SzF75CYMQ8gYkbuxNH/Kw
+ Z/D0pSNmW/GOuls9h1ot0M4BAIvrwrfEUNa6vb/BXKwfAt1vnLspeHBsG8Y7P3IMmImd
+ sKH0edqSjnvXVLCKTXVZagGgnxyiWuehLLOV9MUO0bZL70mIefKdfoUK+0jBRtxr3SHK
+ WbVp8fP8raPbFfs8l+lFabsqs/WZgR+AvwoT9qfTvHVUGyCa6ZC3QAaJ0d1Kchwpt+h4
+ zpjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=WZ1OyRzHt1ZBX79eoZyilrSKmMYQjSY/4VnaBjrbrhg=;
+ fh=1Kv7r5XAgG/EP+S7raafvoJJ587VsnA0PB4xxXkng+Y=;
+ b=LUIsaxlH/iir6Sezp+eprR6CfnNhMDQCOGohtxlnMFx/zqC1JcWw300Hz0/jQ6k0yK
+ YjXNj/bl5TfohKf+IyfqgOuDaV5iuo93uFwcmkCVkE/nRBepYOKpRfl/GYnKsVIuSK33
+ WnLH2cTYEBXVwP2oUrzkeh7kQr5nXge17+o9iDpq2LAXhiq6tZ22cH+KtGAh5Yx8nmho
+ BuMw/G2QjF7YzsfvHoZY21yHa1qRjiGsxR0ZT+HZlWactpQoLl2GI05+V13txRwamQYJ
+ fqVx3yf90QwC54A1qeMzAuDDeyx6bFwChhTqu3xwIB6WcGDLo6qQeM1rjJ+YUU+PL8FM
+ mu9Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792103367; x=1792708167; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=WZ1OyRzHt1ZBX79eoZyilrSKmMYQjSY/4VnaBjrbrhg=;
+ b=ex0kDIm9N+/zMIHodlekUJcDNUvwn0NeANUyx0ySGFN2WlLxQhlhV0gomm/vIaORev
+ 1R4+YtciLVKUXOY4GrZoNiy9ftpoSHsGv3QaCdddWbxVRZrh6HpnWhOCpi6oQeW6pvtu
+ 1fd+m9RHooCsz1fFT6I3VJ+85MGTQgdWqR6oeBCGgACBhYcc/FyUVNF9q4ulCmzGLjQ7
+ WogkB96HDdFRj+XDvI0wlAFfOOdOM7Xd/tnFKv1jtsXX8ZwQTLLyXJdAvDZTLEjRiy8S
+ ra09RAeL54gb3U3APMfi9jNl3WO7QzHMgiZpDo5pvdily1l0zysW50BLpeHxriAx5YaV
+ cF/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792103367; x=1792708167;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=WZ1OyRzHt1ZBX79eoZyilrSKmMYQjSY/4VnaBjrbrhg=;
+ b=ZUWfFmjU38lplsGDicPM8wirhdPAmEoop8RNr7WI+Er6SutfpcuR3AeJapW/cW35Jv
+ A4bLcXfr8Hn45QsbuHB4rdBZYaKEoLDtTpGX2cdQDTYS3Hy/Jw1ko/QIPlizcCFgJu86
+ ZOWWu2bqIgjjBTT/sNiWkQXkZhnvKCzpzcjChNt/h0HmzkCeUaxArOja4Sq0C8BU52qh
+ FTeDobRuECo97YiSDwwAx4hGwWpaRnxtCh9ehP3/ldOSz9Of6o3Qr0mq/CVdxwh+iSr8
+ 1hCbpK4paYnZHj9OjxQcpsn5i+Ls8mAijqlYuj80Yzee8slZHW9h8LCQXXBSKwxL1Dju
+ RqWA==
+X-Gm-Message-State: AFq9FYLDCAAM+THNklbUJsE7ieAium9sQ241+q48tmS9B+6JcmwUFapW
+ 7WKXyn9K/bOpZoMXidJvYHDDVX1p38wcV1PQE+hLOp9MfM0go7rvbBGdVVibFpcnu7qenbUoumo
+ +ZxWF+3bqw67tVM7LRWpwvrDI42CWaps=
+X-Gm-Gg: AYBFou2BfNm58ahRWN9AW7wrGRfgeF48TiGZt6MoNqYFBonQMZcHinSQflQfFS4zvvx
+ DvQxtxKTpB7eLYw7GPZb603B4jL8cAjyPwD5fNI175iD1c1uvhhxdQk89g56/iEAWHxMc8EdKnl
+ tLuCWSsd4Uh8a98oBJtmT72vMmKLq+K+AQz1X4uO7X2d3XM4lQB2byWz/ZIqDrpuQvt266mhER9
+ XX3OOCbUvpX2GZpUWbvguRPQaUx9JwMb8Y84OUC+BVE3Obetvjl0ZXlWn0D+J7H7NsRzs0vEl/G
+ sq/aPDPKN5IILL14So7DL2ZYjXjHZL1Lm7+oMEefZWSLZJRiGB4FSGA2
+X-Received: by 2002:a05:690c:3489:b0:8b0:e10d:1975 with SMTP id
+ 00721157ae682-8b0e10d1ffcmr5726827b3.29.1792103366501; Thu, 15 Oct 2026
+ 15:29:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6735:EE_|IA4PR12MB749807:EE_
-X-MS-Office365-Filtering-Correlation-Id: dfbee141-a1d6-4c97-61db-08df2b09152f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|23010399003|36860700016|56012099006|11063799006|261009223027099003|10067099003|18002099003|6133799003|13003099007;
-X-Microsoft-Antispam-Message-Info: /gv3UW4MR/+K4pSFHlqQ5QYqb2SHr9KKkb3CvfsZkNxhsVoQdXXzKMWHcS54Bxw+4Tq/ySGl2gUcPf3hPlHOIbiqjaTUXPIs+UlybC8iNugU0Bsrc0jVyy85MgRj5l8Hrl0KNyIBpcH8CVjNXgwaurMMIwa5IkPT1KgcMUHGWzWXh/ukL2L7eMD+5OHG993V8JgrawE1Hqek15+kryUOrf350U21PER+/7evZcmvLPnAWBNHK4R5GnqJL3tqjxBuQoaH/jR/ZT6dYTPm+TRR+ciBiCYVjGuS0+JBEMxQ/GHUE/hdzchD9ybmfES+om5i9K+4UzMU5s2m0644fmJzb6ZP8ukINffmeqgpe96n/I30vfvEk7IKGz+HUKbcqJxszIJiHy6JHjLhdLmvk3CIt/p5fdFEsDRm3vhwtJ7CSG9UAaU3lxjtv+iC/x3eCxm15UgFhWIX+itGBJuAd3PO9a3802MRdkbHyYi8lrEiqIEDrPrk1FkhvW548ceR7DEDfCdxc6Don1zm8y69aBc2qQF5fVGjFcV34C0o/CSr4IFqAQHJyGuXvmwNu+zOnPuAT2a45zPqRS8MMTC91mPTy3MUGlCX6ztBJABIop3eKv0FsSgupHEa7A306ZgjdyEj27xhmo9HNQ+ygyo0wO+I2A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(23010399003)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003)(13003099007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +XxvxhcY6xwa/kfLueVfXrZfrrW9+jMBgxmMaKEbWdWsD1Rn/BuUmKrWBVdkW7l67QiTS8n1DOu7jUQTaa9Hj87G/bPH48gGOCQNtEFJM+dNZpWHZD4PmjTbehP8JOeCsIjHf2gUpzSkptw8XVJtVhoFShLMqdd9+rDWkLT7Os3aYq4CKQPyMS7Fu+rPGOxv/jbKfj9huN9rHPkIHd+3IzyNG/ASsVjl04KLydodo3NeQKQR+vPSnpGre/LK8KYmeBdgaMAcb5yGk71V0B7c6WEwpnkJQ0NljKuFSwVTfV7awfblT4AeY47VBw2IvLnZzUYY7gWCiaShxPeczlHK8jjYtM7rvZSaRKUX3L/DfmNZH1B7F/rvHbjM5bwR7HkzULZTInnYNC+TZmUYCEhKAz/kNZlvmWr7S9Eu5ynPvjXIDzj2p91mgdmW8SZ7iM7f
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 22:10:11.8674 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfbee141-a1d6-4c97-61db-08df2b09152f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6735.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB749807
+References: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
+ <20261011-pvr-gpuvm-immediate-v2-1-744ddc6644c3@gmail.com>
+ <sashiko-outbox-167146@kernel.org>
+In-Reply-To: <sashiko-outbox-167146@kernel.org>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Fri, 16 Oct 2026 07:29:10 +0900
+X-Gm-Features: AclHuK8-D8pReVGIBv0OUN0G87STfZ_9okqUcud5PK2ya0w7oJOijIVLcma891o
+Message-ID: <CAKbEznuHom600zb9XNqaXW9U8+4wDT66aA0KJaeY9jswKsJAJg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/imagination: Switch the GPUVM to immediate mode
+To: sashiko-reviews@lists.linux.dev
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Content-Type: multipart/alternative; boundary="0000000000008fa830065de89492"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,68 +99,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+--0000000000008fa830065de89492
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes for 7.3.
+To be clear, this is a pre-existing issue and should be fixed in a separate
+patch.
 
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
+Thanks,
+Gyeyoung
 
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+2026=EB=85=84 10=EC=9B=94 11=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 6:56, =
+<sashiko-bot@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 
-are available in the Git repository at:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> - [High] drm/imagination: infinite loop in pvr_vm_unmap_all() on unmap
+> failure
+> --
+>
+> commit e8ae922e82d0545dbcb5536fc88e9f62e91d62ac
+> Author: Gyeyoung Baek <gye976@gmail.com>
+>
+>     drm/imagination: Switch the GPUVM to immediate mode
+>
+>     Use DRM_GPUVM_IMMEDIATE_MODE so that each GEM's GPUVA list is protect=
+ed
+>     by its gpuva.lock instead of its dma_resv. This prepares for
+>     asynchronous VM_BIND, whose run_job() will update the GPUVA lists
+>     before signalling its fence. That section imposes three rules:
+>
+> [ ... ]
+>
+> > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c
+> b/drivers/gpu/drm/imagination/pvr_vm.c
+> > index cbdd15ed74fdb..807a01aab1dae 100644
+> > --- a/drivers/gpu/drm/imagination/pvr_vm.c
+> > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
+>
+> [ ... ]
+>
+> > @@ -906,6 +925,8 @@ pvr_vm_unmap_all(struct pvr_vm_context *vm_ctx)
+> >       }
+> >
+> >       mutex_unlock(&vm_ctx->lock);
+> > +
+> > +     drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+> >  }
+>
+> [Severity: High]
+> Can this result in an infinite loop if the unmap operation fails?
+>
+> Looking at the loop just above this context in pvr_vm_unmap_all():
+>
+>         for (;;) {
+>                 struct pvr_gem_object *pvr_obj;
+>                 struct drm_gpuva *va;
+>
+>                 va =3D drm_gpuva_find_first(&vm_ctx->gpuvm_mgr,
+>                                           vm_ctx->gpuvm_mgr.mm_start,
+>                                           vm_ctx->gpuvm_mgr.mm_range);
+>                 if (!va)
+>                         break;
+>
+>                 pvr_obj =3D gem_to_pvr_gem(va->gem.obj);
+>
+>                 WARN_ON(pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj,
+>                                                 va->va.addr,
+> va->va.range));
+>         }
+>
+> If pvr_vm_unmap_obj_locked() returns an error (which is highly possible,
+> for
+> example when kzalloc_obj() or pvr_mmu_op_context_create() return -ENOMEM
+> inside pvr_vm_bind_op_unmap_init() during process teardown), the VA remai=
+ns
+> in the tree.
+>
+> Since the loop evaluates WARN_ON() but does not break on error, it appear=
+s
+> drm_gpuva_find_first() will find the exact same VA again, causing the loo=
+p
+> to
+> spin indefinitely. This could lead to a kernel soft lockup.
+>
+> It looks like the series end commit removes the drm_gpuvm_exec_lock but
+> leaves the -ENOMEM failure paths intact, so the lockup potential remains.
+>
+> --
+> Sashiko AI review =C2=B7
+> https://sashiko.dev/#/patchset/20261011-pvr-gpuvm-immediate-v2-0-744ddc66=
+44c3@gmail.com?part=3D1
+>
 
-  https://gitlab.freedesktop.org/drm/amdgpu/kernel.git tags/amd-drm-fixes-7.3-2026-10-15
+--0000000000008fa830065de89492
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-for you to fetch changes up to 752480ad62964edf0254e151110d3e53a7cb37de:
+<div dir=3D"auto"><div>To be clear, this is a pre-existing issue and should=
+ be fixed in a separate patch.</div><div dir=3D"auto"><br></div><div data-s=
+martmail=3D"gmail_signature"><div dir=3D"ltr"><div>Thanks,</div><div>Gyeyou=
+ng</div></div></div></div><br><div class=3D"gmail_quote gmail_quote_contain=
+er"><div dir=3D"ltr" class=3D"gmail_attr">2026=EB=85=84 10=EC=9B=94 11=EC=
+=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 6:56,  &lt;<a href=3D"mailto:sashiko-=
+bot@kernel.org">sashiko-bot@kernel.org</a>&gt;=EB=8B=98=EC=9D=B4 =EC=9E=91=
+=EC=84=B1:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
+ .8ex;border-left:1px #ccc solid;padding-left:1ex">Thank you for your contr=
+ibution! Sashiko AI review found 1 potential issue(s) to consider:<br>
+- [High] drm/imagination: infinite loop in pvr_vm_unmap_all() on unmap fail=
+ure<br>
+--<br>
+<br>
+commit e8ae922e82d0545dbcb5536fc88e9f62e91d62ac<br>
+Author: Gyeyoung Baek &lt;<a href=3D"mailto:gye976@gmail.com" target=3D"_bl=
+ank" rel=3D"noreferrer">gye976@gmail.com</a>&gt;<br>
+<br>
+=C2=A0 =C2=A0 drm/imagination: Switch the GPUVM to immediate mode<br>
+<br>
+=C2=A0 =C2=A0 Use DRM_GPUVM_IMMEDIATE_MODE so that each GEM&#39;s GPUVA lis=
+t is protected<br>
+=C2=A0 =C2=A0 by its gpuva.lock instead of its dma_resv. This prepares for<=
+br>
+=C2=A0 =C2=A0 asynchronous VM_BIND, whose run_job() will update the GPUVA l=
+ists<br>
+=C2=A0 =C2=A0 before signalling its fence. That section imposes three rules=
+:<br>
+<br>
+[ ... ]<br>
+<br>
+&gt; diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/im=
+agination/pvr_vm.c<br>
+&gt; index cbdd15ed74fdb..807a01aab1dae 100644<br>
+&gt; --- a/drivers/gpu/drm/imagination/pvr_vm.c<br>
+&gt; +++ b/drivers/gpu/drm/imagination/pvr_vm.c<br>
+<br>
+[ ... ]<br>
+<br>
+&gt; @@ -906,6 +925,8 @@ pvr_vm_unmap_all(struct pvr_vm_context *vm_ctx)<br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;vm_ctx-&gt;lock);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0drm_gpuvm_bo_deferred_cleanup(&amp;vm_ctx-&gt;gpu=
+vm_mgr);<br>
+&gt;=C2=A0 }<br>
+<br>
+[Severity: High]<br>
+Can this result in an infinite loop if the unmap operation fails?<br>
+<br>
+Looking at the loop just above this context in pvr_vm_unmap_all():<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (;;) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct pvr_gem_obje=
+ct *pvr_obj;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_gpuva *v=
+a;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 va =3D drm_gpuva_fi=
+nd_first(&amp;vm_ctx-&gt;gpuvm_mgr,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 v=
+m_ctx-&gt;gpuvm_mgr.mm_start,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 v=
+m_ctx-&gt;gpuvm_mgr.mm_range);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!va)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 break;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pvr_obj =3D gem_to_=
+pvr_gem(va-&gt;gem.obj);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WARN_ON(pvr_vm_unma=
+p_obj_locked(vm_ctx, pvr_obj,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 va-&gt;va.addr, va-&gt;va.range));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+If pvr_vm_unmap_obj_locked() returns an error (which is highly possible, fo=
+r<br>
+example when kzalloc_obj() or pvr_mmu_op_context_create() return -ENOMEM<br=
+>
+inside pvr_vm_bind_op_unmap_init() during process teardown), the VA remains=
+<br>
+in the tree.<br>
+<br>
+Since the loop evaluates WARN_ON() but does not break on error, it appears<=
+br>
+drm_gpuva_find_first() will find the exact same VA again, causing the loop =
+to<br>
+spin indefinitely. This could lead to a kernel soft lockup.<br>
+<br>
+It looks like the series end commit removes the drm_gpuvm_exec_lock but<br>
+leaves the -ENOMEM failure paths intact, so the lockup potential remains.<b=
+r>
+<br>
+-- <br>
+Sashiko AI review =C2=B7 <a href=3D"https://sashiko.dev/#/patchset/20261011=
+-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com?part=3D1" rel=3D"noreferre=
+r noreferrer" target=3D"_blank">https://sashiko.dev/#/patchset/20261011-pvr=
+-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com?part=3D1</a><br>
+</blockquote></div>
 
-  drm/amdgpu/sdma3: Work around POLL_REGMEM / FENCE hang (2026-10-15 12:46:58 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-7.3-2026-10-15:
-
-amdgpu:
-- UVD fix
-- TTM sched entity fixes
-- SMU 14 fix
-- Userptr leak fixes
-- Runpm ref count fix
-- CRIU fix
-- UserQ fixes
-- USB4 fix
-- SDMA 3 fix
-
-----------------------------------------------------------------
-Benjamin Cheng (1):
-      drm/amdgpu/userq: actually validate userq BOs
-
-Jesse Zhang (4):
-      drm/amdgpu: don't drop the runtime PM reference twice in amdgpu_gpr
-      drm/amdgpu: free the userptr ranges when a CS fails after parser_bos
-      drm/amdgpu: report the BO alignment in bytes in GEM_LIST_HANDLES
-      drm/amdgpu: keep the eviction fence until the last handle is closed
-
-Kenneth Feng (1):
-      drm/amd/pm: add zero fan stop temperature support on smu 14.0.2
-
-Perry Yuan (3):
-      drm/amdgpu: fix sched entity leak in ttm buffer entity init
-      drm/amdgpu: destroy mutex when tearing down ttm buffer entity
-      drm/amdgpu: fix GEM object leak on ENOMEM in userptr ioctl
-
-Srinivasan Shanmugam (1):
-      drm/amd/display: Fix NULL sink dereference in USB4 bandwidth functions
-
-Timur Kristóf (2):
-      drm/amdgpu/uvd3.1: Fix checking whether UVD firmware keyselect was already set
-      drm/amdgpu/sdma3: Work around POLL_REGMEM / FENCE hang
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             | 15 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        | 21 ++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            | 17 ++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  7 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          | 10 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c             | 25 ++++++++--
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c              |  2 +-
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c    | 18 +++++--
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 55 +++++++++++++++++++++-
- 9 files changed, 126 insertions(+), 44 deletions(-)
+--0000000000008fa830065de89492--
