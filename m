@@ -4,40 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07FE1CCA462
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 21:34:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28679CCA462
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 21:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 650AF10E9DF;
-	Thu, 15 Oct 2026 21:34:52 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1CC310E9DF
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:34:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B33560A57;
- Thu, 15 Oct 2026 21:34:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DCB71F000C5;
- Thu, 15 Oct 2026 21:34:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792100084;
- bh=1N7Q+MS717Y5ZELpLnbTADM+aewJBTA4kYL9wLAAglg=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=hb+sNVMoq/woyk3V7rO3MVd4NeMSxfs8inTzpJ+AOm8U6UpxjRHz+2PIIzo/y6X53
- z2hPB+ho4WWVvAfzXAGe3y0bGsm1t60y4JCILer2VNtOgJ33zQWoPlNVVrykJ09wc2
- OWUd9PP/3K4fbvRSIAVwPEpc2QzNtEpGgWd4Ru2HHVcNVvl9gMvcDjeoy5o9A2QYqf
- mPhCux1KfX0HloUKDx2hfDtPjhHHFdTM3fzLrwbO2NG+Yx4vYK3crNjhrIVx+1DHpH
- atQ7WpM0mhe1LNmFCEPL88gS2R2k1bcBeQ3CQ6KxD2q1QB4E6peEFbUyianZSxynzK
- 6kqh7+28SqK9Q==
-Message-ID: <sashiko-outbox-173427@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/tests: Add KUnit tests for the client mode size
- limits
-To: "Hugo Sales" <hugo@hsal.es>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261015212545.1989962-3-hugo@hsal.es>
-References: <20261015212545.1989962-1-hugo@hsal.es>
- <20261015212545.1989962-3-hugo@hsal.es>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 21:34:44 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7510E1124D6;
+	Thu, 15 Oct 2026 21:39:41 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011025.outbound.protection.outlook.com [52.101.57.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F383A1124D6
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:39:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rimqU0Qz4yqIdhCOiaZRSb/Pwwv+sfrjIsc990pogDeA+Oc6bkQQsmmLij6t9vDgt96Eaxrz5WlG3yDhbxCHChSx9SvW7YQRTVovqcND4E3zNS5tMs7Vo0yI+n7kh/5gm6fB5VzBmtybb+ytOkErPlEP7Doii253p/iedbPKugvc2KY/9NlbaLXnoZovFU6kZGRcGj74v2qoWe48TA4kHIJIFugIHcevVIaaQPpXV7phmSIaBI8OFT0VGuc2PmZkvk9Z1uXEJb5earz16AEm0i8FtSn32ZTNoMj17cHpDhkgMMdQDEUnubW+CgOlLyfcLPifVmGofUdZl/0GVJpbDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=REFRcfH/JyWihdweeNJF1Rkw9N0azo0+uUZs3Qp2on8=;
+ b=fpqBP4Wq0OpMCqJnfXpJrs7T3xXg4IqG2aOJbxbHUW12LUvo8D0OckV5riwg6TTjl9p7bKeNrS65PnLaVTUOnuFK5YjQmLEQb8UK1oaTYYY3pvlA8WHSYUbxtmAvqLsIAZ86YCxZzFkKGTd37M5224ZCaDto9z+hqYPKbF6h3lZ1tQiX0bssvOwZydc0U90az5iX8NSLrUwzkelcsBRZqjn8WND210X7M4g8wWKmaj4H+ySYVEgFUZ32lvTK3f+3qstSTLLGdIWxbGNu0g7QLtazkrElax23hkocu8UNp18QqzY0mAdJF1Ob3r9LpNSXNtSOqxAXAqh3ZyswS60s9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=REFRcfH/JyWihdweeNJF1Rkw9N0azo0+uUZs3Qp2on8=;
+ b=fOMNUOkxbdOrYJmo3slGGOb3q7W7O7WuvyRhADmnY4JCQxx5ystUFMZyh/f6zVIuY8kaMqvCHOyVBrXlzTt78yaXWjAxlzFrNZMrEonZ3LZzhyOC63YCjIs/zY8y4bYH9Kex36ZY0+WTT1FHnxL1/+VFgdJGETWoT82T57WaZKo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB9059.namprd12.prod.outlook.com (2603:10b6:8:c5::18) by
+ LV1PR12MB999329.namprd12.prod.outlook.com (2603:10b6:408:3f8::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 21:39:32 +0000
+Received: from DS0PR12MB9059.namprd12.prod.outlook.com
+ ([fe80::74da:85c:3e01:6ca3]) by DS0PR12MB9059.namprd12.prod.outlook.com
+ ([fe80::74da:85c:3e01:6ca3%4]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
+ 21:39:32 +0000
+Message-ID: <f337ebc7-dbbe-45cd-a635-c35b7c337a5d@amd.com>
+Date: Thu, 15 Oct 2026 14:39:30 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V4 07/19] accel/amdxdna: Add get and set power_mode for
+ AIE4
+To: Lizhi Hou <lizhi.hou@amd.com>, quic_jhugo@quicinc.com,
+ karol.wachowski@linux.intel.com, max.zhen@amd.com, ogabbay@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: sonal.santan@amd.com, mario.limonciello@amd.com,
+ Soham Donwalkar <soham.donwalkar@amd.com>,
+ Nishad Saraf <nishad.saraf@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261009225343.3079074-1-yidong.zhang@amd.com>
+ <20261009225343.3079074-8-yidong.zhang@amd.com>
+ <2de6caa2-bcdc-107d-53d7-80f270512812@amd.com>
+Content-Language: en-US
+From: yidong Zhang <yidong.zhang@amd.com>
+In-Reply-To: <2de6caa2-bcdc-107d-53d7-80f270512812@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY3PR05CA0053.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::28) To DS0PR12MB9059.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB9059:EE_|LV1PR12MB999329:EE_
+X-MS-Office365-Filtering-Correlation-Id: adee351e-fa5c-4f70-3a56-08df2b04cc8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|18002099003|18092099006|22082099003|10067099003|3023799007|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: IPYbgsaYqmr/H5hBep2iRln78pTRb5hMIVGPghVX3HuGS5lFwbB0SG6N3Nq0AJg2L4KzPDry8wj05p6GplX80aUsB3zGva0+/EJRR0tO8hmV6UIWsPrn1Snqvmk2n8+y4GgX8Spe1yJXTZJQPaka+xgmO6IC+SMfKovn/o6pghOpRN4ZZDjfMexzPzt9SDZ3nak1fgYKgHt3yp2nDW0vP2cTB6EEwRXh9NMhZ9zlftAGpgvT0qjs83bI/+MaTK0VY0dK9YN4uF7B9YEXESj04ILPoNOzXLSU8tfpFq6vqnAI90VYiU9C0ggIL5rdvB0Jy6KPLeT+Qb2UTxaV92lAb+jVO42WzcF+xWvnW7YY07RYYB8dki6h/j+7xmbL4hRHs8XE6YBCWmuFsKkepXi7rq9uzZM1LoOY1TzDvjRNwp3FT9y297TYyUcs02j1+S+v0poBa2HUgg6fXYnsH87P3KMd5mAw/8HJk5ln9a4xmpw7vKGTq+qHh0Eadfl5QY8LRriKfcCYdvr/KyI7bHpGgLKXYw0lJUyHPxS1tMYMc96LKkwjGWha319roZK8mGQwHPfKdTRQbsZWrbzgrdQzAbc0QKyDUJgSIxfDu/F7pItZWBWnAM25xNdRFJi9xut3tzfsfjAzXKgdnvHO095KFZC96glATXLk3fM8ld2qwno=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB9059.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(18092099006)(22082099003)(10067099003)(3023799007)(4143699003)(261009223027099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUxpVTNzaGx4N3NlbUNjS0UwanV3WHJObndIOEhCUVJUS29MemFMNVU5bkF1?=
+ =?utf-8?B?QXJzc3BMcEhBOW9UZk5TZnRvc3U2cnF1OU9BQmprVUdGS3VKR1JCTzd3Z2pE?=
+ =?utf-8?B?V1RqYXNWWHN4SHk4SmpOVFRFaWdpbzVRVVVVVXJxenpOSFdpRE1CeTZNM2kx?=
+ =?utf-8?B?Tkw4eXgxSTVDMmZiZzdpODJGa3pLZ3AxS0phV3BiOW9WWis1QlZaNm1kSmkz?=
+ =?utf-8?B?Z21NTFRicGw1d1UvVlJCV2hRUlVGTmhFQk9OODRzK1NLVlR3QXVjaURxdmNt?=
+ =?utf-8?B?dGJ1SWZaMmtpejZOYTFYT0x1Qk0xQnl6aDNLNlRFRmhoeUpPUW1rNnhBalgv?=
+ =?utf-8?B?U0Y5Nzk1cTNsUVF6aVZLbXhUeW02Ym9ZOUlGaUIyanJOV3B4QzFYZEJPYlVP?=
+ =?utf-8?B?S2VMNmZGUTFCOWlMLzBkakdCVVY2OVRZT1BnQTV4dFRmaW5Db3NscGRoM25S?=
+ =?utf-8?B?c2JhUkNIS1o0dnRVUFlEMEpQaUMyMWhUT09PVXN3RVFuTWsxUU1YcHJteUs5?=
+ =?utf-8?B?U1Q3TFRBYlVIR25TcmhVQzFFWi85VWVkWkZuYkNsTWxMNzUvRmtrZHFqaEU1?=
+ =?utf-8?B?RnpES0JadFVhM2ZLdVVFTHQ4b2ZQT01IbDNVOXU5R0hQdVlzVWt6OFlSRER5?=
+ =?utf-8?B?UUt4VHRqUTFxeDhyUjFXOHZFMjU2a3NXQnBCQmxFazBraXNaZ2gwemdjTHY4?=
+ =?utf-8?B?b1NjZG15SU04T0h2d1hsRTRDRFhtZUNIZTI5eTlEWmR3VWI1NHprNDE0RTZk?=
+ =?utf-8?B?eHlEMGRkU25ZVFgxVFRIVDB2MkQ3aTltcDZzaUFHRTZPbzE3ejdMRGhtdzJG?=
+ =?utf-8?B?VXNSb0RPZllBV0lQWVhtSGt2eGR5Vmo4ZTZMSmVxakVTdGpPSFU3dm5jMkp6?=
+ =?utf-8?B?NVpsUENOQjJZdEw5TVdEQnhLczZGbHk4U0dUVURETnZ6cDVqK0dreE5JbG1E?=
+ =?utf-8?B?K244K0F1c1J5b2RlQ0ZQNjJodENlUHZYeHRlMHZuUFlaQzJaeVZDWTNjSWFo?=
+ =?utf-8?B?c1hXS1JqSVlRenpmb0pwVkdtaXhJVXZFVVhkdVdpNDgwMWpadVlFSkFWYWFN?=
+ =?utf-8?B?akRXcG9qdDZxdS9KZDFpYTRkZmM5ZVdIY3Y5ZGxmakQ2SFhmdVlCcnN6NUNw?=
+ =?utf-8?B?ZkFHM2dzVHd3R015bUtuQ0h4UXZJczBRNTgyMjkwQi9mV1E4cUc0TTJyY0Y5?=
+ =?utf-8?B?YmowZ2VtRS9QNy9JbVp2cUFtN2J0NW8xUXhQd0hrNnZFSW1zSnQ2OERrbVl5?=
+ =?utf-8?B?ZVlsT0kvL2RnR2FhZVh2bzMrczJmS21tR0tIY1NGd3pSRDBVTHB4WVl4cnJq?=
+ =?utf-8?B?dlFIVk94NFkzdStsbkxpZndHeTNqa0FENXF4bzBoRTI5Nm9XbjNadVVROFk4?=
+ =?utf-8?B?eVp0TG8xRERSblNPSFRQWG5HNk82OTF3VTljUVN3Nmh3ZHlsZU1OMUlZUEFR?=
+ =?utf-8?B?bS9QaEhuUFZpK3BpZndJU2NVNjRXWUkzcXA1c1RQR3VFc0IrU3ZYY3Bvbmh3?=
+ =?utf-8?B?ZjFyUWI4SGRLWGlHb3dkWHVnVG1KMFZkMHRmMVZKUkxpaG9WMzBNSWdWRjhP?=
+ =?utf-8?B?dFUzc0lLOTdNN2dtalY0KzdYSzFDZDdQMy93ZHg1NS9Fb0F1Q0paWS9yM3Iv?=
+ =?utf-8?B?MXFYendPT0k5WVRxU1J3d1VnTldidlMyWTBUZ05LK3JveXZIN29Ca2dRRzN6?=
+ =?utf-8?B?cnYyNTQwcDJsVy9RY24vUWRaTHdxbTdDKzIxTTlZeFBSVGxVSjdndVFJVWFT?=
+ =?utf-8?B?NzVTcTkvV1JuUkc5UDNwVTF6bXhEOVVxY1NqUG5MMDJMckMwcDYyTHdPL3gz?=
+ =?utf-8?B?QVd2RHp2L1pENmx3ZmRWSnZEWkNvNTFGZWMxcG9UOHNLUmduMWdmZzllL1JO?=
+ =?utf-8?B?WU1ZVU9QMldSbWpEdDZkOGxndkhpQWU2TlF3WTRERllnV282bUtuNDFiVkg5?=
+ =?utf-8?B?OG1FWVFKcGFLZWZ3Z2g1WE4wQXF0b0s0anJIMXlJeUhURU9GNVlKOHUzM0dF?=
+ =?utf-8?B?aXhlUFF3UUR3ZTlOWjdJV3NoRjVHQkJjOFFJdDhMaXB6Y2lURXA0Q0c2eWhO?=
+ =?utf-8?B?ZCszZjJRWkhXaWF2K24zZ2xtZW1KU1JnN3JNV3BQN3dWK1d3MlR6ek5TeWEx?=
+ =?utf-8?B?bCtnRWU5RVZxdGNtMllrOUJuSXBGSkNmVnVDODM1Z1N1a2J0V29OWUEwVG9L?=
+ =?utf-8?B?TWR5SUluL2I1Wi80a1k2dEZyT2lVRmtGUTZ0SFJFNkxaVFZFUEdHTTIyTnhD?=
+ =?utf-8?B?WXgxNTNUUXZiVVlSVzRQMlZ0UXloWnFxMW1YQldWWEVDa1FnNUtVYk1PbWRD?=
+ =?utf-8?B?c21XS3FNRUpHK2IwRWxKa2dVNUEzUDB2SjZNditoRklSbGRPZFFiQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: adee351e-fa5c-4f70-3a56-08df2b04cc8c
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB9059.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:39:32.3458 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KcWKlAp1fWi2Mub/MJsgFymSSjVgYdQ6HUXYN/SH83+nBVZV4bSW1BkVfzz31FYIlfkxIV2yjmF+tSgy+g5w0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999329
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,169 +136,307 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] drm/tests: lockless access to connector->modes violates locking rul=
-es
-- [Low] drm/tests: memory leak of cloned modes on KUnit assertion failure
---
 
-commit 806dc20896099436a3d060ce16a4a8cb84cf8467
-Author: Hugo Sales <hugo@hsal.es>
-Subject: drm/tests: Add KUnit tests for the client mode size limits
-
-This commit adds KUnit tests for various client mode pickers to ensure they
-skip modes larger than the client's size. It also tests that the modeset
-probe properly retains the preferred mode.
-
-> diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gp=
-u/drm/tests/drm_client_modeset_test.c
-> index 00f43fca97954..93aa919d4f317 100644
-> --- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
-> +++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
-
-[ ... ]
-
-> @@ -197,6 +213,206 @@ static struct kunit_suite drm_test_pick_cmdline_tes=
-t_suite =3D {
-> =20
->  kunit_test_suite(drm_test_pick_cmdline_test_suite);
-> =20
-> +static void drm_test_pick_first_mode_within_limits(struct kunit *test)
-> +{
-
-[ ... ]
-
-> +	mutex_lock(&drm->mode_config.mutex);
-> +	ret =3D drm_helper_probe_single_connector_modes(connector, 1920, 1080);
-> +	mutex_unlock(&drm->mode_config.mutex);
-> +	KUNIT_ASSERT_GT(test, ret, 0);
-> +
-> +	mode =3D drm_connector_first_mode(connector, 1920, 1080);
-
-[Severity: Low]
-The connector->modes list is explicitly documented as being protected by
-dev->mode_config.mutex. Here, the mutex is unlocked just before calling
-drm_connector_first_mode(), which iterates over connector->modes.
-
-While this is isolated test code and no concurrent modification occurs,
-could this lockless iteration trigger static analysis tools or lockdep
-warnings?
-
-> +	KUNIT_ASSERT_NOT_NULL(test, mode);
-> +	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
-> +	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
-
-[ ... ]
-
-> +static void drm_test_pick_cmdline_mode_within_limits(struct kunit *test)
-> +{
-
-[ ... ]
-
-> +	mutex_lock(&drm->mode_config.mutex);
-> +	ret =3D drm_helper_probe_single_connector_modes(connector, 1920, 1080);
-> +	mutex_unlock(&drm->mode_config.mutex);
-> +	KUNIT_ASSERT_GT(test, ret, 0);
-> +
-> +	mode =3D drm_connector_pick_cmdline_mode(connector, 1920, 1080);
-
-[Severity: Low]
-Similarly here, drm_connector_pick_cmdline_mode() iterates over
-connector->modes outside of drm->mode_config.mutex. Does this violate
-the locking rules for the connector modes list?
-
-> +	KUNIT_ASSERT_NOT_NULL(test, mode);
-
-[ ... ]
-
-> +static void drm_test_pick_tiled_mode_within_limits(struct kunit *test)
-> +{
-
-[ ... ]
-
-> +	mutex_lock(&drm->mode_config.mutex);
-> +	ret =3D drm_helper_probe_single_connector_modes(connector, 1920, 1080);
-> +	mutex_unlock(&drm->mode_config.mutex);
-> +	KUNIT_ASSERT_GT(test, ret, 0);
-> +
-> +	mode =3D drm_connector_get_tiled_mode(connector, 1920, 1080);
-
-[Severity: Low]
-As with the previous pickers, drm_connector_get_tiled_mode() accesses
-connector->modes without the required drm->mode_config.mutex held.
-
-> +	KUNIT_ASSERT_NOT_NULL(test, mode);
-
-[ ... ]
-
-> +static void drm_test_pick_clone_mode_within_limits(struct kunit *test)
-> +{
-
-[ ... ]
-
-> +	mutex_lock(&drm->mode_config.mutex);
-> +	for (i =3D 0; i < ARRAY_SIZE(connectors); i++) {
-> +		ret =3D drm_helper_probe_single_connector_modes(connectors[i], 1920, 1=
-080);
-> +		KUNIT_EXPECT_GT(test, ret, 0);
-> +	}
-> +	mutex_unlock(&drm->mode_config.mutex);
-> +
-> +	KUNIT_EXPECT_TRUE(test, drm_client_target_cloned(drm, connectors, ARRAY=
-_SIZE(connectors),
-> +							 modes, offsets, enabled, 1024, 768));
-
-[Severity: Low]
-This call to drm_client_target_cloned() also iterates over
-connector->modes after the config mutex has been released.
-
-> +	for (i =3D 0; i < ARRAY_SIZE(connectors); i++) {
-> +		KUNIT_ASSERT_NOT_NULL(test, modes[i]);
-
-[Severity: Low]
-If this KUNIT_ASSERT_NOT_NULL() assertion fails, it immediately forces an
-early return from the test.
-
-Because drm_client_target_cloned() allocates new modes via mode_replace(),
-would an early return here bypass the mandatory modes_destroy() cleanup
-below and leak the dynamically allocated mode objects?
-
-Could KUnit's managed allocations (like kunit_add_action) be used to ensure
-modes_destroy() always runs on cleanup?
-
-> +		KUNIT_EXPECT_EQ(test, modes[i]->hdisplay, 1024);
-> +		KUNIT_EXPECT_EQ(test, modes[i]->vdisplay, 768);
-> +	}
-> +	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
-
-[ ... ]
-
-> +static void drm_test_probe_keeps_modes_above_limits(struct kunit *test)
-> +{
-
-[ ... ]
-
-> +	ret =3D drm_client_modeset_probe(client, 1024, 768);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +	mode =3D client->modesets[0].mode;
-> +	KUNIT_ASSERT_NOT_NULL(test, mode);
-> +	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
-> +	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
-> +
-> +	mode =3D drm_connector_preferred_mode(connector, 1920, 1080);
-
-[Severity: Low]
-Once again, drm_connector_preferred_mode() is called to iterate the
-connector->modes list without the config mutex held.
-
-> +	KUNIT_ASSERT_NOT_NULL(test, mode);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015212545.1989=
-962-1-hugo@hsal.es?part=3D2
+On 10/12/26 14:29, Lizhi Hou wrote:
+>
+> On 10/9/26 15:53, David Zhang wrote:
+>> Add power mode support for AIE4 devices via DRM_AMDXDNA_GET_INFO and
+>> DRM_AMDXDNA_SET_STATE:
+>> - Add AIE4_MSG_OP_POWER_OVERRIDE mailbox support
+>> - Add DRM_AMDXDNA_GET_POWER_MODE support
+>> - Implement aie4_set_power_mode() and wire .set_aie_state
+>>
+>> Firmware boots in POWER_MODE_DEFAULT after a reload, so re-send the
+>> cached user power mode override whenever the hardware starts via
+>> aie4_restore_power_mode(). On a fresh probe, pw_mode is
+>> POWER_MODE_DEFAULT.
+>>
+>> Co-developed-by: Soham Donwalkar <soham.donwalkar@amd.com>
+>> Signed-off-by: Soham Donwalkar <soham.donwalkar@amd.com>
+>> Co-developed-by: Nishad Saraf <nishad.saraf@amd.com>
+>> Signed-off-by: Nishad Saraf <nishad.saraf@amd.com>
+>> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+>> ---
+>>   drivers/accel/amdxdna/aie4_message.c  |  17 ++++
+>>   drivers/accel/amdxdna/aie4_msg_priv.h |   9 ++
+>>   drivers/accel/amdxdna/aie4_pci.c      | 116 ++++++++++++++++++++++++++
+>>   drivers/accel/amdxdna/aie4_pci.h      |   6 ++
+>>   4 files changed, 148 insertions(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
+>> index c83f81a0e65b..8d1cad50cbab 100644
+>> --- a/drivers/accel/amdxdna/aie4_message.c
+>> +++ b/drivers/accel/amdxdna/aie4_message.c
+>> @@ -158,3 +158,20 @@ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
+>>         return ret;
+>>   }
+>> +
+>> +int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
+>> +{
+>> +    DECLARE_AIE_MSG(aie4_msg_power_override, AIE4_MSG_OP_POWER_OVERRIDE);
+>> +    int ret;
+>> +
+>> +    req.power_mode = power_mode;
+>> +
+>> +    ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
+>> +    if (ret)
+>> +        XDNA_WARN(ndev->aie.xdna,
+>
+> Should be XDNA_ERR(). 
+I will fix this in next version of the patch. 
+Thanks, David
+>
+> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>
+>> +              "Failed to set power mode %u, ret %d", (u32)power_mode, ret);
+>> +    else
+>> +        XDNA_DBG(ndev->aie.xdna, "Power mode set to %u", (u32)power_mode);
+>> +
+>> +    return ret;
+>> +}
+>> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
+>> index 81842fa1d6ce..4c06792df1bd 100644
+>> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
+>> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
+>> @@ -23,6 +23,7 @@ enum aie4_msg_opcode {
+>>       AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
+>>       AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
+>>       AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
+>> +    AIE4_MSG_OP_POWER_OVERRIDE                   = 0x3000B,
+>>         AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
+>>   };
+>> @@ -187,6 +188,14 @@ struct aie4_msg_query_cert_firmware_version_resp {
+>>       __u16 host_queue_minor;
+>>   } __packed;
+>>   +struct aie4_msg_power_override_req {
+>> +    __u32 power_mode;
+>> +} __packed;
+>> +
+>> +struct aie4_msg_power_override_resp {
+>> +    enum aie4_msg_status status;
+>> +} __packed;
+>> +
+>>   #define AIE4_WORK_BUFFER_MIN_SIZE      SZ_4M
+>>     struct aie4_msg_attach_work_buffer_req {
+>> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+>> index 1cbd1665a28f..6eacdc026ec7 100644
+>> --- a/drivers/accel/amdxdna/aie4_pci.c
+>> +++ b/drivers/accel/amdxdna/aie4_pci.c
+>> @@ -4,6 +4,7 @@
+>>    */
+>>     #include <drm/amdxdna_accel.h>
+>> +#include <drm/drm_drv.h>
+>>   #include <drm/drm_managed.h>
+>>   #include <drm/drm_print.h>
+>>   #include <linux/firmware.h>
+>> @@ -16,6 +17,7 @@
+>>   #include "amdxdna_mailbox.h"
+>>   #include "amdxdna_mailbox_helper.h"
+>>   #include "amdxdna_pci_drv.h"
+>> +#include "amdxdna_pm.h"
+>>     #define NO_IOHUB        0
+>>   #define PSP_NOTIFY_INTR        0xD007BE11
+>> @@ -300,6 +302,15 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
+>>       return 0;
+>>   }
+>>   +/* Restore cached power mode override across hardware start. */
+>> +int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev)
+>> +{
+>> +    if (ndev->pw_mode == POWER_MODE_DEFAULT)
+>> +        return 0;
+>> +
+>> +    return aie4_msg_set_power_mode(ndev, ndev->pw_mode);
+>> +}
+>> +
+>>   static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
+>>   {
+>>       int ret;
+>> @@ -316,6 +327,10 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
+>>       if (ret)
+>>           goto mbox_fini;
+>>   +    ret = aie4_restore_power_mode(ndev);
+>> +    if (ret)
+>> +        goto mbox_fini;
+>> +
+>>       return 0;
+>>     mbox_fini:
+>> @@ -353,8 +368,14 @@ static int aie4_vf_hw_start(struct amdxdna_dev_hdl *ndev)
+>>       if (ret)
+>>           goto mailbox_fini;
+>>   +    ret = aie4_restore_power_mode(ndev);
+>> +    if (ret)
+>> +        goto partition_fini;
+>> +
+>>       return 0;
+>>   +partition_fini:
+>> +    aie4_partition_fini(ndev);
+>>   mailbox_fini:
+>>       aie4_mailbox_fini(ndev);
+>>       return ret;
+>> @@ -394,8 +415,14 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
+>>       if (ret)
+>>           goto mailbox_fini;
+>>   +    ret = aie4_restore_power_mode(ndev);
+>> +    if (ret)
+>> +        goto partition_fini;
+>> +
+>>       return 0;
+>>   +partition_fini:
+>> +    aie4_partition_fini(ndev);
+>>   mailbox_fini:
+>>       aie4_mailbox_fini(ndev);
+>>   stop_fw:
+>> @@ -535,6 +562,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+>>         ndev->priv = xdna->dev_info->dev_priv;
+>>       ndev->aie.xdna = xdna;
+>> +    ndev->pw_mode = POWER_MODE_DEFAULT;
+>>       xdna->dev_handle = ndev;
+>>         xa_init_flags(&ndev->cert_comp_xa, XA_FLAGS_ALLOC);
+>> @@ -589,6 +617,24 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+>>       return 0;
+>>   }
+>>   +static int aie4_get_power_mode(struct amdxdna_client *client,
+>> +                   struct amdxdna_drm_get_info *args)
+>> +{
+>> +    struct amdxdna_drm_get_power_mode mode = {};
+>> +    struct amdxdna_dev *xdna = client->xdna;
+>> +    struct amdxdna_dev_hdl *ndev;
+>> +    u32 buf_sz;
+>> +
+>> +    ndev = xdna->dev_handle;
+>> +    mode.power_mode = ndev->pw_mode;
+>> +
+>> +    buf_sz = min_t(u32, args->buffer_size, sizeof(mode));
+>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, buf_sz))
+>> +        return -EFAULT;
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
+>>   {
+>>       struct amdxdna_dev *xdna = client->xdna;
+>> @@ -605,6 +651,9 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
+>>       case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
+>>           ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
+>>           break;
+>> +    case DRM_AMDXDNA_GET_POWER_MODE:
+>> +        ret = aie4_get_power_mode(client, args);
+>> +        break;
+>>       default:
+>>           XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
+>>           ret = -EOPNOTSUPP;
+>> @@ -615,6 +664,71 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
+>>       return ret;
+>>   }
+>>   +static int aie4_set_power_mode(struct amdxdna_client *client,
+>> +                   struct amdxdna_drm_set_state *args)
+>> +{
+>> +    struct amdxdna_drm_set_power_mode power_state = { 0 };
+>> +    struct amdxdna_dev *xdna = client->xdna;
+>> +    struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
+>> +    u8 power_mode;
+>> +    int ret;
+>> +
+>> +    if (args->buffer_size < sizeof(power_state))
+>> +        return -EINVAL;
+>> +
+>> +    if (copy_from_user(&power_state, u64_to_user_ptr(args->buffer),
+>> +               sizeof(power_state))) {
+>> +        XDNA_ERR(xdna, "Failed to copy power mode request into kernel");
+>> +        return -EFAULT;
+>> +    }
+>> +
+>> +    if (XDNA_MBZ_DBG(xdna, power_state.pad, sizeof(power_state.pad)))
+>> +        return -EINVAL;
+>> +
+>> +    power_mode = power_state.power_mode;
+>> +    if (power_mode > POWER_MODE_TURBO) {
+>> +        XDNA_ERR(xdna, "Invalid power mode %d", power_mode);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    ret = aie4_msg_set_power_mode(xdna->dev_handle, power_mode);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    ndev->pw_mode = power_mode;
+>> +    return 0;
+>> +}
+>> +
+>> +static int aie4_set_state(struct amdxdna_client *client,
+>> +              struct amdxdna_drm_set_state *args)
+>> +{
+>> +    struct amdxdna_dev *xdna = client->xdna;
+>> +    int ret, idx;
+>> +
+>> +    if (!drm_dev_enter(&xdna->ddev, &idx))
+>> +        return -ENODEV;
+>> +
+>> +    ret = amdxdna_pm_resume_get_locked(xdna);
+>> +    if (ret)
+>> +        goto dev_exit;
+>> +
+>> +    switch (args->param) {
+>> +    case DRM_AMDXDNA_SET_POWER_MODE:
+>> +        ret = aie4_set_power_mode(client, args);
+>> +        break;
+>> +    default:
+>> +        XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
+>> +        ret = -EOPNOTSUPP;
+>> +        break;
+>> +    }
+>> +
+>> +    amdxdna_pm_suspend_put(xdna);
+>> +
+>> +dev_exit:
+>> +    drm_dev_exit(idx);
+>> +    return ret;
+>> +}
+>> +
+>>   static int aie4_alloc_work_buffer(struct amdxdna_dev_hdl *ndev)
+>>   {
+>>       struct amdxdna_dev *xdna = ndev->aie.xdna;
+>> @@ -737,6 +851,7 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
+>>       .hwctx_fini        = aie4_hwctx_fini,
+>>       .cmd_wait        = aie4_cmd_wait,
+>>       .get_aie_info        = aie4_get_info,
+>> +    .set_aie_state        = aie4_set_state,
+>>   };
+>>     const struct amdxdna_dev_ops aie4_classic_ops = {
+>> @@ -746,4 +861,5 @@ const struct amdxdna_dev_ops aie4_classic_ops = {
+>>       .hwctx_fini        = aie4_hwctx_fini,
+>>       .cmd_wait        = aie4_cmd_wait,
+>>       .get_aie_info        = aie4_get_info,
+>> +    .set_aie_state        = aie4_set_state,
+>>   };
+>> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+>> index 5ae5e8427a3b..fd2c50dc8080 100644
+>> --- a/drivers/accel/amdxdna/aie4_pci.h
+>> +++ b/drivers/accel/amdxdna/aie4_pci.h
+>> @@ -58,6 +58,8 @@ struct amdxdna_dev_hdl {
+>>       dma_addr_t            work_buf_addr;
+>>       u32                work_buf_size;
+>>   +    u8                pw_mode;
+>> +
+>>       struct amdxdna_drm_query_firmware_version cert_version;
+>>   };
+>>   @@ -77,6 +79,7 @@ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
+>>                       struct amdxdna_drm_query_firmware_version *fw_version);
+>>   int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
+>>                        struct amdxdna_drm_query_firmware_version *cert_version);
+>> +int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
+>>   u32 aie4_msg_pasid(struct amdxdna_client *client);
+>>     /* aie4_ctx.c */
+>> @@ -84,6 +87,9 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
+>>   void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
+>>   int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
+>>   +/* aie4_pci.c */
+>> +int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
+>> +
+>>   /* aie4_sriov.c */
+>>   #if IS_ENABLED(CONFIG_PCI_IOV)
+>>   int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
