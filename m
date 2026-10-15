@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45AE3CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 09:49:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E90CCC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 09:49:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20A9F10E44C;
-	Thu, 15 Oct 2026 09:49:40 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C242D10EB98
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:49:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 945DD10EB98;
+	Thu, 15 Oct 2026 09:49:44 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C91F611226E
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:49:35 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id B387BC62202;
- Thu, 15 Oct 2026 09:50:26 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 7CB051A1224;
+ Thu, 15 Oct 2026 09:49:34 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5D4B660360;
- Thu, 15 Oct 2026 09:49:30 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5178160360;
+ Thu, 15 Oct 2026 09:49:34 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3CA5510328BD9; 
- Thu, 15 Oct 2026 11:49:24 +0200 (CEST)
+ with ESMTPSA id 3F82C10328BD2; 
+ Thu, 15 Oct 2026 11:49:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1792057767; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1792057772; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=DyyQQF75ppIy3CIT8AxGaD9+GZhG0hpjGPHtwDqU9rM=;
- b=sMZpJBiIMuqgFM9sjdK49kIkLlw1V8oBXGXN/7UpbLbrfkhZa2P0gcFDESx5NW89OunhJt
- pbQyGu4KJwnbJIk7juGLZWkw7nhHzMLO/O8MwTW2KQm6xqCXjKpRqtpMJY2lMQMYoS+PSG
- Ly3XIXnvHTD4CU+WZbMZ+lH+w9Lp9JVIZyxkvBZAz4+kPQcvjK8x4SOI1F5lrpJtvohBxi
- BF770afjjPcFMhu0QyLfRR4Sq63DLAHBCHMn3sxnB4mFNCNdTgJX9GuNthGnEZJu/ZePY2
- VOs3t+hHYTb43GFjgWXlFinkan8jSexWfbGwHr8QCT4fPIcgXfQM/igV0b69Og==
+ bh=QZZsjZ1RvwlA3HlqbPaiuTTXp0IybfCUheX4Ww9/Dv0=;
+ b=wa2tZLObEd/IQ/4YvZ2TdkQ0TCDfN0lebMhyNiJleQ62bQRH9yxVfERpdzTrr0JWYqhKu+
+ U4BslktjLRslyBpAYe/alJG0f32wLxrFLrrOSMyu4pZh1dduwTmYUmGAAW+fG5Wc+mLaCt
+ rm0MXJc1qDLKaPnS6Q3RkPzh862/8ww2tweeAwi/iAZqi/PtoF1/uKhR5/0c0RMwlWN6G8
+ hzlCIBYS+H59M6yYtvf6l2xEGph4IKQ8NcMTHuSO8d/dtUz6zt+X3NE96G7hNVXiM3vw1c
+ +29B2ZfpSyo9ggN1xOdrxlAZt85RtxLPS/VJzEams+FXyPn+NOhbYHulna831g==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 15 Oct 2026 11:48:47 +0200
-Subject: [PATCH 2/3] drm/bridge: ite-it66121: log an error if the IDs do
- not match
+Date: Thu, 15 Oct 2026 11:48:48 +0200
+Subject: [PATCH 3/3] drm/bridge: ite-it66121: make successful probe quiet
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-drm-ite-it66121-log-probe-errors-v1-2-7fd6994e0be0@bootlin.com>
+Message-Id: <20261015-drm-ite-it66121-log-probe-errors-v1-3-7fd6994e0be0@bootlin.com>
 References: <20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com>
 In-Reply-To: <20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com>
 To: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -70,10 +69,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If the IDs read from the chip do not match any of the known models,
-it66121_probe() fails silently, making troubleshooting unnecessarily
-difficult. Log an error to clarify the failure reason, showing the IDs read
-from the hardware.
+When drivers are working properly they should be quiet. Turn the dev_info()
+into a dev_dbg(). While there, also make it more informative.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
@@ -81,19 +78,19 @@ Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index 9b43456c67a1..49eb8318e974 100644
+index 49eb8318e974..11647b1ac735 100644
 --- a/drivers/gpu/drm/bridge/ite-it66121.c
 +++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -1675,7 +1675,8 @@ static int it66121_probe(struct i2c_client *client)
- 	}
+@@ -1709,7 +1709,8 @@ static int it66121_probe(struct i2c_client *client)
  
- 	if (i == ARRAY_SIZE(it66xx_chip_info))
--		return -ENODEV;
-+		return dev_err_probe(dev, -ENODEV, "Unknown vendor %04x device %04x (rev %01x)\n",
-+				     vendor_id, device_id, revision_id);
+ 	drm_bridge_add(&ctx->bridge);
  
- 	ctx->bridge.of_node = dev->of_node;
- 	ctx->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
+-	dev_info(ctx->dev, "IT66121 revision %d probed\n", revision_id);
++	dev_dbg(ctx->dev, "IT66121 vendor %04x device %04x revision %d probed\n",
++		vendor_id, device_id, revision_id);
+ 
+ 	return 0;
+ }
 
 -- 
 2.56.0
