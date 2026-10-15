@@ -4,34 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 802F6CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:17:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6279ACC6B3C
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:17:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFE381122D9;
-	Thu, 15 Oct 2026 11:16:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1CD5112305;
+	Thu, 15 Oct 2026 11:16:55 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 164E11122D9
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF85D1122EF
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:36 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 677C21D12;
- Thu, 15 Oct 2026 13:14:36 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 48ADF2F8;
+ Thu, 15 Oct 2026 13:14:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1792062877;
- bh=fw6HWt4qWZk1Je5fhTr7Rh66OKoDT2cP4tY+lFPvw1k=;
+ s=mail; t=1792062873;
+ bh=YvPKvR3k8goQxkf8tDWUsDTJ1X7cwwMqAe7zy8YJqmM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=IAKAZ04oU9Cj45/XYdJq2WgcKmUagAlI6Qo/W2mZcTnIlQSYNes1hRAgqT2V1fWLt
- x15Iq018Kfhi0421pnVzMpfUZBZlQqWq/+bzmkRVsF+otS1AKJt2jwU7I/hgfg4sCg
- zlVScb2t4qpZOA6bo3hFpR12oHid9YJB4V5QAEqc=
+ b=ZRbWpj4yXRt1q0Nej4RrT73tJwRwKei/4mFS4+cWFJMa3uBhhFcF0dpLfT30ycZ8u
+ OFmPZZu3tBDsEVY88s3lGOuik9E2gw3XVJMoI3SsBDPHFbXBUW6c63Uwu7oqf1m+D8
+ NvLv1LrfdmAg6kF6U9+uLzEPFxab/mYuPYFBLywI=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:16:04 +0300
-Subject: [PATCH v5 13/13] drm/panel-simple: Fix powertip,ph800480t013-idf02
- timings
+Date: Thu, 15 Oct 2026 14:16:00 +0300
+Subject: [PATCH v5 09/13] drm/bridge: tc358762: Fix sync polarities
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-13-7cd721a6451b@ideasonboard.com>
+Message-Id: <20261015-tc358762-fixes-v5-9-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -45,21 +44,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2487;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=944;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=fw6HWt4qWZk1Je5fhTr7Rh66OKoDT2cP4tY+lFPvw1k=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYJeY5qBXBVVYD3iUA8UgrkzdfZ3PZisDw3t
- o1904SKUzOJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2CQAKCRD6PaqMvJYe
- 9XdDD/9qK1ytb75oiW/t5TnfgzdOhN8/UAMzVq/j87Gwthv2RhGjEnOHisf2M9U3cFXvmomnF3h
- DnYA+sJ+/hjdLx8lxZqdrvUrrbRwLdZoIJGKTaDQDoQgDxyiyNJoB6cU9/SNCjvaU9he73C2IcH
- lFyeJZJvdyYvc77SI6st01RonGmshtYyP3m/1+TikFa+LyDTYh/bPIXKG0Zi1RDV9HXI1OBNCFt
- 6xXxT9/vL8h0rKoQb9E6zaobfavDWv/Drxq8KMoL7lW0oEaZ6Paq9VGRQuh/E9bQjSLLpu+pHNW
- D9ApslFVP2UvADmABiRWMGTIhB6J7wAvbpWfp9meSqwlf5GOxyJ+tGhPg+wY6hNQOQ2UVaeBRBF
- BTmAet9xNEeBreUGunB3qieD2roaHFs7cU0YStlPMu94jxfZiNgVJoqqVOcyk2XTUXd7Ny9B3pS
- aPY2HzbYfpX5HdxBYk756Q+3I2PsfrnSxQIi154UAsnDJNTmGmt21PW1hN6uGFW+qkKwP1Y258J
- K9a10T6xLaOru5CHD6FHZqZrlruEAE5BcOqHO/aLIl5q7Iq6DTiEkub1aEjVHizZ6BsWfHkWDFc
- DmBWtwKXJrTtLfqY0SsT341X1ajb/9xk8o83a4TZnL2PTaUYF0zMVeefUUeZAogcdoJccFuQkAY
- /4YIHs0BUM4BybA==
+ bh=YvPKvR3k8goQxkf8tDWUsDTJ1X7cwwMqAe7zy8YJqmM=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYHMIxIwLJncouR4zT7ki6jZn1uKfsD531IE
+ pAEHjUQyQeJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BwAKCRD6PaqMvJYe
+ 9dyCEACAiD7z3zj1Ru1PevHY7ohFpcM85fmnK3NhTy9BO1JbBy7FnYYOONVRVxkZpp12gOhEWDj
+ BVbUE3z4YAGIClZQ59neOHUBlcJ/c+P2DqjuL3cv2JBA5RQz/2Q31APADs2b3u6aFW6PlOP9nnd
+ GNlv3xqlRhs81rqC17VZ+5tnb4UCsVA3HHS37owJJi/7hyIAidmCx5GxfEeto5sQlM6XOLgZfDw
+ gKbB2AqB6HbmqZNtT+LdRtSM6WOUkvInMdyQ5pzw0b4JBnswOOhYNVzyEjqY4Bd9HCWp6EzOEp1
+ AKF67o8PuJmld/FsWns4xc/33lxU65a+5DSEw/18q6jE+PaFvgOcCLOWVfiJzy+V3Xqna/eG/0E
+ uqaAZ1CGCZcOpKV5Sw3QEwGYEuvmTkLdwEa4W7upzSehLIDsYh31AdbwhUnZxjh5O1ppTHA2B5X
+ eP8EXzLJh624qLcb+FofxmMgV1m+Kibuzl8Xr580o5RFgGXBLBJoZXSB3JY4XB+ObXu2xWwIAbL
+ aJxJ4DSoDYBO6ChGCnKrrd6tPjkEGkpapOC65fIfY7oubuCAzqtxMbNQ/g5sBeC0Sg1iwo9bHCk
+ nHGWJgIof+0vjaUr3zCh1vG0wLohFx1iv5P9vKeY6FjEN2x2eCyIceFX7wdVLRgBsyHvK3ai1bY
+ l5TY2DYGGiN+J3w==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,65 +76,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The powertip,ph800480t013-idf02 panel was added to panel-simple, and
-with the tc358762 driver, enabled the use of RaspberryPi 7" DSI display.
+Setting LCDCTRL_HSYNC_POL and LCDCTRL_VSYNC_POL will make the respective
+sync signal active high. The driver does this in inverse. Fix it.
 
-I have been testing the RaspberryPi 7" DSI display module with TI's
-BeagleY-AI, and I can't get a good image with the current panel timings.
-
-It's been quite difficult to figure out exactly what are the issues.
-Possibly RPi DSI TX and TI DSI TX have their own quirks which affect
-this also. However, now that the tc358762 driver has been fixed wrt. the
-signal timings it sends, this patch makes the panel work fine on
-BeagleY-AI.
-
-Fix the timings according to the datasheet:
-
-- hsw + hbp must equal to 46. This was correct in the timings, but the
-  hsw was very tight, and at least Cadence DSI has trouble with such
-  short hsync. Increase hsw to the middle of the hsw range from the
-  datasheet, and decrease hbp accordingly.
-- vsw + vbp must equal to 23. This was 24, resulting in slight shift in
-  the image.
-- The upstream timings seemed to aim for 50 fps, but this is a normal 60
-  fps panel, so adjust the timings to get 60 fps. As there's no strict
-  rule what numbers to pick here, I used the "typical" values from panel
-  datasheet for pclk, hfp and vfp. However, vfp of 23 instead of the
-  datasheet's 22 give us a closer match to 60 fps, so I used that.
-
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/panel/panel-simple.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index c95964ba25a9..2e84a8ea518f 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -4191,15 +4191,15 @@ static const struct panel_desc powertip_ph128800t006_zhc01 = {
- };
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index 1fb5626a35ab..2baacef685a5 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -190,10 +190,10 @@ static int tc358762_init(struct tc358762 *ctx)
  
- static const struct drm_display_mode powertip_ph800480t013_idf02_mode = {
--	.clock = 24750,
-+	.clock = 33333,
- 	.hdisplay = 800,
--	.hsync_start = 800 + 54,
--	.hsync_end = 800 + 54 + 2,
--	.htotal = 800 + 54 + 2 + 44,
-+	.hsync_start = 800 + 210,
-+	.hsync_end = 800 + 210 + 20,
-+	.htotal = 800 + 210 + 20 + 26,
- 	.vdisplay = 480,
--	.vsync_start = 480 + 49,
--	.vsync_end = 480 + 49 + 2,
--	.vtotal = 480 + 49 + 2 + 22,
-+	.vsync_start = 480 + 23,
-+	.vsync_end = 480 + 23 + 2,
-+	.vtotal = 480 + 23 + 2 + 21,
- 	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
- };
+ 	lcdctrl |= LCDCTRL_DCLK_POL;
  
+-	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
++	if (ctx->mode.flags & DRM_MODE_FLAG_PHSYNC)
+ 		lcdctrl |= LCDCTRL_HSYNC_POL;
+ 
+-	if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
++	if (ctx->mode.flags & DRM_MODE_FLAG_PVSYNC)
+ 		lcdctrl |= LCDCTRL_VSYNC_POL;
+ 
+ 	tc358762_write(ctx, LCDCTRL, lcdctrl);
 
 -- 
 2.43.0
