@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5EF4CC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F865CC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B30310F0C8;
-	Thu, 15 Oct 2026 15:45:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8271410E181;
+	Thu, 15 Oct 2026 15:45:57 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id CC2CF10E304
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:45:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 074ED10E181
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:45:52 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C6A6914BF
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:45:26 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BFD31516
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:45:48 -0700 (PDT)
 Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- DAD213F7B4
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:45:29 -0700 (PDT)
+ 5EAC33F7B4
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:45:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792079130; bh=8O5mShGPkrQqVkgbOsRebQH+q/jK164C/a2bHn6YCO4=;
+ t=1792079151; bh=tddroFQZdKdt9Op1tskX7PdYh0ELTa7P1aXSDrGgbQk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CFI+aWQz/uqMCaIV0jpi5vOPYqf0ZTVQxTV2hclZl0+Haov9QhV25ka/S1XNVydP5
- c7ghmGMDpy0xQ2Gp223jyrFmFgr72p9IIGcVHabBt149tL85Ei1qJTtodNKX7JhRLc
- YZvLMFIpuE7h2bW/BUd4AD2QZHlELDDJzijRbN9o=
-Date: Thu, 15 Oct 2026 16:45:23 +0100
+ b=BjiAJZ0Gtot5qt7TzGpeCZdH5IHA2nGvQU8dJfQl2morZKYJOSkj+E7JrhH6ElUlA
+ eMIKe6vzEH3tltHk4elm6cmFztXqH2Sz+1VTO6vPrlaFCNQ1qqqGVhi5Zd+c2gCJJB
+ Ho/MJG7eGihH4UUg4qwX7pKegTeR3gGc8AiSfGxs=
+Date: Thu, 15 Oct 2026 16:45:44 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 05/75] drm/arm: komeda: Switch to
- drm_atomic_helper_connector_create_state
-Message-ID: <atD1E7BAkTVo10fr@e142607>
+Subject: Re: [PATCH 67/75] drm/malidp: Convert to atomic_create_state
+Message-ID: <atD1KLUA2LQ4wGyA@e142607>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-5-586c9c026823@kernel.org>
+ <20261014-drm-no-more-connector-reset-v1-67-586c9c026823@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-5-586c9c026823@kernel.org>
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-67-586c9c026823@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,11 +56,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2026 at 07:26:28PM +0200, Maxime Ripard wrote:
-> The arm: komeda connector implementation uses the deprecated
-> drm_atomic_helper_connector_reset() as its reset hook.
-> 
-> Switch to drm_atomic_helper_connector_create_state() instead.
+On Wed, Oct 14, 2026 at 07:27:30PM +0200, Maxime Ripard wrote:
+> The malidp writeback connector reset implementation creates a custom
+> state subclass, but only initializes a pristine state without resetting
+> any hardware. This is equivalent to what atomic_create_state expects.
+> Convert to it.
 > 
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
@@ -73,26 +72,57 @@ Liviu
 > ---
 > Cc: Liviu Dudau <liviu.dudau@arm.com>
 > ---
->  drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/arm/malidp_mw.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> index 4872253a2449..f394971c0edb 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> @@ -126,11 +126,11 @@ static void komeda_wb_connector_destroy(struct drm_connector *connector)
->  	drm_connector_cleanup(connector);
->  	kfree(to_kconn(to_wb_conn(connector)));
+> diff --git a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
+> index f8be65119e3b..edd924ba722d 100644
+> --- a/drivers/gpu/drm/arm/malidp_mw.c
+> +++ b/drivers/gpu/drm/arm/malidp_mw.c
+> @@ -62,22 +62,22 @@ malidp_mw_connector_mode_valid(struct drm_connector *connector,
+>  static const struct drm_connector_helper_funcs malidp_mw_connector_helper_funcs = {
+>  	.get_modes = malidp_mw_connector_get_modes,
+>  	.mode_valid = malidp_mw_connector_mode_valid,
+>  };
+>  
+> -static void malidp_mw_connector_reset(struct drm_connector *connector)
+> +static struct drm_connector_state *
+> +malidp_mw_connector_create_state(struct drm_connector *connector)
+>  {
+> -	struct malidp_mw_connector_state *mw_state = kzalloc_obj(*mw_state);
+> +	struct malidp_mw_connector_state *mw_state;
+>  
+> -	if (connector->state)
+> -		__drm_atomic_helper_connector_destroy_state(connector->state);
+> +	mw_state = kzalloc_obj(*mw_state);
+> +	if (!mw_state)
+> +		return ERR_PTR(-ENOMEM);
+>  
+> -	kfree(connector->state);
+> -	connector->state = NULL;
+> +	__drm_atomic_helper_connector_state_init(&mw_state->base, connector);
+>  
+> -	if (mw_state)
+> -		__drm_atomic_helper_connector_reset(connector, &mw_state->base);
+> +	return &mw_state->base;
 >  }
 >  
->  static const struct drm_connector_funcs komeda_wb_connector_funcs = {
-> -	.reset			= drm_atomic_helper_connector_reset,
-> +	.atomic_create_state	= drm_atomic_helper_connector_create_state,
->  	.detect			= komeda_wb_connector_detect,
->  	.fill_modes		= komeda_wb_connector_fill_modes,
->  	.destroy		= komeda_wb_connector_destroy,
->  	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
->  	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+>  static enum drm_connector_status
+>  malidp_mw_connector_detect(struct drm_connector *connector, bool force)
+>  {
+> @@ -109,11 +109,11 @@ malidp_mw_connector_duplicate_state(struct drm_connector *connector)
+>  
+>  	return &mw_state->base;
+>  }
+>  
+>  static const struct drm_connector_funcs malidp_mw_connector_funcs = {
+> -	.reset = malidp_mw_connector_reset,
+> +	.atomic_create_state = malidp_mw_connector_create_state,
+>  	.detect = malidp_mw_connector_detect,
+>  	.fill_modes = drm_helper_probe_single_connector_modes,
+>  	.destroy = malidp_mw_connector_destroy,
+>  	.atomic_duplicate_state = malidp_mw_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
 > 
 > -- 
 > 2.55.0
