@@ -4,43 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F865CC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:46:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9CE1CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8271410E181;
-	Thu, 15 Oct 2026 15:45:57 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 074ED10E181
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:45:52 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BFD31516
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:45:48 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 5EAC33F7B4
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:45:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792079151; bh=tddroFQZdKdt9Op1tskX7PdYh0ELTa7P1aXSDrGgbQk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BjiAJZ0Gtot5qt7TzGpeCZdH5IHA2nGvQU8dJfQl2morZKYJOSkj+E7JrhH6ElUlA
- eMIKe6vzEH3tltHk4elm6cmFztXqH2Sz+1VTO6vPrlaFCNQ1qqqGVhi5Zd+c2gCJJB
- Ho/MJG7eGihH4UUg4qwX7pKegTeR3gGc8AiSfGxs=
-Date: Thu, 15 Oct 2026 16:45:44 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 67/75] drm/malidp: Convert to atomic_create_state
-Message-ID: <atD1KLUA2LQ4wGyA@e142607>
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-67-586c9c026823@kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 132FA10E3AF;
+	Thu, 15 Oct 2026 15:46:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C88A10F256
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:46:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 827B760120
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:46:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD761F000C4;
+ Thu, 15 Oct 2026 15:46:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792079206;
+ bh=1Zwne6JgzrNbtn6VSDLZbLiRmS89pPgledmjjbWNeo4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SdDC69WK3WcmppM2D6BbWm+uupb9whiLfWwt62VxCuQxJytpCsMxiNtbitCwyaiHa
+ pu/Tfvf0IMb0hhjN5QI/x0kDUB6bW5NBSnR05chnsIzDAkRst1JxqgZUdVpJ+YC7mP
+ 6Mc25Ew6QCTv3L3B8X05L0jutONe1pZXn73tb9MoSq6kB02b5GCX2kpNGwlFVDQEC9
+ kYnvYNqACXsP2fns4kEo2eDFN67gvJh+LjlxvhS43XpMXAz0e0oI+dpj3+HboU1m6m
+ +h00Q3/XfTSHklguQc2vAyDF5txkZOaBtMiUda+k3XYPCOZq9U7IR/IX12k9LhNPmr
+ HJsPYb68a/Y7g==
+Message-ID: <sashiko-outbox-173096@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 07/28] drm/atomic_sro: Create kernel parameter to
+ force or disable readout
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261015-drm-state-readout-v6-7-6cc02cd10998@kernel.org>
+References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
+ <20261015-drm-state-readout-v6-7-6cc02cd10998@kernel.org>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-67-586c9c026823@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 15:46:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,87 +51,145 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2026 at 07:27:30PM +0200, Maxime Ripard wrote:
-> The malidp writeback connector reset implementation creates a custom
-> state subclass, but only initializes a pristine state without resetting
-> any hardware. This is equivalent to what atomic_create_state expects.
-> Convert to it.
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm: heap out-of-bounds write in drm_atomic_sro_set_private_obj_st=
+ate
+- [High] drm: OOB read/write in drm_atomic_sro_state_free due to dynamic nu=
+m_connector
+- [High] drm: heap out-of-bounds write in drm_atomic_sro_set_connector_stat=
+e()
+--
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+commit 7fa33b0c7c68e508f3bb44a6225923e6e800d132
+Author: Maxime Ripard <mripard@kernel.org>
 
-Best regards,
-Liviu
+drm/atomic_sro: Create drm_atomic_sro_state container
 
-> ---
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> ---
->  drivers/gpu/drm/arm/malidp_mw.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
-> index f8be65119e3b..edd924ba722d 100644
-> --- a/drivers/gpu/drm/arm/malidp_mw.c
-> +++ b/drivers/gpu/drm/arm/malidp_mw.c
-> @@ -62,22 +62,22 @@ malidp_mw_connector_mode_valid(struct drm_connector *connector,
->  static const struct drm_connector_helper_funcs malidp_mw_connector_helper_funcs = {
->  	.get_modes = malidp_mw_connector_get_modes,
->  	.mode_valid = malidp_mw_connector_mode_valid,
->  };
->  
-> -static void malidp_mw_connector_reset(struct drm_connector *connector)
-> +static struct drm_connector_state *
-> +malidp_mw_connector_create_state(struct drm_connector *connector)
->  {
-> -	struct malidp_mw_connector_state *mw_state = kzalloc_obj(*mw_state);
-> +	struct malidp_mw_connector_state *mw_state;
->  
-> -	if (connector->state)
-> -		__drm_atomic_helper_connector_destroy_state(connector->state);
-> +	mw_state = kzalloc_obj(*mw_state);
-> +	if (!mw_state)
-> +		return ERR_PTR(-ENOMEM);
->  
-> -	kfree(connector->state);
-> -	connector->state = NULL;
-> +	__drm_atomic_helper_connector_state_init(&mw_state->base, connector);
->  
-> -	if (mw_state)
-> -		__drm_atomic_helper_connector_reset(connector, &mw_state->base);
-> +	return &mw_state->base;
->  }
->  
->  static enum drm_connector_status
->  malidp_mw_connector_detect(struct drm_connector *connector, bool force)
->  {
-> @@ -109,11 +109,11 @@ malidp_mw_connector_duplicate_state(struct drm_connector *connector)
->  
->  	return &mw_state->base;
->  }
->  
->  static const struct drm_connector_funcs malidp_mw_connector_funcs = {
-> -	.reset = malidp_mw_connector_reset,
-> +	.atomic_create_state = malidp_mw_connector_create_state,
->  	.detect = malidp_mw_connector_detect,
->  	.fill_modes = drm_helper_probe_single_connector_modes,
->  	.destroy = malidp_mw_connector_destroy,
->  	.atomic_duplicate_state = malidp_mw_connector_duplicate_state,
->  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-> 
-> -- 
-> 2.55.0
-> 
+The SRO infrastructure needs a state container to collect the readout states
+for all KMS objects. Unlike drm_atomic_commit which tracks old and new
+states for atomic commits, this container only holds a single state per
+object: the one read out from the hardware. Create struct
+drm_atomic_sro_state with arrays for planes, CRTCs, connectors, and private
+objects, along with accessors to get and set individual object states within
+it.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+> diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomi=
+c_sro.c
+> new file mode 100644
+> index 0000000000000..096fdb7088190
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_atomic_sro.c
+
+[ ... ]
+
+> +void drm_atomic_sro_state_free(struct drm_atomic_sro_state *state)
+> +{
+> +	struct drm_device *dev =3D state->dev;
+> +	unsigned int i;
+> +
+> +	for (i =3D 0; i < state->num_private_objs; i++) {
+> +		struct drm_private_obj *obj =3D state->private_objs[i].ptr;
+
+[ ... ]
+
+> +	kfree(state->private_objs);
+> +
+> +	for (i =3D 0; i < state->dev->mode_config.num_connector; i++) {
+> +		struct drm_connector *conn =3D state->connectors[i].ptr;
+> +		struct drm_connector_state *conn_state =3D
+> +			state->connectors[i].state;
+> +
+> +		if (!conn || !conn_state)
+> +			continue;
+> +
+> +		conn->funcs->atomic_destroy_state(conn, conn_state);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Does this code read past the end of the state->connectors[] array?
+
+Because the loop uses the potentially updated
+state->dev->mode_config.num_connector as its upper bound, what happens if a
+concurrent hotplug (e.g. DP MST) increases num_connector between the
+array's allocation and this free operation?
+
+It seems this could dereference uninitialized memory.
+
+> +		state->connectors[i].state =3D NULL;
+> +		state->connectors[i].ptr =3D NULL;
+> +		drm_connector_put(conn);
+> +	}
+> +
+> +	kfree(state->connectors);
+
+[ ... ]
+
+> +void drm_atomic_sro_set_connector_state(struct drm_atomic_sro_state *sta=
+te,
+> +					struct drm_connector *conn,
+> +					struct drm_connector_state *conn_state)
+> +{
+> +	unsigned int index =3D drm_connector_index(conn);
+> +
+> +	drm_connector_get(conn);
+> +	state->connectors[index].ptr =3D conn;
+> +	state->connectors[index].state =3D conn_state;
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Can this code write out of bounds for state->connectors[]?
+
+Since the array is sized by dev->mode_config.num_connector, but accessed
+here using the sparse IDA-allocated drm_connector_index(conn), what happens
+if a connector is dynamically removed (e.g. unplugging an MST display)?
+
+If num_connector is decremented but the remaining connectors retain their
+higher IDA indices, won't index exceed the allocated array capacity?
+
+> +
+> +	drm_dbg_atomic(conn->dev,
+> +		       "Added [CONNECTOR:%d:%s] %p state to readout state %p\n",
+> +		       conn->base.id, conn->name, conn_state, state);
+> +}
+
+[ ... ]
+
+> +void drm_atomic_sro_set_private_obj_state(struct drm_atomic_sro_state *s=
+tate,
+> +					  struct drm_private_obj *obj,
+> +					  struct drm_private_state *obj_state)
+> +{
+> +	unsigned int index =3D state->num_private_objs;
+> +
+> +	state->private_objs[index].ptr =3D obj;
+> +	state->private_objs[index].state =3D obj_state;
+> +	state->num_private_objs +=3D 1;
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Does this code overflow state->private_objs[]?
+
+Since state->private_objs[] is allocated in drm_atomic_sro_state_init()
+strictly based on the lockless count_private_obj(dev) snapshot, what
+happens if the number of private objects dynamically increases before
+readout?
+
+There doesn't seem to be a capacity check to ensure index doesn't exceed
+the allocated size if a driver calls this for dynamically created private
+objects.
+
+> +
+> +	drm_dbg_atomic(state->dev,
+> +		       "Added new private object %p state %p to readout state %p\n", o=
+bj,
+> +		       obj_state, state);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-drm-state-=
+readout-v6-0-6cc02cd10998@kernel.org?part=3D7
