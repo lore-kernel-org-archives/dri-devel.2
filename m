@@ -4,43 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17B66CC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 13:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8417CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 13:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC98410F0A5;
-	Thu, 15 Oct 2026 13:51:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FACB10FAB3;
+	Thu, 15 Oct 2026 13:51:28 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE62910FDA1
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 13:51:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9CBC10F0A5
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 13:51:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1792072279;
- bh=E55XniVDVFrX3GuxsNArtUfzc+7X7GeMn4EFY9yve/U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZBcmzTdmsOTBa2VVOC/kk+ejVjEgVRfFOs9EneYDhvIQJtjOJUDQz2CwQshkn0gVA
- IqjLpYNHslBuyt1Uh+2lbxTsCzC4HZcUUsu/LUncjwb4qfNNwywKLUIOiaWxV7tWhe
- SWCoR7N8mUj/uZrwX/H+hWX1Usif5/oWWSmytiWtV/CCeRr/B/5rOdpT6UGeT7Qaj1
- yk6ZoG04SXVB8F2PfiWIRtAux0r+YgG2Q3HjSxz4SyDMtcmGOc0+FVzPHp2J4zT5EX
- qvGeEzM+9RYLZGOB4Me6XrNYcIFXD9ytNqYNlLO4JLEseNx6T7Ry3T2rZZdiwEtnNi
- 77OsCOnUJpIlA==
+ s=mail; t=1792072278;
+ bh=03mvS8mzxYiW/ci8MPdxpZH/zvc+bJ9cEm0B1kgFwRI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=EuVh0zdRbUUS5I5k9l2LuCP1lQDurb7vFLFM8vzhOWDgDrw/hwEQLwctyPLVz7LEz
+ 1jX5x7IB5E6neEMjFJGDfMGL4j9of2VLGt1cPpG3moJ9aFyGFz44hsKMel610s2n2E
+ B3mLC80kZzJ0iMnkhSqcPVQR1KLOZzNZrLVtHxj8rpQ44PJ+GJvQzXkTqE2y3+h9Ns
+ adfgD6/CTecONYPrTvYEHv2FlSOCvhaLpfCjDiBSyADR96vUr51FNAxvsoZ7aTG2YN
+ JRYHEYtQT9zkbv8yA/fk7kN7TzJ0tX39Dcla4capKzCJgaF2XbyGX8ot8zXQRaSofC
+ J62IJxyajquXg==
 Received: from reinforced (unknown [100.64.0.114])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: daniels)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 227C817E0749;
- Thu, 15 Oct 2026 15:51:19 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 230B717E05A6;
+ Thu, 15 Oct 2026 15:51:18 +0200 (CEST)
 From: Daniel Stone <daniels@collabora.com>
 To: dri-devel@lists.freedesktop.org
 Cc: boris.brezillon@collabora.com, laura.nao@collabora.com,
  adrian.larumbe@collabora.com, daniel.almeida@collabora.com,
  liviu.dudau@arm.com
-Subject: [PATCH v2 2/2] drm/panthor: Delegate neural power domain to CSF when
- present
-Date: Thu, 15 Oct 2026 14:50:27 +0100
-Message-ID: <20261015135116.713461-3-daniels@collabora.com>
+Subject: [PATCH v2 0/2] drm/panthor: Consistently delegate shader power
+Date: Thu, 15 Oct 2026 14:50:25 +0100
+Message-ID: <20261015135116.713461-1-daniels@collabora.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015135116.713461-1-daniels@collabora.com>
-References: <20261015135116.713461-1-daniels@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -58,101 +55,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As the neural power domain is a child of the L2 power domain, control
-over the L2 domain cannot be delegated to CSF unless the neural domain
-has first been delegated. Given that we delegate all power control on
-v14+, this eventually causes a hard lock-up and/or firmware OOPS when we
-try to power on anything due to the inconsistent delegation state.
+Hi,
+When trying to bring up a v14 platform, one trap I fell into was
+inconsistent power-domain delegation. When delegating a domain, all of
+its child domains need to be already delegated, so the firmware can
+exercise effective control.
 
-Fixes: ee4f9af07933 ("drm/panthor: Implement L2 power on/off via PWR_CONTROL")
-Signed-off-by: Daniel Stone <daniels@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_pwr.c | 28 ++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
+We unconditionally delegate the L2 domain to firmware power management,
+along with the tiler and shader domains, however the neural-engine power
+domain is also a child of L2 and not delegated. Failing to do this
+results in the firmware going into a loop when attempting to power up
+the shader cores for the first time.
 
-diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-index dd7b6ef8ea209..7a841cfa86fd5 100644
---- a/drivers/gpu/drm/panthor/panthor_pwr.c
-+++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-@@ -146,6 +146,8 @@ static const char *get_domain_name(u8 domain)
- 		return "Base";
- 	case PWR_COMMAND_DOMAIN_STACK:
- 		return "Stack";
-+	case PWR_COMMAND_DOMAIN_NEURAL:
-+		return "Neural";
- 	}
- 	return "Unknown";
- }
-@@ -163,6 +165,8 @@ static u32 get_domain_base(u8 domain)
- 		return PWR_BASE_PRESENT;
- 	case PWR_COMMAND_DOMAIN_STACK:
- 		return PWR_STACK_PRESENT;
-+	case PWR_COMMAND_DOMAIN_NEURAL:
-+		return PWR_NEURAL_PRESENT;
- 	}
- 	return 0;
- }
-@@ -229,6 +233,15 @@ static void panthor_pwr_debug_info_show(struct panthor_device *ptdev)
- 	drm_info(&ptdev->base, "SHADER_PRESENT:  0x%016llx", gpu_read64(pwr->iomem, PWR_SHADER_PRESENT));
- 	drm_info(&ptdev->base, "SHADER_PWRTRANS: 0x%016llx", gpu_read64(pwr->iomem, PWR_SHADER_PWRTRANS));
- 	drm_info(&ptdev->base, "SHADER_READY:    0x%016llx", gpu_read64(pwr->iomem, PWR_SHADER_READY));
-+
-+	if (panthor_hw_has_neural(ptdev)) {
-+		drm_info(&ptdev->base, "NEURAL_PRESENT:  0x%016llx",
-+			 gpu_read64(pwr->iomem, PWR_NEURAL_PRESENT));
-+		drm_info(&ptdev->base, "NEURAL_PWRTRANS: 0x%016llx",
-+			 gpu_read64(pwr->iomem, PWR_NEURAL_PWRTRANS));
-+		drm_info(&ptdev->base, "NEURAL_READY:    0x%016llx",
-+			 gpu_read64(pwr->iomem, PWR_NEURAL_READY));
-+	}
- }
- 
- static int panthor_pwr_domain_transition(struct panthor_device *ptdev, u32 cmd, u32 domain,
-@@ -405,9 +418,15 @@ static int panthor_pwr_delegate_domains(struct panthor_device *ptdev)
- 	if (!ptdev->pwr)
- 		return 0;
- 
-+	if (panthor_hw_has_neural(ptdev)) {
-+		ret = delegate_domain(ptdev, PWR_COMMAND_DOMAIN_NEURAL);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = delegate_domain(ptdev, PWR_COMMAND_DOMAIN_SHADER);
- 	if (ret)
--		return ret;
-+		goto err_retract_neural;
- 
- 	ret = delegate_domain(ptdev, PWR_COMMAND_DOMAIN_TILER);
- 	if (ret)
-@@ -415,6 +434,8 @@ static int panthor_pwr_delegate_domains(struct panthor_device *ptdev)
- 
- 	return 0;
- 
-+err_retract_neural:
-+	retract_domain(ptdev, PWR_COMMAND_DOMAIN_NEURAL);
- err_retract_shader:
- 	retract_domain(ptdev, PWR_COMMAND_DOMAIN_SHADER);
- 
-@@ -517,6 +538,7 @@ void panthor_pwr_l2_power_off(struct panthor_device *ptdev)
- 	struct panthor_pwr *pwr = ptdev->pwr;
- 	const u64 l2_allow_mask = PWR_STATUS_DOMAIN_ALLOWED(PWR_COMMAND_DOMAIN_L2);
- 	const u64 pwr_status = gpu_read64(pwr->iomem, PWR_STATUS);
-+	const bool has_neural = panthor_hw_has_neural(ptdev);
- 
- 	/* Abort if L2 power off constraints are not satisfied */
- 	if (!(pwr_status & l2_allow_mask)) {
-@@ -530,6 +552,10 @@ void panthor_pwr_l2_power_off(struct panthor_device *ptdev)
- 	 * host control to be powered down in the right order before powering
- 	 * down the L2.
- 	 */
-+	if (has_neural &&
-+	    panthor_pwr_domain_force_off(ptdev, PWR_COMMAND_DOMAIN_NEURAL))
-+		return;
-+
- 	if (panthor_pwr_domain_force_off(ptdev, PWR_COMMAND_DOMAIN_TILER))
- 		return;
- 
--- 
-2.47.3
+Changes in v2:
+  - send the patches from the right tree so they actually compile
+
+Cheers,
+Daniel
 
