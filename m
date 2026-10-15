@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B723CC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:21:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2CF0CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:32:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AB4B10EC30;
-	Thu, 15 Oct 2026 16:21:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE41112420;
+	Thu, 15 Oct 2026 16:32:07 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A644E10EC30
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:21:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0371E1123E0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:32:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D3ACE601EF
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:21:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B74C1F000C4;
- Thu, 15 Oct 2026 16:21:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 18D7C60A62
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:32:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A505C1F000C5;
+ Thu, 15 Oct 2026 16:31:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792081294;
- bh=d8l40k7pRlLXd7cCourEHe7vL12PUrWG1iS5VMUk8dw=;
+ s=k20260515; t=1792081919;
+ bh=Nf37gqU7V2um2nDx7cecpchR5v80lUjDKnvbuAjbfsA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=onwPZGcEDmBLpf1Qe1/zLRz3iXHfcTU7SdTX7cbKJtHiDYJ2xXT1EGiqYwIyV1VuC
- 3A8FFYTo61uGkHFQmLY2NZe7kdM3Yv6XO9h4LIEHzD6xuG5TZipdgwmVro1kgi/+tc
- fAytgg600I9qH8xtHfWtK/oNZd/jRItRJkTYBJY6SisjD1fFlK0MnipHlpt+9U3J1p
- K5Ex/fc2kbtzLcEyLS1SUnZoINH9kchCANKGMks9+do3caCHPm2A19fEY9BJKVOxyV
- UqPbS1/8xgVsdDv/fKd1EZ4w2ElX+I35Gqph1ppyBYjto3kawzbmYYtj6mSJaMxdTQ
- Fj+TwngAjb25Q==
-Message-ID: <sashiko-outbox-173171@kernel.org>
+ b=THam7ijkndz7etciNY19+q7J0iypsPpDYzC7bA79jx87JQ7f3T1/cicbq/2Fw8ihd
+ 6gkLZnWSYTZieXhDDXJyrD24OAbrwgewNnTP30bytMiXVtzYGPIk/W/5fLmo1SpFH1
+ EROsHTb5Q6jioKOEnjWH6pWdL3an2JOFpRgCICxv057NARFGgK1+WPUQQXVnPhA2kN
+ AL2o8+/91pYh6UJe8zRASk/Fv6uSBklNcDuu/MAoWYCRR1tfAjKrowVt3SlMnnEVkl
+ uOKO9K3ni3eyiPK39sbr0PGAUJwlyANhg6HahS9Zj3bvHjzlgff+yS6haChry5dSOk
+ aABot2wCtGJFQ==
+Message-ID: <sashiko-outbox-173192@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 13/28] drm/atomic_sro: Provide helpers to implement
- hardware state readout
+Subject: Re: [PATCH v6 16/28] drm/atomic_helper: Compare actual and readout
+ states once the commit is done
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261015-drm-state-readout-v6-13-6cc02cd10998@kernel.org>
+In-Reply-To: <20261015-drm-state-readout-v6-16-6cc02cd10998@kernel.org>
 References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
- <20261015-drm-state-readout-v6-13-6cc02cd10998@kernel.org>
+ <20261015-drm-state-readout-v6-16-6cc02cd10998@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 16:21:33 +0000
+Date: Thu, 15 Oct 2026 16:31:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,232 +55,117 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm: NULL pointer dereference in drm_atomic_helper_sro_readout_sta=
-te() due to missing fallback
-- [High] drm: NULL pointer dereference for legacy bridges in drm_atomic_hel=
-per_sro_readout_bridges_state()
-- [High] drm/atomic_sro: NULL pointer dereference in disabled bridge readout
-- [High] drm/atomic_sro: out-of-bounds write in connector state array
-- [Medium] drm: O(N^2) loop and OOB read risk in drm_atomic_sro_install_sta=
-te()
-- [Low] drm/atomic: error code shadowed in drm_atomic_helper_sro_build_stat=
-e()
+- [Critical] drm: null pointer dereference in drm_atomic_sro_readout_and_co=
+mpare() due to missing SRO support checks
+- [High] drm: concurrent hardware state readout races with disjoint atomic =
+commits
 --
 
-commit 4ec8820a89de05a3189db7a50590573132825dee
+commit 54159ebf5886b308c147c6831cca5d526d0cafd5
 Author: Maxime Ripard <mripard@kernel.org>
+Subject: drm/atomic_helper: Compare actual and readout states once the comm=
+it is done
 
-drm/atomic_sro: Provide helpers to implement hardware state readout
+This commit introduces a new hook for every state, atomic_sro_compare_state,
+to read out a new state every time a blocking commit is made, and compare
+the readout one with the committed one.
 
-Drivers implementing SRO need to iterate over their KMS objects,
-allocate a pristine state for each, call the readout hook, and store
-the result in the SRO state container. Provide helpers for each object type
-and a top-level function that calls them in sequence.
-
-> diff --git a/drivers/gpu/drm/drm_atomic_sro_helper.c b/drivers/gpu/drm/dr=
-m_atomic_sro_helper.c
-> new file mode 100644
-> index 0000000000000..50d1af53bfc24
-> --- /dev/null
-> +++ b/drivers/gpu/drm/drm_atomic_sro_helper.c
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_at=
+omic_helper.c
+> index 9d006f98413a5..fa8a337650138 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
 [ ... ]
-> +int
-> +drm_atomic_helper_sro_readout_bridges_state(struct drm_device *dev,
-> +					    struct drm_atomic_sro_state *state)
+> @@ -2087,6 +2088,45 @@ static void commit_tail(struct drm_atomic_commit *=
+state, bool nonblock)
+> =20
+>  	drm_atomic_helper_commit_cleanup_done(state);
+> =20
+> +	/*
+> +	 * drm_atomic_sro_readout_and_compare() will compare the @state new
+> +	 * states with whatever it will read from the hardware.
+[ ... ]
+> +	 * Either way, we're past that point here, so we wouldn't delay the
+> +	 * fence signalling.
+> +	 */
+> +	if (!nonblock)
+> +		drm_atomic_sro_readout_and_compare(state);
+
+[Severity: Critical]
+Will this unconditionally execute for all blocking commits, bypassing any
+check for whether the underlying DRM driver actually supports SRO?
+
+Since this is a newly introduced, optional SRO hook, the vast majority of
+existing DRM atomic drivers do not implement atomic_sro_build_state, and
+some may not even define helper_private.
+
+> +
+>  	drm_atomic_commit_put(state);
+>  }
+> diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomi=
+c_sro.c
+> index 15ecf88714faa..cd7015f8c333c 100644
+> --- a/drivers/gpu/drm/drm_atomic_sro.c
+> +++ b/drivers/gpu/drm/drm_atomic_sro.c
+[ ... ]
+> @@ -725,3 +789,144 @@ void drm_atomic_sro_install_state(struct drm_atomic=
+_sro_state *state)
+[ ... ]
+> +bool drm_atomic_sro_readout_and_compare(struct drm_atomic_commit *commit)
 > +{
-> +	struct drm_encoder *encoder;
-> +
-> +	might_alloc(GFP_KERNEL);
-[ ... ]
-> +	drm_for_each_encoder(encoder, dev) {
-> +		struct drm_bridge *bridge;
-> +		int ret;
-> +
-> +		list_for_each_entry(bridge, &encoder->bridge_chain, chain_node) {
-> +			struct drm_private_obj *bridge_obj =3D &bridge->base;
-> +			const struct drm_private_state_funcs *bridge_obj_funcs =3D
-> +				bridge_obj->funcs;
-> +			struct drm_private_state *bridge_obj_state;
-> +
-> +			if (!bridge_obj_funcs->atomic_sro_readout_state) {
-
-[Severity: High]
-Can bridge_obj_funcs be NULL here for legacy non-atomic bridges?
-
-Legacy (non-atomic) bridges do not call drm_atomic_private_obj_init() during
-attachment. This means their embedded bridge->base is uninitialized, and its
-funcs pointer remains NULL.
-
-If this readout helper encounters a non-atomic bridge in the encoder's brid=
-ge
-chain, dereferencing bridge_obj_funcs unconditionally will cause a NULL
-pointer dereference.
-
-> +				drm_warn(dev,
-> +					 "No bridge %s readout implementation.",
-> +					 bridge->name);
-> +				continue;
-> +			}
-[ ... ]
-> +struct drm_atomic_sro_state *
-> +drm_atomic_helper_sro_build_state(struct drm_device *dev)
-> +{
-> +	struct drm_atomic_sro_state *state;
-> +	struct drm_printer p =3D drm_dbg_printer(dev, DRM_UT_ATOMIC, NULL);
-> +	int ret;
-> +
-> +	drm_dbg_kms(dev, "Starting to build atomic state from hardware state.\n=
-");
-> +
-> +	state =3D drm_atomic_sro_state_alloc(dev);
-> +	if (drm_WARN_ON(dev, IS_ERR(state)))
-> +		return ERR_PTR(-ENOMEM);
-
-[Severity: Low]
-Does this error handling shadow the actual error pointer returned by
-drm_atomic_sro_state_alloc()?
-
-In drm_atomic_sro_state_alloc(), an allocation failure incorrectly returns
-ERR_PTR(-EINVAL). Then, this function masks that error pointer and replaces
-it with ERR_PTR(-ENOMEM) instead of propagating it.
-
-While this results in a misleading error code on failure, it also violates
-standard kernel error propagation patterns where the true error pointer is
-typically returned directly.
-
-> +
-> +	ret =3D drm_atomic_helper_sro_readout_crtcs_state(dev, state);
-> +	if (ret)
-> +		goto err_state_free;
-[ ... ]
-> +int drm_atomic_helper_sro_readout_state(struct drm_device *dev)
-> +{
+> +	struct drm_device *dev =3D commit->dev;
 > +	const struct drm_mode_config_helper_funcs *funcs =3D
 > +		dev->mode_config.helper_private;
-> +	struct drm_atomic_sro_state *state;
+> +	struct drm_printer p =3D drm_err_printer(dev, NULL);
+> +	struct drm_private_state *new_obj_state;
+> +	struct drm_private_obj *obj;
+> +	struct drm_plane_state *new_plane_state;
+> +	struct drm_plane *plane;
+> +	struct drm_crtc_state *new_crtc_state;
+> +	struct drm_crtc *crtc;
+> +	struct drm_connector_state *new_conn_state;
+> +	struct drm_connector *conn;
+> +	struct drm_atomic_sro_state *readout_state;
+> +	unsigned int i;
+> +	bool identical =3D true;
 > +
-> +	if (!drm_atomic_sro_device_can_readout(dev)) {
-> +		drm_info(dev, "Device doesn't support hardware state readout.");
-> +		return -ENOTSUPP;
-> +	}
-> +
-> +	state =3D funcs->atomic_sro_build_state(dev);
+> +	readout_state =3D funcs->atomic_sro_build_state(dev);
+
+[Severity: Critical]
+Could this result in a NULL pointer dereference for non-SRO drivers?
+
+The function extracts the helper functions via dev->mode_config.helper_priv=
+ate
+and immediately dereferences funcs->atomic_sro_build_state(dev) without
+verifying if the pointer exists. Should the code explicitly verify
+if (funcs && funcs->atomic_sro_build_state) or use
+drm_atomic_sro_device_can_readout(dev) before proceeding?
 
 [Severity: High]
-Does this code handle cases where funcs is NULL, or where
-funcs->atomic_sro_build_state is NULL?
+Does reading the hardware state of unrelated objects here introduce hardware
+data races with concurrent commits?=20
 
-The documentation for atomic_sro_build_state states that
-drm_atomic_helper_sro_build_state() is the default implementation, which
-implies drivers are not required to provide a custom hook.
+This initiates a device-wide hardware state readout from within
+commit_tail() during a partial atomic commit. An atomic commit only holds
+drm_modeset_locks for the specific objects being modified in that
+transaction.=20
 
-If a driver does not provide this hook, or does not use helper private data,
-calling funcs->atomic_sro_build_state(dev) unconditionally will result in a
-NULL pointer dereference.
+By unconditionally reading the hardware state of all other unrelated,
+unlocked objects across the device, this introduces a data race with
+concurrent atomic commits that may be actively powering down or reconfiguri=
+ng
+those disjoint objects. Reading unclocked or powered-down peripheral
+registers during a concurrent reprogram sequence can trigger bus hangs,
+system lockups, or yield corrupted readout data. Should the readout scope be
+restricted solely to the objects locked within the drm_atomic_commit contex=
+t?
 
-> +	if (IS_ERR(state))
-> +		return PTR_ERR(state);
+> +	if (WARN_ON(IS_ERR(readout_state)))
+> +		return false;
 > +
-> +	drm_atomic_sro_install_state(state);
-> +	drm_atomic_sro_state_free(state);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Is there a risk of a NULL pointer dereference during disabled bridge readout
-when using drm_atomic_sro_get_crtc_state()?
-
-If the bridge readout is called when the pipeline is inactive, a connector
-state may not have an associated CRTC. The
-drm_bridge_atomic_readout_priv_state() hook appears to pass this NULL CRTC
-directly to drm_atomic_sro_get_crtc_state():
-
-drm_bridge.c:drm_bridge_atomic_readout_priv_state() {
-    ...
-    crtc_state =3D drm_atomic_sro_get_crtc_state(state, conn_state->crtc);
-    ...
-}
-
-Which unconditionally dereferences the CRTC pointer to fetch its index:
-
-drm_atomic_sro.c:drm_atomic_sro_get_crtc_state() {
-    ...
-    unsigned int index =3D drm_crtc_index(crtc);
-    ...
-}
-
-This can cause a kernel oops on boot if SRO is enabled and a disabled
-pipeline is read out. Note that this issue was identified as being introduc=
-ed
-in a subsequent patch in the series and persists through the final commit.
-
-[Severity: Medium]
-Does drm_atomic_sro_install_state() have an O(N^2) loop and an out-of-bounds
-read risk?
-
-The loop condition in drm_atomic_sro_install_state() evaluates a dynamic
-list count rather than the allocated array bounds:
-
-drm_atomic_sro.c:drm_atomic_sro_install_state() {
-    ...
-    for (i =3D 0; i < count_private_obj(state->dev); i++) {
-        const struct drm_private_state_funcs *obj_funcs;
-        struct drm_private_state *obj_state;
-        struct drm_private_obj *obj;
-
-        obj =3D state->private_objs[i].ptr;
-    ...
-}
-
-Because count_private_obj() iterates over a linked list on every iteration,
-this creates an O(N^2) time complexity. Furthermore, if a private object is
-registered between the allocation of the state->private_objs array and the
-invocation of this loop, count_private_obj() will return a value larger than
-the allocated array size. This would lead to an out-of-bounds read of
-state->private_objs[i].ptr.
-
-Using state->num_private_objs instead of count_private_obj() would avoid
-both the complexity and the bounds risk.
-
-[Severity: High]
-Does drm_atomic_sro_set_connector_state() risk an out-of-bounds write when
-connector indices exceed the active connector count?
-
-drm_atomic_sro_state_init() allocates the state->connectors array sized
-strictly to the current num_connector count:
-
-drm_atomic_sro.c:drm_atomic_sro_state_init() {
-    ...
-    state->connectors =3D kzalloc_objs(*state->connectors,
-                     dev->mode_config.num_connector);
-    if (!state->connectors) {
-    ...
-}
-
-However, drm_connector_index(conn) returns an IDA-allocated index. If
-connectors are dynamically added and removed (for example, via DP MST
-hot-unplug), the IDA index can be larger than the total number of currently
-registered connectors.=20
-
-drm_atomic_sro_set_connector_state() blindly uses this potentially
-out-of-bounds index to write into the array:
-
-drm_atomic_sro.c:drm_atomic_sro_set_connector_state() {
-    ...
-    unsigned int index =3D drm_connector_index(conn);
-
-    drm_connector_get(conn);
-    state->connectors[index].ptr =3D conn;
-    state->connectors[index].state =3D conn_state;
-    ...
-}
-
-This can corrupt kernel memory if state readout is performed after connector
-removals.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-drm-state-=
-readout-v6-0-6cc02cd10998@kernel.org?part=3D13
+readout-v6-0-6cc02cd10998@kernel.org?part=3D16
