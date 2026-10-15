@@ -4,93 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00D29CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 09:55:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4101ACC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 09:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E540112278;
-	Thu, 15 Oct 2026 09:55:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 687D5112276;
+	Thu, 15 Oct 2026 09:55:46 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2DF3112282
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:55:25 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 700D511228C
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:55:34 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69F9jVuw2416893
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:55:25 GMT
+ 69F9jOuX2114143
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:55:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dPFKGiQSvhld/TyaGvBhCd19kvDTSFSpxWvqUbaR+ZA=; b=izHdMitJr+EIvVx0
- PV+EjMSGVRW75TskDMqhHW75uL40KhnWkW5SfQumy0zoXJbx3pIXEF4gxdpVNA7v
- GYc86gUwhSTVihiMOIKpDFCKRWGfSKVUH9fQlCjIeSoCltLqhVREauGaM8HKjGTp
- RYZ2Wt8lXtNmH+UDav3KWfz6XV+e+LnKjkQ+wBfJO9Rs1eWnRU5mEFPFltmv8rRG
- BIOjGF9iCi4DjvSWG+i/AFDg3Yue43rOQYMENumrW2bFZIwwITaS3/t0tp5LCaCG
- rH0k/NU6drmGi+jI+rOLGBf9UllB0Mpzdb2lFO74Prn59xrpFol7XQDcdOvDhpqy
- CV+uLg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdhhfp7-1
+ FdpJmur1cLwxlK1AYe1iK0UFkAUb6LqrJNBOhmCKcYA=; b=CUr5eOl0ecNhC1ZV
+ fGt0OCv+vNt6FcYNmX2qwHHrZnM6Od+//98F/5hJVSvGLFYl1y6KbHS7peMsVYeA
+ OVz0yKdPSMamlHqciNGBV5bf7Za1fGrRhvSq1YBx8dwo4lQH9pH2BddF5ShyZYeb
+ IPh1Qsq2Wc/nO7o+lFuzyTRPUyWYXiNSRgwf7DOipHZhCsHM4EYdfxMw5hfs7BKE
+ FDpW/RG4Sh9PRMsg9oeOErMHFhX1D8tPfPUIgKCmBCZ11pDf4skWFrrH8QfFLIvK
+ /5U6XM+W3OlH/8kAHMUws7s529fGB053Qn99cswDsK3WwXdqf5QPgzqNkyww6Xg9
+ HgVKcQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmyadsf-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:55:25 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-3ac575a9198so2010664a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 02:55:25 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:55:33 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2df8d1e91c9so97595855ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 02:55:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792058125; x=1792662925;
+ d=oss.qualcomm.com; s=google; t=1792058133; x=1792662933;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=dPFKGiQSvhld/TyaGvBhCd19kvDTSFSpxWvqUbaR+ZA=;
- b=dQDIO7vgtzG48nXh97co0vsSXwK9j6/RudZfu8sEn9OrEZLCsNQHKuShMX+xhMn4Ce
- q4DXLXzO8S2/Ccypgws3a8vEeAjV/nFaRC6ygbAD5rfi5yLi+2YWQD98qINf+fJkAGrq
- Xe7ORaE1nj2az+tVSXNXNuPaNGFIicOLr25Xf+91q+mmaHepz1o158fIGftBhGrcI/eU
- T0jyXirw2ys4kfq9qEnPaKdg8jkOjJ6N5OdQHRPxx1wKsPehsWkkKfY+aSzpDmlGhGRZ
- QTMFWD0lZtYcMYiOCxCxUnZ+0MdLA60gD1IxLlzSu3n3V8G59ZgB1Uk5lM4EPlUZpluN
- Hg9A==
+ bh=FdpJmur1cLwxlK1AYe1iK0UFkAUb6LqrJNBOhmCKcYA=;
+ b=Xl7YbBY1xXnr3QTtWV2c9d9RFhx2hat2DTgDQ7/vZ4CXW2ZXiBndRzptzJG6mrVdtL
+ Y2jlAYWy1SQ0HOjDIbiWe1IFKxYGGX2p5WOR5Qdop8Ww5UUqp+8CM3LulnZYkSsljHNb
+ mMeJm+0cI0DOd0VI55Au34cFKJaGgFhk3pgn4jByXuJcE9LaDfOS5Qd8UbkTuq0eeZYe
+ T8eQzp10zaXMKbZn8LRHiMxAir02Jp/G5Spyd2L2uJKJKi0VCH57dX1Slg07M8mDKyMV
+ f68HvTQJHTSQ3j19oaxP5jrmKHR/64H2pZYaUjIoU/Cgh+BAUgPKGBNqCCS/59D4YUbt
+ T6SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792058125; x=1792662925;
+ d=1e100.net; s=20260707; t=1792058133; x=1792662933;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dPFKGiQSvhld/TyaGvBhCd19kvDTSFSpxWvqUbaR+ZA=;
- b=fei5rzD8t3GrR4zZr8i1Iy8/sCpu4xL3HPm18UZSiAp58Q6IDl0UmOstlbg3aabYSQ
- cVkZKRJOrFprkGmMw/p9gKujHqCEW+IX4QMBDjxA611vX8wpXK1ZabDc5XkICstLWFvf
- Ykv3N/fVmG+71gS6T27DgdRxqSBIiEZLpxtYDLC7irMxlLaJAuCsAqYRvrprBGFByreR
- /MrCiGkHHsRNuGqR0QZ+jwo9bgD+HWbEyJdPCPyIBjBEIyCrQ5xVT24o8PTfamx7k6ZS
- HCYaVQrYC1wYEVSuA/eUnBRGdH0MJNdJWowCTomDVHIHR+jsFuXKQvz8A7p1ZPW3x6iX
- R9MQ==
+ bh=FdpJmur1cLwxlK1AYe1iK0UFkAUb6LqrJNBOhmCKcYA=;
+ b=0Vlrs8lTM4+8W/gYWPPUmeUpFUEVjKiGtnfJ6MpzOjvnXzXAuG3vjl+6CBjzJrSJ4q
+ SAghwrAlYSyxtrZrQeFDBbjyjGE6nKtwOBHy9x2coH1G9gm401ea3O+zl8dclhxLgABx
+ 5g24W/116DJ4wmCNn6KiibGZo2OiRXDR7Eq0xs9ZNw1RCIVndJujqmBoFVJ7lwdfxt0Q
+ wjnYhwFoTlAKOXwMhZDwWxVGJdqlJw9yuigNZyj1QnozDeVkweesjRwcVly9H6ki7GyZ
+ ozeclDU47BIDRb0RBT8SMNkEA2YGpjh9pA3OEBctliHhUENWtuPNn0h5KyiH4qbD1cE6
+ bRlw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwmd+IFzcXgvilhQtIWpD28n4CLXdPh1SM737MSKJ4HC4XgBSg4bFl9NfY3UYK5XhedPpBzBNJFgyk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLknygRgD0+EDKhxvMwY6rhgOSvN1fvp8vyZk5hs3TilatzsJfF
- di5WaXPWuQSVz8W9U3mzkr2neGTmpM5WIPD+kTbMhlGjGbB9cidtS+9deMPkm9YH7muWTmvYlxN
- 7fmZ3sNP5awKA15UM/YzPJxLdDSM3e9OUEbl6sRo4wDEF04YeAn+IB+Pfr9q2nhlYqS32jTs=
-X-Gm-Gg: AYBFou07SdAICAu9x46raoTlacTWcz+rAaNb/sk740vzgKTK9OOML6t13gVgqcbFDks
- LuoC0K/8ZvvStanE41b2ch7p3Fg5ctMILLKnjfDQLzJRT1vbYKq+8O6kPZh4jsUgyIoNPcYuxoS
- Srip9ocKkYu2StLkTUWwg2/cLx6zlGQYEX7T/oDhT0ZR60DosulmTGQeq59xG/xWCfS2sSomWSU
- ijqAUTYoBEluIKwoTsCg1+QnwH9cwL5S9no4zl2rP46IuhP3BLwuSYAumBainEdx0Ws3iTgVmEG
- Djm4J8s3/vOEz9oUO8cOGXfggmCHOA4A8Af4JMPlRgGtnSmDdMjXrXzYMZUIytQMIKjmy+MEsqx
- 731zgndJmp1AwaTIR3kchlcZTxWyKVqb8fPSU
-X-Received: by 2002:a17:90b:4b82:b0:3ac:95d7:2fa5 with SMTP id
- 98e67ed59e1d1-3ac95d73294mr2101674a91.44.1792058124620; 
- Thu, 15 Oct 2026 02:55:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b82:b0:3ac:95d7:2fa5 with SMTP id
- 98e67ed59e1d1-3ac95d73294mr2101652a91.44.1792058124192; 
- Thu, 15 Oct 2026 02:55:24 -0700 (PDT)
+ AKwUvBzLQ9gx7oEk29CqkkEMLE5z9g4mTz80tE5ZfxBpPiV1V9JpEEy8B6fJvPvo68t18aa42SK3CbiVB64=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLljNs+6l1oPw+OR9HMKVdAfUl/vvursbbCJ3udpAMnN9sUOQWn
+ cVtt1zlPaOYewTlCYEV/LQMshQN2pKhsHSFU/ux7h96+sLmje6SQ/P/wfp9y09vkk0LxaaobTs3
+ nVtg6Tk84fBNYKOUmcC/jEz1VJQVYdpXJKkeHPRI+tU7scnNuMvKyGBuDESe6XqY1RHS+Au4=
+X-Gm-Gg: AYBFou3uiwQ1WUdVfq5Zj2kj531r1ylHYnzkbMwMibLSCHzBxn+D1j5khDPGSpJjtmm
+ Qoy1KkAKv0VadHuHa7vf1Oa2RZM0u0MdBF0vPdZsHkVZq4rnVELYRxblrH28gBJH1RE29WHvhCd
+ 8XPnhpDqkJeyLf6sspcqDbBehTsde3k4cNFSbAb27+V/NV9piKhk4edefn8m0crZbRdbou+9oAa
+ i12LAZtbaf580g+VLmkVodJlSiZYR+9mgXu9GphC8Mj9IfuAxFeavQOFZbUbhEoEAR3WeD9u3Ep
+ +8n+C/PHkwbUC7PDQWBz7LZb9+zli0SrgBE8TqUTe2GG+TZ4KXm97Se3oocjQlF3a5u3eyk9See
+ 3pOquwvAJWD76o06eLJpz16M68/qEFJhKAx4X
+X-Received: by 2002:a17:90a:d006:b0:39e:53a:c8d4 with SMTP id
+ 98e67ed59e1d1-3ab3a90e57amr14625987a91.12.1792058133083; 
+ Thu, 15 Oct 2026 02:55:33 -0700 (PDT)
+X-Received: by 2002:a17:90a:d006:b0:39e:53a:c8d4 with SMTP id
+ 98e67ed59e1d1-3ab3a90e57amr14625966a91.12.1792058132599; 
+ Thu, 15 Oct 2026 02:55:32 -0700 (PDT)
 Received: from hu-bkalkond-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ac943e1a11sm3612322a91.7.2026.10.15.02.55.16
+ 98e67ed59e1d1-3ac943e1a11sm3612322a91.7.2026.10.15.02.55.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 02:55:23 -0700 (PDT)
+ Thu, 15 Oct 2026 02:55:32 -0700 (PDT)
 From: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 15:24:33 +0530
-Subject: [PATCH v2 2/5] drm/msm/dp: Add DisplayPort controller for
- Kaanapali
+Date: Thu, 15 Oct 2026 15:24:34 +0530
+Subject: [PATCH v2 3/5] arm64: dts: qcom: kaanapali: Add DisplayPort controller
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-kaanapali_dp-v2-2-c15cb83d9140@oss.qualcomm.com>
+Message-Id: <20261015-kaanapali_dp-v2-3-c15cb83d9140@oss.qualcomm.com>
 References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
 In-Reply-To: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -115,38 +114,38 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org,
  Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792058098; l=1543;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792058098; l=3871;
  i=balaji.kalkonda@oss.qualcomm.com; s=20261001; h=from:subject:message-id;
- bh=ATHzw5/SdPmSlyNoH0Ua5Hf2It3tpnIynG+5Y/cT+DI=;
- b=YGp6zXS+wBzvJdnS9MQVlBt8BFQejgUvDgEhmw7g27ZvToYAfyKWFShxOJybCzNl8VdhDYpPN
- sxmttc5wyYzC1TwmFRGZ5qbn1mrYoCunbzY4JXFTAswOUtR3cFGLGPj
+ bh=Jy6v2m2vqJXLK8QjgW7m+qBuTZEr3IapndMW3EXkAC4=;
+ b=VDvO9b2BErkTB1pKJBRD5nt0KHjG/0FQmM5brWugmp6QZw2dTF5P0DGGr4ji8e9dCEIZ3LeWl
+ PdFGDuZ8q1DDN695Hf2flBAKLPacgUJUd2FJlVMXtWmsom1xU7KUl/3
 X-Developer-Key: i=balaji.kalkonda@oss.qualcomm.com; a=ed25519;
  pk=U+unGox551qPLS2mzIlN+b5cHksxTMGPnDwePd6KEnI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfX9JC/WNBnr5D4
- TUlOZMeuQbcaWP6a0vzCSmnR10ltFZD4CxHKLZEw0MYDtChCj5bcRrpQ3opOJBSNMyagM1zKSWy
- yorkRGNU/r51Kf3aq9is4JnpPx7RNGaqMLkYHB4jt7AK1zn7ef+L26xWamk4Srp8umXfUiRnJ76
- SKAuPdY7kVmD/e/pS9pU7OsoiC4Qm1+I35xVSYsSg7gWrc11tuDhU6H52bfeITg2sYjaYUbtDDb
- iolDEB+D2586Jhb6iVBvx4ZdZSR+XLrlyo5zexaYeUCbeUYLlRwZvFAfwpuof2Ao/S2ZMuklH27
- c/PPI0oHaQMwvtb1ReNnRKhYVW1bOJnVrheovVpyN47wotwv+aoYIicNzECh1P3Lkws1R08Cmnf
- u6mSf0XihfqjZ3h4aU2H06NxReA+FBOcscjJDmJ4nEKFLcHqFbGc3fhj/2Re5xgnK7lRnGAozm8
- +U/K7jLG2rx8akqmyTw==
-X-Proofpoint-GUID: vNA06-_y9yspMOhq_WP-dcWW302w1fqo
-X-Authority-Analysis: v=2.4 cv=DeeCOftW c=1 sm=1 tr=0 ts=6ad0a30d cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: ujBJH7FpqmmGk-LfcqQcQAugoX2ByWuH
+X-Proofpoint-ORIG-GUID: ujBJH7FpqmmGk-LfcqQcQAugoX2ByWuH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfXzV16JsDjv4MP
+ XzfdZbOdd4TqnoA351OvF36n0nU2/w4cJRh5oNbOnZgwXITtSlv4ySaKIEg1zb5FR4qOupYEELJ
+ 5dcRsYezu7KawsA6cbVBb1d8a99ZIok=
+X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad0a315 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=-Dt519yxSYS-YsuSjdkA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfXyoW2nbwCWwcE
- 1+mJ8F217N5WAomBVeG+Et8AK+GYJg0N7YPEnpvdQSeY//jZPMRp79rB7x9HW1vQusifsCAH62V
- E/ggrDwwVvMFWEO8GWOUIjSYliD8eIA=
-X-Proofpoint-ORIG-GUID: vNA06-_y9yspMOhq_WP-dcWW302w1fqo
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=CcA5yJ8BMwMt8-iLN6QA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfX5h2AwH1ZjbIQ
+ oqUx0hZT6dani9DqCRqJQfUr01+8ORgnt7XgtpwRuXn2we4jiUcRbekLsKA7J+nZaVgfJ/6a0mf
+ JftCNlHB65MTSdxTsHi8CyJHuLCSYl7esT0ge0im5aVeyH+6UOR+LJwD08AaaszT9pAY3ohTR3T
+ ky7M0TJZ1KjM6qdYH2ZLxdqCIodUs4QEiSiSVcflKb8cJeo/QR13iHz8UhqjUociyZiXjtOrLNu
+ IPXW5zAptZicWxjvr+uhEqdsdLh9P5JXCRrgVLCyWdZgRuAp6F33WBrqQgQEYlBfmZB2HmcQ8SA
+ dKWWGVskg0h3oNeiI4xDrhMf8c17/ASTceuRPeSyOkm6eKxL5fb7Cr75eTqbMZHd5AwGt48CSNf
+ XKfoMsyl3RJXbOyqmv/M4ae6u8+qewbWHzoy6begw4+L38A3bcC7XWhIki7CpYIRkGjq9xRKQBN
+ OxhaLjwkAoVerLWvSnw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150039
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -164,39 +163,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Qualcomm Kaanapali platform comes with a DisplayPort controller
-with a different base offset than the previous SM8650 SoC, add support
-for this in the DisplayPort driver.
+Add the DisplayPort controller node, including its OPP table,
+controller clocks and power domain.
+
+Connect the controller to the DPU and USB/DP QMP PHY, and enable
+mode switching on the PHY for DisplayPort altmode.
 
 Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi | 91 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 89 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 9299ce616fdb..348eb6967abf 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -158,6 +158,11 @@ static const struct msm_dp_desc msm_dp_desc_sm8650[] = {
- 	{}
- };
+diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+index e48a179d0722..de856c595936 100644
+--- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
++++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+@@ -3565,6 +3565,7 @@ usb_dp_qmpphy: phy@88e8000 {
+ 			#clock-cells = <1>;
+ 			#phy-cells = <1>;
  
-+static const struct msm_dp_desc msm_dp_desc_kaanapali[] = {
-+	{ .io_start = 0x09ad2000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-+	{}
-+};
++			mode-switch;
+ 			orientation-switch;
+ 
+ 			status = "disabled";
+@@ -3592,6 +3593,7 @@ port@2 {
+ 					reg = <2>;
+ 
+ 					usb_dp_qmpphy_dp_in: endpoint {
++						remote-endpoint = <&mdss_dp0_out>;
+ 					};
+ 				};
+ 			};
+@@ -3699,6 +3701,7 @@ port@2 {
+ 						reg = <2>;
+ 
+ 						dpu_intf0_out: endpoint {
++							remote-endpoint = <&mdss_dp0_in>;
+ 						};
+ 					};
+ 				};
+@@ -3851,6 +3854,90 @@ mdss_dsi0_phy: phy@9ac1000 {
+ 
+ 				status = "disabled";
+ 			};
 +
- static const struct msm_dp_desc msm_dp_desc_x1e80100[] = {
- 	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-@@ -168,6 +173,7 @@ static const struct msm_dp_desc msm_dp_desc_x1e80100[] = {
++			mdss_dp0: displayport-controller@9ad2000 {
++				compatible = "qcom,kaanapali-dp";
++				reg = <0x0 0x09ad2000 0x0 0x10c>,
++				      <0x0 0x09ad2200 0x0 0xc8>,
++				      <0x0 0x09ad3000 0x0 0x78>,
++				      <0x0 0x09ad4000 0x0 0xa0>,
++				      <0x0 0x09ad5000 0x0 0xa0>;
++
++				interrupts-extended = <&mdss 12>;
++
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
++					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
++					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
++					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
++					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
++
++				clock-names = "core_iface",
++					      "core_aux",
++					      "ctrl_link",
++					      "ctrl_link_iface",
++					      "stream_pixel",
++					      "stream_1_pixel";
++
++				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
++						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
++						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
++				assigned-clock-parents = <&usb_dp_qmpphy QMP_USB43DP_DP_LINK_CLK>,
++							 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
++							 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
++
++				operating-points-v2 = <&dp_opp_table>;
++
++				power-domains = <&rpmhpd RPMHPD_MMCX>;
++
++				phys = <&usb_dp_qmpphy QMP_USB43DP_DP_PHY>;
++				phy-names = "dp";
++
++				#sound-dai-cells = <0>;
++
++				status = "disabled";
++
++				dp_opp_table: opp-table {
++					compatible = "operating-points-v2";
++
++					opp-270000000 {
++						opp-hz = /bits/ 64 <270000000>;
++						required-opps = <&rpmhpd_opp_low_svs>;
++					};
++
++					opp-540000000 {
++						opp-hz = /bits/ 64 <540000000>;
++						required-opps = <&rpmhpd_opp_svs_l1>;
++					};
++
++					opp-810000000 {
++						opp-hz = /bits/ 64 <810000000>;
++						required-opps = <&rpmhpd_opp_nom>;
++					};
++				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						mdss_dp0_in: endpoint {
++							remote-endpoint = <&dpu_intf0_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						mdss_dp0_out: endpoint {
++							data-lanes = <0 1 2 3>;
++							remote-endpoint = <&usb_dp_qmpphy_dp_in>;
++						};
++					};
++				};
++			};
+ 		};
  
- static const struct of_device_id msm_dp_dt_match[] = {
- 	{ .compatible = "qcom,glymur-dp", .data = &msm_dp_desc_glymur },
-+	{ .compatible = "qcom,kaanapali-dp", .data = &msm_dp_desc_kaanapali },
- 	{ .compatible = "qcom,sa8775p-dp", .data = &msm_dp_desc_sa8775p },
- 	{ .compatible = "qcom,sc7180-dp", .data = &msm_dp_desc_sc7180 },
- 	{ .compatible = "qcom,sc7280-dp", .data = &msm_dp_desc_sc7280 },
+ 		dispcc: clock-controller@9ba2000 {
+@@ -3860,8 +3947,8 @@ dispcc: clock-controller@9ba2000 {
+ 				 <&bi_tcxo_ao_div2>,
+ 				 <&gcc GCC_DISP_AHB_CLK>,
+ 				 <&sleep_clk>,
+-				 <0>,
+-				 <0>,
++				 <&usb_dp_qmpphy QMP_USB43DP_DP_LINK_CLK>,
++				 <&usb_dp_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
+ 				 <0>,
+ 				 <0>,
+ 				 <0>,
 
 -- 
 2.34.1
