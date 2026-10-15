@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A458FCC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A08FECC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D814910EBFE;
-	Thu, 15 Oct 2026 14:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E70D9112385;
+	Thu, 15 Oct 2026 14:36:59 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3601A10EC0B
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:35:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1DF251123A9
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:36:54 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6EC921477
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:35:25 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6CD011516
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:36:50 -0700 (PDT)
 Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 794003F871
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:35:28 -0700 (PDT)
+ 71CB23F871
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:36:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792074928; bh=j78ri2SnZyErlDFEtjIb1ablNh6mzrsPY7I0ctWwvMA=;
+ t=1792075013; bh=+Gv+gS16yWKsfQ0Jwq4z8Et7i5MjsA1AzO/CuYkrYyg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Iea3vDW3IdBI0V2R9/k9ARp/NnQLApLPC6abOtUGzrAeQxrBnBgBxt/MDa0IuQDaJ
- zonOwHpt6jD+5FmJdpvQ+fxGUkYz22WbzUbQaVnAgN7m10lloEzpP8O3GOW6v8zxpQ
- ukDPbyiszYkJ0YIylQl7rarTax1Hvn+xth9wEaKc=
-Date: Thu, 15 Oct 2026 15:35:26 +0100
+ b=JsSGAK06hY8EnQlSgLre4dIPqGL93miENNBUZZnWaInpvbCkhdGMny9AVAuVAEYk+
+ duCAqAZXzKcVR5SH0jlzEp7BUGu425yWqzVqdKjfrpf5fKHb6BeUSMmK24MamT3zw3
+ QH4MdgPJ2wLttY9l15MpT0YapbUhAtGqeXFbo6yg=
+Date: Thu, 15 Oct 2026 15:36:51 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Daniel Stone <daniels@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, boris.brezillon@collabora.com,
  laura.nao@collabora.com, adrian.larumbe@collabora.com,
  daniel.almeida@collabora.com
-Subject: Re: [PATCH v2 1/2] drm/panthor: Add neural-engine presence and power
- bits for v14+
-Message-ID: <atDkrgAJsLV6Je-M@e142607>
+Subject: Re: [PATCH v2 2/2] drm/panthor: Delegate neural power domain to CSF
+ when present
+Message-ID: <atDlA2NwITs69_p3@e142607>
 References: <20261015135116.713461-1-daniels@collabora.com>
- <20261015135116.713461-2-daniels@collabora.com>
+ <20261015135116.713461-3-daniels@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261015135116.713461-2-daniels@collabora.com>
+In-Reply-To: <20261015135116.713461-3-daniels@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,11 +56,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 15, 2026 at 02:50:26PM +0100, Daniel Stone wrote:
-> Mali v14+ can optionally feature a neural engine. This is not currently
-> used by Panthor, but add the bare-minimum bits required to detect the
-> engine's presence and control its power.
+On Thu, Oct 15, 2026 at 02:50:27PM +0100, Daniel Stone wrote:
+> As the neural power domain is a child of the L2 power domain, control
+> over the L2 domain cannot be delegated to CSF unless the neural domain
+> has first been delegated. Given that we delegate all power control on
+> v14+, this eventually causes a hard lock-up and/or firmware OOPS when we
+> try to power on anything due to the inconsistent delegation state.
 > 
+> Fixes: ee4f9af07933 ("drm/panthor: Implement L2 power on/off via PWR_CONTROL")
 > Signed-off-by: Daniel Stone <daniels@collabora.com>
 
 Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
@@ -69,76 +72,92 @@ Best regards,
 Liviu
 
 > ---
->  drivers/gpu/drm/panthor/panthor_gpu_regs.h | 1 +
->  drivers/gpu/drm/panthor/panthor_hw.h       | 6 ++++++
->  drivers/gpu/drm/panthor/panthor_pwr_regs.h | 7 +++++++
->  3 files changed, 14 insertions(+)
+>  drivers/gpu/drm/panthor/panthor_pwr.c | 28 ++++++++++++++++++++++++++-
+>  1 file changed, 27 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> index 4c5b953796e4f..5340966caef37 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> @@ -67,6 +67,7 @@
->  
->  #define GPU_FEATURES					0x60
->  #define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
-> +#define   GPU_FEATURES_NEURAL_ENGINE			BIT(4)
->  #define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
->  
->  #define GPU_TIMESTAMP_OFFSET				0x88
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-> index f797663893b2d..924faea27061a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.h
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
-> @@ -61,4 +61,10 @@ static inline bool panthor_hw_has_pwr_ctrl(struct panthor_device *ptdev)
->  	return GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id) >= 14;
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+> index dd7b6ef8ea209..7a841cfa86fd5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+> @@ -146,6 +146,8 @@ static const char *get_domain_name(u8 domain)
+>  		return "Base";
+>  	case PWR_COMMAND_DOMAIN_STACK:
+>  		return "Stack";
+> +	case PWR_COMMAND_DOMAIN_NEURAL:
+> +		return "Neural";
+>  	}
+>  	return "Unknown";
+>  }
+> @@ -163,6 +165,8 @@ static u32 get_domain_base(u8 domain)
+>  		return PWR_BASE_PRESENT;
+>  	case PWR_COMMAND_DOMAIN_STACK:
+>  		return PWR_STACK_PRESENT;
+> +	case PWR_COMMAND_DOMAIN_NEURAL:
+> +		return PWR_NEURAL_PRESENT;
+>  	}
+>  	return 0;
+>  }
+> @@ -229,6 +233,15 @@ static void panthor_pwr_debug_info_show(struct panthor_device *ptdev)
+>  	drm_info(&ptdev->base, "SHADER_PRESENT:  0x%016llx", gpu_read64(pwr->iomem, PWR_SHADER_PRESENT));
+>  	drm_info(&ptdev->base, "SHADER_PWRTRANS: 0x%016llx", gpu_read64(pwr->iomem, PWR_SHADER_PWRTRANS));
+>  	drm_info(&ptdev->base, "SHADER_READY:    0x%016llx", gpu_read64(pwr->iomem, PWR_SHADER_READY));
+> +
+> +	if (panthor_hw_has_neural(ptdev)) {
+> +		drm_info(&ptdev->base, "NEURAL_PRESENT:  0x%016llx",
+> +			 gpu_read64(pwr->iomem, PWR_NEURAL_PRESENT));
+> +		drm_info(&ptdev->base, "NEURAL_PWRTRANS: 0x%016llx",
+> +			 gpu_read64(pwr->iomem, PWR_NEURAL_PWRTRANS));
+> +		drm_info(&ptdev->base, "NEURAL_READY:    0x%016llx",
+> +			 gpu_read64(pwr->iomem, PWR_NEURAL_READY));
+> +	}
 >  }
 >  
-> +static inline bool panthor_hw_has_neural(struct panthor_device *ptdev)
-> +{
-> +	return (GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id) >= 14 &&
-> +	        ptdev->gpu_info.gpu_features & GPU_FEATURES_NEURAL_ENGINE);
-> +}
+>  static int panthor_pwr_domain_transition(struct panthor_device *ptdev, u32 cmd, u32 domain,
+> @@ -405,9 +418,15 @@ static int panthor_pwr_delegate_domains(struct panthor_device *ptdev)
+>  	if (!ptdev->pwr)
+>  		return 0;
+>  
+> +	if (panthor_hw_has_neural(ptdev)) {
+> +		ret = delegate_domain(ptdev, PWR_COMMAND_DOMAIN_NEURAL);
+> +		if (ret)
+> +			return ret;
+> +	}
 > +
->  #endif /* __PANTHOR_HW_H__ */
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr_regs.h b/drivers/gpu/drm/panthor/panthor_pwr_regs.h
-> index 9cf7a715066f8..80d8e1e522298 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr_regs.h
-> @@ -20,12 +20,14 @@
->  #define   PWR_STATUS_ALLOW_L2				BIT_U64(0)
->  #define   PWR_STATUS_ALLOW_TILER			BIT_U64(1)
->  #define   PWR_STATUS_ALLOW_SHADER			BIT_U64(8)
-> +#define   PWR_STATUS_ALLOW_NEURAL			BIT_U64(9)
->  #define   PWR_STATUS_ALLOW_BASE				BIT_U64(14)
->  #define   PWR_STATUS_ALLOW_STACK			BIT_U64(15)
->  #define   PWR_STATUS_DOMAIN_ALLOWED(x)			BIT_U64(x)
->  #define   PWR_STATUS_DELEGATED_L2			BIT_U64(16)
->  #define   PWR_STATUS_DELEGATED_TILER			BIT_U64(17)
->  #define   PWR_STATUS_DELEGATED_SHADER			BIT_U64(24)
-> +#define   PWR_STATUS_DELEGATED_NEURAL			BIT_U64(25)
->  #define   PWR_STATUS_DELEGATED_BASE			BIT_U64(30)
->  #define   PWR_STATUS_DELEGATED_STACK			BIT_U64(31)
->  #define   PWR_STATUS_DELEGATED_SHIFT			16
-> @@ -48,6 +50,7 @@
->  #define   PWR_COMMAND_DOMAIN_L2				0
->  #define   PWR_COMMAND_DOMAIN_TILER			1
->  #define   PWR_COMMAND_DOMAIN_SHADER			8
-> +#define   PWR_COMMAND_DOMAIN_NEURAL			9
->  #define   PWR_COMMAND_DOMAIN_BASE			14
->  #define   PWR_COMMAND_DOMAIN_STACK			15
->  #define   PWR_COMMAND_SUBDOMAIN_RTU			BIT(0)
-> @@ -68,6 +71,10 @@
->  #define PWR_SHADER_READY				0x208
->  #define PWR_SHADER_PWRTRANS				0x210
->  #define PWR_SHADER_PWRACTIVE				0x218
-> +#define PWR_NEURAL_PRESENT				0x240
-> +#define PWR_NEURAL_READY				0x248
-> +#define PWR_NEURAL_PWRTRANS				0x250
-> +#define PWR_NEURAL_PWRACTIVE				0x258
->  #define PWR_BASE_PRESENT				0x380
->  #define PWR_BASE_READY					0x388
->  #define PWR_BASE_PWRTRANS				0x390
+>  	ret = delegate_domain(ptdev, PWR_COMMAND_DOMAIN_SHADER);
+>  	if (ret)
+> -		return ret;
+> +		goto err_retract_neural;
+>  
+>  	ret = delegate_domain(ptdev, PWR_COMMAND_DOMAIN_TILER);
+>  	if (ret)
+> @@ -415,6 +434,8 @@ static int panthor_pwr_delegate_domains(struct panthor_device *ptdev)
+>  
+>  	return 0;
+>  
+> +err_retract_neural:
+> +	retract_domain(ptdev, PWR_COMMAND_DOMAIN_NEURAL);
+>  err_retract_shader:
+>  	retract_domain(ptdev, PWR_COMMAND_DOMAIN_SHADER);
+>  
+> @@ -517,6 +538,7 @@ void panthor_pwr_l2_power_off(struct panthor_device *ptdev)
+>  	struct panthor_pwr *pwr = ptdev->pwr;
+>  	const u64 l2_allow_mask = PWR_STATUS_DOMAIN_ALLOWED(PWR_COMMAND_DOMAIN_L2);
+>  	const u64 pwr_status = gpu_read64(pwr->iomem, PWR_STATUS);
+> +	const bool has_neural = panthor_hw_has_neural(ptdev);
+>  
+>  	/* Abort if L2 power off constraints are not satisfied */
+>  	if (!(pwr_status & l2_allow_mask)) {
+> @@ -530,6 +552,10 @@ void panthor_pwr_l2_power_off(struct panthor_device *ptdev)
+>  	 * host control to be powered down in the right order before powering
+>  	 * down the L2.
+>  	 */
+> +	if (has_neural &&
+> +	    panthor_pwr_domain_force_off(ptdev, PWR_COMMAND_DOMAIN_NEURAL))
+> +		return;
+> +
+>  	if (panthor_pwr_domain_force_off(ptdev, PWR_COMMAND_DOMAIN_TILER))
+>  		return;
+>  
 > -- 
 > 2.47.3
 > 
