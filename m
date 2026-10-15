@@ -4,91 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 083A5CC6B38
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 09:14:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 774E1CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 09:15:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1926411223A;
-	Thu, 15 Oct 2026 09:14:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A972211223B;
+	Thu, 15 Oct 2026 09:14:52 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71B0311223A
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:13:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0919111223B
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:14:40 +0000 (UTC)
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69F6w7M92121427
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:13:58 GMT
+ 69F6u0lk2121439
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:14:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- VRZJ39RIeVlC9MlaNvNvmqPLISdXkSaEEscPGaGxyaE=; b=b209s6JerXmXYSXQ
- 3HXDqVZvh0not3UsLCYTlKutDsK5OE6QGtKdw4cO3ckd9JvVioOxU4kwAOralrPK
- Hn2dNFyhN3yAGLTjVy7cbo8tG7xF0aCPkb/CDsSz1lxmJNng5qEPgwBjA6cIdp4U
- hIR0ir+rg7pqungrNDR35VelJXd3KUGVlUUHpXOk/I+gv+Y59ioVabLUkwa410NS
- yKdGzAXuoC4R7Sj9n2mfzk6a/8YZnhGR7hJCYlxpJomk954semw8leIfp5dqaB9R
- Hq7TMsTYurNT0aBtYkwNJsgwoi6rIa3dE2BvHPv+BUsjO5KyuKwVYL7jcH29Houi
- cQI4tg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn1xcy-1
+ G8kOE3ZIjhCz0Hl/N8eiEpRWdz6o88GEXiYS++yU+cU=; b=aoFaPHI54vkSpmpD
+ a1Y6KPj5BeUeWY3unHT9VmZYPKV11uJlgoWgamUUQ1lCJg46kSfwkeL5kl74rFkE
+ 6B2wn/JhQdtGHCJUCeBAls0cFWaYnbvG/ar5Sqya+D88iCtKtAtOEKZLkI47WpwU
+ 9lMtlwBPzPp3YvBEy50OQ1xqScyFM/wVEqaPrukX6XfH2efEArOL83M7/CZY7Acu
+ zG7LpGcQw6+UWQpbQ6pgPf+is/sStmsOo0Moo8JlLqAJWdxaBZL26Y0Yy5YH1yzf
+ aKNvxikL30E4J8jBFTi37uRNToib/G0k5cCVa06LFP3Fxuew8qgSSNeJjNGx5n/B
+ jsiQqA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn1xh3-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:13:58 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-530cd3dff25so10503821cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 02:13:58 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:14:40 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-5338d5d0509so11031521cf.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 02:14:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792055637; x=1792660437;
+ d=oss.qualcomm.com; s=google; t=1792055679; x=1792660479;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=VRZJ39RIeVlC9MlaNvNvmqPLISdXkSaEEscPGaGxyaE=;
- b=CvSEwwBvqDH3TgCSspcaVgJ10M0OqQ9N83TObi7YBZeXMzyjUso1oNcaBwnGLx3eDk
- pXh1+mRSt3Q1yNP++dyLR/b5gXIWgFhqi6DKFi8XKur6EP1/K0z1yOfUHv1k7s4cC2KQ
- enRyRQlvW3ozfvUQyuT5z933qTIOwfEQFvrEHnBsqO6ldoz7sBzzdADCbCCQ4iAw2CIo
- A77AuYh84lZ353xSYXgkVmmnh1Y/gwoHpRmSZE4yJWjObYEGH6qBNvEvYrEHUl9+tzga
- z3oEHCSfJBWPSLylbwtQsrEoTLcgVEZ7r0AmnaZIoaWsJGGU4VtNT5c0zpVbtAOnQq9X
- 8M6A==
+ :content-type; bh=G8kOE3ZIjhCz0Hl/N8eiEpRWdz6o88GEXiYS++yU+cU=;
+ b=IIOI37KDIV5epKaKoPbxJK1F998DxjhomPGJsPSojef3rYA6MEsvep6XK50m9sNFT9
+ uRf6xR3hRE5+WBZlCTUhYFpHpADXWMKgpFx8biVoOjnRP5bt33TqfZ1fH3++gewCl0Nz
+ WFESO2egGXSjNorhmUIW4oLicajELFuwGw46f9Mb5Nx75kdxsVAI7BdS1hbmMGJEvFuS
+ 3uWBSfyHiDkJIsZOgHPua/YdDzDMwRPZ2kzmyKjRxDY0qUi6zw1WFkbIpwz3t9+TCxFl
+ lXjv/jv4JMys81CoU+5KETw0f8KgQv354fYdqy/8CBHwziAeZxoKjA06RafG7k3td4FT
+ hAug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792055638; x=1792660438;
+ d=1e100.net; s=20260707; t=1792055679; x=1792660479;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=VRZJ39RIeVlC9MlaNvNvmqPLISdXkSaEEscPGaGxyaE=;
- b=w+r3OAPIg08W7EGho3qj+xP3DDL67ZAaJn4wBcv66za50pEhWG1ne+vsmwej/Z+qD9
- nK87wnfyoTGkCWPCfaPn2yaR+SBKRJkh6zDWOZLhnPcHcKHN3mMI1lnbsaZNCvOoFsRI
- QPe3poCdUnDU6SX8iYHxSUOXVPSA9dZ2l8GicykN/4qgTGNZc/4l7gsEbCrWb2Sc8bR3
- t4kMgCjx7YayBczVxrRpccX69Nf0N4fUmkyIhtYXiuGynl3pyLmEXCmWffZDwx9lJTvG
- hg7AKNncy1bUs87GdsPfYlnCXNjE0zzS9+MjMJSZDalBXlp18nV82EGzcY+cS+aK+Z/l
- PdPg==
+ bh=G8kOE3ZIjhCz0Hl/N8eiEpRWdz6o88GEXiYS++yU+cU=;
+ b=ulDgp5eMBAHz2a4WAGiDdy1fpEpXDhpmh9YtJ+8Yw1yuwXyUgCXRiJbA3nIET4AHyC
+ ZG9LdKHdMVnMH6h41UvBc72WcHaQT6h9zuB/r+PTY+Q+3gddNCupzi/TEp77R4VENA0i
+ n5XZk4an1xmownZrGHXUMrEtA0Jo/iJPvSwKpHfWCerr6Fn4Q4CKSaKNkE4y3DsFjSHz
+ URCil0WNWSi6jyQj03qbDsKyJtKdW2rQXYlduUE8CgxNrh6H7QE3oR+FB/apeqMUNX1h
+ TaDQDnqHCbamjoiPTh6J43ZULYsC/lL55YuPowmMZPK6wi6rLDHZaHGesKqyUmeOocBU
+ nVXg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBytu6Gcuk9RReFWO2ATjbRUEpSnVeOZooa+6h/Vm9FZlN4zRyq7b2Sq5H2AoGPs2G/U90VKQjSo6w4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI+8LMXCStmMBedYcmplRoLd96R1/unw49vC2kwLAKR/i31nhj8
- /HcPsrmutJjAawM6SUvjfK80Z4KKxpi4vcc7ctShZdX5Nezif3fNjCENAWIz21j0/jKmhFw6Qp7
- 9VVZA4t5jOq5T2CgzhcdIexp0HP0IH5H9fFdx50sL4brYAwhAovstw2YM6/s0K6fm14tSJi8=
-X-Gm-Gg: AYBFou2bMzl1z24GWL9j4ui+a/yODC+OdmVuQZ8hw6aG6t46CV4XA+sI36XreCma0NF
- e06gqRWBDGjBGsjb9TUA59FmCPMmSEdZVBEnJ5GiXBfVh9liFN4CaKUxz1VVLzOkAbP2qotQn1b
- ein+mpTK5NGo0RUZHGFVHP8w1+XaKzHh+KBSedoS+0LEA6vE13VqlkvssSIGekzOOE9rN7AJwxV
- huQNm6v3HM5IYWBJ7z/JmoGa2H4WYmsy5HL+RwKUDUXiu8Wkj0QzXblzeFxbTnOqYMiLSnxwGgm
- 0MFRefUWJv2IRa3o2cWuuSUiUGOVNQ9CbdrRxJzi01+c/5mbe99TEmGvN/Qgl8p1/L/KVrtiBrn
- B65QQzl/4TTDNMFbBRmVJ0g==
-X-Received: by 2002:a05:622a:4c7:b0:531:2133:cc7b with SMTP id
- d75a77b69052e-5359f05276amr354077181cf.0.1792055637339; 
- Thu, 15 Oct 2026 02:13:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:4c7:b0:531:2133:cc7b with SMTP id
- d75a77b69052e-5359f05276amr354076771cf.0.1792055636583; 
- Thu, 15 Oct 2026 02:13:56 -0700 (PDT)
+ AKwUvBzxHuq3CdI3X1xISKUovVfI1PFteYQdQ0y4SS8ymJ4S+TnZjb7yPyovH+F9+Hwp4b0BLvjMseNKu6E=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYILvjyLMGvGUhwRQpTuUjp1WrEcAd5pZfp8BS9HNY6DiUqUOyFY
+ pB48/B+GPThKUGr0T/xmah2i1tQ79mKQ3SBfd/d19bFwvFqntL6f3IMU6udAhwh0zqamZQv8a1b
+ I38coFcUC0t8xmI1K5uZhCP5ofrF4mtlTV+1NDWLBgV4aPO8JH074DiIfKIMu8DnAWt0PMK0=
+X-Gm-Gg: AYBFou2sUlF1ViszY7EmGi4FCPhI/PBlzTsc9LueyO4S76dbI/D/1KhAbuHqlrlwHYX
+ m+Dy/1xoHjonjQKiAjG2Uj/uu3yYbDUfqfyFZM/as1MC9dS60qubIdMkWCzJaQilJ2E4qPK1Sv9
+ eY2pguJ58svIP/MLdBK1TV+gQHvGqB88Pz3I190xnQ3CMEP3ZJOJaN/ELejGfzw8zuyObSDJPMM
+ Ey5a/lPglUfQ1x3igqXw5m5BwacdFfwMZeFpfiKYUxRuFnXZ6/srLSApuv56nDdRLhkAbOJXg0G
+ OWpaRKfX45oBrVpV/IVhLVw7U/k4uI+nySeNfrIZW4EhzES3KDGzIZzZSwz5ElXKorCB9c79ocQ
+ mu4M3WFtLcsyOcxO2KNU1qQ==
+X-Received: by 2002:a05:620a:27d6:b0:92e:6485:f640 with SMTP id
+ af79cd13be357-93ebd224118mr3283603885a.4.1792055679468; 
+ Thu, 15 Oct 2026 02:14:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:27d6:b0:92e:6485:f640 with SMTP id
+ af79cd13be357-93ebd224118mr3283601285a.4.1792055678894; 
+ Thu, 15 Oct 2026 02:14:38 -0700 (PDT)
 Received: from [192.168.226.26] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c3f0071777dsm87295266b.14.2026.10.15.02.13.53
+ a640c23a62f3a-c3edab11d7bsm101640266b.83.2026.10.15.02.14.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Oct 2026 02:13:55 -0700 (PDT)
-Message-ID: <feb492d2-ec12-4077-9d5d-f1819586a41e@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 11:13:52 +0200
+ Thu, 15 Oct 2026 02:14:37 -0700 (PDT)
+Message-ID: <8c375f13-ecd2-4ceb-8bc8-949a90f971fc@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 11:14:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] backlight: qcom-wled: fix string detection brightness
- on WLED5
+Subject: Re: [PATCH 3/9] dt-bindings: regulator: add Qualcomm LCDB regulator
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
@@ -104,31 +103,31 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, mfd@lists.linux.dev
 References: <20261015-sm8150-display-card-v1-0-5c14928cef29@oss.qualcomm.com>
- <20261015-sm8150-display-card-v1-2-5c14928cef29@oss.qualcomm.com>
+ <20261015-sm8150-display-card-v1-3-5c14928cef29@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015-sm8150-display-card-v1-2-5c14928cef29@oss.qualcomm.com>
+In-Reply-To: <20261015-sm8150-display-card-v1-3-5c14928cef29@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfX6zqDzOCBMtyY
- 2408vNlQYbfUr/VoXOHTbspn7YN/3WNjr1Z6eubn6k1eE2KiZIQPSGFZbbaEaVqnnR9oJPOClbn
- DlJAfNqJkOA09yt9zm/Hx34hQ4S9m73DCcxlFqc5LfzRS5XQW24voY8+hPz4U7XNQ4OH7lGmkXg
- bmVi/vaq18kexP6fGYdnHgX3ya/QVUPDT0XOVIGWNcWwY4p+EI5oW/xBMEGQ3vOWCqEEVQga++V
- OnPg1Pb43KXuZVazKNZ0rT8hKF23DVzvEEhWs5jnIPvoM5Xb2GqOyCtmQcgD/goA7Tx0zTdj7hL
- faI9ilwgwcl8SwsAvUGD2S8/Mgkz/NgAPfH1HqsDMVgOzhlPih7wFhR1kELGzjzi8L6pg/tD6Ta
- 5+u1W6SnPBTN58XEuo2qhaXMO//xQvBYuz4R/uQJN35m1FmZpzMwEJsvYavGmEGo8p3lfUS45vH
- EPtz6RSC0Ii5UYK1fLA==
-X-Proofpoint-GUID: YpCB4Bcl86ULHtthD1QdUI8jD3DaKGm8
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfX1lR5n+OmkxPo
- 6TFsHD0d8S0ktntQ6KtR+VxdJ8a9Rd9SpOQfv5e40+fLKkM34yPskmboGPb4/K9yGyxtsEJ+oFj
- /RQhreYI9PUL0B/9dtU0V0m1urTzvzg=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad09956 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfXxBXmoC5iYXvC
+ V/EazsoXGBXe2Z+WIuLIP0Vb+3bH5E12sQfVNI3E4NXwxq+hR05Mt8Mek8ki/Wva1zTEA6NNi5y
+ h7l/jZQfpSgl9l7tdf8pCWT7BUuS05+f/GVyhAIz5FNo6cLVZSWHfWR7oRdyMeX1Oukb91L6+Fk
+ /pgUAT8S1JTB+SB3FZe2oCPzEcRxmJWVdIelJYYAORzc4k8YS6gNUwgVcmF2971XiyOvj3zxck/
+ Sfi0QDFFZog3NrVrapy9U5xGCIioMfcpenPv6UKx7XHOR5uk8Qk5kNyaT0mh4UJpGy4D9qwAQTH
+ yqwoSJnyDpnq5i8ns8sza9+f+9al1b159C/VSMZlGRAjVdzopGQ1G3gIHOJOrBubwC1R7l+tbj6
+ yd+uuBqIHDkUXLcc6xKBFuq7weZt9RUgBaD9aMWFbaNAJw3+gR/d8Q3mfLioHs5ZPydK8FNJ9mM
+ KEk15ZLHbsYLjdlE+fA==
+X-Proofpoint-GUID: kjLNHLWK94_i84yCpXpVy9-5VFkf1Amw
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfX+NoP+1xiThSp
+ kV4MRf/iHXAykf2BLadb2X+W+G9C0lbLFb1KfFErb/j0qZ807R/DmScX7UXM57G3dXd+Xwvp352
+ 9354zCOxJRg6KQVFHnH7cD+3CYNoO+E=
+X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad09980 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=9VxvTDaDK-J1xIkbkncA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: YpCB4Bcl86ULHtthD1QdUI8jD3DaKGm8
+ a=EUspDBNiAAAA:8 a=OJYj8EsONSIZtexx7k8A:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: kjLNHLWK94_i84yCpXpVy9-5VFkf1Amw
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
@@ -154,17 +153,37 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 10/15/26 10:58 AM, Dmitry Baryshkov wrote:
-> The string detection sets the test brightness through
-> wled4_set_brightness(). On WLED5 that writes to unrelated registers and
-> the detection runs with whatever brightness has been programmed before.
+> Several Qualcomm PMICs have an LCDB block providing the positive and
+> negative bias rails for LCD panels. It is not supported by Linux, so
+> boards using it either model the rails as dummy fixed regulators and
+> depend on the state left by the bootloader.
 > 
-> Use the per-version callback and latch the new value on WLED5.
+> Describe the LCDB regulator present on the PM8150L. Use it as a fallback
+> compatible for LCDB blocks on PMI632 and PM6150L. PM660L has a different
+> version of LCDB block, so it's not being covered.
 > 
-> Fixes: 62a1d3f623ac ("backlight: qcom-wled: Add support for WLED5 peripheral that is present on PM8150L PMICs")
 > Assisted-by: LLM
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+[...]
+
+> +        lcdb@ec00 {
+> +            compatible = "qcom,pm8150l-lcdb";
+> +            reg = <0xec00>;
+> +            interrupts = <0x5 0xec 0x1 IRQ_TYPE_EDGE_RISING>;
+> +
+> +            ldo {
+> +                regulator-min-microvolt = <4000000>;
+> +                regulator-max-microvolt = <6000000>;
+> +            };
+> +
+> +            ncp {
+> +                regulator-min-microvolt = <4000000>;
+> +                regulator-max-microvolt = <6000000>;
+> +            };
+
+Let's tighten up the example to some specific voltage to reduce
+room for poor copypastas
 
 Konrad
