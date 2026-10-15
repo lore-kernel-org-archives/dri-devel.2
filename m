@@ -4,94 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86921CC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:41:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F9A8CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:43:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7CF11242B;
-	Thu, 15 Oct 2026 16:41:34 +0000 (UTC)
-Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com
- [209.85.214.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C30D11241D
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:41:28 +0000 (UTC)
-Received: by mail-pl1-f225.google.com with SMTP id
- d9443c01a7336-2e977109392so2636605ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:41:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E342310EC38;
+	Thu, 15 Oct 2026 16:43:14 +0000 (UTC)
+Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com
+ [209.85.219.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C79210EC21
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:43:08 +0000 (UTC)
+Received: by mail-qv1-f100.google.com with SMTP id
+ 6a1803df08f44-917ad52d7b6so19054156d6.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:43:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792082487; x=1792687287;
+ d=1e100.net; s=20260707; t=1792082587; x=1792687387;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=7WYpR5BP4WkLP+ijT/G9SXn2D9Kktb1DvKKRg0dUU68=;
- b=BFIJM6uVoqqouBHFK1cUcqXg00keQPsaUtWuzMt4d/3Y2/BLu5OSEiAdradsEOTBV8
- hocaDPZFM+oTxWmsa7y0dyfQz26Wr2WOvko9/veEmhyHBjNYp3kGjRZNh0SRLWN3uHNq
- mCxa9Ds2k982wyGS6X4u1gz4r/+H4JRz/Dz8KXkdFOwPY2y9kQl2OyO/p//a6NQf52js
- LpRaTdgno6P2VjwJ0Zu0AK+LLQ2Tqn9Dy91mVZ/Lag0swJkO7+R/aJPt/8ls6eNPNN1G
- U5LLJwuz/hISiGP0c2LwuB6iboW4LZFdZk6urYwHi/mqTSb/ttCnMsASC9DZXuBsjWbd
- dtyw==
+ bh=4MMEFFMCma3d8B3Zt6YdgY59DVfzE7HvXn4LOsAK/kI=;
+ b=AxWl2FnMgXPi4mU8Fq0xZBKUBnly0y5KRqwXf9KMbHFHGFNbOF2HKHWzHHgOG1Qv5n
+ d3xlQJ0pMhSRgtnSVHIGg7yhLYOIocxzsbVjVzMmvky4t+xEQcxfR+aBw50dvcEU9wxd
+ 55Kny3AQz1T+5CpT+npK0c5IW7LOGqO9NR+lC52Mk/oV28dJ6xmZhCPH2X9doYgxHO+L
+ Pj7LAOBzJMtMc4XY0tH2V20hqDj+AwO84yLGG4mOLiudbSTI4IIarmzk8kG6qrutWaUI
+ 8iK1nSgdsPi1jva96hDl/6mL567nLCk+7xxTyE5Wifz8yzCNYrN1HVhJoo9vCbTpDsjz
+ jMGw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxdmf8P24pRWJRI41NMyCu1QQEFg6fcJSKOiA2JFQzKWHOsDfsxafFwAbt+NehezHgp5JCNP9xF/Hc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLkuVkYsdlw/84QmYRonzykbcnvP7ge6ZMVsnebttra5Xg+tuor
- AFhBdxXm9n3ZNIWnGZmqqUueaQ1utBIfTxZ4P77r64pTGM8O8/GkMmOHjVAF1Y6zSeIxQ+3LeZ8
- 6yOzcIEUfcdBgzcHHDW56QyNb87L2AnNH2fTQwaeP8eD2UuQjwfa06jcgNE6t+/DkpAsdWH5c6q
- fO3+wnRKZcvxPyH40HOI6jC+RvFjYyT0KxQc1oddsZOeg0drX2GDJuqoSw9weQ5LPGE7QCZTj/1
- mLVaCwhAOSeVnAXF60TsNg=
-X-Gm-Gg: AYBFou2cVsImexgOEz449z8N5xxra8+dcOYidQ2ZZW6n1Xt51eNBvVcXaQ3nti2S4GC
- Aq6p3AExh/eE99JTZvfCYo6Q2MRFG+g/xXulmEwTeXkTxEszbyOyDlU06VWF2cvcCN++ADKBh3v
- DXCClVbNIIvbZ6Txg6Lt496pNAxjXN2oX2JLqnwtanCirmkZsdCw1zdlv9D2jioXd5dxU2ye5DI
- afOJRrnbjHq9jFaQMROI29FRM85Hn05/GZzsl14eOHy7GT5RBz7ZTnM2VWZondXG+r0i9wQCp5j
- 9OAjpLgB2O2bzYhxkoz89Qlz7g5jwAGU8L4wtBWNKaGGm0tP4uPIM2bD6nDYmGoj8j6ao2dZBa0
- GPk33728XAtoQMzzjNXnc7X4ZNPIFCyFw8kAld0FFea6kFrSQU1+JqJQn3bgL77dweJb2zInC7a
- KG2LtI2Xvbic3pgDpftEDjKUwLhs1nNkC5Tfc=
-X-Received: by 2002:a17:90b:44:b0:3ac:85be:cd56 with SMTP id
- 98e67ed59e1d1-3ac85bed1a5mr3937392a91.12.1792082487295; 
- Thu, 15 Oct 2026 09:41:27 -0700 (PDT)
+ AKwUvBwZz7wTsaBFoTJ7frInBnUq44vu3o5VKRIToRRlz/XUICfwr/5+ulbLIJfgGoSJJrULnd6bQt0daY8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIYkxN+vX2SHmOjuFaV3xoRrwsDYhuVQxVJSqfyV/K7opp/i5xC
+ Npp0nMRXo0jMMyc+BRPf7Kv8XmdVzMsVv+uR5WaYam5KTefaOwvYoRCzzhlheERLYvaE1wNc77y
+ NOpmpcT6FGQpZ7QRchS3Et6JzkUMEm1c01wyot6AREfRsI+h1g49Qd7T0Oo0jz/HV1gNEs9qyHd
+ bIJzZQvCo/UsbKSQbVDaXeUYi6zNkTAcEC5pI3XM4d66NThT+wQfb0KVi7M7Sj0k+y5ID6mPzfN
+ ObJIaaasXnSgafjpg/uffE=
+X-Gm-Gg: AYBFou0VSmIy05sR7so3n7UGpNDnwwBDJSwlJrvgH+x+yaEv/od22Qa4Ndif1el+Cas
+ Ogmn0xZQEsZpPOcc0lmJ9m0qrG785o+dXtbXPTjt9t7D67+TjwLLwjp6C0J9fnSwKu5JyBhOo3o
+ 8+f1fh5jPhQEqOm0xBgG4R4Vo76quiiJ6w2BVG+UTkYBPLNpF2wQx+8oKqHzDg4gJIhI1EqktkW
+ JqCqgeJ0fEZk/wLmrGdY5BqwQj6UQF8lt/rovjpsKroWDR3XrhB6IBXarVhSL/veCLQGjKoquc1
+ M0+R9ng2ghSEHyPmehH96A5NFkBArqoG4oURorjYXqoevD4LCiaoYdiCktdDhd0i7sUqurrWbAS
+ rupZDVqe0aOoiBHl41wi50oFfHxoDs8vn/s0/bUwB+Jw1UoSq2r9tyLfTzOKjLF8ikpe5hfyfZ/
+ RJJPTm8rCM19j+6fLd6vdATatz6phsXSw76zo=
+X-Received: by 2002:a05:620a:2b81:b0:93e:fa30:f1ef with SMTP id
+ af79cd13be357-93efa30f513mr1354349985a.67.1792082586764; 
+ Thu, 15 Oct 2026 09:43:06 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
  by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3ac9476e9a5sm1943144a91.6.2026.10.15.09.41.26
+ af79cd13be357-93ef50b457esm214275385a.15.2026.10.15.09.43.06
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Oct 2026 09:41:27 -0700 (PDT)
+ Thu, 15 Oct 2026 09:43:06 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dl1-f71.google.com with SMTP id
- a92af1059eb24-1383723dfddso4291431c88.0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:41:26 -0700 (PDT)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-35cbea41088so3340196eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:43:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1792082485; x=1792687285;
+ d=broadcom.com; s=google; t=1792082585; x=1792687385;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7WYpR5BP4WkLP+ijT/G9SXn2D9Kktb1DvKKRg0dUU68=;
- b=JG+YfN2WDp1fmBoAU0ls+YXP9VL8zAxRuBCMiYaK10/h9bDa+qSMcjLY6e0pI1uVlR
- VJEZdIEEEF4UbU5fOosAoHE+6qLHnvV/fO5PTb5i6v+iV7CIZQW2aGrUktoLyu8GsUgD
- wvRbieU9mq9TofzA1Ktx6saHj2V3rlW4nEtjs=
+ :content-type; bh=4MMEFFMCma3d8B3Zt6YdgY59DVfzE7HvXn4LOsAK/kI=;
+ b=cEqZJBO5LBLeCXNmSglM33YMtjiSKb4wfH4lONS5IAopoir+fu68JRANqGO3/MFZk8
+ 1KKg8sUk5OqiYYAI3MpzCVHCsi5XLBrUT6LuHLU+s3M37fGXyw19rZRRjTEOgOx7Dxc3
+ QQDCc6LQhXXfNGlv9dwHay47plJMjLntG5hxs=
 X-Forwarded-Encrypted: i=1;
- AKwUvBxjAOhVvZuQ+aOwrJRL6j+FOJIYIq3oU0zMBc0PyruqbABe7yF772NCmNyzNvciHn0Va/SMnLjzYP0=@lists.freedesktop.org
-X-Received: by 2002:a05:7022:1608:b0:150:1cea:31a8 with SMTP id
- a92af1059eb24-16a60bf2778mr22288389c88.19.1792082485073; 
- Thu, 15 Oct 2026 09:41:25 -0700 (PDT)
-X-Received: by 2002:a05:7022:1608:b0:150:1cea:31a8 with SMTP id
- a92af1059eb24-16a60bf2778mr22288350c88.19.1792082484264; Thu, 15 Oct 2026
- 09:41:24 -0700 (PDT)
+ AKwUvBxoiaKRzGvupiVkbtBtf13iFjnIdyoBWw6nV5gevMHeUSktvbVSdDm1rlfllZRoIXLOYb29vy5OkBA=@lists.freedesktop.org
+X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id
+ 5a478bee46e88-35623dd574fmr22162838eec.4.1792082585134; 
+ Thu, 15 Oct 2026 09:43:05 -0700 (PDT)
+X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id
+ 5a478bee46e88-35623dd574fmr22162783eec.4.1792082584198; Thu, 15 Oct 2026
+ 09:43:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <5e79d3c0-5b2c-4e6c-ba38-3b723daf7109@intel.com>
- <atDXDlI-EhrA791a@intel.com> <d4d5302f-9768-4122-bbab-4384ef7aa9fe@intel.com>
- <atD66da36wMZ0gie@intel.com>
-In-Reply-To: <atD66da36wMZ0gie@intel.com>
+References: <20261013120211.135807-1-matt@ozlabs.org>
+ <20261013120211.135807-2-matt@ozlabs.org>
+In-Reply-To: <20261013120211.135807-2-matt@ozlabs.org>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 15 Oct 2026 09:41:04 -0700
-X-Gm-Features: AclHuK8Hn20-he1ntr5sEuS1MoAtoRltrcvzX1TBPTTlkmmSdpX3cj9PWf6QZmQ
-Message-ID: <CABQX2QP08+cOO7EZSWfLJpeAdad9EnzsAUneSvts5Z3ANbvtog@mail.gmail.com>
-Subject: Re: Nasty console and xe driver interactions
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dave Hansen <dave.hansen@intel.com>, dri-devel@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, 
- intel-xe@lists.freedesktop.org
+Date: Thu, 15 Oct 2026 09:42:44 -0700
+X-Gm-Features: AclHuK8uvZ2yCOXgWUEd0EcP0DV4PFr55gQDJjWOVezQ6ac0lSksAZFJroIxQa0
+Message-ID: <CABQX2QP16Aid7tUk2kyPU9mUzB4XHcJKYtO3xsbDOQ3rgGYX6A@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] drm/vmwgfx: Use get_file_active() for dmabuf->file
+To: Matt Evans <matt@ozlabs.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Zhenyu Wang <zhenyuw.linux@gmail.com>, 
+ Zhi Wang <zhi.wang.linux@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ stable@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000f752b0065de3b7b2"
+ micalg=sha-256; boundary="000000000000f011ad065de3bd55"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,72 +115,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000f752b0065de3b7b2
+--000000000000f011ad065de3bd55
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 9:10=E2=80=AFAM Rodrigo Vivi <rodrigo.vivi@intel.co=
-m> wrote:
+On Tue, Oct 13, 2026 at 5:02=E2=80=AFAM Matt Evans <matt@ozlabs.org> wrote:
 >
-> On Thu, Oct 15, 2026 at 08:30:42AM -0700, Dave Hansen wrote:
-> > On 10/15/26 06:37, Rodrigo Vivi wrote:
-> > > So, perhaps what could be done in this specific case while we don't h=
-ave
-> > > the proper one is something like trying to pre-fetch the mandatory fw=
-.
-> > > Before we steal the fb. Something like:
-> > >
-> > > (Untested warning)
-> > >
-> > > https://github.com/rodrigovivi/linux/commit/5589d2883a604d52e89f44620=
-e16d16c7fd278e8
-> >
-> > I threw caution to the wind and tried this.
+> 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+> dentry_ops") moved the dmabuf .release, and broke the vmwgfx driver's
+> assumption that dmabuf->file would remain valid until release.
+> Currently, dmabuf->file can be stale after the file closes even if
+> .release has not yet been called, and a future commit makes
+> dmabuf->file become NULL instead of stale.
 >
-> Thanks for being brave! :)
+> In preparation for that future commit, convert
+> get_dma_buf_unless_doomed() to use get_file_active(&dmabuf->file)
+> which is the safe method to access and get a reference, even when
+> dmabuf->file could be NULL.
 >
-> > Id didn't seem to help. I
-> > don't seem the messages about unregistering the old console, but I stil=
-l
-> > never get any output. The only "xe" gunk in dmesg is:
-> >
-> > > [    0.739464] xe 0000:00:02.0: GuC firmware xe/ptl_guc_70.bin not fo=
-und, can be downloaded from https://git.kernel.org/pub/scm/linux/kernel/git=
-/firmware/linux-firmware.git
-> > > [    0.739501] xe 0000:00:02.0: probe with driver xe failed with erro=
-r -2
-> >
-> > BTW, "xe.force_probe=3D!*" on the command-line also gets the output bac=
-k
-> > to normal.
+> Cc: stable@vger.kernel.org
+> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentr=
+y_ops")
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> ---
+>  drivers/gpu/drm/vmwgfx/ttm_object.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> the force probe proves that we can still probe safely, but apparently
-> on my first attempt I missed the fact that pcim_enable_device will
-> touch the device and register a pci_disable_device that might
-> clear stuff and mess with the VGA fb...
+> diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx=
+/ttm_object.c
+> index f9042bafdc93..9137a31eaa1a 100644
+> --- a/drivers/gpu/drm/vmwgfx/ttm_object.c
+> +++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
+> @@ -471,7 +471,7 @@ void ttm_object_device_release(struct ttm_object_devi=
+ce **p_tdev)
+>   */
+>  static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabu=
+f)
+>  {
+> -       return file_ref_get(&dmabuf->file->f_ref);
+> +       return get_file_active(&dmabuf->file) !=3D NULL;
+>  }
 >
-> Perhaps if we move just one step over:
->
-> https://github.com/rodrigovivi/linux/commit/616cd8c1b4d4414cd1f7ad56fa5d8=
-abd36d7968d
+>  /**
+> --
+> 2.47.3
 
-The general issue with my series from the above was always that it
-required two parts:
-1) a generic framework to reload platform fb on module failure (which
-i think that series does ok job at)
-2) auditing and trying various drivers to make sure they leave the
-system in a predictable state in which the reload from #1 can succeed.
-
-Every driver (other than the vmw ones that I maintain) would still
-need to go through the second step. The general consesus at the time
-was that #2 was impossible for most drivers/gpus and having a generic
-infra just to make vmwgfx/vmwvg init failures properly reload fb is
-not something that'd be wanted. We don't have spare systems with intel
-gpu's for me to play with it so I can't help with #2.
+Looks good. Thanks! Feel free to use either Suggested-by or
+Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
 
 z
 
---000000000000f752b0065de3b7b2
+--000000000000f011ad065de3bd55
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -264,13 +257,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIHXi
-nxyhS6Pi9UzgztVEjeeibJ2qIHrZMdCGJ5+BO5uZMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDEyNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIGNz
+VXkGGumopBKIn/qVTd6ehDVfWD1CXUSQEC9JhfzNMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDMwNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAI7eQTb2KmHpiZwT7tjQKPEWwjCq48HKL1paQxin
-s+vOKQeTzZiLJRizhzPSEwQQj8Bf0Skh2n3qJUSIs4TINedp7akBFHX0kdSSwudF3mlurDgNs8nf
-c0Oequ5LuuKiuJDMGg5BG1c4jUcg2HZ1qYWCt659ISTjYILE1pezqgLOukmgbzFtx2U7KjUZyqYc
-/nPJyCh0TyvWGjvYIElysVm/urRd+gDrzZLE4hqbMaraQ+l3/FbYcHRWzGXDOZCvAsnqt+Qs5XdW
-+yQd3sBHzzxjXKREcKk/fbgUNtxDXwMcQU8AjpzsWE75TwY9POeWJKMI4F/vO/PPUJutl4dSQwk=
---000000000000f752b0065de3b7b2--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBACWwSo1VrUwePCkDwJ6WZMBpRtNDlQM2QN9vcZIO
+9VxSmU7FqtizmjvJg3sOF4Nw/bhAWBqoleBylD7Bjacx7w/zGUYcherjG5Sm1oY4A2H0V8zI9cOF
+NLrJ7TiPr5R2r6nNfxl7mKgpkhYEXJlr1q/GiXVaWA5tgw/oq4VUkovjez2D3JBrYEq7h3xcgt7O
+CtrVX+y8j1nRAsPDf9WFtK+JqjwmA038MpO8mNvCJ6RhjsbEp1/4DjJdEYvG1gAtwbkIA+GAfYYG
+mOcaxxZS6Mhu2xTVd+FhWNhRSBoPQtwSTBhPPQrJQ8Dr2mwzZTo1Ml76Rovn/XXAG2Mo1KTg7v4=
+--000000000000f011ad065de3bd55--
