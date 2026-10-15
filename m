@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2331CC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5617BCC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 07:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDDAE112114;
-	Thu, 15 Oct 2026 07:41:04 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42DA0112114
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:40:53 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 928B8112126;
+	Thu, 15 Oct 2026 07:41:15 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48BF2112126
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:41:02 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69F6vPUY2121588
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:40:52 GMT
+ 69F6KKAS644643
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:41:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5cTNxoUZcqOAxt1GmGEc/9lBQ7YAHi80QYMo0vkxe24=; b=PJvwGzEvtYVYkYTp
- SHinAg5IXPtETn3dk6XSbm/EZUHpWNF6wKR0V38xO96AqMtfvBZDEUTosHkxXwvT
- iV82LGLxtfGUSppdy3nOYnyMBCagh2nxm5eODM+hqOyM0rW2diFTG1Gb4L1mMSYd
- Qpqn1RnEwaEaRJVALNvpTF/1jm6ZbZ5/0+6/5ury5ytEu3L1bX7iWuM4Qb5VNNsW
- Vngc4zM8WzTdjVfXn6kqPNusWUA7SgMrO+IvHU8J0ssKNKMQC37lYK5C91Gz5LKo
- MWpm0nvD+NBYUOL1ZrENIRGv/QKDyavMBQjSOSDvGwW0n3PyOId2oTIjBwubkj49
- JSapvA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn1gn2-1
+ ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=; b=TgTPp/fiRJ02OnRu
+ K6sP8iGeHpxZs7FtrEExFRzxz2OvdVxz7HKeaEOG5e++i4RD8tRD/diWI4ydxkp/
+ I4nGpFcSIj1e9UZeVtRQDYDAO6aeLHweGR90tTUY20TbcYh8XIeTFwwPsysK2SIu
+ k9xiLQYll0k+VsVISRPultioYj1jE9mLbrMLffAPRWWUu4ic2WMPqhcoME79hrTe
+ KLb9Ze6YupQ0TzCJyh7AL4eoen95eHVI/Lk/22GMC/HJrhPWRbMtQBibHLXJ4CRR
+ qULsSlnZo/UNM2Przc1S2/JE0obAq/1zDbIlKAtR6qxHBb6enil/2OEDXFxK1jKT
+ 07BrkA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmy9s2t-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:40:52 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-3ab2395f104so1130992a91.2
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 00:40:52 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 07:41:01 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2e8ad8c5f80so63103465ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 00:41:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792050051; x=1792654851;
+ d=oss.qualcomm.com; s=google; t=1792050061; x=1792654861;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=5cTNxoUZcqOAxt1GmGEc/9lBQ7YAHi80QYMo0vkxe24=;
- b=flkcsLXGQ53Rx7WFlkSKwX4c8EOBmRxrPgDx9s1i9Cstcz0daokgGybxCQeWdSgaqf
- S8Jy2imnLEJ/WQ87Cjxbw9b+Od+UzJpwjxD9aKdloet98/Hcc3RlKy6TasNhaRGu08BP
- bjUH9GElWyoR0GVY4dRAOPF6a1RaMhr0H2rxVxur+/jV2A65+N6JW+k+0JTwEx3FSSwQ
- A2XZxeKHBQwgyBml5jSD59sRfuA5hdTqn5K/KDfqe8OkzHwK0RzneNGJxAGYrXMePFyq
- dJHttxd7EtXmhqIyNKnrql20M74bKWesR/6lkEjOLFXVPZlQ4gD4/T8db5AZwT2bU5Fn
- jbIw==
+ bh=ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=;
+ b=GYDSvaOZmUZpObSNlg/63EtGzoqknjZrLOp/hicloo/eaXjE5LsdiE359Fkyku2h8L
+ t/ADylChHq7E6dlkPKSVdc+eLBGCMIVLSFnV7bcSQf4SlGZq5jW88z6Q3VWyQKYXHT6p
+ mLDRdK5jPl9mV2SeZatBEQjMMYtLLwSrFqu4kq/9NmQHrvd6gpF9gXPPn5Nc/1qw/Enz
+ /Emo946BtPeYauIChmPk188zO9FTug9ghUeVoFQ0Or1A4fN+0SlZ387qfl6f4Y6me1fa
+ R/S4Vu2VeTGlho4Dh1H7eKt5MkXv4Y8PfAPqDJ94onPDS/2E1cXbseXgfgblFuKFvTlR
+ 4Tlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792050051; x=1792654851;
+ d=1e100.net; s=20260707; t=1792050061; x=1792654861;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=5cTNxoUZcqOAxt1GmGEc/9lBQ7YAHi80QYMo0vkxe24=;
- b=d4YX11RHQyMSyIQCvjZrUrGZPQ2w7hMd5zLymNhSVo9fv+iYJgxasCZpZk4e5p8OpD
- 3sTzsU+DB9e1smrPx4HRoNYJrWyt0L5Dp2SRR75Ap+iJwC96hZj/Ai5Vcp6LFGXCcuys
- zDGmlqCuVnJWK/oLkZtaJQG779NKK5rfLEYIKHU4Yw9i0o+YzMOGF8xlkWEPQFDW4L6o
- N7fOTpRjTw5ZQfT6jQi/B0HC655MDckK3KjEDwQ98BS/CTx9VFLYdoGXSgv7EUcDgX6r
- At3bWmCiknEYbeEEIE9UCEV39+AM4dX0ADToZAg6L+N0k+jEOPhheUYu4+3MHwzM0O1z
- pn7Q==
+ bh=ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=;
+ b=VMMHk8/hB90leXbq0p6Hlf5MH2vTfcWBqOoNCnnoTExICKohDmsXjZ7nQELzlFGorP
+ b6+DzcKafOzPIQE4CKh9GaxeWueuSzz+hzQyEgC4c2FX/pjsCHzj0zt9YqYoJxUnvPMi
+ 0sOjJV7z4o8ud7HHKDx5M1tlxuF0jvqGigvLKAhh+rGK2xuY7DMJtR5+tnzKnc4sPSTt
+ 2iFgrzxXvGgCN6fI6T/qQuaCBLaY9KvaSUVCgxwa0cE3fwniY8sq2Xb5+oJFBLz+8RJB
+ /TH9R5pfSSd3IR/ybue4jEKQcwtRCTILVaBAwxsZjAaDqzLWxcYqb4JavouGt48cTxCU
+ y03w==
 X-Forwarded-Encrypted: i=1;
- AKwUvByiVtSs32QXJraY1p1RMaSrLTljdFQ3J2nNw1PiV0mcbdHqJIwaTMXurGuJQgWY52gg5OMAg1/IpmI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIWa0m3o+fg6XJUtY2S1B1Av7SDvF/G4IP/L5XVkS1gQwXwOfLG
- huvOPm2bpN60WJyBJy7g3TgoUzVeeCzQuK/RCoIwoi0p/vpuOZe7xW6vDg0qfgzeuiKFnZIvuqo
- ujXStxvdLHUE8TmGzf9hYfskx/UJ6qumXgFDddTUxG0vHjGHDS8UVzGVuvs98XwTwU0IQqXY=
-X-Gm-Gg: AYBFou2xADt8Zrnh+8kdMcyogZrN2ry5zbAghPndgu/3SBYVMR6xZz3rnhf9aLJ8Y36
- sK86W1WlLMRTDnhXaqPlrBaeIkl2xikHoG18gzEpYKKI0GarEfjrwbWjsMmMe58E1mRtqStYgqb
- XTcc4DaJgnBu60Kk4YIo1pkaJ057BjFA0idH9czCiSZGOyW2BwumBuHPQoLm5j/1TvXNT98IbzG
- ehtvLC+i5R9UB7YyyxTlONGcAjsFXJWPuZrJLggjPbwCqOduOQYLtwKix3yeZKfPZ+U23gGr3Uo
- 8nD9AaYpR4RQadkwPFc3Tt9YsXu9EEUzjU0CGbc12pwrrrjOKmWXFENck/cb4wePUOEhKHh++pK
- pghFBpiEODfPXWJOd15xDBJVqL329DcCVgWw=
-X-Received: by 2002:a17:90a:d006:b0:3a7:bf13:6007 with SMTP id
- 98e67ed59e1d1-3ab3a9128c8mr15644331a91.14.1792050051160; 
- Thu, 15 Oct 2026 00:40:51 -0700 (PDT)
-X-Received: by 2002:a17:90a:d006:b0:3a7:bf13:6007 with SMTP id
- 98e67ed59e1d1-3ab3a9128c8mr15644306a91.14.1792050050596; 
- Thu, 15 Oct 2026 00:40:50 -0700 (PDT)
+ AKwUvBwlxkfkBIq0JavpAqWGjld2exXkapB/dbQsZgLJm8ExCMjWmnzxQLaGXTHh/oQTBOtpiyTatg8iDIg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL+HhW8oenp7wsrEG3yvrUwaeFtfxBv9hR5IKvRhNX5CrlUeWaf
+ B1WYlcj50DCNqQ9cbdF6Q0Lc6J5hs9iokgGdli5kI77+iojvLJxV5lMV3YMBiOhHL8cx1xKXWV1
+ fTgsjOF/TsZnP1pZzq6blSuRz7NkMQUYhBV10s1ssYmT1ZVhUk96h3SSFEqtuax+A/yhzxAM=
+X-Gm-Gg: AYBFou0UOE5zBYfwn6e8iQ7BFMeQPb+uos0oMscKlx1K6WDcCyEIEGVgZRxeEHzofls
+ b8nUHM3TwdFTCIpSde6TooLUIT/iPvKtaF73BFgNuqkGfTSSxYcTg58Piq6e0hDOIMdSzltxc9V
+ zMZMOqhk6z8xdO8AmcpdJgoY5qn3buZAkPb8WZjp8rqVKST3mWkbd7RXf981K/DsR/CzEYjEgxV
+ zMfnMLlRv/b1s0AOELT0gBv7pX46PUf3Irtgn0yM8sZr3nZWFG8MSybMVCx5Z1IWmw1XtWbDDLM
+ jrlBRLv5uALlq2X3RdmuIt25Zx8rCEk7ekoTlFMsWDnI0ODpAbhidDGwlUZ88m51+zk8zf12wKV
+ 5sHyawTGNLPIZ2nu+OUqPkvlYpfQUy0x08CA=
+X-Received: by 2002:a17:903:230c:b0:2df:4876:50d9 with SMTP id
+ d9443c01a7336-2e8429a58b9mr173469255ad.18.1792050060839; 
+ Thu, 15 Oct 2026 00:41:00 -0700 (PDT)
+X-Received: by 2002:a17:903:230c:b0:2df:4876:50d9 with SMTP id
+ d9443c01a7336-2e8429a58b9mr173468885ad.18.1792050060272; 
+ Thu, 15 Oct 2026 00:41:00 -0700 (PDT)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2e944c23f17sm14014825ad.27.2026.10.15.00.40.41
+ d9443c01a7336-2e944c23f17sm14014825ad.27.2026.10.15.00.40.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 00:40:50 -0700 (PDT)
+ Thu, 15 Oct 2026 00:40:59 -0700 (PDT)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 13:08:32 +0530
-Subject: [PATCH 12/13] drm/msm: Register the DCP backend
+Date: Thu, 15 Oct 2026 13:08:33 +0530
+Subject: [PATCH 13/13] arm64: dts: qcom: hawi: Add DCP support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-jshekhar-drm-msm-dcp-v1-v1-12-48aad0fe4f72@oss.qualcomm.com>
+Message-Id: <20261015-jshekhar-drm-msm-dcp-v1-v1-13-48aad0fe4f72@oss.qualcomm.com>
 References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
 In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -115,41 +115,40 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
  Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792049920; l=1867;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792049920; l=6156;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=KTdIkjaGNgd8M+aQhN1Sliw179pZI7BN3p4JO2Z8Txw=;
- b=gZH8cI5MZKuwSBGLRmM9KBPrUf6xwCojXAgQ86ziJfC23p1ZjpMksabwSdcHJeay6I3FXyCi3
- zeauB9NbyiqBIdzvpbDLVgDbBWtAjLblZlEpRE2DFZ3R2V/NRucRNca
+ bh=QfsW7p+EnqCrkp5VxF7nJpn3yBDQp8WAB3SXDfvEA80=;
+ b=JxMeN+DmWGewFKBEVzcKUqFUkqoSyxqpGwErK350VoQIwFKd+fbhLmrtRxjrT83vph7NHMhD/
+ kefG95krZ7aB85pcavRl2PIXjyPSamuyWWB5KyY+6SVKlJroQsTCpRq
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX6nUhXXoMG04+
- oK2cgAJVMD0/kqfm2TOR9NHq4p4QTsgnOdx1aOwvaq/d9UmlUl+LB0HLmTdGvv6NipMj4iouvMB
- m3CFnJ9flt4pAnsN05d4KKM7VgPAgvdcK2aZ+7DaNPk3fHbTgRHaQmshGN8KvY0Fvt2Rqmcmm0n
- QULeTFBXmE8S61WXUFmSjoKozNbF0cizFpJWlX5Ha2ZzxurT9P+7/kXpHjm/OHsM+OAmRAU5faH
- LFYyWv9AskLPH9Z6rVXM4M5kGsQ5HTwRFG3pfHNQ7VabbImgd7LMSHHeFWCvfihiW4+o767M/CG
- nJelm4vwH34rr7j9gG9DKIlIcuKPVZZgarZEvMK9xvbgdPlY2gx8XwnD/AhqBHQ/l10RJOTLFsU
- lb1K57meoA9hithGr9aEufXuJUvtX4wIOjfh4hlGxlGrRcfNSCKBuSo19teZWUI0j8N5wZa3Gqd
- tB2yrUj8ZYmDaEsqqeQ==
-X-Proofpoint-GUID: R9NlFIpwfY5WWbSM3TCiIKqUkdTSfwID
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX6M0C+j0Zmkil
- bez7lp0D4YkE0bfHdzXCrBvbgJRF0htRLfQAuRI+BS1A2lKz3+tILrvD2kEawIrEFT2PFINPWx6
- v+d6nYxw4yoxwLwbGWupoudB+h3335E=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad08384 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: aNrsIYIe7oexh8cpCgFqZl4g3hR_1T5Z
+X-Proofpoint-ORIG-GUID: aNrsIYIe7oexh8cpCgFqZl4g3hR_1T5Z
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX3HpER4UVtUsP
+ CO5g7TrJVWA29HQaFEO8cYL8yyAQOzrlr13DmrIG9qTydZ1frCsaVzer5lG0mbLWWa92ZggSAZK
+ RTM+A6/SnaK9gmgNUeZ1jvv12+D9d/Y=
+X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad0838d cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=lVH-uUz8Z5eEn0x1YxIA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: R9NlFIpwfY5WWbSM3TCiIKqUkdTSfwID
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=_CzEFU3RdQMONSqgxRIA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX4Vj9TBb6a0pG
+ KuavK7cztrSzL53z8JOInvtGkFYafnOSrlpXcLH/iXuvUQczt30kQSr+4+6cq98MEF9n/HaIjgR
+ NnXvsdqgO5BUxj7pni+uucJCMuGBPb7LxfVJgW9dz8bgWufaC68wYQacwXgc7CEHd9Mg1PMYjL9
+ nDBreFX8JB/rdEpijJH1D0UWg+N5XQvsAzrNMLdCJ/dQs2asHc2UpPP300/y+LEYH8K4KSb6BOf
+ ANahSPjRBLG5J4M998mE5vjI0y6M314ybpFzVBp2K4A6A6RI62IBCmfFzhOkbQvOxnh+/b0pmOX
+ Aziwj4YBRBod6/jvXlDjHEFKkZeFOy5sjrnFoftSdNyeVCODS1JnlYXIXf+XVqwqng1EQmJ1u99
+ mDJ2z2yZBx0ZHNX+kyhzL4AKD6WwEkiLTj1hr7komZatZp+kbxOm0Sf/hMyoFQfk5bjra8HtdF7
+ 44AccjU/vXhAd2P3JJg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150030
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ clxscore=1011 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150030
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,60 +164,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DCP platform driver provides an MSM KMS backend. Register it from the
-MSM DRM driver init and exit paths so the VirtIO driver can use the backend
-when the DCP function is discovered.
+Hawi display hardware is owned by DCP firmware, so the platform device tree
+must describe the VirtIO transport, firmware display function, power-notify
+channel, IOMMU contexts, and display graph used by the MSM DRM driver.
 
-Add DCP registration hooks with no-op stubs when CONFIG_DRM_MSM_DCP is
-disabled. This keeps backend registration consistent with the other MSM
-display backends while allowing DCP support to remain optional.
+Describe the DCP VirtIO transport and function, IPCC channel, IOMMU
+assignments, firmware-visible IOVA range, and DSI display endpoints on
+Hawi. Enable the DCP display device on the Hawi MTP platform.
 
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 Assisted-by: LLM
 ---
- drivers/gpu/drm/msm/msm_drv.c | 2 ++
- drivers/gpu/drm/msm/msm_drv.h | 8 ++++++++
- 2 files changed, 10 insertions(+)
+ arch/arm64/boot/dts/qcom/hawi-mtp.dts | 131 +++++++++++++++++++++++++++++++++-
+ arch/arm64/boot/dts/qcom/hawi.dtsi    |  59 +++++++++++++++
+ 2 files changed, 189 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index f3d2eaa04f14..04c31596d6d4 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1135,6 +1135,7 @@ static int __init msm_drm_register(void)
- 	DBG("init");
- 	msm_mdp_register();
- 	msm_dpu_register();
-+	msm_dcp_register();
- 	msm_dsi_register();
- 	msm_hdmi_register();
- 	msm_dp_register();
-@@ -1156,6 +1157,7 @@ static void __exit msm_drm_unregister(void)
- 	msm_dsi_unregister();
- 	msm_mdp_unregister();
- 	msm_dpu_unregister();
-+	msm_dcp_unregister();
- }
+diff --git a/arch/arm64/boot/dts/qcom/hawi-mtp.dts b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
+index 9c86e0477053..03e4cc117109 100644
+--- a/arch/arm64/boot/dts/qcom/hawi-mtp.dts
++++ b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
+@@ -36,6 +36,18 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
  
- module_init(msm_drm_register);
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index eb4bbae8557b..39954932b91b 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -415,6 +415,14 @@ static inline void msm_dpu_register(void) {}
- static inline void msm_dpu_unregister(void) {}
- #endif
- 
-+#ifdef CONFIG_DRM_MSM_DCP
-+void msm_dcp_register(void);
-+void msm_dcp_unregister(void);
-+#else
-+static inline void msm_dcp_register(void) {}
-+static inline void msm_dcp_unregister(void) {}
-+#endif
++	display_panel_vdd: regulator-display-panel-vdd {
++		compatible = "regulator-fixed";
++		regulator-name = "display-panel-vdd";
++		regulator-min-microvolt = <1100000>;
++		regulator-max-microvolt = <1100000>;
++		gpio = <&pmd8028_e1_gpios 2 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-boot-on;
++		pinctrl-0 = <&sde_disp0_vdd_active>;
++		pinctrl-names = "default";
++	};
 +
- #ifdef CONFIG_DRM_MSM_MDSS
- void msm_mdss_register(void);
- void msm_mdss_unregister(void);
+ 	clocks {
+ 		xo_board: xo_board {
+ 			compatible = "fixed-clock";
+@@ -261,6 +273,7 @@ sdcard_vdd_3p0: sdcard-vdd-3p0 {
+ 
+ 		vin-supply = <&vreg_bob1>;
+ 	};
++
+ };
+ 
+ &lpass_vamacro {
+@@ -271,7 +284,6 @@ &lpass_vamacro {
+ 	qcom,dmic-sample-rate = <4800000>;
+ };
+ 
+-
+ &q6apmbedai {
+ 	dai@40 {
+ 		reg = <SECONDARY_TDM_RX_0>;
+@@ -1277,3 +1289,120 @@ &usb_1_dwc3_hs {
+ &usb_dp_qmpphy_out {
+ 	remote-endpoint = <&pmic_glink_ss_in>;
+ };
++
++&dcp_dsi0 {
++	panel@0 {
++		compatible = "novatek,nt37801";
++		reg = <0>;
++
++		pinctrl-0 = <&sde_dsi_active &sde_te_active &sde_esync0_suspend
++			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
++			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
++		pinctrl-1 = <&sde_dsi_suspend &sde_te_suspend &sde_esync0_suspend
++			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
++			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
++		pinctrl-names = "default", "sleep";
++
++		vddio-supply = <&vreg_l12b_1p8>;
++		vci-supply = <&vreg_l13b_3p0>;
++		vdd-supply = <&display_panel_vdd>;
++
++		reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
++
++		port {
++			panel_dcp_in: endpoint {
++				remote-endpoint = <&dcp_dsi0_out>;
++			};
++		};
++	};
++};
++
++&dcp_dsi0_out {
++	remote-endpoint = <&panel_dcp_in>;
++	data-lanes = <0 1 2 3>;
++};
++
++&pmd8028_e1_gpios {
++	sde_disp0_vdd_active: sde_disp0_vdd_active {
++		pins = "gpio2";
++		function = "normal";
++		input-disable;
++		output-enable;
++		bias-disable;
++		power-source = <2>;
++		qcom,drive-strength = <2>;
++	};
++};
++
++&pmh0110_d_e0_gpios {
++	sde_mdp_vsync_p_1p2_active: sde-mdp-vsync-p-1p2-active-state {
++		pins = "gpio9";
++		function = "paired";
++		input-disable;
++		output-enable;
++		power-source = <2>; /* 1.2v */
++	};
++
++	sde_mdp_vsync_p_1p8_active: sde-mdp-vsync-p-1p8-active-state {
++		pins = "gpio10";
++		function = "paired";
++		input-enable;
++		output-disable;
++		power-source = <1>; /* 1.8v */
++	};
++};
++
++&pmh0110_f_e0_gpios {
++	sde_disp0_rst_1p2_active: sde-disp0-rst-1p2-active-state {
++		pins = "gpio9";
++		function = "paired";
++		input-enable;
++		output-disable;
++		power-source = <2>; /* 1.2v */
++	};
++
++	sde_disp0_rst_1p8_active: sde-disp0-rst-1p8-active-state {
++		pins = "gpio10";
++		function = "paired";
++		input-disable;
++		output-enable;
++		power-source = <1>; /* 1.8v */
++	};
++};
++
++&tlmm {
++	sde_te_active: sde-te-active-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_te_suspend: sde-te-suspend-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_esync0_suspend: sde-esync0-suspend-state {
++		pins = "gpio88";
++		function = "mdp_esync0";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_dsi_active: sde-dsi-active-state {
++		pins = "gpio211";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	sde_dsi_suspend: sde-dsi-suspend-state {
++		pins = "gpio211";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++};
+diff --git a/arch/arm64/boot/dts/qcom/hawi.dtsi b/arch/arm64/boot/dts/qcom/hawi.dtsi
+index 0926d880cb0c..58fcf42cbaba 100644
+--- a/arch/arm64/boot/dts/qcom/hawi.dtsi
++++ b/arch/arm64/boot/dts/qcom/hawi.dtsi
+@@ -8235,4 +8235,63 @@ timer {
+ 			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+ 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
+ 	};
++
++	dcp: virtio@9be8000 {
++		compatible = "qcom,dcp-virtio", "virtio,mmio";
++		reg = <0x0 0x09be8000 0x0 0x1000>;
++		interrupts-extended = <&intc GIC_ESPI 956 IRQ_TYPE_LEVEL_HIGH>,
++				      <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "virtio", "dcp_power_notify_irq";
++		iommus = <&apps_smmu 0x15a3 0x0>;
++		iommu-ranges = <0x0 0x84000000 0x0 0x04000000>;
++		dma-coherent;
++		mboxes = <&ipcc 13 5>;
++		mbox-names = "dcp-power-tx";
++
++		dcp-subsystem {
++			compatible = "virtio,device34";
++
++			iommus = <&apps_smmu 0x400 0x2>;
++
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@1 {
++					reg = <1>;
++					dcp_intf1_out: endpoint {
++
++						remote-endpoint = <&dcp_dsi0_in>;
++					};
++				};
++
++			};
++
++			dcp_dsi0: dsi@0 {
++				reg = <0>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						dcp_dsi0_in: endpoint {
++							remote-endpoint = <&dcp_intf1_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++						dcp_dsi0_out: endpoint { };
++					};
++				};
++			};
++		};
++	};
+ };
 
 -- 
 2.43.0
