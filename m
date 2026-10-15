@@ -4,55 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C96C7CCA464
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 18:39:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1F9BCC6B38
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 18:46:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 318C4112411;
-	Thu, 15 Oct 2026 18:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 042B91121A9;
+	Thu, 15 Oct 2026 18:46:03 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 420C7112425
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 18:39:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47B641121A9
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 18:45:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2697F435DF;
- Thu, 15 Oct 2026 18:39:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0E2C1F000C4;
- Thu, 15 Oct 2026 18:39:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EBFC842ABF;
+ Thu, 15 Oct 2026 18:45:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17F91F000C4;
+ Thu, 15 Oct 2026 18:45:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792089575;
- bh=0TMliFj79vUjQOar0oTZ6/IIkqx7PD6OLi0ypU8KDYI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Lv1sNf8ITEjifdupJdaiv+/BVBH+ewGV1epAFWwRyrK4PZTwoUHY068GnoDWI1i85
- z9pCjG/CfiX49ACr3D/CsYlqypdEoX4uLkwRRs0O7mfBRRpllt9IqtaifoTlYwl/vS
- Pov0k0t6qrQSCSbWXorqP6JpMLjmRVdGY3VUTIprFNPSHNSM418cn/vcne86Wdu0p0
- oRxzR9kiroesdPwdEVQ7b2fHkP3pwfWYt+TWBtQmCwlwKtGSrWBkzj75go/SrRq4Vh
- KTJzERCpm9GF4Jcv749kCdvUONd5ylmaeTAHbzaIlk+Hyfv+kAv5dya4PHAhXqkqSp
- H5Bj3VkPb1IJA==
-Date: Thu, 15 Oct 2026 19:39:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- Kiran Gunda <quic_kgunda@quicinc.com>,
- Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- mfd@lists.linux.dev
-Subject: Re: [PATCH 3/9] dt-bindings: regulator: add Qualcomm LCDB regulator
-Message-ID: <d5a4c692-0995-43b8-bd47-323f9da5a654@sirena.org.uk>
-References: <20261015-sm8150-display-card-v1-0-5c14928cef29@oss.qualcomm.com>
- <20261015-sm8150-display-card-v1-3-5c14928cef29@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="CNEKc9Hb6b/6hsIC"
-Content-Disposition: inline
-In-Reply-To: <20261015-sm8150-display-card-v1-3-5c14928cef29@oss.qualcomm.com>
-X-Cookie: Tax and title extra.
+ s=k20260515; t=1792089956;
+ bh=7OXp4u+J1qGZcGziYsrRPePgjwYKF03UaI+9pJGw7yM=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=bVV081NsCzygwCOtP8yzWj1sK/6ww+9nUjPqXaaEjRWBHY+HfluIygqhl38iWMYiF
+ APrVUvH8VOurLB8FNalED+9oKBRKsbdGJwt3D5Hr2q/yLMZyCbZmF0DQDbutppM3j4
+ RHjLtLOeSmRLD8uT49XrhTn9WWPXy2Zc8BbF0H+QMR0S5Gj9WQ00XARwCPzRGllXXa
+ Uxyqx+Jp5y+vs3msP6Id3GMQ+lnM5qGAX0OiEGZ97IW64il2qOf+QqG52OS2sV3knJ
+ 5Zxc2RM9sJVDWXRDLRynm8hRlGvauvrkOtcxnRwBUxKOdyf4NPM6vaD459l/5lvDBF
+ 1NkUro9ZIMS/Q==
+Message-ID: <sashiko-outbox-173324@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V1] accel/amdxdna: wait uninterruptibly for jobs in the
+ HMM invalidate callback
+To: "Lizhi Hou" <lizhi.hou@amd.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261015183248.3414119-1-lizhi.hou@amd.com>
+References: <20261015183248.3414119-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 18:45:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +49,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mm: circular locking deadlock between MMU notifier and IOMMU page =
+fault
+--
 
---CNEKc9Hb6b/6hsIC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit b2f7ee3cb752f6d69d4b4ef2181868d9befe8e3c
+Author: Matthew Brost <matthew.brost@intel.com>
 
-On Thu, Oct 15, 2026 at 11:58:40AM +0300, Dmitry Baryshkov wrote:
-> Several Qualcomm PMICs have an LCDB block providing the positive and
-> negative bias rails for LCD panels. It is not supported by Linux, so
-> boards using it either model the rails as dummy fixed regulators and
-> depend on the state left by the bootloader.
+accel/amdxdna: wait uninterruptibly for jobs in the HMM invalidate callback
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+This commit changes the BO wait in aie2_hmm_invalidate() to be
+uninterruptible and not time-limited, since MMU notifiers cannot fail a
+blockable invalidation.
 
---CNEKc9Hb6b/6hsIC
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie=
+2_ctx.c
+> index d927c8c9d557a..9d38703501963 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -1280,16 +1280,12 @@ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, =
+struct amdxdna_sched_job *job,
+>  void aie2_hmm_invalidate(struct amdxdna_gem_obj *abo,
+>  			 unsigned long cur_seq)
+>  {
+> -	struct amdxdna_dev *xdna =3D to_xdna_dev(to_gobj(abo)->dev);
+> -	struct drm_gem_object *gobj =3D to_gobj(abo);
+> -	long ret;
+> -
+> -	ret =3D dma_resv_wait_timeout(gobj->resv, DMA_RESV_USAGE_BOOKKEEP,
+> -				    true, MAX_SCHEDULE_TIMEOUT);
+> -	if (!ret)
+> -		XDNA_ERR(xdna, "Failed to wait for bo, ret %ld", ret);
+> -	else if (ret =3D=3D -ERESTARTSYS)
+> -		XDNA_DBG(xdna, "Wait for bo interrupted by signal");
+> +	/*
+> +	 * The pages must not be released while the device may still access
+> +	 * them, so this wait must be neither interruptible nor time limited.
+> +	 */
+> +	dma_resv_wait_timeout(to_gobj(abo)->resv, DMA_RESV_USAGE_BOOKKEEP,
+> +			      false, MAX_SCHEDULE_TIMEOUT);
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+Does this introduce a circular locking deadlock with the IOMMU page fault
+handler?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrRHd4ACgkQJNaLcl1U
-h9DTtwf+MKwL6GiC/Pony46O5/oHLasnxzugndmBEekM6q+aYIODirqMzGKygiMT
-BEPBGGLXlfumpW5Uy173xgd1zflK1NDJH/jomQGrWwOKquGw1qOXBC/BUb+9brM0
-KsIObIy6tWNQ7grpC7cDv8Stre9fz1d+aga0tkjZvGLJpOcpFUC5LAsky6gjnLVK
-xWMWOwaDJ7USQ/zRQyqLhvaK6m+daft37p58rrGOFgPAmfv59fliaSE+kaLhknbW
-M+oTbkLhV4nhAZRkDv4OVpU9p9TgrVk5XL6/j8OIfbZxFFijc+OIyTCvRhX4Lgjq
-H4AgVXQNsXhvFdiSXD2uesqffgHUkw==
-=BJGF
------END PGP SIGNATURE-----
+Since aie2_hmm_invalidate() is called from MMU interval notifiers (for
+example, during munmap), it executes with the mmap_lock held for writing. By
+performing an uninterruptible wait here for the BO's fences to signal, we
+block waiting on the GPU job.
 
---CNEKc9Hb6b/6hsIC--
+If that GPU job triggers an IOMMU page fault (IOPF), iommu_sva_handle_iopf()
+will attempt to acquire mmap_read_lock() to handle the fault:
+
+drivers/iommu/iommu-sva.c:iommu_sva_handle_iopf() {
+    ...
+    mmap_read_lock(mm);
+    ...
+    ret =3D handle_mm_fault(vma, prm->addr, fault_flags, NULL);
+    ...
+}
+
+This creates a circular dependency:
+1. The MMU notifier holds mmap_lock and waits for the GPU job.
+2. The GPU job stalls waiting for the IOPF handler.
+3. The IOPF handler waits for the mmap_lock.
+
+Additionally, if the Timeout Detection and Recovery (TDR) is disabled
+(which is supported via the tdr_timeout_ms module parameter), this deadlock
+is permanent and freezes the process. Even with TDR enabled, resolving a
+page fault by timing out and resetting the hardware is a functional regress=
+ion
+and a severe performance penalty.
+
+>  }
+> =20
+>  int aie2_hwctx_heap_expand(struct amdxdna_hwctx *hwctx,
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015183248.3414=
+119-1-lizhi.hou@amd.com?part=3D1
