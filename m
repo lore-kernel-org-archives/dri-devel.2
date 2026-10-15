@@ -4,98 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF6DCC6B2F
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 08:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56043CC6B2F
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 08:40:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40832112201;
-	Thu, 15 Oct 2026 08:39:46 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ADC311220A
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:39:33 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 895501121EA;
+	Thu, 15 Oct 2026 08:39:50 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E2211121EA
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:39:37 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69F3wZ1D1889490
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:39:33 GMT
+ 69F6JPtE644571
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:39:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=6Q6tXAlLgKwWbpNrJrxKLX
- H3X06JfKu+TnwxFCItEVg=; b=gyQ1aYgqQMLYBXI4000PtLvMurwL5ZdAfZzJiY
- zZX2yxkphThiiKghL84pVEc4CKAbMMJvmCmzI806fXnYgFG4SvU22gSxXg6+zQW2
- JH3ji2dR5SqFqyhMkLo3tKSdNIJWNHQAgjiuRMM1UvCWqy3vZgeI6uZMKoYFw0Tk
- zkBhgmF5b7XKT2NLDoqEGIrzIL3sNZnK9ccDlBg4gCK7sZlg8Z2qhG3YJPxhsoZm
- z7i8R7MSkJDgSwz0dfkWyZSSUkh0r6Qzdn9Gq/R9Imyko7lxkKTBWvfhBG7mmETH
- akTu4svbyC3IWxNbCJ9dYHc13ivb+sqDqi1Vra4s+SD58LHg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqda11qp-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ BL4vTvhY22+WkGmvg7vp/kCyClFOGVcldDZlDDXoP/k=; b=PNXCkV87b8V9vDl/
+ WrcQkt2SMWTpKA4duTGUDYX/HcebcOmAmoe5SEA7648Bzb340yuIqOvVDoSHzozh
+ y6Uc7UCWzdbEFR77Jf988//jQBU2Ogtiw6Ac1VFY1M4FNn/8iOsSTw3G+kuTKR5T
+ IRLtmIyem6WhitMfR3TUvhKhAwTowX6LRYkB5mLsc8Bl1RBmmq83lUU9p8S537T4
+ 0414gf808jSMUQg/sWDC5I2fDuruxONmjydCaa8BxhoSz7ec/vP3+OGrTq9U5Z71
+ sxFlrkXSzACZ5TgBc4hi8HCd7OpvQFLNda5Y2jR8iskUM07TtI3os3N7ApbUFk5r
+ gsPFdw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmya16t-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:39:32 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93ecdc701a2so169190485a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 01:39:32 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:39:36 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93a082c014aso436368485a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 01:39:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792053572; x=1792658372;
+ d=oss.qualcomm.com; s=google; t=1792053575; x=1792658375;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=6Q6tXAlLgKwWbpNrJrxKLXH3X06JfKu+TnwxFCItEVg=;
- b=EY5xnodAT3wkonujgarapAnSM/3aHCd6eRqRSNmQUY+v+fJD+nHB+WVHGPDv1tWfGB
- MVMIMegLgxdKPHwUA3VEyjGlm1UTnZiRXmG23GO5Zqi7TjNXmINwGyPpmwDfNojAKQt1
- 9vZGaAWqToLhcfFLRil61rqY331p0mlpXjbUa3kfSr21KVFfTmCgDwgp38uah3ScuJQr
- rEmRDItwRi/4RkV3Ju2cNsYoAq5oo++esZpLSWZNRTN97REN5fCL4ApK8YWYWRIlmwjr
- dqrayQAG6lAy0HfqE3NRpVMgUiAzJsrJ6BFQMleKGB/3fos3y0U5TEA1ZT/e4RxkvW60
- Ozmg==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=BL4vTvhY22+WkGmvg7vp/kCyClFOGVcldDZlDDXoP/k=;
+ b=iIwGIe0ab9uPiBbozRIa+btaOlKyetJ7UNPFDWTmhjucS39aLCAHh9mLnAuAnXWOnP
+ Mqj1FBr01HDUwwTcC6k7fUsEN8IkSQuq/+BTsQnACYVigEAHjmcQZtk3jlDSCMYuMVho
+ 7tmuFCf8/+EpimK1a836rlLPjdqcUseantMyiTiD0B566GC7AeKnFyRbITBuuOieyx5K
+ NqpSi6fEk7azhqqbL4SDPSo7mx3SU8RDvhb4VyAA672GbzxcnK8ze7maqkVNpXLTL8jS
+ QtCc4OP3QAHWOf5ZDrx/UsrIMm6wQfi1PHTi+mwsnixJLkqAPFqsEw9O0uuAhrAMbl/e
+ JI1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792053572; x=1792658372;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=6Q6tXAlLgKwWbpNrJrxKLXH3X06JfKu+TnwxFCItEVg=;
- b=oE+hMfraj7IUOlPB+yn9j2aoVps2uJj/fI11tSlZF6zdV30K3WjWPiMh+yfIY1qhxz
- HbESZyavuQoQnrzSF4JXpyOBZhpkXvVYSp2NYzqXZb/AA4ciCgvhVYV7WmPfDluTHpmW
- PvXC8nukdB+CcWkcnzahT450TR7A9OxjOOYiZRr3dZTmfhk7OdRUO9AZQ+fEZYJ+rN5M
- GU2vPvl05nzdkcblZAk3DC4+OwrjjY4h3OQrXSLbTYUPOcJ2b2xdnOuYuylFOCgJp2yt
- 5s6EndpDWj7w2mkje6I128BY92ABQh+NLUvwz+NCHyM0sx5jxPK+9Kmr2izE6OJ0HQRR
- U3pA==
+ d=1e100.net; s=20260707; t=1792053575; x=1792658375;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BL4vTvhY22+WkGmvg7vp/kCyClFOGVcldDZlDDXoP/k=;
+ b=vpK9ad0KmVf1aHH/sIDe7+sw81F08iuyVMq5CoQt5QatJ8F7rU/iVcDeifBjkMQrEw
+ 08WYbTvDTUzuUWpmT+zluCDa68eMZtj1dgGNXeKPMarplTgmGyx7SSh5EbWnonsUaqY4
+ oJ775zOzUYAjja/nTQPFxTfHXjKvsCljKcUsAExeTGjg1XmBq7v70WAY+PathwRjJtmR
+ 5px67vUZKI2IRXVcil3UDZWZi8h7xD+5pMv+GoW1zNXvMTahR5HB8M/ImvmO04y6pb9t
+ dfCCzhoxU4Pc5eBQQlklqLhWKPZV/CUitY/FuxhUi3MFsS8cb2hhi6ayhVtEVE2OasXZ
+ QA2A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxVIpFATGe25KjIlvyUjFhqF11NH4OFo5UnUMwWYhXK24PS7ORQL5h6+jIBfzsL/8pl2x1MPLRtdqk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKT1g+NgDtrAxM1lTGwIPHqp7cffJAV0zcIOmlydt9Ke6cWHYyS
- gQzKfFW0nFhkrdxUktTXP6veAodIC5aS2qo8o1fo88W5Vw6Af/YzFBI5NmyOiTp0UWdZKTsfA91
- NHKKGH3Nj+KklciaIw1IssfP6if3HdPYa1zXGChFR4YSeJvd3O/4zEIiV8JkIMzHKq6zKZ/4=
-X-Gm-Gg: AYBFou2gO+FN1Y/C6H7srdSrLthp16LD/ch7SOZ5g+eAEGJdgCz5QqGx3HCjZd1fRWq
- 5rj0kKeV8TrOSctnZWq2Te1vNRG/PiVdwxqDao2sSo79g+mAZb8ZmluX0kT1SGskjFGW4CeTXEH
- rcovFtAipDwrC+tcb1ZpJJVkL4XH97vdN6p92bACvanCggpkP8MvCicgZ1jFOoDpvBUWM7Whq0n
- P59okPFiVqF+FtAbdOl9gyMVpjCwtSqhhkXPbmqRp5ChVuLiLH3hLwLK4MNkAdMqt71OfZejxF7
- hqJkaS309ktDNMWKHZkmf4TuaY4jixlGst+sBU89phnYJRas8rspSnjHdKhTW//pdqFUM9CElni
- IY3V9EDdS0blRYpuws8B2V6hTKdlol6UIkVt4ol5YajQV1KKDmOzpccoHZq4RR0m3FFvdMgDbdX
- dYsa/mOcq9qeZ9
-X-Received: by 2002:a05:620a:46aa:b0:93e:b729:879e with SMTP id
- af79cd13be357-93ebd211b26mr3271331285a.23.1792053572008; 
- Thu, 15 Oct 2026 01:39:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:46aa:b0:93e:b729:879e with SMTP id
- af79cd13be357-93ebd211b26mr3271329285a.23.1792053571408; 
- Thu, 15 Oct 2026 01:39:31 -0700 (PDT)
+ AKwUvBz1V6okNMJk+MaMtaEQuTdILRfvVu+g3jszMoEbZ47Ls7htLpAiG23yHnzHRvu1PoFgzyDzny7Sugs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL3bKvmV7BmGniNEoyHX2C35h98qURGSw257ti2EgSMI1dbxgzv
+ 0X0bpVH7XbYa/6P9deKK8necwnGlDTkg9FdnF6quGQhI0UXtk9PE6YYIYntXQkOB5S4+eQtqFdd
+ 9u+t/19rPlrZCSszlnWCueJdSgchTWibhosnxhPMzvWcz7BdtakNqJFOzwsuPtxpTyG1tIVk=
+X-Gm-Gg: AYBFou3NnFKUXg7KSzbUBHX6B7clnCejUYvzuNJA3ZPWwXUqjxvh2ZqLXHkHK8eB+eq
+ IiBUKU0dXLJMJpXSRwbGiUKeXsoebwZZs9Q4xDOQtm1GMCCoD0GP0cv0ng6G9hOvbr+/oVv/15Y
+ s8z/lMspD18fPJK81058cSRyXokQ3YyvdsdjUy2BciWm30kcJ9h5F/AjUFj8R5n9EWXILXHLpZV
+ VohvglBbjKY7T1No+dTRxj0rgfhOa2XDeAFHUILbad097e2vNL1vN7J+HKp3v85B79AsTs9vydH
+ rmAm8g54IhcDDlHh1F0eYIme5sBsFHvsr/6KDlnG8i01OFf795/xqwB+75qDXmA3Z2iw22YgDpS
+ SSZ35ZysCTmkp2L770wJHzRngDqf6QgDayqr1g8+XQuzJ3RtHbJko8+ZIC11E4BjBuObWEgCj4Y
+ 4gQQgIhbLbAFl4
+X-Received: by 2002:a05:620a:6845:b0:93e:69da:a670 with SMTP id
+ af79cd13be357-93eb9619adbmr2871609285a.20.1792053575494; 
+ Thu, 15 Oct 2026 01:39:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:6845:b0:93e:69da:a670 with SMTP id
+ af79cd13be357-93eb9619adbmr2871607485a.20.1792053574988; 
+ Thu, 15 Oct 2026 01:39:34 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5be33d702a5sm1175500e87.15.2026.10.15.01.39.27
+ 2adb3069b0e04-5be33d702a5sm1175500e87.15.2026.10.15.01.39.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 01:39:28 -0700 (PDT)
+ Thu, 15 Oct 2026 01:39:31 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v4 0/5] arm64: dts: qcom: support SDM845 HDK
-Date: Thu, 15 Oct 2026 11:39:07 +0300
-Message-Id: <20261015-sdm845-hdk-v4-0-b532b9f4029c@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 11:39:08 +0300
+Subject: [PATCH v4 1/5] dt-bindings: display: panel: add Truly NT36850 WQHD
+ panel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACuR0GoC/3XOzQqCQBDA8VeJPbeyM66jduo9ooPuRy6llltSi
- O/eahAKdRn4D8yPGZg3nTOe7TYD60zvvGubEHK7YaoqmpPhTodmKJAEIHKv60wmvNJnnkuiJBZ
- KIqUsHFw7Y91zxg7H0JXz97Z7zXYP0/bDIKRLpgcueEZkIafEGpvuW++j26O4qLauozDYpPX4F
- UCAXAkYBNKilKVEG775I8RLIVkJcRBAQZorLTSQ/SGM4/gG0WdZQi8BAAA=
-X-Change-ID: 20260122-sdm845-hdk-9466530c4267
+Message-Id: <20261015-sdm845-hdk-v4-1-b532b9f4029c@oss.qualcomm.com>
+References: <20261015-sdm845-hdk-v4-0-b532b9f4029c@oss.qualcomm.com>
+In-Reply-To: <20261015-sdm845-hdk-v4-0-b532b9f4029c@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>,
@@ -111,48 +111,45 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Abel Vesa <abelvesa@kernel.org>, Ulf Hansson <ulfh@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3240;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3208;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=cUEtfwQBEjXbHcPZpAOE6asYzQd+8XLLUM/ii4eK1g0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq0JEviP9RdeTirXBNA2pdyhEOltu2yhemYxfHV
- L6uBxMfk3iJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatCRLwAKCRCLPIo+Aiko
- 1fu/CACI2/FqRSfQEHGxwfJmpINESPG40bjGiqCq6KnndpmBRewrkpuTbTnM7HVTTd/lJ9j3cHR
- iYmH48sDDRl9HXcamw2wZ4z5romg5oef5uhnjZJBGSPyKGQT5cc2CMyhjy2sBj8GWaAVjDceTV/
- H03eC4geCCIe1FgJ8tZBHUb7dY1pRGjJnjtZPv71CTMYICUhrhOKunuN5mgB5gYH4N8t72NdhZy
- Fly4YkJXyTI7AnoOdLE8HeYNDlwbQX10lTESSHyruDb92VAU+McC/W9h/KSdpBar2fxzi4r40Cm
- Duj3LA0OMUnVF0jerGvPDlVZqveyjIuJYZaOyRhK3XgZseXt
+ bh=fT31BRXck6wLmrm1EKJZG7Thy04mm4/J5d4uR4ASm/0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq0JE9EO7FC4gbOCYABFKGkdF6EAPQMLKZk2U6A
+ rKNKqcA2QOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatCRPQAKCRCLPIo+Aiko
+ 1bSrB/96k4zdq5RJ2xrN2ces8Sb1LrtiMozuwikBzqcee5xBxtdq0hSh3sIr2oeuDKlCDdsCzOh
+ NJo1rMTjyHIwkvm/hqi6Umc0p8r6aYjP1uWUWar9vWuBO9VCtGSv8e/jhtmcQwiQpgxo8nkAJDc
+ KgmQKgZPxJa+ClbeXFHSRAih1cvezCmfAg2oUuYMCuNss1MEw+p5wsbhSq0nt4nhiOqbZHXilUt
+ 7bNdFBVixN5OFpNh52EAYRtXqVLuFqxqtTeO9f0Y7at7cA1QAe1hb/ootFJe7FJuQuJSsVXfpxq
+ KRMjhnlauAl1AM9AzmHPHSImCIR5COmpwkPP4kWz62dLaxXd
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNCBTYWx0ZWRfX89gCyHpwryzP
- OEKM4GLIoGUzUF5R0wf0Aw6bnecJN61lcvcgIQU7FkllUP9QXiqx8VkZib+3SZwtMy2fsItUpPF
- tR6JKhSPCa916o/a0bpErWmSO5HcoiQ=
-X-Authority-Analysis: v=2.4 cv=K9u3jCWI c=1 sm=1 tr=0 ts=6ad09144 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: FZ1YZ5Ra3VNVF23qfwIOx77es19ubZYn
+X-Proofpoint-ORIG-GUID: FZ1YZ5Ra3VNVF23qfwIOx77es19ubZYn
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNCBTYWx0ZWRfX3VLmCKrv0bBd
+ m4Gm5HHkl04kFo8KcPRaF8yxXIs58KxZEp6gpVVIE67DuFK8nD5gnJoJ+NDWuHSjz6CKBnHj2Qq
+ tpgNl9STLIrw1wknO14R/clV0L0o3nE=
+X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad09148 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=pGLkceISAAAA:8
- a=QyXUC8HyAAAA:8 a=e5mUnYsNAAAA:8 a=WDvwZioAV1Qa1_QZ0V8A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: xj0wqFZgnAVLhql2qinY4L2LYzVMkaqi
-X-Proofpoint-ORIG-GUID: xj0wqFZgnAVLhql2qinY4L2LYzVMkaqi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNCBTYWx0ZWRfX4uA45G+6EXs3
- aN6grZE7FfH6sO/SZudgMoMkUEHHV/bOvw7UWK9uCZBtOxMlbcXzaSLzmbrPDZkTkVb1S70GYCL
- oJdYLtd57xzSGpjbIugYlVt3ZxGVS3rz0F62fXf1g4eibyMe285vBBdnmZPu6+i2AQcSAJKU/2R
- npN1HSCGf9ySdgwUTrhTF2JHyu89vpVvHE2W8qQ4SkIqqKsCx51Otr4PpRPnd/rCxrQaF04ZQFM
- JE1hewAI2OmyTGjidI0op7K3nVUaTXG4Bgpbmh5NH1g0AATumHQqCpmdYODSkxABIEC0Knpg9Ad
- 0i75/V8D+lWAcLEzTW+J+7a8FOOiPBxYr0dkdizmH+LyUmD0Q5/yoJJ4UZW8yL4QiL1XMkXLVVq
- 2hDe3z6pZZ0Wwhwr+I/Alb+pMpJtQM73cHzU52UJ+W4DrqnaG/6ouUtThJqzRZUMEH/TiQctp7Q
- hQXeEFvcnhdNMdh1P5A==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=od__NDLvqBWtWXuahMwA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNCBTYWx0ZWRfX74JF+wts23d8
+ PJ62jNBCNVu0OsOU+AS2s1x06DLs1iHxJYyFKZmwkYwUNr25/V4IVqLaNSep5UWyUfwhhLf4BkR
+ W1f4LaOxWqvyUCJd2Uc5DqW54upHEfiIQn+13zIQwVgbv5e4l0OT1kIeLltApAobHbV+HLHg116
+ PG2HZeKAXOHGFB+u8mhiTpLf45IHQyLU8LXp+KzUXzf96jVFtnV8u2UIDPmfFUs8ot2pXFFXpFf
+ 1g3ABCk3wG87cZguLoWB2XC0W4A5LOghebdL+wu9yfLA9OCmdXhXU4nITG599fxz5i9zcjhNHvQ
+ WTui7c6Y68nn0QM4r3gtXtq4cJOPn7ctFUGvaQKpVqj4ZFKQKgjOZALyTnoj5JTUN2RbG7cqdQ9
+ TYlAheQGC3o8f9D4BY9ePvrIxOnMhfy4D9Z/sYNbyHTCOBtpn23f0eONcS12szAz3iYq7ZXIiQF
+ 1cBowv3VBeq40Dap9ig==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- phishscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150034
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -170,79 +167,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Lantronix HDK845 aka Qualcomm SDM845-HDK is a hardware development kit
-for the Qualcomm SDM845 / SDA845 platform. It uses the modem-less
-version of the chip (SDA845) and provides a rich set of the peripherals
-and connectors. The DSI panel is an optional addon, so it is being split
-to a separate overlay. To (hopefully) ease merging, the overlay is split
-to a separate patch as it depends on the panel. The base DT doesn't have
-external dependencies.
+Describe the Truly 5.7" WQHD dual-DSI command mode panel based on the
+Novatek NT36850, used on the display cards for the Qualcomm SDM845 and
+SM8150 HDKs.
 
+The model name of the panel is not known. Neither the vendor kernel nor
+the HDK documentation mention it, and the panel block cannot be taken
+apart completely to check the label. So the compatible is built from
+the vendor, resolution, refresh rate and the controller name.
+
+Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-Changes in v4:
-- Dropped backlight from the panel (Sashiko)
-- Corrected GPIO used for the Home key (Sashiko)
-- Corrected USB PHY supply mapping (Sashiko)
-- Dropped backlight pointer in the panel driver (Sashiko)
-- made driver more robust for a single-host DSI (Sashiko)
-- Added comment regarding USB OTG
-- Link to v3: https://patch.msgid.link/20261015-sdm845-hdk-v3-0-1c179cd0d16f@oss.qualcomm.com
+ .../display/panel/truly,wqhd60-nt36850.yaml        | 98 ++++++++++++++++++++++
+ 1 file changed, 98 insertions(+)
 
-Changes in v3:
-- Dropped mipi_dsi_device_info from panel_desc (Sashiko)
-- Added comment to SYS_BOB (Sashiko)
-- Corrected commit message for the display card, dropping mention of
-  mode select line (Sashiko)
-- Link to v2: https://patch.msgid.link/20261014-sdm845-hdk-v2-0-6d0b4b42f267@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/display/panel/truly,wqhd60-nt36850.yaml b/Documentation/devicetree/bindings/display/panel/truly,wqhd60-nt36850.yaml
+new file mode 100644
+index 000000000000..1cc63a6adc7f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/truly,wqhd60-nt36850.yaml
+@@ -0,0 +1,98 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/truly,wqhd60-nt36850.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Truly WQHD panel based on the Novatek NT36850
++
++maintainers:
++  - Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
++
++description:
++  Truly 5.7" 1440x2560 60 Hz LCD panel driven by the Novatek NT36850
++  controller. It is a command mode panel using two DSI links and it is found
++  on the display cards for Qualcomm hardware development kits.
++
++allOf:
++  - $ref: panel-common-dual.yaml#
++
++properties:
++  compatible:
++    const: truly,wqhd60-nt36850
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  vddio-supply:
++    description: I/O voltage supply
++
++  avdd-supply:
++    description: positive bias supply
++
++  avee-supply:
++    description: negative bias supply
++
++  ports:
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vddio-supply
++  - avdd-supply
++  - avee-supply
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "truly,wqhd60-nt36850";
++            reg = <0>;
++
++            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++
++            vddio-supply = <&vreg_l14a_1p8>;
++            avdd-supply = <&lcdb_ldo>;
++            avee-supply = <&lcdb_ncp>;
++
++            backlight = <&wled>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++
++                    panel_in_0: endpoint {
++                        remote-endpoint = <&dsi0_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++
++                    panel_in_1: endpoint {
++                        remote-endpoint = <&dsi1_out>;
++                    };
++                };
++            };
++        };
++    };
++
++...
 
-Changes in v2:
-- Dropped MDSS reset patch (Konrad)
-- Added panel driver and the display card overlay.
-- Link to v1: https://lore.kernel.org/r/20260217-sdm845-hdk-v1-0-866f1965fef7@oss.qualcomm.com
-
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-
----
-Dmitry Baryshkov (5):
-      dt-bindings: display: panel: add Truly NT36850 WQHD panel
-      drm/panel: add Novatek NT36850 panel driver
-      dt-bindings: arm: qcom: add Qualcomm SDM845 HDK
-      arm64: dts: qcom: add device tree for SDM845-HDK
-      arm64: dts: qcom: sdm845-hdk: add display card overlay
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
- .../display/panel/truly,wqhd60-nt36850.yaml        |  98 +++
- arch/arm64/boot/dts/qcom/Makefile                  |   5 +
- .../boot/dts/qcom/sdm845-hdk-display-card.dtso     | 109 +++
- arch/arm64/boot/dts/qcom/sdm845-hdk.dts            | 825 +++++++++++++++++++++
- drivers/gpu/drm/panel/Kconfig                      |  10 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36850.c      | 351 +++++++++
- 8 files changed, 1400 insertions(+)
----
-base-commit: a7d52d51b31a58da686320f5e4edac74e2dad682
-change-id: 20260122-sdm845-hdk-9466530c4267
-
-Best regards,
---  
-With best wishes
-Dmitry
+-- 
+2.47.3
 
