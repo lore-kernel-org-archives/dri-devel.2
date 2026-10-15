@@ -4,94 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49E9FCCA463
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:15:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B1EACC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAC9E10FFC0;
-	Thu, 15 Oct 2026 16:15:10 +0000 (UTC)
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
- [209.85.222.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C0110EBCE
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:40:57 +0000 (UTC)
-Received: by mail-qk1-f178.google.com with SMTP id
- af79cd13be357-93cc31c18ebso348891385a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 03:40:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792060856; cv=none;
- d=google.com; s=arc-20260327;
- b=GGBFj6bxdS2qQPTEF+rpQbt+BxsNLOs5RoHhpPlVEoH2JL7G0w4PhcTIW5/Em9ICsC
- ljfH5Jynz91ZSboa0x+H6+jP68hG98ML0YoTIa8usO7UMr9Z8oTaXvqw336sx/n6a5J4
- LQ9PapIJR2fCRxkzyqq8JSVHVKONtljga0PsyrosXeqiXsEvPwPZuExNSvhNDFjEnyEN
- xo8LsajZN0/Qx4wkw2aMgVW845tkGe75+6wyBK5l3GI/f0z7zfp8oERqt47/S9TFtdR7
- Aey7/39/u4ugS1+5Eqf0J/J91GUZ8EquEQeBW4ZZVztB4ZoVnpEAP+Eyqsi2+ibJBG8s
- YnVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GK7c7qoHtQuqEPaLuDtj2LTHMuxiL75fJf9jcPF0ouQ=;
- fh=owznwPExubxoZ4rFwj/6rjHlIA1Z2En7hGi00EBl1hg=;
- b=Dtf2ZEWKTJy4kb+njWla8R/Zp62GY+YLEGNHcj455sejPfQZ/GGjjUvXg1bAWLukPC
- lfSMzmP+zOoOqRTtmTdmqu9DB74RKHzDNUDr7K9sgpOo7+J8Xy1qKhyKbmPTVKJaTBWV
- IrMqPQO3+40nf2IaYryZV30N+7eTles6XcOhk7pjmcO9VXDQPSK+Pk5zbiHJrGHp2QAL
- xBOAeCOIGPEE+TKz/75IplNlPzioW/QO/Py52RDIS0ln3rfqqc9Mtwkj5aGYXI07RRwC
- +tAlbqZpTYnsHTzzAWnIvS4+bUol4ZqrCT9rGi/n3IA6QDT6OmA5+uNAqSv78D1niSIQ
- k7ww==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D28010FFC2;
+	Thu, 15 Oct 2026 16:15:11 +0000 (UTC)
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43B5710EA05
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 08:36:41 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-93cbc3ab2fdso65516385a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 01:36:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792060856; x=1792665656; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GK7c7qoHtQuqEPaLuDtj2LTHMuxiL75fJf9jcPF0ouQ=;
- b=KvnzdQ0YGxZDmBcDTdZp9OGvRVfi9rdltGKidihFpfgpBXrtzAwkPvtYXkYCLiuECe
- Fn2Gzkar89CHy7AIaoGYtAO1sOKiu+niy3cTdoDiPH5/U2lklouUPCpinq8HIxcSDNXh
- SvcEnhliu6mNtUZe10mjLxb6qQQ3FQycvpv29lwQ0ewieKEm4jQHYRG5KRtBzRUI+Ihs
- TXL69fNXqnzIRhhKR3BVqfZTe6R/nh8opTWLVF7pnD6dAkx2RD6YHrhMgq/WP6PmDy6H
- HO3jfIXv67gTSS2ERbmv7CjyARmXGfRGC2zjpNtwh2pUY02UJaEU1/2leklO1MFcAOAo
- 59Tw==
+ d=gmail.com; s=20251104; t=1792053400; x=1792658200; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=aHz/bzikXk8pek8hRSIu9eCONXczI/isD7IKkwfqttA=;
+ b=hdKj33vjzBqSf/8e55fEU7GEFk+ilqUGvKGSFCHq7pjXQ9riFxDo7AH/dZk+2Wov74
+ zg/oUvupfDSEf8R86AlvK/y4JKrMDPu5qLsgE9sh0igSe9i1LUPBLtP7LkOLtlMBaNUv
+ Q4tSC3T7xc074UGlvFNX8sxTMzjM+YDhwfvNxN+wQ+jQ83/KURc71vHaLk/af0u+5pdT
+ vdjgGJW749nEuxdOZ2s90Zi/Sj4tlWLDc0/XpGREHdfflKosA2rwtQcUBxkYa7YwAnMg
+ qlJbVkWPNnxZqCLG7TDfp38/sBoYouuECW5zoix3U6RmgwJ2iTvmVnUtaoZB1GuYw5J1
+ JAiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792060856; x=1792665656;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GK7c7qoHtQuqEPaLuDtj2LTHMuxiL75fJf9jcPF0ouQ=;
- b=vgzsWrdpQyEPEwzBB/7WvrscNxFBSCiCsC09i2nzKNQZWD9aUJm+JpYOKJyNJNrHT2
- wTGkOZ8dG8ZSwaDrwvpnSJZ+C4dFTHiYU+nOwYV4uQZ+/9dthab/qK11MlIhMeAkMzhf
- Bk40HjvdUUmQda76u93IFNs3mOjZxcM7XOP3G1ghwYyfAEN8MwE/z0kifnVmZBin36NX
- nFLyFtyPcHj41tFYC+f0cQRGkMs9bmVsCwkUqeVNA/k3B6pEXwIeYY6O9NXVcNMMl7W8
- 0ikbuQvnkdeUqwsj2OTCp5guKZxKjZiXf6s6OrR3MIZOZVlHLbhAT8QucROZcU6atSqb
- Ujfw==
+ d=1e100.net; s=20260707; t=1792053400; x=1792658200;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=aHz/bzikXk8pek8hRSIu9eCONXczI/isD7IKkwfqttA=;
+ b=XedujOvk+v1CTrYsLiP5aUMw2ybkJyW2m6G3MwP/b0qWrMLrH3ghR9+SpoYmdAfmBM
+ z2ZY0Bjd8vp5/PvJ7J1e9hpHGq5W0SoVudMoWHw0ur/EVsDMXh3D8W+iyOj0Q78mtXTB
+ lPPLXSRyp5ypQmKoRcAnhs9oNEbkyC8ivsPbaXWe6qxDR9/oQYlkR0HGv1sypbHuqwBb
+ vrnO4RCJ+PuG0Zx20bUd78LtxuaPsVEfOSyRcj8kkuPDamopyWUMY5KUDF+5jClipK+m
+ 97izURNKbMP3lLyw4g4uag7EKUh/wzJH4D/2YYN89wPVSo8pf0dBVyrxCdEmwvU9f9mv
+ Mfdw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwocbPkbRbUQZjFbIrQAsnHDpZil6Qr6eGYbTp0YZzkh4vFxQfh1hudLG58D3J7J9JTR9aKhIqajro=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIVl4dzIz/Y/IfqNm/JC/wTuIcw57VH9VKbWF8xZ8eATmja/z28
- XRFzNqHMzQ6voJDDTDN3L4EKoYE+buEqrpWUn0vtYmBUZ9YF27g9HY9ZfEH93LeED/d7o5156lW
- 5Lu4LZy6wDzcOzcdQGwq+Ilh/sJozI+M=
-X-Gm-Gg: AYBFou0mA1PUvWdh/oveDem2zKpwaunFH2fNwuEeKmNb4rrTea2KfGtWPpvTAIptAq3
- QLHtxNCBbQEtJC6Kxxs4dh5aMH4/NC/8eAJHIthZfRoLdFhjmwslJIll53bHnTaNDNsDobUvuQL
- Uj03CAhXji3pjdTQ/KaRm1Jg32NLVqJ2ZyemVQuIVKFwIkGZKvPHmmNUFjOzSbflpKIZ6BTq1+1
- DfazDKZ45NulKmSXx8UET2byrOklKvsqfdahYmHZ39XjJ0MGekVm6ecXA4iZShnOoBMtVExdHQd
- 756jgBOsSTZ94hO4zEdXC4WPpCy4pDQmiR63Kq+IGhVhXX4ghYVGYNllDMTwKSlKv5gXMsSM9xs
- 2A2joG4cpl02Z1SpVEhJclzBwBT5FHV4IDwenPspt0W68Yg==
-X-Received: by 2002:a05:620a:44c1:b0:93e:6e59:ad16 with SMTP id
- af79cd13be357-93ebd1dfd74mr3037179085a.29.1792060856144; Thu, 15 Oct 2026
- 03:40:56 -0700 (PDT)
+ AKwUvBxTP0i3jg3qNojBd2HIADascOsxVNMUIPvtBvzIqJ1K50UjFyjxoLPnfRpVyadO+hoTLMTOfkQjZN4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIgKJWz7C0iSLpgPYAo+LLKCrUTanwojMOV7wIlBJOtrGuWDx23
+ Vfzt6BvB5P29ZhiM1mx2j3bwUtdmv4GlvEYreLwhJ36zLs8vnWM+ILmo
+X-Gm-Gg: AYBFou0En3xw1ZebSRI+kYDkwbSy+xVl1RPAJT2EDKnF5WddpTgG7Iq2rDJykBb0rM6
+ xeHs7ILjwaNxqh/oZw9hsI6CIzIqtzUWfX8SYnqFhRZsj6hYvP3Xzzbb7CPSkvgRLJzvaq0+18h
+ ULiR99F6WE9i1YEEaMQveLCTNx+3yswzIj1M4LFcgg+col1F8vCj04KPxqHqlHWAQrPjYEucYsp
+ UkqVjOWyTDVSPy34xotkaq4WuMPgUXtmirBbu+ZHX8lvPpZGDenT/Cb1qjEmbX4Vo6FwwBWCIVM
+ EH7zC9/RyRQj5nfw8LIYhsYL2FxSAGlfx3hwJ0GJmqP1kBcDc/0vbsY5UcUiLJkpuk8q/19RMwf
+ /ovsG1X6zMaJDs04qjOFwU9W6mU4sR6e3eTC89p0GpFrtWQTb1TCkgU/E+4+n6TJ6CK3Df4t8lz
+ z+SJ4goNVwNDt8C3ps5nxasmB0yDljW1DcTD5M7DsI34n3RopReZ1dgK866Uot/ZZn0Dx1s17kA
+ KzdKcjJuua4fthtqDJoaD0iPr7huK4GDI4mbZni7o5oDQfT+v9XrqT9E1JOD5lwJLr5tP9505MH
+ WzJTsgGOcMjzx2jsPxfZzxk=
+X-Received: by 2002:a05:620a:6081:b0:93a:1fa7:1afb with SMTP id
+ af79cd13be357-93ebd24d180mr2908976185a.42.1792053400267; 
+ Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
+Received: from ip-172-31-15-253.ec2.internal
+ (ec2-44-200-54-59.compute-1.amazonaws.com. [44.200.54.59])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-93ef5090050sm711843985a.40.2026.10.15.01.36.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2026 01:36:39 -0700 (PDT)
+From: Deep Shah <deepshah146@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org, Yishai Hadas <yishaih@nvidia.com>,
+ Edward Srouji <edwards@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Deep Shah <deepshah146@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH rdma-rc 1/2] RDMA/uverbs: Fix uobject leak in DMABUF release
+Date: Thu, 15 Oct 2026 08:36:36 +0000
+Message-ID: <20261015083637.200958-2-deepshah146@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015083637.200958-1-deepshah146@gmail.com>
+References: <20261015083637.200958-1-deepshah146@gmail.com>
 MIME-Version: 1.0
-References: <20260928081450.19340-1-dilddream31@gmail.com>
- <CAGC3ukQ7gX97E7pG0Oy8H0cnmQzoA1038io+VhrBogPB3y9dDQ@mail.gmail.com>
-In-Reply-To: <CAGC3ukQ7gX97E7pG0Oy8H0cnmQzoA1038io+VhrBogPB3y9dDQ@mail.gmail.com>
-From: =?UTF-8?B?6rmA67KU7ISd?= <dilddream31@gmail.com>
-Date: Thu, 15 Oct 2026 19:40:44 +0900
-X-Gm-Features: AclHuK9ftaX0YjG2NCtLvWvZyiH7eh52x9bAW5dRWFx1APAiB6cYmVIL6REePPY
-Message-ID: <CAGC3ukSVk=N4ttd3hwnXXXppHchwroJmySPAFP65Vt+uP0COOw@mail.gmail.com>
-Subject: Re: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
-To: nouveau@lists.freedesktop.org
-Cc: lyude@redhat.com, dakr@kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 15 Oct 2026 16:15:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,34 +95,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Gentle Ping.
+uverbs_dmabuf_release() treats a NULL uobj->context as an aborted
+allocation, but normal ufile cleanup also clears it. Closing the uverbs
+FD before the dma-buf FD therefore skips uverbs_uobject_release() and
+leaks the uobject and ufile references.
 
-There has been some related discussion here:
-https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.f=
-r
+Clear dmabuf->priv before dma_buf_put() on allocation failure and use
+that NULL pointer to identify an abort. Otherwise, always call
+uverbs_uobject_release(). This also avoids reading a freed uobject if
+release is deferred until after the allocation has been aborted.
 
-The patch has also been independently tested, with no reproduction of
-the issue reported so far.
+Fixes: 0ac6f4056c4a ("RDMA/uverbs: Add DMABUF object type and operations")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Deep Shah <deepshah146@gmail.com>
+---
+ drivers/infiniband/core/uverbs_std_types_dmabuf.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Apologies if you received this twice. My previous message was rejected
-by the mailing list due to HTML formatting.
-
-
-Thanks.
-
-
-2026=EB=85=84 10=EC=9B=94 15=EC=9D=BC (=EB=AA=A9) =EC=98=A4=ED=9B=84 6:10, =
-=EA=B9=80=EB=B2=94=EC=84=9D <dilddream31@gmail.com>=EB=8B=98=EC=9D=B4 =EC=
-=9E=91=EC=84=B1:
->
-> Gentle Ping.
->
-> There has been some related discussion here:
-> https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux=
-.fr
->
-> The patch has also been independently tested, with no reproduction of the=
- issue reported so far.
->
->
-> Thanks.
+diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+index 2411ebee69e2..d88d30f1e42f 100644
+--- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
++++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+@@ -68,9 +68,10 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
+ 	struct ib_uverbs_dmabuf_file *priv = dmabuf->priv;
+ 
+ 	/*
+-	 * This can only happen if the fput came from alloc_abort_fd_uobject()
++	 * This can only happen if the fput came from the error unwind of
++	 * UVERBS_METHOD_DMABUF_ALLOC. The abort cleans up the uobject.
+ 	 */
+-	if (!priv->uobj.context)
++	if (!priv)
+ 		return;
+ 
+ 	uverbs_uobject_release(&priv->uobj);
+@@ -141,6 +142,8 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
+ 	return 0;
+ 
+ err_revoked:
++	/* Tell uverbs_dmabuf_release() that the uobject is being aborted */
++	uverbs_dmabuf->dmabuf->priv = NULL;
+ 	dma_buf_put(uverbs_dmabuf->dmabuf);
+ err:
+ 	rdma_user_mmap_entry_put(mmap_entry);
