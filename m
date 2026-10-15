@@ -4,151 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90ADECC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 12:47:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EFF7CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 12:49:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBB7D10EA18;
-	Thu, 15 Oct 2026 12:47:26 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DB9710E3F8
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:47:13 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69F9jguT1955865
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:47:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- HpfO9Gqu9uFueM3NL3ptgyrxDHq1TmvbTG15ptsawcI=; b=DOCppP58g9XesA42
- IzTA/UW5or2UmvB9V4Pr89taVGK8r8vfLoATAnO983XeXGrD/ffWQHZ+XnZYtCCC
- zZhuxOs6AouPCZTKqywEr+t3LsB1cRQITcKYU2Haqq9ljE9hAwb9gevOsOoER43E
- Ehun5k3qu99pCMXurt6wTdLjGVWrbF2WitXGEuR0BAbGtBlCYuLZ9etz/uFjQo8a
- f2fMx1FJ3C2hUyhiCfi9lILVoGWAlz6BfDcP6VssNrZ7A7XtdZIvqrhYjJ4wUccP
- 2ElQ+h0/WnshHtdcYh4UAHG3g5TDFByvsl4X0m+fZpUiOkr8eiCOc1gnhmw9Xp87
- 6SmC6g==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakdetx4h-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 12:47:12 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2cfc52ddc55so21227865ad.3
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 05:47:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792068432; x=1792673232;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=HpfO9Gqu9uFueM3NL3ptgyrxDHq1TmvbTG15ptsawcI=;
- b=AZuGM0ieY6aHf7xIBJgoyY30QMXjftknOJ9D4eoG0AJ4i70Rrr/YjDiirN2DGYLOM9
- 0mp7bHo5NKdL8Id8dj0yCECR/gmUFy6AQ5vlemddkf8qDKsfo2kEHGXQznFMvnjnYQbf
- P7BE1AHuVD/H7LCM94C4/ySf+YCvx8VhiE1seDV+GXro2eXVmQ0g7pNq/RgiRhfX3MqB
- CJOnxYCLXunpYwgZvZDLn2qFlOXgH/xVp1cOdBwhBiJ5kBVEWze9nxbtYM6GtprpgyLW
- 5PxlQoLnnRvEqgIAOXWqK7tR4BXCMbJfgO7+ePkbAdP3MQxk3LGQzY0BynMl/FDy1M5z
- GymA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792068432; x=1792673232;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=HpfO9Gqu9uFueM3NL3ptgyrxDHq1TmvbTG15ptsawcI=;
- b=g4ctIKy/buzTP2c9Sq1UzteeW8piSwxszf5uzWGge9g057+cgoUhj9M6AB2n+0Kuek
- n4mWyH6OyXqmIa0C2dT3lP/cG4O38nq3fxyCxl8NEVIjctmBunVHRyTxTJlqCNgepqLd
- bUxHl5bqi+qqjZo6A1vDMlE984dKioOCiPWfeydKgPX6NuyydqrHTciDaMm3JViobRWu
- H60JiZKHDACR+LK93LxiB4BgLJgB3CHWMcJVvHnNMnHrYaPReYkVlUGHEnX1ZWFKznUJ
- FbL8NuvIj0xyUockiZ8pvI14ueFNA0FKVEuYSCJf0dndhE63gdh5Z1zxto9vr2pDsRea
- GRXQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxiVOmQ77dbYEFz7j/hOxl8oW5O6wSJsvxLptQ9UwcPpCZN8O3HHnZbdmEpBAV/Pg7ox3pW5b0nVRQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIBMplb0JDUNUtZ6b0Pmwy+/G7J1SoItLTknaRGCvtn/pcFtZVR
- P3clY9rbR+37qQxmnZgNhB3OMEdN8B6tQECmsygk/lN9VnS8do0xsCU9zTGaJIQ5gfa2SIJt+Nb
- 55Bx4W8T0hYej+FUh2un3H16XolLjF09qYX1EebQi/g9mrZmdZ/l1waXPAp1z3e5dNwC+gRE=
-X-Gm-Gg: AYBFou1Cd01IbaA2pwS56l8DGa4lj5d6kDJabzmUvWXP+Yw0WAHjkqgcDHM0FsMfx0b
- g55akk1MY+zQKVXkasL8vy54nQ2gc5v3PwELU3PfRCPthE26PL2ZIkuz2NWDdVqutlKEkPnG/uP
- GTQumyNF/uSTwDOfb8rMNKxaupRzbnZfb4G50JAvl0M8vEjBBBbY37r+hmESXxRQ0asMbnN+/qs
- HlfF+cqPheg8Wtry4Zjph9kmEHDs7GsHwy7SpvlsYgxDyGTMu3oQEl2dfVVqnpdxS60AcGUfuXu
- TcYBIWEuJqQK97MV6/5QwXDPL1vCou/k/s+FPlV3UWMz0fH/ReY7CZ0xYcmGc0KsaqfNpCgWU06
- kTtu88YWdn5NSAFtodSff2qII1PJpiJGWRXdD3TMZDyRrOH7goM9US5+qOxr29WHzFgjNIVJNu6
- PBCq12K2Oial2aEvarcI3gtZS9XQ==
-X-Received: by 2002:a17:903:903:b0:2df:8b09:93bb with SMTP id
- d9443c01a7336-2e842aaca0emr153739785ad.10.1792068430849; 
- Thu, 15 Oct 2026 05:47:10 -0700 (PDT)
-X-Received: by 2002:a17:903:903:b0:2df:8b09:93bb with SMTP id
- d9443c01a7336-2e842aaca0emr153739435ad.10.1792068430276; 
- Thu, 15 Oct 2026 05:47:10 -0700 (PDT)
-Received: from [10.149.81.110]
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2e8422b8cb6sm81962855ad.60.2026.10.15.05.47.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Oct 2026 05:47:09 -0700 (PDT)
-Message-ID: <5568fd0f-e412-4f2a-9f1e-729a469da572@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 18:17:01 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7E410E257;
+	Thu, 15 Oct 2026 12:49:36 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011004.outbound.protection.outlook.com [52.101.52.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D538710E257;
+ Thu, 15 Oct 2026 12:49:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vtw8Nm1Qm8k94dQ/s2HV3zs2hbkYapcR09lnDHV01PEvUGzLixgTbHvoMTG78dJKmBZSrK7Ou/j2eCS6NSFxiusYDLKDeFZDjuPqnQqGnz2YRN2wZhCnmTUHO76jhp8NLp/kd+uh2ywL71LylLt0M0ZvFTjO4zEsbcIZeRcqY8lRRC9Viil8KZjGuzJk0EGtfrmdEn6cY7tHn+pKitNr++626d7zBS3LLrANVmkh9vQjwPb7LfREq11V4luY6jA+AlGEpp5Pu3KaaIXRMCbiXre4FeQoBVqSg1G8GcpaySTmq8GQ7s95lF+isilgR+wiPrw8JFV+cYZSbU8O6r457w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ztxHBdF23VK3umRvj4vZJELv9Db29G8Ahs6OG6OcKwQ=;
+ b=LHNJ54SyttTNGIqxlGETpvckpIll1FV7Q+8a1b0chufME2DD9wok16lfKRUYTgumLpvcNa1Li06uIQNySywCXmrOcV6D+HO3IBVHwQpWFAvokEiDM+B8D8ANp9fFUT8oWKjbFuV9AsaHCfSYVvW19EF7BLom+JU/TuGjBolkH5xldkuFNQD/rhHaJ7qnPTfjUnU55/1/vGualgRe0q+RNNOCzdUpHTM91CLBCeQzqUwuK3Cx8efZIbQEh6v1/eNQcc/qGHXz/5M4p0NoURV7HUjEixyhYFCOfED/gzA1kcANoq8AjsWg99aMzdN2vzTg1l9fg+Ksiml4mtoj6oF8gA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ztxHBdF23VK3umRvj4vZJELv9Db29G8Ahs6OG6OcKwQ=;
+ b=Ryw9u4hqx2/X2ilsg5DJlBBwla32cyXapRu1XwowOkusAz92cHyI54XqP1b0O2GMIOw9tufjgT9DkB62TEz0dZT/Z/r/KWU9Xga0DgOCiIbW5xdIfJa6Zt+wTZbqCVRz0b80xNpvZkel53OP/BIHVYx5T88RW/YbPOs+1sZt74c=
+Received: from LV3P220CA0027.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::28)
+ by CYYPR12MB8989.namprd12.prod.outlook.com (2603:10b6:930:c2::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 12:49:12 +0000
+Received: from BN3PEPF00022BC6.namprd05.prod.outlook.com
+ (2603:10b6:408:234:cafe::1e) by LV3P220CA0027.outlook.office365.com
+ (2603:10b6:408:234::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 15
+ Oct 2026 12:49:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC6.mail.protection.outlook.com (10.167.248.219) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 12:49:11 +0000
+Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
+ 2026 07:49:04 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <bhelgaas@google.com>,
+ <mario.limonciello@amd.com>
+CC: Reza Nikzad Chaleshori <rezanikzadch@gmail.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: [PATCH] drm/amdgpu: Gate VFCT bus fallback on pci=realloc
+Date: Thu, 15 Oct 2026 07:48:42 -0500
+Message-ID: <20261015124843.203905-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
- Laptop 8th Edition
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maximilian Luz
- <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
- Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
- <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
- <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
- <52adff3a-370c-4445-9797-e0b0dde36fab@oss.qualcomm.com>
-Content-Language: en-US
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-In-Reply-To: <52adff3a-370c-4445-9797-e0b0dde36fab@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=OdENnRTY c=1 sm=1 tr=0 ts=6ad0cb50 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=g9vuQ9wz1Of9mYxFF6EA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: z-Gfnl3dWFmM3J88D1S0LRSzz212FhVE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX3Jn2qynadaWa
- mUPbcLICwZ39RiYrBTtcSsBaiD9d1yjqJUBDyOnd52kv9jpYfccLGnMpLR4gn/I8eCrpKhKbL8l
- aYN4e4Z7nu6KObx94Q7u2Ja+G/5o/kTW+Zi/3vCAvZvpAGJmwgDkmfxd+3O9+yWjeOgrKgHiYCu
- yBso72HB/FB75ukB+MhDOqIcsJ62Y02fxroWN+onIfPKAOjuKexCWuXAOtLQ3Mif6hayAIxsyd9
- OZ985JcxShk3ynhq3JBcQ+kt1WYsRfYpk8Ql6yj+ct0A9WV6oPLMN2utNySPkBWgMGscdW3ELSx
- wPsAIOpJ7HltRySfGn37t6yY+ltuouEpJRmfjlWl/0ZMvqwnNMEo+2+ueyymIIhsCGNlwTfnELh
- TbCOGB3t8wLLDNJ3eiV8B73hXxG1fSyIV/m9Za0y/Wikk3eddnB43se/PW7uz6PkHzi/OGcysID
- e/+Z0/59hE726zPS8Ug==
-X-Proofpoint-GUID: z-Gfnl3dWFmM3J88D1S0LRSzz212FhVE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfXwkfqmF26uFKy
- BcVtVI628Z3nnF+40t5h9VA8pV8Ei7B87xBK+B/JoB012m++xfPVKx+Zwl5s6hjh9wPNznGX8Ca
- nqSW6/NbYj8KAF30AsSdXY5sPYP8okc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 impostorscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150050
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC6:EE_|CYYPR12MB8989:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6394fb61-77e2-4d96-fbfb-08df2abab633
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|260925022911599003|18002099003|260925021311599003|10067099003|260925021911599003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: Uwoj3/NVgBRoBPPhL/QYr79eWxVynlaO+H6m5MqY7jtVcCyIQXRPbq7MIgJvi+5rrhkSNKu2YHo/iMuXAOpA1Sgw64LdnBvfz0phggxGidaJpluLmBGvP0mFXbNr4GGh0Geh8RePXwP4cB6CGZDoc75tRf8/zAb1s1SzzzfUWzYMVMWuo8DxC7S8lhI1XYzt2blHLgH2ItHw1j/yVMFLEhswLDxTcaf3DXSWRyblskcPkoWhww4ZiRnAi2xwv9tDTRDJk/SnuP23K0SLsOov71ESdYfoPPJgTLJtfzKBHmEpYHWQxRYBp+95DwlX1mRk+ZBCX22BdZW72sKVAAHvfoZexzKMQP39/AuPtTMlIu6hnNlO7nT/3vEJHw6w5l5uJvs2ZcJq/NWBRB+95IZalO9v2iLb2VVaRNsfXxjckduQKABxjJiDJaM8vja2zsHLhQLxWvzMT1Pjyt2eshnt6cK+KgFys5B3MVieyfi7bZ25aJvolMIN91P4rHXA71cYOr50zF7PTTp4doRSH1qqAYlsethLeEQlPyIsiOR/Z/fcXM3p02qRxTDHcOBO9rkCP60gKovlj3ZIoX4KbUuxS4xB5ufJYbD1ZZqr+jwCXJ+6HyDIaibRpO+V7f5SUTLgG84En4vClTsGRyQCDET6rQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(260925022911599003)(18002099003)(260925021311599003)(10067099003)(260925021911599003)(11063799006)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 7YBWXYnJwfpcLjnX3BWcH4CXWo82DqhcUnG+8qgQPainE13n4O3CsvI18AthOYiMO3vtKLsaxKF/V2ZNJoYUOPp0rQ3E9DJTHZKf90PpdUQilqiMFhK61Yky/CdFAGxIb4xREyCxSDYljCLwJN5AHIHv/BzARa9/Jb27UU/PgWS85D82XJZGBoZtwL94NzwVfroCDs49YgkbXFK79z9WvYSCHEhNqPqbGNMmnetrcjuXil56iH05kXx1HTSJE650wC1vOPsLxaAF4gM4b89/1dopoIMQf4448/ilMP19okHJIlqbwiGXl8AkGzWrdvaV2ZoEjBsdvoyXnCmF/X90qHIqZjGUvkhzYoHR+ZSggb7rhWeb2LJ0IJwtx3UNEWeZVJWnKds3sbGUrJFcvk+pAyrU1kxH885bujsL6MrbRW7SEl1th6dmwlJvF6qSg86Z
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 12:49:11.8608 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6394fb61-77e2-4d96-fbfb-08df2abab633
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8989
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,54 +110,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Konrad,
+The soft filter system introduced by commit 11c141672045f ("drm/amdgpu:
+Fix VFCT bus number matching with soft filter") has a deficiency that
+it won't work when there are multiple GPUs of the exact same model.
 
-On 10/13/2026 2:09 PM, Konrad Dybcio wrote:
-> On 10/7/26 9:11 AM, Gopikrishna Garmidi wrote:
->>
->>
->> On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
->>> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
->>>
->>> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
->>> ---
-> 
-> [...]
-> 
->> Before review, I'd appreciate your input on the naming.
->>
->> Surface Laptop 8th Edition comes in three sizes [1]:
->>
->>    - 13 inch:   Snapdragon X2 Plus (6-core), UFS storage
->>    - 13.8 inch: Snapdragon X2 Plus / X2 Elite (Mahua), NVMe
->>    - 15 inch:   Snapdragon X2 Plus / X2 Elite
->>
->> This series adds the 13.8 inch model only. I named it
->> "microsoft,surface-laptop-8-13in" (mahua-microsoft-surface
->> -laptop-8-13in.dts), but that clashes with the real 13 inch model, which is a different board (UFS instead of NVMe) and will need its own DTS.
->>
->> I couldn't find a codename for these, so I can't follow the Laptop 7
->> scheme (romulus13/15). Could you please suggest the naming you'd prefer
->> for the compatible and DTS file name? I'll update it in v2.
-> 
-> I can't find any. The LLM suggests the 13.8/15 in codename starts
-> with "ROT" based on the INFs.
-> 
+As it was introduced specifically to help the case of pci=realloc, gate
+it to only run when that's in use.
 
-Thanks for checking. The only matches I see are in the MPTF thermal
-package, which ships"883ROT13Inch.bin" and "883ROT15Inch.bin". Nothing
-else mentions ROT.
+Fixes: 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft filter")
+Reported-by: Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+Closes: https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 15 ++++++++-------
+ drivers/pci/setup-bus.c                  |  5 +++++
+ include/linux/pci.h                      |  1 +
+ 3 files changed, 14 insertions(+), 7 deletions(-)
 
-I also checked all the ACPI tables but didn't find a codename there.
-The tables are here:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 08ed1eb695586..75af9a59671ae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -384,12 +384,10 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
+  * @vhdr: VFCT image header to check
+  *
+  * VFCT entries contain the PCI bus number as recorded during BIOS POST.
+- * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
+- * resource conflicts), the runtime bus number may differ from the POST
+- * value.  Match by device identity (vendor + device + function) and use
+- * the bus number as a preference: exact bus match is preferred, but when
+- * the bus numbers disagree we accept the entry if the device identity
+- * matches.
++ * On systems where the user requested PCI resource reallocation, the
++ * runtime bus number may differ from the POST value. Match by device
++ * identity (vendor + device + function), but only treat the bus number as
++ * a preference when pci=realloc was explicitly requested.
+  *
+  * Returns: 0 on match, -ENODEV on no match
+  */
+@@ -409,7 +407,10 @@ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
+ 	if (vhdr->PCIBus == adev->pdev->bus->number)
+ 		return 0;
+ 
+-	/* Bus mismatch but device identity matches (PCI renumbering case) */
++	/* Allow bus renumbering only when the user requested pci=realloc. */
++	if (!pci_realloc_enabled_by_user())
++		return -ENODEV;
++
+ 	dev_notice(adev->dev,
+ 		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
+ 		   vhdr->PCIBus, adev->pdev->bus->number,
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index ed16ef7c26fa7..d9450585082c0 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -1799,6 +1799,11 @@ static bool pci_realloc_enabled(enum enable_type enable)
+ 	return enable >= user_enabled;
+ }
+ 
++bool pci_realloc_enabled_by_user(void)
++{
++	return pci_realloc_enable == user_enabled;
++}
++
+ #if defined(CONFIG_PCI_IOV) && defined(CONFIG_PCI_REALLOC_ENABLE_AUTO)
+ static int iov_resources_unassigned(struct pci_dev *dev, void *data)
+ {
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index d31a8d107b1ef..844734da9250f 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -610,6 +610,7 @@ static inline struct pci_dev *pci_physfn(struct pci_dev *dev)
+ }
+ 
+ struct pci_dev *pci_alloc_dev(struct pci_bus *bus);
++bool pci_realloc_enabled_by_user(void);
+ 
+ #define	to_pci_dev(n) container_of(n, struct pci_dev, dev)
+ #define for_each_pci_dev(d) while ((d = pci_get_device(PCI_ANY_ID, PCI_ANY_ID, d)) != NULL)
+-- 
+2.43.0
 
-   https://github.com/aarch64-laptops/build/pull/176
-
-Following the Lenovo gen8 naming, would something like
-"microsoft,surface-laptop-gen8-13p8in"
-(mahua-microsoft-surface-laptop-gen8-13p8in.dts) work? I'm open to
-whatever you and Krzysztof prefer.
-
-
-Thanks,
-Gopikrishna
