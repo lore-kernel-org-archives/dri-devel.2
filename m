@@ -4,82 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D49B4CC6B38
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 09:12:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E42DCC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 09:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 093C11120A0;
-	Thu, 15 Oct 2026 09:12:01 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C42441120A0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:11:54 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-38e42560ebcso725348a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 02:11:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB9B11222F;
+	Thu, 15 Oct 2026 09:12:17 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA55711222F
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:12:05 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69F72Vpq2121303
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:12:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ HUBB12m89z/qSO0zlxArjpEPX2BkQ4pnL/v03QTeSF0=; b=aMNRiQwIIFWHlTal
+ SIMFgwXbrdTzdpk6c7h5Fcz1W4YB/+YEt+u2yda6R1bMQEhvFAFGefcMhLVx4d6b
+ cfrx+yJtHLY24a0xFmPGjI0TgUQS36D3YZFADs+ib07/NM0eNuP5HDMeuDPBF3Az
+ FE0Z4+ApkZAntbkmtGmpDzjqllBIQo7FPDXkmRcQRKc1iTBOo23zjKxOiDzxLtxE
+ xDEGP6YBLly6OPtftIC1XGtF7RpjLajAgWFHSsXoFHXniHNU0lpjME4SKEJ2w/rM
+ bjC4ShzKR1cvtLxdqSckr/Y/1bkdqM0G8UOZUmBocuZ4WnZLj6N7+WgYxtkOgZ+m
+ oXxSjQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn1x29-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:12:04 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93e58614290so36483885a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 02:12:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792055514; x=1792660314; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=PVjmHGw5O4smXiseMBYfifX+jfasJS0dPUWrUM1BnS0=;
- b=FB2jz/paXh0Jmsh3fy36iEeY9iYAlaebN5yVwJ8UAgGc32Tb6g551m84sRRZ69PQ8Q
- 1OMeQHJFgajMzsYwlHQiwhgztGth/46zrcV25XgqbGJhQBrUhT8+xRblIa5vNsimfkX/
- U437yuDltdl/4kGTKYWdskMDM9r67W0ZitU7/mHwDXKb399YFHoSdNcUhPSa14F+fZzD
- WFRkN9+Cp34TFw998ZcoxQSHGARQZJtzEgvgDeqLguUt7rtL11V3MtYVmKbNxhGgnTX9
- XmPodGsSifKPSPwSlXOXyplR8oIEEtDFZApdLBZn6aWQ6i/k+ayQmBx6tBw5wiMo/swA
- naIg==
+ d=oss.qualcomm.com; s=google; t=1792055524; x=1792660324;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=HUBB12m89z/qSO0zlxArjpEPX2BkQ4pnL/v03QTeSF0=;
+ b=Q9f3ixywOzmvmzkD+jnIQlIrpx3BAnXysSmhNOu/dQaHpHI7kJvtRr5JIg3Vgz7fFf
+ /+Q/PPH4gsb2YugO5ZOsSeZji43FdfJGRq768lE6mn7WBfHNFro2e54+EQzsvqxSdUt9
+ RnYnHWyxe7ANJSjQDz42b/P+eNdPg6cH9HtGoYP74fto1SLFjEwNh2KGQ+uHp4+P/7dK
+ bk3l1aaqbV3MQXJr9WI/aVHzECCeA8WwGaWTlACkf4oPlNQAjI1Eagxh++sq4E++Tfqw
+ 907I1uM1CLvw8t4zXvWlAsK0u14vyza6AkU0ZfNRCG6twJcxABtFtPEUtVnUdC71v2RO
+ qziA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792055514; x=1792660314;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=PVjmHGw5O4smXiseMBYfifX+jfasJS0dPUWrUM1BnS0=;
- b=su9oHdsUSXjxxOPEavPffyQ6d9IFFCGrfTIWmb7J3ISLbltQGV/4TagRFoOBVCJ3rB
- 8L4n88n4i6R66+k5s9HunY0A5srdYExjyf1rBwhVcCE7W9YD7+xersisDa5SNURinv1B
- GBESiIcHlFIo9XwDcwHfzOHz8M/rkHLp8E+n329p57ivibaIinWa3upGbD6VuHowQLSq
- b/vMvWe8XEwDG+evmnto3K6GXo0PgifSstLI/Ukc3iPWJ4VUc/A7afM490Y0SrhahK4c
- EIPHosc14A9DaLxaVnPJMgNqCr56ZJxIN/KiFJdD5L4pGCqQv0RWo+iOo5oFgrqgfWtq
- qXzQ==
+ d=1e100.net; s=20260707; t=1792055524; x=1792660324;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=HUBB12m89z/qSO0zlxArjpEPX2BkQ4pnL/v03QTeSF0=;
+ b=YbxyuTZumcU0UH8l7u9XDwzuMd04ksrUWS0h5U7zIeTrYQ8uEjK9dvBPkHc6N7S8LT
+ HfE1ZDbfYYG7CKDOz/k9+N0ywkVUSQZ04sxrIdxj4JhYobvqEI61CodNbutODmgbP2Hd
+ nwj+LaMw7Iy4I4HU6eaNeF2qpEY8dCE6SaZEgZFfPTeOnDH+MeelI1NBnTaHJuDzpt8v
+ ytzfyaYovfxG9EhgSLstiYvxkdOaTLFihM+CAL4LKc4mPtK0cr/V7cdR8uCDLL8RQ3kv
+ E43TOClyFnG4DSHxsdYrEagJRnS9ZP2Ii7gNSiZdK4Sr8184Q1i2NxYbJ6qKemUtgr1y
+ gv3Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwDrBFgalV4f1Gu9+tWBvqitxX8t7juxthUtCya/oSY+/186TkWQlstowYbr8680Fme24E7NgP6+/w=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIVj8UtHKGa6T6H4i9H/RYBu+Nsn34Qm3yxCKSLRhIFj/Nkjkwi
- tbFzaCyMQNOoXE1+FgRQu+q8FFcv1U2eH2KkGj9oDXSRxMANbj4kKE5p
-X-Gm-Gg: AYBFou2MMIy/pNH7qHOB4yEbeoV+aMyRKeSX3lhKMOIgFI62FWyhZYykb+vSFdnwBXs
- onIjC9M65MY73VAMdlUFj4ctTu6nyvnsL6eX2RFH9cKBCqpK6M0vbw+W6Xbb6L3MwxXegfTQ3Mo
- JFhLszfmtQJPieAwfxN6jx3xN9HFwfKLiVpZKlZfpK3YIJiCKTJtMY9INQSsUP05Ip82seECmPP
- X5g0t6bts5BTkbuPIwbQ0NcGgRT5bA1PRJLin4L4CwkvQ6lRDd9Kflqp0jFylmFsr2T0eBjexS1
- oL0VWZdaBYf/PD4a6x3vn3XCc1G5v+a6v4qOC8HVGDtOJlDcf1txotFFPMIPgwF5DCrfsD2z/sv
- RNhThg88/EW6LmfNm2p0DdG3ATCYD909vhT0iTCYLz1RjChafxhF22r6ZCWj0KXC9w0H2PuIRzs
- slbbKWgYDfYAgJOJxwY8AsNhMemqUuWYJsreG4CZNZMIhRMFpb9px8XDbx1AXzLBDS/LQ=
-X-Received: by 2002:a17:90b:4ac7:b0:3ab:f38:2b41 with SMTP id
- 98e67ed59e1d1-3ab3a8e5b2emr16863678a91.39.1792055514281; 
- Thu, 15 Oct 2026 02:11:54 -0700 (PDT)
-Received: from [127.0.1.1] ([115.88.114.131]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ac944511c7sm3727363a91.10.2026.10.15.02.11.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 02:11:48 -0700 (PDT)
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Thu, 15 Oct 2026 18:10:51 +0900
-Subject: [PATCH] drm/imagination: Don't retry a failed unmap in
- pvr_vm_unmap_all()
+ AKwUvBwYtVxStG8h3v7SL47OusWbdLyiWgr4ibtvr/H4t6elKF1q3f0n0csI/zbdH+nkoQh5melwXjKKj4k=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJeur6cEZtEd9jI/kzydHLjcfj+7PF5MrDT5hKBtKztL/sgtAcP
+ iELSefUEZpx1fu8HQLKh+LHQXeg2RkGMitXbMgXiRuNGg7urpgHSzYYT9go1tzxEGfQF3m6z6Gs
+ HcHg1yotstBDSeircUgPds3bRN0sGsRR0Oz9yXah4sFyIguQTvggGDVlKsLAMAbKYp2Izy6wKHS
+ Dka34=
+X-Gm-Gg: AYBFou1slJwRac9VVJYUFUhzn6Sqy/BbfDgsg0kDq3i+4TadEGZG8nM1ehHdSJC78KO
+ u5nOnXl1MxnubNlYmvNIh9OrxZVMPHJjBVBNzqO4KM3Sij70iGLZNFa1MkR3tp7NhUOMobzZM19
+ llPQj3WDojgOSXF+Tvn9FVh8RXMyNABpbeO5m8p0xcV6q31IvGsxsYkKwLAB/2oAGpp0tIWTPAo
+ NN7/pbT7STOj2y1AWz7IHKOeW+7uI9yIqhubLeY++D0L3fHNW6zAvdbNemJYpjMIt1XNEANofyZ
+ a1BPyavq2xpMgC//qM/X08IVDCb6e6hgedKj8/q0Vp1MSONKas0mmlabDplNLACT8xMybOIoMQu
+ cx8Bnlltn96DJf2jpxWBdwg==
+X-Received: by 2002:a05:620a:2b86:b0:93d:9dbe:5bec with SMTP id
+ af79cd13be357-93ebd10b418mr3112657285a.2.1792055524070; 
+ Thu, 15 Oct 2026 02:12:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b86:b0:93d:9dbe:5bec with SMTP id
+ af79cd13be357-93ebd10b418mr3112654885a.2.1792055523631; 
+ Thu, 15 Oct 2026 02:12:03 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b20388c1f1sm2263767a12.26.2026.10.15.02.11.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Oct 2026 02:12:02 -0700 (PDT)
+Message-ID: <eda50ac2-bd4d-4151-b041-7f9fd56d9fe3@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 11:11:58 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/9] backlight: qcom-wled: fix unbalanced OVP interrupt
+ enable
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Kiran Gunda <quic_kgunda@quicinc.com>,
+ Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev
+References: <20261015-sm8150-display-card-v1-0-5c14928cef29@oss.qualcomm.com>
+ <20261015-sm8150-display-card-v1-1-5c14928cef29@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015-sm8150-display-card-v1-1-5c14928cef29@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-pvr-unmap-all-loop-v1-1-54c676d41269@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAJqY0GoC/x3MQQqAIBBA0avErBtQo6KuEi2sxhowFaUIwrsnL
- d/i/xcSRaYEY/VCpJsTe1cg6wrWQ7udkLdiUEJ1UsgWwx3xcqcOqK1F633AYTCkjFp6agyUMEQ
- y/PzTac75A1wuhQRkAAAA
-To: Thomas Zimmermann <tzimmermann@suse.de>, 
- Maxime Ripard <mripard@kernel.org>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Matt Coster <opensource@mtcoster.net>, 
- Alessio Belle <alessio.belle@imgtec.com>, 
- Brendan King <Brendan.King@imgtec.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- imagination@lists.freedesktop.org
-X-Mailer: b4 0.13.0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfXybuqNquAlUKi
+ VNDJKaHIboA26tZkdqA+QIRNOspHKzSPPfcED9HyhNfcAs2xGxF5ttJ5ELgOaNJcSg9QDnBIlx6
+ 1AjBAotvzZFbiBXt3adAGveQMd00h2TS45dDRF8mm9sdOEf4i1zvmvDBpewb8bgPTpXeuJpfaAj
+ I2gkjIH/B7XLdiKMMeeShn2QQ7o5Era6xk1wZ2kSFFw9lSZxxjdQYYlcvhpmIgFuISQ1DvojiTD
+ QyGjTtWXsfX3F3unJPEchKN9l+U9kUJlHBXZKD1E1fDFrK3PYrl4/JY9O1zoQSPsZ5PVBhUgWfJ
+ 9fSI4BWaPq+LMtgz5eukQdl/Sxe5bifLrVjzE4vmr8hHrhY2e88zmJZMbe8OO75LwUdnqsKEVx1
+ y+LDG0WNr4HqSyfnNwIfAFDIjfs2vYdv3ozOANt5sExrQB9u471RkwjRHwSvjReI7dOZe7TE8Hd
+ wPy1Cg3l7K+QQVUIZMg==
+X-Proofpoint-GUID: Eb85fC9e827em9Dh6h_7z6smJYpch9tL
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfX22zOzBmxknAz
+ NwhQ1j+wzawXQgoBXigvCaNiiEacBgEjvUt5V3XUMhU1vABd0kNnA1p7JOkz3pLw9FItVQDOPLy
+ cz38LbqcllFiZQTwSgJ+WN5SH02Ec3U=
+X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad098e4 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3BQMGBUH80HoBbyhx_0A:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: Eb85fC9e827em9Dh6h_7z6smJYpch9tL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
+ clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,75 +154,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pvr_vm_unmap_all() repeatedly looks up the first VA and unmaps it. The
-VA is removed from the tree at the end of this path:
+On 10/15/26 10:58 AM, Dmitry Baryshkov wrote:
+> If the bootloader leaves the WLED module enabled, the OVP interrupt is
+> left enabled at probe time. The first brightness update then schedules
+> wled_ovp_work(), which enables the interrupt for a second time and
+> triggers the "Unbalanced enable for IRQ" warning.
+> 
+> Track whether the driver has disabled the interrupt and only enable it
+> back in that case.
+> 
+> Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-  pvr_vm_unmap_all()
-    pvr_vm_unmap_obj_locked()
-      drm_gpuvm_sm_unmap()
-        pvr_vm_gpuva_unmap()
-          drm_gpuva_unmap()   <- removes the VA from the tree
+This was merged yesterday:
 
-If this path fails before drm_gpuva_unmap(), the same VA is found
-again. If the failure persists, e.g. memory allocation failure under
-memory pressure, the loop never terminates and the task hangs.
+https://lore.kernel.org/lkml/20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz/
 
-Always advance to the next VA, whether or not the unmap succeeded. A
-VA that fails to unmap is left in place with a warning.
-
-Fixes: a5c4c3ba95a5 ("drm/imagination: Hold drm_gem_gpuva lock for unmap")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-167146@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
----
-Tested with the IGT pvr_* tests.
----
- drivers/gpu/drm/imagination/pvr_vm.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index cbdd15ed74fd..8ea6e88c8bd7 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -887,22 +887,25 @@ pvr_vm_unmap(struct pvr_vm_context *vm_ctx, u64 device_addr, u64 size)
- void
- pvr_vm_unmap_all(struct pvr_vm_context *vm_ctx)
- {
-+	u64 addr = vm_ctx->gpuvm_mgr.mm_start;
-+	u64 end = vm_ctx->gpuvm_mgr.mm_start + vm_ctx->gpuvm_mgr.mm_range;
-+	u64 va_addr, va_range;
-+
- 	mutex_lock(&vm_ctx->lock);
- 
--	for (;;) {
-+	for (; addr < end; addr = va_addr + va_range) {
- 		struct pvr_gem_object *pvr_obj;
- 		struct drm_gpuva *va;
- 
--		va = drm_gpuva_find_first(&vm_ctx->gpuvm_mgr,
--					  vm_ctx->gpuvm_mgr.mm_start,
--					  vm_ctx->gpuvm_mgr.mm_range);
-+		va = drm_gpuva_find_first(&vm_ctx->gpuvm_mgr, addr, end - addr);
- 		if (!va)
- 			break;
- 
- 		pvr_obj = gem_to_pvr_gem(va->gem.obj);
-+		va_addr = va->va.addr;
-+		va_range = va->va.range;
- 
--		WARN_ON(pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj,
--						va->va.addr, va->va.range));
-+		WARN_ON(pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj, va_addr, va_range));
- 	}
- 
- 	mutex_unlock(&vm_ctx->lock);
-
----
-base-commit: c347fef5f8f8927985bd67835331ce4cf7ff43a4
-change-id: 20261015-pvr-unmap-all-loop-99fe2f2b7e3f
-
-Best regards,
--- 
-Gyeyoung Baek <gye976@gmail.com>
-
+Konrad
