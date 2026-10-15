@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE05ECC6B38
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 19:06:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7352ECCA464
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 19:21:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 587F010EBCE;
-	Thu, 15 Oct 2026 19:06:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2993710EBCE
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 19:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C28EB112456;
+	Thu, 15 Oct 2026 19:21:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09978112456
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 19:21:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E28B143CF8;
- Thu, 15 Oct 2026 19:06:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72F891F000C4;
- Thu, 15 Oct 2026 19:06:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BD060601F1;
+ Thu, 15 Oct 2026 19:21:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C411F000C4;
+ Thu, 15 Oct 2026 19:21:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792091191;
- bh=V4oOWsdkXWlhCRhA4V6tBrbRkRQXYEj4yKUhwmJslNI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aaTocO0FoGis8eZrX1Og6I3GSNNNsronN/v2aYSgnET9eiVreyMoOvhHcopXKQh7D
- W7D8Ox9RPZ/gaU0Cb0Yek7k7U7OuBHhOGNfpZxNPpSxjlG5ZSaC2gTASNWKr5Ycxhm
- uoDfl+HNXYoR6HpqMTS6BzFWVhTrV7nevG1FW7avMBSUUc6NyvtAwGHkYvmCf+pylN
- vL81oZ1Z2qHTbXxZhFZ0cwPsmd1YhiB2HCF51WAs9TGB2yCiaaDWNMA+O0eaAkvKYa
- gNi+HbKb6SDrooyR7rzCp+VpaoBF1ttzTYmf7T8TYP0X0C2HTE4EiPzf0ei//FN1ws
- vRcmvX2gW3Q5Q==
-Message-ID: <sashiko-outbox-173346@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/2] riscv: dts: spacemit: k1: add PowerVR GPU
- device node
-To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
-References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
- <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 19:06:31 +0000
+ s=k20260515; t=1792092066;
+ bh=mp8ADs0Pjba4FNiv5X0qxkpn/NYTL/M+4WAtZihv59o=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References;
+ b=AFUmVIntzTogl/MeQVB4R0AOTMbgJmnAoU1Mnsp5g0HlrK2TH6YndBz7kWEvj0iJn
+ VU8MdgLL8LGZb/EPhsilq3y2sZ2cbbdZ63WCegYEQExnrUKkqEb/TpSnOoaaobi0b9
+ r3ALCZzh8rtLSHH0TqYlPdMWH0BQZkKwvUBz4HhFeWxD0X0HKRHYre20UIuptFsN+U
+ JMaUBdgWeUwAfHJOEmdj5RV+3YCmHiQ8A7n3wKA3PHzoIMTPOmsVSIzz2rtEhCPcol
+ rdaGdL/BqmALKQTssYODcaiMuaxj64nSLDnRdHpghafxtm7VFEiRMvCzB4MMp7Nx/H
+ iEexDWrXB+s5Q==
+Subject: Re: [PATCH net v3 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: kuba@kernel.org, asml.silence@gmail.com, dw@davidwei.uk, sdf@fomichev.me, 
+ ap420073@gmail.com, pabeni@redhat.com, kaiyuanz@google.com,
+ bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
+ razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com,
+ dtatulea@nvidia.com
+Date: Thu, 15 Oct 2026 19:21:04 +0000
+Message-ID: <179209206477.434549.12960086553517991706@kernel.org>
+In-Reply-To: <20261014161754.3782346-2-almasrymina@google.com>
+References: <20261014161754.3782346-2-almasrymina@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,76 +60,179 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dts: build failure due to missing k1-power.h dt-binding header
-- [Low] dts: undocumented compatible strings for spacemit k1-gpu
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
+
+Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] RX bindings made through a leased queue (a netkit virtual device
+  leasing a physical NIC's rxq) still hit the dma_unmap_sg_attrs() use-…
+
+Pre-existing issues:
+- [Low] This patch handles only DMA_FROM_DEVICE bindings when a device is
+  unregistered.
+
 --
 
-commit 8e44783c41b2ae5db8c6c7e6e7e39b06ba8d49af
-Author: Iker Pedrosa <ikerpedrosam@gmail.com>
+net: devmem: unmap dma_buf synchronously on queue uninstall
 
-riscv: dts: spacemit: k1: add PowerVR GPU device node
+This commit unmaps the devmem dma_buf attachment when the last bound RX
+queue is uninstalled. Previously the unmap waited for the deferred binding
+free, which could run after dma_dev had already been freed. It also keeps
+bindings in net_devmem_dmabuf_bindings until they are freed, hides unbound
+ones from TX lookups with an xarray mark, and unmaps unbound RX bindings
+on NETDEV_UNREGISTER, except for leased queues.
 
-Add device tree node for the Imagination Technologies PowerVR Rogue GPU
-(BVNC 36.29.52.182 / BXE-2-32) found in the Spacemit K1 SoC.
-
-> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k1.dtsi
-> index 3fabfd34114b2..82cade2f76fe4 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> @@ -5,6 +5,7 @@
-> =20
->  #include <dt-bindings/clock/spacemit,k1-syscon.h>
->  #include <dt-bindings/phy/phy.h>
-> +#include <dt-bindings/power/spacemit,k1-power.h>
-
-[Severity: Low]
-Does this header exist in the tree? It doesn't appear to be added in this
-patch or in the tree yet, which causes a fatal preprocessor error and
-compilation failure.
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index f4d60654ce7fd..93cc2815d935a 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
 
 [ ... ]
 
-> @@ -1119,6 +1120,17 @@ multimedia-bus {
->  			#size-cells =3D <2>;
->  			dma-ranges =3D <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
->  				     <0x0 0x80000000 0x1 0x00000000 0x3 0x80000000>;
+> @@ -153,6 +176,38 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+
+[ ... ]
+
+> +void net_devmem_dev_unregister(struct net_device *dev)
+> +{
+> +	struct net_devmem_dmabuf_binding *binding;
+> +	unsigned long xa_idx;
 > +
-> +			gpu: gpu@cac00000 {
-> +				compatible =3D "spacemit,k1-gpu", "img,img-bxe-2-32", "img,img-rogue=
-";
+> +	if (dev->reg_state != NETREG_UNREGISTERING)
+> +		return;
+> +
+> +	mutex_lock(&net_devmem_lock);
+> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> +		if (binding->direction == DMA_FROM_DEVICE)
+> +			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
 
 [Severity: Low]
-Are these compatible strings documented in a DT binding schema?
+This isn't a bug introduced by this patch, but TX bindings are skipped
+here. They are never installed on an rxq either, so
+mp_dmabuf_devmem_uninstall() never runs for them.
 
-"spacemit,k1-gpu" and "img,img-bxe-2-32" appear to be undocumented, which w=
-ill
-cause dt_binding_check to fail. Omitting them from the schema also means
-their constraints (like required clocks or power domains) won't be properly
-validated.
+After the NIC is unregistered, a TX binding created through bind-tx still
+has three things: its dma_buf mapping against the NIC's dma_dev, the
+NET_DEVMEM_BINDING_LIVE mark, and stale binding->dev and binding->vdev
+pointers.
 
-> +				reg =3D <0x0 0xcac00000 0x0 0x80000>;
-> +				interrupts =3D <75>;
-> +				clocks =3D <&syscon_apmu CLK_GPU>;
-> +				clock-names =3D "core";
-> +				resets =3D <&syscon_apmu RESET_GPU>;
-> +				power-domains =3D <&syscon_apmu K1_PMDOMAIN_GPU>;
+Can a later netdev_nl_sock_priv_destroy() then call netdev_hold() and
+netdev_lock() on the freed net_device? Could
+__net_devmem_dmabuf_binding_free() also unmap against the freed dma_dev?
+net_devmem_get_binding() would compare against the stale dev and vdev
+pointers too.
 
-[Severity: Low]
-Is it possible to build this node? This relies on K1_PMDOMAIN_GPU which was
-presumably provided by the missing spacemit,k1-power.h header mentioned
-above.
+The next patch in the series, "net: devmem: detach TX bindings on
+NETDEV_UNREGISTER", appears to fix this. It adds
+net_devmem_dev_unregister_tx(), which clears the LIVE mark and dev/vdev.
+It also adds net_devmem_unmap_detached_tx(), which unmaps after
+synchronize_net().
 
-> +				status =3D "disabled";
-> +			};
->  		};
+> +	}
+> +	mutex_unlock(&net_devmem_lock);
+> +}
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-orangepi-g=
-pu-v1-0-03566a615660@gmail.com?part=3D1
+[ ... ]
+
+> @@ -529,16 +588,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+>  	unsigned long xa_idx;
+>  
+>  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
+> -		if (bound_rxq == rxq) {
+> -			xa_erase(&binding->bound_rxqs, xa_idx);
+> -			if (xa_empty(&binding->bound_rxqs)) {
+> -				mutex_lock(&binding->lock);
+> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> -				WRITE_ONCE(binding->dev, NULL);
+> -				mutex_unlock(&binding->lock);
+> -			}
+> -			break;
+> +		if (bound_rxq != rxq)
+> +			continue;
+> +
+> +		xa_erase(&binding->bound_rxqs, xa_idx);
+> +		if (xa_empty(&binding->bound_rxqs)) {
+> +			mutex_lock(&binding->lock);
+> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> +			WRITE_ONCE(binding->dev, NULL);
+> +			if (!rxq->lease)
+> +				net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+Can RX bindings on a leased queue still hit the dma_unmap_sg_attrs()
+use-after-free described in the commit message?
+
+Take a bind-rx on a netkit rxq leased from a physical NIC.
+netdev_nl_bind_rx_doit() gets dma_dev from netdev_queue_get_dma_dev(),
+which returns the physical NIC's DMA device. But binding->dev is the
+netkit device, and bound_rxqs holds the netkit rxq.
+
+On unlease, the lease pointers are cleared only after cleanup has run:
+
+netdev_rx_queue_unlease()
+    netif_rxq_cleanup_unlease(rxq_src, rxq_dst)
+        __netif_mp_uninstall_rxq(virt_rxq, &p)
+            mp_dmabuf_devmem_uninstall()
+                WRITE_ONCE(binding->dev, NULL);
+                if (!rxq->lease)   <-- lease still set, unmap skipped
+    WRITE_ONCE(rxq_src->lease, NULL);
+    WRITE_ONCE(rxq_dst->lease, NULL);
+    netdev_put(rxq_src->dev, &rxq_src->lease_tracker);
+
+net_devmem_dev_unregister_rx() does the same for unbound bindings,
+because netif_is_queue_leasee() is true for netkit:
+
+	WRITE_ONCE(binding->dev, NULL);
+	if (!netif_is_queue_leasee(dev))
+		net_devmem_dmabuf_binding_unmap(binding);
+
+Once binding->dev is NULL, it seems nothing can unmap the binding before
+the final free. When the physical NIC unregisters later,
+dev_memory_provider_uninstall() passes the physical rxq, which is not in
+bound_rxqs. net_devmem_dev_unregister() matches only on binding->dev,
+which is never the physical device.
+
+For example: with the netlink socket open, delete the netkit device,
+remove the physical NIC, and then close the socket:
+
+net_devmem_unbind_dmabuf()
+  percpu_ref_kill()
+    __net_devmem_dmabuf_binding_free()
+      net_devmem_dmabuf_binding_unmap()     <-- sgt still non-NULL
+        dma_buf_unmap_attachment_unlocked() <-- freed physical dma_dev
+
+The commit message gives this reason for skipping the unmap:
+
+  "the physical device is still registered"
+
+Is that still accurate when the physical NIC is unregistered first? In
+that case netkit_check_lease_unregister() unregisters the netkit device
+from inside the physical NIC's own NETDEV_UNREGISTER. The unlease skip
+then happens while the physical device is already NETREG_UNREGISTERING.
+
+Closing the socket first while RX tokens keep the binding alive seems to
+end the same way. The netkit unregister clears binding->dev through
+net_devmem_dev_unregister_rx() without unmapping. Once the physical NIC
+is removed, the last token release unmaps against the freed dma_dev.
+
+For leased queues, would the binding need to track the physical device,
+or be unmapped against it?
+
+> +			mutex_unlock(&binding->lock);
+>  		}
+> +		break;
+>  	}
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014161754.3782346-1-almasrymina%40google.com
