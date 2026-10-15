@@ -4,49 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEF0ACCA46D
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:35:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 354CDCCA48B
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD26112652;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BEEA112654;
 	Fri, 16 Oct 2026 07:35:42 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D4FF10E1B0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:25:50 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j5Lhr2XXszMlbP;
- Thu, 15 Oct 2026 23:25:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1792099548;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=sNpQ/0RGdhDR+Y4DarK50jJ9ktHHzva5t2FzmBPC36I=;
- b=oR/US0z+NTT8xmzpnTARDlaxdmg9TeswCohsboHgYyDrZbyFPkrNI9caKdNRBGUtHjGPeN
- MShi6BJpp6z2JoGRK3ZWpsn0neuUB/gQWV0eL/nIUMan5lQB58IavEbRRpmW91Pwgn4YvN
- Y2/iwHdW+CI73iLuPkjd+Io13OCJRFgLC0ZGYOXOxR10j7B2ZuLIlLO6qgRKEQVdcrRg8O
- Mi3jjOxPLZbmcLDuokRK95ULe62CQBBWjliP1kPtrQxZ+2Ubeapjw/AjUk3PQv53Kl7ZmO
- 8bhwDO07zOnUKfzQFhuoms9EBOW+FYYQI3vaxghRLJbrVkkoBhOjs01Hr6eapg==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, ville.syrjala@linux.intel.com, jfalempe@redhat.com,
- javierm@redhat.com, Hugo Sales <hugo@hsal.es>
-Subject: [PATCH 0/2] drm/client: Keep larger modes in connector->modes on
- fbdev hotplug
-Date: Thu, 15 Oct 2026 22:25:43 +0100
-Message-ID: <20261015212545.1989962-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A44031124AC
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:34:57 +0000 (UTC)
+Received: by mail-pz2-f6.google.com with SMTP id
+ 41be03b00d2f7-cc75f2924abso4014151a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:34:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792100097; x=1792704897; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=KDrSDxpyrWFU5Ei8Mpj2JURPZsUs0EKdCv3HOvYAEoE=;
+ b=Sr4XP8aQvWfpIhHCe3Hdsqzaq/ixn+x7jZac93qkLcPTw+mWDWFJtx9vY1medApg7U
+ azEKcp5Mhkim7tgQBA0AWYOzSSOqT/9UDwhUQbEba1abchSoL+bYtevrLlCVZtbntmbo
+ uwQEO2SsZiRUcZ7RGMsi4XyE+9jkvBuuw7JwFT4mPgiPpjX5d5FXjATPUHkISUyEQAWK
+ d+1ME4znmWdpiCzD19TJmBv1qmZy8/dP0alZW4JdQD67JBoIjtd1a14GpLXyfSsrUsAp
+ 3/QNF1BdNaIn6lFrUAA/yYx9E4DPnPD0n/k6e8avWpkqBTUWnYE3aWLXndjrRf39l0+0
+ WjiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792100097; x=1792704897;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=KDrSDxpyrWFU5Ei8Mpj2JURPZsUs0EKdCv3HOvYAEoE=;
+ b=hscn74F7xOcCmY36muuWu8cXt+CxqrfqqFF0Sn5S2IHs+GnbDO5E/9+Y+cxsU1k2z4
+ rySjjzpMVd47njPZUrDhCP8t3dBpRV2+0gvRCPw4jCjyLkVQMDBFdJhogLQ/xWcugLCo
+ p+z2jgZwDGeeKhnyUPhcjSV3x9BUZhxHu6D1bC1IVONLcnGfC4zZIaj0DQ1gPNccCJQG
+ 13UQJDfpafjP/gksn2eLZi77vdAFY2w7BSp1XHckLbHHmIVh3P5oatjv+UGtDwQ7vQvF
+ Z/fE6Y+KrvdPBzdmNeezr7ZRSFqGyHWWqqhsL4xEfHV9QlKQ75SA1Hq+LCK1pFot7PAs
+ sg2g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByfEG377CX0qpto2KNUIBpN1LHVVq4XXQSlqWyiX1WHQ4JLJh0uur+/TqmfRmvwQfr4a/mvvlAmF18=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYISX5o/WB7BGgJSQgICpQQkCehlepe3nJ35+TbmVASE+ida6lpU
+ p9J952p4T267JwivgjXGCYS7utq/gx3dV8jS4fo4WW/U4AEbi7uZl1WK
+X-Gm-Gg: AYBFou1oZpk2Elik9oa7PCeOba5l2IIbfk61eS1CQ8yh9vX9g8zxwq1+98lN9WocPso
+ q9nav+0QWLHSh0zJqDrtpY3Hdm3031bi7nziERh1abuZP/QBNEzVJMZyevGAafqIHgZYyYuNtXy
+ W3TT1z0Enu5JYl0XGgMFD68qFG166v/jDjf7EtQzXGu6X/MsSn+W0TPcdb13+81k7KXiCq3KzKP
+ FzPtEH9slGc6qBxXcCfYK/cAuqNBS0GYeOZGzm05PUIc+erBLV2po1oHL9Spmwy6d6jvmuTKOMB
+ 6jWbI/WQHQml04tRZTRqD14sT2Z2wQEXlFuAd03RV+PE6ynsSXoyjdk4TtdmWnfxZveguZ9PxtO
+ ylUnxBUCDz7YLghy1hHbeTrk95S69JVzy4H27cHJpdRwZmeV84/hS4BwN8LfZMGId/tmmaK4kMn
+ AZnLrwiOO+qDsbb+lxYq+I1s2IH2P1r9yqUJLB+tSPzdecRvQtwMQOOFZKM2WJKtJPrYITzM1tT
+ rU=
+X-Received: by 2002:a05:6a00:4fd0:b0:891:1caa:3f72 with SMTP id
+ d2e1a72fcca58-897c81b54bfmr17760273b3a.57.1792100097031; 
+ Thu, 15 Oct 2026 14:34:57 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:45::])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-89f579479f8sm157301b3a.38.2026.10.15.14.34.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2026 14:34:56 -0700 (PDT)
+Date: Thu, 15 Oct 2026 14:34:27 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, 
+ Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>,
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
+ Kaifeng Wang <kaifengw@google.com>
+Subject: Re: [PATCH net v4 2/4] net: devmem: detach TX bindings on
+ NETDEV_UNREGISTER
+Message-ID: <atFG1wz_26sNn18O@devvm7509.cco0.facebook.com>
+References: <20261015163915.1166043-1-almasrymina@google.com>
+ <20261015163915.1166043-3-almasrymina@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4j5Lhr2XXszMlbP
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015163915.1166043-3-almasrymina@google.com>
 X-Mailman-Approved-At: Fri, 16 Oct 2026 07:35:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,52 +106,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On an ASUS ROG Flow X13 with a 3840x2400 eDP panel, booted with
-video=eDP-1:1920x1200@60, an HDMI hotplug makes fbdev reprobe every
-connector with its 1920x1200 framebuffer as the limit. connector->modes
-loses the panel's 3840x2400 mode, and after suspend/resume amdgpu drives
-the panel with the 1920x1200 timing. The image ends up squeezed into the
-top-left corner. Details are in
-https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+On 10/15, Mina Almasry wrote:
+> TX devmem bindings (NETDEV_CMD_BIND_TX) have no bound RX queues, so
+> mp_dmabuf_devmem_uninstall() never runs when binding->dev or
+> binding->vdev unregisters. As a result, binding->dev and binding->vdev
+> dangle pointing to freed struct net_device memory, and the dma_buf
+> remains attached and mapped after device removal.
+> 
+> Closing the netlink socket after netdev unregistration dereferences the
+> freed struct net_device in netdev_nl_sock_priv_destroy():
+> 
+>   BUG: unable to handle page fault for address: ffff88824ca9b000
+>   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+>   RIP: 0010:netdev_nl_sock_priv_destroy+0xbd/0x1e0
+>   Call Trace:
+>    genl_release+0xf5/0x190
+>    netlink_release+0xd01/0x18d0
+>    __sock_release+0xb0/0x270
+>    sock_close+0x18/0x20
+> 
+> Extend net_devmem_dev_unregister() to TX bindings, including ones
+> whose netlink socket is already closed but which TCP retransmits keep
+> alive:
+> - When binding->dev (the physical DMA-capable device) unregisters,
+>   clear the binding's NET_DEVMEM_BINDING_LIVE mark and both
+>   binding->dev and binding->vdev, and unmap the dma_buf under
+>   binding->lock. No grace period is needed: the device is already
+>   closed, so nothing hands the DMA addresses to the hardware anymore,
+>   and concurrent senders only compare against binding->dev.
+> - When only binding->vdev (virtual device) unregisters while
+>   binding->dev lives, only clear binding->vdev so no new TX sends match
+>   the virtual device while allowing in-flight TX packets on binding->dev
+>   to finish DMA safely.
+> 
+> Fixes: bd61848900bf ("net: devmem: Implement TX path")
+> Fixes: 1abe839b34ae ("net: devmem: support TX over NETMEM_TX_NO_DMA devices")
+> Suggested-by: Stanislav Fomichev <sdf@fomichev.me>
+> Cc: Kaiyuan Zhang <kaiyuanz@google.com>
+> Cc: Bobby Eshleman <bobbyeshleman@meta.com>
+> Cc: Tariq Toukan <tariqt@nvidia.com>
+> Cc: Kaifeng Wang <kaifengw@google.com>
+> Assisted-by: LLM
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+> ---
+> v4:
+> - Detach and unmap TX bindings directly from the xarray walk, without a
+>   grace period or a second pass (Stanislav).
 
-Patch 1 makes drm_client_modeset_probe() probe with the device's limits
-and moves the framebuffer size check into the fbdev mode pickers.
-Patch 2 adds KUnit tests for it
-
-fbdev's hotplug probe has passed the framebuffer size since 2010
-(4abe35204af8). The pickers didn't check mode sizes then, so leaving
-larger modes out of the list was what kept fbdev from picking one. They
-check the size themselves now, so the probe can use the device's limits
-like initial setup, drm_log and GETCONNECTOR already do
-
-The HiBMC thread "[RFC] drm/client: Relax clone mode selection in
-drm_client_target_cloned" runs into the same pruning: its 640x480
-framebuffer removes 1024x768 from both connectors' lists. With this
-series userspace sees that mode again, but fbdev still can't use it, so
-this doesn't replace that RFC:
-https://lore.kernel.org/r/a48e0b33-7eab-478e-a396-b6e76b7a066f@huawei.com
-
-I sent an amdgpu fix for the same symptom separately. It makes amdgpu
-fall back to the encoder's native mode on eDP and LVDS:
-https://lore.kernel.org/r/20261014223041.171317-1-hugo@hsal.es
-This series fixes the shared mode list for every driver instead. Either
-one alone fixes the reported bug, from my testing
-
-On amd-staging-drm-next with only this series applied, with an HDMI
-hotplug and suspend/resume (pm_test=platform) in a loop, 255 of 255
-resumes kept the native timing. Without it, 28 of 29 came back with the
-wrong timing, and the same loop on unpatched v7.2.8 got it wrong in 103
-of 103. The drm KUnit tests pass, also under KASAN, which reports
-nothing in the code this series touches
-
-Hugo Sales (2):
-  drm/client: Probe connectors with the device's mode size limits
-  drm/tests: Add KUnit tests for the client mode size limits
-
- drivers/gpu/drm/drm_client_modeset.c          |  57 +++--
- .../gpu/drm/tests/drm_client_modeset_test.c   | 222 +++++++++++++++++-
- 2 files changed, 260 insertions(+), 19 deletions(-)
-
--- 
-2.55.0
-
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
