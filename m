@@ -4,123 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83498CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:18:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 191ADCC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 15:23:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B171710EC2B;
-	Thu, 15 Oct 2026 15:18:41 +0000 (UTC)
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013020.outbound.protection.outlook.com
- [40.107.162.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E4C10EA0C
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:18:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bPyf6vlmvicU5PApI2Am/Wi23JQF4ab4EzvvmX+l3kCwhaU5zv84utU1YvMy7Ws8wydzXDKtG/2yYtEjjVJ6E8dceadPPTgc093GFO5D4GKxJj9ZwXnZ/zjl6CNfif3mfk0PqP7pWAurDr5WRzw554Xzq4cf7Axde3adOMGUIYS8IK6ZLwkbbKZB+39kzT7r0trfhKZGKpEh4rfc9lvIjCP9Cv1qcmUIv18wUMBdcy1qPEi3gCqRnp34vYsGMgj5XQ4Oz5pSKXGAzKQAVsYzx/HyrxabKycYTVTMhAmb9XnxrerEZIyCZcSyVgtgS7tL9APR2mD5IohO8qyBr+K8tA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9/9B5hdtEBe5QU/MUyI1cuMNyqZhWk0MNnmjfJFJmak=;
- b=Uo69r2w9z+xIgad1dRwEl3KnfTdJ518smDk27rpMFMERrNEaviJMdzR6bEihwDa098H9TS/iEYiAzhq3ZMHLeY3HQZ+90UCsuBflKS8/jvqJ6ZFLzHpAjMaos8GkdqgVbXNVoklpBTAL7HFciNybvIq8tiB059PxKMqozLcG8lURD5OJ8Ho+/sRUosewZoDDvL2DVLA8dgGgAcZHm2Ep90CPbz/pLHzjWId6acxnPs0+UZEC/KPqzphG7aJAKgtD4HvxcU8Al/4HCnU8lu4cLScvC6sVap0ws3Japv5wAl6Qer9gYeiKnPLxbhsq7kWxOxGOm/WDvHwI2nxTTm/gUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9/9B5hdtEBe5QU/MUyI1cuMNyqZhWk0MNnmjfJFJmak=;
- b=Y3wzAdHJZVEKJwgmGKVTjAztfnB8fUwdamFuQWss6fk5a1of9JA5f7x8uIH2sbVAalxoPHaYbwcLuWy8vkM+f4oapD3COzSGKSSsx9xZNsxkWz1MrpwjrFOwoyNwCf4JTdeNIdh+8TEnMLEz+NOG2KZ/b1gqRIaXbF19eZmZnrzUguW4qUCvMiMpTVe+dCe2+d4VJj8XKnT3Kk1QXB03DlSbnh7ADmq/VQWtnyEuF7esPWN7R4LfxRwU6Z0yUZq+XlRe4jHRFmRTNfW34c/6tK7wPV2gqUvd+Dh+fBfkpGSFqpNlSrNVs1m1Q63mpMmiDtZufHJt4cfvnF/zeS2icw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MI9PR04MB991975.eurprd04.prod.outlook.com (2603:10a6:290:85::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 15:18:31 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 15:18:31 +0000
-Date: Thu, 15 Oct 2026 10:18:19 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Oliver F. Brown" <oliver.brown@oss.nxp.com>
-Subject: Re: [PATCH RESEND v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI
- horizontal sync timing
-Message-ID: <atDuuwqIm_Du3GJi@SMW015318>
-References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
- <20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
- <179207245898.1117464.4430806907649454372.b4-review@b4>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179207245898.1117464.4430806907649454372.b4-review@b4>
-X-ClientProxiedBy: BY3PR04CA0018.namprd04.prod.outlook.com
- (2603:10b6:a03:217::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB991975:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75953015-7006-48ba-c87f-08df2acf923e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|1800799024|376014|366016|7416014|23010399003|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: mPllgTc9/rxF5kHAG3Yu5WkQD5FyWBu02LlmckmOP51ISo1R2q77yzXJ1PChYnV4nfc7MUj7bTJrUWakQp/fwimHWenKPTPNCnNwlc5eTQtaeyXhSnlZzbKNDY68JGyG2ApEPBxYs9hzqjTwpNGNJGKfgE0KfxIl04/4SZH91i+nCB0PBXAbiFHMjbzNvxjswCMqmZO53/8zIFCLrTOo0LCiRHyxawXKw+NK4MotQIt6c55fpRexqX/WMaLFMa+o670EayKoozSP6R5hKE7hoNuZIwUJiZ30OnjO5oqzKSHESu9ouF/gIzYUGAkooYtTcYqFvQQ49mEB5olwo75anC5lfnVpQS2OXLC5ch+yo7zelE2jrTzH2OJCc8L6R7pdAXkzCero6r0KNuf5cFzN7fZPxPKBwMBdiNAvC1uB6DRf5novKnZpoZ1E4yTDcoikPzNiCFzpkVDz0OZ0JvDU3fketM3TVpjfvdcOTmh47Ylaqd9Gwr5vLhu6GHl6Inkk9HzjUs2VWF+ahi2TwJbvBqpdAoLPdYbwLigB9VFpkremiTIIyPdbaAsunP6WP7VVMSUlKSA1TGlN3reCcGTCHmdCjYBuKxi1HazY8XzlR4w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(1800799024)(376014)(366016)(7416014)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?q+9WsJgdf42NjYFI8EesJ+uqB3kCCu6KS9bJLrAFNx8hS1MMqyc07jJUMwag?=
- =?us-ascii?Q?3NwHYptgRMmKY1cSz24slXSVMJNIShvd38hxSXpYw5WpkS4ZuM2eFzd2nO0L?=
- =?us-ascii?Q?4HKhivUTYsz3MJcciJnJeTJdBHalTzBUmAS2/5uvLCeuESZ/dzOoKe9WxGsz?=
- =?us-ascii?Q?SC39e+FvX/+P+pSHZJCEYvbxMSYPnziVyDZ7ieVT7vsNvNdjy/6j1EgGSr+c?=
- =?us-ascii?Q?lOsYOiMSGLUR7a4AeY+8Tbv/0tDM69MYLxiim1LIyv0rNAp9d7dFIxqqjd/u?=
- =?us-ascii?Q?+AjywmAMEVo2WFfaIi/llIRL1zflD4WrsKYN4uQZ9DdyzJvyGopXml5Sz9Dh?=
- =?us-ascii?Q?NDx364Usfj2BmP6ZDDoVFCT+QvCwO8X7ds3IohT1pUG/EaYwaXubZLYmrmIf?=
- =?us-ascii?Q?aenTJVClmqheVihjoHbam5sIS5Im3vi9qrvIVQ+EYPp1pGNukROlLX8ZvkXN?=
- =?us-ascii?Q?zSoeExWNMfCwp8PJGNDX6izbUeIL8VzhKeO9zhb3aamRnsmA3AIWxRpU9JwW?=
- =?us-ascii?Q?7vE9xw0HHJJs80R/zKcfBH6FPH1WQIGEX4zrAfshJupD/4vATfaiODVnlkk7?=
- =?us-ascii?Q?JU/Ig4C+ih2bW4hZut3gUYft6OXRO63GI5ja2FdhyVFIW36Wk5iXYJRh+yfu?=
- =?us-ascii?Q?5VG1LgTegSKG5bhWcuTtm3J97s9fOFm9fi8dNE+e/oLX7wG++fcA/NP0Lngv?=
- =?us-ascii?Q?BwnnkznrSVD9mOc6WWhHssVAZyhy08lRxNiz9JEUaWs4jsz7QTkeqVX6y0ZX?=
- =?us-ascii?Q?jzmv2gc7JInTCBFUluw3McjIZvha2DRN2yQ8CzR2slEuO3dBMxilLeln7CE1?=
- =?us-ascii?Q?xRzsOqVOfKXQsikkdgb/AWC0QuwDwDQkPJTyVFNNQPmvHxvUnE8kylnwxcBE?=
- =?us-ascii?Q?w4Qj/YfnqI3tHMFnqX6tnl1TGmlNpKjJdxmoC8ja5nl0bFpoAQOfXF5aKNeV?=
- =?us-ascii?Q?aV42lkYVfT03zaMrq91G2CNFOWxeG35RJFeJ2SffHvwON+9ryYuMIhB76XCV?=
- =?us-ascii?Q?IFOx8UUbGa2Z93Yn9rvWVTC8I0YdXw14CzS2uVxhwt8cxNqQuaELM1BZBDD6?=
- =?us-ascii?Q?LOQylpCYtRloemva7rkJwQde2Tfwt/WSV9TqELsKVd33Vsj9/SfoKa0Cr/Er?=
- =?us-ascii?Q?5y/o21R7ySUlKshPxSI3Zt24EdjMXpzmm2lBZfXJ7KJPx+wnVMqBburX7CqL?=
- =?us-ascii?Q?ojkXp5fy7rqYKj3hvf4Jd/M3pWrzacIBkoDo1AvYFwH+rNvbmH9EYIVkUSRy?=
- =?us-ascii?Q?DSYz96DAHAuim/vCdWLDpGN+mt4PBDT6YAdoBy1ERzfz+fi7aH7r2B9EpFv/?=
- =?us-ascii?Q?cJY2vo2cDkU6086WVkU9VdaK2E2cxLl5gaQUKyN1juIVAVUO4jdL/oj5Huy5?=
- =?us-ascii?Q?BtJmJPRTrqgv/1vVkdrGNfzonq/Uw1dvN1MiBxRUopcA8mPeALoMfuQmUBSg?=
- =?us-ascii?Q?4sVw0Uof+/kckwHSlkXvcrQr+9a7O3qVpusZChOzVvcR/US6P85SLmd2T4aR?=
- =?us-ascii?Q?wrZBMRqe5L4cBSyUARWr6df1tFyMgYUvu8ZzIbyi2zCVkLn0uvZVkYB5c2ta?=
- =?us-ascii?Q?QeUVfdFi8d7GoG2Rc8c2XvrD0mu83uhuGScIR6j7EKQ5BBaAfKazsZhalM5f?=
- =?us-ascii?Q?4sf+pYJeJ6STi1GfoOtfu1/y0FV3SktfinKC9nnRQQATeaOYlSX8w918Mm1H?=
- =?us-ascii?Q?NupmDTmzMb9382syP9skG+aaYD1VWeYbg422LWSYkDzpoBIfjGZakNZ6SBp5?=
- =?us-ascii?Q?Hj5GLhjRQQEuWilU62NtRwf4b9Ia0hnzzBqO7A194abStnDGKS/o?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75953015-7006-48ba-c87f-08df2acf923e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:18:31.3439 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MvvH8Rs5TgLMe5GUuCQeKKZswmAbet4fHKMdwmVAZte7IoofLrMnWmIJJflMr2vQGvu9FMJDqBl+KylauQSx6rCp+Zd4v4J84lYvA6rP8QlJrHaHqSLpQP7YkUOrCITN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB991975
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B21010E281;
+	Thu, 15 Oct 2026 15:23:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96BA710E281
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:23:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C53416022A
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:23:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DBA41F000C4;
+ Thu, 15 Oct 2026 15:23:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792077813;
+ bh=9GIj2+AeJh5A1dyQCUC+PGxVOF+E3qX38yuqW19pd7c=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DOTbLIEJwHmfA2jnQa8Hobqi7Hi7aQhGJ+SgXB9DKpnMM2YId1a5I1byY0hdtlMkR
+ X23GiY7Udbe2cbKOh6IEEYhZPtmJ56y4Yie5XSYSt4w+Rfh5xp2nPheg4S9PN32RzA
+ ZO5dKeoQ4XhlUFSjXJZxiCm35RgXDb7MTMSp0TbrtHYLbtn/INqNf46UEvy93TdnZX
+ Q0FjJzso779SF0/pSBPD46E87YVR+nPcfeY9u/JMK/Fk6peTXRGHxtArvIq64DiSXH
+ a5e6E8klXndZuhw9XWjvR8uMBETydDpiJIKPNqFrqy5+oMVxE3BmeBgmFBJ7RrOzIY
+ s1+kd8B7qUKmQ==
+Message-ID: <sashiko-outbox-173059@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 02/28] drm/atomic: Add drm_private_obj name
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261015-drm-state-readout-v6-2-6cc02cd10998@kernel.org>
+References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
+ <20261015-drm-state-readout-v6-2-6cc02cd10998@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 15:23:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,49 +50,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 15, 2026 at 03:54:18PM +0200, Luca Ceresoli wrote:
-> Hello Robert, Oliver, Frank, all,
->
-> > The NWL MIPI Host controller registers specifies the horizontal front
-> > porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
-> > not in pixel clocks).
-> >
-> > The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
-> > the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
-> > Manual (rev. 3.1). The formula shown there does not take packet header size
-> > into account though.
-> >
-> > The formula implemented here converts the hfp, hsa, and hbp to DSI packet
-> > bytes and then subtracts the number of packet header bytes.
-> >
-> > It is worth noting that these values only needs to match approximately,
-> > according to the reference manual.
-> >
-> > Based on commit in NXP vendor tree
-> > commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
-> >
-> > Signed-off-by: Esben Haabendal <esben@geanix.com>
-> > Cc: Robert Chiras <robert.chiras@nxp.com>
-> > Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
->
-> It would be great to have this reviewed by someone at NXP.
->
-> @Frank, do you think you can help with this?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm_atomic: ignored drm_atomic_private_obj_init() returns cause li=
+st corruption on cleanup
+- [Medium] drm_bridge: missing kasprintf() NULL check in __devm_drm_bridge_=
+alloc()
+--
 
-Let me talk with oliver, I am not familar with this part.
+commit 7310711925ad29e1494d52640c5914ade7203851
+Author: Maxime Ripard <mripard@kernel.org>
 
-Frank
+drm/atomic: Add drm_private_obj name
 
->
-> On my side I don't know the hardware and didn't check the maths
-> implemented. Still LGTM:
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
->
+drm_private_obj does not carry a human-readable name, which makes
+debug messages hard to interpret when multiple private objects are
+registered on the same device.
+
+Add a name field to drm_private_obj, passed through
+drm_atomic_private_obj_init() and freed in
+drm_atomic_private_obj_fini(). Update the existing callers to pass a
+name.
+
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 9973becb75aee..53703b23be8f0 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+[ ... ]
+> @@ -1037,6 +1039,12 @@ int drm_atomic_private_obj_init(struct drm_device =
+*dev,
+> =20
+>  	obj->dev =3D dev;
+>  	obj->funcs =3D funcs;
+> +	obj->name =3D kstrdup(name, GFP_KERNEL);
+> +	if (!obj->name) {
+> +		ret =3D -ENOMEM;
+> +		goto err_lock_fini;
+> +	}
+> +
+>  	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
+> =20
+>  	state =3D obj->funcs->atomic_create_state(obj);
+
+[Severity: High]
+Since drm_atomic_private_obj_init() can now return -ENOMEM due to allocation
+failure, do all existing callers need to check its return value?
+
+Currently, callers ignore the return value. If kstrdup() fails, the function
+returns early without initializing obj->head. When the caller later runs its
+teardown path and calls drm_atomic_private_obj_fini(), it will call
+list_del(&obj->head), resulting in a null pointer dereference.
+
+> @@ -1051,6 +1059,9 @@ int drm_atomic_private_obj_init(struct drm_device *=
+dev,
+> =20
+>  err_list_del:
+>  	list_del(&obj->head);
+> +	kfree(obj->name);
+> +	obj->name =3D NULL;
+> +err_lock_fini:
+>  	drm_modeset_lock_fini(&obj->lock);
+>  	return ret;
+>  }
+
+[Severity: High]
+Similarly, if atomic_create_state() fails and takes the err_list_del path,
+list_del(&obj->head) poisons the list pointers.=20
+
+Because callers ignore the return value, the subsequent teardown call to
+drm_atomic_private_obj_fini() will perform a double-deletion on these
+poisoned pointers.
+
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index e7f9e6d589272..d474d60204110 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+[ ... ]
+> @@ -421,6 +422,7 @@ void *__devm_drm_bridge_alloc(struct device *dev, siz=
+e_t size, size_t offset,
+>  	INIT_LIST_HEAD(&bridge->list);
+>  	bridge->container =3D container;
+>  	bridge->funcs =3D funcs;
+> +	bridge->name =3D kasprintf(GFP_KERNEL, "bridge-%s", dev_name(dev));
+>  	kref_init(&bridge->refcount);
+> =20
+>  	err =3D devm_add_action_or_reset(dev, drm_bridge_put_void, bridge);
+
+[Severity: Medium]
+Does kasprintf() need a null check here?=20
+
+If the allocation fails under memory pressure, bridge->name will be null,
+which is later passed to drm_atomic_private_obj_init() where kstrdup(null)
+will return null and fail the initialization.
+
+[ ... ]
+> @@ -649,7 +651,7 @@ int drm_bridge_attach(struct drm_encoder *encoder, st=
+ruct drm_bridge *bridge,
+>  			goto err_reset_bridge;
+>  	}
+> =20
+> -	drm_atomic_private_obj_init(bridge->dev, &bridge->base,
+> +	drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
+>  				    &drm_bridge_priv_state_funcs);
+> =20
+>  	return 0;
+
+[Severity: High]
+Here is an example in drm_bridge_attach() where the integer return value of
+drm_atomic_private_obj_init() is completely ignored, masking the
+initialization failure and setting up the teardown crash.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-drm-state-=
+readout-v6-0-6cc02cd10998@kernel.org?part=3D2
