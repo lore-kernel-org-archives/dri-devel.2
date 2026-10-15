@@ -4,54 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CC00CCA464
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B45BCCA463
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 793081122E3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B7421122E4;
 	Thu, 15 Oct 2026 16:15:14 +0000 (UTC)
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
- by gabe.freedesktop.org (Postfix) with ESMTP id C096410E131;
- Thu, 15 Oct 2026 12:21:52 +0000 (UTC)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6962112233
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:11:09 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-93c5b7f5bfaso210035785a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 02:11:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792055468; cv=none;
+ d=google.com; s=arc-20260327;
+ b=HAbPZ4oZJSBnV1wHrL9slG5Rxnrq4cQqUP/CEyTRjKwanN+TvAI/RHXQn+01xySwjA
+ w9Xs7aBbhB8mpr1GleEdWFXF+BmGgccRlRAvvrhODA8L9jhrVbRqREXmstnYRl+0OfJx
+ aEaruSfQnMPauhKoKSPYZcoZbMwtcReFTPB0Z+yC2f9/2E36/ycUAKlNbS+vuRKB71pQ
+ AMFZdLM48+w/xPg/LqKfjv5ZB1pzqnMGXEFqI20NrA3+rH+EDFLl87KQG5GcIHCl55SN
+ EUIUBm3YGBqQmDnxJXXZ8YZBJIO5CnZnhelrCA8P4U/d10YNHP2ScfeYTAMpkpq9iAHX
+ tKRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=jEoeOoyKShfauUM6omyrvuy8JMoL6O15hulliMOGIOA=;
+ fh=cK/UewRGO+5+n66WlRLBKs5mE0LI6pwf46iMcr+sJk0=;
+ b=FZCWvoPsgWd09kQIV8DDpzPBN5OwaVVcCJeza6NcNOIhYcSYGIF+B+S4IyZZA+O5tU
+ Q0OBjLhMdBrgT10kCI/TymIHVCBqhIWq28L9q3uji5ySnrm2YmzmY+5fPjtGJVtiscRK
+ oM+XASOf9mcq8OYFvNNwkhdC0d3+5NMs1R9EmyT8um2i1fTRB0cFvMylDcmlQ45/MUWj
+ 2wStI7PTzhw9kJqJFDwIuX4mAFrAs+6+gQ5M1JS2pglYBukFQI7EZHbu4t9FkKOG2/RQ
+ p7HKNEaLltsMUMYnFxVNIz3UF1AccTNNAphMpWEXLFnG5n5J/QNT5qR8ZA3Z4Z4nHQy6
+ SFyg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
- bh=fZ3FRe0Ls/JmWf3OG+4EyMsl/OFlCN8EX07ivX4RHCw=; b=k2xEWgrAWuAYZ
- CSBhGZcEFBE2dsrBrn9iYtTeEesZLAjfaPZjpbIfH9pJuXCu6o4JXBdrj/g0jzgg
- HDoVCJgNUzCyKwVcEZE3XQ9fnTjQQE7Q66gDs/H/vN0fblp1dbHpjbOIYdUNBeEG
- dYFOIgF56VRfhx+qBYWKrZwNPFiI14=
-Received: from [127.0.1.1] (unknown [114.214.188.229])
- by mailimap2024 (Coremail) with SMTP id 3pYKCgA3IBddxdBqXUL1AQ--.1300S2;
- Thu, 15 Oct 2026 20:21:49 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- dmitry.baryshkov@oss.qualcomm.com, neil.armstrong@linaro.org,
- abelvesa@kernel.org, mitltlatltl@gmail.com
-Subject: [REPORT v2] SM8750 bonded dual-DSI + NT36536: the command-DMA-timeout
- signature is not the invariant;
- dark panel is not recoverable in software
-Date: Thu, 15 Oct 2026 20:21:48 +0800
-Message-ID: <179206690897.1177097.7309368787214649515@mail.ustc.edu.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ d=gmail.com; s=20251104; t=1792055468; x=1792660268; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=jEoeOoyKShfauUM6omyrvuy8JMoL6O15hulliMOGIOA=;
+ b=bA0oMtBlREg8pitz69UjrYJKVRFWZJvzUPLA5SczzxHRTzAcnh+pDOwfH6zif+/I13
+ VFtkDfPAAJctN8XfzLQwEfr2kYSX8IkfwjvDaTkQe8qfOr8CHjv9kXDAB3UIaOjpxJd1
+ tiCJRF5fCpfVVEbeiY9FWCDTKAakjQQYzNMxGz8LBMhvRFDgWd8f2w3kbEVN1YXBZFGI
+ XsoUE5SIOxCWPGNx6rwf5owCjaFucrb1GVvTKQuchUPNlMgbewXjS0v8YgSSvcaQVHY6
+ Dqon8EQcbc655/Y5L8KEsxfk42SYcbJs+eA3T5AB3rWPYRV/1klBvOs3gv0ENjhCbV7d
+ jGkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792055468; x=1792660268;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=jEoeOoyKShfauUM6omyrvuy8JMoL6O15hulliMOGIOA=;
+ b=U+YGNMhCwzi1o5oj3lV6hTdk5jlW5Jp3eFC6bH7jjKkUFxGBVWxDemiDJN8JnOfJZN
+ 6q+i5aLffrstCwSc8NtwCCUFaJEC40v/m8xlapuXJKRGyCwDxBWoRFfQbxoSPgvsiaGP
+ QIu0sluIQNP7FUtPpLYIqDAczvCOW4mLs8wRq5e3aLTafHozr+UCRY6XpoLZkLoKrNMl
+ ZMRWg+7/jfRVSTQe5ZRWqsgEnQ/FsWtzE0LZKPmf5r9fOAlLpUdQ8cHoWdibYjEMxBa9
+ KqQolyij8mJr3lyc4gOxUpUa6LbCgMuCE/lIQL1oByD3qnn5gP2VPKaZ7eQzUIngQlw2
+ gMjA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzo2vqpu/8PP8imx0x9SqHAC6Yd/yKOE6PzpzT2VGG8WGAdcYeUG/r4qgTrIWXSnW9zpVcGtbc9LbU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJJk3XFnSW+Q2p4kgYOXpXbK8os3YL3y05trwYeuBdhXkeFaa6E
+ JHXW5zf2FZFwA8yS5kivPIZ1lZWa5UzvYk3qEyoGuq44azd06xJy3/kUsnlovVo45cvp6Am4B6G
+ lDZLwjuOFPHoAEMmDRsr0rDvFzsLOLH0=
+X-Gm-Gg: AYBFou2M2dWZIj+c2JDzj14ld0DPhbqmVTPOPZjB3bNhuaKe56SjKKX+gJ5KZ4jRu1z
+ htfq6JXOQ+7Il9lGwFbsSC7nMJ7uvkeizY2b8HdcCxrm2wbg4/wJedxd2wB37yClaWMs2DIukp8
+ lg4GvegF0pDWrwstGSo9HOJ9Yk8ABmlGkBYHVfWTTVHVACbDlDm99mFHMR2hdW0b0PCD5hFJjET
+ 67nUsxcple4ZZzDx0A2MHABB2btcbVKxPY4zM9b49t2Mi03GMOLiGOBtQLZ5EQsEfbAcHRJRCNS
+ Bycdns7DuZsRYjbNqLWw6JOIgtEyITblw0mxhwy7/miD4ZmLZ4wAeBN3RV8cOsnq0ybrQJZlwNk
+ kylkg8Dr0S0U=
+X-Received: by 2002:a05:620a:2850:b0:93e:94c3:e851 with SMTP id
+ af79cd13be357-93ec135054cmr2512973085a.9.1792055468406; Thu, 15 Oct 2026
+ 02:11:08 -0700 (PDT)
 MIME-Version: 1.0
-X-CM-TRANSID: 3pYKCgA3IBddxdBqXUL1AQ--.1300S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GFW5tr4fAFykZF4rCw1Utrb_yoWfAr4rpF
- Z7KwsIkrWkJryxu3Z7Ar4UX34jyrsYyrZ8tas8KryUAan8GryIvr92kw4q9a45Wrn5Ja1j
- qFZ0qas3Za1kZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUk2b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
- w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
- 4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
- rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
- CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
- z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgcTQUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREBB2rQE4plRABDsX
+References: <20260928081450.19340-1-dilddream31@gmail.com>
+In-Reply-To: <20260928081450.19340-1-dilddream31@gmail.com>
+From: =?UTF-8?B?6rmA67KU7ISd?= <dilddream31@gmail.com>
+Date: Thu, 15 Oct 2026 18:10:57 +0900
+X-Gm-Features: AclHuK9dY7-4Z1BJVfwNpzcd1NSLlAb1ICM3Ix05ep8_FkWQ-f6VLJo26bPN6Nk
+Message-ID: <CAGC3ukQ7gX97E7pG0Oy8H0cnmQzoA1038io+VhrBogPB3y9dDQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
+To: nouveau@lists.freedesktop.org
+Cc: lyude@redhat.com, dakr@kernel.org, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Content-Type: multipart/alternative; boundary="0000000000009cbe2f065ddd6d4f"
 X-Mailman-Approved-At: Thu, 15 Oct 2026 16:15:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,177 +104,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+--0000000000009cbe2f065ddd6d4f
+Content-Type: text/plain; charset="UTF-8"
 
-This is a follow-up to our 2026-10-13 report on the same board.  We have since
-run controlled single-variable experiments that force us to *correct* the
-diagnosis in that report, and we think the corrected picture is more useful to
-you.  Summary of what changed:
+Gentle Ping.
 
-  - the "first DCS command-DMA timeout" (-110) is NOT the invariant.  We built
-    an image that removes that signature entirely, and the panel still does not
-    light up.
-  - the failure is NOT a driver-side latch that could be cleared.  We built an
-    image with a bounded retry instead of the permanent latch, and the retry
-    does happen - the panel still does not light up.
-  - the failure is NOT recoverable by re-running the modeset.  Restarting the
-    compositor (which re-runs panel prepare + full atomic commit) while in the
-    bad state fails again exactly the same way.
+There has been some related discussion here:
+https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.fr
 
-So we now believe the bad state is a *persistent hardware/power-domain* state
-that survives everything we can reach from the DSI/DRM side, and that the
--110 message is a symptom rather than the root cause.  Details and evidence
-below; questions at the end.
+The patch has also been independently tested, with no reproduction of the
+issue reported so far.
 
-BOARD / SETUP
+Thanks.
 
-Lenovo Legion Y700 (2025), TB322FC, Qualcomm SM8750P.  Panel Novatek NT36536,
-1904x3040, DSC, video mode, driven by bonded dual DSI (ae94000.dsi master,
-ae96000.dsi peer).  Our tree is GEEKiDOS/linux (7.2-based) plus the bonded
-command path; we have since rebased onto 7.3-rc7 and reproduced everything
-there, so the observations below are not specific to the 7.2 tree.
+--0000000000009cbe2f065ddd6d4f
+Content-Type: text/html; charset="UTF-8"
 
-All samples below are *cold* boots (power off -> bootloader -> boot).  We do not
-use warm resets for these measurements: a warm reset does not clear the DSI
-PHY/PLL state, and after a failure a warm reset tends to reproduce a
-*different* failure mode (no card0 at all), which makes it useless for A/B
-comparison.  Every sample quoted here is a real power-off.
+<div><div style="font-size:inherit"><div style="font-size:inherit">
 
-1) THE -110 SIGNATURE IS NOT THE INVARIANT
+<p dir="auto">Gentle Ping.</p>
+<p>There has been some related discussion here:<br>
+<a href="https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.fr">https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.fr</a></p>
+<p>The patch has also been independently tested, with no reproduction of the issue reported so far.</p>
 
-   We built an image whose only difference is that the vendor bonded command
-   write path is disabled, so DCS goes through the standard need_sync double
-   write (dsi_manager.c, 3 hunks, single file).  Same config, DTB, ramdisk and
-   cmdline, verified byte-identical; same UTS.
+</div></div><br></div><div dir="auto">Thanks.</div>
 
-   Result on its bad boots: "command DMA timeout" 0 occurrences, "bonded
-   command DMA failed" 0 occurrences, "Failed to initialize panel" 0
-   occurrences, panel init reports success ("panel prepared").  The DPU side is
-   fine too (crtc active, compositor renders, a framebuffer readback from the
-   compositor contains real content, DPU frame counters advance).
-
-   And the panel is *still dark*.  Confirmed by eye on the physical device:
-   backlight on, power key controls the backlight, volume keys and audio work,
-   but there is no image.
-
-   So: removing the bonded command path removes the DMA-timeout message and
-   does not fix the panel.  -110 and "panel dark" are separable.
-
-   (Measurements that are "all normal" while the panel is dark, on this board:
-   card0-DSI-1 status "connected", DPMS "On", connector "enabled", backlight
-   non-zero and controllable, disp_cc_mdss_pclk0/1_clk_src = 172991986 Hz
-   claimed by ae94000.dsi/ae96000.dsi, byte clocks claimed, crtc intf_mode 2,
-   compositor screenshots succeed.  The only quantity we found that tracks the
-   physical state is the DSI interrupt count: 41 when the panel is lit, 0 in
-   every dark case.  We mention this because it cost us a false "GOOD" verdict:
-   screenshots and frame counters prove the DPU is running, not that the panel
-   received valid video.)
-
-2) THE FAILURE IS NOT A DRIVER LATCH
-
-   The tree latches a single bonded-command failure permanently
-   (dsi_bonded_cmd_failed is only ever set true) and several bridge callbacks
-   early-return on that latch, including power_off/post_disable - so after one
-   failure the teardown is skipped as well.  That looked like a plausible
-   "unrecoverable by construction" mechanism, so we changed exactly that, in
-   two orthogonal ways, single file:
-
-     (a) latch only after a bounded number of failures (3) instead of the
-         first one, logging each attempt;
-     (b) drop the cmd_failed() early-returns from power_off / pre_enable /
-         post_disable so the normal teardown and re-power-up always run.
-
-   On a bad boot the new log shows the retry budget working:
-
-     dsi: bonded command failure 1/3 (command DMA timeout), will retry
-     dsi: bonded command failure 2/3 (panel not prepared), will retry
-
-   and "giving up" never appears - i.e. the latch never engages.  The teardown
-   is no longer skipped.  The panel is *still dark*.
-
-   Worth noting for the general case: making the failure non-fatal is necessary
-   but not sufficient, because nothing re-issues the modeset afterwards.
-   drm_panel_prepare() runs once per atomic commit, and after the failure no
-   new commit is generated, so even a "retryable" error does not actually get
-   retried.  We only got a second attempt by forcing one (next section).
-
-3) THE STATE IS NOT RECOVERABLE BY RE-RUNNING THE MODESET
-
-   While in the bad state we restarted the session (stop greetd, kill phoc,
-   start greetd), which releases DRM master and produces a fresh atomic commit
-   and a fresh modeset.  The compositor did restart (process count 1 -> 2), so
-   the retry genuinely happened.  Result:
-
-     before: panel_prepared 0, dsi interrupts 0, ctl reset failure 268
-     after : panel_prepared 0, dsi interrupts 0, ctl reset failure 394
-
-   i.e. the second attempt failed in exactly the same way, and the panel stayed
-   dark (confirmed by eye).
-
-   Control, to be fair to the mechanism: the *same* operation on a healthy boot
-   is harmless - panel stays lit, DSI interrupts stay at 41, no new errors.  So
-   re-running a modeset does not break a working link; it just cannot repair a
-   failed one.
-
-4) WHERE WE THINK THIS LEAVES US
-
-   Combining 1-3: neither the command path, nor the driver latch, nor the
-   modeset re-entry is the lever.  The bad state appears to be established
-   during the first bring-up and to persist, and the DSI controller does not
-   appear to be where it lives.  Consistent with your earlier suggestion we
-   also checked the PHY clock-source selection (DSI_7nm_PHY_CMN_CLK_CFG1
-   DSICLK_SEL and the resulting disp_cc_mdss_pclk*_clk_src): our tree already
-   selects SEL=0 / pll_bit for this 30bpp 3-lane C-PHY case, matching the
-   downstream driver, and the resulting pclk is correct (756839941/2 * 16/35 =
-   172991986 Hz, matching the measured clock exactly).  So that particular
-   select is not the gap on this board.
-
-   What we can still see from the DSI registers, on a bad boot, is that
-   CLK_STATUS ends up with the DYN_PCLK / DYN_CMD_PCLK bits set together with
-   CMD_PCLK, STATUS0 = 0x20003 (engine|DMA busy), no DSI interrupts, and the
-   pre-first-command registers are byte-identical to a good boot.  On the DPU
-   side we get "hw recovery is not complete for ctl:1"
-   (dpu_hw_ctl.c:459, i.e. the CTL soft reset never completes) repeated, with
-   "ctl 1 reset failure: -22" and vblank/frame-done timeouts - but we read that
-   as a downstream consequence, not a separate fault.
-
-QUESTIONS
-
-1. Given that the -110 command-DMA timeout can be made to disappear while the
-   panel stays dark, is the DYN_PCLK / DYN_CMD_PCLK request handshake between
-   DSI and dispcc/INTF supposed to be released by the client side?  Is there a
-   known ordering requirement on SM8750 for the *first* command after PHY
-   enable / PLL lock?  (Our engine latches with STATUS0 = 0x2200200 and the
-   trigger never self-clears.)
-
-2. Is there anything we can inspect outside the DSI register block to tell
-   whether the pixel-clock domain actually came up - a dispcc/INTF status, a
-   vote we can read back, or a documented way to distinguish "request
-   asserted" from "request serviced"?  We cannot read MMIO directly from
-   userspace here (STRICT_DEVMEM), so a driver-side suggestion would help.
-
-3. Do you know of any SM8750 (or SM8650-family) erratum for cold-boot
-   video-mode DSC bring-up on bonded DSI that would put the link into a state
-   that only a full SoC reset clears?  We have ruled out the PLL re-lock series
-   (6cd33b6f4155, 2028280686f4) as far as we can tell from the symptom.
-
-4. Should a failure like this be surfaced differently by the driver?  Right now
-   the failure is reported and then the panel is simply never prepared, while
-   everything else reports success (connector connected, DPMS on, compositor
-   fine).  If there is a preferred upstream shape for "panel init failed, do
-   not pretend the output is up", we would rather implement that than keep
-   experimenting locally.
-
-5. Would you like the capture set?  We have full dmesg from lit and dark boots,
-   the DSI/PHY register dumps, CLK_STATUS transitions, the probe scripts
-   (cold-boot runner, three-state classifier) and both experimental patches
-   (command-path removal, bounded retry + non-short-circuited teardown).  Happy
-   to send any subset, and happy to test a patch on the device.
-
-Thanks,
-Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
-
-The bring-up tree is GEEKiDOS/linux plus local patches.  We can publish the
-repro scripts and the failing-boot captures, and we can run any experiment you
-suggest on the hardware.
-
+--0000000000009cbe2f065ddd6d4f--
