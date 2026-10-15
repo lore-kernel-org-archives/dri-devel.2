@@ -4,49 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D236CCC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:18:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C1F9CCA463
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 328C91122D3;
-	Thu, 15 Oct 2026 16:17:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C16781123A2;
+	Thu, 15 Oct 2026 16:18:19 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC3B1123A2
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:17:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C79111123A2
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:18:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8BB60601EF;
- Thu, 15 Oct 2026 16:17:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EFC1F000C4;
- Thu, 15 Oct 2026 16:17:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1792081068;
- bh=c+imwRzy+TFjWbQ+yNo83g0lH0n4xVBCsI1vuUaGOns=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=YRFhddnOwD67BDUZz8e+5AHZfAUyqZTD22qHQFLAaw0mX2G1Td8dj64kQAcpTaBmB
- an3MHuPXbXjRjAAWTHrEfeCBQ23VfxijrwFYdpjokFn7IMZaO0aDLYDSllOGxzPnca
- j4f4TyUtOAEnSWlIctPI1smEokMCFZ50ju4VKrdM=
-Date: Thu, 15 Oct 2026 18:17:52 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, kvm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH v2 02/15] misc/arm-cla: Add launch operation helpers
-Message-ID: <2026101542-briskness-most-a8ca@gregkh>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-3-ryan.roberts@arm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015142552.4128028-3-ryan.roberts@arm.com>
+ by tor.source.kernel.org (Postfix) with ESMTP id 4BBBB60200;
+ Thu, 15 Oct 2026 16:18:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1B881F000C4;
+ Thu, 15 Oct 2026 16:18:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792081093;
+ bh=oxDFYaRXaWBY8jYhUrvaclS1/sxGZzUC4Ga9k7YL9Ms=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=a3g6S5uHnoSBhz461QjJobnlPh6jq0d1472ZJHzicyiooNA03kKH3WMG4ZPiO8cB2
+ 5nz8eyjmt1dzF3w6gdZGMuCFgevn5BW8+gJwwk0pDsDJQOXMNrPGfFGvt+YE6sXUih
+ 68KaJctyUotd3KpIJDlDR+eEyBuQnxvwK/VgTeHwtuUFNTus3PVqJ7PN7nzFUhou6G
+ uuwjSSooM4WD0m78vGa4zU97/DF57c/Bd4ovpEHtf3xC6xOgJXUl88cf/ZFBZWiXGT
+ nehZ2CilAHp/vk43scmet+81QtMWMVlWJ/ITi/R/K/fbegtRN10b31IsGr2fX/68hh
+ k8/pNJMoAyLoA==
+Message-ID: <sashiko-outbox-173162@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net v3 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+To: "Mina Almasry" <almasrymina@google.com>, dri-devel@lists.freedesktop.org
+Cc: media-ci@linuxtv.org
+In-Reply-To: <20261014161754.3782346-2-almasrymina@google.com>
+References: <20261014161754.3782346-1-almasrymina@google.com>
+ <20261014161754.3782346-2-almasrymina@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 16:18:12 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,26 +51,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 15, 2026 at 03:25:36PM +0100, Ryan Roberts wrote:
-> From: Jean-Philippe Brucker <jpb@kernel.org>
-> 
-> CLA commands are issued by writing optional payload registers,
-> programming the LAUNCH register and polling LRESP until the hardware
-> accepts or rejects the operation.
-> 
-> Add a common launch helper that performs this sequence on the CLA's
-> local CPU, waits for LRESP completion and translates launch response
-> codes into Linux errors.
-> 
-> Build accelerator reset and register read and write support on top of
-> it. The register read and write helpers split larger accesses into
-> multiple launch operations when an access crosses an eight-register
-> window.
-> 
-> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] net: devmem: UAF in dmabuf unmap due to skipped unmap on physical =
+device unregister
+--
 
-You forgot to sign off on patches from others :(
+commit 9aa963a98903abc88d8d047a795dac2c2807eebc
+Author: Mina Almasry <almasrymina@google.com>
 
+net: devmem: unmap dma_buf synchronously on queue uninstall
+
+This commit adds synchronous unmapping of a dma_buf when the last bound RX =
+queue
+is uninstalled or the bound physical device is unregistered. The intention =
+is to
+prevent a use-after-free crash in dma_unmap_sg_attrs() that happens when the
+device is removed (freeing dma_dev) before the binding is completely freed =
+on
+socket close.
+
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index f4d60654ce7fd..93cc2815d935a 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+[ ... ]
+> @@ -153,6 +176,38 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmab=
+uf_binding *binding)
+>  	percpu_ref_kill(&binding->ref);
+>  }
+> =20
+> +static void
+> +net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
+> +			     unsigned long xa_idx, struct net_device *dev)
+> +{
+> +	if (xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +			NET_DEVMEM_BINDING_LIVE) ||
+> +	    READ_ONCE(binding->dev) !=3D dev)
+> +		return;
+
+[Severity: High]
+When a virtual device leases an RX queue from a physical device,
+netdev_nl_bind_rx_doit() maps a dmabuf using the physical device's dma_dev =
+but
+sets binding->dev to the virtual device. If the physical device is unregist=
+ered,
+will this condition cause the unmap to be skipped because binding->dev does=
+ not
+match the physical device?
+
+> +
+> +	mutex_lock(&binding->lock);
+> +	WRITE_ONCE(binding->dev, NULL);
+> +	if (!netif_is_queue_leasee(dev))
+> +		net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+If the virtual device unregisters (either directly or due to the physical d=
+evice
+unregistering), this explicit check skips the unmapping step for leased que=
+ues.
+Does this leave the dmabuf mapped to the physical device's soon-to-be-freed
+dma_dev, and ultimately lead to the same use-after-free crash during socket
+close?
+
+> +	mutex_unlock(&binding->lock);
+> +}
+[ ... ]
+> @@ -529,16 +588,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_pri=
+v,
+>  	unsigned long xa_idx;
+> =20
+>  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
+> -		if (bound_rxq =3D=3D rxq) {
+> -			xa_erase(&binding->bound_rxqs, xa_idx);
+> -			if (xa_empty(&binding->bound_rxqs)) {
+> -				mutex_lock(&binding->lock);
+> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> -				WRITE_ONCE(binding->dev, NULL);
+> -				mutex_unlock(&binding->lock);
+> -			}
+> -			break;
+> +		if (bound_rxq !=3D rxq)
+> +			continue;
+> +
+> +		xa_erase(&binding->bound_rxqs, xa_idx);
+> +		if (xa_empty(&binding->bound_rxqs)) {
+> +			mutex_lock(&binding->lock);
+> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> +			WRITE_ONCE(binding->dev, NULL);
+> +			if (!rxq->lease)
+> +				net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+Similar to the issue above, does explicitly skipping the unmap here for lea=
+sed
+queues prevent synchronous unmapping and trigger a use-after-free in
+__net_devmem_dmabuf_binding_free() when it uses the freed dma_dev?
+
+> +			mutex_unlock(&binding->lock);
+>  		}
+> +		break;
+>  	}
+>  }
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014161754.3782=
+346-1-almasrymina@google.com?part=3D1
