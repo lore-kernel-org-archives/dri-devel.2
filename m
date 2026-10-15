@@ -4,42 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 636E3CC6B34
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 10:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F507CC6B34
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 10:06:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9E410EBA4;
-	Thu, 15 Oct 2026 10:04:36 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F646112283
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:04:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 937A643D0E;
- Thu, 15 Oct 2026 10:04:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34EC71F000C4;
- Thu, 15 Oct 2026 10:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792058669;
- bh=9wBXPiPpsM5S4pDhacY+LOYtxoybPRSvF4O1rUoMmq0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JigtQVFXI6oHkI5XLlRg8ckwbmqwONSAf5cN+gItEecNdVNr/bXsBiEtyvgoO/W96
- rDleTN1J7ahuS5Sjqj//TAK+vlcPg2sskLglBSh8ajo06iMCoa7pqA6Xyskx11e3oY
- 71svCeR5s1scXbK7u0qXniNpVIr62TvC6I9mfR3vHqbJvG2j54G7cXdARF/55SDRoe
- dJJH3TuN2Cd2BYdw+l4EUMhUYassFH/xZR5kguiSD9OzySblcjTZd7fdVTsIxhSFK0
- U4UFX1HLOOJ6FsDrE6KglCGYkBHvI6XHjDh9qLcNYt/kP3iCbcFybpBsM2sBAzeRaj
- p3jFQIvADB2fg==
-Message-ID: <sashiko-outbox-172624@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: display/msm: dp-controller:
- Document Kaanapali
-To: "Balaji Kalkonda" <balaji.kalkonda@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-kaanapali_dp-v2-1-c15cb83d9140@oss.qualcomm.com>
-References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
- <20261015-kaanapali_dp-v2-1-c15cb83d9140@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 10:04:28 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65FA310EB9C;
+	Thu, 15 Oct 2026 10:06:19 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE3E610EBC1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 10:06:12 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-487049569b6so3506472f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 03:06:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792058771; x=1792663571; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=JJbBCKPwNyur1xKjcaQB2CgJTVviPBDwyawxdyYb5ykQfH5qsiB33Bytcis1sKMg3L
+ fMaCj2b+1x+N8ZGu9OntzlIPuG04QD7OEF33hdBaNOx+ZC3r8Gyqj4/cDPLIsuFd6im4
+ YLV5fWx+8AzJ4Xmk96jiSTi6HOkv6ksplayQnJTfMrmJAq32CTafCABSnx17p1pIXPTh
+ yVTo/pHbcSY5Us/dEIbHMOannr37WinJ86KTqzC6eaTS0SOFdzF9bWhx+4rFLp52vKCd
+ jgoJwoeDI+MPfpiMOYIhKEdbLed84nie02a8We85a2OeIPnQ0l+5Zst2QvKBvjLQcx4g
+ Z3gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792058771; x=1792663571;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=VGhavtdTG+JQeuuMAIbkP587FrDnFlPC0K+b1PigN1zYCh5jmLkEDhazwpIP2oZEhV
+ osaDJVE5zM7zzLAfG4822lVGfxi6rAF/89Tjq1Ioul2YcN0B9vJxTNNsWHW6qV3TFzKb
+ TdjZr7kQoIFrHUdSOLwIMxX8SUomTLLNHd7225LFYFF5LdUmbuoRYbzeGuJwqhdpwqDq
+ GVtyH8NaaEmLdTRiqDt5KbCNwLgBDgbCfOQ64VHmZNaj7WaMxCxyVfpoV9GwM7BUcY/r
+ AqxcNBt5IwVw7unHxmZM9pwUHYfXn79AvSzMlXAFiJcUpij7ly/O0cyyEizxFOzWLqZo
+ 8JWg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy1DPRqtF6kS5qNII6Nhd0Usv7QAap0pOGsUcn9Ljo7v0E6Rar0pda5m/ghzB2AulepiBJwm0sa5Ko=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL6hl8ZS8FAm46clAYWPIN2gXOymOqquR9NJJhiQGLdGSVtyZZO
+ 58eidzf05lZ9SsjatZwFI1VBQ7393alPXCkr5AOp7Cw5Q54nt5PXqDvi
+X-Gm-Gg: AYBFou1gs4/M+2c4LTbet7OPXvXXGqU5LCUgQkiTk75cCzsdmRm8x0TTdWx9C1A+iJp
+ 4vSlurLTYrsP6TtF550695HzBGiXopGr+Qm9tTiZY1Qq3WMifIhNZZXnmJJEpO/Emi4cGIlEOSt
+ kSmhLkEOaTtCeUAbPvMQQJlhsK1A5UNiXF2tiitAJQs/xR3CglFXYnbiFRC7n0OYZgDkXEs50SH
+ i22XMjsz6H4I0Haoy7Vevh3oUmyxPSfCJgV0yobb1L6q2HcP/19qiMjSTkMuooVG5Aj2dCb2BGd
+ f8QZ7JU//ldH7NSrXGpw2dEAkTc/FCH1uQdxnSZahTxRBZPAzipOCB72ziRIDcfgCvWCM7Si6hT
+ ogK+U+VLvj1k1Z/SQw3S+48KnAX+w6y/ho8Yy14Z1/bJZOfyPe4iMTb84As5Ylqtwv0FMJHHQFN
+ wREx5xwwsqTu5g9/IYYqs8zVu3AHo1uTpB8fgbN6Z7OO5ChwXlvZMtrrbVe91Ld+qtDsWl8KtjE
+ GPdkCg0YQBAkbGJuGU0/BptVYpkCXk6XDkLRZh/0A==
+X-Received: by 2002:a05:600c:8b83:b0:4a1:811c:8064 with SMTP id
+ 5b1f17b1804b1-4a18e4d5512mr360955355e9.26.1792058770944; 
+ Thu, 15 Oct 2026 03:06:10 -0700 (PDT)
+Received: from osama ([2a02:908:182:d1a0:44fe:89e7:9985:abb])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a1bd993f34sm64406495e9.11.2026.10.15.03.06.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2026 03:06:10 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: airlied@gmail.com, jesszhan0024@gmail.com, luca.ceresoli@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ neil.armstrong@linaro.org, simona@ffwll.ch, tzimmermann@suse.de
+Cc: osama.abdelkader@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 0/3] drm/panel: Use managed helpers in DSI panels
+Date: Thu, 15 Oct 2026 12:06:09 +0200
+Message-ID: <20261015100609.19883-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1789994813.git.osama.abdelkader@gmail.com>
+References: <cover.1789994813.git.osama.abdelkader@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,129 +86,6 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: qcom,kaanapali-dp omitted from existing conditional=
- blocks
-- [Medium] dt-bindings: missing additionalProperties in patternProperties
---
-
-commit 98068de5d2fca0abb41ef1fecd6b1707d8f24f5d
-Author: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-
-dt-bindings: display/msm: dp-controller: Document Kaanapali
-
-This commit adds device tree binding documentation for the DisplayPort
-controller on Qualcomm Kaanapali. It introduces a new compatible string
-and adds constraints for its five register ranges and six clocks.
-
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.=
-yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 094a6383bb779..0240e3c1a6d9d 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -19,6 +19,7 @@ properties:
->      oneOf:
->        - enum:
->            - qcom,glymur-dp
-> +          - qcom,kaanapali-dp
->            - qcom,sa8775p-dp
->            - qcom,sc7180-dp
->            - qcom,sc7280-dp
-
-[Severity: Medium]
-Does this inadvertently restrict Kaanapali from declaring an aux-bus?
-
-Because qcom,kaanapali-dp is omitted from the existing aux-bus conditional
-block, it falls into the else clause which forces aux-bus: false:
-
-      if:
-        properties:
-          compatible:
-            contains:
-              enum:
-                - qcom,glymur-dp
-                - qcom,sa8775p-dp
-                - qcom,x1e80100-dp
-      then:
-        $ref: /schemas/sound/dai-common.yaml#
-        oneOf:
-          - required:
-              - aux-bus
-          - required:
-              - "#sound-dai-cells"
-      else:
-        $ref: /schemas/sound/dai-common.yaml#
-        properties:
-          aux-bus: false
-
-This incorrectly restricts valid device trees that declare an aux-bus.
-
-[ ... ]
-
-> @@ -290,6 +291,24 @@ allOf:
->            minItems: 6
->            maxItems: 6
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,kaanapali-dp
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 5
-> +          maxItems: 5
-> +        clocks:
-> +          minItems: 6
-> +          maxItems: 6
-> +        clock-names:
-> +          minItems: 6
-> +          maxItems: 6
-> +
-
-[Severity: Medium]
-Could this conditional block be merged with the existing block that has
-identical constraints?
-
-The constraints specified here (5 reg items, 6 clocks) exactly match the
-existing block for 2-stream MST platforms (qcom,sc8180x-dp, qcom,sdm845-dp,
-qcom,sm8350-dp). Reusing the existing block would avoid duplicating schema
-constraints.
-
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,kaanapali=
--mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-m=
-dss.yaml
-> index 9f935defd6b12..83e3596ba0ed9 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.y=
-aml
-> @@ -48,6 +48,12 @@ patternProperties:
->        compatible:
->          const: qcom,kaanapali-dpu
-> =20
-> +  "^displayport-controller@[0-9a-f]+$":
-> +    type: object
-> +    properties:
-> +      compatible:
-> +        const: qcom,kaanapali-dp
-> +
-
-[Severity: Medium]
-Does this object definition need additionalProperties: true or
-unevaluatedProperties: false?
-
-The dtschema meta-schema requires one of these properties for object nodes
-to dictate how unlisted properties are handled. Without it, make
-dt_binding_check reports a meta-schema validation error.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-kaanapali_=
-dp-v2-0-c15cb83d9140@oss.qualcomm.com?part=3D1
