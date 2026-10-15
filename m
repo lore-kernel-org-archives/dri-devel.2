@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E125ECC6B38
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 21:33:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07FE1CCA462
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 21:34:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CF5710E1B0;
-	Thu, 15 Oct 2026 21:33:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9594910E1B0
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:32:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 650AF10E9DF;
+	Thu, 15 Oct 2026 21:34:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1CC310E9DF
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:34:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4C59340DF0;
- Thu, 15 Oct 2026 21:32:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD911F000C5;
- Thu, 15 Oct 2026 21:32:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0B33560A57;
+ Thu, 15 Oct 2026 21:34:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DCB71F000C5;
+ Thu, 15 Oct 2026 21:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792099978;
- bh=k/9/v7YjU0zkOamsYYyXG/oKYQjzW4ofXAgavlFUbxU=;
+ s=k20260515; t=1792100084;
+ bh=1N7Q+MS717Y5ZELpLnbTADM+aewJBTA4kYL9wLAAglg=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=olaGrcpHmLvMZfRawwnkSrNgKH2/0rpMplorVp9T8yz6bRZ6TxmAg5uqzNkbooAtY
- QAlJ5TjtCJqmH3Zz1H72Fy9D8b9N3HSp1lstgM+DAbiL33zE58HS3RSuE6a+aqr4Fo
- MxToTARdLGYxSnBqGn6nsuYsWHhQ4QlMtt8x4V30bXDZ/7JPmufRLGnirTbTvc+d0t
- xo5n2IoxcdTArnnNB+BL5hdgl73Hfzw1QkiiFYy9HO4+E2ZRDmGOga5zxuzMM+4V/O
- yDU0yesY/4aYT2465n6Mdx+2Y1jsol3h3jewDi6AllQUR0eKG4EJcg8pB+NluPOjk8
- k6ZXUbl/vxd0Q==
-Message-ID: <sashiko-outbox-173425@kernel.org>
+ b=hb+sNVMoq/woyk3V7rO3MVd4NeMSxfs8inTzpJ+AOm8U6UpxjRHz+2PIIzo/y6X53
+ z2hPB+ho4WWVvAfzXAGe3y0bGsm1t60y4JCILer2VNtOgJ33zQWoPlNVVrykJ09wc2
+ OWUd9PP/3K4fbvRSIAVwPEpc2QzNtEpGgWd4Ru2HHVcNVvl9gMvcDjeoy5o9A2QYqf
+ mPhCux1KfX0HloUKDx2hfDtPjhHHFdTM3fzLrwbO2NG+Yx4vYK3crNjhrIVx+1DHpH
+ atQ7WpM0mhe1LNmFCEPL88gS2R2k1bcBeQ3CQ6KxD2q1QB4E6peEFbUyianZSxynzK
+ 6kqh7+28SqK9Q==
+Message-ID: <sashiko-outbox-173427@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/client: Probe connectors with the device's mode
- size limits
+Subject: Re: [PATCH 2/2] drm/tests: Add KUnit tests for the client mode size
+ limits
 To: "Hugo Sales" <hugo@hsal.es>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261015212545.1989962-2-hugo@hsal.es>
+In-Reply-To: <20261015212545.1989962-3-hugo@hsal.es>
 References: <20261015212545.1989962-1-hugo@hsal.es>
- <20261015212545.1989962-2-hugo@hsal.es>
+ <20261015212545.1989962-3-hugo@hsal.es>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 21:32:57 +0000
+Date: Thu, 15 Oct 2026 21:34:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,114 +56,163 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm: NULL pointer dereference of modes[i] in drm_client_firmware_c=
-onfig
-- [Medium] drm: Logical bug in drm_client_target_cloned due to stale modes[=
-i] values
+- [Low] drm/tests: lockless access to connector->modes violates locking rul=
+es
+- [Low] drm/tests: memory leak of cloned modes on KUnit assertion failure
 --
 
-commit 0e7e38749489efdbc43f11da085113315e670013
+commit 806dc20896099436a3d060ce16a4a8cb84cf8467
 Author: Hugo Sales <hugo@hsal.es>
+Subject: drm/tests: Add KUnit tests for the client mode size limits
 
-drm/client: Probe connectors with the device's mode size limits
+This commit adds KUnit tests for various client mode pickers to ensure they
+skip modes larger than the client's size. It also tests that the modeset
+probe properly retains the preferred mode.
 
-This patch updates drm_client_modeset_probe() to use the device's mode
-size limits rather than the client's dimensions when probing connectors.
-It shifts the size validation to the mode pickers by calling
-drm_mode_validate_size() to ensure the shared modes list retains larger
-modes. This allows keeping panels' preferred modes even if smaller modes
-are initially selected.
-
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
-
-> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_c=
-lient_modeset.c
-> index 0080a8e9556a5..e79c7257aaa2e 100644
-> --- a/drivers/gpu/drm/drm_client_modeset.c
-> +++ b/drivers/gpu/drm/drm_client_modeset.c
-> @@ -357,6 +370,8 @@ static bool drm_client_target_cloned(struct drm_devic=
-e *dev,
->  			continue;
-> =20
->  		list_for_each_entry(mode, &connectors[i]->modes, head) {
-> +			if (drm_mode_validate_size(mode, width, height) !=3D MODE_OK)
-> +				continue;
->  			if (drm_mode_match(mode, dmt_mode,
->  					   DRM_MODE_MATCH_TIMINGS |
->  					   DRM_MODE_MATCH_CLOCK |
-
-[Severity: Medium]
-Can this result in a stale modes[i] value being incorrectly accepted?
-
-In drm_client_target_cloned(), the driver tries to find a matching 1024x768=
-=20
-mode across all connectors if command-line cloning fails.=20
-
-If a connector doesn't have a 1024x768 mode, or if the mode is skipped=20
-because it exceeds the width and height constraints added by this patch,=20
-mode_replace() is bypassed:
-
-		list_for_each_entry(mode, &connectors[i]->modes, head) {
-			if (drm_mode_validate_size(mode, width, height) !=3D MODE_OK)
-				continue;
-			if (drm_mode_match(mode, dmt_mode, ...))
-				mode_replace(dev, &modes[i], mode);
-		}
-		if (!modes[i])
-			can_clone =3D false;
-
-Because modes[i] is not cleared before this loop, it retains whatever value=
-=20
-it was assigned in the earlier command-line pass. The termination check=20
-if (!modes[i]) evaluates to false, and can_clone incorrectly remains true=20
-even if heterogeneous modes are present.=20
-
-While this is a preexisting structural flaw in the function, does adding=20
-the drm_mode_validate_size() check inside the 1024x768 loop trigger it by=20
-making it far more likely for a 1024x768 mode to be skipped?
+> diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gp=
+u/drm/tests/drm_client_modeset_test.c
+> index 00f43fca97954..93aa919d4f317 100644
+> --- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
+> +++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
 
 [ ... ]
 
-> @@ -750,7 +767,8 @@ static bool drm_client_firmware_config(struct drm_cli=
-ent_dev *client,
->  		    num_tiled_conns < connector->num_h_tile * connector->num_v_tile) {
->  			mode_type =3D "non tiled";
->  			mode_replace(dev, &modes[i],
-> -				     drm_connector_fallback_non_tiled_mode(connector));
-> +				     drm_connector_fallback_non_tiled_mode(connector,
-> +									   width, height));
->  		}
->  		crtcs[i] =3D crtc;
+> @@ -197,6 +213,206 @@ static struct kunit_suite drm_test_pick_cmdline_tes=
+t_suite =3D {
+> =20
+>  kunit_test_suite(drm_test_pick_cmdline_test_suite);
+> =20
+> +static void drm_test_pick_first_mode_within_limits(struct kunit *test)
+> +{
 
-[Severity: High]
-Does this code risk a NULL pointer dereference in drm_client_firmware_confi=
-g()?
+[ ... ]
 
-If a connector is part of a tiled display but some tiles are missing, the=20
-driver attempts to fall back to a non-tiled mode by calling=20
-drm_connector_fallback_non_tiled_mode().=20
+> +	mutex_lock(&drm->mode_config.mutex);
+> +	ret =3D drm_helper_probe_single_connector_modes(connector, 1920, 1080);
+> +	mutex_unlock(&drm->mode_config.mutex);
+> +	KUNIT_ASSERT_GT(test, ret, 0);
+> +
+> +	mode =3D drm_connector_first_mode(connector, 1920, 1080);
 
-This patch modifies the fallback function to filter out any modes that exce=
-ed=20
-the client's width and height. If no modes fit these constraints, the funct=
-ion=20
-returns NULL.=20
+[Severity: Low]
+The connector->modes list is explicitly documented as being protected by
+dev->mode_config.mutex. Here, the mutex is unlocked just before calling
+drm_connector_first_mode(), which iterates over connector->modes.
 
-When this happens, mode_replace() safely destroys the existing mode and=20
-assigns NULL to modes[i]. However, immediately following this block,=20
-drm_dbg_kms() unconditionally dereferences modes[i]->name when logging=20
-the selected mode:
+While this is isolated test code and no concurrent modification occurs,
+could this lockless iteration trigger static analysis tools or lockdep
+warnings?
 
-		crtcs[i] =3D crtc;
+> +	KUNIT_ASSERT_NOT_NULL(test, mode);
+> +	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
+> +	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
 
-		drm_dbg_kms(dev, "[CONNECTOR::%d:%s] on [CRTC:%d:%s] using %s mode: %s\n",
-			    connector->base.id, connector->name,
-			    crtc->base.id, crtc->name,
-			    mode_type, modes[i]->name);
+[ ... ]
 
-Since the new size filter makes returning NULL far more likely, can this=20
-cause a crash if modes[i] becomes NULL?
+> +static void drm_test_pick_cmdline_mode_within_limits(struct kunit *test)
+> +{
+
+[ ... ]
+
+> +	mutex_lock(&drm->mode_config.mutex);
+> +	ret =3D drm_helper_probe_single_connector_modes(connector, 1920, 1080);
+> +	mutex_unlock(&drm->mode_config.mutex);
+> +	KUNIT_ASSERT_GT(test, ret, 0);
+> +
+> +	mode =3D drm_connector_pick_cmdline_mode(connector, 1920, 1080);
+
+[Severity: Low]
+Similarly here, drm_connector_pick_cmdline_mode() iterates over
+connector->modes outside of drm->mode_config.mutex. Does this violate
+the locking rules for the connector modes list?
+
+> +	KUNIT_ASSERT_NOT_NULL(test, mode);
+
+[ ... ]
+
+> +static void drm_test_pick_tiled_mode_within_limits(struct kunit *test)
+> +{
+
+[ ... ]
+
+> +	mutex_lock(&drm->mode_config.mutex);
+> +	ret =3D drm_helper_probe_single_connector_modes(connector, 1920, 1080);
+> +	mutex_unlock(&drm->mode_config.mutex);
+> +	KUNIT_ASSERT_GT(test, ret, 0);
+> +
+> +	mode =3D drm_connector_get_tiled_mode(connector, 1920, 1080);
+
+[Severity: Low]
+As with the previous pickers, drm_connector_get_tiled_mode() accesses
+connector->modes without the required drm->mode_config.mutex held.
+
+> +	KUNIT_ASSERT_NOT_NULL(test, mode);
+
+[ ... ]
+
+> +static void drm_test_pick_clone_mode_within_limits(struct kunit *test)
+> +{
+
+[ ... ]
+
+> +	mutex_lock(&drm->mode_config.mutex);
+> +	for (i =3D 0; i < ARRAY_SIZE(connectors); i++) {
+> +		ret =3D drm_helper_probe_single_connector_modes(connectors[i], 1920, 1=
+080);
+> +		KUNIT_EXPECT_GT(test, ret, 0);
+> +	}
+> +	mutex_unlock(&drm->mode_config.mutex);
+> +
+> +	KUNIT_EXPECT_TRUE(test, drm_client_target_cloned(drm, connectors, ARRAY=
+_SIZE(connectors),
+> +							 modes, offsets, enabled, 1024, 768));
+
+[Severity: Low]
+This call to drm_client_target_cloned() also iterates over
+connector->modes after the config mutex has been released.
+
+> +	for (i =3D 0; i < ARRAY_SIZE(connectors); i++) {
+> +		KUNIT_ASSERT_NOT_NULL(test, modes[i]);
+
+[Severity: Low]
+If this KUNIT_ASSERT_NOT_NULL() assertion fails, it immediately forces an
+early return from the test.
+
+Because drm_client_target_cloned() allocates new modes via mode_replace(),
+would an early return here bypass the mandatory modes_destroy() cleanup
+below and leak the dynamically allocated mode objects?
+
+Could KUnit's managed allocations (like kunit_add_action) be used to ensure
+modes_destroy() always runs on cleanup?
+
+> +		KUNIT_EXPECT_EQ(test, modes[i]->hdisplay, 1024);
+> +		KUNIT_EXPECT_EQ(test, modes[i]->vdisplay, 768);
+> +	}
+> +	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
+
+[ ... ]
+
+> +static void drm_test_probe_keeps_modes_above_limits(struct kunit *test)
+> +{
+
+[ ... ]
+
+> +	ret =3D drm_client_modeset_probe(client, 1024, 768);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +	mode =3D client->modesets[0].mode;
+> +	KUNIT_ASSERT_NOT_NULL(test, mode);
+> +	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
+> +	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
+> +
+> +	mode =3D drm_connector_preferred_mode(connector, 1920, 1080);
+
+[Severity: Low]
+Once again, drm_connector_preferred_mode() is called to iterate the
+connector->modes list without the config mutex held.
+
+> +	KUNIT_ASSERT_NOT_NULL(test, mode);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015212545.1989=
-962-1-hugo@hsal.es?part=3D1
+962-1-hugo@hsal.es?part=3D2
