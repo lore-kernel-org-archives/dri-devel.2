@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2052CC6B39
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF519CC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:59:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D1410E040;
-	Thu, 15 Oct 2026 16:59:19 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB2910E174
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 213E2112404;
+	Thu, 15 Oct 2026 16:59:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFECE112404
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:59:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E97CB41400
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:59:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A39E21F000C5;
- Thu, 15 Oct 2026 16:59:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D604D601EF
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 16:59:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645E41F000C4;
+ Thu, 15 Oct 2026 16:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792083552;
- bh=YS0Y60DD2QRe8Vqh1sg5jGmePC6r9/rGZE3IY6ezGE4=;
+ s=k20260515; t=1792083578;
+ bh=piAIFOeNjNJrlZEUFwH9bDBTTxQmKOcLsWOrlZMfil8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mzMxXDGBvd8TW+32lM5amb6oI9u3nPwuy328aON2ep9UC3fOVajKypCaMzJeH/+T4
- WDi5ugCFAfvhaxbTfCbUT3adw7dI1VoG/XSZhW59JlIvSYHECA6QzKp4z1QHknFr9H
- Wq80ho9c/t/hju5aKCn3U+gHHEVkPB6XTr7TMvO7B6oXhFYyyAeZbrCMdF1yHlu9R8
- RGOat4t165Lp5tvcZ8Q95+hOmAISHmIOomX53PraPtHWgbMZk70CBsIuPygOUHpsqd
- MTsjGOdCNeVmufTUkXpAFmx+QVFV9K4gWCyvOUgICssb8bBRjSKYWfi0XMOEqsRr7n
- miTM8GLwtzOoQ==
-Message-ID: <sashiko-outbox-173218@kernel.org>
+ b=RYSJMPs67K4IQwY+3NRod8OMwrlZWzEiPz7O5hJiLEr7NhLrE2qTXkNi1r4tMRRvV
+ ajZW2UMyZQJQzWb0RsjbDu8Q2KJMG0q14haVcm1FEoes2KhNv8ps+T/1G7XWxD03P1
+ 64mK1ZLlZ+oIVFeoRJkYLubYyBPNKVDK0tujRUXGYAbj7bCEIZKFuOYwwb3y38R9e+
+ 79Vf2O5tlWDatf0FliCjLUsNHNpKmgBXQseEyQzwQeUznQqKGoHzyGvW2gWJmu1WF8
+ TLIZ9WTzzyEU6w3bQvy7bQ5reuonJXJXHZasRROyjdeiZHF1vDgOjBjo4cwGRTSBWM
+ vAqmiYAxmdaKg==
+Message-ID: <sashiko-outbox-173219@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 22/28] drm/bridge_connector: Implement hw readout for
- connector
+Subject: Re: [PATCH v6 21/28] drm/bridge: display-connector: Implement
+ readout support
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261015-drm-state-readout-v6-22-6cc02cd10998@kernel.org>
+In-Reply-To: <20261015-drm-state-readout-v6-21-6cc02cd10998@kernel.org>
 References: <20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org>
- <20261015-drm-state-readout-v6-22-6cc02cd10998@kernel.org>
+ <20261015-drm-state-readout-v6-21-6cc02cd10998@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 16:59:12 +0000
+Date: Thu, 15 Oct 2026 16:59:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,66 +57,78 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/bridge_connector: refcount leak of hw_readout bridge on clea=
-nup
+- [Medium] drm/bridge: display-connector SRO readout aborts on missing upst=
+ream state
 --
 
-commit d10ad940eac7c7ab253337c97ac0dbff416cd941
+commit 3d42e46c975cd0148add9f035d4abfcb174d9299
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/bridge_connector: Implement hw readout for connector
+drm/bridge: display-connector: Implement readout support
 
-This commit implements hardware state readout support for the generic bridge
-connector. It allows the last bridge in the chain that supports readout to =
-fill
-the connector state from its own hardware state.
+The display-connector bridge is the last bridge in the chain on
+platforms using drm_bridge_connector. This commit implements the
+atomic_sro_readout_state hook, reconstructing the bridge bus configuration
+from the previous bridge's readout state and the connector's display_info.
 
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
-/drm/display/drm_bridge_connector.c
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
+/bridge/display-connector.c
+> index eb3412ec30a07..7f285b7c1e84b 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
 [ ... ]
-> @@ -896,6 +927,10 @@ struct drm_connector *drm_bridge_connector_init(stru=
-ct drm_device *drm,
->  		if (!bridge->ycbcr_420_allowed)
->  			connector->ycbcr_420_allowed =3D false;
-> =20
-> +		if (bridge->ops & DRM_BRIDGE_OP_CONNECTOR_HW_READOUT) {
-> +			drm_bridge_put(bridge_connector->bridge_connector_hw_readout);
-> +			bridge_connector->bridge_connector_hw_readout =3D drm_bridge_get(brid=
-ge);
-> +		}
+> @@ -213,6 +216,65 @@ static u32 *display_connector_get_input_bus_fmts(str=
+uct drm_bridge *bridge,
+[ ... ]
+> +static int
+> +display_connector_readout_state(struct drm_bridge *bridge,
+> +				struct drm_atomic_sro_state *state,
+> +				struct drm_bridge_state *bridge_state,
+> +				struct drm_crtc_state *crtc_state,
+> +				struct drm_connector_state *conn_state)
+> +{
+> +	struct drm_display_info *di =3D &conn_state->connector->display_info;
+> +	struct drm_bridge *prev_bridge __free(drm_bridge_put) =3D
+> +		drm_bridge_get_prev_bridge(bridge);
+> +
+> +	if (prev_bridge) {
+> +		struct drm_private_state *prev_priv_state =3D
+> +			drm_atomic_sro_get_private_obj_state(state,
+> +							     &prev_bridge->base);
+> +		struct drm_bridge_state *prev_bridge_state;
+> +
+> +		if (!prev_priv_state)
+> +			return -ENODEV;
 
 [Severity: Medium]
-Does this leak the bridge reference when the connector is destroyed?
+Will this hard error abort the entire SRO readout if an upstream bridge is
+missing readout support?
 
-In drm_bridge_connector_init(), a reference to the bridge implementing hard=
-ware
-readout is acquired using drm_bridge_get() and stored in
-bridge_connector->bridge_connector_hw_readout.
+If the DRM core is configured to attempt readout despite missing
+implementations, drm_atomic_helper_sro_readout_bridges_state() will skip
+bridges lacking an atomic_sro_readout_state hook:
 
-The teardown of the other bridge references in this struct is managed by the
-action callback drm_bridge_connector_put_bridges():
+		if (!bridge_obj_funcs->atomic_sro_readout_state) {
+			drm_warn(dev,
+				 "No bridge %s readout implementation.",
+				 bridge->name);
+			continue;
+		}
 
-drivers/gpu/drm/display/drm_bridge_connector.c:drm_bridge_connector_put_bri=
-dges() {
-	struct drm_bridge_connector *bridge_connector =3D (struct drm_bridge_conne=
-ctor *)data;
+If that happens, prev_bridge will be non-NULL, but prev_priv_state will be
+NULL since the core continued without allocating it. Returning -ENODEV here
+causes the core to fail with a warning, rather than gracefully falling back
+to default values like it does when there is no prev_bridge at all.
 
-	drm_bridge_put(bridge_connector->bridge_edid);
-	drm_bridge_put(bridge_connector->bridge_hpd);
-	drm_bridge_put(bridge_connector->bridge_detect);
-	...
-}
+Should this fall back to MEDIA_BUS_FMT_FIXED instead of returning an error?
 
-However, it doesn't look like drm_bridge_connector_put_bridges() was updated
-to release the newly added bridge_connector_hw_readout reference when the
-connector is cleaned up.
-
->  		/*
->  		 * Ensure the last bridge declares OP_EDID or OP_MODES or both.
->  		 */
+> +
+> +		prev_bridge_state =3D
+> +			drm_priv_to_bridge_state(prev_priv_state);
+> +
+> +		bridge_state->input_bus_cfg.format =3D
+> +			prev_bridge_state->output_bus_cfg.format;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-drm-state-=
-readout-v6-0-6cc02cd10998@kernel.org?part=3D22
+readout-v6-0-6cc02cd10998@kernel.org?part=3D21
