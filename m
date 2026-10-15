@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01EEDCC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:47:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1E9CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDED112379;
-	Thu, 15 Oct 2026 14:47:23 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2A9C89F35
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:47:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D3E6112383;
+	Thu, 15 Oct 2026 14:49:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 729F21123A9
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:49:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1288F601EF;
- Thu, 15 Oct 2026 14:47:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF881F000C5;
- Thu, 15 Oct 2026 14:47:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 348FE40A28;
+ Thu, 15 Oct 2026 14:49:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937FE1F000C4;
+ Thu, 15 Oct 2026 14:49:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792075635;
- bh=3j+m2tKl65aJQplhL2PcqyVb7I0LigfZ2IYh3ohIJz4=;
+ s=k20260515; t=1792075742;
+ bh=hPgsp5mk9UmQR5EXdQQuBho4RZ/GGl5KVCts0gDXoOI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lnZc/iVmo2BemktisXZ7FeDT+Z/JZ3X3NyM4LMWn58rRh36Ps3olDN34uvIoQYj5n
- zYqkClSKqayoQiEVjvlbg/7KzZgDhWr6GdAdzNWL90B4782g73La/bpNzL+wv1TYIq
- btbc+q+VuTYRVadi/oR4z2/jgpsZ3kZcpcnfg8ai/4alD4KCCun9K/8QOcgwjpGjhD
- OabKaVbOB92U1DndPB8esr1YpMHZ+LOCgFddJj0eZw3wR7dd6dgwfaZ6RSf4P/yzXB
- plj5Yf9yHAQGGFHDtRYyiBwNztkkO1TXMEhTb3NvKeqCJXe5yCYf2t9pEeKKJT2NX8
- icy2/WYaE3y9A==
-Message-ID: <sashiko-outbox-172989@kernel.org>
+ b=JTBXtSuR0ucd8oqNIEeMVoHTZq2Y8nf41xNfd/69yWy0vp+664i2NYqvOwS5KC7Wg
+ JYG/TYwY5ixj8MUqeQKlnf2/MFUbyMvniXyBmYSTqaK7woJzdJ4VRs2nD+yITjf3+h
+ NGlGR/QOsB/iK2hNb8gd8h76CvnDWoqcPyxvIq/sDPeVN2s39u+WCN3t/dD5qBuuRC
+ 9Jg9GYqpkk2rre7iimE6UOdVWkVOqO2jIjJesJO6kTh9Gcw8/oS5I6JhoEZA3qAY7n
+ kf/TlY+xWzWZLn4OZtqRQ49fjIEkuh4wQi65ce/U4uAQrqZMTQtBhzs3/7Qayp2Pmc
+ IiDxazEHW3ipA==
+Message-ID: <sashiko-outbox-172994@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 09/15] misc/arm-cla: Add userspace interface
+Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
 To: "Ryan Roberts" <ryan.roberts@arm.com>
 Cc: kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, "Oliver
  Upton" <oupton@kernel.org>, "Marc Zyngier" <maz@kernel.org>
-In-Reply-To: <20261015142552.4128028-10-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-16-ryan.roberts@arm.com>
 References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-10-ryan.roberts@arm.com>
+ <20261015142552.4128028-16-ryan.roberts@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 14:47:15 +0000
+Date: Thu, 15 Oct 2026 14:49:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,100 +56,119 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] core: format string mismatch in dev_set_name causes init failure o=
-n 32-bit archs
-- [Medium] misc/arm-cla: missing array_index_nospec in cla_vma_fault create=
-s Spectre v1 gadget
+- [High] sysfs: NULL pointer dereference in cpu_show() during mdev probe
+- [Low] kconfig: ARM_CLA_MDEV linkage error when VFIO or KVM are modules
+- [Low] char: cla_mdev_ioctl() returns -EINVAL instead of -ENOTTY for unkno=
+wn ioctls
 --
 
-commit 91161eb49b1b380686ad6f07674f5b53c3cf7baa
-Author: Ryan Roberts <ryan.roberts@arm.com>
+commit dd12438e45e5acb03e5d810526fd148e9b134169
+Author: Jean-Philippe Brucker <jpb@kernel.org>
 
-    misc/arm-cla: Add userspace interface
-   =20
-    Expose CLA devices through a character device so userspace can enumerate
-    the available hardware and map accelerator register frames.
+misc/arm-cla: Add vfio-mdev user interface
 
-> diff --git a/drivers/misc/arm-cla/cla-user.c b/drivers/misc/arm-cla/cla-u=
-ser.c
+This commit implements an interface to assign CLA devices to KVM guests
+using the VFIO mediated device framework. It sets up the stage-2 MTC for
+the assigned VMs and exposes a sysfs interface for device discovery.
+
+> diff --git a/drivers/misc/arm-cla/Kconfig b/drivers/misc/arm-cla/Kconfig
+> index f8436a12c1e64..5def727b7a342 100644
+> --- a/drivers/misc/arm-cla/Kconfig
+> +++ b/drivers/misc/arm-cla/Kconfig
+> @@ -8,3 +8,19 @@ config ARM_CLA
+>  	  accelerators. It is only accessible from its associated CPU.
+> =20
+>  	  If unsure, say N.
+> +
+> +config ARM_CLA_MDEV
+> +	bool "Mediated device for Arm CLA"
+> +	default y
+> +	depends on KVM
+> +	depends on VFIO
+
+[Severity: Low]
+Will this cause linker errors if ARM_CLA is built-in but KVM or VFIO
+are built as modules?
+
+Because ARM_CLA_MDEV is a bool depending on tristate symbols (KVM, VFIO),
+it evaluates to y even when KVM or VFIO are m. If ARM_CLA=3Dy, cla-mdev.o
+is compiled into the kernel. Since cla-mdev.c references module symbols
+from vfio and kvm, this can result in undefined reference errors during
+the kernel build.
+
+Should the Kconfig dependencies enforce that if ARM_CLA is built-in, its
+tristate dependencies must also be built-in?
+
+> diff --git a/drivers/misc/arm-cla/cla-mdev.c b/drivers/misc/arm-cla/cla-m=
+dev.c
 > new file mode 100644
-> index 0000000000000..41cd5e4a7d017
+> index 0000000000000..66c5dd197542e
 > --- /dev/null
-> +++ b/drivers/misc/arm-cla/cla-user.c
-> @@ -0,0 +1,541 @@
+> +++ b/drivers/misc/arm-cla/cla-mdev.c
+
 [ ... ]
-> +static vm_fault_t cla_vma_fault(struct vm_fault *vmf)
+
+> +static ssize_t cpu_show(struct device *dev, struct device_attribute *att=
+r,
+> +			char *buf)
 > +{
-> +	struct vm_area_struct *vma =3D vmf->vma;
-> +	struct cla_ctx_key key =3D CLA_CTX_KEY_PL0(vma->vm_mm, vma->vm_file);
-> +	struct cla_domain *domain;
-> +	struct cla_dev *dev;
-> +	struct cla_ctx *ctx;
-> +	unsigned long pg;
+> +	struct cla_mdev *mdev =3D dev_get_drvdata(dev);
 > +
-> +	/*
-> +	 * Reassignment needs mmap_lock, so we cannot wait while holding it.
-> +	 * The private futex fault-in path can reach here without allowing
-> +	 * mmap_lock to be dropped. Reject faults that do not allow retry.
-> +	 */
-> +	if (!(vmf->flags & FAULT_FLAG_ALLOW_RETRY))
-> +		return VM_FAULT_SIGBUS;
-> +
-> +	pg =3D vma->vm_pgoff + ((vmf->address - vma->vm_start) >> PAGE_SHIFT);
-> +	dev =3D cla_lut_pg[pg];
-> +	domain =3D dev->domain;
-
-[Severity: Medium]
-In cla_vma_fault(), pg is calculated from the user-controlled vmf->address
-and used to index the global cla_lut_pg array.
-
-Is there a risk that speculative execution could bypass the VMA bounds chec=
-ks
-prior to this handler, resulting in an out-of-bounds read that is immediate=
-ly
-dereferenced? Could this create a Spectre v1 gadget, and should we use
-array_index_nospec() to clamp pg before indexing?
-
-> +
-> +	mutex_lock(&domain->lock);
-> +	ctx =3D cla_domain_lookup_ctx(domain, &key);
-[ ... ]
-> +static int __init cla_accel_class_add(const struct cla_accel_desc *desc)
-> +{
-> +	struct cla_accel_class *aclass;
-> +	unsigned int i;
-> +	int ret;
-[ ... ]
-> +	aclass->desc =3D *desc;
-> +	device_initialize(&aclass->dev);
-> +	aclass->dev.class =3D cla_class;
-> +	aclass->dev.devt =3D cla_devt + cla_nr_classes;
-> +	aclass->dev.release =3D cla_accel_class_release;
-> +
-> +	ret =3D dev_set_name(&aclass->dev, "%03lx:%03lx",
-> +			   FIELD_GET(CLA_IIDR_IMPLEMENTER, desc->iidr),
-> +			   FIELD_GET(CLA_IIDR_PRODUCTID, desc->iidr));
+> +	return sysfs_emit(buf, "%u\n", mdev->dev->cpu);
 
 [Severity: High]
-Does this format string cause argument misalignment on 32-bit architectures?
+Can this result in a NULL pointer dereference during device probe?
 
-Because desc->iidr is a u64, FIELD_GET() returns a 64-bit value. Using %03lx
-expects a 32-bit unsigned long on 32-bit systems. This could cause the first
-%03lx to consume the lower 32 bits, and the second %03lx to consume the upp=
-er
-32 bits, completely ignoring the intended PRODUCTID argument.
+The cla_mdev_driver defines dev_groups =3D cla_mdev_sysfs_groups, meaning
+the sysfs core creates the cpu file before cla_mdev_probe() is called.
+If userspace reads the newly created file concurrently, cpu_show() executes
+before the drvdata is set later in cla_mdev_probe():
 
-If devices share the same implementer but have different product IDs, could
-this result in identical names and cause device_add() to fail with -EEXIST?
+static int cla_mdev_probe(struct mdev_device *mdev)
+{
+    ...
+    dev_set_drvdata(&mdev->dev, cla_mdev);
 
-> +	if (ret)
-> +		goto err_put;
+This would cause dev_get_drvdata() to return NULL, leading to a crash
+when accessing mdev->dev->cpu.
+
+[ ... ]
+
+> +static long cla_mdev_ioctl(struct vfio_device *vdev, unsigned int cmd,
+> +			       unsigned long arg)
+> +{
+> +	struct cla_mdev *mdev =3D
+> +		container_of(vdev, struct cla_mdev, vdev);
+> +	unsigned long minsz;
 > +
-> +	/* The node cannot be opened until cla_user_init() adds the cdev. */
-> +	ret =3D device_add(&aclass->dev);
+> +	switch (cmd) {
+> +	case VFIO_DEVICE_GET_INFO:
+> +	{
+
+[ ... ]
+
+> +	}
+> +	case VFIO_DEVICE_RESET:
+> +		return cla_mdev_reset(mdev);
+> +	case VFIO_DEVICE_GET_IRQ_INFO:
+> +	case VFIO_DEVICE_SET_IRQS:
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +	return -ENOTTY;
+
+[Severity: Low]
+Does this ioctl handler incorrectly return -EINVAL instead of -ENOTTY for
+unknown commands?
+
+The default case catches all unknown ioctls and returns -EINVAL, which
+makes the final return -ENOTTY unreachable. Userspace applications probing
+for features often rely on -ENOTTY to properly detect unsupported
+commands. Returning -EINVAL could mislead them into thinking the command
+is supported but their arguments are invalid.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015142552.4128=
-028-1-ryan.roberts@arm.com?part=3D9
+028-1-ryan.roberts@arm.com?part=3D15
