@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5094CCC6B33
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:47:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01EEDCC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:47:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8755F89070;
-	Thu, 15 Oct 2026 14:47:16 +0000 (UTC)
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B499B89070
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:47:09 +0000 (UTC)
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
- by mail11.truemail.it (Postfix) with ESMTPA id B2C4C1F90C;
- Thu, 15 Oct 2026 16:47:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1792075626;
- bh=Vyrg04IdV6YTuudUHDorKqPJHiwj0+rhGH0L6LDMbCo=; h=From:To:Subject;
- b=nsJkExFOd+ol+Gbg9biHjB0d6fVRlTVJ7XD/5l++G8Zd9aLABJz4Q8r01z7cXhz/b
- XBcP5+ivKyccbiSSNj2kn4l2bXEak0VHqpudbPSF1gs4oqeLME0FYFUHmzIqurPJKM
- QN8CdSRkahSziTghDJmeR/f9SBqInrYDvzqcJK2rV9QGIK7nFfeow36QXvcJZ38OeR
- MAIfyemUM2o70Q3aZlwfvCCilSidjz3m/WTzJ/MLQ85AcyksQSqsNsI5PP1quzIsdA
- 9sUveEQkcKSWrjVDB8Rima5zGYBGVidqT1PN7ox5592N7OjaohNYVPOwmem6K2yUr/
- tRTci8N2biW3Q==
-Date: Thu, 15 Oct 2026 16:47:02 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Francesco Dolcini <francesco@dolcini.it>
-Subject: Re: [PATCH 11/75] drm/bridge: lontium-lt8912b: Switch to
- drm_atomic_helper_connector_create_state
-Message-ID: <20261015144702.GA140066@francesco-nb>
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-11-586c9c026823@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-11-586c9c026823@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDED112379;
+	Thu, 15 Oct 2026 14:47:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2A9C89F35
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:47:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1288F601EF;
+ Thu, 15 Oct 2026 14:47:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF881F000C5;
+ Thu, 15 Oct 2026 14:47:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792075635;
+ bh=3j+m2tKl65aJQplhL2PcqyVb7I0LigfZ2IYh3ohIJz4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=lnZc/iVmo2BemktisXZ7FeDT+Z/JZ3X3NyM4LMWn58rRh36Ps3olDN34uvIoQYj5n
+ zYqkClSKqayoQiEVjvlbg/7KzZgDhWr6GdAdzNWL90B4782g73La/bpNzL+wv1TYIq
+ btbc+q+VuTYRVadi/oR4z2/jgpsZ3kZcpcnfg8ai/4alD4KCCun9K/8QOcgwjpGjhD
+ OabKaVbOB92U1DndPB8esr1YpMHZ+LOCgFddJj0eZw3wR7dd6dgwfaZ6RSf4P/yzXB
+ plj5Yf9yHAQGGFHDtRYyiBwNztkkO1TXMEhTb3NvKeqCJXe5yCYf2t9pEeKKJT2NX8
+ icy2/WYaE3y9A==
+Message-ID: <sashiko-outbox-172989@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v2 09/15] misc/arm-cla: Add userspace interface
+To: "Ryan Roberts" <ryan.roberts@arm.com>
+Cc: kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, "Oliver
+ Upton" <oupton@kernel.org>, "Marc Zyngier" <maz@kernel.org>
+In-Reply-To: <20261015142552.4128028-10-ryan.roberts@arm.com>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-10-ryan.roberts@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 14:47:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,16 +52,104 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2026 at 07:26:34PM +0200, Maxime Ripard wrote:
-> The bridge: lontium-lt8912b connector implementation uses the deprecated
-> drm_atomic_helper_connector_reset() as its reset hook.
-> 
-> Switch to drm_atomic_helper_connector_create_state() instead.
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] core: format string mismatch in dev_set_name causes init failure o=
+n 32-bit archs
+- [Medium] misc/arm-cla: missing array_index_nospec in cla_vma_fault create=
+s Spectre v1 gadget
+--
 
-Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+commit 91161eb49b1b380686ad6f07674f5b53c3cf7baa
+Author: Ryan Roberts <ryan.roberts@arm.com>
 
+    misc/arm-cla: Add userspace interface
+   =20
+    Expose CLA devices through a character device so userspace can enumerate
+    the available hardware and map accelerator register frames.
+
+> diff --git a/drivers/misc/arm-cla/cla-user.c b/drivers/misc/arm-cla/cla-u=
+ser.c
+> new file mode 100644
+> index 0000000000000..41cd5e4a7d017
+> --- /dev/null
+> +++ b/drivers/misc/arm-cla/cla-user.c
+> @@ -0,0 +1,541 @@
+[ ... ]
+> +static vm_fault_t cla_vma_fault(struct vm_fault *vmf)
+> +{
+> +	struct vm_area_struct *vma =3D vmf->vma;
+> +	struct cla_ctx_key key =3D CLA_CTX_KEY_PL0(vma->vm_mm, vma->vm_file);
+> +	struct cla_domain *domain;
+> +	struct cla_dev *dev;
+> +	struct cla_ctx *ctx;
+> +	unsigned long pg;
+> +
+> +	/*
+> +	 * Reassignment needs mmap_lock, so we cannot wait while holding it.
+> +	 * The private futex fault-in path can reach here without allowing
+> +	 * mmap_lock to be dropped. Reject faults that do not allow retry.
+> +	 */
+> +	if (!(vmf->flags & FAULT_FLAG_ALLOW_RETRY))
+> +		return VM_FAULT_SIGBUS;
+> +
+> +	pg =3D vma->vm_pgoff + ((vmf->address - vma->vm_start) >> PAGE_SHIFT);
+> +	dev =3D cla_lut_pg[pg];
+> +	domain =3D dev->domain;
+
+[Severity: Medium]
+In cla_vma_fault(), pg is calculated from the user-controlled vmf->address
+and used to index the global cla_lut_pg array.
+
+Is there a risk that speculative execution could bypass the VMA bounds chec=
+ks
+prior to this handler, resulting in an out-of-bounds read that is immediate=
+ly
+dereferenced? Could this create a Spectre v1 gadget, and should we use
+array_index_nospec() to clamp pg before indexing?
+
+> +
+> +	mutex_lock(&domain->lock);
+> +	ctx =3D cla_domain_lookup_ctx(domain, &key);
+[ ... ]
+> +static int __init cla_accel_class_add(const struct cla_accel_desc *desc)
+> +{
+> +	struct cla_accel_class *aclass;
+> +	unsigned int i;
+> +	int ret;
+[ ... ]
+> +	aclass->desc =3D *desc;
+> +	device_initialize(&aclass->dev);
+> +	aclass->dev.class =3D cla_class;
+> +	aclass->dev.devt =3D cla_devt + cla_nr_classes;
+> +	aclass->dev.release =3D cla_accel_class_release;
+> +
+> +	ret =3D dev_set_name(&aclass->dev, "%03lx:%03lx",
+> +			   FIELD_GET(CLA_IIDR_IMPLEMENTER, desc->iidr),
+> +			   FIELD_GET(CLA_IIDR_PRODUCTID, desc->iidr));
+
+[Severity: High]
+Does this format string cause argument misalignment on 32-bit architectures?
+
+Because desc->iidr is a u64, FIELD_GET() returns a 64-bit value. Using %03lx
+expects a 32-bit unsigned long on 32-bit systems. This could cause the first
+%03lx to consume the lower 32 bits, and the second %03lx to consume the upp=
+er
+32 bits, completely ignoring the intended PRODUCTID argument.
+
+If devices share the same implementer but have different product IDs, could
+this result in identical names and cause device_add() to fail with -EEXIST?
+
+> +	if (ret)
+> +		goto err_put;
+> +
+> +	/* The node cannot be opened until cla_user_init() adds the cdev. */
+> +	ret =3D device_add(&aclass->dev);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015142552.4128=
+028-1-ryan.roberts@arm.com?part=3D9
