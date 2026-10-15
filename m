@@ -4,90 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B45BCCA463
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B024CC6B39
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 16:15:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B7421122E4;
-	Thu, 15 Oct 2026 16:15:14 +0000 (UTC)
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6962112233
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 09:11:09 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id
- af79cd13be357-93c5b7f5bfaso210035785a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 02:11:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792055468; cv=none;
- d=google.com; s=arc-20260327;
- b=HAbPZ4oZJSBnV1wHrL9slG5Rxnrq4cQqUP/CEyTRjKwanN+TvAI/RHXQn+01xySwjA
- w9Xs7aBbhB8mpr1GleEdWFXF+BmGgccRlRAvvrhODA8L9jhrVbRqREXmstnYRl+0OfJx
- aEaruSfQnMPauhKoKSPYZcoZbMwtcReFTPB0Z+yC2f9/2E36/ycUAKlNbS+vuRKB71pQ
- AMFZdLM48+w/xPg/LqKfjv5ZB1pzqnMGXEFqI20NrA3+rH+EDFLl87KQG5GcIHCl55SN
- EUIUBm3YGBqQmDnxJXXZ8YZBJIO5CnZnhelrCA8P4U/d10YNHP2ScfeYTAMpkpq9iAHX
- tKRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=jEoeOoyKShfauUM6omyrvuy8JMoL6O15hulliMOGIOA=;
- fh=cK/UewRGO+5+n66WlRLBKs5mE0LI6pwf46iMcr+sJk0=;
- b=FZCWvoPsgWd09kQIV8DDpzPBN5OwaVVcCJeza6NcNOIhYcSYGIF+B+S4IyZZA+O5tU
- Q0OBjLhMdBrgT10kCI/TymIHVCBqhIWq28L9q3uji5ySnrm2YmzmY+5fPjtGJVtiscRK
- oM+XASOf9mcq8OYFvNNwkhdC0d3+5NMs1R9EmyT8um2i1fTRB0cFvMylDcmlQ45/MUWj
- 2wStI7PTzhw9kJqJFDwIuX4mAFrAs+6+gQ5M1JS2pglYBukFQI7EZHbu4t9FkKOG2/RQ
- p7HKNEaLltsMUMYnFxVNIz3UF1AccTNNAphMpWEXLFnG5n5J/QNT5qR8ZA3Z4Z4nHQy6
- SFyg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792055468; x=1792660268; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jEoeOoyKShfauUM6omyrvuy8JMoL6O15hulliMOGIOA=;
- b=bA0oMtBlREg8pitz69UjrYJKVRFWZJvzUPLA5SczzxHRTzAcnh+pDOwfH6zif+/I13
- VFtkDfPAAJctN8XfzLQwEfr2kYSX8IkfwjvDaTkQe8qfOr8CHjv9kXDAB3UIaOjpxJd1
- tiCJRF5fCpfVVEbeiY9FWCDTKAakjQQYzNMxGz8LBMhvRFDgWd8f2w3kbEVN1YXBZFGI
- XsoUE5SIOxCWPGNx6rwf5owCjaFucrb1GVvTKQuchUPNlMgbewXjS0v8YgSSvcaQVHY6
- Dqon8EQcbc655/Y5L8KEsxfk42SYcbJs+eA3T5AB3rWPYRV/1klBvOs3gv0ENjhCbV7d
- jGkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792055468; x=1792660268;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=jEoeOoyKShfauUM6omyrvuy8JMoL6O15hulliMOGIOA=;
- b=U+YGNMhCwzi1o5oj3lV6hTdk5jlW5Jp3eFC6bH7jjKkUFxGBVWxDemiDJN8JnOfJZN
- 6q+i5aLffrstCwSc8NtwCCUFaJEC40v/m8xlapuXJKRGyCwDxBWoRFfQbxoSPgvsiaGP
- QIu0sluIQNP7FUtPpLYIqDAczvCOW4mLs8wRq5e3aLTafHozr+UCRY6XpoLZkLoKrNMl
- ZMRWg+7/jfRVSTQe5ZRWqsgEnQ/FsWtzE0LZKPmf5r9fOAlLpUdQ8cHoWdibYjEMxBa9
- KqQolyij8mJr3lyc4gOxUpUa6LbCgMuCE/lIQL1oByD3qnn5gP2VPKaZ7eQzUIngQlw2
- gMjA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzo2vqpu/8PP8imx0x9SqHAC6Yd/yKOE6PzpzT2VGG8WGAdcYeUG/r4qgTrIWXSnW9zpVcGtbc9LbU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJJk3XFnSW+Q2p4kgYOXpXbK8os3YL3y05trwYeuBdhXkeFaa6E
- JHXW5zf2FZFwA8yS5kivPIZ1lZWa5UzvYk3qEyoGuq44azd06xJy3/kUsnlovVo45cvp6Am4B6G
- lDZLwjuOFPHoAEMmDRsr0rDvFzsLOLH0=
-X-Gm-Gg: AYBFou2M2dWZIj+c2JDzj14ld0DPhbqmVTPOPZjB3bNhuaKe56SjKKX+gJ5KZ4jRu1z
- htfq6JXOQ+7Il9lGwFbsSC7nMJ7uvkeizY2b8HdcCxrm2wbg4/wJedxd2wB37yClaWMs2DIukp8
- lg4GvegF0pDWrwstGSo9HOJ9Yk8ABmlGkBYHVfWTTVHVACbDlDm99mFHMR2hdW0b0PCD5hFJjET
- 67nUsxcple4ZZzDx0A2MHABB2btcbVKxPY4zM9b49t2Mi03GMOLiGOBtQLZ5EQsEfbAcHRJRCNS
- Bycdns7DuZsRYjbNqLWw6JOIgtEyITblw0mxhwy7/miD4ZmLZ4wAeBN3RV8cOsnq0ybrQJZlwNk
- kylkg8Dr0S0U=
-X-Received: by 2002:a05:620a:2850:b0:93e:94c3:e851 with SMTP id
- af79cd13be357-93ec135054cmr2512973085a.9.1792055468406; Thu, 15 Oct 2026
- 02:11:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4A0C1123CE;
+	Thu, 15 Oct 2026 16:15:15 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0579710E70C;
+ Thu, 15 Oct 2026 07:01:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+ s=mxsw2412; t=1792047689;
+ bh=Zzp0L9M7LCZLAz1+fyG+z2Ldl+Dr8gXyzVSa/cx+BAI=;
+ h=From:Date:Subject:MIME-Version:Message-Id:To;
+ b=AsZGOelYNpNtHSIqZXhUVXZuQ24YNNYApzhxYmlF04bH/7bQ0fXkXLPu7XvjSWkoC
+ m2GmZSimDs9F2JvjZM+/0tAIdcdL07VYVmUewyZ15dx38rXz+JaHsyx5ouGZPOc1zd
+ ppDTVJCaZ77iKepnfFf3KYNxz6vCWNHLSdZwH2sU=
+X-QQ-mid: zesmtpsz2t1792047681t67a10fc5
+X-QQ-Originating-IP: cWp66OV/6Aggbj6coctuU/KnlwtlAhnPiyugqKJoQmU=
+Received: from LT-LIANGBAIHUI.dc.com ( [120.237.158.181])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 15 Oct 2026 15:01:17 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 15740401673765768943
+EX-QQ-RecipientCnt: 18
+From: Baihui Liang <liangbaihui@linux.spacemit.com>
+Date: Thu, 15 Oct 2026 15:00:48 +0800
+Subject: [PATCH] dt-bindings: gpu: img,powervr-rogue: add spacemit,k1-gpu
+ and spacemit,k3-gpu
 MIME-Version: 1.0
-References: <20260928081450.19340-1-dilddream31@gmail.com>
-In-Reply-To: <20260928081450.19340-1-dilddream31@gmail.com>
-From: =?UTF-8?B?6rmA67KU7ISd?= <dilddream31@gmail.com>
-Date: Thu, 15 Oct 2026 18:10:57 +0900
-X-Gm-Features: AclHuK9dY7-4Z1BJVfwNpzcd1NSLlAb1ICM3Ix05ep8_FkWQ-f6VLJo26bPN6Nk
-Message-ID: <CAGC3ukQ7gX97E7pG0Oy8H0cnmQzoA1038io+VhrBogPB3y9dDQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
-To: nouveau@lists.freedesktop.org
-Cc: lyude@redhat.com, dakr@kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Content-Type: multipart/alternative; boundary="0000000000009cbe2f065ddd6d4f"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-spacemit-gpu-binding-v1-1-a7a23c7e7788@linux.spacemit.com>
+X-B4-Tracking: v=1; b=H4sIAB960GoC/yXMywrCMBBG4Vcps3YgKbWgryIucvkbRzCGTFsKp
+ e9u1OW3OGcnRRUoXbudKlZReecGe+ooPFxOYInN1Jt+tMYa1uICXjJzKgt7yVFyYkSH82VwcfQ
+ TtbRUTLL9trf737r4J8L8fdFxfACERUukeAAAAA==
+X-Change-ID: 20261010-spacemit-gpu-binding-edae594ad6bf
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ Baihui Liang <liangbaihui@linux.spacemit.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792047678; l=2486;
+ i=liangbaihui@linux.spacemit.com; s=20261015; h=from:subject:message-id;
+ bh=4lzXBUcyTaSG7VDzl4/QKL5wIysU87ym0aR2Y7KYb4s=;
+ b=T7UNM2+erl662vpWbMH+VuS+cHUxBjWDJJZYbdPe16Jl4P6ELNEUlES5jj5Pg8Iyg8c6rnCVp
+ sBFwWDugRZ9DePWoJM11FWC5i35SdCAe1w5+AIXbg18wgL23a5g0yvU
+X-Developer-Key: i=liangbaihui@linux.spacemit.com; a=ed25519;
+ pk=L9Pa1YBHFuJrRPNu/FfSW/likBvv9j2dUrR3r+YyJ5M=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NAtipnnbTPeap8sin7gfhxxovHr8IfZftexpwPT+F3DB2S7/lKFHwOjX
+ FtuoMHzWxoMOY3XXO2LoIy7zjO3V8itb7CGM2RyezL8YiW/vhqbeBAWepAMQjLruUQm6iDk
+ ujYMIBE5OgZ6EMPpUfMnzo3BgDkVnx57lzBQY+ifR6rFWgj19TR67xiTmOpS2oJo2xmIsI6
+ x6aYkpSDlSXiB6PRM31/HTwWVa3mzRB1R1Nyy9oSoTNxFORwssZHYIWYJ6hb2/ZVEOi7zen
+ q+mmsFcKKEERkwDO7x520uAvzBR4W8aI9X1fFik2fG8sHBQPmm29ASHyOncDSDG7mePdZop
+ FOYvN1ZCL2NTztkNhFf7Y6Sw3k4OXitUcrVkoZE7PSkh1WYZ+Q7KiCsBiSNuAaxgozYH3tL
+ EtumW0PiQSBP/LOdRYpXLeBBYBX51jbTFvV/CcPnpBEGWpKdXePBqpceE2MD7qUqVyJROJG
+ CpsZ1+L5bd39PhDBtDnITX5Gf5wvuoAnxMFQJmBqNamHBhvXa4FPYg1EWofPB20jP0bZFwB
+ U+yh9zTx6mTeXl48esd1Yp7tjVbSHjQCt43rwDsSkHjiUh9Yh2JYEWzFPhp2kvnBM1Adb7F
+ LoHVcd8UbkuY0FOh5gV4ObC9Wp81g4uiF/HkebPneRFx3W7mNmh7u/ShFC78tEQXon+bGBQ
+ 5/dl0EGoQK7I3qknLsqoSHpa4lVIAE/U6sezQg4D6t6ZZU2vtfsW52BGdTZMTeNQ0HOz2hx
+ jdG85dTUi6IKKQF5llKHL5G1PtY62nQTGO/G6JA2rwbZ65Zzk1X3tJ1tKf1COgoETIgi0Cu
+ VnQlz5Y2ouOwa72twaMoj0DTQrH7TMs/iJrWmmmajxvn5GYS5d+bT0JzJcQd7eA3SH77n/B
+ Sqx5Nw3ukJA1eHd+SrD/RCvUZgcbTsyIfk5e3fCMdTOngH8vGgk2B1igOICc5Lyu6pdeFSJ
+ QeYvytwE4kNxVNYwRrZVWXG9r0EJe9OMqcYvE0FNAWdCceKCaQCdM4ANBmW7x5OrhFmhRGY
+ g/stjM9w==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Thu, 15 Oct 2026 16:15:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,29 +95,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000009cbe2f065ddd6d4f
-Content-Type: text/plain; charset="UTF-8"
+Add compatible strings for the IMG GPUs in SpacemiT K1 and K3 SoCs:
+- K1: IMG BXE-2-32 (adds a dedicated entry for a single core
+  clock and power domain).
+- K3: IMG BXM-4-64 (shares the same configuration and entry as
+  the T-Head TH1520).
 
-Gentle Ping.
+Both SoCs require a single power domain provided by the APMU driver
+(currently pending mainline):
+Link: https://lore.kernel.org/all/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org/
 
-There has been some related discussion here:
-https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.fr
+Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
+---
+ .../devicetree/bindings/gpu/img,powervr-rogue.yaml      | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-The patch has also been independently tested, with no reproduction of the
-issue reported so far.
+diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+index e9218e0f363..600445cd506 100644
+--- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
++++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+@@ -37,6 +37,12 @@ properties:
+           - const: img,img-rogue
+       - items:
+           - enum:
++              - spacemit,k1-gpu
++          - const: img,img-bxe-2-32
++          - const: img,img-rogue
++      - items:
++          - enum:
++              - spacemit,k3-gpu
+               - thead,th1520-gpu
+           - const: img,img-bxm-4-64
+           - const: img,img-rogue
+@@ -102,6 +108,8 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - spacemit,k1-gpu
++              - spacemit,k3-gpu
+               - ti,am62-gpu
+               - ti,am62p-gpu
+               - ti,j721s2-gpu
+@@ -162,13 +170,16 @@ allOf:
+       properties:
+         compatible:
+           contains:
+-            const: thead,th1520-gpu
++            enum:
++              - spacemit,k1-gpu
++              - spacemit,k3-gpu
++              - thead,th1520-gpu
+     then:
+       properties:
+         power-domains:
+           items:
+-            - description: The single, unified power domain for the GPU on the
+-                TH1520 SoC, integrating all internal IP power domains.
++            - description: The single, unified power domain for the GPU,
++                integrating all internal IP power domains.
+         power-domain-names: false
+       required:
+         - power-domains
 
-Thanks.
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261010-spacemit-gpu-binding-edae594ad6bf
 
---0000000000009cbe2f065ddd6d4f
-Content-Type: text/html; charset="UTF-8"
+Best regards,
+--  
+Baihui Liang <liangbaihui@linux.spacemit.com>
 
-<div><div style="font-size:inherit"><div style="font-size:inherit">
-
-<p dir="auto">Gentle Ping.</p>
-<p>There has been some related discussion here:<br>
-<a href="https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.fr">https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.fr</a></p>
-<p>The patch has also been independently tested, with no reproduction of the issue reported so far.</p>
-
-</div></div><br></div><div dir="auto">Thanks.</div>
-
---0000000000009cbe2f065ddd6d4f--
