@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE91CCC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C59CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 11:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 456FF1122F5;
-	Thu, 15 Oct 2026 11:16:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E861112306;
+	Thu, 15 Oct 2026 11:16:38 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FDAD1122D6
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 102A11122EF
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 11:16:31 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 297C92F8;
- Thu, 15 Oct 2026 13:14:24 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 29727593;
+ Thu, 15 Oct 2026 13:14:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1792062865;
- bh=hcEs1EESDACSG5FDi0QNjOuOs0/cXvky+phx60RikVg=;
+ s=mail; t=1792062867;
+ bh=AHpHmx1iq7PtcLkgGBG60RlQSwRRh2zNkf8geQNcRlY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=XsVovh7fQHvjw45Ls2tbeRsulV4sYjocwfUZcPjLFbV47udYL4Fe3+IyyNsKAZiPt
- E24YPIr28ONbb641NaJZqna0wM42wRVbEYnePI48+lwUj/tAZCdexWYXzSZwLJE3rp
- qf5ihr4l7r5dBGj7Xai8EAkVIpsZ7//vpB5fpqFA=
+ b=rVXGefDvy2f01YzDiY2nZfNC3rY/xBvCNyizhRNo5zb1FtBK1T/O6e+XZklSyXiFI
+ YMF6WuriyK6bT/UuqQ+1qc5xRZiJDHbZUIh5Z4SgjGKWn6XOHgu7kOaI2zg8QQykhu
+ GlH3JvFeNi47+JUnmKmy1RVPRWhj9V7Kgt98qNng=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:15:52 +0300
-Subject: [PATCH v5 01/13] drm/bridge: tc358762: Clean up register defines
+Date: Thu, 15 Oct 2026 14:15:54 +0300
+Subject: [PATCH v5 03/13] drm/bridge: tc358762: Improve LCDCTRL defines
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-1-7cd721a6451b@ideasonboard.com>
+Message-Id: <20261015-tc358762-fixes-v5-3-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -44,21 +44,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2518;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3005;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=hcEs1EESDACSG5FDi0QNjOuOs0/cXvky+phx60RikVg=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYEzsJro3jK1pHnpUI7oQrZtK0pXvQS//8e8
- M2itL9bkE+JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BAAKCRD6PaqMvJYe
- 9dgiEACx1EvHIDxdoaPYpELqLC3J0fExWHWzdwCHcb0iw4Y5OHM8kInbnNXJzqkktJ3V1GSr4jW
- cEy/dl3Sx7bfu2Uu7h9VC0gN4FYFuZDOt4Jws71cUQqaCB+sXMO9Y9CjLZ6aF4Qqgm9hhFU/sw9
- UjOP/3dlT5NpP7kB/k3okYDoONWOppF6tdUp8ZBT3dY3kZtcZGXk+ygbDGLeT7PMXz9WoxmionN
- 4cnjm9lwq1mOOpBg0gxs6bX3GDFG178lx8cNaHs7Ybfu1LPjRp/SSqlq3o8BxpV2XAO0ezffkXF
- T9BVb6IBdtsKdf4YCeaHFAW+3is49WWbqSLjGkIM4MnNJxy1JBegIXTmBIvzaE2eL97pgkjT5nm
- w5D8Zy5QngPOhXKXnuiRlstCcXPwhcY8OZX5pfgPSO9n2mp/gvgCKZx+wp9M0dsXjCNiaJeS9ZQ
- +lO/ftbEVOPT8OssiGs/ZdQT6oTCZTPTyKVgtOU8N1vpPzgq6fu96ZAOEgQwC1aRtMYjUAuDSlH
- 26t0/fqV3p2RZBIdwpKQ192xgCoxIxyJIZtSdsCWdo99sPhD+DHJn226l1Z9FNTbuDZ8ExWt4GI
- oueOAVPp6/ak6c8eCUYgve7Hq5KOKw9d+wWXD7KTrg+jWr1bF65YuvAHa8ReTHtva2KvMn5kcUE
- BTxM2BSPjNtqeiw==
+ bh=AHpHmx1iq7PtcLkgGBG60RlQSwRRh2zNkf8geQNcRlY=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYFfh4j6CWZmu6hiy2lL3y1mbx2IZ0CjeHbb
+ w2OYj6AgxqJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BQAKCRD6PaqMvJYe
+ 9dqrEACG5Xb+8K4Gqz4ZxvbB1j1rmdy28F8bpPsM9efftpaNV6lg7CV60M+Qzo7TZsHkmk8d/DJ
+ XnSIEWz+dkp/GKJuVURRDWG5AAgR+IPNeLVplrdBlAqxQ3ys8uUsmWqXbgUsYGVw/+zic2zVjfq
+ LZSYi+pr5i6vutZFIaEISYZDnS8AFdS4JsBQTJ//Dia5blglTHOJvZTRFEPiEAhD/NaxKPkKB8s
+ bMAlXF4vf7x5e/hYGPk0pz7S1ysYEZ2aaJjAvxU7Q7GaCFfiGuYMDiD/Z+LU2DVKJgJOie37Hlt
+ vU5Z6/osO55AI/6cJHlExMc2Xh6XZ0vkeL1TZQRHT4UAFDLGa+d8+OEjeCfIfcylTuArO36h6+a
+ 6Q3EQlQt6xbFZu5itI1+m5jfS/KQhnLl0M6tHvd2yArXjBx9u319xOA3vygddlbKs3Qhymo8Ebe
+ PTRs1KfBBp0loYNzWQcEr/yUS4PWxmuPlU29VUty6kPAOK7HonMW0QXsOY+3q61CEKAX6yA4+mY
+ rL1DKuZAEYJj/SDyw55TQV7ymfgteNSBPvlVrgrMLlY5WytqryAQSf6Ttb37gmHKUljt6Ewu4hY
+ vtGslRyOWbnw6yaK17Us0C4w4ER/iB6+mTBGpup50/a5slXDOekWaZuYZVJLoDUzFwQ632m0BD9
+ olh+fx6mvZAICoA==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,77 +76,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the defines around and rename for clarity and consistency. No
-functional change.
+LCDCTRL fields are quite wrong in the driver. Fix the field defines.
+
+A few notes about the wrong fields:
+
+LCDCTRL_VSDELAY(1) actually sets LCDCTRL_DCLK_POL
+LCDCTRL_UNK6 | LCDCTRL_VTGEN actually set LCDCTRL_PXLFORM_RGB888
+LCDCTRL_RGB888 actually sets LCDCTRL_DPI_EN
+
+The total still resulted in a working display even if the defines were
+quite wrong.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 33 ++++++++++++++++++++-------------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 76564d5e4f69..097d2f331a16 100644
+index 59c68432f8e1..26671dc66874 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -28,17 +28,22 @@
+@@ -46,17 +46,22 @@
+ #define DSI_LANEENABLE_L0EN	BIT(1)
+ #define DSI_LANEENABLE_L1EN	BIT(2)
  
- /* PPI layer registers */
- #define PPI_STARTPPI		0x0104 /* START control bit */
-+#define PPI_STARTPPI_STARTPPI	BIT(0)
-+
- #define PPI_LPTXTIMECNT		0x0114 /* LPTX timing signal */
- #define PPI_D0S_ATMR		0x0144
- #define PPI_D1S_ATMR		0x0148
- #define PPI_D0S_CLRSIPOCOUNT	0x0164 /* Assertion timer for Lane 0 */
- #define PPI_D1S_CLRSIPOCOUNT	0x0168 /* Assertion timer for Lane 1 */
--#define PPI_START_FUNCTION	1
- 
- /* DSI layer registers */
- #define DSI_STARTDSI		0x0204 /* START control bit of DSI-TX */
-+#define DSI_STARTDSI_STARTDSI	BIT(0)
-+
- #define DSI_LANEENABLE		0x0210 /* Enables each lane */
--#define DSI_RX_START		1
-+#define DSI_LANEENABLE_CLEN	BIT(0)
-+#define DSI_LANEENABLE_L0EN	BIT(1)
-+#define DSI_LANEENABLE_L1EN	BIT(2)
- 
- /* LCDC/DPI Host Registers, based on guesswork that this matches TC358764 */
+-/* LCDC/DPI Host Registers, based on guesswork that this matches TC358764 */
++/* LCDC/DPI Registers */
  #define LCDCTRL			0x0420 /* Video Path Control */
-@@ -59,14 +64,8 @@
- /* System Controller Registers */
- #define SYSCTRL			0x0464
+ #define LCDCTRL_MSF		BIT(0) /* Magic square in RGB666 */
+-#define LCDCTRL_VTGEN		BIT(4)/* Use chip clock for timing */
+-#define LCDCTRL_UNK6		BIT(6) /* Unknown */
+-#define LCDCTRL_EVTMODE		BIT(5) /* Event mode */
+-#define LCDCTRL_RGB888		BIT(8) /* RGB888 mode */
+-#define LCDCTRL_HSPOL		BIT(17) /* Polarity of HSYNC signal */
+-#define LCDCTRL_DEPOL		BIT(18) /* Polarity of DE signal */
+-#define LCDCTRL_VSPOL		BIT(19) /* Polarity of VSYNC signal */
+-#define LCDCTRL_VSDELAY(v)	(((v) & 0xfff) << 20) /* VSYNC delay */
++#define LCDCTRL_VTGEN		BIT(1) /* Use chip clock for timing */
++#define LCDCTRL_PXLFORM		GENMASK_U32(6, 4)
++#define LCDCTRL_PXLFORM_RGB666		0	/* x:R:G:B 6:8:8:8 */
++#define LCDCTRL_PXLFORM_RGB666_24	1	/* x:R:x:G:x:B 2:6:2:6:2:6 */
++#define LCDCTRL_PXLFORM_RGB565		2	/* x:R:G:B 8:5:6:5 */
++#define LCDCTRL_PXLFORM_RGB565_1	3	/* x:R:x:G:x:B 3:5:2:6:3:5 */
++#define LCDCTRL_PXLFORM_RGB565_2	4	/* x:R:x:G:x:B:x 2:5:3:6:2:5:1 */
++#define LCDCTRL_PXLFORM_RGB888		5	/* R:G:B 8:8:8 */
++#define LCDCTRL_DPI_EN		BIT(8)
++#define LCDCTRL_HSYNC_POL	BIT(17) /* Polarity of HSYNC signal */
++#define LCDCTRL_DE_POL		BIT(18) /* Polarity of DE signal */
++#define LCDCTRL_VSYNC_POL	BIT(19) /* Polarity of VSYNC signal */
++#define LCDCTRL_DCLK_POL	BIT(20) /* Polarity of pixel clock */
  
--/* System registers */
- #define LPX_PERIOD		3
+ /* SPI Master Registers */
+ #define SPICMR			0x0450
+@@ -139,14 +144,16 @@ static int tc358762_init(struct tc358762 *ctx)
  
--/* Lane enable PPI and DSI register bits */
--#define LANEENABLE_CLEN		BIT(0)
--#define LANEENABLE_L0EN		BIT(1)
--#define LANEENABLE_L1EN		BIT(2)
--
- struct tc358762 {
- 	struct device *dev;
- 	struct drm_bridge bridge;
-@@ -117,7 +116,7 @@ static int tc358762_init(struct tc358762 *ctx)
- 	u32 lcdctrl;
+ 	tc358762_write(ctx, SPICMR, 0x00);
  
- 	tc358762_write(ctx, DSI_LANEENABLE,
--		       LANEENABLE_L0EN | LANEENABLE_CLEN);
-+		       DSI_LANEENABLE_L0EN | DSI_LANEENABLE_CLEN);
- 	tc358762_write(ctx, PPI_D0S_CLRSIPOCOUNT, 5);
- 	tc358762_write(ctx, PPI_D1S_CLRSIPOCOUNT, 5);
- 	tc358762_write(ctx, PPI_D0S_ATMR, 0);
-@@ -140,8 +139,8 @@ static int tc358762_init(struct tc358762 *ctx)
- 	tc358762_write(ctx, SYSCTRL, 0x040f);
- 	msleep(100);
+-	lcdctrl = LCDCTRL_VSDELAY(1) | LCDCTRL_RGB888 |
+-		  LCDCTRL_UNK6 | LCDCTRL_VTGEN;
++	lcdctrl = FIELD_PREP(LCDCTRL_PXLFORM, LCDCTRL_PXLFORM_RGB888) |
++		  LCDCTRL_DPI_EN;
++
++	lcdctrl |= LCDCTRL_DCLK_POL;
  
--	tc358762_write(ctx, PPI_STARTPPI, PPI_START_FUNCTION);
--	tc358762_write(ctx, DSI_STARTDSI, DSI_RX_START);
-+	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
-+	tc358762_write(ctx, DSI_STARTDSI, DSI_STARTDSI_STARTDSI);
+ 	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
+-		lcdctrl |= LCDCTRL_HSPOL;
++		lcdctrl |= LCDCTRL_HSYNC_POL;
  
- 	msleep(100);
+ 	if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
+-		lcdctrl |= LCDCTRL_VSPOL;
++		lcdctrl |= LCDCTRL_VSYNC_POL;
+ 
+ 	tc358762_write(ctx, LCDCTRL, lcdctrl);
  
 
 -- 
