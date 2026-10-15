@@ -4,128 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E625FCC6B3A
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6E2CC6B3A
+	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 14:14:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA2E10E267;
-	Thu, 15 Oct 2026 14:01:07 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012009.outbound.protection.outlook.com [40.107.209.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1E7910E267
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:01:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XMlAC4d3t7b/xPpJYk6yvUz8YA5TH0W3217I0CGc0+TyGqS+J7Tpgm1X1kGTplGCcyMVfLMU+y3Z5BBRp86HXjKKhjgTlcEGm5VajeZ0F9MIZdrnhw7q5z5W10ol9pz6g6+vwxNXhwiAZ2N3nEE7LGQ95X0CNsU8EFFkmoVLrAU/Bjrl2Tcr0jQaaC7mW3h+g8JCL8I/4mR/Ws0copWd/B+NYef/zzlZeCBgEeYv0csHLzaYCL7aRTndRQl7AUs14UFzS+KiSbijYIQ2qVHnYaU9BODhAPhflh4gC4e/DL9mQBqNohMvw1i/g1U6T4aRU20UduPfoMBtp+S5RSwj1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8aMnWIXVFDYBz1u3BxRds3jCAGhwtv0BAJgMhwlGfso=;
- b=NbkJoErdkcYtSGtpq34ESGTG1q69wiMFMt9KYsJq9vGgVTMEIsWVYOXL/PnFc/lJVmfYYSbbzhEdUFnJxmn/EyjwBW0pmqcjVK+rBjeOIwGaTN3wkhWchiTWGL2IFbVdRLelAFico0G+gUhwOxXEjpTbksT77hAVA68CFOMA8uZrbfiOym9v7a0MVlvjM63I2VNzuX30Z8bLH9byqhvLDK94ZD4oR7gMyxrnGQYFpRjuiG5LAXsrsGl3CnzcjMvfIuHrZ3dlii9eYVeeXsnO39hHza2bxltBoeYaciWsWEzfzFvTQIrNsWacJQkLiXIkoUHxoRk3A5HKwbYdexQROA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8aMnWIXVFDYBz1u3BxRds3jCAGhwtv0BAJgMhwlGfso=;
- b=Sz3yAe9hyg9SY4rTV+WPMsZWehczHG1G1BuqkNwV/YT6gAn2IrXufR/t8+ujyJq8auJY5ewhfIIB+p8is+dCxww37kKP96BaZvcKghQp//bmtWgFOr1/kV9zYdgvZKy1v9yLwG/86qnQpxFBsvjcnVvDQ122Hk1x+jqchjKrOsTKv4dvTulIbyodOhOlhKFkUweN7lZoE9Bh7XPAaRTJFg/9mAmEJnCQxHibQ6/cKrXEvyrPV9fNwidArbVmpTLakgPW9eoC0P0DAPjHpU4vAeAdohuhHq5PKY2WOgHCPPMEnydx6JNvhmacZpeqfjeJ4hh0hFJZ2l3DnKCaGvBFJQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 14:00:56 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0496.015; Thu, 15 Oct 2026
- 14:00:55 +0000
-Date: Thu, 15 Oct 2026 10:00:53 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
- Burak Emir <burak.emir@gmail.com>,
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
-Message-ID: <atDclcwHGykChUim@yury>
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
- <aryYkkB9j14xnWo3@yury> <DLTA93JE6VF2.37UGB3SWU6ID6@nvidia.com>
- <ase7IBtZjQsPVWSN@yury> <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
-X-ClientProxiedBy: SA0PR11CA0165.namprd11.prod.outlook.com
- (2603:10b6:806:1bb::20) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6CE110E214;
+	Thu, 15 Oct 2026 14:14:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D90EA10E214
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:14:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8DE6C43AAB;
+ Thu, 15 Oct 2026 14:14:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFBEA1F000C4;
+ Thu, 15 Oct 2026 14:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792073656;
+ bh=UgdqyF6FEN8olbz6l9+spc+Bapy75+BcU13cALLW+eI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=MtXhzWod9jpMv2PHNRke7nFXeXMTCxfQmq1SByHN/ACefsv1CJ40kxnEmYNPzEqHm
+ knVkDXnJrIKBc5IkEo/4zRzB59Vm2fD+RdnEwKresx9fecoGg6SEvizJu6nOwq2v0t
+ XChs7uSw9Rn6UwqnLvI4FQUHke9LV6VhBDdmQODyh75Wj82lKG5hl4Cd5xd37+B7YH
+ 7/tuNjR7X1cHa0nBeuEek/QA863n2R+XLbnnnyckmFO6o2UiJktkSKVS7Yu5LtHphA
+ aM3Yb4Md1bBwpIeDA+NkUo/xOzJ1wGHTv27be6RQIhBnWeIDa2aSmWu71s/kh2slh8
+ 5g+/y/3hlS2yA==
+Message-ID: <5800bc6e-7671-41eb-bb09-7fbc8f2d085c@kernel.org>
+Date: Thu, 15 Oct 2026 16:14:07 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY8PR12MB8065:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11a6dd0f-aff3-4523-f848-08df2ac4bb5f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|10070799003|1800799024|7416014|366016|23010399003|56012099006|5023799004|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 8qfUURNJd5Dq8BRtCWBRqf/kl7v+lKs0kSFdECMUu15whFtjuq4G2ET5/hsl81e22iSrqr/kaU+8JUdF69WUiMUj2pz4SBGZ9sfgB/+3OmTKzJfB4mHsUYdTTRoz5vuo3pQhsesTPjFbUyZCYTXT9fgtKvJ3L3lozq2PeQa8oQiudyBySoOq5jVf4YQRdMSww4MTPDjQkFwt0MrJDXWkpL4atI2yAl8+1qNiZCjPnlI/KQI24m36Z9/BRvURu2JyX4yvG27nUfV/tyfV2+ttCcYvuGKpMKeQtYJgakAGKeeSdUQFLtaSm/OHczIxllBhKfvj09GtMr16jlvBa9dCxNgEu1jI9K1O2Mc5hVMR4nI7f6UmGD7OypTKTTHTgzMU2WRjYjmZqorp30a2dcJsAlyWgRNDeLhS3qprQ4AJff+KI8epkeGKLI2c2fH/9U9z01fIBrYvwVJex+MhBNK5tl4N/Iy1Z+a1Eqc95EJeCQM5grPxt5l8iCH0hHCNu/7T7TmLPJ3OIIm0MlU8Kgsp6xfzWBaikzVNnjPVxyQVNixtl2Nfl0sehGMavP4OtEmpMRy3E2Rg55ft9P3/RxvcoBur1SgblsuESpsdVfE0uZw/kjBPFbxJkytl9V6jtxztDODMsi/AATn6VWhHyQMfXFmeNA7gbboI6mfB4WefXg4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(10070799003)(1800799024)(7416014)(366016)(23010399003)(56012099006)(5023799004)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?bhcroKCIf0y79Rfa8WKd8Hnb5HMoNkErNtmZSOtC3Mc8aBEP4CJ6ApzMyCfh?=
- =?us-ascii?Q?jhayvJ8tYyDREA5O1zXROS+8cfMCrr/WAeVZihZ3L6B0GsH/vVJ5lxSoNbhX?=
- =?us-ascii?Q?xu1FZab0IF7FBazut1s1FUvYWyem0KdCxN5ZcYxJ/AY9Dm3MFIgJHduUm7GU?=
- =?us-ascii?Q?jn/tPqdoehAFPIBUHdYVcl0vIUogrXwZHaGefibFTnmDhHGQvVvP5uKH/U9i?=
- =?us-ascii?Q?TgD1gspcUis/hd39jdcjF1ZZ4fJOlDaE9ARhzpHgXkpAoWTLlMc2L4Z6zYDO?=
- =?us-ascii?Q?ld9nGJ+9tmWBeOuQQitBCN9NEypZluZn9XuiRtbs4pnoa9ZQweR5QzR0MDlj?=
- =?us-ascii?Q?PLhoMCdbIt2uTl/VusxKYZ6Da8TmlLNB/KYzgsT8iyx8tx33ph1sX+3atPaq?=
- =?us-ascii?Q?xHVq79zFVKRsAH14VnN4GhXyiYpwj0tQ5hpdqzoCi9XiYvdj0kYB4+e5fXf9?=
- =?us-ascii?Q?3imLRYtSDroNFZ8FG9uqdevPjWu9VCIK7jDIHk8AXc7yXijtksHTuJWFZZfk?=
- =?us-ascii?Q?e//COQUToImjswofIZoBYiLbs871AMb2JOBVveJImY4RXNbDnKwPa5wpbECe?=
- =?us-ascii?Q?XF4HyLEVhH7JqHPoXL1JYTiS9DbFXrF4xek9XL3JJkAZvG6a901ZS/YOxY7G?=
- =?us-ascii?Q?ZMjPMyFnIBmbEQOL3qQRweweYjeDuXEDG6LqgZPrk2s8WidMpjOCKvbRmBUd?=
- =?us-ascii?Q?t8eLRRpYjw/OayGdA0p/OgTlhYg9qo3i1CRs1yntQlhyxNiyhunRzFszDitG?=
- =?us-ascii?Q?eP4QJ/uYC+DprWdvY25//1AbjfNcRV6iEFUOlrquhy+w+UwDRXkcYST+KQe3?=
- =?us-ascii?Q?qUFhCSFER1VBw90NrOzwIYmEcQJN5aNsPb3Qq5p6DL/WtMk25I/H5cjItly5?=
- =?us-ascii?Q?boUbromFLwj/N0XgqIsDJj1g+rDzFHMTImgvLJgKcbbm0zFYJcbopHvBsG1U?=
- =?us-ascii?Q?7j2E9SrQLxhBhBceSxKq3YUQ7sLJaOiaF7DnF1sJDem7pI0kpkGcm+p96FG+?=
- =?us-ascii?Q?DXZl09muvr80OHdM2pD7nSgxSky+VpO59Poc0JYwE61CfBbkf5ji/YFc6xhL?=
- =?us-ascii?Q?ey51CxILNO1R/BGbAtL9hwE0V9PcJ7jJMrS3/CygyqnyKqSr2CWSGgK0HU/f?=
- =?us-ascii?Q?zrTqYxytRxG5Oc9yxMM//ddbwz3J4zcU9aE+VSj2iQ8k2jkGUMdWE4vnyD6Z?=
- =?us-ascii?Q?VP04GWjoFv4QFHnHZBPJ3qa0Rs6KG+7hA1shV6jdy2kw4Jy6W8YxFYxbpOy0?=
- =?us-ascii?Q?rBiVSt+SttkHIN7sgzH97U1MytVGO/bdpoacfKdPRqGL88X9+zyEloMI0Gu8?=
- =?us-ascii?Q?SXUH6ylTHoz/KArXauWo4/8jV8KfiiwSqWhrMaYXbaYb/r/Rnmp76hJJvFfV?=
- =?us-ascii?Q?82K1Ej9NKnbRodx+XqbqNUv9U1D9pC5DfKgooB0TfSLCFMEuj0NT2q5GdhQd?=
- =?us-ascii?Q?B9TqS3NQgMADc5GTVYNsqHwpg6I24iG2te6lgyyiPaI93gAHWNGD6kJvmCzc?=
- =?us-ascii?Q?iUrMqSUkVZDLtkTvkNBZZBS31v6M+Mzn8dc3mJo8huS4buIx02KMqlNELguw?=
- =?us-ascii?Q?iFEHJz+o0BX550alaRMzTEMUcrXoILjtAGdIoDRoWfmYvTpIGbBDg1uPSPvT?=
- =?us-ascii?Q?2qXFOJq11OVght2KXJS6QinDf5kFLruVVUPInP3Jr/pZxU/aymWViddMxCmm?=
- =?us-ascii?Q?TEKy9Qd/rmCk2+/DdTh2k71/dY+W6esCrQLjtGmkHVlkNSQrEsjQmUFEQEuO?=
- =?us-ascii?Q?wNsCvIxLauiNYGvnT80TttkuzVFPUjsvf+4itEIKcKNH+KCXwbSe?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11a6dd0f-aff3-4523-f848-08df2ac4bb5f
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:00:55.7538 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3hr5bJ0JEKTNXcV/GcR0lXAFGQaciq+isH2cTOK/olaOW1nqu2Nw9dRfQHtomj4fJdIK57LFgVFXlTDEISp2/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] mm/huge_memory: recheck a special PMD under the
+ lock in copy_huge_pmd()
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+ <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-1-85eaec8417f6@virtuozzo.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-1-85eaec8417f6@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,131 +114,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 09, 2026 at 11:07:51PM +0900, Alexandre Courbot wrote:
-> On Fri Oct 9, 2026 at 12:47 AM JST, Yury Norov wrote:
-> > On Thu, Oct 01, 2026 at 03:20:40PM +0900, Alexandre Courbot wrote:
-> >> On Wed Sep 30, 2026 at 2:05 PM JST, Yury Norov wrote:
-> >
-> > ...
-> >
-> >> > Allocating a pool with 0-bit capacity is wrong. Please don't put it
-> >> > in the examples. I recall I pointed that this object would panic the
-> >> > kernel if, for example, you call pool.next_zero_bit(0) immediately
-> >> > after this. Sorry, but NAK.
-> >> >
-> >> > This .with_capacity() should take num_ids: NonZero, after all...
-> >> 
-> >> This panic is not specific to the size zero, any size triggers the same
-> >> behavior when accessed out of bounds.
-> >
-> > In C, malloc(0) is implementation defined behavior, i.e. it can return
-> > a pointer valid for free(), or NULL (which is also valid for free).
-> >
-> > This is a very old legacy coming from K&R implementation, then rejected
-> > in C89, and later this all became an impl-def, mostly for compatibility
-> > reasons. See 7.20.3 in
-> >
-> > https://www.open-std.org/jtc1/sc22/wg14/www/docs/n937.pdf
-> >
-> > Rust adopted C bitmaps, thus creating 0-bit bitmap may go through, and
-> > hit that questionable behavior. You add this example without any
-> > discussion about all that possible complications, and with no
-> > protection for users.
-> >
-> > Interestingly, you're doing it for the reason that has been considered
-> > a bad practice for over 30 years ago - malloc(0) with the immediate
-> > realloc(). See the above link for details.
-> >
-> > To me it looks like pulling legacy with a potential of undefined behavior
-> > into Rust.
-> >
-> > Bitmaps is a way more simple case than the generic malloc(). There's the
-> > only user of bitmaps - the Linux kernel, so we know exactly all users and
-> > their user patterns. I'm not aware of any in-tree user allocating 0-length
-> > bitmap for whatever reason, and such a coding style is highly unwelcome
-> > nowadays (30+ years).
-> >
-> > When it comes to rust, things are even simpler. Rust has much stricter
-> > memory policy - no undefined behavior, no implementation-defined behavior
-> > is allowed, no 50-years old legacy has to be considered.
-> >
-> > Rust community decided to take the existing in-kernel implementation of
-> > bitmaps written in C, for a reason. But with that it pulls all undefined
-> > and poorly defined behavior associate to C language. We did quite well
-> > spotting such places and fencing them with safety checks.
-> >
-> > The 0-length bitmaps is just another case that should be resolved.
+On 10/14/26 17:46, Konstantin Khorenko wrote:
+> copy_huge_pmd() reads a special PMD without the page table lock and
+> copies that value to the child. The mmap write lock held by fork does
+> not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
+> lock.
+
+For a special PMD (that is not the huge zero folio), we need to go through
+vmf_insert_pfn_pmd()->insert_pmd().
+
+I would have thought that unmap_mapping_pages() is only called in corner cases
+when we would have concurrent fork().
+
+Like vfio_pci_zap_bars().
+
+But yeah, likely there is a theoretical race.
+
 > 
-> As it turns out we would never perform a zero-sized malloc, even for a
-> zero-sized bitmap. `IdPool` is backed by a `BitmapVec`, which up to
-> `usize::BITS` uses an inline member as backing storage. So we would
-> never call `bitmap_zalloc` with a value of 0, making the safety concern
-> moot.
- 
-OK. Then please remove the 0-length alloc with the following re-alloc
-example from the patch. use 1-bit allocation, as an extreme value, if
-needed.
-
-> > If you still think that you need 0-length bitmaps in Rust, can you please
-> > give the clear and thorough explanation why rust needs those 0-length
-> > bitmaps. Are there any in-kernel examples? Any language concepts requiring
-> > it? If not, it's still a NAK.
+> The zap visits the parent VMA before the child's, as dup_mmap() links
+> the child right after the parent in i_mmap. If it clears the parent PMD
+> after fork has read it, and passes the child before fork copies it, the
+> child keeps a mapping the driver has revoked:
 > 
-> I don't know of an in-kernel example, but please look at the
-> `bitmap_vec_new` test which has been here since the API was initially
-> merged last year: the first thing it does is create a zero-sized bitmap.
+> - vfio-pci: the child reaches the BAR after the device memory was
+>   disabled or the device was reset, instead of getting SIGBUS;
+> - panthor: the child maps the pages of an evicted buffer object after
+>   they are freed.
 > 
-> It is also easy to imagine a user starting with an empty pool and
-> growing it on-demand. Having the ability to create a zero-sized pool is
-> convenient to avoid special-casing user code, and in this case I'd say
-> expected, just like you can create a zero-sized vector. Again a size of
-> zero does not trigger anything that a larger capacity cannot trigger, so
-> I don't see a reason to forbid it.
- 
-That's a weak argument. We can imagine pretty much everything, it
-doesn't mean we should support every idea in the code.
-
-Supporting 0-sized bitmaps would simply move maintenance burden from
-end user of likely a poorly written logic to the core kernel
-subsystem.
-
-> >> A size of zero has nothing special
-> >> in that respect, so why make an exception and forbid it? We had this
-> >> discussion some time ago [1][2], and I'd recommend instead making e.g.
-> >> `next_zero_bit` return `None` on out-of-bounds accesses, which is
-> >> semantically correct.
-> >
-> > No. out-of-bound access should panic because every caller of bitmap
-> > API knows the length of that bitmap.
+> Read the PMD again under the source PMD lock, which the zap takes to
+> clear it. Either the zap got there first, and the PMD is none, or the
+> copy is in place before the zap reaches the child. Faults are locked
+> out, so only a zap can change the PMD, and pmd_none() is the test.
 > 
-> Right now out-of-bound accesses are allowed if
-> `CONFIG_RUST_BITMAP_HARDENED` is not set. The Kconfig documentation for
-> that option even says "if unsure, say N", which suggests that not
-> panicking (and thus the behavior I described above for `next_zero_bit`)
-> is the default. If out-of-bound accesses should panic, then the Kconfig
-> does not reflect that.
-
-Whoa? The panic is under config because it has non-zero performance
-impact. If it was completely free, it would be unconditional, like
-some compile-time checks out there. The "N" suggestion is for admins
-and users who build their own kernels. If you're a developer, and
-actively use bitmaps in your rust driver, you'd say "YES PLEASE".
-
-> > But if you make that 0-length bitmap a valid case, we need to revisit
-> > every function and make sure it returns ENOENT or something instead of
-> > panicking. That, again, must be very well explained and justified, and
-> > all this has to be done before adding 0-length bitmap support in code
-> > and examples.
+> Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+>  mm/huge_memory.c | 23 ++++++++++++++++-------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
 > 
-> With hardening off, every function already behaves in that way, and
-> existing user code is already written to not trigger that condition
-> anyway (because of the possibility of a panic), so that would be a
-> pretty innocuous change.
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 1e5d68acf62a5..bf788bb231691 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  		src_ptl = pmd_lockptr(src_mm, src_pmd);
+>  		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+>  		/*
+> -		 * No need to recheck the pmd, it can't change with write
+> -		 * mmap lock held here.
+> -		 *
+> -		 * Meanwhile, making sure it's not a CoW VMA with writable
+> -		 * mapping, otherwise it means either the anon page wrongly
+> -		 * applied special bit, or we made the PRIVATE mapping be
+> -		 * able to wrongly write to the backend MMIO.
+> +		 * The mmap and VMA write locks of the source keep faults
+> +		 * out, but unmap_mapping_range() does not take the mmap
+> +		 * lock and may have cleared the pmd since the lockless
+> +		 * read. Let copy_pmd_range() skip it then.
+> +		 */
 
-The rule of thumb is to enable all the hardening you can during
-development phase to ensure integrity, then disable it in production
-build to maximize performance. For the matter of this discussion, we'd
-consider the hardening enabled, of course.
+TBH, I think we can drop this comment entirely. That's just simply the right
+thing to do? :)
 
-Thanks,
-Yury
+> +		pmd = pmdp_get(src_pmd);
+> +		if (unlikely(pmd_none(pmd))) {
+> +			spin_unlock(src_ptl);
+> +			spin_unlock(dst_ptl);
+> +			return -EAGAIN;
+> +		}
+> +		/*
+> +		 * Make sure it's not a CoW VMA with writable mapping,
+> +		 * otherwise it means either the anon page wrongly applied
+> +		 * special bit, or we made the PRIVATE mapping be able to
+> +		 * wrongly write to the backend MMIO.
+>  		 */
+>  		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+>  		goto set_pmd;
+> 
+
+But why do we do this early copy dance *at all*? I think I complained about this
+vma_is_anonymous handling in the past. vma_needs_copy() is the one deciding
+whether something should get copied or not.
+
+So, can't we just get rid of the vma_is_anonymous() handling and perform the
+weird special-pte check (that I hate entirely) when already holding the PTL?
+
+
+-- 
+Cheers,
+
+David
