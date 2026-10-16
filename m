@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 122C8CC6B38
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:23:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E0FDCCA462
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BB0D10E0B4;
-	Fri, 16 Oct 2026 07:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAAF0112612;
+	Fri, 16 Oct 2026 07:24:17 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41B99112612
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:23:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B5F1112612
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:24:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1792135422;
- bh=cXYta/SdbAfhvxOFTW9Ci6MQaKBb5fwjWdyuX0HxoIY=;
+ s=mail; t=1792135450;
+ bh=51L8G0Ydbv4ExcyJQfSfsKUKGUlZkJRcRFAI4PJwzig=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=S2UUEXIoPD64zicHqiajshxy7U366+LBYKzPr5Sbzu+KYT4gzGiPXnsGRsShCRu5Y
- iQcETmqLZbGX8KGLpdG2yPOk9QJj3spZLPRwd5KZVekspIUa0tIVGq9uvvs1ZbHcQ1
- CMgZKO1MKLRDs60nQBDp1yO9/T6qF5VU5PJ+zf5CYFhS8s+A6/7HxnCtuhbMdpC1Wx
- LTLx8kGaPCQkCPNWVtEIlCuCoYlljvRhFq4Z+JOU0h7BMLreBuv2mcLGfgoEUWLU4I
- x7Yor2D/j8bDYWBsiYiT66LbqdPx/H1bxxWKqh2Ko1HoND0aDcvyYQEG3NYtoJtzDP
- lulYJgwa5lj5g==
+ b=dtsAq3HR/yIkLteEMeejIpvz+NFb0MqLZDWN1oZ/nn8XDvST1JUoStd6PkaA7nWhF
+ Q2snl0bqrOOdLR5IrAAviODCXeXpmnOpEwzJ/qgNo7BWGMXQayqCoMbuZ94b3rUHjn
+ M401Hrtyn5ePxXuFBr/UVMIbsaifONXmISpsiUZ2t9qQf3H869FYx6AZ5TFPI0sjiT
+ 6krZEeg6hLlggEr7ssllZalqQvUwvdaTi7954NJenPffkL2jYOnvBBHyw9bvYiLpCl
+ s4rzd2mHG1s6q7aRxqp3siMYs2p/Oyy4nYpibEBcTeE6ZiIuAegRd+0G5LV1KArPEI
+ s0XxWpSoCfktg==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5F49117E0036;
- Fri, 16 Oct 2026 09:23:42 +0200 (CEST)
-Date: Fri, 16 Oct 2026 09:23:36 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C223A17E0411;
+ Fri, 16 Oct 2026 09:24:09 +0200 (CEST)
+Date: Fri, 16 Oct 2026 09:24:05 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
 Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
@@ -40,7 +40,7 @@ Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 1/2] drm/panfrost: Enable cycle counting when perfcnt is
  enabled
-Message-ID: <20261016092336.10ed78da@fedora-21.home>
+Message-ID: <20261016092405.14eebba9@fedora-21.home>
 In-Reply-To: <20261015-panfrost-reset-races-fixes-v1-1-bb74c1786a0b@collabora.com>
 References: <20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com>
  <20261015-panfrost-reset-races-fixes-v1-1-bb74c1786a0b@collabora.com>
@@ -76,10 +76,7 @@ Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 nstable ioctls")
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Let's make sure this is merged in the same release the perfcnt uAPI
-changes are in, so userspace can check the driver version to know if
-the fix is present or not (we have a workaround in mesa for that which
-we can drop when the fix is in).
+Also, you need to add your SoB here.
 
 > ---
 >  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 3 +++
