@@ -4,87 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F2ADCCF2C4
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 20:00:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CAECCF2C4
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 20:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 432941129B9;
-	Fri, 16 Oct 2026 20:00:41 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 064141129B9
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 20:00:34 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-6b1b12de661so2675a12.0
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:00:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792180833; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6F9C1129BB;
+	Fri, 16 Oct 2026 20:01:54 +0000 (UTC)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13FFF1129BB
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 20:01:48 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-6ae14cdc63aso287a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:01:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792180906; cv=none;
  d=google.com; s=arc-20260327;
- b=ghe/tHsDaNC1d+5Yydm8DaLgEgP5eE0PFmUisimEMz2lRGeyK+9Rtmk44DNiJRGVPU
- 9JVeOkjPCRIGEmuSH6ug0DiSnfgnmwL4Xp+fzn+WMwwMU5PRrxTSoZP4/8nNbBNyeSD2
- eBBdrTxGquS/oefUG2bn1gAwIdBCOIB4aw2BCZZUN1REGYu0HudppALI1EoYtC5F3lsq
- +srEVvzPNqejx78Evhl2qV41dQvFsIQteWxV78sAr+PaYdFgxkfVpPpmgi2d8LBOWRRk
- 74MAs4Fbfms66JjUXVfIIFdkVfyXbDpk06nGThJ/WBcD25cHu8Lqe0qdxgNXp/YQdMew
- Z+Fg==
+ b=kFnFEkMaTkBHNbJeM/pMu9f2+TmAxiqUBEhKvxjnbMzWShKjeV17jjAfMe+oYXiuPf
+ wcmwT4XlaOjBQMpyrdRgrOwjXOnaEuNiMGzbNjrd2CVmS9n4QHqbl/JFe6PydfNKhppn
+ DxfWirxc/txojvDVahnSuqMx9KrkaApk83n0CQe48MqAR+krS9GyCZUWeOGafQ9+4f1P
+ IvC+CoCOQ7+tfetIJIxEwCMRsE0+YZWMgEhnCNjgqoa/O/cdquZb8dFuydUBHOe+dzl9
+ wh/9UYkPZoLIBAZYaRRSVzJlFaAhwScZayua0uCGkSnQA+j5WYe+MFL1pEe2EVX/eiqr
+ X/8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Xd6WNmGnzFYlFoHsuTFHOu2fkEqtQQlZiBMErqBBiw8=;
+ bh=HdaZXPrWwJ+i5wSHql/5Ik3YGNMv/chCxvt/CSyUgz0=;
  fh=YriQdl2X5LbjnnAYi4/QM2X/6MpOgfc+mGWKpf8Terk=;
- b=Cq4LseylPc4R5xeehzLjBeSvjh9hyq0ehVliUc07rtmCkdLPZIyT1DzzXSlBXw6Am8
- WfMfZNICA2uaDWs9bcooDXAp8is67ikCKRewQR3UP8Sg9xU19SmaVDjEman0IbW/7kir
- RZ5+5WSDoDrRN/IIZcs2kIH7KA65U4PMbM2zAwvtxPZiFeEjDVcGyBMOWFbwm5+Eg/XN
- maww8TGlMCe+kfvlzDH/xvsafAcJ7MecfnV02PrNFJilS4PyIg2MOIy6srOX1m57SfEn
- 6z5R3dVA/G85TgijZgJ0shodXzXKbeyRNg3qcTBSZdulxbb/aL66Yep2W3FuVYwPjfKC
- tAUw==; darn=lists.freedesktop.org
+ b=E/ESf64lDxuI3RUKQRWolIDScuvSnUf7bESiut1+FybuXFx/opyCBUithYiV+632me
+ VFRnQbWk/kkJzw4rlFJL8XAMbTnK/LDNnz5iJ0n+n6S1FWQ6RFFOd9RlTzirMxo/8qWN
+ Sjw4dtkHxsAaOW91rNs7uNvxRqmdXDQo4RsDSpEyf71RAzqUTBR60PbLs8cDraOYQMec
+ azt+NQqfrcRnBUTgz7l1/QsWHGPldp9oG13K+UQ7TD0FQoqA6qJnJOTy98tTLhOkP2/Q
+ iA2bTWPc57NhYcTJPoSYHCJ62ZP+SccceNb0q6o+1MFmgST2KRx5jjd9ncFI0CYYFMEa
+ rDwQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792180833; x=1792785633;
+ d=google.com; s=20251104; t=1792180906; x=1792785706;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Xd6WNmGnzFYlFoHsuTFHOu2fkEqtQQlZiBMErqBBiw8=;
- b=svG05OniN1zbY4IZqAjAtoMW6d8TB8Yss7ryVlrUlsgVLoD+rkNAS80udGTgicf1v8
- KZUsjnJe7OH0hxPUQVzmcKLnCpTxa7f5ZLp71S8dL3XzscGrVaw6Ep8HagrPt47osS+E
- /jIosl1k7XoolkoZM5xVq1IZehVyDs/w3GUOpYRftOOp/TwyU8mlNd2f9h6AGi35JsP6
- SWc+g17azcI5ufcM+/gXihvx6ylBN+coH6w3lqbR7EWicOQfWUEzYbuyT41cZCHZCxJc
- +UwMRvVtSk1qKl9ptBQFaPabQZSOrB6Y+eCBSjtpXxR2snRxmxP+FPCp9UNf+POQ/1S2
- fCyg==
+ bh=HdaZXPrWwJ+i5wSHql/5Ik3YGNMv/chCxvt/CSyUgz0=;
+ b=uvc3BChkknYgN1xAQistqlX72JTs7v6rFb0uDaJc4vil/rzypERDMkJjw4J4BBvQHY
+ OK3u+X2HcqobrSjxfVBMuIFOEjaiLxEDMpbrnz62cWQ8jeWWvffqpkA/02EiY9XGTtp2
+ Y2r8TEkQcrFvlS7Up6+zATVQzaZStlVH/WXtbHr2V1tnXu7ZuDFGrg+n4ngnVceYb6ue
+ abBlQFEC4SlR3zLr14PXAAhbmKPOFSN65hjzoD8+2yJh8+Kok6CiEGEDsQFa44qr5fHe
+ VoEUi3t8DAnBlfUsp5p8KTogoNWw0cxbg82V5Jq22TuVFwCACz8ydqYWyhYpBBQXXw92
+ holw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792180833; x=1792785633;
+ d=1e100.net; s=20260707; t=1792180906; x=1792785706;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Xd6WNmGnzFYlFoHsuTFHOu2fkEqtQQlZiBMErqBBiw8=;
- b=yI+SxoyIsfYtuswH0R/R3TDwNC+UzkxUXkXHoITZ+d6Gj9voRxqtdL3VTw4Clzl1v/
- lnsYPiQuuybRfJGSM1SEsoP5XjFcnp0nxCGpP/yXkd4TFZcN2N8FdZHb+7jFVVDnu0wM
- M0LKxpvd0yMt8TFVUjFvKp/gfowZ6DN8GxrQZ3CuqpMaiOvh9gMhykEmHX2UMs+q7UEL
- QcPsOLp9HnOWib1/zX08M/Cyq7nL9mDfKDs0VDO7jSGnfYHkssBsH0SOGkHs2Dzr5vC6
- M958BQCDHZNollO9qGNzY5qP/EuuEh5nFVlZBtpPxxP1qiQvZreIuCX5v+gZaDk1L7C+
- ma+Q==
-X-Gm-Message-State: AFq9FYIBBfZBqWXQOnWn65spEtnkfI3lrgbx+rfenGiOSNlzXlu+VLWu
- iWp4eyEWycNnERXQCD3jCDpqyWMcREz3/9c2LQPi31mM8ubQBUNZpKV9FtNdi52Zly0hZCxX5xz
- iY45p5LOOw+s4SuUCOBgpINFEMkVjJL6r7OKICipV
-X-Gm-Gg: AYBFou0F+IuSGUCspIQcDEppm5MAh2W5k9bQXSoDhk7JGD08LpQMpx9Zg0DldzEXtga
- wovGeHrnZy52XDsE2catx6dohimKKoNluPr3nrK+wfAVGL+mBRelgXraqOnEwIcoZsKTNcuKbz/
- VoLhKxFRfXMR7b/MuArIOv1CU5J1uGqfOskeP+9By6ngSGc8V4A4wx8ASJd4IOMTQQ2fAnWCd/G
- fB8ma8pTfBMDZkCaPWWUHaY0AZSaW34LwZmpoFegDZjtukqO+vYEV+/jPWnmdIATDCt7psDshu5
- 03mIj3ZJFKNb55oJBzQ6fek/e+CbXyCXvnpDoAC2/1bZHywRCwBrqQ==
-X-Received: by 2002:a05:6402:4406:b0:6b3:874e:1b6f with SMTP id
- 4fb4d7f45d1cf-6b3a887003emr14330a12.2.1792180832701; Fri, 16 Oct 2026
- 13:00:32 -0700 (PDT)
+ bh=HdaZXPrWwJ+i5wSHql/5Ik3YGNMv/chCxvt/CSyUgz0=;
+ b=EjQST4qi/1fmxzsjZP1idrbhqDLmgn9WfZrw9HvqeXcQbYwoIUJ0OIBAax7JO1vqGP
+ FbZRTUhNGqGAyFrxI/nlkPHUcpnZwdxOHsFS8avo78AFdJaIZnfWuM3TsGnR5akOJsWA
+ 1pfqWN+k/S2hFfOtB+pZ2SNyF0yEoUlTfj7rE2QpN8FOlZo3SaDO05cK/gpRBFs0T8uu
+ P7fru7Hj3SSv4IGSmbVc40ZF8tp6aguOLqrnfquAzrOjVarv/pJbIovr6cLL6YLPd1se
+ edIueVVOYp/rf2D1JDyX1e7ce+mWz1ibwDFgSxPqg0qx9NDDhoUdn+/pwNyZah7BAmeS
+ GmqQ==
+X-Gm-Message-State: AFq9FYL8U7mheOr+B7MYAOduXKZPe3ctFW7QgUmAaqUEmQ8mGzfaOK9J
+ LXs3svxLgC2+db2JTvLW0FRs79BpVUD/tVwQpzCTbwhpUEhyTQzkZJ3tOFiFPrgJAX7fBjIZObv
+ dQ3v0PkoQaMXR1ZZ4EynKscPeTZKLvT8STLunFd0rmjqci2weqfh23mrF
+X-Gm-Gg: AYBFou1WVBv7DHGiudpl0YFXfYs6xEsX90WLAo0mGcroCZa06eHBPG1mWWsewQ5Jzbr
+ m+RkCMlT+Gr7Drwk2aypdRMLT0xcRGbX+eqfmQVMNEF7pAUbspXRkYMIl87tbV/HZ9qEDRl8Yp+
+ AONiCmrOE1M3135vH9MhxpcJBOkQ0uEzwbEDec5QwGa4HoSkG5Rh24eaxHY8Mt/sHbL7dMjZeGo
+ rUuRSDeeW/CmjEekEqrwlz7D/JjXAnWs6FMYGC9UwX+PQig0m6apDvgGf0aU0GsW8UL46fl/Prl
+ 0Wygq5wlSJWWzM5CI/7bG9zM4bJ9cLzbLUQdpEa66XKFPYfFWmDV8/XTsIlEEvdzLQ==
+X-Received: by 2002:aa7:d58b:0:b0:6aa:b72b:d762 with SMTP id
+ 4fb4d7f45d1cf-6b3a885d0c5mr9252a12.1.1792180905925; Fri, 16 Oct 2026 13:01:45
+ -0700 (PDT)
 MIME-Version: 1.0
 References: <20261015163915.1166043-1-almasrymina@google.com>
- <20261015163915.1166043-2-almasrymina@google.com>
- <sashiko-outbox-174651@kernel.org>
-In-Reply-To: <sashiko-outbox-174651@kernel.org>
+ <20261015163915.1166043-4-almasrymina@google.com>
+ <sashiko-outbox-174653@kernel.org>
+In-Reply-To: <sashiko-outbox-174653@kernel.org>
 From: Mina Almasry <almasrymina@google.com>
-Date: Fri, 16 Oct 2026 13:00:20 -0700
-X-Gm-Features: AclHuK8Y4pWXf1mHB6BN61Lfe2Em837RVtKxg99QRS-eFFDNTF4wSL40Y1Cy2OI
-Message-ID: <CAHS8izOMzQQ8pXkZeXz3+TZfxATpyh0L00KGJWdu172tZBLAcQ@mail.gmail.com>
-Subject: Re: [PATCH net v4 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
+Date: Fri, 16 Oct 2026 13:01:34 -0700
+X-Gm-Features: AclHuK8d7OqHLAYxLcDKdLDPscbO2nPPZMWDh7xiX6V5deJEav5-30qThWpMU20
+Message-ID: <CAHS8izOeB1Z+1bVicatew26vZtAG5VGYMjyiCUH--yJvtbQaWw@mail.gmail.com>
+Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
 To: sashiko-reviews@lists.linux.dev
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
 Content-Type: text/plain; charset="UTF-8"
@@ -106,19 +105,18 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Fri, Oct 16, 2026 at 9:39=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 >
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
 e(s) to consider:
-> - [High] net: devmem: UAF due to leased queue mismatch in mp_dmabuf_devme=
-m_uninstall()
-> - [High] net: devmem: UAF on dma_dev when physical device backing leased =
-queue unregisters
->
+> - [High] netdevsim: NULL pointer dereference in nsim_pp_hold_write() for =
+VFs
+> - [High] net: OOB access in nsim_do_psp() due to missing pskb_may_pull()
+> - [Medium] bus: missing return value check for dma_coerce_mask_and_cohere=
+nt()
 
-Lets see what the netdev sashiko says, but I'm yes, I'm aware there
-are pending issues with the leased devices in general and during
-revocation. They're prexisting, and there are too many related issues
-that my series became unweildy. I'm hoping to follow up this series
-with a minor rework of leased devices to address all the bugs there.
+I think it's understood that netdevsim is test code and really is
+meant to support the minimal needed to run the tests and is not some
+production hardened implementation. skillping these is OK yes? Like I
+don't know if netdevsim is being used with VFs.
 
 --=20
 Thanks,
