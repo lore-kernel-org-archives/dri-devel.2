@@ -4,79 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D295CCF2CF
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:54:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B64FACCF2C9
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:54:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BDF410E6A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25DAB10E6A5;
 	Sun, 18 Oct 2026 14:54:37 +0000 (UTC)
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2494A10E314
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 12:50:42 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-cc4dbda1e5dso2605236a12.2
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 05:50:42 -0700 (PDT)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEE63112734
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 10:16:03 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-35cd4e8bdbdso8303054eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 03:16:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792155042; x=1792759842; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=jYaPrGF/xWgZWIb28wo3Id5jgjP9ot6JfkJvYOmQhXM=;
- b=Fpd+73wb11z62fLqlUkqiymNuhvmOj5rsRzdtGnviLCpWbvm86PQSYYM59Q6jzX1o4
- 5fy8t86Sg8qsiOq7gHb/+NfS+p1LNsNrhJ4Ny/Xiy1q7bOd0xwBayqr8XGV9In5tpx7M
- P3xbwTqJ6sOLOA3prh/t5+Yo7et1qU5A5LO1kkkZgniV9fOGUbfKXmqojLwFTzeiRbIf
- l4FSFDyl3+352M+0HdRJLJP+GlWzpkIuHdg+GWUqRznL3EKDq1M+I8vnF0hcTDkwYwJE
- tpjabjaKVyerJnpU+VeBo92JLwoKr5EUpS7m1ffc7WO0aM3yDAF+npsfvWlxN8UTderf
- S74A==
+ d=gmail.com; s=20251104; t=1792145763; x=1792750563; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=EkQ2fSP0Uv8z7vsyAAy4/OpXnLsDXMhIw27wTwsr6Bc=;
+ b=sQFUAF7gfQwLJheg9FZ/8Me9kKwOzITcdvuRVpucQy/pyTIlb3KBznDfgGKl8LPLFZ
+ t17dkivjJMZNhzJIWjK6CXKFU0r1d1t2b8n6yhqDE2R3T2NG7tluhaFOK0hX7y13xOxN
+ OM0UkSYZwZqzqquNNzFkTUtKHlEG1diC1URPU6YA6UCF3NHqxqMaf5SRPRDxZbE5A3i4
+ 9SiQApwo/emV09oR2K4TQ4/figyL8W6/sxFuTSx0ToGiJCZcG9e3kdRqO/4o/guPQCCx
+ hVPlN5uowuNkzI75ProayK1rBTFjlzmV/HHHJ3VcpaRimjTs+IX3G3cLFsXqvJwsXKNJ
+ tFtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792155042; x=1792759842;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=jYaPrGF/xWgZWIb28wo3Id5jgjP9ot6JfkJvYOmQhXM=;
- b=VyKUlg0FZJP73zxIuwyzVFvFoxUNGStwFoSlKb73E35ejJIsgdFi3T3v9ISTgm8YGx
- 2VgyppkriblXfVLtF24WW2ABssNgwDcv2erjo/zEnr7TefXxYPUfkVJKXk/ZYjWQ0NIY
- cM69mp5McfeDAasBtmg2Us6d6GZcfKLMUqcIF+I8j2M1QivXvNoRa/C1C+GpbmTgRxJP
- vpe8y9/3pHhROfKiXLtyzZ/T2PQubV396SIXeGu09QN/pUsRQQSEdIsRtz4T2PQCpCCk
- 3B4SnMLVnb4gWl8Puj3IvFP4VvaLPa7GqI28pR7EglJS8NByrSE9soRlO2y7BcWFp8CZ
- yWTw==
+ d=1e100.net; s=20260707; t=1792145763; x=1792750563;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=EkQ2fSP0Uv8z7vsyAAy4/OpXnLsDXMhIw27wTwsr6Bc=;
+ b=OSiC5ArwPto+kEYHHiz7TsDME3c5PiXPyONS8YuWATsMTa1yM1Fl740idy0NWES26A
+ vSyuPdCGdw3Rmd8gRgGDOTgt/fXV0MZtxS3qmtCIYZRCjuXLxs+LAo2fTVkzrz5kxrgV
+ A1b0MRM26D1Sw2XxupAKm3/0Gni7HitGd7PWLi3TnOhHU8U75zMx2OJ/sLJheeHknlRk
+ Zgxc2dtevPAO9mFoGV+4SNa7gAvpGS2NCi3TDsLkN/sOpibK4itBFz/rUrOceIukJ37f
+ bTqDCX8SpVuXowguQE/NKtdygBb8Ezbgkn8UlSp9AwDzzRf7RG6eTrL+qQSubKQL1HP9
+ TpIg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwYQjTONBrvKeixBaSFHOsHXrOmboURWQ6qz0wK8upMohFFP1O0GNTTcGb+3YrBoxs/CPpM7jOERFc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLs+yhyjm93DV0fnCs7IHfLkfJcQualZgxyNtj8wubHOyHfMDBF
- MXi8kl4ZPEuZCe56xeC4+f80cyI8qlCgz/2O8P2CCthVigCsOzbziwjF
-X-Gm-Gg: AYBFou2GJWGWyJDR2XLglwrqdaVYzKQ3Nk4X3JmtS2jEJ5eRV18KRrwQeH5iGGvfGBC
- hFmXQ2OqyVCyKeoBFVO3TVS4JUa641RSYgNUEfHYWcQUPdNnYztgfzNuWS6qiptrqYjvZpeGqbx
- fWOh7JK81uHrSokzS97UAO1qY270BT2WFYzidag+J6bpCuICxhTqMGv2KqjaQ/74+aZvHoeDD3B
- Dh9sZAoHJ1GQ10GMd8Mpg4zNMd0isYgTgAtNCwNcqfUYK55t0NY6ASEH68UANPZ3/RzcBRKeik/
- g7+4j89nE6PzmpquMTjnBNnw0uqVUIhiwULSAW2XOD5Zkz8O4el8J7QtSl9vBunIb8vW3Cz0h/F
- Xl/Xu3TXH4NKbNal+3F9CPUFH8SjE7eqK+KgHtEdM9SCLww4gNOGFA3/wozkAwmnK+mpf7fuKCR
- +OK7dqYOS5ZR+hOIro/m2Q5VBRRnUybphjObqo5aNi1T6ElNvOwKcuF+n8gIsLUWu/7nLGQMnKR
- W/lRfddr9Em4Q==
-X-Received: by 2002:a17:90b:5444:b0:39e:6a7e:ee18 with SMTP id
- 98e67ed59e1d1-3ab3ad26901mr16645330a91.36.1792155041547; 
- Fri, 16 Oct 2026 05:50:41 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ AKwUvBzb+FEZsnxNzNqfTAUywuPUmWEErWv9XAtj/xNpzGSIyv6hGxul7pM07hrPMv3X5OvvZryAAP7YTBU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKU6tAoWMHTin0lohw+khymT0orQhoUegqX1oExklFbsmLLCOec
+ 3y0AmJisiVazumjmT/dGNIX2K2QnzmzxaVAnmnqG78saAAyDB+9JJn7k
+X-Gm-Gg: AYBFou1cDY+F4q4H6ZfFd4VP8SSOJ4mG7zn3u08+JVq0sYtyqr62n8D7bId8I0KRatg
+ LuWEHIynWG83Xs6WpywJ4BUf2tyegAiQfYb9GmnFPK6kDwi/Ta8/QgncwK2Y/Rb+gEz/SFKYZs0
+ 17noFFL2t8XArXs6zemqHK4qmoJ9DHF8fhbvg0KEyHbhKOjyXl0pAcjmOV131JoaNHz3Xzaa1os
+ VltWrBsGyaa8I5PZ4cLKj3RcG10+KI81ejDPRbve9bqBr01zyy3tNm38sub9ajV8LMdwk9Qux6T
+ qYsIsjEsAh+khJQRM41MKsZl9JNMdcWg8nSRNpnFsn8HnO2HvWE2rPMA2c5wco2bOf0yPO9YTVP
+ D5CisIXh4MsT3sA3KCz3TE3cdA//sO56oCzuSBQ8WrzGgTTKuFaFk8lc/MAp9lUZdEISWMqGSlR
+ hVvwm0lrn0/q67LXFpv8DipJx8Kioq79Bv6q41r1igux2rL1GcogczjufCvSHq+N/wXOJoWcCT4
+ qaYyfkWQ8t+8fO/M0HKra0Jg3k7FN/fPUmwwKJPRxuXxCmpBiv1aBAE4l9sonSIAnb6AoEt
+X-Received: by 2002:a05:693c:60d4:b0:359:2f0b:aa89 with SMTP id
+ 5a478bee46e88-3592f0bc083mr26553110eec.10.1792145761800; 
+ Fri, 16 Oct 2026 03:16:01 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:1467:1666:71b7:b993])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ac94792925sm8989152a91.13.2026.10.16.05.50.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Oct 2026 05:50:40 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mahadevan.p@oss.qualcomm.com, rajeevny@qti.qualcomm.com
-Subject: Re: [PATCH] drm/msm/dsi: fix AHB clock staying enabled across suspend
-Date: Fri, 16 Oct 2026 21:50:35 +0900
-Message-ID: <20261016125036.1069-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
-References: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
+ 5a478bee46e88-3608308a87csm9389619eec.28.2026.10.16.03.15.58
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 16 Oct 2026 03:16:01 -0700 (PDT)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH] accel: ethosu: Fix kernel-doc for
+ ethosu_gem_cmdstream_create()
+Date: Fri, 16 Oct 2026 15:45:49 +0530
+Message-ID: <20261016101554.14231-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 18 Oct 2026 14:53:13 +0000
@@ -95,34 +87,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(Resending with the lists on Cc; my earlier reply only went to Arpit.)
+The comment documents an exclusive_vm argument the function never had, and
+leaves out data. Swap the two so the list matches the signature.
 
-On Tue, Oct 06, 2026 at 06:43:53PM +0530, Arpit Saini wrote:
-> pm_clk_suspend()/resume() only call clk_disable()/clk_enable() for the
-> AHB ("iface") clock, never clk_unprepare(), so prepare_count never
-> reaches 0. The clock (and its source) stays reported as enabled
-> through s2idle suspend even though the display stack is fully
-> suspended:
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+ drivers/accel/ethosu/ethosu_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I looked at this on a Lenovo Legion Tab Y700 Gen 5 (SM8850, bonded DSI,
-v7.3-rc4), comparing the current code, this patch's approach, and
-preparing the clock only in the PHY runtime callbacks.
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 9afe2549e..2b89f70f4 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -712,8 +712,8 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+  * ethosu_gem_cmdstream_create() - Create a GEM object and attach it to a handle.
+  * @file: DRM file.
+  * @ddev: DRM device.
+- * @exclusive_vm: Exclusive VM. Not NULL if the GEM object can't be shared.
+  * @size: Size of the GEM object to allocate.
++ * @data: User pointer to the command stream contents.
+  * @flags: Combination of drm_ethosu_bo_flags flags.
+  * @handle: Pointer holding the handle pointing to the new GEM object.
+  *
+-- 
+2.46.0
 
-In s2idle with the display on I see no difference: in all three cases
-both PHYs are already runtime suspended at system suspend,
-disp_cc_mdss_ahb_clk has enable_count 0, and CX collapse during a 100 s
-s2idle is the same. Is the clock really enabled during suspend on your
-board, or only prepared? Reading clk_summary runtime-resumes the clock
-controllers, so it can show a different state.
-
-The difference here is with the display off and the system awake: with
-the clock prepared from probe (current code and this patch), dispcc
-stays runtime active and MMCX stays on. Preparing it in the runtime
-callbacks lets both go off. I have not measured the power difference.
-
-That variant survived 30 DPMS off/on cycles with clk_summary read in a
-loop. Did you hit the prepare_lock deadlock, or is it from code
-reading?
-
-Thanks,
-Joonhoe Kim
