@@ -4,63 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B0CCCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 808B3CCA462
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40FFB11263E;
-	Fri, 16 Oct 2026 07:33:00 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 655A211264A
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:32:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4CD1C44509;
- Fri, 16 Oct 2026 07:32:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AE01F000C5;
- Fri, 16 Oct 2026 07:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792135973;
- bh=2SLOW3vKqEoDipVSNNt6bUEym47+JKCsbhkUgZEliiw=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=OFeV/Ks626shAtzxQOhg1t4Qn6nGE3uFKVMnQGhIaaSYq34NBSPs2fomlEZBrDc4G
- 0Ptsl9iHt0utv52Y+NblW3Ln7QOdVtVHAma3am76zdUH7TPmYKhcr1wGh//TI5bOoX
- 8lMUPx2SsaJpZU6kxbvqRe4ytidu770OY1GpANhQk4TdE+UzDBjdzzctHwQtnoJVN7
- tBX77nlP2xGFmTUmI4GUNASW0Ex+TlsahKeF8yNqHF6Ct/NZlFmpl/2q+r6W63Ni6w
- 52BqEIb+Gu8MPIhN/bbVRvZ72W/n8GMkaWMAp2hmUoIQeTEML/XfsvtI+r5SFkkKJ+
- DpxLcrQRlgOLA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 16 Oct 2026 09:31:46 +0200
-Subject: [PATCH v5 14/14] drm/vkms: Add driver-specific plane property for
- testing
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA76A112642;
+	Fri, 16 Oct 2026 07:35:41 +0000 (UTC)
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AF8310E2E4
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 03:45:53 +0000 (UTC)
+Received: by mail-dy2-f6.google.com with SMTP id
+ 5a478bee46e88-35aca4e7547so4873345eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 20:45:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792122352; x=1792727152; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=daqdSqsQywkW4QFvPS0cowFZqZyMXgakPffXgvi9+4c=;
+ b=bejbjAfvUxK9AcPnv0gGwyTyQ77q289P4eIrKsmCgvlbRuWM15mMsRpF59yEvu7GNe
+ q+Xi9VBsPMqku/upMcAKsNtE75USaH0qOp/4B1NDku/LEwGhxlfe1fUuutB+kbGHyRY7
+ W+kUVLUbPH54lXppWDLb/nvPmVhIvtC8+TNIYLLwWSv4VR1mR23w+cZB7cXN5l9+p+S+
+ 493F433PMw9Lto/8uNxR8heyeHQN601KtjE7ybBxpb34mw0fz0+DN+KHsrlFfNOCiniI
+ iF+xVu98J+Yyd/LewnoznuaYkKiE/zjtUACJsI+0h4EZqGDJcjGxNnFJ7ivHqaQDhtkH
+ vlmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792122352; x=1792727152;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=daqdSqsQywkW4QFvPS0cowFZqZyMXgakPffXgvi9+4c=;
+ b=LZiNOvY9xWIS5bdLHBrPIiJJD1oe+enJ9FtGs/LJ7TE+k2XfAfQmU4YK++xS6TBb5V
+ 5GVgjmP4rJ2S/bWutvW40IQAEO0Wozz3K3Io9AJBsGWvP5cYKU0mfvdckGHMPEoiw1NN
+ 2hR5qle0Ot97ZqD2eS8NXSutal0FCTEpYmHw97+XlSN3oOX/RNHweDlniC+MkMO64Bqr
+ XGKe3K7p2HxrT928puLdV93xLbcjOXX+qt7CQi4AupdPPbAvTuuIzpL3QVAzljLy6n1Y
+ T+0uw6w0+m6e2yHT04QeCRQTH4xxDWzGHvaM35A5RBVNFDr7z3Tdtg90iMGqHwLpuAXk
+ C1xg==
+X-Gm-Message-State: AFq9FYJ07kD6ktHaheF5gfRNKW5WfdN05LB+R1jw1zkNUK/2mCu3tdWF
+ l+U8gAHfeGIyDGPh8xemPtZBtKYXB7HVee/CgZDuA/3fXPRbhltIl32E
+X-Gm-Gg: AYBFou1TWQfU8PuGZSqtRtcf+4MLF2zBAY83t3bybKcqCLdbi54VmvrLHdUSS59OJt9
+ +oqv76KaeuTPhksBwL16uDce9Y6O5rKWVsYUu0MQI9foSDn+r0h+gDTJ5wkZ/nlGahn/FWF0Mou
+ TBMJJaw3nGvC+Hcd+FYtGteUV/80KUKTj6r7DgL3IisjUeenI2DTJpLUXX8BEGys36qaoUM1eM8
+ 1OrwD8S5EgZvLWgf4VUXUMcU7DI/YGxmIQpYqy+CWqYa/3Ltf+lEY70ePONfNh4jwpzdfAkEAQn
+ lLgx9jTNNrf5D1ihmpv4NYhvRUzHtQRo2/VfLNEevImnLcpe8ludV2FB4vKGhfs9GEggq9Q2v1g
+ tEentFNmlHSvDFb+iZ59TdkuW1WDx2UBwyv/OAWD2HaNYLp6VHQGdoaDGs7jfLHw4Kd6D45//Yi
+ 9lbnRAh1DdLhRHa2RKsFT3gcda2SM9WJ2lo54X/8Zi/tdSbi7aD2853R7PxghtSfmZjhHSNNb+S
+ LtTPkT7gc58YgkcSGiVwzlM/+Yps+615/uzXZR4QFiVtv3qpw==
+X-Received: by 2002:a05:693c:80c1:b0:35e:51d6:9f6f with SMTP id
+ 5a478bee46e88-35e51e5fd78mr8412093eec.27.1792122352334; 
+ Thu, 15 Oct 2026 20:45:52 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com.
+ [104.194.64.109]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3608297f4f7sm2434229eec.23.2026.10.15.20.45.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2026 20:45:51 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+X-Google-Original-From: Yao Yiqi <yaoyiqi3@huawei.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com,
+ Yao Yiqi <yyaqia@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH v2 2/3] fbcon: Rebuild rotated font buffer on font change
+Date: Fri, 16 Oct 2026 11:45:32 +0800
+Message-ID: <20261016034533.445862-3-yaoyiqi3@huawei.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016034533.445862-1-yaoyiqi3@huawei.com>
+References: <20261016034533.445862-1-yaoyiqi3@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-drm-reset-state-flag-v5-14-dad2d64b693b@kernel.org>
-References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6476; i=mripard@kernel.org;
- h=from:subject:message-id; bh=L39bKi40Tu27ZP+CQWhjlmNnG20xbUUquvb6A7gC3fQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz3T/L40UcgnXc3K1+viCrZkxjz9vxdLLpVsEXm64
- 5plY/DSjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRtwyMDb25X6b22yzakjkv
- 4GSlKtc5s59MyadlPzFfEotdWbxdyOevmJbz8hfRsvcaf3Vsk97MwVhnI1neaLh0Amff9bntbd4
- LrtyY5b+iQlPAIuKk58nIe+Jvd+anviuq+6gXwbeuf+cnxiQA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 16 Oct 2026 07:35:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,192 +89,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
-states to their defaults before applying new property values. Testing
-that this mechanism works correctly requires a property that the test
-can set to a non-default value and then verify is properly reset.
+From: Yao Yiqi <yyaqia@gmail.com>
 
-Using a standard property for this is problematic: compositors like
-Mutter enumerate and track all known properties, making it difficult
-to isolate the reset behavior from the compositor's own property
-management.
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
-The property is stored in vkms_plane_state, duplicated across state
-copies, and initialized from its registered default in
-atomic_create_state via drm_object_property_get_default_value().
+fbcon_rotate_font() caches a rotated copy of the console font in
+par->rotated.buf. The buffer is sized from the font's width, height
+and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
+fbcon_modechanged(), but not in fbcon_do_set_font().
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+When the console font is changed through KDFONTOP/KD_FONT_OP_SET, the
+new font data and geometry are installed and vc_resize() is called.
+The redraw that follows reaches the rotated bitops while the buffer
+still holds the old font: the rotated putcs/cursor ops index
+par->rotated.buf with the new cell size and character codes, so a
+stale, too-small buffer is read out of bounds.
+
+KASAN reports, for example:
+
+  BUG: KASAN: slab-out-of-bounds in soft_cursor
+  Read of size 64 at addr ...
+   memcpy
+   soft_cursor
+   cw_cursor
+   fbcon_cursor
+   hide_cursor
+   redraw_screen
+   vc_do_resize
+   fbcon_do_set_font
+   fbcon_set_font
+   con_font_op
+   vt_ioctl
+
+Rebuild the buffer for the visible console right after the new font
+geometry has been installed and before any redraw. Select the
+console's blitting state with set_blitting_type() first, as
+fbcon_init(), fbcon_switch() and fbcon_modechanged() do before their
+rotate_font() calls: fbcon_rotate_font() reads the source font
+through par->p, which may otherwise still refer to another console of
+this framebuffer. Background consoles keep their rebuild at
+fbcon_switch() time, as the buffer is shared per framebuffer and must
+not be rebuilt for a console that is not being displayed.
+
+If vc_resize() fails, err_out restores the previous font. The rotated
+buffer that was rebuilt for the new font earlier in the function
+cannot be restored with it: font_data_rotate() has already reused or
+freed the buffer that belonged to the old font. Rebuild the buffer
+again after the restore. Otherwise the console keeps rendering with
+the old geometry against a buffer that was laid out for the rejected
+font, and par->rotated.fontdata keeps referencing the font data whose
+last reference the error path drops. A failing rebuild leaves
+par->rotated.buf NULL, so the rotated ops skip drawing instead of
+reading a mismatched buffer; the next patch retries the allocation on
+the following call.
+
+Unlike the other callers, this one does not fall back to unrotated
+rendering on failure. The "par->rotate = FB_ROTATE_UR;
+set_blitting_type(vc, info);" fallback they use does not actually
+switch to unrotated rendering: set_blitting_type() calls
+fbcon_set_rotation(), which immediately re-derives par->rotate from
+par->p->con_rotate. Replicating that pattern here would not change
+the outcome; repairing the fallback is left to separate work.
+
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
 ---
- drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
- drivers/gpu/drm/vkms/vkms_plane.c | 61 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 62 insertions(+), 2 deletions(-)
+Changes in v2:
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index dea6cad3f1b9..384616095b45 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -144,20 +144,23 @@ struct conversion_matrix {
-  * @base: base plane state
-  * @frame_info: data required for composing computation
-  * @pixel_read_line: function to read a pixel line in this plane. The creator of a
-  *		     struct vkms_plane_state must ensure that this pointer is valid
-  * @conversion_matrix: matrix used for yuv formats to convert to rgb
-+ * @vkms_test_do_not_use_value: driver-specific property for testing only
-  */
- struct vkms_plane_state {
- 	struct drm_shadow_plane_state base;
- 	struct vkms_frame_info frame_info;
- 	pixel_read_line_t pixel_read_line;
- 	struct conversion_matrix conversion_matrix;
-+	unsigned int vkms_test_do_not_use_value;
- };
+- Rebuild the buffer again in the error path of fbcon_do_set_font().
+  Without this, a failed vc_resize() left the rotated cache describing
+  the rejected font while the console rendered with the restored one,
+  and par->rotated.fontdata referenced freed font data (found by the
+  Sashiko review).
+- Select the console's blitting state with set_blitting_type() before
+  rebuilding, like the other rotate_font() callers, instead of writing
+  par->p directly.
+- Reworded the note about the unrotated-rendering fallback, which is
+  now left to separate work.
+---
+ drivers/video/fbdev/core/fbcon.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 01715873ea49..1a2fe9fc1dc2 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2432,6 +2432,17 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!vc->vc_hi_font_mask && charcount == 512)
+ 		set_vc_hi_font(vc, true);
  
- struct vkms_plane {
- 	struct drm_plane base;
-+	struct drm_property *vkms_test_do_not_use_property;
- };
- 
- struct vkms_color_lut {
- 	struct drm_color_lut *base;
- 	size_t lut_length;
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fd3d34dcf0fe..0ebc131c2788 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -9,14 +9,18 @@
- #include <drm/drm_colorop.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_property.h>
- 
- #include "vkms_drv.h"
- #include "vkms_formats.h"
- 
-+#define to_vkms_plane(target) \
-+	container_of_const(target, struct vkms_plane, base)
-+
- static const u32 vkms_formats[] = {
- 	DRM_FORMAT_ARGB8888,
- 	DRM_FORMAT_ABGR8888,
- 	DRM_FORMAT_BGRA8888,
- 	DRM_FORMAT_RGBA8888,
-@@ -52,16 +56,19 @@ static const u32 vkms_formats[] = {
- };
- 
- static struct drm_plane_state *
- vkms_plane_duplicate_state(struct drm_plane *plane)
- {
-+	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
- 	struct vkms_plane_state *vkms_state;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state)
- 		return NULL;
- 
-+	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
-+
- 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
- 
- 	return &vkms_state->base.base;
- }
- 
-@@ -83,28 +90,69 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- 	kfree(vkms_state);
- }
- 
- static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- {
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
- 	struct vkms_plane_state *vkms_state;
-+	u64 val;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state) {
- 		DRM_ERROR("Cannot allocate vkms_plane_state\n");
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
- 
-+	if (!drm_object_property_get_default_value(&plane->base,
-+						   vkms_plane->vkms_test_do_not_use_property,
-+						   &val))
-+		vkms_state->vkms_test_do_not_use_value = val;
-+
- 	return &(&vkms_state->base)->base;
- }
- 
-+static int vkms_plane_atomic_set_property(struct drm_plane *plane,
-+					  struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t val)
-+{
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		vkms_state->vkms_test_do_not_use_value = val;
-+		return 0;
++	/*
++	 * Select the console's blitting state and update par->rotated to
++	 * match the new font, so that the rendering below does not use a
++	 * cache that was built for the old font.
++	 */
++	if (con_is_visible(vc)) {
++		set_blitting_type(vc, info);
++		if (par->bitops->rotate_font)
++			par->bitops->rotate_font(info, vc);
 +	}
 +
-+	return -EINVAL;
-+}
-+
-+static int vkms_plane_atomic_get_property(struct drm_plane *plane,
-+					  const struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t *val)
-+{
-+	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		*val = vkms_state->vkms_test_do_not_use_value;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct drm_plane_funcs vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.atomic_create_state = vkms_plane_create_state,
--	.atomic_duplicate_state = vkms_plane_duplicate_state,
-+	.atomic_set_property	= vkms_plane_atomic_set_property,
-+	.atomic_get_property	= vkms_plane_atomic_get_property,
-+	.atomic_create_state	= vkms_plane_create_state,
-+	.atomic_duplicate_state	= vkms_plane_duplicate_state,
- 	.atomic_destroy_state	= vkms_plane_destroy_state,
- };
+ 	if (resize) {
+ 		int cols, rows;
  
- static void vkms_plane_atomic_update(struct drm_plane *plane,
- 				     struct drm_atomic_commit *state)
-@@ -281,10 +329,19 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
- 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
- 					  DRM_COLOR_YCBCR_BT601,
- 					  DRM_COLOR_YCBCR_FULL_RANGE);
+@@ -2466,6 +2477,14 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+ 		set_vc_hi_font(vc, false);
  
-+	plane->vkms_test_do_not_use_property =
-+		drm_property_create_range(dev, 0,
-+					  "vkms-test-do-not-use-in-prod",
-+					  0, U32_MAX);
-+	if (plane->vkms_test_do_not_use_property)
-+		drm_object_attach_property(&plane->base.base,
-+					   plane->vkms_test_do_not_use_property,
-+					   0);
++	/*
++	 * The rotated font buffer was rebuilt for the new font before
++	 * vc_resize() was attempted. Call rotate_font() again to
++	 * overwrite par->rotated with the restored font's state.
++	 */
++	if (con_is_visible(vc) && par->bitops->rotate_font)
++		par->bitops->rotate_font(info, vc);
 +
- 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
- 		vkms_initialize_colorops(&plane->base);
+ 	font_data_put(data);
  
- 	return plane;
- }
-
+ 	return ret;
 -- 
-2.55.0
+2.56.0
 
