@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51502CCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 02:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA68CCA462
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 02:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A864A10E20D;
-	Fri, 16 Oct 2026 02:01:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8A0112587;
+	Fri, 16 Oct 2026 02:04:16 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0731210E20D
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 02:00:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B301511255F
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 02:04:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E3ACA43236;
- Fri, 16 Oct 2026 02:00:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E82D1F000C4;
- Fri, 16 Oct 2026 02:00:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7D9C743F8D;
+ Fri, 16 Oct 2026 02:04:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B95A1F000C4;
+ Fri, 16 Oct 2026 02:04:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792116057;
- bh=WrAhFT75iG01wckpU+08pAhzVcHyqZ2mMr1iWIBV2nM=;
+ s=k20260515; t=1792116250;
+ bh=FdcxFEgwdi/jPH2odXcF0/cWQyZfYLZUXFYMLgg4+hg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bJ3JxsGCR8wlp8P28aClHN17WfiqKrewncfp6r4C830qq5XAi1+4yA0XQZoYGiBQl
- v/kpX2P/hFo/mWPgDe3J6f7llg3h8N3AUHa9avdlbce9ttqViCUPyi8exm0deuNTA0
- jnr1zr4poDhZYb28JzKiJppKCDVtdDpZ/igmTPLYDwuVVHb2oZFUqm3/znmqWaC74W
- ZG0SE6lBefijQ2c7oZ9TVB+yzWBd4NcuazGGyG3+aD1LdW5M6s4H76UKk7AusnzutC
- LlcFGi0dnX3JofjqftLCNrvPFh/TDnHrizVgZTOIzcTP00pT3Uo1D6RenD/EaZN9yh
- LDeJGnWu6uToA==
-Message-ID: <sashiko-outbox-173606@kernel.org>
+ b=m95yRK1Kzpql9elHQ1PS0ZaWk51AoTopIjkKU1g98fPc+7OfwMngviuK+APm206Cc
+ 506q7RmMWl0yWcAmti7ugnNUJ52oKeaVLPu8qvxWKm6XXZsL0R5J+J30iI0m5K/HB6
+ YVam613WRCQLgacOPML3UaVFjH3qP/2BwD2TAQNnd+/9h7Ttc7GyCiofBy1ubooEHD
+ H4UX9ShiD2T9Jc9OrhfXS6RLxnbveEu9+Fa9BntPxYrS9i0xS0mRNuHNbvAFfpd217
+ Me8EO5l1gKNcSV9lhJTXFNA8/jSR7ClmYSqH+5lxYmKr9o32H8sjIIJ82pyAWixM7r
+ H4ztFvAV0hMjA==
+Message-ID: <sashiko-outbox-173611@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/7] gpu: nova-core: add NVKV decoder
+Subject: Re: [PATCH v4 2/7] rust: alloc: add ArrayVec
 To: "Eliot Courtney" <ecourtney@nvidia.com>,
  "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo
  Stoakes" <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
@@ -47,12 +47,12 @@ Cc: "John Hubbard" <jhubbard@nvidia.com>,
  "Alistair Popple" <apopple@nvidia.com>, "Timur
  Tabi" <ttabi@nvidia.com>, nova-gpu@lists.linux.dev,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20261016-b4-nvkv-v4-4-e8b92b91aa5b@nvidia.com>
+In-Reply-To: <20261016-b4-nvkv-v4-2-e8b92b91aa5b@nvidia.com>
 References: <20261016-b4-nvkv-v4-0-e8b92b91aa5b@nvidia.com>
- <20261016-b4-nvkv-v4-4-e8b92b91aa5b@nvidia.com>
+ <20261016-b4-nvkv-v4-2-e8b92b91aa5b@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 02:00:56 +0000
+Date: Fri, 16 Oct 2026 02:04:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,90 +71,68 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] gpu: nova-core: endianness bug when extracting u8/u32 arrays from =
-native &[u64] stream
+- [Low] rust: missing #[inline] on try_push_init and extend_from_slice
 --
 
-commit 60056513188e14b734dcdb09e45f7f46bb4688b6
+commit 83efda44f14b36e4aab4040f689c08677c6c23f1
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-gpu: nova-core: add NVKV decoder
+rust: alloc: add ArrayVec
 
-This commit adds an NVKV decoder for parsing messages from GSP for GMCAPI
-calls. It reads an encoded stream of (key, index, value) tuples and invokes
-a Schema/Visit trait interface to consume the values.
+Add a fixed capacity vector backed by [MaybeUninit<T>; N]. The ArrayVec
+is also initializable with a closure, returning an Init instance, to
+avoid constructing it on the stack.
 
-> diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova-=
-core/gsp/nvkv/decode.rs
+> diff --git a/rust/kernel/alloc/arrayvec.rs b/rust/kernel/alloc/arrayvec.rs
 > new file mode 100644
-> index 0000000000000..6496fab1c0c62
+> index 0000000000000..8793adf4d27b7
 > --- /dev/null
-> +++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
-[ ... ]
-> +    /// Takes `count` bytes. If `count` is not a multiple of 8 (`u64` si=
-ze), bytes are discarded up
-> +    /// to the next multiple.
-> +    fn take_u8s(&mut self, count: usize) -> Result<&'a [u8]> {
-> +        let values =3D self.take_u64s(count.div_ceil(size_of::<u64>()))?;
-> +        values.as_bytes().get(..count).ok_or(EINVAL)
-> +    }
-
-[Severity: High]
-Does casting a native u64 slice to bytes extract the wrong payload on
-big-endian architectures?
-
-Because Cursor::take_u64s() reads host-native 64-bit integers, using
-.as_bytes() reverses the byte layout on big-endian hosts compared to
-little-endian.
-
-For example, if a 3-byte payload is stored inside a 64-bit word, a big-endi=
-an
-host will have the payload at the end of the word and zero-padding at the
-beginning, causing .get(..count) to extract the zeros instead of the actual
-data payload.
-
-> +
-> +    /// Takes `count` 32-bit values. If `count` is not a multiple of 2 (=
-`u32` values per `u64`),
-> +    /// bytes are discarded up to the next multiple.
-> +    fn take_u32s(&mut self, count: usize) -> Result<&'a [u32]> {
-> +        let values =3D self.take_u64s(count.div_ceil(size_of::<u64>() / =
-size_of::<u32>()))?;
-> +        <[u32]>::ref_from_prefix_with_elems(values.as_bytes(), count)
-> +            .map(|(elems, _)| elems)
-> +            .map_err(|_| EINVAL)
-> +    }
-
-[Severity: High]
-Can this result in swapped 32-bit words on big-endian systems?
-
-Similar to the byte array extraction above, passing the native memory
-representation through .as_bytes() to recreate a [u32] slice will swap
-the order of the 32-bit halves on big-endian architectures compared to
-little-endian ones.
+> +++ b/rust/kernel/alloc/arrayvec.rs
 
 [ ... ]
-> +    /// Decodes every pair into `schema` and returns the result of [`Sch=
-ema::finish`].
-> +    pub(crate) fn decode<'s, S: Schema + Visit<'a>>(
-> +        &self,
-> +        schema: &'s mut S,
-> +    ) -> Result<impl Init<S::Target, Error> + 's> {
-> +        let mut cursor =3D Cursor::new(self.data);
-> +        while !cursor.is_empty() {
-> +            let op: Op =3D cursor.take_u64()?.into();
 
-[Severity: High]
-Does this misalign the operation bitfields on big-endian hosts?
+> +    /// Appends an element to the back of the [`ArrayVec`] by initializi=
+ng it in place.
+> +    ///
+> +    /// Unlike [`ArrayVec::push_init`], the initializer may be fallible.=
+ If the [`ArrayVec`] is
+> +    /// full, the original initializer `init` is handed back in [`TryPus=
+hInitError::Full`]. If the
+> +    /// initializer itself fails, its error is returned in [`TryPushInit=
+Error::InitError`].
+> +    pub fn try_push_init<I, E>(&mut self, init: I) -> Result<(), TryPush=
+InitError<I, E>>
+> +    where
+> +        I: Init<T, E>,
+> +    {
+> +        let Some(slot) =3D self.spare_capacity_mut().first_mut() else {
 
-The 64-bit operation word is read as a host-native integer via take_u64().
-If the NVKV stream comes from a little-endian GSP, parsing it directly as a
-native u64 on a big-endian host will misalign the key, index, and value
-fields inside Op.
+[Severity: Low]
+This isn't a bug, but is try_push_init() missing an #[inline] attribute?
+The Rust subsystem coding guidelines state that small functions in abstract=
+ions
+should be annotated with #[inline].
 
-Should this explicitly handle endianness (e.g., using little-endian read
-functions) instead of relying on native host integers?
+[ ... ]
+
+> +    /// Appends a clone of each element in `slice` to the back of the [`=
+ArrayVec`].
+> +    ///
+> +    /// Fails with [`EINVAL`] if `slice` is longer than the remaining ca=
+pacity.
+> +    pub fn extend_from_slice(&mut self, slice: &[T]) -> Result
+> +    where
+> +        T: Clone,
+> +    {
+> +        let Some(dst) =3D self.spare_capacity_mut().get_mut(..slice.len(=
+)) else {
+
+[Severity: Low]
+This isn't a bug, but is extend_from_slice() also missing an #[inline]
+attribute? The Rust subsystem coding guidelines state that small functions =
+in
+abstractions should be annotated with #[inline].
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-b4-nvkv-v4=
--0-e8b92b91aa5b@nvidia.com?part=3D4
+-0-e8b92b91aa5b@nvidia.com?part=3D2
