@@ -4,33 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81B25CCF2C9
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:54:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 416BECCF2C9
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:54:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3174B10E69D;
-	Sun, 18 Oct 2026 14:54:02 +0000 (UTC)
-Received: from mail.noirlang.tr (mail.noirlang.tr [217.18.210.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 053E010E04A
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 11:02:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=noirlang.tr; s=mail;
- t=1792320738; bh=xSTVsyBj9rD4xAugyvQE85Q5fUAP+AnMB7S3KA2/zOk=;
- h=From:To:Cc:Subject:Date:From;
- b=rP2HcxClezToqihQNlj+BD1Sta+DI0tr8Vu+YVHut9nR+i55bG8+HIPXrQ2m9v4zd
- pRTX5TY9KknuMlLgQIF99sig3ARShfaHn5HifoKp18Zn499ynWIfwFwMPaw37Yc+ey
- RuybdQfyy/u/rUwAEofMjwG15oyF5QksB1CWUy2nHr7tLl6dVSt+RnJ4TFcIX6BOu8
- NjiWNmyl3tlFekeGkuxKdtjmj2Dy1Wfiai9NEXhM4pKYfcYyy3zh934JXvaiELawSh
- Gqw9jE4k9NZsFBkHO0Po/QLrFARIgVX/k72Pw8i30+SmeWl9xIasg8CwtmKd/S06Yw
- LuqtrhJ2Y7CxA==
-From: Melih Emik <melihemik@noirlang.tr>
-To: anitha.chrisanthus@intel.com,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/kmb/dsi: inline drm_simple_encoder_init()
-Date: Sun, 18 Oct 2026 13:52:17 +0300
-Message-ID: <20261018105217.233443-1-melihemik@noirlang.tr>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96BAA10E6A0;
+	Sun, 18 Oct 2026 14:54:36 +0000 (UTC)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E107610E2A3
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 12:41:04 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-cd623dfe420so2444301a12.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 05:41:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792154464; x=1792759264; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=0kuUNpKGpHmxXwciJw2YT+q4uhPu0mOIC0xkYVCIOFs=;
+ b=anOgdFzrU6K5UE89sLO5n634172audRMy7pEPE6hLy299pPdZMjHjQgEQ4qXHRTKLn
+ mPhoMFpH7nMtkgynZ1RMPsvV4CU87QlXc0gCDt2mqvuYoOjCaAq8BSEBN2T9SWNcZtJq
+ joXBDBsCqQMdErPQbkAJokLv2pOjkdcjgWumnN9o6DdIcp5lzZEcjoxFbenEiZ22i5uF
+ cilnGxz84H86lrA3hEltTPQf2WC5KlOctCORApa+YcS+lsPaSNqQAPZDtV3HMxzsQBol
+ 2qSlNcMFjPsFcWq3yUDJMoHPSP5pVcCcPUAexhPh+2qtFATEPEezVPhj5auo1O00pqA+
+ 1xsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792154464; x=1792759264;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0kuUNpKGpHmxXwciJw2YT+q4uhPu0mOIC0xkYVCIOFs=;
+ b=xIAchm+UHoVqmv7LaGVgCUxpN7KYYkPupamU+/91sOs5Vg+QiTyP49ZTlTO3ND4Mrx
+ VCbxy+0jNeYgvrMXouBGLnmDt6fBOGMUw2XTp/OIPoMlC3KO5pjSd0OeWNAxYyW+AN8b
+ /ZLaaHnVEFgF08m/tNqYbAIBq/Tg1WFdtBfp19aiH5HgHxlz382dnf6cjpO6QO7JFEbr
+ IMn1dbEe8sF7kSctvKiZvMFUglCASfKSW8JCenmi5hdmKQeBkCHmGEWDrIiNx6rK55bD
+ lpPDLj0mrENxhdA2CNiVmScx6sd8VvhYvkj2vU6U/7uoyPn2Z58zEP/2JIbjuRHhrfCo
+ YEww==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzGK8M+qb3dXtwJjV4ELPkOX7AWPqsXRvlwfhRG0qaajD7U5uE3FNu+cwBL4Nc1sDRg883p1a86vyI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJkj76tqQGwjE8QuEBrdmGAZn1RcEqFuhtyR+XP+qBmHXujrmR4
+ 1AqddJaFCNcMXhPlIUDPKefN8tHcBy+iBGfctnIJYUNRhTqg1msXNqj3
+X-Gm-Gg: AYBFou0YA4sl4FhsFaducENWrMBBshopwf142pP7K2SA1nUVAw3/ddey7dj9wUDvHQN
+ +GdVCGehMudbQLt4LczXSKc5eTnscSUj85qIq4R1zabwDkMlszzy1yNWOho/c38Oa09HM1D/1IS
+ ODl+hQN/OffwrV5H2MMbPGeJhi+eq1Xf7FiP2ttiBoAxybd3UMxF/+1yQfIxWM2+IaoninhJjyO
+ 8CKM/tpT3jiirP3aycGKnGVDtaxcv1/kBoHbxVSsgJ+eHKS8a4Sla+u/i+mcLUlr7vuS9DAxpSY
+ 6OLYl44qQbI1JDLNtQlRR5DZEF6z7nDd00aGysShpzd9JaekfeSMc7TNfajJP/pPFhvt05jxZYP
+ 0DINm8my6DeI1fjvM2300AEmPlxge4Djk7IRDAlplxJFHf5Qhj643WEg7gjJgS3pED/UjhDuW8o
+ 06jtmH1BsCLz2rOA5gjzTyTqaCDP3FsWzve2+C8kQEt27vJkOPkpS6xAElPsHSvLZpWvmoBn+oY
+ JsYplW+OEwKQw==
+X-Received: by 2002:a17:90b:3b84:b0:3ab:1b19:78f4 with SMTP id
+ 98e67ed59e1d1-3ab3a3a11a1mr21060267a91.6.1792154464234; 
+ Fri, 16 Oct 2026 05:41:04 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3acc46ebe40sm4180541a91.6.2026.10.16.05.40.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Oct 2026 05:41:02 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 09/10] drm/msm/dpu: only reassign resources when the
+ encoder is reprogrammed
+Date: Fri, 16 Oct 2026 21:40:55 +0900
+Message-ID: <20261016124055.1232-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261003-fd-kms-fix-smmu-v4-9-2a44d4d8ac77@oss.qualcomm.com>
+References: <20261003-fd-kms-fix-smmu-v4-0-2a44d4d8ac77@oss.qualcomm.com>
+ <20261003-fd-kms-fix-smmu-v4-9-2a44d4d8ac77@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 18 Oct 2026 14:53:13 +0000
@@ -49,65 +95,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The helper drm_simple_encoder_init() is deprecated because it adds an
-unnecessary intermediate layer between atomic modesetting and DRM drivers,
-as documented in Documentation/gpu/todo.rst.
+On Sat, 03 Oct 2026 03:30:24 +0300, Dmitry Baryshkov wrote:
+> Reassign only when the encoder is reprogrammed too.  Enabling colour
+> management still needs a modeset, as that is when DSPPs join the
+> topology, so ask for one in dpu_crtc_check_mode_changed() and only there.
 
-Inline the functionality by calling drm_encoder_init() directly with a
-local instance of struct drm_encoder_funcs. This allows removing the
-dependency on <drm/drm_simple_kms_helper.h> in favor of
-<drm/drm_encoder.h>.
+Tested with 7/10 and this patch on v7.3-rc4, with out-of-tree support
+for a Lenovo Legion Tab Y700 Gen 5 (SM8850, bonded DSI). A compositor
+sets the CRTC CTM through the legacy property ioctl: NULL -> blob, a
+series of blob -> blob updates, then back to NULL. Over two such
+rounds, counting msm_dsi_host_power_off/on with kprobes: without the
+series every NULL <-> blob change was a full modeset, four in total;
+with it only the first NULL -> blob after boot was, and the blob ->
+blob updates and the clears were plain commits.
 
-Tested:
-- Compiled with W=1 on x86_64 with zero warnings.
-- Verified with lockdep and debug mutexes enabled
-  (CONFIG_PROVE_LOCKING=y, CONFIG_DEBUG_MUTEXES=y).
-- Boot-tested full bzImage in QEMU with initcall_debug, confirming
-  successful driver registration (kmb_platform_driver_init returned 0)
-  and zero lockdep/kernel warnings.
-- Verified with scripts/checkpatch.pl (0 errors, 0 warnings).
+That tree also carries out-of-tree SPR support, so for the test
+dpu_crtc_needs_dspp() also returned true when SPR is enabled.
 
-Signed-off-by: Melih Emik <melihemik@noirlang.tr>
----
- drivers/gpu/drm/kmb/kmb_dsi.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Tested-by: Joonhoe Kim <26rote@gmail.com>
 
-diff --git a/drivers/gpu/drm/kmb/kmb_dsi.c b/drivers/gpu/drm/kmb/kmb_dsi.c
-index 59d0e856392f..13adba96bc78 100644
---- a/drivers/gpu/drm/kmb/kmb_dsi.c
-+++ b/drivers/gpu/drm/kmb/kmb_dsi.c
-@@ -14,8 +14,8 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_bridge_connector.h>
-+#include <drm/drm_encoder.h>
- #include <drm/drm_mipi_dsi.h>
--#include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- 
-@@ -1427,6 +1427,10 @@ struct kmb_dsi *kmb_dsi_init(struct platform_device *pdev)
- 	return kmb_dsi;
- }
- 
-+static const struct drm_encoder_funcs kmb_dsi_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- int kmb_dsi_encoder_init(struct drm_device *dev, struct kmb_dsi *kmb_dsi)
- {
- 	struct drm_encoder *encoder;
-@@ -1437,7 +1441,8 @@ int kmb_dsi_encoder_init(struct drm_device *dev, struct kmb_dsi *kmb_dsi)
- 	encoder->possible_crtcs = 1;
- 	encoder->possible_clones = 0;
- 
--	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_DSI);
-+	ret = drm_encoder_init(dev, encoder, &kmb_dsi_encoder_funcs,
-+			       DRM_MODE_ENCODER_DSI, NULL);
- 	if (ret) {
- 		dev_err(kmb_dsi->dev, "Failed to init encoder %d\n", ret);
- 		return ret;
--- 
-2.56.0
+W=1 warns about the kernel-doc of dpu_crtc_check_mode_changed(): the
+new helpers sit between that comment and the function.
 
+A CRTC now keeps its DSPPs after the CTM is cleared, until its next
+modeset, so on chips with a single DSPP (SC7180, SC7280, ...) another
+CRTC asking for a CTM fails dpu_rm_reserve() in the meantime. Maybe
+worth a line in the commit message.
 
+Thanks,
+Joonhoe Kim
