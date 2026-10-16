@@ -4,37 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8F83CCF2C4
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:54:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D244CCCF2D3
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2104A10E6A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D3C310E6A7;
 	Sun, 18 Oct 2026 14:54:37 +0000 (UTC)
-Received: from mail.noirlang.tr (mail.noirlang.tr [217.18.210.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5832510E04A
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 11:28:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=noirlang.tr; s=mail;
- t=1792322926; bh=uYAXWKh3pVi83U2Vt4WZSW9U0O1j5A3aF4lZLVxVC4U=;
- h=From:To:Cc:Subject:Date:From;
- b=aUbD5ycH/a39AdXOVqbwiXaPwJ5BDksrSofak7odt2OPY5lFA8P8OC0pNn5NUG9/u
- CHNccu6fOJORy39RdFiUZB2U8r93mjrziejkbqkQ8grok4NcL0AxFg8bQGaDVKopwY
- m9w1i2yNaWfsNyXx9+7RkD5YgXyJHtSYBH+NBtjp1qJh850pEZBLdwxgoyTqW3PTsc
- VEDfO4ieAwN6CuFmJdx7HJwcXCWDmY2ZLSwkpTZAxQ5ZMaS5PC+Luyupj2a0jQHMb/
- 5x8jDv7osNxA7120lP1dJrWZNmIb4YOSzmluCRCDizpfQhM+1SG8ZjLXhZdT+jTJMF
- qSN2UTLlpj0Tw==
-From: Melih Emik <melihemik@noirlang.tr>
-To: airlied@redhat.com,
-	kraxel@redhat.com,
-	dmitry.osipenko@collabora.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com,
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F677112816
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:16:58 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j5lpH1wq9zKmT6;
+ Fri, 16 Oct 2026 15:16:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1792156615;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ADFLpxJTy6WuqekBYcH8+chW3TrBLyByLSZYI4f+yyQ=;
+ b=m1mbA0Jyczbb4IFU891R/y3QKmCITbeDLYUk9RwKS0JyYHyNzKR4hsHVnlnOIz4KhxURip
+ ZIB1xuqrao8Y+WsFBZcgC+Oaa7tF9crSy9WtM2SO02w7NGXh/SczGlfckyP/zxRdOhLJoj
+ 33yO9y34MnB47Mx8pjN/p0s7N5yKwjiVbvBtOMXlnDS9rhWrX6yIhNH82IQ5l9XAyd0vDI
+ wi/Xo/1FO6qEwUATjXmazi8Gtm82FyvgvntAOsTBuCdacjrTZuOrXyE0cK0/5lcotrZE6r
+ FbG6chdTV41+fUXckIQHoVqp6o3/s2ZkBYrK+XNIpDiZGqz8jAOG5r/dJIo+YQ==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/virtio: inline drm_simple_encoder_init()
-Date: Sun, 18 Oct 2026 14:28:44 +0300
-Message-ID: <20261018112844.360262-1-melihemik@noirlang.tr>
-X-Mailer: git-send-email 2.56.0
+ airlied@gmail.com, simona@ffwll.ch, jfalempe@redhat.com, javierm@redhat.com
+Subject: Re: [PATCH 0/2] drm/client: Keep larger modes in connector->modes on
+ fbdev hotplug
+Date: Fri, 16 Oct 2026 14:16:52 +0100
+Message-ID: <20261016131652.483525-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <atIYd0dd6ynXulwQ@intel.com>
+References: <20261015212545.1989962-1-hugo@hsal.es>
+ <atIYd0dd6ynXulwQ@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4j5lpH1wq9zKmT6
 X-Mailman-Approved-At: Sun, 18 Oct 2026 14:53:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,71 +67,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The helper drm_simple_encoder_init() is deprecated because it adds an
-unnecessary intermediate layer between atomic modesetting and DRM drivers,
-as documented in Documentation/gpu/todo.rst.
+On Fri, Oct 16, 2026 at 03:28:39PM +0300, Ville Syrjälä wrote:
+> On Thu, Oct 15, 2026 at 10:25:43PM +0100, Hugo Sales wrote:
+> > On an ASUS ROG Flow X13 with a 3840x2400 eDP panel, booted with
+> > video=eDP-1:1920x1200@60, an HDMI hotplug makes fbdev reprobe every
+> > connector with its 1920x1200 framebuffer as the limit. connector->modes
+> > loses the panel's 3840x2400 mode, and after suspend/resume amdgpu drives
+> > the panel with the 1920x1200 timing. The image ends up squeezed into the
+> > top-left corner. Details are in
+> > https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+>
+> Sounds like an amdgpu bug.
 
-Inline the functionality by calling drm_encoder_init() directly with a
-local instance of struct drm_encoder_funcs. This allows removing the
-dependency on <drm/drm_simple_kms_helper.h> in favor of
-<drm/drm_encoder.h>.
+Agreed, the resume bug is in amdgpu. It looks up the eDP native mode in
+connector->modes, which fbdev's hotplug probe can trim. This series
+fixes it there:
+https://lore.kernel.org/r/20261014223041.171317-1-hugo@hsal.es
 
-Signed-off-by: Melih Emik <melihemik@noirlang.tr>
----
-Tested:
-- Compiled with W=1 on x86_64 with zero warnings or errors.
-- Verified with lockdep and debug mutexes enabled
-  (CONFIG_PROVE_LOCKING=y, CONFIG_DEBUG_MUTEXES=y).
-- Boot-tested full bzImage in QEMU with -device virtio-gpu-pci and
-  initcall_debug, confirming successful probe and initialization
-  (probe of virtio0 with driver virtio_gpu returned 0) and zero
-  lockdep/kernel warnings.
-- Verified with scripts/checkpatch.pl (0 errors, 0 warnings).
+I sent this one for the shared list itself because after a hotplug,
+connector->modes depends on fbdev's framebuffer size, while initial
+setup, drm_log and GETCONNECTOR probe with the device's limits. Until
+something reprobes, the sysfs modes file and any driver that reads the
+list see the trimmed version
 
- drivers/gpu/drm/virtio/virtgpu_display.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+amdgpu isn't the only driver that reads it. stm/lvds and
+shmob_drm_encoder_mode_fixup() take the first entry of connector->modes
+as the panel mode, so they may hit the same thing with a video= mode
+smaller than the panel. I haven't tested those, because I don't have
+the hardware. Fixing it in the core covers them without each driver
+keeping its own copy of the native mode
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
-index a1a875a0c706..1bdbf452d111 100644
---- a/drivers/gpu/drm/virtio/virtgpu_display.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_display.c
-@@ -28,11 +28,11 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_damage_helper.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_encoder.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
--#include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_vblank_helper.h>
- 
-@@ -232,6 +232,10 @@ static enum drm_mode_status virtio_gpu_conn_mode_valid(struct drm_connector *con
- 	return MODE_BAD;
- }
- 
-+static const struct drm_encoder_funcs virtio_gpu_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- static const struct drm_encoder_helper_funcs virtio_gpu_enc_helper_funcs = {
- 	.mode_set   = virtio_gpu_enc_mode_set,
- 	.enable     = virtio_gpu_enc_enable,
-@@ -306,7 +310,10 @@ static int vgdev_output_init(struct virtio_gpu_device *vgdev, int index)
- 	if (vgdev->has_edid)
- 		drm_connector_attach_edid_property(connector);
- 
--	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
-+	ret = drm_encoder_init(dev, encoder, &virtio_gpu_encoder_funcs,
-+			       DRM_MODE_ENCODER_VIRTUAL, NULL);
-+	if (ret)
-+		return ret;
- 	drm_encoder_helper_add(encoder, &virtio_gpu_enc_helper_funcs);
- 	encoder->possible_crtcs = 1 << index;
- 
--- 
-2.56.0
-
-
+Hugo
