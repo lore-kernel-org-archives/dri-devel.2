@@ -4,47 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EF94CCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B8C0CC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E323A11265E;
-	Fri, 16 Oct 2026 07:48:16 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5546911264E
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:48:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=dEewYLgjiHZW/eBsP71quKAyI9xH1OB5VK7isGmpV9M=; b=D6KttBco6oKvOVvuQteTR3mxtX
- PF8LU3WAmb6M/akdAnh1Vyl3hBGJXNZSIgbZFgDBYJBJOWR0VNSaiXhElGixer4inykAglFtw9dPx
- /Of+Q4G/WIx9zTv/S5xPMzNnuV+eyfQ0wCMe/3XiBXN6lquFk5Y+Zkk/AknVzd67GmYXAl1ocaD+q
- KRhPWFhAT8iukup6lEHAVFtPd/r9MUK/HSmwmzp0Y7r7f5qeTsOV/So8EM0whfqu4yGcsL6fdgzcr
- EKtNkhPTChyZR8j5j30JuYnv1qvc77UIaRfezeV6wIWmm750LQtetUWfGavXT9N4yz3I6zoSwAaVM
- gm0IIsiQ==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xHcfR-000vwg-1T; Fri, 16 Oct 2026 09:47:53 +0200
-Message-ID: <388e5d83-89cb-4159-886f-afb57921911c@igalia.com>
-Date: Fri, 16 Oct 2026 08:47:52 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panic: Accept a trailing newline in panic_screen
-To: Devin Wittmayer <lucid_duck@justthetip.ca>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261016052722.60051-1-lucid_duck@justthetip.ca>
- <20261016052722.60051-2-lucid_duck@justthetip.ca>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20261016052722.60051-2-lucid_duck@justthetip.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E43F112629;
+	Fri, 16 Oct 2026 07:49:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFF2911266F
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:49:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 65941413C1
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:49:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5821F000C4;
+ Fri, 16 Oct 2026 07:49:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792136951;
+ bh=TQrfcshK/JAykqAxSfFo1u3+AxhNgB3tzZWzT2wVFuI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mOsJkGYl9/nINKLh7wTkdiwiDYesYmJKmydInb2QwoA18PtaFzlZiQMIFhW5sAbsq
+ MAYT8zIP3WR0gTCLEDMxScfmxgthv0iyfE/flZbHtBnEzEaEuoGMzbdblILTlvCoUc
+ MifMSB3TmrzU9B8Ir8WolHxcajnXwp3ZC/Uu2PQQj3T/04mU9XjpBU/XwVbgxIWLmj
+ 0+n+Agyc7/bvYCmWM1XJwZlPcZr+kfSG0CFT/JYTCwUvzTcgr4Zn3At7XLNyeQmTjo
+ +hmvkELxbh6tqKrmd4Ynd+3KFiGXgWt8xMivlg6S0BXfYC6YtZa8zeWMH1On0thL+u
+ N+mrqThCmATPw==
+Message-ID: <sashiko-outbox-173967@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 14/14] drm/vkms: Add driver-specific plane property
+ for testing
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261016-drm-reset-state-flag-v5-14-dad2d64b693b@kernel.org>
+References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+ <20261016-drm-reset-state-flag-v5-14-dad2d64b693b@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 07:49:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +51,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] vkms: NULL pointer dereference in vkms_plane_create_state on prope=
+rty alloc failure
+--
 
-On 16/10/2026 06:27, Devin Wittmayer wrote:
-> Setting the panic screen through sysfs with echo fails with EINVAL,
-> because the value ends in a newline. Ignore it when matching.
-> 
-> Fixes: e85e9ccf3f84 ("drm/panic: Report invalid or unsupported panic modes")
-> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-> ---
-> QEMU, 10 runs each, on drm-misc-fixes and drm-misc-next:
-> 
->                                       before    after
->    write of "user\n"                  refused   takes
->    write of "bsod\n"                  refused   refused
+commit d0a4c2c6cd5d0119f8db12db7c2a842adce4aa8a
+Author: Maxime Ripard <mripard@kernel.org>
 
-Hah funny, becuase before e85e9ccf3f84 it used to take "bsod\n" but 
-AFAIR it would silently revert to displaying "user". Because old code 
-was this:
+drm/vkms: Add driver-specific plane property for testing
 
-static void draw_panic_dispatch(struct drm_scanout_buffer *sb)
-{
-        if (!strcmp(drm_panic_screen, "kmsg")) {
-                draw_panic_static_kmsg(sb);
-        } else if (!strcmp(drm_panic_screen, "qr_code")) {
-                draw_panic_static_qr_code(sb);
-        } else {
-                draw_panic_static_user(sb);
-        }
+This commit adds a driver-specific range property to vkms planes for testing
+the DRM_MODE_ATOMIC_RESET flag. It initializes the property during plane
+creation and duplicates its value in the plane state.
+
+> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkm=
+s_plane.c
+> index fd3d34dcf0fe5..0ebc131c2788f 100644
+> --- a/drivers/gpu/drm/vkms/vkms_plane.c
+> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
+[ ... ]
+> @@ -85,7 +92,9 @@ static void vkms_plane_destroy_state(struct drm_plane *=
+plane,
+> =20
+>  static struct drm_plane_state *vkms_plane_create_state(struct drm_plane =
+*plane)
+>  {
+> +	struct vkms_plane *vkms_plane =3D to_vkms_plane(plane);
+>  	struct vkms_plane_state *vkms_state;
+> +	u64 val;
+> =20
+>  	vkms_state =3D kzalloc_obj(*vkms_state);
+>  	if (!vkms_state) {
+> @@ -95,14 +104,53 @@ static struct drm_plane_state *vkms_plane_create_sta=
+te(struct drm_plane *plane)
+> =20
+>  	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
+> =20
+> +	if (!drm_object_property_get_default_value(&plane->base,
+> +						   vkms_plane->vkms_test_do_not_use_property,
+> +						   &val))
+
+[Severity: High]
+Can vkms_plane->vkms_test_do_not_use_property be NULL here?
+
+In vkms_plane_init(), if drm_property_create_range() fails, the property
+pointer is left as NULL, but initialization succeeds:
+
+	plane->vkms_test_do_not_use_property =3D
+		drm_property_create_range(dev, 0,
+					  "vkms-test-do-not-use-in-prod",
+					  0, U32_MAX);
+	if (plane->vkms_test_do_not_use_property)
+		drm_object_attach_property(&plane->base.base,
+					   plane->vkms_test_do_not_use_property,
+					   0);
+
+If the property pointer is NULL, calling
+drm_object_property_get_default_value() will trigger a NULL pointer
+dereference because the DRM core unconditionally dereferences it:
+
+drivers/gpu/drm/drm_mode_object.c:drm_object_property_get_default_value() {
+	WARN_ON(!drm_drv_uses_atomic_modeset(property->dev));
+    ...
 }
 
-But it is true that it would also silently accept "user\n" so I guess 
-you can call it a partial regression.
+Should there be a NULL check for vkms_test_do_not_use_property before passi=
+ng
+it to drm_object_property_get_default_value(), or should vkms_plane_init()
+return an error if the property allocation fails?
 
-Anyway, the fix LGTM.
+> +		vkms_state->vkms_test_do_not_use_value =3D val;
+> +
+>  	return &(&vkms_state->base)->base;
+>  }
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Regards,
-
-Tvrtko
-
->    drm.panic_screen=user at boot      takes     takes
-> 
-> amdgpu, 2 runs each, 7.2.6 with Arch's source and config:
-> 
->    echo user                          refused   takes
-> 
->   drivers/gpu/drm/drm_panic.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-> index 29b1487de7ae0..7847b38ba9aab 100644
-> --- a/drivers/gpu/drm/drm_panic.c
-> +++ b/drivers/gpu/drm/drm_panic.c
-> @@ -839,7 +839,7 @@ static int drm_panic_type_set(const char *val, const struct kernel_param *kp)
->   	unsigned int i;
->   
->   	for (i = 0; i < ARRAY_SIZE(drm_panic_type_map); i++) {
-> -		if (!strcmp(val, drm_panic_type_map[i])) {
-> +		if (sysfs_streq(val, drm_panic_type_map[i])) {
->   			drm_panic_type = i;
->   			return 0;
->   		}
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-drm-reset-=
+state-flag-v5-0-dad2d64b693b@kernel.org?part=3D14
