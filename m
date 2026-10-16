@@ -4,92 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B858CCA462
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02DA4CCA46D
 	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:36:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0218411266B;
-	Fri, 16 Oct 2026 07:35:43 +0000 (UTC)
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com
- [74.125.227.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 815E71124D4
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 21:34:59 +0000 (UTC)
-Received: by mail-pj2-f11.google.com with SMTP id
- 98e67ed59e1d1-398a0a87595so1177222a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 14:34:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E21E11263F;
+	Fri, 16 Oct 2026 07:35:47 +0000 (UTC)
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B89010E3F9
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 03:45:57 +0000 (UTC)
+Received: by mail-dy2-f7.google.com with SMTP id
+ 5a478bee46e88-33e5ae86ff2so1742851eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 20:45:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792100099; x=1792704899; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=pQimVVD9drWSngFOzWOAmVd128tPGcg8NvVnNLLNcbY=;
- b=DEAShjIzUVHOVEJFgJQgEhbKNwg8UcJcdf8Jcr8g9JqsNmgaqz9F0Z3mbUTpUa2Mmm
- KHKJsEs9dh+kjyRFQdXqupWCgNUGoyFx5rgVmNQ6kCJEihXrBPjOqfBW/SBbs9lUELM6
- HUxWRcJBRyaJlRNl8IEbaxtxMilcDmLcuzk/22wdVc4cuHNAkb69mOl0G1zfiCQxBrOD
- NE/EiOzW2akBmzuTf87/w79Y/ArNcjVrxuiXYWl2OFvt8yQYLimK6hJrEtT5WGc3+Atz
- JxO8zzbaFuYHpKk4/2eeb8/vvcNiQu4M8HicVtROU+sSgdNoHGkxi4616LyA73Akdw4p
- /www==
+ d=gmail.com; s=20251104; t=1792122356; x=1792727156; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qZAMtIxyqaOU5P+355zxZjtsgqUUs04q64AQMCXAlLY=;
+ b=g4u+8zRV1s85tzjIrZhhQsxOTFrnkS3epBOSYBk4qdmCj10R6pE5nSspFnfgbG+j5u
+ HBqhJ19K58Sby/Tq/8XX3UzykffnmPJpjNmH940IOQ6iKHF6YwjssdQI0VEA8ybYSACp
+ TAFF2vSCnvaBvybGekcTgjPAe+W7Ta3I3W4Pc8XsB6EY04+w0Hlz0X0+OGmDGisSZaQo
+ 3Gy15yrmGzAT00daGCAUtYMJ0ljWGEF3pxgU5ORMWxgUPE36NUSzpDjet+k3qKmD/hBz
+ yhZO0rINwXXGcQ2Q4HRXwq4ekLs+lYhdsDHWl5zF2ayw7mH4KmTHrcBUnIWVd9aO8JAs
+ 2e4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792100099; x=1792704899;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pQimVVD9drWSngFOzWOAmVd128tPGcg8NvVnNLLNcbY=;
- b=Sdvbc9vAmUoS8ZTXLlmDLGlzEQt/l2ckce6laS9pa0XpcBj8Zy2Vdi9JtGEXe7lNUL
- W3C9qSReb+B5BEile1MyO3jNEnZJVsHiQr9RKxvaN0YPSbQrtTdVRBoVLUxMQ34P02oa
- puaww6FPhaestz4Wr/tupzdIcZ13kMCeIaX0MhEZdEMcMJNh0ngpIO8/lN6h+fTO2KiS
- 8SzF7T9JQtdCDk6OyrvAN7uy4/FZdgqHI8+Wrjczobf3qcqytalYMHcfIOr70xLwHP5I
- t9eAGCm2dlHZazLVqBpNItG5KrJFBPwaDKjgeYtjiiJNcVRVeB4P0FL59qa+pyvXn7Ct
- V3AQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxZLHAvHb3ZT3+go841AycS7uonIqY/ONxFGTwRr7keJyzgax2izslGLCN68lP3FcxUsOXSwB/FKQ8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJaC9M/59aXhBsWTHN0DDC+v4U1icBWnyxzYr2I5UVfaWziHuHe
- gOsNJeYKa/A3fqKnzfUVwFqT6GuvBhVEp+RCjsEmEmOpl0YJKPGTMjqh
-X-Gm-Gg: AYBFou2f4d+4eN+cBfzNH2rGtpDDMSQyelL9sC+aAccqJKnerX5xaCduNOUFYwThCCq
- OnDdtLlT+7c0T68lm6CKM+rT7pGEICLtcIv/qn7t3ngIeYMrvIMfEi9ibUpH3uOnS9EyFxECGWb
- 1mpgIRH+tnkjxW8+oOz/2DsdQtLlSzIn/ALoFHTzWwv58K0IAYQs0yUUGqFm7hQMwwvRJZfsqsJ
- 5ccrkosWfMzukElcyrX+Csxr5D9SBkGlHRhcxK14AtUFBP4va4i7/pMdfgxttiLvpaj2Zsbihej
- kqA+WcPuJL82/BE9DQItoNhHYXC+2uNt4cVoubDfs8676+GiauY6WNNZscJUqyBOTv8esJl45Ea
- hzOO+MXPYUB66eRjJEMTLg881nhqX4Hrz7tBKgiXErd9tADpFOqLaMERFYTtQYEU102AJMVjng4
- PfimEgXg3dBcr95Q5COItNvc1Dwy/OmvFYKghsk39kLUBbp0mu31O5wvRMOl1JgMZ7sA==
-X-Received: by 2002:a17:90a:ec8c:b0:3ab:24b2:9016 with SMTP id
- 98e67ed59e1d1-3ab3a9a8d8dmr19267667a91.25.1792100098937; 
- Thu, 15 Oct 2026 14:34:58 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:5a::])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cd6549f175bsm119893a12.21.2026.10.15.14.34.58
+ d=1e100.net; s=20260707; t=1792122356; x=1792727156;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qZAMtIxyqaOU5P+355zxZjtsgqUUs04q64AQMCXAlLY=;
+ b=pVkE951zzpokddq0LSNkEpFGbiyBBiai2j9dxSr4qGpO4IHblgI01sPwtjToi2Vok2
+ MWVdanGbfsYb/JYqCgyc0P60WQDc4v5dv2U9K0JNLfCb0sxPO3RDJGGOAgyzSSsl5nDZ
+ /m8N2APYfWxWPNfxUTvjEON4wK5Pmxrx/n6x6ImjeWJyzNuW/7033bWpDFyqghNUIyBG
+ fqhlK6Qu708+umYGNG4pOJbh9uh7qqh9SZczPGSiTDncl8WXVIKyGHYVDHsL2KX5hhCa
+ zfGRa/NaSevOobUl98ZvgJJ/5VBANY20vFMVSnouDnuSRKXr2Em1wATtAS/Blg08HeWO
+ 7T8Q==
+X-Gm-Message-State: AFq9FYI5cfUcHjMtFjuCxMrdIcYBR3veM2sMnf+dA0Eiu+oqRMKaxeCB
+ b5mo8D/kZmOd+zQzQ89LGXdyV6niUmapy04dQ6lMrqgUgr+FSdYQaFnJ
+X-Gm-Gg: AYBFou1yg4WfeaRwl7hNys1FZJm8Nk6HdecdpKha6wQPsqaR3JL8WvxMk1wd47lWadj
+ U19dQqbXwp7x9uo/c11hhH8sWgKY15KawamgZyV9EYXfhe0za+M+Eim1UaqVpssb3ka+RBnj3r5
+ PGPNymtA3ILgLytE1SILe6dN0NqtZE/NmNNnaiUOy8l/KnU9sP8sGKYhIq54XYXfXJYB4mKBSDf
+ D9N6igCC2eoQHNKoHv4JBkxa6AdsSVPpw57Ctau7Q4KwCJ3SuJ6Q1ZoK8ZgOBw2XOLIzBHb3xcm
+ jWNpCYPTC7PW84I1zwzBcOXOEsq/+cGf/fNOgJmDEzfxoLSf8hTP8lDdLiZf1tz+6BWILRhAxFT
+ L7Km1Qlx9qaiPlc3WbJYyRq4glygppsyRZI/cZKY462aHL5XiuJ4EEVfZ2vJWGoF+IDCtWpRvD7
+ KXB77LdaepL4zr8MBHnkl0T6USHcybe+OkyB46uNovsfdcGd9LdzO+h9zxtpt/RzODmys7alQBm
+ 1lsJOTPPrQFHcYUZXy+df+7Usf5nd0D07TL6bQ=
+X-Received: by 2002:a05:693c:41c5:20b0:35c:ba31:6fef with SMTP id
+ 5a478bee46e88-35cba3173b2mr12712550eec.36.1792122356200; 
+ Thu, 15 Oct 2026 20:45:56 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com.
+ [104.194.64.109]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3608297f4f7sm2434229eec.23.2026.10.15.20.45.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 14:34:58 -0700 (PDT)
-Date: Thu, 15 Oct 2026 14:34:45 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, 
- Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>,
- Stanislav Fomichev <sdf@fomichev.me>, 
- Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
- Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
- Kaifeng Wang <kaifengw@google.com>
-Subject: Re: [PATCH net v4 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-Message-ID: <atFG77ZcuGHOsKgW@devvm7509.cco0.facebook.com>
-References: <20261015163915.1166043-1-almasrymina@google.com>
- <20261015163915.1166043-5-almasrymina@google.com>
+ Thu, 15 Oct 2026 20:45:55 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+X-Google-Original-From: Yao Yiqi <yaoyiqi3@huawei.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com,
+ Yao Yiqi <yyaqia@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH v2 3/3] fbcon: Retry rotated font allocation after failure
+Date: Fri, 16 Oct 2026 11:45:33 +0800
+Message-ID: <20261016034533.445862-4-yaoyiqi3@huawei.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016034533.445862-1-yaoyiqi3@huawei.com>
+References: <20261016034533.445862-1-yaoyiqi3@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015163915.1166043-5-almasrymina@google.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 16 Oct 2026 07:35:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,20 +89,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/15, Mina Almasry wrote:
-> Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-> to nl_netdev.py to verify that unregistering a netdevsim device while a
-> netlink socket holds an active RX or TX devmem binding synchronously
-> detaches the dma_buf attachment and cleanly closes the netlink socket
-> without use-after-free or page faults.
-> 
-> Add the dma-buf, udmabuf and devmem options the tests need to
-> tools/testing/selftests/net/config.
-> 
-> Cc: Tariq Toukan <tariqt@nvidia.com>
-> Cc: Kaifeng Wang <kaifengw@google.com>
-> Assisted-by: LLM
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
-> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+From: Yao Yiqi <yyaqia@gmail.com>
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+From: Yao Yiqi <yaoyiqi3@huawei.com>
+
+fbcon_rotate_font() records the font, its geometry and the rotation it
+is about to handle in par->rotated before calling font_data_rotate().
+If the allocation fails, the error path clears par->rotated.buf, but
+the recorded font, geometry and rotation already look up to date, so
+the next call takes the early-out and never retries. The rotated
+putcs/cursor ops keep returning early on the NULL buffer and the
+console stays blank until a font or rotation with a different key is
+installed, even once memory is available again.
+
+Also test par->rotated.buf in the early-out, so a failed allocation is
+retried the next time fbcon_rotate_font() runs: at the next
+fbcon_switch(), fbcon_modechanged() or font change.
+
+Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+---
+Changes in v2:
+
+- The early-out now also compares the font geometry (previous patch in
+  this series); the retry covers the combined key.
+---
+ drivers/video/fbdev/core/fbcon_rotate.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 660a3fa81bae..7afd63dcee7b 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -25,7 +25,8 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	    par->rotate == par->rotated.buf_rotate &&
+ 	    vc->vc_font.width == par->rotated.buf_width &&
+ 	    vc->vc_font.height == par->rotated.buf_height &&
+-	    vc->vc_font.charcount == par->rotated.buf_charcount)
++	    vc->vc_font.charcount == par->rotated.buf_charcount &&
++	    par->rotated.buf)
+ 		return 0;
+ 
+ 	par->rotated.fontdata = par->p->fontdata;
+-- 
+2.56.0
+
