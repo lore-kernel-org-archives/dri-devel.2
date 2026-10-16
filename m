@@ -4,42 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 829CBCCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:01:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16C9ECCA464
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16141126B8;
-	Fri, 16 Oct 2026 09:01:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 500E71126B8
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:01:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2024843898;
- Fri, 16 Oct 2026 09:01:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF6F1F000C4;
- Fri, 16 Oct 2026 09:01:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792141284;
- bh=KRyBd5RZyM4BSoO25/dpfH/PiP02uiFNTNg1hEOu9Rs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UXB12co1BZ0TBVPRzLNlrEneHNYAoYE+4XCQyaPm/8olOfzG7J7m7mARSbGQpnpwU
- G3aHJnEh9EoEkPqSGg6L4+9nHFFjGRsJGzKC43lMGYjYWAAAcCIa+M1XgPBcRUL/80
- fO/csN0ry1PA1bTbXiNW8qNjevOHzey0TaTPZnAIUL0im1cJdTFptk5A+t7pCPjUGn
- e8pDgrGIKNoWRvQ/unmKRe5LMaNMnA3ab7zC9AHVi3OaWKrEc1vIXCmUjNa8EGpqOS
- oOq+r+qQGWcvA4w1OKosPRlXo1e/TwAm3uAG/eE9S9qQWG/ll+WcPvyPv7YZllIaUz
- eAFkKph2nkCAA==
-Message-ID: <sashiko-outbox-174041@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v6 2/5] rust: DmaFence: Implement Deref for
- FenceContext
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
- gary@garyguo.net
-In-Reply-To: <20261016085724.1031766-4-phasta@kernel.org>
-References: <20261016085724.1031766-2-phasta@kernel.org>
- <20261016085724.1031766-4-phasta@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 09:01:23 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4191126C1;
+	Fri, 16 Oct 2026 09:02:25 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010014.outbound.protection.outlook.com [52.101.56.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B089D1126BF;
+ Fri, 16 Oct 2026 09:02:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TG71OT3OPApJVXGMNyEOM8CL9TrJmMC3O84X0KTpsJWEr1BaygzOTQrulCit+K043BxH7wMZCqMauV6qmB9GoegcMB+sDCHI7u6etnC2fh5pkRKPPa3+ovq5Jma+WmAv6Uj9akpq31AmRxbBfCm7m52jljQf2nDLMoFG1I9jACOJnHv3IMV4H7qxT2lYxgUjqhAeLfmdMblDrVDiQG1lbnQXuhOG1cEdUfWgYodv2OJpM0WrjNarVuX3CMzBGTRXgw32T+NxZkc6gRA3qK5LohzxkON+On93rLuq1zbzMtiOHm5CXvdVDUr/TTbq3enBKcoqTu2f5wVTwi+hcGGxfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4scvDB8ll+9R/FnZHZpb1lpZPH7EVYrvzotOgGGmNts=;
+ b=iE82VFQK5/9EEYl1JFBfEYdC/fdlITBYWN7J9te4oGSwAGl9et12LcKINSVN4+b5+bHegNSroVlzT/89XvTbe/bjXA949vMQsDt4R3F4lNlqYPK51MrTW9HETrg8whF/LFtdtUOaAb5yAIjjpyFQCUBGHmWtKqGLrVKx2/37k/18y8gwQFwGc2KgvRCxT7aRFKKLXA1ANoHVrA/R9VE/Hr5RUYpwe130B43XlNpK+KOlzHlWfoAduESVmqK1LrVC8cioDga0TuP7hjTZclmr2/bYdiiANFyJaiJyd4LPWG2YBL+Hu6o8dc6K5fYT/EbtS/VqBs1HNDIEh8QZF7mMPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4scvDB8ll+9R/FnZHZpb1lpZPH7EVYrvzotOgGGmNts=;
+ b=PJlZcx7MVxKhqJgepGrdIDJzr+Hc0o6IIDrNY1xepB/l5VlVFzpoEprcrwWIzcuRaRG/GwEmmxJp50Km7xg0p5+/2yuIy2qTtY1SwFZx5OYTJ0rfkSfmAvKjiiiwRX9Mc9epjHHvU5LfDK+s9AVjdAzZ6BbdZVh9lrMaWEqH1KA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM6PR12MB4076.namprd12.prod.outlook.com (2603:10b6:5:213::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 09:02:14 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
+ 09:02:13 +0000
+Message-ID: <9114d572-62ef-4885-bb29-d40d37cf2d61@amd.com>
+Date: Fri, 16 Oct 2026 11:02:09 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: wait for pending page table updates before
+ switching a VM to CPU updates
+To: John Fisher <jfisher84@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Prike Liang <Prike.Liang@amd.com>
+References: <20261008204517.392180-1-jfisher84@gmail.com>
+ <c64df6fa-6734-4c66-8f8b-52e5bd118cdb@amd.com>
+ <CAC7wNSChWJ3nYY4GPT0Av+CDiudQ346hnxE_U0bfNLVvHdbozw@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAC7wNSChWJ3nYY4GPT0Av+CDiudQ346hnxE_U0bfNLVvHdbozw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0061.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4076:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48fc54ab-7432-452c-3788-08df2b642b76
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|366016|6133799003|10067099003|18002099003|22082099003|260925021311599003|260925022911599003|260925021911599003|3023799007|4143699003|261009223027099003|11063799006|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info: uit94AfHsi7wYmZJX6EV2zxvlJifuxamw1x3Y0EDcx8hfNyjYzWTsrc9woLmnuEGWndzFktPmoRVyqOVnE/M33YcX/vXmm9ptZpTX9anUK70YA+kIqfe7e4HiMu46pRlB7iK+JyqIBjCAHafpR7lbRfixEYDoAKynGojAOsRmZ+CEKlRfJCPuOZvlKd837o3gSGk2t7h4s2OENaR00GPudR7jHj89+p8+S/K25aGk4/fyp4kvitCNR7zypEjiSPoDBHZelClZbJwb/T8ZL6mPRyumPs7rmH9cqpBK/tRq6Qwtl6SGeRLlAhnJfF2mD0CK5A2xWSQ+JLse+497/yRW8gR7fqjBpITIAr0Mtm7MLEmGHy4/R6c7hsVIj/jfET6AlsOY3yQ1wukbVnq/Qyr91soVjWQ98bI0sPQXt2/LPB19LzOxsDOkbWq1we2H+xHZl9YMeCGGtASLRPw/aETpQr2rfuqtOL1dxIrnMdZ+qhkyN3vJbJBUQxnseGbhn152f89Ytt16+TKmx9H+jWZUs+2n7SDqjoOJ2V/XlTezZL1zm7rQ2O0OYrHIYWJmGz8aZYUxbEAKAqezynHtW5t4iMSWLusXeTEoWLtuPRRJMQDwNGzU/2uOoouOTBhBAWe
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(6133799003)(10067099003)(18002099003)(22082099003)(260925021311599003)(260925022911599003)(260925021911599003)(3023799007)(4143699003)(261009223027099003)(11063799006)(5023799004)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0t2VURPT2k3WTJTYkNYSG1YREhIK2JaSktwV1ZzdjJEVkZzY3cwaTNUVHpk?=
+ =?utf-8?B?bUMvVHFXZktTL0lINWR6Q2wvQWJGQkpJVWVURmFvdVJSTnBmajdITW1Cak9I?=
+ =?utf-8?B?L252ekQ3bS85cDhhYWZqRzUrZ2h4ZktkQm8xNTJjeDVtSXg0bDVJRDU5cGNR?=
+ =?utf-8?B?N2h1NnF6b2RrZnFIaXRJREhmdU9qMThJWUNpQlQzSXFWc3VWQzI2S2FvTC81?=
+ =?utf-8?B?N0U1cWU3bXRCbjk5OUJvYmwxOGFBY2JUN1RlSTRzR2dGOG5GTUZhVDMxUFlS?=
+ =?utf-8?B?ak9LSnQyS2tUNEZoelJNVnNlTDc3Y3M2Y1lBbUVvdG5rYmhxNGFtTjlYR2lM?=
+ =?utf-8?B?RDNDN0xUVmhXR2RXUkRDekd3TFhNRStobjNLOTk2WDhINHlnZ2NnOWc3MTNV?=
+ =?utf-8?B?SmFhUDZHVUYzc20vYnRkYTBaY2tKMS9ZcWcwOUdDeDV0elh4Vis4emFKZEEw?=
+ =?utf-8?B?bjVvRDJ4YzBGOU81TE02K3MzYkU0akZzekFGVk9RMXEzcXRySUtiN3J6amtj?=
+ =?utf-8?B?QXFSM1ZGY0t2emJQelhPWndUeG5SZWt0NDU1Z0l2eG9XN0I5QXREbURFaWlR?=
+ =?utf-8?B?ZGFRWm82Q2dtTHdKeGJhZVFxUHhNeTlGM2hhKzZNeXBTSml5dWlHZ055Rm1P?=
+ =?utf-8?B?MFhJV0h2OEZPblE1d0dsSWRkVXMyN09qRnV5TjJibmxOb0RjbEF6dXRNellQ?=
+ =?utf-8?B?S0I4aER5VzQ5S3JOUmYyQmtXQ2pKS29qdHArZDRqUUEvYm9hWEw4ZEh1UnVm?=
+ =?utf-8?B?LzhHSlJnalRLRTlPN1ZwZXEwYVpqc0o4bGlQMzQzd3BaZnZEYW44d081ODRp?=
+ =?utf-8?B?SE0yUVUySDJFWVgxZTAxL0M4MXl5djlHYmFMQjZGRXkxRTNmQ1R2NVdTVUlF?=
+ =?utf-8?B?enZ0dGVVZVZIR2VCUnlWbVZRcHo1YkFvODByeTR3Yk93VHNtYUVJcHNZTHY0?=
+ =?utf-8?B?TTJ2bWN0dzh3WllPOW1KT0VaVjE0c0o0REtEaFB6UXRlai80VEdrUW45UFhK?=
+ =?utf-8?B?Q3lOSWNsNFBDQ0RndnRReEwvMXZjU3cxUjJtRFg3ZVJrRzFrMm9iOHJFZE9C?=
+ =?utf-8?B?bENLVmdLUEVuWTdYblBzR2ZmUnV6SWlEVGhQbHRhMjNnYkxRTTZJSmREd1Bt?=
+ =?utf-8?B?WVJCRzBWbGpxTkxxYWNuUzNMajZDa2VoalpDdTVTb2Zta0hEOFBMeDZTT2pE?=
+ =?utf-8?B?MUo1R1J0blJvTVMrc3BhZmRiUWhKMVBXV1RQcFBFbm1ET2ZlOFpWZ0dSU2p5?=
+ =?utf-8?B?ZXpJWWFleUhRbGFBR1oyc29wV0M4UnBDUU9Oamkrd1NtcC9Za2NkaHlPYTkz?=
+ =?utf-8?B?cFBmOEN2MTJoRnZVQldvclUvVXNXYVdFOS8zdjVqTy8xV2tab2ZickFDREhF?=
+ =?utf-8?B?WHpyY3A5QSs0amhiV1E0TlJnakRHczNzaC9HaVJmUWcza1U3eStGM3F0N3cr?=
+ =?utf-8?B?NnhLbWRUVks4T1h5L2ZZUFVnNFFBNDZrbG9vM2p0NVhuVTlCb0xQUmhpWW9W?=
+ =?utf-8?B?Z2FSZVc5em8yQ1BROFZNUVovSEtKdEZjcVExWTA0dDZQN3BpeDJUSmpGcWxV?=
+ =?utf-8?B?OTc3SzJrMXhnR01ZS0w4R3NQSlp5QTZYcDd3WlpkQU1wdTZ2OTFqQUFOWlRk?=
+ =?utf-8?B?S3BJV1RCTWcvSWpTN3k4NjcrSCt6K1pPRkc4RHVrcmgxcVo4dm5ET0h3clVL?=
+ =?utf-8?B?VExlYnI4bHNXR0d5a3JEMG1LUXc5ZDZHVzh2VXNRRkUrK0F0Z2hDcE5ENkgx?=
+ =?utf-8?B?ZHJiNjFKazFUTTBVbm1PQ2tJVlVja3BjaEQ3ekREQnBsekVQZnNvL2ZLcG05?=
+ =?utf-8?B?Q2hQMWJncjBvRWhFNlowU1NnWEFCenVLckNOTmRvZWxWK3V6R0padHFuUDJE?=
+ =?utf-8?B?ekJRWURoczIrUURobFJDQ2lwRWRCMFNITHRDWWRpTmpQK01ZRmVPcHZXWStu?=
+ =?utf-8?B?VHhRUFE4L2VlSWtVMnhXdkJCbDkxU2ZjdUM2NlJMOURMTDQ2dGV3TTYzMXNF?=
+ =?utf-8?B?eDZHOTU1SnErMGRqZmQ4NE13NkI3MTRNVG5vRWJWWWUybzNSSEZMSVVieS8x?=
+ =?utf-8?B?WTNpa1JpSTV1dmxpWDlZdGh3cUc1a3c3TEYwdlV5MXE5RXRGcVQzUXR0Z3N0?=
+ =?utf-8?B?czZUd1B6R0VmTks1L0l4TUhUUDB6S2NlSVg1Y0ZEbW5Xa3JMMFZzdGhscnJE?=
+ =?utf-8?B?NlRPeVVUYVZ5N3llV2gvanZKQ2dRQ3g2eHhhalM5K2c4RWREcjBZU2xkWHlM?=
+ =?utf-8?B?cVJRUmYrUFdEUFNlS0JjT3JCay9DdFVjMzArc0lUa2xjMGFIdWd3Q1lMa3V3?=
+ =?utf-8?Q?kTDQeCpeBxNPOilBbz?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48fc54ab-7432-452c-3788-08df2b642b76
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:02:13.7874 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NbhIePBXE15RV5CzDvfYmQBsPZuTWVGc7D1krO/KcBfy5edLK+kdTrywvG1xlj/9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4076
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,53 +133,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] rust: missing #[inline] on Deref::deref in abstraction
---
+On 10/16/26 05:25, John Fisher wrote:
+> Thanks Christian. Since I don't have commit access, I assume that if
+> all looks good the commit will be passed on to be applied?
 
-commit f7dee333951179025d9c4ebf4f5a3d49e66c7f5e
-Author: Philipp Stanner <phasta@kernel.org>
+Alex usually picks those up after a few days and merges it into amd-staging-drm-next.
 
-rust: DmaFence: Implement Deref for FenceContext
+Regards,
+Christian.
 
-This commit implements the Deref trait for FenceContext. This allows users
-to easily access the data carried by the context.
+> 
+> Thanks,
+> John
+> 
+> On Fri, 9 Oct 2026 at 20:00, Christian König <christian.koenig@amd.com> wrote:
+>>
+>> On 10/8/26 22:45, John Fisher wrote:
+>>> amdgpu_vm_make_compute() switches a VM from SDMA to CPU page table
+>>> updates when a KFD process acquires it. It syncs "with the last SDMA
+>>> update/clear" through amdgpu_bo_sync_wait() on the root PD, but that
+>>> walks the reservation with DMA_RESV_USAGE_READ, and the clears of the
+>>> VM's page tables (the root PD from amdgpu_vm_init(), and the PDs/PTs
+>>> the seq64 mapping allocates at the render node's open) are added there
+>>> by amdgpu_vm_sdma_commit() with DMA_RESV_USAGE_BOOKKEEP only:
+>>> amdgpu_vm_pt_clear() commits them with a NULL fence, so they do not
+>>> reach vm->last_update. The CPU path's own waits (amdgpu_vm_cpu_update(),
+>>> amdgpu_bo_kmap()) use DMA_RESV_USAGE_KERNEL. None of them waits for a
+>>> clear that is still queued.
+>>>
+>>> When one is, the CPU writes the first entries of the new compute VM (the
+>>> KFD trap handler's TBA/TMA page at AMDGPU_VA_RESERVED_TRAP_START, mapped
+>>> during ACQUIRE_VM) into a page directory the SDMA then clears. The
+>>> entries are gone, the handler's page is unmapped, and the first wave
+>>> save of any queue of the process faults in the SQC instruction fetch at
+>>> the handler's address (GCVM_L2_PROTECTION_FAULT_STATUS 0x008012B1,
+>>> PERMISSION_FAULTS 0xb). The MES then fails REMOVE_QUEUE and SUSPEND, and
+>>> the device takes a MODE1 reset with VRAM lost on 7.2.9; on 7.3-rc6 the
+>>> queue is reset instead.
+>>>
+>>> The window is the time between the render node's open and ACQUIRE_VM.
+>>> ROCr spends milliseconds there and is practically never hit; a minimal
+>>> KFD client that opens the render node and acquires the VM at once is hit
+>>> most of the time. On a Radeon AI PRO R9700 (gfx1201, Resizable BAR, so
+>>> vm_update_mode defaults to CPU updates for compute VMs), a wave reading
+>>> the trap handler's page right after queue creation found it unmapped in
+>>> 8 of 12 runs; a 5 ms sleep between the open and ACQUIRE_VM made that 0
+>>> of 9, and the same sleep after queue creation instead 3 of 3.
+>>>
+>>> The wait covered these jobs until commit 926c79ad6ecd ("drm/amdgpu:
+>>> promote the implicit sync to the dependent read fences") narrowed
+>>> amdgpu_sync_resv() from DMA_RESV_USAGE_BOOKKEEP to DMA_RESV_USAGE_READ;
+>>> the VM's page table jobs have been added with BOOKKEEP since commit
+>>> 4247084057cf ("drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2"), so from
+>>> v6.16 on the sync in amdgpu_vm_make_compute() waits for nothing of
+>>> them.
+>>>
+>>> Record the clears in vm->last_update, as amdgpu_vm_update_pdes() does
+>>> with its updates, and wait for it, uninterruptibly, before switching the
+>>> update functions. The clears all go through vm->delayed, so the last one
+>>> covers the earlier ones; immediate clears are not recorded, as before.
+>>>
+>>> With this, on 7.3-rc6 and on 7.2.9, the same client reads the handler
+>>> 10 of 10 times, 8 busy queues on the 4 compute slots complete in 5 of 5
+>>> runs on 7.3-rc6 and 3 of 3 on 7.2.9 (1 of 6 before), 16 and 32 queues
+>>> complete on 7.3-rc6, and two processes with 8 queues each complete
+>>> together on both, with no fault.
+>>>
+>>> Fixes: 926c79ad6ecd ("drm/amdgpu: promote the implicit sync to the dependent read fences")
+>>> Cc: stable@vger.kernel.org # v6.16+
+>>> Cc: Prike Liang <Prike.Liang@amd.com>
+>>> Signed-off-by: John Fisher <jfisher84@gmail.com>
+>>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>
+>>> ---
+>>> v2: wait for vm->last_update, in which amdgpu_vm_pt_clear() now records
+>>>     the clears, instead of every BOOKKEEP fence on the root PD; wait
+>>>     uninterruptibly without checking the result; keep the original
+>>>     comment (Christian)
+>>> v1: https://lore.kernel.org/amd-gfx/20261007200345.417281-1-jfisher84@gmail.com/
+>>>
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 5 +----
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
+>>>  2 files changed, 2 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index 29187fabc..757a037ed 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -2737,10 +2737,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>>>
+>>>       if (vm->use_cpu_for_update) {
+>>>               /* Sync with last SDMA update/clear before switching to CPU */
+>>> -             r = amdgpu_bo_sync_wait(vm->root.bo,
+>>> -                                     AMDGPU_FENCE_OWNER_UNDEFINED, true);
+>>> -             if (r)
+>>> -                     goto unreserve_bo;
+>>> +             dma_fence_wait(vm->last_update, false);
+>>>
+>>>               vm->update_funcs = &amdgpu_vm_cpu_funcs;
+>>>               r = amdgpu_vm_pt_map_tables(adev, vm);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>> index c03327f12..cdbc2e931 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>> @@ -427,7 +427,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>>>       if (r)
+>>>               goto exit;
+>>>
+>>> -     r = vm->update_funcs->commit(&params, NULL);
+>>> +     r = vm->update_funcs->commit(&params, &vm->last_update);
+>>>  exit:
+>>>       drm_dev_exit(idx);
+>>>       return r;
+>>
 
-> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
-ence.rs
-> index eef2b9e93f356..0028124e6aa64 100644
-> --- a/rust/kernel/dma_buf/dma_fence.rs
-> +++ b/rust/kernel/dma_buf/dma_fence.rs
-[ ... ]
-> @@ -86,6 +86,14 @@ pub struct FenceContext<T: FenceContextOps + Send + Sy=
-nc> {
->      data: T,
->  }
-> =20
-> +impl<T: Send + Sync + FenceContextOps> Deref for FenceContext<T> {
-> +    type Target =3D T;
-> +
-> +    fn deref(&self) -> &Self::Target {
-
-[Severity: Low]
-This isn't a bug, but should this method be marked with the #[inline]
-attribute?
-
-The Rust subsystem guidelines recommend that small functions within
-abstractions (such as the kernel crate) be annotated with #[inline]. Since
-this deref implementation is a trivial getter returning a reference to a
-struct field, omitting the attribute might lead to unnecessary function call
-overhead when used frequently.
-
-> +        &self.data
-> +    }
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016085724.1031=
-766-2-phasta@kernel.org?part=3D2
