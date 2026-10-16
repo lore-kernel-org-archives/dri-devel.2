@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D37DACCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 10:41:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB389CC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 10:49:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0994E10E132;
-	Fri, 16 Oct 2026 10:41:41 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5CD9410E1B8
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 10:41:34 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B722314BF
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 03:41:30 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- B7FFE3F871
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 03:41:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792147294; bh=ZXdlfSSPCJTMIh+glpoDkaZxKHJM2I43BiERY+VLHGY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hZHMGYMmVR+jcWWLPIbzU16uh2L2hc41VKrn8aQtj2jgz41OThLEJ8+EnMKnLny5C
- 9i88P7m5hvmB+Ngf7DQOFMF45tNsIPxmhVzAvCxh7Yz0pnoeRerJl1Nxb0J6kej/Rm
- mC/GRqh8YBDKrcYocS+FvzOVw+NPhGzCrjDB8tFA=
-Date: Fri, 16 Oct 2026 11:41:23 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Akash Goel <akash.goel@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
-Message-ID: <atH_UwhLuO5len3n@e142607>
-References: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
- <20260924-panthor-mmu-fixes-v1-3-e25f9b106466@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E757610E14B;
+	Fri, 16 Oct 2026 10:49:41 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A464F10E14B
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 10:49:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+ From:Subject:Message-ID:From:Reply-To;
+ bh=811WyW3qJgjU2G2IECuo6RCn5vOkeoECJJM8V3lAM3c=; b=eRfzoi5LMygyAhLZvjFebJXCZZ
+ ggKbswHyWGBlL4C9OfTYzBxSIyV9wJCBynKN+zMquSsEksW3sAFJe8YQVoxkA1mvSOk2soQWh2hqD
+ IkU6Vk6xIevjT6gecondf6VexhiQKgOUupsehTu2QEagXEN+g9G586EgoOPwr0BCb2WbXA16EN791
+ kj+FzMPSa9p3DRTrUOwivTzZFRGmLcSOHpMuKRLEnJaznP11rcbS7md4eVJcvbBa1xeq/O/x4kX7d
+ QYP+zoV7CNHlmgxhKY5BT+TbkSrLf2pKpzmfu8gEZyIfIDS3hW84caOAUZmIY/Zi7+app3mztbega
+ Se5YVnJg==;
+Received: from 89.141.155.109.dyn.user.ono.com ([89.141.155.109]
+ helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xHfVB-0010Po-Uf; Fri, 16 Oct 2026 12:49:29 +0200
+Message-ID: <59b211bed3d8256f9ec22f860eabe04bac6be132.camel@igalia.com>
+Subject: Re: [PATCH 05/11] drm/vc4: Attach the job fences outside of job_lock
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Maxime Ripard
+ <mripard@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+Date: Fri, 16 Oct 2026 12:49:19 +0200
+In-Reply-To: <d6800fd5-73c8-40e4-9470-0db7e72694fd@igalia.com>
+References: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
+ <20261004-vc4-misc-fixes-v1-5-b763df9e33e1@igalia.com>
+ <ac9b63c893795494d2b2ec128d3974713fdcc70d.camel@igalia.com>
+ <d6800fd5-73c8-40e4-9470-0db7e72694fd@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924-panthor-mmu-fixes-v1-3-e25f9b106466@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,74 +59,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 02:30:45PM +0200, Boris Brezillon wrote:
-> Right now, there's a theoretical window during which the GPU can populate
-> the cache with data from a VM that's about to be evicted through the
-> UPDATE(UNMAPPED) command.
-> In practice this won't happen (hence the absence of Fixes tag) because
-> when panthor_mmu_as_disable() is called, the VM is guaranteed to be idle
-> (no active CSG pointing to this VM), but as we say, better safe than
-> sorry.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+El jue, 15-10-2026 a las 16:45 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> Hi Iago,
+>=20
+> On 13/10/26 04:28, Iago Toral wrote:
+> > El dom, 04-10-2026 a las 12:42 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> > > vc4_attach_fences() adds the job fence to the reservation of
+> > > every BO
+> > > the
+> > > job touches, which is a O(bo_count) walk under job_lock. It was
+> > > there
+> > > because vc4_exec_info could be freed by the job done worker the
+> > > moment the
+> > > lock was dropped.
+> > >=20
+> > > As vc4_exec_info is refcounted now, hand the fences over after
+> > > the
+> > > unlock.
+> > >=20
+> > > Note that the render done handler dropped the fence as soon as
+> > > the
+> > > job
+> > > completed, so the walk could find exec->fence already cleared.
+> > > Leave
+> > > the
+> > > fence to be dropped by the release path. The submit path no
+> > > longer
+> > > needs
+> > > a reference of its own to publish the fence through the sync
+> > > object
+> > > either.
+> > >=20
+> > > Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> > > ---
+> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_gem.c | 23 ++++++----------------=
+-
+> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_irq.c |=C2=A0 5 +----
+> > > =C2=A0=C2=A02 files changed, 7 insertions(+), 21 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/vc4/vc4_gem.c
+> > > b/drivers/gpu/drm/vc4/vc4_gem.c
+> > > index 9cf343297f83..ae76868663ea 100644
+> > > --- a/drivers/gpu/drm/vc4/vc4_gem.c
+> > > +++ b/drivers/gpu/drm/vc4/vc4_gem.c
+> > > @@ -639,14 +639,6 @@ vc4_queue_submit(struct drm_device *dev,
+> > > struct
+> > > vc4_exec_info *exec,
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	kref_get(&exec->refcount);
+> > > =C2=A0=20
+> > > -	/* The job can complete and drop exec->fence as soon as
+> > > job_lock is
+> > > -	 * released, so hold our own reference.
+> > > -	 */
+> > > -	if (out_sync)
+> > > -		dma_fence_get(&fence->base);
+> > > -
+> > > -	vc4_attach_fences(exec);
+> > > -
+> > > =C2=A0=C2=A0	list_add_tail(&exec->head, &vc4->bin_job_list);
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	/* If no bin job was executing and if the render job (if
+> > > any) has the
+> > > @@ -663,12 +655,12 @@ vc4_queue_submit(struct drm_device *dev,
+> > > struct
+> > > vc4_exec_info *exec,
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+> > > =C2=A0=20
+> > > +	vc4_attach_fences(exec);
+> > > +
+> >=20
+> > Similar question as before: doesn't this mean we may submit this
+> > job
+> > before we have installed the fences in the BO reservations?
+> > Wouldn't
+> > that mean there is a small window where the BOs look idle to other
+> > users when they are in fact being used by the GPU?
+> >=20
+>=20
+> In this case, the window exists, but it isn't observable in a way
+> that
+> actually matters. The reservations stay locked until drm_exec_fini(),
+> which runs after the fences are attached, so anyone taking the resv
+> lock, including another submit touching the same BOs, waits for them.
+> Other drivers, such as V3D and Panfrost, follow the same pattern:
+> push
+> jobs -> attach fences -> replace the out syncobjs fences.
+>=20
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Great, thanks, we may want to add small comments in both patches to
+make these things explicit since I don't think they are immediately
+obvious.
 
-Best regards,
-Liviu
+With that, you can add my R-B to both patches too.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 19 ++++++++++++-------
->  1 file changed, 12 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 038a092fd08c..bb71274aa36b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -631,12 +631,6 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
->  	panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
->  				       panthor_mmu_as_fault_mask(ptdev, as_nr));
->  
-> -	/* Flush+invalidate RW caches, invalidate RO ones. */
-> -	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-> -				       CACHE_CLEAN | CACHE_INV, 0);
-> -	if (ret)
-> -		return ret;
-> -
->  	if (vm && vm->locked_region.size) {
->  		/* Unlock the region if there's a lock pending. */
->  		ret = as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_UNLOCK);
-> @@ -648,7 +642,18 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
->  	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
->  	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
->  
-> -	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-> +	ret = as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Flush+invalidate RW caches after we've unmapped, to make sure any
-> +	 * cacheline eviction is effective before we potentially return
-> +	 * memory pointed by this VM to the system. This needs to be done
-> +	 * after the UPDATE(UNMAPPED) operation to guarantee that not further
-> +	 * PT-walk can pull VM data into the cache.
-> +	 */
-> +	return panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-> +					CACHE_CLEAN | CACHE_INV, 0);
->  }
->  
->  static u32 panthor_mmu_fault_mask(struct panthor_device *ptdev, u32 value)
-> 
-> -- 
-> 2.55.0
-> 
+Iago
+> Best regards,
+> - Ma=C3=ADra
+>=20
+>=20
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
