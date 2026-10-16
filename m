@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02AB4CC6B38
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:32:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F33FCC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:32:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6768010E202;
-	Fri, 16 Oct 2026 07:32:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA78E11263C;
+	Fri, 16 Oct 2026 07:32:36 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2637611263A
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:32:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF29D11263D
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:32:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9EEE0601FE;
- Fri, 16 Oct 2026 07:32:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D9F1F000C4;
- Fri, 16 Oct 2026 07:32:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3209060A53;
+ Fri, 16 Oct 2026 07:32:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F9B1F000C4;
+ Fri, 16 Oct 2026 07:32:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792135945;
- bh=7BW84V2ROisULkBTaVZHKSFcq1ej0GE9zWxoBRb6B9w=;
+ s=k20260515; t=1792135948;
+ bh=VP9qYQlpov1TS0hX05NklVCYCqPiv0odnnRUv7qqG6s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=LcU7z/F3dVEFw9dYwM8pRMVK5GoCcTdbd/Dz4I8shGmDjHSTMJn/bBz9fqOiqeeLg
- n5p1xuCkA9QiybSnhHl056I3mH4647YoAA9kUSwqYJYVLZLZ9reTFDKiUjSSu06JDu
- OJiryVCtS/8DmSLUybe+uhlMnpFamvxzFO1flUbNHE6gBbEMNNXLHiDAQSaJyEXo8X
- VPkUFfQpuJYyAF4pyUjL2YCm/zAy7WT5ADkI1XFYWjYZOCXzXHlZ6qmADEbDuT8nLA
- U7PaUaNcHVUiuUcrabIFC75SlxvtOdyKRCDbDXigsLIXo84jWZmeAT3FqsEPFVhbI8
- lPtRRrAFaFNIw==
+ b=OrGj5kDu/MdOga8a4BvAuT5yRr66U/1YFaqrgvCdT2dxgCxB/hE0jIDYhbMedcncQ
+ XXHJpabAQPQ7MQ07mL1iVRp8aYxRjl1d3VcN28mX19I4hutjpzRSuidkoPfBtn+qjl
+ +ydPQewHYH7dpgqkaps2CgyqlkZYuTgNDp2qfZFGjd1tilwZp+gpCCblRrwXcjBsoI
+ hb8ONUnaRcmB9p463Yfd9En+bws+Da+XmV6KtVXGZSPvPSL3C0qTt9kBVG/KFGP6B3
+ c01ageOE4leriA/0I8kr1RJBcXSkbr8GCFY2vBC5mMvpy6PYibwHUAVSzTRwF1gJrB
+ 2hfl88+x7sV4g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 16 Oct 2026 09:31:39 +0200
-Subject: [PATCH v5 07/14] drm/atomic: Create function to insert private obj
+Date: Fri, 16 Oct 2026 09:31:40 +0200
+Subject: [PATCH v5 08/14] drm/atomic: Create function to insert connector
  state into a commit
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-drm-reset-state-flag-v5-7-dad2d64b693b@kernel.org>
+Message-Id: <20261016-drm-reset-state-flag-v5-8-dad2d64b693b@kernel.org>
 References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
 In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -53,12 +53,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3836; i=mripard@kernel.org;
- h=from:subject:message-id; bh=1wiVliL0xqxSktWJmPZm/odmf5wb35Kj9QlH1jOLiu0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz3epPWh/trSowUvf71Rj+i3q3u5p1NCtPyDiWOju
- E2xYs/TjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRiTmMDesbREys/Kc9rjv6
- hoMpRdOfQ/Lxo0POW7h/SopxVKh/mM1YmNVokfLt+P+/licenLgZxFhfU8787r7Gj3h+uxuBK2V
- Mf+13kTO/VbL5rc2ksy+vTXt98ULHj9Q9rctdV7/L8+Po/3AUAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4266; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=GGroTtS/a57EsiNaGvVZs9n5vD89gX7/Y5Iw83ZVLxc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz0Rz7tv7MP1dndgYNqNEy23LCY2JTPnS0lkT7sTI
+ ZYzd/L3jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRbi7GOgt2nwnVHIILdVd/
+ uHdC/YVUmlUh+z2rmZ6i75TMnt3998i2uf2bkU1Vf4Xpc9P36ySXMTY82XxHQzSt1zPozNMUju3
+ tzKXT/i4UuPht5r8cNRVxvnlrPqxN5Qw7kdz71FzYjdOMYxoA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,117 +76,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_atomic_get_private_obj_state() allocates a new private object
-state by duplicating the current one and inserts it into the atomic
-commit as a single operation.
+drm_atomic_get_connector_state() allocates a new connector state by
+duplicating the current one and inserts it into the atomic commit as
+a single operation.
 
-However, a later change will need to insert a private object state
-into a commit without going through the full allocation and
-duplication path in drm_atomic_get_private_obj_state().
+However, a later change will need to insert a connector state into a
+commit without going through the full allocation and duplication path
+in drm_atomic_get_connector_state().
 
-Extract the state insertion logic, including the array reallocation,
-into a new static drm_atomic_commit_set_private_obj_state() helper,
-and convert drm_atomic_get_private_obj_state() to use it.
+Extract the state insertion logic, including the dynamic array
+reallocation, into a new static
+drm_atomic_commit_set_connector_state() helper, and convert
+drm_atomic_get_connector_state() to use it.
 
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 53 +++++++++++++++++++++++++++++---------------
- 1 file changed, 35 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 60 ++++++++++++++++++++++++++++----------------
+ 1 file changed, 38 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 807b575ecc54..513e91ad2fdc 100644
+index 513e91ad2fdc..81591173265d 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1093,10 +1093,39 @@ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- 	obj->funcs->atomic_destroy_state(obj, obj->state);
- 	drm_modeset_lock_fini(&obj->lock);
- }
- EXPORT_SYMBOL(drm_atomic_private_obj_fini);
+@@ -1402,10 +1402,42 @@ drm_atomic_get_new_crtc_for_encoder(struct drm_atomic_commit *state,
  
-+static int drm_atomic_commit_set_private_obj_state(struct drm_atomic_commit *commit,
-+						   struct drm_private_obj *obj,
-+						   struct drm_private_state *obj_state)
+ 	return conn_state->crtc;
+ }
+ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+ 
++static int drm_atomic_commit_set_connector_state(struct drm_atomic_commit *commit,
++						 struct drm_connector *connector,
++						 struct drm_connector_state *connector_state)
 +{
-+	struct __drm_private_objs_state *arr;
-+	int index, num_objs;
++	struct drm_mode_config *config = &connector->dev->mode_config;
++	int index = drm_connector_index(connector);
 +
-+	drm_modeset_lock_assert_held(&obj->lock);
++	drm_modeset_lock_assert_held(&config->connection_mutex);
 +
-+	num_objs = commit->num_private_objs + 1;
-+	arr = krealloc_array(commit->private_objs, num_objs,
-+			     sizeof(*commit->private_objs), GFP_KERNEL | __GFP_ZERO);
-+	if (!arr)
-+		return -ENOMEM;
++	if (index >= commit->num_connector) {
++		struct __drm_connnectors_state *c;
++		int alloc = max(index + 1, config->num_connector);
 +
-+	commit->private_objs = arr;
-+	index = commit->num_private_objs;
++		c = krealloc_array(commit->connectors, alloc,
++				   sizeof(*commit->connectors), GFP_KERNEL | __GFP_ZERO);
++		if (!c)
++			return -ENOMEM;
 +
-+	commit->private_objs[index].state_to_destroy = obj_state;
-+	commit->private_objs[index].old_state = obj->state;
-+	commit->private_objs[index].new_state = obj_state;
-+	commit->private_objs[index].ptr = obj;
-+	obj_state->state = commit;
++		commit->connectors = c;
++		commit->num_connector = alloc;
++	}
 +
-+	commit->num_private_objs = num_objs;
++	drm_connector_get(connector);
++	commit->connectors[index].state_to_destroy = connector_state;
++	commit->connectors[index].old_state = connector->state;
++	commit->connectors[index].new_state = connector_state;
++	commit->connectors[index].ptr = connector;
++	connector_state->state = commit;
 +
 +	return 0;
 +}
 +
  /**
-  * drm_atomic_get_private_obj_state - get private object state
-  * @state: global atomic state
-  * @obj: private object to get the state for
+  * drm_atomic_get_connector_state - get connector state
+  * @state: global atomic state object
+  * @connector: connector to get state object for
   *
-@@ -1109,12 +1138,11 @@ EXPORT_SYMBOL(drm_atomic_private_obj_fini);
+@@ -1420,50 +1452,34 @@ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
   */
- struct drm_private_state *
- drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 				 struct drm_private_obj *obj)
+ struct drm_connector_state *
+ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+ 			  struct drm_connector *connector)
  {
--	int index, num_objs, ret;
--	struct __drm_private_objs_state *arr;
+-	int ret, index;
 +	int ret;
- 	struct drm_private_state *obj_state;
+ 	struct drm_mode_config *config = &connector->dev->mode_config;
+ 	struct drm_connector_state *connector_state;
  
  	WARN_ON(!state->acquire_ctx);
  	drm_WARN_ON(state->dev, state->checked);
  
-@@ -1124,30 +1152,19 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 
- 	ret = drm_modeset_lock(&obj->lock, state->acquire_ctx);
+ 	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
  	if (ret)
  		return ERR_PTR(ret);
  
--	num_objs = state->num_private_objs + 1;
--	arr = krealloc_array(state->private_objs, num_objs,
--			     sizeof(*state->private_objs), GFP_KERNEL | __GFP_ZERO);
--	if (!arr)
--		return ERR_PTR(-ENOMEM);
+-	index = drm_connector_index(connector);
 -
--	state->private_objs = arr;
--	index = state->num_private_objs;
+-	if (index >= state->num_connector) {
+-		struct __drm_connnectors_state *c;
+-		int alloc = max(index + 1, config->num_connector);
 -
- 	obj_state = obj->funcs->atomic_duplicate_state(obj);
- 	if (!obj_state)
+-		c = krealloc_array(state->connectors, alloc,
+-				   sizeof(*state->connectors), GFP_KERNEL | __GFP_ZERO);
+-		if (!c)
+-			return ERR_PTR(-ENOMEM);
+-
+-		state->connectors = c;
+-		state->num_connector = alloc;
+-	}
+-
+ 	connector_state = drm_atomic_get_new_connector_state(state, connector);
+ 	if (connector_state)
+ 		return connector_state;
+ 
+ 	connector_state = connector->funcs->atomic_duplicate_state(connector);
+ 	if (!connector_state)
  		return ERR_PTR(-ENOMEM);
  
--	state->private_objs[index].state_to_destroy = obj_state;
--	state->private_objs[index].old_state = obj->state;
--	state->private_objs[index].new_state = obj_state;
--	state->private_objs[index].ptr = obj;
--	obj_state->state = state;
--
--	state->num_private_objs = num_objs;
-+	ret = drm_atomic_commit_set_private_obj_state(state, obj, obj_state);
+-	drm_connector_get(connector);
+-	state->connectors[index].state_to_destroy = connector_state;
+-	state->connectors[index].old_state = connector->state;
+-	state->connectors[index].new_state = connector_state;
+-	state->connectors[index].ptr = connector;
+-	connector_state->state = state;
++	ret = drm_atomic_commit_set_connector_state(state, connector, connector_state);
 +	if (ret) {
-+		obj->funcs->atomic_destroy_state(obj, obj_state);
++		connector->funcs->atomic_destroy_state(connector, connector_state);
 +		return ERR_PTR(ret);
 +	}
  
- 	drm_dbg_atomic(state->dev,
- 		       "Added new private object %p state %p to %p\n",
- 		       obj, obj_state, state);
+ 	drm_dbg_atomic(connector->dev, "Added [CONNECTOR:%d:%s] %p state to %p\n",
+ 			 connector->base.id, connector->name,
+ 			 connector_state, state);
  
 
 -- 
