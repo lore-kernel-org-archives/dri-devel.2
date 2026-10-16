@@ -4,47 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4AA2CCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 12:48:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BBEECCA462
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 12:55:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0F810E2E8;
-	Fri, 16 Oct 2026 12:48:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E4410E2E8
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 12:48:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6F7DE60008;
- Fri, 16 Oct 2026 12:48:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10D61F000C4;
- Fri, 16 Oct 2026 12:48:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792154926;
- bh=8X4urbvO2xZpXPVoCNUzNjOls4tZXK2yo09pYBPipng=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=eOslO6PSywvkvwQQZ8u+97bxGOkt/RuHsS+RlgbdtiWTuey/+hqjEDWm3VScn/Xoz
- j7zFejJEHY9g2SO8VOAo7xjXCfMjrLr4QTw1pfwPrOeEle2Dgxq2e+3rVSaMAzQBG9
- jV0SuAMydmdTYJT7p7wg2JG2CBhpRztIkqqlZ580oCZVR318+d33WP55jrCX+tMRoD
- MpR9VQNWtH0xQuHwX/kPHAwWu3ObTse9TGYXh8NAhP895B84kfERlRVpdWVDcPeUJn
- G6IQcL8rrcLv9vJBP1okTTwpOOZZ8qvMRp+RVK9B2Xb/LnCk6N+te6iid3TKnZbrrg
- +is7xQ2As46Xg==
-Date: Fri, 16 Oct 2026 14:48:42 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Subject: Re: [PATCH 63/75] drm/vc4: hdmi: Convert to atomic_create_state
-Message-ID: <atIc_4PHIFheqbft@houat>
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-63-586c9c026823@kernel.org>
- <c0f448b2-128e-47ae-b63e-168948673b89@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1246610E2F5;
+	Fri, 16 Oct 2026 12:55:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE1110E2F5;
+ Fri, 16 Oct 2026 12:55:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id EAA7B44785;
+ Fri, 16 Oct 2026 12:55:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C4AB4C2BCFB;
+ Fri, 16 Oct 2026 12:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1792155303;
+ bh=Qi17AilogyYjfb7IaUw9hyywG+v6NW/1FEa0Q4Jp+2w=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=XneTzLFVWLy0MUG2C5l23O357VpuYSAoigTzVAoenOs8plAVoL16WZMZ2GyKbY0T6
+ 4tE/c4dal1IykdwZW1Ir4je6EJZLDxDzAmy1iqv5x8jSph+G9mNc1ojkRClhlTz79O
+ b1p6ME+6LN3uoRPIeGt7jjclOAqDB0fMtaJ7heLXyFbm/JabbX7g8aR0vRoPn3HEbr
+ nKf+UVD75c2e4rsXp6O4O1R0hDwp268JVBDBuSmq9effe8RboBHuqyPbwOUlsWgz7+
+ /ZS2eHFAyIAbNUXKqYAQjmKxFMniTQZk2/qTFfbhGDX6xch7O/OFQIqpNdOxu+An9d
+ QKkRCIOEZSvSg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id ABAD8CCF2C1;
+ Fri, 16 Oct 2026 12:55:03 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Fri, 16 Oct 2026 18:23:11 +0530
+Subject: [PATCH 1/4] dt-bindings: display: msm: Document Adreno 620 and its GMU
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="3dlknviedupngxol"
-Content-Disposition: inline
-In-Reply-To: <c0f448b2-128e-47ae-b63e-168948673b89@igalia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-adreno-a620-v1-1-4a7ed6210d7d@brar.si>
+References: <20261016-adreno-a620-v1-0-4a7ed6210d7d@brar.si>
+In-Reply-To: <20261016-adreno-a620-v1-0-4a7ed6210d7d@brar.si>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792155300; l=1758;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=8eTnNvhKpEjMR4UE06ag4D//fKmp89dOdFVVH07JhJ0=;
+ b=lCY1uQGiarE2Uo5RWJbJwgfPoMTT+DEl4959T6O/cuNT8183u47wn9n4TMVRYQOfwUkw0cR+Q
+ vd1Jsuf5TvyDJg5SO18Wcgqj2xhStecnYTPm6GiiBjXfRhh32xXlyFK
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,52 +76,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: patches@brar.si
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Ishu Brar <patches@brar.si>
 
---3dlknviedupngxol
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 63/75] drm/vc4: hdmi: Convert to atomic_create_state
-MIME-Version: 1.0
+Add the Adreno 620 found in the Qualcomm SM7250 and its GMU. The GMU
+has the same registers, clocks, interrupts and power domains as the
+650.2 one. As on the other A6xx parts, the GPU clocks are defined in
+the GMU node, so the GPU node has none.
 
-On Thu, Oct 15, 2026 at 08:07:45AM -0300, Ma=EDra Canal wrote:
-> Hi Maxime,
->=20
-> On 14/10/26 14:27, Maxime Ripard wrote:
-> > The vc4 HDMI connector reset implementation creates a pristine state,
-> > initializes the HDMI state, and sets the TV margins. It does not
-> > perform any hardware reset.
-> >=20
-> > Since this is equivalent to what atomic_create_state expects, convert
-> > the reset function to an atomic_create_state hook that returns the
-> > initialized state.
-> >=20
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
->=20
-> The order of the parameters in
-> __drm_atomic_helper_connector_hdmi_state_init() bothers me a bit, as
-> it's the reverse of drm_atomic_helper_connector_tv_margins_state_init(),
+Signed-off-by: Ishu Brar <patches@brar.si>
+---
+ Documentation/devicetree/bindings/display/msm/gmu.yaml | 2 ++
+ Documentation/devicetree/bindings/display/msm/gpu.yaml | 1 +
+ 2 files changed, 3 insertions(+)
 
-You're right, I'll send a patch to align
-__drm_atomic_helper_connector_hdmi_state_init() with the same convention
-we have for all other _state_init helpers
+diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+index 07f0e547b..3478adebd 100644
+--- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+@@ -217,6 +217,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - qcom,adreno-gmu-620.0
+               - qcom,adreno-gmu-650.2
+     then:
+       properties:
+@@ -238,6 +239,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - qcom,adreno-gmu-620.0
+               - qcom,adreno-gmu-640.1
+               - qcom,adreno-gmu-650.2
+     then:
+diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+index c30de7feb..cf015fdee 100644
+--- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+@@ -435,6 +435,7 @@ allOf:
+               - qcom,adreno-615.0
+               - qcom,adreno-618.0
+               - qcom,adreno-619.0
++              - qcom,adreno-620.0
+               - qcom,adreno-621.0
+               - qcom,adreno-623.0
+               - qcom,adreno-630.2
 
-Thanks!
-Maxime
+-- 
+2.56.0
 
---3dlknviedupngxol
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCatIdKgAKCRAnX84Zoj2+
-doudAX9ZOIJ9ii7grzmwEBlIbxcHIBLrCwCHqqH+UNG1Ipuc2ZKysko7X6emV7xd
-Li72/wgBgMbhkCoz+WFHBri43xj3JjtXclkJTb/CElWnoXIThy3p47d5Rc0rMlBC
-IhGI2hPOww==
-=RG6m
------END PGP SIGNATURE-----
-
---3dlknviedupngxol--
