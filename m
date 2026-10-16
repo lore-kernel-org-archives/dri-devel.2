@@ -4,85 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98A74CCA46C
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 22:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D90E1CCA490
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 22:10:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0532C10E167;
-	Fri, 16 Oct 2026 22:02:37 +0000 (UTC)
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
- [209.85.219.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F5310E167
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 22:02:30 +0000 (UTC)
-Received: by mail-qv1-f43.google.com with SMTP id
- 6a1803df08f44-917b78dfe30so5867396d6.0
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 15:02:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792188150; cv=none;
- d=google.com; s=arc-20260327;
- b=l2uT03VGDd5D769OxxhuxBywwK+o0jR8MLgaMxLVx4aAHFNp6VQNG6gvWcbGRS5XiC
- u/v//C3hUItRkG50PdMs+dt8dgCbXOm5lSLx+rV9Cn9LS2QysOgUrjsnWcGPga5s+UB4
- 0m9fN7/ytftwFxRm8tKQjsXGNkizuwR5y6YMr/NS4stli+Yet7AAjojENJbnYyjRwUlZ
- WFLYV9TI3Di6YZ8IxkK7y0vpFpg9sW78oUGlHbzfoRGFQJuBRw73v3lkFqocMiTEhQYl
- mOxXZ/VR9rwjNPUMd0WDsIRRKWfg7RTf2f206r3uXt8yyG9kroCvTPtlswx1Pvhs1qKh
- D92g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=ne8c5V/AfxPlCOWHa/ykZPcK1xAAPofEMVR3nTOUv1A=;
- fh=HQwGS/tgfrjuEQ8NZOhWLiLZo088fJVbEezIgNGsHOo=;
- b=AKP+09Gu112KMmxbk5GBTs9nZ+fHbHgXvDu6TeH9qDXBdIRSbnQ3tfUZuMhgDejXg2
- c8QMLnyIUcN646/emzadhfTKbj9cEYNBq6QaFBrBTZQRyUhHlVTuUhGV4luNYmWAnUe5
- lXHFe7X3NFeQVzXJdErxsHZUw3e4PUHZrPQ5AVgD4zeniuEe4976hdM0P9L+TjnmEj9h
- wwXufnth/y5sjVUXqa70WYEIkcJygytiDvvkBdYM1+YcV4z/AW4JQw+8ijoYHl0Hq+Dk
- wCsZlUxwnMVBsyxClTj6xpi486S/xdUaiwYXVTt3Rv1qcO6fzS3HkG/FC9lXZ2gS3b1B
- gUew==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792188150; x=1792792950; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ne8c5V/AfxPlCOWHa/ykZPcK1xAAPofEMVR3nTOUv1A=;
- b=Ibhb7OoHK8VbzEpOVef2vM9a4CpjFbbiHzFs0WcKov6BBFyJePTxH+UCwcGtZ6UhbR
- ZV6RVdrrrys4wB84kbEuDSSNIif9teIF59txWpJ5rVU71VWfqqvpgdIjm1bbUOg/oOek
- YqLlx1T/3kspkBO50NFy/4Lv2Ocb43eNdRdExzSreVFS0Ld4fSGQTNFFNbjDLB/GBkV0
- npBYvcxt8ZzeDSWShgjj540EfpwO/M7JC50wIKvi8my3U2ut0zfboGhPxZQjgTdAaw8b
- HpaBjDcUxp1fRXI3IrW5sORjMKXl4utN0+ZGHayYhgBx9DAMzGFMujv+V3vFlQv3/l6m
- GFDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792188150; x=1792792950;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=ne8c5V/AfxPlCOWHa/ykZPcK1xAAPofEMVR3nTOUv1A=;
- b=RMEsH61w1B1KXVTA18vM5DaVFKWLM1c4hV67eR7wcvLm/Om+mF1ule68peWCo2JJDk
- WvXNF0GIgSuN8xxt/gM4fj+5rRAY8CwHU5gjfPCdUop4/GLiRH/5gSR6QjiutOL7XQyT
- wnvoJ5Rf98M6R9KFcjY6YuEpfXFHJ3BFSt0OOa+N4LSmOcqVC2CRS7EzuHSwvrwc7lzk
- Zd4xnd9rBplGMGe8IFWyZVhcI+0Da+ypp2iO9VqhIG6+CNMjehIM6eeQqaVGn8PfTXRS
- D3DKZ9qMu5uP2PfQXayfiHNktQ7kvRhZTy60Yc+y3dNR9TgC+damqnlq3+k0wlAFx5wh
- NIbA==
-X-Gm-Message-State: AFq9FYJO9Jc3urwngBg3EECkyXHWB71mnRbOsX7reIKZsWZ+DjnJlDV3
- LlqdS6i23zlp73fOQwi4s2U2il4htYDpN+mgzbzksspWbRQ1xM+OT4QuqaG8Ruj3HASjv4yL8pX
- c4FHmS1ufwg+oQFjEl+1vu/rI7+T3IDw=
-X-Gm-Gg: AYBFou3eJ4N0RahqXBt0KJF1yXgEqUNV/RpovPqjyEU3jWHZDTrPUDDAUdnz5z8BoPe
- qmlYSv7F3V99m9zghiaFTXHj5oDlUC0BxlQicsR8LI+5WpPX7Ov0COquTB6owlE5UmpEfj1RaNR
- C2zaDvL4S/ohaJsjUA/AdkAbOOO19VFebYWLhbIRS/vDo84QmDMr7fH4dSKsG3hPXH0SO9MPbiK
- aHUobOVP1W5scgtohh8+JaDqtZd08iBuiAYQ28cRA3pzjY5kb7RlETXPYTcbEOIMTJWGDgYObCv
- a66GQMSkjuGYRBAm02NcU+JYAXGoEqDhtmMQDIbWLzuEVD17vFzMZqD1Io+zYrxcok7p7dR9prG
- 67Q7b3C4ADn+44o5W+VqC/97YQN4TuFHNo0zy/2uv
-X-Received: by 2002:a05:620a:2609:b0:93e:7dfa:2f3f with SMTP id
- af79cd13be357-93f29d9614cmr215421485a.62.1792188149594; Fri, 16 Oct 2026
- 15:02:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA14E1129F8;
+	Fri, 16 Oct 2026 22:10:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C735B1129F8;
+ Fri, 16 Oct 2026 22:10:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792188637; x=1823724637;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=+EHAeMopH/OmSIKzG6QsAYtC9ISzW1N/Kl/FSuARMto=;
+ b=d8pInGLWlY0H78BToBBsDA8j2DvG1zh8LNavyZbXTi0j7a5+u2wIQPr4
+ BQlnX4i1a2rA3jLrB2NT0VZkpuBBylSbi6Iw31OOL541Y71pdekxFDEQk
+ V7E1QLqza9W3Z+gGs8mXENRtx8bNjJoEe8ExBBgkgM9qO5Xoh+y+kFEfk
+ n6zFsNGwTih3MQuuL6po32wnFOXgiyFJ61UTpT7bv29pWXVQdCtZ4pEXP
+ wQvVwp3mqkqmHdN2ER8EpU3L+y5EUZl0AUL7WYyYQcafNsWKMn0oVGV32
+ 1J2TstzkHrqT9OSGdL98QADxd+yhwl+99/dXmj1uADt4H26pQRl8+kuA/ g==;
+X-CSE-ConnectionGUID: 303+PUqyShqC2+YW+MlsPg==
+X-CSE-MsgGUID: S4ucYf6aQe2pvWWSgu7KoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="870374"
+X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
+   d="scan'208";a="870374"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2026 15:10:33 -0700
+X-CSE-ConnectionGUID: F4bwbbFcTyitXXqvxhexww==
+X-CSE-MsgGUID: Iz+P6h7wRLmnUqiyyxWQyg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
+   d="scan'208";a="3796828"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2026 15:10:32 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 16 Oct 2026 15:10:32 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 16 Oct 2026 15:10:32 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.1) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 16 Oct 2026 15:10:31 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q6VYSrCX000li7Ig2YFcEvt+fLqOhuALoOk02Un3g9OeqT6SE4k2kY2wKJlT+ayTkwQod7IlJOH0ohmjzWz/M63WEQcy9BCH9gWXLJKeP7cYcTTYklaToQdtw5lKz1f8imygaT1Ls9heUbJ3gjziixQ39s0ONDNiOBohPwOgymyH6uHlr50DMq5JmgEmOGCv+bORd8iWKxuGgckxxFt5QfF5tWQs/wzM7lR2ZdiEKRcxNAqCJGtg/NT4GRSUug1ap1LaRCeUZlHU5apaiz6SDooNGS9Tf7thPYNfYG7QDqoYuS9tPJSvE8UBy/dpHxWw3Jn5LTlr6IdTK03HxMT5Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oMN1uZp9WzqcswZ+cu/AvGha5Z2z0OviDMlYQxqSHUg=;
+ b=iQ7SgMeq+WTzGt1RkbTli+wsnJDOh4RmbEgoAHVIU6lwEYjXXQZb+Od9Bl+/WB/BPzI+u1sF1NlBuyjjdwi+7q7df3YdoNQptJ06J7os9hrwFyU5+pG0H9Veath7Rz+bhQ6zXipb5n7OtP5f3nVCOi5vA2fQT1xshqtyHxfufKM2UcwGLZQG9K739HjARQM5/WiT2YGYzhMjeEyAPnNH8a2+SIa9nlwhWsvM4d/wWt8j8aUbfyNjDiEyX75nu7DLDzMoJpi3GKktpF4zvMDFeakPEe6edbdlhxHgb1gzkpvfncnt4L+CKsYQ79b+teufsfoliUY7qb+2wccsUafnXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB8182.namprd11.prod.outlook.com (2603:10b6:8:163::17)
+ by LV2PR11MB931619.namprd11.prod.outlook.com (2603:10b6:408:417::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 22:10:25 +0000
+Received: from DS0PR11MB8182.namprd11.prod.outlook.com
+ ([fe80::7b65:81e6:c6c4:449e]) by DS0PR11MB8182.namprd11.prod.outlook.com
+ ([fe80::7b65:81e6:c6c4:449e%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 22:10:24 +0000
+Date: Fri, 16 Oct 2026 15:10:21 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Helen Koike <koike@igalia.com>
+CC: <rodrigo.vivi@intel.com>, <demarchi@kernel.org>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <tvrtko.ursulin@igalia.com>, <linux-kernel@vger.kernel.org>,
+ <kernel-dev@igalia.com>
+Subject: Re: [PATCH v3] drm/xe/lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET
+ programming for pre-Xe2
+Message-ID: <20261016221021.GC1329272@mdroper-desk1>
+References: <20261016214112.1647202-1-koike@igalia.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261016214112.1647202-1-koike@igalia.com>
+X-ClientProxiedBy: SJ0PR13CA0059.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::34) To DS0PR11MB8182.namprd11.prod.outlook.com
+ (2603:10b6:8:163::17)
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 17 Oct 2026 08:02:17 +1000
-X-Gm-Features: AclHuK9FrmJmWHNbTalVbIQ6Jj0K1MjeWwWf28VCCnLfBjAm_jRBOTkZeqjz3gQ
-Message-ID: <CAPM=9tz6wzOBn8o_xgpKkstWwUem0tGzau544TETtuiNthN1KQ@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.3 final
-To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB8182:EE_|LV2PR11MB931619:EE_
+X-MS-Office365-Filtering-Correlation-Id: 776b6394-54c7-4a8d-68cf-08df2bd246c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|56012099006|261009223027099003|261009221227099003|11063799006|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info: 2EAkPMx4ftQ7+gNh4OwLojS9avDD1OrGe36m0+HWTv2DpBF6ocClGMBiCmaOEP/D125nFb0bgT0J4Aw5FEzlBF2Y8bGLBI1ThjiihWgaCGB5SUerO3FTSHhvcByO63HASvJu/F8yfUX9B27Jv14NNR6FNwECxOYxF4hP+PtUWs9bVvzPKxE7T116qZkUQ9EOGIZgVrHjgcy2ybyjGi0e7gsF4o/CfwB1feFaAUyRHaC2nTfn/89Svb+TVPG0gqU23NJGP+YhuF3gm69tEJESibEImGGaLk7XlVkx4GABG845WevHIHY32Adj8LfZmTBT4eykePrWxSsTfqklKLVK6BuOalqiVzOAKdKI1BUe4yYo9H4n0WA/NBAC8Mz0HY9psfZ0i+YjI3H2fNoC8HRHpbEMnx5dfZCby+wyqeyHz5JavU38dZpPGeAfWhrOMsu7/GK9wJwIuCnnn9ddKUhtnNJ0KqYzYLOgrGM8RDkUsY6Jd3Mo0ZL8ZtI/YMPMIVM/Fo4V9XzTHYQtAaWwaNpUwCP4Zu71jxBRMb/BhALsT97QUfl/mx9wJE6Pj3poOo/NqYLdm1bx1lOjeK+C7cSs/qLTGJSyxYyhHTIgDMIRNyO+bqvppR2T8zV2H3oVa6MGrqmnvvkqndLlczvllsa15FsZSSyBi7YcMwWmdUGRudQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB8182.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(261009223027099003)(261009221227099003)(11063799006)(18002099003)(22082099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9fA22hd8LR7tSYBCZPA63XFA6u46lA1uZn3RSBZ8bgGFSoL4KXKeL3Eiugp0?=
+ =?us-ascii?Q?T3019FhqCDu18rgPoW0gFjBTBouwb6MMNs7a2YNb+9Kd+40+0/iFP4vV5EBY?=
+ =?us-ascii?Q?U/gBQdjfqvU5Ipjci8OWqI0nadpNSLYgdJn5kmvpRtS68YMnO/NLvV9BkOwQ?=
+ =?us-ascii?Q?8tV0DAwPfDgJ2pnv9TdvQI3BIatx6tR4MQdKmXx1vnxbwnZKnTNSY7bgGn/L?=
+ =?us-ascii?Q?l4Lzistgc0PcpveBBb73uJLBY/rEIYAfsbo6qWj097T5OB+hAZbJjCaCgW07?=
+ =?us-ascii?Q?68pH8QcPlNQsTY0Dds1VodjtirAeqxbcJcDxgMZN069drHzAF/6YZGf5bZGd?=
+ =?us-ascii?Q?L602+4LerhpTrktEU4IqJZTTbCwRcHfqQzgBHMeOMh7Rn7kiV3+KuFfMxiYB?=
+ =?us-ascii?Q?n1u7hCeITfCxh3s3/wG4GsM4PyImBjc3kZuveQ9rcCoJponEruuh44K2ts16?=
+ =?us-ascii?Q?bQZ5jzGXKv+y7AZDfmerstDrsYAoB2o4y4DeasT+cS6fT74t1+08KSQkQYvv?=
+ =?us-ascii?Q?H5kxJtSal7dDTFdXQxEJ52unVONpFRbyokN16aqlFoQY8QUuDuaEFDmu5ydn?=
+ =?us-ascii?Q?2QrC2Coo8vSjVe+HDP/7BiG4QtepFkiStlgPeaLeR3uc9cxGZTnGCVHd+9Uy?=
+ =?us-ascii?Q?NI/DRug+uBWL+olmxvszPkTVqxcYaQVqlP1yL4B9bSdlsgPQS1fruF/18zsr?=
+ =?us-ascii?Q?Ibd4mnBUVcxCTzDCTsFFIFZn9e6n3LcgH0WKO24NRzKbi8vpA11EjYtwWTlj?=
+ =?us-ascii?Q?T+3GcomzfX/2vY2QZixr5ZIttBzrtzqraWmeTCBGBOfJJ9LtOVkseQ7/sIW2?=
+ =?us-ascii?Q?2JF7Vma3vWIzIQlqsTowE5aplIHmm+dr9eDmpAJHuG87K+qPMu31hJKCNATs?=
+ =?us-ascii?Q?ukSRWYkLSKyW9ZH1OI9VrngPc01Uif3qHDSZNH4DF6uUrZPSRHEmWyi27cJ3?=
+ =?us-ascii?Q?t5DkOnB3cHgM5YQP7O3/lskY+jBTRr/yhg/dDwQbBh89NWEPxEvSByRake3M?=
+ =?us-ascii?Q?zyWfgJfxLLFdwx5HwpOXbOFOyieeYCGr2ec/vEJt0iWM9vJCxoVtSQPH8Cke?=
+ =?us-ascii?Q?R4OukJoTDPtZFHcZb19mh2WUdo0eVSmDWYZjG9N31qsnbbNDISn3xJApXvFX?=
+ =?us-ascii?Q?50fD8WFrd9uw4y8s47lUEv4EXoO3gVsKaRimxt9oJMsBzAPUk3LH7iokfXFC?=
+ =?us-ascii?Q?QymQZZblqgfDpqPJDHylt2V7pVyjlYTaRQOERxyVBV6Abz9qvDlpNAhD1BR4?=
+ =?us-ascii?Q?jTsefaugk1kVC5tce6NtsD+W9IX4QfA8VNt96cZhBTS/kFsL28v4TIquhBsn?=
+ =?us-ascii?Q?CcWuGJ0nbhH9o/iCIA3YNI0yXx4cyJK1bJVWthzKI078cWO8NFJy43J24QAP?=
+ =?us-ascii?Q?DkrO/eFdC56BQyHzRV8fy7DlLV1e5aIeuPEKfkNezsDhLs1jcatiN5Td/73H?=
+ =?us-ascii?Q?KIsU1NuSEOZViANEMGTxHAEzWwoP8NIOQ9IWIVmcS6QH4OjaXZeEpsKF72cM?=
+ =?us-ascii?Q?6bQujR05X+n7pytCz+E3ZdIZyi72HTjz0Rt0ObfeMNr7NmHAJwC3IIbyyxjT?=
+ =?us-ascii?Q?YbpKUp1tC1rPStvlSXYJIlLPnzj8bT7ivONBZUJ3iBGIDJfvvd7ftZmWXE8K?=
+ =?us-ascii?Q?wWQ1XflpMAyAjPW5ZbarC6DrjfdnOe2+1Jw9HzOvKwcZ1h0jpt+auaXW58bb?=
+ =?us-ascii?Q?Yr7mtGc+s3ok9ABoqQpJPAtXC014Txt6kOA9DsURfBdCSlPh+f+4F1PZkmn+?=
+ =?us-ascii?Q?O8VDHqC/8K0AqHMEgvlRGb8ypLJd2dE=3D?=
+X-Exchange-RoutingPolicyChecked: Jci8SQy86KDI9lPRrjVzXl4cyDGqN3Tg3sDS53CcsSV1S/weqD4xi8912rYggXGRZtIpRIlS2SnGy41NZKN+lpYefcjuHZO4NvyZbhD9SO6iqKouptrBq1+CW0SuviTaDLUq6RyjiEiKh2QH1F4/CK1Bjf+iWBrzuPeHRfIz+PfPXuwnRqqls3OC7KJP1VsZ9bF0pGsAz20pZhZfP4Y+s258xcez4WdA88RqETjCq3A/JXYCVGQSX8aAnODRy1FrL1no8M5tHTPurg7W37cav4XNlqMVw9X7PBHH4c3nmTf4pH63sL+C280TPrHEucxWksk4vDtE3DVKQrBQVl7bBA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 776b6394-54c7-4a8d-68cf-08df2bd246c7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8182.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 22:10:24.5231 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nZkBXA5tp7lgsexoJ0gSQAkcd2dAIyw5FK01ZtYNivy5uk3iLJ9ySBcqGYDA6qwwiRBW64PQKIeFZ4yZt/FREk9/cdmXgBrEdHDMPzXXB0I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB931619
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,247 +160,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
+On Fri, Oct 16, 2026 at 06:40:50PM -0300, Helen Koike wrote:
+> CTX_CS_INDIRECT_CTX_OFFSET default value is not retrieved from the GPU
+> by inhibit+context save mechanism since it is not part of the Engine
+> Context. Thus, at restore, 0x0 is programmed back to the GPU, which is
+> an invalid value according to the PRM.
+> 
+> This causes sporadic hangs on Alder Lake when executing test
+> IntelAngleEnd2EndTestCases (error VK_DEVICE_LOST).
+> 
+> Fix it by partially reverting commit c9dfd66cb91e ("drm/xe/lrc: Allow
+> INDIRECT_CTX for more engine classes"). Re-add the programming of
+> CTX_CS_INDIRECT_CTX_OFFSET for pre-Xe2 (in theory it should apply to all
+> platforms, but we got an unexpected behaviour on Xe2 that still requires
+> investigation).
+> 
+> Fixes: c9dfd66cb91e ("drm/xe/lrc: Allow INDIRECT_CTX for more engine classes")
+> Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Signed-off-by: Helen Koike <koike@igalia.com>
 
-Last set of fixes, mostly amdgpu, some i915 and xe, I think the
-dma-buf revert is probably the most important, while technically
-correct the fallout from it, means we shouldn't do it now and fix the
-fallout first.
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 
-Dave.
+> 
+> ---
+> 
+> v3:
+>   - Commit message update:
+>     - s/programed/programmed
+>     - s/for ADL/for pre-Xe2
+>     - Add sentence saying it should apply to Xe2 too, but we got an
+>       unexpected behaviour and it requires more investigation.
+>   - Remove comment "Enable INDIRECT_CTX leaving..." since it is wrong.
+> 
+> v2:
+>   - according to intel CI results, it seems that this default is not valid for
+>     LNL and BMG platforms, so limit the change only to ADL.
+>   - program the default only on ADL.
+>   - restore the comment, but add note with exception for ADL.
+>   - update the commit title/message with "for ADL".
+> ---
+>  drivers/gpu/drm/xe/regs/xe_lrc_layout.h | 3 +++
+>  drivers/gpu/drm/xe/xe_lrc.c             | 8 ++++----
+>  2 files changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+> index 4ab86fc369fd..e4c7c3549735 100644
+> --- a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+> +++ b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+> @@ -43,4 +43,7 @@
+>  #define INDIRECT_CTX_RING_START_UDW	(0x08 + 1)
+>  #define INDIRECT_CTX_RING_CTL		(0x0a + 1)
+>  
+> +#define CTX_INDIRECT_CTX_OFFSET_MASK	REG_GENMASK(15, 6)
+> +#define CTX_INDIRECT_CTX_OFFSET_DEFAULT	REG_FIELD_PREP(CTX_INDIRECT_CTX_OFFSET_MASK, 0xd)
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
+> index 35b4e8289b5f..18f247bc8865 100644
+> --- a/drivers/gpu/drm/xe/xe_lrc.c
+> +++ b/drivers/gpu/drm/xe/xe_lrc.c
+> @@ -1449,15 +1449,15 @@ setup_indirect_ctx(struct xe_lrc *lrc, struct xe_hw_engine *hwe)
+>  	finish_bo(&state);
+>  	kfree(state.buffer);
+>  
+> -	/*
+> -	 * Enable INDIRECT_CTX leaving INDIRECT_CTX_OFFSET at its default: it
+> -	 * varies per engine class, but the default is good enough
+> -	 */
+>  	xe_lrc_write_ctx_reg(lrc,
+>  			     CTX_CS_INDIRECT_CTX,
+>  			     (xe_bo_ggtt_addr(lrc->bo) + state.offset) |
+>  			     /* Size in CLs. */
+>  			     (state.written * sizeof(u32) / 64));
+> +	if (GRAPHICS_VER(lrc_to_xe(lrc)) < 20)
+> +		xe_lrc_write_ctx_reg(lrc,
+> +				     CTX_CS_INDIRECT_CTX_OFFSET,
+> +				     CTX_INDIRECT_CTX_OFFSET_DEFAULT);
+>  
+>  	return 0;
+>  }
+> -- 
+> 2.54.0
+> 
 
-drm-fixes-2026-10-17:
-drm fixes for 7.3 final
-
-MAINTAINERS update
-
-dma-buf:
-- revert dma-debug y on debug kernel due to msm interaction
-
-core:
-- fix drm_exec prelocked object interaction
-
-i915:
-- Fix ARL-S host bridge detection
-- Add sanity checks for malformed DMC firmware
-
-xe:
-- OA uAPI fix
-- shrinker fix
-- fix eviction of object with no bo resource
-- fix LRU for external objects
-
-amdgpu:
-- UVD fix
-- TTM sched entity fixes
-- SMU 14 fix
-- Userptr leak fixes
-- Runpm ref count fix
-- CRIU fix
-- UserQ fixes
-- USB4 fix
-- SDMA 3 fix
-
-virtio-gpu:
-- revert double setting blend property
-- reset device before deleting vqs on freeze
-
-vc4:
-- fix hdmi audio runtime_pm interaction
-
-amdxdna:
-- fix Kconfig invalid configuration
-
-rocket:
-- fix error path for failed init
-- fix core unbinding and scheduler lookup paths
-
-panthor:
-- fix immortalis configuration
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907=
-:
-
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-10-17
-
-for you to fetch changes up to f91a4ac69629e1479745e82100863157e6967ec0:
-
-  Merge tag 'amd-drm-fixes-7.3-2026-10-15' of
-https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-fixes
-(2026-10-16 18:37:24 +1000)
-
-----------------------------------------------------------------
-drm fixes for 7.3 final
-
-MAINTAINERS update
-
-dma-buf:
-- revert dma-debug y on debug kernel due to msm interaction
-
-core:
-- fix drm_exec prelocked object interaction
-
-i915:
-- Fix ARL-S host bridge detection
-- Add sanity checks for malformed DMC firmware
-
-xe:
-- OA uAPI fix
-- shrinker fix
-- fix eviction of object with no bo resource
-- fix LRU for external objects
-
-amdgpu:
-- UVD fix
-- TTM sched entity fixes
-- SMU 14 fix
-- Userptr leak fixes
-- Runpm ref count fix
-- CRIU fix
-- UserQ fixes
-- USB4 fix
-- SDMA 3 fix
-
-virtio-gpu:
-- revert double setting blend property
-- reset device before deleting vqs on freeze
-
-vc4:
-- fix hdmi audio runtime_pm interaction
-
-amdxdna:
-- fix Kconfig invalid configuration
-
-rocket:
-- fix error path for failed init
-- fix core unbinding and scheduler lookup paths
-
-panthor:
-- fix immortalis configuration
-
-----------------------------------------------------------------
-Andy Yan (1):
-      MAINTAINERS: update my email address
-
-Benjamin Cheng (1):
-      drm/amdgpu/userq: actually validate userq BOs
-
-Bommu Krishnaiah (1):
-      drm/xe/oa: Zero OA buffer at allocation
-
-Christian K=C3=B6nig (1):
-      drm/exec: don't immediately add prelocked obj to array of locked objs
-
-Dave Airlie (4):
-      Merge tag 'drm-intel-fixes-2026-10-15' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
-      Merge tag 'drm-misc-fixes-2026-10-15' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-      Merge tag 'drm-xe-fixes-2026-10-15' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-      Merge tag 'amd-drm-fixes-7.3-2026-10-15' of
-https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-fixes
-
-Dave Stevenson (1):
-      drm/vc4: hdmi: Move packet RAM enable to PM runtime
-
-Dibin Moolakadan Subrahmanian (2):
-      drm/i915/dmc: Harden DMC firmware payload parsing
-      drm/i915/dmc: Add sanity check for DMC load address
-
-Dmitry Osipenko (1):
-      Revert "drm/virtio: Add pixel blend mode property to cursor plane"
-
-Dnyaneshwar Bhadane (1):
-      drm/i915/cx0_phy: Fix ARL-S host bridge detection
-
-Erik Faye-Lund (1):
-      drm/panthor: fix immortalis condition
-
-Guangshuo Li (1):
-      accel/rocket: clear rdev on device init failure
-
-Heiko Stuebner (1):
-      MAINTAINERS: Add myself as reviewer for the Rocket NPU driver
-
-Igor Paunovic (2):
-      accel/rocket: search every core slot when a core is removed
-      accel/rocket: search every core slot when looking up a scheduler
-
-Jesse Zhang (4):
-      drm/amdgpu: don't drop the runtime PM reference twice in amdgpu_gpr
-      drm/amdgpu: free the userptr ranges when a CS fails after parser_bos
-      drm/amdgpu: report the BO alignment in bytes in GEM_LIST_HANDLES
-      drm/amdgpu: keep the eviction fence until the last handle is closed
-
-Jianfeng Liu (1):
-      Revert "dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kerne=
-ls"
-
-Kenneth Feng (1):
-      drm/amd/pm: add zero fan stop temperature support on smu 14.0.2
-
-Liam R. Howlett (1):
-      accel/amdxdna: Fix Kconfig invalid configuration
-
-Niranjana Vishwanathapura (1):
-      drm/xe: skip eviction of a BO with no resource
-
-Perry Yuan (3):
-      drm/amdgpu: fix sched entity leak in ttm buffer entity init
-      drm/amdgpu: destroy mutex when tearing down ttm buffer entity
-      drm/amdgpu: fix GEM object leak on ENOMEM in userptr ioctl
-
-Srinivasan Shanmugam (1):
-      drm/amd/display: Fix NULL sink dereference in USB4 bandwidth function=
-s
-
-Thomas Hellstr=C3=B6m (2):
-      drm/xe: Don't transfer shrinker pages for pinned bos on
-purgeable state change
-      drm/xe: Bump LRU for external objects on exec and rebind
-
-Timur Krist=C3=B3f (2):
-      drm/amdgpu/uvd3.1: Fix checking whether UVD firmware keyselect
-was already set
-      drm/amdgpu/sdma3: Work around POLL_REGMEM / FENCE hang
-
-Yuho Choi (1):
-      drm/virtio: Reset device before deleting virtqueues on freeze
-
- MAINTAINERS                                        |  7 +-
- drivers/accel/amdxdna/Kconfig                      |  1 +
- drivers/accel/rocket/rocket_device.c               |  2 +
- drivers/accel/rocket/rocket_device.h               |  1 +
- drivers/accel/rocket/rocket_drv.c                  |  7 +-
- drivers/accel/rocket/rocket_job.c                  |  2 +-
- drivers/dma-buf/Kconfig                            |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             | 15 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        | 23 ++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            | 17 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          | 10 +--
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c             | 25 +++++--
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c              |  2 +-
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c    | 18 +++--
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 55 +++++++++++++++-
- drivers/gpu/drm/drm_exec.c                         | 77 +++++++++++++-----=
-----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c       | 12 ++--
- drivers/gpu/drm/i915/display/intel_dmc.c           | 76 ++++++++++++++++++=
-+--
- drivers/gpu/drm/i915/display/intel_dmc_regs.h      | 12 ++++
- drivers/gpu/drm/panthor/panthor_hw.c               |  2 +-
- drivers/gpu/drm/vc4/vc4_hdmi.c                     | 20 +++---
- drivers/gpu/drm/virtio/virtgpu_drv.c               |  1 +
- drivers/gpu/drm/virtio/virtgpu_plane.c             | 13 ----
- drivers/gpu/drm/xe/xe_bo.c                         | 11 +++-
- drivers/gpu/drm/xe/xe_exec.c                       |  7 +-
- drivers/gpu/drm/xe/xe_oa.c                         |  7 ++
- drivers/gpu/drm/xe/xe_vm.c                         | 31 ++++++++-
- drivers/gpu/drm/xe/xe_vm.h                         |  2 +
- include/drm/drm_exec.h                             | 15 +++--
- 30 files changed, 348 insertions(+), 132 deletions(-)
+-- 
+Matt Roper
+Graphics Software Engineer
+Linux GPU Platform Enablement
+Intel Corporation
