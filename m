@@ -4,77 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC159CCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:59:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE51FCCA48B
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 10:01:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB3111272F;
-	Fri, 16 Oct 2026 09:58:58 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4E8311271C
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:58:47 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-486e8faff03so2716490f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 02:58:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792144726; x=1792749526; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LD2knUg3bwI53NAkb4XKjLA3TEnvxqdDcA9IYxZn/Mo=;
- b=IYzpxsxRX+5wI7UVxejvU09tMECqubnqKaP9f2+9O4Lm/MCwGCByZ8TjEsH6bkNWO8
- QQBCdIsAc4829ri9n/Cn2TjGItNCdSDkSd1vR0c3UW8FcIssSQUDMHlNFapBGogWjjF/
- dVTR/VhORZcNUhH93bu6F9to2vpZhN90UQ7BZsSsquXoDiZ+GbmQAW5IOhrWOl2w5Myl
- 4QtypK+ZwRuEb9EmAwuP3T1VQdi4GBJFbZvYwrwZ3ePQewf/AU41U/E6PkZBOWeM+xsw
- RM/i27jKaZ2AQnK59EMRA9QzxY2jgsbvSa1EdS6TX6LjwzjHiBCsH825pleaSongbPlB
- MF1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792144726; x=1792749526;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=LD2knUg3bwI53NAkb4XKjLA3TEnvxqdDcA9IYxZn/Mo=;
- b=HzwR4uqd3TazXAb9lTYwngyFTsk/2horP7Erb3NCcySrwHDzKFsAPRZVIJ36KwnJ1w
- k/9bOuRzbQTwHI+hbyt7VH302D2SOiVECGsa7zqf7A6WaUZHnoxYf25RLpVedtZvndo/
- 7SS7fmHsYdiCZWhsZEVti/48V1BrGSXe+aWLuxYu9HwihTE/jDByFubkioz12ZFZvbno
- nvcUfaiXeo0QG5ZVBZckokGvX0DEIQ1rn3qxKNMt5+tAl/tG+TW9Wq5vpB9CXqhjrBxk
- U3/pB5wtYPRxCz9uOGFkNtsCh1Bx1SeTpDrXaKvQBbEP53PGh0XcuTYyl3RxpvshtYiL
- BHTw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwYsUZsVP0cc1jV3RkfX03uHn2lQecSbNxYQ2cIZQQwolmwzdGIv+oIl5NOfu6W1JfEMitadIc0Hn8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ2+LulvVI8c4SzH0G1b9IzkxYTgf3XX2qLQ/q+iBDlHIK4l1Sy
- zZe566idWkLe7gNlapDDYLGAPswuUgliXAWAxNHNbmo86qwJZtuMNL9g
-X-Gm-Gg: AYBFou353+ro/qmvxM8ian+RaZzvfsCViWzmacuYtQZO5FlKTWyz3w1CuB/lKIIcRY3
- J8XT1AR1+mEXYJtenys/vgCrf9noAlKgN7DLd0moFyPinEGu7+Z+ZbInA7DZCJXuHUP9hnKoe3e
- VL1BYIhvUEfWHW/P0u9MqELQ1MEzzDJmLJ0Wau/c1jO23GMLd05dI9M+e62JM69LDpqbOW6hlIg
- i03WuC3lUOcBG/NM47gwE5X1X+8Gh+Ly1xy/TP8UVLPXJG4knmIayNMsyB3xslQ3vBVoXUdWuRl
- 4JxlL4tKpXHzR1lRTFPdypiRklhZK7nMLS1FIQ8HemZeeXkTngJLGmf2b5NllK85qzpCWs3yYhQ
- 9mjB9FTSk2Cc81gxVwQnhM0l+i1HeRvUZlgWNGoaOOX0VPkQYgl+7GomT5ANENvCrT0dxmETyVA
- myb2/CY6EcNuW/e6uoMSplsjDtfmmJSlBNJVphzfGgUjN7vHmMUXDlruu0hlGCXXWrqShjQEtuP
- +WglGV5nr+iUJL68k3oqmK+Ove/uh0n/cw0Y0Y2qW4DfUkf7Jj4bOeJ3Hlc2MloVmJQRRM8fKS6
-X-Received: by 2002:a05:6000:29c3:b0:48d:c15c:94a5 with SMTP id
- ffacd0b85a97d-48dc15c964amr29582852f8f.14.1792144726031; 
- Fri, 16 Oct 2026 02:58:46 -0700 (PDT)
-Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48dfd5033a2sm4133033f8f.45.2026.10.16.02.58.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Oct 2026 02:58:45 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: io-uring@vger.kernel.org
-Cc: asml.silence@gmail.com, Jens Axboe <axboe@kernel.dk>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v2 2/2] dma-buf-io: document dma_buf_io_init_map
-Date: Fri, 16 Oct 2026 10:58:31 +0100
-Message-ID: <a9fdfbe6e447ac583f4d3a3f981b203141a624c4.1792144609.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1792144609.git.asml.silence@gmail.com>
-References: <cover.1792144609.git.asml.silence@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E2810E1A6;
+	Fri, 16 Oct 2026 10:01:51 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C38310E1A6
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 10:01:44 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id EABE94E4122C;
+ Fri, 16 Oct 2026 10:01:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id A49E26075D;
+ Fri, 16 Oct 2026 10:01:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 48592103282F6; 
+ Fri, 16 Oct 2026 12:01:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1792144900; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=0oQ+MUsY862yw3W6ThUw80i4Mg92NlZLEJzdN0dO65I=;
+ b=vyD+tY6xP8Z9RwR2xkuRI3THWcN7/fM4teqUX1np32hkVH7TkufocT2ZYa6FtlaQBDdDH7
+ te3j/Gizl0ssUbuKOsSfk8OtdVDkiDyuOpWMz8/fyhCT2TxbzR10qiGtKEv7tYEmSvQS7v
+ 783OU8Re4ArvppviTidEbsVnPzjqr2s4ZwnE6TqsClHC5nLI/CxQ2JwQncMYHecL5G6HjA
+ P8aUPsBy7QVIAWbhY+Nw4n8xWwSeQDEPGNDbuZeTAw25i2mrSiYwQZvquaODtICLqfSJ6q
+ lvS+LGmzfw/gafx3TI8ZfNV8jq+1B+BM3qtfPzXtW8hhG/OHFfaaXglJAKIQgA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 16 Oct 2026 12:01:25 +0200
+Message-Id: <DM66CANKPVNS.SGWB73YDX55M@bootlin.com>
+Cc: <kernel@collabora.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+To: "Johan Jonker" <jbx6244@yandex.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Sandy Huang" <hjc@rock-chips.com>,
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
+ <andy.yan@rock-chips.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Cristian Ciocaltea"
+ <cristian.ciocaltea@collabora.com>, "Huseyin BIYIK" <boogiepop@gmx.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 0/2] drm: devm_drm_bridge_alloc() conversion and cleanup
+X-Mailer: aerc 0.22.0
+References: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
+ <179213353665.3058528.14437637653539699061.b4-ty@b4>
+ <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
+In-Reply-To: <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,36 +73,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a kerneldoc for dma_buf_io_init_map().
+Hello Johan,
 
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
----
- drivers/dma-buf/dma-buf-io.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+On Fri Oct 16, 2026 at 10:11 AM CEST, Johan Jonker wrote:
+> Hi,
+>
+> If any decency or Code of Conduct left in the DRM group then also credit =
+the original author.
 
-diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
-index e432194a5dfc..8440151de860 100644
---- a/drivers/dma-buf/dma-buf-io.c
-+++ b/drivers/dma-buf/dma-buf-io.c
-@@ -43,6 +43,18 @@ static void dma_buf_io_kill_map(struct dma_buf_io_ctx *ctx)
- 	dma_buf_io_map_release(map);
- }
- 
-+/**
-+ * dma_buf_io_init_map - Initialise the map.
-+ * @ctx:	[in]	dma-buf I/O context the map is created for
-+ * @map:	[in]	dma-buf I/O map
-+ * @sgt:	[in]	the backing scatter-gather table
-+ *
-+ * Importer's helper that initialises @map for the provided I/O context
-+ * and scatter-gather table. The importer should call it once for each map
-+ * on creation.
-+ *
-+ * Return: 0 on success, or a negative errno code otherwise.
-+ */
- int dma_buf_io_init_map(struct dma_buf_io_ctx *ctx, struct dma_buf_io_map *map,
- 			struct sg_table *sgt)
- {
--- 
-2.54.0
+I'm sorry your prior patch was not applied. I was not in Cc I just hadn't
+seen it, and no one else had reviewed or applied it so far.
 
+This is a communication issue, sometimes patches just fall into the cracks
+(it happened to mine several times). This can easily happen with a complex
+development workflow and high amount of patches as DRM has. The workflow
+can be possibly improved, as well as my personal workflow perhaps.
+
+But I don't see any lack of decency here. Definitely a polite and
+respectful answer would be appreciated and would help the communication.
+
+> Also remove driver_private.
+
+Removing driver_private where it is unused would be good. Would you mind
+sending a patch doing that? I'll try to spot it, but if I'm in Cc it will
+be much easier.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
