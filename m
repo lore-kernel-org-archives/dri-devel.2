@@ -4,86 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3190ACC6B38
-	for <dri-devel@archiver.kernel.org>; Thu, 15 Oct 2026 22:29:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8E9ACC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 01:54:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E32410E311;
-	Thu, 15 Oct 2026 22:29:34 +0000 (UTC)
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
- [74.125.224.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3A710E311
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 22:29:28 +0000 (UTC)
-Received: by mail-yx1-f53.google.com with SMTP id
- 956f58d0204a3-679aeeddc6bso662922d50.2
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:29:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792103367; cv=none;
- d=google.com; s=arc-20260327;
- b=r7iIFvjnxrFoEBuBFMpv1MtbU0E1Yghue/2WQoV+Po8aJz5+VTqKQVMKcklWmHlipa
- G/FKVJVUULAv705Wjvjv4yOQwBwOiZM6jPRvgywXXkyGw/4SzF75CYMQ8gYkbuxNH/Kw
- Z/D0pSNmW/GOuls9h1ot0M4BAIvrwrfEUNa6vb/BXKwfAt1vnLspeHBsG8Y7P3IMmImd
- sKH0edqSjnvXVLCKTXVZagGgnxyiWuehLLOV9MUO0bZL70mIefKdfoUK+0jBRtxr3SHK
- WbVp8fP8raPbFfs8l+lFabsqs/WZgR+AvwoT9qfTvHVUGyCa6ZC3QAaJ0d1Kchwpt+h4
- zpjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=WZ1OyRzHt1ZBX79eoZyilrSKmMYQjSY/4VnaBjrbrhg=;
- fh=1Kv7r5XAgG/EP+S7raafvoJJ587VsnA0PB4xxXkng+Y=;
- b=LUIsaxlH/iir6Sezp+eprR6CfnNhMDQCOGohtxlnMFx/zqC1JcWw300Hz0/jQ6k0yK
- YjXNj/bl5TfohKf+IyfqgOuDaV5iuo93uFwcmkCVkE/nRBepYOKpRfl/GYnKsVIuSK33
- WnLH2cTYEBXVwP2oUrzkeh7kQr5nXge17+o9iDpq2LAXhiq6tZ22cH+KtGAh5Yx8nmho
- BuMw/G2QjF7YzsfvHoZY21yHa1qRjiGsxR0ZT+HZlWactpQoLl2GI05+V13txRwamQYJ
- fqVx3yf90QwC54A1qeMzAuDDeyx6bFwChhTqu3xwIB6WcGDLo6qQeM1rjJ+YUU+PL8FM
- mu9Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792103367; x=1792708167; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=WZ1OyRzHt1ZBX79eoZyilrSKmMYQjSY/4VnaBjrbrhg=;
- b=ex0kDIm9N+/zMIHodlekUJcDNUvwn0NeANUyx0ySGFN2WlLxQhlhV0gomm/vIaORev
- 1R4+YtciLVKUXOY4GrZoNiy9ftpoSHsGv3QaCdddWbxVRZrh6HpnWhOCpi6oQeW6pvtu
- 1fd+m9RHooCsz1fFT6I3VJ+85MGTQgdWqR6oeBCGgACBhYcc/FyUVNF9q4ulCmzGLjQ7
- WogkB96HDdFRj+XDvI0wlAFfOOdOM7Xd/tnFKv1jtsXX8ZwQTLLyXJdAvDZTLEjRiy8S
- ra09RAeL54gb3U3APMfi9jNl3WO7QzHMgiZpDo5pvdily1l0zysW50BLpeHxriAx5YaV
- cF/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792103367; x=1792708167;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=WZ1OyRzHt1ZBX79eoZyilrSKmMYQjSY/4VnaBjrbrhg=;
- b=ZUWfFmjU38lplsGDicPM8wirhdPAmEoop8RNr7WI+Er6SutfpcuR3AeJapW/cW35Jv
- A4bLcXfr8Hn45QsbuHB4rdBZYaKEoLDtTpGX2cdQDTYS3Hy/Jw1ko/QIPlizcCFgJu86
- ZOWWu2bqIgjjBTT/sNiWkQXkZhnvKCzpzcjChNt/h0HmzkCeUaxArOja4Sq0C8BU52qh
- FTeDobRuECo97YiSDwwAx4hGwWpaRnxtCh9ehP3/ldOSz9Of6o3Qr0mq/CVdxwh+iSr8
- 1hCbpK4paYnZHj9OjxQcpsn5i+Ls8mAijqlYuj80Yzee8slZHW9h8LCQXXBSKwxL1Dju
- RqWA==
-X-Gm-Message-State: AFq9FYLDCAAM+THNklbUJsE7ieAium9sQ241+q48tmS9B+6JcmwUFapW
- 7WKXyn9K/bOpZoMXidJvYHDDVX1p38wcV1PQE+hLOp9MfM0go7rvbBGdVVibFpcnu7qenbUoumo
- +ZxWF+3bqw67tVM7LRWpwvrDI42CWaps=
-X-Gm-Gg: AYBFou2BfNm58ahRWN9AW7wrGRfgeF48TiGZt6MoNqYFBonQMZcHinSQflQfFS4zvvx
- DvQxtxKTpB7eLYw7GPZb603B4jL8cAjyPwD5fNI175iD1c1uvhhxdQk89g56/iEAWHxMc8EdKnl
- tLuCWSsd4Uh8a98oBJtmT72vMmKLq+K+AQz1X4uO7X2d3XM4lQB2byWz/ZIqDrpuQvt266mhER9
- XX3OOCbUvpX2GZpUWbvguRPQaUx9JwMb8Y84OUC+BVE3Obetvjl0ZXlWn0D+J7H7NsRzs0vEl/G
- sq/aPDPKN5IILL14So7DL2ZYjXjHZL1Lm7+oMEefZWSLZJRiGB4FSGA2
-X-Received: by 2002:a05:690c:3489:b0:8b0:e10d:1975 with SMTP id
- 00721157ae682-8b0e10d1ffcmr5726827b3.29.1792103366501; Thu, 15 Oct 2026
- 15:29:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D733D10E0CD;
+	Fri, 16 Oct 2026 01:54:36 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012053.outbound.protection.outlook.com [52.101.48.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50FC510E0CD
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 01:54:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=warStiOefukf/Bq2ZAhrycFtpuP6bAxb5ML9CTi+sas38ToK5ZJVUvVvaoFVZzFQIMmPqAkIOuJtigVCADQ3bLpMo4bx1QMeNCnZnNdtgCQSEbXBKPhEInDwmK3DbOKoHNZz+9JapJm0qDvNc+tuL4we359eEPD3+8Az87gNmkX509S/o06nD7D9WmzQfurC5sU5Oe62Z7aKR5wUT9KgMhjDtkR5uF9wTdXhl2R4tzUEKxzy8mdhmwZVctLIslaxOMfV3g8AswlQsSJslqo0q7MulgfZCiq9m788RxP8S0/8cRUTlzy8JGGMlgcI5jOTxlIp3c5XNHituBueAquerw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/NY0IHZdchcKP0cmNwiZFx5Xy9jJpcqnRjEOtOdqKnE=;
+ b=evlKM9S+A09G5LiWEvgGtOT8b5PNEBVD+VSk6/u+ddI4de5OwTqHO4ECc3gyyr0AwGpOd0wM23SSQq+lJl3oqw10zS/J5rO5UKx6uqKmlWzX3kfaADrl20YeUWqFxO7uAfV63fyF+79ZPTSRx5EvJ5afzsV1foW45kcduckMeZehonUKn8jv+FthcGdnGxt512K0GU9/tXFEHSXlO56/tT7dUdQIUnFJy9B1X5rJ5vsidXbpoAQsyXh/QkMvwzH/mVt4KT4QNPebZNJ4AnkAromSFQPGfTXeYCqFY+Q140/MbqymszQiuEXHEuTevBoF02x4Gqv8t7/1NlLvTvm4Pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/NY0IHZdchcKP0cmNwiZFx5Xy9jJpcqnRjEOtOdqKnE=;
+ b=GFwtAPFgDCcSyLzQujQCX188S1x0lxtre6x9qYsslpdX2Djnn5ziw6OALXfC+tiv+FoXGNhFiUBzjwY5vaGu55QX6Vxl9gX9KCRrwMSYfKLgXxsLrnvnfTcSpYN75QCJfhP8Iqr3lqRoaeK2c9O+Ou6smHpqWk0OmBg8P0Q19ml8Ao79oKSUVO05SeAYPySfa68oENzgwPdoUdPbdlHAql8IvGkbCV2xmTFkoNQZa6NlwcmQOLQ58ojEjPsmCMuH2fOQ4QwSAUFE0akSiQfhEG2J0fQUumVxmUffuFJueT5ydcySh0WFvvexe4/cuC8ItjEwpagSSJ5F9EqfTi+66g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA1PR12MB999230.namprd12.prod.outlook.com (2603:10b6:806:4de::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 01:54:11 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Fri, 16 Oct 2026
+ 01:54:10 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Fri, 16 Oct 2026 10:53:37 +0900
+Subject: [PATCH v4 1/7] rust: alloc: add Vec::try_push_init and Vec::push_init
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-b4-nvkv-v4-1-e8b92b91aa5b@nvidia.com>
+References: <20261016-b4-nvkv-v4-0-e8b92b91aa5b@nvidia.com>
+In-Reply-To: <20261016-b4-nvkv-v4-0-e8b92b91aa5b@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY6P301CA0025.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3bf::7) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 MIME-Version: 1.0
-References: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
- <20261011-pvr-gpuvm-immediate-v2-1-744ddc6644c3@gmail.com>
- <sashiko-outbox-167146@kernel.org>
-In-Reply-To: <sashiko-outbox-167146@kernel.org>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Fri, 16 Oct 2026 07:29:10 +0900
-X-Gm-Features: AclHuK8-D8pReVGIBv0OUN0G87STfZ_9okqUcud5PK2ya0w7oJOijIVLcma891o
-Message-ID: <CAKbEznuHom600zb9XNqaXW9U8+4wDT66aA0KJaeY9jswKsJAJg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/imagination: Switch the GPUVM to immediate mode
-To: sashiko-reviews@lists.linux.dev
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="0000000000008fa830065de89492"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA1PR12MB999230:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81ece3d9-a7dc-4a88-50b6-08df2b285f30
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|23010399003|10070799003|366016|376014|6133799003|18002099003|10067099003|22082099003|921020|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: XvqdtGf8hnJ1Z1LLNlTU03LRA8W3/TsrSCZk6lWGH4ql4BpX4acExDfaz2Nu2J4MoqDzZXZxbtCfO5EK8ddE2fSAFZm3bCdBYZNdkVZCSc4EbwQh4ZL0X1PGYqpTa7NfJlmVLATAVWwUmKmloGl+4LnRhvFNL0FXWKxC4SIqBBCPYU4Fm0+algwBxYN5TgIxsL/EoQAKRu/LZ8MEnubicCyiIYt62c2RmEkhkmsonrsaaH9yd++Vp2PAxXz/aspdxs9RqZGS/38feLOy8CpvhImSczmQnohxFK9ZiZ0qWJxeWyxhFgsAnxDoYK1wu6YDwYDjqPaIQr1jMwzZSSi4f/qejsOqG8mnGIxBqFEDNWBSVrjoxt8mJXtq7FY2yFwjrT8MakUR38iaVfW+zj9rRBGpInG/aDu0TbiJDAKgoXVIJ9WLuiYreNibroPxr4yXVkSKkwEv2a4AwOknHb8c5b3YwZae7QKGLJv3IHDvEukUel/9fux0prdFZh9Hg/UarShDl+CvmWz+44QZQ8rKUyHEyH3CX1sP+sMP4EXRw5K3Bi4vbKD7u9K8p3xcgHc4GsQKGOgaTcz3NC+2QymG+y9GZ1RzmqQTI+8I9IgRe6ShA8n7bHHDBAF4ZmSL9xCvvitlEkjL8mQY/B4Y4UdCzLQ0KQASp4IiY/91OmT8Fxz+lGuVoNYKvphqs485FWjdW4zq/ulgtvUIRHOOXXRtZg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(23010399003)(10070799003)(366016)(376014)(6133799003)(18002099003)(10067099003)(22082099003)(921020)(261009223027099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVpWbDlZeGxEdGZvSlNIMDBVVVNBbmdCNjJROXdDMTMvMDM0Q24rYm9HeWFJ?=
+ =?utf-8?B?RGRQVG5VWTRqL0R3ZXBHdGxnODhxWmlaMGNFVFVsUDVCMXFFekpHZEg3NkZY?=
+ =?utf-8?B?Qjc1aXJwTlExeC9HTEdTNUhVdjBuQWltbzk0Wno2dFA3Wld6UlBReDg3akNH?=
+ =?utf-8?B?bjE0T0dQSDhDNlRLbG1keFVqelFINjh5TDhXbDB6WW1USzJ3V3RhQVptb1RT?=
+ =?utf-8?B?OUI0ZnVIYjFqd1Y3RGV3Y1Rtc1lNYkpSekNHK3ZjTE5NNlBoZU8wSGxRY1J4?=
+ =?utf-8?B?b3YwZFFkcy9oa3FkOWozR1NhUHVpUzhubWkvNk5CVU1razAwcnFuOEJLU2c5?=
+ =?utf-8?B?Sy8walRndmtrZmdMTlpWMVZUQmZkMFNqU2pOSHhRYU9BN0VwZThNV2tHUlQ3?=
+ =?utf-8?B?bjNBdmh1RVB4VGttNG5NVlUxUXNVTms4WENiNXNLMDIrWWZZQ1pPVVV5U3BU?=
+ =?utf-8?B?QXZTdVdnOWZadzhzQ3lVUUtZNVdIdFFPVEEwTG42blVYTys0MGZZa1F3eGJI?=
+ =?utf-8?B?ZkMwVDBkVFRENnA0QlhHbi9VSzNPYUhJck5RYmQ2cThRNUF1dFVJc2EyZlVq?=
+ =?utf-8?B?QUFIT1dDZ2tmekhLYVNjWEhxQUI4UjRycnBOWU9jQ0wxTHlEanBUSUN2Uy8v?=
+ =?utf-8?B?NFB1VWlSa2V0RnQ4ZmUyUDRCZVpuSkVGNE1TZ3RTSnd5YXBVcVNNaTRPajlI?=
+ =?utf-8?B?Z3FlbnJ6NlFUMWNmVC9yT2ZoNlY1dkZsYXJvckFBUTRDcGUyRGt5ZlN3eW1S?=
+ =?utf-8?B?Z0xvMEFERWNRaUFOVlFPMi9MUlpSWnlOTVVrRkptQnIvZWNWZFhNbGNOZkQ1?=
+ =?utf-8?B?anMyWXZtRjZERGFqN1hGYzNtWnpvYmFBVXo4UUczN04xb3A1a3picTU3MVVm?=
+ =?utf-8?B?dXpPSmliaUtWNDh1UFF0OVRwZ3Mrd21kUlFYS3FCMXZ2cUJ6NnNieEsvdEF0?=
+ =?utf-8?B?RHFSeEswclQvdWNZU2VNUisyNUR3aVRGRXpYTDZ5QnQ2T0V2ZkFSMXZScW02?=
+ =?utf-8?B?dTR2eHNhN2JMa3NRejN1OUZSTmEvamNDTTFpWGJua2hJUFhIbEg3U0VxZGky?=
+ =?utf-8?B?MzVxY2FGTTByL0FGUlhvZW8rVFVzNU9NaGZJci9SU0FYVGtZVlFWNGRYRG1r?=
+ =?utf-8?B?M3lJMFBoTUdpQXo5UmlGZmhkT2hrSS9ZRDY4V3NzaWxoR1VXSmpNVnJ2c3pH?=
+ =?utf-8?B?YUtzb2VUSEdLTHN6OWVnZU5HaWw5N1NzMVJabkpkZElma2JuZEVzUE1mSUZP?=
+ =?utf-8?B?OENRS3R2d1Zhc1lXYVhCd2hLRjhSeGxXb2pPUDRORTBCNmd0V2ZCcUJtelVt?=
+ =?utf-8?B?bnkzcWxlMTAzVG43YS9pRkNWbXdrNUJNNkgrZjRhVFp4aXpSV1orRGNWYWZ6?=
+ =?utf-8?B?emlvMHJwNUZoZzhIbm1wUW1yTi92VnFSVmlZaUk5TkR2RXd4OWN2SnMvZWJE?=
+ =?utf-8?B?MG5ISm9qQWFpbVBLdlJLNDI1cXJkWkNsalQyK0dXVGczdUVQcDhXdEtTZ1pm?=
+ =?utf-8?B?U2FlZHE4NVk3RXBJRHJkNE1lbmVjN1I0ZFEyc1FzRS9rUVJ4bUZ0eHpiT29U?=
+ =?utf-8?B?WUtlbFdncWpMNHYzUUhWUStqdk85QXNRekorV3FZSFBBKzBtblJqcUJpMlRN?=
+ =?utf-8?B?bEdoRGdXeDh6UXlXb2YweWZSVHFnMmdLZ0I5YUFEbkp3K3M2V2syait3bVcw?=
+ =?utf-8?B?cmE5azRscWwrVWxVZDF0czJ2RE1uTDFEZnpPa0xaaTZPWFk3WWRxemRmZk8w?=
+ =?utf-8?B?OGpScWVHdTBOeFlnSytodG85dGVjcnZ3eVBXUW9yQ3g0c2VXdURBdjB0L1pJ?=
+ =?utf-8?B?VjdVbGJkc25vQmZFaVhuZGViSExvaHB5eFh2WFhGOTVpbjJuVUovM1c5aExy?=
+ =?utf-8?B?VUhnNjg1YVJWcGFkZlc4V1dVZk9CRTRXQnR3QW5qNy9QN1lmdUNlbE9hc3dY?=
+ =?utf-8?B?UktxZFRteUwrMWpUYlRZWnhTQ0hlQThVZzA0ZWlRVzFlaWY4eU44S3U0Qjd4?=
+ =?utf-8?B?a2NOTmg5bWZlUjdtUGlnbFYyMnlINm5Ycmo0SXBtM3FhUW9Oa2VVTUw0K3p1?=
+ =?utf-8?B?eVFVdDA1N1RFaDZnT3VXU1ZoZEFvWlBwWFV3S2t2ZGYzRkVWNXMyd29VLzdv?=
+ =?utf-8?B?Y2cydGsrbHV1Q09uSGdKMlp4eGFsTzZBQWc0Si9mVS9RdnBtazBVdlVod3FJ?=
+ =?utf-8?B?QTArUXF5YWNWOE56Mkt4WEJhTmJkRWl0a3drbDlyWTVxaXpPVFJ1bzJPVWRQ?=
+ =?utf-8?B?NE9pRXdsUlVBYnA3ZmUrSmdBbGtJS3A3T2JkWXhjMEhoSmQ0N1RTOGp1Q0ZP?=
+ =?utf-8?B?U2JlSDlJMFJiaE9NQjFLbzExZCtycktzTDk5ZXc4Q1JYNkpzejNiTXB2aGcw?=
+ =?utf-8?Q?SD1P5R9x5+rdezQ0aWV9XAYSv/wLbZjvzePf3XdqkYKNz?=
+X-MS-Exchange-AntiSpam-MessageData-1: LbLdUcsVAjOrFQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81ece3d9-a7dc-4a88-50b6-08df2b285f30
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 01:54:10.6841 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YxY41xdi/YWAC8iq/5CzhScAbQM61F/jpat6YhhZZb7uu7orLUNQiuZVfU7mD8iBUmxQUkd2mTsB3sktdvYZQg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB999230
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,208 +148,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000008fa830065de89492
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Add `Vec::try_push_init` for fallible initializers (`impl Init<T, E>`)
+and a new sum error type `TryPushInitError<I, E>` that it returns. If
+allocation fails, it hands back the original initializer. A `From` impl
+for `Error` lets callers decay the `TryPushInitError<I, E>` to a regular
+Error if they want.
 
-To be clear, this is a pre-existing issue and should be fixed in a separate
-patch.
+Add `Vec::push_init` which is the init-infallible version of
+`try_push_init`.
 
-Thanks,
-Gyeyoung
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+ rust/kernel/alloc/kvec.rs        | 85 +++++++++++++++++++++++++++++++++++++++-
+ rust/kernel/alloc/kvec/errors.rs | 30 ++++++++++++++
+ 2 files changed, 113 insertions(+), 2 deletions(-)
 
-2026=EB=85=84 10=EC=9B=94 11=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 6:56, =
-<sashiko-bot@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
+index c7546b9da4fa..c8b312f64657 100644
+--- a/rust/kernel/alloc/kvec.rs
++++ b/rust/kernel/alloc/kvec.rs
+@@ -52,10 +52,18 @@
+     }, //
+ };
+ 
+-use pin_init::Zeroable;
++use pin_init::{
++    Init,
++    Zeroable, //
++};
+ 
+ mod errors;
+-pub use self::errors::{InsertError, PushError, RemoveError};
++pub use self::errors::{
++    InsertError,
++    PushError,
++    RemoveError,
++    TryPushInitError, //
++};
+ 
+ /// Create a [`KVec`] containing the arguments.
+ ///
+@@ -359,6 +367,79 @@ pub fn push(&mut self, v: T, flags: Flags) -> Result<(), AllocError> {
+         Ok(())
+     }
+ 
++    /// Appends an element to the back of the [`Vec`] instance by initializing it in place.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// use pin_init::init_zeroed;
++    ///
++    /// let mut v = KVec::<[u8; 200]>::new();
++    /// v.push_init(init_zeroed(), GFP_KERNEL)?;
++    /// assert_eq!(v[0], [0; 200]);
++    /// # Ok::<(), Error>(())
++    /// ```
++    #[inline]
++    pub fn push_init(&mut self, init: impl Init<T>, flags: Flags) -> Result<(), AllocError> {
++        self.try_push_init(init, flags)
++            .map_err(|TryPushInitError::AllocError(_)| AllocError)
++    }
++
++    /// Appends an element to the back of the [`Vec`] instance by initializing it in place.
++    ///
++    /// Unlike [`Vec::push_init`], the initializer may be fallible. If the allocation fails, the
++    /// original initializer `init` is handed back in [`TryPushInitError::AllocError`]. If the
++    /// initializer itself fails, its error is returned in [`TryPushInitError::InitError`].
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// struct Element {
++    ///     value: u8,
++    /// }
++    ///
++    /// impl Element {
++    ///     fn new(value: u32) -> impl Init<Self, Error> {
++    ///         try_init!(Element {
++    ///             value: u8::try_from(value)?,
++    ///         }? Error)
++    ///     }
++    /// }
++    ///
++    /// let mut v: KVec<Element> = KVec::new();
++    /// v.try_push_init(Element::new(16), GFP_KERNEL)?;
++    /// assert_eq!(v[0].value, 16);
++    ///
++    /// // The initializer fails because 256 does not fit in a `u8`.
++    /// assert!(v.try_push_init(Element::new(256), GFP_KERNEL).is_err());
++    /// assert_eq!(v.len(), 1);
++    /// # Ok::<(), Error>(())
++    /// ```
++    pub fn try_push_init<I, E>(
++        &mut self,
++        init: I,
++        flags: Flags,
++    ) -> Result<(), TryPushInitError<I, E>>
++    where
++        I: Init<T, E>,
++    {
++        if self.reserve(1, flags).is_err() {
++            return Err(TryPushInitError::AllocError(init));
++        }
++        // SAFETY: The call to `reserve` was successful, so there is at least one spare slot.
++        let slot = unsafe { self.spare_capacity_mut().get_unchecked_mut(0) }.as_mut_ptr();
++        // SAFETY:
++        // - `slot` points to a spare slot, which is valid, uninitialized memory.
++        // - If `raw_try_init` fails, this returns without increasing the length or touching `slot`.
++        // - `init` implements `Init<T, E>`, which removes the pinning requirement.
++        unsafe { pin_init::raw_try_init(slot, init) }.map_err(TryPushInitError::InitError)?;
++        // SAFETY: The call to `raw_try_init` returned `Ok`, so the first spare slot now holds an
++        // initialized `T`. The new length does not exceed the capacity because `reserve` ensured
++        // the capacity is greater than the length by at least one.
++        unsafe { self.inc_len(1) };
++        Ok(())
++    }
++
+     /// Appends an element to the back of the [`Vec`] instance without reallocating.
+     ///
+     /// Fails if the vector does not have capacity for the new element.
+diff --git a/rust/kernel/alloc/kvec/errors.rs b/rust/kernel/alloc/kvec/errors.rs
+index aaca6446516a..d24dfe22834a 100644
+--- a/rust/kernel/alloc/kvec/errors.rs
++++ b/rust/kernel/alloc/kvec/errors.rs
+@@ -25,6 +25,36 @@ fn from(_: PushError<T>) -> Error {
+     }
+ }
+ 
++/// Error type for [`Vec::try_push_init`].
++pub enum TryPushInitError<I, E> {
++    /// The allocation failed. Hand the initializer back.
++    AllocError(I),
++    /// The initializer failed.
++    InitError(E),
++}
++
++impl<I, E> fmt::Debug for TryPushInitError<I, E> {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            TryPushInitError::AllocError(_) => write!(f, "Failed to allocate"),
++            TryPushInitError::InitError(_) => write!(f, "Initializer failed"),
++        }
++    }
++}
++
++impl<I, E> From<TryPushInitError<I, E>> for Error
++where
++    Error: From<E>,
++{
++    #[inline]
++    fn from(e: TryPushInitError<I, E>) -> Error {
++        match e {
++            TryPushInitError::AllocError(_) => ENOMEM,
++            TryPushInitError::InitError(e) => Error::from(e),
++        }
++    }
++}
++
+ /// Error type for [`Vec::remove`].
+ pub struct RemoveError;
+ 
 
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> - [High] drm/imagination: infinite loop in pvr_vm_unmap_all() on unmap
-> failure
-> --
->
-> commit e8ae922e82d0545dbcb5536fc88e9f62e91d62ac
-> Author: Gyeyoung Baek <gye976@gmail.com>
->
->     drm/imagination: Switch the GPUVM to immediate mode
->
->     Use DRM_GPUVM_IMMEDIATE_MODE so that each GEM's GPUVA list is protect=
-ed
->     by its gpuva.lock instead of its dma_resv. This prepares for
->     asynchronous VM_BIND, whose run_job() will update the GPUVA lists
->     before signalling its fence. That section imposes three rules:
->
-> [ ... ]
->
-> > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c
-> b/drivers/gpu/drm/imagination/pvr_vm.c
-> > index cbdd15ed74fdb..807a01aab1dae 100644
-> > --- a/drivers/gpu/drm/imagination/pvr_vm.c
-> > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
->
-> [ ... ]
->
-> > @@ -906,6 +925,8 @@ pvr_vm_unmap_all(struct pvr_vm_context *vm_ctx)
-> >       }
-> >
-> >       mutex_unlock(&vm_ctx->lock);
-> > +
-> > +     drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
-> >  }
->
-> [Severity: High]
-> Can this result in an infinite loop if the unmap operation fails?
->
-> Looking at the loop just above this context in pvr_vm_unmap_all():
->
->         for (;;) {
->                 struct pvr_gem_object *pvr_obj;
->                 struct drm_gpuva *va;
->
->                 va =3D drm_gpuva_find_first(&vm_ctx->gpuvm_mgr,
->                                           vm_ctx->gpuvm_mgr.mm_start,
->                                           vm_ctx->gpuvm_mgr.mm_range);
->                 if (!va)
->                         break;
->
->                 pvr_obj =3D gem_to_pvr_gem(va->gem.obj);
->
->                 WARN_ON(pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj,
->                                                 va->va.addr,
-> va->va.range));
->         }
->
-> If pvr_vm_unmap_obj_locked() returns an error (which is highly possible,
-> for
-> example when kzalloc_obj() or pvr_mmu_op_context_create() return -ENOMEM
-> inside pvr_vm_bind_op_unmap_init() during process teardown), the VA remai=
-ns
-> in the tree.
->
-> Since the loop evaluates WARN_ON() but does not break on error, it appear=
-s
-> drm_gpuva_find_first() will find the exact same VA again, causing the loo=
-p
-> to
-> spin indefinitely. This could lead to a kernel soft lockup.
->
-> It looks like the series end commit removes the drm_gpuvm_exec_lock but
-> leaves the -ENOMEM failure paths intact, so the lockup potential remains.
->
-> --
-> Sashiko AI review =C2=B7
-> https://sashiko.dev/#/patchset/20261011-pvr-gpuvm-immediate-v2-0-744ddc66=
-44c3@gmail.com?part=3D1
->
+-- 
+2.56.0
 
---0000000000008fa830065de89492
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>To be clear, this is a pre-existing issue and should=
- be fixed in a separate patch.</div><div dir=3D"auto"><br></div><div data-s=
-martmail=3D"gmail_signature"><div dir=3D"ltr"><div>Thanks,</div><div>Gyeyou=
-ng</div></div></div></div><br><div class=3D"gmail_quote gmail_quote_contain=
-er"><div dir=3D"ltr" class=3D"gmail_attr">2026=EB=85=84 10=EC=9B=94 11=EC=
-=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 6:56,  &lt;<a href=3D"mailto:sashiko-=
-bot@kernel.org">sashiko-bot@kernel.org</a>&gt;=EB=8B=98=EC=9D=B4 =EC=9E=91=
-=EC=84=B1:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
- .8ex;border-left:1px #ccc solid;padding-left:1ex">Thank you for your contr=
-ibution! Sashiko AI review found 1 potential issue(s) to consider:<br>
-- [High] drm/imagination: infinite loop in pvr_vm_unmap_all() on unmap fail=
-ure<br>
---<br>
-<br>
-commit e8ae922e82d0545dbcb5536fc88e9f62e91d62ac<br>
-Author: Gyeyoung Baek &lt;<a href=3D"mailto:gye976@gmail.com" target=3D"_bl=
-ank" rel=3D"noreferrer">gye976@gmail.com</a>&gt;<br>
-<br>
-=C2=A0 =C2=A0 drm/imagination: Switch the GPUVM to immediate mode<br>
-<br>
-=C2=A0 =C2=A0 Use DRM_GPUVM_IMMEDIATE_MODE so that each GEM&#39;s GPUVA lis=
-t is protected<br>
-=C2=A0 =C2=A0 by its gpuva.lock instead of its dma_resv. This prepares for<=
-br>
-=C2=A0 =C2=A0 asynchronous VM_BIND, whose run_job() will update the GPUVA l=
-ists<br>
-=C2=A0 =C2=A0 before signalling its fence. That section imposes three rules=
-:<br>
-<br>
-[ ... ]<br>
-<br>
-&gt; diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/im=
-agination/pvr_vm.c<br>
-&gt; index cbdd15ed74fdb..807a01aab1dae 100644<br>
-&gt; --- a/drivers/gpu/drm/imagination/pvr_vm.c<br>
-&gt; +++ b/drivers/gpu/drm/imagination/pvr_vm.c<br>
-<br>
-[ ... ]<br>
-<br>
-&gt; @@ -906,6 +925,8 @@ pvr_vm_unmap_all(struct pvr_vm_context *vm_ctx)<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;vm_ctx-&gt;lock);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0drm_gpuvm_bo_deferred_cleanup(&amp;vm_ctx-&gt;gpu=
-vm_mgr);<br>
-&gt;=C2=A0 }<br>
-<br>
-[Severity: High]<br>
-Can this result in an infinite loop if the unmap operation fails?<br>
-<br>
-Looking at the loop just above this context in pvr_vm_unmap_all():<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (;;) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct pvr_gem_obje=
-ct *pvr_obj;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_gpuva *v=
-a;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 va =3D drm_gpuva_fi=
-nd_first(&amp;vm_ctx-&gt;gpuvm_mgr,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 v=
-m_ctx-&gt;gpuvm_mgr.mm_start,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 v=
-m_ctx-&gt;gpuvm_mgr.mm_range);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!va)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 break;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pvr_obj =3D gem_to_=
-pvr_gem(va-&gt;gem.obj);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WARN_ON(pvr_vm_unma=
-p_obj_locked(vm_ctx, pvr_obj,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 va-&gt;va.addr, va-&gt;va.range));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-If pvr_vm_unmap_obj_locked() returns an error (which is highly possible, fo=
-r<br>
-example when kzalloc_obj() or pvr_mmu_op_context_create() return -ENOMEM<br=
->
-inside pvr_vm_bind_op_unmap_init() during process teardown), the VA remains=
-<br>
-in the tree.<br>
-<br>
-Since the loop evaluates WARN_ON() but does not break on error, it appears<=
-br>
-drm_gpuva_find_first() will find the exact same VA again, causing the loop =
-to<br>
-spin indefinitely. This could lead to a kernel soft lockup.<br>
-<br>
-It looks like the series end commit removes the drm_gpuvm_exec_lock but<br>
-leaves the -ENOMEM failure paths intact, so the lockup potential remains.<b=
-r>
-<br>
--- <br>
-Sashiko AI review =C2=B7 <a href=3D"https://sashiko.dev/#/patchset/20261011=
--pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com?part=3D1" rel=3D"noreferre=
-r noreferrer" target=3D"_blank">https://sashiko.dev/#/patchset/20261011-pvr=
--gpuvm-immediate-v2-0-744ddc6644c3@gmail.com?part=3D1</a><br>
-</blockquote></div>
-
---0000000000008fa830065de89492--
