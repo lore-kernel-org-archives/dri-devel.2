@@ -4,135 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30C9ECCA46B
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 02:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 002EECCA462
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 03:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C54D112571;
-	Fri, 16 Oct 2026 02:06:21 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012036.outbound.protection.outlook.com
- [40.107.200.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E883112580
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 02:06:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FkKlQz+wpp7A/tgmQectvo+LA36GJtpa9yMVinTavi+Ottf2FIb2tcVl3UcvDOF/ps5GWXaVvawFiIcSQTkRvvJeWMyIJY5JZZqG64zDLb9Ymx6oHNhi+y3EZNosPxLg+6HlIXZAU0b9el7iTOqWAfiU84HljgE1xO6L2mwmrKzP7Cdxvr4t5DSf+Ua+AGdKICgqfFxNh3XZGvtPvWf/8bfIbqHSZHNrSzQHVqff14+Kk1s8vNAM1MY2pLZHSKPQbNfy03Q3ft9cYWBdplWqYEgjfZ+3238YsbdUSVS+f3KEu+uBZLBw9J48iebR40SFjgEeGPz7GwnHOnn4HVtCFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XmsNO/jJfPSqxqsQ+ME1UOg8B812GKnkY7Zywp66qy0=;
- b=mCFK84rEcDUFt5YzoO+hi/gAZpW1PDR8kOs18g69Duk1666w6DiG3SKUASGbgHONkSo3FywLh5I7ofVBJv36ZVvSzhdTPv+RtYHIufXWVTF+vKk5suCm6Cec8kU/CqEEMYos22qvy5AL80MmhtDfRsslCjo+zaNhU3vEnwwprTWYSYS4D+D8PAo6e4q/9XUKbrchAbaIhH9ndELlrpQ6YGEgIkhS3akiC3KgGYnz4/nI0cmdH+3jzzu3CD+OJ4P2tEu+libqDkcJvCleI9s+UT4GLyMN5B9GSbOdZMh8af0dCK8VzJPd5lbb5AMoJ5QpnakrteJnC0RP8M5VUIelyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XmsNO/jJfPSqxqsQ+ME1UOg8B812GKnkY7Zywp66qy0=;
- b=gmroptr1yR35bi7/5BmUu+xLFm5mRE1hCSg4F2j+vreueKRTBDFz7gzAfPpg9BA5IVbDdYxpPCs1PcCmgJUdeGBI2iLV6Lyoc/yhst+nJnPr6mE5oeNZ9ESXsKhFu2tloViU+7LLsQt65IS/b8K1iJ+jAYaRalIk6sA/8KA1gvIrGTgAbYNShgU+bFwXobLn/P5Moj2O5ZdOG6VVQXNKl5n9g5ucBTDn3aGMULAv481jCSK0C6EMVLrhIoeagpkYh38imjy1s8UxeT2yj/CEXIJ7RpLkshGtOOKOBf9JmG1Rcjjrkb21rUPm2wOhpcIg92ziR5uyEdTKY2YIrQNUTg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.20; Fri, 16 Oct 2026 02:06:05 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0496.017; Fri, 16 Oct 2026
- 02:06:01 +0000
-Message-ID: <db71fe6b-bc96-4d02-a139-2bef73f568a2@nvidia.com>
-Date: Thu, 15 Oct 2026 19:05:58 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/7] gpu: nova-core: add NVKV decoder
-To: sashiko-reviews@lists.linux.dev, Eliot Courtney <ecourtney@nvidia.com>,
- Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Roman Gushchin <roman.gushchin@linux.dev>
-References: <20261016-b4-nvkv-v4-0-e8b92b91aa5b@nvidia.com>
- <20261016-b4-nvkv-v4-4-e8b92b91aa5b@nvidia.com>
- <sashiko-outbox-173606@kernel.org>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <sashiko-outbox-173606@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH0PR07CA0084.namprd07.prod.outlook.com
- (2603:10b6:510:f::29) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32AF810E293;
+	Fri, 16 Oct 2026 03:02:30 +0000 (UTC)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3721410E293
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 03:02:24 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-3a813079a55so422652a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 20:02:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792119744; x=1792724544; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=WGUCMs28DpPSn+ppcL59RwrFtWtuthKTRyw8zNLj4Wg=;
+ b=W6Tgvm9/qBG6BUZFpu+Oo1nWyJzyKAYP1CPBjwWDyUS1aCHfmkbbPBMcCtMGwsqK3C
+ g9rlvGwS8uA1LuFS8Lv1MP2aS8oc4oiaxMMclEWCvAs5Q86TDnfMG50nHX9zexoQzaWG
+ VzoP08vJZCSsCY21T3XXIk8ORUEIOclMLxjr5eOJDg3xlkgl4dH3evv8Fk8VXpF5uCY+
+ VCHAwzF6VIAtUff/oMD5B/ozsth/IwYZMyYurRUcbhk3CrniZLWTp0sP6wO/sNMGccqi
+ DI3l3mDVlxvhYqKR8WoiZQB+AAoF2Ss6pn1OScIl4j04L+Qck6uc7VjJ8kEqyMsxN54l
+ enfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792119744; x=1792724544;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=WGUCMs28DpPSn+ppcL59RwrFtWtuthKTRyw8zNLj4Wg=;
+ b=QbHAR9i4b+bxvprj/ogGyY36muOx9jPUI0SgRkznPg6ze2X57ys23LEouivFqLg0Pp
+ h3d1pVuzEH9Bu/wKf0Jkw1juvBVsGnccaZrq3ZNAYKwCgC3CpQGAqVZ8SKDdo5S2tzYx
+ Iz8qCftvpbe7Hk6K/NJ1PTMejPFbw7cLtEImKQN+XCBgmrZiL1WWTnGv2P9ONa2IZn1n
+ SPPP+SgN+MZJIJm6wH6T7n/SMY6h3roa++N//PFRUIBsEwmG4ss8bp7M4wSxSri+0DBp
+ Zz+1LueeD5QKY0qHnwnkTX8m4thaa7y/Om+qGgVFWvUMW3lT0e+VNMlKNl6MXex7EyEb
+ kWlw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwzQMvcbub6asyyVEL/T1H8fJfwt0eQdPD1xnjePWET/dGLxAl0ejick6MPOBMPQ53MMiZeTiFnJIE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIENHG3eo6r/9C1mi5+wwXT94LqNmdpmLmI5VDfbSx75V1zIPu+
+ PTqLg9vPy4xk5Ou2W/2phUrt6E9mfw72fhqPsSQlpZk7j+SqlgFE6J3y
+X-Gm-Gg: AYBFou1K8KM4t5ArduT/jSouuzQ7n7PlBAme8PWTSN+E6vmzNVO+sy6MKAui+zIG1Ew
+ OZyIYi+rFZIVM0VGAM0ndqPlh9EE50VaP22aMBDFOE4R8bwGA+sObVwdtGmMcjpnb7g/qSMLRep
+ TF3/q3juKbgkx7R3XBlbaRXdKAh6Q17MCyxcRK8Sf6wWqbWooLtcyWKwuu00u/gTDjb97Y7YDbF
+ CyUI5VyTWqOQfeNkuY5Sguz44YPW22yzCK/4WpsDmQkx6AZBP8wtKyve+ivb5VK9P0vcKzeMlSh
+ 4Omi+urjF0FZNFxkuAfz2L2Th6Z2fMIoBJcQHYYqD/lKTtBpM98bhvHgSF0KwCfJM7QOyjVQe/d
+ 9SMWcobIG+wGgWZL0wXVAKi40btMx/+TKbNXYrfIuc0DYZhSMFQOcJQCdqFe83o0crrF1jiB/EJ
+ /wYO46iQszN1DYhi+CBCkJP4tXxBLT8W+9wUn/Xb7B2FVwTKaJqhZ0wvO8huFRadIKDCqJB5GN4
+ OzNAjKfteMLd0xnj4bLOXr4NK+fxIrWfrGQC2SXgLWH
+X-Received: by 2002:a17:90b:4e8f:b0:3ac:9ad9:6afe with SMTP id
+ 98e67ed59e1d1-3acbb8d5b8amr1095002a91.39.1792119743425; 
+ Thu, 15 Oct 2026 20:02:23 -0700 (PDT)
+Received: from localhost (softbank126159121187.bbtec.net. [126.159.121.187])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3acc43a1e1esm1937126a91.1.2026.10.15.20.02.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2026 20:02:22 -0700 (PDT)
+Date: Fri, 16 Oct 2026 12:02:20 +0900
+From: Zhenyu Wang <zhenyuw.linux@gmail.com>
+To: Yuho Choi <oss.patchbox@gmail.com>
+Cc: Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Xiaolin Zhang <xiaolin.zhang@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, zhiw@nvidia.com
+Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
+ still in use
+Message-ID: <atGTvA2zocXGWmbp@dell-wzy>
+References: <20261004212403.208681-1-oss.patchbox@gmail.com>
+ <asm4DV84UitLCbve@dell-wzy>
+ <CAGG=RgApzG=MeZ9xbpeBzqE0i0Q6RCPXtnyS-30JfEDPDKNN0Q@mail.gmail.com>
+ <as4fKufR2O21NWk5@dell-wzy>
+ <CAGG=RgDVsPHjLMTEgoqjh17hfnBUg3WUeca93VrDS7NTshHsOg@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH7PR12MB7820:EE_
-X-MS-Office365-Filtering-Correlation-Id: 250b09bd-f6f4-4fc4-34f6-08df2b2a06ee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|366016|1800799024|921020|6133799003|22082099003|18002099003|3023799007|261009223027099003|10067099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: 1y6YB/UkcqKIgtnNzqP3OWOkIy92D4SdGDujc1t023kaOLlWtSnygvfVrghbh9Wv+jX9BSKZLIYQ6S9q3KAAk1QRk7tQR059/NyflLsvmBQuAf9CEjH40kiIyeAxwVMXnAihHcmK14UC+TbWtnQQBfCOGnYtSJng4BdReN8EQ/Py9vCx6kfF/9/secnCVbOQRc09u4E/L9vwBe7YxuKW+qoWhUrjTQjN+CCLPYYrOiyCg+XGoXM18bX1Im0ttP0POAZ6x7L1HcY0B3Dn7575EH1tFgpTxZjqJEU2DPZlreiYKhjVJwCoiNSquaW4DUGvriTIpWRY1hPaHGmRGRKh6n6TLhI2QvgZm80GZsjDKE9QM1e5vhBn59o5rM7bP0wcvtHolK7mQhQDuVYlEsYQZZ0zFgFmKNnj3WSOkfZHOKtyNtKCW54XKkL00VqseYAStLZxSw8m1/SK87D8JbUltIRKG6yJG/yMWub1pTiLm0W3uk9KQ/20awOc+kVyUC879nYE3AZXBQjLqEzgSrGXJVW2U5MwcGe+WvjD/JgKnIz8tgErsq41qqyzPy2z+kQwal2+zxAMIq6Jp6TS2CIX++Ot/r9HWhdBvXwTWNzV7WhVwWW+qAHRqVdh9bbF8BDykRqbXw0R19uW04m//63SyPBwpoohKxPIQL6dwIFSvMD3C57O46h+aa08XydjPytOqHNIGD+doOoimHjJ9fDKAw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(921020)(6133799003)(22082099003)(18002099003)(3023799007)(261009223027099003)(10067099003)(56012099006)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjNMTzRBbjZpQlJTYmlCa3ZIenArdFBlNDBtRnQwbGlTNThCZHFNc0hCclhB?=
- =?utf-8?B?TTUxeFl1Mm1yVmJpclJQYUhFV29GNDdBdEhudDR3TVd0SUU4UkpwS2hoY1pW?=
- =?utf-8?B?R3A5b0dpcmZwNWoyckRvQzBqTW0zSHpRdkVsMGFZeHhLVHdha3BLbWxiZ1N3?=
- =?utf-8?B?Rkl1RmdUWkFTSmh4L1NQQTR5NVpPMk9PMGNoVXEzemxBSldNUlp1NUd2amtt?=
- =?utf-8?B?dW8xOG9zNnRUeFIwYW1EMXBBQXRidXVEcVBlVVQzbWplNlpCZ3VEbFl4d01q?=
- =?utf-8?B?b1dpc0h6SWE3K3VoZWtpL2lDME5XZHg2SlJuY2RnOG9CN1BjN09MRDBPWEZW?=
- =?utf-8?B?bWJrWmNzOUh5dDV3SXNVUm5GWkNtUENTWDVYb0h1Wm5PaWFabTlTZEtua0Zr?=
- =?utf-8?B?OTNnclZPNGxiYkwxWWJ6RSszYTN0NzJsM3NwK2pTRGd0ZjdPdkc3WWZaajhC?=
- =?utf-8?B?ZnRTb0RWdFdLU2ZGUmxyQnVKdyszNE9RdC9vU0l2Nm5TWm9tSHRCYVFuVlFq?=
- =?utf-8?B?VzZYTGx1UTl0cmFhTjNBVk02dVVoRW9GbFNJZmNzZ1BjRGp1ZE8vNDhNZjhP?=
- =?utf-8?B?MXR5ck0wYjlaaVAwaEIxd0FNWlJLWHorUkFoclNmR2NuZ1VqUXZzNlM4Ulgx?=
- =?utf-8?B?YzVZYUd1M3ZFaUQwblI3RC9kL0JCaFFySndBRjNDbzFsUFpWbktPNFRmdEdP?=
- =?utf-8?B?L1MvNnFrYSswTmxZVGxwMkxuQTRTMjZ3R29mL3YvNzFvcGhnRWtUcXRud2Rw?=
- =?utf-8?B?SFozTHJ4NkIzV3lXQko2dEJuV28rQ0ZJVnZHUkJiVk85VFd3YjByUERQeFdU?=
- =?utf-8?B?RDdXRGR1QTlkMUVtZ21YU29OUlZqM05lQUlRMi9VSktHUDkwY2hRY0NDOXBO?=
- =?utf-8?B?SENESFpxMFpWWUZFbVgrQUFkZkUyMVF2NDMyRi8zeG85c3R2WWdvaG5VcjE5?=
- =?utf-8?B?MkpUcGZHM3BNV3ZLeGQ3QitCUTQybEU2UU1UbUNWK0pBaCtReUJrbi93Nnlu?=
- =?utf-8?B?bDZjNUpqT2pDdVBDbzVSUklyRW5CaFd0bXF6bEtFV1Z3OXg5ejhCMVVraCtY?=
- =?utf-8?B?QnJ5Y1B6V0ZSYlorMGwyQXU2L2FJaVk3UmJmTUhNY1ZnNUYrYWhnTUpnWEsw?=
- =?utf-8?B?ZjB3ZGhla2ZBSncxV0paSkh1azFZYmZLUmF4MEV1a0xtZEl6d2htWWY5alkz?=
- =?utf-8?B?OWRhcHlCMU4xSVRFNUlxZVJSeFUyZ3V2M2M3dFRvT0VDU2NoWkNEQjZNVmhr?=
- =?utf-8?B?dlFmVGxyemhmTkR4R1BIZzZrcEhWNEdHK1B3TkdIYUpBUFY5TnphNk0zcFJz?=
- =?utf-8?B?dnYyOTQzUXhJQWtrcW4yMTF5ajFobDJSWkNEVXU5b0k5ZVJNUEZRM2NDY0Zm?=
- =?utf-8?B?dzdwbFVGYnVQZkhJUTFCbUdhRml6Yi81RzNhN25DYmpOSlhhNUZWWlFYVGZt?=
- =?utf-8?B?K0l5WkMzcnUrOFZncllvTm1Oc1c4NDZLT2FIMkJUUGkwT1RaVitsTnJoRHh5?=
- =?utf-8?B?Q2U4RS9IK3cwb3luNDJ5bGJZL1Vvb1YrdkdrckhmQzNWWlZSajREaFZjckZT?=
- =?utf-8?B?OWVXTUEyNmV2T1BsajJkSjFrV215a2VrZW5rWGZFbWkwNnhuQUhzTE4ycVQy?=
- =?utf-8?B?UjhoMDBkSFY5QVBSWld0bDlwVWQrQ1VnbDVsa2I1dVRmZDl3aDBsTkdIZ2xy?=
- =?utf-8?B?UnBxRDJoaFVJSlUrdjF3SHF2VXhvMTJqQlBSL3hmSUFaR2pYdmNGZ2ZvK0Zi?=
- =?utf-8?B?YU9tRml1amQzbmcwWE9rTlFPUmFTS3p1M1RzUzY5UXZpbWFSdWNXa1FUdXBu?=
- =?utf-8?B?VWJuRStNZExTbXRyb3BYT0dOdkE0VXNSQ3NxUS9RL1VSTVA2dXVkb0c1WWtH?=
- =?utf-8?B?SnorZ2ord2xaOU9VYUgwSno3cVJkREJHTWliK1ZLVDJvbHlnNlVhOXk1QXhl?=
- =?utf-8?B?Ry9JQ3c5NjA0RTVpRlgyNnkxYVEydUtVZ1hjU2w5YlNYNzh4ZlA0bWNRQVNa?=
- =?utf-8?B?ZmI0VElHVjlWckIvd1hBTXdLOXgzQWY4c1pmS0FucFAzZmIybzh3OWtXSXEy?=
- =?utf-8?B?aW5Zd0hQR3E1V1BHbXE5d09keTVFUFhaUzFuUWlpdFN3ZXFSd2granNIcDU3?=
- =?utf-8?B?aG1jVkdrV1NqRDk0cXNsYmZFTWZHVzUzT1REbXdJcXppMGFTNEFnVHVaSytl?=
- =?utf-8?B?UytDOHQ0c1ZuVDhQZ2hRQ09iNVVxSjJURTB2aGV4NVFJNnlWbkVxalR3S2M4?=
- =?utf-8?B?MzcyUzVhK1NrcFNkd2JJRjlOd0R3dWZhMStGWEhMUWlGVjY0TnVsTURrbE10?=
- =?utf-8?B?aU5mSHkwaDhwaitWdGZYcmpxekl3Q1o1MlhESjRNRkxGeVZhZndlQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 250b09bd-f6f4-4fc4-34f6-08df2b2a06ee
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 02:06:01.7181 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dWkv9aw1rFIldm+H9RtnMKh8dbYd9pqCsLA/qkXkUT/0xGl+otQkxIS99v9xT9PL7pEdNLUhhaxvyUB3c5Cuag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7820
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGG=RgDVsPHjLMTEgoqjh17hfnBUg3WUeca93VrDS7NTshHsOg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,81 +99,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/15/26 7:00 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] gpu: nova-core: endianness bug when extracting u8/u32 arrays from native &[u64] stream
-...
->> +++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
-> [ ... ]
->> +    /// Takes `count` bytes. If `count` is not a multiple of 8 (`u64` size), bytes are discarded up
->> +    /// to the next multiple.
->> +    fn take_u8s(&mut self, count: usize) -> Result<&'a [u8]> {
->> +        let values = self.take_u64s(count.div_ceil(size_of::<u64>()))?;
->> +        values.as_bytes().get(..count).ok_or(EINVAL)
->> +    }
+On Wed, Oct 14, 2026 at 03:25:33PM -0400, Yuho Choi wrote:
+> On Tue, 13 Oct 2026 at 08:08, Zhenyu Wang <zhenyuw.linux@gmail.com> wrote:
+> >
+> > > You know this code much better than I do, and I can't test it without
+> > > GVT-g hardware, so I may well be missing something.
+> >
+> > I can understand that but I think for any non-trivial change or
+> > for sensitive part, testing is a must...
 > 
-> [Severity: High]
-> Does casting a native u64 slice to bytes extract the wrong payload on
-> big-endian architectures?
+> Understood. I'll hold this patch until I can test it on GVT-g hardware.
+> 
+> > > The case I had in mind is the guest mapping the same page at both sizes
+> > > and keeping both, e.g. 2M in the PPGTT of one context and 4K in the GGTT
+> > > or in another context's PPGTT. If the second request replaces the entry,
+> > > the first shadow entry seems to keep the old DMA address, as
+> > > shadow_ppgtt_mm() reuses a PPGTT that is already shadowed. Is that ruled
+> > > out somewhere? Please let me know if so.
+> >
+> > Shadow ppgtt is created by a PV interface, so each context would have
+> > separate shadow ppgtt or shadow mm. GVT handles guest page's dma
+> > mapping per-vgpu as for per-VM. But GVT handles context submission in
+> > order, shadow ppgtt is populated for each submission. I think even in
+> > your example that possible one page mapped in different context as 4K
+> > or 2M, it would be remapped as size doesn't match for each submission,
+> > so no invalide dma address access.
+> >
+> > I doubt if i915 could possibly have such case in reality..
+> 
+> It does seem to happen: 7366aeb77cd8 was written after the same gfn was
+> requested at both 4K and 2M during an OpenCL conformance test.
 
-Roman, or anyone who knows,
-
-How do we update sashiko to make it stop reporting on this issue, which
-we have decided is a non-issue (Nova is actually configured to only ever
-be little-endian)?
-
-
-thanks,
-John Hubbard
-
-> 
-> Because Cursor::take_u64s() reads host-native 64-bit integers, using
-> .as_bytes() reverses the byte layout on big-endian hosts compared to
-> little-endian.
-> 
-> For example, if a 3-byte payload is stored inside a 64-bit word, a big-endian
-> host will have the payload at the end of the word and zero-padding at the
-> beginning, causing .get(..count) to extract the zeros instead of the actual
-> data payload.
-> 
->> +
->> +    /// Takes `count` 32-bit values. If `count` is not a multiple of 2 (`u32` values per `u64`),
->> +    /// bytes are discarded up to the next multiple.
->> +    fn take_u32s(&mut self, count: usize) -> Result<&'a [u32]> {
->> +        let values = self.take_u64s(count.div_ceil(size_of::<u64>() / size_of::<u32>()))?;
->> +        <[u32]>::ref_from_prefix_with_elems(values.as_bytes(), count)
->> +            .map(|(elems, _)| elems)
->> +            .map_err(|_| EINVAL)
->> +    }
-> 
-> [Severity: High]
-> Can this result in swapped 32-bit words on big-endian systems?
-> 
-> Similar to the byte array extraction above, passing the native memory
-> representation through .as_bytes() to recreate a [u32] slice will swap
-> the order of the 32-bit halves on big-endian architectures compared to
-> little-endian ones.
-> 
-> [ ... ]
->> +    /// Decodes every pair into `schema` and returns the result of [`Schema::finish`].
->> +    pub(crate) fn decode<'s, S: Schema + Visit<'a>>(
->> +        &self,
->> +        schema: &'s mut S,
->> +    ) -> Result<impl Init<S::Target, Error> + 's> {
->> +        let mut cursor = Cursor::new(self.data);
->> +        while !cursor.is_empty() {
->> +            let op: Op = cursor.take_u64()?.into();
-> 
-> [Severity: High]
-> Does this misalign the operation bitfields on big-endian hosts?
-> 
-> The 64-bit operation word is read as a host-native integer via take_u64().
-> If the NVKV stream comes from a little-endian GSP, parsing it directly as a
-> native u64 on a big-endian host will misalign the key, index, and value
-> fields inside Op.
-> 
-> Should this explicitly handle endianness (e.g., using little-endian read
-> functions) instead of relying on native host integers?
-> 
-
-
+ok..so that was actually a fix to remap guest page when populate
+shadow ppgtt, it's a little hacky but as for gvt procedure, it works.
+Your change might also work but have a penalty to an extra 2M split
+with extra dma mapping effort..
