@@ -4,73 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BF87CCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 13:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FAACCCF2C1
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 13:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2DD11281A;
-	Fri, 16 Oct 2026 13:55:17 +0000 (UTC)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8A0110E21A
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:54:44 +0000 (UTC)
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4a01b112fa2so44139725e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:54:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792158883; x=1792763683;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=o1zW8ObmJUqyJoTK7Wl6HPlLn7nz+xpXE4cGz+lwfMk=;
- b=i17+1i/PJ527NtgJhSg3YMNDJEQDN6u2FIL8AiWLwqjmX7VFo4G3h4sFmKFNNO2naA
- wR6KbEhA1wDcYN7CZi3Ti2SvpyCNqp1MKXcz8/Nazqz/wIKoAJBTnBVO8duj/+aqlKHI
- OCYW6IKw+ujR6iJeGk7DTACK62bQQ2QH5hff7/rzYi6EkwfjKpUWSnDwYa7pdn7Q5/hR
- yTiJ332pAQ7VZsMMaZPLJNjuxR5PhBCp4MPajEoOW7oNMFDr58+dXy62tYcgLAyHUHev
- mZXKevRA0grlyEHqdThLW1MluJGtMy++6puA/yMSuIdyTSkG8fgBSAxywgoNG26tLYJc
- sRnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792158883; x=1792763683;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=o1zW8ObmJUqyJoTK7Wl6HPlLn7nz+xpXE4cGz+lwfMk=;
- b=jfOVmVPnZms1rCSWUnM8nC0TRyDiv1Jv9h3EILuX04skaRN17wlr/bdO9JZJaXDucH
- +pn2Bs6cxndXOvQxeRAFhSU20j3CQGnlWx1pizdFXx7l26rkvA76EWjhBl/p2v5bEDPA
- VmbDwtpdIheFGtHZGugo8DFis7N8sGJoLVjyVyXdYafmT1E+O7y9g9kRCWwnW9qNfzvi
- 4fCZS6KJch3Xx7921Kwx5srFTXiBgSbdx+YAYreQUXApsdSMpqsP271e220m1dtzhpWE
- UIZ9sYUxV8WcoENrvysqtdvRCVsopneSAbujEN0iAeBWvlX4+oe20mcQb/6ZbTN3Duzu
- RC1w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBypABiWNV6kQDJMJLiAptEBJ2Efgule9Th+Y/ODaQGpPkjcDjcqcvdW4zBceiVkfKUdQR04aEEZoqA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK3FpQYAj9CnUZ7XwZZnNUqkctL67aqhXfBn4h/vPUva4Vn3T6N
- YSMg7tWLsPIIuccaZthIVIaWaLpCFz4kDFHZP0nQAsja3xuqUFEuDxjeC+laGVe3pYqYfEn5mvn
- SouWko7vyRLojy96v1g==
-X-Received: from wrwq7.prod.google.com ([2002:a5d:5747:0:b0:48c:7482:b673])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8216:b0:49d:34:420d with SMTP id
- 5b1f17b1804b1-4a18e4b0465mr464383285e9.20.1792158883019; 
- Fri, 16 Oct 2026 06:54:43 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:54:35 +0000
-In-Reply-To: <20260814230923.1292966-4-dakr@kernel.org>
-Mime-Version: 1.0
-References: <20260814230923.1292966-1-dakr@kernel.org>
- <20260814230923.1292966-4-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261016135439.44716-3-aliceryhl@google.com>
-Subject: Re: [PATCH 3/7] rust: drm: move file_operations from gem to device
-From: Alice Ryhl <aliceryhl@google.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alice Ryhl <aliceryhl@google.com>, acourbot@nvidia.com,
- daniel.almeida@collabora.com, 
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
- tmgross@umich.edu, tamird@kernel.org, work@onurozkan.dev, brauner@kernel.org, 
- lyude@redhat.com, j@jananu.net, alvin.sun@linux.dev, 
- deborah.brouwer@collabora.com, laura.nao@collabora.com, 
- beata.michalska@arm.com, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 058F310E087;
+	Fri, 16 Oct 2026 13:57:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F1B510E087
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792159058; x=1823695058;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=uHq4jYBha0lFpTggZJWH//6an9aVUgBaNVegMdOU+uU=;
+ b=iZ7y8OIMmOg0zL3MJkWcTTfvDVq6eYEJYvQ/2vadJ9FeVv6egxkVJYTP
+ Nb03MHQ9fQwwqwzwYNgAe1ZnviGxlAPX787fGyeFs4gapx44pLm4fxS8W
+ BFgAvBSzNuqqJg8dsPbI2L2kEyjJnq63cPjjH1MmdHL87b3NaQtlB/0un
+ oAFNPs/sAW8Wlx7QZSt1LJA8pT9bT96aFAosnqTBsQe0MJYlPbsNQ5hn+
+ cyZZsEDasG+TBbdZUJ+gZpCUq/MjgYX+QXFIkh5qn+WqpEgS1nuWDqQoC
+ cO2pHFp7EZe/yDZXpOlIFnaYHe7Wcqu65kBUrpRqmvTO5w0yI42KM1P1c A==;
+X-CSE-ConnectionGUID: BTnURgcdRrenBfAI8QvMyw==
+X-CSE-MsgGUID: IcwYGnSxRn+D938DT1RKUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="942937"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="942937"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2026 06:57:37 -0700
+X-CSE-ConnectionGUID: P7HFVIbRSqWTrmjuQIGvbg==
+X-CSE-MsgGUID: H/QjLFKfTCqchCuV03OtqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="2199831"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.56])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2026 06:57:34 -0700
+Date: Fri, 16 Oct 2026 16:57:30 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hugo Sales <hugo@hsal.es>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ jfalempe@redhat.com, javierm@redhat.com
+Subject: Re: [PATCH 0/2] drm/client: Keep larger modes in connector->modes on
+ fbdev hotplug
+Message-ID: <atItSgRj26x60ACf@intel.com>
+References: <20261015212545.1989962-1-hugo@hsal.es>
+ <atIYd0dd6ynXulwQ@intel.com> <20261016131652.483525-1-hugo@hsal.es>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261016131652.483525-1-hugo@hsal.es>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,12 +76,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Aug 15, 2026 at 01:09:01AM +0200, Danilo Krummrich wrote:
-> Move the file_operations definition from drm::gem::create_fops() into
-> UnregisteredDevice in drm::device. This is the file_operations of the
-> DRM minor device, set through the drm_driver struct. It is not specific
-> to GEM.
+On Fri, Oct 16, 2026 at 02:16:52PM +0100, Hugo Sales wrote:
+> On Fri, Oct 16, 2026 at 03:28:39PM +0300, Ville Syrjälä wrote:
+> > On Thu, Oct 15, 2026 at 10:25:43PM +0100, Hugo Sales wrote:
+> > > On an ASUS ROG Flow X13 with a 3840x2400 eDP panel, booted with
+> > > video=eDP-1:1920x1200@60, an HDMI hotplug makes fbdev reprobe every
+> > > connector with its 1920x1200 framebuffer as the limit. connector->modes
+> > > loses the panel's 3840x2400 mode, and after suspend/resume amdgpu drives
+> > > the panel with the 1920x1200 timing. The image ends up squeezed into the
+> > > top-left corner. Details are in
+> > > https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+> >
+> > Sounds like an amdgpu bug.
 > 
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> Agreed, the resume bug is in amdgpu. It looks up the eDP native mode in
+> connector->modes, which fbdev's hotplug probe can trim. This series
+> fixes it there:
+> https://lore.kernel.org/r/20261014223041.171317-1-hugo@hsal.es
+> 
+> I sent this one for the shared list itself because after a hotplug,
+> connector->modes depends on fbdev's framebuffer size, while initial
+> setup, drm_log and GETCONNECTOR probe with the device's limits.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Connectors aren't probed before something actually probes them.
+Typically that would be fbdev.
+
+> Until
+> something reprobes, the sysfs modes file and any driver that reads the
+> list see the trimmed version
+> 
+> amdgpu isn't the only driver that reads it. stm/lvds and
+> shmob_drm_encoder_mode_fixup() take the first entry of connector->modes
+> as the panel mode, so they may hit the same thing with a video= mode
+> smaller than the panel. I haven't tested those, because I don't have
+> the hardware. Fixing it in the core covers them without each driver
+> keeping its own copy of the native mode
+
+Those things will need to be fixed regardless because they are
+broken wrt locking.
+
+But I suppose not filtering the mode list based on the fbdev size
+might be a bit less confusing for anyone who looks at the mode
+list via sysfs. Can't immediately think what else besises the 
+fbdev/client code would depend on this, so maybe it's fine.
+
+If we do this then I think we should stop passing the size to
+.fill_modes() entirely, because we always pass the same device
+limits. The downside is all those annoying extra
+drm_mode_validate_size() calls everywhere, but I guess we
+could live with that.
+
+-- 
+Ville Syrjälä
+Intel
