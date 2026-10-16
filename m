@@ -4,61 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC737CCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 08:52:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B435CCA464
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 08:53:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3735310E01F;
-	Fri, 16 Oct 2026 08:51:59 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69CCB10E01F
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 08:51:52 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 79B7F1A1245;
- Fri, 16 Oct 2026 08:51:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 48DB36075D;
- Fri, 16 Oct 2026 08:51:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5481B10328C00; 
- Fri, 16 Oct 2026 10:51:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1792140708; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=ChS8CbLEvyFZVuYslDWXhsoD8DGk8VUp5ILUon7wnlY=;
- b=FyCLCVxkCDn6SxkXHmUNA69irjP1CxhoV/CWQHtcj/s82zfmdSuPFeHZcqDwuI6y2RZgwc
- wIev23C/pJfx83qUOIuOWk1zftExtkKtkdIwQ0IIFjjI/xCSIGSzbK+8YtsHQMksKb5QOW
- gVpfKo+NHJiF47Q8YidnxrqEySqpEmuRheElrrfeFa9rtFMRHDWYM/Qzn6+tRRBQ9i21ii
- NmV0nCvarkBkTupW8iHUMUonhdAMrNN0Q/O7QPLlV5V18cL6gu+QH4QFF2Y4yOnNh1DIN5
- LT1+gdlbxOSU71IeNW1Xhtw34nFeySDy3R+5ybE2YAAC95oEvPJWD1RCm6YHTw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6187E10E0ED;
+	Fri, 16 Oct 2026 08:53:43 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC5F10E0ED
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 08:53:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=2fZrUSOTZ206+wLywyJBhLbacf5AQAt6MAEx2t+xWjw=; b=ovoZQn6GKxFWwKFD7ZF3XfLjje
+ HN27PXUDq3h1BT9Z0gBU5pDIwAC8FqREuhrU9EmXXwv6ZjTKhnRniDbp4sJXY4IaGEVGpybMqwGsy
+ nUcVFkemNC3Ci7sUdZ1k6TI1AZoLc3gxOm2o5aFmxTNsd7DHniUyhNeSFahVIvYwwXOhyd8HM/EPz
+ VdP9mCCZeFlsrjdJ+cI3swpK8AyvAcRYnM/kvXgt8aMZSZ9cnz6mHoheVY4cNI53olBVA9yNgwjuG
+ M2GjEYiv5/JRrTGL5LPZZJLlZ5KqdkLKehKyu+/rm3pQvUbsVtYa2AzAYOWobYpECaIT17NA9WOHl
+ M0xV7VkQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xHdh0-000xcD-Ir; Fri, 16 Oct 2026 10:53:34 +0200
+Message-ID: <16bf9c91-79b4-4217-b200-e037d9226998@igalia.com>
+Date: Fri, 16 Oct 2026 09:53:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 5/8] drm/bridge: ite-it66121: Advertise HDMI 1.2
- capabilities
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andy Yan <andy.yan@rock-chips.com>, Liu Ying <victor.liu@nxp.com>, 
- Phong LE <ple@baylibre.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20261001-bridge-advert-hdmi-caps-v1-5-f8806570e243@collabora.com>
-References: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
- <20261001-bridge-advert-hdmi-caps-v1-5-f8806570e243@collabora.com>
-Date: Fri, 16 Oct 2026 10:51:32 +0200
-Message-Id: <179214069221.3071818.10591269637696395115.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Document entity->stopped is protect by
+ entity->lock
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20261002124655.74716-1-tvrtko.ursulin@igalia.com>
+ <c7a17c258ae39abe74e7abe270aaee1daf31258d.camel@mailbox.org>
+ <103fba2b-c47f-4b17-a8a6-804ca00ff15a@igalia.com>
+ <c4072b932f874bc1fc1bf60a0ead4948eff2b530.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <c4072b932f874bc1fc1bf60a0ead4948eff2b530.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,25 +60,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 01 Oct 2026 04:14:36 +0300, Cristian Ciocaltea <cristian.ciocaltea@collabora.com> wrote:
-> Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
-> supported HDMI version.  This is not yet enforced, but will become
-> mandatory once the migration to the new caps-based HDMI connector
-> initialization API is completed.
-> 
-> Since none of the chip variants handled by the driver can drive a TMDS
-> character rate exceeding 148.5 MHz, advertise HDMI 1.2 as the supported
-> version.  HDMI 1.2 allows up to 165 MHz, so set the bridge's
-> max_tmds_char_rate to ensure the connector limit derived from
-> supported_hdmi_ver remains within the hardware capabilities.
-> 
-> [...]
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On 13/10/2026 11:45, Philipp Stanner wrote:
+> On Mon, 2026-10-12 at 09:05 +0100, Tvrtko Ursulin wrote:
+>>
+>> On 08/10/2026 11:10, Philipp Stanner wrote:
+>>> On Fri, 2026-10-02 at 13:46 +0100, Tvrtko Ursulin wrote:
+>>>> Commit
+>>>> 0e118b936dc5 ("drm/sched: Lock drm_sched_entity_is_idle()")
+>>>> has removed the last unlocked entity->stopped access so lets officially
+>>>> document it in kerneldoc as locked with the entity lock.
+>>>
+>>> Ah nice, I overlooked that. Thx for fixing.
+>>>
+>>> Nit: typo in the commit title, "protectED". I can fix that at applying
+>>> if you want.
+>>
+>> Ah yes, best not to spam the list for that. If you want I can push and
+>> tweak as well.
+> 
+> fine by me
+> 
+> Acked-by: Philipp Stanner <phasta@kernel.org>
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thank you, pushed!
+
+Regards,
+
+Tvrtko
+
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Danilo Krummrich <dakr@kernel.org>
+>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>> Cc: Philipp Stanner <phasta@kernel.org>
+>>>> ---
+>>>>    include/drm/gpu_scheduler.h | 2 +-
+>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>>>> index 563d7fb88a6d..3b0978fa8cf0 100644
+>>>> --- a/include/drm/gpu_scheduler.h
+>>>> +++ b/include/drm/gpu_scheduler.h
+>>>> @@ -101,7 +101,7 @@ struct drm_sched_entity {
+>>>>    	 *
+>>>>    	 * Lock protecting the run-queue (@rq) to which this entity belongs,
+>>>>    	 * @priority, @last_scheduled and the list of schedulers (@sched_list,
+>>>> -	 * @num_sched_list) and @rr_ts.
+>>>> +	 * @num_sched_list), @rr_ts and @stopped.
+>>>>    	 */
+>>>>    	spinlock_t			lock;
+>>>>    
 
