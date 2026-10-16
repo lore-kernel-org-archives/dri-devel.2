@@ -4,58 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BAE2CC6B38
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 06:52:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79F30CC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80F5F1125D5;
-	Fri, 16 Oct 2026 06:52:34 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89EF41125E6
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:52:28 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 35FFDC6220F;
- Fri, 16 Oct 2026 06:53:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6FC8E6075D;
- Fri, 16 Oct 2026 06:52:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id A223710328C6D; 
- Fri, 16 Oct 2026 08:52:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1792133545; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=WlHkJSy/ba8HvsmnfL4B23mq4zTFKgnNgEDVV0rE7SQ=;
- b=MmHOg1dxGfArn2jR4L+4z8N69tqpP0MmBy4sJp2si7LmksA8mvQGFkkq7FnBXFMzwVNRfY
- 61RAPOkOfKFPSN8kXzWbAFLaK8DSItnbpMvT2nYKPNBaA9In3XZ1MJa1xiTGKZOwsmnpTo
- RwG5fjDdQ41hdpSJ26d7UxkYhqpeCT0+6r9bq0WNajqFtq3xZuQ2t+D0Jy3TLIOvNztrqk
- WOOLef/mwNkpOT0OIT/iQCYdxkWGEhAZivYtWilhTFOxrBXbvAhyFzeBiZ7KpeBQLppTrc
- vX0CU1whmU+hccR/PLhek5yNVtm0R4FAC9chMmopkn24+iGIXocbkvMbH/BuZQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
-References: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
-Subject: Re: [PATCH 0/2] drm: devm_drm_bridge_alloc() conversion and
- cleanup
-Message-Id: <179213353665.3058528.14437637653539699061.b4-ty@b4>
-Date: Fri, 16 Oct 2026 08:52:16 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7CD51125D4;
+	Fri, 16 Oct 2026 07:01:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC8D81125D4
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:01:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 41301404A1;
+ Fri, 16 Oct 2026 07:01:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064791F000C4;
+ Fri, 16 Oct 2026 07:01:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792134067;
+ bh=EIfFJoZMvzAXAOvK7ywBeqYExTQFffFM+1cUJyNjTho=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=idjE2ccPpJS3J5tDHxT/04G3RebS6gDuVk6Ivfh0CXuolyksuwV9MtZIMIXIJJ5Q3
+ XL9HKrMMNSFBiea2nHtYObyZ+CfCPokeNeKSbuFg04BpoZFmOtPAZx5GDtf5j+CRLN
+ ZgWP8SdXfMKaA5T7C6FmjMpNf1tkZ9M5Bl0j4NLkeUbHlsFSPJ7erZZtX6DPWnPe2q
+ iy5SauU0Ugh4/2PYKtGfJnYNM3meENFFaec7cYjsjBI7ou9/A4dpF5oTq7nwvOYazz
+ EbZPdB3Pr5nlsGYO5GALbHKefpXNAIK4C2HEwjiAuA1tZBiVWkBDWFOmNZ7586RJRD
+ BVs1/KKk/EXIQ==
+Message-ID: <sashiko-outbox-173894@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 08/11] iommu/tegra-smmu: Defer display client
+ translation to driver handover
+To: "Mikko Perttunen" <mperttunen@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261016-b4-arm32-iommu-dma-cookie-v2-8-b06842a01938@nvidia.com>
+References: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
+ <20261016-b4-arm32-iommu-dma-cookie-v2-8-b06842a01938@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 07:01:06 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,31 +51,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] iommu: tegra SMMU isolation bypass for display controllers via=
+ defer_enable
+--
 
-On Thu, 01 Oct 2026 11:25:10 +0300, Cristian Ciocaltea wrote:
-> Bridge drivers are expected to allocate their private data via
-> devm_drm_bridge_alloc(), which also initializes the embedded struct
-> drm_bridge, including its funcs pointer.  Most drivers were converted by
-> commit 9c399719cfb9 ("drm: convert many bridge drivers from
-> devm_kzalloc() to devm_drm_bridge_alloc() API"), but a couple of
-> leftovers remain.
-> 
-> [...]
+commit d4d42b6a74ebf50531a4c2f625710578bc863c34
+Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-Applied, thanks!
+iommu/tegra-smmu: Defer display client translation to driver handover
 
-[1/2] drm/rockchip: rk3066_hdmi: Convert to devm_drm_bridge_alloc() API
-      commit: 5c0cdbee4fa4a621f871d6dc825e759db08a1a4a
-[2/2] drm/bridge: lontium-lt8713sx: Drop redundant bridge funcs assignment
-      commit: 382c1e8ba409d1611cd256dccebdfa828c832bb1
+Bootloaders may leave display controllers scanning out a boot splash
+while the kernel boots. Enabling translation for them without special
+care during that time would cause translation faults.
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Because of this, tegra_smmu_def_domain_type has kept every device on an
+identity domain at boot, and TegraDRM has parallel custom IOMMU domain
+management code paths for these clients.
 
+> diff --git a/drivers/iommu/tegra-smmu.c b/drivers/iommu/tegra-smmu.c
+> index 67e7a7b925f0c..6779528a9e7cc 100644
+> --- a/drivers/iommu/tegra-smmu.c
+> +++ b/drivers/iommu/tegra-smmu.c
+> @@ -368,7 +368,13 @@ static void tegra_smmu_enable(struct tegra_smmu *smm=
+u, unsigned int swgroup,
+>  		value =3D smmu_readl(smmu, group->reg);
+>  		value &=3D ~SMMU_ASID_MASK;
+>  		value |=3D SMMU_ASID_VALUE(asid);
+> -		value |=3D SMMU_ASID_ENABLE;
+> +		/*
+> +		 * A deferred client is set up completely, but with translation
+> +		 * gated off, so it stays in bypass until its driver calls
+> +		 * tegra_smmu_enable_translation().
+> +		 */
+> +		if (!group->defer_enable)
+> +			value |=3D SMMU_ASID_ENABLE;
 
+[Severity: Critical]
+If a generic driver like vfio-platform binds to this device (for example, to
+pass the display controller through to a VM), it attaches an unmanaged IOMMU
+domain and expects isolation to be enforced.
+
+Since tegra_smmu_enable() completes without setting SMMU_ASID_ENABLE for
+deferred clients, does this silently leave the hardware in bypass mode even
+after the IOMMU domain is successfully attached?
+
+This could allow an untrusted guest VM to program the DMA engine to read or
+write arbitrary host physical memory, bypassing IOMMU isolation.
+
+>  		smmu_writel(smmu, value, group->reg);
+>  	} else {
+>  		pr_warn("%s group from swgroup %u not found\n", __func__,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-b4-arm32-i=
+ommu-dma-cookie-v2-0-b06842a01938@nvidia.com?part=3D8
