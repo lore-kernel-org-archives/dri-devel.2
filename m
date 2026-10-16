@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B7ABCCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2357CCA464
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:26:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB32F1126EC;
-	Fri, 16 Oct 2026 09:12:42 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42E051126C2
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:12:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C3941126E1;
+	Fri, 16 Oct 2026 09:26:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 131F61126F7
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:26:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ABDF1601F0;
- Fri, 16 Oct 2026 09:12:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B881F000C4;
- Fri, 16 Oct 2026 09:12:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A915C41210;
+ Fri, 16 Oct 2026 09:26:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D651F000C8;
+ Fri, 16 Oct 2026 09:26:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792141955;
- bh=HlFcr7U+qKhjV6ADczC7LFy0x9iblMpHBQI50ui8PpM=;
+ s=k20260515; t=1792142799;
+ bh=mpEV3p/xqK3124xIQYY+IgM3jrHpfGKUbgMtrke3Ch0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PlIs4HIrDSfgMmqCfoja8pZFKVlXwV56Wi4tLRgI/o61F5WgDqW4UyJ3tl4pMp5EW
- 4a6Jq8E/R86fBFErK1hETVzgSEZx1aD/julRnhdSJFmgybJPg5ERuHUEkUOMGeojhp
- Umjjciy1uSLjPIpSdpcoQHvtIAMjQEJUqEHmYUNIy8q6nFhIOoHnbE/9qzH5y3cWhB
- a0WPtNJel6tKes73FrK5jRGKBUntjaPuBY23syF6ZLMjQbPigrv5NZ3A1PiNXC5m/4
- oI5hvqJTnCsQ1edUhQ3ZklP5RIpVInyVQFtCt4jFNCEx2rWqEQCPZHxehOiYttIUqR
- Zidvm+WoNGSNw==
-Message-ID: <sashiko-outbox-174063@kernel.org>
+ b=DCDEM3thjhPNMtaXAtsNpodCiIYFIcT3SSIFJYbI2GbHf/NIs2ixGVcABUZprDCon
+ GsBMT2hZ79fzyfRuIDqjH3ymjgfulpUnQsx8+47sPrN/iTsCRRhTWcPZa4zDolZmr9
+ c5Tg58YIKIf0X4DMndf1sJ8ijqXLCLseOx/EU1xswY+/ZtthAYDw5eR56NmC4+A1SC
+ WZn+TX8xjxuxZpP1QkFZ4gvAzdFL2YCOysPd6hcwj0El40pP6x2NYsKVuDBIUJo3FF
+ aDmr3xsRRVPRf7SU7aqFmCgfeqLGFULjOf5g4SRfWRcGj0axQ9c2mss1vzUuv5nvwe
+ evImpHbev78AQ==
+Message-ID: <sashiko-outbox-174078@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v6 5/5] rust: drm: Add JobQueue
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
- gary@garyguo.net
-In-Reply-To: <20261016085724.1031766-7-phasta@kernel.org>
-References: <20261016085724.1031766-2-phasta@kernel.org>
- <20261016085724.1031766-7-phasta@kernel.org>
+Subject: Re: [PATCH v2 2/2] drm/amdkfd: validate SVM ranges against the
+ target GPU address limits
+To: "Daniel Huang" <danielhu@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261016170546.88570-3-danielhu@amd.com>
+References: <20261016170546.88570-1-danielhu@amd.com>
+ <20261016170546.88570-3-danielhu@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 09:12:34 +0000
+Date: Fri, 16 Oct 2026 09:26:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,305 +55,150 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm: race in JobQueue completion misses updates and leaks capacity
-- [High] drm: sleeping in atomic context due to dropping jobs under SpinLoc=
-kIrq
-- [High] drm: JobQueue fails to signal waiting jobs on drop and teardown ca=
-using hangs
-- [High] drm: UAF in JobQueue due to incorrect field drop order
-- [High] drm: job_queue: oversized job permanently deadlocks FIFO queue
-- [Medium] drm: JobQueue::teardown takes self by value making it uncallable=
- for PinnedDrop type
-- [Medium] drm: Job::add_dependency causes a permanent mutable borrow makin=
-g Job unusable
+- [Critical] drm/amdgpu: out-of-bounds array access in amdgpu_vm_pt_descend=
+ant() on invalid fault address
+- [High] mm: infinite page fault loop when VMA crosses GPUVM limit
+- [High] drm/amdkfd: unmap skips valid subranges if overall range exceeds G=
+PU limit
 --
 
-commit 6e3f97968faaf986f43b451fb90d4bf994878b66
-Author: Philipp Stanner <phasta@kernel.org>
+commit c516e2b1eb5a9d1a668925627f8b8692a22ac1fd
+Author: Daniel Huang <danielhu@amd.com>
+drm/amdkfd: validate SVM ranges against the target GPU address limits
 
-rust: drm: Add JobQueue
+This commit adds limits validation for SVM ranges mapped to the GPU in
+amdkfd, ensuring ranges don't exceed the GPU address limits. It checks
+the limits in both mapping and unmapping paths, as well as the fault
+handling path.
 
-JobQueue is a pure Rust component that handles job submissions for GPUs
-with firmware scheduling, i.e., GPUs that support one exclusive ring per
-execution context.
+Link: https://sashiko.dev/#/patchset/20261016145129.69645-1-danielhu%40amd.=
+com
 
-> diff --git a/rust/kernel/drm/job_queue.rs b/rust/kernel/drm/job_queue.rs
-> new file mode 100644
-> index 0000000000000..66f98ee3df70b
-> --- /dev/null
-> +++ b/rust/kernel/drm/job_queue.rs
-[ ... ]
-> +impl<'a, T: JobQueueOps + Send + Sync> Job<'a, T> {
-> +    /// Add a dependency for the job.
-> +    ///
-> +    /// A JobQueue will only push a job once `fence` has been signaled.
-> +    pub fn add_dependency(&'a mut self, fence: &Fence) -> Result {
-
-[Severity: Medium]
-Can this cause a permanent mutable borrow of the job?
-
-The method signature uses &'a mut self, where 'a is the lifetime parameter
-of the Job struct itself. By mutably borrowing the job for its entire
-remaining lifetime, it appears any subsequent attempt to call another method
-on this job or pass it to JobQueue::submit(job) will result in a compile-ti=
-me
-error stating the value is already borrowed.
-
-> +        let nr_of_deps =3D &raw const self.inner.nr_of_deps;
-[ ... ]
-> +impl<T: JobQueueOps + Send + Sync> ScopedWorkItem for SubmitWorker<'_, T=
-> {
-> +    fn run(work: &ScopedWorkRef<Self>) {
-> +        // Prevent work-item UAF if the JQ is trying to drop right now.
-> +        let Some(jq_accessor) =3D work.jq.inner.try_access() else {
-> +            return;
-> +        };
-> +
-> +        let mut jq =3D jq_accessor.lock();
-> +
-> +        while let Some(mut job) =3D jq.as_mut().project().waiting_jobs.p=
-op_front() {
-> +            // While we didn't hold the lock below for `run_job()`, it c=
-ould be
-> +            // that a new job entered the waiting list which has an unfu=
-lfilled
-> +            // dependency.
-> +            if job.nr_of_deps.load(Relaxed) > 0 {
-> +                jq.waiting_jobs.push_front(job);
-> +                break;
-> +            }
-> +            let new_capacity =3D jq.capacity as i64 - i64::from(job.cost=
-);
-> +            if new_capacity < 0 {
-> +                jq.waiting_jobs.push_front(job);
-> +                break;
-> +            }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
+mdkfd/kfd_svm.c
+> index cfb428c72686e..c3e4f0367522d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1427,6 +1427,16 @@ svm_range_unmap_from_gpu(struct amdgpu_device *ade=
+v, struct amdgpu_vm *vm,
+>  		return -EINVAL;
+>  	}
+> =20
+> +	/* Such a range was rejected by svm_range_map_to_gpu() and so was
+> +	 * never mapped. Skip it rather than failing, since unmap is also
+> +	 * used on the eviction and process teardown paths.
+> +	 */
+> +	if (!kfd_svm_range_fits_gpu(adev, start, last)) {
 
 [Severity: High]
-Could this permanently stall the FIFO queue if an oversized job is submitte=
-d?
+Does this skip unmapping for valid subranges if the overall range
+exceeds the GPU limit?
 
-Since there doesn't appear to be validation in new_job rejecting a job with
-a cost larger than the queue's total capacity, such a job could enter the
-system. If capacity - cost < 0 for an oversized job, the worker pushes it
-back to the front of the list and breaks. Because it sits at the front, no
-subsequent jobs can run, and the queue capacity will never grow large enough
-to run it, effectively deadlocking the queue.
+When a large user-space virtual memory area (prange) partially overlaps the
+GPU limit, subranges within the limit can be successfully mapped in
+svm_range_map_to_gpus().
 
-> +            *jq.as_mut().project().capacity =3D new_capacity as u64;
+However, when the entire prange is later unmapped here,
+kfd_svm_range_fits_gpu() checks the overall bounds (start to last). Since
+last exceeds the limit, it returns false and unmapping is skipped entirely.
+
+Could this leave the valid page table entries of the previously mapped
+subrange permanently mapped to potentially freed memory, causing a
+use-after-free and resource leak on the GPU?
+
+> +		pr_debug("CPU[0x%llx 0x%llx] exceeds GPUVM, skipping unmap\n",
+> +			 start, last);
+> +		return 0;
+> +	}
 > +
-> +            let seqno =3D job
-> +                .fence()
-> +                .as_ref()
-> +                .expect("fence not present")
-> +                .as_fence()
-> +                .seqno();
-> +            let runnable_job =3D JobRunnable {
-> +                seqno,
-> +                data: job.fence().as_ref().expect("fence not present").d=
-eref(),
-> +            };
-> +
-> +            let jq_data =3D work.jq.fctx.deref().deref();
-> +
-> +            drop(jq); // Release lock.
-> +            T::run_job(jq_data, runnable_job);
-> +            jq =3D jq_accessor.lock(); // Retake lock.
-> +
-> +            // run_job() above needs to be called without lock protectio=
-n. Thus,
-> +            // it is possible that the driver instructed completion righ=
-t before
-> +            // we could re-take the lock.
-> +            if jq.last_completed >=3D seqno {
-
-[Severity: High]
-Is it possible for this check to fail if a job completion races with the wo=
-rker?
-
-If the driver's interrupt handler calls complete_jobs_up_to_seqno(seqno)
-while the lock is dropped during T::run_job, it will try to iterate over
-running_jobs. Since the SubmitWorker hasn't pushed this job to
-running_jobs yet, the loop in complete_jobs_up_to_seqno() is skipped,
-and jq.last_completed isn't updated.
-
-When SubmitWorker reacquires the lock, jq.last_completed >=3D seqno would
-evaluate to false, and it would push the already-completed job into
-running_jobs. This job would remain there forever, leaking its capacity
-and hanging.
-
-> +                if let Some(fence) =3D job.fence() {
-> +                    fence.signal(Ok(()));
-> +                } else {
-> +                    panic!("fence not present.");
-> +                }
-> +
-> +                // We drop this job here directly, from work_item contex=
-t.
-> +            } else {
-
-[Severity: High]
-Does dropping the job here violate atomic context constraints?
-
-The JobQueue protects its inner state with a SpinLockIrq, meaning the CPU
-is in atomic context here. The job implicitly drops at the end of the if
-block while the spinlock guard is still held. Since dropping the job's
-DriverFence involves an RCU grace period delay (typically calling
-synchronize_rcu()), calling this sleeping function under a spinlock can
-lead to a scheduling while atomic panic.
-
-> +                jq.running_jobs.push_back(job);
-> +            }
-> +        }
-> +    }
-> +}
-> +
-> +#[pin_data]
-> +struct DropWorker<'a, T: JobQueueOps + Send + Sync> {
-> +    #[pin]
-> +    jq: &'a JobQueue<'a, T>,
-> +}
-> +
-> +impl<T: JobQueueOps + Send + Sync> ScopedWorkItem for DropWorker<'_, T> {
-> +    fn run(work: &ScopedWorkRef<Self>) {
-[ ... ]
-> +        let mut jq =3D jq_accessor.lock();
-> +
-> +        while let Some(_job) =3D jq.drop_list.pop_front() {
-> +            // Droppy-dy-drop
-> +        }
-
-[Severity: High]
-Similar to the issue above, does this drop the job in atomic context?
-
-The _job is dropped at the end of the while loop block while jq
-(the SpinLockIrq guard) is still held. This seems like it will call
-synchronize_rcu() via the DriverFence drop logic, which sleeps and could
-cause a panic.
-
-> +    }
-> +}
-[ ... ]
-> +#[pin_data(PinnedDrop)]
-> +pub struct JobQueue<'a, T: JobQueueOps + Send + Sync> {
-> +    #[pin]
-> +    drop_worker: ScopedWork<DropWorker<'a, T>>,
-> +    #[pin]
-> +    // Revocable to prevent work-item UAF on `inner`.
-> +    inner: Revocable<SpinLockIrq<JobQueueInner<'a, T>>>,
-> +    #[pin]
-> +    fctx: FenceContext<DriverDataWrapper<T>>,
-> +    #[pin]
-> +    submit_worker: ScopedWork<SubmitWorker<'a, T>>,
-> +}
-
-[Severity: High]
-Does the declaration order of submit_worker introduce a use-after-free risk?
-
-Rust drops struct fields in declaration order (top-to-bottom). Because
-submit_worker is declared after inner and fctx, its work item will be
-canceled and dropped last. If SubmitWorker::run executes in the narrow
-window after inner and fctx are destroyed but before submit_worker
-is dropped, it will try to access work.jq.inner and work.jq.fctx,
-resulting in a use-after-free.
+>  	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL,=
+ gpu_start,
 
 [ ... ]
-> +    pub fn complete_jobs_up_to_seqno(&self, seqno: u64) {
-> +        let needs_drop =3D core::mem::needs_drop::<T::JobDataType>();
-> +        // unwrap() can't fire because `self` is valid.
-> +        let jq =3D self.inner.try_access().unwrap();
-> +        let mut jq_locked =3D jq.lock();
-> +        let mut jq =3D jq_locked.as_mut().project();
-> +
-> +        if seqno < *jq.last_completed {
-> +            return;
-> +        }
-> +
-> +        while let Some(mut job) =3D jq.running_jobs.pop_front() {
-> +            if job
-> +                .fence()
-> +                .as_mut()
-> +                .expect("fence not present")
-> +                .as_fence()
-> +                .seqno()
-> +                > seqno
-> +            {
-> +                jq.running_jobs.push_front(job);
-> +                break;
-> +            }
-> +
-> +            *jq.capacity +=3D u64::from(job.cost);
-> +
-> +            // This enables the SubmitWorker to complete a job that is n=
-ot yet
-> +            // in 'running_jobs', in case of a race against the lock.
-> +            *jq.last_completed =3D seqno;
+
+> @@ -1604,6 +1624,20 @@ svm_range_map_to_gpus(struct svm_range *prange, un=
+signed long offset,
+>  			continue;
+>  		}
+> =20
+> +		/* GPUs in the same process can have different address limits.
+> +		 * Skip the ones that cannot represent this range instead of
+> +		 * failing the whole mapping.
+> +		 */
+> +		if (npages && !kfd_svm_range_fits_gpu(pdd->dev->adev,
+> +						      prange->start + offset,
+> +						      prange->start + offset +
+> +						      npages - 1)) {
 
 [Severity: High]
-Is it intentional that these capacity and state updates are inside the loop?
+Can this cause an infinite page fault loop when the virtual memory area
+crosses the GPU limit?
 
-If SubmitWorker::run is currently executing the job and hasn't yet pushed it
-to running_jobs, running_jobs.pop_front() will return None. This skips
-the loop entirely, so capacity is not restored and last_completed is not
-updated. When SubmitWorker reacquires the lock, it won't see the completion.
+If the GPU faults on an address within an allocation that is below the GPU
+limit, svm_range_restore_pages() allows it to proceed because it only checks
+the faulting address. Then svm_range_create_unregistered_range() creates a
+range spanning the entire area, which might exceed the GPU limit.
+
+When this code skips the mapping for the GPU because the end of the range
+exceeds the limit, it continues and returns 0 for success. Will the page
+fault handler exit with success without resolving the fault, causing the GPU
+to continuously refault on the same address and leading to a hard hang?
+
+> +			pr_debug("device idx %d cannot map CPU[0x%lx 0x%lx]\n",
+> +				 gpuidx, prange->start + offset,
+> +				 prange->start + offset + npages - 1);
+> +			continue;
+> +		}
+> +
+>  		set_bit(gpuidx, prange->bitmap_mapped);
 
 [ ... ]
-> +    pub fn teardown<E>(self, error: Error)
-> +    where
-> +        Error: From<E>,
-> +    {
 
-[Severity: Medium]
-Will this function compile given self is passed by value?
+> @@ -3096,6 +3130,14 @@ svm_range_restore_pages(struct amdgpu_device *adev=
+, unsigned int pasid,
+>  		return -EFAULT;
+>  	}
+> =20
+> +	/* addr is a CPU page index here. Reject faults the GPUVM cannot
+> +	 * represent before any range is looked up or migrated.
+> +	 */
+> +	if (!kfd_svm_range_fits_gpu(adev, addr, addr)) {
 
-JobQueue uses #[pin_data(PinnedDrop)] and contains structurally pinned
-!Unpin fields like ScopedWork. Because it is !Unpin, it must be accessed
-through pinned pointers. Taking self by value requires moving the JobQueue
-out of its pinned pointer, which the Rust compiler rejects for !Unpin types.
-It seems this method is uncallable dead code.
+[Severity: Critical]
+Can returning -EFAULT here trigger an out-of-bounds array access in the
+fallback path?
 
-> +        let jq =3D self.inner.try_access().unwrap();
-> +        let mut jq =3D jq.lock();
+When this returns -EFAULT, amdgpu_vm_handle_fault() bypasses its early retu=
+rn
+and falls through to its fallback path. It then passes the exact same
+unvalidated, out-of-bounds addr to amdgpu_vm_update_range():
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:amdgpu_vm_handle_fault() {
+    ...
+    if (!svm_range_restore_pages(adev, pasid, vmid, node_id,
+                                 addr >> PAGE_SHIFT, ts, write_fault))
+        return true;
+    ...
+    r =3D amdgpu_vm_update_range(adev, vm, true, false, false, false,
+                               NULL, addr, addr, flags, value, 0,
+                               NULL, NULL, NULL);
+    ...
+}
+
+Because amdgpu_vm_update_range() lacks internal bounds checking against
+max_pfn, it eventually uses an out-of-bounds index derived from the
+unvalidated addr to index into the root page directory's flexible entries
+array in amdgpu_vm_pt_descendant(). Could this lead to memory corruption or
+a kernel panic?
+
+> +		pr_debug("fault address 0x%llx exceeds GPUVM\n", addr);
+> +		return -EFAULT;
+> +	}
 > +
-> +        while let Some(mut job) =3D jq.running_jobs.pop_front() {
-> +            if let Some(fence) =3D job.fence() {
-> +                fence.signal(Err(error));
-> +            } else {
-> +                panic!("fence not present.");
-> +            }
-> +        }
-> +    }
-
-[Severity: High]
-Does teardown silently drop waiting jobs without signaling them?
-
-While it signals fences for running_jobs, it ignores waiting_jobs.
-Since dma_fence instances do not signal themselves on drop, tasks waiting
-on these fences will hang indefinitely.
-
-> +}
-> +
-> +#[pinned_drop]
-> +impl<T: JobQueueOps + Send + Sync> PinnedDrop for JobQueue<'_, T> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        // Revoke to prevent still existing DependencyWakers from kickin=
-g the
-> +        // SubmitWorker again before we could deregister them.
-> +        let _ =3D self.inner.revoke();
-> +    }
-> +}
-
-[Severity: High]
-Does this drop implementation fulfill the documentation's guarantee?
-
-The module documentation states: "Dropping a JobQueue results in all
-remaining waiting and running jobs' fences being signaled with ECANCELED."
-However, this drop logic does not iterate over waiting_jobs or
-running_jobs to signal them. The fences will just be dropped, which will
-cause any waiting tasks to hang indefinitely.
+>  	p =3D kfd_lookup_process_by_pasid(pasid, NULL);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016085724.1031=
-766-2-phasta@kernel.org?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016170546.8857=
+0-1-danielhu@amd.com?part=3D2
