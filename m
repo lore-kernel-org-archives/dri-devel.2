@@ -4,144 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B03ADCCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4716CCA464
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10F9E1126DE;
-	Fri, 16 Oct 2026 09:11:20 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 799AD1126E8
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:11:08 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69G8lhRr921348
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:11:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QIOZtlc4H5WdZ+JHF5mX59cxfjXnkubowR3t/yD78FI=; b=mO1EusKON6JQKbrg
- dwNjWV0Z0zHVec1VDd0Qwkn03nRBvGXbbG++qvBxjK1rGs/ZDAxT4bpQE8/EOOqB
- hefaSQyfs/qOWf+hNJ+mbdWf95Lo/lDzP8dVA+eXcmiBcqrhu7e3qRB8JC/9Vf9H
- m7XQM9iaqZc89S6tCLzyZRN2xL/p/BObKeTBi9m9D/lQXflPkx3W6xOZG/R6IjPI
- dz0m37f+Cey+mUWrh318vbQ1eTtLGjYK+CP4gNSSfzI584O6VD/LJlhQZUt3atnU
- 7KwxR2FO5ui+Edo0JmrmppKNbhX+y0VmMLlipeZnG0hxWP964/DCJx6Za59R0wME
- 1tVEhA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3r3b22v-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:11:07 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93cc50fb0d2so122478085a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 02:11:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792141867; x=1792746667;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=QIOZtlc4H5WdZ+JHF5mX59cxfjXnkubowR3t/yD78FI=;
- b=GEReKs0bO6A6gInJa9Je4cb9ajkPKSuNBbnJ6d+SRnHVon3yOxssf++4yHaOTV1Hr/
- RY3rsPRNu9vkd4UW7R09R3SBYQyfmvk67RKNJOQTExl3YBG1yHIHLecKG7maxUhL03iC
- zTkpTOKkp0hcYWwTqx+citw689rYX/hBo5TFecjItFYNXJAjTKLNUS5/pxatTlGKE3EU
- 8VkjKEq77oiH1lwjLRtZhNGBLrfm3zIdO/M+tpqVAkquJkAR4H2+SYJd5AYGVd7ONhwS
- LihZSOqBvlaSQPvK3PLhbnFh7XuE2o6gW+RdtcCbLlefYXXG1sBlK9OINChmA0L/o238
- ObBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792141867; x=1792746667;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=QIOZtlc4H5WdZ+JHF5mX59cxfjXnkubowR3t/yD78FI=;
- b=0kbYIao73Ae9NonApmuaoUfaWunRpt07QbzUYOjaUPn6zVQxAVX6YGb54d/BEz/v8j
- Bj1ImFBIKi8D/nmCdJwNALAaE9ukO8wGIwFxCVY4P+p8OEDklSwmQEfS8Nr2sfbNAZUe
- uvKki+2C5vpHi6S5iHFCBB1naZ9rx2y/6bTpoUaB9TWU+8MPoDAVHAn+RvLCjQ6bJ1lO
- Wbw61ZJVUZOe6nm/Afm5vzty314uRHkqcFy09DcrNTpf1Ie9FkfK/E2rrYdhFH+5Ma/Y
- DoqoGtvsTt66lxEYo7DzFo/20VyqQLYK9G5NAhoqiJw8ub6nZbPZC7hvCuUqeq57xx7B
- S6Iw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwUBBw831Bon1B/3hVtH2ynq2YkUsAskLuYHpVZHjim4cxqsjOwiP9L9sE18j6q6GkP+Cw+6MJC49U=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKA07/lcRJwL6bfoJq0eMHCBRmklQco0n61KbyUnLgd9WgNkd+s
- /y75VGsgEu8vCCsy4X+8XK+Rq4lYZGfpA3cYwY9VM4YmDT/mXA5NJke3QZqWrGn6kMVTAceUo5H
- kfWLclBgR8CQL0R3gCNu+TtuYeNFgZ22jy3qGJqrFZlsea9PDxqDY5IpWVwAqmVaNmH2ptqk=
-X-Gm-Gg: AYBFou2ocjwNo2eUu3t3n6WVnM9leSLrkV8VvL2EOyJTd5ShBHSgM2EvA88dpGj1Co3
- 2cBBLASJvsmnXI13Sn0ilrd5L4EEW1phZuYYv3nK1/InY94cGNPTPUCREkTOFuTe819qF5gz3LK
- fWB4nByPTw9DZrJjgNhB89HSuP6iDIsz1JtJBAmNZAT+RIv/k9/OQKe+RJMvnVyrhqh29mQ8w+e
- t4GDzfGYohH/JrjgZfIdMhdcG3mPlNbFynmtPEwu+lDnCO7nNCkyDRAl+0vcFNQSehVWqeChoex
- cXg58GD9FLQT9iNWGaRUQQD1gZP5vIP8oF6MhzEw9Vhw8CYjjuIBK1l+aTtMGEOOgXSTk/3WySk
- WWV7GGCnoU5fADYMn0a1FbQ==
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id
- af79cd13be357-93ebd10c0e2mr4105012485a.2.1792141867064; 
- Fri, 16 Oct 2026 02:11:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id
- af79cd13be357-93ebd10c0e2mr4105008985a.2.1792141866485; 
- Fri, 16 Oct 2026 02:11:06 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4091eb1c55sm54193766b.74.2026.10.16.02.11.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 Oct 2026 02:11:05 -0700 (PDT)
-Message-ID: <e7768d31-a6bf-4ac3-af30-9de313b16ccd@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 11:11:01 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] arm64: dts: qcom: kaanapali: Add DisplayPort
- controller
-To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>,
- Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
- <20261015-kaanapali_dp-v2-3-c15cb83d9140@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015-kaanapali_dp-v2-3-c15cb83d9140@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX/Eb+1j1oYcxq
- m2HqeICC3Qkuv3Zfh08MY43swJrPHSYlcffMI4OV3TCFoCdmx65ivsN0N/E7m0bMEbSlabmhL0V
- FjYN8Eg7NoY153hFSCGMzBenTjlH9B3WO8n7rznPOEjrTdFh05Bd5x7P/gMVDCdj2jWKhskGtfF
- Kgz9g6yLxkI3K//GJ1rPZf1s58+lOmNTy9prem6Ez2GACq/X3ZIdKGlczYjzg1LXvayaqWsFn3T
- MK9Qtd+sUZKcBEpAccFeuv7W0nZMBEzG41tHGvJRT/G/d7X9AN+FDGv2D1lbxXzXg/BIzPd1rNS
- zRstXvsmJSv/ZzRI6xI4KKkZOtnqrjBYY56gSQ+j/us/8N+3OaLPfbp3WVA2uf+ql3Ex8tvDH+O
- XEjKBO+jCF9FigoYKcNnz8i04aj9g8DPTBbIBbmjAe3ckyHFFKxmsCCcdnx4K/D/XfQx3NCLaQe
- Qzu3zsyUc08+Tvjs8uA==
-X-Proofpoint-GUID: VZudRJyIUL_QtLqjZLLQipthLSBVpHyK
-X-Proofpoint-ORIG-GUID: VZudRJyIUL_QtLqjZLLQipthLSBVpHyK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfXzZKkQe2XG0Qj
- bRiYqucxh/uYM//Sed0PDMujF7acbZQeVxlyqdUOZz/Tp+OEsmpAaRI/HcXRXiWtMK8a3JtCe2C
- 35BKYHmeNNbjG59F4FiPdgJdLhbgIiM=
-X-Authority-Analysis: v=2.4 cv=INGXmQvG c=1 sm=1 tr=0 ts=6ad1ea2c cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=dzNGixxSrynEd2cHrbYA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501
- malwarescore=0 suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160036
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5066D1126E0;
+	Fri, 16 Oct 2026 09:11:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EE881126E1
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:11:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8DD8E60008;
+ Fri, 16 Oct 2026 09:11:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035AC1F000C4;
+ Fri, 16 Oct 2026 09:11:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792141897;
+ bh=vvrwRY9A3W0JlUA8O/MOXZoUw4Mh6FR7BUSyyBmrx6M=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VSoPeqBG9mQFLqfzHqkGXHSikotix188+wXReM1xBEBTxicAgyxgMxsO54GuTJwd7
+ qe9NBl1Qw9cEy1VyAtKH8uQrY7gR/dMErca+37HMDZBBudTUWS/kVPgU7nQkRmIYwL
+ EIUoj934659zDERBAHqR43JoDV8jiYeFh7OL01SaNsvQ1IvBPS46P2xVtI/M89zW0d
+ x1XB84yA/1Y3iZ12HFGDyc4xNs4HTbCL6ytwI1r3KgizjYQb5BrlGIn/cQ+XX1fdeg
+ tZJBX6A1F9zyy1hfkGRSP5IkT7AH1GZ37CCqm+MHuzgewwk0sC18HVHpiE1NSKAj/M
+ 1TU1qCcnUUJfQ==
+Message-ID: <sashiko-outbox-174062@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v6 4/5] rust: DmaFence: Replace call_rcu() with
+ synchronize_rcu()
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
+ gary@garyguo.net
+In-Reply-To: <20261016085724.1031766-6-phasta@kernel.org>
+References: <20261016085724.1031766-2-phasta@kernel.org>
+ <20261016085724.1031766-6-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 09:11:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,47 +52,153 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/15/26 11:54 AM, Balaji Kalkonda wrote:
-> Add the DisplayPort controller node, including its OPP table,
-> controller clocks and power domain.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] mm: memory leak of T::FenceDataType in DriverFence::drop due to dr=
+opping NonNull wrapper
+- [High] locking: synchronize_rcu() in DriverFence::drop causes sleep-in-at=
+omic
+- [High] dma_fence: UAF of FenceContext strings via outliving Fence consume=
+rs
+- [Low] doc: outdated safety comments referencing removed call_rcu()
+--
 
-[...]
+commit 900eae064aeab4bf810f0f2081db8a2981b08546
+Author: Philipp Stanner <phasta@kernel.org>
 
-> +			mdss_dp0: displayport-controller@9ad2000 {
-> +				compatible = "qcom,kaanapali-dp";
-> +				reg = <0x0 0x09ad2000 0x0 0x10c>,
+rust: DmaFence: Replace call_rcu() with synchronize_rcu()
 
-sz=0x200
+This commit replaces the use of call_rcu() with synchronize_rcu() for dropp=
+ing
+DriverFence data. It removes the raw C callback and drops the data in-place
+using drop_in_place().
 
-> +				      <0x0 0x09ad2200 0x0 0xc8>,
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs
+> index b67121c7abd41..9efb84c00b6a2 100644
+> --- a/rust/kernel/dma_buf/dma_fence.rs
+> +++ b/rust/kernel/dma_buf/dma_fence.rs
 
-sz=0x200
+[ ... ]
 
-> +				      <0x0 0x09ad3000 0x0 0x78>,
+> @@ -973,59 +971,18 @@ fn drop(&mut self) {
+>              return;
+>          }
 
-sz=0xc00
+[Severity: Low]
+Does this patch leave outdated safety comments in DriverFence::drop()?
 
-> +				      <0x0 0x09ad4000 0x0 0xa0>,
+The deferred call_rcu() has been removed from DriverFence::drop() and repla=
+ced
+with synchronize_rcu(), but multiple SAFETY comments still reference it:
 
-sz=0x400
+    // SAFETY: `guard` is valid until the `call_rcu()` below.
+    let signaled: bool =3D unsafe { bindings::dma_fence_test_signaled_flag(=
+guard.as_raw()) };
 
-> +				      <0x0 0x09ad5000 0x0 0xa0>;
+Could these comments be updated to prevent confusion during future maintena=
+nce?
 
-sz=0x400> +
-> +				interrupts-extended = <&mdss 12>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
-> +
-> +				clock-names = "core_iface",
+> =20
+> +        // Make sure none of the fence backend_ops can access data anymo=
+re.
+> +        //
+> +        // TODO:
+> +        // This would not be necessary if the C dma_fence backend were u=
+sing a
+> +        // spinlock to properly synchronize its signaled state. Fix it i=
+n C and
+> +        // then remove synchronize_rcu().
+> +        synchronize_rcu();
 
-Stray \n above
+[Severity: High]
+DriverFence implements Send + Sync, and Drop is called automatically when
+variables go out of scope. Can this synchronize_rcu() be called from atomic
+contexts like spinlock critical sections, interrupt handlers, or RCU read-s=
+ide
+critical sections?
 
-Konrad
+Because synchronize_rcu() blocks and waits for a grace period, wouldn't dro=
+pping
+a DriverFence in these contexts cause a might_sleep() lockdep warning or a
+system deadlock on PREEMPT_RT?
+
+[Severity: High]
+This problem wasn't introduced by this patch, but does FenceContext have a
+use-after-free issue with its strings?
+
+The safety comment in get_driver_name() assumes it is only called on unsign=
+aled
+fences:
+
+rust/kernel/dma_buf/dma_fence.rs:get_driver_name() {
+    // SAFETY: The C backend only invokes this callback with `ptr` pointing
+    // to a valid, unsignaled `bindings::dma_fence`.
+    // ...
+    let fctx =3D unsafe { Self::from_raw_fence(ptr) };
+
+    fctx.driver_name.as_char_ptr()
+}
+
+However, sync_fill_fence_info() accesses the driver name when userspace que=
+ries
+the sync_file info, and it calls get_driver_name() regardless of the signal=
+ed
+state.
+
+A consumer holding a sync_file fd can retain a reference to the Fence long =
+after
+the driver signals it and drops the FenceContext.
+
+Furthermore, by replacing call_rcu() with synchronize_rcu() in
+DriverFence::drop(), doesn't this completely defeat the rcu_barrier() in
+FenceContext::drop() which was meant to wait for these tear-downs?
+
+rust/kernel/dma_buf/dma_fence.rs:FenceContext::drop() {
+    // Wait for the RCU callbacks in `DriverFence::drop`.
+    rcu_barrier();
+}
+
+> =20
+>          // SAFETY: Valid because `self` is valid.
+> -        let rcu_head_ptr =3D unsafe { &raw mut (*self.data.as_ptr()).rcu=
+_head };
+> +        unsafe { drop_in_place(&raw mut self.data) };
+
+[Severity: High]
+Does this actually drop the underlying data, or does it just drop the NonNu=
+ll
+pointer itself?
+
+Since self.data is of type NonNull<DriverFenceData<'a, T>>, &raw mut self.d=
+ata
+produces a pointer to the NonNull wrapper (*mut NonNull<...>).
+
+Because NonNull is Copy and has no Drop implementation, calling drop_in_pla=
+ce()
+on this pointer is a no-op.
+
+Will this permanently leak the actual user payload T::FenceDataType located=
+ at
+(*self.data.as_ptr()).data?
+
+> -        // SAFETY: `call_rcu()` is always safe to be called. `rcu_head_p=
+tr` was
+> -        // created validly above. The module must perform a `synchronize=
+_rcu()`
+> -        // or `rcu_barrier()` call to guard against module unload.
+> -        unsafe { bindings::call_rcu(rcu_head_ptr, Some(drop_driver_fence=
+_data::<T>)) };
+> +        // SAFETY: The `synchronize_rcu()` above ensures all accessors a=
+re gone.
+> +        unsafe { bindings::dma_fence_put(self.as_raw()) };
+>      }
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016085724.1031=
+766-2-phasta@kernel.org?part=3D4
