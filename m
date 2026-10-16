@@ -4,160 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4872CCA48B
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 10:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65685CCA464
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 10:11:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4167D10E0BE;
-	Fri, 16 Oct 2026 10:10:07 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77779112732;
- Fri, 16 Oct 2026 10:09:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792145400; x=1823681400;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=CocWOINojaexqxzKS8w1xJBhW/9vkl39vn3QppISWLU=;
- b=ZSJX9Hr2/rZcXVqcHBcg5zvdXYDPhBqtkrxKlhN+8Ws4yB1RdLPTeF53
- YmB36SIZR5xMB7+qF1i9SstbVSBd3xL7A5QkyGs5lQCLPNbB5pOPAtMqv
- tzGuPWH+4qCPVS9qKS3gijwVCBHBEvK/B7qHRpJLDu4kWeFCdmhAySKpy
- dFL2YTACaL1awgheImdDwqCexLv0oAUDAJFnjC31REQTrmD7NfDRZgIDt
- b3qye0PkVEED9HTLv0swySjAhOUPw4NjboCYULJd5DNbBEOYdoquUCCuq
- 3yyyJno/DydmDnzglUnlYEvJIbsJa71iBEF7wIlCy8RVoMgNA0tHZl8CS g==;
-X-CSE-ConnectionGUID: tEgq2AQuSEWbS1rAUU5Lyg==
-X-CSE-MsgGUID: ZWBEzBR8Tcmlmn5WtMt74A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="812778"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="812778"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2026 03:09:59 -0700
-X-CSE-ConnectionGUID: 4O7HjPRFTiS41UF/vIXSOA==
-X-CSE-MsgGUID: hE186P24TV+6wyiP7rClNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1888330"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2026 03:09:59 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 03:09:58 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 16 Oct 2026 03:09:58 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.51)
- by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 03:09:58 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEC5511275F;
+	Fri, 16 Oct 2026 10:11:03 +0000 (UTC)
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013029.outbound.protection.outlook.com [40.107.159.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2412F112734
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 10:10:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NNBZBkSgnvnqJ0Xa2xzBPYCJ1GIvtgAz2lbxRLzarb23o6kvGbsw0KnkkOBs2VSn+lQUoKFqcs9hhCyCpkziqehAGb23bCrGr4K2VFfehFNb0AdZyJLRXlwdycLqEG+2garalO9LUxXxY3HIx8btcuK9+Bh6Fw6wbQ2LlPKuilrSkkGeWUAFKqaxV8yLrnpvFeQlSCpN4NrHr47ju8DSI7dY4E8gNI6VaP+o4hWNUM1g7D+Ft/M8TYwdOi99pc/ADe5wns0hnoKDJCsqLSYWTHhPoibhjZs0gV+PNv6XTAMAUnMa2djdxay9O2ywPERh1ceQLltHdr66dVlaOli5QQ==
+ b=MOMgLdgAgVaD4e/cdrx0v6Vjf2hRf0mDTQJXAYZixhmS+gC85/Ub5Ce/zslcYqrb0h65n+EJ1I5hEDkeMbckTCXC0wMM42ZOV4lQDeiIreUXh8wuYfhqAxWmTL88JCaqPfcBu41I36v8l3GX27L7R9S8jWamYCUACdF0NTJP+8hKP3TM6UcThTKicsfKHdeL+hl+gccqd/fdr/bqWlEn6hYfk6cAZ8plCyM9fqgG3itPG3VicZKF76fdERG5/1jhElOR1uKVcaDEsCwLFEXC8fY3to2NtvuzmmZXldkRQIKplFalmuKmtUXAn6qOA20ymD+JcRfvQEyeABKWq0+zWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C7Iei5JB18MLCPQn5CzJtXok1z4RaH5p9eCYtZzNDxM=;
- b=YSIrHom0e6Mi8blwIqTEQ66KxAivNhLGLdyKhQPYyizSFmsdBu75IzxdYujleag8AReb5Lxh6J6b+QZUENLQekk+90rUGjqnUqLq8lSijSGL0qgkOopAeGHbQA1kH8V7L8MSNiEwcTOHqNfZ+udVWL/xnE+/I13Wf3BHLLNkRFIhb4Y+ZqWvOSJgJ4O9NDpO+AA/2G017dHriPh7UG+0lKfF5jClGKNHcziY33b1ZYNoAwxM9WXQ29Amwx+VZCejwsmlpokvO8nqhmlaO8PkRVf86S5MyJr1idjdjYgl5au8EDsvew84nezKU4ZS0VzJgJs/tIp1sS9WLI0vJzsN+A==
+ bh=dNmK3WW1lSkcbfVgEGvwGsj9SUPIW5Hee/qC35RHhbk=;
+ b=wwaJmSuSAghoT3j3MHoY6Xmj7kTgxMconQ5zpeOyXzibeP3/Da1LWbnANU8xBMYAoJaWNkAmyusJuy74MpoxtJMZaAQOTmI1Ftm0eZoNJkFTvc5l0MI+0BcLgsEND6BL/tQMjK3LENgv8byhe3ZAq/SxriVDgI9VNwYQJCS8gwQSdvK5wztW3AjbhI4Pr8ZIRRRlA6eSU1roKvb+ULe/FsNxBgP3BRVNKoRiPKo0S+FK4ZDMjRQlOJLSsaohZ7LqmzaxMqlK4yNz+z6vhB9ad7dFl2iRfiwZJii2YuL4n0V+2oqS3tYHSPNjKGdT+hILBpEU2Itvhl411RtPwblEkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dNmK3WW1lSkcbfVgEGvwGsj9SUPIW5Hee/qC35RHhbk=;
+ b=hdXftFygbi2/cRMGlF9Mv+efjHSFeFxDkw8C2M4Qll+Bm9peALD+9OpCTeiO4iI888IZIeQzapTX72s0Foo8SKuDremRCaLMO4u2HPW4BaPOfomrIndbJofBgTTr0Cu3TxGBP+zof3LzSLCT3zeA+FjUKDHTXoaTpVJ7TfvGomU7DFK0u+MXSamI5zKpDIwmruVMaVIXljR007BK+ZwogBN6o9q8E/psdjKrOuF2KUWSWgCsZw7Q1OfPYAwG8zXJlCi08bxDirA543vH2gj8op+MZbsCIXDl7D9uxG2o8YMmJi8RVKsW9yNDUuQsXexn49AlYicR7Wv9iXHZ8ptm8g==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8208.namprd11.prod.outlook.com (2603:10b6:8:165::18)
- by SJ2PR11MB8469.namprd11.prod.outlook.com (2603:10b6:a03:57b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 10:09:55 +0000
-Received: from DS0PR11MB8208.namprd11.prod.outlook.com
- ([fe80::ecb0:7475:84de:ca9c]) by DS0PR11MB8208.namprd11.prod.outlook.com
- ([fe80::ecb0:7475:84de:ca9c%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 10:09:55 +0000
-Message-ID: <1d3f9198-722d-4d1b-88ef-94ba778ed05b@intel.com>
-Date: Fri, 16 Oct 2026 15:39:48 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] gpu/buddy: Prune exhausted subtrees in range-biased
- allocation
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- <dri-devel@lists.freedesktop.org>
-CC: <intel-xe@lists.freedesktop.org>, Matthew Auld <matthew.auld@intel.com>,
- Joel Fernandes <joelagnelf@nvidia.com>
-References: <cover.1791802549.git.sanjay.kumar.yadav@intel.com>
- <ef9c4d0b6368b736ce639cfe6258f43b0ab6ca10.1791802549.git.sanjay.kumar.yadav@intel.com>
- <808d1a18-9bcb-43a9-bc15-723d84395d05@amd.com>
-Content-Language: en-US
-From: "Yadav, Sanjay Kumar" <sanjay.kumar.yadav@intel.com>
-In-Reply-To: <808d1a18-9bcb-43a9-bc15-723d84395d05@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0055.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b8::6) To DS0PR11MB8208.namprd11.prod.outlook.com
- (2603:10b6:8:165::18)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by MMZPR04MB783605.eurprd04.prod.outlook.com (2603:10a6:190:45::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 10:10:52 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 10:10:52 +0000
+Date: Fri, 16 Oct 2026 18:12:27 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
+ Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, "Oliver F. Brown" <oliver.brown@oss.nxp.com>
+Subject: Re: [PATCH RESEND v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI
+ horizontal sync timing
+Message-ID: <atH4i_KcmccKb8Ge@raspi>
+References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
+ <20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
+X-ClientProxiedBy: MA5P287CA0230.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b1::14) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8208:EE_|SJ2PR11MB8469:EE_
-X-MS-Office365-Filtering-Correlation-Id: 089a23fe-a9db-467d-f542-08df2b6da066
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|MMZPR04MB783605:EE_
+X-MS-Office365-Filtering-Correlation-Id: c853cbb8-5185-4236-716a-08df2b6dc22f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|261009223027099003|56012099006|11063799006|5023799004|4143699003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: bmIroVLsRhMDgG4xMRBSbTMXILXDf5/c6bLRmJagluBc9jZ/A6F5yxIZbNiB5V8F7jMPIgsfAcks0YkohT8HZ2zDdIb5dvm+M7OEwwcEDVdU3DnTHlDFZuqxy8bljZZAcukHBA/JvNYvshZzNTIRkyynvLbdn/84XhS0VZbsZVh37u71X0BOEJ0vSHUXiJYCgHMdFAOBQI3r/NP43Lhf7BcuNCgriH/UuD9R2BJIjjbVsew+x76FHX9LiZ1zJPnwFiHnQ4gGro5bLqUGrzHG5thpOophmzx1xkNt+cuZWmdoWUwf5yEEK1SaSllYwAPjDlAC/wbaYkgtKb2AzKHatf1T1yThw3urID21O3sLy5BRSnE3Wsox63jv92d8iduHlwDNjVktrXT4WfbKy223AM2AESpPzqVhIO+/XuGfM+e8h7R48x9hvjV/wT2ipMHedPTckrkOpyOYzYLE1nj65ShBoH7Qsogy4pQTkDqoaLkrEer57OviWKkAnST+0wAfp8Tegs6i5Q+pPCM5YjxoDnurEQJ8EWUL2mGiOCegD7snpA04gSzQMjIqMiItfM3O/DuP4zfKaS0TWTZzGihxekbUs2hhwCavPA28Mwhlsl8fd5GVun34gngUAAjZ9rym/jUWRdcrKm4uVQbTR3lOcH4Hh0xj7VDQxBn+OVipi/U=
+ ARA:13230040|19092799006|23010399003|7416014|1800799024|366016|376014|18002099003|22082099003|10067099003|4143699003|261009223027099003|261009221227099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: CGuur9YjxRYUyxiE9nOoofRG63RDw/IIg0nANHRcGSTwZBJMOWuMivtcZI1ZUoeujYSg32LNCAy5mT0VVRbidIxUP/uUCxuQMepCmIIrfetdi2qPk+67W3CSFH4bDuc/iBEuOWQ7yOYH0W1KWv/okNoGQcjeUYcKVJBTbBQV5eIs5gNaM6nQJDsfYkWYj/d3yK0B8HRl+9u7S7lrgZ1uIFh52mIBVbJwBAIce4HOL3ZCAKA9B1WbEtSI8EXhd5bxUif6ypdQookCPjr72W1wimnZmiimahiY2WC6O6v5Q0gJjIhbIfZXyNKzz40cqyTt/6eaYy5xEcukOGYMQZPoHoLExO9LTW9Hn+kuh9kcOKSWzUpPhFY9uTy31xnq9lqADoRWRqlyDl3+Attc8mfKe7xxkpEO5stO9cFDz68SzSxgILta4zkiHPTJvW9ZvInITSTkuQrudO30JKhhrzxJF5WDyQQE0ppWOkOX79ULoNNAsM/q+NpVoYaxYTQfYaZzgy5z3ZJVsWNrefLy6hV7ksKNTfCP6N851C4sryVo1FVixbPLwA5CRBPLGOxfUxXG2Eiup+p3hcnvMFl4Tyvh4WEteKLeLxc0uU6UrdwarJpmGEea82C1PZPxTnMOBKGu1/pAKPfyfQGj2kyUOG22DNoECbX2uQT6NsYmVn+3Eec=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8208.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(261009223027099003)(56012099006)(11063799006)(5023799004)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:MI9PR04MB350878.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(23010399003)(7416014)(1800799024)(366016)(376014)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(261009221227099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TG52bG83Z09DOFRCc2RXS0FtQVliVXpPZEo3N3g1Z1BZSjZUQURONFJKcW90?=
- =?utf-8?B?SEpUQ203TWI5bEs1OWtBY1pGUllncGtuYVJBQUNDTjN1RXRpY0toQUF0ZFhz?=
- =?utf-8?B?MWxaZWNCVHFRNjM3VmZlUWgxc29samxMUHpvSlF4Z3VrUDBpS0F3TWphZzZN?=
- =?utf-8?B?VTN2a0R5d2tKbnJwdFRpNGtDRnJGN0p2djF2OE5Ia1NMYkJIb2txbEdiWUJU?=
- =?utf-8?B?S1dXQkdqclpiR0xWdThiRWpTazkzRHNCR0RKU2FLVzhCT3FnT3hPc3FZOVhE?=
- =?utf-8?B?ZlQwZ3JxZEw3eFRCbS96QnFBTGdXVHRldFZPVmpYTjlpN2E4cVNSOVhHcm1J?=
- =?utf-8?B?bm0zOEdHUmU1M0d1NzQrT2VDbzBGRkdLT0pPUElFUXNnSzY1ZGpWSGFHczFu?=
- =?utf-8?B?dmx4aEhnRCtlTEM3Mld2a2psM0FlaEpwTFJNZHZ1SHlmOGNsOHVkU2UzMkx3?=
- =?utf-8?B?SFpQdFdQY094TU92ZWFuMVhSUUx0NEM0eHJpa1dRaVpQdERYZitGVUZ1NDlt?=
- =?utf-8?B?R1RDTlZNSHpqY0FSRVB2WTNwYnh5NFdyQUlNRGlqSUpIUDhsQVhXWGpOeGdM?=
- =?utf-8?B?Q2drQ2JPSWlQSWdzZlZWejVxQ1JyTEN5a2FTN05GMms4Z2M3dlpVZnIrcHRE?=
- =?utf-8?B?KzFsM1I0UThlVUJ5V0dYQkpRbFNwNy9NT203cGdNQUdTcUZkR3NKOXhOalUw?=
- =?utf-8?B?Q1gyYmI1Qm5PSDE5T2tsVWNxNHYvY2RPNVI4S044dTBuQVh6RHVtYm5CYlJZ?=
- =?utf-8?B?NWlhdVlWTTVFU1c3TlBxdUptUEFDVEw3Z1ozb2pGVVJNaVZrVWRkeTZjYkk0?=
- =?utf-8?B?ZVEzRmtHZFJLQUxXSkdEQWUyRkhGVDVpSE83UEFhd2RYZXNUaTlwd2lKMWsz?=
- =?utf-8?B?QnVLV3JmN1p5eXVBQ2EzcnE5YTZnTnA1WHFwY0oydTErcnpKN29TTm0zemt5?=
- =?utf-8?B?VEZxMndjSFlMSWw1UTBnbzFLd0w0c0IxRGk4bnBBcjhyOGxack5GQUtJUmNt?=
- =?utf-8?B?MXI2c0s4OTZGbzk2VmE0TS9jcStyUkdQZEJrQ3FXVUNzZUx2VGQwNGNwcklq?=
- =?utf-8?B?c29TZGU5UCt3MjNPQUQ2VE1sU3dOVlJsdnIrcFo1ZTMvV01mSE9Wcm5TUUIx?=
- =?utf-8?B?N2NGb1l4TXQ2UnZ5c2RBVXdwbjJoWDlsM0VWcGVIMytKdjlORVJuV2xhOUZQ?=
- =?utf-8?B?bDZxOW1Kb1Y4aHcwQ1c4QzhncmFlU0tZSkNaS0QvN3hKaXBzaW1qWTJtaElw?=
- =?utf-8?B?VHZKLzJRcWVyOUNkNGtBUjMzNXcrd0JCVjUwZFdKTEdYY1hSckFTYU8ydDVl?=
- =?utf-8?B?U2FRYTlFdEhMZWZReU9xL2xuNFpwNU9VSFIzamJjY0ZyNFZRa2JYNHZOb3hT?=
- =?utf-8?B?SEtNUjUvcndZc2x1Y0U2QXdmRitpTUF2Ym1tZndKSHI4V0tDQ3Z2aE1MMlNw?=
- =?utf-8?B?clB3aUJwMlJ1bTlwRDBBM3BGV003VWVJOFpjSDViY0FyOFNQNElhRHNVRFBK?=
- =?utf-8?B?Qk94dTJaWXp1R3AvUzBkMkZsL0tmNXJuRzYvZ083WDJ2bVpnckQrK0lwZS9M?=
- =?utf-8?B?Nm9ISnZIelR4QVdyQXNmUTZNREFtb1J0UWtLSmlhL28zaGx0M3NoeU5YYmdR?=
- =?utf-8?B?N0tUSDM4V1RNbkh6SnVuUDFFcTArN2lhMktXd1lmZkVIOC9RZTI1VnFFRjZT?=
- =?utf-8?B?UUNYWkx1Z3BqdUgvKzdHUi8xendnSWxCcTJuWTdCU2VXb2VRWEJtMUdJZFVV?=
- =?utf-8?B?UiswSFh5TDVhZEFmMWNtYkhCSG0yYzV3eU5vcm11WHRtQmwwNm05ZCtXWkhr?=
- =?utf-8?B?cWRFM3dZQU9vclVQUGFZejV6aEliWlR2NVN5RUpKbVkydWNRcStRSWNERjFy?=
- =?utf-8?B?TE1DT0xKQXRXQjd1VXFPZmFUallqY3pwdkg1K2Y2TUtEc2l0S1RVUHgyMjk5?=
- =?utf-8?B?Q2dZdDFFWlh0MWRsUDF4QlNjdXlTa1I2dGFmR0FnbjZWRS9rYTFhN0gyVHJM?=
- =?utf-8?B?Si9RZ05VdzluS1BXQ29DaVNTbkNqTC83Ykl1dWZVNmJpclB6YVdwUFdFSVhz?=
- =?utf-8?B?YUdMdnVmanNvNWJtSDBjT0dTNnhYYkQ1Z1JEUGpNSmJiYVpPb0lPaXJ1VmUr?=
- =?utf-8?B?Q3lNcW9QTEc3Z05Ia3g2WHEzRVhMbVhSdFFDNkhVckJaT3pXVDZFdmhMSlBH?=
- =?utf-8?B?cmpkN3F3S3A5TEQ4SEI4Uzh5MUFPVlpUOStEaTErYUsvSG90VjhqMmpYREtP?=
- =?utf-8?B?L3FvYzJMU1lJTVNUNkZhY1VxT2JlRmhDTklQUnN5VkJkZThJNWhTUTVWK2ZR?=
- =?utf-8?B?TGhidEJvMXg1L010WlUzVFpLcytrem5MMCtyc01QZGF6WXY1bjB6bHpJOEQ3?=
- =?utf-8?Q?2n13xCCHbYFAlCZ0=3D?=
-X-Exchange-RoutingPolicyChecked: ygMBTNBHmatOs928MrVDrHxeZcBsy1yZSIUiGrMDtOsISBln+LvMy05ZT93/uBOUECio2FnFaQs/AvdSz4WAouBgiNA91qdC5ZN7yqGKmUt8NINh2dUZrntR6jIhFR8yrgMUyC4LLBlXSNGvoys3GHtAczN+T6gZVs60aJA9prBMQH4/h+io4YHtVJsSNDqJtkkiyztTXsw3jSjjkHPza6YYdHlYY9ydiGU4ALruJHMMZnstah+3KWkLAqRuZBZNP2bHaWohXavVMJ0IzQoedlFBNEY7IHjEoLauuyxQh1fRnXNU00i28jJjF5w4yOVXUrSmfxYqqCpgztemHf6LhA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 089a23fe-a9db-467d-f542-08df2b6da066
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8208.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GTPTT/mSNXeOhtL4A5P7VewxQ0Is8wUogUBDymCwicNQgeSiJKOOdUAGGEm+?=
+ =?us-ascii?Q?KCqqwTn88S91G0TxxQ5x/aia2LMp9GcJaA3RDANxQCox8lEFXgemDtUBtSnc?=
+ =?us-ascii?Q?gTlwE3L9J2Tcd3l/AQFT0O+e1HWXczFhNp8RpnYwuAbEMqNML6aQVA2jSXjp?=
+ =?us-ascii?Q?N5+X28EBLtQyD2a6otoGoXxnshmQa63laJzgU3zrvd/sheqBrwCD+97BOoeZ?=
+ =?us-ascii?Q?ZSMk41NOvYKNrKiK3lbeCp883S7yILeWuIeQjNPc24a3Vfp+tmYr1VJqKNJf?=
+ =?us-ascii?Q?4dQzp+eIsbrjasQhNOdPjJTfnJiioBpofeBhB3uxWAYOtCz0vLKgl3heN1Cs?=
+ =?us-ascii?Q?/UFFGPHc8/8j7yT+F4vD+3CeekUxXnR3QEaS70ELmB+Quy2WdMXyEAiAMxuG?=
+ =?us-ascii?Q?XrAh6VkdD/fSf3mocLsrGHkmxp3Bn2zV8gwY03l9vKL2ipLBofVqnDyAeYkb?=
+ =?us-ascii?Q?5Em/7+N0ZOs4OBlGcKkFQUYPu0s92GIA6zkyJGQQZC0f3GTrzjHN2P+B71bM?=
+ =?us-ascii?Q?0WJFxqVGwHZa9cKR8CqvZPWCijFbW8rwIiw9GnMITXjKkGx3uMHpGEnk9yeD?=
+ =?us-ascii?Q?AD13+Cpv6mS/XtDbexYMF1+53kD4n3St+QiABozqTNhvkcgJbm4AxT6s6Yzv?=
+ =?us-ascii?Q?p2I/CyB+eiT9YMgzS4QYoOD4REWCvSb9xmZzD4Js+imVT3O0zHlnbcThs/vN?=
+ =?us-ascii?Q?eyVmbbOFRMq3GlppLJvcHvP2K+BWPjDBeLcolBxcT6+H2k9BGcpNongkdu6X?=
+ =?us-ascii?Q?w7eDqX+DkcvjFjrXiCUFWBIKs/oUcNkjqvmxBpXmHbT+SpyzYby4hgZ19Eme?=
+ =?us-ascii?Q?rSV/8W2OV/LNv3stSd6A2g1ZI6+wbGLLoMRBS6JcSGZ4DjOY3MLkba2dS9/9?=
+ =?us-ascii?Q?OFqbgEHw+dIyTRU1kLMLOg/wbtJPyVheqNL4+iE8iW2ua9C7qRrOcl8FDDwZ?=
+ =?us-ascii?Q?Dwzk8rxZko6PVundbnBDGxX+9yun/1/jQ++ckkSGnNqOGO+XrZC2bP+NR7MY?=
+ =?us-ascii?Q?IogkDOD3Lji5fyZA+AtIEnStL0VyKJtiSD42zLC80Y77hPm4QCkGvkSzmZWm?=
+ =?us-ascii?Q?EHWgpuaa/KmOvay5koPq7qzEdOC5xHklpTN+evZHcWXLojB/0fwqHQWxC/1z?=
+ =?us-ascii?Q?MUSFAYYgzgNuRQle1zjFAGUFUwq32Mfv9mxihj5qNV4AVGLyslg5NRuGdgqr?=
+ =?us-ascii?Q?gmABaJho8p0Ta2h3lv93aPtDJmx1NVVae+rJ88FuR7eV+QTuObbdK/Wezy80?=
+ =?us-ascii?Q?pmjardcH5WnjaBIVcqAM7sADZjBCyoBE1mXjCEdNqELTuhf7hsDcl8r4eBo0?=
+ =?us-ascii?Q?wUkozdBU5zUPjx8YMM0/LZ4+N4bMKtj46Sn7MsZAeVt5V9xsaDJhx2sCabYy?=
+ =?us-ascii?Q?fkR0nMamrJW5/sWmMB1v8UogoNoR8pHCZyEQW1Mn7hbrqa908Nrj+lFgta32?=
+ =?us-ascii?Q?K18pM1ruegTYqmcbco7pcjJ16gwu6Zow8rhB3Krg72QLWcU9+We2/YIqOTSJ?=
+ =?us-ascii?Q?2L+kPQHIk0yKWjvKEbjkSwcFh1av5qH4SfSCfOUIkP5yc95QNR8344CEgMi2?=
+ =?us-ascii?Q?g8bddZaKi2s89At5H+CLfvbN2dIVl4bCzKQ0AajWSgBfm6JDqDNzVzGUZQ2v?=
+ =?us-ascii?Q?Qot6UWJpbwuAhJEqU+6PmC2X3nMzJqlYuw0wJA0iLU+/bJ8GJJxHwgiU52AL?=
+ =?us-ascii?Q?APVbeiNAPwazIZTPQ3bFMg21Ditm8z7xG/A6Eh87cB9+P+CbEbcJvu5SbaCH?=
+ =?us-ascii?Q?OFKaoLPyMQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c853cbb8-5185-4236-716a-08df2b6dc22f
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 10:09:55.4330 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 10:10:52.2258 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P0XK8aWWIkeV4ApN0Cl8qwGjJcbkdhYS5SD2g2PAXckJgvRySvHcLwDbx160jGqTEyIN0pX8ZPfeljKIfJphtuh+5Xs4PixEnEgxkYL+neo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB8469
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZUJHjfsh5P+JU84oMqqD7AU/bXxKQGH1v0WtQKzC+kFpqnTquRx9P7mgBrM7m+jKSDiXEgi+JJ4W6B+KLhxQcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB783605
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,170 +134,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, Oct 14, 2026 at 09:44:45AM +0200, Esben Haabendal wrote:
+> The NWL MIPI Host controller registers specifies the horizontal front
+> porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
+> not in pixel clocks).
+> 
+> The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
+> the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
+> Manual (rev. 3.1). The formula shown there does not take packet header size
+> into account though.
+> 
+> The formula implemented here converts the hfp, hsa, and hbp to DSI packet
+> bytes and then subtracts the number of packet header bytes.
+> 
+> It is worth noting that these values only needs to match approximately,
+> according to the reference manual.
+> 
+> Based on commit in NXP vendor tree
+> commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
+> 
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> Cc: Robert Chiras <robert.chiras@nxp.com>
+> Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
 
-On 13-10-2026 10:18, Arunpravin Paneer Selvam wrote:
->
->
-> On 10/12/2026 4:40 PM, Sanjay Yadav wrote:
->> __alloc_range_bias() walks the buddy tree depth-first, higher address
->> first, and descends every SPLIT block even when nothing below it is
->> free. Range allocations are placed top-down, so they pack below the
->> range end and each new one walks every block already allocated there:
->> O(N) per allocation and O(N^2) for N allocations, under the allocator
->> lock.
->>
->> Track in each block the largest order of any FREE block in its subtree
->> (GPU_BUDDY_NO_FREE_ORDER if none), update it whenever a block changes
->> state, and skip subtrees that cannot satisfy the requested order.
->> gpu_buddy_block_trim() detaches the block while re-allocating inside
->> it, so recompute from the parent once it is reattached.
->>
->> Skipped subtrees contain no FREE block of the requested order or
->> larger, so the old walk could neither split nor return anything there.
->> The remaining blocks are visited in the same order, so the selected
->> block and placement are unchanged.
->>
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
->> Cc: Joel Fernandes <joelagnelf@nvidia.com>
->> Assisted-by: LLM
->> Signed-off-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
->> ---
->>   drivers/gpu/buddy.c       | 31 +++++++++++++++++++++++++++++++
->>   include/linux/gpu_buddy.h |  7 +++++++
->>   2 files changed, 38 insertions(+)
->>
->> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->> index 2f2aaadafe35..7a975873238f 100644
->> --- a/drivers/gpu/buddy.c
->> +++ b/drivers/gpu/buddy.c
->> @@ -602,6 +602,7 @@ static struct gpu_buddy_block 
->> *gpu_block_alloc(struct gpu_buddy *mm,
->>       block->header = offset;
->>       block->header |= order;
->>       block->parent = parent;
->> +    block->subtree_max_free_order = GPU_BUDDY_NO_FREE_ORDER;
->>         RB_CLEAR_NODE(&block->rb);
->>   @@ -717,6 +718,27 @@ static void rbtree_remove(struct gpu_buddy *mm,
->>       RB_CLEAR_NODE(&block->rb);
->>   }
->>   +static void update_subtree_max_free_order(struct gpu_buddy_block 
->> *block)
->> +{
->> +    while (block) {
->> +        s8 max_free;
->> +
->> +        if (gpu_buddy_block_is_free(block))
->> +            max_free = gpu_buddy_block_order(block);
->> +        else if (gpu_buddy_block_is_split(block))
->> +            max_free = max(block->left->subtree_max_free_order,
->> + block->right->subtree_max_free_order);
->> +        else
->> +            max_free = GPU_BUDDY_NO_FREE_ORDER;
->> +
->> +        if (block->subtree_max_free_order == max_free)
->> +            break;
->> +
->> +        block->subtree_max_free_order = max_free;
->> +        block = block->parent;
->> +    }
->> +}
->> +
->>   static void mark_allocated(struct gpu_buddy *mm,
->>                  struct gpu_buddy_block *block)
->>   {
->> @@ -729,6 +751,7 @@ static void mark_allocated(struct gpu_buddy *mm,
->>       mm->used_scoreboard[gpu_buddy_block_order(block)]++;
->>         rbtree_remove(mm, block);
->> +    update_subtree_max_free_order(block);
->>   }
->>     static void __mark_free(struct gpu_buddy *mm,
->> @@ -750,6 +773,7 @@ static void __mark_free(struct gpu_buddy *mm,
->>       mm->free_scoreboard[gpu_buddy_block_order(block)]++;
->>         rbtree_insert(mm, block);
->> +    update_subtree_max_free_order(block);
->>   }
->>     static void mark_free(struct gpu_buddy *mm,
->> @@ -772,6 +796,7 @@ static void mark_split(struct gpu_buddy *mm,
->>       mm->free_scoreboard[gpu_buddy_block_order(block)]--;
->>         rbtree_remove(mm, block);
->> +    update_subtree_max_free_order(block);
->>   }
-> Just wondering if touching mark_free(), mark_allocated(), mark_split() 
-> which are hot-path functions, could have any performance implications.?
->
-> Regards,
-> Arun.
-Hi Arun,
+Worth a Fixes tag?
 
-Yes, I measured the impact because these are hot-path functions.
+> ---
+>  drivers/gpu/drm/bridge/nwl-dsi.c | 60 ++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 57 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+> index f3f4334136c0..eb604733eea0 100644
+> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
+> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/reset.h>
+>  #include <linux/sys_soc.h>
+>  #include <linux/time64.h>
+> +#include <linux/math64.h>
 
-update_subtree_max_free_order() stops at the first ancestor whose value 
-remains unchanged. Across the tested workloads,
-it walked approximately three levels on average, and around 88% of calls 
-stopped within four levels. Reaching the root was rare.
+Sort the header files alphabetically.
 
-Cost on the normal (non-range) path. Existing gpu_buddy KUnit 
-performance tests, drm-tip vs drm-tip + patch:
+>  
+>  #include <drm/drm_atomic_state_helper.h>
+>  #include <drm/drm_bridge.h>
+> @@ -264,6 +265,9 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+>  	bool burst_mode;
+>  	int hfront_porch, hback_porch, vfront_porch, vback_porch;
+>  	int hsync_len, vsync_len;
+> +	int hfp, hbp, hsa;
+> +	u64 hs_clk_rate, pclk_rate;
+> +	int h_blank, pkt_hdr_len, pkt_len;
+>  
+>  	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
+>  	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
+> @@ -317,9 +321,59 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+>  			      dsi->mode.hdisplay);
+>  	}
+>  
+> -	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
+> -	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
+> -	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
+> +	hs_clk_rate = dsi->phy_cfg.mipi_dphy.hs_clk_rate;
+> +	pclk_rate = (u64)dsi->mode.clock * 1000;
+> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_clk_rate: %llu Hz\n", hs_clk_rate);
+> +
+> +	/*
+> +	 * Calculate the bytes needed, according to the RM formula:
+> +	 * Time of DPI event = time to transmit x number of bytes on the DSI interface
+> +	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period / num_lanes
+> +	 * ===>
+> +	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes / (8 * hs_bit_period)
+> +	 * ===> (substituting period = 1 / rate)
+> +	 * dsi_bytes = dpi_event_size * num_lanes * hs_clk_rate / (8 * dpi_pclk_rate)
+> +	 */
+> +	hfp = DIV64_U64_ROUND_UP((u64)hfront_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
+> +	hbp = DIV64_U64_ROUND_UP((u64)hback_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
+> +	hsa = DIV64_U64_ROUND_UP((u64)hsync_len * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
+> +
+> +	/* Make sure horizontal blankins are even numbers */
 
-Test                                            drm-tip        + patch
-Fragmented allocation                            139ms       154ms
-Reverse-ordered free                            91ms        96ms
-Contiguous alloc after fragmentation            8ms            8ms
-Repeated 256 KiB allocs from fragmented pool    14ms        14ms
+s/blankins/blankings/
 
-For platform approximately 12 GiB VRAM and a 4 GiB BAR: xe_pat 
-pt-caching-random-offsets, per window of 16k allocations.
+> +	hfp = roundup(hfp, 2);
+> +	hbp = roundup(hbp, 2);
+> +	hsa = roundup(hsa, 2);
+> +
+> +	/*
+> +	 * We need to subtract the packet header length: 32
+> +	 * In order to make sure we don't get negative values,
+> +	 * subtract a proportional value to the total length of the
+> +	 * horizontal blanking duration.
+> +	 */
+> +	h_blank = hfp + hbp + hsa;
+> +
+> +	if (h_blank) {
+> +		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
+> +		pkt_hdr_len = pkt_len;
+> +		hfp -= pkt_len;
+> +
+> +		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
+> +		pkt_hdr_len += pkt_len;
+> +		hbp -= pkt_len;
+> +
+> +		pkt_len = min(hsa, 32 - pkt_hdr_len);
+> +		pkt_hdr_len += pkt_len;
+> +		hsa -= pkt_len;
+> +		if (pkt_hdr_len != 32)
+> +			dev_warn(dsi->dev,
+> +				 "Unable to subtract packet header length fully: %d left\n",
+> +				 32 - pkt_hdr_len);
+> +	}
+> +
+> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
+> +
+> +	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
+> +	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
+> +	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
+>  
+>  	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
+>  	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
+> 
+> -- 
+> 2.56.0
+> 
 
-Metric                                        Without Patch With Patch
-Average range-allocation time                78-793µs         340-494ns
-Blocks visited per allocation                16K-147K        38-39
-xe_pat pt-caching-random-offsets runtime    ~48s            ~0.7s
+Not sure if the fix is 100% correct, but it is a correct direction to
+change the blanking packet payload size from in pixel clocks to in bytes,
+so better than no fix:
+Acked-by: Liu Ying <victor.liu@nxp.com>
 
-Yes normal-path cost is increased very small and bounded, while the 
-patch removes the quadratic slowdown from range-restricted allocations.
-
->>     static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
->> @@ -869,6 +894,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 
->> size, u64 chunk_size)
->>         size = round_down(size, chunk_size);
->>   +    BUILD_BUG_ON(GPU_BUDDY_MAX_ORDER > S8_MAX);
->> +
->>       mm->size = size;
->>       mm->avail = size;
->>       mm->chunk_size = chunk_size;
->> @@ -1280,6 +1307,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
->>           if (gpu_buddy_block_order(block) < order)
->>               continue;
->>   +        if (block->subtree_max_free_order < (int)order)
->> +            continue;
->> +
->>           block_start = gpu_buddy_block_offset(block);
->>           block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
->>   @@ -1881,6 +1911,7 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
->>       }
->>         block->parent = parent;
->> +    update_subtree_max_free_order(parent);
->>       return err;
->>   }
->>   EXPORT_SYMBOL(gpu_buddy_block_trim);
->> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
->> index ddc4eca84175..8037f5a0feb1 100644
->> --- a/include/linux/gpu_buddy.h
->> +++ b/include/linux/gpu_buddy.h
->> @@ -141,8 +141,15 @@ struct gpu_buddy_block {
->>       unsigned int subtree_max_alignment;
->>       struct list_head tmp_link;
->>       bool has_clear;
->> +    /*
->> +     * Largest order of any FREE block in this block's buddy 
->> subtree, or
->> +     * GPU_BUDDY_NO_FREE_ORDER if none. Protected by the driver lock.
->> +     */
->> +    s8 subtree_max_free_order;
->>   };
->>   +#define GPU_BUDDY_NO_FREE_ORDER (-1)
->> +
->>   /* Order-zero must be at least SZ_4K */
->>   #define GPU_BUDDY_MAX_ORDER (63 - 12)
->
+-- 
+Regards,
+Liu Ying
