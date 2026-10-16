@@ -4,147 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D90E1CCA490
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 22:10:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15EDCCCF2C1
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 22:20:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA14E1129F8;
-	Fri, 16 Oct 2026 22:10:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C735B1129F8;
- Fri, 16 Oct 2026 22:10:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792188637; x=1823724637;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=+EHAeMopH/OmSIKzG6QsAYtC9ISzW1N/Kl/FSuARMto=;
- b=d8pInGLWlY0H78BToBBsDA8j2DvG1zh8LNavyZbXTi0j7a5+u2wIQPr4
- BQlnX4i1a2rA3jLrB2NT0VZkpuBBylSbi6Iw31OOL541Y71pdekxFDEQk
- V7E1QLqza9W3Z+gGs8mXENRtx8bNjJoEe8ExBBgkgM9qO5Xoh+y+kFEfk
- n6zFsNGwTih3MQuuL6po32wnFOXgiyFJ61UTpT7bv29pWXVQdCtZ4pEXP
- wQvVwp3mqkqmHdN2ER8EpU3L+y5EUZl0AUL7WYyYQcafNsWKMn0oVGV32
- 1J2TstzkHrqT9OSGdL98QADxd+yhwl+99/dXmj1uADt4H26pQRl8+kuA/ g==;
-X-CSE-ConnectionGUID: 303+PUqyShqC2+YW+MlsPg==
-X-CSE-MsgGUID: S4ucYf6aQe2pvWWSgu7KoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="870374"
-X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
-   d="scan'208";a="870374"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2026 15:10:33 -0700
-X-CSE-ConnectionGUID: F4bwbbFcTyitXXqvxhexww==
-X-CSE-MsgGUID: Iz+P6h7wRLmnUqiyyxWQyg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
-   d="scan'208";a="3796828"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2026 15:10:32 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 15:10:32 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 16 Oct 2026 15:10:32 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.1) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 15:10:31 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q6VYSrCX000li7Ig2YFcEvt+fLqOhuALoOk02Un3g9OeqT6SE4k2kY2wKJlT+ayTkwQod7IlJOH0ohmjzWz/M63WEQcy9BCH9gWXLJKeP7cYcTTYklaToQdtw5lKz1f8imygaT1Ls9heUbJ3gjziixQ39s0ONDNiOBohPwOgymyH6uHlr50DMq5JmgEmOGCv+bORd8iWKxuGgckxxFt5QfF5tWQs/wzM7lR2ZdiEKRcxNAqCJGtg/NT4GRSUug1ap1LaRCeUZlHU5apaiz6SDooNGS9Tf7thPYNfYG7QDqoYuS9tPJSvE8UBy/dpHxWw3Jn5LTlr6IdTK03HxMT5Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oMN1uZp9WzqcswZ+cu/AvGha5Z2z0OviDMlYQxqSHUg=;
- b=iQ7SgMeq+WTzGt1RkbTli+wsnJDOh4RmbEgoAHVIU6lwEYjXXQZb+Od9Bl+/WB/BPzI+u1sF1NlBuyjjdwi+7q7df3YdoNQptJ06J7os9hrwFyU5+pG0H9Veath7Rz+bhQ6zXipb5n7OtP5f3nVCOi5vA2fQT1xshqtyHxfufKM2UcwGLZQG9K739HjARQM5/WiT2YGYzhMjeEyAPnNH8a2+SIa9nlwhWsvM4d/wWt8j8aUbfyNjDiEyX75nu7DLDzMoJpi3GKktpF4zvMDFeakPEe6edbdlhxHgb1gzkpvfncnt4L+CKsYQ79b+teufsfoliUY7qb+2wccsUafnXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8182.namprd11.prod.outlook.com (2603:10b6:8:163::17)
- by LV2PR11MB931619.namprd11.prod.outlook.com (2603:10b6:408:417::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 22:10:25 +0000
-Received: from DS0PR11MB8182.namprd11.prod.outlook.com
- ([fe80::7b65:81e6:c6c4:449e]) by DS0PR11MB8182.namprd11.prod.outlook.com
- ([fe80::7b65:81e6:c6c4:449e%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 22:10:24 +0000
-Date: Fri, 16 Oct 2026 15:10:21 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: Helen Koike <koike@igalia.com>
-CC: <rodrigo.vivi@intel.com>, <demarchi@kernel.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <tvrtko.ursulin@igalia.com>, <linux-kernel@vger.kernel.org>,
- <kernel-dev@igalia.com>
-Subject: Re: [PATCH v3] drm/xe/lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET
- programming for pre-Xe2
-Message-ID: <20261016221021.GC1329272@mdroper-desk1>
-References: <20261016214112.1647202-1-koike@igalia.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261016214112.1647202-1-koike@igalia.com>
-X-ClientProxiedBy: SJ0PR13CA0059.namprd13.prod.outlook.com
- (2603:10b6:a03:2c2::34) To DS0PR11MB8182.namprd11.prod.outlook.com
- (2603:10b6:8:163::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 209E11129FB;
+	Fri, 16 Oct 2026 22:20:06 +0000 (UTC)
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+ [209.85.222.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063E71129FB
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 22:20:00 +0000 (UTC)
+Received: by mail-qk1-f181.google.com with SMTP id
+ af79cd13be357-93ead211f14so39162185a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 15:19:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792189199; cv=none;
+ d=google.com; s=arc-20260327;
+ b=CiB3jqp0zuCrLaH0gpRjdJYOrgIBThehaRomt8VefoTHA1ZCWO9VWUVS2GqD20ZPWZ
+ l96/EzUqkDu5dJWA/Kr7jgdTbriA/9dcytHVMZRKRbApGOUkIsIBKEEP2OMynzmLFbgg
+ nLAF2gr27DlvlltTo73WplQKEvtgGC2qY3HWmFwzw0s3bkFnRIN10N7ziNt4hu+Nr20f
+ xkkCgrWSd/zm+CjlETPZCsQ7J77LEwTs6jkL9HQ8c9nWSpGYbV9nznB921GeKcDpcF8m
+ BH/960BGjs/kJxwC2F/3T/iRTcWRLHlIQE4tDlviK7ohLWcMoN2QwGF+o8dBxXWQ0fCm
+ 3q6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=g2RpCD6pPbG0jDZvBkn3q6Al3Jxnoi0KYgJ+ZRe5j8s=;
+ fh=hDLIUJ7cskWTnlJ7yzRupa3svd2FKhYOhJGjVfsHS7Y=;
+ b=kEMXxr8w3cBDsR52TGUQi23jQLuZPrct9HD3ahbD1ZsQUQmtzkRv5pVV9aH9Eyau2K
+ uA9IqHgUBr0VwD6/BAJPkX2v3b6dFt4doycvwsHE5wunKxxdS/SYXei7vqIxSmxl7lLr
+ S5hZtH/y+maAZP6/vm7HKfetbmjlDm/SbE6/hiC7zNhMw+VoCxBJj68x5MCfxHyXZw4f
+ AtzMjDrB+ZbwWX/XBkjd/4THGw1EYE+OjpS9zWgC6VVa58xEX8JVo4rVi7ldy1wtmlCY
+ FmMUSfA5+qUbsA2qKBAgW8WNF9+9bYTsuv+qFT/NSkAG8RmGaSSr+TafiZix/ZOBKTXo
+ ISZA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792189199; x=1792793999; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=g2RpCD6pPbG0jDZvBkn3q6Al3Jxnoi0KYgJ+ZRe5j8s=;
+ b=B3a6Y9jY08HjaiNaMQTFKxD7QmLAi+YVTpCIb0HwFPsoDz9ldxAWRDXJ/wCVwYEdmG
+ zJZRqRzoZjzJuLemn1iV2CXFqB0OKr/WcdzUuYM3pa8+Zkhn+yUM5aqejnCrx5yCaCcV
+ A2MJaPP4LhbI3q8CiKuiPiNFjS6AvLw0GkxrITZQ7H6QSsrsrFX/7fD0qrJJOQac1xOj
+ lnnqaNTmB2uuI49FIq1vIiGYmfBfygu4/GSYbnZkkItzO1dGCtLf8KQKr1uHKA+qWBj0
+ gQ/8NNtpAu8lkRbU5p6BBQg/Kib8epybao77A+8ODKW/JpsduTHn2CUX044EtFb7PzM2
+ fbYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792189199; x=1792793999;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=g2RpCD6pPbG0jDZvBkn3q6Al3Jxnoi0KYgJ+ZRe5j8s=;
+ b=dDEc2RdiY055DgLoY90Qzp32gzxMPtL7f6kHMzD3VRd2t/gtHwtj2127Pvq767X9qv
+ PA9RBry+tS0nBlT+t7pD5xMBl4h06Gm+JWngd/9OBR/pCB03OyMVVFNPQkXTFG74xHrh
+ PSHNbFC2hpRJjWtBRbPSdAI2Z/fWK6I03GtxcuDWZpJThGRixUeX1oLczzM/Ep09VAfb
+ DpHqfGemvaku+ikVc/INBV/3LOByP262TBetXCuEpRP3Z3YMHpDbeZJiG71zGI/XvHib
+ bW1Q/uhAfa4K+ac9LNtTjaHagk2invw57/fWhE3ZVTTZIVzSKjwrGd07vSKpFRLRnHgk
+ q0qg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxsHZvoyv50+p7pXk8NhFxEhe+sbWY5fIUvwl2Mh7pZQqs9kejZo/jv3Rvm8VZbQe/5OddUBQcCJbw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL+EzFw9PI2VPn8c9KVYSTtafpVZ02JXv3ZXccAIeqzRBy74NeX
+ gLtNYfGwVXim0XoUTBGqeWjBty13A6RMkM9L3Ay6kzLgP8oWqYU2xeuloYfwuCi4N4W/7E1L9NS
+ iYUqrMjwhbm2xRWPtMMXueFC/d48WFgg=
+X-Gm-Gg: AYBFou17IdR3iS7y7awgaHeh0uMOVCqmOiX9qBmqTpQji2W7XSRqUEg2k/XsXa0wVtL
+ gwBLFtUMQXA8/mOesA8ANBgrDq5D01jzvbNOs4JfiiZVudVvw6JK09PynykcCfWWpi8IMCtPztf
+ kwYqG1wm+dyPKSXz2N8QVjigZ/q2OkU2+lVmNOYx1vzapUktrQkV8oBnrpF08eAYe9SgbJJMOxp
+ +Y3/7hVXUS2ExKxzJ+Psu6g7aYlznh9ee2Hy8GIHhbUCijdHlYIhe9sGxLbIHh9dq6gTSydyQSz
+ Dlr5u5346mGdk9LroD1Sd68FpW0ACxwEbKX5zY3SZVZYAoDgznSrnx/NpOVIgtbgpIs5G0+Dgpr
+ FytiGfGcSvl8bV7TLynbifh3j+Nr8XiaSOPcMTfko
+X-Received: by 2002:a05:620a:8006:b0:93e:5de7:fd45 with SMTP id
+ af79cd13be357-93f17efcb48mr754027485a.18.1792189198909; Fri, 16 Oct 2026
+ 15:19:58 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8182:EE_|LV2PR11MB931619:EE_
-X-MS-Office365-Filtering-Correlation-Id: 776b6394-54c7-4a8d-68cf-08df2bd246c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|56012099006|261009223027099003|261009221227099003|11063799006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info: 2EAkPMx4ftQ7+gNh4OwLojS9avDD1OrGe36m0+HWTv2DpBF6ocClGMBiCmaOEP/D125nFb0bgT0J4Aw5FEzlBF2Y8bGLBI1ThjiihWgaCGB5SUerO3FTSHhvcByO63HASvJu/F8yfUX9B27Jv14NNR6FNwECxOYxF4hP+PtUWs9bVvzPKxE7T116qZkUQ9EOGIZgVrHjgcy2ybyjGi0e7gsF4o/CfwB1feFaAUyRHaC2nTfn/89Svb+TVPG0gqU23NJGP+YhuF3gm69tEJESibEImGGaLk7XlVkx4GABG845WevHIHY32Adj8LfZmTBT4eykePrWxSsTfqklKLVK6BuOalqiVzOAKdKI1BUe4yYo9H4n0WA/NBAC8Mz0HY9psfZ0i+YjI3H2fNoC8HRHpbEMnx5dfZCby+wyqeyHz5JavU38dZpPGeAfWhrOMsu7/GK9wJwIuCnnn9ddKUhtnNJ0KqYzYLOgrGM8RDkUsY6Jd3Mo0ZL8ZtI/YMPMIVM/Fo4V9XzTHYQtAaWwaNpUwCP4Zu71jxBRMb/BhALsT97QUfl/mx9wJE6Pj3poOo/NqYLdm1bx1lOjeK+C7cSs/qLTGJSyxYyhHTIgDMIRNyO+bqvppR2T8zV2H3oVa6MGrqmnvvkqndLlczvllsa15FsZSSyBi7YcMwWmdUGRudQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8182.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(261009223027099003)(261009221227099003)(11063799006)(18002099003)(22082099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9fA22hd8LR7tSYBCZPA63XFA6u46lA1uZn3RSBZ8bgGFSoL4KXKeL3Eiugp0?=
- =?us-ascii?Q?T3019FhqCDu18rgPoW0gFjBTBouwb6MMNs7a2YNb+9Kd+40+0/iFP4vV5EBY?=
- =?us-ascii?Q?U/gBQdjfqvU5Ipjci8OWqI0nadpNSLYgdJn5kmvpRtS68YMnO/NLvV9BkOwQ?=
- =?us-ascii?Q?8tV0DAwPfDgJ2pnv9TdvQI3BIatx6tR4MQdKmXx1vnxbwnZKnTNSY7bgGn/L?=
- =?us-ascii?Q?l4Lzistgc0PcpveBBb73uJLBY/rEIYAfsbo6qWj097T5OB+hAZbJjCaCgW07?=
- =?us-ascii?Q?68pH8QcPlNQsTY0Dds1VodjtirAeqxbcJcDxgMZN069drHzAF/6YZGf5bZGd?=
- =?us-ascii?Q?L602+4LerhpTrktEU4IqJZTTbCwRcHfqQzgBHMeOMh7Rn7kiV3+KuFfMxiYB?=
- =?us-ascii?Q?n1u7hCeITfCxh3s3/wG4GsM4PyImBjc3kZuveQ9rcCoJponEruuh44K2ts16?=
- =?us-ascii?Q?bQZ5jzGXKv+y7AZDfmerstDrsYAoB2o4y4DeasT+cS6fT74t1+08KSQkQYvv?=
- =?us-ascii?Q?H5kxJtSal7dDTFdXQxEJ52unVONpFRbyokN16aqlFoQY8QUuDuaEFDmu5ydn?=
- =?us-ascii?Q?2QrC2Coo8vSjVe+HDP/7BiG4QtepFkiStlgPeaLeR3uc9cxGZTnGCVHd+9Uy?=
- =?us-ascii?Q?NI/DRug+uBWL+olmxvszPkTVqxcYaQVqlP1yL4B9bSdlsgPQS1fruF/18zsr?=
- =?us-ascii?Q?Ibd4mnBUVcxCTzDCTsFFIFZn9e6n3LcgH0WKO24NRzKbi8vpA11EjYtwWTlj?=
- =?us-ascii?Q?T+3GcomzfX/2vY2QZixr5ZIttBzrtzqraWmeTCBGBOfJJ9LtOVkseQ7/sIW2?=
- =?us-ascii?Q?2JF7Vma3vWIzIQlqsTowE5aplIHmm+dr9eDmpAJHuG87K+qPMu31hJKCNATs?=
- =?us-ascii?Q?ukSRWYkLSKyW9ZH1OI9VrngPc01Uif3qHDSZNH4DF6uUrZPSRHEmWyi27cJ3?=
- =?us-ascii?Q?t5DkOnB3cHgM5YQP7O3/lskY+jBTRr/yhg/dDwQbBh89NWEPxEvSByRake3M?=
- =?us-ascii?Q?zyWfgJfxLLFdwx5HwpOXbOFOyieeYCGr2ec/vEJt0iWM9vJCxoVtSQPH8Cke?=
- =?us-ascii?Q?R4OukJoTDPtZFHcZb19mh2WUdo0eVSmDWYZjG9N31qsnbbNDISn3xJApXvFX?=
- =?us-ascii?Q?50fD8WFrd9uw4y8s47lUEv4EXoO3gVsKaRimxt9oJMsBzAPUk3LH7iokfXFC?=
- =?us-ascii?Q?QymQZZblqgfDpqPJDHylt2V7pVyjlYTaRQOERxyVBV6Abz9qvDlpNAhD1BR4?=
- =?us-ascii?Q?jTsefaugk1kVC5tce6NtsD+W9IX4QfA8VNt96cZhBTS/kFsL28v4TIquhBsn?=
- =?us-ascii?Q?CcWuGJ0nbhH9o/iCIA3YNI0yXx4cyJK1bJVWthzKI078cWO8NFJy43J24QAP?=
- =?us-ascii?Q?DkrO/eFdC56BQyHzRV8fy7DlLV1e5aIeuPEKfkNezsDhLs1jcatiN5Td/73H?=
- =?us-ascii?Q?KIsU1NuSEOZViANEMGTxHAEzWwoP8NIOQ9IWIVmcS6QH4OjaXZeEpsKF72cM?=
- =?us-ascii?Q?6bQujR05X+n7pytCz+E3ZdIZyi72HTjz0Rt0ObfeMNr7NmHAJwC3IIbyyxjT?=
- =?us-ascii?Q?YbpKUp1tC1rPStvlSXYJIlLPnzj8bT7ivONBZUJ3iBGIDJfvvd7ftZmWXE8K?=
- =?us-ascii?Q?wWQ1XflpMAyAjPW5ZbarC6DrjfdnOe2+1Jw9HzOvKwcZ1h0jpt+auaXW58bb?=
- =?us-ascii?Q?Yr7mtGc+s3ok9ABoqQpJPAtXC014Txt6kOA9DsURfBdCSlPh+f+4F1PZkmn+?=
- =?us-ascii?Q?O8VDHqC/8K0AqHMEgvlRGb8ypLJd2dE=3D?=
-X-Exchange-RoutingPolicyChecked: Jci8SQy86KDI9lPRrjVzXl4cyDGqN3Tg3sDS53CcsSV1S/weqD4xi8912rYggXGRZtIpRIlS2SnGy41NZKN+lpYefcjuHZO4NvyZbhD9SO6iqKouptrBq1+CW0SuviTaDLUq6RyjiEiKh2QH1F4/CK1Bjf+iWBrzuPeHRfIz+PfPXuwnRqqls3OC7KJP1VsZ9bF0pGsAz20pZhZfP4Y+s258xcez4WdA88RqETjCq3A/JXYCVGQSX8aAnODRy1FrL1no8M5tHTPurg7W37cav4XNlqMVw9X7PBHH4c3nmTf4pH63sL+C280TPrHEucxWksk4vDtE3DVKQrBQVl7bBA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 776b6394-54c7-4a8d-68cf-08df2bd246c7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8182.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 22:10:24.5231 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nZkBXA5tp7lgsexoJ0gSQAkcd2dAIyw5FK01ZtYNivy5uk3iLJ9ySBcqGYDA6qwwiRBW64PQKIeFZ4yZt/FREk9/cdmXgBrEdHDMPzXXB0I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB931619
-X-OriginatorOrg: intel.com
+References: <2026092253-dimness-unethical-2515@gregkh>
+ <20260922153334.136648-1-bub4z0r@gmail.com>
+ <2026092320-reentry-lyricist-330b@gregkh>
+ <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
+ <2026092332-alkaline-overthrow-494f@gregkh>
+In-Reply-To: <2026092332-alkaline-overthrow-494f@gregkh>
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 17 Oct 2026 08:19:46 +1000
+X-Gm-Features: AclHuK_7jePb0TrqT3zGoVqGEPf6lhbuQZGz5zOPfyLgS0sUKe6-z1rwyROI4cs
+Message-ID: <CAPM=9tyVcUdb-wjv2unksLV-BVcOxswqB0Y+H7agBU5vYGFKDw@mail.gmail.com>
+Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving
+ their bulk_move range
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Vadim Nikitushkin <bub4z0r@gmail.com>, stable@vger.kernel.org, 
+ thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org, 
+ skainsworth@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,91 +111,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 16, 2026 at 06:40:50PM -0300, Helen Koike wrote:
-> CTX_CS_INDIRECT_CTX_OFFSET default value is not retrieved from the GPU
-> by inhibit+context save mechanism since it is not part of the Engine
-> Context. Thus, at restore, 0x0 is programmed back to the GPU, which is
-> an invalid value according to the PRM.
-> 
-> This causes sporadic hangs on Alder Lake when executing test
-> IntelAngleEnd2EndTestCases (error VK_DEVICE_LOST).
-> 
-> Fix it by partially reverting commit c9dfd66cb91e ("drm/xe/lrc: Allow
-> INDIRECT_CTX for more engine classes"). Re-add the programming of
-> CTX_CS_INDIRECT_CTX_OFFSET for pre-Xe2 (in theory it should apply to all
-> platforms, but we got an unexpected behaviour on Xe2 that still requires
-> investigation).
-> 
-> Fixes: c9dfd66cb91e ("drm/xe/lrc: Allow INDIRECT_CTX for more engine classes")
-> Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Signed-off-by: Helen Koike <koike@igalia.com>
+So I got a report that
 
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+"the backport of "drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on
+swapout failure" to yesterday's 6.18 missed "drm/ttm: fix swapped-out
+resources never leaving their bulk_move range",
 
-> 
-> ---
-> 
-> v3:
->   - Commit message update:
->     - s/programed/programmed
->     - s/for ADL/for pre-Xe2
->     - Add sentence saying it should apply to Xe2 too, but we got an
->       unexpected behaviour and it requires more investigation.
->   - Remove comment "Enable INDIRECT_CTX leaving..." since it is wrong.
-> 
-> v2:
->   - according to intel CI results, it seems that this default is not valid for
->     LNL and BMG platforms, so limit the change only to ADL.
->   - program the default only on ADL.
->   - restore the comment, but add note with exception for ADL.
->   - update the commit title/message with "for ADL".
-> ---
->  drivers/gpu/drm/xe/regs/xe_lrc_layout.h | 3 +++
->  drivers/gpu/drm/xe/xe_lrc.c             | 8 ++++----
->  2 files changed, 7 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-> index 4ab86fc369fd..e4c7c3549735 100644
-> --- a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-> +++ b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-> @@ -43,4 +43,7 @@
->  #define INDIRECT_CTX_RING_START_UDW	(0x08 + 1)
->  #define INDIRECT_CTX_RING_CTL		(0x0a + 1)
->  
-> +#define CTX_INDIRECT_CTX_OFFSET_MASK	REG_GENMASK(15, 6)
-> +#define CTX_INDIRECT_CTX_OFFSET_DEFAULT	REG_FIELD_PREP(CTX_INDIRECT_CTX_OFFSET_MASK, 0xd)
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
-> index 35b4e8289b5f..18f247bc8865 100644
-> --- a/drivers/gpu/drm/xe/xe_lrc.c
-> +++ b/drivers/gpu/drm/xe/xe_lrc.c
-> @@ -1449,15 +1449,15 @@ setup_indirect_ctx(struct xe_lrc *lrc, struct xe_hw_engine *hwe)
->  	finish_bo(&state);
->  	kfree(state.buffer);
->  
-> -	/*
-> -	 * Enable INDIRECT_CTX leaving INDIRECT_CTX_OFFSET at its default: it
-> -	 * varies per engine class, but the default is good enough
-> -	 */
->  	xe_lrc_write_ctx_reg(lrc,
->  			     CTX_CS_INDIRECT_CTX,
->  			     (xe_bo_ggtt_addr(lrc->bo) + state.offset) |
->  			     /* Size in CLs. */
->  			     (state.written * sizeof(u32) / 64));
-> +	if (GRAPHICS_VER(lrc_to_xe(lrc)) < 20)
-> +		xe_lrc_write_ctx_reg(lrc,
-> +				     CTX_CS_INDIRECT_CTX_OFFSET,
-> +				     CTX_INDIRECT_CTX_OFFSET_DEFAULT);
->  
->  	return 0;
->  }
-> -- 
-> 2.54.0
-> 
+So can we make sure this patch is in the stable branches the other one
+went into?
 
--- 
-Matt Roper
-Graphics Software Engineer
-Linux GPU Platform Enablement
-Intel Corporation
+Thanks,
+Dave.
+
+On Wed, 23 Sept 2026 at 20:51, Greg KH <gregkh@linuxfoundation.org> wrote:
+>
+> On Wed, Sep 23, 2026 at 09:53:54AM +0200, Christian K=C3=B6nig wrote:
+> > Hi Greg,
+> >
+> > On 9/23/26 09:41, Greg KH wrote:
+> > > On Tue, Sep 22, 2026 at 06:33:34PM +0300, Vadim Nikitushkin wrote:
+> > >> commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
+> > >>
+> > >> ttm_tt_swapout() returns the number of pages swapped out on success =
+and
+> > >> a negative error code on failure; for a populated ttm it never retur=
+ns
+> > >> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite L=
+RU
+> > >> walk on swapout failure") moved the bulk_move bookkeeping in
+> > >> ttm_bo_swapout_cb() under "if (!ret)", so the
+> > >> ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_=
+tail()
+> > >> pair is now skipped on every successful swapout. The equivalent chan=
+ge
+> > >> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink=
+()
+> > >> infinite LRU walk on backup failure") tests "lret > 0", which is wha=
+t
+> > >> was intended here as well.
+> > >>
+> > >> Before b2ed01e7ad3d the resource was taken off the bulk_move before =
+the
+> > >> swapout; since then a swapped-out resource stays inside its BO's
+> > >> bulk_move range (and on the manager LRU) although it is unevictable.
+> > >> When it is later freed or the BO leaves the bulk_move
+> > >> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del())=
+,
+> > >> ttm_resource_del_bulk_move() skips it because of its
+> > >> !ttm_resource_unevictable() guard, so a range endpoint in pos->first=
+ /
+> > >> pos->last is left pointing at freed memory. The next
+> > >> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cur=
+sor
+> > >> is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(=
+),
+> > >> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
+> > >> dereference in ttm_resource_manager_next() -- minutes to hours after=
+ a
+> > >> hibernation, or at process exit / reboot following one. Samuel
+> > >> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
+> > >> dangling cursor; the missing removal at swapout time is the reason i=
+t
+> > >> dangles.
+> > >>
+> > >> Testing the condition for success restores the removal. On an AMD
+> > >> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate =
+on
+> > >> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bu=
+g
+> > >> crashed 5 of 18 hibernation cycles; a function profile of one
+> > >> hibernation showed 336 ttm_tt_swapout() calls and zero
+> > >> ttm_resource_del_bulk_move_unevictable() calls. With this change the
+> > >> removal happens for every swapped-out resource and 12 further cycles
+> > >> were clean.
+> > >>
+> > >> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU wal=
+k on swapout failure")
+> > >> Cc: stable@vger.kernel.org # v7.1+
+> > >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+> > >> Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-=
+9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
+> > >> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+> > >> Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com=
+>
+> > >> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > >> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > >> Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail=
+.com
+> > >> [ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
+> > >
+> > > Do not squash, send a patch series instead please.
+> >
+> > in this particular case that squashing is the correct approach.
+> >
+> > AMDs mail servers mangled the initial patch so badly that I had trouble=
+ applying it and ended up pushing a broken patch upstream. The squash is ba=
+sically fixing that up.
+>
+> Ok, I'll take this then, thanks for the response.
+>
+> greg k-h
