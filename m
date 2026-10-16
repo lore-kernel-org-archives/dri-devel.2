@@ -4,77 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5747FCC6B38
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B861CC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:37:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B099C1126E8;
-	Fri, 16 Oct 2026 09:34:55 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6A21126C2
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:34:45 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a0e1b0681bso44815695e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 02:34:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 044A71126F4;
+	Fri, 16 Oct 2026 09:37:51 +0000 (UTC)
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC3D1126F4
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:37:45 +0000 (UTC)
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-c25edb54d22so747744066b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 02:37:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792143284; x=1792748084; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SpFhCIr9XErf0TQgN9GVHVagrPdev/HktwQkCtq1cFs=;
- b=Lw+3tGyf5Mufp/W+m2VrQ6esiJAjyAGNOFnFVyxYmh4Jze9UcdXizILu1LQ8dGweMy
- Pluft3wNMFqw9bdIs2GtAi5KkKrSZF4y1Joq4XjWnNnLG8HbusZ8DI/uSjv8cJuGbL2I
- qAX/I6NBSt2mke6g5jeJHuX1ga/ZJOy5wAYFaZMnMZxpWbPD/CC+wBoQ9D/ra7Vkpvs+
- TsUMz9Tp8RhOqiPgmuxjJBARsk0GcA6HDa4Pfbm9AORuqS+EXIuaUt4kdKeK6O59hoyv
- XUHTEDMveHcUhE1akJ7nK75T9HViBLIybTTpRj2qZO0xmrS1BwLvw+TbYJ/TwzjLNErN
- HeZA==
+ d=google.com; s=20251104; t=1792143464; x=1792748264;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=kkFwVtE/2q4IWQT4lJjpaObOEOcr4IQSF2aZLb9aFIE=;
+ b=PaAjHfeNLblym/lloBgyw51aomUiCsA41tgROrMhHp7nQc91V9VUeIwvA+lHy4bmcK
+ i+6bAY7DKct60R4YG/tifB4wVsaIjpiy5lkK/4k+7tNfaGApKWLS3S/2K9SeERdciZSQ
+ lacmUyXPxvIWZRlrqyvTDwyzggAc4Mz9PHaiv16tkvV3LQXoXsMkVYMfGROp4Vhk/SRm
+ 4hn9Fgf8f5pCxLVryWORm83HRB0gqBI2pqZP30jPdFf9oC8QvpE1GEQN++UcGUCoZQHx
+ TJmtV4+nGDhQCfV7AK7SmWGqY4/mHCEIGk/3GeDmAvw2SzgRLvWTmnJjZylsYKJ4MAkV
+ dsWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792143284; x=1792748084;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=SpFhCIr9XErf0TQgN9GVHVagrPdev/HktwQkCtq1cFs=;
- b=vhAKP3ERuko+rAzXwiYtyIZ5vYsG9ZKWef3Nx0EZe7N7aPW/OSQeG0e/2b9mR2pMQN
- xQ0g6fSCgAgNxfVeyCRrQDTtr1WX7ag+4foeOwdEfgI2vxdfmL1XyVKpix/kASKY0OzM
- Dkl4C1EdRlx7GbOSXZyXJ+XEuC3Qj6WTX09yg+gilie7NXuROR1QbQRQ4VLL9O1cDk+x
- V1fXieGvMGTp3X4H5oeluvWcMHiQTxCH9BEIr6IEgM939EmnsbaiOEMwlwJ9DQ3tdnLO
- zYMhFue4TwVaOsRF/Vm+rppswdHGMQfqQU8lBrsV3P/J/6lU/YWcL5wgNtqjdKuyl6YF
- 8dRw==
+ d=1e100.net; s=20260707; t=1792143464; x=1792748264;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=kkFwVtE/2q4IWQT4lJjpaObOEOcr4IQSF2aZLb9aFIE=;
+ b=vbDXi4O5Bs4Hm5dWTc2da4zNNzIY1+uQkArYLc296lPz5rBaojqU09lDsqgwkEhzwS
+ n9XWIuCWhMJT2tyK59ThVVwlCqakBHQPdwOTMj+vhPkB4PRpwx+3dp0BPUcarE9Dw7tp
+ VxFSB/9ae4sYVemCXg9+DUmh1uCBpbzp3VjmxiBYJodLl2a5NB6CDiGu+7byxkV2djTs
+ n8lSlL2ml6krnEAtRebxturU7sTUzIS+v3C8b8Z8vvw5jhxqIzhgzU/U5CrruSnOP+7/
+ iPalGp4J8PX6k/BCIyvUnkr8Pu4L5t6z2eg7SXhDguPSK3ZKL2S094nWBx472GUHlfQb
+ 90IQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw+ytt3NyhthF04Hk84NP61jMzUfgZ2pWkDoY2Kbdq6iJfrIqWbFRNHdgbKq912CjpwuY6QAPpiYIk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI/VtinVn6IW+2/WbcDfNl4a1B9t1LTxtonzVGPQC/WNRy/IeiV
- 9QkaqO1PLnCZNUJPFcuk0DlvWKfU6bSfkd+YQGTV4VisCx0/T6XsN43l
-X-Gm-Gg: AYBFou30GIzUxkcV9bUKlbpCu8cBH7l+j06jsr+x7Ht+Fo4JAWTy9c4xYGFaOIWfxBy
- 6PKJg4YbIpGWwSdmni4dJdbbEfEAotUY1cPcpMSL9gsUIg4AHPtKILSlhft26g5YHW/pnu7HJ6V
- dKrwEXavKsLNQYSPV3mir6dup9e8MVeWfgqpZLuwEiCVBppnm6ZOSYsS+vmQwoKXkFEl+be+hgD
- g1a6s1etFiRJuMqRAt/f0IzYzoaRZ2yVXhIEAQI16oThEZCQH9QJMHjVHTPSeC6JRVNFKgEQovC
- B4OeZomTXd+sdpOebOrD5DP+jbDmKMGhkRGRWwIwk0H+sef4QB+pSa1qPs2Hk9xBtyqsQlSaEXO
- 65xuseqpQ4lsgmJOa37wByH/4L5bYVjI4K1s99oaUcwVvySI19RxT5jAvNFCGhk47sMnG9uA4zO
- POZxIWz4f9DXPg9w0biF/QqC6zdI9YMHicJCLFXICleIHzEZiDFWgTriTZbQ1kj22rjOIlD2FgZ
- hpJq3FDABG20GuXIdipJuXMcmmyhabsO6cL6ZBTsAhFwcvumoVXTqiVcsumc+xkC9Zt5uwJrGof
-X-Received: by 2002:a05:600c:1553:b0:49f:e8bf:8f9b with SMTP id
- 5b1f17b1804b1-4a18e443ea6mr421070445e9.4.1792143283846; 
- Fri, 16 Oct 2026 02:34:43 -0700 (PDT)
-Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1c8ad6252sm63570615e9.5.2026.10.16.02.34.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Oct 2026 02:34:43 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: io-uring@vger.kernel.org
-Cc: asml.silence@gmail.com, Jens Axboe <axboe@kernel.dk>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 2/2] dma-buf-io: document dma_buf_io_init_map
-Date: Fri, 16 Oct 2026 10:34:37 +0100
-Message-ID: <79e1cc681326365d2105203b318d8a27ed7e90d7.1792142927.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1792142927.git.asml.silence@gmail.com>
-References: <cover.1792142927.git.asml.silence@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ AKwUvByfe4rO+yzq83fK+fYdnVMb0gNNzPNPRWICI/ORmrdF6d6C02ES+wjvYedAYIi4KsWxo0wriap7Nk8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIE2QNM/hGO+XqktuuGPZDSCl3CFQjPWB8g1BnMMyY3eKjVsxc1
+ +Pt9NKhTMH2xAkOULGQ/sMlHMHKjIZw4CP9aVjJfWNVFgbZiG9bZVg3+ZGZq0hrmRv4nYcL9aMf
+ SL04hPYUfN1LeLChcBw==
+X-Received: from ejux4.prod.google.com ([2002:a17:906:4a84:b0:c3f:d648:42e3])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:c610:10b0:c37:8c7c:a840 with SMTP id
+ a640c23a62f3a-c378c7ca8d3mr619539466b.18.1792143463574; 
+ Fri, 16 Oct 2026 02:37:43 -0700 (PDT)
+Date: Fri, 16 Oct 2026 09:37:42 +0000
+In-Reply-To: <20261015-b4-dev_query_fixes-v2-2-e3e6d25050cb@collabora.com>
+Mime-Version: 1.0
+References: <20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com>
+ <20261015-b4-dev_query_fixes-v2-2-e3e6d25050cb@collabora.com>
+Message-ID: <atHwZg245MM7l9Ty@google.com>
+Subject: Re: [PATCH v2 2/2] drm/tyr: allow userspace buffers to be mismatched
+From: Alice Ryhl <aliceryhl@google.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,36 +87,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a kerneldoc for dma_buf_io_init_map().
+On Thu, Oct 15, 2026 at 11:35:21AM -0700, Deborah Brouwer wrote:
+> +// If the user buffer is at least the minimum required size, then
+> +// copy as much of the kernel object as will fit into the user buffer.
+> +// Don't fail if the user buffer is smaller than the kernel object.
+> +// If the user buffer is bigger than needed, zero out the remainder.
+> +fn set_uobj<T: AsBytes>(usr_dst: u64, size: u32, min_size: usize, src_obj: &T) -> Result {
+> +    if (size as usize) < min_size {
+> +        return Err(EINVAL);
 
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
----
- drivers/dma-buf/dma-buf-io.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Use `kernel::num::casts::u32_as_usize` here.
 
-diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
-index e432194a5dfc..f724936e223b 100644
---- a/drivers/dma-buf/dma-buf-io.c
-+++ b/drivers/dma-buf/dma-buf-io.c
-@@ -43,6 +43,18 @@ static void dma_buf_io_kill_map(struct dma_buf_io_ctx *ctx)
- 	dma_buf_io_map_release(map);
- }
- 
-+/**
-+ * dma_buf_io_init_map - Initialise the map.
-+ * @ctx:	[in]	dma-buf I/O context the map is created for
-+ * @map:	[in]	dma-buf I/O map
-+ * @sgt:	[in]	the backing scatter-gather table
-+ *
-+ * Importer's helper that initialises @map for the provided I/O context
-+ * and scatter-gather table. The importer should call it once for each map
-+ * on creation.
-+ *
-+ * Returns a map on success, or a negative errno code otherwise.
-+ */
- int dma_buf_io_init_map(struct dma_buf_io_ctx *ctx, struct dma_buf_io_map *map,
- 			struct sg_table *sgt)
- {
--- 
-2.54.0
+> +    }
+> +
+> +    let mut writer = UserSlice::new(UserPtr::from_addr(usr_dst as usize), size as usize).writer();
 
+Avoid casting to usize twice.
+
+	let size = kernel::num::casts::u32_as_usize(size);
+
+Alice
