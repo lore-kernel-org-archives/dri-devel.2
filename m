@@ -4,124 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C255CCF2C4
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 20:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59938CCF2C3
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 20:09:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4863C1129BA;
-	Fri, 16 Oct 2026 20:02:18 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F7551129BD;
- Fri, 16 Oct 2026 20:02:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FiQuUMT3VCqvNwT2qmNLOLmrpI2cfOIuLSvGkeUi/BNAOPOmsZXsy1LniB1oG3+jX4I3AtNHd0LFaPC8g3+snGkPO1f0WA3bizGa24StozIq31yLMq32kd2QbdUkcMNgha+jpMXJMn+8TxusBzO+MoD9aHBHLmv1U4j91CSrPN8dGPko7nKzTJQQ3mC6q/uc6U2+YIVLeLjHit8ShK9/syUxQwc1YT4ZliOnLGotbGN8Kiss+D+u6Is44RM3Lk2K7JMfvd7XmLB/2bWX1b5WRVmFEbAw7HdWZck/iuZnkV1w64B4l85GHAG9QOQdUnd9Pit/OORSFtkyvj9JCKhGvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8pYf0ZvwtWM88hfbJ+5slFC/S5xnE/laWPu8Nv4TKLs=;
- b=xpLxzpwqNAhPvsdMnJWwcaHz5vH+QADdHy5PUTMT7Wjxwe1dFDOnSpkgCWZq6kjF0BvaM95sUcwo11X9wskh01EWXefJ1wwPsceO7Od66NKysPNafW4ZbN2+Qf9KYjDyYZtLU7VB1DV07BORCXvzs26fOMbjXBmIm21gr90PHm9Txzbt5C4otFi51c1OME25yGP/7DsY8T1MN7wTvxvvTUmCi26s+mvilt+xkgEdEcvSK0Pf5PgqJ6vaCaZmvQIvxOBIiJSitMuaXXI9p/aRFYWgUf5GuGInP1CWK32Ntd7fsi6UqH19NotOwn81pMEKKA5D78cQPEOJ8hn5ZJpR6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8pYf0ZvwtWM88hfbJ+5slFC/S5xnE/laWPu8Nv4TKLs=;
- b=hou7cFKp7FdCFZVXusTSpf9zzd5xyuHTeLmppb1E2YNkM/Q/rxZa9OoG5RDN59resvrHUkwpzOHpmDO7k0N1bgO7jokMNBSATjZXRsnGcW5Slj6JHwda4J4fKKsbk2ZAvdf4xb/r6qLItpBHouw0hvdGobU3gRh234+GGYaxbng=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655) by CC6PR12MB259526.namprd12.prod.outlook.com
- (2603:10b6:170:209::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
- 2026 20:02:08 +0000
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::23fd:d049:8f53:2054]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::23fd:d049:8f53:2054%6]) with mapi id 15.21.0522.012; Fri, 16 Oct 2026
- 20:02:08 +0000
-Message-ID: <48db6848-50a9-42f1-81cb-fd4c7e726671@amd.com>
-Date: Fri, 16 Oct 2026 16:02:06 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: disable SVM when the GPUVM cannot cover CPU
- addresses
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Huang <danielhu@amd.com>, alexander.deucher@amd.com
-Cc: alex.sierra@amd.com, Philip.Yang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261016145129.69645-1-danielhu@amd.com>
- <8a0a2d4b-ee31-48f6-8a44-d5a7d4af579b@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <8a0a2d4b-ee31-48f6-8a44-d5a7d4af579b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0327.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::12) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFBE110E183;
+	Fri, 16 Oct 2026 20:09:31 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD18B1129BE
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 20:09:20 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69GJe93X031821
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 20:09:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 6kYxzNclKEel8BkYYMK0SJ40K5Fwar4dQSxuwGkd2oM=; b=okS0H1mWOwsIqNwO
+ Qp7LX0zL3c2SRgJIxWcmHrTbe7VtOfCNHbmWHEjJ2QBxW/WIan8+JYfF+2kyjy/w
+ abJzpHSXTt8RV1xI+8J2KBtuY3qgkf9HBU/8vsJuMF3cp1tcsBhHxtF1q7zesJwJ
+ Qgt3jPzKNXcKbIezNF4oqeJS09SCWbZeWGMH4D1TdkU4GQ4I+i/Z7XGlvEpJNDND
+ UHCabCobpPUVLBr1IhJLCixdmESkwjM8jE7MAH3jmxkmd/itQzODR6qqJh8vV+uu
+ oIQ5aSXWQLOkPF5Lw5tdhPU6+k0l2w3THA9+rzPtYZxxaO9c5p0AFNhkMHy1GB8v
+ g4amCw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbrvwgd06-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 20:09:20 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-351788121cfso811855eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:09:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792181359; x=1792786159;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=6kYxzNclKEel8BkYYMK0SJ40K5Fwar4dQSxuwGkd2oM=;
+ b=SnLBysyezlWg4zTfAKgAyQR+/mMCR8XMCEO/FaZPAAWXr+yB1FTE9ttZZRrk6gTfR6
+ I8vAb29V6IKrORtChTqzKox3FPDls19wtLt8D0QLd9+lTRQQy+wxrbi3GXmu+337T6AJ
+ +YaOu8DwJuxPx2RGzmoNU/FwEyDaZJ606CL4703U0VtnKIiGr6lSGG5AqJW/Ao2dYTGG
+ fQlakszLzFL64UaGi+RMbvQmWT22oqusry8cYAYhTnVmp/q2umfalW4wCd170MtbZrlA
+ Q1KnG6i1XANAxTZpw1UKh9oi+OkV8NolqCe3FJ+ze87OU2HDZspDCdXWhmTbnhCxCB+I
+ ycQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792181359; x=1792786159;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6kYxzNclKEel8BkYYMK0SJ40K5Fwar4dQSxuwGkd2oM=;
+ b=lxx700473c5vk6wu0t2tefvLGOxs0BnF1Tn74TKJcFHoMs+2BNhjq76YNmnHHWGD0/
+ P5vp8l4/vn2H5UqU4bgFmMCP2TtN4s/+kDg4UB8V4Z4kLOR7Z3i3LzOoVckApebIJRF4
+ el3GU3HNDJL3xvW5HVIs4vz6kJwgFskohyFM+tqNuxVCliYYa3LrhmjtqvOSup/S2ExY
+ WHYaMsyMbZ0TJmUb+/L5ThQ1xzWA+j/g3D2d6bJ9qYjc0SVlM+je12lNDcLh/KgjoBEP
+ +ObL2Pes0CfAt6dRy7XYYbLeXJqbohwn2DY8j3CilZcxlf/s0jaxxnNVvdmuZegVG2Sv
+ R5WQ==
+X-Gm-Message-State: AFq9FYKAqq+b5xQZzhIJmE8B5ZJmKJu9/UTpN71EkX72tw780h3ufo5U
+ 2EeymePwiD3wLp0DtDrju74KMfQsvxMDNrB9dtkX9assHRKCaZDCyi/wenYr6ERiv+lZiMztQPN
+ Sqcat7EvcONjkBXcpxXjeh+SelMWanFBpAux+RB++IZqIXtk+B9bu0CfD9O5aasmnDqXEZqw=
+X-Gm-Gg: AYBFou1kVgVyYNoJsmdX1esablyJanfjLiHZw7fXXADERixpSJ0hZCxu5upbHmbWSlR
+ UWlQFLyzmFf/rUGCs4h3zz+uskpRhslWvY/+nVHoy9f+SLbVn2+oei8VfWIcR8NUqKQhwPVh93V
+ tsVfMK1Ct0R7VPX02KuSMPeOpHNpk9lo1IN8tnHcsslnXqVtEx/a6OUad0JQzQa8KHjmiHhuUBP
+ HO8jmuB6JfhC3tuCRmrWGW+9d0+eTeks3mKLNECddmCd9CFtAs0IWKHvBSytVNIqvB7A5Mf5JbJ
+ x35UU4YOaq6YbvU9NKxw47nBIfQt3utQ2GqQ2Vc3BTy15AnbhEJI8h1oJ78Gjl8rrWUunCdV/Av
+ LWEq7kCXkTyIgD1E27C4gU87dBLfARdTLbeEZQge4eLm8eeJRfcC6F+MH1A==
+X-Received: by 2002:a05:7301:1702:b0:35b:bb89:231e with SMTP id
+ 5a478bee46e88-361a253ea33mr1057891eec.29.1792181359050; 
+ Fri, 16 Oct 2026 13:09:19 -0700 (PDT)
+X-Received: by 2002:a05:7301:1702:b0:35b:bb89:231e with SMTP id
+ 5a478bee46e88-361a253ea33mr1057828eec.29.1792181358121; 
+ Fri, 16 Oct 2026 13:09:18 -0700 (PDT)
+Received: from [10.226.48.50] (Global_NAT1.qualcomm.com. [129.46.96.20])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3607ee0cab0sm11053337eec.3.2026.10.16.13.09.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Oct 2026 13:09:17 -0700 (PDT)
+Message-ID: <5869b931-4c5b-47a1-a81e-13123165e86f@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 14:09:15 -0600
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|CC6PR12MB259526:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0ed6357-9e35-418b-af06-08df2bc05b98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|6133799003|22082099003|10067099003|3023799007|18002099003|4143699003|11063799006|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info: E4jlNeM8cKEtw8kvr153q7GwZlcv2YYQsUsNMMmZEKHgBJpierlUFSozwsQZ4sLkJsn3+lhF80NFbTm0j61k+1l52w/yK00WS4oIdj5EBjetz46C9xsIlK9Vrhib6XN42gw5+PoXjlfvG+3sIWmT9U+RyFg3Ij/0VH4F6Cw5nYIfm3kZgti9dFoBZ0cq7wVCARnChjNBDafnlQNfKwPZEETPX7X9Xq9Sq8jZo+fTGvrXyTX9vWAareVOviDwt+WQnW3o5VbKX0pIh7YDf+9+WwizAWDDnYvXsYNMmEBE+DVTTMozz0W0gA736mUycZ//J3/28enrzx+kI/Dh1MCzVSHKu3hhEZOGkwe7SaTT46w7UCulhfblE/xRCit+iqW0Qc67cLPGZLTtd3Fii41QiAv93YSZ4se50rvtpK3C7Qj2a00qnCS8R9h91Wp0QoGhxATXVez57jiJ3hQRyHYfIMHwrdUfYse4YOqTf5k8CIB/VDdkje5gEUwqOxuwMV/CWmsiiYOh6Ui927GAxN+mliWUivJHfeu4ghZ2OnZ3RrSF7lQFDq519pIDmsXJcupHdyw0APlMRNgneeeSpmWOxCCQIA8911C8ncIzdt4In5sQiI4TyJQP9BHh/nafgdiw
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(22082099003)(10067099003)(3023799007)(18002099003)(4143699003)(11063799006)(56012099006)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MjBzUXlROXNsVTdFNTJzWTVBczdELzBsV1VLV3N1UW8rYUdzY3NZYkVjemwy?=
- =?utf-8?B?UnU2VFNxMWhxdG4zV2t1a3F1c096dVU2TXE5ZlN4KzcxZWtyek9ybHcrMlht?=
- =?utf-8?B?OWRIZVNrbE9vWExCSUM1WmVKdkhnYjJ5cVFRaHVMYjU4YnJkb2h5eFJGdFor?=
- =?utf-8?B?Y0VwOXB2c1JGSFJVZmQyL09LZnVQbUUxN3l6MG1IdlpyaTVjUEQvWE1GVVJK?=
- =?utf-8?B?M2J2NG1XNkcrb2k5K01kRWVldzgzMWpjY2pRUGVxbHZhc0QyWlViZEN3VHRB?=
- =?utf-8?B?NXRWeVlnVExPZ1Vjd2w4YVlmc0ROL2pwelpOZ2V6UE9PaWpjRUJOT1VKUmFh?=
- =?utf-8?B?VDNreTcxWXNKbERoUTh6TnJTSXBNSnlCaDU0aGxUUUI4cTBrNTdmSkM4Qmw1?=
- =?utf-8?B?amxxZlYwUGExVXBiMFJ6eUJrSk85NmVtK24yVzZGcW1FeTl2YTBwOEJlNWpL?=
- =?utf-8?B?SWQ4aUNsM3N1bkdjQnEvaW0ycUJ2STBTbk5IdzN2ZlRXWmFDMG9QcjZ2a1Vy?=
- =?utf-8?B?QUJyVWJtdHFwWVVoR1dOTGIwRzErNCtRUnV4M204YWxNdnRQUDY4T2xobERp?=
- =?utf-8?B?V1d5dnhBZ2NaRFNZK09HNzlQOXZSWUpaU1gvZVJSRjJEaHcySE94alNMaUJ2?=
- =?utf-8?B?eXRjL3d1YkhNUkhLTXNod1Nub3BLOCswTm8zVTZFN2R2aHZOVHkxRml1WHN0?=
- =?utf-8?B?dXlNalNDdWxBazlNUk1rTFppZ2xpTndGZ3VBRW4yNEVJRFBRVWVBTHpTLy93?=
- =?utf-8?B?S0J3SHlhQ3I0OWg4YlNETVUrY3IwcGgyTGtXaC9YMlprYkltTi9meTZhWEFP?=
- =?utf-8?B?Q1gwcmIzNmlZY0lLSW9xcnM2cWlZZGgyNi95ZWpqTnFlZ1JmTXpabVk3S1VQ?=
- =?utf-8?B?Z1lrQ0o5djhnNXlIbmw3Z01HRm5ybDc5MG9WL1I3SlBXNmY4L01HemllU1JS?=
- =?utf-8?B?UkdndFRlWmNwdGRMaVE1VXBSUmt5L0s5RmcyemM1aldiRm1FYkFNbHBDZ2h1?=
- =?utf-8?B?MElrTUZPazV2c1BzSmlpU3owcHFRL2ZuL2hiaFVhcGtObVBlMHI1TDc1UElL?=
- =?utf-8?B?T2lnZS9DWUZ4eENoNmNxMEowaEhOWEJVdHJXZmJsYWxncllpcXhqSnFvaURm?=
- =?utf-8?B?VHh0c3lya2VybjdWTGZmeXhNR0JvcmRxVGlQb1pLVitqaGFXOGduRmpxdVFE?=
- =?utf-8?B?MW9odldXYXIzUHFUSk5QSERJR3RmSmpKak9GZzBkenQ2STlzV0FsRmVIRG9W?=
- =?utf-8?B?eUZuanBGNndkSHI0RWFZQktRL2graUJINFVmbS9ZWXpkalJ1ajA2ejhXVENW?=
- =?utf-8?B?aXBUa0txY1hteDB4V2NJc0p6dW0yM2dURDcvcnhQUCtBQjhYZ0MvKzNJMDBV?=
- =?utf-8?B?LzArSVo5Ylp5MGkzc0dVeUx3Uk5CdnJYWWFpOFk3UTRvSWUybXFxZWs1bUxD?=
- =?utf-8?B?UnlKRGk1bmMxQnl5aktNMUR3ZXo0azNsT2NnY3ZGa1FqeFdQd0ZPMk9jamNo?=
- =?utf-8?B?V0tRZTM3RHdOTE1RWG9iKzl5Y094MTliWTA0bWlDWW0wMlFVekZxVzBmTWdx?=
- =?utf-8?B?VlFnbGRpekNpUjZ4OGFMOWhCbU1LWE1GWDRXTTJpSG5Sc0lmZ3BiVVA4YU5B?=
- =?utf-8?B?SWgrdEIrc1Y4VlEreS9wckhyRnBtNG1kRFRkMjRwOXBwNGUrZklZcXFVdmlK?=
- =?utf-8?B?L0dOcVVnUHZzaFpxN0NXOTV1Z2dYZXphaVk3dFFPcVl1WWRoWGFBWkp2a2pt?=
- =?utf-8?B?NE1RdEphYW5XKzRmNkk2UzBPdlZaV24vdEJUTGVWQmxmLzcyR2dOZ0M5NU1o?=
- =?utf-8?B?SU96ZmlUV04wc1NaVUNnSDdPL1VsdjhoOXhBajhCNW5xNEFiUzErVWhuK1dO?=
- =?utf-8?B?eWdBQ0FIdjA1ckhKcEFRTUl4L1pVdkQvdlZHRVc3NkwzVzdKK2VZWU8yMlhj?=
- =?utf-8?B?Y3JQMHhteHBIdlExN2Z5a0RRbnZSYzJja2F1aXVQZEZhL09KVTlhaWF3S3Zn?=
- =?utf-8?B?MkVCc29jSEc1cVo5dUU1UlhSVXhuMkd0S1RvYTI4L1pXNkZUTFgvZU4rclQ5?=
- =?utf-8?B?MWhyaXFLeWNJLzV6WkZ5OFdRQmV3eG1Md1Boeis0RnJ2Y2IvQk5QVmJDQjhE?=
- =?utf-8?B?VVdQUU9XTzYvZnJLUjVjOExBeTBNa2RLa01ldFZDaDBWb0RyVkM1bHVyTWp6?=
- =?utf-8?B?aDlraFNmL3c5all6djFrbk16cmQydzNMWUxEYXdWMjRvemt0NHR1WHJ2VklU?=
- =?utf-8?B?VUJDQ1EwaDd0Y2l2bXM4MjNwSlFBVmpVbUNRSmZNZzNZQnlXVzIvbFNIRjUx?=
- =?utf-8?B?cmcrenB1WjdTYVpGUmtSbWNYQmtlNGtyUEIvTk1lNzBBWXVnQzZaQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0ed6357-9e35-418b-af06-08df2bc05b98
-X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 20:02:08.2982 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 24oLlB8x+BoaCRwlMVNhWy8uKkkcy74OIFC+VjRxtHlr0U23LXxibxejqLNm7Dz1txWdyp/+8Lqk5bNXtjctzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CC6PR12MB259526
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] drm/drm_ras: Extend DRM RAS interface to include
+ telemetry nodes
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
+ riana.tauro@intel.com, aravind.iddamsetty@linux.intel.com,
+ raag.jadav@intel.com, simona.vetter@ffwll.ch, airlied@gmail.com,
+ kuba@kernel.org, ogabbay@kernel.org, lizhi.hou@amd.com,
+ karol.wachowski@linux.intel.com, jeff.hugo@oss.qualcomm.com,
+ carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com,
+ youssef.abdulrahman@oss.qualcomm.com
+References: <20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com>
+ <20261009173152.2436195-3-zachary.mckevitt@oss.qualcomm.com>
+ <as_v6iB__bh3cHm3@intel.com>
+Content-Language: en-US
+From: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+In-Reply-To: <as_v6iB__bh3cHm3@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: AOaLmqzFR-UB6TcRydpk8pcIF_fY0HL9
+X-Authority-Analysis: v=2.4 cv=COa/zhrD c=1 sm=1 tr=0 ts=6ad28470 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=tArK308TId--5egZv2cA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: AOaLmqzFR-UB6TcRydpk8pcIF_fY0HL9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA4MCBTYWx0ZWRfX90vPDkzChEZi
+ PDZMp5XTPutqBZuwSEO28XbkazaiLJSU7rp9v/+A6AO8cS274h8b/4mhNEeAqz5D7YxBy3ew1FA
+ BwFez1kG4WGWDMb+xplrR73VL3bYWJdYKM6uDQrgTYgF2Y9o9pEoJ2r893i254/p1ZRlYJa1arK
+ a0ydidAOcGNES+YBqQO6dBmBqGbt85g8aR9BiBGd49KuhFzFqY82sn3j1I94Nz+j3cwF7XWOOVU
+ dnLBlTVgV+9qX1W2WRlZ5vbYRvDlNdrtnfk2OtQI2Rc1GDj3ixgCsxVJo+/znIHJ1LI3REgAS2D
+ BSQw9K3yJvXRdhmRMmyWMNWbGd2BCn4vXUK8NyVPZuRG8uKVBOKxVtvxQWqU6R6eQOmemFsWx7I
+ 5s/VAFH8uYqFx3mD9HuqSFHN3JP7OcFJRyZY3gdR+bHj3FPRWjgVvdAk6izW8sc+vDAR3Yn1GVJ
+ XDrq3NLObWdckzTWedA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA4MCBTYWx0ZWRfX2RL8OHWVSSkT
+ 7y7PgQh4Y47uNBvn0d8nkKVmeu6I++FfJz1Md6yO1KP0ASgJTU65FSg23ACOC9Y3ow+Tl8sHWxM
+ f28BMCPg8bc9CsxWAHsXMa340TvzN5A=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 phishscore=0 spamscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160080
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,167 +145,565 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-10-16 05:09, Christian König wrote:
-> On 10/16/26 16:51, Daniel Huang wrote:
->> KFD SVM maps memory in GPUVM at the same virtual address used by
->> the CPU. However, svm_range_map_to_gpu() passes the corresponding
->> PFNs to amdgpu_vm_update_range() without checking them against
->> vm_manager.max_pfn.
+
+
+On 10/14/2026 3:11 PM, Rodrigo Vivi wrote:
+> On Fri, Oct 09, 2026 at 10:31:51AM -0700, Zack McKevitt wrote:
+>> Add a new node type, attribute set, and doit function for performing
+>> telemetry read and write operations using the DRM RAS interface.
+> 
+> Hi Zack,
+> 
+> I'm glad to see more users of drm-ras and glad that the flexibility is paying of
+> 
 >>
->> If the GPUVM address range is smaller than the CPU address range,
->> the page-table walker can index beyond the allocated root page-table
->> entries. Unlike the SVM path, the BO mapping path validates the
->> address range through amdgpu_vm_verify_parameters().
->>
->> An explicit amdgpu.vm_size override can trigger this condition by
->> configuring a smaller GPUVM than the driver would normally select.
->>
->> Reproduced on a Radeon 780M (gfx1103) with amdgpu.vm_size=64.
->> Repeated hipMallocManaged() allocations attempted to map CPU
->> address 0x74bd48000000, well beyond the 64 GiB GPUVM limit.
->> The out-of-bounds root entry contained SLUB poison with
->> slub_debug=FZPU and recycled heap data without it, resulting in
->> a general protection fault:
->>
->>    RIP: 0010:amdgpu_vm_cpu_update+0x2f/0x140 [amdgpu]
->>     amdgpu_vm_pte_update_flags+0xfa/0x1e0 [amdgpu]
->>     amdgpu_vm_ptes_update+0x38b/0xa00 [amdgpu]
->>     amdgpu_vm_update_range+0x279/0x930 [amdgpu]
->>     svm_range_map_to_gpu+0x13d/0x400 [amdgpu]
->>     svm_range_validate_and_map+0x8d3/0xaa0 [amdgpu]
->>     svm_ioctl+0x66/0x80 [amdgpu]
->>     kfd_ioctl+0x40a/0x650 [amdgpu]
->>
->> As discussed in [1], rejecting out-of-range PFNs in
->> amdgpu_vm_update_range() is too late. SVM must not be initialized
->> when the GPUVM cannot represent the required CPU addresses.
->>
->> Prevent this by disabling KFD SVM support when the GPUVM address
->> range is smaller than AMDGPU_GMC_HOLE_START. This prevents
->> affected devices from advertising SVM support and excludes them
->> from SVM mappings. Warn from kfd_update_svm_support_properties(),
->> which runs after the device memory pgmap is registered, so that
->> only devices that would otherwise have advertised SVM report the
->> loss of the capability.
->>
->> [1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
->>
->> Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
->> Closes: https://github.com/ROCm/legacy-rocm-build/issues/6691
->> Cc: stable@vger.kernel.org
-> I think we should drop the Fixes and CC stable tag, that is not really a bug fix.
->
->> Signed-off-by: Daniel Huang <danielhu@amd.com>
+>> Signed-off-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
 >> ---
->>
->> Tested on a Radeon 780M (gfx1103, PCI 1002:15bf), kernel
->> 7.0.0-38-generic, and ROCm 7.13.0-2.
->>
->> The reproducer performs 24 iterations of hipMallocManaged(1 GiB),
->> hipMemset(), and hipFree() per run, with 40 runs per attempt.
->>
->> With amdgpu.vm_size=64:
->> - Stock module: kernel Oops within approximately 2 seconds on
->>    every attempt.
->> - Patched module: completed 40/40 runs in two attempts, with
->>    stock and patched modules tested alternately on the same kernel.
->>
->> With the default GPUVM size, the patched module preserved SVM
->> support, emitted no warning, and completed the same test.
->>
->> Two questions for maintainers:
->>
->> 1. I interpreted "SVM must fail to initialize" as disabling
->>     the SVM capability for affected devices rather than failing
->>     KFD initialization or rejecting the vm_size override.
->>     Would a different approach be preferable?
-> I think that this is ok.
->
-> The amdgpu.vm_size override is only for driver testing and not something end users are supposed to change in any way.
->
-> So that here is actually a really minor issue.
->
->> 2. This check also affects GMC v6/v7/v8, whose GPUVM address
->>     ranges cannot reach AMDGPU_GMC_HOLE_START. Although these
->>     devices do not register device-private memory, an APU with
->>     apu_prefer_gtt can currently advertise SVM support.
->>
->>     Should the check apply to these devices as well, or should
->>     it be limited to explicitly configured amdgpu.vm_size
->>     overrides?
-> So we still support GMC v6/v7/v8 with KFD? I think we have dropped that a while ago.
+>>   Documentation/netlink/specs/drm_ras.yaml |  55 ++++++-
+>>   drivers/gpu/drm/drm_ras.c                | 193 ++++++++++++++++++++++-
+>>   drivers/gpu/drm/drm_ras_nl.c             |  29 ++++
+>>   drivers/gpu/drm/drm_ras_nl.h             |   6 +
+>>   include/drm/drm_ras.h                    |  39 +++++
+>>   include/uapi/drm/drm_ras.h               |  14 ++
+> 
+> just to confirm, you used ynl to generate these most of these files right?
+> Please make sure to mention in the commit message so we are sure.
+> 
 
-KFD SVM is not (and never was)  supported on GPUs before GFXv9.
+Correct, ill add a note in the commit in the v2.
 
-Regards,
-   Felix
-
-
->
-> If we still support this then that would indeed be problematic.
->
-> Regards,
-> Christian.
->
->>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 18 ++++++++++++++++--
->>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 +++++++++++++-
->>   2 files changed, 29 insertions(+), 3 deletions(-)
+>>   6 files changed, 327 insertions(+), 9 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
->> index c7d7adae4476..6235ce0f988e 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
->> @@ -203,11 +203,25 @@ struct kfd_process_device *
->>   svm_range_get_pdd_by_node(struct svm_range *prange, struct kfd_node *node);
->>   void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
+>> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
+>> index a88fdab7a1c7..d558eb1cba3f 100644
+>> --- a/Documentation/netlink/specs/drm_ras.yaml
+>> +++ b/Documentation/netlink/specs/drm_ras.yaml
+>> @@ -16,7 +16,7 @@ definitions:
+>>       type: enum
+>>       name: node-type
+>>       value-start: 1
+>> -    entries: [error-counter]
+>> +    entries: [error-counter, telemetry]
+>>       doc: >-
+>>            Type of the node. Currently, only error-counter nodes are
+> 
+> Please ensure that the doc is also updated.
+> 
+
+Will do.
+
+>>            supported, which expose reliability counters for a hardware/software
+>> @@ -100,6 +100,31 @@ attribute-sets:
+>>           name: error-value
+>>           type: u32
+>>           doc: Current value of the error counter.
+>> +  -
+>> +    name: telemetry-attrs
+>> +    attributes:
+>> +      -
+>> +        name: node-id
+>> +        type: u32
+>> +        doc: >-
+>> +             Unique identifier for the node.
+>> +             Assigned dynamically by the DRM RAS core upon registration.
+>> +      -
+>> +        name: field
+>> +        type: u32
+>> +        doc:  Telemetry field to be read/written, e.g., SoC temp.
+>> +      -
+>> +        name: value
+>> +        type: u64
+>> +        doc: Value of telemetry field that was read/written.
+>> +      -
+>> +        name: status
+>> +        type: s32
+>> +        doc: Status of the telemetry operation.
+> 
+> is this status the hardware itself that is giving?
+> Please add some doc around it to help us understand the need and see if
+> is generic enough and mandatory vs optional.
+> 
+
+Yes, it is a hardware status. I will add a more in depth doc for this in 
+the next iteration.
+
+>> +      -
+>> +        name: pad
+>> +        type: pad
+>> +        doc: Alignment padding used for 64-bit
 >>   
->> +/*
->> + * SVM uses CPU virtual addresses for GPU mappings. Disable SVM if the GPUVM
->> + * address range cannot cover the required CPU address range.
+>>   operations:
+>>     list:
+>> @@ -198,6 +223,34 @@ operations:
+>>               - node-id
+>>               - error-id
+>>               - error-threshold
+>> +    -
+>> +      name: telemetry-read
+> 
+> should we do get_/set_ instead of read/write to align with the existing
+> entries?!
+> 
+
+Sure, will do.
+
+>> +      doc: Perform a read of the specified telemetry field.
+>> +      attribute-set: telemetry-attrs
+>> +      do:
+>> +        pre: drm-ras-nl-pre-telemetry
+>> +        request:
+>> +          attributes:
+>> +            - node-id
+>> +            - field
+> 
+> how do users know what field to read?
+> Why not a dump or at least a dump field for field discovery?
+> 
+
+We define the set of fields for our devices in our uapi file 
+qaic_accel.h, but I think a dump is probably a good idea here.
+
+>> +        reply:
+>> +          attributes:
+>> +            - value
+>> +            - status
+>> +    -
+>> +      name: telemetry-write
+>> +      doc: Perform a write of the specified telemetry field.
+> 
+> what is a write telemetry operation?
+
+Our device has certain fields that are writable, e.g., 
+QAIC_DEVINFO_THERMAL_WARNING_TEMP where the host is able to modify the 
+device's thermal warning temperature threshold. These make up a small 
+subset of telemetry fields.
+
+> can we make this optional?
+> 
+
+Sure, I will make it optional in the v2.
+
+> even write is allowed without admin cap?
+> 
+
+It seems like all of our existing writable telemetry fields should be 
+restricted to admin cap only, so I will add the admin cap back in for this.
+
+>> +      attribute-set: telemetry-attrs
+>> +      do:
+>> +        pre: drm-ras-nl-pre-telemetry
+>> +        request:
+>> +          attributes:
+>> +            - node-id
+>> +            - field
+>> +            - value
+>> +        reply:
+>> +          attributes:
+>> +            - status
+>>   
+>>   mcast-groups:
+>>     list:
+>> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+>> index b099eb67836e..b88293295cda 100644
+>> --- a/drivers/gpu/drm/drm_ras.c
+>> +++ b/drivers/gpu/drm/drm_ras.c
+>> @@ -53,6 +53,15 @@
+>>    * 7. SET_ERROR_THRESHOLD: Set error threshold of a given counter.
+>>    *    Userspace must provide Node ID, Error ID and threshold to be set.
+>>    *
+>> + * 8. TELEMETRY_READ: Read a telemetry value.
+>> + *    Userspace must provide Node ID and telemetry field to be read.
+>> + *    Returns the status of the read and the value read (if valid).
 >> + *
->> + * The parameter must be named adev since AMDGPU_GMC_HOLE_START references
->> + * adev->vm_manager.max_level.
+>> + * 9. TELEMETRY_WRITE: Write a telemetry value.
+>> + *    Userspace must provide Node ID, the telemetry field to write, and the value
+>> + *    to be written.
+>> + *    Returns the status of the write.
+>> + *
+>>    * Node registration:
+>>    *
+>>    * - drm_ras_node_register(): Registers a new node and assigns
+>> @@ -63,7 +72,6 @@
+>>    * Node type:
+>>    *
+>>    * - ERROR_COUNTER:
+>> - *     + Currently, only error counters are supported.
+>>    *     + The driver must implement the query_error_counter() callback to provide
+>>    *       the name and the value of the error counter.
+>>    *     + The driver must provide a error_counter_range.last value informing the
+>> @@ -81,6 +89,12 @@
+>>    *       that are raised by the hardware.
+>>    *     + The driver is responsible for error threshold bounds checking.
+>>    *
+>> + * - TELEMETRY:
+>> + *     + The driver must implement the telemetry_read() and telemetry_write()
+>> + *       callbacks.
+>> + *     + The driver can optionally provide a pre_doit callback, telemetry_pre(),
+>> + *       to enforce permissions checks on telemetry operations.
+>> + *
+>>    * Netlink handlers:
+>>    *
+>>    * - drm_ras_nl_list_nodes_dumpit(): Implements the LIST_NODES
+>> @@ -95,6 +109,12 @@
+>>    *   operation, fetching the error threshold of a specific counter.
+>>    * - drm_ras_nl_set_error_threshold_doit(): Implements the SET_ERROR_THRESHOLD doit
+>>    *   operation, setting the error threshold of a specific counter.
+>> + * - drm_ras_nl_pre_telemetry(): Implements the TELEMETRY_READ and TELEMETRY_WRITE
+>> + *   pre_doit operation, returning 0 if valid.
+>> + * - drm_ras_nl_telemetry_read_doit(): Implements the TELEMETRY_READ doit operation,
+>> + *   invoking the driver's telemetry_read callback and returning the results.
+>> + * - drm_ras_nl_telemetry_write_doit(): Implements the TELEMETRY_WRITE doit operation,
+>> + *   invoking the driver's telemetry_write callback and returning the results.
+>>    */
+>>   
+>>   static DEFINE_XARRAY_ALLOC(drm_ras_xa);
+>> @@ -617,6 +637,156 @@ int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb, struct genl_info *i
+>>   	return set_node_error_threshold(node_id, error_id, threshold);
+>>   }
+>>   
+>> +/**
+>> + * drm_ras_nl_pre_telemetry - Enforce permission checks
+>> + * @ops: Generic netlink operations
+>> + * @skb: Netlink message buffer
+>> + * @info: Generic Netlink info containing attributes of the request
+>> + *
+>> + * Enforces a telemetry node's pre_doit conditions (if they exist).
+>> + *
+>> + * Returns 0 if no pre_doit is specified, otherwise returns the pre_doit.
 >> + */
->> +static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
+>> +int drm_ras_nl_pre_telemetry(const struct genl_split_ops *ops, struct sk_buff *skb,
+>> +			     struct genl_info *info)
 >> +{
->> +	return (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) >=
->> +		AMDGPU_GMC_HOLE_START;
+>> +	struct drm_ras_node *node;
+>> +	u32 node_id;
+>> +
+>> +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
+>> +	node = xa_load(&drm_ras_xa, node_id);
+>> +
+>> +	if (node->telemetry_pre)
+>> +		return node->telemetry_pre(node);
+>> +
+>> +	return 0;
 >> +}
 >> +
->>   /* SVM API and HMM page migration work together, device memory type
->>    * is initialized to not 0 when page migration register device memory.
->>    */
->> -#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
->> -					((adev)->apu_prefer_gtt))
->> +#define KFD_IS_SVM_API_SUPPORTED(adev)					\
->> +	(((adev)->kfd.pgmap.type != 0 || (adev)->apu_prefer_gtt) &&	\
->> +	 kfd_svm_vm_covers_user_va(adev))
+>> +/**
+>> + * drm_ras_nl_telemetry_read_doit() - Query a telemetry value
+>> + * @skb: Netlink message buffer
+>> + * @info: Generic Netlink info containing attributes of the request
+>> + *
+>> + * Extracts the telemetry field from the netlink attributes and
+>> + * reads that value from the device.
+>> + *
+>> + * Return: 0 on success, or negative errno on failure.
+>> + */
+>> +int drm_ras_nl_telemetry_read_doit(struct sk_buff *skb, struct genl_info *info)
+>> +{
+>> +	struct drm_ras_node *node;
+>> +	struct sk_buff *msg;
+>> +	struct nlattr *hdr;
+>> +	u32 node_id, field;
+>> +	s32 status;
+>> +	u64 value;
+>> +	int ret;
+>> +
+>> +	if (!info->attrs || !info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD])
+>> +		return -EINVAL;
+>> +
+>> +	field = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD]);
+>> +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
+>> +
+>> +	node = xa_load(&drm_ras_xa, node_id);
+>> +	if (!node || !node->telemetry_read)
+>> +		return -ENOENT;
+>> +
+>> +	msg = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
+>> +	if (!msg)
+>> +		return -ENOMEM;
+>> +
+>> +	hdr = genlmsg_iput(msg, info);
+>> +	if (!hdr) {
+>> +		nlmsg_free(msg);
+>> +		return -EMSGSIZE;
+>> +	}
+>> +
+>> +	ret = node->telemetry_read(node, &field, &value, &status);
+>> +	if (ret) {
+>> +		nlmsg_free(msg);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = nla_put_s32(msg, DRM_RAS_A_TELEMETRY_ATTRS_STATUS, status);
+>> +	if (ret) {
+>> +		genlmsg_cancel(msg, hdr);
+>> +		nlmsg_free(msg);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = nla_put_64bit(msg, DRM_RAS_A_TELEMETRY_ATTRS_VALUE, sizeof(value),
+>> +			    &value, DRM_RAS_A_TELEMETRY_ATTRS_PAD);
+>> +	if (ret) {
+>> +		genlmsg_cancel(msg, hdr);
+>> +		nlmsg_free(msg);
+>> +		return ret;
+>> +	}
+>> +
+>> +	genlmsg_end(msg, hdr);
+>> +
+>> +	return genlmsg_reply(msg, info);
+>> +}
+>> +
+>> +/**
+>> + * drm_ras_nl_telemetry_write_doit() - Write a telemetry value
+>> + * @skb: Netlink message buffer
+>> + * @info: Generic Netlink info containing attributes of the request
+>> + *
+>> + * Extracts the telemetry field and value to be written from the netlink
+>> + * attributes and writes that value to the specified field on the device.
+>> + *
+>> + * Return: 0 on success, or negative errno on failure.
+>> + */
+>> +int drm_ras_nl_telemetry_write_doit(struct sk_buff *skb, struct genl_info *info)
+>> +{
+>> +	struct drm_ras_node *node;
+>> +	struct sk_buff *msg;
+>> +	struct nlattr *hdr;
+>> +	u32 node_id, field;
+>> +	s32 status;
+>> +	u64 value;
+>> +	int ret;
+>> +
+>> +	if (!info->attrs || !info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD])
+>> +		return -EINVAL;
+>> +
+>> +	value = nla_get_u64(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_VALUE]);
+>> +	field = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD]);
+>> +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
+>> +
+>> +	node = xa_load(&drm_ras_xa, node_id);
+>> +	if (!node || !node->telemetry_read)
+>> +		return -ENOENT;
+>> +
+>> +	msg = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
+>> +	if (!msg)
+>> +		return -ENOMEM;
+>> +
+>> +	hdr = genlmsg_iput(msg, info);
+>> +	if (!hdr) {
+>> +		nlmsg_free(msg);
+>> +		return -EMSGSIZE;
+>> +	}
+>> +
+>> +	ret = node->telemetry_write(node, &field, &value, &status);
+>> +	if (ret) {
+>> +		nlmsg_free(msg);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = nla_put_s32(msg, DRM_RAS_A_TELEMETRY_ATTRS_STATUS, status);
+>> +	if (ret) {
+>> +		genlmsg_cancel(msg, hdr);
+>> +		nlmsg_free(msg);
+>> +		return ret;
+>> +	}
+>> +
+>> +	genlmsg_end(msg, hdr);
+>> +
+>> +	return genlmsg_reply(msg, info);
+>> +}
+>> +
+>>   /**
+>>    * drm_ras_node_register() - Register a new RAS node
+>>    * @node: Node structure to register
+>> @@ -631,14 +801,21 @@ int drm_ras_node_register(struct drm_ras_node *node)
+>>   	if (!node->device_name || !node->node_name)
+>>   		return -EINVAL;
 >>   
->>   void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
+>> -	/* Currently, only Error Counter Endpoints are supported */
+>> -	if (node->type != DRM_RAS_NODE_TYPE_ERROR_COUNTER)
+>> -		return -EINVAL;
+>> -
+>> -	/* Mandatory entries for Error Counter Node */
+>> -	if (node->type == DRM_RAS_NODE_TYPE_ERROR_COUNTER &&
+>> -	    (!node->error_counter_range.last || !node->query_error_counter))
+>> +	/* Currently, only Error Counter and Telemetry endpoints are supported */
+>> +	switch (node->type) {
+>> +	case DRM_RAS_NODE_TYPE_ERROR_COUNTER:
+>> +		/* Mandatory entries for Error Counter Node */
+>> +		if (!node->error_counter_range.last || !node->query_error_counter)
+>> +			return -EINVAL;
+>> +		break;
+>> +	case DRM_RAS_NODE_TYPE_TELEMETRY:
+>> +		/* Mandatory entries for Telemetry Node */
+>> +		if (!node->telemetry_read || !node->telemetry_write)
+>> +			return -EINVAL;
+>> +		break;
+>> +	default:
+>>   		return -EINVAL;
+>> +	}
 >>   
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> index 35b3abe57b80..5de19fa27d12 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> @@ -2471,8 +2471,20 @@ void kfd_update_svm_support_properties(struct amdgpu_device *adev)
->>   				sys_props.generation_count++;
->>   			else
->>   				dev_err(adev->dev, "Failed to update SVM support properties. ret=%d\n", ret);
->> -		} else
->> +		} else {
->> +#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
->> +			/* Report it rather than letting the capability
->> +			 * silently vanish from the KFD topology.
->> +			 */
->> +			if ((adev->kfd.pgmap.type || adev->apu_prefer_gtt) &&
->> +			    !kfd_svm_vm_covers_user_va(adev))
->> +				dev_warn_once(adev->dev,
->> +					      "GPUVM size 0x%llx is too small for KFD SVM; SVM disabled (amdgpu.vm_size=%d)\n",
->> +					      adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
->> +					      amdgpu_vm_size);
->> +#endif
->>   			dev->node_props.capability &= ~HSA_CAP_SVMAPI_SUPPORTED;
->> +		}
->>   	}
->>   	up_write(&topology_lock);
+>>   	return xa_alloc(&drm_ras_xa, &node->id, node, xa_limit_32b, GFP_KERNEL);
 >>   }
+>> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+>> index ff0dc406c27c..4577bc1a333e 100644
+>> --- a/drivers/gpu/drm/drm_ras_nl.c
+>> +++ b/drivers/gpu/drm/drm_ras_nl.c
+>> @@ -41,6 +41,19 @@ static const struct nla_policy drm_ras_set_error_threshold_nl_policy[DRM_RAS_A_E
+>>   	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD] = { .type = NLA_U32, },
+>>   };
+>>   
+>> +/* DRM_RAS_CMD_TELEMETRY_READ - do */
+>> +static const struct nla_policy drm_ras_telemetry_read_nl_policy[DRM_RAS_A_TELEMETRY_ATTRS_FIELD + 1] = {
+>> +	[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID] = { .type = NLA_U32, },
+>> +	[DRM_RAS_A_TELEMETRY_ATTRS_FIELD] = { .type = NLA_U32, },
+>> +};
+>> +
+>> +/* DRM_RAS_CMD_TELEMETRY_WRITE - do */
+>> +static const struct nla_policy drm_ras_telemetry_write_nl_policy[DRM_RAS_A_TELEMETRY_ATTRS_VALUE + 1] = {
+>> +	[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID] = { .type = NLA_U32, },
+>> +	[DRM_RAS_A_TELEMETRY_ATTRS_FIELD] = { .type = NLA_U32, },
+>> +	[DRM_RAS_A_TELEMETRY_ATTRS_VALUE] = { .type = NLA_U64, },
+>> +};
+>> +
+>>   /* Ops table for drm_ras */
+>>   static const struct genl_split_ops drm_ras_nl_ops[] = {
+>>   	{
+>> @@ -83,6 +96,22 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
+>>   		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD,
+>>   		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
+>>   	},
+>> +	{
+>> +		.cmd		= DRM_RAS_CMD_TELEMETRY_READ,
+>> +		.pre_doit	= drm_ras_nl_pre_telemetry,
+>> +		.doit		= drm_ras_nl_telemetry_read_doit,
+>> +		.policy		= drm_ras_telemetry_read_nl_policy,
+>> +		.maxattr	= DRM_RAS_A_TELEMETRY_ATTRS_FIELD,
+>> +		.flags		= GENL_CMD_CAP_DO,
+>> +	},
+>> +	{
+>> +		.cmd		= DRM_RAS_CMD_TELEMETRY_WRITE,
+>> +		.pre_doit	= drm_ras_nl_pre_telemetry,
+>> +		.doit		= drm_ras_nl_telemetry_write_doit,
+>> +		.policy		= drm_ras_telemetry_write_nl_policy,
+>> +		.maxattr	= DRM_RAS_A_TELEMETRY_ATTRS_VALUE,
+>> +		.flags		= GENL_CMD_CAP_DO,
+>> +	},
+>>   };
+>>   
+>>   static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
+>> diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
+>> index 9aef097ea10f..4bdd7ed268a1 100644
+>> --- a/drivers/gpu/drm/drm_ras_nl.h
+>> +++ b/drivers/gpu/drm/drm_ras_nl.h
+>> @@ -12,6 +12,9 @@
+>>   
+>>   #include <uapi/drm/drm_ras.h>
+>>   
+>> +int drm_ras_nl_pre_telemetry(const struct genl_split_ops *ops,
+>> +			     struct sk_buff *skb, struct genl_info *info);
+>> +
+>>   int drm_ras_nl_list_nodes_dumpit(struct sk_buff *skb,
+>>   				 struct netlink_callback *cb);
+>>   int drm_ras_nl_get_error_counter_doit(struct sk_buff *skb,
+>> @@ -24,6 +27,9 @@ int drm_ras_nl_get_error_threshold_doit(struct sk_buff *skb,
+>>   					struct genl_info *info);
+>>   int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb,
+>>   					struct genl_info *info);
+>> +int drm_ras_nl_telemetry_read_doit(struct sk_buff *skb, struct genl_info *info);
+>> +int drm_ras_nl_telemetry_write_doit(struct sk_buff *skb,
+>> +				    struct genl_info *info);
+>>   
+>>   enum {
+>>   	DRM_RAS_NLGRP_ERROR_REPORT,
+>> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
+>> index 1765a3130b09..2a2cdd44839d 100644
+>> --- a/include/drm/drm_ras.h
+>> +++ b/include/drm/drm_ras.h
+>> @@ -100,6 +100,45 @@ struct drm_ras_node {
+>>   	 */
+>>   	int (*set_error_threshold)(struct drm_ras_node *node, u32 error_id, u32 threshold);
+>>   
+>> +	/**
+>> +	 * @telemetry_pre:
+>> +	 *
+>> +	 * This callback is used to enforce any pre_doit conditions necessary
+>> +	 * for telemetry. This is an optional callback for telemetry_node.
+>> +	 *
+>> +	 * Returns 0 on success, negative error code on failure.
+>> +	 */
+>> +	int (*telemetry_pre)(struct drm_ras_node *ep);
+>> +
+>> +	/**
+>> +	 * @telemetry_read:
+>> +	 *
+>> +	 * This callback is used for a drm-ras telemetry node to read a
+>> +	 * telemetry value. This is a mandatory callback for telemetry_node.
+>> +	 *
+>> +	 * The callback will read the desired device-specific field into value
+>> +	 * and update status corresponding to a device-specific error code.
+>> +	 *
+>> +	 * Returns 0 on success, negative error code on failure.
+>> +	 */
+>> +	int (*telemetry_read)(struct drm_ras_node *ep, u32 *field, u64 *value,
+>> +			      s32 *status);
+>> +
+>> +	/**
+>> +	 * @telemetry_write:
+>> +	 *
+>> +	 * This callback is used for a drm-ras telemetry node to write a
+>> +	 * telemetry value. This is a mandatory callback for telemetry_node.
+>> +	 *
+>> +	 * The callback will write the value to the desired device-specific
+>> +	 * field and update status corresponding to a device-specific error
+>> +	 * code.
+>> +	 *
+>> +	 * Returns 0 on success, negative error code on failure.
+>> +	 */
+>> +	int (*telemetry_write)(struct drm_ras_node *ep, u32 *field, u64 *value,
+>> +			       s32 *status);
+>> +
+>>   	/** @priv: Driver private data */
+>>   	void *priv;
+>>   };
+>> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
+>> index 2f832275ee6e..d39c78a9ed5a 100644
+>> --- a/include/uapi/drm/drm_ras.h
+>> +++ b/include/uapi/drm/drm_ras.h
+>> @@ -16,6 +16,7 @@
+>>    */
+>>   enum drm_ras_node_type {
+>>   	DRM_RAS_NODE_TYPE_ERROR_COUNTER = 1,
+>> +	DRM_RAS_NODE_TYPE_TELEMETRY,
+>>   };
+>>   
+>>   enum {
+>> @@ -51,6 +52,17 @@ enum {
+>>   	DRM_RAS_A_ERROR_EVENT_ATTRS_MAX = (__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX - 1)
+>>   };
+>>   
+>> +enum {
+>> +	DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID = 1,
+>> +	DRM_RAS_A_TELEMETRY_ATTRS_FIELD,
+>> +	DRM_RAS_A_TELEMETRY_ATTRS_VALUE,
+>> +	DRM_RAS_A_TELEMETRY_ATTRS_STATUS,
+>> +	DRM_RAS_A_TELEMETRY_ATTRS_PAD,
+>> +
+>> +	__DRM_RAS_A_TELEMETRY_ATTRS_MAX,
+>> +	DRM_RAS_A_TELEMETRY_ATTRS_MAX = (__DRM_RAS_A_TELEMETRY_ATTRS_MAX - 1)
+>> +};
+>> +
+>>   enum {
+>>   	DRM_RAS_CMD_LIST_NODES = 1,
+>>   	DRM_RAS_CMD_GET_ERROR_COUNTER,
+>> @@ -58,6 +70,8 @@ enum {
+>>   	DRM_RAS_CMD_ERROR_EVENT,
+>>   	DRM_RAS_CMD_GET_ERROR_THRESHOLD,
+>>   	DRM_RAS_CMD_SET_ERROR_THRESHOLD,
+>> +	DRM_RAS_CMD_TELEMETRY_READ,
+>> +	DRM_RAS_CMD_TELEMETRY_WRITE,
+>>   
+>>   	__DRM_RAS_CMD_MAX,
+>>   	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
+>> -- 
+>> 2.43.0
+>>
+
