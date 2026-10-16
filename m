@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F39CCCF2C2
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 16:07:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8EBCC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 16:07:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC7511290D;
-	Fri, 16 Oct 2026 16:07:18 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B38381128E8;
- Fri, 16 Oct 2026 16:07:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9AC81128F4;
+	Fri, 16 Oct 2026 16:07:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 139B71128EF;
+ Fri, 16 Oct 2026 16:07:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2EC3F60202;
- Fri, 16 Oct 2026 16:07:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B691F000C5;
- Fri, 16 Oct 2026 16:07:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F0097403A1;
+ Fri, 16 Oct 2026 16:07:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10A11F000C7;
+ Fri, 16 Oct 2026 16:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792166830;
- bh=HoQcf7n8Q8ynNDAuwTEGdl/f27l9+9gdRy/4HNnkOVc=;
+ s=k20260515; t=1792166835;
+ bh=bTnvzmPBqQO5bnBnm+XgGen3Y38ypytnbj4pLgrXzZI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=F/Epq7AM1gSU+en4YO89dvsAJYKFrWxlTyCrAOyJJiNbc6OeZ/X2SNmQ6iYSi2onm
- esSIfTLvS62+8UY9Onu8T823en0EK/29yiaTsTsoMI+TLTYvWyBuDVaYHh7O01yhOI
- v1BiekT1LXDDQ/pyrQUP1EOKhUPfNJVqn94Cu/OK3GxoEE4EXOAbWYX6XEn/fGKyNa
- bqbZ6ixFMf2tSJp0cGSBK92yXZTxYsj4HQLcclbpoIyHRP5coDVgRix7KAo3gKyXb7
- /JDuuI+tLr0uybOzpo0YIu8Acp3Okj+YoNNpWQ4zGiwCsjxongmJGMm5rKTDXHHi4/
- Ul4ClICsVsldQ==
+ b=lAe7Td8XOZeaj/f4Z6IveolOWQxjThgFB7mKy/zV25BfXtHsOup8Bu0G9/vSewuAt
+ 4167jHC7JTF54vSJsqo0sWRQJuJWoNPzrIPxswwflYqFS6MMkOZZ6Patq5gNUfhHub
+ ONYn57NtbuUSCg3JKpjcfkaaLX0U70n0qzwSMKPYGXezcBNMsy3uiAvLmO8oFJbXbG
+ zWGG8BZbYvt03LYoLhf6Ud7BD23Mh2TJK1uFRM6jw48JEB61iCdX+yo+pF7gY8GPt+
+ QaaB04gDG8Xgyt+8bp8xMGKr/E4xsNPRmJ3OOccR2xg1Rf1qVQoD4oHMMZdERA4tvk
+ RKH2Tpr6CgTDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: Thierry Reding <thierry.reding@kernel.org>,
  Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>,
@@ -45,9 +45,9 @@ Cc: Sasha Levin <sashal@kernel.org>, Rob Herring <robh@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/6] arm64: tegra: Add the fuse clock to the Tegra132 GPU
-Date: Fri, 16 Oct 2026 12:06:56 -0400
-Message-ID: <20261016160700.3831336-4-sashal@kernel.org>
+Subject: [PATCH v2 5/6] arm64: tegra: Add the fuse clock to the Tegra210 GPU
+Date: Fri, 16 Oct 2026 12:06:58 -0400
+Message-ID: <20261016160700.3831336-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261016160700.3831336-1-sashal@kernel.org>
 References: <20261016160700.3831336-1-sashal@kernel.org>
@@ -68,33 +68,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The GPU needs the fuse clock running while it is powered: the GM20B
-on Tegra210 often fails to initialize without it, and the GK20A on
-Tegra132 is expected to have the same requirement. Describe the fuse
-clock so that the GPU driver can keep it enabled.
+The GM20B GPU on Tegra210 needs the fuse clock running while it is
+powered. Describe it so that the GPU driver can keep it enabled.
 
+Fixes: d1b725476104 ("arm64: tegra: p2180: Explicitly enable GPU")
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/nvidia/tegra132.dtsi | 5 +++--
+ arch/arm64/boot/dts/nvidia/tegra210.dtsi | 5 +++--
  1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra132.dtsi b/arch/arm64/boot/dts/nvidia/tegra132.dtsi
-index 26cd11a8a4a12..30f0d87aa70c2 100644
---- a/arch/arm64/boot/dts/nvidia/tegra132.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra132.dtsi
-@@ -195,8 +195,9 @@ gpu@57000000 {
- 			     <GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>;
+diff --git a/arch/arm64/boot/dts/nvidia/tegra210.dtsi b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
+index 5f5e5370d7096..2e84b2bda3142 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra210.dtsi
++++ b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
+@@ -446,8 +446,9 @@ gpu@57000000 {
  		interrupt-names = "stall", "nonstall";
- 		clocks = <&tegra_car TEGRA124_CLK_GPU>,
--			 <&tegra_car TEGRA124_CLK_PLL_P_OUT5>;
--		clock-names = "gpu", "pwr";
-+			 <&tegra_car TEGRA124_CLK_PLL_P_OUT5>,
-+			 <&tegra_car TEGRA124_CLK_FUSE>;
-+		clock-names = "gpu", "pwr", "fuse";
+ 		clocks = <&tegra_car TEGRA210_CLK_GPU>,
+ 			 <&tegra_car TEGRA210_CLK_PLL_P_OUT5>,
+-			 <&tegra_car TEGRA210_CLK_PLL_G_REF>;
+-		clock-names = "gpu", "pwr", "ref";
++			 <&tegra_car TEGRA210_CLK_PLL_G_REF>,
++			 <&tegra_car TEGRA210_CLK_FUSE>;
++		clock-names = "gpu", "pwr", "ref", "fuse";
  		resets = <&tegra_car 184>;
  		reset-names = "gpu";
- 		status = "disabled";
+ 
 -- 
 2.53.0
 
