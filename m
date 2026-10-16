@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF78ECC6B38
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 13:55:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16962CCF2C1
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 13:55:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F6310E21A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E851010E1DA;
 	Fri, 16 Oct 2026 13:54:53 +0000 (UTC)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B43410E286
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:54:46 +0000 (UTC)
-Received: by mail-ed1-f69.google.com with SMTP id
- 4fb4d7f45d1cf-6b1c2d36cabso5719757a12.1
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:54:46 -0700 (PDT)
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA00210E1DA
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:54:43 +0000 (UTC)
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-c2942fa0995so690015466b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:54:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792158884; x=1792763684;
+ d=google.com; s=20251104; t=1792158882; x=1792763682;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=4RB0qRPK5JwVr0FFzsYrhcGUqlQtMIIbndksgD1L2mI=;
- b=K6te1JnVyJ5oSDwC2TYdpwN+U/0rJFRAbwu+reE/cQPhszKv6x7gA3V6YS8DvqWA0C
- exn0J9mv02wnxtK4/PQT1qlecSIIJ0DSRq4j7aEEAwmwfgCih5Yr3lWj6DbuFoqONJTl
- ooP4WLM4QF4skmriCnSeoh8Jf9v6eZv6DCE2gONWIFl1sLRlxfcfJtONY4qnFMuJ9Dlt
- 7gD0hsyZf8s+0DmrO4hDiDDF8gMOMDy6jN+29u2TBHkcY2OR7kKx81vNPFlXDh1nAaN+
- cN7UtiePvpzz1oEg5CvJdC/5IYcEKaf1DEkv1Aq3E8UIXXl2q6RjS8HTraSKQrZAHXd+
- D2Dg==
+ :content-type; bh=xqeqqSt0YOpLVQ4yu04gr8nCmmHhkZ/s47wtOe1ej+o=;
+ b=s1OzGaLFVSwJWZEhm003dnX9XLAX80bixfJm9oOdTCtBQUq5vLqIVSl+00TGhqsWLp
+ SHRjhz83hUBCWbpI6ng9ZCmOpCSeOiNm7Ey69PxbZ6+uKN5BVtk75U8/iu+WFJBAjL89
+ xFOWZlG0oMK6m3ieQ/a9/4Vufd82aot6ATwvCpVTnjOJ0WLKjWRhxFx/tAUMNJ4fPdkA
+ d5Y8hC93m0KPMld6evlKBTnUWBn27aD06MrHFCYtI0g6Z8dvute5ncp2nkslsQ2++bn6
+ eick+RDzaqGa322eYyZVAi/9dTOpY4RBSH+H3FPf/+nGgNGwdE4pZloFdn2ib+GTu7w0
+ 4uMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792158884; x=1792763684;
+ d=1e100.net; s=20260707; t=1792158882; x=1792763682;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=4RB0qRPK5JwVr0FFzsYrhcGUqlQtMIIbndksgD1L2mI=;
- b=VXhtn4CMAD1pNbVv32cCDDAEstck2Mv1tWgP+7vl8OSvLcbD//ts9lCRm0Ml1yPRGZ
- 7FMTDvc39O0EJiuoqrbEWG99ciCYSsMavu4B6nkwDgF6K6BkDR+a2Lfoql3sLCZAtHxv
- YbGA7uXUlFfAjBBhN/1vbNNVevca+cvuz4rPW/2Fy+9B6q/+XpeHwoU2MJrc9rqdna53
- M7DA3Ej736veauGZA/8mWWjw8MDVfb2wVnm8Aq+J24L4l5LBr/qXwSiElf4L1ABVIFro
- KeBu+onHeOVf/MhLHOUKa549PhnHBhJidfFX5r1hZwvA7gjYlvEFRPkJUmUfKUDF7vyU
- WT+A==
+ bh=xqeqqSt0YOpLVQ4yu04gr8nCmmHhkZ/s47wtOe1ej+o=;
+ b=HdV0qbbXO4pQHjvlcVSbGc5yJ9rD4MBGRnRMKpideh/GiFju4C95EmWG+RPXfeINJw
+ 43hSsWO+Tf4SN0eTCt/owTci1pXfdQUJ1YbeXhBJUYvQmFfpaNRRHBFajQuvXIPZMazf
+ xWRowo5sMRVCgMP2eMogvqU5A5Sae7gOq5OqJw7qn4o93gGtAWy74FVMiIzHW+39rM/D
+ rDpKZ5gPank9vjo6yw4Gr6aG54f9qYTCLe8WmqqDvRsaFH50k2homRESqI8/7vAnFCbJ
+ wgiTdG5ERRtdXxaLE6SzW55ZHuUGxc7+XYPSLPzgKJT8RCWASSmykA0p5RM0ga6M4+7T
+ oa5A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzjbuof5DTHgmeK03AqBYiTCf0zEjK1WstFAIhcDpoR347bV+nUq47RnJhe9hngrC4XXIr/0g+jJcw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKchoezfT3CREriHXVvnQafy0fLnl3Ud3yTuvLgAJB2P9PO+a92
- g30mhN3pXD2jP5S3fHX4j3KeEEgfpBWI1H68xlD2AFgSX2YcqvgybaTWwv2ph1lt/7kcCvkm9IF
- 7mjgXWW9Ce2w0CIZWXQ==
-X-Received: from wrwc4.prod.google.com ([2002:a5d:63c4:0:b0:48c:44a2:fe52])
+ AKwUvBwKVJezw1YWgQ8U1VpOKAHGFJvAT3n77SsRKvz5KkOGWBT53NKD69pfAt8rM+gU5VrFuY94+vg3HUE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIwOgDXfaMNjJqE0hRrf+ZE038F7w0A/Trbm7xMnhBGrmvckJOW
+ QSCyT2VA7rCa6JEhspe3vjg3MGJLfJJslq6ywlF/h9dDKPa5Am7sWYoHZfEIsjy4lqimpNRRaFo
+ ziYggI4wmNIZzPaQs5A==
+X-Received: from ejbrh8.prod.google.com ([2002:a17:907:20e8:b0:c35:81ab:15ef])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:5285:b0:6b1:497d:1c64 with SMTP id
- 4fb4d7f45d1cf-6b17c293eccmr19329170a12.45.1792158884099; 
- Fri, 16 Oct 2026 06:54:44 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:54:36 +0000
-In-Reply-To: <20260814230923.1292966-5-dakr@kernel.org>
+ 2002:a17:907:3f20:b0:c3e:e726:9548 with SMTP id
+ a640c23a62f3a-c3ee7269fcdmr508329766b.14.1792158881705; 
+ Fri, 16 Oct 2026 06:54:41 -0700 (PDT)
+Date: Fri, 16 Oct 2026 13:54:34 +0000
+In-Reply-To: <20260814230923.1292966-3-dakr@kernel.org>
 Mime-Version: 1.0
 References: <20260814230923.1292966-1-dakr@kernel.org>
- <20260814230923.1292966-5-dakr@kernel.org>
+ <20260814230923.1292966-3-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261016135439.44716-4-aliceryhl@google.com>
-Subject: Re: [PATCH 4/7] rust: fs: add iminor() helper
+Message-ID: <20261016135439.44716-2-aliceryhl@google.com>
+Subject: Re: [PATCH 2/7] rust: drm: gem: gate open/close callbacks with
+ RegistrationGuard
 From: Alice Ryhl <aliceryhl@google.com>
 To: Danilo Krummrich <dakr@kernel.org>
 Cc: Alice Ryhl <aliceryhl@google.com>, acourbot@nvidia.com,
@@ -86,10 +87,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Aug 15, 2026 at 01:09:02AM +0200, Danilo Krummrich wrote:
-> Add a Rust helper for iminor(), which extracts the minor number from a
-> struct inode. This is a static inline function in the C headers, so
-> bindgen does not generate a binding for it.
+On Sat, Aug 15, 2026 at 01:09:00AM +0200, Danilo Krummrich wrote:
+> Wrap the GEM object open and close callbacks with a RegistrationGuard
+> (drm_dev_enter / drm_dev_exit) to ensure the driver callbacks only run
+> while the parent bus device is bound.
+> 
+> If the device has been unbound, open returns -ENODEV and close silently
+> returns. This prevents driver code from accessing device resources after
+> unbind and is a prerequisite for making drm::Driver::File
+> lifetime-parameterized, since GEM callbacks receive a &drm::File that
+> could otherwise be used to access invalidated file private data.
 > 
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
