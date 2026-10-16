@@ -4,95 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26A34CC6B38
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F191ACCA46D
 	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B01B0112662;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A60E111265D;
 	Fri, 16 Oct 2026 07:35:42 +0000 (UTC)
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
- [209.85.222.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB45710EC2C
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 22:13:30 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id
- af79cd13be357-93e64d52949so550469085a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 15:13:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792102409; cv=none;
- d=google.com; s=arc-20260327;
- b=BuhvyNmERi/prBbsdhDeyQg1V5Rfn3oB0My8rFEQmIB7l4vORoIzyBVyuyBUbsGCYX
- Tn68y4hG5dgkpw4N4cVevs+hLM7Uk33+ExFEcyOU940jHxFTvyGXPLlhaWGF49EQWUy3
- kJ/blXDKsJ58Lri/Th5NuE+oYySZ7tEKEOC8drL/eIaJ5YvA0eOlqLAMuaLmI9kmm+Jw
- IJyMnPj1wJ1UNzwjc9U9KkgDj9pkjIN0MBAa586yET1L4D5/OK//Dr1MEWnYy66c4QGH
- TXfzxDvYA0i3P+uu/QH2Fp4NIqI643qdqBT87MGJkQpiEugiN3kmiY2kM7tzMkz7K8g3
- vzuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
- fh=iNdS+R3NFOOsSuPFyl7u1Qy9cwWGACALzX9tjb8gvfM=;
- b=eeor50lID3raHWKEAykB9e+iMyWZogTnnjvLnnFWFGWXFUTjpCL9Xtl3V0RiPQU44p
- JCgY2Ojp2DtlunNtoQFX67hdYjEu1NLsfcxIb9+MH9ajWpoAqW89/PgbeBQihj3yiH0h
- XTdu0kY+o49sNybbwTfePvEN41CxfdrNi1uzaUIYqhssWZTfCU0L7yDi/xNi+C7Iut/z
- /VIRaGc3sLSsnmwrr7jPnQRkLHUl1sOhc+XACB3Jqcrpx/JHsGJXC2xd2BXjGOOAHC6T
- QEVpSnTF8I4qpJQfHr5EgCYigWd0F+8BJaAoXR/riqcI7s5dB9JpsfhoipgxC3OsmRbo
- UvEA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tototo.si; s=acc; t=1792102409; x=1792707209; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
- b=hieu4mAHgK+32CCIpnXCJTszN5UJBdKq2C+atPipykD3xQ+6XHhjLOH4/+YdsXjW6J
- GT1TrYcv33nr/nVrkLVzIILAvuHBzQ0Jpw5CW8/IMR1UNA2fofNvh4ug9UW/pn8GyDP0
- pPQHVyPgCioyD2yTLRW9drjC6qGlcVPzXq45eby2dmTgbsAEm9YI/PSICcGmxQzeNPKL
- Zn4VNKClvd4oaC8oLv5ze/4I8Hbtq5KgPWkcBiBYrAMunBEV2mFM4xHlh5SWM2HWq/B5
- Gwd0nH9I+RbwuOEqsQ6BCJAucL4aTCmlqq9t4xrt16g8JLgoqFWTz7qURuZ5dNPTAXCu
- X7QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792102409; x=1792707209;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
- b=zVDfFCiZ/dxW8nz8eBKGbwWg0+K7AlQNXiMBA1lFOE6A2/gOMedyvFM2iGBNJmTvsx
- lce6BDE4kQXBqA563PsGiEf9eB6ipceYbM1HHLZ+Y3uGI0keOSBEZDd5ev3Am75o1uED
- nhA6zGAFgV58wr0UBB/AY3630O+EfwSsqyKy1DQ8OQww6C11DzuA4BP46FS9K1YP8Spq
- HymcpIirfS5dNOaKvb0t9ChKcz42toUBLAd6hPu0uGiWOHTyrPk1chKHJ20RTyReSNf5
- 2G71iwaAaR9lAI9FFMvay8l2LI4fHk+IB6drej2nMCQV57o01g+hpoWWUQSzcrFIBY15
- N2Aw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxUMic0PyYIFnepKn/9TdHsFI8ob5GIK8BWpnxz74xcR5ELJBkQfc+wKXYkL31ACCixAP42A/wZcgM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK8FEUO8Kzo5jzL4Jc7bianRGakAwSmmvNQ2aZGxNizVnHCakzX
- JCRR25BwfrtAFe9RqGahliZJVSG/KxrjFkJzpFGDldhb3/krRrhuDLfF/Taa7T8rblxhBq8B//i
- ptlgGP+MvOEKoHlEXBy/tM/I2ZUVwkPJzyV9ZMQW4Yg==
-X-Gm-Gg: AYBFou05QbjSssGxVBM8LtQLLEGxq+CCPIXTr0YvJByhGchu6sJLuhG76XbmjU+1wfX
- 2IEj0QjAx6j9WHzUmOb5ZEZEOSEQYFTf28odL33X5dBo7ktDk7KvKa0qW+lyWvsRvgQC8eQmbP0
- DTV8pVKAgmnjn9KSA2PmorgRBzsUJZR6VizlNgqxvBULNZzj6d0k7g/EXZDOGBg34RbY6xqL/Pl
- 6EyRlbB7Fi0gFZr08cTl1RtLSjeMfDWNAaOTzvByDLyLF4CTv/cKmPYjteBHRhK22jKxk+FC/cs
- Go7egWRpkzaZHMrvLVeWKfqngobBljoNM2OW8W70hYInMyVIXc9MwX9Rq33MvrsX0O0ItrjAKd2
- d1zme1zIl15zy8QDFPag3vTPiIAXpVEdJQOicAVgErpmr
-X-Received: by 2002:a05:620a:6301:20b0:93e:c12c:f123 with SMTP id
- af79cd13be357-93ec12d0765mr2319680685a.79.1792102409418; Thu, 15 Oct 2026
- 15:13:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
- <E1AEF567-3705-4AE7-B409-6E6D70C505AC@linux.dev> <atE25_ZrIQct41wt@wunner.de>
-In-Reply-To: <atE25_ZrIQct41wt@wunner.de>
-From: Vasilij <vasilij.kernel@tototo.si>
-Date: Fri, 16 Oct 2026 00:13:18 +0200
-X-Gm-Features: AclHuK9I0yDPNPLitjPqdTfv5HCtW4bWJD7j6t3Cj0jJn68j6aocr7GGsKF-5Uw
-Message-ID: <CAC=+NRGqTxz33PZL9dLPfbFbQDNvxyp3PXBSEQEmkh_Vbave5A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/appletbdrm: Add suspend and resume support
-To: Lukas Wunner <lukas@wunner.de>
-Cc: Aditya Garg <aditya.garg@linux.dev>, Aun-Ali Zaidi <admin@kodeit.net>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+X-Greylist: delayed 300 seconds by postgrey-1.36 at gabe;
+ Fri, 16 Oct 2026 05:33:34 UTC
+Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1511E10E10C
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 05:33:33 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=uw7fxBE4sS4SzyBiLGjQGBSyw365kfF4L/SJZG9QNu8=; 
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792128812; v=1; x=1792733612;
+ b=IYRS2mo9/6M/213FGoB5qzRNfiWwSfOnbyReEst2j+vQco93Ussw9qCTtBpHvjUob/m2dUij
+ MLxoTsVo37YJ7eOL3+rZR2U1h/Rjs4Uj2oPnLcI0oRIQow9HPVw+J6KQPCzQdCVAaZ5UEgWZduD
+ zlpzMu0c6r20ajwF975NWBJ+phoqir6uzJAmrGydjNQOvLwiJ/Gk1//SwILZLctZ2BUF47Hli3f
+ Ka4tvqcy1PVKnLPzhmL5qrGMHAg4hkqZHqaR2yjahGmApnj5gIJI8AnwnO+arMvZVAK/niG4BXS
+ QWeS1dg00sCiF8aXJDMjRiNUVmA/kBjMcGeY5sCWhp5DA==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id f028aeaa80b00641;
+ Fri, 16 Oct 2026 05:27:28 +0000
+X-Mizu-Trace-ID: f028aeaa80b00641
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Jocelyn Falempe <jfalempe@redhat.com>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Kerem Karabay <kekrby@gmail.com>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+ Simona Vetter <simona@ffwll.ch>, luyuantao <luyuantao01@163.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/panic: Fix kmsg screen hang on a long log line
+Date: Thu, 15 Oct 2026 22:27:21 -0700
+Message-ID: <20261016052722.60051-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.56.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 16 Oct 2026 07:35:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,57 +60,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 15, 2026 at 10:26:15PM +0200, Lukas Wunner wrote:
-> I'd love to, but both v1 and v2 have sashiko findings that nobody bothered
-> to debunk or fix.  (The fix for v1 consisted of removing a callback, which
-> triggered other sashiko findings.)  I'm neither an expert on this driver
-> nor the tiny drm library, but I'd like to help improve Linux Mac support.
-> Please help me understand whether the sashiko findings are valid.
+The kmsg panic screen reads the log back one chunk at a time. A record
+that does not fit in a chunk comes back empty without moving on, so the
+screen asks for it again forever and the panic never finishes. Every
+oops logs the list of loaded modules, and on my machine that list does
+not fit.
 
-Thanks for looking at it, and sorry for leaving the findings
-unanswered. I went through all of them; in short, the v1 finding and
-the first two v2 findings are valid. v3 brings back reset_resume with
-the error path fixed:
-https://lore.kernel.org/all/20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si/
+Read into a buffer the size printk formats one record into, and stop if
+a read still comes back empty.
 
-v1, "memory leak of suspend_state on reset_resume error": valid. If
-appletbdrm_get_information() or appletbdrm_signal_readiness() fails,
-reset_resume returns before drm_mode_config_helper_resume(), so the
-state saved by drm_mode_config_helper_suspend() is never put, and
-fbdev/polling stay suspended. The USB core only logs a reset_resume
-error and keeps the driver bound, so nothing else cleans it up. v3
-logs the handshake error and still calls
-drm_mode_config_helper_resume(), the same way udl and gm12u320 do it.
+Fixes: 54034bebb22f ("drm/panic: Add a kmsg panic screen")
+Cc: stable@vger.kernel.org
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+---
+I usually work on Wi-Fi drivers, so this is new ground for me. While I
+was testing a fix for a Wi-Fi driver crash, my test machine froze after
+the crash where it should have rebooted, and stayed that way until I
+power cycled it. Working out why led me here.
 
-v2, "missing reset_resume breaks reset recovery": valid, and not only
-in theory. v2 dropped reset_resume because the device was not reset
-on resume, but with the current t2linux 7.2.11 kernel (which carries
-v2) the Touch Bar is reset on every resume here (MacBookPro16,2, S3):
+To reproduce, with the kmsg screen and panic=10 on a display driver with
+panic support, as root:
 
-  usb 5-6: reset high-speed USB device number 7 using t2bce_core
-  [drm] Initialized appletbdrm 1.0.0 for 5-6:2.1 on minor 2
+  printf "%600s\n" "" | tr ' ' x > /dev/kmsg
+  echo c > /proc/sysrq-trigger
 
-Without reset_resume the USB core unbinds and probes the driver
-again, tiny-dfr loses its device and the Touch Bar stays dark, which
-is the bug the patch is meant to fix. With v1 (reset_resume doing the
-probe handshake) on the same kernel the reset still happens, but the
-driver is not probed again and the Touch Bar works after resume.
+Before this patch the panic never gets to its reboot.
 
-v2, "suspend_state leaked on unbind while suspended": with
-reset_resume back, a reset no longer unbinds the driver, which was
-the scenario sashiko described. What is left is the device going
-away while the system sleeps: then disconnect runs without a resume
-and the saved state is not freed. As far as I can see udl and
-gm12u320 have the same gap, and drm_mode_config_cleanup() does not
-free suspend_state either. v3 leaves it out; I can drop the saved
-state in appletbdrm_disconnect() in a follow-up, or it could be fixed
-once in the helpers if the DRM maintainers prefer that.
+QEMU, 10 runs each, on drm-misc-fixes and drm-misc-next (bochs) and
+6.12.113 (simpledrm):
 
-v3 is tested on the t2linux 7.2.11 kernel: 7 suspend/resume cycles,
-the Touch Bar was reset on each resume, the driver was not probed
-again, tiny-dfr kept running and the Touch Bar worked every time.
-(I went through the findings with the help of an AI assistant,
-Claude; the logs and tests are from my machine.)
+                                     before    after
+  one 600 char line                  hangs     reboots
+  same, then 400 short lines         hangs     reboots
+  one record of 300 short lines      hangs     reboots
+  oops with 24 modules loaded        hangs     reboots
+  plain panic                        reboots   reboots
 
-Thanks,
-Vasilij
+amdgpu, 2 runs each, Arch's source and config, before and after:
+
+  6.18.52, the two commands above    hangs     reboots
+  6.18.52, one record of 300 lines   hangs     reboots
+  6.18.52, oops                      hangs     reboots
+  7.2.6, kmsg screen set, oops       hangs     reboots
+
+luyuantao's patch [1] stops reading once the screen is full, so it only
+helps the second row. With both on drm-misc-fixes, every row reboots.
+
+The buffer is shared, like the QR code buffers; a panic only draws from
+one CPU. In drm-misc-next this code is in drm_panic_helper.c, where the
+same change was tested.
+
+[1] https://lore.kernel.org/all/20260126100732.365-1-luyuantao01@163.com/
+
+ drivers/gpu/drm/drm_panic.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+index e576c4791861d..29b1487de7ae0 100644
+--- a/drivers/gpu/drm/drm_panic.c
++++ b/drivers/gpu/drm/drm_panic.c
+@@ -556,7 +556,8 @@ static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
+ 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
+ 	struct drm_rect r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
+ 	struct kmsg_dump_iter iter;
+-	char kmsg_buf[512];
++	/* the size printk formats one record into, too big for the stack */
++	static char kmsg_buf[2048];
+ 	size_t kmsg_len;
+ 	struct drm_panic_line line;
+ 	int yoffset;
+@@ -574,6 +575,10 @@ static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
+ 		char *start;
+ 		char *end;
+ 
++		/* a record that does not fit comes back empty, every time */
++		if (!kmsg_len)
++			break;
++
+ 		/* ignore terminating NUL and newline */
+ 		start = kmsg_buf + kmsg_len - 2;
+ 		end = kmsg_buf + kmsg_len - 1;
+
+base-commit: 324fac81f365fc123247f9c8a52cb66ebd93b5e5
+-- 
+2.56.0
+
