@@ -4,149 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DFF0CC6B38
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 06:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D4BDCCA462
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 06:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9229F10E0CC;
-	Fri, 16 Oct 2026 06:27:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC76A10E0CC;
- Fri, 16 Oct 2026 06:27:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792132038; x=1823668038;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=hiihIFxvY1rnzklFQnlhkj2SEFWaG8vfnSCPjfTo0DU=;
- b=UmlL0PiarAk39Itq+Jy1Ir7cF3TFveqQ8Lw02pR4RgUXlO+/GyX7s8n9
- nKf8EclvMOvN2AdQuX/fadlNbRFNS81S9UbWKYmNZXb9JbOhryQxdTNQV
- 3f5NGfSMMjjvP21Kp7hY3X85lepQuwm5Bz/RxyHzajj2copAvO2Nk4oHX
- dXPpI77R5gOGDQCvkfFADuEFVM6U2rkyST14QiQnKZPnaPbkrIndCdiKA
- JaMdKqk4RJOFTOvxfb1alpUSFtwE3eO/5Zx/uIkEAbQJSG+wbLPQFgEbg
- r7rqQk8fCvMgf1anORGdmMP46w3b7i+Y/49RpOkR5F/hOhdtJKZNS8HGd Q==;
-X-CSE-ConnectionGUID: KtnbZnmHRxSp/ucWALUsUg==
-X-CSE-MsgGUID: gzesuUoOTuq5NA2aHrz2kQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="813117"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="813117"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2026 23:27:14 -0700
-X-CSE-ConnectionGUID: 2g/lAndASVGjpNDjOPx/3w==
-X-CSE-MsgGUID: H7HLg/d1TJCmChSCs1bXyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1845322"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2026 23:27:10 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 23:27:09 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 23:27:09 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.67) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 23:27:08 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oGzgjUO0kd0VPZ9ZkM9F8Xykl7thRgrX3GlCvFS3lxjTyFVz7tnaAJS0SLJ/4q1r/deesvwPhRC4M63QyM3Znwftb7dkcSM313kTfHW38DCRAD2cBDIh25gwBTWiEVsdV48lR9wPBcUlgWnxFGlcm/hxfTZvXHxeCCsZYA7oY2My0q/TsvHS+mv45PNpSzWfYnXOAdEJpV/5MEsugZN9DJ7l1ZcR/Q7SShPeBggzYSZLEflCAWmB8rJeiVyprbHRwGZGgpurhUO2fXnOaLcV1lnzsRkmHrb/UfWkmjrFkXfZisiCDyxSYxJ2xie53jEzCjGjctt1oXusSLbMW6bjzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i3yCwpTOJn5idI2JxSkmBG7l2pZjyU+m5tS6ffo+yfY=;
- b=jhs1qmPIioee9hqBkCAJADwz9bgSxLwseDlAYvayXqoJUbrnAWylBkuk0gJ6/qyxmehabqV2R7/auaycdwq+Utwq4s+DF5BynuRMzgBn8JxM3++s41/1K8LnfDKZ7RXSCvZz8ZibfdGoW+aqgoQErpJt/bj8+pN5CRMdph7JS1IoLM2rkXGiye5dgKiegiiQ1D2KoN24DPl6BngaUnbudgzZIp8ry5TXEl9ks5vgxBXM+d6HoiwXH5Q1cvJ0jjppg1Kns5LFPZZ83sz6yBj6APA7Z6uin/koGbyFPlavRBlNOjfMP75bkIf6EdAH6y9wNbsWoz7o57TZvnnv2+yMYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by EA3PR11MB986640.namprd11.prod.outlook.com (2603:10b6:303:309::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 06:27:02 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 06:27:01 +0000
-Date: Thu, 15 Oct 2026 23:26:59 -0700
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-CC: <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <matthew.brost@intel.com>
-Subject: Re: [PATCH v3 1/6] drm/gem: add helper to detect self-imported PRIME
- dma-bufs
-Message-ID: <atHDszh1A9Eqsukh@nvishwa1-desk>
-References: <20261014190200.1700470-8-niranjana.vishwanathapura@intel.com>
- <20261014190200.1700470-9-niranjana.vishwanathapura@intel.com>
- <af32a6f6-ccee-4265-96bf-d8508d0127b7@suse.de>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <af32a6f6-ccee-4265-96bf-d8508d0127b7@suse.de>
-X-ClientProxiedBy: SJ0PR03CA0035.namprd03.prod.outlook.com
- (2603:10b6:a03:33e::10) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F075610E1A5;
+	Fri, 16 Oct 2026 06:37:08 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD3010E1A5
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:36:57 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69G6Hk7H2678111
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:36:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=q8Z9/44SQcBcx5h/zSBNc6
+ T9xEkCG/Pel3ap2KBOJTs=; b=GghQcuj6DT+MkdKFX4twfD47S+2ZXIsxHwss0y
+ xFA/olz0732XFMYGhbDSZM4Cs+Dk3U2FFl81gX9FvccJ20RXI+YzsABdTtTiwPH6
+ V0igMh1TNZzt0v5LY07hkzEzhLRR2YRrOSabT1d2HXm+Xmk+iiWrJ82kht9Ivsk0
+ gI8rZRHGhG1kQEAuXgOdwqDiDtOxmU60eEPRUoSfWnLW7rPQAf+n+gUpxIvpN3QL
+ 836nqyYSlp1GNvPhI4ris80U9inwPZ4FmAm06UCQoYkNiiwtGp+GtakuRfXakNJc
+ oP7ck56S1c1GlhRvzzE3IxuXrq//mBWi4aDNVjAKCMn65pQw==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb19tb4ar-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:36:56 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-cc7e0321ec1so7228863a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 15 Oct 2026 23:36:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792132615; x=1792737415;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=q8Z9/44SQcBcx5h/zSBNc6T9xEkCG/Pel3ap2KBOJTs=;
+ b=SpCkH3I9XauUdzeg/Ih+UTZ7YEM0+Y1Uw9h1g0i5o27w0KR7troK+inqEkAN0v6DZ8
+ pE+CQgPbKav8+Hx6YiDpGVsi9QEMj4PZTA/9cuWXl/hxd8Dw42K5foX70gCh+TLnBF19
+ ZiRGHLBYq6SXgtwN9bKnKf/69P+aaI3vdeEIWmLE5r3vbNBGn9mXi5W2wj4btHiS5M1F
+ 9pX5J0fJsxoNed9e6/2+K2avQvDUTMreFN/XitdwqB6QZ2lMX+gX6p1Ra4XSf0u4lGaG
+ 9Wz3A7RCXne4Muh7n+lPHocPDvyD2mN+/AfZp6soQ15EUZ3M1hpus6Y4Uwxdq8EQf8MW
+ 8Zyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792132615; x=1792737415;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=q8Z9/44SQcBcx5h/zSBNc6T9xEkCG/Pel3ap2KBOJTs=;
+ b=e98bnWRKxIJVQDszrum9SIelYDes5Yu6W6R9dyYQRqby8dvk90jG7i7KguBd3Ck4uB
+ 8ww97p6hzZuVK02aahVxF8taWjNXf1+nX/QAevR2wfH/+Xlu/pJLiSoEKDaN1ZRnnNDt
+ 3r7bNFcQdjGZxYm0QMi/nK1K7wVL4jPHuTLmHB/5XkQe4QW3bqs00DLtUWt+BRJ+8lhQ
+ O62/OAQjKKHzQUCIy4Fm3WyOWd6gh7G7T1VwbtVJBND3Nq41r2ovDLZIbOselXRI1gVu
+ OaIi843r0yMDyXZEMyb9AdKzYFlCJ3algxpVjIWrHR+Dp2QKd0cLTpnhmITEuxga6Kqd
+ FrHw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy0y2MPSmtdEMcTTGIxeK/WNo82Z30QClDo7HZUGNF09jUUk/X9S+7YpqNtSK9TcpbU8RXVcK5tN8g=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI9WUZomQ2QQm7sDkgn9UU56+bEpjowLk4kKHS0ruE3NCNn/r/y
+ qz2oFRgOaqCARy6uuVYeA+1FG21kQwAo81Q9NiKheqBf8OBGkDHtzAjVksKCMfRfAve7jpGirSm
+ tF3mtB1VmcvgUhXG9zbJoxPq0T+ugStRDJoLXYZd4Dq2+G+w7sDKLHYWVvHjJ5lQGV1nHPEY=
+X-Gm-Gg: AYBFou3HGDKIOlVw/VrfdAkzqP/TxVMqNiDv+mLaabsd3+eweKUg7dVsy25583U5N/I
+ GMBudRWvb1U1XqBXDpL+jUyTkMzc0Wv4wxATAoDKwoZ9YQobdmcjWF7ZVW7vgdawwZDPoKqsQhr
+ lL806VwTQue6tsKqa6233cyCqIKAp52+5QP72rUR0eLQnACdgSPs7KUPfq8uS6rUsrjin9KBk4g
+ hUGQ4jIUg5gtFg1Z20PTQu2cLvIfuzxtnbBSZct44SVQYklbW3oAaXpLbOckDKTldTv+IcVq5Is
+ qItlgD6DMcsS9WCpqixw4a+TRwyii+5/q7bfjwbYvwoi6DKzoNa2TkSgNInE94AK2U1TD4DXP0g
+ Xx6oeCTi2e/H6F9lyfous8BObrXQ4WIo=
+X-Received: by 2002:a17:90b:384c:b0:3a4:b061:2765 with SMTP id
+ 98e67ed59e1d1-3ab3a735fd2mr23121501a91.15.1792132615484; 
+ Thu, 15 Oct 2026 23:36:55 -0700 (PDT)
+X-Received: by 2002:a17:90b:384c:b0:3a4:b061:2765 with SMTP id
+ 98e67ed59e1d1-3ab3a735fd2mr23121474a91.15.1792132614984; 
+ Thu, 15 Oct 2026 23:36:54 -0700 (PDT)
+Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3acc43a1e1esm2703298a91.1.2026.10.15.23.36.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2026 23:36:54 -0700 (PDT)
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Subject: [PATCH v5 0/2] arm64: dts: qcom: glymur: Fix fastrpc compute-cb
+ reg values for cdsp
+Date: Fri, 16 Oct 2026 12:06:45 +0530
+Message-Id: <20261016-glymur-dtfix-v5-0-f56a8b94b4a9@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|EA3PR11MB986640:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8e12f11-d197-4774-09e5-08df2b4e7cf6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|5023799004|56012099006|4143699003|11063799006|261009223027099003|261009221227099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: OOLygslYlD8qI2Yl4mfcgvx4uj1FHzlMLdUvMbq+oZ8AJ9iUx0EIq+pF1CLNhIgJpamhXVgTP7CeIrILCS+aFvQnp94zlJHRlO4H6s1kdymyFr55mH7HP8snXR0Q06fDqK5nnF0j/9jiUA+FNTC6otQ5fthQpPJU8E+fXJ1L8y5UwvHVM2OHw4Ax5VQnJ58KKKHvxaVii0+bONhIAJQKPiOzs47feQHJRm9TzLEBsqmRLSxwwWq3GuOEsYrYiWyUueOAYwTT5f9HMryFc4ivQ/NNui4vhkei/43lmY8Brhcw5XkdZ1vqS+FrwJyZD4UH45cQq63Bqoo9SqMW4w9ha5hoMgb8OfhGOZ2E9CorsfIV+NON7CNnoBLsMh+y63JFouyVNxlxZKOuw/7mTnG1nJqCIIwOyWc51M/CyaW9LCtYne2CghulLPU7zXX/cXEy/TiZkmieVliVHva13O6EhMmfhUhQd4emoj5lklP8KFgNNas97xwMCnVQ7rqNYS3x3f0diQUCpO6OmAMO6vIM0smvyVchkonTANtTqa33k+GfxBlFnIIcA/BwOAK5DrZ1c316wIku5CpE21hmTGL10WU/Cc5nGpDLqo0nGgpppfE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(5023799004)(56012099006)(4143699003)(11063799006)(261009223027099003)(261009221227099003)(10067099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?OcN51XQ2zZJtG0SGKsWYgUBvwk43bCYMVnlVLl9QSoKB4ckANboP3I0W4b?=
- =?iso-8859-1?Q?z+KNrefFQhG07r7NLKRC7UUUJf8Wj8ux7XMf3drCkVqhAr4wtdi6bmoiEg?=
- =?iso-8859-1?Q?ANipLn9ogP91iBhnJZQI2bRDezAlaDDBO8LO4CRWhJngo8O8C1F9ra5oSR?=
- =?iso-8859-1?Q?h5cbarFpRPMsYZnuuem2lZHKMVc8nK4sxbsFKm67fnvlOIMqreyHxda4zI?=
- =?iso-8859-1?Q?kf/GUiV0rb05vb5Szhbvh4In/W1cS7U6XefffZlSLkVYqoi808FGeNmlYZ?=
- =?iso-8859-1?Q?h6qLRzg4zPgpSKpLf/IIpYZgfpJ+rcrwn9ypO6zuVFfzFTVfE7F5mcWPJw?=
- =?iso-8859-1?Q?oiH1NPAyZGJQn5CRp0PK/c4SMmR5IJNxVCR+OVsCEN8QqVf9MLN8F7uqxE?=
- =?iso-8859-1?Q?Q1QktmXDNYcV/1FhZtG72/K2VUB/M6hnM/QFszVOXuKnuyYFVJ6WggbC3/?=
- =?iso-8859-1?Q?/GW3kIRCB2cfarYnTIQ8r4ZoXJxS3t2pyT9edznZMnB952BmC7iFqDponO?=
- =?iso-8859-1?Q?3xQvD3UAFxqzAp8e7EvxmVtJTa4c6xcI8O17ON7Bhvjt0biwxrTNdEte7z?=
- =?iso-8859-1?Q?UwM6A+nZFHRusriWfn0WnI1cDygqcPB7YbJJid9/XPk2L+hg+wg9xtBXJV?=
- =?iso-8859-1?Q?zarxNI/70iwyoUOif3bJz1yFOPokqBtpELlSmyBF63z6IQ21VXsweBsdJC?=
- =?iso-8859-1?Q?315B1JpuoE2uXmjcLCjcf1Zpju8sroMsNsoZZecqzd3ZmgaoN7PV/QUaXh?=
- =?iso-8859-1?Q?34RUDEpS9W6YBDV7p8I9eNivZcXG2Bnr4P09pIyyMR8MPqi2LnhY12IkrC?=
- =?iso-8859-1?Q?NIKWG6u2vrzQvS6pJI0XlBDOKXwS13GrSChp+DqN3RTEy3Nrr7btp4dwvh?=
- =?iso-8859-1?Q?B6AJVQYyv4lpRwn2W28SFiNIfldVIeZzVgq+Gqt5P+QxfV8v3JhH3o/ZeQ?=
- =?iso-8859-1?Q?8EfPe0BaO3eBUgx5AclaJAmfmZYEhczuIqdXY2sF4bbVDA5vg4ZUI07DII?=
- =?iso-8859-1?Q?ZnyJOv+w+4mEBkyL/3eLY1YYVB7xUBzx3CTKocMWySJdugj7rOcraWf+ni?=
- =?iso-8859-1?Q?Qf06oqBX7kcsyHYnRgVsEPGME0/JgENhDibUwd5yaa3zaJopYDFJmjaoFt?=
- =?iso-8859-1?Q?dl7dw3orpU5qnKRslGzHtJxpMBl5kk/Fyc62Bj0jZHhaIjZ6SUx9JHOuh4?=
- =?iso-8859-1?Q?3BI/1QzyGRfMXADE/eO7XpYgeT628SmHKB3vPhbiScBu29sqWhPPY7YoM+?=
- =?iso-8859-1?Q?jqJrl4q22+xRvKuyJ/ociRjizbaAPkFUAHM1y2Os8hOwvyS4W3KmX4Ja68?=
- =?iso-8859-1?Q?7namrQUuR4nTEWQN+os+eXdcSCtKrHoL6Uwl1akdtA45yTnCCW/AUP7/E/?=
- =?iso-8859-1?Q?henIsPb43viGrRN8nwS/yqZLtOFia+ur1DQVas55jppoPpAvRE6HbrIL3z?=
- =?iso-8859-1?Q?7hBaoKzDuc9hWB2VS/ctSDpm6JyL55sPqP8LIUk+6TuM4gdRwWiqq2K3GS?=
- =?iso-8859-1?Q?v9vZ00OuHpcN+3uHFWiGlEp/KYHbn2A5Y6l7d8gZaP0yjiKsCWj4tW0Omy?=
- =?iso-8859-1?Q?rzPrhiVDczwkfP5jMbHy/wLqCEUMZMESvcZzZCEWgPgxdMXpEdPkoh03S5?=
- =?iso-8859-1?Q?/XukC/H9dk87WizCCYJmz9dSeAGnn495jOprfuKKU0CGJXBCgbHojGv8Jr?=
- =?iso-8859-1?Q?EQX02A8298EZqA8jZxzVN51n2VpgK1SYsR3op6sowuc+TdzH3OCgpTydzx?=
- =?iso-8859-1?Q?idM2PyPBza5q3S2Ywx4BwyZY6babfYEGenrrEwVv/sTLpvfFLNjJ99URWe?=
- =?iso-8859-1?Q?7PkwSNBq1T7oj7U6Up4Gpsq9WqtW+15JMGaQj07V0/r+ZpsLQbQC?=
-X-Exchange-RoutingPolicyChecked: JBFyz23Qx3MqVkxXqLqoAgO0UZamyHiQDFi3LwVzQlzI9n8xfGvbZT0RnjW2tqp6scF7rBxRlIe/fTfVgBOzj32tT6ta3Dg6282bwogmINJkHx0qfFTNjgFtI+L6nM6ByOR4Bq04VfizeSDPumM7RMzNpWJ6hvTrDLM5c2NtdNSXp230f19Q/QlqkhgadMl3A0r/+rvlIUl4qZx+tIA7pYIHU6cm4UJ6b8AUWNOOYUZX4227gnrjACIcIUliRwp5PKUjrwqwJyo0wSaBvgBEARwqzItdvZ5teS9icag8uhoR6sYvGVTytdP83BHduUttDXDTKk9RmwmxFSiL9hFP7Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8e12f11-d197-4774-09e5-08df2b4e7cf6
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 06:27:01.5204 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I1wtwJs/8pci7wK67L8B6KzzwBQ3zsOP9F1GxBqmiI1j9gsVMZ4YPb1lV3IBwIJA5WNUheUDQLnibzjS5H5SnGaeTie6pT9oalhayNfbFSzP1sK1sjtjaVw/HruUWtsU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EA3PR11MB986640
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP7F0WoC/3XM3YrCMBAF4FeRXG/KZPK32at9D/GiSUcNWLuba
+ FGk7+7oxVLKloGBc+B8D1GpZKria/MQhcZc83DmYD82Ih3b84Fk7jgLBHQQEOXhdO+vRXaXfb5
+ Jp5Wx6KKJgIInP4W4fnPbHedjrpeh3N/6qF7tCjQqyWdD17oIRF34Hmptfq/tKQ193/ATL2/Eu
+ aEXBrLRmqgCfhIkjyuG/jMUgFsYWoI0hjAmqz2kNcPMDb8wDBta7b0ymrwN8R9jmqYnavV0eXs
+ BAAA=
+X-Change-ID: 20260922-glymur-dtfix-6314526b4b02
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Mahima Bhattaram <mbhattar@qti.qualcomm.com>,
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792132608; l=2079;
+ i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
+ bh=SbBWi7rAu2d4dqKIgQF1wHBrOqOAZBnCc5ssmW97zPc=;
+ b=VS1o8OFndnIWvmaRgXEEgPFHVS3EFhV4lUdzNEP8pErkH18I4Bsx9tmaHsYIA7VqGoV6Gtht1
+ BIye6BW1sAJDeaf7z6Irp2xiIqOAOQLhD6L5umNOrSke39THQpys3ti
+X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
+ pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
+X-Proofpoint-GUID: gnSz8AWkbK2-9GRz6kt4NaDUq8tPGJt-
+X-Proofpoint-ORIG-GUID: gnSz8AWkbK2-9GRz6kt4NaDUq8tPGJt-
+X-Authority-Analysis: v=2.4 cv=NqZE4MdJ c=1 sm=1 tr=0 ts=6ad1c608 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=8BLdeznasY9QL0IlsjIA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAyNiBTYWx0ZWRfX5+LzTLA0zJqs
+ uEks+wu8qHTB5FuZO5B6msOQ+KY2o68hN5ojTLTkVf0Pm7nlifopfmsUli0JoKanblBYJDXeHla
+ 0ZhU1WDCQZ311SRczRuo3bpe1AzPMO0K7VfTNTOWssM0QUzRtTmpNZPNj67Ow0kcK3r8No9O4yq
+ gySaPYRHW1VPQcte7PeOmnOMVgc91lGj/F0QUPVq8/TkqDNsbCISPDLgZH/+2xjcuw9LYn3r5z0
+ aL/+7R/JHlV+9h8/v3QoQqxWesQF1ACG1+cw6/Scg4ee+SuI9mzOpNmRcKG3pBAWpPGUn61/iCU
+ egCiZiqKM1s1dxkkmz6DqfYNcIf1DB4WCtnwNA2j8DQNCWTQKr48ae2odLj9hNsi6i/EfhCJMNH
+ kseF7rvD164V6oVz83kmcOd6DgL9CY+Gl//MIB68VXkh+xxHkpSB1jroYzUNiwVpJch5BxkmnbO
+ d47F2hgXEMOBVqoMKmA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAyNiBTYWx0ZWRfX+Y2fophqZg8c
+ DmXO3TbBsrdTXrCHdh0Ksb8ZOntYH9wPhl7l8avwW0te07pIUcBF3ViK32o8d5s4wjGLfDbMAiM
+ Aaj1SsbtcJpfv9kXsNxNAKR0JN31G2g=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 adultscore=0 spamscore=0 bulkscore=0
+ impostorscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160026
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,155 +162,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 15, 2026 at 09:27:08AM +0200, Thomas Zimmermann wrote:
->Hi
->
->Am 14.10.26 um 21:02 schrieb Niranjana Vishwanathapura:
->>From: Farah Kassabri <farah.kassabri@intel.com>
->>
->>Add drm_gem_prime_self_import() to detect and handle the case where a
->>PRIME dma-buf being imported was exported by the same DRM device.
->>
->>When the dma-buf originates from the importing device and uses the
->>expected dma-buf ops, the helper returns the associated GEM object and
->>takes an extra reference on it. This allows drivers to bypass the
->>generic PRIME import path and avoid taking an additional reference on
->>the dma-buf file.
->>
->>The helper simplifies self-import handling and avoids duplication of
->>this pattern across DRM drivers.
->>
->>v2: Move drm_gem_prime_self_import() to drm_gem.h as a static inline
->>     helper routine
->
->Why even bother submitting this? It is the same series that I already 
->declined with a few cosmetic changes.
->
->The abstract entry point for importing is drm_driver.gem_prime_import. 
->The implementation is driver specific. No need to over abstract. 
->Keeping drm_gem_object_get() separate from the test is a feature, not 
->a bug BTW.
->
->If you want to improve the status quo, change dma-buf such that prime 
->works without relying on the vtable and ->priv. I outlined this in my 
->earlier replies.
->
+The reg value of a compute-cb node must match the SID (the lower nibble
+of its IOMMU stream ID) it is associated with. In the cdsp fastrpc node
+of the Glymur SoC, three compute-cb nodes had incorrect reg values that
+did not match their SIDs, leading to SMMU translation errors.
 
-Hi Thomas,
+The fix renames the nodes to use correct lowercase hex unit addresses
+(per DTS convention) and corrects the reg values. Since the fastrpc
+binding's patternProperties only allowed decimal digits in node names,
+a binding update is included first to allow hex digits.
 
-As mentioned in other thread, your earlier suggesion of
-'__drm_gem_is_exported_dma_buf(dev, ops, dma_buf)' is not fully helpful
-as it would require drivers to still take object reference. Besides,
-this also depends on 'ops'.
+Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+---
+Changes in v5:
+- Write reg values in hex notation: <0xc>, <0xd>, <0xe> instead of
+  <12>, <13>, <14>.
+- Link to v4: https://lore.kernel.org/r/20261007-glymur-dtfix-v4-0-31f7143e759b@oss.qualcomm.com
 
-To me the 'dma_buf_ops as export identifer' seems to be well accepted
-idiom, though we may say it shouldn't be in stricter sense.
+Changes in v4:
+- Change [0-9a-f]* to [0-9a-f]+ in the binding pattern to require at
+  least one digit in the compute-cb unit address.
+- Link to v3: https://lore.kernel.org/r/20261006-glymur-dtfix-v3-0-44e2bc5370c2@oss.qualcomm.com
 
-But if we were not to relay on vtable and ->priv, then it looks like
-the best alternative will be to have DRM subsystem maintain a list of
-exported dma-buf objects per drm device. Then during import, parse this
-list to determine if the import is self-import or not.
+Changes in v3:
+- Add binding update to allow hex digits in compute-cb node names
+  (required since unit addresses must be lowercase hex per DTS
+  convention, and the corrected reg values >= 10 require hex names)
+- Link to v2: https://lore.kernel.org/r/20260923-glymur-dtfix-v2-1-a4b1928e0c72@oss.qualcomm.com
 
-I am not sure if it is worth to add this list just for this simple helper
-routine. If using dma_buf ops is no go, then yah, let us drop this series,
-keep current code and may be look into this alternative later through an RFC.
+Changes in v2:
+- Change unit adress to hex.
+- Link to v1: https://lore.kernel.org/r/20260922-glymur-dtfix-v1-1-159da6b0eed9@oss.qualcomm.com
 
-Thanks,
-Niranjana
+---
+Ekansh Gupta (2):
+      dt-bindings: misc: qcom,fastrpc: Allow hex digits in compute-cb node names
+      arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg values for cdsp
 
->Best regards
->Thomas
->
->
->
->>
->>Signed-off-by: Farah Kassabri <farah.kassabri@intel.com>
->>Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
->>Reviewed-by: Matthew Brost <matthew.brost@intel.com>
->>---
->>  drivers/gpu/drm/drm_prime.c | 10 ++-------
->>  include/drm/drm_gem.h       | 42 +++++++++++++++++++++++++++++++++++++
->>  2 files changed, 44 insertions(+), 8 deletions(-)
->>
->>diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
->>index 9b44c78cd77f..7a15c29052eb 100644
->>--- a/drivers/gpu/drm/drm_prime.c
->>+++ b/drivers/gpu/drm/drm_prime.c
->>@@ -974,15 +974,9 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
->>  	struct drm_gem_object *obj;
->>  	int ret;
->>-	if (drm_gem_is_prime_exported_dma_buf(dev, dma_buf)) {
->>-		/*
->>-		 * Importing dmabuf exported from our own gem increases
->>-		 * refcount on gem itself instead of f_count of dmabuf.
->>-		 */
->>-		obj = dma_buf->priv;
->>-		drm_gem_object_get(obj);
->>+	obj = drm_gem_prime_self_import(dev, dma_buf, &drm_gem_prime_dmabuf_ops);
->>+	if (obj)
->>  		return obj;
->>-	}
->>  	if (!dev->driver->gem_prime_import_sg_table)
->>  		return ERR_PTR(-EINVAL);
->>diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
->>index 885244e375d3..238ec08f0d81 100644
->>--- a/include/drm/drm_gem.h
->>+++ b/include/drm/drm_gem.h
->>@@ -646,6 +646,48 @@ static inline bool drm_gem_is_imported(const struct drm_gem_object *obj)
->>  	return !!obj->import_attach;
->>  }
->>+/**
->>+ * drm_gem_prime_self_import - Attempt to import a dma-buf exported by this DRM device
->>+ * @dev: DRM device performing the import
->>+ * @dma_buf: dma-buf to import
->>+ * @expected_ops: dma-buf ops used by this driver
->>+ *
->>+ * If @dma_buf was exported by this DRM device using @expected_ops, return the
->>+ * corresponding GEM object and take an extra reference on it. In this case,
->>+ * the import avoids taking a reference on the dma-buf file and instead bumps
->>+ * the GEM object's refcount directly.
->>+ *
->>+ * Comparing @dma_buf->ops against @expected_ops is plumbing: dma-buf has no
->>+ * first-class exporter identifier, so the ops pointer is used as a stand-in to
->>+ * recognise a buffer this driver exported. A dedicated exporter identity would
->>+ * let this be done without reaching into @dma_buf->ops.
->>+ *
->>+ * Returns:
->>+ * A referenced GEM object on success, or %NULL if the dma-buf was not exported
->>+ * by this device or does not match @expected_ops.
->>+ */
->>+static inline struct drm_gem_object *
->>+drm_gem_prime_self_import(struct drm_device *dev, struct dma_buf *dma_buf,
->>+			  const struct dma_buf_ops *expected_ops)
->>+{
->>+	struct drm_gem_object *obj;
->>+
->>+	if (dma_buf->ops != expected_ops)
->>+		return NULL;
->>+
->>+	obj = dma_buf->priv;
->>+	if (obj->dev != dev)
->>+		return NULL;
->>+
->>+	/*
->>+	 * Importing dmabuf exported from the driver's own gem increases
->>+	 * refcount on gem itself instead of f_count of dmabuf.
->>+	 */
->>+	drm_gem_object_get(obj);
->>+
->>+	return obj;
->>+}
->>+
->>  #ifdef CONFIG_LOCKDEP
->>  #define drm_gem_gpuva_assert_lock_held(gpuvm, obj) \
->>  	lockdep_assert(drm_gpuvm_immediate_mode(gpuvm) ? \
->
->-- 
->--
->Thomas Zimmermann
->Graphics Driver Developer
->SUSE Software Solutions Germany GmbH
->Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
->
->
+ Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml |  2 +-
+ arch/arm64/boot/dts/qcom/glymur.dtsi                     | 12 ++++++------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+---
+base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+change-id: 20260922-glymur-dtfix-6314526b4b02
+
+Best regards,
+-- 
+Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+
