@@ -4,42 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA27ECCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 10:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1122FCCA464
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 10:23:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 309E310E035;
-	Fri, 16 Oct 2026 10:21:22 +0000 (UTC)
-Received: from mta0.migadu.com (out-12.mta0.migadu.com [91.218.175.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6B6810E035
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 10:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AC1610E288;
+	Fri, 16 Oct 2026 10:23:23 +0000 (UTC)
+Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 919C210E288
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 10:23:16 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=ePQBThGmX/JowWmwIAHFYGbeGr5rO+nqnx/5hznaO+4=; 
+DKIM-Signature: a=rsa-sha256; bh=+DbsR2QGNazTX5aTT3V2iqIn/ew54sS/4tG7fp2Z4sM=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792146073; v=1; x=1792750873;
- b=mhS3KDo+NRypHYmSo3Gu1fIinuyijCxyCk8sctgz4o1xzL2MQMR1cEUlXA5tqkQD8pk2hwAr
- KfTf56l2Htd7WhtDJJki1QbJUy/duwjKHIh8yKeBNFCbAvzgHCkP9OpBUvEMO/QvSxmMCoj1XK4
- 5tcPa6LtmBS0XQQvLmbR7hwU=
+ t=1792146194; v=1; x=1792750994;
+ b=do7g0FXA0FvHxKGrXRSSW7vDOn3scZrxdfNLEa4HlIRB3Y0uE80kQy9OKgpDfRSdnT/LXHDk
+ 6VuKPUdG9OLdKnbjux183nbxAiYkleFoC44K3CQUXe80tI7OxIRGjlSkCvx7Wv5L9B+1kR7Hlh8
+ bfaoDKlLnYt+7FtbNhmh1WpY=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by mta12.migadu.com with ESMTPS id ac7aa4222085074f;
- Fri, 16 Oct 2026 10:21:12 +0000
-X-Mizu-Trace-ID: ac7aa4222085074f
+Received: by mta12.migadu.com with ESMTPS id 236b526ee2bc9499;
+ Fri, 16 Oct 2026 10:22:10 +0000
+X-Mizu-Trace-ID: 236b526ee2bc9499
 X-Migadu-Flow: FLOW_OUT
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 From: Aditya Garg <aditya.garg@linux.dev>
 Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH 02/75] drm/adp: Switch to
- drm_atomic_helper_connector_create_state
-Date: Fri, 16 Oct 2026 15:50:58 +0530
-Message-Id: <C47BD96C-AAF4-4A0C-95B1-6FE0E1715578@linux.dev>
-References: <20261014-drm-no-more-connector-reset-v1-2-586c9c026823@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Subject: Re: [PATCH] drm/appletbdrm: Fix incorrect error message on encoder
+ attach failure
+Date: Fri, 16 Oct 2026 15:51:56 +0530
+Message-Id: <7FF6CD32-8BFE-4DF9-8FB7-53BD9A5190F1@linux.dev>
+References: <F9EEFFBD-A749-4374-9FF4-75917ED2D204@linux.dev>
+Cc: Aun-Ali Zaidi <admin@kodeit.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Aun-Ali Zaidi <admin@kodeit.net>, Maxime Ripard <mripard@kernel.org>
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-2-586c9c026823@kernel.org>
-To: Maxime Ripard <mripard@kernel.org>
+ Simona Vetter <simona@ffwll.ch>, Atharva Tiwari <evepolonium@gmail.com>,
+ Kerem Karabay <kekrby@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Adam Azuddin <azuddinadam@gmail.com>,
+ Lukas Wunner <lukas@wunner.de>
+In-Reply-To: <F9EEFFBD-A749-4374-9FF4-75917ED2D204@linux.dev>
+To: azuddinadam@gmail.com
 X-Mailer: iPad Mail (24A446)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,18 +62,26 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-> On 14 Oct 2026, at 10:57=E2=80=AFPM, Maxime Ripard <mripard@kernel.org> wr=
+> On 28 Sep 2026, at 2:04=E2=80=AFPM, Aditya Garg <aditya.garg@linux.dev> wr=
 ote:
 >=20
-> =EF=BB=BFThe adp connector implementation uses the deprecated
-> drm_atomic_helper_connector_reset() as its reset hook.
+> =EF=BB=BF
 >=20
-> Switch to drm_atomic_helper_connector_create_state() instead.
+>> On 26 Sep 2026, at 6:49=E2=80=AFPM, Adam Azuddin via B4 Relay <devnull+az=
+uddinadam.gmail.com@kernel.org> wrote:
+>>=20
+>> =EF=BB=BFFrom: Adam Azuddin <azuddinadam@gmail.com>
+>>=20
+>> drm_connector_attach_encoder() replaced an earlier call to
+>> drm_simple_display_pipe_init() during review, but the error message
+>> logged on failure was not updated to match and still refers to the
+>> old call.
+>>=20
+>> Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Ma=
+cs")
+>> Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
 >=20
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Cc: Aditya Garg <gargaditya08@proton.me>
-> Cc: Aun-Ali Zaidi <admin@kodeit.net>
-> ---
+> Reviewed-by: Aditya Garg <aditya.garg@linux.dev>
 
-Acked-by: Aditya Garg <aditya.garg@linux.dev>=
+Lukas since you seem to be having write access to DRM tree, pls merge this t=
+oo. Thanks.=
