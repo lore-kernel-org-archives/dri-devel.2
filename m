@@ -4,40 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 499E6CCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:55:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B20ACC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 08:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE7310E03D;
-	Fri, 16 Oct 2026 07:54:54 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4554A10E03D
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:54:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0DE0140194
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:54:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99571F000C4;
- Fri, 16 Oct 2026 07:54:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792137287;
- bh=vBE2bjDRMzeRMH9C05x/a71kkx4GYEzq5sU6nei32tE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Y5YnOeYDAqoXidsXdtRzEzgeiwq7uGAwt5AEF0lZExwDYgQWKisDdUh6T3+dDvkA2
- QcnE/C03zEGUUHPmkSNnoxX/KMHYzjf8H56QgBKi6EkYDPi8vVHpuMezZ3+/KOVgzq
- UHPy1Q/PK9Z7MxI2tHV3we5AYxH0d1mRwlHTImaC2ceJO3cBMvSvmHswgPYHdAnhHw
- aZtu4E16x5lxdZFOLQ0I6kaQ+FXbXOaedJOpor5jXKaeH67pLwBinCUqKtIZk3Owfo
- hNoi04RX9Vcn+HsUGEiKVs3snThDmkZKV8/169t9V80eqV1VUcNSjhaYFEgKWaEV0I
- Lf6ZwlhjZKKkg==
-Message-ID: <sashiko-outbox-173979@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 12/14] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261016-drm-reset-state-flag-v5-12-dad2d64b693b@kernel.org>
-References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
- <20261016-drm-reset-state-flag-v5-12-dad2d64b693b@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 07:54:47 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D45F10E1C7;
+	Fri, 16 Oct 2026 07:59:50 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F9010E1C7
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:59:39 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 93BFB21E78;
+ Fri, 16 Oct 2026 07:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792137577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=N0RmPF4u4ttHUAHkoC+0f4DoZQVaNZj5Y1YwZeY3lgg=;
+ b=xx+Ok6Yn6gATsaJT/VQTRNbo8sSv5qteghadulOBq1J5YckzyTkcG+OOMrQ32UOH5wbpW+
+ +e6b2o0J5rg5WXYdVrDBuom0a/RfB20clk4fwnR/13ovmaDIYgiP0nvaeURHV+gt0foL/P
+ lhjZ7Bic7eWiqHym2yBMSDu6+3x7cRY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792137577;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=N0RmPF4u4ttHUAHkoC+0f4DoZQVaNZj5Y1YwZeY3lgg=;
+ b=f+CC9yvMsNvhIaAGUo27xpYH3uGlaIp3WnW+23Bk7HTDo5/yqv7SQuHoH9Xv3U73YD4Sod
+ A94nrWRZ6eIf5QCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=xx+Ok6Yn;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=f+CC9yvM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792137577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=N0RmPF4u4ttHUAHkoC+0f4DoZQVaNZj5Y1YwZeY3lgg=;
+ b=xx+Ok6Yn6gATsaJT/VQTRNbo8sSv5qteghadulOBq1J5YckzyTkcG+OOMrQ32UOH5wbpW+
+ +e6b2o0J5rg5WXYdVrDBuom0a/RfB20clk4fwnR/13ovmaDIYgiP0nvaeURHV+gt0foL/P
+ lhjZ7Bic7eWiqHym2yBMSDu6+3x7cRY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792137577;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=N0RmPF4u4ttHUAHkoC+0f4DoZQVaNZj5Y1YwZeY3lgg=;
+ b=f+CC9yvMsNvhIaAGUo27xpYH3uGlaIp3WnW+23Bk7HTDo5/yqv7SQuHoH9Xv3U73YD4Sod
+ A94nrWRZ6eIf5QCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC5AE1378C;
+ Fri, 16 Oct 2026 07:59:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id FgOWKmjZ0WpQPQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 16 Oct 2026 07:59:36 +0000
+Message-ID: <3382a02c-ed79-4214-99c5-dc81ee59d633@suse.de>
+Date: Fri, 16 Oct 2026 09:59:36 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] fbcon: Rebuild rotated font buffer on font change
+To: Yao Yiqi <yyaqia@gmail.com>, deller@gmx.de, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
+References: <20261016073023.490430-1-yyaqia@gmail.com>
+ <20261016073023.490430-3-yyaqia@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261016073023.490430-3-yyaqia@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[gmail.com,gmx.de,ffwll.ch]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[8]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, huawei.com:email, suse.com:url]
+X-Rspamd-Queue-Id: 93BFB21E78
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,91 +140,165 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm: DRM_MODE_ATOMIC_RESET bypasses DRM lease isolation
-- [High] drm/amdgpu: UAF via active plane state destruction during DRM_MODE=
-_ATOMIC_RESET
---
+Hi
 
-commit db28ec4a7c576dd0db5528bab59644c439286807
-Author: Sebastian Wick <sebastian.wick@redhat.com>
+Am 16.10.26 um 09:30 schrieb Yao Yiqi:
+> From: Yao Yiqi <yaoyiqi3@huawei.com>
+>
+> fbcon_rotate_font() caches a rotated copy of the console font in
+> par->rotated.buf. The buffer is sized from the font's width, height
+> and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
+> fbcon_modechanged(), but not in fbcon_do_set_font().
+>
+> When the console font is changed through KDFONTOP/KD_FONT_OP_SET, the
+> new font data and geometry are installed and vc_resize() is called.
+> The redraw that follows reaches the rotated bitops while the buffer
+> still holds the old font: the rotated putcs/cursor ops index
+> par->rotated.buf with the new cell size and character codes, so a
+> stale, too-small buffer is read out of bounds.
+>
+> KASAN reports, for example:
+>
+>    BUG: KASAN: slab-out-of-bounds in soft_cursor
+>    Read of size 64 at addr ...
+>     memcpy
+>     soft_cursor
+>     cw_cursor
+>     fbcon_cursor
+>     hide_cursor
+>     redraw_screen
+>     vc_do_resize
+>     fbcon_do_set_font
+>     fbcon_set_font
+>     con_font_op
+>     vt_ioctl
+>
+> Rebuild the buffer for the visible console right after the new font
+> geometry has been installed and before any redraw. Select the
+> console's blitting state with set_blitting_type() first, as
+> fbcon_init(), fbcon_switch() and fbcon_modechanged() do before their
+> rotate_font() calls: fbcon_rotate_font() reads the source font
+> through par->p, which may otherwise still refer to another console of
+> this framebuffer. On tile-blitting hardware, the same call uploads
+> the new font's map to the text engine, which previously happened only
+> when the console was switched. Background consoles keep their rebuild
+> at fbcon_switch() time, as the buffer is shared per framebuffer and
+> must not be rebuilt for a console that is not being displayed.
+>
+> If vc_resize() fails, err_out restores the previous font. The rotated
+> buffer that was rebuilt for the new font earlier in the function
+> cannot be restored with it: font_data_rotate() has already reused or
+> freed the buffer that belonged to the old font. Select the blitting
+> type and rebuild the buffer again after the restore: the upload to
+> tile-blitting hardware and the rotated cache would otherwise keep
+> describing the rejected font, and par->rotated.fontdata would keep
+> referencing the font data whose last reference the error path drops.
+> A failing rebuild leaves par->rotated.buf NULL, so the rotated ops
+> skip drawing instead of reading a mismatched buffer; the next patch
+> retries the allocation on the following call.
+>
+> Unlike the other callers, this one does not fall back to unrotated
+> rendering on failure. The "par->rotate = FB_ROTATE_UR;
+> set_blitting_type(vc, info);" fallback they use does not actually
+> switch to unrotated rendering: set_blitting_type() calls
+> fbcon_set_rotation(), which immediately re-derives par->rotate from
+> par->p->con_rotate. Replicating that pattern here would not change
+> the outcome; repairing the fallback is left to separate work.
 
-drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+It's way too long and boring to read. Can you please try to shorten the 
+AI-generated commit description?
 
-Userspace currently has no atomic way to reset all KMS object states
-to their defaults. To bring a display pipeline to a known state, a
-compositor must explicitly set every property on every object, which
-requires tracking which properties exist and what their defaults are.
 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index 1eebcf6f5e05b..237c7ff823523 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-[ ... ]
-> @@ -1688,6 +1695,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
->  	fence_state =3D NULL;
->  	num_fences =3D 0;
-> =20
-> +	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
-> +		if (!drm_atomic_implements_create_state(dev)) {
-> +			ret =3D -EOPNOTSUPP;
-> +			goto out;
-> +		}
-> +
-> +		ret =3D drm_atomic_commit_fill_with_defaults(state);
+>
+> Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+> ---
+> Changes in v3:
+>
+> - Also select the blitting type again in the error path of
+>    fbcon_do_set_font(). On tile-blitting hardware, set_blitting_type()
+>    uploads the font map to the text engine; without the second call, a
+>    failed vc_resize() left the engine with the rejected font (found by
+>    the Sashiko review).
 
-[Severity: High]
-Does this new reset path allow a client with a DRM lease to bypass lease
-isolation?
+The problem is that rotate_font can fail as well. Handling that in the 
+error path is not possible; hence results might be worse than keeping 
+the rejected font.  Can you try to keep the original rotated font and 
+reinstall that directly?
 
-When a leased DRM client calls this IOCTL with DRM_MODE_ATOMIC_RESET,
-drm_atomic_commit_fill_with_defaults() blindly adds every device object
-to the state with its default values without validating ownership via
-drm_lease_held().
+Best regards
+Thomas
 
-This could allow an unprivileged containerized app or VR compositor to
-globally disable all displays and objects on the device, including those
-owned by the host compositor.
 
-[Severity: High]
-Does this expose a Use-After-Free in the AMDGPU driver's plane state
-creation?
-
-This function iterates over all planes and calls the driver's
-->atomic_create_state() hook to allocate default states.
-
-In AMDGPU, it unconditionally destroys the currently bound state if it
-exists:
-
-amdgpu_dm_plane.c:amdgpu_dm_plane_drm_plane_create_state() {
-	...
-	if (plane->state)
-		plane->funcs->atomic_destroy_state(plane, plane->state);
-	...
-}
-
-Because the state is still actively used by the DRM framework and display
-hardware until the atomic commit is completely swapped (or if the commit is
-rejected entirely), destroying it here leaves a dangling pointer.
-
-Since this reset path is now user-reachable via the new DRM_MODE_ATOMIC_RES=
-ET
-ioctl flag, could userspace trigger a kernel panic or data corruption?
-
-> +		if (ret)
-> +			goto out;
+>
+> Changes in v2:
+>
+> - Rebuild the buffer again in the error path of fbcon_do_set_font().
+>    Without this, a failed vc_resize() left the rotated cache describing
+>    the rejected font while the console rendered with the restored one,
+>    and par->rotated.fontdata referenced freed font data (found by the
+>    Sashiko review).
+> - Select the console's blitting state with set_blitting_type() before
+>    rebuilding, like the other rotate_font() callers, instead of writing
+>    par->p directly.
+> - Reworded the note about the unrotated-rendering fallback, which is
+>    now left to separate work.
+> ---
+>   drivers/video/fbdev/core/fbcon.c | 23 +++++++++++++++++++++++
+>   1 file changed, 23 insertions(+)
+>
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+> index 01715873ea49..d90a2ad45053 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+> @@ -2432,6 +2432,17 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+>   	else if (!vc->vc_hi_font_mask && charcount == 512)
+>   		set_vc_hi_font(vc, true);
+>   
+> +	/*
+> +	 * Select the console's blitting state and update par->rotated to
+> +	 * match the new font, so that the rendering below does not use a
+> +	 * cache that was built for the old font.
+> +	 */
+> +	if (con_is_visible(vc)) {
+> +		set_blitting_type(vc, info);
+> +		if (par->bitops->rotate_font)
+> +			par->bitops->rotate_font(info, vc);
 > +	}
 > +
->  	for (i =3D 0; i < arg->count_objs; i++) {
->  		uint32_t obj_id, count_props;
->  		struct drm_mode_object *obj;
+>   	if (resize) {
+>   		int cols, rows;
+>   
+> @@ -2466,6 +2477,18 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+>   	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+>   		set_vc_hi_font(vc, false);
+>   
+> +	/*
+> +	 * Restore the rendering state for the old font: re-select the
+> +	 * blitting type, which re-uploads the font map on tile-blitting
+> +	 * hardware, and overwrite par->rotated with the restored font's
+> +	 * state.
+> +	 */
+> +	if (con_is_visible(vc)) {
+> +		set_blitting_type(vc, info);
+> +		if (par->bitops->rotate_font)
+> +			par->bitops->rotate_font(info, vc);
+> +	}
+> +
+>   	font_data_put(data);
+>   
+>   	return ret;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-drm-reset-=
-state-flag-v5-0-dad2d64b693b@kernel.org?part=3D12
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
