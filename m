@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E0FDCCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71721CC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAAF0112612;
-	Fri, 16 Oct 2026 07:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE160112628;
+	Fri, 16 Oct 2026 07:25:09 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B5F1112612
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:24:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F74A112628
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1792135450;
- bh=51L8G0Ydbv4ExcyJQfSfsKUKGUlZkJRcRFAI4PJwzig=;
+ s=mail; t=1792135502;
+ bh=RLFeYH6tiafptPHlhc/Kq2wkFuyMv8vV0mF6GAfPeIQ=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=dtsAq3HR/yIkLteEMeejIpvz+NFb0MqLZDWN1oZ/nn8XDvST1JUoStd6PkaA7nWhF
- Q2snl0bqrOOdLR5IrAAviODCXeXpmnOpEwzJ/qgNo7BWGMXQayqCoMbuZ94b3rUHjn
- M401Hrtyn5ePxXuFBr/UVMIbsaifONXmISpsiUZ2t9qQf3H869FYx6AZ5TFPI0sjiT
- 6krZEeg6hLlggEr7ssllZalqQvUwvdaTi7954NJenPffkL2jYOnvBBHyw9bvYiLpCl
- s4rzd2mHG1s6q7aRxqp3siMYs2p/Oyy4nYpibEBcTeE6ZiIuAegRd+0G5LV1KArPEI
- s0XxWpSoCfktg==
+ b=Hv3VMIHz94+4/zxpjOq/ykV8tyC0q9YrDWdThZTMWtWKWf+JS5iTw93t2A3H+Pkad
+ sfeJ16cHg2cRsWgxnIfB9Zxbl8zUyyGPAnvSFdgEij63AgeDNid+Wj2w3ljxKC4ijd
+ pVpR5VKKvSb7h5ARCbLlt8ayIleQuTfZc2EtJj1f9vA7TXXItrV+anSuaG3Y+eTtKW
+ gRzYKCg5KruuowU4lVyvWowxp0kMf/EhYrv71G/S4QSUKws+Z/AwiDm+uI92gckwKP
+ 1zfYGu6x27BpQwk272NxyXnwiAUS6I3e07xHXnvpDe9aDzxkt8Tcx0EKOVkC49cBql
+ BVitZS4elOVyQ==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C223A17E0411;
- Fri, 16 Oct 2026 09:24:09 +0200 (CEST)
-Date: Fri, 16 Oct 2026 09:24:05 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6712F17E0036;
+ Fri, 16 Oct 2026 09:25:02 +0200 (CEST)
+Date: Fri, 16 Oct 2026 09:24:57 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
 Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
@@ -38,12 +38,12 @@ Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
  <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
  <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm/panfrost: Enable cycle counting when perfcnt is
- enabled
-Message-ID: <20261016092405.14eebba9@fedora-21.home>
-In-Reply-To: <20261015-panfrost-reset-races-fixes-v1-1-bb74c1786a0b@collabora.com>
+Subject: Re: [PATCH 2/2] drm/panfrost: Fix race when restoring reset state
+ in perfcnt
+Message-ID: <20261016092457.610adb7c@fedora-21.home>
+In-Reply-To: <20261015-panfrost-reset-races-fixes-v1-2-bb74c1786a0b@collabora.com>
 References: <20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com>
- <20261015-panfrost-reset-races-fixes-v1-1-bb74c1786a0b@collabora.com>
+ <20261015-panfrost-reset-races-fixes-v1-2-bb74c1786a0b@collabora.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -64,54 +64,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 15 Oct 2026 19:22:31 +0100
+On Thu, 15 Oct 2026 19:22:32 +0100
 Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-> From: Boris Brezillon <boris.brezillon@collabora.com>
+> struct panfrost_perfcnt::state should always be updated atomically, both
+> in the dump ioctl and the reset sequence.
 >=20
-> If we don't do that, we end up with invalid timestamps in the block
-> headers.
->=20
-> Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through u=
-nstable ioctls")
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Fixes: 9944dd07f3cf ("drm/panfrost: Fix races between perfcnt and reset s=
+equence")
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-Also, you need to add your SoB here.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
 > ---
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 +++++++--------
+>  1 file changed, 7 insertions(+), 8 deletions(-)
 >=20
 > diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
 m/panfrost/panfrost_perfcnt.c
-> index a9def452d5ef..b26da057a1a0 100644
+> index b26da057a1a0..d50b6cc2ecfa 100644
 > --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
 > +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -17,6 +17,7 @@
->  #include "panfrost_device.h"
->  #include "panfrost_features.h"
->  #include "panfrost_gem.h"
-> +#include "panfrost_gpu.h"
->  #include "panfrost_issues.h"
->  #include "panfrost_job.h"
->  #include "panfrost_mmu.h"
-> @@ -52,6 +53,7 @@ static void panfrost_perfcnt_hw_disable(struct panfrost=
-_device *pfdev)
->  	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> @@ -148,18 +148,17 @@ static int panfrost_perfcnt_dump_locked(struct panf=
+rost_device *pfdev, u32 *stat
+>  	 */
+>  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
+_comp,
+>  							msecs_to_jiffies(1000));
+> -
+>  	if (!ret)
+>  		ret =3D -ETIMEDOUT;
 > =20
->  	if (perfcnt->owns_as_ref) {
-> +		panfrost_cycle_counter_put(pfdev);
->  		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
->  		perfcnt->owns_as_ref =3D false;
->  	}
-> @@ -84,6 +86,7 @@ static int panfrost_perfcnt_hw_enable(struct panfrost_d=
-evice *pfdev)
->  		return ret;
+> -	/* We need to restore perfcnt state so the next successful dump can rel=
+ay it to UM */
+> -	if (ret < 0) {
+> -		perfcnt->state |=3D *state;
+> -		*state =3D 0;
+> -		return ret;
+> -	}
+> -
+>  	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		/* Restore perfcnt state so the next successful dump can relay it to U=
+M */
+> +		if (ret < 0) {
+> +			perfcnt->state |=3D *state;
+> +			*state =3D 0;
+> +			return ret;
+> +		}
+> +
+>  		*state |=3D perfcnt->state;
 > =20
->  	perfcnt->owns_as_ref =3D true;
-> +	panfrost_cycle_counter_get(pfdev);
-> =20
->  	as =3D ret;
->  	cfg =3D GPU_PERFCNT_CFG_AS(as) |
+>  		/* UM must re-enable their session before requesting new dumps. */
 >=20
 
