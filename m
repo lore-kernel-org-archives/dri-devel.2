@@ -4,38 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84470CCA46C
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 14:23:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79902CCA46C
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 14:28:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC93510E031;
-	Fri, 16 Oct 2026 14:23:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2328610E031
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 14:23:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E476140AD8;
- Fri, 16 Oct 2026 14:23:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9BC21F000C4;
- Fri, 16 Oct 2026 14:23:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792160626;
- bh=V6R4f1oCrKXkw4ISA2vwnimqveCaTjz1x7+uWw02vV0=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=Cwlv6VUhvAX9mw39u+BNIhqWfBmuSQ6ls6DDF9ETswpDS9J8ocaSRCjDTAlpjHiVj
- z7vk1gGK1ZJL/GjWgVBflX/ADJRKfpH6bOViA7J6NBigsbPVxoPT2vlBMQLtLRsF7y
- OvqYUxukHjQYJI4HMHjH8WY0ZZ5ABuDFQ8ZJ5OGbqrQh3fc1eWN36+z/MUzDcVJYQb
- uSrV6TwF9zMyKemL2BuUwQSfbHRAxGbFVXQ8qe2wIbRpxuEvtG5CNkAk+/N15Pj3bO
- eSskpxqteFxHCzAjuH6BgEqbtqVHp33aS+XwTjif61ErVk08HIp9wnHccWz+HnOjGy
- 4EUVeN0bEl1Tw==
-Message-ID: <sashiko-outbox-174432@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdkfd: validate SRAT subtables before parsing
-To: "Jiale Yao" <yaojiale02@163.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261016141504.2794541-1-yaojiale02@163.com>
-References: <20261016141504.2794541-1-yaojiale02@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 14:23:46 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id C321410E31F;
+	Fri, 16 Oct 2026 14:28:25 +0000 (UTC)
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E94E10E10B
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 14:28:18 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-353804b591eso11276189eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:28:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792160898; x=1792765698;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=CZxkiz+xTIZ/TNPEj8NCd1tJgQoYh2xpx5y74xAxmD4=;
+ b=e0uK9JU5lFDteQfcRM8eVJanfsWPH6C8qAyB5Ac5CU5BR6YdIPDwVSNfiPcDuYln8P
+ C2c6me+uzJZhcR0xUgqEKdjmR/TeTYmVf+seMCOFubgbIUYRk49fYaBqQjAp1P8TocLN
+ OlmdZbvDKZgzcS2eJmNdc7kT32736p5fWMJPRD+VLK6OkIqLt5HbqYIyW6u7LK0SJJM+
+ URLZ07AScRhf64a6WBNUXzqN8P1J7uv2Yi0IUEDQghs3RhWqZCQGfV6Eqja+ZjCJJ2TP
+ II2Eep5oZycoJAaFynGCdjHg+Ss1C1+m6OfGkKFAnN1TLOh6e4yE5neydjyfhm3n/A2m
+ fT/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792160898; x=1792765698;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=CZxkiz+xTIZ/TNPEj8NCd1tJgQoYh2xpx5y74xAxmD4=;
+ b=HQHu58gQ8AdbEN3nmvAmaD/vNOsNi7EYoUhLvNiKA5O7i0EEJDizuSRxUDKwyOEbsM
+ TBpYebgSEW2NzGYiaSSSpP41zhWO828e8dCo11LD4AurearlsEgBTAymOvPAI08wx+gN
+ i+YIz+RIwhqS+q1Fi/7Z0b++0GFiYKMmBjgCLGzBPuBeBMsUY1tWxoL6mw6AZJtzxkLV
+ V43MiCXcaXxZSj0SSDoTzH1CzTFAQ22HrspIGjmqgKzQmbenC+k5Ua7IO6BXmO4SIh9m
+ AhHq7PStQrdbWZGVHTbHKAlko3zYwJ6kuO307KQwhVmuilQE2YGg5ywDMeyFPqAzYvgp
+ 1hnA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwjXIlvIfIn+uZGEGIGvHayVE+AKAh31jxI3pvGEL7cJOAkHaJvXqQ1Q9XPLhzDnsNvDqZkVHQ7ipk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJxV/EKe6pAhIV7fpkmqc0Du2KyVxT03Ncs7aNsVwdFigpxL3cD
+ 6VZ8YQ4AFmeiFjp9XD/p/gHlQjbSC2Xv5OfJY+tmlXDQhrvJe4BGy6mOixLXXyV7xB0=
+X-Gm-Gg: AYBFou0/02XnmEfWn1rz16ddTCTrkjkOKHXx3EUL5hxyGcb/jw7iD+g9ALBedeyhoxJ
+ rJ64a3UvTQXWLqNNLtRQask1TytUIvSz2iB0ayN0tI7IHDXgTmOZId6ySFEskL8Kztjnp61dJ6o
+ EA9ZVTbKEQ1zLOrSLQTStvid309UPyR1oiTT1uHjPd87vNzDZnEOBlJIRXzQK/n60y3qPw9ot/Y
+ FXx3+hzk6AswKQHakgr8MtpG2VbwqNfG5is7S7eUlZx0TnFKfVg39OgnxBlI6TpMMS3yOZ+wZU/
+ d5Hzxy7rLlp/HcNkD8Gyk/YEuMBc9rZDOdrjOAeorMZb+LD48qrDLiHudIA1o5Hx44W0ihOc2Z3
+ nc06g42SGgAYS8A/swmgfo//vfEskuzYQjLJy2W6iQYo0UiJ/zSBKvcl9DJvk8aquS0K3dH/B1V
+ sPwu44OSThs794ui/AaqZXOdM5vTiI2m7PhRXYmoI5EnAqO8M4SJn+R/WsIUoU8KiPeoem4aKGG
+ xGRlZ6RhzyDIlVxmRPOp6/DabI23laNhGDwfiYq+8nqV1qbAt9ZApeiIA==
+X-Received: by 2002:a05:7301:180a:b0:35b:91da:7cb with SMTP id
+ 5a478bee46e88-35b91da1eb4mr17969593eec.35.1792160896140; 
+ Fri, 16 Oct 2026 07:28:16 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36081bafa7asm7150945eec.14.2026.10.16.07.28.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Oct 2026 07:28:15 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: io-uring@vger.kernel.org, Pavel Begunkov <asml.silence@gmail.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org
+In-Reply-To: <cover.1792144609.git.asml.silence@gmail.com>
+References: <cover.1792144609.git.asml.silence@gmail.com>
+Subject: Re: [PATCH v2 0/2] clean up dma-buf-io kerneldocs
+Message-Id: <179216089525.2070939.12960580037397248054.b4-ty@b4>
+Date: Fri, 16 Oct 2026 08:28:15 -0600
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,77 +89,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/amdkfd: unaligned access and endianness bugs in SRAT parsing
---
 
-commit 172d11efb00c0dedbe45ba294e5438f125fd1ad9
-Author: Jiale Yao <yaojiale02@163.com>
+On Fri, 16 Oct 2026 10:58:29 +0100, Pavel Begunkov wrote:
+> Add a kerneldoc for dma_buf_io_init_map() and clean up it overall.
+> Targeting the Jens' branch where dma-buf-io sits. If preferred, it
+> can all be squashed into
+> 
+> 0d3120db2cbe0a ("dma-buf: introduce initial file I/O infrastructure")
+> 
+> Pavel Begunkov (2):
+>   dma-buf-io: fix typos in kernel docs
+>   dma-buf-io: document dma_buf_io_init_map
+> 
+> [...]
 
-drm/amdkfd: validate SRAT subtables before parsing
+Applied, thanks!
 
-The KFD SRAT walker reads the first subtable length without checking that a
-header is present and trusts subsequent lengths when accessing CPU and gene=
-ric
-affinity records. This patch validates the table header, subtable ranges, a=
-nd
-supported typed records to prevent out-of-bounds reads.
+[1/2] dma-buf-io: fix typos in kernel docs
+      commit: 44e75dbecb19579db9a070ac8d5f7b400297c1ec
+[2/2] dma-buf-io: document dma_buf_io_init_map
+      commit: aeef964d73dbfd7f477182bac934cdb4087d1724
 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_crat.c
-> index 6e0df685503d0..32d7573dffc94 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-[ ... ]
-> @@ -2056,27 +2056,33 @@ static void kfd_find_numa_node_in_srat(struct kfd=
-_node *kdev)
-[ ... ]
->  		switch (sub_header->type) {
->  		case ACPI_SRAT_TYPE_CPU_AFFINITY:
->  			cpu =3D (struct acpi_srat_cpu_affinity *)sub_header;
-> +			if (subtable_len < sizeof(*cpu))
-> +				goto invalid_srat;
-> +
->  			pxm =3D *((u32 *)cpu->proximity_domain_hi) << 8 |
->  					cpu->proximity_domain_lo;
+Best regards,
+-- 
+Jens Axboe
 
-[Severity: High]
-cpu->proximity_domain_hi is at offset 9 in the packed acpi_srat_cpu_affinity
-struct. Can casting it to a u32 pointer lead to an unaligned memory access,
-potentially triggering exceptions on architectures that do not support nati=
-ve
-unaligned loads?
 
-Also, on Big-Endian architectures, reading proximity_domain_hi as a u32 loa=
-ds
-bytes in reverse order. Does shifting by 8 discard the most significant byte
-instead of clock_domain[0], resulting in a corrupted pxm value?
 
->  			if (pxm > max_pxm)
-> @@ -2084,6 +2090,9 @@ static void kfd_find_numa_node_in_srat(struct kfd_n=
-ode *kdev)
->  			break;
->  		case ACPI_SRAT_TYPE_GENERIC_AFFINITY:
->  			gpu =3D (struct acpi_srat_generic_affinity *)sub_header;
-> +			if (subtable_len < sizeof(*gpu))
-> +				goto invalid_srat;
-> +
->  			bdf =3D *((u16 *)(&gpu->device_handle[0])) << 16 |
->  					*((u16 *)(&gpu->device_handle[2]));
-
-[Severity: High]
-Reading gpu->device_handle using u16 pointer casts correctly extracts the
-segment and BDF on Little-Endian, but can this swap the bytes of both the
-segment and the BDF on Big-Endian systems? Does this break GPU NUMA node
-discovery on Big-Endian platforms?
-
->  			if (bdf =3D=3D pci_id) {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016141504.2794=
-541-1-yaojiale02@163.com?part=3D1
