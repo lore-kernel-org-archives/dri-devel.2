@@ -4,43 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA584CCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 08:05:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBBD6CC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 08:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3483A112668;
-	Fri, 16 Oct 2026 08:05:44 +0000 (UTC)
-Received: from mailout1.hostsharing.net (mailout1.hostsharing.net
- [83.223.95.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46893112670
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 08:05:42 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
- client-signature ECDSA (secp384r1) client-digest SHA384)
- (Client CN "*.hostsharing.net",
- Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
- by mailout1.hostsharing.net (Postfix) with ESMTPS id 6AF53378;
- Fri, 16 Oct 2026 10:05:40 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id 46A94602EBBF; Fri, 16 Oct 2026 10:05:40 +0200 (CEST)
-Date: Fri, 16 Oct 2026 10:05:40 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: vasilij.kernel@tototo.si
-Cc: Aun-Ali Zaidi <admin@kodeit.net>, Aditya Garg <aditya.garg@linux.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kerem Karabay <kekrby@gmail.com>, Atharva Tiwari <evepolonium@gmail.com>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Subject: Re: [PATCH v3] drm/appletbdrm: Add suspend and resume support
-Message-ID: <atHa1KHess5QUpXW@wunner.de>
-References: <20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50BB910E2E2;
+	Fri, 16 Oct 2026 08:19:41 +0000 (UTC)
+X-Greylist: delayed 484 seconds by postgrey-1.36 at gabe;
+ Fri, 16 Oct 2026 08:19:34 UTC
+Received: from forward501d.mail.yandex.net (forward501d.mail.yandex.net
+ [31.44.14.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA0811266E
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 08:19:34 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-94.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-94.yp-c.yandex.net)
+ by forward501d.mail.yandex.net (postfix) with ESMTPS id E1EFB8C89B;
+ Fri, 16 Oct 2026 11:11:27 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net (smtp)
+ with ESMTPSA id JBRg126jYuQ0-DVbcivsL; 
+ Fri, 16 Oct 2026 11:11:26 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.com; s=mail;
+ t=1792138286; bh=rq6SMlQuCiakYGNieZYuyvDSsk5kerjEngv1ARm94rA=;
+ h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
+ b=f7qE8oi8x9EViSgs5j3yIQIvEdvIJ7JRnJK2OPlDA+pKZsr3oe84ND5ICPhNVrLsR
+ Gocrh9iQ2tHoSPTTgG+pp+u5lkmia/cIEiCTxRuxpEXmnxgtIVn8Fv7fzI/cJuaibv
+ +LHaNQiSFiDh9RwwzXfuoF1d3dyNuw1c7b45YysQ=
+Authentication-Results: mail-nwsmtp-smtp-production-main-94;
+ dkim=pass header.i=@yandex.com
+Message-ID: <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
+Date: Fri, 16 Oct 2026 10:11:19 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] drm: devm_drm_bridge_alloc() conversion and cleanup
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Huseyin BIYIK <boogiepop@gmx.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
+ <179213353665.3058528.14437637653539699061.b4-ty@b4>
+Content-Language: en-US, ar-EG
+From: Johan Jonker <jbx6244@yandex.com>
+In-Reply-To: <179213353665.3058528.14437637653539699061.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,30 +73,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 15, 2026 at 11:47:36PM +0200, Vasilij Markin via B4 Relay wrote:
-> The driver has no USB power management callbacks, so the USB core
-> unbinds it before system suspend and binds it again on resume. The DRM
-> device is unregistered and registered again on every suspend and resume
-> cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
-> loses its device, and the Touch Bar stays dark after resume.
+Hi,
+
+If any decency or Code of Conduct left in the DRM group then also credit the original author.
+Also remove driver_private.
+
+Johan
+
+===
+
+[PATCH v3] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() API
+https://lore.kernel.org/linux-rockchip/20260904-drm-v3-1-5b36532a3b72@gmail.com/  
+
+[PATCH v2] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() API
+https://lore.kernel.org/linux-rockchip/20260824-drm-v2-1-7f9273c6020b@gmail.com/
+
+https://lore.kernel.org/linux-rockchip/dea8a038-577b-45da-bff3-703e9099b7e1@gmail.com/
+[PATCH v1] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() API
+
+On 10/16/26 08:52, Luca Ceresoli wrote:
 > 
-> Implement suspend and resume with drm_mode_config_helper_suspend() and
-> drm_mode_config_helper_resume(), so the device stays registered and the
-> last committed state is restored on resume. If the device was reset
-> while suspended, repeat the probe-time handshake first.
+> On Thu, 01 Oct 2026 11:25:10 +0300, Cristian Ciocaltea wrote:
+>> Bridge drivers are expected to allocate their private data via
+>> devm_drm_bridge_alloc(), which also initializes the embedded struct
+>> drm_bridge, including its funcs pointer.  Most drivers were converted by
+>> commit 9c399719cfb9 ("drm: convert many bridge drivers from
+>> devm_kzalloc() to devm_drm_bridge_alloc() API"), but a couple of
+>> leftovers remain.
+>>
+>> [...]
 > 
-> Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
+> Applied, thanks!
+> 
+> [1/2] drm/rockchip: rk3066_hdmi: Convert to devm_drm_bridge_alloc() API
+>       commit: 5c0cdbee4fa4a621f871d6dc825e759db08a1a4a
+> [2/2] drm/bridge: lontium-lt8713sx: Drop redundant bridge funcs assignment
+>       commit: 382c1e8ba409d1611cd256dccebdfa828c832bb1
+> 
+> Best regards,
 
-Applied to drm-misc-next, thanks.  Note that we're at the tail end
-of the cyce and the drm subsystem has an rc6 cut-off.  So this is
-v7.5 material.
-
-The Fixes tag could be argued against because this isn't really a fix,
-it's more like a missing feature.  But I can see how this is useful for
-people on older LTS kernels, so I let it slide.
-
-Thanks,
-
-Lukas
