@@ -4,89 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9695CCF2C4
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 20:27:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC8BCCF2C3
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 20:44:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3988E10E39C;
-	Fri, 16 Oct 2026 20:27:17 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9281610E39C
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 20:27:10 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4a1b07c3c5fso3722525e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:27:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792182429; x=1792787229; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Jqtp5LPxF0IFxOJfCVzAQN6SnoPJKqsXWwttpYr3O58=;
- b=KZ/WnmGFPJgsK3sN5vOQr3YmcN5hNEmBzFj32QVjQC0URelqFGR0h12S8P/6524uig
- hUm8HxtJ+wxBpdUmUEtvXoouJAUV0QSCmf+2KF1NKofSY9OUwunjx5V6C3eRMVPMDzv/
- q+genrQVQoehS36dJKrddLR3GvE8dbUHXA2xQOOoijuiitAr4OIa9TiWv1tShqOzRb1u
- xB59UiuWpRztf5cPPQ2OYA+VOmQVY0ZVAtUPexVrrEPdgz5M4hMRb2T6HlQHjS9wv70c
- Nb7YtDmdzWCqf4OpbjTCJn4xfNqiJesc+HMFDbYdaRMJVCD/XLLvR91uKEWNn2NTtZ8T
- B1AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792182429; x=1792787229;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Jqtp5LPxF0IFxOJfCVzAQN6SnoPJKqsXWwttpYr3O58=;
- b=PFBIGn4hqIwSj25Q1Uw5vtplMzhWcGS+2mhkfzeXY2ZyW+HkHuAMrWq8wP7oNKvGjM
- OneV3XpSUicRcqt8zFhuDBfib+05DTAMHm49YQeINkDyr/+OSMsf3Xw3Snfv1NIQxmNu
- fgSGaP6oGJHXGhEI+S8BRvWHgjCWGnog6EXbWRet19bpqG8WbUonxilHjznDwA6OTAq6
- X2MKxgjoeI/rA7d3XMCrxZG38aVu8n1v/r09wDrtEOBVmtVmBDmSMepcu+/QLmr2Em09
- R8nMoH5XglEjWubfhs/Dv6rdR17KCrdlGvQNZVHDeHdUY3xmk976WF6Sp8rvdjgJvDIp
- 4fTA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwx8h44hoW+i/xRKxSI4gSuPOaoBrsfh57CnU69APQMXoxDM3PyxAVAKsHur5fQ85Hl7YtJ95g3VRc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLYc03U5m58vmJYb1A7nOjZF1z4Pedsyltj67/Tmnu3+re4e0Am
- W6UE6tgAS3bvYfvdqI+O+MPiZl7ObCcuj86OYs5cx4mm4CbQwfOF8nG5
-X-Gm-Gg: AYBFou0a0XEbZ6gvvg7ccau6Bco2jf09GKYRg6t/c8YKKTHBcwhv19gt4kmhXtQi27N
- VKZvZXmf0Z3Rt259T8/6WQA01fCZAkzNaiwjgSpC4Lr2X6lGjhMEKWmpJMULjWuH+S+aWtI1ijY
- clQ1CrrQkRjCUXDhwl6rEJEX6EKfQBU26PdAuCcw85UVFFsVNr06jziO3ERRbbx8exUrE8v1Nss
- tTGtacIfUVYNsThWdjPkMhErQkhOg8FRqkl3LQNuqCkPGIaw7aP9rxnzvno3ZsBVB/becwlaCmy
- 8NcGWbRGRG0153uKj9Uqkp42BDs+g2manrkbSSy29pUHNUnLk6LKLGHDyrGJoGrz3nYb6pDdlJ0
- 0HceIqlr3tDxJzm7kzSTUSEV9KrOrF0nYQGwpSthydMIvcxjNvg08d1jLFNWy0dPj4wf2ijqsSV
- hdaMmG1llsAdOdksPbK98+YfzmuYs/DtpiRYP3jKFNYBxVB/wTdobxjRENWlnlz9BFW6D5K+Olc
- 5WP5f1XpKnjQFSUlbzlGFxV3kJx29X2QUVsGmDY2kpvedjLR8YjchwXXdwszDo+IH2XJQUqvFjr
- bTJCCQydEzHwAZUmSumLM8RWqJ3gL2c3utQb320RoU8atM/Egg1JsgMcSrUoVS61Q8RIw1oWq/V
- bHw==
-X-Received: by 2002:a05:600c:1393:b0:4a1:d248:25b5 with SMTP id
- 5b1f17b1804b1-4a1d760e327mr19553895e9.24.1792182428699; 
- Fri, 16 Oct 2026 13:27:08 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-2a02-3100-a951-9501-1471-d90c-a21f-9dd7.310.pool.telefonica.de.
- [2a02:3100:a951:9501:1471:d90c:a21f:9dd7])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1d7659805sm22421075e9.7.2026.10.16.13.27.07
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 16 Oct 2026 13:27:08 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Alistair Popple <apopple@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Dongwon Kim <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, iommu@lists.linux.dev,
- Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
- Matthew Brost <matthew.brost@intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>
-Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
-Date: Fri, 16 Oct 2026 22:26:53 +0200
-Message-Id: <20261016202653.97339-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
-References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
- <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41A371129CC;
+	Fri, 16 Oct 2026 20:44:38 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CA631129D6
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 20:44:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792183465; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=EZREJ6kgt2bdfNT6PdIWbjX4EjZjPSFXAmOgsk8Ram4d1Y8EjOICJbmp9fJKgw3cJRJHIG+aW3aVIMoKlOvMKETAvxNS0cE4twHH4lHxb7PZOGwVimh5IIzCN3xNH2aG8b6TvLdDzMj6wu6lvkR+o7RKv2yYDy+uVsvSgTZZIao=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1792183465;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=HbKEi7ISZYZXhJNW8VJgY93KLj1zenEqwESNR1eollU=; 
+ b=cCqp3xaTmz52NNPklgIPGG7PJOr+KYBSJttTa8kcmanotpWE0lGiq80vV9TzVfFH1lPQy8JrBgtc61IJ/1GC+CpvzWYscc9frZxeVJmVsty+9PbOHSDzZ5d4N9J+aXdLhbgl/hbC9hsTmvhnHTF4r0eSI73yetxxrzG5qwn8lFM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792183465; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=HbKEi7ISZYZXhJNW8VJgY93KLj1zenEqwESNR1eollU=;
+ b=kOanLhrxsbg/dtfaNrOBlqEb9HpxKVx/d7HX6x+ZAUXY79yFWpbE5GfXi0pxtWOl
+ DHt+0EFc/eVQjFIYaTVeEUIICR2vDrYqHekPXx65touRLdJ3lX8GhbjrUlyS1wKBadg
+ ZQBkROVpqQAE0aTBhtn8NfkDbIpnnTzVEOjl1oWo=
+Received: by smtp.zohomail.com with SMTPS id 1792183463309421.0668362086856;
+ Fri, 16 Oct 2026 13:44:23 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Subject: [PATCH v3 0/2] drm/tyr: allow mismatched buffers for dev_query
+Date: Fri, 16 Oct 2026 13:44:19 -0700
+Message-Id: <20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQrCMBAF0KuUrI1MpmmlrryHSEnS0QZqo4kGS
+ 8ndTbsSEZf/D//NzAJ5S4Hti5l5ijZYN+ZQbgpmejVeiNsuZ4aAtQAhuZa8o9jen+Sn9mxfFLg
+ kUBpQYiMVy8Obp/WQd8dTzr0ND+en9UcUS/uXi4IDbxBkKQC03OHBuGFQ2nm1Ne7KFjLiJ1P9Z
+ DAzVFLdYQUVGP3NpJTeDlPvk/8AAAA=
+X-Change-ID: 20261014-b4-dev_query_fixes-4e0ab024294a
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1149;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=kFT4NF//LSmUCweo9QjRiRugC7PHPBQASljM8FU2LYs=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFmXepYlvjq1T55f8Iy+R9G9A+uYJL90Ws3ymTDdxyTzn
+ /vqqtcGHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEzkkDUjQ+ep/uJ+uelRigav
+ 1j9/GSq/PqhxQ8C1bl+GgEjBEPeIpwz/DJgb16duXNnM5938fcfyOVfe+D7982jRusduczI2zBd
+ pYAMA
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,26 +85,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Feb 17, 2026 at 08:11:34PM -0400, Jason Gunthorpe wrote:
-> +	match_args.attach = attach;
-> +	if (dmabuf->ops->match_mapping) {
-> +		ret = dmabuf->ops->match_mapping(&match_args);
-> +	}
-> +
->  	attach->dmabuf = dmabuf;
->  	attach->importer_ops = importer_ops;
->  	attach->importer_priv = importer_priv;
+Panthor UAPI for DRM_IOCTL_TYR_DEV_QUERY allows userspace to provide
+a smaller or larger buffer than the kernel needs. Revise Tyr's
+implementation to match the expected UAPI behaviour.
 
-I may misunderstand the intended contract. match_mapping() runs while the
-attachment is still zeroed and without dmabuf->resv held.
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+Changes in v3:
+- replace "as" cast with lossless u32_as_usize()
+- Link to v2: https://lore.kernel.org/r/20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com
 
-Patch 11's amdgpu callback needs importer_ops and importer_priv, so its XGMI
-match cannot work here. Patch 12's VFIO callback asserts dmabuf->resv and
-reads priv->vdev, which cleanup changes under that lock.
+Changes in v2:
+- Added #[inline] to UserSliceWriter::clear()
+- Link to v1: https://lore.kernel.org/r/20261014-b4-dev_query_fixes-v1-0-92043100b472@collabora.com
 
-Should the core initialize the attachment and hold dmabuf->resv for
-match_mapping(), or should callbacks avoid attachment and lock-protected
-state?
+---
+Deborah Brouwer (2):
+      rust: uaccess: add UserSliceWriter::clear()
+      drm/tyr: allow userspace buffers to be mismatched
 
-Thanks,
-Karl
+ drivers/gpu/drm/tyr/file.rs | 47 +++++++++++++++++++++++++++++++++++++--------
+ rust/helpers/uaccess.c      |  6 ++++++
+ rust/kernel/uaccess.rs      | 24 +++++++++++++++++++++++
+ 3 files changed, 69 insertions(+), 8 deletions(-)
+---
+base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+change-id: 20261014-b4-dev_query_fixes-4e0ab024294a
+
+Best regards,
+-- 
+Deborah Brouwer <deborah.brouwer@collabora.com>
+
