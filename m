@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E32FCCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:47:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48B25CCA464
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 09:47:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA2021126F6;
-	Fri, 16 Oct 2026 09:47:00 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012015.outbound.protection.outlook.com [52.101.43.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCABF11270E
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:46:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94E3910E24F;
+	Fri, 16 Oct 2026 09:47:07 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010048.outbound.protection.outlook.com
+ [40.93.198.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81635112707
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 09:47:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kR15l32Cq7T8KzzXyJ9o8qRBmSoUdxndATOr2XRgW++SwJh0mTG21EiiaBruHh50+aXaIQbNVm5bu/tlkKvRPUDiMPMqrZh2RceHXGjRiB4/lYPKHljg+Q8/bTkv6aKKWwFnN3ih/Eoluhq1GORq0JIRPLtLvegUCEHAy8aEyY04N+rJ6tp6SifkOii3Z6jkPZqascojNKwqyShTRcn+vtDf2CUiYk/YGbjRZdQt98Idtcp09MoMAvdurNOvbeitlkJY9qgYDmW2e/iVLnnyhGZttwfLMo5GYlwIv3F0d3BxhGBgc7lRIoVs076qbU9SNuN7DhZUVqGRd2v1/uP4YA==
+ b=IkEF9YnpPnCwYcYwkMOyxEMOe0EAqmAr3yYdAEr4m3Jwn9+p5psHPNZWwiRcxP2WWkessDYtoOTs7engO+2i+ztsUvDLEmC7dIow+ubE7hv/CQPyqT86HMWjYSey3d84gdDHPTZGXlJAG1eCl35MXGO6nogpgIqaJK5MucqKLe57y4gXLT8C1tJ1R2VzqOoAY4Xxdu265P3kQr22cUVgPL56V/WpF9ktPlo+duWnhOXnH61VtOGm3J/VcX5czcG2b3oYLyDBjpSE1sXDfAhLRbRMLGEh4XuefyRUeUW6lU0pfHb+Dixbw5vAnVRJQbO95v2YtmpL6r0bm6ePdntNag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uSZ0vyh0RkOQPDzEUfYJfYaSdlBmxK/94uaNo55oEAk=;
- b=XKxFgwjd5AWcsglGir2HNNR7Lds/0cdMUa+I0ijmnJ9ecp7ynnhcEShx4/ZUrZYO1E2TjwhmD2dh1yKtP0MsFudbdMU5hQ0jr15tg0bKIxSajMmw4kKpgtCl6XJ++hXgY+SdF8TlrhfVLrKjU8ajj0PE+y8IIQOAMqY0b6dU9xrruwvdaS3FbTkw2qwfKOcEYpdpUb8PiGZU6GiRewPZEtAbcHMen0evLUAIOSAPnKMxvHLLDbJDW2YjyOQwh/HzQPgzh18s9tlwAxqXZfZOhsp9LFNO3XISFMCAZjgJuVhyaNZfQnRoH5uX9QxVXRzckjWkJgZSZQQQlLP1MivJqQ==
+ bh=kn66B2RnXN4azYuL1+97OCaW/SVNH/83tlXJgfJmUvI=;
+ b=u3ESrc/20wk7vlK8BJAIMH59hKqGgjyr+0pKi+0JTTeb+artWKuQOq+PeV0l8T+3zlrSAqNghP5eJop6Y5HyA7U0SBJcr+nX806ycT56vu4duAJYC6lJ34M1u0kdkVELkr1u7heH+42EA1F+gx8Jr8S6RBm/PfwOI3EzoU9wdnGMnN0kIPsxqdgMJfzKBf94nSmch2EeyRExpNXPoy2xz1NEKyj4Ku7pqUA765RiEfOz4gVdMZ5qnPaVLgSM46BIBPdHqdRpFCQGa7GSMfj/VH5iNXkH1sSbeJsjc/HwNO65E1zKClr7yHNEdyBFUbK9vG3GDkIFDC6XRQaIizDQuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uSZ0vyh0RkOQPDzEUfYJfYaSdlBmxK/94uaNo55oEAk=;
- b=dno9lBO0VHqKy6XFDMi7X7w53KBg3RUv8FTUOWK619QOAxhz2dTbb7KqJ7gC04OIleAfsYngGH1sLk6usigYWk0yXuIsemVhkQzCHqLsefPEIdyeQAiz23+saNZucrimJPtE2NrJuOWQm+uWArt3jcK4kvNJ7Djm8H4LfbAP30Y=
-Received: from BN9PR03CA0285.namprd03.prod.outlook.com (2603:10b6:408:f5::20)
- by DM4PR12MB6637.namprd12.prod.outlook.com (2603:10b6:8:bb::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Fri, 16 Oct
- 2026 09:46:49 +0000
+ bh=kn66B2RnXN4azYuL1+97OCaW/SVNH/83tlXJgfJmUvI=;
+ b=uzkmvHq2e8dJ8iLXJQd7nDH7lGONlWoA3SSxjZT2o2Ss15CSoDGjfCDjrBNnrHsHxGwlmYG9NtlDBjwjkpXaXNfpnan5lO5TNeHIwlXMT529CD/mK8bhSx1P+wzHL/lzECS21UTrLr4Rzc2y9dejjrwgcXl3GvQLUrwxQ6hnS38=
+Received: from BN9PR03CA0280.namprd03.prod.outlook.com (2603:10b6:408:f5::15)
+ by SJ0PR12MB7473.namprd12.prod.outlook.com (2603:10b6:a03:48d::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 09:46:54 +0000
 Received: from BL2PEPF000352CE.namprd02.prod.outlook.com
- (2603:10b6:408:f5:cafe::1b) by BN9PR03CA0285.outlook.office365.com
- (2603:10b6:408:f5::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 09:46:49 +0000
+ (2603:10b6:408:f5:cafe::2c) by BN9PR03CA0280.outlook.office365.com
+ (2603:10b6:408:f5::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
+ Oct 2026 09:46:54 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,14 +49,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  BL2PEPF000352CE.mail.protection.outlook.com (10.167.249.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 09:46:49 +0000
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 09:46:54 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
- 2026 04:46:41 -0500
+ 2026 04:46:46 -0500
 Received: from xhdasiikbal50x.xilinx.com (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Fri, 16 Oct 2026 04:46:37 -0500
+ via Frontend Transport; Fri, 16 Oct 2026 04:46:42 -0500
 From: Asif Ikbal <asif.ikbal@amd.com>
 To: <neil.armstrong@linaro.org>
 CC: <jesszhan0024@gmail.com>, <maarten.lankhorst@linux.intel.com>,
@@ -65,9 +66,9 @@ CC: <jesszhan0024@gmail.com>, <maarten.lankhorst@linux.intel.com>,
  <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <git@amd.com>, <michal.simek@amd.com>,
  <naveen.gaddipati@amd.com>
-Subject: [PATCH 1/2] dt-bindings: panel-simple-dsi: Add AUO B101UAN01
-Date: Fri, 16 Oct 2026 15:16:37 +0530
-Message-ID: <20261016094638.2958431-2-asif.ikbal@amd.com>
+Subject: [PATCH 2/2] drm/panel: simple: Add AUO B101UAN01 panel
+Date: Fri, 16 Oct 2026 15:16:38 +0530
+Message-ID: <20261016094638.2958431-3-asif.ikbal@amd.com>
 X-Mailer: git-send-email 2.44.4
 In-Reply-To: <20261016094638.2958431-1-asif.ikbal@amd.com>
 References: <20261016094638.2958431-1-asif.ikbal@amd.com>
@@ -76,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL2PEPF000352CE:EE_|DM4PR12MB6637:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49ed3060-8595-4287-5c9f-08df2b6a6651
+X-MS-TrafficTypeDiagnostic: BL2PEPF000352CE:EE_|SJ0PR12MB7473:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50571df1-f2f1-4389-76c2-08df2b6a692d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|7416014|23010399003|376014|82310400026|22082099003|18002099003|11063799006|56012099006|10067099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: hLnkE0xb6+tg1mUMRDQJ/XpBrz9FT87GyZA5jHqZoC6R2SJHKlMX5jwyInPR2fz/AfoTdHGgI+PulkWxsQ67z9ia0W5ZtGu/XmmrSRhExhz7PoCiFrDIdp+b5gQRaup4suBXa6xUSWe83FWqotLGUffUNyEGATpGg2gpj0LzDl5AJshXgtKDevLnPJyyESx+1tgBb4hrkS51rIxoWKA4fMIeknkjEJ8JBOI6JZhJnBIMz7YdhcXWICHhzBggZFdhLQPYSNZmTR34JClU7u39BS5dXHLdhyy4u8HjGkqLThdn4eGS0xmpPb0fazSaxKRYck3WrDGFPN6y19h2R57z896A6Uxd+BIsGVmP4XKZqGYLSepjMEDIVpPndkf6eIJIfqHJrmyCfbos7TGjMKhmU+OJcvc1FFBuKyRooWfuLThC/SMa2EY3YbWvpBvr/c954MExlZEQR2OAqqSgHCCJrTYHLShC/09IRCG++UglzG0DxyafphTXu3Mu7wluNGTUrTsmxuvovNeH3kfrAyO8B5Jki2ZGp+4W7PyhZb/OXACTFZ3uu+m+1CouS9Ako0dmz75lX3zBuECOLhL+s72+MNjrUZ7Jw98IPkeV8ElxxmdT4KH+LGsceNCvldbbCAT4/a2bY+RJdeSU4uvaAQoYzKjw7eVWlgXK0Q+zCv6wbV034wjf8FJAmpPV8izHLqOz0LZx2DeHWR0xN9BUKddhBQ==
+ ARA:13230040|36860700016|7416014|82310400026|23010399003|1800799024|376014|18002099003|22082099003|10067099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: wWlrgRaAd2ZDhI9r/rrmW9uBXx9xJy8Fpa0i8n8KzY+JR/mZfkJMqR/+yBTOWDylhgTRFtEnevMvk3iYahW7AMPPcnpdI9RJoFyKS7p30EdDCuenU9hh/nMEstXss6R7YGHjWWqYPvpur61VccTGeW+5fy8v2C5d0L/eW52A9S0fCGGhEsO6Jec+Jhu6B5Zxj0MkTkII5jVkTB6jerBM1QCHMb/1Xryk+FzA5GaZT6Y/a2Udc8/DgQ4piFTdV/uY/CkoTtnpokX2oKoy+uF68hmKPsXBHsOAQjsfGJoVgkWxECVw2vr6EWmYxu9wjBE9ignmYqNlrubblNqtG+tFMCHKVDSwpJ2f0U2vYMf+aM3omBo8CG2byT8qi+DNF4B9tp+lUgvp2yd0oRWmVpoNCMKIRKElicUWMUXb7FdD5Z9wopaolpp28lGUHljVP44jN53lRP/u0gM5ZTSnXqvV4/pYgvm+LmWo5Riuox5+SRL3Fdf2BJsiu7YLkArK7bl64HyaWlJNTvqDcYs7hLX87XzPnhMTqcfCOuDYbehtkUajQ+tqRXW2lR6/VhwEnCIJALqiInguB1r/L4gsNW2L4JVbw7VFoBtlV1K40wIWV+TnkGsyoyrBdrUYt6InuXUxejC1viSizpAvYjQkufl+n3pVEXITPb0zfU2G6a7tkzRW7RK+C+ekFgb5tIfLMMPJzKSO/6qntEAMDvI0Hwu3SA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(7416014)(23010399003)(376014)(82310400026)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003)(261009223027099003);
+ SFS:(13230040)(36860700016)(7416014)(82310400026)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(10067099003)(11063799006)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: XzoLX43Tlwk14J7PX9003svPc9vCMuIQhXOlm8hPRA0gIihX10VaFXNnpGGuYzSCEopWYdGK54TN+N+1jhmXJoDWvx1OFi0mY3mYh9HbmWSCPA61Hik2Rk/KPJuBo4uqcuf4jkQUprCtSIoj/H6hueZ9qVK+dfCkC3z5QGcZZHstTRDQr8uCJ7EU0KGnV3JUv60SVRDQmVsRNqCY+XXsah5Fp3Po6uswYQgod/kmjYEwxhIxMvr9urRwQfSKGGqStAyAaqKkyO2PDvD9h2EodMjIDIDDv/A0RhBuFF9EEg3ivw0N3cpEAraOtQADLdaEuVDPM89cND4hQwZNBGyRIo6vyJPg6qVIFTiNAp1R3Mm0T6YbMDyl6GTj5+f9zMfOwyxRSBl6NSD80/noW1LmS7Ztip9ZcdNdhwfElmyvqjx0H7GzQLS8d772sam7Jpcs
+X-MS-Exchange-AntiSpam-MessageData-0: IDtH2PbQawICbzQWv975RxQoY23j9Tc3SGxpn4DvbE8cq+ta4CW3i6rCd2L6P8bB10sh8UAUqSfkReennCHqWSqbgnPD+Kn0fpmU3PytL2t7EmAoErTPDhmXtbPAlDXBOeRwQ4gu7rumQlx42SN2kpCTWrXBAZYNobJTBnygNyS2QIU1ha6Cwm7Y/8dSEpZEGJ6oHV9m29yyuvqfdhuR4MxksWVo8Cei7rYa4Dn27SK5hwGmgU8nBLddn4/gWP72ympLPVXnUBLMElnymfZsv+vhmL+x/Sq6EqQD6f4hofQ0eZqKWxCP4BoVbWQ6BLdgLlZ+V9vLUTbACfqsCMxg1mL3bQSM4xDWNbAir1PnFQfmfQ0pKm7AbLg3eGCOb1EkwuW2j2It02e40z9efW5aUz2sF3uh2ITlXfT6T+vT919iXom9Ey8sFKLWUxPBbke2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:46:49.2696 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49ed3060-8595-4287-5c9f-08df2b6a6651
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:46:54.0580 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50571df1-f2f1-4389-76c2-08df2b6a692d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL2PEPF000352CE.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6637
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7473
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,27 +115,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the bindings for the AU Optronics B101UAN01 1920x1200 10.1" WUXGA
-MIPI-DSI TFT LCD panel to panel-simple-dsi.
+Add support for the AU Optronics B101UAN01 1920x1200 10.1" WUXGA
+MIPI-DSI TFT LCD panel.
+
+The mode is taken from the MIPI interface timing section of the
+B101UAN01.7 (H/W 1A) datasheet and gives a 60 Hz refresh rate.
 
 Signed-off-by: Asif Ikbal <asif.ikbal@amd.com>
 ---
- .../devicetree/bindings/display/panel/panel-simple-dsi.yaml     | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/panel/panel-simple.c | 32 ++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml
-index 6d4133b91e7c..e1af3cbddc35 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-simple-dsi.yaml
-@@ -31,6 +31,8 @@ properties:
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index a944c34642dc..46ec17b6c365 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -6389,6 +6389,35 @@ static const struct panel_desc_dsi auo_b080uan01 = {
+ 	.lanes = 4,
+ };
  
-         # AU Optronics Corporation 8.0" WUXGA TFT LCD panel
-       - auo,b080uan01
-+        # AU Optronics Corporation 10.1" WUXGA TFT LCD panel
-+      - auo,b101uan01
-         # Boe Corporation 8.0" WUXGA TFT LCD panel
-       - boe,tv080wum-nl0
-         # Innolux P079ZCA 7.85" 768x1024 TFT LCD panel
++static const struct drm_display_mode auo_b101uan01_mode = {
++	.clock = 148350,
++	.hdisplay = 1920,
++	.hsync_start = 1920 + 40,
++	.hsync_end = 1920 + 40 + 40,
++	.htotal = 1920 + 40 + 40 + 40,
++	.vdisplay = 1200,
++	.vsync_start = 1200 + 4,
++	.vsync_end = 1200 + 4 + 4,
++	.vtotal = 1200 + 4 + 4 + 4,
++	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
++};
++
++static const struct panel_desc_dsi auo_b101uan01 = {
++	.desc = {
++		.modes = &auo_b101uan01_mode,
++		.num_modes = 1,
++		.bpc = 8,
++		.size = {
++			.width = 217,
++			.height = 136,
++		},
++		.connector_type = DRM_MODE_CONNECTOR_DSI,
++	},
++	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE,
++	.format = MIPI_DSI_FMT_RGB888,
++	.lanes = 4,
++};
++
+ static const struct drm_display_mode boe_tv080wum_nl0_mode = {
+ 	.clock = 160000,
+ 	.hdisplay = 1200,
+@@ -6572,6 +6601,9 @@ static const struct of_device_id dsi_of_match[] = {
+ 	{
+ 		.compatible = "auo,b080uan01",
+ 		.data = &auo_b080uan01
++	}, {
++		.compatible = "auo,b101uan01",
++		.data = &auo_b101uan01
+ 	}, {
+ 		.compatible = "boe,tv080wum-nl0",
+ 		.data = &boe_tv080wum_nl0
 -- 
 2.43.0
 
