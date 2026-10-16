@@ -4,47 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42234CCA48B
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:36:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D40CDCC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 07:43:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 288B1112675;
-	Fri, 16 Oct 2026 07:35:54 +0000 (UTC)
-Received: from mta1.migadu.com (out-224.mta1.migadu.com [95.215.58.224])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6087D10E1A7
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 05:33:36 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=8RuKnhZ40mCLqtZODHDu3kxTqZdJn/bBLwgoyLRXSUQ=; 
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792128814; v=1; x=1792733614;
- b=JozT5QyCHMcgSKXaL+TTp5OWB8QiO3A3zbBHvWkpttAfRrwengs0voRBEHDh5pvFbmgkeHen
- vnzZ58kmPRzHsId3P6JQcDR5Re/QXhp0hoiKPvAwVsO4m1GXbTEVk0A3OCpbcOabp7l03t2Ivoj
- 1hUyo7gyWFAbvDLnke0saY4yiqQoivC5WbWppsVcT4+2cSRZHAMnLDP6SMRSXbHa2EazOrMWtIL
- FmPZjwF1L1bdH6gnusElr/eyzk0gKpFSkcfll2dn8pWQv0ORLaTsfRpYDQP7Q0piCfqMy1NmoH8
- BgNmV+qWztUGEXIGrdkQyqghqBUaOvHrES4m3lU2mNoog==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id fbda3602d4225860;
- Fri, 16 Oct 2026 05:27:30 +0000
-X-Mizu-Trace-ID: fbda3602d4225860
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Jocelyn Falempe <jfalempe@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/panic: Accept a trailing newline in panic_screen
-Date: Thu, 15 Oct 2026 22:27:22 -0700
-Message-ID: <20261016052722.60051-2-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016052722.60051-1-lucid_duck@justthetip.ca>
-References: <20261016052722.60051-1-lucid_duck@justthetip.ca>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 16 Oct 2026 07:35:41 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2276A112613;
+	Fri, 16 Oct 2026 07:43:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9155E112613
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 07:43:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1890B415C4;
+ Fri, 16 Oct 2026 07:43:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47431F000C4;
+ Fri, 16 Oct 2026 07:43:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792136618;
+ bh=UTK9A+U3aVg2qSivQmmh//ICrdDIddEoIgyJ/9qxlS0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Wl7VuH6+alE6qNoO0Jj7Q8LKyCkS7FkdFDv8RS0bVwtwcOYJ/3Im+zJ/hwS8uvdDg
+ BeWR9uqKWvaLq5Qd63y6tPs/v+W05fGmhG2UQL6gpfGFsKq3CPEhEIMntQpGwQD5QC
+ IUG79CkPvFNvXziDFASIqC87UeWXTvWzTvzY2VjJe+L3cS5o63inzHZaJ0q6EiFyve
+ IcDEuB+gPTMXUMIoj5X/SNiyofLcW2jEXYXGknqIOhwfDRBQVczjBb8q+K/j/d/O3m
+ 86OMD+ChOrwNw13e5m1BOVsg8H8g0+ke2i6znNojcnTKdl6ucRAhltDO0O7Q2H33FR
+ qbNsniQ2SqWcg==
+Message-ID: <sashiko-outbox-173957@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] fbcon: Rebuild rotated font buffer on font change
+To: "Yao Yiqi" <yyaqia@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261016073023.490430-3-yyaqia@gmail.com>
+References: <20261016073023.490430-1-yyaqia@gmail.com>
+ <20261016073023.490430-3-yyaqia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 07:43:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,42 +50,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Setting the panic screen through sysfs with echo fails with EINVAL,
-because the value ends in a newline. Ignore it when matching.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] fbcon: UAF in panic handler due to dangling par->rotated.buf
+--
 
-Fixes: e85e9ccf3f84 ("drm/panic: Report invalid or unsupported panic modes")
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
----
-QEMU, 10 runs each, on drm-misc-fixes and drm-misc-next:
+commit e32477b2f73cd204764bac2654d00076bb8bd3ba
+Author: Yao Yiqi <yaoyiqi3@huawei.com>
 
-                                     before    after
-  write of "user\n"                  refused   takes
-  write of "bsod\n"                  refused   refused
-  drm.panic_screen=user at boot      takes     takes
+    fbcon: Rebuild rotated font buffer on font change
+   =20
+    fbcon_rotate_font() caches a rotated copy of the console font in
+    par->rotated.buf. The buffer is sized from the font's width, height
+    and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
+    fbcon_modechanged(), but not in fbcon_do_set_font().
 
-amdgpu, 2 runs each, 7.2.6 with Arch's source and config:
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
+fbcon.c
+> index 01715873ea49b..d90a2ad45053c 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+> @@ -2432,6 +2432,17 @@ static int fbcon_do_set_font(struct vc_data *vc, i=
+nt w, int h, int charcount,
+>  	else if (!vc->vc_hi_font_mask && charcount =3D=3D 512)
+>  		set_vc_hi_font(vc, true);
+> =20
+> +	/*
+> +	 * Select the console's blitting state and update par->rotated to
+> +	 * match the new font, so that the rendering below does not use a
+> +	 * cache that was built for the old font.
+> +	 */
+> +	if (con_is_visible(vc)) {
+> +		set_blitting_type(vc, info);
+> +		if (par->bitops->rotate_font)
+> +			par->bitops->rotate_font(info, vc);
 
-  echo user                          refused   takes
+[Severity: High]
+Does this code expose a race condition with console_flush_on_panic() that c=
+ould
+lead to a use-after-free?
 
- drivers/gpu/drm/drm_panic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+When fbcon_rotate_font() is called, it passes par->rotated.buf to
+font_data_rotate():
 
-diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index 29b1487de7ae0..7847b38ba9aab 100644
---- a/drivers/gpu/drm/drm_panic.c
-+++ b/drivers/gpu/drm/drm_panic.c
-@@ -839,7 +839,7 @@ static int drm_panic_type_set(const char *val, const struct kernel_param *kp)
- 	unsigned int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(drm_panic_type_map); i++) {
--		if (!strcmp(val, drm_panic_type_map[i])) {
-+		if (sysfs_streq(val, drm_panic_type_map[i])) {
- 			drm_panic_type = i;
- 			return 0;
- 		}
--- 
-2.56.0
+drivers/video/fbdev/core/fbcon_rotate.c:fbcon_rotate_font() {
+    ...
+	buf =3D font_data_rotate(par->rotated.fontdata, vc->vc_font.width,
+			       vc->vc_font.height, vc->vc_font.charcount,
+			       par->rotated.buf_rotate, par->rotated.buf,
+			       &par->rotated.bufsize);
+    ...
+}
 
+If a reallocation is needed, font_data_rotate() frees the old buffer before
+returning the new one:
+
+lib/fonts/font_rotate.c:font_data_rotate() {
+    ...
+		kfree(buf);
+		buf =3D dst;
+    ...
+}
+
+During this time, the global par->rotated.buf pointer remains dangling.
+If a kernel panic occurs in this window, console_flush_on_panic() could
+bypass the console lock and invoke fbcon write operations.
+
+Rendering operations like ccw_putcs() check the pointer:
+
+drivers/video/fbdev/core/fbcon_ccw.c:ccw_putcs() {
+    ...
+	if (!par->rotated.buf)
+		return;
+    ...
+}
+
+Because par->rotated.buf hasn't been set to NULL or updated to the new
+buffer yet, this check would evaluate to false, leading to a read from freed
+memory which could abort the panic handler and lose important debug logs.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016073023.4904=
+30-1-yyaqia@gmail.com?part=3D2
