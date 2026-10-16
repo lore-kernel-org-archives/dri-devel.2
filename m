@@ -4,136 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 147E6CCA462
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 06:48:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69061CC6B38
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 06:52:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60E3A1125DC;
-	Fri, 16 Oct 2026 06:48:28 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010033.outbound.protection.outlook.com [52.101.46.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 018BD112606
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54BAD10E069;
+	Fri, 16 Oct 2026 06:52:14 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011003.outbound.protection.outlook.com [52.101.52.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 886D910E069;
+ Fri, 16 Oct 2026 06:52:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kBIFU+qKCr8t0dr3DIAkjyDCD1zHEHVWFTvE/sMdnepDNDBPDinSMoQxLPA1FlTSQv+ylBt4UhJamU5HpPvYN/NxvDSwaxZKf6im6eLnEtMQ9d53/w9tremakHOqfjE7aljmtVkrxRKpUWTJHK/f2Y835xXDeZokwckdkn6iTJ6TTMB0mCcHcr1uYC7iT/kbBANAieO4G+IlzeK3U16M1dlp/l00DPdfFAw0gKG2uw63ZiXbrfZPSlw61SiYAG1HkzxiU+aQFa2O5TyI8uETs8WV8qAnVKkEdkKfuGUfDMq/eAQsB6QRyvMq6ti1D9IpxaVHM3QywjXwYv9xwvccrQ==
+ b=SXbqNvvNe1jh8N/PKOrVYR8siieUn07Sgx2Vii8zZQHFsmriUVDClYt8J9o5FV1fd5w/ZJtgaMJUpQdsVu6Fw1bjyMSXIxWD+Ct1hUdz2HrlUnPQ50Tpf9JWpwobrSFHtvSd6d24INuklJXLmywzWnHSkAe/fe1OJkER2HOePs3fojHt20bSzyePTuwd/u7ifJ+xLTixtveNbCK0v3set1Bg5q28PUPhK3ncDinbCwSRoTvfZlAcmaX74zWyIXTZA15VfUfRAlw5CC4zzo9Sp+k5T9/HgQ6iBqGTEKETZNG8s1/B0loh9SaFCspRNJynOSeIbaQfULlft1eZNHEIfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y97hwP+flT/vPrFqBcYtLdYmPpHLrKi3GlINWNUKI50=;
- b=c5algmkVlX0PdpFGsuV1smq7KBqoIzarkO49QAw3ywcDUIc50gwkH2TnxzfGXdG2QZfORx7Z7JOpl8C8jArgT41wIYGRuSXKPR/jkpxbLIYyF1EoWO+6Hn1vFjCRnLq2fk5AGp5gBD/REU5gJZsQacktjFq5eS7K0OUY6UMt+QdGuOJz4nBFyo9nwMZfLb/dIyOgWvX1KZNqkIIQ2oSQR9rRzYnnSM0Zvc/zxA8AcUTRyGlQ5H+9Zx1LhHshzO34Xcur9ZAewf5H4gnp2phbM5Qmo+5fxfnimbyNLH+Cg22t2hqUWhAIQmWK9FUUjy9L3dhvut7jZW6E3bG5fw6cXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=ed62jcrSjphzHHtIlogIbWMAmxdh0UqTt53U+fczllY=;
+ b=OfdGu1iZtRs4PcKzEUvtJpQZA0V6hYbb5/+9lzGw/vtO3p+B+b5s+NWx/AL/uRYFSW3c+66FgsGgS/2BSfp+tfEKAtRNObQYSmg6C44itN1Qfz2SzmxBKxUSbwV0Sw+Bfixg3nwHFkhAUj7pjt8PDPd3U6MCh70MSDzFvaQL7EJoFpX4m3ZUBlYKoOW+VFFE3oBfJL+YJsZSRHi/pZeVeUdvcAgAt53j4bswaZP8xOLnv94TpBYZ/h3IluGVk+F1iHOWBAVwE/N8WpRYlK6lAJ12xYR5rS1avSBpRYl8GCqODwJ6FEVGcNBOdOuklmOyU6bNRbQljb1gfXe2zjxHXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y97hwP+flT/vPrFqBcYtLdYmPpHLrKi3GlINWNUKI50=;
- b=BWOfu16o46IT2NGFgcMW/VekJelZHQYKHEFsls8Q+Hf3v58JQ7C++Wj9rbetJuzzR6no2aW0v6/FCk7mFKCmLhuzHIRfGxaCHvxAhQpO/S7FKz4g2h8ZKI7f1Iy58+g9/lXaeeaVjnBlitE0CFr5RM5i4RVkEMof647RdmW7KIqNn+SZJnV3Yx2P+1hGw33QxDqdhL2lOpC3WkApuIEpBWu9nFvXRUabnqc7fK7E9C0s1CF34eYdffnyaebelLkTa4WpQGEjrnr6KDmmWsclPQZffYglkJo0Jta9RpIEMHTqE2CvmHAQ9IK84QXBjYfnEclWzDonWP2S2i6L9fvl2g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by CY5PR12MB6551.namprd12.prod.outlook.com (2603:10b6:930:41::9) with
+ bh=ed62jcrSjphzHHtIlogIbWMAmxdh0UqTt53U+fczllY=;
+ b=JAT4qwXGHLdZVoINVTBoP+KaPOcSGnOMpYq7gsAC0atHzyTUoxxT2dfEabO3uTd2HBAdN/RZDgdEFZ52jTRYCnx8vpb7XDpU4Is9AJrQVfOAtH7UO0COaVpc1OhVEwNP/Ph6x+C0k+Fv1/mo1amqC5zGv8sYHaPYLTGRtXuJVpk=
+Received: from BN9PR03CA0149.namprd03.prod.outlook.com (2603:10b6:408:fe::34)
+ by DS0PR12MB8441.namprd12.prod.outlook.com (2603:10b6:8:123::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
- 2026 06:48:16 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 06:48:16 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Fri, 16 Oct 2026 15:46:57 +0900
-Subject: [PATCH v2 11/11] iommu/tegra-smmu: Use a DMA API default domain
- per swgroup
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-b4-arm32-iommu-dma-cookie-v2-11-b06842a01938@nvidia.com>
-References: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
-In-Reply-To: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
-To: Robin Murphy <robin.murphy@arm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, 
- Krishna Reddy <vdumpa@nvidia.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TY4P286CA0027.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b0::9) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 06:52:02 +0000
+Received: from BN7PEPF000000A6.namprd05.prod.outlook.com
+ (2603:10b6:408:fe:cafe::92) by BN9PR03CA0149.outlook.office365.com
+ (2603:10b6:408:fe::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
+ Oct 2026 06:52:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN7PEPF000000A6.mail.protection.outlook.com (10.167.245.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 06:52:01 +0000
+Received: from danielhuang-HP-EliteBook-845-14-inch-G10-Notebook-PC.amd.com
+ (10.180.168.240) by satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Fri, 16 Oct 2026 01:51:52 -0500
+From: Daniel Huang <danielhu@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
+CC: <christian.koenig@amd.com>, <alex.sierra@amd.com>, <Philip.Yang@amd.com>, 
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Daniel Huang
+ <danielhu@amd.com>
+Subject: [PATCH] drm/amdkfd: disable SVM when the GPUVM cannot cover CPU
+ addresses
+Date: Fri, 16 Oct 2026 22:51:29 +0800
+Message-ID: <20261016145129.69645-1-danielhu@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CY5PR12MB6551:EE_
-X-MS-Office365-Filtering-Correlation-Id: 904cd8ae-c0f2-4804-0467-08df2b5174b2
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A6:EE_|DS0PR12MB8441:EE_
+X-MS-Office365-Filtering-Correlation-Id: a12bf397-3aaa-465a-6fc5-08df2b51fb52
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|261009223027099003|56012099006|10067099003|921020|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: WugfJ24CEX1SMZqAR0/maKD1IabjLqy7nrwagl/jg/6i4thxbk9fJ/VdusMBOlPdDwlXnz3rZ49ZBOmTePJlXu0mqso9kadrCNoEky3cP+1IcebMCyFH0OKzLK0To5GKtLeboISO//bsY7ppkF0jXWxmkGxzoZ4utxzdyumt282BOLliOSYsaKjEgS9yIABnOFOJGVyyHqm689TOvW5ykGAWb6MFpw5HLvDs2rqHowK8jczOXMU8E2zYMXJTTTp23VGK+zZLsdeDFzwmOAjhgPnfS+j4d8HodeQWjmbSr7hAMoTAfnkTpLuBGgilvTjzjRaN263vUaGFvUXYRLq2kpWOt+8JwSIxv+0kcShdoqWn8Hy0pcja+fzCT1ufObJbRN2d0CslJN3z6Ekxvbfum2DuSo+MCYQQCq5vfnFdZzdZRldrLecypv80+YpA5xkEGGHo9iw5/vOHNsJh5oLyM8XnrgHuT1/q8undnUaZ/qXeKythNii8KBjEfppR9dnQ8ZFfS7G6XKZEXml8+ZPOzBsSJ74lIUJArDf8gOorh0fb0Mc5rodM81QBMCwUZ+MNAynGaNqQRuOwhh1GkIojuw9O3ACFrZLZxD1EcR9dTQXVkhuUcr9ar23Pw1K9MtnS/rNNjYAAg6K3ouAtDpRPYkwlf0G6IntH+qxITTVc0yWl96Rya4d4aLOXAd/Exub2vLvLE84+JIOuyN7QBRhP5w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261009223027099003)(56012099006)(10067099003)(921020)(11063799006)(22082099003)(18002099003);
+ ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|56012099006|11063799006|261009223027099003|18002099003|10067099003|6133799003|3023799007|13003099007;
+X-Microsoft-Antispam-Message-Info: kC4ggiO3U9EB3k5DFWibMAglywpu23WzuFS317jykxsRWaff2OsDsm74/wkNtBMajML4fRvtmGJlDpLv58/NGNeB2GCFvE97p3TXykwFBaacS9ye7B6oTujEu4bWpGrxbLbcNtTDJNsJinWaO6lVWzXMZrULQlRXLUkTDUCORDoGwpCj3mEFZjCo0y69NcEZpBg3HJ1RjtZvBtQmZcnsPdC/oAv23gOJHYY9I69yhUsyakj8NG4Kgpc8HiIqyi+cvtlOKkwaH2xF1G1iHyspucQvJHqB9LEyU5wpz1gJfgYE3a9F72TPpgVfdvCUaYiE0E3fmTrvfbGs7j/C3BrlQO3j5mCXn+eEtH2OapglVY8ycZYy3FQ8b8IlfZ6VwvPkpQQW0FYfPksHyMYOlohMOZUEjff24IsevDLTCKDX2/W1zugO4IfEJPxphURR8hOZUzndodCfiirnysZyqMmpwiZHklGV+UYIXGe0aqVNsZSBsf+SMy3e4ud3WTdtQcvvJXgduRlPEzyYRZJFmvxK23dDzMq2xF7cMyaah29HObVwwbpeY56rNMAvD4covYc3qbjuo0uwk+KvDDRWdtBFzP2LsDMvCOMbIhZcIf8qaTllRMU5aiIhp8A42wGNFmUVOPfdkHuZesHakcYRcRYywA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003)(6133799003)(3023799007)(13003099007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDMzUVBZdTBEZmhSRkxMT3NKZmtTVFVDaklMK0hLY2JFOUVYWXk1d3ZhdkVh?=
- =?utf-8?B?NzRqME9FRXVnTVB2U1NNN2JNZzk4YmJuMTRON05jbEF4OUcrL202SzkvUkN1?=
- =?utf-8?B?VXlSZTl6SEtRdzZsSnRDOWpuTzBSQ2NGeWFnYVdycks3QlFYcUdtcVdSWEVN?=
- =?utf-8?B?dnYvNEt1NHovaWZKdWZwVTUrY3NmbHN3dTBFNG44NWRyb3dEajk0THNQckY1?=
- =?utf-8?B?MUUvbEw4RDM2UlNqN1M4WWVQaHp1NXNQeHhLdVFvelB1TlZ6MkxDMTB4T3lv?=
- =?utf-8?B?b3ZZWkQ1V2k2Q3haSVdFejNNc1VPUGdLZ2Vha3dnZ3dzK01oa1ozZU00RzA2?=
- =?utf-8?B?bUhJN1dndWRXMFVWaGk3NndKY2JCV0VmRFA0VkUxaXRyRjgzbWRia0tSQWQr?=
- =?utf-8?B?Um9BMDdMZlQ5MGVQMVZOUWhOSnlaZVEyR1hEcndkQ2lzMVpwaDI0cUpZUkdu?=
- =?utf-8?B?N0NHOG1GREFMYlVsMlFTYzVFdU93bXNRUU1SVGwrRHRXUDlNTTRqZHJKbmh5?=
- =?utf-8?B?YXhWRlVrUGRoTjBDUllFejdQaGdTaGJJdy9GRE5YbWxqR291eXlSOEwrekpp?=
- =?utf-8?B?ZmRaSWVlMkRrV2UxSWpYOFFlQTh0TGZEaGYrNVAxWExpMGJjbDNwUmR3b2dL?=
- =?utf-8?B?WDFZRFIzTEdtTjRMSytUSTZQMFNSM3lLQ24zZ2RERXlIbi9NY3M2bnFYTjF5?=
- =?utf-8?B?c3g0SDZiZ0VqSXFtQlRVTVVRRzFMamRwTUE0alo3dGs0OEJKNkFaMjJlVXg0?=
- =?utf-8?B?MSthZVZvYzZSUXMxNDZmc3c2bTYyL3hhb1hYVlB1c05kcFgrNU5KNkRDZzUw?=
- =?utf-8?B?ZjZXclhRVDd6bGNpRnhlRjFhQmkyendoblBvOXhOUmJnN1ZHRTIvanVwbnRx?=
- =?utf-8?B?emZjbTZMZS9GTUE5QjdTQit2Yi9UYVJibGdBVDhvTlpRenBpbjFLUGxkSHps?=
- =?utf-8?B?YlE2NDdZbEpjWjFKQ2hHUVJGTGd1eWdncEZhR1dEOGMwSUIrUjlRTmZtWEhk?=
- =?utf-8?B?Rk01R2NIUSsvamYrNkJtRXc0dVl5OHdLbU80RUxhckhaU2Zxd3JtYy84SHph?=
- =?utf-8?B?eXAwVmNMbTVXM1hrUW9vK001NkdCSUtyazAwZUl2S3JPMU82cThCK0JCcW5C?=
- =?utf-8?B?Y3JLQW4rR3FWZkMyU2JoUWt2QnkvYlRNUkZ0M0tPdjlzWWF4OUR5aGxHNlh5?=
- =?utf-8?B?a0V1eHFta2N4bzg0bHVOZUpucGVIeHlmMnZzbENvTlkzVEJ4L29kVEVGSkF1?=
- =?utf-8?B?WDI2UGdyN1RpRFJXcVFuREZIK3JORGpUd1V3WTJtbVZGUG10MEVORWdKbVlU?=
- =?utf-8?B?VVZuRjN0QTR1VlFJd2RWMGRsK1hONDlYRVJJSmdFNkNUR2szZUN0TUVVWVpr?=
- =?utf-8?B?bFkxaEdKVTlOWDlESFIwU0tGY01oZi9HeHhHQlMzeHd0cGQya0l1SG1RMjdn?=
- =?utf-8?B?SUpYa2dFc2VJMkc4TTh5ZTR5SmQxc3ZxTHpxMW1EbFN2VTdkSmg4YlozQ3NC?=
- =?utf-8?B?RVQvTWxqdVBsblRTY2U1RjJkQWtaRWFSZkhrcFlHTDR3ZmFOUElxUG05SUhQ?=
- =?utf-8?B?WjEvMjBmVVBLUnlaMmI4bHJaZll0MnFZVUpyeExiQ2RSUG83OHRkL2dQbHA2?=
- =?utf-8?B?VTNkc3JtTlhac0JoUHZJb2xaUzhNWDZNWVNQdkxTMWxFdUxSUFhBeUpzTTQ0?=
- =?utf-8?B?V1ByZGd5K294RDlxazZObFFKYmpBRXVIWmJhNUFvV1pDRmcrNkRGU1JZWi9v?=
- =?utf-8?B?a3JGcjM3dmxpeEZROHFYcmlwaTBDY2VEYmh6T2hYVzY5aXgzNk1ib2dLMkFX?=
- =?utf-8?B?WFF4R1hhVUtOUEtPcEd2MXJNUXpWdWlLeXZodGd2M1pWdGkvRFZ5WnFYZ3VS?=
- =?utf-8?B?SXAxa1l6NkJ6aURJMldYbE9DaEFzMGQxMEhuMnpSKytMY1hyTFhrQ3lWb1pV?=
- =?utf-8?B?QWI5c0M1WkJLYzg2dnlPUWJZTitBYjJZdXFGT2NHRXpCN2tVYWZrL1J2ejFC?=
- =?utf-8?B?c1BpVzRQMStLZ0o5TE5QYVZyUWUxSk81TWFaRUk0YjVuNE9VVUNqcld4QytY?=
- =?utf-8?B?L05NN0ZBKzZLYzF4N2tjREh2K08xVzRRdndFdDFmVWVHNDZRYllqYlJTWldq?=
- =?utf-8?B?aUcya3ZVV2ZJZzZzbHlrcjVyc1daV1dhejl2ZHQxQjdaenFyQlJ3K0VRTjdR?=
- =?utf-8?B?VjIrTHhVeE4ySHpQd00wWThiRGpRZ1RBL2dKb1A1MTZ2eUwrMnpnZXdTdWx0?=
- =?utf-8?B?Mkh4T1RZc2RXaTdUV2FKbGIreGF3Y2NXTG5LSXNxaysvVjE5anA5emlnSWdF?=
- =?utf-8?B?NWM4RUQ3eEZjbE5TbjZZQU9lUUtaMjJ0RUtTUnNpWXZMTWRaMG9uUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 904cd8ae-c0f2-4804-0467-08df2b5174b2
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 06:48:16.1010 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D8wwa3zbG9LwZ55PaQTpRfk9Y5/OOZgfVgDJZeGM2U+JLLUfUh+6mef5wxiV2pVXoDu++sZKB9+PxifxlG654g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6551
+X-MS-Exchange-AntiSpam-MessageData-0: xdA24JGafpRcEYlqPIRH6+cW1vzhk9jhSpaHBdTHR7QxSOxcS2qUY280QD8Q9Ct7hFpeixIsaSDFl7iSC7cvxCPQd/fkICEtYyipjrXEMsZocmKSG1DQKajOOqAEMtfnV0uE1pR8m6BROj4AzGk/dn53XmtbvHmIIjTUIh510NCGYVH+7eoriNvSmvBlWA3snu3IpkrNlT7aowEnkzBe8l13sUSWBt3BHsRPy9QpHcRYCJ7XyKu9thLlyTG4XfbyxWzf2wmdmQbAZ9D4D7e2WH2jp6AFiPar/rDz+haRMfvJ+kXkrvTcYchNSnkPKGYCsC6X1sjRygG5utlQipONxYm6Ht489lREEHwJ67Ioj/Je/mtx23BUIttVmYXn+DqJMDFpbdAdrN5yF7l3cBS/z4wGFSSJ3BkmhlPA0ZBPi9yfeBgkEPerAr5zK24SF3WR
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 06:52:01.8336 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a12bf397-3aaa-465a-6fc5-08df2b51fb52
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000A6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8441
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,253 +110,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Everything is now in place for the Tegra SMMU to give devices a real
-IOMMU_DOMAIN_DMA default domain.
+KFD SVM maps memory in GPUVM at the same virtual address used by
+the CPU. However, svm_range_map_to_gpu() passes the corresponding
+PFNs to amdgpu_vm_update_range() without checking them against
+vm_manager.max_pfn.
 
-Some device drivers still rely on explicit domains (and being able to
-detach a legacy ARM DMA domain if any), so DMA default domains are
-enabled on a per-swgroup basis via a use_dma_api flag. As drivers are
-converted to DMA API usage we can eventually get rid of this. Initially
-the flag is enabled for TegraDRM and Host1x devices.
+If the GPUVM address range is smaller than the CPU address range,
+the page-table walker can index beyond the allocated root page-table
+entries. Unlike the SVM path, the BO mapping path validates the
+address range through amdgpu_vm_verify_parameters().
 
-On multi_v7_defconfig (where CONFIG_ARM_DMA_USE_IOMMU was always
-enabled), this will fix TegraDRM probing with certain probe orderings
-where the legacy implementation's lack of support for multiple devices
-in one IOMMU group would cause breakage.
+An explicit amdgpu.vm_size override can trigger this condition by
+configuring a smaller GPUVM than the driver would normally select.
 
-On tegra_defconfig, as this now enables CONFIG_ARM_DMA_USE_IOMMU, all
-devices move to either the legacy ARM DMA path or the new one. This
-should in principle not cause issues as the drivers would already have
-been verified on multi_v7_defconfig.
+Reproduced on a Radeon 780M (gfx1103) with amdgpu.vm_size=64.
+Repeated hipMallocManaged() allocations attempted to map CPU
+address 0x74bd48000000, well beyond the 64 GiB GPUVM limit.
+The out-of-bounds root entry contained SLUB poison with
+slub_debug=FZPU and recycled heap data without it, resulting in
+a general protection fault:
 
-Also set .release_domain to the identity domain to ensure the AS is
-released appropriately now that the domain can be non-static.
+  RIP: 0010:amdgpu_vm_cpu_update+0x2f/0x140 [amdgpu]
+   amdgpu_vm_pte_update_flags+0xfa/0x1e0 [amdgpu]
+   amdgpu_vm_ptes_update+0x38b/0xa00 [amdgpu]
+   amdgpu_vm_update_range+0x279/0x930 [amdgpu]
+   svm_range_map_to_gpu+0x13d/0x400 [amdgpu]
+   svm_range_validate_and_map+0x8d3/0xaa0 [amdgpu]
+   svm_ioctl+0x66/0x80 [amdgpu]
+   kfd_ioctl+0x40a/0x650 [amdgpu]
 
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+As discussed in [1], rejecting out-of-range PFNs in
+amdgpu_vm_update_range() is too late. SVM must not be initialized
+when the GPUVM cannot represent the required CPU addresses.
+
+Prevent this by disabling KFD SVM support when the GPUVM address
+range is smaller than AMDGPU_GMC_HOLE_START. This prevents
+affected devices from advertising SVM support and excludes them
+from SVM mappings. Warn from kfd_update_svm_support_properties(),
+which runs after the device memory pgmap is registered, so that
+only devices that would otherwise have advertised SVM report the
+loss of the capability.
+
+[1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
+
+Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
+Closes: https://github.com/ROCm/legacy-rocm-build/issues/6691
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniel Huang <danielhu@amd.com>
 ---
- drivers/iommu/Kconfig           |  1 +
- drivers/iommu/tegra-smmu.c      | 59 ++++++++++++++++++++++++++++++++++++++---
- drivers/memory/tegra/tegra114.c | 13 +++++----
- drivers/memory/tegra/tegra124.c | 10 ++++---
- drivers/memory/tegra/tegra30.c  | 16 ++++++-----
- include/soc/tegra/mc.h          |  7 +++++
- 6 files changed, 87 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-index 6e07bd69467a..817e84e0e6ab 100644
---- a/drivers/iommu/Kconfig
-+++ b/drivers/iommu/Kconfig
-@@ -252,6 +252,7 @@ config TEGRA_IOMMU_SMMU
- 	depends on TEGRA_AHB
- 	depends on TEGRA_MC
- 	select IOMMU_API
-+	select ARM_DMA_USE_IOMMU if ARM
- 	help
- 	  This driver supports the IOMMU hardware (SMMU) found on NVIDIA Tegra
- 	  SoCs (Tegra30 up to Tegra210).
-diff --git a/drivers/iommu/tegra-smmu.c b/drivers/iommu/tegra-smmu.c
-index 6779528a9e7c..1c1910f25553 100644
---- a/drivers/iommu/tegra-smmu.c
-+++ b/drivers/iommu/tegra-smmu.c
-@@ -994,16 +994,31 @@ static int tegra_smmu_of_xlate(struct device *dev,
- 
- static int tegra_smmu_def_domain_type(struct device *dev)
- {
-+	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-+	struct tegra_smmu *smmu = dev_iommu_priv_get(dev);
-+	unsigned int i;
-+
-+	if (!fwspec || !smmu)
-+		return IOMMU_DOMAIN_IDENTITY;
-+
- 	/*
--	 * FIXME: For now we want to run all translation in IDENTITY mode, due
--	 * to some device quirks. Better would be to just quirk the troubled
--	 * devices.
-+	 * Only clients known to work with the DMA API get a DMA default domain.
-+	 * The rest keep running in identity mode.
- 	 */
--	return IOMMU_DOMAIN_IDENTITY;
-+	for (i = 0; i < fwspec->num_ids; i++) {
-+		const struct tegra_smmu_swgroup *group;
-+
-+		group = tegra_smmu_find_swgroup(smmu, fwspec->ids[i]);
-+		if (!group || !group->use_dma_api)
-+			return IOMMU_DOMAIN_IDENTITY;
-+	}
-+
-+	return IOMMU_DOMAIN_DMA;
- }
- 
- static const struct iommu_ops tegra_smmu_ops = {
- 	.identity_domain = &tegra_smmu_identity_domain,
-+	.release_domain = &tegra_smmu_identity_domain,
- 	.def_domain_type = &tegra_smmu_def_domain_type,
- 	.domain_alloc_paging = tegra_smmu_domain_alloc_paging,
- 	.probe_device = tegra_smmu_probe_device,
-@@ -1108,6 +1123,40 @@ static void tegra_smmu_debugfs_exit(struct tegra_smmu *smmu)
- 	debugfs_remove_recursive(smmu->debugfs);
- }
+Tested on a Radeon 780M (gfx1103, PCI 1002:15bf), kernel
+7.0.0-38-generic, and ROCm 7.13.0-2.
+
+The reproducer performs 24 iterations of hipMallocManaged(1 GiB),
+hipMemset(), and hipFree() per run, with 40 runs per attempt.
+
+With amdgpu.vm_size=64:
+- Stock module: kernel Oops within approximately 2 seconds on
+  every attempt.
+- Patched module: completed 40/40 runs in two attempts, with
+  stock and patched modules tested alternately on the same kernel.
+
+With the default GPUVM size, the patched module preserved SVM
+support, emitted no warning, and completed the same test.
+
+Two questions for maintainers:
+
+1. I interpreted "SVM must fail to initialize" as disabling
+   the SVM capability for affected devices rather than failing
+   KFD initialization or rejecting the vm_size override.
+   Would a different approach be preferable?
+
+2. This check also affects GMC v6/v7/v8, whose GPUVM address
+   ranges cannot reach AMDGPU_GMC_HOLE_START. Although these
+   devices do not register device-private memory, an APU with
+   apu_prefer_gtt can currently advertise SVM support.
+
+   Should the check apply to these devices as well, or should
+   it be limited to explicitly configured amdgpu.vm_size
+   overrides?
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 18 ++++++++++++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 +++++++++++++-
+ 2 files changed, 29 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index c7d7adae4476..6235ce0f988e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -203,11 +203,25 @@ struct kfd_process_device *
+ svm_range_get_pdd_by_node(struct svm_range *prange, struct kfd_node *node);
+ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
  
 +/*
-+ * The default domain type is a property of the IOMMU group, so all swgroups in
-+ * one group must agree on use_dma_api. Otherwise the core sees conflicting
-+ * def_domain_type and falls back to identity for the whole group.
++ * SVM uses CPU virtual addresses for GPU mappings. Disable SVM if the GPUVM
++ * address range cannot cover the required CPU address range.
++ *
++ * The parameter must be named adev since AMDGPU_GMC_HOLE_START references
++ * adev->vm_manager.max_level.
 + */
-+static void tegra_smmu_check_groups(struct tegra_smmu *smmu)
++static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
 +{
-+	const struct tegra_smmu_soc *soc = smmu->soc;
-+	unsigned int i, j;
-+
-+	for (i = 0; i < soc->num_groups; i++) {
-+		const struct tegra_smmu_group_soc *group = &soc->groups[i];
-+		int dma_api = -1;
-+
-+		for (j = 0; j < group->num_swgroups; j++) {
-+			const struct tegra_smmu_swgroup *swgrp;
-+
-+			swgrp = tegra_smmu_find_swgroup(smmu,
-+							group->swgroups[j]);
-+			if (!swgrp)
-+				continue;
-+
-+			if (dma_api < 0)
-+				dma_api = swgrp->use_dma_api;
-+			else if (swgrp->use_dma_api != !!dma_api)
-+				break;
-+		}
-+
-+		WARN(j < group->num_swgroups,
-+		     "SMMU group %s mixes DMA API and identity swgroups\n",
-+		     group->name);
-+	}
++	return (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) >=
++		AMDGPU_GMC_HOLE_START;
 +}
 +
- struct tegra_smmu *tegra_smmu_probe(struct device *dev,
- 				    const struct tegra_smmu_soc *soc,
- 				    struct tegra_mc *mc)
-@@ -1142,6 +1191,8 @@ struct tegra_smmu *tegra_smmu_probe(struct device *dev,
- 	smmu->dev = dev;
- 	smmu->mc = mc;
+ /* SVM API and HMM page migration work together, device memory type
+  * is initialized to not 0 when page migration register device memory.
+  */
+-#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
+-					((adev)->apu_prefer_gtt))
++#define KFD_IS_SVM_API_SUPPORTED(adev)					\
++	(((adev)->kfd.pgmap.type != 0 || (adev)->apu_prefer_gtt) &&	\
++	 kfd_svm_vm_covers_user_va(adev))
  
-+	tegra_smmu_check_groups(smmu);
-+
- 	smmu->pfn_mask =
- 		BIT_MASK(mc->soc->num_address_bits - SMMU_PTE_SHIFT) - 1;
- 	dev_dbg(dev, "address bits: %u, PFN mask: %#lx\n",
-diff --git a/drivers/memory/tegra/tegra114.c b/drivers/memory/tegra/tegra114.c
-index 2883c4f91144..024c63bdd480 100644
---- a/drivers/memory/tegra/tegra114.c
-+++ b/drivers/memory/tegra/tegra114.c
-@@ -1029,15 +1029,18 @@ static const struct tegra_mc_client tegra114_mc_clients[] = {
+ void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
  
- static const struct tegra_smmu_swgroup tegra114_swgroups[] = {
- 	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
--	  .defer_enable = true },
-+	  .defer_enable = true, .use_dma_api = true },
- 	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
--	  .defer_enable = true },
-+	  .defer_enable = true, .use_dma_api = true },
- 	{ .name = "epp",       .swgroup = TEGRA_SWGROUP_EPP,       .reg = 0x248 },
--	{ .name = "g2",        .swgroup = TEGRA_SWGROUP_G2,        .reg = 0x24c },
-+	{ .name = "g2",        .swgroup = TEGRA_SWGROUP_G2,        .reg = 0x24c,
-+	  .use_dma_api = true },
- 	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
--	{ .name = "nv",        .swgroup = TEGRA_SWGROUP_NV,        .reg = 0x268 },
-+	{ .name = "nv",        .swgroup = TEGRA_SWGROUP_NV,        .reg = 0x268,
-+	  .use_dma_api = true },
- 	{ .name = "hda",       .swgroup = TEGRA_SWGROUP_HDA,       .reg = 0x254 },
--	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250 },
-+	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250,
-+	  .use_dma_api = true },
- 	{ .name = "msenc",     .swgroup = TEGRA_SWGROUP_MSENC,     .reg = 0x264 },
- 	{ .name = "ppcs",      .swgroup = TEGRA_SWGROUP_PPCS,      .reg = 0x270 },
- 	{ .name = "vde",       .swgroup = TEGRA_SWGROUP_VDE,       .reg = 0x27c },
-diff --git a/drivers/memory/tegra/tegra124.c b/drivers/memory/tegra/tegra124.c
-index a38fbf2baf6c..17068aaf163f 100644
---- a/drivers/memory/tegra/tegra124.c
-+++ b/drivers/memory/tegra/tegra124.c
-@@ -1071,13 +1071,14 @@ static const struct tegra_mc_client tegra124_mc_clients[] = {
- 
- static const struct tegra_smmu_swgroup tegra124_swgroups[] = {
- 	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
--	  .defer_enable = true },
-+	  .defer_enable = true, .use_dma_api = true },
- 	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
--	  .defer_enable = true },
-+	  .defer_enable = true, .use_dma_api = true },
- 	{ .name = "afi",       .swgroup = TEGRA_SWGROUP_AFI,       .reg = 0x238 },
- 	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
- 	{ .name = "hda",       .swgroup = TEGRA_SWGROUP_HDA,       .reg = 0x254 },
--	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250 },
-+	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250,
-+	  .use_dma_api = true },
- 	{ .name = "msenc",     .swgroup = TEGRA_SWGROUP_MSENC,     .reg = 0x264 },
- 	{ .name = "ppcs",      .swgroup = TEGRA_SWGROUP_PPCS,      .reg = 0x270 },
- 	{ .name = "sata",      .swgroup = TEGRA_SWGROUP_SATA,      .reg = 0x274 },
-@@ -1093,7 +1094,8 @@ static const struct tegra_smmu_swgroup tegra124_swgroups[] = {
- 	{ .name = "sdmmc2a",   .swgroup = TEGRA_SWGROUP_SDMMC2A,   .reg = 0xa98 },
- 	{ .name = "sdmmc3a",   .swgroup = TEGRA_SWGROUP_SDMMC3A,   .reg = 0xa9c },
- 	{ .name = "sdmmc4a",   .swgroup = TEGRA_SWGROUP_SDMMC4A,   .reg = 0xaa0 },
--	{ .name = "vic",       .swgroup = TEGRA_SWGROUP_VIC,       .reg = 0x284 },
-+	{ .name = "vic",       .swgroup = TEGRA_SWGROUP_VIC,       .reg = 0x284,
-+	  .use_dma_api = true },
- 	{ .name = "vi",        .swgroup = TEGRA_SWGROUP_VI,        .reg = 0x280 },
- };
- 
-diff --git a/drivers/memory/tegra/tegra30.c b/drivers/memory/tegra/tegra30.c
-index 0ee4715413ba..df6b5a499ccc 100644
---- a/drivers/memory/tegra/tegra30.c
-+++ b/drivers/memory/tegra/tegra30.c
-@@ -1140,19 +1140,23 @@ static const struct tegra_mc_client tegra30_mc_clients[] = {
- 
- static const struct tegra_smmu_swgroup tegra30_swgroups[] = {
- 	{ .name = "dc",   .swgroup = TEGRA_SWGROUP_DC,   .reg = 0x240,
--	  .defer_enable = true },
-+	  .defer_enable = true, .use_dma_api = true },
- 	{ .name = "dcb",  .swgroup = TEGRA_SWGROUP_DCB,  .reg = 0x244,
--	  .defer_enable = true },
-+	  .defer_enable = true, .use_dma_api = true },
- 	{ .name = "epp",  .swgroup = TEGRA_SWGROUP_EPP,  .reg = 0x248 },
--	{ .name = "g2",   .swgroup = TEGRA_SWGROUP_G2,   .reg = 0x24c },
-+	{ .name = "g2",   .swgroup = TEGRA_SWGROUP_G2,   .reg = 0x24c,
-+	  .use_dma_api = true },
- 	{ .name = "mpe",  .swgroup = TEGRA_SWGROUP_MPE,  .reg = 0x264 },
- 	{ .name = "vi",   .swgroup = TEGRA_SWGROUP_VI,   .reg = 0x280 },
- 	{ .name = "afi",  .swgroup = TEGRA_SWGROUP_AFI,  .reg = 0x238 },
- 	{ .name = "avpc", .swgroup = TEGRA_SWGROUP_AVPC, .reg = 0x23c },
--	{ .name = "nv",   .swgroup = TEGRA_SWGROUP_NV,   .reg = 0x268 },
--	{ .name = "nv2",  .swgroup = TEGRA_SWGROUP_NV2,  .reg = 0x26c },
-+	{ .name = "nv",   .swgroup = TEGRA_SWGROUP_NV,   .reg = 0x268,
-+	  .use_dma_api = true },
-+	{ .name = "nv2",  .swgroup = TEGRA_SWGROUP_NV2,  .reg = 0x26c,
-+	  .use_dma_api = true },
- 	{ .name = "hda",  .swgroup = TEGRA_SWGROUP_HDA,  .reg = 0x254 },
--	{ .name = "hc",   .swgroup = TEGRA_SWGROUP_HC,   .reg = 0x250 },
-+	{ .name = "hc",   .swgroup = TEGRA_SWGROUP_HC,   .reg = 0x250,
-+	  .use_dma_api = true },
- 	{ .name = "ppcs", .swgroup = TEGRA_SWGROUP_PPCS, .reg = 0x270 },
- 	{ .name = "sata", .swgroup = TEGRA_SWGROUP_SATA, .reg = 0x278 },
- 	{ .name = "vde",  .swgroup = TEGRA_SWGROUP_VDE,  .reg = 0x27c },
-diff --git a/include/soc/tegra/mc.h b/include/soc/tegra/mc.h
-index ea67972fd585..1cbd990fc0f4 100644
---- a/include/soc/tegra/mc.h
-+++ b/include/soc/tegra/mc.h
-@@ -78,6 +78,13 @@ struct tegra_smmu_swgroup {
- 	 * tegra_smmu_enable_translation().
- 	 */
- 	bool defer_enable;
-+
-+	/*
-+	 * Set once the clients behind this swgroup are known to work with an
-+	 * IOMMU_DOMAIN_DMA default domain. All swgroups of a
-+	 * tegra_smmu_group_soc must agree.
-+	 */
-+	bool use_dma_api;
- };
- 
- struct tegra_smmu_group_soc {
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 35b3abe57b80..5de19fa27d12 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -2471,8 +2471,20 @@ void kfd_update_svm_support_properties(struct amdgpu_device *adev)
+ 				sys_props.generation_count++;
+ 			else
+ 				dev_err(adev->dev, "Failed to update SVM support properties. ret=%d\n", ret);
+-		} else
++		} else {
++#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
++			/* Report it rather than letting the capability
++			 * silently vanish from the KFD topology.
++			 */
++			if ((adev->kfd.pgmap.type || adev->apu_prefer_gtt) &&
++			    !kfd_svm_vm_covers_user_va(adev))
++				dev_warn_once(adev->dev,
++					      "GPUVM size 0x%llx is too small for KFD SVM; SVM disabled (amdgpu.vm_size=%d)\n",
++					      adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
++					      amdgpu_vm_size);
++#endif
+ 			dev->node_props.capability &= ~HSA_CAP_SVMAPI_SUPPORTED;
++		}
+ 	}
+ 	up_write(&topology_lock);
+ }
 -- 
-2.55.0
+2.53.0
 
