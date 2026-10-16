@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92934CCA464
-	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 08:57:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5A67CCA462
+	for <dri-devel@archiver.kernel.org>; Fri, 16 Oct 2026 08:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA7F61126AD;
-	Fri, 16 Oct 2026 08:57:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8738B1126AD
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 08:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6452112687;
+	Fri, 16 Oct 2026 08:57:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDA01112687
+ for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 08:57:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6D80643D13;
+ by tor.source.kernel.org (Postfix) with ESMTP id ACAD2602C3;
+ Fri, 16 Oct 2026 08:57:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86D91F000C5;
  Fri, 16 Oct 2026 08:57:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A561F000C4;
- Fri, 16 Oct 2026 08:57:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792141066;
- bh=QiQ3oCtAQFVoZ8VpJPXCtOe7WLKhJFhUDIDS4+CUyCg=;
+ s=k20260515; t=1792141071;
+ bh=YvjiYYGb1HHkRI/noHetRX7tr+whhoEHSilSms9Fg8I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=iD7oTkPSnm48xOKqbip2K8Gkm0T0XBIBZZV3DHObvr8og443ILprUuZA2RzwDGY5Y
- X0sANrwFB4oTn1m522ctuKofxTGED3ry5iMTWN4/YYpCvLW51v6Aw9qNeoPkdUf2Bn
- 8/RxVDp+gjmpWdjpNB5oPiovMveC0w84+kTer349E1QQAzwahQYoaqzxDTIHL11knH
- kjhgb5Snk0zJ0KWf4WggDqTDewZzBV/mhHjr8cPeRTQfjW9tIU+CEP7FkxAVhTkjNy
- AhzwBitBlDre1z3wCJCvaeRrxmLMOorasyuntNQFI+qpcJdtoz2zUdtAFgFa0NLrjx
- /fNDcg4nfaXBA==
+ b=ELOBqSB2KVz5K0YP8VRPomyj7a+8EhI/F0Mm0QOMtV3k2DXDF0S6U8UiwSaqkU+1f
+ eEWPjzg18QPDpk/b+IoFG5rhFIifOfT2zmA/FMeTFLFLKmfFtDTeHiOeRd2EBK9WgW
+ 7VvkL4mwf+yLENwfJSI7atHhpDeGi2oiPaG8l0GRiHEWzo1yazxroKFc7cXUTfUelQ
+ DA0egYCxL8SfJ24Bdy9ve3FY8B08oxEz+GEKtyp5L34DFGb8EgmXpkePzzDSfZVefa
+ qpFo8dvDnyk5nafrL+8turIhpxCFQY0px+sVKIVLyzBp5tLyd4cUmVklS5p8Z4UAH9
+ Knj6pNEynnWeA==
 From: Philipp Stanner <phasta@kernel.org>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  Sumit Semwal <sumit.semwal@linaro.org>,
@@ -45,9 +45,9 @@ To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  da.gomez@kernel.org
 Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: [RFC PATCH v6 1/5] rust: DmaFence: remove static lifetime
-Date: Fri, 16 Oct 2026 10:57:20 +0200
-Message-ID: <20261016085724.1031766-3-phasta@kernel.org>
+Subject: [RFC PATCH v6 2/5] rust: DmaFence: Implement Deref for FenceContext
+Date: Fri, 16 Oct 2026 10:57:21 +0200
+Message-ID: <20261016085724.1031766-4-phasta@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261016085724.1031766-2-phasta@kernel.org>
 References: <20261016085724.1031766-2-phasta@kernel.org>
@@ -68,54 +68,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(will be upstreamed separately)
+A FenceContext carries data, which the user should be able to access.
+
+Implement Deref for FenceContext.
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- rust/kernel/dma_buf/dma_fence.rs | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ rust/kernel/dma_buf/dma_fence.rs | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index 18a43e1bb442..eef2b9e93f35 100644
+index eef2b9e93f35..0028124e6aa6 100644
 --- a/rust/kernel/dma_buf/dma_fence.rs
 +++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {
- ///     }
- /// }
- /// ```
--pub trait FenceCallback: Send + 'static {
-+pub trait FenceCallback: Send {
-     /// Called when the fence is signaled.
-     ///
-     /// This is called from the fence signaling path, which may be in interrupt
-@@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {
- /// When this object is dropped, the callback is automatically removed if it
- /// hasn't been called yet.
- #[pin_data(PinnedDrop)]
--pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {
-+pub struct FenceCallbackRegistration<T: FenceCallback> {
-     #[pin]
-     callback_foreign: Opaque<bindings::dma_fence_cb>,
-     callback: ManuallyDrop<T>,
-@@ -326,7 +326,7 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> {
-     /// On success the callback is pinned in place and will fire when the fence
-     /// signals. On `AlreadySignaled` the callback is returned to the caller so
-     /// that owned resources can be reclaimed.
--    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, CallbackError<T>> + 'a
-+    pub unsafe fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, CallbackError<T>> + 'a
-     where
-         T: 'a,
-     {
-@@ -693,7 +693,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
- ///
- /// let cb_data = CallbackData { };
- /// let waiting_fence = ARef::from(fence.as_fence());
--/// let cb_reg = FenceCallbackRegistration::new(&waiting_fence, cb_data);
-+/// // SAFETY: `cb_data`'s content is not forgotten.
-+/// let cb_reg = unsafe { FenceCallbackRegistration::new(&waiting_fence, cb_data) };
- /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
- ///
- /// // TODO signalling guards
+@@ -86,6 +86,14 @@ pub struct FenceContext<T: FenceContextOps + Send + Sync> {
+     data: T,
+ }
+ 
++impl<T: Send + Sync + FenceContextOps> Deref for FenceContext<T> {
++    type Target = T;
++
++    fn deref(&self) -> &Self::Target {
++        &self.data
++    }
++}
++
+ impl<'a, T: Send + Sync + FenceContextOps> FenceContext<T> {
+     // This can later be extended as a vtable in case other parties need support
+     // for the more "exotic" callbacks.
 -- 
 2.55.0
 
