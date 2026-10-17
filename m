@@ -4,73 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A095CCF2C9
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98364CCF2C9
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:53:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB9D10E64B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4B110E64C;
 	Sun, 18 Oct 2026 14:53:14 +0000 (UTC)
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBC8E112826
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 13:49:17 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2e915887d9dso27400905ad.1
- for <dri-devel@lists.freedesktop.org>; Fri, 16 Oct 2026 06:49:17 -0700 (PDT)
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D637810E325
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 08:36:23 +0000 (UTC)
+Received: by mail-pj2-f8.google.com with SMTP id
+ 98e67ed59e1d1-3ac749e0719so156127a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 01:36:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792158557; x=1792763357; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792226183; x=1792830983; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=2oPOPJSo8SwZG2zShQhf9c9WjJUFK6Ksr1Sry34EbzU=;
- b=DEfKNJ57kPhEpD9FDgRNdjJC/kcv5/6PbHhnwCdnZoT8vMJrRYl5BlR1EHpywIPyVK
- +V2FHmyHEpfvUw8Oa35WCHkpjFUSRu5FD80UxZDqk44KJ7WNBfCju5iGE9kidpkGEUrW
- OeKxWWWz2dkaJqeujF9tvoDdg5yFQTalYcv7immZKBE2MD8hTzegvIJNcIK61i/uufCO
- gWzrqECOg3NW0hIf3ZTn/yUyZcws8pS6Vuy2E0F6IuRlkqj7Y6Pv0XfJrRZceFJthdhI
- YYXhelddT4LHtsQEYo15/7GR/Q8gCweXqq3HR+VvXQOtb6+ntQV4/LT3Dfn4cDmg1PRs
- y5cg==
+ bh=tDddWpoHqTtkxFsBbERUVZlldFJw6rS3OQ/sbeQSp+8=;
+ b=WSYjMHVxdl4li3JmDx2IrsOSOpjDMpAXfaECwf42nr1FzygNMadW9ra7Vjp6lDpNAD
+ w0478f2o+v4kwhB6Gqz/2idNnHVJq6IYjDns/O9qfYLISmnPNarE4HhXlUIOEE2RWMLm
+ cB+Z1tBLccBwIX0RVSUGsX+bPYwS8dZHrYaNOxPg8P9aEg5tUwhsllrrAphcZKaQu0X/
+ IC+Qycn7aaumFjCht9ZWy8Ice8QvOWGVBN0BVquc8flK1Mbq6BY5kMLojDNO6xswvlLe
+ 9TG+jZco44bRq69hD27+q7SSECSRf180r5Wo9MGnQvwjrA4PVosati4CsYtBY2L1ea+1
+ zYhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792158557; x=1792763357;
+ d=1e100.net; s=20260707; t=1792226183; x=1792830983;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=2oPOPJSo8SwZG2zShQhf9c9WjJUFK6Ksr1Sry34EbzU=;
- b=wYHNW7TkjreWsGVnyaES/gV+Af86ZcGNfbpMW5e3fLT0l1w34mN7nfQg2gmnnpV+YC
- xWacS3b+U1FfnkuSKgQ+edNYxC6pT+IoatlN0I3jgZ4VOOHHTx0cKQkbSL2/sgKAtgiR
- dFYmsMqE2BLbyuq/kuqXUY6kc3Sl+jAfToH9qclzWjlT00rHZVXBSbdI84qMGC1MhjMQ
- /mdV2TsJIgleIZMhzWZQ9GRD30x4YXM9TvZp9Oj1dOJoppFmeC1m/+c9i0KagCf/Krfo
- L/4gpsWJLdvsGBGxriN/yyzKsTdwB28b6w1k9OyRh9OqX7j6OCw9KGkP1Aa1JDSSv2d+
- lPrA==
+ bh=tDddWpoHqTtkxFsBbERUVZlldFJw6rS3OQ/sbeQSp+8=;
+ b=1yLZNWwqLJBhWMmcBCdOPesPdHiMuGinJsQeCPN9ziI3zoquA69CR5+pIZ2SeWmdbh
+ 2QpnKR/crnip1wOnh2e2yXn8E/Gd8Z6ZzvDmN2D8U+iqo1ascmzRHzNMHu0HJI1YI7yF
+ nchBFx5hN6lFt+I4SwUlvUb7dlYizaF2KsKbpNnQKjvdfNB3qDrBKzUzz/0iZo77s6zO
+ t/+QSmxKCFAVrBPiaW0iRaztFtzibeQ0SYDC3nkMvmRbXXz4rkAq1zrV9MnN5RCB03+p
+ 0iGaX+x4SadRkbCcFUb0VVcL1Y/stbtt5jceL7zocaLciCkx8g8PfH896+yDTH2h8TiN
+ 1dkQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByHefqDt1qL8TvA5hzXIvFN9n+z1+OtgPTEns3bphMGIqJbXs971ySwlQjokD4wVRFIGtfj8vPn+2I=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLwLXlX1e/zXp+fuMJrr6Db594A9VJRvunar3/NuqomEpVSaYmO
- VEyOynRDAjIKd+Fw6k0QNBpn8kwhDCTcWcyro974QRp2OQIP04yjvGh1X75sisJGTbXR5g==
-X-Gm-Gg: AYBFou3pgshN/2fz6sI+cNQmAE6yuy+gl2z+oTxBQ7DHyGRlX+UId95ZppVzHo5Myk8
- paHrAfrYm9U2Ky3KehFgUGjwMZ9/kc12M0FgdxhTKMdSzBrZj7NKA+oduLHRTkejmncV+tfo6JC
- i+PLGSz/MX2DooqtDlgOxCeE9vrDTXYJzWNQlE0JlHqJpM95ltdBmY6qMArEFqWrph0T3KzXcLu
- rcn2mIhTXJA2tiS+jcn30+sn3hOC23U/wFQvSGGKCa0u4TCa0/SaQynp7UxjKw/IZJbiNLvxZXt
- n5JTOKGJhv2gbffXWccsqmUKSqdkNazGHlTiD9c2VJ26VU/c++VI5PsIcof95y0g6QP5gOOXVl5
- dmvi9/aS6I5XjrVo/pLTq6QAmyJFbd1YA3mIERByR4ppbH1Ed/UsfFGFNpbv/jzhJHZNExIUk1M
- ja5H6P9DRw0vETF0Bgk4X4KVt6F8QM3TyoIlt5to60Ru0fc/vo6LTG/ZqXrH1MdGW6fJiZLq9i5
- fbmYApd8uclinfZM8uRkB4e6YymI5rQravBw+89Ngyj2WIjYpJRN+kUSDqbr3OOO6YJf8acPA==
-X-Received: by 2002:a17:902:ef45:b0:2e9:7ace:ccc7 with SMTP id
- d9443c01a7336-2e9a69eadc5mr215965ad.39.1792158557334; 
- Fri, 16 Oct 2026 06:49:17 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:1467:1666:71b7:b993])
+ AKwUvBy96oIKA7lGZyqUs8n3UAur70OnOgEAaPuWGBJKZy2hz1q3cKaE3Pzsj+e51Fawmfv5HQe82UIDPBU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJVyduDusDIW2GHiAMn18tSSEGVO1oB3QpIZqhiFMsZez8NUyW1
+ vwJXp63cVUBO3N7kJEoQ5a43pIcaKeFl4RXLBrGkCRJdzslcFmYNTHid
+X-Gm-Gg: AYBFou0TczJW8pUYgtkDdAO672SX5Y9HI/uL7hwACghnZY84NB9RVb580g6D5lg5neK
+ QxfMOsygLn0w974ib+CbcI7rYNx/0WVpOWiLxUlI1mXjaE6N3if4GVvAhP87T4HD+59k4gdDx32
+ TWA6qMSaGkrGOTpVjQqdSONSPEzxTHfyh62FWk9CWa5xmxON4HbYtid4pl2RwlOsuKkjJi9yljn
+ 2Ag06jrfslMUg02upMY+pXZ4TARkY1GcsIQFAM5wAtm3CGJlUwu+O33ebD604/dB/kJHbIGTp/l
+ /yvQL9/5w2jqOEEWQZg+SUxRrd4HlMF1Mp1K8iOgIOXWHTiSrRn91ip+s2rBvLF6uItP0iv8CLz
+ KdbQhWYqL1TgaXRjLTE8aMUUObTz8lxzTfWlD/dk7MK1TmlzngehnhC73DTkYoCv5jVikq+F12r
+ Ni/icS5hkG7U2Owhiv53YjGEcHrJERdOWjnwqd+zRriafWjb3j0xHRiV0=
+X-Received: by 2002:a17:90b:4403:b0:3ac:8897:7bab with SMTP id
+ 98e67ed59e1d1-3acee277aeamr1748958a91.6.1792226183357; 
+ Sat, 17 Oct 2026 01:36:23 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac5:1f0f:3141::4e8:8])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2e97e87836bsm10762845ad.47.2026.10.16.06.49.14
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 16 Oct 2026 06:49:16 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] accel: ethosu: Fix kernel-doc for
- ethosu_gem_cmdstream_create()
-Date: Fri, 16 Oct 2026 19:19:06 +0530
-Message-ID: <20261016134910.35015-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20261016132726.GH5059-robh@kernel.org>
-References: <20261016132726.GH5059-robh@kernel.org>
+ 98e67ed59e1d1-3ac9461d71esm12548544a91.7.2026.10.17.01.36.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 17 Oct 2026 01:36:22 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Lu Chen <tianshi12127@gmail.com>
+Subject: [PATCH 1/3] dt-bindings: vendor-prefixes: add smartisan
+Date: Sat, 17 Oct 2026 16:35:29 +0800
+Message-ID: <20261017083531.766557-2-tianshi12127@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261017083531.766557-1-tianshi12127@gmail.com>
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 18 Oct 2026 14:53:13 +0000
@@ -89,14 +92,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 16, 2026 at 08:27:26AM -0500, Rob Herring wrote:
-> Why are you sending this again after 4 days?
+From: Lu Chen <tianshi12127@gmail.com>
 
-My mistake sorry, this is an accidental resend. It is the same patch as the
-12 Oct posting with nothing changed:
+Add a vendor prefix for Smartisan Technology, used by Smartisan
+devices such as the R1 (trident).
 
-https://lore.kernel.org/all/20261012152118.33548-1-sinha.aryan03@gmail.com/
+Signed-off-by: Lu Chen <tianshi12127@gmail.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Please ignore this copy and use the original. Sorry for the duplication.
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 28784d66ae7b..6ad8d3499227 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1535,6 +1535,8 @@ patternProperties:
+     description: Skyworks Solutions, Inc.
+   "^smartfiber,.*":
+     description: ShenZhen Smartfiber Technology Co, Ltd.
++  "^smartisan,.*":
++    description: Smartisan Technology Co., Ltd.
+   "^smartlabs,.*":
+     description: SmartLabs LLC
+   "^smartrg,.*":
+-- 
+2.56.0
 
-Aryan
