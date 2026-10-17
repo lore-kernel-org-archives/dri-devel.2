@@ -2,79 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC490606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489D6606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rcRj4eNe
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GdRYMmOz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8BE10F2CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6523210F2D7;
 	Tue, 20 Oct 2026 07:36:09 +0000 (UTC)
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6096C10E04F
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 17:54:52 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-170135e43c7so792890c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:54:52 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D0A810E0E1
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 14:08:39 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-48e0d885929so215666f8f.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 07:08:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792432492; x=1793037292; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792246118; x=1792850918; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6tvnT4WjayZKEzPxATY6QVNXUD2F/sefS+MOejf1A/0=;
- b=rcRj4eNemC9KYola0Kohf6Aa9T9cLG2KKSlNtLB2ucKXrY1IYt2frBkHPwl5JB5KuZ
- FiJOJZVQsH733wzhGZICvmyEGzi/RsovQqs9yI7lpogU3O/kaLwZifPKo335sOdv/qG8
- bSd80dga0uDyOAfL7FOXi4M+gEnhh3I7sgBBXS5ex/2GnCsuTKcFI4RKhj+OTfFU/S9B
- ScRuoWZC3Zkd3g7TY+V2tvwIPnpJn0GytO9Qzc+wNvYEwpyU8vLHU4JWG1qCWDZrjvn4
- dqFGJeShS1pu8Sy2Rx88koukPqeDaIwDUjKZKC90pPUGhtJuTyKgOqRUeXPOiOVLtPyM
- wkkQ==
+ bh=2REKTc3Loai45qA+UgRp6dZJ3Ic1DsiN3ndNN8daHjs=;
+ b=GdRYMmOz4b+7iXq/itwrFF75bB1zwXzWK20tIjcxxNP4BMZXA4Qh0AdOtZsGFeruND
+ oOUJXfGyh6k9Y3KUG2Nfjku10Xyi5is/HtYnjRhrmViWjLGIcIPsdcjwMu+x6ZvfcBDr
+ spX78Gb3BBXJI1iESdJKxzfxlkcL5R8mnUdTQ9ftI9Q7JMnau9QxGxUGhYgN2mEfJE/j
+ yFj1B8DmCHri1xuOaNGLnFZ4wnFDVkqJ87psJO9krZBoBPQ9NOc7WnqaAQ/5kVbtW5cP
+ H3jHvUQagCPKcqz5/EpanSeT0VbA7FCpbr0sNGfQV6/CrXJuOXF8SckV2rFIAfnGxkNl
+ fbjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792432492; x=1793037292;
+ d=1e100.net; s=20260707; t=1792246118; x=1792850918;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=6tvnT4WjayZKEzPxATY6QVNXUD2F/sefS+MOejf1A/0=;
- b=PPkhwVd+pABHi3Dt6SnhFFA01+qrIBJVe9VoS/zqxJ5ZCD/0zoTbs3CJKmIuokS+MO
- fiQ5F4+jr5z/S24uZ5bvxQn7+Pg7f7VI8nQo4uPE1E5pbxZBvUO4MN160IuSb3CWgbWj
- NfSwXwufcDjHOEXE5iZUs/uuzcHzDGxYBGATpY42s2wYDQnu7ssCUVsSKTOYpnxRine1
- mIYouxucWiV1k/EG4yUKc1eEMU2KfaFhEH/gtdCkbl7+H4MdT2Pbl6/Bs609isQj4Qej
- wF/qhiv5ax2VQyldqoYzRXnKZmxJQGTE6S2kQBrwAWqpV9HxfWo1W8iC+aY8bABv7owH
- OCvA==
+ bh=2REKTc3Loai45qA+UgRp6dZJ3Ic1DsiN3ndNN8daHjs=;
+ b=zLXGM9x7gJd7kNYS1o28Y79Wyww7qDOVCJzK4XwuIdUy2FB/4tMcKO6gLT0A/nmDIt
+ kxlcgMCFaVTZgAoVExPTebktpIeXtcTlR//JzYEHUXVDfiPn56Wk1+c1ymGF2BHVd3Bn
+ uLAEQKaMrQk6SsgmB6Ih9hd4xgSeQ1BkKnUm4BRbLZFTQfJ4XrL7nE6fdL7OgxTSBZWZ
+ CXmzjBL77EQLttzgu3JHcb8fq2AEMCeVKyT64sjhFTimzc0frNPLsqTC9CcRbPEyRTK+
+ 0WadUECgxdieCqBVhCpg/VUrb7trzd+CsA4YLKw3AMaVy+fZoAWvSaf2OejHP3JJ9TMR
+ y6Dg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw+EDsSKYWedNuQpHxnFBjKYVcPKglXKhEmVkSRcGnMOZ1VmRhRdkFyAEvj10a4dSTMRCF51yQCagU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK7MD0Md2fSooUeRNRNQ+mVlOS69lI5xgHyl7C6B1JCmxhZh8Go
- pE8OezPxqkwAS306kuDAiqaRuFPHsS+KOWk3J7M9TDtCMGCUbhzc8D52
-X-Gm-Gg: AYBFou1SU+nrCFwx/qQMvTDBvah1UWEG3vRulT9kz6YTGVuLltU4SlmruDHera5zTSW
- UeyVQ0qX04sK81ITW5fmKxRAreGZEL73kLC3e9Xd9AhD+wt6FlSzgHgnSKWsj/hwKrErE5LvDD+
- 0FWZz5zRzb7gJmFiEJq+RN3UaIs1pbtiJgoTCkXqtRPC7zmkMzSgDJ4QtiiIbPJYrPXzUzfu8+k
- KskrJYy6gNtQXySpZd6bcHN7R8ST77EBRjahbxsZtVXik0bjUBRbLOlV9RMFx7ClqA4hhK4/I/H
- qQgK6X+OzYC0O/1R+fwN1K6FXXCMTTOqcO1T9a9Y1rDHvdUy1PdWWGYgzXRlQcc4I2NtyL0FWem
- pfoUY0oua5hwAnAqvYFv1a7v00tXydL5M06mKKpm2lyB7YNH4zZSjqE1BUwG+J4MAXUhjN/i0Yt
- H1QUUduGmWmVpexFfGbUIGduX82fsVHXccsTB9o6xjLq4v/0AOgpABRuDgfNjO49XL6yVbk2NUM
- bS8YEnEUy7ESQxWyYrY60c93IqmuQdMFyEIR+sjMmfIG3K4RdFudun0NEk2wqBFai0dDgpQbfAz
- IA6b3jXWGBpG1ucrscpM
-X-Received: by 2002:a05:7022:7e88:b0:153:7a27:b7d with SMTP id
- a92af1059eb24-18512c381a4mr17900397c88.20.1792432491313; 
- Mon, 19 Oct 2026 10:54:51 -0700 (PDT)
-Received: from localhost.localdomain ([136.126.251.209])
+ AKwUvBx3r9w5m16LT6Ax5yQAkkIch+aO6snHdqspOxdvXliLMsqqC6F4jMZZPhcUX8r8mSllAVIA3naefwA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJxQOJSruyEtg5o+XLdkh3fJ5p/tYlhmH35yhi9kWbMGO5TRd9E
+ Pq0d/2qgbxeIyX/3eltgviiEC35mqShA457nYEfOYx8vaV+ZqQwVuKK8
+X-Gm-Gg: AYBFou2F5UFbNTxVUkdGIgJpW6usqnIlMdWe6tW/x2cKKWv4RWZWzPIz71pfUBkNZ1y
+ Y/xYMx0nEMaIVlXNg0pe2iSKUiL5G8gafx2OdzRDj/DSuLJ7v9wlGJtYs3Mf8X0ZVaU44Mm8e4h
+ yVQCaUZs5APQnKuBDidXdVGcI3tpMSd+OSDzmFHPSYYuE0lVPVoFf14nYHyBdNgRwFlsRdWDPYU
+ B1ho5tRBVyHYHTu1qZyjLzw86aRBfljvnOVjGdAyuHOAO9v41r39LCpCCVZ476MSxPYrowsCHxh
+ Tb9xdiLN+6PFcPAh1YCvVtlbO3wk0EOY8MipZ2IWFdkKvrCjGTkpuMUVuqUOXDOFggKnLnLU1+7
+ jZce69CbrPv+NqEwXcKKr+smDjOZunNy9gCQV3+cwgI+3IVK1YhwxemUoM+XhM6YdWfHdIxx+vl
+ kVrip1VuWhrM6SrtL7b9UnKyE3d/EFNbN4xBK2K8xM/If5M8A4uPrxECYi8LtfGTQPeDLjC8rxx
+ qdQCnhUAZhn9UMfzymOuTe5LPAiPt9V+rwEo0zZHRKT7N/jmH+f+vjPU+y+YC+kZwARqWd4Jmb4
+ fplIsfRykfJ0
+X-Received: by 2002:a05:600d:849a:10b0:49f:e8bf:8f9b with SMTP id
+ 5b1f17b1804b1-4a1d75af354mr43144615e9.4.1792246117271; 
+ Sat, 17 Oct 2026 07:08:37 -0700 (PDT)
+Received: from machine.home.arpa ([2a0d:3344:57f6::1046])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1831c5cb39esm31837697c88.22.2026.10.19.10.54.43
+ 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 10:54:50 -0700 (PDT)
-From: Henry Zhang <henryzhang62@gmail.com>
-To: henryzhang62@gmail.com, Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] drm/vc4: dsi: Recover from a timed-out transfer
-Date: Mon, 19 Oct 2026 10:49:29 -0700
-Message-ID: <20261019174930.7237-3-henryzhang62@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261019174930.7237-1-henryzhang62@gmail.com>
-References: <20261019174930.7237-1-henryzhang62@gmail.com>
+ Sat, 17 Oct 2026 07:08:36 -0700 (PDT)
+From: Luka Panio <lukapanio@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Douglas Anderson <dianders@chromium.org>, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Luka Panio <lukapanio@gmail.com>
+Subject: [PATCH 1/7] Input: edt-ft5x06 - split the bus independent core from
+ the I2C driver
+Date: Sat, 17 Oct 2026 16:07:49 +0200
+Message-ID: <20261017140827.290666-2-lukapanio@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261017140827.290666-1-lukapanio@gmail.com>
+References: <20261017140827.290666-1-lukapanio@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -93,207 +93,790 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When a transfer times out, vc4_dsi_host_transfer() disables the
-command, resets the FIFOs and returns -ETIMEDOUT. That is not always
-enough: after an LP receive timeout during a read (the peripheral did
-not complete the bus turnaround), every following transfer times out
-as well, with no interrupt and STAT reading back 0. Only a modeset,
-which goes through post_disable/pre_enable, brings the block back.
+Some FocalTech controllers handled by this driver, such as the FT8722
+TDDI, are connected over SPI. Prepare for an SPI transport by moving
+everything that depends on the i2c_client into a small I2C probe.
 
-Reset the DSI block and its analog front end after a timeout and
-restore the configuration programmed in pre_enable, in the same order
-as pre_enable: the block is ungated and the AFE released only after
-the timings are programmed. Before resetting, wait for the interrupt
-handler, so that a late completion interrupt of the timed-out transfer
-cannot complete the next one. The timed-out message is not resent, as
-it may already have been executed by the peripheral; the error is
-returned and the caller decides whether to retry.
+The only visible change for the I2C devices is that the interrupt is now
+requested with the device name (e.g. "1-0038") instead of the I2C client
+name, as the core no longer has access to the latter.
 
-This does not prevent the timeouts themselves. With video running,
-vc4 does not keep commands within vertical blanking, and transfers can
-still time out, sometimes several in a row after a reset. That is a
-separate issue.
-
-Tested on a Raspberry Pi 4 (DSI1, 2 lanes, video mode at 120 Hz) with
-a panel driver that retries failed reads up to 8 times. Without this
-change, the first timed-out transfer left DSI unusable until the
-display was switched off and on. With it, 499 of 500 reads with video
-running (71 transfers timed out, 58 of them writes, all followed by
-working transfers; the remaining read returned the panel's own
-timeout status) and 1000 of 1000 reads with video stopped returned
-the expected data.
-
-Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
+Signed-off-by: Luka Panio <lukapanio@gmail.com>
 ---
+ drivers/input/touchscreen/edt-ft5x06.c | 276 +++++++++++++------------
+ drivers/input/touchscreen/edt-ft5x06.h |  30 +++
+ 2 files changed, 179 insertions(+), 127 deletions(-)
+ create mode 100644 drivers/input/touchscreen/edt-ft5x06.h
 
-Notes:
-    Changes in v2:
-    - Restore the registers in the same order as pre_enable, ungating the
-      block only after the timings are programmed (Sashiko review)
-    - Call synchronize_irq() before the reset so that a late completion
-      interrupt cannot complete the next transfer (Sashiko review)
-
- drivers/gpu/drm/vc4/vc4_dsi.c | 114 ++++++++++++++++++++++++++++++++--
- 1 file changed, 109 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index 5452b72..2d985bc 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -597,6 +597,7 @@ struct vc4_dsi {
+diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touchscreen/edt-ft5x06.c
+index e69d64c3db2d..543cc62088c7 100644
+--- a/drivers/input/touchscreen/edt-ft5x06.c
++++ b/drivers/input/touchscreen/edt-ft5x06.c
+@@ -34,6 +34,8 @@
  
- 	struct completion xfer_completion;
- 	int xfer_result;
-+	int irq;
+ #include <linux/unaligned.h>
  
- 	struct debugfs_regset32 regset;
++#include "edt-ft5x06.h"
++
+ #define WORK_REGISTER_THRESHOLD		0x00
+ #define WORK_REGISTER_REPORT_RATE	0x08
+ #define WORK_REGISTER_GAIN		0x30
+@@ -106,7 +108,9 @@ struct edt_reg_addr {
  };
-@@ -1170,10 +1171,9 @@ static int vc4_dsi_bridge_attach(struct drm_bridge *bridge,
- 				 &dsi->bridge, flags);
+ 
+ struct edt_ft5x06_ts_data {
+-	struct i2c_client *client;
++	struct device *dev;
++	int irq;
++	struct dentry *debugfs;
+ 	struct input_dev *input;
+ 	struct touchscreen_properties prop;
+ 	u16 num_x;
+@@ -148,15 +152,6 @@ struct edt_ft5x06_ts_data {
+ 	unsigned int header_errors;
+ };
+ 
+-struct edt_i2c_chip_data {
+-	int  max_support_points;
+-};
+-
+-static const struct regmap_config edt_ft5x06_i2c_regmap_config = {
+-	.reg_bits = 8,
+-	.val_bits = 8,
+-};
+-
+ static bool edt_ft5x06_ts_check_crc(struct edt_ft5x06_ts_data *tsdata,
+ 				    u8 *buf, int buflen)
+ {
+@@ -168,7 +163,7 @@ static bool edt_ft5x06_ts_check_crc(struct edt_ft5x06_ts_data *tsdata,
+ 
+ 	if (crc != buf[buflen - 1]) {
+ 		tsdata->crc_errors++;
+-		dev_err_ratelimited(&tsdata->client->dev,
++		dev_err_ratelimited(tsdata->dev,
+ 				    "crc error: 0x%02x expected, got 0x%02x\n",
+ 				    crc, buf[buflen - 1]);
+ 		return false;
+@@ -182,7 +177,7 @@ static int edt_M06_i2c_read(void *context, const void *reg_buf, size_t reg_size,
+ {
+ 	struct device *dev = context;
+ 	struct i2c_client *i2c = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(i2c);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 	struct i2c_msg xfer[2];
+ 	bool reg_read = false;
+ 	u8 addr;
+@@ -258,7 +253,7 @@ static int edt_M06_i2c_write(void *context, const void *data, size_t count)
+ {
+ 	struct device *dev = context;
+ 	struct i2c_client *i2c = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(i2c);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 	u8 addr, val;
+ 	u8 wbuf[4];
+ 	struct i2c_msg xfer;
+@@ -298,7 +293,7 @@ static const struct regmap_config edt_M06_i2c_regmap_config = {
+ static irqreturn_t edt_ft5x06_ts_isr(int irq, void *dev_id)
+ {
+ 	struct edt_ft5x06_ts_data *tsdata = dev_id;
+-	struct device *dev = &tsdata->client->dev;
++	struct device *dev = tsdata->dev;
+ 	u8 rdbuf[63];
+ 	int i, type, x, y, id;
+ 	int error;
+@@ -376,8 +371,7 @@ static ssize_t edt_ft5x06_setting_show(struct device *dev,
+ 				       struct device_attribute *dattr,
+ 				       char *buf)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 	struct edt_ft5x06_attribute *attr =
+ 			container_of(dattr, struct edt_ft5x06_attribute, dattr);
+ 	u8 *field = (u8 *)tsdata + attr->field_offset;
+@@ -412,7 +406,7 @@ static ssize_t edt_ft5x06_setting_show(struct device *dev,
+ 	if (addr != NO_REGISTER) {
+ 		error = regmap_read(tsdata->regmap, addr, &val);
+ 		if (error) {
+-			dev_err(&tsdata->client->dev,
++			dev_err(tsdata->dev,
+ 				"Failed to fetch attribute %s, error %d\n",
+ 				dattr->attr.name, error);
+ 			return error;
+@@ -422,7 +416,7 @@ static ssize_t edt_ft5x06_setting_show(struct device *dev,
+ 	}
+ 
+ 	if (val != *field) {
+-		dev_warn(&tsdata->client->dev,
++		dev_warn(tsdata->dev,
+ 			 "%s: read (%d) and stored value (%d) differ\n",
+ 			 dattr->attr.name, val, *field);
+ 		*field = val;
+@@ -435,8 +429,7 @@ static ssize_t edt_ft5x06_setting_store(struct device *dev,
+ 					struct device_attribute *dattr,
+ 					const char *buf, size_t count)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 	struct edt_ft5x06_attribute *attr =
+ 			container_of(dattr, struct edt_ft5x06_attribute, dattr);
+ 	u8 *field = (u8 *)tsdata + attr->field_offset;
+@@ -478,7 +471,7 @@ static ssize_t edt_ft5x06_setting_store(struct device *dev,
+ 	if (addr != NO_REGISTER) {
+ 		error = regmap_write(tsdata->regmap, addr, val);
+ 		if (error) {
+-			dev_err(&tsdata->client->dev,
++			dev_err(tsdata->dev,
+ 				"Failed to update attribute %s, error: %d\n",
+ 				dattr->attr.name, error);
+ 			return error;
+@@ -511,8 +504,7 @@ static EDT_ATTR(report_rate, S_IWUSR | S_IRUGO, WORK_REGISTER_REPORT_RATE,
+ static ssize_t model_show(struct device *dev, struct device_attribute *attr,
+ 			  char *buf)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 
+ 	return sysfs_emit(buf, "%s\n", tsdata->name);
+ }
+@@ -522,8 +514,7 @@ static DEVICE_ATTR_RO(model);
+ static ssize_t fw_version_show(struct device *dev,
+ 			       struct device_attribute *attr, char *buf)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 
+ 	return sysfs_emit(buf, "%s\n", tsdata->fw_version);
+ }
+@@ -534,8 +525,7 @@ static DEVICE_ATTR_RO(fw_version);
+ static ssize_t header_errors_show(struct device *dev,
+ 				  struct device_attribute *attr, char *buf)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 
+ 	return sysfs_emit(buf, "%d\n", tsdata->header_errors);
+ }
+@@ -546,8 +536,7 @@ static DEVICE_ATTR_RO(header_errors);
+ static ssize_t crc_errors_show(struct device *dev,
+ 			       struct device_attribute *attr, char *buf)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 
+ 	return sysfs_emit(buf, "%d\n", tsdata->crc_errors);
+ }
+@@ -567,7 +556,16 @@ static struct attribute *edt_ft5x06_attrs[] = {
+ 	&dev_attr_crc_errors.attr,
+ 	NULL
+ };
+-ATTRIBUTE_GROUPS(edt_ft5x06);
++
++static const struct attribute_group edt_ft5x06_group = {
++	.attrs = edt_ft5x06_attrs,
++};
++
++const struct attribute_group *edt_ft5x06_groups[] = {
++	&edt_ft5x06_group,
++	NULL
++};
++EXPORT_SYMBOL_NS_GPL(edt_ft5x06_groups, "EDT_FT5X06");
+ 
+ static void edt_ft5x06_restore_reg_parameters(struct edt_ft5x06_ts_data *tsdata)
+ {
+@@ -590,18 +588,17 @@ static void edt_ft5x06_restore_reg_parameters(struct edt_ft5x06_ts_data *tsdata)
+ #ifdef CONFIG_DEBUG_FS
+ static int edt_ft5x06_factory_mode(struct edt_ft5x06_ts_data *tsdata)
+ {
+-	struct i2c_client *client = tsdata->client;
+ 	int retries = EDT_SWITCH_MODE_RETRIES;
+ 	unsigned int val;
+ 	int error;
+ 
+ 	if (tsdata->version != EDT_M06) {
+-		dev_err(&client->dev,
++		dev_err(tsdata->dev,
+ 			"No factory mode support for non-M06 devices\n");
+ 		return -EINVAL;
+ 	}
+ 
+-	disable_irq(client->irq);
++	disable_irq(tsdata->irq);
+ 
+ 	if (!tsdata->raw_buffer) {
+ 		tsdata->raw_bufsize = tsdata->num_x * tsdata->num_y *
+@@ -616,7 +613,7 @@ static int edt_ft5x06_factory_mode(struct edt_ft5x06_ts_data *tsdata)
+ 	/* mode register is 0x3c when in the work mode */
+ 	error = regmap_write(tsdata->regmap, WORK_REGISTER_OPMODE, 0x03);
+ 	if (error) {
+-		dev_err(&client->dev,
++		dev_err(tsdata->dev,
+ 			"failed to switch to factory mode, error %d\n", error);
+ 		goto err_out;
+ 	}
+@@ -632,7 +629,7 @@ static int edt_ft5x06_factory_mode(struct edt_ft5x06_ts_data *tsdata)
+ 	} while (--retries > 0);
+ 
+ 	if (retries == 0) {
+-		dev_err(&client->dev, "not in factory mode after %dms.\n",
++		dev_err(tsdata->dev, "not in factory mode after %dms.\n",
+ 			EDT_SWITCH_MODE_RETRIES * EDT_SWITCH_MODE_DELAY);
+ 		error = -EIO;
+ 		goto err_out;
+@@ -644,14 +641,13 @@ static int edt_ft5x06_factory_mode(struct edt_ft5x06_ts_data *tsdata)
+ 	kfree(tsdata->raw_buffer);
+ 	tsdata->raw_buffer = NULL;
+ 	tsdata->factory_mode = false;
+-	enable_irq(client->irq);
++	enable_irq(tsdata->irq);
+ 
+ 	return error;
  }
  
--static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
--				     const struct mipi_dsi_msg *msg)
-+static ssize_t vc4_dsi_transfer(struct vc4_dsi *dsi,
-+				const struct mipi_dsi_msg *msg)
+ static int edt_ft5x06_work_mode(struct edt_ft5x06_ts_data *tsdata)
  {
--	struct vc4_dsi *dsi = host_to_dsi(host);
- 	struct drm_device *drm = dsi->bridge.dev;
- 	struct mipi_dsi_packet packet;
- 	u32 pkth = 0, pktc = 0;
-@@ -1358,6 +1358,106 @@ reset_fifo_and_return:
+-	struct i2c_client *client = tsdata->client;
+ 	int retries = EDT_SWITCH_MODE_RETRIES;
+ 	unsigned int val;
+ 	int error;
+@@ -659,7 +655,7 @@ static int edt_ft5x06_work_mode(struct edt_ft5x06_ts_data *tsdata)
+ 	/* mode register is 0x01 when in the factory mode */
+ 	error = regmap_write(tsdata->regmap, FACTORY_REGISTER_OPMODE, 0x1);
+ 	if (error) {
+-		dev_err(&client->dev,
++		dev_err(tsdata->dev,
+ 			"failed to switch to work mode, error: %d\n", error);
+ 		return error;
+ 	}
+@@ -675,7 +671,7 @@ static int edt_ft5x06_work_mode(struct edt_ft5x06_ts_data *tsdata)
+ 	} while (--retries > 0);
+ 
+ 	if (retries == 0) {
+-		dev_err(&client->dev, "not in work mode after %dms.\n",
++		dev_err(tsdata->dev, "not in work mode after %dms.\n",
+ 			EDT_SWITCH_MODE_RETRIES * EDT_SWITCH_MODE_DELAY);
+ 		tsdata->factory_mode = true;
+ 		return -EIO;
+@@ -685,7 +681,7 @@ static int edt_ft5x06_work_mode(struct edt_ft5x06_ts_data *tsdata)
+ 	tsdata->raw_buffer = NULL;
+ 
+ 	edt_ft5x06_restore_reg_parameters(tsdata);
+-	enable_irq(client->irq);
++	enable_irq(tsdata->irq);
+ 
+ 	return 0;
+ }
+@@ -723,7 +719,6 @@ static ssize_t edt_ft5x06_debugfs_raw_data_read(struct file *file,
+ 						loff_t *off)
+ {
+ 	struct edt_ft5x06_ts_data *tsdata = file->private_data;
+-	struct i2c_client *client = tsdata->client;
+ 	int retries  = EDT_RAW_DATA_RETRIES;
+ 	unsigned int val;
+ 	int i, error;
+@@ -741,7 +736,7 @@ static ssize_t edt_ft5x06_debugfs_raw_data_read(struct file *file,
+ 
+ 	error = regmap_write(tsdata->regmap, 0x08, 0x01);
+ 	if (error) {
+-		dev_err(&client->dev,
++		dev_err(tsdata->dev,
+ 			"failed to write 0x08 register, error %d\n", error);
+ 		return error;
+ 	}
+@@ -750,7 +745,7 @@ static ssize_t edt_ft5x06_debugfs_raw_data_read(struct file *file,
+ 		usleep_range(EDT_RAW_DATA_DELAY, EDT_RAW_DATA_DELAY + 100);
+ 		error = regmap_read(tsdata->regmap, 0x08, &val);
+ 		if (error) {
+-			dev_err(&client->dev,
++			dev_err(tsdata->dev,
+ 				"failed to read 0x08 register, error %d\n",
+ 				error);
+ 			return error;
+@@ -761,7 +756,7 @@ static ssize_t edt_ft5x06_debugfs_raw_data_read(struct file *file,
+ 	} while (--retries > 0);
+ 
+ 	if (retries == 0) {
+-		dev_err(&client->dev,
++		dev_err(tsdata->dev,
+ 			"timed out waiting for register to settle\n");
+ 		return -ETIMEDOUT;
+ 	}
+@@ -793,7 +788,10 @@ static const struct file_operations debugfs_raw_data_fops = {
+ 
+ static void edt_ft5x06_ts_prepare_debugfs(struct edt_ft5x06_ts_data *tsdata)
+ {
+-	struct dentry *debug_dir = tsdata->client->debugfs;
++	struct dentry *debug_dir = tsdata->debugfs;
++
++	if (!debug_dir)
++		return;
+ 
+ 	debugfs_create_u16("num_x", S_IRUSR, debug_dir, &tsdata->num_x);
+ 	debugfs_create_u16("num_y", S_IRUSR, debug_dir, &tsdata->num_y);
+@@ -829,9 +827,9 @@ static void edt_ft5x06_ts_teardown_debugfs(struct edt_ft5x06_ts_data *tsdata)
+ 
+ #endif /* CONFIG_DEBUGFS */
+ 
+-static int edt_ft5x06_ts_identify(struct i2c_client *client,
+-				  struct edt_ft5x06_ts_data *tsdata)
++static int edt_ft5x06_ts_identify(struct edt_ft5x06_ts_data *tsdata)
+ {
++	struct i2c_client *client;
+ 	u8 rdbuf[EDT_NAME_LEN];
+ 	char *p;
+ 	int error;
+@@ -854,6 +852,11 @@ static int edt_ft5x06_ts_identify(struct i2c_client *client,
+ 	if (!strncasecmp(rdbuf + 1, "EP0", 3)) {
+ 		tsdata->version = EDT_M06;
+ 
++		/* M06 uses its own register protocol, only over I2C */
++		client = i2c_verify_client(tsdata->dev);
++		if (!client)
++			return -ENODEV;
++
+ 		/* remove last '$' end marker */
+ 		rdbuf[EDT_NAME_LEN - 1] = '\0';
+ 		if (rdbuf[EDT_NAME_LEN - 2] == '$')
+@@ -870,7 +873,7 @@ static int edt_ft5x06_ts_identify(struct i2c_client *client,
+ 		tsdata->regmap = regmap_init_i2c(client,
+ 						 &edt_M06_i2c_regmap_config);
+ 		if (IS_ERR(tsdata->regmap)) {
+-			dev_err(&client->dev, "regmap allocation failed\n");
++			dev_err(tsdata->dev, "regmap allocation failed\n");
+ 			return PTR_ERR(tsdata->regmap);
+ 		}
+ 	} else if (!strncasecmp(rdbuf, "EP0", 3)) {
+@@ -1113,10 +1116,10 @@ static void edt_ft5x06_disable_regulators(void *arg)
+ 	regulator_disable(data->iovcc);
+ }
+ 
+-static int edt_ft5x06_ts_probe(struct i2c_client *client)
++int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
++		     const struct edt_ft5x06_chip_data *chip_data, u16 bustype,
++		     struct dentry *debugfs)
+ {
+-	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+-	const struct edt_i2c_chip_data *chip_data;
+ 	struct edt_ft5x06_ts_data *tsdata;
+ 	unsigned int val;
+ 	struct input_dev *input;
+@@ -1124,57 +1127,50 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
+ 	int error;
+ 	u32 report_rate;
+ 
+-	dev_dbg(&client->dev, "probing for EDT FT5x06 I2C\n");
+-
+-	tsdata = devm_kzalloc(&client->dev, sizeof(*tsdata), GFP_KERNEL);
++	tsdata = devm_kzalloc(dev, sizeof(*tsdata), GFP_KERNEL);
+ 	if (!tsdata) {
+-		dev_err(&client->dev, "failed to allocate driver data.\n");
++		regmap_exit(regmap);
+ 		return -ENOMEM;
+ 	}
+ 
+-	tsdata->regmap = regmap_init_i2c(client, &edt_ft5x06_i2c_regmap_config);
+-	if (IS_ERR(tsdata->regmap)) {
+-		dev_err(&client->dev, "regmap allocation failed\n");
+-		return PTR_ERR(tsdata->regmap);
+-	}
++	tsdata->dev = dev;
++	tsdata->irq = irq;
++	tsdata->debugfs = debugfs;
++	tsdata->regmap = regmap;
+ 
+ 	/*
+-	 * We are not using devm_regmap_init_i2c() and instead install a
+-	 * custom action because we may replace regmap with M06-specific one
+-	 * and we need to make sure that it will not be released too early.
++	 * The bus driver hands over a regmap that is not device managed
++	 * because we may replace it with the M06-specific one and we need to
++	 * make sure that it will not be released too early.
+ 	 */
+-	error = devm_add_action_or_reset(&client->dev, edt_ft5x06_exit_regmap,
+-					 tsdata);
++	error = devm_add_action_or_reset(dev, edt_ft5x06_exit_regmap, tsdata);
+ 	if (error)
+ 		return error;
+ 
+-	chip_data = device_get_match_data(&client->dev);
+-	if (!chip_data)
+-		chip_data = (const struct edt_i2c_chip_data *)id->driver_data;
+ 	if (!chip_data || !chip_data->max_support_points) {
+-		dev_err(&client->dev, "invalid or missing chip data\n");
++		dev_err(dev, "invalid or missing chip data\n");
+ 		return -EINVAL;
+ 	}
+ 
+ 	tsdata->max_support_points = chip_data->max_support_points;
+ 
+-	tsdata->vcc = devm_regulator_get(&client->dev, "vcc");
++	tsdata->vcc = devm_regulator_get(dev, "vcc");
+ 	if (IS_ERR(tsdata->vcc))
+-		return dev_err_probe(&client->dev, PTR_ERR(tsdata->vcc),
++		return dev_err_probe(dev, PTR_ERR(tsdata->vcc),
+ 				     "failed to request regulator\n");
+ 
+-	tsdata->iovcc = devm_regulator_get(&client->dev, "iovcc");
++	tsdata->iovcc = devm_regulator_get(dev, "iovcc");
+ 	if (IS_ERR(tsdata->iovcc)) {
+ 		error = PTR_ERR(tsdata->iovcc);
+ 		if (error != -EPROBE_DEFER)
+-			dev_err(&client->dev,
++			dev_err(dev,
+ 				"failed to request iovcc regulator: %d\n", error);
+ 		return error;
+ 	}
+ 
+ 	error = regulator_enable(tsdata->iovcc);
+ 	if (error < 0) {
+-		dev_err(&client->dev, "failed to enable iovcc: %d\n", error);
++		dev_err(dev, "failed to enable iovcc: %d\n", error);
+ 		return error;
+ 	}
+ 
+@@ -1183,32 +1179,30 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
+ 
+ 	error = regulator_enable(tsdata->vcc);
+ 	if (error < 0) {
+-		dev_err(&client->dev, "failed to enable vcc: %d\n", error);
++		dev_err(dev, "failed to enable vcc: %d\n", error);
+ 		regulator_disable(tsdata->iovcc);
+ 		return error;
+ 	}
+ 
+-	error = devm_add_action_or_reset(&client->dev,
+-					 edt_ft5x06_disable_regulators,
++	error = devm_add_action_or_reset(dev, edt_ft5x06_disable_regulators,
+ 					 tsdata);
+ 	if (error)
+ 		return error;
+ 
+-	tsdata->reset_gpio = devm_gpiod_get_optional(&client->dev,
+-						     "reset", GPIOD_OUT_HIGH);
++	tsdata->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++						     GPIOD_OUT_HIGH);
+ 	if (IS_ERR(tsdata->reset_gpio)) {
+ 		error = PTR_ERR(tsdata->reset_gpio);
+-		dev_err(&client->dev,
+-			"Failed to request GPIO reset pin, error %d\n", error);
++		dev_err(dev, "Failed to request GPIO reset pin, error %d\n",
++			error);
+ 		return error;
+ 	}
+ 
+-	tsdata->wake_gpio = devm_gpiod_get_optional(&client->dev,
+-						    "wake", GPIOD_OUT_LOW);
++	tsdata->wake_gpio = devm_gpiod_get_optional(dev, "wake", GPIOD_OUT_LOW);
+ 	if (IS_ERR(tsdata->wake_gpio)) {
+ 		error = PTR_ERR(tsdata->wake_gpio);
+-		dev_err(&client->dev,
+-			"Failed to request GPIO wake pin, error %d\n", error);
++		dev_err(dev, "Failed to request GPIO wake pin, error %d\n",
++			error);
+ 		return error;
+ 	}
+ 
+@@ -1237,21 +1231,20 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
+ 		msleep(300);
+ 	}
+ 
+-	input = devm_input_allocate_device(&client->dev);
++	input = devm_input_allocate_device(dev);
+ 	if (!input) {
+-		dev_err(&client->dev, "failed to allocate input device.\n");
++		dev_err(dev, "failed to allocate input device.\n");
+ 		return -ENOMEM;
+ 	}
+ 
+ 	mutex_init(&tsdata->mutex);
+-	tsdata->client = client;
+ 	tsdata->input = input;
+ 	tsdata->factory_mode = false;
+-	i2c_set_clientdata(client, tsdata);
++	dev_set_drvdata(dev, tsdata);
+ 
+-	error = edt_ft5x06_ts_identify(client, tsdata);
++	error = edt_ft5x06_ts_identify(tsdata);
+ 	if (error) {
+-		dev_err(&client->dev, "touchscreen probe failed\n");
++		dev_err(dev, "touchscreen probe failed\n");
+ 		return error;
+ 	}
+ 
+@@ -1263,19 +1256,18 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
+ 
+ 	edt_ft5x06_ts_set_tdata_parameters(tsdata);
+ 	edt_ft5x06_ts_set_regs(tsdata);
+-	edt_ft5x06_ts_get_defaults(&client->dev, tsdata);
++	edt_ft5x06_ts_get_defaults(dev, tsdata);
+ 	edt_ft5x06_ts_get_parameters(tsdata);
+ 
+ 	if (tsdata->reg_addr.reg_report_rate != NO_REGISTER &&
+-	    !device_property_read_u32(&client->dev,
+-				      "report-rate-hz", &report_rate)) {
++	    !device_property_read_u32(dev, "report-rate-hz", &report_rate)) {
+ 		if (tsdata->version == EDT_M06)
+ 			tsdata->report_rate = clamp_val(report_rate, 30, 140);
+ 		else
+ 			tsdata->report_rate = clamp_val(report_rate, 1, 255);
+ 
+ 		if (report_rate != tsdata->report_rate)
+-			dev_warn(&client->dev,
++			dev_warn(dev,
+ 				 "report-rate %dHz is unsupported, use %dHz\n",
+ 				 report_rate, tsdata->report_rate);
+ 
+@@ -1286,12 +1278,11 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
+ 			     tsdata->report_rate);
+ 	}
+ 
+-	dev_dbg(&client->dev,
+-		"Model \"%s\", Rev. \"%s\", %dx%d sensors\n",
++	dev_dbg(dev, "Model \"%s\", Rev. \"%s\", %dx%d sensors\n",
+ 		tsdata->name, tsdata->fw_version, tsdata->num_x, tsdata->num_y);
+ 
+ 	input->name = tsdata->name;
+-	input->id.bustype = BUS_I2C;
++	input->id.bustype = bustype;
+ 
+ 	input_set_abs_params(input, ABS_MT_POSITION_X,
+ 			     0, tsdata->num_x * 64 - 1, 0, 0);
+@@ -1303,20 +1294,19 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
+ 	error = input_mt_init_slots(input, tsdata->max_support_points,
+ 				    INPUT_MT_DIRECT);
+ 	if (error) {
+-		dev_err(&client->dev, "Unable to init MT slots.\n");
++		dev_err(dev, "Unable to init MT slots.\n");
+ 		return error;
+ 	}
+ 
+-	irq_flags = irq_get_trigger_type(client->irq);
++	irq_flags = irq_get_trigger_type(irq);
+ 	if (irq_flags == IRQF_TRIGGER_NONE)
+ 		irq_flags = IRQF_TRIGGER_FALLING;
+ 	irq_flags |= IRQF_ONESHOT;
+ 
+-	error = devm_request_threaded_irq(&client->dev, client->irq,
+-					  NULL, edt_ft5x06_ts_isr, irq_flags,
+-					  client->name, tsdata);
++	error = devm_request_threaded_irq(dev, irq, NULL, edt_ft5x06_ts_isr,
++					  irq_flags, dev_name(dev), tsdata);
+ 	if (error) {
+-		dev_err(&client->dev, "Unable to request touchscreen IRQ.\n");
++		dev_err(dev, "Unable to request touchscreen IRQ.\n");
+ 		return error;
+ 	}
+ 
+@@ -1326,26 +1316,27 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
+ 
+ 	edt_ft5x06_ts_prepare_debugfs(tsdata);
+ 
+-	dev_dbg(&client->dev,
++	dev_dbg(dev,
+ 		"EDT FT5x06 initialized: IRQ %d, WAKE pin %d, Reset pin %d.\n",
+-		client->irq,
++		irq,
+ 		tsdata->wake_gpio ? desc_to_gpio(tsdata->wake_gpio) : -1,
+ 		tsdata->reset_gpio ? desc_to_gpio(tsdata->reset_gpio) : -1);
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS_GPL(edt_ft5x06_probe, "EDT_FT5X06");
+ 
+-static void edt_ft5x06_ts_remove(struct i2c_client *client)
++void edt_ft5x06_remove(struct device *dev)
+ {
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 
+ 	edt_ft5x06_ts_teardown_debugfs(tsdata);
+ }
++EXPORT_SYMBOL_NS_GPL(edt_ft5x06_remove, "EDT_FT5X06");
+ 
+ static int edt_ft5x06_ts_suspend(struct device *dev)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 	struct gpio_desc *reset_gpio = tsdata->reset_gpio;
+ 	int ret;
+ 
+@@ -1370,7 +1361,7 @@ static int edt_ft5x06_ts_suspend(struct device *dev)
+ 	 * settings. Disable the irq to avoid adjusting each host till the
+ 	 * device is back in a full functional state.
+ 	 */
+-	disable_irq(tsdata->client->irq);
++	disable_irq(tsdata->irq);
+ 
+ 	gpiod_set_value_cansleep(reset_gpio, 1);
+ 	usleep_range(1000, 2000);
+@@ -1387,8 +1378,7 @@ static int edt_ft5x06_ts_suspend(struct device *dev)
+ 
+ static int edt_ft5x06_ts_resume(struct device *dev)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
++	struct edt_ft5x06_ts_data *tsdata = dev_get_drvdata(dev);
+ 	int ret = 0;
+ 
+ 	if (device_may_wakeup(dev))
+@@ -1432,7 +1422,7 @@ static int edt_ft5x06_ts_resume(struct device *dev)
+ 		msleep(300);
+ 
+ 		edt_ft5x06_restore_reg_parameters(tsdata);
+-		enable_irq(tsdata->client->irq);
++		enable_irq(tsdata->irq);
+ 
+ 		if (tsdata->factory_mode)
+ 			ret = edt_ft5x06_factory_mode(tsdata);
+@@ -1447,38 +1437,38 @@ static int edt_ft5x06_ts_resume(struct device *dev)
  	return ret;
  }
  
-+/*
-+ * Reset the DSI block and its analog front end, then restore the
-+ * configuration done in pre_enable. Resetting the FIFOs alone does not
-+ * clear the state the block can be left in after a transfer timed out
-+ * (e.g. on an LP receive timeout): every following transfer then times
-+ * out as well, until the next modeset.
-+ */
-+static void vc4_dsi_reset_and_restore(struct vc4_dsi *dsi)
-+{
-+	u32 en = dsi->variant->port ? DSI1_CTRL_EN : DSI0_CTRL_CTRL0;
-+	u32 ctrl = DSI_PORT_READ(CTRL);
-+	u32 afec0 = DSI_PORT_READ(PHY_AFEC0);
-+	u32 afec1 = DSI_PORT_READ(PHY_AFEC1);
-+	u32 disp0 = DSI_PORT_READ(DISP0_CTRL) & ~DSI_DISP0_ENABLE;
-+	u32 disp1 = DSI_PORT_READ(DISP1_CTRL);
-+	u32 hstx_to = DSI_PORT_READ(HSTX_TO_CNT);
-+	u32 lprx_to = DSI_PORT_READ(LPRX_TO_CNT);
-+	u32 ta_to = DSI_PORT_READ(TA_TO_CNT);
-+	u32 pr_to = DSI_PORT_READ(PR_TO_CNT);
-+	u32 phyc = DSI_PORT_READ(PHYC);
-+	u32 clt0 = DSI_PORT_READ(HS_CLT0);
-+	u32 clt1 = DSI_PORT_READ(HS_CLT1);
-+	u32 clt2 = DSI_PORT_READ(HS_CLT2);
-+	u32 dlt3 = DSI_PORT_READ(HS_DLT3);
-+	u32 dlt4 = DSI_PORT_READ(HS_DLT4);
-+	u32 dlt5 = DSI_PORT_READ(HS_DLT5);
-+	u32 dlt6 = DSI_PORT_READ(HS_DLT6);
-+	u32 dlt7 = DSI_PORT_READ(HS_DLT7);
-+
-+	DSI_PORT_WRITE(DISP0_CTRL, disp0);
-+	DSI_PORT_WRITE(TXPKT1C, 0);
-+	DSI_PORT_WRITE(CTRL, DSI_CTRL_SOFT_RESET_CFG |
-+		       DSI_PORT_BIT(CTRL_RESET_FIFOS));
-+	DSI_PORT_WRITE(PHY_AFEC0, afec0 | DSI_PORT_BIT(PHY_AFEC0_RESET));
-+	/* AFEC reset hold time */
-+	mdelay(1);
-+
-+	/*
-+	 * Same order as pre_enable: the block stays gated and the AFE in
-+	 * reset until the timings are programmed.
-+	 */
-+	DSI_PORT_WRITE(CTRL, ctrl & ~(DSI_CTRL_CAL_BYTE | en));
-+	DSI_PORT_WRITE(STAT, DSI_PORT_READ(STAT));
-+	DSI_PORT_WRITE(PHY_AFEC1, afec1);
-+	DSI_PORT_WRITE(HS_CLT0, clt0);
-+	DSI_PORT_WRITE(HS_CLT1, clt1);
-+	DSI_PORT_WRITE(HS_CLT2, clt2);
-+	DSI_PORT_WRITE(HS_DLT3, dlt3);
-+	DSI_PORT_WRITE(HS_DLT4, dlt4);
-+	DSI_PORT_WRITE(HS_DLT5, dlt5);
-+	DSI_PORT_WRITE(HS_DLT6, dlt6);
-+	DSI_PORT_WRITE(HS_DLT7, dlt7);
-+	DSI_PORT_WRITE(PHYC, phyc);
-+	DSI_PORT_WRITE(CTRL, ctrl & ~en);
-+	DSI_PORT_WRITE(HSTX_TO_CNT, hstx_to);
-+	DSI_PORT_WRITE(LPRX_TO_CNT, lprx_to);
-+	DSI_PORT_WRITE(TA_TO_CNT, ta_to);
-+	DSI_PORT_WRITE(PR_TO_CNT, pr_to);
-+	DSI_PORT_WRITE(DISP1_CTRL, disp1);
-+	/* Ungate the block. */
-+	DSI_PORT_WRITE(CTRL, ctrl);
-+	/* Bring AFE out of reset. */
-+	DSI_PORT_WRITE(PHY_AFEC0, afec0 & ~DSI_PORT_BIT(PHY_AFEC0_RESET));
-+	DSI_PORT_WRITE(DISP0_CTRL, disp0);
-+
-+	DSI_PORT_WRITE(INT_STAT, DSI_PORT_READ(INT_STAT));
-+	DSI_PORT_WRITE(INT_EN, DSI_PORT_BIT(INTERRUPTS_ALWAYS_ENABLED));
-+}
-+
-+static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
-+				     const struct mipi_dsi_msg *msg)
-+{
-+	struct vc4_dsi *dsi = host_to_dsi(host);
-+	u32 disp0_ctrl;
-+	ssize_t ret;
-+
-+	ret = vc4_dsi_transfer(dsi, msg);
-+	if (ret != -ETIMEDOUT)
-+		return ret;
-+
-+	/*
-+	 * Leave the block usable for the next transfer. The message is not
-+	 * resent: it may already have reached the peripheral, and only the
-+	 * caller knows whether it is safe to repeat.
-+	 */
-+	disp0_ctrl = DSI_PORT_READ(DISP0_CTRL);
-+	dev_warn(&dsi->pdev->dev,
-+		 "transfer timed out (stat 0x%08x), resetting DSI\n",
-+		 DSI_PORT_READ(STAT));
-+	/*
-+	 * The completion interrupt of the timed-out transfer may still be
-+	 * in flight; let it finish so that it cannot complete the next one.
-+	 */
-+	synchronize_irq(dsi->irq);
-+	vc4_dsi_reset_and_restore(dsi);
-+	DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
-+
-+	return ret;
-+}
-+
- static const struct component_ops vc4_dsi_ops;
- static int vc4_dsi_host_attach(struct mipi_dsi_host *host,
- 			       struct mipi_dsi_device *device)
-@@ -1727,14 +1827,18 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
- 	/* Clear any existing interrupt state. */
- 	DSI_PORT_WRITE(INT_STAT, DSI_PORT_READ(INT_STAT));
+-static DEFINE_SIMPLE_DEV_PM_OPS(edt_ft5x06_ts_pm_ops,
+-				edt_ft5x06_ts_suspend, edt_ft5x06_ts_resume);
++EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS(edt_ft5x06_pm_ops, edt_ft5x06_ts_suspend,
++				edt_ft5x06_ts_resume, EDT_FT5X06);
  
-+	dsi->irq = platform_get_irq(pdev, 0);
-+	if (dsi->irq < 0)
-+		return dsi->irq;
+-static const struct edt_i2c_chip_data edt_ft5x06_data = {
++static const struct edt_ft5x06_chip_data edt_ft5x06_data = {
+ 	.max_support_points = 5,
+ };
+ 
+-static const struct edt_i2c_chip_data edt_ft3518_data = {
++static const struct edt_ft5x06_chip_data edt_ft3518_data = {
+ 	.max_support_points = 10,
+ };
+ 
+-static const struct edt_i2c_chip_data edt_ft5452_data = {
++static const struct edt_ft5x06_chip_data edt_ft5452_data = {
+ 	.max_support_points = 5,
+ };
+ 
+-static const struct edt_i2c_chip_data edt_ft5506_data = {
++static const struct edt_ft5x06_chip_data edt_ft5506_data = {
+ 	.max_support_points = 10,
+ };
+ 
+-static const struct edt_i2c_chip_data edt_ft6236_data = {
++static const struct edt_ft5x06_chip_data edt_ft6236_data = {
+ 	.max_support_points = 2,
+ };
+ 
+-static const struct edt_i2c_chip_data edt_ft8201_data = {
++static const struct edt_ft5x06_chip_data edt_ft8201_data = {
+ 	.max_support_points = 10,
+ };
+ 
+-static const struct edt_i2c_chip_data edt_ft8716_data = {
++static const struct edt_ft5x06_chip_data edt_ft8716_data = {
+ 	.max_support_points = 10,
+ };
+ 
+-static const struct edt_i2c_chip_data edt_ft8719_data = {
++static const struct edt_ft5x06_chip_data edt_ft8719_data = {
+ 	.max_support_points = 10,
+ };
+ 
+@@ -1515,17 +1505,49 @@ static const struct of_device_id edt_ft5x06_of_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, edt_ft5x06_of_match);
+ 
++static const struct regmap_config edt_ft5x06_i2c_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++};
 +
- 	if (dsi->reg_dma_mem)
--		ret = devm_request_threaded_irq(dev, platform_get_irq(pdev, 0),
-+		ret = devm_request_threaded_irq(dev, dsi->irq,
- 						vc4_dsi_irq_defer_to_thread_handler,
- 						vc4_dsi_irq_handler,
- 						IRQF_ONESHOT,
- 						"vc4 dsi", dsi);
- 	else
--		ret = devm_request_irq(dev, platform_get_irq(pdev, 0),
-+		ret = devm_request_irq(dev, dsi->irq,
- 				       vc4_dsi_irq_handler, 0, "vc4 dsi", dsi);
- 	if (ret) {
- 		if (ret != -EPROBE_DEFER)
++static int edt_ft5x06_i2c_probe(struct i2c_client *client)
++{
++	const struct i2c_device_id *id = i2c_client_get_device_id(client);
++	const struct edt_ft5x06_chip_data *chip_data;
++	struct regmap *regmap;
++
++	dev_dbg(&client->dev, "probing for EDT FT5x06 I2C\n");
++
++	chip_data = device_get_match_data(&client->dev);
++	if (!chip_data && id)
++		chip_data = (const struct edt_ft5x06_chip_data *)id->driver_data;
++
++	regmap = regmap_init_i2c(client, &edt_ft5x06_i2c_regmap_config);
++	if (IS_ERR(regmap)) {
++		dev_err(&client->dev, "regmap allocation failed\n");
++		return PTR_ERR(regmap);
++	}
++
++	return edt_ft5x06_probe(&client->dev, regmap, client->irq, chip_data,
++				BUS_I2C, client->debugfs);
++}
++
++static void edt_ft5x06_i2c_remove(struct i2c_client *client)
++{
++	edt_ft5x06_remove(&client->dev);
++}
++
+ static struct i2c_driver edt_ft5x06_ts_driver = {
+ 	.driver = {
+ 		.name = "edt_ft5x06",
+ 		.dev_groups = edt_ft5x06_groups,
+ 		.of_match_table = edt_ft5x06_of_match,
+-		.pm = pm_sleep_ptr(&edt_ft5x06_ts_pm_ops),
++		.pm = pm_sleep_ptr(&edt_ft5x06_pm_ops),
+ 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+ 	},
+ 	.id_table = edt_ft5x06_ts_id,
+-	.probe    = edt_ft5x06_ts_probe,
+-	.remove   = edt_ft5x06_ts_remove,
++	.probe    = edt_ft5x06_i2c_probe,
++	.remove   = edt_ft5x06_i2c_remove,
+ };
+ 
+ module_i2c_driver(edt_ft5x06_ts_driver);
+diff --git a/drivers/input/touchscreen/edt-ft5x06.h b/drivers/input/touchscreen/edt-ft5x06.h
+new file mode 100644
+index 000000000000..deadc756cd74
+--- /dev/null
++++ b/drivers/input/touchscreen/edt-ft5x06.h
+@@ -0,0 +1,30 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Bus independent core of the EDT FT5x06 touchscreen driver
++ *
++ * Copyright (C) 2026 Luka Panio, <lukapanio@gmail.com>
++ */
++#ifndef _EDT_FT5X06_H
++#define _EDT_FT5X06_H
++
++#include <linux/types.h>
++
++struct attribute_group;
++struct dentry;
++struct dev_pm_ops;
++struct device;
++struct regmap;
++
++struct edt_ft5x06_chip_data {
++	int max_support_points;
++};
++
++int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
++		     const struct edt_ft5x06_chip_data *chip_data, u16 bustype,
++		     struct dentry *debugfs);
++void edt_ft5x06_remove(struct device *dev);
++
++extern const struct dev_pm_ops edt_ft5x06_pm_ops;
++extern const struct attribute_group *edt_ft5x06_groups[];
++
++#endif
 -- 
-2.47.3
+2.55.0
 
