@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17D7ACCF2C4
-	for <dri-devel@archiver.kernel.org>; Sat, 17 Oct 2026 16:37:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E303CCF2C1
+	for <dri-devel@archiver.kernel.org>; Sat, 17 Oct 2026 16:38:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B1C710E02F;
-	Sat, 17 Oct 2026 16:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1A110E055;
+	Sat, 17 Oct 2026 16:38:28 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 003C510E02F
- for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 16:37:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B701210E40A
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 16:38:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 50C6E4004A;
- Sat, 17 Oct 2026 16:37:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA291F000C5;
- Sat, 17 Oct 2026 16:37:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9FBFF4090E;
+ Sat, 17 Oct 2026 16:38:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A34E71F000C6;
+ Sat, 17 Oct 2026 16:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792255054;
- bh=5YQWSI4ybuP3+qZ2WIH2lJW4okdIiZktG/jNbRw5lxc=;
+ s=k20260515; t=1792255101;
+ bh=IkiZRXdHDuxcbh3YWL1x4MnwjgrmBjjwtgqZJbbbgbQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ajgpPwRDVpSR9qx+gRAnR4zdOE14k/fr+tSCNxvDM9/65ngZPp1Ifrc7Ip9953irt
- Dr7Evyr7Ze7W+5VoACIzLie7isRpU6TtSFfFpVcvc+m2G8p1sau9lo9HZzh1h5i0Ip
- 5difS6URCxy1Y9xpyryb4Rc2msfm9AYTzYzx7GfMAPMHI01c2ttXn9XJKxdtZhceoF
- 1wmwj/SY01hBxkRr8Rl5iTuHIIit6IwmzaWT7SoOoTo3h29TsEgZ4Iu+JyS8AfCU9S
- W/ogJWye0OPYbC+FiuDh8ELsqPoeH8gT8IXip6qiat3mN8x0M3ZZ3PJAEx+gY8mKCC
- YBFouicgvrr4Q==
-Date: Sat, 17 Oct 2026 18:37:28 +0200
+ b=jCuGupfy4jWF+0lGgY6Gs3HyP6UkDNsk4OSXNaHKJDlvwrnIcPPqKAiwHPoCfbvKE
+ 7KSRFdG6nlG7/3t8LLipzYqID1wnEVOlt/sokgkx5pwUxa0fFS5wtj9Y3JZY1oUK6o
+ QA1zCvjZFagOfOFxcjvkO2pQLGd6V6bpR+1CTVh/g07aesuXL1ycxDXHe69rD5oE8m
+ xStY3gtKO5pp/Lb4jRJU4k7pjhEwPHfWV54qvsIdctTtodesH5xF2YB3Egow3O6JVP
+ gxDbJGZ32dDunUPkFuz+vd9qYaEVFIN6dGpDXD6ge4FjpuyQtYS4Q0Jb+u0Oxju7mc
+ HhxryQVdJPiYg==
+Date: Sat, 17 Oct 2026 18:38:18 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -43,14 +43,14 @@ Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  dri-devel@lists.freedesktop.org, 
  linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH 3/9] dt-bindings: regulator: add Qualcomm LCDB regulator
-Message-ID: <20261017-daffodil-buzzard-of-amplitude-9e817f@quoll>
+Subject: Re: [PATCH 4/9] dt-bindings: mfd: qcom,spmi-pmic: add LCDB
+Message-ID: <20261017-notorious-degu-of-refinement-2d3f42@quoll>
 References: <20261015-sm8150-display-card-v1-0-5c14928cef29@oss.qualcomm.com>
- <20261015-sm8150-display-card-v1-3-5c14928cef29@oss.qualcomm.com>
+ <20261015-sm8150-display-card-v1-4-5c14928cef29@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261015-sm8150-display-card-v1-3-5c14928cef29@oss.qualcomm.com>
+In-Reply-To: <20261015-sm8150-display-card-v1-4-5c14928cef29@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,24 +66,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 15, 2026 at 11:58:40AM +0300, Dmitry Baryshkov wrote:
-> Several Qualcomm PMICs have an LCDB block providing the positive and
-> negative bias rails for LCD panels. It is not supported by Linux, so
-> boards using it either model the rails as dummy fixed regulators and
-> depend on the state left by the bootloader.
-> 
-> Describe the LCDB regulator present on the PM8150L. Use it as a fallback
-> compatible for LCDB blocks on PMI632 and PM6150L. PM660L has a different
-> version of LCDB block, so it's not being covered.
+On Thu, Oct 15, 2026 at 11:58:41AM +0300, Dmitry Baryshkov wrote:
+> Allow the LCDB regulator block as a child of the SPMI PMIC node.
 > 
 > Assisted-by: LLM
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  .../bindings/regulator/qcom,pm8150l-lcdb.yaml      | 81 ++++++++++++++++++++++
->  1 file changed, 81 insertions(+)
+>  Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> index f6534e9e9912..1894fd82cbda 100644
+> --- a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> @@ -171,6 +171,10 @@ patternProperties:
+>      type: object
+>      $ref: /schemas/input/qcom,spmi-haptics.yaml#
+>  
+> +  "^lcdb@[0-9a-f]+$":
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This should be "regulator", if I understood correctly the device
+purpose.
 
-Best regards,
-Krzysztof
-
+> +    type: object
+> +    $ref: /schemas/regulator/qcom,pm8150l-lcdb.yaml#
+> +
+>    "^led-controller@[0-9a-f]+$":
+>      type: object
+>      $ref: /schemas/leds/qcom,spmi-flash-led.yaml#
+> 
+> -- 
+> 2.47.3
+> 
