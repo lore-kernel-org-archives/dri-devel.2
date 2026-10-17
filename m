@@ -2,103 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009C1606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D8F606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LE1yKObE
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RrlGyr03
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D457F10F315;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0017A10F316;
 	Tue, 20 Oct 2026 07:36:44 +0000 (UTC)
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8448210EB74
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 23:21:13 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-8241a56cd70so1715553a34.3
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:21:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792452072; cv=none;
- d=google.com; s=arc-20260327;
- b=Tspt4hwbnIzMPG8hfTD5a075d8ohZfEwQqaB/gHZmKuRrVS1OnjQN3GQbN5VxO6Rgg
- Bv+9pGCUScWJ1JGMvUki9ZNRx2I4NZXuyKBgKCTArySFvj5rAGokJViYfc+X0BKv3H8x
- F0ntBz6dLZyZ3cfbbB0d7FEe4FMFz6TrGssRXTcGGJmS7vVyYc9IRWORYe8YMsfJAbth
- F0mtFip1CJskufpDt8s6Sm9u9Uj1hHzM5yE3gFBGLnvxY1Bwwro8Kc/YrOIdwEHl37p1
- Y/iPHgEWXgo1QsXXiEAC61+z56a/Y5KK9AS5/S5DgtPZiZECajszs8v4OJ3UMfAunSG0
- HfzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=SDRnHnRoknSiYUsalL/FFfb9UodnclNsTRZz4O77Pzg=;
- fh=cVprOUCH3x/P7Lrtu1JIjO2AC3kmLyb/UNZlcoq+8lk=;
- b=SjO6DWU/NoKaBH0X25OBhUGa9GGHs1grgE8mGE1u9x8XgLtDv8owdn3FKHT/Mh+QcQ
- cq+xGd9JhpRx0xIdhrMW9v0Q23V+23iubHYTMwQdDyTPkBC2cOsvad8yEGDOGHHfJ3tr
- 4Za+EDxP08lnHJIpnvy1LtbvYLv2UvsL/t8DE7fwFQO7OzUQN9u1hVlEYU3De5SXFBEm
- SqRiKaaBb0a6rUMxF1hAJzncX8rPSD6HuQApsVRyJ96Tomh9xlE8BEScVxP2mZy+TfuC
- hFmRu7RrZkCkCuflQlVk+6AC8tXn/L1BHwcUvaza1WXlbbDiRkpAyqh+KWtg5X62ddgI
- T9CA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 035A010E38E
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 14:08:41 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4980fe6b3beso11666855e9.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 07:08:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792452072; x=1793056872; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=SDRnHnRoknSiYUsalL/FFfb9UodnclNsTRZz4O77Pzg=;
- b=LE1yKObEIehB5viXY8ywtmmp3I7QXzRPYYrTRRuPf1vGZVTgemQu5EghiawUcTEfeQ
- cdRuN74Th5xa59ci03g2JpZOIZgQMTGIKIoAudrEIqY1EiRzzVJ8bZ2ldv9V4AOdsbi8
- FUyLDLRZDayX+g20MOgpcXgmv2+Yj/IAZg/5IbMpOZ4Vjr538z5m0hzOYHZaPm6G0fGk
- QjwOsUT27Eh1PeCM9fFYXDayJr+LjXC9FxNYkC4n99isULNxe5FUy5T5Q8a6gRTOeNwi
- UhCLus7N3ez1A35yRdv9YuxtaiR2ip5qtfno+HHCZwbLljLK7kJT4pkwfh8wXiTlAaKe
- 3/ig==
+ d=gmail.com; s=20251104; t=1792246120; x=1792850920; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=oNxk/T2LUY8i3MRxnTeuyFwAKCAvPmVRbJValg45Ois=;
+ b=RrlGyr03cnJutacC6zt0QniU4hzoSumeJdPM5wge5dfkBRgrOlEr/MnRUBoEwrxjtg
+ z3NFIPW/Kjjl1hxJnHHAMvIBi1L8Uzb1j9gC25oa+d31+ZvrXYfCO1gWgF3ZyxPQa4Sm
+ CFUK5FIYFj9sfXmhXJiOui2lqGFmODtlwUoOgwxMbWP+XVSObsiNTMKOOnmxu9cKkfxU
+ TT6q4/Aaqg+jHT+S39Db5JKSpQaXMfNG9VRuAPpRfFOdwH2w8W3xFAA3UJXDxbM5EXQK
+ GMXLjdUMq8bs6NrmCrHuyg69XZ5hBsnyHNRSNHiPIteCk06drMkV8ZH87neaSFz8HhYn
+ 2ghQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792452072; x=1793056872;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=SDRnHnRoknSiYUsalL/FFfb9UodnclNsTRZz4O77Pzg=;
- b=fvmhaLzqGePakEkm4GyrU0pojCF5Fj96rYEbuDulNiwZKYnUsj1pwdAGYIHY3eSMi7
- T9vjvx+y6lo5HxTky36Vronb2UVUJA8X+pftddqDVGCnFRE5TkHvJJ0D066eh+ykZ8xv
- EhgDi/Rr7F6EByU9XKkh57YCZProD/JzKsZg4Xs/22PizJquzN58THZDb9Lg7mDP9Saa
- UmK6N5g1kJV9NxYfDzSqtLQenMT7qzwo1z1F6gp5lpaiKSRZfKBlZ0ZUnbocTkdJCDxc
- i/AdqapSWf9gUh9ukWnY/zgIqVhgkNIHCSPf0Fllb+hCSu60fbd2lolGxjEHPNRDY5td
- QHOQ==
+ d=1e100.net; s=20260707; t=1792246120; x=1792850920;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=oNxk/T2LUY8i3MRxnTeuyFwAKCAvPmVRbJValg45Ois=;
+ b=iK/yKTTAN2vAlxHGQlpmXAkxHSu3tLnWiOdjBUZW9mTZDtTXrRiWtr6Q2BUD/Pz/AR
+ l3uODV9ua2aqpOQL3RXSUommTUNH+gTS5Xqk73UKvJ9dQhHsXZnz02NFd9aVLhghrnWe
+ bh+6bCYknWW8KLY+spr7Vm1P3NGJOhNjxb7z7IczFgLQH5fznQ3llOtcM6YAAEtKgbR1
+ mdQ9wiF9DKigQT01K92CY5kufiQqmVTGMoQERitgKvgXFuuEGn1br9htiufwU+57xxRc
+ zjc/DRoTo9kThJl+sR5+O5ocGdZyC1gVD+lUkmoxICvG78JE08Mtk9FnPNLUavt/Cuxc
+ oPig==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzMFu5H6zyzJk/lPbnrW/qhTZZ5BZmpR4yoiNZ1r+GHqNs8Gz6DDFtRvsgOXBGNLU/bZwPmspik5y0=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJEJFtzKIKssLrDRhktSFsWSm4KJWDto4DC4JAnpyKGqGOzdcmj
- N2GpZVH/W/lSw0YTyrCGTukY7CfE1sFGL60a6/YqcQpZStpkhNMIvZRQa7NFO08SeoGKuCXc9YO
- cQmOMVkkMY0xzJ8bXgCa0+EyXF6td71E=
-X-Gm-Gg: AYBFou1WrTNbddi0brlN/h8KTkxvFfoRE2nP6hhWteUp3mibV5fhscz/6k90U7avIs6
- pgLWhVyhwxBBL8eImff7WIh5M0DKcdFHz05jZhy+TpXZLS40nXENLkKprckOHE2GwxnKoSpBImN
- aQkAEiSOOpm7Thvq4LiNdjCVcCQutQ4NSXOH4HchL5tDFikBmCsxyQXWyYoF3a0ZjahTFk+sMUT
- s/A+ck9Uz1im4BPucg5zRE22ZVXrQW5Vwb2T1x0T7xH6Hxju227qbqivIIvUo9L8spKza26sX1l
- 2mlPkVpoCTgTNBuVL0f2KmVTdsRSuzZiuj4Lx6vI/RyHht4rRZlgJwCuid+ZyRW3mLyd9ULUxGB
- wLSTCvMz0m9i8+P7R4pgCWSRnMXFMerSLwfh7fYv3
-X-Received: by 2002:a05:6808:f8f:b0:53c:7298:3591 with SMTP id
- 5614622812f47-53cc5b5ba6amr7389614b6e.1.1792452072397; Mon, 19 Oct 2026
- 16:21:12 -0700 (PDT)
+ AKwUvBxHkDCqBo2hMuQUckOD3I7FTvVo8xzgw+HHNymTTj6w0F6SpXirzI6u3X5wRreGTM61n89N2MHRR5s=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL2FknqQDpmuDacS+ktDQ8sfX6P2PiOj78ceYYJrad7+4/pWpg3
+ 6SsjDHXf7i6Zh20zlqXeBe4P+cnQJjs2rYkkeloIPFBTa8y5gJbvoWpvn16ZjNODjSw=
+X-Gm-Gg: AYBFou2q4yiivgtCgeI32RA/8zpu0VhjtiLkly7NjZSb9aQvZsaIyw7LjXcDxv8L/xc
+ FOcwqEmwN5xzqWd7idRVtbCZDOuVzJAla4VCdt3tUcTIW9ey6P3y8bO1cGF55uy2yz5wMcODMWa
+ 1xWgbkndf0HLNK0NIDI55/LgWgTLAvv7rQ4fgl646u5HzMj0YOo2Ttyi2Pq9+EElz4TERGOs6KI
+ rZ/UP1woiJxJ2FDFMWYcEFfPxzE/M+yASdgapTOL5QP6Ml+BQ7K665/pQmWlFHRCjKJO47Anb7D
+ pwEuWwFo5nEtbZ+4bDOGf1jxE+3k+DX7XF5phkujM1svsrnP79BbiYpAS47DxxOUV3tbJo5qzMx
+ 5j2tASgqtCIHgdfZ+e1l1LwRclGplSZcCPOLtFh8BOu0tz9QY8qKL004OQvTfaAggcpepvXybzC
+ oz7MxrjOLwP4sPnnNB9hVJyj/6o0XNDvFrDEZKhBD3MvbPptO9T999g0q8e902bX0bwDODkulWW
+ gc17AKmNJV8ZKfTRamxR6o6pYEEUjTn6JLe2ZfUfsAPnKRwUdreevOmxxy6NMVLHfutypDGw3K1
+ 7w==
+X-Received: by 2002:a05:600c:8b65:b0:49e:65f2:db64 with SMTP id
+ 5b1f17b1804b1-4a1d75f2574mr69075175e9.5.1792246119996; 
+ Sat, 17 Oct 2026 07:08:39 -0700 (PDT)
+Received: from machine.home.arpa ([2a0d:3344:57f6::1046])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 17 Oct 2026 07:08:39 -0700 (PDT)
+From: Luka Panio <lukapanio@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Douglas Anderson <dianders@chromium.org>, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Luka Panio <lukapanio@gmail.com>
+Subject: [PATCH 3/7] Input: edt-ft5x06 - add an optional controller boot hook
+Date: Sat, 17 Oct 2026 16:07:51 +0200
+Message-ID: <20261017140827.290666-4-lukapanio@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261017140827.290666-1-lukapanio@gmail.com>
+References: <20261017140827.290666-1-lukapanio@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
- <atYPlC-f2AQEjYWS@intel.com>
-In-Reply-To: <atYPlC-f2AQEjYWS@intel.com>
-From: Michael Anderson <mwwa919@gmail.com>
-Date: Mon, 19 Oct 2026 19:21:01 -0400
-X-Gm-Features: AclHuK8zNi-iWumfIYywLUJws8kEsLt3lRCO9cEQZoc-Vcc1AV0INueMYu3zYtw
-Message-ID: <CAL-Wm=OR8FRGC6Vv-5+4u6aUrnPH=jP8RfSOqKXjvwhEyXWREA@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI
- sequences
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Hans de Goede <hansg@kernel.org>, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, brgl@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Oct 2026 07:36:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,288 +89,105 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 03:39:48PM +0300, Ville Syrj=C3=A4l=C3=A4 wrote:
-> Please file a bug
-> https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items and
-> attach a copy of /sys/kernel/debug/dri/0/i915_vbt there so that
-> we can all see what it looks like.
+Some FocalTech TDDI controllers have no flash and run their firmware
+from RAM, which is lost whenever the controller is reset or powered
+down. Allow the chip data to provide a boot callback that is run right
+after the controller is taken out of reset, both at probe time before
+the controller is identified and when resuming from the power-off sleep
+mode before the register settings are restored.
 
-Done: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17402
-with the VBT dump (raw and decoded), i915_display_info and a full
-drm.debug=3D0xe dmesg from the unpatched driver.
+The boot ROM of these controllers only accepts commands shortly after
+reset, so skip the 300 ms settle delay for them and pass the reset GPIO
+to the callback, letting it restart the boot ROM when it retries.
 
-> I think what we should do is stop using .gpio_panel and/or
-> .gpio_backlight when the VBT expects to control them via the
-> sequences.
+Signed-off-by: Luka Panio <lukapanio@gmail.com>
+---
+ drivers/input/touchscreen/edt-ft5x06.c | 25 +++++++++++++++++++++++--
+ drivers/input/touchscreen/edt-ft5x06.h |  2 ++
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-One wrinkle with keying it on which sequences exist: on this tablet the
-reset sequences drive pin 10, the one i915 owns as "backlight", and the
-VBT has no BACKLIGHT_ON/OFF sequences at all:
+diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touchscreen/edt-ft5x06.c
+index 536d633d97a7..e57611e48217 100644
+--- a/drivers/input/touchscreen/edt-ft5x06.c
++++ b/drivers/input/touchscreen/edt-ft5x06.c
+@@ -148,6 +148,7 @@ struct edt_ft5x06_ts_data {
+ 
+ 	struct edt_reg_addr reg_addr;
+ 	enum edt_ver version;
++	int (*boot)(struct device *dev, struct gpio_desc *reset_gpio);
+ 	unsigned int crc_errors;
+ 	unsigned int header_errors;
+ };
+@@ -1131,7 +1132,16 @@ static int edt_ft5x06_ts_init_hw(struct edt_ft5x06_ts_data *tsdata)
+ 	if (tsdata->reset_gpio) {
+ 		usleep_range(5000, 6000);
+ 		gpiod_set_value_cansleep(tsdata->reset_gpio, 0);
+-		msleep(300);
++		/* Controllers with a boot callback handle their own timing */
++		if (!tsdata->boot)
++			msleep(300);
++	}
++
++	if (tsdata->boot) {
++		error = tsdata->boot(dev, tsdata->reset_gpio);
++		if (error)
++			return dev_err_probe(dev, error,
++					     "failed to boot the controller\n");
+ 	}
+ 
+ 	error = edt_ft5x06_ts_identify(tsdata);
+@@ -1233,6 +1243,7 @@ int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
+ 	}
+ 
+ 	tsdata->max_support_points = chip_data->max_support_points;
++	tsdata->boot = chip_data->boot;
+ 
+ 	tsdata->vcc = devm_regulator_get(dev, "vcc");
+ 	if (IS_ERR(tsdata->vcc))
+@@ -1437,7 +1448,17 @@ static int edt_ft5x06_ts_resume(struct device *dev)
+ 
+ 		usleep_range(1000, 2000);
+ 		gpiod_set_value_cansleep(reset_gpio, 0);
+-		msleep(300);
++
++		if (tsdata->boot) {
++			ret = tsdata->boot(dev, reset_gpio);
++			if (ret) {
++				dev_err(dev, "Failed to boot the controller: %d\n",
++					ret);
++				return ret;
++			}
++		} else {
++			msleep(300);
++		}
+ 
+ 		edt_ft5x06_restore_reg_parameters(tsdata);
+ 		enable_irq(tsdata->irq);
+diff --git a/drivers/input/touchscreen/edt-ft5x06.h b/drivers/input/touchscreen/edt-ft5x06.h
+index deadc756cd74..7eaeb562d11f 100644
+--- a/drivers/input/touchscreen/edt-ft5x06.h
++++ b/drivers/input/touchscreen/edt-ft5x06.h
+@@ -13,10 +13,12 @@ struct attribute_group;
+ struct dentry;
+ struct dev_pm_ops;
+ struct device;
++struct gpio_desc;
+ struct regmap;
+ 
+ struct edt_ft5x06_chip_data {
+ 	int max_support_points;
++	int (*boot)(struct device *dev, struct gpio_desc *reset_gpio);
+ };
+ 
+ int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
+-- 
+2.55.0
 
-  DISPLAY_OFF:     GPIO 10 -> 0
-  ASSERT_RESET:    GPIO 10 -> 0
-  DEASSERT_RESET:  GPIO 10 -> 1, 0, 1
-  (GPIO 11 is never used)
-
-So with your sketch want_panel_gpio would go false (freeing pin 11,
-which the VBT doesn't touch) but want_backlight_gpio would stay true and
-pin 10 would still be busy. Would it make sense to scan the sequences for
-the GPIO numbers they actually use, and skip requesting pin 10 and/or 11
-when a sequence references it?
-
-> The big question here is whether we need to keep some kind of
-> hybrid approach where one pin is controlled by the sequence and
-> the other explicitly by the driver.
-
-This machine looks like that case: pin 10 is driven by the VBT, pin 11
-only by the driver. I don't know whether the panel actually needs pin 11
-driven; the GOP leaves it high. I can test a build that leaves pin 11
-alone if that helps.
-
-Bart pointed out that a timed pulse like DEASSERT_RESET is beyond what
-reset-gpio or gpio-shared-proxy can do, so not requesting the pins the
-VBT drives looks like the simpler fix to me. If you agree I'll do a v2
-along those lines and test it here.
-
-Thanks,
-Mike
-
-On Mon, Oct 19, 2026 at 8:39=E2=80=AFAM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> On Sun, Oct 18, 2026 at 04:12:40PM -0400, Mike Anderson via B4 Relay wrot=
-e:
-> > From: Mike Anderson <mwwa919@gmail.com>
-> >
-> > On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
-> > backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
-> > itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
-> > GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
-> > sequences also request their pin through gpiolib, so when a sequence
-> > toggles one of these two pins the request fails and the toggle is
-> > dropped:
-> >
-> >   i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY=
-)
-> >
-> > Before that commit the pad registers were written directly, so the
-> > sequences could still drive the pins i915 owned.
-> >
-> > The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
-> > panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
-> > MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
-> > failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
-> > during takeover and stays black, even though the backlight PWM and both
-> > enable GPIOs read back as on. The tablet only has a usable display
-> > with nomodeset.
-> >
-> > When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
-> > corresponding descriptor, set it through that descriptor instead of
-> > requesting the pin a second time.
-> >
-> > Fixes: 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV GPIOs behind =
-the driver's back")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM sparse
-> > Signed-off-by: Mike Anderson <mwwa919@gmail.com>
-> > ---
-> > This patch was developed with an AI coding assistant (Claude Code,
-> > Claude Opus 5.5): it ran the debugging session on the tablet (drm.debug
-> > log, gpio/pwm debugfs), traced the -EBUSY to 8241b55f1ded, and wrote th=
-e
-> > change and the changelog; I reviewed it and tested it on the hardware.
-> >
-> > Testing, Toshiba Encore 2 WT8-B (Atom Z3735F, BIOS 2.10, VBT MIPI
-> > sequence block v2, PPS_BLC_SOC):
-> > - Arch Linux v7.2.11-arch1 with this patch backported (applies as is):
-> >   the panel lights up at i915 takeover and the Xorg login screen shows;
-> >   no "GPIO index ... request failed" errors; gpio-10/11 stay owned as
-> >   "backlight"/"panel". Unpatched v7.2.11 and v6.18.57 give a black
-> >   panel with five -EBUSY errors during boot.
-> > - drm-intel-next: built intel_dsi_vbt.o for i915 (=3Dm and =3Dy) and fo=
-r
-> >   xe (=3Dm) with W=3D1 and sparse (C=3D2, sparse v0.6.5-rc1): no new
-> >   warnings.
-> >
-> > Not tested: other VLV machines with PPS_BLC_SOC. Their behaviour only
-> > changes when their VBT sequences touch pin 10 or 11, which currently
-> > fails with -EBUSY anyway.
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 32 ++++++++++++++++++++=
-+++-----
-> >  1 file changed, 27 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu=
-/drm/i915/display/intel_dsi_vbt.c
-> > index fe12041e9..85d1cdc6e 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> > @@ -54,6 +54,10 @@
-> >  #define MIPI_VIRTUAL_CHANNEL_SHIFT   1
-> >  #define MIPI_PORT_SHIFT                      3
-> >
-> > +/* VLV NC pins of the backlight and panel enable GPIOs, see soc_panel_=
-gpio_table */
-> > +#define VLV_GPIO_NC_BACKLIGHT                10
-> > +#define VLV_GPIO_NC_PANEL            11
-> > +
-> >  struct i2c_adapter_lookup {
-> >       u16 target_addr;
-> >       struct intel_dsi *intel_dsi;
-> > @@ -247,10 +251,12 @@ static void soc_opaque_gpio_set_value(struct inte=
-l_connector *connector,
-> >       kfree(lookup);
-> >  }
-> >
-> > -static void vlv_gpio_set_value(struct intel_connector *connector,
-> > +static void vlv_gpio_set_value(struct intel_dsi *intel_dsi,
-> >                              u8 gpio_source, u8 gpio_index, bool value)
-> >  {
-> > -     struct intel_display *display =3D to_intel_display(connector);
-> > +     struct intel_display *display =3D to_intel_display(&intel_dsi->ba=
-se);
-> > +     struct intel_connector *connector =3D intel_dsi->attached_connect=
-or;
-> > +     struct gpio_desc *gpio_desc =3D NULL;
-> >
-> >       /* XXX: this assumes vlv_gpio_table only has NC GPIOs. */
-> >       if (connector->panel.vbt.dsi.seq_version < 3) {
-> > @@ -265,6 +271,22 @@ static void vlv_gpio_set_value(struct intel_connec=
-tor *connector,
-> >               }
-> >       }
-> >
-> > +     /*
-> > +      * With PPS_BLC_SOC, intel_dsi_vbt_gpio_init() already owns these=
- pins,
-> > +      * so requesting them again fails with -EBUSY. Some VBTs still to=
-ggle
-> > +      * them in their MIPI sequences, e.g. as the panel reset line, so=
- drive
-> > +      * them through the descriptors we hold.
-> > +      */
-> > +     if (gpio_index =3D=3D VLV_GPIO_NC_BACKLIGHT)
-> > +             gpio_desc =3D intel_dsi->gpio_backlight;
-> > +     else if (gpio_index =3D=3D VLV_GPIO_NC_PANEL)
-> > +             gpio_desc =3D intel_dsi->gpio_panel;
->
-> Please file a bug
-> https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items and
-> attach a copy of /sys/kernel/debug/dri/0/i915_vbt there so that
-> we can all see what it looks like.
->
-> I think what we should do is stop using .gpio_panel and/or
-> .gpio_backlight when the VBT expects to control them via the
-> sequences.
->
-> The big question here is whether we need to keep some kind of
-> hybrid approach where one pin is controlled by the sequence and
-> the other explicitly by the driver.
->
-> For example https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/1=
-4605
-> has a VBT where the reset pin is controlled by the VBT but there is no
-> backlight stuff whatsoever in there. Well, unless some of those DCS
-> commands has something to do with the backlight, but IIRC DCS has no
-> standard stuff for backlight so it would all be panel specific. So
-> it's not clear if a backlight GPIO pin is needed at all there, of if
-> the DCS and/or the PWM alone is sufficient.
->
-> Hans, do you still have these funky VLV DSI machines around, and if so
-> can you check whether they would need this kind of hybrid approach?
-> Sadly all I have is old stuff that doesn't use the VBT sequences at
-> all.
->
-> If we do need the hybrid approach then it could perhaps look something li=
-ke this:
-> --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> @@ -917,8 +917,14 @@ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel=
-_dsi, bool panel_is_on)
->
->         if (display->platform.valleyview && mipi_config->pwm_blc =3D=3D P=
-PS_BLC_SOC) {
->                 gpiod_lookup_table =3D &soc_panel_gpio_table;
-> -               want_panel_gpio =3D true;
-> -               want_backlight_gpio =3D true;
-> +
-> +               if (!connector->panel.vbt.dsi.sequence[MIPI_SEQ_ASSERT_RE=
-SET] &&
-> +                   !connector->panel.vbt.dsi.sequence[MIPI_SEQ_DEASSERT_=
-RESET])
-> +                       want_panel_gpio =3D true;
-> +
-> +               if (!connector->panel.vbt.dsi.sequence[MIPI_SEQ_BACKLIGHT=
-_OFF] &&
-> +                   !connector->panel.vbt.dsi.sequence[MIPI_SEQ_BACKLIGHT=
-_ON])
-> +                       want_backlight_gpio =3D true;
->
->                 /* Ensure PWM0 pin is muxed as PWM instead of GPIO */
->                 ret =3D pinctrl_register_mappings(soc_pwm_pinctrl_map,
->
-> > +
-> > +     if (gpio_desc && connector->panel.vbt.dsi.config->pwm_blc =3D=3D =
-PPS_BLC_SOC) {
-> > +             gpiod_set_value_cansleep(gpio_desc, value);
-> > +             return;
-> > +     }
-> > +
-> >       soc_opaque_gpio_set_value(connector, gpio_index,
-> >                                 "INT33FC:01", "Panel N", gpio_index, va=
-lue);
-> >  }
-> > @@ -430,7 +452,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *i=
-ntel_dsi, const u8 *data)
-> >       else if (DISPLAY_VER(display) >=3D 9)
-> >               bxt_gpio_set_value(connector, gpio_index, value);
-> >       else if (display->platform.valleyview)
-> > -             vlv_gpio_set_value(connector, gpio_source, gpio_number, v=
-alue);
-> > +             vlv_gpio_set_value(intel_dsi, gpio_source, gpio_number, v=
-alue);
-> >       else if (display->platform.cherryview)
-> >               chv_gpio_set_value(connector, gpio_source, gpio_number, v=
-alue);
-> >
-> > @@ -886,8 +908,8 @@ static struct gpiod_lookup_table pmic_panel_gpio_ta=
-ble =3D {
-> >  static struct gpiod_lookup_table soc_panel_gpio_table =3D {
-> >       .dev_id =3D "0000:00:02.0",
-> >       .table =3D {
-> > -             GPIO_LOOKUP("INT33FC:01", 10, "backlight", GPIO_ACTIVE_HI=
-GH),
-> > -             GPIO_LOOKUP("INT33FC:01", 11, "panel", GPIO_ACTIVE_HIGH),
-> > +             GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_BACKLIGHT, "backlig=
-ht", GPIO_ACTIVE_HIGH),
-> > +             GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_PANEL, "panel", GPI=
-O_ACTIVE_HIGH),
-> >               { }
-> >       },
-> >  };
-> >
-> > ---
-> > base-commit: 0507cc5a476af0b6d037b19248bdd20dbe27487d
-> > change-id: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
-> >
-> > Best regards,
-> > --
-> > Mike Anderson <mwwa919@gmail.com>
-> >
->
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
-
-
-
---=20
-Michael Anderson
