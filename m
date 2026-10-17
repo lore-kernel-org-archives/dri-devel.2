@@ -4,58 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73CB5CCF2C9
-	for <dri-devel@archiver.kernel.org>; Sat, 17 Oct 2026 21:35:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2272DCCF2C9
+	for <dri-devel@archiver.kernel.org>; Sat, 17 Oct 2026 21:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B987810E00A;
-	Sat, 17 Oct 2026 21:35:01 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B7A910E00A
- for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 21:34:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6D72160142;
- Sat, 17 Oct 2026 21:34:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1361F000C4;
- Sat, 17 Oct 2026 21:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792272894;
- bh=b3tNsw/rufkVw2FNUIlrH38fofVkuarcnlw5luS4Mz8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=OR8+RvZxJHGOW7Sd3HpJ2zdw8XaPtmekJ9tzoawMjzBEe8DIjfp3YXmsAcsdFnirS
- kjHS/rcg9SGvv1BPOn6Ev3Z91kzQDq6f5tZyRgw4E0IlJWWtH0o3DyrtMJOowYYlYZ
- StzWP+/CnFTCqC3d/A4rF62S5AZ5PhsYk1dDXudr0rc5CkZWkLuFtsfew4zmFQn4j3
- zrR8ilD7oKlLLZogh4JPruSiIwbKTbGxSMKobAkJu5+bIG3YAHqC3i/xIcSObyg/NJ
- ccLoi4qHA+mtUPMzWKxwW7rd+4d/Uy6BZxv5E1E19TQClqf7ok7TCUWGqhL204aNUg
- oDvqrPSnMoxHQ==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/gpuvm: skip setting kernel_alloc_node range on
- overflow
-Date: Sat, 17 Oct 2026 23:34:47 +0200
-Message-ID: <20261017213447.12656-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261012-gpuvm-reserve-overflow-v2-1-519ef15e2172@google.com>
-References: <20261012-gpuvm-reserve-overflow-v2-1-519ef15e2172@google.com>
-X-Patch-Reply: applied
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1563010E289;
+	Sat, 17 Oct 2026 21:51:25 +0000 (UTC)
+Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6424710E289
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 21:51:18 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=8AhvBjG7HuXqA4N9ExrRQYOsSpS2IM4/UU/7cUM6Thw=; 
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792273877; v=1; x=1792878677;
+ b=u52TLMY9AOh4q1pD8o6hKpo18LXx8su7DuzCH9ti6s0pvC2sxFA7P4rf6YZxFChhE9GaiRbQ
+ kfuNfzBSHTMxPdZy5ojEU77z9Xq0Ymtu+bCId3m11Kp1YgrjqMRk4LhsGpnRjQMrsyYWnP+3Mhv
+ r68UwQqHHPfKwOFvf6feMEuZG6Rj0AmasWB2pqH5PVOF5zp6FBHYJZtFVG6lt0nbJHYu2sBcBdT
+ oGYk/zTzOg+iPIm5nPzv1K7oZ9pMlgLCTtr3rKki13TbuGmhoszZ4xo/JbiwVFjpYHHgHvIyLMM
+ gaIWtVZIU+t47EcxDKdDza22xBj6BBoCtjkN+wZ1M/+Xg==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id c017e02178789539;
+ Sat, 17 Oct 2026 21:51:16 +0000
+X-Mizu-Trace-ID: c017e02178789539
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ce5a17da-7202-4903-8101-97f012a67055@packett.cool>
+Date: Sat, 17 Oct 2026 18:51:10 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT 0/5] drm/msm: Attach a driver to GMU
+To: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260513-gmu-sync-state-fix-v1-0-6e33e6aa9b4f@oss.qualcomm.com>
+ <1118d9c2-4efd-48fc-8a3e-c2cc3eddc940@packett.cool>
+ <bc2ed82d-0d91-4683-b9ae-cb4299636c2e@oss.qualcomm.com>
+ <20261017100324.1104-1-tvlad744@gmail.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261017100324.1104-1-tvlad744@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,19 +67,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 12 Oct 2026 09:22:05 +0000, Alice Ryhl wrote:
-> [PATCH v2] drm/gpuvm: skip setting kernel_alloc_node range on overflow
 
-Applied, thanks!
+On 10/17/26 7:03 AM, Vladyslav Tymoshchuk wrote:
+> Hi Akhil,
+>
+> On Sun, 26 Jul 2026 21:35:35 +0530, Akhil P Oommen wrote:
+>> I didn't get a chance to revisit this series after my vacation. I am too
+>> not aware of any impact outside of those dmesg warnings. Any chance this
+>> recent rpmh related fix is helping with the deep sleep instead of this
+>> series:
+>>
+>> https://lore.kernel.org/lkml/20260605-assorted-fixes-june-v1-1-2caa04f7287c@oss.qualcomm.com/
 
-  Branch: drm-misc-next
-  Tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git
+Update: the "deep" suspend bounce back was a red herring, it's actually 
+related to EL2 timer nonsense btw.
 
-[1/1] drm/gpuvm: skip setting kernel_alloc_node range on overflow
-      commit: 5780281c4588
+In terms of actually reaching AOSD/CXSD states though, new community 
+research has been happening recently (on hamoa laptops), and some people 
+have gotten to CXSD buuuuut, with CONFIG_FW_DEVLINK_SYNC_STATE_TIMEOUT=y 
+(aka fw_devlink.sync_state=timeout at cmdline).
 
-The patch will appear in the next linux-next integration (typically within 24
-hours on weekdays).
+It's not good to require timeouts, there should not be any sync_state 
+warnings. With QCE solved now in the "Fix crypto self-test failures" 
+series, the *only* sync_state timeouts are the GMU (on gcc and gpucc) 
+and CoreSight stuff (on qcom_aoss_qmp). These can, and should, be resolved!
 
-The patch is queued up for the upcoming merge window for the next major kernel
-release.
+
+Thanks,
+~val
+
