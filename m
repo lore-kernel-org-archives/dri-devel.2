@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F788CCF2C7
-	for <dri-devel@archiver.kernel.org>; Sat, 17 Oct 2026 09:07:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB216CCF2C9
+	for <dri-devel@archiver.kernel.org>; Sat, 17 Oct 2026 09:08:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF5B910E35B;
-	Sat, 17 Oct 2026 09:07:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C45210E35E;
+	Sat, 17 Oct 2026 09:08:09 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 303C610E35B
- for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 09:07:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC6E810E35E
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 09:08:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D579B41FDC;
- Sat, 17 Oct 2026 09:07:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6718A1F000C4;
- Sat, 17 Oct 2026 09:07:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A404842EA3;
+ Sat, 17 Oct 2026 09:08:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041EB1F000C4;
+ Sat, 17 Oct 2026 09:07:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792228044;
- bh=c4wmaPbMvA830uvvTHJtacKZjJZnACFWxcTC1JdWfNg=;
+ s=k20260515; t=1792228082;
+ bh=cMu4NM+/CEhtUaI70z07WGXUuAG+G0ovLr8PkXueSTk=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Em2/xzCG3JxvodjG7wIzquF+omxAaQZeIVacZFC/O6Dg3mmbPqw8rsifnSymTbuxi
- zWHZYSRhA/XDfTYPU5K5NoFkynhq0cnIBSCgXFYPKRxKpGPpCkEWT+gSlOOiZevvrf
- 5p+A6zhLeK3qQv84hGxqrthjYSinujmxSGvfi0jc3Gk/loorjMrZdP8oIrycHK1I/c
- fH15ea282smGpkpIkveacE37FsuYhJKy2KK8tz8lwyAxLVtTkdjsltKDqcp86G/p7+
- zUW7LWu3hmsHZqmRnD6mCe/IIdRjo7rJJpdOX2DIWcZIwuOH98qic2pMynZxP88LQy
- izWV6b84iTpeg==
-Message-ID: <5c4211d0-94cf-4e53-8a4b-3f3c154228d2@kernel.org>
-Date: Sat, 17 Oct 2026 11:07:18 +0200
+ b=hMSRuIBbcolgp+WYye+OGxHcV/E4tMP5A+A5/LAxe7cwLvygi6EoyM7L5sy5gKt/J
+ E4E4bl/cehxEzHhV5p5ICPbnk8Y5bCrENf2zNE1hgnjvkA224qBxoqgt5XeAm9B2b0
+ giQWMugr5AekupEH4lBlNMTWyxoR5PANxGInOvcBrecYgk7530J09cITxhmJf3q32v
+ 8hG/wMDQoG6LmnfRaI+Qcm5IKW722pS87JJ/75iK/M0zKMEqGSkjqUgg0iWEj2/8Ax
+ amwjGdHiXQLnuFJ07ELSHvnjTQ7DIsw15UFH9TU1FLGXZ+eYJIsSZYIvbYnkeisgXz
+ cewSB7yLMHD0A==
+Message-ID: <75940331-40fc-40ef-906a-97ceccfd576c@kernel.org>
+Date: Sat, 17 Oct 2026 11:07:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: add smartisan
+Subject: Re: [PATCH 2/3] dt-bindings: display: panel: add Smartisan TD4362
 To: tianshi12127 <tianshi12127@gmail.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
 Cc: Jessica Zhang <jesszhan0024@gmail.com>,
@@ -41,7 +41,7 @@ Cc: Jessica Zhang <jesszhan0024@gmail.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org
 References: <20261017083531.766557-1-tianshi12127@gmail.com>
- <20261017083531.766557-2-tianshi12127@gmail.com>
+ <20261017083531.766557-3-tianshi12127@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,7 +87,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261017083531.766557-2-tianshi12127@gmail.com>
+In-Reply-To: <20261017083531.766557-3-tianshi12127@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -108,13 +108,14 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On 17/10/2026 10:35, tianshi12127 wrote:
 > From: Lu Chen <tianshi12127@gmail.com>
 > 
-> Add a vendor prefix for Smartisan Technology, used by Smartisan
-> devices such as the R1 (trident).
+> Document the Smartisan TD4362, a 1080x2242 command mode panel
+> found in the Smartisan R1 (trident) smartphone.
 > 
 > Signed-off-by: Lu Chen <tianshi12127@gmail.com>
+> ---
 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
