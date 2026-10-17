@@ -2,80 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6A1606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E7C606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HWwCahqH
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EmiuOLgc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18B9710F318;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD5410F31B;
 	Tue, 20 Oct 2026 07:36:45 +0000 (UTC)
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 622A310E589
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 05:15:13 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-35943f55c06so2538444eec.0
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 22:15:13 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A511F10E107
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 14:08:40 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-49d0da752ffso6173815e9.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 07:08:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792386912; x=1792991712; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=LHIoBpNvmoiyE7kQhE8I3uJMHpFmjXu6J3zrCSHKMP8=;
- b=HWwCahqHZ3XW/pSXcnSs6fT2w9/Yok0XfYKCH6UMbBUpqxVGnCvD8TnKg0ezqJtlj1
- E/UI3V8eD4MlF3SwDPlEQy9Cbf622gpHH6hKL8Ww9mYV0woMZgtxr9xzGwqY97b6Cjn9
- KWlQWeqUyAhj9xY3CKUEPHmi5Pu1H1wljWpqZRl/dm2UWtPstVihDkTHS7/6P5cyFgQY
- /xDIR3cZgBMP5+fj7aTxPb1JeRRAz9wd/nPRNojt+XP7uEV8JgGWjFlyiWnQr+o219iA
- ybpi5CYRmUeYmYlxG+HxtKuplwKuX8R3yUOlgwFHc6FxTJU5+8kyc4QE4BIR2BrZ9d+5
- R1dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792386912; x=1792991712;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1792246119; x=1792850919; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=LHIoBpNvmoiyE7kQhE8I3uJMHpFmjXu6J3zrCSHKMP8=;
- b=VZOkzLNONGyFchXyUPVijb2vPg/GrELmPWR7vymOvdl3pHoB6Q82fftXrETAAgpkg+
- BiIHoT9f5qwK+SMhPeVMTN2f2JFkEeB28HJLurUHK3kCkfyqCFHac6vgWyP+9qDKFVwV
- sh43q3qlOql/Xu9+TGoiTLwefkf70FL9UkUSGxfyE1tiXVlJlivwJcgcUUkNe/SAdv7t
- IJzTlNqv0kiCW3al7ra5sjwBu8OV3R4WCjhPz4QhVSMTaEKz5nhy4QJd2OLFupsQY2SP
- 2Now02ggqMgRPOzsXZxIJDAjeS7MOI65cGAMvOKkY6r4J9ou8+yNc/omq9T0b5e+mIvi
- ryqw==
+ bh=H2Dcg4q4de62PcVyE302T3A2E9kOAxLGWxlSec6cjn8=;
+ b=EmiuOLgcbZI+0dCGRrXyYXQyl1G2psFSSexWwUaNSvGTiIHuQiSulJLFtAM5cZzz5o
+ vKNtsL53l2Z3jwqCmq7EQKEAFq0XkXDleq0Rofx3eaeEOtIfIKO29z9zsDUABjzS9G87
+ /RnIGubZ9jN60SLZJ4RxL0cpifs/MlrV4aciISjHEEdPGRze0iPNeJ8TKX1nCGlMkc3d
+ 3sZbVZ/thGfKy6qGKF74NIPVm1yl2bWtp/tfXe2+N25iGs3j8V+4qyG1y/T1k89nDASZ
+ 08VrhugVokrxS308gUJ0pFgGCQCpyz9dGD5JdpYPnEPLACT5HLadK2lthqx9PLByH/6Y
+ hDgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792246119; x=1792850919;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=H2Dcg4q4de62PcVyE302T3A2E9kOAxLGWxlSec6cjn8=;
+ b=0NYGyEa8PvMsesyebsJgqCXqdfExUlQXyND/cjRSYcfTp1m5RJV7BMRjIZWLTO9aMx
+ o+iOHbRZaz9YWRpnLruu7p4mNrcBssL6hkHEVBr/qGa174m4jPfUBwu0lFcB1WAvW+dL
+ W4ZbPSyKwpN/RYFkkKVzMgr6Jk4aoErQ3fsiDJOjUyvccS6pVc3qTNYvyhh88WuNl+HD
+ N4p+NWJimOj0nZxm23I5TbxSzJefGEsNIcpAs466kxQRxfOPmmu/1a6kRU+1LAuw01Fn
+ Y/SEM8m1pwr4adB5z5mTNcIOp/Tsbrq4FVkrLHgV1Ixi1UX5Rrg5ZPb9mTXq6WwcVDMl
+ b5Dg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzTD1WzroOVmSnyLwkp4S9fUQFZK3y487kH4JTaVqYCsF9oVecOVTOZ3jJ+BvxOFGlfhoczvjGqxdM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKbdpzQIZz1Eqj3Ms9c7I0GBvQLnrElvsDTaIkeb0pGugfDBBl2
- HAVmlFoBkLs3B8byl4+achSuQ1GEPxTT/pHAhBBQGr+XBwVvGwl0n14u
-X-Gm-Gg: AYBFou2OtyuPYFIzYuesICmtW475UAQMha7Bagxb8GGZ51/8iMOufj/Ql7XpLbCOkd6
- tHkkSINOFwqom5IEiugp/ENa+xfWBqCaKOwyXBm8dReRElAoMA76/T+7mDVoY9HiC3CzkpfIK4j
- jAwKCZTPcpKQNubpBfaAcrlAgyF4jS6Z6lOiVvW7/GDlz8HgNDmlbinEh7d4ETOdZQcE1fk+Yig
- 9qyUicKLoYfA5KZM3Gtb3Xt6y8jq2qH8P9Z8VplmkvHNGNSr16Rc2tDAD94QWpwkJa/WNsQbrB4
- RQsfCz+ESszKqHyTfzJe6B4Nb6W5tl2zElAG9o9j6UqBV6KFWYZnQtBvLESJdKaTUK5vSMUkqNS
- qSBRBf8ngg/n5Gac2aP0raR2/to2LrG4Vc8chkTOiSNmh9vD+yJ9toGW2BIS8RzFdFSgUAcK5rD
- P8QOtj8oOyolu8GbuafVZBCtPpuxwDA55NQ7fu0MkIgnTuOB0Vw17slMBWBd5n4Jhxy2WQyFq5y
- ZzFmMiFQDF1R4CqQXf1az5YGHxv2RsTVfrXTNlaCduHg419KbP65uT4p7D1E9NT/T7e0dxyczL8
- IuhGJmmr/tcm5KXwTRd5dMUz9hS9TpfdGqbATozH
-X-Received: by 2002:a05:7301:2710:b0:35e:af84:bf1e with SMTP id
- 5a478bee46e88-361a2053227mr9965350eec.7.1792386912356; 
- Sun, 18 Oct 2026 22:15:12 -0700 (PDT)
-Received: from flyingfox.tail3d542a.ts.net
- ([2402:a00:163:2ce9:6c87:7904:21fa:8675])
+ AKwUvBy3nFFORmP5EIE67/eMQq7hDx73iwwDlJW9XPpWM6u5EUWqUMXDbamxVHo1xznyQsT4o0elgCsMolc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLr9WsiK2ex0IRGEFu3ySSYot3B/lAWXDIcK0faDJE568NypceX
+ J+dIl5Nu0q1hqOyEsP8wxlxoExu9VoQiYT6P8EoySFbZzMgurY0k94/T
+X-Gm-Gg: AYBFou3eP+1y2vRaw3Tr2Q08C81WTj3px6gkO6FUYurJzj/Vuw/3onW9vNKUYdYEfcZ
+ 4VY/yM7PSwUxkwKK56C/AMQiy47bHEQnpW09LTEXXvVn2AbDQf5wTPjdnLASgy1414Fp8LqSsDe
+ zYdqWGHcOX9yAJhDYYTymqn4LRTBiVHT6i9k8PWf5iast7xK0CtVc+1QmPg3PNS9ucsd72q3D3a
+ 3wevR2yPLQ6kp1hUFVXmaIq5MEomAj3sZOzYObnl45wdKqywWqUKqSTNXVZ+MekFAV7TZf88b1v
+ 5Dx/GZ2DLDVJZO8HqYDjTLiDGa+b48STqBKH/0GnF2OAgep1NdTPATTbfgpRlvw0pxdAZO15UMy
+ x+JP0/irCIqbnr9gLiyCkVsXOgRFOdag2cna6PhZDlxeUJHlOrC0ABhug0evCLrVeM7pM/uNObN
+ xMcu8ETqfZlClyw6RUR1ONizrZkVpbvx3WRA+ik4os62n1OPc4KoUjsKB+0hRaYcHaHbfZM4v82
+ Ou1NsAG48iTtANk5EF85rgMIUAOI/PNlOThdLrRK/SC7+j4VmISx17jKgfaS1Oba/vMeousph5S
+ Gww=
+X-Received: by 2002:a05:600c:1c09:b0:4a1:df2f:ae8f with SMTP id
+ 5b1f17b1804b1-4a1df2fb8abmr22004175e9.6.1792246118623; 
+ Sat, 17 Oct 2026 07:08:38 -0700 (PDT)
+Received: from machine.home.arpa ([2a0d:3344:57f6::1046])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3608308a87csm47588803eec.28.2026.10.18.22.15.05
+ 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Oct 2026 22:15:11 -0700 (PDT)
-From: Vivek Kumar <vk092kumar@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Vivek Kumar <vk092kumar@gmail.com>
-Subject: [PATCH v4] drm/msm/dp: allow eDP sinks without DP_SINK_COUNT
-Date: Mon, 19 Oct 2026 10:44:41 +0530
-Message-ID: <20261019051441.2835682-1-vk092kumar@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ Sat, 17 Oct 2026 07:08:38 -0700 (PDT)
+From: Luka Panio <lukapanio@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Douglas Anderson <dianders@chromium.org>, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Luka Panio <lukapanio@gmail.com>
+Subject: [PATCH 2/7] Input: edt-ft5x06 - move the controller bring-up into a
+ helper
+Date: Sat, 17 Oct 2026 16:07:50 +0200
+Message-ID: <20261017140827.290666-3-lukapanio@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261017140827.290666-1-lukapanio@gmail.com>
+References: <20261017140827.290666-1-lukapanio@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -99,166 +98,214 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some eDP sinks, especially fixed-format eDP-to-HDMI bridge chips with
-no downstream AUX-capable panel behind them, do not report a non-zero
-DP_SINK_COUNT even though they participate normally in DPCD capability
-exchange and link training.
+Move the part of probe that takes the controller out of reset,
+identifies it and registers the input device into a helper, so it
+can also be run after the probe.
 
-Treating sink_count == 0 as a permanent disconnect is valid for external
-DisplayPort, but it breaks eDP probe/enable paths in
-msm_dp_display_prepare_link().
-
-Use drm_dp_read_sink_count_cap() in msm_dp_link_parse_sink_status_field()
-and set link->sink_count to 1 when the capability is not available.
-
-In dp_panel.c, msm_dp_panel_read_link_caps() still reads DP_SINK_COUNT
-for branch devices. That read is left unchanged here: the sink on the
-tested board reports DPCD 1.4 and does not advertise a downstream port,
-so that path is not taken.
-
-Signed-off-by: Vivek Kumar <vk092kumar@gmail.com>
-Assisted-by : LLM
+Signed-off-by: Luka Panio <lukapanio@gmail.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c |  6 ++++--
- drivers/gpu/drm/msm/dp/dp_link.c    | 30 +++++++++++++++++++++--------
- drivers/gpu/drm/msm/dp/dp_link.h    |  5 ++++-
- drivers/gpu/drm/msm/dp/dp_panel.c   |  5 +++++
- drivers/gpu/drm/msm/dp/dp_panel.h   |  1 +
- 5 files changed, 36 insertions(+), 11 deletions(-)
+ drivers/input/touchscreen/edt-ft5x06.c | 154 ++++++++++++++-----------
+ 1 file changed, 86 insertions(+), 68 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 4dcbd9b99d06..2ae4dafd755f 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -290,7 +290,8 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
- 			return -ETIMEDOUT;
- 	}
- 
--	msm_dp_link_process_request(dp->link);
-+	msm_dp_link_process_request(dp->link, connector, dp->panel->dpcd,
-+					 &dp->panel->desc);
- 
- 	if (!dp->msm_dp_display.is_edp)
- 		drm_dp_set_subconnector_property(connector,
-@@ -506,7 +507,8 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp)
- 			dp->link->sink_count);
- 
- 	/* check for any test request issued by sink */
--	rc = msm_dp_link_process_request(dp->link);
-+	rc = msm_dp_link_process_request(dp->link, dp->msm_dp_display.connector,
-+					 dp->panel->dpcd, &dp->panel->desc);
- 	if (!rc) {
- 		sink_request = dp->link->sink_request;
- 		drm_dbg_dp(dp->drm_dev, "sink_request=%d\n", sink_request);
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index 34a91e194a12..f7f25020cacb 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -715,17 +715,25 @@ static int msm_dp_link_parse_request(struct msm_dp_link_private *link)
- 	return ret;
+diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touchscreen/edt-ft5x06.c
+index 543cc62088c7..536d633d97a7 100644
+--- a/drivers/input/touchscreen/edt-ft5x06.c
++++ b/drivers/input/touchscreen/edt-ft5x06.c
+@@ -1116,16 +1116,96 @@ static void edt_ft5x06_disable_regulators(void *arg)
+ 	regulator_disable(data->iovcc);
  }
  
--static int msm_dp_link_parse_sink_status_field(struct msm_dp_link_private *link)
-+static int msm_dp_link_parse_sink_status_field(struct msm_dp_link_private *link,
-+						      struct drm_connector *connector,
-+						      const u8 *dpcd,
-+						      const struct drm_dp_desc *desc)
- {
- 	int ret;
- 
- 	link->prev_sink_count = link->msm_dp_link.sink_count;
--	ret = drm_dp_read_sink_count(link->aux);
--	if (ret < 0) {
--		DRM_ERROR("DP parse sink count failed\n");
--		return ret;
++/*
++ * Take the controller out of reset, identify it and register the input
++ * device.
++ */
++static int edt_ft5x06_ts_init_hw(struct edt_ft5x06_ts_data *tsdata)
++{
++	struct device *dev = tsdata->dev;
++	struct input_dev *input = tsdata->input;
++	unsigned int val;
++	u32 report_rate;
++	int error;
 +
-+	if (drm_dp_read_sink_count_cap(connector, dpcd, desc)) {
-+		ret = drm_dp_read_sink_count(link->aux);
-+		if (ret < 0) {
-+			DRM_ERROR("DP parse sink count failed\n");
-+			return ret;
-+		}
-+		link->msm_dp_link.sink_count = ret;
-+	} else {
-+		link->msm_dp_link.sink_count = 1;
- 	}
--	link->msm_dp_link.sink_count = ret;
- 
- 	ret = drm_dp_dpcd_read_link_status(link->aux,
- 					   link->link_status);
-@@ -1025,12 +1033,18 @@ static void msm_dp_link_reset_data(struct msm_dp_link_private *link)
- /**
-  * msm_dp_link_process_request() - handle HPD IRQ transition to HIGH
-  * @msm_dp_link: pointer to link module data
-+ * @connector: connector the sink is attached to
-+ * @dpcd: receiver capability DPCD of the sink
-+ * @desc: DP descriptor of the sink
-  *
-  * This function will handle the HPD IRQ state transitions from LOW to HIGH
-  * (including cases when there are back to back HPD IRQ HIGH) indicating
-  * the start of a new link training request or sink status update.
-  */
--int msm_dp_link_process_request(struct msm_dp_link *msm_dp_link)
-+int msm_dp_link_process_request(struct msm_dp_link *msm_dp_link,
-+				       struct drm_connector *connector,
-+				       const u8 *dpcd,
-+				       const struct drm_dp_desc *desc)
- {
- 	int ret = 0;
- 	struct msm_dp_link_private *link;
-@@ -1044,7 +1058,7 @@ int msm_dp_link_process_request(struct msm_dp_link *msm_dp_link)
- 
- 	msm_dp_link_reset_data(link);
- 
--	ret = msm_dp_link_parse_sink_status_field(link);
-+	ret = msm_dp_link_parse_sink_status_field(link, connector, dpcd, desc);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
-index 76125e9c07e9..217fc5eb0a68 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.h
-+++ b/drivers/gpu/drm/msm/dp/dp_link.h
-@@ -113,7 +113,10 @@ static inline u32 msm_dp_link_bit_depth_to_bpp(u32 tbd)
- 
- void msm_dp_link_reset_phy_params_vx_px(struct msm_dp_link *msm_dp_link);
- u32 msm_dp_link_get_test_bits_depth(struct msm_dp_link *msm_dp_link, u32 bpp);
--int msm_dp_link_process_request(struct msm_dp_link *msm_dp_link);
-+int msm_dp_link_process_request(struct msm_dp_link *msm_dp_link,
-+				       struct drm_connector *connector,
-+				       const u8 *dpcd,
-+				       const struct drm_dp_desc *desc);
- int msm_dp_link_get_colorimetry_config(struct msm_dp_link *msm_dp_link);
- int msm_dp_link_adjust_levels(struct msm_dp_link *msm_dp_link, u8 *link_status);
- bool msm_dp_link_send_test_response(struct msm_dp_link *msm_dp_link);
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index e76dad0f6663..50e278286e09 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -252,6 +252,11 @@ int msm_dp_panel_read_link_caps(struct msm_dp_panel *msm_dp_panel,
- 		return rc;
- 	}
- 
-+	rc = drm_dp_read_desc(panel->aux, &msm_dp_panel->desc,
-+				 drm_dp_is_branch(msm_dp_panel->dpcd));
-+	if (rc)
-+		memset(&msm_dp_panel->desc, 0, sizeof(msm_dp_panel->desc));
++	if (tsdata->reset_gpio) {
++		usleep_range(5000, 6000);
++		gpiod_set_value_cansleep(tsdata->reset_gpio, 0);
++		msleep(300);
++	}
 +
- 	bw_code = drm_dp_link_rate_to_bw_code(msm_dp_panel->link_info.rate);
- 	if (!is_link_rate_valid(bw_code) ||
- 			!is_lane_count_valid(msm_dp_panel->link_info.num_lanes) ||
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-index 4519ac374220..e52847474f16 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.h
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-@@ -31,6 +31,7 @@ struct msm_dp_panel {
- 	/* dpcd raw data */
- 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
- 	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
-+	struct drm_dp_desc desc;
++	error = edt_ft5x06_ts_identify(tsdata);
++	if (error) {
++		dev_err(dev, "touchscreen probe failed\n");
++		return error;
++	}
++
++	/*
++	 * Dummy read access. EP0700MLP1 returns bogus data on the first
++	 * register read access and ignores writes.
++	 */
++	regmap_read(tsdata->regmap, 0x00, &val);
++
++	edt_ft5x06_ts_set_tdata_parameters(tsdata);
++	edt_ft5x06_ts_set_regs(tsdata);
++	edt_ft5x06_ts_get_defaults(dev, tsdata);
++	edt_ft5x06_ts_get_parameters(tsdata);
++
++	if (tsdata->reg_addr.reg_report_rate != NO_REGISTER &&
++	    !device_property_read_u32(dev, "report-rate-hz", &report_rate)) {
++		if (tsdata->version == EDT_M06)
++			tsdata->report_rate = clamp_val(report_rate, 30, 140);
++		else
++			tsdata->report_rate = clamp_val(report_rate, 1, 255);
++
++		if (report_rate != tsdata->report_rate)
++			dev_warn(dev,
++				 "report-rate %dHz is unsupported, use %dHz\n",
++				 report_rate, tsdata->report_rate);
++
++		if (tsdata->version == EDT_M06)
++			tsdata->report_rate /= 10;
++
++		regmap_write(tsdata->regmap, tsdata->reg_addr.reg_report_rate,
++			     tsdata->report_rate);
++	}
++
++	dev_dbg(dev, "Model \"%s\", Rev. \"%s\", %dx%d sensors\n",
++		tsdata->name, tsdata->fw_version, tsdata->num_x, tsdata->num_y);
++
++	input->name = tsdata->name;
++
++	input_set_abs_params(input, ABS_MT_POSITION_X,
++			     0, tsdata->num_x * 64 - 1, 0, 0);
++	input_set_abs_params(input, ABS_MT_POSITION_Y,
++			     0, tsdata->num_y * 64 - 1, 0, 0);
++
++	touchscreen_parse_properties(input, true, &tsdata->prop);
++
++	error = input_mt_init_slots(input, tsdata->max_support_points,
++				    INPUT_MT_DIRECT);
++	if (error) {
++		dev_err(dev, "Unable to init MT slots.\n");
++		return error;
++	}
++
++	error = input_register_device(input);
++	if (error)
++		return error;
++
++	edt_ft5x06_ts_prepare_debugfs(tsdata);
++
++	return 0;
++}
++
+ int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
+ 		     const struct edt_ft5x06_chip_data *chip_data, u16 bustype,
+ 		     struct dentry *debugfs)
+ {
+ 	struct edt_ft5x06_ts_data *tsdata;
+-	unsigned int val;
+ 	struct input_dev *input;
+ 	unsigned long irq_flags;
+ 	int error;
+-	u32 report_rate;
  
- 	struct msm_dp_link_info link_info;
- 	struct drm_connector *connector;
+ 	tsdata = devm_kzalloc(dev, sizeof(*tsdata), GFP_KERNEL);
+ 	if (!tsdata) {
+@@ -1225,78 +1305,22 @@ int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
+ 		usleep_range(5000, 6000);
+ 	}
+ 
+-	if (tsdata->reset_gpio) {
+-		usleep_range(5000, 6000);
+-		gpiod_set_value_cansleep(tsdata->reset_gpio, 0);
+-		msleep(300);
+-	}
+-
+ 	input = devm_input_allocate_device(dev);
+ 	if (!input) {
+ 		dev_err(dev, "failed to allocate input device.\n");
+ 		return -ENOMEM;
+ 	}
+ 
++	input->id.bustype = bustype;
++
+ 	mutex_init(&tsdata->mutex);
+ 	tsdata->input = input;
+ 	tsdata->factory_mode = false;
+ 	dev_set_drvdata(dev, tsdata);
+ 
+-	error = edt_ft5x06_ts_identify(tsdata);
+-	if (error) {
+-		dev_err(dev, "touchscreen probe failed\n");
+-		return error;
+-	}
+-
+-	/*
+-	 * Dummy read access. EP0700MLP1 returns bogus data on the first
+-	 * register read access and ignores writes.
+-	 */
+-	regmap_read(tsdata->regmap, 0x00, &val);
+-
+-	edt_ft5x06_ts_set_tdata_parameters(tsdata);
+-	edt_ft5x06_ts_set_regs(tsdata);
+-	edt_ft5x06_ts_get_defaults(dev, tsdata);
+-	edt_ft5x06_ts_get_parameters(tsdata);
+-
+-	if (tsdata->reg_addr.reg_report_rate != NO_REGISTER &&
+-	    !device_property_read_u32(dev, "report-rate-hz", &report_rate)) {
+-		if (tsdata->version == EDT_M06)
+-			tsdata->report_rate = clamp_val(report_rate, 30, 140);
+-		else
+-			tsdata->report_rate = clamp_val(report_rate, 1, 255);
+-
+-		if (report_rate != tsdata->report_rate)
+-			dev_warn(dev,
+-				 "report-rate %dHz is unsupported, use %dHz\n",
+-				 report_rate, tsdata->report_rate);
+-
+-		if (tsdata->version == EDT_M06)
+-			tsdata->report_rate /= 10;
+-
+-		regmap_write(tsdata->regmap, tsdata->reg_addr.reg_report_rate,
+-			     tsdata->report_rate);
+-	}
+-
+-	dev_dbg(dev, "Model \"%s\", Rev. \"%s\", %dx%d sensors\n",
+-		tsdata->name, tsdata->fw_version, tsdata->num_x, tsdata->num_y);
+-
+-	input->name = tsdata->name;
+-	input->id.bustype = bustype;
+-
+-	input_set_abs_params(input, ABS_MT_POSITION_X,
+-			     0, tsdata->num_x * 64 - 1, 0, 0);
+-	input_set_abs_params(input, ABS_MT_POSITION_Y,
+-			     0, tsdata->num_y * 64 - 1, 0, 0);
+-
+-	touchscreen_parse_properties(input, true, &tsdata->prop);
+-
+-	error = input_mt_init_slots(input, tsdata->max_support_points,
+-				    INPUT_MT_DIRECT);
+-	if (error) {
+-		dev_err(dev, "Unable to init MT slots.\n");
++	error = edt_ft5x06_ts_init_hw(tsdata);
++	if (error)
+ 		return error;
+-	}
+ 
+ 	irq_flags = irq_get_trigger_type(irq);
+ 	if (irq_flags == IRQF_TRIGGER_NONE)
+@@ -1310,12 +1334,6 @@ int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
+ 		return error;
+ 	}
+ 
+-	error = input_register_device(input);
+-	if (error)
+-		return error;
+-
+-	edt_ft5x06_ts_prepare_debugfs(tsdata);
+-
+ 	dev_dbg(dev,
+ 		"EDT FT5x06 initialized: IRQ %d, WAKE pin %d, Reset pin %d.\n",
+ 		irq,
 -- 
-2.56.0
+2.55.0
 
