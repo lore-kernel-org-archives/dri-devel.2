@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 155DFCCF2C7
-	for <dri-devel@archiver.kernel.org>; Sat, 17 Oct 2026 14:17:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAE62CCF2C1
+	for <dri-devel@archiver.kernel.org>; Sat, 17 Oct 2026 14:29:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32B5810E0BD;
-	Sat, 17 Oct 2026 14:17:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08AD910E0E1;
+	Sat, 17 Oct 2026 14:29:49 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44C7210E0BD
- for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 14:16:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE16B10E0E1
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 14:29:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AF0D7437A3;
- Sat, 17 Oct 2026 14:16:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53DED1F000C4;
- Sat, 17 Oct 2026 14:16:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 71A5841398;
+ Sat, 17 Oct 2026 14:29:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E5F1F000C4;
+ Sat, 17 Oct 2026 14:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792246617;
- bh=TlW3uCCvPw8oRYqoh8XMlvnaGOk9Zc2ktOuL/qbySGY=;
+ s=k20260515; t=1792247382;
+ bh=RQgG0VzTa3aTt9qNxCmwEkzQEguGF162Q9vn4gJB3Fw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oveaPm8OzEOCbzY+SvVSAfSzMIFHFCJHr2xijfAKUMFBslehRYFVI2P3P3fwGgaU1
- TpfuAfSkDMHGAjA3TGpP/YWBYh8nR2Cx0kObWcyGpD28UKNqWypVvz289WqAzL80ru
- tAfSwbXbj5oVwOs6Ovqzpfr+KTTTdtNKFmiQkKhhDs71xIpc9soYMb/G61zcqcGG6l
- vi+CQOlhST3LDnv2ahHOD5oHjB0ZIk7MepO/zDpTCztuh6s2F7cYzkGg7myfRXrDww
- k3MqKzvXlst1ChLEzq2zbC36h+LtSX6TO4XCr122iv5w1LOSpM8Cu4smnSBYeeHT21
- U1cfn/sZVZ4qw==
-Message-ID: <sashiko-outbox-175542@kernel.org>
+ b=KfUhYG1loOmA7KS1lZ/pz9FFSOyY61tBX7cO+5Ku3Tlel9rptjajBOtqDJIExdXfp
+ 7WYw+Q+nFSdRgydcG8LMiwRwFhvQpVeLX4JnQLmXAxJVCyRD+IuofjhWKjfhCOWKEG
+ xP/FO1O1EcjUup2T8IOG1vC/vs/MLshCVm6s0EXyqxQ8uzN6mopyAKGS3g64O6WeqV
+ QRlsj0Kkgr3Dr4ANdo8xWAauyYYct1ZcEgBrJEKv51SE/b2NIPBgdqFDCR+dcg2XMl
+ hQuH3wymwNFBpX/OqU0KjHEkVD3s/q9TV4OOYpCqJS/abCWO10AgGOJbnWgID1J0Hc
+ lJ9Hti30w7hPg==
+Message-ID: <sashiko-outbox-175548@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] Input: edt-ft5x06 - move the controller bring-up
- into a helper
+Subject: Re: [PATCH 6/7] Input: edt-ft5x06 - add SPI transport and FT8722
+ support
 To: "Luka Panio" <lukapanio@gmail.com>
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
  dmitry.torokhov@gmail.com
-In-Reply-To: <20261017140827.290666-3-lukapanio@gmail.com>
+In-Reply-To: <20261017140827.290666-7-lukapanio@gmail.com>
 References: <20261017140827.290666-1-lukapanio@gmail.com>
- <20261017140827.290666-3-lukapanio@gmail.com>
+ <20261017140827.290666-7-lukapanio@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 17 Oct 2026 14:16:56 +0000
+Date: Sat, 17 Oct 2026 14:29:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,121 +59,126 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Input: edt-ft5x06: edt_ft5x06_ts_init_hw() registers device befo=
-re IRQ
+- [High] Input: edt-ft5x06 - unaligned DMA rx buffer sharing cacheline with=
+ tx
 --
 
-commit 5aab9a2f7e5d9f696c6cdfb8f9baf87581af8689
+commit 6c4cc2125db365d716cb624219a2c7fd67fb674b
 Author: Luka Panio <lukapanio@gmail.com>
 
-Input: edt-ft5x06 - move the controller bring-up into a helper
+Input: edt-ft5x06 - add SPI transport and FT8722 support
 
-This commit moves the controller reset release, hardware identification,
-input device registration, and debugfs setup out of edt_ft5x06_probe()
-into a new edt_ft5x06_ts_init_hw() helper function.
+This commit adds an SPI transport driver for FocalTech touchscreen
+controllers handled by the edt-ft5x06 driver, along with firmware
+download support for the RAM-only FT8722 controller.
 
-> diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touch=
-screen/edt-ft5x06.c
-> index 543cc62088c7a..536d633d97a78 100644
-> --- a/drivers/input/touchscreen/edt-ft5x06.c
-> +++ b/drivers/input/touchscreen/edt-ft5x06.c
-> @@ -1116,16 +1116,96 @@ static void edt_ft5x06_disable_regulators(void *a=
-rg)
->  	regulator_disable(data->iovcc);
->  }
-> =20
-> +/*
-> + * Take the controller out of reset, identify it and register the input
-> + * device.
-> + */
-> +static int edt_ft5x06_ts_init_hw(struct edt_ft5x06_ts_data *tsdata)
-> +{
+> diff --git a/drivers/input/touchscreen/edt-ft5x06-spi.c b/drivers/input/t=
+ouchscreen/edt-ft5x06-spi.c
+> new file mode 100644
+> index 0000000000000..d0ae0d4b621dd
+> --- /dev/null
+> +++ b/drivers/input/touchscreen/edt-ft5x06-spi.c
+> @@ -0,0 +1,475 @@
 
 [ ... ]
 
-> +	error =3D input_register_device(input);
-> +	if (error)
-> +		return error;
+> +static int fts_spi_xfer(struct spi_device *spi, const u8 *tx, u8 *rx,
+> +			size_t len)
+> +{
+> +	struct spi_transfer xfer =3D {
+> +		.tx_buf =3D tx,
+> +		.rx_buf =3D rx,
+> +		.len =3D len,
+> +	};
+> +	int ret;
 > +
-> +	edt_ft5x06_ts_prepare_debugfs(tsdata);
+> +	ret =3D spi_sync_transfer(spi, &xfer, 1);
+> +	fsleep(FTS_SPI_CS_HIGH_US);
 > +
-> +	return 0;
+> +	return ret;
 > +}
 > +
->  int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
->  		     const struct edt_ft5x06_chip_data *chip_data, u16 bustype,
->  		     struct dentry *debugfs)
->  {
+> +static int fts_spi_write(struct spi_device *spi, u8 reg, const void *val,
+> +			 size_t len)
+> +{
+> +	size_t xlen =3D FTS_SPI_HEADER_LEN + (len ? FTS_SPI_DUMMY_LEN + len : 0=
+);
+> +	u8 *tx, *rx;
+> +	int ret, i;
+> +
+> +	if (len > U16_MAX)
+> +		return -EINVAL;
+> +
+> +	tx =3D kzalloc(2 * xlen, GFP_KERNEL);
+> +	if (!tx)
+> +		return -ENOMEM;
+> +	rx =3D tx + xlen;
+> +
+> +	tx[0] =3D reg;
+> +	tx[1] =3D FTS_SPI_CTRL_WRITE;
+> +	put_unaligned_be16(len, &tx[2]);
+> +	if (len)
+> +		memcpy(&tx[FTS_SPI_HEADER_LEN + FTS_SPI_DUMMY_LEN], val, len);
+> +
+> +	for (i =3D 0; i < FTS_SPI_RETRIES; i++) {
+> +		ret =3D fts_spi_xfer(spi, tx, rx, xlen);
+> +		if (!ret && !(rx[3] & FTS_SPI_STATUS_ERR))
+> +			break;
+> +		if (!ret)
+> +			ret =3D -EIO;
+> +	}
+> +
+> +	kfree(tx);
+> +	return ret;
+> +}
+> +
+> +static int fts_spi_read(struct spi_device *spi, u8 reg, void *val,
+> +			size_t len)
+> +{
+> +	size_t dp =3D FTS_SPI_HEADER_LEN + FTS_SPI_DUMMY_LEN;
+> +	size_t xlen =3D dp + len + FTS_SPI_CRC_LEN;
+> +	u8 *tx, *rx;
+> +	int ret, i;
+> +
+> +	if (!len || len > U16_MAX)
+> +		return -EINVAL;
+> +
+> +	tx =3D kzalloc(2 * xlen, GFP_KERNEL);
+> +	if (!tx)
+> +		return -ENOMEM;
+> +	rx =3D tx + xlen;
+
+[Severity: High]
+Does placing rx at tx + xlen in fts_spi_write() and fts_spi_read() cause
+tx and rx to share a cacheline during full-duplex SPI DMA transfers?
+
+In both functions, a single buffer of size 2 * xlen is allocated, with tx
+at offset 0 and rx =3D tx + xlen. Both buffers are then passed to
+fts_spi_xfer() -> spi_sync_transfer() in a single full-duplex
+spi_transfer, where the SPI core maps tx as DMA_TO_DEVICE and rx as
+DMA_FROM_DEVICE concurrently.
+
+Because xlen is typically not aligned to ARCH_DMA_MINALIGN (for example,
+xlen is 4 or 8 for control writes, 10 or 11 for short reads, 71 for
+touch report reads in edt_ft5x06_ts_isr(), and 32759 for firmware RAM
+writes in fts_boot_write_ram()), rx starts in the middle of the cacheline
+where tx ends.
+
+On systems with DMA-capable SPI controllers, this overlapping mapping in
+opposite DMA directions triggers DMA-API debug EEXIST warnings and risks
+cacheline corruption between tx and rx during cache maintenance on
+non-coherent architectures (particularly when xlen is large enough to
+bypass swiotlb bouncing under CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC, or
+across retries in the FTS_SPI_RETRIES loop), as well as presenting an
+unaligned rx_buf pointer to SPI controllers that require aligned buffers.
+
+Could tx and rx be allocated separately, or could the offset of rx be
+aligned with ALIGN(xlen, ARCH_DMA_MINALIGN)?
 
 [ ... ]
 
-> @@ -1225,78 +1305,22 @@ int edt_ft5x06_probe(struct device *dev, struct r=
-egmap *regmap, int irq,
-
-[ ... ]
-
-> +	error =3D edt_ft5x06_ts_init_hw(tsdata);
-> +	if (error)
->  		return error;
-> -	}
-> =20
->  	irq_flags =3D irq_get_trigger_type(irq);
->  	if (irq_flags =3D=3D IRQF_TRIGGER_NONE)
-> @@ -1310,12 +1334,6 @@ int edt_ft5x06_probe(struct device *dev, struct re=
-gmap *regmap, int irq,
->  		return error;
->  	}
-> =20
-> -	error =3D input_register_device(input);
-> -	if (error)
-> -		return error;
-> -
-> -	edt_ft5x06_ts_prepare_debugfs(tsdata);
-> -
->  	dev_dbg(dev,
->  		"EDT FT5x06 initialized: IRQ %d, WAKE pin %d, Reset pin %d.\n",
->  		irq,
-
-[Severity: Medium]
-Previously, edt_ft5x06_probe() called devm_request_threaded_irq() before
-calling input_register_device() and edt_ft5x06_ts_prepare_debugfs().
-
-With edt_ft5x06_ts_init_hw() now running before devm_request_threaded_irq(),
-the input device and debugfs files are published to userspace before the
-touchscreen IRQ is requested.
-
-If devm_request_threaded_irq() fails, the input device is announced to
-userspace only to be immediately torn down during devres release.
-
-Additionally, because edt_ft5x06_ts_prepare_debugfs() exposes the debugfs
-mode file early, writing 1 to it before or during IRQ setup triggers:
-
-edt_ft5x06_debugfs_mode_set()
-  -> edt_ft5x06_factory_mode()
-       disable_irq(tsdata->irq);
-       if (!tsdata->raw_buffer) {
-           tsdata->raw_bufsize =3D tsdata->num_x * tsdata->num_y *
-                                 sizeof(u16);
-           tsdata->raw_buffer =3D kzalloc(tsdata->raw_bufsize, GFP_KERNEL);
-           ...
-       }
-
-Can this cause disable_irq() (or enable_irq() on error or when switching
-back in edt_ft5x06_work_mode()) to be called before the IRQ is requested, or
-cause irq_startup() inside devm_request_threaded_irq() to re-enable the
-interrupt while tsdata->factory_mode is true?
-
-Also, if devm_request_threaded_irq() fails after tsdata->raw_buffer is
-allocated, edt_ft5x06_remove() -> edt_ft5x06_ts_teardown_debugfs() is not
-run on probe failure. Does this leak tsdata->raw_buffer?
-
-Should devm_request_threaded_irq() be called before edt_ft5x06_ts_init_hw()
-(for example, with IRQF_NO_AUTOEN if needed until the hardware is ready), or
-should input_register_device() and edt_ft5x06_ts_prepare_debugfs() happen
-after the IRQ is requested?
-
-oggler
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017140827.2906=
-66-1-lukapanio@gmail.com?part=3D2
+66-1-lukapanio@gmail.com?part=3D6
