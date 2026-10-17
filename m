@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8132CCF2C9
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:53:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8A47CCF2CF
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:53:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30A3B10E647;
-	Sun, 18 Oct 2026 14:53:14 +0000 (UTC)
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com
- [74.125.227.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDA8B10E24A
- for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 08:36:06 +0000 (UTC)
-Received: by mail-pj2-f10.google.com with SMTP id
- 98e67ed59e1d1-3abe4821449so420010a91.1
- for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 01:36:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3669E10E656;
+	Sun, 18 Oct 2026 14:53:15 +0000 (UTC)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1328E10E096
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 15:35:44 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-3ab868eb9cfso493778a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 08:35:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792226166; x=1792830966; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792251343; x=1792856143; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=3Q8IZ33W6NNgXpiE2H7gk1DjA4QMN4AQzf1Ck9B7ifM=;
- b=mzzFPyXuAahJ5zSaYlqNIHsdYTkt9MIYZeZxrEM0vqVlPjYAw6YgYiUDvvOBy5evUh
- zvMVnH8pWC088bqypBeUHUtSORzQxNjmym2/fPMcJ9kuY/DqVZf/5mIaeyszeA9HmoS+
- DA7dA16zFkao3ZbqLRhuzwQgKvmFcuCuY3oqFkxlLLsz86P/0JZVYuYQdK0pFYEBoyjw
- 6FCyQWo5TjKEXqM+w8Fw6lYjc+/tSiY/BnjrofP1yZWCNSQGYRaLgytiyA8NtCFGA0vb
- lWhjuhQGrFugmc7FxPSfNFPL03Mt2eJCaTzLMtzH6zyYds46geA8/eVFb8Hm+lkyWbzq
- 2JZw==
+ bh=cSCIoQiIuzOVCfYEbcmwZdLYkQEpSik/mWoNdRkPnwc=;
+ b=e7shroJCp0Q/e2smOeU+XKHXycgacI3bxg10WUDXgJE/IovGrulagC87qDYhIK9V7B
+ OKBZa26dy7tJPze7rk5iOX7aN3tbJF1sTz2AeKro8mZtU5Xf7Sif7neX8J39iVdVksil
+ guSy8hQCnAsKvjScwZaSofb24UMTmRt3xJCzrJED02BsuC6DmoP53kTYAeHcYxY3EPpE
+ dXJudeUGBpzoiqkbhP6fNn7fRaU5ZRIApfA/h5yr0A6Qlr/c4fQhtABqw5qMspFZkDZM
+ 0MViD4vr8SyzNnEi/Hpmn7kcVSAE1B/NFlT9bIkGKWB5Jx8Nzoko7yqm+AQTqFlEc6Kp
+ JHnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792226166; x=1792830966;
+ d=1e100.net; s=20260707; t=1792251343; x=1792856143;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=3Q8IZ33W6NNgXpiE2H7gk1DjA4QMN4AQzf1Ck9B7ifM=;
- b=ZIKvNartok29D6ZKRmMtSajgIbY1t8Qp9fRElN1AXvfd8yxoDUL+pMumAwzDd8uQDu
- Xrjq/PUKYzzIxSW0TkCqFerKutUP4mkNjlRPvpWKjPIUkvt4sQ063gTLAYVUeZW+DmGE
- av+cbddR9iexxHBRsQBa4dtsMaEVfY4vbRGa/hzcl+521lFPUzlwBUh95Q2ZeVwO3MuU
- e1Xa8a6zZbdt/SaMpnrDzHyTr72srEFSfs51QDw2+9nDc6J28aJS70+3YKbMm15Ys6Rg
- IwCPMAwthU25IID5NAeQ1T3arUXZqdoFTMEDAs++lmnVl6U1c9xqJ5hX44/JQV7KCgmI
- ZEuA==
+ bh=cSCIoQiIuzOVCfYEbcmwZdLYkQEpSik/mWoNdRkPnwc=;
+ b=zYQiZMLb5LEylkcQOu8G6vIVtWHmJFA4AfddRfwjfNyX8o5IPlIRHHJePm3IZ7/17n
+ 5bSv19W3Xk6y/RwUMn5JEkHAgqaN1Km2rjSRkKxDMLpNoq803UMWkyr/y1mvQzMaOBGs
+ P/ysUf9QwU7DebtIxtBfefupzpb6y3IkwdTTABM4csHmLXYfo9PdHFVIWIe8bHlW/iVK
+ ZtpvnjF1p8Vdmy2vhyT4yinOtCxXbvUmpoZ2oJfC7ZbK2SjQUQ+A1lKwbXhVp7wcMh0D
+ 09i2fYycGpCrYHPEjYvBxhaXjZZcKI5ZnBmub/mzDdhuLn8mZXarVpy7VO1ME7zMnGYU
+ wxwg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzh0nJBIkMH8Fvrj0+YuJi6BZvs+W+Uf2Hnojc4YA1RCcFKqKM+tM85i/uip13mHbiv6c0ZYb6jWX8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKv2oC6ROkhDjVv4mnAYmnSd9Hb+fRXWMTMZiMyiej01sDoFWQP
- Z+dzHzGAfrgGgpBkUAQ1SbEI41Q8s7vkycaGUpg7zp4ElB1SfKtylnji
-X-Gm-Gg: AYBFou2us9SKmKPxMA9VXC8HJs/xanmf+spxWfZc2GGZZpabGJLf1MMaRPCk3HCo6lY
- +WvbGK5IqEdc/CzOmXf2mlgte5rZpNCRECS0OIdbh0uxFpJ3YY3fKHOdOITrHcOZ7F31hdcqiEQ
- fGjyhhOity4LB9PmY3AiScWn1tDqtV/4F9wZHMLXpFFjnXtjHPo6U+V7Ufi3CiqYl5TdtGM9JnA
- LBX4nvYrbgvuhBQ3pr5x5AOO9RkNDUxiP0Bg/IO6D+PMsTSV+OPOVk7jOl+sugW/n0mXZAo5P5E
- UWgDPz0tEyhI6QNoKKDchlbWaKJFs7zm1sbf+M3f3yG651S6irvGtCKvYNZ24oEl1mC8A4suZDx
- ofItls48q0u1ykrPGsePpCWyxA09qU7yPOweDH8XVvIsVJ5cG/ggikuhQyKVWBYKs+KzAuFO5aC
- FAsbCh918h0sv68tVwHRGo8AFFvLD7+ZVIu1gwOmth/st6DbVu38GRixE=
-X-Received: by 2002:a17:90b:5111:b0:3ac:a521:960 with SMTP id
- 98e67ed59e1d1-3acee2927aemr1967627a91.1.1792226166418; 
- Sat, 17 Oct 2026 01:36:06 -0700 (PDT)
-Received: from Linux-PC ([2a09:bac5:1f0f:3141::4e8:8])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ac9461d71esm12548544a91.7.2026.10.17.01.35.51
+ AKwUvBxTNTnd3X7E8mkiSo9VzarKEgcD88CAZQPed7RPvV6I6FEC5Dy4ORV5Yo9qlR9THGN93eu8VkgAdIw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJTK3XOPJQV/wSRLr7yStPOu+3BNQCymCjaPt62i2eS+93Ll2sS
+ J18j+cIN/kNsCWufBYE2Tjs6ZCR3nd8d1LmLOQIvPmltosEdcu/n4hKw
+X-Gm-Gg: AYBFou3gG80X9REUN3WGjgOFWORwniXYdUA3hYyasyoNp9b1A3N/xTfVkLFuxf4pQ3a
+ 5c+ICnfhqsiPAddL7mB7AMLyW1y8mF51OyjbW6MgJqPjw2rPO09ev0DZL0AVAHxnNwZ97x/KZ27
+ DEi1/vYi50Hbj+bccojfJ3O8dRYFRsDLOH1B2yRre5hsvf25X0cGxDXxyDQrS9kkP3dTbnPAmWp
+ ML1oqlciVD1vWVi/FPwBP42Po/YeQTmPtarpbZDXUub7kdLqUWxhN7jyELGOJpxwByhxw1gc99t
+ rBRvg2jE/1lWx8JV5+zzr/Q3hpmy2U7GXq43aatZr86eaqnI7fVaNEcjExO4xZEeC06AkfIf16z
+ eRuApj48flmS2mcLReH6W5vmwNxpwCIn0qgWif8UtWX/d9iWpcJmzL9soyOHrYwgVJLu3Kue0zP
+ +FA9LMMgBFAuHOcLCMEPyE6i6Mpc/905WnmAdb6cghJ6lsmm6+xnuDj8gAkE3dT8pCstmA
+X-Received: by 2002:a17:90b:590c:b0:3ab:1b19:78f0 with SMTP id
+ 98e67ed59e1d1-3acef2b52e6mr3075121a91.41.1792251343394; 
+ Sat, 17 Oct 2026 08:35:43 -0700 (PDT)
+Received: from hachimi ([101.5.168.240]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ac9474b52fsm15330221a91.9.2026.10.17.08.35.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Oct 2026 01:36:05 -0700 (PDT)
-From: tianshi12127 <tianshi12127@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Sat, 17 Oct 2026 08:35:42 -0700 (PDT)
+From: Lanfeng Wei <xlfylawarthur@gmail.com>
+To: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Lu Chen <tianshi12127@gmail.com>
-Subject: [PATCH 0/3] drm/panel: Add Smartisan TD4362 panel support
-Date: Sat, 17 Oct 2026 16:35:28 +0800
-Message-ID: <20261017083531.766557-1-tianshi12127@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-hyperv@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, Lanfeng Wei <xlfylawarthur@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
+Date: Sat, 17 Oct 2026 23:34:30 +0800
+Message-ID: <20261017153524.8870-1-xlfylawarthur@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 18 Oct 2026 14:53:13 +0000
@@ -90,33 +89,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Lu Chen <tianshi12127@gmail.com>
+A performance regression has been observed on Hyper-V causing serious
+frame rate drops since commit 52e6b1988334 ("drm/hypervdrm: Use vblank
+timer").
 
-This series adds support for the Smartisan TD4362, a 1080x2242
-command mode DSI panel found in the Smartisan R1 (trident)
-smartphone.
+The regression occurs when using Xorg with a software rendered cursor.
+The offending commit uses the DRM vblank hrtimer to pace atomic update
+completion events, making each event wait for the next simulated vblank.
+However, cursor damage invoked by mouse movement is unconstrained by
+screen refresh rate, and therefore consumes most of Xorg's update
+opportunities, starving normal graphical updates, resulting in
+plummeting frame rate.
 
-The initialization and power sequences were converted from the
-downstream device tree with linux-mdss-dsi-panel-driver-generator,
-and the driver was tested on a Smartisan R1 (trident).
+Hyper-V virtual display framebuffer is able to accept multiple writes in
+one update window, so the commit broke this expected behavior.
 
-Patch 1 adds the "smartisan" vendor prefix, patch 2 documents the
-panel binding, and patch 3 adds the DRM panel driver itself.
+The regression is also reported by other users:
 
-Lu Chen (3):
-  dt-bindings: vendor-prefixes: add smartisan
-  dt-bindings: display: panel: add Smartisan TD4362
-  drm/panel: add driver for Smartisan TD4362
+Link: https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg6302857.html
 
- .../display/panel/smartisan,td4362.yaml       |  75 +++++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- drivers/gpu/drm/panel/Kconfig                 |  13 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- .../gpu/drm/panel/panel-smartisan-td4362.c    | 263 ++++++++++++++++++
- 5 files changed, 354 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
+Add a read-only module parameter hyperv_drm.vblank_timer, which is
+enabled by default. Disabling it prevents the timer's enable callback
+from starting the timer. The vblank framework and the existing atomic
+callbacks remain registered. When disabled, the first
+drm_crtc_vblank_get() fails through the callback, so the existing helper
+sends the atomic event immediately and skips the vblank wait, matching
+the behavior before the timer was introduced.
 
+This provides an opt-out for affected virtual display users.
+
+Benchmark results:
+
+Workload: Inject mouse movement at 125 Hz against a flashing
+animation running at 60 Hz, matching the screen refresh rate, for 4
+seconds.
+
+Tested versions: 6.18 (the last major version before the offending
+commit), version 6.19 (the first major version containing that commit),
+version 7.1.8 (on which the patch is based), and its patched version.
+
+Version  Anim. Hz            Mouse Hz         Max client-request gap
+====================================================================
+6.18     59.66-60.00        122.00-123.33     17.0 ms
+6.19     0-0.162            59.73-59.86       7.53 s
+7.1.8    0.133-0.162        59.83-59.86       6.16 s
+Patched  59.75-60.00        122.75-124.50     14.0 ms
+
+The patch restores both animation and mouse update rates, and reduces
+the maximum client-request gap from seconds to milliseconds.
+
+Fixes: 52e6b1988334 ("drm/hypervdrm: Use vblank timer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lanfeng Wei <xlfylawarthur@gmail.com>
+---
+The parameter defaults to enabled to preserve the current kernel
+behavior. I do not know the full set of users who rely on the vblank
+timer, so changing the default could introduce a different regression.
+Affected users can set hyperv_drm.vblank_timer=0.
+
+If the maintainers prefer the parameter to default to disabled, or if
+there is a better way to detect the affected configuration
+automatically, I'm happy to send a v2.
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 23 ++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+index d48ca6c23..527385748 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
++++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/hyperv.h>
++#include <linux/moduleparam.h>
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_crtc_helper.h>
+@@ -25,6 +26,19 @@
+ 
+ #include "hyperv_drm.h"
+ 
++static bool vblank_timer = true;
++module_param(vblank_timer, bool, 0444);
++MODULE_PARM_DESC(vblank_timer,
++		 "Enable the Hyper-V DRM vblank timer (default: true)");
++
++static int hyperv_crtc_enable_vblank(struct drm_crtc *crtc)
++{
++	if (!vblank_timer)
++		return -EOPNOTSUPP;
++
++	return drm_crtc_vblank_helper_enable_vblank_timer(crtc);
++}
++
+ static int hyperv_blit_to_vram_rect(struct drm_framebuffer *fb,
+ 				    const struct iosys_map *vmap,
+ 				    struct drm_rect *rect)
+@@ -132,7 +146,14 @@ static const struct drm_crtc_funcs hyperv_crtc_funcs = {
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
+-	DRM_CRTC_VBLANK_TIMER_FUNCS,
++	/*
++	 * expanded DRM_CRTC_VBLANK_TIMER_FUNCS to override
++	 * enable_vblank with hyperv_crtc_enable_vblank
++	 */
++	.enable_vblank = hyperv_crtc_enable_vblank,
++	.disable_vblank = drm_crtc_vblank_helper_disable_vblank_timer,
++	.get_vblank_timestamp =
++		drm_crtc_vblank_helper_get_vblank_timestamp_from_timer,
+ };
+ 
+ static int hyperv_plane_atomic_check(struct drm_plane *plane,
 -- 
-2.56.0
+2.55.0
 
