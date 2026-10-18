@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45C5ECCF2C4
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 16:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27233CCF2C9
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 16:01:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2CF10E083;
-	Sun, 18 Oct 2026 16:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D42510E61E;
+	Sun, 18 Oct 2026 16:01:18 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF51D10E083
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 16:01:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 115E010E61D
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 16:01:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8C1E741EEF;
- Sun, 18 Oct 2026 16:01:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE1BB1F000C4;
- Sun, 18 Oct 2026 16:01:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C3C4043EBD;
+ Sun, 18 Oct 2026 16:01:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 180651F000C5;
+ Sun, 18 Oct 2026 16:01:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792339268;
- bh=B/YZa7GqJFgxEv8EuhiETJ4RJQg3M12AYmDUEctVniI=;
+ s=k20260515; t=1792339270;
+ bh=zKKDDOraC/Fm4aWqLVugKGAEsbOeF7nuVUrBWh5Z6rg=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References;
- b=T4GyAZArXU0qcGkZhT0CjCdyQay0LDgzf7NppiOUIM6EyzN4A7FhK0Et2rfE1t2Au
- /Rcrj7hfDGVPvws6oi8XiOirqZNt1KOL4foKGflYwtTFLmnCfnAZIm1qph6tiyrVQP
- VJyzE0wKY12Uv/PtYV4qv9lRH52n6XkXsvj4qa4LC1RT98mkFVrjiLc1r4yKm43O4I
- 2TSXnsGoKFdlRd/DmPWvm54uLuRcbNnpD8kWMarMZnJA4RLnmJ8UdYJRur2kPjw9Vq
- Us/3Lb3IkswezQ/4AleiKopjz0XKCSE+1FXTL8GTFQquS/+qquGcccpmwVRooblT7r
- G4jxyRLGimHEQ==
-Subject: Re: [PATCH net v4 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
+ b=LSzOJga2nAq2hbwzxAML3SslVf/FDFHOwNDeRJ09cLmvvIAT9axjaxzu2Bt0Ihnw2
+ zk2DNzNZmSQABcSr7q8Og7XLF2rRUCbnIcdavGi+0pNPiniAFUgBk8vCIKNLR9VOZs
+ ZvvoO2AmZ41Kev2DBM+k3+FTI0h1S2SE6pE9ROhOhXoJQvlIheHtIF0+TOKfFsFzsw
+ qb40gf9u6OWP3hvvZroHv8+mlYYeOAdJCggKxoARLz2ZEgs9A0PX6LZJcTKu1Gyj/+
+ 3OvR0irjY4wsPidyBh8GPLyZTxjiMXwk1lzfqqPeKY0n2leIu42ASAbTttkU7c/tfG
+ Gg1djIptdyAyg==
+Subject: Re: [PATCH net v4 2/4] net: devmem: detach TX bindings on
+ NETDEV_UNREGISTER
 From: netdev-bot+sashiko@kernel.org
 To: almasrymina@google.com
 Cc: kuba@kernel.org, asml.silence@gmail.com, dw@davidwei.uk, sdf@fomichev.me, 
@@ -40,10 +40,10 @@ Cc: kuba@kernel.org, asml.silence@gmail.com, dw@davidwei.uk, sdf@fomichev.me,
  horms@kernel.org, shuah@kernel.org, sumit.semwal@linaro.org,
  christian.koenig@amd.com, dtatulea@nvidia.com, razor@blackwall.org,
  daniel@iogearbox.net, tariqt@nvidia.com, kaifengw@google.com
-Date: Sun, 18 Oct 2026 16:01:06 +0000
-Message-ID: <179233926649.3135.15359480619016992874@kernel.org>
-In-Reply-To: <20261015163915.1166043-2-almasrymina@google.com>
-References: <20261015163915.1166043-2-almasrymina@google.com>
+Date: Sun, 18 Oct 2026 16:01:08 +0000
+Message-ID: <179233926862.3135.1507266598648797172@kernel.org>
+In-Reply-To: <20261015163915.1166043-3-almasrymina@google.com>
+References: <20261015163915.1166043-3-almasrymina@google.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -63,10 +63,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 3 · Medium: 0 (1) · Low: 1
+Critical: 0 · High: 2 · Medium: 0 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -74,291 +74,198 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] This patch leaves TX bindings (NETDEV_CMD_BIND_TX,
-  DMA_TO_DEVICE) uncovered.
-- [High] Leased-queue RX bindings still hit the dma_unmap_sg_attrs() UAF
-  that the commit says it fixes.
-- [High] There is a use-after-free race between the NETDEV_UNREGISTER
-  walk and the binding free worker.
-- [Low] The updated refcount comment in struct net_devmem_dmabuf_binding
-  (net/core/devmem.h:41-42) says 'RX bindings are unmapped earlier, once…
-
-Pre-existing issues:
-- [Medium] This patch was not the cause, but netif_mp_close_rxq() now
-  returns non-zero when queue reconfiguration fails (the old queue may…
+- [High] The fix leaves a race open on the leased path (NETMEM_TX_NO_DMA,
+  e.g. netkit), which is the path added by 1abe839b34ae and named in…
+- [High] net_devmem_dev_unregister() now also visits TX bindings whose
+  percpu_ref has already reached zero, i.e. bindings whose…
+- [Low] This patch makes binding->vdev writable after the binding is
+  created, but the locking comment in struct net_devmem_dmabuf_binding…
 
 --
 
-net: devmem: unmap dma_buf synchronously on queue uninstall
+net: devmem: detach TX bindings on NETDEV_UNREGISTER
 
-This patch unmaps devmem RX dma_buf attachments early, at two points: when
-the last bound RX queue is uninstalled, and in net_devmem_unbind_dmabuf()
-once the binding's queues are closed. This avoids a use-after-free of
-dma_dev in the deferred unmap. Bindings now stay in the global xarray until
-they are freed, unbound ones are hidden from TX lookup by an xarray mark,
-and leftover RX bindings are detached and unmapped on NETDEV_UNREGISTER.
+This patch extends net_devmem_dev_unregister() to cover TX bindings.
+When binding->dev unregisters, the binding loses its LIVE mark, dev and
+vdev are cleared, and the dma_buf is unmapped. When only binding->vdev
+unregisters, only vdev is cleared.
 
 > diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index f4d60654ce7fd..20d95b24d5951 100644
+> index 20d95b24d5951..d33a092c6e4bb 100644
 > --- a/net/core/devmem.c
 > +++ b/net/core/devmem.c
-
-[ ... ]
-
-> @@ -74,9 +94,23 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
->  		  size, avail))
->  		gen_pool_destroy(binding->chunk_pool);
->  
-> -	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
-> -					  binding->direction);
-> -	dma_buf_detach(binding->dmabuf, binding->attachment);
-> +	mutex_lock(&binding->lock);
-> +	dev = binding->dev;
-> +	if (dev)
-> +		netdev_hold(dev, &dev_tracker, GFP_KERNEL);
-> +	mutex_unlock(&binding->lock);
-> +
-> +	if (dev)
-> +		netdev_lock(dev);
-> +	mutex_lock(&binding->lock);
-> +	net_devmem_dmabuf_binding_unmap(binding);
-> +	mutex_unlock(&binding->lock);
-> +	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
-> +	if (dev) {
-> +		netdev_unlock(dev);
-> +		netdev_put(dev, &dev_tracker);
-> +	}
-
-[Severity: High]
-For a TX binding (NETDEV_CMD_BIND_TX, DMA_TO_DEVICE), can this code touch
-a net_device that has already been freed?
-
-At this commit nothing clears binding->dev or unmaps a TX binding when its
-device is unregistered:
-
-- The unmap in net_devmem_unbind_dmabuf() only runs for DMA_FROM_DEVICE.
-- net_devmem_dev_unregister_rx() only matches DMA_FROM_DEVICE.
-- mp_dmabuf_devmem_uninstall() only runs for RX queues.
-
-Here is the sequence. The netlink socket is closed while skbs waiting for
-retransmit still hold binding refs. The device is then unregistered and
-freed. When the last skb is freed, this worker is scheduled.
-
-netdev_hold() and netdev_lock() would then run on the freed net_device.
-After that comes the original dma_unmap_sg_attrs() use-after-free on the
-freed dma_dev.
-
-The later commit "net: devmem: detach TX bindings on NETDEV_UNREGISTER" in
-this series adds net_devmem_dev_unregister_tx() and seems to fix this, so
-the problem only exists in the tree state at this commit.
-
-> +
->  	dma_buf_put(binding->dmabuf);
->  	xa_destroy(&binding->bound_rxqs);
->  	percpu_ref_exit(&binding->ref);
-
-[ ... ]
-
-> @@ -147,12 +183,62 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
-
-[ ... ]
-
-> +static void net_devmem_dev_detach(struct net_devmem_dmabuf_binding *binding,
-> +				  struct net_device *dev)
-> +{
-> +	mutex_lock(&binding->lock);
-> +	WRITE_ONCE(binding->dev, NULL);
-> +	if (!netif_is_queue_leasee(dev))
-> +		net_devmem_dmabuf_binding_unmap(binding);
-> +	mutex_unlock(&binding->lock);
-> +}
-> +
-> +void net_devmem_dev_unregister(struct net_device *dev)
-> +{
-> +	struct net_devmem_dmabuf_binding *binding;
-> +	unsigned long xa_idx;
-> +
-> +	netdev_assert_locked(dev);
-> +
-> +	if (dev->reg_state != NETREG_UNREGISTERING)
-> +		return;
-> +
-> +	xa_lock(&net_devmem_dmabuf_bindings);
-> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
-> +		if (!net_devmem_dev_unregister_rx(binding, xa_idx, dev))
-> +			continue;
-> +
-> +		xa_unlock(&net_devmem_dmabuf_bindings);
-> +		net_devmem_dev_detach(binding, dev);
-> +		xa_lock(&net_devmem_dmabuf_bindings);
-
-[Severity: High]
-Can the free worker kfree() the binding while this thread is still inside
-mutex_unlock(&binding->lock) in net_devmem_dev_detach()?
-
-After xa_lock is dropped, nothing pins the binding. The commit message
-relies on __net_devmem_dmabuf_binding_free() blocking on netdev_lock(dev).
-That only happens if the worker reads binding->dev before the walk clears
-it.
-
-Take a binding that is already unbound (percpu_ref_kill() has run) but is
-still referenced by page pools, RX tokens or skbs on other CPUs:
-
-CPU1 (NETDEV_UNREGISTER, holds netdev_lock(dev))
-net_devmem_dev_unregister()
-  xa_unlock(&net_devmem_dmabuf_bindings);
-  net_devmem_dev_detach()
-    mutex_lock(&binding->lock);
-    WRITE_ONCE(binding->dev, NULL);
-    net_devmem_dmabuf_binding_unmap(binding);
-    mutex_unlock(&binding->lock);
-      (still inside __mutex_unlock_slowpath())
-
-CPU2 (last ref dropped, worker)
-__net_devmem_dmabuf_binding_free()
-  mutex_lock(&binding->lock);   /* acquired once CPU1 releases owner */
-  dev = binding->dev;           /* NULL, so netdev_lock() is skipped */
-  mutex_unlock(&binding->lock);
-  ...
-  xa_erase(&net_devmem_dmabuf_bindings, binding->id);
-  ...
-  kfree(binding);
-
-Documentation/locking/mutex-design.rst notes that mutex_unlock() may still
-access the mutex structure after it has internally released the lock. So
-another context that acquires the mutex cannot assume the unlocker is done
-with it.
-
-Should the walk take a reference on the binding (for example with
-percpu_ref_tryget()) before it drops the xarray lock?
-
-This is still present at the end of the series. After "net: devmem: detach
-TX bindings on NETDEV_UNREGISTER", the walk also detaches TX bindings that
-only in-flight skbs keep alive, so the window gets wider.
-
-> +	}
-> +	xa_unlock(&net_devmem_dmabuf_bindings);
-> +}
-
-[ ... ]
-
-> @@ -529,16 +615,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
-
-[ ... ]
-
-> +		xa_erase(&binding->bound_rxqs, xa_idx);
-> +		if (xa_empty(&binding->bound_rxqs)) {
-> +			mutex_lock(&binding->lock);
-> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
-> +			WRITE_ONCE(binding->dev, NULL);
-> +			if (!rxq->lease)
-> +				net_devmem_dmabuf_binding_unmap(binding);
-> +			mutex_unlock(&binding->lock);
-
-[Severity: High]
-Does this leave the dma_buf attachment mapped, with no path left that
-unmaps it before the physical NIC goes away?
-
-When bind-rx targets a leased queue on a virtual device such as netkit,
-binding->dev is the virtual device. The attachment, however, is mapped for
-the physical NIC's dma_dev, which comes from netdev_nl_get_dma_dev().
-
-On netkit teardown, netkit_uninit()->netdev_rx_queue_unlease()->
-netif_rxq_cleanup_unlease() does:
-
-	__netif_mp_close_rxq(phys_rxq->dev, rxq_idx, &p);
-	__netif_mp_uninstall_rxq(virt_rxq, &p);
-
-There, the new return value of __netif_mp_close_rxq() is discarded. Also,
-virt_rxq->lease is only cleared after netif_rxq_cleanup_unlease() returns.
-So on this path binding->dev is set to NULL and the unmap is always
-skipped. net_devmem_dev_detach() does the same when
-netif_is_queue_leasee(dev) is true.
-
-After that, net_devmem_dev_unregister() for the physical NIC cannot match
-the binding, because binding->dev is NULL. net_devmem_unbind_dmabuf() also
-skips the unmap for the same reason.
-
-Suppose the physical NIC is then removed and the netlink socket is closed.
-Wouldn't __net_devmem_dmabuf_binding_free() unmap the attachment against
-the freed physical dma_dev? That is the dma_unmap_sg_attrs()
-use-after-free described in the commit message.
-
-Could netif_rxq_cleanup_unlease() use the result of __netif_mp_close_rxq()
-to decide whether it is safe to unmap here? This looks unchanged at the end
-of the series.
-
-> +		}
-> +		break;
->  	}
+> @@ -207,11 +207,30 @@ net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
+>  			    NET_DEVMEM_BINDING_LIVE);
 >  }
-
-> diff --git a/net/core/devmem.h b/net/core/devmem.h
-> index 4a293a7d1149c..a834e0f698c7e 100644
-> --- a/net/core/devmem.h
-> +++ b/net/core/devmem.h
-
-[ ... ]
-
-> @@ -38,7 +38,8 @@ struct net_devmem_dmabuf_binding {
->  	 *
->  	 * The binding undos itself and unmaps the underlying dmabuf once all
->  	 * those refs are dropped and the binding is no longer desired or in
-> -	 * use.
-> +	 * use. RX bindings are unmapped earlier, once they are no longer
-> +	 * installed on any queue.
+>  
+> +static bool
+> +net_devmem_dev_unregister_tx(struct net_devmem_dmabuf_binding *binding,
+> +			     unsigned long xa_idx, struct net_device *dev)
+> +{
+> +	if (binding->direction != DMA_TO_DEVICE)
+> +		return false;
+> +
+> +	if (READ_ONCE(binding->vdev) == dev)
+> +		WRITE_ONCE(binding->vdev, NULL);
 
 [Severity: Low]
-This isn't a bug, but is this comment accurate? Several paths leave an RX
-binding mapped after it is no longer installed on any queue:
+This isn't a bug, but vdev can now change after the binding is
+created. The lock comment in struct net_devmem_dmabuf_binding in
+net/core/devmem.h still says:
 
-- mp_dmabuf_devmem_uninstall() skips the unmap when rxq->lease is set.
-- net_devmem_unbind_dmabuf() skips it when a queue close failed (busy) or
-  when binding->dev is already NULL.
-- net_devmem_dev_detach() skips it for queue leasees.
+	/* Protect dev, attachment and sgt */
+	struct mutex lock;
 
-In those cases the unmap only happens in __net_devmem_dmabuf_binding_free().
-Should the comment mention these exceptions?
+Here vdev is written with only the net_devmem_dmabuf_bindings xa_lock
+held. net_devmem_dev_detach() writes it under binding->lock. Readers
+such as net_devmem_get_binding() read it with no lock at all.
+
+Could the comment be updated to describe how vdev is synchronized? As
+far as I can tell it is written with WRITE_ONCE, only ever set to
+NULL, and only used for comparisons.
+
+> +
+> +	if (READ_ONCE(binding->dev) != dev)
+> +		return false;
+
+[Severity: High]
+On the leased path, can a TX binding still be created on the physical
+device after that device's unregister walk has finished, leaving
+binding->dev dangling?
+
+The setup is a physical device P (NETMEM_TX_DMA) with a queue leased
+to a netkit device N, and P being unregistered:
+
+unregister_netdevice_many_notify(P)
+  P->reg_state = NETREG_UNREGISTERING
+  NETDEV_UNREGISTER notifiers:
+    netdev_genl_netdevice_event()     (subsys_initcall, runs first)
+      netdev_lock(P)
+      net_devmem_dev_unregister(P)
+      netdev_unlock(P)
+    ... other notifiers ...
+    netkit notifier                   (module_init, runs later)
+      netkit_check_lease_unregister()
+        unregister_netdevice_many(N)
+
+During this window N is still NETREG_REGISTERED. An unprivileged
+NETDEV_CMD_BIND_TX on N therefore passes netdev_get_by_index_lock().
+For P, netdev_find_netmem_tx_dev() checks only this:
+
+		if (netif_device_present(phys_dev) &&
+		    phys_dev->netmem_tx == NETMEM_TX_DMA)
+			return phys_dev;
+
+Unregistration does not clear __LINK_STATE_PRESENT. After that,
+netdev_nl_bind_tx_doit() does:
+
+	if (bind_dev != netdev)
+		netdev_lock(bind_dev);
+	...
+	binding = net_devmem_bind_dmabuf(bind_dev,
+					 bind_dev != netdev ? netdev : NULL,
+					 ...
+
+Nothing re-checks bind_dev->reg_state, so the code inserts a LIVE
+binding with binding->dev == P and maps the dma_buf.
+
+When N unregisters later, this function clears vdev and then returns
+false at this check, because binding->dev is P and not N. P is freed
+in netdev_run_todo() once netkit_uninit() drops the lease reference.
+Any later NETDEV_UNREGISTER rebroadcast happens with
+NETREG_UNREGISTERED, so net_devmem_dev_unregister() returns early and
+never sees the binding.
+
+When the socket closes, netdev_nl_sock_priv_destroy() and
+__net_devmem_dmabuf_binding_free() call netdev_hold() and
+netdev_lock() on the freed P. That matches the oops in the commit
+message, but on the leased path named in the second Fixes: tag. The
+dma_buf also stays mapped against the removed device. Nothing later
+in the series seems to touch net/core.
+
+The direct case looks safe, because netdev_get_by_index_lock() rejects
+a device that is no longer registered. Would it make sense to reject
+bind_dev->reg_state != NETREG_REGISTERED (or bind_dev->moving_ns)
+after netdev_lock(bind_dev) in netdev_nl_bind_tx_doit()?
+
+> +
+> +	__xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +			NET_DEVMEM_BINDING_LIVE);
+> +	return true;
+> +}
+> +
+>  static void net_devmem_dev_detach(struct net_devmem_dmabuf_binding *binding,
+>  				  struct net_device *dev)
+>  {
+>  	mutex_lock(&binding->lock);
+>  	WRITE_ONCE(binding->dev, NULL);
+> +	WRITE_ONCE(binding->vdev, NULL);
+>  	if (!netif_is_queue_leasee(dev))
+>  		net_devmem_dmabuf_binding_unmap(binding);
+>  	mutex_unlock(&binding->lock);
 
 [ ... ]
 
-> diff --git a/net/core/netdev_rx_queue.c b/net/core/netdev_rx_queue.c
-> index 00a7011eb4d57..a7261fedd5e76 100644
-> --- a/net/core/netdev_rx_queue.c
-> +++ b/net/core/netdev_rx_queue.c
+> @@ -229,7 +248,8 @@ void net_devmem_dev_unregister(struct net_device *dev)
+>  
+>  	xa_lock(&net_devmem_dmabuf_bindings);
+>  	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> -		if (!net_devmem_dev_unregister_rx(binding, xa_idx, dev))
+> +		if (!net_devmem_dev_unregister_rx(binding, xa_idx, dev) &&
+> +		    !net_devmem_dev_unregister_tx(binding, xa_idx, dev))
+>  			continue;
+>  
+>  		xa_unlock(&net_devmem_dmabuf_bindings);
 
-[ ... ]
+[Severity: High]
+Can the binding be freed while net_devmem_dev_detach() is still inside
+mutex_unlock(&binding->lock)?
 
-> @@ -289,35 +289,41 @@ static void __netif_mp_close_rxq(struct net_device *dev, unsigned int rxq_idx,
+The walk now also selects TX bindings whose percpu_ref may already
+have reached zero. An example is a binding whose netlink socket is
+closed and whose last net_iov reference was dropped when P's
+dev_close() or dev_shutdown() freed the TX skbs. For such a binding,
+__net_devmem_dmabuf_binding_free() may be pending or running. The
+walk takes no reference before xa_unlock() and the call to
+net_devmem_dev_detach().
 
-[ ... ]
+The free worker decides whether to serialize with the walk by looking
+at binding->dev:
 
->  	err = netdev_rx_queue_reconfig(dev, rxq_idx, &qcfg[0], &qcfg[1]);
-> -	WARN_ON(err && err != -ENETDOWN);
-> +	if (err == -ENETDOWN)
-> +		return 0;
-> +	WARN_ON(err);
-> +	return err;
->  }
+	mutex_lock(&binding->lock);
+	dev = binding->dev;
+	if (dev)
+		netdev_hold(dev, &dev_tracker, GFP_KERNEL);
+	mutex_unlock(&binding->lock);
 
-[Severity: Medium]
-This isn't a bug introduced by this patch, but netif_mp_close_rxq() now
-reports a failed queue restart, and only devmem acts on that. In
-io_uring/zcrx.c, io_close_queue() still ignores the result and unmaps
-unconditionally:
+	if (dev)
+		netdev_lock(dev);
+	...
+	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+	...
+	kfree(binding);
 
-		if (ifq->if_rxq != -1)
-			netif_mp_close_rxq(netdev, ifq->if_rxq, &p);
+Suppose the worker blocks on that first mutex_lock() while detach
+holds the lock (dma_buf_unmap_attachment_unlocked() can sleep). When
+it gets the lock it reads dev == NULL, skips netdev_lock(), and goes
+on to kfree(binding).
 
-		scoped_guard(mutex, &ifq->pp_lock)
-			io_zcrx_unmap_areas(ifq);
+__mutex_unlock_slowpath() releases the owner field before it takes
+lock->wait_lock. If the worker acquires the mutex in that gap, the
+unlocking thread then takes wait_lock inside freed memory. The
+mutex_unlock() kerneldoc forbids this:
 
-The reconfiguration can fail, for example with -ENOMEM from
-ndo_queue_mem_alloc, and the old queue can keep running on the zcrx areas.
-Could the device then DMA into areas that were just unmapped? io_uring
-behaved the same way before this patch.
+  mutex_unlock() can NOT directly be used to release an object such
+  that another concurrent task can free it.
 
-[ ... ]
+The previous patch in the series ("net: devmem: unmap dma_buf
+synchronously on queue uninstall") relies on the worker taking
+binding->dev's instance lock to keep a walked binding alive. That
+protection is gone once detach clears dev and releases the mutex.
+
+Should the walk and the final free be serialized by something that
+does not depend on binding->dev, for example a global mutex held by
+both across the whole detach?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015163915.1166043-1-almasrymina%40google.com
