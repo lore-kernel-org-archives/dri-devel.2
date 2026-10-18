@@ -2,79 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D368606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A513606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GWrXtnmL
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IXknaNJ/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9961A10F2EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86E8A10F2E7;
 	Tue, 20 Oct 2026 07:36:27 +0000 (UTC)
-Received: from mail-dl1-f68.google.com (mail-dl1-f68.google.com [74.125.82.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59C8A10E0B1
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 08:46:43 +0000 (UTC)
-Received: by mail-dl1-f68.google.com with SMTP id
- a92af1059eb24-1438d9363fbso277588c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 01:46:43 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47DF710E12B
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 16:17:42 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-49d05d51553so8714245e9.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 09:17:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792399602; x=1793004402; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=R81uGUDBlkE6/NsZn54/pArgBx2k2sR0sHNuKkRuNRE=;
- b=GWrXtnmLmBcdNgXCDzHil8dEHWk/n+shuQk5uLmQtHrJwxDBdiHm6fnTRHI5a6jedv
- LkPzn8xqOrPSFHb7VKpZTAP2/1a8dlfFaaKbacvjkWJ6AlPex+ND3IO1YwtsSjxfbNlf
- lRJVpxrQ84wLhnQONk/z0I9ksNMMmAJuKLsB6xzAL5C0Ne3tFXdWI3M2sQ0aRQJkhp/0
- wmQ7iVuJwyAtDnr3tJswK3Qkjd1vWcMeGxmE7oD38w1OlSoV04wtLOW9dpjn4A8mB3aI
- bWsdQ8Y0I6Jkgc3Bm+L8QnCUHsAsz+sN1JqJ3xEGQtGVv8Qa1sAs35O+P/xIJyXA+pB0
- TMng==
+ d=gmail.com; s=20251104; t=1792340260; x=1792945060; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ZTfsVeABUBSFy3HVBXCMegGi7+UD9ADpc6dIspx0V50=;
+ b=IXknaNJ/6kVFTEnZH38N2lRW1fr/iGzaETyMjuc9N2RYXgwEgyjxbV++F0TDFHtKGM
+ gwz4KUQ8UeCpN5IFGlngK07xz7dBrm99MsN2v4Alf8LewVS5Ztib8cnFvbibAOLUJxA1
+ vZLdWmc9R1RiQM8v/j6CEo+Msb88cYMHBcnRIpcyRYu6IFEQUwlH2bxzadPmP7+hSkuM
+ +vWJKULnDE5QyBfR9yLH17xwx7TJHavq4TK82S3LsJ9Xs2Y60rJC6thRPtXT5mtpbIzW
+ gH1dAPubDbm3noIu3TBJYBueixurTdiDTiO8e/yg2M4AJVjBiEb7/mlagrfF7E8kyvWK
+ +06Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792399602; x=1793004402;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=R81uGUDBlkE6/NsZn54/pArgBx2k2sR0sHNuKkRuNRE=;
- b=qfckGWjkMiQvXbWd+Sb9XKC8Ct2KO+0L65YF4EPFnZHX6NaFYL7IhHnHY17mOSceQO
- AIDxA+CKa9iU4pepBwRy5X4ee6tUI/lrYMMvuqHqJmvVzYkc+rGO8Qs/w/Cs6wfcuGNn
- VYQRVzdsSh/Ar0+wE79xld+en0rHaLPHtb8OrunlfgOaLTt7yuyPA4oYkacnJRfaMnuT
- B7LZnsjNYkdpaN8PEWWmUeFMQbwUWc8/QexhoFuHeW9elRJDduSXGkbnWuZ8tizRKIMe
- V4me4CMfC+N7ei7CeaIevmWD9cbswVX1DFSgHomA/a7y1Zh049v/1/MAbllxutoavm84
- tm/A==
-X-Gm-Message-State: AFq9FYKX+w9eoimlXByRwguKiPOqdNGgJlIeY/QC3gZvo4T3UDHBzggF
- Npi6MA50m0Ri9+lYbTHANpfnGDu16tB4YwwgRC4F+DobmXQOWmYDtDQv
-X-Gm-Gg: AYBFou1Rn0new9K0QAbVB/QIrzeelgW1A7QFeZmwJdGGQOZvIFSofqgj0TbVxK2bOTY
- 1oE6kS1s6E+fBA8YUtv+ghz9K0nXhjX+1U35hh5rvv8WAszWfwQ3BgCm/xRuL9XqbEoiR+7HP/d
- gSd2mcR3jrPRa426CBCRAvRx/hACTX2caGVSxhmytbZyFf23Pm04rVPrLf+nW9DRQq1+LK07Yqx
- JhAWTseHsWKAr14GYvK9PbWobgKI3xyOuao1FGmsgwGpXjI8i2D1DeshSbxDXmhxfFORVjlbPTL
- PjhsqGDijbizMa1Ut/btf2eqp1xQll48BpErj3O9180V7nAhE8Zl67pNppn86UVCl4DGwKf6wu6
- DSJJocFKb72mbx0qIpym+XpH0HozC/p9CW4koRkGAwHazBd0LQDJthPqEpJO0miSaEEnIb/nRmm
- 69ajproxjJGTcDqKhPx7/jt760mZvN8T8JF2HfPMtLnPQ8DBKV5ueb3AHScmjencgENWUMpPF9c
- BGJtIK3USmVm4GOKD69LQ==
-X-Received: by 2002:a05:701b:2092:20b0:143:808b:b178 with SMTP id
- a92af1059eb24-1825c27d1a0mr14024480c88.26.1792399602431; 
- Mon, 19 Oct 2026 01:46:42 -0700 (PDT)
-Received: from blue (104.194.64.109.16clouds.com. [104.194.64.109])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-360826875b3sm32116751eec.21.2026.10.19.01.46.39
+ d=1e100.net; s=20260707; t=1792340260; x=1792945060;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ZTfsVeABUBSFy3HVBXCMegGi7+UD9ADpc6dIspx0V50=;
+ b=UoslPppfwYcmkLvnTVa9GxjDXoW4anKneUh9798omgDMQ4JijmpTc3FoYzdWoQcYBh
+ dVUig75DtBGWUZ8FcJExpjz7DUm0Zm+YTyWfLzwXrN/YzfERnERITMvWsIKHZqWhiBTc
+ 9AEiypwSVGGLoQwRbgf/W/V6pwmCVvgYM0VStQQN4mh4xi+SKC+WGDiD80irrD0AmEGM
+ xpgUw9OJqJCgZ0x1nRm5kvbLGGC/ZBlyxSPwuOsDR7u6JQi6/dOeOTWKwS8EXz1sTUN1
+ JuWTRwqcUibb2vfLerFz3mSYQEPda81lWLiUXEmKEiRSorlYCwJvLKmFm703fOxWWRMw
+ +2iw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx01BVW4YvLZlyvzr3ftdK1d8z9ZbUEL4djFwTVve9GzEujObvFyLAPL8yYFiIVOnZ3oB44bJoWgck=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJKICApyhx/p5jirNLpkwA8m3iCF9i49QvRKLKStC0Mwrmxrt50
+ 8XHf4Ph2/WLW6iB+dC7mva1hzCAjGfoPzDVD4uEVkuiCmQVZss1lFdbs
+X-Gm-Gg: AYBFou2o2CEQA4twpsnV2IO414tcfmd2tlk80B16YVx2U9fiJWMs3tTbpc05CxGarYz
+ vrxXem5+yZL0x8VaVag8JEZGpXuOLmkQa+ZEWc4G8bCN1KxNboeKCPsJ52zXLdhHc4uBMKoS0Ww
+ x48S5H/1AnKL72QdUt8VNPFkWGihT3jJ7GM0SVa9Mmj0PoSvFot+u2w8PcVwYl3Y7EYiSQiOuPF
+ TfxBf+sWue4pvNzgr3Lk7tPWS1/mqmT9amuTOSN0A1NeEydxoO5cW4iokvfmDMd9Z7S0iGI8Gmn
+ I4sf/CWAYgrehPamV4slI3hMMfEMIpGOSzuf0C/Y4IQ0pjN/sMr09EKTaWdVHoH0UoMXLXEvwnK
+ iModyMp0wgXDHGRdgUGAh4desbCv9s3Gdz/jHRSwtC8+GGrh5dxaoUxcU65vdnvmVe4670S2cTZ
+ WHFixL89B32VM1ixzW1WJ+VChaI8Kc1E7rj4hmYwRzHAC7AMWPiFQFEFE6zdRkgEPQDirCQ1v/F
+ qE2MUJrnRIjuuGxzo8S1XTCUuRZikrPrMU5r2hvySzYNvYPIzSThy2chxN6NRY=
+X-Received: by 2002:a05:600c:1f86:b0:4a1:93fd:8f8 with SMTP id
+ 5b1f17b1804b1-4a1d75ab363mr119735965e9.4.1792340260358; 
+ Sun, 18 Oct 2026 09:17:40 -0700 (PDT)
+Received: from home-desktop (dynamic-002-214-000-206.2.214.pool.telefonica.de.
+ [2.214.0.206]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a1df164777sm119463445e9.5.2026.10.18.09.17.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 01:46:41 -0700 (PDT)
-Date: Mon, 19 Oct 2026 16:46:37 +0800
-From: yyaqia@gmail.com
-To: Thomas Zimmermann <tzimmermann@suse.de>, deller@gmx.de, 
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] fbcon: Rebuild rotated font buffer on font change
-Message-ID: <atHdEJjrSTrlZtSU@blue>
-References: <20261016073023.490430-1-yyaqia@gmail.com>
- <20261016073023.490430-3-yyaqia@gmail.com>
- <3382a02c-ed79-4214-99c5-dc81ee59d633@suse.de>
+ Sun, 18 Oct 2026 09:17:39 -0700 (PDT)
+Date: Sun, 18 Oct 2026 18:17:37 +0200
+From: Abhin Parekadan Jose <abhinjoses@gmail.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Dongwon Kim <dongwon.kim@intel.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
+Subject: Re: [PATCH] drm/virtio: Destroy obj_restore_lock on the final
+ drm_dev_put()
+Message-ID: <atTxIeLq1VspA70F@home-desktop>
+References: <20260929070714.169412-1-abhinjoses@gmail.com>
+ <asxz0Xvv5jO9gAol@home-desktop>
+ <537679fc-8aea-472f-a7af-b15bd3cf27fd@collabora.com>
+ <as_drl4kYXmgOfRn@home-desktop>
+ <8e193dd9-4ceb-4bd0-a28f-f4af084b73e8@collabora.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3382a02c-ed79-4214-99c5-dc81ee59d633@suse.de>
+In-Reply-To: <8e193dd9-4ceb-4bd0-a28f-f4af084b73e8@collabora.com>
 X-Mailman-Approved-At: Tue, 20 Oct 2026 07:36:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,30 +106,71 @@ X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-10-16 09:59, Thomas Zimmermann wrote:
+On Thu, Oct 15, 2026 at 12:03:32AM +0300, Dmitry Osipenko wrote:
+> On 10/14/26 22:53, Abhin Parekadan Jose wrote:
+> > On Wed, Oct 14, 2026 at 01:16:57AM +0300, Dmitry Osipenko wrote:
+> >> On 10/12/26 08:44, Abhin Parekadan Jose wrote:
+> >>> Gentle ping on this fix for the syzbot report.
+> >>>
+> >>> Dmitry, Gerd, do you have a preference between moving mutex_destroy()
+> >>> to virtio_gpu_release() (this patch) and using drmm_mutex_init()? I can
+> >>> send a v2 with the other option if you prefer it.
+> >>>
+> >>> Thanks,
+> >>> Abhin
+> >>>
+> >>> On Tue, Sep 29, 2026 at 07:07:14AM +0000, Abhin Parekadan Jose wrote:
+> >> Calling virtio_gpu_deinit() from virtio_gpu_release() might be a better
+> >> option
+> > 
+> > Wouldn't that end up freeing the virtqueues twice, or using them after
+> > they are freed? virtio_gpu_deinit() would then run from both the
+> > virtio_gpu_remove() path and the virtio_gpu_release() path.
+> > or do you mean removing it from virtio_gpu_remove() and calling it only
+> > from virtio_gpu_release()?
+> > This is only from a high-level look so far. I'll look into it more
+> > closely and get back to you.
 > 
-> It's way too long and boring to read. Can you please try to shorten the
-> AI-generated commit description?
-> 
-> 
+> Remove from virtio_gpu_remove() and call only from virtio_gpu_release().
 
-Sorry for that, I was a bit lazy to think commit desc by myself. I am
-new to kernel and a little afraid that my message does not cover all
-things.
+I tried this out and here are my findings.
 
-> > - Also select the blitting type again in the error path of
-> >    fbcon_do_set_font(). On tile-blitting hardware, set_blitting_type()
-> >    uploads the font map to the text engine; without the second call, a
-> >    failed vc_resize() left the engine with the rejected font (found by
-> >    the Sashiko review).
-> 
-> The problem is that rotate_font can fail as well. Handling that in the error
-> path is not possible; hence results might be worse than keeping the rejected
-> font.  Can you try to keep the original rotated font and reinstall that
-> directly?
-> 
+That would undo b1df3a2b24a9 ("drm/virtio: add drm_driver.release
+callback."), which split virtio_gpu_deinit() on purpose: "move the drm
+shutdown and release to virtio_gpu_release() ... use
+drm_dev_{enter,exit,unplug} to avoid touching hardware after device
+removal". That matches what the documentation asks for. drm_dev_unplug()
+exists so the device can be unplugged "while there are still open users
+of @dev", and Documentation/gpu/drm-uapi.rst (Device Hot-Unplug) says
+the DRM instance is torn down only after userspace has closed all
+descriptors and mmaps. Meanwhile the virtio side has to be gone when
+->remove() returns: the example in
+Documentation/driver-api/virtio/writing_virtio_drivers.rst resets the
+device and deletes the vqs in remove(), and virtio_dev_remove() warns
+("Driver should have reset device") if the driver did not.
 
-Good advice, I will fix this in V4.
+So the virtio teardown (reset, flushing the vq workers, del_vqs) has to
+stay in remove(), and everything that open files and GEM objects can
+still reach has to wait for release(). I tried moving the deinit call
+into release() to be sure: the virtio core warns that the device was
+not reset and that the vq MSI vectors are still allocated at PCI
+removal, and the deferred reset then runs on a virtio_device that
+virtio_pci_remove() already freed (KASAN use-after-free in
+virtio_reset_device()). It only makes things more complicated.
 
-Thanks for your review,
-Yao Yiqi
+obj_restore_lock is on the wrong side of that split. It is only used
+from GEM paths (the ->free callbacks via
+virtio_gpu_remove_from_restore_list(), object creation, and the PM
+freeze/restore ops), and the free callbacks can run after unplug, like
+the vbuf cache and host_visible_mm that release() already handles. So
+the mutex belongs in virtio_gpu_release(), which is what this patch
+does.
+
+It only looks like the mutex_destroy(...) landed in the wrong function
+virtio_gpu_deinit() instead of virtio_gpu_release() in 54a970048296.
+
+Is there something I am missing in the framework, or have I understood
+it wrong?
+
+Regards,
+Abhin
