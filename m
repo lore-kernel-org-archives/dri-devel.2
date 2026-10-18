@@ -4,48 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5F2ACCF2C4
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 18:18:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8924ECCA490
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 18:29:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DD6210E15A;
-	Sun, 18 Oct 2026 18:18:11 +0000 (UTC)
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24C1110E100
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 18:18:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=ErZB2ZZ3XmQhb+Taa2wj1GmXp8EN7dNa3whRakTKL+M=; t=1792347483; x=1793557083; 
- b=QEv0AMsQK6axyet8agjBGEPrfNOcOreKJu/1GyMe2fREvzgR1dU4FmQeGlvrjwLopyGzivCyDcn
- YlsaSoeyBVtNpmuU4zQnbKcsQ6z6twNF+ezlQTM0IO6Gz+3jbluDunCpRPBFDFPSaWxXyGAdpZGgG
- HXzjIER6gPVi42kYItM0WWhOvUj1rbt3JLI8X6bljYj11nP5/i1EmBxD7EzKfjkzb9Wb7wBKsbmWQ
- XFrjsRlTSSV8GVXvWJeZhGN7YF+SKckGT+kwKQmIrdqqiWnVFthMhiaAZ+ot1wXuyZYmph52BaWvc
- CXjE9xjNUYyOr5TLpw46TI6L+sRjIsszPE1A==;
-Date: Sun, 18 Oct 2026 20:17:47 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, Aaro Koskinen
- <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
- <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-Subject: Re: [PATCH RFC 0/9] drm: panel: Add support for Epson Moverio BT
- 200 display
-Message-ID: <20261018201747.0f1280f3@kemnade.info>
-In-Reply-To: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
-References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A394010E100;
+	Sun, 18 Oct 2026 18:29:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9693410E0CB;
+ Sun, 18 Oct 2026 18:29:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1828343282;
+ Sun, 18 Oct 2026 18:29:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3403C2BCC7;
+ Sun, 18 Oct 2026 18:29:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1792348174;
+ bh=Vl3tdMyMwe/I+x3N6QbrwknBSVKJP09DniWkB0JmIq8=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=qB4MSuelJMTHPzi+7eRtiMUD969zk4mODI2azEO0T4FN3oCPLKBowk+seeKSujpUp
+ 7CkaOg5s/zLvSsYKgosGMO2U/TesOTboTcBRZ5ldHpfJaH2yEcdCuZ3Gzh+MGCcUVi
+ 7cjEwOaqUdvhW6Eb08bTz20weszYlTZe8gM9fHLrbpOVHneZDxq3hR8d0LzWEg5Vco
+ BbzNthOmrFIUZGlxosesGmo7WsLWobkbkIO4igGEl3rJPY/7HU/tlKB2jBYXZQZXp0
+ 4MiLUw6XccPPb+yPhxQDQ5uV7JzOoLtcHBPs+44PDWQJb6Q6xCcmL/k+CNVI2vWTYQ
+ A9SOgZNndSWyg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id CCE54CCF2C9;
+ Sun, 18 Oct 2026 18:29:33 +0000 (UTC)
+From: Mohammed AlHashim via B4 Relay
+ <devnull+eng.m7mdhashim.1.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 21:29:32 +0300
+Subject: [PATCH] drm/msm/a6xx: Don't set GPU freq before the GMU freq table
+ is built
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-msm-gmu-freq-guard-v1-1-dd92dcccee86@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDtgLJHQq5QuYpzEEWJ1pikF8
+ e5N6/It/t9BSZgUbs0OQm9Wfi4V5tJAmPySCHmshq7tetMah1kzplwwCm2YipcRyfrgrtaZOFi
+ o4SoU+fOf3h+ntQwzhdfvBMfxBbuZL5F2AAAA
+X-Change-ID: 20261018-msm-gmu-freq-guard-e5ac83581fb5
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792348172; l=4160;
+ i=eng.m7mdhashim.1@gmail.com; s=20261018; h=from:subject:message-id;
+ bh=4u668IecDd1UekaSTwsKFOC3XIkk1vPT8fcmnCTf8Hk=;
+ b=uJCnknCpmYyjxARyh20Jf9ipZVqQKQNP+stUYUqzspq+FIqGyzszrghTb9KDeTefvvSRYScFW
+ VXemMVvY6b6DlN7D6aTi9gM9Fk9gPikey3/VkBcBwpEeO/37UyQtp+U
+X-Developer-Key: i=eng.m7mdhashim.1@gmail.com; a=ed25519;
+ pk=nadicxm5lJrpr6u2tkxbYV+wi8bWOYqheGU3HolXoXA=
+X-Endpoint-Received: by B4 Relay for eng.m7mdhashim.1@gmail.com/20261018
+ with auth_id=1228
+X-Original-From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,19 +78,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: eng.m7mdhashim.1@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 22 Sep 2026 08:16:57 +0200
-Andreas Kemnade <andreas@kemnade.info> wrote:
+From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
 
-> This series depends on
-> https://lore.kernel.org/lkml/20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com/.
-> That series is still v7.2 based, but this needs -next material, to work.
-> It compiles on -rc.
-> 
-just of of couriosity: I got no Sashiko mails here. So really nothing to
-complain here?
+a6xx_gpu_init() registers devfreq through adreno_gpu_init() ->
+msm_gpu_init() -> msm_devfreq_init(), and only afterwards calls
+a6xx_gmu_init(), which fills gmu->gpu_freqs[] and sets
+gmu->nr_gpu_freqs. The devfreq sysfs node is visible in that window,
+so a write to min_freq or max_freq can reach a6xx_gmu_set_freq() while
+nr_gpu_freqs is still 0.
 
-Regards,
-Andreas
+The lookup loop then compares a u32 perf_index against
+gmu->nr_gpu_freqs - 1. With a count of 0 the bound converts to
+UINT_MAX, so the loop reads past the end of gpu_freqs[] until it hits
+unmapped memory. It faults with devfreq's lock held, so every later
+GPU user blocks and the machine hangs.
+
+This was hit at boot on an X1P42100 (Adreno X1-45) laptop, where a udev
+rule wrote min_freq as soon as the devfreq device appeared:
+
+  Unable to handle kernel paging request at virtual address ffff000b80000000
+  Internal error: Oops: 0000000096000005 [#1]  SMP
+  CPU: 0 UID: 0 PID: 487 Comm: (udev-worker) Tainted: G        W  O
+  Hardware name: SAMSUNG ELECTRONICS CO., LTD. Galaxy Book4 Edge/NP750XQA-KB2US
+  pc : a6xx_gmu_set_freq+0x74/0x2a0 [msm]
+  lr : a6xx_gmu_set_freq+0x3c/0x2a0 [msm]
+  ...
+  x4 : 00000000ffffffff ...
+
+x4 holds the wrapped loop bound. The faulting address is 1 GiB
+aligned, which matches a linear read running off the end of the
+linear map.
+
+Return early while the table is empty. The request is not lost: the
+limit is kept as a PM QoS request, and devfreq applies it the next time
+it re-evaluates its target, for example when the GPU resumes. The root
+cause is the init ordering, and registering devfreq after
+a6xx_gmu_init() would also close the window. This guard is the smaller
+change and is easy to backport.
+
+Fixes: a2c3c0a54d4c ("drm/msm/a6xx: Add devfreq support for a6xx")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+---
+How this was found and tested:
+
+- Seen twice at boot (2026-10-03 and 2026-10-05) on a Samsung Galaxy
+  Book4 Edge 15" (NP750XQA, X1P42100 / Adreno X1-45) running a
+  downstream 7.2.7 tree with an out-of-tree device tree. Both oopses
+  were at a6xx_gmu_set_freq+0x74, about 9 s after power-on, from a udev
+  rule writing min_freq when the devfreq device appeared. The log ends
+  at "Call trace:" because the machine hung.
+- With this guard applied to the same downstream tree, the laptop has
+  booted 20 times since 2026-10-14 with no oops. That shows the guard
+  does no harm. It does not prove it closes the race, because the udev
+  rule was moved to a delayed systemd unit on 2026-10-06 and the window
+  is narrow.
+- On v7.3-rc7 the change is only build-tested (arm64 defconfig, W=1).
+  It has not been run on mainline or msm-next. The function is
+  identical in v7.3-rc7, msm-next and msm-fixes, so it should apply to
+  any of them.
+
+If you'd rather fix the ordering, so devfreq is registered after
+a6xx_gmu_init(), I'm happy to rework it that way.
+
+AI disclosure: an LLM coding assistant helped read the oops, trace the
+init ordering and draft this commit message. I reviewed the result,
+tested it as described above, and take responsibility for it.
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 6d49c51df..b1cbe5d34 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -164,6 +164,14 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp,
+ 	unsigned long gpu_freq;
+ 	int ret = 0;
+ 
++	/*
++	 * devfreq is registered before a6xx_gmu_init() builds the freq table,
++	 * so a min_freq write can land here with nr_gpu_freqs == 0. The u32
++	 * bound below would then wrap to UINT_MAX and walk off gpu_freqs[].
++	 */
++	if (!gmu->nr_gpu_freqs)
++		return;
++
+ 	gpu_freq = dev_pm_opp_get_freq(opp);
+ 
+ 	if (gpu_freq == gmu->freq)
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261018-msm-gmu-freq-guard-e5ac83581fb5
+
+Best regards,
+--  
+Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+
+
