@@ -4,189 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82EFECCA490
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:06:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E06CCF2C4
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:32:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAA1510E06E;
-	Sun, 18 Oct 2026 14:06:03 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3099610E06E
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 14:05:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1792332338; x=1792937138; i=deller@gmx.de;
- bh=DHkZgqiGxD9lmjs14XsvLlPDj5HmdXwayxk/aDf72iY=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=FE81Xfw7+rraPAB59vTo82+3o+kdX8JMlp9tG5sGw4glViJA6IsIG+iIp6KbzvMc
- KYFCLwX0tlHk0SRMbhd+MMKF4QsULWbLedQ8JFToMptwitcuwAdewvwKaqaBvGMjk
- Xh97roclr5MJ8dQlzhvyqyyjHk33WV+3QbTV8jhQu3brSE/cDipSH6YRngE/bHeTI
- U32rq9/RodaFnVXy3hnJJ0zDlL9NYVcH00a8lHRBQi2UwsDcFdG9hzHesNo6/HlCS
- Vk8qsNh7Nz3RppcWQfIhGtqJYK5dxmqcZ16hWxQK82xYzDB/pNBv7Mi7cdbBHHtgH
- E9yAn1XPjlvDdJVV9Q==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MHGCo-1xMrLu2Vyy-005YDf; Sun, 18
- Oct 2026 16:05:38 +0200
-Message-ID: <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
-Date: Sun, 18 Oct 2026 16:05:35 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D32E10E514;
+	Sun, 18 Oct 2026 14:32:09 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE14C10E514
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 14:32:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1792333906; x=1792938706; i=jan.claussen10@web.de;
+ bh=n3DJbxmkboj1OAhxZEyDr3Uvgwh3hmsUvlr/gkiBoQ4=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=D+vXeAEGFgHXHiQE8/0Ci4pQGJ7Siu6ejq+eHGOEZPuuQPK7u5MZUTSeNyZXCOK4
+ swiwFbDIrngha1d5ud9UQxKb4RIKPOd6yG3S/40yr2PRJU3sZSqaIMgSbG/SMQ/uu
+ 2XfqrhN+c1utc+TfJqnfTJ5qd8OJa3YbnQ028p3aK8r3jRFIG2GS0yrH9b9Sn+l2z
+ PWSCaiThVjNYwB8U6jnm59k+gAD6CTZNnK9iK+QMLN+TmddGF1j9eak0Pduyjs6S0
+ wuTTziJBXw0VHkABisYvUUcvJ0gLMWDIpoZGQ3z2rJ9jCATc5eHT3HiwPdCe4FQ9L
+ 4ipvFkXFE4NRTNmb6w==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MIyaM-1x3Wbj3ry6-00KRgP; Sun, 18
+ Oct 2026 16:31:46 +0200
+From: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>
+To: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v4 0/7] drm: Add colorspace property support to the HDMI
+ helpers
+Date: Sun, 18 Oct 2026 16:31:06 +0200
+Message-ID: <20261018143135.5745-1-jan.claussen10@web.de>
+X-Mailer: git-send-email 2.56.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] fbcon: Include font geometry in the rotated font
- cache
-To: Yao Yiqi <yyaqia@gmail.com>, tzimmermann@suse.de, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
-References: <20261016073023.490430-1-yyaqia@gmail.com>
- <20261016073023.490430-2-yyaqia@gmail.com>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20261016073023.490430-2-yyaqia@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:5cBx0zqkWGvctlrRQ47HQ6YmnfVtt2dGG9glshvNcoN35m/B6o7
- aajPVzNaCHl0lqvTKf10S7LBdMdNIeOkKa0nzr4d4YFGKwGXO4sYhfaK7BvaS3+nCHfPZmr
- aMALjY9f8tcrFb69nW7Hlde187ySwZdI1QfzTtGFn8T2D5hOIbKnR/2fPoYsz0XMSjU9ivl
- qAxy5kmPr7Uq60kIalXlA==
-UI-OutboundReport: notjunk:1;M01:P0:vDR7KkXlrGE=;HBhf5laLFZSEsMwGC9gYQM4BntI
- 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
- hgRdmh061Kt766sInC8s=
+X-Provags-ID: V03:K1:vGcEIDBUptGQ8eK+sTEEJ1RfCPPWcGstJIXWjzQz1JYUT40wT+v
+ hqXCtWfBlat+VRV3XIVzr2DDDBCfqa+MkfPBcEtVKwPgI9t2aNNFbDU0rkwMXprLTFBHf0Y
+ nt+8r+pyc1XKZowU2yyv80+dbPuaSucOO+WSkPb+0QISdpDeQX1/wZ4cB8t7I3d1e0lr3nH
+ R5V3lM7cwDQnfBjXVNHWA==
+UI-OutboundReport: notjunk:1;M01:P0:5bhJv8J2OGo=;ZBETUUeNsvA+bNyZsLDctmrE4Ci
+ VNDBMXJbuQPe7WnDRBw8a9smwIt2csDdlY8wbKnE5150/EyKn66iF0ODABsdUnt4GC2RS+WSy
+ b+b/3TWDhUcgesOyPO79j4PVgvjX04DbrVZp2j+wEP4PQfE5URMuen5XpH34pzdKgJI5AsHkZ
+ tPmznAunU8Es1MZFi0cNTHrRd79r4r49itOe8kmzhHPQxc7QB3Om1ET/J+bJ6ZyrVVN84HbPb
+ YJ0mJvqoX6W9pyMirDi/rtnQfsa7jD2HOQ8u4FJt44NYnpTTUwXdKnio+AQmN+Jy6zQnXKfqA
+ paPStnUQMjtbsVKyqmZean4CncQWIuSEe72LftAj2ULOtRJiN+3cCKgDhyIKrcfSY/C0iWpCW
+ tTsFdhuAa8MkK6p/8GpBmUcahHu4WYkQd36Bsm4HCyuSTudCtHF5kgXeShpU0UhbMZWNRtMvW
+ Sw+Cq7xVMn45H4peqQvFNGr0s0X+K0mMQwxtHIKqTcDCYhx5flcO7klENn3bzn35upPaS+xfH
+ DnhhVRiI6/VQRnDAUXdeIrSsl0uYhQ49iz1pPAD/rN0skP+YCZ9V5X0X0DaiZNgi9064QJ/3y
+ QWhrmdMICwlc0DhV7BBS1s1CQqXf5AEst4XeiESVkyIIXT/NfpqbhetdD7oIZd3lBhKneWikG
+ bO4m3fdXZ6m2Ir8iiNYKkUO8LhN5Ask1tXfj5w5+e5lIaNHXpkAM5WVPFw6pe+IpWR3IXdY8T
+ r8W0Aw0HcOf48IokgZpyEcp7mGZMOivg/F/3iyVME7OYmRaPeD5IHPgTvsG0wBvmKqNSxrW9f
+ tbXeGjWBepPZBZVc/rH6+K/ip2vkMjg4AAQ5wn79qM1cLAK3JKLj3QNEQdSzRgFqRndoGVr7R
+ N+7dUMEG5nbRdi+jTjQ9jrrdl87/dAoWIM87YeLDJCydtvYIqn8A/XumatwbOeS2+NUDBlQJ0
+ N/xWaLZm9Ve/3BdWHFKKWqGMlx4Frxd1zYVIx26d6NRfsLDUzffNLlRXosLuXoYsRaKG4s0As
+ B/EE8IB51sro9t+3QXckaetTYNUcn/jz/DN1CJE1FYZKZWpqPkfzUH2K8e1lw0rDV8RidzVYq
+ z3dLObUl/fXIgf2I1sbc7T/lLYSFY1S/fwxwgDpA724dZ3zVOVY+0FpkGyR2mK/VmNUdJIjLB
+ NxADpxeNBcoVdPwdF3shkwk4SFJOUxBDphve2zIy7i8yANf9IXm1MntdCi/X+CgzAOTuT4D17
+ JfrkEdw4evviQkdPf/GOcML+8FFbgufinNoUrUxZDGxwNUvZSLt3edGSbihGXCBGrFtTY3E4P
+ DMY3gHis1hHjh7UYhtvyrLPqSVI0iM8Yrpx/QhT6iUkuzRWTKwxNgNAl6HMPeg5qLqYyU37KO
+ si25ZX68rA9gyA9xrX35TmSLVfws2fiEH3bXFELauXlw56YcREtGnML3ieyJYyUimFe2zDz13
+ /eSjihIPt+sUTqgocXCdonc+ATj92iq/+J7UaWwv+0c0acl4MVpLaaN2iIN67PSh47kzZ0fRf
+ UTNqmGbeCIzZtIofmsQBtoCaGESix/AW0fL0nRPHNntUHk4fo6Fq6QO6BscYVBwNSiNpmXbc1
+ I2xqPLppGD+mpJ2PjvbiqHy6RPw1Sb4I+ZRZ+2lgofywjrTf56sL57rpjOUbeQjfC3npYFmwQ
+ lxhu205icW+uUX07siFFyT0nvRVjVqEceoXGuxHC9AIl6ApUq3w81hPKL03e2Gzcf4vVfHBRN
+ WhDwa/gaxINH3m/810WY7zAtaWmx285FaBYLdM/VHNhL5Jdg76Dx8LIVfq6hJ5Od2/9DCxC92
+ qGc/MR56TBqZLSvgisq8VBPwrW/vUj1lD42UyizA38vMKJIsPEhfzAm4byhGx6ULSYhJxP5Cr
+ J2nx8J/O8jAB1egxOlPS6aZVf+6vnAK+wU0HbXPhk4Li2rDHrh2Wrqjq7ibK2G2FElBgvIBT8
+ HhpwXdpW4fZueNLuzFhT+zXBLC8nvjTVJJFI+UEL0gDIUNyI/sM4Y9oQNLOIHtzwz78grQOtR
+ EmPTM83fz1hiMdQO8+YZQs8QMA3EH+Q3A0AeDjm53QNBC/DVrYsYzREXGb6qTH+tK79nnjsQO
+ VxPUEILAQjgyCZZ+/viXC70ZUuTbsP20oH81R0tijivlz8mT3uWQ2d2N0iCR5QTF/dGJyIp+6
+ uxqGIaOpFKfMMrN6Vg2v6vjm25FexBpZsEzXGFSbE7BwksUPzy7sAyCh5P3OCxADNzXcuI8yw
+ h71A3iI5AvI9K6wjjiqv6GTF48PcLIx1zVR9yao52FcNQfbRskuiXwcOX5Qfvz9mKkaORlIdb
+ wx/5S+XlHtLeS8YEiOpZtHJVmjB/gcP39+5l5I5lAY8VogRiTFwXrM9FE2XKwfgJSiiy+Bjp9
+ 3dnViDZdWNj/rLdvLLjWpTs7lIdTwC+YFZrvBwi/1tbzQjniObmluJvwj7YULwC4kaAQUT1k4
+ EoQJ9gJBM48BdZge+876p9ajQ1NnrABcR7aKgs4L6ulT/7jbEprtXQhetNoqVH6Zllwf128P1
+ dfYSSR2czPZ0xTSdDJ4S6fK0eKFM+Wpz4npr4o0iilmR51x7OyLFMuA+MoYKbqaN54MicdFUe
+ TczOr2qqYbpPLMkHzCe0GbI2tyAfumOww8+KSOCJF6eI1JM5umW+QVxp+R9xGI7nIw326S3jF
+ kl+o5D0rPZAyj4uqk0inOJwsl/CdgfQ3MTr0bk0c1wD7JBSkAbep9arjwmQqUdyv8aj5lcKAj
+ dBao8i382ze4s71y9Xs8aibisnTwsATeMEK5UeBgM5p83NwHUAiMHw94i3+3TrSlAmeP9NOp5
+ zcvmheI0HNrEkbMpUzV4LoXPwLSxm6ydHlaEJ0Ne84jWkOQX8iTypDr02yl6eotRzE9bjqe6v
+ qRYSsrIlobx3AVTZ4JM22d2kem+vCZXz9hTyoyTHWdoiU42+9p5xmfGkYGTTvsTrTLVo5rZ7L
+ 7xyLRvql2AXB5ahAU1ulQ3e/7wd4LegMrjAFtGbojlSqT9VwlTjFZt+Nz1S00oesX5E8u+6MH
+ 5sIedfEQiXKwVCJcC3R8xhF/logkKmG/oZlgwKLFeemFxN8LSyNd+P58TM7PzBW+wVoJeaFd1
+ VDPquLO7Sa0JwtNLnSMZz1zPmEgkMvXS4fe9/VMm7QjEPfAxcvWC4jXDCmMK7tvg044ky4TpL
+ 4p8B18yDuU9QGoHXt5nsk+3hvwlR/bwj3U/nubKuaWoL2xOEiLdM8nealW0fCxIPwKujSelv9
+ TqatX9qpeKVyyEzcbc6HAYaoGzZMm04y2dYUUFHWcAxqFQIM6yt5FB4AhdRrs/6wMNfzHjePj
+ Cd/Cmd7EWicOuGtz0fTbyObRLhPlIa9fG2g6UO/r1ii2OWvU23l3k3H+MYffFWqWC8EUzgVr+
+ QNGn3miY+VqlcrkEPKKiq5p7SzNThrDhpz7+U2SB3C7RFfQcykJShs8l2PU8DdBE7tZrufhQt
+ UMDr8lkeGfzpmdy4h5UV9SGPsrVAHaq/eRrsDKlbHNcyWF81+EDpWEMCtdnppWAqP9LPwf3H5
+ bIjeJtrFcUtOE+6BcbZ8knaPNHZpdA2490iAjyn2Hsz4E8mhGqwfb0wr9suseJFkC9oD5pJPW
+ O0afMB6mD0UB48ruXg28xOS9ijIUrSRT63qmLBZqo2fVBJdlmv8QOjnXtaCJtgSJoJk/lzAig
+ VruJECeBlRkoQapu+aC+SV1TZLBFjDooSss8gs0KaUyYgYIeK0B6zDkBX13b0G5Ttarz+FwL6
+ vU2cgx5xZmvC6Ausa809YNfvyEZ259BQWrrWatF74RFvmkzr4WDArvwCgjBe2T9oom8iMoZ0b
+ H/PVEbybkJvwqYea/Bso99XoFwhjRT5IG7Go8r1DjsjA7T6snSR7n5aJQXAikmoAbfQE1CyPE
+ xEpZPaHE7uZ6DlJLuGf5bxtWMR+KIwwYndZQY8fMgPDvZZ6FkO0+ko8cPQuD170mwqBLQk9XT
+ Ki1C+JPSZgO/5UUa5sp6//GqvuawXbQo2mPCBPqyqYNEa2xoyljbpTa70+jQ+gcmdaf/WrWgp
+ OapX5022Eya6Mf3WaS0O51PdgY1DKJy2z8JFPltTo8CreWrEwg119fFnXijrsLatX632Vzhvk
+ am5rcj7Bk5x55mmvad31iJmrm7BHhbYd17AqFzMqShqODc6MfiR32Zf27RfJApa46imeJJGEh
+ oOhE3ilVWxP3+r33lmMz3FavZkNzbEgV1kJTQ9Q1xAe4wQwy7lPzBDE9tzsUSrYoPhM45brON
+ QtFXFTU++Qtc6WgrrvDZBOl5Nngr8IAx9pGxRdH5XLPm2VkuzGetcXRPeqzQCfq0UwJrRBj8W
+ v+GvAKBnHJNcHNdTCcdLieqszxu3nG1hqEC3kyqe52HkKrRR8u5D321kw5xT4ZPJOBylK2KbE
+ +oyiZ5li0wiHp9pDII75sBiHDjMJjdyu9hB6yKfBDk+eWRhmXcfSjrsiQ1FipojmYnBLKhyrI
+ x+AdslzhwRCBZzpuGLBtt1UjAt7CkOdDaAboSsNwdUVCetPIrqQuPYgGbcOW/eKCG+T/0w/he
+ hCFMkhpUzT+dcwlqcOkIaktp22BwFBFkVP7IYrW3OOjP9vyHOWHVPmZdQBQHMiNEJHJpO3xMY
+ /wKtgL/rsrXA/22WSn0paCATq5FsIL3vTk9/wHz78VICQbNAEMBpQcX3qMh7MHRy8+9Q2atoC
+ ASBV2CHwV0PWiDfUSSz/Av/yhyy+a29sABEG7Fr3c30vykkwx92dBXIXWfk++8YW1fn7y5D7s
+ Dz34nGMUcbhcO3Y1668d9H0exKd5nIAGbMrNQK6Kp9U4Jdpu5X2McRsn/IhbrH1DkoKqxQJos
+ 8BWOcl7raUH98NpsnPHf/mLs3g5bbsiqdKlVpTxE64IHRo8zg0jt6ZTJ+aUPZnF8120yEawmw
+ KOJIdx+4zvd8aOmn5PzeAPdIHibOgd94wKan1P5LNtSbICRLpdU/fQyWZcVuqx+wAFa5h4tdM
+ ll+UKKUtV2jgLb3l+Bm89t1wK8Ei79MWZ5eXzF68pHoXto4qjTVHwLHCNJo0PggIXSfhb9Xh1
+ OHLtFv6rxaKU0GmYlvTomB+WRKp3ro+2WOFpr3n5ii29BehSU8UgO9rVE2odFZksOM4m/4VzV
+ RR6rRM4ycL+gidgjFlz3XhaWVaIPcBh9jzm5VqSeQyv9ds1KT4yxQ/53fxpVggdi0A7cc9YfP
+ znw/BLwufzOFk2Zjv5zOJpwK/8dKIVL3bMhWSy6epum+7v9rX0neU7ajdIzkUliYHZB8D0g8R
+ PzBmJrGZgF7rKed44PR4k7XFVs9O+B+tPFMWehy/WCH7HMvbWmOpzeV7agCYyYWu7sCDsw4VS
+ PfZNSl2kD0yWriCDJOhnjbrV0/iJA5sCHDeNq7tYjA5MozI7PUa0IyTMrU1jWkW7K4ohzy2Rn
+ KXlIHL8ox6WiARgikJw6qZi+q/G6Noe/krmIa70U9QG8XkXUwcildpVEnTD052hJvHKSVsXJZ
+ J+L5uUzEpgfjuZpsS20qzKeuIhxETWzEOkbswPOPX/o6Q+v3UqNkts+xOZA+sGVgG6LhtyuDS
+ o4mPQkqyknVq4QHl6YEG9D6tGetkCSt//q52JQBW6mGWB9iO0QjPXz/NwWr47RV65MpLINYh9
+ J+oltG41Lxg5Iiui7GFd0miS49yiCEAQSZyFe1ZPxqA7wWlIVSfhpvYJ8VV3bf8k0I3BPY85d
+ 71jLwm9kjjGCUHBJX13r1vutsoL3Wp6MY3zMj00+SnBTndpSD8pFkyDNi6H7gfDZrJpIqMOoC
+ X2fnVA5P1sleBM68RhiVm+lQYCVfVfCz9uMnFUeNkzuPGKz/mf+AoWDji8GLASZmqgQN40YG5
+ a+5uc8xG4nqduNX/LNL+ePszIUFrTK3a4sX75o967UPUZRTDJYvjbVZ7YvZa0kSp7QVH4rWjl
+ 9KURX8Vi1Y+sFrU+Byq0FFyZ/JhP4kRQPIdWLZV21dfx0zXZj4oYXIIIyE3vlv9/2F5Et4T0o
+ gl5fEsMKUk0hahJLolLjG4RhxiodjVeLswCT+GC7l1RCWSKsW78F8r5Qy8omeVzhyTjbkwviN
+ 9NwDsE+vqCFMamTRwKQvyxW7uBdWN6tfOnMc7l2lSkPvo3XKtEa/gYZ4rJrP1X9+Skg6NGqEX
+ FkhsAqO3NwFsyKvFih1fWDs2qvza5EpR+CV9Q5w5BZwxvMGcaYL7DUfUKk633suVajG2AtEG3
+ IeCYgZa55eAiKrz+wlQ3zwZksWYJ8fQhiXZgpUgWOQ+7iZMcdH8ksdO7g9j70/riB2sfXAhe5
+ 1QZb8yOrj+7cOj6g6QjlTpIOZNGQmMTn7VYWrIwIkcCvRhlTmQ4f5F+IfLOqQgrIHaiHB0DPD
+ /hPuWKltQnFnJkLPXswRGPIrSDiKIz4prFIDcFPPzuSwCagwEwme9Xxe8vAjYXRSbXsBFNyQi
+ p2LeMs27UabWsJ4vO72gpJBgcqMFLuzeHmv8zkaVAd9z3UGv/K4cm4oAAw4Sd1wPpO0dkdvfx
+ t/ke7ayRQAKSyLW4ZgV0Z82dHBDx70Mwk2rJ7kyO33fzdN0IqlcUMkb8yNFhz7+KgoIYQPZCt
+ oc+v1UjbWvzqUEND8YGyEc7hmU34SsJJ/aGB5g8Aqt5OBSbu3fZTH4yRSpM1sUrhS3ecZzQL3
+ t2/lU38PIABC3y9DlSIA=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -202,60 +170,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/16/26 09:30, Yao Yiqi wrote:
-> From: Yao Yiqi <yaoyiqi3@huawei.com>
->=20
-> fbcon_rotate_font() caches a rotated copy of the console font in
-> par->rotated.buf and skips the rebuild when the cache appears to be
-> up to date. The cache is keyed on the source font's data pointer and
-> the rotation alone, on the assumption that an unchanged fontdata
-> pointer implies an unchanged font.
->=20
-> That assumption does not hold. Raw font data (font_data_t) stores no
-> glyph geometry; width, height and charcount are tracked separately in
-> vc->vc_font. When a font is uploaded, fbcon_set_font() deduplicates
-> it against the fonts of all consoles with font_data_is_equal(), which
-> compares only the byte count, the checksum and the raw bytes. Two
-> uploads of the same data that declare different dimensions therefore
-> end up sharing one font_data_t, and a console can install a new
-> geometry while its fontdata pointer stays the same.
->=20
-> The early-out in fbcon_rotate_font() then skips the rebuild, and the
-> rotated blitting routines index the stale buffer with cell sizes
-> computed from the new geometry:
->=20
-> 	src =3D par->rotated.buf + (scr_readw(s) & charmask) * cellsize;
->=20
-> Rotation swaps a glyph's width and height, so the size of the rotated
-> cell depends on pitch rounding and differs between geometries. A 4x16
-> font whose 4096 bytes are re-uploaded as 16x8 on a CW-rotated console,
-> for example, grows the rotated cell size from 8 to 16 bytes, and the
-> largest character then reads past the end of the 2048-byte buffer that
-> was built for the 4x16 geometry.
->=20
-> The key has never included the geometry. Its exposure was limited,
-> but not eliminated, while the deduplication in fbcon_set_font() also
-> compared the consoles' font widths and total byte counts: with the
-> charcount restricted to 256 or 512, differing uploads could then only
-> trade height against charcount (such as 4x18x256 against 4x9x512),
-> and even those can change the rotated cell size. Commit 1e3c49aa03fb
-> ("lib/fonts: Compare font data for equality with font_data_is_equal()")
-> dropped the width comparison, so identical bytes now share font data
-> across arbitrary dimensions.
->=20
-> Record the geometry that the buffer was built from and compare it in
-> the early-out, so a geometry change always triggers a rebuild.
->=20
-> Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to r=
-otate font bitmap")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
-> ---
->   drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
->   drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
->   2 files changed, 14 insertions(+), 4 deletions(-)
-I've replaced the v1 version of this series with this v3 version
-in fbdev/for-next git tree for further testing.
+HDMI connectors set up through drmm_connector_hdmi_init() don't expose
+the colorspace property, so userspace can't signal BT.2020 colorimetry
+for HDR. KWin, for example, doesn't offer HDR without it.
 
-Thanks!
-Helge
+This series lets drivers declare which colorspaces they support and has
+the HDMI helpers create the property and force a modeset when it
+changes. dw-hdmi-qp on RK3588 is the first user.
+
+Tested on a Radxa Rock 5B (RK3588) with an LG OLED55B87LC in KDE
+Plasma 6.7.5. Only BT.2020 RGB is tested.
+
+Changes in v4:
+- Set the VOP2 color space from the connector colorspace, so YCbCr output
+  is converted with the matching matrix (Sashiko)
+
+Changes in v3:
+- Move colorspace handling into the HDMI helpers (Maxime)
+- Let drivers declare supported colorspaces instead of exposing all
+- Split into a series
+
+Changes in v2:
+- Fix possible null pointer dereferencing requested by the Sashiko bot
+
+v3: https://lore.kernel.org/all/20261018123037.19560-1-jan.claussen10@web.=
+de
+v2: https://lore.kernel.org/all/20261011142733.7806-1-jan.claussen10@web.d=
+e
+v1: https://lore.kernel.org/all/20261011132024.2833-1-jan.claussen10@web.d=
+e
+
+Jan Clau=C3=9Fen (7):
+  drm/connector: Fix typo in colorspace error messages
+  drm/display: hdmi-state-helper: Force modeset on colorspace change
+  drm/connector: hdmi: Create the colorspace property
+  drm/bridge-connector: Pass supported colorspaces to the HDMI helpers
+  drm/bridge: dw-hdmi-qp: Forward supported colorspaces from platform
+    data
+  drm/rockchip: dw_hdmi_qp: Set the VOP2 color space from the connector
+  drm/rockchip: dw_hdmi_qp: Advertise BT.709 and BT.2020 colorimetries
+
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c  |  3 +++
+ .../gpu/drm/display/drm_bridge_connector.c    |  4 ++++
+ .../gpu/drm/display/drm_hdmi_state_helper.c   |  3 ++-
+ drivers/gpu/drm/drm_connector.c               | 17 ++++++++++++----
+ .../gpu/drm/rockchip/dw_hdmi_qp-rockchip.c    | 20 +++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h               |  2 ++
+ include/drm/drm_bridge.h                      |  7 +++++++
+ include/drm/drm_connector.h                   |  7 +++++++
+ 8 files changed, 58 insertions(+), 5 deletions(-)
+
+=2D-=20
+2.56.0
+
