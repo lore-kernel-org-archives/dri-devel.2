@@ -4,127 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 694CFCCF2C9
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:53:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B833CCF2D3
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 14:53:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C864C10E670;
-	Sun, 18 Oct 2026 14:53:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E51810E2DC;
- Fri, 16 Oct 2026 15:12:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5F41B601FF;
- Fri, 16 Oct 2026 15:12:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F291F000C4;
- Fri, 16 Oct 2026 15:12:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792163561;
- bh=zExOvzSfNAOGhWyHayoCJYIMW12XGItswYYl/21/DBA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HeXH2eNd0qTi1KJWMDpX2qurIIHfELGudDOFsBVj38SK5hgtwRmtRu++Y/B5kYqqd
- A4blc5Fp2xS9ugu94PJEByj6vIlDtKLwiWnVuaMsxRz0Ir4yLDMdWRBi4NsEDJfgYI
- dTCWHHQPHA4O4L72QOauM8WSJ4JjVCneqoIAwA1rVTR79Lh6W41DTt4LcokcrG/DS7
- QghFRktl0qmqBt0Q2454sV5etB2cRZSEkJVEe4jVB1iPvoqhJu/FGnl3nmWT7TfuCi
- kYiPGdYgWB0PP3fl0nc6yx6ZWW1MUxK7rfa2DXZnz9GRXCns4+n+2ph4Izy2R1nkwe
- CPOLN30xIOzMQ==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Aun-Ali Zaidi <admin@kodeit.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Francesco Dolcini <francesco@dolcini.it>,
- Ian Ray <ian.ray@gehealthcare.com>,
- Martyn Welch <martyn.welch@collabora.co.uk>,
- Peter Senna Tschudin <peter.senna@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
- Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
- Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
- Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- linux-renesas-soc@vger.kernel.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Iker Pedrosa <ikerpedrosam@gmail.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
- Alexey Brodkin <abrodkin@synopsys.com>, Hans de Goede <hansg@kernel.org>,
- LiangCheng Wang <zaq14760@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Chia-I Wu <olvaffe@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Ruben Wauters <rubenru09@aol.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
- Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, Aditya Garg <aditya.garg@linux.dev>
-Subject: Re: (subset) [PATCH 00/75] drm/connector: Convert all drivers to
- atomic_create_state and remove reset
-Date: Fri, 16 Oct 2026 17:12:34 +0200
-Message-ID: <179216354629.2387589.2597043397406887835.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D388210E676;
+	Sun, 18 Oct 2026 14:53:20 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 134C410E5EF
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 12:35:20 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-48afbd2c386so521945f8f.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 05:35:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792326918; x=1792931718; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=yZRC1saK2lzqhpBjjhBU/Y8Q9XNxMDtAH2y6pyCBfUk=;
+ b=Qz5SkEWyhQ6SCOcCmkYBoXGJvmrDPaa8eUjzEmBJRMwIAYC696Uw0NlF42+5OOFEWg
+ n5EL5hxeDXbHTavFj5AIe3crMXgLhxyhyCpvj71/YtCI4KogNs+oJs6C3lWoadZpy08g
+ zG5+zDaSKvG7JTutzQrVKx+ZqN4GG/GZ/2AMsmlClWk8WS2UcUKNTdDhqGQsgLCtD7qn
+ 2uv+PbXVJ21ZMVjNYG40GLc0s+/85UlR13nt+2AKBOSBtNq7aipN3RR0OzZZx73ruZVZ
+ Mxc4UrC4JqGLnetq9O7+XriWNe4W6Fun8FkRLaZsUqVhecJ3cTyiBJAcUjE1sW/MMgX7
+ qZsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792326918; x=1792931718;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=yZRC1saK2lzqhpBjjhBU/Y8Q9XNxMDtAH2y6pyCBfUk=;
+ b=Jh+E8fH29BM9ulhoBkXZXjG+RgO2u1gCiACGJJD0/MTSc7u9qW8l0XMxTqz3Bvcwdl
+ 6/8CZnJTOWV53I6fCcS8ZFnAdYW3pkP73kqoCwovtG+XCRn6QSMdvES7nEm2ICC/tkuz
+ rE4ZQtoItp/WlRrxEjwUh7bJQ1oUvGF6G0LrhOo+ejcg0m26OBaYjJuGHu2NeigXh7hx
+ C/arG4H99BqeMzc3tdWONgOVdkIFr05lSIHSyuXVHOcEcr3YGqayLmCWg7Qgw1mGrR+d
+ ul2JQWJpBWeGgZQ9Cl7cuwj2yswj8CpcVgOugZCd4goy8pEh/hiIrMB+BK+4vheeOE9a
+ yNGQ==
+X-Gm-Message-State: AFq9FYKpUkW271akX1m+0M14qVmo7gTfg7CeCSRu4NEONXDrMnbZW0Wv
+ 3XwQvE3bAOhkLeNl93507MGIQBdPXIouMi800k+RPYAjsTbmdQWqc6o6
+X-Gm-Gg: AYBFou2Lpch9TmL3/RSj6ZGUu6F4oPRwlyXvPo6mh0GGgb9A+EKQ4Sx4TKMzvsai3oq
+ AF9uvx+y/4psWXbsVZ+CSGpk2iJhPJdPhFXHW52y3IICyNO3VttOWSj0BK9ChOZybtikMdgzsvE
+ JVlsaUXndghwKo6K007y/PPms8jotD1TjNiamZNLgsLxik5YYMhZ/KamZs6gG67Fy9HhdRj1dHa
+ /8C6lbNvLslOsCaipyuQn1wnjfU7jfY5b3NDBjSpUsNSjoK9r2TLHurhYMQNgVjIkD5B3dWjDTj
+ zG98LqGln2pNxNoEKNVjizAa8g/Wa9emJJhDrn/hwJH1m81ZTtxffoQn/UbdxvsTrQ/hS/h9fW6
+ t1yhCizlD9RvKUFPs9fjPCv2l9dPWDLMyhsPpcEGkE8H7hUi4DojdJ6n2dgRh2pYXT7vJgDz6wX
+ mjjxtFHUVg0e5pMigNo4J2HIkS/Ffz1JI8WUoqcjXgQ/+j1nluwQeuoayqIkVDJhf6TdzMh9oEJ
+ uVbgGuB8A==
+X-Received: by 2002:a5d:584b:0:b0:48d:f831:2688 with SMTP id
+ ffacd0b85a97d-48e079767e7mr10390179f8f.3.1792326917977; 
+ Sun, 18 Oct 2026 05:35:17 -0700 (PDT)
+Received: from kali ([102.89.22.178]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48dfd503a0dsm17000429f8f.47.2026.10.18.05.35.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Oct 2026 05:35:17 -0700 (PDT)
+From: Bashirah Lawal <bashirahlawal017@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, outreachy@lists.linux.dev,
+ Bashirah Lawal <bashirahlawal017@gmail.com>
+Subject: [PATCH] staging: fbtft: Fix continuation line alignment
+Date: Sun, 18 Oct 2026 08:34:30 -0400
+Message-ID: <20261018123430.148379-1-bashirahlawal017@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 18 Oct 2026 14:53:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -142,22 +84,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 14 Oct 2026 19:26:23 +0200, Maxime Ripard wrote:
-> This is a follow-up to the plane and CRTC reset removal series, and
-> part of a larger effort to remove the reset hook from all KMS objects.
-> 
-> The connector reset hook is overloaded: it is called both at probe
-> time to create the initial software state and during suspend/resume to
-> reset hardware and software state. These two roles have different
-> requirements, and the reset hook is not fallible, making error
-> handling difficult for the initial state allocation path.
-> 
-> [...]
+Signed-off-by: Bashirah Lawal <bashirahlawal017@gmail.com>
+---
+ drivers/staging/fbtft/fb_tinylcd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Applied to misc/kernel.git (drm-misc-next)
+diff --git a/drivers/staging/fbtft/fb_tinylcd.c b/drivers/staging/fbtft/fb_tinylcd.c
+index afa8f1c740c5..d58b1247262b 100644
+--- a/drivers/staging/fbtft/fb_tinylcd.c
++++ b/drivers/staging/fbtft/fb_tinylcd.c
+@@ -38,7 +38,7 @@ static int init_display(struct fbtft_par *par)
+ 	write_reg(par, 0xE5, 0x00);
+ 	write_reg(par, 0xF0, 0x36, 0xA5, 0x53);
+ 	write_reg(par, 0xE0, 0x00, 0x35, 0x33, 0x00, 0x00, 0x00,
+-		       0x00, 0x35, 0x33, 0x00, 0x00, 0x00);
++		  0x00, 0x35, 0x33, 0x00, 0x00, 0x00);
+ 	write_reg(par, MIPI_DCS_SET_PIXEL_FORMAT, 0x55);
+ 	write_reg(par, MIPI_DCS_EXIT_SLEEP_MODE);
+ 	fsleep(250);
+-- 
+2.53.0
 
-[02/75] drm/adp: Switch to drm_atomic_helper_connector_create_state
-        commit: db1de27aca30ebaad04aea74ac21e4c4fb531a37
-
-Thanks!
-Maxime
