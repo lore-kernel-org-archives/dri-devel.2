@@ -2,93 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D40606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4D5606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Z54wKY6B
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OKPukWGf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0370410F30D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2850B10F311;
 	Tue, 20 Oct 2026 07:36:51 +0000 (UTC)
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
- [209.85.161.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 172BB10EB66
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 05:10:36 +0000 (UTC)
-Received: by mail-oo1-f46.google.com with SMTP id
- 006d021491bc7-705cb6ceebaso1039198eaf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 22:10:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792473035; cv=none;
- d=google.com; s=arc-20260327;
- b=PSQq1NnB1oHWY7rFtDaXGQbVGXZVqx7iY19v9gQo+1ssfSWvtMxCRtjP9zOdjuO/6K
- BMVNUA9xFjNdIz4Ucccf0ZvJ/zf2KLtD8jYnsAjMX460FFz1UCC0mRCn7fZGCTLMa6wV
- jSXjuM5BV6F8yibHPes1aPCE5owD2vm/1QXSDJeT3IGLN4Fwqvmr2G9vv8xEsgc1QAVS
- 7+uxawiIyXVxOXwwfnVLRRPUl+QgzgSv7iljqExqtBwQnicoKwxkhVes0CyRXds2OubV
- 1yYDYAKrVTMeS2q4dxv++IjqWb8YBGF9Rnt9H3qlKlXW2oprHeCkSbaIppwAuMnUPDsk
- +06g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=GiXfA5+zF0NeMfbHqqL9rF1nabmZUfUnh+LSjoOt3J0=;
- fh=kTOoadgbBmMl+cpfm+UVAwLQbl0FWkSwyTU+bN/a1aU=;
- b=LqrE91qavf2iFfHzMFhT32PV08T3cds+NPEDX9/TN9gpfFHMaiaNDyn7aGXfoaFAxM
- 6tgfXsa4ageWlNvL664OcHBKnge0D1g5H7WmzFSP9k5l6r5T4BZzxZzswkAfUbc3TfhI
- uEd/sALoR4lGdiTIdt8yq2iLtfuwJmSwMA8fNP9K5yDyxgwz5USxmGXchUVMSU1RWQuY
- M6bQS4sIPCyuWso43IMLxmwPdCM3Tn3NKRQ2SMyFkXw01prRGh6tcedmRcN4jnFNNJXn
- 2gRF3fcayMGfSJuj8gd4FbuHaFIszAYwE5WIYwJdp4L5h6Ne3U0dc/kuRTlWsj+6bybh
- 2P2g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF00C10E105
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 19:26:45 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-35cd4e8bdbdso3596361eec.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 12:26:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792473035; x=1793077835; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=GiXfA5+zF0NeMfbHqqL9rF1nabmZUfUnh+LSjoOt3J0=;
- b=Z54wKY6ByzAEshYx2yVpt+bcLwZVeu0QzN/6szHmyLuaGR6Q4IxenSXMmDHeL6k1RL
- GkMGO9doysCZ4nt6CWyRsD5p5HNbaMEpHL29aN2lVD8lE6DYecsZdlo3Jr/fGU8cPGeA
- ceeluTDSLLdXQSZp8uiQStV+3XG0p4IElTCuFzlIDMSgqSg/CmeYnyECnaHYG4VswlTb
- ckSJNd7AaEq1FpbbkfVkoQvZIFJudx9h3l/QgBNSBRt7+I9723tXGeK2sMlljPZvErwe
- 5MpggcJxAX1ZLQqZNCmztYQ0qNOiwCAJPl0PYaV8rC58BY/5GM7C44z6h8OPA7qqv1zz
- AD3g==
+ d=gmail.com; s=20251104; t=1792351605; x=1792956405; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=abSNPbr4DYdK0qk4yDwxN88lTWnE55zJDXdIxaDoNCE=;
+ b=OKPukWGfW0+9rNBnUZw5OCQ36AEwjo+ssn9SoMAnHxxH42qvS1k4vrt+WkCT7svTRL
+ IwvIAv41VsHViQN+xiMV8GZQlkfe/ieAdTfUVl1lORsSiOFySJn7EiNmtQwBRZwa2Qgx
+ 8u+L5CuRcT7JZLa/ma9E76uor9gtez1X4eawFqLBQGzHELrW/WSwO+xsqJtt4Uv00HaE
+ 1K7bslVZBD9jKetVPPLrwulSNQJVt/19t6gj0csc2V6GQCaz0s13bjhq3fzDuWo0IJE8
+ W6uBRKKtZN0HSPDiK2lVHSEYbwzYcGVjvON8oTAFg7fO1/v1KUf7z7PF5rU8XxeyOpwf
+ BKCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792473035; x=1793077835;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=GiXfA5+zF0NeMfbHqqL9rF1nabmZUfUnh+LSjoOt3J0=;
- b=Eoo1yxZ5kFZqzrxP2wnFSrVoxLhuIdCm/VH8WJTxN6UX2y6ny0UzoBSMuvvGlJYbMR
- xUqnQLQmw7QqcUBX1Mc2sjXOylCZMOBpnyA8QPKdYSPv2dmZHgcIIFR9wD44QkEcG8SY
- TNFOszTR085LiCBBweiSYZd8NePbbFtSUB/Sum/abs89rdsLQiulJyuSRubVrHCMsvzZ
- HEL9FysxFI5BRxDZaZsgJZR9U3oESw1Pu7khQdcHADiKH7wG+2AKHhgge5iOr514ZGf7
- UzQnjVAjbqlXQgC5PgNRsMk6nslodTENF43cuKaY9ZZMJcBiS3ZhfOQO4Q7bJY2zXLZo
- jcPA==
+ d=1e100.net; s=20260707; t=1792351605; x=1792956405;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=abSNPbr4DYdK0qk4yDwxN88lTWnE55zJDXdIxaDoNCE=;
+ b=M9P07GZstj7FpxUsUUj2HT/7Ky5guTswSN5txt7dOgfw+xIXS7EQhHppo5AAXM41LZ
+ lJiNOe6Ea/o7BOkdfnwKtdCyONHah8fXICgAvU+WRXULSN2qqdAPfYlnFNfXIYvy17UW
+ CWzf3yCwWDL2m7B5RKC9KbKm6ATiU9wehnhXYo1eBTkS1iBwdWt+fDQhNa9bM+ATl/Ud
+ uqbUBm7BF2Lm9dyQulk/zSAMZcwBtebAnJKDLhWIi6OhxDYdt8n5Ux/kQHzzS6sqFtra
+ EFaOGMifKx7jyJ2YdtH+POxche2BMs5bj0heJrEx+jsWIgnmgJeYMK+2awyJK8ek/RNe
+ 9SZw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzy1D/XFjiTMORtC0QSsx7Dl0b7hYh8pQ7n79ok6spNpDoiIHiSfTz4vvlTm1o4x3nJJKeiyT6+/Gw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIkFsA6EIJ0ErgE5yy/eZJDX6bPYGArd1BVnMU0rj1Lop9ELsXs
- dhlYFnC1z3VtqbV5wkrJWvR70KuE3XBcMtzGFRNi/TQH4Ux9dHRl6TAzVg1yhDX6/nZdyRmcfU3
- 8MslPoUfWPlKUD4G08czjmZAtLIY2fqY=
-X-Gm-Gg: AYBFou1NRjv0R/dx1ZtjD1rwrLpe8wlWCuMTpgKFEDv4ivQi/DuXzcofZAouWF5nHxU
- ESRRDnmqhJvUY2FlNOU972nCZOi260HsjwL7RhaBcTj2wKutrV7AVDBa1q8jSecoz5g8T5V9TdQ
- p/v6QL4dg5Wpir0NvQsOuzdffIAXVJrYmqJIlpZCjpTjzFVI+YGltsOsPstpo/JnUi/z7Ah6syr
- mTmSYzAhpytPcKQQE+d2Go+YFln2lhYsnpPVq2rpO/Kvxl9h8iHZ3+KGtgUf9PBdhj6u2Paf7lS
- bqP8uTWmjQg1w45G+HQe/ReTPgwvLPrZqxrqDNTtpWJRLCZZxaD65NmRXz7ylTZpHH4IL1D8SLL
- Ec+olVNIIWLxtkA==
-X-Received: by 2002:a05:6820:808:b0:6f7:384:a09a with SMTP id
- 006d021491bc7-7035597fbdbmr6886581eaf.24.1792473035202; Mon, 19 Oct 2026
- 22:10:35 -0700 (PDT)
+ AKwUvBxIcRIqgwvPh7pIwHBMp8t9fE09ywxfoCHCTQ+/WpfE0+UYlKpL/I8HKtyCmV6mhKH8PMUflEJ54Uw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLET6atMsadsymPv/KvrV+ImQSbjB/15rD2++TAz9JVOdnRIUfh
+ asng5o8FphTZThEx+g/0Rr/wL8JGK/+JxwoUojzZnsB/4OWRI5sfpmTV
+X-Gm-Gg: AYBFou1bMZ9F43paJImFv3g4cP9wbduRx0SXo3SI1Jv/NdKYbmafECl8HpFgCU8wXdx
+ koFF42mhITntm7hTgG6odZgK13hmuYbepWkJy5Oj0ZkUxwDbHbpWDuuyOcxArPzr6xl5xFXOzda
+ e4EUZvgpuuuMGKjQry0XjZA+aGeczTOBTU5KDQBBl8p2GiqkMoTIgq7vbuzDtmCJNIWFZBdB/QR
+ BthhTMa9cWDa2GIV0HH4VtnsBZPTKdWEslLgesl/AzMK+ynyXnS9ZXoka1YgkmaqqUnKX8+IVMt
+ hQ1kZjHvU1SyGwDY0E84ltR6q0FIHg5jCy40DPEZT9AWwRFrUxRVa7PgawdW/nPHM8C+kEvYliY
+ OZqUK9j4X2ft9/tgWc6z0h2qC5IIpc9z8zTmuV1iWgBwQnk9Nt+hw7Hp0zT5majq5ETTwbjNSZW
+ P5BE9CO2B1E1w5ELm0R0RKgJ650El0J0cSxwhWtPjCB9YwC+ax00mmoI6+O42hR6YmlpNamN0R5
+ 5pFKhSIb4IO29KaWqlXqRI2yngEwVYox8EPvCkQf+K2ZfDo9dUemV9lMcIgRrMksg==
+X-Received: by 2002:a05:701b:4211:10b0:143:50a0:56be with SMTP id
+ a92af1059eb24-185119e3ac5mr9113455c88.14.1792351604945; 
+ Sun, 18 Oct 2026 12:26:44 -0700 (PDT)
+Received: from lord.bigscale.net ([170.246.211.117])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-18319d3b880sm21618945c88.10.2026.10.18.12.26.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Oct 2026 12:26:43 -0700 (PDT)
+From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+To: Navon John Lukose <navonjohnlukose@gmail.com>
+Cc: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/xe: Map Wa_22016122933 buffers WC on the CPU side
+Date: Sun, 18 Oct 2026 16:16:16 -0300
+Message-ID: <20261018192639.97118-1-talesam@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261003222145.67240-1-navonjohnlukose@gmail.com>
+References: <20261003222145.67240-1-navonjohnlukose@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261012064334.3193085-1-thnkslprpt@gmail.com>
- <e22eadd0ada0c8243cfdf7829580984fdf897498@intel.com>
-In-Reply-To: <e22eadd0ada0c8243cfdf7829580984fdf897498@intel.com>
-From: Avi Weiss <thnkslprpt@gmail.com>
-Date: Tue, 20 Oct 2026 08:10:23 +0300
-X-Gm-Features: AclHuK-p2nWNOpMkyd_0WG7nPltm1YYmadXikekJFIF4kF3fWw5LAI-0mOwxIIM
-Message-ID: <CAKOB7-Y0GTen0gYm-m4ixg8RjHuqEHsNgRTM4s3SbLg5J=vM3Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: hdmi: free EDID on connector update failure
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, dri-devel@lists.freedesktop.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Oct 2026 07:36:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,61 +89,58 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	FROM_LOCAL_NOVOWEL,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Jani,
-This complicates the if (!drm_edid) a bit further down, so might not
-be worth it.
-What do you think? Leave it, or should I try to rework it?
-Cheers,
-Avi
+On Sun, Oct 04, 2026 at 03:51:45AM +0530, Navon John Lukose wrote:
+> xe implements Wa_22016122933 by mapping the media GT's GuC-shared
+> buffers uncached on the CPU side. i915 maps the same buffers WC on the
+> CPU and UC on the GPU.
 
+Thanks for catching this, and sorry for the regression.
 
-On Mon, 19 Oct 2026 at 16:38, Jani Nikula <jani.nikula@intel.com> wrote:
->
-> On Mon, 12 Oct 2026, Avi Weiss <thnkslprpt@gmail.com> wrote:
-> > If drm_edid_connector_update() fails, hdmi_get_modes() returns
-> > without freeing the EDID allocated by drm_edid_read_ddc(). It's
-> > an unlikely error path but nevertheless possible and should be
-> > cleaned up fully.
-> >
-> > Free the EDID before returning, while keeping the existing return
-> > value of 0.
-> >
-> > Fixes: f6e4f57fd90dc ("drm/exynos: hdmi: convert to struct drm_edid")
-> > Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-> > ---
-> >  drivers/gpu/drm/exynos/exynos_hdmi.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
-> > index d4fce39c2b61..386557a7f5e8 100644
-> > --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
-> > +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
-> > @@ -893,8 +893,10 @@ static int hdmi_get_modes(struct drm_connector *connector)
-> >       drm_edid = drm_edid_read_ddc(connector, hdata->ddc_adpt);
-> >
-> >       ret = drm_edid_connector_update(connector, drm_edid);
->
-> You could just move the drm_edid_free() call here to avoid duplicating
-> it.
->
-> > -     if (ret)
-> > +     if (ret) {
-> > +             drm_edid_free(drm_edid);
-> >               return 0;
-> > +     }
-> >
-> >       cec_notifier_set_phys_addr(hdata->notifier, info->source_physical_address);
-> >
-> >
-> > base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
->
-> --
-> Jani Nikula, Intel
+I reviewed it against 7.2.11. The GGTT PTEs still key their cache mode
+off XE_BO_FLAG_NEEDS_UC alone (both encode paths in xe_ggtt.c), so the
+GPU side stays XE_CACHE_NONE as the workaround needs. Every user of
+xe_guc_bo_wa_flags() picks up FORCE_WC: ADS, CTB, GuC log, SLPC and
+engine activity. The only other internal NEEDS_UC user that touches the
+GuC, the UM queue BO in xe_guc_ads.c, predates the workaround and is
+left alone. CPU reads through WC still bypass the cache, so the stale
+G2H reads the workaround is about cannot come back.
+
+Tested on a second ARL-H 7d51 (GuC 70.53.0), on 7.2.11 carrying
+63360b32, fc668a6e and d5b0bf3f, with only xe.ko rebuilt with this
+patch.
+
+Probe, dmesg "GT0: Using GuC firmware" to "Initialized xe":
+  d5b0bf3f only:   3.56, 3.49, 3.52 s
+  with this patch: 0.37 s
+
+Resume from s2idle, wake ("ACPI: EC: interrupt unblocked") to
+"PM: suspend exit":
+  d5b0bf3f only:   2.43, 2.92, 2.97, 2.58, 2.93 s
+                   (xe done after 2.28-2.83 s)
+  with this patch: 0.39 s (37 s asleep), 0.40 s (386 s asleep)
+                   (xe done after 0.11 s both times)
+
+20 minutes of VA-API decode, two decoders in parallel on 4K 10-bit HEVC
+clips (528 decodes): no TLB invalidation timeouts, no late acks, no job
+timeouts, no GT resets. I did not disable C-states for that run.
+
+Over the same session I got one media GT "not started" job timeout in a
+browser, recovered by a GT reset. It is the same thing I already see
+without this patch (four devcoredumps since October 7 on the UC
+version, all with the LRC tail in memory still equal to the head), so
+it looks unrelated to this patch. I have reported it separately in
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678.
+
+Reviewed-by: Tales A. Mendonça <talesam@gmail.com>
+Tested-by: Tales A. Mendonça <talesam@gmail.com>
+
+Thanks,
+Tales
