@@ -4,75 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D831CCF2C9
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 22:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86BACCCA490
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 22:39:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38B1210E0AD;
-	Sun, 18 Oct 2026 22:17:40 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAB7110E733
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 22:17:33 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4a1dede3c2cso14169495e9.2
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 15:17:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3C1210E735;
+	Sun, 18 Oct 2026 22:39:20 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F18710E150
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 22:39:14 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a1ddc7c9beso5443395e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 15:39:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792361852; x=1792966652; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=nAF9oPetXs/1/u0SmZXy5Zxa0XcvT5gTByOb4pwMeyU=;
- b=smOCMKQDuT9GcEFxymY7CScgRobn9xjBp5CO4u5+LedLxqe7F30zB0t2E3p0nwtg6T
- VZUxFb+30ERgvtz33XMt2S1tD8PGR0KtBccDZ0ELDpIqWrDfnf1DfnYNGlDy8aWaNI2j
- uLtmwuV7Si8l9k8giC6I5smJqTnUlxgCSlWO5g3b9k99wjVx/JiNrFavlI4QTqtPCCqr
- HbOMAOq5t9Cde7HCOnNumU86Q2Fr0W/8sZ1elMJnB/M60Qepi0iIrnyuN6WEETqMAiOu
- qyy5nEh07/uwWKn0dwSp7qIbBVd4zO0mm0yz6xg7XCcycjYNJXDrHTK2aATPd3zKoKK0
- YrPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792361852; x=1792966652;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1792363152; x=1792967952; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=nAF9oPetXs/1/u0SmZXy5Zxa0XcvT5gTByOb4pwMeyU=;
- b=JnvqYp7wTkFGzH8pWMTpES3ozqIQ7zRB1A4vOJbJZCh6Houh9n4HgUsUIwOM0cRJo9
- fxBrvBTZFOhKhTdWlmSMdeB+NJLUvtb2qWZZjRMCxNmFx/jzxs4oyrFRnQQqQlThs+gd
- m2iRSrKJQsl7wLJgLpJ7gC/TAau+c4kBldKhfJUf/eNaXhF7zUGL0uyI7ehbL1z2Q1uO
- Mevgu2FZYJ/b27LOs8tJ8zRlbyAFkwMl0Cy0KFJPmYNtAgdp1VmEdUlYfY8VWZkHp8Uu
- zxocVNlTQUMPe9n3DqqfGvz85eYaYqS+kw2gMl4f4F6pAaJWvqD/fiOek4shzEYQBSIa
- h7UQ==
+ bh=CvsLpFGelrgwN9Cl66Kd9LpNf+fNDOOYoQY8p06psOA=;
+ b=Gm1uKLYU6uYqMSTHZ3gUazu+HDDesRttFMWQ/RpdK3CPWAHUD6JOBEsNki7Nf0zdPQ
+ dVcNcUxl+Vcj9DDLAYzhUrnFxjdg4IlH5EgkBhpZC3coL6ymyyRegHHH51ES4C9jqN3D
+ n/4L6s3TP2scwOEQc2XxohO0MhjeyUOFeKn1Oo8ZdKWiMM93Ttxl6juKjLzuJbLrWsY0
+ MUyQ36Wr50L5mOS9zgZyQQPzlb2q6MhhnHEmXPA9nEqK86wZ+PGoBi2i8wC44xyLZU48
+ EwyfRDHon/68kzfwpO4CBDpQpu78mRZkhFj41cqaOuaKqLfOk1MO2lepPgErfZZOdupB
+ askg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792363152; x=1792967952;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=CvsLpFGelrgwN9Cl66Kd9LpNf+fNDOOYoQY8p06psOA=;
+ b=D/4B0h5mAHybUt9rskoaG+x/iPZEBq2X6HF+zFB3Kybj/Iu0GwDB0+AXUotnwrkk9I
+ zT4g6Nsw2QN3A6aNuh4bU4smYxdsD2MAF8PgK2Pas/aeDjiGN7ps64m4ICGlNo6SJ/dO
+ JvgKdmdSsnYk46GAaLm8DlBQR+R99GfphAblkX4bN3ATpdvT64zvJX0BNaepGVA2RpMs
+ cJqXbYv71q5PKlaIwChZldUTVHD1upN+GD8NhHX9ECUhcD9T+HovNnaUFJP1lt2kOWgF
+ j10Dz0Ael65YBrhQHIjA2M9qqtJqIAauazPoBjR7siVnFS4eo1YjJBW6nagmgrKrfwsH
+ VEmQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByNUV+dHIb6UMnZE8Cp/RyAAEKoapgwBO97UEBrlwuFzSveh8MVlnWYNucHvT+1ha6D7CtjahKT6Ec=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLeoNZlhVLM4CggjmzM4+Sd6r/6/vOYhEZXIOl9BznEz2DtqVov
- qQRG1dNzSA69QUpM9p31k/KksDoJ0RjOJRj/ThobnS04nzOEjuMBc4li
-X-Gm-Gg: AYBFou1sVuDcZSKNg4NL+WBsI/3PYiEdY1KbslODDP2xGJ0lrQqxMcqQPQz44QAGLLd
- VVFT7Ox4jtsSzRSIIY2C/5NQwpaUIbrk7oIweI3lyflAekYfedm2/SGN5itv7oKxlOpbXWY7L++
- OyffkI7uZ0577CpJ9RmKOAoEXI2AsGCn0hmBFqRbPix3nzOCuTFYcsx8pJs1Z9npRB51Fu4JLau
- ReH0c0M3wMyvzTWq72jBaMCAVRTXdsDngiuuTXck+MdItpqzxgmKz9Y3Ja1BdksfWA6/8QP2vt1
- WZEL8nQzweYCyoIMCC3FIOXe8UaTVBW1Dw0hDHuTfCjI2GnUK1dKzU+lBnHxkmchBetI1kRkyhv
- kvw9lkmvdbZKchWY4a0gFZfG1z9DS5+Q92VbIl75vQ5ug/tflSGeQyND2r7R6la6qsbErOF5DRH
- gD/dFNgLBTLSafb+BvB7Yv/3vb6utL6rWIZNLMwjqf6OtkjSnosJIajN+4fC3YxNEqaz7bQ17Hw
- 4e+kFlOaU/lRHMV8/+vpOITehpTPiifiW9VDUyvZB1pScUXQauxX2Dc8ztLlzWU5W9xnA==
-X-Received: by 2002:a05:600c:8219:b0:4a1:85d9:13be with SMTP id
- 5b1f17b1804b1-4a1d76031bfmr129943605e9.20.1792361851851; 
- Sun, 18 Oct 2026 15:17:31 -0700 (PDT)
+ AKwUvBy8TkXPOW8R61HWEYBxOGltyt3EUMj/dBTiHw2kdgAq0Vr/LXgeWufO3KU1ydYZ7PnoPKnJXxlk3Mg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ5frLJ8yusN4ofPbe33iUKPMWtywVuWtTTQA9JH6CwASh8KN8l
+ Ze/pS+8IGhKffLD6kfc5zTuF1Len3J/YUwz5uN5pq7gyVjL1JE+m/NU/
+X-Gm-Gg: AYBFou1OlALxjdd99YfQXpvm3iedIGoTt3oanFhF+emLNwkJuq4bNP4zkjTrSLaGlp9
+ T+5LTimx1CfJOFqU9YgjQtI4Bl8g1cgaQxdXUzyAr6PBbqTXmdC169dszwNV2gnejcsUlYZw0Qy
+ 81D4WimkMKLX4Da/myNcufu4UZH4wNsB71QKLHTGy6WC9pJFbWEIoGLj7UomKEOS8lAdvAnl/7x
+ mGcVIFnLez76mspv6NmCFasaMbMSbQicw7a4yV/ARuhsMYG2WCfneYJBd1Uo8ySUOVAstjbAyJa
+ s70yyJPKTNJ1AMgwyg91KNR8b70q6/6ice6qprM8q31bW1Q+/Vvk9VV+DeHQZsiQ4yfhVO+DqI7
+ km8P7UNxqwPtULvUR6V/bt3G1KltQm+mtGsGj3+rC/WBzdSvZbM+hNTCR0YnMWKV3xAhHriXlmr
+ H9lSYdiyK+itud7ORG7G/nLCIW+8qZIYtVbFMlbcYTmr2mcbgdI1/z0eQyaOAYsj0oE6Bxcnb1W
+ LzpX9H+C1Usz9HZMkpOEnJztWvkWF+aXRfxoD90E0FOcBkXCsISW3fYypGUn0k4Qn1OPBg=
+X-Received: by 2002:a05:600c:8b22:b0:4a0:1c17:4fb2 with SMTP id
+ 5b1f17b1804b1-4a1d760d9fcmr130723785e9.31.1792363152485; 
+ Sun, 18 Oct 2026 15:39:12 -0700 (PDT)
 Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1d85f92d9sm155398425e9.4.2026.10.18.15.17.29
+ ffacd0b85a97d-48dfd471a1fsm16359363f8f.3.2026.10.18.15.39.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Oct 2026 15:17:31 -0700 (PDT)
+ Sun, 18 Oct 2026 15:39:11 -0700 (PDT)
 From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] drm/amd/display: set allow_freesync before validating a new
- stream
-Date: Mon, 19 Oct 2026 03:17:26 +0500
-Message-ID: <20261018221726.27259-1-mikhail.v.gavrilov@gmail.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ George Zhang <george.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+Subject: Re: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption
+ on DCN32 at 120 Hz since a637a140ab86
+Date: Mon, 19 Oct 2026 03:39:05 +0500
+Message-ID: <20261018223905.32324-1-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261011201833.853907-1-mikhail.v.gavrilov@gmail.com>
+References: <20261011201833.853907-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,60 +93,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-After resume from S3, DC enables SubVP on a single FreeSync display at
-a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
-meant to keep SubVP off that configuration ("For single display cases,
-freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
-at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
-after boot and enabled after "rtcwake -m mem", and the memory clock
-starts switching.  It stays that way until a later commit re-validates
-the state; a CRTC gamma change (toggling Night Light) turns SubVP off
-again.
+The workaround from my previous mail does not survive a suspend.  After
+resume from S3 the band was back (seen, not measured) with the TV still
+in FreeSync mode, because DC had turned SubVP back on.
 
-The policy reads dc_stream_state::allow_freesync while the new state
-is validated, but amdgpu_dm sets that field only in
-amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
-the commit.  A stream created by a modeset is therefore validated as
-if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
-streams and forces a modeset, so the resumed state is validated
-without FreeSync.
+Snapshots of amdgpu_dm_capabilities, pp_dpm_mclk and the DTN log, all
+at 3840x2160@120 with FreeSync enabled (vrr_range 40-120, the EDID
+byte-identical in every snapshot):
 
-Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
-atomic check calls for every active CRTC and which already writes
-ignore_msa_timing_param to the stream.  It uses vrr_supported, the
-condition the flip-time value is derived from.  With this change the
-same TV keeps SubVP disabled across "rtcwake -m mem".
+  after boot                    sub-viewport disabled, UCLK at 1249 MHz
+  20 s after rtcwake -m mem     sub-viewport enabled, UCLK switching,
+                                watermark set A at the register maximum
+  after toggling Night Light    sub-viewport disabled again
 
-On this machine SubVP is also what exposes the single-frame scanout
-corruption reported in the thread linked below, so the FreeSync
-setting stopped working as a workaround after every suspend.
+dcn32_allow_subvp_high_refresh_rate() keeps SubVP off a single FreeSync
+display by reading stream->allow_freesync, but amdgpu_dm sets that
+field only on the first flip after a commit, so the modeset forced on
+resume is validated without it.  A gamma change makes DC validate the
+state again, this time with the field set.  The patch:
 
-Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
-Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
- 1 file changed, 8 insertions(+)
+  https://lore.kernel.org/all/20261018221726.27259-1-mikhail.v.gavrilov@gmail.com/
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 7e484adb4120..f26dd206dffa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -128,6 +128,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- 					vrefresh >= aconnector->min_vfreq &&
- 					vrefresh <= aconnector->max_vfreq;
- 
-+	/*
-+	 * DC reads allow_freesync while validating the new state, for example
-+	 * to keep SubVP off a single FreeSync display, but it is otherwise set
-+	 * only on the first flip after the commit.  Set it here, so that a
-+	 * stream created by this commit is not validated without it.
-+	 */
-+	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
-+
- 	if (new_crtc_state->vrr_supported) {
- 		new_crtc_state->stream->ignore_msa_timing_param = true;
- 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
+With it, SubVP stays disabled across rtcwake -m mem.  Until it is
+merged, toggling Night Light after resume restores the workaround.
+
+None of this changes the band itself: in HDMI VRR mode, and at 100 Hz
+in either mode, DC uses SubVP anyway.
+
 -- 
-2.56.0
-
+Thanks,
+Mikhail
