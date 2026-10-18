@@ -4,40 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 520A6CCF2C4
-	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 16:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67B3BCCF2C9
+	for <dri-devel@archiver.kernel.org>; Sun, 18 Oct 2026 16:26:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 865F210E0E4;
-	Sun, 18 Oct 2026 16:09:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21FE710E4C7
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 16:08:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D015443279;
- Sun, 18 Oct 2026 16:08:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 890B91F000C4;
- Sun, 18 Oct 2026 16:08:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792339738;
- bh=0r8vbtwlfXTem3JjhBW9EI2vnrW/sgOSTEcjtiyJgas=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HyCKzJVcIvN22h5j9xvRPNGCRHPiG6MsxXtgvkNwWxYkSMGodYdaQBqNyTi6eYmxu
- 4BJYFylx+W4pa/lvcbsQz9tTHqn2I0YHUBanesYGGYc9aVm8PVoHKxKFHTSzoiBOFJ
- ZzlvqQqQQcT7XBC1HAqfr9wD6w41mBzudh2e1jGWTCnsFGk8MItdjS1jf6AfIczTVN
- L7J1En5y/eLNpBWIfT3nqd3gUwal5uAPPV0PdAXQNIlF+7zIVoSyBZASizY4q+XW2q
- UwXRBKapu0wVuyU+oPVvslgoFmz16lXvPhFzaf+SgNSVGcR3y3I6plBM/aHWV1zgpa
- +P0u58j0QW5pQ==
-Message-ID: <sashiko-outbox-176261@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: keep vblank enabled when entering self
- refresh
-To: =?utf-8?b?UmFtw7NuIEplc8O6cyBNaXJhbmRh?= <ramonjesusmiranda@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261018155423.1299629-1-ramonjesusmiranda@gmail.com>
-References: <20261018155423.1299629-1-ramonjesusmiranda@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 18 Oct 2026 16:08:58 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id C12A510E12B;
+	Sun, 18 Oct 2026 16:26:32 +0000 (UTC)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63F6210E12B
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 16:26:26 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-3acd21ba21aso1074196a91.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 09:26:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792340786; x=1792945586; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=r4CcxdQ2oJybJSNbjjXimwSvVRvmuOa37brscnwQTP4=;
+ b=GUTkppTB9rW7OIbVun8syKkSW78mpFnh4bcaL7kZd7XVTaDWuwBBeO61msjvexoOXf
+ fzMl4lfA3Xjd42vXnzH2wcYrLO4QSAhVqL4lm8Hkxh8mo1QaRbPBmOYmZQVflysV23a1
+ 5hz72qiDETcfGxR63jMfIfYuVosxuWGcVhrl2mz1CWGXXtvLMdFXcfKZCXJ5/igHvepc
+ Z/+g/cSIwXz01Fay7BaX70b9RGtDJuC1Ig8jbkf7ZzWvGbKBZsw9KNw+MmstvFVSAiJc
+ FjMLuhBW6SC7oymw+FcHJVeCFkjcAXibkb/Rbci8xV+mcUPIzOJSGtSk0/Ac2nsApG7m
+ LdPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792340786; x=1792945586;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=r4CcxdQ2oJybJSNbjjXimwSvVRvmuOa37brscnwQTP4=;
+ b=BkzBSIa60vkmbhqLUfXUX5bWYZRd95QoIfDVEnMKUN89TRHVvZtyZhI6F3RlkAQCxL
+ EwGKF9L1Gdm1sIM4HW5HpwkTnxzzgwzlNnODkb5v1BWkE53T6ZlRRdiE4OP5llEqSTs8
+ Jeqz6ubdDzQjgp4x0M/crIqWT5shhEc8/IhOgWkYul2SPhZ+gBas4UR3J2rzDK08KzdC
+ A7OtxsHoP6m/NLHHTGB/RKcD3vOGZp5ObgDHD0J9F7xIvFSzy6cyN3khxcaiF+HMOjm+
+ zRMfhC/tKYyvAtlo9t6pPnj9reSOmqTmgAOUQLSkBmyI6X2VbNlBkfWXrlIlyTxB1uPI
+ XEqg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw5LIDFk2sqsPMnOitp6um63tbDR2qeI3/dnoyxNHRuSYQ16bGxSZyQP96l4KxNUhanxMIWzHYpMxY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJLJBIWjM/xxXFBLAeW97KcUZVXY5f65UnhXT6oeHvopOLTF0v9
+ CmRh993uXnTv0P81Je9m6g4ktpqkJAmPowahxIgOBR62nZLy32i1Fsyt
+X-Gm-Gg: AYBFou1fsdK1hHm0MZ734TGJBbtj2Q9HprlSYD8cuBRLC22UdDzCrzzMZgtCikpj2kP
+ IFgm0pOSf/uy42fxcMDUZTDSESAWKQXaIc91QB/PuLZLtyRz33dEh02rvAsboRyNZOr0dwg5PHY
+ TQPsyJ8CWDP5DgdcabPq65VGR8uzsZrrBr0lhXiP1PluT7lyf28gCRjJzRKAZ7/gPuoWUWATweT
+ 4ynqtw+5TSMy0MuAvq6pjeapOH/zwcNs01IomqGsA5G46LZSfAOUTVA9emoiqGpMTZ/O3Vm2Crg
+ kud7I39vpHK8pU/8m4or953r1bthmRO2Xb6L1dxFJk4b5zIm7lwU8nxUGFyjNB7M4Bz7a0bbbDX
+ VFiOZLUeRw8jj4M1d2evqq9BrMch8qRROaH+IrHJ7O/QCkhSxZZob3AMu0CEffCC/Nj8DmUXfqA
+ SHBlBoQ/UNHPwCqKYS1/yL8SeLL1J9elWNu0kl9uPhV4INhqX88QAmjqQC5d7obNkilT45CunpD
+ LyKwofYv1hr
+X-Received: by 2002:a17:90a:da87:b0:3ab:36c4:b502 with SMTP id
+ 98e67ed59e1d1-3acef19656fmr4952624a91.30.1792340785847; 
+ Sun, 18 Oct 2026 09:26:25 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3acc43a1981sm12210945a91.2.2026.10.18.09.26.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Oct 2026 09:26:25 -0700 (PDT)
+Date: Sun, 18 Oct 2026 09:26:22 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rudolf Marek <r.marek@assembler.cz>, Andi Shyti <andi.shyti@kernel.org>,
+ Chris Snook <chris.snook@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>,
+ Yehezkel Bernat <YehezkelShB@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>,
+ Chas Williams <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] hwmon: Replace __MODULE_STRING() with __stringify()
+Message-ID: <49d1de69-ffce-490f-bbee-80513cfd0cba@roeck-us.net>
+References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
+ <20261002-module-string-v2-1-fc7438acaf4d@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-module-string-v2-1-fc7438acaf4d@suse.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,139 +115,22 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/msm/dpu: missing drm_crtc_vblank_off() in dpu_crtc_disable() f=
-rom PSR
-- [High] drm/msm/dpu: keeping vblank on in dpu_crtc_disable() causes uncloc=
-ked MMIO
---
+On Fri, Oct 02, 2026 at 10:31:01AM +0200, Petr Pavlu wrote:
+> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+> MODULE_PARM support for older modules" [1] in 2002-12. That change also
+> moved it to the graveyard section at the end of linux/module.h
+> 
+> Replace the remaining uses of __MODULE_STRING() with __stringify() in
+> preparation for its removal.
+> 
+> Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
+> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
 
-commit 520cd497636d4c5f54127317e7ab1594f34dcf4a
-Author: Ram=C3=B3n Jes=C3=BAs Miranda <ramonjesusmiranda@gmail.com>
+Applied.
 
-drm/msm/dpu: keep vblank enabled when entering self refresh
-
-This commit skips calling drm_crtc_vblank_off() in dpu_crtc_disable() when
-entering self-refresh so that vblank remains enabled and avoids the warning=
- in
-drm_atomic_helper_commit_crtc_disable().
-
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/m=
-sm/disp/dpu1/dpu_crtc.c
-> index 77a2d1f6700d0..eedcd21b936c2 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1212,8 +1212,13 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
->  		return;
->  	}
-> =20
-> -	/* Disable/save vblank irq handling */
-> -	drm_crtc_vblank_off(crtc);
-> +	/*
-> +	 * Disable/save vblank irq handling, unless we are entering self
-> +	 * refresh: the DRM core expects vblank to stay enabled then and
-> +	 * warns ("driver disabled vblank in self-refresh") otherwise.
-> +	 */
-> +	if (!crtc->state->self_refresh_active)
-> +		drm_crtc_vblank_off(crtc);
-
-[Severity: High]
-What happens if the CRTC is later disabled while it is in self-refresh mode
-(for example via DPMS off, blanking, modeset, or system suspend, where
-old_crtc_state->self_refresh_active is true and
-new_crtc_state->self_refresh_active is false)?
-
-Earlier in dpu_crtc_disable(), the old_crtc_state->self_refresh_active bran=
-ch
-detaches the encoder and returns early:
-
-drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:dpu_crtc_disable()
-	if (old_crtc_state->self_refresh_active) {
-		drm_for_each_encoder_mask(encoder, crtc->dev,
-					old_crtc_state->encoder_mask) {
-			dpu_encoder_assign_crtc(encoder, NULL);
-		}
-		return;
-	}
-
-Because drm_crtc_vblank_off(crtc) was skipped when entering self-refresh and
-the subsequent disable returns early without calling drm_crtc_vblank_off(cr=
-tc)
-either, won't drm_atomic_helper_commit_crtc_disable() see
-drm_crtc_vblank_get(crtc) return 0 instead of -EINVAL and trigger:
-
-	WARN_ONCE(ret !=3D -EINVAL, "driver forgot to call drm_crtc_vblank_off()\n=
-");
-
-while leaving vblank enabled on the disabled CRTC after dpu_enc->crtc has b=
-een
-cleared to NULL? With the encoder detached, subsequent calls to
-dpu_crtc_get_vblank_counter() or dpu_crtc_get_scanout_position() will log
-"no encoder found for crtc", and dpu_encoder_toggle_vblank_for_crtc() will =
-no
-longer match dpu_enc->crtc =3D=3D crtc to disable the vblank IRQ or drop
-phys_enc->vblank_refcount.
-
-[Severity: High]
-Also, is it safe to leave DRM vblank enabled across self-refresh entry while
-the DPU encoder, CRTC, and clocks are powered down?
-
-When entering self-refresh, dpu_encoder_virt_atomic_disable() stops the tim=
-ing
-engine, disables encoder IRQs, and drops the encoder runtime PM reference v=
-ia
-_dpu_encoder_resource_disable(), and dpu_crtc_disable() drops the CRTC runt=
-ime
-PM reference via pm_runtime_put_sync(crtc->dev->dev).
-
-Because dpu_kms sets dev->vblank_disable_immediate =3D true, vblank->enable=
-d is
-false and vblank->refcount is 0 when the idle timer enters self-refresh. Wi=
-th
-drm_crtc_vblank_off(crtc) skipped here, drm_atomic_helper_commit_crtc_disab=
-le()
-immediately calls:
-
-	drm_crtc_vblank_get(crtc)
-	  -> drm_vblank_enable()
-	    -> msm_crtc_enable_vblank()
-	      -> vblank_ctrl_queue_work(priv, crtc, true)
-	drm_crtc_vblank_put(crtc)
-
-Since disable_immediate is set, drm_crtc_vblank_put() leaves vblank->enabled
-as true (waiting for a hardware vblank interrupt that cannot fire while the
-timing generator is stopped), and vblank_ctrl_worker runs asynchronously on
-priv->kms->wq without holding a runtime PM reference:
-
-	vblank_ctrl_worker()
-	  -> dpu_crtc_vblank(crtc, true)
-	    -> dpu_encoder_toggle_vblank_for_crtc()
-	      -> dpu_encoder_phys_vid_control_vblank_irq()
-	        -> dpu_core_irq_register_callback()
-	          -> dpu_hw_intr_enable_irq_locked()
-
-Once msm_atomic_commit_tail() finishes and drops the last runtime PM refere=
-nce
-in dpu_kms_disable_commit(), dpu_runtime_suspend() disables the DPU clocks.
-Can vblank_ctrl_worker (or userspace calling DRM_IOCTL_WAIT_VBLANK or
-DRM_IOCTL_CRTC_GET_SEQUENCE while in PSR) then perform unclocked MMIO writes
-in dpu_hw_intr_enable_irq_locked() and unclocked MMIO reads of INTF_LINE_CO=
-UNT
-in dpu_crtc_get_scanout_position() -> dpu_hw_intf_get_line_count(), while a=
-lso
-incrementing phys_enc->vblank_refcount on the disabled encoder?
-
-> =20
->  	drm_for_each_encoder_mask(encoder, crtc->dev,
->  				  old_crtc_state->encoder_mask) {
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261018155423.1299=
-629-1-ramonjesusmiranda@gmail.com?part=3D1
+Thanks,
+Guenter
