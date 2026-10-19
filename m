@@ -2,131 +2,109 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944D6606A327
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:13:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68964606A31F
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:16:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=N2iD3960
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=EVyJ6Hgd;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=NpcNJfgK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5B0610E907;
-	Mon, 19 Oct 2026 16:13:12 +0000 (UTC)
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020099.outbound.protection.outlook.com [52.101.195.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CBF610E907
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:13:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O9r+e9wI69I2waFmI1ddQ7gQFeJbzlBYkX31m09JBMXQMaidfD9Z8o3bKXPVNHCbnaKN3qTaMzbP0Gu6lb5+4nd1gtSo54tvcFaaGS0Pg0WPnx6Wc9P7nesovpQtq/FqPMC7rnj6ECJB4AUuSCTOvT4b8w7eb7kETxmeN9Ry1sN7w0Cl4tz1+MtrpNGtYL9pJ0sPg0dTgj/Lg8GCBwfd5cAys5EwEF9ziGJL+LcKnwRRDI2DF8Sa9fkFds6QgRsjezoKcC4koYiS0U9eygIk4KuWiY1q9jLBNRIGfZ+xQRR7aHh3dCkUXaSHa/kxXufWA+BKLgaqeAgbU7+SSml2hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9xHq6YTiiR3fqLM+iZfaW09pYscwJBUnSi7WkmQCZXI=;
- b=wxOD5/uwB19Aehvfrr7zxIB0JhmNYu08DtoTUZp/gijN78d9d1v0vXDMCyvbwULGNMsAzidUAon76KIBpCkH5gZuT8xoWCxE15xokzXJK0lcyXRWdeBvwYY2dUSvwk4jafjr+ZQNtFMbygZb5DUsRXcqnbJkK1oLPUsv7ODOP9XIL1ctZjaFvi4QO0lOUQAcxr/NbXZcLXGNVSWprhDewcn/Z6F8zqGcQyo3CYzdeRg9p1rOGery/v/NkEnNCffNebn6Rt1/yXEnP5NlbNWOFMTCbBmvqhnLlTRp5rd+8Ja27jGGSKHtUIizktoK8YYFgbBA2VECU4gFP/Xmq+DtAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9xHq6YTiiR3fqLM+iZfaW09pYscwJBUnSi7WkmQCZXI=;
- b=N2iD3960HViSVf82fD/CvlEXnHNUIAo5DUH4lnqumCLKbb9kkQ13gP6EyOYcE0NZXKjFrTBf514CYOKHC6vfZbyXmPZRaxL0uBYPGlhJl3mnZ56RgP8w7N52tk38PkBICOqufH2PM+vTPbWwP6iuODK4BZG1tQxFqmkKRGsa8/M=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LOEP265MB828591.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:501::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 16:13:02 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 16:13:02 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 17:13:01 +0100
-Message-Id: <DM8Y4G5JMZ64.9PYKH079V51H@garyguo.net>
-Cc: "M Henning" <mhenning@darkrefraction.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Benno
- Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v6 01/13] rust: auxiliary: let registration_data_with()
- closures return covariant sub-fields
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alistair Popple" <apopple@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, "nova-gpu" <nova-gpu@lists.linux.dev>
-X-Mailer: aerc 0.22.0
-References: <20260909064506.910162-1-apopple@nvidia.com>
- <20260909064506.910162-2-apopple@nvidia.com>
-In-Reply-To: <20260909064506.910162-2-apopple@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0211.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD4210F032;
+	Mon, 19 Oct 2026 16:16:28 +0000 (UTC)
+Received: from fhigh-b7-smtp.messagingengine.com
+ (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5037310EFE9
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:16:17 +0000 (UTC)
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 6F1297A00D7
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 12:16:16 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+ by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 12:16:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1792426569;
+ x=1792512969; bh=twMOlmT0yue23EXrb7yO8rXJi54Hb/dfyyQW5AH2AG8=; b=
+ EVyJ6HgdPMKC6/xmfmw41oqqUK1u/frW2CBaRMXMxMuY+4xGRtcvhDkfauDKa+Rw
+ TN/1IdBVxghQ2Mrl66pkIScht1HerkvW9F0mGq1Rz94NUXpn0XV+Plju8m1rTFgc
+ h33BcCxRHTuSLeHAima47rtWSOROgEOGgEkYNLlNSlry6s3zPk9epS35/TfAN2xK
+ XKzaKU+4cSypEoeD9wrvDbpsOc8L5q1Czyez7oIhFFTXLqZX0PG3YYv7dO7uMm2W
+ 8T++XKzsRlKAcJSV4v/oZLTVbvrcDBOinaOPhKGl+WyjlvWqD4mCioYk9bbiOfU1
+ XmSnbuXBbKcD5HN699CcjQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792426569; x=
+ 1792512969; bh=twMOlmT0yue23EXrb7yO8rXJi54Hb/dfyyQW5AH2AG8=; b=N
+ pcNJfgKpiGDU2DQd35qHaUjGpHlhD3L9AU5l04ha8sM1cEcJV135z7dDeTs6L6Md
+ gHU489aKgTkdGeO753RevBDPOaNa3bgGbq5D1qqzZCY6ECcdN8hd+mHlz1nS208X
+ Djlo1aPzJYynU5aTxNBCb47tGR8xbdZD0xum9BJcjeb4pBEPHJ7mTWyKmeqD3PUQ
+ 8VhDeaToQPTuPu+MCQqSPXg0Dc549+YFD97kBgK19Cr6QaKtQREOp24a4JEmRNGJ
+ OG/RqOLSlBGslnyJmd5J4i5RbCZyBmWUHlDgzgySD/lAEeKkyEzZ85fTh16E9MAP
+ 1OW4XbJWF4AfkMYWhDqrg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+ repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+ action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792426569; d=arndb.de; mf=PGFybmRAYXJuZGIuZGU+;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm1:rsa-sha256:hoOXlUTXAFK7fvsIwqb+CcFlQzUthYUM0T3E+p4aSIEJwHw
+ t5GnHvtI4RrnqyqdlDbdvvgA/anOVMAc50ONXV2L2pEsHnn8XPuCMc1q34GAAH+i
+ 63ZlL+q1br84XYvIHgKS8Xc6fjiVeONavhFz+PKYCte4WPsFIpKVx/gN3PYZbPcK
+ PvT6oZrYtzqn4Vep7qapQFAM7SQI+h9DvnlMhWURVBD4/iIPAQ25OCO0lUUgGUwv
+ /i/WBvXTde/NYYXmD/12moyvNVvxkd2wcWgMuOFxDbd9kcFQ+urs4gQhQXfFJAEA
+ OpeghhUifPsMYUdYe78fVEGUcF1CYaoJImFeTfw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+ repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+ action=mi-m=1; hc=12;
+ hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+ from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1;
+ h=sha256:VNN01YMeoBa5EVQZcUhpH3ntchpaAZTH7HsXvobRRs8=:He3NBNHj6wh7LN1DoAA+b7UitBww8Jtib5MHhm2r6KE=;
+X-ME-Sender: <xms:RELWaqUwoqf9zbQUn9Wv3_JUgctuFYyLX_dRi2joRRAwTXcPNQB_9g>
+ <xme:RELWahbIbeHvYMHkeD-ouRizEe7Ijw5FHQs1CsnU32g3ghUaOCBuVN7VBuO9wHMth
+ hstvP0CuejOj7k9O5YsjJ3V_oaibWE1qDLBuNtp-MVcUpetzuXeB0c>
+X-ME-Proxy-Cause: dmFkZTE/YABC/L3ImVGCsVMwCnE+rJ7lv+dsfJO2rPmmgoXH13hyWzswO/+2INr6Dds1sh
+ zhXBho3SOfk9G+qngnWHyX6GOpa34tm4UQ4FWBJ+iZEql0brIlMjtRlze901uO59SEmtOL
+ CNUCaJeYTctECI8ktFcbM6gHKx/AxKuUWkyMqodPbP1ckZ9K02Ej9svP6PgpQzzNipcAZ/
+ F8Pojc95eXinBUoI5ie+cNaLM3U4jJp4zPA/2HFX1uthTWUhZdiLEZ/D81t5mi45H7sj0n
+ 577RJmK4PS6+q3ZMVCPLMYp/G6Lt2kS1/Sa7037xFKn/b1r+B6t98FMgBfwBvlUqCNuppQ
+ S17Sk3+Fh4lUuMJ7eMDTjMHfNe9G4hyeozOgjELwxKS5ovIrSC3tqqFJyx3oifgenZOTIr
+ 8N53K4bWLub6aDBf52y08I+ahjbU4qnPC9kJmLaHxAzWn46ctIxgnH9JTwjQT/ZbgXfZwg
+ uOR1xUnMLMPA9IAkgnvFNUI0PTaQP5GvlSMQhzFtRZh6BL4GJ5UOM1qeH+rofgs1jvhaXY
+ 9D2cc/o+zEv+s0KDtRBr0CndQhIehHNrlqr9NTmH2VtOU6QSUBX0yUH1fWHnf2IHkVQDR3
+ U/Ke9kqtYb5IKTgSUziph4D0HrsrdktVa5NAfz8MjCfTlQTBz46ZFfYeXbCQ
+X-ME-Proxy: <xmx:RkLWaonu2AWyhmTBGWSgS_wyA8Uc3mtMoheCRzDMSCYsA5VfovfHeg>
+ <xmx:RkLWariZvrXWgaMY5tK9EGRfnOwleyN16x2IjyPjHXNYPEtbOq-T5Q>
+ <xmx:RkLWavQQWq0jpBPClH8lFz45vDkkc5J8rxbNkKe52pD6XmcyvVHDnQ>
+ <xmx:RkLWal-3BCSVCPrEsAU2g004lLbR_piXWpJimavNfF8brlr4xSsnSA>
+ <xmx:SULWaujNODSG_q5KW8LRGLjTAicq_4nusiuCaej-avpWoSTeKiP3JzCe>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+ id 18E6632A008F; Mon, 19 Oct 2026 12:16:04 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOEP265MB828591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bd1a282-f98e-451f-0d02-08df2dfbd99d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|23010399003|10070799003|1800799024|261009223027099003|10067099003|56012099006|6133799003|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info: 4o+Jvkuw9HawK+Nf7wZ2SyDfr71gg3TlnsFT0b1hblkgmCkp8bDXQeb5QgQNZrHscfZ+hR83oywuCOgsIQjol4cmN9etz3lDK04HxFXexw+7BL9Jn8xIBVJDYjYi7zMLNhCrAyto4QSw28DXWz47FsolWu7lBUjgedyvfSmKysqa3nLo6SDP0qE2xw6BZre2xEvMCLr5qECDobMW93WSSJc63HhxEiR40plziUts7GXGpqWzfcoQJ3TgiZ+APCdeOJ0eR1bgTn4wmRA/bWJUQKXjV2SvCGVY7x1l5EoFXOJrW8m2R7h02yolM19B2A4gohzkjdeI4/ZOUCmttvqC9IuHO1fhJRa3bdofrZvK+hVQRkHtys9yZlkiIFt4M05vnKx/9isjYgxM1UFhJs6VGxARH17vzSImHoJshkpDG9MjuQ5L9qFLkzaRG8E9pfNeZFiRW6AdtWxjBkxRLVYgNiQ7wiGOczRkVeLNlXfityes4Sx9zRzigqMtj6zBtFiAZsDvDuHdpKa0ygSjeq7vfDgdkzddEcGHZo0Sj2tvE5l2L1nBDs16c3jt3k71E5NavDhr5+qkftKNwpPj+cJwiKunUao0FXVwEJnZWgJxGQ7oFyOS2rFY19FlBUsu2h5p
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(23010399003)(10070799003)(1800799024)(261009223027099003)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(4143699003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1daWUJmaS9ndVhUUGkzaDdxanppZXFvNlMzMlFCTkRYRTRBT1BGRlRlL2ZJ?=
- =?utf-8?B?c2htbUtjNHNNcDFmK1M5M1NTR0lUMVpJd00vZXFHeUVHMHdYY3d3V2dBS2pj?=
- =?utf-8?B?d1p2L3hKT0k2bnVuaGxVdEY1eUt1VVpEWEFTS2R3Rk5NYWdSb0xValUvc3hE?=
- =?utf-8?B?cGp3V1NHSWJIeVY0UEdZejdEK29RUEJMNlF0dVNXYy9yRGU1cmdRY2FCNHQx?=
- =?utf-8?B?ZDZNb0R4S0hLV0tXT05ReVhYRHRQYm5SY3AyektFaDlDVVBobndGVnhGL0xY?=
- =?utf-8?B?aDJmWUpFR0U3N3ZTVWlKSUFZVFRCZnRRdmFUTzV4bGpZYXhVU1p5ZEhhOUZV?=
- =?utf-8?B?dHdSaFNmS0JLaXpFWDZ3MUpvYlB3aVhyc2ZRTlZSSkpUUlR3Y0xLYnlHcStO?=
- =?utf-8?B?UENQeEQxcEVJUmJGaDBEdFUyY1Q5YXpqM1VqT3E4VFlaMXR2TFEzOFdDa2xw?=
- =?utf-8?B?STJUcitZVkNJMjhhU0pnL29aeUJ6VDhDUDJOaWRlR3FkUzJGRyswUThWVGpy?=
- =?utf-8?B?SjhLT1BYK2daRjhLOEhLRGpROXdJSC9ZcXkwdWpnOHdDcUFaSW4ycUpHQzMr?=
- =?utf-8?B?bDU1SEVLYUVRd0FmcURjV2w2anZ1VTV4Y1pEN3J0eERSK3EwZGI0OU15cGZQ?=
- =?utf-8?B?a2lrSkY5YWZKU0d3bVF6R0N6T0o3V3o1T2lUV3gzaDE5MG9QeGFBMXdZbVh5?=
- =?utf-8?B?d2s5cm82Ym1xT0pxQml6UGhId1NCVUo1SkozbDNnem1nZFdKRzQvUXBRS0I3?=
- =?utf-8?B?UU93N0xFMHRkTkZKelVaVnhOaWViNko1ekdUUFBtSHdYNkQ3QlphaDBrdEI3?=
- =?utf-8?B?UHRDM1ZpcjZGa1dERVcvUS9NcG10SURkbmwwRER3UE1VelhmSnhGcGRwelBk?=
- =?utf-8?B?dnRFekErL0pKamJuZDJTcCtDWlN6YmpIK01sYjIyWmZTZlNPd0Z3QzFJV29k?=
- =?utf-8?B?blVpc1ZyRUozYWNzY2JuU0pZYUV2V0d3ektCaWV0Ykl6RGN2bHNpZ0plK0tq?=
- =?utf-8?B?NSt2Y2o4RGRMUlVUd2sySnc5NmVoK1Z2NDJIRE1vamVUcEs3ME5rM2I2Ukcv?=
- =?utf-8?B?bS9sd2w4NE1ndlBmNzJLck91TEwrS0J4WWM2WDEya3c4Y0drY0MrWnlTWXVm?=
- =?utf-8?B?Tkwrc2xjeDRMRXhIaEZMSTFJc3B1RnN5b2V4STFvVDhSaExGUXFMcGJXeUtO?=
- =?utf-8?B?YmhBeDJsazI3SXA2N3BidVpIRk9qTVlkMDFCU0lBYmplTEJTdzI5aVY4SFgy?=
- =?utf-8?B?RnlUY3JDcHV1cUpwTnhJRUFWZjFSQVRaekJ3ZkNBeDdtZWxvYTY5TnBhcEp6?=
- =?utf-8?B?MVF2UzVleCtxclpEOStGUlJSTjNXWURRb0hsL3owNUQrMjBYUis5QjR6LzlG?=
- =?utf-8?B?c0tqaDhWSHh4UTFWbzJ5TGNmTFBGNGNQNWN4SEVwZTJmcFpvUncvQStqUEVE?=
- =?utf-8?B?ZzE3WGljZ0kyY0FOK1I4RXpnYThVS2QrYlp5OXd0OWg1aGRibzE1WW45dXQx?=
- =?utf-8?B?UzVtUTFqSDUwWDJsNnAwTjZzVVlBRWVOZXNDTmJGTXppRTRzQnNyVmJVSFZC?=
- =?utf-8?B?SnFzQmNsL0YyUVJFQ2NQa093blhKTVdubVNDVkljTzUwT3lwclhrZUxqeUt6?=
- =?utf-8?B?eXBHYXhEUnkwcGVOY1hvQkF1TWp0RklyOFY3UFdMRXRBUGkwVGpzRzlaVG9w?=
- =?utf-8?B?MW5WbmtUK2lmb2tGaGVyQzFDQTg5a2w5VnphcytPUnhlT3JmazdGeE0zUEJZ?=
- =?utf-8?B?ZHBXN05ha3Fyd08ydkFCM2VscFZBTGJtaTVLYlNKRjRvcmhrNnpSTzBKM1lw?=
- =?utf-8?B?ZzB2ZUo3QW8zeTFHZ3M2a3EyY2pwcTFMY0IxdVJZME9WWm4rcDN5NllxQ0FG?=
- =?utf-8?B?SzR3NS9JOGVGdFRsWVdOYXVPa241V2ovZ3ppSEhQcDNoZEEzWnNIQkQydVBC?=
- =?utf-8?B?TDN3SHlMaW04V2tRcS85VmovSmNxci9hQWtVRWwwU2J0YUxTeFBJSXd0Sk1W?=
- =?utf-8?B?S293ck04YlVGWFZ4b0VoTXJYSi9yOTFTSlNQalpua0lVZmY5Zit4cHY0UFhS?=
- =?utf-8?B?V0tsRU9UdFdEVUE1SHJOWjM1MmdrUk52cFZxS3g2aWZmM2VZRnF6aW0yMU1q?=
- =?utf-8?B?bkxSOVFnbSs1UFBiUjVDVzArV1l3bUFQckRmZnRuNXZ1YTFnbDRSZlJiaDU5?=
- =?utf-8?B?VEVwYUZXL2VKNkJlM2s0WGRHTXZ2RzlLM05VVlY1Tm55MVhzbkpHTllhYndV?=
- =?utf-8?B?OWJ3ZmxoYTM3enpXNTFGNXArSkhwK0IyOVdGWWdJS0ZsNHA3aHVUWlltNmh3?=
- =?utf-8?B?TnZVZHZDYnlsekc0M0lWWUdhYUVpWWtwdWs0eFE4QXlOQW4zOXp4Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bd1a282-f98e-451f-0d02-08df2dfbd99d
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:13:02.1994 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d2c++JvB991yrwA0hPbGiS301Y/8NnIrTopDih3lh5b2scGWBytdzceKUh62mzwEXBqyRkvW2EqmvIgTUYSf9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOEP265MB828591
+X-ThreadId: AwmqQQkeUF_N
+Date: Mon, 19 Oct 2026 18:15:43 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Jani Nikula" <jani.nikula@intel.com>, "Arnd Bergmann" <arnd@kernel.org>, 
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Dave Airlie" <airlied@gmail.com>, 
+ "Simona Vetter" <simona@ffwll.ch>
+Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ "Chenyu Chen" <chen-yu.chen@amd.com>,
+ "Alex Deucher" <alexander.deucher@amd.com>,
+ "Harry Wentland" <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <3486e0b1-d188-47a9-9de6-7ee5c2cfd097@app.fastmail.com>
+In-Reply-To: <6c18da11310ced4a7c85ac7862c3f5c67b39891a@intel.com>
+References: <20261013205223.2396822-1-arnd@kernel.org>
+ <6c18da11310ced4a7c85ac7862c3f5c67b39891a@intel.com>
+Subject: Re: [PATCH] drm/edid: reduce update_display_info() stack usage
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,119 +116,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed Sep 9, 2026 at 7:44 AM BST, Alistair Popple wrote:
-> The closure passed to registration_data_with() currently receives
-> `Pin<&'a F::Of<'a>>` with `'a` universally quantified. This prevents the
-> closure from returning references derived from the registration data,
-> even for sub-fields that are covariant in their lifetime, because the
-> compiler cannot relate `'a` to any lifetime the caller knows about.
+On Mon, Oct 19, 2026, at 15:28, Jani Nikula wrote:
+> On Tue, 13 Oct 2026, Arnd Bergmann <arnd@kernel.org> wrote:
+>> From: Arnd Bergmann <arnd@arndb.de>
+>>
+>> The drm_parse_cea_ext() calls into nine individual parser functions
+>> based on the data format. If all of those get inlined and KASAN_STACK
+>> is enabled, this can explode the combined stack usage beyond a
+>> reasonable amount:
+>>
+>> drivers/gpu/drm/drm_edid.c: In function 'update_display_info':
+>> drivers/gpu/drm/drm_edid.c:7040:1: error: the frame size of 1888 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
+>>  7040 | }
+>>       | ^
+>>
+>> Mark all of the individual parser functions as noinline_for_stack
+>> to avoid this and keep their stack frames separate. This reduces
+>> the stack usage for update_display_info/drm_parse_cea_ext to
+>> a more manageable 744 bytes, while each parser only adds at most
+>> 200 bytes on top.
 >
-> Tie the outer reference to the `&self` lifetime instead, i.e. pass
-> `Pin<&'this F::Of<'a>>`. This gives the closure the implied bound
-> `'a: 'this`, so covariant sub-fields such as `&'a T` can be coerced to
-> `'this` and returned directly, while invariant fields still cannot be
-> coerced and therefore cannot escape with an incorrect lifetime.
->
-> This allows auxiliary child drivers to project covariant data out of
-> invariant registration data without having to wrap every use in a
-> closure.
+> Is there really no way to tell the compiler to not do silly things in a
+> more generic way?
 
-Looking at this again I think the current API might be unsound where this p=
-atch
-becomes fix rather than just a feature update.
+The problem is really the sanitizers here, which turn off the
+optimizations that gcc relies on for its normal behavior and
+which cause additional register pressure for the inserted function
+calls.
 
-For an invariant `&'b F::Of<'a>`, it's actually a requirement that `'a` str=
-ictly
-outlive `'b`. With the current API surface, we can obtain a `&'a F::Of<'a>`=
-,
-then we can store it inside `F::Of<'a>` (because, well, F::Of<'a> being
-invariant, it can internally have a `Mutex<Option<F::Of<'a>>`), and then we=
-'re
-able to UAF within the destruction code of `F::Of<'a>`.
-
-The fix, is, well, this patch.
-
-Would you might pulling this patch out, rework the commit message a bit and=
- send
-as a standalone fix?
-
-Best,
-Gary
-
->
-> Link: https://lore.kernel.org/nova-gpu/DL3WPTVM033J.33RWYCZOC67Z1@kernel.=
-org/
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Co-developed-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
->
-> ---
->
-> Changes since v5:
->
->  - New for v6
-> ---
->  rust/kernel/auxiliary.rs | 17 +++++++++++------
->  1 file changed, 11 insertions(+), 6 deletions(-)
->
-> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-> index 60dfbec8f330..06f816420790 100644
-> --- a/rust/kernel/auxiliary.rs
-> +++ b/rust/kernel/auxiliary.rs
-> @@ -305,6 +305,10 @@ unsafe fn registration_data_pinned<F: ForLt + 'stati=
-c>(&self) -> Result<Pin<&F::
->      /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The=
- closure receives a pinned
->      /// reference to the registration data.
->      ///
-> +    /// The outer reference carries the `&self` lifetime while the inner=
- type carries the HRTB
-> +    /// lifetime `'a`, implying `'a` outlives `&self`. This allows the c=
-losure to coerce covariant
-> +    /// sub-fields (e.g. `&'a T` to the caller's lifetime) and return th=
-em directly in `R`.
-> +    ///
->      /// For covariant types that implement [`trait@CovariantForLt`], pre=
-fer
->      /// [`registration_data`](Self::registration_data) which returns a d=
-irect reference.
->      ///
-> @@ -314,13 +318,14 @@ unsafe fn registration_data_pinned<F: ForLt + 'stat=
-ic>(&self) -> Result<Pin<&F::
->      /// Returns [`ENOENT`] if no registration data has been set, e.g. wh=
-en the device was
->      /// registered by a C driver.
->      #[inline]
-> -    pub fn registration_data_with<F: ForLt + 'static, R>(
-> -        &self,
-> -        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
-> +    pub fn registration_data_with<'this, F: ForLt + 'static, R>(
-> +        &'this self,
-> +        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
->      ) -> Result<R> {
-> -        // SAFETY: The HRTB closure prevents the caller from smuggling i=
-n references with a
-> -        // concrete short lifetime, making the round-trip from `'static`=
- sound regardless of
-> -        // variance.
-> +        // SAFETY: The HRTB on the inner type prevents the caller from e=
-xploiting a specific
-> +        // choice of `'a`. Covariant sub-fields can be safely coerced to=
- `'this`, while
-> +        // invariant fields cannot be coerced and thus cannot escape wit=
-h an incorrect
-> +        // lifetime.
->          let pinned =3D unsafe { self.registration_data_pinned::<F>()? };
-> =20
->          Ok(f(pinned))
-
-
+       Arnd
