@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A380BCCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:55:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD12CCF2E7
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:55:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 188DD10ED7D;
-	Mon, 19 Oct 2026 13:55:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 401EB10ED88;
+	Mon, 19 Oct 2026 13:55:45 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5747610ED88
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:55:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D62C10ED88;
+ Mon, 19 Oct 2026 13:55:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CEB416021C;
- Mon, 19 Oct 2026 13:55:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629421F000C4;
- Mon, 19 Oct 2026 13:55:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 971156020A;
+ Mon, 19 Oct 2026 13:55:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28A951F000C4;
+ Mon, 19 Oct 2026 13:55:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418130;
- bh=N1WBpvUT1LBft8j2MisXNoz9KQD7JeZYoan8e1V+zi8=;
+ s=k20260515; t=1792418138;
+ bh=V3PpoMFAw7qVzM1GmPC801AjygH/PqO9elu51OZwm6g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=WyRNdDr6Uho0TIQDKXuSdZjl++k+99uYnvmNTX0tOxkRctEgQrm/OYCfBtdNRKFch
- tZglBtSLRoSrysTXZDLPLqdSDQjHPnXEen3GzC8EGjf4AO9ER+hmAojq0Jp0GKqdCe
- T+wJvykXXJY8mZSfV5KIGurFudNlB0lIwIQotgSh/i6iqc62P/UcVFmE9uUCrwBtxj
- QZxEoxnMJKhIxITxvNuOszDrGIdeOOKdKGe33gFSDWnSn8ArCS+N2SXzFZiu2VAl7X
- kKMJfDAAhSpUlw6kxzSzY+gfVh5ULIT8ZIs1RP7xZn4/WEc+GfL9Gzju4bUA8QrqF/
- PLnRJxrupBq4Q==
+ b=awtmbfM35GvxrICJC9YsYeE6kkmFpQ6LocPglQBwvS1MX7AfO0oznuNFKC4mTfsB2
+ eGLoC3ZKmD95HMR0eOY6Wn/gYs/GJQK80GBTvVngrECjkBjdoVnlKY6vYQbcFc7J81
+ hXfcKFWE6e8E4jBpktXrafwA0poIN+b3eWG23ob8J4wYVpGP8SS8NbqJzVJvU4YgQc
+ CwPOacC3I99mca9gRU3wtPb//154YxlRRtRo4vGhng6GMsDFoMnUT07dIfAK7CuIms
+ kNdWiwi9BQZkN5IBxwSWPThI3aa12us+1JYMjI1NeCueS6fZS8bRyFvzBEOGNTOfXk
+ 1j5nei/6aOI3g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Heiko Schocher <hs@nabladev.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/panel: simple: Add Kyocera tcg070wvlq
- panel
-Date: Mon, 19 Oct 2026 09:45:24 -0400
-Message-ID: <20261019135441.1420968-33-sashal@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Kent Russell <kent.russell@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdgpu/gfx11: WARN() rather than BUG()
+ for invalid SDMA engine
+Date: Mon, 19 Oct 2026 09:45:30 -0400
+Message-ID: <20261019135441.1420968-39-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -64,261 +63,361 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Heiko Schocher <hs@nabladev.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit 900517da69afca6f72dacf14278aee3b65275507 ]
+[ Upstream commit c24edbd5ae0e4f24e0179e8c9f22a867016177bb ]
 
-Commit 922fb2db0287 ("dt-bindings: display: simple: Add Kyocera
-tcg070wvlq panel") added the compatible string for the Kyocera
-tcg070wvlq panel to the devicetree bindings documentation
-(panel-simple.yaml), but the corresponding entry was not added
-to the panel-simple driver.
+There's no need to crash the kernel for these cases.
 
-Add the missing compatible entry to the driver.
-
-Signed-off-by: Heiko Schocher <hs@nabladev.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Link: https://patch.msgid.link/20260721041935.757240-1-hs@nabladev.com
+Reviewed-by: Kent Russell <kent.russell@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). This
-commit is a 3-line `of_device_id` addition to the existing `panel-
-simple` driver. Official stable rules allow that class of change.
+I have enough context: this is a three-line `BUG()`-to-`WARN()` change
+on the GFX11 KFD SDMA path, already present in this 7.3-rc4 tree. The
+remaining question is whether it is a real panic-prevention fix worth
+keeping in stable.
 
 ## Phase 1: Commit message forensics
 
-**Step 1.1:** Record: `[drm/panel: simple] [Add] [register OF compatible
-kyo,tcg070wvlq, reusing existing lg_lb070wv8 descriptor]`
+**Step 1.1: Subject line**
+Record: `[drm/amdgpu/gfx11]` `[WARN() rather than BUG()]` `[stop
+panicking on an invalid SDMA engine id in get_sdma_rlc_reg_offset()]`
 
-**Step 1.2:** Record: tags present:
-- Reviewed-by: Neil Armstrong (drm/panel maintainer)
-- Signed-off-by: Heiko Schocher (author); Neil Armstrong (applied to
-  drm-misc)
-- Link: https://patch.msgid.link/20260721041935.757240-1-hs@nabladev.com
-- No Fixes:, Reported-by, Tested-by, Cc: stable, or syzbot (absence
-  expected)
+**Step 1.2: Tags**
+Record:
+- `Reviewed-by: Kent Russell <kent.russell@amd.com>` (AMD GPU developer)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+  maintainer; ignore any Sasha Levin SOB)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable`
+  (absence expected)
 
-Ignored pipeline markers: none in the provided text beyond the usual
-evaluation context.
+**Step 1.3: Body**
+Record: Body is one sentence: “There's no need to crash the kernel for
+these cases.” No stack trace, no reproducer, no version range. Failure
+mode claimed: kernel crash via `BUG()`. Root cause as stated: invalid
+`engine_id` in `get_sdma_rlc_reg_offset()` was treated as fatal.
 
-**Step 1.3:** Record:
-- Bug: commit `922fb2db0287` (v5.12-rc1) documented `kyo,tcg070wvlq` in
-  `panel-simple.yaml` but never added the matching `of_device_id` entry.
-- Symptom: a DT node whose only compatible is `kyo,tcg070wvlq` does not
-  bind to `panel-simple`.
-- Version info: bindings since v5.12; driver entry added 2026-07-22.
-- Root cause: incomplete match-table vs documented binding, not a crash
-  path.
-
-**Step 1.4:** Record: Not a hidden crash/UAF/leak fix. It is hardware-ID
-enablement. The 2021 bindings commit said the panel “seems to be
-compatible with `lg,lb070wv8`” and added the string “only to the dt-
-binding documentation to fix the checkpatch warnings.”
+**Step 1.4: Hidden bug fix?**
+Record: Not hidden. It is an explicit panic-to-warning conversion. It is
+also patch `15/43` of Alex Deucher’s amdgpu `BUG()`-removal series
+(later resent as `02/30`). Same boilerplate appears on sibling
+gfx12/gfx12.1 patches. That is hardening of a driver `BUG()`, not a
+style-only rename.
 
 ## Phase 2: Diff analysis
 
-**Step 2.1:** Record: `drivers/gpu/drm/panel/panel-simple.c` +3/−0.
-Function/table: `platform_of_match[]`. Scope: single-file surgical
-match-table insert.
+**Step 2.1: Inventory**
+Record: One file, `drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c`.
+Function: `get_sdma_rlc_reg_offset()`. Scope: +2/−1, single-file
+surgical change.
 
-**Step 2.2:** Record: Before, `kyo,tcg070wvlq` was not in
-`platform_of_match`. After, it matches and uses `&lg_lb070wv8` (same
-timings/size/bus as `lg,lb070wv8`).
+**Step 2.2: Code flow**
+Record: Before: `switch (engine_id)` handles 0 and 1; `default:` calls
+`BUG()` and never returns. After: `WARN(1, "Invalid SDMA engine id
+%d\n", engine_id); break;` then the function still computes
+`sdma_rlc_reg_offset` from `sdma_engine_reg_base` (initialized to 0) and
+returns. Affected path: invalid engine id on SDMA queue
+load/dump/occupy/destroy.
 
-**Step 2.3:** Record: category **h) hardware / device ID**. Mechanism:
-documented OF compatible now matches the existing panel descriptor.
+**Step 2.3: Bug mechanism**
+Record: Category **(g) logic / correctness** plus crash hardening.
+`BUG()` is a kernel panic (unless `CONFIG_BUG` is off). The fix stops
+the panic and logs. It does not add a hard error return; callers still
+`RREG32`/`WREG32` using a 0 base.
 
-**Step 2.4:** Record: Obviously correct (alias of an existing
-descriptor). Minimal. Regression risk very low: in-tree `imx6dl-
-prtmvt.dts` already has fallback `lg,lb070wv8` pointing at the same
-data, so probe behavior is unchanged there.
+**Step 2.4: Fix quality**
+Record: Obviously correct as “don’t panic.” Minimal. Regression risk is
+low: if the default branch is taken, the kernel continues and may
+program SDMA engine 0-ish registers instead of dying. That matches the
+older gfx9/gfx10.3 pattern (`dev_warn` + fallthrough to engine 0),
+though this gfx11 version warns and breaks with `base = 0` rather than
+explicitly using the engine-0 `SOC15_REG_OFFSET`. No public API change.
 
 ## Phase 3: Git history
 
-**Step 3.1:** Record: Missing driver ID is the gap left by
-`922fb2db0287` (v5.12-rc1). `lg_lb070wv8` itself is `dd0150026901b`
-(v4.2-rc1). In-tree DTS usage is `f3604ba14bd75e` (v5.12-rc1):
-`compatible = "kyo,tcg070wvlq", "lg,lb070wv8"`.
+**Step 3.1: Blame**
+Record: Function and original `BUG()` introduced in `cc009e613de65`
+(“drm/amdkfd: Add KFD support for soc21 v3”, Mukul Joshi, 2022-05-04).
+That commit is an ancestor of `v6.1` and `v6.6` in this repo. The
+`WARN()` lines are from `c24edbd5ae0e4` (Alex Deucher, 2026-06-15 /
+committed 2026-07-08).
 
-**Step 3.2:** Record: No Fixes: tag. The referenced bindings commit is
-an ancestor of HEAD.
+**Step 3.2: Fixes: tag**
+Record: No `Fixes:` tag. Buggy code is the original gfx11 KFD SDMA
+helper, not a later regression.
 
-**Step 3.3:** Record: Standalone; not `patch X/Y`. Nearby `panel-simple`
-commits are other panel IDs, not prerequisites.
+**Step 3.3: File history / series**
+Record: Standalone for this file. Related siblings:
+- `28cc342e2455c` gfx12 same change
+- `9f8032604b973` gfx12.1 same change
+Part of the June/July 2026 amdgpu `BUG()` cleanup. No extra gfx11
+refactor is required for this hunk.
 
-**Step 3.4:** Record: Heiko originally added `lg_lb070wv8` (2015) and
-this ID (2026). Neil Armstrong reviewed and applied it. Maintainer-
-acked.
+**Step 3.4: Author**
+Record: Alex Deucher is the amdgpu maintainer. Around the same dates he
+landed many `BUG()`/`BUG_ON()` → `WARN()`/`-EINVAL` conversions across
+gfx/sdma/psp.
 
-**Step 3.5:** Record: Depends only on `lg_lb070wv8` and
-`platform_of_match`, both present here. Applies standalone.
+**Step 3.5: Prerequisites**
+Record: None. The function and `BUG()` existed since the file was added.
+Applies standalone.
 
 ## Phase 4: Mailing list / external
 
-**Step 4.1:** Record: `b4 dig` → v1 only,
-https://patch.msgid.link/20260721041935.757240-1-hs@nabladev.com.
-Thread: Heiko submit → Neil `Reviewed-by` → applied to drm-misc-next as
-`900517da69afc`. No NAK, no stable discussion, no requested revisions.
+**Step 4.1: Original discussion**
+Record: `b4 dig -c c24edbd5ae0e4` matched patch-id
+`8e42a5ee823a482676f1d117737bc3f4d06296d3`.
+Lore/msgid: https://patch.msgid.link/20260615235645.737189-15-
+alexander.deucher@amd.com
+Series: v1 `[PATCH 15/43]` 2026-06-15; later v2 `[PATCH 02/30]`
+2026-07-07. Committed version matches the posted diff. No NAKs found. No
+reviewer `Cc: stable` on this patch. Cover-letter fetch from lore
+returned 403; mail-archive and Phoronix describe the series as removing
+amdgpu `BUG()` so the driver does not panic when it can continue.
 
-**Step 4.2:** Record: Recipients included Neil Armstrong, Maxime Ripard,
-dri-devel, DRM maintainers, original bindings author Oleksij Rempel.
+**Step 4.2: Recipients (`b4 dig -w`)**
+Record: Alex Deucher, `amd-gfx@lists.freedesktop.org`. Kent Russell’s
+`Reviewed-by` is on the git commit, not on the v1 mail-archive copy
+(review landed later / at commit time).
 
-**Step 4.3:** Record: No bugzilla/syzbot. Motivation is binding/driver
-mismatch, not a crash report.
+**Step 4.3: Bug report**
+Record: None. No syzbot, bugzilla, or user panic report.
 
-**Step 4.4:** Record: Single-patch series.
+**Step 4.4: Related patches**
+Record: Independent per-IP copies. This gfx11 hunk does not depend on
+the rest of the 43-patch series.
 
-**Step 4.5:** Record: lore.kernel.org/stable search returned 403; no
-stable-list discussion verified. LKML mirrors confirm review-only
-thread.
+**Step 4.5: Stable list**
+Record: No stable-thread hit found for this subject. UNVERIFIED:
+lore.kernel.org/stable search was blocked (Anubis/403).
 
-## Phase 5: Code semantics
+## Phase 5: Semantic / call graph
 
-**Step 5.1:** Record: `platform_of_match[]` only.
+**Step 5.1: Functions**
+Record: `get_sdma_rlc_reg_offset()` only.
 
-**Step 5.2:** Record: Used as `.of_match_table` of
-`panel_simple_platform_driver` (`panel_simple_platform_probe`). Probe
-path on DT match.
+**Step 5.2: Callers (this tree)**
+Record:
+- `hqd_sdma_load_v11()` — KFD SDMA queue load
+- `hqd_sdma_dump_v11()` — dump (debug / dqm)
+- `hqd_sdma_is_occupied_v11()`
+- `hqd_sdma_destroy_v11()` — preempt/destroy
 
-**Step 5.3:** Record: Match data is existing `lg_lb070wv8` (`panel_desc`
-+ LVDS timings). No new alloc/lock/API.
+Those are `gfx_v11_kfd2kgd` ops. Load goes `kfd_load_mqd_sdma()` →
+`hqd_sdma_load()`. Dump is used from `kfd_device_queue_manager.c`.
 
-**Step 5.4:** Record: Reachable when a DT node uses `kyo,tcg070wvlq`.
-In-tree board `imx6dl-prtmvt` already matches via fallback. Userspace
-does not trigger this except by using that panel.
+**Step 5.3: Callees**
+Record: `SOC15_REG_OFFSET`, register arithmetic, `pr_debug`. Callers
+then `RREG32`/`WREG32` at the returned offset.
 
-**Step 5.5:** Record: Same file already has `kyo,tcg121xglp` and
-`lg,lb070wv8`. This is the standard panel-simple ID pattern.
+**Step 5.4: Reachability**
+Record: Yes, from `/dev/kfd` queue create/destroy (needs KFD/render
+access, not a raw unprivileged syscall). `engine_id` comes from
+`v11_sdma_mqd.sdma_engine_id`, set in `kfd_mqd_manager_v11.c` from
+`q->sdma_engine_id`.
 
-## Phase 6: This checkout
+Kernel assignment (`kfd_device_queue_manager.c`):
+- normal SDMA: `sdma_id % kfd_get_num_sdma_engines()`
+- `kfd_get_num_sdma_engines()` is `num_instances/num_nodes`, or
+  `min(..., 2)` if XGMI
 
-**Step 6.1:** Record: Tree is 7.3.0-rc4. `panel-simple.c`,
-`lg_lb070wv8`, bindings `kyo,tcg070wvlq`, and DTS fallback all exist.
-Commit `900517da69afc` is already an ancestor of HEAD (merged via drm-
-misc-next → drm-next before v7.3-rc1). The **match table and descriptor
-this patch needs are in this tree**.
+Userspace `KFD_QUEUE_TYPE_SDMA_BY_ENG_ID` is range-checked against
+`num_sdma + num_xgmi - 1` in `kfd_ioctl_create_queue()`.
 
-**Step 6.2:** Record: Clean apply (already applied here). Insertion sits
-alphabetically between `koe,tx31d200vm0baa` and `kyo,tcg121xglp`.
+Verified: on typical GFX11 (2 SDMA, no XGMI) the id is 0 or 1, so
+`default:` is not the normal path. Unverified: whether any GFX11 SKU
+with XGMI and >2 SDMA instances can produce `engine_id >= 2` and hit
+`BUG()`.
 
-**Step 6.3:** Record: No alternate fix. This *is* the driver-side
-completion of the v5.12 binding.
+**Step 5.5: Similar patterns**
+Record: gfx9 and gfx10.3 already `dev_warn` + fallthrough to engine 0.
+gfx11/12/12.1 used `BUG()` until this series. This is aligning gfx11
+with the safer sibling.
 
-## Phase 7: Subsystem context
+## Phase 6: This tree
 
-**Step 7.1:** Record: `drivers/gpu/drm/panel` — **PERIPHERAL** (one LVDS
-panel / Protonic MVT i.MX6 board).
+**Step 6.1: Buggy code in this checkout?**
+Record: Local tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). File
+exists. Current `get_sdma_rlc_reg_offset()` already has `WARN(1, ...)`.
+`git merge-base --is-ancestor c24edbd5ae0e4 HEAD` succeeds. The panic
+path is already gone here; the pre-fix `BUG()` is in the parent of that
+commit.
 
-**Step 7.2:** Record: `panel-simple` is mature and still gets ID
-additions; this is normal hardware enablement, not a new subsystem.
+**Step 6.2: Backport difficulty**
+Record: Clean apply. Hunk matches the original function from 2022; no
+conflicting refactor in that switch.
+
+**Step 6.3: Related fixes already here**
+Record: This exact fix is already ancestor of HEAD. Sibling gfx12/12.1
+conversions are also present. No alternate gfx11 SDMA `BUG()` fix.
+
+## Phase 7: Subsystem
+
+**Step 7.1**
+Record: `drivers/gpu/drm/amd/amdgpu` KFD GFX11. Criticality:
+**IMPORTANT** (RDNA3 / RX 7000 / Phoenix, not core mm/vfs).
+
+**Step 7.2**
+Record: amdgpu/KFD is actively developed; this helper itself has been
+stable since 2022.
 
 ## Phase 8: Impact and risk
 
-**Step 8.1:** Record: Driver/board-specific (`CONFIG_DRM_PANEL_SIMPLE`,
-DT with this compatible). Not universal.
+**Step 8.1: Who**
+Record: Users of AMD GFX11 + KFD compute (ROCm / `/dev/kfd`), config
+`CONFIG_HSA_AMD`. Driver-specific, not universal.
 
-**Step 8.2:** Record: Trigger is panel probe. Common for that one
-industrial board; otherwise only if DT lists `kyo,tcg070wvlq`. Not a
-syscall/security path.
+**Step 8.2: Trigger**
+Record: Invalid `engine_id` not in `{0,1}` on SDMA HQD
+load/dump/destroy. Common path uses kernel-assigned 0/1. Userspace
+engine id is validated for `SDMA_BY_ENG_ID`. Trigger is uncommon; not
+shown as a day-to-day ROCm failure. Not a fully unprivileged DoS on
+typical 2-engine GFX11.
 
-**Step 8.3:** Record: Without the ID, a **primary-only**
-`kyo,tcg070wvlq` node fails to bind (no display). In-tree DTS still
-works via `lg,lb070wv8`. Severity **LOW** as a crash; **hardware
-enablement** under the device-ID rule.
+**Step 8.3: Failure mode**
+Record: Old: `BUG()` → kernel panic. Severity if hit: **CRITICAL**.
+Likelihood: **LOW** on known 2-engine GFX11. After the fix: warning +
+possible wrong MMIO if the branch is taken.
 
-**Step 8.4:** Record: Benefit = correct match for a documented
-compatible / existing panel. Risk = very low (3 lines, existing
-descriptor). Ratio favors taking it: official rules explicitly allow
-device IDs.
+**Step 8.4: Risk-benefit**
+Record: Benefit: avoid an intentional driver panic on a bad engine id.
+Risk: 3 lines, no locking/API change, very low. Ratio: favorable if the
+panic is treated as worth preventing; weaker if judged purely
+theoretical.
 
 ## Phase 9: Synthesis
 
-**Evidence FOR:**
-- `Documentation/process/stable-kernel-rules.rst` in this tree: “It must
-  either fix a real bug that bothers people **or just add a device
-  ID**.”
-- Device-ID exception in the review criteria: ID-only change in an
-  existing driver.
-- 3 lines, reuses `lg_lb070wv8` since v4.2, reviewed by the panel
-  maintainer.
-- Completes a compatible documented since v5.12.
+**Step 9.1: Evidence**
 
-**Evidence AGAINST:**
-- Not a crash, UAF, deadlock, or corruption fix.
-- In-tree `imx6dl-prtmvt.dts` already falls back to `lg,lb070wv8`, so
-  this tree’s in-tree board already probes.
-- 2021 bindings commit intentionally omitted the driver entry at first.
-- No user/syzbot report.
+FOR:
+- Replaces `BUG()` (panic) with `WARN()` on a real KFD SDMA path.
+- 3-line, obviously correct, reviewed by Kent Russell, written by the
+  amdgpu maintainer.
+- GFX11 KFD support has been in the kernel since 2022 (`cc009e613de65`,
+  ancestor of v6.1).
+- gfx9/gfx10.3 already refused to panic here; gfx11 was the harsh
+  outlier.
+- No prerequisites; applies cleanly to this file.
+- Prompt’s crash/panic guidance favors inclusion.
 
-**Unresolved:** Could not fetch lore.kernel.org/stable (403). No
-evidence this was rejected for stable.
+AGAINST:
+- No user report, syzbot, or demonstrated trigger.
+- Official stable rule: not a “this could be a problem” patch without an
+  exploit/trigger explanation.
+- Identical one-line body across a 43-patch cleanup series, not a
+  targeted production-crash fix.
+- On typical GFX11, engine id is 0 or 1, so `default:` is largely
+  defensive.
+- After `WARN()`, execution continues with `base = 0` rather than
+  failing the ioctl.
 
-**Stable checklist:**
-1. Obviously correct and tested — **PASS** (maintainer Reviewed-by,
-   applied to drm-misc-next)
-2. Real bug that affects users — **PASS** as device ID (documented
-   compatible did not match); in-tree fallback means limited user-
-   visible delta
-3. Important issue — **PASS via device-ID exception**, not via
-   crash/security
-4. Small and contained — **PASS** (+3)
-5. No new features/APIs — **PASS** (no new descriptor, timings, or uAPI;
-   match-table ID only)
-6. Can apply to this tree — **PASS** (`lg_lb070wv8` and
-   `platform_of_match` present)
+UNRESOLVED:
+- Whether any GFX11 product can assign `engine_id >= 2` via XGMI extra
+  SDMA engines.
+- Full cover-letter text (lore 403).
+- Stable-list discussion (lore/stable blocked).
 
-**Exception category:** New device ID (OF compatible) on an existing
-driver.
+**Step 9.2: Stable rules checklist**
+1. Obviously correct and tested? **PASS** — 3-line substitution,
+   reviewed, in mainline.
+2. Fixes a real bug that affects users? **PASS** with caveat — it fixes
+   a real panic *if* the branch runs; no evidence users hit it. Still a
+   driver `BUG()` on a userspace-reachable KFD path.
+3. Important (crash/security/corruption/deadlock)? **PASS** for the
+   failure mode (panic). Likelihood is low.
+4. Small and contained? **PASS** — +2/−1, one function.
+5. No new features/APIs? **PASS**.
+6. Can apply to this tree? **PASS** — file/function exist; hunk is
+   identical. (Already applied on 7.3-rc4.)
 
-This is not a stability fix, but it is exactly the “just add a device
-ID” case the stable rules call out. Risk is negligible.
+**Step 9.3: Exception category**
+Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary
+robustness fix.
 
-Verification:
-- [Phase 1] Parsed tags: Reviewed-by Neil Armstrong; Link msgid
-  20260721041935.757240-1; no Fixes/syzbot
-- [Phase 2] Diff: +3 in `platform_of_match[]`; `.data = &lg_lb070wv8`
-- [Phase 3] `git name-rev --tags 922fb2db02871` → v5.12-rc1;
-  `dd0150026901b` → v4.2-rc1; `f3604ba14bd75e` DTS fallback
-- [Phase 3] `git merge-base --is-ancestor 922fb2db0287 HEAD` exit 0;
-  `900517da69afc` ancestor of HEAD
-- [Phase 4] `b4 dig -c 900517da69afc` / `-a` / `-w` / `-m`: v1 only;
-  Neil review + apply; dri-devel CCd
-- [Phase 4] lore.kernel.org WebFetch 403; LKML mirrors used instead
-- [Phase 5] `platform_of_match` →
-  `panel_simple_platform_driver.of_match_table`
-- [Phase 6] `git describe HEAD` → v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion` → 7.3.0-rc4
-- [Phase 6] Grep: `kyo,tcg070wvlq` in driver, yaml, and `imx6dl-
-  prtmvt.dts`
-- [Phase 8] Failure mode: unmatched compatible → no panel probe; in-tree
-  DTS still matches fallback
-- [Phase 9] Read `Documentation/process/stable-kernel-rules.rst` lines
-  15–16: device IDs are allowed
-- UNVERIFIED: stable@vger discussion (HTTP 403)
+**Step 9.4: Decision**
+
+This tree is 7.3-rc4 and already contains the commit; the evaluation is
+whether the change is stable-worthy for this codebase, not whether to
+re-apply it.
+
+It should be. `BUG()` in `get_sdma_rlc_reg_offset()` is an intentional
+kernel panic on the GFX11 KFD SDMA load/destroy path. Replacing it with
+`WARN()` is the same policy older GFX generations already used, it is
+three lines, and it cannot introduce a new API or locking scheme. Lack
+of a public reproducer makes it a cleanup-shaped patch, but the user-
+visible failure if that branch ever runs is still a full panic, which is
+what stable is for.
+
+### What it solves for stable users
+Stops the GFX11 KFD SDMA helper from taking down the machine on an out-
+of-range engine id, instead of asserting.
+
+### Rules
+Small, obviously correct, no new API, applies to this file. It addresses
+a panic, not a feature.
+
+### Risk vs benefit
+Benefit is panic avoidance on AMD RDNA3 compute queues. Risk is
+negligible.
+
+### Concerns
+Trigger is uncommon; after `WARN()` the function still returns a 0-based
+offset. That is acceptable versus `BUG()`. No extra commits are
+required.
+
+## Verification
+- [Phase 1] Parsed subject/body/tags: one-sentence panic rationale;
+  `Reviewed-by: Kent Russell`; no `Fixes`/`Reported-by`.
+- [Phase 2] Diff: `BUG()` → `WARN(1, ...)` + `break` in
+  `get_sdma_rlc_reg_offset()`; +2/−1.
+- [Phase 3] `git blame`: `BUG()` from `cc009e613de65` (2022-05-04);
+  ancestor of v6.1 and v6.6.
+- [Phase 3] `git show c24edbd5ae0e4`: matches the candidate diff.
+- [Phase 3] `git merge-base --is-ancestor c24edbd5ae0e4 HEAD`: yes
+  (already in this tree).
+- [Phase 4] `b4 dig -c c24edbd5ae0e4`: msgid
+  `20260615235645.737189-15-alexander.deucher@amd.com` (`15/43`).
+- [Phase 4] `b4 dig -a`: v1 43-patch series 2026-06-15; v2 30-patch
+  2026-07-07.
+- [Phase 4] `b4 dig -w`: To/Cc Alex Deucher + amd-gfx; no stable CC.
+- [Phase 4] mail-archive: posted diff identical; no NAK in the copies
+  read.
+- [Phase 4] UNVERIFIED: lore.kernel.org cover letter and stable@ archive
+  (403/Anubis).
+- [Phase 5] Callers verified: `hqd_sdma_load_v11` / `dump` /
+  `is_occupied` / `destroy`; load via `kfd_load_mqd_sdma`.
+- [Phase 5] `engine_id` from MQD ← `q->sdma_engine_id`; ioctl range
+  check for `SDMA_BY_ENG_ID`; typical GFX11 stays 0/1.
+- [Phase 5] gfx9/gfx10.3 already warn instead of `BUG()`.
+- [Phase 6] `git describe HEAD` / Makefile: 7.3.0-rc4; current file
+  already has `WARN()`.
+- [Phase 8] Failure mode if hit: `BUG()` panic; trigger likelihood low
+  on 2-engine GFX11.
+- UNVERIFIED: GFX11 SKU with `engine_id >= 2` in production.
 
 **YES**
 
- drivers/gpu/drm/panel/panel-simple.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index 878a5dc7748fb..c784f67f58fa4 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -5245,6 +5245,9 @@ static const struct of_device_id platform_of_match[] = {
- 	}, {
- 		.compatible = "koe,tx31d200vm0baa",
- 		.data = &koe_tx31d200vm0baa,
-+	}, {
-+		.compatible = "kyo,tcg070wvlq",
-+		.data = &lg_lb070wv8,
- 	}, {
- 		.compatible = "kyo,tcg121xglp",
- 		.data = &kyo_tcg121xglp,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+index aaccf0b9947d4..d32ea91eeb343 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+@@ -139,7 +139,8 @@ static uint32_t get_sdma_rlc_reg_offset(struct amdgpu_device *adev,
+ 				regSDMA1_QUEUE0_RB_CNTL) - regSDMA0_QUEUE0_RB_CNTL;
+ 		break;
+ 	default:
+-		BUG();
++		WARN(1, "Invalid SDMA engine id %d\n", engine_id);
++		break;
+ 	}
+ 
+ 	sdma_rlc_reg_offset = sdma_engine_reg_base
 -- 
 2.53.0
 
