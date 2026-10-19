@@ -4,43 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 540A1CCF2D6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:37:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80747CCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B956810E110;
-	Mon, 19 Oct 2026 13:37:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 084B610E110
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:37:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AC48143A5D;
- Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA721F000C4;
- Mon, 19 Oct 2026 13:37:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792417056;
- bh=3eRADoTLOXkqjjrw/UrGjAry3gq+uCsNvBDP+KQWRL8=;
- h=From:To:Cc:Subject:Date:Reply-To;
- b=epofOUUlKo52JU0CYFCw5QqNLKgjIsXBRtpERVJaBqRpr4pokpXWYb9bMAR07RrqX
- cs1q+A3FSzqXmauxMMf1rWcQTLn543/iLuE6htDD8RRgMdaln1stcdznNgMa4gJOY7
- A8djYpl2eqftIqvYs7Tgd3AN0YGoVt0W9QuX+y5SJS4yLu1hxzFr9x82iRFb1K2pZ/
- iJmCCkQvC/5HSW8aMblM0fQCPEYDfYBMW4h/4k7H/K6tRR6cCDmgfDkQbZWKtR2vty
- 6AwEIk44HPkdU47lnAH2aj1jqn4WCUFOeO8t5/wC3mw7n3cWNaIqLQNhxqFEH0D/As
- vBuU/4AbblyeA==
-From: Gary Guo <gary@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>,
- Gary Guo <gary@garyguo.net>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH] gpu: nova-core: replace unsafe pointer cast with pin-init
- self-reference
-Date: Mon, 19 Oct 2026 14:36:45 +0100
-Message-ID: <20261019133647.1279779-1-gary@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E957910E2C5;
+	Mon, 19 Oct 2026 13:38:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A75D010E542
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:38:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792417087; x=1823953087;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=H72UuwdPD6tynQBkJ++nrNG6UGsqGHoCTtCOjoUOuvA=;
+ b=b7vVP6bAKT2lnrksjxrKNRp6Fcq/zGuBfEHaylFkmoO/hFlzrAXYV6gb
+ HNL3nnY3mLLYkM99/zaKZEek6LuMxDiVwprezypk6UCgsM7yGwzMu7oMn
+ 1p6pggYDXHWzSI2zpCzecSIfPk42YTw+V/b2/ewhxp3mauayXoCLnllif
+ Q5/2FoiTzdAuCjj2ZTNTl2GdGJCEezeFt1RvN8X3eaEpCwwzydyNhUk7S
+ tEhAqablwBYWYZitplilD5RRq/7K6cR2fu4+ObVPysMo87B6s+Gbin+lO
+ KppuGO2T3HbMdNKdzvlSqWhfdVBo/OShZtcMbNotfj4s0DWMXDwPD+cNS Q==;
+X-CSE-ConnectionGUID: 5dJXBJStS9eaQytPAQbU2Q==
+X-CSE-MsgGUID: C+NR8+bvTJ61Nyi8LcESVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="994029"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="994029"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 06:34:26 -0700
+X-CSE-ConnectionGUID: D4bkrAy7Tr6bze2QW4b/Cw==
+X-CSE-MsgGUID: xwg9x5xdT4KFrH58dQ8G/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="4295026"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.21])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 06:32:17 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Avi Weiss <thnkslprpt@gmail.com>, Inki Dae <inki.dae@samsung.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park
+ <kyungmin.park@samsung.com>, dri-devel@lists.freedesktop.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Avi Weiss
+ <thnkslprpt@gmail.com>
+Subject: Re: [PATCH] drm/exynos: hdmi: free EDID on connector update failure
+In-Reply-To: <20261012064334.3193085-1-thnkslprpt@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261012064334.3193085-1-thnkslprpt@gmail.com>
+Date: Mon, 19 Oct 2026 16:32:14 +0300
+Message-ID: <e22eadd0ada0c8243cfdf7829580984fdf897498@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,132 +68,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Gary Guo <gary@garyguo.net>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Gary Guo <gary@garyguo.net>
+On Mon, 12 Oct 2026, Avi Weiss <thnkslprpt@gmail.com> wrote:
+> If drm_edid_connector_update() fails, hdmi_get_modes() returns
+> without freeing the EDID allocated by drm_edid_read_ddc(). It's
+> an unlikely error path but nevertheless possible and should be
+> cleaned up fully.
+>
+> Free the EDID before returning, while keeping the existing return
+> value of 0.
+>
+> Fixes: f6e4f57fd90dc ("drm/exynos: hdmi: convert to struct drm_edid")
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> ---
+>  drivers/gpu/drm/exynos/exynos_hdmi.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+> index d4fce39c2b61..386557a7f5e8 100644
+> --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
+> +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+> @@ -893,8 +893,10 @@ static int hdmi_get_modes(struct drm_connector *connector)
+>  	drm_edid = drm_edid_read_ddc(connector, hdata->ddc_adpt);
+>  
+>  	ret = drm_edid_connector_update(connector, drm_edid);
 
-Nova core's driver data makes use of a few unsafe self-references for
-device resources. Replace them with pin-init's self reference feature
-instead.
+You could just move the drm_edid_free() call here to avoid duplicating
+it.
 
-`auxiliary::Registration` is only allowed to capture a single lifetime, but
-it needs to capture `&'gpu Gpu<'bar>`. However, we cannot use coercion here
-as `Gpu` is invariant over `'bar`. As we know that `'bar` outlives `'gpu`,
-use pin-init's existential lifetime to erase the `'bar` lifetime in
-`NovaCoreApi`.
+> -	if (ret)
+> +	if (ret) {
+> +		drm_edid_free(drm_edid);
+>  		return 0;
+> +	}
+>  
+>  	cec_notifier_set_phys_addr(hdata->notifier, info->source_physical_address);
+>  
+>
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 
-Swap bar1 and bar0's drop order to make pin-init happy.
-
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
- drivers/gpu/nova-core/api.rs    | 15 ++++++++++-----
- drivers/gpu/nova-core/driver.rs | 27 ++++++++-------------------
- 2 files changed, 18 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-index 29207c4bb743..62b1c8fe7125 100644
---- a/drivers/gpu/nova-core/api.rs
-+++ b/drivers/gpu/nova-core/api.rs
-@@ -22,9 +22,14 @@
- };
- 
- /// API handle for the auxiliary bus child drivers to interact with nova-core.
--pub struct NovaCoreApi<'bound> {
--    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
--    pub(crate) pdev: &'bound pci::Device<Bound>,
-+#[pin_data]
-+pub struct NovaCoreApi<'gpu>
-+where
-+    exists<'bar>: 'gpu,
-+{
-+    #[uses('bar: invariant)]
-+    pub(crate) gpu: Pin<&'gpu Gpu<'bar>>,
-+    pub(crate) pdev: &'gpu pci::Device<Bound>,
- }
- 
- impl NovaCoreApi<'_> {
-@@ -36,12 +41,12 @@ pub fn of(adev: &auxiliary::Device<Bound>) -> Result<NovaCoreApiHandle<'_>> {
- 
-     /// Returns the GPU [`GetGspStaticInfoReply`].
-     pub fn gsp_static_info(&self) -> &GetGspStaticInfoReply {
--        &self.gpu.gsp_static_info
-+        self.with_gpu(|gpu| &gpu.gsp_static_info)
-     }
- 
-     /// Returns the GPU [`Spec`].
-     pub fn spec(&self) -> &Spec {
--        &self.gpu.spec
-+        self.with_gpu(|gpu| &gpu.spec)
-     }
- 
-     /// Returns the size of the PCIe BAR used for accessing VRAM, typically
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index 560a70c4f5a7..7ddde686879f 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -33,11 +33,13 @@
- #[pin_data]
- pub(crate) struct NovaCore<'bound> {
-     #[allow(clippy::type_complexity)]
--    _reg: auxiliary::Registration<'bound, ForLt!(NovaCoreApi<'_>)>,
-+    #[uses('gpu: invariant)]
-+    _reg: auxiliary::Registration<'gpu, ForLt!(NovaCoreApi<'_>)>,
-     #[pin]
--    pub(crate) gpu: Gpu<'bound>,
--    bar: pci::Bar<'bound, BAR0_SIZE>,
-+    #[uses('bar1: invariant, 'bar: invariant)]
-+    pub(crate) gpu: Gpu<'bar1>,
-     bar1: pci::Bar<'bound>,
-+    bar: pci::Bar<'bound, BAR0_SIZE>,
- }
- 
- pub(crate) struct NovaCoreDriver;
-@@ -129,13 +131,10 @@ fn probe<'bound>(
-                 crate::irq::doorbell_test::run_selftest(pdev, bar, spec.chipset)?;
-             },
- 
--            // TODO: Use self-referential pin-init syntax once available.
-             gpu <- Gpu::new(
-                 pdev,
--                // SAFETY: `bar` is initialized above, pinned, and outlives `gpu`.
--                unsafe { &*core::ptr::from_ref(bar) },
--                // SAFETY: `bar1` is initialized above, pinned, and outlives `gpu`.
--                unsafe { &*core::ptr::from_ref(bar1) },
-+                bar,
-+                bar1,
-             ).pin_chain(|_gpu| {
-                 #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
-                 _gpu.run_selftests(pdev);
-@@ -143,16 +142,6 @@ fn probe<'bound>(
-             }),
- 
-             _reg: {
--                // TODO: Use `&gpu` self-referential pin-init syntax once available.
--                //
--                // SAFETY: `gpu` is initialized before this expression is evaluated
--                // (`try_pin_init!()` initializes fields in initializer order), lives at
--                // a pinned stable address, and is dropped after `_reg` (struct field
--                // drop order).
--                let gpu = unsafe {
--                    Pin::new_unchecked(&*core::ptr::from_ref(gpu.as_ref().get_ref()))
--                };
--
-                 // SAFETY: `NovaCore` is dropped when the device is unbound;
-                 // i.e. `mem::forget()` is never called on it.
-                 unsafe {
-@@ -164,7 +153,7 @@ fn probe<'bound>(
-                         // never recycles IDs.
-                         AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-                         crate::MODULE_NAME,
--                        NovaCoreApi { gpu, pdev },
-+                        pin_init!(NovaCoreApi { gpu, pdev }),
-                     )?
-                 }
-             },
-
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
 -- 
-2.54.0
-
+Jani Nikula, Intel
