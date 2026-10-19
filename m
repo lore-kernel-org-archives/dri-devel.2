@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBDCECCF2D6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 09:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1EEECCF2DB
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 09:16:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 339C310E8DE;
-	Mon, 19 Oct 2026 09:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B5FF10E8EC;
+	Mon, 19 Oct 2026 09:16:06 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A8810E8DE
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:15:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5889810E8EA
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:15:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B51740C02;
- Mon, 19 Oct 2026 09:15:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBAD1F000C4;
- Mon, 19 Oct 2026 09:15:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3C53640705;
+ Mon, 19 Oct 2026 09:15:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9C2B1F000C4;
+ Mon, 19 Oct 2026 09:15:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792401348;
- bh=Uq3rLqaKpf+aEXk2SA+1QTndT7yvUIjt8sNDwPSDplc=;
+ s=k20260515; t=1792401359;
+ bh=o6jSxeq8KEN6lcSAetzW14Uw/OiZctLceWCg0UBb5cM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nAwIAxD99XJCnZf7xMXh3Cd31QXniVw9rA38g1maWX1QRF01LTomZhYE2xKPUWxLp
- 1x6Z4Uj1bO9zrhQZ4y/CyijZe5QdEMatagoJknLeLCHTIZ4MwC7D8Hrx5u0P6lMGl4
- pZ/yRkIIObQESPlBIODoOA5A634VIQE5Scq9QCEhEKZ1Vz1/A6+ODzMedHuZf4njle
- q+RUf/kycgYH2Yjjoa83KmFK+cmdOZsuMzavXHeG5Nt4yBkWPh1Q7pmmTU1OpINcQL
- vaBFMVggrPsHF3bG8DolL1HHpev/k47VdY3E7AUHTGJQCVl/H5BtSqIgnfkGj2OiVE
- AHxvpeKQjWscg==
-Message-ID: <sashiko-outbox-176884@kernel.org>
+ b=FSLBpt7nI0tDAPuAe79xPk2YV8cK8YCbbYEPuHTqtpqRE8s+BWdddJ66PwfobsM9c
+ OWvZ8d+zba1e3P3F7060jG0Cd2Wi7WY4dnLZHSDUYX+RCn9ORNEsOE4Y9vFEG/2KbU
+ vpO9LARQACuAEQjdy+ZpC4V6gUNnZwxludcdkx0mX2oLP8ABOwKpAIKBYFAr9oxivl
+ ThJaPB42LjijCD/O2ZNtMrBMIQmw7651cPt4gFxkuFfR2P0eehi4p6lr5tOhKZ4vO8
+ Vbb0xF5e6+EH4VHM2lrdDYWwm6lQo9VsIqsoMuwElha4FWux9DRg5x0Ld2J2vN5lpI
+ AUvrwkBKKCiOQ==
+Message-ID: <sashiko-outbox-176885@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] fbcon: Rebuild rotated font buffer on font change
+Subject: Re: [PATCH v4 3/3] fbcon: Retry rotated font allocation after failure
 To: "Yao Yiqi" <yyaqia@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019090206.1094958-3-yyaqia@gmail.com>
+In-Reply-To: <20261019090206.1094958-4-yyaqia@gmail.com>
 References: <20261019090206.1094958-1-yyaqia@gmail.com>
- <20261019090206.1094958-3-yyaqia@gmail.com>
+ <20261019090206.1094958-4-yyaqia@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 09:15:47 +0000
+Date: Mon, 19 Oct 2026 09:15:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,169 +54,93 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] fbcon: incomplete par->rotated rollback on error in fbcon_do_set_f=
-ont()
-- [High] fbcon: incomplete par->rotated state save and restore in fbcon_do_=
-set_font()
+- [High] fbcon: stale rotated font cache key in fbcon_rotate_font() on erro=
+r rollback
 --
 
-commit 40279fe676962065434b918b61507d77c5b4a060
+commit 4c61e799dc92607244ca176d7070e7e3d2fde5e4
 Author: Yao Yiqi <yaoyiqi3@huawei.com>
 
-fbcon: Rebuild rotated font buffer on font change
+fbcon: Retry rotated font allocation after failure
 
-This patch rebuilds the rotated font buffer in fbcon_do_set_font() when
-changing fonts on the visible console so that vc_resize() does not render
-using a rotated font cache sized for the old font. If rotation or resizing
-fails, it restores the saved rotated buffer and rolls back the font change.
+This commit checks par->rotated.buf in the early-out condition of
+fbcon_rotate_font() so that a failed rotated font allocation is retried on
+the next call instead of leaving the console blank.
 
-> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
-fbcon.c
-> index 01715873ea49b..7605e4237ca5b 100644
-> --- a/drivers/video/fbdev/core/fbcon.c
-> +++ b/drivers/video/fbdev/core/fbcon.c
-> @@ -2414,6 +2414,11 @@ static int fbcon_do_set_font(struct vc_data *vc, i=
-nt w, int h, int charcount,
->  	font_data_t *old_fontdata =3D p->fontdata;
->  	const u8 *old_data =3D vc->vc_font.data;
->  	unsigned short old_hi_font_mask =3D vc->vc_hi_font_mask;
-> +#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-> +	u8 *saved_rotated_buf =3D NULL;
-> +	size_t saved_rotated_bufsize =3D 0;
-> +	bool rotated_saved =3D false;
-> +#endif
+> diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbde=
+v/core/fbcon_rotate.c
+> index 660a3fa81baed..7afd63dcee7be 100644
+> --- a/drivers/video/fbdev/core/fbcon_rotate.c
+> +++ b/drivers/video/fbdev/core/fbcon_rotate.c
+> @@ -25,7 +25,8 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_d=
+ata *vc)
+>  	    par->rotate =3D=3D par->rotated.buf_rotate &&
+>  	    vc->vc_font.width =3D=3D par->rotated.buf_width &&
+>  	    vc->vc_font.height =3D=3D par->rotated.buf_height &&
+> -	    vc->vc_font.charcount =3D=3D par->rotated.buf_charcount)
+> +	    vc->vc_font.charcount =3D=3D par->rotated.buf_charcount &&
+> +	    par->rotated.buf)
+>  		return 0;
 > =20
->  	font_data_get(data);
-> =20
-> @@ -2432,6 +2437,29 @@ static int fbcon_do_set_font(struct vc_data *vc, i=
-nt w, int h, int charcount,
->  	else if (!vc->vc_hi_font_mask && charcount =3D=3D 512)
->  		set_vc_hi_font(vc, true);
-> =20
-> +	/*
-> +	 * Select the console's blitting state and update par->rotated to
-> +	 * match the new font, so that the rendering below does not use a
-> +	 * cache that was built for the old font. Clear the buffer so the
-> +	 * rebuild allocates a fresh one; the old buffer is kept until the
-> +	 * font change can no longer fail.
-> +	 */
-> +	if (con_is_visible(vc)) {
-> +		set_blitting_type(vc, info);
-> +		if (par->bitops->rotate_font) {
-> +#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-> +			saved_rotated_buf =3D par->rotated.buf;
-> +			saved_rotated_bufsize =3D par->rotated.bufsize;
-> +			par->rotated.buf =3D NULL;
-> +			par->rotated.bufsize =3D 0;
-> +			rotated_saved =3D true;
-> +#endif
-> +			ret =3D par->bitops->rotate_font(info, vc);
+>  	par->rotated.fontdata =3D par->p->fontdata;
 
 [Severity: High]
-Can clearing only par->rotated.buf and par->rotated.bufsize here cause the
-active rotated font buffer to be freed and lost when re-setting the same
-font?
+Should fbcon_rotate_font() update the cache key fields in par->rotated only
+after font_data_rotate() succeeds, rather than relying solely on checking
+par->rotated.buf in the early-out?
 
-In drivers/video/fbdev/core/fbcon_rotate.c, fbcon_rotate_font() checks
-whether the cache metadata matches before allocating a new buffer:
+Because fbcon_rotate_font() records par->rotated.fontdata, buf_rotate,
+buf_width, buf_height, and buf_charcount before calling font_data_rotate(),
+those fields still get overwritten with the new font's metadata when
+font_data_rotate() fails.
 
-drivers/video/fbdev/core/fbcon_rotate.c:fbcon_rotate_font() {
-	if (par->p->fontdata =3D=3D par->rotated.fontdata &&
-	    par->rotate =3D=3D par->rotated.buf_rotate &&
-	    vc->vc_font.width =3D=3D par->rotated.buf_width &&
-	    vc->vc_font.height =3D=3D par->rotated.buf_height &&
-	    vc->vc_font.charcount =3D=3D par->rotated.buf_charcount)
-		return 0;
+In drivers/video/fbdev/core/fbcon.c:fbcon_do_set_font(), the caller saves
+par->rotated.buf before calling rotate_font() and restores the old buffer on
+failure:
+
+drivers/video/fbdev/core/fbcon.c:fbcon_do_set_font() {
+	if (con_is_visible(vc)) {
+		set_blitting_type(vc, info);
+		if (par->bitops->rotate_font) {
+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+			saved_rotated_buf =3D par->rotated.buf;
+			saved_rotated_bufsize =3D par->rotated.bufsize;
+			par->rotated.buf =3D NULL;
+			par->rotated.bufsize =3D 0;
+			rotated_saved =3D true;
+#endif
+			ret =3D par->bitops->rotate_font(info, vc);
+			if (ret)
+				goto err_out;
+		}
+	}
+	...
+err_out:
+	if (rotated_saved) {
+		kfree(par->rotated.buf);
+		par->rotated.buf =3D saved_rotated_buf;
+		par->rotated.bufsize =3D saved_rotated_bufsize;
+	}
 }
 
-At this commit, before the subsequent commit 4c61e799dc92 ("fbcon: Retry
-rotated font allocation after failure") adds a check for par->rotated.buf,
-re-applying a font with the same fontdata and geometry (for example via
-fbcon_set_font() deduplication or fbcon_set_def_font()) hits this early
-return with par->rotated.buf still NULL. fbcon_do_set_font() then calls
-kfree(saved_rotated_buf), leaving par->rotated.buf NULL.
+If rotate_font() (or the subsequent vc_resize()) fails in fbcon_do_set_font=
+()
+when switching a visible console from a smaller font (e.g. 8x8) to a larger
+font (e.g. 16x32), err_out restores par->rotated.buf to the smaller font's
+non-NULL saved_rotated_buf while leaving par->rotated.{fontdata, buf_rotate,
+buf_width, buf_height, buf_charcount} set to the failed larger font's
+metadata.
 
-> +			if (ret)
-> +				goto err_out;
-> +		}
-> +	}
-> +
->  	if (resize) {
->  		int cols, rows;
-> =20
-> @@ -2448,12 +2476,27 @@ static int fbcon_do_set_font(struct vc_data *vc, =
-int w, int h, int charcount,
->  		update_screen(vc);
->  	}
-> =20
-> +#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-> +	if (rotated_saved)
-> +		kfree(saved_rotated_buf);
-> +#endif
->  	if (old_fontdata)
->  		font_data_put(old_fontdata);
-> =20
->  	return 0;
-> =20
->  err_out:
-> +#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-> +	/*
-> +	 * Drop the buffer built for the new font and restore the saved
-> +	 * one.
-> +	 */
-> +	if (rotated_saved) {
-> +		kfree(par->rotated.buf);
-> +		par->rotated.buf =3D saved_rotated_buf;
-> +		par->rotated.bufsize =3D saved_rotated_bufsize;
-> +	}
-> +#endif
-
-[Severity: High]
-What happens to the cache key fields in par->rotated when rotate_font() or
-vc_resize() fails and jumps to err_out?
-
-In fbcon_rotate_font(), the cache key fields are updated with the new
-font's pointer and geometry before font_data_rotate() is called:
-
-drivers/video/fbdev/core/fbcon_rotate.c:fbcon_rotate_font() {
-	...
-	par->rotated.fontdata =3D par->p->fontdata;
-	par->rotated.buf_rotate =3D par->rotate;
-	par->rotated.buf_width =3D vc->vc_font.width;
-	par->rotated.buf_height =3D vc->vc_font.height;
-	par->rotated.buf_charcount =3D vc->vc_font.charcount;
-	...
-	buf =3D font_data_rotate(...);
-}
-
-If font_data_rotate() or the subsequent vc_resize() in fbcon_do_set_font()
-fails, err_out restores par->rotated.buf and par->rotated.bufsize to the
-old font's buffer and restores p->fontdata and vc->vc_font to the old font,
-but leaves par->rotated.{fontdata,buf_rotate,buf_width,buf_height,
-buf_charcount} set to the failed new font's metadata.
-
-Because par->rotated.buf is restored to the non-NULL saved_rotated_buf,
-even with commit 4c61e799dc92 ("fbcon: Retry rotated font allocation after
-failure") applied, switching via fbcon_switch() to another console that
-uses that same font and larger geometry (or a subsequent font operation
-that reuses the freed font_data_t address with the larger geometry) will
-see all cache key fields match and par->rotated.buf !=3D NULL in
-fbcon_rotate_font(). It will return early without rebuilding the buffer,
-and the rotated blitting and cursor callbacks (cw_putcs/ccw_putcs/ud_putcs
-and cw_cursor/ccw_cursor/ud_cursor) will index the smaller
-saved_rotated_buf using the larger cell size, triggering a
-slab-out-of-bounds read.
-
-Would saving and clearing the entire par->rotated struct before calling
-rotate_font(), and restoring the whole struct in err_out, avoid both
-issues?
-
-[ ... ]
-
->  	return ret;
+If another console already uses that same larger font (or if changing to a
+built-in/shared font matching that stale key is retried), the next
+fbcon_switch() -> fbcon_rotate_font() sees all key fields match and
+par->rotated.buf !=3D NULL, so it returns 0 without reallocating or rotating
+the buffer. Could the rotated rendering callbacks (cw_putcs(), ccw_putcs(),
+ud_putcs(), cw_cursor(), ccw_cursor(), ud_cursor()) then read out of bounds
+from the smaller restored par->rotated.buf using the larger font's geometry?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019090206.1094=
-958-1-yyaqia@gmail.com?part=3D2
+958-1-yyaqia@gmail.com?part=3D3
