@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 012C2CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:03:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41AE5CCF2E9
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:03:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6018D10EE0A;
-	Mon, 19 Oct 2026 14:03:03 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC8110EE0C
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:02:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 844D010EDFC;
+	Mon, 19 Oct 2026 14:03:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 424CF10EE03
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:03:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B534A602A8;
- Mon, 19 Oct 2026 14:02:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293D41F000CC;
- Mon, 19 Oct 2026 14:02:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 274F24096F;
+ Mon, 19 Oct 2026 14:03:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 574001F000C4;
+ Mon, 19 Oct 2026 14:02:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418575;
- bh=4+ql4p3vcgQx02kQf+GRMuwllGIpGjZYMql1bdoHiOg=;
+ s=k20260515; t=1792418581;
+ bh=6cgidK+zeGuACZ/n/MWCuGvUglgmjVNS9L7Qx+HPLZE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=CU9SAHCxIbVAtWPqFl6/lNgWh1InzVqESYolABan5DQqtftHW0ob1IA3h871xpciX
- gIA/cbKp6SQSKf8R/o20gwj6tFrsKaxgbCM8PnG9VAVbFK6YPRMd+YGenxpfqmNyNR
- whGiUL2oDovzenuVVK4GzKBHb3s+yAEP/ZP7AXHke7N90YQCmtzUKPQWRmcUgDN33w
- s2ZLMi2gSGg4h+aNGX730YsOK35jGdU/LXaih42zJJ5lZJp8C0emiMSx9LwxWG6c6d
- C37gUoea29i0Kgmte31VLkBh4Axbbn3Hn9CDEqQHwk+JELjU1ykhgHT290pLxmlPRK
- yTC9W6NakH5jw==
+ b=MIFVaIj3glebXWQ4T5nUShQiZcEkLUA9LwB/KsPHIEICRTfmbk2xo4h3h5Yv9ruCx
+ 1+b3jhrx9KdA6M9v8idMarMj9hnFS6daJ2oSUFINa+a5RWy5EMSDja5s/CGoRI9GS+
+ SZGN2FGvqsZCIoDuI3glMdNs86bXngIr7w3fmVfSZO4ftiVojrM8TTYhJ8avgZ+0GU
+ XFw5n23qUC/GlqiKBQemD3ze4/rTTjFOip5W9YWge2mvA3xGy+dhUTVO/+ji8VMYlk
+ Z4dhRosRf1DSn5MiTA17LKPzTe2ZCNyx0noNFR9XcyoZzTSv4PpLgqoFrXFYwQchYd
+ +m7FDHWKHAeHA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>,
- Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+Cc: Jonas Karlman <jonas@kwiboo.se>, Heiko Stuebner <heiko@sntech.de>,
+ Sasha Levin <sashal@kernel.org>, hjc@rock-chips.com, andyshrk@163.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add BOE NV116WH2-M30,
- BOE NT116WHM-N21, BOE NV116FH1-M31, BOE NV116FH1-M30
-Date: Mon, 19 Oct 2026 09:50:36 -0400
-Message-ID: <20261019135441.1420968-345-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/rockchip: dw_hdmi: Use resume_early pm
+ ops for system suspend
+Date: Mon, 19 Oct 2026 09:50:40 -0400
+Message-ID: <20261019135441.1420968-349-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -64,457 +64,469 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+From: Jonas Karlman <jonas@kwiboo.se>
 
-[ Upstream commit d4ae726fc08024b359e9cacf2507f1c256b9d71c ]
+[ Upstream commit af3a9eadc11896f6677bcb7102bfb7c84be48d2d ]
 
-The raw EDIDs for each panel:
+rockchip_drm_sys_resume()/drm_mode_config_helper_resume() is called
+before the resume pm ops of dw-hdmi. This result in an atomic_enable()
+before dw_hdmi_rockchip_resume()/dw_hdmi_resume() is called.
 
-BOE NV116WH2-M30
-00 ff ff ff ff ff ff 00 09 e5 6e 38 00 00 00 00
-0a 24 01 04 95 1a 0e 78 03 0b 55 9a 5f 58 95 28
-1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 96 1d 56 c8 50 00 26 30 30 20
-36 00 00 90 10 00 00 1a b9 13 56 c8 50 00 26 30
-30 20 36 00 00 90 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 40 ff 0a 3c 7d 0f 0c 17 7d 00 00 00 00 80
+Resume (without changes):
+- rockchip_drm_sys_resume()
+  - drm_mode_config_helper_resume()
+    - atomic_enable()
+- dw_hdmi_rockchip_resume()
+  - dw_hdmi_resume()
+    - dw_hdmi_init_hw()
 
-BOE NT116WHM-N21
-00 ff ff ff ff ff ff 00 09 e5 79 38 00 00 00 00
-08 24 01 04 95 1a 0e 78 03 3a d5 95 5c 58 94 29
-24 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 38 1d 56 c8 50 00 1c 30 30 20
-36 00 00 90 10 00 00 1a 7b 13 56 c8 50 00 1c 30
-30 20 36 00 00 90 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 40 ff 0a 3c 7d 0f 0c 17 7d 00 00 00 00 7a
+Change to use resume_early pm ops for system suspend to ensure pm ops
+for dw-hdmi is run before rockchip-drm pm ops. Also fix a possible NULL
+pointer dereference timing issue while at it.
 
-BOE NV116FH1-M31
-00 ff ff ff ff ff ff 00 09 e5 8b 38 01 ff 00 00
-0c 24 01 04 a5 1a 0e 78 03 50 d5 9c 55 52 8f 27
-15 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 9a 36 80 a0 70 38 28 40 30 20
-35 00 00 90 10 00 00 1a 67 24 80 a0 70 38 28 40
-30 20 35 00 00 90 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 36 ff 0a 3c 96 0f 0b 1a 96 00 00 00 01 cd
+Resume (with changes):
+- dw_hdmi_rockchip_resume_early()
+  - dw_hdmi_resume()
+    - dw_hdmi_init_hw()
+- rockchip_drm_sys_resume()
+  - drm_mode_config_helper_resume()
+    - atomic_enable()
 
-70 20 79 02 00 20 00 0c 9a 0e 00 8b 38 00 00 00
-00 0c 1a 00 21 01 1d 03 0a a2 05 80 07 38 04 88
-c2 39 55 1e 15 8f 7a 32 15 02 35 54 b0 5c b0 5c
-00 36 12 78 22 00 14 ff 21 02 85 7f 07 9f 00 2f
-00 1f 00 37 04 27 00 02 00 04 00 81 00 15 74 1a
-00 00 03 00 28 3c 00 00 53 5a 53 5a 3c 00 00 00
-00 00 00 2b 00 06 27 00 28 3b 00 00 2e 00 06 80
-4b b0 5c b0 5c 00 00 00 00 00 00 00 00 00 89 90
-
-BOE NV116FH1-M30
-00 ff ff ff ff ff ff 00 09 e5 8c 38 01 ff 00 00
-0c 24 01 04 a5 1a 0e 78 03 50 d5 9c 55 52 8f 27
-15 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 9a 36 80 a0 70 38 28 40 30 20
-35 00 00 90 10 00 00 1a 67 24 80 a0 70 38 28 40
-30 20 35 00 00 90 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 36 ff 0a 3c 96 0f 0b 1a 96 00 00 00 01 cc
-
-70 20 79 02 00 20 00 0c 9a 0e 00 8c 38 00 00 00
-00 0c 1a 00 21 01 1d 03 0a a2 05 80 07 38 04 88
-c2 39 55 1e 15 8f 7a 32 15 02 35 54 b0 5c b0 5c
-00 36 12 78 22 00 14 ff 21 02 85 7f 07 9f 00 2f
-00 1f 00 37 04 27 00 02 00 04 00 81 00 15 74 1a
-00 00 03 00 28 3c 00 00 53 5a 53 5a 3c 00 00 00
-00 00 00 2b 00 06 27 00 28 3b 00 00 2e 00 06 80
-4b b0 5c b0 5c 00 00 00 00 00 00 00 00 00 88 90
-
-Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260608080310.15126-3-terry_hsiao@compal.corp-partner.google.com
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+Tested-by: Heiko Stuebner <heiko@sntech.de> #rk3328
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+Link: https://patch.msgid.link/20260518193748.2482823-12-jonas@kwiboo.se
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a four-line addition of BOE eDP panel IDs to the existing
-`panel-edp` table in **6.18.53**. That is the device-ID exception for
-stable: the driver and delay helper already exist here; only the IDs are
-new.
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-- Subsystem: `drm/panel-edp`
-- Action verb: **Add**
-- Claimed intent: register four BOE 11.6" eDP panels by EDID product ID
-
-Record: [`drm/panel-edp`] [Add] [four BOE panel IDs to the EDID lookup
-table]
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-- `Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-
-  partner.google.com>` (author; Compal/Google Chromebook ODM)
-- `Reviewed-by: Douglas Anderson <dianders@chromium.org>` (panel-edp
-  maintainer)
-- `Signed-off-by: Douglas Anderson <dianders@chromium.org>` (applied to
-  drm-misc)
-- `Link: https://patch.msgid.link/20260608080310.15126-3-
-  terry_hsiao@compal.corp-partner.google.com`
-- No `Fixes:` tag (expected)
-- No `Cc: stable` (expected)
-- No `Reported-by:` / `Tested-by:` / `Acked-by:`
-- Ignore pipeline `Signed-off-by: Sasha Levin` and `[Upstream commit
-  ...]`
-
-Record: Author SOB + maintainer Reviewed-by/SOB + lore Link. No syzbot,
-no Fixes. Series msgid `-3` is patch 2/2 of a 2-patch series.
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-The body is four raw EDIDs. Product IDs in those EDIDs match the table
-entries (bytes 10–11 LE): `6e 38` → `0x386e`, `79 38` → `0x3879`, `8b
-38` → `0x388b`, `8c 38` → `0x388c`. Manufacturer `09 e5` is BOE.
-
-Record: [Bug: these panel IDs are missing from `edp_panels[]`] [Symptom:
-unknown-panel `WARN_ON` plus conservative 2000 ms unprepare / 200 ms
-enable instead of panel-specific 500/80 ms] [No version range stated]
-[Root cause: hardware not in the EDID delay table]
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Not a disguised leak/race fix. It is hardware enablement plus power-
-sequencing timings (quirk-style).
-
-Record: [Not a hidden memory-safety fix. It is a device-ID / timing-
-quirk addition.]
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1: INVENTORY THE CHANGES**
-- File: `drivers/gpu/drm/panel/panel-edp.c` (+4 / −0)
-- Function/data: `edp_panels[]` only
-- Scope: single-file surgical table insert
-
-Record: [1 file, +4 lines] [`edp_panels[]`] [single-file surgical]
-
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Before: `find_edp_panel()` misses these IDs → `WARN_ON(!detected_panel)`
-→ `panel_edp_set_conservative_timings()` (`unprepare=2000`,
-`enable=200`).
-After: match BOE `0x386e/0x3879/0x388b/0x388c` and copy
-`delay_200_500_e80` (`hpd_absent=200`, `unprepare=500`, `enable=80`).
-
-Record: [unknown-panel conservative path → identified panel with
-`delay_200_500_e80`]
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Category **(h) hardware workarounds / device IDs**. Mechanism: EDID
-identity was not in the delay table.
-
-Record: [Device ID / panel quirk] [Missing table rows; add four
-`EDP_PANEL_ENTRY` lines using an existing delay struct]
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-Obviously correct: sorted by vendor then product ID (`0x386e` after
-`0x0ddf`). Reuses `delay_200_500_e80`, already used by many BOE 11.6"
-panels. No API/struct change. Regression risk is limited to these four
-IDs; wrong delays would only affect those panels, and 80 ms enable is
-the common BOE value.
-
-Record: [Minimal, correct, low risk] [No public API change]
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
-Local tree: `v6.18.53` (`6.18.53`), branch `autosel`.
-- `panel-edp.c` exists since `5f04e7ce392db` (2021, ancestor of
-  v6.18.53)
-- `delay_200_500_e80` from `4d53cf8147950` (2023, ancestor of v6.18.53)
-- Insertion point at v6.18.53 is after BOE `0x0ddf` (`518867b093942`)
-
-Record: [Table/driver long present] [Bug is missing IDs, not a
-regression in old lines] [First appeared as a gap whenever these panels
-are used with `edp-panel`]
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-No `Fixes:` tag.
-
-Record: [N/A — no Fixes tag]
-
-**Step 3.3: CHECK FILE HISTORY**
-v6.18..v6.18.53 already contains several of the same class of commits,
-e.g. `89097c138061e`, `2583d6dcbf500`, `bafdd6284f1b9`, `ed713c88b6bf7`,
-`7eeefe23a8196`, `0bd968c04acfb`.
-
-Record: [This tree already takes panel-edp ID additions] [No
-prerequisite refactor for these 4 lines] [Series 2/2; independent of
-1/2]
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Terry Hsiao has other panel-edp ID additions in this tree
-(`bafdd6284f1b9`, `ed713c88b6bf7`, `d4b9b6da5777b`). Douglas Anderson is
-the subsystem maintainer and reviewed/applied this.
-
-Record: [Regular Chromebook panel contributor; maintainer-reviewed]
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Series 1/2 adds unrelated AUO/CMN/CSW IDs. `EDP_PANEL_ENTRY` and
-`delay_200_500_e80` are already in v6.18.53. `0x0db3` is in the
-**mainline** hunk context but **not** in v6.18.53; the 4 added lines do
-not need it.
-
-Record: [No functional dependency on 1/2] [Can apply standalone]
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-`b4 dig -c d4ae726fc08024b359e9cacf2507f1c256b9d71c` matched:
-https://patch.msgid.link/20260608080310.15126-3-terry_hsiao@compal.corp-
-partner.google.com
-
-`b4 dig -a`: single revision **v1**, series `[PATCH v1 0/2] drm/panel-
-edp: Add AUO, BOE, CMN, and CSW panels`.
-
-Doug Anderson: `Reviewed-by` and pushed to drm-misc-next as
-`d4ae726fc08024b359e9cacf2507f1c256b9d71c`. No NAK, no stable discussion
-in-thread.
-
-Record: [lore/msgid above] [v1 only] [Maintainer R-b, no objections] [No
-Cc: stable in review]
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-`b4 dig -w`: To/Cc included `dianders@chromium.org`, DRM maintainers
-(Airlie, Vetter, Ripard, Zimmermann, Lankhorst, Armstrong), `dri-devel`,
-`linux-kernel`.
-
-Record: [Correct lists; panel-edp maintainer reviewed]
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-No bugzilla/syzbot. Evidence is author-supplied EDIDs from Compal/Google
-hardware.
-
-Record: [No public crash report] [Real panels documented by EDID dumps]
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Patch 1/2 is independent ID adds. Not required for 2/2.
-
-Record: [Standalone among the series]
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-lore.kernel.org HTTP fetch returned 403. Thread mbox from `b4 dig -m`
-has no stable@ traffic.
-
-Record: [No stable-specific discussion found in the submission thread]
-[UNVERIFIED: lore.kernel.org/stable web search 403]
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Modified: `edp_panels[]`. Consumers: `find_edp_panel()`,
-`generic_edp_panel_probe()`.
-
-Record: [`edp_panels[]` / `find_edp_panel` / `generic_edp_panel_probe`]
-
-**Step 5.2: TRACE CALLERS**
-`generic_edp_panel_probe()` ← `panel_edp_probe()` when DT compatible is
-`edp-panel` ← `panel_edp_platform_probe` / DP AUX probe
-(`panel_edp_dp_aux_ep_probe` path at line 2190).
-
-Record: [Probe-time, one path per panel] [Not IRQ/hot-path]
-
-**Step 5.3: TRACE CALLEES**
-`drm_edid_read_base_block`, `drm_edid_get_panel_id`, `find_edp_panel`,
-`drm_edid_match`. On match: `desc->delay = *entry->delay`.
-
-Record: [EDID identify + delay copy]
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Userspace does not call this directly. It runs when an eDP panel with
-compatible `edp-panel` is probed (typical Chromebook/laptop). Reachable
-on machines that actually have these BOE panels.
-
-Record: [Device probe] [Reachable on those laptops] [Unprivileged users
-do not trigger a new attack surface]
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Many existing BOE `NT116WHM-N21` / `NV116*` rows already use
-`delay_200_500_e80` or nearby delays. Same pattern as other stable
-panel-edp ID commits in this tree.
-
-Record: [Same table-add pattern already used in 6.18.y]
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Yes. `panel-edp.c` and `edp_panels[]` exist at v6.18.53. `git grep` of
-`0x386e|0x3879|0x388b|0x388c|NV116WH2-M30` on **v6.18.53** found
-nothing. `git merge-base --is-ancestor` of the candidate vs `v6.18.53`
-is false.
-
-Record: [IDs missing from 6.18.53] [Driver present since 2021]
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Dry-run: `git show 75ecc68dd7996` patch against
-`v6.18.53:drivers/gpu/drm/panel/panel-edp.c` applied cleanly (`patch
---dry-run` exit 0). Mainline context mentions `0x0db3` (not in 6.18.53);
-the 3-line context used for this tree (`0x0d45`/`0x0d73`/`0x0ddf`)
-matches.
-
-Record: [Clean apply to 6.18.53]
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-No other commit on this file adds these four IDs except the autosel
-candidate itself (ignored as pipeline). No alternate fix.
-
-Record: [IDs not in v6.18.53]
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-`drivers/gpu/drm/panel/` — DRM eDP panel database. Criticality:
-**IMPORTANT** for machines with these panels; **PERIPHERAL** globally.
-`CONFIG_DRM_PANEL_EDP` is the existing Kconfig.
-
-Record: [drm/panel-edp] [IMPORTANT for affected laptops]
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Actively receiving ID additions; mature table, small well-known change
-type.
-
-Record: [Mature table, frequent ID adds]
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Only systems whose eDP EDID is BOE product `0x386e/0x3879/0x388b/0x388c`
-(11.6" Compal/Google Chromebook-class panels). `CONFIG_DRM_PANEL_EDP`.
-
-Record: [driver-specific / config-specific]
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Every probe of those panels (boot, resume). Not a race. Not
-unprivileged-exploitable beyond “this laptop’s panel”.
-
-Record: [Boot/probe of those four panels] [Likely if that hardware ships
-on 6.18] [No extra userspace trigger]
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Without the IDs: `WARN_ON` plus conservative delays (2 s unprepare).
-Panel generally still lights; sequencing is slower/less accurate. With
-wrong HPD-absent handling, flicker or failed light-up is possible; that
-is why the table exists.
-
-Record: [WARN_ON + suboptimal eDP power sequencing] [Severity MEDIUM,
-hardware-enablement HIGH for those devices]
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Benefit: enable correct timings for four real panels; stop WARN_ON; same
-class already accepted in 6.18.y.
-Risk: four static table rows, existing delay struct, no locking/API.
-
-Record: [High benefit for those devices, very low risk] [Favorable]
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
+I have the 6.18.y picture: the buggy resume path is in v6.18.53, the
+patch is self-contained, and the DSI sibling already uses the same
+late/early PM ordering. Compiling the full nine-phase verdict next.
+
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
+
+Step 1.1: PARSE THE SUBJECT LINE
+Record: [drm/rockchip: dw_hdmi] [Use] [switch HDMI system-resume
+callback to resume_early so dw-hdmi re-inits before rockchip-drm
+atomic_enable]
+
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+Record:
+- Tested-by: Heiko Stuebner <heiko@sntech.de> #rk3328 (Rockchip DRM
+  maintainer; hardware-tested)
+- Signed-off-by: Jonas Karlman <jonas@kwiboo.se> (author)
+- Signed-off-by: Heiko Stuebner <heiko@sntech.de> (subsystem maintainer
+  applied it)
+- Link:
+  https://patch.msgid.link/20260518193748.2482823-12-jonas@kwiboo.se
+- No Fixes:, Reported-by, Reviewed-by, Acked-by, or Cc: stable (absence
+  expected)
+- Ignore pipeline tags: [Upstream commit
+  af3a9eadc11896f6677bcb7102bfb7c84be48d2d], Signed-off-by: Sasha Levin
+
+Notable: maintainer Tested-by on real RK3328 hardware.
+
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
+Record:
+- Bug: on system resume, `rockchip_drm_sys_resume()` →
+  `drm_mode_config_helper_resume()` → atomic enable runs before
+  `dw_hdmi_resume()` → `dw_hdmi_init_hw()`.
+- Symptom: HDMI hardware (DDC I2C, HPD, interrupt mutes) is restored
+  after DRM has already tried to re-enable the display pipeline.
+- Secondary: “possible NULL pointer dereference timing issue” — resume
+  can run with NULL drvdata.
+- No stack trace, syzbot report, or CVE. Author gave simulated-suspend
+  (`pm_test`) and `rtcwake` test steps in the mailing-list version.
+
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not disguised. It is an explicit PM-ordering fix plus a NULL
+check. It was patch 11/11 of a series titled “Misc cleanup and propagate
+bus format”, and was added in v2; the other patches are unrelated
+cleanups/prep. This hunk is a standalone bug fix.
+
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
+
+Step 2.1: INVENTORY THE CHANGES
+Record:
+- File: `drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c` (+4/-3, 7 lines)
+- Functions: `dw_hdmi_rockchip_resume` renamed to
+  `dw_hdmi_rockchip_resume_early`; `dw_hdmi_rockchip_pm` table
+- Scope: single-file surgical PM-ops change
+
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+- Before: `.resume` (normal phase) unconditionally calls
+  `dw_hdmi_resume(hdmi->hdmi)`.
+- After: `.resume_early` (early phase) calls it only if
+  `dev_get_drvdata()` is non-NULL.
+- `SET_SYSTEM_SLEEP_PM_OPS(NULL, resume)` →
+  `SET_LATE_SYSTEM_SLEEP_PM_OPS(NULL, resume_early)`.
+- Suspend remains NULL. Hibernation thaw/restore move from thaw/restore
+  to thaw_early/restore_early, matching the same ordering intent.
+
+Resume phase order is resume_noirq → resume_early → resume. HDMI
+therefore always re-inits before rockchip-drm’s `.resume`.
+
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record:
+- Primary: logic/correctness + hardware resume ordering. Sibling `dw-
+  mipi-dsi-rockchip.c` already uses `SET_LATE_SYSTEM_SLEEP_PM_OPS` with
+  the comment that it must run before `rockchip_drm_drv` re-enables
+  panels.
+- Secondary: memory safety — NULL check before `hdmi->hdmi` dereference
+  when the platform device has probed (`component_add`) but not bound
+  (`platform_set_drvdata` is in bind, not probe).
+
+Step 2.4: ASSESS THE FIX QUALITY
+Record:
+- Obviously correct: Linux PM runs all `resume_early` callbacks before
+  any `.resume`. That is the standard way to order a component ahead of
+  the DRM master.
+- Minimal; no API or data-structure change.
+- Regression risk low: same pattern as the in-tree DSI sibling; only
+  resume is registered; `dw_hdmi_init_hw()` only re-inits mutes, DDC
+  I2C, and HPD.
+- NULL check does not cover `hdmi->hdmi` being `ERR_PTR` after a failed
+  bind; that is a leftover hole, not a regression from this patch.
+
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+
+Step 3.1: BLAME THE CHANGED LINES
+Record:
+- Buggy resume path introduced by `27c9130baef543` (“drm/rockchip:
+  dw_hdmi: Handle suspend/resume”, Douglas Anderson, 2019-06-04), first
+  in v5.3-rc1.
+- That commit is an ancestor of this tree.
+- That commit already documented the failure on rk3288 Chromebooks (HDMI
+  HPD and DDC I2C stop working after suspend) and that Chrome OS 3.14
+  used late/early PM ops because VOP sometimes resumed before dw-hdmi.
+  Mainline used normal `.resume` because the author could not reproduce
+  it then. This patch is the proper late/early fix for that known issue.
+
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. The introducing commit is `27c9130baef543`,
+present here.
+
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record:
+- Only two resume-related commits on this file: 27c9130baef543 (add
+  resume) and this one.
+- Recent 6.18.y file history is unrelated (SCLIN mask, FIELD_PREP,
+  whitespace).
+- Series-local neighbors (output_port, whitespace, empty helpers) are
+  not functional prerequisites of this hunk.
+
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Jonas Karlman is a regular Rockchip HDMI/dw-hdmi contributor.
+Heiko Stuebner (maintainer) applied the series and tested it on rk3328.
+
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record:
+- Series v2 11/11; cover letter says patches 1–10 are cleanup / YCbCr-
+  Deep Color prep. Patch 11 only changes PM ops.
+- `SET_LATE_SYSTEM_SLEEP_PM_OPS` exists in this tree’s
+  `include/linux/pm.h`.
+- `dw_hdmi_resume()` exists in `drivers/gpu/drm/bridge/synopsys/dw-
+  hdmi.c`.
+- Applies standalone. No missing helpers.
+
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- b4 dig:
+  https://patch.msgid.link/20260518193748.2482823-12-jonas@kwiboo.se
+- v1 (2026-05-10): 10 patches, no resume_early change
+- v2 (2026-05-18): this patch added (“v2: New patch”)
+- Applied by Heiko 2026-06-02 as
+  `af3a9eadc11896f6677bcb7102bfb7c84be48d2d`
+- No NAK. No reviewer asked for further revisions of this hunk.
+- Author included CONFIG_PM_DEBUG / rtcwake test instructions and noted
+  a separate RK356x EHCI/OHCI clock issue, not this bug.
+
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record: Recipients included Heiko Stuebner, Sandy Huang, Andy Yan, DRM
+maintainers, dri-devel, linux-rockchip. Heiko tested and applied. No
+other Acked-by/Reviewed-by on this patch.
+
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No syzbot/bugzilla link. Real-world grounding is the 2019
+Chromebook report in 27c9130baef543 plus Heiko’s rk3328 Tested-by.
+
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Standalone vs the rest of the v2 series. DSI sibling
+`e584cdc154993` (“drm/rockchip: dsi: Reconfigure hardware on resume()”)
+used the same late PM ops and had Cc: stable.
+
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: UNVERIFIED. lore.kernel.org/stable returned an Anubis bot-check
+page; WebFetch to lore returned 403.
+
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: `dw_hdmi_rockchip_resume_early` (was `dw_hdmi_rockchip_resume`);
+`dw_hdmi_rockchip_pm`.
+
+Step 5.2: TRACE CALLERS
+Record: Invoked by the PM core as `dev_pm_ops.resume_early` on the
+`dwhdmi-rockchip` platform driver. Triggered by system suspend/resume
+(and freeze/thaw/restore via LATE_SYSTEM_SLEEP_PM_OPS). Not a syscall
+hot path; it is the Chromebook/SBC sleep path.
+
+Step 5.3: TRACE CALLEES
+Record: `dev_get_drvdata` → `dw_hdmi_resume` → `dw_hdmi_init_hw` →
+`initialize_hdmi_ih_mutes`, `dw_hdmi_i2c_init`, optional
+`phy.ops->setup_hpd`.
+
+Step 5.4: FOLLOW THE CALL CHAIN
+Record:
+- Userspace: `echo mem > /sys/power/state` / rtcwake / systemd suspend.
+- DRM side: `rockchip_drm_sys_resume` → `drm_mode_config_helper_resume`
+  → `drm_atomic_helper_resume` (atomic commit / enable).
+- HDMI platform device is a component, not a child of the DRM device;
+  sibling `.resume` order is not guaranteed. `platform_set_drvdata` is
+  in `dw_hdmi_rockchip_bind`, while probe only does `component_add`, so
+  resume-before-bind can see NULL drvdata.
+- Reachable on any Rockchip board with this HDMI IP and CONFIG_PM_SLEEP
+  (RK3288/RK3328/RK3399/RK3568, including Chromebooks).
+
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record:
+- `dw-mipi-dsi-rockchip.c` already uses
+  `SET_LATE_SYSTEM_SLEEP_PM_OPS(NULL, dw_mipi_dsi_rockchip_resume)` in
+  this tree for the same reason.
+- `dw_hdmi_qp-rockchip.c` still uses `SET_SYSTEM_SLEEP_PM_OPS`
+  (different HDMI QP IP, not this patch).
+- imx8mp and meson dw-hdmi glue still use normal SYSTEM_SLEEP PM ops.
+
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record:
+- Local tree: `git describe HEAD` = v6.18.53-5049-g0f0bdc2b0dffb; `make
+  kernelversion` = 6.18.53 (6.18.y).
+- v6.18.53 still has:
+  `SET_SYSTEM_SLEEP_PM_OPS(NULL, dw_hdmi_rockchip_resume)`
+  and `dw_hdmi_resume(hdmi->hdmi)` with no NULL check
+  at `drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c`.
+- Bug present since v5.3 (2019), long before 6.18 branched.
+- Upstream commit `af3a9eadc11896` is not an ancestor of HEAD (`git
+  merge-base --is-ancestor` failed); this is a backport candidate, not
+  already in 6.18.y proper.
+
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Clean apply. The resume function in v6.18.53 is identical to the
+parent of this change. `SET_LATE_SYSTEM_SLEEP_PM_OPS` and
+`dw_hdmi_resume()` already exist here. Surrounding unbind/bridge-ref
+changes from later series patches are not required.
+
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: No other resume-ordering fix on this file. DSI already has the
+analogous LATE PM ops. No earlier version of this HDMI fix in 6.18.53.
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: DRM Rockchip HDMI glue (`drivers/gpu/drm/rockchip/`). IMPORTANT
+(common SoC display, not core mm/fs). Affects
+RK3288/RK3328/RK3399/RK356x HDMI (Chromebooks, SBCs, TV boxes).
+
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Mature driver (HDMI glue since ~2015). Resume path untouched
+from 2019 until this patch. Low churn on the PM ops themselves.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: Driver-specific / platform-specific. Users of Rockchip dw-hdmi
+who suspend the system. CONFIG_PM_SLEEP. Not universal, but a well-used
+platform class in Android, Chromebook, and ARM SBCs.
+
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record:
+- Trigger: system suspend/resume with this HDMI driver bound (and the
+  NULL path if probed but unbound).
+- Common on laptops/Chromebooks; less so on always-on appliances.
+- Unprivileged users typically cannot suspend; the HPD/I2C break is
+  still a real admin/user-visible failure after lid-close/sleep.
+
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record:
+- Primary: HDMI HPD and DDC I2C not restored before DRM atomic enable →
+  hotplug/EDID/output broken after resume. HIGH for affected hardware
+  (display not coming back is a serious functional bug), not a kernel
+  panic.
+- Secondary: NULL deref if resume runs before bind → oops. Less common.
+  HIGH if hit, MEDIUM likelihood.
+- Overall: HIGH (suspend/resume display breakage on real hardware).
+
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- Benefit: high for Rockchip HDMI suspend users; restores the ordering
+  Chrome OS already needed.
+- Risk: very low (7 lines, established LATE PM pattern already in the
+  same DRM driver).
+- Ratio: favor backport.
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+Step 9.1: COMPILE THE EVIDENCE
 FOR:
-- Explicit stable exception: device IDs / quirks on an existing driver
-- Driver, macro, and `delay_200_500_e80` already in 6.18.53
-- +4 lines, maintainer-reviewed, EDIDs match IDs
-- Applies cleanly to v6.18.53
-- Same class already in 6.18.y
-- Avoids `WARN_ON` and 2 s conservative unprepare on those panels
+- Real resume-ordering bug: DRM atomic enable before
+  `dw_hdmi_init_hw()`.
+- User-visible: HDMI HPD/DDC broken after sleep (documented on rk3288
+  Chromebooks in 2019; re-tested on rk3328 in 2026).
+- Same fix already used by dw-mipi-dsi-rockchip in this tree, and that
+  DSI change went to stable with Cc: stable.
+- Possible NULL deref on resume before bind.
+- 7-line surgical change; applies cleanly to v6.18.53.
+- Maintainer Tested-by and Signed-off-by.
+- Buggy code has been in this tree since v5.3; no missing prerequisites.
 
 AGAINST:
-- Not a crash/UAF/security fix
-- Fallback path still tries to run the panel
-- Affects only four panel SKUs
+- No Fixes:/Cc: stable (expected for this pipeline; not a negative).
+- Buried as 11/11 in a cleanup series (but the hunk is independent and
+  was added specifically in v2).
+- Not a panic/corruption/CVE; display-after-suspend rather than a crash.
+- No extra Reviewed-by besides maintainer apply/test.
+- UNVERIFIED whether stable@ already discussed rejecting it.
 
 UNRESOLVED:
-- lore.kernel.org HTTP 403 for a stable@ archive search (thread mbox had
-  no stable@)
+- lore.kernel.org/stable search blocked (Anubis/403).
+- Incomplete NULL check if bind failed and left `hdmi->hdmi` as ERR_PTR
+  (pre-existing).
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — EDIDs, maintainer R-b,
-   pushed to drm-misc-next
-2. Fixes a real bug that affects users? **PASS** — missing IDs for real
-   panels (WARN_ON + wrong delays)
-3. Important issue? **PASS** under the device-ID exception (not CRITICAL
-   crash)
-4. Small and contained? **PASS** — +4 lines, one table
-5. No new features or APIs? **PASS** — IDs only, existing helper
-6. Can apply to the local tree? **PASS** — dry-run clean on 6.18.53
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? PASS — PM phase ordering is well-
+   defined; Heiko tested on rk3328.
+2. Fixes a real bug that affects users? PASS — HDMI not correctly re-
+   inited before DRM resume; Chromebook-class hardware.
+3. Important issue (crash, security, corruption, deadlock)? PASS —
+   suspend/resume display breakage plus a possible oops; hardware resume
+   workaround, same class as the DSI stable fix.
+4. Small and contained? PASS — 7 lines, one file.
+5. No new features or APIs? PASS.
+6. Can apply to the local tree? PASS — v6.18.53 has the old resume
+   function and the LATE PM macro.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: [NEW DEVICE IDs to existing driver — also hardware timing quirk]
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: Hardware suspend/resume workaround on an existing driver (quirk-
+class). Not a new driver, ID, or API.
 
-**Step 9.4: MAKE YOUR DECISION**
-This belongs in 6.18.y. The local tree already has `panel-edp` and the
-delay helper; these four BOE IDs are missing; the change is the same
-kind of ID add this series already ships.
+Step 9.4: MAKE YOUR DECISION
+This belongs on 6.18.y. The buggy `.resume` path is in this checkout,
+the switch to `resume_early` is the same proven pattern as the in-tree
+DSI sibling, and the patch is tiny with maintainer hardware testing.
 
-What it solves for stable users: Chromebook/laptop eDP panels identified
-by those EDIDs get correct power-on/off delays instead of the unknown-
-panel `WARN_ON` and 2000 ms conservative unprepare.
+What it solves for stable users: after system sleep on Rockchip dw-hdmi
+boards, DRM can re-enable the pipeline before HDMI DDC/HPD/init, so
+hotplug and HDMI output fail. Moving the callback to `resume_early`
+forces `dw_hdmi_init_hw()` first, and skips a NULL drvdata deref if the
+component never bound.
 
-Risk vs benefit: four static rows vs making those panels sequence
-correctly. No dependencies on series 1/2.
+Risk is low; benefit is a real resume fix on shipping SoCs. No series
+dependencies are required for this hunk.
 
-### Verification
-- [Phase 1] Tags: Hsiao SOB, Anderson R-b/SOB, msgid
-  20260608080310.15126-3; no Fixes/Reported-by
-- [Phase 1] EDIDs: product IDs 0x386e/0x3879/0x388b/0x388c match added
-  rows
-- [Phase 2] Diff: +4 `EDP_PANEL_ENTRY` lines in `edp_panels[]` using
-  `delay_200_500_e80`
-- [Phase 2] Fallback: `generic_edp_panel_probe()` lines 814–824
-  `WARN_ON` + `panel_edp_set_conservative_timings()` (unprepare 2000,
-  enable 200)
-- [Phase 3] `git describe HEAD` / Makefile: **6.18.53**
-  (`v6.18.53-5049-g0f0bdc2b0dffb`)
-- [Phase 3] `git merge-base --is-ancestor 4d53cf8147950 v6.18.53` yes;
-  `5f04e7ce392db` yes
-- [Phase 3] `git grep` on v6.18.53: IDs **absent**; `delay_200_500_e80`
-  **present** at line 1760
-- [Phase 3] Similar ID adds already in `v6.18..v6.18.53` (e.g.
-  `89097c138061e`, `bafdd6284f1b9`)
-- [Phase 4] `b4 dig -c d4ae726fc080...`: matched series; v1 only;
-  Anderson R-b; drm-misc-next `d4ae726fc080`
-- [Phase 4] `b4 dig -w`: dri-devel + DRM maintainers + dianders
-- [Phase 4] `b4 dig -m`: cover 0/2, 1/2 independent IDs, 2/2 this patch;
-  no NAK
-- [Phase 4] WebFetch lore/msgid.link: 403 — discussion taken from mbox
-  instead
-- [Phase 5] Callers of `generic_edp_panel_probe`: only `panel_edp_probe`
-  for `edp-panel`
-- [Phase 6] Dry-run apply of candidate hunk onto v6.18.53 `panel-edp.c`:
-  **success**
-- [Phase 6] `0x0db3` (mainline context) **not** in v6.18.53; not
-  required
-- [Phase 7] `CONFIG_DRM_PANEL_EDP` present in this tree
-- [Phase 8] Failure mode: WARN_ON + conservative delays, not oops
-- UNVERIFIED: stable@ archive web search (HTTP 403)
+Verification:
+- [Phase 1] Parsed tags: Tested-by Heiko (rk3328), SOB Jonas + Heiko,
+  Link msgid ...-12; no Fixes/Reported-by/Cc:stable
+- [Phase 1] Cover letter via b4 mbox: patch 11/11 of v2 “Misc cleanup”;
+  “v2: New patch”; Heiko “Series: Tested-by” and Applied
+- [Phase 2] Diff: rename resume→resume_early, add `if (hdmi)`,
+  SET_SYSTEM_SLEEP→SET_LATE_SYSTEM_SLEEP; +4/-3
+- [Phase 2] Confirmed LATE_SYSTEM_SLEEP_PM_OPS maps resume_fn to
+  `.resume_early` in include/linux/pm.h:321-327,350-351
+- [Phase 2] Confirmed rockchip_drm_drv.c:260-262 still uses
+  SET_SYSTEM_SLEEP_PM_OPS for sys_resume
+- [Phase 2] drm_mode_config_helper_resume() calls
+  drm_atomic_helper_resume() (drm_modeset_helper.c:250)
+- [Phase 3] git blame parent: resume added in 27c9130baef543 (Douglas
+  Anderson, 2019)
+- [Phase 3] git show 27c9130baef543: documented Chromebook HPD/I2C break
+  and Chrome OS late/early PM ops
+- [Phase 3] git describe --contains 27c9130baef543 → v5.3-rc1; git
+  merge-base --is-ancestor 27c9130baef543 HEAD → yes
+- [Phase 3] git log --oneline --grep resume_early --
+  drivers/gpu/drm/rockchip/ → only this commit
+- [Phase 4] b4 dig -c af3a9eadc11896: lore thread found; v1 had no this
+  patch; v2 added it; applied as af3a9eadc11896
+- [Phase 4] b4 dig -a: v1 2026-05-10, v2 2026-05-18
+- [Phase 4] b4 dig -w: Heiko, dri-devel, linux-rockchip CC’d
+- [Phase 4] b4 dig -m /tmp/thread.mbox: no NAKs; Heiko tested+applied
+- [Phase 4] lore.kernel.org WebFetch 403; stable search Anubis-blocked →
+  UNVERIFIED stable@ discussion
+- [Phase 5] Callers: PM core resume_early on dwhdmi-rockchip; callees
+  dw_hdmi_resume→dw_hdmi_init_hw
+- [Phase 5] platform_set_drvdata in bind (line 580), probe only
+  component_add — NULL drvdata on unbound resume is real
+- [Phase 5] Sibling dw-mipi-dsi-rockchip.c:1346 already
+  SET_LATE_SYSTEM_SLEEP_PM_OPS in this tree; introduced by e584cdc154993
+  with Cc: stable
+- [Phase 6] git describe HEAD: v6.18.53-5049-g0f0bdc2b0dffb; make
+  kernelversion 6.18.53
+- [Phase 6] git show v6.18.53:dw_hdmi-rockchip.c has
+  SET_SYSTEM_SLEEP_PM_OPS + unchecked dw_hdmi_resume
+- [Phase 6] git merge-base --is-ancestor af3a9eadc11896 HEAD → no (not
+  in 6.18.y proper)
+- [Phase 6] Resume hunk in v6.18.53 identical to parent of this change;
+  SET_LATE and dw_hdmi_resume exist in v6.18.53
+- [Phase 8] Failure mode: HDMI broken after suspend (HIGH); possible
+  NULL oops (HIGH if hit)
+- UNVERIFIED: whether stable@ previously rejected this patch (lore
+  blocked)
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 9ad1769885b3c..792923b1d7878 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2005,6 +2005,10 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d45, &delay_200_500_e80, "NV116WHM-N4B"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d73, &delay_200_500_e80, "NE140WUM-N6S"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ddf, &delay_200_500_e80, "NV116WHM-T01"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x386e, &delay_200_500_e80, "NV116WH2-M30"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x3879, &delay_200_500_e80, "NT116WHM-N21"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x388b, &delay_200_500_e80, "NV116FH1-M31"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x388c, &delay_200_500_e80, "NV116FH1-M30"),
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+index 727cdf768161a..ff34aeef3a6ff 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+@@ -635,17 +635,18 @@ static void dw_hdmi_rockchip_remove(struct platform_device *pdev)
+ 	component_del(&pdev->dev, &dw_hdmi_rockchip_ops);
+ }
  
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1130, &delay_200_500_e50, "N116BGE-EB2"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1132, &delay_200_500_e80_d50, "N116BGE-EA2"),
+-static int __maybe_unused dw_hdmi_rockchip_resume(struct device *dev)
++static int __maybe_unused dw_hdmi_rockchip_resume_early(struct device *dev)
+ {
+ 	struct rockchip_hdmi *hdmi = dev_get_drvdata(dev);
+ 
+-	dw_hdmi_resume(hdmi->hdmi);
++	if (hdmi)
++		dw_hdmi_resume(hdmi->hdmi);
+ 
+ 	return 0;
+ }
+ 
+ static const struct dev_pm_ops dw_hdmi_rockchip_pm = {
+-	SET_SYSTEM_SLEEP_PM_OPS(NULL, dw_hdmi_rockchip_resume)
++	SET_LATE_SYSTEM_SLEEP_PM_OPS(NULL, dw_hdmi_rockchip_resume_early)
+ };
+ 
+ struct platform_driver dw_hdmi_rockchip_pltfm_driver = {
 -- 
 2.53.0
 
