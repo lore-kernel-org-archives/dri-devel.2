@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9205CCF2E7
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:06:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C435CCF2E6
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD8B510E4BA;
-	Mon, 19 Oct 2026 14:06:44 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC5110E4BA;
- Mon, 19 Oct 2026 14:06:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A329310EDB6;
+	Mon, 19 Oct 2026 14:06:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484D910EDAB;
+ Mon, 19 Oct 2026 14:06:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7258B60238;
- Mon, 19 Oct 2026 14:06:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD4EC1F000C5;
- Mon, 19 Oct 2026 14:06:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 304584069A;
+ Mon, 19 Oct 2026 14:06:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05111F000C4;
+ Mon, 19 Oct 2026 14:06:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418797;
- bh=tDiFVdZd6x1/FpLu1PcrtGHQ8LNj3Xzgk1lKCM43d+Q=;
+ s=k20260515; t=1792418800;
+ bh=ZMRJUcIVaGsiHeUnipdtBhMjjrZG7IlLuALxVE80EOM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=QuJPTty5Mq1lXSKSaGZKApcO77YuCCIskcpwnCWvKx30dzgFQNMU/I7VFkHvpoFZN
- X0+81gZs4xkynafE6wRZKTB40kUGmhTe6wZpAk9/BAd7/Jh9sd6NNRHYzdRmvAHcns
- RnKkv7Ev2W/vGUMmJl7NAy1TgR41BnMJe9a3r4DaneqO95/Hw9atYmTWG9AEz7wnBM
- +8eKLln32pD1jAVQox0oe4Cqg2KMlYFzCC9y5n6kj7GfDteOUhVAD8uPTW58QkTHxv
- RJBSECN83IDPd/R0cyO+OznEXTM44OLHrhjzqVo9bEVEr6a/O8bpAN2IM5c/vGiiX1
- NzxE0Hc5TgqiQ==
+ b=kNrGwj2y/0hyQOoGJ8O0wlU3AfFEAEnNI+BLQRu2jLyXUavHmTanNxTTquB0NjMoy
+ +83FWwkaeLN1K4hBGIHvg6GZol6xSw7fD3kkTEbGZ5S8iYiiWfvwRn7dDMNQm031FZ
+ Gk9Zw1jZJn+19FYfscrx9ITDx/lJrUducZ/TD4+TplnaZVQ/X8tEbH6gGapssmr/vn
+ mi/0MbznA4IhCBh1MIbIu+jFD9/zBQfq/uLxEMNFH7CRJ7kjGknOZrjK8tXYjz+zjv
+ mkuwEQUrKk1fwwHYHGxQdfn52WX5k31YJwflwwEo+3fKp4n7fGyGPQ9h8khtFPpOtT
+ unAuZwrWKAD5w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Eric Huang <jinhuieric.huang@amd.com>, Philip Yang <philip.yang@amd.com>,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdkfd: add sanity check in
- svm_range_is_valid
-Date: Mon, 19 Oct 2026 09:53:14 -0400
-Message-ID: <20261019135441.1420968-503-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/gfx11: set KMD_QUEUE for kernel gfx
+ queues
+Date: Mon, 19 Oct 2026 09:53:16 -0400
+Message-ID: <20261019135441.1420968-505-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,431 +63,394 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Eric Huang <jinhuieric.huang@amd.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit aa7e29cf9a37092cf5057a612ee09f28df20258f ]
+[ Upstream commit 8228688eb40cc116127e80394cb8157417854c70 ]
 
-to prevent svm range to be overflow or underflow.
+Set KMD_QUEUE in the GFX MQD and kernel ring control registers so CP
+preserves kernel IB VMIDs instead of replacing them with the queue VMID.
+Use prop->kernel_queue to distinguish kernel and user MQDs.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-Reviewed-by: Philip Yang <philip.yang@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 893642e0e3b2f5aa818e0ee4a49e2d401d541e3a)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Local tree
+I have the local-tree, history, and mailing-list evidence. Compiling the
+nine-phase analysis and the backport verdict next.
 
-This checkout is **6.18.y** (`v6.18.53`, Makefile `VERSION=6` /
-`PATCHLEVEL=18` / `SUBLEVEL=53`, branch `autosel`). The verdict is only
-for this tree.
+## Phase 1: Commit message forensics
 
-`git merge-base --is-ancestor` shows the buggy SVM range math **is** in
-`v6.18.53`; the fix is **not**.
+**Step 1.1:**
+Record: `[drm/amdgpu/gfx11] [set] [program KMD_QUEUE on kernel GFX
+MQDs/rings so CP keeps kernel IB VMIDs]`
 
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-
-Record: `[drm/amdkfd] [add] sanity check in svm_range_is_valid`
-
-Subsystem: AMD KFD SVM (HMM shared virtual memory). Verb “add” plus
-“sanity check” is a bounds/overflow guard, not a feature.
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
-Record:
-- Signed-off-by: Eric Huang (author)
-- Reviewed-by: Philip Yang (original author of `svm_range_is_valid`)
-- Signed-off-by: Alex Deucher (amdgpu/amdkfd maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable (absence is
+**Step 1.2:**
+Record: tags on the upstream commit
+`893642e0e3b2f5aa818e0ee4a49e2d401d541e3a`:
+- Signed-off-by: Jesse Zhang `<Jesse.Zhang@amd.com>` (author)
+- Reviewed-by: Alex Deucher `<alexander.deucher@amd.com>` (amdgpu
+  maintainer)
+- Signed-off-by: Alex Deucher `<alexander.deucher@amd.com>`
+- No Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable (absence
   expected)
 
-Pipeline-added markers (`[Upstream commit …]`, Sasha Levin SOB) are
-ignored.
+Pipeline-only tags ignored: `[Upstream commit ...]`, Sasha Levin SOB,
+cherry-pick marker.
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
+**Step 1.3:**
 Record:
-- Bug: SVM range start/size can overflow or underflow when converted to
-  byte bounds.
-- Symptom: not spelled out (no stack trace, CVE, or repro).
-- Root cause (from code + review, not from the one-line body): `end =
-  start + (size << PAGE_SHIFT)` wraps; `size == 0` makes `last = start +
-  size - 1` underflow.
+- Bug: CP overwrites the VMID in kernel GFX IBs with the queue VMID
+  unless `KMD_QUEUE` is set.
+- Symptom/failure mode: IBs run in the wrong VM (queue VMID, typically
+  0) instead of the IB VMID encoded by `gfx_v11_0_ring_emit_ib_gfx()`.
+  That is a GPU page-fault / hang / wrong-address-space class failure.
+- Version info: none in the message.
+- Root cause (author): kernel GFX MQD and `CP_RB0_CNTL` never set
+  `KMD_QUEUE`; `prop->kernel_queue` is the kernel-vs-user discriminator.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
+**Step 1.4:**
+Record: Not a hidden cleanup. The subject uses “set”, but the body
+describes a concrete CP mis-program. This is a hardware-programming
+correctness fix.
 
-Record: Yes. “Sanity check” here is an integer overflow/underflow fix in
-range validation, not style cleanup. Philip Yang said so on list:
-overflow wrap plus `size == 0` underflow of `last = start + size - 1`.
+## Phase 2: Diff analysis
 
----
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1: INVENTORY THE CHANGES**
-
+**Step 2.1:**
 Record:
-- File: `drivers/gpu/drm/amd/amdkfd/kfd_svm.c` (+7 / −1)
-- Function: `svm_range_is_valid()`
+- File: `drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c` (+2 / -0)
+- Functions: `gfx_v11_0_cp_gfx_resume()`, `gfx_v11_0_gfx_mqd_init()`
 - Scope: single-file surgical fix
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-
-Before (`v6.18.53`):
-
-```c
-start <<= PAGE_SHIFT;
-end = start + (size << PAGE_SHIFT);
-do { vma_lookup... } while (start < end);
-return svm_range_check_vm(p, start_unchg, (end - 1) >> PAGE_SHIFT, ...);
-```
-
-After:
-- `size == 0` → `-EINVAL`
-- `check_add_overflow(start, size << PAGE_SHIFT, &end)` → `-EOVERFLOW`
-- Same VMA walk only if the byte range is representable
-
-Path: ioctl/CRIU validation, not a hot inner loop.
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-
-Record: **Integer overflow / underflow (memory-safety / validation
-bypass).**
-
-Overflow: userspace `AMDKFD_IOC_SVM` can pass page-aligned `start_addr`
-and `size` whose sum wraps 64-bit. After `svm_ioctl()` shifts both into
-pages, `end` wraps. The `do/while (start < end)` then walks a
-**truncated/wrapped** range. `svm_range_check_vm()` can see `last <
-start`, where `interval_tree_iter_first()` treats a non-overlapping
-inverted interval as empty and returns success. Callers then run
-`svm_range_add()` with the original huge `start`/`size`.
-
-Underflow: `size == 0` makes `(end - 1)` wrap when `end == 0`, so
-`svm_range_check_vm()` can be asked to scan ~the whole VA tree. Philip
-Yang called that out as the reason for the extra check.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-
-Record: Obviously correct, minimal, error-path only. Regression risk is
-low: overflowing/zero ranges were never valid. `-EOVERFLOW` is a new
-errno for this ioctl; those requests were undefined before.
-`check_add_overflow()` is already provided via `linux/mm.h` (`kfd_svm.c`
-→ `kfd_svm.h` → `linux/hmm.h` → `linux/mm.h` → `linux/overflow.h`). KFD
-is 64-bit only (`HSA_AMD depends on X86_64 || ARM64 || PPC64 || …`), so
-`unsigned long end` matches `uint64_t` arithmetic.
-
-The check does not separately test `size << PAGE_SHIFT` wrap. On the
-ioctl path size is a page-aligned byte length shifted down then up, so
-the add is the real wrap. That leftover is not a reason to reject the
-patch.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
-
-Record: Unchecked `end = start + (size << PAGE_SHIFT)` is from
-`42de677f799997` (“drm/amdkfd: register svm range”, Philip Yang, 2020).
-Present in this tree (`git merge-base --is-ancestor 42de677f799997
-v6.18.53` → yes). SVM landed ~5.11; the bug is old in 6.18.y.
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-
-Record: No Fixes: tag. Not applicable.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
-Record: Recent `kfd_svm.c` work on this tree is unrelated (CRIU
-list_del, NULL in `svm_range_set_attr`, TLB, GPU reset). No prior
-overflow fix for this helper. Standalone, not patch N/M.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record: Eric Huang is an AMD KFD contributor (including `drm/amdkfd: fix
-a vulnerability of integer overflow in kfd debugger`, already in this
-tree with Cc: stable). Philip Yang owns this SVM code. Alex Deucher is
-the subsystem maintainer.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-
-Record: None. `check_add_overflow()` and `svm_range_is_valid()` both
-exist here. Applies standalone to `v6.18.53` (same hunk as the
-candidate).
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
-`b4 dig -c aa7e29cf9a37092cf5057a612ee09f28df20258f` failed (lore HTTP
-error). Found the thread on amd-gfx:
-
-- v1: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-June/146929.html — overflow check only
-- Philip Yang: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-June/146952.html — overflow check is good; also reject `size
-  == 0` because `last = start + size - 1` underflows
-- v2 typo (`retrune`): 147063
-- v2 fixed: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-June/147065.html — committed form
-- Reviewed-by: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-June/147704.html
-- Landed in drm-next-7.3 pull (Aug 2026)
-
-No NAKs. No Cc: stable on the thread.
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record: Philip Yang (SVM author) requested the size==0 check and
-Reviewed-by. Alex Deucher signed off and pulled it.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record: No syzbot/bugzilla. Author-driven hardening after review.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Single patch, two revisions. Self-contained.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-
-Record: No useful stable-list hit for this subject. Not previously
-rejected for 6.18.y (UNVERIFIED beyond search noise).
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: KEY FUNCTIONS**
-
-Record: `svm_range_is_valid()` only.
-
-**Step 5.2: TRACE CALLERS**
-
+**Step 2.2:**
 Record:
-- `svm_range_set_attr()` — `AMDKFD_IOC_SVM` SET_ATTR and CRIU restore
-- `svm_range_get_attr()` — GET_ATTR and CRIU checkpoint
+- Hunk 1 (`gfx_v11_0_cp_gfx_resume`): `CP_RB0_CNTL` was built from 0
+  (`RB_BUFSZ`/`RB_BLKSZ` only). After: `KMD_QUEUE=1` on the kernel GFX
+  ring 0 path.
+- Hunk 2 (`gfx_v11_0_gfx_mqd_init`): `CP_GFX_HQD_CNTL` started from
+  `regCP_GFX_HQD_CNTL_DEFAULT` (0x00a00000). After:
+  `KMD_QUEUE=prop->kernel_queue` (1 for kernel MQDs, 0 for user MQDs).
+- Both are init/resume paths, not error paths.
 
-`kfd_ioctl_svm()`: flags `0` (not `KFD_IOC_FLAG_CHECKPOINT_RESTORE`).
-Any opener of `/dev/kfd` can call it. It already rejects zero/unaligned
-byte size, then shifts into pages and calls these helpers.
-
-**Step 5.3: TRACE CALLEES**
-
-Record: `vma_lookup()`, `svm_range_check_vm()` →
-`interval_tree_iter_first()`. Overflow changes which interval is walked.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record: Userspace ioctl → `kfd_ioctl_svm` → `svm_ioctl` → set/get_attr →
-`svm_range_is_valid`. Reachable from userspace with KFD access (ROCm/HIP
-unified memory). Not theoretical.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: `svm_range_add()` still does `last = start + size - 1UL`, but
-only after this validator. Rejecting wrap/zero here closes that gate.
-`kfd_ioctl_svm` already rejects byte `size == 0`; the new check covers
-CRIU/`svm_range_*_attr` in page units.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-
-Record: Yes. `v6.18.53` `kfd_svm.c` still has `end = start + (size <<
-PAGE_SHIFT)` at the old line 3424. Introduced 2020; in 6.18 from day
-one.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: Clean apply. Same function signature (no later `mapped`
-argument). No extra include. Surrounding SVM code matches.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-
-Record: No other overflow fix for `svm_range_is_valid` on `v6.18.53`.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: SUBSYSTEM AND CRITICALITY**
-
-Record: `drivers/gpu/drm/amd/amdkfd` SVM. **IMPORTANT** for AMD GPU
-compute (ROCm/HIP), not core mm/VFS. Config: `CONFIG_HSA_AMD_SVM`.
-
-**Step 7.2: SUBSYSTEM ACTIVITY**
-
-Record: Actively maintained; this helper itself has been stable since
-~2021 aside from `vma_lookup` and `svm_range_check_vm` tweaks.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: WHO IS AFFECTED**
-
-Record: AMD GPU users with KFD SVM (unified/managed memory). Driver- and
-config-specific, but a common production path.
-
-**Step 8.2: TRIGGER CONDITIONS**
-
+**Step 2.3:**
 Record:
-- Overflow: page-aligned `start_addr + size` wraps `uint64_t`. Easy to
-  send; not a normal HIP range.
-- Underflow: `size == 0` in pages (ioctl already blocks this;
-  CRIU/internal callers may not).
-- Unprivileged `/dev/kfd` users can hit the overflow path.
+- Category: hardware workaround / logic correctness (queue privilege
+  bit).
+- Mechanism: `KMD_QUEUE` is bit 29 of `CP_RB0_CNTL` / `CP_GFX_HQD_CNTL`
+  (`0x20000000`). The default value `0x00a00000` does **not** include
+  that bit. Compute kernel MQDs already set `KMD_QUEUE` when
+  `prop->kernel_queue`; GFX MQDs only set `RB_NON_PRIV` for user queues
+  and left kernel GFX `KMD_QUEUE` clear.
 
-**Step 8.3: FAILURE MODE SEVERITY**
-
-Record: Validation bypass after wrap: SVM may be applied to a range that
-was never fully VMA-checked; interval-tree overlap can be skipped; GPU
-mapping of the wrong host range or later crashes. Severity **HIGH**
-(userspace-triggerable overflow in GPU VA validation). Not a proven
-panic-on-boot, but more than a log-only issue.
-
-**Step 8.4: RISK-BENEFIT RATIO**
-
+**Step 2.4:**
 Record:
-- Benefit: HIGH for KFD SVM — closes wrap-around validation.
-- Risk: VERY LOW — 7 lines, reject-only, maintainer-reviewed.
-- Ratio: strongly favors backport.
+- Quality: obviously correct and minimal. Kernel rings
+  (`amdgpu_ring_to_mqd_prop`) set `kernel_queue=true`; userq props are
+  `kzalloc`’d so the bit stays 0.
+- Regression risk: low. Same privilege bit already used for compute/KFD
+  kernel queues. User MQDs are unchanged.
+- Residual gap (not a reject): ring 1 (`CP_RB1_CNTL`) is not updated.
+  That path is only `!amdgpu_async_gfx_ring && num_gfx_rings > 1`;
+  default `amdgpu_async_gfx_ring=1`.
 
----
+## Phase 3: Git history
 
-## PHASE 9: FINAL SYNTHESIS
+**Step 3.1:**
+Record:
+- `CP_RB0_CNTL` programming: `3d879e81f0f9e` (“drm/amdgpu: add init
+  support for GFX11 (v2)”, 2022-05-04).
+- GFX MQD `CP_GFX_HQD_CNTL` setup: same commit; later `e27b36ea6ba5f2`
+  switched the start value to `regCP_GFX_HQD_CNTL_DEFAULT`;
+  `063d668320872` added `RB_NON_PRIV` for user queues.
+- Bug is a long-standing omission on GFX11, present through v6.18.57.
 
-**Step 9.1: EVIDENCE**
+**Step 3.2:**
+Record: No `Fixes:` tag. Closest related change is `063d668320872` (“set
+MQD as appriopriate for queue types”), already in v6.18.57. That commit
+set compute `KMD_QUEUE` only for kernel queues and GFX `RB_NON_PRIV` for
+user queues; it did not set GFX `KMD_QUEUE`.
 
-FOR:
-- Real wrap in `end = start + (size << PAGE_SHIFT)` on a userspace ioctl
-- Wrap can make the VMA walk check the wrong range and still return 0
-- `size == 0` underflows `last` (Philip Yang)
-- 7-line, obviously correct `check_add_overflow` + zero check
-- Reviewed by the SVM author; signed off by Deucher
-- Bug present in this 6.18.y tree since original SVM
-- Applies cleanly; no new API; no prerequisites
+**Step 3.3:**
+Record: Recent `gfx_v11_0.c` on this tree includes KGQ reset/wptr fixes
+and a gfx11 userq firmware-version bump (`b7cb1b6696137`). Sibling:
+`53db34aed3716` (gfx12, same author/intent; pipeline-applied, ignored
+for selection). This commit is standalone at the code level.
 
-AGAINST:
-- Terse commit message, no crash/CVE/syzbot
-- Ioctl already rejects byte `size == 0` (overflow still open)
-- Affects AMD KFD SVM, not every machine
+**Step 3.4:**
+Record: Jesse Zhang is a regular amdgpu contributor (reset/userq/MQD).
+Alex Deucher (maintainer) reviewed and applied it.
 
-UNRESOLVED:
-- Exact post-bypass corruption vs. later `-EFAULT` not demonstrated with
-  a repro
-- lore.kernel.org/`b4 dig` failed; amd-gfx archive used instead
-- No stable-list discussion found
+**Step 3.5:**
+Record: Needs `prop->kernel_queue` (`284d4dfe850e6`, in v6.18.57),
+`gfx_v11_0_gfx_mqd_init`, and `KMD_QUEUE` masks in gc_11 headers — all
+present. No new helpers. Can apply standalone.
 
-**Step 9.2: STABLE RULES CHECKLIST**
+## Phase 4: Mailing list / external research
 
-1. Obviously correct and tested? **PASS** — review + drm-next inclusion
-2. Fixes a real bug that affects users? **PASS** — ioctl-reachable
-   overflow
-3. Important (crash/security/corruption/deadlock)? **PASS** — HIGH,
-   validation bypass
-4. Small and contained? **PASS** — 8-line hunk, one function
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — present bug, clean apply on
-   6.18.53
+**Step 4.1:**
+Record:
+- `b4 dig -c 893642e0e3b2…` and `8228688eb40cc…`: lore.kernel.org
+  returned errors; no b4 match.
+- Found original series: [PATCH 10/21]
+  https://lists.freedesktop.org/archives/amd-
+  gfx/2026-September/153407.html
+- Sibling [PATCH 09/21] gfx12:
+  https://lists.freedesktop.org/archives/amd-
+  gfx/2026-September/153406.html
+- No 00/21 cover letter; series starts at 01/21 (`detect_hung_queue`).
+- This is patches 09/10 of a 21-patch gfx pipe-reset / hung-queue series
+  (Sep 21, 2026).
+- No v2 of this hunk; committed text matches the mailed diff.
+- No NAK on 09/10. No reviewer `Cc: stable` on this patch.
 
-**Step 9.3: EXCEPTION CATEGORIES**
+**Step 4.2:**
+Record: Posted to amd-gfx. Alex Deucher reviewed the **entire series**
+(https://lists.freedesktop.org/archives/amd-
+gfx/2026-September/153488.html): “Patches 11 and 12 look like bug fixes.
+Maybe move them to the start… Other than that, the series is: Reviewed-
+by: Alex Deucher”. He did **not** call 09/10 out as the urgent
+standalone fixes.
 
-Record: Not a device ID/quirk/DT/docs case. Ordinary small overflow fix.
+**Step 4.3:**
+Record: No bugzilla/syzbot/user crash report attached. Severity is
+inferred from the CP VMID description, not from a reproducer.
 
-**Step 9.4: DECISION**
+**Step 4.4:**
+Record: Series is pipe-reset enablement (`detect_hung_queue`, MES
+collateral restore, userq VMID for MMIO reset, pipe reset helpers).
+Those later patches are **not** in this 6.18.57 tree
+(`detect_hung_queue` / `amdgpu_gfx_mqd_reset_restore` grep: no matches).
+This 2-line hunk does not implement pipe reset; it only programs
+`KMD_QUEUE`.
 
-This belongs on 6.18.y: old bug, userspace-reachable, tiny fix,
-maintainer-acked, applies as-is.
+**Step 4.5:**
+Record: UNVERIFIED — lore.kernel.org/stable search returned 403. No
+local evidence this was discussed on stable@.
 
----
+## Phase 5: Code semantic analysis
 
-### What it solves for stable users
+**Step 5.1:**
+Record: `gfx_v11_0_cp_gfx_resume`, `gfx_v11_0_gfx_mqd_init`.
 
-`svm_range_is_valid()` is the gate for `AMDKFD_IOC_SVM`. Without
-overflow checks, a wrapping `start+size` can skip the intended VMA
-coverage check and still proceed into SVM range insert/map. Zero size
-underflows the last-page index. Both are closed with `-EINVAL` /
-`-EOVERFLOW`.
+**Step 5.2:**
+Record:
+- `gfx_v11_0_cp_gfx_resume`: called from CP resume when
+  `!amdgpu_async_gfx_ring`. Default `amdgpu_async_gfx_ring=1`
+  (`amdgpu_drv.c`), so this is the uncommon path.
+- `gfx_v11_0_gfx_mqd_init`: registered as
+  `adev->mqds[AMDGPU_HW_IP_GFX].init_mqd`. Callers:
+  - `amdgpu_ring_init_mqd()` ← `gfx_v11_0_kgq_init_queue()` (default
+    async KGQ resume)
+  - `mes_userq_mqd_create()` ← userqueue create (`AMDGPU_USERQ` ioctl)
+
+**Step 5.3:**
+Record: Callees are `REG_SET_FIELD` / `WREG32_SOC15`. No alloc, no locks
+added.
+
+**Step 5.4:**
+Record: Reachable from GPU init (every GFX11 device) and from userq
+create. `gfx_v11_0_ring_emit_ib_gfx()` writes `vmid << 24` into
+`PACKET3_INDIRECT_BUFFER`. That is the VMID the commit says CP will
+replace without `KMD_QUEUE`. Userspace command submission uses this
+path.
+
+**Step 5.5:**
+Record: Same bit already set for gfx11 compute kernel MQDs, MES v11/v12,
+gfx7–10 compute, and KFD MQD managers. GFX11/12 GFX HQD was the missing
+counterpart. Sibling gfx12 patch is the same change.
+
+## Phase 6: Cross-reference against this tree
+
+**Step 6.1:**
+Record: Local tree is **6.18.57** (`make kernelversion`, `git describe
+HEAD` → `v6.18.57-155-gcdf239ca885b2`).
+v6.18.57 `gfx_v11_0.c` does **not** set `KMD_QUEUE` in either site.
+GFX11 support and `prop->kernel_queue` are in this tree. The bug exists
+here.
+
+**Step 6.2:**
+Record: Expected apply: **clean**. Context around both
+`REG_SET_FIELD(..., RB_BLKSZ, ...)` sites matches the patch. Register
+masks exist in `gc_11_*_sh_mask.h`.
+
+**Step 6.3:**
+Record: `063d668320872` is present (partial MQD privilege split). No
+other commit in v6.18.57 sets GFX `KMD_QUEUE`. The checkout copy at
+`7bb279e35c0e1` is the autosel candidate (Sasha Levin), ignored as
+selection evidence.
+
+## Phase 7: Subsystem context
+
+**Step 7.1:**
+Record: `[drm/amdgpu GFX11] [IMPORTANT]` — RDNA3 (RX 7000 / Phoenix /
+etc.), not core mm/fs, but a very common GPU driver.
+
+**Step 7.2:**
+Record: Active. Recent 6.18 work includes KGQ reset, userq firmware
+versions, MQD priority.
+
+## Phase 8: Impact and risk
+
+**Step 8.1:**
+Record: Driver-specific: amdgpu GFX11. Default 6.18 still uses kernel
+GFX queues (`amdgpu_user_queue=-1` → `disable_uq=true`). User queues
+exist and can be enabled (`user_queue=1/2`).
+
+**Step 8.2:**
+Record:
+- Trigger: GFX11 init (MQD/KGQ) and any kernel GFX IB with a non-queue
+  VMID.
+- How common: every GFX11 boot programs the MQD; every gfx IB encodes a
+  VMID.
+- Unprivileged trigger: yes, via normal render/compute submit.
+- Caveat: GFX11 has worked since ~5.19 without this bit, so either older
+  CP/MES ignored it, or firmware already special-cased kernel queues.
+  The bit becomes more important once user GFX queues share the same MQD
+  path and newer FW consults `KMD_QUEUE`.
+
+**Step 8.3:**
+Record: Failure mode: CP forces IB VMID = queue VMID → GPUVM fault,
+hang/reset, or execution in the wrong VM. Severity: **HIGH** when it
+fires (GPU hang / possible wrong-VM access). Everyday 6.18 default may
+still appear fine if firmware papers over the missing bit.
+
+**Step 8.4:**
+Record:
+- Benefit: medium-high — correct kernel-queue privilege on widely
+  deployed GFX11, completes an already-stable MQD split, prevents wrong-
+  VMID IBs.
+- Risk: very low — two `REG_SET_FIELD` lines, no API/locking/data-
+  structure change.
+- Ratio: favorable.
+
+## Phase 9: Final synthesis
+
+**Step 9.1:**
+Evidence FOR:
+- Real CP programming bug: missing `KMD_QUEUE` lets CP replace kernel IB
+  VMIDs.
+- Two-line, obviously correct, applies cleanly to v6.18.57.
+- All prerequisites exist (`kernel_queue`, GFX11 MQD, register masks).
+- Completes `063d668320872`, which already went to stable for kernel-vs-
+  user MQD privileges.
+- Compute/KFD already set this bit; GFX11 was inconsistent.
+- Maintainer Reviewed-by.
+- Wrong VMID is hang/fault/wrong-VM — important if triggered.
+- Hardware-programming / quirk-like change, not a feature.
+
+Evidence AGAINST:
+- Landed as 10/21 of a pipe-reset series; later patches are not in
+  6.18.57.
+- Alex called out 11/12 as the “bug fixes,” not this one.
+- No user report, syzbot, Fixes, or crash log.
+- Omission dates to 2022; default 6.18 GFX11 is usable without the bit.
+- Ring 1 `CP_RB1_CNTL` left unchanged (rare path).
+
+Unresolved:
+- Exact firmware versions that started replacing IB VMIDs (UNVERIFIED).
+- Whether MES already ORs `KMD_QUEUE` when mapping KGQ (UNVERIFIED).
+- stable@ discussion (lore 403 / b4 failed).
+
+**Step 9.2: Stable rules**
+1. Obviously correct and tested? **PASS** — 2 lines, maintainer
+   reviewed, matches existing compute/KFD pattern.
+2. Fixes a real bug that affects users? **PASS** — missing privilege bit
+   on kernel GFX queues; CP VMID overwrite is a real HW behavior the
+   author states.
+3. Important issue? **PASS** — wrong VMID is GPU fault/hang / wrong
+   address space (HIGH), not a style cleanup.
+4. Small and contained? **PASS** — +2 lines, one file.
+5. No new features or APIs? **PASS** — only sets an existing register
+   field.
+6. Can apply to the local tree? **PASS** — v6.18.57 has the buggy sites
+   and dependencies.
+
+**Step 9.3:**
+Record: Fits the **hardware workaround / register programming**
+exception. Not a new driver or API.
+
+**Step 9.4:**
+This is a self-contained GFX11 hardware-programming fix. The local
+6.18.57 tree has the buggy code and the `kernel_queue` split, and the
+patch applies cleanly. Being mailed inside a pipe-reset series does not
+make the two lines a feature: they do not enable pipe reset, and they
+correct kernel GFX MQD privilege that compute already had. Benefit vs
+risk favors backport.
+
+### What the commit solves for this tree
+On GFX11, kernel GFX IBs put a process VMID in
+`PACKET3_INDIRECT_BUFFER`. Without `KMD_QUEUE`, CP is specified to
+replace that with the queue VMID (0). This tree already distinguishes
+user vs kernel MQDs for compute/`RB_NON_PRIV` but never sets GFX
+`KMD_QUEUE`. That is a real, small correctness hole on a widely used GPU
+generation.
 
 ### Risk vs benefit
+Two register-field writes; user MQDs stay 0; no API change. Residual
+risk is a firmware-specific privilege change, which is the intended
+kernel-queue behavior already used on compute.
 
-Benefit is closing a GPU SVM validation hole on hardware this tree
-already supports. Risk is rejecting inputs that were never valid.
+### Concerns
+No public reproducer; later pipe-reset patches are not in 6.18.57; ring1
+legacy path not updated. None of those block a clean 2-line apply.
 
----
-
-### Verification
-
-- [Phase 1] Tags: Eric Huang SOB, Philip Yang Reviewed-by, Alex Deucher
-  SOB; no Fixes/Reported-by
-- [Phase 2] Diff: +7/−1 in `svm_range_is_valid`; zero check +
-  `check_add_overflow`
-- [Phase 2] Pre-patch `v6.18.53` still uses `end = start + (size <<
-  PAGE_SHIFT)`
-- [Phase 3] Blame: `42de677f799997` (2020); ancestor of `v6.18.53` (exit
-  0)
-- [Phase 3] Fix not in `v6.18.53` (`merge-base --is-ancestor` of
-  upstream SHA → not ancestor, exit 1)
-- [Phase 3] No prior overflow fix in `kfd_svm.c` on this file’s 6.18.53
-  history
-- [Phase 4] `b4 dig` failed (lore error)
-- [Phase 4] amd-gfx v1 146929; Philip asked for `size==0` on 146952;
-  committed form 147065; R-b 147704
-- [Phase 5] Callers: `svm_range_set_attr` / `svm_range_get_attr` from
-  `svm_ioctl` and CRIU
-- [Phase 5] `AMDKFD_IOC_SVM` registered with flags `0` (unprivileged vs
-  CRIU)
-- [Phase 5] `kfd_ioctl_svm` already rejects `!args->size` and unaligned
-  size; overflow still possible
-- [Phase 5] `interval_tree_iter_first` returns NULL when `last < start`
-  (inverted range)
-- [Phase 6] `check_add_overflow` available via hmm.h → mm.h →
-  overflow.h; no extra include
-- [Phase 6] `HSA_AMD` is 64-bit only — `unsigned long end` is 64-bit
-- [Phase 7] Config `HSA_AMD_SVM`, AMD GPU compute
-- [Phase 8] Failure: wrap → wrong VMA walk → possible validation bypass;
-  HIGH
-- UNVERIFIED: no crash repro; lore/stable search incomplete due to HTTP
-  403
-
-The patch is small, surgical, and meets the stable criteria for this
-6.18.y tree.
+Verification:
+- [Phase 1] Parsed tags: author Jesse Zhang; Reviewed-by/SOB Alex
+  Deucher; no Fixes/Reported-by/Link/Cc:stable
+- [Phase 2] Diff: +2 lines in `gfx_v11_0_cp_gfx_resume` and
+  `gfx_v11_0_gfx_mqd_init`
+- [Phase 2] `regCP_GFX_HQD_CNTL_DEFAULT=0x00a00000`; `KMD_QUEUE` mask
+  `0x20000000` — default does not set the bit
+- [Phase 3] Blame: GFX11 init `3d879e81f0f9e` (2022); `063d668320872`
+  and `284d4dfe850e6` are ancestors of v6.18.57
+- [Phase 3] `git merge-base --is-ancestor 893642e0e3b2… v6.18.57` → not
+  ancestor (fix not in 6.18.57)
+- [Phase 4] `b4 dig` failed (lore server error)
+- [Phase 4] lore URL: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-September/153407.html (10/21)
+- [Phase 4] Alex series review:
+  https://lists.freedesktop.org/archives/amd-
+  gfx/2026-September/153488.html
+- [Phase 5] Callers: KGQ `amdgpu_ring_init_mqd`; userq
+  `mes_userq_mqd_create`; IB VMID in `gfx_v11_0_ring_emit_ib_gfx`
+- [Phase 5] semcode unavailable; used grep/read
+- [Phase 6] `make kernelversion` / `git describe`: 6.18.57 /
+  `v6.18.57-155-gcdf239ca885b2`
+- [Phase 6] v6.18.57 file confirmed missing both `KMD_QUEUE` assignments
+- [Phase 8] Failure mode: wrong IB VMID → GPU fault/hang; severity HIGH
+  when triggered
+- UNVERIFIED: firmware versions that require the bit; whether MES
+  already sets it; stable@ history (lore 403)
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 202ed1c456320..1b29dee7948d8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3421,7 +3421,13 @@ svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
- 	unsigned long start_unchg = start;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index a78e8f98f4d00..5ade48c8d43f8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -3737,6 +3737,7 @@ static int gfx_v11_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	rb_bufsz = order_base_2(ring->ring_size / 8);
+ 	tmp = REG_SET_FIELD(0, CP_RB0_CNTL, RB_BUFSZ, rb_bufsz);
+ 	tmp = REG_SET_FIELD(tmp, CP_RB0_CNTL, RB_BLKSZ, rb_bufsz - 2);
++	tmp = REG_SET_FIELD(tmp, CP_RB0_CNTL, KMD_QUEUE, 1);
+ 	WREG32_SOC15(GC, 0, regCP_RB0_CNTL, tmp);
  
- 	start <<= PAGE_SHIFT;
--	end = start + (size << PAGE_SHIFT);
-+
-+	if (size == 0)
-+		return -EINVAL;
-+
-+	if (check_add_overflow(start, size << PAGE_SHIFT, &end))
-+		return -EOVERFLOW;
-+
- 	do {
- 		vma = vma_lookup(p->mm, start);
- 		if (!vma || (vma->vm_flags & device_vma))
+ 	/* Initialize the ring buffer's write pointers */
+@@ -4145,6 +4146,7 @@ static int gfx_v11_0_gfx_mqd_init(struct amdgpu_device *adev, void *m,
+ 	tmp = regCP_GFX_HQD_CNTL_DEFAULT;
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BUFSZ, rb_bufsz);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BLKSZ, rb_bufsz - 2);
++	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, KMD_QUEUE, prop->kernel_queue);
+ #ifdef __BIG_ENDIAN
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, BUF_SWAP, 1);
+ #endif
 -- 
 2.53.0
 
