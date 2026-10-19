@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D592FCCF2DE
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:00:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9EABCCF2E9
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 318F610EDDC;
-	Mon, 19 Oct 2026 14:00:06 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB2810EDD7;
- Mon, 19 Oct 2026 13:59:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC5E10EDE2;
+	Mon, 19 Oct 2026 14:00:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8CD10EDE1;
+ Mon, 19 Oct 2026 14:00:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 577F340420;
- Mon, 19 Oct 2026 13:59:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C951F000C4;
- Mon, 19 Oct 2026 13:59:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7C33460258;
+ Mon, 19 Oct 2026 14:00:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E881F000C6;
+ Mon, 19 Oct 2026 14:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418399;
- bh=rN5dETSaf8THpyHMEVrc/LonwTYZDhVP2rrH8ZWjnjM=;
+ s=k20260515; t=1792418405;
+ bh=qPK7eRR5HbyiUFAa0HzwzZPTXxjO1dsWLmNEqD8bbuA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=hXVb4oxquf3yq60oqS/PGvRpJEN8mOARbsUzAn+01xPELIvxtUPTWvl7t0im2Y/lk
- Sp0oATw1xomhDshEolpS5Z+8rhduN+SBRFw309ILVtt5BOIqPTye9Yor22oKeo6nMW
- pHzCQ0l2nQqQkDMH9Z7Vd5FXEQtx39MMINrgh/axlXkN0dctTSQd93IY4T87cywgFM
- kavhKXImN8FmPVdvbEvb7/DYtBX3LtucYS1gDkn1SNLj/uSs2VkJI6dqTxIfwN+DPy
- Y4IL/PYnhnZpSy1yT+9qul09cbu0Rqjwsq8Y/H1lHmWh3vgJoYn9V8bhkhIhcWbqdC
- tjmriiYZk1IGg==
+ b=Jc0iYWReAF3VpUaWLIaCry8F5gZhFa2/CWHEg4Nx7VivaQXW/QeXRiUm8QSfM1sb6
+ uqc83T+3Mkpu9IFyHuHLCpFwTbRhGdJOniqI/bKEm8/frPCvdpnAt3bMVl4ziXTFC2
+ i6PmQl0BpNlvYbvn9qNgnvNeP5EnyhqxcCYFJZSK+kt+wEmdM1FZb37RajosSyjU6D
+ OqWcKm/Owcd9A2myHCpHnVSrujmAq/WKOpzWFoOFOgqXONWmjk62UYEBx7H4xW5OrE
+ bmo8OqbpcFrw+Sw1jep1A7I1htb5naG1K9DjCDUAiHnPF6e/hywL2ovw8nL2cK8bOb
+ xvww/R+Qugv9g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Matthew Jacob <mjacob@feralsw.com>,
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/amdgpu: Support some Barco AMD based
- graphics adapters
-Date: Mon, 19 Oct 2026 09:48:33 -0400
-Message-ID: <20261019135441.1420968-222-sashal@kernel.org>
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/amd/pm: validate vega10 profile mode
+ inputs
+Date: Mon, 19 Oct 2026 09:48:37 -0400
+Message-ID: <20261019135441.1420968-226-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,321 +63,376 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Matthew Jacob <mjacob@feralsw.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit 3dc4d68ee26a7ac12069ff0562ad8935106c79b6 ]
+[ Upstream commit bf939f2a1687ef4ab815640096357f8ef5bd5fb6 ]
 
-These adapters typically are only supported by Barco on the
-Windows platform. However, with these changes in the linux
-driver, multiple monitor support should work correctly.
+Check for out of range profile modes and custom params that exceed 8 bits.
 
-Signed-off-by: Matthew Jacob <mjacob@feralsw.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit message forensics
+The local tree is **6.18.53**. Vega10 still accepts out-of-range
+`pp_power_profile_mode` sysfs values and silently truncates custom DPM
+bytes before they are sent to SMU.
 
-**Step 1.1:** Record: `[drm/amdgpu] [Support] [add PCI IDs so Barco AMD
-adapters bind to amdgpu]`
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.2:** Tags in the commit as given:
-- `Signed-off-by: Matthew Jacob <mjacob@feralsw.com>` (author)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+Step 1.1: PARSE THE SUBJECT LINE
+Record: [drm/amd/pm] [validate] [reject out-of-range Vega10 power
+profile modes and custom params wider than 8 bits]
+
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+Record:
+- Signed-off-by: Lijo Lazar <lijo.lazar@amd.com> (author)
+- Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+- Signed-off-by: Alex Deucher <alexander.deucher@amd.com> (AMDGPU
   maintainer)
-- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Link:`, `Tested-by`, or
-  `Reviewed-by` on the committed message (absence of `Fixes`/`Cc:
-  stable` is expected for this review)
+- No Fixes:, Reported-by, Tested-by, Link:, or Cc: stable (absence is
+  expected)
+- Ignore pipeline tags: [Upstream commit
+  bf939f2a1687ef4ab815640096357f8ef5bd5fb6], Signed-off-by: Sasha Levin
 
-**Step 1.3:** Record:
-- Bug/problem: Barco MXRT cards (AMD GPUs with Barco PCI IDs) are not in
-  `pciidlist`, so amdgpu never binds; Windows-only vendor support.
-- Symptom: cards do not work as DRM devices; multi-monitor setups fail.
-- Version info: none in the message.
-- Root cause: missing device IDs, not a logic bug in existing chip code.
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
+Record: [Bug: Vega10 profile-mode setter does not reject invalid modes
+or custom params that do not fit in 8 bits] [Symptom: invalid SMU
+SetWorkloadMask / SetCustomGfxDpmParameters programming; silent uint8_t
+truncation] [No version info in the message] [Root cause implied:
+missing bounds checks before SMC messages]
 
-**Step 1.4:** Record: Not a hidden crash/UAF fix. It is hardware
-enablement via PCI IDs. That is an explicit stable exception, not
-disguised cleanup.
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not disguised. The subject is explicitly “validate”. This is
+input validation before firmware commands, not style cleanup.
 
-## Phase 2: Diff analysis
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1:** Record:
-- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c` only
-- +4 / -0 (four PCI ID rows)
-- Function/object: `pciidlist[]`
-- Scope: single-file surgical device-ID addition
+Step 2.1: INVENTORY THE CHANGES
+Record: [drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c: +9 / -0]
+[vega10_set_power_profile_mode()] [single-file surgical fix]
 
-**Step 2.2:** Record (each hunk is the same pattern):
-- Before: ID missing → PCI core does not match amdgpu
-- After: ID present with existing `CHIP_*` flags → probe uses already-
-  supported ASIC paths
-  - `0x664D` → `CHIP_BONAIRE`
-  - `0x693B` → `CHIP_TONGA`
-  - `0x67D4` → `CHIP_POLARIS10`
-  - `0x698F` → `CHIP_POLARIS12`
-- Path: device enumeration / probe, not an error path
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+- Hunk 1: After `power_profile_mode = input[size]`, if mode >
+  PP_SMC_POWER_PROFILE_CUSTOM (6), log and return -EINVAL. Before: any
+  mode fell through to `1 << power_profile_mode` (or `1 << (mode-1)`) as
+  PPSMC_MSG_SetWorkloadMask, then stored in `hwmgr->power_profile_mode`.
+- Hunk 2: For CUSTOM with size==4, reject any of input[0..3] with bits
+  above 7 set. Before: those `long` values were assigned through uint8_t
+  (`busy_set_point` etc. and `custom_profile_mode[]` which is
+  `uint8_t[4]`), then packed into a 32-bit SMC parameter. Values >255 or
+  negative were truncated.
 
-**Step 2.3:** Record: `[Hardware workarounds / device ID addition]`
-Mechanism: missing IDs so existing Bonaire/Tonga/Polaris code never runs
-for those DIDs.
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record: [Logic / bounds / firmware-input validation]
+- Missing range check: userspace sysfs can supply modes 7–9
+  (WINDOW3D/CAPPED/UNCAPPED exist in the shared enum but Vega10’s table
+  only lists 0–CUSTOM). Those become invalid SMU workload bits.
+- Missing 8-bit check: custom DPM fields are 8-bit hardware parameters;
+  overflow was silently truncated into the packed SMC word.
 
-**Step 2.4:** Record: Obviously correct if the IDs belong to those
-families. Regression risk is low: only those four DIDs start probing;
-neighboring IDs are unchanged. Wrong-family assignment could mis-init a
-GPU; public PCI databases and nearby IDs in the same table match the
-chosen `CHIP_*` values. Original submission used `//` comments; the
-committed form dropped them (kernel style). No API or data-structure
-change.
+Step 2.4: ASSESS THE FIX QUALITY
+Record: [Obviously correct and minimal. Same `>
+PP_SMC_POWER_PROFILE_CUSTOM` guard already exists in
+vega20_set_power_profile_mode.] [Regression risk very low: only invalid
+writes return -EINVAL; legal modes 0–6 and 8-bit custom params are
+unchanged.] No public API or data-structure change.
 
-## Phase 3: Git history
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 3.1:** Record: `pciidlist` has existed for the life of amdgpu.
-Nearby IDs (`0x6649`, `0x6939`, `0x67D0`, `0x6987`) are long-standing.
-The gap is missing Barco DIDs, not a newly introduced logic bug.
-`CHIP_BONAIRE` / `CHIP_TONGA` / `CHIP_POLARIS10` / `CHIP_POLARIS12` are
-in `include/drm/amd_asic_type.h` (enum values 5, 11, 15, 17).
+Step 3.1: BLAME THE CHANGED LINES
+Record: Function introduced in 6390258a2f1390 (“drm/amd/pp: Add custom
+power profile mode support on Vega10”, 2018-02-19, contained in
+v4.17-rc1). Profile mode taken from `input[size]` in e815a9e62b3225
+(Evan Quan, 2019). Unconditional `1 << power_profile_mode` SMU send from
+3919a485187a85 / fe122ee5428293 (Kenneth Feng, 2021). The buggy pattern
+has been in this family of kernels for years, including 6.18.
 
-**Step 3.2:** No `Fixes:` tag. Buggy “code” is the absence of IDs. Not
-applicable as a Fixes follow-up.
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. N/A. The missing checks are original to this
+setter, not a recent regression.
 
-**Step 3.3:** Recent related history on this file includes other PCI ID
-work (e.g. cyan skillfish IDs already in v6.18). Standalone; not patch
-X/Y. A later named-initializer rewrite of the table exists only as a
-later candidate on this branch, not in `v6.18.53`.
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record: Recent vega10_hwmgr.c work is other bounds checks (OD DPM
+triples, voltage index). This patch is standalone, not “patch X/Y”. No
+prerequisite refactor required for these two ifs.
 
-**Step 3.4:** Author Matthew Jacob (Feral Software) has this one amdgpu
-commit here. Alex Deucher, amdgpu maintainer, applied it (`CommitDate:
-Wed Jul 1 2026`, SOB).
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Lijo Lazar is a regular AMD PM contributor (161 commits under
+drivers/gpu/drm/amd/pm/ in this tree). Applied by Alex Deucher. Related
+author work is other PM validation, not a coupled series for this
+function.
 
-**Step 3.5:** No functional prerequisites. Applies against the existing
-`pciidlist` format in `v6.18.53`. Does not need new CHIP types, new
-helpers, or other series patches.
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: None. Uses existing PP_SMC_POWER_PROFILE_CUSTOM, pr_err, and the
+existing uint8_t packing. Can apply standalone.
 
-Upstream object `3dc4d68ee26a7ac12069ff0562ad8935106c79b6` is **not** an
-ancestor of `v6.18` or `v6.18.53`.
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
-## Phase 4: Mailing list / external research
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+[https://patch.msgid.link/20260618053650.937168-1-lijo.lazar@amd.com]
+[v1 only; committed version matches v1] [Asad Kamal: Reviewed-by; no
+other technical discussion] [No Cc: stable in review] [No NAKs]
 
-**Step 4.1:** `b4 dig -c 3dc4d68ee26a7ac12069ff0562ad8935106c79b6`
-failed (lore.kernel.org server error). Fallback: freedesktop amd-gfx.
-- Submission: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-June/147081.html
-- First attempt (attachment, not git-format):
-  https://lists.freedesktop.org/archives/amd-gfx/2026-June/147075.html
-- Alex asked for a proper git patch + SOB:
-  https://lists.freedesktop.org/archives/amd-gfx/2026-June/147077.html
-- Alex applied the git-format patch the same day:
-  https://lists.freedesktop.org/archives/amd-gfx/2026-June/147083.html
-  (“Applied. Thanks!”)
-- Archive index also lists later Christian König and Matthew Jacob
-  follow-ups; **exact text of those later mails is UNVERIFIED** (message
-  numbers not resolved). No NAK found on the applied version.
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record: Recipients: amd-gfx, Hawking Zhang, Alexander Deucher, Asad
+Kamal, Candice Li. Reviewer Asad Kamal (AMD). Maintainer Alex Deucher
+signed off on merge.
 
-**Step 4.2:** Recipients: amd-gfx. Maintainer Alex Deucher reviewed and
-applied. Not a drive-by unreviewed ID dump.
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No Reported-by / Link / syzbot. No separate bugzilla. The
+submission itself is the only write-up.
 
-**Step 4.3:** Real-world reports:
-- 2023: Matthias Reichl, Barco MXRT-5600 `1002:664d` on HP Z240; neither
-  radeon nor amdgpu bound; adding the ID made it work (Debian, kernel
-  6.2-rc3, CIK enabled). Alex noted the DID was missing from AMD’s
-  Windows list too. https://lists.freedesktop.org/archives/amd-
-  gfx/2023-January/088522.html
-- 2026 cover letter: Kaiser radiology PACS fleets; Barco/Kaiser had no
-  objection.
-- PCI ID databases: `664D` Bonaire/W5100/MXRT-5600; `693B`
-  Tonga/W7100/MXRT-7600; `67D4` Polaris10/WX 7100/MXRT-8700; `698F`
-  Polaris12/WX 3100/MXRT 4700.
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Standalone one-patch series. Vega20 already had the equivalent
+mode check (present after e098bc9612c2b, 2020 layout move). smu7 uses a
+switch on known modes so invalid values are not turned into SMU
+bitmasks.
 
-**Step 4.4:** Standalone 4-line ID add. A later separate patch proposed
-`0x67D7` (MXRT-6700); not required for this commit.
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: lore.kernel.org/stable returned HTTP 403; UNVERIFIED whether it
+was discussed on stable@. No evidence in the amd-gfx thread of a stable
+NAK.
 
-**Step 4.5:** lore.kernel.org/stable search returned 403; **UNVERIFIED**
-whether stable@ already discussed this ID set. No evidence of a NAK for
-stable.
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
-## Phase 5: Code semantic analysis
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: vega10_set_power_profile_mode()
 
-**Step 5.1:** Record: `pciidlist[]` (static `pci_device_id` table). No
-function body edits.
+Step 5.2: TRACE CALLERS
+Record:
+- Registered as hwmgr_func.set_power_profile_mode.
+- pp_set_power_profile_mode() → amdgpu_dpm_set_power_profile_mode() →
+  amdgpu_set_pp_power_profile_mode() (sysfs `pp_power_profile_mode`,
+  S_IRUGO|S_IWUSR). This is the untrusted path: first character parsed
+  with kstrtol, so modes 0–9 are reachable; CUSTOM then parses extra
+  longs into parameter[].
+- pp_dpm_switch_power_profile() already rejects `!(type <
+  PP_SMC_POWER_PROFILE_CUSTOM)` before calling.
+- pp_psm.c uses internal workload_setting[] values, not raw sysfs.
 
-**Step 5.2:** Record: PCI core match → `amdgpu` `.id_table` /
-`MODULE_DEVICE_TABLE(pci, pciidlist)` around the probe path in
-`amdgpu_drv.c`. Trigger is plugging in / booting with that GPU. Not a
-syscall hot path.
+Step 5.3: TRACE CALLEES
+Record: smum_send_msg_to_smc_with_parameter() with
+PPSMC_MSG_SetCustomGfxDpmParameters and PPSMC_MSG_SetWorkloadMask. Those
+talk to Vega10 SMU firmware.
 
-**Step 5.3:** Record: probe then uses existing ASIC init for
-`CHIP_BONAIRE` / `CHIP_TONGA` / `CHIP_POLARIS10` / `CHIP_POLARIS12`.
-Those ASICs already have full driver support in this tree.
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Userspace write to
+`/sys/class/drm/cardX/device/pp_power_profile_mode` (typically root) →
+amdgpu_pm.c store → powerplay → vega10_set_power_profile_mode. Reachable
+from userspace. Not a syscall for unprivileged users (owner-write
+sysfs).
 
-**Step 5.4:** Record: Userspace-reachable only in the sense of having
-the card. Unprivileged users cannot invent a PCI ID. Impact is “card
-works vs. no DRM driver”.
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: vega20_hwmgr.c already has `if (power_profile_mode >
+PP_SMC_POWER_PROFILE_CUSTOM)`. Newer swsmu paths also bound profile
+types. Vega10 was the gap among powerplay Vega setters that shift the
+mode into an SMU mask.
 
-**Step 5.5:** Same table already lists sibling IDs in each family.
-`amdgpu_unsupported_pciidlist[]` does not contain these four IDs. radeon
-`include/drm/drm_pciids.h` still lacks `0x664D` (Bonaire default driver
-is radeon unless CIK is switched to amdgpu). That does not block amdgpu
-IDs for Tonga/Polaris.
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
-## Phase 6: Local tree (this checkout)
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: Yes. Local tree is 6.18.53 (`VERSION=6 PATCHLEVEL=18
+SUBLEVEL=53`, `git describe` v6.18.53-5049-g0f0bdc2b0dffb). v6.18.53’s
+vega10_set_power_profile_mode has no range check and no 8-bit check
+(function at line 5400). Bug dates to 2018/2019/2021 code, long before
+6.18.
 
-**Step 6.1:** Record:
-- `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`; `Makefile` →
-  **6.18.53**
-- `v6.18.53:drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c` does **not**
-  contain `0x664D`, `0x693B`, `0x67D4`, `0x698F`
-- Surrounding rows in `v6.18.53` match the candidate hunks (positional
-  `{0x1002, 0x...., PCI_ANY_ID, ...}` form)
-- `CHIP_*` enums exist in this series
-- Bug/gap: missing IDs, present for as long as those families have been
-  in amdgpu
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: [clean apply with line offset]. Context at v6.18.53 matches the
+patch hunks; only the @@ line number differs (5407 vs original 5216). No
+conflicting refactor in this file for these lines.
 
-**Step 6.2:** Record: **clean apply** onto `v6.18.53`. No format
-mismatch. (HEAD currently uses `PCI_DEVICE()` named initializers because
-a later candidate rewrote the table; that rewrite is not in `v6.18.53`.)
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: No equivalent Vega10 profile-mode validation in v6.18.53. Vega20
+already has the mode check. No earlier version of this exact fix.
 
-**Step 6.3:** Record: No alternate fix for these four IDs in
-`v6.18..v6.18.53`. Cyan skillfish ID adds are a different family and
-already in v6.18.
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
-## Phase 7: Subsystem context
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: [drm/amd/pm powerplay Vega10] [IMPORTANT: discrete GPU driver,
+not core mm/fs, but Vega 56/64 / Frontier / MI25 still in production
+use]
 
-**Step 7.1:** Record: `[drm/amdgpu] [IMPORTANT]` — common GPU driver,
-not staging. Device-ID-only, not a new driver.
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Mature Vega10 powerplay; most recent file changes are bounds-
+checking, not feature work. Bug is old, not a last-month introduction.
 
-**Step 7.2:** Record: amdgpu is actively developed; these GCN families
-(CIK/VI/Polaris) are mature. Adding IDs to old ASICs is the usual
-pattern.
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
-## Phase 8: Impact and risk
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: [driver-specific] Vega10 amdgpu + CONFIG powerplay users who
+write `pp_power_profile_mode`.
 
-**Step 8.1:** Record: driver-specific / hardware-specific. Users of
-Barco MXRT (medical/pro multi-display) AMD cards. Not universal.
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Write an out-of-range mode (7/8/9) or CUSTOM params >255 /
+negative while DPM is manual. Common for tuning tools (and easy to
+mistype). Root-only sysfs store; not unprivileged. Not a race.
 
-**Step 8.2:** Record: Trigger = boot with that PCI device. Common for
-those machines, zero for everyone else. Not a userspace exploit path.
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: Invalid SMU workload mask / silently truncated custom DPM bytes
+→ wrong clocks/heuristics; possible SMU/GPU misbehavior. Not a
+demonstrated KASAN crash. [Severity: MEDIUM, HIGH if SMU rejects poorly
+and the GPU hangs — hang not confirmed in mailing list]
 
-**Step 8.3:** Record: Failure mode today = adapter unbound / no KMS, not
-an oops. Severity for affected users: **HIGH** (hardware dead on Linux).
-Severity for others: none. Not panic/UAF.
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record: [Benefit: medium — stops firmware-facing bad input on a real
+sysfs ABI] [Risk: very low — +9 lines, reject-only] [Ratio: favorable]
 
-**Step 8.4:** Record:
-- Benefit: high for those GPUs (kernel finally binds; Tonga/Polaris work
-  with default amdgpu; Bonaire needs existing `DRM_AMDGPU_CIK` /
-  `amdgpu.cik_support=1` like other Bonaire parts)
-- Risk: very low (4 rows, existing CHIP flags, maintainer-applied)
-- Ratio: favorable; this is the documented device-ID exception
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
-Caveats (not blockers):
-- Two IDs were labeled “Tentative” in the mail (`0x67D4` MXRT-8750 vs
-  databases saying MXRT-8700; `0x698F` MXRT-4700, which does exist).
-  Family assignment still matches public PCI IDs.
-- Bonaire `0x664D` is not added to radeon; default CIK remains radeon.
-  Same as needing CIK-in-amdgpu for other Bonaire cards.
+Step 9.1: COMPILE THE EVIDENCE
+FOR:
+- Real missing validation on a documented userspace sysfs ABI
+- Invalid modes become `1 << mode` SMU SetWorkloadMask; Vega10 has no
+  switch/default to ignore them (smu7 does; vega20 already range-checks)
+- Custom params are 8-bit hardware fields packed into one SMC dword;
+  overflow was silent truncation
+- Tiny, obviously correct, no new API
+- Code and bug exist in this 6.18.53 tree; applies with offset only
+- Reviewed and merged by AMD GPU maintainers
 
-## Phase 9: Synthesis
+AGAINST:
+- No crash report, syzbot, or Fixes: tag
+- Sysfs is owner-writable (typically root), not an unprivileged UAF
+- Commit message does not document a hang/CVE
+- From the current first-character sysfs parser, mode cannot exceed 9,
+  so the shift is not C UB; the issue is invalid firmware bits, not a
+  kernel OOB
 
-**Evidence FOR:**
-- Canonical PCI ID addition to an existing driver
-- 4 lines, existing `CHIP_*` only
-- Families already in 6.18.y; IDs missing from `v6.18.53`
-- Applies cleanly
-- Maintainer (Alex Deucher) applied it
-- Documented users (Kaiser PACS, 2023 MXRT-5600 report)
-- PCI ID databases agree with the chip mapping
+UNRESOLVED:
+- Whether invalid SetWorkloadMask actually hangs Vega10 SMU (not
+  documented on list)
+- Whether stable@ discussed this (lore.kernel.org/stable HTTP 403)
 
-**Evidence AGAINST:**
-- Not a crash/security/corruption fix
-- Two IDs originally marked tentative
-- Bonaire ID incomplete vs radeon default
-- Exact later König comments UNVERIFIED
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? PASS — two straightforward -EINVAL
+   guards; Reviewed-by + maintainer SOB
+2. Fixes a real bug that affects users? PASS — sysfs can program SMU
+   with out-of-range profile/custom values
+3. Important issue? PASS (MEDIUM, firmware/GPU misprogramming; not a
+   confirmed panic, but hardware-command validation on a user ABI)
+4. Small and contained? PASS — +9 lines, one function
+5. No new features or APIs? PASS
+6. Can apply to the local tree? PASS — buggy function present on
+   6.18.53; context matches
 
-**Unresolved:** exact text of later amd-gfx follow-ups; whether stable@
-already discussed it (lore 403 / b4 lore error).
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: Not a device-ID/quirk/DT/build/doc exception. Ordinary driver
+bounds-check fix.
 
-**Stable rules checklist:**
-1. Obviously correct and tested? **PASS** — table rows + maintainer
-   apply; 2023 user tested `664d`
-2. Real bug affecting users? **PASS** — devices never bind
-3. Important? **PASS** under the device-ID exception (hardware
-   enablement, not a new driver)
-4. Small and contained? **PASS** — 4 lines, one file
-5. No new features/APIs? **PASS** — IDs only; no new ioctls/params
-6. Can apply to this tree? **PASS** — `v6.18.53` table format matches
+Step 9.4: MAKE YOUR DECISION
+This should be backported to this 6.18.y tree. The bug is present here,
+the fix is surgical, valid userspace is unaffected, and leaving it out
+keeps a userspace-to-SMU hole that sibling Vega20 code already closed.
 
-**Exception category:** New PCI IDs on an existing driver.
+What problem this solves for stable users:
+On Vega10, writing `pp_power_profile_mode` with a mode above CUSTOM, or
+CUSTOM heuristics that do not fit in 8 bits, is accepted and forwarded
+to SMU. That can select a nonsense workload bit or pack truncated DPM
+parameters. 6.18 still ships that path; the patch only fails those
+writes with -EINVAL.
 
-This should be backported to this 6.18.y tree: the driver and ASIC
-support are already here; only the four IDs are missing.
+Risk vs benefit:
+Benefit is correct firmware programming on a real sysfs control. Risk is
+negligible.
+
+Concerns:
+None that block backport. Cherry-pick needs only hunk offset (line 5407
+vs 5216). No extra commits required.
 
 Verification:
-- [Phase 1] Parsed subject/tags/body: Support + two SOBs; no
-  Fixes/Reported-by
-- [Phase 2] Diff: +4 PCI IDs in `pciidlist` (`664D` Bonaire, `693B`
-  Tonga, `67D4` Polaris10, `698F` Polaris12)
-- [Phase 3] `git describe HEAD` / Makefile: 6.18.53; upstream
-  `3dc4d68ee26a` not ancestor of v6.18/v6.18.53
-- [Phase 3] `git show v6.18.53:drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c`:
-  those four IDs absent; neighbor rows match the patch
-- [Phase 3] `CHIP_BONAIRE` etc. in `include/drm/amd_asic_type.h`
-- [Phase 4] b4 dig: lore server error; used lists.freedesktop.org
-  instead
-- [Phase 4] 147075/147077/147081/147083: resend as git patch, Alex
-  applied
-- [Phase 4] 2023 664d thread: card worked after adding the ID
-- [Phase 5] `MODULE_DEVICE_TABLE` / `.id_table = pciidlist`; IDs not on
-  `amdgpu_unsupported_pciidlist`
-- [Phase 6] Clean apply to v6.18.53 old-style table; radeon
-  `drm_pciids.h` still has `0x6649` but not `0x664D`
-- [Phase 7] amdgpu important, families mature
-- [Phase 8] Probe-only; risk limited to those DIDs
-- UNVERIFIED: full text of later Christian König replies; stable@
-  archive (403)
+- [Phase 1] Parsed tags: author Lijo Lazar, Reviewed-by Asad Kamal, SOB
+  Alex Deucher; no Fixes/Reported-by/Link/Cc:stable
+- [Phase 2] Diff: +9 lines in vega10_set_power_profile_mode; mode >
+  CUSTOM → -EINVAL; custom input[0..3] & ~0xFF → -EINVAL
+- [Phase 2] custom_profile_mode is uint8_t[4] in vega10_hwmgr.h:386;
+  packing uses uint8_t then <<8/16/24
+- [Phase 3] git blame on parent: function 6390258a2f1390 (v4.17); SMU
+  shift 3919a485187a85 (2021)
+- [Phase 3] No Fixes: tag
+- [Phase 3] git log --author="Lijo Lazar" -- drivers/gpu/drm/amd/pm/:
+  161 commits
+- [Phase 4] b4 dig -c bf939f2a1687:
+  https://patch.msgid.link/20260618053650.937168-1-lijo.lazar@amd.com
+- [Phase 4] b4 dig -a: v1 only
+- [Phase 4] b4 dig -w: amd-gfx + AMD PM maintainers
+- [Phase 4] mbox: Asad Kamal Reviewed-by; no NAK; no stable mention
+- [Phase 4] lore.kernel.org/stable: HTTP 403 — UNVERIFIED
+- [Phase 5] Callers: sysfs amdgpu_set_pp_power_profile_mode (S_IWUSR);
+  pp_dpm_switch_power_profile already bounds type; pp_psm uses internal
+  tables
+- [Phase 5] amdgpu_pm.c:1384 only special-cases CUSTOM; other modes skip
+  extra parsing; tmp[0] is first character so sysfs modes are 0–9
+- [Phase 5] vega20 already has the same mode > CUSTOM check at
+  vega20_hwmgr.c:4097
+- [Phase 6] git describe HEAD: v6.18.53-5049-g0f0bdc2b0dffb; make
+  kernelversion 6.18.53
+- [Phase 6] git grep on v6.18.53: no range check in vega10_hwmgr.c
+- [Phase 6] Function text on v6.18.53 matches the patch pre-image
+  (offset only)
+- [Phase 6] git merge-base --is-ancestor bf939f2a1687 HEAD: not an
+  ancestor (mainline commit not in 6.18.y history)
+- [Phase 8] Failure mode: invalid SMU commands / truncated DPM bytes;
+  sysfs root-writable; severity MEDIUM
+- UNVERIFIED: actual Vega10 SMU hang on bad SetWorkloadMask; stable@
+  discussion (HTTP 403)
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 376a7cd2667f6..845ebe041563f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1953,6 +1953,7 @@ static const struct pci_device_id pciidlist[] = {
- 	{0x1002, 0x6646, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_IS_MOBILITY},
- 	{0x1002, 0x6647, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_IS_MOBILITY},
- 	{0x1002, 0x6649, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
-+	{0x1002, 0x664D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
- 	{0x1002, 0x6650, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
- 	{0x1002, 0x6651, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
- 	{0x1002, 0x6658, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
-@@ -2022,6 +2023,7 @@ static const struct pci_device_id pciidlist[] = {
- 	{0x1002, 0x6930, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
- 	{0x1002, 0x6938, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
- 	{0x1002, 0x6939, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
-+	{0x1002, 0x693B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
- 	/* fiji */
- 	{0x1002, 0x7300, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_FIJI},
- 	{0x1002, 0x730F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_FIJI},
-@@ -2050,6 +2052,7 @@ static const struct pci_device_id pciidlist[] = {
- 	{0x1002, 0x67C4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
- 	{0x1002, 0x67C7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
- 	{0x1002, 0x67D0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
-+	{0x1002, 0x67D4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
- 	{0x1002, 0x67DF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
- 	{0x1002, 0x67C8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
- 	{0x1002, 0x67C9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
-@@ -2063,6 +2066,7 @@ static const struct pci_device_id pciidlist[] = {
- 	{0x1002, 0x6985, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
- 	{0x1002, 0x6986, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
- 	{0x1002, 0x6987, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
-+	{0x1002, 0x698F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
- 	{0x1002, 0x6995, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
- 	{0x1002, 0x6997, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
- 	{0x1002, 0x699F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index d6aaba0b3613d..84c777fde62f5 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -5406,6 +5406,11 @@ static int vega10_set_power_profile_mode(struct pp_hwmgr *hwmgr, long *input, ui
+ 	uint8_t min_active_level;
+ 	uint32_t power_profile_mode = input[size];
+ 
++	if (power_profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
++		pr_err("Invalid power profile mode %u\n", power_profile_mode);
++		return -EINVAL;
++	}
++
+ 	if (power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
+ 		if (size != 0 && size != 4)
+ 			return -EINVAL;
+@@ -5421,6 +5426,10 @@ static int vega10_set_power_profile_mode(struct pp_hwmgr *hwmgr, long *input, ui
+ 				return -EINVAL;
+ 		}
+ 
++		if ((input[0] & ~0xFF) || (input[1] & ~0xFF) ||
++		    (input[2] & ~0xFF) || (input[3] & ~0xFF))
++			return -EINVAL;
++
+ 		data->custom_profile_mode[0] = busy_set_point = input[0];
+ 		data->custom_profile_mode[1] = FPS = input[1];
+ 		data->custom_profile_mode[2] = use_rlc_busy = input[2];
 -- 
 2.53.0
 
