@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B672CCF2DE
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:59:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99045CCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 048B310EDC8;
-	Mon, 19 Oct 2026 13:59:06 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E1C110EDC7;
- Mon, 19 Oct 2026 13:58:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02BFD10EDC4;
+	Mon, 19 Oct 2026 13:59:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D4B510EDC4
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:59:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1571641B2C;
- Mon, 19 Oct 2026 13:58:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 993E61F000C4;
- Mon, 19 Oct 2026 13:58:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CEF706021C;
+ Mon, 19 Oct 2026 13:59:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F1AE1F000C4;
+ Mon, 19 Oct 2026 13:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418338;
- bh=Kt8eKIk+Pbct/atlIdIgI8G2qAB4WrScIfzwOfDT0ug=;
+ s=k20260515; t=1792418342;
+ bh=sumvp7u+FhaLjUIiSX0AB5EXKDXdwxL7Gk14bIE++bg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=MH1hqwHob0J/e5mlrBBdRGDrGmJThqCj4SN8s0SZU5GTr7cOVii2ncQswOHWMS08p
- V7+QQs3cKseXH+UKI8+dgGuouppFeUy2VOSh3a1lOpSrndFOTan8NECNeJJTd9vKI8
- ImQN0x2kdRPMVXpunrohLDAcVxLBjjkAAKPZoEllBJslaExifRVD1NHrrt0Mz8NKex
- woJ/ZI47unfHkKaIYF73gemazob2EMVkubA3sHth1dthT+ncwnwJ7k0TvcE2PkDAe3
- dacoNafXslqxxkO5pwdmkg4kqb4QdYjUZRyhPbCvfDg3y+4VM9rIhChpRQLwz4lCIa
- XQnbWvhO7gtdQ==
+ b=LOln+WWRaMfbvHmBkqe5kUc1zQz28ZiFDQofkNoPBCMrVQCmA5jXTxcYv1J4nTeHb
+ yEv6MjPSgfmTKDGOYXjSe0H+q2+21l9uJKpjvbwxblRpSC+OLyii0QneY92F+sVNCv
+ bgkCIooFK1AkOO4IHmvGG8nvbcLRGDlyBD+TK0CBF4xiCtO/mNBhrmwto6E9MQXR4n
+ Hb9kuML5VhRAkXkOw8i1xbnC4NYbUeIoPV295DCmsZtKTYickiRmFqnBKDmt6VpRPF
+ nMmDrYl9jTNO1PQrL5OxtDrjBAVvbOnb+5D5Ikr5ddkN21fuGVOn9eQROwmoG0HRR1
+ CwyZlHW4UxqOg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>, Michael Chen <michael.chen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Shaoyun Liu <shaoyun.liu@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
- Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/mes_v12_0: use mes schedule pipe for
- legacy queues on unified MES
-Date: Mon, 19 Oct 2026 09:47:47 -0400
-Message-ID: <20261019135441.1420968-176-sashal@kernel.org>
+Cc: Anuj Bolewar <bolewara@gmail.com>,
+ syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Sasha Levin <sashal@kernel.org>, airlied@redhat.com, kraxel@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/virtio: reclaim pending vbufs before
+ tearing down vqs
+Date: Mon, 19 Oct 2026 09:47:50 -0400
+Message-ID: <20261019135441.1420968-179-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -64,420 +65,508 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Anuj Bolewar <bolewara@gmail.com>
 
-[ Upstream commit 5ec4cc91708370847772f2a2397316dbd8d8f066 ]
+[ Upstream commit 61d85f99b5a55d4f717c4bb2f4c4acabf22ee3fc ]
 
-when suspend_all_gangs is issued to pipe0 MES during system suspend or runtime PM, pipe0 can only suspend and resume queues it has tracked.
-KCQs registered with a non-zero pipe slot may not be correctly handled, leaving them in an inconsistent state after resume.
+virtio_gpu_free_vbufs() destroys the vbufs kmem_cache after the virtqueues
+have already been released. Commands that were queued but never completed
+by the device leave their vbuffers stranded in the virtqueue, so the cache
+still holds live objects when virtio_gpu_deinit() tears everything down.
+This triggers a WARNING in virtio_gpu_free_vbufs:
 
-v3: fix the schedule pipe issue
-v4: use schedule pipe for KQ resets
+    BUG virtio-gpu-vbufs (Not tainted): Objects remaining in cache
+    on __kmem_cache_shutdown()
 
-Reviewed-by: Michael Chen <michael.chen@amd.com>
-Suggested-by: Michael Chen <michael.chen@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Suggested-by: Shaoyun Liu <shaoyun.liu@amd.com>
-Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Drain any buffers still sitting in the control and cursor virtqueues in
+virtio_gpu_deinit() after the device has been reset and before the
+virtqueues are deleted, following the same pattern used by virtio_console's
+remove_vqs(). Each reclaimed buffer is released with free_vbuf(), dropping
+the reference on any GEM objects it holds. Pending RESOURCE_UNREF
+commands are handled as well: their resp_cb_data still references a GEM
+object, so it is cleaned up with virtio_gpu_cleanup_object() to avoid
+leaking it on teardown.
+
+Reported-by: syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=06f9b2a53ba4a5a47644
+Signed-off-by: Anuj Bolewar <bolewara@gmail.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Link: https://patch.msgid.link/20260802-virtio-gpu-reclaim-vbufs-v2-1-5767fb860691@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a **6.18.y** tree (`v6.18.53`). The buggy MES v12 pipe selection
-is present here, the patch is small, and it applies cleanly.
+# Stable backport analysis: `drm/virtio: reclaim pending vbufs before
+tearing down vqs`
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+Local tree: **6.12.111** (`p-6.12-3-gc504cf0baa3d8`). Verdict is for
+this checkout only.
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[drm/amdgpu/mes_v12_0] [use] [route legacy kernel queues to the
-MES schedule pipe on unified MES]`
 
-Subsystem is AMD GPU MES firmware for gfx12. Verb is “use”, but the body
-describes a resume/tracking bug, not a feature.
+Record: `[drm/virtio] [reclaim] [drain leftover virtqueue buffers before
+destroying vbufs cache]`
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+
 Record:
-- No `Fixes:` tag (expected for autosel review)
-- No `Reported-by:` / `Tested-by:` / `Cc: stable`
-- `Reviewed-by: Michael Chen <michael.chen@amd.com>`
-- `Suggested-by: Michael Chen`, `Alex Deucher`, `Shaoyun Liu` (AMD MES
-  people)
-- `Signed-off-by: Jesse Zhang` (author), `Alex Deucher` (amdgpu
-  maintainer)
-- Ignore pipeline `Signed-off-by: Sasha Levin` and `[Upstream commit
-  5ec4cc917083...]`
+- `Reported-by: syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com` —
+  fuzzer-found, reproducible
+- `Closes: https://syzkaller.appspot.com/bug?extid=06f9b2a53ba4a5a47644`
+- `Signed-off-by: Anuj Bolewar <bolewara@gmail.com>` (author)
+- `Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>`
+  (virtio-gpu maintainer)
+- `Link: https://patch.msgid.link/20260802-virtio-gpu-reclaim-
+  vbufs-v2-1-5767fb860691@gmail.com`
+- No `Fixes:` tag (expected for this review pipeline)
+- Ignore pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
+  if present
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+
 Record:
-- Bug: on unified MES, `suspend_all_gangs` is sent to pipe0 (SCHED).
-  Pipe0 can only suspend/resume queues it has tracked.
-- Symptom: KCQs registered on a non-zero pipe (KIQ = pipe 1) are not
-  handled, and can be left inconsistent after resume.
-- Trigger named in the message: system suspend / runtime PM.
-- Changelog: v3 fixes schedule-pipe selection; v4 also sends kernel-
-  queue resets to the schedule pipe.
-- No stack trace, no kernel version list.
+- **Bug:** `virtio_gpu_free_vbufs()` calls `kmem_cache_destroy()` after
+  VQs are already deleted. In-flight commands stay attached to the
+  virtqueue, so the `virtio-gpu-vbufs` cache still has live objects.
+- **Symptom:** SLUB `BUG virtio-gpu-vbufs: Objects remaining on
+  __kmem_cache_shutdown()` plus `WARNING` in `virtio_gpu_free_vbufs` /
+  `kmem_cache_destroy`, on device removal.
+- **Root cause:** `virtio_gpu_deinit()` does `virtio_reset_device()`
+  then `del_vqs()` without draining unused buffers.
+- **Fix:** After reset, before `del_vqs()`, detach leftover buffers
+  (same idea as `virtio_console` `remove_vqs()`), `free_vbuf()` them,
+  drop GEM arrays, and `virtio_gpu_cleanup_object()` pending
+  `RESOURCE_UNREF` GEM objects.
+- **Version info:** none in the message; code has been this way for
+  years.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not disguised. It is an explicit correctness fix for MES pipe
-routing. The v4 reset hunk is the same class of bug (reset must follow
-the pipe that actually owns the queue).
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+Record: Not hidden. Explicit leak/WARNING fix on teardown. v2 also
+closes a GEM leak for stranded `RESOURCE_UNREF` commands.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
+
 Record:
-- File: `drivers/gpu/drm/amd/amdgpu/mes_v12_0.c` (+17 / −10)
-- Functions: `mes_v12_0_map_legacy_queue`,
-  `mes_v12_0_unmap_legacy_queue`, `mes_v12_0_reset_hw_queue`
-- Scope: single-file surgical fix
+- `drivers/gpu/drm/virtio/virtgpu_drv.h`: +1 declaration
+- `drivers/gpu/drm/virtio/virtgpu_kms.c`: +1 call in
+  `virtio_gpu_deinit()`
+- `drivers/gpu/drm/virtio/virtgpu_vq.c`: +15, new
+  `virtio_gpu_reclaim_vbufs()`
+- **Total: +17 / −0.** Single-subsystem surgical fix.
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+
 Record:
-- Map/unmap, `enable_uni_mes`: previously always `AMDGPU_MES_KIQ_PIPE`.
-  After: MES ring (`AMDGPU_RING_TYPE_MES`) stays on KIQ; every other
-  kernel queue goes to `AMDGPU_MES_SCHED_PIPE`. Non-uni_mes path still
-  uses SCHED.
-- Reset: previously `is_kq` → KIQ, else SCHED. After: always SCHED.
-- Affected paths: KCQ/KGQ map at gfx init/resume, unmap at gfx
-  hw_fini/suspend, MES scheduler-queue map in `mes_v12_0_queue_init`,
-  kernel-queue reset in gfx12 hang recovery.
+- **Before:** `virtio_gpu_deinit()` flushes work, resets the device,
+  deletes VQs. Later `virtio_gpu_release()` → `virtio_gpu_free_vbufs()`
+  → `kmem_cache_destroy(vgdev->vbufs)` with any still-queued `vbuffer`s
+  live.
+- **After:** Same sequence, plus `virtio_gpu_reclaim_vbufs()` between
+  reset and `del_vqs()`. Control queue: detach unused bufs, put GEM
+  arrays, cleanup `resp_cb_data`, `free_vbuf()`. Cursor queue: detach
+  and `free_vbuf()`.
+- Path: device removal / unbind / probe-fail after successful
+  `virtio_gpu_init()`.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **Logic / hardware-firmware tracking bug** (wrong MES pipe).
-- `AMDGPU_MES_SCHED_PIPE = 0`, `AMDGPU_MES_KIQ_PIPE = 1`.
-- Suspend-all is submitted to SCHED (pipe0). Mapping KCQs on KIQ (pipe1)
-  means pipe0 never tracked them.
-- Reset of kernel queues was also sent to KIQ
-  (`amdgpu_mes_reset_legacy_queue` always sets `is_kq = true`), so hang
-  recovery talked to the wrong pipe.
+
+Record:
+- **Category:** resource leak + teardown WARNING (stranded slab objects;
+  GEM refs left held).
+- **Mechanism:** `virtqueue_detach_unused_buf()` after reset, then
+  existing `free_vbuf()` / `virtio_gpu_array_put_free()` /
+  `virtio_gpu_cleanup_object()`.
+- In this tree `resp_cb_data` is only set in
+  `virtio_gpu_cmd_unref_resource()` to a `struct virtio_gpu_object *`,
+  so the extra cleanup is specific and correct here.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct given MES pipe semantics. Minimal. Non-uni_mes
-unchanged. MES scheduler queue still mapped via KIQ, which matches
-`mes_v12_0_queue_init()` calling `amdgpu_mes_map_legacy_queue()` on the
-SCHED ring (`AMDGPU_RING_TYPE_MES`). Regression risk is low: pipe choice
-is firmware-facing, but AMD MES reviewers signed off. The v4 reset hunk
-was added after the v3 Reviewed-by; it is consistent with the map
-change, not a random extra edit.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+Record:
+- Obviously correct: documented virtio shutdown helper; same pattern as
+  `virtio_console`.
+- Minimal; no API/feature additions.
+- Regression risk is low. After `drm_dev_unplug()`, `drm_dev_enter()`
+  fails, so `array_put_free()` → last GEM put →
+  `virtio_gpu_cmd_unref_resource()` takes the existing `-ENODEV` path
+  (`free_vbuf` + `virtio_gpu_cleanup_object`) instead of re-queuing.
+  Both VQs are always created in `virtio_gpu_init()`
+  (`vqs[0]`/`vqs[1]`), so no NULL `cursorq.vq` on the deinit path.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
+
 Record:
-- Map/unmap KIQ routing: `aa539da8aff07a` (“drm/amdgpu/mes12: adjust
-  mes12 sw/hw init for multiple pipes”, Jack Xiao, 2024-08). In
-  v6.18.53.
-- Reset `is_kq` → KIQ: `2e828a25f850f` (“drm/amdgpu/mes: use correct MES
-  pipe for resets”, 2025-04). In v6.18.53.
-- MES v12 itself: `785f0f9fe7420` (2024-05). In this tree.
+- `virtio_gpu_free_vbufs()` / `kmem_cache_destroy`: `f5985bf9cadd4e`
+  (Gerd Hoffmann, 2017-03-01, “drm: virtio: use kmem_cache”) — ancestor
+  of this HEAD.
+- `virtio_gpu_deinit()` body: `dc5698e80cf724` (Dave Airlie, 2013) plus
+  later `virtio_reset_device()` (`d9679d0013a668`, 2021).
+- Bug is old; present throughout 6.12.y.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Functionally this corrects `aa539da8aff07a`
-(map/unmap) and `2e828a25f850f` (KQ reset pipe). Both ancestors of
-v6.18.53.
+
+Record: No `Fixes:` tag. Not applicable. Buggy teardown is in this tree.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record:
-- `6abd725fdfc41` implements MES suspend/resume gang for v12 (in
-  6.18.53); `mes_v12_0_suspend_gang()` already submits to
-  `AMDGPU_MES_SCHED_PIPE`.
-- `2e828a25f850f` is the prior reset-pipe policy this commit revises.
-- Later autosel commit `00a6825e89078` (oversubscription doorbell mode)
-  is unrelated.
-- Standalone for 6.18: sibling `mes_v12_1` does not exist here.
+
+Record: Recent virtio GPU work here is unrelated (EDID bounds, deadlock,
+fence, KMS removal). No reclaim helper already present. `cec7f1774605a`
+is a different probe double-free. Standalone patch, not “X/Y” of a
+larger series (cover said “Patch 1” of a 1-patch series).
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Jesse Zhang is an AMD amdgpu contributor (MES/gfx/SDMA). This is
-not a drive-by. Merged by Alex Deucher.
+
+Record: Anuj Bolewar has no virtio GPU commits in this tree. Dmitry
+Osipenko is the virtio-gpu maintainer (SOB + “Applied to drm-misc-
+fixes”).
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Needs MES v12, `enable_uni_mes`, map/unmap/reset callbacks, and
-SCHED-pipe suspend. All present in v6.18.53. Applies cleanly to
-`v6.18.53:drivers/gpu/drm/amd/amdgpu/mes_v12_0.c` (patch --dry-run rc
-0). No missing helper or struct field.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+Record: Uses `virtqueue_detach_unused_buf`, `free_vbuf`,
+`virtio_gpu_array_put_free`, `virtio_gpu_cleanup_object` — all present.
+No panic-path helpers required. Can apply standalone.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+
 Record:
-- `b4 dig -c 5ec4cc917083...` →
-  https://patch.msgid.link/20260330013346.1054624-1-Jesse.Zhang@amd.com
-- v3 series: 1/2 this file; 2/2 `mes_v12_1` (not in this tree).
-- v4 standalone: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-April/142750.html (map/unmap only).
-- Committed form matches later resends that add “v4: use schedule pipe
-  for KQ resets” (e.g. 11/42 in “Enable pipe reset for compute”).
-- Michael Chen: `Reviewed-by` on v3. No NAK in the saved thread.
+- `b4 dig -c <sha>` cannot match: commit is not in this tree (candidate
+  only).
+- Lore search via lore.kernel.org returned 403.
+- Recovered from Openwall/LKML:
+  - v1: drain only (`objs` + `free_vbuf`)
+  - v2: also `virtio_gpu_cleanup_object(resp_cb_data)`
+  - Applied version is v2
+- Dmitry Osipenko, 2026-08-14: **“Applied to drm-misc-fixes, thanks!”**
+  — no NAK.
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: To/Cc: amd-gfx, Alex Deucher, Christian König, Shaoyun Liu,
-Michael Chen. Right maintainers.
+
+Record: Recipients included Airlie, Hoffmann, Osipenko, Gurchetan Singh,
+Chia-I Wu, dri-devel, virtualization, syzkaller-bugs. Maintainer applied
+it. No NAK found.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No bugzilla/syzbot. Description is from AMD MES engineers
-(Suggested-by three of them). No public crash log.
+
+Record (syzkaller, extid `06f9b2a53ba4a5a47644`):
+- Title: `WARNING in virtio_gpu_free_vbufs`
+- Labels: `prio:high`
+- Assessment: DenialOfService exploitable; VM guest and host trigger;
+  not unprivileged
+- Stack: `kmem_cache_destroy` → `virtio_gpu_free_vbufs` →
+  `virtio_gpu_release` → `drm_dev_put` → `virtio_dev_remove` → PCI
+  `remove_store`
+- 13 crashes; first ~2026-07-29
+- Syzbot lists upstream fix `61d85f99b5a5` (that SHA is not in this
+  tree; `git merge-base --is-ancestor` was not used on an unknown remote
+  SHA)
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 2/2 is mes_v12_1 only. Not a hard dependency of 1/2. The May
-42-patch compute-reset series reused this patch; this hunk does not need
-the rest of that series.
+
+Record: 1-patch series. v2 is the applied leak-complete version.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: No useful stable-list discussion found. Absence is not a
-negative signal.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+Record: lore.kernel.org/stable search 403. **UNVERIFIED** whether
+stable@ already discussed it. Not used as a NO reason.
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `mes_v12_0_map_legacy_queue`, `mes_v12_0_unmap_legacy_queue`,
-`mes_v12_0_reset_hw_queue`. Semcode MCP not available; used grep/read.
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+
+Record: `virtio_gpu_reclaim_vbufs` (new), `virtio_gpu_deinit` (call
+site), `free_vbuf`, `virtio_gpu_array_put_free`,
+`virtio_gpu_cleanup_object`.
 
 **Step 5.2: TRACE CALLERS**
+
 Record:
-- Map: `amdgpu_mes_map_legacy_queue()` ← `amdgpu_gfx_enable_kcq()` /
-  `amdgpu_gfx_enable_kgq()`, gfx12 KCQ/KGQ reset remap,
-  `mes_v12_0_queue_init()` for the MES SCHED ring when `enable_uni_mes`.
-- Unmap: `amdgpu_mes_unmap_legacy_queue()` ← `amdgpu_gfx_disable_kcq()`
-  (gfx12 `hw_fini` / suspend), MES kiq_hw_fini for the SCHED ring.
-- Reset: `amdgpu_mes_reset_legacy_queue()` ← `gfx_v12_0_reset_kcq` /
-  `gfx_v12_0_reset_kgq` (and SDMA MES reset on other IPs; gfx12 path is
-  the one that hits mes_v12).
-- Suspend-all: `amdgpu_mes_suspend()` ← KFD `suspend_all_queues_mes()`;
-  MES suspend packet already goes to SCHED pipe.
+- `virtio_gpu_deinit()` from `virtio_gpu_probe` error path after
+  `virtio_gpu_init()` (`err_deinit`) and from `virtio_gpu_remove()`
+  after `drm_dev_unplug()`.
+- Teardown/unbind, not a hot path.
 
 **Step 5.3: TRACE CALLEES**
-Record: All three submit via
-`mes_v12_0_submit_pkt_and_poll_completion(mes, pipe, ...)`, which writes
-the packet to `mes->ring[pipe]`. Wrong `pipe` means the other MES engine
-never sees ADD/REMOVE/RESET.
+
+Record: `virtqueue_detach_unused_buf` (documented for shutdown/reset),
+GEM put, object cleanup, `kmem_cache_free`.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Reachable without special debug options:
-- Boot/resume maps KCQs (`enable_legacy_queue_map` is hardcoded true in
-  mes_v12 sw_init).
-- GPU suspend/`hw_fini` unmaps them.
-- Hang recovery resets them.
-- KFD bad-queue handling issues suspend_all_gangs.
-Userspace GPU clients and suspend/resume trigger this. Unprivileged
-DRM/KFD users can hit hang recovery.
+
+Record: Userspace/sysfs PCI remove (privileged) or guest virtio-gpu
+unplug. Syzbot hit it from `remove_store`. Reachable on any system that
+unbinds/unplugs virtio-gpu with commands still in the VQ (unresponsive
+device, hot-unplug, fuzz).
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Same uni_mes → KIQ heuristic remains in `mes_v12_0_misc_op()`;
-this patch does not touch it. User-queue add/remove already used SCHED
-pipe. Sibling mes_v12_1 fix is for a file this tree does not have.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+Record: Same drain exists in `virtio_console.c` `remove_vqs()`,
+`virtio_net`, `virtio_crypto`, vsock, etc. virtio-gpu was missing it.
+
+semcode: not available; used `git grep` / file reads.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes, in v6.18.53 `mes_v12_0_map_legacy_queue` / `unmap` /
-`reset_hw_queue`. Introduced 2024–2025; not after 6.18 branched.
-Verified: `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`; `make
-kernelversion` = `6.18.53`; `git merge-base --is-ancestor f15135562c4b0
-v6.18.53` is false (candidate not in the stable tag).
+
+Record: **Yes.**
+
+```283:293:drivers/gpu/drm/virtio/virtgpu_kms.c
+void virtio_gpu_deinit(struct drm_device *dev)
+{
+        ...
+        virtio_reset_device(vgdev->vdev);
+        vgdev->vdev->config->del_vqs(vgdev->vdev);
+}
+```
+
+```83:87:drivers/gpu/drm/virtio/virtgpu_vq.c
+void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev)
+{
+        kmem_cache_destroy(vgdev->vbufs);
+        vgdev->vbufs = NULL;
+}
+```
+
+`virtio_gpu_reclaim_vbufs` is **not** in this tree. `git log
+--grep='reclaim pending vbufs'` on those files: empty.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply to v6.18.53. Context matches. No rework needed.
+
+Record: **Clean apply expected.** Actual v2 context matches 6.12 (no
+panic helpers required). Line numbers differ slightly; 3-line context
+around reset/`del_vqs` and `free_vbuf`/`reclaim_vbufs` is the same.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: 6.18.53 still has the uni_mes→KIQ map/unmap and `is_kq`→KIQ
-reset. No earlier equivalent fix.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+Record: No equivalent drain. KMS-disabled removal fix `38a5f891cda6d` is
+unrelated (atomic shutdown).
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/gpu/drm/amd/amdgpu` MES for gfx12. **IMPORTANT**
-(shipping RDNA4: IP 12.0.0 / 12.0.1), not core mm/net, not staging.
+---
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively maintained; MES v12 has ongoing queue/reset work. The
-bug is in code that has been in 6.18 since release, not brand-new post-
-branch code.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 7.1: SUBSYSTEM AND CRITICALITY**
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: gfx12 (RDNA4) with unified MES. `amdgpu_uni_mes` defaults to 1;
-discovery sets `enable_uni_mes` for IP 12.0.0/12.0.1. Driver-specific,
-default-on for those GPUs.
+Record: `drivers/gpu/drm/virtio` — **IMPORTANT** for VMs/QEMU guests
+(common virtio-gpu), not core mm/VFS. Not staging.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+**Step 7.2: SUBSYSTEM ACTIVITY**
+
+Record: Mature driver (2013+), still receiving 6.12 stable fixes. Bug is
+long-standing, not a brand-new subsystem.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: WHO IS AFFECTED**
+
+Record: virtio-gpu users (`CONFIG_DRM_VIRTIO_GPU`) — QEMU/KVM/cloud VMs,
+driver unbind, PCI remove, module unload.
+
+**Step 8.2: TRIGGER CONDITIONS**
+
+Record: Device teardown with commands still on the control/cursor VQ.
+Syzbot: PCI `remove`. Privileged on the host; a VM guest can trigger it.
+Not every boot, but a realistic hot-unplug/reset path.
+
+**Step 8.3: FAILURE MODE SEVERITY**
+
 Record:
-- Common: every gfx12 boot maps KCQs; every GPU suspend/`hw_fini` unmaps
-  them.
-- Hang recovery resets KCQ/KGQ through the same pipe.
-- KFD suspend-all on bad queues.
-- Not a theoretical race; wrong static pipe choice.
+- `kmem_cache_destroy()` **always** `WARN`s if objects remain
+  (`mm/slab_common.c` ~547), not only `CONFIG_SLUB_DEBUG`.
+- With SLUB_DEBUG, additional `slab_bug` / `__slab_err`.
+- If shutdown fails, the cache is **not** released (`if (err) return`) →
+  cache leak plus leaked vbufs/GEM.
+- Syzbot: DoS, `prio:high`.
+- Severity: **HIGH** (kernel WARNING/taint, resource leak on remove;
+  panic if `panic_on_warn`).
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Kernel compute/graphics queues left untracked or reset on the
-wrong MES engine → failed suspend/resume, failed queue reset, GPU hang.
-KFD treats MES suspend failure as unrecoverable and schedules GPU reset.
-Severity: **HIGH** (GPU hang / failed recovery), not a kernel NULL-
-deref, but user-visible and production-relevant on RDNA4.
+**Step 8.4: RISK-BENEFIT RATIO**
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- Benefit: HIGH for gfx12 6.18 users (default uni_mes).
-- Risk: LOW (17 lines, one file, non-uni_mes unchanged, MES self-queue
-  still on KIQ).
-- Ratio: favor backport.
+Record: **Benefit high** (stops WARNING + leak on a common VM GPU
+driver). **Risk low** (17 lines, existing helpers, maintainer-acked).
+Ratio favors backport.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+---
 
-**Step 9.1: COMPILE THE EVIDENCE**
+## PHASE 9: FINAL SYNTHESIS
 
-FOR:
-- Real firmware-tracking bug: KCQs mapped to pipe1 while suspend-
-  all/reset tracking is pipe0.
-- Present in this 6.18.y tree; uni_mes default-enabled on gfx12.
-- Hits suspend/resume and hang recovery, not a dead path.
-- Small, surgical, applies cleanly.
-- Reviewed/suggested by AMD MES engineers; merged by Alex Deucher.
-- Corrects pipe policy already in 6.18 (`aa539da8`, `2e828a25`).
+**Step 9.1: EVIDENCE**
 
-AGAINST:
-- No public user report or sanitizer hit.
-- gfx12-only, not a core-kernel oops.
-- v4 reset hunk was not in the v3 Reviewed-by mail (but it is the
-  necessary counterpart of the map change).
-- 2/2 mes_v12_1 is unrelated here (file absent).
+**FOR:**
+- Real, syzbot-reproduced teardown bug
+- Unconditional `WARN` + slab/GEM leak
+- virtio-gpu is widely used in VMs on 6.12 LTS
+- Small, obviously correct drain matching other virtio drivers
+- All callees exist here; bug exists here
+- Maintainer applied v2 to drm-misc-fixes
 
-UNRESOLVED:
-- No first-party dmesg/reproducer beyond the author’s description (AMD-
-  internal).
+**AGAINST:**
+- Trigger is device removal, not a hot path
+- Needs privilege / VM unplug (not a local unprivileged syscall crash)
+- No `Fixes:` / stable Cc in the original (not a negative under these
+  rules)
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — pipe choice matches suspend-
-   all on SCHED; MES self-queue exception is required and matches
-   `queue_init`.
-2. Fixes a real bug that affects users? **PASS** — gfx12 KCQ
-   tracking/resume/reset.
-3. Important issue? **PASS** — GPU hang / failed queue reset /
-   inconsistent KCQs after resume. HIGH, not a style nit.
-4. Small and contained? **PASS** — one file, ~27 lines.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — clean on v6.18.53.
+**UNRESOLVED:**
+- lore.kernel.org 403; stable@ discussion not fetched
+- `b4 dig` could not resolve a SHA that is not in this tree
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None of ID/quirk/DT/build/docs. Ordinary driver correctness fix;
-still stable-eligible.
+**Step 9.2: STABLE RULES CHECKLIST**
 
-**Step 9.4: MAKE YOUR DECISION**
-Backport. The 6.18 tree has unified MES, default-on, with the wrong pipe
-for legacy kernel queues. The fix is small, applies cleanly, and
-prevents KCQ inconsistency and failed MES resets on shipping gfx12
-hardware.
+1. Obviously correct and tested? **PASS** — v2, syzbot, maintainer
+   applied
+2. Real user-visible bug? **PASS** — WARNING + leak on virtio-gpu remove
+3. Important (crash/leak/DoS)? **PASS** — HIGH; syzbot prio:high / DoS
+4. Small and contained? **PASS** — +17 lines, 3 files, one driver
+5. No new features/APIs? **PASS** — internal helper only
+6. Applies to local tree? **PASS** — buggy code present; helpers present
 
-Verification:
-- [Phase 1] Tags: Reviewed-by Michael Chen; Suggested-by
-  Chen/Deucher/Liu; no Fixes/syzbot.
-- [Phase 2] Diff: map/unmap uni_mes now KIQ only for
-  `AMDGPU_RING_TYPE_MES`; reset always SCHED.
-- [Phase 3] Blame on v6.18.53: `aa539da8aff07a` (map/unmap),
-  `2e828a25f850f` (reset is_kq).
-- [Phase 3] Both those commits are ancestors of v6.18.53; candidate is
-  not.
-- [Phase 3] `git merge-base --is-ancestor f15135562c4b0 v6.18.53` → not
-  in the tag.
-- [Phase 4] `b4 dig -c 5ec4cc917083...` → v3 1/2 lore; 2/2 is mes_v12_1
-  only.
-- [Phase 4] mbox: Chen Reviewed-by; no NAK.
-- [Phase 4] v4 list mail had map/unmap only; committed v4 adds KQ reset
-  pipe.
-- [Phase 5] Callers: `amdgpu_gfx_enable/disable_kcq`, gfx12
-  reset_kcq/kgq, mes queue_init, KFD `amdgpu_mes_suspend`.
-- [Phase 5] Pipes: SCHED=0, KIQ=1; suspend_gang already uses SCHED.
-- [Phase 6] `git describe HEAD` v6.18.53-5049; `make kernelversion`
-  6.18.53.
-- [Phase 6] `enable_uni_mes` default 1 (`amdgpu_drv.c`); set for IP
-  12.0.0/12.0.1.
-- [Phase 6] Patch dry-run against v6.18.53 mes_v12_0.c: success.
-- [Phase 6] No mes_v12_1.c in this tree.
-- [Phase 8] Failure mode: inconsistent KCQs / failed MES reset → GPU
-  hang; severity HIGH.
-- UNVERIFIED: no public user crash log; lore.kernel.org WebFetch
-  returned 403 (used b4 mbox + lists.freedesktop.org instead).
+**Step 9.3: EXCEPTION CATEGORIES**
+
+Record: Not ID/quirk/DT/docs. Ordinary important bugfix.
+
+**Step 9.4: DECISION**
+
+This tree has the bug and the dependencies. The fix is small, matches
+established virtio teardown, and stops a syzbot-confirmed WARNING plus
+object leak on virtio-gpu teardown. It should be backported to this 6.12
+tree.
+
+---
+
+## What the commit solves for stable users
+
+On virtio-gpu unbind/unplug, in-flight command buffers stay in the
+virtqueues. Destroying the `virtio-gpu-vbufs` cache then WARNs and leaks
+those buffers and any GEM objects they hold (including pending
+`RESOURCE_UNREF`). 6.12 guests using virtio-gpu hit this on device
+removal.
+
+## Risk vs benefit
+
+Benefit: no WARN/taint and no leaked GEM/vbufs on a common VM driver.
+Risk: low; one drain after reset, before `del_vqs()`, using APIs already
+in 6.12.
+
+## Concerns
+
+None that block backport. Header context in some expanded diffs mentions
+later panic helpers; the real v2 hunk does not need them. Apply as the
+17-line v2.
+
+---
+
+## Verification
+
+- **[Phase 1]** Tags: syzbot Reported-by, Closes syzkaller URL, Osipenko
+  SOB
+- **[Phase 2]** Diff: +17 across 3 virtio GPU files; drain after reset
+- **[Phase 2]** `resp_cb_data` only assigned in
+  `virtio_gpu_cmd_unref_resource()` in this tree
+- **[Phase 3]** `git describe HEAD` / Makefile: 6.12.111;
+  `p-6.12-3-gc504cf0baa3d8`
+- **[Phase 3]** blame: `kmem_cache_destroy` in `virtio_gpu_free_vbufs`
+  since `f5985bf9cadd4e` (2017); deinit without drain since original
+  driver
+- **[Phase 3]** `git log --grep='reclaim pending vbufs' --
+  drivers/gpu/drm/virtio/`: not present
+- **[Phase 4]** Openwall v2 + LKML: Osipenko “Applied to drm-misc-fixes”
+- **[Phase 4]** syzbot: WARNING in `virtio_gpu_free_vbufs`, prio:high,
+  PCI remove stack, 13 crashes
+- **[Phase 4]** lore.kernel.org 403; `b4 dig` no local commit —
+  UNVERIFIED beyond Openwall/LKML/syzbot
+- **[Phase 5]** Callers: `virtio_gpu_drv.c` probe fail +
+  `virtio_gpu_remove`
+- **[Phase 5]** Both VQs assigned in `virtio_gpu_init()` lines 217–218
+- **[Phase 6]** Local `virtio_gpu_deinit` / `virtio_gpu_free_vbufs`
+  match the buggy sequence
+- **[Phase 6]** `virtqueue_detach_unused_buf`,
+  `virtio_gpu_array_put_free`, `virtio_gpu_cleanup_object` exist
+- **[Phase 8]** `kmem_cache_destroy` WARNs if `__kmem_cache_shutdown`
+  returns nonzero (`mm/slab_common.c`); cache not released on error
+- **UNVERIFIED:** whether this SHA is already in some other stable
+  series (irrelevant; not in this tree)
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 27 ++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
+ drivers/gpu/drm/virtio/virtgpu_kms.c |  1 +
+ drivers/gpu/drm/virtio/virtgpu_vq.c  | 15 +++++++++++++++
+ 3 files changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index c40aed5a8fc21..7d7bcf1c69f27 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -524,10 +524,15 @@ static int mes_v12_0_map_legacy_queue(struct amdgpu_mes *mes,
- 		convert_to_mes_queue_type(input->queue_type);
- 	mes_add_queue_pkt.map_legacy_kq = 1;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 51b78f8a8aa2e..d52f35a09a1b0 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -355,6 +355,7 @@ void virtio_gpu_array_put_free_work(struct work_struct *work);
+ /* virtgpu_vq.c */
+ int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
+ void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev);
++void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev);
+ void virtio_gpu_cmd_create_resource(struct virtio_gpu_device *vgdev,
+ 				    struct virtio_gpu_object *bo,
+ 				    struct virtio_gpu_object_params *params,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 4a25347734fda..01ea5cd5ea7f1 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -289,6 +289,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
+ 	flush_work(&vgdev->cursorq.dequeue_work);
+ 	flush_work(&vgdev->config_changed_work);
+ 	virtio_reset_device(vgdev->vdev);
++	virtio_gpu_reclaim_vbufs(vgdev);
+ 	vgdev->vdev->config->del_vqs(vgdev->vdev);
+ }
  
--	if (mes->adev->enable_uni_mes)
--		pipe = AMDGPU_MES_KIQ_PIPE;
--	else
-+	if (mes->adev->enable_uni_mes) {
-+		/* Keep scheduler queue on KIQ pipe; map all other kernel queues on sched pipe. */
-+		if (input->queue_type == AMDGPU_RING_TYPE_MES)
-+			pipe = AMDGPU_MES_KIQ_PIPE;
-+		else
-+			pipe = AMDGPU_MES_SCHED_PIPE;
-+	} else {
- 		pipe = AMDGPU_MES_SCHED_PIPE;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index 244a791ab915e..f7e7d212fc67c 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -207,6 +207,21 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
+ 	kmem_cache_free(vgdev->vbufs, vbuf);
+ }
+ 
++void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
++{
++	struct virtio_gpu_vbuffer *vbuf;
++
++	while ((vbuf = virtqueue_detach_unused_buf(vgdev->ctrlq.vq))) {
++		if (vbuf->objs)
++			virtio_gpu_array_put_free(vbuf->objs);
++		if (vbuf->resp_cb_data)
++			virtio_gpu_cleanup_object(vbuf->resp_cb_data);
++		free_vbuf(vgdev, vbuf);
 +	}
- 
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
- 			&mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
-@@ -563,10 +568,15 @@ static int mes_v12_0_unmap_legacy_queue(struct amdgpu_mes *mes,
- 			convert_to_mes_queue_type(input->queue_type);
- 	}
- 
--	if (mes->adev->enable_uni_mes)
--		pipe = AMDGPU_MES_KIQ_PIPE;
--	else
-+	if (mes->adev->enable_uni_mes) {
-+		/* Keep scheduler queue on KIQ pipe; unmap all other kernel queues on sched pipe. */
-+		if (input->queue_type == AMDGPU_RING_TYPE_MES)
-+			pipe = AMDGPU_MES_KIQ_PIPE;
-+		else
-+			pipe = AMDGPU_MES_SCHED_PIPE;
-+	} else {
- 		pipe = AMDGPU_MES_SCHED_PIPE;
-+	}
- 
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
- 			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
-@@ -909,10 +919,7 @@ static int mes_v12_0_reset_hw_queue(struct amdgpu_mes *mes,
- 		mes_reset_queue_pkt.doorbell_offset = input->doorbell_offset;
- 	}
- 
--	if (input->is_kq)
--		pipe = AMDGPU_MES_KIQ_PIPE;
--	else
--		pipe = AMDGPU_MES_SCHED_PIPE;
-+	pipe = AMDGPU_MES_SCHED_PIPE;
- 
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
- 			&mes_reset_queue_pkt, sizeof(mes_reset_queue_pkt),
++	while ((vbuf = virtqueue_detach_unused_buf(vgdev->cursorq.vq)))
++		free_vbuf(vgdev, vbuf);
++}
++
+ static void reclaim_vbufs(struct virtqueue *vq, struct list_head *reclaim_list)
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
 -- 
 2.53.0
 
