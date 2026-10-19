@@ -4,74 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50AEECCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2BEFCCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:48:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A89C410E315;
-	Mon, 19 Oct 2026 13:47:25 +0000 (UTC)
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [46.38.247.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A0A710E315
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:47:19 +0000 (UTC)
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
- by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j7cG22w3Yz8HnD;
- Mon, 19 Oct 2026 15:43:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1792417434;
- bh=YNKMO+U3lthxm+K4hM8ZjNmnNKm0FYUbQBfDIReK6zc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=gpr0cQZ9ya/AeveVduxB4wIMO6Bjfms+lNCuvXls3aK9QE3YWYXRlakP9dgUS7L7Y
- Svz4xaz/G8FvV6xQkAIBJ1B/owU2Xn6bFYzPFkCKiMFjuh7YBIwU7G9+O4QSQUlgBA
- Jf/yoyqzLWjGz5Lh0++XIGEATZd90yjKhGOin8yUwsRPyT8hgk75lrK1V9QjNApCQL
- aywuu7XeBjqgUttkHiPCGsig7lB7PoUQpUKVTYUcfVJZI8Yppve2YmhWhrOsukj6DH
- 4x7+ai+DnI7qBV/zt8WTD8ITP6Jhpzu9CoJrrKejP0TEpv//mibOVlJl7oYaco4WIT
- Wg03kn1xNggeg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j7cFY6WDzz4ymd;
- Mon, 19 Oct 2026 15:43:29 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4j7cFW3thqz8tkD;
- Mon, 19 Oct 2026 15:43:27 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id A1D5C5F8E8;
- Mon, 19 Oct 2026 15:43:21 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <c3c4d140-07ec-4402-a18b-389520df188e@leemhuis.info>
-Date: Mon, 19 Oct 2026 15:43:21 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0901310E5EE;
+	Mon, 19 Oct 2026 13:48:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F13010E5EE;
+ Mon, 19 Oct 2026 13:48:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792417696; x=1823953696;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=1uPDEr3HIV5YG4p8D5KJZ05iu8cxrjsZZLs2LzXgWeY=;
+ b=fKsYIuTuO5AQEQW5W8ElUp7L8akBhE6mvla+xizR9D9Dbdgs+GNsXZja
+ bnyRdEQb/0ryyYaDlnIZjPCh/DbAVVZopJuLpz84xgtxudBJnT+eIxpvK
+ 9p1R6LqzltE4kxR6LXrx3gGHfwSw4KczEP7kvTrHQaDfvorHzqWympRmR
+ BK7wiA2mKI2Ddb7hc9MD9f1XtRsKqB65ORU3qAA9Yn9XL9Z68uVb4h7VV
+ 7jbAeKK4ptxtLbresIoco9fReU99okV9coI8c8GBXUhYaSCSGHElCvXzq
+ AqGl/Bv3NFST3wDraJVX4RGWoinCATCAcxIxHsAjgEw6qsA3LrCPkQ3xr w==;
+X-CSE-ConnectionGUID: 8pH2fB/HTCS6yiE1ASrtsA==
+X-CSE-MsgGUID: B6EnpgzXTxSbvSpw7K7Hyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="999423"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="999423"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 06:48:15 -0700
+X-CSE-ConnectionGUID: QvL0Ti8ZQd6z6qPl5njqCQ==
+X-CSE-MsgGUID: i2O2ctf8Rya27oi/wURERQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="4372774"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.47])
+ ([10.245.244.47])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 06:47:58 -0700
+Message-ID: <5f57c49d34f2812b0b68be71218ce0a9b6510c14.camel@linux.intel.com>
+Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Jason Gunthorpe <jgg@nvidia.com>, Alistair Popple <apopple@nvidia.com>
+Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Karl
+ Mehltretter <kmehltretter@gmail.com>, Dongwon Kim <dongwon.kim@intel.com>, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky	
+ <leonro@nvidia.com>, linaro-mm-sig@lists.linaro.org, 
+ linux-media@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Vivek Kasireddy	 <vivek.kasireddy@intel.com>
+Date: Mon, 19 Oct 2026 15:47:55 +0200
+In-Reply-To: <20261019133031.GQ13920@nvidia.com>
+References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <20261016202653.97339-1-kmehltretter@gmail.com>
+ <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
+ <8d4cb20b70ac4c3f36d8d631769757158af2ac8e.camel@linux.intel.com>
+ <20261019133031.GQ13920@nvidia.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
-To: Oleg Keri <okerixx@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-References: <ar_AuRr1eaZzOfw9@baldur>
- <179096320161.1973.2852858792260211089@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <179096320161.1973.2852858792260211089@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179241740268.799053.7614387115975151164@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: A1D5C5F8E8
-X-NC-CID: mZAHi/GmfJ9xo2HkEE4KHVNY31ngGahIZ3EtVrBm6I8qAw8W4Po=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,23 +81,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/2/26 19:47, Oleg Keri wrote:
->> This patch landed in next-20261001 and while it works on my Glymur CRD
->> (COB), on the Asus Zenbook A14 I see the following failure during boot:
->
-> Same on a Lenovo Yoga Slim 7x Gen 11 (Glymur) with next-20261001, GMU
-> firmware v5.2.38:
-> 
-> [    1.632277] platform 3d6c000.gmu: [drm:a6xx_hfi_wait_for_msg_interrupt] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 11 timed out waiting for response
-> [    1.642345] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x4
-> [    1.642360] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* gpu hw init failed: -110
-> [    8.053367] platform 3d6c000.gmu: [drm:a6xx_gmu_resume] *ERROR* GMU firmware initialization timed out
-> [    8.053584] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* Couldn't power up the GPU: -110
-> 
-> Compositor fails on the first start and works on the second.
-> 
-> Reverting this patch fixes it here as well.
-What's the status here? Was this fixed meanwhile? Or is this regression
-how heading towards mainline now that the merge window is open?
+On Mon, 2026-10-19 at 10:30 -0300, Jason Gunthorpe wrote:
+> On Mon, Oct 19, 2026 at 02:43:29PM +0200, Thomas Hellstr=C3=B6m wrote:
+> > On Mon, 2026-10-19 at 10:35 +0200, Christian K=C3=B6nig wrote:
+> > > On 10/16/26 22:26, Karl Mehltretter wrote:
+> > > > On Tue, Feb 17, 2026 at 08:11:34PM -0400, Jason Gunthorpe
+> > > > wrote:
+> > > > > +	match_args.attach =3D attach;
+> > > > > +	if (dmabuf->ops->match_mapping) {
+> > > > > +		ret =3D dmabuf->ops-
+> > > > > >match_mapping(&match_args);
+> > > > > +	}
+> > > > > +
+> > > > > =C2=A0	attach->dmabuf =3D dmabuf;
+> > > > > =C2=A0	attach->importer_ops =3D importer_ops;
+> > > > > =C2=A0	attach->importer_priv =3D importer_priv;
+> > > >=20
+> > > > I may misunderstand the intended contract. match_mapping() runs
+> > > > while the
+> > > > attachment is still zeroed and without dmabuf->resv held.
+> > > >=20
+> > > > Patch 11's amdgpu callback needs importer_ops and
+> > > > importer_priv, so
+> > > > its XGMI
+> > > > match cannot work here. Patch 12's VFIO callback asserts
+> > > > dmabuf-
+> > > > > resv and
+> > > > reads priv->vdev, which cleanup changes under that lock.
+> > > >=20
+> > > > Should the core initialize the attachment and hold dmabuf->resv
+> > > > for
+> > > > match_mapping(), or should callbacks avoid attachment and lock-
+> > > > protected
+> > > > state?
+> > >=20
+> > > Right. This completely misplaced.
+> > >=20
+> > > The matching can't be done at attachment time, but rather needs
+> > > to be
+> > > done before creating a mapping while holding the resv lock so
+> > > that
+> > > the matching decision can't change.
+> >=20
+> > So question is what exactly should the contract be?
+> > Looking at the pcie_p2p negotiation today it looks somewhat like.
+> >=20
+> > 1) Importer and exporter agree at attach time what mappings are
+> > allowed
+> > pending placement conditions and other attachers.
+> > 2) At map-time the mapping is negotiated taking all constraints
+> > into
+> > account.
+> > 3) The negotiated mapping is valid until an invalidate_mappings()
+> > callback is received.
+> >=20
+> > Following this would allow a re-implementation of pcie_p2p as a
+> > mapping
+> > type and would allow a controlled link-severing to send an
+> > invalidate_mappings() notifier and the mappings to be re-
+> > negotiated.
+> >=20
+> > Importers requiring an early hint as to what the actual mapping
+> > would
+> > look like would need to be prepared to re-consider at map-time,
+> > with a
+> > reasonable assumption that the reconsideration and re-mapping would
+> > happen seldom enough.
+>=20
+> The idea was the supported mapping types are fixed properties of the
+> importer and exporter.
+>=20
+> Like iommufd is not suddenly going to start understanding ualink
+> after
+> an invalidation.
+>=20
+> Further, I had the (perhaps naive) expectation that the interconnect
+> option was not something that would change during mapping. I did not
+> think you would loose your PCIe option if ualink becomes available,
+> or
+> vice versa. Though on deeper reflection I suppose someone could build
+> HW so you might loose your ualink option if the dmabuf is moved to
+> system memory while PCIe would still work.
 
-Ciao, Thorsten
+True, but there are other complications. Let's say at map time there is
+another importer that don't support anything but system memory dma-
+bufs. Then both ualink and PCIe p2p could not be used, and we'd fall
+back to system. Or a map() move to VRAM from system for a fast
+interconnect failed for some reason. (Somebody might have pinned it in
+system).
+
+But agreed it sounds to me like the interconnect capabilities should be
+fixed at attach time.
+
+>=20
+> Making the decision right before map seems like a reasonable
+> enhancement, but I can no longer remember off hand if that would
+> cause
+> complications :)
+
+It was that mellanox ATS thing, right? That's the only case I heard of
+that needed the mapping type decision (or at least a strong hint)
+early.
+
+/Thomas
+
+
+>=20
+> Jason
