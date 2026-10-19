@@ -4,152 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 372A6CCF2D6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 12:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D93C3CCF2E4
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 12:23:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8643A10EC65;
-	Mon, 19 Oct 2026 12:12:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B483010EC65
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 12:12:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A45E10E4BE;
+	Mon, 19 Oct 2026 12:23:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3325C10E4BE;
+ Mon, 19 Oct 2026 12:23:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792411958; x=1823947958;
+ t=1792412590; x=1823948590;
  h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=kZySne3xXcY7ovJbzzyu6obOrnDFv2N9jT1b1farNlg=;
- b=JC/0CH+PXtxY4M4IB/xvn8PN7fAQ9IsAIwStD3sY+eNi0tif/hDt5wy3
- b/bKB2Xcj9dFclASlBDuOL/yriVA4QHoM/5r9azgY8jCqQsbBoOB44MVI
- 11Dm4gxrLSxiO4dnGfc5oQpYGCsetC8PhknbtMgIHcc1VOpOUBZGOoI7k
- yWKCrl+4mpAr8UhAsj9Rk00SwuuYZHtcvquth4REcP8ZjwXlulXvbgdzB
- liHsyNJ/YaiX6SacgGDElsmym3GumKGDSrLQVrkKhMcbYjfIsWTUOooff
- L2p+KflbPmY9KF9tEfnCHLhYVpfctquJhV5MSHnz/hlYuzKVwhnDxCZcS w==;
-X-CSE-ConnectionGUID: ed4yo3uNQ22ougegDixIvw==
-X-CSE-MsgGUID: 9iWsa3AXS3ue9nprUS4HLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="972203"
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=hX0usdJlny0mRPRRhLuXQ15ezGuOx5nnPLttdzi6Azo=;
+ b=e4ipJF98RMNr6c2zoZOVALDkrI82SnatjBTTc3N2alp61NDIecTuLUxd
+ SeyZywH4vViwVE8KIsVF8VIdBrhyalAW4HYs7Nfe3T7D09f+xvxhLFmXF
+ qf386YKWCtzms/BttOM+C+5NgUIufo3LIpgHko9YrABEkQCkDJ0dfRjzv
+ bOdXZq22ZdRPLu9blDrpBXUZ/CvxXMNQzUPDX8VMspjCEM5AuPWjDSg1X
+ 7qAPwyGx7fB341vCJ2XSbv3K6QNDVgAAmyU3AAGQL6YkJoB4TX97WAfDW
+ B7Sb/18PO66A48UaTco/Xhvzl1J+FkqLba8QUKaykVJqsbs/nRLxNUr5Y g==;
+X-CSE-ConnectionGUID: Z8R5Mm71SGSeaiJj2gr1Qg==
+X-CSE-MsgGUID: mCMVtyscQyqsiFgilrgEOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1104510"
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="972203"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 05:12:38 -0700
-X-CSE-ConnectionGUID: bV2/4uanSECHL1V0YO8wJA==
-X-CSE-MsgGUID: 8w7crf60Qa28CNk9O09c7g==
+   d="scan'208";a="1104510"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 05:21:10 -0700
+X-CSE-ConnectionGUID: W1+em7UEToifIriZV9UvLg==
+X-CSE-MsgGUID: 94XJzdSUST+6BSjb6qP4JA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="4279821"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 05:12:37 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 05:12:36 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 05:12:36 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.69)
- by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 05:12:36 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mpR9jqMaR37nDDPanUFtajaurx+SgwJy60iboSj7dWaRSgwQiIGuqvVo2YuwlvMJTgfvEELy2PUs/N4lcams/3Ypd4RX2s2YvaZ8ktqtFmiW40izYQJhVefsFlqhCQxWlfB0Y+ViQqYyTi3z+cz17K+dnB5yOOJwOJdC7DcaAAwXyjq8hqxR5fA0H1waQm4cVbkRtttognnxsWrZGuUuh+v5jYJJIXzVyXrkjp7WJ/pG46pQIoYN91bLqBj+wSBt7rF37KFjOHaw9Mz03Kp0O+lDSdq9xwuY6xr1l/fOdatJQBxuU6G4/FIn6t66gqJObWHqBHT8qYnzukZyB7+Q3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BwBTAM24Nq9ORS/4w3SAuc4ivC9KoVJ2XYWxs5HVkYo=;
- b=P7if6P6599z8QlOp/R2RHo/tMNIAdN90GmVDhXSBM2mo12uTNpWdEaaVgXLOQVs4KZ6XFEZcqeILKXZQ9Ebvbv0vYDKnEADksLbdRvz+yb+FcnJyWWLGhtBMkLFnC/pN3RCDFvcPa+DVHe9OPH03ZVLhKZSOuVkp6AEL8OCVmbvzKWx2UA2n5jIeLQwHW4HXDLuj80rqQkeQqPL2OfvdJTBDlgYXj21W+giWLze9cZnq5IF8FIMOd+5ArBI26CXtOtIqwLmZPvRpXBxo7E99QnvSggePmNoRxM9ArxYIXb4wxgg3uPcFGPunCI2Hb2a+yIi7U812JrLfSlT+cAbs5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
- by CO1PR11MB4961.namprd11.prod.outlook.com (2603:10b6:303:93::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 19 Oct
- 2026 12:12:34 +0000
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 12:12:34 +0000
-Date: Mon, 19 Oct 2026 08:12:28 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>,
- <riana.tauro@intel.com>, <aravind.iddamsetty@linux.intel.com>,
- <raag.jadav@intel.com>, <simona.vetter@ffwll.ch>, <airlied@gmail.com>,
- <ogabbay@kernel.org>, <lizhi.hou@amd.com>, <karol.wachowski@linux.intel.com>, 
- <jeff.hugo@oss.qualcomm.com>, <carl.vanderlip@oss.qualcomm.com>,
- <troy.hanson@oss.qualcomm.com>, <youssef.abdulrahman@oss.qualcomm.com>
-Subject: Re: [PATCH 2/3] drm/drm_ras: Extend DRM RAS interface to include
- telemetry nodes
-Message-ID: <atYJLGHqCelhzSee@intel.com>
-References: <20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com>
- <20261009173152.2436195-3-zachary.mckevitt@oss.qualcomm.com>
- <20261016180714.05fc93c5@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261016180714.05fc93c5@kernel.org>
-X-ClientProxiedBy: SJ0PR03CA0382.namprd03.prod.outlook.com
- (2603:10b6:a03:3a1::27) To CH3PR11MB7180.namprd11.prod.outlook.com
- (2603:10b6:610:148::5)
+   d="scan'208";a="2497077"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.34])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 05:21:09 -0700
+Date: Mon, 19 Oct 2026 15:21:05 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Adrien ASESIO <aasesio@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [RFC] drm/i915: HDMI 3D frame packing on LSPCON (DP-to-HDMI) ports
+Message-ID: <atYLMcNWzELnmQFd@intel.com>
+References: <CAK1iddKB9hhhBGPnu6nNg-nn-Tg-GC-31nvEEHKB9qvkMesxLA@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|CO1PR11MB4961:EE_
-X-MS-Office365-Filtering-Correlation-Id: f66e2c01-0673-4eeb-e7a7-08df2dda41ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|23010399003|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: /SQ7AAa2jwjTkicQj1sQnbb/q42qN6P77QdnEcVKAHoXtu90k9miYRl0v/IwHKkG1gentDNL+dMfy2kbJUfcNpa2xkk3rqS41PsnTbaM0VW1CZhM5gR5U6xgoygAqdJNB7RXPYFc/p4JS/THF+QIlTY/C4Mnpd1hY6d4d5GCmElAqqn91TEwA5Uzdb/RnXzPk7GMNbrzlFqhU9cvPJaZ5lDIiD0t13uP2iQ2eSYSQ/pR+iQU5ForRibqA3yP7YOm2w4TbIWg3CC6TVZsCXQHUdt8wcYEgJHPmSQ2Mkgu3C8pmtOONZ+yh+N7GBu1ajNQOib1de2EzTtCMG0oiAmNcWForJ9ixxhEl+rJXDOoJM2/rZtbqDon0pSAsRQ9XxU5hVE2Lz+FcGj8hKwiBKT5gNZRtNJCpfTmbmWBLhnDJ+JJhNVgKev+vX9MGOz84iuFRsoKW0UvGzjdEnpVbH1MkikcIir+Omckengo5gSzGctxHKhlGDcynX6niWJtYxXj9YuSnfBUgaEShlORis/HNMsoGoaxa7yrbi6YP1kTR1PFXXx6pSj1b8iO5IhDBO/3sX4kzs1UPvjMPAtFrFB1mgFV1XMczVZ2+AzwWrjU+s0kvd9U3eQf6mhKHq9yaA3Dp2RY8+mI3ZBVdAAOcNBmTgv6RRGg+oZCpGGKT9L2Th0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH3PR11MB7180.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?m70zcmC2jkPLRFlurO27Qltz/I81/m9lHf+9WbC7D7kZklT1e1/82awi7Oj+?=
- =?us-ascii?Q?wAxNon/FIngiSw6YkWFIaxxC08M3PZoymW0+a+hSmA8MeEEj82ODQz7VdDSb?=
- =?us-ascii?Q?qdVzt6b0CI6cr0ViUrYhDNl7CIo7oFi8XRPZolXz1BkdRXwCNGeqLWPvRSBF?=
- =?us-ascii?Q?RJFML9lJ5o4hbj1MqSDnmH33u5yojBayFCHzuG4XppVTY6rOlIN0Rm0G5TrH?=
- =?us-ascii?Q?IpqPcpsWKkMPMrbAOtZpSZGVWvrjKrRJCPRhHBSOIV8sPCsyFLTVpYSEyglB?=
- =?us-ascii?Q?94vfEUAuSml9eZ9L4jwbGry2gYvx9yWZv439HybDsKNRrH/5DJVu8/Lb6Uu2?=
- =?us-ascii?Q?lcNX4q7u2aSuVB2RJGutB7rfr36nZf5oXivaAg//UdqiePn96j3x30y21qXL?=
- =?us-ascii?Q?CRTxKkznXFvjYu1Sj0BQLESAXjBDRglnIzoUukNpdV+6YxSnFCRedRU6NRzh?=
- =?us-ascii?Q?zGLh7peBg8mMCmrnFLKRJLDvF2sC8PWvJlOxr0dq8BD/gf2ZXWWbWUXiPDRq?=
- =?us-ascii?Q?FOhlpu+EeSVqbglU1IuCYtDuu7varGDjaIN9Ics3HtzkfaKbu4FGaUsvaoky?=
- =?us-ascii?Q?fIRuYlh+JiRevJcXm4pyTzN7DV3nBeyi0p4bdbUxBuYdfD3bAUOgekVTPd8U?=
- =?us-ascii?Q?HyLW0grjQARJc5kK/IEvTbLlYJJSFzeSVohurDiwhtt+qu1u5em070ufNoo3?=
- =?us-ascii?Q?0od6LzGDW7uBZOAVcR7gFTjAiNU3d5/tstZNbtHGdrPCrIrU2lcEALQP5F1I?=
- =?us-ascii?Q?6NoWsChjgZ2LMBpQaaWpNlZ0HEvNceMj3BdoUAQN1qmFQsfYdmLXq62NGNU+?=
- =?us-ascii?Q?RAALtjsiBc/3UfzE2Ex+t81HNcaFz6cIhXvAQWm6CB99R8MmxPeqb9KcN3Zi?=
- =?us-ascii?Q?jONjs92p7234GOGRQE1Mcy/0hKWwEXaXzSgiaqADbTpUV8XBKUfNNCP81uTm?=
- =?us-ascii?Q?Cnz8VHKrZh5cXwUE1UhfDAxHV+M5UtYmaalBMxzXUwuVGHElAZwALJGN+bFu?=
- =?us-ascii?Q?hJBjrZOqjeGUNHX27FCl4MCCiBGJAiwM2vrgPyTBbk7oUnXyanT8FuVeXouw?=
- =?us-ascii?Q?qs5m3tMkoCu02twnxmDWVyw9xz5ISnXU1nbKKikuRePqnpXOMG3zUvhzmHxt?=
- =?us-ascii?Q?avxgrWrXpqVirpKuXce3tvoRQB31A/w19jo61nayWKx/ATq8hihdlAdWq14a?=
- =?us-ascii?Q?rxd2bhafRlJ6tDzROMJ75VGWqnii8j0/s2LFcM0Vycg75pH/uVXBHy577/ye?=
- =?us-ascii?Q?XxyRFJevK2OMig1EHHfrMLfuiBim1pvLuRO2zKFw0n9A0+uO5hu/bpLEyeAt?=
- =?us-ascii?Q?UKqi0VZRVe9rqRGM1e6MtnjWIqCEqJ57unc+hUI4wYKZ0pEVY/puR9f0eADU?=
- =?us-ascii?Q?chRFv8THnpAN5NsycyMvjIZPitN0ED1mmuKaM0gmCRUtnmAoFEYzNbkwU2EB?=
- =?us-ascii?Q?nOoZN82kV8KyukRW9R+lWihkwRjqmx70yPHkUyfVvIcjFiW8rE5SaIRYVrGG?=
- =?us-ascii?Q?Sa2vNa1lxf4zSi7TV9ZtCwd4d2w32sKcBjlNDrWJdJ6HLRsLBEeUDPapZew9?=
- =?us-ascii?Q?tWLjIWM6KJgKFsI8kI27SUHNZp8zoqztgxoCaaduepHV50zkYx8/bn5lifp/?=
- =?us-ascii?Q?FzrUPXebb7PPt4AFMc7dhX/SE6TH/j+8/w6wLvNW42Ovn+H+++fvYERNWxXQ?=
- =?us-ascii?Q?MLNOoL6PTIn/qWIFHCDSwZZP8iDRLedFlftrVCSBDTK6FJkTfY5yngX+iAZ2?=
- =?us-ascii?Q?5po9+hr2mQ=3D=3D?=
-X-Exchange-RoutingPolicyChecked: pAlCnh1hnaaOcKucPznKFAe7SGJd9TK6G3hoewawChSCSaozACcUIoTg+gL3G4ilNrFPbc9jbPz8uHJ+RPSLPvwFhyqYbyoANl9qvKPBiCR2JIX9f3d0r4gPgBdVaYR8III7Yo0ta6c+NpBYLKJMP7iE7dA4WARpDDmyiLqjbhUPxqR/I2Hn++PzFJ7gAhg7hgz8sJfqiR2FUyJaNaeKLEl7F5Gf9GGd7Tx34+yMxz4mpzpWVRGXXhAn7EUnu1AzwBFppCSQres/JUYjAPxpHl/5eeRKke5nZ7iiV5mKTOwwopUT0njJbbEbG6WkQ6KdJx5rkY4Do0w3bWq+TzECqw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f66e2c01-0673-4eeb-e7a7-08df2dda41ba
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 12:12:34.0572 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nEvNeu+UF1c1v4+uZ7IfInSR0AWeu8HSSwogHyRfUtl12Qob322X64AyZf/YYP6i4lwzfa0ZnrpvZzxDQO67rQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB4961
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAK1iddKB9hhhBGPnu6nNg-nn-Tg-GC-31nvEEHKB9qvkMesxLA@mail.gmail.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,12 +71,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Oct 16, 2026 at 06:07:14PM -0700, Jakub Kicinski wrote:
-> On Fri,  9 Oct 2026 10:31:51 -0700 Zack McKevitt wrote:
-> > +        type: u64
+On Fri, Oct 16, 2026 at 04:05:16PM -0400, Adrien ASESIO wrote:
+> Hi,
 > 
-> prefer uint and then no pad
+> I would like to ask whether stereo 3D output on i915 ports that drive
+> an HDMI sink
+> through an LSPCON (DP branch device in PCON mode, MegaChips MCDP28x0
+> or Parade PS175)
+> is something that could be supported, and what you would want a patch
+> to look like.
 
-same here, u64 aligns with hardware definition why uint should be desired?
-I noticed the review prompts, I fail to agree because we need predictability
-and align with hardware definitions.
+TBH I was hoping we could just kill off the entire stereo 3d thing
+because it makes dealing with modes annoying. But I guess we can't do
+that if people are actually using it :/
+
+> 
+> Background: the HDMI 2.0 port of many Intel boards from Skylake to
+> Coffee Lake (Intel
+> NUC7/NUC8 among them) is an LSPCON, so i915 registers it as a
+> DisplayPort connector.
+> stereo_allowed is only set in intel_hdmi_init_connector(), never for DP, so
+> drm_helper_probe_single_connector_modes() prunes every 3D mode the
+> EDID advertises,
+> and lspcon_set_infoframes() only writes the AVI infoframe (and the
+> DRM/HDR packet),
+> so there is no path for the HDMI Vendor-Specific InfoFrame that
+> carries 3D_Structure.
+> Intel's support article 000030190 documented S3D as unsupported on
+> LSPCON designs.
+> 
+> Observation: on a NUC8i7BEH (i7-8559U, Coffee Lake; i915_display_info
+> reports the
+> branch device as "Type: HDMI, ID: MC2800, HW 2.2, SW 1.73") with
+> kernel 6.1.74, whose
+> code paths are unchanged in this respect on current master, I programmed the
+> frame-packing raster of CTA VIC 32 as a plain progressive mode from userspace:
+> 
+>     1920x2205 @ 24 Hz, clock 148500, htotal 2750, vtotal 2250, +hsync +vsync
+> 
+> The sink (Panasonic TX-P..VT65 plasma, HDMI 1.4a, behind an Onkyo AVR)
+> switched into
+> frame-packed 3D by itself and displayed both eyes correctly; page
+> flips were delivered
+> at 41.667 ms (sd 0.01 ms) for minutes. So the LSPCON passes the
+> doubled raster, and at
+> least this TV detects frame packing from the timing without the VSIF
+> (or the LSPCON
+> generates one; I cannot tell without an HDMI analyser). Kodi now does
+> exactly this on
+> that machine (patch under review on the maintainer's 3D branch, [1]),
+> decoding 3D
+> Blu-ray MVC with FFmpeg's pending H.264 MVC series [2].
+> 
+> Questions:
+> 
+> 1. Would a patch that sets connector->stereo_allowed for DP connectors
+> with an HDMI
+>    branch device (intel_dp->has_hdmi_sink / lspcon.active) be
+> acceptable, knowing that
+>    the VSIF cannot be sent? The modes would only appear for sinks
+> whose EDID advertises
+>    3D, and only to clients that set DRM_CLIENT_CAP_STEREO_3D. The risk
+> I see is clients
+>    that set the cap but do not understand
+> DRM_MODE_FLAG_3D_FRAME_PACKING picking a
+>    2205-line mode by accident.
+> 
+> 2. Is there any documentation of an infoframe interface on the
+> MegaChips or Parade
+>    LSPCONs beyond the AVI registers i915 knows
+> (LSPCON_MCA_AVI_IF_WRITE_OFFSET 0x5C0,
+>    LSPCON_PARADE_AVI_IF_WRITE_OFFSET 0x516)? MegaChips' product page claims
+>    "stereoscopic 3D forwarding" for the MCDP2800.
+
+There are no docs :(
+
+
+On DP the VSC SDP can signal various stereo 3D modes (including
+"Stacked Frame" which I think is what you want) whereas the MSA
+can only signal the frame/field sequential modes.
+
+Technically all DPCD 1.2+ sinks should support the VSC SDP, but
+I don't think that really guarantees that a PCON would then
+convert the VSC SDP to its infoframe counterpart.
+
+I guess one way to verify whether it's really working would be to
+just send the VSC SDP with the stereo 3D knobs in various
+positions and see if the TV will respond accordingly.
+
+> 
+> 3. If neither is wanted in the kernel, is "userspace programs the
+> doubled raster as a
+>    2D mode" an approach you consider legitimate, so that compositors
+> and players can
+>    do what I did above?
+> 
+> The amdgpu side is getting HDMI 1.4 3D output through Adrian
+> Betschart's series on
+> amd-gfx (2026-09), which restricts stereo_allowed to native HDMI
+> connectors for the
+> same reason.
+> 
+> Test tool (libdrm; lists stereo modes with the client cap, sets a
+> frame-packing or
+> forced raster, measures flip pacing): https://github.com/SilverGhostBS/fp3d-test
+> 
+> [1] https://github.com/popcornmix/xbmc/pull/35
+> [2] https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24303
+> 
+> Thanks,
+> Adrien Asesio
+
+-- 
+Ville Syrjälä
+Intel
