@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C79CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A763ECCF2E8
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:02:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D00E310EDF1;
-	Mon, 19 Oct 2026 14:02:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E9FC10EDF1
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:02:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0296C10EDFF;
+	Mon, 19 Oct 2026 14:02:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7164F10EDFD;
+ Mon, 19 Oct 2026 14:02:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A7EE460213;
- Mon, 19 Oct 2026 14:02:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EFC71F000C7;
- Mon, 19 Oct 2026 14:02:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 585FF40B4C;
+ Mon, 19 Oct 2026 14:02:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405041F000C9;
+ Mon, 19 Oct 2026 14:02:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418546;
- bh=2Yx0E8RRn1cWZ8BEo/BfdquUwBZonkPGH7EBNzQe+3M=;
+ s=k20260515; t=1792418556;
+ bh=pq/wQvQNe/nJmYgSNvMIlWf3rnE0y071HJ7w5F2PN+U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Bu5ppNYxaPrOn1juxuqzMmeSqr9139wHh3FM2FajtVrqMm9p+stSmWZAC69E2+HyQ
- pFsNcahAQ92BPqnm+8Q1e+PeOyRgfFHZHJS9/TDyimUbN+1Ro71QiPOvlfZh9EmUYy
- i5OF56Q8k9/sunOsp/MrEJV60I+eWSeLp0rcYDFfT/gjqGG6wEtuu+dtfl9UfXQPRI
- P77iRcPNH6YyJ3E8c5eD53ggXL8BEkgjdQtrP9OvwPVWUVGvHkUjuOtNaRIHH6BBhB
- 8QhvwrjfF7wXIRmVtgOlUNO8I/cNJAFe9HlvJDBBrDZcmpxGR3vSUMhABi9gYjgUL5
- V65MkBZX9swaA==
+ b=W0fd+Sz6ibGyIiZL/dfApOXK5GFGjStPKBnx6o2dwNFcy9K9Z2rlDw8QDUCevFuIf
+ FW5ca/5IkvZbnsZkCtvwyUrEfIAuMcXelt0F+Nv/GS+xmobYRmyIRUKt8tMoRVRArc
+ NcR4xkDikqEe6JLaweidMkr29PpTu17D8hxrZDGOMH0L8Nviitq3aPd27xnc+tW6qY
+ U5cFUVP7xzvlbabHG1QzUBDstIrN026bJffKsdaFX3Rhz45FaPPMZAZ/zAIXNl5ree
+ y7aDyDTisJzcHX8dPTF0uEux85hEM2XhYEqrpvgxzm/s7Nl6litPtJcEYChAdwkYbK
+ o82ERl5rAwMWg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Andreas Kemnade <andreas@kemnade.info>, sashiko-bot@kernel.org,
- Helge Deller <deller@gmx.de>, Sasha Levin <sashal@kernel.org>,
- linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org,
+Cc: Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <cgmeiner@igalia.com>, Sasha Levin <sashal@kernel.org>,
+ airlied@gmail.com, simona@ffwll.ch, etnaviv@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] fbdev: omap2: dsi: do not copy isr table
-Date: Mon, 19 Oct 2026 09:50:16 -0400
-Message-ID: <20261019135441.1420968-325-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/etnaviv: check MMUv2 status after reset
+Date: Mon, 19 Oct 2026 09:50:23 -0400
+Message-ID: <20261019135441.1420968-332-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -61,321 +61,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Andreas Kemnade <andreas@kemnade.info>
+From: Lucas Stach <l.stach@pengutronix.de>
 
-[ Upstream commit 31875c51c31edec57b3620f278680c23a823763b ]
+[ Upstream commit 4720915ab48282429f9e22ad5984b7870e4e962c ]
 
-To te able to unregister stuff from isrs, the corresponding table was
-copied.  Nobody seems to unregister stuff that way, so it does not help.
-But there are stack-allocated objects passed to these isrs giving chances
-of UAF of these objects if irqs are unregistered while they are handled,
-so better do not copy that table.
+A full GPU reset is the only way to disable the MMUv2 and the
+driver depends on the MMU being disabled after a reset to be able
+to properly restart the GPU. Validate this assumption by checking
+that the reset actually did disable the MMU.
 
-Suggested-by: sashiko-bot@kernel.org
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
-Signed-off-by: Helge Deller <deller@gmx.de>
+Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
+Link: https://patch.msgid.link/20260511085148.652256-2-l.stach@pengutronix.de
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a UAF fix in the OMAP2 fbdev DSI IRQ path. The same change is
-already in this 6.12 tree for the DRM copy of the driver; the fbdev copy
-of the bug is still present.
+The local tree is **v7.3-rc4**. The etnaviv reset path is present here;
+this patch closes a hole in how reset success is detected so hang
+recovery can reprogram MMUv2.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[fbdev/omap2/dsi] [do not copy] [stop copying the DSI ISR table
-before invoking handlers]`
+Record: `[drm/etnaviv] [check] [verify MMUv2 is actually disabled after
+GPU reset]`
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- `Suggested-by: sashiko-bot@kernel.org` (static-analysis bot; this is
-  the original trigger, not a user crash report)
-- `Signed-off-by: Andreas Kemnade <andreas@kemnade.info>` (author)
-- `Signed-off-by: Helge Deller <deller@gmx.de>` (fbdev maintainer)
-- No `Fixes:` tag (expected for this review queue)
-- No `Cc: stable@vger.kernel.org`
-- No `Reported-by:`, `Tested-by:`, `Reviewed-by:`, or `Link:`
-- Ignore `Signed-off-by: Sasha Levin` / `[Upstream commit ...]` if
-  present in candidate packaging; they are not part of the technical
-  decision
+- Reviewed-by: Christian Gmeiner \<cgmeiner@igalia.com\> (etnaviv
+  reviewer in MAINTAINERS)
+- Link: https://patch.msgid.link/20260511085148.652256-2-
+  l.stach@pengutronix.de (series 2/2)
+- Signed-off-by: Lucas Stach \<l.stach@pengutronix.de\> (etnaviv
+  maintainer)
+- No Fixes:, Reported-by:, Tested-by:, or Cc: stable (absence of
+  Fixes/Cc:stable is expected for this review)
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- Bug: ISR table was memcpy’d so handlers could unregister themselves,
-  then the copy was walked after dropping `irq_lock`.
-- Author claim: nothing unregisters from ISR context, so the copy is
-  unused for its stated purpose.
-- Failure mode: stack-allocated objects (`DECLARE_COMPLETION_ONSTACK`,
-  `dsi_packet_sent_handler_data` on stack) are passed as ISR `arg`. If
-  unregister/return happens while the IRQ handler still walks the copy,
-  those objects are used after free.
-- No kernel-version range in the message.
-- Root cause: lockless copy of function+arg pointers that alias stack
-  objects.
+Record: [Bug] After a full GPU reset the driver assumes MMUv2 is off so
+it can restart the GPU. [Symptom] If that is false, restart proceeds
+with MMU still enabled. [Versions] None stated. [Root cause] Reset
+success was inferred from idle bits only; MMU ENABLE was never checked.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. It is explicitly a UAF/race fix, even
-though the subject does not say “fix”.
+Record: Yes. Wording is “validate this assumption,” but it is a missing
+success check on a load-bearing invariant: restore skips reprogramming
+if ENABLE is still set.
 
 ===============================================================
 PHASE 2: DIFF ANALYSIS - LINE BY LINE
 ===============================================================
 
 **Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `drivers/video/fbdev/omap2/omapfb/dss/dsi.c` (+1 / −8; 9 lines)
-- Removes `struct dsi_isr_tables isr_tables_copy` from `struct dsi_data`
-- In `omap_dsi_irq_handler()`: drop `memcpy`, call `dsi_handle_isrs()`
-  on the live table **while `irq_lock` is held**, then unlock
-- Scope: single-file surgical fix
+Record: `drivers/gpu/drm/etnaviv/etnaviv_gpu.c` +17/−0. Function:
+`etnaviv_hw_reset()`. Single-file surgical fix.
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- Before: lock → read/ack IRQ status → memcpy table → unlock →
-  `dsi_handle_isrs(&copy)` → error/stats
-- After: lock → read/ack IRQ status → `dsi_handle_isrs(&live table)` →
-  unlock → error/stats
-- Affected path: hardirq handler (`devm_request_irq(...,
-  omap_dsi_irq_handler, IRQF_SHARED, ...)`)
-- Unregister (`dsi_unregister_isr*`) takes `irq_lock`, so it now waits
-  until handlers finish
+Record: Before: after idle/2D/3D checks, reset is treated as success.
+After: on MMUv2 cores, if `VIVS_MMUv2_CONTROL_ENABLE` /
+`VIVS_MMUv2_SEC_CONTROL_ENABLE` is still set, retry until timeout then
+`-EBUSY`. Affects probe reset and hang-recovery reset.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record:
-- Category: use-after-free / race (memory safety)
-- Mechanism: copy of ISR `arg` pointers outlives unregister of stack-
-  allocated completions
-- Verified stack objects passed into ISRs in this tree:
-  - `dsi_sync_vc_vp()` / `dsi_sync_vc_l4()`:
-    `DECLARE_COMPLETION_ONSTACK` + stack `dsi_packet_sent_handler_data`
-  - `dsi_vc_send_bta_sync()`: stack completion registered on **two**
-    tables (global + VC)
-  - `dsi_enter_ulps()`: stack completion registered on CIO table
-- Concrete UAF in `dsi_vc_send_bta_sync()`: `dsi_handle_isrs()` walks
-  global table then VC table. First handler can `complete()`; waiter
-  unregisters and returns; second handler still runs against the copy
-  with a dangling stack pointer.
-- Fix: keep `irq_lock` across handler dispatch so unregister cannot
-  destroy the objects until handlers return.
+Record: [Logic / correctness] Reset retry loop did not confirm MMU
+disable. `etnaviv_iommuv2_restore_{nonsec,sec}()` returns immediately if
+ENABLE is set (“state is still there”). After reset the driver drops
+`gpu->mmu_context`. If ENABLE is still set, restore skips page-table
+reload and the FE is started against stale MMU state.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct given the locking: unregister cannot proceed while
-  handlers run.
-- Minimal; no API change.
-- Regression risk is low **if** no ISR unregisters itself (would
-  deadlock on `irq_lock`). Verified all three callbacks
-  (`dsi_completion_handler`, `dsi_packet_sent_handler_vp`,
-  `dsi_packet_sent_handler_l4`) only `complete()` and/or read registers.
-  None call `dsi_unregister_isr*`.
-- `complete()` under a spinlock is valid.
-- Holding the lock slightly longer in hardirq is register reads +
-  `complete()`, not a sleep.
+Record: Obviously correct; matches existing idle retry. Regression risk:
+stricter success could yield more `-EBUSY` if ENABLE is sticky. That is
+better than proceeding with MMU still on. Maintainer-authored; low risk.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
 ===============================================================
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Copy logic and `isr_tables_copy` blamed to `f76ee892a99e6` (“omapfb:
-  copy omapdss & displays for omapfb”, 2015-12-29).
-- Pattern is as old as the fbdev DSS copy in this tree; originally
-  inherited from OMAP DSS ISR support.
-- Long-lived bug, not recent code.
+Record: Reset retry exists since `a8c21a5451d83` (etnaviv initial
+driver, v4.5). MMUv2 restore early-return is `afb7b3b1deb47` (v4.8-rc1).
+Hole is long-standing.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` on the fbdev commit. The sibling DRM fix
-`2c27a84ba8d1b` (`drm/omap: dsi: Do not copy isr table`) has `Fixes:
-4ae2ddddf44cd ("OMAP: DSS2: DSI: Add ISR support")`. That original ISR
-support is what fbdev copied.
+Record: No Fixes: tag. N/A.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record:
-- Recent `dsi.c` changes in this tree are unrelated (platform remove,
-  of_graph, timer, pm_runtime).
-- Standalone; not patch N/M.
-- Cover letter on lore points at a DRM twin:
-  `https://lore.kernel.org/lkml/20260702-dsi-
-  uaf-v2-1-dbb4aa0f0b8e@kemnade.info/`
-- That DRM twin **is already in this tree** as `2c27a84ba8d1b`
-  (contained in `v6.12.110~477`).
+Record: Patch 1/2 is `1006d1f7c03d9` (“check all modules for idle after
+reset”) — sibling robustness, not required for this hunk. Related
+stable-bound history: `725cbc7884c37` (MMU state lost on reset),
+`f978a5302f556` (MMU context leak on reset), `8f3eea9d01d7b` (keep MMU
+across runtime PM because that path avoids full reset). Standalone vs
+series: series 2/2, self-contained.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record:
-- Andreas Kemnade is an OMAP/display contributor; same author wrote the
-  DRM twin.
-- Helge Deller (fbdev maintainer) applied the fbdev patch.
-- Tomi Valkeinen applied the DRM twin.
+Record: Lucas Stach is listed maintainer of “DRM DRIVERS FOR VIVANTE GPU
+IP”. Christian Gmeiner is a listed reviewer. Same author wrote the 2021
+MMU-reset invariant patches.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record:
-- No new functions/types.
-- Applies as a logic change on existing `omap_dsi_irq_handler` / `struct
-  dsi_data`.
-- Context mismatch only: mainline hunk context has `timer_delete()`;
-  this tree still has `del_timer()` (`8fa7292fee5c5` timer rename is not
-  in 6.12). Not a functional dependency.
+Record: Uses existing `gpu_read`, `chipMinorFeatures1_MMU_VERSION`,
+`ETNA_SEC_KERNEL`, and MMUv2 registers. No new helpers. Can apply
+standalone.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 ===============================================================
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c 31875c51c31ed`: https://patch.msgid.link/20260702-fbomap-
-  uaf-fix-v1-1-6417edf9d3e7@kemnade.info
-- `b4 dig -a`: single revision **v1** only; that version was applied.
-- Thread: author patch → sashiko-bot review → author reply → Helge
-  Deller “applied.”
-- No NAK. Deller accepted it.
-- Bot comments were about **pre-existing sibling bugs** (DRM DSI, DISPC
-  copy, unbind timers), not about this change being wrong.
-- Author noted the DRM variant in the patch footer.
+Record: [Lore]
+https://patch.msgid.link/20260511085148.652256-2-l.stach@pengutronix.de
+[Revisions] v1 only (b4 dig -a).
+[Review] Christian Gmeiner Reviewed-by; no NAK, no stable nomination, no
+risk discussion. Direct lore.kernel.org fetch returned 403 (Anubis);
+thread recovered via `b4 dig -m`.
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`):
-- To: Helge Deller
-- Cc: linux-omap, linux-fbdev, dri-devel, linux-kernel, sashiko-bot
-- Appropriate lists; fbdev maintainer applied it.
-- No human Reviewed-by besides maintainer application.
+Record: To: etnaviv@lists.freedesktop.org; Cc: dri-devel, Christian
+Gmeiner. Right lists and reviewer.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record:
-- No syzbot/bugzilla user report. Trigger is sashiko-bot static
-  analysis.
-- Bug is still real: code in this tree matches the described UAF (stack
-  completions + lockless copy).
+Record: No Reported-by, bugzilla, or syzbot. No user incident in the
+message or thread.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record:
-- DRM twin already backported here (`2c27a84ba8d1b`).
-- fbdev DISPC still copies a stack `registered_isr` in `dispc-compat.c`
-  (`omap_dispc_irq_handler`); same pattern, **separate** file, not
-  required for this DSI patch to be correct.
-- No revert of either DSI fix on `origin/master`.
+Record: `[PATCH 1/2] drm/etnaviv: check all modules for idle after
+reset` is the other half. This MMU check does not depend on the
+idle_mask change.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: UNVERIFIED. `lore.kernel.org/stable/` and lore message URLs
-returned HTTP 403. Thread was recovered via `b4 dig -m` instead. No
-stable-list discussion could be fetched.
+Record: lore.kernel.org/stable search blocked (403/Anubis). UNVERIFIED:
+no confirmed stable-list discussion.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
 **Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `omap_dsi_irq_handler()`; field removed from `struct dsi_data`.
-Callers of `dsi_handle_isrs()` / `dsi_call_isrs()` unchanged except the
-table pointer and lock scope.
+Record: `etnaviv_hw_reset()`
 
 **Step 5.2: TRACE CALLERS**
 Record:
-- `omap_dsi_irq_handler` ← `devm_request_irq` in DSI bind/probe (`dsi.c`
-  ~5363). Hardirq, `IRQF_SHARED`.
-- Register/unregister sites are process context, all take `irq_lock`.
-- Sync/BTA/ULPS paths used during DSI frame update, command write, and
-  ULPS enter (`dsi_sync_vc` from update/disable; `dsi_vc_send_bta_sync`
-  as `.bta_sync`; `dsi_enter_ulps`).
+- `etnaviv_gpu_init()` (~line 891): probe; failure fails bind.
+- `etnaviv_gpu_recover_hang()` (~line 1530): GPU hang recovery; return
+  value ignored (pre-existing).
 
 **Step 5.3: TRACE CALLEES**
-Record: `dsi_handle_isrs` → `dsi_call_isrs` → registered `isr(arg,
-status)` → `complete()` / `REG_GET`. Then `dsi_handle_irq_errors` and
-`dsi_collect_irq_stats` still after unlock.
+Record: `gpu_read`/`gpu_write` of idle, clock, and MMUv2 control. On
+success: `etnaviv_gpu_update_clock()`, drop `mmu_context`.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Reachable from normal display I/O on `CONFIG_FB_OMAP2=y` +
-`CONFIG_FB_OMAP2_DSS_DSI=y` (MIPI DSI panel). Not a syscall fuzzer path,
-but a real device IRQ + wait-for-completion path. Unprivileged userspace
-can trigger it by updating the framebuffer on such hardware.
+Record: Userspace GPU submit → scheduler timeout (`etnaviv_sched.c`) →
+`etnaviv_gpu_recover_hang()` → reset → `etnaviv_gpu_hw_init()` →
+`etnaviv_gpu_start_fe_idleloop()` → `etnaviv_iommu_restore()`. Reachable
+from normal DRM clients on hang. Also probe.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record:
-- DRM `drivers/gpu/drm/omapdrm/dss/dsi.c` in **this tree** already calls
-  `dsi_handle_isrs(&dsi->isr_tables, ...)` under `irq_lock` (the
-  backported twin).
-- fbdev `dispc-compat.c` still memcpy’s ISRs then drops the lock;
-  leftover sibling, not a blocker for this patch.
-- `isr_tables_copy` exists only in this fbdev `dsi.c` in this checkout.
+Record: Same ENABLE test in restore is the complementary invariant.
+Idle-bit retry in the same loop is the same pattern.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record:
-- `git describe HEAD`: `p-6.12-3-gc504cf0baa3d8`
-- `make kernelversion` / Makefile: **6.12.111**
-- `git merge-base --is-ancestor 31875c51c31ed HEAD` → not an ancestor
-  (fix not in this tree)
-- Buggy code present: `isr_tables_copy` at `dsi.c:330`, memcpy at
-  `dsi.c:841-848`
-- Introduced here via `f76ee892a99e6` (v4.5-era copy)
+Record: Yes. `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
+kernelversion` = 7.3.0-rc4. `etnaviv_hw_reset()` and restore early-
+return are here. Bug dates to MMUv2 restore (v4.8). `git merge-base
+--is-ancestor afb7b3b1deb471 HEAD` succeeded.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record:
-- `git apply --check` of `31875c51c31ed` fails only because context has
-  `timer_delete` vs local `del_timer`.
-- The two functional hunks (remove field; move `dsi_handle_isrs` before
-  unlock) match this tree byte-for-byte aside from that nearby timer
-  name.
-- Expected difficulty: **minor context tweak**, not rework.
+Record: Clean apply. Insertion is after the 2D/3D idle check, which has
+been there since the original driver.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record:
-- DRM equivalent already applied (`2c27a84ba8d1b`).
-- No fbdev DSI equivalent. `FB_OMAP2` depends on `DRM_OMAP=n`, so omapfb
-  users do **not** get the DRM fix.
+Record: 2021 MMU-reset state patches are here. No earlier equivalent of
+this ENABLE check. No follow-up reverting or amending this commit.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/video/fbdev/omap2` — SoC display driver. Criticality:
-**PERIPHERAL** (OMAP2+ boards using legacy fbdev, not omapdrm). Still
-in-tree and user-facing on that hardware.
+Record: [drm/etnaviv] [IMPORTANT] Vivante GPU on i.MX and similar
+embedded SoCs; not core mm/vfs, but common in Android/embedded.
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature/legacy. Low churn; bug has been present since the 2015
-omapdss copy. Maintainer (Deller) still takes fixes.
+Record: Actively maintained (reset, hangcheck, IOMMU work through 2026).
+Mature driver, not staging.
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
 **Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific / config-specific: `CONFIG_FB_OMAP2` +
-`CONFIG_FB_OMAP2_DSS_DSI` on OMAP2+ with MIPI DSI, and only when DRM
-omap is disabled.
+Record: Driver-specific: CONFIG_DRM_ETNAVIV, MMUv2 cores
+(`chipMinorFeatures1_MMU_VERSION`).
 
 **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record:
-- Trigger: DSI IRQ concurrent with unregister of a stack-backed ISR
-  after `complete()` or timeout (`dsi_sync_vc_*` 10 ms, BTA 500 ms, ULPS
-  1000 ms).
-- Dual-ISR BTA path is the most realistic (two handlers, one stack
-  object).
-- Unprivileged userspace can drive framebuffer updates that hit
-  `dsi_sync_vc`.
+Record: Successful-looking reset that leaves ENABLE set. Hit on probe
+and on hang recovery. Hang recovery is a normal DRM scheduler path (not
+privileged). How often ENABLE stays set is unverified; the retry loop
+exists because Vivante reset is already unreliable.
 
 **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Use-after-free of stack completions / handler-data → kernel oops
-or memory corruption in hardirq. Severity: **HIGH**.
+Record: [Failure] After reset, software drops MMU context while hardware
+may still have ENABLE. Restore then skips pagetable reload. FE starts
+with stale translations → GPU re-hang, faults, or DMA to reused pages.
+[Severity] HIGH (broken recovery; possible GPU DMA to wrong memory). Not
+a host oops by itself.
 
 **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- Benefit: HIGH for omapfb+DSI users (prevents UAF in IRQ). Population
-  is small, but the DRM twin was already taken into this same 6.12.y
-  tree, which shows the bug class is treated as stable-worthy.
-- Risk: LOW (9 lines, verified no self-unregister, `complete()` under
-  spinlock is fine).
-- Ratio: benefit outweighs risk.
+Record: [Benefit] HIGH for etnaviv hang recovery / probe restart
+correctness. [Risk] LOW (17 lines, same retry style as existing idle
+checks). Sticky ENABLE could fail reset more often; that failure was
+previously silent and wrong.
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
@@ -384,109 +288,128 @@ PHASE 9: FINAL SYNTHESIS
 **Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Real UAF: lockless copy of pointers to `DECLARE_COMPLETION_ONSTACK`
-  objects
-- Dual-ISR BTA path makes the race practical, not only a 1-instruction
-  window
-- Small, obviously correct lock-scope change
-- All ISR callbacks verified not to unregister (no self-deadlock)
-- Code exists in this 6.12.111 tree; bug dates to 2015 copy
-- fbdev maintainer applied v1 with no NAK
-- Identical DRM fix already in this tree; omapfb users are the leftover
-  affected set
+- Load-bearing invariant: full reset is the only way to disable MMUv2;
+  restore skips work if ENABLE is still set (intentional for runtime PM,
+  fatal after reset).
+- Same class of bug as 2021 stable-tagged `725cbc7884c37` (keep HW/SW
+  MMU state from diverging).
+- 17-line surgical check in an existing retry loop.
+- Maintainer + listed reviewer; no NAKs.
+- Path is userspace-reachable via GPU hang recovery.
+- Applies cleanly here; no missing helpers.
 
 AGAINST:
-- No user `Reported-by` / syzbot (bot-found)
-- Peripheral OMAP fbdev DSI, not a core path
-- Vanilla patch needs a one-line context adjust (`del_timer`)
-- DISPC has a similar leftover pattern (out of scope for this commit)
+- Framed as assumption validation, not a reported crash.
+- No Fixes:/Reported-by/Tested-by/syzbot.
+- Series 2/2 of reset hardening; sibling is also robustness.
+- Stricter success could increase `-EBUSY` (probe fail / ignored in
+  recover_hang).
+- GPU-only, not core kernel.
 
 UNRESOLVED:
-- Could not query lore.kernel.org/stable (HTTP 403)
-- No runtime reproduction in this session (analysis is from code +
-  thread)
+- No evidence ENABLE-stuck-after-reset was observed on hardware.
+- Stable list search could not be completed (lore 403).
 
 **Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — lock documents the intent;
-   maintainer applied; DRM twin already on 6.12.y
-2. Fixes a real bug that affects users? **PASS** — UAF on DSI IRQ vs
-   stack completions
-3. Important issue? **PASS** — UAF / oops / memory corruption (HIGH)
-4. Small and contained? **PASS** — 9 lines, one file
+1. Obviously correct and tested? **PASS** — reviewed by etnaviv
+   reviewer; logic matches existing idle retry.
+2. Fixes a real bug that affects users? **PASS** — missing check allows
+   HW/SW MMU divergence after reset; restore then skips reprogramming.
+3. Important issue? **PASS** — hang recovery can leave GPU wedged or DMA
+   with stale translations (HIGH, not host panic).
+4. Small and contained? **PASS** — +17 lines, one function.
 5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — functional diff matches;
-   trivial `del_timer` context
+6. Can apply to the local tree? **PASS** — same file/function/registers
+   exist.
 
 **Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not an ID/quirk/DT/build/docs exception. It is a normal memory-
-safety bugfix.
+Record: None (not a device ID, quirk table, DT, build, or docs fix).
+Qualifies as a normal contained bugfix.
 
 **Step 9.4: MAKE YOUR DECISION**
-This should be backported to **this** 6.12.y tree. The buggy
-`isr_tables_copy` path is here; the fix is the same one already taken
-for omapdrm; omapfb is a separate config and still needs it.
+This tree has the buggy reset/restore pair. The patch is a small,
+correct completion of reset-success detection so MMUv2 restart actually
+reloads pagetables. That is stable-worthy here.
+
+What it solves for users of this tree: GPU reset (probe and hang
+recovery) can look successful while MMUv2 ENABLE is still set. The
+driver then drops its MMU context and restore bails out, so the FE can
+run on stale translations. Checking ENABLE and retrying closes that
+hole.
+
+Risk vs benefit: benefit is correct recovery; risk is a slightly
+stricter reset with a 1s retry budget, authored by the maintainer.
+
+Concerns: no field report of ENABLE stuck after reset; lore.kernel.org
+web was blocked. Neither outweighs the code-level invariant.
 
 Verification:
-- [Phase 1] Tags: Suggested-by sashiko-bot; SOB Kemnade + Deller; no
-  Fixes/Cc stable/Reported-by
-- [Phase 2] Diff: remove `isr_tables_copy`; call
-  `dsi_handle_isrs(&dsi->isr_tables)` before `spin_unlock`
-- [Phase 2] Confirmed stack completions at dsi.c:2298, 2347, 2617, 3115
-- [Phase 2] Confirmed ISR callbacks only complete/read MMIO; no
-  unregister
-- [Phase 3] Blame: f76ee892a99e6 (2015); ancestor check of 31875c51c31ed
-  vs HEAD: not present
-- [Phase 3] DRM twin 2c27a84ba8d1b is in this tree (`git merge-base
-  --is-ancestor` exit 0; `v6.12.110~477`)
-- [Phase 4] b4 dig: lore msgid 20260702-fbomap-uaf-
-  fix-v1-1-6417edf9d3e7@kemnade.info; v1 only; Deller “applied.”
-- [Phase 4] UNVERIFIED: stable@ lore search (HTTP 403)
-- [Phase 5] Handler installed via `devm_request_irq` + `IRQF_SHARED`;
-  sync/BTA/ULPS are the users
-- [Phase 6] Local tree 6.12.111; buggy memcpy still at dsi.c:841-848;
-  apply --check fails only on `timer_delete` vs `del_timer`
-- [Phase 7] Peripheral fbdev OMAP DSI; mutually exclusive with DRM_OMAP
-- [Phase 8] Failure mode: hardirq UAF of stack object, severity HIGH
-
-The patch is a small UAF fix that already exists for the DRM clone in
-this tree, applies with a trivial context tweak, and matches stable
-rules.
+- [Phase 1] Parsed tags: Reviewed-by Christian Gmeiner; Link
+  patch.msgid.link 2/2; author Lucas Stach; no Fixes/Reported-by
+- [Phase 2] Diff: +17 lines in `etnaviv_hw_reset()` adding MMUv2 ENABLE
+  retry
+- [Phase 3] git blame: restore ENABLE early-return `afb7b3b1deb47`
+  (v4.8); reset loop `a8c21a5451d83` (v4.5)
+- [Phase 3] Related: `725cbc7884c37` / `8f3eea9d01d7b` document reset vs
+  PM MMU invariants; both were Cc:stable
+- [Phase 3] Series: parent `1006d1f7c03d9` is 1/2 idle_mask check; this
+  hunk does not need it
+- [Phase 4] b4 dig -c 4720915ab4828: original at
+  patch.msgid.link/20260511085148.652256-2-l.stach@pengutronix.de
+- [Phase 4] b4 dig -a: v1 only
+- [Phase 4] b4 dig -w: etnaviv@, dri-devel@, Christian Gmeiner
+- [Phase 4] b4 dig -m: Gmeiner Reviewed-by both patches; no NAK; no
+  Cc:stable in thread
+- [Phase 4] lore.kernel.org WebFetch/curl: 403 Anubis — stable-list
+  search UNVERIFIED
+- [Phase 5] Callers: `etnaviv_gpu_init` (probe),
+  `etnaviv_gpu_recover_hang` from `etnaviv_sched.c` timeout
+- [Phase 5] Restore: `etnaviv_iommuv2_restore_nonsec/sec` return if
+  ENABLE set
+- [Phase 6] git describe HEAD: v7.3-rc4-27-gf0100363d8c37; kernelversion
+  7.3.0-rc4
+- [Phase 6] git merge-base --is-ancestor afb7b3b1deb471 HEAD: yes, buggy
+  restore in this tree
+- [Phase 6] Registers `VIVS_MMUv2_CONTROL_ENABLE` / `SEC_CONTROL_ENABLE`
+  in `state_hi.xml.h`
+- [Phase 8] Failure mode: hang recovery with stale MMU → GPU re-hang /
+  wrong DMA; severity HIGH
+- UNVERIFIED: whether ENABLE-stuck-after-reset was seen on hardware;
+  whether stable@ discussed it
 
 **YES**
 
- drivers/video/fbdev/omap2/omapfb/dss/dsi.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-index 370e8623754ec..b1df2c014b00c 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-@@ -326,8 +326,6 @@ struct dsi_data {
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+index 368e799fc0c5d..daba33052f524 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+@@ -598,6 +598,23 @@ static int etnaviv_hw_reset(struct etnaviv_gpu *gpu)
+ 			continue;
+ 		}
  
- 	spinlock_t irq_lock;
- 	struct dsi_isr_tables isr_tables;
--	/* space for a copy used by the interrupt handler */
--	struct dsi_isr_tables isr_tables_copy;
- 
- 	int update_channel;
- #ifdef DSI_PERF_MEASURE
-@@ -838,15 +836,10 @@ static irqreturn_t omap_dsi_irq_handler(int irq, void *arg)
- 		timer_delete(&dsi->te_timer);
- #endif
- 
--	/* make a copy and unlock, so that isrs can unregister
--	 * themselves */
--	memcpy(&dsi->isr_tables_copy, &dsi->isr_tables,
--		sizeof(dsi->isr_tables));
- 
-+	dsi_handle_isrs(&dsi->isr_tables, irqstatus, vcstatus, ciostatus);
- 	spin_unlock(&dsi->irq_lock);
- 
--	dsi_handle_isrs(&dsi->isr_tables_copy, irqstatus, vcstatus, ciostatus);
--
- 	dsi_handle_irq_errors(dsidev, irqstatus, vcstatus, ciostatus);
- 
- 	dsi_collect_irq_stats(dsidev, irqstatus, vcstatus, ciostatus);
++		/* try resetting again if MMUv2 is not disabled */
++		if (gpu->identity.minor_features1 & chipMinorFeatures1_MMU_VERSION) {
++			if (gpu->sec_mode == ETNA_SEC_KERNEL) {
++				if (gpu_read(gpu, VIVS_MMUv2_SEC_CONTROL) &
++				    VIVS_MMUv2_SEC_CONTROL_ENABLE) {
++					dev_dbg(gpu->dev, "MMU is not disabled\n");
++					continue;
++				}
++			} else {
++				if (gpu_read(gpu, VIVS_MMUv2_CONTROL) &
++				    VIVS_MMUv2_CONTROL_ENABLE) {
++					dev_dbg(gpu->dev, "MMU is not disabled\n");
++					continue;
++				}
++			}
++		}
++
+ 		/* enable debug register access */
+ 		control &= ~VIVS_HI_CLOCK_CONTROL_DISABLE_DEBUG_REGISTERS;
+ 		gpu_write(gpu, VIVS_HI_CLOCK_CONTROL, control);
 -- 
 2.53.0
 
