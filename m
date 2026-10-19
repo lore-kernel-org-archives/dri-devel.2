@@ -2,48 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9BE606A319
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 23:26:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDA2606A324
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 23:26:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=bAbp0kvc
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=amJsz3Kz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F52E10F0E2;
-	Mon, 19 Oct 2026 23:26:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 596DA10F0DE;
+	Mon, 19 Oct 2026 23:26:21 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B16E810F0E2
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 23:26:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792452365; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D567C10F0DE
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 23:26:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792452363; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=e4aDcG3RP8uWGuly63TN9VfZ+2OD6O1DNeXP5TVlqk2KCZBV964woBMEkOiGvOknXFaunIedHxhXnBOFmCDKukk/gmssODYODe6dTdw6EQjpSgMvzfgFivyq46fRwU9zAu/ef7YZjxyXwMQPNU1jCY+FlQj3z0jiYDBmR/ZQNWI=
+ b=N1ayl3dIhfYqDRtJKbhikZsesTbA1zY0jWBovgB0PtdeyE/mlR6BtlDCAbefwmBtES7s1dcYp7rNrNbfVQNLCjOmE7IN5sf3E6yikdzni7KRNSzME6/vo+Abp91zyhpC7HqDMJeSFx0ax7BsQZeHaEqumvVsAcXNvG6h2T+nCwQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792452365;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=YGaGcmA5s3rLvx2IfexTcXmFWu/hCy7f2gX18xxTm4Q=; 
- b=fMDE5jkQCZep9TcOXNkOTeflkmt4X+qbgzVMKfruAy21VYJHlZ6h5S7cnkBpd9maAkV3XTGqYHD6/TOhK6c65mKX+6ANq4OxrQ1DTXNZn6L2htMF6fubUOwMD62ALhjua8wJqKpgeKQjm07XwIpoASVwlwrZyHDgb7/ba/PSmJU=
+ s=zohoarc; t=1792452363;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=SCKr4R0YQW/JC0KzEfSj2X+T/HHOj484eMwAq1mbw4o=; 
+ b=idP9MqFp5TD3tVlJ1YTef5UmuxaM3VxF5bkmj0gLx/QaP9J/lmHiZec01OZj0kuLjpohWezBtqWTpbJ5QWH3r2NCOzK0Su9Mle4vNLnqQlAHlTOVywyPF1M3LPcdtGgA0N6buKBSOkOYN4oSWoknZ2qRvK3hZTTeEBNOwKm451E=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792452365; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792452363; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=YGaGcmA5s3rLvx2IfexTcXmFWu/hCy7f2gX18xxTm4Q=;
- b=bAbp0kvcllYTjk024qWXAktfkbLVxSiXOexuveTITj4H9jWug4zhBnxR//MuNePP
- iZoxiz/dgGFi6nbvgQC5zv5LmbzXGsqMde9XkGlSrHNcBfFyLU/z29jtoW95Rypb4tL
- uv9q9Dutth6sfmsR1SyCS2zxEqKXX/Ega0Dt/TFo=
-Received: by smtp.zohomail.com with SMTPS id 179245236269923.82180997951889;
- Mon, 19 Oct 2026 16:26:02 -0700 (PDT)
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=SCKr4R0YQW/JC0KzEfSj2X+T/HHOj484eMwAq1mbw4o=;
+ b=amJsz3KznujtofXwTjgUkv75nXAKhf1rwfEo7WBDSpQ6s1HWoqA/U4gvootGIOU1
+ rxNn6g377RhiM2K/i5l6lbIW2ugubiwSuRdwdMKKAJuEYNREonqGtc+qK2V8xAvEIRH
+ SqwE96HV49M30VPTkBaoH4044WLIFI4/VMTDx13k=
+Received: by smtp.zohomail.com with SMTPS id 1792452361432714.8129296866091;
+ Mon, 19 Oct 2026 16:26:01 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Mon, 19 Oct 2026 16:25:59 -0700
-Subject: [PATCH v4 1/2] rust/Makefile: add zerocopy and zerocopy_derive
+Subject: [PATCH v4 0/2] drm/tyr: safely write GpuInfo to userspace
+Date: Mon, 19 Oct 2026 16:25:58 -0700
+Message-Id: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-b4-gpu_info_intobytes-v4-1-0bc04df46549@collabora.com>
-References: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com>
-In-Reply-To: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNUQuCMBDA8a8Se26x22a5nvoeEeHmLQfmZDNJx
+ O/e9Eki6eXgf3C/G0nE4DCS824kAXsXnW9SyP2OmKpoHkhdmZpwxo9McUG1pI/2dXeN9Wl0Xg8
+ dRmp4KTPLlchMTtJtG9C69+Jeb6krFzsfhuVND/P2n9gDBao1h5OwChDgYnxdF9qH4mD8k8xqz
+ 9eS3JJ4kkCzDIUobV7IX5JYS9mWJCijCEobfQKVs/JbmqbpA0OnsexSAQAA
+X-Change-ID: 20260923-b4-gpu_info_intobytes-c2d45f2935c8
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
  Daniel Almeida <daniel.almeida@collabora.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -58,13 +61,13 @@ Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3187;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1531;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=EiejWXSZctCvsEqsl++99TpZc3z0JAszVm9cJejzUMI=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFnXlnPUp3n8lH+gEDZtiliQEYdf8jMhtsuMqnZ7plf2r
- pZg7YrsKGVhEONikBVTZDlrb9QjXvXeSHf+/2aYOaxMIEMYuDgFYCL7jjP8s71vKMthWrL7/R1v
- 7+fvzUW/aCuf3vA4rEHWQfPA5LnXRBkZrpRWB816YxW55udW/zmfOUWKfDmkZc3Mq+KUHksY+O9
- iAwA=
+ bh=uZl829yKYg5YevcpfHlgniaorxFo1PZUw8cpY3VJI98=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFnXlnO4eyzgNw8+k7/JRGrLl5VHH90QsBD/u8i/WOr3s
+ 3B9xViljlIWBjEuBlkxRZaz9kY94lXvjXTn/2+GmcPKBDKEgYtTACbyYyXDP+ujn9Zf3PvBtrW5
+ sNHb3ljj/PnfLfITEiTWf1r4pbS+ZD7D/wrV179jPjlMCN1054FJYnLxhE9Xdx4xEo7ObUud58r
+ jxQgA
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,73 +88,45 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Make the zerocopy and zerocopy_derive crates available for use when
-building the bindings and uapi crates and their tests.
+This series makes zerocopy and zerocopy_derive available to both the UAPI
+and bindings crates.
 
-This will be used by the Tyr driver that needs the traits IntoBytes and
-Immutable to safely copy the struct byte-for-byte to userspace.
+It derives the zerocopy traits specifically for struct
+drm_panthor_gpu_info, allowing Tyr to safely copy this struct byte-for-
+byte into userspace memory.
 
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- rust/Makefile | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+Changes in v4:
+- add zerocopy and zerocopy_derive to bindings crate
+- move derivation for drm_panthor_gpu_info to tyr patch
+- use kernel prelude to import IntoBytes
+- pick up Reviewed-by tag
+- Link to v3: https://lore.kernel.org/r/20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com
 
-diff --git a/rust/Makefile b/rust/Makefile
-index da1a7409d984..f59815fac293 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -361,12 +361,18 @@ rusttestlib-kernel: $(src)/kernel/lib.rs rusttestlib-bindings rusttestlib-uapi \
-     $(obj)/bindings.o rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
- 	+$(call if_changed,rustc_test_library)
- 
--rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_init
--rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
-+rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_init \
-+	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
-+	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
-+rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init \
-+	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
- 	+$(call if_changed,rustc_test_library)
- 
--rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init
--rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
-+rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init \
-+	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
-+	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
-+rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init \
-+	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
- 	+$(call if_changed,rustc_test_library)
- 
- quiet_cmd_rustdoc_test = RUSTDOC T $<
-@@ -774,19 +780,25 @@ $(obj)/ffi.o: private skip_gendwarfksyms = 1
- $(obj)/ffi.o: $(src)/ffi.rs $(obj)/compiler_builtins.o FORCE
- 	+$(call if_changed_rule,rustc_library)
- 
--$(obj)/bindings.o: private rustc_target_flags = --extern ffi --extern pin_init
-+$(obj)/bindings.o: private rustc_target_flags = --extern ffi --extern pin_init \
-+	--extern zerocopy --extern zerocopy_derive
- $(obj)/bindings.o: $(src)/bindings/lib.rs \
-     $(obj)/ffi.o \
-     $(obj)/pin_init.o \
-+    $(obj)/zerocopy.o \
-+    $(obj)/$(libzerocopy_derive_name) \
-     $(obj)/bindings/bindings_generated.rs \
-     $(obj)/bindings/bindings_helpers_generated.rs FORCE
- 	+$(call if_changed_rule,rustc_library)
- 
--$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init
-+$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init \
-+	--extern zerocopy --extern zerocopy_derive
- $(obj)/uapi.o: private skip_gendwarfksyms = 1
- $(obj)/uapi.o: $(src)/uapi/lib.rs \
-     $(obj)/ffi.o \
-     $(obj)/pin_init.o \
-+    $(obj)/zerocopy.o \
-+    $(obj)/$(libzerocopy_derive_name) \
-     $(obj)/uapi/uapi_generated.rs FORCE
- 	+$(call if_changed_rule,rustc_library)
- 
+Changes in v3:
+- split the commit into two to keep Tyr changes separate
+- Link to v2: https://lore.kernel.org/r/20260924-b4-gpu_info_intobytes-v2-1-1b05e33df8a4@collabora.com
 
+Changes in v2:
+- use zerocopy_derive::most_traits
+- Link to v1: https://lore.kernel.org/r/20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com
+
+---
+Deborah Brouwer (2):
+      rust/Makefile: add zerocopy and zerocopy_derive
+      drm/tyr: safely write GpuInfo to userspace
+
+ drivers/gpu/drm/tyr/file.rs |  2 +-
+ drivers/gpu/drm/tyr/gpu.rs  | 16 +++-------------
+ rust/Makefile               | 24 ++++++++++++++++++------
+ rust/bindgen_parameters     |  3 +++
+ 4 files changed, 25 insertions(+), 20 deletions(-)
+---
+base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+change-id: 20260923-b4-gpu_info_intobytes-c2d45f2935c8
+
+Best regards,
 -- 
-2.56.0
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
