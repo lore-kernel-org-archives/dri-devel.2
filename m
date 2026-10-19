@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAAE2CCF2E8
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:04:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0788FCCF2E9
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E13310EE1B;
-	Mon, 19 Oct 2026 14:04:47 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37C8610EE18;
- Mon, 19 Oct 2026 14:04:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61DA310EE1E;
+	Mon, 19 Oct 2026 14:04:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5D4810EE1A;
+ Mon, 19 Oct 2026 14:04:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A157A60258;
- Mon, 19 Oct 2026 14:04:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083921F000C8;
- Mon, 19 Oct 2026 14:04:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9E48D43398;
+ Mon, 19 Oct 2026 14:04:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444881F000CB;
+ Mon, 19 Oct 2026 14:04:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418677;
- bh=tUxqjMydVOQ+CkV40AyW4K1j3ezjia8tYP77IbFRgrU=;
+ s=k20260515; t=1792418684;
+ bh=qvbp8f2w9chI37b/MVBFR5OrAMzeWq0Ca+d/8PVVkew=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FvIz9x5wWkY21K1cIsh9sTE5c9AqjKn4B0QtYk9HoPbDJBvJwSvZIMbkB4U31LJu4
- fF2XlJdESOFRy8ob5bSDpO7WuuRGupZYBjWJj2qtEHt9g84W4LDQr+PpsLzWVG7RRh
- MpxHtbENMDw6MUiog8WzPORZ+wy5/31GwPMIw99a1MJ+xToTkpJaYUO9f94lMt57A6
- PERRHuEwf1AguqZVtHsTCtEegOjpnlZjhysvEcC9SnTvLTRgfFFhdIZYrsBEOtOrRr
- tA8Aep7Y5uJkXfgs1hyva+G7MDpbA86XkA1styCVdBVVHeaJ8/svw3x2ZpME/85imn
- Uqr+P2kg6K8pw==
+ b=onZWBroj4DATtTVx9lISZyZ/gs3gHXZfO/W4KfTi7azoynNJNsnxQY5u/1cwmG//2
+ jk5zfqcUeIpdTRU5b5Jn8dJtQu+G6eGSGkNCX+65JEHV6pqrgurKfs2AOlg2g5fZAz
+ IWohzr1GXr08r/5cTMoYzpkcoTStDk4dxDCKOaokWUiAKTJYNo0JMedMWRF1OHqrDl
+ 3t9XHMS91e4LcxvAJSy74uxeg7QH79fL98sKmvqdWMRgj1ncJSgXKYTrS6v6AWFTAs
+ Au6f96yafjTCIbZa8sqv4Yx0Z2VkQWKDwsR+Yrzid1BpqfkQAF5SDibRJ2e2ha5Wl6
+ K2GGzqj6sNhAA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+Cc: Xiang Liu <xiang.liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/amd/pm: Validate Tonga PowerPlay state
- array bounds
-Date: Mon, 19 Oct 2026 09:51:49 -0400
-Message-ID: <20261019135441.1420968-418-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] drm/amd/pm: Guard VBIOS AC timing table walk
+Date: Mon, 19 Oct 2026 09:51:54 -0400
+Message-ID: <20261019135441.1420968-423-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,19 +62,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Yang Wang <kevinyang.wang@amd.com>
+From: Xiang Liu <xiang.liu@amd.com>
 
-[ Upstream commit 1ac24df78c566d767a5ef05a1fe0ecc55bac248d ]
+[ Upstream commit 2bf6867e5953a140fc91c3159987656e44ed29fb ]
 
-process_pptables_v1_0.c builds the Tonga state array pointer
-from usStateArrayOffset before checking that the table buffer covers
-the referenced data. A truncated PowerPlay table can therefore lead to
-out-of-bounds reads while validating the state array.
+Reject AC timing blocks with a stride smaller than a dword before walking
+VBIOS data. A zero stride can otherwise keep reg_data pinned on a
+nonmatching MEM_ID forever.
 
-Validate the fixed table size first, then check the state array offset
-and entry range before dereferencing the state array.
+Also bound the data-block and END marker reads by the returned VRAM_Info
+table size so malformed index/data sizes do not push the timing walk past
+the table.
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
@@ -83,524 +82,436 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough to decide: the Tonga state-array OOB exists in this
-6.18.53 tree, the patch is self-contained, and it applies cleanly.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1: Subject line**
+Record: `[drm/amd/pm] [Guard] Reject undersized VBIOS AC timing strides
+and bound the table walk`
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [drm/amd/pm] [Validate] [Add bounds checks before using the
-Tonga PowerPlay state array pointer derived from `usStateArrayOffset`.]
+Subsystem `drm/amd/pm`. Verb is **Guard** (defensive bounds / hang
+prevention), not a feature addition.
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.2: Tags**
 Record:
-- Signed-off-by: Yang Wang &lt;kevinyang.wang@amd.com&gt; (author)
-- Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt; (AMD GFX
-  reviewer; mailing-list reply said the whole 5-patch series is
-  Reviewed-by)
-- Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt; (amdgpu
+- `Signed-off-by: Xiang Liu <xiang.liu@amd.com>` (author)
+- `Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>` (AMD reviewer)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
   maintainer)
-- No Fixes:, Reported-by, Tested-by, Link:, or Cc: stable (absence
-  expected)
-- Ignore pipeline-added Upstream commit / Sasha Levin SOB
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable`
+  (absence is expected for this review)
+- Pipeline markers (`[ Upstream commit 2bf6867e5953... ]`, `Signed-off-
+  by: Sasha Levin`) ignored per instructions
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: Body**
 Record:
-- Bug: `process_pptables_v1_0.c` forms `ATOM_Tonga_State_Array *` from
-  `usStateArrayOffset` before proving the PowerPlay buffer covers that
-  object.
-- Symptom: truncated/malformed PowerPlay table → out-of-bounds reads
-  while validating the state array.
-- Root cause: pointer arithmetic first, checks after (and the checks
-  never used `soft_pp_table_size`).
-- Fix: check fixed table size, then offset, then entry span, then
-  dereference.
-- No affected-version list in the message.
+- **Bug:** `atomctrl_retrieve_ac_timing()` walks VBIOS AC timing blocks
+  using `usRegDataBlkSize` as the stride. A zero (or sub-dword) stride
+  never advances `reg_data`. If the pinned dword’s MEM_ID does not match
+  `index`, `num_ranges` never increases, so the
+  `VBIOS_MAX_AC_TIMING_ENTRIES` cap never fires.
+- **Symptom:** infinite loop / hang during GPU powerplay init.
+- **Second bug:** index/data sizes can walk past the VRAM_Info table;
+  unbounded dword reads of the END marker and per-entry payload.
+- **Root cause:** firmware table walk trusts VBIOS sizes with no stride
+  or table-end check.
+- **Version info:** none in the message. Code has been in-tree since
+  v4.5.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not disguised. Explicit OOB hardening. Also tightens
-`entry_index <= ucNumEntries` to `entry_index < ucNumEntries` (off-by-
-one on the index check).
+**Step 1.4: Hidden bug fix?**
+Record: Not hidden. It is an explicit hang + OOB hardening of a firmware
+parser. “Guard” here means missing validation, not a cleanup.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## Phase 2: Diff analysis
 
-Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: Inventory**
 Record:
-- File: `drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c`
-  (+40 / −22)
-- Functions: `check_powerplay_tables` split into `get_tonga_state_array`
-  + thin wrapper; `get_number_of_powerplay_table_entries_v1_0`;
-  `get_powerplay_table_entry_v1_0`
+- File: `drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c` — **+22 /
+  −6**
+- Functions: `atomctrl_retrieve_ac_timing`,
+  `atomctrl_initialize_mc_reg_table`,
+  `atomctrl_initialize_mc_reg_table_v2_2`
 - Scope: single-file surgical fix
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: Code flow**
 Record:
-- Hunk 1 (init validation): Before — compute `state_arrays = table +
-  usStateArrayOffset` then assert revision/offset/size/`ucNumEntries`.
-  After — require `soft_pp_table_size >= sizeof(*powerplay_table)`, then
-  existing header checks, then `offset <= table_size -
-  sizeof(*state_arrays)`, then dereference, then `struct_size(...) <=
-  remaining`.
-- Hunk 2 (`get_number_of_powerplay_table_entries_v1_0`): Before — same
-  unvalidated pointer add, return `ucNumEntries`. After — shared helper;
-  fail closed on invalid table.
-- Hunk 3 (`get_powerplay_table_entry_v1_0`): Before — pointer add +
-  offset/`ucNumEntries` checks after the add; `entry_index <=
-  ucNumEntries`. After — helper first; `entry_index < ucNumEntries`.
-- Paths: GPU powerplay init and power-state table walk (normal device
-  bring-up), not a rare error-only path.
+1. `atomctrl_retrieve_ac_timing`: cache `stride =
+   le16_to_cpu(usRegDataBlkSize)`; **before:** walk with raw stride;
+   **after:** `-EINVAL` if `stride < 4`.
+2. Loop: **before:** `while (*(u32 *)reg_data != END && num_ranges <
+   20)`; **after:** also require `(u8 *)reg_data + 4 <= table_end`
+   before the read.
+3. Inner `DATA_FROM_TABLE` copies: **before:** unbounded `*((u32
+   *)reg_data + j)`; **after:** reject if that dword would pass
+   `table_end`.
+4. Advance: same addition, using cached `stride`.
+5. Exit: **before:** `PP_ASSERT_WITH_CODE` that the current dword is
+   `END_OF_REG_DATA_BLOCK` (0), which itself can read past the table;
+   **after:** bounds-check then compare, return `-EINVAL`.
+6. Callers: both init helpers already have `size` from
+   `smu_atom_get_data_table()` but unused for the walk; they now set
+   `table_end = (u8 *)vram_info + size` and pass it in.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
+**Step 2.3: Bug mechanism**
 Record:
-- Category: memory safety — buffer overflow / OOB read of firmware (and
-  optionally sysfs-uploaded) table data.
-- Mechanism: `usStateArrayOffset` and `ucNumEntries` were trusted. A
-  truncated blob or huge offset reads past the ATOM table.
-  `struct_size()` is overflow-safe for the entries span.
-- Also logic: exclusive vs inclusive index check.
+- **Category:** logic / memory-safety (infinite loop + OOB read)
+- **Mechanism:** stride 0 pins `reg_data`. `END_OF_REG_DATA_BLOCK` is
+  `0x00000000`. If that dword is nonzero and MEM_ID ≠ `index`, the loop
+  never terminates. Large stride or oversized index table walks off the
+  claimed VRAM_Info blob into adjacent BIOS/kernel memory.
 
-Step 2.4: ASSESS THE FIX QUALITY
+**Step 2.4: Fix quality**
+Record: Obviously correct C short-circuit bounds checks. Minimal. No API
+change (`atomctrl_retrieve_ac_timing` is static). Regression risk is
+low: a valid AC block must be at least one dword (MEM_ID + clock).
+`table_end` uses the ATOM header size already returned to these
+functions. Residual gap: `atomctrl_set_mc_reg_address_table()` and
+`usMemClkPatchTblOffset` are still unchecked; sibling parsers in
+`amdgpu_atombios.c` / `radeon_atombios.c` still have the old walk. That
+does not make this patch incorrect.
+
+## Phase 3: Git history
+
+**Step 3.1: Blame**
+Record: Unbounded walk introduced in `c82baa2818435`
+(“drm/amd/powerplay: add Tonga dpm support (v3)”, 2015-12-21), first in
+**v4.5-rc1**. Present on this 6.18 tree. Only later touch of the same
+loop: `12c6967428a09` (2024) added `if (i)` for `DATA_EQU_PREV` OOB on
+`mc_data[-1]`, not this stride/end-marker bug.
+
+**Step 3.2: Fixes: tag**
+Record: None. Buggy code is the original 2015 parser, not a recent
+regression.
+
+**Step 3.3: File history**
+Record: Recent related work on this file: NULL checks in
+`atomctrl_initialize_mc_reg_table` (`820116a39f96b`, already in
+v6.18.53). No prerequisite refactor. No “patch X/Y”. Standalone.
+
+**Step 3.4: Author**
+Record: Xiang Liu is an AMD drm/amdgpu contributor (many amdgpu
+commits). Hawking Zhang reviewed; Alex Deucher applied. Not a drive-by.
+
+**Step 3.5: Dependencies**
+Record: None. Uses existing `smu_atom_get_data_table(..., &size, ...)`,
+existing structs, no new helpers. Applies standalone.
+
+## Phase 4: Mailing list
+
+**Step 4.1:** `b4 dig -c 2bf6867e5953a140fc91c3159987656e44ed29fb`
+Record: lore URL
+`https://patch.msgid.link/20260623042601.562748-1-xiang.liu@amd.com`.
+**v1 only** (no v2/v3). Thread: patch + Hawking `Reviewed-by`. No NAK,
+no stable debate, no requested rework. Direct WebFetch of
+lore.kernel.org returned **403**; thread recovered via `b4 dig -m`.
+
+**Step 4.2:** `b4 dig -w`
+Record: To `amd-gfx@lists.freedesktop.org`; Cc Hawking Zhang, Tao Zhou,
+Stanley Yang, YiPeng Chai. Right list and AMD PM reviewers.
+
+**Step 4.3: Bug report**
+Record: No `Reported-by` / syzbot / bugzilla. Author-described defect
+from code inspection. Unverified whether a specific card hung in the
+wild.
+
+**Step 4.4: Series**
+Record: Single standalone `[PATCH]`, not N/M.
+
+**Step 4.5: Stable list**
+Record: lore.kernel.org/stable WebFetch 403. **UNVERIFIED** whether
+stable@ already discussed this; that does not change the technical
+verdict.
+
+## Phase 5: Semantic / call graph
+
+**Step 5.1: Functions**
+Record: `atomctrl_retrieve_ac_timing`,
+`atomctrl_initialize_mc_reg_table`,
+`atomctrl_initialize_mc_reg_table_v2_2`.
+
+**Step 5.2: Callers**
 Record:
-- Obviously correct: size → header → offset → header of subtable → full
-  entries span.
-- Underflow: `table_size - sizeof(*state_arrays)` is safe because the
-  first check is `table_size >= sizeof(*powerplay_table)`, and
-  `ATOM_Tonga_POWERPLAYTABLE` is much larger than
-  `ATOM_Tonga_State_Array` (header + two `UCHAR`s + flex array).
-- Regression: valid VBIOS tables should still pass if `usStructureSize`
-  is the full PowerPlay blob (ATOM `CU16(idx)` / `usStructureSize`).
-  That is the same size the later Tonga/Vega subtable helpers use; a
-  header-only size would reject every Tonga GPU and would not have
-  landed.
-- No public API / locking / data-structure change. Stale kernel-doc
-  above `get_tonga_state_array` still mentions `check_powerplay_tables`
-  (later comment-only fix 4986757d); no runtime impact.
+- `tonga_initialize_mc_reg_table` → `atomctrl_initialize_mc_reg_table`
+- `iceland_initialize_mc_reg_table` → same
+- `ci_initialize_mc_reg_table` → same
+- `polaris10_initialize_mc_reg_table` →
+  `atomctrl_initialize_mc_reg_table_v2_2`
+- Those are `.initialize_mc_reg_table` in SMU7 smumgr;
+  `smum_initialize_mc_reg_table()` is called from `smu7_hwmgr.c` during
+  DPM enable (device init / resume), **without checking the return
+  value**.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 5.3: Callees**
+Record: `smu_atom_get_data_table()` → `amdgpu_atom_parse_data_header()`;
+pointer is `atom_context->bios + data_start`; `size` is the ATOM table
+size.
 
-Step 3.1: BLAME THE CHANGED LINES
-Record:
-- Buggy `check_powerplay_tables` body: `c82baa28184356` (yanyang1,
-  2015-08-18), originally `tonga_processpptables.c`.
-- File rename: `f8a4c11b0a33f9` (2016).
-- Bug has been in-tree since PowerPlay v1 (~4.x era), so it is in this
-  6.18 tree.
+**Step 5.4: Reachability**
+Record: Yes, from normal amdgpu load on CI / Tonga / Iceland / Polaris
+(RX 400/500-class, still common). Not a syscall fuzzer path; firmware-
+driven probe/resume. Unprivileged users cannot craft VBIOS on a locked
+ROM, but custom/modded Polaris VBIOS is common, and a bad image hangs
+the kernel in this loop.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag. N/A.
+**Step 5.5: Similar patterns**
+Record: Same unguarded walk remains in
+`amdgpu_atombios_init_mc_reg_table()` and `radeon_atombios.c`. This
+commit only hardens the powerplay copy. Sibling bugs are not a reason to
+reject this fix.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- Same author/series (independent per-ASIC bounds work):
-  - 1/5 `Validate pp_table header before reading size` (SWSMU
-    `smu_sys_set_pp_table`)
-  - 2/5 `Use uploaded size for legacy custom PPTable`
-    (`pp_dpm_set_pp_table`)
-  - **3/5 this commit**
-  - 4/5 Vega hwmgr bounds
-  - 5/5 legacy hwmgr offsets
-- Follow-up (separate 2/3 series): `Validate Tonga PPTable subtable
-  bounds` (~600 lines) for other subtables; later comment-align commit
-  for this helper.
-- This commit does not call `pp_entries_max()` (autosel parent helper).
-  Standalone for the state-array OOB.
+## Phase 6: This tree (6.18.53)
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Yang Wang is an AMD PM contributor with a run of PPTable
-bounds/UAF fixes. Hawking Zhang reviewed; Alex Deucher merged.
+**Step 6.1:**
+Record: Local tree is **6.18.53** (`v6.18.53-5049-g0f0bdc2b0dffb`,
+branch `autosel`).
+`git merge-base --is-ancestor 2bf6867e5953... v6.18.53` → **not an
+ancestor**.
+v6.18.53 still has the unguarded `while (*(uint32_t *)reg_data !=
+END_OF_REG_DATA_BLOCK && ...)` in `atomctrl_retrieve_ac_timing()`. Bug
+exists here.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record:
-- Uses existing `hwmgr->soft_pp_table_size` (set in
-  `get_powerplay_table()` from ATOM) and kernel `struct_size`
-  (`include/linux/overflow.h`). Both exist in v6.18.53.
-- 1/5 is a different file (SWSMU). 2/5 improves custom-upload size
-  accounting in `amd_powerplay.c` but is not required to compile or to
-  bound VBIOS tables.
-- Can apply standalone. Confirmed with `patch --dry-run` against
-  `v6.18.53` file: clean.
+**Step 6.2:**
+Record: `git apply --check` of the upstream diff onto a v6.18.53 copy of
+the file **succeeded** (exit 0). Clean apply. No structural drift.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 6.3:**
+Record: `12c6967428a09` and `820116a39f96b` are in v6.18.53; they do not
+implement stride/table_end guards. No alternate fix present.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 dig -c 1ac24df78c566d767a5ef05a1fe0ecc55bac248d` → [PATCH 3/5] htt
-  ps://patch.msgid.link/20260623034151.263746-3-kevinyang.wang@amd.com
-- `b4 dig -a`: only v1 of this 5-patch series (no later rewrite of 3/5).
-- Freedesktop: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-June/147288.html
-- Hawking on 1/5 (series Ack): “Series is Reviewed-by: Hawking Zhang” —
-  https://lists.freedesktop.org/archives/amd-gfx/2026-June/147299.html
-- No NAK found. No Cc: stable in the submission.
+## Phase 7: Subsystem
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record: `b4 dig -w` To/Cc: amd-gfx, Alex Deucher, Hawking Zhang, Kenneth
-Feng. Maintainer merged.
+**Step 7.1:**
+Record: `drivers/gpu/drm/amd/pm/powerplay` — **IMPORTANT** (legacy GCN
+powerplay, not core mm/net, but production GPU init).
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla. Bug is described as truncated PowerPlay
-table OOB. Trigger is firmware parse at init, or root write to
-`pp_table` sysfs (documented in `amdgpu_pm.c`).
+**Step 7.2:**
+Record: File is mature (2015). Little recent churn besides docs, a NULL
+check, and the 2024 `mc_data[i-1]` guard. Long-lived bug, not a new-
+subsystem issue.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: 5-patch OOB series plus a later Tonga subtable series. This
-patch is the Tonga *state array* piece and is self-contained. Other
-patches cover other table formats/subtables.
+## Phase 8: Impact and risk
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: UNVERIFIED — lore.kernel.org/stable returned HTTP 403. No
-evidence this was rejected for stable.
+**Step 8.1:** Driver-specific: CI/Tonga/Iceland/Polaris via powerplay
+(`CONFIG_DRM_AMDGPU`, typically `DRM_AMDGPU_CIK` for CI). Polaris is
+still widely deployed.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 8.2:** Trigger: GPU DPM bring-up when VRAM_Info AC timing has
+`usRegDataBlkSize < 4` or truncated/malformed blocks. Common on
+**valid** VBIOS: no. Realistic on corrupted, truncated, or vendor-modded
+VBIOS: yes. Not a userspace syscall primitive.
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `get_tonga_state_array` (new), `check_powerplay_tables`,
-`get_number_of_powerplay_table_entries_v1_0`,
-`get_powerplay_table_entry_v1_0`.
+**Step 8.3:** Failure mode:
+- Zero stride + nonmatching MEM_ID → **infinite loop in probe/resume** →
+  **CRITICAL** hang
+- Walk past table → **OOB read** → **HIGH** (crash / KASAN)
 
-Step 5.2: TRACE CALLERS
-Record:
-- `check_powerplay_tables` ← `pp_tables_v1_0_initialize` ←
-  `pptable_v1_0_funcs.pptable_init` ← SMU7 when `pp_table_version ==
-  PP_TABLE_V1` (`smu7_init_function_pointers`).
-- `get_number_of_powerplay_table_entries_v1_0` ←
-  `smu7_get_number_of_powerplay_table_entries` ← `psm`
-  `get_num_of_pp_table_entries`.
-- `get_powerplay_table_entry_v1_0` ← `smu7_get_pp_table_entry_v1` ←
-  `psm_init_power_state_table` loop `for (i = 0; i < table_entries;
-  i++)`.
-- Context: driver init / DPM bring-up, process context.
+**Step 8.4:** Benefit: prevent hang/OOB on a long-lived parser used at
+init. Risk: ~22 lines, error-path only for bad firmware. Valid tables
+keep working. Ratio is favorable.
 
-Step 5.3: TRACE CALLEES
-Record: `le16_to_cpu`, `struct_size`, `PP_ASSERT_WITH_CODE` (warns and
-runs `return -1` — real control flow, not a debug-only assert).
+Ignored `smum_initialize_mc_reg_table()` return means a now-failing
+parse no longer hangs; MC timing table may stay empty. That is still
+better than a soft lockup, and matches other `-EINVAL` paths already in
+these helpers.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Reachable on every boot of SMU7 PP_TABLE_V1 ASICs
-(Tonga/Fiji/Polaris/VegaM class in this hwmgr). Also reachable if root
-writes `/sys/class/drm/cardX/device/pp_table` (`S_IRUGO | S_IWUSR`),
-which copies into `hardcode_pp_table` and calls `amd_powerplay_reset` →
-re-init. Unprivileged users cannot write the sysfs node.
+## Phase 9: Synthesis
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Same unvalidated `table + le16_to_cpu(offset)` pattern in
-Vega/legacy processpptables; same author fixed those in 4/5, 5/5, and
-the later Tonga subtable patch.
+**For:**
+- Real hang (zero stride) and real OOB (unbounded VBIOS walk)
+- Code present since v4.5; **present and unfixed in this 6.18.53 tree**
+- Small, obviously correct, no new API
+- Maintainer SOB + AMD review; v1 accepted as-is
+- Clean apply to this tree; no prerequisites
+- Polar / CI powerplay still used here
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Against:**
+- No public reproducer / syzbot / CVE
+- Trigger is malformed firmware, not every boot
+- Sibling parsers not fixed in the same patch
+- `usMemClkPatchTblOffset` still unchecked (pre-existing)
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record:
-- Local tree: `v6.18.53-5049-g0f0bdc2b0dffb`, `VERSION=6 PATCHLEVEL=18
-  SUBLEVEL=53`, branch `autosel`.
-- `git merge-base --is-ancestor f29e53bc54611 v6.18.53` → **not in
-  v6.18.53**.
-- `v6.18.53:process_pptables_v1_0.c` still has the old
-  `check_powerplay_tables` that adds `usStateArrayOffset` before any
-  size check (lines 1116–1137).
-- Bug introduced ~2015; present here.
+**Unresolved:** stable@ discussion (lore 403); whether a specific
+customer VBIOS hit this.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Expected **clean apply**. Dry-run of this commit’s diff onto the
-v6.18.53 copy of the file succeeded. Mainline context uses
-`kzalloc_obj`; 6.18.53 uses `kzalloc(sizeof(...))` — that line is not
-part of the hunks.
+**Stable rules:**
+1. Obviously correct and tested — **PASS** (reviewed, merged, logic is
+   local bounds checks)
+2. Real bug affecting users — **PASS** (hang/OOB on bad VBIOS; Polaris
+   custom BIOS is a real population)
+3. Important (crash/hang) — **PASS** (infinite loop in GPU init)
+4. Small and contained — **PASS** (22/6, one file)
+5. No new features/APIs — **PASS**
+6. Applies to this tree — **PASS** (clean on v6.18.53)
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: v6.18.53 does **not** contain 1/5, 2/5, this commit, 4/5, or
-5/5. No earlier Tonga state-array bounds helper. Follow-up subtable
-helpers (`tonga_pp_table_has_space`) are only on the autosel branch
-after later candidates — not in v6.18.53.
+**Exception category:** not a device-ID/quirk/DT/build/doc exception. It
+is a firmware-parser safety fix.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+This meets stable rules for **this** 6.18.y tree: the buggy walk is
+here, the fix is surgical, and the failure mode is a hang or OOB during
+amdgpu powerplay init.
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: [drm/amd/pm powerplay] [IMPORTANT — widely used AMD GPU DPM for
-Tonga/Fiji/Polaris-era cards, not core mm/net, but real hardware in the
-field]
+### What it solves for stable users
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Actively maintained; this is targeted firmware-table hardening,
-not a refactor of a brand-new subsystem.
+On CI/Tonga/Iceland/Polaris, powerplay walks the VBIOS AC timing table
+with a stride taken from the image. A zero stride can spin forever; a
+bad size can read past the table. The patch rejects sub-dword strides
+and caps every dword access by the ATOM-reported VRAM_Info size, turning
+a probe hang/OOB into `-EINVAL`.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+### Risk vs benefit
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver-specific: amdgpu SMU7 with PowerPlay table v1
-(Tonga/Fiji/Polaris family). Config `CONFIG_DRM_AMDGPU`.
+Benefit is avoiding a hard-to-debug init hang and OOB on firmware that
+is already treated as untrusted input. Risk is a few bounds checks on an
+error path; valid VBIOS is unchanged. Residual unfixed copies elsewhere
+do not block this backport.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record:
-- Always parsed at device init from VBIOS/ATOM
-  (`smu_atom_get_data_table` → `soft_pp_table_size = usStructureSize`).
-- Healthy firmware: no behavior change.
-- Truncated/corrupt VBIOS or crafted table: OOB read.
-- Sysfs `pp_table` store is root-only. On v6.18.53, short uploads
-  `memcpy` into a buffer still sized as the original table
-  (`pp_dpm_set_pp_table`); 2/5 would make `soft_pp_table_size` match the
-  upload. This commit still stops offsets that run past
-  `soft_pp_table_size`.
-- Unprivileged users cannot trigger via sysfs.
+### Concerns
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: Kernel OOB read → KASAN/oops, possible info leak from adjacent
-BIOS/kernel memory if values are consumed. Severity: **HIGH** (memory
-safety). Not a confirmed remote unprivileged exploit.
-
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- Benefit: HIGH for Tonga/Polaris users with bad/truncated firmware or
-  custom PP tables; fail closed instead of reading off the end of the
-  ATOM blob.
-- Risk: LOW (~40 lines, local helper, existing `PP_ASSERT_WITH_CODE`
-  style).
-- Ratio: favorable. Residual gap: other subtables still unchecked until
-  the large follow-up; that is not a reason to skip this contained
-  state-array fix.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-Step 9.1: COMPILE THE EVIDENCE
-FOR:
-- Real OOB read: pointer from firmware offset used before buffer
-  coverage is proven (code from 2015, present in 6.18.53).
-- Small, obviously correct, overflow-safe `struct_size` check.
-- Reviewed by Hawking Zhang (series), merged by Alex Deucher.
-- Applies cleanly to this tree; no missing types/helpers.
-- Shared helper also closes the same hole in entry-count and entry-fetch
-  paths.
-- Fail closed: init returns error instead of walking garbage.
-
-AGAINST:
-- No crash report / syzbot / Fixes: tag.
-- Part of 3/5; full PPTable hardening needs later larger patches.
-- Sysfs path is root-only; VBIOS path needs a truncated/malformed table.
-- Incomplete vs later 600-line subtable patch.
-
-UNRESOLVED:
-- Stable list discussion (lore 403).
-- No production crash log attached to the patch.
-
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — order of checks is sound;
-   maintainer review; in mainline.
-2. Fixes a real bug that affects users? **PASS** — OOB read of PowerPlay
-   state array from truncated/malformed tables on a live init path.
-3. Important issue? **PASS** — kernel OOB read / crash / info-leak
-   class; HIGH, not a style cleanup.
-4. Small and contained? **PASS** — one file, +40/−22.
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — bug present in v6.18.53; dry-
-   run apply clean.
-
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: Not a device-ID/quirk/DT/docs exception. Ordinary memory-safety
-bugfix.
-
-Step 9.4: MAKE YOUR DECISION
-This should be backported to **this** 6.18.y tree. The buggy pointer
-construction is in v6.18.53, the fix is small and independent of the
-rest of the 5-patch series, and it prevents out-of-bounds reads during
-amdgpu PowerPlay v1 init.
-
-===============================================================
-What the commit solves for this tree
-===============================================================
-
-On 6.18.53, `check_powerplay_tables()`,
-`get_number_of_powerplay_table_entries_v1_0()`, and
-`get_powerplay_table_entry_v1_0()` all do:
-
-`state_arrays = (ATOM_Tonga_State_Array *)(powerplay_table +
-le16_to_cpu(usStateArrayOffset))`
-
-and then read `ucNumEntries` / `entries[i]`. `soft_pp_table_size` is
-already known from ATOM `usStructureSize` but was unused. A truncated
-PowerPlay table or an offset past the blob is an out-of-bounds kernel
-read during GPU init (Polaris-class cards are still common). The patch
-adds the missing coverage checks and an exclusive entry-index test. It
-does not add APIs. 1/5 and 2/5 are related hardening but not
-compile/runtime prerequisites for this file.
-
-Risk vs benefit: low risk of regressing good firmware; high value if the
-table is short or the offset is wrong.
+No `Fixes:` lineage; leftover unbounded walks in
+`atomctrl_set_mc_reg_address_table` and `amdgpu_atombios.c`. Neither is
+a dependency of this patch. Apply to 6.18.53 is clean.
 
 Verification:
-- [Phase 1] Tags: author Yang Wang; Reviewed-by Hawking Zhang; SOB Alex
-  Deucher; no Fixes/syzbot/stable Cc
-- [Phase 2] Diff: +40/−22 in `process_pptables_v1_0.c`; helper + three
-  call sites; OOB bounds + off-by-one index
-- [Phase 2] `PP_ASSERT_WITH_CODE` in `pp_debug.h` really `pr_warn` +
-  executes `return -1`
-- [Phase 3] Blame: `c82baa28184356` (2015-08-18) introduced the
-  unvalidated pointer add
-- [Phase 3] No Fixes: tag
-- [Phase 3] Series 1/5 and 2/5 touch other files; this commit does not
-  use `pp_entries_max()`
-- [Phase 3] `struct_size` in `include/linux/overflow.h`;
-  `soft_pp_table_size` set in `get_powerplay_table()`
-- [Phase 4] `b4 dig -c 1ac24df78c566d767a5ef05a1fe0ecc55bac248d` → PATCH
-  3/5 msgid 20260623034151.263746-3
-- [Phase 4] `b4 dig -a`: v1 only for this series
-- [Phase 4] `b4 dig -w`: amd-gfx, Deucher, Hawking, Kenneth Feng
-- [Phase 4] Hawking: “Series is Reviewed-by”
-  https://lists.freedesktop.org/archives/amd-gfx/2026-June/147299.html
-- [Phase 4] Patch body: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-June/147288.html
-- [Phase 5] Callers: `pp_tables_v1_0_initialize`,
-  `smu7_get_number_of_powerplay_table_entries`,
-  `smu7_get_pp_table_entry_v1` ← `psm_init_power_state_table`
-- [Phase 5] `pptable_v1_0_funcs` selected for `PP_TABLE_V1` in
-  `smu7_init_function_pointers`
-- [Phase 5] sysfs `pp_table` is `S_IRUGO | S_IWUSR`
-  (`AMDGPU_DEVICE_ATTR_RW`)
-- [Phase 6] `git describe HEAD` = v6.18.53-5049-g0f0bdc2b0dffb; Makefile
-  6.18.53
-- [Phase 6] commit **not** ancestor of v6.18.53; buggy function present
-  at v6.18.53:1116
-- [Phase 6] `patch --dry-run` of this diff onto v6.18.53 file: success
-- [Phase 6] ATOM size is `usStructureSize` via
-  `amdgpu_atom_parse_data_header` `*size = CU16(idx)`
-- [Phase 8] Failure mode: OOB read on truncated PP table during amdgpu
-  init; HIGH
-- UNVERIFIED: lore.kernel.org/stable search (HTTP 403); no public crash
-  repro attached to the patch
+- [Phase 1] Parsed tags: author Xiang Liu, R-b Hawking Zhang, SOB Alex
+  Deucher; no Fixes/Reported-by/Cc:stable
+- [Phase 2] Diff: +22/−6 in `ppatomctrl.c`; stride `< sizeof(u32)`
+  reject; `table_end` on loop, payload, END marker
+- [Phase 2] `END_OF_REG_DATA_BLOCK` is `0x00000000` in
+  `atombios.h:7486`; zero stride + nonzero nonmatching MEM_ID loops
+  forever
+- [Phase 3] `git blame` on v6.18.53: walk from `c82baa2818435`
+  (v4.5-rc1)
+- [Phase 3] `git merge-base --is-ancestor 2bf6867e5953 v6.18.53` → not
+  present in 6.18.53
+- [Phase 3] `12c6967428a09` / `820116a39f96b` do not implement this
+  guard; latter is already in 6.18.53
+- [Phase 4] `b4 dig -c 2bf6867e5953`: v1 only,
+  https://patch.msgid.link/20260623042601.562748-1-xiang.liu@amd.com
+- [Phase 4] `b4 dig -a`: single revision; `b4 dig -w`: amd-gfx + AMD
+  reviewers; mbox: Hawking Reviewed-by, no NAK
+- [Phase 4] WebFetch lore/stable: 403 — UNVERIFIED stable-list history
+- [Phase 5] Callers: tonga/iceland/ci + polaris10 smumgr →
+  `smum_initialize_mc_reg_table` from `smu7_hwmgr.c:1582` (return
+  ignored)
+- [Phase 5] Same pattern still in `amdgpu_atombios.c:1511` and
+  `radeon_atombios.c:4031`
+- [Phase 6] `make kernelversion` / `git describe`: 6.18.53; pre-image
+  matches; apply --check on v6.18.53 copy exit 0
+- [Phase 8] Failure: infinite loop or OOB at GPU DPM init; severity
+  hang/crash
+- UNVERIFIED: whether a specific shipping VBIOS has been observed with
+  stride 0
 
 **YES**
 
- .../powerplay/hwmgr/process_pptables_v1_0.c   | 62 ++++++++++++-------
- 1 file changed, 40 insertions(+), 22 deletions(-)
+ .../drm/amd/pm/powerplay/hwmgr/ppatomctrl.c   | 28 +++++++++++++++----
+ 1 file changed, 22 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
-index 6cfef1b295abb..94c1e2c103703 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
-@@ -1113,15 +1113,17 @@ static int init_thermal_controller(
-  * @powerplay_table: Pointer to the PowerPlay Table.
-  * Exception:  2 if the powerplay table is incorrect.
-  */
--static int check_powerplay_tables(
--		struct pp_hwmgr *hwmgr,
--		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table
--		)
-+static int get_tonga_state_array(struct pp_hwmgr *hwmgr,
-+	const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+	const ATOM_Tonga_State_Array **state_array)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
+index 1fff7567bca27..4b796d60b03d4 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
+@@ -46,16 +46,22 @@ union voltage_object_info {
+ static int atomctrl_retrieve_ac_timing(
+ 		uint8_t index,
+ 		ATOM_INIT_REG_BLOCK *reg_block,
++		u8 *table_end,
+ 		pp_atomctrl_mc_reg_table *table)
  {
- 	const ATOM_Tonga_State_Array *state_arrays;
-+	u16 state_array_offset;
-+	size_t state_array_size;
-+	size_t table_size = hwmgr->soft_pp_table_size;
+ 	uint32_t i, j;
++	u16 stride = le16_to_cpu(reg_block->usRegDataBlkSize);
+ 	uint8_t tmem_id;
+ 	ATOM_MEMORY_SETTING_DATA_BLOCK *reg_data = (ATOM_MEMORY_SETTING_DATA_BLOCK *)
+ 		((uint8_t *)reg_block + (2 * sizeof(uint16_t)) + le16_to_cpu(reg_block->usRegIndexTblSize));
  
--	state_arrays = (ATOM_Tonga_State_Array *)(((unsigned long)powerplay_table) +
--		le16_to_cpu(powerplay_table->usStateArrayOffset));
-+	PP_ASSERT_WITH_CODE((table_size >= sizeof(*powerplay_table)),
-+			    "Invalid PowerPlay Table!", return -1);
+ 	uint8_t num_ranges = 0;
  
- 	PP_ASSERT_WITH_CODE((ATOM_Tonga_TABLE_REVISION_TONGA <=
- 		powerplay_table->sHeader.ucTableFormatRevision),
-@@ -1130,12 +1132,34 @@ static int check_powerplay_tables(
- 		"State table is not set!", return -1);
- 	PP_ASSERT_WITH_CODE((0 < powerplay_table->sHeader.usStructureSize),
- 		"Invalid PowerPlay Table!", return -1);
+-	while (*(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK &&
++	if (stride < sizeof(uint32_t))
++		return -EINVAL;
 +
-+	state_array_offset = le16_to_cpu(powerplay_table->usStateArrayOffset);
-+	PP_ASSERT_WITH_CODE((state_array_offset <=
-+			     table_size - sizeof(*state_arrays)),
-+			    "Invalid PowerPlay Table!", return -1);
-+
-+	state_arrays = (ATOM_Tonga_State_Array *)(((unsigned long)powerplay_table) +
-+		state_array_offset);
- 	PP_ASSERT_WITH_CODE((0 < state_arrays->ucNumEntries),
- 		"Invalid PowerPlay Table!", return -1);
++	while ((uint8_t *)reg_data + sizeof(uint32_t) <= table_end &&
++	       *(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK &&
+ 			num_ranges < VBIOS_MAX_AC_TIMING_ENTRIES) {
+ 		tmem_id = (uint8_t)((*(uint32_t *)reg_data & MEM_ID_MASK) >> MEM_ID_SHIFT);
  
-+	state_array_size = struct_size(state_arrays, entries, state_arrays->ucNumEntries);
-+	PP_ASSERT_WITH_CODE((state_array_size <= table_size - state_array_offset),
-+			    "Invalid PowerPlay Table!", return -1);
+@@ -67,6 +73,10 @@ static int atomctrl_retrieve_ac_timing(
+ 			for (i = 0, j = 1; i < table->last; i++) {
+ 				if ((table->mc_reg_address[i].uc_pre_reg_data &
+ 							LOW_NIBBLE_MASK) == DATA_FROM_TABLE) {
++					if ((uint8_t *)reg_data +
++					    (j + 1) * sizeof(uint32_t) > table_end)
++						return -EINVAL;
 +
-+	*state_array = state_arrays;
+ 					table->mc_reg_table_entry[num_ranges].mc_data[i] =
+ 						(uint32_t)*((uint32_t *)reg_data + j);
+ 					j++;
+@@ -81,11 +91,13 @@ static int atomctrl_retrieve_ac_timing(
+ 		}
+ 
+ 		reg_data = (ATOM_MEMORY_SETTING_DATA_BLOCK *)
+-			((uint8_t *)reg_data + le16_to_cpu(reg_block->usRegDataBlkSize)) ;
++			((uint8_t *)reg_data + stride);
+ 	}
+ 
+-	PP_ASSERT_WITH_CODE((*(uint32_t *)reg_data == END_OF_REG_DATA_BLOCK),
+-			"Invalid VramInfo table.", return -1);
++	if ((uint8_t *)reg_data + sizeof(uint32_t) > table_end ||
++	    *(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK)
++		return -EINVAL;
 +
+ 	table->num_entries = num_ranges;
+ 
  	return 0;
- }
- 
-+static int check_powerplay_tables(struct pp_hwmgr *hwmgr,
-+	const ATOM_Tonga_POWERPLAYTABLE *powerplay_table)
-+{
-+	const ATOM_Tonga_State_Array *state_arrays;
-+
-+	return get_tonga_state_array(hwmgr, powerplay_table, &state_arrays);
-+}
-+
- static int pp_tables_v1_0_initialize(struct pp_hwmgr *hwmgr)
+@@ -136,6 +148,7 @@ int atomctrl_initialize_mc_reg_table(
  {
+ 	ATOM_VRAM_INFO_HEADER_V2_1 *vram_info;
+ 	ATOM_INIT_REG_BLOCK *reg_block;
++	u8 *table_end;
  	int result = 0;
-@@ -1239,17 +1263,16 @@ const struct pp_table_func pptable_v1_0_funcs = {
+ 	u8 frev, crev;
+ 	u16 size;
+@@ -157,6 +170,7 @@ int atomctrl_initialize_mc_reg_table(
+ 	}
  
- int get_number_of_powerplay_table_entries_v1_0(struct pp_hwmgr *hwmgr)
- {
--	ATOM_Tonga_State_Array const *state_arrays;
-+	const ATOM_Tonga_State_Array *state_arrays;
- 	const ATOM_Tonga_POWERPLAYTABLE *pp_table = get_powerplay_table(hwmgr);
-+	int result;
+ 	if (0 == result) {
++		table_end = (uint8_t *)vram_info + size;
+ 		reg_block = (ATOM_INIT_REG_BLOCK *)
+ 			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
+ 		result = atomctrl_set_mc_reg_address_table(reg_block, table);
+@@ -164,7 +178,7 @@ int atomctrl_initialize_mc_reg_table(
  
- 	PP_ASSERT_WITH_CODE((NULL != pp_table),
- 			"Missing PowerPlay Table!", return -1);
--	PP_ASSERT_WITH_CODE((pp_table->sHeader.ucTableFormatRevision >=
--			ATOM_Tonga_TABLE_REVISION_TONGA),
--			"Incorrect PowerPlay table revision!", return -1);
- 
--	state_arrays = (ATOM_Tonga_State_Array *)(((unsigned long)pp_table) +
--			le16_to_cpu(pp_table->usStateArrayOffset));
-+	result = get_tonga_state_array(hwmgr, pp_table, &state_arrays);
-+	PP_ASSERT_WITH_CODE((result == 0),
-+			    "Invalid PowerPlay Table State Array.", return result);
- 
- 	return (uint32_t)(state_arrays->ucNumEntries);
- }
-@@ -1380,15 +1403,11 @@ int get_powerplay_table_entry_v1_0(struct pp_hwmgr *hwmgr,
- 
- 	if (pp_table->sHeader.ucTableFormatRevision >=
- 			ATOM_Tonga_TABLE_REVISION_TONGA) {
--		state_arrays = (ATOM_Tonga_State_Array *)(((unsigned long)pp_table) +
--				le16_to_cpu(pp_table->usStateArrayOffset));
--
--		PP_ASSERT_WITH_CODE((0 < pp_table->usStateArrayOffset),
--				"Invalid PowerPlay Table State Array Offset.", return -1);
--		PP_ASSERT_WITH_CODE((0 < state_arrays->ucNumEntries),
--				"Invalid PowerPlay Table State Array.", return -1);
--		PP_ASSERT_WITH_CODE((entry_index <= state_arrays->ucNumEntries),
--				"Invalid PowerPlay Table State Array Entry.", return -1);
-+		result = get_tonga_state_array(hwmgr, pp_table, &state_arrays);
-+		PP_ASSERT_WITH_CODE((result == 0),
-+				    "Invalid PowerPlay Table State Array.", return result);
-+		PP_ASSERT_WITH_CODE((entry_index < state_arrays->ucNumEntries),
-+				    "Invalid PowerPlay Table State Array Entry.", return -1);
- 
- 		state_entry = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
- 						ATOM_Tonga_State, entries,
-@@ -1414,4 +1433,3 @@ int get_powerplay_table_entry_v1_0(struct pp_hwmgr *hwmgr,
+ 	if (0 == result) {
+ 		result = atomctrl_retrieve_ac_timing(module_index,
+-					reg_block, table);
++					reg_block, table_end, table);
+ 	}
  
  	return result;
- }
--
+@@ -177,6 +191,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
+ {
+ 	ATOM_VRAM_INFO_HEADER_V2_2 *vram_info;
+ 	ATOM_INIT_REG_BLOCK *reg_block;
++	u8 *table_end;
+ 	int result = 0;
+ 	u8 frev, crev;
+ 	u16 size;
+@@ -198,6 +213,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
+ 	}
+ 
+ 	if (0 == result) {
++		table_end = (uint8_t *)vram_info + size;
+ 		reg_block = (ATOM_INIT_REG_BLOCK *)
+ 			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
+ 		result = atomctrl_set_mc_reg_address_table(reg_block, table);
+@@ -205,7 +221,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
+ 
+ 	if (0 == result) {
+ 		result = atomctrl_retrieve_ac_timing(module_index,
+-					reg_block, table);
++					reg_block, table_end, table);
+ 	}
+ 
+ 	return result;
 -- 
 2.53.0
 
