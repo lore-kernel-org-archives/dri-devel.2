@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0788FCCF2E9
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C22DCCF2E8
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:05:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61DA310EE1E;
-	Mon, 19 Oct 2026 14:04:51 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5D4810EE1A;
- Mon, 19 Oct 2026 14:04:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A50DC10EE18;
+	Mon, 19 Oct 2026 14:05:28 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 197B410EE18;
+ Mon, 19 Oct 2026 14:05:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9E48D43398;
- Mon, 19 Oct 2026 14:04:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444881F000CB;
- Mon, 19 Oct 2026 14:04:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 698B460258;
+ Mon, 19 Oct 2026 14:05:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70E71F000C4;
+ Mon, 19 Oct 2026 14:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418684;
- bh=qvbp8f2w9chI37b/MVBFR5OrAMzeWq0Ca+d/8PVVkew=;
+ s=k20260515; t=1792418722;
+ bh=dbCcNERBX+rxiX7NjAejDaHugEo09PdEW6O3V4KTiIE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=onZWBroj4DATtTVx9lISZyZ/gs3gHXZfO/W4KfTi7azoynNJNsnxQY5u/1cwmG//2
- jk5zfqcUeIpdTRU5b5Jn8dJtQu+G6eGSGkNCX+65JEHV6pqrgurKfs2AOlg2g5fZAz
- IWohzr1GXr08r/5cTMoYzpkcoTStDk4dxDCKOaokWUiAKTJYNo0JMedMWRF1OHqrDl
- 3t9XHMS91e4LcxvAJSy74uxeg7QH79fL98sKmvqdWMRgj1ncJSgXKYTrS6v6AWFTAs
- Au6f96yafjTCIbZa8sqv4Yx0Z2VkQWKDwsR+Yrzid1BpqfkQAF5SDibRJ2e2ha5Wl6
- K2GGzqj6sNhAA==
+ b=MnOrGbpQRqiP9L0tDDFOyse9UYIjqB26RNr3hXFyL5sMYzObitoAZvkdeiJc6KF2W
+ xizmUVpCpY+j59vqO8v98YeyVhm/CpcK4hnNnNAJzAtaQXK6m69c4RAcnvuIn9eLdS
+ wVpbsMIX6lbssw4wul+aipMOreAEeGXRv3+i4VuRIq5M+App020sSJCRmoPnjXVVMX
+ mTh/RVd2immcUQTwnoCEWwE9XaliStcLdA9Di16mX/xV6yBCscIwZMHU78FwHFTEGQ
+ ooYHq1bfDQHwMaJKbazI0o5wZuI5BgbZb/be+u1XtQlTbIhZahcBs488DBjbJrKER5
+ EbRZudEjNXELQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Xiang Liu <xiang.liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+Cc: Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] drm/amd/pm: Guard VBIOS AC timing table walk
-Date: Mon, 19 Oct 2026 09:51:54 -0400
-Message-ID: <20261019135441.1420968-423-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: Validate pp_table header before
+ reading size
+Date: Mon, 19 Oct 2026 09:52:20 -0400
+Message-ID: <20261019135441.1420968-449-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -62,19 +63,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Xiang Liu <xiang.liu@amd.com>
+From: Yang Wang <kevinyang.wang@amd.com>
 
-[ Upstream commit 2bf6867e5953a140fc91c3159987656e44ed29fb ]
+[ Upstream commit a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f ]
 
-Reject AC timing blocks with a stride smaller than a dword before walking
-VBIOS data. A zero stride can otherwise keep reg_data pinned on a
-nonmatching MEM_ID forever.
+smu_sys_set_pp_table() reads usStructureSize from the uploaded
+pp_table buffer before validating that the buffer contains a complete
+ATOM_COMMON_TABLE_HEADER. A short write can therefore make the driver
+read past the supplied sysfs buffer.
 
-Also bound the data-block and END marker reads by the returned VRAM_Info
-table size so malformed index/data sizes do not push the timing walk past
-the table.
+Reject empty or header-short uploads before dereferencing the header
+pointer.
+Keep the existing structure-size check for the full uploaded table.
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
@@ -82,436 +84,389 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit message forensics
+The short-write path can install a 1-byte table and then SMU re-init
+walks it as a full PowerPlay struct, which is a real heap OOB. The rest
+of the write-up is the 9-phase analysis for this 6.18.53 tree.
 
-**Step 1.1: Subject line**
-Record: `[drm/amd/pm] [Guard] Reject undersized VBIOS AC timing strides
-and bound the table walk`
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-Subsystem `drm/amd/pm`. Verb is **Guard** (defensive bounds / hang
-prevention), not a feature addition.
+Step 1.1: PARSE THE SUBJECT LINE
+Record: **[drm/amd/pm] [Validate] Validate pp_table header before
+reading size.** Intent is to reject undersized sysfs uploads before the
+driver reads `usStructureSize` from the buffer.
 
-**Step 1.2: Tags**
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- `Signed-off-by: Xiang Liu <xiang.liu@amd.com>` (author)
-- `Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>` (AMD reviewer)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+- Signed-off-by: Yang Wang <kevinyang.wang@amd.com> (author)
+- Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+- Signed-off-by: Alex Deucher <alexander.deucher@amd.com> (amdgpu
   maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable`
-  (absence is expected for this review)
-- Pipeline markers (`[ Upstream commit 2bf6867e5953... ]`, `Signed-off-
-  by: Sasha Levin`) ignored per instructions
+- No Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable (absence
+  expected)
+- Pipeline-added tags (ignored): `[Upstream commit
+  a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f]`, Signed-off-by: Sasha Levin
 
-**Step 1.3: Body**
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- **Bug:** `atomctrl_retrieve_ac_timing()` walks VBIOS AC timing blocks
-  using `usRegDataBlkSize` as the stride. A zero (or sub-dword) stride
-  never advances `reg_data`. If the pinned dword’s MEM_ID does not match
-  `index`, `num_ranges` never increases, so the
-  `VBIOS_MAX_AC_TIMING_ENTRIES` cap never fires.
-- **Symptom:** infinite loop / hang during GPU powerplay init.
-- **Second bug:** index/data sizes can walk past the VRAM_Info table;
-  unbounded dword reads of the END marker and per-entry payload.
-- **Root cause:** firmware table walk trusts VBIOS sizes with no stride
-  or table-end check.
-- **Version info:** none in the message. Code has been in-tree since
-  v4.5.
+- Bug: `smu_sys_set_pp_table()` reads `usStructureSize` from the
+  uploaded buffer before checking that the buffer holds a full
+  `ATOM_COMMON_TABLE_HEADER`.
+- Symptom: a short sysfs write can make the driver read past the
+  supplied buffer.
+- Fix: reject empty or header-short uploads, keep the existing
+  structure-size match check.
+- No stack trace, syzbot, or version range in the message.
+- Root cause (author): missing length check before header dereference.
 
-**Step 1.4: Hidden bug fix?**
-Record: Not hidden. It is an explicit hang + OOB hardening of a firmware
-parser. “Guard” here means missing validation, not a cleanup.
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Yes, there is a hidden fix. Besides the header check, the hunk
+also replaces `kfree` + `kzalloc` + `memcpy` with `kmemdup` then `kfree`
+of the old pointer. That is not called out as a UAF fix, but it stops
+the driver from freeing the live table and then failing the realloc,
+which leaves `power_play_table` dangling. That UAF exists in this tree
+because of `1abb2648698bf1` (`drm/amdgpu: avoid buffer overflow attach
+in smu_sys_set_pp_table()`), which is in v6.18.53.
 
-## Phase 2: Diff analysis
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1: Inventory**
+Step 2.1: INVENTORY THE CHANGES
 Record:
-- File: `drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c` — **+22 /
-  −6**
-- Functions: `atomctrl_retrieve_ac_timing`,
-  `atomctrl_initialize_mc_reg_table`,
-  `atomctrl_initialize_mc_reg_table_v2_2`
-- Scope: single-file surgical fix
+- File: `drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c` (+11 / −8, net +3)
+- Function: `smu_sys_set_pp_table()` only
+- Scope: single-file surgical change
 
-**Step 2.2: Code flow**
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 Record:
-1. `atomctrl_retrieve_ac_timing`: cache `stride =
-   le16_to_cpu(usRegDataBlkSize)`; **before:** walk with raw stride;
-   **after:** `-EINVAL` if `stride < 4`.
-2. Loop: **before:** `while (*(u32 *)reg_data != END && num_ranges <
-   20)`; **after:** also require `(u8 *)reg_data + 4 <= table_end`
-   before the read.
-3. Inner `DATA_FROM_TABLE` copies: **before:** unbounded `*((u32
-   *)reg_data + j)`; **after:** reject if that dword would pass
-   `table_end`.
-4. Advance: same addition, using cached `stride`.
-5. Exit: **before:** `PP_ASSERT_WITH_CODE` that the current dword is
-   `END_OF_REG_DATA_BLOCK` (0), which itself can read past the table;
-   **after:** bounds-check then compare, return `-EINVAL`.
-6. Callers: both init helpers already have `size` from
-   `smu_atom_get_data_table()` but unused for the walk; they now set
-   `table_end = (u8 *)vram_info + size` and pass it in.
+- Before: cast `buf` to `ATOM_COMMON_TABLE_HEADER *` immediately;
+  compare `header->usStructureSize` with `size`; if the existing
+  hardcoded table is missing or too small, `kfree` it then
+  `kzalloc`/`memcpy`.
+- After: require `buf` and `size >= sizeof(*header)` first; then compare
+  structure size; `kmemdup` the upload; only then `kfree` the old table
+  and swap pointers.
+- Path affected: sysfs store of `pp_table` (error/validation and
+  allocation), not the get path.
 
-**Step 2.3: Bug mechanism**
+Step 2.3: IDENTIFY THE BUG MECHANISM
 Record:
-- **Category:** logic / memory-safety (infinite loop + OOB read)
-- **Mechanism:** stride 0 pins `reg_data`. `END_OF_REG_DATA_BLOCK` is
-  `0x00000000`. If that dword is nonzero and MEM_ID ≠ `index`, the loop
-  never terminates. Large stride or oversized index table walks off the
-  claimed VRAM_Info blob into adjacent BIOS/kernel memory.
+- Category: memory safety (short-write / OOB) plus error-path UAF.
+- Mechanism: `ATOM_COMMON_TABLE_HEADER` is 4 bytes (`USHORT
+  usStructureSize` + 2× `UCHAR`). The old code only needed a 2-byte read
+  of `usStructureSize`. A 1-byte write of `0x01` plus kernfs’s trailing
+  NUL makes `usStructureSize == 1 == size`, so the driver accepts a
+  1-byte table, then `smu_reset()` → `check_powerplay_table()` casts
+  that 1-byte allocation to `smu_11_0_powerplay_table` /
+  `smu_13_0_0_powerplay_table` and reads `platform_caps`,
+  `thermal_controller_type`, and `overdrive_table`. That is a heap OOB.
+  The `kmemdup`-first change also fixes the ENOMEM UAF: old code
+  `kfree`d `hardcode_pptable` (which `power_play_table` still pointed
+  at) before `kzalloc`; on failure `hardcode_pptable` is NULL and
+  `power_play_table` is dangling.
 
-**Step 2.4: Fix quality**
-Record: Obviously correct C short-circuit bounds checks. Minimal. No API
-change (`atomctrl_retrieve_ac_timing` is static). Regression risk is
-low: a valid AC block must be at least one dword (MEM_ID + clock).
-`table_end` uses the ATOM header size already returned to these
-functions. Residual gap: `atomctrl_set_mc_reg_address_table()` and
-`usMemClkPatchTblOffset` are still unchecked; sibling parsers in
-`amdgpu_atombios.c` / `radeon_atombios.c` still have the old walk. That
-does not make this patch incorrect.
+Step 2.4: ASSESS THE FIX QUALITY
+Record: The header check is obviously correct. `kmemdup` then free is
+the same pattern already used by `pp_dpm_set_pp_table()`. Regression
+risk is low: always reallocating on write is extra `GFP_KERNEL` traffic
+under `adev->pm.mutex`, but the grow path already allocated there. No
+API change. Slight remaining gap: a 4-byte upload with matching
+`usStructureSize` can still be smaller than the ASIC pptable struct;
+that is pre-existing and not a reason to drop this incremental fix.
 
-## Phase 3: Git history
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 3.1: Blame**
-Record: Unbounded walk introduced in `c82baa2818435`
-(“drm/amd/powerplay: add Tonga dpm support (v3)”, 2015-12-21), first in
-**v4.5-rc1**. Present on this 6.18 tree. Only later touch of the same
-loop: `12c6967428a09` (2024) added `if (i)` for `DATA_EQU_PREV` OOB on
-`mc_data[-1]`, not this stride/end-marker bug.
+Step 3.1: BLAME THE CHANGED LINES
+Record: Unchecked `header->usStructureSize` came from `289921b03fe5e2`
+(“drm/amd/powerplay: implement sysfs of pp_table for smu11 (v2)”,
+2019-01-11), present by v5.2 (`git describe --contains` →
+`v5.2-rc1~...`). The realloc-on-grow `kfree`/`kzalloc` came from
+`1abb2648698bf1` (2025-02-07, Cc: stable) and is in v6.18.53.
 
-**Step 3.2: Fixes: tag**
-Record: None. Buggy code is the original 2015 parser, not a recent
-regression.
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. Not applicable.
 
-**Step 3.3: File history**
-Record: Recent related work on this file: NULL checks in
-`atomctrl_initialize_mc_reg_table` (`820116a39f96b`, already in
-v6.18.53). No prerequisite refactor. No “patch X/Y”. Standalone.
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record: Related commits on this file: `1abb2648698bf1` (overflow on
+grow), `8c685df5c3b26` (get/set UAF race, in v6.18.53), `2895aeb4327c9`
+(pp_table sysfs visibility). This patch is standalone for SMU; it is 1/5
+of a later bounds-hardening series whose other patches touch legacy
+powerplay, not this function.
 
-**Step 3.4: Author**
-Record: Xiang Liu is an AMD drm/amdgpu contributor (many amdgpu
-commits). Hawking Zhang reviewed; Alex Deucher applied. Not a drive-by.
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Yang Wang is an AMD PM contributor (many pptable bounds
+patches). Hawking Zhang reviewed; Alex Deucher applied. Nearby author
+work is the rest of the 1/5 series (legacy hwmgr bounds), not a
+dependency of this hunk.
 
-**Step 3.5: Dependencies**
-Record: None. Uses existing `smu_atom_get_data_table(..., &size, ...)`,
-existing structs, no new helpers. Applies standalone.
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: No new helpers. `kmemdup()`, `ATOM_COMMON_TABLE_HEADER`, and
+`smu_sys_set_pp_table()` all exist in this tree. Applies standalone.
+Series patches 2–5 are independent files (`amd_powerplay.c` / hwmgr
+parsers).
 
-## Phase 4: Mailing list
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
-**Step 4.1:** `b4 dig -c 2bf6867e5953a140fc91c3159987656e44ed29fb`
-Record: lore URL
-`https://patch.msgid.link/20260623042601.562748-1-xiang.liu@amd.com`.
-**v1 only** (no v2/v3). Thread: patch + Hawking `Reviewed-by`. No NAK,
-no stable debate, no requested rework. Direct WebFetch of
-lore.kernel.org returned **403**; thread recovered via `b4 dig -m`.
-
-**Step 4.2:** `b4 dig -w`
-Record: To `amd-gfx@lists.freedesktop.org`; Cc Hawking Zhang, Tao Zhou,
-Stanley Yang, YiPeng Chai. Right list and AMD PM reviewers.
-
-**Step 4.3: Bug report**
-Record: No `Reported-by` / syzbot / bugzilla. Author-described defect
-from code inspection. Unverified whether a specific card hung in the
-wild.
-
-**Step 4.4: Series**
-Record: Single standalone `[PATCH]`, not N/M.
-
-**Step 4.5: Stable list**
-Record: lore.kernel.org/stable WebFetch 403. **UNVERIFIED** whether
-stable@ already discussed this; that does not change the technical
-verdict.
-
-## Phase 5: Semantic / call graph
-
-**Step 5.1: Functions**
-Record: `atomctrl_retrieve_ac_timing`,
-`atomctrl_initialize_mc_reg_table`,
-`atomctrl_initialize_mc_reg_table_v2_2`.
-
-**Step 5.2: Callers**
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 Record:
-- `tonga_initialize_mc_reg_table` → `atomctrl_initialize_mc_reg_table`
-- `iceland_initialize_mc_reg_table` → same
-- `ci_initialize_mc_reg_table` → same
-- `polaris10_initialize_mc_reg_table` →
-  `atomctrl_initialize_mc_reg_table_v2_2`
-- Those are `.initialize_mc_reg_table` in SMU7 smumgr;
-  `smum_initialize_mc_reg_table()` is called from `smu7_hwmgr.c` during
-  DPM enable (device init / resume), **without checking the return
-  value**.
+- `b4 dig -c a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f` → https://patch.m
+  sgid.link/20260623034151.263746-1-kevinyang.wang@amd.com
+- `b4 dig -a`: only v1 of `[PATCH 1/5]`; no later revision.
+- Thread: Hawking Zhang: “Series is Reviewed-by: Hawking Zhang”. No NAK,
+  no stable nomination in the thread.
 
-**Step 5.3: Callees**
-Record: `smu_atom_get_data_table()` → `amdgpu_atom_parse_data_header()`;
-pointer is `atom_context->bios + data_start`; `size` is the ATOM table
-size.
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record: `b4 dig -w` recipients: Yang Wang, amd-gfx, Alexander Deucher,
+Hawking Zhang, Kenneth Feng. Maintainer and PM reviewers were on the
+original To/Cc.
 
-**Step 5.4: Reachability**
-Record: Yes, from normal amdgpu load on CI / Tonga / Iceland / Polaris
-(RX 400/500-class, still common). Not a syscall fuzzer path; firmware-
-driven probe/resume. Unprivileged users cannot craft VBIOS on a locked
-ROM, but custom/modded Polaris VBIOS is common, and a bad image hangs
-the kernel in this loop.
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No Reported-by, syzbot, or bugzilla. Bug is from code audit of
+the sysfs store, not a user crash report.
 
-**Step 5.5: Similar patterns**
-Record: Same unguarded walk remains in
-`amdgpu_atombios_init_mc_reg_table()` and `radeon_atombios.c`. This
-commit only hardens the powerplay copy. Sibling bugs are not a reason to
-reject this fix.
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: 5-patch series (Jun 23 2026): (1) this SMU header check, (2)
+legacy custom PPTable size, (3) Tonga state array, (4) Vega hwmgr
+bounds, (5) legacy hwmgr offsets. Patch 1 is self-contained. 2–5 are not
+in v6.18.53 and are not required for this function.
 
-## Phase 6: This tree (6.18.53)
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: UNVERIFIED. `https://lore.kernel.org/stable/?q=...` returned
+HTTP 403.
 
-**Step 6.1:**
-Record: Local tree is **6.18.53** (`v6.18.53-5049-g0f0bdc2b0dffb`,
-branch `autosel`).
-`git merge-base --is-ancestor 2bf6867e5953... v6.18.53` → **not an
-ancestor**.
-v6.18.53 still has the unguarded `while (*(uint32_t *)reg_data !=
-END_OF_REG_DATA_BLOCK && ...)` in `atomctrl_retrieve_ac_timing()`. Bug
-exists here.
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
-**Step 6.2:**
-Record: `git apply --check` of the upstream diff onto a v6.18.53 copy of
-the file **succeeded** (exit 0). Clean apply. No structural drift.
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: `smu_sys_set_pp_table()` only.
 
-**Step 6.3:**
-Record: `12c6967428a09` and `820116a39f96b` are in v6.18.53; they do not
-implement stride/table_end guards. No alternate fix present.
+Step 5.2: TRACE CALLERS
+Record: Wired as `swsmu_pm_funcs.set_pp_table`. Call chain: sysfs store
+`amdgpu_set_pp_table()` → `amdgpu_dpm_set_pp_table()` (takes
+`adev->pm.mutex`, already rejects `!buf || !size`) →
+`pp_funcs->set_pp_table()`. No other callers. Attribute is
+`AMDGPU_DEVICE_ATTR_RW(pp_table, ...)` with `S_IRUGO | S_IWUSR` (root
+write, world read).
 
-## Phase 7: Subsystem
+Step 5.3: TRACE CALLEES
+Record: After install, `smu_reset()` → `smu_hw_fini` / `smu_hw_init` /
+`smu_late_init`, which runs ASIC `check_powerplay_table()` on
+`smu_table.power_play_table`.
 
-**Step 7.1:**
-Record: `drivers/gpu/drm/amd/pm/powerplay` — **IMPORTANT** (legacy GCN
-powerplay, not core mm/net, but production GPU init).
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Reachable from userspace via
+`/sys/class/drm/cardX/device/pp_table`. Root-only write. Confirmed
+`navi10_check_powerplay_table()` / `smu_v13_0_0_check_powerplay_table()`
+dereference `power_play_table` as a full struct with no extra size
+check. A matching short write therefore becomes a heap OOB on SMU re-
+init, not only a 2-byte header peek.
 
-**Step 7.2:**
-Record: File is mature (2015). Little recent churn besides docs, a NULL
-check, and the 2024 `mc_data[i-1]` guard. Long-lived bug, not a new-
-subsystem issue.
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Legacy `pp_dpm_set_pp_table()` already uses `kmemdup` + `kfree`.
+Prior SMU overflow fix `1abb2648698bf1` is the sibling. Same author’s
+later series hardens hwmgr parsers.
 
-## Phase 8: Impact and risk
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
-**Step 8.1:** Driver-specific: CI/Tonga/Iceland/Polaris via powerplay
-(`CONFIG_DRM_AMDGPU`, typically `DRM_AMDGPU_CIK` for CI). Polaris is
-still widely deployed.
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: Yes. Local tree is **6.18.53** (`git describe HEAD` →
+`v6.18.53-5049-g0f0bdc2b0dffb`, `Makefile` VERSION=6 PATCHLEVEL=18
+SUBLEVEL=53). At `v6.18.53`, `smu_sys_set_pp_table()` still casts `buf`
+before any length check and still does `kfree` then `kzalloc` on grow.
+Bug introduced 2019; realloc UAF introduced by `1abb2648698bf1`, which
+**is** an ancestor of v6.18.53.
 
-**Step 8.2:** Trigger: GPU DPM bring-up when VRAM_Info AC timing has
-`usRegDataBlkSize < 4` or truncated/malformed blocks. Common on
-**valid** VBIOS: no. Realistic on corrupted, truncated, or vendor-modded
-VBIOS: yes. Not a userspace syscall primitive.
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Expected **clean apply**. The v6.18.53 function body matches the
+patch’s “before” hunk. `kmemdup` is already used in this tree.
 
-**Step 8.3:** Failure mode:
-- Zero stride + nonmatching MEM_ID → **infinite loop in probe/resume** →
-  **CRITICAL** hang
-- Walk past table → **OOB read** → **HIGH** (crash / KASAN)
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: The grow-overflow fix (`1abb2648698bf1`) and get/set UAF race
+fix (`8c685df5c3b26`) are in v6.18.53. Neither adds the header-length
+check or the allocate-before-free swap. No substitute for this patch.
 
-**Step 8.4:** Benefit: prevent hang/OOB on a long-lived parser used at
-init. Risk: ~22 lines, error-path only for bad firmware. Valid tables
-keep working. Ratio is favorable.
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
-Ignored `smum_initialize_mc_reg_table()` return means a now-failing
-parse no longer hangs; MC timing table may stay empty. That is still
-better than a soft lockup, and matches other `-EINVAL` paths already in
-these helpers.
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: **drm/amd/pm** (AMDGPU SMU powerplay). Criticality:
+**IMPORTANT** — common dGPU/APU driver, not core mm/VFS, but widely
+deployed.
 
-## Phase 9: Synthesis
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Active. Recent history includes SMU 15.x enablement, pptable
+visibility, and several pptable safety fixes. Mature sysfs `pp_table`
+path dating to v5.2.
 
-**For:**
-- Real hang (zero stride) and real OOB (unbounded VBIOS walk)
-- Code present since v4.5; **present and unfixed in this 6.18.53 tree**
-- Small, obviously correct, no new API
-- Maintainer SOB + AMD review; v1 accepted as-is
-- Clean apply to this tree; no prerequisites
-- Polar / CI powerplay still used here
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
-**Against:**
-- No public reproducer / syzbot / CVE
-- Trigger is malformed firmware, not every boot
-- Sibling parsers not fixed in the same patch
-- `usMemClkPatchTblOffset` still unchecked (pre-existing)
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: AMDGPU SWSMU users (Navi and later) with `pp_table` sysfs
+visible. Driver-specific. Write is root-only; a failed grow plus later
+read is world-readable (`S_IRUGO`).
 
-**Unresolved:** stable@ discussion (lore 403); whether a specific
-customer VBIOS hit this.
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record:
+- Short write: `printf '\x01' > pp_table` (or any write with `count < 4`
+  that still makes `usStructureSize == count`). Then `smu_reset()`
+  parses the truncated table.
+- UAF: successful custom table, then a larger upload whose `kzalloc`
+  fails.
+- Unprivileged users cannot write; they can read after a failed root
+  grow. Not a remote unprivileged exploit; still a real local root/admin
+  and overclocking-tool path.
 
-**Stable rules:**
-1. Obviously correct and tested — **PASS** (reviewed, merged, logic is
-   local bounds checks)
-2. Real bug affecting users — **PASS** (hang/OOB on bad VBIOS; Polaris
-   custom BIOS is a real population)
-3. Important (crash/hang) — **PASS** (infinite loop in GPU init)
-4. Small and contained — **PASS** (22/6, one file)
-5. No new features/APIs — **PASS**
-6. Applies to this tree — **PASS** (clean on v6.18.53)
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: Heap OOB during SMU re-init if a short matching table is
+accepted → crash / KASAN OOB. ENOMEM grow path → UAF on later
+`get_pp_table` (memcpy from dangling `power_play_table`). Severity:
+**HIGH**.
 
-**Exception category:** not a device-ID/quirk/DT/build/doc exception. It
-is a firmware-parser safety fix.
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record: Benefit **high** (OOB + UAF on a sysfs node this tree already
+treated as overflow-sensitive). Risk **low** (~19 lines, one function,
+same pattern as legacy powerplay). Ratio favors backport.
 
-This meets stable rules for **this** 6.18.y tree: the buggy walk is
-here, the fix is surgical, and the failure mode is a hang or OOB during
-amdgpu powerplay init.
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
-### What it solves for stable users
+Step 9.1: COMPILE THE EVIDENCE
+FOR:
+- Real short-write bug: matching `usStructureSize` on a 1-byte upload
+  installs a 1-byte table; SMU re-init walks it as a full pptable (heap
+  OOB). Verified in `navi10_check_powerplay_table()` and
+  `smu_v13_0_0_check_powerplay_table()`.
+- Real UAF on realloc-fail, left by in-tree `1abb2648698bf1`.
+- Small, obviously correct, maintainer-signed, AMD-reviewed.
+- Buggy code is in v6.18.53; patch applies cleanly; no missing APIs.
+- Same class of pptable sysfs safety as prior stable commits in this
+  tree.
 
-On CI/Tonga/Iceland/Polaris, powerplay walks the VBIOS AC timing table
-with a stride taken from the image. A zero stride can spin forever; a
-bad size can read past the table. The patch rejects sub-dword strides
-and caps every dword access by the ATOM-reported VRAM_Info size, turning
-a probe hang/OOB into `-EINVAL`.
+AGAINST:
+- Write requires root (`S_IWUSR`).
+- No syzbot/user report.
+- Header check does not fully prove the table is large enough for every
+  ASIC struct (pre-existing).
+- Always-`kmemdup` is a minor extra allocation.
 
-### Risk vs benefit
+UNRESOLVED:
+- Stable mailing-list search (lore 403).
 
-Benefit is avoiding a hard-to-debug init hang and OOB on firmware that
-is already treated as untrusted input. Risk is a few bounds checks on an
-error path; valid VBIOS is unchanged. Residual unfixed copies elsewhere
-do not block this backport.
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — length check + allocate-
+   before-free; reviewed by Hawking Zhang, applied by Deucher.
+2. Fixes a real bug that affects users? **PASS** — short `pp_table`
+   write and realloc-fail UAF.
+3. Important issue? **PASS** — heap OOB / UAF (HIGH), not a style
+   cleanup.
+4. Small and contained? **PASS** — one function, +11/−8.
+5. No new features or APIs? **PASS**.
+6. Can apply to the local tree? **PASS** — v6.18.53 has the old hunk.
 
-### Concerns
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: Not a device-ID/quirk/DT/build/doc exception. Qualifies as a
+normal bugfix.
 
-No `Fixes:` lineage; leftover unbounded walks in
-`atomctrl_set_mc_reg_address_table` and `amdgpu_atombios.c`. Neither is
-a dependency of this patch. Apply to 6.18.53 is clean.
+Step 9.4: MAKE YOUR DECISION
+This belongs on 6.18.y. The tree has the unchecked header read (since
+2019) and the kfree-before-realloc UAF from a previous stable overflow
+fix. The change is small, matches an existing powerplay pattern, and
+prevents a truncated custom pptable from being fed into SMU re-init.
 
 Verification:
-- [Phase 1] Parsed tags: author Xiang Liu, R-b Hawking Zhang, SOB Alex
-  Deucher; no Fixes/Reported-by/Cc:stable
-- [Phase 2] Diff: +22/−6 in `ppatomctrl.c`; stride `< sizeof(u32)`
-  reject; `table_end` on loop, payload, END marker
-- [Phase 2] `END_OF_REG_DATA_BLOCK` is `0x00000000` in
-  `atombios.h:7486`; zero stride + nonzero nonmatching MEM_ID loops
-  forever
-- [Phase 3] `git blame` on v6.18.53: walk from `c82baa2818435`
-  (v4.5-rc1)
-- [Phase 3] `git merge-base --is-ancestor 2bf6867e5953 v6.18.53` → not
-  present in 6.18.53
-- [Phase 3] `12c6967428a09` / `820116a39f96b` do not implement this
-  guard; latter is already in 6.18.53
-- [Phase 4] `b4 dig -c 2bf6867e5953`: v1 only,
-  https://patch.msgid.link/20260623042601.562748-1-xiang.liu@amd.com
-- [Phase 4] `b4 dig -a`: single revision; `b4 dig -w`: amd-gfx + AMD
-  reviewers; mbox: Hawking Reviewed-by, no NAK
-- [Phase 4] WebFetch lore/stable: 403 — UNVERIFIED stable-list history
-- [Phase 5] Callers: tonga/iceland/ci + polaris10 smumgr →
-  `smum_initialize_mc_reg_table` from `smu7_hwmgr.c:1582` (return
-  ignored)
-- [Phase 5] Same pattern still in `amdgpu_atombios.c:1511` and
-  `radeon_atombios.c:4031`
-- [Phase 6] `make kernelversion` / `git describe`: 6.18.53; pre-image
-  matches; apply --check on v6.18.53 copy exit 0
-- [Phase 8] Failure: infinite loop or OOB at GPU DPM init; severity
-  hang/crash
-- UNVERIFIED: whether a specific shipping VBIOS has been observed with
-  stride 0
+- [Phase 1] Parsed tags: author Yang Wang, Reviewed-by Hawking Zhang,
+  SOB Alex Deucher; no Fixes/syzbot/Cc stable.
+- [Phase 2] Diff: `smu_sys_set_pp_table()` in `amdgpu_smu.c`, +11/−8;
+  header length check + `kmemdup` before `kfree`.
+- [Phase 2] `ATOM_COMMON_TABLE_HEADER` is 4 bytes in
+  `drivers/gpu/drm/amd/include/atombios.h` / radeon `atombios.h`.
+- [Phase 3] `git blame` at v6.18.53: header read from `289921b03fe5e2`
+  (v5.2); realloc from `1abb2648698bf1` (in v6.18.53).
+- [Phase 3] `git merge-base --is-ancestor 1abb2648698bf1 v6.18.53` →
+  YES.
+- [Phase 4] `b4 dig -c a17e79d01f22`: lore msgid
+  `20260623034151.263746-1-kevinyang.wang@amd.com`; v1 only; Hawking R-b
+  on the series.
+- [Phase 4] `b4 dig -w`: amd-gfx, Deucher, Hawking, Kenneth Feng.
+- [Phase 4] UNVERIFIED: lore.kernel.org/stable HTTP 403.
+- [Phase 5] Callers: only sysfs `amdgpu_set_pp_table` →
+  `amdgpu_dpm_set_pp_table` → SMU `set_pp_table`.
+- [Phase 5] `smu_reset()` → hw_init → `navi10_check_powerplay_table()`
+  dereferences full `smu_11_0_powerplay_table` with no size check.
+- [Phase 5] kernfs write path (`fs/kernfs/file.c`) `kmalloc(len+1)`: a
+  1-byte write is a 2-byte alloc, so the 2-byte `usStructureSize` peek
+  is in-bounds of that alloc; the serious OOB is after accepting size==1
+  and parsing the 1-byte table.
+- [Phase 6] `git describe HEAD`: v6.18.53-5049-g0f0bdc2b0dffb; `make
+  kernelversion` 6.18.53.
+- [Phase 6] `git show
+  v6.18.53:drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c`: old buggy
+  function present; new `size < sizeof(*header)` check absent.
+- [Phase 6] `git merge-base --is-ancestor a17e79d01f22 HEAD` → upstream
+  SHA not in this history (expected for a candidate).
+- [Phase 8] Failure mode: heap OOB on SMU re-init and UAF after failed
+  grow; severity HIGH.
+- UNVERIFIED: whether this hash was discussed on the stable list.
 
 **YES**
 
- .../drm/amd/pm/powerplay/hwmgr/ppatomctrl.c   | 28 +++++++++++++++----
- 1 file changed, 22 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index 1fff7567bca27..4b796d60b03d4 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -46,16 +46,22 @@ union voltage_object_info {
- static int atomctrl_retrieve_ac_timing(
- 		uint8_t index,
- 		ATOM_INIT_REG_BLOCK *reg_block,
-+		u8 *table_end,
- 		pp_atomctrl_mc_reg_table *table)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 8473eaac1e7fc..f9f981877ef30 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -636,25 +636,28 @@ static int smu_sys_set_pp_table(void *handle,
  {
- 	uint32_t i, j;
-+	u16 stride = le16_to_cpu(reg_block->usRegDataBlkSize);
- 	uint8_t tmem_id;
- 	ATOM_MEMORY_SETTING_DATA_BLOCK *reg_data = (ATOM_MEMORY_SETTING_DATA_BLOCK *)
- 		((uint8_t *)reg_block + (2 * sizeof(uint16_t)) + le16_to_cpu(reg_block->usRegIndexTblSize));
+ 	struct smu_context *smu = handle;
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+-	ATOM_COMMON_TABLE_HEADER *header = (ATOM_COMMON_TABLE_HEADER *)buf;
++	ATOM_COMMON_TABLE_HEADER *header;
++	void *hardcode_pptable;
+ 	int ret = 0;
  
- 	uint8_t num_ranges = 0;
+ 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+ 		return -EOPNOTSUPP;
  
--	while (*(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK &&
-+	if (stride < sizeof(uint32_t))
++	if (!buf || size < sizeof(*header))
 +		return -EINVAL;
 +
-+	while ((uint8_t *)reg_data + sizeof(uint32_t) <= table_end &&
-+	       *(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK &&
- 			num_ranges < VBIOS_MAX_AC_TIMING_ENTRIES) {
- 		tmem_id = (uint8_t)((*(uint32_t *)reg_data & MEM_ID_MASK) >> MEM_ID_SHIFT);
- 
-@@ -67,6 +73,10 @@ static int atomctrl_retrieve_ac_timing(
- 			for (i = 0, j = 1; i < table->last; i++) {
- 				if ((table->mc_reg_address[i].uc_pre_reg_data &
- 							LOW_NIBBLE_MASK) == DATA_FROM_TABLE) {
-+					if ((uint8_t *)reg_data +
-+					    (j + 1) * sizeof(uint32_t) > table_end)
-+						return -EINVAL;
-+
- 					table->mc_reg_table_entry[num_ranges].mc_data[i] =
- 						(uint32_t)*((uint32_t *)reg_data + j);
- 					j++;
-@@ -81,11 +91,13 @@ static int atomctrl_retrieve_ac_timing(
- 		}
- 
- 		reg_data = (ATOM_MEMORY_SETTING_DATA_BLOCK *)
--			((uint8_t *)reg_data + le16_to_cpu(reg_block->usRegDataBlkSize)) ;
-+			((uint8_t *)reg_data + stride);
++	header = (ATOM_COMMON_TABLE_HEADER *)buf;
+ 	if (header->usStructureSize != size) {
+ 		dev_err(smu->adev->dev, "pp table size not matched !\n");
+ 		return -EIO;
  	}
  
--	PP_ASSERT_WITH_CODE((*(uint32_t *)reg_data == END_OF_REG_DATA_BLOCK),
--			"Invalid VramInfo table.", return -1);
-+	if ((uint8_t *)reg_data + sizeof(uint32_t) > table_end ||
-+	    *(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK)
-+		return -EINVAL;
-+
- 	table->num_entries = num_ranges;
+-	if (!smu_table->hardcode_pptable || smu_table->power_play_table_size < size) {
+-		kfree(smu_table->hardcode_pptable);
+-		smu_table->hardcode_pptable = kzalloc(size, GFP_KERNEL);
+-		if (!smu_table->hardcode_pptable)
+-			return -ENOMEM;
+-	}
++	hardcode_pptable = kmemdup(buf, size, GFP_KERNEL);
++	if (!hardcode_pptable)
++		return -ENOMEM;
  
- 	return 0;
-@@ -136,6 +148,7 @@ int atomctrl_initialize_mc_reg_table(
- {
- 	ATOM_VRAM_INFO_HEADER_V2_1 *vram_info;
- 	ATOM_INIT_REG_BLOCK *reg_block;
-+	u8 *table_end;
- 	int result = 0;
- 	u8 frev, crev;
- 	u16 size;
-@@ -157,6 +170,7 @@ int atomctrl_initialize_mc_reg_table(
- 	}
+-	memcpy(smu_table->hardcode_pptable, buf, size);
++	kfree(smu_table->hardcode_pptable);
++	smu_table->hardcode_pptable = hardcode_pptable;
+ 	smu_table->power_play_table = smu_table->hardcode_pptable;
+ 	smu_table->power_play_table_size = size;
  
- 	if (0 == result) {
-+		table_end = (uint8_t *)vram_info + size;
- 		reg_block = (ATOM_INIT_REG_BLOCK *)
- 			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
- 		result = atomctrl_set_mc_reg_address_table(reg_block, table);
-@@ -164,7 +178,7 @@ int atomctrl_initialize_mc_reg_table(
- 
- 	if (0 == result) {
- 		result = atomctrl_retrieve_ac_timing(module_index,
--					reg_block, table);
-+					reg_block, table_end, table);
- 	}
- 
- 	return result;
-@@ -177,6 +191,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
- {
- 	ATOM_VRAM_INFO_HEADER_V2_2 *vram_info;
- 	ATOM_INIT_REG_BLOCK *reg_block;
-+	u8 *table_end;
- 	int result = 0;
- 	u8 frev, crev;
- 	u16 size;
-@@ -198,6 +213,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
- 	}
- 
- 	if (0 == result) {
-+		table_end = (uint8_t *)vram_info + size;
- 		reg_block = (ATOM_INIT_REG_BLOCK *)
- 			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
- 		result = atomctrl_set_mc_reg_address_table(reg_block, table);
-@@ -205,7 +221,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
- 
- 	if (0 == result) {
- 		result = atomctrl_retrieve_ac_timing(module_index,
--					reg_block, table);
-+					reg_block, table_end, table);
- 	}
- 
- 	return result;
 -- 
 2.53.0
 
