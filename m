@@ -4,41 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB083CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:02:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54E76CCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:03:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3F1A10EE05;
-	Mon, 19 Oct 2026 14:02:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B39010EE04;
+	Mon, 19 Oct 2026 14:02:54 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62BC510EDFC
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:02:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFFFE10EE04;
+ Mon, 19 Oct 2026 14:02:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4831F43CD3;
- Mon, 19 Oct 2026 14:02:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77D31F000C4;
- Mon, 19 Oct 2026 14:02:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B5677403F6;
+ Mon, 19 Oct 2026 14:02:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011911F000C5;
+ Mon, 19 Oct 2026 14:02:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418561;
- bh=Vkm5se3sleZ4W01YvoOsLxYeEyqn9p7dB6Bn8zv0Cgc=;
+ s=k20260515; t=1792418568;
+ bh=OC8GhUqh3bS6U7IO72fCtcHGRln1xRSC2VSLtJFjCHE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Yb+UmcD39/UrVj8yqe9pjGbNTxyQUMEOdVaPID8jPWu9JSqMR/UZ5j4cvKTZIPWUJ
- pdQuVYz9f8x4vKH9ifqh8qtuwcB0qWaAknY55XAqpcL5vUCe341byJjmWG63Mi7SkU
- JPeCiD4prJ1gY/8tcZFmSsyRYo+efD3ouEVkFa17gXt7C6j3gSgSrrwaGZ/RhYeu4R
- gCEsdc2hmkcJxt+UhFK25+2bC4gG6gaDf5gg2BLDUgcr2A+VHiEPVc3v8/4EMAHJT2
- YI4nIqxnffG/qyC1VyhMlpJhMA2L8BzMJ/MiRG2eBjyLoFNz2tsA8iC/9Rjrz0z7i9
- PFwpT8fzE5jRQ==
+ b=AmJXm+m/z4ghHUYoGy9demgxWvjQxyAbttpTTiicQFI746fvWCKvt1P6uduAHGkgK
+ /fiNnkX4Bb7fnGw32tU8om7FTbKDA40AAnIiEH1GijVqg05vHedUOuznTqxwWS4Kl0
+ IzRFA/+mJazLLMeutUxh+4kYIsIyXy7k+QjoqYOWhy9Vs+rMa7XO4NwrKzYUURizGy
+ nGdWFC8cjbFE50h2GWJPAnAEJdY5EkiMGU+Lu44UkN+Nn7/p6JTQvjEwgeCzPKI2sM
+ IBSggpxEnM1e3O4hbB8+1QFP5KFdFfQlVRNdjbA4tUBdvfH4T+NpVzQa6VUiEfPLA7
+ HV+icSvDXGm6w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Damon Ding <damon.ding@rock-chips.com>,
- Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/panel-edp: Add BOE NE160QDM-NY1 panel
-Date: Mon, 19 Oct 2026 09:50:26 -0400
-Message-ID: <20261019135441.1420968-335-sashal@kernel.org>
+Cc: Charlene Liu <Charlene.Liu@amd.com>, Dillon Varone <dillon.varone@amd.com>,
+ Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/amd/display: fix max
+ dispclk_khz/dppclk_khz double 1000
+Date: Mon, 19 Oct 2026 09:50:31 -0400
+Message-ID: <20261019135441.1420968-340-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,375 +66,432 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Damon Ding <damon.ding@rock-chips.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[ Upstream commit be4f10d44757211fd656fa57f37034657f26c883 ]
+[ Upstream commit f48124ff35357d05a98d9cd5cb7982e7e5509003 ]
 
-Add an entry for the BOE NE160QDM-NY1 eDP panel. The panel's AUX
-backlight functionality is verified and working on the RK3576 EVB1
-board.
+[why]
+Fix regresson caused by double roundup and index out of range
 
-edid-decode (hex):
-
-00 ff ff ff ff ff ff 00 09 e5 85 09 00 00 00 00
-1c 1e 01 04 b5 22 15 78 03 7c e5 a4 55 4c 9f 26
-0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 6b 6e 00 a0 a0 40 84 60 30 20
-36 00 58 d7 10 00 00 1a 00 00 00 fd 0c 3c a5 1f
-1f 4e 01 0a 20 20 20 20 20 20 00 00 00 fe 00 42
-4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fe
-00 4e 45 31 36 30 51 44 4d 2d 4e 59 31 0a 01 ed
-
-02 03 1d 00 e3 05 80 00 e6 06 05 01 6a 6a 24 6d
-1a 00 00 02 03 3c a5 00 04 6a 24 6a 24 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ff
-
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260625071916.744686-1-damon.ding@rock-chips.com
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Reviewed-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a one-line eDP panel ID for a driver that already exists in
-6.18.y. That matches the stable device-ID exception, and unknown panels
-already `WARN_ON` on probe.
+I have enough to judge this for 6.18.y: the DML21 clock-table bug is
+present here, the fix is four lines, and it applies to the local
+`dml21_wrapper.c` path.
 
-Local tree: **6.18.53** (`v6.18.53-5049-g0f0bdc2b0dffb`, Makefile
-`VERSION=6 PATCHLEVEL=18 SUBLEVEL=53`). Upstream commit `be4f10d44757`
-is **not** in `v6.18.53`; `panel-edp.c` and `delay_200_500_e50` are.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-- Record: `[drm/panel-edp] [Add] [BOE NE160QDM-NY1 panel table entry]`
+Record: `[drm/amd/display] [fix] correct max dispclk_khz/dppclk_khz
+(remove double *1000 and fix last-index)`
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-- Record: No `Fixes:` (expected). No `Reported-by` / `Tested-by` / `Cc:
-  stable`.
-- `Reviewed-by: Douglas Anderson <dianders@chromium.org>` (panel-edp
-  reviewer in MAINTAINERS)
-- `Signed-off-by: Damon Ding <damon.ding@rock-chips.com>` (author)
-- `Signed-off-by: Douglas Anderson <dianders@chromium.org>` (drm-misc
-  maintainer path)
-- `Link:
-  https://patch.msgid.link/20260625071916.744686-1-damon.ding@rock-
-  chips.com`
-- Ignored: `[Upstream commit be4f10d44757…]`, `Signed-off-by: Sasha
-  Levin` (candidate pipeline)
+Record:
+- `Reviewed-by: Dillon Varone <dillon.varone@amd.com>` (AMD DC)
+- `Reviewed-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>` (AMD
+  DC)
+- `Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>` (author)
+- `Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>` (AMD DC,
+  series submitter)
+- `Tested-by: Dan Wheeler <daniel.wheeler@amd.com>` (AMD QA)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+  maintainer)
+- No `Fixes:` tag (expected for this review)
+- No `Cc: stable` (expected)
+- No `Reported-by:` / syzbot / Link
+- Ignore pipeline `Signed-off-by: Sasha Levin` and `[Upstream commit
+  ...]`
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-- Record: [Bug] Generic `edp-panel` probe looks up EDID vendor/product
-  in `edp_panels[]`. BOE 0x0985 is missing, so this panel is treated as
-  unknown.
-- [Symptom] Kernel `WARN_ON` on probe plus conservative delays
-  (`unprepare=2000`, `enable=200`) instead of the panel’s 500/50 ms
-  sequence. AUX backlight was verified on RK3576 EVB1.
-- [Version] None stated.
-- [Root cause] Missing table entry; timings otherwise come from EDID.
+Record:
+- Bug: “regression caused by double roundup and index out of range.”
+- Symptom: wrong `max_supported_dispclk_khz` /
+  `max_supported_dppclk_khz` (0 from off-by-one into a zero pad, or
+  ~1000× too large from a second `* 1000`).
+- No stack trace, no public repro, no version list.
+- Root cause as stated: double unit conversion plus using
+  `num_clk_values` as an index instead of `num_clk_values - 1`.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-- Record: Not a disguised cleanup. It is a device-ID addition. The
-  unknown-panel path also fires a deliberate `WARN_ON`, so the ID stops
-  a real boot warning.
+Record: Not hidden. Subject and body both describe a correctness fix
+(units + indexing).
 
----
-
-## PHASE 2: DIFF ANALYSIS
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
 **Step 2.1: INVENTORY THE CHANGES**
-- Record: `drivers/gpu/drm/panel/panel-edp.c` +1 / −0. One function/data
-  object: `edp_panels[]`. Single-file surgical change.
+Record:
+- User/mainline path:
+  `drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c`
+- This tree: `drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c`
+  (DML21 not yet split into `dml2_0` + `_fpu`)
+- 4 lines changed, same function: `dml21_calculate_rq_and_dlg_params`
+- Scope: single-file surgical fix
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-- Record: Before: BOE IDs jump 0x0979 → 0x098d. After: 0x0985 maps to
-  `&delay_200_500_e50` named `"NE160QDM-NY1"`. Only the generic EDID
-  lookup path in `generic_edp_panel_probe()` is affected.
+Record:
+- Before, if `num_clk_values > 1`: read `clk_values_khz[num_clk_values]`
+  (one past last valid entry) and multiply by 1000.
+- Before, else: read `[0]` and multiply by 1000.
+- After: last valid entry `[num_clk_values - 1]`, no extra `* 1000`.
+- Same for dispclk and dppclk. Path is normal modeset validation on
+  DML21, not an error path.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-- Record: [Category] Hardware ID / quirk table. [Mechanism] Missing EDID
-  product ID; `find_edp_panel()` returns NULL → `WARN_ON` + conservative
-  delays. The new row uses an existing delay struct.
+Record:
+- Category: logic/correctness + off-by-one (g, plus memory-safety-class
+  indexing).
+- Table fill in `dcn401_soc_and_ip_translator.c` already does
+  `dispclk_mhz * 1000` into `clk_values_khz[]`. Unused slots are 0.
+  Valid indices are `0 .. num_clk_values-1`.
+- Mechanism: copy-paste of DML2.0’s `*_mhz * 1000` onto a table that is
+  already kHz, plus using count as an index.
+- Verified sibling: `dml2_utils.c` still converts from `dispclk_mhz *
+  1000` because that path stores MHz.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-- Record: Obviously correct: one `EDP_PANEL_ENTRY` in vendor/product
-  sort order. EDID bytes `09 e5 85 09` decode to BOE + 0x0985.
-  Regression risk is very low (only this ID). No API, lock, or lifetime
-  changes.
+Record:
+- Obviously correct vs the type name `clk_values_khz` and vs every other
+  DML21 use of `clk_values_khz[num_clk_values - 1]` (e.g.
+  `dml2_dpmm_dcn4.c`, `dml2_core_dcn4_calcs.c`).
+- Minimal; no API or struct change.
+- Regression risk: very low. Correcting max-clock metadata; does not
+  change DML’s `min_clocks` programming path.
 
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
 **Step 3.1: BLAME THE CHANGED LINES**
-- Record: Surrounding BOE rows date from 2021–2026. Table machinery:
-  `5f04e7ce392db` (2021-09-20, split from panel-simple) and
-  `5540cf8f3e8da` (generic EDID-probed panels). Both are ancestors of
-  `v6.18.53`.
+Record:
+- Introduced in `70839da6360500` (“drm/amd/display: Add new DCN401
+  sources”, Aurabindo Pillai, 2024-04-19).
+- `git merge-base --is-ancestor 70839da6360500 HEAD` → yes. Present
+  since DCN401 landed; in this 6.18.y tree from day one of DML21.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-- Record: No `Fixes:` tag. Not applicable. The “bug” is an absent ID,
-  not a later regression.
+Record: No `Fixes:` tag. Buggy commit is the DCN401/DML21 introduction
+above, which is in this tree.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-- Record: `v6.18.53` already has many `drm/panel-edp: Add …` ID patches
-  (72 log hits). Standalone; not `patch X/Y`.
+Record:
+- Recent file history is DML21 FPU guards, init refactor, mcache, etc.
+- Related later change on this branch: `5d22a3f28b5b9` (“add
+  DalForceMaxDisplayClock debug option to DML2”) copies
+  `max_supported_*` into `bw_dispclk_khz` / `bw_dppclk_khz` when
+  `forced_clocks` or `debug.max_disp_clk`. That is **not** in
+  `v6.18.53`.
+- This fix is standalone; it is not patch N/M of a required sequence in-
+  tree.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-- Record: Damon Ding has another panel-edp ID add (`LP079QX1-SP0V`).
-  Reviewer Douglas Anderson is listed under “DRM DRIVER FOR GENERIC EDP
-  PANELS”.
+Record: Charlene Liu is a regular AMD DC contributor. Series was signed
+off by Aurabindo Pillai and Alex Deucher. AMD QA `Tested-by` present.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-- Record: Needs `EDP_PANEL_ENTRY`, `delay_200_500_e50`, and
-  `edp_panels[]` — all present in `v6.18.53`. Applies standalone.
+Record: Submitted as `[PATCH 07/24]` in “DC Patches for 8 June 2026”.
+Neighbors are unrelated (PHY SSC, writeback, KUnit, dead code). Diff
+needs no new helpers. Can apply standalone to this tree’s
+`dml21_wrapper.c`.
 
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-- Record: `b4 dig -c be4f10d44757` →
-  https://patch.msgid.link/20260625071916.744686-1-damon.ding@rock-
-  chips.com
-- `b4 dig -a`: single **v1**, no later revisions.
-- Doug Anderson: `Reviewed-by` and pushed to drm-misc-next as
-  `be4f10d44757`. No NAKs, no stable discussion in-thread.
+Record:
+- `b4 dig -c f48124ff35357d05a98d9cd5cb7982e7e5509003`: lore search
+  failed (server error / 403).
+- Found on amd-gfx: https://www.mail-archive.com/amd-
+  gfx@lists.freedesktop.org/msg144416.html
+- Message-id: `20260604145428.809959-8-aurabindo.pillai@amd.com`
+- From Charlene Liu, submitted by Aurabindo Pillai, 2026-06-04, `[PATCH
+  07/24]`.
+- Body matches the committed patch. No v2/v3 of this hunk found.
+- No reviewer NAK in the archived message; R-b already on the patch
+  (internal AMD review before list).
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-- Record: `b4 dig -w` To/Cc: Douglas Anderson, Neil Armstrong, drm-misc
-  maintainers, `dri-devel`, `linux-kernel`. Right audience.
+Record: Dillon Varone, Dmytro Laktyushkin (AMD DC); maintainer SOB Alex
+Deucher. Appropriate reviewers.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-- Record: No syzbot/bugzilla. Author tested AUX backlight on RK3576
-  EVB1. Panelook lists this as a 16" eDP laptop panel (Lenovo FRUs);
-  that is third-party catalog data, not a kernel bug report.
+Record: No public bugzilla/syzbot. “Regression” is AMD-internal. QA
+`Tested-by: Dan Wheeler`.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-- Record: Standalone 1/1 series. No prerequisite panel patches.
+Record: 24-patch DC drop; this hunk is independent. Later
+DalForceMaxDisplayClock uses the fields this commit corrects; it is not
+a prerequisite for this fix.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-- Record: lore.kernel.org/stable returned HTTP 403. Unverified whether
-  stable@ already discussed this ID. Same class of adds is already in
-  6.18.y.
+Record: lore.kernel.org/stable search not usable here (403). No evidence
+this was rejected for stable.
 
----
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-- Record: Data only: `edp_panels[]`. Consumers: `find_edp_panel()`,
-  `generic_edp_panel_probe()`.
+**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
+Record: `dml21_calculate_rq_and_dlg_params` only.
 
 **Step 5.2: TRACE CALLERS**
-- Record: `find_edp_panel()` ← `generic_edp_panel_probe()` ←
-  `panel_edp_probe()` when DT compatible is `"edp-panel"`. Also
-  `panel_edp_platform_probe` / DP-AUX probe. Probe-time, not interrupt.
+Record:
+- Called from `dml21_validate()` after mode programming
+  (`dml21_wrapper.c` ~line 262).
+- `dml2_validate()` dispatches to `dml21_validate` when `architecture ==
+  dml2_architecture_21`.
+- `dml2_create()` selects DML21 when `debug.using_dml21 && dce_version
+  >= DCN_VERSION_4_01`.
+- DCN401 debug defaults: `.using_dml21 = true` in `dcn401_resource.c`.
+- DCN401 is `AMDGPU_FAMILY_GC_12_0_0` (RDNA4, e.g. Navi 48).
+- Call context: modeset / bandwidth validation, not IRQ.
 
 **Step 5.3: TRACE CALLEES**
-- Record: Lookup is a table walk (`drm_edid_match` / `panel_id`
-  compare). Match copies `delay_200_500_e50`. Miss calls
-  `panel_edp_set_conservative_timings()` after `WARN_ON`.
+Record: This hunk only indexes
+`soc_bb.clk_table.{dispclk,dppclk}.clk_values_khz`. Actual pipe clocks
+are set earlier in the same function via `dml21_program_dc_pipe` →
+`dml21_utils.c` (`dppclk_khz` from DML `min_clocks`), then
+`dml21_copy_clocks_to_dc_state` overwrites `dispclk_khz` from
+programming output. It does **not** overwrite `max_supported_*`.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-- Record: Userspace cannot call this directly. Any machine with
-  `compatible = "edp-panel"` and this EDID hits it at boot (Chromebooks,
-  Qualcomm laptops, Rockchip EVBs, etc.).
+Record: Userspace modeset on DCN401 reaches this on every validate-and-
+program. Buggy **fields** are written on that path. Verified DCN401
+consumers of `max_supported_*`:
+- `dcn401_update_clocks` / `dcn401_are_clock_states_equal`: do **not**
+  read them.
+- `dcn401_get_max_clock_khz`: uses SMU DPM table, not these fields.
+- `amdgpu_dm_trace.h` and `dcn10_hwseq.c` log them.
+- `dcn20_clk_mgr.c` does use them for `clock_cfg->max_clock_khz`, but
+  that clk_mgr is not DCN401.
+- In **this checkout**, after a later candidate, `forced_clocks` /
+  `debug.max_disp_clk` copy them into `bw_*clk_khz`. That later commit
+  is **not** in `v6.18.53`.
+
+So the default 6.18.y DCN401 clock request path does not program SMU
+from these two fields. They are still wrong on every modeset.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-- Record: Same one-line `EDP_PANEL_ENTRY` pattern used throughout the
-  table. No duplicate BOE 0x0985.
+Record: No remaining `clk_values_khz[num_clk_values]` (without `- 1`)
+under `dc/dml2`. Other DML21 code already uses `num_clk_values - 1`.
 
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-- Record: Yes. `v6.18.53` `panel-edp.c` has 0x0979 then 0x098d; 0x0985
-  is absent. `git merge-base --is-ancestor be4f10d44757 v6.18.53` is
-  false. `delay_200_500_e50` and the unknown-panel `WARN_ON` are
-  present.
+Record:
+- `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`
+- `make kernelversion` → `6.18.53`
+- `v6.18.53` `dml21_wrapper.c` still has `clk_values_khz[num_clk_values]
+  * 1000`.
+- `dml2_0/.../dml21_wrapper_fpu.c` does **not** exist here; equivalent
+  file is `dml2/dml21/dml21_wrapper.c`.
+- Bug introduced with DCN401 (2024); this series has it.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-- Record: Clean apply. Insertion point and neighbors match the upstream
-  diff. Expected difficulty: clean apply.
+Record: Expected apply: **clean** on this tree’s file (4-line context
+matches `v6.18.53`). Path rename vs mainline only.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-- Record: No other 0x0985 / NE160QDM-NY1 entry in `v6.18.53`. (HEAD on
-  `autosel` already has the candidate; that is pipeline state, not a
-  reason to skip the technical YES.)
+Record: No earlier fix of this indexing/unit bug in `v6.18.53`.
+DalForceMaxDisplayClock is a separate later change, not an alternate
+fix.
 
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-- Record: [drm/panel-edp] [IMPORTANT] — common generic eDP path for
-  ARM/laptop panels, not core mm/VFS. `DRM_PANEL_EDP` depends on `OF`.
+Record: `drivers/gpu/drm/amd/display` DML21 / DCN401. Criticality:
+**IMPORTANT** (shipping RDNA4 display), not core mm/net. Peripheral to
+machines without DCN401.
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-- Record: Active; 6.18.y already backports many panel IDs. Mature table
-  plus ongoing ID adds.
+Record: High churn (DC drops). Bug is old (initial DCN401), not last-
+week code.
 
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
 **Step 8.1: DETERMINE WHO IS AFFECTED**
-- Record: Driver/config-specific: `CONFIG_DRM_PANEL_EDP` + this BOE
-  panel + generic `edp-panel`. RK3576 EVB1 DTS is in 6.18.53 (main DTS
-  has HDMI, not eDP; matching is EDID-based so any `edp-panel` board
-  with this module benefits).
+Record: Driver-specific: AMD DCN 4.0.1 (GC 12.0.0) with DML21, which is
+the default. Not universal.
 
 **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-- Record: Every probe of this panel. Not a race. Unprivileged users do
-  not trigger it; boot/display init does. Common for that hardware.
+Record: Every DML21 validate-and-program (typical modeset). Not a race.
+Unprivileged DRM modeset can run the writer. Common: `num_clk_values` is
+> 1 (DPM table); then the off-by-one hits a 0 pad. Rare: single-level
+table takes the `* 1000` branch.
 
 **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-- Record: [WARN_ON + conservative 2s unprepare] [MEDIUM]. Display
-  usually still works; boot warning and slow power sequencing are the
-  user-visible issues. Without the ID, AUX backlight can still work
-  (author’s point is that it was tested once identified).
+Record:
+- Not a C-array OOB crash: `DML_MAX_CLK_TABLE_SIZE` is 20, fill is
+  `min(20, MAX_NUM_DPM_LVL=8)`, so index `num_clk_values` (≤8) stays in-
+  bounds. “Index out of range” is **logical** OOB of valid entries.
+- Wrong stored max: typically **0** (multi-level) or **1000×** (single-
+  level). `max_supported_*` are `int`; `value_khz * 1000` can overflow
+  signed 32-bit if kHz > ~2.147e6 (clocks ≳ 2147 MHz).
+- Default DCN401 programming does not consume these fields for SMU
+  (verified). User-visible black screen / wrong clocks on stock 6.18.y
+  is **not verified**.
+- Author still called it a **regression**; AMD QA tested the fix.
+- Severity for stock 6.18.y runtime: **MEDIUM** (wrong clock caps in DC
+  state / traces; debug force-max path would mis-program). Class of bug
+  (bad max clocks / logical OOB) is what stable takes for GPU display.
 
 **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-- Record: [Benefit: high for those panels — stops WARN_ON, correct
-  delays] [Risk: very low, +1 table line] [Ratio: strongly favors
-  backport]
+Record:
+- Benefit: correct max disp/dpp clocks on DCN401 DML21; unblocks any
+  path that reads them (including later force-max debug); matches
+  DML21’s kHz units.
+- Risk: very low (4 lines, local assignment).
+- Ratio: high benefit/risk for a contained DC correctness fix.
 
----
-
-## PHASE 9: FINAL SYNTHESIS
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Stable rule: “fix a real bug **or just add a device ID**”
-  (`Documentation/process/stable-kernel-rules.rst`).
-- Explicit exception: new IDs in an existing driver.
-- One line; uses existing `delay_200_500_e50`.
-- Stops `WARN_ON(!panel->detected_panel)` in
-  `generic_edp_panel_probe()`.
-- Reviewed and merged by the panel-edp reviewer.
-- Driver and helpers exist in this 6.18.y tree; apply is clean.
-- Same class of commits is already routine in this series.
+- Real unit + off-by-one bug in code that runs on every DCN401 modeset.
+- Tiny, obviously correct; AMD DC review + QA `Tested-by`.
+- Buggy code is in this 6.18.y tree; applies cleanly.
+- No new API; no series dependency.
+- Shipping RDNA4 hardware.
 
 AGAINST:
-- Not a crash/UAF/CVE.
-- Affects only this panel.
-- No `Cc: stable` (not a negative under these rules).
+- Stock DCN401 clk_mgr does not program SMU from these two fields
+  (verified).
+- No public crash/syzbot; sparse “[why]” text.
+- Logical OOB, not a KASAN-class overflow of the 20-entry array.
 
 UNRESOLVED:
-- lore.kernel.org/stable search was 403.
-- Upstream RK3576 EVB1 DTS does not describe the eDP panel; hardware
-  enablement still depends on DT/`edp-panel` on the board.
+- Exact AMD-internal regression symptom (black screen vs wrong debug
+  clocks) not in the public thread.
+- lore.kernel.org/stable not readable here (403).
 
 **Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — v1 accepted; tested on
-   RK3576 EVB1; maintainer R-b.
-2. Fixes a real bug that affects users? **PASS** — missing ID is the
-   documented device-ID case; also avoids WARN_ON.
-3. Important issue? **PASS** as device-ID exception (WARN_ON is MEDIUM,
-   not panic).
-4. Small and contained? **PASS** — +1 line, one file.
-5. No new features or APIs? **PASS** — ID only, existing driver.
-6. Can apply to the local tree? **PASS** — context identical in
-   `v6.18.53`.
+1. Obviously correct and tested? **PASS** — units + last index; R-b +
+   Tested-by.
+2. Fixes a real bug that affects users? **PASS** — wrong max clocks on
+   DCN401 DML21; hardware is in this kernel.
+3. Important issue? **PASS** — display clock-limit correctness / logical
+   OOB; not a proven panic, but a real modeset-path clock bug on
+   shipping GPUs, which stable routinely takes for amdgpu DC.
+4. Small and contained? **PASS** — 4 lines, one function.
+5. No new features or APIs? **PASS**.
+6. Can apply to the local tree? **PASS** — same hunk in
+   `dml2/dml21/dml21_wrapper.c`.
 
 **Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-- Record: **Device ID addition to existing driver** (`EDP_PANEL_ENTRY` =
-  EDID vendor/product ID).
+Record: None (not an ID/quirk/DT/build/doc exception). Ordinary bugfix.
 
-**Step 9.4: DECISION**
-Backport. This is the standard panel-edp ID add: hardware support plus
-removal of a probe `WARN_ON`, with negligible risk on 6.18.y.
+**Step 9.4: MAKE YOUR DECISION**
+Backport. The tree has the bug, the fix is surgical and correct, and
+DML21 is the default path for DCN401. Limited SMU use of these fields
+lowers severity but does not make the fix inappropriate for 6.18.y.
 
----
+===============================================================
+Detailed explanation
+===============================================================
 
-### What problem it solves for stable users
+This commit repairs `dml21_calculate_rq_and_dlg_params` so
+`max_supported_dispclk_khz` and `max_supported_dppclk_khz` take the last
+DPM table entry already stored in kHz. The old code indexed one past the
+last valid slot (usually a 0 pad) and multiplied by 1000 again even
+though `dcn401_soc_and_ip_translator.c` already converted MHz→kHz.
 
-Boards using generic `edp-panel` with a BOE NE160QDM-NY1 (EDID BOE
-0x0985) currently miss the table, hit `WARN_ON` every boot, and use
-2000/200 ms conservative delays instead of 500/50 ms. Adding the ID
-matches how this driver is meant to be extended.
+On this tree that matters: DCN401 defaults `using_dml21 = true`, so
+RDNA4 modesets hit DML21. The patch is four assignment lines, reviewed
+and tested at AMD, and matches existing `num_clk_values - 1` use
+elsewhere in DML21.
 
-### Risk vs benefit
+It meets the stable rules: obviously correct, real bug, small, no new
+API, applies to local `dml21_wrapper.c`. Risk is negligible. Benefit is
+correct max-clock state for DCN401 and any consumer of those fields
+(trace, later force-max debug). The main caveat is that `dcn401_clk_mgr`
+does not currently feed these fields to SMU on the default path, so this
+is not a verified oops; it is still a real clock-table bug on hardware
+this kernel supports.
 
-Benefit: correct sequencing and no warning on that panel. Risk: one
-sorted table row, no behavior change for other IDs.
-
-### Concerns
-
-None for this tree. No extra commits required. Ignore pipeline markers
-(`[Upstream commit]`, Sasha SOB, presence on `autosel`).
-
----
-
-Verification:
-- [Phase 1] Parsed subject/tags: Add panel ID; R-b dianders; Link msgid
-  20260625071916.744686-1; no Fixes/syzbot
-- [Phase 1] Body: AUX backlight tested on RK3576 EVB1; full EDID dump
-- [Phase 2] Diff: +1
-  `EDP_PANEL_ENTRY('B','O','E',0x0985,&delay_200_500_e50,"NE160QDM-
-  NY1")` in `edp_panels[]`
-- [Phase 2] EDID `09 e5 85 09` → BOE + product 0x0985 (verified against
-  commit hex)
-- [Phase 2] `generic_edp_panel_probe()`:
-  `WARN_ON(!panel->detected_panel)` then
-  `panel_edp_set_conservative_timings()` (unprepare 2000, enable 200)
-- [Phase 3] `git describe HEAD` / `make kernelversion`: 6.18.53
-- [Phase 3] `git merge-base --is-ancestor be4f10d44757 v6.18.53`: **no**
-  (not in the release)
-- [Phase 3] `git grep NE160QDM-NY1 v6.18.53 -- panel-edp.c`: missing
-- [Phase 3] `delay_200_500_e50` at `v6.18.53:panel-edp.c:1746`;
-  neighbors 0x0979 then 0x098d — clean insert
-- [Phase 3] Driver added `5f04e7ce392db` (2021); generic table
-  `5540cf8f3e8da`; both in 6.18.53
-- [Phase 3] `git log v6.18.53 --grep='drm/panel-edp: Add'`: 72 similar
-  ID commits already in this series
-- [Phase 4] `b4 dig -c be4f10d44757`: v1 only; lore msgid as in Link
-- [Phase 4] `b4 dig -a`: no v2+
-- [Phase 4] `b4 dig -w`: dianders, dri-devel, drm-misc maintainers
-- [Phase 4] Anderson reply: Reviewed-by + pushed drm-misc-next
-  `be4f10d44757`; no NAK
-- [Phase 4] lore.kernel.org/stable: **UNVERIFIED** (HTTP 403)
-- [Phase 5] Callers: `panel_edp_probe` → `generic_edp_panel_probe` if
-  `compatible = "edp-panel"`
-- [Phase 5] No duplicate 0x0985 in `panel-edp.c`
-- [Phase 6] `rk3576-evb1-v10.dts` exists in v6.18.53; no eDP panel node
-  in that DTS (EDID match still applies wherever `edp-panel` is used)
-- [Phase 7] MAINTAINERS: “DRM DRIVER FOR GENERIC EDP PANELS”, R: Douglas
-  Anderson
-- [Phase 8] Failure: WARN_ON + slow unprepare; not oops; device-ID
-  exception still applies
-- UNVERIFIED: stable@ archive discussion; how many shipping laptops use
-  this exact module
+===============================================================
+Verification
+===============================================================
+- [Phase 1] Subject/tags: fix + AMD R-b/Tested-by/SOB; no Fixes/syzbot.
+  Pipeline SOB/Upstream ignored.
+- [Phase 2] Diff: 4 lines in `dml21_calculate_rq_and_dlg_params`; drop
+  `* 1000`, index `num_clk_values - 1`.
+- [Phase 2] Table fill: `dcn401_soc_and_ip_translator.c` `dispclk_mhz *
+  1000` into `clk_values_khz`; unused = 0.
+- [Phase 2] Array: `DML_MAX_CLK_TABLE_SIZE` 20; `MAX_NUM_DPM_LVL` 8 — C
+  OOB not hit; logical OOB is real.
+- [Phase 3] Blame parent: `70839da6360500` DCN401 sources; ancestor of
+  HEAD.
+- [Phase 3] `v6.18.53` file still has `* 1000` and `num_clk_values`
+  without `- 1`.
+- [Phase 3] No Fixes tag; no other in-tree fix of this bug at v6.18.53.
+- [Phase 4] `b4 dig` failed (lore error). Thread: mail-archive amd-gfx
+  `[PATCH 07/24]`, 2026-06-04, standalone in a 24-patch DC drop.
+- [Phase 5] Callers: `dml21_validate` ← `dml2_validate` when arch 21;
+  `using_dml21` true on DCN401; GC 12.0.0.
+- [Phase 5] `dcn401_update_clocks` / `are_clock_states_equal` do not
+  read `max_supported_*`.
+- [Phase 5] `dml21_copy_clocks_to_dc_state` does not overwrite
+  `max_supported_*`.
+- [Phase 6] Tree is 6.18.53; file exists as
+  `dml2/dml21/dml21_wrapper.c`, not `dml2_0/..._fpu.c`.
+- [Phase 6] Apply difficulty: clean on this path.
+- [Phase 8] Failure mode: wrong max clocks (0 or 1000× / possible int
+  overflow); default SMU programming impact not verified.
+- UNVERIFIED: exact user-visible regression AMD saw; stable-list
+  discussion (lore 403).
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 792923b1d7878..f2ae333a32d8c 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1975,6 +1975,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0964, &delay_200_500_e50, "NV133WUM-N61"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x096e, &delay_200_500_e50_po2e200, "NV116WHM-T07 V8.0"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0979, &delay_200_500_e50, "NV116WHM-N49 V8.0"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0985, &delay_200_500_e50, "NE160QDM-NY1"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x098d, &boe_nv110wtm_n61.delay, "NV110WTM-N61"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0993, &delay_200_500_e80, "NV116WHM-T14 V8.0"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x09ad, &delay_200_500_e80, "NV116WHM-N47"),
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
+index 08f7f03b10231..0167d936feaf5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
+@@ -152,16 +152,16 @@ static void dml21_calculate_rq_and_dlg_params(const struct dc *dc, struct dc_sta
+ 	context->bw_ctx.bw.dcn.clk.bw_dispclk_khz = context->bw_ctx.bw.dcn.clk.dispclk_khz;
+ 	if (in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.num_clk_values > 1) {
+ 		context->bw_ctx.bw.dcn.clk.max_supported_dispclk_khz =
+-			in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.num_clk_values] * 1000;
++			in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.num_clk_values - 1];
+ 	} else {
+-		context->bw_ctx.bw.dcn.clk.max_supported_dispclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[0] * 1000;
++		context->bw_ctx.bw.dcn.clk.max_supported_dispclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[0];
+ 	}
+ 
+ 	if (in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.num_clk_values > 1) {
+ 		context->bw_ctx.bw.dcn.clk.max_supported_dppclk_khz =
+-			in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.num_clk_values] * 1000;
++			in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.num_clk_values - 1];
+ 	} else {
+-		context->bw_ctx.bw.dcn.clk.max_supported_dppclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[0] * 1000;
++		context->bw_ctx.bw.dcn.clk.max_supported_dppclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[0];
+ 	}
+ 
+ 	/* get global mall allocation */
 -- 
 2.53.0
 
