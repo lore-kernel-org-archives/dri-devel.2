@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F179E607BF35
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 15:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752D5606DA74
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 15:33:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q49t1DnA
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVDV+q6K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30BF710EE40;
-	Mon, 19 Oct 2026 15:31:08 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84D9B10EE40
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B37DB10EA4F;
+	Mon, 19 Oct 2026 15:33:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1241410ED79
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:33:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3EDD1447EA
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:31:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F3E1F0180C;
- Mon, 19 Oct 2026 15:31:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3418A60DD2
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:33:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E351F031CF;
+ Mon, 19 Oct 2026 15:33:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792423861;
- bh=HRbMdPJln7BkkzvAOaZzDxEAXh+CfYVq7SUvxKkhgH4=;
+ s=k20260515; t=1792423982;
+ bh=IqhzRSHkmOdXqmT+YpksD6QKQK4dECrOWN3hlFWRoV4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Q49t1DnAvsxjT3jA1DAK1dCuz62OAfy66UMbC2oGzjYTwrHTqusQ+8HxvXz3bWsA1
- BM4I9cRqmU15GODWyL0m9oPF7w9JtNcNuK13pmndmikGkYOmf1diisfghzOXS14HJk
- yoT0/p+nbPBh5zrhSg+J4bVRsGPaRTZ86ikgklV9GoEKJpCu9ofqaf+3xi/au048e9
- PGS1d7w/+DE8+G7duKW7XM5yZrwTzjZW0iuMb673T3LfDJOdsks/JtZ9egJpo4TlMc
- 87p49ZRqvain/XHpzVR98KxFweB7jQJ6b879oa8irHVJzHH5GG/jM+PRTR+7Z7zPaD
- VbwDSE1AqvgVA==
-Message-ID: <sashiko-outbox-177744@kernel.org>
+ b=AVDV+q6KzEOwj//RJ/C3ChnVqWFIimqtqfbqWlQ1qU8eNhLpGhtZ4iJKI9RIwJ4xf
+ EQgvFMCjLbmt6cn8qHk7YXgAFs4dXRkJLIAfJE0Mxi/440YIBwB3fjIjIMDFJA/S8z
+ YubyazgT2faGtd17nI4zh4nxzawjypQ4CwbrjyKLLb9ba40yinvgL9cODTzFg+Txf1
+ 8RGsD7fGI72FOMgCDNy7RXPzp7VN7ZI+9YZL3llPCCUswgJhkAUl4tAZmd5jCcllVW
+ BSnrDAbNo9VaSF3To1Ke2znv+1ygilJD40P2q5+rRavlF1AnNiQBulxoenSvcEFTEl
+ EsmUwHXrLlgwA==
+Message-ID: <sashiko-outbox-177753@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: Validate pp_table header
- before reading size
+Subject: Re: [PATCH AUTOSEL 6.18-5.10] drm/radeon: avoid double free in r600
+ DPM cleanup
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019135441.1420968-449-sashal@kernel.org>
+In-Reply-To: <20261019135441.1420968-499-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
- <20261019135441.1420968-449-sashal@kernel.org>
+ <20261019135441.1420968-499-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 15:31:00 +0000
+Date: Mon, 19 Oct 2026 15:33:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,201 +60,131 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/amd/pm: incomplete pptable size validation in smu_sys_set_pp_t=
-able()
-- [High] drm/amd/pm: slab out-of-bounds read in smu_sys_get_pp_table() afte=
-r short upload
-- [High] drm/amd/pm: use-after-free in amdgpu_get_pp_table() on concurrent =
-write
+- [High] drm/radeon: NULL deref from unreset count in r600_free_extended_po=
+wer_table()
 --
 
-commit a5e9db819c7d60216c2e0063bdbfde9a7dd36030
-Author: Yang Wang <kevinyang.wang@amd.com>
+commit 562fae6c1a6edce2a058cd93a6a7a25a9b89c369
+Author: Ruoyu Wang <ruoyuw560@gmail.com>
 
-drm/amd/pm: Validate pp_table header before reading size
+drm/radeon: avoid double free in r600 DPM cleanup
 
-This commit adds a header size check in smu_sys_set_pp_table() before
-dereferencing ATOM_COMMON_TABLE_HEADER, and replaces the conditional buffer
-reallocation with kmemdup().
+This commit replaces manual kfree() calls on early error paths in
+r600_parse_extended_power_table() with r600_free_extended_power_table() and
+clears the freed table pointers to NULL so repeated cleanup does not
+double-free them.
 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index 244b8c364d45f..329a669a60ddc 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -636,25 +636,28 @@ static int smu_sys_set_pp_table(void *handle,
->  {
->  	struct smu_context *smu =3D handle;
->  	struct smu_table_context *smu_table =3D &smu->smu_table;
-> -	ATOM_COMMON_TABLE_HEADER *header =3D (ATOM_COMMON_TABLE_HEADER *)buf;
-> +	ATOM_COMMON_TABLE_HEADER *header;
-> +	void *hardcode_pptable;
->  	int ret =3D 0;
-> =20
->  	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
->  		return -EOPNOTSUPP;
-> =20
-> +	if (!buf || size < sizeof(*header))
-> +		return -EINVAL;
-> +
-> +	header =3D (ATOM_COMMON_TABLE_HEADER *)buf;
->  	if (header->usStructureSize !=3D size) {
->  		dev_err(smu->adev->dev, "pp table size not matched !\n");
->  		return -EIO;
->  	}
-
-[Severity: High]
-Is checking size < sizeof(*header) sufficient to prevent out-of-bounds reads
-when parsing the uploaded powerplay table?
-
-Since header points directly to the user-supplied buf, header->usStructureS=
-ize
-is also controlled by the writer. If a 4-byte buffer with
-header->usStructureSize =3D=3D 4 is written to pp_table, smu_sys_set_pp_tab=
-le()
-allocates a 4-byte buffer via kmemdup(), installs it into
-smu_table->power_play_table, and calls smu_reset().
-
-During smu_reset() -> smu_hw_init() -> smu_smc_hw_setup() ->
-smu_setup_pptable(), smu_v11_0_setup_pptable() in
-drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c preserves the existing
-smu_table.power_play_table pointer without verifying its size:
-
-	if (!smu->smu_table.power_play_table)
-		smu->smu_table.power_play_table =3D table;
-	if (!smu->smu_table.power_play_table_size)
-		smu->smu_table.power_play_table_size =3D size;
-
-Subsequent ASIC callbacks such as navi10_store_powerplay_table() and
-navi10_check_powerplay_table() in
-drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c then cast
-table_context->power_play_table to struct smu_11_0_powerplay_table * and re=
-ad
-past the 4-byte allocation:
-
-	memcpy(table_context->driver_pptable, &powerplay_table->smc_pptable,
-	       sizeof(PPTable_t));
-
-and:
-
-	table_context->thermal_controller_type =3D
-		powerplay_table->thermal_controller_type;
-	...
-	smu->od_settings =3D &powerplay_table->overdrive_table;
-
-Previously, if smu_table->hardcode_pptable was already allocated at the full
-table size, a short write would not shrink the buffer because reallocation
-only occurred when smu_table->power_play_table_size < size. With unconditio=
-nal
-kmemdup(), a 4-byte write shrinks smu_table->hardcode_pptable to 4 bytes.
-
-> =20
-> -	if (!smu_table->hardcode_pptable || smu_table->power_play_table_size < =
-size) {
-> -		kfree(smu_table->hardcode_pptable);
-> -		smu_table->hardcode_pptable =3D kzalloc(size, GFP_KERNEL);
-> -		if (!smu_table->hardcode_pptable)
-> -			return -ENOMEM;
-> -	}
-> +	hardcode_pptable =3D kmemdup(buf, size, GFP_KERNEL);
-> +	if (!hardcode_pptable)
-> +		return -ENOMEM;
-> =20
-> -	memcpy(smu_table->hardcode_pptable, buf, size);
-> +	kfree(smu_table->hardcode_pptable);
-> +	smu_table->hardcode_pptable =3D hardcode_pptable;
->  	smu_table->power_play_table =3D smu_table->hardcode_pptable;
->  	smu_table->power_play_table_size =3D size;
-
-[Severity: High]
-Can shrinking smu_table->hardcode_pptable via unconditional kmemdup() also
-cause a slab out-of-bounds read in amdgpu_get_pp_table() on SMU 13.0.0,
-13.0.7, and 14.0.2?
-
-When a 4-byte buffer with header->usStructureSize =3D=3D 4 is written,
-smu_table->hardcode_pptable is allocated as 4 bytes and smu_reset() is call=
-ed.
-During smu_reset(), smu_v13_0_0_setup_pptable() in
-drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c runs:
-
-	ret =3D smu_v13_0_0_get_pptable_from_pmfw(smu,
-						&smu_table->power_play_table,
-						&smu_table->power_play_table_size);
-
-which resets smu_table->power_play_table_size to
-sizeof(struct smu_13_0_0_powerplay_table) while smu_table->hardcode_pptable
-remains a 4-byte allocation.
-
-When /sys/class/drm/cardX/device/pp_table is later read via
-amdgpu_get_pp_table() -> amdgpu_dpm_get_pp_table() -> smu_sys_get_pp_table(=
-),
-smu_sys_get_pp_table() in drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c returns
-the 4-byte hardcode_pptable buffer paired with the full power_play_table_si=
-ze:
-
-	if (smu_table->hardcode_pptable)
-		*table =3D smu_table->hardcode_pptable;
-	else
-		*table =3D smu_table->power_play_table;
-
-	return smu_table->power_play_table_size;
-
-amdgpu_get_pp_table() in drivers/gpu/drm/amd/pm/amdgpu_pm.c then copies size
-bytes out of the 4-byte slab buffer into the sysfs read buffer:
-
-	size =3D amdgpu_dpm_get_pp_table(adev, &table);
-
-	amdgpu_pm_put_access(adev);
-
-	if (size <=3D 0)
-		return size;
-
-	if (size >=3D PAGE_SIZE)
-		size =3D PAGE_SIZE - 1;
-
-	memcpy(buf, table, size);
-
-[Severity: High]
-Furthermore, does unconditionally freeing smu_table->hardcode_pptable on ev=
-ery
-write reintroduce a use-after-free when racing with concurrent readers in
-amdgpu_get_pp_table()?
-
-In drivers/gpu/drm/amd/pm/amdgpu_dpm.c, amdgpu_dpm_get_pp_table() drops
-adev->pm.mutex before returning the raw table pointer to
-amdgpu_get_pp_table():
-
-	mutex_lock(&adev->pm.mutex);
-	ret =3D pp_funcs->get_pp_table(adev->powerplay.pp_handle,
-				     table);
-	mutex_unlock(&adev->pm.mutex);
-
-amdgpu_get_pp_table() in drivers/gpu/drm/amd/pm/amdgpu_pm.c then reads from
-table outside adev->pm.mutex:
-
-	memcpy(buf, table, size);
-
-Previously, smu_sys_set_pp_table() reused smu_table->hardcode_pptable in pl=
-ace
-whenever smu_table->power_play_table_size >=3D size. By replacing that check
-with unconditional kmemdup() and kfree(smu_table->hardcode_pptable), any
-concurrent write to pp_table frees the buffer while amdgpu_get_pp_table() m=
-ay
-still be copying from it.
-
-> =20
->  	/*
+> diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r=
+600_dpm.c
+> index 81d58ef667dd4..2bc0bdfd11590 100644
+> --- a/drivers/gpu/drm/radeon/r600_dpm.c
+> +++ b/drivers/gpu/drm/radeon/r600_dpm.c
 
 [ ... ]
 
-=E5=AE=8C=E7=BE=8E =E2=80=94 Wait, I accidentally wrote Chinese characters =
-at the very end! Let me check!
-Wait: I just output `=E5=AE=8C=E7=BE=8E =E2=80=94 Wait...` in the response!
-Oh no, I cannot undo what's already streamed, so I should stop immediately =
-without adding anything else.
+> @@ -1298,17 +1295,29 @@ void r600_free_extended_power_table(struct radeon=
+_device *rdev)
+>  	struct radeon_dpm_dynamic_state *dyn_state =3D &rdev->pm.dpm.dyn_state;
+> =20
+>  	kfree(dyn_state->vddc_dependency_on_sclk.entries);
+> +	dyn_state->vddc_dependency_on_sclk.entries =3D NULL;
+>  	kfree(dyn_state->vddci_dependency_on_mclk.entries);
+> +	dyn_state->vddci_dependency_on_mclk.entries =3D NULL;
+>  	kfree(dyn_state->vddc_dependency_on_mclk.entries);
+> +	dyn_state->vddc_dependency_on_mclk.entries =3D NULL;
+>  	kfree(dyn_state->mvdd_dependency_on_mclk.entries);
+> +	dyn_state->mvdd_dependency_on_mclk.entries =3D NULL;
+>  	kfree(dyn_state->cac_leakage_table.entries);
+> +	dyn_state->cac_leakage_table.entries =3D NULL;
+>  	kfree(dyn_state->phase_shedding_limits_table.entries);
+> +	dyn_state->phase_shedding_limits_table.entries =3D NULL;
+>  	kfree(dyn_state->ppm_table);
+> +	dyn_state->ppm_table =3D NULL;
+>  	kfree(dyn_state->cac_tdp_table);
+> +	dyn_state->cac_tdp_table =3D NULL;
+>  	kfree(dyn_state->vce_clock_voltage_dependency_table.entries);
+> +	dyn_state->vce_clock_voltage_dependency_table.entries =3D NULL;
+>  	kfree(dyn_state->uvd_clock_voltage_dependency_table.entries);
+> +	dyn_state->uvd_clock_voltage_dependency_table.entries =3D NULL;
+>  	kfree(dyn_state->samu_clock_voltage_dependency_table.entries);
+> +	dyn_state->samu_clock_voltage_dependency_table.entries =3D NULL;
+>  	kfree(dyn_state->acp_clock_voltage_dependency_table.entries);
+> +	dyn_state->acp_clock_voltage_dependency_table.entries =3D NULL;
+>  }
+
+[Severity: High]
+Should r600_free_extended_power_table() also reset the corresponding
+table->count fields to 0 when clearing the entries pointers to NULL?
+
+When r600_parse_extended_power_table() parses an early table (for example v=
+ia
+r600_parse_clk_voltage_dep_table()), it allocates table->entries and sets
+table->count:
+
+drivers/gpu/drm/radeon/r600_dpm.c:r600_parse_clk_voltage_dep_table() {
+	...
+	radeon_table->count =3D atom_table->ucNumEntries;
+
+	return 0;
+}
+
+If a subsequent allocation in r600_parse_extended_power_table() or in the
+caller's *_dpm_init() path fails, r600_free_extended_power_table() now sets
+each table's entries pointer to NULL while leaving its count field non-zero.
+
+Because radeon_pm_init_dpm() ignores the return value of radeon_dpm_init()
+and continues into radeon_dpm_setup_asic() and radeon_dpm_enable():
+
+drivers/gpu/drm/radeon/radeon_pm.c:radeon_pm_init_dpm() {
+	...
+	mutex_lock(&rdev->pm.mutex);
+	radeon_dpm_init(rdev);
+	rdev->pm.dpm.current_ps =3D rdev->pm.dpm.requested_ps =3D rdev->pm.dpm.boo=
+t_ps;
+	if (radeon_dpm =3D=3D 1)
+		radeon_dpm_print_power_states(rdev);
+	radeon_dpm_setup_asic(rdev);
+	ret =3D radeon_dpm_enable(rdev);
+	...
+}
+
+downstream DPM routines such as kv_init_graphics_levels() and
+btc_apply_voltage_dependency_rules() check only whether table->count is
+non-zero before indexing table->entries[i]:
+
+drivers/gpu/drm/radeon/kv_dpm.c:kv_init_graphics_levels() {
+	...
+	if (table && table->count) {
+		u32 vid_2bit;
+
+		pi->graphics_dpm_level_count =3D 0;
+		for (i =3D 0; i < table->count; i++) {
+			if (pi->high_voltage_t &&
+			    (pi->high_voltage_t <
+			     kv_convert_8bit_index_to_voltage(rdev, table->entries[i].v)))
+				break;
+	...
+}
+
+drivers/gpu/drm/radeon/btc_dpm.c:btc_apply_voltage_dependency_rules() {
+	...
+	if ((table =3D=3D NULL) || (table->count =3D=3D 0))
+		return;
+
+	for (i =3D 0; i < table->count; i++) {
+		if (clock <=3D table->entries[i].clk) {
+	...
+}
+
+Can this cause a NULL pointer dereference on table->entries when DPM setup =
+or
+enable runs after a partial parse failure?
+
+ Resetting the paired count fields to 0 alongside clearing entries in
+r600_free_extended_power_table() would keep the table state consistent.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019135441.1420=
-968-449-sashal@kernel.org?part=3D1
+968-499-sashal@kernel.org?part=3D1
