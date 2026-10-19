@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30D93CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:56:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF57CCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8074D10EDA6;
-	Mon, 19 Oct 2026 13:56:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16A8410EDA5;
+	Mon, 19 Oct 2026 13:56:17 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 066CD10ED94;
- Mon, 19 Oct 2026 13:56:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E150910EDA2;
+ Mon, 19 Oct 2026 13:56:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 161C76020A;
- Mon, 19 Oct 2026 13:56:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB6651F000C5;
- Mon, 19 Oct 2026 13:56:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5738D6020A;
+ Mon, 19 Oct 2026 13:56:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F051F1F000C8;
+ Mon, 19 Oct 2026 13:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418161;
- bh=VXIqA+vWM+D/a4jO+k80ffaFziKi9uGiLkkJ5W3CfWQ=;
+ s=k20260515; t=1792418168;
+ bh=jHdCrDtDzd0B4HxFNPxlVm2gyHM/CHn/y1BW3PpG5ro=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Rf/SFJOnQzhr7Z92zQubZNQOnEnLUA7g3+eBm5PVlTAQSKKvX7ScbjYPvN/cw2V2e
- 8x3LXbc2pH2phJck3v5Y4fy9fMVm1Y3Pqu8fw4MD5+rCMROU7Qgbkk261esWZ5IpDE
- 6H+SOaTgGKK8drPvsixDJRuLfttTQLohVsdVExIVPzbwhWTtxx+6hKJQh6D6BnHl/T
- Gy0uZKqCdLKy/obLnus+OAnzwC+dtLXaLlERmlmAlrxR+fNE9ojvlFQ22DPWf/iJl7
- KXXfDAlQtjJk05kHz955Am+zWt5I/5QTlhODoMrcgkiXcfbOAYgCqY/C4n0ypRxYpW
- HkHRnVsrfIahg==
+ b=W7ssvKoYLRR6He4eMNJBwK+ClcdJ/LoxMDhsDprLP4M/5b0P89hKwWTQ1kla9GNpy
+ Auf2DeP+DLj+3/pINjHFnuT0J7eTOwwGjYI1iTqT8t202KU9V1Bw8PjsffsCzMkJ4T
+ tgkN9b7J9VER5o49ryGcuWutfIBg6hEX+0AFJ3m6a8UcB5CeIEOj52w2IsC8byGZ0m
+ fvChwamCBXw3SsFBlIhAQ++Gqf/kinbclUGR4SAkyJKHOKJLOwojExPahMWVFXHAFv
+ czVUSppKJMJwc7V1z5JFQQ5I6RyVr5q3l0+aRyj87N2mASDcV0OsakOeP1OedUfMF+
+ ZJRTxfYNj1qIg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
@@ -34,10 +34,10 @@ Cc: Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
  Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
  airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/amdgpu: Validate ATIF buffer length
- before use
-Date: Mon, 19 Oct 2026 09:45:46 -0400
-Message-ID: <20261019135441.1420968-55-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/amdgpu: Add checks to vbios fetch
+ through ATRM
+Date: Mon, 19 Oct 2026 09:45:51 -0400
+Message-ID: <20261019135441.1420968-60-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -64,507 +64,393 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit b978b7d43963bbb3e2d850288f7c21ac11c3b751 ]
+[ Upstream commit 8c3fcfc14fc1320a1155acb2dd7656fce7003bc0 ]
 
-Add a min_size parameter to amdgpu_atif_call() to validate that the
-returned ACPI buffer is of type ACPI_TYPE_BUFFER, holds at least a u16
-size field, does not claim more data than was actually returned, and
-meets the minimum size required by the calling function. Each caller
-passes its required minimum via sizeof() or offsetof() of the expected
-output struct and drops its own size check.
+Check if a valid buffer object is returned after ATRM call. Also, match
+the buffer length against requested size before copying.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Assisted-by: Claude Sonnet (Cursor AI)
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a firmware-buffer bounds check in `amdgpu_atif_call()`. On this
-6.18.53 tree the buggy path is still present, the patch is small, and it
-closes a real out-of-bounds read.
+This 6.18.53 tree still copies an untrusted ATRM ACPI buffer with no
+type or length check, which is a real heap overflow / NULL-deref during
+dGPU probe. The patch is a small, self-contained memory-safety fix and
+belongs in this tree.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[drm/amdgpu] [Validate] Validate ATIF buffer length before use`
+Step 1.1: PARSE THE SUBJECT LINE
+Record: [drm/amdgpu] [Add] [checks on ATRM ACPI return before copying
+VBIOS data]
+Subsystem prefix `drm/amdgpu`. Verb is “Add checks,” which here means
+adding missing validation, not a feature.
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- `Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>` (author)
-- `Assisted-by: Claude Sonnet (Cursor AI)`
-- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+- Signed-off-by: Lijo Lazar \<lijo.lazar@amd.com\> (author)
+- Reviewed-by: Alex Deucher \<alexander.deucher@amd.com\> (amdgpu
   maintainer)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>`
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable`, or syzbot
-  tags (absence expected)
-- Upstream SHA from the candidate wrapper:
-  `b978b7d43963bbb3e2d850288f7c21ac11c3b751` (ignored as a selection
-  marker; used only to find the original discussion)
+- Signed-off-by: Alex Deucher \<alexander.deucher@amd.com\>
+- No Fixes:, Reported-by, Tested-by, Link:, or Cc: stable (absence
+  expected)
+- Ignore pipeline-added “Upstream commit …” and “Signed-off-by: Sasha
+  Levin”
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+Notable: maintainer Reviewed-by + SOB. No fuzzer or user crash report.
+
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- Bug: ACPI ATIF responses are used without checking that the returned
-  buffer actually contains the `u16` size field, that the BIOS-reported
-  size does not exceed the ACPI object length, or that the payload meets
-  the caller’s minimum.
-- Symptom/failure mode: out-of-bounds read (and possible oops) when
-  firmware returns a short or lying buffer, then callers `memcpy()`
-  using the claimed size.
-- Version info: none in the message. The pattern dates to `d38ceaf99ed0`
-  (“drm/amdgpu: add core driver (v4)”, 2015).
-- Root cause: callers trusted `*(u16 *)info->buffer.pointer` and copied
-  that many bytes without comparing it to `obj->buffer.length`.
+- Bug: ATRM ACPI evaluation result used without checking it is a buffer,
+  and without capping copy size to the requested length.
+- Symptom: NULL deref if `buffer.pointer` is NULL; type-confused access
+  if the object is not `ACPI_TYPE_BUFFER`; `memcpy` of firmware-
+  controlled `obj->buffer.length` into a 4 KiB slot of a 256 KiB
+  kmalloc, i.e. heap overflow especially on the last 4 KiB page.
+- Version info: none in the message. Code dates to amdgpu core (v4.2).
+- Root cause (author): ATRM can return a non-buffer or oversized buffer;
+  copy must be validated first.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: This is an explicit memory-safety fix, not cleanup. Centralizing
-existing per-caller `size < N` checks is incidental; the new `actual >=
-sizeof(u16)` and `actual >= claimed` tests are the real fix.
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Yes. “Add checks” is defensive language for a memory-safety bug:
+missing type check + unbounded memcpy from ACPI firmware data. Same
+pattern as this author’s ATIF/ATPX buffer validation commits.
 
-## PHASE 2: DIFF ANALYSIS
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1: INVENTORY THE CHANGES**
+Step 2.1: INVENTORY THE CHANGES
 Record:
-- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c` (+34/−34)
-- Functions: `amdgpu_atif_call`, `amdgpu_atif_verify_interface`,
-  `amdgpu_atif_get_notification_params`,
-  `amdgpu_atif_query_backlight_caps`, `amdgpu_atif_get_sbios_requests`
-- Scope: single-file surgical fix
+- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c` (+8 / -2)
+- Function: `amdgpu_atrm_call()`
+- Scope: single-function surgical fix
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record (v6.18.53 before → after):
-- `amdgpu_atif_call()`: after confirming `ACPI_TYPE_BUFFER`, return the
-  object. After: reject length `< sizeof(u16)`, claimed size `> actual`
-  length, or claimed size `< min_size`.
-- Callers: pass `sizeof()` / `offsetof()` as `min_size` and drop their
-  own `size < 12/10/10/0xd` checks. `memcpy` still uses
-  `min(sizeof(struct), claimed_size)`, now only after those checks.
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+Before: after `acpi_evaluate_object` success, `obj = buffer.pointer`
+then `memcpy(bios+offset, obj->buffer.pointer, obj->buffer.length)` and
+`return obj->buffer.length`.
+After: reject NULL or non-buffer objects (`kfree` + `-EINVAL`); `len =
+min_t(size_t, obj->buffer.length, len)`; copy that many bytes; return
+the capped length.
+Path: dGPU VBIOS fetch via ATRM during probe (`amdgpu_atrm_get_bios` →
+`amdgpu_get_bios_dgpu` → `amdgpu_get_bios`).
 
-Verified struct sizes in `drivers/gpu/drm/amd/include/amd_acpi.h`
-(`__packed`):
-- `sizeof(atif_verify_interface)` = 12 (replaces `size < 12`)
-- `offsetof(atif_system_params, command_code)` = 10 (replaces `size <
-  10`; the `size < 11` command_code path remains)
-- `offsetof(atif_qbtc_output, data_points)` = 10 (replaces `size < 10`)
-- `sizeof(atif_sbios_requests)` = 13 = `0xd` (replaces `size < 0xd`)
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record:
+- Category: memory safety (NULL deref + out-of-bounds write) on an
+  ACPI/firmware path.
+- Mechanism: `union acpi_object` is type-tagged. Using `.buffer.length`
+  / `.buffer.pointer` when type is INTEGER/PACKAGE/etc. reads the wrong
+  union members. Even with a real buffer, firmware can return length \>
+  requested 4096. Destination is `adev->bios` (`kmalloc(256*1024)`),
+  `offset = i * 4096`. Last page (`i == 63`) overflow writes past the
+  allocation.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: `[Memory safety / OOB] [Firmware-controlled size used as memcpy
-length]`
+Step 2.4: ASSESS THE FIX QUALITY
+Record:
+- Obviously correct: type check is the standard ACPI pattern (ATIF
+  already does `obj->type != ACPI_TYPE_BUFFER`; nouveau `acpi_read_bios`
+  already does `min(length, obj->buffer.length)`).
+- Minimal; no unrelated churn; no API change.
+- Regression risk low: well-behaved ATRM still copies ≤ requested size.
+  Oversize/wrong-type now fails this chunk; caller already treats `ret <
+  ATRM_BIOS_PAGE` as end-of-data and then `check_atom_bios()`. `-EINVAL`
+  is `< 4096`, so the loop stops and BIOS validation fails instead of
+  overflowing.
+- Remaining gap (not a reason to reject): no check that
+  `obj->buffer.pointer` is non-NULL when type is BUFFER; ACPI normally
+  provides one. ACPI_FAILURE path still does not `kfree` (pre-existing).
 
-v6.18.53 callers still do:
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
+Step 3.1: BLAME THE CHANGED LINES
+Record: Unchecked `memcpy` comes from `d38ceaf99ed015` (“drm/amdgpu: add
+core driver (v4)”, 2015-04-20), first in v4.2-rc1. Present for the
+entire life of amdgpu, including this 6.18 tree.
+
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. Introducer is the original amdgpu core commit,
+which is in this tree.
+
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record: Recent `amdgpu_bios.c` work is VBIOS source selection (ROM BAR,
+VFCT, shadow ROM), not ATRM copy logic. ATRM skip for removable devices
+is `432e664e7c98c`. This patch is standalone, not “X/Y”. Sibling
+hardening (not prerequisites): `c8373721c3e54` ATIF buffer validation,
+`9d367fab451d9` ATPX buffer validation (same author, May 2026). No
+follow-ups on this file after the candidate.
+
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Lijo Lazar is a regular AMD amdgpu contributor. Same-era ACPI
+object validation: ATIF and ATPX. Maintainer Alex Deucher reviewed.
+
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: None. Uses existing `acpi_evaluate_object`, `ACPI_TYPE_BUFFER`,
+`min_t`, `memcpy`. `git diff v6.18.53 <candidate> -- amdgpu_bios.c` is
+exactly this hunk. Applies standalone.
+
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- `b4 dig -c 8c3fcfc14fc1320a1155acb2dd7656fce7003bc0` →
+  https://patch.msgid.link/20260615053911.59876-1-lijo.lazar@amd.com
+- `b4 dig -a`: v1 only, 2026-06-15, no later revisions.
+- Thread: patch from Lijo Lazar; Alex Deucher Reviewed-by. No NAK, no
+  stable nomination, no risk flags.
+- lore.kernel.org WebFetch returned 403; thread recovered via `b4 dig
+  -m`.
+
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (`b4 dig -w`): To/Cc Lijo Lazar, amd-gfx@lists.freedesktop.org,
+Hawking Zhang, Alexander Deucher, Asad Kamal, Candice Li. Subsystem
+maintainer reviewed.
+
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No Reported-by / Link. No public crash report found. Bug is from
+code inspection of untrusted ACPI length.
+
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Standalone v1. Related ATIF/ATPX validation patches are
+independent files (`amdgpu_acpi.c`, `amdgpu_atpx_handler.c`). radeon
+`radeon_atrm_call()` still has the old memcpy (separate driver; not
+required for this backport).
+
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: lore.kernel.org/stable WebFetch 403. `b4 dig` showed only amd-
+gfx. No evidence this was rejected for stable. Absence of prior stable
+discussion is not a negative.
+
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: `amdgpu_atrm_call()` only.
+
+Step 5.2: TRACE CALLERS
+Record:
+- `amdgpu_atrm_call` ← `amdgpu_atrm_get_bios` (CONFIG_ACPI)
+- `amdgpu_atrm_get_bios` ← `amdgpu_get_bios_dgpu`
+- `amdgpu_get_bios_dgpu` ← `amdgpu_get_bios` (non-APU)
+- `amdgpu_get_bios` ← `amdgpu_device.c` during COMMON IP `early_init` /
+  device init
+Context: process context, driver probe, hybrid/PX dGPU laptops. Not IRQ.
+Userspace cannot call it directly; it runs when amdgpu binds.
+
+Step 5.3: TRACE CALLEES
+Record: `acpi_evaluate_object`, `acpi_format_exception`, `memcpy`,
+`kfree`, `min_t`, `DRM_ERROR`. ACPI allocates with
+`ACPI_ALLOCATE_BUFFER`.
+
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Reachable on boot/module load for discrete AMD GPUs on PX
+platforms with an ATRM ACPI method (on-platform only; removable devices
+skipped). Failure of ATRM can make `amdgpu_get_bios()` fail and probe
+return `-EINVAL` unless VBIOS is optional. Heap overflow is reachable
+whenever ATRM returns a too-large buffer.
+
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Same unfixed pattern in `drivers/gpu/drm/radeon/radeon_bios.c`.
+Nouveau already caps length. ATIF/ATPX in amdgpu already validate
+type/length. Systematic ACPI-buffer issue; this commit fixes amdgpu ATRM
+only.
+
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: Yes. Local tree is 6.18.53 (`git describe HEAD` →
+`v6.18.53-5049-g0f0bdc2b0dffb`, `VERSION=6 PATCHLEVEL=18 SUBLEVEL=53`).
+`v6.18.53:drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c` still has:
 ```
-size = *(u16 *)info->buffer.pointer;
-size = min(sizeof(output), size);
-memcpy(&output, info->buffer.pointer, size);
+memcpy(bios+offset, obj->buffer.pointer, obj->buffer.length);
 ```
+Bug since v4.2 (`d38ceaf99ed015`).
 
-If `obj->buffer.length` is 0 or 1, the `u16` load is already OOB. If
-claimed size is 12 and actual length is 4, `memcpy` copies 12 bytes from
-a 4-byte ACPI payload (heap OOB read). `c9b7c809b89f2` only checked
-object type, not length; that hole is still in this tree.
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Clean apply. Diff vs v6.18.53 is only this hunk. Surrounding
+`amdgpu_atrm_call` matches the patch context.
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct. Rejecting `claimed > actual` can disable ATIF
-on a BIOS that lies about size but still returned enough bytes; that is
-malformed firmware, and the fallback is “ATIF unused” rather than a
-crash. Error codes change from `-EINVAL` to `-EIO` on undersized
-buffers; callers only test `if (ret)` / disable the feature. Low
-regression risk.
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: No other ATRM copy-size fix in this tree. ATIF/ATPX validation
+does not cover ATRM.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
-**Step 3.1: BLAME THE CHANGED LINES**
-Record: Size-then-memcpy logic is from `d38ceaf99ed0` (Alex Deucher,
-2015, “drm/amdgpu: add core driver (v4)”). Type check added by
-`c9b7c809b89f2` (2024). NULL-on-`AE_NOT_FOUND` fixed by `91c9e221fe255`
-(2024). Length vs claimed size was never checked.
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: [drm/amdgpu VBIOS/ACPI] [IMPORTANT] — not mm/core, but a widely
+used GPU driver; probe-time heap overflow can oops or corrupt kernel
+memory.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. The bug is in original ATIF parsing, present
-since 2015. Both `d38ceaf99ed0` and `c9b7c809b89f2` are ancestors of
-`v6.18.53`.
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: amdgpu is actively developed; this ATRM helper has been
+unchanged since 2015 aside from log-string tweaks. Long-lived bug, not a
+new-code issue.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: Driver-specific: discrete AMD GPUs on hybrid/PX systems with
+ATRM (typical laptop mux). CONFIG_ACPI. Not APUs (`amdgpu_get_bios_apu`
+does not call ATRM). Still a real, common laptop class.
+
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Device probe when ATRM is present. Unprivileged users do not
+invoke it directly; broken/malicious ACPI (buggy laptop firmware, or
+attacker-controlled tables in some virt setups) can trigger overflow.
+Well-behaved 4 KiB ATRM responses are unaffected.
+
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: Kernel heap out-of-bounds write and/or NULL deref oops during
+GPU init. Severity HIGH (crash; potential memory corruption). Not a
+guaranteed panic on every AMD system.
+
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
 Record:
-- `c9b7c809b89f2` “Guard against bad data for ATIF ACPI method” — real
-  oops in `amdgpu_atif_query_backlight_caps`; later tagged
-  CVE-2024-50117; already in this tree.
-- `91c9e221fe255` — NULL deref if ATIF missing; already in this tree.
-- Sibling `9d367fab451d9` “Validate ATPX buffer length before use” is
-  patch 2/2 on a different file; not a prerequisite.
-- No later commits on this file after the candidate that rework the same
-  logic.
+- Benefit: HIGH for ATRM systems — prevents overflow/oops; zero behavior
+  change for correct firmware.
+- Risk: VERY LOW — 8 lines, error-path + bounds cap, maintainer-
+  reviewed.
+- Ratio: strongly favors backport.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Lijo Lazar is a regular AMD amdgpu contributor (ATPX/ATRM/XCP
-bounds checks in the same wave). Maintainer Acked-by/SOB from Alex
-Deucher.
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Standalone. `amdgpu_atif_call` is static with four local
-callers, all updated. No new helpers. ATPX 2/2 is independent.
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c b978b7d43963...` failed (lore.kernel.org returned errors).
-- Original submission: `[PATCH 1/2] drm/amdgpu: Validate ATIF buffer
-  length before use`, 14 Jun 2026, https://www.mail-archive.com/amd-
-  gfx@lists.freedesktop.org/msg145004.html
-- Series: 1/2 ATIF, 2/2 ATPX. No v2 found.
-- No NAKs found. Merged via Alex Deucher’s `drm-next-7.3` pull; Dave
-  Airlie acked the pull.
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: Posted to amd-gfx. Acked/signed by Alex Deucher. Recipients from
-`b4 dig -w` could not be retrieved (lore 403).
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: This commit has no new user report. The related 2024 ATIF bad-
-data oops (`c9b7c809b89f2`) was hit on at least one system and became
-CVE-2024-50117. That earlier fix did not validate lengths.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 1/2 of ATIF+ATPX ACPI buffer validation. ATRM buffer checks in
-the same author batch. ATIF is self-contained.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search returned 403. No verified stable-
-list discussion. Prior ATIF guard *was* taken into stable
-(CVE-2024-50117).
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `amdgpu_atif_call` plus the four callers listed above. No
-semcode tools available.
-
-**Step 5.2: TRACE CALLERS**
-Record:
-- `amdgpu_atif_verify_interface` ← `amdgpu_atif_pci_probe_handle` ←
-  `amdgpu_acpi_detect` ← `amdgpu_drv.c` (driver load)
-- `amdgpu_atif_get_notification_params` /
-  `amdgpu_atif_query_backlight_caps` ← `amdgpu_acpi_detect`
-- `amdgpu_atif_get_sbios_requests` ← `amdgpu_atif_handler` ← ACPI
-  notifier (`amdgpu_acpi_event`) on brightness/hotplug-style events
-
-**Step 5.3: TRACE CALLEES**
-Record: `acpi_evaluate_object`, then `memcpy` of firmware bytes into
-stack structs.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Reached on every amdgpu load when the GPU’s ACPI node has ATIF
-(common on AMD laptops/APUs). SBIOS request path runs on ACPI video
-notifies. Unprivileged userspace cannot call ATIF directly; a guest/VM
-with a crafted ACPI table can. Firmware bugs have already crashed this
-path.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Same claimed-size-then-memcpy pattern remains in
-`amdgpu_atcs_call` callers in this file and in `radeon_acpi.c`. This
-patch does not touch those; not a reason to reject the ATIF fix.
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Local tree is **6.18.53** (`v6.18.53-5049-g0f0bdc2b0dffb`,
-branch `autosel`). `git merge-base --is-ancestor c8373721c3e54 v6.18.53`
-is false. `v6.18.53:drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c` still has
-the unvalidated `*(u16 *)` / `memcpy` sequence. Bug introduced in 2015
-(`d38ceaf99ed0`).
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: `git diff v6.18.53 c8373721c3e54 --
-drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c` is exactly this commit
-(+34/−34). Mainline `noinline_for_stack` is not in 6.18; the candidate
-as it exists here already matches 6.18. Clean apply.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: Type/NULL guards (`c9b7c809b89f2`, `91c9e221fe255`) are in
-6.18.53. Length validation is not. No alternate fix.
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `[drm/amdgpu ACPI/ATIF] [IMPORTANT]` — not core mm/net, but a
-widely used GPU driver on AMD laptops.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively developed; this ATIF parsing has been stable since 2015
-aside from the 2024 type/NULL guards.
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: AMD GPU systems whose ACPI provides ATIF (typical AMD
-laptop/APU). Config: `CONFIG_DRM_AMDGPU`.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Driver probe always; ACPI notifies for SBIOS requests. Needs a
-short or lying ATIF buffer. Unprivileged userspace cannot trigger it on
-bare metal; firmware/VM ACPI can. Prior ATIF bad-data crashes were seen
-in the wild.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: `[OOB read → possible oops / info leak] [HIGH]` Same class as
-CVE-2024-50117, remaining hole.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record: Benefit high (closes firmware OOB on a common driver). Risk low
-(~30-line single-file change, fail-closed). Ratio favors backport.
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
+Step 9.1: COMPILE THE EVIDENCE
 FOR:
-- Real OOB: claimed ATIF size used as `memcpy` length without comparing
-  to ACPI buffer length.
-- Same subsystem already produced a stable/CVE oops from unvalidated
-  ATIF data (`c9b7c809b89f2` / CVE-2024-50117); that patch did not check
-  lengths.
-- Buggy code is in this 6.18.53 tree since 2015.
-- Small, contained, no new API; maintainer Acked-by.
-- Applies cleanly here.
-- Failure is crash/OOB, not a feature change.
+- Unbounded `memcpy` from ACPI-controlled length into a fixed kmalloc
+  (heap OOB).
+- Missing type check → type-confused union access / NULL deref.
+- Present in this 6.18.y tree since amdgpu introduction (v4.2).
+- Small, obviously correct, applies cleanly.
+- Maintainer Reviewed-by.
+- Same class as ATIF/ATPX ACPI buffer validation.
 
 AGAINST:
-- No dedicated report for *this* length mismatch (hardening of a known-
-  bad path).
-- Undersized-buffer errno changes `-EINVAL` → `-EIO` (callers treat both
-  as failure).
-- Sibling ATPX patch is separate and not required.
+- No user/syzbot report; described as “add checks.”
+- Only hybrid/PX ATRM path, not all amdgpu users.
+- radeon sibling left unfixed (out of scope).
 
 UNRESOLVED:
-- `b4 dig` / lore.kernel.org returned errors; discussion recovered from
-  mail-archive.
-- No stable@ thread found (lore 403).
+- Could not fetch lore/stable HTML (403); mbox via b4 was sufficient.
+- No public reproducer; overflow depends on ATRM returning a bad object
+  (verified in code, not in a crash log).
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — checks match existing
-   minima; maintainer merged.
-2. Fixes a real bug that affects users? **PASS** — OOB on malformed
-   ATIF; ATIF bad data already crashed systems.
-3. Important issue? **PASS** — HIGH: OOB read / oops from firmware data.
-4. Small and contained? **PASS** — one file, +34/−34.
-5. No new features or APIs? **PASS** — static helper only.
-6. Can apply to the local tree? **PASS** — identical to `v6.18.53` file
-   plus this diff.
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? PASS — type check + min length;
+   maintainer review; caller already handles short reads.
+2. Fixes a real bug that affects users? PASS — firmware-supplied length
+   used as memcpy size on a real probe path.
+3. Important issue? PASS — heap overflow / oops, HIGH.
+4. Small and contained? PASS — one function, +8/-2.
+5. No new features or APIs? PASS.
+6. Can apply to the local tree? PASS — identical context on v6.18.53.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not a device-ID/quirk/DT/docs exception. Ordinary memory-safety
-bug fix.
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: None (not a device ID/quirk/DT/build/doc exception). Qualifies
+as a normal memory-safety bug fix.
 
-**Step 9.4: MAKE YOUR DECISION**
-Backport. It closes a leftover ATIF buffer-length hole on this 6.18 tree
-with a small, fail-closed change.
+Step 9.4: MAKE YOUR DECISION
+YES. This tree still has the unchecked ATRM copy. The patch is a
+contained, high-value memory-safety fix with negligible regression risk.
 
-### What the commit solves for stable users
-On 6.18, `amdgpu_atif_call()` only rejects non-buffer ACPI objects.
-Callers then trust a BIOS `u16` size and `memcpy` that many bytes. A
-short or inflated ATIF payload over-reads kernel heap and can oops — the
-same ATIF path that already oopsed in 2024. This patch requires actual
-length ≥ 2, actual ≥ claimed, and claimed ≥ caller minimum before any
-copy.
+===============================================================
+What the commit solves for this tree
+===============================================================
 
-### Risk vs benefit
-Benefit is preventing oops/OOB on AMD systems with ATIF. Risk is
-disabling ATIF on lying firmware instead of crashing. That is the right
-stable tradeoff.
+`amdgpu_atrm_call()` fetches VBIOS in 4 KiB ATRM pages into a 256 KiB
+buffer. Before this change it memcpy’d `obj->buffer.length` with no
+check that ACPI returned a buffer or that length ≤ 4096. Bad firmware
+(wrong type or oversized buffer) can NULL-deref or smash the heap during
+amdgpu probe on PX laptops. The fix rejects invalid objects and caps the
+copy. That matches stable rules: real bug, important, small, no new API,
+clean apply to 6.18.53.
 
-### Concerns
-ATPX 2/2 is not required. ATCS/radeon still have the old pattern; out of
-scope. No extra 6.18 prerequisites.
+Risk vs benefit: benefit is preventing overflow/oops; risk is a tighter
+copy that only changes broken ATRM responses. No prerequisites.
 
-Verification:
-- [Phase 1] Tags: author SOB, Claude Assisted-by, Alex Deucher Acked-
-  by/SOB; no Fixes/Reported-by/syzbot
-- [Phase 2] Diff: +34/−34 in `amdgpu_acpi.c`; length checks in
-  `amdgpu_atif_call`; callers pass sizeof/offsetof
-- [Phase 2] Struct sizes: 12, offsetof 10, offsetof 10, 13 match old
-  magic constants
-- [Phase 3] blame: size/memcpy from `d38ceaf99ed0` (2015); type check
-  `c9b7c809b89f2` (in 6.18.53)
-- [Phase 3] `git merge-base --is-ancestor d38ceaf99ed0 v6.18.53` true;
-  `c9b7c809b89f2` true; this commit false
-- [Phase 3] ATPX sibling `9d367fab451d9` is a different file; not a
-  dependency
-- [Phase 4] `b4 dig` failed (lore error). Thread: mail-archive
-  msg145004, series 1/2. Pulled in drm-next-7.3
-- [Phase 4] lore/stable 403; UNVERIFIED whether stable@ discussed this
-  SHA
-- [Phase 5] Callers: probe via `amdgpu_acpi_detect`, ACPI notify via
-  `amdgpu_atif_handler`
-- [Phase 6] `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`;
-  Makefile 6.18.53
-- [Phase 6] `git diff v6.18.53 <commit> -- amdgpu_acpi.c` equals this
-  patch (clean apply)
-- [Phase 8] Failure mode: heap OOB read / oops; severity HIGH
-- UNVERIFIED: exact To/Cc list (`b4 dig -w` unavailable)
+===============================================================
+Verification
+===============================================================
+- [Phase 1] Parsed tags: author Lijo Lazar; Reviewed-by/SOB Alex
+  Deucher; no Fixes/Reported-by/Cc:stable.
+- [Phase 2] Diff: `amdgpu_atrm_call()` +8/-2; type check + `min_t`
+  before memcpy.
+- [Phase 2] Pre-fix at `e0d5ff3ff014b^` and at `v6.18.53`: raw memcpy of
+  `obj->buffer.length`.
+- [Phase 2] `union acpi_object` in `include/acpi/actypes.h`: INTEGER vs
+  BUFFER overlay confirms type confusion.
+- [Phase 2] Caller loop: `ATRM_BIOS_PAGE` 4096, `size` 256*1024; last
+  chunk overflow is past kmalloc.
+- [Phase 3] `git blame` on parent: `d38ceaf99ed015` (2015), `git
+  describe --contains` → v4.2-rc1.
+- [Phase 3] No Fixes: tag; introducer is in this tree.
+- [Phase 3] ATIF/ATPX validation commits are sibling files, not
+  prerequisites.
+- [Phase 3] `git log e0d5ff3ff014b..HEAD -- amdgpu_bios.c`: no follow-
+  ups.
+- [Phase 4] `b4 dig -c 8c3fcfc14fc1…`: lore msgid
+  20260615053911.59876-1-lijo.lazar@amd.com.
+- [Phase 4] `b4 dig -a`: v1 only.
+- [Phase 4] `b4 dig -w`: amd-gfx + Deucher/Zhang/Kamal/Li.
+- [Phase 4] mbox: Deucher Reviewed-by; no NAK.
+- [Phase 4] WebFetch lore/stable: 403; treated as UNVERIFIED for HTML,
+  covered by b4 mbox.
+- [Phase 5] Callers: `amdgpu_atrm_get_bios` → `amdgpu_get_bios_dgpu` →
+  `amdgpu_get_bios` → `amdgpu_device.c` probe.
+- [Phase 5] radeon still unfixed; nouveau already mins length.
+- [Phase 6] `git describe HEAD`: v6.18.53-5049-g0f0bdc2b0dffb; `make
+  kernelversion` 6.18.53.
+- [Phase 6] `git diff v6.18.53 <candidate> -- amdgpu_bios.c`: this hunk
+  only → clean apply.
+- [Phase 8] Failure mode: heap OOB / NULL deref on ATRM probe, HIGH.
+- UNVERIFIED: live ATRM firmware that returns oversized buffers (no
+  crash report); stable-list HTML search (403).
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 68 ++++++++++++------------
- 1 file changed, 34 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 36f429e7f2027..5a04c20a5fd15 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -138,13 +138,15 @@ static struct amdgpu_acpi_priv {
-  * @atif: atif structure
-  * @function: the ATIF function to execute
-  * @params: ATIF function params
-+ * @min_size: minimum size of the expected output buffer in bytes
-  *
-  * Executes the requested ATIF function (all asics).
-  * Returns a pointer to the acpi output buffer.
-  */
- static union acpi_object *amdgpu_atif_call(struct amdgpu_atif *atif,
- 					   int function,
--					   struct acpi_buffer *params)
-+					   struct acpi_buffer *params,
-+					   size_t min_size)
- {
- 	acpi_status status;
- 	union acpi_object *obj;
-@@ -187,6 +189,28 @@ static union acpi_object *amdgpu_atif_call(struct amdgpu_atif *atif,
- 		return NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index dec312b0f3b0a..f28dec3630de5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -280,8 +280,14 @@ static int amdgpu_atrm_call(acpi_handle atrm_handle, uint8_t *bios,
  	}
  
-+	if (obj->buffer.length < sizeof(u16)) {
-+		DRM_DEBUG_DRIVER("ATIF buffer too small to hold size field: %u\n",
-+				 obj->buffer.length);
-+		kfree(obj);
-+		return NULL;
+ 	obj = (union acpi_object *)buffer.pointer;
+-	memcpy(bios+offset, obj->buffer.pointer, obj->buffer.length);
+-	len = obj->buffer.length;
++	if (!obj || obj->type != ACPI_TYPE_BUFFER) {
++		DRM_ERROR("ATRM returned an invalid object\n");
++		kfree(buffer.pointer);
++		return -EINVAL;
 +	}
 +
-+	if (obj->buffer.length < *(u16 *)obj->buffer.pointer) {
-+		DRM_DEBUG_DRIVER("ATIF buffer length mismatch: reported %u, actual %u\n",
-+				 *(u16 *)obj->buffer.pointer,
-+				 obj->buffer.length);
-+		kfree(obj);
-+		return NULL;
-+	}
-+
-+	if (*(u16 *)obj->buffer.pointer < min_size) {
-+		DRM_DEBUG_DRIVER("ATIF buffer too small: expected %zu, got %u\n",
-+				 min_size, *(u16 *)obj->buffer.pointer);
-+		kfree(obj);
-+		return NULL;
-+	}
-+
- 	return obj;
- }
- 
-@@ -248,19 +272,14 @@ static int amdgpu_atif_verify_interface(struct amdgpu_atif *atif)
- 	size_t size;
- 	int err = 0;
- 
--	info = amdgpu_atif_call(atif, ATIF_FUNCTION_VERIFY_INTERFACE, NULL);
-+	info = amdgpu_atif_call(atif, ATIF_FUNCTION_VERIFY_INTERFACE, NULL,
-+				sizeof(output));
- 	if (!info)
- 		return -EIO;
- 
- 	memset(&output, 0, sizeof(output));
- 
--	size = *(u16 *) info->buffer.pointer;
--	if (size < 12) {
--		DRM_INFO("ATIF buffer is too small: %zu\n", size);
--		err = -EINVAL;
--		goto out;
--	}
--	size = min(sizeof(output), size);
-+	size = min(sizeof(output), (size_t)*(u16 *)info->buffer.pointer);
- 
- 	memcpy(&output, info->buffer.pointer, size);
- 
-@@ -270,7 +289,6 @@ static int amdgpu_atif_verify_interface(struct amdgpu_atif *atif)
- 	amdgpu_atif_parse_notification(&atif->notifications, output.notification_mask);
- 	amdgpu_atif_parse_functions(&atif->functions, output.function_bits);
- 
--out:
- 	kfree(info);
- 	return err;
- }
-@@ -295,20 +313,14 @@ static int amdgpu_atif_get_notification_params(struct amdgpu_atif *atif)
- 	int err = 0;
- 
- 	info = amdgpu_atif_call(atif, ATIF_FUNCTION_GET_SYSTEM_PARAMETERS,
--				NULL);
-+				NULL, offsetof(struct atif_system_params, command_code));
- 	if (!info) {
- 		err = -EIO;
- 		goto out;
- 	}
- 
--	size = *(u16 *) info->buffer.pointer;
--	if (size < 10) {
--		err = -EINVAL;
--		goto out;
--	}
--
- 	memset(&params, 0, sizeof(params));
--	size = min(sizeof(params), size);
-+	size = min(sizeof(params), (size_t)*(u16 *)info->buffer.pointer);
- 	memcpy(&params, info->buffer.pointer, size);
- 
- 	DRM_DEBUG_DRIVER("SYSTEM_PARAMS: mask = %#x, flags = %#x\n",
-@@ -371,20 +383,14 @@ static int amdgpu_atif_query_backlight_caps(struct amdgpu_atif *atif)
- 
- 	info = amdgpu_atif_call(atif,
- 		ATIF_FUNCTION_QUERY_BRIGHTNESS_TRANSFER_CHARACTERISTICS,
--		&params);
-+		&params, offsetof(struct atif_qbtc_output, data_points));
- 	if (!info) {
- 		err = -EIO;
- 		goto out;
- 	}
- 
--	size = *(u16 *) info->buffer.pointer;
--	if (size < 10) {
--		err = -EINVAL;
--		goto out;
--	}
--
- 	memset(&characteristics, 0, sizeof(characteristics));
--	size = min(sizeof(characteristics), size);
-+	size = min(sizeof(characteristics), (size_t)*(u16 *)info->buffer.pointer);
- 	memcpy(&characteristics, info->buffer.pointer, size);
- 
- 	atif->backlight_caps.caps_valid = true;
-@@ -422,24 +428,18 @@ static int amdgpu_atif_get_sbios_requests(struct amdgpu_atif *atif,
- 	int count = 0;
- 
- 	info = amdgpu_atif_call(atif, ATIF_FUNCTION_GET_SYSTEM_BIOS_REQUESTS,
--				NULL);
-+				NULL, sizeof(*req));
- 	if (!info)
- 		return -EIO;
- 
--	size = *(u16 *)info->buffer.pointer;
--	if (size < 0xd) {
--		count = -EINVAL;
--		goto out;
--	}
- 	memset(req, 0, sizeof(*req));
- 
--	size = min(sizeof(*req), size);
-+	size = min(sizeof(*req), (size_t)*(u16 *)info->buffer.pointer);
- 	memcpy(req, info->buffer.pointer, size);
- 	DRM_DEBUG_DRIVER("SBIOS pending requests: %#x\n", req->pending);
- 
- 	count = hweight32(req->pending);
- 
--out:
- 	kfree(info);
- 	return count;
++	len = min_t(size_t, obj->buffer.length, len);
++	memcpy(bios+offset, obj->buffer.pointer, len);
+ 	kfree(buffer.pointer);
+ 	return len;
  }
 -- 
 2.53.0
