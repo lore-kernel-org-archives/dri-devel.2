@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4FEBCCF2DE
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:06:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9205CCF2E7
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCB410EDAA;
-	Mon, 19 Oct 2026 14:06:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E312E10EE23;
- Mon, 19 Oct 2026 14:06:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD8B510E4BA;
+	Mon, 19 Oct 2026 14:06:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC5110E4BA;
+ Mon, 19 Oct 2026 14:06:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8713D43AC7;
- Mon, 19 Oct 2026 14:06:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CF371F000C4;
- Mon, 19 Oct 2026 14:06:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7258B60238;
+ Mon, 19 Oct 2026 14:06:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD4EC1F000C5;
+ Mon, 19 Oct 2026 14:06:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418791;
- bh=zjAjO0BSBACDj5Kt6V/l7hCPxN8HOcQsmHMRubHsGJ8=;
+ s=k20260515; t=1792418797;
+ bh=tDiFVdZd6x1/FpLu1PcrtGHQ8LNj3Xzgk1lKCM43d+Q=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=NUA3H4Zalv5BEjYKOw13yIS1g6S3vGN7u2RzTV0c+k6iG3NpRLAP+mx+k0FAN4EkQ
- 0x9Kjdecay3BzK99Vuy7TKt35jujhKl/r3/q0lEChCGXZ+fy2jQT8bZvOYCyBEOdOm
- qzCGaJ3VJYtDIBJDKOWk2JxjRVmw1b6UuZcU3FZzCxah46n2wAHVmM6PZGvO69Zep2
- ObHX2pvpLfB8+33d08Ow+e+lPVYucqPU3ZAfeflumS4IDe91tg043w2cRRRCe7hRQb
- X23q45UmLcq9wTrSnUTqze76voIb52e/cbwdgC5Mbmaz8+bLMWh3TmNKmQo/5xLKdb
- ub6H4IwJN2H0A==
+ b=QuJPTty5Mq1lXSKSaGZKApcO77YuCCIskcpwnCWvKx30dzgFQNMU/I7VFkHvpoFZN
+ X0+81gZs4xkynafE6wRZKTB40kUGmhTe6wZpAk9/BAd7/Jh9sd6NNRHYzdRmvAHcns
+ RnKkv7Ev2W/vGUMmJl7NAy1TgR41BnMJe9a3r4DaneqO95/Hw9atYmTWG9AEz7wnBM
+ +8eKLln32pD1jAVQox0oe4Cqg2KMlYFzCC9y5n6kj7GfDteOUhVAD8uPTW58QkTHxv
+ RJBSECN83IDPd/R0cyO+OznEXTM44OLHrhjzqVo9bEVEr6a/O8bpAN2IM5c/vGiiX1
+ NzxE0Hc5TgqiQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ruoyu Wang <ruoyuw560@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+Cc: Eric Huang <jinhuieric.huang@amd.com>, Philip Yang <philip.yang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/radeon: avoid double free in r600 DPM
- cleanup
-Date: Mon, 19 Oct 2026 09:53:10 -0400
-Message-ID: <20261019135441.1420968-499-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdkfd: add sanity check in
+ svm_range_is_valid
+Date: Mon, 19 Oct 2026 09:53:14 -0400
+Message-ID: <20261019135441.1420968-503-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -62,515 +63,431 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ruoyu Wang <ruoyuw560@gmail.com>
+From: Eric Huang <jinhuieric.huang@amd.com>
 
-[ Upstream commit d3f30034f861a585f8e487ae1555d9f288a96f87 ]
+[ Upstream commit aa7e29cf9a37092cf5057a612ee09f28df20258f ]
 
-r600_parse_extended_power_table() uses manual kfree() calls for some
-early allocation failures, but the freed pointers are left in the
-dynamic power-management state. If device teardown later calls
-r600_free_extended_power_table(), those stale pointers can be freed
-again.
+to prevent svm range to be overflow or underflow.
 
-Use the common extended power table cleanup helper for those early
-failure paths as well, and clear each pointer after freeing it so
-repeated cleanup stays safe.
-
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+Reviewed-by: Philip Yang <philip.yang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable backport analysis: `drm/radeon: avoid double free in r600 DPM
-cleanup`
+## Local tree
 
-Local tree: **6.18.53** (`v6.18.53-5049-g0f0bdc2b0dffb`, branch
-`autosel`). Verdict is for this tree only.
+This checkout is **6.18.y** (`v6.18.53`, Makefile `VERSION=6` /
+`PATCHLEVEL=18` / `SUBLEVEL=53`, branch `autosel`). The verdict is only
+for this tree.
 
-Upstream commit: `d3f30034f861a585f8e487ae1555d9f288a96f87` (Alex
-Deucher, 2026-06-17).
+`git merge-base --is-ancestor` shows the buggy SVM range math **is** in
+`v6.18.53`; the fix is **not**.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: PARSE THE SUBJECT LINE
-Record: **[drm/radeon] [avoid] [double free in r600 DPM cleanup]**
+**Step 1.1: PARSE THE SUBJECT LINE**
 
-Subsystem prefix `drm/radeon`. Verb **avoid** is a bug-fix verb. Claimed
-intent: prevent a double-free in R600 dynamic power-management cleanup.
+Record: `[drm/amdkfd] [add] sanity check in svm_range_is_valid`
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+Subsystem: AMD KFD SVM (HMM shared virtual memory). Verb “add” plus
+“sanity check” is a bounds/overflow guard, not a feature.
+
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+
 Record:
-- **Fixes:** none (expected for this review queue)
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** none
-- **Acked-by:** none
-- **Link:** none in the commit; lore found later via `b4 dig`
-- **Cc: stable:** none (expected)
-- **Signed-off-by:** Ruoyu Wang (author); Alex Deucher (AMD/radeon
-  maintainer)
+- Signed-off-by: Eric Huang (author)
+- Reviewed-by: Philip Yang (original author of `svm_range_is_valid`)
+- Signed-off-by: Alex Deucher (amdgpu/amdkfd maintainer)
+- No Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable (absence is
+  expected)
 
-No syzbot, no CVE, no multi-reporter pattern. Maintainer SOB is a
-positive quality signal.
+Pipeline-added markers (`[Upstream commit …]`, Sasha Levin SOB) are
+ignored.
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+
 Record:
-- **Bug:** `r600_parse_extended_power_table()` does manual `kfree()` on
-  some early allocation-failure paths and leaves the pointers in
-  `rdev->pm.dpm.dyn_state`.
-- **Symptom:** later `r600_free_extended_power_table()` can free those
-  stale pointers again → **double-free**.
-- **Root cause:** incomplete error-path cleanup plus non-idempotent free
-  helper.
-- **Fix:** use `r600_free_extended_power_table()` on those early paths,
-  and NULL each pointer after `kfree()` so repeated cleanup is safe.
-- **Version info:** none in the message.
+- Bug: SVM range start/size can overflow or underflow when converted to
+  byte bounds.
+- Symptom: not spelled out (no stack trace, CVE, or repro).
+- Root cause (from code + review, not from the one-line body): `end =
+  start + (size << PAGE_SHIFT)` wraps; `size == 0` makes `last = start +
+  size - 1` underflow.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-Record: **Not hidden.** This is an explicit double-free fix. The “use
-the common helper” wording is cleanup-shaped, but it is fixing real
-dangling pointers.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+
+Record: Yes. “Sanity check” here is an integer overflow/underflow fix in
+range validation, not style cleanup. Philip Yang said so on list:
+overflow wrap plus `size == 0` underflow of `last = start + size - 1`.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS - LINE BY LINE
+## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: INVENTORY THE CHANGES**
+
 Record:
-- **File:** `drivers/gpu/drm/radeon/r600_dpm.c` (**+15 / −6**)
-- **Functions:** `r600_parse_extended_power_table()`,
-  `r600_free_extended_power_table()`
-- **Scope:** single-file surgical fix
+- File: `drivers/gpu/drm/amd/amdkfd/kfd_svm.c` (+7 / −1)
+- Function: `svm_range_is_valid()`
+- Scope: single-file surgical fix
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 
-**Hunk 1 (three early error returns in parse):**
-- Before: on `r600_parse_clk_voltage_dep_table()` failure for VDDCI-on-
-  MCLK / VDDC-on-MCLK / MVDD-on-MCLK, manually `kfree()` previously
-  allocated `*.entries` and return, **without clearing the pointers**.
-- After: call `r600_free_extended_power_table(rdev)` then return.
+Before (`v6.18.53`):
 
-**Hunk 2 (free helper):**
-- Before: twelve `kfree()`s, pointers left non-NULL.
-- After: same `kfree()`s, each pointer set to NULL.
+```c
+start <<= PAGE_SHIFT;
+end = start + (size << PAGE_SHIFT);
+do { vma_lookup... } while (start < end);
+return svm_range_check_vm(p, start_unchg, (end - 1) >> PAGE_SHIFT, ...);
+```
 
-The first parse failure (`vddc_dependency_on_sclk`) still does a bare
-`return ret`. That is correct: `r600_parse_clk_voltage_dep_table()` only
-fails after `kcalloc` returns NULL, so there is nothing allocated yet.
+After:
+- `size == 0` → `-EINVAL`
+- `check_add_overflow(start, size << PAGE_SHIFT, &end)` → `-EOVERFLOW`
+- Same VMA walk only if the byte range is representable
 
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: **[DOUBLE-FREE] [error-path resource cleanup]**
+Path: ioctl/CRIU validation, not a hot inner loop.
 
-Mechanism:
-1. Early parse error: `kfree(ptr)` but `ptr` remains in `dyn_state`.
-2. Later error paths in the same function already called
-   `r600_free_extended_power_table()` without NULLing.
-3. Teardown (`*_dpm_fini` → `r600_free_extended_power_table`) `kfree()`s
-   the same pointers again.
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
 
-NULLing also makes the helper idempotent for callers that free on their
-own error path and then free again in `fini` (e.g. `si_dpm_init` /
-`ci_dpm_init` / `btc_dpm_init`).
+Record: **Integer overflow / underflow (memory-safety / validation
+bypass).**
 
-### Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- **Quality:** obviously correct. `kfree(NULL)` is a no-op; NULLing
-  after free is the standard idempotent-cleanup pattern.
-- **Minimal:** only the three incomplete early paths plus NULL stores in
-  the existing helper. No API/struct changes.
-- **Regression risk:** low. Success-path `fini` still frees once;
-  NULLing after free cannot change live DPM behavior. A pre-existing
-  issue remains: `radeon_pm_init_dpm()` ignores `radeon_dpm_init()`’s
-  return, so a NULL deref is possible if code continues with `count > 0`
-  and `entries == NULL`. That is **not introduced** by this patch (old
-  code was UAF/double-free on the same path). Sashiko flagged it; Alex
-  Deucher applied the patch anyway.
+Overflow: userspace `AMDKFD_IOC_SVM` can pass page-aligned `start_addr`
+and `size` whose sum wraps 64-bit. After `svm_ioctl()` shifts both into
+pages, `end` wraps. The `do/while (start < end)` then walks a
+**truncated/wrapped** range. `svm_range_check_vm()` can see `last <
+start`, where `interval_tree_iter_first()` treats a non-overlapping
+inverted interval as empty and returns success. Callers then run
+`svm_range_add()` with the original huge `start`/`size`.
+
+Underflow: `size == 0` makes `(end - 1)` wrap when `end == 0`, so
+`svm_range_check_vm()` can be asked to scan ~the whole VA tree. Philip
+Yang called that out as the reason for the extra check.
+
+**Step 2.4: ASSESS THE FIX QUALITY**
+
+Record: Obviously correct, minimal, error-path only. Regression risk is
+low: overflowing/zero ranges were never valid. `-EOVERFLOW` is a new
+errno for this ioctl; those requests were undefined before.
+`check_add_overflow()` is already provided via `linux/mm.h` (`kfd_svm.c`
+→ `kfd_svm.h` → `linux/hmm.h` → `linux/mm.h` → `linux/overflow.h`). KFD
+is 64-bit only (`HSA_AMD depends on X86_64 || ARM64 || PPC64 || …`), so
+`unsigned long end` matches `uint64_t` arithmetic.
+
+The check does not separately test `size << PAGE_SHIFT` wrap. On the
+ioctl path size is a page-aligned byte length shifted down then up, so
+the add is the real wrap. That leftover is not a reason to reject the
+patch.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: BLAME THE CHANGED LINES
-Record:
-- Buggy manual `kfree()`s introduced in **`61b7d6011054eb`**
-  (“drm/radeon/dpm: add helpers for extended power tables (v2)”, Alex
-  Deucher, 2012-11-14) → first in **v3.11-rc1**.
-- MVDD path: **`dd621a22cf43bb`** (2013-05-06).
-- Free helper body: **`41cd0b3b78d83a`** (“drm/radeon: clean up
-  r600_free_extended_power_table()”, Dan Carpenter, 2013-09-04) →
-  **v3.12-rc2**.
+**Step 3.1: BLAME THE CHANGED LINES**
 
-This has been in the tree for more than a decade, including 6.18.y.
+Record: Unchecked `end = start + (size << PAGE_SHIFT)` is from
+`42de677f799997` (“drm/amdkfd: register svm range”, Philip Yang, 2020).
+Present in this tree (`git merge-base --is-ancestor 42de677f799997
+v6.18.53` → yes). SVM landed ~5.11; the bug is old in 6.18.y.
 
-### Step 3.2: FOLLOW THE FIXES: TAG
-Record: **No Fixes: tag.** Not applicable. The introducing commit is in
-this tree (v3.11).
+**Step 3.2: FOLLOW THE FIXES: TAG**
 
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- Related: **`20c3dffdccbd4`** “radeon: avoid double free in
-  ci_dpm_init()” (v6.5-rc1). Same class of bug: parse error already
-  calls `r600_free_extended_power_table()`, then `ci_dpm_fini()` calls
-  it again.
-- File is mature; recent commits are drive-by cleanups, not DPM-table
-  refactors.
-- **Standalone**, not patch X/Y.
+Record: No Fixes: tag. Not applicable.
 
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Ruoyu Wang is not the radeon maintainer; nearby DRM work is
-similar cleanup-safety (`drm/msm`, `drm/mediatek`). Weight comes from
-**Alex Deucher’s SOB and “Applied”**.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
 
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: **No prerequisites.** The helper and the three `kfree` sites
-exist in this tree. Applies standalone.
+Record: Recent `kfd_svm.c` work on this tree is unrelated (CRIU
+list_del, NULL in `svm_range_set_attr`, TLB, GPU reset). No prior
+overflow fix for this helper. Standalone, not patch N/M.
+
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+
+Record: Eric Huang is an AMD KFD contributor (including `drm/amdkfd: fix
+a vulnerability of integer overflow in kfd debugger`, already in this
+tree with Cc: stable). Philip Yang owns this SVM code. Alex Deucher is
+the subsystem maintainer.
+
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+
+Record: None. `check_add_overflow()` and `svm_range_is_valid()` both
+exist here. Applies standalone to `v6.18.53` (same hunk as the
+candidate).
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- **Lore:**
-  https://patch.msgid.link/20260608063638.24-1-ruoyuw560@gmail.com
-- **Revisions:** v1 only (`b4 dig -a`)
-- Direct lore.kernel.org fetch returned 403; thread recovered via `b4
-  dig -m`.
-- Sashiko bot: pre-existing ignored `radeon_dpm_init()` return and stale
-  `count` fields. Not NAKs of this patch.
-- **Alex Deucher (2026-06-15): “Applied. Thanks!”** No request for v2.
-- No reviewer `Cc: stable`.
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): To/Cc included Alex Deucher, Christian König,
-David Airlie, Simona Vetter, amd-gfx, dri-devel, linux-kernel. Applied
-by the radeon maintainer.
+`b4 dig -c aa7e29cf9a37092cf5057a612ee09f28df20258f` failed (lore HTTP
+error). Found the thread on amd-gfx:
 
-### Step 4.3: SEARCH FOR THE BUG REPORT
-Record: no Reported-by / syzbot / bugzilla. Static/code analysis style
-fix, same family as `20c3dffdccbd4` (SVACE) and amdgpu `a6582701178a4`.
+- v1: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-June/146929.html — overflow check only
+- Philip Yang: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-June/146952.html — overflow check is good; also reject `size
+  == 0` because `last = start + size - 1` underflows
+- v2 typo (`retrune`): 147063
+- v2 fixed: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-June/147065.html — committed form
+- Reviewed-by: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-June/147704.html
+- Landed in drm-next-7.3 pull (Aug 2026)
 
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: standalone v1. Sibling in amdgpu: **`a6582701178a4`**
-“drm/amd/pm: fix a double-free in amdgpu_parse_extended_power_table”
-(already in this tree). Same parse-then-fini double-free shape.
+No NAKs. No Cc: stable on the thread.
 
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: **UNVERIFIED.** `lore.kernel.org/stable/` returned 403. No
-evidence in the dri-devel thread of a stable NAK.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+
+Record: Philip Yang (SVM author) requested the size==0 check and
+Reviewed-by. Alex Deucher signed off and pulled it.
+
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+
+Record: No syzbot/bugzilla. Author-driven hardening after review.
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+
+Record: Single patch, two revisions. Self-contained.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+
+Record: No useful stable-list hit for this subject. Not previously
+rejected for 6.18.y (UNVERIFIED beyond search noise).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `r600_parse_extended_power_table()`,
-`r600_free_extended_power_table()`. Helper used internally:
-`r600_parse_clk_voltage_dep_table()` (ENOMEM-only failure).
+**Step 5.1: KEY FUNCTIONS**
 
-### Step 5.2: TRACE CALLERS
-Record (parse): `btc_dpm_init`, `ni_dpm_init`, `si_dpm_init`,
-`ci_dpm_init`, `trinity_dpm_init`, `kv_dpm_init`.
+Record: `svm_range_is_valid()` only.
 
-Record (free): those chips’ `*_dpm_fini`, plus error paths inside parse
-and some init functions (`si_dpm_init`, `ni_dpm_init`, `btc_dpm_init`,
-`ci_dpm_init`).
+**Step 5.2: TRACE CALLERS**
 
-Context: driver probe (`radeon_pm_init` → `radeon_dpm_init`) and
-teardown (`radeon_pm_fini` → `radeon_dpm_fini`). Not interrupt/hot-path.
+Record:
+- `svm_range_set_attr()` — `AMDKFD_IOC_SVM` SET_ATTR and CRIU restore
+- `svm_range_get_attr()` — GET_ATTR and CRIU checkpoint
 
-### Step 5.3: TRACE CALLEES
-Record: `kcalloc`/`kzalloc` for VBIOS power-play tables, `kfree` in the
-helper. No locking, no new allocations in the patch.
+`kfd_ioctl_svm()`: flags `0` (not `KFD_IOC_FLAG_CHECKPOINT_RESTORE`).
+Any opener of `/dev/kfd` can call it. It already rejects zero/unaligned
+byte size, then shifts into pages and calls these helpers.
 
-### Step 5.4: FOLLOW THE CALL CHAIN
-Record (verified in this tree):
+**Step 5.3: TRACE CALLEES**
 
-```
-radeon_pm_init_dpm()
-  radeon_dpm_init(rdev);          /* return IGNORED, radeon_pm.c:1442 */
-  radeon_dpm_enable(...)
-cik/si/ni/..._init()
-  radeon_pm_init(rdev);           /* return also ignored, e.g.
-cik.c:8620 */
+Record: `vma_lookup()`, `svm_range_check_vm()` →
+`interval_tree_iter_first()`. Overflow changes which interval is walked.
 
-radeon_pm_fini_dpm()
-  radeon_dpm_fini(rdev);          /* ALWAYS, radeon_pm.c:1678 */
-    -> r600_free_extended_power_table()
-```
+**Step 5.4: FOLLOW THE CALL CHAIN**
 
-On unload, `radeon_driver_unload_kms()` → `radeon_device_fini()` → asic
-`fini` → `radeon_pm_fini()`.
+Record: Userspace ioctl → `kfd_ioctl_svm` → `svm_ioctl` → set/get_attr →
+`svm_range_is_valid`. Reachable from userspace with KFD access (ROCm/HIP
+unified memory). Not theoretical.
 
-Because DPM init failure is ignored, a failed parse still reaches `fini`
-on unbind/unload. **Reachable from normal driver lifetime**, not a
-theoretical path. Trigger is allocation failure while parsing ATOM
-power-play tables (ENOMEM during probe). Unprivileged userspace cannot
-force it except by load/unload under memory pressure.
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
 
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: same bug already fixed in amdgpu (`a6582701178a4`) and partially
-in `ci_dpm_init` (`20c3dffdccbd4`). Remaining hole was exactly these
-radeon helper paths.
+Record: `svm_range_add()` still does `last = start + size - 1UL`, but
+only after this validator. Rejecting wrap/zero here closes that gate.
+`kfd_ioctl_svm` already rejects byte `size == 0`; the new check covers
+CRIU/`svm_range_*_attr` in page units.
 
 ---
 
 ## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: **Yes.** Parent of the candidate (`d3276745c87d1^`) still has
-the manual `kfree()`s at the three early returns and the free helper
-without NULL stores. Introduced in v3.11; present throughout 6.18.y.
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
 
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **clean apply.** Surrounding `r600_dpm.c` DPM-table code matches
-the patch context. No conflicting refactor in this series.
+Record: Yes. `v6.18.53` `kfd_svm.c` still has `end = start + (size <<
+PAGE_SHIFT)` at the old line 3424. Introduced 2020; in 6.18 from day
+one.
 
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: `20c3dffdccbd4` is already in this tree and only hardens
-`ci_dpm_init`; it does **not** NULL the r600 helper pointers or convert
-the early parse `kfree()`s. This commit is still needed.
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+
+Record: Clean apply. Same function signature (no later `mapped`
+argument). No extra include. Surrounding SVM code matches.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+
+Record: No other overflow fix for `svm_range_is_valid` on `v6.18.53`.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: **[drm/radeon DPM] [IMPORTANT]** — pre-GCN AMD GPUs (R600–CIK:
-HD 2000 through Hawaii/Kaveri). Not core mm/net, but a long-lived
-production driver (`CONFIG_DRM_RADEON`).
+**Step 7.1: SUBSYSTEM AND CRITICALITY**
 
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: mature/low churn. `r600_dpm.c` last real DPM logic is from
-~2013; later commits are mechanical. Long-present bugs in this code are
-the ones stable still cares about.
+Record: `drivers/gpu/drm/amd/amdkfd` SVM. **IMPORTANT** for AMD GPU
+compute (ROCm/HIP), not core mm/VFS. Config: `CONFIG_HSA_AMD_SVM`.
+
+**Step 7.2: SUBSYSTEM ACTIVITY**
+
+Record: Actively maintained; this helper itself has been stable since
+~2021 aside from `vma_lookup` and `svm_range_check_vm` tweaks.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: DETERMINE WHO IS AFFECTED
-Record: **driver-specific / config-specific** (`CONFIG_DRM_RADEON`, DPM
-method, chips that call `r600_parse_extended_power_table`:
-BTC/NI/SI/CI/Trinity/KV).
+**Step 8.1: WHO IS AFFECTED**
 
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: AMD GPU users with KFD SVM (unified/managed memory). Driver- and
+config-specific, but a common production path.
+
+**Step 8.2: TRIGGER CONDITIONS**
+
 Record:
-- Trigger: ENOMEM (or parse failure) while building extended power
-  tables during DPM init, then device teardown.
-- Not every boot; needs allocation failure in that path.
-- Unprivileged users cannot craft a VBIOS, but module unload after a
-  failed/partial DPM init is a normal admin path.
-- **r600_parse_clk_voltage_dep_table() only returns -ENOMEM**, so the
-  three converted sites are memory-pressure probe errors. The NULL
-  stores also close double-frees on later parse/init error paths that
-  already called the helper.
+- Overflow: page-aligned `start_addr + size` wraps `uint64_t`. Easy to
+  send; not a normal HIP range.
+- Underflow: `size == 0` in pages (ioctl already blocks this;
+  CRIU/internal callers may not).
+- Unprivileged `/dev/kfd` users can hit the overflow path.
 
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: **double-free / invalid `kfree` → kernel oops/BUG in SLUB,
-possible further corruption.** Severity: **HIGH** (crash on GPU probe-
-failure teardown). Not a guaranteed panic on every radeon boot.
+**Step 8.3: FAILURE MODE SEVERITY**
 
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record: Validation bypass after wrap: SVM may be applied to a range that
+was never fully VMA-checked; interval-tree overlap can be skipped; GPU
+mapping of the wrong host range or later crashes. Severity **HIGH**
+(userspace-triggerable overflow in GPU VA validation). Not a proven
+panic-on-boot, but more than a log-only issue.
+
+**Step 8.4: RISK-BENEFIT RATIO**
+
 Record:
-- **Benefit:** medium-high for radeon DPM users — prevents a real
-  double-free that `fini` will hit after a failed parse, including
-  because init errors are ignored.
-- **Risk:** very low — 15 insertions, NULL-after-free, no locking/API
-  change.
-- **Ratio:** favorable.
+- Benefit: HIGH for KFD SVM — closes wrap-around validation.
+- Risk: VERY LOW — 7 lines, reject-only, maintainer-reviewed.
+- Ratio: strongly favors backport.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: COMPILE THE EVIDENCE
+**Step 9.1: EVIDENCE**
 
-**FOR backporting:**
-- Real double-free, not style cleanup.
-- Buggy code exists in this 6.18.y tree (since v3.11).
-- Small, obviously correct, single file.
-- No new APIs/features; no prerequisites.
-- Maintainer applied it.
-- Same pattern already treated as a real bug in-tree (`20c3dffdccbd4`,
-  amdgpu `a6582701178a4`).
-- Teardown always calls `radeon_dpm_fini()`; DPM init return is ignored,
-  so the second free is actually reached.
+FOR:
+- Real wrap in `end = start + (size << PAGE_SHIFT)` on a userspace ioctl
+- Wrap can make the VMA walk check the wrong range and still return 0
+- `size == 0` underflows `last` (Philip Yang)
+- 7-line, obviously correct `check_add_overflow` + zero check
+- Reviewed by the SVM author; signed off by Deucher
+- Bug present in this 6.18.y tree since original SVM
+- Applies cleanly; no new API; no prerequisites
 
-**AGAINST:**
-- No user report / syzbot / Fixes tag (absence is expected here).
-- Trigger is ENOMEM during probe, not a hot path.
-- Sashiko noted pre-existing ignored-init-return / stale-count issues
-  this patch does not fully solve.
+AGAINST:
+- Terse commit message, no crash/CVE/syzbot
+- Ioctl already rejects byte `size == 0` (overflow still open)
+- Affects AMD KFD SVM, not every machine
 
-**UNRESOLVED:**
-- Stable-list discussion (lore.kernel.org/stable 403).
+UNRESOLVED:
+- Exact post-bypass corruption vs. later `-EFAULT` not demonstrated with
+  a repro
+- lore.kernel.org/`b4 dig` failed; amd-gfx archive used instead
+- No stable-list discussion found
 
-None of the against items outweigh a contained double-free fix that
-applies cleanly.
+**Step 9.2: STABLE RULES CHECKLIST**
 
-### Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — NULLing after `kfree` is
-   standard; maintainer applied v1.
-2. Fixes a real bug that affects users? **PASS** — double-free on DPM
-   parse-failure teardown.
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   double-free → oops/memory corruption. Severity HIGH.
-4. Small and contained? **PASS** — +15/−6, one file.
+1. Obviously correct and tested? **PASS** — review + drm-next inclusion
+2. Fixes a real bug that affects users? **PASS** — ioctl-reachable
+   overflow
+3. Important (crash/security/corruption/deadlock)? **PASS** — HIGH,
+   validation bypass
+4. Small and contained? **PASS** — 8-line hunk, one function
 5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — buggy sites present; context
-   matches.
+6. Can apply to the local tree? **PASS** — present bug, clean apply on
+   6.18.53
 
-### Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: none needed; this is a normal memory-safety bug fix.
+**Step 9.3: EXCEPTION CATEGORIES**
 
-### Step 9.4: MAKE YOUR DECISION
+Record: Not a device ID/quirk/DT/docs case. Ordinary small overflow fix.
 
-This belongs in 6.18.y. The early `kfree()`s leave dangling `dyn_state`
-pointers; `radeon_pm_fini_dpm()` always calls
-`r600_free_extended_power_table()`. NULLing makes that helper safe to
-call twice, which this driver already does on several error paths. Risk
-is negligible relative to the crash it prevents.
+**Step 9.4: DECISION**
+
+This belongs on 6.18.y: old bug, userspace-reachable, tiny fix,
+maintainer-acked, applies as-is.
 
 ---
 
-## What the commit solves for stable users
+### What it solves for stable users
 
-On Radeon chips that parse ATOM extended power tables, an allocation
-failure during DPM init frees some tables but leaves the pointers set.
-Driver unload then frees them again. That is a kernel double-free. The
-patch uses the existing cleanup helper on those paths and clears every
-pointer so a second cleanup is harmless.
+`svm_range_is_valid()` is the gate for `AMDKFD_IOC_SVM`. Without
+overflow checks, a wrapping `start+size` can skip the intended VMA
+coverage check and still proceed into SVM range insert/map. Zero size
+underflows the last-page index. Both are closed with `-EINVAL` /
+`-EOVERFLOW`.
 
-## Stable rules / risk vs benefit
+### Risk vs benefit
 
-Meets all six stable criteria. Benefit is preventing an oops/corruption
-on GPU init-failure teardown; risk is a 21-line, no-lock, no-API change.
-No backport rework needed in this tree.
+Benefit is closing a GPU SVM validation hole on hardware this tree
+already supports. Risk is rejecting inputs that were never valid.
 
-## Concerns
+---
 
-- Does not fix ignored `radeon_dpm_init()` return (pre-existing; out of
-  scope).
-- Count fields are not zeroed (pre-existing; Sashiko note). That is not
-  a reason to withhold the double-free fix.
-- Trigger needs ENOMEM during table parse, so it is not every-boot, but
-  stable regularly takes this class of error-path double-free.
+### Verification
 
-## Verification
-- [Phase 1] Tags: author + Alex Deucher SOB only; no Fixes/Reported-
-  by/Cc-stable.
-- [Phase 2] Diff: +15/−6 in `r600_dpm.c`; three `kfree` → helper; twelve
-  NULL stores in `r600_free_extended_power_table()`.
-- [Phase 2] Parent still has
-  `kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries)` at the
-  three early returns.
-- [Phase 2] `r600_parse_clk_voltage_dep_table()` only fails with
-  `-ENOMEM` after assigning NULL.
-- [Phase 3] Blame: `61b7d6011054eb` (v3.11-rc1) introduced the kfrees;
-  `41cd0b3b78d83a` (v3.12) wrote the free helper without NULLs.
-- [Phase 3] Related in-tree: `20c3dffdccbd4` (ci_dpm_init only); does
-  not replace this patch.
-- [Phase 4] `b4 dig -c d3f30034f861`:
-  https://patch.msgid.link/20260608063638.24-1-ruoyuw560@gmail.com
-- [Phase 4] `b4 dig -a`: v1 only.
-- [Phase 4] `b4 dig -w`: Deucher/König/Airlie/Vetter + amd-gfx/dri-
-  devel.
-- [Phase 4] mbox: Alex Deucher “Applied. Thanks!”; Sashiko pre-existing
-  notes, no NAK.
-- [Phase 4] UNVERIFIED: lore.kernel.org and lore.kernel.org/stable HTTP
-  403.
-- [Phase 5] Callers: btc/ni/si/ci/trinity/kv `dpm_init`/`dpm_fini`.
-- [Phase 5] `radeon_pm.c:1442` ignores `radeon_dpm_init()`;
-  `radeon_pm.c:1678` always `radeon_dpm_fini()`.
-- [Phase 5] `cik.c:8620` ignores `radeon_pm_init()`; `cik.c:8712`
-  `radeon_pm_fini()` on asic fini.
-- [Phase 6] `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`; `make
-  kernelversion` → 6.18.53.
-- [Phase 6] Buggy kfrees present in
-  `d3276745c87d1^:drivers/gpu/drm/radeon/r600_dpm.c`.
-- [Phase 7] `CONFIG_DRM_RADEON` still present.
-- [Phase 8] Failure mode: double-free → SLUB BUG/oops; severity HIGH.
-- UNVERIFIED: whether any user hit this in production (no Reported-by).
-  Decision does not rely on that.
+- [Phase 1] Tags: Eric Huang SOB, Philip Yang Reviewed-by, Alex Deucher
+  SOB; no Fixes/Reported-by
+- [Phase 2] Diff: +7/−1 in `svm_range_is_valid`; zero check +
+  `check_add_overflow`
+- [Phase 2] Pre-patch `v6.18.53` still uses `end = start + (size <<
+  PAGE_SHIFT)`
+- [Phase 3] Blame: `42de677f799997` (2020); ancestor of `v6.18.53` (exit
+  0)
+- [Phase 3] Fix not in `v6.18.53` (`merge-base --is-ancestor` of
+  upstream SHA → not ancestor, exit 1)
+- [Phase 3] No prior overflow fix in `kfd_svm.c` on this file’s 6.18.53
+  history
+- [Phase 4] `b4 dig` failed (lore error)
+- [Phase 4] amd-gfx v1 146929; Philip asked for `size==0` on 146952;
+  committed form 147065; R-b 147704
+- [Phase 5] Callers: `svm_range_set_attr` / `svm_range_get_attr` from
+  `svm_ioctl` and CRIU
+- [Phase 5] `AMDKFD_IOC_SVM` registered with flags `0` (unprivileged vs
+  CRIU)
+- [Phase 5] `kfd_ioctl_svm` already rejects `!args->size` and unaligned
+  size; overflow still possible
+- [Phase 5] `interval_tree_iter_first` returns NULL when `last < start`
+  (inverted range)
+- [Phase 6] `check_add_overflow` available via hmm.h → mm.h →
+  overflow.h; no extra include
+- [Phase 6] `HSA_AMD` is 64-bit only — `unsigned long end` is 64-bit
+- [Phase 7] Config `HSA_AMD_SVM`, AMD GPU compute
+- [Phase 8] Failure: wrap → wrong VMA walk → possible validation bypass;
+  HIGH
+- UNVERIFIED: no crash repro; lore/stable search incomplete due to HTTP
+  403
 
-The fix is small, surgical, present in the local 6.18 code, and closes a
-real double-free on DPM teardown.
+The patch is small, surgical, and meets the stable criteria for this
+6.18.y tree.
 
 **YES**
 
- drivers/gpu/drm/radeon/r600_dpm.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r600_dpm.c
-index 81d58ef667dd4..2bc0bdfd11590 100644
---- a/drivers/gpu/drm/radeon/r600_dpm.c
-+++ b/drivers/gpu/drm/radeon/r600_dpm.c
-@@ -933,7 +933,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
- 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk,
- 							       dep_table);
- 			if (ret) {
--				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
-+				r600_free_extended_power_table(rdev);
- 				return ret;
- 			}
- 		}
-@@ -944,8 +944,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
- 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.vddc_dependency_on_mclk,
- 							       dep_table);
- 			if (ret) {
--				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
--				kfree(rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk.entries);
-+				r600_free_extended_power_table(rdev);
- 				return ret;
- 			}
- 		}
-@@ -956,9 +955,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
- 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.mvdd_dependency_on_mclk,
- 							       dep_table);
- 			if (ret) {
--				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
--				kfree(rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk.entries);
--				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_mclk.entries);
-+				r600_free_extended_power_table(rdev);
- 				return ret;
- 			}
- 		}
-@@ -1298,17 +1295,29 @@ void r600_free_extended_power_table(struct radeon_device *rdev)
- 	struct radeon_dpm_dynamic_state *dyn_state = &rdev->pm.dpm.dyn_state;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 202ed1c456320..1b29dee7948d8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -3421,7 +3421,13 @@ svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
+ 	unsigned long start_unchg = start;
  
- 	kfree(dyn_state->vddc_dependency_on_sclk.entries);
-+	dyn_state->vddc_dependency_on_sclk.entries = NULL;
- 	kfree(dyn_state->vddci_dependency_on_mclk.entries);
-+	dyn_state->vddci_dependency_on_mclk.entries = NULL;
- 	kfree(dyn_state->vddc_dependency_on_mclk.entries);
-+	dyn_state->vddc_dependency_on_mclk.entries = NULL;
- 	kfree(dyn_state->mvdd_dependency_on_mclk.entries);
-+	dyn_state->mvdd_dependency_on_mclk.entries = NULL;
- 	kfree(dyn_state->cac_leakage_table.entries);
-+	dyn_state->cac_leakage_table.entries = NULL;
- 	kfree(dyn_state->phase_shedding_limits_table.entries);
-+	dyn_state->phase_shedding_limits_table.entries = NULL;
- 	kfree(dyn_state->ppm_table);
-+	dyn_state->ppm_table = NULL;
- 	kfree(dyn_state->cac_tdp_table);
-+	dyn_state->cac_tdp_table = NULL;
- 	kfree(dyn_state->vce_clock_voltage_dependency_table.entries);
-+	dyn_state->vce_clock_voltage_dependency_table.entries = NULL;
- 	kfree(dyn_state->uvd_clock_voltage_dependency_table.entries);
-+	dyn_state->uvd_clock_voltage_dependency_table.entries = NULL;
- 	kfree(dyn_state->samu_clock_voltage_dependency_table.entries);
-+	dyn_state->samu_clock_voltage_dependency_table.entries = NULL;
- 	kfree(dyn_state->acp_clock_voltage_dependency_table.entries);
-+	dyn_state->acp_clock_voltage_dependency_table.entries = NULL;
- }
- 
- enum radeon_pcie_gen r600_get_pcie_gen_support(struct radeon_device *rdev,
+ 	start <<= PAGE_SHIFT;
+-	end = start + (size << PAGE_SHIFT);
++
++	if (size == 0)
++		return -EINVAL;
++
++	if (check_add_overflow(start, size << PAGE_SHIFT, &end))
++		return -EOVERFLOW;
++
+ 	do {
+ 		vma = vma_lookup(p->mm, start);
+ 		if (!vma || (vma->vm_flags & device_vma))
 -- 
 2.53.0
 
