@@ -4,43 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ED55CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:56:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30D93CCF2E3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:56:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8433A10ED92;
-	Mon, 19 Oct 2026 13:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8074D10EDA6;
+	Mon, 19 Oct 2026 13:56:11 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73CF410ED9B;
- Mon, 19 Oct 2026 13:55:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 066CD10ED94;
+ Mon, 19 Oct 2026 13:56:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D4C3760136;
- Mon, 19 Oct 2026 13:55:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9C41F000C7;
- Mon, 19 Oct 2026 13:55:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 161C76020A;
+ Mon, 19 Oct 2026 13:56:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB6651F000C5;
+ Mon, 19 Oct 2026 13:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418158;
- bh=JheI5Tzajxmtbm//DK9m67k08ulfuXAgWeDjTXp1vjg=;
+ s=k20260515; t=1792418161;
+ bh=VXIqA+vWM+D/a4jO+k80ffaFziKi9uGiLkkJ5W3CfWQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=eMBg0D7eN93uqaaz07uMVaruPe8FY98kHMVjKlhXvvQCx/yEQThOwjfu/x2M17qpq
- 5bZ+mpdI0Fv7frdg9nf2v4+236n5H9OhNLYVS3Iowsto73QQwpb6mrjUEZ4zBKQCKy
- /lFapI6TaokWo01SIM8WirfRjveNHd8KkqOnV4dzTC1mYn8tjSfs0ey2IEH5+16e4o
- BO2Dvan3z9GNR3lvATc8jz3ZZ8at3JX5sJh0pbPSSdWva6A0Y+82I1zmPt/QSzaWjf
- QQxYge+IJRf27gMn39yP1QO2b6r7uJrtpQoSnxNXtmTdvhCiK+COYCEHm2pMpkkT45
- nOWjosCrtR5Pw==
+ b=Rf/SFJOnQzhr7Z92zQubZNQOnEnLUA7g3+eBm5PVlTAQSKKvX7ScbjYPvN/cw2V2e
+ 8x3LXbc2pH2phJck3v5Y4fy9fMVm1Y3Pqu8fw4MD5+rCMROU7Qgbkk261esWZ5IpDE
+ 6H+SOaTgGKK8drPvsixDJRuLfttTQLohVsdVExIVPzbwhWTtxx+6hKJQh6D6BnHl/T
+ Gy0uZKqCdLKy/obLnus+OAnzwC+dtLXaLlERmlmAlrxR+fNE9ojvlFQ22DPWf/iJl7
+ KXXfDAlQtjJk05kHz955Am+zWt5I/5QTlhODoMrcgkiXcfbOAYgCqY/C4n0ypRxYpW
+ HkHRnVsrfIahg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Matthew Stewart <Matthew.Stewart2@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
  airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amd/display: Fix rounding errors in
- CalculatePrefetchSchedule
-Date: Mon, 19 Oct 2026 09:45:44 -0400
-Message-ID: <20261019135441.1420968-53-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/amdgpu: Validate ATIF buffer length
+ before use
+Date: Mon, 19 Oct 2026 09:45:46 -0400
+Message-ID: <20261019135441.1420968-55-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -65,426 +62,510 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Matthew Stewart <Matthew.Stewart2@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit fa0300333db07ca4ad56c9879f155faafd3f7079 ]
+[ Upstream commit b978b7d43963bbb3e2d850288f7c21ac11c3b751 ]
 
-[why]
+Add a min_size parameter to amdgpu_atif_call() to validate that the
+returned ACPI buffer is of type ACPI_TYPE_BUFFER, holds at least a u16
+size field, does not claim more data than was actually returned, and
+meets the minimum size required by the calling function. Each caller
+passes its required minimum via sizeof() or offsetof() of the expected
+output struct and drops its own size check.
 
-Rounding errors were causing mode validation to fail in some cases when
-it should not. (IE. Increasing fclk from a lower value could lead to
-validation failure, which should not happen.)
-
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Matthew Stewart <Matthew.Stewart2@amd.com>
-Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Assisted-by: Claude Sonnet (Cursor AI)
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 1)...
-Retry attempt 1...
-I have enough to decide: this is a small DCN4 DML prefetch-rounding fix
-in 7.3-rc4, and the remaining work is to write the phase-by-phase
-verdict.
+This is a firmware-buffer bounds check in `amdgpu_atif_call()`. On this
+6.18.53 tree the buggy path is still present, the patch is small, and it
+closes a real out-of-bounds read.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [drm/amd/display] [Fix] [rounding errors in
-CalculatePrefetchSchedule causing false mode-validation failures]
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: `[drm/amdgpu] [Validate] Validate ATIF buffer length before use`
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Reviewed-by: Dillon Varone &lt;dillon.varone@amd.com&gt;
-- Signed-off-by: Matthew Stewart &lt;Matthew.Stewart2@amd.com&gt;
-  (author)
-- Signed-off-by: Fangzhi Zuo &lt;jerry.zuo@amd.com&gt; (DC series
-  collector)
-- Tested-by: Dan Wheeler &lt;daniel.wheeler@amd.com&gt;
-- Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt; (amdgpu
+- `Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>` (author)
+- `Assisted-by: Claude Sonnet (Cursor AI)`
+- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
   maintainer)
-- No Fixes: tag (expected)
-- No Reported-by, no syzbot, no Link:, no Cc: stable
-- Ignore any Sasha Levin SOB / Upstream-commit markers if present in a
-  candidate wrapper; none are in the real commit
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>`
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable`, or syzbot
+  tags (absence expected)
+- Upstream SHA from the candidate wrapper:
+  `b978b7d43963bbb3e2d850288f7c21ac11c3b751` (ignored as a selection
+  marker; used only to find the original discussion)
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Bug: rounding in the DCN4 DML21 prefetch scheduler made mode
-  validation fail for configurations that are actually valid.
-- Symptom: increasing fclk (fabric clock) from a working lower value can
-  cause validation to fail. That is non-monotonic and should not happen.
-- Failure mode: Display Core rejects a mode (`PrefetchSupported` /
-  `NoTimeForPrefetch`), so a modeset or clock bump that should work is
-  refused.
-- No stack trace, no CVE, no named kernel version range in the message.
-- Root cause (from message + comments in the diff): VM/row prefetch
-  times are later ceiled to quarter-line units, which steals time from
-  the swath (SW) stage. `Tsw_est*` did not account for that, so the
-  wrong prefetch-bandwidth case was selected.
+- Bug: ACPI ATIF responses are used without checking that the returned
+  buffer actually contains the `u16` size field, that the BIOS-reported
+  size does not exceed the ACPI object length, or that the payload meets
+  the caller’s minimum.
+- Symptom/failure mode: out-of-bounds read (and possible oops) when
+  firmware returns a short or lying buffer, then callers `memcpy()`
+  using the claimed size.
+- Version info: none in the message. The pattern dates to `d38ceaf99ed0`
+  (“drm/amdgpu: add core driver (v4)”, 2015).
+- Root cause: callers trusted `*(u16 *)info->buffer.pointer` and copied
+  that many bytes without comparing it to `obj->buffer.length`.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not a disguised cleanup. Subject and body state a real
-validation bug. The three subtracted LineTime fractions are the actual
-fix.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: This is an explicit memory-safety fix, not cleanup. Centralizing
+existing per-caller `size < N` checks is incidental; the new `actual >=
+sizeof(u16)` and `actual >= claimed` tests are the real fix.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## PHASE 2: DIFF ANALYSIS
 
-Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_
-  core_dcn4_calcs.c`
-- +6 / -3 (stat of fa0300333db07)
-- Function: `CalculatePrefetchSchedule`
-- Scope: single-file surgical change to three assignments
+- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c` (+34/−34)
+- Functions: `amdgpu_atif_call`, `amdgpu_atif_verify_interface`,
+  `amdgpu_atif_get_notification_params`,
+  `amdgpu_atif_query_backlight_caps`, `amdgpu_atif_get_sbios_requests`
+- Scope: single-file surgical fix
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Record (v6.18.53 before → after):
+- `amdgpu_atif_call()`: after confirming `ACPI_TYPE_BUFFER`, return the
+  object. After: reject length `< sizeof(u16)`, claimed size `> actual`
+  length, or claimed size `< min_size`.
+- Callers: pass `sizeof()` / `offsetof()` as `min_size` and drop their
+  own `size < 12/10/10/0xd` checks. `memcpy` still uses
+  `min(sizeof(struct), claimed_size)`, now only after those checks.
+
+Verified struct sizes in `drivers/gpu/drm/amd/include/amd_acpi.h`
+(`__packed`):
+- `sizeof(atif_verify_interface)` = 12 (replaces `size < 12`)
+- `offsetof(atif_system_params, command_code)` = 10 (replaces `size <
+  10`; the `size < 11` command_code path remains)
+- `offsetof(atif_qbtc_output, data_points)` = 10 (replaces `size < 10`)
+- `sizeof(atif_sbios_requests)` = 13 = `0xd` (replaces `size < 0xd`)
+
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: `[Memory safety / OOB] [Firmware-controlled size used as memcpy
+length]`
+
+v6.18.53 callers still do:
+
+```
+size = *(u16 *)info->buffer.pointer;
+size = min(sizeof(output), size);
+memcpy(&output, info->buffer.pointer, size);
+```
+
+If `obj->buffer.length` is 0 or 1, the `u16` load is already OOB. If
+claimed size is 12 and actual length is 4, `memcpy` copies 12 bytes from
+a 4-byte ACPI payload (heap OOB read). `c9b7c809b89f2` only checked
+object type, not length; that hole is still in this tree.
+
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record: Obviously correct. Rejecting `claimed > actual` can disable ATIF
+on a BIOS that lies about size but still returned enough bytes; that is
+malformed firmware, and the fallback is “ATIF unused” rather than a
+crash. Error codes change from `-EINVAL` to `-EIO` on undersized
+buffers; callers only test `if (ret)` / disable the feature. Low
+regression risk.
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+**Step 3.1: BLAME THE CHANGED LINES**
+Record: Size-then-memcpy logic is from `d38ceaf99ed0` (Alex Deucher,
+2015, “drm/amdgpu: add core driver (v4)”). Type check added by
+`c9b7c809b89f2` (2024). NULL-on-`AE_NOT_FOUND` fixed by `91c9e221fe255`
+(2024). Length vs claimed size was never checked.
+
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. The bug is in original ATIF parsing, present
+since 2015. Both `d38ceaf99ed0` and `c9b7c809b89f2` are ancestors of
+`v6.18.53`.
+
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
 Record:
-- Before: `Tsw_est1/2/3 = prefetch_sw_bytes / prefetch_bwN` (SW time
-  estimated with no rounding slack).
-- After:
-  - `Tsw_est1 -= 3/4 LineTime` (VM +1/4, two rows +2/4)
-  - `Tsw_est2 -= 1/4 LineTime` (VM only)
-  - `Tsw_est3 -= 2/4 LineTime` (two rows)
-- Affected path: DML mode-support / mode-programming prefetch bandwidth
-  selection, not an error-path or init-only path.
-- Those `Tsw_est*` values feed `if (Tsw_estN < min_Lsw_equ * LineTime)`
-  which already subtracts 0.75 / 0.25 / 0.5 LineTime when recalculating
-  `prefetch_bw1/2/3`. The initial estimate is now consistent with that
-  later quarter-line rounding.
+- `c9b7c809b89f2` “Guard against bad data for ATIF ACPI method” — real
+  oops in `amdgpu_atif_query_backlight_caps`; later tagged
+  CVE-2024-50117; already in this tree.
+- `91c9e221fe255` — NULL deref if ATIF missing; already in this tree.
+- Sibling `9d367fab451d9` “Validate ATPX buffer length before use” is
+  patch 2/2 on a different file; not a prerequisite.
+- No later commits on this file after the candidate that rework the same
+  logic.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: [Logic / correctness] [DML prefetch time rounding]
-- Later in the same function, VM and row times are ceiled to U2.2
-  quarter-lines:
-  `dst_y_per_vm_vblank = ceil(4 * Tvm / LineTime) / 4` and the same for
-  rows.
-- That can consume up to +1/4 line (VM) and +1/4 line × 2 rows. SW then
-  has less time than `Tsw_est` assumed, so the equalized bandwidth case
-  is wrong and validation fails even though the mode is feasible
-  (including after an fclk increase).
-- Category is not UAF/leak/race/NULL; it is display-mode calculator
-  incorrectness.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Lijo Lazar is a regular AMD amdgpu contributor (ATPX/ATRM/XCP
+bounds checks in the same wave). Maintainer Acked-by/SOB from Alex
+Deucher.
 
-Step 2.4: ASSESS THE FIX QUALITY
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: Standalone. `amdgpu_atif_call` is static with four local
+callers, all updated. No new helpers. ATPX 2/2 is independent.
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- Quality: high. The 3/4, 1/4, 2/4 constants match the existing 0.75 /
-  0.25 / 0.5 LineTime terms and the documented quarter-line clamp.
-- Minimal: three expressions plus comments.
-- Regression risk: changing DML bandwidth can theoretically accept a
-  mode that underflows, or reject a previously accepted one. Here the
-  change only makes `Tsw_est` pessimistic so the already-margined
-  recalculation path runs; the author states the old path rejected valid
-  modes. Reviewed and Tested-by AMD display.
-- No public API / data-structure change.
+- `b4 dig -c b978b7d43963...` failed (lore.kernel.org returned errors).
+- Original submission: `[PATCH 1/2] drm/amdgpu: Validate ATIF buffer
+  length before use`, 14 Jun 2026, https://www.mail-archive.com/amd-
+  gfx@lists.freedesktop.org/msg145004.html
+- Series: 1/2 ATIF, 2/2 ATPX. No v2 found.
+- No NAKs found. Merged via Alex Deucher’s `drm-next-7.3` pull; Dave
+  Airlie acked the pull.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record: Posted to amd-gfx. Acked/signed by Alex Deucher. Recipients from
+`b4 dig -w` could not be retrieved (lore 403).
 
-Step 3.1: BLAME THE CHANGED LINES
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: This commit has no new user report. The related 2024 ATIF bad-
+data oops (`c9b7c809b89f2`) was hit on at least one system and became
+CVE-2024-50117. That earlier fix did not validate lengths.
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: 1/2 of ATIF+ATPX ACPI buffer validation. ATRM buffer checks in
+the same author batch. ATIF is self-contained.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: lore.kernel.org/stable search returned 403. No verified stable-
+list discussion. Prior ATIF guard *was* taken into stable
+(CVE-2024-50117).
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: `amdgpu_atif_call` plus the four callers listed above. No
+semcode tools available.
+
+**Step 5.2: TRACE CALLERS**
 Record:
-- File added as DCN401 DML21 in 70839da636050 (`drm/amd/display: Add new
-  DCN401 sources`, 2024-04-26). Present from v6.11 onward.
-- Surrounding `Tpre_rounded` / `Tsw_est` logic largely from
-  be4e3509314af7 (`DML21 Reintegration For Various Fixes`, 2024-12-18).
-- The three `Tsw_est*` lines are fa0300333db07 itself (2026-06-19 /
-  committed 2026-07-28).
-- Bug has been in DCN4 DML21 since that IP was added, not a last-month
-  regression.
+- `amdgpu_atif_verify_interface` ← `amdgpu_atif_pci_probe_handle` ←
+  `amdgpu_acpi_detect` ← `amdgpu_drv.c` (driver load)
+- `amdgpu_atif_get_notification_params` /
+  `amdgpu_atif_query_backlight_caps` ← `amdgpu_acpi_detect`
+- `amdgpu_atif_get_sbios_requests` ← `amdgpu_atif_handler` ← ACPI
+  notifier (`amdgpu_acpi_event`) on brightness/hotplug-style events
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag. Not applicable. Buggy code is the original DCN4
-prefetch estimator, not a one-commit regression.
+**Step 5.3: TRACE CALLEES**
+Record: `acpi_evaluate_object`, then `memcpy` of firmware bytes into
+stack structs.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- Recent file commits include DCN6 compile, PMO pstate plumbing, this
-  fix, UCLK pstate, divide-by-zero, HDMI FRL, HostVM units.
-- Follow-ups after this fix (9fcd9c7545654, 992694ad28584) do not revert
-  or rework these three lines.
-- Standalone mathematically; landed as patch 46/49 of a bulk DC drop,
-  but the hunk has no dependency on 45/47/etc.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Reached on every amdgpu load when the GPU’s ACPI node has ATIF
+(common on AMD laptops/APUs). SBIOS request path runs on ACPI video
+notifies. Unprivileged userspace cannot call ATIF directly; a guest/VM
+with a crafted ACPI table can. Firmware bugs have already crashed this
+path.
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Matthew Stewart is an AMD display engineer (DCN42B enablement,
-soc_bb, register masks). Not the drm/amd maintainer; Alex Deucher signed
-it off. Related nearby work is DCN42B, not a prerequisite for this
-rounding change.
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Same claimed-size-then-memcpy pattern remains in
+`amdgpu_atcs_call` callers in this file and in `radeon_acpi.c`. This
+patch does not touch those; not a reason to reject the ATIF fix.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: No extra helpers or struct fields. Can apply standalone wherever
-this `CalculatePrefetchSchedule` exists. This tree uses `dml2_0/`
-(rename e6a8a000cfe6a, 2025-10-28); older stables still on `dml2/` would
-only need a path tweak. No missing prerequisites in this checkout.
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: Local tree is **6.18.53** (`v6.18.53-5049-g0f0bdc2b0dffb`,
+branch `autosel`). `git merge-base --is-ancestor c8373721c3e54 v6.18.53`
+is false. `v6.18.53:drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c` still has
+the unvalidated `*(u16 *)` / `memcpy` sequence. Bug introduced in 2015
+(`d38ceaf99ed0`).
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 dig -c fa0300333db07` failed: lore.kernel.org returned errors.
-- Found on amd-gfx: [PATCH 46/49] in “DC Patches July 20th, 2026”
-  - Cover: https://lists.freedesktop.org/archives/amd-
-    gfx/2026-July/149310.html
-  - Patch: https://lists.freedesktop.org/archives/amd-
-    gfx/2026-July/149359.html
-- Cover letter summary: KUnit expansion, dm refactor, Apple 5K tiled
-  monitor, FRL/DSC, dcn42 fixes. This rounding fix is not called out as
-  a highlight.
-- Diff on the list matches the committed change. No v2/v3 of this
-  specific patch.
-- No reviewer NAK, no Cc: stable in the mail.
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: `git diff v6.18.53 c8373721c3e54 --
+drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c` is exactly this commit
+(+34/−34). Mainline `noinline_for_stack` is not in 6.18; the candidate
+as it exists here already matches 6.18. Clean apply.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record: Reviewed-by Dillon Varone (DML/DCN4). Tested-by Dan Wheeler.
-Collected by Fangzhi Zuo, merged by Alex Deucher. Appropriate AMD
-display reviewers.
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: Type/NULL guards (`c9b7c809b89f2`, `91c9e221fe255`) are in
+6.18.53. Length validation is not. No alternate fix.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No user bugzilla/syzbot/lore bug report found. Evidence is AMD
-internal: “some cases”, fclk monotonicity example. Severity from the
-author: false mode-validation failure, not oops.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Independent of the rest of the 49-patch DC drop (KUnit,
-refactors, Apple tiled display, etc.). DCN5
-`dml2_core_dcn5_calcs_dchub.c` still uses unadjusted `Tsw_est*`; this
-fix is DCN4 DML21 only.
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: `[drm/amdgpu ACPI/ATIF] [IMPORTANT]` — not core mm/net, but a
+widely used GPU driver on AMD laptops.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search returned 403.
-lists.freedesktop.org has no AUTOSEL of this subject. Unverified whether
-stable@ ever discussed it.
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Actively developed; this ATIF parsing has been stable since 2015
+aside from the 2024 type/NULL guards.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `CalculatePrefetchSchedule` only (static in
-dml2_core_dcn4_calcs.c).
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: AMD GPU systems whose ACPI provides ATIF (typical AMD
+laptop/APU). Config: `CONFIG_DRM_AMDGPU`.
 
-Step 5.2: TRACE CALLERS
-Record: Two call sites in the same file:
-- Mode support (~line 7645): `mode_lib->ms.NoTimeForPrefetch[k] =
-  CalculatePrefetchSchedule(...)` then `PrefetchSupported &=
-  !NoTimeForPrefetch[k]`
-- Mode programming (~line 11473): `mode_lib->mp.NoTimeToPrefetch[k] =
-  CalculatePrefetchSchedule(...)`
-`dml2_core_calcs_mode_support_ex` is used from `dml2_core_dcn4.c` during
-DC mode validation.
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Driver probe always; ACPI notifies for SBIOS requests. Needs a
+short or lying ATIF buffer. Unprivileged userspace cannot trigger it on
+bare metal; firmware/VM ACPI can. Prior ATIF bad-data crashes were seen
+in the wild.
 
-Step 5.3: TRACE CALLEES
-Record: Floating-point DML math (`math_max2/3`, `math_ceil2`), no
-alloc/lock/I/O. Pure calculator.
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: `[OOB read → possible oops / info leak] [HIGH]` Same class as
+CVE-2024-50117, remaining hole.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace DRM atomic modeset / DC validate → DML21 mode_support
-→ CalculatePrefetchSchedule. Reachable on DCN4 family (DCN401/42/42B;
-dcn401_resource.c sets `.using_dml21 = true`). Not a syscall crash path;
-it is the normal display-mode path for those GPUs.
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record: Benefit high (closes firmware OOB on a common driver). Risk low
+(~30-line single-file change, fail-closed). Ratio favors backport.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Same unadjusted `Tsw_est` pattern remains in DCN5 DML21 and
-older VBA DML (dcn31/32/314). Not a tree-wide systematic fix;
-DCN4-specific.
+## PHASE 9: FINAL SYNTHESIS
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 9.1: COMPILE THE EVIDENCE**
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record:
-- Local tree: `git describe HEAD` = v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion` = 7.3.0-rc4.
-- File and function exist. Current tree already has the fixed `Tsw_est*`
-  lines (fa0300333db07 is an ancestor of HEAD; also in v7.3-rc1).
-- Bug introduced with DCN401 sources (v6.11). This 7.3 codebase includes
-  that IP.
-
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Expected apply on this tree: clean (context matches). No
-conflicting local changes around those three assignments.
-
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: No earlier alternate fix of these `Tsw_est*` lines. No revert.
-DCN5 still unfixed (different file).
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: [drm/amd/display DML21 DCN4] [IMPORTANT] — not mm/core, but
-current AMD dGPU/APU display mode library. DCN401 is GC 12.0
-(RDNA4-class). Affects all users of that display IP.
-
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Very active (DC drops, DCN42B, DCN6). This is a calculator
-correction in a mature DCN4 path, not a new subsystem.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver-specific / DCN4-family AMD display (DCN401/42/42B with
-DML21). Not universal; not staging.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Trigger is DML prefetch scheduling during mode validation,
-especially near rounding boundaries and when fclk changes. Common for
-anyone setting modes or changing clocks on those GPUs. Unprivileged
-userspace can trigger via KMS modeset. Not a rare CONFIG-only path.
-
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: [False mode validation failure / non-monotonic fclk] [MEDIUM,
-user-visible HIGH on affected HW]
-- Not panic, UAF, deadlock, or filesystem corruption.
-- Result: atomic commit / mode rejected; valid timing or a clock
-  increase can fail. That is a real display functional bug (blank / mode
-  not available / DPM clock bump fails), not cosmetic logging.
-
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- Benefit: DCN4 users keep modes that should work; fclk increases remain
-  monotonic. High for that hardware, moderate globally.
-- Risk: 3-line DML tweak, internally consistent with existing margins,
-  reviewed/tested. Low.
-- Ratio: favorable.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-Step 9.1: COMPILE THE EVIDENCE
 FOR:
-- Real user-visible bug: DML falsely fails prefetch/mode validation.
-- Concrete symptom: raising fclk can make validation fail.
-- Small, obviously correct vs quarter-line VM/row ceils already in this
-  function.
-- Reviewed-by Dillon Varone, Tested-by Dan Wheeler, SOB Alex Deucher.
-- DCN4 DML21 is in this 7.3-rc4 tree; fix applies cleanly.
-- Similar DML prefetch correctness patches have historically been stable
-  material (underflow/clamp fixes).
-- Standalone; no new API.
+- Real OOB: claimed ATIF size used as `memcpy` length without comparing
+  to ACPI buffer length.
+- Same subsystem already produced a stable/CVE oops from unvalidated
+  ATIF data (`c9b7c809b89f2` / CVE-2024-50117); that patch did not check
+  lengths.
+- Buggy code is in this 6.18.53 tree since 2015.
+- Small, contained, no new API; maintainer Acked-by.
+- Applies cleanly here.
+- Failure is crash/OOB, not a feature change.
 
 AGAINST:
-- Not a crash, security hole, leak, or data-corruption bug.
-- No external reporter / syzbot / Fixes: tag.
-- Landed inside a 49-patch DC dump, not highlighted as a stable item.
-- DML float tweaks can in principle change which modes pass; residual
-  underflow risk is low but non-zero.
-- DCN5 sibling calculator left unchanged (DCN4-only).
+- No dedicated report for *this* length mismatch (hardening of a known-
+  bad path).
+- Undersized-buffer errno changes `-EINVAL` → `-EIO` (callers treat both
+  as failure).
+- Sibling ATPX patch is separate and not required.
 
 UNRESOLVED:
-- lore.kernel.org (b4 dig and stable list) returned HTTP errors; amd-gfx
-  archive was used instead.
-- No public reproducer beyond the author’s fclk example.
+- `b4 dig` / lore.kernel.org returned errors; discussion recovered from
+  mail-archive.
+- No stable@ thread found (lore 403).
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? PASS — quarter-line math matches
-   existing 0.75/0.25/0.5 paths; Tested-by + Reviewed-by.
-2. Fixes a real bug that affects users? PASS — false mode reject on DCN4
-   validation, including fclk increase.
-3. Important issue? PASS — display mode / clock-validation failure on
-   current AMD DCN4 hardware is a serious functional bug for those users
-   (not a panic, but modeset/DPM can fail).
-4. Small and contained? PASS — 6 insertions / 3 deletions, one function.
-5. No new features or APIs? PASS.
-6. Can apply to the local tree? PASS — file/function present; hunk
-   matches this tree.
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — checks match existing
+   minima; maintainer merged.
+2. Fixes a real bug that affects users? **PASS** — OOB on malformed
+   ATIF; ATIF bad data already crashed systems.
+3. Important issue? **PASS** — HIGH: OOB read / oops from firmware data.
+4. Small and contained? **PASS** — one file, +34/−34.
+5. No new features or APIs? **PASS** — static helper only.
+6. Can apply to the local tree? **PASS** — identical to `v6.18.53` file
+   plus this diff.
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: None of device-ID / quirk / DT / build / docs. Qualifies as a
-normal small correctness fix.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: Not a device-ID/quirk/DT/docs exception. Ordinary memory-safety
+bug fix.
 
-Step 9.4: MAKE YOUR DECISION
-This tree is 7.3.0-rc4 and contains DCN4 DML21. The patch is a small,
-reviewed correction so prefetch time estimates match the quarter-line
-rounding the hardware/DML already applies. Without it, valid modes can
-be rejected and raising fclk can fail validation. That is a real display
-bug, not a feature or cleanup. Risk is low relative to the benefit for
-DCN4 users of this codebase.
+**Step 9.4: MAKE YOUR DECISION**
+Backport. It closes a leftover ATIF buffer-length hole on this 6.18 tree
+with a small, fail-closed change.
+
+### What the commit solves for stable users
+On 6.18, `amdgpu_atif_call()` only rejects non-buffer ACPI objects.
+Callers then trust a BIOS `u16` size and `memcpy` that many bytes. A
+short or inflated ATIF payload over-reads kernel heap and can oops — the
+same ATIF path that already oopsed in 2024. This patch requires actual
+length ≥ 2, actual ≥ claimed, and claimed ≥ caller minimum before any
+copy.
+
+### Risk vs benefit
+Benefit is preventing oops/OOB on AMD systems with ATIF. Risk is
+disabling ATIF on lying firmware instead of crashing. That is the right
+stable tradeoff.
+
+### Concerns
+ATPX 2/2 is not required. ATCS/radeon still have the old pattern; out of
+scope. No extra 6.18 prerequisites.
 
 Verification:
-- [Phase 1] Parsed tags: Reviewed-by Dillon Varone; Tested-by Dan
-  Wheeler; SOB Matthew Stewart, Fangzhi Zuo, Alex Deucher; no
-  Fixes:/Reported-by/Cc: stable
-- [Phase 2] Diff: 3 `Tsw_est*` assignments in
-  `CalculatePrefetchSchedule`; subtract 3/4, 1/4, 2/4 LineTime
-- [Phase 2] Confirmed later code ceils VM/row to quarter-lines and
-  already uses 0.75/0.25/0.5 LineTime in the BW-update path
-- [Phase 3] `git merge-base --is-ancestor fa0300333db07 HEAD` → yes
-  (exit 0)
-- [Phase 3] File added in 70839da636050; in v6.11+, not in v6.10; fix in
-  v7.3-rc1+
-- [Phase 3] blame: original DCN401 DML (Aurabindo Pillai) / DML21
-  reintegration (Austin Zheng)
-- [Phase 4] b4 dig: lore server error (UNVERIFIED via b4)
-- [Phase 4] amd-gfx: patch 46/49 of DC July 20 2026 (149310 cover,
-  149359 patch); no NAK; not Cc: stable
-- [Phase 4] lore.kernel.org/stable: 403 (UNVERIFIED)
-- [Phase 5] Callers: mode_support and mode_programming in the same file;
-  `PrefetchSupported &= !NoTimeForPrefetch`
-- [Phase 5] dcn401_resource.c `.using_dml21 = true`
-- [Phase 6] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37;
-  kernelversion 7.3.0-rc4; buggy/fixed code present
-- [Phase 6] DCN5 still has unadjusted Tsw_est (different IP)
-- [Phase 8] Failure mode: false DML mode validation fail, not oops
-- UNVERIFIED: whether older LTS trees need a `dml2/` vs `dml2_0/` path
-  tweak (out of scope for this checkout)
+- [Phase 1] Tags: author SOB, Claude Assisted-by, Alex Deucher Acked-
+  by/SOB; no Fixes/Reported-by/syzbot
+- [Phase 2] Diff: +34/−34 in `amdgpu_acpi.c`; length checks in
+  `amdgpu_atif_call`; callers pass sizeof/offsetof
+- [Phase 2] Struct sizes: 12, offsetof 10, offsetof 10, 13 match old
+  magic constants
+- [Phase 3] blame: size/memcpy from `d38ceaf99ed0` (2015); type check
+  `c9b7c809b89f2` (in 6.18.53)
+- [Phase 3] `git merge-base --is-ancestor d38ceaf99ed0 v6.18.53` true;
+  `c9b7c809b89f2` true; this commit false
+- [Phase 3] ATPX sibling `9d367fab451d9` is a different file; not a
+  dependency
+- [Phase 4] `b4 dig` failed (lore error). Thread: mail-archive
+  msg145004, series 1/2. Pulled in drm-next-7.3
+- [Phase 4] lore/stable 403; UNVERIFIED whether stable@ discussed this
+  SHA
+- [Phase 5] Callers: probe via `amdgpu_acpi_detect`, ACPI notify via
+  `amdgpu_atif_handler`
+- [Phase 6] `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`;
+  Makefile 6.18.53
+- [Phase 6] `git diff v6.18.53 <commit> -- amdgpu_acpi.c` equals this
+  patch (clean apply)
+- [Phase 8] Failure mode: heap OOB read / oops; severity HIGH
+- UNVERIFIED: exact To/Cc list (`b4 dig -w` unavailable)
 
 **YES**
 
- .../dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c   | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 68 ++++++++++++------------
+ 1 file changed, 34 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index da865bd466c9a..c32b704627085 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -5554,7 +5554,8 @@ static bool CalculatePrefetchSchedule(struct dml2_core_internal_scratch *scratch
- 				+ 2 * (p->PixelPTEBytesPerRow * p->HostVMInefficiencyFactor + p->meta_row_bytes + tdlut_row_bytes)
- 				+ *p->prefetch_sw_bytes)
- 				/ (*p->Tpre_rounded - *p->Tno_bw);
--			s->Tsw_est1 = *p->prefetch_sw_bytes / s->prefetch_bw1;
-+			/* due to rounding, VM can clamp to +1/4, Row can clamp to +2/4, giving SW less time */
-+			s->Tsw_est1 = *p->prefetch_sw_bytes / s->prefetch_bw1 - 3.0 * s->LineTime / 4.0;
- 		} else
- 			s->prefetch_bw1 = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 36f429e7f2027..5a04c20a5fd15 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -138,13 +138,15 @@ static struct amdgpu_acpi_priv {
+  * @atif: atif structure
+  * @function: the ATIF function to execute
+  * @params: ATIF function params
++ * @min_size: minimum size of the expected output buffer in bytes
+  *
+  * Executes the requested ATIF function (all asics).
+  * Returns a pointer to the acpi output buffer.
+  */
+ static union acpi_object *amdgpu_atif_call(struct amdgpu_atif *atif,
+ 					   int function,
+-					   struct acpi_buffer *params)
++					   struct acpi_buffer *params,
++					   size_t min_size)
+ {
+ 	acpi_status status;
+ 	union acpi_object *obj;
+@@ -187,6 +189,28 @@ static union acpi_object *amdgpu_atif_call(struct amdgpu_atif *atif,
+ 		return NULL;
+ 	}
  
-@@ -5578,7 +5579,8 @@ static bool CalculatePrefetchSchedule(struct dml2_core_internal_scratch *scratch
- 		if (*p->Tpre_rounded - *p->Tno_bw - 2.0 * s->Tr0_trips_rounded > 0) {
- 			s->prefetch_bw2 = (vm_bytes * p->HostVMInefficiencyFactor + *p->prefetch_sw_bytes) /
- 			(*p->Tpre_rounded - *p->Tno_bw - 2.0 * s->Tr0_trips_rounded);
--			s->Tsw_est2 = *p->prefetch_sw_bytes / s->prefetch_bw2;
-+			/* due to rounding, VM can clamp to +1/4  */
-+			s->Tsw_est2 = *p->prefetch_sw_bytes / s->prefetch_bw2 - 1.0 * s->LineTime / 4.0;
- 		} else
- 			s->prefetch_bw2 = 0;
++	if (obj->buffer.length < sizeof(u16)) {
++		DRM_DEBUG_DRIVER("ATIF buffer too small to hold size field: %u\n",
++				 obj->buffer.length);
++		kfree(obj);
++		return NULL;
++	}
++
++	if (obj->buffer.length < *(u16 *)obj->buffer.pointer) {
++		DRM_DEBUG_DRIVER("ATIF buffer length mismatch: reported %u, actual %u\n",
++				 *(u16 *)obj->buffer.pointer,
++				 obj->buffer.length);
++		kfree(obj);
++		return NULL;
++	}
++
++	if (*(u16 *)obj->buffer.pointer < min_size) {
++		DRM_DEBUG_DRIVER("ATIF buffer too small: expected %zu, got %u\n",
++				 min_size, *(u16 *)obj->buffer.pointer);
++		kfree(obj);
++		return NULL;
++	}
++
+ 	return obj;
+ }
  
-@@ -5592,7 +5594,8 @@ static bool CalculatePrefetchSchedule(struct dml2_core_internal_scratch *scratch
- 		if (*p->Tpre_rounded - s->Tvm_trips_rounded > 0) {
- 			s->prefetch_bw3 = (2 * (p->PixelPTEBytesPerRow * p->HostVMInefficiencyFactor + p->meta_row_bytes + tdlut_row_bytes) + *p->prefetch_sw_bytes) /
- 				(*p->Tpre_rounded - s->Tvm_trips_rounded);
--			s->Tsw_est3 = *p->prefetch_sw_bytes / s->prefetch_bw3;
-+			/* due to rounding, Row can clamp to +2/4  */
-+			s->Tsw_est3 = *p->prefetch_sw_bytes / s->prefetch_bw3 - 2.0 * s->LineTime / 4.0;
- 		} else
- 			s->prefetch_bw3 = 0;
+@@ -248,19 +272,14 @@ static int amdgpu_atif_verify_interface(struct amdgpu_atif *atif)
+ 	size_t size;
+ 	int err = 0;
  
+-	info = amdgpu_atif_call(atif, ATIF_FUNCTION_VERIFY_INTERFACE, NULL);
++	info = amdgpu_atif_call(atif, ATIF_FUNCTION_VERIFY_INTERFACE, NULL,
++				sizeof(output));
+ 	if (!info)
+ 		return -EIO;
+ 
+ 	memset(&output, 0, sizeof(output));
+ 
+-	size = *(u16 *) info->buffer.pointer;
+-	if (size < 12) {
+-		DRM_INFO("ATIF buffer is too small: %zu\n", size);
+-		err = -EINVAL;
+-		goto out;
+-	}
+-	size = min(sizeof(output), size);
++	size = min(sizeof(output), (size_t)*(u16 *)info->buffer.pointer);
+ 
+ 	memcpy(&output, info->buffer.pointer, size);
+ 
+@@ -270,7 +289,6 @@ static int amdgpu_atif_verify_interface(struct amdgpu_atif *atif)
+ 	amdgpu_atif_parse_notification(&atif->notifications, output.notification_mask);
+ 	amdgpu_atif_parse_functions(&atif->functions, output.function_bits);
+ 
+-out:
+ 	kfree(info);
+ 	return err;
+ }
+@@ -295,20 +313,14 @@ static int amdgpu_atif_get_notification_params(struct amdgpu_atif *atif)
+ 	int err = 0;
+ 
+ 	info = amdgpu_atif_call(atif, ATIF_FUNCTION_GET_SYSTEM_PARAMETERS,
+-				NULL);
++				NULL, offsetof(struct atif_system_params, command_code));
+ 	if (!info) {
+ 		err = -EIO;
+ 		goto out;
+ 	}
+ 
+-	size = *(u16 *) info->buffer.pointer;
+-	if (size < 10) {
+-		err = -EINVAL;
+-		goto out;
+-	}
+-
+ 	memset(&params, 0, sizeof(params));
+-	size = min(sizeof(params), size);
++	size = min(sizeof(params), (size_t)*(u16 *)info->buffer.pointer);
+ 	memcpy(&params, info->buffer.pointer, size);
+ 
+ 	DRM_DEBUG_DRIVER("SYSTEM_PARAMS: mask = %#x, flags = %#x\n",
+@@ -371,20 +383,14 @@ static int amdgpu_atif_query_backlight_caps(struct amdgpu_atif *atif)
+ 
+ 	info = amdgpu_atif_call(atif,
+ 		ATIF_FUNCTION_QUERY_BRIGHTNESS_TRANSFER_CHARACTERISTICS,
+-		&params);
++		&params, offsetof(struct atif_qbtc_output, data_points));
+ 	if (!info) {
+ 		err = -EIO;
+ 		goto out;
+ 	}
+ 
+-	size = *(u16 *) info->buffer.pointer;
+-	if (size < 10) {
+-		err = -EINVAL;
+-		goto out;
+-	}
+-
+ 	memset(&characteristics, 0, sizeof(characteristics));
+-	size = min(sizeof(characteristics), size);
++	size = min(sizeof(characteristics), (size_t)*(u16 *)info->buffer.pointer);
+ 	memcpy(&characteristics, info->buffer.pointer, size);
+ 
+ 	atif->backlight_caps.caps_valid = true;
+@@ -422,24 +428,18 @@ static int amdgpu_atif_get_sbios_requests(struct amdgpu_atif *atif,
+ 	int count = 0;
+ 
+ 	info = amdgpu_atif_call(atif, ATIF_FUNCTION_GET_SYSTEM_BIOS_REQUESTS,
+-				NULL);
++				NULL, sizeof(*req));
+ 	if (!info)
+ 		return -EIO;
+ 
+-	size = *(u16 *)info->buffer.pointer;
+-	if (size < 0xd) {
+-		count = -EINVAL;
+-		goto out;
+-	}
+ 	memset(req, 0, sizeof(*req));
+ 
+-	size = min(sizeof(*req), size);
++	size = min(sizeof(*req), (size_t)*(u16 *)info->buffer.pointer);
+ 	memcpy(req, info->buffer.pointer, size);
+ 	DRM_DEBUG_DRIVER("SBIOS pending requests: %#x\n", req->pending);
+ 
+ 	count = hweight32(req->pending);
+ 
+-out:
+ 	kfree(info);
+ 	return count;
+ }
 -- 
 2.53.0
 
