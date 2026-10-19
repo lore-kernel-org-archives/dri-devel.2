@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503BA6083410
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 15:07:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5946360AE2FF
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 15:24:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nep6+ffM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wo7mk//0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF6410E43C;
-	Mon, 19 Oct 2026 15:06:58 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA6B910E43C
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:06:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D99710E395;
+	Mon, 19 Oct 2026 15:24:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D42BB10E395
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:24:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C5A3D601FD
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:06:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B5D1F000C5;
- Mon, 19 Oct 2026 15:06:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 935A641456
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:24:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E098B1F000C4;
+ Mon, 19 Oct 2026 15:24:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792422410;
- bh=SMU5ouf2J5xJhtLpN9DwwMPbZ2j9gWdDb7XNbzkS4II=;
+ s=k20260515; t=1792423458;
+ bh=VgbToEtOYeO/sr49EhpueSYJlgPoGcw2HjT5lRp6gro=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Nep6+ffMHIICSOyo3yBh4uggxnquIe6aqyiBI/U6zUJ17qCYPEVwIdiyDV1QbUnPu
- ECTu95nqKofC2NWV3OMCn9fqBsSTRVNcMyWzgw/KSRRLl1WLoCbDM+2G7feSef7qjY
- 1zF5mLUlmXMHBqiJW90MHHNuykcHN3NbcVCqFZGcs5KXzbl8ZiHaRqx8tleHDR1fPc
- KbaDBmlIoj9y98eLs8OTP96V1AIr4v7l4scRVDq99YlvRFG3mhJbPYeqItM9Cl7WAS
- UenN5Dv2dRwNyEGbSxzkcAE9AFbrC335Fpgx6+gfplW9eQTyCDmvUXk1bOI3aCzArV
- pGHfwSbFymrWQ==
-Message-ID: <sashiko-outbox-177614@kernel.org>
+ b=Wo7mk//0s+5o68hnPjjpx89h95/hqpMLzPvxHqNMYLMDkxruOqpPZ/OVKBAmJUxDZ
+ 6kJs37GlkcfF1b4o7N5087cOxxfLR3VCkbN5pYz1zxc3V9sAQdx7pyNxtb9ooSmw/X
+ vC798sv3x5QVaSBwwZSig6V0eJHo1YQdBEBYt6DN2EaxLxExdj/2FaPpcT0OheuhgH
+ +bGpnFQZFZ/t3t/CDWQn2g2eAagYEIGk5TxR5gv+TJ+ZHAqFVwIhIyc5DHN0PcG/o+
+ JxBHBytSaEcBzAOK9bHqunzQ1LoapwEtmJMl07bX+Hbr5t3ouktj1egHMeIa3ep6Vq
+ NA2Lc3ozd08BQ==
+Message-ID: <sashiko-outbox-177707@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-5.10] drm/rockchip: dw_hdmi: Use
- resume_early pm ops for system suspend
+Subject: Re: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: Guard reads in pcie state
+ readout
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019135441.1420968-349-sashal@kernel.org>
+In-Reply-To: <20261019135441.1420968-466-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
- <20261019135441.1420968-349-sashal@kernel.org>
+ <20261019135441.1420968-466-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 15:06:49 +0000
+Date: Mon, 19 Oct 2026 15:24:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,105 +62,104 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/rockchip: dw_hdmi: UAF in dw_hdmi_rockchip_resume_early() on s=
-tale drvdata
+- [High] drm/amdgpu: uninitialized pcie_regs fields in aqua_vanjaram_read_p=
+cie_state()
 --
 
-commit c6209b9cde57945de5a9c2033ae8339d9c3026b8
-Author: Jonas Karlman <jonas@kwiboo.se>
+commit c0c47257f13eed1e55050aec0ca9d8906dd7cf73
+Author: Lijo Lazar <lijo.lazar@amd.com>
 
-drm/rockchip: dw_hdmi: Use resume_early pm ops for system suspend
+drm/amdgpu: Guard reads in pcie state readout
 
-This commit switches the dw-hdmi Rockchip glue driver to use the
-resume_early PM callback so that dw_hdmi_resume() runs before
-rockchip_drm_sys_resume() during system resume. It also adds a NULL check on
-the driver data pointer in dw_hdmi_rockchip_resume_early().
+This commit introduces a helper to verify and retrieve the GPU's internal
+upstream switch port and guards the upstream port PCIe configuration reads =
+in
+aqua_vanjaram_read_pcie_state() to avoid a NULL pointer dereference in
+passthrough environments.
 
-Link: https://patch.msgid.link/20260518193748.2482823-12-jonas@kwiboo.se
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm=
+/amd/amdgpu/aqua_vanjaram.c
+> index f9e2edf5260bc..4529627d13c5d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/dr=
-m/rockchip/dw_hdmi-rockchip.c
-> index 727cdf768161a..ff34aeef3a6ff 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> @@ -635,17 +635,18 @@ static void dw_hdmi_rockchip_remove(struct platform=
-_device *pdev)
->  	component_del(&pdev->dev, &dw_hdmi_rockchip_ops);
->  }
+[ ... ]
+
+> @@ -650,25 +673,27 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct=
+ amdgpu_device *adev,
+>  		}
+>  	}
 > =20
-> -static int __maybe_unused dw_hdmi_rockchip_resume(struct device *dev)
-> +static int __maybe_unused dw_hdmi_rockchip_resume_early(struct device *d=
-ev)
->  {
->  	struct rockchip_hdmi *hdmi =3D dev_get_drvdata(dev);
+> -	ds_pdev =3D pci_upstream_bridge(adev->pdev);
+> -	us_pdev =3D pci_upstream_bridge(ds_pdev);
+> +	us_pdev =3D aqua_vanjaram_get_us_pdev(adev);
+> +	if (us_pdev) {
+> +		pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
+> +					  &pcie_regs->device_status);
+> +		pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
+> +					  &pcie_regs->link_status);
+> +
+> +		aer_cap =3D pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
+> +		if (aer_cap) {
+> +			pci_read_config_dword(us_pdev,
+> +					      aer_cap + PCI_ERR_COR_STATUS,
+> +					      &pcie_regs->pcie_corr_err_status);
+> +			pci_read_config_dword(us_pdev,
+> +					      aer_cap + PCI_ERR_UNCOR_STATUS,
+> +					      &pcie_regs->pcie_uncorr_err_status);
+> +		}
 > =20
-> -	dw_hdmi_resume(hdmi->hdmi);
-> +	if (hdmi)
-> +		dw_hdmi_resume(hdmi->hdmi);
+> -	pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
+> -				  &pcie_regs->device_status);
+> -	pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
+> -				  &pcie_regs->link_status);
+> -
+> -	aer_cap =3D pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
+> -	if (aer_cap) {
+> -		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_COR_STATUS,
+> -				      &pcie_regs->pcie_corr_err_status);
+> -		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_UNCOR_STATUS,
+> -				      &pcie_regs->pcie_uncorr_err_status);
+> +		pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
+> +				      &pcie_regs->sub_bus_number_latency);
+>  	}
 
 [Severity: High]
-Is checking if (hdmi) sufficient to guarantee that hdmi and hdmi->hdmi are
-valid here?
+When aqua_vanjaram_get_us_pdev(adev) returns NULL (or when aer_cap is 0), do
+these skipped fields in pcie_regs leak uninitialized kernel heap memory to
+userspace?
 
-In drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c, hdmi is allocated with
-devm_kzalloc() inside dw_hdmi_rockchip_bind(), which runs inside the
-component devres group opened by component_bind().
+When userspace reads the world-readable (0444) reg_state sysfs binary
+attribute at offset AMDGPU_SYS_REG_STATE_PCIE, the buffer is allocated with
+kmalloc() without __GFP_ZERO and passed down without being zeroed:
 
-dw_hdmi_rockchip_bind() sets the driver data before calling dw_hdmi_bind(),
-and does not clear it on failure:
+kernfs_file_read_iter()
+  buf =3D kmalloc(len, GFP_KERNEL);
+  sysfs_kf_bin_read()
+    amdgpu_sysfs_reg_state_get()
+      amdgpu_asic_get_reg_state()
+        aqua_vanjaram_get_reg_state()
+          aqua_vanjaram_read_pcie_state()
 
-	platform_set_drvdata(pdev, hdmi);
+Previously, pcie_regs->device_status, pcie_regs->link_status, and
+pcie_regs->sub_bus_number_latency were unconditionally written. With this
+change, when us_pdev is NULL, those fields along with
+pcie_regs->pcie_corr_err_status and pcie_regs->pcie_uncorr_err_status are
+left completely uninitialized in buf while pcie_regs->inst_header.state is
+set to AMDGPU_INST_S_OK, and kernfs_file_read_iter() copies szbuf bytes back
+to userspace via copy_to_iter().
 
-	hdmi->hdmi =3D dw_hdmi_bind(pdev, encoder, plat_data);
-
-	if (IS_ERR(hdmi->hdmi)) {
-		ret =3D PTR_ERR(hdmi->hdmi);
-		goto err_bind;
-	}
-
-	return 0;
-
-err_bind:
-	drm_encoder_cleanup(encoder);
-
-	return ret;
-
-When dw_hdmi_bind() fails (for example with -EPROBE_DEFER when the DDC I2C
-adapter is not ready), component_bind() calls devres_release_group(), which
-frees hdmi and disables the devm-managed clocks and regulators while leaving
-dev->driver_data as a non-NULL dangling pointer.
-
-Similarly, dw_hdmi_rockchip_unbind() does not clear dev->driver_data before
-component_unbind() calls devres_release_group():
-
-static void dw_hdmi_rockchip_unbind(struct device *dev, struct device *mast=
-er,
-				    void *data)
-{
-	struct rockchip_hdmi *hdmi =3D dev_get_drvdata(dev);
-
-	dw_hdmi_unbind(hdmi->hdmi);
-	drm_encoder_cleanup(&hdmi->encoder.encoder);
-}
-
-If a system suspend/resume occurs after a failed bind or after component
-unbind, wouldn't dev_get_drvdata(dev) in dw_hdmi_rockchip_resume_early()
-return a non-NULL dangling pointer and pass a freed or ERR_PTR hdmi->hdmi to
-dw_hdmi_resume() while the HDMI clocks and regulators are disabled?
+Should these fields (or pcie_regs) be zero-initialized before populating the
+state?
 
 > =20
->  	return 0;
->  }
-> =20
->  static const struct dev_pm_ops dw_hdmi_rockchip_pm =3D {
-> -	SET_SYSTEM_SLEEP_PM_OPS(NULL, dw_hdmi_rockchip_resume)
-> +	SET_LATE_SYSTEM_SLEEP_PM_OPS(NULL, dw_hdmi_rockchip_resume_early)
->  };
-> =20
->  struct platform_driver dw_hdmi_rockchip_pltfm_driver =3D {
-
-=E0=B4=A8=E0=B5=87=E0=B4=B0=E0=B4=BF=E0=B4=9F=E0=B5=8D=E0=B4=9F=E0=B5=8D
+> -	pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
+> -			      &pcie_regs->sub_bus_number_latency);
+> -
+>  	pcie_reg_state->common_header.structure_size =3D szbuf;
+>  	pcie_reg_state->common_header.format_revision =3D 1;
+>  	pcie_reg_state->common_header.content_revision =3D 0;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019135441.1420=
-968-349-sashal@kernel.org?part=3D1
+968-466-sashal@kernel.org?part=3D1
