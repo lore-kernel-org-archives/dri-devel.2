@@ -2,77 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F10D606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AE7606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E24ElX5Z
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kC+GV5J8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8E4710F2EC;
-	Tue, 20 Oct 2026 07:36:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7311B10F2ED;
+	Tue, 20 Oct 2026 07:36:29 +0000 (UTC)
 Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AE2F10E4D5
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:44:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4444989711
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:12:58 +0000 (UTC)
 Received: by mail-dy2-f5.google.com with SMTP id
- 5a478bee46e88-3535a54c09bso1862530eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 02:44:00 -0700 (PDT)
+ 5a478bee46e88-3535a54c09bso1832204eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 02:12:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792403039; x=1793007839; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SS9kJ1jH1xG6CLAUi3XRMYbxFYxyeHVEus5/yx1itww=;
- b=E24ElX5Z0rdGfVD+WHJWMkI9OyDipMOTrrtPfY2LQ7JxDRKc3kjQ1Iln6zMw/z02RK
- sjdCwumuq9InuvYltP1Qbla51nLPdo8Mm/clGmD8fYtdncKARKy81nqIl2RmbvlK3pNN
- 39bXGEJMS+RGiExMgk9v66VboCMF89VTbN2T1BgYryfQCmbHnEeAZUysvNpJHi67f9cV
- DZX/Czo0ZTmwV8ZV245JIWTQLtR2UHHCTZ9tcvGy9DiScMX4UU1ndEP0PCPhpO/HPWQ7
- GvIq9rNXSWwGWEShzG/ulwVHdSy8pC27hBJEK/f2Cpn3vtQP9R1hwftWRFGWJ2fQG74x
- Qk7A==
+ d=gmail.com; s=20251104; t=1792401177; x=1793005977; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
+ b=kC+GV5J8u9oCqUL6LHGalVF5IDgJgwGShl6UgaCBuYplAXX1fkkQtzdrx19Xq0C3f2
+ QCaBSMleSvLgk4PubSfmyrfHTcdrgXZKZz5jXdn9g75Hk+eZ1u9DiRC5V06nI0Xow8P4
+ CihZ+O4eBZ+AB7szqRB2E+lsrJsprksm7jHuz8+eOHSLqgyMGxk0jLkijRUK/DyuKvNc
+ Rme68SBz1x0SW35/Umm9Id4duO8LG1qmehrMXASpiTRSidMnyoTxQtaIpzIEPxbcElkZ
+ b40UwdiXs1oHDVr6vyuLbpY+7uYfNWjCyzRP2Q5W5p9z5w2quiJXwS7HMIA3Z5pUWd/g
+ rGQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792403039; x=1793007839;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=SS9kJ1jH1xG6CLAUi3XRMYbxFYxyeHVEus5/yx1itww=;
- b=dBMaAwGx46/GbUBIemtY5NoysdWNV04FWdX4AH3eqPVbyY9n4e+tQi8JAroI3cyby5
- wCgwE6Uwa4k2+XhONsjMBAFeWegJ9m1nafAKcrJAIhqw6xSggV1ZJjdBUlliqrw61kVT
- 3p7qjmUFzu0pJMpaqGz+4+Yg1YRUPeXuUHh2s0sYOaWlsBs9FAFBnJl6+bzEjh5vBi6Q
- YRdOmmcdPZ5E2pt5N1yo+l3Rdp0Brw6xhrDpnIWmG+K2aLuQGlBRnxRfdq4ESb9eT6e6
- TtUe+XNz9Ob/R1nZ8PK8XLkv8oQlFYc4fB4K7QHso09kiEMGka/Tt/WZG24agfDLMAYj
- j6/w==
-X-Gm-Message-State: AFq9FYKGcP07mexc3APlAkebVLF1VhgW/hERB3HQ68N7uvGyQr4xIeEK
- m7UnT1Q8jLZ9fQoXjF+d7YDcyNM7COsiutINbZoMiiVDP+PUL0mtj1VP
-X-Gm-Gg: AYBFou2sPDO+TuodHQxQByEGt2bNq+qQv08gIBmMm7xg/5hyVURmTgDPFkFAk1o30eT
- of59oaKOtz717hb60MvWMeMPcSvM69voNGO1KrGKSW1O0tJYlTrXbzBHXFLGVf+frEgBZdNh/A1
- 3XE03yLwZt192zqHoXlDO1GW9PV1m7qCIiOi+mEkLNC0Qn6NeexAUf/DA22VJzef5UTgiC7ggPF
- XyKKk47FskkfNMiA+HcCxMJ13lf/p6kiWPKkBsqj7Rk7Xfk4LHDuL+q+cA2k358+9/9cbwIxitV
- RfEK9ATNegexgHJpvJwXifK5B4Iadiw4pUV3pxBspZeffiiUnzTVoDeNjendyKuzYGzqD0GMbHm
- 0QLBNpEm4095Q0Tg3gFL1u8HHnF0O6dDkXbwKxDob3DTe9hUmuT8xNbxGXJGVTwVe1rlKZ+NnQY
- NfvBMesmKcp6kgvAGQZ+IqJhgZf4vJHDOorXmtcXLKv7pWxySGfM2o7oPDAMU/Hv5l0XHgv7ECO
- pDvuBv236gMr21p44Umsbdrv4p/GUKN9XQ=
-X-Received: by 2002:a05:7301:6404:b0:360:f13a:ff0e with SMTP id
- 5a478bee46e88-361a1b539f1mr10748987eec.23.1792403039178; 
- Mon, 19 Oct 2026 02:43:59 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com.
- [104.194.64.109]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3607bc950f9sm34370074eec.0.2026.10.19.02.43.56
+ d=1e100.net; s=20260707; t=1792401177; x=1793005977;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
+ b=iuZuraxB24cuCmo8rFDHemYkakZftXFsKzEtCro61t5PpemwyNO6578gOZmgdceFZf
+ w+9V49nWVoc+ytzwUAmwEnUrXVbD5XaNyIj2OD9F9s3Sw13JJxxhlzGFZzLSr8d6hQzl
+ lAWF9FkNkL/Qw4ZvmkbcWv+TT+KSwfIvD5DS6zeQXdwC9ivDQ1vGwNjReVI5aoPp8aay
+ jzpObwzXZheXKcLpe768cdnQLy2T5/raFQ8l3DPDt+odChyqo1IpvAGp2bq4ZaufqzRX
+ RLbunTiqCNU5BxiDenKIfyhvwJguMlFGAFOPssGAJqdoeKYGLXKEF3zSjz7pm/ZWFCBK
+ Nt6Q==
+X-Gm-Message-State: AFq9FYILW2fwdyr7bDHGiwAFZPIMtBLB+5PHjSBxTcZ459tVPwPlRkmI
+ rcZeI3F66w2T/94S5zGLyQKe41NnoDv87mQtcTp6+Umo8aGGHYlfVKQA
+X-Gm-Gg: AYBFou0yVZvIchJ2s8BKGpmx2lHYQGw+9h9UG0fa42alf/qrbWJv/53bhz981K5eZE5
+ YpH9j0ZZymzhcXKjMilfZFhBo5eMPXF2iMU2nWzUmIoSnH51/KGtCuerGw5qxg51cYJaPTF5e77
+ cFsqn5IR+lZ28/UbBCPjCl5n3Gr0xgaV2Le6Jza6j3WaAylep9pqLYW1dcUz6f51S+SiXb2SgAa
+ 5ukTkiLKgHouPlmqNr/F1Nznwm8yOrfEaFNSOOIbyR+plOaq02mHY6KpXg7GZB996h1Eph0CjVk
+ V6vRTZS+MAsFAlAba6nyh6VZNo8N60CEHtBJVAWJno7iL07RJy55JWEx3h9a5fKY+H+6/3JmJ8y
+ u7iPHXhUZ8P3FTDVCdw7nFAB31AgFTZfbeO+Zwt/KoeODqqqfmOMi6hcIjETduCZ67arJMW99Kx
+ PfpE3LTdPHl5adkX3BZziFeyl60zJM7PU9/bK99RLIL6Ar9a7cDO2s2dhONGLYRmV3GCd1X1kJr
+ vBr2oNqsA0=
+X-Received: by 2002:a05:7300:d588:b0:35f:4780:518e with SMTP id
+ 5a478bee46e88-361a16609bdmr11651555eec.16.1792401177429; 
+ Mon, 19 Oct 2026 02:12:57 -0700 (PDT)
+Received: from blue (104.194.64.109.16clouds.com. [104.194.64.109])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-360819be413sm30693119eec.13.2026.10.19.02.12.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 02:43:58 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com,
- Yao Yiqi <yyaqia@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH v5 3/3] fbcon: Retry rotated font allocation after failure
-Date: Mon, 19 Oct 2026 17:43:31 +0800
-Message-ID: <20261019094331.1128871-4-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019094331.1128871-1-yyaqia@gmail.com>
-References: <20261019094331.1128871-1-yyaqia@gmail.com>
+ Mon, 19 Oct 2026 02:12:56 -0700 (PDT)
+Date: Mon, 19 Oct 2026 17:12:52 +0800
+From: yyaqia@gmail.com
+To: Helge Deller <deller@gmx.de>, tzimmermann@suse.de, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] fbcon: Include font geometry in the rotated font
+ cache
+Message-ID: <atXeFarSzZcJmThe@blue>
+References: <20261016073023.490430-1-yyaqia@gmail.com>
+ <20261016073023.490430-2-yyaqia@gmail.com>
+ <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
 X-Mailman-Approved-At: Tue, 20 Oct 2026 07:36:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,49 +86,20 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+On 2026-10-18 16:05, Helge Deller wrote:
+> I've replaced the v1 version of this series with this v3 version
+> in fbdev/for-next git tree for further testing.
 
-fbcon_rotate_font() records the font, its geometry and the rotation in
-par->rotated before calling font_data_rotate(). If the allocation
-fails, the error path clears par->rotated.buf, but the recorded key
-already looks up to date, so the next call takes the early-out and
-never retries. The rotated putcs/cursor ops keep returning early on
-the NULL buffer, and the console stays blank even after memory is
-available again.
+Sorry, the patch was not good enough, Zimmermann reviewed the code and I
+did some modification after that. So we might need to switch to v4
+version, sadly. Anyway, appreciate your continuous work for testing.
 
-Also test par->rotated.buf in the early-out, so a failed allocation
-is retried on the next call: at the next fbcon_switch(),
-fbcon_modechanged() or font change.
-
-Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
- drivers/video/fbdev/core/fbcon_rotate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 660a3fa81bae..7afd63dcee7b 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -25,7 +25,8 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	    par->rotate == par->rotated.buf_rotate &&
- 	    vc->vc_font.width == par->rotated.buf_width &&
- 	    vc->vc_font.height == par->rotated.buf_height &&
--	    vc->vc_font.charcount == par->rotated.buf_charcount)
-+	    vc->vc_font.charcount == par->rotated.buf_charcount &&
-+	    par->rotated.buf)
- 		return 0;
- 
- 	par->rotated.fontdata = par->p->fontdata;
--- 
-2.56.0
-
+Thanks,
+Yao Yiqi
