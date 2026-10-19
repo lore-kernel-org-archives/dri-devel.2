@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44455CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:58:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53AB6CCF2E3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:58:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AA0810EDB0;
-	Mon, 19 Oct 2026 13:58:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1FA510EDB4;
+	Mon, 19 Oct 2026 13:58:34 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0604B10EDB0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:58:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D827410EDB4
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:58:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6DFFB60261;
- Mon, 19 Oct 2026 13:58:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFFE01F000C8;
- Mon, 19 Oct 2026 13:58:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4C5B06025A;
+ Mon, 19 Oct 2026 13:58:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B6C1F000CB;
+ Mon, 19 Oct 2026 13:58:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418287;
- bh=Ff21cRgZ8MvA5CDC/2+VpN0VjGBg1z2VwpeEj2orLlU=;
+ s=k20260515; t=1792418308;
+ bh=qHLwWFSJs0y+IsONzeddCss/34khrT/kFDkOgZsY3U8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=h0GO22urMcdHOGNafsxfp1ycROIVdVoinJlMg17ucDY07dF+RZBGQ/tEmKrTWCQsu
- EpkXE/mq0PGGDEAfXRdUJgOWmtKKuu2Znbx7PCK/k1NUqvvTpgWukgRGkq/xEqM0e7
- OihqhirPT3mprGCS2VQSq3vngaUsUiLlj61DkUu9s2hy7LmhU73DNlAZyooDEU1DTk
- iiCDXLPs6aLVM9yRzl1zmHOV0eT8nWtw5khI8GarroHXbr+01erpADYIRqZZuiDJgE
- kdCrUxDjIS7dgJ8wq76E0xQGr8Gv/+wUSwiDTPhfuarQ5dveVR2pDDJEU+SaHHYw+n
- bPNRwHW5be4cw==
+ b=XgQe8SaGPuvYfCfARrBJsombLTeY6WmZEyfq1xTzQuk/PPQfOGdVTiKy5BqGw8bOQ
+ Ernq8DRDEDDQ33XH+0iez4lv+pabqrEX1rdKiMAPfeY9HOLqaC0SOgbuQXeuyCZKoF
+ hq6DTw+SFQxoPHMOYSAcxQkbrkYNpiaQkQMN5ntACxChmAQzmYbQu7iL3wh4dsW3zZ
+ LEbOL9v4Pf0qnqM2SB08z1z0c2AK4bLILzOzeW2cUDVc6t8kvF+VHrxVnrMpcXKHUv
+ N+kpuBuW0wkiT/EtfuF28SKwioUYC+wcyOvM/LXH6qbqwGWYYZceujx0pWlM8Duvy+
+ tkLbiX1JYQYsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <treding@nvidia.com>, Sasha Levin <sashal@kernel.org>,
- thierry.reding@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, Helge Deller <deller@gmx.de>,
+ Sasha Levin <sashal@kernel.org>, bernie@plugable.com,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] gpu: host1x: Wait for timeout worker
- completion on channel free
-Date: Mon, 19 Oct 2026 09:47:11 -0400
-Message-ID: <20261019135441.1420968-140-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] fbdev: udlfb: validate vendor descriptor
+ items
+Date: Mon, 19 Oct 2026 09:47:26 -0400
+Message-ID: <20261019135441.1420968-155-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,484 +62,430 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mikko Perttunen <mperttunen@nvidia.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 7a39b9856acccc8e9b05845ca2bf62494fcd3dfa ]
+[ Upstream commit 3cc2fad376ac7360b4518277aa923752624db59c ]
 
-cdma_timeout_destroy() used cancel_delayed_work() to cancel pending
-timeout work when destroying the CDMA. Usually this is fine, but
-there is a narrow race condition where the timeout handler has started
-execution but has not taken cdma->lock; the channel is freed causing
-cdma_stop to take cdma->lock and flush the channel; host1x_cdma_deinit
-then proceeds with deinitializing cdma while the handler is waiting to
-take cdma->lock.
+dlfb_parse_vendor_descriptor() walks key-length-value items inside the
+DisplayLink vendor descriptor.
 
-Therefore change cdma_timeout_destroy to use cancel_delayed_work_sync
-instead to ensure any pending timeout work completes before proceeding.
+Require each item to contain its key, length and declared value bytes
+before reading item-specific fields such as max_area.
 
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260609-b4-host1x-small-fixes-a-v1-1-7c1131c0b3ad@nvidia.com
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Helge Deller <deller@gmx.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **v7.3-rc4** (`7.3.0-rc4`). The host1x CDMA timeout
-path is present, and this is a one-line `cancel_delayed_work` →
-`cancel_delayed_work_sync` race/UAF fix that is standalone and meets
-stable criteria.
+This is a USB descriptor bounds-check for `udlfb`. The buggy parser is
+in this 6.12.111 tree, the patch applies cleanly, and the failure mode
+is an out-of-bounds read from device-controlled data.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[gpu/host1x] [Wait / ensure completion] [Wait for timeout
-worker completion on channel free]**
-Subsystem prefix `gpu: host1x:`. The verb is “Wait … on channel free”,
-i.e. synchronize teardown with a running work item. That is a teardown-
-race fix, not a feature.
+Record: **[fbdev/udlfb] [validate] [require each vendor-descriptor TLV
+item to contain key, length, and declared value bytes before reading
+fields such as max_area]**
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- **Fixes:** none (expected for this review path)
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** none on the commit itself
-- **Acked-by:** none
-- **Link:** `https://patch.msgid.link/20260609-b4-host1x-small-fixes-
-  a-v1-1-7c1131c0b3ad@nvidia.com`
-- **Cc: stable:** none (expected)
-- **Signed-off-by:** Mikko Perttunen `<mperttunen@nvidia.com>` (author);
-  Thierry Reding `<treding@nvidia.com>` (Tegra/host1x maintainer).
-  Ignored any Sasha Levin SOB (none on this commit).
-- Series marker in the msgid: **patch 1/6** of `host1x-small-fixes-a`.
+- Signed-off-by: Pengpeng Hou \<pengpeng@iscas.ac.cn\> (author)
+- Signed-off-by: Helge Deller \<deller@gmx.de\> (fbdev maintainer;
+  applied)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
+  or Cc: stable tags (absence is expected for this review)
+- Ignore any pipeline “Upstream commit …” / Sasha Levin SOB markers;
+  they are not evidence of selection
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- **Bug:** `cdma_timeout_destroy()` used `cancel_delayed_work()`, which
-  does not wait if the timeout work is already running.
-- **Mechanism:** timeout handler has started but has not yet taken
-  `cdma->lock`; channel free runs `cdma_stop` (takes the lock, flushes),
-  then `host1x_cdma_deinit()` tears CDMA down while the handler is still
-  waiting for that lock.
-- **Symptom/failure mode:** use-after-free / use of a destroyed mutex
-  and CDMA state from the timeout worker. That is a kernel crash /
-  memory-safety bug, not a cosmetic issue.
-- **Version info:** none in the message. The call has existed since
-  host1x channel support.
-- **Author’s root cause:** async cancel vs running work vs lock/deinit
-  order.
+- Bug: `dlfb_parse_vendor_descriptor()` walks DisplayLink vendor-
+  descriptor key-length-value items without checking that key, length,
+  and value bytes are still inside the descriptor.
+- Symptom/failure mode: out-of-bounds read of `max_area` (and of the
+  next key/length) when the remaining buffer is shorter than the
+  declared item.
+- Version information: none in the message. The parser has been in this
+  file for many years (see Phase 3).
+- Root cause: missing remaining-length checks before reading item
+  fields.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not hidden. It is an explicit race/UAF fix. Cover letter (see
-Phase 4) calls patches 1–4 “logic issues that are unlikely to happen but
-technically possible.” Unlikely trigger does not make a UAF inapplicable
-to stable.
+Record: Not disguised. “Validate” is an explicit bounds-check fix for a
+USB descriptor parser. It is not cleanup, a new feature, or refactor-
+only.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/gpu/host1x/hw/cdma_hw.c` — **1 insertion, 1 deletion**
-- Function: `cdma_timeout_destroy()`
-- Scope: **single-file surgical fix** (one call-site change)
+- File: `drivers/video/fbdev/udlfb.c` — **+16 / −6** (22-line change)
+- Function: `dlfb_parse_vendor_descriptor()`
+- Scope: single-file surgical fix
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- **Before:** if `cdma->timeout.initialized`,
-  `cancel_delayed_work(&cdma->timeout.wq)` then `initialized = false`.
-  Pending work is cancelled; **running** work is not waited for.
-- **After:** `cancel_delayed_work_sync()` — cancel pending work **and
-  wait** if the handler is executing.
-- **Path:** channel teardown / CDMA destroy, not the submit hot path.
+Current code in this tree (`drivers/video/fbdev/udlfb.c` around the
+parse loop):
 
-Verified teardown order in this tree:
+```1588:1612:drivers/video/fbdev/udlfb.c
+                while (desc < desc_end) {
+                        u8 length;
+                        u16 key;
 
-```102:113:drivers/gpu/host1x/channel.c
-static void release_channel(struct kref *kref)
-{
-        ...
-        host1x_hw_cdma_stop(host, &channel->cdma);
-        host1x_cdma_deinit(&channel->cdma);
-        clear_bit(channel->id, chlist->allocated_channels);
-}
+                        key = *desc++;
+                        key |= (u16)*desc++ << 8;
+                        length = *desc++;
+
+                        switch (key) {
+                        case 0x0200: { /* max_area */
+                                u32 max_area = *desc++;
+                                max_area |= (u32)*desc++ << 8;
+                                max_area |= (u32)*desc++ << 16;
+                                max_area |= (u32)*desc++ << 24;
+                                ...
+                        }
+                        ...
+                        desc += length;
+                }
 ```
 
-```528:541:drivers/gpu/host1x/cdma.c
-int host1x_cdma_deinit(struct host1x_cdma *cdma)
-{
-        ...
-        host1x_pushbuffer_destroy(pb);
-        host1x_hw_cdma_timeout_destroy(host1x, cdma);
-        return 0;
-}
-```
-
-`cdma_stop()` takes `cdma->lock`, may wait for an empty sync queue, then
-unlocks. `host1x_cdma_deinit()` then runs **without** `cdma->lock`. That
-matches the commit’s race: stop can finish and deinit can proceed while
-`cdma_timeout_handler()` is between start and `mutex_lock(&cdma->lock)`.
-
-The window is larger than “a few instructions.” The handler dumps debug
-state **before** taking the lock:
-
-```291:305:drivers/gpu/host1x/hw/cdma_hw.c
-static void cdma_timeout_handler(struct work_struct *work)
-{
-        ...
-        host1x_debug_dump(cdma_to_host1x(cdma));
-        mutex_lock(&cdma->lock);
-```
-
-`host1x_debug_dump()` walks every channel and dumps FIFOs
-(`show_all(..., true)`). A GPU timeout is also when userspace/driver
-often closes the channel. That is a realistic overlap, not only a one-
-instruction race.
+Record, per hunk:
+- Before: if `desc` is within `desc_end`, it always consumes 3 bytes
+  (key+length) and, for key `0x0200`, 4 more value bytes, with no
+  remaining-length test. Then it still does `desc += length`.
+- After: require at least 3 bytes left; parse key with
+  `get_unaligned_le16()`; reject if `length` exceeds remaining bytes;
+  for `max_area`, require `length >= 4` and read via
+  `get_unaligned_le32(value)` without advancing past the value twice;
+  then `desc += length`.
+- Path: USB probe / firmware descriptor parse (initialization), not a
+  hot path.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
 Record:
-- **Category:** race + use-after-free / use of destroyed CDMA (mutex,
-  push buffer, channel).
-- **Mechanism:** non-synchronous delayed-work cancel on destroy. Fix is
-  the standard `cancel_*_sync` teardown pattern.
-- **Not** a leak, NULL check, or new API.
-
-Related code that correctly stays **non-sync** (would deadlock if
-changed, because it runs under `cdma->lock`, which the handler also
-takes):
-
-```293:297:drivers/gpu/host1x/cdma.c
-static void stop_cdma_timer_locked(struct host1x_cdma *cdma)
-{
-        cancel_delayed_work(&cdma->timeout.wq);
-        cdma->timeout.client = NULL;
-}
-```
+- Category: **memory safety / out-of-bounds read** of USB descriptor
+  data (also a logic correction of the 2018 max_area pointer walk).
+- Mechanism: a truncated or hostile descriptor can make `desc_end -
+  desc` smaller than 3 (key+length) or smaller than `length` /
+  `sizeof(u32)`. The old loop still reads `key`, `length`, and
+  `max_area`. The fix stops at `unrecognized` instead of reading past
+  the buffer. `unrecognized` already exists and still returns true
+  (driver still loads with the default SKU limit).
 
 **Step 2.4: ASSESS THE FIX QUALITY**
 Record:
-- **Quality:** obviously correct for the stated race.
-  `cancel_delayed_work_sync()` is the documented way to wait for delayed
-  work before freeing the object that work touches.
-- **Minimal:** one identifier change.
-- **Regression risk:**
-  - `_sync` can sleep. Callers of `host1x_channel_put()` →
-    `release_channel()` are process-context (DRM ioctls/file close,
-    client `exit`/unbind, debugfs). Sleeping is valid there.
-  - `_sync` is **not** called while holding `cdma->lock` (`cdma_stop`
-    drops it first). No lock-vs-work deadlock on the free path described
-    in the commit.
-  - Residual risk: if the timeout handler’s `host1x_debug_dump()` →
-    `host1x_channel_put()` dropped the **last** channel ref,
-    `release_channel()` would run on the same work and `_sync` could
-    wait on itself. That path was already unsafe with async cancel (UAF
-    after dump returns). No mailing-list NAK of this patch; maintainer
-    applied it.
+- Quality: obviously correct TLV remaining-length checks;
+  `get_unaligned_le16/le32` matches USB little-endian layout and the
+  pre-2018 `le16_to_cpu`/`le32_to_cpu` reads. `linux/unaligned.h` is
+  already included.
+- Regression risk: low. Failures take the existing `unrecognized` path,
+  which logs and still succeeds. The kernel is built with `-funsigned-
+  char`, so switching from byte-or-shifts to `get_unaligned_le*` is not
+  a signed-char behavior change. Restoring “read value, then `desc +=
+  length`” matches the original 2010 parser and the DRM `udl` parser in
+  this tree.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
 Record:
-- Buggy `cancel_delayed_work()` in `cdma_timeout_destroy()` comes from
-  **`6579324a41cc41`** (“gpu: host1x: Add channel support”, Terje
-  Bergstrom, 2013-03-22).
-- First contained in **`v3.10-rc1`**. This is old, long-lived driver
-  code, not a last-month addition.
+- Loop introduced in `18dffdf8913ab9` (“staging: udlfb: enhance EDID and
+  mode handling support”, 2010-09-05). Original max_area read did
+  **not** advance `desc` before `desc += length`.
+- Current byte-by-byte form introduced by `115e77597efcc9` (“video:
+  udlfb: Fix unaligned access”, 2018-03-12), which is an ancestor of
+  this HEAD. That commit replaced `le16_to_cpu`/`le32_to_cpu` with
+  `*desc++` and accidentally advanced `desc` through the 4-byte value
+  **and** still did `desc += length`.
+- Bug class is old (2010 missing bounds; 2018 worse walk). Present in
+  6.12.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. The introducing commit is identified by blame,
-not by the message. `git merge-base --is-ancestor 6579324a41cc41 HEAD`
-succeeds — the introducing commit is in this checkout.
+Record: No Fixes: tag. Not applicable beyond that. The intended target
+is the long-standing parser, last reshaped by `115e77597efcc9`, which
+**is** in this tree.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record (recent `drivers/gpu/host1x/hw/cdma_hw.c`):
-- `7a39b9856accc` — this fix
-- `60bca008dd789` — Tegra264 support (does not revert the `_sync`
-  change; current file still has `cancel_delayed_work_sync`)
-No prerequisite refactor. Standalone.
+Record: Recent udlfb commits in this tree are independent (`add
+vm_ops…`, `avoid divide-by-zero…`). This is a standalone v1 patch, not
+“X/Y”. No prerequisite refactor is required.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Mikko Perttunen is a regular NVIDIA host1x contributor (UAF,
-refcount, iommu, MLOCK, etc.). Same-series follow-ups are independent
-(double `device_add`, trace offset, debug stack over-read, `pin_job`
-return type, syncpoint wrap annotation). This patch does not depend on
-them.
+Record: Pengpeng Hou has no other udlfb commits in this tree. Helge
+Deller (fbdev maintainer) applied it. Related DRM work: `df6dc12e5e6dd`
+(“drm/udl: Validate length in vendor-descriptor parser”) on
+`origin/master` is the sibling hardening of the same protocol; it is
+**not** an ancestor of this HEAD.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: None. It only needs `cdma_timeout_destroy()` +
-`cancel_delayed_work()` / `_sync`, present since 2013. **Can apply
-standalone.**
+Record: None. Uses existing `get_unaligned_le16`/`get_unaligned_le32`
+from `include/linux/unaligned.h` (already included as
+`<linux/unaligned.h>`). `git apply --check` of `3cc2fad376ac7` on this
+tree succeeded. Standalone.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- `b4 dig -c 7a39b9856accc` matched **v1 only** (no v2/v3).
-- Lore: https://patch.msgid.link/20260609-b4-host1x-small-fixes-
-  a-v1-1-7c1131c0b3ad@nvidia.com
-- Cover letter: https://patch.msgid.link/20260609-b4-host1x-small-fixes-
-  a-v1-0-7c1131c0b3ad@nvidia.com — “Miscellaneous fixes”; patches 1–4
-  “unlikely to happen but technically possible.”
-- Thierry Reding, 2026-07-16: **“Applied to drm-misc-next, thanks.”** No
-  NAK, no stable discussion, no request for a different approach.
-- `sashiko-bot` replied with **pre-existing** issues (`update_work` not
-  cancelled in deinit; non-sync cancel in `stop_cdma_timer_locked()`).
-  It did **not** reject this change. Those are separate bugs, not
-  regressions of this one-liner.
+- Commit on `origin/master`: `3cc2fad376ac7360b4518277aa923752624db59c`
+  (not in this HEAD).
+- `b4 dig -c 3cc2fad376ac7`:
+  https://patch.msgid.link/20260706093038.80131-1-pengpeng@iscas.ac.cn
+- `b4 dig -a`: **v1 only** (no v2/v3). Applied version is that v1.
+- Maintainer Helge Deller first asked whether LE reads were valid, then
+  retracted: “Your patch is of course correct! The patch is now added to
+  fbdev git tree.”
+- No NAK. No reviewer request for Cc: stable (not a negative).
+- An automated Sashiko note flagged a **pre-existing** `%11ph` 11-byte
+  dump when `total_len` can be 6; that is **not** introduced or fixed
+  here.
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc included Thierry Reding, David Airlie,
-Simona Vetter, `dri-devel`, `linux-tegra`, `linux-kernel`. Subsystem
-maintainer applied the series. No extra Reviewed-by on the commit.
+Record (`b4 dig -w`): Pengpeng Hou; Bernie Thompson; Helge Deller;
+linux-fbdev; dri-devel; linux-kernel. Subsystem maintainer was on Cc and
+applied the patch.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No syzbot, bugzilla, or user crash report. Author-found race
-from code inspection. Severity still UAF if it hits.
+Record: No syzbot/bugzilla tag. Same bug class as DRM udl: Thomas
+Zimmermann’s `drm/udl` series (lore, April 2025) states the current
+parser “might read more bytes than available” / “out-of-bounds reads of
+the allocated buffer.” That is independent confirmation of the protocol
+bug, not a userspace crash report for udlfb.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Series is 6 independent small fixes. This is patch 1/6 and does
-not need 2–6.
+Record: Standalone single patch. No later origin/master follow-up on
+`udlfb.c` after `3cc2fad376ac7`. DRM equivalent is a larger 2025
+refactor (`udl_parse_key_value_pair`); not a dependency of this fbdev
+patch.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: WebFetch to `lore.kernel.org/stable/` returned 403.
-**UNVERIFIED** whether stable@ already discussed this specific commit.
-No `Cc: stable` on the patch.
+Record: WebFetch of lore.kernel.org/stable returned 403. **UNVERIFIED**
+whether stable@ discussed this subject. No in-tree evidence of a prior
+rejection. The commit is simply not in this 6.12 checkout.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: KEY FUNCTIONS**
-Record: `cdma_timeout_destroy` (changed). Related:
-`cdma_timeout_handler`, `cdma_timeout_init`, `host1x_cdma_deinit`,
-`release_channel`, `cdma_stop`.
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: `dlfb_parse_vendor_descriptor()` only.
 
 **Step 5.2: TRACE CALLERS**
-Record:
-- `cdma_timeout_destroy` via `host1x_cdma_ops.timeout_destroy` →
-  `host1x_hw_cdma_timeout_destroy()` → **`host1x_cdma_deinit()`** only.
-- `host1x_cdma_deinit()` from **`release_channel()`** (last
-  `host1x_channel_put()`).
-- `host1x_channel_put()` call sites (all process context):
-  - `drivers/gpu/drm/tegra/uapi.c` — channel close / ioctl error
-  - `drm/tegra` gr2d/gr3d/vic/nvdec — client exit / context close
-  - `drivers/crypto/tegra/tegra-se-main.c` — SE driver
-  - `drivers/gpu/host1x/debug.c` — debugfs dump
+Record: Sole caller is `dlfb_usb_probe()`
+(`drivers/video/fbdev/udlfb.c`). Bound via `.probe = dlfb_usb_probe` for
+USB VID `0x17e9` + vendor-specific interface. Context: process-context
+USB probe, not IRQ.
 
 **Step 5.3: TRACE CALLEES**
-Record: `cancel_delayed_work_sync()` only. Can sleep; flushes the
-delayed work.
+Record: `usb_get_descriptor()`, `usb_get_extra_descriptor()`,
+`dev_info`/`dev_warn`/`dev_err`, `kfree`. New: `get_unaligned_le16`,
+`get_unaligned_le32`. No new locks or allocations.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace on Tegra DRM can trigger it: submit a job with a
-timeout → timeout work queued → close channel (`DRM_TEGRA` channel close
-/ process exit) while the handler runs. Unprivileged on devices that
-expose tegra DRM. **Reachable from userspace.**
+Record: Plug in / enumerate a DisplayLink USB device (or a device
+spoofing VID `0x17e9`) → `dlfb_usb_probe` → parser. Reachable without
+extra syscalls beyond USB enumeration. Unprivileged userspace cannot
+call it directly, but a physical USB device can.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: `stop_cdma_timer_locked()` still uses unsynchronized cancel
-**under the lock** (correct). `cdma->update_work` is still not cancelled
-in deinit (pre-existing, called out by sashiko-bot; **not** this patch).
+Record: `drivers/gpu/drm/udl/udl_main.c` `udl_parse_vendor_descriptor()`
+in this tree still has the unbounded walk (`desc += length` with no
+remaining-length check). Same protocol bug. That does not block this
+udlfb-only fix.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record:
-- `git describe HEAD` = **v7.3-rc4-27-gf0100363d8c37**; `make
-  kernelversion` = **7.3.0-rc4**.
-- Commit **`7a39b9856acccc8e9b05845ca2bf62494fcd3dfa` is already an
-  ancestor of HEAD** (`git merge-base --is-ancestor` succeeded). Current
-  `cdma_timeout_destroy()` already calls `cancel_delayed_work_sync()`.
-- The **bug** existed here until that commit: same function, same
-  `cancel_delayed_work()`, since **v3.10**. This is mainline, so the fix
-  is already applied; the question is whether the same change belongs on
-  this tree’s stable-style policy given the code is the host1x driver
-  this tree ships.
-- Introducing commit **is** in this tree. This is not “bug added after
-  this tree branched.”
+Record: Yes. Tree is **6.12.111** (`git describe HEAD` →
+`p-6.12-3-gc504cf0baa3d8`; `VERSION/PATCHLEVEL/SUBLEVEL` 6.12.111).
+Parser at `dlfb_parse_vendor_descriptor()` lines 1588–1612. `git merge-
+base --is-ancestor 3cc2fad376ac7 HEAD` → **not in this tree**. Bug
+present since 2010 / 2018, well before 6.12.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Clean apply.** Surrounding function is still the 2013
-structure plus later whitespace. One-line identifier swap; no data-
-structure or API change.
+Record: **Clean apply.** `git show 3cc2fad376ac7 --
+drivers/video/fbdev/udlfb.c | git apply --check` exit 0. Surrounding
+function matches the patch context. `<linux/unaligned.h>` already
+present.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: This exact fix is already in HEAD (mainline). No alternate fix,
-no revert. No other commit on this file addresses the same cancel-vs-
-running-work race.
+Record: `git log --grep='validate vendor descriptor' --
+drivers/video/fbdev/udlfb.c` empty. DRM `Validate length in vendor-
+descriptor parser` is not in this HEAD. No alternate udlfb bounds fix
+present.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1: SUBSYSTEM AND CRITICALITY**
-Record: **drivers/gpu/host1x** (NVIDIA Tegra host1x DMA/sync engine).
-**IMPORTANT** for Tegra (Android, Jetson, embedded), **PERIPHERAL** for
-generic x86. `CONFIG_TEGRA_HOST1X` depends on `ARCH_TEGRA ||
-COMPILE_TEST`.
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: **fbdev USB framebuffer driver** (`CONFIG_FB_UDL`,
+`drivers/video/fbdev/udlfb.c`). Criticality: **PERIPHERAL / driver-
+specific**, but USB descriptor parsing is a standard untrusted-input
+path. DisplayLink USB 2.0 adapters are real hardware; the Kconfig help
+still describes this as the fbdev driver for those devices.
 
-**Step 7.2: SUBSYSTEM ACTIVITY**
-Record: Actively maintained (Tegra264, context devices, multiple 2026
-fixes). Author is a core contributor; Thierry Reding applied the series.
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Mature. Parser largely unchanged since 2018 aside from later
+mmap/div-by-zero fixes. Low churn favors a small bounds-check backport.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: WHO IS AFFECTED**
-Record: **Driver-specific / platform-specific** — Tegra SoCs using
-host1x (DRM 2D/3D/VIC/NVDEC, Tegra SE crypto). Not universal mm/net.
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: Users with `CONFIG_FB_UDL` and a DisplayLink USB 2.0 device (or
+a spoofed `0x17e9` device). Not universal.
 
-**Step 8.2: TRIGGER CONDITIONS**
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
 Record:
-- Job timeout work is running (or sitting in `host1x_debug_dump` before
-  the lock).
-- Concurrent last `host1x_channel_put()` (channel close, client unbind,
-  process exit).
-- Timing-dependent. Author: “narrow” / cover letter “unlikely” — but
-  timeout + channel teardown is a real recovery path.
-- Unprivileged userspace on Tegra DRM can close a channel; timeout is a
-  driver-internal delayed work.
+- Honest device with a well-formed descriptor: loop stays in-bounds
+  (typical path).
+- Truncated/malformed descriptor: OOB read of key/length/`max_area`.
+- Malicious USB device matching the VID/class: can set `bLength` up to
+  `MAX_VENDOR_DESCRIPTOR_SIZE` (256) so `desc_end` sits at the `kzalloc`
+  edge, then emit a TLV `length` that walks off the buffer.
+- Extra-descriptor fallback: `__usb_get_extra_descriptor()` bounds
+  `bLength` to the extra blob, but item `length` can still push reads
+  past that descriptor.
+- Trigger is probe-time, not a timing race. Unprivileged software cannot
+  hit it without USB device control.
 
-**Step 8.3: FAILURE MODE SEVERITY**
-Record: Timeout handler runs against CDMA/channel that
-`host1x_cdma_deinit()` already tore down: destroyed mutex, freed push
-buffer, stale channel. **UAF / kernel oops.** Severity: **HIGH** (crash;
-possible memory-safety issue). Not a log-only bug.
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: **OOB read** of kernel memory during USB probe. Can KASAN-splat
+or oops if the read crosses an allocation/page boundary (`total_len ==
+256` is the sharp heap case). Severity: **HIGH** (crash / infoleak from
+untrusted USB descriptor). Not a confirmed write, panic-on-boot for good
+hardware, or filesystem corruption.
 
-**Step 8.4: RISK-BENEFIT RATIO**
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- **Benefit:** High for Tegra users — prevents UAF on channel free vs
-  timeout. Low for everyone else (config-gated).
-- **Risk:** Very low — 1 line, standard API, no lock held, process
-  context.
-- **Ratio:** Benefit outweighs risk for any tree that still has the
-  unsynchronized cancel.
+- Benefit: stops USB-descriptor OOB in a driver that is in this LTS
+  tree; fail-open `unrecognized` path already exists.
+- Risk: very low (16 insertions, existing helpers, existing error label,
+  clean apply).
+- Ratio: **favorable**.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+## PHASE 9: FINAL SYNTHESIS
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
-**FOR backporting:**
-- Real race: running timeout work vs CDMA/channel destroy.
-- Failure mode is UAF / oops, not style.
-- One-line, obviously correct `cancel_delayed_work_sync`.
-- Bug in code since **v3.10**; no missing helpers.
-- Standalone; series mates not required.
-- Maintainer (Thierry Reding) applied v1 with no objections.
-- Teardown is reachable from userspace channel close on Tegra.
-- `debug_dump` before the lock makes the window practical during GPU
-  timeout recovery.
+FOR:
+- Real OOB read of device-controlled USB descriptor data
+- Same class already called out for DRM udl (“out-of-bounds reads of the
+  allocated buffer”)
+- Small, surgical, obviously correct remaining-length checks
+- Code and bug exist in this 6.12.111 tree; fix is not in it
+- Applies cleanly; `get_unaligned_*` already available
+- Maintainer applied v1 after confirming LE reads are correct
+- `unrecognized` still allows probe (low chance of breaking real
+  adapters)
+- No new API/feature
 
-**AGAINST:**
-- No `Reported-by` / syzbot / production stack trace.
-- Author called it unlikely.
-- Tegra-only.
-- Cover letter grouped it with “miscellaneous” logic issues.
-- sashiko-bot noted other incomplete teardown (`update_work`); this
-  patch does not fix that (and does not need to).
-- This checkout already contains the commit (it is mainline 7.3-rc4).
-  That is not a reason the **fix** is wrong for trees that still have
-  async cancel.
+AGAINST:
+- Driver-specific (DisplayLink fbdev), not core MM/VFS
+- No syzbot/CVE/user oops in the commit message
+- Honest devices with valid descriptors do not hit the bug
+- Pre-existing `%11ph` dump issue is unfixed (not a reason to reject
+  this)
 
-**UNRESOLVED:**
-- Stable@ archive search via WebFetch: 403.
-- No empirical reproduction here.
-- Self-flush if last kref is dropped from inside `debug_dump`: analyzed
-  from code, not discussed on list.
+UNRESOLVED:
+- lore.kernel.org/stable search HTTP 403
+- Exact TLV `length` byte on every DisplayLink SKU was not captured from
+  a live device in this session; parser semantics match 2010 + current
+  DRM udl, which is enough
 
-**Step 9.2: STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — standard workqueue teardown;
-   maintainer applied; in mainline since 2026-07.
-2. Fixes a real bug that affects users? **PASS** — UAF on channel free
-   vs timeout handler.
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   UAF/oops; **HIGH**.
-4. Small and contained? **PASS** — 1 line, one function.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — host1x CDMA timeout code is
-   here; the change is trivial. (HEAD already has the post-image because
-   this is the originating mainline tree.)
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — bounds checks are local and
+   reviewable; maintainer applied after LE confirmation.
+2. Fixes a real bug that affects users? **PASS** — OOB read of USB
+   descriptor memory; probe path for this driver.
+3. Important issue? **PASS** — HIGH: crash/infoleak from untrusted USB
+   descriptor (not a style cleanup).
+4. Small and contained? **PASS** — one function, +16/−6.
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — `git apply --check` clean on
+   6.12.111
 
-**Step 9.3: EXCEPTION CATEGORIES**
-Record: None (not a device ID, quirk, DT, build, or docs exception). It
-qualifies as a normal small crash-class fix.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: Not a device-ID/quirk/DT/build/docs exception. It qualifies as a
+normal small security/robustness fix.
 
 **Step 9.4: DECISION**
-This tree has host1x and the historical bug. The fix is a textbook
-cancel-vs-running-work UAF close, one line, no prerequisites, no new
-API. Stable rules are satisfied. Unlikely trigger does not outweigh an
-oops/UAF on a path userspace can hit after a GPU timeout.
+Backport to **this** tree. The buggy parser is here; the fix is small
+and applies; the impact is a USB OOB read.
 
-### What the commit solves
-`cdma_timeout_destroy()` cancelled timeout work asynchronously. If
-`cdma_timeout_handler()` was already running (especially in
-`host1x_debug_dump()` before `cdma->lock`), `release_channel()` could
-`cdma_stop` + `host1x_cdma_deinit()` and free CDMA while the handler
-still used it. `cancel_delayed_work_sync()` waits for that worker first.
-
-### Stable rules / risk
-Meets all six stable criteria. Risk is a possible extra wait on channel
-free (correct). Benefit is avoiding a kernel UAF on Tegra host1x.
-
-### Concerns
-No user report; Tegra-only; leftover `update_work` teardown is a
-separate bug. None of those block this one-liner.
-
-### Verification
-- **[Phase 1]** Parsed subject/tags/body from `git log -1` + `git show
-  7a39b9856accc`; no Fixes/Reported-by/Cc-stable; Link msgid present.
-- **[Phase 2]** Diff is one token in `cdma_timeout_destroy`; read
-  handler, `cdma_stop`, `host1x_cdma_deinit`, `release_channel`.
-- **[Phase 2]** Confirmed handler calls `host1x_debug_dump()` before
-  `mutex_lock`; dump uses `show_all(..., true)`.
-- **[Phase 3]** `git blame` on parent: `6579324a41cc41` (2013); `git
-  describe --contains` → `v3.10-rc1`.
-- **[Phase 3]** `git merge-base --is-ancestor 6579324a41cc41 HEAD` and
-  `7a39b9856accc HEAD` both true.
-- **[Phase 3]** `git log --oneline` on `drivers/gpu/host1x/` for author
-  and series; patch is standalone.
-- **[Phase 4]** `b4 dig -c/-a/-w/-m`: v1 only; recipients include
-  Thierry; mbox cover letter + “Applied to drm-misc-next”.
-- **[Phase 4]** WebFetch lore/stable: 403 — listed UNVERIFIED.
-- **[Phase 5]** `git grep host1x_channel_put` — DRM/crypto/debugfs,
-  process context.
-- **[Phase 6]** `git describe HEAD` / `make kernelversion` → v7.3-rc4;
-  current file already has `_sync`.
-- **[Phase 7]** `drivers/gpu/host1x/Kconfig` → `CONFIG_TEGRA_HOST1X`.
-- **[Phase 8]** Failure mode from code: handler vs deinit = UAF; trigger
-  = timeout work + last channel put.
+Verification:
+- [Phase 1] Parsed tags: author + Helge Deller SOB only; no
+  Fixes/syzbot/Cc stable
+- [Phase 2] Diff: +16/−6 in `dlfb_parse_vendor_descriptor()`; remaining-
+  length checks + `get_unaligned_le16/le32`
+- [Phase 2] Confirmed current 6.12 code still does unbounded `*desc++`
+  key/length/max_area reads
+- [Phase 3] Blame: loop from `18dffdf8913ab9` (2010); byte-walk from
+  `115e77597efcc9` (2018), both ancestors of HEAD
+- [Phase 3] `git merge-base --is-ancestor 3cc2fad376ac7 HEAD` → not
+  present
+- [Phase 3] `git apply --check` of `3cc2fad376ac7` → clean
+- [Phase 4] `b4 dig -c 3cc2fad376ac7` → lore msgid
+  `20260706093038.80131-1-pengpeng@iscas.ac.cn`; v1 only
+- [Phase 4] Thread: Helge questioned LE, then “patch is of course
+  correct” and applied; no NAK
+- [Phase 4] Sibling DRM commit `df6dc12e5e6dd` documents the same OOB;
+  not in this HEAD
+- [Phase 5] Only caller: `dlfb_usb_probe` / VID `0x17e9`
+- [Phase 5] `include/linux/unaligned.h` provides
+  `get_unaligned_le16/le32`; already included
+- [Phase 6] `git describe HEAD` = `p-6.12-3-gc504cf0baa3d8`; `make
+  kernelversion` = 6.12.111
+- [Phase 8] Failure mode: USB descriptor OOB read at probe; severity
+  HIGH
+- [Phase 8] Makefile has `-funsigned-char` (no signed-char regression
+  from byte reads)
+- UNVERIFIED: stable@ lore discussion (HTTP 403)
 
 **YES**
 
- drivers/gpu/host1x/hw/cdma_hw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/video/fbdev/udlfb.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/host1x/hw/cdma_hw.c b/drivers/gpu/host1x/hw/cdma_hw.c
-index 3f3f0018eee0d..ab714d221120c 100644
---- a/drivers/gpu/host1x/hw/cdma_hw.c
-+++ b/drivers/gpu/host1x/hw/cdma_hw.c
-@@ -355,7 +355,7 @@ static int cdma_timeout_init(struct host1x_cdma *cdma)
- static void cdma_timeout_destroy(struct host1x_cdma *cdma)
- {
- 	if (cdma->timeout.initialized)
--		cancel_delayed_work(&cdma->timeout.wq);
-+		cancel_delayed_work_sync(&cdma->timeout.wq);
+diff --git a/drivers/video/fbdev/udlfb.c b/drivers/video/fbdev/udlfb.c
+index 70ff38f35096a..1c82ee6984c8d 100644
+--- a/drivers/video/fbdev/udlfb.c
++++ b/drivers/video/fbdev/udlfb.c
+@@ -1586,19 +1586,29 @@ static int dlfb_parse_vendor_descriptor(struct dlfb_data *dlfb,
+ 		desc += 5; /* the fixed header we've already parsed */
  
- 	cdma->timeout.initialized = false;
- }
+ 		while (desc < desc_end) {
++			char *value;
+ 			u8 length;
+ 			u16 key;
+ 
+-			key = *desc++;
+-			key |= (u16)*desc++ << 8;
++			if (desc_end - desc < sizeof(key) + sizeof(length))
++				goto unrecognized;
++
++			key = get_unaligned_le16(desc);
++			desc += sizeof(key);
+ 			length = *desc++;
+ 
++			if (length > desc_end - desc)
++				goto unrecognized;
++
++			value = desc;
+ 			switch (key) {
+ 			case 0x0200: { /* max_area */
+-				u32 max_area = *desc++;
+-				max_area |= (u32)*desc++ << 8;
+-				max_area |= (u32)*desc++ << 16;
+-				max_area |= (u32)*desc++ << 24;
++				u32 max_area;
++
++				if (length < sizeof(max_area))
++					goto unrecognized;
++
++				max_area = get_unaligned_le32(value);
+ 				dev_warn(&intf->dev,
+ 					 "DL chip limited to %d pixel modes\n",
+ 					 max_area);
 -- 
 2.53.0
 
