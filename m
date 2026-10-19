@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F55606C179
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:02:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A7260774E8
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EdB6yR8k
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIrwSz4v
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D45310EC4E;
-	Mon, 19 Oct 2026 16:02:16 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A54010EC4E
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:02:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61A7210EECC;
+	Mon, 19 Oct 2026 16:03:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E65710EEE8
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:02:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6824560D99;
- Mon, 19 Oct 2026 16:02:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B596D1F000CC;
- Mon, 19 Oct 2026 16:02:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B67E1405F7;
+ Mon, 19 Oct 2026 16:02:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4A71F000C4;
+ Mon, 19 Oct 2026 16:02:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792425729;
- bh=T3OoZrJmi4UHul4Ly0uuZfTsyT/nHjsTbt0mJe/Vio4=;
+ s=k20260515; t=1792425777;
+ bh=ITJ8yIetg35lCIRQBlcQOGRfAvXF3Ts1ep0THPstLTU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EdB6yR8kJC4sXU4MNUh4QIbYaP5Wd0PFI3iddBSVOq8fOboeNm4Hlw8vly2KDYW9t
- OJX+sV9a5FjLS7GpSTVlI8YOOXD5wmADM5R57HaoW2paGhJS91TMYGn6YYLt5tBtSQ
- Jar41G4wElLe3Ur5wEEvmxuw/2ryGazJ3eL0oH2X3pERF/MAqAX8A97fopNy3/6IF2
- GufucKqBmwGszQaWpCX9w4ruH6/bVYnFisaTgRQg0fKOblz2fJ5mlSzX0cazClD6PR
- RzVKLHmP4/Zke+BzWuW4yGVcH2V8McuZqIg9YdEvXWXH8vOfcYvINEwQm+LkMgjseh
- SeMCaa64EuW+w==
-Date: Mon, 19 Oct 2026 17:02:02 +0100
+ b=QIrwSz4vn8mYlEUtvQk7ZPC24EVxgFOevfn8YAVykkO9cCap95TYD5/0qMmMsM1RW
+ ORfyaoU8MTdrUmBaE8WhFSSlsEq5HpPLshRlyTP+1vqr81klDrsahnWqeWqEfeGrF4
+ VLrI1BRsqtNyZ4Qm/YRRNtauanRzElPipysv6vwJIyuiRboHdmWOMm2+9LZ56g/Cln
+ 8jm3Z6Z+JWZZv9ucaluFh4gu8AowCmZvodm1tlGBu2fv5xNKZHRSlplEXSxLxWXBUB
+ uvUd6MF3UXRScMYVJgD1lS1jWQkrYMn5AwGNo7d/tGiIyQJor0Zb83LKpScEKCdLjk
+ jSwvxr/C0FJSg==
+Date: Mon, 19 Oct 2026 17:02:52 +0100
 From: Lee Jones <lee@kernel.org>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -37,18 +37,19 @@ Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
  Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: mfd: Document Skyworks AAT2870
-Message-ID: <20261019160202.GE2663669@google.com>
+Subject: Re: [PATCH v3 2/4] mfd: aat2870: Derive brightness steps from max
+ current
+Message-ID: <20261019160252.GF2663669@google.com>
 References: <20261013180933.487013-1-clamor95@gmail.com>
- <20261013180933.487013-2-clamor95@gmail.com>
- <179198322819.839288.5272985130898382430@kernel.org>
- <CAPVz0n08bXQrujADdgQwuLu10JNjOrjBq-zNS6agSBGLLWt0OQ@mail.gmail.com>
+ <20261013180933.487013-3-clamor95@gmail.com>
+ <179198332384.839288.13126529382772558553@kernel.org>
+ <CAPVz0n14BhmK4P-tqnt6AMrAh=W-HPoBbP0ztdOrRd_JocRSqQ@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n08bXQrujADdgQwuLu10JNjOrjBq-zNS6agSBGLLWt0OQ@mail.gmail.com>
+In-Reply-To: <CAPVz0n14BhmK4P-tqnt6AMrAh=W-HPoBbP0ztdOrRd_JocRSqQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,30 +72,28 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 On Mon, 19 Oct 2026, Svyatoslav Ryhel wrote:
 
-> пн, 19 жовт. 2026 р. о 17:52 Lee Jones <lee@kernel.org> пише:
+> пн, 19 жовт. 2026 р. о 17:44 Lee Jones <lee@kernel.org> пише:
 > >
 > > Wrong subject line.
 > >
 > 
 > What do you mean by "Wrong subject line"? Specify.
 
-This is a LEDs patch, but you have incorrectly tagged it as `mfd:`.
-Honestly, I would have thought it would have been obvious, hence the
-lack of further explanation.
+Backlight != MFD
 
-> > > Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lighting
-> > > Management Unit.
+> > Please review, explain or fix the Sashiko review(s).
+> > If this is a set, this request includes the other patches too.
+> >
+> > > The AAT2870 allows only 32 steps of brightness, with this amount defined
+> > > by the maximum supported current. Remove the need for max_brightness by
+> > > calculating the allowed number of steps from the maximum current.
 > > >
 > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > > > ---
-> > >  .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++++++
-> > >  1 file changed, 124 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
-> >
-> > [...]
-> >
-> > --
-> > Lee Jones
+> > >  drivers/video/backlight/aat2870_bl.c | 30 ++++++++++------------------
+> > >  1 file changed, 10 insertions(+), 20 deletions(-)
+
+[...]
 
 -- 
 Lee Jones
