@@ -4,40 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42A23CCF2DE
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2E09CCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3CCC10ED90;
-	Mon, 19 Oct 2026 14:02:06 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9678710ED90;
- Mon, 19 Oct 2026 14:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EACA10EDF3;
+	Mon, 19 Oct 2026 14:02:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DD8410EDF7
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:02:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0AF1160238;
- Mon, 19 Oct 2026 14:01:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9ECD1F000CF;
- Mon, 19 Oct 2026 14:01:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F02E743723;
+ Mon, 19 Oct 2026 14:02:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978431F000C7;
+ Mon, 19 Oct 2026 14:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418518;
- bh=g5hh8XGBr6cDzQJ9gkaCkkRFfKMadX4LxrcXJDs2Dh8=;
+ s=k20260515; t=1792418531;
+ bh=Y0Acs1GjZ8s3VI9YkREK3IWGQmpvGOM/AWX2WIww85A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=aZQr2/YJo83A6xeimQ1SYSvjqswEKRCtCLoYTqXRWKRpEmZ6cjiEIR+Soff3YPE38
- ODkslt7mhiFbWP3nahPAXC7FHxK8PbESTyIWZbyjeVzFH0yrvq9H+iCborYWJTEPZi
- oZwv5uB3OG0zvo52YReoPpbFMGrqeJz+nTLdhvMjFSpAOjajaecWGBI0YabI6LJhRr
- ypht1/LsmLxZTit99KEalUGgzW8uea2NGTbuBx1ZXLihA4EiVxw8N9OIyfRTshZZCP
- erKMP7rCPq1231FDLHCswFtpebcYPBJ9csVCU+05mrdXSd4CYQhQ/3fNmmNSuNWLcY
- O61/L0Cuf+NKQ==
+ b=Or2ODciU7WUELSUSN+yZmyPGr/PS8WZKTgNbpybAuAqGVWDsVCkxt8LrS7x8JmDwu
+ KpFhrgYCCRh4r9iNfIWGD+LE4LSNShoVp2ZfQ91HbE1ONYV246+aJJm1TWS3Vrmwq3
+ 24VwhOf6iLMqYb642cHJwhAeY9axs2BHX/FSfSpk6gfld9amhoSsaZ9GUIyFSmyMl9
+ 882G2cKs9ZNbq1b/KEOqwlE0nXwKiP8Z8i+bvworf+P9cJ/bd9WkimaICz39EjezPH
+ Pe5mygpsVRxtKPsQWhJ69/O94+jt1bhGdLwfKrsG8SQe7u0POrUenilTSEAc5T3T/i
+ I348Ibf1o5sKQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <cgmeiner@igalia.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/etnaviv: check all modules for idle
- after reset
-Date: Mon, 19 Oct 2026 09:49:56 -0400
-Message-ID: <20261019135441.1420968-305-sashal@kernel.org>
+Cc: Dio Zhang <dioyc_zhang@compal.corp-partner.google.com>,
+ Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/panel: panel-edp: Adjust T8 timing for AUO
+ B116XAK01.6 and B140XTK02.4
+Date: Mon, 19 Oct 2026 09:50:05 -0400
+Message-ID: <20261019135441.1420968-314-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -62,350 +64,405 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Lucas Stach <l.stach@pengutronix.de>
+From: Dio Zhang <dioyc_zhang@compal.corp-partner.google.com>
 
-[ Upstream commit 1006d1f7c03d92b28c252333836635df8e165401 ]
+[ Upstream commit 0d40cab39158704e372240ed9821a00bfe117125 ]
 
-While the FE is an important part of the GPU, which needs to be idle
-after reset, all other modules should be idle after a proper reset.
-Check all present modules for being idle to determine whether the
-reset was successful.
+Screen garbage or flickering can be observed during mode changes (such
+as VT switches) on systems using the AUO B116XAK01.6 and B140XTK02.4
+panels.
 
-Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
-Link: https://patch.msgid.link/20260511085148.652256-1-l.stach@pengutronix.de
-Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+This occurs because the backlight is enabled before the video signal
+stabilizes. Waveform measurements show that the panel signal takes
+around 140ms to stabilize after a mode change, meaning the previous 50ms T8
+timing was insufficient.
+
+To resolve this issue, adjust the eDP panel delay entry from
+delay_200_500_e50 to delay_200_500_e200 (increasing T8 from 50ms to 200ms).
+This matches the updated panel specifications from AUO, which now formally
+define T8 as 200ms to mask any display abnormalities during mode changes.
+
+Signed-off-by: Dio Zhang <dioyc_zhang@compal.corp-partner.google.com>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patch.msgid.link/20260720025358.2781136-1-dioyc_zhang@compal.corp-partner.google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit message forensics
+This checkout is **Linux 7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
+change is a two-line eDP T8 delay quirk for two AUO panels. Both panel
+IDs and `delay_200_500_e200` exist here; the fix is a hardware timing
+workaround, not a new API.
 
-**Step 1.1: Subject line**
-Record: `[drm/etnaviv]` `[check]` `[after GPU reset, require every
-present module idle, not only FE]`
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.2: Tags**
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: `[drm/panel: panel-edp] [Adjust] [increase T8/enable delay from
+50ms to 200ms for two AUO eDP panels]`
+
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- `Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>` (etnaviv
+- `Signed-off-by: Dio Zhang <dioyc_zhang@compal.corp-
+  partner.google.com>` (author)
+- `Reviewed-by: Douglas Anderson <dianders@chromium.org>` (panel-edp
   reviewer in MAINTAINERS)
-- `Link: https://patch.msgid.link/20260511085148.652256-1-
-  l.stach@pengutronix.de`
-- `Signed-off-by: Lucas Stach <l.stach@pengutronix.de>` (etnaviv
-  maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable`, or syzbot
-  tags (absence of Fixes/Cc-stable is expected here)
+- `Signed-off-by: Douglas Anderson <dianders@chromium.org>` (applied via
+  drm-misc)
+- `Link: https://patch.msgid.link/20260720025358.2781136-1-
+  dioyc_zhang@compal.corp-partner.google.com`
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Acked-by:`, or `Cc:
+  stable` (absence expected)
+- Ignore any pipeline `Upstream commit` / Sasha Levin SOB (none present
+  on the real commit)
 
-**Step 1.3: Body**
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Bug: reset success was decided only from the frontend (FE) idle bit.
-- Symptom/failure mode: a reset that leaves other modules busy is
-  treated as success; the driver then continues probe or hang recovery.
-- Version info: none in the message.
-- Root cause (author): after a proper reset every present module should
-  be idle; FE-only is not enough.
+- **Bug:** On AUO B116XAK01.6 and B140XTK02.4, the backlight comes on
+  before the video signal is stable after a mode change.
+- **Symptom:** Screen garbage or flickering during mode changes (e.g. VT
+  switches).
+- **Root cause:** T8 (`delay.enable`) was 50ms; waveforms show ~140ms
+  until the signal is stable. AUO’s updated spec now lists T8 as 200ms.
+- **Fix:** Point those two `EDP_PANEL_ENTRY` rows at
+  `delay_200_500_e200` instead of `delay_200_500_e50`.
+- **Versions:** none named in the message.
 
-**Step 1.4: Hidden bug fix?**
-Record: Not disguised. It is an explicit correctness fix of reset-
-success detection. Verb is “check”, but it changes a control-flow
-condition that previously let a non-idle GPU leave the retry loop.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not a disguised cleanup. It is an explicit hardware-timing fix
+for a user-visible display glitch.
 
-## Phase 2: Diff analysis
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1: Inventory**
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/gpu/drm/etnaviv/etnaviv_gpu.c` (~3 lines changed,
-  3+/3-)
-- Function: `etnaviv_hw_reset()`
-- Scope: single-file surgical change
+- File: `drivers/gpu/drm/panel/panel-edp.c` — **2 insertions, 2
+  deletions** (4 lines with context).
+- No functions rewritten; two table initializers in `edp_panels[]`.
+- Scope: single-file, surgical table tweak.
 
-**Step 2.2: Code flow**
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- Before: after `gpu_read(VIVS_HI_IDLE_STATE)`, retry only if `(idle &
-  VIVS_HI_IDLE_STATE_FE) == 0`.
-- After: retry if `(idle & gpu->idle_mask) != gpu->idle_mask`.
-- Path: hardware reset retry loop (1s timeout). Used from GPU init
-  (`etnaviv_gpu_init` path) and hang recovery
-  (`etnaviv_gpu_recover_hang`).
+- Before: AUO 0x1ea5 (B116XAK01.6) and AUO 0x67a8 (B140XTK02.4) used
+  `delay_200_500_e50` (`enable = 50`).
+- After: both use `delay_200_500_e200` (`enable = 200`).
+- Path: EDID-matched panel probe copies `detected_panel->delay` into
+  `desc->delay`; `panel_edp_enable()` then `msleep(delay.enable)` before
+  backlight-on. Only those two product IDs change.
 
-The loop already had a second check on `VIVS_HI_CLOCK_CONTROL`
-IDLE_3D/IDLE_2D. This change only widens the IDLE_STATE check from FE to
-`idle_mask`.
-
-**Step 2.3: Bug mechanism**
-Record: `[Logic / correctness]` Reset success was too weak. Incomplete
-reset could be accepted if FE was idle. Fix reuses `gpu->idle_mask`,
-already used by `etnaviv_gpu_wait_idle()` and RPM suspend.
-
-**Step 2.4: Fix quality**
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
 Record:
-- Obviously correct relative to existing idle policy; same comparison as
-  `etnaviv_gpu_wait_idle()`.
-- Minimal; no API/struct change.
-- Regression risk: stricter success can turn a flaky reset into `-EBUSY`
-  after 1s (probe fails). That is the intended failure if modules never
-  go idle. `idle_mask` already accounts for GC300/GC600 absent-module
-  bits (`~AXI_LP` elsewhere). No lock/API change.
+- **Category:** hardware workaround / timing quirk (T8 too short).
+- **Mechanism:** backlight enabled while the panel still shows invalid
+  frames; lengthening T8 masks the garbage until the signal is valid.
+  Matches other `delay_200_500_e200` users in the same table.
 
-## Phase 3: Git history
-
-**Step 3.1: Blame**
+**Step 2.4: ASSESS THE FIX QUALITY**
 Record:
-- FE-only check: `a8c21a5451d83` (“drm/etnaviv: add initial etnaviv DRM
-  driver”, 2015).
-- `idle_mask` field: same initial driver; default
-  `~VIVS_HI_IDLE_STATE_AXI_LP` moved earlier in `2b76f5be7c2778`
-  (2018/2019, “initialize idle mask before querying the HW db”).
-- Bug is long-standing, not new 7.3 code.
+- Obviously correct: reuses an existing delay struct; no new constants
+  or control flow.
+- Minimal; no unrelated edits.
+- Regression risk is low and local: +150ms backlight-on delay only for
+  those two EDID IDs. Maintainer Doug Anderson noted that longer delays
+  “always stink, but sometimes is unavoidable,” then reviewed and
+  applied the patch. No deadlock/API/locking change.
 
-**Step 3.2: Fixes: tag**
-Record: None. Introducer is the 2015 driver add, verified via blame/`git
-log -S`.
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 3.3: Related file history**
+**Step 3.1: BLAME THE CHANGED LINES**
 Record:
-- `1006d1f7c03d9` — this commit
-- `4720915ab4828` — patch 2/2, MMUv2 disabled-after-reset check
-  (independent extra check)
-- `c182a2ae13886` — later power-register flush; not a prerequisite of
-  this hunk
-This commit is standalone. Patch 2 is related hardening, not required
-for this condition change.
+- Current lines are commit `0d40cab391587` (Dio Zhang, 2026-07-20) —
+  this fix.
+- B116XAK01.6 (`0x1ea5`) added in `a70abdd994cb` (“drm/panel-edp: Add
+  AUO B116XAK01.6”, 2022-09-23) with `delay_200_500_e50`. Contained in
+  `v6.1-rc1`.
+- B140XTK02.4 (`0x67a8`) added in `4c34cdb93ea1` (2026-05-09) with
+  `delay_200_500_e50`. Present in this 7.3 tree.
+- `delay_200_500_e200` first appeared in `f6ff4570e567` (2022-07-20,
+  “Add panel entry for R140NWF5 RH”), also `v6.1-rc1` era.
 
-**Step 3.4: Author**
-Record: Lucas Stach is listed `M:` for “DRM DRIVERS FOR VIVANTE GPU IP”.
-Christian Gmeiner is `R:`. Recent etnaviv work by the same author
-includes hang-check and reset-related fixes.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. Not applicable. The original panel-add commits
+used a conservative generic 50ms T8 that later proved too short for
+these two SKUs.
 
-**Step 3.5: Dependencies**
-Record: Needs `gpu->idle_mask` and the reset retry loop. Both exist in
-this tree (and have since the original driver / 2019 idle_mask init).
-Applies standalone. Does not need `gpu_write_power_sync` from the later
-flush commit.
-
-## Phase 4: Mailing list / external
-
-**Step 4.1: Original discussion**
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
 Record:
-- `b4 dig -c 1006d1f7c03d9` → https://patch.msgid.link/20260511085148.65
-  2256-1-l.stach@pengutronix.de
-- `b4 dig -a`: single v1 series, two patches. Committed version matches
-  v1.
-- Reviewer: Reviewed-by only; no NAK, no stable nomination, no risk
-  discussion.
-- lore.kernel.org HTTP fetch returned 403; thread recovered via `b4 dig
-  -m`.
+- Same file has many “Fix delays for …” / “Modify … delay” commits (e.g.
+  `43113fd4c5f56` INX N116BCA-EA2, `9abe13a0598a8` CMN 0x14d6).
+  Established pattern.
+- Follow-ups after `0d40cab` are unrelated (I2C leak, new panel IDs,
+  `pre_unprepare`).
+- Standalone; not “patch X/Y”.
 
-**Step 4.2: Recipients (`b4 dig -w`)**
-Record: Lucas Stach, `etnaviv@lists.freedesktop.org`, `dri-
-devel@lists.freedesktop.org`, Christian Gmeiner. Right lists and
-reviewer.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Dio Zhang has this one commit under `drivers/gpu/drm/panel/`.
+Douglas Anderson is the listed reviewer for `DRM DRIVER FOR GENERIC EDP
+PANELS` and authored/applied many `panel-edp` changes.
 
-**Step 4.3: Bug report**
-Record: No Reported-by, bugzilla, or syzbot. No described repro.
-UNVERIFIED whether a specific hang prompted the series; message does not
-say.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: Needs `edp_panels[]`, `delay_200_500_e200`, and the two
+`EDP_PANEL_ENTRY` rows. All exist in this tree. Standalone.
 
-**Step 4.4: Series**
-Record: 1/2 idle-mask check; 2/2 MMUv2 disable check. Independent. 1/2
-is self-contained.
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
-**Step 4.5: Stable list**
-Record: Web search of lore stable for this subject found no relevant
-thread. No evidence it was rejected for stable.
-
-## Phase 5: Semantic / impact
-
-**Step 5.1: Functions**
-Record: `etnaviv_hw_reset()` only.
-
-**Step 5.2: Callers**
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- GPU identify/init: `ret = etnaviv_hw_reset(gpu);` — probe/init failure
-  if reset times out.
-- `etnaviv_gpu_recover_hang()` ← `etnaviv_sched.c` timed-out job path
-  (`drm_sched_stop` → recover → resubmit). Return value of reset is
-  ignored there (pre-existing). Benefit on that path is extra retries
-  until modules are idle, not a new hard fail.
+- `b4 dig -c 0d40cab391587`: v2 at https://patch.msgid.link/202607200253
+  58.2781136-1-dioyc_zhang@compal.corp-partner.google.com
+- `b4 dig -a`: v1 2026-07-17, v2 2026-07-20 (applied).
+- v1 review (mbox): Doug asked only for a real name in SOB/authorship;
+  no NAK; no stable debate.
+- v2 review (mbox): Doug R-b’d, fixed subject to name both panels, noted
+  it needed a trivial rebase onto drm-misc-next, pushed as
+  `0d40cab391587`.
+- WebFetch of lore.kernel.org returned **403**; discussion recovered via
+  `b4 dig -m`.
 
-**Step 5.3: Callees**
-Record: `gpu_read(VIVS_HI_IDLE_STATE)` unchanged; only the predicate
-changes.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record (`b4 dig -w`): To/Cc included `dianders@chromium.org`,
+`neil.armstrong@linaro.org`, `airlied@gmail.com`, `daniel@ffwll.ch`,
+`sam@ravnborg.org`, `dri-devel@lists.freedesktop.org`, `linux-
+kernel@vger.kernel.org`. Subsystem reviewer Doug Anderson both reviewed
+and applied it.
 
-**Step 5.4: Reachability**
-Record: Yes. Init/reset on device bring-up; hang recovery from GPU
-scheduler after a stuck job (userspace GL/Vulkan/etnaviv DRM). Not
-syscall-direct memory corruption; it is a common driver path on Vivante
-/ i.MX systems.
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No `Reported-by` / bugzilla / syzbot. Evidence is the author’s
+waveform measurements plus AUO’s updated T8=200ms spec. Compal/Google-
+partner author implies Chromebook-class hardware.
 
-**Step 5.5: Similar patterns**
-Record: `etnaviv_gpu_wait_idle()` already uses `(idle & gpu->idle_mask)
-== gpu->idle_mask`. RPM suspend uses `idle_mask` minus FE/MC. This
-aligns reset with those definitions.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: Single-patch series. v2 vs v1 is authorship/subject cleanup,
+same diff.
 
-## Phase 6: This checkout
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: **UNVERIFIED** — lore.kernel.org/stable WebFetch returned 403.
+No stable mention in the dri-devel mbox.
 
-**Step 6.1: Local tree and buggy code**
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: No function bodies edited. Runtime users of the table:
+`find_edp_panel()`, panel identification in `panel_edp_probe()` path
+(`desc->delay = *panel->detected_panel->delay`), `panel_edp_enable()`.
+
+**Step 5.2: TRACE CALLERS**
 Record:
-- `git describe HEAD` → `v7.3-rc4-27-gf0100363d8c37`
-- `make kernelversion` → `7.3.0-rc4`
-- `etnaviv_hw_reset`, `idle_mask`, and the idle register exist here.
-- `git merge-base --is-ancestor 1006d1f7c03d9 HEAD` → yes (commit
-  already in this 7.3-rc4 lineage).
-- Pre-commit code (parent `3e32e6672fa30`) still had the FE-only test.
-  Introduced 2015; not after this branch.
+- `find_edp_panel()` called from the generic eDP identification path
+  (~line 820) after reading the EDID panel ID.
+- `panel_edp_enable` is the DRM panel `.enable` callback
+  (`panel_edp_funcs`).
+- Called on modeset/enable (including VT switch), not a rare error path.
 
-**Step 6.2: Backport difficulty**
-Record: Clean 3-line predicate swap. No refactor of the surrounding
-reset function is required for this hunk. Expected: clean apply on trees
-that still have the FE-only check.
+**Step 5.3: TRACE CALLEES**
+Record: `panel_edp_enable()` uses `msleep(delay)` then
+`panel_edp_wait()` for `prepare_to_enable` / `powered_on_to_enable`.
+This change only increases the `msleep` for those two IDs.
 
-**Step 6.3: Related fixes already here**
-Record: This exact change is already in HEAD. Follow-up MMUv2 check is
-also here; it is not a substitute for the idle_mask check.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Userspace modeset / VT switch → DRM enable →
+`panel_edp_enable()` → extra 150ms wait → backlight. Reachable on any
+system whose eDP panel EDID is AUO 0x1ea5 or 0x67a8.
+`CONFIG_DRM_PANEL_EDP` (OF + backlight). Not a syscall memory-safety
+bug; it is a common display path for those laptops.
 
-## Phase 7: Subsystem
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Many other panels already use `delay_200_500_e200`. Prior “Fix
+delays for …” commits in this file use the same table-pointer swap.
 
-**Step 7.1**
-Record: `[drm/etnaviv]` `[IMPORTANT]` — not core mm/net, but the Vivante
-GPU driver used on NXP i.MX and similar embedded SoCs, including
-display.
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
-**Step 7.2**
-Record: Actively maintained (recent reset/hang/cache commits). The FE-
-only check itself was untouched for ~10 years.
-
-## Phase 8: Impact and risk
-
-**Step 8.1: Who**
-Record: Driver-specific: `CONFIG_DRM_ETNAVIV` / Vivante GPU users
-(embedded i.MX class).
-
-**Step 8.2: Trigger**
-Record: GPU soft-reset during init and after hangcheck. Incomplete
-module idle after reset is the hardware case the existing retry loop
-already exists for. Unprivileged GPU clients can trigger hang recovery
-via a stuck job; they cannot directly poke the idle register.
-
-**Step 8.3: Failure mode**
-Record: `[incomplete reset treated as success]` `[HIGH for GPU, not
-kernel panic]`. Probe can later use a GPU that is not fully idle; hang
-recovery can resubmit onto modules still busy → further hangs, failed
-jobs, possible display freeze. Not KASAN/UAF. Not a documented CVE.
-
-**Step 8.4: Risk-benefit**
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
 Record:
-- Benefit: medium-high for etnaviv — reset/hang recovery actually waits
-  for the same idle definition the rest of the driver uses.
-- Risk: low — 3 lines, existing mask, maintainer + reviewer. Residual
-  risk is probe `-EBUSY` if some chip never sets all `idle_mask` bits
-  after reset; GC300/GC600 already have a reduced mask, and
-  wait_idle/RPM have used this mask for years.
-- Ratio: favorable.
+- `git describe HEAD`: `v7.3-rc4-27-gf0100363d8c37`; `make
+  kernelversion`: **7.3.0-rc4**.
+- Both panel rows exist. `git merge-base --is-ancestor 0d40cab391587
+  HEAD` is true (this is mainline after the fix).
+- Pre-fix state used `delay_200_500_e50` for both IDs; that is the bug
+  this tree’s history actually had. B116XAK01.6 has been in tree since
+  v6.1-rc1; B140XTK02.4 since May 2026, also in 7.3.
 
-## Phase 9: Synthesis
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: Context in this tree matches the committed hunk (same
+vendor/product rows). `delay_200_500_e200` is present. No structural
+mismatch. Forward `git apply --check` of the patch on current HEAD fails
+only because the after-image is already applied — expected on this
+mainline checkout.
 
-**Step 9.1: Evidence**
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: This is the delay fix for those two IDs. No competing alternate
+T8 patch found on this file.
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: `drivers/gpu/drm/panel/panel-edp.c` — generic eDP panel driver.
+**IMPORTANT** for laptops/Chromebooks using generic eDP, not core
+mm/VFS. Peripheral relative to the whole kernel, but the driver is
+widely used.
+
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Actively updated (panel IDs, delay tweaks, probe leak fixes).
+Mature table-driven delay model since ~2022.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: Driver-specific / hardware-specific: only EDID AUO 0x1ea5 and
+0x67a8. No effect on other panels.
+
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Mode changes such as VT switches (author). Common on laptops.
+Unprivileged users can trigger VT/modeset on typical distro setups. Not
+a security exploit path.
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: Screen garbage/flickering. Not oops/deadlock/corruption.
+**MEDIUM** user-visible display bug. Official stable rules explicitly
+list **hardware quirk** next to oops/hang as acceptable
+(`Documentation/process/stable-kernel-rules.rst`).
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record:
+- **Benefit:** Stops garbage/flicker on two real AUO panels; matches
+  vendor T8=200ms; waveform-backed (~140ms needed vs 50ms old).
+- **Risk:** Very low — 2 pointer swaps, existing struct, +150ms enable
+  delay only for those IDs.
+- **Ratio:** Favorable. Same class as USB/PCI delay quirks that
+  routinely go to stable.
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+**Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Real logic bug: reset-success ignored non-FE modules.
-- Same `idle_mask` already used for wait_idle and RPM.
-- 3-line, obviously correct, no new API.
-- Hang recovery and init both go through this loop.
-- Maintainer-authored, reviewed by listed reviewer.
-- Code and prerequisites exist in this tree; bug dates to 2015.
+- Real user-visible bug (garbage/flicker on VT/mode change), measured
+  and spec-backed.
+- Hardware quirk / timing workaround — allowed by stable-kernel-rules.
+- 2-line table change; existing `delay_200_500_e200`; no new
+  API/feature.
+- Reviewed and applied by panel-edp reviewer Douglas Anderson.
+- Both panel IDs and delay helper exist in this 7.3 tree.
+- Isolated to two EDID IDs.
 
 AGAINST:
-- No user report, repro, sanitizer hit, or described crash.
-- Not a kernel oops/UAF/deadlock; GPU-side hang/recovery.
-- CLOCK_CONTROL IDLE_2D/IDLE_3D already checked afterward.
-- Patch 1/2 of hardening, not a smoking-gun “Fixes:”.
+- Not a crash, UAF, or data-corruption bug.
+- +150ms backlight delay (maintainer accepted that tradeoff).
+- No `Reported-by` from multiple end users / no syzbot.
+- Stable list discussion could not be fetched (lore 403).
 
 UNRESOLVED:
-- No public report of a hang caused specifically by FE-idle / other-
-  module-busy.
-- lore.kernel.org HTTP 403; discussion taken from `b4 dig` mbox only.
+- Could not read lore.kernel.org/stable (HTTP 403).
+- Could not independently view AUO datasheets (not in-tree).
 
-**Step 9.2: Stable rules**
-1. Obviously correct and tested? **PASS** — predicate matches
-   `wait_idle`; reviewed.
-2. Real bug affecting users? **PASS** — false reset success on init/hang
-   recover.
-3. Important (crash/security/corruption/deadlock/hang)? **PASS** —
-   failed GPU reset/hang recovery; UI/GPU freeze on this hardware, not a
-   core panic.
-4. Small and contained? **PASS** — 3 lines, one function.
-5. No new features/APIs? **PASS**
-6. Applies to this tree? **PASS** — driver, `idle_mask`, and reset loop
-   are present.
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — reuses existing delay
+   struct; maintainer review; author reports waveform data.
+2. Fixes a real bug that affects users? **PASS** — garbage/flicker on
+   mode change.
+3. Important issue? **PASS** as hardware quirk (documented exception);
+   severity MEDIUM visual, not CRITICAL crash.
+4. Small and contained? **PASS** — 2 lines, one table.
+5. No new features or APIs? **PASS**.
+6. Can apply to the local tree? **PASS** — target rows,
+   `delay_200_500_e200`, and enable path all exist here.
 
-**Step 9.3: Exception category**
-Record: None (not an ID/quirk/DT/build/doc exception). It is a normal
-small driver correctness fix.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: **Hardware quirk/workaround** (panel power-sequence delay,
+analogous to USB delay quirks).
 
-**Step 9.4: Decision**
-This tree is 7.3-rc4 and already contains the change; the evaluation is
-whether this tree *should* have it on technical merit. It should. The
-FE-only test has been wrong for as long as the driver has reset
-hardware. The retry loop exists because reset is not always complete on
-the first try; ignoring other modules lets that loop exit too early,
-then init or hang recovery proceeds. The fix is the same idle definition
-already used elsewhere, tiny, and reviewed by the subsystem.
-
-It is not a core memory-safety crash, but it is a contained, real reset
-bug on a production embedded GPU path, which is in scope for stable.
+**Step 9.4: MAKE YOUR DECISION**
+This tree has the driver, both panel IDs, and the 200ms delay helper.
+The change is a small, reviewed T8 quirk that fixes real display garbage
+on mode changes. That meets stable rules for this checkout.
 
 Verification:
-- [Phase 1] Tags: Reviewed-by Christian Gmeiner; Link msgid
-  20260511085148.652256-1; maintainer SOB; no Fixes/Reported-by/syzbot
-- [Phase 2] Diff: 3-line condition change in `etnaviv_hw_reset()`; FE
-  bit → `idle_mask`
-- [Phase 3] Blame: FE check from `a8c21a5451d83` (2015); `idle_mask`
-  init `2b76f5be7c2778`
-- [Phase 3] `git log -S 'FE is not idle'` / `-S idle_mask` limited to
-  `etnaviv_gpu.c`
-- [Phase 3] Series: 1/2 this commit, 2/2 `4720915ab4828` MMUv2 check;
-  standalone
-- [Phase 4] `b4 dig -c 1006d1f7c03d9`: lore msgid link; v1 only; dri-
-  devel/etnaviv CC; Reviewed-by; no NAK
-- [Phase 4] `b4 dig -m`: 4 messages (2 patches + 2 R-b); WebFetch lore
-  403
-- [Phase 4] Stable lore search: no relevant hits
-- [Phase 5] Callers: init `etnaviv_hw_reset` at line 891;
-  `etnaviv_gpu_recover_hang` from `etnaviv_sched.c:84`
-- [Phase 5] `wait_idle` uses identical mask compare at line 1709
-- [Phase 6] `git describe HEAD` v7.3-rc4-27-gf0100363d8c37;
-  kernelversion 7.3.0-rc4
-- [Phase 6] `git merge-base --is-ancestor 1006d1f7c03d9 HEAD` true; not
-  ancestor of `v7.2`
-- [Phase 7] MAINTAINERS: Lucas Stach M:, Christian Gmeiner R:
-- [Phase 8] Failure: incomplete GPU reset / failed hang recovery, not
-  kernel UAF
-- UNVERIFIED: specific user-visible hang from FE-only success;
-  lore.kernel.org page content besides b4 mbox
+- [Phase 1] Parsed tags: Reviewed-by/SOB Douglas Anderson; Link to
+  msgid; no Fixes/Reported-by/Cc:stable
+- [Phase 1] Body: VT-switch garbage; T8 50ms vs ~140ms measured; AUO
+  spec T8=200ms
+- [Phase 2] Diff: two `EDP_PANEL_ENTRY` pointer swaps in `edp_panels[]`;
+  +2/-2
+- [Phase 2] `delay_200_500_e50.enable=50`,
+  `delay_200_500_e200.enable=200` verified in panel-edp.c
+- [Phase 2] `panel_edp_enable()` `msleep(p->desc->delay.enable)`; probe
+  copies `detected_panel->delay`
+- [Phase 3] `git show 0d40cab391587`: confirmed subject/body/stat
+- [Phase 3] `git merge-base --is-ancestor 0d40cab391587 HEAD` → yes
+  (already in 7.3-rc4 history; not used as circular “already selected”
+  reasoning)
+- [Phase 3] `git blame` on the two rows: this commit; origins
+  `a70abdd994cb` (v6.1-rc1) and `4c34cdb93ea1` (2026-05, in this tree)
+- [Phase 3] `delay_200_500_e200` introduced `f6ff4570e567` (v6.1-rc1
+  era)
+- [Phase 3] Similar delay-fix pattern: `43113fd4c5f56` and others in the
+  same file
+- [Phase 4] `b4 dig -c 0d40cab391587`: v2 lore URL; `-a`: v1+v2; `-w`:
+  dri-devel + dianders
+- [Phase 4] mbox: v1 name-only feedback; v2 Reviewed-by + pushed to drm-
+  misc-next; no NAK
+- [Phase 4] WebFetch lore/stable: 403 — UNVERIFIED stable-list history
+- [Phase 5] Call chain: EDID match → delay table → `panel_edp_enable` on
+  modeset; CONFIG_DRM_PANEL_EDP
+- [Phase 6] `git describe HEAD` / `make kernelversion`: 7.3.0-rc4; both
+  IDs and e200 present
+- [Phase 7] MAINTAINERS: Douglas Anderson reviewer for panel-edp.c
+- [Phase 8] Failure mode: display garbage, MEDIUM; official rules
+  include hardware quirk
+- [Phase 9] stable-kernel-rules.rst lines 15–20: quirk is an accepted
+  class
+- UNVERIFIED: AUO datasheet text; stable@ mailing-list traffic
+
+The fix is small, confined to two EDID entries, and is the usual panel-
+edp delay quirk pattern. Benefit outweighs the extra 150ms enable wait
+on just those panels.
 
 **YES**
 
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/panel/panel-edp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-index cf0d9049bcf1e..368e799fc0c5d 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-@@ -582,9 +582,9 @@ static int etnaviv_hw_reset(struct etnaviv_gpu *gpu)
- 		/* read idle register. */
- 		idle = gpu_read(gpu, VIVS_HI_IDLE_STATE);
- 
--		/* try resetting again if FE is not idle */
--		if ((idle & VIVS_HI_IDLE_STATE_FE) == 0) {
--			dev_dbg(gpu->dev, "FE is not idle\n");
-+		/* try resetting again if any module is not idle */
-+		if ((idle & gpu->idle_mask) != gpu->idle_mask) {
-+			dev_dbg(gpu->dev, "GPU modules not idle\n");
- 			continue;
- 		}
- 
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 0da04d75e4e96..614c63e95c357 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -1901,7 +1901,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x145c, &delay_200_500_e50, "B116XAB01.4"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1999, &delay_200_500_e50, "Unknown"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1e9b, &delay_200_500_e50, "B133UAN02.1"),
+-	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1ea5, &delay_200_500_e50, "B116XAK01.6"),
++	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1ea5, &delay_200_500_e200, "B116XAK01.6"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x203d, &delay_200_500_e50, "B140HTN02.0"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x208d, &delay_200_500_e50, "B140HTN02.1"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x235c, &delay_200_500_e50, "B116XTN02.3"),
+@@ -1921,7 +1921,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x635c, &delay_200_500_e50, "B116XAN06.3"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x639c, &delay_200_500_e50, "B140HAK02.7"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x643d, &delay_200_500_e50, "B140HAN06.4"),
+-	EDP_PANEL_ENTRY('A', 'U', 'O', 0x67a8, &delay_200_500_e50, "B140XTK02.4"),
++	EDP_PANEL_ENTRY('A', 'U', 'O', 0x67a8, &delay_200_500_e200, "B140XTK02.4"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x723c, &delay_200_500_e50, "B140XTN07.2"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x73aa, &delay_200_500_e50, "B116XTN02.3"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x8594, &delay_200_500_e50, "B133UAN01.0"),
 -- 
 2.53.0
 
