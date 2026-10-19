@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2743CCF2DB
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 09:57:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3429DCCF2E0
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 09:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C7710E970;
-	Mon, 19 Oct 2026 09:57:37 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 111A510E90A
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:57:27 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-48df0fa43c5so1375167f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 02:57:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2995D10E953;
+	Mon, 19 Oct 2026 09:57:43 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05D1910E95E
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:57:36 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4980fe6b3beso18426425e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 02:57:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792403845; x=1793008645; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792403854; x=1793008654; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=klRLuslgHZkHfKV3cIJoQTmbsYS3GX5KrVERzHwo0vI=;
- b=YFvOKU0WjSbDtrN/GMOesdAtROYWEZoVkhUOm0QmOnvSgs0/lzveNgktKVcyhMicsC
- ZAG3sISRM7A/VS9kx4SzPM5VvPhqfwxMLEgv5ZRVA0fiGymsch2n65J/UQnoTcEO9whW
- nS9T+wbvWFdI/rk7zVOpO147du6lOSJAZylNgqMKnLp8KaTkN1182otbmonDwQ3dfraU
- 7SYoCcCeMFS3s/OasQcfWSKPd6XzL3yRerOmFZgnMSKqIC/BqKtWD5QStB/r9Q1MYd0g
- xoUUHs6xFXxKIVnHYQvMJkGhkw4FVeIhtW9ZkMESNZ4AdZ+CCp0YpMfLiJaOACgen2bh
- iwpQ==
+ bh=CrA01rti7Ay/Y5eHy2dsofO3a17OwFZMN974VKrytcs=;
+ b=DET+5no7axkbNmgHV3iblv5jST2ecZZs7/Bv2XwYTa9FonQl8daiXilaCJG1AC+HTK
+ uxXHDlmna4wo2P0ziGWX/+0IFnjH4aWgFo8mZhGglIYsfIx2K+7Nuqf1wHqxSBX7oEnc
+ 1K1LQMn1pqWe8QMoDT+MWx6sV5fNd+KtyFUcYNP4yjL7Ox9TXl6yTAiLf3HDhyh6bGLH
+ PiMNy4cmhR6EaOzT1vVQteMCkyCeLlZ7qJRd0/yENNIpEDo1+c8HI8HddgbYczjgT99o
+ f0sv9qgEwHXKUmxR3zpoaaGOGPdBjYSWSqEF/zFqksGsoW63ubDD3OIDiArdZA+Nu9a8
+ q3AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792403845; x=1793008645;
+ d=1e100.net; s=20260707; t=1792403854; x=1793008654;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=klRLuslgHZkHfKV3cIJoQTmbsYS3GX5KrVERzHwo0vI=;
- b=Wzw/xuduEPeJwYHT1/5uENkNcGYok4h2ERrKxfTsENmFBOlbVl/4ngaOzpurTsuob1
- NqwuXf/aE35VRY0YKI5HF8rkZ1BI4oyXpfJbyi8urh75N8zgVAB59QvW04gjn0dEZmB8
- 1vdvDM/PrG6laxUvToc/pvLYakf/lEDTbrwBOaknVAkD3vu55D4EOQUEQ/0soEx7PhEi
- vlLRexP4ZSVnafc1HUZYiyAqkkdEe/a+A2u4CajErlEmsKJJzPT7aY/6t1UIxitgjb9w
- AjGly546wWJ5reBgZdDtDy3JWUG4T4IR4O+FZV9DzpG2Z+KuaCycf2OmmWJEECDL0MUj
- mVaA==
-X-Gm-Message-State: AFq9FYKI8BQiWshbTD9QP15+o7T/+9Mu1C1Vl2T0ank+7qODaF4e7tAr
- gyzg7Zl4In305k+pEPZ67yvXD4x6hWiOkBgb1kgzaEbu/BK8JB+HnP+E
-X-Gm-Gg: AYBFou0TeLGbqNO8HmsbeQLfXonQOeC4yJGko6eeqVu35GVWCeUTGyKSPsZG1xUeRJb
- IWdBbZYgUro5vtQKBue/pDc/3qF6Pm2bFBlnFfQ+aVyj+lVdpYdJTeoiRiC5OyPiI1rophcVCfc
- V/gmj30/2qJghwCZPP0m0vlE5AiSsQTJu0PGAjEntEf/uMbpmsAq0lOCc+J3mHz/2wga3J5cF6p
- IXd1bVqV2BUfLDbxo/J7RkbfSeqwMEZ5B3nDawkeq2S99z0BK1x+smBRPJmFTyTF7oakieutIRj
- xcjdN4ynDlcSmQbmHZa+QJ94ol5Pu1UIt01z8Xvsjb35Ppy3NIC0YotWBlB9/1Sjpth49+kPm1v
- +mCMZmqugYocK8bVA7srlqueVZM8offpC7jgSg4lFABSrPQ2ndla2Gh7jkIbjlCoxmy2mZKzPqI
- GrsAyxyWmiACDH6v5/mt/JCLZAp2ZABRjS0NBUCd+sXYEG+molNrCOR5GX6smEhOwzYHc/DJ00N
- QxIWorB/tGR9Csvv7HQk4WthKIKIQ==
-X-Received: by 2002:a05:6000:4b1d:b0:48b:437:8fbb with SMTP id
- ffacd0b85a97d-48dfae72117mr23703513f8f.19.1792403845319; 
- Mon, 19 Oct 2026 02:57:25 -0700 (PDT)
+ bh=CrA01rti7Ay/Y5eHy2dsofO3a17OwFZMN974VKrytcs=;
+ b=d2ZP9wMUjVgmc0TmBsfN1klpklDCvIkHRXV0GiG3P8sHD0IS+RatRSycM/9Ggda/zd
+ k35LM1GWcrR6ozEX1eCyXqEFeHE2+99DDY3LdN+X89RZ2yBgJpHR1Ocj7OWTZjMNw+/3
+ B6g8dHnUa2JlbbkbrQyBZf+EI007hkArzDrAtEx4Jqky+qDYFbH4bm3qwfURZ5ktGpjT
+ lzfxpE1mWoqP/QJqa1wFES4dCFkokmvNkQN9qI+Lzt5nvrGROQEYOgOkzRFNJDJKpgSd
+ X9ztrMSWektfAkjZGvJf7ql40GToBYjN6UwtEfIQitzgjr1MYpYO61y71H93T5Alvo7X
+ s3Ow==
+X-Gm-Message-State: AFq9FYJPmOwiFwKLmd1036IoSchTui/t1zi96SJGqgbn7FoMxHbZVlb6
+ 97CsysTPia4MyMkEF+fVlVAK9vWnt+VKHPM4JDAVC+n1uz31AcUkIaYd
+X-Gm-Gg: AYBFou3zzDTWD6YmK6LyzQwXVTrZZGcsSHxD5ALPpPzKra/MrV0ZEcV1jiY2EKf3uP8
+ 3h3P8YH0YMNugoTwCAMi3mSexPxH48YPjKcfuh+2UxGKcBS3MVTCzzknM2AuFMtfraGzCu1EjQZ
+ ruaIkUIRhTPcRfUtJxVrqN0DHJwQAiYd9A7n7DbiDIKC1RFfvWN4RtK0WCN5CTecVHjpuiFRreH
+ N0wTBOkQnqww3dux28TXqo/NwvVT/m0cmsdRSpSJsgxjWp8eB00nP8h6ilDNthiOJY22kGGu9MU
+ ugr+VczZV30xSjw/VXwc99DqoPWivBX0s1ZVFyFhEPku+FrYokdouJe54X9gVltlXY0mOlvCN2O
+ fsmSPR75jCIbHI01KyCDu2utM7YxqjTFARfZueZD3leRzv5Cc0TGKsXlnRlJXys8qlnsaRFsEeE
+ ais9o3VISOjSb79cCImVBPzdKI5JtAZLhk7jD+aXOGftchHhe45dPs34vFAsExFkz52VH9I5AJp
+ xVHum1RxwM0pn2/fjKyDyLvThoqcA==
+X-Received: by 2002:a05:600c:a48:b0:4a1:c6f5:2450 with SMTP id
+ 5b1f17b1804b1-4a1d7612bf4mr152397805e9.17.1792403854260; 
+ Mon, 19 Oct 2026 02:57:34 -0700 (PDT)
 Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48dfd500e75sm21740089f8f.42.2026.10.19.02.57.23
+ ffacd0b85a97d-48dfd500e75sm21740089f8f.42.2026.10.19.02.57.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 02:57:24 -0700 (PDT)
+ Mon, 19 Oct 2026 02:57:33 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -72,9 +72,10 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: [PATCH v3 1/7] drm/tegra: dc: Expand available registers layouts
-Date: Mon, 19 Oct 2026 12:56:59 +0300
-Message-ID: <20261019095705.91062-2-clamor95@gmail.com>
+Subject: [PATCH v3 5/7] dt-bindings: display: panel: Document Hitachi
+ TX10D07VM0BAA and LG LH400WV3 panels
+Date: Mon, 19 Oct 2026 12:57:03 +0300
+Message-ID: <20261019095705.91062-6-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019095705.91062-1-clamor95@gmail.com>
 References: <20261019095705.91062-1-clamor95@gmail.com>
@@ -95,115 +96,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expand existing DC register definitions with additional fields in
-preparation for adding the 8-bit CPU interface.
+Document Hitachi TX10D07VM0BAA and LG LH400WV3 MIPI DBI 4" WVGA panels
+found in LG Optimus 2X P990.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/tegra/dc.c |  3 ++-
- drivers/gpu/drm/tegra/dc.h | 49 +++++++++++++++++++++++++++++++++-----
- 2 files changed, 45 insertions(+), 7 deletions(-)
+ .../display/panel/hit,tx10d07vm0baa.yaml      | 58 +++++++++++++++++++
+ 1 file changed, 58 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
 
-diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-index b0bfa946e6979..5c67928bcabfa 100644
---- a/drivers/gpu/drm/tegra/dc.c
-+++ b/drivers/gpu/drm/tegra/dc.c
-@@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	if (dc->rgb) {
- 		/* XXX: parameterize? */
--		value = SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
-+		value = SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
-+			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
- 		tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
- 	}
- 
-diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
-index 0cb0515968b35..7005df32f485f 100644
---- a/drivers/gpu/drm/tegra/dc.h
-+++ b/drivers/gpu/drm/tegra/dc.h
-@@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
- #define DC_COM_CRC_CHECKSUM			0x301
- #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
- #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
-+#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
- #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
- #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
-+#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
-+#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
- #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
- #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
- #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
-@@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
- #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
- 
- #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
--#define H_PULSE0_ENABLE (1 <<  8)
--#define H_PULSE1_ENABLE (1 << 10)
--#define H_PULSE2_ENABLE (1 << 12)
-+#define H_PULSE0_ENABLE				BIT(8)
-+#define H_PULSE1_ENABLE				BIT(10)
-+#define H_PULSE2_ENABLE				BIT(12)
-+#define V_PULSE0_ENABLE				BIT(16)
-+#define V_PULSE1_ENABLE				BIT(18)
-+#define V_PULSE2_ENABLE				BIT(19)
-+#define V_PULSE3_ENABLE				BIT(20)
-+#define M0_ENABLE				BIT(24)
-+#define M1_ENABLE				BIT(26)
- 
- #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
- 
-@@ -451,12 +460,26 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
- #define BASE_COLOR_SIZE_888    (  8 << 0)
- #define BASE_COLOR_SIZE_101010 ( 10 << 0)
- #define BASE_COLOR_SIZE_121212 ( 12 << 0)
-+#define DISP_COLOR_SWAP_BGR	BIT(16)
- #define CMU_ENABLE_ENABLE      (1 << 20)
- 
- #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
--#define  SC1_H_QUALIFIER_NONE	(1 << 16)
--#define  SC0_H_QUALIFIER_NONE	(1 <<  0)
--
-+#define SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
-+#define SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
-+#define SC_H_QUALIFIER_DISABLE			0
-+#define SC_H_QUALIFIER_NONE			1
-+#define SC_H_QUALIFIER_HACTIVE			2
-+#define SC_H_QUALIFIER_EXT_HACTIVE		3
-+#define SC_H_QUALIFIER_HPULSE			4
-+#define SC_H_QUALIFIER_EXT_HPULSE		5
-+#define SC0_V_QUALIFIER(x)			(((x) & 0x7) <<  3)
-+#define SC1_V_QUALIFIER(x)			(((x) & 0x7) <<  19)
-+#define SC_V_QUALIFIER_NONE			0
-+#define SC_V_QUALIFIER_RSVD			1
-+#define SC_V_QUALIFIER_VACTIVE			2
-+#define SC_V_QUALIFIER_EXT_VACTIVE		3
-+#define SC_V_QUALIFIER_VPULSE			4
-+#define SC_V_QUALIFIER_EXT_VPULSE		5
- #define DC_DISP_DATA_ENABLE_OPTIONS		0x432
- #define DE_SELECT_ACTIVE_BLANK  (0 << 0)
- #define DE_SELECT_ACTIVE        (1 << 0)
-@@ -493,6 +516,20 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
- #define DC_DISP_CURSOR_POSITION_NS		0x441
- 
- #define DC_DISP_INIT_SEQ_CONTROL		0x442
-+#define SEND_INIT_SEQUENCE			BIT(0)
-+#define INIT_SEQUENCE_MODE_SPI			BIT(1)
-+#define INIT_SEQUENCE_MODE_PLCD			0x0
-+#define INIT_SEQ_DC_SIGNAL_SHIFT		4
-+#define INIT_SEQ_DC_SIGNAL_MASK			(0x7 << INIT_SEQ_DC_SIGNAL_SHIFT)
-+#define NO_DC_SIGNAL				0
-+#define DC_SIGNAL_VSYNC				1
-+#define DC_SIGNAL_VPULSE0			2
-+#define DC_SIGNAL_VPULSE1			3
-+#define DC_SIGNAL_VPULSE2			4
-+#define DC_SIGNAL_VPULSE3			5
-+#define INIT_SEQ_DC_CONTROL_SHIFT		7
-+#define FRAME_INIT_SEQ_CYCLES_SHIFT		8
+diff --git a/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml b/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
+new file mode 100644
+index 0000000000000..4642dc14c42eb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
+@@ -0,0 +1,58 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/hit,tx10d07vm0baa.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- #define DC_DISP_SPI_INIT_SEQ_DATA_A		0x443
- #define DC_DISP_SPI_INIT_SEQ_DATA_B		0x444
- #define DC_DISP_SPI_INIT_SEQ_DATA_C		0x445
++title: Hitachi/LG 4" WVGA TFT LCD panel
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - hit,tx10d07vm0baa
++          - lg,lh400wv3-sd04
++
++  avci-supply:
++    description: Panel power supply
++
++  iovcc-supply:
++    description: I/O voltage supply
++
++  reset-gpios: true
++
++  backlight: true
++  port: true
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    panel {
++        compatible = "lg,lh400wv3-sd04";
++
++        reset-gpios = <&gpio 175 GPIO_ACTIVE_LOW>;
++
++        avci-supply = <&vcc_2v8_lcd>;
++        iovcc-supply = <&iovcc_1v8_lcd>;
++
++        backlight = <&backlight>;
++
++        port {
++            endpoint {
++                remote-endpoint = <&dbi_out>;
++            };
++        };
++    };
++...
 -- 
 2.53.0
 
