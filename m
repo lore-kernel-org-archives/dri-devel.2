@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA17CCF2E6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D50B7CCF2E3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:01:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5823210EDF6;
-	Mon, 19 Oct 2026 14:01:16 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF4A10EE06;
- Mon, 19 Oct 2026 14:01:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4244F10EDEC;
+	Mon, 19 Oct 2026 14:01:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93D2210EDE4;
+ Mon, 19 Oct 2026 14:01:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 759396025A;
- Mon, 19 Oct 2026 14:01:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0897F1F000C4;
- Mon, 19 Oct 2026 14:01:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7AD0F4010A;
+ Mon, 19 Oct 2026 14:01:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270A11F000C7;
+ Mon, 19 Oct 2026 14:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418469;
- bh=1pBPNFEO0meoCcIWDnS/H5lw/oRXuQ7DEnRFhYwttSE=;
+ s=k20260515; t=1792418477;
+ bh=hA8suylLM7JDukhpE4JXYMIspGye87RnTv0rkAgekpY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=LY4J83kLVSektUJpgCzqlxZBeoCbI2DiVZxXWQiINQbEnARTK7dgaGiiDOSXakEUf
- s+D+kIH834oATgw5Ew6FPV4XL9WfE/z5gubGfC8vjmRSlUMWIBzVITkE76+Gv2x9a6
- N5UtSCtggMSiRAXprNGbpdOf2w3EtnKO/tDNfDqra93nSXP97Q51o+sHIxMOMWiENN
- K+EmDrKrwdMS/Bzj9lRMY7NvhZ5QCPAmtqQhhWbbHIcV2SgqJ+CtY/4H3lxmGYVH9A
- 7ocxS3lQadY1RVqYZe0xzX5JrPMl5ou7EUhWGxJZev5t3XSYMpaL6MPu57kjwnsJAi
- CSm+ILKKliukA==
+ b=ef3uNpXF8qZpWK3rJH6c9Ugbas23wWmawVcnCcJqOjjt+nVR2NWD68yv5ByZ1fZkG
+ LllREKpbRGdpb9rlK6TVcd0IXKyKBUx8fe7Np+lFVYFIK21FgFqTYiHpowKhU83v11
+ u//sm8LmtGDWL0U0S67KAAvBtJOcAy1yMs58xe3XPSCnAYjtz7GECh7aM7qT/bwa1M
+ QlQYX3Q2usKDB+dyqbY0tF219jlndOWeX609bzsJhkooJNs3b1wqSyeiqCm6pItdV3
+ 6ACsTPvLT+Z/rsd7g+X8OGlES0SH4GauNvxTlryudbfZsmaGG1n1ndCPbxrtfBQC8W
+ /doTRvBABTJ3w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdgpu: add bounds check to prevent
- array overflow
-Date: Mon, 19 Oct 2026 09:49:21 -0400
-Message-ID: <20261019135441.1420968-270-sashal@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Sasha Levin <sashal@kernel.org>, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/msm: detach the ARM DMA mapping before
+ attaching our own domain
+Date: Mon, 19 Oct 2026 09:49:27 -0400
+Message-ID: <20261019135441.1420968-276-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,364 +64,347 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: YiPeng Chai <YiPeng.Chai@amd.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-[ Upstream commit db15c49a17b8fab9ada38f3a548e5353d7d6b1a8 ]
+[ Upstream commit 140b13475302601368c0cf4e193e66126a49feb3 ]
 
-Add bounds check to prevent array overflow.
+On ARM32 with CONFIG_ARM_DMA_USE_IOMMU, arch_setup_dma_ops() creates a
+dma_iommu_mapping for every IOMMU-backed device and attaches its domain
+to the device's IOMMU group. That domain is neither the group's default
+nor its blocking domain, so when msm_iommu_new() later attaches the
+domain the driver manages itself, __iommu_attach_group() refuses it:
 
-v2:
-  Add warning messages.
+	if (group->domain && group->domain != group->default_domain &&
+	    group->domain != group->blocking_domain)
+		return -EBUSY;
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Both the GPU and the display controller are hit by this on apq8064
+(IFC6410), leaving the board with no GPU and no display:
+
+  adreno 4300000.gpu: failed to load adreno gpu
+  adreno 4300000.gpu: probe with driver adreno failed with error -16
+  mdp4 5100000.display-controller: [drm:msm_drm_kms_init] *ERROR* failed to load kms
+  mdp4 5100000.display-controller: adev bind failed: -16
+
+Other ARM32 DRM drivers that manage their own domains (tegra, rockchip,
+exynos) drop the arch mapping first. Do the same in msm_iommu_new(),
+which both the display and the GPU paths go through.
+
+With this the GPU and the KMS device both initialise:
+
+  [drm] Initialized msm 1.13.0 for 4300000.gpu on minor 0
+  [drm] Initialized msm-kms 1.13.0 for 5100000.display-controller on minor 1
+
+Assisted-by: Claude:claude-opus-5
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Patchwork: https://patchwork.freedesktop.org/patch/743333/
+Link: https://lore.kernel.org/r/20260730-fix-qcom-smmu-v2-3-18e0daf2d836@oss.qualcomm.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.18.53**. The unbounded write into
-`mce_adev_list.devs[]` is present in that base; this is a 7-line
-overflow guard for that array.
+I have the 6.1.188 picture: the -EBUSY attach path is present,
+`qcom_defconfig` hits it, and the companion series crashes are not
+reachable here. Writing up the full analysis.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## Phase 1: Commit message forensics
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: **[drm/amdgpu] [add] bounds check to prevent array overflow**
+**Step 1.1:** Record: `[drm/msm] [detach] Drop the ARM32 DMA IOMMU
+mapping so msm can attach its own domain`
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record:
-- Signed-off-by: YiPeng Chai (author)
-- Reviewed-by: Tao Zhou
-- Signed-off-by: Alex Deucher (amdgpu maintainer)
-- No Fixes:, Reported-by, Tested-by, Link:, or Cc: stable (absence is
-  expected)
-- Pipeline-only tags ignored: `[Upstream commit db15c49a17b8…]`, Signed-
-  off-by: Sasha Levin
+**Step 1.2:** Record: Tags present:
+- `Assisted-by: Claude:claude-opus-5`
+- `Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>`
+- `Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>`
+  (author; ignore pipeline SOBs)
+- `Patchwork: https://patchwork.freedesktop.org/patch/743333/`
+- `Link: https://lore.kernel.org/r/20260730-fix-qcom-
+  smmu-v2-3-18e0daf2d836@oss.qualcomm.com`
+- No `Fixes:`, no `Cc: stable` (expected for this review)
+- No `Reported-by` / `Tested-by` / syzbot
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
-Record:
-- Bug: write into `mce_adev_list.devs[]` with no cap vs
-  `MAX_GPU_INSTANCE` (64)
-- Symptom: kernel array overflow / adjacent BSS corruption
-- Version info: none in the message
-- Root cause: registration does `devs[num_gpu++] = adev` with no
-  capacity check (the sibling `amdgpu_register_gpu_instance()` has had
-  that check since 2018)
+**Step 1.3:** Record: On ARM32 with `CONFIG_ARM_DMA_USE_IOMMU`,
+`arch_setup_dma_ops()` attaches a `dma_iommu_mapping` domain that is
+neither the group default nor blocking domain. `msm_iommu_new()` then
+`iommu_attach_device()`s the driver-owned domain and
+`__iommu_attach_group()` returns `-EBUSY`. Symptom on apq8064/IFC6410:
+GPU probe fails with `-16`, MDP4 KMS fails with `-16`, no GPU and no
+display. Author reports both devices initialise after the change.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not disguised. It is an explicit overflow fix. v2 only adds a
-ratelimited warning.
+**Step 1.4:** Record: Not a disguised cleanup. Explicit probe-failure
+fix, matching tegra/rockchip/exynos.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS
-===============================================================
+## Phase 2: Diff analysis
 
-Step 2.1: INVENTORY THE CHANGES
-Record:
-- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c` (+7 / −0)
-- Function: `amdgpu_register_bad_pages_mca_notifier()`
-- Scope: single-file surgical fix
+**Step 2.1:** Record: One file, `drivers/gpu/drm/msm/msm_iommu.c`, +22
+lines. Functions: file-scope includes; `msm_iommu_new()`. Surgical,
+single-file.
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
-- Before: always `mce_adev_list.devs[mce_adev_list.num_gpu++] = adev`,
-  then register the MCE decode chain once
-- After: if `num_gpu >= MAX_GPU_INSTANCE`, warn and return; otherwise
-  same as before
-- Path: device init / RAS recovery init, not the MCE hot path
+**Step 2.2:** Record: Before: `msm_iommu_new()` attaches its domain
+immediately. After: if `CONFIG_ARM_DMA_USE_IOMMU` and a mapping exists,
+`arm_iommu_detach_device()` + `arm_iommu_release_mapping()`, then
+attach. Probe/init path only; no-ops when the config is off.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- Category: **buffer overflow / out-of-bounds write**
-- Mechanism: `devs` is `struct amdgpu_device *devs[MAX_GPU_INSTANCE]`
-  (64). Index 64 is past the array and lands on `num_gpu` and the
-  following BSS. A pointer-sized store there corrupts static driver
-  state.
-- Fix: same capacity check already used for `mgpu_info` in
-  `amdgpu_kms.c`
+**Step 2.3:** Record: `[Hardware workaround / logic] ARM DMA domain
+occupies the group → EBUSY. Same detach-before-attach used by
+rockchip/exynos in this tree.`
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- Obviously correct; no API/lock/data-structure change
-- Early return only skips adding a 65th device; the decode chain is
-  already registered by GPU 0
-- Regression risk: **very low** (warn + return). Skipping page-
-  retirement for a 65th Aldebaran is safer than overflowing
+**Step 2.4:** Record: Obviously correct; copies an in-tree pattern.
+Gated so ARM64/non-IOMMU is unchanged. Regression risk is low if the
+companion iommu/msm crash is not reachable here (verified below).
+`msm_iommu_new()` signature differs in 6.1, so the backport is a small
+contextual insert, not a clean cherry-pick.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## Phase 3: Git history
 
-Step 3.1: BLAME THE CHANGED LINES
-Record:
-- Unbounded store introduced in `91a1a52d03aa0f` (Mukul Joshi,
-  2021-09-20): “Fix RAS page retirement with mode2 reset on Aldebaran”
-- Present in this 6.18.53 tree (`git merge-base --is-ancestor
-  91a1a52d03aa0f v6.18.53` succeeded)
+**Step 3.1:** Record: `iommu_attach_device()` in `msm_iommu_new()` is
+from `52da6d513183cf` (Jordan Crouse, 2020). Function exists since
+`871d812aa43e6` (2013). EBUSY check in this tree is `0286300e604555`
+(Jason Gunthorpe, 2022-05-09), in 6.1. Rockchip equivalent:
+`8490cad4dc4e2`, also in this tree.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag. Introducer is `91a1a52d03aa0f`, in this tree.
+**Step 3.2:** Record: No `Fixes:` tag. Bug is the interaction of ARM DMA
+attach + msm attaching its own domain + the 6.1 EBUSY check.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- This tree has **no** `amdgpu_unregister_bad_pages_mca_notifier` (that
-  landed later, ~Nov 2025 on amd-gfx)
-- `amdgpu_ras_recovery_fini()` / `amdgpu_driver_unload_kms()` never
-  shrink `mce_adev_list`
-- GPU reset unregisters `mgpu_info` and re-adds it; it does **not** re-
-  run `amdgpu_ras_recovery_init()`, so reset does not grow this list
-- Series mate patch 2/2 (`drm/amd/ras: use IS_ERR() to check thread
-  creation result`) touches `rascore/ras_process.c` and is independent
+**Step 3.3:** Record: Recent `msm_iommu.c` churn in this tree is
+unrelated (sgtable WARN, tlb ops). No prior msm ARM-DMA detach. Patch is
+`3/3` of “Fix GPU and display on ARM32 platforms using the MSM IOMMU”:
+1. `iommu/msm: track a context master per device and IOMMU`
+2. `iommu/msm: use the IOMMU device for page table allocation`
+3. this commit
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: YiPeng Chai is a regular amdgpu RAS contributor. Tao Zhou
-reviewed; Alex Deucher applied. Not a drive-by change.
+Cover letter: all three needed on **mainline**; patches are independent
+for different maintainers.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: None. The register function in v6.18.53 matches the parent hunk.
-Applies standalone.
+**Step 3.4:** Record: Dmitry Baryshkov is a Qualcomm/msm DRM maintainer;
+many msm commits in this tree. Konrad reviewed this patch.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 3.5:** Record: Applies standalone to 6.1’s attach site. Patch 1’s
+fatal NULL deref is blamed on `da33e87bd2bf` (“iommu: Handle yet another
+race around registration”) — **not** in this tree (`git merge-base --is-
+ancestor` → no). Patch 2’s crash stack uses `msm_iommu_identity_attach`,
+which **does not exist** in 6.1 `drivers/iommu/msm_iommu.c`. Those two
+are not prerequisites for this -EBUSY fix here.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 dig -c db15c49a17b8…` →
-  https://patch.msgid.link/20260616093753.4142104-1-YiPeng.Chai@amd.com
-- v1 (2026-06-16): check only, silent return
-- v2 (same day): added `dev_warn_ratelimited`
-- Tao Zhou (v1): “do we need to add warning message for it?” — that is
-  the only review request
-- No NAKs, no stable discussion, no user crash report
+## Phase 4: Mailing list
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): amd-gfx, Hawking Zhang, Tao Zhou, Candice Li. Tao
-Zhou: Reviewed-by on v2. Alex Deucher signed off.
+**Step 4.1:** Record: `b4 dig -c 140b134753026` →
+https://patch.msgid.link/20260730-fix-qcom-
+smmu-v2-3-18e0daf2d836@oss.qualcomm.com
+v1 and v2 same day. v2: dropped a `dev_warn` tweak (Konrad); rewrote
+patch 2 (Robin Murphy). Applied version is v2 3/3. Lore HTTP 403/503;
+thread recovered via `b4 dig -m`. No NAKs in the saved mbox. No reviewer
+`Cc: stable`.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot, bugzilla, or user report found. Looks like an
-internal correctness/static-analysis fix, not a field crash.
+**Step 4.2:** Record: To/Cc included Rob Clark, Will Deacon, Joerg
+Roedel, Robin Murphy, dri-devel, iommu, linux-arm-msm, freedreno. Konrad
+Reviewed-by on this patch.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record:
-- 2-patch series; 2/2 is an unrelated `kthread_run` IS_ERR check
-- Related later work: “Unregister mce notifier” (Nov 2025) — **not in
-  this 6.18.53 tree**, so the list never shrinks here. That makes
-  overflow easier to hit than on later mainline
+**Step 4.3:** Record: Author is the reporter; tested on IFC6410.
+Concrete dmesg for GPU and KMS probe `-16`.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: No lore.kernel.org/stable hit for this subject. lore.kernel.org
-fetches returned 403; mail-archive + b4 were used instead.
+**Step 4.4:** Record: Series of three; this patch is drm/msm-only. Cover
+letter: “only fixing all of them makes the board usable” on mainline.
+For 6.1, the other two fix post-6.1 IOMMU-core behavior.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 4.5:** Record: No stable@ discussion found
+(lore.kernel.org/stable search not usable here; mbox has no stable
+nomination).
 
-Step 5.1: IDENTIFY KEY FUNCTIONS
-Record: `amdgpu_register_bad_pages_mca_notifier()` (modified). Related:
-`find_adev()`, `amdgpu_bad_page_notifier()`,
-`amdgpu_ras_recovery_init()`. semcode MCP not available; used grep/read.
+## Phase 5: Code semantics
 
-Step 5.2: TRACE CALLERS
-Record:
-- Only caller: `amdgpu_ras_recovery_init()` when `CONFIG_X86_MCE_AMD`,
-  `asic_type == CHIP_ALDEBARAN`, and `adev->gmc.xgmi.connected_to_cpu`
-- That is called only from `amdgpu_device_init()` (not from reset
-  reinit)
-- `amdgpu_device_init()` ← `amdgpu_driver_load_kms()` ← PCI probe
-- `amdgpu_pci_remove()` → `amdgpu_driver_unload_kms()` does **not** drop
-  the MCE list entry
+**Step 5.1:** Record: `msm_iommu_new()`.
 
-Step 5.3: TRACE CALLEES
-Record: `dev_warn_ratelimited()`, `mce_register_decode_chain()`
-(unchanged, still once)
+**Step 5.2:** Record: Callers in this tree:
+- `adreno_iommu_create_address_space()` → GPU probe (`adreno_gpu.c`)
+- `mdp4_kms` init (`mdp4_kms.c`) → display
+- `msm_kms_init_aspace()` (`msm_drv.c`) → MDP/DPU
+- `a6xx_gmu.c` (a6xx; not apq8064)
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record:
-- Reachable on MI200/MI250 (Aldebaran) CPU-attached XGMI systems (HPC),
-  with RAS enabled
-- Not a syscall; probe/unbind-bind
-- Unbind/bind without `rmmod` leaves module statics: each successful RAS
-  init increments `num_gpu`. After 64 such inits, the next write is OOB
+Probe-time, not IRQ/hot path.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: `amdgpu_register_gpu_instance()` already guards
-`mgpu_info.num_gpu >= MAX_GPU_INSTANCE` (blame: `62d73fbcfb3671`, 2018).
-This list was a copy without that guard.
+**Step 5.3:** Record: After the new detach: `iommu_attach_device()`.
+Detach uses `arm_iommu_detach_device` / `arm_iommu_release_mapping`
+(exported in this tree).
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 5.4:** Record: Reachable from platform probe of adreno/mdp4 when
+the device is IOMMU-mapped. Userspace is not needed; boot on apq8064
+with `qcom_defconfig` is enough.
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. v6.18.53 has:
-`mce_adev_list.devs[mce_adev_list.num_gpu++] = adev;`
-with no check. `MAX_GPU_INSTANCE` is 64 in `amdgpu.h`. Introduced 2021,
-long before 6.18.
+**Step 5.5:** Record: Same pattern in this tree:
+`rockchip_drm_dma_attach_device()`, `exynos_drm_dma.c`.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Clean apply**. v6.18.53 function body matches the parent hunk
-(no unregister helper in this tree; not required).
+## Phase 6: This checkout (6.1.188)
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: No other overflow guard or unregister for `mce_adev_list` in
-v6.18.53.
+**Step 6.1:** Record: Tree is **6.1.188** (`pending-6.1`,
+`p-6.1-11-gffee1c0de6cf2`). Candidate `140b134753026` is **not** an
+ancestor of HEAD (`name-rev`: `tags/next-20260821~61^2`).
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+Buggy code is here:
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: drm/amdgpu RAS / x86 MCE decode. **IMPORTANT** for
-Aldebaran+XGMI-to-CPU, not core kernel. Still kernel-memory corruption
-if it fires.
+```402:425:drivers/gpu/drm/msm/msm_iommu.c
+struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain
+*domain)
+{
+        ...
+        ret = iommu_attach_device(iommu->domain, dev);
+        if (ret) {
+                kfree(iommu);
+                return ERR_PTR(ret);
+        }
+        return &iommu->base;
+}
+```
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: amdgpu RAS is actively maintained; this particular list has been
-unchanged since 2021 except later unregister (not in 6.18).
+Same EBUSY test in `drivers/iommu/iommu.c` `__iommu_attach_group()`.
+`arch_setup_dma_ops()` → `arm_setup_iommu_dma_ops()` attaches the ARM
+mapping. `arch/arm/configs/qcom_defconfig` has `CONFIG_MSM_IOMMU=y`,
+`CONFIG_ARM_SMMU=y` (selects `ARM_DMA_USE_IOMMU`),
+`CONFIG_ARCH_MSM8960=y`, `CONFIG_DRM_MSM=m`. DT: `qcom-
+apq8064-ifc6410.dts`, GPU `adreno-3xx@4300000`, MDP `mdp@5100000`.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 6.2:** Record: Minor backport. 6.1 `msm_iommu_new(dev, domain)`
+vs later `msm_iommu_new(dev, quirks)` with `iommu_paging_domain_alloc` /
+`kzalloc_obj`. Insert the detach block before the existing
+`iommu_attach_device()` and add the same `#if CONFIG_ARM_DMA_USE_IOMMU`
+stubs rockchip already uses.
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver- and config-specific: `CONFIG_DRM_AMDGPU` +
-`CONFIG_X86_MCE_AMD` + Aldebaran (PCI 1002:7408/740C/740F/7410) with
-host-GPU XGMI. Real HPC/Instinct users exist; not all amdgpu laptops.
+**Step 6.3:** Record: No msm ARM-DMA detach in this tree.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record:
-- 65+ registrations into a 64-slot array
-- A node with 65 Aldebaran GPUs is not realistic
-- **In this tree**, no unregister: PCI unbind/bind (or probe after a
-  failed teardown that still completed RAS init) grows the list. 64
-  cycles is uncommon but a real admin/debug path
-- Unprivileged users cannot typically drive 64 GPU rebinds
+## Phase 7: Subsystem
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: OOB write of an `amdgpu_device *` past `devs[]` into `num_gpu`
-and following BSS → memory corruption, then likely oops on later
-MCE/list walk. Severity **HIGH** when hit; likelihood **LOW**.
+**Step 7.1:** Record: `[drm/msm IOMMU] [IMPORTANT]` — not core mm/net,
+but GPU+display on Qualcomm ARM32. Official `qcom_defconfig`.
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- Benefit: prevents a real overflow on a path this tree never cleans up;
-  matches an existing sibling check
-- Risk: 7 lines, warn+return, no locking/API change — **very low**
-- Ratio: favorable for stable
+**Step 7.2:** Record: msm DRM is active; this ARM32 IOMMU attach path is
+old and stable.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+## Phase 8: Impact and risk
 
-Step 9.1: COMPILE THE EVIDENCE
+**Step 8.1:** Record: ARM32 Qualcomm with `CONFIG_ARM_DMA_USE_IOMMU` and
+msm DRM+IOMMU — `qcom_defconfig`, apq8064 (IFC6410, Nexus 7 flo, etc.).
 
-FOR:
-- Real unbounded store into a 64-entry static array (memory safety)
-- Buggy code is in 6.18.53 and dates to 2021
-- This tree never unregisters, so the counter can climb across
-  unbind/bind
-- 7-line, obviously correct, same pattern as
-  `amdgpu_register_gpu_instance()`
-- Reviewed by Tao Zhou; applied by Alex Deucher
-- Applies cleanly; no prerequisites
+**Step 8.2:** Record: Every boot/probe of GPU and display. Not a race.
+Unprivileged userspace not required.
 
-AGAINST:
-- Thin commit message; no crash report / syzbot / CVE
-- Needs Aldebaran + XGMI-to-CPU + 65 registrations — rare in production
-- Series 1/2, but 2/2 is unrelated
+**Step 8.3:** Record: Probe `-EBUSY` → no GPU, no display. Severity
+**HIGH** for those boards (board graphics unusable). Not a generic
+panic.
 
-UNRESOLVED:
-- Could not fetch lore.kernel.org (403); used b4 + mail-archive
-- No public statement of how the overflow was found (Coverity vs
-  internal test)
+**Step 8.4:** Record: Benefit high for affected ARM32 qcom; risk low
+(config-gated, copies in-tree pattern, ~15 lines in one function).
+Companion mainline crashes are not the 6.1 detach path
+(`msm_iommu_identity_attach` missing; 6.1 `arm_iommu_detach_device`
+NULLs `dma_ops` after detach, and this patch’s extra `release_mapping`
+runs with `dma_ops` already NULL).
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — trivial bounds check; v2
-   reviewed
-2. Fixes a real bug that affects users? **PASS** — OOB write; reachable
-   if the list is never drained
-3. Important issue? **PASS** — kernel memory corruption (HIGH, uncommon
-   trigger)
-4. Small and contained? **PASS** — +7 lines, one function
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — clean against v6.18.53
+## Phase 9: Synthesis
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: Not a device-ID/quirk/DT/build/docs exception. It is a normal
-memory-safety fix.
+**Evidence FOR:**
+- Real, tested probe failure: GPU+KMS `-EBUSY` on IFC6410
+- Mechanism present in 6.1 (attach + EBUSY check + ARM DMA mapping)
+- Official `qcom_defconfig` enables the triggering config
+- Small, matches rockchip/exynos already in this tree
+- Reviewed by Konrad Dybcio; msm maintainer author
+- Hardware-workaround class (existing driver, existing boards)
 
-Step 9.4: MAKE YOUR DECISION
-This is a small, obviously correct overflow guard for code that exists
-in this 6.18.53 tree. Because 6.18 never removes entries from
-`mce_adev_list`, the overflow is more reachable here than on later
-kernels that gained unregister. Benefit outweighs risk.
+**Evidence AGAINST:**
+- Cherry-pick does not apply cleanly (`msm_iommu_new` signature)
+- Series 3/3; cover letter says all three needed on mainline
+- ARM32 / older SoCs only
+- Not a UAF/security/panic by itself
+
+**Unresolved:** Whether incomplete multi-IOMMU stream-ID programming
+(patch 1, “wrong for years”) still limits display/GPU quality after
+attach succeeds. That did not block probe; this patch fixes the probe
+blocker.
+
+**Stable rules:**
+1. Obviously correct and tested? **PASS** (in-tree pattern; IFC6410)
+2. Real bug affecting users? **PASS** (`qcom_defconfig` apq8064)
+3. Important? **PASS** (complete GPU+display failure; quirk/enablement
+   exception)
+4. Small? **PASS** (+22 lines, one file; small 6.1 adapt)
+5. No new features/APIs? **PASS**
+6. Can apply to this tree? **PASS** (minor context adapt)
+
+**Exception:** Hardware workaround for ARM32 IOMMU vs driver-managed
+domain, same class as existing DRM ARM DMA detach.
+
+This tree is 6.1.188. The attach/`-EBUSY` bug is here, the devices and
+defconfig are here, and the mainline series mates that crash on later
+IOMMU core behavior are not required for this fix.
 
 Verification:
-- [Phase 1] Tags: author YiPeng Chai, Reviewed-by Tao Zhou, SOB Alex
-  Deucher; no Fixes/Reported-by
-- [Phase 2] Diff: +7 lines in
-  `amdgpu_register_bad_pages_mca_notifier()`; `if (num_gpu >=
-  MAX_GPU_INSTANCE) warn; return;`
-- [Phase 3] `git blame` v6.18.53: unbounded store from `91a1a52d03aa0f`
-  (2021); ancestor of v6.18.53
-- [Phase 3] `git merge-base --is-ancestor 4f933b6727c05 v6.18.53` failed
-  — fix is not in 6.18.53
-- [Phase 3] No unregister in this tree (`git grep unregister_bad_pages`
-  empty; `git log --grep="Unregister mce notifier"` empty)
-- [Phase 3] Only recovery_init caller of register; reset path does not
-  re-call it
-- [Phase 4] `b4 dig -c db15c49a17b8`: v1 + v2; Tao asked for a warning;
-  v2 Reviewed-by
-- [Phase 4] `b4 dig -a`: two revisions, applied is v2
-- [Phase 4] `b4 dig -w`: amd-gfx + Hawking Zhang, Tao Zhou, Candice Li
-- [Phase 4] Patch 2/2 is IS_ERR on rascore kthread — independent
-- [Phase 4] lore.kernel.org WebFetch 403 — UNVERIFIED via lore HTML;
-  mail-archive used instead
-- [Phase 5] Callers: only Aldebaran + `connected_to_cpu` in
-  `amdgpu_ras_recovery_init` ← `amdgpu_device_init` ← PCI probe
-- [Phase 5] Remove path: `amdgpu_pci_remove` →
-  `amdgpu_driver_unload_kms` does not touch `mce_adev_list`
-- [Phase 6] `git describe HEAD`: v6.18.53-5049-g0f0bdc2b0dffb; `make
-  kernelversion`: 6.18.53
-- [Phase 6] v6.18.53 function matches parent; MAX_GPU_INSTANCE=64
-- [Phase 8] Failure mode: OOB write into BSS → corruption/oops; severity
-  HIGH, trigger uncommon
-- UNVERIFIED: exact discovery method (no public reproducer)
-
-The patch is a 7-line bounds check that stops a real out-of-bounds write
-in RAS MCE GPU tracking. The buggy store is in this 6.18.53 tree, the
-tree never shrinks the list on teardown, and the change is obviously
-correct with negligible regression risk.
+- [Phase 1] Parsed tags: Reviewed-by Konrad; lore/patchwork links; no
+  Fixes/stable/syzbot
+- [Phase 2] Diff: +22 in `msm_iommu_new()`, detach ARM mapping then
+  `iommu_attach_device()`
+- [Phase 3] Blame: attach from `52da6d513183cf` (2020); EBUSY
+  `0286300e604555` in this tree; rockchip detach `8490cad4dc4e2` in this
+  tree
+- [Phase 3] `git merge-base --is-ancestor 140b134753026 HEAD` → no
+  (commit is linux-next, not 6.1)
+- [Phase 3] Companion Fixes `da33e87bd2bf` not in 6.1; no
+  `identity_attach` in 6.1 msm IOMMU
+- [Phase 4] `b4 dig -c 140b134753026` / `-a` / `-w` / `-m`: v2 3/3,
+  cover letter, Konrad R-b, Robin feedback on patch 2
+- [Phase 5] Callers: adreno, mdp4, `msm_kms_init_aspace` at probe
+- [Phase 6] `git describe HEAD` / Makefile: 6.1.188 pending-6.1; buggy
+  `msm_iommu_new()` at line 419
+- [Phase 6] `qcom_defconfig`: MSM_IOMMU=y, ARM_SMMU=y, DRM_MSM=m,
+  ARCH_MSM8960=y
+- [Phase 8] Failure: GPU/KMS probe `-16`/`-EBUSY`, no display; HIGH for
+  those boards
+- UNVERIFIED: live IFC6410 boot on 6.1.188 (author tested mainline)
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/msm/msm_iommu.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 16ae44e131ad4..b03d422572589 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -4814,6 +4814,13 @@ static void amdgpu_register_bad_pages_mca_notifier(struct amdgpu_device *adev)
- 	 * Use this list instead of mgpu_info to find the amdgpu
- 	 * device on which the UMC error was reported.
- 	 */
-+	if (mce_adev_list.num_gpu >= MAX_GPU_INSTANCE) {
-+		dev_warn_ratelimited(adev->dev,
-+			"mce_adev_list full, skip notifier registration (max=%d)\n",
-+			MAX_GPU_INSTANCE);
-+		return;
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index 82a172f21a3ec..41a4eaa1b8fd9 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -7,6 +7,15 @@
+ #include <linux/adreno-smmu-priv.h>
+ #include <linux/io-pgtable.h>
+ #include <linux/kmemleak.h>
++
++#if defined(CONFIG_ARM_DMA_USE_IOMMU)
++#include <asm/dma-iommu.h>
++#else
++#define arm_iommu_detach_device(...)	({ })
++#define arm_iommu_release_mapping(...)	({ })
++#define to_dma_iommu_mapping(dev)	NULL
++#endif
++
+ #include "msm_drv.h"
+ #include "msm_gpu_trace.h"
+ #include "msm_mmu.h"
+@@ -746,6 +755,19 @@ struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks)
+ 
+ 	mutex_init(&iommu->init_lock);
+ 
++	/*
++	 * ARM32 attaches a DMA mapping domain to every IOMMU-backed device,
++	 * which would make attaching our own domain fail with -EBUSY.
++	 */
++	if (IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)) {
++		struct dma_iommu_mapping *mapping = to_dma_iommu_mapping(dev);
++
++		if (mapping) {
++			arm_iommu_detach_device(dev);
++			arm_iommu_release_mapping(mapping);
++		}
 +	}
 +
- 	mce_adev_list.devs[mce_adev_list.num_gpu++] = adev;
- 
- 	/*
+ 	ret = iommu_attach_device(iommu->domain, dev);
+ 	if (ret) {
+ 		iommu_domain_free(domain);
 -- 
 2.53.0
 
