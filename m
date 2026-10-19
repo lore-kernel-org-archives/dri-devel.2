@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A607CCF2D3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 11:32:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 685D7CCF2D6
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 11:39:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 739F510EA71;
-	Mon, 19 Oct 2026 11:32:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C4410E36D;
+	Mon, 19 Oct 2026 11:39:22 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EC8E10EAE2
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:32:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E028610E64D
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:39:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2D72A600CB;
- Mon, 19 Oct 2026 11:32:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D221F000C4;
- Mon, 19 Oct 2026 11:32:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 11BEF600CB;
+ Mon, 19 Oct 2026 11:39:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572A11F000C4;
+ Mon, 19 Oct 2026 11:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792409552;
- bh=RdNTRVP119Rn16CgrvVjkoLdMJRal1PTTVJMjCnh0PI=;
+ s=k20260515; t=1792409955;
+ bh=lplIOhIV5V0C/jHRmjr3FKaB3R0Z/dkdoI6azjkHDJ0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=L/nyLOLmax3KrtMGcbsxmduMXGmbF0voPk3EFWlv3ZTZWJyZc7Sxv55sAXZidR/nR
- g0+TF0KWlvJOyDCdi4oPx16sGxpBIShwTSpeh0iTCbIWd9Rk+cbKLiiW2JFoeGhUwM
- YXlwvEzhahu1Ma7VPWOuBqnGhrGsqIe0M/6zU2HTsLRcM7KroodL3mzt+P1MTCxrD4
- 4rcHtXXYIxMO5Tb2NQ4Ev3EmpS2fhdOLLwuflwcyE+kHJh2YxlAPON0dVS7zEfWbjU
- zA/gdhwfhmt7Uk7bmtjV6FrN0w7Eq3TnbmN1xesYH2LOtL9LRKFw4a5bHUEWLrBBIu
- HT//bRK0BKSnw==
-Message-ID: <sashiko-outbox-177041@kernel.org>
+ b=lkjTsFaOrrOmdyrjXe8F4qDQ1CntmfPDejDjhvnfHqS18wXVODe/Oj93eXQATUEv9
+ 82vYL6/F+oKV+U/3q0H/BHXge9sgO70CYyKxPuvoLQiHs3uA/1U2YQZ1j0OE64of13
+ mRgyq1NJOTs9a3FduooW7irxbYFpbLAn03M2B6k2r1A81BzhNsw2oTQ79wf+SV1K4R
+ My/VT3HzViF/zQaLzhMZTYcrQWEB2jpU1iqM11H3j2Pjpb8BdyYd7kQYS/eslNfIdB
+ VNWbaFQKTuJ2E6KdiyZsN5jztSWTNyErEGTyvaOKp0YRBlDD71UYLbGcvyp9U66I9J
+ CMjG7yrUcezIw==
+Message-ID: <sashiko-outbox-177045@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/8] backlight: qcom-wled: fix string detection
- brightness on WLED5
+Subject: Re: [PATCH v2 4/8] regulator: add Qualcomm LCDB driver
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261019-sm8150-display-card-v2-1-86c05068efc5@oss.qualcomm.com>
+In-Reply-To: <20261019-sm8150-display-card-v2-4-86c05068efc5@oss.qualcomm.com>
 References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
- <20261019-sm8150-display-card-v2-1-86c05068efc5@oss.qualcomm.com>
+ <20261019-sm8150-display-card-v2-4-86c05068efc5@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 11:32:31 +0000
+Date: Mon, 19 Oct 2026 11:39:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,79 +57,89 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] backlight: qcom-wled: wled5_set_brightness() clamps 0 to low_lim=
-it on restore
+- [Medium] regulator: qcom-lcdb: off-by-one and window reset in qcom_lcdb_h=
+andle_sc()
 --
 
-commit 1866e6688066844d34f7f3f1d2a0c521bb917107
+commit 5b5d0fa4182dea42061084cb3ab6d86b894783ff
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-backlight: qcom-wled: fix string detection brightness on WLED5
+regulator: add Qualcomm LCDB driver
 
-This commit updates wled_auto_string_detection() to use the per-version
-wled_set_brightness() callback instead of hardcoding wled4_set_brightness(),
-and moves the WLED5 module sync toggle into wled5_set_brightness().
+This commit adds a regulator driver for the Qualcomm LCDB (LCD bias) block
+found on PMICs such as PMI632, PM6150L, and PM8150L. It manages the shared
+module enable, boost headroom tracking, voltage ramp-up, and short-circuit
+recovery for the LDO and NCP bias rails.
 
-> diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backligh=
-t/qcom-wled.c
-> index ca350f320e177..c5243a6d547e5 100644
-> --- a/drivers/video/backlight/qcom-wled.c
-> +++ b/drivers/video/backlight/qcom-wled.c
+> diff --git a/drivers/regulator/qcom-lcdb-regulator.c b/drivers/regulator/=
+qcom-lcdb-regulator.c
+> new file mode 100644
+> index 0000000000000..bb2d4ee23ad5c
+> --- /dev/null
+> +++ b/drivers/regulator/qcom-lcdb-regulator.c
+> @@ -0,0 +1,494 @@
 
 [ ... ]
 
-> @@ -791,7 +783,7 @@ static void wled_auto_string_detection(struct wled *w=
-led)
->  	}
-> =20
->  	/* Restore brightness */
-> -	rc =3D wled4_set_brightness(wled, wled->brightness);
-> +	rc =3D wled->wled_set_brightness(wled, wled->brightness);
->  	if (rc < 0) {
->  		dev_err(wled->dev, "Failed to set brightness after auto detection rc=
-=3D%d\n",
->  			rc);
+> +static bool qcom_lcdb_handle_sc(struct qcom_lcdb *lcdb)
+> +{
+> +	guard(mutex)(&lcdb->lock);
+> +
+> +	if (!lcdb->enabled_mask || lcdb->sc_disabled)
+> +		return false;
+> +
+> +	qcom_lcdb_module_disable(lcdb);
+> +
+> +	if (ktime_us_delta(ktime_get(), lcdb->sc_time) > LCDB_SC_RESET_CNT_DLY_=
+US) {
+> +		lcdb->sc_count =3D 0;
+> +	} else if (lcdb->sc_count > LCDB_SC_CNT_MAX) {
+> +		dev_err(lcdb->dev, "persistent short circuit, keeping the outputs off\=
+n");
+> +		lcdb->sc_disabled =3D true;
+> +		return true;
+> +	}
+> +
+> +	lcdb->sc_count++;
+> +	lcdb->sc_time =3D ktime_get();
 
 [Severity: Medium]
-When wled_auto_string_detection() runs during probe via
-wled_probe() -> wled5_setup() -> wled_auto_detection_at_init(),
-wled_read_brightness() has not run yet, so wled->brightness is still 0.
+Does qcom_lcdb_handle_sc() have an off-by-one in the retry count and reset
+the 1-second fault window on every short-circuit event?
 
-Previously, wled4_set_brightness() only clamped non-zero brightness values:
+The commit message notes that on a short circuit the module is restarted up
+to ten times within a second. However, in qcom_lcdb_handle_sc(),
+lcdb->sc_count > LCDB_SC_CNT_MAX is evaluated before lcdb->sc_count++,
+allowing 11 restarts (for lcdb->sc_count values 0 through 10) before
+disabling the outputs on the 12th fault.
 
-	/* WLED4's lower limit of operation is 0.4% */
-	if (brightness > 0 && brightness < low_limit)
-		brightness =3D low_limit;
+In addition, lcdb->sc_time =3D ktime_get() is updated on every fault rather
+than only when starting a new counting window. Because ktime_us_delta()
+measures the time since the immediately preceding fault instead of the first
+fault in the window, intermittent faults spaced less than 1 second apart
+(for example, every 0.8 seconds) will never reset lcdb->sc_count and will
+permanently disable the rails across multiple seconds.
 
-However, wled5_set_brightness() unconditionally clamps brightness =3D=3D 0 =
-up to
-low_limit (0.1% of max_brightness):
+> +
+> +	if (qcom_lcdb_module_enable(lcdb)) {
+> +		dev_err(lcdb->dev, "failed to recover from a short circuit\n");
+> +		lcdb->sc_disabled =3D true;
+> +		return true;
+> +	}
+> +
+> +	return false;
+> +}
 
-	/* WLED5's lower limit is 0.1% */
-	if (brightness < low_limit)
-		brightness =3D low_limit;
+[ ... ]
 
-With this change, restoring wled->brightness (0) at the end of
-wled_auto_string_detection() on WLED5 writes and latches low_limit into the
-modulator brightness register before enabling WLED3_CTRL_REG_MOD_EN.
-
-When wled_probe() subsequently calls wled_read_brightness():
-
-	rc =3D wled_read_brightness(wled);
-	if (rc < 0)
-		return rc;
-
-	wled->brightness =3D rc;
-	...
-	props.brightness =3D wled->brightness ?: val;
-
-will it read back low_limit instead of 0, leaving ovp_irq enabled in
-wled_configure_ovp_irq() and initializing props.brightness to low_limit
-instead of default-brightness?
-
-Should wled5_set_brightness() check brightness > 0 && brightness < low_limit
-like wled4_set_brightness() does?
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+=F0=9F=A4=96 ThisDimensions (v1.2 =C2=B7 gpt-5.4) =C2=B7 2026-10-19 04:01 U=
+TC =C2=B7 [=F0=9F=93=9A](https://github.com/masoncl/review-prompts)
+  =F0=9F=93=A7 dmitry.baryshkov@oss.qualcomm.com =C2=B7 =F0=9F=92=AC ~420 w=
+ords =C2=B7 =F0=9F=AA=99 ~15k tokens =C2=B7 =F0=9F=92=B0 ~$0.05 ([=F0=9F=93=
+=8A](https://platform.openai.com/docs/pricing))
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-sm8150-dis=
-play-card-v2-0-86c05068efc5@oss.qualcomm.com?part=3D1
+play-card-v2-0-86c05068efc5@oss.qualcomm.com?part=3D4
