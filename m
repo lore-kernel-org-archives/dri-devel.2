@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E87CCF2E7
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:06:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4FEBCCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D99210EE1F;
-	Mon, 19 Oct 2026 14:06:02 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD7AE10EE27;
- Mon, 19 Oct 2026 14:05:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCB410EDAA;
+	Mon, 19 Oct 2026 14:06:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E312E10EE23;
+ Mon, 19 Oct 2026 14:06:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2244C60261;
- Mon, 19 Oct 2026 14:05:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2F01F000CC;
- Mon, 19 Oct 2026 14:05:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8713D43AC7;
+ Mon, 19 Oct 2026 14:06:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CF371F000C4;
+ Mon, 19 Oct 2026 14:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418755;
- bh=nwNci7lncnQZmqv+RzcO6wCyJ135mziBAxyfw2m9PZY=;
+ s=k20260515; t=1792418791;
+ bh=zjAjO0BSBACDj5Kt6V/l7hCPxN8HOcQsmHMRubHsGJ8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jRe5gCf605th8ZDNzPfYMkrMUwD/1KEb4G5DAy8Vfx8CylUGEYEJ3wo/+9P0mkapF
- 3KyOB7CxPzb9/Y3vCFrrLBcZ6uC52TxH2Yy1diOEMWmW3nzZda2DF3SH/jZRQ5/FjG
- VbNplbwwzbW+OgSLDqqV2FPG52EYltVTiBl/6R4X+M/JxwsePP8u/ziauW0j82HdOX
- CL6BFC8xi+wfPWZsg+FRmCEGJ7Jo8zoOx7t1PLOm1wDMoL8ALX7aZnkkdwkv0rm91a
- jAtn8iePu4CUZt+NxJR9G7cEdY2j8G0Mw1aqLDmDFpi7wC0OUbukV1hnW3ZJXNksDp
- 6N46iLKnrIEEQ==
+ b=NUA3H4Zalv5BEjYKOw13yIS1g6S3vGN7u2RzTV0c+k6iG3NpRLAP+mx+k0FAN4EkQ
+ 0x9Kjdecay3BzK99Vuy7TKt35jujhKl/r3/q0lEChCGXZ+fy2jQT8bZvOYCyBEOdOm
+ qzCGaJ3VJYtDIBJDKOWk2JxjRVmw1b6UuZcU3FZzCxah46n2wAHVmM6PZGvO69Zep2
+ ObHX2pvpLfB8+33d08Ow+e+lPVYucqPU3ZAfeflumS4IDe91tg043w2cRRRCe7hRQb
+ X23q45UmLcq9wTrSnUTqze76voIb52e/cbwdgC5Mbmaz8+bLMWh3TmNKmQo/5xLKdb
+ ub6H4IwJN2H0A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Amber Lin <amber.lin@amd.com>, David Yat Sin <david.yatsin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+Cc: Ruoyu Wang <ruoyuw560@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdkfd: Fix signal reset event
-Date: Mon, 19 Oct 2026 09:52:44 -0400
-Message-ID: <20261019135441.1420968-473-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/radeon: avoid double free in r600 DPM
+ cleanup
+Date: Mon, 19 Oct 2026 09:53:10 -0400
+Message-ID: <20261019135441.1420968-499-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -62,451 +62,515 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Amber Lin <amber.lin@amd.com>
+From: Ruoyu Wang <ruoyuw560@gmail.com>
 
-[ Upstream commit b38f9b6ffdfc86d5aff36881d9e8028c79bc98c9 ]
+[ Upstream commit d3f30034f861a585f8e487ae1555d9f288a96f87 ]
 
-When a mode reset happens, driver needs to notify the process on that
-GPU a reset event is happening. The existing code assumes the process is
-using the GPU that is getting mode reset, which is not always true. For
-example, on a 8G system, the process may be only using GPU 0~4 but a
-mode 2 reset is resetting the all 8 GPUs connected by XGMI. Trying to
-find a process on GPU 5~7 will fail, which is fine and should skip the
-event signal.
+r600_parse_extended_power_table() uses manual kfree() calls for some
+early allocation failures, but the freed pointers are left in the
+dynamic power-management state. If device teardown later calls
+r600_free_extended_power_table(), those stale pointers can be freed
+again.
 
-Signed-off-by: Amber Lin <amber.lin@amd.com>
-Reviewed-by: David Yat Sin <david.yatsin@amd.com>
+Use the common extended power table cleanup helper for those early
+failure paths as well, and clear each pointer after freeing it so
+repeated cleanup stays safe.
+
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 1)...
-Retry attempt 1...
-The local tree is **v7.3-rc4**. The commit is a small, obviously-correct
-logic fix: `kfd_signal_reset_event()` treated “process is not using this
-GPU” as unexpected and fired `WARN_ONCE` during a hive-wide mode reset.
-That warning is a real production issue on multi-GPU XGMI systems.
+# Stable backport analysis: `drm/radeon: avoid double free in r600 DPM
+cleanup`
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+Local tree: **6.18.53** (`v6.18.53-5049-g0f0bdc2b0dffb`, branch
+`autosel`). Verdict is for this tree only.
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[drm/amdkfd] [Fix] [stop treating “process not on this GPU” as
-an error when signaling a reset event]`
+Upstream commit: `d3f30034f861a585f8e487ae1555d9f288a96f87` (Alex
+Deucher, 2026-06-17).
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: PARSE THE SUBJECT LINE
+Record: **[drm/radeon] [avoid] [double free in r600 DPM cleanup]**
+
+Subsystem prefix `drm/radeon`. Verb **avoid** is a bug-fix verb. Claimed
+intent: prevent a double-free in R600 dynamic power-management cleanup.
+
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- Fixes: none (expected for this review)
-- Reported-by: none
-- Tested-by: none
-- Reviewed-by: David Yat Sin `<david.yatsin@amd.com>` (author of the
-  CRIU gpu_id remapping that added the `user_gpu_id` lookup)
-- Acked-by: none
-- Link: none in the commit; mailing-list thread found via `b4 dig`
-- Cc: stable: none (expected)
-- Signed-off-by: Amber Lin `<amber.lin@amd.com>` (author); Alex Deucher
-  `<alexander.deucher@amd.com>` (amdgpu/amdkfd maintainer)
-- Sasha Levin SOB: not present on this commit
+- **Fixes:** none (expected for this review queue)
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** none
+- **Acked-by:** none
+- **Link:** none in the commit; lore found later via `b4 dig`
+- **Cc: stable:** none (expected)
+- **Signed-off-by:** Ruoyu Wang (author); Alex Deucher (AMD/radeon
+  maintainer)
 
-Notable: maintainer SOB + review from the engineer who introduced the
-original lookup. No syzbot, no user-report tags.
+No syzbot, no CVE, no multi-reporter pattern. Maintainer SOB is a
+positive quality signal.
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- Bug: on mode reset the driver notifies KFD processes of a reset. The
-  loop assumes every process uses the GPU being reset.
-- Symptom: looking up a process on GPUs it does not use fails. Example:
-  8-GPU XGMI hive, process on GPUs 0–4, mode-2 reset of all 8 GPUs;
-  lookups on GPUs 5–7 fail.
-- Failure mode: those failed lookups hit `WARN_ONCE` then `continue`.
-  Signaling skip is correct; the warning is not.
-- Version info: none in the message.
-- Root cause: expected “process not bound to this device” was coded as
-  an unexpected error.
+- **Bug:** `r600_parse_extended_power_table()` does manual `kfree()` on
+  some early allocation-failure paths and leaves the pointers in
+  `rdev->pm.dpm.dyn_state`.
+- **Symptom:** later `r600_free_extended_power_table()` can free those
+  stale pointers again → **double-free**.
+- **Root cause:** incomplete error-path cleanup plus non-idempotent free
+  helper.
+- **Fix:** use `r600_free_extended_power_table()` on those early paths,
+  and NULL each pointer after `kfree()` so repeated cleanup is safe.
+- **Version info:** none in the message.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not hidden. Subject is “Fix …”. It is a real logic/warning bug,
-not cleanup-only.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+Record: **Not hidden.** This is an explicit double-free fix. The “use
+the common helper” wording is cleanup-shaped, but it is fixing real
+dangling pointers.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+---
 
-**Step 2.1: INVENTORY THE CHANGES**
+## PHASE 2: DIFF ANALYSIS - LINE BY LINE
+
+### Step 2.1: INVENTORY THE CHANGES
 Record:
-- File: `drivers/gpu/drm/amd/amdkfd/kfd_events.c` (+8 / −9)
-- Function: `kfd_signal_reset_event()`
-- Scope: single-file surgical fix, one function
+- **File:** `drivers/gpu/drm/radeon/r600_dpm.c` (**+15 / −6**)
+- **Functions:** `r600_parse_extended_power_table()`,
+  `r600_free_extended_power_table()`
+- **Scope:** single-file surgical fix
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 Record:
-Before (inside `hash_for_each_rcu(kfd_processes_table, …)`):
-1. `user_gpu_id = kfd_process_get_user_gpu_id(p, dev->id)`
-2. `pdd = kfd_get_process_device_data(dev, p)`
-3. If `user_gpu_id == -EINVAL` → `WARN_ONCE` + `continue`
-4. If `!pdd` → `WARN_ONCE` + `continue`
 
-After:
-1. `pdd = kfd_get_process_device_data(dev, p)`
-2. If `!pdd` → silent `continue` (process not using this device)
-3. Then `user_gpu_id = kfd_process_get_user_gpu_id(p, dev->id)`
-4. If `user_gpu_id == -EINVAL` → `WARN_ONCE` + `continue` (now a real
-   inconsistency, because `pdd` exists)
+**Hunk 1 (three early error returns in parse):**
+- Before: on `r600_parse_clk_voltage_dep_table()` failure for VDDCI-on-
+  MCLK / VDDC-on-MCLK / MVDD-on-MCLK, manually `kfree()` previously
+  allocated `*.entries` and return, **without clearing the pointers**.
+- After: call `r600_free_extended_power_table(rdev)` then return.
 
-Also moves `user_gpu_id`/`pdd` from inner-loop locals to function
-locals; format for `dev->id` changes `%x` → `%d`. Normal reset path for
-processes that *do* use the GPU is unchanged.
+**Hunk 2 (free helper):**
+- Before: twelve `kfree()`s, pointers left non-NULL.
+- After: same `kfree()`s, each pointer set to NULL.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: `[Logic / correctness] [false WARN_ONCE]`
-`kfd_get_process_device_data()` returns NULL when the process has no pdd
-for `dev`. `kfd_process_get_user_gpu_id()` returns `-EINVAL` for the
-same situation. Both were treated as unexpected. On a hive-wide reset,
-`kgd2kfd_pre_reset()` calls `kfd_signal_reset_event()` per node, and the
-function walks **all** KFD processes, so missing pdd is normal. After
-the fix, missing pdd is expected; `WARN_ONCE` remains only if pdd exists
-but gpu_id lookup still fails.
+The first parse failure (`vddc_dependency_on_sclk`) still does a bare
+`return ret`. That is correct: `r600_parse_clk_voltage_dep_table()` only
+fails after `kcalloc` returns NULL, so there is nothing allocated yet.
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct. `kfd_get_process_device_data()` and
-`kfd_process_get_user_gpu_id()` iterate the same `p->pdds[]`; a present
-pdd implies a matching `dev->id`. Minimal, no API/locking/refcount
-changes. Regression risk is very low: processes without a pdd still skip
-signaling (same as before). Residual `WARN_ONCE` is strictly narrower.
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+Record: **[DOUBLE-FREE] [error-path resource cleanup]**
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+Mechanism:
+1. Early parse error: `kfree(ptr)` but `ptr` remains in `dyn_state`.
+2. Later error paths in the same function already called
+   `r600_free_extended_power_table()` without NULLing.
+3. Teardown (`*_dpm_fini` → `r600_free_extended_power_table`) `kfree()`s
+   the same pointers again.
 
-**Step 3.1: BLAME THE CHANGED LINES**
+NULLing also makes the helper idempotent for callers that free on their
+own error path and then free again in `fini` (e.g. `si_dpm_init` /
+`ci_dpm_init` / `btc_dpm_init`).
+
+### Step 2.4: ASSESS THE FIX QUALITY
 Record:
-- Function introduced: `e42051d2133b79` (“drm/amdkfd: Implement GPU
-  reset handlers in KFD”, 2018, v4.19-rc1 era)
-- `user_gpu_id` + first `WARN_ONCE` on `-EINVAL`: `bef153b70c6e35`
-  (“drm/amdkfd: CRIU implement gpu_id remapping”, 2021)
-- `kfd_get_process_device_data` + `!pdd` path: `ee0a469cf9175a`
-  (“drm/amdkfd: support per-queue reset on gfx9”, 2024, in v6.12-rc1)
-- `!pdd` `WARN_ONCE` text using pid: `8544374c0f82ed` (“drm/amdkfd: Have
-  kfd driver use same PASID values…”, 2025)
+- **Quality:** obviously correct. `kfree(NULL)` is a no-op; NULLing
+  after free is the standard idempotent-cleanup pattern.
+- **Minimal:** only the three incomplete early paths plus NULL stores in
+  the existing helper. No API/struct changes.
+- **Regression risk:** low. Success-path `fini` still frees once;
+  NULLing after free cannot change live DPM behavior. A pre-existing
+  issue remains: `radeon_pm_init_dpm()` ignores `radeon_dpm_init()`’s
+  return, so a NULL deref is possible if code continues with `count > 0`
+  and `entries == NULL`. That is **not introduced** by this patch (old
+  code was UAF/double-free on the same path). Sashiko flagged it; Alex
+  Deucher applied the patch anyway.
 
-The false-warning on “process not on this GPU” dates to the 2021 CRIU
-remapping (`user_gpu_id == -EINVAL`). The later `!pdd` WARN made the
-same class of miss look even more like a driver bug. This is long-lived
-code on this tree, not last-month-only.
+---
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. Not applicable. The buggy assumption was
-introduced by `bef153b70c6e35` (and reinforced by `ee0a469cf9175a` /
-`8544374c0f82ed`). All three are ancestors of HEAD.
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Recent `kfd_events.c` work is CRIU bounds checks, event mmap
-cleanup, RAS poison ioctl — orthogonal. Same author also landed
-`4693ade087f2e` (“drm/amdkfd: Fix reset event signal”) which guards
-`kfd_signal_reset_event()` in `reset_queues_mes()` when
-`detect_hang_count` is 0. Different bug (false reset *signal* vs false
-*WARN* on missing pdd). This commit is standalone, not patch N/M.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Amber Lin is a regular AMD KFD/queue-reset contributor
-(`drm/amdkfd: Add queue reset support…`, topology, MES). Not the
-subsystem maintainer; maintainer Alex Deucher merged it. Related:
-`4693ade087f2e` as above — complementary, not a prerequisite for this
-diff.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Diff uses `kfd_get_process_device_data`,
-`kfd_process_get_user_gpu_id`, `kfd_signal_reset_event` — all present in
-this tree. No new helpers. Can apply standalone here.
-
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+### Step 3.1: BLAME THE CHANGED LINES
 Record:
-- `b4 dig -c b38f9b6ffdfc86d5aff36881d9e8028c79bc98c9` →
-  https://patch.msgid.link/20260728182609.672822-1-amber.lin@amd.com
-- Also: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-July/149514.html
-- `b4 dig -a`: single revision, v1 only; committed version matches v1
-- Review: David Yat Sin `Reviewed-by` (~12 minutes later):
-  https://lists.freedesktop.org/archives/amd-gfx/2026-July/149516.html
-- No NAK, no requested respin, no reviewer `Cc: stable`
-- lore.kernel.org fetches returned 403; discussion recovered from fd.o
-  archives and `b4 dig`
+- Buggy manual `kfree()`s introduced in **`61b7d6011054eb`**
+  (“drm/radeon/dpm: add helpers for extended power tables (v2)”, Alex
+  Deucher, 2012-11-14) → first in **v3.11-rc1**.
+- MVDD path: **`dd621a22cf43bb`** (2013-05-06).
+- Free helper body: **`41cd0b3b78d83a`** (“drm/radeon: clean up
+  r600_free_extended_power_table()”, Dan Carpenter, 2013-09-04) →
+  **v3.12-rc2**.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: Original To/Cc (`b4 dig -w`): Amber Lin, amd-
-gfx@lists.freedesktop.org, david.yatsin@amd.com,
-jinhuieric.huang@amd.com. Appropriate KFD reviewers. Merged by Alex
-Deucher.
+This has been in the tree for more than a decade, including 6.18.y.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No Reported-by, no bugzilla/syzbot link. Description reads as
-internal AMD multi-GPU/XGMI observation (“8G system”, mode 2 reset). No
-public user-count. UNVERIFIED: how many field systems hit this.
+### Step 3.2: FOLLOW THE FIXES: TAG
+Record: **No Fixes: tag.** Not applicable. The introducing commit is in
+this tree (v3.11).
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Standalone `[PATCH]`, not a series. Earlier similarly titled
-`4693ade087f2e` is a different file/bug. No other patches required for
-this hunk.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search returned 403. fd.o/mail-archive
-search showed only the amd-gfx v1 + review. No evidence this was already
-discussed on stable. UNVERIFIED via lore stable archive due to 403.
-
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `kfd_signal_reset_event()` only.
-
-**Step 5.2: TRACE CALLERS**
-Record (from grep in this tree):
-- `kgd2kfd_pre_reset()` in `kfd_device.c` — GPU/mode reset: loops
-  `kfd->num_nodes` and signals each. Called from `amdgpu_amdkfd.c`
-  during amdgpu reset. This is the hive/mode-reset path in the commit
-  message.
-- `reset_queues_mes()` in `kfd_device_queue_manager.c` — per-queue MES
-  reset when `detect_hang_count != 0`
-- other DQM hang-reset paths at lines ~2528 and ~2615 — after successful
-  queue/SDMA reset
-
-Context: GPU reset / hang recovery, not a syscall hot path. Userspace
-compute (ROCm/KFD) processes receive HSA HW_EXCEPTION / MEMORY events.
-
-**Step 5.3: TRACE CALLEES**
-Record: `kfd_get_process_device_data` (scan `p->pdds[]` for `dev`, NULL
-if unused), `kfd_process_get_user_gpu_id` (same table → `user_gpu_id` or
-`-EINVAL`), `set_event()`, `amdgpu_file_to_fpriv` /
-`amdgpu_vm_get_task_info_vm` on the hang-count branch (unchanged).
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: amdgpu GPU reset → `kgd2kfd_pre_reset` →
-`kfd_signal_reset_event` → all KFD processes. Reachable on real hardware
-when a GPU hang/reset or XGMI mode-2 reset runs. Not a syzbot syscall
-path; it is a production compute-cluster path. Unprivileged users do not
-directly call it; they can contribute to GPU hangs that trigger reset.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Same `WARN_ONCE` + `kfd_process_get_user_gpu_id` pattern remains
-in `kfd_signal_vm_fault_event()` and
-`kfd_signal_poison_consumed_event()`. Those start from a known
-pdd/pasid, so a miss is more genuinely unexpected. This reset path is
-the one that walks every process against one device.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. Tree is v7.3-rc4 (`f0100363d8c37`).
-`kfd_signal_reset_event()` exists; `git merge-base --is-ancestor
-b38f9b6ffdfc86 HEAD` is true (fix already on this branch). Pre-fix code
-is the parent of that commit; `bef153b70c6e35`, `ee0a469cf9175a`, and
-`8544374c0f82ed` are all ancestors. Bug introduced in this lineage in
-2021 (warn on missing gpu_id), not after 7.3 branched.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply on this tree (already applied as a 17-line hunk).
-Surrounding hang-count / `amdgpu_file_to_fpriv` code is present.
-Expected difficulty here: clean apply.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: This exact fix is commit `b38f9b6ffdfc8` on HEAD. No alternate
-fix of the same warning. `4693ade087f2e` is a different reset-signal bug
-and is also in this tree.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `[drm/amdkfd]` `[IMPORTANT]` — AMD compute (ROCm) on
-Instinct/dGPU, not core mm/VFS. Multi-GPU XGMI hives are production
-HPC/AI machines.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively developed (queue reset, SVM, CRIU, RAS). The reset-
-event function itself has been stable since 2018 with incremental
-lookup/warn additions.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific: KFD users on multi-GPU AMD systems, especially
-XGMI hives during mode-2 reset. Single-GPU boxes typically always have a
-pdd for the only device, so they would not hit the false warning.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: GPU/mode reset while KFD processes exist that do not use every
-GPU in the reset set. Common on 8-GPU hives with jobs bound to a subset
-of GPUs. Timing-independent. Not directly triggerable by an unprivileged
-syscall; reachable after a hang/reset.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: `[false WARN_ONCE during GPU reset]` `[MEDIUM, HIGH if
-panic_on_warn]`
-Verified: `WARN_ONCE` → `WARN()` (`include/asm-generic/bug.h`). That
-dumps a stack, taints (`TAINT_WARN`), and panics if `panic_on_warn`.
-Default configs do not panic. Userspace reset events were already
-skipped via `continue`; this is not data corruption or a hang. It *is* a
-real kernel warning on a serious recovery path.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
 Record:
-- Benefit: medium-high for KFD multi-GPU reset (stops false
-  WARN/taint/possible panic_on_warn during hive reset)
-- Risk: very low (8/9 lines, reorder existing checks, no locking/API)
-- Ratio: favorable
+- Related: **`20c3dffdccbd4`** “radeon: avoid double free in
+  ci_dpm_init()” (v6.5-rc1). Same class of bug: parse error already
+  calls `r600_free_extended_power_table()`, then `ci_dpm_fini()` calls
+  it again.
+- File is mature; recent commits are drive-by cleanups, not DPM-table
+  refactors.
+- **Standalone**, not patch X/Y.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Ruoyu Wang is not the radeon maintainer; nearby DRM work is
+similar cleanup-safety (`drm/msm`, `drm/mediatek`). Weight comes from
+**Alex Deucher’s SOB and “Applied”**.
 
-**Step 9.1: COMPILE THE EVIDENCE**
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: **No prerequisites.** The helper and the three `kfree` sites
+exist in this tree. Applies standalone.
 
-FOR:
-- Real bug: expected “process not using this GPU” was `WARN_ONCE`
-- Trigger is concrete (mode-2 XGMI hive reset; 8-GPU example in the
-  message)
-- `WARN_ONCE` taints and can panic with `panic_on_warn`
-- GPU reset is a critical recovery path; false warnings hurt debugging
-- 17-line, single-function, obviously correct
-- No new APIs/features
-- Reviewed by David Yat Sin; merged by Alex Deucher
-- All helpers and the buggy function exist in this tree
-- Standalone, no series dependency
+---
 
-AGAINST:
-- Not a crash/corruption/deadlock on default configs
-- No Fixes:/Reported-by/syzbot
-- Functional skip was already correct; this mainly removes a false
-  warning
-- Affects multi-GPU KFD, not all kernel users
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-UNRESOLVED:
-- lore.kernel.org 403; stable-list discussion not directly readable
-- No public bugzilla/user-count
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- **Lore:**
+  https://patch.msgid.link/20260608063638.24-1-ruoyuw560@gmail.com
+- **Revisions:** v1 only (`b4 dig -a`)
+- Direct lore.kernel.org fetch returned 403; thread recovered via `b4
+  dig -m`.
+- Sashiko bot: pre-existing ignored `radeon_dpm_init()` return and stale
+  `count` fields. Not NAKs of this patch.
+- **Alex Deucher (2026-06-15): “Applied. Thanks!”** No request for v2.
+- No reviewer `Cc: stable`.
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — control-flow matches the
-   described hive-reset case; reviewed and merged
-2. Fixes a real bug that affects users? **PASS** — false `WARN_ONCE` on
-   production multi-GPU reset
-3. Important issue? **PASS** — WARN on GPU reset (taint; panic_on_warn);
-   not a default oops, but this is the class of WARN_ON false positives
-   that stable takes
-4. Small and contained? **PASS** — one function, +8/−9
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (`b4 dig -w`): To/Cc included Alex Deucher, Christian König,
+David Airlie, Simona Vetter, amd-gfx, dri-devel, linux-kernel. Applied
+by the radeon maintainer.
+
+### Step 4.3: SEARCH FOR THE BUG REPORT
+Record: no Reported-by / syzbot / bugzilla. Static/code analysis style
+fix, same family as `20c3dffdccbd4` (SVACE) and amdgpu `a6582701178a4`.
+
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: standalone v1. Sibling in amdgpu: **`a6582701178a4`**
+“drm/amd/pm: fix a double-free in amdgpu_parse_extended_power_table”
+(already in this tree). Same parse-then-fini double-free shape.
+
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: **UNVERIFIED.** `lore.kernel.org/stable/` returned 403. No
+evidence in the dri-devel thread of a stable NAK.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: `r600_parse_extended_power_table()`,
+`r600_free_extended_power_table()`. Helper used internally:
+`r600_parse_clk_voltage_dep_table()` (ENOMEM-only failure).
+
+### Step 5.2: TRACE CALLERS
+Record (parse): `btc_dpm_init`, `ni_dpm_init`, `si_dpm_init`,
+`ci_dpm_init`, `trinity_dpm_init`, `kv_dpm_init`.
+
+Record (free): those chips’ `*_dpm_fini`, plus error paths inside parse
+and some init functions (`si_dpm_init`, `ni_dpm_init`, `btc_dpm_init`,
+`ci_dpm_init`).
+
+Context: driver probe (`radeon_pm_init` → `radeon_dpm_init`) and
+teardown (`radeon_pm_fini` → `radeon_dpm_fini`). Not interrupt/hot-path.
+
+### Step 5.3: TRACE CALLEES
+Record: `kcalloc`/`kzalloc` for VBIOS power-play tables, `kfree` in the
+helper. No locking, no new allocations in the patch.
+
+### Step 5.4: FOLLOW THE CALL CHAIN
+Record (verified in this tree):
+
+```
+radeon_pm_init_dpm()
+  radeon_dpm_init(rdev);          /* return IGNORED, radeon_pm.c:1442 */
+  radeon_dpm_enable(...)
+cik/si/ni/..._init()
+  radeon_pm_init(rdev);           /* return also ignored, e.g.
+cik.c:8620 */
+
+radeon_pm_fini_dpm()
+  radeon_dpm_fini(rdev);          /* ALWAYS, radeon_pm.c:1678 */
+    -> r600_free_extended_power_table()
+```
+
+On unload, `radeon_driver_unload_kms()` → `radeon_device_fini()` → asic
+`fini` → `radeon_pm_fini()`.
+
+Because DPM init failure is ignored, a failed parse still reaches `fini`
+on unbind/unload. **Reachable from normal driver lifetime**, not a
+theoretical path. Trigger is allocation failure while parsing ATOM
+power-play tables (ENOMEM during probe). Unprivileged userspace cannot
+force it except by load/unload under memory pressure.
+
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: same bug already fixed in amdgpu (`a6582701178a4`) and partially
+in `ci_dpm_init` (`20c3dffdccbd4`). Remaining hole was exactly these
+radeon helper paths.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+
+### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: **Yes.** Parent of the candidate (`d3276745c87d1^`) still has
+the manual `kfree()`s at the three early returns and the free helper
+without NULL stores. Introduced in v3.11; present throughout 6.18.y.
+
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: **clean apply.** Surrounding `r600_dpm.c` DPM-table code matches
+the patch context. No conflicting refactor in this series.
+
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: `20c3dffdccbd4` is already in this tree and only hardens
+`ci_dpm_init`; it does **not** NULL the r600 helper pointers or convert
+the early parse `kfree()`s. This commit is still needed.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: **[drm/radeon DPM] [IMPORTANT]** — pre-GCN AMD GPUs (R600–CIK:
+HD 2000 through Hawaii/Kaveri). Not core mm/net, but a long-lived
+production driver (`CONFIG_DRM_RADEON`).
+
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: mature/low churn. `r600_dpm.c` last real DPM logic is from
+~2013; later commits are mechanical. Long-present bugs in this code are
+the ones stable still cares about.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: DETERMINE WHO IS AFFECTED
+Record: **driver-specific / config-specific** (`CONFIG_DRM_RADEON`, DPM
+method, chips that call `r600_parse_extended_power_table`:
+BTC/NI/SI/CI/Trinity/KV).
+
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record:
+- Trigger: ENOMEM (or parse failure) while building extended power
+  tables during DPM init, then device teardown.
+- Not every boot; needs allocation failure in that path.
+- Unprivileged users cannot craft a VBIOS, but module unload after a
+  failed/partial DPM init is a normal admin path.
+- **r600_parse_clk_voltage_dep_table() only returns -ENOMEM**, so the
+  three converted sites are memory-pressure probe errors. The NULL
+  stores also close double-frees on later parse/init error paths that
+  already called the helper.
+
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: **double-free / invalid `kfree` → kernel oops/BUG in SLUB,
+possible further corruption.** Severity: **HIGH** (crash on GPU probe-
+failure teardown). Not a guaranteed panic on every radeon boot.
+
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- **Benefit:** medium-high for radeon DPM users — prevents a real
+  double-free that `fini` will hit after a failed parse, including
+  because init errors are ignored.
+- **Risk:** very low — 15 insertions, NULL-after-free, no locking/API
+  change.
+- **Ratio:** favorable.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: COMPILE THE EVIDENCE
+
+**FOR backporting:**
+- Real double-free, not style cleanup.
+- Buggy code exists in this 6.18.y tree (since v3.11).
+- Small, obviously correct, single file.
+- No new APIs/features; no prerequisites.
+- Maintainer applied it.
+- Same pattern already treated as a real bug in-tree (`20c3dffdccbd4`,
+  amdgpu `a6582701178a4`).
+- Teardown always calls `radeon_dpm_fini()`; DPM init return is ignored,
+  so the second free is actually reached.
+
+**AGAINST:**
+- No user report / syzbot / Fixes tag (absence is expected here).
+- Trigger is ENOMEM during probe, not a hot path.
+- Sashiko noted pre-existing ignored-init-return / stale-count issues
+  this patch does not fully solve.
+
+**UNRESOLVED:**
+- Stable-list discussion (lore.kernel.org/stable 403).
+
+None of the against items outweigh a contained double-free fix that
+applies cleanly.
+
+### Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — NULLing after `kfree` is
+   standard; maintainer applied v1.
+2. Fixes a real bug that affects users? **PASS** — double-free on DPM
+   parse-failure teardown.
+3. Important issue (crash, security, corruption, deadlock)? **PASS** —
+   double-free → oops/memory corruption. Severity HIGH.
+4. Small and contained? **PASS** — +15/−6, one file.
 5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — code is present; hunk is
-   already the current text of `kfd_signal_reset_event()`
+6. Can apply to the local tree? **PASS** — buggy sites present; context
+   matches.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None (not a device-ID/quirk/DT/build/docs exception). Qualifies
-as a normal small bugfix.
+### Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: none needed; this is a normal memory-safety bug fix.
 
-**Step 9.4: MAKE YOUR DECISION**
-The local tree has the amdkfd reset-event path, the pdd/gpu_id lookups,
-and the false-WARN behavior the patch corrects. The change is small,
-correct, and prevents a kernel warning (and possible `panic_on_warn`
-panic) during hive-wide GPU reset. That meets stable criteria for this
-tree.
+### Step 9.4: MAKE YOUR DECISION
 
-What the commit solves: `kfd_signal_reset_event()` walks every KFD
-process for each resetting GPU. On XGMI mode-2 reset, processes that
-only use a subset of GPUs produce NULL pdd / `-EINVAL` gpu_id. That was
-warned as a driver bug; it is expected and should skip. The fix checks
-pdd first and only WARNs if a bound process still has no user gpu_id.
+This belongs in 6.18.y. The early `kfree()`s leave dangling `dyn_state`
+pointers; `radeon_pm_fini_dpm()` always calls
+`r600_free_extended_power_table()`. NULLing makes that helper safe to
+call twice, which this driver already does on several error paths. Risk
+is negligible relative to the crash it prevents.
 
-Risk vs benefit: very low risk vs stopping a false warning on a GPU-
-reset path used by AMD multi-GPU compute.
+---
 
-Verification:
-- [Phase 1] Parsed tags: Reviewed-by David Yat Sin; SOB Amber Lin + Alex
-  Deucher; no Fixes/Reported-by/Link/Cc-stable
-- [Phase 1] Body: mode-2 reset on 8-GPU XGMI; lookup on unused GPUs
-  should skip
-- [Phase 2] Diff: +8/−9 in `kfd_signal_reset_event()`; silent continue
-  on `!pdd`; WARN kept only after pdd exists
-- [Phase 2] Confirmed `kfd_get_process_device_data()` returns NULL when
-  `dev` not in `p->pdds[]`; `kfd_process_get_user_gpu_id()` returns
-  `-EINVAL` in the same case (`kfd_process.c`)
-- [Phase 3] Blame: gpu_id WARN from `bef153b70c6e35` (2021); pdd from
-  `ee0a469cf9175a` (v6.12-rc1); pid WARN from `8544374c0f82ed` (2025)
-- [Phase 3] No Fixes: tag; all introducing commits are ancestors of HEAD
-- [Phase 3] Related `4693ade087f2e` is a different reset-signal bug in
-  DQM, not a prerequisite
-- [Phase 4] `b4 dig -c b38f9b6ffdfc86`:
-  https://patch.msgid.link/20260728182609.672822-1-amber.lin@amd.com
-- [Phase 4] `b4 dig -a`: v1 only
-- [Phase 4] `b4 dig -w`: amd-gfx, Yat Sin, Eric Huang
-- [Phase 4] fd.o thread: review-only reply, no NAK, no Cc: stable
-- [Phase 4] lore.kernel.org and lore stable: 403 — UNVERIFIED on lore
-  itself
-- [Phase 5] Callers: `kgd2kfd_pre_reset` + three DQM hang-reset sites
-- [Phase 5] `kgd2kfd_pre_reset` signals every node — matches hive-reset
-  description
-- [Phase 6] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion`: 7.3.0-rc4
-- [Phase 6] `git merge-base --is-ancestor b38f9b6ffdfc86 HEAD`: yes;
-  buggy function present
-- [Phase 8] Failure mode: WARN_ONCE → WARN (stack + taint; panic if
-  panic_on_warn); signaling skip already correct
-- UNVERIFIED: field incidence beyond the commit’s 8-GPU example; stable
-  ML archives (403)
+## What the commit solves for stable users
+
+On Radeon chips that parse ATOM extended power tables, an allocation
+failure during DPM init frees some tables but leaves the pointers set.
+Driver unload then frees them again. That is a kernel double-free. The
+patch uses the existing cleanup helper on those paths and clears every
+pointer so a second cleanup is harmless.
+
+## Stable rules / risk vs benefit
+
+Meets all six stable criteria. Benefit is preventing an oops/corruption
+on GPU init-failure teardown; risk is a 21-line, no-lock, no-API change.
+No backport rework needed in this tree.
+
+## Concerns
+
+- Does not fix ignored `radeon_dpm_init()` return (pre-existing; out of
+  scope).
+- Count fields are not zeroed (pre-existing; Sashiko note). That is not
+  a reason to withhold the double-free fix.
+- Trigger needs ENOMEM during table parse, so it is not every-boot, but
+  stable regularly takes this class of error-path double-free.
+
+## Verification
+- [Phase 1] Tags: author + Alex Deucher SOB only; no Fixes/Reported-
+  by/Cc-stable.
+- [Phase 2] Diff: +15/−6 in `r600_dpm.c`; three `kfree` → helper; twelve
+  NULL stores in `r600_free_extended_power_table()`.
+- [Phase 2] Parent still has
+  `kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries)` at the
+  three early returns.
+- [Phase 2] `r600_parse_clk_voltage_dep_table()` only fails with
+  `-ENOMEM` after assigning NULL.
+- [Phase 3] Blame: `61b7d6011054eb` (v3.11-rc1) introduced the kfrees;
+  `41cd0b3b78d83a` (v3.12) wrote the free helper without NULLs.
+- [Phase 3] Related in-tree: `20c3dffdccbd4` (ci_dpm_init only); does
+  not replace this patch.
+- [Phase 4] `b4 dig -c d3f30034f861`:
+  https://patch.msgid.link/20260608063638.24-1-ruoyuw560@gmail.com
+- [Phase 4] `b4 dig -a`: v1 only.
+- [Phase 4] `b4 dig -w`: Deucher/König/Airlie/Vetter + amd-gfx/dri-
+  devel.
+- [Phase 4] mbox: Alex Deucher “Applied. Thanks!”; Sashiko pre-existing
+  notes, no NAK.
+- [Phase 4] UNVERIFIED: lore.kernel.org and lore.kernel.org/stable HTTP
+  403.
+- [Phase 5] Callers: btc/ni/si/ci/trinity/kv `dpm_init`/`dpm_fini`.
+- [Phase 5] `radeon_pm.c:1442` ignores `radeon_dpm_init()`;
+  `radeon_pm.c:1678` always `radeon_dpm_fini()`.
+- [Phase 5] `cik.c:8620` ignores `radeon_pm_init()`; `cik.c:8712`
+  `radeon_pm_fini()` on asic fini.
+- [Phase 6] `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`; `make
+  kernelversion` → 6.18.53.
+- [Phase 6] Buggy kfrees present in
+  `d3276745c87d1^:drivers/gpu/drm/radeon/r600_dpm.c`.
+- [Phase 7] `CONFIG_DRM_RADEON` still present.
+- [Phase 8] Failure mode: double-free → SLUB BUG/oops; severity HIGH.
+- UNVERIFIED: whether any user hit this in production (no Reported-by).
+  Decision does not rely on that.
+
+The fix is small, surgical, present in the local 6.18 code, and closes a
+real double-free on DPM teardown.
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/radeon/r600_dpm.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index b033c3a9ce545..aac5bc4d13fdb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1287,6 +1287,8 @@ void kfd_signal_reset_event(struct kfd_node *dev)
- 	struct kfd_event *ev;
- 	unsigned int temp;
- 	uint32_t id, idx;
-+	int user_gpu_id;
-+	struct kfd_process_device *pdd;
- 	int reset_cause = atomic_read(&dev->sram_ecc_flag) ?
- 			KFD_HW_EXCEPTION_ECC :
- 			KFD_HW_EXCEPTION_GPU_HANG;
-@@ -1302,17 +1304,14 @@ void kfd_signal_reset_event(struct kfd_node *dev)
- 
- 	idx = srcu_read_lock(&kfd_processes_srcu);
- 	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
--		int user_gpu_id = kfd_process_get_user_gpu_id(p, dev->id);
--		struct kfd_process_device *pdd = kfd_get_process_device_data(dev, p);
--
--		if (unlikely(user_gpu_id == -EINVAL)) {
--			WARN_ONCE(1, "Could not get user_gpu_id from dev->id:%x\n", dev->id);
-+		pdd = kfd_get_process_device_data(dev, p);
-+		if (!pdd)
-+			/* no process is using this device */
- 			continue;
--		}
-+		user_gpu_id = kfd_process_get_user_gpu_id(p, dev->id);
- 
--		if (unlikely(!pdd)) {
--			WARN_ONCE(1, "Could not get device data from process pid:%d\n",
--				  p->lead_thread->pid);
-+		if (unlikely(user_gpu_id == -EINVAL)) {
-+			WARN_ONCE(1, "Could not get user_gpu_id from dev->id:%d\n", dev->id);
- 			continue;
+diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r600_dpm.c
+index 81d58ef667dd4..2bc0bdfd11590 100644
+--- a/drivers/gpu/drm/radeon/r600_dpm.c
++++ b/drivers/gpu/drm/radeon/r600_dpm.c
+@@ -933,7 +933,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
+ 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk,
+ 							       dep_table);
+ 			if (ret) {
+-				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
++				r600_free_extended_power_table(rdev);
+ 				return ret;
+ 			}
  		}
+@@ -944,8 +944,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
+ 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.vddc_dependency_on_mclk,
+ 							       dep_table);
+ 			if (ret) {
+-				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
+-				kfree(rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk.entries);
++				r600_free_extended_power_table(rdev);
+ 				return ret;
+ 			}
+ 		}
+@@ -956,9 +955,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
+ 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.mvdd_dependency_on_mclk,
+ 							       dep_table);
+ 			if (ret) {
+-				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
+-				kfree(rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk.entries);
+-				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_mclk.entries);
++				r600_free_extended_power_table(rdev);
+ 				return ret;
+ 			}
+ 		}
+@@ -1298,17 +1295,29 @@ void r600_free_extended_power_table(struct radeon_device *rdev)
+ 	struct radeon_dpm_dynamic_state *dyn_state = &rdev->pm.dpm.dyn_state;
  
+ 	kfree(dyn_state->vddc_dependency_on_sclk.entries);
++	dyn_state->vddc_dependency_on_sclk.entries = NULL;
+ 	kfree(dyn_state->vddci_dependency_on_mclk.entries);
++	dyn_state->vddci_dependency_on_mclk.entries = NULL;
+ 	kfree(dyn_state->vddc_dependency_on_mclk.entries);
++	dyn_state->vddc_dependency_on_mclk.entries = NULL;
+ 	kfree(dyn_state->mvdd_dependency_on_mclk.entries);
++	dyn_state->mvdd_dependency_on_mclk.entries = NULL;
+ 	kfree(dyn_state->cac_leakage_table.entries);
++	dyn_state->cac_leakage_table.entries = NULL;
+ 	kfree(dyn_state->phase_shedding_limits_table.entries);
++	dyn_state->phase_shedding_limits_table.entries = NULL;
+ 	kfree(dyn_state->ppm_table);
++	dyn_state->ppm_table = NULL;
+ 	kfree(dyn_state->cac_tdp_table);
++	dyn_state->cac_tdp_table = NULL;
+ 	kfree(dyn_state->vce_clock_voltage_dependency_table.entries);
++	dyn_state->vce_clock_voltage_dependency_table.entries = NULL;
+ 	kfree(dyn_state->uvd_clock_voltage_dependency_table.entries);
++	dyn_state->uvd_clock_voltage_dependency_table.entries = NULL;
+ 	kfree(dyn_state->samu_clock_voltage_dependency_table.entries);
++	dyn_state->samu_clock_voltage_dependency_table.entries = NULL;
+ 	kfree(dyn_state->acp_clock_voltage_dependency_table.entries);
++	dyn_state->acp_clock_voltage_dependency_table.entries = NULL;
+ }
+ 
+ enum radeon_pcie_gen r600_get_pcie_gen_support(struct radeon_device *rdev,
 -- 
 2.53.0
 
