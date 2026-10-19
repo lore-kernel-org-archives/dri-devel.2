@@ -4,42 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEDD5CCF2D6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 10:21:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3191CCF2E3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 10:29:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA2310E987;
-	Mon, 19 Oct 2026 10:21:20 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72D7010E987
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:21:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8EA83601FB;
- Mon, 19 Oct 2026 10:21:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01181F000C4;
- Mon, 19 Oct 2026 10:21:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792405273;
- bh=8UJg2BKoLo6QJa+/0Y5EWFsrBfSroDSG6h0pgdbGvF0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Zv/d5KIdTE7tXKMbD5QvZnf8/OYyCVzQp6gJl0IZ52Ek2oFEF+ho6SCiprgSEUUjh
- 8EMHLWObz+p+ui9FX6IUqh3i9WTIWDKVxKQkclg1ThzlHnTllEpyVgOK+CQGvAzG1Y
- UIh5VFaXiVaiuG5PnMzr7zJyDWo22Eg/MxMS+pzSu7Z5tyMl6LDSH7/vFh/Puaf/uv
- Oa6NMLXJZ2/3MIsQqdHCcOOVESUhs5fuoZ7UQyrBjX50L1nlx+hv1NcP5fk+9xVUrh
- TMa7s+z2hznOHxdrzPbfVyI5V+DnQe7+QmOqQs1gcji6SOlysiYE4kNhYQIrH/TQEl
- I9uUnHm1xYU+w==
-Message-ID: <sashiko-outbox-176974@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/4] mfd: aat2870: Convert to use OF bindings
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- lee@kernel.org
-In-Reply-To: <20261019100930.110954-4-clamor95@gmail.com>
-References: <20261019100930.110954-1-clamor95@gmail.com>
- <20261019100930.110954-4-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 10:21:12 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDFE10E9A0;
+	Mon, 19 Oct 2026 10:28:55 +0000 (UTC)
+Received: from mail-m822136198.xmail.ntesmail.com
+ (mail-m822136198.xmail.ntesmail.com [8.221.36.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 552C010E9A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:28:46 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 518d3dd84;
+ Mon, 19 Oct 2026 18:28:41 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dave Jones <s.dave.jones@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v2 0/6] Add eDP support for RK3568
+Date: Mon, 19 Oct 2026 18:28:18 +0800
+Message-Id: <20261019102824.3157044-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa153b4d21803a8kunme348c01b2f6c0b
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0JIVktOGBhMGkweSh9JS1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=NeVTMvm6b/1u8YkojplkAi/G3NWF11vZKYvAIj6kJDzvLm06em+sn2BDCG2b2RHd0ubXpphbNOAScPy+tuvi8AGPpPemSwm2Unn4it0YiB5Uc4KBh0x2JAuSvSXCNhnmjXhyHSSGo5n6cAXn0H2HDPo1REq+kEwK1w9jmpy5Vs0=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=617Ri5C4UzxIoL/xXhlNBV+ngcvt66tB3mFH89EiNfY=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,119 +66,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] mfd: aat2870: missing linux/gpio/consumer.h include breaks !CONFIG_=
-GPIOLIB build
---
+PATCH 1 is to document the "rockchip,rk3568-edp" compatible in the
+        Rockchip Analogix DP binding.
+PATCH 2 is to add the binding for the RK3568 eDP PHY with NaNeng IP block.
+PATCH 3 is to add the RK3568 support for the Analogix DP bridge driver.
+PATCH 4 is to add the driver for the Rockchip eDP Transmitter PHY with
+        NaNeng IP block.
+PATCH 5 is to add the RK3568 support for the Rockchip Analogix DP driver.
+PATCH 6 is to add the eDP controller and eDP PHY nodes for the RK3568
+        SoCs.
 
-commit 7efa32d759fbc7ee0e1963e704db3b5316d972db
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Tested on RK3568 EVB1 baord with LG eDP panel LP079QX1-SP0V.
 
-mfd: aat2870: Convert to use OF bindings
+&edp {
+  avdd-0v9-supply = <&vdda0v9_image>;
+  avdd-1v8-supply = <&vcca1v8_image>;
+  force-hpd;
+  status = "okay";
 
-This commit converts the AAT2870 core, regulator, and backlight drivers from
-platform data to Device Tree bindings and modern GPIO consumer helpers.
+  aux-bus {
+    panel {
+      compatible = "edp-panel";
+      backlight = <&backlight>;
+      power-supply = <&vcc3v3_lcd0_n>;
+      no-hpd;
 
-> diff --git a/drivers/mfd/aat2870-core.c b/drivers/mfd/aat2870-core.c
-> index 0d56cd6fbc6a5..fe43ef675f257 100644
-> --- a/drivers/mfd/aat2870-core.c
-> +++ b/drivers/mfd/aat2870-core.c
-> @@ -16,8 +16,15 @@
->  #include <linux/gpio/legacy.h>
->  #include <linux/mfd/core.h>
->  #include <linux/mfd/aat2870.h>
-> +#include <linux/of_platform.h>
->  #include <linux/regulator/machine.h>
+      port {
+        panel_in_edp: endpoint {
+          remote-endpoint = <&edp_out_panel>;
+        };
+      };
+    };
+  };
+};
 
-[ ... ]
+&edp_in {
+  edp_in_vp0: endpoint {
+    remote-endpoint = <&vp0_out_edp>;
+  };
+};
 
-> @@ -348,60 +309,29 @@ static int aat2870_i2c_probe(struct i2c_client *cli=
-ent)
-> =20
->  	aat2870->reg_cache =3D aat2870_regs;
-> =20
-> -	if (pdata->en_pin < 0)
-> -		aat2870->en_pin =3D -1;
-> -	else
-> -		aat2870->en_pin =3D pdata->en_pin;
-> +	aat2870->en_pin =3D devm_gpiod_get_optional(&client->dev, "enable",
-> +						  GPIOD_OUT_HIGH);
-> +	if (IS_ERR(aat2870->en_pin))
-> +		return dev_err_probe(&client->dev, PTR_ERR(aat2870->en_pin),
-> +				     "Failed to get EN GPIO\n");
-> =20
-> -	aat2870->init =3D pdata->init;
-> -	aat2870->uninit =3D pdata->uninit;
->  	aat2870->read =3D aat2870_read;
->  	aat2870->write =3D aat2870_write;
->  	aat2870->update =3D aat2870_update;
-> =20
->  	mutex_init(&aat2870->io_lock);
-> =20
-> -	if (aat2870->init)
-> -		aat2870->init(aat2870);
-> -
-> -	if (aat2870->en_pin >=3D 0) {
-> -		ret =3D devm_gpio_request_one(&client->dev, aat2870->en_pin,
-> -					GPIOF_OUT_INIT_HIGH, "aat2870-en");
-> -		if (ret < 0) {
-> -			dev_err(&client->dev,
-> -				"Failed to request GPIO %d\n", aat2870->en_pin);
-> -			return ret;
-> -		}
-> -	}
-> -
-> -	aat2870_enable(aat2870);
-> -
-> -	for (i =3D 0; i < pdata->num_subdevs; i++) {
-> -		for (j =3D 0; j < ARRAY_SIZE(aat2870_devs); j++) {
-> -			if ((pdata->subdevs[i].id =3D=3D aat2870_devs[j].id) &&
-> -					!strcmp(pdata->subdevs[i].name,
-> -						aat2870_devs[j].name)) {
-> -				aat2870_devs[j].platform_data =3D
-> -					pdata->subdevs[i].platform_data;
-> -				break;
-> -			}
-> -		}
-> -	}
-> +	gpiod_set_value_cansleep(aat2870->en_pin, 1);
+&edp_out {
+  edp_out_panel: endpoint {
+    remote-endpoint = <&panel_in_edp>;
+  };
+};
 
-[Severity: Low]
-Should drivers/mfd/aat2870-core.c replace #include <linux/gpio/legacy.h>
-with #include <linux/gpio/consumer.h>?
+&edp_phy {
+  status = "okay";
+};
 
-In drivers/mfd/aat2870-core.c, aat2870_i2c_probe(), aat2870_i2c_suspend(),
-and aat2870_i2c_resume() now use devm_gpiod_get_optional(), GPIOD_OUT_HIGH,
-and gpiod_set_value_cansleep(), which are declared in
-<linux/gpio/consumer.h>.
+&vp0 {
+  vp0_out_edp: endpoint@ROCKCHIP_VOP2_EP_EDP0 {
+    reg = <ROCKCHIP_VOP2_EP_EDP0>;
+    remote-endpoint = <&edp_in_vp0>;
+  };
+};
 
-However, <linux/gpio/legacy.h> only pulls in <linux/gpio/consumer.h> when
-CONFIG_GPIOLIB is enabled:
+Damon Ding (6):
+  dt-bindings: display: rockchip: analogix-dp: Add support for RK3568
+  dt-bindings: phy: Add rockchip,rk3568-edp-phy
+  drm/bridge: analogix_dp: Add support for RK3568
+  phy: rockchip: Add support for Naneng eDP phy
+  drm/rockchip: analogix_dp: Add support for RK3568
+  arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
 
-include/linux/gpio/legacy.h:
-    #ifdef CONFIG_GPIOLIB
+ .../rockchip/rockchip,analogix-dp.yaml        |  25 +-
+ .../bindings/phy/rockchip,rk3568-edp-phy.yaml |  59 +++
+ .../devicetree/bindings/soc/rockchip/grf.yaml |  15 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  41 ++
+ .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   |  24 +-
+ drivers/phy/rockchip/Kconfig                  |  10 +
+ drivers/phy/rockchip/Makefile                 |   1 +
+ .../phy/rockchip/phy-rockchip-naneng-edp.c    | 435 ++++++++++++++++++
+ include/drm/bridge/analogix_dp.h              |   2 +
+ 10 files changed, 611 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+ create mode 100644 drivers/phy/rockchip/phy-rockchip-naneng-edp.c
 
-    #include <linux/gpio/consumer.h>
+---
 
-Because MFD_AAT2870_CORE in drivers/mfd/Kconfig has:
+Changes in v2:
+- Apply the lane-dependent TX configurations in set_lanes() instead of
+  set_rate(), and store the lane count for set_voltages(), since the
+  Analogix DP core issues separate phy_configure() calls and the lane
+  count is only valid in the set_lanes/set_voltages calls.(Sashiko)
+- Initialize val to zero in rockchip_edp_phy_enabled() to avoid using
+  an uninitialized variable when regmap_read() fails.(Sashiko)
+- Fail the probe when the chip data requires GRF configurations while
+  the "rockchip,grf" property is missing.(Sashiko)
+- Rebase onto latest drm-misc-next tree.
 
-    depends on GPIOLIB || COMPILE_TEST
+-- 
+2.34.1
 
-building with CONFIG_MFD_AAT2870_CORE=3Dy, CONFIG_COMPILE_TEST=3Dy, and
-CONFIG_GPIOLIB=3Dn will fail to compile due to missing declarations for
-GPIOD_OUT_HIGH, devm_gpiod_get_optional(), and gpiod_set_value_cansleep().
-
-[ ... ]
-
->
-> base-commit: 8c3ce6554a5b995599b84388347b301553e9efd5
-> --
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019100930.1109=
-54-1-clamor95@gmail.com?part=3D3
