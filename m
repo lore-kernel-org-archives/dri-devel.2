@@ -4,95 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C74BCCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 11:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82B53CCF2D3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 11:26:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C812510EA78;
-	Mon, 19 Oct 2026 11:26:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B38F210EAE4;
+	Mon, 19 Oct 2026 11:26:10 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8255C10EA78
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:25:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67D7510E98E
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:25:53 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69J8OrMJ1167943
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:25:54 GMT
+ 69J8OuHm1168055
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:25:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5CG1ZmhSBv17Pssznbk9lW+JHvH1kxpH7x7K0dZwnyo=; b=ZQuWuBsfSgRd0sNe
- dyrPqEQvVipR82/HE8/GBSJ1dqFVvxGJJ3kdtH9mVxOfOZmNa4Dz1Nlqd/6N+6G8
- fIUclXJEIn1BRvvBhBAqUSB7MA52Zsh+qe1CBfcS5P6TKZE1DJVK7qTNXjCO0IKd
- vC5yASYhHbUpe6kkmQzNpgM1D0uYziw7AW28tY8vlT1naB/x95W+xhUq68F0GCne
- 4BSu7FMjakh9NDNxSZxcNChJ+n+G1L1p2if4Ed+KBwGnrOAOKTWU/JOsFhHgAEyZ
- iXrUr9Gycv3OfAsFdsKfa9n6HPUSADwfFIMc2OI24dKtoru5VjGpHIsP9QgYFU6u
- uwbvnw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf5c8tfu-1
+ 6xC4OVordP6iIQiBzMB05d4qBQ+iHW7wsc04Plsjz2A=; b=UIFem/zoWNDHQCPl
+ 3DA7+TickshegyHDg59S4MZEFkAYyvMUDurzAA42UiqpF3CVDAcFIE2xvTZViT9M
+ zjOSA0QE6Cfi/QqZmnkZKU7rn4dtlWxqBFw+lQzFTNxQViCoiaMVGkpmrzqCMPVy
+ lScB0WeQLD+wGCNTIo5dx8X3RwleXaDu2NzM9W+uZX4+FAn6QZuNQIyvax2/AZTM
+ 2N9x9AVPj5IJO2Foclidry4TBDmRBNTNhd2FDQ9JZXvBb9FGH4Q7u/O62nTDEn8x
+ q2V6yEKVRyO8jm48HDr+5wfL4IXnC2U2cBvPwfTRxmSyUfxKLYT0peLXpPO7a3uu
+ rDgLkA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf5c8tfp-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:25:54 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-934963b2bc0so402223585a.3
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 04:25:54 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:25:52 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-93f322ef7d3so322880685a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 04:25:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792409154; x=1793013954;
+ d=oss.qualcomm.com; s=google; t=1792409152; x=1793013952;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=5CG1ZmhSBv17Pssznbk9lW+JHvH1kxpH7x7K0dZwnyo=;
- b=SRwiYcg8qjQXffI9+RX290Ph9ImBfQsrTNutCqArZSI08KcH3hzej/Mwv8AuDDCk/y
- 2UO2cEysdB1TIfbCUtYRq3KrBLgmvjfgnhMR9lqjyD6YNO/qjTxf2Om5+dyfGJ0/xn+5
- VSoG0u1x4wy9v5jYb6X7/CYktivLFZm3CQp5WL7N1koTh5K7Ozxur8sS2XPR9agTmvGz
- Qq0bCBh2uY9vD/NXf6BWe3J2A6pl1XdRhIPg6eSJsKG/pkmRuysDserf7iNrqev24Q1N
- kxZGDzbidtzTt7WjfjEEavA6fR5BEg+ZcZrUh1MIJ7YrudIgfaR7M4Z5ONsdaiS+h5Ow
- dZEQ==
+ bh=6xC4OVordP6iIQiBzMB05d4qBQ+iHW7wsc04Plsjz2A=;
+ b=dpw0D1kFDghtsLaY1jaZWRcrUIOvd+npLeHWPUAd+YXK8RJpXefL2nOwi3Domjo65O
+ P2nn24ST0FlK9IqYluzdXyPQRna133bcsmiB1L7/KV2clJGhD1YDf1oUf1o6+fw8Z4vJ
+ O7Plz5l2X0vkcxHtGANkktMuOo5EVGDErXPEaXgj53ohkgEQ74kyxUDPRmh8/RvthbLq
+ T6rVZVjraj6ld1EFMbilk1kdRtrD1vX9SavV/wyr0azkwMfeF4DhAJw1ccks/zzxoHkG
+ 8zuAkBgQCo9DUHdfdSGnIAgJNSX7jPdY4nBVQQKxr0Zdley1fkDmwb9X+9ZcS8YI5/61
+ S0Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792409154; x=1793013954;
+ d=1e100.net; s=20260707; t=1792409152; x=1793013952;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=5CG1ZmhSBv17Pssznbk9lW+JHvH1kxpH7x7K0dZwnyo=;
- b=txjRyBJYyw/tRIg5isdyDGqgIEacGPpHG2Huw5y3p+XC3vWADATYMN5Z3W8NvtVGLR
- 2DedKeCCs3k0/8NT5hnt4u6hGGUkiBIXkO61fn/QjVZoFJmPHjf+GkVSw9HxD4Hln7UH
- aGgrk+tkN+i9kGIcQyV2p50/ESLFmlbVQAebwr1WZoJpFYkh1ZIH5edE6FEN/cbGPlR2
- yY58VkMUY4aEkAIK294Wm7mv/y37u/p290J/6MQSG7+xyrA4U4wj9rCkeWSd+f7kqty4
- SOQv6/EHZC3chEzmDrFV3wDzaSTbMvHRnZSRcS/FdPuS8efeUpPZPVNBs1AQJ4LkPODW
- ppUQ==
+ bh=6xC4OVordP6iIQiBzMB05d4qBQ+iHW7wsc04Plsjz2A=;
+ b=n9c+JjJo9kTpRUo5QS/29fgW6fs7mNj/eaO0ldNzxL9hJICq7iUUKpM73/Dd9Bnau0
+ SNVp7NagEnrJX8mhoUZNGgaMlDmuDNo8hHOgY2+Sy112vZVJDDVQMikQvKcIwMs93rIw
+ hLf/x1rHN5Bs0uYaQR2oSTrfsJiom3htJ1/D1D1FTy6Ua324zmc0g6gb1Ct5sCtRggKr
+ Qyg8iRd7NrOtJ7ZcVCi5Hw7gPKW1fAR3LJT4dcSRGFSxYNCK/aG9qbAVXbgVG2XQ1xnK
+ 9862Gap/UvaLWgJpdCxSqj0t2HN9jFqDGWoTmyJuRkjnFeeJ5M2gy+1CkRf7Pll960wO
+ Wxgw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy2wyAImZ/nuHQzxqm54Jb9bakGNhVsSYHUCrFzD7c1abi5N4Ncvi0lvVIm/uRAZ4vnaGQ9Q8gmEJs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLBgPMZXiZW3WrfsOkWepl33tKkW8cPwgVM3aiYQ/voebHsxCIp
- JvZoJbE49qaMRCNXPAmad6oD4Vnb1J4EHMxLoNdfFCXqQomR9ObPolZWbVAA3tEeDGH7Qhx/wNU
- fzdmrGcO+yirm1z7LyeVwih9/DHdehebGuKnbB3yKgBJVxyXpNn4e6An13zanpt8fk25+ONw=
-X-Gm-Gg: AYBFou12hd65UJUgw9OG++U7+frJ1/FJmkHgmQPGAVCP6lA7ctlgO79X2zJuB6g20gM
- r6o11jRpuoDtTLabwIP7gX0IlMCLhbLKqJl/myLoYnloEbO9dtvfqyVa/V2FfGdaRoe4Ta+GHLf
- Lm4jqOODRWtOU7ZAy0I7tPoTZUlPSmtCUoTY340KZEliPaCmhUlPV5KqsKlIriRGEVX/r4SOs9w
- IWEhdtw1mPmNro2zDJyeO+CjKpoZG0vTxGTZ3rVe4fMrD2sUGP7WaTUBAAlHw6rha27JLbKiEOK
- /6pUIvykQuNf99PrXqc1o/7b5eahZtwjAaSyQ3727hZ2pumz6mAK/R65a3XJuI5ksHAx7Q2UTCK
- F609GOnEzLipBMrwCFxq85CYSjrjRGNYZZvcO4CsRoMESLo4d1V/Aa/VH1gmYmViio6ws6z9y4n
- FniWl/VjL+KfA4
-X-Received: by 2002:a05:620a:7113:b0:93e:96cb:3083 with SMTP id
- af79cd13be357-93f29d38660mr1173731785a.33.1792409153851; 
- Mon, 19 Oct 2026 04:25:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:7113:b0:93e:96cb:3083 with SMTP id
- af79cd13be357-93f29d38660mr1173726485a.33.1792409153274; 
- Mon, 19 Oct 2026 04:25:53 -0700 (PDT)
+ AKwUvBzENiZpzBUBDAlvegVOyuIBkhFoyag7xeUeLxceXTGdCSh6GR9dn5kko6wbNZgepIkLtJv1r0NcUI0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJE1wGKvOZICXbgetPAdLQR8/QmClXI/dKx3S2Ok2rI+2cJihA1
+ tx0fVa1zYAMpL1Wa7pdpuNLk1DFEAOl9/Cvsq+f3jGaYgon9uSSfQVHkE3mSNDva8S3ns30NhBw
+ ilAF5sxczgyfOiV8vRMWC+rS8W13sGGvGljMnGCLTSvQ49H5Oi4hkPlHeNILl+Rz8PH2wm8M=
+X-Gm-Gg: AYBFou0A3HA//+4g3SxhQC1FI1nUztC1sXAMmAobbJXUVI0uLPiKkQa/29ogdVsgXjI
+ VWcw+/zc36N68QmSUKbqCqtI7fF3zxQQWsK7TzNUPbyv7/qVr4FErAButoC+bGPJYBebCR8chFY
+ r2/5h/93kY+NZHpSEBeh6vA4pkYML4Clw5p9f8ZEVeEG2nDTBVjOsnXPlLcsv42KF7fv5bgEXID
+ 2pfAidEVWHHynNk6dNFMLnGOAIVZP/2McvOYTNUhxrlM+uE31q/aqn0M21b1BnIdnkDlsAuVj+A
+ xjRACWRecqg1hrzEjXH3wvX6xImzBBHyAFFNfjlw1mlO3WRgZu4tu59di+jhwjw+mkOyTw8zieV
+ ZG3l8Iu3IAJSYxRQ5+1MiT0cUpqfiQsJPfTZlATyEOPvRJVzgtaPyEOyItt97G6z3ZbqkstYGjs
+ 6mZWeq7Vh2CL9J
+X-Received: by 2002:a05:620a:4589:b0:939:1222:b9f1 with SMTP id
+ af79cd13be357-93f29a04e12mr1226298185a.0.1792409151700; 
+ Mon, 19 Oct 2026 04:25:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:4589:b0:939:1222:b9f1 with SMTP id
+ af79cd13be357-93f29a04e12mr1226295185a.0.1792409151143; 
+ Mon, 19 Oct 2026 04:25:51 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ab37ba8851sm12807621fa.22.2026.10.19.04.25.51
+ 38308e7fff4ca-3ab37ba8851sm12807621fa.22.2026.10.19.04.25.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 04:25:51 -0700 (PDT)
+ Mon, 19 Oct 2026 04:25:50 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 14:25:38 +0300
-Subject: [PATCH v2 2/8] regulator: dt-bindings: add Qualcomm LCDB regulator
+Date: Mon, 19 Oct 2026 14:25:37 +0300
+Subject: [PATCH v2 1/8] backlight: qcom-wled: fix string detection
+ brightness on WLED5
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-sm8150-display-card-v2-2-86c05068efc5@oss.qualcomm.com>
+Message-Id: <20261019-sm8150-display-card-v2-1-86c05068efc5@oss.qualcomm.com>
 References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
 In-Reply-To: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
@@ -108,39 +109,39 @@ To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, mfd@lists.linux.dev,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3168;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4040;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=3SFfXzC0bHwD78fBjVebg7PPYXaNP6Xkrxk92qxdGA8=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq1f45ExUy8zE6GyGWTzcNpkND1+27Rx4Pfw9BQ
- 6UtgAofC8aJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatX+OQAKCRCLPIo+Aiko
- 1Ts2B/98bk/jBz49LoQOXRdknyPydiybtL39hdFjjUGkcUHaKwplQ7TB1JRybSNObZRTkyXdxJB
- +BY7yezNBzGTD+08+W14ZBvaWsk86BhzCqaB6d4XxP5ecFSPMPMhBylrI3MNfacfRYcv1UOnTlV
- M2lGTsjcb08YUJuAnPh5ufW5YvynS+xVBEFAboQhhSr7CgiJdBhCyInbkmbO7DfPrh/CUv6QT4b
- or2F/y1PNr9t+uOm1JN1a3Gpq1PkkFpjOnL53qsT9+Len7Mr7HVhgXuL4ryBLhsNs195CJKtkAk
- K/+8RsTwGCIjT/CQUApvfXUNC0xQzg9VpQvknt9zraXr0Ofo
+ bh=3nXXqhpzf8K/+hXUe7l+H8MG2OcKbb9smch8ETujRsw=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq1f44JBbEvJI7ao/F7pVDoA9QA3FdEnuTWMXG1
+ 9mEYCtrJkSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatX+OAAKCRCLPIo+Aiko
+ 1eB6B/9XXxaG1spzShZks/wIC8Z0XwqpE6aoNNn8zhK4sg7GP5JCjXeYh/h1U+9QR/GK6j7xTto
+ QFOmZ/kLOfZXMqlVlposw0b8AuIu6Z1WOyWcfLDbnl2vxLekiVTxa3V9TRPKm7IbUGzY7j4ansr
+ Ru2MOcMUt+lPMfvMHUCOOusAb8sbx7zFrec5PgQf3+TWLmM9jMj/TWFLKhLt6ZMwDcc9jfC2VF+
+ VdJ31VYpQxu0SDoP1qGKN26HhsTuujZYrCgkHwkj3oV7N9+g9BzgNuQzkBdMXoQ1Hkpy/PZp9zc
+ EjQKQZk2dTjqHc319u+F5r2KaBsXFiNcuAv5fPvLH5GkHDas
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX0ACEAllheW38
- o10+NjA8B34atBgVANzYJhYyBa5CmWrXG6w+SQuQ0dt2uXTRvJt2T03uj32w69PD/1xLbktyRHR
- K9F3CXLr2Dz0eHtNx1K9DUlYcaEAtX4=
-X-Proofpoint-ORIG-GUID: r5FZ16q90ASwxa_5CQeiDkcYJ0iXlNra
-X-Proofpoint-GUID: r5FZ16q90ASwxa_5CQeiDkcYJ0iXlNra
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX/yTLN4Ff/HKO
- CU7rvtajVyA20teAIga87g5u/vtsMKS36cJWBjhykPmyeFAjADC9GXFdiZDd8p6g5xMPR0IdJed
- GvLEW4QBXIye1EEDPsozwoXB/8QBM8KkIotvjxkBGwPOI/a0BnTxeygGAeEb3fnRN+X5nAPPEgu
- tBnDM6D52Lzfncs4FedrYeh99czq0+fCUnJAVaxfjLr3BGQefHPAHMLTYZPmCWvd0QsAWELP/f4
- 0HmtxBikN3afvCuCQyRokvSEurXGaqn/Aw8mUDqS5uFjgwuYUc9iMjSqBbgvHAjWs9rMtEoal3z
- E+j0iOW9KEOk7Sul8hCNWVfrMyAG+ZhGn5nS5PzxcFekt3i5G2nbxi0rwy4wMB9CGAJzPWMHOah
- BlI0Pk8QdoCBtC+MbnkfJ7vycY7snbx8ZVwHECc4y2AraMOa4f9iBhjm4hkZYoRfXNS87wsnTiX
- cLj64mHL1M+F6ZouWxA==
-X-Authority-Analysis: v=2.4 cv=K6O3jCWI c=1 sm=1 tr=0 ts=6ad5fe42 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX0pXKElP+WWpY
+ vjmsoy3wPvc4tIKKk0BX9ukVIJBdDvR3pcrDXqRlWHKij/8kt1EXplmeD6Fgvq1j1R/IJgZz1fs
+ TSRFHhrACgIrrp8DTmeV2ty/ULy+0J8=
+X-Proofpoint-ORIG-GUID: cm37SdoyDck5nr1X8m12geQbCO05SR88
+X-Proofpoint-GUID: cm37SdoyDck5nr1X8m12geQbCO05SR88
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX/Zq71TFJIyfb
+ RKUrOXsCV2V/ySFVNKyRde8dMT7sGhWDBoukfKKtW/fGbp9b9zc3W274fPGGuJKAZMHqeuh9TM/
+ cIaQloTQJtIE3ND+P3kCzQmwmzN9sWl5ikbScNz9me16XBmlhIWYxKkla41lyQeFeIDB8Ic+3eo
+ pDMIn3Q4E17BKd+kCrqvm6Z4B3Q/wcK1BJJyjBh74GgQaxmXJ71N9Ne47qIXFLdy7z7wq0UcdJL
+ Vf64wfOXxgZbv4GiCxjhCiKrFAFDTGmpo3YYw43LCCAjKhLkNKDLtaxe0crVWYSpMs28vvTiico
+ OtbFiPmQGJxyyKTp/PDfKC3jENBIsOigWy4c15AlxPDVg6Va0CnbcQs3nn0EwEx4Gp17zwkjVFC
+ DedVKKxQ3BHAJQmX0tSIWgMawaD3P02HIOrUu7yBZryqiKREiFGZCIG4+DCjw8+0iYnNnwknhL0
+ sFq7owOEOJc1vZOVbAQ==
+X-Authority-Analysis: v=2.4 cv=K6O3jCWI c=1 sm=1 tr=0 ts=6ad5fe40 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=SXD4J7xBejkBiF3T0k4A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=GhjHCLKht-b4gqHrCnQA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
@@ -164,109 +165,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Several Qualcomm PMICs have an LCDB block providing the positive and
-negative bias rails for LCD panels. It is not supported by Linux, so
-boards using it either model the rails as dummy fixed regulators and
-depend on the state left by the bootloader.
+The string detection sets the test brightness through
+wled4_set_brightness(). On WLED5 that writes to unrelated registers and
+the detection runs with whatever brightness has been programmed before.
 
-Describe the LCDB regulator present on the PM8150L. Use it as a fallback
-compatible for LCDB blocks on PMI632 and PM6150L. PM660L has a different
-version of LCDB block, so it's not being covered.
+Use the per-version callback. A WLED5 brightness write also only takes
+effect once the module sync bit is toggled, which so far was done by
+wled_update_status() alone. Toggle it in wled5_set_brightness() instead,
+so that every caller of the callback gets the new value.
 
+Fixes: 62a1d3f623ac ("backlight: qcom-wled: Add support for WLED5 peripheral that is present on PM8150L PMICs")
 Assisted-by: LLM
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- .../bindings/regulator/qcom,pm8150l-lcdb.yaml      | 81 ++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ drivers/video/backlight/qcom-wled.c | 56 ++++++++++++++++---------------------
+ 1 file changed, 24 insertions(+), 32 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/regulator/qcom,pm8150l-lcdb.yaml b/Documentation/devicetree/bindings/regulator/qcom,pm8150l-lcdb.yaml
-new file mode 100644
-index 000000000000..d3cba1aa0c2e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/qcom,pm8150l-lcdb.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/qcom,pm8150l-lcdb.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
+index ca350f320e17..c5243a6d547e 100644
+--- a/drivers/video/backlight/qcom-wled.c
++++ b/drivers/video/backlight/qcom-wled.c
+@@ -269,6 +269,24 @@ static int wled4_set_brightness(struct wled *wled, u16 brightness)
+ 	return 0;
+ }
+ 
++static int wled5_mod_sync_toggle(struct wled *wled)
++{
++	int rc;
++	u8 val;
 +
-+title: Qualcomm LCDB (LCD Bias) regulator
++	rc = regmap_update_bits(wled->regmap,
++				wled->sink_addr + WLED5_SINK_REG_MOD_SYNC_BIT,
++				WLED5_SINK_REG_SYNC_MASK, 0);
++	if (rc < 0)
++		return rc;
 +
-+maintainers:
-+  - Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
++	val = (wled->cfg.mod_sel == MOD_A) ? WLED5_SINK_REG_SYNC_MOD_A_BIT :
++					     WLED5_SINK_REG_SYNC_MOD_B_BIT;
++	return regmap_update_bits(wled->regmap,
++				  wled->sink_addr + WLED5_SINK_REG_MOD_SYNC_BIT,
++				  WLED5_SINK_REG_SYNC_MASK, val);
++}
 +
-+description:
-+  LCDB is the LCD panel bias supply found on Qualcomm PMICs such as PMI632,
-+  PM6150L and PM8150L. It consists of a boost converter feeding an LDO, which
-+  provides the positive bias rail, and an inverting charge pump (NCP), which
-+  provides the negative one. Both rails are switched together by a single
-+  module enable.
+ static int wled5_set_brightness(struct wled *wled, u16 brightness)
+ {
+ 	int rc, offset;
+@@ -287,7 +305,10 @@ static int wled5_set_brightness(struct wled *wled, u16 brightness)
+ 
+ 	rc = regmap_bulk_write(wled->regmap, wled->sink_addr + offset,
+ 			       &v, sizeof(v));
+-	return rc;
++	if (rc < 0)
++		return rc;
 +
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: qcom,pm8150l-lcdb
-+      - items:
-+          - enum:
-+              - qcom,pm6150l-lcdb
-+              - qcom,pmi632-lcdb
-+          - const: qcom,pm8150l-lcdb
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: short circuit on one of the outputs
-+
-+  ldo:
-+    type: object
-+    $ref: regulator.yaml#
-+    unevaluatedProperties: false
-+    description: Positive bias rail.
-+
-+  ncp:
-+    type: object
-+    $ref: regulator.yaml#
-+    unevaluatedProperties: false
-+    description:
-+      Negative bias rail. The voltage is specified as an absolute value.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    pmic {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        regulator@ec00 {
-+            compatible = "qcom,pm8150l-lcdb";
-+            reg = <0xec00>;
-+            interrupts = <0x5 0xec 0x1 IRQ_TYPE_EDGE_RISING>;
-+
-+            ldo {
-+                regulator-min-microvolt = <5500000>;
-+                regulator-max-microvolt = <5500000>;
-+            };
-+
-+            ncp {
-+                regulator-min-microvolt = <5500000>;
-+                regulator-max-microvolt = <5500000>;
-+            };
-+        };
-+    };
-+
-+...
++	return wled5_mod_sync_toggle(wled);
+ }
+ 
+ static int wled_read_brightness(struct wled *wled)
+@@ -391,24 +412,6 @@ static int wled3_sync_toggle(struct wled *wled)
+ 	return rc;
+ }
+ 
+-static int wled5_mod_sync_toggle(struct wled *wled)
+-{
+-	int rc;
+-	u8 val;
+-
+-	rc = regmap_update_bits(wled->regmap,
+-				wled->sink_addr + WLED5_SINK_REG_MOD_SYNC_BIT,
+-				WLED5_SINK_REG_SYNC_MASK, 0);
+-	if (rc < 0)
+-		return rc;
+-
+-	val = (wled->cfg.mod_sel == MOD_A) ? WLED5_SINK_REG_SYNC_MOD_A_BIT :
+-					     WLED5_SINK_REG_SYNC_MOD_B_BIT;
+-	return regmap_update_bits(wled->regmap,
+-				  wled->sink_addr + WLED5_SINK_REG_MOD_SYNC_BIT,
+-				  WLED5_SINK_REG_SYNC_MASK, val);
+-}
+-
+ static int wled_ovp_fault_status(struct wled *wled, bool *fault_set)
+ {
+ 	int rc;
+@@ -494,17 +497,6 @@ static int wled_update_status(struct backlight_device *bl)
+ 				dev_err(wled->dev, "wled sync failed rc:%d\n", rc);
+ 				goto unlock_mutex;
+ 			}
+-		} else {
+-			/*
+-			 * For WLED5 toggling the MOD_SYNC_BIT updates the
+-			 * brightness
+-			 */
+-			rc = wled5_mod_sync_toggle(wled);
+-			if (rc < 0) {
+-				dev_err(wled->dev, "wled mod sync failed rc:%d\n",
+-					rc);
+-				goto unlock_mutex;
+-			}
+ 		}
+ 	}
+ 
+@@ -651,7 +643,7 @@ static void wled_auto_string_detection(struct wled *wled)
+ 	}
+ 
+ 	/* Set low brightness across all sinks */
+-	rc = wled4_set_brightness(wled, AUTO_DETECT_BRIGHTNESS);
++	rc = wled->wled_set_brightness(wled, AUTO_DETECT_BRIGHTNESS);
+ 	if (rc < 0) {
+ 		dev_err(wled->dev, "Failed to set brightness for auto detection rc=%d\n",
+ 			rc);
+@@ -791,7 +783,7 @@ static void wled_auto_string_detection(struct wled *wled)
+ 	}
+ 
+ 	/* Restore brightness */
+-	rc = wled4_set_brightness(wled, wled->brightness);
++	rc = wled->wled_set_brightness(wled, wled->brightness);
+ 	if (rc < 0) {
+ 		dev_err(wled->dev, "Failed to set brightness after auto detection rc=%d\n",
+ 			rc);
 
 -- 
 2.47.3
