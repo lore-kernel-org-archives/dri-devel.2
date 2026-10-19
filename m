@@ -2,46 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A585606A327
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C77606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWt0QnFZ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lnlc54Uq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC21C10F0DA;
-	Mon, 19 Oct 2026 16:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0EE10F0E5;
+	Mon, 19 Oct 2026 16:20:06 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D853E10F091;
- Mon, 19 Oct 2026 16:19:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B63010F0EB
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:20:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1EC9A602BE;
- Mon, 19 Oct 2026 16:19:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDBD1F000C4;
- Mon, 19 Oct 2026 16:19:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 818D860534;
+ Mon, 19 Oct 2026 16:19:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651561F000C4;
+ Mon, 19 Oct 2026 16:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792426751;
- bh=shs0Qmr6z6AGWxamqP5HMy0NMX1ySVsqh6zsSxOLyLY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FWt0QnFZNI3EIMza9ej8C2XFXq0Bh+XrlgnxAk+iTSlyQDk4Ecog4QtlmCZQ7PZlW
- e/NOAlfmbJNhykwDYH3NKSwAbws9HhRirr+ByZFXLD1sWvtRaSNlDGlxCOl8RFnyzY
- 4Rszg8nxJzHRmhZrq72h3ISetFpZZtkKkdK1W484tIRh9nQ02Eg6LG6qEQqkBgiVB0
- N5Pri0Jsx37ybixtg3R3V4BFgCMmIgAx80ifX7ZXfpeXaWSMr8qQq+z0VhWoMxJhXl
- HOANibuXJNJQPjgZgwQXvcndbTYsC0hPVR+LMxEuuB4onPQlr1QmfVZn/Dnmnhpz++
- fgumzsZN9NMgw==
-Message-ID: <sashiko-outbox-177862@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/pixel: Link panic helpers into drm_pixel_helper.ko
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, imx@lists.linux.dev,
- virtualization@lists.linux.dev, Frank.Li@kernel.org,
- wsa+renesas@sang-engineering.com, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261019154612.777074-4-tzimmermann@suse.de>
-References: <20261019154612.777074-1-tzimmermann@suse.de>
- <20261019154612.777074-4-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 16:19:10 +0000
+ s=k20260515; t=1792426799;
+ bh=RuCA8FALs5XB63BHgci+9kNkPVibLG6q04A/+CjblyQ=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=lnlc54UqHCLaUlrGGl5GW/i9SIefxlsNuimk/lYP1lQ+vIZM64q/r9ceyLqHAMiBI
+ fWLNV5F1jDfoZv7W6c77V8xMN/nOcELRnVtxvRAnuBPTRY2VYepws0Oy0vyQSoTbxS
+ lD6gJLKXX901HeOspu2pGQV2no4zkZsCptwNTh0/nX9ZGJzM2JTjNweiY2cx72BD8k
+ fosHLGad4CznoP2JgalBgpLic9AH5bvGD9LU5d0WHjHIeohI6i9T+BcTIPVyJt+nli
+ L8If6pnhS4wM8cgRdktkqNp2A+89JGt4SFcynRt/bRkNzgN3LtvP3Zji9hjLtn7ZB3
+ 22PWxBv32jwzw==
+From: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Mark Brown <broonie@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Lee Jones <lee@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-4-9352be6b86b1@kernel.org>
+References: <20260921-ux500-power-domains-v7-1-v3-4-9352be6b86b1@kernel.org>
+Subject: Re: (subset) [PATCH v3 04/18] dt-bindings: mfd: db8500-prcmu:
+ Deprecate EPOD regulators
+Message-Id: <179242679515.1178810.16625867453853597322.b4-ty@b4>
+Date: Mon, 19 Oct 2026 17:19:55 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,140 +61,30 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-9.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] drm: missing DRM_PIXEL_HELPER select in DRM_KMS_HELPER for drm_crtc=
-_init()
-- [Low] drm/tests: link failure in drm_panic_helper_test when CONFIG_DRM_PA=
-NIC=3Dn
-- [Low] drm/xe: missing DRM_PIXEL_HELPER dependency when DRM_PANIC=3Dy
+On Mon, 21 Sep 2026 00:48:10 +0200, Linus Walleij wrote:
+> Deprecate the db8500-prcmu-regulators node and make it optional as EPOD
+> control moves to generic power domains. External consumers of VAPE and
+> VSMPS2 now use the actual AB8500 or AB8505 buck regulators.
+> 
+> Stop requiring the individual regulator child nodes while retaining
+> their definitions for existing device trees.
+> 
+> [...]
+
+Applied, thanks!
+
+[04/18] dt-bindings: mfd: db8500-prcmu: Deprecate EPOD regulators
+        commit: c8132247fe4df52e9982d74c986bb199d792b85b
+
 --
+Lee Jones [李琼斯]
 
-commit d010f0f67d242682650aa0651dfd5a1e57612943
-Author: Thomas Zimmermann <tzimmermann@suse.de>
-
-drm/pixel: Link panic helpers into drm_pixel_helper.ko
-
-This commit moves the DRM panic helpers from drm_kms_helper into
-drm_pixel_helper.ko, drops the DRM_PANIC_HELPER Kconfig option, and
-selects DRM_PIXEL_HELPER in drivers using the panic helpers.
-
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 8e4a588e9111d..bf7c599443403 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -46,13 +46,14 @@ config DRM_MIPI_DSI
->  config DRM_KMS_HELPER
->  	tristate
->  	depends on DRM
-> -	select DRM_PANIC_HELPER if DRM_PANIC
->  	help
->  	  CRTC helpers for KMS drivers.
-
-[Severity: Low]
-Does DRM_KMS_HELPER also need to select DRM_PIXEL_HELPER if DRM_PANIC?
-
-drivers/gpu/drm/drm_modeset_helper.c is unconditionally compiled into
-drm_kms_helper, and its primary_plane_funcs structure (used by
-drm_crtc_init()) includes DRM_PANIC_PLANE_FUNCS:
-
-drivers/gpu/drm/drm_modeset_helper.c:
-    static const struct drm_plane_funcs primary_plane_funcs =3D {
-            DRM_PLANE_NON_ATOMIC_FUNCS,
-            DRM_PANIC_PLANE_FUNCS,
-    };
-
-When CONFIG_DRM_PANIC is enabled, DRM_PANIC_PLANE_FUNCS expands in
-include/drm/drm_panic_helper.h to reference
-drm_plane_helper_display_panic_screen, which is now built into
-drm_pixel_helper. If CONFIG_DRM_PANIC=3Dy and DRM_KMS_HELPER is enabled
-without a matching built-in or modular DRM_PIXEL_HELPER, linking fails
-with an undefined reference to drm_plane_helper_display_panic_screen.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
-> index 1afb9cad850f6..4573cad368a28 100644
-> --- a/drivers/gpu/drm/Kconfig.debug
-> +++ b/drivers/gpu/drm/Kconfig.debug
-> @@ -69,7 +69,6 @@ config DRM_KUNIT_TEST
->  	select DRM_EXPORT_FOR_TESTS if m
->  	select DRM_GEM_SHMEM_HELPER
->  	select DRM_KUNIT_TEST_HELPERS
-> -	select DRM_PANIC_HELPER
->  	select DRM_PIXEL_HELPER
->  	select DRM_SYSFB_HELPER
->  	select PRIME_NUMBERS
-
-[Severity: Low]
-Can removing select DRM_PANIC_HELPER from DRM_KUNIT_TEST cause a link
-failure when CONFIG_DRM_PANIC is disabled?
-
-With this change, drm_panic_helper.o is only built into drm_pixel_helper
-when CONFIG_DRM_PANIC is enabled:
-
-drivers/gpu/drm/Makefile:
-    drm_pixel_helper-$(CONFIG_DRM_PANIC) +=3D drm_panic_helper.o
-
-However, drivers/gpu/drm/tests/Makefile still builds
-drm_panic_helper_test.o unconditionally under obj-$(CONFIG_DRM_KUNIT_TEST),
-and functions such as drm_panic_helper_draw_screen_user_default() in
-drivers/gpu/drm/tests/drm_panic_helper_test.c call
-drm_panic_helper_draw_screen_user(), drm_panic_helper_draw_screen_kmsg(),
-drm_panic_helper_set_description(), and
-drm_panic_helper_clear_description(). When CONFIG_DRM_KUNIT_TEST is enabled
-and CONFIG_DRM_PANIC=3Dn, linking fails with undefined references to those
-symbols.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-> index 71426b9c91f00..f698d3c8daa9e 100644
-> --- a/drivers/gpu/drm/i915/Kconfig
-> +++ b/drivers/gpu/drm/i915/Kconfig
-> @@ -19,6 +19,7 @@ config DRM_I915
->  	select DRM_KMS_HELPER
->  	select DRM_PANEL
->  	select DRM_MIPI_DSI
-> +	select DRM_PIXEL_HELPER if DRM_PANIC
->  	select FB_IOMEM_HELPERS if DRM_FBDEV_EMULATION
->  	select RELAY
->  	select I2C
-
-[Severity: Low]
-Should DRM_XE or DRM_XE_DISPLAY in drivers/gpu/drm/xe/Kconfig also select
-DRM_PIXEL_HELPER if DRM_PANIC?
-
-When CONFIG_DRM_XE_DISPLAY=3Dy, drivers/gpu/drm/xe/Makefile compiles
-drivers/gpu/drm/i915/display/skl_universal_plane.c into xe.ko, where
-skl_plane_funcs, icl_plane_funcs, and tgl_plane_funcs use
-DRM_PANIC_PLANE_FUNCS:
-
-drivers/gpu/drm/i915/display/skl_universal_plane.c:
-    static const struct drm_plane_funcs skl_plane_funcs =3D {
-            ...
-            DRM_PANIC_PLANE_FUNCS,
-    };
-
-If CONFIG_DRM_XE=3Dm, CONFIG_DRM_XE_DISPLAY=3Dy, and CONFIG_DRM_PANIC=3Dy a=
-re
-enabled while CONFIG_DRM_PIXEL_HELPER=3Dn, modpost fails with an undefined
-reference to drm_plane_helper_display_panic_screen in xe.ko.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019154612.7770=
-74-1-tzimmermann@suse.de?part=3D3
