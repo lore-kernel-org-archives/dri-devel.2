@@ -4,33 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 198BCCCF2D3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 04:37:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EDFDCCF2D3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 04:41:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F4BD10E783;
-	Mon, 19 Oct 2026 04:37:51 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6AE910E785
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 04:37:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 105F810E41A;
+	Mon, 19 Oct 2026 04:41:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 367BD10E41A
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 04:41:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4A819601FB;
- Mon, 19 Oct 2026 04:37:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4C71F000C4;
- Mon, 19 Oct 2026 04:37:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 96D68438FC;
+ Mon, 19 Oct 2026 04:41:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947CE1F000C4;
+ Mon, 19 Oct 2026 04:41:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792384665;
- bh=JLiYDv+iV8ZTsAXWw6zS9tWEJ0XwIEI9q0xb2IWt+6k=;
+ s=k20260515; t=1792384896;
+ bh=Pk6MkmtH/GJw8NlTcNRi6wz8CXhzQWHpRjQ0BGTG4OI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=A0HvTiXTTb+fgyfMjZrkP+c3qyHBg11kE0aaAViN9Yt8s9lNI1YoJZ4W9AU0WHbkx
- k7ncgPO7+HwHLGQKC9a6Mtk2WzuHonqaHUDsMIVF5Mw9QyA4GmRNhLTpn4Guw1Ljd4
- qDi0V3cdbo/xQhYyq3K0+UWUcgiVWAvrQkuH4NnVT7QLsM8eALdJv4guIX/p1Fv0p3
- sCMXsEECciqv6tvIpmQaZjvCVcMi3zP+PyNtUlIjp+vQnSfjnj5OfybhEznF9b7WDN
- 0QNgSiGM2hVjJkQtkw619IZ1XZ75B86fMnVKIRV9MmEqBHu6NyMRUB0r2IXYUzSCzm
- q3E4wyrkF3QQQ==
-Message-ID: <sashiko-outbox-176643@kernel.org>
+ b=D/1TcAerN9vo08Ig/Us5K0WF1kf/UAi+j3LWX2B8NEgE5WWh3RDHDKkva3kgvzVde
+ 1QSRkoB3HdSN8lhf7hSo/Xsj+D+kwWjozaXVFQ1tS1hmaUdeuGCA3KZPrYunxRWNgh
+ S9ZreiPYOQIC+TXiYOzPTjOpmvEPbaEFgJjqrt/Ys4f7O8ZGh81UYbWfercSyZ7MEg
+ BlXEQ9D+/AfhGVas08cna6SNGV/kjBj4SMKvIKoTwFrpjK6uT/YoMBEeAfYMnMyk3e
+ n0GpkE5umIXGg/yjYK0F7tbVeLHlz8mL5nhAwX+oqzQq0pvRrDbUYLZc6uM/wGZ8Yt
+ imMH2oy7issPQ==
+Message-ID: <sashiko-outbox-176646@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/3] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
+Subject: Re: [PATCH v10 1/3] rust: use Alignment size constants
 To: "Eliot Courtney" <ecourtney@nvidia.com>,
  "Alice Ryhl" <aliceryhl@google.com>, "Burak
  Emir" <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel
@@ -49,12 +48,12 @@ Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
  Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
  "Zhi Wang" <zhiw@nvidia.com>, nova-gpu@lists.linux.dev,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019-chid-v10-2-67de9180b4ed@nvidia.com>
+In-Reply-To: <20261019-chid-v10-1-67de9180b4ed@nvidia.com>
 References: <20261019-chid-v10-0-67de9180b4ed@nvidia.com>
- <20261019-chid-v10-2-67de9180b4ed@nvidia.com>
+ <20261019-chid-v10-1-67de9180b4ed@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 04:37:43 +0000
+Date: Mon, 19 Oct 2026 04:41:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,90 +72,103 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] rust: id_pool: panic in find_unused_id() on small or zero capaci=
-ty pools
+- [Low] rust: missing SizeConstants implementation and sub-1K constants for=
+ Alignment
 --
 
-commit 018a4fbd0a161c3060c7581d4c4fd80bc70dcd41
+commit 2a0eb77a4c0fef593fa5a986d45a2a3fe50ca233
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
+rust: use Alignment size constants
 
-This commit stops rounding small capacities up to BitmapVec::MAX_INLINE_LEN
-in IdPool::with_capacity() so that capacities smaller than MAX_INLINE_LEN,
-including 0, can be used directly. It also updates IdPool::grow_request() to
-grow to at least BitmapVec::MAX_INLINE_LEN.
+This commit replaces Alignment::new::<...>() calls with SizeConstants
+associated constants on Alignment across rust/kernel/ and
+drivers/gpu/nova-core/.
 
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 384753fe0e44a..7bb8bb89297f0 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -106,13 +106,8 @@ pub fn new() -> Self {
->      }
+> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+> index 8a934c55169fd..f53886f9ed91e 100644
+> --- a/drivers/gpu/nova-core/mm.rs
+> +++ b/drivers/gpu/nova-core/mm.rs
+> @@ -317,7 +317,7 @@ pub(crate) fn run(
 > =20
->      /// Constructs a new [`IdPool`] with space for a specific number of =
-bits.
-> -    ///
-> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_=
-LEN`].
-> -    ///
-> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
->      #[inline]
->      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, A=
-llocError> {
-> -        let num_ids =3D usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
->          let map =3D BitmapVec::new(num_ids, flags)?;
->          Ok(Self { map })
->      }
-
-[Severity: Medium]
-With the capacity floor removed, can calling IdPool::find_unused_id() on a
-pool created with capacity 0 (or any capacity <=3D offset) trigger a panic =
-when
-CONFIG_RUST_BITMAP_HARDENED=3Dy is enabled?
-
-In rust/kernel/id_pool.rs, IdPool::find_unused_id() passes offset directly =
-to
-Bitmap::next_zero_bit() without checking whether offset >=3D self.capacity(=
-):
-
-    pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'_>>=
- {
-        // INVARIANT: `next_zero_bit()` returns None or an integer less tha=
-n `map.len()`
-        Some(UnusedId {
-            id: self.map.next_zero_bit(offset)?,
-            pool: self,
-        })
-    }
-
-In rust/kernel/bitmap.rs, Bitmap::next_zero_bit() asserts that start is
-strictly less than self.len():
-
-    pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
-        bitmap_assert!(
-            start < self.len(),
-            "`start` must be < {} was {}",
-            self.len(),
-            start
-        );
-
-When a pool is constructed via IdPool::with_capacity(0, flags) and a caller
-invokes pool.find_unused_id(0) before growing the pool, self.len() is 0 and
-start < self.len() fails, panicking under CONFIG_RUST_BITMAP_HARDENED=3Dy
-instead of returning None. The same happens if a caller creates a small pool
-(for example with capacity 1) and calls find_unused_id(1).
+>          let base =3D usable_fb_regions.iter().find_map(|region| {
+>              // Tests rely on this being 8 byte aligned for checking misa=
+lignment handling.
+> -            let base =3D region.start.align_up(Alignment::new::<8>())?;
+> +            let base =3D region.start.align_up(Alignment::SZ_8)?;
+>              (base.checked_add(SELFTEST_SPAN)? <=3D region.end).then_some=
+(base)
+>          });
+>          let Some(base) =3D base else {
+> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios=
+.rs
+> index 9c214b9f4dd9d..a2d2d170b5014 100644
+> --- a/drivers/gpu/nova-core/vbios.rs
+> +++ b/drivers/gpu/nova-core/vbios.rs
 
 [ ... ]
 
->
->
->
->
->
->
->
+> @@ -291,7 +294,7 @@ fn next(&mut self) -> Option<Self::Item> {
+> =20
+>          // Advance to next image (aligned to 512 bytes).
+>          self.current_offset +=3D image_size;
+> -        self.current_offset =3D self.current_offset.align_up(Alignment::=
+new::<512>())?;
+> +        self.current_offset =3D self.current_offset.align_up(Alignment::=
+SZ_512)?;
+> =20
+>          Some(Ok(full_image))
+>      }
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index de8ef8e2aec41..5712478a54616 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
+> @@ -19,7 +19,8 @@
+>      ptr::{
+>          Alignment,
+>          KnownSize, //
+> -    }, //
+> +    },
+> +    sizes::SizeConstants, //
+>  };
+> =20
+>  #[cfg(CONFIG_HAS_IOMEM)]
+> @@ -90,7 +91,7 @@ pub fn ptr_try_from_raw_parts_mut(base: *mut u8, size: =
+usize) -> Result<*mut Sel
+>  impl<const SIZE: usize> KnownSize for Region<SIZE> {
+>      const MIN_SIZE: usize =3D SIZE;
+>      // Alignment of 4 is the most common; different base types can be ad=
+ded once required.
+> -    const MIN_ALIGN: Alignment =3D Alignment::new::<4>();
+> +    const MIN_ALIGN: Alignment =3D Alignment::SZ_4;
+> =20
+>      #[inline(always)]
+>      fn size(p: *const Self) -> usize {
+
+[Severity: Low]
+Is this patch missing a prerequisite commit that implements SizeConstants f=
+or
+Alignment and adds the sub-1K size constants?
+
+Currently in rust/kernel/sizes.rs, define_sizes! is only invoked for integer
+types:
+
+    define_sizes!(u32, u64, usize);
+
+and define_sizes! only defines constants from SZ_1K through SZ_2G. There is=
+ no
+SizeConstants implementation for Alignment in rust/kernel/sizes.rs or
+rust/kernel/ptr.rs, and sub-1K constants such as SZ_4 (used in
+Region::MIN_ALIGN in rust/kernel/io.rs), SZ_8 (used in selftest::run in
+drivers/gpu/nova-core/mm.rs under CONFIG_NOVA_CORE_SELFTESTS), and SZ_512 (=
+used
+in PciRomImageIterator::next in drivers/gpu/nova-core/vbios.rs) are not def=
+ined
+in SizeConstants.
+
+Without that prerequisite change, will building the kernel Rust crate,
+rust/kernel/gpu/buddy.rs doctests, and drivers/gpu/nova-core/ fail?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-chid-v10-0=
--67de9180b4ed@nvidia.com?part=3D2
+-67de9180b4ed@nvidia.com?part=3D1
