@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CACBBCCF2E6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AEBACCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 354AB10E064;
-	Mon, 19 Oct 2026 13:57:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4C5A10E064;
- Mon, 19 Oct 2026 13:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95F8210EDB7;
+	Mon, 19 Oct 2026 13:58:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3BF410EDB1;
+ Mon, 19 Oct 2026 13:57:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9B7484122E;
- Mon, 19 Oct 2026 13:57:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53AB61F000C5;
- Mon, 19 Oct 2026 13:57:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 17F3E60233;
+ Mon, 19 Oct 2026 13:57:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860421F000C7;
+ Mon, 19 Oct 2026 13:57:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418257;
- bh=Yf4wDzeS/mnKuQFF/RJEmEwysZgxQ9lxEjWcYlcYlcw=;
+ s=k20260515; t=1792418275;
+ bh=Ua7FOrvtap76X3pWHhtDl5tS54N9KAgGE6T8hmgUSAg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FnagN85gyy5TgysYhyW5mE7kbbIhGl7UzF/GWdCmeJvB9JXOsQJqpQZdwYg1TO6Md
- sDp73CZ8G4vU4STzwIvDKn3jexmBOBC1SZtdb6eXRXoeIWw67lsnW5CjU4Ukr+oSmn
- cZaPtYxfgxoja/ey8Q20vinYTtA4Bs5h+JovcIwnCbSeMOJ7CGchkmUcI1jtjQ8ApR
- fPb/RuOXx4hYXC2B8G1kydXl5vq18vYLlw9IyvFUQxBpRo3ctBpzOSErpDa7cmoOJU
- TQPbBFSYQnDvQUcAxf5kjvBs12G7/OpDuTaYzfSXM8EjkFa0ffVzPQM/mqnWYNDzZt
- 4ETxF0KOf0+/g==
+ b=XFX+EPfYtLIW13hk3VxO2Lau/4hfffMQ4eGWpmPGm7UMC/hqCsOskZfKFRRRK9D2i
+ wDbWKq5jht1XsLwoVSDulFSmySmLl6ORV2lat4//tumEJUqu5uWIWIPqPiYL+RCS9p
+ 7W6xKQvI1kMZQH5jlHc8NKw3rKz5Fx9Banc7ZS2Km8rVrcimCOjjj0hLrqWADhJi7C
+ lZfc89attVBpauIwaG4M1uNVVldBxs8qed1DlQrpNgMALf3aaPHQXlEdRAAe6ZMKv9
+ PC1cDq1jEKW4eXMUtpLQJNaogfGlLXBTNM2EiaMRXiXQDdvHuDbmooJ48TqM2dZ9BI
+ lcd+dM6KRKn+w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Sasha Levin <sashal@kernel.org>,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
+Cc: Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/xe: only resume exec queues that were
- actually suspended
-Date: Mon, 19 Oct 2026 09:46:55 -0400
-Message-ID: <20261019135441.1420968-124-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: Use uploaded size for legacy
+ custom PPTable
+Date: Mon, 19 Oct 2026 09:47:03 -0400
+Message-ID: <20261019135441.1420968-132-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,471 +63,410 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+From: Yang Wang <kevinyang.wang@amd.com>
 
-[ Upstream commit 65f40fa5022bcdb90d3a39e4948adf2aa16732a3 ]
+[ Upstream commit 055a40c32f3a2dcd4d1a6f85ff4c231cf35f1b53 ]
 
-A consumer-issued suspend() can fail (e.g. the queue is killed, banned
-or wedged), leaving the queue un-suspended. The consumer must then not
-issue the matching resume(): resuming a queue that was never suspended
-is incorrect.
+The legacy powerplay path used to allocate hardcode_pp_table from
+the original VBIOS PPTable size, copy only the uploaded bytes into it,
+and keep soft_pp_table_size unchanged. If a custom PPTable is shorter
+than the original table, later code can still treat the stale tail as
+valid table data.
 
-Add an lr.suspended flag to struct xe_exec_queue that records whether a
-consumer suspend() succeeded and a matching resume() is still owed. Set
-it on a successful suspend() in the preempt-fence path, clear it on
-resume(), and only resume queues that have it set.
+Treat the uploaded buffer as the complete custom PPTable: duplicate the
+uploaded buffer directly, replace hardcode_pp_table atomically, and set
+soft_pp_table_size to the uploaded size.
 
-In resume_and_reinstall_preempt_fences() also skip queues that have
-since been reset/killed/banned/wedged: such a queue's suspend may not
-have completed (suspend_pending can still be set, e.g. a preempt fence
-signalled with -ENOENT without waiting), so resuming it would trip the
-!suspend_pending assert in the backend. Leave it marked suspended and
-let teardown resolve its state.
-
-A queue is only ever suspended by a single consumer at a time
-(preempt-fence mode and hw engine group fault mode are mutually
-exclusive), so a single flag is sufficient.
-
-Assisted-by: Github-Copilot:Claude-opus-4.8
-Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Link: https://patch.msgid.link/20260713202317.2187787-9-niranjana.vishwanathapura@intel.com
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This tree is **v7.3-rc4** (mainline). The Xe preempt-fence path this
-patch touches is present, and the change is a small, self-contained
-pairing fix for a real GuC suspend/resume protocol bug.
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-## Phase 1: Commit message forensics
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: `[drm/amd/pm] [Use] Use uploaded size for legacy custom PPTable`
+Subsystem: AMDGPU PowerPlay (legacy hwmgr path). Verb “Use” describes
+the corrected size source; the body is a correctness fix for stale table
+tails.
 
-**Step 1.1: Subject line**
-- Record: `[drm/xe] [only resume] only resume exec queues that were
-  actually suspended`
-- Subsystem: Intel Xe DRM. Verb “only resume” is a restriction/guard: do
-  not resume a queue that was never successfully suspended.
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+Record:
+- `Signed-off-by: Yang Wang <kevinyang.wang@amd.com>` (author)
+- `Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>` (AMD)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+  maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable` on
+  the upstream commit (absence expected)
+- Pipeline-only markers ignored: `[Upstream commit 055a40c32f3a2…]`,
+  `Signed-off-by: Sasha Levin`
 
-**Step 1.2: Tags**
-- Record:
-  - `Assisted-by: Github-Copilot:Claude-opus-4.8`
-  - `Signed-off-by: Niranjana Vishwanathapura` (author)
-  - `Reviewed-by: Matthew Brost` (Xe maintainer)
-  - `Link: https://patch.msgid.link/20260713202317.2187787-9-
-    niranjana.vishwanathapura@intel.com`
-  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable` (absence is
-    expected)
-  - Ignore any pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit
-    …]` markers; none were on the real commit
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+Record:
+- **Bug:** `pp_dpm_set_pp_table()` allocated `hardcode_pp_table` at the
+  original VBIOS PPTable size, `memcpy`’d only the uploaded bytes, and
+  left `soft_pp_table_size` unchanged.
+- **Symptom:** A shorter custom table leaves a stale VBIOS tail; later
+  parsing still treats that tail as valid table data.
+  `pp_dpm_get_pp_table()` also reports the old size.
+- **Root cause:** Upload size is not treated as the complete custom
+  table.
+- **Fix:** `kmemdup(buf, size)`, atomically replace `hardcode_pp_table`,
+  set `soft_pp_table_size = size`.
+- No stack traces, syzbot, or version range in the message.
 
-**Step 1.3: Body**
-- Record: `[Bug] Consumer `suspend()` can fail (killed/banned/wedged)
-  leaving the queue un-suspended; the matching `resume()` was still
-  issued. A second case: suspend started but the preempt fence was
-  signalled `-ENOENT` without `suspend_wait()`, so `suspend_pending` can
-  still be set; `resume()` then trips the backend `!suspend_pending`
-  assert.`
-- `[Symptom]` Incorrect resume pairing; GuC backend assert; scheduling
-  state left inconsistent.
-- `[Version]` None stated. Series title: “balance exec queue
-  suspend/resume”.
-- `[Root cause]` Resume was unconditional. Fix: `lr.suspended` set only
-  on successful `suspend()`, cleared on `resume()`, and skip
-  reset/killed/banned/wedged queues.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not a disguised cleanup. It is an explicit correctness/memory-
+safety fix for mixed VBIOS+custom table contents. Also aligns the legacy
+path with SWSMU’s `smu_sys_set_pp_table()`.
 
-**Step 1.4: Hidden bug fix?**
-- Record: Not disguised. Explicit correctness fix. Covering letter also
-  calls the series “fixes and hardens”; this patch is the pairing fix,
-  not a pure cleanup.
+## PHASE 2: DIFF ANALYSIS
 
-## Phase 2: Diff analysis
+**Step 2.1: INVENTORY THE CHANGES**
+Record:
+- File: `drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` (+8 / −13)
+- Function: `pp_dpm_set_pp_table()` only
+- Scope: single-file surgical fix
 
-**Step 2.1: Inventory**
-- Record: 3 files, **+36 / -1**
-  - `xe_exec_queue_types.h`: add `bool lr.suspended` (+12)
-  - `xe_preempt_fence.c`: `preempt_fence_enable_signaling()` (+7)
-  - `xe_vm.c`: `resume_and_reinstall_preempt_fences()` (+17 / -1)
-- Scope: single-subsystem surgical fix.
-
-**Step 2.2: Code flow**
-- Record:
-  - **Before:** `suspend()` return stored in `pfence->error`;
-    `resume_and_reinstall_preempt_fences()` always called
-    `q->ops->resume(q)` for every queue on `vm->preempt.exec_queues`.
-  - **After:** successful `suspend()` does `WRITE_ONCE(q->lr.suspended,
-    true)`; resume only if `READ_ONCE(q->lr.suspended) &&
-    !q->ops->reset_status(q)`, then clears the flag.
-- Path: compute/long-running VM rebind worker (preempt-fence mode), not
-  probe/init.
-
-**Step 2.3: Bug mechanism**
-- Record: `[Logic / state-machine pairing]` plus `[debug assert]`
-- At the parent of this commit, GuC resume was:
-
-```2248:2254:drivers/gpu/drm/xe/xe_guc_submit.c
-// parent: 65f40fa5022bc^
-xe_gt_assert(guc_to_gt(guc), !q->guc->suspend_pending);
-guc_exec_queue_try_add_msg(q, msg, RESUME);
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Record: **Before** (this tree at `v6.18.53` / parent of the candidate):
 ```
+if (!hwmgr || !hwmgr->pm_en) return -EINVAL;
+if (size > hwmgr->soft_pp_table_size) return -EINVAL;
+if (!hardcode_pp_table)
+    hardcode_pp_table = kmemdup(soft_pp_table, soft_pp_table_size, ...);
+memcpy(hardcode_pp_table, buf, size);
+soft_pp_table = hardcode_pp_table;
+// soft_pp_table_size unchanged
+amd_powerplay_reset();
+```
+**After:**
+```
+if (!hwmgr || !hwmgr->pm_en || !buf || !size || size > U32_MAX) return
+-EINVAL;
+hardcode_pp_table = kmemdup(buf, size, GFP_KERNEL);
+kfree(old); assign new;
+soft_pp_table = hardcode_pp_table;
+soft_pp_table_size = size;
+amd_powerplay_reset();
+```
+Path: privileged sysfs store to `pp_table`, then DPM re-init. Not boot-
+default.
 
-- Failed `suspend()` returns `-EINVAL` *before* setting
-  `suspend_pending`. Unconditional `resume()` still queues a GuC RESUME.
-- `preempt_fence_work_func()` on `reset_status()` signals `-ENOENT`
-  without `suspend_wait()`, so `suspend_pending` can still be true when
-  resume runs.
-- `guc_exec_queue_allowed_to_change_state()` is `!killed/banned/wedged
-  && registered` — it does **not** check RESET. A reset-but-not-yet-
-  killed queue can take the resume path and call `enable_scheduling()`.
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: **Logic/correctness + memory-safety (stale buffer / wrong
+length).**
+Broken: partial overwrite of a VBIOS-sized copy; parsers and
+`pp_table_has_space()` / `*_pp_table_has_space()` use
+`soft_pp_table_size` as the valid span.
+Fix: the uploaded buffer *is* the table; size matches allocation.
+Removes the overflow `memcpy` by allocating exactly `size` (supersedes
+the in-tree `size > soft_pp_table_size` cap). Adds `!buf`, `!size`,
+`size > U32_MAX` (`soft_pp_table_size` is `uint32_t`).
 
-**Step 2.4: Fix quality**
-- Record: Obviously correct pairing (resume only if suspend succeeded
-  and queue is not in reset/kill). Minimal. Adds an internal flag only.
-  WRITE_ONCE/READ_ONCE match the comment that only one consumer suspends
-  at a time (preempt-fence vs hw-engine-group fault mode). Regression
-  risk: low; skipping resume is limited to queues already failing, which
-  the commit says teardown owns.
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record: Minimal and matches SWSMU. `kfree` + replace is serialized by
+`adev->pm.mutex` in `amdgpu_dpm_set_pp_table()`. `kfree(NULL)` is safe
+on first upload. Destroy path already `kfree`s `hardcode_pp_table`.
+Regression risk: low on the common (no custom table) path. Larger-than-
+VBIOS uploads are now allowed up to sysfs `PAGE_SIZE`; parsers that
+trust header offsets still need the later bounds patches.
+Truncated/malformed headers could already OOB in `v6.18.53` without
+those checks.
 
-## Phase 3: Git history
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1: Blame / introduction**
-- Record: Unconditional `q->ops->resume(q)` in
-  `resume_and_reinstall_preempt_fences()` dates to `dd08ebf6c3525`
-  (“drm/xe: Introduce a new DRM driver for Intel GPUs”), i.e. Xe’s
-  introduction (v6.8-era). Long-standing, not last-month code.
+**Step 3.1: BLAME THE CHANGED LINES**
+Record:
+- Function added `f3898ea12fc1f` (2016-02, “add some sysfs interfaces
+  for powerplay”)
+- Upload/reset/memcpy: `4dcf9e6f2e33fe` (2016-07, “add uploading pptable
+  and resetting powerplay support”)
+- `kmemdup` of VBIOS-sized original: `efdf7a93195a71` (2016-09)
+- Overflow cap: `3334985f8b4c7` / upstream `f193e71fa9fab` (“bound
+  pp_dpm_set_pp_table() memcpy”) — **already in `v6.18.53`**
+Bug is long-standing; this tree still has the stale-tail behavior.
 
-**Step 3.2: Fixes: tag**
-- Record: No `Fixes:` tag. Buggy resume site is original Xe code, not a
-  recent regression-only commit.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. Introduced with PowerPlay sysfs upload in 2016.
+Present in this 6.18.y tree.
 
-**Step 3.3: Related file history**
-- Record: This is **patch 1/6** of “drm/xe: balance exec queue
-  suspend/resume”. Later commits in this tree that use `lr.suspended` /
-  continue the series:
-  - `dad2af2da9ead` ban on suspend timeout
-  - `412c885692cad` uninterruptible suspend wait
-  - `c373eaaada2fe` hw_engine_group propagate suspend failures (sets
-    `lr.suspended` there)
-  - `3c316b09072c2` suspend refcount
-  - `5d5a729cc9780` multi-queue preempt primary
-- Patch 1 is standalone for the preempt-fence path. Later patches are
-  not required for this hunk to be correct.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: Related in this tree:
+- `3334985f8b4c7` — overflow bound (in `v6.18.53`)
+- `3149b1bee4fa1` — series 1/5, SWSMU header check (not in `v6.18.53`;
+  different file)
+- Later descendants: `f29e53bc54611`, `10510a4c2c397`, `c80131588ca2f`
+  (series 3–5 bounds; **not** in `v6.18.53`)
+- `8c685df5c3b26` — get-path UAF, different files
+This patch is **2/5** of Yang Wang’s June 2026 series. It is standalone
+(legacy `amd_powerplay.c` only). 3–5 use `soft_pp_table_size` as the
+bound, so they want this size to match custom uploads.
 
-**Step 3.4: Author**
-- Record: Niranjana Vishwanathapura, regular Xe contributor. Reviewed by
-  Matthew Brost, Xe maintainer (`MAINTAINERS`: INTEL DRM XE DRIVER).
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Yang Wang is an AMD pm contributor with several PPTable
+bounds/UAF fixes. Hawking Zhang reviewed; Alex Deucher signed off.
 
-**Step 3.5: Dependencies**
-- Record: Needs existing `q->ops->suspend`, `resume`, `reset_status`,
-  and `struct xe_exec_queue` `lr` — all present here. No new helper from
-  later series patches. Can apply standalone.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: No missing helpers: `kmemdup`, `U32_MAX`, `hardcode_pp_table`,
+`amd_powerplay_reset()` all exist in `v6.18.53`. Does **not** depend on
+1/5. Parent blob already has the overflow `if (size >
+soft_pp_table_size)` that this diff removes — clean apply on this tree.
 
-## Phase 4: Mailing list / external
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 4.1: Original discussion**
-- Record: `b4 dig -c 65f40fa5022bc` → https://patch.msgid.link/202607132
-  02317.2187787-9-niranjana.vishwanathapura@intel.com
-- Revisions: v1 (2026-06-24, 1/5) → v2 → v3 (1/6) → v5 covering letter
-  2026-07-13. Applied version is v5 1/6.
-- Covering letter: consumers issued resume even when suspend never took
-  effect; “with the GuC backend it can trip the `!suspend_pending`
-  assertion or leave scheduling state inconsistent.”
-- No NAKs in the saved thread mbox (series posts only; `Reviewed-by` was
-  already on the submission).
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+Record:
+- `b4 dig -c 055a40c32f3a2dcd4d1a6f85ff4c231cf35f1b53` → https://patch.m
+  sgid.link/20260623034151.263746-2-kevinyang.wang@amd.com
+- Series v1 only (no v2/v3)
+- `[PATCH 2/5] drm/amd/pm: Use uploaded size for legacy custom PPTable`
+- **1/5** SWSMU header + atomic `kmemdup`
+- **2/5** this commit
+- **3/5** Tonga state-array bounds
+- **4/5** Vega hwmgr bounds
+- **5/5** legacy `processpptables.c` offset bounds
+  (`pp_table_has_space`)
+- lore.kernel.org HTTP 403; discussion taken from `b4 dig -m` mbox
+  (verified)
 
-**Step 4.2: Recipients (`b4 dig -w`)**
-- Record: `intel-xe@lists.freedesktop.org`, Matthew Brost, Thomas
-  Hellström (both Xe maintainers). Right list and maintainers.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record (`b4 dig -w`): To/Cc `amd-gfx@lists.freedesktop.org`, Alex
+Deucher, Hawking Zhang, Kenneth Feng. Hawking: “Series is Reviewed-by:
+Hawking Zhang”. No NAKs in the saved thread.
 
-**Step 4.3: Bug report**
-- Record: No syzbot, bugzilla, or user `Reported-by`. Author-driven
-  correctness fix.
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No `Reported-by` / bugzilla / syzbot. Bug is described from code
+review.
 
-**Step 4.4: Series**
-- Record: 6 patches. Patch 1 = this commit (preempt-fence pairing).
-  Patch 4 applies the same flag to hw engine group. Patch 6 is multi-
-  queue GuC preempt behavior. This commit does not depend on 2–6.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: 2/5 does not need 1/5. 3–5 are follow-on parser hardening that
+treat `soft_pp_table_size` as the valid span; they are stronger with 2/5
+but VBIOS parsing still works without it.
 
-**Step 4.5: Stable list**
-- Record: lore.kernel.org/stable search for this subject did not show a
-  dedicated stable request or rejection (unrelated 7.2/6.18 review mails
-  matched generic words).
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: **UNVERIFIED** — `lore.kernel.org/stable/` returned HTTP 403. No
+stable discussion in the amd-gfx mbox.
 
-## Phase 5: Semantic / call-chain
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Functions**
-- Record: `preempt_fence_enable_signaling`,
-  `resume_and_reinstall_preempt_fences`. New field
-  `xe_exec_queue.lr.suspended`.
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: `pp_dpm_set_pp_table()`; uses `amd_powerplay_reset()`.
 
-**Step 5.2: Callers**
-- Record: `resume_and_reinstall_preempt_fences()` is called once from
-  the preempt rebind worker after `arm_preempt_fences()` (“point of no
-  return”). `preempt_fence_enable_signaling` is the dma-fence
-  `enable_signaling` callback for Xe preempt fences.
+**Step 5.2: TRACE CALLERS**
+Record:
+- `pp_dpm_funcs.set_pp_table` → `amdgpu_dpm_set_pp_table()`
+  (`mutex_lock(&adev->pm.mutex)`) → `amdgpu_set_pp_table()` sysfs store
+- Attribute: `AMDGPU_DEVICE_ATTR_RW(pp_table, …)` → `S_IRUGO | S_IWUSR`
+  (root write)
+- HW: legacy PowerPlay (SI/CI/VI/Polaris/Vega via hwmgr), not Navi+
+  SWSMU (`smu_sys_set_pp_table`)
 
-**Step 5.3: Callees**
-- Record: `q->ops->suspend` / `resume` / `reset_status` (GuC backend is
-  the real one; execlist ops are NIY stubs).
+**Step 5.3: TRACE CALLEES**
+Record: `kmemdup`, `kfree`, `amd_powerplay_reset()` → `hwmgr_hw_fini` /
+`hwmgr_hw_init` / `hwmgr_handle_task(AMD_PP_TASK_COMPLETE_INIT)`,
+optional `avfs_control(false)`.
 
-**Step 5.4: Reachability**
-- Record: Yes from userspace. `xe_vm_in_preempt_fence_mode()` is long-
-  running compute VMs (`XE_VM_FLAG_LR_MODE` and not fault mode).
-  Triggered when the VM rebind worker runs (BO moves, userptr
-  invalidation, eviction) while compute exec queues are attached.
-  Concurrent GPU reset/kill of a queue during that window is the bad
-  path.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Userspace `write()` to `/sys/class/drm/card*/device/pp_table`
+(root). Then full PM re-init from the new table. Reachable, privileged,
+documented.
 
-**Step 5.5: Similar patterns**
-- Record: Same `lr.suspended` discipline later in `xe_hw_engine_group.c`
-  (series patch 4). Confirms this is the intended pairing primitive, not
-  a one-off hack.
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: SWSMU already `kmemdup(buf, size)` and sets
+`power_play_table_size = size` (series 1/5 / current
+`smu_sys_set_pp_table()`). This is the legacy equivalent.
 
-## Phase 6: This tree
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-**Step 6.1: Buggy code in this tree?**
-- Record: Yes. Tree is `v7.3-rc4-27-gf0100363d8c37`, `VERSION=7
-  PATCHLEVEL=3 SUBLEVEL=0 EXTRAVERSION=-rc4`. Xe files exist. Parent of
-  `65f40fa5022bc` still has unconditional `q->ops->resume(q)`. Bug
-  introduced with Xe (`dd08ebf6c3525`), well before 7.3.
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: **Yes.** `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`;
+`Makefile` 6.18.53.
+`v6.18.53:drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` still has
+VBIOS-sized `kmemdup` + partial `memcpy` + unchanged
+`soft_pp_table_size` (and the overflow cap). Introduced ~2016.
 
-**Step 6.2: Backport difficulty**
-- Record: For this tree, the surrounding structs/ops match the diff:
-  clean apply. (This commit is already an ancestor of HEAD; that is used
-  only to inspect the code, not as a “already selected” reason.)
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: **Clean apply.** Candidate diff is against the exact `v6.18.53`
+function (including `if (size > hwmgr->soft_pp_table_size)`).
 
-**Step 6.3: Related fixes already here**
-- Record: No earlier alternate fix of this pairing. Later series patches
-  extend the same flag to other callers; they do not replace this
-  preempt-fence fix.
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: Overflow cap is in `v6.18.53`; it does **not** fix the short-
+table tail. No other in-tree substitute for updating
+`soft_pp_table_size` on upload.
 
-## Phase 7: Subsystem context
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1**
-- Record: `[drivers/gpu/drm/xe] [IMPORTANT]` — Intel Xe (Lunar Lake and
-  newer). Not core mm/net, but a supported production GPU driver.
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: `drivers/gpu/drm/amd/pm/powerplay` — **IMPORTANT** (amdgpu DPM
+on pre-Navi ASICs). Not core mm/vfs, but production GPU power/clocks.
 
-**Step 7.2**
-- Record: High activity (many Xe commits in this tree). The bug itself
-  is old pairing, not a brand-new subsystem.
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Actively maintained (Alex Deucher). Legacy PowerPlay is mature;
+this is hardening of a 2016 sysfs API, not new feature work.
 
-## Phase 8: Impact and risk
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: Who is affected**
-- Record: Xe users with long-running/compute exec queues in preempt-
-  fence mode (Intel compute / Level Zero style workloads), during VM
-  rebind plus queue reset/kill/ban/wedge.
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: Driver-specific: root users uploading custom PPTables on legacy
+PowerPlay AMD GPUs (Polaris/Vega/etc.). Not universal; the sysfs node is
+a documented interface.
 
-**Step 8.2: Trigger**
-- Record: Not every boot. Concurrent rebind + queue failure/reset.
-  Userspace-reachable via compute VM + memory movement + hang/reset or
-  queue destroy. Timing-dependent.
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Write a custom table **shorter** than the VBIOS table. Common
+for truncated files or smaller community/AMD PPT blobs. Not boot.
+**Not** unprivileged (`S_IWUSR`).
 
-**Step 8.3: Failure mode**
-- Record: `xe_gt_assert` is **debug-only** (`CONFIG_DRM_XE_DEBUG`);
-  production distro kernels will not WARN there. Production still queues
-  GuC RESUME without a completed suspend. For killed queues,
-  `allowed_to_change_state` makes the resume handler mostly a no-op. For
-  **RESET but not yet killed** queues, resume can `enable_scheduling()`
-  on a context hang recovery is tearing down — GPU scheduling
-  inconsistency / possible hang of that engine, not a kernel oops.
-- Severity: **HIGH** for the reset-window GuC protocol break; **MEDIUM**
-  if only dead queues are poked (mostly no-op + debug WARN).
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: Mixed custom prefix + stale VBIOS tail parsed as one table →
+wrong clocks/voltages/DPM (hangs, instability, possible overvoltage).
+`get_pp_table` returns too much mixed data. Defeats size-based parser
+bounds that key off `soft_pp_table_size`.
+**Severity: HIGH** on that path (wrong PM programming / confused
+bounds), **MEDIUM** globally (privileged, non-default).
 
-**Step 8.4: Risk-benefit**
-- Record: Benefit: medium-high for Xe compute (prevents illegal resume /
-  enable on reset queues). Risk: low (36 lines, error/teardown path, no
-  UAPI). Ratio favors taking it.
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record:
+- **Benefit:** Completes the overflow fix already in 6.18.53; custom
+  tables are actually the bytes uploaded; readback size is right; later
+  bounds checks can trust the size.
+- **Risk:** Low — ~8 insertions, one function, mutex-held, same pattern
+  as SWSMU. Idle GPUs that never write `pp_table` are unchanged.
+- **Ratio:** Favorable.
 
-## Phase 9: Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1: Evidence**
+**Step 9.1: COMPILE THE EVIDENCE**
 
-FOR:
-- Real pairing bug: resume of never-suspended or still-pending-suspend
-  queues.
-- Concrete backend contract: `guc_exec_queue_resume()` asserts
-  `!suspend_pending` and (in production) still submits RESUME.
-- Reset vs kill mismatch: `reset_status` includes RESET;
-  `allowed_to_change_state` does not — so old resume can re-enable a
-  reset context.
-- Small, obviously correct, maintainer-reviewed (Matthew Brost).
-- Self-contained for preempt-fence; this tree has the code.
-- No new userspace API.
+**FOR:**
+- Real bug: stale VBIOS tail treated as valid PPTable after a short
+  custom upload
+- Can misprogram GPU power/clocks and break size-based parsing
+- Small, obviously correct, matches SWSMU
+- Overflow half already in this tree; this is the remaining hole
+- AMD review (Hawking) + maintainer SOB (Deucher)
+- Applies cleanly; no missing helpers
+- Privileged but supported sysfs API
 
-AGAINST:
-- Series 1/6; later patches continue related hardening (not required
-  here).
-- No `Reported-by` / syzbot.
-- Healthy queues on the success path are unchanged; the skip is for
-  already-failing queues.
-- Primary wording in the commit is the debug assert.
+**AGAINST:**
+- Not a default-boot crash; root-only
+- No syzbot/CVE/user report in the message
+- Part of a 5-patch series (2/5 still stands alone)
+- Allows uploads larger than the original VBIOS size (capped in practice
+  by sysfs `PAGE_SIZE`)
 
-UNRESOLVED:
-- No public user crash report proving a full-device GPU hang in the
-  wild.
-- Stable list had no explicit ACK/NAK for this subject.
+**UNRESOLVED:** Stable-list discussion (lore 403). No evidence this was
+rejected for stable.
 
-**Step 9.2: Stable rules**
-1. Obviously correct and tested? **PASS** — pairing is straightforward;
-   v1–v5 review; maintainer `Reviewed-by`.
-2. Real bug affecting users? **PASS** — reachable compute rebind +
-   reset/kill path; illegal GuC RESUME.
-3. Important (crash/security/corruption/deadlock)? **PASS** — not a
-   kernel oops in production, but GuC protocol violation and
-   `enable_scheduling()` on a reset queue is a serious GPU-driver
-   failure (hang / inconsistent scheduling), which is in the “etc.”
-   class for driver stability.
-4. Small and contained? **PASS** — 36 lines, 3 Xe files.
-5. No new features/APIs? **PASS** — internal flag only. (Series patch 6
-   is a feature; this patch is not.)
-6. Can apply to this tree? **PASS** — Xe preempt-fence path and ops
-   exist; hunk is against the local structures.
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — SWSMU-equivalent; reviewed
+   by AMD; in mainline
+2. Fixes a real bug that affects users? **PASS** — documented `pp_table`
+   upload
+3. Important issue? **PASS** — wrong DPM table contents / bounds (HIGH
+   on that path)
+4. Small and contained? **PASS** — one function, net −5 lines
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — clean vs `v6.18.53`
 
-**Step 9.3: Exception category**
-- Record: None (not a device ID, quirk, DT, build, or docs fix).
-  Qualifies as a normal bugfix.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: None (not a device ID/quirk/DT/build/docs exception). Qualifies
+as a normal small bugfix.
 
-**Step 9.4: Decision**
-This is a small, reviewed correctness fix for a real suspend/resume
-imbalance on a supported Intel GPU compute path. It does not add
-features, applies to this tree’s Xe code, and the production risk of the
-bug is illegal GuC resume (including re-enabling a reset context), not
-merely a debug WARN. That meets stable rules for this checkout.
+**Step 9.4: DECISION**
+This belongs on 6.18.y: the buggy upload path is here, the overflow cap
+is already here, and this is the matching fix so a custom PPTable is
+exactly the uploaded bytes and length.
 
-### What it solves for users of this tree
-On Xe long-running (preempt-fence) VMs, the rebind worker always resumed
-every attached exec queue. If `suspend()` had failed or the queue was
-reset before suspend finished, that resume violated the GuC backend
-contract. This patch records a successful suspend and only resumes those
-queues, so already-failed queues are left to teardown instead of getting
-a spurious RESUME.
+### What the commit solves for this tree
+On 6.18.53, `pp_dpm_set_pp_table()` still clones the VBIOS table, copies
+only the write, and keeps `soft_pp_table_size`. A shorter custom table
+leaves a stale tail that init/sysfs still treat as valid, so DPM can run
+on a hybrid table. The patch makes the upload the whole table, which is
+what the sysfs ABI documents.
 
 ### Risk vs benefit
-Benefit is avoiding GuC protocol errors and possible engine re-enable
-during reset. Risk is low: one flag, two call sites, no UAPI, skip
-limited to reset/killed queues.
+Benefit is real for anyone using `pp_table` on legacy PowerPlay. Risk is
+a small, mutex-protected change with no effect unless that sysfs node is
+written.
 
-### Concerns
-It is patch 1/6; hw-engine-group pairing is a later commit and is not
-required for this hunk. No in-the-wild report. Debug asserts are
-compiled out of production, so the user-visible production issue is the
-protocol/state bug, not a WARN.
+---
 
-### Verification
-- [Phase 1] Parsed commit `65f40fa5022bc`: tags as listed; no
-  Fixes/Reported-by/Cc-stable.
-- [Phase 2] Diff: +36/-1 in three Xe files; resume became conditional on
-  `lr.suspended && !reset_status()`.
-- [Phase 2] Parent `guc_exec_queue_suspend` returns `-EINVAL` for
-  killed/banned/wedged without setting `suspend_pending`; parent
-  `guc_exec_queue_resume` asserts `!suspend_pending` then
-  `try_add_msg(RESUME)`.
-- [Phase 2] `xe_assert.h`: `xe_gt_assert` effective only with
-  `CONFIG_DRM_XE_DEBUG`.
-- [Phase 2] `guc_exec_queue_allowed_to_change_state()` ignores RESET;
-  `guc_exec_queue_reset_status()` includes RESET;
-  `xe_guc_exec_queue_reset_handler()` sets reset then `trigger_cleanup`
-  — window verified in `xe_guc_submit.c`.
-- [Phase 3] `git log -S 'resume_and_reinstall_preempt_fences' --
-  drivers/gpu/drm/xe/xe_vm.c` → `dd08ebf6c3525`.
-- [Phase 3] Series neighbors confirmed via `git log --author=Niranjana
-  Vishwanathapura -- drivers/gpu/drm/xe/`.
-- [Phase 3] `git merge-base --is-ancestor 65f40fa5022bc HEAD` succeeds
-  (used to inspect, not as a selection argument). `git merge-base --is-
-  ancestor 65f40fa5022bc v7.2` fails; present since `v7.3-rc1`.
-- [Phase 4] `b4 dig -c 65f40fa5022bc` / `-a` / `-w` / `-m /tmp/xe-
-  suspend.mbox`: v5 1/6, maintainers CC’d, covering letter quoted above;
-  mbox had no NAK replies.
-- [Phase 4] lore.kernel.org/stable search: no dedicated discussion of
-  this patch.
-- [Phase 5] Only caller of `resume_and_reinstall_preempt_fences` is the
-  rebind worker in `xe_vm.c` (~line 569).
-- [Phase 6] `git describe HEAD` → `v7.3-rc4-27-gf0100363d8c37`; `make
-  kernelversion` → `7.3.0-rc4`.
-- [Phase 7] `MAINTAINERS`: Matthew Brost is Xe maintainer; he reviewed
-  the patch.
-- [Phase 8] Failure mode: production GuC RESUME without completed
-  suspend; debug WARN only if `CONFIG_DRM_XE_DEBUG`.
-- UNVERIFIED: no public user GPU-hang log for this exact race.
+Verification:
+- [Phase 1] Tags: author Yang Wang; Reviewed-by Hawking Zhang; SOB Alex
+  Deucher; no Fixes/Reported-by/Cc: stable on upstream `055a40c32f3a2`
+- [Phase 2] Diff: `pp_dpm_set_pp_table()` only; drop VBIOS-sized clone +
+  partial memcpy; `kmemdup(buf,size)`; set `soft_pp_table_size`; extra
+  `!buf/!size/U32_MAX` checks
+- [Phase 3] Blame: memcpy upload `4dcf9e6f2e33fe` (2016); overflow cap
+  `3334985f8b4c7` is in `v6.18.53`; this candidate is not
+- [Phase 3] `git merge-base --is-ancestor 055a40c32f3a2 HEAD` → not in
+  this history as that SHA (expected for a stable cherry-pick
+  evaluation)
+- [Phase 3] `v6.18.53` file contents confirmed: bound-check +
+  kmemdup(original) + memcpy(size) + no size update
+- [Phase 4] `b4 dig -c 055a40c32f3a2` → patch 2/5, msgid
+  `20260623034151.263746-2`; v1 only; Hawking reviewed the series
+- [Phase 4] WebFetch lore/msgid 403; mbox via `b4 dig -m` used instead
+- [Phase 4] Stable-list search 403 — UNVERIFIED
+- [Phase 5] Callers: `amdgpu_dpm_set_pp_table` under `adev->pm.mutex`
+  from sysfs `pp_table` (`S_IWUSR`)
+- [Phase 5] SWSMU `smu_sys_set_pp_table()` already uses the same kmemdup
+  + size update
+- [Phase 6] `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`; `make
+  kernelversion` 6.18.53; buggy code in this tree
+- [Phase 6] Series 3–5 not in `v6.18.53`; this commit does not require
+  them to apply
+- [Phase 8] Failure mode: mixed PPTable → wrong GPU PM; trigger = root
+  write of a shorter custom table
+- UNVERIFIED: Whether anyone requested this on stable@ (lore 403)
 
 **YES**
 
- drivers/gpu/drm/xe/xe_exec_queue_types.h | 12 ++++++++++++
- drivers/gpu/drm/xe/xe_preempt_fence.c    |  7 +++++++
- drivers/gpu/drm/xe/xe_vm.c               | 18 +++++++++++++++++-
- 3 files changed, 36 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 21 +++++++------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_exec_queue_types.h b/drivers/gpu/drm/xe/xe_exec_queue_types.h
-index 38906cb7608ca..c5024acf4aaf0 100644
---- a/drivers/gpu/drm/xe/xe_exec_queue_types.h
-+++ b/drivers/gpu/drm/xe/xe_exec_queue_types.h
-@@ -139,6 +139,18 @@ struct xe_exec_queue {
- 		u32 seqno;
- 		/** @lr.link: link into VM's list of exec queues */
- 		struct list_head link;
-+		/**
-+		 * @lr.suspended: Tracks whether the consumer-issued suspend()
-+		 * succeeded and a matching resume() is still owed. suspend() can
-+		 * fail (e.g. killed/banned/wedged), leaving the queue
-+		 * un-suspended, so consumers must only resume() queues that were
-+		 * actually suspended. Set by the suspend caller on success and
-+		 * cleared by the resume caller. A queue is only ever suspended by
-+		 * a single consumer at a time (preempt-fence mode and hw engine
-+		 * group fault mode are mutually exclusive), so a single flag is
-+		 * sufficient.
-+		 */
-+		bool suspended;
- 	} lr;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 5e197c463ed96..05c5e7d19ca1c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -663,25 +663,20 @@ static int amd_powerplay_reset(void *handle)
+ static int pp_dpm_set_pp_table(void *handle, const char *buf, size_t size)
+ {
+ 	struct pp_hwmgr *hwmgr = handle;
++	void *hardcode_pp_table;
+ 	int ret = -ENOMEM;
  
- #define XE_EXEC_QUEUE_TLB_INVAL_PRIMARY_GT	0
-diff --git a/drivers/gpu/drm/xe/xe_preempt_fence.c b/drivers/gpu/drm/xe/xe_preempt_fence.c
-index 83fbeea5aa201..014a5980febd0 100644
---- a/drivers/gpu/drm/xe/xe_preempt_fence.c
-+++ b/drivers/gpu/drm/xe/xe_preempt_fence.c
-@@ -63,6 +63,13 @@ static bool preempt_fence_enable_signaling(struct dma_fence *fence)
- 	struct xe_exec_queue *q = pfence->q;
+-	if (!hwmgr || !hwmgr->pm_en)
+-		return -EINVAL;
+-
+-	if (size > hwmgr->soft_pp_table_size)
++	if (!hwmgr || !hwmgr->pm_en || !buf || !size || size > U32_MAX)
+ 		return -EINVAL;
  
- 	pfence->error = q->ops->suspend(q);
-+	/*
-+	 * Record a successful suspend so the rebind worker only resumes queues
-+	 * that were actually suspended; a failed suspend() leaves the queue
-+	 * un-suspended and must not be paired with a resume().
-+	 */
-+	if (!pfence->error)
-+		WRITE_ONCE(q->lr.suspended, true);
- 	queue_work(q->vm->xe->preempt_fence_wq, &pfence->preempt_work);
- 	return true;
- }
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index a4272bc248ec7..b139ee46208ad 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -195,7 +195,23 @@ static void resume_and_reinstall_preempt_fences(struct xe_vm *vm,
- 	xe_vm_assert_held(vm);
+-	if (!hwmgr->hardcode_pp_table) {
+-		hwmgr->hardcode_pp_table = kmemdup(hwmgr->soft_pp_table,
+-						   hwmgr->soft_pp_table_size,
+-						   GFP_KERNEL);
+-		if (!hwmgr->hardcode_pp_table)
+-			return ret;
+-	}
+-
+-	memcpy(hwmgr->hardcode_pp_table, buf, size);
++	hardcode_pp_table = kmemdup(buf, size, GFP_KERNEL);
++	if (!hardcode_pp_table)
++		return ret;
  
- 	list_for_each_entry(q, &vm->preempt.exec_queues, lr.link) {
--		q->ops->resume(q);
-+		/*
-+		 * Only resume queues whose suspend() actually succeeded. A
-+		 * failed suspend() (e.g. killed/banned/wedged) leaves the queue
-+		 * un-suspended, so it must not be resumed.
-+		 *
-+		 * Also skip queues that have since been reset/killed/banned/
-+		 * wedged: their suspend may not have completed (suspend_pending
-+		 * can still be set, e.g. a preempt fence signalled with -ENOENT
-+		 * without waiting), so resuming would trip the !suspend_pending
-+		 * assert in the backend. Such queues are being torn down anyway,
-+		 * so leave them marked suspended and let teardown resolve their
-+		 * state.
-+		 */
-+		if (READ_ONCE(q->lr.suspended) && !q->ops->reset_status(q)) {
-+			WRITE_ONCE(q->lr.suspended, false);
-+			q->ops->resume(q);
-+		}
++	kfree(hwmgr->hardcode_pp_table);
++	hwmgr->hardcode_pp_table = hardcode_pp_table;
+ 	hwmgr->soft_pp_table = hwmgr->hardcode_pp_table;
++	hwmgr->soft_pp_table_size = size;
  
- 		drm_gpuvm_resv_add_fence(&vm->gpuvm, exec, q->lr.pfence,
- 					 DMA_RESV_USAGE_BOOKKEEP, DMA_RESV_USAGE_BOOKKEEP);
+ 	ret = amd_powerplay_reset(handle);
+ 	if (ret)
 -- 
 2.53.0
 
