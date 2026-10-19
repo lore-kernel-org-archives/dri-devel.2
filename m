@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C4A606A322
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 21:38:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1462606A332
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 21:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=iTh3xy9y;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=OJY1qMQV
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=NlYH2yui;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=fvjkFbv3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA0F310E4EA;
-	Mon, 19 Oct 2026 21:37:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF9010E1EB;
+	Mon, 19 Oct 2026 21:38:07 +0000 (UTC)
 Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com
  [148.163.150.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D53E510E4EA
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 21:37:40 +0000 (UTC)
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
- by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69JLH8Nd4181198;
- Mon, 19 Oct 2026 16:37:36 -0500
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 418D610E1EB
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 21:37:56 +0000 (UTC)
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+ by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69JLbem61144180;
+ Mon, 19 Oct 2026 16:37:52 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=
- proofpoint-05-2026; bh=z7hVKMLri08CDjDo/Wk4z3TxFJJXtKHeSrrI5EAB8
- Lw=; b=iTh3xy9yJobO+v8wq4xSCn0jVL9ajNOWsC3GXugKLANChy/6vXV+F3YPv
- /fsivStHeM8/38fMuT0pwV5jvSCeuVEll/UiDz+BAhvy3YTFVFvEY1XW6mVd4VoI
- Hvx8uZF7UjIrtBEsaG4RQJJnQB3KsSxgXsfU6jcu/XPnufrcWki5VRGYzk6V0+Wf
- 4rixXqMYdsyAog6niXSFmYNhDTKbzZWh6j4tR7R1vHZsPqcfz5MvSHxdWCCaZ0Eu
- ezRYGY7NEccY/27YDK0ms+1mKbDUkOKWoafwNi/axZVXmGWBTZooVMuyz9/oVgDb
- xhAy1LLQECHSmt7+97xb0bfrFHY0g==
-Received: from co1pr03cu002.outbound.protection.outlook.com
- (mail-westus2azon11010049.outbound.protection.outlook.com [52.101.46.49])
- by m0384305.ppops.net (PPS) with ESMTPS id 4hdjdabmsx-1
+ proofpoint-05-2026; bh=so8cPndTz8bqkWm4lYrRnVQIPhz/t1WQAX+ex5Z70
+ E0=; b=NlYH2yui9u/So3nw9aS22EbYRLFBC+z8JE5InYLANWvNAAPM3kV6RD9O2
+ 6eLLf8YjusuOlJPIXOswgaIGb5auUnqwfNXhI0epsK0d3VIB0vSl8a2BJ3BNGM2D
+ wvruPryYgkJGWASwJ9GVOglUWB6AKIjTnq/vkpPl3Gvu3pdMajy5xOM45MQG95AJ
+ fXQfGj11975bMQoDehFEiwHlX9mew8ZJ06V0QaNdSPejBUE/5rKiKxltOQO2IhJX
+ zu7LHqgU08dtPLE7wBJecPP1H1Q7AR1x7pjmAx0ZCJOpZyVXVIZFx2P9Bn4cpE7g
+ vdgq3GCZkiIzNHWcmjACm4ubvgGHg==
+Received: from ph0pr06cu001.outbound.protection.outlook.com
+ (mail-westus3azon11011062.outbound.protection.outlook.com [40.107.208.62])
+ by m0380145.ppops.net (PPS) with ESMTPS id 4hdsy68cax-1
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Mon, 19 Oct 2026 16:37:35 -0500 (CDT)
+ Mon, 19 Oct 2026 16:37:52 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z1UcbEGq6DZZb4wOTHOZGi9HuteGpCznpC0+pZuZMwtuK5XiMbfqcU6rnJbPw8iD6igJzi88hD/wXDPeV6wsRRx2ZXrV4cNnBY2sgfRh3IZ3G+1L3gOWQlxUjIPCB7iJfPliFmPFM2dstoyCc4JWFdxIdQ3fdtsbzAtPW3ecE6GTB6MQZoudvWhohlhuVRMOVoxiHCQ4nGyrWfSxS9qmQZHDvct0othJvQFPfgOir4AHDQnOIwVCKTm6xsCGxnPjysOZ2e0GgsSh1JpN8xjpj1jVSofqz63G9+WU48ZIXSQSJcskpYXpS/1tsS070X5A1Nnbotpjy84FxNJ33OrI8w==
+ b=GrZIXgYDvn7morvgb/0w/4YIRKOpafPx50Kqx1qzTg6ad1tKhBgZCIyKJsshpdCf1W5TnQ3xmGoFiZxSeqJ9jWWjWA8uJ6mH63CD0424lu3vpm+3NWhNpmUBr4VFfkN9yuPYwdLly7ZjOIPpHiUIk2avlqRdSFXZhcuPXeOxsma5vPGMulIq/74c+taiQ5PYUmiSycv7Xk5yTVnuaAzss4sChvITt+WnPRCI+8K3b9wUx9/3MimxOAspX/1JZQ0zOI0NVo/FeEDxILH2CRNnHmDwMYDJPDIPRa7krJO337hQpwno5ws8BTIlV74t7+Lpv9h+YnM7ducO0mF3I930QQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z7hVKMLri08CDjDo/Wk4z3TxFJJXtKHeSrrI5EAB8Lw=;
- b=s4EaA/mf4JKaDAI0r1K9N2Szn3HPmS0B8hI0hJim7lIW8mzqZrd7sAyqJvfVU09/TBtMUGsylKG1bao2NhzyXSZ4yInn+TATWxsapcXdNPCJN6ozmszEufa1O1LLWHqJ+dwVXpiNBD9+cNReeSk7INYALVnkgF66KwTuVwvLlvPcsRJ9WDR/SIIB70oWCr1Qsgnp3ks6OTqiwPIkoUqbNeZuC3saDr6Gwezf+7E4lMBAgM393HsN7lJB5/pd+WqS3j1I6yvhLieosWSrE9GZgr15THbMxmI0cXBnlLf0dAR7nBK5wA/g9eBRbogwdKeHljkzFTRKZS+OzqVkRCZKBA==
+ bh=so8cPndTz8bqkWm4lYrRnVQIPhz/t1WQAX+ex5Z70E0=;
+ b=D/eYizzEKNakoLgNfGhyr5sNzRMVU8rd9fxxzpOn6R3EQ1qLXgfpKjiLsvk2oRcjYUjZkOBuKMiybjQ0bh2+Md4jr6ASxbQRvmneYObH5HfVRZbRD5NyFuT/Ai6lYEhDMVYkBkTRwNzjB2/1DhnHRV2uvE21M0Vd5jQ9MUxXbcv12xlQ4nKm7JEcI/q+tSfqXQXVDkXDTC4yUL7eVPT/mtkIgdehlRgutfKBwIM0HHn0fIpThNYbrbQzaMMl3exgGUvC7WAFww+hZLpS3rTt41UdbnwBWJpXSfwig+kHG7K3bBslUsPQEsCrzQ9XVkDUaH08eERQxKdOnCZMnlKbMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  198.47.23.194) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
  (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
@@ -46,18 +46,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z7hVKMLri08CDjDo/Wk4z3TxFJJXtKHeSrrI5EAB8Lw=;
- b=OJY1qMQVif607/ZDO6d51SlzSXdWO1Cl8XsMevW71IblgISWRtxAdFA9OsE73fOkTOts/Ic4KfGjT0j9JZr4ew6i7FdQlL/u01ikZCFnCTiZxAgk1lLHHtSwmGvuKLKtmi7CS1vKV70jzfZInniMfjo1FI7GgWckkFl/dnGGQUo=
-Received: from BN9PR03CA0057.namprd03.prod.outlook.com (2603:10b6:408:fb::32)
- by CO1PR10MB4609.namprd10.prod.outlook.com (2603:10b6:303:91::6) with
+ bh=so8cPndTz8bqkWm4lYrRnVQIPhz/t1WQAX+ex5Z70E0=;
+ b=fvjkFbv3+VpYt0RmMrJrtEW06uEm9grwiH1DvZhARfeH1hA3L0jp9fnjXRt/FdQli7KPDBI9zEr+cT1EtYBjiAxMTAosySpCSBeR2FhAjwo70gz5f4eG7XcTQ/pK5mzcmjZkUu6l6rHw4pdVTHbfjiA8q/mfffddWgdZ9flegKA=
+Received: from BN9P222CA0001.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::6)
+ by PH8PR10MB6314.namprd10.prod.outlook.com (2603:10b6:510:1cd::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Mon, 19 Oct
- 2026 21:37:32 +0000
-Received: from BN2PEPF0000A803.namprd02.prod.outlook.com
- (2603:10b6:408:fb:cafe::1c) by BN9PR03CA0057.outlook.office365.com
- (2603:10b6:408:fb::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 19 Oct 2026 21:37:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 19 Oct
+ 2026 21:37:46 +0000
+Received: from BN2PEPF0000A7FE.namprd02.prod.outlook.com
+ (2603:10b6:408:10c:cafe::4f) by BN9P222CA0001.outlook.office365.com
+ (2603:10b6:408:10c::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 19
+ Oct 2026 21:37:44 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 198.47.23.194) smtp.mailfrom=ti.com;
  dkim=none (message not signed)
@@ -66,24 +66,24 @@ Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
  198.47.23.194 as permitted sender) receiver=protection.outlook.com;
  client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
 Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN2PEPF0000A803.mail.protection.outlook.com (10.167.245.164) with Microsoft
+ BN2PEPF0000A7FE.mail.protection.outlook.com (10.167.245.165) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 21:37:32 +0000
-Received: from DLEE215.ent.ti.com (157.170.170.118) by lewvzet200.ext.ti.com
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 21:37:44 +0000
+Received: from DLEE211.ent.ti.com (157.170.170.113) by lewvzet200.ext.ti.com
  (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:31 -0500
-Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:37:41 -0500
+Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE211.ent.ti.com
+ (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:31 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:37:41 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 19 Oct 2026 16:37:31 -0500
+ Transport; Mon, 19 Oct 2026 16:37:41 -0500
 Received: from localhost (ti.dhcp.ti.com [10.24.51.125] (may be forged))
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbUTR3576902;
- Mon, 19 Oct 2026 16:37:30 -0500
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbdp83577003;
+ Mon, 19 Oct 2026 16:37:40 -0500
 From: Devarsh Thakkar <devarsht@ti.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
@@ -94,72 +94,70 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
 CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
  <devarsht@ti.com>, LiangCheng Wang <zaq14760@gmail.com>
-Subject: [PATCH v3 02/14] dt-bindings: display: Add Solomon SSD16xx e-paper
- controller
-Date: Tue, 20 Oct 2026 03:07:14 +0530
-Message-ID: <20261019213726.4145532-3-devarsht@ti.com>
+Subject: [PATCH v3 07/14] drm/solomon: ssd16xx: Add power management support
+Date: Tue, 20 Oct 2026 03:07:19 +0530
+Message-ID: <20261019213726.4145532-8-devarsht@ti.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20261019213726.4145532-1-devarsht@ti.com>
 References: <20261019213726.4145532-1-devarsht@ti.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A803:EE_|CO1PR10MB4609:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7745c0b2-a7df-46ce-573f-08df2e292ebf
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FE:EE_|PH8PR10MB6314:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7639083c-d29d-4335-c3dd-08df2e2935db
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|7416014|23010399003|376014|82310400026|1800799024|6133799003|10067099003|22082099003|18002099003|13003099007|3023799007|921020|261009223027099003|261009221227099003|56012099006;
-X-Microsoft-Antispam-Message-Info: SqAa2z2lI9SDP7cCEuBHzPK20bGRHbzm4GjbZ7q2zj3v0O/LORPngvZX86jZ2ATpJk0pR62C2Lzm9xQYJjyBeZtUvs9QmCvj8PeDNY7IogkvHZaxz7g0gCPL3uFoG0B139mE+SoNeYaQAtCYc0hJV4lF64lQY8xPqzIDLv9TBZe9/d3i7YfrsjwpraaqR/6T5tHbrq7Y/MG8y22oBRc9djh1RX2YJkkNSJXn0LJIC2ZCerJeSjN4cWNyffMpgR6M15DiqiNEvPTmkWtI0fx7C3xO0g9OuuFseIexsgNvmXg+4eUbQuWW4cZw7K6ZucGgEqdlAlhIlvLli15wAU7b4CW3CJHNbaIhfeWzPLRZe6Oo2iXAizM9s1wTTaPphgQdJFQ+kissa0lIcf6nPfnpQ1M1cdSmIAag0IItCmU0wASPzoe2pHftYZykCl6wOzuYjKcV6IF+DNh7PeVCPujKgPWbVF3cg7c3pQHABb66yV9cmt5ERMwDUzkyj1+cE3+3fKWirFUHwSO0tO0x817eniyQ1tfUkfVAZQuIlhqLkUObrFB8gF87lfFvzV8x+AQmh5cagThK2dOQ3KsrX6AeJDUDawA4173aZnpS0PvIlOIKZYQw19ht+0rTJd5VjHZ0MTXhA5Wc1pmbQBEaT1YVugp2yUbZd8morE2KBUvAp72sAZHTKeBQ+Ftwc4benW17
+ ARA:13230040|376014|36860700016|7416014|23010399003|1800799024|82310400026|261009223327099003|261009221227099003|261009221727099003|261009220027099003|261009223027099003|10067099003|56012099006|3023799007|22082099003|18002099003|5023799004|921020;
+X-Microsoft-Antispam-Message-Info: euJzQXBN3g0Xn92C6hj9GfYO2hF/5znfK9wmc/Ht9tu/WTI162sC6zkZ6+UIJBD4oHJ/hTnEofqiRQa6rWvgZCf1na2ahPqoyT6GqD56OAlqn6afPWn6CunujywGpcj8FoCe0e5E4TdlC5V1ObaUTPBZd4IkpxurIbkGZOLLyKcAKVZn78C9vR543Zl0m+MMX74bWqP+bvSstTgZ9903hsZTG6mbgQS18quaGBIcdmAj9US8RraaAG55V11sSs73ouJK2Pb8OH4e5Wxm1TGNkuZslB8pBpVKl1G/mMPDAgfEo5Brkn6EZJlscNv+/ojvyN8+0jNF9pOGyqY4I8a1Mf4O7YctOx7BsEOQniUTxF7ZJJtgBrsyGb5HyydHmrjOSRWssKjWbgNeEqk6wksqO8v+qLoNsXzzPdb8femXbm2e8mjhgf5lsYG8aw1l6l5QrqcuBgarWFK5X+G86kP7QKZiA3FGa+rKw7Lijvc+jLRCNe/LWACgOsCo8TY4urpPn+FnNlxph8L1JiZQ6GzSw1W3jU+m27Nv2btDw9IznK6W7pE3MUEBveQlgF0fiO00b21St0FgSf1oDzi3lbWG+cTSvOgL3MJCu1xWDGTmIA7fUwCphzBM/dEKp9WHeKgLn6tL0hOSX6OEvnoIWDmqUnmlYa2XPZMU13YmWy84uet0+3IH0bgE4e1g33ilexYBqn1RGjWz8ZfScFHYP7akKK74YAB1ftkgWZ9zWwXRzIWGxz7zoZ/hf1dAQfp+N2SI
 X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
  CAT:NONE;
- SFS:(13230040)(36860700016)(7416014)(23010399003)(376014)(82310400026)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(13003099007)(3023799007)(921020)(261009223027099003)(261009221227099003)(56012099006);
+ SFS:(13230040)(376014)(36860700016)(7416014)(23010399003)(1800799024)(82310400026)(261009223327099003)(261009221227099003)(261009221727099003)(261009220027099003)(261009223027099003)(10067099003)(56012099006)(3023799007)(22082099003)(18002099003)(5023799004)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: JQ8oWVFTw7FBu8HIuMUr8jPTqdMzShQt/Cc9R9uyOHHFPBj59aOb55H1njK4EQjGs6cwpneOxeUZyVGX69KIdWBKTixX+7a81nn+iuSLsvLmA3fail9lxOISOArIbPhjTmqiWn02Fx+/08VXBWODtvIdinL9DdPnXlSrgMeMMTFWLHQnc18mK+0XmmR+RXpuEg6gJgIm1NqRNnW6C0088ke22zxNI2dsl8jzj0BL4M2ebFjwnHxGpV3SVrkDGqjCRwZZA6r/2q3RQy388VcWpOoEEWTDFyxQv5suSrkIlg44H1yjN1Yeb2FpMVKvLYEI5DKYiISmVhUWcnUxUAXv1uFp8m2cTdtuPi3UEYLucAvfbbxpzmY+9NTvCG9CDM8YqjKuoMGmf1jfsai6/F5SHOZJZY+Ifz4jUVGS/5EPZlJPBc5VpfMm4St3Gx+VPOhw
-X-Exchange-RoutingPolicyChecked: EjgSv70PSfXKdDumhA696LIgVwnWiH4098fpbLXwmVykf+ZU1RHT6ZtLqIlLjCF7ONKqsL6HxX95h6gwWL9Cwzku2ycMpzyyRncrgQgjRjbFcB+J3vM+W0TwrAgDHNY+Zy6t51QVEr9xsDCfwyPS32iZFhyvNTvTaU2HX/N23b3kkXVdgAaeJq4ra1iq/4ZhfKYXrKJ9OMN6GMDZa5bx+5wim+aCLQgd8HDpCwMNMawT7F3t1x5njg4n1Wy0PuxX7H+GXkwyLyk8hb2MN16x/PV75xvKxVehXbSBVVlY1XvODVoTLECDuJMeysbhtWNi/hvqrmyTmGZJiI6hHiOiDw==
+X-MS-Exchange-AntiSpam-MessageData-0: 6dBvxnnVnJnWfq6wIn8u23NYYK7iJQfWrzvyW9OV9fcuoNxJ5A5CjAJRBlG9gSE2Ryko7gOq/nSxu71vods19ZKFu4321JcE5JMvswLQOipZ37PPcuXK1BNZNOS/qCq6sFdE2PwHqnzy2l03CtuAfUMoDAe9jaABmtOBCYbUifA18Y1Mrmb4zEHDccW+UGlnV8UtoFmPTZj63R2M+CvSJ29tB9ftW/ki2EV99Q6yfy0N/FgKw8BN4BRJ52Rr9bs8VhTuaWrvfdSzReuJoRGC4tbNI5xxnxU/USWkyPqds6PD64l7jhfTPI302lOlqwOt5yYGVWjc8vwVSNcxBWAFmIcp9ZbohMnj9A2nuYDBikzY7a6nQssd/GGHZzzCPcdgClzSUFoYHi52pn2RUmhPuqd4+C8TjboDtmh22oHHJGfqRoPptdPjFM5hafcVJCeV
+X-Exchange-RoutingPolicyChecked: 2hAjobfoCpDa0/GPFsMZMiVulpzrys+pzjfPwco0O9gdayyx2Qlz+NzTsYT2too3R8gII1gvARmG1C9s2R+FVj1ah14v1uk+xiaIPJC9DdUX1oJVjJEMJ0ezjFts5YppPwS/Nu6kEsKu/Ca+rqsf9loj/Mzx2Oud9qwPbAS0+H2h7YoSVaRzSraJV/Vowxc35ZKSMl/0whd3C9fKiUoYf1vGdiX2JKm8s3SxFh/tbY8d3iorRyNQOqfHA68u324/q+7EbmkhtT7p65rrPaqu84Nlcjxxo/GafalpKM8xS/pXWsuxfnvl92P87kdacIFTRxFpx9BxQPCJZ2OhvDikhA==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:37:32.1000 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7745c0b2-a7df-46ce-573f-08df2e292ebf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:37:44.0792 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7639083c-d29d-4335-c3dd-08df2e2935db
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
  Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A803.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A7FE.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4609
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NSBTYWx0ZWRfX1gxg7Pw4Z6fQ
- LANlHfZzeHA1tR/NAz4Pqmt1zjHRQDh6iD5PyzYfMrc3JIcMpUcG8E9xjNhlyc8hqATj7lT9Xfs
- eUOPs5L6wNjeBsy8ggR+Pzi6Bba8HYJRaMHoflCDfxf493/2hCMBRaQeAJ3egbrofY2c0FTIu+4
- uYb/W/yAS605vTDvRiLLHbbCgS5DQu39qIMc9bRR4zs93SOvCeo/IHXUAHPsiSrl0TT5MdkdjyE
- lOUyYf3otd3bmouMAfOM+d2dhxBu3ZnzXp5NBGRvfI3aaP2ma7L3LOyCWmtJ5Kt5LQA8gWH845l
- aVpTVsSX8rVdKNNL1m9QuEXzb6tx6RTPXsHHecYSJZ6JUICKZow2+korTl6HQygROkHam94sONK
- 0rnyRCBVTbAkcq3bPhAEQHl7UHvSikEL+fwLviB/5bsBrLVEF3Kb4gZ2xxRpAcP7NQv8O4O/cxl
- VeCTbgrvcIqTZvXnokg==
-X-Proofpoint-GUID: Sdgh6cygszfGml_d7ZJsfZ8IGo9y_2oC
-X-Authority-Analysis: v=2.4 cv=HPNWhYtv c=1 sm=1 tr=0 ts=6ad68d9f cx=c_pps
- a=+5nsKerQHvRPAoQt0ERV+A==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=YmX860EEAAAA:8 a=LBxWy3usAAAA:8 a=gEfo2CItAAAA:8
- a=sozttTNsAAAA:8 a=04s_Tx_WtkqpIzaroloA:9 a=BeCehlkWaqzeQ17686bl:22
- a=4jSGKt0uXjqk0CpsFuVH:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NSBTYWx0ZWRfXy0a098XO0+Qe
- 0k+Wk7gVfyFc5POLTG/s5/oRZXr1gGC2Y+DO4y+zivFFSRjtaSmCR1GkQ+H2vOfwqtDRvPZqVJ7
- E9u4EUEkHQfo5+6stqc+ZtXLFLgigp8=
-X-Proofpoint-ORIG-GUID: Sdgh6cygszfGml_d7ZJsfZ8IGo9y_2oC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR10MB6314
+X-Proofpoint-ORIG-GUID: MQg30NUxyUgUPSAikQXYlstOlCQrYw8B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX+81v5sNcU+BG
+ kOKmorqhX+UqIWCFrILkcxaD6xOFyzzUax6jSQvmuR2/6eKzR6w4SOo5v9zB780joMzPr99zHaN
+ spbR9No5iEiH+ZdifvPYJozmYz0dGb/q6I6VirbvhLGqjz74AhDepJ/ZHM9ec0LbWvDWkeH521v
+ PTudQKRkklbY1t2v7SHbi6S8rYtjqYR6FxRU+zS9/FgNnAdldBG4xcBJ2S3cIeelx2WbSQkcC5u
+ WVdxfs4kkU0an2zmgCyCf8ObLr83WImYH2Tg7xfF+fL/liye+fpLbnplEuv2Wh/oxS4TITje+i4
+ FOwd9QQtf2+Aj6kLAKUKX+3QsEtvpN+0u59842VFfeqQ/nRm6xQfykJzrcmFjj9JRXxZ14f8a/c
+ HfMO6q1ommtdB7mPMMMUM4dljTzjZZYKQdFpmWAHH/7Lq9j9IC6bcTbLHydyAm4SMf6V1T4Zydq
+ nf+JnAiE8QwutVATNNQ==
+X-Proofpoint-GUID: MQg30NUxyUgUPSAikQXYlstOlCQrYw8B
+X-Authority-Analysis: v=2.4 cv=KPTPn1Fo c=1 sm=1 tr=0 ts=6ad68db0 cx=c_pps
+ a=ZweBVesMg4eTnUcQsPPJdg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8
+ a=r3l85C4EJKy2ZlKO6JoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX4K8JnALfUalP
+ ntu/By95NA8nAZA3ANJtu5YDiH4+7DNtfQ1H6RrTXyu6L5KnufJkCr5P0s/7u0R/d16bXX4SuGL
+ Ce0/Woa8EnIUO/pS56NJmB7eC+E/TI0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_05,2026-10-19_02,2025-10-01_01
+ definitions=2026-10-19_06,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 clxscore=1011 malwarescore=0 bulkscore=0 impostorscore=0
+ clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501
+ spamscore=0 impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190085
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190086
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,144 +177,387 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add device tree binding for the Solomon Systech SSD16xx family of e-Paper
-display controllers (SSD1683 [1], SSD1673 [3], SSD1680 [4], SSD1681 [5]).
+Add runtime and system suspend/resume power management to the SSD16xx
+e-paper display driver.
 
-The binding covers the 4-wire SPI interface with required GPIO pins for
-reset (active-low), busy status (active-high), and data/command selection.
-The spi-max-frequency is capped at 20 MHz per the SSD1683 datasheet [1]
-which is also the maximum supported frequency amongst the family.
+Runtime PM uses a two-level deep-sleep strategy:
+  - Level 1 (runtime_suspend after 35s idle): light sleep with RAM
+    retained (SSD1683 mode 0x01), allowing fast resume via SPI wakeup
+  - Level 2 (system_suspend): maximum power savings (mode 0x03),
+    requires full GPIO hardware reset to resume
 
-An optional rotation property (as defined by panel-common, in degrees
-counter clockwise) allows static display orientation to be configured from
-device tree.
+An autosuspend delay of 35 seconds keeps the panel active across typical
+userspace update bursts, avoiding unnecessary deep-sleep/wake cycles.
 
-The data/command selection GPIO pin is also kept as optional since various
-SSD16XX controllers such as SSD1683 [1] support 3-wire mode too with
-data/command selection bit transmitted as first bit before sending the data
-sequence.
+On resume from level-2 (system suspend), the driver must fully reset
+the panel via HWRESET (the only exit from deep sleep since SPI is
+inactive in mode 0x03), re-run hw_init, and redraw the last frame.
 
-The first supported compatible is for Gooddisplay GDEY042T81 [2] which is
-4.2", 400x300 resolution black/white e-paper display using SSD1683
-controller.
-
-Links:
-[1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
-[2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81.pdf
-[3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
-[4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
-[5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
+For SSD1677 where level1 == level2 (both 0x03), the system suspend
+path skips the redundant "upgrade" since the panel is already in the
+deepest sleep state from runtime suspend.
 
 Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
 ---
 Changes in v3:
-- Rename the file to solomon,ssd1683.yaml so that it matches an actual
-  compatible string
-- Drop the redundant "binding" from the subject
-- Describe the compatible as oneOf/items from the start so that the next
-  patch only adds a branch instead of rewriting these lines
-- Reference panel/panel-common.yaml in allOf
-- Add spi-3wire and document that omitting dc-gpios selects 3-wire mode
-- Use the common 'rotation' property from panel-common instead of a local
-  definition that said "clockwise"
-- Remove rotation as it is already inherited by panel-common
-- Set spi-3wire as true since supported by panel
+- Check for damage before taking the runtime PM reference, so the panel is
+  not woken up when there is nothing to draw
+- Put the panel to sleep in remove() with pm_runtime_force_suspend(),
+  independent of clear_on_disable. Previously it could stay powered after
+  unbind
+- Return the error from pm_runtime_force_suspend() in system suspend
+- Do not clear ->initialized again in system resume; force_resume() already
+  re-initializes the hardware
+- Do not fail runtime suspend if the deep sleep command fails, as that
+  would block all later resumes; the next resume resets the panel anyway
 ---
- .../bindings/display/solomon,ssd1683.yaml     | 85 +++++++++++++++++++
- 1 file changed, 85 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd1683.yaml
+ drivers/gpu/drm/solomon/ssd16xx.c | 209 +++++++++++++++++++++++++++++-
+ 1 file changed, 206 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1683.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1683.yaml
-new file mode 100644
-index 000000000000..2e2aa195fb1e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/solomon,ssd1683.yaml
-@@ -0,0 +1,85 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/solomon,ssd1683.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/ssd16xx.c
+index ff0e459082de..99f11b7ec03e 100644
+--- a/drivers/gpu/drm/solomon/ssd16xx.c
++++ b/drivers/gpu/drm/solomon/ssd16xx.c
+@@ -12,6 +12,7 @@
+ #include <linux/delay.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/pm_runtime.h>
+ #include <linux/property.h>
+ #include <linux/spi/spi.h>
+ 
+@@ -40,6 +41,7 @@
+ /* SPI command codes (common) */
+ #define SSD16XX_CMD_DRIVER_OUTPUT_CONTROL		0x01
+ #define SSD16XX_CMD_BOOSTER_SOFT_START			0x0C
++#define SSD16XX_CMD_DEEP_SLEEP_MODE			0x10
+ #define SSD16XX_CMD_DATA_ENTRY_MODE			0x11
+ #define SSD16XX_CMD_SW_RESET				0x12
+ #define SSD16XX_CMD_MASTER_ACTIVATION			0x20
+@@ -52,6 +54,9 @@
+ #define SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER		0x4E
+ #define SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER		0x4F
+ 
++/* Autosuspend delay in ms */
++#define SSD16XX_PM_AUTOSUSPEND_DELAY_MS			35000
 +
-+title: Solomon Systech SSD16xx-based e-paper display panels
+ /*
+  * Data Entry Mode (command 0x11) AM/IDY/IDX bit encoding (common).
+  *
+@@ -368,8 +373,10 @@ struct ssd16xx_device {
+ 	bool first_clear_done;  /* clear_on_init has already fired once */
+ 	bool cleared_on_disable; /* Avoid redundant clear in atomic_disable */
+ 	bool cleared_on_close;   /* Avoid redundant clear in master_drop */
++	bool pm_force_suspended;  /* pm_runtime_force_suspend was called in pm_suspend */
+ 
+-	int orientation; /* Display orientation in degrees: 0/90/180/270 */
++	int orientation;      /* Display orientation in degrees: 0/90/180/270 */
++	u8 deep_sleep_mode;   /* Deep sleep mode to use on next disable */
+ 	enum ssd16xx_refresh_mode refresh_mode; /* Active refresh mode */
+ 	enum ssd16xx_color_mode color_mode;     /* Active color mode (BW or 3-color) */
+ 	bool fast_lut_pending; /* LUT pre-load needed before next fast refresh */
+@@ -1466,12 +1473,26 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
+ 
+ 	drm_dbg(&device->drm, "plane_atomic_update: fb=%p\n", fb);
+ 
+-	if (!fb || !device->initialized)
++	if (!fb)
+ 		goto out_exit;
+ 
++	/* Nothing to draw: don't wake the panel up. */
+ 	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect))
+ 		goto out_exit;
+ 
++	/* Resume lets the runtime_resume callback re-run hw_init if needed. */
++	ret = pm_runtime_resume_and_get(device->drm.dev);
++	if (ret < 0) {
++		drm_err(&device->drm, "plane_atomic_update: failed to resume: %d\n", ret);
++		goto out_exit;
++	}
 +
-+maintainers:
-+  - Devarsh Thakkar <devarsht@ti.com>
++	if (!device->initialized) {
++		drm_err(&device->drm, "plane_atomic_update: hw not initialized after resume\n");
++		pm_runtime_put_autosuspend(device->drm.dev);
++		goto out_exit;
++	}
 +
-+description:
-+  The SSD16xx family includes e-paper display controllers (SSD1673,
-+  SSD1680, SSD1681, SSD1683, SSD1677) with integrated gate driver,
-+  source driver and timing controller. Different panels use these
-+  controllers in monochrome or 3-color (black/white/red) configurations.
-+  The controller uses a 4-wire SPI interface and requires GPIO pins for
-+  reset, busy status, and data/command control. A 3-wire mode is also
-+  available where the D/C bit is transmitted along the SPI data line
-+  before each byte.
+ 	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=(%d,%d)-(%d,%d)\n",
+ 		rect.x1, rect.y1, rect.x2, rect.y2);
+ 	/*
+@@ -1529,6 +1550,9 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
+ 		device->border_waveform_pending = true;
+ 	}
+ 
++	pm_runtime_mark_last_busy(device->drm.dev);
++	pm_runtime_put_autosuspend(device->drm.dev);
 +
-+allOf:
-+  - $ref: panel/panel-common.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+ out_exit:
+ 	drm_dev_exit(idx);
+ }
+@@ -1590,6 +1614,10 @@ static void ssd16xx_crtc_atomic_disable(struct drm_crtc *crtc,
+ 	if (device->clear_on_disable < 0 || device->cleared_on_disable)
+ 		goto out;
+ 
++	ret = pm_runtime_resume_and_get(device->drm.dev);
++	if (ret < 0)
++		goto out;
 +
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              # Good Display 4.2" 400x300 monochrome e-paper panel
-+              - gooddisplay,gdey042t81
-+          - const: solomon,ssd1683
+ 	drm_dbg(&device->drm, "clear_on_disable: running, mode=%d\n",
+ 		device->clear_on_disable);
+ 	ret = ssd16xx_clear_display(device,
+@@ -1597,10 +1625,12 @@ static void ssd16xx_crtc_atomic_disable(struct drm_crtc *crtc,
+ 								  device->clear_on_disable));
+ 	if (ret) {
+ 		drm_err(&device->drm, "atomic_disable: clear failed: %d\n", ret);
++		pm_runtime_put_autosuspend(device->drm.dev);
+ 		goto out;
+ 	}
+ 
+ 	device->cleared_on_disable = true;
++	pm_runtime_put_sync_suspend(device->drm.dev);
+ out:
+ 	drm_dev_exit(idx);
+ }
+@@ -1614,6 +1644,13 @@ static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	if (!drm_dev_enter(&device->drm, &idx))
+ 		return;
+ 
++	ret = pm_runtime_resume_and_get(device->drm.dev);
++	if (ret < 0) {
++		drm_err(&device->drm, "crtc_atomic_enable: failed to resume: %d\n", ret);
++		drm_dev_exit(idx);
++		return;
++	}
 +
-+  reg:
-+    maxItems: 1
+ 	drm_dbg(&device->drm, "atomic_enable: %dx%d orientation=%u°\n",
+ 		device->width, device->height, device->orientation);
+ 
+@@ -1621,6 +1658,7 @@ static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
+ 		ret = ssd16xx_hw_init(device);
+ 		if (ret) {
+ 			drm_err(&device->drm, "atomic_enable: hw_init failed: %d\n", ret);
++			pm_runtime_put_autosuspend(device->drm.dev);
+ 			drm_dev_exit(idx);
+ 			return;
+ 		}
+@@ -1645,6 +1683,8 @@ static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
+ 		device->init_refresh_pending = true;
+ 	}
+ 
++	pm_runtime_mark_last_busy(device->drm.dev);
++	pm_runtime_put_autosuspend(device->drm.dev);
+ 	drm_dev_exit(idx);
+ }
+ 
+@@ -1744,11 +1784,19 @@ static void ssd16xx_drm_master_drop(struct drm_device *drm,
+ 	if (!drm_dev_enter(drm, &idx))
+ 		return;
+ 
++	ret = pm_runtime_resume_and_get(drm->dev);
++	if (ret < 0) {
++		drm_dev_exit(idx);
++		return;
++	}
 +
-+  spi-max-frequency:
-+    maximum: 20000000
+ 	ret = ssd16xx_clear_display_on_exit(device);
+ 	if (ret)
+ 		drm_err(drm, "master_drop: clear on close failed: %d\n", ret);
+ 
+ 	device->cleared_on_close = true;
++	/* sync suspend — bypass autosuspend, sleep immediately after clear */
++	pm_runtime_put_sync_suspend(drm->dev);
+ 	drm_dev_exit(idx);
+ }
+ 
+@@ -2011,9 +2059,26 @@ static int ssd16xx_probe(struct spi_device *spi)
+ 
+ 	drm_mode_config_reset(drm);
+ 
++	/*
++	 * Mark the device active before enabling runtime PM.  The SPI device
++	 * persists across module reload cycles; pm_runtime_enable() alone
++	 * does not clear a stale dev->power.runtime_error from a previous
++	 * module load, which would cause pm_runtime_resume_and_get() to
++	 * return -EINVAL on every subsequent call.
++	 */
++	/* Use level1 (RAM retained) for runtime PM idle. */
++	device->deep_sleep_mode = device->controller_cfg->deep_sleep_mode_level1;
 +
-+  spi-3wire: true
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++	pm_runtime_set_autosuspend_delay(dev, SSD16XX_PM_AUTOSUSPEND_DELAY_MS);
++	pm_runtime_use_autosuspend(dev);
 +
-+  reset-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the RSTB (reset) pin. Active low.
+ 	ret = drm_dev_register(drm, 0);
+-	if (ret)
++	if (ret) {
++		pm_runtime_disable(dev);
+ 		return ret;
++	}
+ 
+ 	drm_dbg(drm, "SSD16xx e-paper display initialized (%dx%d, %d° rotation)\n",
+ 		device->width, device->height, device->orientation);
+@@ -2029,6 +2094,12 @@ static void ssd16xx_remove(struct spi_device *spi)
+ 
+ 	drm_dev_unplug(&device->drm);
+ 	drm_atomic_helper_shutdown(&device->drm);
++	pm_runtime_dont_use_autosuspend(&spi->dev);
++	/*
++	 * Put the panel to sleep regardless of clear_on_disable, which can make
++	 * atomic_disable skip touching the hardware.
++	 */
++	pm_runtime_force_suspend(&spi->dev);
+ }
+ 
+ static void ssd16xx_shutdown(struct spi_device *spi)
+@@ -2036,8 +2107,139 @@ static void ssd16xx_shutdown(struct spi_device *spi)
+ 	struct ssd16xx_device *device = spi_get_drvdata(spi);
+ 
+ 	drm_atomic_helper_shutdown(&device->drm);
++	pm_runtime_dont_use_autosuspend(&spi->dev);
++	pm_runtime_force_suspend(&spi->dev);
+ }
+ 
++static int ssd16xx_pm_suspend(struct device *dev)
++{
++	struct ssd16xx_device *device = dev_get_drvdata(dev);
++	struct drm_device *drm = &device->drm;
++	int ret;
 +
-+  busy-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the BUSY pin. Active high when the controller
-+      is busy updating the display.
++	/* Use level2 deep sleep for system suspend; SSD1683 loses RAM but saves more power. */
++	device->deep_sleep_mode = device->controller_cfg->deep_sleep_mode_level2;
++	dev_dbg(dev, "system suspend: entering deep sleep mode 0x%02x\n",
++		device->deep_sleep_mode);
 +
-+  dc-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the D/C (Data/Command) pin. Low for command,
-+      high for data. If omitted, the controller is driven in 3-wire
-+      (9-bit) SPI mode, where the D/C bit is sent along the data line.
++	ret = drm_mode_config_helper_suspend(drm);
++	if (ret)
++		return ret;
 +
-+required:
-+  - compatible
-+  - reg
-+  - reset-gpios
-+  - busy-gpios
++	/*
++	 * If the autosuspend timer already fired the device is RPM_SUSPENDED
++	 * at level1.  pm_runtime_force_suspend() would skip its callback, so
++	 * level2 would never reach the hardware.
++	 *
++	 * SPI is unresponsive in deep sleep; HWRESET is the only exit.
++	 * After the reset, level2 can be sent directly without a full hw_init.
++	 *
++	 * Skip this for controllers where level1 == level2 (e.g. SSD1677 which
++	 * has only one deep sleep mode): the device is already in the deepest
++	 * available state and no upgrade is needed.
++	 */
++	if (pm_runtime_status_suspended(dev)) {
++		int err = 0;
 +
-+unevaluatedProperties: false
++		if (device->controller_cfg->deep_sleep_mode_level1 !=
++		    device->controller_cfg->deep_sleep_mode_level2) {
++			dev_dbg(dev, "system suspend: upgrading level1->level2 via HWRESET\n");
++			ssd16xx_hw_reset(device);
++			ssd16xx_wait_for_device(device, &err);
++			ssd16xx_send_cmd(device, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
++			ssd16xx_send_data(device,
++					  device->controller_cfg->deep_sleep_mode_level2,
++					  &err);
++		} else {
++			dev_dbg(dev, "system suspend: already at deepest sleep mode\n");
++		}
++		device->initialized = false;
++		device->pm_force_suspended = false;  /* Skip force_resume on resume */
++		return err;
++	}
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
++	/* Force runtime-suspended state for clean resume. */
++	ret = pm_runtime_force_suspend(dev);
++	if (ret) {
++		drm_mode_config_helper_resume(drm);
++		return ret;
++	}
++	device->pm_force_suspended = true;  /* Resume must call force_resume */
 +
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++	return 0;
++}
 +
-+        display@0 {
-+            compatible = "gooddisplay,gdey042t81", "solomon,ssd1683";
-+            reg = <0>;
-+            spi-max-frequency = <2000000>;
-+            reset-gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
-+            busy-gpios = <&gpio1 18 GPIO_ACTIVE_HIGH>;
-+            dc-gpios = <&gpio1 19 GPIO_ACTIVE_HIGH>;
-+        };
-+    };
++static int ssd16xx_pm_resume(struct device *dev)
++{
++	struct ssd16xx_device *device = dev_get_drvdata(dev);
++	struct drm_device *drm = &device->drm;
++
++	dev_dbg(dev, "system resume: restoring state\n");
++
++	/* Only force_resume if we force_suspended; the level1→level2 upgrade path did not. */
++	if (device->pm_force_suspended) {
++		pm_runtime_force_resume(dev);
++		device->pm_force_suspended = false;
++	}
++
++	/* Restore level1 for subsequent runtime PM cycles. */
++	device->deep_sleep_mode = device->controller_cfg->deep_sleep_mode_level1;
++
++	return drm_mode_config_helper_resume(drm);
++}
++
++static int ssd16xx_pm_runtime_suspend(struct device *dev)
++{
++	struct ssd16xx_device *device = dev_get_drvdata(dev);
++	int err = 0;
++
++	dev_dbg(dev, "runtime suspend: entering deep sleep mode 0x%02x\n",
++		device->deep_sleep_mode);
++
++	ssd16xx_send_cmd(device, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
++	ssd16xx_send_data(device, device->deep_sleep_mode, &err);
++	device->initialized = false;
++
++	/*
++	 * Don't propagate SPI errors: a failure here would latch runtime_error
++	 * and block all future resumes; the next resume resets the panel anyway.
++	 */
++	if (err)
++		dev_warn(dev, "failed to enter deep sleep: %d\n", err);
++
++	return 0;
++}
++
++static int ssd16xx_pm_runtime_resume(struct device *dev)
++{
++	struct ssd16xx_device *device = dev_get_drvdata(dev);
++	int ret;
++
++	dev_dbg(dev, "runtime resume: initialized=%d%s\n",
++		device->initialized,
++		!device->initialized ? " (running hw_init)" : "");
++
++	/*
++	 * pm_runtime_suspend clears initialized after sending the deep sleep
++	 * command.  If a new app opens before the suspend fires (the put was
++	 * cancelled), initialized is still true and hw_init is unnecessary.
++	 */
++	if (!device->initialized) {
++		ret = ssd16xx_hw_init(device);
++		if (ret)
++			return ret;
++
++		device->initialized = true;
++	}
++
++	return 0;
++}
++
++static const struct dev_pm_ops ssd16xx_pm_ops = {
++	SYSTEM_SLEEP_PM_OPS(ssd16xx_pm_suspend, ssd16xx_pm_resume)
++	RUNTIME_PM_OPS(ssd16xx_pm_runtime_suspend, ssd16xx_pm_runtime_resume, NULL)
++};
++
+ static const struct of_device_id ssd16xx_of_match[] = {
+ 	{ .compatible = "gooddisplay,gdey042t81", .data = (void *)GDEY042T81 },
+ 	{ }
+@@ -2054,6 +2256,7 @@ static struct spi_driver ssd16xx_spi_driver = {
+ 	.driver = {
+ 		.name = "ssd16xx",
+ 		.of_match_table = ssd16xx_of_match,
++		.pm = pm_ptr(&ssd16xx_pm_ops),
+ 	},
+ 	.probe = ssd16xx_probe,
+ 	.remove = ssd16xx_remove,
 -- 
 2.39.1
 
