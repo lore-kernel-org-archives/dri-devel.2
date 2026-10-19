@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3B54CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:02:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42A23CCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1295210ED91;
-	Mon, 19 Oct 2026 14:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3CCC10ED90;
+	Mon, 19 Oct 2026 14:02:06 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A373610E6C5
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:01:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9678710ED90;
+ Mon, 19 Oct 2026 14:01:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1664560213;
- Mon, 19 Oct 2026 14:01:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785EB1F000C6;
- Mon, 19 Oct 2026 14:01:51 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0AF1160238;
+ Mon, 19 Oct 2026 14:01:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9ECD1F000CF;
+ Mon, 19 Oct 2026 14:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418512;
- bh=8RndOT4KZvRzJ72Zs4ghL3mZz03S5UyfL5M7Fa9CMsI=;
+ s=k20260515; t=1792418518;
+ bh=g5hh8XGBr6cDzQJ9gkaCkkRFfKMadX4LxrcXJDs2Dh8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=K6ibStXYBdEzKqH2BBGv0rQ//0OnSlv7ieQlXb/KIDmm1PrN1tS7u1ZQOE+wyZ+zh
- /8S3fGTB2RXCp3RHguIsSBR5cUJantnewmtS7fwRRX3nVi87LkjpqInRU+8hT6wwJK
- Ou4dQ398VBaCZ1IBgJ66SaX1bkp/J+f8FqRE0oFcftjcUcov9IbY4siX6OLHLf3Sod
- eEskyNcxZGG2/eqpQseho/6zGumlzR4EJiiiUH1d6L7lkrf6FvUZA7q+2GBysZ2Rna
- uw9+n4Plo4yD0K3Gt5l7JyYHTfzU3cB0MSskAWoj6nLSxWUMZdHrWsy57NoncvpjUj
- qECmHY0DRb4ZA==
+ b=aZQr2/YJo83A6xeimQ1SYSvjqswEKRCtCLoYTqXRWKRpEmZ6cjiEIR+Soff3YPE38
+ ODkslt7mhiFbWP3nahPAXC7FHxK8PbESTyIWZbyjeVzFH0yrvq9H+iCborYWJTEPZi
+ oZwv5uB3OG0zvo52YReoPpbFMGrqeJz+nTLdhvMjFSpAOjajaecWGBI0YabI6LJhRr
+ ypht1/LsmLxZTit99KEalUGgzW8uea2NGTbuBx1ZXLihA4EiVxw8N9OIyfRTshZZCP
+ erKMP7rCPq1231FDLHCswFtpebcYPBJ9csVCU+05mrdXSd4CYQhQ/3fNmmNSuNWLcY
+ O61/L0Cuf+NKQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>,
- Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/panel-edp: Support MB116AS01'3 edp panel
-Date: Mon, 19 Oct 2026 09:49:52 -0400
-Message-ID: <20261019135441.1420968-301-sashal@kernel.org>
+Cc: Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <cgmeiner@igalia.com>, Sasha Levin <sashal@kernel.org>,
+ airlied@gmail.com, simona@ffwll.ch, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/etnaviv: check all modules for idle
+ after reset
+Date: Mon, 19 Oct 2026 09:49:56 -0400
+Message-ID: <20261019135441.1420968-305-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,405 +62,350 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+From: Lucas Stach <l.stach@pengutronix.de>
 
-[ Upstream commit 844e71ba7d7a50c5ffa29d147afaeaafb19b39e4 ]
+[ Upstream commit 1006d1f7c03d92b28c252333836635df8e165401 ]
 
-MB116AS01'3 raw edid:
-00 ff ff ff ff ff ff 00 21 63 03 12 00 00 00 00
-00 23 01 04 95 1a 0e 78 23 e7 05 9c 5b 56 93 27
-21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 36 1c 56 92 50 00 1c 30 60 18
-a8 00 00 90 10 00 00 18 00 00 00 fd 00 28 3c 30
-30 07 01 0a 20 20 20 20 20 20 00 00 00 fe 00 48
-4b 43 20 4d 59 20 20 20 20 0a 20 20 00 00 00 fe
-00 4d 42 31 31 36 41 53 30 31 27 33 20 20 01 cb
+While the FE is an important part of the GPU, which needs to be idle
+after reset, all other modules should be idle after a proper reset.
+Check all present modules for being idle to determine whether the
+reset was successful.
 
-70 20 79 02 00 22 00 14 1c 1a 01 84 55 05 91 00
-5f 00 17 00 ff 02 1b 00 09 00 07 00 2b 00 06 27
-00 28 3b 00 00 81 00 13 72 1a 00 00 03 01 28 3c
-00 00 00 00 00 00 3c 00 00 00 00 25 01 09 1c 1a
-01 1c 1a 01 28 3c 80 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 e7 90
-
-Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260701013018.2621972-1-zhouhaikun5@huaqin.corp-partner.google.com
+Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
+Link: https://patch.msgid.link/20260511085148.652256-1-l.stach@pengutronix.de
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Local tree is **6.18.y** (`v6.18.53`, `VERSION=6 PATCHLEVEL=18`). The
-MB116AS01'3 table entry is **not** in `v6.18.53`. The driver, HKC table,
-`delay_200_500_e80`, and unknown-panel `WARN_ON` path are present. This
-is a one-line panel ID / quirk for an existing driver.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1: Subject line**
+Record: `[drm/etnaviv]` `[check]` `[after GPU reset, require every
+present module idle, not only FE]`
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: `[drm/panel-edp] [Support] [add MB116AS01'3 eDP panel table
-entry]`
-- Subsystem: `drm/panel-edp`
-- Verb: "Support" — hardware enablement / ID addition, not a refactor
-
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.2: Tags**
 Record:
-- `Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-
-  partner.google.com>` (author; Huaqin/Google partner)
-- `Reviewed-by: Douglas Anderson <dianders@chromium.org>` (panel-edp
+- `Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>` (etnaviv
   reviewer in MAINTAINERS)
-- `Signed-off-by: Douglas Anderson <dianders@chromium.org>` (maintainer
-  applied it)
-- `Link: https://patch.msgid.link/20260701013018.2621972-1-
-  zhouhaikun5@huaqin.corp-partner.google.com`
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable` (absence
-  expected for this review)
-- Ignored: `Signed-off-by: Sasha Levin` and `[Upstream commit ...]`
-  (pipeline markers)
+- `Link: https://patch.msgid.link/20260511085148.652256-1-
+  l.stach@pengutronix.de`
+- `Signed-off-by: Lucas Stach <l.stach@pengutronix.de>` (etnaviv
+  maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable`, or syzbot
+  tags (absence of Fixes/Cc-stable is expected here)
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: Body**
 Record:
-- Bug description: the panel is missing from `edp_panels[]`. The body is
-  the raw EDID (base block + extension), not a crash log.
-- Symptom: unmatched generic `edp-panel` uses conservative delays and
-  hits `WARN_ON(!detected_panel)` at probe.
-- Version info: none in the message. Author date is 2026-07-01; `v6.18`
-  is 2025-11-30, so this landed after this series branched.
-- Root cause: HKC ID `0x1203` was not in the delay/quirk table.
+- Bug: reset success was decided only from the frontend (FE) idle bit.
+- Symptom/failure mode: a reset that leaves other modules busy is
+  treated as success; the driver then continues probe or hang recovery.
+- Version info: none in the message.
+- Root cause (author): after a proper reset every present module should
+  be idle; FE-only is not enough.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not a disguised cleanup. It is an explicit panel ID / power-
-sequencing quirk. That is the same class as PCI/USB ID additions.
+**Step 1.4: Hidden bug fix?**
+Record: Not disguised. It is an explicit correctness fix of reset-
+success detection. Verb is “check”, but it changes a control-flow
+condition that previously let a non-idle GPU leave the retry loop.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## Phase 2: Diff analysis
 
-Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: Inventory**
 Record:
-- File: `drivers/gpu/drm/panel/panel-edp.c` (`+1 / -0`)
-- Function/table: `edp_panels[]`
-- Scope: single-file, one-line surgical addition
+- File: `drivers/gpu/drm/etnaviv/etnaviv_gpu.c` (~3 lines changed,
+  3+/3-)
+- Function: `etnaviv_hw_reset()`
+- Scope: single-file surgical change
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: Code flow**
 Record:
-- Before: HKC `0x1203` is not in `edp_panels[]`. `find_edp_panel()`
-  returns NULL.
-- After: match `EDP_PANEL_ENTRY('H', 'K', 'C', 0x1203,
-  &delay_200_500_e80, "MB116AS01'3")`.
-- Path: `panel_edp_probe()` → compatible `"edp-panel"` →
-  `generic_edp_panel_probe()` → EDID panel ID lookup.
-- After match: `desc->delay = *detected_panel->delay` (`hpd_absent=200`,
-  `unprepare=500`, `enable=80`).
-- Unmatched: `WARN_ON` plus `panel_edp_set_conservative_timings()`
-  (`unprepare=2000`, `enable=200`).
+- Before: after `gpu_read(VIVS_HI_IDLE_STATE)`, retry only if `(idle &
+  VIVS_HI_IDLE_STATE_FE) == 0`.
+- After: retry if `(idle & gpu->idle_mask) != gpu->idle_mask`.
+- Path: hardware reset retry loop (1s timeout). Used from GPU init
+  (`etnaviv_gpu_init` path) and hang recovery
+  (`etnaviv_gpu_recover_hang`).
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: **Hardware workaround / device ID** (category h).
-- Mechanism: EDID mfg `HKC` (bytes `21 63`) and product `0x1203` (bytes
-  `03 12`) were not mapped to delays. The panel name in EDID descriptor
-  0xFE is `MB116AS01'3` (`0x27` = `'`).
-- Fix: add the existing `delay_200_500_e80` preset (already used by many
-  11.6" BOE/CMN entries).
+The loop already had a second check on `VIVS_HI_CLOCK_CONTROL`
+IDLE_3D/IDLE_2D. This change only widens the IDLE_STATE check from FE to
+`idle_mask`.
 
-Step 2.4: ASSESS THE FIX QUALITY
+**Step 2.3: Bug mechanism**
+Record: `[Logic / correctness]` Reset success was too weak. Incomplete
+reset could be accepted if FE was idle. Fix reuses `gpu->idle_mask`,
+already used by `etnaviv_gpu_wait_idle()` and RPM suspend.
+
+**Step 2.4: Fix quality**
 Record:
-- Obviously correct: one table row, sorted under existing HKC entries
-  (`0x1203` before `0x2d51`).
-- Minimal; no unrelated edits.
-- Regression risk: very low. Lookup is ID-specific; other panels
-  unchanged.
-- `delay_200_500_e80` already exists in this tree (verified at `panel-
-  edp.c:1760` on `v6.18.53`).
+- Obviously correct relative to existing idle policy; same comparison as
+  `etnaviv_gpu_wait_idle()`.
+- Minimal; no API/struct change.
+- Regression risk: stricter success can turn a flaky reset into `-EBUSY`
+  after 1s (probe fails). That is the intended failure if modules never
+  go idle. `idle_mask` already accounts for GC300/GC600 absent-module
+  bits (`~AXI_LP` elsewhere). No lock/API change.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## Phase 3: Git history
 
-Step 3.1: BLAME THE CHANGED LINES
+**Step 3.1: Blame**
 Record:
-- Table introduced with `panel-edp` split: `5f04e7ce392db` ("Split eDP
-  panels out of panel-simple").
-- HKC rows already in `v6.18` / `v6.18.53` (`0x2d51`, `0x2d5b`
-  MB116AN01, `0x2d5c` MB116AN01-2).
-- `delay_200_500_e80` from `4d53cf8147950` ("Add several generic edp
-  panels"), present in this tree.
-- This ID is new; the table and delay helper are old.
+- FE-only check: `a8c21a5451d83` (“drm/etnaviv: add initial etnaviv DRM
+  driver”, 2015).
+- `idle_mask` field: same initial driver; default
+  `~VIVS_HI_IDLE_STATE_AXI_LP` moved earlier in `2b76f5be7c2778`
+  (2018/2019, “initialize idle mask before querying the HW db”).
+- Bug is long-standing, not new 7.3 code.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No `Fixes:` tag. N/A. The gap is a missing table row, not a
-later regression.
+**Step 3.2: Fixes: tag**
+Record: None. Introducer is the 2015 driver add, verified via blame/`git
+log -S`.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+**Step 3.3: Related file history**
 Record:
-- `v6.18..v6.18.53` already contains many similar one-line panel adds
-  (AUO, BOE, CSW, LG, Sharp, mt8189 Chromebook panels).
-- Standalone; not `patch X/Y`.
+- `1006d1f7c03d9` — this commit
+- `4720915ab4828` — patch 2/2, MMUv2 disabled-after-reset check
+  (independent extra check)
+- `c182a2ae13886` — later power-register flush; not a prerequisite of
+  this hunk
+This commit is standalone. Patch 2 is related hardening, not required
+for this condition change.
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+**Step 3.4: Author**
+Record: Lucas Stach is listed `M:` for “DRM DRIVERS FOR VIVANTE GPU IP”.
+Christian Gmeiner is `R:`. Recent etnaviv work by the same author
+includes hang-check and reset-related fixes.
+
+**Step 3.5: Dependencies**
+Record: Needs `gpu->idle_mask` and the reset retry loop. Both exist in
+this tree (and have since the original driver / 2019 idle_mask init).
+Applies standalone. Does not need `gpu_write_power_sync` from the later
+flush commit.
+
+## Phase 4: Mailing list / external
+
+**Step 4.1: Original discussion**
 Record:
-- Haikun Zhou has other `panel-edp` ID/delay commits (`CSW MNB601LS1-4`,
-  `CMN N116BCJ-EAK`).
-- Reviewer Douglas Anderson is `R:` for "DRM DRIVER FOR GENERIC EDP
-  PANELS" in MAINTAINERS.
+- `b4 dig -c 1006d1f7c03d9` → https://patch.msgid.link/20260511085148.65
+  2256-1-l.stach@pengutronix.de
+- `b4 dig -a`: single v1 series, two patches. Committed version matches
+  v1.
+- Reviewer: Reviewed-by only; no NAK, no stable nomination, no risk
+  discussion.
+- lore.kernel.org HTTP fetch returned 403; thread recovered via `b4 dig
+  -m`.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: None. Needs only `EDP_PANEL_ENTRY`, HKC table, and
-`delay_200_500_e80`, all in `v6.18.53`. Dry-run against the `v6.18.53`
-blob: hunk applied (offset -5). Standalone apply: yes.
+**Step 4.2: Recipients (`b4 dig -w`)**
+Record: Lucas Stach, `etnaviv@lists.freedesktop.org`, `dri-
+devel@lists.freedesktop.org`, Christian Gmeiner. Right lists and
+reviewer.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 4.3: Bug report**
+Record: No Reported-by, bugzilla, or syzbot. No described repro.
+UNVERIFIED whether a specific hang prompted the series; message does not
+say.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Step 4.4: Series**
+Record: 1/2 idle-mask check; 2/2 MMUv2 disable check. Independent. 1/2
+is self-contained.
+
+**Step 4.5: Stable list**
+Record: Web search of lore stable for this subject found no relevant
+thread. No evidence it was rejected for stable.
+
+## Phase 5: Semantic / impact
+
+**Step 5.1: Functions**
+Record: `etnaviv_hw_reset()` only.
+
+**Step 5.2: Callers**
 Record:
-- `b4 dig -c 9e55b14301666`: V2 at https://patch.msgid.link/202607010130
-  18.2621972-1-zhouhaikun5@huaqin.corp-partner.google.com
-- `b4 dig -a`:
-  - v1 2026-06-29: `MB116AS01-3` (hyphen), msgid
-    `20260629012200.248066-1-...`
-  - v2 2026-07-01: `MB116AS01'3` (apostrophe, matches EDID)
-- Applied version is v2.
-- Doug Anderson: Reviewed-by and pushed to drm-misc-next as
-  `844e71ba7d7a`.
-- No NAK found.
-- UNVERIFIED: exact v1 review text (lore 403, MARC 404). Name change
-  v1→v2 is verified from the two patches.
+- GPU identify/init: `ret = etnaviv_hw_reset(gpu);` — probe/init failure
+  if reset times out.
+- `etnaviv_gpu_recover_hang()` ← `etnaviv_sched.c` timed-out job path
+  (`drm_sched_stop` → recover → resubmit). Return value of reset is
+  ignored there (pre-existing). Benefit on that path is extra retries
+  until modules are idle, not a new hard fail.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`):
-- To/Cc: `dianders@chromium.org`, `neil.armstrong@linaro.org`,
-  `sam@ravnborg.org`, `dri-devel@lists.freedesktop.org`, `linux-
-  kernel@vger.kernel.org`, `daniel@ffwll.ch`, `airlied@gmail.com`
-- Subsystem reviewer included and signed off.
+**Step 5.3: Callees**
+Record: `gpu_read(VIVS_HI_IDLE_STATE)` unchanged; only the predicate
+changes.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla. Evidence is the EDID dump in the patch.
-Author is a hardware partner, typical for ChromeOS panel IDs.
+**Step 5.4: Reachability**
+Record: Yes. Init/reset on device bring-up; hang recovery from GPU
+scheduler after a stuck job (userspace GL/Vulkan/etnaviv DRM). Not
+syscall-direct memory corruption; it is a common driver path on Vivante
+/ i.MX systems.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Standalone 1/1. drm-misc pull for 7.3-rc1 lists it under
-**panel-edp: quirks** with MB116AS01 (https://lists.openwall.net/linux-
-kernel/2026/08/20/246).
+**Step 5.5: Similar patterns**
+Record: `etnaviv_gpu_wait_idle()` already uses `(idle & gpu->idle_mask)
+== gpu->idle_mask`. RPM suspend uses `idle_mask` minus FE/MC. This
+aligns reset with those definitions.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search returned 403. UNVERIFIED: no
-stable-list thread found. Official `v6.18.53` already took the same
-class of panel-edp ID patches, so there is no local policy against this
-type.
+## Phase 6: This checkout
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: No function body change. Data: `edp_panels[]`. Consumers:
-`find_edp_panel()`, `generic_edp_panel_probe()`.
-
-Step 5.2: TRACE CALLERS
+**Step 6.1: Local tree and buggy code**
 Record:
-- `find_edp_panel()` ← `generic_edp_panel_probe()`
-- `generic_edp_panel_probe()` ← `panel_edp_probe()` when OF compatible
-  is `"edp-panel"`
-- `panel_edp_probe()` ← `panel_edp_platform_probe()` /
-  `panel_edp_dp_aux_ep_probe()`
-- Context: device probe / display bring-up, not IRQ-hot.
+- `git describe HEAD` → `v7.3-rc4-27-gf0100363d8c37`
+- `make kernelversion` → `7.3.0-rc4`
+- `etnaviv_hw_reset`, `idle_mask`, and the idle register exist here.
+- `git merge-base --is-ancestor 1006d1f7c03d9 HEAD` → yes (commit
+  already in this 7.3-rc4 lineage).
+- Pre-commit code (parent `3e32e6672fa30`) still had the FE-only test.
+  Introduced 2015; not after this branch.
 
-Step 5.3: TRACE CALLEES
-Record: Table is data only. Probe reads EDID, matches ID, copies
-`panel_delay`. Delays used in `panel_edp_prepare_once()` (`hpd_absent`)
-and `panel_edp_enable()` (`enable`).
+**Step 6.2: Backport difficulty**
+Record: Clean 3-line predicate swap. No refactor of the surrounding
+reset function is required for this hunk. Expected: clean apply on trees
+that still have the FE-only check.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace does not call this directly. Plug in the panel
-(Chromebook/laptop DT `edp-panel` on DP AUX) and it runs at
-probe/resume. Reachable on machines with this HKC panel.
+**Step 6.3: Related fixes already here**
+Record: This exact change is already in HEAD. Follow-up MMUv2 check is
+also here; it is not a substitute for the idle_mask check.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Same file is a long ID table. HKC already has three entries.
-Many sibling "Add … panel" commits are already in official 6.18.y.
+## Phase 7: Subsystem
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 7.1**
+Record: `[drm/etnaviv]` `[IMPORTANT]` — not core mm/net, but the Vivante
+GPU driver used on NXP i.MX and similar embedded SoCs, including
+display.
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. `v6.18.53` has `edp_panels[]`, HKC rows,
-`find_edp_panel()`, and:
-```
-if (WARN_ON(!panel->detected_panel)) {
-    ... "Unknown panel ... using conservative timings"
-```
-`MB116AS01` / `0x1203` is **not** in `v6.18` or `v6.18.53`. Bug =
-missing quirk for hardware that this driver already enumerates.
+**Step 7.2**
+Record: Actively maintained (recent reset/hang/cache commits). The FE-
+only check itself was untouched for ~10 years.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Clean apply to `v6.18.53` (dry-run succeeded, offset -5).
-Surrounding HKC context matches. Difficulty: clean apply.
+## Phase 8: Impact and risk
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: No other MB116AS01'3 / HKC `0x1203` fix in this series. Nearby
-HKC MB116AN01 entries do not cover `0x1203`.
+**Step 8.1: Who**
+Record: Driver-specific: `CONFIG_DRM_ETNAVIV` / Vivante GPU users
+(embedded i.MX class).
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 8.2: Trigger**
+Record: GPU soft-reset during init and after hangcheck. Incomplete
+module idle after reset is the hardware case the existing retry loop
+already exists for. Unprivileged GPU clients can trigger hang recovery
+via a stuck job; they cannot directly poke the idle register.
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: `drivers/gpu/drm/panel/` — DRM panel. Criticality: **IMPORTANT**
-for devices with this panel (blank/slow display, boot `WARN_ON`);
-**PERIPHERAL** for everyone else (ID match is a no-op).
+**Step 8.3: Failure mode**
+Record: `[incomplete reset treated as success]` `[HIGH for GPU, not
+kernel panic]`. Probe can later use a GPU that is not fully idle; hang
+recovery can resubmit onto modules still busy → further hangs, failed
+jobs, possible display freeze. Not KASAN/UAF. Not a documented CVE.
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Mature table, still getting ID/quirk adds. Official 6.18.y
-already backports them. Not a new subsystem.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver-specific / hardware-specific: machines whose eDP EDID is
-HKC `0x1203` (MB116AS01'3), typically ChromeOS/partner laptops. No
-effect on other panels.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Every probe of `"edp-panel"` with that EDID (boot and often
-resume). Not a race. Unprivileged users do not trigger it except by
-using the device.
-
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+**Step 8.4: Risk-benefit**
 Record:
-- Without the entry: `WARN_ON` stack on probe (noisy, can trip panic-on-
-  warn) **plus** conservative delays (2s unprepare vs 500ms; 200ms
-  enable vs 80ms). Conservative path is designed so the panel still
-  usually works.
-- Failure mode: boot warning + slower power sequencing, not a universal
-  oops.
-- Severity: **MEDIUM** for affected hardware (warning + wrong timings);
-  **LOW** globally.
-- Still qualifies under the device-ID / quirk exception.
+- Benefit: medium-high for etnaviv — reset/hang recovery actually waits
+  for the same idle definition the rest of the driver uses.
+- Risk: low — 3 lines, existing mask, maintainer + reviewer. Residual
+  risk is probe `-EBUSY` if some chip never sets all `idle_mask` bits
+  after reset; GC300/GC600 already have a reduced mask, and
+  wait_idle/RPM have used this mask for years.
+- Ratio: favorable.
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- Benefit: high for that panel (correct T3/T12-style delays, no
-  `WARN_ON`); zero for others.
-- Risk: very low (1 line, existing delay struct, ID-gated).
-- Ratio: strongly favors backport.
+## Phase 9: Synthesis
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+**Step 9.1: Evidence**
 
-Step 9.1: COMPILE THE EVIDENCE
 FOR:
-- One-line ID/quirk in an existing driver (`panel-edp.c` /
-  `edp_panels[]`).
-- Matches stable exceptions: **device ID** and **hardware quirk** (drm-
-  misc pull even labeled it "panel-edp: quirks").
-- Avoids `WARN_ON` and 2s conservative unprepare on this panel.
-- `delay_200_500_e80`, HKC table, and lookup path exist in this 6.18
-  tree.
-- Reviewed and applied by the panel-edp maintainer.
-- Official 6.18.y already contains many identical panel-edp ID
-  backports.
-- Applies cleanly to `v6.18.53`.
+- Real logic bug: reset-success ignored non-FE modules.
+- Same `idle_mask` already used for wait_idle and RPM.
+- 3-line, obviously correct, no new API.
+- Hang recovery and init both go through this loop.
+- Maintainer-authored, reviewed by listed reviewer.
+- Code and prerequisites exist in this tree; bug dates to 2015.
 
 AGAINST:
-- Not a UAF/crash/corruption fix for all users; unmatched panels usually
-  still work with conservative delays.
-- No `Reported-by` from end users; vendor EDID add.
+- No user report, repro, sanitizer hit, or described crash.
+- Not a kernel oops/UAF/deadlock; GPU-side hang/recovery.
+- CLOCK_CONTROL IDLE_2D/IDLE_3D already checked afterward.
+- Patch 1/2 of hardening, not a smoking-gun “Fixes:”.
 
 UNRESOLVED:
-- Exact v1 review comments (lore/MARC fetch failed).
-- Whether this was discussed on stable@ (lore/stable 403).
+- No public report of a hang caused specifically by FE-idle / other-
+  module-busy.
+- lore.kernel.org HTTP 403; discussion taken from `b4 dig` mbox only.
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — one sorted table row;
-   maintainer Reviewed-by and merged.
-2. Fixes a real bug that affects users? **PASS** — missing quirk:
-   `WARN_ON` + wrong power delays on this panel.
-3. Important issue? **PASS** under the device-ID/quirk exception (boot
-   warning + incorrect sequencing on real hardware). Not a core panic.
-4. Small and contained? **PASS** — +1 line, one file.
-5. No new features or APIs? **PASS** — no new driver, syscall, or
-   userspace API; only a table ID.
-6. Can apply to the local tree? **PASS** — dry-run against `v6.18.53`
-   succeeded.
+**Step 9.2: Stable rules**
+1. Obviously correct and tested? **PASS** — predicate matches
+   `wait_idle`; reviewed.
+2. Real bug affecting users? **PASS** — false reset success on init/hang
+   recover.
+3. Important (crash/security/corruption/deadlock/hang)? **PASS** —
+   failed GPU reset/hang recovery; UI/GPU freeze on this hardware, not a
+   core panic.
+4. Small and contained? **PASS** — 3 lines, one function.
+5. No new features/APIs? **PASS**
+6. Applies to this tree? **PASS** — driver, `idle_mask`, and reset loop
+   are present.
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: **Device ID addition to existing driver** and **hardware
-quirk/workaround**. Automatic YES class.
+**Step 9.3: Exception category**
+Record: None (not an ID/quirk/DT/build/doc exception). It is a normal
+small driver correctness fix.
 
-Step 9.4: MAKE YOUR DECISION
-This tree is 6.18.y. The driver already identifies unknown eDP panels
-and warns. Adding HKC `0x1203` is the same kind of ID/quirk 6.18.y
-already takes. Benefit is real for that hardware; risk is negligible.
+**Step 9.4: Decision**
+This tree is 7.3-rc4 and already contains the change; the evaluation is
+whether this tree *should* have it on technical merit. It should. The
+FE-only test has been wrong for as long as the driver has reset
+hardware. The retry loop exists because reset is not always complete on
+the first try; ignoring other modules lets that loop exit too early,
+then init or hang recovery proceeds. The fix is the same idle definition
+already used elsewhere, tiny, and reviewed by the subsystem.
 
-What it solves for stable users: Chromebook/laptop panels with EDID HKC
-`0x1203` get the intended 200/500/80 ms sequencing and stop hitting the
-unknown-panel `WARN_ON`.
-
-Risk vs benefit: one ID-gated line vs boot warning and multi-second
-conservative delays. Favor backport.
+It is not a core memory-safety crash, but it is a contained, real reset
+bug on a production embedded GPU path, which is in scope for stable.
 
 Verification:
-- [Phase 1] Tags: Haikun Zhou SOB, Douglas Anderson Reviewed-by + SOB,
-  lore msgid link; no Fixes/Reported-by/Cc:stable
-- [Phase 1] Body is raw EDID; decoded mfg HKC (`0x2163`) product
-  `0x1203`; name `MB116AS01'3`
-- [Phase 2] Diff: +1 `EDP_PANEL_ENTRY` in `edp_panels[]`; delay
-  `&delay_200_500_e80`
-- [Phase 2] Unmatched path: `WARN_ON` + `unprepare=2000`/`enable=200` in
-  `generic_edp_panel_probe()` (verified in this tree and `v6.18.53`)
-- [Phase 3] `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`; `make
-  kernelversion` → 6.18.53
-- [Phase 3] `git merge-base --is-ancestor 9e55b14301666 v6.18.53` → NO
-  (not in official 6.18.53)
-- [Phase 3] `git grep MB116AS01 v6.18.53 -- panel-edp.c` → not present;
-  HKC `0x2d51/0x2d5b/0x2d5c` present
-- [Phase 3] `delay_200_500_e80` present at line 1760 on `v6.18.53`
-- [Phase 3] `v6.18..v6.18.53` already has multiple `drm/panel-edp: Add …
-  panel` commits
-- [Phase 4] `b4 dig -c`: V2 lore URL; `b4 dig -a`: v1 hyphen name, v2
-  apostrophe; `b4 dig -w`: dianders, dri-devel, drm maintainers
-- [Phase 4] LKML: Doug Reviewed-by, pushed `844e71ba7d7a` to drm-misc-
-  next
-- [Phase 4] drm 7.3-rc1 pull lists MB116AS01 under panel-edp quirks
-- [Phase 4] UNVERIFIED: v1 review text; stable@ discussion (HTTP
-  403/404)
-- [Phase 5] Call chain: `panel_edp_probe` → `generic_edp_panel_probe` →
-  `find_edp_panel`; delays used in prepare/enable
-- [Phase 6] Dry-run `patch --dry-run` of this commit onto `v6.18.53`
-  `panel-edp.c`: succeeded (offset -5)
-- [Phase 7] MAINTAINERS: Douglas Anderson is `R:` for panel-edp.c
-- [Phase 8] Severity: WARN_ON + wrong delays on this panel; ID-gated so
-  other hardware unaffected
+- [Phase 1] Tags: Reviewed-by Christian Gmeiner; Link msgid
+  20260511085148.652256-1; maintainer SOB; no Fixes/Reported-by/syzbot
+- [Phase 2] Diff: 3-line condition change in `etnaviv_hw_reset()`; FE
+  bit → `idle_mask`
+- [Phase 3] Blame: FE check from `a8c21a5451d83` (2015); `idle_mask`
+  init `2b76f5be7c2778`
+- [Phase 3] `git log -S 'FE is not idle'` / `-S idle_mask` limited to
+  `etnaviv_gpu.c`
+- [Phase 3] Series: 1/2 this commit, 2/2 `4720915ab4828` MMUv2 check;
+  standalone
+- [Phase 4] `b4 dig -c 1006d1f7c03d9`: lore msgid link; v1 only; dri-
+  devel/etnaviv CC; Reviewed-by; no NAK
+- [Phase 4] `b4 dig -m`: 4 messages (2 patches + 2 R-b); WebFetch lore
+  403
+- [Phase 4] Stable lore search: no relevant hits
+- [Phase 5] Callers: init `etnaviv_hw_reset` at line 891;
+  `etnaviv_gpu_recover_hang` from `etnaviv_sched.c:84`
+- [Phase 5] `wait_idle` uses identical mask compare at line 1709
+- [Phase 6] `git describe HEAD` v7.3-rc4-27-gf0100363d8c37;
+  kernelversion 7.3.0-rc4
+- [Phase 6] `git merge-base --is-ancestor 1006d1f7c03d9 HEAD` true; not
+  ancestor of `v7.2`
+- [Phase 7] MAINTAINERS: Lucas Stach M:, Christian Gmeiner R:
+- [Phase 8] Failure: incomplete GPU reset / failed hang recovery, not
+  kernel UAF
+- UNVERIFIED: specific user-visible hang from FE-only success;
+  lore.kernel.org page content besides b4 mbox
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index f2ae333a32d8c..0da04d75e4e96 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2061,6 +2061,7 @@ static const struct edp_panel_entry edp_panels[] = {
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+index cf0d9049bcf1e..368e799fc0c5d 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+@@ -582,9 +582,9 @@ static int etnaviv_hw_reset(struct etnaviv_gpu *gpu)
+ 		/* read idle register. */
+ 		idle = gpu_read(gpu, VIVS_HI_IDLE_STATE);
  
- 	EDP_PANEL_ENTRY('E', 'T', 'C', 0x0000, &delay_50_500_e200_d200_po2e335, "LP079QX1-SP0V"),
+-		/* try resetting again if FE is not idle */
+-		if ((idle & VIVS_HI_IDLE_STATE_FE) == 0) {
+-			dev_dbg(gpu->dev, "FE is not idle\n");
++		/* try resetting again if any module is not idle */
++		if ((idle & gpu->idle_mask) != gpu->idle_mask) {
++			dev_dbg(gpu->dev, "GPU modules not idle\n");
+ 			continue;
+ 		}
  
-+	EDP_PANEL_ENTRY('H', 'K', 'C', 0x1203, &delay_200_500_e80, "MB116AS01'3"),
- 	EDP_PANEL_ENTRY('H', 'K', 'C', 0x2d51, &delay_200_500_e200, "Unknown"),
- 	EDP_PANEL_ENTRY('H', 'K', 'C', 0x2d5b, &delay_200_500_e200, "MB116AN01"),
- 	EDP_PANEL_ENTRY('H', 'K', 'C', 0x2d5c, &delay_200_500_e200, "MB116AN01-2"),
 -- 
 2.53.0
 
