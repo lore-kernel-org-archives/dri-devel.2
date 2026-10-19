@@ -4,67 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC9BFCCF2E4
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 12:43:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66D87CCF2E3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 12:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C32510ECBE;
-	Mon, 19 Oct 2026 12:43:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49B3A10E11C;
- Mon, 19 Oct 2026 12:43:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792413815; x=1823949815;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=238uZAb8Xby9vgq722b7Q+enZtERPQOtoIL6OY7D3AE=;
- b=ACqZDARd2XwG8fzVgwwSO+DDCxhI8hU2/XIVJPWDCYuDOBaNM3E/qnxj
- dqh98M1kL97yGBNwhU8ugOguJsxk/x6F704ICJln+XYQwKXhPzEug2/32
- KxrzgFrTQt9k/WjIsTRdGj3+T6bEDxMMWB/eO3YncRjMbAmYUzCVuS01R
- oaoSVSApgSv0kBBx9J8TK9d7aeNvEMeTG+o7S8vRhDRLp0YHD01K1G/oQ
- uyuQRvp1QIJ1mumuahpOz7rcxr6068xQTK8idd2IH5eRMns4k37AGTy/+
- 9+BBsJIEwPJ4hK0QxurzAWihOcvqgR1NOq3gnUZ8eXpZVo/8xN9naYjfx A==;
-X-CSE-ConnectionGUID: Wx2TDdxQT36s+oH5Gmpy6Q==
-X-CSE-MsgGUID: O7yP3NeoRvCxwzBh0MWcbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1094069"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1094069"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 05:43:35 -0700
-X-CSE-ConnectionGUID: S3iMLuh3RcmBMkb6/mvuVQ==
-X-CSE-MsgGUID: Zy3Lz4VLRX2BAPtjuNm+OA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2891613"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO [10.245.244.14])
- ([10.245.244.14])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 05:43:32 -0700
-Message-ID: <8d4cb20b70ac4c3f36d8d631769757158af2ac8e.camel@linux.intel.com>
-Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Karl
- Mehltretter <kmehltretter@gmail.com>, Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alistair Popple <apopple@nvidia.com>, Dongwon Kim
- <dongwon.kim@intel.com>, 	dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, 	iommu@lists.linux.dev, Kevin Tian
- <kevin.tian@intel.com>, Leon Romanovsky	 <leonro@nvidia.com>,
- linaro-mm-sig@lists.linaro.org, 	linux-media@vger.kernel.org, Matthew Brost
- <matthew.brost@intel.com>, Simona Vetter <simona.vetter@ffwll.ch>, Sumit
- Semwal <sumit.semwal@linaro.org>, Vivek Kasireddy	
- <vivek.kasireddy@intel.com>
-Date: Mon, 19 Oct 2026 14:43:29 +0200
-In-Reply-To: <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
-References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
- <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
- <20261016202653.97339-1-kmehltretter@gmail.com>
- <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEA9510E11C;
+	Mon, 19 Oct 2026 12:44:43 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9FBD10E11C
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 12:44:36 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0AFC6593;
+ Mon, 19 Oct 2026 14:42:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1792413749;
+ bh=NtAjh1G4ukJUomR9VlnElNvrY3MY7elt+Y6687H1Azg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kJLPx6y6L6U6aoBJWEpcxJ5iwqaFl6fqBuR5Vc9jMPUfDuL+SgZbCRHqWv4YVdcht
+ YlzLF0KmoD5shqk8EkxKW0ciqM5gJaS0+nMInEOMiYf1Zi/lxxdpPS/hC95u92/1vG
+ nvutY5tEDTYt6YncJLwCQk3TxIlYzBc8PZu3L3Ow=
+Date: Mon, 19 Oct 2026 15:44:33 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: linux-media@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Tomasz Stanislawski <t.stanislaws@samsung.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
+Message-ID: <20261019124433.GU595565@killaraus.ideasonboard.com>
+References: <cover.1792392288.git.kmehltretter@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1792392288.git.kmehltretter@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,67 +59,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-10-19 at 10:35 +0200, Christian K=C3=B6nig wrote:
-> On 10/16/26 22:26, Karl Mehltretter wrote:
-> > On Tue, Feb 17, 2026 at 08:11:34PM -0400, Jason Gunthorpe wrote:
-> > > +	match_args.attach =3D attach;
-> > > +	if (dmabuf->ops->match_mapping) {
-> > > +		ret =3D dmabuf->ops->match_mapping(&match_args);
-> > > +	}
-> > > +
-> > > =C2=A0	attach->dmabuf =3D dmabuf;
-> > > =C2=A0	attach->importer_ops =3D importer_ops;
-> > > =C2=A0	attach->importer_priv =3D importer_priv;
-> >=20
-> > I may misunderstand the intended contract. match_mapping() runs
-> > while the
-> > attachment is still zeroed and without dmabuf->resv held.
-> >=20
-> > Patch 11's amdgpu callback needs importer_ops and importer_priv, so
-> > its XGMI
-> > match cannot work here. Patch 12's VFIO callback asserts dmabuf-
-> > >resv and
-> > reads priv->vdev, which cleanup changes under that lock.
-> >=20
-> > Should the core initialize the attachment and hold dmabuf->resv for
-> > match_mapping(), or should callbacks avoid attachment and lock-
-> > protected
-> > state?
->=20
-> Right. This completely misplaced.
->=20
-> The matching can't be done at attachment time, but rather needs to be
-> done before creating a mapping while holding the resv lock so that
-> the matching decision can't change.
+On Mon, Oct 19, 2026 at 09:14:07AM +0200, Karl Mehltretter wrote:
+> UVC and vivid access imported DMA-BUFs with the CPU without cache
+> synchronization. On a Pi 400, captured data remained in the CPU cache
+> while physical RAM was stale.
+> 
+> Add an opt-in queue flag to bracket CPU access from buf_prepare() through
+> buf_finish(). The allocator cannot imply CPU use because some vb2-vmalloc
+> drivers pass buffers to hardware. Patch 1 balances finish operations in
+> VIDIOC_REMOVE_BUFS so removing prepared buffers closes this interval.
 
-So question is what exactly should the contract be?
-Looking at the pcie_p2p negotiation today it looks somewhat like.
+This seems completely wrong.
 
-1) Importer and exporter agree at attach time what mappings are allowed
-pending placement conditions and other attachers.
-2) At map-time the mapping is negotiated taking all constraints into
-account.
-3) The negotiated mapping is valid until an invalidate_mappings()
-callback is received.
+> This follows the per-queue flag proposed here:
+> https://lists.openwall.net/linux-kernel/2024/06/20/236
+> 
+> Based on Linux 7.3. Tests cover the same code on these earlier bases:
+> 
+> - Pi 400, 7.3-rc4, all four patches: eight 640x480 YUYV frames per run,
+>   imported CMA DMA-BUFs with a DRM device mapping:
+> 
+>   Path                          Runs   Stale frames
+>   UVC, vb2-vmalloc               12        0/96
+>   vivid, vb2-vmalloc             12        0/96
+>   vivid, vb2-dma-contig          12        0/96
+> 
+>   All six lifecycle cases passed with both vivid allocators. Read-only
+>   output USERPTR passed. The test added no warnings or failed CPU-access
+>   callbacks. A control without the DRM mapping found 4/16 stale frames.
+> 
+> - SAM9X75 (ARMv5), 6.18 backport of all four patches: the baseline
+>   PREPARE_BUF/REMOVE_BUFS imbalance was fixed. USERPTR and six lifecycle
+>   cases passed. All 128 vivid and 96 UVC frames matched RAM, with 100/100
+>   begin/end calls. The baseline was already coherent.
+> 
+> - BeagleV Ahead (RISC-V), 7.3-rc7, patches 1, 2 and 4: read-only USERPTR,
+>   six traced lifecycle cases and 60 repeats passed with balanced callbacks
+>   and no kernel diagnostics. A vendor 5.10 backport of patches 2 and 3
+>   captured 96 UVC frames without stale data, with 100/100 begin/end calls.
+>   Its baseline was already coherent.
+> 
+> Karl Mehltretter (4):
+>   media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
+>   media: videobuf2: add opt-in DMA-BUF CPU access
+>   media: uvcvideo: synchronize imported DMA-BUFs for CPU access
+>   media: vivid: synchronize imported DMA-BUFs for CPU access
+> 
+>  .../media/common/videobuf2/videobuf2-core.c   | 96 ++++++++++++++++++-
+>  .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
+>  .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
+>  .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
+>  drivers/media/test-drivers/vivid/vivid-core.c |  1 +
+>  drivers/media/usb/uvc/uvc_queue.c             |  1 +
+>  include/media/videobuf2-core.h                | 12 ++-
+>  7 files changed, 116 insertions(+), 9 deletions(-)
+> 
+> 
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 
-Following this would allow a re-implementation of pcie_p2p as a mapping
-type and would allow a controlled link-severing to send an
-invalidate_mappings() notifier and the mappings to be re-negotiated.
+-- 
+Regards,
 
-Importers requiring an early hint as to what the actual mapping would
-look like would need to be prepared to re-consider at map-time, with a
-reasonable assumption that the reconsideration and re-mapping would
-happen seldom enough.
-
-Thanks,
-Thomas
-
-
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Thanks,
-> > Karl
+Laurent Pinchart
