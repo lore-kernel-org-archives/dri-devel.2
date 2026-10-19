@@ -2,131 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1398606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:16:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9C2606A31F
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=KnYqLxjG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TMSxwWWu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B51D10E888;
-	Mon, 19 Oct 2026 16:16:52 +0000 (UTC)
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022098.outbound.protection.outlook.com [52.101.96.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C10AA10E9B6
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:16:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bdKQ3Q/Icx7HB7bzceLGWxrawHdpOZUgy2aOpAikIx3600lyKdWoKFDgAR2bxaT0xgx4m3/nO0oVRoMKS+RcgVLkO9tByg2kCUdA2gK3OZxnuRT6Rnvh8BBV8RubPUsUsN2x+2NK8lf1XPagturl9LVgxKmktQe8yy1VLntLzJX8ZVJTcXuuHEzcv8qgzCwUxqJjIi2ino2a3pLbclu8Z+rDgDMRFNzI7uZajoppesumHIvTRh+OXr8O0470l5VlJ9uf8grEtKHVWF/w00Vx+jqk90loJxeYRUHKObiTDhobLzN8Icc+Mp9Hp4B6Flsz1LvXBTZLx5gP9acFH+m7QA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ydt0CLyOsOCLEfdPC6Vanczhg6KWP8Ljp09RX5WLWNU=;
- b=Z1xS2kMg7E0NMOUNCbDwInl0CkWQeEnbUFBKK3ijCy/3pclLftZw6emOLYz13dw4Uoo9/vjqEqWQUbZaXqpNvKfMOifmyTPqmExskp7tX2QuIiRomwxLU3T3dK7bhqzIkD3QAOLPYccu0vnpdRgnn14rpFi/GJjbGXp62RRzTaG3giusjVHh1cCC4WPU9PIj5UoiFk2Oy8gDiES3p3YSEcqTE+dVQbw3cR1CyUeAJ0axUY8T0yJjlDNszelmjZ9ZuG+IpFt8aHhGYWq2LWegET+gDQvf6cZCjOYb6Maln3MA25nfoPQKKQgYZjm/hvaqDYHB0gOeS+TCaP4DdcwpLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ydt0CLyOsOCLEfdPC6Vanczhg6KWP8Ljp09RX5WLWNU=;
- b=KnYqLxjGF0FWk9jfCRprW1g83qR8ghyQqWgwJEFqG/vf8jApigQVLWp/FmQjn9rRjqfh0R2TiRa456UUqxzswKqxN2Xv3DzIz7uS3yNIiqH6a2+TLVaaPEoEQ+4h41mjayPjx08oR8Fpop1lNXCI8YrsT7pVMKysIHtL58EMWlI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB3138.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:bd::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 16:16:41 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 16:16:41 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7CAC10F0CF;
+	Mon, 19 Oct 2026 16:19:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E87010F0E1
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:19:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DC8E94040D;
+ Mon, 19 Oct 2026 16:19:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FE931F000C4;
+ Mon, 19 Oct 2026 16:19:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792426740;
+ bh=oVPQfMGxJFInTOMiR/kFD5FwY/E/bZPWNTxgp3Zr6xs=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=TMSxwWWufWErxCQw/Q7VmTMXjr0/8Lvs1Q8HeRGB07W54gV0i7jV1YhCfnuXO4yGp
+ ZtZpcrqoBdTCB05Ah07Vzmcn6Qojlo/jmEA3BbXWPnziV+J6Vzo0d3m5zpx/l1+ufY
+ v4gGOoME7WGJ7MswEIcP+Bc4toMYJxdnt4TtlQZn8aVrP7I2HzBb4bhMYEf0J2W38z
+ mgkI11a1Sm0S+EPgko8m5UZJ4/SblxwSJoSUe3QyNZAD9MS6BpDZeZyvFg7NEmCh6h
+ /ItidqTjBI+tYFCqEEudvssQ1GFSbHv7kG5Qj0uVB9BXZvyi4jKotguH9KQkGfBP+o
+ h7RdW0NiuD8Rg==
+Message-ID: <sashiko-outbox-177861@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/4] drm/ms91xx: Add register access and connector
+ support
+To: "Ho Jie Feng" <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261019154820.68659-3-hjf3108@gmail.com>
+References: <20261019154820.68659-1-hjf3108@gmail.com>
+ <20261019154820.68659-3-hjf3108@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 17:16:40 +0100
-Message-Id: <DM8Y78VGDXM5.36K23TMPY8ZVZ@garyguo.net>
-Cc: "M Henning" <mhenning@darkrefraction.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Benno
- Lossin" <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v6 01/13] rust: auxiliary: let registration_data_with()
- closures return covariant sub-fields
-From: "Gary Guo" <gary@garyguo.net>
-To: "Gary Guo" <gary@garyguo.net>, "Alistair Popple" <apopple@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, "nova-gpu" <nova-gpu@lists.linux.dev>
-X-Mailer: aerc 0.22.0
-References: <20260909064506.910162-1-apopple@nvidia.com>
- <20260909064506.910162-2-apopple@nvidia.com>
- <DM8Y4G5JMZ64.9PYKH079V51H@garyguo.net>
-In-Reply-To: <DM8Y4G5JMZ64.9PYKH079V51H@garyguo.net>
-X-ClientProxiedBy: LO4P123CA0436.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a9::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB3138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88f95707-a234-40a9-9215-08df2dfc5c42
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|366016|1800799024|376014|7416014|4143699003|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 4dkEeSEGbbBARXMWLun48gYxcgPFwqKOK2netXgs4s8zbwiVEC0R57Rvbld2dw9ibSD9f/TP7Ti8ovtt4Zq4aGT7gSxjcl9jiAWkEsBLjOcCYulRaMZw09tvEYUzB3Huy0ivjKTtmtSZ8XU5d0+xavDrQrOiRgkxqS20BTHW4BnjlTRO4ZLLTbzD8uv+OkkEobrQ3EaJEk28zTruFi3IHBNzPXTHehtCjKY0/CVOGmGq5ugpalfKTqlf2c200sdwY+J5sQOZTyOmloAJ7KR3a+QAzps3WdP2QvhF5tNe895xzM+CN5FEwG/hNoNIKN6OEgPQ4svIN8JD8FmdICdePlgzg5KffiF4tA4qwewvYoohLVVq3nb5nF+YPZONU01n42KlJlztADZynVWRoFb/hRZNvYZRsN5liciW5CU8j1ILpCuTZseBTMzyGxB2DSFBOOEKKHzF3SGa3NcPOmGbxzZ7i+fmbJ7KVtQUWPdEtlaQjoi3LrIfM/eRr1+iR3icpESfpB6j+xUbaXDeF3jY2o8cUQXh4BaZJ96nDPCochY6BXrnN7Swsdtt2Yrnvfi6f9GDb1TGZHf+Su9o2bFI74CzqJJm2FBDfs2+tgPhfuywBhnuknxK3b55ZVeyjd+zJdcDKILX7p3iX3KRUWglM4LSyB5CPpRUeeQaY3Mram8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(376014)(7416014)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXllNndMV1NMR2paME9EL1FuU1RaWS85SDE2SXNmckVyNlp1TjNNTDRPSEEz?=
- =?utf-8?B?WklpTHd2My9iekxVcmZLdHFJYUowdGJWN05aZmhic1lpSVhoVU0rbG1zUFJI?=
- =?utf-8?B?dTVOOWgxMThRdmt0N3NSS2pGVDhTYVdQa21RekJLU1Bhd1JaQm1Sb2p6WHVp?=
- =?utf-8?B?WGdyL3M0Z2UvZy9vMWY2eTlIbTNkVTkwaXZYRElvdmlRWFRFSm40ZzVSV1ky?=
- =?utf-8?B?dm5tWU1UY1hTOEpMZWJlU0dzQmZWZi9weWZicGN4NkdNeWpPaks0M1VvdWFp?=
- =?utf-8?B?aE1YSS9rZGxOWnlSTWFMNEJCRmpBNUJuaVVNVWx0Y3FoYzFFSjY5T3hDeHV6?=
- =?utf-8?B?L3hxU0RHZ0hiek1IWExRNkhRemJKNkxIZ0MrV2N3SW5rejFzZ0tqblRxbEtj?=
- =?utf-8?B?QkRwSllVWTB4UUdSSzVBZlU0WXZpVzU1Q1A0TXREUE92RER0YVI0Q3VFWXJN?=
- =?utf-8?B?MWNxcllReG9zUlgzU1M0eGRzVkJiWkhwajhGb1VGNnVkUHhMY0MzN3RCY0Zu?=
- =?utf-8?B?L2ZIczNzdjBQWEl5WmU1ZFRPK0NGTVhkckZWL3RYZ0ZwWldSMGFrU2pWcm04?=
- =?utf-8?B?TElPQWc0VTZOeEhkTmpoS21QcWVVT0pyM3NyZXhaaGJHS2RrV0tMVURQZVRD?=
- =?utf-8?B?aFpBNFJDZ2NMdUxjWkw2RE50cWR3MTFxbnlrb3ZSZ2dkOFJleU9Rajh5czhM?=
- =?utf-8?B?Y3kvRDFCbjVBTDJHSVdNS05NdFluMkVlMkVIcXZjQWpqM0lWajlEcW1qNEFr?=
- =?utf-8?B?SjQ2WDlVZXpPQ0FWam9PMFAxVUVRQzZkT2RWZ3FFNm9ncnhXN3RrQlRaSXZ5?=
- =?utf-8?B?UWhqcXUwckdYbXZWTHZKcUswYjlxUER6Zkl4NlMrZGlJRElFa3ZjN05rZlV0?=
- =?utf-8?B?VXFyd2g2bE54SlNNckI4aHVlQllLYWdpVWU4VEMxcTI5WmJHRCtsYnJ1Mi9n?=
- =?utf-8?B?SUZEK00yNHdkRWdFbWNRRTEydjg4c0JDSERSRFlFL1NkTE5vNGs3T3dFT28v?=
- =?utf-8?B?ZTQ3L3cxSm14ZWVXT2pieEtoa2NzQm9qdlJwb1VzemhpZTIxR1pmblAyMUQr?=
- =?utf-8?B?UDVpR0NoSk1FM0htVTBWQjV6UHQxZTJqQXYrMGNHTWRYa0I1b2FRdm8zZklu?=
- =?utf-8?B?ZzFqVHJKa2xNOWpSSGo0bmNMYjBVSW5vb0YzUytYb2l5Mm8wWGh5STJ2UE5o?=
- =?utf-8?B?ZjNGTmxXN0k1eTRRQjY0RGMycGxycDVaVk16SGM5VWJtZ24zZThhL25OemR6?=
- =?utf-8?B?N0RXUHl0V2xjN2ExaS9IZERFNmNGR0FLODZ4bEJyWDBkckRRY0svL0ZSMWFP?=
- =?utf-8?B?TXcydmw5RUlYMTQzb1BOUXJicXFBSXZZaU5SYUE4QlJuR0g0Rmp6K0x4UWZ0?=
- =?utf-8?B?RmRZeXlwVnh0TUgyWjBCUE9wV3AyQ2dpY1JIRmZpbFp4K0Jxd1dPQmRndHI0?=
- =?utf-8?B?SFprN2FXTzNHeEpjQS9XZncrSldENXBTdHF6Qjc4UlhULzUzVzFhWTFWYXh4?=
- =?utf-8?B?Z2F4azh0aERpa2l4clF5TFk1V2FGaGd3bjB4R0taTXFIemc0QjdaYTZyNnUw?=
- =?utf-8?B?OVpXQjFWZXpvYlF3dU9obC9XYVVxWVpnYlYreUs1QUptL2RTRFlNQTAzYjF5?=
- =?utf-8?B?YllmS2ZMTmRHUFl2bXhoOUEyZkhqVHl2UmpLa2xHSjNjMitTRzlHMU1zamtk?=
- =?utf-8?B?d05NUDNZMmJxcVg3Mm5XMDRZcXRDVEFvak1udWsrZ1hvUmxBQXhGc1Vtd0N5?=
- =?utf-8?B?bVlXUEdCSi9zb2d1ODJmRjNWQlNNWkg3MTVjc09NL3pFU01aeG41WXhQUnFN?=
- =?utf-8?B?bFJ5T3dxbW5zS0xsR3JHODlSSE9iN1hnWm92UTZDTWl0a1Y3NHVGb0JNZ0wv?=
- =?utf-8?B?S2NvOFFGd1piVWJ5Y1RnYnVIQ2t0d3Y3NW8zNGxxQlRxVC9KVVZubGNOWXg3?=
- =?utf-8?B?QXFFSW9UUWp0MUFqYTg1UUU2WjVNUDFEUzFTT2J0azZnSFd3TmUyTEQ5MFJW?=
- =?utf-8?B?dmZ0ckE1UzZ0aGNXc2cyYklIZWE3NGxEb2ZBWmljSUQ4RzZ1dnVYazBXOStU?=
- =?utf-8?B?cHJvUWVjU1ZVdDFHbWlvSmtkZ2VyN1NzU2pqQ1dvUUNVaTVwdEZwY1hZNmJ4?=
- =?utf-8?B?alV6UVZUZ3dUUjRuN1BIcThReW10RUJzOVJTR0d6NkNHdFpYMCtXV1VnbmRM?=
- =?utf-8?B?V1Z4blhoSDRDZUVFNVQ5NldkVm1LbTExSUtveU9uVGJqaWtSLzFwdUNSelF2?=
- =?utf-8?B?THpRRUtQVXpyNmMwTm85RUJ4d3MwdXlBWkxHR1V4N2hIQWFhbk90L09ZZkg4?=
- =?utf-8?B?ZWFISjA1aDV5aytqQnNJaTJKMERZeXNHcTdtWnU5WWp6TmNDb1l5Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88f95707-a234-40a9-9215-08df2dfc5c42
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:16:41.3399 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kLvRrPBXI7NI9t8lqbgk/OPUsw7/lQgM4A8NepfURExlYQD+qxG0Uj5hG2fum6SLv7Agv82a7FVNPJvu/6gg0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB3138
+Date: Mon, 19 Oct 2026 16:19:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,59 +48,273 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Mon Oct 19, 2026 at 5:13 PM BST, Gary Guo wrote:
-> On Wed Sep 9, 2026 at 7:44 AM BST, Alistair Popple wrote:
->> The closure passed to registration_data_with() currently receives
->> `Pin<&'a F::Of<'a>>` with `'a` universally quantified. This prevents the
->> closure from returning references derived from the registration data,
->> even for sub-fields that are covariant in their lifetime, because the
->> compiler cannot relate `'a` to any lifetime the caller knows about.
->>
->> Tie the outer reference to the `&self` lifetime instead, i.e. pass
->> `Pin<&'this F::Of<'a>>`. This gives the closure the implied bound
->> `'a: 'this`, so covariant sub-fields such as `&'a T` can be coerced to
->> `'this` and returned directly, while invariant fields still cannot be
->> coerced and therefore cannot escape with an incorrect lifetime.
->>
->> This allows auxiliary child drivers to project covariant data out of
->> invariant registration data without having to wrap every use in a
->> closure.
->
-> Looking at this again I think the current API might be unsound where this=
- patch
-> becomes fix rather than just a feature update.
->
-> For an invariant `&'b F::Of<'a>`, it's actually a requirement that `'a` s=
-trictly
-> outlive `'b`. With the current API surface, we can obtain a `&'a F::Of<'a=
->`,
-> then we can store it inside `F::Of<'a>` (because, well, F::Of<'a> being
-> invariant, it can internally have a `Mutex<Option<F::Of<'a>>`), and then =
-we're
-> able to UAF within the destruction code of `F::Of<'a>`.
->
-> The fix, is, well, this patch.
->
-> Would you might pulling this patch out, rework the commit message a bit a=
-nd send
-> as a standalone fix?
->
-> Best,
-> Gary
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] drm/ms91xx: mismatched interlace handling in ms91xx_decode_custo=
+m_timing()
+- [Medium] drm/ms91xx: unchecked block index and u16 overflow in ms91xx_rea=
+d_edid()
+- [Medium] drm/ms91xx: odd hactive in ms91xx_decode_custom_timing() leaks u=
+ninit memory
+- [Low] drm/ms91xx: multiple modes marked DRM_MODE_TYPE_PREFERRED on connec=
+tor
+--
 
-Ah, I am looking at an old thread, this has been merged now.
+commit 557c9cb985634091a4b0753b2e8063cde49e88a5
+Author: Ho Jie Feng <hjf3108@gmail.com>
 
-Ignore the message please.
+drm/ms91xx: Add register access and connector support
 
-Best,
-Gary
+This commit adds USB control message helpers for reading registers and flash
+memory, display power and mode programming sequences, custom flash timing
+decoding, and DRM connector and EDID probing for the ms91xx driver.
 
+> diff --git a/drivers/gpu/drm/ms91xx/ms91xx_connector.c b/drivers/gpu/drm/=
+ms91xx/ms91xx_connector.c
+> new file mode 100644
+> index 0000000000000..d04f818fa09f2
+> --- /dev/null
+> +++ b/drivers/gpu/drm/ms91xx/ms91xx_connector.c
+> @@ -0,0 +1,263 @@
+
+[ ... ]
+
+> +static int ms91xx_read_edid(void *data, u8 *buf, unsigned int block, siz=
+e_t len)
+> +{
+> +	struct ms91xx_device *ms91xx =3D data;
+> +	int offset =3D block * EDID_LENGTH;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i =3D 0; i < len; i++) {
+> +		u16 address =3D MS91XX_REG_EDID_BASE + offset + i;
+> +
+> +		ret =3D ms91xx_read_byte(ms91xx, address);
+> +		if (ret < 0)
+> +			return ret;
+> +		buf[i] =3D ret;
+> +	}
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Should ms91xx_read_edid() check the bounds of block before computing the
+register address?
+
+In ms91xx_connector_get_modes(), drm_edid_read_custom() calls
+_drm_do_get_edid(), which reads block 0 and then requests extension blocks =
+up
+to the count advertised by the sink (up to 255 extensions).
+
+Because ms91xx_read_edid() does not limit block, any block >=3D 2 advances
+address past the EDID region at MS91XX_REG_EDID_BASE (0xc000) into device
+registers in 0xc100..0xffff, such as MS91XX_REG_MODE_SEQUENCE_2 (0xc620),
+MS912X_REG_CHIP_ID (0xf000), and MS913X_REG_CHIP_ID (0xff00).
+
+When block >=3D 128 (offset >=3D 0x4000), MS91XX_REG_EDID_BASE + offset + i
+overflows the 16-bit address variable and wraps around to 0x0000..0x3fff,
+reading low registers including MS91XX_REG_MODE_SEQUENCE_0 (0x0030) and
+MS91XX_REG_MODE_SEQUENCE_1 (0x0033).
+
+In addition, edid_block_read() retries each invalid block 4 times when
+ms91xx_read_edid() returns 0, and each ms91xx_read_byte() performs two
+synchronous USB control transfers, so an EDID advertising 255 extensions can
+trigger up to 261,120 USB control transfers while holding mode_config.mutex.
+
+[ ... ]
+
+> +static int ms91xx_connector_get_modes(struct drm_connector *connector)
+> +{
+> +	struct ms91xx_device *ms91xx =3D to_ms91xx(connector->dev);
+> +	const struct drm_edid *edid;
+> +	int ret =3D ms91xx_add_custom_mode(connector);
+> +
+> +	if (ms91xx->port_type =3D=3D MS91XX_VIDEO_PORT_CVBS ||
+> +	    ms91xx->port_type =3D=3D MS91XX_VIDEO_PORT_CVBS_SVIDEO ||
+> +	    ms91xx->port_type =3D=3D MS91XX_VIDEO_PORT_UNKNOWN)
+> +		return ret + ms91xx_add_cvbs_svideo_modes(connector);
+> +
+> +	if (ms91xx->port_type =3D=3D MS91XX_VIDEO_PORT_YPBPR)
+> +		return ret + ms91xx_add_ypbpr_modes(connector);
+> +
+> +	edid =3D drm_edid_read_custom(connector, ms91xx_read_edid, ms91xx);
+> +	if (!edid)
+> +		return ret + ms91xx_add_default_hdmi_vga_modes(connector);
+> +
+> +	if (drm_edid_connector_update(connector, edid) >=3D 0)
+> +		ret +=3D drm_edid_connector_add_modes(connector);
+> +	drm_edid_free(edid);
+> +	return ret;
+> +}
+
+[Severity: Low]
+Can ms91xx_connector_get_modes() end up marking multiple modes on the same
+connector with DRM_MODE_TYPE_PREFERRED?
+
+In ms91xx_decode_custom_timing(), every decoded custom mode (up to two modes
+when the "modify2" flash marker is present) is unconditionally assigned:
+
+	display_mode->type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
+
+When ms91xx_connector_get_modes() runs, ms91xx_add_custom_mode() adds all
+decoded custom modes with DRM_MODE_TYPE_PREFERRED set, and then
+ms91xx_connector_get_modes() unconditionally calls
+ms91xx_add_cvbs_svideo_modes(), ms91xx_add_ypbpr_modes(),
+ms91xx_add_default_hdmi_vga_modes(), or drm_edid_connector_add_modes(), each
+of which also sets DRM_MODE_TYPE_PREFERRED on another mode.
+
+Per struct drm_display_mode in include/drm/drm_modes.h, there should only be
+one preferred mode per connector at any given time, and having multiple
+preferred modes causes drm_mode_sort() to tie-break among them by resolution
+(hdisplay * vdisplay).
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/ms91xx/ms91xx_registers.c b/drivers/gpu/drm/=
+ms91xx/ms91xx_registers.c
+> new file mode 100644
+> index 0000000000000..84cbdc78002b1
+> --- /dev/null
+> +++ b/drivers/gpu/drm/ms91xx/ms91xx_registers.c
+> @@ -0,0 +1,386 @@
+
+[ ... ]
+
+> +static int
+> +ms91xx_decode_custom_timing(struct ms91xx_custom_mode *custom_mode,
+> +			    const struct ms91xx_custom_timing_record *record)
+> +{
+> +	struct drm_display_mode *display_mode =3D &custom_mode->display_mode;
+> +	u16 hsyncwidth =3D le16_to_cpu(record->hsyncwidth);
+> +	u16 vsyncwidth =3D le16_to_cpu(record->vsyncwidth);
+> +	u16 hoffset =3D le16_to_cpu(record->hoffset);
+> +	u16 voffset =3D le16_to_cpu(record->voffset);
+> +	u16 hactive =3D le16_to_cpu(record->hactive);
+> +	u16 vactive =3D le16_to_cpu(record->vactive);
+> +	u16 htotal =3D le16_to_cpu(record->htotal);
+> +	u16 vtotal =3D le16_to_cpu(record->vtotal);
+> +	u16 pixclk =3D le16_to_cpu(record->pixclk);
+> +	u16 vfreq =3D le16_to_cpu(record->vfreq);
+> +	unsigned int hblank, vblank;
+> +	int refresh;
+> +
+> +	if (!hactive || hactive > MS91XX_MAX_WIDTH ||
+> +	    !vactive || vactive > MS91XX_MAX_HEIGHT ||
+> +	    htotal <=3D hactive || vtotal <=3D vactive || !pixclk || !vfreq)
+> +		return -EINVAL;
+
+[Severity: Medium]
+Should ms91xx_decode_custom_timing() reject odd hactive values (hactive % 2=
+ !=3D 0)?
+
+In ms91xx_set_resolution(), the hardware is configured exclusively for pack=
+ed
+4:2:2 UYVY (MS91XX_PIXFMT_UYVY), which encodes horizontal pixels in pairs.
+
+If a custom timing record in flash has an odd hactive and is selected with
+fb->width =3D=3D hactive, ms91xx_fb_send_rect() (added in the following pat=
+ch)
+computes:
+
+	x =3D ALIGN_DOWN(rect->x1, 2);
+	width =3D min_t(int, ALIGN(rect->x2, 2), fb->width) - x;
+
+When rect->x2 =3D=3D fb->width, min_t() clamps to the odd fb->width, produc=
+ing an
+odd width. ms91xx_fb_xrgb8888_to_yuv422() then calls
+drm_fb_xrgb8888_to_uyvy(), which advances the destination buffer by width *=
+ 2
+bytes per line while drm_fb_xrgb8888_to_uyvy_line() only writes
+round_down(width, 2) * 2 bytes per line, leaving 2 trailing bytes of
+uninitialized vmalloc_32() memory per scanline in transfer_buffer to be sent
+over USB.
+
+> +
+> +	hblank =3D htotal - hactive;
+> +	vblank =3D vtotal - vactive;
+> +	if (!hsyncwidth || hsyncwidth > hoffset || hoffset > hblank ||
+> +	    !vsyncwidth || vsyncwidth > voffset || voffset > vblank)
+> +		return -EINVAL;
+> +
+> +	memset(display_mode, 0, sizeof(*display_mode));
+> +	display_mode->clock =3D pixclk * 10;
+> +	display_mode->hdisplay =3D hactive;
+> +	display_mode->hsync_start =3D htotal - hoffset;
+> +	display_mode->hsync_end =3D display_mode->hsync_start + hsyncwidth;
+> +	display_mode->htotal =3D htotal;
+> +	display_mode->vdisplay =3D vactive;
+> +	display_mode->vsync_start =3D vtotal - voffset;
+> +	display_mode->vsync_end =3D display_mode->vsync_start + vsyncwidth;
+> +	display_mode->vtotal =3D vtotal;
+> +	display_mode->type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
+> +	display_mode->flags =3D
+> +		record->polarity & MS91XX_TIMING_POSITIVE_HSYNC ?
+> +			DRM_MODE_FLAG_PHSYNC : DRM_MODE_FLAG_NHSYNC;
+> +	display_mode->flags |=3D
+> +		record->polarity & MS91XX_TIMING_POSITIVE_VSYNC ?
+> +			DRM_MODE_FLAG_PVSYNC : DRM_MODE_FLAG_NVSYNC;
+> +	if (!(record->polarity & MS91XX_TIMING_PROGRESSIVE))
+> +		display_mode->flags |=3D DRM_MODE_FLAG_INTERLACE;
+
+[Severity: Medium]
+How are interlaced custom timings intended to be handled between
+ms91xx_decode_custom_timing() and ms91xx_connector_init()?
+
+When !(record->polarity & MS91XX_TIMING_PROGRESSIVE),
+ms91xx_decode_custom_timing() sets DRM_MODE_FLAG_INTERLACE on display_mode =
+and
+stores the entry in ms91xx->custom_modes[].
+
+However, ms91xx_connector_init() does not set
+ms91xx->connector.interlace_allowed =3D true. When
+drm_helper_probe_single_connector_modes() validates the modes added by
+ms91xx_add_custom_mode(), drm_mode_validate_flag() marks any
+DRM_MODE_FLAG_INTERLACE mode as MODE_NO_INTERLACE and drm_mode_prune_invali=
+d()
+deletes it from the connector mode list.
+
+Meanwhile, the decoded entry remains in ms91xx->custom_modes[] and struct
+ms91xx_mode only records width, height, hz, and mode without tracking
+interlacing:
+
+	custom_mode->mode.width =3D hactive;
+	custom_mode->mode.height =3D vactive;
+	custom_mode->mode.hz =3D refresh;
+	custom_mode->mode.mode =3D record->vic;
+
+As a result, when a progressive mode with the same width, height, and refre=
+sh
+rate is later validated or enabled in ms91xx_get_mode(), it will match the
+pruned interlaced entry in ms91xx->custom_modes[].
+
+> +
+> +	refresh =3D DIV_ROUND_CLOSEST(vfreq, 100);
+> +	if (!refresh || drm_mode_vrefresh(display_mode) !=3D refresh)
+> +		return -EINVAL;
+> +
+> +	drm_mode_set_name(display_mode);
+> +	custom_mode->mode.width =3D hactive;
+> +	custom_mode->mode.height =3D vactive;
+> +	custom_mode->mode.hz =3D refresh;
+> +	custom_mode->mode.mode =3D record->vic;
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019154820.6865=
+9-1-hjf3108@gmail.com?part=3D2
