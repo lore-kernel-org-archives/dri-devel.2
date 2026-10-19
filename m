@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9B6FCCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8854CCF2E9
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:04:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B28610EE10;
-	Mon, 19 Oct 2026 14:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD4C10EE16;
+	Mon, 19 Oct 2026 14:04:09 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6554710EE10
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:03:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 026CB10EE11;
+ Mon, 19 Oct 2026 14:04:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CDB7560534;
- Mon, 19 Oct 2026 14:03:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F6E1F000C9;
- Mon, 19 Oct 2026 14:03:25 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6AA17602A8;
+ Mon, 19 Oct 2026 14:04:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99D801F000C4;
+ Mon, 19 Oct 2026 14:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418606;
- bh=VcXNbrzKLhYN5V0hkHe94Cash4qRCSavaP+hGPLNDIk=;
+ s=k20260515; t=1792418641;
+ bh=JoR/Uw8DzaN62uBMS7uJe8B2wMvAo7Agf/4iuypCCEM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=DKSjTdaYnZ0dDvZYvl+j1Ur5BKSoAUnorFIX1OZsJItLz7bLUawBF6VuBktnSdRjA
- 4cDEWOGgZfNhZoghNTEIy/pZFliM6Ni4HghFdiIu9SRtjsbNsdMgXyt09FJ5b0N/tX
- IOpnaNaZxytmjomimoOp1O7L5yoE9UpFtQEaykvGYVedCddwtIGrjVueNZ1Lfa2BNK
- 1sCt4y9oXNCtU7NcfhnIdS3lg/EQ9BYz/fI5qzMO1UrBfH5vhMs1WExnOnpiQRCppf
- fZlekV5rIQIIz23TBym+kh6bYxTqFZ9rpZtY5e07JzdrT8FY9ifTy8g5bDbwYIGhWA
- VmHgzXhLhrDrQ==
+ b=d0VeMBmBzLKV6JroB4rApuQ00gFjBd5SA2svZoOckNIGYahij/qhcC9Rk7ngorVJ8
+ TatH1Hvb6Q/uVf5kccKsCm4orhm6Pu0mZ9UFtpE+MI5eQxjtuR1x29C//qvKycDhfG
+ QIRNSbL+Ssyo4sZ8PEV4EhUQIw7FEicLPYR6WY9ms2BZrnQL2qqiIvljWpwU06QQ+S
+ LkQT38x6F0FKpD9TeJJOQ8v9csGeoPJdBj6O8WqAkpRkeKsv9FvLk0YW4Tt7xJhSBJ
+ b+Tir4KujZjXHbOhag6660nwY/nsXpJGT+QGlsJERN6jGNr7VezN2FTtKiZLL+Kt15
+ jINm8yfaYMP5Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Helge Deller <deller@gmx.de>,
- syzbot+0c815b25cdb3678e7083@syzkaller.appspotmail.com,
- Sasha Levin <sashal@kernel.org>, tzimmermann@suse.de, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] fbcon: Fix KASAN slab-out-of-bounds Read in
- fbcon_prepare_logo
-Date: Mon, 19 Oct 2026 09:50:59 -0400
-Message-ID: <20261019135441.1420968-368-sashal@kernel.org>
+Cc: Yongqiang Sun <Yongqiang.Sun@amd.com>,
+ David Francis <David.Francis@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdkfd: use node XCC count for v9 CRIU
+ control stack restore
+Date: Mon, 19 Oct 2026 09:51:24 -0400
+Message-ID: <20261019135441.1420968-393-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,361 +64,427 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Helge Deller <deller@gmx.de>
+From: Yongqiang Sun <Yongqiang.Sun@amd.com>
 
-[ Upstream commit 94e6a058b16820e02f25e1221a4c4e713ba23550 ]
+[ Upstream commit 1a0aa3c4cb207fcbf7ebd2d9ed9f1cfb4560bd2c ]
 
-Ensure the logo will not exceed the screen size, which then should
-fix a reported KASAN: slab-out-of-bounds Read in fbcon_prepare_logo.
+set_queue_properties_from_criu() divided the checkpointed control stack
+size by NUM_XCC(adev->gfx.xcc_mask) (whole GPU), while the checkpoint
+size was recorded, the MQD buffer allocated, and the control stack
+restored using the per-node mask NUM_XCC(mm->dev->xcc_mask). On spatially
+partitioned GFX9.4.3 (CPX/QPX) these differ, so the per-XCC control stack
+size used for the restore memcpy could exceed the region sized for the
+MQD allocation, writing past the BO into adjacent kernel memory; it also
+broke legitimate restore on partitioned parts.
 
-Reported-by: syzbot+0c815b25cdb3678e7083@syzkaller.appspotmail.com
-Signed-off-by: Helge Deller <deller@gmx.de>
+Divide by the per-node XCC count so allocation and copy agree,
+leaving kfd_queue_acquire_buffers() to bound the size against
+the node's advertised control stack size.
+
+Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Reviewed-by: David Francis <David.Francis@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.12.111** (`pending-6.12`). The buggy `logo_lines`
-walk is present here, and the candidate is a 7-line KASAN bounds check
-that applies cleanly.
+The local tree is **6.18.53** (`Makefile` `VERSION=6 PATCHLEVEL=18
+SUBLEVEL=53`, `git describe` `v6.18.53-5049-g0f0bdc2b0dffb`, branch
+`autosel`). The verdict is only for this 6.18.y checkout.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+Upstream `1a0aa3c4cb20` is not an ancestor of `v6.18.53`. The buggy line
+is present at `v6.18.53`.
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[fbcon] [Fix] [KASAN slab-out-of-bounds read in
-fbcon_prepare_logo]**
+Record: **[drm/amdkfd] [use] [use node XCC count for v9 CRIU control
+stack restore]**
+- Subsystem: `drm/amdkfd` (AMD KFD compute)
+- Verb: “use” — here it is a correctness fix (wrong XCC divisor), not a
+  feature
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Reported-by: syzbot+0c815b25cdb3678e7083@syzkaller.appspotmail.com
-- Signed-off-by: Helge Deller \<deller@gmx.de\> (FRAMEBUFFER LAYER
-  maintainer; applied the patch himself)
-- No Fixes:, no Cc: stable, no Reviewed-by/Acked-by/Tested-by, no Link:
-  in the committed message (the syzbot-forwarded submission did include
-  `Link: https://syzkaller.appspot.com/bug?extid=0c815b25cdb3678e7083`)
-- Notable: syzbot + maintainer SOB; absence of Fixes/Cc:stable is
-  expected for this review pipeline
+- No `Fixes:` tag (expected)
+- No `Reported-by:`, `Tested-by:`, `Link:`, `Cc: stable`
+- `Reviewed-by: David Francis <David.Francis@amd.com>`
+- `Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>` (author)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+  maintainer)
+- Pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit
+  1a0aa3c4cb20...]` ignored per instructions
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Bug: calculated logo height can exceed the console buffer, then
-  `fbcon_prepare_logo()` reads past it.
-- Symptom: KASAN slab-out-of-bounds Read (also KFENCE OOB and UAF-class
-  reports on the same syzbot bug).
-- Version info in the message: none. Syzbot shows crashes from Feb 2025
-  through 2026 on upstream, and on linux-5.15.y / 6.1.y / 6.6.y.
-- Root cause as stated: logo not clipped to screen size before the
-  buffer walk.
+- **Bug:** CRIU restore divides checkpointed control-stack size by
+  whole-GPU `NUM_XCC(adev->gfx.xcc_mask)`, while checkpoint, MQD
+  allocation, and restore memcpy use per-node
+  `NUM_XCC(mm->dev->xcc_mask)`.
+- **Symptom:** On spatially partitioned GFX9.4.3 (CPX/QPX) the two
+  counts differ. Restore memcpy can write past the MQD BO into adjacent
+  kernel memory; legitimate restore on a partition also fails.
+- **Root cause:** Wrong XCC divisor in
+  `set_queue_properties_from_criu()`.
+- **Fix:** Divide by per-node `NUM_XCC(pdd->dev->xcc_mask)`;
+  `kfd_queue_acquire_buffers()` still checks against the node’s
+  advertised control-stack size.
+- No version range in the message.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a hidden fix. Explicit KASAN OOB fix. The later `if
-(logo_lines > vc->vc_bottom)` path already tried to disable an oversized
-logo, but only **after** the out-of-bounds walk.
+Record: Not hidden. Explicit buffer-overrun + broken restore. Not
+cleanup/refactor.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+---
+
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/video/fbdev/core/fbcon.c` (+7 / −0)
-- Function: `fbcon_prepare_logo()`
-- Scope: single-file surgical fix
+- File: `drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c` (`1`
+  insertion, `1` deletion)
+- Function: `kfd_criu_restore_queue()`
+- Scope: single-file, one-line surgical fix
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record: After `logo_lines = DIV_ROUND_UP(logo_height,
-vc->vc_font.height)` the code immediately walked `q - logo_lines *
-cols`. Now it clamps `logo_lines` to `rows` and `new_rows - 1`, and if
-that leaves nothing, sets `logo_shown = FBCON_LOGO_DONTSHOW` and
-returns. Normal path with a logo that already fits is unchanged.
+Record:
+- **Before:** `set_queue_properties_from_criu(&qp, q_data,
+  NUM_XCC(pdd->dev->adev->gfx.xcc_mask));` → `qp.ctl_stack_size =
+  q_data->ctl_stack_size / whole_GPU_xcc`
+- **After:** `NUM_XCC(pdd->dev->xcc_mask)` → divide by this node’s XCC
+  count
+- Path: CRIU queue restore (`AMDKFD_IOC_CRIU_OP`), compute queues only
+  (`KFD_QUEUE_TYPE_COMPUTE` in `set_queue_properties_from_criu`)
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **Memory safety / out-of-bounds.** `fb_prepare_logo()` returns a
-pixel height `<= yres`, but `DIV_ROUND_UP(height, font_height)` can be
-one larger than `yres / font_height` (`new_rows`). Example: yres=100,
-font=16 → logo_lines=7, new_rows=6. Then `q - logo_lines * cols` is one
-row before `vc_origin`, and `scr_readw` / `scr_memcpyw` go OOB. The
-existing `logo_lines > vc->vc_bottom` check runs too late.
+Record: **[Buffer overflow / OOB kernel write] + [logic/correctness]**
+
+Verified chain:
+1. Checkpoint (`get_checkpoint_info` in `kfd_mqd_manager_v9.c`):
+   `*ctl_stack_size = m->cp_hqd_cntl_stack_size *
+   NUM_XCC(mm->dev->xcc_mask)` (node).
+2. `allocate_mqd()` sizes the GTT BO from `q->ctl_stack_size` (the
+   divided per-XCC value) × `NUM_XCC(node->xcc_mask)`.
+3. `create_queue_nocpsch` / `create_queue_cpsch` pass
+   **`qd->ctl_stack_size`** (full user/checkpoint size) into
+   `restore_mqd()`.
+4. `restore_mqd_v9_4_3()` copies `ctl_stack_size /
+   NUM_XCC(mm->dev->xcc_mask)` bytes per XCC with unbounded `memcpy` in
+   `restore_mqd()` to `*mqd + PAGE_SIZE`.
+
+On CPX/QPX, GPU XCC count > node XCC count. A crafted
+`q_data->ctl_stack_size = node_props.ctl_stack_size * GPU_xcc` makes
+`qp.ctl_stack_size` pass `kfd_queue_acquire_buffers()`’s equality check,
+then restore copies `GPU_xcc/NODE_xcc` times too much → write past the
+BO.
+
+A legitimate checkpoint (`ctl_stack_size = per_xcc * NODE_xcc`) yields a
+too-small `qp.ctl_stack_size`, so acquire_buffers returns `-EINVAL` and
+restore is broken.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct bounds clamp; 7 lines; no API change.
-`new_rows == 0` yields `new_rows - 1 == -1`, then `logo_lines <= 0`
-bails out. Regression risk is low: at worst the penguin is skipped on
-tiny/odd geometries instead of walking off the buffer. A 2025 RFC (Wang
-ShaoBo) described a related cols-mismatch after `vc_resize()`; this
-clamp does not fully cover that variant, but it does not worsen it, and
-syzbot named this commit as the fix for the 1873-crash report.
+Record: Obviously correct: same `NUM_XCC(dev->xcc_mask)` as
+checkpoint/allocate/restore. Minimal. No API/locking change. Regression
+risk very low (only partitioned restore, which is currently wrong).
+`pdd->dev->xcc_mask` exists on `struct kfd_node` in this tree.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Record: The OOB walk (`q - logo_lines * cols` / `scr_readw` loop) is
-from **^1da177e4c3f41** (v2.6.12 era). `logo_lines = DIV_ROUND_UP(...)`
-is from **416e74ea781359** (Julia Lawall, 2008). This is long-standing
-code, not a recent 6.12-only bug.
+Record: At `v6.18.53`, line 1065 was introduced by **`f6c0f3d24478a`**
+(`drm/amdkfd: Fix checkpoint-restore on multi-xcc`, David Yat Sin,
+2025-07-16). That commit added the `num_xcc` argument and used
+**`adev->gfx.xcc_mask`**. It is an ancestor of `v6.18.53` and was itself
+`Cc: stable@vger.kernel.org` (cherry-pick of `a578f2a58c3a`).
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. The buggy pattern has been in the function for
-~20 years. `6104c37094e7` ("fbcon: Make fbcon a built-time dependency
-for fbdev", 2017) is in this tree (`merge-base --is-ancestor` exit 0);
-Wang’s RFC cited it, but that is a different proposed patch.
+Record: No `Fixes:` tag. The introducing commit is `f6c0f3d24478a`,
+present in this tree.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Related but distinct history in this tree: `a6a00d7e8ffd7` /
-`5c38052680f56` (kzalloc KMSAN false-positive, reverted);
-`250038f5a7207` (2007 vertical overflow when making space for the logo —
-different hunk). No prior clamp of `logo_lines` to `rows`/`new_rows`.
-Standalone, not patch N/M.
+Record (file-limited `git log`):
+- `c6c290e408fe3` `drm/amdkfd: Properly acquire queue buffers in CRIU
+  restore` — **in v6.18.53**; this patch depends on that bound
+- `fd1691ec62701` bounds on CRIU queue type/mqd size — already here
+- `f6c0f3d24478a` multi-xcc CRIU — introduced the bug
+- Later clamp/bound CRIU patches from the same author are **not** in
+  this tree; they are extra hardening, not prerequisites
+
+Standalone given acquire_buffers is already here.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Helge Deller is FRAMEBUFFER LAYER maintainer (`MAINTAINERS`). He
-authors/applies fbdev fixes regularly in this tree.
+Record: Yongqiang Sun has other amdkfd CRIU/safety work. Not the
+subsystem maintainer. Review is from David Francis; merge SOB from Alex
+Deucher.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Uses existing `logo_lines`, `rows`, `new_rows`, `logo_shown`,
-`FBCON_LOGO_DONTSHOW`. No new helpers. `git apply --check` succeeded
-(hunk at line 596, offset −64). Standalone.
+Record: Needs `set_queue_properties_from_criu(..., num_xcc)`
+(`f6c0f3d24478a`) and `kfd_queue_acquire_buffers()` (`c6c290e408fe3`).
+Both are in `v6.18.53`. `pdd->dev->xcc_mask` exists. Applies standalone
+on this tree.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record: `b4 dig -c 94e6a058b168` →
-https://patch.msgid.link/6a897c8e.dbb3a75c.13dd47.002f.GAE@google.com
-(syzbot-forwarded `#syz test` from deller@kernel.org, 2026-08-22). `b4
-dig -a`: v1 only. lore.kernel.org returned 403; openwall mirror confirms
-the same single-hunk patch. No NAK found. Applied two days later by
-Deller (commit date 2026-08-24).
+Record:
+- `b4 dig -c 1a0aa3c4cb20` failed: lore.kernel.org returned server
+  errors (UNVERIFIED via b4)
+- Thread found on amd-gfx: https://ratatoskr.run/amd-
+  gfx/2026/06/17177385 (2026-06-25)
+- Single-patch submission, not v2/v3
+- Same one-line diff as committed
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: `b4 dig -w`: recipients were syzbot and linux-
-kernel@vger.kernel.org only. No public Reviewed-by. Weight comes from
-the maintainer applying it, not from a review thread.
+Record: David Francis: “Nice catch” + `Reviewed-by`. No NAK. Alex
+Deucher SOB on the commit. Recipients: amd-gfx; maintainers listed
+include Felix Kuehling, Alex Deucher.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: https://syzkaller.appspot.com/bug?extid=0c815b25cdb3678e7083
-- Status: upstream, C repro, **prio:high**, **1873 crashes**, first
-  2025-02-25
-- Fix commit listed: **94e6a058b168**
-- Patched on 20/29 syzbot instances
-- Stack: `store_bind` → `vt_bind` → `do_bind_con_driver` → `visual_init`
-  → `fbcon_init` → `fbcon_prepare_logo` → `scr_memcpyw`
-- Same title also on linux-5.15.y (C repro), linux-6.1.y, linux-6.6.y
-- Syzbot security assessment: DenialOfService yes, Exploitable yes,
-  Unprivileged no (sysfs `bind` is `S_IWUSR`)
+Record: No syzbot/bugzilla. Author-found mismatch. Same month as related
+CRIU bound/clamp patches.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Not a series. Related RFC 2025-09-25 from Wang ShaoBo added a
-pointer-vs-`vc_origin` guard in the scroll loop; it was not applied in
-this tree or in the candidate’s parent. Older kzalloc change is
-unrelated (reverted KMSAN false positive).
+Record: Same author, June 2026 amd-gfx:
+- `clamp v9 CRIU control stack checkpoint copy to BO size`
+- `bound v9 CRIU control stack restore to allocated MQD region`
+- this divisor fix
+
+Complementary, not a numbered series. drm-next 7.3 pull listed this
+under CRIU fixes. This line does not need the clamp/bound patches to be
+correct.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable 403. No evidence this 2026-08-24 commit
-was already discussed for 6.12.y. The same KASAN title is already
-reproduced on older stable CIs, which supports that 6.12 is affected.
+Record: lore.kernel.org/stable search returned **403**. No stable-list
+discussion verified. No evidence it was rejected for stable.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+---
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `fbcon_prepare_logo()` only. Semcode MCP not available.
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: `kfd_criu_restore_queue()` (call site);
+`set_queue_properties_from_criu()` (consumer of `num_xcc`); downstream
+`kfd_queue_acquire_buffers`, `pqm_create_queue` → `restore_mqd` /
+`restore_mqd_v9_4_3`.
 
 **Step 5.2: TRACE CALLERS**
-Record: Two call sites in this tree:
-1. `con2fb_init_display()` (line 826) — console mapped to a framebuffer,
-   `show_logo`.
-2. `fbcon_init()` (line 1155) — after setting/resizing the VC, if `logo`
-   is set.
-
-`fbcon_init` is `con_init` for fbcon, called from `visual_init()` during
-bind/takeover. `store_bind` is the syzbot trigger (root sysfs write).
-Also runs on normal fbcon takeover at boot when the logo is enabled
-(`!MODULE`).
+Record:
+- `kfd_criu_restore_queue` ← `criu_restore_objects()` ← `kfd_ioctl_criu`
+  via `AMDKFD_IOC_CRIU_OP`
+- Ioctl flag `KFD_IOC_FLAG_CHECKPOINT_RESTORE`: `CAP_CHECKPOINT_RESTORE`
+  or `CAP_SYS_ADMIN`
+- Userspace-reachable, privileged
 
 **Step 5.3: TRACE CALLEES**
-Record: `fb_prepare_logo()`, `scr_readw`/`scr_memcpyw`/`scr_memsetw`,
-`kmalloc`/`kfree`, `update_screen`. The new code only uses `min()` and
-existing `logo_shown`.
+Record: `set_queue_properties_from_criu` → `kfd_queue_acquire_buffers`
+(must match `node_props.ctl_stack_size`) → `pqm_create_queue` →
+`allocate_mqd` + `restore_mqd(..., qd->ctl_stack_size)`.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace (root) → `sysfs` `vtconN/bind` → `fbcon_init` →
-`fbcon_prepare_logo`. Also boot-time logo on `CONFIG_FRAMEBUFFER_CONSOLE
-&& !MODULE`. Path is real and reproduced.
+Record: Privileged CRIU restore ioctl → kernel memcpy into MQD GTT.
+Triggered by GPU container checkpoint/restore on partitioned GFX9.4.3
+(MI300 family). Unprivileged users cannot call it.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: The too-late `logo_lines > vc->vc_bottom` check is the same bug
-class, just after the OOB. No sibling drivers copy this logo-scroll
-logic.
+Record: Rest of KFD uses `dev->xcc_mask` / `mm->dev->xcc_mask`. This
+restore call was the odd `adev->gfx.xcc_mask` user in this path.
+`kfd_device.c` sets `node->xcc_mask` from XCP when partitioned, else
+from whole-GPU mask — they only differ with spatial partitions.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. `drivers/video/fbdev/core/fbcon.c` lines 597–604 compute
-`logo_lines` and walk `q - logo_lines * cols` with no clamp. `git merge-
-base --is-ancestor 94e6a058b168 HEAD` is **false** — the fix is not in
-6.12.111. Bug introduced long before 6.12.
+Record: **Yes.** `v6.18.53:kfd_process_queue_manager.c:1065`:
+`set_queue_properties_from_criu(&qp, q_data,
+NUM_XCC(pdd->dev->adev->gfx.xcc_mask));`
+Introduced `f6c0f3d24478a` (2025-07-16), present in 6.18.y.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: `git apply --check` **clean** (offset −64 from surrounding-line
-drift / `fbcon_ops`→`fbcon_par` rename already in this tree). Expected
-difficulty: **clean apply**.
+Record: Clean apply. Surrounding function at 6.18.53 matches the hunk
+(`kfd_queue_acquire_buffers` already there). `pdd->dev->xcc_mask` is in
+`kfd_priv.h:279` at 6.18.53.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No `logo_lines = min(...)` in this file. The 2007 Geert overflow
-tweak and the kzalloc revert do not clamp logo lines.
+Record: acquire_buffers bound is already in 6.18.53. Clamp/bound memcpy
+patches are not; they are extra, not a substitute. No other fix of this
+divisor mismatch.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **fbcon** (`drivers/video/fbdev/core/fbcon.c`), the framebuffer
-console used with `CONFIG_FRAMEBUFFER_CONSOLE` (default follows
-`DRM_FBDEV_EMULATION`). Criticality: **IMPORTANT** — not mm/core, but
-default console path on many DRM/fbdev systems.
+Record: **amdkfd (AMD GPU compute)** — **IMPORTANT** for ROCm/HPC, not
+core mm/VFS. CRIU restore is a real production path for GPU containers.
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature; still receiving OOB/NULL/font fixes in this tree
-(`51b8258efe254`, `b5bb2c696e140`, `ac970358c5ca0`). Not staging.
+Record: Active (many recent CRIU bound-check fixes). This is a follow-on
+to the multi-xcc CRIU work already in stable.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 **Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Users with framebuffer console (typical desktop/embedded DRM
-fbdev emulation, vkms/syzbot, classic fbdev). Config-specific
-(`FRAMEBUFFER_CONSOLE`), not universal.
+Record: Driver/config-specific: `CONFIG_HSA_AMD` + KFD CRIU restore +
+GFX9.4.3 spatial partition (CPX/QPX). MI300-class HPC/AI systems.
 
 **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: (1) Console bind/takeover with a logo taller than the text grid
-after integer rounding; (2) syzbot C repro via `vtcon` bind. Common on
-fuzzing and on small/rotated/odd modes. Unprivileged users cannot write
-`bind` (`S_IWUSR`); boot-time logo does not need that.
+Record:
+- Legitimate: CRIU restore of a compute queue on a partitioned node →
+  restore fails (`-EINVAL` from acquire_buffers)
+- Malicious/crafted checkpoint: size chosen so the wrong divisor equals
+  `node_props.ctl_stack_size` → OOB `memcpy`
+- Requires `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN`
+- Unprivileged users cannot trigger it
 
 **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: KASAN slab-out-of-bounds **read** (and related UAF/KFENCE
-reports). Can oops under KASAN/KFENCE; without sanitizers it is still an
-invalid buffer walk. Severity: **HIGH** (memory-safety crash; syzbot
-marked exploitable but not unprivileged).
+Record:
+- OOB write past MQD BO into adjacent kernel (TTM/GTT) memory → **HIGH**
+  (corruption/crash; privileged)
+- Broken legitimate CRIU restore on partitioned parts → **HIGH** for
+  those users (functional failure, not a panic on the happy path)
 
 **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record: Benefit **high** (stops a reproducible KASAN OOB in a common
-console path). Risk **very low** (7-line clamp, early return already
-used elsewhere in the same function). Ratio strongly favors backport.
+Record:
+- **Benefit:** Fixes kernel OOB write and restores CRIU on partitioned
+  GFX9.4.3; the buggy multi-xcc CRIU code is already in this stable tree
+- **Risk:** Very low (one identifier change, same pattern as the rest of
+  KFD)
+- **Ratio:** Strongly favors backport
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+---
+
+## PHASE 9: FINAL SYNTHESIS
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Real, syzbot-reproduced KASAN OOB with C repro, 1873 crashes,
-  prio:high
-- Same bug title on 5.15.y / 6.1.y / 6.6.y — this 6.12 tree still has
-  the unclamped walk
-- Syzbot lists 94e6a058b168 as the fix commit
-- Maintainer-authored, 7 lines, applies cleanly here
-- Fixes a rounding hole (`DIV_ROUND_UP` vs `yres / font_height`) plus
-  any logo taller than the VC
-- No new API/feature; existing `FBCON_LOGO_DONTSHOW` path
+- Real bug: wrong XCC divisor vs checkpoint/allocate/restore
+- Kernel memory overwrite via unbounded `memcpy` in `restore_mqd()`
+- Broken CRIU restore on CPX/QPX GFX9.4.3
+- Introducing commit already in 6.18.y and was `Cc: stable`
+- 1-line, obviously correct, reviewed by David Francis, SOB Alex Deucher
+- Prerequisites (`f6c0f3d24478a`, `kfd_queue_acquire_buffers`) present
+- Applies cleanly
 
 AGAINST:
-- Short commit message, no public review, no Fixes:
-- Does not fully address the Wang RFC cols-mismatch-after-resize case
-- Trigger via sysfs bind is root-only (boot logo path still matters)
+- Privileged ioctl only
+- Only partitioned multi-XCC GFX9.4.3 + CRIU
+- No syzbot / no `Fixes:` / no explicit stable Cc on this commit
+- Complementary clamp/bound patches not in this tree (hardening, not
+  required)
 
 UNRESOLVED:
-- Could not read lore.kernel.org (403); used b4 + openwall instead
-- Could not confirm whether post-fix syzbot “last: 2d” crashes are only
-  on the 9 unpatched instances (likely, given 20/29 patched)
+- `b4 dig` / lore.kernel.org stable search failed (server 403/error)
+- No public reproducer beyond code inspection (commit describes the
+  mechanism)
 
 **Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — clamp is local and readable;
-   syzbot C repro; maintainer applied it
-2. Fixes a real bug that affects users? **PASS** — KASAN OOB, thousands
-   of syzbot hits, stable-tree crashes
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   HIGH memory-safety OOB
-4. Small and contained? **PASS** — +7 lines, one function
+1. Obviously correct and tested? **PASS** — 1-line mask fix; Reviewed-by
+   + maintainer SOB
+2. Fixes a real bug that affects users? **PASS** — partitioned CRIU
+   restore wrong; OOB on crafted size
+3. Important issue? **PASS** — kernel OOB write + failed restore (HIGH,
+   privileged)
+4. Small and contained? **PASS** — 1 line, one file
 5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — buggy code present; `git
-   apply --check` clean
+6. Can apply to the local tree? **PASS** — buggy line and
+   `dev->xcc_mask` exist at 6.18.53
 
 **Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not a device-ID/quirk/DT/docs exception. It is a normal memory-
-safety bug fix.
+Record: Not an ID/quirk/DT/build/docs exception. Ordinary important
+bugfix.
 
 **Step 9.4: MAKE YOUR DECISION**
-This is a small, correct bounds check for a long-standing fbcon OOB that
-syzbot can hit on this class of kernels. It belongs in 6.12.y.
+This belongs on 6.18.y. The bug is in this tree because multi-xcc CRIU
+was already backported with the wrong divisor. The fix is minimal and
+matches every other XCC user in the restore path.
+
+---
+
+### What the commit solves for stable users
+On 6.18.53, KFD CRIU restore still divides by the whole-GPU XCC mask.
+Checkpoint, MQD BO size, and `restore_mqd_v9_4_3()` use the **node**
+mask. On GFX9.4.3 CPX/QPX those differ, so restore either fails or (with
+a crafted privileged checkpoint) `memcpy`s past the MQD BO into kernel
+GTT. Switching to `pdd->dev->xcc_mask` makes allocation and copy agree;
+acquire_buffers already pins the per-XCC size to the node’s advertised
+control-stack size.
+
+### Risk vs benefit
+Benefit is high for MI300 CRIU/partition users and closes an OOB write.
+Risk is a one-token change with no locking/API impact.
+
+### Concerns
+Clamp/bound memcpy patches are not required for this to be correct. CRIU
+is privileged, which lowers exploitability but does not make the
+overflow or the broken restore acceptable on stable.
+
+---
 
 Verification:
-- [Phase 1] Parsed tags: syzbot Reported-by; Helge Deller SOB; no
-  Fixes/Cc:stable/review tags in the committed message
-- [Phase 2] Diff: +7 lines in `fbcon_prepare_logo()` after
-  `DIV_ROUND_UP`; clamp `logo_lines` then early return
-- [Phase 3] `git describe HEAD` / Makefile: **6.12.111**, branch
-  pending-6.12
-- [Phase 3] `git blame`: OOB loop from ^1da177e4c3f41; DIV_ROUND_UP from
-  416e74ea781359 (2008)
-- [Phase 3] `git merge-base --is-ancestor 94e6a058b168 HEAD` → not an
-  ancestor (fix absent here)
-- [Phase 3] `git apply --check` of 94e6a058b168 → clean, offset −64
-- [Phase 3] Confirmed no `logo_lines = min` already in this file
-- [Phase 4] `b4 dig -c 94e6a058b168` → msgid
-  6a897c8e.dbb3a75c.13dd47.002f.GAE@google.com; v1 only
-- [Phase 4] Syzbot extid 0c815b25cdb3678e7083: C repro, prio:high, 1873
-  crashes, Fix commit 94e6a058b168
-- [Phase 4] Same KASAN title on linux-5.15.y / 6.1.y / 6.6.y
-- [Phase 5] Callers: `fbcon_init` (line 1155), `con2fb_init_display`
-  (line 826); bind path `store_bind` is `S_IWUSR`
-- [Phase 6] Local function still matches the pre-patch walk at lines
-  597–604
-- [Phase 7] Helge Deller listed as FRAMEBUFFER LAYER maintainer
-- [Phase 8] Failure mode: slab-out-of-bounds read in
-  `scr_memcpyw`/`scr_readw`; severity HIGH
-- UNVERIFIED: full lore.kernel.org thread (HTTP 403); whether every
-  post-Aug-24 syzbot crash is on unpatched instances only
-
-The patch is a 7-line clamp in `fbcon_prepare_logo()` that stops a
-syzbot-reproduced KASAN out-of-bounds read. The buggy walk is in this
-6.12 tree, the fix applies cleanly, and the risk is limited to skipping
-the boot logo when it cannot fit.
+- [Phase 1] Tags: Reviewed-by David Francis; SOB Yongqiang Sun, Alex
+  Deucher; no Fixes/Reported-by/Cc:stable
+- [Phase 1] Body: OOB write past MQD BO + broken partitioned restore;
+  wrong GPU vs node XCC divisor
+- [Phase 2] Diff: 1 line in `kfd_criu_restore_queue()`:
+  `adev->gfx.xcc_mask` → `dev->xcc_mask`
+- [Phase 2] `allocate_mqd` uses `q->ctl_stack_size *
+  NUM_XCC(node->xcc_mask)`; `restore_mqd` uses `qd->ctl_stack_size`;
+  `restore_mqd_v9_4_3` divides by `mm->dev->xcc_mask`; memcpy unbounded
+- [Phase 2] `kfd_queue_acquire_buffers` requires `ctl_stack_size ==
+  node_props.ctl_stack_size` (present at 6.18.53)
+- [Phase 3] Blame at v6.18.53: `f6c0f3d24478a` introduced
+  `NUM_XCC(pdd->dev->adev->gfx.xcc_mask)`; `Cc: stable`; ancestor of
+  v6.18.53
+- [Phase 3] `git merge-base --is-ancestor 1a0aa3c4cb20 v6.18.53` → not
+  present; buggy code is present
+- [Phase 3] Prerequisites `f6c0f3d24478a` and `c6c290e408fe3` are in
+  v6.18.53
+- [Phase 4] b4 dig: lore server error — UNVERIFIED via b4
+- [Phase 4] amd-gfx thread 2026-06-25; David Francis “Nice catch” +
+  Reviewed-by; no NAK
+- [Phase 4] lore.kernel.org/stable: 403 — UNVERIFIED
+- [Phase 5] Caller: `AMDKFD_IOC_CRIU_OP` with CAP_CHECKPOINT_RESTORE or
+  CAP_SYS_ADMIN
+- [Phase 5] `kfd_device.c`: `node->xcc_mask` from XCP vs
+  `adev->gfx.xcc_mask` when unpartitioned
+- [Phase 6] `git describe HEAD` / `make kernelversion`: 6.18.53; line
+  1065 at v6.18.53 is the buggy call; `kfd_node.xcc_mask` exists
+- [Phase 6] Clean apply: surrounding code at v6.18.53 matches the hunk
+- [Phase 8] Failure: kernel OOB write (HIGH) + CRIU restore failure on
+  CPX/QPX; privileged trigger
+- UNVERIFIED: b4/lore.kernel.org availability; no runtime reproducer
+  executed
 
 **YES**
 
- drivers/video/fbdev/core/fbcon.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 532522c2aed05..903823c9ce567 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -600,6 +600,13 @@ static void fbcon_prepare_logo(struct vc_data *vc, struct fb_info *info,
- 		erase &= ~0x400;
- 	logo_height = fb_prepare_logo(info, par->rotate);
- 	logo_lines = DIV_ROUND_UP(logo_height, vc->vc_font.height);
-+	logo_lines = min(logo_lines, rows);
-+	logo_lines = min(logo_lines, new_rows - 1);
-+	if (logo_lines <= 0) {
-+		logo_lines = 0;
-+		logo_shown = FBCON_LOGO_DONTSHOW;
-+		return;
-+	}
- 	q = (unsigned short *) (vc->vc_origin +
- 				vc->vc_size_row * rows);
- 	step = logo_lines * cols;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 912c4ebd30405..99a47f2a45e7a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -1062,7 +1062,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 	ctl_stack = mqd + q_data->mqd_size;
+ 
+ 	memset(&qp, 0, sizeof(qp));
+-	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->adev->gfx.xcc_mask));
++	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->xcc_mask));
+ 
+ 	ret = kfd_queue_acquire_buffers(pdd, &qp);
+ 	if (ret) {
 -- 
 2.53.0
 
