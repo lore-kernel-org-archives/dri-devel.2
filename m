@@ -2,77 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED39E606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D91606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=leOEFay9
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=L5dwpzjo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEC9610EB96;
-	Tue, 20 Oct 2026 07:36:37 +0000 (UTC)
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D588510E570
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:43:49 +0000 (UTC)
-Received: by mail-dy2-f9.google.com with SMTP id
- 5a478bee46e88-36374abd904so858457eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 02:43:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14DBF10F302;
+	Tue, 20 Oct 2026 07:36:38 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03ACB10EE3C
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:56:53 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-c247f6687dcso145304466b.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 07:56:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792421811; cv=none;
+ d=google.com; s=arc-20260327;
+ b=AZ/tWPNG6EZA8PweIkDzpQQzPi2f4JlQ4yKtlPB5VI6UTOR+lqd3AF6DA1VJXaXqcB
+ BCxe2gulLXZR5NkaPjN3Ds79B4iIEAt802Y2+2wNdcEldBdINA89ik8YOzBcXbItYwDt
+ 9mrASJG9Hdz4HPqNce4XmabwUABhylQb6H675avh14XrpbY+u1nlsMK/mo69Uei6WNq/
+ yJ279U2LN7QpuqK8vqyEFm7UWCMeJjqp8YBvAsejXbz6IO6OIDg07UI8QgVdyERoPqQL
+ aNs2Fz74Z8WldFtAfgrajOBGhQE2C+6Y2F3Id4sjCk9le61gLg1T9PrHGzJeiSYK1x5P
+ rmoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=YyVJu0EGkl/YFs7ApE6DeIsSQCa9Krhf/9Ms1uzPE1A=;
+ fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
+ b=VuFq6VTogAY18Bhi7cVpzRrezhuTnmAzk8KQ9+ZcIxN0g4jBxQlQDbFruANvhbQl7K
+ 1MsPt1CzvvayKG5KEJtYjl3Zt65QvFCfVSD/ALfVyDrlmK8DSNAvHPoIXQySSFNtSzg5
+ 4yk8DZMxijKOzSboxCWWgMuE/yI++9xLUkjeato7Zh+bMuPdFzUQZb/5OMLQiDiSu4Pi
+ 7sus/SgPGCnBL05WSyCf7yXkxZMNuZrLkwCA0axZ92v/eLEGCXoAtZni4OCbqBZywFju
+ aejQsopd8Qgvq6AcCda4pvxjcbm/RcFz0tUsoyUdSWMc4gJnHZ2LhPN4irlAmHmhvuh3
+ /SjQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792403029; x=1793007829; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IHd99zSc7XuTxtPtex7CCdBAnhkgrWqdaJDnZa0vj8o=;
- b=leOEFay952uuzpNNJ5Pspy6eAJHvaRp1rixf+org5piOTgmGxF2C/30dihSkzI7/jO
- 5A4JcaKwbyt3tlSGM1v+I9VcebccSkiJHfLTc+NHKms1nGUmacVO1OFVA/3HV9L5BmnS
- 5ulzpRsLFwEEjlqRuYqsFTV/e38NjM+9H9FUVn3RJFqcMUfyOhAzzTkwDhMW09xGowrE
- kporl7Sb/pk6IYa8Dvcocs1dG0wT8zppPbXEyG1esaaHcNHaGzhHP3njxPUjq8AUnNVS
- 1Oz2kpwUpjVsyYRfSv0xOPq7DzJw9tVRrfOCMbpevCGdFa5ejQmhfpjMdkTt25ZPQsC4
- Z8mA==
+ d=gmail.com; s=20251104; t=1792421811; x=1793026611; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=YyVJu0EGkl/YFs7ApE6DeIsSQCa9Krhf/9Ms1uzPE1A=;
+ b=L5dwpzjow+qYPw5Ywbtf1QGhqTObnGktngXhmmq+2JjEjup1kug6AlUDnkbMt4jqkw
+ 4Ygs3E12rkpNHxYKEF9pk1Vl8jqP0O5Sb6KFmas5fWXVX87eZAw8gH4Wnc5gjOD3oi2J
+ sTegwUCdKG18a7UwiahfjkJvi9NxyEk/bL+NMjSWzolj/eu0EaENMeI4J4kXtDY87OtR
+ QEpP8ZE83qXUvkewvM6w8IT+zhqadlgEfyjjqwL1Fzh399gxaBZSZHETSuERl47SajKq
+ eqT26ENwQnly/8/lV7RoXMRJfX7rA5koeJPWv32Ys20eX/ARTzKnzB56PWZ0bepgUJPW
+ /vWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792403029; x=1793007829;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=IHd99zSc7XuTxtPtex7CCdBAnhkgrWqdaJDnZa0vj8o=;
- b=ORq5wbPe12aOm2Sx554y5yS99IbI5W5d7zJlrzS3YbafshAuCsG4jptp7GZaE3/FTX
- 48rNxphtYfifB9CZBL7bacJ0R4a/0wsehoxmWIcwNEfY3YQw6xTMKy/P4epaTSf5yl11
- ykI6y9q7yON9vOT+j7nM+maKcIhkEU6v9qvp0Y2QsropdxLdeIOsFEhxz9S4PL+Nbg3F
- 1pVUTRuENKd3Gx5NY0b3hZr/HUfSgPubUkyT5+PIvfaVry7CHItcoC6kNJIi9jh4lijh
- quMmcrqgNJdBzYxhB75V7tS5Awlzcd+FW/MXidMFcLx7GjBU6tTrJ8uZgQuGz7murFPa
- 3GgA==
-X-Gm-Message-State: AFq9FYKI0qbfTK3i8wFrdUvdQfLyHlhcCt1hFcr/Qw8hhy5vqyeIbvVR
- EnD0wy1b/jmE/PZ0F3zJbpNO5eqHc6hYb0m4llzIl3e9OlFX7OBr92e6+lj2Nep22DlQig==
-X-Gm-Gg: AYBFou0AnGkB6ep6F6Gl0Uqri4cK5XKoH0YAdqbb/u8oxke/lvzeyt5b4ePdDoCWGKh
- LGfaq2OyEa6I0kI5GOT9Hdhs5z0+9ak+3ESvl8PjwiqrGP49+Y3DdrPwEHGk19ue/Vue8Wq1nDC
- qDZIEDyvg0gcIvj5ewUhPvFlRbkby2XNuWg2pOGj19jZBzhEH9Gw/ICUjl0hguYajt2xjUcRu7e
- pjdSt9QhTukW8s4jp5dCEUvgeplUoo0riLf2dwze/mrfgi4QL1Pbs7MWWya43mWoqnzpB6r+ZBb
- CIfpXulwIA6IaOZsT7tsb4TX7y3272HS9V0FXGsV6zG85aBe/ZKNGcETXsa+xGZ0Go4XaCEoRSd
- Y9O6ChVsqoRs4VaQu7LslRTVBYW7pzWj1fCrHrcnF7UBHyhYhNJFMl8xCIqYPMPQOT0lLIInfUc
- eyZosVbNONVLdM4hAK7/zydHS6wStOKKwdzyXbs0S5OoT1kdlVuwTReZj9CnJnqdqHci1HownYW
- Kx2QL4nePjJX6ilWSnqDJVGQr2/C9h2Q3RM
-X-Received: by 2002:a05:7300:ea0b:b0:35d:8c39:b31f with SMTP id
- 5a478bee46e88-361a2a3e8f4mr10129688eec.35.1792403029024; 
- Mon, 19 Oct 2026 02:43:49 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com.
- [104.194.64.109]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3607bc950f9sm34370074eec.0.2026.10.19.02.43.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 02:43:48 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com,
- Yao Yiqi <yyaqia@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH v5 1/3] fbcon: Include font geometry in the rotated font cache
-Date: Mon, 19 Oct 2026 17:43:29 +0800
-Message-ID: <20261019094331.1128871-2-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019094331.1128871-1-yyaqia@gmail.com>
-References: <20261019094331.1128871-1-yyaqia@gmail.com>
+ d=1e100.net; s=20260707; t=1792421811; x=1793026611;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YyVJu0EGkl/YFs7ApE6DeIsSQCa9Krhf/9Ms1uzPE1A=;
+ b=LyeKcaMzQep/3tYo2r6taT6OoWGeF2z1d31fjGvMUDj+4K5eCSS51axeO+8vorFxwS
+ 2c7Nr0FLOlsOVgQP3xwEGwkAakNKHQNt+RAQq95M6mYqrxA6pTORcVh5IST8g4UrlvYg
+ g9NYQOvB2V9NNk9VLen5RD7em7yhloehOXiMSJKvauKkmeKKPBe+Tp+IeSD+woZZSyQ0
+ ELx4cx2B/g9aFdkP4379ZS5s2NYMtm9sntA5UPZqoU/jHCVw6IOfUSevPyVJ2X4QiHOA
+ fCHu8uNTgyeaj1I7pscRU3oayEH/FxRNj9By1U7We8zLb7pZlaevylHqKPRIwL0pxdB+
+ ItNg==
+X-Gm-Message-State: AFq9FYIKJ4+PI+YYnNBcfzD4loRHWioHm2hVwpaGyjHvU2dxQ2hIkKTV
+ vJG6BKV4pe/UJALnzpRYlfuBU/eiLT+YFP8Rgf5YMvyAFE1th7D70uPXVRDNYAUZrnQe/B1ARGQ
+ l4XhlUFQefvz887SSrLLTSnLWH1OW3cQlZWwBOvs=
+X-Gm-Gg: AYBFou0yNMOCpPHlE2hQoTARbWYPYp0AS/5JSPv9sRh0EMSl7p0R6vxYl2yuenZ7w0O
+ VuYoy4ghqkeQnHbtLu2S3wsJzfbRApefCr61/MPKCMYvoS9ntAgXBXC+JbT0mGkdEj7PlR46PqC
+ 5OZOuP6/Y3Enr7MSO94YHSWtGeDSEKfMLocET4xCrm5/fkcau4tCICm5kWw4pLaXgbEEFeGs9dm
+ dIwmFLTc0932QmMP8xpjOn+D/TLWzcB27KkvIxIHWG+Vrk+SoWRkTwxHv1bEUXiKxhXLVKW0ro/
+ zVbvAo9MAdrXFvffV7Cfa4/HtmZt9wxFBLNvebhWyPpMN1Xm3qjO1mlgFFglWxkAyTn4TvRHiZn
+ qe31knZOnXB8y2yARUZBYm3OBcA6Q21w5Qiczmj2o0Q==
+X-Received: by 2002:a17:906:d552:b0:c40:9839:c892 with SMTP id
+ a640c23a62f3a-c419e2326demr628363866b.19.1792421811095; Mon, 19 Oct 2026
+ 07:56:51 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013175753.37344-1-kolomiiec@gmail.com>
+ <sashiko-outbox-172448@kernel.org>
+In-Reply-To: <sashiko-outbox-172448@kernel.org>
+From: =?UTF-8?B?0J4g0Jo=?= <kolomiiec@gmail.com>
+Date: Mon, 19 Oct 2026 17:56:14 +0300
+X-Gm-Features: AclHuK8tloVCSjQ2U5-UDqRf3TB8_YW4TWwVk5crnPLxYw9n6ka3_9zIXu7hdC8
+Message-ID: <CA+e2gLs8Q3Y-ow=PdYqhQyq0Gax9rp8PktA7fgzannG8OU8XFA@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: retry UVD v1 init on failure after resume
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 20 Oct 2026 07:36:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,89 +100,114 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+Hello,
+You are right, and thank you for the precise catch. On my hardware the
+failure mode is different =E2=80=94 clock setup has never failed across 42+
+suspend/resume cycles; what fails is the ring test =E2=80=94 so the unguard=
+ed
+uvd_v1_0_stop() never fired in practice. But that is luck, not design:
+if radeon_set_uvd_clocks() ever fails, the retry loop would issue MMIO
+writes to an unclocked UVD block, with exactly the bus-abort/hang risk
+you describe. The guard is cheap and obviously correct: v2 keeps the
+clock-setup result in a separate variable and calls uvd_v1_0_stop() only
+when clocks were actually raised. I have sent [PATCH v2] with this fix
+to dri-devel. Thanks again for the review.
 
-fbcon_rotate_font() caches a rotated copy of the console font and
-skips the rebuild when the fontdata pointer and the rotation match.
-Raw font data carries no geometry, though: width, height and
-charcount live in vc->vc_font. fbcon_set_font() deduplicates uploads
-by byte equality, so the same bytes re-uploaded with different
-dimensions keep the fontdata pointer while the geometry changes, and
-the early-out skips the rebuild.
+Regards
+Oleg
 
-The rotated cell size depends on the geometry (rotation swaps width
-and height), so the stale buffer is indexed with the new cell size.
-Re-uploading a 4x16 font as 16x8 on a CW-rotated console, for
-example, doubles the rotated cell size and reads past the end of the
-old buffer.
 
-Record the geometry the buffer was built from and compare it in the
-early-out. The pointer-only key used to be backed by an explicit
-width check in the deduplication, which commit 1e3c49aa03fb
-("lib/fonts: Compare font data for equality with font_data_is_equal()")
-dropped.
+=D1=87=D1=82, 15 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11:1=
+1 <sashiko-bot@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
- drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
- drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
- 2 files changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 407d207b14f1..bfbd70f8b1cd 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -89,10 +89,13 @@ struct fbcon_par {
- 	char  *cursor_data;
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
- 	struct {
--		font_data_t *fontdata;  /* source font */
--		u8 *buf;                /* rotated glyphs */
-+		font_data_t *fontdata;       /* source font */
-+		u8 *buf;                     /* rotated glyphs */
- 		size_t bufsize;
--		int buf_rotate;         /* rotation of buf */
-+		int buf_rotate;              /* rotation of buf */
-+		unsigned int buf_width;      /* geometry of source font */
-+		unsigned int buf_height;
-+		unsigned int buf_charcount;
- 	} rotated;
- #endif
- 	u8    *cursor_src;
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 6cdbc96eeca6..660a3fa81bae 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	unsigned char *buf;
- 	int ret;
- 
--	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
-+	if (par->p->fontdata == par->rotated.fontdata &&
-+	    par->rotate == par->rotated.buf_rotate &&
-+	    vc->vc_font.width == par->rotated.buf_width &&
-+	    vc->vc_font.height == par->rotated.buf_height &&
-+	    vc->vc_font.charcount == par->rotated.buf_charcount)
- 		return 0;
- 
- 	par->rotated.fontdata = par->p->fontdata;
- 	par->rotated.buf_rotate = par->rotate;
-+	par->rotated.buf_width = vc->vc_font.width;
-+	par->rotated.buf_height = vc->vc_font.height;
-+	par->rotated.buf_charcount = vc->vc_font.charcount;
- 
- 	if (info->fbops->fb_sync)
- 		info->fbops->fb_sync(info);
--- 
-2.56.0
-
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] drm/radeon: system hang due to unclocked UVD register access on =
+clock setup failure
+> --
+>
+> commit 9840a4a45eacb2033c0f3f3ceb29f75910196145
+> Author: ukrainer8 <kolomiiec@gmail.com>
+> Subject: drm/radeon: retry UVD v1 init on failure after resume
+>
+> This commit introduces a retry loop for UVD v1 initialization during resu=
+me,
+> as the ring test can sometimes fail due to racing with hardware. On failu=
+re,
+> it stops UVD, waits 20ms, and retries the initialization steps up to 3 ti=
+mes.
+>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1867
+> Link: https://bugs.launchpad.net/bugs/1865130
+>
+> > --- a/drivers/gpu/drm/radeon/uvd_v1_0.c
+> > +++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
+> > @@ -158,24 +158,45 @@ int uvd_v1_0_init(struct radeon_device *rdev)
+> >  {
+> >       struct radeon_ring *ring =3D &rdev->ring[R600_RING_TYPE_UVD_INDEX=
+];
+> >       uint32_t tmp;
+> > -     int r;
+> > +     int r, retry;
+> > +
+> > +     /* after resume the first ring test can race with the hardware; r=
+etry */
+> > +     for (retry =3D 0; retry < 3; retry++) {
+> > +             /* raise clocks while booting up the VCPU */
+> > +             if (rdev->family < CHIP_RV740)
+> > +                     r =3D radeon_set_uvd_clocks(rdev, 10000, 10000);
+> > +             else
+> > +                     r =3D radeon_set_uvd_clocks(rdev, 53300, 40000);
+> > +             if (r)
+> > +                     drm_warn(&rdev->ddev, "radeon: raising UVD clocks=
+ failed (%d), attempt %d\n",
+> > +                              r, retry + 1);
+>
+> [ ... ]
+>
+> > +             if (!r)
+> > +                     break;
+> >
+> > -     ring->ready =3D true;
+> > -     r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
+> > -     if (r) {
+> > -             ring->ready =3D false;
+> > -             goto done;
+> > +             uvd_v1_0_stop(rdev);
+>                 ^^^^^^^^^^^^^^^^^^^
+> [Severity: High]
+> Is it safe to call uvd_v1_0_stop() when radeon_set_uvd_clocks() fails?
+>
+> If clock setup fails, r is non-zero, and the loop bypasses the break
+> condition to unconditionally call uvd_v1_0_stop().
+>
+> This function performs MMIO writes to UVD registers like UVD_RBC_RB_CNTL:
+>
+> drivers/gpu/drm/radeon/uvd_v1_0.c:uvd_v1_0_stop() {
+>         /* force RBC into idle state */
+>         WREG32(UVD_RBC_RB_CNTL, 0x11010101);
+>     ...
+> }
+>
+> Accessing these registers when the UVD IP block is unclocked can cause a =
+PCI
+> bus master abort and lead to a hard system hang. Should there be a check =
+to
+> ensure clocks are successfully raised before attempting to stop the hardw=
+are?
+>
+> > +             if (retry < 2)
+> > +                     mdelay(20);
+> >       }
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013175753.37=
+344-1-kolomiiec@gmail.com?part=3D1
