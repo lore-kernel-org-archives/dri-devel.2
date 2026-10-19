@@ -4,41 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9365CCCF2E7
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A3ACCF2E6
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:44:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9752C10E154;
-	Mon, 19 Oct 2026 14:39:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2CF710E154
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:39:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDDA710EB13;
+	Mon, 19 Oct 2026 14:44:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3749D10E189
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:44:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 86B33437D3
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:39:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BDED1F000C4;
- Mon, 19 Oct 2026 14:39:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 86C5F60136;
+ Mon, 19 Oct 2026 14:44:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DAB61F000C4;
+ Mon, 19 Oct 2026 14:44:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792420772;
- bh=OGUUNRvWEJDIAIrGT4wId5beYzFczrGRc0OrL6Fseto=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bCJw8/Glg6Cvqzx+bo9Ie05292JAu9XNQnMUXEcvdbY0fTfIuu7PodTj1Ug5pJZtz
- PRH5VviyhW+c8ZfdCrly9KvzDnEptPpD6TNIEbhgNV3FWeUw5jsg3AZiSRnRFg/LF+
- HAogSxGtOS0wmBuusgcISKphVET3lZ0mFJc8pgAjHSuAy4FPmg5cFoRimKrW/O9E+L
- 0ZKgMVII/oK6qS7gF3A81vA1DocM5oN6o2nks15VSMssH4bC4F4k4t5dX7RgIPtavS
- VepN7jY7vn1vD3Ul5IS+gYFDCZSLz5cCPRJi9RuIIQg/A/smc+ZyqU9T2ht0JT19j1
- tb1/36ButIxlg==
-Message-ID: <sashiko-outbox-177463@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-5.10] gpu: host1x: Wait for timeout worker
- completion on channel free
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019135441.1420968-140-sashal@kernel.org>
-References: <20261019135441.1420968-1-sashal@kernel.org>
- <20261019135441.1420968-140-sashal@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 14:39:31 +0000
+ s=k20260515; t=1792421059;
+ bh=aBNqd6JFNU7OqTTmF0Y9kAceZh0q/au21FecJGMmahc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=SEn9dHSAvdTVqt74t/ThZI05e1Do3f8fNCl/QvPs6kWEBDSmmqb2VfoRPLAf/QfUR
+ SiCitR18M/fDCVJTgPPWJzAERkC0qc6Q4EmJ7jsY17ypiHIhpdNz3GWoS6cq0r/8kj
+ BwXhdYbzqxd9VQQHrp2rc8+DCEumQtYNVeFEGWrzB81YlnKkKRJisy+fZXEnQvWy0/
+ E5k8ij2d7kaqeCONS78wYSDvcl9YnvXuGm+xLL2lrKB5EbdeEWI0mePt7EJmDMXTtf
+ 6ZRJscYMRIwozHsxBmpB1X5yNvJYPVSrKdiLTP4PTumbNKnnodQEqN+k3o5r9dTPcc
+ +SEIv9EPX6xxw==
+Date: Mon, 19 Oct 2026 15:44:13 +0100
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 2/4] mfd: aat2870: Derive brightness steps from max
+ current
+Message-ID: <179198332384.839288.13126529382772558553@kernel.org>
+References: <20261013180933.487013-1-clamor95@gmail.com>
+ <20261013180933.487013-3-clamor95@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013180933.487013-3-clamor95@gmail.com>
+X-AI-Review-Draft: <20261013180933.487013-3-clamor95@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,103 +59,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] gpu: host1x: self-deadlock in cdma_timeout_destroy() from timeout =
-worker
---
+Wrong subject line.
 
-commit b332f714cbff777dfee1bb3478ceeef598654573
-Author: Mikko Perttunen <mperttunen@nvidia.com>
+Please review, explain or fix the Sashiko review(s).
+If this is a set, this request includes the other patches too.
 
-gpu: host1x: Wait for timeout worker completion on channel free
-
-This commit updates cdma_timeout_destroy() to use
-cancel_delayed_work_sync() instead of cancel_delayed_work() so that any
-running timeout handler finishes before CDMA teardown proceeds.
-
-Link: https://patch.msgid.link/20260609-b4-host1x-small-fixes-a-v1-1-7c1131=
-c0b3ad@nvidia.com
-
-> diff --git a/drivers/gpu/host1x/hw/cdma_hw.c b/drivers/gpu/host1x/hw/cdma=
-_hw.c
-> index 3f3f0018eee0d..ab714d221120c 100644
-> --- a/drivers/gpu/host1x/hw/cdma_hw.c
-> +++ b/drivers/gpu/host1x/hw/cdma_hw.c
-> @@ -355,7 +355,7 @@ static int cdma_timeout_init(struct host1x_cdma *cdma)
->  static void cdma_timeout_destroy(struct host1x_cdma *cdma)
+> The AAT2870 allows only 32 steps of brightness, with this amount defined
+> by the maximum supported current. Remove the need for max_brightness by
+> calculating the allowed number of steps from the maximum current.
+>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/video/backlight/aat2870_bl.c | 30 ++++++++++------------------
+>  1 file changed, 10 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backlight/aat2870_bl.c
+> index 8b790df1e842b..eb686e315921d 100644
+> --- a/drivers/video/backlight/aat2870_bl.c
+> +++ b/drivers/video/backlight/aat2870_bl.c
+> @@ -24,18 +24,6 @@ struct aat2870_bl_driver_data {
+>  	int brightness; /* current brightness */
+>  };
+>
+> -static inline int aat2870_brightness(struct aat2870_bl_driver_data *aat2870_bl,
+> -				     int brightness)
+> -{
+> -	struct backlight_device *bd = aat2870_bl->bd;
+> -	int val;
+> -
+> -	val = brightness * (aat2870_bl->max_current - 1);
+> -	val /= bd->props.max_brightness;
+> -
+> -	return val;
+> -}
+> -
+>  static inline int aat2870_bl_enable(struct aat2870_bl_driver_data *aat2870_bl)
 >  {
->  	if (cdma->timeout.initialized)
-> -		cancel_delayed_work(&cdma->timeout.wq);
-> +		cancel_delayed_work_sync(&cdma->timeout.wq);
+>  	struct aat2870_data *aat2870
+> @@ -69,10 +57,11 @@ static int aat2870_bl_update_status(struct backlight_device *bd)
+>  	dev_dbg(&bd->dev, "brightness=%d, power=%d, state=%d\n",
+>  		 bd->props.brightness, bd->props.power, bd->props.state);
+>
+> -	ret = aat2870->write(aat2870, AAT2870_BLM,
+> -			     (u8)aat2870_brightness(aat2870_bl, brightness));
+> -	if (ret < 0)
+> -		return ret;
+> +	if (brightness) {
+> +		ret = aat2870->write(aat2870, AAT2870_BLM, (u8)brightness - 1);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+>
+>  	if (brightness == 0) {
+>  		ret = aat2870_bl_disable(aat2870_bl);
+> @@ -150,10 +139,11 @@ static int aat2870_bl_probe(struct platform_device *pdev)
+>  	else
+>  		aat2870_bl->max_current = AAT2870_CURRENT_27_9;
+>
+> -	if (pdata->max_brightness > 0)
+> -		bd->props.max_brightness = pdata->max_brightness;
+> -	else
+> -		bd->props.max_brightness = 255;
+> +	/*
+> +	 * The maximum number of brightness steps is determined by the max current.
+> +	 * The aat2870_current enum maps directly to the allowed brightness steps.
+> +	 */
+> +	bd->props.max_brightness = pdata->max_current;
 
-[Severity: High]
-Can calling cancel_delayed_work_sync(&cdma->timeout.wq) here self-deadlock
-when invoked from within cdma_timeout_handler() itself?
+What happens if 'pdata->max_current' is 0?  Above, we fall back to
+AAT2870_CURRENT_27_9 when assigning 'aat2870_bl->max_current'.  Shouldn't this
+use 'aat2870_bl->max_current' instead, and if 'aat2870_bl->max_current' is no
+longer used anywhere else, should it be dropped from 'aat2870_bl_driver_data'?
 
-Before taking cdma->lock, cdma_timeout_handler() runs without holding a
-reference of its own on struct host1x_channel and calls
-host1x_debug_dump():
+>
+>  	aat2870_bl->brightness = 0;
+>  	bd->props.power = BACKLIGHT_POWER_ON;
+> -- 
+> 2.53.0
+>
 
-drivers/gpu/host1x/hw/cdma_hw.c:cdma_timeout_handler() {
-	...
-	host1x_debug_dump(cdma_to_host1x(cdma));
-
-	mutex_lock(&cdma->lock);
-	...
-}
-
-host1x_debug_dump() calls show_all(), which iterates over all channels,
-acquires a temporary kref via host1x_channel_get_index(), dumps the
-channel, and drops that reference via host1x_channel_put():
-
-drivers/gpu/host1x/debug.c:show_all() {
-	...
-	for (i =3D 0; i < m->info->nb_channels; ++i) {
-		struct host1x_channel *ch =3D host1x_channel_get_index(m, i);
-
-		if (ch) {
-			show_channel(ch, o, show_fifo);
-			host1x_channel_put(ch);
-		}
-	}
-	...
-}
-
-If the channel owner closes the channel and calls host1x_channel_put()
-while cdma_timeout_handler() is inside show_channel() holding that
-temporary reference on its own channel, the owner's kref_put() decrements
-ch->refcount from 2 to 1 and returns without releasing the channel.
-
-When show_channel() finishes, the host1x_channel_put(ch) in show_all()
-drops ch->refcount from 1 to 0 and synchronously calls release_channel()
-from the cdma->timeout.wq worker context:
-
-cdma_timeout_handler()
-  -> host1x_debug_dump()
-    -> show_all()
-      -> host1x_channel_put()
-        -> release_channel()
-          -> host1x_hw_cdma_stop()
-          -> host1x_cdma_deinit()
-            -> host1x_hw_cdma_timeout_destroy()
-              -> cdma_timeout_destroy()
-                -> cancel_delayed_work_sync(&cdma->timeout.wq)
-
-At that point, if cdma->sync_queue is not yet empty, host1x_hw_cdma_stop()
-blocks indefinitely waiting on CDMA_EVENT_SYNC_QUEUE_EMPTY; otherwise it
-proceeds to cdma_timeout_destroy(), where cancel_delayed_work_sync() waits
-for the currently executing cdma->timeout.wq work item to complete,
-deadlocking the worker thread.
-
-> =20
->  	cdma->timeout.initialized =3D false;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019135441.1420=
-968-140-sashal@kernel.org?part=3D1
+-- 
+Lee Jones
