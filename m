@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D50B7CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD56FCCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4244F10EDEC;
-	Mon, 19 Oct 2026 14:01:24 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93D2210EDE4;
- Mon, 19 Oct 2026 14:01:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E2BE10E54C;
+	Mon, 19 Oct 2026 14:01:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD9810EDF1
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:01:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7AD0F4010A;
- Mon, 19 Oct 2026 14:01:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270A11F000C7;
- Mon, 19 Oct 2026 14:01:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5249860233;
+ Mon, 19 Oct 2026 14:01:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB3F1F000C9;
+ Mon, 19 Oct 2026 14:01:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418477;
- bh=hA8suylLM7JDukhpE4JXYMIspGye87RnTv0rkAgekpY=;
+ s=k20260515; t=1792418490;
+ bh=fXSy8vXI5Q3X55qaJS0tzwo7fN8/NY8JaWm6glYGfgs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ef3uNpXF8qZpWK3rJH6c9Ugbas23wWmawVcnCcJqOjjt+nVR2NWD68yv5ByZ1fZkG
- LllREKpbRGdpb9rlK6TVcd0IXKyKBUx8fe7Np+lFVYFIK21FgFqTYiHpowKhU83v11
- u//sm8LmtGDWL0U0S67KAAvBtJOcAy1yMs58xe3XPSCnAYjtz7GECh7aM7qT/bwa1M
- QlQYX3Q2usKDB+dyqbY0tF219jlndOWeX609bzsJhkooJNs3b1wqSyeiqCm6pItdV3
- 6ACsTPvLT+Z/rsd7g+X8OGlES0SH4GauNvxTlryudbfZsmaGG1n1ndCPbxrtfBQC8W
- /doTRvBABTJ3w==
+ b=LMoPetaV3eqnwrygwrwGSkQUuE4LPhPZxP631t06heeD7/3Pa0OQA95gNKUYf0e1f
+ 0AMXVWmdqhGFKVjvyu2nwEIuBTTQNCAoSH8JwFKMKj+UyMd3RAH4l4ZXSV7zpjqNym
+ B7um9oGcA+5LsjfIXQEIBoFMXY55reguXq3TYr/FbgIiDGTn989zSLUHDVZ9B5fahQ
+ O93rDdtBhRymuXUGlh0iJoL2JI3YiJ/5UBbzUgkAHyAtfsYmt4zrZ2tLuu2D4aqxfg
+ 8+okA3hCeyOubW3sr084Hahoec/LvWnpw6qIf2is9pmmRKhft6gnqmHGBPgqAilNZo
+ XATcwrN0pGjEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Sasha Levin <sashal@kernel.org>, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/msm: detach the ARM DMA mapping before
- attaching our own domain
-Date: Mon, 19 Oct 2026 09:49:27 -0400
-Message-ID: <20261019135441.1420968-276-sashal@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Sashiko <sashiko-bot@kernel.org>,
+ Thierry Reding <treding@nvidia.com>, Maxime Ripard <mripard@kernel.org>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/sysfb: simpledrm: Validate mmap size against
+ framebuffer size
+Date: Mon, 19 Oct 2026 09:49:36 -0400
+Message-ID: <20261019135441.1420968-285-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -64,347 +64,523 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 140b13475302601368c0cf4e193e66126a49feb3 ]
+[ Upstream commit 127d52f9c64b1d9aab6226c4a1f38c37fb7254dc ]
 
-On ARM32 with CONFIG_ARM_DMA_USE_IOMMU, arch_setup_dma_ops() creates a
-dma_iommu_mapping for every IOMMU-backed device and attaches its domain
-to the device's IOMMU group. That domain is neither the group's default
-nor its blocking domain, so when msm_iommu_new() later attaches the
-domain the driver manages itself, __iommu_attach_group() refuses it:
+The size of the mmap'ed framebuffer could be smaller than the minimum
+required framebuffer size. Validate the resource size against the
+framebuffer size.
 
-	if (group->domain && group->domain != group->default_domain &&
-	    group->domain != group->blocking_domain)
-		return -EBUSY;
+Buggy firmware that triggers this check should be fixed up with a quirk
+on a case-by-case base.
 
-Both the GPU and the display controller are hit by this on apq8064
-(IFC6410), leaving the board with no GPU and no display:
+v3:
+- fix size checks (Sashiko)
+- improve error message for alignment check (Thierry)
+- do not store aligned size value
 
-  adreno 4300000.gpu: failed to load adreno gpu
-  adreno 4300000.gpu: probe with driver adreno failed with error -16
-  mdp4 5100000.display-controller: [drm:msm_drm_kms_init] *ERROR* failed to load kms
-  mdp4 5100000.display-controller: adev bind failed: -16
-
-Other ARM32 DRM drivers that manage their own domains (tegra, rockchip,
-exynos) drop the arch mapping first. Do the same in msm_iommu_new(),
-which both the display and the GPU paths go through.
-
-With this the GPU and the KMS device both initialise:
-
-  [drm] Initialized msm 1.13.0 for 4300000.gpu on minor 0
-  [drm] Initialized msm-kms 1.13.0 for 5100000.display-controller on minor 1
-
-Assisted-by: Claude:claude-opus-5
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Patchwork: https://patchwork.freedesktop.org/patch/743333/
-Link: https://lore.kernel.org/r/20260730-fix-qcom-smmu-v2-3-18e0daf2d836@oss.qualcomm.com
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Suggested-by: Sashiko <sashiko-bot@kernel.org>
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Link: https://patch.msgid.link/20260625094509.157581-6-tzimmermann@suse.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have the 6.1.188 picture: the -EBUSY attach path is present,
-`qcom_defconfig` hits it, and the companion series crashes are not
-reachable here. Writing up the full analysis.
+I have enough to decide: this is a 6.18.53 tree, the OOB check is
+missing there, and the patch is a small probe-time bounds fix.
 
-## Phase 1: Commit message forensics
+---
 
-**Step 1.1:** Record: `[drm/msm] [detach] Drop the ARM32 DMA IOMMU
-mapping so msm can attach its own domain`
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.2:** Record: Tags present:
-- `Assisted-by: Claude:claude-opus-5`
-- `Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>`
-- `Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>`
-  (author; ignore pipeline SOBs)
-- `Patchwork: https://patchwork.freedesktop.org/patch/743333/`
-- `Link: https://lore.kernel.org/r/20260730-fix-qcom-
-  smmu-v2-3-18e0daf2d836@oss.qualcomm.com`
-- No `Fixes:`, no `Cc: stable` (expected for this review)
-- No `Reported-by` / `Tested-by` / syzbot
+**Step 1.1: PARSE THE SUBJECT LINE**
 
-**Step 1.3:** Record: On ARM32 with `CONFIG_ARM_DMA_USE_IOMMU`,
-`arch_setup_dma_ops()` attaches a `dma_iommu_mapping` domain that is
-neither the group default nor blocking domain. `msm_iommu_new()` then
-`iommu_attach_device()`s the driver-owned domain and
-`__iommu_attach_group()` returns `-EBUSY`. Symptom on apq8064/IFC6410:
-GPU probe fails with `-16`, MDP4 KMS fails with `-16`, no GPU and no
-display. Author reports both devices initialise after the change.
+Record: **[drm/sysfb / simpledrm] [Validate] [reject probe when firmware
+framebuffer size exceeds the mapped memory resource]**
 
-**Step 1.4:** Record: Not a disguised cleanup. Explicit probe-failure
-fix, matching tegra/rockchip/exynos.
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 
-## Phase 2: Diff analysis
+Record:
+- **Fixes:** none (expected for this review)
+- **Cc: stable:** none (expected; sibling patches in the same series
+  *did* have it)
+- **Suggested-by:** Sashiko `<sashiko-bot@kernel.org>` — static-analysis
+  bot found the missing bounds check
+- **Reviewed-by:** Thierry Reding, Maxime Ripard, Javier Martinez
+  Canillas (DRM maintainers)
+- **Link:**
+  `https://patch.msgid.link/20260625094509.157581-6-tzimmermann@suse.de`
+  — v3 patch 5/7 of “Various improvements”
+- **Signed-off-by:** Thomas Zimmermann (author/subsystem maintainer)
+- **Reported-by / Tested-by:** none
+- Ignored pipeline tags: `[Upstream commit 127d52f9c64b…]`, `Signed-off-
+  by: Sasha Levin`
 
-**Step 2.1:** Record: One file, `drivers/gpu/drm/msm/msm_iommu.c`, +22
-lines. Functions: file-scope includes; `msm_iommu_new()`. Surgical,
-single-file.
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 
-**Step 2.2:** Record: Before: `msm_iommu_new()` attaches its domain
-immediately. After: if `CONFIG_ARM_DMA_USE_IOMMU` and a mapping exists,
-`arm_iommu_detach_device()` + `arm_iommu_release_mapping()`, then
-attach. Probe/init path only; no-ops when the config is off.
+Record:
+- **Bug:** firmware/DT can advertise width/height/stride whose product
+  is larger than the mmap’d `IORESOURCE_MEM` / reserved-memory region.
+- **Symptom:** driver maps only `resource_size(mem)` but later draws
+  `height * stride` bytes → out-of-bounds access of the mapping.
+- **Author note:** firmware that trips this should get a quirk, not a
+  silent OOB.
+- **v3:** Sashiko fixed inverted size checks; Thierry improved the ALIGN
+  error text; aligned size is no longer stored.
+- **Versions:** none stated. Driver exists since 2021 (`11e8f5fd223b`,
+  “drm: Add simpledrm driver”).
 
-**Step 2.3:** Record: `[Hardware workaround / logic] ARM DMA domain
-occupies the group → EBUSY. Same detach-before-attach used by
-rockchip/exynos in this tree.`
+**Step 1.4: DETECT HIDDEN BUG FIXES**
 
-**Step 2.4:** Record: Obviously correct; copies an in-tree pattern.
-Gated so ARM64/non-IOMMU is unchanged. Regression risk is low if the
-companion iommu/msm crash is not reachable here (verified below).
-`msm_iommu_new()` signature differs in 6.1, so the backport is a small
-contextual insert, not a clean cherry-pick.
+Record: Not disguised. It is an explicit bounds check. Cover letter
+groups it with “improve validation of values provided by the device
+firmware.” Sashiko’s v1/v2 review called the missing/inverted check a
+**High** OOB kernel write.
 
-## Phase 3: Git history
+---
 
-**Step 3.1:** Record: `iommu_attach_device()` in `msm_iommu_new()` is
-from `52da6d513183cf` (Jordan Crouse, 2020). Function exists since
-`871d812aa43e6` (2013). EBUSY check in this tree is `0286300e604555`
-(Jason Gunthorpe, 2022-05-09), in 6.1. Rockchip equivalent:
-`8490cad4dc4e2`, also in this tree.
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.2:** Record: No `Fixes:` tag. Bug is the interaction of ARM DMA
-attach + msm attaching its own domain + the 6.1 EBUSY check.
+**Step 2.1: INVENTORY THE CHANGES**
 
-**Step 3.3:** Record: Recent `msm_iommu.c` churn in this tree is
-unrelated (sgtable WARN, tlb ops). No prior msm ARM-DMA detach. Patch is
-`3/3` of “Fix GPU and display on ARM32 platforms using the MSM IOMMU”:
-1. `iommu/msm: track a context master per device and IOMMU`
-2. `iommu/msm: use the IOMMU device for page table allocation`
-3. this commit
+Record:
+- **File:** `drivers/gpu/drm/sysfb/simpledrm.c` — **+24 / −0**
+- **Function:** `simpledrm_device_create()`
+- **Scope:** single-file surgical probe-path validation
+- Adds `#include <linux/overflow.h>` and local `u64 size`
 
-Cover letter: all three needed on **mainline**; patches are independent
-for different maintainers.
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 
-**Step 3.4:** Record: Dmitry Baryshkov is a Qualcomm/msm DRM maintainer;
-many msm commits in this tree. Konrad reviewed this patch.
+Record:
+1. After stride is known: compute `size = height * stride` with
+   `check_mul_overflow`; fail `-EINVAL` on overflow. Then `ALIGN(size,
+   PAGE_SIZE) < PAGE_SIZE` catches wrap of page-align.
+2. System-memory path (`devm_memremap`): if `size > resource_size(mem)`,
+   fail before mapping.
+3. I/O-memory path (`devm_ioremap_wc`): same check after the optional
+   `devm_request_mem_region` fallback.
 
-**Step 3.5:** Record: Applies standalone to 6.1’s attach site. Patch 1’s
-fatal NULL deref is blamed on `da33e87bd2bf` (“iommu: Handle yet another
-race around registration”) — **not** in this tree (`git merge-base --is-
-ancestor` → no). Patch 2’s crash stack uses `msm_iommu_identity_attach`,
-which **does not exist** in 6.1 `drivers/iommu/msm_iommu.c`. Those two
-are not prerequisites for this -EBUSY fix here.
+Before: map whatever firmware gave, then blit using `fb_pitch`/`height`.
+After: refuse to probe if the logical FB does not fit in the mapping.
 
-## Phase 4: Mailing list
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
 
-**Step 4.1:** Record: `b4 dig -c 140b134753026` →
-https://patch.msgid.link/20260730-fix-qcom-
-smmu-v2-3-18e0daf2d836@oss.qualcomm.com
-v1 and v2 same day. v2: dropped a `dev_warn` tweak (Konrad); rewrote
-patch 2 (Robin Murphy). Applied version is v2 3/3. Lore HTTP 403/503;
-thread recovered via `b4 dig -m`. No NAKs in the saved mbox. No reviewer
-`Cc: stable`.
+Record: **Memory safety / out-of-bounds + integer overflow**
+- `drm_sysfb_plane_helper_atomic_update()` → `drm_fb_blit()` into
+  `sysfb->fb_addr` using `sysfb->fb_pitch`
+- `drm_sysfb_plane_helper_atomic_disable()` `memset_io` over `height`
+  lines of `fb_pitch`
+- Mapping length is `resource_size(mem)`, not `height*stride`
+- v2 had the comparison **inverted** (`resource_size(mem) > size`); v3
+  is `size > resource_size(mem)`
 
-**Step 4.2:** Record: To/Cc included Rob Clark, Will Deacon, Joerg
-Roedel, Robin Murphy, dri-devel, iommu, linux-arm-msm, freedreno. Konrad
-Reviewed-by on this patch.
+**Step 2.4: ASSESS THE FIX QUALITY**
 
-**Step 4.3:** Record: Author is the reporter; tested on IFC6410.
-Concrete dmesg for GPU and KMS probe `-16`.
+Record: Obviously correct after v3. Minimal. Probe-time only. Regression
+risk: probe fail (no simpledrm display) on undersized firmware resources
+that “worked” while writing past the map. Author documents quirks. No
+API/locking/struct changes.
 
-**Step 4.4:** Record: Series of three; this patch is drm/msm-only. Cover
-letter: “only fixing all of them makes the board usable” on mainline.
-For 6.1, the other two fix post-6.1 IOMMU-core behavior.
+---
 
-**Step 4.5:** Record: No stable@ discussion found
-(lore.kernel.org/stable search not usable here; mbox has no stable
-nomination).
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-## Phase 5: Code semantics
+**Step 3.1: BLAME THE CHANGED LINES**
 
-**Step 5.1:** Record: `msm_iommu_new()`.
+Record: Mapping code from Thomas Zimmermann / Thierry Reding (2022–2023,
+originally `drivers/gpu/drm/tiny/simpledrm.c`). Bug is **missing
+validation since the driver was added** (`11e8f5fd223bd`, 2021-05-01),
+not a recent regression.
 
-**Step 5.2:** Record: Callers in this tree:
-- `adreno_iommu_create_address_space()` → GPU probe (`adreno_gpu.c`)
-- `mdp4_kms` init (`mdp4_kms.c`) → display
-- `msm_kms_init_aspace()` (`msm_drv.c`) → MDP/DPU
-- `a6xx_gmu.c` (a6xx; not apq8064)
+**Step 3.2: FOLLOW THE FIXES: TAG**
 
-Probe-time, not IRQ/hot path.
+Record: No `Fixes:` tag. Buggy behavior is the original probe path. Not
+introduced after 6.18 branched.
 
-**Step 5.3:** Record: After the new detach: `iommu_attach_device()`.
-Detach uses `arm_iommu_detach_device` / `arm_iommu_release_mapping`
-(exported in this tree).
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
 
-**Step 5.4:** Record: Reachable from platform probe of adreno/mdp4 when
-the device is IOMMU-mapped. Userspace is not needed; boot on apq8064
-with `qcom_defconfig` is enough.
+Same v3 series (msgid `20260625094509.157581`):
 
-**Step 5.5:** Record: Same pattern in this tree:
-`rockchip_drm_dma_attach_device()`, `exynos_drm_dma.c`.
+| Patch | Subject | In v6.18.53? |
+|---|---|---|
+| 1/7 | Improve framebuffer-size validation | **YES** (`8d65b8d1722d8`,
+Cc: stable v5.14+) |
+| 2/7 | Improve panel-size validation | **YES** (`54e32ad5e0c74`, Cc:
+stable v6.4+) |
+| 3/7 | Inline `simplefb_get_validated_int()` | NO — cleanup only, not
+required |
+| 4/7 | Improve stride validation | **YES** (`6892f0a2f6b59`, Cc: stable
+v6.1+) |
+| **5/7** | **This mmap-size check** | **NO** |
+| 6–7/7 | Panel orientation | new feature, not this commit |
 
-## Phase 6: This checkout (6.1.188)
+Record: Standalone vs this tree. Inline helper is not a prerequisite
+(diff vs v6.18.53 does not touch those call sites).
 
-**Step 6.1:** Record: Tree is **6.1.188** (`pending-6.1`,
-`p-6.1-11-gffee1c0de6cf2`). Candidate `140b134753026` is **not** an
-ancestor of HEAD (`name-rev`: `tags/next-20260821~61^2`).
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
 
-Buggy code is here:
+Record: Thomas Zimmermann authored simpledrm (2021) and maintains
+drm/sysfb. Related: ofdrm overflow used this same `check_mul_overflow`
+pattern.
 
-```402:425:drivers/gpu/drm/msm/msm_iommu.c
-struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain
-*domain)
-{
-        ...
-        ret = iommu_attach_device(iommu->domain, dev);
-        if (ret) {
-                kfree(iommu);
-                return ERR_PTR(ret);
-        }
-        return &iommu->base;
-}
-```
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
 
-Same EBUSY test in `drivers/iommu/iommu.c` `__iommu_attach_group()`.
-`arch_setup_dma_ops()` → `arm_setup_iommu_dma_ops()` attaches the ARM
-mapping. `arch/arm/configs/qcom_defconfig` has `CONFIG_MSM_IOMMU=y`,
-`CONFIG_ARM_SMMU=y` (selects `ARM_DMA_USE_IOMMU`),
-`CONFIG_ARCH_MSM8960=y`, `CONFIG_DRM_MSM=m`. DT: `qcom-
-apq8064-ifc6410.dts`, GPU `adreno-3xx@4300000`, MDP `mdp@5100000`.
+Record: Needs `check_mul_overflow` / `overflow.h` (present in 6.18).
+Needs `simpledrm_device_create` layout after stride validation (present
+at v6.18.53). No new helpers. **Can apply standalone to this tree.**
 
-**Step 6.2:** Record: Minor backport. 6.1 `msm_iommu_new(dev, domain)`
-vs later `msm_iommu_new(dev, quirks)` with `iommu_paging_domain_alloc` /
-`kzalloc_obj`. Insert the detach block before the existing
-`iommu_attach_device()` and add the same `#if CONFIG_ARM_DMA_USE_IOMMU`
-stubs rockchip already uses.
+---
 
-**Step 6.3:** Record: No msm ARM-DMA detach in this tree.
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-## Phase 7: Subsystem
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 
-**Step 7.1:** Record: `[drm/msm IOMMU] [IMPORTANT]` — not core mm/net,
-but GPU+display on Qualcomm ARM32. Official `qcom_defconfig`.
+Record:
+- `b4 dig -c 127d52f9…` →
+  https://patch.msgid.link/20260625094509.157581-6-tzimmermann@suse.de
+- Series: v1 (3 patches, 2026-06-19) → v2 (6, 2026-06-22) → v3 (7,
+  2026-06-25). Committed version is v3.
+- v1: Sashiko asked to compare firmware size vs mapped resource (High:
+  OOB writes on plane update).
+- v2: check added **inverted**; Sashiko: rejects valid larger resources,
+  allows `size > resource_size`.
+- v3: comparison corrected; ALIGN value not stored.
+- lore.kernel.org / spinics WebFetch: 403/500. Content recovered via `b4
+  dig`, WebSearch snippets, and the ratatoskr thread archive.
+- No NAK. No reviewer `Cc: stable` on this specific patch (unlike 1/7,
+  2/7, 4/7).
 
-**Step 7.2:** Record: msm DRM is active; this ARM32 IOMMU attach path is
-old and stable.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
 
-## Phase 8: Impact and risk
+Record (`b4 dig -w`): dri-devel; Thierry, Maxime, Javier, airlied,
+simona, Maarten Lankhorst, Neil Armstrong; Sashiko. Subsystem
+maintainers were on To/Cc and Reviewed-by.
 
-**Step 8.1:** Record: ARM32 Qualcomm with `CONFIG_ARM_DMA_USE_IOMMU` and
-msm DRM+IOMMU — `qcom_defconfig`, apq8064 (IFC6410, Nexus 7 flo, etc.).
+**Step 4.3: SEARCH FOR THE BUG REPORT**
 
-**Step 8.2:** Record: Every boot/probe of GPU and display. Not a race.
-Unprivileged userspace not required.
+Record: No syzbot/bugzilla/user crash. Finding is Sashiko review of this
+series. Mechanism verified in tree (blit/memset past `resource_size`).
 
-**Step 8.3:** Record: Probe `-EBUSY` → no GPU, no display. Severity
-**HIGH** for those boards (board graphics unusable). Not a generic
-panic.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
 
-**Step 8.4:** Record: Benefit high for affected ARM32 qcom; risk low
-(config-gated, copies in-tree pattern, ~15 lines in one function).
-Companion mainline crashes are not the 6.1 detach path
-(`msm_iommu_identity_attach` missing; 6.1 `arm_iommu_detach_device`
-NULLs `dma_ops` after detach, and this patch’s extra `release_mapping`
-runs with `dma_ops` already NULL).
+Record: Patches 6–7 (panel orientation) are features, not needed.
+Patches 1/2/4 already in 6.18.53. Patch 3 is unused cleanup.
 
-## Phase 9: Synthesis
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
 
-**Evidence FOR:**
-- Real, tested probe failure: GPU+KMS `-EBUSY` on IFC6410
-- Mechanism present in 6.1 (attach + EBUSY check + ARM DMA mapping)
-- Official `qcom_defconfig` enables the triggering config
-- Small, matches rockchip/exynos already in this tree
-- Reviewed by Konrad Dybcio; msm maintainer author
-- Hardware-workaround class (existing driver, existing boards)
+Record: lore.kernel.org/stable search not available (HTTP 403).
+Unverified whether stable@ discussed this SHA. Sibling validation
+patches were already taken into 6.18.53 via `Cc: stable`.
 
-**Evidence AGAINST:**
-- Cherry-pick does not apply cleanly (`msm_iommu_new` signature)
-- Series 3/3; cover letter says all three needed on mainline
-- ARM32 / older SoCs only
-- Not a UAF/security/panic by itself
+---
 
-**Unresolved:** Whether incomplete multi-IOMMU stream-ID programming
-(patch 1, “wrong for years”) still limits display/GPU quality after
-attach succeeds. That did not block probe; this patch fixes the probe
-blocker.
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Stable rules:**
-1. Obviously correct and tested? **PASS** (in-tree pattern; IFC6410)
-2. Real bug affecting users? **PASS** (`qcom_defconfig` apq8064)
-3. Important? **PASS** (complete GPU+display failure; quirk/enablement
-   exception)
-4. Small? **PASS** (+22 lines, one file; small 6.1 adapt)
+**Step 5.1: KEY FUNCTIONS**
+
+Record: `simpledrm_device_create()` (modified). Callers of the mapped
+buffer: `drm_sysfb_plane_helper_atomic_update`, `atomic_disable`,
+`get_scanout_buffer`.
+
+**Step 5.2: TRACE CALLERS**
+
+Record:
+- `simpledrm_probe()` → `simpledrm_device_create()` — platform probe for
+  `simple-framebuffer` / sysfb
+- Plane helpers in `drm_sysfb_modeset.c` — atomic update/disable on
+  every scanout
+
+Not IRQ. Probe + modeset. Userspace DRM clients and in-kernel
+fbdev/client setup trigger blits.
+
+**Step 5.3: TRACE CALLEES**
+
+Record: `check_mul_overflow`, `ALIGN`, `resource_size`, `devm_memremap`
+/ `devm_ioremap_wc`. No new locks or allocations beyond existing probe.
+
+**Step 5.4: FOLLOW THE CALL CHAIN**
+
+Record: Reachable whenever `CONFIG_DRM_SIMPLEDRM` binds. DT `simple-
+framebuffer` (ARM/QEMU/etc.) and `sysfb_create_simplefb()` (EFI/VESA)
+both hit this function. **EFI/VESA path already checks `height*stride`
+vs VRAM in `sysfb_create_simplefb()`**
+(`drivers/firmware/sysfb_simplefb.c` lines 98–102). **DT `reg` /
+`memory-region` does not.** That is the hole.
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+
+Record:
+- **vesadrm / efidrm:** `drm_sysfb_get_visible_size_si(...,
+  resource_size(res))` already caps visible size.
+- **ofdrm:** `check_mul_overflow(linebytes, height, &fb_size)` —
+  **already in v6.18.53** (`ded6ad826fe0f`, Cc: stable). Message says it
+  matches simpledrm.c — i.e. this check in mainline — while 6.18.53
+  still lacks it in simpledrm.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+
+Record:
+- `git describe HEAD` → **v6.18.53-5049-g0f0bdc2b0dffb**; `Makefile`
+  **6.18.53**
+- `git merge-base --is-ancestor 8f06389364d85 v6.18.53` → **not in
+  6.18.53**
+- At v6.18.53, `simpledrm_device_create()` maps `resource_size(mem)`
+  with **no** `height*stride` check (verified by reading that version of
+  the file)
+- Bug present since simpledrm (v5.14-era), well before 6.18
+
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+
+Record: **Clean apply.** v6.18.53 already has stride/width/height
+validation; insertion point after `stride = pitch` matches. `overflow.h`
+exists. Only extra autosel commit is the unused inline cleanup.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+
+Record: Dimension/stride caps yes; mmap-vs-resource check **no**. No
+alternate fix for this OOB.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1: SUBSYSTEM AND CRITICALITY**
+
+Record: **drm/sysfb / simpledrm** — generic firmware framebuffer.
+**IMPORTANT** (not core mm/net, but default/fallback display on many DT
+and some x86 firmware systems).
+
+**Step 7.2: SUBSYSTEM ACTIVITY**
+
+Record: Active in 2026 (validation series, ofdrm overflow, vesadrm).
+Driver itself is mature (2021).
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: WHO IS AFFECTED**
+
+Record: **Driver-specific**, `CONFIG_DRM_SIMPLEDRM`. Highest relevance:
+DT `simple-framebuffer` with mismatched `memory-region`/`reg` vs
+width/height/stride. EFI/VESA sysfb already rejects undersized VRAM
+before creating the device.
+
+**Step 8.2: TRIGGER CONDITIONS**
+
+Record: Probe + later plane update. Trigger is **buggy/mismatched
+firmware or DT**, not a normal userspace syscall. Unprivileged users do
+not invent the resource; they can trigger the blit after a bad probe
+succeeds. Not a timing race.
+
+**Step 8.3: FAILURE MODE SEVERITY**
+
+Record: **OOB write** into/beyond ioremap/memremap (`drm_fb_blit` /
+`memset_io`) → **HIGH** (crash, corruption, possible security). Overflow
+of `height*stride` → **HIGH** in principle; with U16 height and INT_MAX
+stride already in 6.18.53, u64 overflow is unlikely; the resource-size
+check is the real fix.
+
+**Step 8.4: RISK-BENEFIT RATIO**
+
+Record:
+- **Benefit:** HIGH for mismatched DT/firmware; closes a hole sibling
+  drivers already close; ofdrm’s copy of the overflow check is already
+  in this tree.
+- **Risk:** LOW–MEDIUM — 24 lines, probe-only; possible **black screen**
+  if firmware resource is smaller than `height*stride` but the machine
+  still “displayed something.” Author: add quirks. That is still better
+  than kernel OOB writes.
+- **Ratio:** benefit outweighs risk for 6.18.y.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1: EVIDENCE**
+
+**FOR:**
+- Real OOB on plane update when mapped size < `height*stride` (verified
+  blit/memset paths)
+- Sashiko High finding; v3 fixed inverted compare
+- 24 lines, probe-time, no APIs
+- Reviewed by DRM maintainers; author is simpledrm maintainer
+- Same validation series already partly in 6.18.53
+- ofdrm overflow backport in this tree explicitly follows simpledrm
+- Code and context exist; applies cleanly; no extra series patches
+  required
+
+**AGAINST:**
+- No `Fixes:` / no user crash dump (absence is not a veto per rules)
+- Author did not `Cc: stable` (sibling patches did; likely because this
+  check was added mid-series)
+- Probe failure on quirky firmware
+- No syzbot reproducer
+
+**UNRESOLVED:**
+- lore/stable HTTP fetch failed; no confirmation of stable@ discussion
+- No evidence of a specific board that hits this today (unverified)
+
+**Step 9.2: STABLE RULES CHECKLIST**
+
+1. Obviously correct and tested? **PASS** — v3 comparison is correct;
+   three DRM R-bs
+2. Real bug affecting users? **PASS** — OOB if DT/firmware sizes
+   disagree with the memory resource
+3. Important (crash/security/corruption)? **PASS** — kernel OOB write,
+   severity HIGH
+4. Small and contained? **PASS** — +24 lines, one function
 5. No new features/APIs? **PASS**
-6. Can apply to this tree? **PASS** (minor context adapt)
+6. Can apply to this tree? **PASS** — present and matching at v6.18.53
 
-**Exception:** Hardware workaround for ARM32 IOMMU vs driver-managed
-domain, same class as existing DRM ARM DMA detach.
+**Step 9.3: EXCEPTION CATEGORIES**
 
-This tree is 6.1.188. The attach/`-EBUSY` bug is here, the devices and
-defconfig are here, and the mainline series mates that crash on later
-IOMMU core behavior are not required for this fix.
+Record: None (not a device ID/quirk/DT/build/doc exception). It is a
+normal memory-safety fix.
+
+**Step 9.4: DECISION**
+
+This is a small, reviewed bounds check for a real OOB in simpledrm’s
+probe/scanout path. The buggy code is in 6.18.53; prerequisites are
+already there; ofdrm already received the same overflow approach.
+Firmware-quirk probe failure is the main risk and is acceptable versus
+out-of-bounds kernel writes.
+
+---
+
+### What the commit solves for this tree
+
+On **6.18.53**, `simpledrm_device_create()` still maps only
+`resource_size(mem)` and then `drm_fb_blit()` / `memset_io()` walk
+`height * stride` bytes. If DT `simple-framebuffer` (or other platform
+data not going through `sysfb_create_simplefb()`) gives a smaller
+resource, that is an out-of-bounds kernel write. This patch fails probe
+instead.
+
+### Stable rules / risk
+
+Meets the rules: small, obviously correct after v3, no new API, applies
+cleanly here. Benefit is preventing corruption/oops on mismatched
+firmware; risk is losing simpledrm on those same configs (quirks if
+needed).
+
+### Concerns
+
+- Not originally `Cc: stable` (do not treat as a no).
+- Inline helper commit is **not** required.
+- ALIGN overflow check is largely redundant after U16/INT_MAX caps
+  already in 6.18.53; harmless.
+
+---
 
 Verification:
-- [Phase 1] Parsed tags: Reviewed-by Konrad; lore/patchwork links; no
-  Fixes/stable/syzbot
-- [Phase 2] Diff: +22 in `msm_iommu_new()`, detach ARM mapping then
-  `iommu_attach_device()`
-- [Phase 3] Blame: attach from `52da6d513183cf` (2020); EBUSY
-  `0286300e604555` in this tree; rockchip detach `8490cad4dc4e2` in this
-  tree
-- [Phase 3] `git merge-base --is-ancestor 140b134753026 HEAD` → no
-  (commit is linux-next, not 6.1)
-- [Phase 3] Companion Fixes `da33e87bd2bf` not in 6.1; no
-  `identity_attach` in 6.1 msm IOMMU
-- [Phase 4] `b4 dig -c 140b134753026` / `-a` / `-w` / `-m`: v2 3/3,
-  cover letter, Konrad R-b, Robin feedback on patch 2
-- [Phase 5] Callers: adreno, mdp4, `msm_kms_init_aspace` at probe
-- [Phase 6] `git describe HEAD` / Makefile: 6.1.188 pending-6.1; buggy
-  `msm_iommu_new()` at line 419
-- [Phase 6] `qcom_defconfig`: MSM_IOMMU=y, ARM_SMMU=y, DRM_MSM=m,
-  ARCH_MSM8960=y
-- [Phase 8] Failure: GPU/KMS probe `-16`/`-EBUSY`, no display; HIGH for
-  those boards
-- UNVERIFIED: live IFC6410 boot on 6.1.188 (author tested mainline)
+- [Phase 1] Tags: Suggested-by Sashiko; R-b Thierry, Maxime, Javier;
+  Link patch 5/7 v3; no Fixes/Cc: stable
+- [Phase 2] +24 lines in `simpledrm_device_create`: overflow + `size >
+  resource_size` on both mem paths
+- [Phase 3] `git describe`/Makefile: **6.18.53**; `merge-base --is-
+  ancestor 8f063893 v6.18.53` = not present; file at v6.18.53 lacks the
+  check
+- [Phase 3] Series 1/2/4 already in v6.18.53; patch 3 (inline) not
+  needed (`git diff v6.18.53` only inlines helpers)
+- [Phase 3] Blame: mapping from 2022–23 simpledrm; driver
+  `11e8f5fd223bd` (2021)
+- [Phase 4] `b4 dig -c 127d52f9`: lore msgid; v1→v3; inverted check in
+  v2
+- [Phase 4] WebSearch/ratatoskr: Sashiko High OOB; drm_fb_memcpy/blit
+  past map
+- [Phase 4] lore/spinics WebFetch 403/500 — UNVERIFIED full mbox;
+  substance recovered from b4 + archives
+- [Phase 4] stable@ search UNVERIFIED (lore 403)
+- [Phase 5] `simpledrm_probe` → create; blit/memset in
+  `drm_sysfb_modeset.c` use `fb_addr`/`fb_pitch`
+- [Phase 5] `sysfb_create_simplefb()` already rejects `length > size`;
+  DT `simplefb_get_memory_of()` does not
+- [Phase 5] ofdrm `check_mul_overflow` **is** in v6.18.53
+  (`ded6ad826fe0f`)
+- [Phase 6] `check_mul_overflow` in `include/linux/overflow.h` at
+  v6.18.53
+- [Phase 8] Failure: OOB write on plane update, HIGH; trigger =
+  mismatched firmware/DT
+- UNVERIFIED: specific product firmware known to undersize the resource
 
 **YES**
 
- drivers/gpu/drm/msm/msm_iommu.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/sysfb/simpledrm.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 82a172f21a3ec..41a4eaa1b8fd9 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -7,6 +7,15 @@
- #include <linux/adreno-smmu-priv.h>
- #include <linux/io-pgtable.h>
- #include <linux/kmemleak.h>
-+
-+#if defined(CONFIG_ARM_DMA_USE_IOMMU)
-+#include <asm/dma-iommu.h>
-+#else
-+#define arm_iommu_detach_device(...)	({ })
-+#define arm_iommu_release_mapping(...)	({ })
-+#define to_dma_iommu_mapping(dev)	NULL
-+#endif
-+
- #include "msm_drv.h"
- #include "msm_gpu_trace.h"
- #include "msm_mmu.h"
-@@ -746,6 +755,19 @@ struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks)
- 
- 	mutex_init(&iommu->init_lock);
- 
-+	/*
-+	 * ARM32 attaches a DMA mapping domain to every IOMMU-backed device,
-+	 * which would make attaching our own domain fail with -EBUSY.
-+	 */
-+	if (IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)) {
-+		struct dma_iommu_mapping *mapping = to_dma_iommu_mapping(dev);
-+
-+		if (mapping) {
-+			arm_iommu_detach_device(dev);
-+			arm_iommu_release_mapping(mapping);
-+		}
+diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/simpledrm.c
+index 22f8caab39be0..91f114ab99a3e 100644
+--- a/drivers/gpu/drm/sysfb/simpledrm.c
++++ b/drivers/gpu/drm/sysfb/simpledrm.c
+@@ -5,6 +5,7 @@
+ #include <linux/of_clk.h>
+ #include <linux/minmax.h>
+ #include <linux/of_reserved_mem.h>
++#include <linux/overflow.h>
+ #include <linux/platform_data/simplefb.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_domain.h>
+@@ -626,6 +627,7 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
+ 	u16 width_mm = 0, height_mm = 0;
+ 	struct device_node *panel_node;
+ 	const struct drm_format_info *format;
++	u64 size;
+ 	struct resource *res, *mem = NULL;
+ 	struct drm_plane *primary_plane;
+ 	struct drm_crtc *crtc;
+@@ -716,6 +718,14 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
+ 		}
+ 		stride = pitch;
+ 	}
++	if (check_mul_overflow(height, stride, &size)) {
++		drm_err(dev, "framebuffer size exceeds maximum\n");
++		return ERR_PTR(-EINVAL);
 +	}
++	if (ALIGN(size, PAGE_SIZE) < PAGE_SIZE) {
++		drm_err(dev, "page-aligned framebuffer exceeds maximum\n");
++		return ERR_PTR(-EINVAL);
++	}
+ 
+ 	sysfb->fb_mode = drm_sysfb_mode(width, height, width_mm, height_mm);
+ 	sysfb->fb_format = format;
+@@ -741,6 +751,13 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
+ 
+ 		drm_dbg(dev, "using system memory framebuffer at %pr\n", mem);
+ 
++		if (size > resource_size(mem)) {
++			drm_err(dev,
++				"framebuffer size of %llu exceeds memory range %pr\n",
++				size, mem);
++			return ERR_PTR(-EINVAL);
++		}
 +
- 	ret = iommu_attach_device(iommu->domain, dev);
- 	if (ret) {
- 		iommu_domain_free(domain);
+ 		screen_base = devm_memremap(dev->dev, mem->start, resource_size(mem), MEMREMAP_WC);
+ 		if (IS_ERR(screen_base))
+ 			return screen_base;
+@@ -774,6 +791,13 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
+ 			mem = res;
+ 		}
+ 
++		if (size > resource_size(mem)) {
++			drm_err(dev,
++				"framebuffer size of %llu exceeds memory range %pr\n",
++				size, mem);
++			return ERR_PTR(-EINVAL);
++		}
++
+ 		screen_base = devm_ioremap_wc(&pdev->dev, mem->start, resource_size(mem));
+ 		if (!screen_base)
+ 			return ERR_PTR(-ENOMEM);
 -- 
 2.53.0
 
