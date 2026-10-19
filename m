@@ -4,39 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1593CCF2DA
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 08:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7009DCCF2DA
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 08:59:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB9310E8AC;
-	Mon, 19 Oct 2026 08:51:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECB1A10E8AE
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 08:50:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D591F40E16;
- Mon, 19 Oct 2026 08:50:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB791F000C5;
- Mon, 19 Oct 2026 08:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792399858;
- bh=SVIqQFkLCM2mSdJmxuUI/VPm/m7LswMBAkoRjv9gfHI=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=oZ1xANh0mhw2dyEsXWHEGSOD248UH23fTpeVSW0UzH8KVrx4AGNiSizKWXh/aEoZF
- ++q9ZBEYv12UUzYRiD4+K74yCg8+vrMlTS05bIYPMlV8v1NaVbZtKfq5tAUUadGApz
- 4jFrS0vkBIKRuThlBqBGejZwSmx6bY88iKmCPJ1rI3mTiXE974x8W/SuTISvq422JW
- /jx/1+lbaNM4RDaAmk9VUyEz3CguZLmS1GTnHoLrGk2H1E+HeVGbNVtAbSvLqqlkwo
- fkW8zPkLUfYKSdEvVylNnt5zNLSLzHAnC0pqijt36XohX50Le/Gv0h8dV6tk66+9RX
- f4cmX7H1frI2A==
-Message-ID: <sashiko-outbox-176847@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] drm/nouveau: reject empty VRAM ranges
-To: "Jiale Yao" <yaojiale02@163.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019084138.1821477-3-yaojiale02@163.com>
-References: <20261019084138.1821477-1-yaojiale02@163.com>
- <20261019084138.1821477-3-yaojiale02@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 08:50:58 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84A5410E4DE;
+	Mon, 19 Oct 2026 08:59:10 +0000 (UTC)
+Received: from mail-m49201.qiye.163.com (mail-m49201.qiye.163.com
+ [45.254.49.201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C90B810E4DE
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 08:59:03 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 51899c488;
+ Mon, 19 Oct 2026 16:59:00 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jingoo Han <jingoohan1@gmail.com>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v4 00/14] Add HPD support for Rockchip Analogix DP
+Date: Mon, 19 Oct 2026 16:58:22 +0800
+Message-Id: <20261019085836.3065008-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa15362b41e03a8kunm6ee755052eabda
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGE1NVksaHk4aSxhOGUJDTVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ JDQk1VSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=NgKPBcpqxHWE3ptmzPYF1guvxbCmdGVHUQWqFpO0/mdBFds05YWYqlXHFjyuUq87rfYDDwHGeaPHStm8ByFTNvDZDetiexG6YPuWkjwIs0v1m4jhnGLgsse39iEmuYlCv8wFEo8WiuHW4aD0WjuulxwxhNbNpZ4vpytvlPypzy0=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=xfqFpqOADSC5DFsqn0x/n9f7VvDWA1kZ7LKBjJy4i1M=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,117 +64,177 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] drm/nouveau: UAF and leaks in nouveau_ttm_init() on vram init =
-failure
-- [High] drm/nouveau: broken probe on VRAM-less SoCs in nouveau_ttm_init_vr=
-am()
---
+This series improves the HPD (Hotplug Detect) interrupt handling in
+the Analogix DP driver to enable reliable native HPD pin detection on
+Rockchip platforms, and introduces platform-specific HPD detection
+schemes with fine-grained interrupt control.
 
-commit 51b3731f82a143b12828ab1838f6ea352d2d1ef2
-Author: Jiale Yao <yaojiale02@163.com>
+On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
+DP controller to remain powered, clocked and initialized to generate
+plug/unplug interrupts. The previous driver enabled/disabled IRQ during
+bridge enable/disable, which left no HPD detection when the display
+pipeline was inactive. Additionally, the interrupt mute/unmute/clear
+routines operated on all HPD interrupt bits unconditionally, lacking
+the granularity needed for per-event control.
 
-drm/nouveau: reject empty VRAM ranges
+The series reorganizes IRQ and pm_runtime management into bind/unbind,
+adds IRQF_ONESHOT to eliminate read-modify-write races on interrupt
+mask registers between hardirq and threaded handlers, converts the
+interrupt type detection to a bitmask-based scheme for fine-grained
+mute/unmute/clear operations, and configures Rockchip platforms to use
+the HOTPLUG_CHG interrupt with a 2ms HPD deglitch setting for better
+stability.
 
-This commit rejects VRAM sizes smaller than PAGE_SIZE in
-nouveau_ttm_init_vram() to avoid passing a zero-page range to drm_mm_init().
+Furthermore, the next bridge is now resolved into bridge->next_bridge
+instead of the platform data field, the forced connected-status logic
+is restricted to panel endpoints based on the bridge chain, and HPD
+events from downstream bridges (e.g. display-connector with hpd-gpios)
+are handled through the .hpd_notify callback.
 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_ttm.c
-> index ad01f922aa86a..6f8728f433645 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> @@ -180,6 +180,9 @@ nouveau_ttm_init_host(struct nouveau_drm *drm, u8 kin=
-d)
->  static int
->  nouveau_ttm_init_vram(struct nouveau_drm *drm)
->  {
-> +	if (drm->gem.vram_available < PAGE_SIZE)
-> +		return -EINVAL;
-> +
->  	if (drm->client.device.info.family >=3D NV_DEVICE_INFO_V0_TESLA) {
->  		struct ttm_resource_manager *man =3D kzalloc_obj(*man);
-> =20
+Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
 
-[Severity: High]
-Does placing this check before the family >=3D NV_DEVICE_INFO_V0_TESLA bran=
-ch
-break probe on VRAM-less Tegra SoC GPUs (such as GK20A, GM20B, GP10B, and
-GV11B)?
+Native HPD pin mode:
 
-On those platforms, fb->ram is NULL, so nvkm_udevice_info() sets ram_size a=
-nd
-ram_user to 0:
+  &edp {
+      status = "okay";
+      pinctrl-names = "default";
+      pinctrl-0 = <&edp_txm0_pins>;
+  };
 
-drivers/gpu/drm/nouveau/nvkm/engine/device/user.c:nvkm_udevice_info() {
-	...
-	if (fb && fb->ram)
-		args->v0.ram_size =3D args->v0.ram_user =3D fb->ram->size;
-	else
-		args->v0.ram_size =3D args->v0.ram_user =3D 0;
-	...
-}
+GPIO HPD mode:
 
-In nouveau_ttm_init(), drm->gem.vram_available is set to ram_user (0). For
-family >=3D NV_DEVICE_INFO_V0_TESLA, nouveau_ttm_init_vram() does not call
-ttm_range_man_init() or drm_mm_init(); instead it initializes
-nouveau_vram_manager, which handles zero-VRAM devices in
-nouveau_vram_manager_new():
+  &edp {
+      status = "okay";
+      pinctrl-names = "default";
+      pinctrl-0 = <&edp0_hpd>;
+      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+  };
 
-drivers/gpu/drm/nouveau/nouveau_ttm.c:nouveau_vram_manager_new() {
-	...
-	if (drm->client.device.info.ram_size =3D=3D 0)
-		return -ENOMEM;
-	...
-}
+  &pinctrl {
+      edp {
+          edp0_hpd: edp0-hpd {
+              rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
+          };
+      };
+  };
 
-Only the else branch (family < NV_DEVICE_INFO_V0_TESLA) calls
-ttm_range_man_init(). Should this check only apply to that branch?
+Display-connector mode (DP connector without HPD GPIO):
 
-[Severity: Critical]
-Also, when nouveau_ttm_init_vram() returns an error here, can this cause a
-use-after-free of drm->ttm.bdev.device_list as well as leak bdev->wq,
-bdev->pool, the ttm_glob reference, and the arch_io_reserve_memtype_wc()
-reservation?
+  &edp_out_conn {
+      remote-endpoint = <&dp_con_in>;
+  };
 
-In nouveau_ttm_init(), ttm_device_init() and arch_io_reserve_memtype_wc() a=
-re
-called before nouveau_ttm_init_vram():
+  dp-con {
+      compatible = "dp-connector";
+      label = "DP OUT";
+      type = "full-size";
 
-drivers/gpu/drm/nouveau/nouveau_ttm.c:nouveau_ttm_init() {
-	...
-	ret =3D ttm_device_init(&drm->ttm.bdev, ...);
-	if (ret) {
-		NV_ERROR(drm, "error initialising bo driver, %d\n", ret);
-		return ret;
-	}
+      port {
+          dp_con_in: endpoint {
+              remote-endpoint = <&edp_out_conn>;
+          };
+      };
+  };
 
-	/* VRAM init */
-	drm->gem.vram_available =3D drm->client.device.info.ram_user;
+Display-connector mode (DP connector with HPD GPIO):
 
-	arch_io_reserve_memtype_wc(device->func->resource_addr(device, NVKM_BAR1_F=
-B),
-				   device->func->resource_size(device, NVKM_BAR1_FB));
+  dp-con {
+      compatible = "dp-connector";
+      label = "DP OUT";
+      type = "full-size";
+      pinctrl-0 = <&edp0_hpd>;
+      pinctrl-names = "default";
+      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
 
-	ret =3D nouveau_ttm_init_vram(drm);
-	if (ret) {
-		NV_ERROR(drm, "VRAM mm init failed, %d\n", ret);
-		return ret;
-	}
-	...
-}
+      port {
+          dp_con_in: endpoint {
+              remote-endpoint = <&edp_out_conn>;
+          };
+      };
+  };
 
-ttm_device_init() links &bdev->device_list into the global
-ttm_glob.device_list. When nouveau_ttm_init() fails,
-nouveau_drm_device_init() jumps to fail_ttm (skipping nouveau_ttm_fini()),
-and nouveau_drm_device_del() frees drm without calling ttm_device_fini() or
-arch_io_free_memtype_wc().
+All four configurations detect cable plug/unplug events correctly.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019084138.1821=
-477-1-yaojiale02@163.com?part=3D2
+Damon Ding (14):
+  drm/bridge: analogix_dp: Return bitmask from
+    analogix_dp_get_irq_type()
+  drm/bridge: analogix_dp: Check all negative return values for
+    &analogix_dp_device.irq
+  drm/bridge: analogix_dp: Add IRQF_ONESHOT and simplify IRQ handling
+  drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ
+    bitmask
+  drm/bridge: analogix_dp: Extend mute/unmute HPD interrupts to accept
+    irq bitmask
+  drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
+  drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
+  drm/bridge: analogix_dp: Skip native HPD interrupt ops for GPIO HPD
+  drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
+  drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin
+    detection
+  drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data
+    field
+  drm/bridge: analogix_dp: Restrict forced connected status to panel
+    endpoints
+  drm/bridge: analogix_dp: Handle HPD notification from downstream
+    bridge
+  MAINTAINERS: Add entry for Analogix DP controller bridge
+
+ MAINTAINERS                                   |  11 ++
+ .../drm/bridge/analogix/analogix_dp_core.c    | 153 ++++++++++++-----
+ .../drm/bridge/analogix/analogix_dp_core.h    |  13 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 156 ++++++++++++------
+ drivers/gpu/drm/exynos/exynos_dp.c            |  15 +-
+ include/drm/bridge/analogix_dp.h              |   1 -
+ 6 files changed, 233 insertions(+), 116 deletions(-)
+
+---
+
+Changes in v2:
+- Split IRQ enable/disable logic, handle native HPD pin and
+  GPIO/force-HPD modes separately to avoid unbalanced enable_irq()
+  calls.(Sashiko)
+- Add separate patch for IRQF_ONESHOT to resolve interrupt mask issues
+  triggered by interrupt preemption.(Sashiko)
+- Update commit messages to align with newly added IRQF_ONESHOT related
+  commit.
+- Move ANALOGIX_DP_HPD_DEGLITCH_L/ANALOGIX_DP_HPD_DEGLITCH_H configs to
+  analogix_dp_reset().
+- Add new patch to restrict the forced connected-status shortcut to
+  panel endpoints only, allowing DP connector bridges to rely on HPD
+  detection. (Reported by Heiko Stuebner)
+- Add new patch to handle HPD notification from downstream bridges
+  (e.g., display-connector with hpd-gpios).
+
+Changes in v3:
+- Reorder the series: convert the IRQ handling to a bitmask and add
+  IRQF_ONESHOT before moving IRQ enable/disable to bind/unbind.
+- Add new patch to check all negative return values for
+  &analogix_dp_device.irq and propagate the actual error code.(Sashiko)
+- Rename macro HPD_IRQ to HPD_IRQ_ALL to avoid confusion with the
+  DP specification IRQ_HPD, extract the irq_type-to-register bit
+  mapping into a shared helper, and drop the unused
+  COMMON_INT_4_HPD_IRQ macro.
+- Simplify commit messages across the series.
+- Add new patch to use bridge->next_bridge instead of the plat_data
+  field, resolving the next bridge in
+  analogix_dp_aux_done_probing().(Suggested by Heiko Stuebner)
+- Report panel endpoints as always connected from
+  analogix_dp_get_plug_in_status() via force_connected_mode, computed
+  from the bridge chain at attach time.
+- Determine the hpd notify mode from DRM_BRIDGE_OP_HPD on downstream
+  bridges that lack DRM_BRIDGE_OP_DETECT.
+- Add a MAINTAINERS entry for the Analogix DP controller bridge.
+
+Changes in v4:
+- Add Tested-by tag from Heiko.
+- Rebase onto latest tree, picking up the two related patch series [0][1].
+
+[0] https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com/
+[1] https://lore.kernel.org/all/20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com/
+
+-- 
+2.34.1
+
