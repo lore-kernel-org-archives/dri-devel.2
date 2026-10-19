@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D45C6CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:04:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAAE2CCF2E8
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B5510EE19;
-	Mon, 19 Oct 2026 14:04:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E13310EE1B;
+	Mon, 19 Oct 2026 14:04:47 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9667310EE13
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:04:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37C8610EE18;
+ Mon, 19 Oct 2026 14:04:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E50CA60233;
+ by tor.source.kernel.org (Postfix) with ESMTP id A157A60258;
+ Mon, 19 Oct 2026 14:04:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083921F000C8;
  Mon, 19 Oct 2026 14:04:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394531F000C7;
- Mon, 19 Oct 2026 14:04:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418675;
- bh=mQFR6VNpPVMG9Bl1oVKSuT55S8cITyDq9+C87dkVlDE=;
+ s=k20260515; t=1792418677;
+ bh=tUxqjMydVOQ+CkV40AyW4K1j3ezjia8tYP77IbFRgrU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=LNElqLUkPV5pc6WT/iRnEAzxQq9j2CVrZ4SNBHyMim9L8ZMMCm6HoaQiRUKF8AzES
- 9SuAL0EX0mzbgAZfPjlnA5+6Tk1kGxVpeO5m8YMGsKQ+2ML31wXb/FZQ/WBkKVhvBs
- PkcT01zrCr1M7iDXeCiEnn7lyiGb3CXbXtpvbYkrHV2uAiFNGKWZv1YcC9M6LiyqkU
- FRPbRilT1qZMz038PflHtDXEpdS0xfxfNyq5JVVHdHUr3Q014/axKYuR7LbdnOkckK
- /8FK3x8HwpKaOpUo7vQV/hnAqluyFZRdAQ8c+N7H0O0zjklkIsjhHzKRKhxz6aMOO0
- oAaUeDFKgy8Aw==
+ b=FvIz9x5wWkY21K1cIsh9sTE5c9AqjKn4B0QtYk9HoPbDJBvJwSvZIMbkB4U31LJu4
+ fF2XlJdESOFRy8ob5bSDpO7WuuRGupZYBjWJj2qtEHt9g84W4LDQr+PpsLzWVG7RRh
+ MpxHtbENMDw6MUiog8WzPORZ+wy5/31GwPMIw99a1MJ+xToTkpJaYUO9f94lMt57A6
+ PERRHuEwf1AguqZVtHsTCtEegOjpnlZjhysvEcC9SnTvLTRgfFFhdIZYrsBEOtOrRr
+ tA8Aep7Y5uJkXfgs1hyva+G7MDpbA86XkA1styCVdBVVHeaJ8/svw3x2ZpME/85imn
+ Uqr+P2kg6K8pw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ryosuke Yasuoka <ryasuoka@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Sasha Levin <sashal@kernel.org>, airlied@redhat.com, kraxel@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/virtio: abort virtqueue wait on device
- removal to avoid hung task
-Date: Mon, 19 Oct 2026 09:51:48 -0400
-Message-ID: <20261019135441.1420968-417-sashal@kernel.org>
+Cc: Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/amd/pm: Validate Tonga PowerPlay state
+ array bounds
+Date: Mon, 19 Oct 2026 09:51:49 -0400
+Message-ID: <20261019135441.1420968-418-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -64,511 +63,544 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ryosuke Yasuoka <ryasuoka@redhat.com>
+From: Yang Wang <kevinyang.wang@amd.com>
 
-[ Upstream commit a46991b334f663fa0e0e9c051e50587ef977ac8b ]
+[ Upstream commit 1ac24df78c566d767a5ef05a1fe0ecc55bac248d ]
 
-virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
-wait_event() without any abort condition when waiting for virtqueue
-space. If the host device stops processing commands, these waits block
-indefinitely inside a drm_dev_enter/exit() critical section. Since
-drm_dev_unplug(), which is called in device removal and system shutdown
-call path, blocks on synchronize_srcu() until all critical sections
-complete, device removal and system shutdown also hang.
+process_pptables_v1_0.c builds the Tonga state array pointer
+from usStateArrayOffset before checking that the table buffer covers
+the referenced data. A truncated PowerPlay table can therefore lead to
+out-of-bounds reads while validating the state array.
 
-Add a vqs_released flag to virtio_gpu_device and include it in the
-wait_event() condition. Set the flag and wake up both queues in a new
-virtio_gpu_release_vqs() helper, called before drm_dev_unplug() in both
-virtio_gpu_remove() and virtio_gpu_shutdown(). When the flag is set, the
-wait returns immediately and the command is aborted, following the same
-cleanup path as drm_dev_enter() failure.
+Validate the fixed table size first, then check the state array offset
+and entry range before dereferencing the state array.
 
-Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Link: https://patch.msgid.link/20260601-virtio-gpu_wait_event-v3-1-89530517a98a@redhat.com
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit message forensics
+I have enough to decide: the Tonga state-array OOB exists in this
+6.18.53 tree, the patch is self-contained, and it applies cleanly.
 
-**Step 1.1 — Subject**
-Record: `[drm/virtio] [abort] abort virtqueue wait on device removal to
-avoid hung task`
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.2 — Tags**
+Step 1.1: PARSE THE SUBJECT LINE
+Record: [drm/amd/pm] [Validate] [Add bounds checks before using the
+Tonga PowerPlay state array pointer derived from `usStateArrayOffset`.]
+
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- `Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>` (author)
-- `Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>`
-  (virtio-gpu maintainer)
-- `Link: https://patch.msgid.link/20260601-virtio-
-  gpu_wait_event-v3-1-89530517a98a@redhat.com`
-- No `Fixes:`, `Reported-by:`, `Cc: stable` on the committed v3 (absence
-  is expected here)
+- Signed-off-by: Yang Wang &lt;kevinyang.wang@amd.com&gt; (author)
+- Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt; (AMD GFX
+  reviewer; mailing-list reply said the whole 5-patch series is
+  Reviewed-by)
+- Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt; (amdgpu
+  maintainer)
+- No Fixes:, Reported-by, Tested-by, Link:, or Cc: stable (absence
+  expected)
+- Ignore pipeline-added Upstream commit / Sasha Levin SOB
 
-v2 originally had two syzbot `Reported-by`/`Closes` tags. v3 changelog:
-*“Remove Reported-by and Closes tag from commit msg because they are not
-related to this fix.”* Those syzbot hung-task reports are a different
-probe-time deadlock, already fixed in this tree by `89890a5fcefad`.
-
-**Step 1.3 — Body**
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- **Bug:** `wait_event()` on ctrl/cursor virtqueue space has no abort.
-  If the host stops processing commands, the waiter stays in D-state
-  inside `drm_dev_enter()`/`drm_dev_exit()`.
-- **Symptom:** `drm_dev_unplug()` (remove and shutdown) blocks forever
-  on `synchronize_srcu()`, so device removal and system shutdown hang
-  (`INFO: task hung`).
-- **Root cause:** uninterruptible wait holds an SRCU critical section
-  that unplug must drain.
-- **Fix:** `vqs_released` flag + `wake_up_all()` before unplug; abort
-  with the same cleanup as `drm_dev_enter()` failure (`-ENODEV` / free
-  vbuf).
-- **Versions:** none named in the message. The wait + `drm_dev_enter`
-  wrapping has been in this driver since 2020.
+- Bug: `process_pptables_v1_0.c` forms `ATOM_Tonga_State_Array *` from
+  `usStateArrayOffset` before proving the PowerPlay buffer covers that
+  object.
+- Symptom: truncated/malformed PowerPlay table → out-of-bounds reads
+  while validating the state array.
+- Root cause: pointer arithmetic first, checks after (and the checks
+  never used `soft_pp_table_size`).
+- Fix: check fixed table size, then offset, then entry span, then
+  dereference.
+- No affected-version list in the message.
 
-**Step 1.4 — Hidden bug fix?**
-Record: Not hidden. Subject and body describe a hang/deadlock. It is a
-real teardown hang, not cleanup-as-style.
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not disguised. Explicit OOB hardening. Also tightens
+`entry_index <= ucNumEntries` to `entry_index < ucNumEntries` (off-by-
+one on the index check).
 
----
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-## Phase 2: Diff analysis
-
-**Step 2.1 — Inventory**
+Step 2.1: INVENTORY THE CHANGES
 Record:
-- `virtgpu_drv.c`: +15 — new `virtio_gpu_release_vqs()`, called from
-  `virtio_gpu_remove()` and `virtio_gpu_shutdown()`
-- `virtgpu_drv.h`: +1 — `bool vqs_released` on `struct
-  virtio_gpu_device`
-- `virtgpu_vq.c`: +21/−2 — abort conditions in
-  `virtio_gpu_queue_ctrl_sgs()` and `virtio_gpu_queue_cursor()`
-- Scope: ~37 insertions, 2 deletions, three files, one driver. Surgical.
+- File: `drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c`
+  (+40 / −22)
+- Functions: `check_powerplay_tables` split into `get_tonga_state_array`
+  + thin wrapper; `get_number_of_powerplay_table_entries_v1_0`;
+  `get_powerplay_table_entry_v1_0`
+- Scope: single-file surgical fix
 
-**Step 2.2 — Flow**
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 Record:
-- **Before:** if `vq->num_free` is short, unlock, notify host,
-  `wait_event(ack_queue, num_free >= needed)` with no timeout/abort,
-  still inside `drm_dev_enter()`.
-- **After:** wait also succeeds when `vqs_released`. Then unlock resv if
-  needed, `free_vbuf()`, `drm_dev_exit()`, return `-ENODEV` (ctrl) or
-  return (cursor). Same path as `drm_dev_enter()` failure.
-- **Teardown:** set flag, wake both ack queues, *then*
-  `drm_dev_unplug()`.
-- Path affected: virtqueue-full wait during remove/shutdown, not the
-  happy path.
+- Hunk 1 (init validation): Before — compute `state_arrays = table +
+  usStateArrayOffset` then assert revision/offset/size/`ucNumEntries`.
+  After — require `soft_pp_table_size >= sizeof(*powerplay_table)`, then
+  existing header checks, then `offset <= table_size -
+  sizeof(*state_arrays)`, then dereference, then `struct_size(...) <=
+  remaining`.
+- Hunk 2 (`get_number_of_powerplay_table_entries_v1_0`): Before — same
+  unvalidated pointer add, return `ucNumEntries`. After — shared helper;
+  fail closed on invalid table.
+- Hunk 3 (`get_powerplay_table_entry_v1_0`): Before — pointer add +
+  offset/`ucNumEntries` checks after the add; `entry_index <=
+  ucNumEntries`. After — helper first; `entry_index < ucNumEntries`.
+- Paths: GPU powerplay init and power-state table walk (normal device
+  bring-up), not a rare error-only path.
 
-**Step 2.3 — Bug mechanism**
-Record: **Deadlock / hung-task (uninterruptible wait blocking SRCU
-unplug).** `wait_event()` is `TASK_UNINTERRUPTIBLE`. `drm_dev_unplug()`
-→ `drm_dev_synchronize_unplug()` → `synchronize_srcu(&drm_unplug_srcu)`
-cannot finish while that section is held. Flag + `wake_up_all()` is a
-standard abort.
-
-**Step 2.4 — Fix quality**
-Record: Obviously correct and minimal. Abort cleanup matches existing
-`drm_dev_enter()` failure. Fence emit happens *after* the wait, so abort
-does not leak an emitted fence. `vgdev` is `drmm_kzalloc()`’d so
-`vqs_released` starts false. Flag is set only on remove/shutdown.
-Regression risk is low: happy-path wait is unchanged; abort only when
-tearing down. Remaining `wait_event(resp_wq)` in prime/vram is a
-separate issue (author and maintainer agreed to leave it).
-
----
-
-## Phase 3: Git history
-
-**Step 3.1 — Blame (v6.18.53)**
+Step 2.3: IDENTIFY THE BUG MECHANISM
 Record:
-- Ctrl `wait_event`: `6ebe8661ebf27a` (2020, Gerd/Chia-I) — `drm/virtio:
-  move locking into virtio_gpu_queue_ctrl_sgs`
-- Wrapped in `drm_dev_enter`: `b1df3a2b24a917` (2020) — `drm/virtio: add
-  drm_driver.release callback`
-- Cursor `wait_event`: `d02d270014f70d` (2018) / original queue from
-  `dc5698e80cf724` (2013)
-- Bug has been in this driver for years; it is in 6.18.y.
+- Category: memory safety — buffer overflow / OOB read of firmware (and
+  optionally sysfs-uploaded) table data.
+- Mechanism: `usStateArrayOffset` and `ucNumEntries` were trusted. A
+  truncated blob or huge offset reads past the ATOM table.
+  `struct_size()` is overflow-safe for the entries span.
+- Also logic: exclusive vs inclusive index check.
 
-**Step 3.2 — Fixes: tag**
-Record: None. Introducing commits above exist in this tree.
-
-**Step 3.3 — File history**
-Record: Related in-tree: `89890a5fcefad` (probe deadlock / syzbot hung
-task — different bug, already in v6.18.53). `2507789a724d6` implements
-`virtio_gpu_shutdown` (in v6.18.53). Later candidate `3cdc509eb471e`
-reclaims leftover vbufs on teardown — complementary, not a prerequisite
-for this abort.
-
-**Step 3.4 — Author**
-Record: Ryosuke Yasuoka is a regular virtio-gpu contributor
-(`drm_panic`, the display_info deadlock fix). Signed off by maintainer
-Dmitry Osipenko.
-
-**Step 3.5 — Dependencies**
-Record: Standalone. Needs `drm_dev_enter` around queueing,
-`virtio_gpu_remove`/`virtio_gpu_shutdown` calling `drm_dev_unplug`, and
-`ctrlq`/`cursorq` ack waitqueues — all present at v6.18.53. No new APIs.
-
----
-
-## Phase 4: Mailing list / external
-
-**Step 4.1 — b4 dig**
+Step 2.4: ASSESS THE FIX QUALITY
 Record:
-- v2: https://patch.msgid.link/20260521-virtio-
-  gpu_wait_event-v2-1-5796b3a71d03@redhat.com
-- v3 (applied): https://patch.msgid.link/20260601-virtio-
-  gpu_wait_event-v3-1-89530517a98a@redhat.com
-- v1 used `wait_event_timeout()` (5s). v2/v3 switched to an explicit
-  `vqs_released` flag (no arbitrary timeout). Applied version is v3.
+- Obviously correct: size → header → offset → header of subtable → full
+  entries span.
+- Underflow: `table_size - sizeof(*state_arrays)` is safe because the
+  first check is `table_size >= sizeof(*powerplay_table)`, and
+  `ATOM_Tonga_POWERPLAYTABLE` is much larger than
+  `ATOM_Tonga_State_Array` (header + two `UCHAR`s + flex array).
+- Regression: valid VBIOS tables should still pass if `usStructureSize`
+  is the full PowerPlay blob (ATOM `CU16(idx)` / `usStructureSize`).
+  That is the same size the later Tonga/Vega subtable helpers use; a
+  header-only size would reject every Tonga GPU and would not have
+  landed.
+- No public API / locking / data-structure change. Stale kernel-doc
+  above `get_tonga_state_array` still mentions `check_powerplay_tables`
+  (later comment-only fix 4986757d); no runtime impact.
 
-**Step 4.2 — Recipients (`b4 dig -w`)**
-Record: David Airlie, Gerd Hoffmann, Dmitry Osipenko, Gurchetan Singh,
-Chia-I Wu, drm-misc maintainers, `dri-devel`,
-`virtualization@lists.linux.dev`. Right people.
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 4.3 — Review**
-Record (from saved v2 mbox):
-- Dmitry: “What about other `wait_event`?” Author: those are `resp_wq`,
-  not inside `drm_dev_enter`, different bug. Dmitry: leave for later.
-- Dmitry could not reproduce on normal systemd shutdown and noted the
-  syzbot stacks were not remove/shutdown. Later: *“the patch looks okay,
-  but I'm not convinced that it fixes the reported issue.”*
-- Author agreed syzbot was a probe deadlock (`clientlist_mutex` vs
-  dequeue worker), dropped those tags, and described the real trigger:
-  host stops processing → guest waits in D-state inside `drm_dev_enter`
-  → unplug’s `synchronize_srcu` never completes. systemd cannot kill
-  D-state tasks.
-- v3 dropped the unrelated tags; Dmitry still signed off.
-
-**Step 4.4 — Series**
-Record: Single-patch series. `resp_wq` abort and interruptible waits
-were explicitly deferred.
-
-**Step 4.5 — stable@**
-Record: lore.kernel.org/stable returned HTTP 403. UNVERIFIED whether it
-was already discussed on stable@.
-
-Syzbot URLs from v2: hung in `virtio_gpu_queue_fenced_ctrl_buffer`
-during **probe** (`virtio_gpu_probe` → fbcon), not removal. Those are
-the deadlock already closed by `89890a5fcefad` in this tree. They do
-**not** prove this particular hang, and they are not used as a YES
-signal for this commit.
-
----
-
-## Phase 5: Semantic / call graph
-
-**Step 5.1 — Functions**
-Record: `virtio_gpu_release_vqs` (new), `virtio_gpu_remove`,
-`virtio_gpu_shutdown`, `virtio_gpu_queue_ctrl_sgs`,
-`virtio_gpu_queue_cursor`.
-
-**Step 5.2 — Callers**
+Step 3.1: BLAME THE CHANGED LINES
 Record:
-- `virtio_gpu_queue_ctrl_sgs` ← `virtio_gpu_queue_fenced_ctrl_buffer` ←
-  nearly every `virtio_gpu_cmd_*` (ioctls, plane update/flush, GEM,
-  etc.). Userspace and KMS both reach it.
-- `virtio_gpu_queue_cursor` ← cursor plane updates.
-- `virtio_gpu_remove` / `virtio_gpu_shutdown` are virtio `.remove` /
-  `.shutdown`.
+- Buggy `check_powerplay_tables` body: `c82baa28184356` (yanyang1,
+  2015-08-18), originally `tonga_processpptables.c`.
+- File rename: `f8a4c11b0a33f9` (2016).
+- Bug has been in-tree since PowerPlay v1 (~4.x era), so it is in this
+  6.18 tree.
 
-**Step 5.3 — Callees**
-Record: `drm_dev_enter`/`exit`, `wait_event`, `wake_up_all`,
-`free_vbuf`, `virtio_gpu_array_unlock_resv`, `virtio_gpu_notify`. No new
-helpers outside this driver.
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. N/A.
 
-**Step 5.4 — Reachability**
-Record: Yes. Any guest GPU submit that fills the virtqueue waits here.
-Unplug/shutdown is virtio remove or poweroff. Host-side virtio-gpu/virgl
-stall is the trigger.
-
-**Step 5.5 — Similar patterns**
-Record: `wait_event(vgdev->resp_wq)` in `virtgpu_prime.c` and
-`virtgpu_vram.c` still unbounded; not inside `drm_dev_enter`, so they do
-not block unplug. Same author deferred that.
-
----
-
-## Phase 6: This tree (6.18.y)
-
-**Step 6.1 — Buggy code present?**
-Record: **Yes at v6.18.53.**
-```
-v6.18.53:virtgpu_vq.c:398: wait_event(vgdev->ctrlq.ack_queue,
-vq->num_free >= elemcnt);
-v6.18.53:virtgpu_vq.c:568: wait_event(vgdev->cursorq.ack_queue,
-vq->num_free >= outcnt);
-```
-`vqs_released` is **not** in v6.18.53. `virtio_gpu_remove`/`shutdown`
-call `drm_dev_unplug()` with no prior wake.
-`drm_dev_synchronize_unplug()` does `synchronize_srcu`. Bug introduced
-~2020; 6.18 branched 2025-11-30.
-
-Local tree: `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`;
-Makefile `6.18.53`. Verdict is for **this 6.18.y tree only**.
-
-**Step 6.2 — Backport difficulty**
-Record: `git apply --check` of this patch onto v6.18.53 virtio files:
-**clean apply**. Context differs slightly (`DRIVER_ATOMIC` guard around
-`drm_atomic_helper_shutdown` from `19a6a00ff50c2`, already in v6.18.53);
-insertion is still immediately before `drm_dev_unplug()`.
-
-**Step 6.3 — Related fix already here?**
-Record: Probe deadlock `89890a5fcefad` is in v6.18.53 and does **not**
-abort virtqueue waits on removal. No equivalent abort exists. This is
-not a duplicate.
-
----
-
-## Phase 7: Subsystem
-
-**Step 7.1**
-Record: `drivers/gpu/drm/virtio` — virtio-gpu DRM. **IMPORTANT** for VMs
-(QEMU/KVM, cloud, CrosVM), not core mm/VFS.
-
-**Step 7.2**
-Record: Mature driver, still getting targeted fixes. Not staging.
-
----
-
-## Phase 8: Impact and risk
-
-**Step 8.1 — Who**
-Record: virtio-gpu guests (`CONFIG_DRM_VIRTIO_GPU`). Common in VMs, not
-every bare-metal box.
-
-**Step 8.2 — Trigger**
-Record: Host stops completing virtqueue commands (host renderer crash,
-hung device, hypervisor bug) **and** a guest command waits for ring
-space **and** then remove/shutdown. Not every boot. Cannot be signal-
-killed (`TASK_UNINTERRUPTIBLE`). Module unload, virtio reset, and
-poweroff all hit `drm_dev_unplug()`.
-
-**Step 8.3 — Failure mode**
-Record: **Hung task / shutdown or unplug deadlock.** Severity: **HIGH**
-(system cannot finish shutdown/remove; D-state). Not a UAF or silent
-corruption.
-
-**Step 8.4 — Risk vs benefit**
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
 Record:
-- Benefit: HIGH for virtio-gpu VMs that lose the host GPU and then
-  reboot/unplug.
-- Risk: LOW — ~35 lines, teardown-only flag, abort path copies existing
-  `-ENODEV` cleanup.
-- Ratio: favorable.
+- Same author/series (independent per-ASIC bounds work):
+  - 1/5 `Validate pp_table header before reading size` (SWSMU
+    `smu_sys_set_pp_table`)
+  - 2/5 `Use uploaded size for legacy custom PPTable`
+    (`pp_dpm_set_pp_table`)
+  - **3/5 this commit**
+  - 4/5 Vega hwmgr bounds
+  - 5/5 legacy hwmgr offsets
+- Follow-up (separate 2/3 series): `Validate Tonga PPTable subtable
+  bounds` (~600 lines) for other subtables; later comment-align commit
+  for this helper.
+- This commit does not call `pp_entries_max()` (autosel parent helper).
+  Standalone for the state-array OOB.
 
----
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Yang Wang is an AMD PM contributor with a run of PPTable
+bounds/UAF fixes. Hawking Zhang reviewed; Alex Deucher merged.
 
-## Phase 9: Synthesis
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record:
+- Uses existing `hwmgr->soft_pp_table_size` (set in
+  `get_powerplay_table()` from ATOM) and kernel `struct_size`
+  (`include/linux/overflow.h`). Both exist in v6.18.53.
+- 1/5 is a different file (SWSMU). 2/5 improves custom-upload size
+  accounting in `amd_powerplay.c` but is not required to compile or to
+  bound VBIOS tables.
+- Can apply standalone. Confirmed with `patch --dry-run` against
+  `v6.18.53` file: clean.
 
-**Step 9.1 — Evidence**
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
-**For:**
-- Real hang: uninterruptible wait inside `drm_dev_enter` blocks
-  `drm_dev_unplug()`/`synchronize_srcu`.
-- Confirmed in v6.18.53 source (`wait_event` without abort; unplug with
-  no wake).
-- Small, contained, no new API.
-- Abort cleanup matches existing `drm_dev_enter()` failure.
-- Maintainer signed off after review (v1 timeout → v3 flag).
-- Applies cleanly to this tree’s virtio files.
-- virtio-gpu is widely used; host GPU process failure is a realistic VM
-  event.
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- `b4 dig -c 1ac24df78c566d767a5ef05a1fe0ecc55bac248d` → [PATCH 3/5] htt
+  ps://patch.msgid.link/20260623034151.263746-3-kevinyang.wang@amd.com
+- `b4 dig -a`: only v1 of this 5-patch series (no later rewrite of 3/5).
+- Freedesktop: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-June/147288.html
+- Hawking on 1/5 (series Ack): “Series is Reviewed-by: Hawking Zhang” —
+  https://lists.freedesktop.org/archives/amd-gfx/2026-June/147299.html
+- No NAK found. No Cc: stable in the submission.
 
-**Against:**
-- Trigger needs a stuck host plus a full virtqueue plus teardown — not a
-  hot path.
-- Syzbot tags were wrongly attached in v2 and correctly dropped; do not
-  treat this as a syzbot backport.
-- Incomplete vs all `wait_event`s; `resp_wq` still unbounded
-  (intentionally separate).
-- Maintainer initially could not reproduce on a normal systemd shutdown.
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record: `b4 dig -w` To/Cc: amd-gfx, Alex Deucher, Hawking Zhang, Kenneth
+Feng. Maintainer merged.
 
-**Unresolved:** stable@ archive 403; whether this hang has a public user
-report besides the author’s analysis.
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No syzbot/bugzilla. Bug is described as truncated PowerPlay
+table OOB. Trigger is firmware parse at init, or root write to
+`pp_table` sysfs (documented in `amdgpu_pm.c`).
 
-**Step 9.2 — Stable rules**
-1. Obviously correct and tested — **PASS** (standard wait/wake abort;
-   maintainer SOB; v3 after review).
-2. Real user-visible bug — **PASS** (remove/shutdown hang when host
-   stops the vq).
-3. Important (hang/deadlock) — **PASS** (HIGH: D-state blocks
-   unplug/shutdown).
-4. Small and contained — **PASS** (~37 lines, one driver).
-5. No new features/APIs — **PASS**.
-6. Applies to this tree — **PASS** (clean apply to v6.18.53 virtio
-   files; all helpers present).
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: 5-patch OOB series plus a later Tonga subtable series. This
+patch is the Tonga *state array* piece and is self-contained. Other
+patches cover other table formats/subtables.
 
-**Step 9.3 — Exceptions**
-Record: None (not a device ID/quirk/DT/build/doc exception). Qualifies
-as a normal hang fix.
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: UNVERIFIED — lore.kernel.org/stable returned HTTP 403. No
+evidence this was rejected for stable.
 
-**Step 9.4 — Decision**
-This belongs on 6.18.y. The bug is in this tree, the fix is surgical,
-and a stuck virtqueue otherwise makes guest unplug/shutdown hang
-forever.
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
----
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: `get_tonga_state_array` (new), `check_powerplay_tables`,
+`get_number_of_powerplay_table_entries_v1_0`,
+`get_powerplay_table_entry_v1_0`.
 
-## What the commit solves for this tree
+Step 5.2: TRACE CALLERS
+Record:
+- `check_powerplay_tables` ← `pp_tables_v1_0_initialize` ←
+  `pptable_v1_0_funcs.pptable_init` ← SMU7 when `pp_table_version ==
+  PP_TABLE_V1` (`smu7_init_function_pointers`).
+- `get_number_of_powerplay_table_entries_v1_0` ←
+  `smu7_get_number_of_powerplay_table_entries` ← `psm`
+  `get_num_of_pp_table_entries`.
+- `get_powerplay_table_entry_v1_0` ← `smu7_get_pp_table_entry_v1` ←
+  `psm_init_power_state_table` loop `for (i = 0; i < table_entries;
+  i++)`.
+- Context: driver init / DPM bring-up, process context.
 
-On 6.18.y, virtio-gpu waits for virtqueue space with `wait_event()`
-inside `drm_dev_enter()`. If the host stops processing, that wait never
-ends, `drm_dev_unplug()` never gets past `synchronize_srcu()`, and
-remove/shutdown hang in D-state. The patch sets `vqs_released`, wakes
-both queues before unplug, and aborts the command like a failed
-`drm_dev_enter()`.
+Step 5.3: TRACE CALLEES
+Record: `le16_to_cpu`, `struct_size`, `PP_ASSERT_WITH_CODE` (warns and
+runs `return -1` — real control flow, not a debug-only assert).
 
-That is a real hang, not a feature. Risk is low; the only extra behavior
-is on teardown.
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Reachable on every boot of SMU7 PP_TABLE_V1 ASICs
+(Tonga/Fiji/Polaris/VegaM class in this hwmgr). Also reachable if root
+writes `/sys/class/drm/cardX/device/pp_table` (`S_IRUGO | S_IWUSR`),
+which copies into `hardcode_pp_table` and calls `amd_powerplay_reset` →
+re-init. Unprivileged users cannot write the sysfs node.
 
----
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Same unvalidated `table + le16_to_cpu(offset)` pattern in
+Vega/legacy processpptables; same author fixed those in 4/5, 5/5, and
+the later Tonga subtable patch.
 
-## Verification
-- **[Phase 1]** Parsed v3 message/tags; no Fixes/Reported-by on
-  committed v3; v3 changelog documents dropping unrelated syzbot tags.
-- **[Phase 2]** Diff: +37/−2 across three virtio-gpu files; abort copies
-  `drm_dev_enter()` failure cleanup; fence emit is after the wait.
-- **[Phase 3]** `git blame` on v6.18.53: wait from `6ebe8661ebf27a`
-  (2020) / cursor from 2013–2018; `drm_dev_enter` from `b1df3a2b24a917`
-  (2020).
-- **[Phase 3]** `git merge-base --is-ancestor 0ffdc5889ef64 v6.18.53` →
-  **not** in v6.18.53; buggy wait **is** in v6.18.53.
-- **[Phase 3]** Probe deadlock `89890a5fcefad` **is** in v6.18.53 and
-  closes the syzbot hung-task IDs; it does not abort vq waits on
-  removal.
-- **[Phase 3]** `virtio_gpu_shutdown` (`2507789a724d6`) **is** in
-  v6.18.53.
-- **[Phase 3]** `vgdev` allocated with `drmm_kzalloc` in `virtgpu_kms.c`
-  — `vqs_released` starts false.
-- **[Phase 4]** `b4 dig -c a46991b334f663fa0e0e9c051e50587ef977ac8b`
-  matched v2/v3 lore; `b4 dig -a` showed v2 then v3; `b4 dig -w` listed
-  virtio-gpu maintainers.
-- **[Phase 4]** Mbox: Dmitry review; author explained syzbot mismatch
-  and the real remove/shutdown hang; v3 dropped tags; Dmitry SOB on the
-  commit.
-- **[Phase 4]** WebFetch syzbot bugs `d6dd6f86…` / `908bd910…`: hung
-  during **probe/fbcon**, not unplug — not this bug.
-- **[Phase 4]** lore.kernel.org and lore.kernel.org/stable: HTTP 403.
-  UNVERIFIED for stable@ discussion. Used gitlab.freedesktop.org +
-  openwall + mbox instead.
-- **[Phase 5]** `git grep`: `virtio_gpu_queue_ctrl_sgs` is on
-  ioctl/plane/GEM paths; dequeue `wake_up(&ctrlq.ack_queue)` only after
-  host responses — if host is dead, waiters never wake without this
-  patch.
-- **[Phase 6]** `git describe HEAD` / Makefile: **6.18.53**. `git apply
-  --check` of this patch onto archived v6.18.53 virtio files: **APPLY
-  CLEAN**.
-- **[Phase 6]** `drm_dev_unplug` at v6.18.53 calls
-  `drm_dev_synchronize_unplug()` → `synchronize_srcu`.
-- **[Phase 6]** `wait_event()` in `include/linux/wait.h` uses
-  `TASK_UNINTERRUPTIBLE`.
-- **[Phase 8]** Failure mode from code + commit: hung unplug/shutdown,
-  severity HIGH.
-- **UNVERIFIED:** public non-syzbot user report of this exact remove
-  hang; stable@ archive (403).
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
-The hang is in this 6.18.y tree, the patch is small and correct, and it
-should be backported.
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record:
+- Local tree: `v6.18.53-5049-g0f0bdc2b0dffb`, `VERSION=6 PATCHLEVEL=18
+  SUBLEVEL=53`, branch `autosel`.
+- `git merge-base --is-ancestor f29e53bc54611 v6.18.53` → **not in
+  v6.18.53**.
+- `v6.18.53:process_pptables_v1_0.c` still has the old
+  `check_powerplay_tables` that adds `usStateArrayOffset` before any
+  size check (lines 1116–1137).
+- Bug introduced ~2015; present here.
+
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Expected **clean apply**. Dry-run of this commit’s diff onto the
+v6.18.53 copy of the file succeeded. Mainline context uses
+`kzalloc_obj`; 6.18.53 uses `kzalloc(sizeof(...))` — that line is not
+part of the hunks.
+
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: v6.18.53 does **not** contain 1/5, 2/5, this commit, 4/5, or
+5/5. No earlier Tonga state-array bounds helper. Follow-up subtable
+helpers (`tonga_pp_table_has_space`) are only on the autosel branch
+after later candidates — not in v6.18.53.
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: [drm/amd/pm powerplay] [IMPORTANT — widely used AMD GPU DPM for
+Tonga/Fiji/Polaris-era cards, not core mm/net, but real hardware in the
+field]
+
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Actively maintained; this is targeted firmware-table hardening,
+not a refactor of a brand-new subsystem.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: Driver-specific: amdgpu SMU7 with PowerPlay table v1
+(Tonga/Fiji/Polaris family). Config `CONFIG_DRM_AMDGPU`.
+
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record:
+- Always parsed at device init from VBIOS/ATOM
+  (`smu_atom_get_data_table` → `soft_pp_table_size = usStructureSize`).
+- Healthy firmware: no behavior change.
+- Truncated/corrupt VBIOS or crafted table: OOB read.
+- Sysfs `pp_table` store is root-only. On v6.18.53, short uploads
+  `memcpy` into a buffer still sized as the original table
+  (`pp_dpm_set_pp_table`); 2/5 would make `soft_pp_table_size` match the
+  upload. This commit still stops offsets that run past
+  `soft_pp_table_size`.
+- Unprivileged users cannot trigger via sysfs.
+
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: Kernel OOB read → KASAN/oops, possible info leak from adjacent
+BIOS/kernel memory if values are consumed. Severity: **HIGH** (memory
+safety). Not a confirmed remote unprivileged exploit.
+
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- Benefit: HIGH for Tonga/Polaris users with bad/truncated firmware or
+  custom PP tables; fail closed instead of reading off the end of the
+  ATOM blob.
+- Risk: LOW (~40 lines, local helper, existing `PP_ASSERT_WITH_CODE`
+  style).
+- Ratio: favorable. Residual gap: other subtables still unchecked until
+  the large follow-up; that is not a reason to skip this contained
+  state-array fix.
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+Step 9.1: COMPILE THE EVIDENCE
+FOR:
+- Real OOB read: pointer from firmware offset used before buffer
+  coverage is proven (code from 2015, present in 6.18.53).
+- Small, obviously correct, overflow-safe `struct_size` check.
+- Reviewed by Hawking Zhang (series), merged by Alex Deucher.
+- Applies cleanly to this tree; no missing types/helpers.
+- Shared helper also closes the same hole in entry-count and entry-fetch
+  paths.
+- Fail closed: init returns error instead of walking garbage.
+
+AGAINST:
+- No crash report / syzbot / Fixes: tag.
+- Part of 3/5; full PPTable hardening needs later larger patches.
+- Sysfs path is root-only; VBIOS path needs a truncated/malformed table.
+- Incomplete vs later 600-line subtable patch.
+
+UNRESOLVED:
+- Stable list discussion (lore 403).
+- No production crash log attached to the patch.
+
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — order of checks is sound;
+   maintainer review; in mainline.
+2. Fixes a real bug that affects users? **PASS** — OOB read of PowerPlay
+   state array from truncated/malformed tables on a live init path.
+3. Important issue? **PASS** — kernel OOB read / crash / info-leak
+   class; HIGH, not a style cleanup.
+4. Small and contained? **PASS** — one file, +40/−22.
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — bug present in v6.18.53; dry-
+   run apply clean.
+
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: Not a device-ID/quirk/DT/docs exception. Ordinary memory-safety
+bugfix.
+
+Step 9.4: MAKE YOUR DECISION
+This should be backported to **this** 6.18.y tree. The buggy pointer
+construction is in v6.18.53, the fix is small and independent of the
+rest of the 5-patch series, and it prevents out-of-bounds reads during
+amdgpu PowerPlay v1 init.
+
+===============================================================
+What the commit solves for this tree
+===============================================================
+
+On 6.18.53, `check_powerplay_tables()`,
+`get_number_of_powerplay_table_entries_v1_0()`, and
+`get_powerplay_table_entry_v1_0()` all do:
+
+`state_arrays = (ATOM_Tonga_State_Array *)(powerplay_table +
+le16_to_cpu(usStateArrayOffset))`
+
+and then read `ucNumEntries` / `entries[i]`. `soft_pp_table_size` is
+already known from ATOM `usStructureSize` but was unused. A truncated
+PowerPlay table or an offset past the blob is an out-of-bounds kernel
+read during GPU init (Polaris-class cards are still common). The patch
+adds the missing coverage checks and an exclusive entry-index test. It
+does not add APIs. 1/5 and 2/5 are related hardening but not
+compile/runtime prerequisites for this file.
+
+Risk vs benefit: low risk of regressing good firmware; high value if the
+table is short or the offset is wrong.
+
+Verification:
+- [Phase 1] Tags: author Yang Wang; Reviewed-by Hawking Zhang; SOB Alex
+  Deucher; no Fixes/syzbot/stable Cc
+- [Phase 2] Diff: +40/−22 in `process_pptables_v1_0.c`; helper + three
+  call sites; OOB bounds + off-by-one index
+- [Phase 2] `PP_ASSERT_WITH_CODE` in `pp_debug.h` really `pr_warn` +
+  executes `return -1`
+- [Phase 3] Blame: `c82baa28184356` (2015-08-18) introduced the
+  unvalidated pointer add
+- [Phase 3] No Fixes: tag
+- [Phase 3] Series 1/5 and 2/5 touch other files; this commit does not
+  use `pp_entries_max()`
+- [Phase 3] `struct_size` in `include/linux/overflow.h`;
+  `soft_pp_table_size` set in `get_powerplay_table()`
+- [Phase 4] `b4 dig -c 1ac24df78c566d767a5ef05a1fe0ecc55bac248d` → PATCH
+  3/5 msgid 20260623034151.263746-3
+- [Phase 4] `b4 dig -a`: v1 only for this series
+- [Phase 4] `b4 dig -w`: amd-gfx, Deucher, Hawking, Kenneth Feng
+- [Phase 4] Hawking: “Series is Reviewed-by”
+  https://lists.freedesktop.org/archives/amd-gfx/2026-June/147299.html
+- [Phase 4] Patch body: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-June/147288.html
+- [Phase 5] Callers: `pp_tables_v1_0_initialize`,
+  `smu7_get_number_of_powerplay_table_entries`,
+  `smu7_get_pp_table_entry_v1` ← `psm_init_power_state_table`
+- [Phase 5] `pptable_v1_0_funcs` selected for `PP_TABLE_V1` in
+  `smu7_init_function_pointers`
+- [Phase 5] sysfs `pp_table` is `S_IRUGO | S_IWUSR`
+  (`AMDGPU_DEVICE_ATTR_RW`)
+- [Phase 6] `git describe HEAD` = v6.18.53-5049-g0f0bdc2b0dffb; Makefile
+  6.18.53
+- [Phase 6] commit **not** ancestor of v6.18.53; buggy function present
+  at v6.18.53:1116
+- [Phase 6] `patch --dry-run` of this diff onto v6.18.53 file: success
+- [Phase 6] ATOM size is `usStructureSize` via
+  `amdgpu_atom_parse_data_header` `*size = CU16(idx)`
+- [Phase 8] Failure mode: OOB read on truncated PP table during amdgpu
+  init; HIGH
+- UNVERIFIED: lore.kernel.org/stable search (HTTP 403); no public crash
+  repro attached to the patch
 
 **YES**
 
- drivers/gpu/drm/virtio/virtgpu_drv.c | 15 +++++++++++++++
- drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
- drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++++++++++++++++++++--
- 3 files changed, 37 insertions(+), 2 deletions(-)
+ .../powerplay/hwmgr/process_pptables_v1_0.c   | 62 ++++++++++++-------
+ 1 file changed, 40 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index d9556e1b67b10..78cc388b434d9 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -118,10 +118,24 @@ static int virtio_gpu_probe(struct virtio_device *vdev)
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
+index 6cfef1b295abb..94c1e2c103703 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
+@@ -1113,15 +1113,17 @@ static int init_thermal_controller(
+  * @powerplay_table: Pointer to the PowerPlay Table.
+  * Exception:  2 if the powerplay table is incorrect.
+  */
+-static int check_powerplay_tables(
+-		struct pp_hwmgr *hwmgr,
+-		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table
+-		)
++static int get_tonga_state_array(struct pp_hwmgr *hwmgr,
++	const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++	const ATOM_Tonga_State_Array **state_array)
+ {
+ 	const ATOM_Tonga_State_Array *state_arrays;
++	u16 state_array_offset;
++	size_t state_array_size;
++	size_t table_size = hwmgr->soft_pp_table_size;
+ 
+-	state_arrays = (ATOM_Tonga_State_Array *)(((unsigned long)powerplay_table) +
+-		le16_to_cpu(powerplay_table->usStateArrayOffset));
++	PP_ASSERT_WITH_CODE((table_size >= sizeof(*powerplay_table)),
++			    "Invalid PowerPlay Table!", return -1);
+ 
+ 	PP_ASSERT_WITH_CODE((ATOM_Tonga_TABLE_REVISION_TONGA <=
+ 		powerplay_table->sHeader.ucTableFormatRevision),
+@@ -1130,12 +1132,34 @@ static int check_powerplay_tables(
+ 		"State table is not set!", return -1);
+ 	PP_ASSERT_WITH_CODE((0 < powerplay_table->sHeader.usStructureSize),
+ 		"Invalid PowerPlay Table!", return -1);
++
++	state_array_offset = le16_to_cpu(powerplay_table->usStateArrayOffset);
++	PP_ASSERT_WITH_CODE((state_array_offset <=
++			     table_size - sizeof(*state_arrays)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	state_arrays = (ATOM_Tonga_State_Array *)(((unsigned long)powerplay_table) +
++		state_array_offset);
+ 	PP_ASSERT_WITH_CODE((0 < state_arrays->ucNumEntries),
+ 		"Invalid PowerPlay Table!", return -1);
+ 
++	state_array_size = struct_size(state_arrays, entries, state_arrays->ucNumEntries);
++	PP_ASSERT_WITH_CODE((state_array_size <= table_size - state_array_offset),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*state_array = state_arrays;
++
+ 	return 0;
  }
  
-+/*
-+ * Release pending virtqueue waits so the drm_dev_enter/exit() critical
-+ * sections complete before drm_dev_unplug() blocks on synchronize_srcu().
-+ */
-+static void virtio_gpu_release_vqs(struct drm_device *dev)
++static int check_powerplay_tables(struct pp_hwmgr *hwmgr,
++	const ATOM_Tonga_POWERPLAYTABLE *powerplay_table)
 +{
-+	struct virtio_gpu_device *vgdev = dev->dev_private;
++	const ATOM_Tonga_State_Array *state_arrays;
 +
-+	vgdev->vqs_released = true;
-+	wake_up_all(&vgdev->ctrlq.ack_queue);
-+	wake_up_all(&vgdev->cursorq.ack_queue);
++	return get_tonga_state_array(hwmgr, powerplay_table, &state_arrays);
 +}
 +
- static void virtio_gpu_remove(struct virtio_device *vdev)
+ static int pp_tables_v1_0_initialize(struct pp_hwmgr *hwmgr)
  {
- 	struct drm_device *dev = vdev->priv;
+ 	int result = 0;
+@@ -1239,17 +1263,16 @@ const struct pp_table_func pptable_v1_0_funcs = {
  
-+	virtio_gpu_release_vqs(dev);
- 	drm_dev_unplug(dev);
- 
- 	if (drm_core_check_feature(dev, DRIVER_ATOMIC))
-@@ -135,6 +149,7 @@ static void virtio_gpu_shutdown(struct virtio_device *vdev)
+ int get_number_of_powerplay_table_entries_v1_0(struct pp_hwmgr *hwmgr)
  {
- 	struct drm_device *dev = vdev->priv;
+-	ATOM_Tonga_State_Array const *state_arrays;
++	const ATOM_Tonga_State_Array *state_arrays;
+ 	const ATOM_Tonga_POWERPLAYTABLE *pp_table = get_powerplay_table(hwmgr);
++	int result;
  
-+	virtio_gpu_release_vqs(dev);
- 	/* stop talking to the device */
- 	drm_dev_unplug(dev);
+ 	PP_ASSERT_WITH_CODE((NULL != pp_table),
+ 			"Missing PowerPlay Table!", return -1);
+-	PP_ASSERT_WITH_CODE((pp_table->sHeader.ucTableFormatRevision >=
+-			ATOM_Tonga_TABLE_REVISION_TONGA),
+-			"Incorrect PowerPlay table revision!", return -1);
+ 
+-	state_arrays = (ATOM_Tonga_State_Array *)(((unsigned long)pp_table) +
+-			le16_to_cpu(pp_table->usStateArrayOffset));
++	result = get_tonga_state_array(hwmgr, pp_table, &state_arrays);
++	PP_ASSERT_WITH_CODE((result == 0),
++			    "Invalid PowerPlay Table State Array.", return result);
+ 
+ 	return (uint32_t)(state_arrays->ucNumEntries);
  }
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 8575c7787fc36..51b78f8a8aa2e 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -260,6 +260,7 @@ struct virtio_gpu_device {
+@@ -1380,15 +1403,11 @@ int get_powerplay_table_entry_v1_0(struct pp_hwmgr *hwmgr,
  
- 	struct virtio_gpu_queue ctrlq;
- 	struct virtio_gpu_queue cursorq;
-+	bool vqs_released;
- 	struct kmem_cache *vbufs;
+ 	if (pp_table->sHeader.ucTableFormatRevision >=
+ 			ATOM_Tonga_TABLE_REVISION_TONGA) {
+-		state_arrays = (ATOM_Tonga_State_Array *)(((unsigned long)pp_table) +
+-				le16_to_cpu(pp_table->usStateArrayOffset));
+-
+-		PP_ASSERT_WITH_CODE((0 < pp_table->usStateArrayOffset),
+-				"Invalid PowerPlay Table State Array Offset.", return -1);
+-		PP_ASSERT_WITH_CODE((0 < state_arrays->ucNumEntries),
+-				"Invalid PowerPlay Table State Array.", return -1);
+-		PP_ASSERT_WITH_CODE((entry_index <= state_arrays->ucNumEntries),
+-				"Invalid PowerPlay Table State Array Entry.", return -1);
++		result = get_tonga_state_array(hwmgr, pp_table, &state_arrays);
++		PP_ASSERT_WITH_CODE((result == 0),
++				    "Invalid PowerPlay Table State Array.", return result);
++		PP_ASSERT_WITH_CODE((entry_index < state_arrays->ucNumEntries),
++				    "Invalid PowerPlay Table State Array Entry.", return -1);
  
- 	atomic_t pending_commands;
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index 592ad4f9b100d..244a791ab915e 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -422,7 +422,19 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
- 	if (vq->num_free < elemcnt) {
- 		spin_unlock(&vgdev->ctrlq.qlock);
- 		virtio_gpu_notify(vgdev);
--		wait_event(vgdev->ctrlq.ack_queue, vq->num_free >= elemcnt);
-+		wait_event(vgdev->ctrlq.ack_queue,
-+			   vq->num_free >= elemcnt || vgdev->vqs_released);
-+		/*
-+		 * Set by virtio_gpu_release_vqs() to unblock
-+		 * synchronize_srcu() wait in drm_dev_unplug().
-+		 */
-+		if (vgdev->vqs_released) {
-+			if (fence && vbuf->objs)
-+				virtio_gpu_array_unlock_resv(vbuf->objs);
-+			free_vbuf(vgdev, vbuf);
-+			drm_dev_exit(idx);
-+			return -ENODEV;
-+		}
- 		goto again;
- 	}
+ 		state_entry = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
+ 						ATOM_Tonga_State, entries,
+@@ -1414,4 +1433,3 @@ int get_powerplay_table_entry_v1_0(struct pp_hwmgr *hwmgr,
  
-@@ -592,7 +604,14 @@ static void virtio_gpu_queue_cursor(struct virtio_gpu_device *vgdev,
- 	ret = virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
- 	if (ret == -ENOSPC) {
- 		spin_unlock(&vgdev->cursorq.qlock);
--		wait_event(vgdev->cursorq.ack_queue, vq->num_free >= outcnt);
-+		wait_event(vgdev->cursorq.ack_queue,
-+			   vq->num_free >= outcnt || vgdev->vqs_released);
-+		/* See comment in virtio_gpu_queue_ctrl_sgs(). */
-+		if (vgdev->vqs_released) {
-+			free_vbuf(vgdev, vbuf);
-+			drm_dev_exit(idx);
-+			return;
-+		}
- 		spin_lock(&vgdev->cursorq.qlock);
- 		goto retry;
- 	} else {
+ 	return result;
+ }
+-
 -- 
 2.53.0
 
