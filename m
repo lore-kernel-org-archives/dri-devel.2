@@ -2,42 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED10606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 23:15:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9BE606A319
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 23:26:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OUk2iOR0
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=bAbp0kvc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3843010E4EF;
-	Mon, 19 Oct 2026 23:15:33 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19F7010E4EF
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 23:15:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 15DBF600AA;
- Mon, 19 Oct 2026 23:15:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989A21F000C4;
- Mon, 19 Oct 2026 23:15:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792451725;
- bh=eP6pdIaj04zG1dcDzMXoTdwcGzaa+7ISs7DjpgHgqPY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OUk2iOR0ZhL98vVuegRJlpo2sAmoFCkLzJ6+CDiBY/FmDv8q/YhY8bCHdRy3xxl0Y
- QlKbe5Vg2a+aTsfE74aeEmIaP2YuP3/TxvZjdWabw2vFGoCP4ZT8S9xqFfbv0zG7ci
- 8rhUfN1Qg9wiJoFrFegGTkJugnfWahb8qxqsjwlWqPUjQbHt+aj/KI66IKdDThXgf8
- VRj7/ohRCAeqSiTJTG2+eimAQMz7ro9c9e9bMwW8Rd86797++0qZyj/xGTe9blm+T2
- LMVqlIV6kFG8Tqj3sMIzqqUseTVxaH5CBc2ywGCA70bmkL8Jvjtjv5wu90y+ePUc3e
- 6s+wuWLiiG8LQ==
-Message-ID: <sashiko-outbox-178351@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] drm/msm/a5xx: Reset the GPU when resuming it
-To: "Fabricio Akio" <fabricioakio@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019-a5xx-gpu-pm-v1-1-1d0c313a1412@gmail.com>
-References: <20261019-a5xx-gpu-pm-v1-0-1d0c313a1412@gmail.com>
- <20261019-a5xx-gpu-pm-v1-1-1d0c313a1412@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 23:15:25 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F52E10F0E2;
+	Mon, 19 Oct 2026 23:26:17 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B16E810F0E2
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 23:26:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792452365; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=e4aDcG3RP8uWGuly63TN9VfZ+2OD6O1DNeXP5TVlqk2KCZBV964woBMEkOiGvOknXFaunIedHxhXnBOFmCDKukk/gmssODYODe6dTdw6EQjpSgMvzfgFivyq46fRwU9zAu/ef7YZjxyXwMQPNU1jCY+FlQj3z0jiYDBmR/ZQNWI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1792452365;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=YGaGcmA5s3rLvx2IfexTcXmFWu/hCy7f2gX18xxTm4Q=; 
+ b=fMDE5jkQCZep9TcOXNkOTeflkmt4X+qbgzVMKfruAy21VYJHlZ6h5S7cnkBpd9maAkV3XTGqYHD6/TOhK6c65mKX+6ANq4OxrQ1DTXNZn6L2htMF6fubUOwMD62ALhjua8wJqKpgeKQjm07XwIpoASVwlwrZyHDgb7/ba/PSmJU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792452365; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=YGaGcmA5s3rLvx2IfexTcXmFWu/hCy7f2gX18xxTm4Q=;
+ b=bAbp0kvcllYTjk024qWXAktfkbLVxSiXOexuveTITj4H9jWug4zhBnxR//MuNePP
+ iZoxiz/dgGFi6nbvgQC5zv5LmbzXGsqMde9XkGlSrHNcBfFyLU/z29jtoW95Rypb4tL
+ uv9q9Dutth6sfmsR1SyCS2zxEqKXX/Ega0Dt/TFo=
+Received: by smtp.zohomail.com with SMTPS id 179245236269923.82180997951889;
+ Mon, 19 Oct 2026 16:26:02 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Date: Mon, 19 Oct 2026 16:25:59 -0700
+Subject: [PATCH v4 1/2] rust/Makefile: add zerocopy and zerocopy_derive
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-b4-gpu_info_intobytes-v4-1-0bc04df46549@collabora.com>
+References: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com>
+In-Reply-To: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3187;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=EiejWXSZctCvsEqsl++99TpZc3z0JAszVm9cJejzUMI=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFnXlnPUp3n8lH+gEDZtiliQEYdf8jMhtsuMqnZ7plf2r
+ pZg7YrsKGVhEONikBVTZDlrb9QjXvXeSHf+/2aYOaxMIEMYuDgFYCL7jjP8s71vKMthWrL7/R1v
+ 7+fvzUW/aCuf3vA4rEHWQfPA5LnXRBkZrpRWB816YxW55udW/zmfOUWKfDmkZc3Mq+KUHksY+O9
+ iAwA=
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,117 +77,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/msm/a5xx: soft reset in a5xx_pm_resume() underflows devfreq =
-busy_cycles
---
+Make the zerocopy and zerocopy_derive crates available for use when
+building the bindings and uapi crates and their tests.
 
-commit 19124e467b5360709bf4e69d8b941ff7d1098156
-Author: Fabricio Akio <fabricioakio@gmail.com>
+This will be used by the Tyr driver that needs the traits IntoBytes and
+Immutable to safely copy the struct byte-for-byte to userspace.
 
-drm/msm/a5xx: Reset the GPU when resuming it
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+ rust/Makefile | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
-This patch adds a soft reset via REG_A5XX_RBBM_SW_RESET_CMD in
-a5xx_pm_resume() so that the GPU always resumes from a reset state even
-when the GX power domain remained on during suspend.
+diff --git a/rust/Makefile b/rust/Makefile
+index da1a7409d984..f59815fac293 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -361,12 +361,18 @@ rusttestlib-kernel: $(src)/kernel/lib.rs rusttestlib-bindings rusttestlib-uapi \
+     $(obj)/bindings.o rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
+ 	+$(call if_changed,rustc_test_library)
+ 
+-rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_init
+-rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
++rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_init \
++	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
++	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
++rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init \
++	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
+ 	+$(call if_changed,rustc_test_library)
+ 
+-rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init
+-rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
++rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init \
++	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
++	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
++rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init \
++	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
+ 	+$(call if_changed,rustc_test_library)
+ 
+ quiet_cmd_rustdoc_test = RUSTDOC T $<
+@@ -774,19 +780,25 @@ $(obj)/ffi.o: private skip_gendwarfksyms = 1
+ $(obj)/ffi.o: $(src)/ffi.rs $(obj)/compiler_builtins.o FORCE
+ 	+$(call if_changed_rule,rustc_library)
+ 
+-$(obj)/bindings.o: private rustc_target_flags = --extern ffi --extern pin_init
++$(obj)/bindings.o: private rustc_target_flags = --extern ffi --extern pin_init \
++	--extern zerocopy --extern zerocopy_derive
+ $(obj)/bindings.o: $(src)/bindings/lib.rs \
+     $(obj)/ffi.o \
+     $(obj)/pin_init.o \
++    $(obj)/zerocopy.o \
++    $(obj)/$(libzerocopy_derive_name) \
+     $(obj)/bindings/bindings_generated.rs \
+     $(obj)/bindings/bindings_helpers_generated.rs FORCE
+ 	+$(call if_changed_rule,rustc_library)
+ 
+-$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init
++$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init \
++	--extern zerocopy --extern zerocopy_derive
+ $(obj)/uapi.o: private skip_gendwarfksyms = 1
+ $(obj)/uapi.o: $(src)/uapi/lib.rs \
+     $(obj)/ffi.o \
+     $(obj)/pin_init.o \
++    $(obj)/zerocopy.o \
++    $(obj)/$(libzerocopy_derive_name) \
+     $(obj)/uapi/uapi_generated.rs FORCE
+ 	+$(call if_changed_rule,rustc_library)
+ 
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a5xx_gpu.c
-> index 16c7335c4b1f8..dd0d731df138c 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -1367,6 +1367,18 @@ static int a5xx_pm_resume(struct msm_gpu *gpu)
->  	if (ret)
->  		return ret;
-> =20
-> +	/*
-> +	 * The GX power domain is not necessarily switched off while we are
-> +	 * suspended: on SDM630, SDM660 and MSM8998 it follows the GPU's SMMU
-> +	 * rather than the GPU. If it stayed on, the CP still holds its old
-> +	 * ringbuffer read pointer and would execute stale ringbuffer contents
-> +	 * once hw_init restarts it. Soft reset the GPU so that it always
-> +	 * resumes from its reset state.
-> +	 */
-> +	gpu_write(gpu, REG_A5XX_RBBM_SW_RESET_CMD, 1);
-> +	gpu_read(gpu, REG_A5XX_RBBM_SW_RESET_CMD);
-> +	gpu_write(gpu, REG_A5XX_RBBM_SW_RESET_CMD, 0);
+-- 
+2.56.0
 
-[Severity: Medium]
-Can pulsing REG_A5XX_RBBM_SW_RESET_CMD after msm_gpu_pm_resume() underflow
-df->busy_cycles in msm_devfreq_get_dev_status() when the GX power domain
-remains powered across suspend?
-
-Earlier in a5xx_pm_resume(), msm_gpu_pm_resume() runs and calls
-msm_devfreq_resume() -> a5xx_gpu_busy():
-
-drivers/gpu/drm/msm/msm_gpu_devfreq.c:msm_devfreq_resume() {
-	...
-	mutex_lock(&df->lock);
-	df->busy_cycles =3D gpu->funcs->gpu_busy(gpu, &sample_rate);
-	df->time =3D ktime_get();
-	df->suspended =3D false;
-	mutex_unlock(&df->lock);
-
-	devfreq_resume_device(df->devfreq);
-}
-
-drivers/gpu/drm/msm/adreno/a5xx_gpu.c:a5xx_gpu_busy() {
-	...
-	busy_cycles =3D gpu_read64(gpu, REG_A5XX_RBBM_PERFCTR_RBBM_0_LO);
-	*out_sample_rate =3D clk_get_rate(gpu->core_clk);
-
-	return busy_cycles;
-}
-
-When GX stays on during suspend (such as on SDM630, SDM660, and MSM8998),
-REG_A5XX_RBBM_PERFCTR_RBBM_0_LO retains its non-zero pre-suspend counter
-value when msm_devfreq_resume() samples it into df->busy_cycles.
-
-Immediately after msm_gpu_pm_resume() returns, a5xx_pm_resume() writes
-REG_A5XX_RBBM_SW_RESET_CMD, which resets the RBBM registers including
-REG_A5XX_RBBM_PERFCTR_RBBM_0_LO back to 0 while devfreq polling is already
-active.
-
-On the next devfreq poll in msm_devfreq_get_dev_status():
-
-drivers/gpu/drm/msm/msm_gpu_devfreq.c:msm_devfreq_get_dev_status() {
-	...
-	busy_cycles =3D gpu->funcs->gpu_busy(gpu, &sample_rate);
-	busy_time =3D busy_cycles - df->busy_cycles;
-	df->busy_cycles =3D busy_cycles;
-
-	mutex_unlock(&df->lock);
-
-	busy_time *=3D USEC_PER_SEC;
-	busy_time =3D div64_ul(busy_time, sample_rate);
-	if (WARN_ON(busy_time > ~0LU))
-		busy_time =3D ~0LU;
-	...
-}
-
-Wouldn't busy_cycles - df->busy_cycles underflow the 64-bit unsigned value,
-causing a bogus maximum busy_time spike (and triggering the WARN_ON on
-32-bit builds)?
-
-> +
->  	/* Adreno 505, 506, 508, 509, 510, 512 needs manual RBBM sus/res contro=
-l */
->  	if (!(adreno_is_a530(adreno_gpu) || adreno_is_a540(adreno_gpu))) {
->  		/* Halt the sp_input_clk at HM level */
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-a5xx-gpu-p=
-m-v1-0-1d0c313a1412@gmail.com?part=3D1
