@@ -2,140 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1029F607884E
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:04:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9CD606DA72
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r8LP8w6O;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uqyW45aQ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r8LP8w6O;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uqyW45aQ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B0QpsPf3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 178A510EF02;
-	Mon, 19 Oct 2026 16:04:09 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFD810EEED
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:03:58 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CC1E821D11;
- Mon, 19 Oct 2026 16:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792425836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
- b=r8LP8w6OkVtOGYrCF1ciEOAovHtI/vbqdd1PevdXjLKUQUXWcUQnm/CBjX4UL7OwIFeI2y
- vNkRHIowwQ5h7RKiiSuOUyEzEaTyKfn04Pk7g6gQ6U3aIDyXffc1p00JHLVpw0UmqASr4s
- CyRs8GXfX+f4icUlEjqcWWiB6AmkUts=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792425836;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
- b=uqyW45aQiK7XrSAHqi0N7Tfx+P5pAauu6wRMIXFHJCOtDXkMlhlrJ1BzuGz3VJJ/zB7j2E
- kKOChI+grN3PGGBw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=r8LP8w6O;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uqyW45aQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792425836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
- b=r8LP8w6OkVtOGYrCF1ciEOAovHtI/vbqdd1PevdXjLKUQUXWcUQnm/CBjX4UL7OwIFeI2y
- vNkRHIowwQ5h7RKiiSuOUyEzEaTyKfn04Pk7g6gQ6U3aIDyXffc1p00JHLVpw0UmqASr4s
- CyRs8GXfX+f4icUlEjqcWWiB6AmkUts=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792425836;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
- b=uqyW45aQiK7XrSAHqi0N7Tfx+P5pAauu6wRMIXFHJCOtDXkMlhlrJ1BzuGz3VJJ/zB7j2E
- kKOChI+grN3PGGBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56D40136CC;
- Mon, 19 Oct 2026 16:03:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ndvHCmw/1mp9TwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Oct 2026 16:03:56 +0000
-Message-ID: <8e91baa4-1ca5-43b8-bb04-9b5e3630bc2b@suse.de>
-Date: Mon, 19 Oct 2026 18:03:55 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E27110EEB3;
+	Mon, 19 Oct 2026 16:07:33 +0000 (UTC)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7737D10E111
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:07:26 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-3514b90bb89so5872185eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:07:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792426046; cv=none;
+ d=google.com; s=arc-20260327;
+ b=OdaRKEax9uu8d4MJoIIUf81SeB7dWt04F/GMYP/yIP+MVARBTGSfEpSEcPu7/H4njH
+ j+2vsfV6s1A9g1itMPfGaqSjr390/8+yJpxiMRaYPjzGp7a7C/VB644xy9ZbEkvqJyu8
+ 9h59RSd+6iir8msMh3iqQZq4ePBhxbJqzlwV+f3xR3Ly+HqA+mZNwzUdG/aoHtSIJDJq
+ A1izzfTufq079F4y5WCzzHgGwJ9/A/99iNBzmPAvVHDiP6Gd+LFZh3TKTamxORvhkk/g
+ spMvXTjHBtUt1icFVTMQboLNmmSEnuHGaiGviniHLse1Y3fxBk/qkTIJZxAO/wGdXpfk
+ ZBhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Pp1wXmjGVdO0km/o46/fcmdmsHRC4xyRzbLPpnmcTsc=;
+ fh=xcTSarzP/UxfTexgfjdv11UJu/MTYhNUnpXAtouyuyY=;
+ b=GhsJdlnvEa3RpNNlUWLZbr5SAP1++wZ4uOSA6SvtCaqTTsQaJzqKLISL17V1M4Nnpi
+ XxgtqdQPcDmfeKIp9bzvApGdN4jY9dPBDFJS/n/eSTN8SV2efqQxDY94IDPdm3cO2Xx6
+ 1ki9I4TJzvGBUu28IR2Paf3iK1bsLoVL4Hk8hHqQqAIopmWVRuFHtk35OvLpuOWouNhe
+ TUd7s+xWia3VA/ruAGJABicQQkjIam4qDofbx6nkfyRGtcyDSHEoVcb9+hrj44LHLZ9b
+ iAL+9img89WK05cGxYygu/hArMKamuaqDzLVPTD377iP0vzUXHMzLFUREYEEen5mfu8w
+ wuKA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792426046; x=1793030846; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Pp1wXmjGVdO0km/o46/fcmdmsHRC4xyRzbLPpnmcTsc=;
+ b=B0QpsPf3Vgm2EIlBXdWrhJjWmfj8X/qfYQ3Xfqv8SkOQqJim1kjnry2H9TpN+o/V83
+ 14sj00JL1oVJx6pEEWx1whi2oM4icCR2Aph/Jg2biEKIvyF0b45YwT747I8XRozBsO3O
+ g7jeXA886njPSj+RFjow68mYAHGzVjiFJef/HmETHFXVUhxZ1HMNvNJSjWVJ/7M7E8cC
+ zDSkJ7RpUotYIYnv9Qyb0k3SH3oKA+j9kkcxje8E/Y76maOy5Di34SmRXYeMt/QDCsQN
+ UGvQWe1/XAk75V0zSMmO9FZDgwVfaTbwelmgMqr0kpR3SX/tOeToPiIDNSxjrU0PHdB/
+ Cyiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792426046; x=1793030846;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Pp1wXmjGVdO0km/o46/fcmdmsHRC4xyRzbLPpnmcTsc=;
+ b=GEHnATFqU9d2rxiLPTYHtmnY6Zv+njajN9mt/T/Fu3qx0O8dEG+gHuUFVdnOSLrnGT
+ YBeyiyEsEdWZNmrbQvCkCpnszmv9JRtWWmxIbQMVjUSRJScHiJOcHBsRRaqkvbuSC0cH
+ UfYefJ2qajAoFmt44cDKX4bsWoBKz1DyeSqLQSSFYHDx37rrQkr5thfBfMrA8GkBwj0I
+ 5KZk+E3A6qm7edU53YEfFLnyQhcaDtInsbbia7LfIJkJqaoPZ5fuh+HbSaSpPXeW6F1v
+ h/yyV1d3EzPiuhEQr6fyLc5gYkKXyaj4OifQPmSgnDrDEtDDCKcodeHn+MAkmoPp8IRH
+ 9/pw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwnwAtOIP+mT7B3i8x5DF07ImRfTT6/I6G4gMJkI/UznG+h6jymFkAJW/aKSn2tJmJhqR10KlBALPI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKS4zUEMKrFBK3p8wMnTVrPqcu3jKEqWFgZsYN4g/10ymT90NXn
+ GaFC8wITEuuz6NCfG8CaiSd6EPs5IX/1G09hSsWewB3EqrVSJbQn0IYDPZPtPZvq5MjwVXUI5Bk
+ ghV17N6dsxlaSYNV4L9EexW3zItihBa8=
+X-Gm-Gg: AYBFou2Hs2YaZ18Z+6o4oU7owd2W2DUYtMw/etezpn/ENFkmSeKiZTJHyxLIKzwbxFq
+ 7tNZuNCyBWIInhP91gJWIYMyEerM7RmyyPeUg5Kea6FZcIM72iPse0F49Khmfed6oW8IhCjW+9C
+ eMil30/6SpeUxZrzSJ4BXnugwE5Yo7mLrkqnNWYmmmFBZFYQKasHiAUxg+UUT6R0MACYDQNlokw
+ HFZc3RF9YKo5WGx0kPZXv8oplbAolNPTjGz3RW7TJw5dhjOTlEwuf00kd+saULPX4COCi1ZDgvH
+ qNmL3t7gcPMHBC/u1suSDyBLrCO908LdkJprjDuVYWEZhim4OtV+v0Vfo/AIHcChCXHLGJa6Doq
+ JAzO7ODU7Tbmm
+X-Received: by 2002:a05:693c:884f:b0:35d:4e41:d2c2 with SMTP id
+ 5a478bee46e88-361a2c38d17mr11330019eec.33.1792426045527; Mon, 19 Oct 2026
+ 09:07:25 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-To: Lanfeng Wei <xlfylawarthur@gmail.com>
-Cc: airlied@gmail.com, decui@microsoft.com, dri-devel@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- longli@microsoft.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- regressions@lists.linux.dev, simona@ffwll.ch, ssengar@linux.microsoft.com,
- stable@vger.kernel.org
-References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
- <20261019154121.6257-1-xlfylawarthur@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261019154121.6257-1-xlfylawarthur@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: CC1E821D11
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_TO(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[13]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,microsoft.com,lists.freedesktop.org,vger.kernel.org,linux.intel.com,kernel.org,lists.linux.dev,ffwll.ch,linux.microsoft.com];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[]
-X-Spam-Score: -4.50
+References: <20261013180933.487013-1-clamor95@gmail.com>
+ <20261013180933.487013-2-clamor95@gmail.com>
+ <179198322819.839288.5272985130898382430@kernel.org>
+ <CAPVz0n08bXQrujADdgQwuLu10JNjOrjBq-zNS6agSBGLLWt0OQ@mail.gmail.com>
+ <20261019160202.GE2663669@google.com>
+In-Reply-To: <20261019160202.GE2663669@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 19 Oct 2026 19:07:12 +0300
+X-Gm-Features: AclHuK9VJmJMQJiC82ERiz5L-8HMq7v4t7pij145Dauw6OWtgiTFIN9w7D539M0
+Message-ID: <CAPVz0n2oCKyLKG+pXFw2hAfMTXXSjrwwsFRrhzC24d33LOi-zg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] dt-bindings: mfd: Document Skyworks AAT2870
+To: Lee Jones <lee@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,95 +110,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=4.0.1
+	RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
-
-Am 19.10.26 um 17:40 schrieb Lanfeng Wei:
-> Hi Thomas,
+=D0=BF=D0=BD, 19 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:0=
+2 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 >
->> Yeah, what's the cause of it? Switching off features does not fix any
->> bugs or improve the status quo.
-> You are right that the module parameter is only a workaround for users
-> affected; it does not fix the underlying scheduling problem.
+> On Mon, 19 Oct 2026, Svyatoslav Ryhel wrote:
 >
-> The cause is that the synthetic vblank timer is used to pace completion
-> of atomic updates triggered by dirtyfb, in addition to providing
-> synthetic vblank events. In Xorg's software-cursor path, pointer motion
-> damages the primary framebuffer and the damage is instantly submitted
-> via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
-> synchronous atomic commit, and with the vblank timer enabled that commit
-> can wait for the next simulated vblank. Under continuous pointer motion,
-> these commits dominate the update path and delay normal client updates,
-> resulting in sever frame-rate drops.
+> > =D0=BF=D0=BD, 19 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+17:52 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > Wrong subject line.
+> > >
+> >
+> > What do you mean by "Wrong subject line"? Specify.
 >
-> This particular regression results from the combination of the blocking
-> dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
-> cursor plane in Hyper-V. While the Hyper-V video protocol does have a
-> hardware-cursor command path, the upstream hyperv_drm driver currently
-> exposes only a primary plane. Cursor plane support was deferred during
-> the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
-> back to software cursor-rendering path and it competes with periodic
-> graphical updates on the primary plane.
+> This is a LEDs patch, but you have incorrectly tagged it as `mfd:`.
+> Honestly, I would have thought it would have been obvious, hence the
+> lack of further explanation.
 >
-> So the proper long-term fix could be adding cursor plane support in the
-> Hyper-V DRM driver, which may take some time. Providing that the stated
-> purpose of the offending commit is to rate-limit display updates, while
-> its current implementation regresses the existing software-cursor path,
-> I think adding a switch or reverting the commit until the requested
-> features in the driver is ready, is a reasonable short-term fix.
 
-The problem is that module parameters are impossible to remove in 
-practice. Once in place, someone always depends on it. They also 
-increase the number of states to test.  Avoiding them is usually a good 
-idea. Especially as workarounds for bug or regressions.
+Uh, yes, I have figured this out already, but thank you for
+explanation and patience.
 
-
-I'm not familiar with the Hyper-V protocol, so I have a question. Why is 
-it hard to implement cursors? From the link at [1], I assume that cursor 
-support was left out because the simple-kms pipeline did not support 
-cursor planes. This has long been resolved: the simple-kms pipeline is 
-gone and hyperv_drm runs on the regular DRM framework.  Unless there's 
-anything special with the Hyper-V protocol, cursor-plane support should 
-be do-able in a single patch. [^1]
-
-Best regards
-Thomas
-
-[^1] See 
-https://elixir.bootlin.com/linux/v7.2.11/source/drivers/gpu/drm/ast/ast_cursor.c 
-for an example of how this looks. Most of it is hardware-related, but 
-hyperv would likely be similar in concept.
-
+> > > > Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lig=
+hting
+> > > > Management Unit.
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++=
+++++
+> > > >  1 file changed, 124 insertions(+)
+> > > >  create mode 100644 Documentation/devicetree/bindings/leds/skyworks=
+,aat2870.yaml
+> > >
+> > > [...]
+> > >
+> > > --
+> > > Lee Jones
 >
->> We had another fix for a problem with vblank timers:
->>
->> https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
->>
->> Did you validate that this fix is unrelated?
-> Yes I tested that fix and confirmed that it is irrelevant. It solves
-> issues with excessively long frame durations, however this problem is
-> found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
-> below INT_MAX).
->
-> Best regards,
->
-> Lanfeng Wei
->
-> [1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+> --
+> Lee Jones
