@@ -2,128 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9419F606A324
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 19:38:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD1B606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 19:41:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=a8fA+UV1
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=aaScpiNi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C847510EAB2;
-	Mon, 19 Oct 2026 19:38:06 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012060.outbound.protection.outlook.com [52.101.66.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A297810EAB2
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 19:37:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCBCC10EAEB;
+	Mon, 19 Oct 2026 19:41:25 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011068.outbound.protection.outlook.com
+ [40.93.194.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F3210EABB;
+ Mon, 19 Oct 2026 19:41:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CX2jqaa5FQ7HIZb89Z1HB+dRWo0xQw6dXw/Gd0c5Vzcuh68xlpdBNETMAhS7nzQZ2U/Gmlu2vkCZjPWH3e8KwwIWoWjlktT/YT4tNsu54XuayBgD4ntz42NWDeoPlnMOxWywaKvtPYPgZ0ckPiBpDY1aX/bi7SQRYthMvVMQ/+Eu1BzkkwzoTPjDSCr4dF4XnFw/DMlf/sY19L+qAxnB3S4mnaTODcVr5FEtxSqIU53cIYAeOK6rwD68p1cEE+EzM6tFQ7tSRKxQP53fHPNdTY5SYHYdGKMCy0t3r+xNlyi4n0IZp4BUxLeX/O1eY0i9vAx/LxmCRIkKKEkdJZkGeA==
+ b=t+bK1117tMey++g830ibB5ZKn+jUgfDofjU1o99bn1ZPe2Ldk3hOxOEY2wdPDV81F1udUkhlfy0fyC95+/p7vyPPTdu/RnNP0kmgX2PlPjbMaE5mWRbxrDDClix5ZpFfpCSHBE89qU6TwtRkRHIVDVIRSoNpY7/ixVGfso8yzH8ty3ozKfC/6OrVuQcVhkXT108Vu8KOVnX1HYdXMs6CeehVulVdKPKCZih/woslja1DI5bts062H7SxheDQTBDYt2uMlZavYokpVyYXN7RuChTx0ZHM/n8TQLoqjpdoS7exB/KFEdFeEtdA/iIMwzjnWvKYAnCDUdiEJnctH9zsuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EOq9OWUpOn5PelbH0n7cCNBsrllnuV8L/twd3ejfzmI=;
- b=TVuAyK+YSmxvz1sbJbHVc9caT6wHjkZcVDIwXQJFC/B3XD97bR4GanVRtUv1mcFG4yRSMBgoNp5tCCc2qSpL2FCULVWUUlQkx/zFLoZSOPWgacnNvS5f9Yj7kSz8F4nhZbbt+T2v6MAS+hh/CrLsZ+pOiDcTPFqNmL7Sc18vcS6DopbfN9WJ905dv6GlOE2vBS27ZOQVGFVJq+acbcXZyACnI3w1PKbK2triL6QavK6jUMb/O425KLATyQ3SZUeKVmHeiJ2QXhKbHV7RMF0Yx0X7cRtZPE4w2SoX9RF0kBkwL99sp2HCxHvUaeZecW5Cg3nzChquiIZZygSysR4tHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
+ bh=XkZYNECj1A2GOY5KIz7Bo+U+8GAVINv7nZVI7wil9ik=;
+ b=P2eWm4TKxK5b2rqajyzIw7ak6Ildp7SeDdH6IFSDoTggnHvdTv0WJqJcc2qT9ueuqyN4OQeZmel+Izah4Nt7bEoy3Pi0h2Fs91tpH5tGuEnGHkizVfE1TVQOo1AyMdIFMKFbTUVmuMhLKz6wIKrmNdIDEZTu088xAdsxOr41t6ACD/HRIDe25/n5WUeGRI3IWiQuQTtrM9RkR/XHXMRHgz/hFF7CKMSHcODR0cbYjfmmdFdAO/7mZaI+cwqE0b/V1EHm6UZ/uqdK+FgMtvL2Oz0dXTZWSzEux3GHGH12vbu0iY6QmBcO96h3Dq/2gxARKPktKDlu2O5W52Vq97q8Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EOq9OWUpOn5PelbH0n7cCNBsrllnuV8L/twd3ejfzmI=;
- b=a8fA+UV1mqEufJRJ1SAQGCLjXf5HyzpURVtd6fcLNuHdm3YMuJyVyXDExpYb8GPRco0HUANmeRkW/0WQwDNOUsU0SqFSbR/bzI9QvAZjuZQf67g1I66NCsZEM5gIO6nK4CmGYtRCxJg/2UX+KPMcs2+BI0HzExgxTxE8runPS0XFDinPvHewO5PBoReRLNtluxImWCSjLLTC6C08HXV3B8h8QPiE0Wz7MIeTXjQ8filuBAwixCS1tloI9kcS6zHV5w+URwvxFR/LngLjHRhCYXy9B+hyWfZgjCY50UjVu4AMgF28+xu/S6UHo81zlUR+M5lC5unHoYmL3nn9/MNvNg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GVXPR04MB635272.eurprd04.prod.outlook.com (2603:10a6:150:3a7::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 19:37:54 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 19:37:54 +0000
-Date: Mon, 19 Oct 2026 14:37:41 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
-Message-ID: <atZxhWaUWthEHkti@SMW015318>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
-X-ClientProxiedBy: PH8P220CA0054.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:2d9::30) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+ bh=XkZYNECj1A2GOY5KIz7Bo+U+8GAVINv7nZVI7wil9ik=;
+ b=aaScpiNiC8xNt9CwNZ4CXhJQF+WggCcA8S6XL2B1/na81fp7HY4kOMooNc5rUW2mRnfDtaxR5WBQdqCr7a0aa9CUDRWbHVUf4yPOmAaBTYE+vT87EmtEj9DbT+v6wrrnugklvyMdFtxZP5zYvMTTPMIv8Hlgrm3K7/ER071Dm78=
+Received: from DS7PR03CA0054.namprd03.prod.outlook.com (2603:10b6:5:3b5::29)
+ by BN7PPFD91879A44.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6e5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Mon, 19 Oct
+ 2026 19:41:14 +0000
+Received: from CH3PEPF0002457F.namprd04.prod.outlook.com
+ (2603:10b6:5:3b5:cafe::3e) by DS7PR03CA0054.outlook.office365.com
+ (2603:10b6:5:3b5::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
+ 19 Oct 2026 19:41:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF0002457F.mail.protection.outlook.com (10.167.252.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 19:41:14 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
+ 2026 14:41:16 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
+ 2026 14:41:13 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 19 Oct 2026 14:41:13 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 2/2] Revert "drm/radeon: Fix VFCT bus number matching with
+ soft filter"
+Date: Mon, 19 Oct 2026 15:41:06 -0400
+Message-ID: <20261019194106.2796150-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261019194106.2796150-1-alexander.deucher@amd.com>
+References: <20261019194106.2796150-1-alexander.deucher@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVXPR04MB635272:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc89b032-ad6c-4cc8-9879-08df2e187876
+X-MS-TrafficTypeDiagnostic: CH3PEPF0002457F:EE_|BN7PPFD91879A44:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fb1f51e-5ada-4565-25de-08df2e18ef76
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|7416014|376014|19092799006|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|3023799007|22082099003;
-X-Microsoft-Antispam-Message-Info: BG5deD7LDDka+hV+mXSiUkpYYp72gWKdQGh9/9BLnb0rErzV1UnXPoGPaTUrycOG+6f6DtCMGpd0+BlkDj9VOApcm0nBNg3+tNeJzJGsJ16K8mGcqgnhvis3E1dzDFx+8mRjacQSOaJt4ZoIEL3qR7/QzV+gN59dcpvOKCuKT8K1mJV7YASNa5qZbuK5vTbQq4Fb75J482sPupyXBd6HtL3/k8beHGfJwSm++MFWiifyLCY8Y4ue3bU9LA/sQNn2aLiZInq6AQ1os8iH4U63hEeNeHaBvMwdtZ9IQIh8xOe2YJ7VFlKvowG4OQPG9iPGKmHyXeeadgyLuHCszNn8ij5MEhm5AbXAtot1uljdj3SyA1U2IpA1lyjWUFSaqH85dO1hLBmv84FjVynprzNYom1+fZKBcFPirp7ZWItL1wkJ3tvpplMFkHVETHSgfngeHMsK4M5O58BP15iSAErfDYhTZa+z+JHiPPChqnIdgIujnRfs31xGc61gciiblVIwxzhrI22gE+uFSV/RBqMAFroeXn7bEe7FaBdFtEF04Pe1WgdD2adnJPOoFabLd2sLQkztrxXbmC8BgiVnTmdZVZ/lycaduD4Lo25UQ0ns3uE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(19092799006)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(3023799007)(22082099003);
+ ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|11063799006|56012099006|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: vpUOu5SxcGeiNE/Mk42InnyERVDKDdCPBGG4SXUagMi+NKru8BK0SF9pFiX78SFOYVWj2rrDfIrziSjaRV3kmkIAsuXH6yb7FK+4Lj6U/JNQKSqS6doPUecaEXlgn6idzslb7vUbu/lUG87KJOBa3i83zQvEUG8ndzLAAMSpJrpdOxZSlrFlq+cZQ3xnkK/PKTW2+GB7svy0m3LH7Ic4ngVbtC/2v/YpwC7J2C40hk/eVm+0TfhdW/JhNa9QbRYgoKq2QLbkDfW9CUIZqIGRXARfvdV1V97vaR/SxxsEDIwMzmHyzbb570QjKh+wysuqTmGwPlyIqcqAWHVFspSTDgSWkk5mU2KpDayE5m76usBLBun4UgkAKXTo40V2kc6+0hwH5TgvnIiH1TmnX3JbIVTXVDUwptf9nEnhSj/sPzo+uI2Sx5viG0OcSc0IWmI9GUS3HYjscPxGVINS4EXekmHNd3rhQcinSZReTkQskpaBKt6JODvPfKHHw16ihO7jnauFn5wQgHZNhCDDCvn+OmB+4aPPc0NOFTm5nTHTxl0yFWVLvL9bY7d9Fr271O7IZintdvzaoBKfPn92NVPw4J8kKNAwoyR094CkAliMjKPRsXYMX9o/A4i5uOEWFdPu/DyNLDwcJ4zvTci5fzpL+zfptqeDcLB9hN5cTqzX+og9zFw1lD5zvtz75BWYzH52iCHQCMUSHqrXuIr6M+LKMw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(11063799006)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GClBawuPUhmOR0K0WsxdCQYFtRCRy+zrkJcgaYDAk02LJPihTxQQqtgSAiQS?=
- =?us-ascii?Q?U9wt+TWkUl3mXXUkOcJZsmfs2BRhMeK9CdGqQg+kxz+SNLA9+zfyaeXp8VvK?=
- =?us-ascii?Q?1iCrXHCksfjasVPR9xkTKQkzJn9EfeujVMNjpg2LIyHcq00/KDielXJCfykz?=
- =?us-ascii?Q?RT1SZ3KSsuouIbhJbyfbbetmx1ojewErIQrG4CcEvaqmnyzNCNUdBw1ZNVI+?=
- =?us-ascii?Q?9X76JmkWcKH+UBj8h2dgXw0EwJeGd6pXWqgtGq2mNfRisJMzH0uyI6qaBPji?=
- =?us-ascii?Q?QQsoNJJkRZpzHNzaWh71+Z2ofIrdF1YCgov7mE4oU5+UDW6TK98ueuEnRVd2?=
- =?us-ascii?Q?lSVrI+l/yGO5h2G3fD3/g2BC2G3JvX/iy2nvm6hRMeQNe6E+NgRhnQOLD8eX?=
- =?us-ascii?Q?Gy7rS+S8+vHP+BHJ5annVktDw6cO8W5R2qn8SBd5FlEKWpNkvnQK9+8azwfY?=
- =?us-ascii?Q?xKkbTyesFlTlFYNbAQ6W55xjXXVHovNirA8mk1jr7aQdlaj7vpFPLMxaLY9g?=
- =?us-ascii?Q?8gcPBH7k6baGwCJs5IW8ur129GcYalItZniRetc2sVH8L6sM+F2SeqsKljZ1?=
- =?us-ascii?Q?puyNXBOIPBWTxC6M0MEa47y52cJaf8UuPZziZBDu4IXEAmkfEgNYsZloN6n3?=
- =?us-ascii?Q?3Y985K6roBRFrbOJkoFVtJzsRYjCmGV3UY/fP/f1cAEmZePiZ3Rvm5c+VpN3?=
- =?us-ascii?Q?LYA9GgnaTX3ujKrRKKYCVqqggsJnoS9SlxT1zA7jiUUB6tnHqdHnHhBHXq7u?=
- =?us-ascii?Q?GA8JRtI1riiWY9te5YOWkyt0cisH6Oau9qFfwS7YKNKuJSZZRbimg+2JYXer?=
- =?us-ascii?Q?rFXSBv5dKeFctC8dSFamiAcFRAX9iYLcjPoasryoA9neGLM33Vk16cnHFSTB?=
- =?us-ascii?Q?ekiKZ/HNVcVAp7WN4sKenKF6gdjnP57iQFOtYAhPwEl4h4qe0sgwnC0c1nAb?=
- =?us-ascii?Q?lUk1vK+Ey39BHaUDQq1j25Jzv8kEMf3nCqj+R/NCvIlMGFxGh5BknAueKz2Q?=
- =?us-ascii?Q?/OZgMDvIUXfSKP4nUQypW+lqMiXJ4UfkC8mcT72K8ILQCVJ1yTAhH4dkhrL3?=
- =?us-ascii?Q?jUkfsNfKrRk2TFKQLLhq1gc8z+CG7adnmTDiwdLaVl/P2xjVsi3gvhriT/dn?=
- =?us-ascii?Q?Sf5KnZUHXLytJkPPuKdtUkyFod+5igo7yZy9mNYAdglZxfcjq0ykKOFgnIsG?=
- =?us-ascii?Q?c2uEmXorN7llyLgSA3SNmcOkn8ngIgWVIxPGFJy2kNsKCuJfFOSdEGEJgpF/?=
- =?us-ascii?Q?ATZYKkWXq9DwlusBiXwriTBK/rdr7LAwRNZjA6AvAp1jZLa3d98yC/noQAss?=
- =?us-ascii?Q?vGMtJZdJuOqTD/oG/WsaBj1N2S1AD4mZDN6BiHpbzQIouHOcpfjNaAS+C/PV?=
- =?us-ascii?Q?QRbLvXCFQFdMH6q3xFvplvVNFgrB9KjmEBFnQ9rBhSJBvrcjbdUofZPOl9oh?=
- =?us-ascii?Q?POllDOKZhDI7x/s07OyaxlAlS7grC+KypXcM0mCn1/MdCoM6olIwAgz0WWTD?=
- =?us-ascii?Q?ITcoA4zxUUBuHCnot449Ezt3TCdiqfQREi2g/bJmrZRNrbXx+ZG9B2GmFI64?=
- =?us-ascii?Q?Tw8apJJS6VhZGYKinQ2GTcho60LGYVHDxHawNXf1ZEuhROx/KBE/E0vfXrMS?=
- =?us-ascii?Q?S/T2d6hGMu/hKGzHA3IqvuD4BukmraFn37L9F0RjYgc+CSOS6kntTIL6jVtV?=
- =?us-ascii?Q?jjw0D9KRngZvmkeTaNsLSjmN6E1u2pf37Uy8IsXKKAFIlUbkYjpGaKx7iH+h?=
- =?us-ascii?Q?SP7aXxmxxfzDrO4+7b510G9+7qJ4N6kTrpvrkdJWH0GhKKfVkcXA?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc89b032-ad6c-4cc8-9879-08df2e187876
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:37:54.7153 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IxWJ0zhADOX8DlUkHvfG6Fh5vI3uAFuwXsE7jgEhIjQI71xceeuU17Hc3LqkUXm65ImDznR7TOOgVoXB7a67eAMvWMbS/8qmd0HqCBgxd+d4U4X0rd+rxLSUsgrnaCjo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB635272
+X-MS-Exchange-AntiSpam-MessageData-0: 92frsmhcK4d4K9TAn5wMpZkIb51+gDSKRrGA7m2BwhjLKm3wQhGTbpuwecqixg7Dcx0mb8ffz8QiaU+CHxAMQawJbXhgNb2ZtMfkKF6hTOF4s+37Gc9si77Qv18Ybkj+3/VmtjEU/mesPH+CXlJuHeoxJ1F7AJBcwgbw0oxAUp6Zj5+DvAGh0eg7mMHXHkRE8m0tKfjqBAaoy0Rzb9g13UIT4sSRK3gcG/7EnzvbyGE19c8PCmmi7o0T2LRaLybdDXVSKBYMdxbxWjKEITjk6NkYxSLuUfBUnvLdfnvNMYdaYj6UUTrJQR7Tvcc3ICmY1dqQCf7NGnG3p8ua6ReQqfrJPxcMw0Ch0+UPeDI7krMupqfUPE7MmaUmyVMNqNoyxp3J1lliCo6durkLnkGfKESudRs5NO3ynwCzBsfRqs2D3+HEkDC1DYpqu8XLZoo+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:41:14.0946 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fb1f51e-5ada-4565-25de-08df2e18ef76
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0002457F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFD91879A44
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,37 +111,93 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
-> From: Leonardo Costa <leonardo.costa@toradex.com>
->
-> Add a device tree overlay for the VGA output available on the Apalis
-> Evaluation Board, which is driven from a parallel RGB interface passing
-> through a non-programmable video DAC to a VGA connector, without VESA
-> DDC I2C signals.
->
-> The non-programmable video DAC consists of a simple resistor ladder that
-> converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
-> an active-low data-enable signal.
->
-> The overlay is also combined with the various Apalis Evaluation Board
-> device trees to provide ready-to-use DTBs.
->
-> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> ---
->  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
->  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
+This reverts commit 4059e2f02c8a2a51ba78860775877d721df6a055.
 
-what's difference with
+This was added to work around systems where the user specified
+pci=realloc on the kernel command line.  The firmware specifies the
+BDF to match, but those may not be the same with pci=realloc. This
+causes mismatches when there are multiple cards of the same type in
+the system and failure of the cards to initialize. pci=realloc is
+not the most common case so let's revert for now to fix the regression.
+We probably need to store the original BDF in the PCI subsystem so
+we can use it match later if the BDF has changed.
 
-https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/radeon/radeon_bios.c | 45 ++++------------------------
+ 1 file changed, 5 insertions(+), 40 deletions(-)
 
-Is it possible share one dtso also?
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 1da6bf1c17ff3..23db87155e778 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -601,45 +601,6 @@ static bool radeon_read_disabled_bios(struct radeon_device *rdev)
+ }
+ 
+ #ifdef CONFIG_ACPI
+-/**
+- * radeon_acpi_vfct_match() - Check if a VFCT entry matches the device
+- * @rdev: Radeon device
+- * @vhdr: VFCT image header to check
+- *
+- * VFCT entries contain the PCI bus number as recorded during BIOS POST.
+- * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
+- * resource conflicts), the runtime bus number may differ from the POST
+- * value.  Match by device identity (vendor + device + function) and use
+- * the bus number as a preference: exact bus match is preferred, but when
+- * the bus numbers disagree we accept the entry if the device identity
+- * matches.
+- *
+- * Returns: 0 on match, -ENODEV on no match
+- */
+-static int radeon_acpi_vfct_match(struct radeon_device *rdev,
+-				  VFCT_IMAGE_HEADER *vhdr)
+-{
+-	/* Vendor and device IDs must always match */
+-	if (vhdr->VendorID != rdev->pdev->vendor ||
+-	    vhdr->DeviceID != rdev->pdev->device)
+-		return -ENODEV;
+-
+-	if (vhdr->PCIDevice != PCI_SLOT(rdev->pdev->devfn) ||
+-	    vhdr->PCIFunction != PCI_FUNC(rdev->pdev->devfn))
+-		return -ENODEV;
+-
+-	/* Exact bus number match - preferred */
+-	if (vhdr->PCIBus == rdev->pdev->bus->number)
+-		return 0;
+-
+-	/* Bus mismatch but device identity matches (PCI renumbering case) */
+-	dev_notice(&rdev->pdev->dev,
+-		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
+-		   vhdr->PCIBus, rdev->pdev->bus->number,
+-		   rdev->pdev->vendor, rdev->pdev->device);
+-	return 0;
+-}
+-
+ static bool radeon_acpi_vfct_bios(struct radeon_device *rdev)
+ {
+ 	struct acpi_table_header *hdr;
+@@ -676,7 +637,11 @@ static bool radeon_acpi_vfct_bios(struct radeon_device *rdev)
+ 		}
+ 
+ 		if (vhdr->ImageLength &&
+-		    !radeon_acpi_vfct_match(rdev, vhdr)) {
++		    vhdr->PCIBus == rdev->pdev->bus->number &&
++		    vhdr->PCIDevice == PCI_SLOT(rdev->pdev->devfn) &&
++		    vhdr->PCIFunction == PCI_FUNC(rdev->pdev->devfn) &&
++		    vhdr->VendorID == rdev->pdev->vendor &&
++		    vhdr->DeviceID == rdev->pdev->device) {
+ 			rdev->bios = kmemdup(&vbios->VbiosContent,
+ 					     vhdr->ImageLength,
+ 					     GFP_KERNEL);
+-- 
+2.56.0
 
-Frank
