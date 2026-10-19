@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD3BCCF2DF
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 07:14:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B4FCCF2D6
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 07:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D3610E7EC;
-	Mon, 19 Oct 2026 07:14:38 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D899810E819
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 07:14:28 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-48de72fc832so1275570f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 00:14:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B53210E800;
+	Mon, 19 Oct 2026 07:14:43 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4934510E805
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 07:14:27 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4a0e1b0681bso12178205e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 00:14:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792394067; x=1792998867; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792394066; x=1792998866; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=TvlgYQm3dB8aOMy4KbGGHq81fZ8P+nSRZxAdejOQGxE=;
- b=jcFH0tBhh3pR9WfbS0mjadYQHBHq7AcLtZhx1d6qE3ZyG/XuWSrCv2IRkaA+jonop4
- oCX2QaDfs2UGeenObgBxGv/f5elmypHord0k+4zc1t0JOH6Z1KJtF4dL38cW2Z3rCEbU
- UOfRakqMqXvoqJ4y9PlffwhwSmcLeF8M0co64XjWGETA8MMmAZvKuy3OIFCj/zu+x4BW
- wqU+J1TkEwjd4nqdrg+LopLka6WzlTI0BpE0h183skd3RPHBOmR7VUMSgrJqjIS+5hWb
- Zt0eNt3iXw2ldSa9VSkYUPQnfby/C7KqrCknHyH8gopNtPcM1J84G8J/Ahay6elPwa9m
- slxA==
+ bh=Yk1PIjZ/V5CKGQclQeGzlozEfFu9qAElw/hhv/wGbR8=;
+ b=igDgJUC/hIW3cXH0+6AOiClfznrg6hGXzGKUgmxGQVIl6KotXFHBRPMQswEQYiMKIw
+ kEfGPw68we+G+GSj1B1T3dYzRqbqKEXxNOtNHH8nINt4rDuN3TRKi8vd6188dXMrVc6P
+ qQZLDlXFxd+Y4/ep23t3A0vN5DKYeieQW29x64MOEFEHhSC1AL6TJEOO3CKAaS0ROypf
+ 9ZcwYpnR6bV6i6qJ1rvzlQeVXwkKgo8f1F3g1qCQ7xExmwDgmGy1LvuODz9AV6KbQgRb
+ 8mlJ2Jp/jLiJdCDNBRHyGcedX7Qc2g/BRpa2ty/fJy2uBBpkyVNp3zcPQM3c/hmcprmH
+ avtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792394067; x=1792998867;
+ d=1e100.net; s=20260707; t=1792394066; x=1792998866;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=TvlgYQm3dB8aOMy4KbGGHq81fZ8P+nSRZxAdejOQGxE=;
- b=YP+1I7504ZoMjaVlm+BPbP3tK1WflcbAYvy7fZMOVxDQiDNeQ/5VG0DtsXBX64mYlF
- 4PPtea95QrY74cXirQiMViOAcMHq9JrcQ72+3s0KIE/AslUPL4Vwo1a7MZT5m3XU8c7F
- rscut17XSR2HOG8fnq8JzjEtHYdZfaXePmaza90ggbUuJkB52fSIJ2xdFvghJI/80ZV6
- kFptjuX5+1gXhCWSu7T65VVCjjd0ukTpMNJiQU33I57AtKglX94dwcc5ovWTz26etXCU
- 0TpcQILIVRUtzukSBmS8+Ddbr2V/R0UABrVrlCClnAEqEFJdoiG7iKpg1BvorpZaNf0W
- egFg==
+ bh=Yk1PIjZ/V5CKGQclQeGzlozEfFu9qAElw/hhv/wGbR8=;
+ b=2QrBnDoT3dG+T2TsuqgUgm8kSq5etFrEljI6u8hdMtNX4mipmowqEXHg6Tl1/NVGxm
+ 0ZjZCFEck9rbXW8/xlg9HsvZPAtsO/0emfYSaC2eb5ahlj+en0OpIRqC1a4wDYub7QQ6
+ AuNxyYNVVEiDr2aN26nFzpdx13HhyBRXWrw1m1RKJwA2ndDpgw2brqi2YSjh45bQaFws
+ pTFruxmlIJMAgnNCdPjpmys/qHgQMneebi4uUODgxAxfSrBp3nfQU/Jt0pn52osSHoTw
+ 2VID5q8oGNDc73TqZd0379mP9/1km9AEK7Zw8eWlareco8mh4JRpi1KkIBa3wIr7yBLj
+ ICIA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwt1+T+G2o5C1pkvueQ5r5PfzLJwRurVehKT7Cak7u1tDNTnXWQ4In++j5YcMnIaBtGt0Uzeq4u9Ss=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLMDv+tclagZZt//hA8eSRG564Y0udjlHX4ix5c4p5NnxZY5Yk2
- TSJRfI7NE5uMT0XTwpzi3ODssn/p8dcRCKbuOOTTnUWtk9l07w6gZxQC
-X-Gm-Gg: AYBFou3wzxo91l+rC5551h52sme9qFKQMkh23a0BcPNse+3UmrawHGeZgws3I5AQW9b
- wTxzqKH88NK1/UzKAnoVlzhxlKYDJe4+XxJWNcvoe23x6n5q8tlih/T2o12FGd36D2xXNg8WEYr
- UTI4roXKUYj+BeTJh2RdMdaumwIiINmmTdOzYQxtkTCvARLcBIyYfpB99ciEME/RdiMx7ylRs68
- pzh14lFYCCrTPybwnxuX19DjeLyKi5VUKPjC7bOQaV7wDHUA9hHoAOMfjp56tdFlKTKYlOEcZOu
- FGnH9uS17mz7W/j3YCpTHtmvS0yeLmTWA4u94FH+eL6BkD1klgFUqdeOt+gxFQ/Ats+/1EMDu3U
- Zj0xetxAj0U1nO++g12f342ex2GnT/AysxilIYB//UmtKJ34AeGGQkeNBMrMO7xLv4fQBQSu747
- L2JPSJi3HLM1jlBD2dMLPlIuACHkZRQpL/NENqsGkFZGAICKlr4eirvJGlIzcm5ZIrYO0oA4Pbp
- Ddn5BTu/wNBcywXLl8ntIkcklKnd6TTI90Y1V8konPHJJuvBNGl3kkzveALElmCjeoWjw3Nn+XF
- DTd0I0BkzZtLeiW2i00LuIxPb7upa1RoDnZnWCoF7lptAY4hi5tyf5FfLCS76ZNFR8qGvcpZ7Yv
- A
-X-Received: by 2002:a05:600c:a05:b0:4a1:813f:2a57 with SMTP id
- 5b1f17b1804b1-4a1d7608058mr147552565e9.13.1792394067002; 
- Mon, 19 Oct 2026 00:14:27 -0700 (PDT)
+ AKwUvBws0bH81IK+oSNEr6crH6pUdrsaro/HlJWeQ3Em4TNTmu9WfpB07AfmgK+aZ7wqhkkp2GHvHVWjjoU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYII50ns8RhWq8pdgVKqf+4ItBntaHccIRRYZLoceYeSwWku2Yup
+ SmbQ5rmMgmSnsSKa9CB53Nsm5KkeTh3A3wWG9476Foqk1br/5A1cav35
+X-Gm-Gg: AYBFou3D4OxwCbvwKsUy0+X64g6/yNJH+ztl71K1fMSlLn4JRqzMqV4FRPmCSQDla9V
+ MHGHN83nVNm6PYbLVgYUj6Z/z2kQrFoqAa9zLjYiZ9HSEWYJ7NLapGwGF83bEZV8cKlGgzNMCWt
+ TklZcW2KSRQidq4nVWWsbuoTMKxrI827wOd9VQ2sU7Km2MJEoPtDzuBbNnuBGxz/HBq9i4+bgGb
+ pXG6rKYzI2nBcvkhFtX8xeIOOYeMjQvCfOPVbPETgznjT320tslf9NaqIao5P9eCjizMwDd//OG
+ E4nUUCrN/i16xQrlJbfI3r0K2qTg9+kFGMvhTFWFpTMm0yImKqG2/qibRTKSdA3scVaRsk03ExO
+ kMCJSRH1IQtJuNG2xHmMuCJFsNSsiG+7nEhqYVNVIRFM56LslDrnpo+jFsy8fkxtiVqZ5TW0Nhd
+ XWpHPxoiVDeXcB/4aOAXnAJy/0NQJejf+wCqKVcRbhCFQmXK8GO6U/zZdhi7xjznQAvvMBBaX3X
+ d4RTZ9hskcJLaN9CJN0J07SPpnPV6Ktu1dVfxZX87Jnje0jExWEWoP0Vez8UDxM9gGrtSnPRBCg
+ klS9TZjETvlYmGp3pvKgl1+D4yIwXx1vCSo+FJx5NcFjguVTWkpRo0a331gYO89GnqN/y9HGsUW
+ b
+X-Received: by 2002:a05:600c:4f95:b0:4a1:7bae:d80a with SMTP id
+ 5b1f17b1804b1-4a1d75e3c9amr148966095e9.9.1792394065279; 
+ Mon, 19 Oct 2026 00:14:25 -0700 (PDT)
 Received: from localhost.localdomain
  (dynamic-2a02-3100-a4e0-4601-c43a-536a-04a3-af7d.310.pool.telefonica.de.
  [2a02:3100:a4e0:4601:c43a:536a:4a3:af7d])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48dfd540bc4sm21559338f8f.2.2026.10.19.00.14.25
+ ffacd0b85a97d-48dfd540bc4sm21559338f8f.2.2026.10.19.00.14.23
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 19 Oct 2026 00:14:26 -0700 (PDT)
+ Mon, 19 Oct 2026 00:14:24 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Tomasz Figa <tfiga@chromium.org>,
@@ -77,9 +77,10 @@ Cc: Tomasz Figa <tfiga@chromium.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  linux-kernel@vger.kernel.org, Karl Mehltretter <kmehltretter@gmail.com>
-Subject: [PATCH 4/4] media: vivid: synchronize imported DMA-BUFs for CPU access
-Date: Mon, 19 Oct 2026 09:14:11 +0200
-Message-Id: <c12681c1d39c45ce554d31eb03e3452ad55b0e43.1792392288.git.kmehltretter@gmail.com>
+Subject: [PATCH 3/4] media: uvcvideo: synchronize imported DMA-BUFs for CPU
+ access
+Date: Mon, 19 Oct 2026 09:14:10 +0200
+Message-Id: <bd42fc312d9a046a9dc943bfbdd3e2b3612f8c78.1792392288.git.kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <cover.1792392288.git.kmehltretter@gmail.com>
 References: <cover.1792392288.git.kmehltretter@gmail.com>
@@ -100,31 +101,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vivid accesses imported DMA-BUFs with the CPU without cache
-synchronization, leaving physical RAM stale after capture.
+uvcvideo writes USB payloads into imported DMA-BUFs with the CPU without
+cache synchronization, leaving physical RAM stale.
 
 Set uses_cpu_access to bracket the driver's CPU access.
 
-On a Pi 400, stale frames fell from 25/96 to 0/96 with this change.
+On a Pi 400, 12 eight-frame captures each had stale data before this
+change. All 96 frames matched RAM with it.
 
+Fixes: ccc4c539c05f ("[media] v4l: uvc: add support for DMABUF importing")
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/media/test-drivers/vivid/vivid-core.c | 1 +
+ drivers/media/usb/uvc/uvc_queue.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
-index 62cfb5feb2cf5..e3aa1fc3bcf75 100644
---- a/drivers/media/test-drivers/vivid/vivid-core.c
-+++ b/drivers/media/test-drivers/vivid/vivid-core.c
-@@ -925,6 +925,7 @@ static int vivid_create_queue(struct vivid_dev *dev,
- 	q->ops = ops;
- 	q->mem_ops = allocators[dev->inst] == 1 ? &vb2_dma_contig_memops :
- 						  &vb2_vmalloc_memops;
-+	q->uses_cpu_access = true;
- 	q->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC;
- 	q->min_reqbufs_allocation = min_reqbufs_allocation;
- 	q->lock = &dev->mutex;
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f442fb..1f92ee96e0710 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -247,6 +247,7 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+ 	queue->queue.drv_priv = queue;
+ 	queue->queue.buf_struct_size = sizeof(struct uvc_buffer);
+ 	queue->queue.mem_ops = &vb2_vmalloc_memops;
++	queue->queue.uses_cpu_access = true;
+ 	queue->queue.timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC
+ 		| V4L2_BUF_FLAG_TSTAMP_SRC_SOE;
+ 	queue->queue.lock = &queue->mutex;
 -- 
 2.47.3
 
