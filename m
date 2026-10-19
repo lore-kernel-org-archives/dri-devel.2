@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D1C6078868
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:59:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F179E607BF35
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 15:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrqKiDRS
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q49t1DnA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1798710EDF5;
-	Mon, 19 Oct 2026 14:59:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30BF710EE40;
+	Mon, 19 Oct 2026 15:31:08 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 769FD10E98A
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:59:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84D9B10EE40
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:31:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3ED9841B65
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:59:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041191F000C4;
- Mon, 19 Oct 2026 14:59:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3EDD1447EA
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 15:31:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F3E1F0180C;
+ Mon, 19 Oct 2026 15:31:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792421983;
- bh=I684XN2MGodvp1oMLFZvn51pkX/fBn8JAjHJrhlQ2DA=;
+ s=k20260515; t=1792423861;
+ bh=HRbMdPJln7BkkzvAOaZzDxEAXh+CfYVq7SUvxKkhgH4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SrqKiDRS8viTMCGH6XpkOKc5ZWUVoO71w6SBQlQJL2HlUV0FGU90CZl9ku8ulStXA
- 6dx8CdwyyJ0ZRhwfX0J8j4TcZxB6SnK4A5/NQ2tdAzgz1Mzrj1uplHLIP209dpj0sE
- 4QFHDTrkSwk2upFHJW2XqDyR+2gkW6+t/oclHq7pF+IyVP8sKeKdFB1Drr7D1PuTBE
- BTDIkGUMyOWg4eNFr79hSg/nDLcWFoOhDNJmYvh6+wp5glRdu/7RfdnniNmWF97XeB
- k8UZassSZJwHSxfh3ztfL/1Lsj38t5RyuXPCLJW2feFLSWpUcUHdf8NoeZAE4qvQeW
- XTIXFXI53cRmg==
-Message-ID: <sashiko-outbox-177584@kernel.org>
+ b=Q49t1DnAvsxjT3jA1DAK1dCuz62OAfy66UMbC2oGzjYTwrHTqusQ+8HxvXz3bWsA1
+ BM4I9cRqmU15GODWyL0m9oPF7w9JtNcNuK13pmndmikGkYOmf1diisfghzOXS14HJk
+ yoT0/p+nbPBh5zrhSg+J4bVRsGPaRTZ86ikgklV9GoEKJpCu9ofqaf+3xi/au048e9
+ PGS1d7w/+DE8+G7duKW7XM5yZrwTzjZW0iuMb673T3LfDJOdsks/JtZ9egJpo4TlMc
+ 87p49ZRqvain/XHpzVR98KxFweB7jQJ6b879oa8irHVJzHH5GG/jM+PRTR+7Z7zPaD
+ VbwDSE1AqvgVA==
+Message-ID: <sashiko-outbox-177744@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18] drm/msm: detach the ARM DMA mapping before
- attaching our own domain
+Subject: Re: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: Validate pp_table header
+ before reading size
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019135441.1420968-276-sashal@kernel.org>
+In-Reply-To: <20261019135441.1420968-449-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
- <20261019135441.1420968-276-sashal@kernel.org>
+ <20261019135441.1420968-449-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 14:59:42 +0000
+Date: Mon, 19 Oct 2026 15:31:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,151 +60,201 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm/msm: NULL dereference in __free_iova() via msm_iommu_new() det=
-ach
+- [High] drm/amd/pm: incomplete pptable size validation in smu_sys_set_pp_t=
+able()
+- [High] drm/amd/pm: slab out-of-bounds read in smu_sys_get_pp_table() afte=
+r short upload
+- [High] drm/amd/pm: use-after-free in amdgpu_get_pp_table() on concurrent =
+write
 --
 
-commit 8a10d4b676f6bf2e4f498788e23c54cc872ffbc5
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit a5e9db819c7d60216c2e0063bdbfde9a7dd36030
+Author: Yang Wang <kevinyang.wang@amd.com>
 
-drm/msm: detach the ARM DMA mapping before attaching our own domain
+drm/amd/pm: Validate pp_table header before reading size
 
-This commit detaches and releases the default ARM32 DMA IOMMU mapping in
-msm_iommu_new() before attaching the driver's own IOMMU domain so that
-__iommu_attach_group() does not fail with -EBUSY on ARM32 platforms with
-CONFIG_ARM_DMA_USE_IOMMU enabled.
+This commit adds a header size check in smu_sys_set_pp_table() before
+dereferencing ATOM_COMMON_TABLE_HEADER, and replaces the conditional buffer
+reallocation with kmemdup().
 
-Link: https://lore.kernel.org/r/20260730-fix-qcom-smmu-v2-3-18e0daf2d836@os=
-s.qualcomm.com
-
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_io=
-mmu.c
-> index 82a172f21a3ec..41a4eaa1b8fd9 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-
-[ ... ]
-
-> @@ -746,6 +755,19 @@ struct msm_mmu *msm_iommu_new(struct device *dev, un=
-signed long quirks)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
+amd/pm/swsmu/amdgpu_smu.c
+> index 244b8c364d45f..329a669a60ddc 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -636,25 +636,28 @@ static int smu_sys_set_pp_table(void *handle,
+>  {
+>  	struct smu_context *smu =3D handle;
+>  	struct smu_table_context *smu_table =3D &smu->smu_table;
+> -	ATOM_COMMON_TABLE_HEADER *header =3D (ATOM_COMMON_TABLE_HEADER *)buf;
+> +	ATOM_COMMON_TABLE_HEADER *header;
+> +	void *hardcode_pptable;
+>  	int ret =3D 0;
 > =20
->  	mutex_init(&iommu->init_lock);
+>  	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+>  		return -EOPNOTSUPP;
 > =20
-> +	/*
-> +	 * ARM32 attaches a DMA mapping domain to every IOMMU-backed device,
-> +	 * which would make attaching our own domain fail with -EBUSY.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)) {
-> +		struct dma_iommu_mapping *mapping =3D to_dma_iommu_mapping(dev);
+> +	if (!buf || size < sizeof(*header))
+> +		return -EINVAL;
 > +
-> +		if (mapping) {
-> +			arm_iommu_detach_device(dev);
-> +			arm_iommu_release_mapping(mapping);
-> +		}
-> +	}
+> +	header =3D (ATOM_COMMON_TABLE_HEADER *)buf;
+>  	if (header->usStructureSize !=3D size) {
+>  		dev_err(smu->adev->dev, "pp table size not matched !\n");
+>  		return -EIO;
+>  	}
 
 [Severity: High]
-Could backporting this patch without the rest of its upstream series cause a
-NULL pointer dereference in __free_iova() when probing the GPU or display
-controller on APQ8064?
+Is checking size < sizeof(*header) sufficient to prevent out-of-bounds reads
+when parsing the uploaded powerplay table?
 
-Upstream commit 140b13475302 ("drm/msm: detach the ARM DMA mapping before
-attaching our own domain") is patch 3/3 of the series at
-20260730-fix-qcom-smmu-v2-3-18e0daf2d836@oss.qualcomm.com, alongside two
-prerequisite fixes in drivers/iommu/msm_iommu.c:
+Since header points directly to the user-supplied buf, header->usStructureS=
+ize
+is also controlled by the writer. If a 4-byte buffer with
+header->usStructureSize =3D=3D 4 is written to pp_table, smu_sys_set_pp_tab=
+le()
+allocates a 4-byte buffer via kmemdup(), installs it into
+smu_table->power_play_table, and calls smu_reset().
 
-  1/3: "iommu/msm: track a context master per device and IOMMU"
-  2/3: "iommu/msm: use the IOMMU device for page table allocation"
+During smu_reset() -> smu_hw_init() -> smu_smc_hw_setup() ->
+smu_setup_pptable(), smu_v11_0_setup_pptable() in
+drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c preserves the existing
+smu_table.power_play_table pointer without verifying its size:
 
-Neither of those prerequisite patches is present in this tree.
+	if (!smu->smu_table.power_play_table)
+		smu->smu_table.power_play_table =3D table;
+	if (!smu->smu_table.power_play_table_size)
+		smu->smu_table.power_play_table_size =3D size;
 
-During initial DMA setup in arm_setup_iommu_dma_ops(),
-__arm_iommu_attach_device(dev, mapping) runs before set_dma_ops(dev,
-&iommu_ops). Without patch 2/3, msm_iommu_attach_dev() and
-msm_iommu_domain_config() set priv->cfg.iommu_dev to the client device (dev)
-instead of the IOMMU hardware device:
+Subsequent ASIC callbacks such as navi10_store_powerplay_table() and
+navi10_check_powerplay_table() in
+drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c then cast
+table_context->power_play_table to struct smu_11_0_powerplay_table * and re=
+ad
+past the 4-byte allocation:
 
-drivers/iommu/msm_iommu.c:msm_iommu_domain_config() {
-	priv->cfg =3D (struct io_pgtable_cfg) {
-		.pgsize_bitmap =3D priv->domain.pgsize_bitmap,
-		.ias =3D 32,
-		.oas =3D 32,
-		.tlb =3D &msm_iommu_flush_ops,
-		.iommu_dev =3D priv->dev,
-	};
-}
+	memcpy(table_context->driver_pptable, &powerplay_table->smc_pptable,
+	       sizeof(PPTable_t));
 
-When alloc_io_pgtable_ops() allocates the L1 page table in
-__arm_v7s_alloc_table(), dev->dma_ops is still NULL, so dma_map_single() us=
-es
-direct DMA and returns the physical RAM address virt_to_phys(data->pgd)
-without allocating an IOVA in mapping. Afterward, arm_setup_iommu_dma_ops()
-sets dev->dma_ops =3D &iommu_ops.
+and:
 
-When msm_iommu_new() now calls arm_iommu_detach_device(dev),
-iommu_detach_device() runs while dev->dma_ops is still &iommu_ops:
-
-arch/arm/mm/dma-mapping.c:arm_iommu_detach_device() {
+	table_context->thermal_controller_type =3D
+		powerplay_table->thermal_controller_type;
 	...
-	iommu_detach_device(mapping->domain, dev);
-	kref_put(&mapping->kref, release_iommu_mapping);
-	to_dma_iommu_mapping(dev) =3D NULL;
-	set_dma_ops(dev, NULL);
-}
+	smu->od_settings =3D &powerplay_table->overdrive_table;
 
-This triggers the following call chain:
+Previously, if smu_table->hardcode_pptable was already allocated at the full
+table size, a short write would not shrink the buffer because reallocation
+only occurred when smu_table->power_play_table_size < size. With unconditio=
+nal
+kmemdup(), a 4-byte write shrinks smu_table->hardcode_pptable to 4 bytes.
 
-  iommu_detach_device(mapping->domain, dev)
-    -> msm_iommu_identity_attach()
-      -> free_io_pgtable_ops(priv->iop)
-        -> arm_v7s_free_pgtable()
-          -> __arm_v7s_free_table()
-            -> dma_unmap_single(cfg->iommu_dev, __arm_v7s_dma_addr(table), =
-...)
-              -> arm_iommu_unmap_page()
-                -> __free_iova(mapping, iova, len)
+> =20
+> -	if (!smu_table->hardcode_pptable || smu_table->power_play_table_size < =
+size) {
+> -		kfree(smu_table->hardcode_pptable);
+> -		smu_table->hardcode_pptable =3D kzalloc(size, GFP_KERNEL);
+> -		if (!smu_table->hardcode_pptable)
+> -			return -ENOMEM;
+> -	}
+> +	hardcode_pptable =3D kmemdup(buf, size, GFP_KERNEL);
+> +	if (!hardcode_pptable)
+> +		return -ENOMEM;
+> =20
+> -	memcpy(smu_table->hardcode_pptable, buf, size);
+> +	kfree(smu_table->hardcode_pptable);
+> +	smu_table->hardcode_pptable =3D hardcode_pptable;
+>  	smu_table->power_play_table =3D smu_table->hardcode_pptable;
+>  	smu_table->power_play_table_size =3D size;
 
-Because cfg->iommu_dev is the client device and dev->dma_ops is still
-&iommu_ops, arm_iommu_unmap_page() treats the page table's physical RAM
-address (for example >=3D 0x80000000 on APQ8064) as an IOVA handle in
-mapping->domain, hits WARN_ON(!ARM_V7S_PTE_IS_VALID(pte[i])) in iommu_unmap=
-(),
-and passes that address to __free_iova():
+[Severity: High]
+Can shrinking smu_table->hardcode_pptable via unconditional kmemdup() also
+cause a slab out-of-bounds read in amdgpu_get_pp_table() on SMU 13.0.0,
+13.0.7, and 14.0.2?
 
-arch/arm/mm/dma-mapping.c:__free_iova() {
-	...
-	spin_lock_irqsave(&mapping->lock, flags);
-	bitmap_clear(mapping->bitmaps[bitmap_index], start, count);
-	spin_unlock_irqrestore(&mapping->lock, flags);
-}
+When a 4-byte buffer with header->usStructureSize =3D=3D 4 is written,
+smu_table->hardcode_pptable is allocated as 4 bytes and smu_reset() is call=
+ed.
+During smu_reset(), smu_v13_0_0_setup_pptable() in
+drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c runs:
 
-Since arm_iommu_create_mapping() initializes mapping with base =3D 0,
-mapping_size =3D 128 MB, extensions =3D 32, and nr_bitmaps =3D 1 (leaving
-mapping->bitmaps[1..31] NULL), a physical address >=3D 0x80000000 yields
-bitmap_index >=3D 16 and dereferences a NULL mapping->bitmaps[bitmap_index]=
- (or
-hits BUG_ON(bitmap_index >=3D mapping->nr_bitmaps) if out of range).
+	ret =3D smu_v13_0_0_get_pptable_from_pmfw(smu,
+						&smu_table->power_play_table,
+						&smu_table->power_play_table_size);
 
-In addition, this tree includes commit da33e87bd2bf ("iommu: Handle yet
-another race around registration") without patch 1/3 ("iommu/msm: track a
-context master per device and IOMMU"), so find_iommu_for_dev() and
-msm_iommu_attach_dev() call list_first_entry(&iommu->ctx_list, ...) on IOMMU
-instances whose ctx_list is still empty, and insert_iommu_master() does not
-track per-IOMMU context masters for devices attached to two IOMMU instances
-(gfx3d/gfx3d1 for the GPU and mdp_port0/mdp_port1 for MDP4).
+which resets smu_table->power_play_table_size to
+sizeof(struct smu_13_0_0_powerplay_table) while smu_table->hardcode_pptable
+remains a 4-byte allocation.
 
-Should patches 1/3 and 2/3 from the same series also be backported before
-this change?
+When /sys/class/drm/cardX/device/pp_table is later read via
+amdgpu_get_pp_table() -> amdgpu_dpm_get_pp_table() -> smu_sys_get_pp_table(=
+),
+smu_sys_get_pp_table() in drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c returns
+the 4-byte hardcode_pptable buffer paired with the full power_play_table_si=
+ze:
 
-> +
->  	ret =3D iommu_attach_device(iommu->domain, dev);
->  	if (ret) {
->  		iommu_domain_free(domain);
+	if (smu_table->hardcode_pptable)
+		*table =3D smu_table->hardcode_pptable;
+	else
+		*table =3D smu_table->power_play_table;
+
+	return smu_table->power_play_table_size;
+
+amdgpu_get_pp_table() in drivers/gpu/drm/amd/pm/amdgpu_pm.c then copies size
+bytes out of the 4-byte slab buffer into the sysfs read buffer:
+
+	size =3D amdgpu_dpm_get_pp_table(adev, &table);
+
+	amdgpu_pm_put_access(adev);
+
+	if (size <=3D 0)
+		return size;
+
+	if (size >=3D PAGE_SIZE)
+		size =3D PAGE_SIZE - 1;
+
+	memcpy(buf, table, size);
+
+[Severity: High]
+Furthermore, does unconditionally freeing smu_table->hardcode_pptable on ev=
+ery
+write reintroduce a use-after-free when racing with concurrent readers in
+amdgpu_get_pp_table()?
+
+In drivers/gpu/drm/amd/pm/amdgpu_dpm.c, amdgpu_dpm_get_pp_table() drops
+adev->pm.mutex before returning the raw table pointer to
+amdgpu_get_pp_table():
+
+	mutex_lock(&adev->pm.mutex);
+	ret =3D pp_funcs->get_pp_table(adev->powerplay.pp_handle,
+				     table);
+	mutex_unlock(&adev->pm.mutex);
+
+amdgpu_get_pp_table() in drivers/gpu/drm/amd/pm/amdgpu_pm.c then reads from
+table outside adev->pm.mutex:
+
+	memcpy(buf, table, size);
+
+Previously, smu_sys_set_pp_table() reused smu_table->hardcode_pptable in pl=
+ace
+whenever smu_table->power_play_table_size >=3D size. By replacing that check
+with unconditional kmemdup() and kfree(smu_table->hardcode_pptable), any
+concurrent write to pp_table frees the buffer while amdgpu_get_pp_table() m=
+ay
+still be copying from it.
+
+> =20
+>  	/*
 
 [ ... ]
+
+=E5=AE=8C=E7=BE=8E =E2=80=94 Wait, I accidentally wrote Chinese characters =
+at the very end! Let me check!
+Wait: I just output `=E5=AE=8C=E7=BE=8E =E2=80=94 Wait...` in the response!
+Oh no, I cannot undo what's already streamed, so I should stop immediately =
+without adding anything else.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019135441.1420=
-968-276-sashal@kernel.org?part=3D1
+968-449-sashal@kernel.org?part=3D1
