@@ -2,81 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433B2606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3C4606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ahmuc32B
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cfXsvK36
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B38A010F2F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9DBE10F2F4;
 	Tue, 20 Oct 2026 07:36:31 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3079E10E083
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 15:54:26 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4980fe6b3beso14840015e9.0
- for <dri-devel@lists.freedesktop.org>; Sun, 18 Oct 2026 08:54:26 -0700 (PDT)
+Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF2B510E8AA
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:02:22 +0000 (UTC)
+Received: by mail-dl2-f7.google.com with SMTP id
+ a92af1059eb24-1433e7b05b0so456239c88.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 02:02:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792338864; x=1792943664; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=W6lmJQMv+mPBi4ABudf7h40tJlxRiHiqMX1K/I29AXw=;
- b=ahmuc32Bf77I1VwTybndiHuwQAi6h2l4ETxbQyvYLPeWT7famoyVMHS8IIg/ayEFOB
- d3MoT3JjDi6yfL/WWZ0E22gwgWiQpqxYieawTke78m5AD5IdqnrM3E1yVemZBcuVf3uG
- gRPZ//ru9NvZR1U01Z17SUtoW8hep6NfGco8IAaT1RiaF0ZBvr+elGYxvW8Si4006NNC
- L2ULzw6v9/F+SvpLt/USMiycQcmoqYl1RWkOBFaUDiod3ZES7G5l0Sr0m+QKRVCLoSVI
- Asql9I1GeYvwvsbYH4yKtZeMNbr7htQRvYWfU1QwZeTQdvcnS/CX/IDiyNny3Uu8k7F3
- e7IQ==
+ d=gmail.com; s=20251104; t=1792400542; x=1793005342; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IHd99zSc7XuTxtPtex7CCdBAnhkgrWqdaJDnZa0vj8o=;
+ b=cfXsvK364j8G3hXfiu8EQuA+MSDPbnrKtPtT8cY2fkP9iwUGJeaVFMd7SGkHHNNkxD
+ Bdi79lvSnEXw/Q8RSQzYhMoeUeL0UXic4yraMetGfvz8YRUqPU81h0RJSv8LEPwK1/12
+ U5o44RtnsSELeXzoqQpTJ3jxBgYUPAHtkGX7GoPhEYoK17Q8pUEpC36KWWF9WR3sFuIz
+ gIdx0zFDOrneZHPalMM3KO6+s30GIWZTzreevVuRPtZa3gxt2mNqpTVFYgGvKhozUsaC
+ X887uoaG5FPvGGl8y4WtBd58dL+FPLbIYQP4lAAqwQlGFD/5lfxotG3WMDB8m2Idgy6Z
+ Ar9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792338864; x=1792943664;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=W6lmJQMv+mPBi4ABudf7h40tJlxRiHiqMX1K/I29AXw=;
- b=parTA3BVkRvGBAeFhjVHhumzG/NERJkwuLpyHODHMvGYRPPLilABwNxISC/qwRzr/6
- CA99mGKTXBfMoBajJCYEhwMDhiErVPB/0qKc3lFGUesdgs1TcR79Ad+/yfsv6SbOMoLF
- dq3dXfQ7REQ6d+vRwbgO7wfBJ36FA029skMcGvMEf3DmChLkEAFBKVxPhKJpanRsyQKX
- lChx/U17V8m8tHZKYqH7V1dsCz6GyyirtuHp/tehq5YkgVy9TwzpIkKgEfzMIDmce99C
- a/2fDX2YKtjOAXmBQ3wULg7NrqLHNeA5hCy8RWS06Yb3lOJFdwTNtqlEzfLV5EXncSNm
- +ZUw==
-X-Forwarded-Encrypted: i=1;
- AKwUvByHTve7Q8Fh/WsZeeos6pjLTnwSP1XcyB5zLKxoqEVAzI/AsN/eO12tzZZGoCyCEXeLkb1CdUBsyeg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJP8IZs0GqtosqJ9WAvSPp9sx+4u2nUKomz8BixuKWUpAWLC3ZX
- t8amN/0AZOlkRzh14+aHOQkpb9peAoJUodk5sWjeghe267HZhensNPvu
-X-Gm-Gg: AYBFou29+tAe5W6bKi3IgkFj7sQU1uWcfbVbokKbqdQIE1PQ1popKWaQa3w/zUpWxZE
- V+fT+Jtzse7PrlxqAGfEe9R+KR6pWc6xfbRZIdF5GOw7ewQUj9r89vNgNerN+7aXy8kpL2SCFoV
- vSi5/+rVpcAgjsAdCUpumMkcH26TLnyJyiHG297aGTKNAVBIJpSVcFOmxWVfD/xOHeekYb3Vte/
- d3Kk7qj1PhDsQdKpzk9jIvHtbLOYNLC26e89yAqcieBD6oynml3gFnrtN8Bpb6WhPpkT5pMJY+G
- njNzgDKiX92G01Lq+A7v2VpLCsJdCxyfZMmGN5ATHpOwir4N92xcoQeBz6rYgxsGDwg4XCppMwZ
- HbQrUjWWFBAIjYVCKzksrjJa5Y3IZCXbaEynxScifMHF2dmTiv/99G9iGxuXt3fxghCJjHGnLxl
- g/gzqoKbeFYWXSttnH83TnSfI69MzaQgNVtb8FNCh3E57948gSKkoKFh3j9YgBx1AdE8VcsTo3R
- bs6SYLw3lxtDi3vMqAU017FsqhOzO0CyQ0Iz9NN1DfyAgOR8BPRGJyQJd09vOXx6Abdx+RGq3qm
- FAPwLz7cNl1C+gM94HBJpg==
-X-Received: by 2002:a05:600d:6413:20b0:4a1:d899:b62f with SMTP id
- 5b1f17b1804b1-4a1d899b7f0mr67874735e9.0.1792338864358; 
- Sun, 18 Oct 2026 08:54:24 -0700 (PDT)
-Received: from hermes-agent.lan (228.red-80-29-82.staticip.rima-tde.net.
- [80.29.82.228]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1dc8ee409sm183420235e9.13.2026.10.18.08.54.23
+ d=1e100.net; s=20260707; t=1792400542; x=1793005342;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=IHd99zSc7XuTxtPtex7CCdBAnhkgrWqdaJDnZa0vj8o=;
+ b=BO7RO2bllkkTkBQOcprDtIQWzlbbTOn3APqBZAtJ3YeDq+DN+eFDAJoUocd7jEAWkt
+ zpZY63oC/33vLNsTeIl41XiLXWFVDce+nZNnf7UfWs42xI44shXVwwonthE5r6E8GLj0
+ N8JcTVNgDI2400zDJY6vJ5ch4z9SAZ5j0xA6mVKVhOpEBz7WxupjcAtF0N+JuObuszI2
+ JayFQi9dspaes50Tv7pgt2TVs4y9L9DrIN+HCzu2NXddnBWMte0jNSz56hJhk+0MO+2W
+ CSLnP+EGqBxRJAAxVGtu7yo79D7KyHMGIwDItF9qhyGkSDlhMKrQyGbOLGPfEa2Ce2qF
+ X8PQ==
+X-Gm-Message-State: AFq9FYKmJvsqCzkqfEpx+DB0joFPWuoT85GN6LPuAMReKrHZfSONmClP
+ 90SWtEnYvlePPVfc6As40StWOeYAMWcWyDlpjf6U5M63r649tQV/Ao31
+X-Gm-Gg: AYBFou0qzKXcUTOnpRhA0mYwFmJciBRanw/WUVXLtoMz/q2/SQQy0sl4QZVh9DVwQEz
+ ou37lvXLi4FC3o2KWVNnKU1nQIxvA86CDMgI/5JGnNl3baRSE2JEZLwGgLwu5AP605o9lxCQK9w
+ vTZwvHz+hA78d47f7b69xVR0pJBuCLGSqIzCWyA1cGPbvGlA2TdDyMuuGW8HQE5/i4RQfgkvjpo
+ A+67lT1eoDgr+lPocOmM5Ru64DLqgwx5JkP8OnOrpkQNJAGEo8BkoQbFmur2AKyP4VVYO7+DISQ
+ UPGcekaWy6vLpSWP4vRSeje4ES+ovtAaJnsUTaAnOzQ/tu+7V1uzVedU1CUJIrencDOpgU3YOij
+ Uao54HcNt55wVucIWPE/kSygKnF2PUndTRSdgXHyiJKLgDFicT61yEo4hofeUrvNpX8zWaDmAhf
+ Y6OCA2HvDJC4m3hTLod3PB3ecK4cnxCSI8LRnjzLRs3Is+DveVqHljVRYPEsl9ZrHl+Zya1e5Ek
+ zbtRylqlG1RsNFx/qf/waBpKvUzkh4gIyk=
+X-Received: by 2002:a05:701b:2601:b0:151:f0c5:7a09 with SMTP id
+ a92af1059eb24-18513b99fd0mr12384383c88.43.1792400541807; 
+ Mon, 19 Oct 2026 02:02:21 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com.
+ [104.194.64.109]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1831ba424a6sm27085064c88.17.2026.10.19.02.02.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Oct 2026 08:54:24 -0700 (PDT)
-From: =?UTF-8?q?Ram=C3=B3n=20Jes=C3=BAs=20Miranda?=
- <ramonjesusmiranda@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dpu: keep vblank enabled when entering self refresh
-Date: Sun, 18 Oct 2026 15:54:23 +0000
-Message-ID: <20261018155423.1299629-1-ramonjesusmiranda@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Mon, 19 Oct 2026 02:02:20 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com,
+ Yao Yiqi <yyaqia@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH v4 1/3] fbcon: Include font geometry in the rotated font cache
+Date: Mon, 19 Oct 2026 17:02:04 +0800
+Message-ID: <20261019090206.1094958-2-yyaqia@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261019090206.1094958-1-yyaqia@gmail.com>
+References: <20261019090206.1094958-1-yyaqia@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Oct 2026 07:36:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,44 +93,81 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When the CRTC is disabled to enter self refresh, dpu_crtc_disable() only
-checks old_crtc_state->self_refresh_active, which covers leaving self
-refresh, and calls drm_crtc_vblank_off() otherwise. The atomic helper
-then expects vblank to remain enabled for a self refresh "disable" and
-warns:
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-  driver disabled vblank in self-refresh
-  WARNING: drivers/gpu/drm/drm_atomic_helper.c:1296 at
-  drm_atomic_helper_commit_crtc_disable+0x1c0/0x1f8 [drm_kms_helper]
+fbcon_rotate_font() caches a rotated copy of the console font and
+skips the rebuild when the fontdata pointer and the rotation match.
+Raw font data carries no geometry, though: width, height and
+charcount live in vc->vc_font. fbcon_set_font() deduplicates uploads
+by byte equality, so the same bytes re-uploaded with different
+dimensions keep the fontdata pointer while the geometry changes, and
+the early-out skips the rebuild.
 
-Skip drm_crtc_vblank_off() when the new state enters self refresh, as
-other drivers supporting self refresh do. drm_crtc_vblank_on() in the
-enable path is safe either way, it only drops the reference taken by
-drm_crtc_vblank_off().
+The rotated cell size depends on the geometry (rotation swaps width
+and height), so the stale buffer is indexed with the new cell size.
+Re-uploading a 4x16 font as 16x8 on a CW-rotated console, for
+example, doubles the rotated cell size and reads past the end of the
+old buffer.
 
-Seen at every boot on a Microsoft Surface Pro 11 (X1E80100, Samsung OLED
-eDP panel) with eDP PSR enabled; with this change the warning is gone and
-self refresh keeps working.
+Record the geometry the buffer was built from and compare it in the
+early-out. The pointer-only key used to be backed by an explicit
+width check in the deduplication, which commit 1e3c49aa03fb
+("lib/fonts: Compare font data for equality with font_data_is_equal()")
+dropped.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ramón Jesús Miranda <ramonjesusmiranda@gmail.com>
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
 ---
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1212,8 +1212,13 @@
- 		return;
- 	}
+ drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
+ drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
+ 2 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index 407d207b14f1..bfbd70f8b1cd 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -89,10 +89,13 @@ struct fbcon_par {
+ 	char  *cursor_data;
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+ 	struct {
+-		font_data_t *fontdata;  /* source font */
+-		u8 *buf;                /* rotated glyphs */
++		font_data_t *fontdata;       /* source font */
++		u8 *buf;                     /* rotated glyphs */
+ 		size_t bufsize;
+-		int buf_rotate;         /* rotation of buf */
++		int buf_rotate;              /* rotation of buf */
++		unsigned int buf_width;      /* geometry of source font */
++		unsigned int buf_height;
++		unsigned int buf_charcount;
+ 	} rotated;
+ #endif
+ 	u8    *cursor_src;
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 6cdbc96eeca6..660a3fa81bae 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	unsigned char *buf;
+ 	int ret;
  
--	/* Disable/save vblank irq handling */
--	drm_crtc_vblank_off(crtc);
-+	/*
-+	 * Disable/save vblank irq handling, unless we are entering self
-+	 * refresh: the DRM core expects vblank to stay enabled then and
-+	 * warns ("driver disabled vblank in self-refresh") otherwise.
-+	 */
-+	if (!crtc->state->self_refresh_active)
-+		drm_crtc_vblank_off(crtc);
+-	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
++	if (par->p->fontdata == par->rotated.fontdata &&
++	    par->rotate == par->rotated.buf_rotate &&
++	    vc->vc_font.width == par->rotated.buf_width &&
++	    vc->vc_font.height == par->rotated.buf_height &&
++	    vc->vc_font.charcount == par->rotated.buf_charcount)
+ 		return 0;
  
- 	drm_for_each_encoder_mask(encoder, crtc->dev,
- 				  old_crtc_state->encoder_mask) {
+ 	par->rotated.fontdata = par->p->fontdata;
+ 	par->rotated.buf_rotate = par->rotate;
++	par->rotated.buf_width = vc->vc_font.width;
++	par->rotated.buf_height = vc->vc_font.height;
++	par->rotated.buf_charcount = vc->vc_font.charcount;
+ 
+ 	if (info->fbops->fb_sync)
+ 		info->fbops->fb_sync(info);
+-- 
+2.56.0
+
