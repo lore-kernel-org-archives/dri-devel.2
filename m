@@ -2,78 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128F4606A31F
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3CA606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rmsa4f+h
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CnpQzRLX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 470D410F31C;
-	Tue, 20 Oct 2026 07:36:51 +0000 (UTC)
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 914E010F057
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:17:39 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-35829219da8so3889111eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:17:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792426659; x=1793031459; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=DodzdsbvDAWeDZMO/tmg1Z+RgzxRjG1yETm3wmiwdhs=;
- b=rmsa4f+h4oKEh7YyVfrhUblzDuhXllQ8RfSt7sqRf69MGAGpS7nO4e41sAUIQUWh/6
- LUVS4olP9f14eaMAGMx1bX+veamD/hFQHsUTci2PMZXqvXb1KnBYC2m6vPDuN7mYsiG8
- vHEQOxXBnd7gUbN5JoHupaEWUUdhmF4k5oybcq1edpsNldaxnGTIypGGy+lzAx4JlwIw
- XVKYxGbalqQ4qUQn/NrYMEGbnK0YGrBmhScbhxxI64VjiMFby5rZO59DG03qrVKxD5ba
- MiY5YgJCPSIy09FsQRW0/EFJ43Iickkw/yUBOr2U6c/zmxYKiKYqV0YsN+FDaCwmdsC2
- LH+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792426659; x=1793031459;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=DodzdsbvDAWeDZMO/tmg1Z+RgzxRjG1yETm3wmiwdhs=;
- b=2XfZtAfMiNTzuBJzcNPKeSAJYPC4YD9mYo+B0Pzj1OZoxhg1go60iktgETKFHxwvez
- uhEKGJ0ozsfu3HCMjQ92fgHJ4Pu+iG4FY49a0/rjvqlApWUhV7004abSuQg9HLldk75j
- fG5NDr95v3DWXxuBXgnFwlwuq/YYaC96OvUtvIP9f3ZVA2wF4N8dhiZ3qi4qLCC/nozJ
- LXCDE1MsnQDJCmdnE5QtIFeUjsJ+myETwHeXJO2683NL5yArm+22CCxYkZcHmHtH0+mX
- dchktobh0VTU+n8FqxT8nuVwgDHamxwWulmiFNBTU9N/SJI/Bxm9JfX9+B6ev0rvzRzW
- b6nw==
-X-Gm-Message-State: AFq9FYJXdc1vh8EPaauaQahMya5mljx2puewubVPbkolB5drVpAfxTgV
- EzIFyYMMxsGSmd5D7A50tsfTJ26k5KLjW/8ZLKFFXH8xZ+eY8QAKhOCm
-X-Gm-Gg: AYBFou3OVFiNeFTDN0nV1L/R1tZSrRw3Hgw226YrRBwdpI5dP7UbsTF7IlLXz9Zbl42
- a+9bLUs7g3g3hPEHlD0h7gLPYuhjDNYKodhPUUdgkTa+XN4dxy699YocRx5onv3+xcqGR1/RXCA
- oMZ8LCXsguRsJ2zhzV2PAZ54RPxAPWGi+La4SH86AJLefxARukrHSaxyMLWI2uhCLJyzrlf2spK
- +y7cRTUM6jQiNGz5qcAKjRk7X2p87Jej3EAjs7J6yt17EPNM4X716n6vjyMcnTp5IL+BaEY8HL3
- jk9d++glfPnuWqjCeTIhIqj0J4IN9GV8sH5StippyoVYTYWtIpHSENj3uJn+Kh6eFFi3sB/+63j
- 2/PXurV3FgQP5/8LQHqEQagx/EO5EvtAWlDRTe22b3cp6soD3MqhvNdjNwgdCrdnRUe8RsgdvVC
- QQX2vFqRWG/je2t88ct4jeAkLO0hJt1YggSDP/JWn/HBwTIUeXzICjaeMMI24jPwxk11OxzLESg
- BHNJ7SG7Jc=
-X-Received: by 2002:a05:7301:6f0b:b0:353:7f47:8168 with SMTP id
- 5a478bee46e88-3602e69d2a3mr13680943eec.17.1792426657937; 
- Mon, 19 Oct 2026 09:17:37 -0700 (PDT)
-Received: from redducc.localdomain ([183.83.156.125])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-360813b63e1sm35064341eec.8.2026.10.19.09.17.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 09:17:37 -0700 (PDT)
-From: redducc <sushmit718@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFC710F2EB;
+	Tue, 20 Oct 2026 07:36:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 551BF10EE7F;
+ Mon, 19 Oct 2026 15:15:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A3451602A8;
+ Mon, 19 Oct 2026 15:15:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269E71F000C4;
+ Mon, 19 Oct 2026 15:15:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792422956;
+ bh=rY7NXz2qfQQtnIEL3eObvxvEOIQ+EeZp99ff3bsp5sk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=CnpQzRLX3TYf8k0qu6IYpaMq62MrzgVnzWtCBEbdnX0IUPXFCp6FFVhb6e/W37EY7
+ oQdkTxuZitFSXzUqh8YM+LI6hW4HWoVv72MiRtWfb/iuVaWOGKHt2j8Piy3XsHY4bv
+ HfJH5x277Hg+W3vBh+BKJcUHigFzcPtKnByrkz6Qw0vZi1heWwAKuKjDH8y9RjWbAw
+ ZWzbQHvwqs0XljbKJDetYNNwEqmAYS1SizYC8c9PQJ/+yV3C9kQ+UX6IhimWK6Szh4
+ MliM2s0jWJxjgBc2N8LAVJSnUAeqxo/k14Kw0U606JcTDsTXyg4NEZpgxA/P9PGn8a
+ a/NOnXhhwsAXA==
+From: Maxime Ripard <mripard@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Aun-Ali Zaidi <admin@kodeit.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Philipp Stanner <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm: Don't BUG when a CRTC fence signals during a name lookup
-Date: Mon, 19 Oct 2026 16:17:31 +0000
-Message-ID: <20261019161731.2341-1-sushmit718@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Martyn Welch <martyn.welch@collabora.co.uk>,
+ Peter Senna Tschudin <peter.senna@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-renesas-soc@vger.kernel.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Iker Pedrosa <ikerpedrosam@gmail.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Alexey Brodkin <abrodkin@synopsys.com>, Hans de Goede <hansg@kernel.org>,
+ LiangCheng Wang <zaq14760@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Ruben Wauters <rubenru09@aol.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>, Aditya Garg <aditya.garg@linux.dev>
+Subject: Re: (subset) [PATCH 00/75] drm/connector: Convert all drivers to
+ atomic_create_state and remove reset
+Date: Mon, 19 Oct 2026 17:15:50 +0200
+Message-ID: <179242294379.2822300.2839114266297465713.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
+References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Oct 2026 07:36:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,56 +139,29 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-9.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-dma_fence_signal_timestamp_locked() clears fence->ops on signalling when
-the ops have neither a release nor a wait callback, which is the case
-for drm_crtc_fence_ops.
+On Wed, 14 Oct 2026 19:26:23 +0200, Maxime Ripard wrote:
+> This is a follow-up to the plane and CRTC reset removal series, and
+> part of a larger effort to remove the reset hook from all KMS objects.
+> 
+> The connector reset hook is overloaded: it is called both at probe
+> time to create the initial software state and during suspend/resume to
+> reset hardware and software state. These two roles have different
+> requirements, and the reset hook is not fallible, making error
+> handling difficult for the initial state allocation path.
+> 
+> [...]
 
-dma_fence_driver_name() and dma_fence_timeline_name() load fence->ops,
-check the signalled bit and then call into the ops. If the fence
-signals between that check and the call, fence_to_crtc() rereads
-fence->ops, finds NULL and hits the BUG_ON(). This takes down any
-caller of SYNC_IOC_FILE_INFO on a CRTC out-fence, such as Android's
-surfaceflinger, which hit it on a Snapdragon 8+ Gen 1 phone (msm).
+Applied to misc/kernel.git (drm-misc-next)
 
-The CRTC behind the fence outlives it, so reading the name after the
-ops were cleared is fine. Only warn when the fence carries foreign ops.
+[73/75] drm/vmwgfx: Convert to atomic_create_state
+        commit: e6bb593b800813788dc16179d1305747ff974d00
 
-Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
-Assisted-by: LLM
-Signed-off-by: redducc <sushmit718@gmail.com>
----
- drivers/gpu/drm/drm_crtc.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index 63ead8ba6756..1dbd0e9db536 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -158,7 +158,13 @@ static const struct dma_fence_ops drm_crtc_fence_ops;
- 
- static struct drm_crtc *fence_to_crtc(struct dma_fence *fence)
- {
--	BUG_ON(rcu_access_pointer(fence->ops) != &drm_crtc_fence_ops);
-+	const struct dma_fence_ops *ops = rcu_access_pointer(fence->ops);
-+
-+	/*
-+	 * Signalling clears ops, and can race with a name lookup that already
-+	 * picked our callbacks, so only a foreign ops pointer is a bug.
-+	 */
-+	WARN_ON_ONCE(ops && ops != &drm_crtc_fence_ops);
- 	return container_of(fence->extern_lock, struct drm_crtc, fence_lock);
- }
- 
-
-base-commit: 6a56f4f29711dd2da49f03a5b99ce53779e638d7
--- 
-2.43.0
-
+Thanks!
+Maxime
