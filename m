@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5456606A319
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 22:02:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EC3606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 22:03:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8WGJ60y
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5TlxEIn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1C410EB52;
-	Mon, 19 Oct 2026 22:02:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8E910ED67;
+	Mon, 19 Oct 2026 22:02:56 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECC5B10EB52
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 22:02:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABDB410EDD0
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 22:02:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A85CB400E0;
- Mon, 19 Oct 2026 22:02:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7AF1F000C4;
- Mon, 19 Oct 2026 22:02:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 930674130A;
+ Mon, 19 Oct 2026 22:02:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24CDD1F000C4;
+ Mon, 19 Oct 2026 22:02:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792447349;
- bh=lAcPQ6d/0SsPovOJZ2BJ36ImSXmQDIr23ieq/SRUWis=;
+ s=k20260515; t=1792447370;
+ bh=1vNr5FO/mm711jaU+jFZYO+lcV7Jij+fa8I1nHyeJMQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=P8WGJ60yIfuSu4h6QHOWwnGRGSzHv9gubGVhsAjM+WrhQZKWh6P1Nv95kdbiUdhTO
- Hcg/dpL1gJoqZJBB0tDHtB8CSasz0gEr8babDj7SIX4WMk5N8vIsSZNKudg8r2Brzm
- xjh4b3rA8AcP4bqPd7t466V0Xr0xhjJzxtI3byml/rtP8XxTi/F02eVrKE6qaMw0YA
- 301i8QBgdf4oQb0eqTqfVcPN677bHY/P2T4ZTqzE6ys4MkdA8jygb9H3KmGNNinIok
- frAAGKtKieQuiTRfOjGO7yD2VtrfQEtiduyDwwB3CnSJycj1pz2yTPuKiGyoj/yrgS
- qLEsTcmKyv2aQ==
-Message-ID: <sashiko-outbox-178287@kernel.org>
+ b=H5TlxEInbHIyivWCEquk1G14tKJE8wJHaiuVuifC9UQzW4mrnpNzyb4WDH1hamBSt
+ zhdWI4qFAxTcn3vNWaiWPhRDT1RRIXCYgrh6If6bXekuRalHsGm9fSAl6IFubchI2A
+ QvGDKuVQ9xXuBP7wB3t9gjYhvkrYqYnV8BcPHxKLul6bQvc/BgWeGGaOe8e5sZMoyg
+ j52+1mTg0WL3O2LmJAschzkXDv6H/U5HVXHdchjNmA8jTdcqrSrqQYvi5MwUkmPcp6
+ K5oQAUzDTsppkI2sQ5O+ZMjTyD1w7mLVt6AomUnP22rAhMXp+hushdS/NcLjrgS+Bj
+ trVa7BPzcgbVw==
+Message-ID: <sashiko-outbox-178288@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/14] drm/solomon: Add DRM driver for Solomon
- SSD16xx e-paper display controllers
+Subject: Re: [PATCH v3 08/14] drm/solomon: ssd16xx: Expose refresh mode as
+ plane property
 To: "Devarsh Thakkar" <devarsht@ti.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019213726.4145532-5-devarsht@ti.com>
+In-Reply-To: <20261019213726.4145532-9-devarsht@ti.com>
 References: <20261019213726.4145532-1-devarsht@ti.com>
- <20261019213726.4145532-5-devarsht@ti.com>
+ <20261019213726.4145532-9-devarsht@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 22:02:28 +0000
+Date: Mon, 19 Oct 2026 22:02:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,467 +60,251 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] drm/solomon: heap buffer overflow of tx_buf in ssd16xx_fb_dirt=
-y()
-- [Medium] drm/solomon: bit-reversed pixels in ssd16xx_convert_fb_to_1bpp()
-- [Medium] drm/solomon: ssd16xx_convert_fb_to_3color() ignores orientation
-- [Medium] drm/solomon: init_refresh_pending cleared on error in atomic_upd=
-ate
-- [Medium] drm/solomon: ssd16xx: use-after-free of devm-allocated mode afte=
-r unbind
-- [Low] drm/solomon: broken portrait check in ssd16xx_connector_get_modes()
+- [High] drm/solomon: ssd16xx: missing helper in ssd16xx_plane_atomic_creat=
+e_state()
+- [High] drm/solomon: ssd16xx: missed fast LUT preload in ssd16xx_plane_ato=
+mic_update()
 --
 
-commit 2fb6265a2051abb85583fcfb0ff873962f7bd4d7
+commit 5297d32536b98e77de269756d1d61d02dc735b4b
 Author: Devarsh Thakkar <devarsht@ti.com>
 
-drm/solomon: Add DRM driver for Solomon SSD16xx e-paper display controllers
+drm/solomon: ssd16xx: Expose refresh mode as plane property
 
-This commit adds a DRM driver for the Solomon Systech SSD16xx family of
-e-paper display controllers over SPI, starting with support for the
-Gooddisplay GDEY042T81 400x300 black/white panel using the SSD1683
-controller.
-
-[1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
-[2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81=
-.pdf
-[3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
-[4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
-[5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
+This commit exposes a "refresh_mode" enum property on the primary plane to
+allow userspace to select between partial, full, and fast e-paper display
+update modes at runtime. It subclasses drm_shadow_plane_state into
+ssd16xx_plane_state and tracks refresh mode transitions in
+ssd16xx_plane_atomic_update().
 
 > diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/=
 ssd16xx.c
-> new file mode 100644
-> index 0000000000000..ca6550b5dd5bd
-> --- /dev/null
+> index 99f11b7ec03e9..f53c67ae7d317 100644
+> --- a/drivers/gpu/drm/solomon/ssd16xx.c
 > +++ b/drivers/gpu/drm/solomon/ssd16xx.c
-> @@ -0,0 +1,1801 @@
-
-[ ... ]
-
-> +static int ssd16xx_hw_init(struct ssd16xx_device *device)
-> +{
-
-[ ... ]
-
-> +	switch (device->orientation) {
-> +	case 90:
-> +	case 180:
-> +		data_entry_mode =3D SSD16XX_DATA_ENTRY_XDEC_YDEC;
-> +		break;
-> +	default: /* 0=C2=B0/270=C2=B0 */
-> +		data_entry_mode =3D SSD16XX_DATA_ENTRY_XINC_YINC;
-> +		break;
-> +	}
-
-[ ... ]
-
-> +static void ssd16xx_convert_fb_to_3color(u8 *bw_dst, u8 *red_dst,
-> +					 struct iosys_map *src,
-> +					 struct drm_framebuffer *fb,
-> +					 struct drm_rect *rect)
-> +{
-> +	unsigned int x, y;
-> +	u8 bw_byte =3D 0, red_byte =3D 0;
-> +	unsigned int bit_pos =3D 0;
-> +	unsigned int dst_idx =3D 0;
+> @@ -397,8 +397,21 @@ struct ssd16xx_device {
+>  	u8  *tx_red_buf; /* 1bpp red-channel buffer (3-color panels only) */
+>  	u16 *tx_buf9;    /* 9-bit SPI expansion buffer (3-wire mode only) */
+>  	u8  spi_buf[64] ____cacheline_aligned; /* DMA-safe buffer for SPI trans=
+fers */
 > +
-> +	if (fb->format->format =3D=3D DRM_FORMAT_R1) {
-> +		unsigned int src_pitch =3D fb->pitches[0];
-> +		unsigned int width_bytes =3D drm_rect_width(rect) / 8;
-> +		unsigned int data_size =3D width_bytes * drm_rect_height(rect);
+> +	struct drm_property *refresh_mode_property;
+> +};
 > +
-> +		/* White background =E2=80=94 no black pixels, only red ink shows */
-> +		memset(bw_dst, 0xFF, data_size);
-> +		/* RED RAM: copy R1 data directly (1=3Dred ink, 0=3Dno red) */
-> +		for (y =3D rect->y1; y < rect->y2; y++) {
-> +			u8 *line =3D src->vaddr + y * src_pitch + (rect->x1 / 8);
-> +
-> +			memcpy(red_dst + dst_idx, line, width_bytes);
-> +			dst_idx +=3D width_bytes;
-> +		}
-> +		return;
-> +	}
-> +
-> +	/* XRGB8888 */
-> +	for (y =3D rect->y1; y < rect->y2; y++) {
-> +		for (x =3D rect->x1; x < rect->x2; x++) {
-> +			bool is_red =3D ssd16xx_pixel_is_red(src, fb, x, y);
-> +
-> +			if (is_red)
-> +				red_byte |=3D (1 << (7 - bit_pos));
-> +			else if (ssd16xx_pixel_is_white(src, fb, x, y))
-> +				bw_byte |=3D (1 << (7 - bit_pos));
-> +			if (++bit_pos =3D=3D 8) {
-> +				bw_dst[dst_idx] =3D bw_byte;
-> +				red_dst[dst_idx] =3D red_byte;
-> +				dst_idx++;
-> +				bw_byte =3D 0;
-> +				red_byte =3D 0;
-> +				bit_pos =3D 0;
-> +			}
-> +		}
-> +		if (bit_pos > 0) {
-> +			bw_dst[dst_idx] =3D bw_byte;
-> +			red_dst[dst_idx] =3D red_byte;
-> +			dst_idx++;
-> +			bw_byte =3D 0;
-> +			red_byte =3D 0;
-> +			bit_pos =3D 0;
-> +		}
-> +	}
-> +}
-
-[Severity: Medium]
-Should ssd16xx_convert_fb_to_3color() also handle device->orientation like
-ssd16xx_convert_fb_to_1bpp() does?
-
-When ssd16xx_fb_dirty() runs with device->color_mode =3D=3D
-SSD16XX_COLOR_MODE_3COLOR and FULL or FAST refresh, it calls
-ssd16xx_convert_fb_to_3color() without passing device->orientation.
-
-Because ssd16xx_convert_fb_to_3color() always packs in 0-degree landscape
-row-major order, 90, 180, and 270 degree rotations are ignored. In portrait
-orientations (90 or 270 degrees) where fb->width is 300 and fb->height is
-400, the XRGB8888 path packs 38 bytes per row across 400 rows (15,200 bytes
-in row-major order instead of 300 column-major rows of 50 bytes, while
-ssd16xx_fb_dirty() only sends data_size =3D 15,000 bytes), and the
-DRM_FORMAT_R1 path computes width_bytes =3D 300 / 8 =3D 37 bytes per row
-(14,800 bytes), truncating 4 pixels per row without transposing for
-portrait orientation.
-
-> +
-> +/*
-> + * Convert framebuffer to 1-bit monochrome for e-paper display.
-> + *
-> + * Supports XRGB8888 (thresholded via ITU-R BT.601 luma at 127) and R1
-> + * (native 1bpp, zero-copy fast path for aligned landscape frames).
-> + *
-> + * Output layout:
-> + *   0=C2=B0/180=C2=B0  landscape: row-major, left-to-right, top-to-bott=
-om
-> + *   90=C2=B0/270=C2=B0 CW portrait: column-major, rightmost column first
+> +/* Plane state subclass: refresh_mode lives on the plane, not the connec=
+tor,
+> + * so plane_atomic_update() can diff against its own old/new state.
 > + */
-> +static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
-> +				       struct drm_framebuffer *fb,
-> +				       struct drm_rect *rect,
-> +				       unsigned int orientation)
-> +{
-
-[ ... ]
-
-> +	switch (orientation) {
-> +	case 90:
-> +	case 270:
-> +		/*
-> +		 * Portrait (90=C2=B0 or 270=C2=B0): column-major packing.
-> +		 * Each portrait source column becomes one physical RAM row.
-> +		 * The data entry mode and cursor position control scan direction.
-> +		 */
-> +		for (x =3D rect->x2 - 1; x >=3D (int)rect->x1; x--) {
-> +			for (y =3D rect->y1; y < rect->y2; y++) {
-> +				if (ssd16xx_pixel_is_white(src, fb, x, y))
-> +					byte |=3D (1 << (7 - bit_pos));
-> +				if (++bit_pos =3D=3D 8) {
-> +					dst[dst_idx++] =3D byte;
-> +					byte =3D 0;
-> +					bit_pos =3D 0;
-> +				}
-> +			}
-> +			if (bit_pos > 0) {
-> +				dst[dst_idx++] =3D byte;
-> +				byte =3D 0;
-> +				bit_pos =3D 0;
-> +			}
-> +		}
-> +		break;
+> +struct ssd16xx_plane_state {
+> +	struct drm_shadow_plane_state base;
+> +	enum ssd16xx_refresh_mode refresh_mode; /* Pending refresh mode */
+>  };
+> =20
+> +#define to_ssd16xx_plane_state(s) \
+> +	container_of((s), struct ssd16xx_plane_state, base.base)
 > +
-> +	case 0:
-> +	case 180:
-> +	default:
-> +		/*
-> +		 * Landscape (0=C2=B0 or 180=C2=B0): row-major packing.
-> +		 * Each landscape source row becomes one physical RAM row.
-> +		 * The data entry mode and cursor position control scan direction.
-> +		 */
-> +		for (y =3D rect->y1; y < rect->y2; y++) {
-> +			for (x =3D rect->x1; x < rect->x2; x++) {
-> +				if (ssd16xx_pixel_is_white(src, fb, x, y))
-> +					byte |=3D (1 << (7 - bit_pos));
-> +				if (++bit_pos =3D=3D 8) {
-> +					dst[dst_idx++] =3D byte;
-> +					byte =3D 0;
-> +					bit_pos =3D 0;
-> +				}
-> +			}
-> +			if (bit_pos > 0) {
-> +				dst[dst_idx++] =3D byte;
-> +				byte =3D 0;
-> +				bit_pos =3D 0;
-> +			}
-> +		}
-> +		break;
-> +	}
+>  static inline struct ssd16xx_device *to_ssd16xx_device(struct drm_device=
+ *drm)
+>  {
+>  	return container_of(drm, struct ssd16xx_device, drm);
+> @@ -1430,11 +1443,91 @@ static void ssd16xx_plane_destroy(struct drm_plan=
+e *plane)
+>  	drm_plane_cleanup(plane);
+>  }
+> =20
+> +static void ssd16xx_plane_atomic_destroy_state(struct drm_plane *plane,
+> +					       struct drm_plane_state *state);
+> +
+> +static struct drm_plane_state *ssd16xx_plane_atomic_create_state(struct =
+drm_plane *plane)
+> +{
+> +	struct ssd16xx_device *device =3D plane_to_ssd16xx_device(plane);
+> +	struct ssd16xx_plane_state *ssd_state;
+> +
+> +	ssd_state =3D kzalloc_obj(*ssd_state, GFP_KERNEL);
+> +	if (!ssd_state)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	__drm_gem_shadow_plane_state_init(plane, &ssd_state->base);
+> +	ssd_state->refresh_mode =3D device->refresh_mode;
+> +
+> +	return &ssd_state->base.base;
 > +}
 
-[Severity: Medium]
-Are pixels within each byte bit-reversed when orientation is 90 or 180
-degrees?
+[Severity: High]
+Does this compile when CONFIG_DRM_SSD16XX is enabled?
 
-When device->orientation is 90 or 180, ssd16xx_hw_init() configures Data
-Entry Mode (command 0x11) to SSD16XX_DATA_ENTRY_XDEC_YDEC (0x00), and
-ssd16xx_fb_dirty() sets the RAM X address counter to ram_x_end (49) so that
-it decrements down to 0 across each scanline.
+In drivers/gpu/drm/solomon/ssd16xx.c, ssd16xx_plane_atomic_create_state()
+calls __drm_gem_shadow_plane_state_init(), which does not exist in
+include/drm/drm_gem_atomic_helper.h or anywhere else in the tree:
 
-In SSD16xx byte-addressed RAM, each byte represents 8 horizontal pixels
-along the physical X axis where bit 7 (MSB) drives source line 8 * X_addr +
-0 and bit 0 (LSB) drives source line 8 * X_addr + 7. Decrementing the X
-byte counter reverses the byte order across a scanline (49, 48, ..., 0),
-but does not reverse the bit order within each byte.
+include/drm/drm_gem_atomic_helper.h:
+    void __drm_gem_duplicate_shadow_plane_state(struct drm_plane *plane,
+                                                struct drm_shadow_plane_sta=
+te *new_shadow_plane_state);
+    void __drm_gem_destroy_shadow_plane_state(struct drm_shadow_plane_state=
+ *shadow_plane_state);
+    void __drm_gem_reset_shadow_plane(struct drm_plane *plane,
+                                      struct drm_shadow_plane_state *shadow=
+_plane_state);
 
-Because ssd16xx_convert_fb_to_1bpp() uses the same MSB-first packing
-expression:
+Should this implement a plane .reset callback calling
+__drm_gem_reset_shadow_plane() instead of .atomic_create_state (and drop the
+unused forward declaration of ssd16xx_plane_atomic_destroy_state() above)?
 
-    byte |=3D (1 << (7 - bit_pos));
+[ ... ]
 
-for 90 and 180 degrees as it does for 270 and 0 degrees, pixel 0 is placed
-at physical pixel 392 and pixel 7 at physical pixel 399 in X_addr =3D 49,
-followed by pixel 8 at physical pixel 384 and pixel 15 at physical pixel
-391 in X_addr =3D 48, mirroring each 8-pixel group horizontally.
-
+> @@ -1462,6 +1555,8 @@ static void ssd16xx_plane_atomic_update(struct drm_=
+plane *plane,
+>  	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
+ate, plane);
+>  	struct drm_shadow_plane_state *shadow_state =3D to_drm_shadow_plane_sta=
+te(new_state);
+>  	struct ssd16xx_device *device =3D plane_to_ssd16xx_device(plane);
+> +	struct ssd16xx_plane_state *new_ssd =3D to_ssd16xx_plane_state(new_stat=
+e);
+> +	struct ssd16xx_plane_state *old_ssd =3D to_ssd16xx_plane_state(old_stat=
+e);
+>  	enum ssd16xx_refresh_mode saved_mode;
+>  	u8 saved_border_waveform_idx;
+>  	struct drm_framebuffer *fb =3D new_state->fb;
+> @@ -1495,6 +1590,25 @@ static void ssd16xx_plane_atomic_update(struct drm=
+_plane *plane,
+> =20
+>  	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=3D(%d=
+,%d)-(%d,%d)\n",
+>  		rect.x1, rect.y1, rect.x2, rect.y2);
 > +
-> +static int ssd16xx_fb_dirty(struct drm_framebuffer *fb, struct drm_rect =
-*rect,
-> +			    struct ssd16xx_device *device,
-> +			    const struct iosys_map *src_map)
-> +{
-> +	const u8 *ctrl2_tbl =3D device->controller_cfg->ctrl2_refresh;
-> +	struct iosys_map map =3D *src_map;
-> +	int err =3D 0;
-> +	unsigned int data_size =3D (device->width * device->height) / 8;
-> +	u8 *mono_buffer =3D NULL;
-> +	u8 *red_buffer =3D NULL;
-> +	u16 ram_x_start, ram_x_end, ram_y_start, ram_y_end;
-> +
-> +	/*
-> +	 * Process full display area.  The rect for convert_fb_to_1bpp uses
-> +	 * the framebuffer (logical) dimensions - the pixel iteration walks
-> +	 * the source fb coordinate space. RAM window registers below use
-> +	 * the physical panel dimensions (device->width/height).
+> +	/* Diff refresh_mode against the plane's own previous state to see
+> +	 * whether fast LUT preload is needed.
 > +	 */
-> +	rect->x1 =3D 0;
-> +	rect->y1 =3D 0;
-> +	rect->x2 =3D fb->width;
-> +	rect->y2 =3D fb->height;
-
-[Severity: Critical]
-Can setting rect->x2 =3D fb->width and rect->y2 =3D fb->height here overflow
-device->tx_buf and device->tx_red_buf?
-
-In ssd16xx_probe(), drm->mode_config is configured with:
-
-    drm->mode_config.min_width =3D min(device->width, device->height);
-    drm->mode_config.max_width =3D max(device->width, device->height);
-    drm->mode_config.min_height =3D min(device->width, device->height);
-    drm->mode_config.max_height =3D max(device->width, device->height);
-
-This allows userspace via DRM_IOCTL_MODE_ADDFB2 to create a 400x400
-framebuffer and attach it to the primary plane with a 400x300 or 300x400
-source rectangle matching the CRTC mode, which passes both
-drm_atomic_plane_check() and ssd16xx_plane_atomic_check().
-
-However, ssd16xx_alloc_tx_bufs() allocates device->tx_buf and
-device->tx_red_buf with:
-
-    size_t frame_size =3D max(DIV_ROUND_UP(device->width, 8) * device->heig=
-ht,
-                            DIV_ROUND_UP(device->height, 8) * device->width=
-);
-
-which is 15,200 bytes for a 400x300 panel. Because ssd16xx_fb_dirty()
-overwrites rect with fb->width and fb->height (400x400) rather than the
-active mode/clipped plane dimensions, ssd16xx_convert_fb_to_1bpp() and
-ssd16xx_convert_fb_to_3color() will write (400 / 8) * 400 =3D 20,000 bytes
-into the 15,200-byte heap buffer.
-
-In addition, ssd16xx_crtc_mode_valid() accepts both 400x300 and 300x400
-modes regardless of the static device->orientation configured in
-ssd16xx_probe():
-
-    if ((mode->hdisplay =3D=3D device->mode->hdisplay &&
-         mode->vdisplay =3D=3D device->mode->vdisplay) ||
-        (mode->hdisplay =3D=3D device->mode->vdisplay &&
-         mode->vdisplay =3D=3D device->mode->hdisplay))
-        return MODE_OK;
-
-If userspace commits a 300x400 mode when device->orientation is 0 or 180
-(or 400x300 when orientation is 90 or 270), ssd16xx_convert_fb_to_1bpp()
-packs 38-byte padded rows across 400 rows (15,200 bytes, or 37-byte rows
-totaling 14,800 bytes on the DRM_FORMAT_R1 fast path), while
-ssd16xx_fb_dirty() only zeroes and transmits data_size =3D 15,000 bytes to a
-hardware RAM window programmed for 50-byte rows.
-
-[ ... ]
-
-> +static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
-> +					struct drm_atomic_commit *state)
-> +{
-
-[ ... ]
-
-> +	ret =3D drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
-> +	if (ret) {
-> +		drm_err(&device->drm, "plane_atomic_update: begin_cpu_access failed: %=
-d\n", ret);
-> +		goto out_restore;
+> +	if (old_ssd->refresh_mode !=3D new_ssd->refresh_mode) {
+> +		/*
+> +		 * Fast refresh omits LOAD_LUT each update; arm the
+> +		 * one-shot flag so LUT is pre-loaded before the first
+> +		 * fast frame.
+> +		 */
+> +		if (new_ssd->refresh_mode =3D=3D SSD16XX_REFRESH_FAST &&
+> +		    old_ssd->refresh_mode !=3D SSD16XX_REFRESH_FULL)
+> +			device->fast_lut_pending =3D true;
+> +		else
+> +			device->fast_lut_pending =3D false;
 > +	}
 > +
-> +	ret =3D ssd16xx_fb_dirty(fb, &rect, device, &shadow_state->data[0]);
+> +	device->refresh_mode =3D new_ssd->refresh_mode;
+> +
+>  	/*
+>  	 * When refresh_mode_init was set, use the specified mode for this first
+>  	 * frame only, then restore the user-configured refresh_mode so
+
+[Severity: High]
+Can ssd16xx_plane_atomic_update() in drivers/gpu/drm/solomon/ssd16xx.c miss
+preloading the Mode 1 LUT before executing SSD16XX_REFRESH_FAST?
+
+There appear to be three scenarios where the LUT state and plane state get =
+out
+of sync:
+
+1. If userspace sets refresh_mode to SSD16XX_REFRESH_FAST while the CRTC is
+inactive (where drm_atomic_helper_commit_tail_rpm() passes
+DRM_PLANE_COMMIT_ACTIVE_ONLY and skips ssd16xx_plane_atomic_update()), or w=
+hen
+ssd16xx_plane_atomic_update() returns early before this diff check:
+
+drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_plane_atomic_update() {
+    ...
+	if (!fb)
+		goto out_exit;
+
+	/* Nothing to draw: don't wake the panel up. */
+	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect))
+		goto out_exit;
+    ...
+}
+
+drm_atomic_helper_swap_state() has already updated plane->state to new_stat=
+e,
+while device->refresh_mode and device->fast_lut_pending remain unchanged. On
+the next commit that actually draws a frame,
+ssd16xx_plane_atomic_duplicate_state() copies plane->state, so both
+old_ssd->refresh_mode and new_ssd->refresh_mode are SSD16XX_REFRESH_FAST. A=
+s a
+result, neither ssd16xx_crtc_atomic_enable() -> ssd16xx_hw_init() (which st=
+ill
+sees the stale device->refresh_mode) nor ssd16xx_plane_atomic_update() (whi=
+ch
+sees old_ssd->refresh_mode =3D=3D new_ssd->refresh_mode) will preload the f=
+ast
+LUT.
+
+2. In ssd16xx_plane_atomic_update(), pm_runtime_resume_and_get() is called
+before device->refresh_mode is updated from new_ssd->refresh_mode. If the
+panel was in SSD16XX_REFRESH_FULL mode and entered runtime suspend, waking =
+the
+device on a commit that switches from SSD16XX_REFRESH_FULL to
+SSD16XX_REFRESH_FAST runs:
+
+pm_runtime_resume_and_get()
+  -> ssd16xx_pm_runtime_resume()
+    -> ssd16xx_hw_init()
+
+ssd16xx_hw_init() resets the controller (wiping the LUT) and checks
+device->refresh_mode =3D=3D SSD16XX_REFRESH_FAST, which is still
+SSD16XX_REFRESH_FULL, so it skips the LUT preload. Then
+ssd16xx_plane_atomic_update() checks old_ssd->refresh_mode !=3D
+SSD16XX_REFRESH_FULL, which is false, and sets device->fast_lut_pending =3D
+false even though the controller was just reset.
+
+3. Right below this hunk in ssd16xx_plane_atomic_update(), when
+device->init_refresh_pending is true on the first frame, device->refresh_mo=
+de
+is temporarily overridden with device->refresh_mode_init, but
+device->fast_lut_pending is still consumed and cleared before
+ssd16xx_fb_dirty() runs:
+
+drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_plane_atomic_update() {
+    ...
+	if (device->init_refresh_pending) {
+		device->refresh_mode =3D device->refresh_mode_init;
+		device->border_waveform_update_idx =3D device->border_waveform_init_idx;
+	}
+
+	if (device->fast_lut_pending) {
+		ret =3D ssd16xx_preload_fast_lut(device);
+		...
+		device->fast_lut_pending =3D false;
+	}
+    ...
+}
+
+If refresh_mode_init is SSD16XX_REFRESH_PARTIAL, ssd16xx_fb_dirty() will lo=
+ad
+the Mode 2 partial LUT for that first frame, overwriting the preloaded Mode=
+ 1
+LUT before subsequent SSD16XX_REFRESH_FAST frames execute.
+
+Would it be more reliable to track what LUT mode is currently loaded in the
+hardware (resetting that tracking in ssd16xx_hw_init() and updating it when
+ssd16xx_fb_dirty() or ssd16xx_preload_fast_lut() runs), rather than diffing
+old_ssd->refresh_mode against new_ssd->refresh_mode?
+
+[ ... ]
+
+> @@ -2057,6 +2194,9 @@ static int ssd16xx_probe(struct spi_device *spi)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D ssd16xx_plane_create_properties(device);
 > +	if (ret)
-> +		drm_err(&device->drm, "plane_atomic_update: display update failed: %d\=
-n", ret);
-> +
-> +	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-> +
-> +out_restore:
-> +	device->refresh_mode =3D saved_mode;
-> +	device->border_waveform_update_idx =3D saved_border_waveform_idx;
-> +
-> +	/*
-> +	 * If this was the init frame (which used border_waveform_init_idx
-> +	 * inside fb_dirty), arm border_waveform_pending so the normal
-> +	 * (non-init) border value is sent at the start of the next update.
-> +	 */
-> +	if (device->init_refresh_pending) {
-> +		device->init_refresh_pending =3D false;
-> +		device->border_waveform_pending =3D true;
-> +	}
-
-[Severity: Medium]
-If drm_gem_fb_begin_cpu_access() or ssd16xx_fb_dirty() fails during the
-initial frame, should device->init_refresh_pending remain set instead of
-being cleared at out_restore?
-
-Clearing device->init_refresh_pending on the error path causes subsequent
-frames to skip the initial full refresh and perform partial refreshes
-without a valid RED RAM baseline.
+> +		return ret;
+>  	drm_mode_config_reset(drm);
+> =20
+>  	/*
 
 [ ... ]
-
-> +static int ssd16xx_connector_get_modes(struct drm_connector *connector)
-> +{
-> +	struct ssd16xx_device *device =3D to_ssd16xx_device(connector->dev);
-> +	bool mode_is_portrait =3D (device->mode->hdisplay < device->mode->vdisp=
-lay);
-> +	bool orient_is_portrait =3D (device->orientation =3D=3D 90 || device->o=
-rientation =3D=3D 270);
-> +
-> +	drm_dbg(&device->drm,
-> +		"connector_get_modes: orientation=3D%u=C2=B0 mode=3D%ux%u mode_portrai=
-t=3D%d orient_portrait=3D%d\n",
-> +		device->orientation, device->mode->hdisplay, device->mode->vdisplay,
-> +		mode_is_portrait, orient_is_portrait);
-> +
-> +	/* For portrait, swap dimensions so clients see logical size. */
-> +	if (mode_is_portrait !=3D orient_is_portrait) {
-> +		struct drm_display_mode *mode;
-> +
-> +		mode =3D drm_mode_duplicate(&device->drm, device->mode);
-> +		if (!mode)
-> +			return 0;
-> +		swap(mode->hdisplay, mode->vdisplay);
-> +		swap(mode->hsync_start, mode->vsync_start);
-> +		swap(mode->hsync_end, mode->vsync_end);
-> +		swap(mode->htotal, mode->vtotal);
-> +		swap(mode->width_mm, mode->height_mm);
-> +		mode->type |=3D DRM_MODE_TYPE_PREFERRED;
-> +		drm_mode_set_name(mode);
-> +		drm_mode_probed_add(connector, mode);
-> +		return 1;
-> +	}
-> +
-> +	return drm_connector_helper_get_modes_fixed(connector, device->mode);
-> +}
-
-[Severity: Low]
-Since ssd16xx_probe() already swaps device->mode in-place when
-device->orientation is 90 or 270, is the swap check in
-ssd16xx_connector_get_modes() redundant?
-
-For natively landscape panels like GDEY042T81, device->mode->hdisplay <
-device->mode->vdisplay is already true when orient_is_portrait is true, so
-mode_is_portrait !=3D orient_is_portrait is never taken. Conversely, for any
-natively portrait panel, mode_is_portrait !=3D orient_is_portrait would be
-true in all orientations and undo the swap performed in ssd16xx_probe()
-(while also skipping the connector->display_info.width_mm and height_mm
-assignments done by drm_connector_helper_get_modes_fixed()).
-
-[ ... ]
-
-> +static int ssd16xx_probe(struct spi_device *spi)
-> +{
-
-[ ... ]
-
-> +	mode =3D devm_kmemdup(dev, device->device_cfg->mode,
-> +			    sizeof(*device->device_cfg->mode), GFP_KERNEL);
-> +	if (!mode)
-> +		return -ENOMEM;
-
-[Severity: Medium]
-Can allocating device->mode with devm_kmemdup() lead to a use-after-free
-after the SPI device is unbound?
-
-While struct ssd16xx_device is allocated via devm_drm_dev_alloc() and stays
-alive until the last open DRM file descriptor is closed, devm_kmemdup()
-ties device->mode to the SPI struct device devres list, which is freed as
-soon as ssd16xx_remove() returns.
-
-If an in-flight KMS ioctl (such as DRM_IOCTL_MODE_GETCONNECTOR or
-DRM_IOCTL_MODE_SETCRTC) passes the initial unplug check in
-drm_ioctl_kernel() and waits on modeset locks while ssd16xx_remove() runs,
-it can subsequently invoke ssd16xx_connector_get_modes() or
-ssd16xx_crtc_mode_valid() (neither of which is guarded by drm_dev_enter())
-and dereference device->mode after devres_release_all() has freed it.
-Would embedding struct drm_display_mode directly in struct ssd16xx_device
-(or using drmm_kmemdup()) avoid this lifetime mismatch?
-
-> +
-> +	device->refresh_mode =3D device->device_cfg->default_refresh_mode;
-
-[ ... ]
-
-> +	/* Swap mode dimensions for portrait so clients see logical size. */
-> +	if (device->orientation =3D=3D 90 || device->orientation =3D=3D 270) {
-> +		swap(mode->hdisplay, mode->vdisplay);
-> +		swap(mode->hsync_start, mode->vsync_start);
-> +		swap(mode->hsync_end, mode->vsync_end);
-> +		swap(mode->htotal, mode->vtotal);
-> +		swap(mode->width_mm, mode->height_mm);
-> +		drm_dbg(drm, "Mode dimensions swapped for portrait: %ux%u\n",
-> +			mode->hdisplay, mode->vdisplay);
-> +	} else {
-> +		drm_dbg(drm, "Mode dimensions unchanged: %ux%u\n",
-> +			mode->hdisplay, mode->vdisplay);
-> +	}
-> +	device->mode =3D mode;
-
-[ ... ]
-
-> +static void ssd16xx_remove(struct spi_device *spi)
-> +{
-> +	struct ssd16xx_device *device =3D spi_get_drvdata(spi);
-> +
-> +	drm_dev_unplug(&device->drm);
-> +	drm_atomic_helper_shutdown(&device->drm);
-> +}
-
-[ ... ]
-
-> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019213726.4145=
-532-1-devarsht@ti.com?part=3D4
+532-1-devarsht@ti.com?part=3D8
