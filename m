@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26490CCF2DB
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 10:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EE85CCF2DB
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 10:36:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA7C10EA17;
-	Mon, 19 Oct 2026 10:34:14 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F189910EA17
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:34:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC6E110E4D6;
+	Mon, 19 Oct 2026 10:36:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71C7D10E4D6
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:36:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6599A4161E;
- Mon, 19 Oct 2026 10:34:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009531F000C4;
- Mon, 19 Oct 2026 10:34:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 87227600CB;
+ Mon, 19 Oct 2026 10:36:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F6E1F000C4;
+ Mon, 19 Oct 2026 10:36:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792406047;
- bh=BxFJg1WeFW7LYxavisv8eBBfuyz6duDUtX3mBa2YhYs=;
+ s=k20260515; t=1792406170;
+ bh=PI9AeKxwP0CwhGbVllNbx6krpwtM2PRvUhXT8Vzgt5M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=a8HY3GLWLkQWLh72816xMNviirN4f0vjbLH2kvDhaKa0n4iULLYjbXftjvW5Kzwos
- Yak6w1RKrPXL93g26dgM2oy4X48ak8F5aS9o1SdciNQySjTX8Y471p7hguuPGXNRLd
- 1Xtdg5jXLKAaebefb2HXaohnqkkvIcxFwfn2J9YcVoCl9rmUXpGPu0e63wSQpgy9FQ
- yNntfbEiOCAB2y+x0kqDGjR1FaP26REvYNk0MSwNJ6OFutZuXfKWiVoYRgjg8LObgL
- 6KVcYiu+bI3xBs7zzvXU9RvIKy1RyTSQD5wCJibID0Ej5jMcW/yf3cZjQbHKlOuhXO
- U7YNJTz6BmB8w==
-Message-ID: <sashiko-outbox-176995@kernel.org>
+ b=NGb2tfKGnDil3eYBe7ZpO4AmaGnOXX2vMjzwldNag7D3T1wlMkCSK0DcZxZh8Jdhr
+ eVdf4ajMa9vNotnWujq1qzu4sh2zKR1AvtODC0Wu3TSLnPbGen1OIiyGlxBm7KxNHR
+ vkmymdGjq+Mx0ZxBsSiDSX2cS7VUElLVg2yY9YJp2xn3GA66s/RukJ5KsdqDwAgK6Y
+ vZl+0d1jUDyyr1f5arLLUZ+zwGhyYuEBV2TAPCP9P/NKZceWY5mpEeB0iBykBBcxrl
+ D1iwOseVSHRH6QZX4xYxA1ivwthJsx0FgeBBxFFYxdiKiy1CRW+J+r/osTUqFwG66O
+ Xu/ruwb0r72ag==
+Message-ID: <sashiko-outbox-177001@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] drm/bridge: simple-bridge: Support
- data-enable-active endpoint property
+Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
 To: "Leonardo Costa" <leoreis.costa@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
 References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 10:34:06 +0000
+Date: Mon, 19 Oct 2026 10:36:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,107 +55,70 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/bridge: simple-bridge: missing atomic_check() to propagate DE =
-bus flags
-- [Medium] drm/bridge: simple-bridge: timings devm_kzalloc() lifetime misma=
-tch
+- [High] ARM: dts: imx6q-apalis: VGA data-enable-active ignored by simple-b=
+ridge
 --
 
-commit 17d03fa8dcd99e5bb3af7da622344c856ca2c887
+commit a66c8dd73182954ba43ed81cada90ae73edf93a0
 Author: Leonardo Costa <leonardo.costa@toradex.com>
 
-drm/bridge: simple-bridge: Support data-enable-active endpoint property
+ARM: dts: imx6q-apalis: Add VGA overlay
 
-This commit reads the data-enable-active property from the input endpoint in
-simple_bridge_probe() and allocates a drm_bridge_timings structure to set
-DRM_BUS_FLAG_DE_HIGH or DRM_BUS_FLAG_DE_LOW in input_bus_flags when the bri=
-dge
-does not already define its own timings.
+This commit adds a device tree overlay for the VGA output on the Apalis
+Evaluation Board, connecting the parallel RGB display interface to a
+non-programmable video DAC and VGA connector with an active-low data-enable
+signal, and wires up composite DTB targets in the Makefile.
 
-> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bri=
-dge/simple-bridge.c
-> index 3fba7002322e9..393228bed6e28 100644
-> --- a/drivers/gpu/drm/bridge/simple-bridge.c
-> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
-> @@ -171,6 +171,9 @@ static int simple_bridge_probe(struct platform_device=
- *pdev)
->  {
->  	struct simple_bridge *sbridge;
->  	struct device_node *remote;
-> +	struct device_node *ep;
-> +	bool de_present;
-> +	u32 de;
-> =20
->  	sbridge =3D devm_drm_bridge_alloc(&pdev->dev, struct simple_bridge,
->  					bridge, &simple_bridge_bridge_funcs);
-> @@ -208,10 +211,26 @@ static int simple_bridge_probe(struct platform_devi=
-ce *pdev)
->  		return dev_err_probe(&pdev->dev, PTR_ERR(sbridge->enable),
->  				     "Unable to retrieve enable GPIO\n");
-> =20
-> -	/* Register the bridge. */
->  	sbridge->bridge.of_node =3D pdev->dev.of_node;
->  	sbridge->bridge.timings =3D sbridge->info->timings;
-> =20
-> +	ep =3D of_graph_get_endpoint_by_regs(pdev->dev.of_node, 0, -1);
-> +	de_present =3D !of_property_read_u32(ep, "data-enable-active", &de);
-> +	of_node_put(ep);
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso b/arch/=
+arm/boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso
+> new file mode 100644
+> index 0000000000000..991c2b7c27773
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso
+> @@ -0,0 +1,80 @@
+
+[ ... ]
+
+> +	vga-encoder {
+> +		compatible =3D "dumb-vga-dac";
 > +
-> +	if (de_present && !sbridge->bridge.timings) {
-> +		struct drm_bridge_timings *timings;
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
 > +
-> +		timings =3D devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
-> +		if (!timings)
-> +			return -ENOMEM;
-
-[Severity: Medium]
-Can allocating timings with devm_kzalloc() in simple_bridge_probe() cause a
-lifetime mismatch with sbridge->bridge?
-
-sbridge is allocated via devm_drm_bridge_alloc(), which manages the contain=
-er's
-lifetime through sbridge->bridge.refcount and only frees it in
-__drm_bridge_free() after all drm_bridge references are dropped:
-
-drivers/gpu/drm/drm_bridge.c:__drm_bridge_free()
-	if (bridge->funcs->destroy)
-		bridge->funcs->destroy(bridge);
-
-	drm_bridge_put(bridge->next_bridge);
-
-	kfree(bridge->container);
-
-If pdev is unbound while an upstream bridge or encoder still holds a refere=
-nce
-to sbridge->bridge, devres_release_all() will free timings immediately, lea=
-ving
-sbridge->bridge.timings as a dangling pointer that can be dereferenced by
-upstream drivers (for example, in imx8mp_hdmi_pvi_bridge_enable()).
-
-Would embedding struct drm_bridge_timings inside struct simple_bridge (as d=
-one
-in lvds-codec.c and ti-tfp410.c), or pointing to static const
-drm_bridge_timings instances for DRM_BUS_FLAG_DE_HIGH and DRM_BUS_FLAG_DE_L=
-OW,
-avoid this lifetime mismatch?
-
+> +			port@0 {
+> +				reg =3D <0>;
 > +
-> +		timings->input_bus_flags =3D de ? DRM_BUS_FLAG_DE_HIGH :
-> +						DRM_BUS_FLAG_DE_LOW;
-> +		sbridge->bridge.timings =3D timings;
-> +	}
+> +				vga_enc_in: endpoint {
+> +					data-enable-active =3D <0>;
+> +					remote-endpoint =3D <&vga_display_out>;
+> +				};
+> +			};
 
 [Severity: High]
-Will setting only sbridge->bridge.timings->input_bus_flags actually propaga=
-te
-the DE polarity to upstream atomic encoders and bridges?
+Does data-enable-active =3D <0> on vga_enc_in actually reach the IPUv3
+CRTC?
 
-simple_bridge_bridge_funcs registers atomic state callbacks without an
-.atomic_check callback:
+In simple_bridge_probe() in drivers/gpu/drm/bridge/simple-bridge.c, the
+data-enable-active property is parsed into timings->input_bus_flags:
 
-drivers/gpu/drm/bridge/simple-bridge.c:
+	if (de_present && !sbridge->bridge.timings) {
+		struct drm_bridge_timings *timings;
+
+		timings =3D devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
+		if (!timings)
+			return -ENOMEM;
+
+		timings->input_bus_flags =3D de ? DRM_BUS_FLAG_DE_HIGH :
+						DRM_BUS_FLAG_DE_LOW;
+		sbridge->bridge.timings =3D timings;
+	}
+
+However, simple_bridge_bridge_funcs registers atomic bridge state
+callbacks without an .atomic_check callback:
+
 static const struct drm_bridge_funcs simple_bridge_bridge_funcs =3D {
 	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
 	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
@@ -166,44 +128,40 @@ static const struct drm_bridge_funcs simple_bridge_bridge_funcs =3D {
 	.atomic_disable =3D simple_bridge_disable,
 };
 
-During an atomic modeset, drm_atomic_bridge_chain_check() calls
-drm_atomic_bridge_propagate_bus_flags(), which overwrites
-bridge_state->input_bus_cfg.flags with output_flags from the downstream bri=
-dge
-or connector (0 for a VGA connector) and never checks
-bridge->timings->input_bus_flags:
+During drm_atomic_bridge_chain_check() ->
+drm_atomic_bridge_propagate_bus_flags(), sbridge's
+bridge_state->input_bus_cfg.flags is overwritten with the downstream
+display-connector bridge's input_bus_cfg.flags (which is 0), and
+sbridge->bridge.timings->input_bus_flags is never copied into
+bridge_state->input_bus_cfg.flags.
 
-drivers/gpu/drm/drm_bridge.c:drm_atomic_bridge_propagate_bus_flags()
-	bridge_state->output_bus_cfg.flags =3D output_flags;
-	...
-	bridge_state->input_bus_cfg.flags =3D output_flags;
+Then, upstream in imx_pd_bridge_atomic_check() in
+drivers/gpu/drm/imx/ipuv3/parallel-display.c:
 
-Because simple-bridge has a valid drm_bridge_state, upstream bridges and at=
-omic
-encoders such as imx_pd_bridge_atomic_check() in
-drivers/gpu/drm/imx/ipuv3/parallel-display.c read
-next_bridge_state->input_bus_cfg.flags instead of
-next_bridge->timings->input_bus_flags:
+	if (next_bridge)
+		next_bridge_state =3D drm_atomic_get_new_bridge_state(crtc_state->state,
+								    next_bridge);
 
-drivers/gpu/drm/imx/ipuv3/parallel-display.c:imx_pd_bridge_atomic_check()
 	if (next_bridge_state)
 		bus_flags =3D next_bridge_state->input_bus_cfg.flags;
 	else
 		bus_flags =3D di->bus_flags;
 
-As a result, bus_flags remains 0 instead of DRM_BUS_FLAG_DE_LOW or
-DRM_BUS_FLAG_DE_HIGH.
+Because next_bridge_state is non-NULL, bus_flags is read as 0 from
+next_bridge_state->input_bus_cfg.flags without consulting
+next_bridge->timings->input_bus_flags.
 
-Should simple_bridge_bridge_funcs implement an .atomic_check callback that
-copies sbridge->bridge.timings->input_bus_flags into
-bridge_state->input_bus_cfg.flags (similar to tfp410_atomic_check() in
-drivers/gpu/drm/bridge/ti-tfp410.c)?
+When ipu_crtc_mode_set_nofb() -> ipu_di_init_sync_panel() runs,
+sig_cfg.enable_pol =3D !(imx_crtc_state->bus_flags & DRM_BUS_FLAG_DE_LOW)
+evaluates to 1, driving the data-enable pin active-high instead of
+active-low and gating off the VGA DAC output during active video.
 
-> +
-> +	/* Register the bridge. */
->  	return devm_drm_bridge_add(&pdev->dev, &sbridge->bridge);
->  }
+Should simple-bridge implement .atomic_check to populate
+bridge_state->input_bus_cfg.flags from bridge->timings->input_bus_flags
+ so the active-low polarity is propagated to imx-parallel-display?
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-v2-apalis-=
-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com?part=3D2
+imx6-enable-vga-v2-0-ef6a3a780472@toradex.com?part=3D3
