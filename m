@@ -4,133 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7006CCF2DB
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:28:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F6A3CCF2DB
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:29:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02A9110E0DB;
-	Mon, 19 Oct 2026 13:27:58 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA67210E0DB
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:27:46 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69JCsUdF2483450
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:27:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- VzSWM0qjlnwVL0p0Q5tt8OPvdg+HopCHeCS0win3WeQ=; b=Du6rHsLa1o+uVv4p
- avJ5ig2JCVloBqKJXUcI7LZN2UAmOs5Z9/hVLb3EY0OdtCg3r+fi7lk1QZwdkF71
- QeBQQ2UTYFWuMGPuVcm4Us8405DUS9oSO3i9s0IeSyZqar/4kxPe1VA1gxbz8rFD
- mkZFgguZ7SUc3WIpvtoiEy/R9pCtv8Sjgoejt6luPrLdExbPaOdJjQklWq9MLo5A
- oMyelj06IEX0KvKAI8q6cCuxp+bdDQhafdcMzoov3Fn8k5qRXYDWPcSOpGQtjllC
- Vrn9XfKytotRmcO1WuFYktDi/mwzdCt9Skp8635KX/odZzmBqmAoZvIjNziaB+2e
- 6TQJxg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdkmfg4ps-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:27:45 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93ea8a9cfe6so83399585a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 06:27:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792416465; x=1793021265;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=VzSWM0qjlnwVL0p0Q5tt8OPvdg+HopCHeCS0win3WeQ=;
- b=Th3wruMTgt5coeLhbunPo1Dq19kXHyteuBmTgi2WGBdC9HJEGl3jk5aQlGC6iSMkk8
- X3iZkhY8QK31R2w2+1MNSkhcURbCIDEls4XO9XejHabDj/sDE7L6nO0cNrmFJLLH4+BR
- PtKcGO2PvuxYSczZWBcSstOqizjR5/PbFiGKXOe2BaqY+RBMst+BgsT3LZqHSDcYepNX
- DL8yJwV/jV6h7yDYAeAHuT+KQMqoGKaA4PM+2vZzGE0+AfpPJ2MfqNrZwxI9qQ17xfB2
- FFnqSd60H6Ti29VPtYAaXLGMxchiCA0nveUCWBLDpbYoKm4nCj9+V8mZrcMbtZn16acy
- AdlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792416465; x=1793021265;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=VzSWM0qjlnwVL0p0Q5tt8OPvdg+HopCHeCS0win3WeQ=;
- b=lO6F8j1W2CUgytbnU/m3QsMag/UbAumkOLj74p+qccAqG50g55Hhml7vkICkS/KjOU
- 6e7SWD5+eEi1bRX5rBDe6PvXxYiTaXrjn4dG0Oh0KA9sIRQ+yCVCDDOKTa2L4iTtBVCf
- 8+CvOxn4Txy5WrgvPbKPPVUFaqmJZXOTA9CXH5EwwluNq6uiuYON6xzONmo89IBJ8bxM
- bDPYjl4bbaqlj90Ig+BgoouqTtXfcTklWdfvECuyNpOxe4IeYmOWcqJy1wNbtvxzDlFC
- yQfvTJBn977bUf8hFb0JZs80nqs1pND1ay60Qn/J7hp+bkairySRoHHulcX7zhgfxeTP
- +XSQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxXT2I+QjvAd11HR/dN4pyicj69DcUXSs8kGmzWTswnIBUh+07at/oOtHBBE24CZy0tCJkfK82HSiU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKlEje6RbnZZaAVX3AnTvg9Hv4udw8waYKQ6c9ObT1SV6MTua9f
- IfHxcsnMk9Usi+zG4Hk9KCjvs7dMA5WMF68qpe99buL8G5WZmTsnDfNgJbvK9/0Q2ext1ZAxK0d
- qPRv+I7Zt5rSdZo84XJpviGASDfzFtfp6YXtUSKkvoMzeHqKdgfBZb5x7L76MwuxpDHyBqag=
-X-Gm-Gg: AYBFou1CL2EnucSixXvRpomy6ER21RTz1u7CUavt5Mxa89C1wAPKy6bTIAplkzOPW+Q
- pXWS38k8VtpgaZiw0/ZZUcUucc7YxH8FHq0w4B5/Cq6jweg/O0RG+n64F6q7Vg27dQx9voLY8ur
- dKAHIheOdKKRYmp36YkbuN9dXx2LIkndJBWtiJzy+sMHx5tqf/z53ulP7X7l4j4CYhEQO1IVEvV
- IQmGOyagf/ab4o62p5pDL1Eb0lC6JtfRqjkB/aCQ962huVZnvrMaKl76AJnxgjTgYH6ZlO6L7TB
- eqsHIBLYmg0sEiGAMGGb4WDtutU9nhY+euC8fD6nOQUaxwz2YhvDDvAdZZi2bXY7uUl9MwKmQj0
- QXzru41P9xoUBnF9powmWWQ==
-X-Received: by 2002:a05:620a:4402:b0:93e:508b:7800 with SMTP id
- af79cd13be357-93f29a21553mr1469818485a.0.1792416464345; 
- Mon, 19 Oct 2026 06:27:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:4402:b0:93e:508b:7800 with SMTP id
- af79cd13be357-93f29a21553mr1469811985a.0.1792416463768; 
- Mon, 19 Oct 2026 06:27:43 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b38a1b1347sm4058496a12.12.2026.10.19.06.27.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Oct 2026 06:27:41 -0700 (PDT)
-Message-ID: <9ee7225b-588b-4253-b766-5e6ee6dffb04@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 15:27:39 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D94F10ED3A;
+	Mon, 19 Oct 2026 13:28:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72C8610E0F6
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:28:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792416529; x=1823952529;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=GMqklCenpFaYaxcJvPNUFIppL+AjgLQQ3Ow/FoEWGV0=;
+ b=RXO4FDENirKyR5irl2MznkiNeWeLGn/AgOIj8b9bpDsA2YkbDPFs0Sxg
+ fZ1RDE/RquJVlpzwJpbtN0NaRqAW+wV13gbddr9e/85lQBcMMamm1o28A
+ efJamao0bXNA76qDqLitrgppbSFksDLEGuQquxXnNiSN1nyXszRoFUXQh
+ CfPodU1tQ4RBUvc0tCt9TcVNosbIBEZ9BAncOhilsbeNgvLpthU+MytAE
+ UprojQ31c/59sQmaaH9ahGUkXZgQfjjMvSyoZR38nmimpL+KZiONnZNSj
+ E1RSuGpqS8P6TDPug5WrmJg0+obM7ZNkh6X/5pC1fh4E6CGzOlBLYqNVr w==;
+X-CSE-ConnectionGUID: eT5okAVxRCOGYbj0cLlvvA==
+X-CSE-MsgGUID: fJd/chd5TNOKlm/bKi1n8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="995806"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="995806"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 06:28:48 -0700
+X-CSE-ConnectionGUID: BQpdfbZKRlu92tPvzvxVUg==
+X-CSE-MsgGUID: 0qNzjuEDRCaKJgpO70C1rQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2413921"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.21])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 06:28:44 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Arnd Bergmann <arnd@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Arnd Bergmann <arnd@arndb.de>, "Mario Limonciello (AMD)"
+ <superm1@kernel.org>, Chenyu Chen <chen-yu.chen@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/edid: reduce update_display_info() stack usage
+In-Reply-To: <20261013205223.2396822-1-arnd@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261013205223.2396822-1-arnd@kernel.org>
+Date: Mon, 19 Oct 2026 16:28:41 +0300
+Message-ID: <6c18da11310ced4a7c85ac7862c3f5c67b39891a@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dpu: keep vblank enabled when entering self
- refresh
-To: =?UTF-8?B?UmFtw7NuIEplc8O6cyBNaXJhbmRh?= <ramonjesusmiranda@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261018155423.1299629-1-ramonjesusmiranda@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261018155423.1299629-1-ramonjesusmiranda@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: ycVIsYeIOfnZneLi9pRSnztMvlzhnifF
-X-Authority-Analysis: v=2.4 cv=O+isLx9W c=1 sm=1 tr=0 ts=6ad61ad1 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=pGLkceISAAAA:8 a=v0c-XO7ZLijyoodaFGUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1MyBTYWx0ZWRfX/4g4JGRiH6tQ
- wvUqUEvP0ZEw8M/7t8c2ZiavWbK3mPeBCqmI2MiWYKCrhIViN/QdNRIjE2sUpMnjIWT7ypHJbuL
- lrUBb3y2rE1q6GjjV+zSFrV+OR37KSS/d1Xw84bqZ5NMId1dQ3rKKl/8Fsxor1maJoXCJcH8zbd
- GFyaDJ0sECm9vLljr9SYL5jyT2958sLh500zuxqMGd/ceLy/0ratdwSR4E6L8xaG1mQIQtiCEiK
- 2X3tmJc7mmtjLBXhM260XtM1rhGwLKf+jcSCrcQnTk9bIzrbn9SBKPEN3bha3Tnr/TsupNDLW2T
- KLGtMuCOo4jUtAQPgcHS2irvWVVKuThyAKkGxBTw2L/1epLdlddT/WyJ6yIrREQrE1ykPSEGI33
- 9QiTsCBhUUhoju4ppZt4PgUpQkeSgtfkoSApGDR18Rb0xJnm7RdVGoyDm0R6Xt7FT2uyjkv5AU6
- 3Oodo3EAf0DQYv7EWFQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1MyBTYWx0ZWRfXwbtlmk3yJE62
- g0bWwjKKjX5+MzHcWUzc9GzR9ZYl9jJ7WZi7uS6qM/8v9bwPRATNiywRY9t+jM9WrLz5scR6Q/6
- QgbnPHo9wm6rVAGFXE7Lxm5RJ0VWvUk=
-X-Proofpoint-ORIG-GUID: ycVIsYeIOfnZneLi9pRSnztMvlzhnifF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 spamscore=0 clxscore=1015 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190053
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,33 +74,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/18/26 5:54 PM, Ramón Jesús Miranda wrote:
-> When the CRTC is disabled to enter self refresh, dpu_crtc_disable() only
-> checks old_crtc_state->self_refresh_active, which covers leaving self
-> refresh, and calls drm_crtc_vblank_off() otherwise. The atomic helper
-> then expects vblank to remain enabled for a self refresh "disable" and
-> warns:
-> 
->   driver disabled vblank in self-refresh
->   WARNING: drivers/gpu/drm/drm_atomic_helper.c:1296 at
->   drm_atomic_helper_commit_crtc_disable+0x1c0/0x1f8 [drm_kms_helper]
-> 
-> Skip drm_crtc_vblank_off() when the new state enters self refresh, as
-> other drivers supporting self refresh do. drm_crtc_vblank_on() in the
-> enable path is safe either way, it only drops the reference taken by
-> drm_crtc_vblank_off().
-> 
-> Seen at every boot on a Microsoft Surface Pro 11 (X1E80100, Samsung OLED
-> eDP panel) with eDP PSR enabled; with this change the warning is gone and
-> self refresh keeps working.
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Ramón Jesús Miranda <ramonjesusmiranda@gmail.com>
+On Tue, 13 Oct 2026, Arnd Bergmann <arnd@kernel.org> wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The drm_parse_cea_ext() calls into nine individual parser functions
+> based on the data format. If all of those get inlined and KASAN_STACK
+> is enabled, this can explode the combined stack usage beyond a
+> reasonable amount:
+>
+> drivers/gpu/drm/drm_edid.c: In function 'update_display_info':
+> drivers/gpu/drm/drm_edid.c:7040:1: error: the frame size of 1888 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
+>  7040 | }
+>       | ^
+>
+> Mark all of the individual parser functions as noinline_for_stack
+> to avoid this and keep their stack frames separate. This reduces
+> the stack usage for update_display_info/drm_parse_cea_ext to
+> a more manageable 744 bytes, while each parser only adds at most
+> 200 bytes on top.
+
+Is there really no way to tell the compiler to not do silly things in a
+more generic way?
+
+BR,
+Jani.
+
+
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > ---
+>  drivers/gpu/drm/drm_edid.c | 31 +++++++++++++++++--------------
+>  1 file changed, 17 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 3148038747b6..913a8bbe8894 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -5341,8 +5341,9 @@ static int edid_hfeeodb_extension_block_count(const struct edid *edid)
+>   * etc). For example, if the bit 0 in bitmap is set, first mode in VDB can
+>   * support YCBCR420 output too.
+>   */
+> -static void parse_cta_y420cmdb(struct drm_connector *connector,
+> -			       const struct cea_db *db, u64 *y420cmdb_map)
+> +static noinline_for_stack void
+> +parse_cta_y420cmdb(struct drm_connector *connector, const struct cea_db *db,
+> +		   u64 *y420cmdb_map)
+>  {
+>  	struct drm_display_info *info = &connector->display_info;
+>  	int i, map_len = cea_db_payload_len(db) - 1;
+> @@ -5515,7 +5516,7 @@ static uint8_t hdr_metadata_type(const u8 *edid_ext)
+>  		BIT(HDMI_STATIC_METADATA_TYPE1);
+>  }
+>  
+> -static void
+> +static noinline_for_stack void
+>  drm_parse_hdr_metadata_block(struct drm_connector *connector, const u8 *db)
+>  {
+>  	struct hdr_static_metadata *hdr_metadata =
+> @@ -6070,7 +6071,8 @@ drm_default_rgb_quant_range(const struct drm_display_mode *mode)
+>  EXPORT_SYMBOL(drm_default_rgb_quant_range);
+>  
+>  /* CTA-861 Video Data Block (CTA VDB) */
+> -static void parse_cta_vdb(struct drm_connector *connector, const struct cea_db *db)
+> +static noinline_for_stack void
+> +parse_cta_vdb(struct drm_connector *connector, const struct cea_db *db)
+>  {
+>  	struct drm_display_info *info = &connector->display_info;
+>  	int i, vic_index, len = cea_db_payload_len(db);
+> @@ -6136,8 +6138,8 @@ static bool cta_vdb_has_vic(const struct drm_connector *connector, u8 vic)
+>  }
+>  
+>  /* CTA-861-H YCbCr 4:2:0 Video Data Block (CTA Y420VDB) */
+> -static void parse_cta_y420vdb(struct drm_connector *connector,
+> -			      const struct cea_db *db)
+> +static noinline_for_stack void
+> +parse_cta_y420vdb(struct drm_connector *connector, const struct cea_db *db)
+>  {
+>  	struct drm_display_info *info = &connector->display_info;
+>  	struct drm_hdmi_info *hdmi = &info->hdmi;
+> @@ -6155,7 +6157,8 @@ static void parse_cta_y420vdb(struct drm_connector *connector,
+>  	}
+>  }
+>  
+> -static void drm_parse_vcdb(struct drm_connector *connector, const u8 *db)
+> +static noinline_for_stack void
+> +drm_parse_vcdb(struct drm_connector *connector, const u8 *db)
+>  {
+>  	struct drm_display_info *info = &connector->display_info;
+>  
+> @@ -6310,8 +6313,8 @@ static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
+>  }
+>  
+>  /* Sink Capability Data Structure */
+> -static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+> -				      const u8 *hf_scds)
+> +static noinline_for_stack void
+> +drm_parse_hdmi_forum_scds(struct drm_connector *connector, const u8 *hf_scds)
+>  {
+>  	struct drm_display_info *info = &connector->display_info;
+>  	struct drm_hdmi_info *hdmi = &info->hdmi;
+> @@ -6451,7 +6454,7 @@ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+>  }
+>  
+>  /* HDMI Vendor-Specific Data Block (HDMI VSDB, H14b-VSDB) */
+> -static void
+> +static noinline_for_stack void
+>  drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
+>  {
+>  	struct drm_display_info *info = &connector->display_info;
+> @@ -6486,8 +6489,8 @@ drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
+>   * See EDID extension for head-mounted and specialized monitors, specified at:
+>   * https://docs.microsoft.com/en-us/windows-hardware/drivers/display/specialized-monitors-edid-extension
+>   */
+> -static void drm_parse_microsoft_vsdb(struct drm_connector *connector,
+> -				     const u8 *db)
+> +static noinline_for_stack void
+> +drm_parse_microsoft_vsdb(struct drm_connector *connector, const u8 *db)
+>  {
+>  	struct drm_display_info *info = &connector->display_info;
+>  	u8 version = db[4];
+> @@ -6558,8 +6561,8 @@ static void drm_parse_amd_vsdb_v3(struct drm_display_info *info,
+>  	info->amd_vsdb.max_frame_rate = max_frame_rate;
+>  }
+>  
+> -static void drm_parse_amd_vsdb(struct drm_connector *connector,
+> -			       const struct cea_db *db)
+> +static noinline_for_stack void
+> +drm_parse_amd_vsdb(struct drm_connector *connector, const struct cea_db *db)
+>  {
+>  	struct drm_display_info *info = &connector->display_info;
+>  	const u8 *data = cea_db_data(db);
 
-FWIW this is not enough to get self-refresh to work on the Glymur
-Zenbook A16 and the 8280-based x13s, the screen stays black if
-there's no updates (it worked on the latter in the past). Dmitry promised
-to take a look one day.
-
-Konrad
+-- 
+Jani Nikula, Intel
