@@ -2,103 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E63D606EFE6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:11:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE218606C90E
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:11:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ERTKFlGa
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dD1XkAp1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B67710EF24;
-	Mon, 19 Oct 2026 16:11:18 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C771E10EEBB
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:11:11 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-6ae14cdc63aso16980a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:11:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792426270; cv=none;
- d=google.com; s=arc-20260327;
- b=A1pvsMoHsXXJLfsynSh/QS5GlaSylPgiT2OiA8epOe9eTL20b406VbXtXxSofxt6Ga
- KID8kFARtASHQkR7rY9X3tX5M4vudrJcIIHHT635jwcD/EP6fwZTBK5loeamzXOrXTta
- MeUm2RgNrmIW1ryohBsa7jUE8g1qxyi3H9i8w9D7G7yVG/G5eLMu+5y9MYQrzLry4NNI
- nBw1zuFiApjVzQeBux+ifyUXiQbr/irz3UIsoQ6HeSHCU7DPuVqFslBN4ojDk3yVQLZ9
- flW2J9F4oiHJehVCPS+V9NhkBprbcRkO7VAxohXdGR23BhyLWRhND+KZtkjCO0+Syr+m
- Hq7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Pr7BJMuifE78YwYx6pJZlEAPKb8dBOcE7CtzncpVA88=;
- fh=MvcEBWKzzPZcZSgco/7hu8MPMVwITefPcqzm0SEQiyM=;
- b=RFn5SSmSzE5FhyXp7HQRiShZU4niBbnqq8w6/NO1g1yJ7PUlxPYud+2gP9wN1SJpHM
- FRubeeayDsx0l90IWB0pGb0kW/ElbyM+hgGMaFCGLcwIuY2rP6aTD7H+6KIypYi/qIcd
- vyyH9ItugY9qFv7jSuXFe2TdN1WjyV7Zv+11ohbz5gi+ZBu5cVIbTrHRI9LTzmKnaBzC
- k64EzR0aXM71WSjRQwKwEeNGVH7JYyVG3eoiER+WnZrMqmrMGFEN78pYkPDmr5OBhER8
- XidN180hLCDVNuJAK0eNYxOP0sBOwtDSmAaakq6TFXm6TD482+woT2qnQa+ZdFgTBZv2
- dlaQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792426270; x=1793031070;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Pr7BJMuifE78YwYx6pJZlEAPKb8dBOcE7CtzncpVA88=;
- b=ERTKFlGa8/yEm0nPrLKTZlnjukDLd676cSAR9OQU2N8MwqISGfIGjd/F+X3gPkmEww
- iYi3M65DRQTGeF5gLHMUSq8oYHmZmmaT4YfWL9r06Bo6+jAHkIT9oz2GAP7ZOkOgMU7F
- VTrDX7oEDvy733hUwripCidBqoW0n2m4CgC2ZACDHjccCw35z3kI90+gZgm88c/aI9ki
- AAwSFD307fk1Os2hwKA9bYc0DwThM0iIA42N/DTUoMALE/VPu2gZZzNGebWCMihfvWUn
- jBem9tR47KH9fhmKdMtG9QViFrfNM7Q0C/f85bCaXBqnPBzQPkJPq6JUwlKp2xvzetnb
- uE6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792426270; x=1793031070;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Pr7BJMuifE78YwYx6pJZlEAPKb8dBOcE7CtzncpVA88=;
- b=gGXds6GsrM0Q2h9RCl5krB+t8d1fuHmAoGUmMIWJECKF8/3zKxAL3cwokdFsohzw2e
- Zhs5EynLXlot3OfD6Nu3HOi5qfjsv7PKCl48soaDHmhcCACWcjh4w4Mnt9cbG2G7r1nI
- SzIIQP1SOHsehVXZP7xLt20W5O/QDM8vb2zeQ0Z53zJGZKoTr0YKmWcodGXhq/EcBygn
- qBeNxViHRNP8nH8cSKGipdxzBg+/TxG1Lli63U6Xi+zY/JYo86eD3LWzNotpJB+i8Apa
- EnCamh4M4vxRHHqseS4S4/kIEMcvkoOP4rgVn7Pngh8NWcPLUx4EMFJP8KSq3S0vAcFH
- qutA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBydvb/oLvhSNdUCLgNM93Dt1mOlVMa9XegSxJzqDSxqdhTIUkamm208mfR6nFVSoMDHICcBhEsG9j8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK7AivzR8XeuM8tpgoQ3C6yH0Ih/Dke/+gQE+E2jV53QyiW8FlN
- 0m32oWfYDjkLaAkBnHOCuzUVimZHWOCLgNw1dpXDK6qS9twzqys6Y2mk//7lzvYEfp7VpKLVc83
- k8z2tLFUY9TQSzbLBJ++dTdSf1tevx0Uje7NczOan
-X-Gm-Gg: AYBFou3H1FXKdkpt7DoDkWaJJxdu098VBXrWDnQxO/Zk4VUCyTTf3hNpowDhX4yp8l9
- eFt6g6/a0UmpOrjJxQbZlmXycNG1k3pTHp2/8T4U9mSeDpazBdAW8SdBeKlRRoDJk2dmbQe5il0
- 7aJw5O4KKqXvvr1yuVGVcncq1LCEa+PvyNt5gCcNN2Fv9ickItRd82SpTf3I3X/epWJahpCRXKM
- FZB9HR9ziAIntyWAXcAUEdW0IVSe/nT2eZQbRxPHM9h9Ub1icmf7YxehWdQEkOq4EtajDK8Z54J
- MQTH6t/PL69gN8lyaZF9KlFt9ggxaUJ1wd3NdXAxctZAxTz1yVWlBfbV9cctN2fi1cX+G8IBR4X
- c6Js19CXTfQ==
-X-Received: by 2002:aa7:d3c1:0:b0:6ae:188e:e119 with SMTP id
- 4fb4d7f45d1cf-6b3ad90b655mr92225a12.9.1792426269498; Mon, 19 Oct 2026
- 09:11:09 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261015163915.1166043-4-almasrymina@google.com>
- <179233927086.3135.6123492094489915156@kernel.org>
-In-Reply-To: <179233927086.3135.6123492094489915156@kernel.org>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 19 Oct 2026 09:10:57 -0700
-X-Gm-Features: AclHuK8eiPagoVp9rRWfufPEyCEaXmjBdb7vS7t1VxUSJn80p85wHIDPJ3eEP2Y
-Message-ID: <CAHS8izPobFzob0pF2cLqL+nqtJVL-TC50QuDHOem9_cwJoGSxA@mail.gmail.com>
-Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
-To: netdev-bot+sashiko@kernel.org
-Cc: kuba@kernel.org, asml.silence@gmail.com, dw@davidwei.uk, sdf@fomichev.me, 
- ap420073@gmail.com, pabeni@redhat.com, kaiyuanz@google.com, 
- bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
- edumazet@kernel.org, hawk@kernel.org, ilias.apalodimas@linaro.org, 
- horms@kernel.org, shuah@kernel.org, sumit.semwal@linaro.org, 
- christian.koenig@amd.com, dtatulea@nvidia.com, razor@blackwall.org, 
- daniel@iogearbox.net, tariqt@nvidia.com, kaifengw@google.com
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0208510E4CE;
+	Mon, 19 Oct 2026 16:11:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1849010ED61;
+ Mon, 19 Oct 2026 16:11:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B84460210;
+ Mon, 19 Oct 2026 16:11:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBC0A1F000C4;
+ Mon, 19 Oct 2026 16:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792426294;
+ bh=oQNjJoZ0jTS+KSHbGjg9eb95h9U/EVZVTbkZwJqmV3I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dD1XkAp183qoxCocuNxU3u77A0yLqiGa9SPUkIInHh3QyVuOs1gUY7A8f6hItDiRf
+ q/oK/2MiL6W5FWztrFM3iQV3ziy9643wTzRs82cx82Mu0sFZTF7lfe+A6ybcTtQWU0
+ ubVv1y6fPmyC5tjmZ1y9TOCg7gio7yteNrxKWnQUdwpZ2WXcskRYuru+kdIXmpZ8j7
+ 0CS1+J+gZdJgyzw72X4f0IZOlPJOFHVIYXyA0uR/eG/xXfHK1WvQHe4o6ZfcLMNzoC
+ 0+NUeIcGy3pZUXsVcFxX1YPtRzjJVjjqp13M3/ui/3QN4IdEnO+5GRzuR097x8JdZY
+ JPN1n+/CmL2Mw==
+Message-ID: <sashiko-outbox-177831@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] drm/pixel: Link format helpers into
+ drm_pixel_helper.ko
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, imx@lists.linux.dev,
+ virtualization@lists.linux.dev, Frank.Li@kernel.org,
+ wsa+renesas@sang-engineering.com, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261019154612.777074-3-tzimmermann@suse.de>
+References: <20261019154612.777074-1-tzimmermann@suse.de>
+ <20261019154612.777074-3-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 16:11:33 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,40 +53,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS,
-	USER_IN_DEF_DKIM_WL autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Sun, Oct 18, 2026 at 9:01=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 (1) =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] On builds where PP_DMA_INDEX_BITS is 0, this patch leads to a
->   use-after-free of the netdevsim bus device.
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] drm: undefined drm_format_conv_state_*() references in drm_kms_help=
+er
+- [Low] drm/sitronix: missing DRM_PIXEL_HELPER select in config DRM_ST7920
+--
 
-Bro this is a pre-existing issue I think. My local sashiko also caught
-this but it has to do with us not doing a get_dev or something when
-PP_DMA_INDEX_BITS is 0. That's a very rare condition and unrelated to
-this patch series I think.
+commit 5297070737eb21b200d62be5b5e13861b6e29b57
+Author: Thomas Zimmermann <tzimmermann@suse.de>
+
+drm/pixel: Link format helpers into drm_pixel_helper.ko
+
+This commit moves drm_format_helper.o from drm_kms_helper.ko into
+drm_pixel_helper.ko and updates drivers using format helpers to select
+DRM_PIXEL_HELPER and include <drm/drm_format_helper.h>.
+
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index 5f555a2c1a4c8..fbc643747110f 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -100,6 +100,7 @@ obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) +=3D drm_p=
+anel_orientation_quirks.o
+>  obj-$(CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS) +=3D drm_panel_backlight_quirks=
+.o
+> =20
+>  drm_pixel_helper-y :=3D \
+> +	drm_format_helper.o \
+>  	drm_pixel_helper_common.o
+>  obj-$(CONFIG_DRM_PIXEL_HELPER) +=3D drm_pixel_helper.o
+> =20
+> @@ -150,7 +151,6 @@ drm_kms_helper-y :=3D \
+>  	drm_crtc_helper.o \
+>  	drm_damage_helper.o \
+>  	drm_flip_work.o \
+> -	drm_format_helper.o \
+>  	drm_gem_atomic_helper.o \
+>  	drm_gem_framebuffer_helper.o \
+>  	drm_kms_helper_common.o \
+
+[Severity: Low]
+Will moving drm_format_helper.o to drm_pixel_helper-y while leaving
+drm_gem_atomic_helper.o in drm_kms_helper-y cause undefined symbol referenc=
+es
+when CONFIG_DRM_KMS_HELPER is enabled without CONFIG_DRM_PIXEL_HELPER (or w=
+hen
+CONFIG_DRM_KMS_HELPER=3Dy and CONFIG_DRM_PIXEL_HELPER=3Dm)?
+
+In drivers/gpu/drm/drm_gem_atomic_helper.c, the shadow plane helpers call
+functions defined in drivers/gpu/drm/drm_format_helper.c:
+
+drivers/gpu/drm/drm_gem_atomic_helper.c:
+__drm_gem_shadow_plane_state_init()
+	__drm_atomic_helper_plane_state_init(&shadow_plane_state->base, plane);
+	drm_format_conv_state_init(&shadow_plane_state->fmtcnv_state);
+
+__drm_gem_duplicate_shadow_plane_state()
+	drm_format_conv_state_copy(&new_shadow_plane_state->fmtcnv_state,
+				   &shadow_plane_state->fmtcnv_state);
+
+__drm_gem_destroy_shadow_plane_state()
+	drm_format_conv_state_release(&shadow_plane_state->fmtcnv_state);
+	__drm_atomic_helper_plane_destroy_state(&shadow_plane_state->base);
+
+Because config DRM_KMS_HELPER in drivers/gpu/drm/Kconfig does not select
+DRM_PIXEL_HELPER, linking drm_kms_helper fails with undefined references to
+drm_format_conv_state_init(), drm_format_conv_state_copy(), and
+drm_format_conv_state_release().
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/sitronix/Kconfig b/drivers/gpu/drm/sitronix/=
+Kconfig
+> index 41a428ef8295e..c4b54f4f4f69a 100644
+> --- a/drivers/gpu/drm/sitronix/Kconfig
+> +++ b/drivers/gpu/drm/sitronix/Kconfig
+> @@ -4,6 +4,7 @@ config DRM_ST7571
+>  	select DRM_CLIENT_SELECTION
+>  	select DRM_GEM_SHMEM_HELPER
+>  	select DRM_KMS_HELPER
+> +	select DRM_PIXEL_HELPER
+>  	select VIDEOMODE_HELPERS
+>  	help
+>  	  Sitronix ST7571 is a driver and controller for 4-level gray
+> @@ -46,6 +47,7 @@ config DRM_ST7586
+>  	select DRM_KMS_HELPER
+>  	select DRM_GEM_DMA_HELPER
+>  	select DRM_MIPI_DBI
+> +	select DRM_PIXEL_HELPER
+>  	help
+>  	  DRM driver for the following Sitronix ST7586 panels:
+>  	  * LEGO MINDSTORMS EV3
+
+[Severity: Low]
+Should config DRM_ST7920 in drivers/gpu/drm/sitronix/Kconfig also select
+DRM_PIXEL_HELPER (and include <drm/drm_format_helper.h> in
+drivers/gpu/drm/sitronix/st7920.c)?
+
+In drivers/gpu/drm/sitronix/st7920.c, the driver calls format helpers
+directly:
+
+st7920_fb_blit_rect()
+	iosys_map_set_vaddr(&dst, buf);
+	drm_fb_xrgb8888_to_mono(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
+
+st7920_primary_plane_atomic_check()
+	/* format conversion necessary; reserve buffer */
+	buf =3D drm_format_conv_state_reserve(&shadow_plane_state->fmtcnv_state,
+					    pitch, GFP_KERNEL);
+
+Without selecting DRM_PIXEL_HELPER in DRM_ST7920, building st7920 when
+CONFIG_DRM_PIXEL_HELPER is disabled (or when CONFIG_DRM_ST7920=3Dy and
+CONFIG_DRM_PIXEL_HELPER=3Dm) fails with undefined references to
+drm_fb_xrgb8888_to_mono() and drm_format_conv_state_reserve().
+
+[ ... ]
 
 --=20
-Thanks,
-Mina
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019154612.7770=
+74-1-tzimmermann@suse.de?part=3D2
