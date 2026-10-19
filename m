@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 262D0CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D45C6CCF2E3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:04:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9899A10EE15;
-	Mon, 19 Oct 2026 14:04:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43B5510EE19;
+	Mon, 19 Oct 2026 14:04:43 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B42B010EE13;
- Mon, 19 Oct 2026 14:04:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9667310EE13
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:04:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 220F460233;
- Mon, 19 Oct 2026 14:04:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A20C1F000C7;
- Mon, 19 Oct 2026 14:04:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E50CA60233;
+ Mon, 19 Oct 2026 14:04:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394531F000C7;
+ Mon, 19 Oct 2026 14:04:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418669;
- bh=VVOn2L6cDpT/VKFx7pY3LlwVkiNm3fP6OW1haLqz78I=;
+ s=k20260515; t=1792418675;
+ bh=mQFR6VNpPVMG9Bl1oVKSuT55S8cITyDq9+C87dkVlDE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=gkFPUXSiTje2U3lObNxX6lsKRjuRrpl7glnojo4BwGWYG61hmQ7yQL6F+CpbRY5nv
- LNZpEigxLpCRwwTCtJTlP3JXXD+x8Xa9TY6n7h5dlrU2KJPqsJHobfu9bcvXdKMb26
- vImQt6WO6krl17UqS8ZTgRpDlu6or3nW4V5CLWUmZncqe4N1eOnt3rXIaVvpyJAxe8
- vjAb5nmMmkLDoSqiz/kB0quSItaBJJ9rcnEcVprUIGB0i1bZaoFUXn5NPhFPcKriKx
- jqDijUyJJ5LrL5OTq0o9ya1BR/ijrHHRsePcC9Q5zmyE9jVae6fi+T+1t3rtwMcdPU
- HnK7nudsmSfrw==
+ b=LNElqLUkPV5pc6WT/iRnEAzxQq9j2CVrZ4SNBHyMim9L8ZMMCm6HoaQiRUKF8AzES
+ 9SuAL0EX0mzbgAZfPjlnA5+6Tk1kGxVpeO5m8YMGsKQ+2ML31wXb/FZQ/WBkKVhvBs
+ PkcT01zrCr1M7iDXeCiEnn7lyiGb3CXbXtpvbYkrHV2uAiFNGKWZv1YcC9M6LiyqkU
+ FRPbRilT1qZMz038PflHtDXEpdS0xfxfNyq5JVVHdHUr3Q014/axKYuR7LbdnOkckK
+ /8FK3x8HwpKaOpUo7vQV/hnAqluyFZRdAQ8c+N7H0O0zjklkIsjhHzKRKhxz6aMOO0
+ oAaUeDFKgy8Aw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Asad Kamal <asad.kamal@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/amd/pm: Validate OD DPM triples before
- mutating tables
-Date: Mon, 19 Oct 2026 09:51:44 -0400
-Message-ID: <20261019135441.1420968-413-sashal@kernel.org>
+Cc: Ryosuke Yasuoka <ryasuoka@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Sasha Levin <sashal@kernel.org>, airlied@redhat.com, kraxel@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/virtio: abort virtqueue wait on device
+ removal to avoid hung task
+Date: Mon, 19 Oct 2026 09:51:48 -0400
+Message-ID: <20261019135441.1420968-417-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -64,486 +64,511 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Asad Kamal <asad.kamal@amd.com>
+From: Ryosuke Yasuoka <ryasuoka@redhat.com>
 
-[ Upstream commit b390cb9d776039fc4f0be13b2649299079227d12 ]
+[ Upstream commit a46991b334f663fa0e0e9c051e50587ef977ac8b ]
 
-vega10_odn_edit_dpm_table() and smu7_odn_edit_dpm_table() could mutate
-the live ODN table for valid triples, then return 0 after detecting a
-truncated buffer or out-of-range index. Validate all (index, clock,
-voltage) triples first and return -EINVAL on any failure; only then
-apply updates.
+virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
+wait_event() without any abort condition when waiting for virtqueue
+space. If the host device stops processing commands, these waits block
+indefinitely inside a drm_dev_enter/exit() critical section. Since
+drm_dev_unplug(), which is called in device removal and system shutdown
+call path, blocks on synchronize_srcu() until all critical sections
+complete, device removal and system shutdown also hang.
 
-v2: Use distinct message for different error case, removed unused
-input_level from validation loop (Lijo)
+Add a vqs_released flag to virtio_gpu_device and include it in the
+wait_event() condition. Set the flag and wake up both queues in a new
+virtio_gpu_release_vqs() helper, called before drm_dev_unplug() in both
+virtio_gpu_remove() and virtio_gpu_shutdown(). When the flag is set, the
+wait returns immediately and the command is aborted, following the same
+cleanup path as drm_dev_enter() failure.
 
-v3: Reject negative level indices, input[] is long but was compared only
-against unsigned table bounds, so negative values could pass and truncate
-when assigned to uint32_t input_level.
-
-Set DPMTABLE_OD_UPDATE_SCLK/MCLK only after validation passes,
-so a failed sysfs write does not leave need_update_dpm_table set for a
-later commit.
-
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Link: https://patch.msgid.link/20260601-virtio-gpu_wait_event-v3-1-89530517a98a@redhat.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.18.53**. The buggy SMU7/Vega10 OverDrive edit path
-is present on that series, and the patch applies cleanly.
+## Phase 1: Commit message forensics
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.1 — Subject**
+Record: `[drm/virtio] [abort] abort virtqueue wait on device removal to
+avoid hung task`
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[drm/amd/pm] [Validate] [reject invalid OD DPM (index, clock,
-voltage) triples before writing live tables]**
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+**Step 1.2 — Tags**
 Record:
-- `[Upstream commit b390cb9d776039fc4f0be13b2649299079227d12]` —
-  pipeline marker, ignored
-- No `Fixes:` tag (expected)
-- No `Reported-by:` / `Tested-by:` / `Link:` / `Cc: stable`
-- `Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>`
-- `Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>`
-- `Signed-off-by: Asad Kamal <asad.kamal@amd.com>` (author)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
-  maintainer)
-- `Signed-off-by: Sasha Levin` — pipeline marker, ignored
+- `Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>` (author)
+- `Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>`
+  (virtio-gpu maintainer)
+- `Link: https://patch.msgid.link/20260601-virtio-
+  gpu_wait_event-v3-1-89530517a98a@redhat.com`
+- No `Fixes:`, `Reported-by:`, `Cc: stable` on the committed v3 (absence
+  is expected here)
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+v2 originally had two syzbot `Reported-by`/`Closes` tags. v3 changelog:
+*“Remove Reported-by and Closes tag from commit msg because they are not
+related to this fix.”* Those syzbot hung-task reports are a different
+probe-time deadlock, already fixed in this tree by `89890a5fcefad`.
+
+**Step 1.3 — Body**
 Record:
-- **Bug:** `vega10_odn_edit_dpm_table()` and `smu7_odn_edit_dpm_table()`
-  apply valid triples immediately, then on a later truncated buffer or
-  out-of-range index they `return 0`.
-- **Symptom:** a failed `pp_od_clk_voltage` write can still change live
-  clock/voltage tables, report success, and (Vega10) leave
-  `need_update_dpm_table` set so a later `echo c` commits the partial
-  change.
-- **v3 extra:** `input[]` is `long`; comparing only against unsigned
-  table size lets negative indices through, then assignment to `uint32_t
-  input_level` truncates and indexes off the array.
-- **Version info:** none in the message. Introducing code is from 2018
-  (v4.17/v4.18).
-- **Root cause:** validate-and-mutate in one loop; wrong error return;
-  missing signed-index check; Vega10 dirty-flag set before validation.
+- **Bug:** `wait_event()` on ctrl/cursor virtqueue space has no abort.
+  If the host stops processing commands, the waiter stays in D-state
+  inside `drm_dev_enter()`/`drm_dev_exit()`.
+- **Symptom:** `drm_dev_unplug()` (remove and shutdown) blocks forever
+  on `synchronize_srcu()`, so device removal and system shutdown hang
+  (`INFO: task hung`).
+- **Root cause:** uninterruptible wait holds an SRCU critical section
+  that unplug must drain.
+- **Fix:** `vqs_released` flag + `wake_up_all()` before unplug; abort
+  with the same cleanup as `drm_dev_enter()` failure (`-ENODEV` / free
+  vbuf).
+- **Versions:** none named in the message. The wait + `drm_dev_enter`
+  wrapping has been in this driver since 2020.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not disguised. Explicit correctness/safety fix (partial update +
-false success + OOB index). Not cleanup-only.
+**Step 1.4 — Hidden bug fix?**
+Record: Not hidden. Subject and body describe a hang/deadlock. It is a
+real teardown hang, not cleanup-as-style.
 
-## PHASE 2: DIFF ANALYSIS
+---
 
-**Step 2.1: INVENTORY THE CHANGES**
+## Phase 2: Diff analysis
+
+**Step 2.1 — Inventory**
 Record:
-- `smu7_hwmgr.c`: +20/−14 in `smu7_odn_edit_dpm_table()`
-- `vega10_hwmgr.c`: +23/−14 in `vega10_odn_edit_dpm_table()`
-- Total: **43 insertions, 28 deletions**, two files, single-function
-  surgical change per file.
+- `virtgpu_drv.c`: +15 — new `virtio_gpu_release_vqs()`, called from
+  `virtio_gpu_remove()` and `virtio_gpu_shutdown()`
+- `virtgpu_drv.h`: +1 — `bool vqs_released` on `struct
+  virtio_gpu_device`
+- `virtgpu_vq.c`: +21/−2 — abort conditions in
+  `virtio_gpu_queue_ctrl_sgs()` and `virtio_gpu_queue_cursor()`
+- Scope: ~37 insertions, 2 deletions, three files, one driver. Surgical.
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record (same pattern in both):
-- **Before:** one loop: on truncated/out-of-range input, print and
-  `return 0` after earlier triples already wrote `entries[]` /
-  `dpm_levels[]`. Invalid clock/voltage still returned `-EINVAL` but
-  only after mutating that iteration’s predecessors. Vega10 ORs
-  `DPMTABLE_OD_UPDATE_SCLK/MCLK` before the loop.
-- **After:** first loop validates every triple (`i+3 > size`, `input[i]
-  < 0 || index >= count`, clock/voltage via existing checkers) and
-  returns `-EINVAL` with no writes. Only then set dirty flags (Vega10)
-  and apply updates in a second loop.
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
+**Step 2.2 — Flow**
 Record:
-- **Category:** memory safety (OOB write) + logic/correctness (partial
-  live-table mutation, false success, dirty-flag leak).
-- **Mechanism:** `long` index vs `uint32_t` bound: on 64-bit, `-1 >=
-  count` is false, then `input_level = (uint32_t)-1` indexes
-  `entries[0xFFFFFFFF]`. Arrays are 8 entries (`MAX_REGULAR_DPM_NUMBER`
-  / `phm_odn_clock_levels.entries[8]`). Truncated writes previously
-  returned 0 so `amdgpu_set_pp_od_clk_voltage()` treated them as success
-  (`return count`).
+- **Before:** if `vq->num_free` is short, unlock, notify host,
+  `wait_event(ack_queue, num_free >= needed)` with no timeout/abort,
+  still inside `drm_dev_enter()`.
+- **After:** wait also succeeds when `vqs_released`. Then unlock resv if
+  needed, `free_vbuf()`, `drm_dev_exit()`, return `-ENODEV` (ctrl) or
+  return (cursor). Same path as `drm_dev_enter()` failure.
+- **Teardown:** set flag, wake both ack queues, *then*
+  `drm_dev_unplug()`.
+- Path affected: virtqueue-full wait during remove/shutdown, not the
+  happy path.
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct two-pass validate-then-commit. Checker
-polarity preserved (`smu7_check_clk_voltage_valid` /
-`vega10_check_clk_voltage_valid` return true when valid; new code uses
-`if (!check())`). No API change. Regression risk is low: invalid writes
-now fail instead of succeeding-with-partial-state; valid writes still
-apply the same stores. Slight behavior change for tools that treated
-truncated writes as success is the intended fix.
+**Step 2.3 — Bug mechanism**
+Record: **Deadlock / hung-task (uninterruptible wait blocking SRCU
+unplug).** `wait_event()` is `TASK_UNINTERRUPTIBLE`. `drm_dev_unplug()`
+→ `drm_dev_synchronize_unplug()` → `synchronize_srcu(&drm_unplug_srcu)`
+cannot finish while that section is held. Flag + `wake_up_all()` is a
+standard abort.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+**Step 2.4 — Fix quality**
+Record: Obviously correct and minimal. Abort cleanup matches existing
+`drm_dev_enter()` failure. Fence emit happens *after* the wait, so abort
+does not leak an emitted fence. `vgdev` is `drmm_kzalloc()`’d so
+`vqs_released` starts false. Flag is set only on remove/shutdown.
+Regression risk is low: happy-path wait is unchanged; abort only when
+tearing down. Remaining `wait_event(resp_wq)` in prime/vram is a
+separate issue (author and maintainer agreed to leave it).
 
-**Step 3.1: BLAME THE CHANGED LINES**
+---
+
+## Phase 3: Git history
+
+**Step 3.1 — Blame (v6.18.53)**
 Record:
-- SMU7 loop: `5e4d4fbea5573` (“drm/amd/pp: Implement edit_dpm_table on
-  smu7”, 2018-02-19) — first in **v4.17-rc1**.
-- Vega10 loop: `c5a4484941be5` (“drm/amd/pp: Add OVERDRIVE support on
-  Vega10”, 2018-05-15) — first in **v4.18-rc1**.
-- Both ancestors of v6.18.53. Bug has been in this series since the
-  branch point.
+- Ctrl `wait_event`: `6ebe8661ebf27a` (2020, Gerd/Chia-I) — `drm/virtio:
+  move locking into virtio_gpu_queue_ctrl_sgs`
+- Wrapped in `drm_dev_enter`: `b1df3a2b24a917` (2020) — `drm/virtio: add
+  drm_driver.release callback`
+- Cursor `wait_event`: `d02d270014f70d` (2018) / original queue from
+  `dc5698e80cf724` (2013)
+- Bug has been in this driver for years; it is in 6.18.y.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Introducing commits identified by blame; both
-present in this tree.
+**Step 3.2 — Fixes: tag**
+Record: None. Introducing commits above exist in this tree.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record (on v6.18.53, those two files): recent powerplay work is
-unrelated (voltage lookup bounds, Hawaii SCLK cap, etc.). Related:
-`d27252b5706e5` “amdgpu/pm: prevent array underflow in
-vega20_odn_edit_dpm_table()” (2022) — **already in v6.18.53**. Same
-class of sysfs-fed negative index. Standalone patch, not `X/Y`.
+**Step 3.3 — File history**
+Record: Related in-tree: `89890a5fcefad` (probe deadlock / syzbot hung
+task — different bug, already in v6.18.53). `2507789a724d6` implements
+`virtio_gpu_shutdown` (in v6.18.53). Later candidate `3cdc509eb471e`
+reclaims leftover vbufs on teardown — complementary, not a prerequisite
+for this abort.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Asad Kamal is an AMD contributor; not the tree maintainer. Alex
-Deucher applied it. Lijo Lazar / Hawking Zhang reviewed (AMD PM). No
-other OD-triple commits by this author on v6.18.53 in this path.
+**Step 3.4 — Author**
+Record: Ryosuke Yasuoka is a regular virtio-gpu contributor
+(`drm_panic`, the display_info deadlock fix). Signed off by maintainer
+Dmitry Osipenko.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Uses existing helpers and structs. No new functions. `git apply
---check` of this diff onto v6.18.53 copies of both files: **clean**.
-Standalone.
+**Step 3.5 — Dependencies**
+Record: Standalone. Needs `drm_dev_enter` around queueing,
+`virtio_gpu_remove`/`virtio_gpu_shutdown` calling `drm_dev_unplug`, and
+`ctrlq`/`cursorq` ack waitqueues — all present at v6.18.53. No new APIs.
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+---
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+## Phase 4: Mailing list / external
+
+**Step 4.1 — b4 dig**
 Record:
-- Lore/msgid:
-  https://patch.msgid.link/20260604091915.1012329-1-asad.kamal@amd.com
-- Revisions: v1 (2026-05-29) → v2 (2026-06-03) → **v3 applied**
-  (2026-06-04)
-- v1 Lijo: distinct error strings; unused `input_level` in the validate
-  loop (style, addressed)
-- v2 Lijo: `Reviewed-by`
-- v3 Hawking: `Reviewed-by`
-- No NAK. v3 added the negative-index check (the OOB hole). No reviewer
-  `Cc: stable` in the saved threads.
+- v2: https://patch.msgid.link/20260521-virtio-
+  gpu_wait_event-v2-1-5796b3a71d03@redhat.com
+- v3 (applied): https://patch.msgid.link/20260601-virtio-
+  gpu_wait_event-v3-1-89530517a98a@redhat.com
+- v1 used `wait_event_timeout()` (5s). v2/v3 switched to an explicit
+  `vqs_released` flag (no arbitrary timeout). Applied version is v3.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: To/Cc: amd-gfx, Lijo Lazar, Hawking Zhang, Le Ma, Shiwu Zhang,
-Alex Deucher, Kevin Yang Wang. Right maintainers; two AMD R-b plus
-maintainer SOB.
+**Step 4.2 — Recipients (`b4 dig -w`)**
+Record: David Airlie, Gerd Hoffmann, Dmitry Osipenko, Gurchetan Singh,
+Chia-I Wu, drm-misc maintainers, `dri-devel`,
+`virtualization@lists.linux.dev`. Right people.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No `Reported-by`, syzbot, or bugzilla. Bug is described from
-code inspection. Direct lore HTTP search was bot-blocked; discussion
-recovered via `b4`.
+**Step 4.3 — Review**
+Record (from saved v2 mbox):
+- Dmitry: “What about other `wait_event`?” Author: those are `resp_wq`,
+  not inside `drm_dev_enter`, different bug. Dmitry: leave for later.
+- Dmitry could not reproduce on normal systemd shutdown and noted the
+  syzbot stacks were not remove/shutdown. Later: *“the patch looks okay,
+  but I'm not convinced that it fixes the reported issue.”*
+- Author agreed syzbot was a probe deadlock (`clientlist_mutex` vs
+  dequeue worker), dropped those tags, and described the real trigger:
+  host stops processing → guest waits in D-state inside `drm_dev_enter`
+  → unplug’s `synchronize_srcu` never completes. systemd cannot kill
+  D-state tasks.
+- v3 dropped the unrelated tags; Dmitry still signed off.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Standalone three-revision single patch, not a series. Later
-autosel commit `42ba4b5ff5278` (“validate vega10 profile mode inputs”)
-is a different function, not a prerequisite.
+**Step 4.4 — Series**
+Record: Single-patch series. `resp_wq` abort and interruptible waits
+were explicitly deferred.
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search was bot-walled. **UNVERIFIED**
-whether stable@ already discussed this; no in-tree evidence it was
-rejected.
+**Step 4.5 — stable@**
+Record: lore.kernel.org/stable returned HTTP 403. UNVERIFIED whether it
+was already discussed on stable@.
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+Syzbot URLs from v2: hung in `virtio_gpu_queue_fenced_ctrl_buffer`
+during **probe** (`virtio_gpu_probe` → fbcon), not removal. Those are
+the deadlock already closed by `89890a5fcefad` in this tree. They do
+**not** prove this particular hang, and they are not used as a YES
+signal for this commit.
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `smu7_odn_edit_dpm_table()`, `vega10_odn_edit_dpm_table()`.
-Helpers used unchanged: `smu7_check_clk_voltage_valid()`,
-`vega10_check_clk_voltage_valid()`, `vega10_odn_update_soc_table()`.
+---
 
-**Step 5.2: TRACE CALLERS**
+## Phase 5: Semantic / call graph
+
+**Step 5.1 — Functions**
+Record: `virtio_gpu_release_vqs` (new), `virtio_gpu_remove`,
+`virtio_gpu_shutdown`, `virtio_gpu_queue_ctrl_sgs`,
+`virtio_gpu_queue_cursor`.
+
+**Step 5.2 — Callers**
 Record:
-- Registered as `.odn_edit_dpm_table` in each hwmgr func table
-- `pp_odn_edit_dpm_table()` in `amd_powerplay.c`
-- `amdgpu_dpm_odn_edit_dpm_table()` under `adev->pm.mutex`
-- `amdgpu_set_pp_od_clk_voltage()` sysfs store for `pp_od_clk_voltage`
+- `virtio_gpu_queue_ctrl_sgs` ← `virtio_gpu_queue_fenced_ctrl_buffer` ←
+  nearly every `virtio_gpu_cmd_*` (ioctls, plane update/flush, GEM,
+  etc.). Userspace and KMS both reach it.
+- `virtio_gpu_queue_cursor` ← cursor plane updates.
+- `virtio_gpu_remove` / `virtio_gpu_shutdown` are virtio `.remove` /
+  `.shutdown`.
 
-**Step 5.3: TRACE CALLEES**
-Record: table writes, clock/voltage range checks, Vega10
-`vega10_odn_update_soc_table()`. No alloc/lock added.
+**Step 5.3 — Callees**
+Record: `drm_dev_enter`/`exit`, `wait_event`, `wake_up_all`,
+`free_vbuf`, `virtio_gpu_array_unlock_resv`, `virtio_gpu_notify`. No new
+helpers outside this driver.
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace `echo "s 0 900 820" > pp_od_clk_voltage` (documented
-in `amdgpu_pm.c`). Sysfs is `S_IRUGO | S_IWUSR` (root write). Path
-requires `hwmgr->od_enabled`, set only if `PP_OVERDRIVE_MASK` (0x4000).
-Default `amdgpu_pp_feature_mask = 0xfff7bfff` **clears** that bit; OD is
-opt-in (`ppfeaturemask`), and enabling it taints the kernel. Still a
-real sysfs path for overclockers.
+**Step 5.4 — Reachability**
+Record: Yes. Any guest GPU submit that fills the virtqueue waits here.
+Unplug/shutdown is virtio remove or poweroff. Host-side virtio-gpu/virgl
+stall is the trigger.
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Vega20 already rejects bad indices (`d27252b5706e5`, in this
-tree). Newer swsmu ppt files have their own OD parsers. This patch only
-covers the two powerplay implementations that still mutate-then-`return
-0`.
+**Step 5.5 — Similar patterns**
+Record: `wait_event(vgdev->resp_wq)` in `virtgpu_prime.c` and
+`virtgpu_vram.c` still unbounded; not inside `drm_dev_enter`, so they do
+not block unplug. Same author deferred that.
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+---
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes, on **v6.18.53**. Blame on that tag still has `return 0` on
-truncated/out-of-range input and Vega10 dirty flags before the loop.
-Candidate `25b12527acd6c` is **not** an ancestor of v6.18.53 (`merge-
-base --is-ancestor` exit 1). Introduced v4.17/v4.18.
+## Phase 6: This tree (6.18.y)
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Clean apply** (`git apply --check` of this diff on v6.18.53
-copies of both files, exit 0). Surrounding functions match the hunk
-context.
+**Step 6.1 — Buggy code present?**
+Record: **Yes at v6.18.53.**
+```
+v6.18.53:virtgpu_vq.c:398: wait_event(vgdev->ctrlq.ack_queue,
+vq->num_free >= elemcnt);
+v6.18.53:virtgpu_vq.c:568: wait_event(vgdev->cursorq.ack_queue,
+vq->num_free >= outcnt);
+```
+`vqs_released` is **not** in v6.18.53. `virtio_gpu_remove`/`shutdown`
+call `drm_dev_unplug()` with no prior wake.
+`drm_dev_synchronize_unplug()` does `synchronize_srcu`. Bug introduced
+~2020; 6.18 branched 2025-11-30.
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: Vega20 underflow fix is present. No equivalent two-pass
-validation for SMU7/Vega10 on v6.18.53.
+Local tree: `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`;
+Makefile `6.18.53`. Verdict is for **this 6.18.y tree only**.
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+**Step 6.2 — Backport difficulty**
+Record: `git apply --check` of this patch onto v6.18.53 virtio files:
+**clean apply**. Context differs slightly (`DRIVER_ATOMIC` guard around
+`drm_atomic_helper_shutdown` from `19a6a00ff50c2`, already in v6.18.53);
+insertion is still immediately before `drm_dev_unplug()`.
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **drm/amd/pm powerplay** (SMU7 / Vega10 OverDrive).
-**IMPORTANT** for those GPUs, not core mm/scheduler. Polaris/Vega-class
-AMD GPUs still in production use.
+**Step 6.3 — Related fix already here?**
+Record: Probe deadlock `89890a5fcefad` is in v6.18.53 and does **not**
+abort virtqueue waits on removal. No equivalent abort exists. This is
+not a duplicate.
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Files still receive bounds-check and PM fixes on 6.18.y. OD edit
-logic itself has been stable since 2018.
+---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 7: Subsystem
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific, config-specific: AMD SMU7 (CI/VI/Polaris) and
-Vega10 users with OverDrive enabled who write `pp_od_clk_voltage`.
+**Step 7.1**
+Record: `drivers/gpu/drm/virtio` — virtio-gpu DRM. **IMPORTANT** for VMs
+(QEMU/KVM, cloud, CrosVM), not core mm/VFS.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Malformed or truncated sysfs payload (e.g. incomplete triple,
-negative level, mix of good then bad triples). Common for tools/scripts.
-Unprivileged users cannot write the attr (root/owner only). Not a
-default-boot path; OD is off unless `ppfeaturemask` sets bit 14.
+**Step 7.2**
+Record: Mature driver, still getting targeted fixes. Not staging.
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+---
+
+## Phase 8: Impact and risk
+
+**Step 8.1 — Who**
+Record: virtio-gpu guests (`CONFIG_DRM_VIRTIO_GPU`). Common in VMs, not
+every bare-metal box.
+
+**Step 8.2 — Trigger**
+Record: Host stops completing virtqueue commands (host renderer crash,
+hung device, hypervisor bug) **and** a guest command waits for ring
+space **and** then remove/shutdown. Not every boot. Cannot be signal-
+killed (`TASK_UNINTERRUPTIBLE`). Module unload, virtio reset, and
+poweroff all hit `drm_dev_unplug()`.
+
+**Step 8.3 — Failure mode**
+Record: **Hung task / shutdown or unplug deadlock.** Severity: **HIGH**
+(system cannot finish shutdown/remove; D-state). Not a UAF or silent
+corruption.
+
+**Step 8.4 — Risk vs benefit**
 Record:
-- Negative index → **OOB write** into 8-entry arrays → memory
-  corruption. **HIGH** (gated by OD + root).
-- Partial table mutation + `return 0` → userspace thinks commit-ready
-  state is good; later `c` can program inconsistent clocks/voltages.
-  **HIGH** for hardware (instability / out-of-spec clocks), **MEDIUM**
-  as a kernel crash.
-- Vega10 dirty-flag leak: failed write still causes a later commit to
-  push SCLK/MCLK. **MEDIUM–HIGH**.
-Overall: **HIGH**, not a panic-on-boot, but real memory safety + live PM
-table corruption.
+- Benefit: HIGH for virtio-gpu VMs that lose the host GPU and then
+  reboot/unplug.
+- Risk: LOW — ~35 lines, teardown-only flag, abort path copies existing
+  `-ENODEV` cleanup.
+- Ratio: favorable.
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** medium–high for OD users (OOB + wrong clocks); low for
-  default configs.
-- **Risk:** very low (small, local, validate-then-write, maintainer-
-  reviewed, applies cleanly).
-- **Ratio:** favor backport. Same class as the Vega20 underflow already
-  on this tree.
+---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Synthesis
 
-**Step 9.1: COMPILE THE EVIDENCE**
+**Step 9.1 — Evidence**
 
-FOR:
-- Real OOB write (negative `long` index → `uint32_t` wrap)
-- Partial mutation of live DPM tables with success return
-- Vega10 can commit stale/partial OD state after a failed write
-- Small, obviously correct, two-pass fix
-- Reviewed by Lijo Lazar and Hawking Zhang; applied by Alex Deucher
-- Applies cleanly to v6.18.53; no missing structs/helpers
-- Bug present since v4.17/v4.18
-- Precedent: Vega20 OD index underflow already in this tree
+**For:**
+- Real hang: uninterruptible wait inside `drm_dev_enter` blocks
+  `drm_dev_unplug()`/`synchronize_srcu`.
+- Confirmed in v6.18.53 source (`wait_event` without abort; unplug with
+  no wake).
+- Small, contained, no new API.
+- Abort cleanup matches existing `drm_dev_enter()` failure.
+- Maintainer signed off after review (v1 timeout → v3 flag).
+- Applies cleanly to this tree’s virtio files.
+- virtio-gpu is widely used; host GPU process failure is a realistic VM
+  event.
 
-AGAINST:
-- OverDrive off by default
-- Sysfs store is root-only
-- No syzbot/CVE/user crash report
-- No `Fixes:` / `Cc: stable` (not a negative per the review rules)
+**Against:**
+- Trigger needs a stuck host plus a full virtqueue plus teardown — not a
+  hot path.
+- Syzbot tags were wrongly attached in v2 and correctly dropped; do not
+  treat this as a syzbot backport.
+- Incomplete vs all `wait_event`s; `resp_wq` still unbounded
+  (intentionally separate).
+- Maintainer initially could not reproduce on a normal systemd shutdown.
 
-UNRESOLVED:
-- Whether stable@ already discussed this (lore stable search blocked)
-- Unprivileged trigger only if something remaps sysfs mode (not
-  verified; default is `S_IWUSR`)
+**Unresolved:** stable@ archive 403; whether this hang has a public user
+report besides the author’s analysis.
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — two-pass validation; R-b
-   from AMD PM; polarity of existing checkers verified in tree
-2. Fixes a real bug that affects users? **PASS** — OOB + false-success
-   partial OD updates via documented sysfs
-3. Important issue? **PASS** — OOB write and inconsistent GPU
-   DPM/voltage tables (HIGH, gated)
-4. Small and contained? **PASS** — ~70 line-churn, two functions
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — clean on v6.18.53
+**Step 9.2 — Stable rules**
+1. Obviously correct and tested — **PASS** (standard wait/wake abort;
+   maintainer SOB; v3 after review).
+2. Real user-visible bug — **PASS** (remove/shutdown hang when host
+   stops the vq).
+3. Important (hang/deadlock) — **PASS** (HIGH: D-state blocks
+   unplug/shutdown).
+4. Small and contained — **PASS** (~37 lines, one driver).
+5. No new features/APIs — **PASS**.
+6. Applies to this tree — **PASS** (clean apply to v6.18.53 virtio
+   files; all helpers present).
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None (not a device ID / quirk / DT / build / doc fix). Qualifies
-as a normal bugfix.
+**Step 9.3 — Exceptions**
+Record: None (not a device ID/quirk/DT/build/doc exception). Qualifies
+as a normal hang fix.
 
-**Step 9.4: MAKE YOUR DECISION**
-This belongs on 6.18.53. The local tree still has the 2018 validate-
-while-mutating loops. The patch closes an OOB write and stops failed
-OverDrive sysfs writes from leaving live SCLK/MCLK tables and Vega10
-update flags half-applied. It is small, reviewed, and applies without
-prerequisites.
+**Step 9.4 — Decision**
+This belongs on 6.18.y. The bug is in this tree, the fix is surgical,
+and a stuck virtqueue otherwise makes guest unplug/shutdown hang
+forever.
 
-### What the commit solves for this tree
-On 6.18.53, writing `pp_od_clk_voltage` can (1) store valid triples,
-then succeed on a truncated/out-of-range rest of the buffer; (2) turn a
-negative level into a huge `uint32_t` index and write off the 8-entry
-ODN arrays; (3) on Vega10, mark DPM tables dirty even when the write
-fails, so a later commit programs incomplete settings.
+---
 
-### Stable rules / risk
-Meets all six criteria. Risk is a behavior change only for previously
-accepted-but-invalid writes. Benefit is memory safety and not
-programming a GPU with a half-edited OD table.
+## What the commit solves for this tree
 
-### Concerns
-OD is opt-in and the node is root-writable, so this is not a default-
-boot crash. That does not make the OOB or live-table corruption unworthy
-of 6.18.y; the analogous Vega20 underflow is already here.
+On 6.18.y, virtio-gpu waits for virtqueue space with `wait_event()`
+inside `drm_dev_enter()`. If the host stops processing, that wait never
+ends, `drm_dev_unplug()` never gets past `synchronize_srcu()`, and
+remove/shutdown hang in D-state. The patch sets `vqs_released`, wakes
+both queues before unplug, and aborts the command like a failed
+`drm_dev_enter()`.
 
-Verification:
-- [Phase 1] Tags: R-b Lijo Lazar, R-b Hawking Zhang, SOB Alex Deucher;
-  no Fixes/Reported-by
-- [Phase 2] Diff: two-pass validate-then-mutate in
-  `smu7_odn_edit_dpm_table` / `vega10_odn_edit_dpm_table`; `-EINVAL`
-  instead of `return 0`; Vega10 dirty flags moved after validation;
-  `input[i] < 0` added
-- [Phase 2] Checkers return true when valid (`smu7_hwmgr.c` ~5582–5616)
-- [Phase 3] Blame v6.18.53: `5e4d4fbea5573` (v4.17-rc1), `c5a4484941be5`
-  (v4.18-rc1); both ancestors of v6.18.53
-- [Phase 3] `git merge-base --is-ancestor 25b12527acd6c v6.18.53` → not
-  present; `d27252b5706e5` Vega20 underflow **is** present
-- [Phase 4] `b4 dig -c b390cb9d7760`: v1–v3; v3 msgid
-  20260604091915.1012329-1; Lijo then Hawking R-b; no NAK
-- [Phase 4] UNVERIFIED: stable@ thread (HTTP 403/bot wall)
-- [Phase 5] Call chain: sysfs `amdgpu_set_pp_od_clk_voltage` →
-  `amdgpu_dpm_odn_edit_dpm_table` → hwmgr; attr `S_IRUGO|S_IWUSR`; OD
-  mask 0x4000 cleared in default `0xfff7bfff`
-- [Phase 5] Arrays: `entries[8]` / `MAX_REGULAR_DPM_NUMBER 8`
-- [Phase 6] `git describe HEAD` / Makefile: **6.18.53**; apply-check on
-  v6.18.53 file copies: exit 0
-- [Phase 8] Failure: OOB write + partial OD table / dirty-flag leak;
-  severity HIGH (gated)
-- UNVERIFIED: whether udev/distro remaps `pp_od_clk_voltage` to non-root
-  write
+That is a real hang, not a feature. Risk is low; the only extra behavior
+is on teardown.
+
+---
+
+## Verification
+- **[Phase 1]** Parsed v3 message/tags; no Fixes/Reported-by on
+  committed v3; v3 changelog documents dropping unrelated syzbot tags.
+- **[Phase 2]** Diff: +37/−2 across three virtio-gpu files; abort copies
+  `drm_dev_enter()` failure cleanup; fence emit is after the wait.
+- **[Phase 3]** `git blame` on v6.18.53: wait from `6ebe8661ebf27a`
+  (2020) / cursor from 2013–2018; `drm_dev_enter` from `b1df3a2b24a917`
+  (2020).
+- **[Phase 3]** `git merge-base --is-ancestor 0ffdc5889ef64 v6.18.53` →
+  **not** in v6.18.53; buggy wait **is** in v6.18.53.
+- **[Phase 3]** Probe deadlock `89890a5fcefad` **is** in v6.18.53 and
+  closes the syzbot hung-task IDs; it does not abort vq waits on
+  removal.
+- **[Phase 3]** `virtio_gpu_shutdown` (`2507789a724d6`) **is** in
+  v6.18.53.
+- **[Phase 3]** `vgdev` allocated with `drmm_kzalloc` in `virtgpu_kms.c`
+  — `vqs_released` starts false.
+- **[Phase 4]** `b4 dig -c a46991b334f663fa0e0e9c051e50587ef977ac8b`
+  matched v2/v3 lore; `b4 dig -a` showed v2 then v3; `b4 dig -w` listed
+  virtio-gpu maintainers.
+- **[Phase 4]** Mbox: Dmitry review; author explained syzbot mismatch
+  and the real remove/shutdown hang; v3 dropped tags; Dmitry SOB on the
+  commit.
+- **[Phase 4]** WebFetch syzbot bugs `d6dd6f86…` / `908bd910…`: hung
+  during **probe/fbcon**, not unplug — not this bug.
+- **[Phase 4]** lore.kernel.org and lore.kernel.org/stable: HTTP 403.
+  UNVERIFIED for stable@ discussion. Used gitlab.freedesktop.org +
+  openwall + mbox instead.
+- **[Phase 5]** `git grep`: `virtio_gpu_queue_ctrl_sgs` is on
+  ioctl/plane/GEM paths; dequeue `wake_up(&ctrlq.ack_queue)` only after
+  host responses — if host is dead, waiters never wake without this
+  patch.
+- **[Phase 6]** `git describe HEAD` / Makefile: **6.18.53**. `git apply
+  --check` of this patch onto archived v6.18.53 virtio files: **APPLY
+  CLEAN**.
+- **[Phase 6]** `drm_dev_unplug` at v6.18.53 calls
+  `drm_dev_synchronize_unplug()` → `synchronize_srcu`.
+- **[Phase 6]** `wait_event()` in `include/linux/wait.h` uses
+  `TASK_UNINTERRUPTIBLE`.
+- **[Phase 8]** Failure mode from code + commit: hung unplug/shutdown,
+  severity HIGH.
+- **UNVERIFIED:** public non-syzbot user report of this exact remove
+  hang; stable@ archive (403).
+
+The hang is in this 6.18.y tree, the patch is small and correct, and it
+should be backported.
 
 **YES**
 
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 34 ++++++++++-------
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 37 ++++++++++++-------
- 2 files changed, 43 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.c | 15 +++++++++++++++
+ drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
+ drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++++++++++++++++++++--
+ 3 files changed, 37 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index ba953654a0206..cf008ed409552 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -5661,23 +5661,29 @@ static int smu7_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+index d9556e1b67b10..78cc388b434d9 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.c
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+@@ -118,10 +118,24 @@ static int virtio_gpu_probe(struct virtio_device *vdev)
+ 	return ret;
+ }
+ 
++/*
++ * Release pending virtqueue waits so the drm_dev_enter/exit() critical
++ * sections complete before drm_dev_unplug() blocks on synchronize_srcu().
++ */
++static void virtio_gpu_release_vqs(struct drm_device *dev)
++{
++	struct virtio_gpu_device *vgdev = dev->dev_private;
++
++	vgdev->vqs_released = true;
++	wake_up_all(&vgdev->ctrlq.ack_queue);
++	wake_up_all(&vgdev->cursorq.ack_queue);
++}
++
+ static void virtio_gpu_remove(struct virtio_device *vdev)
+ {
+ 	struct drm_device *dev = vdev->priv;
+ 
++	virtio_gpu_release_vqs(dev);
+ 	drm_dev_unplug(dev);
+ 
+ 	if (drm_core_check_feature(dev, DRIVER_ATOMIC))
+@@ -135,6 +149,7 @@ static void virtio_gpu_shutdown(struct virtio_device *vdev)
+ {
+ 	struct drm_device *dev = vdev->priv;
+ 
++	virtio_gpu_release_vqs(dev);
+ 	/* stop talking to the device */
+ 	drm_dev_unplug(dev);
+ }
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 8575c7787fc36..51b78f8a8aa2e 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -260,6 +260,7 @@ struct virtio_gpu_device {
+ 
+ 	struct virtio_gpu_queue ctrlq;
+ 	struct virtio_gpu_queue cursorq;
++	bool vqs_released;
+ 	struct kmem_cache *vbufs;
+ 
+ 	atomic_t pending_commands;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index 592ad4f9b100d..244a791ab915e 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -422,7 +422,19 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 	if (vq->num_free < elemcnt) {
+ 		spin_unlock(&vgdev->ctrlq.qlock);
+ 		virtio_gpu_notify(vgdev);
+-		wait_event(vgdev->ctrlq.ack_queue, vq->num_free >= elemcnt);
++		wait_event(vgdev->ctrlq.ack_queue,
++			   vq->num_free >= elemcnt || vgdev->vqs_released);
++		/*
++		 * Set by virtio_gpu_release_vqs() to unblock
++		 * synchronize_srcu() wait in drm_dev_unplug().
++		 */
++		if (vgdev->vqs_released) {
++			if (fence && vbuf->objs)
++				virtio_gpu_array_unlock_resv(vbuf->objs);
++			free_vbuf(vgdev, vbuf);
++			drm_dev_exit(idx);
++			return -ENODEV;
++		}
+ 		goto again;
  	}
  
- 	for (i = 0; i < size; i += 3) {
--		if (i + 3 > size || input[i] >= podn_dpm_table_in_backend->num_of_pl) {
--			pr_info("invalid clock voltage input \n");
--			return 0;
-+		if (i + 3 > size) {
-+			pr_info("truncated clock/voltage input\n");
-+			return -EINVAL;
- 		}
--		input_level = input[i];
--		input_clk = input[i+1] * 100;
--		input_vol = input[i+2];
--
--		if (smu7_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol)) {
--			podn_dpm_table_in_backend->entries[input_level].clock = input_clk;
--			podn_vdd_dep_in_backend->entries[input_level].clk = input_clk;
--			podn_dpm_table_in_backend->entries[input_level].vddc = input_vol;
--			podn_vdd_dep_in_backend->entries[input_level].vddc = input_vol;
--			podn_vdd_dep_in_backend->entries[input_level].vddgfx = input_vol;
--		} else {
-+		if (input[i] < 0 || input[i] >= podn_dpm_table_in_backend->num_of_pl) {
-+			pr_info("invalid clock/voltage level\n");
- 			return -EINVAL;
- 		}
-+		input_clk = input[i + 1] * 100;
-+		input_vol = input[i + 2];
-+		if (!smu7_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol))
-+			return -EINVAL;
-+	}
-+
-+	for (i = 0; i < size; i += 3) {
-+		input_level = input[i];
-+		input_clk = input[i + 1] * 100;
-+		input_vol = input[i + 2];
-+		podn_dpm_table_in_backend->entries[input_level].clock = input_clk;
-+		podn_vdd_dep_in_backend->entries[input_level].clk = input_clk;
-+		podn_dpm_table_in_backend->entries[input_level].vddc = input_vol;
-+		podn_vdd_dep_in_backend->entries[input_level].vddc = input_vol;
-+		podn_vdd_dep_in_backend->entries[input_level].vddgfx = input_vol;
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index b3fed2a478aab..d6aaba0b3613d 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -5645,11 +5645,9 @@ static int vega10_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
- 	if (PP_OD_EDIT_SCLK_VDDC_TABLE == type) {
- 		dpm_table = &data->dpm_table.gfx_table;
- 		podn_vdd_dep_table = &data->odn_dpm_table.vdd_dep_on_sclk;
--		data->need_update_dpm_table |= DPMTABLE_OD_UPDATE_SCLK;
- 	} else if (PP_OD_EDIT_MCLK_VDDC_TABLE == type) {
- 		dpm_table = &data->dpm_table.mem_table;
- 		podn_vdd_dep_table = &data->odn_dpm_table.vdd_dep_on_mclk;
--		data->need_update_dpm_table |= DPMTABLE_OD_UPDATE_MCLK;
- 	} else if (PP_OD_RESTORE_DEFAULT_TABLE == type) {
- 		memcpy(&(data->dpm_table), &(data->golden_dpm_table), sizeof(struct vega10_dpm_table));
- 		vega10_odn_initial_default_setting(hwmgr);
-@@ -5667,21 +5665,32 @@ static int vega10_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
- 	}
- 
- 	for (i = 0; i < size; i += 3) {
--		if (i + 3 > size || input[i] >= podn_vdd_dep_table->count) {
--			pr_info("invalid clock voltage input\n");
--			return 0;
-+		if (i + 3 > size) {
-+			pr_info("truncated clock/voltage input\n");
-+			return -EINVAL;
- 		}
--		input_level = input[i];
--		input_clk = input[i+1] * 100;
--		input_vol = input[i+2];
--
--		if (vega10_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol)) {
--			dpm_table->dpm_levels[input_level].value = input_clk;
--			podn_vdd_dep_table->entries[input_level].clk = input_clk;
--			podn_vdd_dep_table->entries[input_level].vddc = input_vol;
--		} else {
-+		if (input[i] < 0 || input[i] >= podn_vdd_dep_table->count) {
-+			pr_info("invalid clock/voltage level\n");
- 			return -EINVAL;
- 		}
-+		input_clk = input[i + 1] * 100;
-+		input_vol = input[i + 2];
-+		if (!vega10_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol))
-+			return -EINVAL;
-+	}
-+
-+	if (type == PP_OD_EDIT_SCLK_VDDC_TABLE)
-+		data->need_update_dpm_table |= DPMTABLE_OD_UPDATE_SCLK;
-+	else
-+		data->need_update_dpm_table |= DPMTABLE_OD_UPDATE_MCLK;
-+
-+	for (i = 0; i < size; i += 3) {
-+		input_level = input[i];
-+		input_clk = input[i + 1] * 100;
-+		input_vol = input[i + 2];
-+		dpm_table->dpm_levels[input_level].value = input_clk;
-+		podn_vdd_dep_table->entries[input_level].clk = input_clk;
-+		podn_vdd_dep_table->entries[input_level].vddc = input_vol;
- 	}
- 	vega10_odn_update_soc_table(hwmgr, type);
- 	return 0;
+@@ -592,7 +604,14 @@ static void virtio_gpu_queue_cursor(struct virtio_gpu_device *vgdev,
+ 	ret = virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
+ 	if (ret == -ENOSPC) {
+ 		spin_unlock(&vgdev->cursorq.qlock);
+-		wait_event(vgdev->cursorq.ack_queue, vq->num_free >= outcnt);
++		wait_event(vgdev->cursorq.ack_queue,
++			   vq->num_free >= outcnt || vgdev->vqs_released);
++		/* See comment in virtio_gpu_queue_ctrl_sgs(). */
++		if (vgdev->vqs_released) {
++			free_vbuf(vgdev, vbuf);
++			drm_dev_exit(idx);
++			return;
++		}
+ 		spin_lock(&vgdev->cursorq.qlock);
+ 		goto retry;
+ 	} else {
 -- 
 2.53.0
 
