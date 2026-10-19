@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84627606A321
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 21:52:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B34606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 21:58:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z7UTCPtb
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1zrwclJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBEE210E442;
-	Mon, 19 Oct 2026 21:52:07 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8743810E442
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 21:52:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7FC10EA55;
+	Mon, 19 Oct 2026 21:57:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F09110EA55
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 21:57:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3FC2043C80;
- Mon, 19 Oct 2026 21:52:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E789F1F000C6;
- Mon, 19 Oct 2026 21:52:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9F4E6601F6;
+ Mon, 19 Oct 2026 21:57:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072D81F000C4;
+ Mon, 19 Oct 2026 21:57:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792446721;
- bh=+xsrfD132LCghfGmAZuLV1aPfjPlVZkzLHxK/CLgteo=;
+ s=k20260515; t=1792447066;
+ bh=ebQwFO9t8v0ErC3ctSxyDJiFZHDtRywb9LeJXVIlFwk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z7UTCPtbbnH0H9KvtJL6wJYiIUWfpFl12xMgA35rb5Vp+buzzy8tRRQ1QMr11zeZ0
- aExZstuhu7JYqc6Kg5GFGBDNq9JNHie0K6Ha1qb7vzVGTu78thHazOORgInKqQJhog
- g8HABoAuAKa40EvVyeih9kIPNiGDZoIl3V92Cf7WoKo3CCq6WZeVRIWsHsQUeC19NO
- aGp1BGM6u+NaJZAsej7T1+cYfScXqdw+ATfF0mUPzcm0Tx4+WmhDMblsTJRkx/w1tZ
- wSyWbfovED5dA3K0UGpsVIHJCY3weI0b3g31PhYtMZuPpA3fsPx1x96t3X2qKB3TAI
- xms8sdlG3kH8A==
-Message-ID: <sashiko-outbox-178277@kernel.org>
+ b=c1zrwclJa++9k1HDbflTwOQgcfMekTyI2ZveBVfTKRtlQsarNBECItrmhvczcsZe7
+ pQLf4dtZDkY9d3RNBVLSE8F/X59a2TI/gaJYrML95XTOMRMt+hnSAzlMU4gXwHDeXP
+ ZIn3u2NXIilvLlpT/6/FofbJh2aJSAFiTVw9Lk9y3d5U8eZsTZQNZ5U0oilWC4pteR
+ pxo0U1Dpb8hIMi2c4gjpYaACJF8LmVO9XUgXOxG+wnB49hrHNo+FJpItLajB7ZjWse
+ Yyti8vgrd9LBcT0mndPVMi/IJoH6vidj6qKqCY1aBYWgua+M3dhaEBBOncYxJNAGSc
+ WC2tiMXIggqQA==
+Message-ID: <sashiko-outbox-178283@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 09/14] drm/solomon: ssd16xx: Expose color mode as
- plane property
+Subject: Re: [PATCH v3 07/14] drm/solomon: ssd16xx: Add power management
+ support
 To: "Devarsh Thakkar" <devarsht@ti.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019213726.4145532-10-devarsht@ti.com>
+In-Reply-To: <20261019213726.4145532-8-devarsht@ti.com>
 References: <20261019213726.4145532-1-devarsht@ti.com>
- <20261019213726.4145532-10-devarsht@ti.com>
+ <20261019213726.4145532-8-devarsht@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 21:52:00 +0000
+Date: Mon, 19 Oct 2026 21:57:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,145 +52,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] drm/solomon: ssd16xx: commit message contradicts v3 color_mode b=
-ehavior
-- [Low] drm/solomon: ssd16xx: dead red_supported check in atomic_set_proper=
-ty()
+- [High] drm/solomon: ssd16xx: missing error rollback in ssd16xx_pm_suspend=
+()
+- [Medium] drm/solomon: ssd16xx: missing state restore in ssd16xx_pm_runtim=
+e_resume()
+- [Medium] drm/solomon: ssd16xx: premature runtime suspend in ssd16xx_probe=
+()
+- [Medium] drm/solomon: ssd16xx: incomplete PM error cleanup in ssd16xx_pro=
+be()
 --
 
-commit 52cffe8373e1c5de5f3a1dd257828d014890e4a4
+commit 7bb59d973ba345233d1093837dd50809ed285f26
 Author: Devarsh Thakkar <devarsht@ti.com>
 
-drm/solomon: ssd16xx: Expose color mode as plane property
+drm/solomon: ssd16xx: Add power management support
 
-This commit exposes a color_mode plane property on ssd16xx panels that
-support 3-color display modes, allowing runtime switching between
-black-white and 3-color operation while rejecting partial refresh when
-3-color mode is selected.
-
->     drm/solomon: ssd16xx: Expose color mode as plane property
->    =20
->     Add a DRM plane property "color_mode" for panels that support
->     3-color (black/white/red) display modes.
->    =20
->     The property allows runtime selection between:
->       - bw (black/white): R1 format represents black (0) and white (1)
->       - 3color: R1 format represents red ink (1) on white background
->    =20
->     The property is created on all panels with "black-white" selectable;
->     panels with red_supported =3D true also expose the "3-color" option.
->     The default is set from the panel configuration's default_color_mode
->     field (typically BW for monochrome panels).
->    =20
->     Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-
-[Severity: Medium]
-Does the commit message still match the v3 implementation?
-
-In drivers/gpu/drm/solomon/ssd16xx.c, ssd16xx_plane_create_properties()
-returns early when !device->device_cfg->red_supported, so monochrome panels=
- do
-not get the color_mode property at all, whereas the commit message states t=
-hat
-the property is created on all panels.
-
-In addition, ssd16xx_color_mode_enum defines the enum names as "black-white"
-and "3-color", while the list in the commit message refers to them as "bw" =
-and
-"3color".
+This patch adds runtime PM with a 35-second autosuspend delay and system
+suspend/resume support to the SSD16xx e-paper display driver.
 
 > diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/=
 ssd16xx.c
-> index f53c67ae7d317..6037717635a48 100644
+> index ff0e459082dea..99f11b7ec03e9 100644
 > --- a/drivers/gpu/drm/solomon/ssd16xx.c
 > +++ b/drivers/gpu/drm/solomon/ssd16xx.c
 
 [ ... ]
 
-> @@ -1516,6 +1523,18 @@ static int ssd16xx_plane_atomic_set_property(struc=
-t drm_plane *plane,
->  		ssd_state->refresh_mode =3D val;
->  		return 0;
->  	}
-> +	if (property =3D=3D device->color_mode_property) {
-> +		if (val > SSD16XX_COLOR_MODE_3COLOR)
-> +			return -EINVAL;
-> +		if (val =3D=3D SSD16XX_COLOR_MODE_3COLOR &&
-> +		    !device->device_cfg->red_supported) {
-> +			drm_dbg(&device->drm,
-> +				"3-color not supported by this panel\n");
-> +			return -EINVAL;
-> +		}
-> +		ssd_state->color_mode =3D val;
-> +		return 0;
+> @@ -2011,9 +2059,26 @@ static int ssd16xx_probe(struct spi_device *spi)
+> =20
+>  	drm_mode_config_reset(drm);
+> =20
+> +	/*
+> +	 * Mark the device active before enabling runtime PM.  The SPI device
+> +	 * persists across module reload cycles; pm_runtime_enable() alone
+> +	 * does not clear a stale dev->power.runtime_error from a previous
+> +	 * module load, which would cause pm_runtime_resume_and_get() to
+> +	 * return -EINVAL on every subsequent call.
+> +	 */
+> +	/* Use level1 (RAM retained) for runtime PM idle. */
+> +	device->deep_sleep_mode =3D device->controller_cfg->deep_sleep_mode_lev=
+el1;
+> +
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_set_autosuspend_delay(dev, SSD16XX_PM_AUTOSUSPEND_DELAY_MS);
+> +	pm_runtime_use_autosuspend(dev);
+
+[Severity: Medium]
+Does calling pm_runtime_set_autosuspend_delay() after pm_runtime_enable()
+here cause an immediate synchronous runtime suspend during ssd16xx_probe()?
+
+At the point pm_runtime_set_autosuspend_delay() runs, the device is enabled
+with usage_count =3D=3D 0, dev->power.use_autosuspend is still false, and
+dev->power.last_busy has not been marked. Inside the runtime PM core:
+
+  pm_runtime_set_autosuspend_delay()
+    -> update_autosuspend()
+      -> rpm_idle(dev, RPM_AUTO)
+        -> rpm_suspend(dev, RPM_AUTO)
+          -> pm_runtime_autosuspend_expiration()
+
+Because use_autosuspend is false (and last_busy is 0),
+pm_runtime_autosuspend_expiration() returns 0, so rpm_suspend() invokes
+ssd16xx_pm_runtime_suspend() synchronously and puts the panel into deep
+sleep right after ssd16xx_hw_reset(), only for drm_client_setup() to
+immediately wake and hardware-reset the panel a second time.
+
+Should pm_runtime_set_autosuspend_delay(), pm_runtime_use_autosuspend(), and
+pm_runtime_mark_last_busy() be called before pm_runtime_enable()?
+
+> +
+>  	ret =3D drm_dev_register(drm, 0);
+> -	if (ret)
+> +	if (ret) {
+> +		pm_runtime_disable(dev);
+>  		return ret;
 > +	}
->  	return -EINVAL;
+
+[Severity: Medium]
+If drm_dev_register() fails in ssd16xx_probe(), is pm_runtime_disable(dev)
+alone sufficient to clean up the runtime PM state?
+
+Because pm_runtime_reinit() on unbind does not clear
+dev->power.use_autosuspend or run the runtime_suspend callback, only calling
+pm_runtime_disable(dev) leaves use_autosuspend enabled on the persistent
+spi_device and leaves the panel powered if it is still active. Should this
+error path call pm_runtime_dont_use_autosuspend(dev) and
+pm_runtime_force_suspend(dev) to match ssd16xx_remove() and
+ssd16xx_shutdown()?
+
+> =20
+>  	drm_dbg(drm, "SSD16xx e-paper display initialized (%dx%d, %d=C2=B0 rota=
+tion)\n",
+>  		device->width, device->height, device->orientation);
+> @@ -2029,6 +2094,12 @@ static void ssd16xx_remove(struct spi_device *spi)
+> =20
+>  	drm_dev_unplug(&device->drm);
+>  	drm_atomic_helper_shutdown(&device->drm);
+> +	pm_runtime_dont_use_autosuspend(&spi->dev);
+> +	/*
+> +	 * Put the panel to sleep regardless of clear_on_disable, which can make
+> +	 * atomic_disable skip touching the hardware.
+> +	 */
+> +	pm_runtime_force_suspend(&spi->dev);
 >  }
+> =20
+>  static void ssd16xx_shutdown(struct spi_device *spi)
+> @@ -2036,8 +2107,139 @@ static void ssd16xx_shutdown(struct spi_device *s=
+pi)
+>  	struct ssd16xx_device *device =3D spi_get_drvdata(spi);
+> =20
+>  	drm_atomic_helper_shutdown(&device->drm);
+> +	pm_runtime_dont_use_autosuspend(&spi->dev);
+> +	pm_runtime_force_suspend(&spi->dev);
+>  }
+> =20
+> +static int ssd16xx_pm_suspend(struct device *dev)
+> +{
+> +	struct ssd16xx_device *device =3D dev_get_drvdata(dev);
+> +	struct drm_device *drm =3D &device->drm;
+> +	int ret;
+> +
+> +	/* Use level2 deep sleep for system suspend; SSD1683 loses RAM but save=
+s more power. */
+> +	device->deep_sleep_mode =3D device->controller_cfg->deep_sleep_mode_lev=
+el2;
+> +	dev_dbg(dev, "system suspend: entering deep sleep mode 0x%02x\n",
+> +		device->deep_sleep_mode);
+> +
+> +	ret =3D drm_mode_config_helper_suspend(drm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * If the autosuspend timer already fired the device is RPM_SUSPENDED
+> +	 * at level1.  pm_runtime_force_suspend() would skip its callback, so
+> +	 * level2 would never reach the hardware.
+> +	 *
+> +	 * SPI is unresponsive in deep sleep; HWRESET is the only exit.
+> +	 * After the reset, level2 can be sent directly without a full hw_init.
+> +	 *
+> +	 * Skip this for controllers where level1 =3D=3D level2 (e.g. SSD1677 w=
+hich
+> +	 * has only one deep sleep mode): the device is already in the deepest
+> +	 * available state and no upgrade is needed.
+> +	 */
+> +	if (pm_runtime_status_suspended(dev)) {
+> +		int err =3D 0;
+> +
+> +		if (device->controller_cfg->deep_sleep_mode_level1 !=3D
+> +		    device->controller_cfg->deep_sleep_mode_level2) {
+> +			dev_dbg(dev, "system suspend: upgrading level1->level2 via HWRESET\n"=
+);
+> +			ssd16xx_hw_reset(device);
+> +			ssd16xx_wait_for_device(device, &err);
+> +			ssd16xx_send_cmd(device, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
+> +			ssd16xx_send_data(device,
+> +					  device->controller_cfg->deep_sleep_mode_level2,
+> +					  &err);
+> +		} else {
+> +			dev_dbg(dev, "system suspend: already at deepest sleep mode\n");
+> +		}
+> +		device->initialized =3D false;
+> +		device->pm_force_suspended =3D false;  /* Skip force_resume on resume =
+*/
+> +		return err;
+> +	}
+> +
+> +	/* Force runtime-suspended state for clean resume. */
+> +	ret =3D pm_runtime_force_suspend(dev);
+> +	if (ret) {
+> +		drm_mode_config_helper_resume(drm);
+> +		return ret;
+> +	}
+> +	device->pm_force_suspended =3D true;  /* Resume must call force_resume =
+*/
+> +
+> +	return 0;
+> +}
 
-[Severity: Low]
-Can this !device->device_cfg->red_supported check in
-ssd16xx_plane_atomic_set_property() ever be reached?
+[Severity: High]
+What happens in ssd16xx_pm_suspend() if an error occurs during the
+pm_runtime_status_suspended(dev) upgrade path, or if
+drm_mode_config_helper_suspend() or pm_runtime_force_suspend() fails?
 
-In ssd16xx_plane_create_properties(), if !device->device_cfg->red_supported=
- is
-true, the function returns early and leaves device->color_mode_property as
-NULL:
+In the pm_runtime_status_suspended(dev) branch, if ssd16xx_wait_for_device()
+times out or ssd16xx_send_cmd()/ssd16xx_send_data() fails,
+ssd16xx_pm_suspend() returns err directly without calling
+drm_mode_config_helper_resume(drm). Because the suspend callback returns an
+error, the PM core aborts system suspend and will not call
+ssd16xx_pm_resume(), which leaves the DRM modeset pipeline and in-kernel
+clients suspended, leaks drm->mode_config.suspend_state, and leaves the
+panel awake after ssd16xx_hw_reset() while runtime PM status remains
+RPM_SUSPENDED.
 
-	if (!device->device_cfg->red_supported)
-		return 0;
-
-	device->color_mode_property =3D
-		drm_property_create_enum(drm, 0, "color_mode",
-					 ssd16xx_color_mode_enum,
-					 ARRAY_SIZE(ssd16xx_color_mode_enum));
-
-Since drm_atomic_plane_set_property() only invokes
-ssd16xx_plane_atomic_set_property() for an attached, non-NULL property,
-entering the property =3D=3D device->color_mode_property branch already gua=
-rantees
-that device->device_cfg->red_supported is true.
+In addition, device->deep_sleep_mode is overwritten with
+deep_sleep_mode_level2 at the start of ssd16xx_pm_suspend() and is never
+restored to deep_sleep_mode_level1 on any of the three failure paths
+(drm_mode_config_helper_suspend() failure, the level1->level2 upgrade
+failure, or pm_runtime_force_suspend() failure). Wouldn't that cause all
+subsequent runtime PM idle suspends to enter level-2 sleep (0x03) and lose
+display RAM?
 
 [ ... ]
 
-> @@ -1869,6 +1903,23 @@ static int ssd16xx_plane_create_properties(struct =
-ssd16xx_device *device)
->  	drm_object_attach_property(plane_obj,
->  				   device->refresh_mode_property,
->  				   device->refresh_mode);
+> +static int ssd16xx_pm_runtime_resume(struct device *dev)
+> +{
+> +	struct ssd16xx_device *device =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	dev_dbg(dev, "runtime resume: initialized=3D%d%s\n",
+> +		device->initialized,
+> +		!device->initialized ? " (running hw_init)" : "");
 > +
 > +	/*
-> +	 * Color mode: only meaningful on panels with a physical red plane.
-> +	 * BW-only panels get no property at all rather than a one-value knob.
+> +	 * pm_runtime_suspend clears initialized after sending the deep sleep
+> +	 * command.  If a new app opens before the suspend fires (the put was
+> +	 * cancelled), initialized is still true and hw_init is unnecessary.
 > +	 */
-> +	if (!device->device_cfg->red_supported)
-> +		return 0;
+> +	if (!device->initialized) {
+> +		ret =3D ssd16xx_hw_init(device);
+> +		if (ret)
+> +			return ret;
 > +
-> +	device->color_mode_property =3D
-> +		drm_property_create_enum(drm, 0, "color_mode",
-> +					 ssd16xx_color_mode_enum,
-> +					 ARRAY_SIZE(ssd16xx_color_mode_enum));
-> +	if (!device->color_mode_property)
-> +		return -ENOMEM;
-> +	drm_object_attach_property(plane_obj,
-> +				   device->color_mode_property,
-> +				   device->color_mode);
->  	return 0;
->  }
+> +		device->initialized =3D true;
+> +	}
+> +
+> +	return 0;
+> +}
 
- base-commit: d0de3a73194a250a2e5ffbf1dc604c0bcbb16e8a
---=20
-2.52.0
+[Severity: Medium]
+When ssd16xx_pm_runtime_resume() runs ssd16xx_hw_init() while the CRTC is
+already enabled, does it leave the border waveform register and refresh
+state out of sync with the driver state?
+
+ssd16xx_hw_init() issues both ssd16xx_hw_reset() and SSD16XX_CMD_SW_RESET,
+which resets SSD16XX_CMD_BORDER_WAVEFORM_CONTROL (0x3C) to its power-on
+default without reprogramming it. In ssd16xx_fb_dirty(), register 0x3C is
+only written when border_refresh_on_every_update, init_refresh_pending, or
+border_waveform_pending is set:
+
+	if (device->border_refresh_on_every_update || device->init_refresh_pending=
+ ||
+	    device->border_waveform_pending) {
+		u8 idx =3D device->border_waveform_update_idx;
+		u8 border =3D device->controller_cfg->border_waveform_table[idx];
+		...
+		ssd16xx_send_cmd(device, SSD16XX_CMD_BORDER_WAVEFORM_CONTROL, &err);
+		ssd16xx_send_data(device, border, &err);
+		device->border_waveform_pending =3D false;
+	}
+
+When waking from runtime suspend in ssd16xx_plane_atomic_update(),
+ssd16xx_crtc_atomic_enable() does not run, so if
+border_refresh_on_every_update is false and the pending flags were already
+consumed before autosuspend, register 0x3C is never restored to
+border_waveform_update_idx.
+
+Also, on controllers where deep_sleep_mode_level1 is 0x03 (such as SSD1677),
+controller RAM is lost during runtime suspend. Without re-arming
+init_refresh_pending (or forcing a full refresh), wouldn't the next update
+in SSD16XX_REFRESH_PARTIAL mode compare the new BW RAM against lost RED RAM?
+Finally, the commit message mentions that level-1 sleep allows fast resume
+via SPI wakeup, whereas ssd16xx_pm_runtime_resume() always calls
+ssd16xx_hw_init() which performs a full GPIO hardware reset.
+
+[ ... ]
+
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019213726.4145=
-532-1-devarsht@ti.com?part=3D9
+532-1-devarsht@ti.com?part=3D7
