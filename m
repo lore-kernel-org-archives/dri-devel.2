@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99045CCF2DE
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:59:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D0F2CCF2DE
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:59:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02BFD10EDC4;
-	Mon, 19 Oct 2026 13:59:10 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D4B510EDC4
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:59:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3F9410EDD3;
+	Mon, 19 Oct 2026 13:59:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88FAB10EDD3;
+ Mon, 19 Oct 2026 13:59:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CEF706021C;
- Mon, 19 Oct 2026 13:59:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F1AE1F000C4;
- Mon, 19 Oct 2026 13:59:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6DE2942B5E;
+ Mon, 19 Oct 2026 13:59:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06E71F000CA;
+ Mon, 19 Oct 2026 13:59:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418342;
- bh=sumvp7u+FhaLjUIiSX0AB5EXKDXdwxL7Gk14bIE++bg=;
+ s=k20260515; t=1792418360;
+ bh=T+X9hDiPIJUdie2qRLfaA8R3nLrc4Y60IcJrzE/Nadc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=LOln+WWRaMfbvHmBkqe5kUc1zQz28ZiFDQofkNoPBCMrVQCmA5jXTxcYv1J4nTeHb
- yEv6MjPSgfmTKDGOYXjSe0H+q2+21l9uJKpjvbwxblRpSC+OLyii0QneY92F+sVNCv
- bgkCIooFK1AkOO4IHmvGG8nvbcLRGDlyBD+TK0CBF4xiCtO/mNBhrmwto6E9MQXR4n
- Hb9kuML5VhRAkXkOw8i1xbnC4NYbUeIoPV295DCmsZtKTYickiRmFqnBKDmt6VpRPF
- nMmDrYl9jTNO1PQrL5OxtDrjBAVvbOnb+5D5Ikr5ddkN21fuGVOn9eQROwmoG0HRR1
- CwyZlHW4UxqOg==
+ b=URnqqle8oJhCQiY4dyXCC9SApgMnofJO70V5bNsN06UnkeV4UtrtQTotOcV0c+gkD
+ W6/54xPY83oZRHiqjRNYsLzR7gzawUT8T6UEDz6yZwv88s5QT/mdmA9zv1KTEtIceC
+ 7Vs2GOadrAgEW9FWqGORQYlg6tvcEcLapPoCs61BRxAmyhlTzK260/1y0JTv9pZx2h
+ S1GapXDlXe9zkVbzNKgjHunsLpNFp+9LmJ8dlzjitO779G2evXlgBmTP/tCK9BRzFw
+ i8hrRJhyDYi99xHXBK3y88dEUZNnUiC7CZVdYNG9yJdtUtcriAoNzvJ2hlZ1ieH8lK
+ f7C5qWhvHqs1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Anuj Bolewar <bolewara@gmail.com>,
- syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Sasha Levin <sashal@kernel.org>, airlied@redhat.com, kraxel@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/virtio: reclaim pending vbufs before
- tearing down vqs
-Date: Mon, 19 Oct 2026 09:47:50 -0400
-Message-ID: <20261019135441.1420968-179-sashal@kernel.org>
+Cc: Yang Wang <kevinyang.wang@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.15] drm/amd/pm: Validate Tonga PPTable subtable
+ bounds
+Date: Mon, 19 Oct 2026 09:48:03 -0400
+Message-ID: <20261019135441.1420968-192-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -65,508 +64,1074 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Anuj Bolewar <bolewara@gmail.com>
+From: Yang Wang <kevinyang.wang@amd.com>
 
-[ Upstream commit 61d85f99b5a55d4f717c4bb2f4c4acabf22ee3fc ]
+[ Upstream commit 53ef33c084c5778cc2dcd1efff25e31b6e231141 ]
 
-virtio_gpu_free_vbufs() destroys the vbufs kmem_cache after the virtqueues
-have already been released. Commands that were queued but never completed
-by the device leave their vbuffers stranded in the virtqueue, so the cache
-still holds live objects when virtio_gpu_deinit() tears everything down.
-This triggers a WARNING in virtio_gpu_free_vbufs:
+v1:
+Tonga PPTable parsing also relies on VBIOS offsets, revision fields
+and entry counts for several subtables. Malformed data can cause
+out-of-bounds reads, while voltage lookup tables can overrun their
+fixed-size destination arrays.
 
-    BUG virtio-gpu-vbufs (Not tainted): Objects remaining in cache
-    on __kmem_cache_shutdown()
+Add common bounds helpers and validate fixed subtables, dynamic entry
+arrays and revision-specific layouts before consuming voltage lookup,
+dependency, PCIE, power-tune, hard-limit, thermal, fan, GPIO, PPM and
+VCE state data.
 
-Drain any buffers still sitting in the control and cursor virtqueues in
-virtio_gpu_deinit() after the device has been reset and before the
-virtqueues are deleted, following the same pattern used by virtio_console's
-remove_vqs(). Each reclaimed buffer is released with free_vbuf(), dropping
-the reference on any GEM objects it holds. Pending RESOURCE_UNREF
-commands are handled as well: their resp_cb_data still references a GEM
-object, so it is cleaned up with virtio_gpu_cleanup_object() to avoid
-leaking it on teardown.
+v2:
+correct to handle get_tonga_ppm_table() return value.
 
-Reported-by: syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=06f9b2a53ba4a5a47644
-Signed-off-by: Anuj Bolewar <bolewara@gmail.com>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Link: https://patch.msgid.link/20260802-virtio-gpu-reclaim-vbufs-v2-1-5767fb860691@gmail.com
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable backport analysis: `drm/virtio: reclaim pending vbufs before
-tearing down vqs`
+## Phase 1: Commit message forensics
 
-Local tree: **6.12.111** (`p-6.12-3-gc504cf0baa3d8`). Verdict is for
-this checkout only.
+**Step 1.1 — Subject**
+- Record: `[drm/amd/pm] [Validate] Tonga PPTable subtable bounds`
 
----
+**Step 1.2 — Tags**
+- Record: `Reviewed-by: Asad Kamal <asad.kamal@amd.com>`; `Reviewed-by:
+  Kenneth Feng <kenneth.feng@amd.com>`; `Signed-off-by: Yang Wang
+  <kevinyang.wang@amd.com>`; `Signed-off-by: Alex Deucher
+  <alexander.deucher@amd.com>`.
+- No `Fixes:`, `Reported-by`, `Tested-by`, `Link:`, or `Cc: stable`
+  (absence is expected).
+- Pipeline markers (`[Upstream commit …]`, `Signed-off-by: Sasha Levin`)
+  ignored.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.3 — Body**
+- Record: Tonga PPTable parsing trusts VBIOS offsets, revision IDs, and
+  entry counts. Malformed data can cause out-of-bounds reads; voltage
+  lookup tables can overrun fixed-size destination arrays.
+- Symptom: kernel OOB read/write while parsing PowerPlay tables at init
+  or after a `pp_table` upload.
+- Root cause: pointer = `powerplay_table + le16_to_cpu(offset)` with no
+  check against `soft_pp_table_size`, plus `ucNumEntries` used past
+  allocated destination size.
+- v2 only corrects `get_tonga_ppm_table()` return handling.
 
-**Step 1.1: PARSE THE SUBJECT LINE**
+**Step 1.4 — Hidden bug fix?**
+- Record: Not hidden. Explicit bounds-check fix for OOB reads and
+  destination-array overrun.
 
-Record: `[drm/virtio] [reclaim] [drain leftover virtqueue buffers before
-destroying vbufs cache]`
+## Phase 2: Diff analysis
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+**Step 2.1 — Inventory**
+- Record: One file,
+  `drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c`.
+  Upstream: **+521 / −85**.
+- New helpers: `tonga_pp_table_has_space`, `get_tonga_subtable`,
+  `validate_tonga_table_entries`, plus getters for voltage lookup,
+  MCLK/MM/SCLK/PCIE/hard-limit/thermal/fan/power-tune/PPM/GPIO/VCE.
+- Callers updated: `init_dpm_2_parameters`,
+  `init_clock_voltage_dependency`, `init_thermal_controller`,
+  `ppt_get_num_of_vce_state_table_entries_v1_0`,
+  `ppt_get_vce_state_table_entry_v1_0`.
+- Scope: single-file parser hardening, not a cross-subsystem refactor.
 
-Record:
-- `Reported-by: syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com` —
-  fuzzer-found, reproducible
-- `Closes: https://syzkaller.appspot.com/bug?extid=06f9b2a53ba4a5a47644`
-- `Signed-off-by: Anuj Bolewar <bolewara@gmail.com>` (author)
-- `Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>`
-  (virtio-gpu maintainer)
-- `Link: https://patch.msgid.link/20260802-virtio-gpu-reclaim-
-  vbufs-v2-1-5767fb860691@gmail.com`
-- No `Fixes:` tag (expected for this review pipeline)
-- Ignore pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
-  if present
+**Step 2.2 — Flow change**
+- Record: Before, every subtable pointer was `powerplay_table + offset`
+  with no size check. After, each access goes through helpers that
+  require a non-zero offset, that the header fits, and that
+  `entries_offset + num_entries * entry_size` fits in
+  `soft_pp_table_size`.
+- Voltage lookup: `ucNumEntries` must be in `(0, max_levels]` (16)
+  before `get_vddc_lookup_table()`.
+- GPIO: previously `gpio_table` was always a non-NULL computed pointer,
+  so `get_gpio_table()` ran even when `usGPIOTableOffset == 0`. After,
+  that path runs only if the offset is non-zero.
+- VCE: SCLK records are indexed as Tonga vs Polaris by `ucRevId`;
+  SCLK/MM/MCLK indices are range-checked.
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+**Step 2.3 — Bug mechanism**
+- Record: **Memory safety (OOB read + heap OOB write)**, plus a Polaris
+  VCE layout correctness bug.
+- Verified on this tree’s pre-fix `get_vddc_lookup_table()` (v6.18.53):
 
-Record:
-- **Bug:** `virtio_gpu_free_vbufs()` calls `kmem_cache_destroy()` after
-  VQs are already deleted. In-flight commands stay attached to the
-  virtqueue, so the `virtio-gpu-vbufs` cache still has live objects.
-- **Symptom:** SLUB `BUG virtio-gpu-vbufs: Objects remaining on
-  __kmem_cache_shutdown()` plus `WARNING` in `virtio_gpu_free_vbufs` /
-  `kmem_cache_destroy`, on device removal.
-- **Root cause:** `virtio_gpu_deinit()` does `virtio_reset_device()`
-  then `del_vqs()` without draining unused buffers.
-- **Fix:** After reset, before `del_vqs()`, detach leftover buffers
-  (same idea as `virtio_console` `remove_vqs()`), `free_vbuf()` them,
-  drop GEM arrays, and `virtio_gpu_cleanup_object()` pending
-  `RESOURCE_UNREF` GEM objects.
-- **Version info:** none in the message; code has been this way for
-  years.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-
-Record: Not hidden. Explicit leak/WARNING fix on teardown. v2 also
-closes a GEM leak for stranded `RESOURCE_UNREF` commands.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1: INVENTORY THE CHANGES**
-
-Record:
-- `drivers/gpu/drm/virtio/virtgpu_drv.h`: +1 declaration
-- `drivers/gpu/drm/virtio/virtgpu_kms.c`: +1 call in
-  `virtio_gpu_deinit()`
-- `drivers/gpu/drm/virtio/virtgpu_vq.c`: +15, new
-  `virtio_gpu_reclaim_vbufs()`
-- **Total: +17 / −0.** Single-subsystem surgical fix.
-
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-
-Record:
-- **Before:** `virtio_gpu_deinit()` flushes work, resets the device,
-  deletes VQs. Later `virtio_gpu_release()` → `virtio_gpu_free_vbufs()`
-  → `kmem_cache_destroy(vgdev->vbufs)` with any still-queued `vbuffer`s
-  live.
-- **After:** Same sequence, plus `virtio_gpu_reclaim_vbufs()` between
-  reset and `del_vqs()`. Control queue: detach unused bufs, put GEM
-  arrays, cleanup `resp_cb_data`, `free_vbuf()`. Cursor queue: detach
-  and `free_vbuf()`.
-- Path: device removal / unbind / probe-fail after successful
-  `virtio_gpu_init()`.
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-
-Record:
-- **Category:** resource leak + teardown WARNING (stranded slab objects;
-  GEM refs left held).
-- **Mechanism:** `virtqueue_detach_unused_buf()` after reset, then
-  existing `free_vbuf()` / `virtio_gpu_array_put_free()` /
-  `virtio_gpu_cleanup_object()`.
-- In this tree `resp_cb_data` is only set in
-  `virtio_gpu_cmd_unref_resource()` to a `struct virtio_gpu_object *`,
-  so the extra cleanup is specific and correct here.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-
-Record:
-- Obviously correct: documented virtio shutdown helper; same pattern as
-  `virtio_console`.
-- Minimal; no API/feature additions.
-- Regression risk is low. After `drm_dev_unplug()`, `drm_dev_enter()`
-  fails, so `array_put_free()` → last GEM put →
-  `virtio_gpu_cmd_unref_resource()` takes the existing `-ENODEV` path
-  (`free_vbuf` + `virtio_gpu_cleanup_object`) instead of re-queuing.
-  Both VQs are always created in `virtio_gpu_init()`
-  (`vqs[0]`/`vqs[1]`), so no NULL `cursorq.vq` on the deinit path.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
-
-Record:
-- `virtio_gpu_free_vbufs()` / `kmem_cache_destroy`: `f5985bf9cadd4e`
-  (Gerd Hoffmann, 2017-03-01, “drm: virtio: use kmem_cache”) — ancestor
-  of this HEAD.
-- `virtio_gpu_deinit()` body: `dc5698e80cf724` (Dave Airlie, 2013) plus
-  later `virtio_reset_device()` (`d9679d0013a668`, 2021).
-- Bug is old; present throughout 6.12.y.
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-
-Record: No `Fixes:` tag. Not applicable. Buggy teardown is in this tree.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
-Record: Recent virtio GPU work here is unrelated (EDID bounds, deadlock,
-fence, KMS removal). No reclaim helper already present. `cec7f1774605a`
-is a different probe double-free. Standalone patch, not “X/Y” of a
-larger series (cover said “Patch 1” of a 1-patch series).
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record: Anuj Bolewar has no virtio GPU commits in this tree. Dmitry
-Osipenko is the virtio-gpu maintainer (SOB + “Applied to drm-misc-
-fixes”).
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-
-Record: Uses `virtqueue_detach_unused_buf`, `free_vbuf`,
-`virtio_gpu_array_put_free`, `virtio_gpu_cleanup_object` — all present.
-No panic-path helpers required. Can apply standalone.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
-Record:
-- `b4 dig -c <sha>` cannot match: commit is not in this tree (candidate
-  only).
-- Lore search via lore.kernel.org returned 403.
-- Recovered from Openwall/LKML:
-  - v1: drain only (`objs` + `free_vbuf`)
-  - v2: also `virtio_gpu_cleanup_object(resp_cb_data)`
-  - Applied version is v2
-- Dmitry Osipenko, 2026-08-14: **“Applied to drm-misc-fixes, thanks!”**
-  — no NAK.
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record: Recipients included Airlie, Hoffmann, Osipenko, Gurchetan Singh,
-Chia-I Wu, dri-devel, virtualization, syzkaller-bugs. Maintainer applied
-it. No NAK found.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record (syzkaller, extid `06f9b2a53ba4a5a47644`):
-- Title: `WARNING in virtio_gpu_free_vbufs`
-- Labels: `prio:high`
-- Assessment: DenialOfService exploitable; VM guest and host trigger;
-  not unprivileged
-- Stack: `kmem_cache_destroy` → `virtio_gpu_free_vbufs` →
-  `virtio_gpu_release` → `drm_dev_put` → `virtio_dev_remove` → PCI
-  `remove_store`
-- 13 crashes; first ~2026-07-29
-- Syzbot lists upstream fix `61d85f99b5a5` (that SHA is not in this
-  tree; `git merge-base --is-ancestor` was not used on an unknown remote
-  SHA)
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: 1-patch series. v2 is the applied leak-complete version.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-
-Record: lore.kernel.org/stable search 403. **UNVERIFIED** whether
-stable@ already discussed it. Not used as a NO reason.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-
-Record: `virtio_gpu_reclaim_vbufs` (new), `virtio_gpu_deinit` (call
-site), `free_vbuf`, `virtio_gpu_array_put_free`,
-`virtio_gpu_cleanup_object`.
-
-**Step 5.2: TRACE CALLERS**
-
-Record:
-- `virtio_gpu_deinit()` from `virtio_gpu_probe` error path after
-  `virtio_gpu_init()` (`err_deinit`) and from `virtio_gpu_remove()`
-  after `drm_dev_unplug()`.
-- Teardown/unbind, not a hot path.
-
-**Step 5.3: TRACE CALLEES**
-
-Record: `virtqueue_detach_unused_buf` (documented for shutdown/reset),
-GEM put, object cleanup, `kmem_cache_free`.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record: Userspace/sysfs PCI remove (privileged) or guest virtio-gpu
-unplug. Syzbot hit it from `remove_store`. Reachable on any system that
-unbinds/unplugs virtio-gpu with commands still in the VQ (unresponsive
-device, hot-unplug, fuzz).
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: Same drain exists in `virtio_console.c` `remove_vqs()`,
-`virtio_net`, `virtio_crypto`, vsock, etc. virtio-gpu was missing it.
-
-semcode: not available; used `git grep` / file reads.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-
-Record: **Yes.**
-
-```283:293:drivers/gpu/drm/virtio/virtgpu_kms.c
-void virtio_gpu_deinit(struct drm_device *dev)
-{
-        ...
-        virtio_reset_device(vgdev->vdev);
-        vgdev->vdev->config->del_vqs(vgdev->vdev);
-}
+```
+table = kzalloc(struct_size(table, entries, max_levels), GFP_KERNEL);
+table->count = vddc_lookup_pp_tables->ucNumEntries;
+for (i = 0; i < vddc_lookup_pp_tables->ucNumEntries; i++)
 ```
 
-```83:87:drivers/gpu/drm/virtio/virtgpu_vq.c
-void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev)
-{
-        kmem_cache_destroy(vgdev->vbufs);
-        vgdev->vbufs = NULL;
-}
-```
+  Allocation uses `max_levels` (16); the loop uses raw `ucNumEntries`
+(u8, up to 255). That is a real heap overflow.
+- Subtable offsets/counts can also walk past `soft_pp_table_size` (VBIOS
+  blob or uploaded table).
 
-`virtio_gpu_reclaim_vbufs` is **not** in this tree. `git log
---grep='reclaim pending vbufs'` on those files: empty.
+**Step 2.4 — Fix quality**
+- Record: Helpers are overflow-safe (`offset <= table_size && size <=
+  table_size - offset`). `PP_ASSERT_WITH_CODE` always runs the failure
+  `return` (not debug-only). Leaf parsers already rejected `ucNumEntries
+  == 0`, so that check is not a new behavior cliff.
+- Regression risk: low–medium. Over-strict revision-based fan/power-tune
+  sizes could reject a corrupt-but-previously-parsed table. No public
+  API change. Patch is large because every subtable is wrapped, not
+  because control flow is redesigned.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+## Phase 3: Git history
 
-Record: **Clean apply expected.** Actual v2 context matches 6.12 (no
-panic helpers required). Line numbers differ slightly; 3-line context
-around reset/`del_vqs` and `free_vbuf`/`reclaim_vbufs` is the same.
+**Step 3.1 — Blame / introduction**
+- Record: Parser has been here since the Tonga PowerPlay path
+  (`processpptable_v1_0`, later moved in `e098bc9612c2b`, 2020).
+  Unbounded offset arithmetic is old, not a recent regression.
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+**Step 3.2 — Fixes: tag**
+- Record: None. Not applicable.
 
-Record: No equivalent drain. KMS-disabled removal fix `38a5f891cda6d` is
-unrelated (atomic shutdown).
+**Step 3.3 — Related file history**
+- Record: Same-day AMD series:
+  - `1ac24df78c566` — Tonga state-array bounds
+  - `3a8d8e0b7f61c` — Vega hwmgr bounds
+  - `0ceb6bc43e62f` — legacy hwmgr offsets
+  - `9914149f99fd2` — Vega10 subtable bounds
+  - `53ef33c084c57` — this commit
+- Standalone for this file. State-array helpers
+  (`get_tonga_state_array`) are a sibling, not a call-graph dependency
+  of these new getters.
 
----
+**Step 3.4 — Author**
+- Record: Yang Wang (AMD). Same author as the rest of this PPTable
+  validation series. Merged by Alex Deucher.
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+**Step 3.5 — Prerequisites**
+- Record: No new APIs. Upstream context uses `kzalloc_obj(*ptr)` in an
+  unchanged hunk; v6.18.53 still has `kzalloc(sizeof(*ptr), GFP_KERNEL)`
+  in that function. That is a trivial context tweak, not a functional
+  dependency. Vega10/legacy patches in the same series touch other files
+  and are not required for this one.
 
-**Step 7.1: SUBSYSTEM AND CRITICALITY**
+## Phase 4: Mailing list / external
 
-Record: `drivers/gpu/drm/virtio` — **IMPORTANT** for VMs/QEMU guests
-(common virtio-gpu), not core mm/VFS. Not staging.
+**Step 4.1 — Original submission**
+- Record: `b4 dig -c 53ef33c084c5778cc2dcd1efff25e31b6e231141` → `[PATCH
+  v2 2/3] drm/amd/pm: Validate Tonga PPTable subtable bounds`
+  https://patch.msgid.link/20260623134917.443011-2-
+  kevinyang.wang@amd.com
+- v1 → v2; v2 is what landed. v2 changelog: handle
+  `get_tonga_ppm_table()` return value.
+- No NAKs in the saved thread.
 
-**Step 7.2: SUBSYSTEM ACTIVITY**
+**Step 4.2 — Reviewers**
+- Record: To/Cc: amd-gfx, Alex Deucher, Hawking Zhang, Kenneth Feng,
+  Asad Kamal.
+- Asad: “Series is Reviewed-by”. Kenneth Feng: same. Maintainer SOB from
+  Alex Deucher.
 
-Record: Mature driver (2013+), still receiving 6.12 stable fixes. Bug is
-long-standing, not a brand-new subsystem.
+**Step 4.3 — Bug report**
+- Record: No syzbot/bugzilla/CVE in the message or thread. Bug is
+  described from code inspection of the parser.
 
----
+**Step 4.4 — Series**
+- Record: v2 1/3 Vega10 subtables; **2/3 this patch**; 3/3 remaining
+  legacy PPLIB. This patch is self-contained.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+**Step 4.5 — stable@**
+- Record: lore.kernel.org HTTP 403 from WebFetch/curl. `b4 dig` mbox has
+  no `Cc: stable` and no stable-list discussion. UNVERIFIED vs
+  lore.kernel.org/stable search.
 
-**Step 8.1: WHO IS AFFECTED**
+## Phase 5: Semantic / call graph
 
-Record: virtio-gpu users (`CONFIG_DRM_VIRTIO_GPU`) — QEMU/KVM/cloud VMs,
-driver unbind, PCI remove, module unload.
+**Step 5.1 — Functions**
+- Record: New `tonga_pp_table_has_space` / `get_tonga_*` /
+  `validate_tonga_table_entries`; callers listed in 2.1.
 
-**Step 8.2: TRIGGER CONDITIONS**
+**Step 5.2 — Callers**
+- Record: `pptable_v1_0_funcs.pptable_init` →
+  `pp_tables_v1_0_initialize` → `init_thermal_controller` /
+  `init_clock_voltage_dependency` / `init_dpm_2_parameters`. Wired from
+  `smu7_init_function_pointers()` when `pp_table_version ==
+  PP_TABLE_V1`.
+- VCE getters run when userspace/KFD queries VCE states.
 
-Record: Device teardown with commands still on the control/cursor VQ.
-Syzbot: PCI `remove`. Privileged on the host; a VM guest can trigger it.
-Not every boot, but a realistic hot-unplug/reset path.
+**Step 5.3 — Callees**
+- Record: Existing leaf parsers (`get_vddc_lookup_table`,
+  `get_mclk_voltage_dependency_table`, `get_cac_tdp_table`, …). No new
+  allocations in the helpers.
 
-**Step 8.3: FAILURE MODE SEVERITY**
+**Step 5.4 — Reachability**
+- Record: Yes. Driver load on Tonga/Fiji/Polaris/VegaM. Also
+  `pp_dpm_set_pp_table()` after a sysfs write to `pp_table` (`S_IRUGO |
+  S_IWUSR`, owner-writable; typically root).
 
-Record:
-- `kmem_cache_destroy()` **always** `WARN`s if objects remain
-  (`mm/slab_common.c` ~547), not only `CONFIG_SLUB_DEBUG`.
-- With SLUB_DEBUG, additional `slab_bug` / `__slab_err`.
-- If shutdown fails, the cache is **not** released (`if (err) return`) →
-  cache leak plus leaked vbufs/GEM.
-- Syzbot: DoS, `prio:high`.
-- Severity: **HIGH** (kernel WARNING/taint, resource leak on remove;
-  panic if `panic_on_warn`).
+**Step 5.5 — Similar patterns**
+- Record: Same pattern as Vega10/legacy PPLIB validation in the same
+  series; same class as earlier Tonga state-array bounds.
 
-**Step 8.4: RISK-BENEFIT RATIO**
+## Phase 6: This tree (6.18.y)
 
-Record: **Benefit high** (stops WARNING + leak on a common VM GPU
-driver). **Risk low** (17 lines, existing helpers, maintainer-acked).
-Ratio favors backport.
+**Step 6.1 — Does the bug exist here?**
+- Record: Local tree is **v6.18.53** (`6.18.53`, branch `autosel`).
+  Vanilla v6.18.53 still has unbounded offset arithmetic and the
+  voltage-lookup heap overflow. Bug was not introduced after this
+  branch.
 
----
+**Step 6.2 — Backport difficulty**
+- Record: **Minor conflicts**. `git apply --check` of upstream onto
+  v6.18.53 fails on `kzalloc_obj` vs `kzalloc` context in
+  `get_platform_power_management_table()`. Logic applies with that
+  mechanical adjustment. No missing types/helpers required by the new
+  code (`soft_pp_table_size` is already set in `get_powerplay_table()`).
 
-## PHASE 9: FINAL SYNTHESIS
+**Step 6.3 — Related fixes already here?**
+- Record: v6.18.53 does **not** have this validation, `pp_entries_max`
+  clamping in this file, or the Tonga state-array bounds commit. No
+  alternate fix for the voltage-lookup overflow is present on vanilla
+  6.18.53.
 
-**Step 9.1: EVIDENCE**
+## Phase 7: Subsystem
 
-**FOR:**
-- Real, syzbot-reproduced teardown bug
-- Unconditional `WARN` + slab/GEM leak
-- virtio-gpu is widely used in VMs on 6.12 LTS
-- Small, obviously correct drain matching other virtio drivers
-- All callees exist here; bug exists here
-- Maintainer applied v2 to drm-misc-fixes
+**Step 7.1**
+- Record: `drm/amd/pm` PowerPlay v1 parser. **IMPORTANT** (not core
+  mm/VFS; Polar/Tonga/Fiji/VegaM still common, especially RX 400/500).
 
-**AGAINST:**
-- Trigger is device removal, not a hot path
-- Needs privilege / VM unplug (not a local unprivileged syscall crash)
-- No `Fixes:` / stable Cc in the original (not a negative under these
-  rules)
+**Step 7.2**
+- Record: Mature parser; recent work is bounds hardening, not feature
+  churn.
 
-**UNRESOLVED:**
-- lore.kernel.org 403; stable@ discussion not fetched
-- `b4 dig` could not resolve a SHA that is not in this tree
+## Phase 8: Impact and risk
 
-**Step 9.2: STABLE RULES CHECKLIST**
+**Step 8.1 — Who is affected**
+- Record: AMDGPU SMU7 with PP table v1: Tonga, Fiji, Polaris10/11/12,
+  VegaM (`hwmgr.c` keeps default `PP_TABLE_V1` for those chips).
 
-1. Obviously correct and tested? **PASS** — v2, syzbot, maintainer
-   applied
-2. Real user-visible bug? **PASS** — WARNING + leak on virtio-gpu remove
-3. Important (crash/leak/DoS)? **PASS** — HIGH; syzbot prio:high / DoS
-4. Small and contained? **PASS** — +17 lines, 3 files, one driver
-5. No new features/APIs? **PASS** — internal helper only
-6. Applies to local tree? **PASS** — buggy code present; helpers present
+**Step 8.2 — Trigger**
+- Record: GPU init (every boot with those ASICs) if VBIOS is
+  truncated/corrupt. Also root write to `pp_table`. Unprivileged users
+  cannot write that sysfs node under normal permissions.
 
-**Step 9.3: EXCEPTION CATEGORIES**
+**Step 8.3 — Failure mode**
+- Record: Heap overflow in voltage lookup (**CRITICAL** if triggered).
+  OOB reads of BIOS/uploaded buffer (**HIGH**). Wrong Polaris VCE SCLK
+  stride (**MEDIUM** functional). Malformed table now fails init instead
+  of walking off the end.
 
-Record: Not ID/quirk/DT/docs. Ordinary important bugfix.
+**Step 8.4 — Risk/benefit**
+- Record: Benefit high for Polar/Tonga users and for `pp_table` upload.
+  Risk: large-ish one-file change; conservative rejects of garbage
+  tables. Ratio favors backport: the overflow is real and the helpers
+  are local.
 
-**Step 9.4: DECISION**
+## Phase 9: Synthesis
 
-This tree has the bug and the dependencies. The fix is small, matches
-established virtio teardown, and stops a syzbot-confirmed WARNING plus
-object leak on virtio-gpu teardown. It should be backported to this 6.12
-tree.
+**For**
+- Confirmed heap overflow: `kzalloc(..., max_levels)` vs loop on
+  `ucNumEntries`.
+- Confirmed OOB reads from unchecked VBIOS/upload offsets.
+- Reachable on driver init and via `pp_table`.
+- Polaris VCE record-size bug also fixed.
+- Reviewed by AMD PM; merged by the DRM AMD maintainer.
+- One file; no new UAPI; v2 already fixed PPM error handling.
+- Buggy code is in this 6.18.y tree.
 
----
+**Against**
+- +521 lines is large for stable.
+- No public crash/CVE/syzbot report.
+- Needs a small `kzalloc` context tweak vs upstream.
+- Sibling series patches are separate (not blockers).
 
-## What the commit solves for stable users
+**Unresolved**
+- Could not query lore.kernel.org/stable (HTTP 403). No stable
+  discussion in the `b4` mbox.
 
-On virtio-gpu unbind/unplug, in-flight command buffers stay in the
-virtqueues. Destroying the `virtio-gpu-vbufs` cache then WARNs and leaks
-those buffers and any GEM objects they hold (including pending
-`RESOURCE_UNREF`). 6.12 guests using virtio-gpu hit this on device
-removal.
+**Stable rules**
+1. Obviously correct and tested? **PASS** — overflow-safe helpers; AMD
+   review; v2 PPM fix.
+2. Real user-visible bug? **PASS** — OOB on Tonga/Polaris PPTable parse
+   / `pp_table` upload.
+3. Important (crash/security/corruption)? **PASS** — heap overflow + OOB
+   read.
+4. Small and contained? **PASS** (borderline on size, **contained**: one
+   parser file, no architecture change).
+5. No new features/APIs? **PASS**.
+6. Can apply here? **PASS** with minor `kzalloc_obj` context adjustment.
 
-## Risk vs benefit
+**Exception category:** none (not a device-ID/quirk/DT/docs/build-only
+change). It is a memory-safety fix.
 
-Benefit: no WARN/taint and no leaked GEM/vbufs on a common VM driver.
-Risk: low; one drain after reset, before `del_vqs()`, using APIs already
-in 6.12.
+This is a real bounds-check for a long-lived AMD PowerPlay parser that
+this 6.18.y tree still ships. Size is the only serious stable concern;
+the overflow and OOB are concrete enough that omitting it would be the
+worse mistake.
 
-## Concerns
-
-None that block backport. Header context in some expanded diffs mentions
-later panic helpers; the real v2 hunk does not need them. Apply as the
-17-line v2.
-
----
-
-## Verification
-
-- **[Phase 1]** Tags: syzbot Reported-by, Closes syzkaller URL, Osipenko
-  SOB
-- **[Phase 2]** Diff: +17 across 3 virtio GPU files; drain after reset
-- **[Phase 2]** `resp_cb_data` only assigned in
-  `virtio_gpu_cmd_unref_resource()` in this tree
-- **[Phase 3]** `git describe HEAD` / Makefile: 6.12.111;
-  `p-6.12-3-gc504cf0baa3d8`
-- **[Phase 3]** blame: `kmem_cache_destroy` in `virtio_gpu_free_vbufs`
-  since `f5985bf9cadd4e` (2017); deinit without drain since original
-  driver
-- **[Phase 3]** `git log --grep='reclaim pending vbufs' --
-  drivers/gpu/drm/virtio/`: not present
-- **[Phase 4]** Openwall v2 + LKML: Osipenko “Applied to drm-misc-fixes”
-- **[Phase 4]** syzbot: WARNING in `virtio_gpu_free_vbufs`, prio:high,
-  PCI remove stack, 13 crashes
-- **[Phase 4]** lore.kernel.org 403; `b4 dig` no local commit —
-  UNVERIFIED beyond Openwall/LKML/syzbot
-- **[Phase 5]** Callers: `virtio_gpu_drv.c` probe fail +
-  `virtio_gpu_remove`
-- **[Phase 5]** Both VQs assigned in `virtio_gpu_init()` lines 217–218
-- **[Phase 6]** Local `virtio_gpu_deinit` / `virtio_gpu_free_vbufs`
-  match the buggy sequence
-- **[Phase 6]** `virtqueue_detach_unused_buf`,
-  `virtio_gpu_array_put_free`, `virtio_gpu_cleanup_object` exist
-- **[Phase 8]** `kmem_cache_destroy` WARNs if `__kmem_cache_shutdown`
-  returns nonzero (`mm/slab_common.c`); cache not released on error
-- **UNVERIFIED:** whether this SHA is already in some other stable
-  series (irrelevant; not in this tree)
+### Verification
+- [Phase 1] Parsed tags: Reviewed-by Asad Kamal and Kenneth Feng; Alex
+  Deucher SOB; no Fixes/syzbot/Cc stable.
+- [Phase 2] Diff: +521/−85 in `process_pptables_v1_0.c`; helpers +
+  caller validation.
+- [Phase 2] v6.18.53 `get_vddc_lookup_table`: allocates `max_levels`,
+  iterates `ucNumEntries` — heap overflow confirmed.
+- [Phase 2] `PP_ASSERT_WITH_CODE` in `pp_debug.h` always executes the
+  failure `code`.
+- [Phase 3] No Fixes tag. Parser present since Tonga PowerPlay v1; file
+  moved in `e098bc9612c2b`.
+- [Phase 3] Series: 1/3 Vega10, 2/3 this, 3/3 legacy PPLIB; this file
+  does not need 1/3 or 3/3.
+- [Phase 4] `b4 dig -c 53ef33c084c5778`: lore msgid
+  `20260623134917.443011-2`; v2 of 2/3.
+- [Phase 4] mbox: Asad and Kenneth “Series is Reviewed-by”; no NAK; v2
+  PPM return handling.
+- [Phase 4] WebFetch/curl to lore.kernel.org: 403. UNVERIFIED: stable@
+  archives.
+- [Phase 5] `pptable_v1_0_funcs` used from `smu7_init_function_pointers`
+  for `PP_TABLE_V1`.
+- [Phase 5] `pp_table` sysfs: `AMDGPU_DEVICE_ATTR_RW(..., S_IRUGO |
+  S_IWUSR)`; `pp_dpm_set_pp_table()` replaces `soft_pp_table` and re-
+  inits.
+- [Phase 6] `git describe HEAD`: `v6.18.53-5049-g0f0bdc2b0dffb`; `make
+  kernelversion`: 6.18.53.
+- [Phase 6] `git merge-base --is-ancestor 53ef33c084c5778 HEAD` → not
+  ancestor (upstream SHA not in this history).
+- [Phase 6] Apply onto v6.18.53: fails on `kzalloc_obj` context;
+  functional backport is still straightforward.
+- [Phase 6] `pp_entries_max` not in v6.18.53; this commit is the
+  voltage-lookup cap for this tree.
+- [Phase 7/8] `hwmgr.c`: Tonga/Fiji/Polaris10/11/12/VegaM keep
+  `PP_TABLE_V1` and call `smu7_init_function_pointers()`.
+- [Phase 8] Failure mode: heap overflow / OOB read on PPTable parse —
+  HIGH/CRITICAL if triggered.
 
 **YES**
 
- drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
- drivers/gpu/drm/virtio/virtgpu_kms.c |  1 +
- drivers/gpu/drm/virtio/virtgpu_vq.c  | 15 +++++++++++++++
- 3 files changed, 17 insertions(+)
+ .../powerplay/hwmgr/process_pptables_v1_0.c   | 606 +++++++++++++++---
+ 1 file changed, 521 insertions(+), 85 deletions(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 51b78f8a8aa2e..d52f35a09a1b0 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -355,6 +355,7 @@ void virtio_gpu_array_put_free_work(struct work_struct *work);
- /* virtgpu_vq.c */
- int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
- void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev);
-+void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev);
- void virtio_gpu_cmd_create_resource(struct virtio_gpu_device *vgdev,
- 				    struct virtio_gpu_object *bo,
- 				    struct virtio_gpu_object_params *params,
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 4a25347734fda..01ea5cd5ea7f1 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -289,6 +289,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
- 	flush_work(&vgdev->cursorq.dequeue_work);
- 	flush_work(&vgdev->config_changed_work);
- 	virtio_reset_device(vgdev->vdev);
-+	virtio_gpu_reclaim_vbufs(vgdev);
- 	vgdev->vdev->config->del_vqs(vgdev->vdev);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
+index 94c1e2c103703..78037edb4752c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
+@@ -150,6 +150,368 @@ static const void *get_powerplay_table(struct pp_hwmgr *hwmgr)
+ 	return table_address;
  }
  
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index 244a791ab915e..f7e7d212fc67c 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -207,6 +207,21 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
- 	kmem_cache_free(vgdev->vbufs, vbuf);
- }
- 
-+void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
++static bool tonga_pp_table_has_space(struct pp_hwmgr *hwmgr, size_t offset,
++				     size_t size)
 +{
-+	struct virtio_gpu_vbuffer *vbuf;
++	size_t table_size = hwmgr->soft_pp_table_size;
 +
-+	while ((vbuf = virtqueue_detach_unused_buf(vgdev->ctrlq.vq))) {
-+		if (vbuf->objs)
-+			virtio_gpu_array_put_free(vbuf->objs);
-+		if (vbuf->resp_cb_data)
-+			virtio_gpu_cleanup_object(vbuf->resp_cb_data);
-+		free_vbuf(vgdev, vbuf);
-+	}
-+	while ((vbuf = virtqueue_detach_unused_buf(vgdev->cursorq.vq)))
-+		free_vbuf(vgdev, vbuf);
++	return offset <= table_size && size <= table_size - offset;
 +}
 +
- static void reclaim_vbufs(struct virtqueue *vq, struct list_head *reclaim_list)
++static int get_tonga_subtable(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		u16 table_offset, size_t table_size, const void **table)
++{
++	PP_ASSERT_WITH_CODE((table_offset != 0),
++			    "Invalid PowerPlay Table!", return -1);
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*table = (const void *)(((unsigned long)powerplay_table) + table_offset);
++
++	return 0;
++}
++
++static int validate_tonga_table_entries(struct pp_hwmgr *hwmgr,
++		u16 table_offset, size_t entries_offset,
++		u8 num_entries, size_t entry_size)
++{
++	size_t table_size;
++
++	PP_ASSERT_WITH_CODE((num_entries != 0),
++			    "Invalid PowerPlay Table!", return -1);
++
++	table_size = entries_offset + num_entries * entry_size;
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	return 0;
++}
++
++static int get_tonga_voltage_lookup_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		u16 table_offset, uint32_t max_levels,
++		const ATOM_Tonga_Voltage_Lookup_Table **lookup_table)
++{
++	const ATOM_Tonga_Voltage_Lookup_Table *table;
++	size_t table_size;
++	int ret;
++
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	PP_ASSERT_WITH_CODE((table->ucNumEntries != 0 &&
++			     table->ucNumEntries <= max_levels),
++			    "Invalid PowerPlay Table!", return -1);
++
++	table_size = offsetof(ATOM_Tonga_Voltage_Lookup_Table, entries) +
++		table->ucNumEntries * sizeof(ATOM_Tonga_Voltage_Lookup_Record);
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*lookup_table = table;
++
++	return 0;
++}
++
++static int get_tonga_mclk_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_MCLK_Dependency_Table **mclk_dep_table)
++{
++	const ATOM_Tonga_MCLK_Dependency_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usMclkDependencyTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset,
++					   offsetof(ATOM_Tonga_MCLK_Dependency_Table,
++						    entries),
++					   table->ucNumEntries,
++					   sizeof(ATOM_Tonga_MCLK_Dependency_Record));
++	if (ret)
++		return ret;
++
++	*mclk_dep_table = table;
++
++	return 0;
++}
++
++static int get_tonga_mm_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_MM_Dependency_Table **mm_dep_table)
++{
++	const ATOM_Tonga_MM_Dependency_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usMMDependencyTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset,
++					   offsetof(ATOM_Tonga_MM_Dependency_Table,
++						    entries),
++					   table->ucNumEntries,
++					   sizeof(ATOM_Tonga_MM_Dependency_Record));
++	if (ret)
++		return ret;
++
++	*mm_dep_table = table;
++
++	return 0;
++}
++
++static int get_tonga_sclk_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const PPTable_Generic_SubTable_Header **sclk_dep_table)
++{
++	const PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t entries_offset;
++	size_t entry_size;
++	u8 num_entries;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usSclkDependencyTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId < 1) {
++		const ATOM_Tonga_SCLK_Dependency_Table *table =
++			(const ATOM_Tonga_SCLK_Dependency_Table *)header;
++
++		entries_offset = offsetof(ATOM_Tonga_SCLK_Dependency_Table, entries);
++		entry_size = sizeof(ATOM_Tonga_SCLK_Dependency_Record);
++		num_entries = table->ucNumEntries;
++	} else {
++		const ATOM_Polaris_SCLK_Dependency_Table *table =
++			(const ATOM_Polaris_SCLK_Dependency_Table *)header;
++
++		entries_offset = offsetof(ATOM_Polaris_SCLK_Dependency_Table, entries);
++		entry_size = sizeof(ATOM_Polaris_SCLK_Dependency_Record);
++		num_entries = table->ucNumEntries;
++	}
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset, entries_offset,
++					   num_entries, entry_size);
++	if (ret)
++		return ret;
++
++	*sclk_dep_table = header;
++
++	return 0;
++}
++
++static int get_tonga_pcie_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const PPTable_Generic_SubTable_Header **pcie_table)
++{
++	const PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t entries_offset;
++	size_t entry_size;
++	u8 num_entries;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usPCIETableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId < 1) {
++		const ATOM_Tonga_PCIE_Table *table =
++			(const ATOM_Tonga_PCIE_Table *)header;
++
++		entries_offset = offsetof(ATOM_Tonga_PCIE_Table, entries);
++		entry_size = sizeof(ATOM_Tonga_PCIE_Record);
++		num_entries = table->ucNumEntries;
++	} else {
++		const ATOM_Polaris10_PCIE_Table *table =
++			(const ATOM_Polaris10_PCIE_Table *)header;
++
++		entries_offset = offsetof(ATOM_Polaris10_PCIE_Table, entries);
++		entry_size = sizeof(ATOM_Polaris10_PCIE_Record);
++		num_entries = table->ucNumEntries;
++	}
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset, entries_offset,
++					   num_entries, entry_size);
++	if (ret)
++		return ret;
++
++	*pcie_table = header;
++
++	return 0;
++}
++
++static int get_tonga_hard_limit_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_Hard_Limit_Table **hard_limit_table)
++{
++	const ATOM_Tonga_Hard_Limit_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usHardLimitTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset,
++					   offsetof(ATOM_Tonga_Hard_Limit_Table,
++						    entries),
++					   table->ucNumEntries,
++					   sizeof(ATOM_Tonga_Hard_Limit_Record));
++	if (ret)
++		return ret;
++
++	*hard_limit_table = table;
++
++	return 0;
++}
++
++static int get_tonga_thermal_controller_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_Thermal_Controller **thermal_controller)
++{
++	u16 table_offset;
++
++	table_offset = le16_to_cpu(powerplay_table->usThermalControllerOffset);
++
++	return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(**thermal_controller),
++				  (const void **)thermal_controller);
++}
++
++static int get_tonga_fan_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const PPTable_Generic_SubTable_Header **fan_table)
++{
++	const PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t table_size;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usFanTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId < 8)
++		table_size = sizeof(ATOM_Tonga_Fan_Table);
++	else if (header->ucRevId == 8)
++		table_size = sizeof(ATOM_Fiji_Fan_Table);
++	else
++		table_size = sizeof(ATOM_Polaris_Fan_Table);
++
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*fan_table = header;
++
++	return 0;
++}
++
++static int get_tonga_power_tune_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const PPTable_Generic_SubTable_Header **power_tune_table)
++{
++	const PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t table_size;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usPowerTuneTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId < 3)
++		table_size = sizeof(ATOM_Tonga_PowerTune_Table);
++	else if (header->ucRevId < 4)
++		table_size = sizeof(ATOM_Fiji_PowerTune_Table);
++	else
++		table_size = sizeof(ATOM_Polaris_PowerTune_Table);
++
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*power_tune_table = header;
++
++	return 0;
++}
++
++static int get_tonga_ppm_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_PPM_Table **ppm_table)
++{
++	u16 table_offset;
++
++	table_offset = le16_to_cpu(powerplay_table->usPPMTableOffset);
++
++	return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(**ppm_table), (const void **)ppm_table);
++}
++
++static int get_tonga_gpio_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_GPIO_Table **gpio_table)
++{
++	u16 table_offset;
++
++	table_offset = le16_to_cpu(powerplay_table->usGPIOTableOffset);
++
++	return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(**gpio_table), (const void **)gpio_table);
++}
++
++static int get_tonga_vce_state_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_VCE_State_Table **vce_state_table)
++{
++	const ATOM_Tonga_VCE_State_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usVCEStateTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset,
++					   offsetof(ATOM_Tonga_VCE_State_Table,
++						    entries),
++					   table->ucNumEntries,
++					   sizeof(ATOM_Tonga_VCE_State_Record));
++	if (ret)
++		return ret;
++
++	*vce_state_table = table;
++
++	return 0;
++}
++
+ static int get_vddc_lookup_table(
+ 		struct pp_hwmgr	*hwmgr,
+ 		phm_ppt_v1_voltage_lookup_table	**lookup_table,
+@@ -198,7 +560,7 @@ static int get_vddc_lookup_table(
+  */
+ static int get_platform_power_management_table(
+ 		struct pp_hwmgr *hwmgr,
+-		ATOM_Tonga_PPM_Table *atom_ppm_table)
++		const ATOM_Tonga_PPM_Table *atom_ppm_table)
  {
- 	struct virtio_gpu_vbuffer *vbuf;
+ 	struct phm_ppm_table *ptr = kzalloc(sizeof(*ptr), GFP_KERNEL);
+ 	struct phm_ppt_v1_information *pp_table_information =
+@@ -246,7 +608,7 @@ static int init_dpm_2_parameters(
+ {
+ 	int result = 0;
+ 	struct phm_ppt_v1_information *pp_table_information = (struct phm_ppt_v1_information *)(hwmgr->pptable);
+-	ATOM_Tonga_PPM_Table *atom_ppm_table;
++	const ATOM_Tonga_PPM_Table *atom_ppm_table;
+ 	uint32_t disable_ppm = 0;
+ 	uint32_t disable_power_control = 0;
+ 
+@@ -275,30 +637,39 @@ static int init_dpm_2_parameters(
+ 	}
+ 
+ 	if (0 != powerplay_table->usVddcLookupTableOffset) {
+-		const ATOM_Tonga_Voltage_Lookup_Table *pVddcCACTable =
+-			(ATOM_Tonga_Voltage_Lookup_Table *)(((unsigned long)powerplay_table) +
+-			le16_to_cpu(powerplay_table->usVddcLookupTableOffset));
+-
+-		result = get_vddc_lookup_table(hwmgr,
+-			&pp_table_information->vddc_lookup_table, pVddcCACTable, 16);
++		const ATOM_Tonga_Voltage_Lookup_Table *pVddcCACTable;
++
++		result = get_tonga_voltage_lookup_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usVddcLookupTableOffset),
++				16, &pVddcCACTable);
++		if (!result)
++			result = get_vddc_lookup_table(hwmgr,
++				&pp_table_information->vddc_lookup_table,
++				pVddcCACTable, 16);
+ 	}
+ 
+-	if (0 != powerplay_table->usVddgfxLookupTableOffset) {
+-		const ATOM_Tonga_Voltage_Lookup_Table *pVddgfxCACTable =
+-			(ATOM_Tonga_Voltage_Lookup_Table *)(((unsigned long)powerplay_table) +
+-			le16_to_cpu(powerplay_table->usVddgfxLookupTableOffset));
++	if (!result && 0 != powerplay_table->usVddgfxLookupTableOffset) {
++		const ATOM_Tonga_Voltage_Lookup_Table *pVddgfxCACTable;
+ 
+-		result = get_vddc_lookup_table(hwmgr,
+-			&pp_table_information->vddgfx_lookup_table, pVddgfxCACTable, 16);
++		result = get_tonga_voltage_lookup_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usVddgfxLookupTableOffset),
++				16, &pVddgfxCACTable);
++		if (!result)
++			result = get_vddc_lookup_table(hwmgr,
++				&pp_table_information->vddgfx_lookup_table,
++				pVddgfxCACTable, 16);
+ 	}
+ 
+ 	disable_ppm = 0;
+ 	if (0 == disable_ppm) {
+-		atom_ppm_table = (ATOM_Tonga_PPM_Table *)
+-			(((unsigned long)powerplay_table) + le16_to_cpu(powerplay_table->usPPMTableOffset));
+-
+ 		if (0 != powerplay_table->usPPMTableOffset) {
+-			if (get_platform_power_management_table(hwmgr, atom_ppm_table) == 0) {
++			int ret;
++
++			ret = get_tonga_ppm_table(hwmgr, powerplay_table,
++						  &atom_ppm_table);
++			if (!ret &&
++			    get_platform_power_management_table(hwmgr,
++							       atom_ppm_table) == 0) {
+ 				phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+ 					PHM_PlatformCaps_EnablePlatformPowerManagement);
+ 			}
+@@ -792,28 +1163,13 @@ static int init_clock_voltage_dependency(
+ 	int result = 0;
+ 	struct phm_ppt_v1_information *pp_table_information =
+ 		(struct phm_ppt_v1_information *)(hwmgr->pptable);
+-
+-	const ATOM_Tonga_MM_Dependency_Table *mm_dependency_table =
+-		(const ATOM_Tonga_MM_Dependency_Table *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usMMDependencyTableOffset));
+-	const PPTable_Generic_SubTable_Header *pPowerTuneTable =
+-		(const PPTable_Generic_SubTable_Header *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usPowerTuneTableOffset));
+-	const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table =
+-		(const ATOM_Tonga_MCLK_Dependency_Table *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usMclkDependencyTableOffset));
+-	const PPTable_Generic_SubTable_Header *sclk_dep_table =
+-		(const PPTable_Generic_SubTable_Header *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usSclkDependencyTableOffset));
+-	const ATOM_Tonga_Hard_Limit_Table *pHardLimits =
+-		(const ATOM_Tonga_Hard_Limit_Table *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usHardLimitTableOffset));
+-	const PPTable_Generic_SubTable_Header *pcie_table =
+-		(const PPTable_Generic_SubTable_Header *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usPCIETableOffset));
+-	const ATOM_Tonga_GPIO_Table *gpio_table =
+-		(const ATOM_Tonga_GPIO_Table *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usGPIOTableOffset));
++	const ATOM_Tonga_MM_Dependency_Table *mm_dependency_table;
++	const PPTable_Generic_SubTable_Header *pPowerTuneTable;
++	const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table;
++	const PPTable_Generic_SubTable_Header *sclk_dep_table;
++	const ATOM_Tonga_Hard_Limit_Table *pHardLimits;
++	const PPTable_Generic_SubTable_Header *pcie_table;
++	const ATOM_Tonga_GPIO_Table *gpio_table;
+ 
+ 	pp_table_information->vdd_dep_on_sclk = NULL;
+ 	pp_table_information->vdd_dep_on_mclk = NULL;
+@@ -821,29 +1177,58 @@ static int init_clock_voltage_dependency(
+ 	pp_table_information->pcie_table = NULL;
+ 	pp_table_information->gpio_table = NULL;
+ 
+-	if (powerplay_table->usMMDependencyTableOffset != 0)
+-		result = get_mm_clock_voltage_table(hwmgr,
+-		&pp_table_information->mm_dep_table, mm_dependency_table);
++	if (powerplay_table->usMMDependencyTableOffset != 0) {
++		result = get_tonga_mm_dependency_table(hwmgr, powerplay_table,
++						       &mm_dependency_table);
++		if (!result)
++			result = get_mm_clock_voltage_table(hwmgr,
++				&pp_table_information->mm_dep_table,
++				mm_dependency_table);
++	}
+ 
+-	if (result == 0 && powerplay_table->usPowerTuneTableOffset != 0)
+-		result = get_cac_tdp_table(hwmgr,
+-		&pp_table_information->cac_dtp_table, pPowerTuneTable);
++	if (result == 0 && powerplay_table->usPowerTuneTableOffset != 0) {
++		result = get_tonga_power_tune_table(hwmgr, powerplay_table,
++						    &pPowerTuneTable);
++		if (!result)
++			result = get_cac_tdp_table(hwmgr,
++				&pp_table_information->cac_dtp_table,
++				pPowerTuneTable);
++	}
+ 
+-	if (result == 0 && powerplay_table->usSclkDependencyTableOffset != 0)
+-		result = get_sclk_voltage_dependency_table(hwmgr,
+-		&pp_table_information->vdd_dep_on_sclk, sclk_dep_table);
++	if (result == 0 && powerplay_table->usSclkDependencyTableOffset != 0) {
++		result = get_tonga_sclk_dependency_table(hwmgr, powerplay_table,
++							 &sclk_dep_table);
++		if (!result)
++			result = get_sclk_voltage_dependency_table(hwmgr,
++				&pp_table_information->vdd_dep_on_sclk,
++				sclk_dep_table);
++	}
+ 
+-	if (result == 0 && powerplay_table->usMclkDependencyTableOffset != 0)
+-		result = get_mclk_voltage_dependency_table(hwmgr,
+-		&pp_table_information->vdd_dep_on_mclk, mclk_dep_table);
++	if (result == 0 && powerplay_table->usMclkDependencyTableOffset != 0) {
++		result = get_tonga_mclk_dependency_table(hwmgr, powerplay_table,
++							 &mclk_dep_table);
++		if (!result)
++			result = get_mclk_voltage_dependency_table(hwmgr,
++				&pp_table_information->vdd_dep_on_mclk,
++				mclk_dep_table);
++	}
+ 
+-	if (result == 0 && powerplay_table->usPCIETableOffset != 0)
+-		result = get_pcie_table(hwmgr,
+-		&pp_table_information->pcie_table, pcie_table);
++	if (result == 0 && powerplay_table->usPCIETableOffset != 0) {
++		result = get_tonga_pcie_table(hwmgr, powerplay_table,
++					      &pcie_table);
++		if (!result)
++			result = get_pcie_table(hwmgr,
++				&pp_table_information->pcie_table, pcie_table);
++	}
+ 
+-	if (result == 0 && powerplay_table->usHardLimitTableOffset != 0)
+-		result = get_hard_limits(hwmgr,
+-		&pp_table_information->max_clock_voltage_on_dc, pHardLimits);
++	if (result == 0 && powerplay_table->usHardLimitTableOffset != 0) {
++		result = get_tonga_hard_limit_table(hwmgr, powerplay_table,
++						    &pHardLimits);
++		if (!result)
++			result = get_hard_limits(hwmgr,
++				&pp_table_information->max_clock_voltage_on_dc,
++				pHardLimits);
++	}
+ 
+ 	hwmgr->dyn_state.max_clock_voltage_on_dc.sclk =
+ 		pp_table_information->max_clock_voltage_on_dc.sclk;
+@@ -864,9 +1249,13 @@ static int init_clock_voltage_dependency(
+ 		result = get_valid_clk(hwmgr, &pp_table_information->valid_sclk_values,
+ 		pp_table_information->vdd_dep_on_sclk);
+ 
+-	if (!result && gpio_table)
+-		result = get_gpio_table(hwmgr, &pp_table_information->gpio_table,
+-				gpio_table);
++	if (!result && powerplay_table->usGPIOTableOffset) {
++		result = get_tonga_gpio_table(hwmgr, powerplay_table,
++					      &gpio_table);
++		if (!result)
++			result = get_gpio_table(hwmgr,
++				&pp_table_information->gpio_table, gpio_table);
++	}
+ 
+ 	return result;
+ }
+@@ -911,14 +1300,17 @@ static int init_thermal_controller(
+ 		)
+ {
+ 	const PPTable_Generic_SubTable_Header *fan_table;
+-	ATOM_Tonga_Thermal_Controller *thermal_controller;
++	const ATOM_Tonga_Thermal_Controller *thermal_controller;
++	int ret;
+ 
+-	thermal_controller = (ATOM_Tonga_Thermal_Controller *)
+-		(((unsigned long)powerplay_table) +
+-		le16_to_cpu(powerplay_table->usThermalControllerOffset));
+ 	PP_ASSERT_WITH_CODE((0 != powerplay_table->usThermalControllerOffset),
+ 		"Thermal controller table not set!", return -1);
+ 
++	ret = get_tonga_thermal_controller_table(hwmgr, powerplay_table,
++						 &thermal_controller);
++	if (ret)
++		return ret;
++
+ 	hwmgr->thermal_controller.ucType = thermal_controller->ucType;
+ 	hwmgr->thermal_controller.ucI2cLine = thermal_controller->ucI2cLine;
+ 	hwmgr->thermal_controller.ucI2cAddress = thermal_controller->ucI2cAddress;
+@@ -946,12 +1338,13 @@ static int init_thermal_controller(
+ 		return 0;
+ 	}
+ 
+-	fan_table = (const PPTable_Generic_SubTable_Header *)
+-		(((unsigned long)powerplay_table) +
+-		le16_to_cpu(powerplay_table->usFanTableOffset));
+-
+ 	PP_ASSERT_WITH_CODE((0 != powerplay_table->usFanTableOffset),
+ 		"Fan table not set!", return -1);
++
++	ret = get_tonga_fan_table(hwmgr, powerplay_table, &fan_table);
++	if (ret)
++		return ret;
++
+ 	PP_ASSERT_WITH_CODE((0 < fan_table->ucRevId),
+ 		"Unsupported fan table format!", return -1);
+ 
+@@ -1313,13 +1706,15 @@ static int ppt_get_num_of_vce_state_table_entries_v1_0(struct pp_hwmgr *hwmgr)
+ {
+ 	const ATOM_Tonga_POWERPLAYTABLE *pp_table = get_powerplay_table(hwmgr);
+ 	const ATOM_Tonga_VCE_State_Table *vce_state_table;
++	int ret;
+ 
+ 
+ 	if (pp_table == NULL)
+ 		return 0;
+ 
+-	vce_state_table = (void *)pp_table +
+-			le16_to_cpu(pp_table->usVCEStateTableOffset);
++	ret = get_tonga_vce_state_table(hwmgr, pp_table, &vce_state_table);
++	if (ret)
++		return 0;
+ 
+ 	return vce_state_table->ucNumEntries;
+ }
+@@ -1328,18 +1723,39 @@ static int ppt_get_vce_state_table_entry_v1_0(struct pp_hwmgr *hwmgr, uint32_t i
+ 		struct amd_vce_state *vce_state, void **clock_info, uint32_t *flag)
+ {
+ 	const ATOM_Tonga_VCE_State_Record *vce_state_record;
+-	ATOM_Tonga_SCLK_Dependency_Record *sclk_dep_record;
++	ATOM_Tonga_SCLK_Dependency_Record *sclk_dep_record = NULL;
++	ATOM_Polaris_SCLK_Dependency_Record *polaris_sclk_dep_record = NULL;
+ 	ATOM_Tonga_MCLK_Dependency_Record *mclk_dep_record;
+ 	ATOM_Tonga_MM_Dependency_Record *mm_dep_record;
+ 	const ATOM_Tonga_POWERPLAYTABLE *pptable = get_powerplay_table(hwmgr);
+-	const ATOM_Tonga_VCE_State_Table *vce_state_table = (ATOM_Tonga_VCE_State_Table *)(((unsigned long)pptable)
+-							  + le16_to_cpu(pptable->usVCEStateTableOffset));
+-	const ATOM_Tonga_SCLK_Dependency_Table *sclk_dep_table = (ATOM_Tonga_SCLK_Dependency_Table *)(((unsigned long)pptable)
+-							  + le16_to_cpu(pptable->usSclkDependencyTableOffset));
+-	const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table = (ATOM_Tonga_MCLK_Dependency_Table *)(((unsigned long)pptable)
+-							  + le16_to_cpu(pptable->usMclkDependencyTableOffset));
+-	const ATOM_Tonga_MM_Dependency_Table *mm_dep_table = (ATOM_Tonga_MM_Dependency_Table *)(((unsigned long)pptable)
+-							  + le16_to_cpu(pptable->usMMDependencyTableOffset));
++	const ATOM_Tonga_VCE_State_Table *vce_state_table;
++	const PPTable_Generic_SubTable_Header *sclk_dep_table_header;
++	const ATOM_Tonga_SCLK_Dependency_Table *sclk_dep_table;
++	const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table;
++	const ATOM_Tonga_MM_Dependency_Table *mm_dep_table;
++	int ret;
++
++	if (!pptable)
++		return -EINVAL;
++
++	ret = get_tonga_vce_state_table(hwmgr, pptable, &vce_state_table);
++	if (ret)
++		return ret;
++
++	ret = get_tonga_sclk_dependency_table(hwmgr, pptable,
++					      &sclk_dep_table_header);
++	if (ret)
++		return ret;
++	sclk_dep_table = (const ATOM_Tonga_SCLK_Dependency_Table *)
++		sclk_dep_table_header;
++
++	ret = get_tonga_mclk_dependency_table(hwmgr, pptable, &mclk_dep_table);
++	if (ret)
++		return ret;
++
++	ret = get_tonga_mm_dependency_table(hwmgr, pptable, &mm_dep_table);
++	if (ret)
++		return ret;
+ 
+ 	PP_ASSERT_WITH_CODE((i < vce_state_table->ucNumEntries),
+ 			 "Requested state entry ID is out of range!",
+@@ -1348,10 +1764,27 @@ static int ppt_get_vce_state_table_entry_v1_0(struct pp_hwmgr *hwmgr, uint32_t i
+ 	vce_state_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
+ 					ATOM_Tonga_VCE_State_Record,
+ 					entries, vce_state_table, i);
+-	sclk_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
+-					ATOM_Tonga_SCLK_Dependency_Record,
+-					entries, sclk_dep_table,
+-					vce_state_record->ucSCLKIndex);
++	PP_ASSERT_WITH_CODE((vce_state_record->ucSCLKIndex <
++			     sclk_dep_table->ucNumEntries),
++			    "Invalid PowerPlay Table!", return -EINVAL);
++	PP_ASSERT_WITH_CODE((vce_state_record->ucVCEClockIndex <
++			     mm_dep_table->ucNumEntries),
++			    "Invalid PowerPlay Table!", return -EINVAL);
++	PP_ASSERT_WITH_CODE((mclk_dep_table->ucNumEntries != 0),
++			    "Invalid PowerPlay Table!", return -EINVAL);
++
++	if (sclk_dep_table_header->ucRevId < 1)
++		sclk_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
++						ATOM_Tonga_SCLK_Dependency_Record,
++						entries, sclk_dep_table,
++						vce_state_record->ucSCLKIndex);
++	else
++		polaris_sclk_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
++						ATOM_Polaris_SCLK_Dependency_Record,
++						entries,
++						(ATOM_Polaris_SCLK_Dependency_Table *)
++						sclk_dep_table_header,
++						vce_state_record->ucSCLKIndex);
+ 	mm_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
+ 					ATOM_Tonga_MM_Dependency_Record,
+ 					entries, mm_dep_table,
+@@ -1360,7 +1793,10 @@ static int ppt_get_vce_state_table_entry_v1_0(struct pp_hwmgr *hwmgr, uint32_t i
+ 
+ 	vce_state->evclk = le32_to_cpu(mm_dep_record->ulEClk);
+ 	vce_state->ecclk = le32_to_cpu(mm_dep_record->ulEClk);
+-	vce_state->sclk = le32_to_cpu(sclk_dep_record->ulSclk);
++	if (sclk_dep_record)
++		vce_state->sclk = le32_to_cpu(sclk_dep_record->ulSclk);
++	else
++		vce_state->sclk = le32_to_cpu(polaris_sclk_dep_record->ulSclk);
+ 
+ 	if (vce_state_record->ucMCLKIndex >= mclk_dep_table->ucNumEntries)
+ 		mclk_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
 -- 
 2.53.0
 
