@@ -2,79 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F264F606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124A4606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bKjd1rrJ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e1OW00Kr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E97DE10F2FB;
-	Tue, 20 Oct 2026 07:36:32 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1F7310E0BD
- for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 14:08:43 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a1635f7c89so7736005e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 17 Oct 2026 07:08:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A40C10F2FC;
+	Tue, 20 Oct 2026 07:36:33 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1E1210E04F
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 17:55:00 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-35ef6b49813so4541927eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:55:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792246122; x=1792850922; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792432500; x=1793037300; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=B9YVPWXQ1AxunRapx6pi/difSuiJYO0pfCJBVjjClPo=;
- b=bKjd1rrJmbbht0o9F5y08g/tZsP8Pi7aK6xoGU9xUFRMw7lINQT58f1uX2R0JfRcK/
- Do6hRtHKBHuAwnM2mIR4HE6pwTVmhO59pjkOc+ZXjzNbvJmXzWnwhDQtHMTOuX32aydI
- gwEXKtvEK/ubwRXjmEa7wTfnWULi5/d7jAuoVbFKeNmekWF9NOvefB53QDpvqaPKGEK8
- IYB4zLCjMRUHgjjKSQDFGaT8j/dVy8HHcTPryBPisHAjnWyb7XY+zXF8s/Nw0zba2AD+
- POLMGyz8t/QR87nsdWYwXOMBCGv/xgfjG01HsIFvITbFVy+kksdureGuLdTmfdiRyIPL
- vFMg==
+ bh=74uvMze8U6BbGPbd8gwymf11h9qlFwlZm+CW2Kl7KEg=;
+ b=e1OW00KrCskAZmyB0PItFG2Pbv7bJiHp5sgfk+nbtJ9YyHaJ3f9xOybG4HHCuy6QhG
+ +/i453abDW5Lz2Kyg5lx6hnY31/aD+xti0zp91Oniqpnp3csy6X/IKXrPznkiUetC8Cw
+ rglSlh1Ux8kgOem0yRKS/a0rQyCkKMC5TIZap+cBk9DWItLx3ku3LIhFQoBJ0Mo5AdSX
+ LhuaSnbvphyazf/Iqo3F0EyxwvTB6VK9yLbbk/aeYSDpBRKJcYsDuskd4mw59vQdndAa
+ ZrLs8w6Wfij3T0qPW6/rxzvyqWapwiZqB8lG4qvGqaeeZ0XRM9QH1xuTVgyU8Q63waYm
+ 2iyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792246122; x=1792850922;
+ d=1e100.net; s=20260707; t=1792432500; x=1793037300;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=B9YVPWXQ1AxunRapx6pi/difSuiJYO0pfCJBVjjClPo=;
- b=u4xMKJBmUbwTr9bMzbQMVHOM5dlK6CEx6QnSgrbWZJIN9Wb4JdkNTK4dmRn15v4VWZ
- MIJqyh6sS//5ZxmARgnfJnCCCLbhlHc77dQiyviUBjdyEloBefQOW5JzEdLiKwuROQz4
- ATEnTbRW8XiV7cX/Dl7ABVWt/b+quf+zsq5mTdNi7fxlJUkVY6qn1gzA1lPejOp99VlV
- whR5Dom5WyfC8WPmowopRwHhcnh84ETkCWxJWQhUneV+pc1M2/7sBnUGY1issIEuYd5R
- AzHIJ8FDD4arECDd5WgAuaTiMVXobEuQE271boNWCRO8zEL6I5N7V3SbCUKS7YMekctb
- TYlA==
+ bh=74uvMze8U6BbGPbd8gwymf11h9qlFwlZm+CW2Kl7KEg=;
+ b=oC2Tcp73i6OF53jCiNnvfCm2JEwagVfnhnPGJtBi3/96Z9BH/VSlA8RgfErsmviKqk
+ /CMQ9l/J8ZB/eCEWXD6bPvl49VThw3pdXcwUsF0mpIMXZAV6nETxp56s33kI2nwy3eHC
+ CiLHd2OtAGP9dxqe5LmrdhFiy8W2Cl+tok5j2qK6SRWi2aqBjs4z5eLXajepqkoEIrFt
+ Noxp2D/NalCe2YZulhEp6JpoULaPBltr/2eE9O9Rgr4fwoHr4u5s5Nu+KMQggj2kcS3O
+ uv1GMUZ3AucSIbbm3psegF57+96/dHPO5J9Ao/TL3FUJB5Sn8MTxvNQ56yAqCD/9uvUh
+ WeQA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx0z1UxEXX+VtY7TDcH3Rq/3NmuNxDofBPFpsCyXTf1nRnQGGC4XmWf5m8UWBgbBhRc6n0Efbm/CBU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKlEDzKHXvOJ78lhwjK5AWcaTWth8IqxlNfO4LFzgLgecp9ZEpJ
- +ZrRieZ+fV/yZuqM9gmayRwM9A0mtJR7+Pe7LX72L96a/hkGMVJk8Q2a
-X-Gm-Gg: AYBFou2qL7nzzrYDWLt1WL6kbrFGKITSZQ/7a5p0qA2DnbvMMczKQCHk2wz0/m0pha6
- TTS6zIrqRVn3TbvDiHXVWeGtUs+Asi0Ymtmf2Uxw59iSGeVqArDELzM8YqAa0kR8q1RN75qkqHv
- YtKbR7VWX8wKcOrf/JTHWscDr//7kSxhEUA7NCIZqUO94qzQKWSyT6tzHxCbfaHXkhV2x2rcV2j
- IBFCyqB/l2DpQGnQ4p3WV++PXEo0GWWG5HLWLxe85WBQl3RxfALz4U9gbR7zcIQu1/WRgMmd82y
- gwOT6Bk8ZOBy0RV9YveUnHp8cr1l51Z97Q/F/RErQoJ9iMAaSqYhqG+uEQXtJgQ+0lT4o+quhNb
- FoApohFtu7SmgIf4GiFIgoX65YK9uvzT6pDuy15KIRop3VNf8fXSo3z5qIY7RjxgmIHO5BmmPHV
- I6od1zu2l1E3svBXF5ff8XNG8ofXm1p6IJavwuGi/kfm4UTs/Tj1LtfntvdE0iEIotGFAIZwyzs
- t9MrUJYrp9W0W+jVYB0Y48Mw9b5JAFVWXKakJwUgG7JfL/WcxzgOtuCDvKCGEG+Q3dOuYEE0zo0
- /g==
-X-Received: by 2002:a05:600c:8a0d:20b0:49c:fed6:cd3f with SMTP id
- 5b1f17b1804b1-4a1d7616d29mr40954785e9.23.1792246121666; 
- Sat, 17 Oct 2026 07:08:41 -0700 (PDT)
-Received: from machine.home.arpa ([2a0d:3344:57f6::1046])
+ AKwUvBy1c7QAuhZfQfOYKStxMbntKlmCeeabO8eGdTwITHGtrSxxJ47XprxfcMna6V2/Jf+HwrPit3cP2uw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJMWnmnf7gw0uZFDJCasVFcckJORcXcbwwqyN1KKDzyz8rZ6CuM
+ DPRdYQR510sQ/cMRrX0YQFj6KMtbZlJfpxOeVf7EqJukrNBtRbMJYSQj
+X-Gm-Gg: AYBFou1n+DIfJymhBycT7ZfSA2LIDJUsaLmuwGPkya/6CQD9yLU0NOHUwBFeqLyW0Qk
+ 7QTR+CXZ9lwQyVGe5wx1heV66KS4Mo+9tUXslM+SugqfaO+7Pzv2xJVbPwLIjwaVz9zOCRN3h63
+ 2k6B67IuStlfnp4U6AMPb/p8y+Nyn6GOn/b6WJQ1L0Z6aBbtKfJklqMkoTp2Ouz/2a0zOcsQoi9
+ IDADqohwoFmOOa0f6IKGUGy21tugKFlcg0zxf8je8xIhlc/P1K5Q1dxPMcQ9cM8NF/gYlqlgczw
+ 7RHBn51tsMM/aeVe/0QdcQT5/6GZcOJFrYjRz9x0mu0O2wYkhJwdBtF7Z9Y5xUbcRAjrzgzQMIC
+ zmy+tVs/X5qqlg1i20w+pm3oxQUWxWz4ZNemhf2v6R/27EE8VGWalv0hFYFtfPE/yjLrAoumlxn
+ dopynyKlHZL/O/hv20PkW+aDDsNOEg9yApXHr4bWePI6FE4UOH0Lof+XLJ1pQPAEXRyLWuVjESj
+ MbHKBPLKkpdVSCUShLzu5/3Aa5r3ssmpvKylL4=
+X-Received: by 2002:a05:701b:4587:b0:143:26cf:8615 with SMTP id
+ a92af1059eb24-18512b42d8emr13262304c88.25.1792432499621; 
+ Mon, 19 Oct 2026 10:54:59 -0700 (PDT)
+Received: from localhost.localdomain ([136.126.251.209])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.40
+ a92af1059eb24-1831c5cb39esm31837697c88.22.2026.10.19.10.54.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Oct 2026 07:08:40 -0700 (PDT)
-From: Luka Panio <lukapanio@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
- Douglas Anderson <dianders@chromium.org>, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Luka Panio <lukapanio@gmail.com>
-Subject: [PATCH 4/7] Input: edt-ft5x06 - allow a chip specific touch data
- register
-Date: Sat, 17 Oct 2026 16:07:52 +0200
-Message-ID: <20261017140827.290666-5-lukapanio@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261017140827.290666-1-lukapanio@gmail.com>
-References: <20261017140827.290666-1-lukapanio@gmail.com>
+ Mon, 19 Oct 2026 10:54:58 -0700 (PDT)
+From: Henry Zhang <henryzhang62@gmail.com>
+To: henryzhang62@gmail.com, Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/3] drm/vc4: dsi: Serialize host transfers
+Date: Mon, 19 Oct 2026 10:49:30 -0700
+Message-ID: <20261019174930.7237-4-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261019174930.7237-1-henryzhang62@gmail.com>
+References: <20261019174930.7237-1-henryzhang62@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -93,69 +93,77 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The generic FocalTech path reads the touch report starting at register
-0x00 and expects the points from register 0x03 onwards. Over SPI the
-FT8722 only returns the report when the read starts at register 0x01;
-a read from 0x00 returns the static register block instead, the
-interrupt is never acknowledged and no further touch events arrive.
+vc4_dsi_host_transfer() fills the command FIFOs and the TXPKT registers
+and waits on a single completion without any locking. Two callers
+sending at the same time, for example a panel driver and a backlight
+update, can overwrite each other's packets, and the timeout recovery
+added in the previous patch could reset the block under a transfer
+that is still in flight.
 
-Let the chip data select the register the report is read from, keeping
-the points at register 0x03.
+Hold a mutex for the whole host transfer, including the recovery.
 
-Signed-off-by: Luka Panio <lukapanio@gmail.com>
+Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
 ---
- drivers/input/touchscreen/edt-ft5x06.c | 6 ++++--
- drivers/input/touchscreen/edt-ft5x06.h | 1 +
- 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touchscreen/edt-ft5x06.c
-index e57611e48217..7bcc48e07d62 100644
---- a/drivers/input/touchscreen/edt-ft5x06.c
-+++ b/drivers/input/touchscreen/edt-ft5x06.c
-@@ -149,6 +149,7 @@ struct edt_ft5x06_ts_data {
- 	struct edt_reg_addr reg_addr;
- 	enum edt_ver version;
- 	int (*boot)(struct device *dev, struct gpio_desc *reset_gpio);
-+	u8 tdata_reg;
- 	unsigned int crc_errors;
- 	unsigned int header_errors;
- };
-@@ -1037,8 +1038,8 @@ static void edt_ft5x06_ts_set_tdata_parameters(struct edt_ft5x06_ts_data *tsdata
- 		tsdata->point_len = 4;
- 		crclen = 1;
- 	} else {
--		tsdata->tdata_cmd = 0x0;
--		tsdata->tdata_offset = 3;
-+		tsdata->tdata_cmd = tsdata->tdata_reg;
-+		tsdata->tdata_offset = 3 - tsdata->tdata_reg;
- 		tsdata->point_len = 6;
- 		crclen = 0;
- 	}
-@@ -1244,6 +1245,7 @@ int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
+Notes:
+    New in v2 (Sashiko review).
+
+ drivers/gpu/drm/vc4/vc4_dsi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+index 2d985bc..627adf0 100644
+--- a/drivers/gpu/drm/vc4/vc4_dsi.c
++++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+@@ -25,6 +25,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/dmaengine.h>
+ #include <linux/io.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+ #include <linux/platform_device.h>
+@@ -595,6 +596,8 @@ struct vc4_dsi {
+ 	 */
+ 	struct clk *pixel_clock;
  
- 	tsdata->max_support_points = chip_data->max_support_points;
- 	tsdata->boot = chip_data->boot;
-+	tsdata->tdata_reg = chip_data->tdata_reg;
++	/* Serializes host transfers, including the recovery after a timeout. */
++	struct mutex transfer_lock;
+ 	struct completion xfer_completion;
+ 	int xfer_result;
+ 	int irq;
+@@ -1434,6 +1437,8 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
+ 	u32 disp0_ctrl;
+ 	ssize_t ret;
  
- 	tsdata->vcc = devm_regulator_get(dev, "vcc");
- 	if (IS_ERR(tsdata->vcc))
-diff --git a/drivers/input/touchscreen/edt-ft5x06.h b/drivers/input/touchscreen/edt-ft5x06.h
-index 7eaeb562d11f..c55686e288b6 100644
---- a/drivers/input/touchscreen/edt-ft5x06.h
-+++ b/drivers/input/touchscreen/edt-ft5x06.h
-@@ -18,6 +18,7 @@ struct regmap;
++	guard(mutex)(&dsi->transfer_lock);
++
+ 	ret = vc4_dsi_transfer(dsi, msg);
+ 	if (ret != -ETIMEDOUT)
+ 		return ret;
+@@ -1911,6 +1916,7 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct vc4_dsi *dsi;
++	int ret;
  
- struct edt_ft5x06_chip_data {
- 	int max_support_points;
-+	u8 tdata_reg;
- 	int (*boot)(struct device *dev, struct gpio_desc *reset_gpio);
- };
+ 	dsi = devm_drm_bridge_alloc(&pdev->dev, struct vc4_dsi, bridge, &vc4_dsi_bridge_funcs);
+ 	if (IS_ERR(dsi))
+@@ -1918,6 +1924,9 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
+ 	dev_set_drvdata(dev, dsi);
  
+ 	dsi->pdev = pdev;
++	ret = devm_mutex_init(dev, &dsi->transfer_lock);
++	if (ret)
++		return ret;
+ #ifdef CONFIG_OF
+ 	dsi->bridge.of_node = dev->of_node;
+ #endif
 -- 
-2.55.0
+2.47.3
 
