@@ -4,59 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2CBCCCF2D6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 10:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26490CCF2DB
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 10:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C79610E9C8;
-	Mon, 19 Oct 2026 10:34:06 +0000 (UTC)
-Received: from mail-m205210164253.xmail.ntesmail.com
- (mail-m205210164253.xmail.ntesmail.com [205.210.164.253])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B17A110EA1E
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:33:56 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 518d3ddb4;
- Mon, 19 Oct 2026 18:28:49 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dave Jones <s.dave.jones@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v2 6/6] arm64: dts: rockchip: rk356x: Add eDP controller and
- phy nodes
-Date: Mon, 19 Oct 2026 18:28:24 +0800
-Message-Id: <20261019102824.3157044-7-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019102824.3157044-1-damon.ding@rock-chips.com>
-References: <20261019102824.3157044-1-damon.ding@rock-chips.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa153b4f0f103a8kunme348c01b2f6c59
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUpJVklLSkNKH0odTkMeS1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=Knnwf9OeJchsgWsBAold0rtvUsMcikqn3N7Tstzi0RF78LiKL+0hcUNzU3r66POuNBTKSc6aCQNh5ya64BLf4RfzI5tvu6iSx2UT0321l0g6IsDWW0wOw/4aIZw7VUk0LsLvVA+lqVUHpHaB+uYvsxtVEdloGDUjX85pRvm1NSs=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=u0DlQ/xf40TjrEq/cqhW2BlOW/2RL9CDbLOchel23Qo=;
- h=date:mime-version:subject:message-id:from;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA7C10EA17;
+	Mon, 19 Oct 2026 10:34:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F189910EA17
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:34:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6599A4161E;
+ Mon, 19 Oct 2026 10:34:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009531F000C4;
+ Mon, 19 Oct 2026 10:34:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792406047;
+ bh=BxFJg1WeFW7LYxavisv8eBBfuyz6duDUtX3mBa2YhYs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=a8HY3GLWLkQWLh72816xMNviirN4f0vjbLH2kvDhaKa0n4iULLYjbXftjvW5Kzwos
+ Yak6w1RKrPXL93g26dgM2oy4X48ak8F5aS9o1SdciNQySjTX8Y471p7hguuPGXNRLd
+ 1Xtdg5jXLKAaebefb2HXaohnqkkvIcxFwfn2J9YcVoCl9rmUXpGPu0e63wSQpgy9FQ
+ yNntfbEiOCAB2y+x0kqDGjR1FaP26REvYNk0MSwNJ6OFutZuXfKWiVoYRgjg8LObgL
+ 6KVcYiu+bI3xBs7zzvXU9RvIKy1RyTSQD5wCJibID0Ej5jMcW/yf3cZjQbHKlOuhXO
+ U7YNJTz6BmB8w==
+Message-ID: <sashiko-outbox-176995@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] drm/bridge: simple-bridge: Support
+ data-enable-active endpoint property
+To: "Leonardo Costa" <leoreis.costa@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 10:34:06 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,76 +52,158 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the eDP PHY GRF (with the eDP PHY child node) and the eDP
-controller nodes for the RK3568/RK3566 SoCs.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/bridge: simple-bridge: missing atomic_check() to propagate DE =
+bus flags
+- [Medium] drm/bridge: simple-bridge: timings devm_kzalloc() lifetime misma=
+tch
+--
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 41 +++++++++++++++++++
- 1 file changed, 41 insertions(+)
+commit 17d03fa8dcd99e5bb3af7da622344c856ca2c887
+Author: Leonardo Costa <leonardo.costa@toradex.com>
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index a5832895bd39..3b60e4355ad8 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -403,6 +403,20 @@ usb2phy1_grf: syscon@fdca8000 {
- 		reg = <0x0 0xfdca8000 0x0 0x8000>;
- 	};
- 
-+	edp_phy_grf: syscon@fdcb0000 {
-+		compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-+		reg = <0x0 0xfdcb0000 0x0 0x100>;
-+		clocks = <&cru PCLK_EDPPHY_GRF>;
-+
-+		edp_phy: edp-phy {
-+			compatible = "rockchip,rk3568-edp-phy";
-+			clocks = <&pmucru XIN_OSC0_EDPPHY_G>;
-+			clock-names = "refclk";
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+	};
-+
- 	pmucru: clock-controller@fdd00000 {
- 		compatible = "rockchip,rk3568-pmucru";
- 		reg = <0x0 0xfdd00000 0x0 0x1000>;
-@@ -879,6 +893,33 @@ hdmi_out: port@1 {
- 		};
- 	};
- 
-+	edp: edp@fe0c0000 {
-+		compatible = "rockchip,rk3568-edp";
-+		reg = <0x0 0xfe0c0000 0x0 0x10000>;
-+		clocks = <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDP_CTRL>, <&cru HCLK_VO>;
-+		clock-names = "dp", "pclk", "hclk";
-+		interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-+		phys = <&edp_phy>;
-+		phy-names = "dp";
-+		power-domains = <&power RK3568_PD_VO>;
-+		resets = <&cru SRST_EDP_24M>, <&cru SRST_P_EDP_CTRL>;
-+		reset-names = "dp", "apb";
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			edp_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			edp_out: port@1 {
-+				reg = <1>;
-+			};
-+		};
-+	};
-+
- 	qos_gpu: qos@fe128000 {
- 		compatible = "rockchip,rk3568-qos", "syscon";
- 		reg = <0x0 0xfe128000 0x0 0x20>;
--- 
-2.34.1
+drm/bridge: simple-bridge: Support data-enable-active endpoint property
 
+This commit reads the data-enable-active property from the input endpoint in
+simple_bridge_probe() and allocates a drm_bridge_timings structure to set
+DRM_BUS_FLAG_DE_HIGH or DRM_BUS_FLAG_DE_LOW in input_bus_flags when the bri=
+dge
+does not already define its own timings.
+
+> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bri=
+dge/simple-bridge.c
+> index 3fba7002322e9..393228bed6e28 100644
+> --- a/drivers/gpu/drm/bridge/simple-bridge.c
+> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
+> @@ -171,6 +171,9 @@ static int simple_bridge_probe(struct platform_device=
+ *pdev)
+>  {
+>  	struct simple_bridge *sbridge;
+>  	struct device_node *remote;
+> +	struct device_node *ep;
+> +	bool de_present;
+> +	u32 de;
+> =20
+>  	sbridge =3D devm_drm_bridge_alloc(&pdev->dev, struct simple_bridge,
+>  					bridge, &simple_bridge_bridge_funcs);
+> @@ -208,10 +211,26 @@ static int simple_bridge_probe(struct platform_devi=
+ce *pdev)
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(sbridge->enable),
+>  				     "Unable to retrieve enable GPIO\n");
+> =20
+> -	/* Register the bridge. */
+>  	sbridge->bridge.of_node =3D pdev->dev.of_node;
+>  	sbridge->bridge.timings =3D sbridge->info->timings;
+> =20
+> +	ep =3D of_graph_get_endpoint_by_regs(pdev->dev.of_node, 0, -1);
+> +	de_present =3D !of_property_read_u32(ep, "data-enable-active", &de);
+> +	of_node_put(ep);
+> +
+> +	if (de_present && !sbridge->bridge.timings) {
+> +		struct drm_bridge_timings *timings;
+> +
+> +		timings =3D devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
+> +		if (!timings)
+> +			return -ENOMEM;
+
+[Severity: Medium]
+Can allocating timings with devm_kzalloc() in simple_bridge_probe() cause a
+lifetime mismatch with sbridge->bridge?
+
+sbridge is allocated via devm_drm_bridge_alloc(), which manages the contain=
+er's
+lifetime through sbridge->bridge.refcount and only frees it in
+__drm_bridge_free() after all drm_bridge references are dropped:
+
+drivers/gpu/drm/drm_bridge.c:__drm_bridge_free()
+	if (bridge->funcs->destroy)
+		bridge->funcs->destroy(bridge);
+
+	drm_bridge_put(bridge->next_bridge);
+
+	kfree(bridge->container);
+
+If pdev is unbound while an upstream bridge or encoder still holds a refere=
+nce
+to sbridge->bridge, devres_release_all() will free timings immediately, lea=
+ving
+sbridge->bridge.timings as a dangling pointer that can be dereferenced by
+upstream drivers (for example, in imx8mp_hdmi_pvi_bridge_enable()).
+
+Would embedding struct drm_bridge_timings inside struct simple_bridge (as d=
+one
+in lvds-codec.c and ti-tfp410.c), or pointing to static const
+drm_bridge_timings instances for DRM_BUS_FLAG_DE_HIGH and DRM_BUS_FLAG_DE_L=
+OW,
+avoid this lifetime mismatch?
+
+> +
+> +		timings->input_bus_flags =3D de ? DRM_BUS_FLAG_DE_HIGH :
+> +						DRM_BUS_FLAG_DE_LOW;
+> +		sbridge->bridge.timings =3D timings;
+> +	}
+
+[Severity: High]
+Will setting only sbridge->bridge.timings->input_bus_flags actually propaga=
+te
+the DE polarity to upstream atomic encoders and bridges?
+
+simple_bridge_bridge_funcs registers atomic state callbacks without an
+.atomic_check callback:
+
+drivers/gpu/drm/bridge/simple-bridge.c:
+static const struct drm_bridge_funcs simple_bridge_bridge_funcs =3D {
+	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+	.attach		=3D simple_bridge_attach,
+	.atomic_enable =3D simple_bridge_enable,
+	.atomic_disable =3D simple_bridge_disable,
+};
+
+During an atomic modeset, drm_atomic_bridge_chain_check() calls
+drm_atomic_bridge_propagate_bus_flags(), which overwrites
+bridge_state->input_bus_cfg.flags with output_flags from the downstream bri=
+dge
+or connector (0 for a VGA connector) and never checks
+bridge->timings->input_bus_flags:
+
+drivers/gpu/drm/drm_bridge.c:drm_atomic_bridge_propagate_bus_flags()
+	bridge_state->output_bus_cfg.flags =3D output_flags;
+	...
+	bridge_state->input_bus_cfg.flags =3D output_flags;
+
+Because simple-bridge has a valid drm_bridge_state, upstream bridges and at=
+omic
+encoders such as imx_pd_bridge_atomic_check() in
+drivers/gpu/drm/imx/ipuv3/parallel-display.c read
+next_bridge_state->input_bus_cfg.flags instead of
+next_bridge->timings->input_bus_flags:
+
+drivers/gpu/drm/imx/ipuv3/parallel-display.c:imx_pd_bridge_atomic_check()
+	if (next_bridge_state)
+		bus_flags =3D next_bridge_state->input_bus_cfg.flags;
+	else
+		bus_flags =3D di->bus_flags;
+
+As a result, bus_flags remains 0 instead of DRM_BUS_FLAG_DE_LOW or
+DRM_BUS_FLAG_DE_HIGH.
+
+Should simple_bridge_bridge_funcs implement an .atomic_check callback that
+copies sbridge->bridge.timings->input_bus_flags into
+bridge_state->input_bus_cfg.flags (similar to tfp410_atomic_check() in
+drivers/gpu/drm/bridge/ti-tfp410.c)?
+
+> +
+> +	/* Register the bridge. */
+>  	return devm_drm_bridge_add(&pdev->dev, &sbridge->bridge);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-v2-apalis-=
+imx6-enable-vga-v2-0-ef6a3a780472@toradex.com?part=3D2
