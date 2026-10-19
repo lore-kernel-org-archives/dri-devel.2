@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F11F606A319
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 21:58:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3E8606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 21:59:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T1yjPZmD
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mf953ADZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A969110EB2E;
-	Mon, 19 Oct 2026 21:58:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE54F10EB2E
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 21:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5652610EB49;
+	Mon, 19 Oct 2026 21:59:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 478A210EB49
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 21:59:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 70D1340684;
- Mon, 19 Oct 2026 21:58:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073321F000C4;
- Mon, 19 Oct 2026 21:58:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5E52E601F6;
+ Mon, 19 Oct 2026 21:59:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0191F000C5;
+ Mon, 19 Oct 2026 21:59:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792447102;
- bh=sCOLSmoF9IiqP1nhjFnR3WssN+jGrWQW2hDjEU5Svis=;
+ s=k20260515; t=1792447168;
+ bh=J44kYt77Rb1flaUd5VzTPluftU6867jKUcRlpQnHL2Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T1yjPZmDH87xmthg2X4GlZHaGwAAuwJIDS5LqHW+cnLiZub4NELn4SxeQ3NZtXM/5
- lFagMgfIttFmBHC/GUhD9FCcvOcd4vV9oP02RvNxwML/rE/OgJ/CGmz0hrsYCBHJRu
- Eiu1p3XBt0Ig29oohNQujTJVmSQ1dRyHeZIUFEUkVXCcfwsYbQlBbq3hmcLz5AyKyn
- RWE6Wh5oTzwZznI2so835eMqr+MgU7EAOosEKVvLUrPbRqSFxtKL11Ww3cnjg8f9QD
- jq3LmEG1CWYD53jlz22RXeFJ5s83KlS2GL5Kl5RRxoxMQCWrvoBtsMHdRhzEIgpgvZ
- ycwzVkFi56KQA==
-Message-ID: <sashiko-outbox-178284@kernel.org>
+ b=Mf953ADZa9MswAUnsZJPzbcmcHLOlFfkFUQmKVOijiSFsI/zdvzqzzo6m5vTAILhg
+ sFAjLB3VGj7Dh0CJkRog2jTZEpMx2a7uP/Us+aJdy4RHuwDObQbezpvild+bLqHlDp
+ zDxjLRk3v6DUkJPgoccttrK34UEHeyS+r3mF+s8pTPVhuxIvW/Qd2oO1AqyUfnN6Ge
+ bMC7PmhSZah8PoXFB1BGCDH4Vkqnb8gxu8uDsfy6P3YwLKp8ZnZ3nNxfk2Qyd6/exB
+ AfR/kifAxofUhXpaO/IXgUeL16vQaZmcn/ofplnVa3EfZq53nzEeLxu8qZpnDOo81N
+ 1QX7e4BGf5iDA==
+Message-ID: <sashiko-outbox-178285@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/14] drm/solomon: ssd16xx: Expose session
- management as plane properties
+Subject: Re: [PATCH v3 05/14] drm/solomon: ssd16xx: Add
+ clear_on_init/close/disable session management
 To: "Devarsh Thakkar" <devarsht@ti.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019213726.4145532-11-devarsht@ti.com>
+In-Reply-To: <20261019213726.4145532-6-devarsht@ti.com>
 References: <20261019213726.4145532-1-devarsht@ti.com>
- <20261019213726.4145532-11-devarsht@ti.com>
+ <20261019213726.4145532-6-devarsht@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 21:58:21 +0000
+Date: Mon, 19 Oct 2026 21:59:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,388 +62,325 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] drm/solomon: ssd16xx: lock inversion between device->lock and drm_=
-dev_enter()
-- [Medium] drm/solomon: ssd16xx: session properties not synced on disable o=
-r idle commits
-- [Medium] drm/solomon: ssd16xx: disabling refresh_mode_init sets refresh_m=
-ode to -1
-- [Medium] drm/solomon: ssd16xx: fast LUT preload missed or clobbered by se=
-ssion modes
-- [Medium] drm/solomon: ssd16xx: runtime PM calls outside device->lock race=
- with master_drop()
+- [High] drm/solomon: ssd16xx: wrong RAM window in ssd16xx_clear_display() =
+for 90/180
+- [High] drm/solomon: ssd16xx: ssd16xx_clear_display() breaks partial refre=
+sh protocol
+- [High] drm/solomon: ssd16xx: missing fast LUT preload in ssd16xx_clear_di=
+splay()
+- [High] drm/solomon: ssd16xx: clear_on_init skipped when CRTC is already e=
+nabled
+- [Medium] drm/solomon: ssd16xx: split clear flags fail to prevent double c=
+lear on exit
 --
 
-commit 96a2ccec634e73c5b82d2f3b3b5d2292c57d3429
+commit 3af87653bdf02bc80f3063d4c3e270de771de868
 Author: Devarsh Thakkar <devarsht@ti.com>
 
-drm/solomon: ssd16xx: Expose session management as plane properties
+drm/solomon: ssd16xx: Add clear_on_init/close/disable session management
 
-This commit exposes the clear_on_init, clear_on_close, clear_on_disable, and
-refresh_mode_init session management settings as DRM plane enum properties.=
- It
-also introduces a device mutex to serialize session state and panel access
-between atomic commits and DRM master callbacks.
+This commit adds session-lifetime display clearing for SSD16xx e-paper pane=
+ls
+via three configurable hooks: clear_on_init, clear_on_close, and
+clear_on_disable. Each hook selects the refresh waveform to use when blanki=
+ng
+the display and defaults to -1 (disabled).
 
 > diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/=
 ssd16xx.c
-> index 6037717635a48..13bd825bf3f17 100644
+> index ca6550b5dd5bd..7b00964487681 100644
 > --- a/drivers/gpu/drm/solomon/ssd16xx.c
 > +++ b/drivers/gpu/drm/solomon/ssd16xx.c
 
 [ ... ]
 
-> @@ -1576,6 +1664,24 @@ static int ssd16xx_plane_atomic_check(struct drm_p=
-lane *plane,
->  						   false, false);
+> @@ -754,6 +775,138 @@ static int ssd16xx_hw_init(struct ssd16xx_device *d=
+evice)
+>  	return err;
 >  }
 > =20
 > +/*
-> + * Copy the session properties of a plane state into the device.  Called=
- from
-> + * both crtc_atomic_enable() and plane_atomic_update(): the former runs =
-first
-> + * in a commit, so it must not rely on values only synced by the latter.
+> + * Clear display by writing all-white to both BW and RED RAM.
+> + * The ctrl2 argument selects the waveform (full/partial/fast refresh).
+> + * Border waveform is set to init value before clearing, then restored
+> + * to the update value to preserve the border during subsequent updates.
 > + */
-> +static void ssd16xx_sync_session_props(struct ssd16xx_device *device,
-> +				       const struct ssd16xx_plane_state *ssd_state)
+> +static int ssd16xx_clear_display(struct ssd16xx_device *device, u8 ctrl2)
 > +{
-> +	lockdep_assert_held(&device->lock);
+> +	const u8 *bw_tbl =3D device->controller_cfg->border_waveform_table;
+> +	int err =3D 0;
+> +	unsigned int data_size =3D DIV_ROUND_UP(device->width, 8) * device->hei=
+ght;
+> +	u8 *white_buffer =3D device->tx_buf;
+> +	u8 *red_buffer =3D white_buffer;
+> +	u16 ram_x_end, ram_y_end;
 > +
-> +	device->refresh_mode =3D ssd_state->refresh_mode;
-> +	device->color_mode =3D ssd_state->color_mode;
-> +	device->clear_on_init =3D ssd_state->clear_on_init;
-> +	device->clear_on_close =3D ssd_state->clear_on_close;
-> +	device->clear_on_disable =3D ssd_state->clear_on_disable;
-> +	device->refresh_mode_init =3D ssd_state->refresh_mode_init;
-> +}
+> +	memset(white_buffer, 0xFF, data_size);
 > +
->  static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
->  					struct drm_atomic_commit *state)
->  {
-> @@ -1619,6 +1725,8 @@ static void ssd16xx_plane_atomic_update(struct drm_=
-plane *plane,
->  	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=3D(%d=
-,%d)-(%d,%d)\n",
->  		rect.x1, rect.y1, rect.x2, rect.y2);
-> =20
-> +	mutex_lock(&device->lock);
+> +	if (device->controller_cfg->ram_x_address_bits =3D=3D 8)
+> +		ram_x_end =3D (device->width / 8) - 1;
+> +	else
+> +		ram_x_end =3D device->width - 1;
+> +	ram_y_end =3D device->height - 1;
 > +
->  	/* Diff refresh_mode against the plane's own previous state to see
->  	 * whether fast LUT preload is needed.
->  	 */
-> @@ -1635,8 +1743,7 @@ static void ssd16xx_plane_atomic_update(struct drm_=
-plane *plane,
->  			device->fast_lut_pending =3D false;
->  	}
-> =20
-> -	device->refresh_mode =3D new_ssd->refresh_mode;
-> -	device->color_mode =3D new_ssd->color_mode;
-> +	ssd16xx_sync_session_props(device, new_ssd);
+> +	/* Reset full display RAM window before clearing */
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_SET_RAM_X_ADDRESS_START_END, &err);
+> +	ssd16xx_send_x_param(device, 0x00, &err);
+> +	ssd16xx_send_x_param(device, ram_x_end, &err);
+> +
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_SET_RAM_Y_ADDRESS_START_END, &err);
+> +	ssd16xx_send_y_param(device, 0x00, &err);
+> +	ssd16xx_send_y_param(device, ram_y_end, &err);
+> +
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER, &err);
+> +	ssd16xx_send_x_param(device, 0x00, &err);
+> +
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER, &err);
+> +	ssd16xx_send_y_param(device, 0x00, &err);
 
-[Severity: Medium]
-Can session property updates be missed when a commit has no framebuffer
-damage, detaches the framebuffer, or occurs while the CRTC is inactive?
+[Severity: High]
+When device->orientation is 90 or 180 degrees, ssd16xx_hw_init() sets
+SSD16XX_CMD_DATA_ENTRY_MODE to SSD16XX_DATA_ENTRY_XDEC_YDEC:
 
-In ssd16xx_plane_atomic_update(), ssd16xx_sync_session_props() is called
-after the early exits for a NULL framebuffer and empty damage:
-
-	if (!fb)
-		goto out_exit;
-
-	/* Nothing to draw: don't wake the panel up. */
-	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect))
-		goto out_exit;
-
-In addition, drm_atomic_helper_commit_tail_rpm() passes
-DRM_PLANE_COMMIT_ACTIVE_ONLY to drm_atomic_helper_commit_planes(), which
-skips ssd16xx_plane_atomic_update() whenever the CRTC is inactive.
-
-If userspace updates clear_on_close or clear_on_disable in a property-only
-commit with no damage, while fb is NULL, or while the CRTC is disabled, will
-ssd16xx_device retain the stale values when ssd16xx_drm_master_drop() or
-ssd16xx_crtc_atomic_disable() later runs?
-
-[Severity: Medium]
-Does fast_lut_pending account for refresh_mode_init and the clear_on_*
-session modes?
-
-In ssd16xx_plane_atomic_update(), device->fast_lut_pending is computed from
-old_ssd->refresh_mode and new_ssd->refresh_mode before device->refresh_mode
-is overridden by device->refresh_mode_init:
-
-	if (old_ssd->refresh_mode !=3D new_ssd->refresh_mode) {
-		if (new_ssd->refresh_mode =3D=3D SSD16XX_REFRESH_FAST &&
-		    old_ssd->refresh_mode !=3D SSD16XX_REFRESH_FULL)
-			device->fast_lut_pending =3D true;
-		else
-			device->fast_lut_pending =3D false;
+drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_hw_init() {
+	switch (device->orientation) {
+	case 90:
+	case 180:
+		data_entry_mode =3D SSD16XX_DATA_ENTRY_XDEC_YDEC;
+		break;
+	default: /* 0=C2=B0/270=C2=B0 */
+		data_entry_mode =3D SSD16XX_DATA_ENTRY_XINC_YINC;
+		break;
 	}
 
-	ssd16xx_sync_session_props(device, new_ssd);
+	ssd16xx_send_cmd(device, SSD16XX_CMD_DATA_ENTRY_MODE, &err);
+	ssd16xx_send_data(device, data_entry_mode, &err);
+}
 
-	saved_mode =3D device->refresh_mode;
-	saved_border_waveform_idx =3D device->border_waveform_update_idx;
-	if (device->init_refresh_pending) {
-		device->refresh_mode =3D device->refresh_mode_init;
-		device->border_waveform_update_idx =3D device->border_waveform_init_idx;
-	}
+In ssd16xx_fb_dirty(), 90 and 180 degree orientations program the RAM window
+in end-before-start order and set the initial cursor to (ram_x_end,
+ram_y_end):
 
-	if (device->fast_lut_pending) {
-		ret =3D ssd16xx_preload_fast_lut(device);
+drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_fb_dirty() {
+	switch (device->orientation) {
+	case 90:
+	case 180:
+		/* 90=C2=B0/180=C2=B0: XDEC_YDEC mode, send end-before-start; cursor at (=
+max, max). */
+		ssd16xx_send_cmd(device, SSD16XX_CMD_SET_RAM_X_ADDRESS_START_END, &err);
+		ssd16xx_send_x_param(device, ram_x_end, &err);
+		ssd16xx_send_x_param(device, ram_x_start, &err);
 		...
-		device->fast_lut_pending =3D false;
+}
+
+Since ssd16xx_clear_display() always programs start=3D0x00, end=3Dram_x_end/
+ram_y_end and sets the address counters to (0x00, 0x00) without switching
+SSD16XX_CMD_DATA_ENTRY_MODE or checking device->orientation, will bulk writ=
+es
+to SSD16XX_CMD_WRITE_RAM_BW and SSD1683_CMD_WRITE_RAM_RED fail to traverse
+and clear the display RAM when the panel is rotated 90 or 180 degrees?
+
+> +
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_WRITE_RAM_BW, &err);
+> +	ssd16xx_send_data_bulk(device, white_buffer, data_size, &err);
+> +
+> +	/*
+> +	 * In 3-colour mode RED RAM is the red plane, so clear it to 0x00 (no
+> +	 * red).  Otherwise it is the previous-frame reference for partial
+> +	 * refresh and must match the now all-white BW RAM.
+> +	 */
+> +	if (device->color_mode =3D=3D SSD16XX_COLOR_MODE_3COLOR && device->tx_r=
+ed_buf) {
+> +		red_buffer =3D device->tx_red_buf;
+> +		memset(red_buffer, 0x00, data_size);
+> +	}
+> +
+> +	ssd16xx_send_cmd(device, SSD1683_CMD_WRITE_RAM_RED, &err);
+> +	ssd16xx_send_data_bulk(device, red_buffer, data_size, &err);
+> +
+> +	/* Set border waveform for the clear operation */
+> +	drm_dbg(&device->drm, "clear_display: Set border init waveform: 0x%02x\=
+n",
+> +		bw_tbl[device->border_waveform_init_idx]);
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_BORDER_WAVEFORM_CONTROL, &err);
+> +	ssd16xx_send_data(device,
+> +			  bw_tbl[device->border_waveform_init_idx],
+> +			  &err);
+> +
+> +	/* 3-colour mode: CTRL1_NORMAL (read both RAMs); BW mode: bypass RED. */
+> +	ssd16xx_display_update(device,
+> +			       device->color_mode =3D=3D SSD16XX_COLOR_MODE_3COLOR
+> +					? device->controller_cfg->ctrl1_normal
+> +					: device->controller_cfg->ctrl1_bypass_red_ram,
+> +			       SSD16XX_CTRL1_BYTE2_DEFAULT, ctrl2, &err);
+
+[Severity: High]
+How does ssd16xx_clear_display() work when any of clear_on_init,
+clear_on_close, or clear_on_disable is set to 0 (SSD16XX_REFRESH_PARTIAL)?
+
+In ssd16xx_fb_dirty(), partial refresh uses ctrl1_normal so the controller
+compares BW RAM (new frame) against RED RAM (previous frame), and writes the
+new frame to RED RAM only after ssd16xx_display_update() completes:
+
+drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_fb_dirty() {
+	case SSD16XX_REFRESH_PARTIAL:
+	default:
+		ssd16xx_display_update(device, device->controller_cfg->ctrl1_normal,
+				       SSD16XX_CTRL1_BYTE2_DEFAULT,
+				       ctrl2_tbl[SSD16XX_REFRESH_PARTIAL], &err);
+		ssd16xx_send_cmd(device, SSD1683_CMD_WRITE_RAM_RED, &err);
+		ssd16xx_send_data_bulk(device, mono_buffer, data_size, &err);
+		break;
+}
+
+Here in ssd16xx_clear_display(), RED RAM is overwritten with white_buffer
+before ssd16xx_display_update(), and in BW mode ctrl1_bypass_red_ram is
+passed instead of ctrl1_normal. Doesn't overwriting and bypassing RED RAM
+before the update prevent the partial refresh waveform from driving
+previously black pixels to white?
+
+[Severity: High]
+What happens if clear_on_init, clear_on_close, or clear_on_disable is set to
+2 (SSD16XX_REFRESH_FAST) while device->refresh_mode is
+SSD16XX_REFRESH_PARTIAL (the default for GDEY042T81)?
+
+In ssd16xx_hw_init(), the fast refresh LUT is only preloaded when
+device->refresh_mode =3D=3D SSD16XX_REFRESH_FAST:
+
+drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_hw_init() {
+	if (device->refresh_mode =3D=3D SSD16XX_REFRESH_FAST) {
+		ssd16xx_send_cmd(device, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1, &err);
+		ssd16xx_send_data(device, device->controller_cfg->ctrl1_bypass_red_ram, &=
+err);
+		ssd16xx_send_data(device, SSD16XX_CTRL1_BYTE2_DEFAULT, &err);
+
+		ssd16xx_send_cmd(device, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2, &err);
+		ssd16xx_send_data(device, device->controller_cfg->ctrl2_load_temp_lut, &e=
+rr);
+
+		ssd16xx_send_cmd(device, SSD16XX_CMD_MASTER_ACTIVATION, &err);
+		ssd16xx_wait_for_device(device, &err);
 	}
+}
 
-If new_ssd->refresh_mode is SSD16XX_REFRESH_PARTIAL and refresh_mode_init is
-set to fast, fast_lut_pending remains false and the first frame runs a fast
-refresh (0xC7) without preloading the fast LUT. Conversely, if
-new_ssd->refresh_mode transitions to SSD16XX_REFRESH_FAST while
-refresh_mode_init is set to partial, ssd16xx_preload_fast_lut() runs and
-clears fast_lut_pending before the init frame, which then runs a partial
-refresh (0xFF) that overwrites the LUT in the controller, leaving subsequent
-fast frames without the fast LUT.
+Because SSD1683_CTRL2_FAST_REFRESH (0xC7) omits SSD16XX_CTRL2_LOAD_LUT, won=
+'t
+calling ssd16xx_clear_display() with fast refresh run with no LUT loaded on
+init (after SW_RESET in ssd16xx_hw_init()) or with the Mode 2 partial LUT on
+disable/close (after partial refreshes)? Conversely, if device->refresh_mode
+is SSD16XX_REFRESH_FAST and a partial clear runs, won't the partial clear
+overwrite the hardware LUT with Mode 2 without setting
+device->fast_lut_pending?
 
-Similarly, if clear_on_init, clear_on_disable, or clear_on_close is set to
-fast, ssd16xx_clear_display() sends SSD1683_CTRL2_FAST_REFRESH without
-preloading the fast LUT, and if clear_on_init is set to partial while
-refresh_mode is fast, ssd16xx_clear_display_on_init() overwrites the LUT
-loaded by ssd16xx_hw_init() without re-arming fast_lut_pending.
+[ ... ]
 
-> =20
->  	/*
->  	 * When refresh_mode_init was set, use the specified mode for this first
-> @@ -1693,6 +1800,8 @@ static void ssd16xx_plane_atomic_update(struct drm_=
-plane *plane,
->  		device->border_waveform_pending =3D true;
->  	}
-> =20
-> +	mutex_unlock(&device->lock);
-> +
->  	pm_runtime_mark_last_busy(device->drm.dev);
->  	pm_runtime_put_autosuspend(device->drm.dev);
-> =20
-> @@ -1754,6 +1863,8 @@ static void ssd16xx_crtc_atomic_disable(struct drm_=
+> @@ -1388,6 +1568,12 @@ static void ssd16xx_crtc_atomic_enable(struct drm_=
 crtc *crtc,
->  	if (!drm_dev_enter(&device->drm, &idx))
->  		return;
-> =20
-> +	mutex_lock(&device->lock);
-> +
->  	if (device->clear_on_disable < 0 || device->cleared_on_disable)
->  		goto out;
-
-[Severity: Medium]
-Should ssd16xx_crtc_atomic_disable() also sync the session properties from
-the commit's new primary plane state before checking
-device->clear_on_disable?
-
-Because the driver uses drm_atomic_helper_commit_tail_rpm(),
-drm_atomic_helper_commit_modeset_disables() runs
-ssd16xx_crtc_atomic_disable() before drm_atomic_helper_commit_planes(), and
-drm_atomic_helper_commit_planes() skips disabled CRTCs due to
-DRM_PLANE_COMMIT_ACTIVE_ONLY. If userspace sets clear_on_disable or
-clear_on_close in the same atomic commit that disables the CRTC,
-ssd16xx_crtc_atomic_disable() and ssd16xx_drm_master_drop() will not see the
-updated plane state.
-
-> =20
-> @@ -1775,6 +1886,7 @@ static void ssd16xx_crtc_atomic_disable(struct drm_=
-crtc *crtc,
->  	device->cleared_on_disable =3D true;
->  	pm_runtime_put_sync_suspend(device->drm.dev);
->  out:
-> +	mutex_unlock(&device->lock);
->  	drm_dev_exit(idx);
->  }
-> =20
-> @@ -1782,6 +1894,8 @@ static void ssd16xx_crtc_atomic_enable(struct drm_c=
-rtc *crtc,
->  				       struct drm_atomic_commit *state)
->  {
->  	struct ssd16xx_device *device =3D crtc_to_ssd16xx_device(crtc);
-> +	struct drm_plane_state *new_plane_state =3D
-> +		drm_atomic_get_new_plane_state(state, &device->primary_plane);
->  	int ret, idx;
-> =20
->  	if (!drm_dev_enter(&device->drm, &idx))
-> @@ -1797,16 +1911,28 @@ static void ssd16xx_crtc_atomic_enable(struct drm=
-_crtc *crtc,
->  	drm_dbg(&device->drm, "atomic_enable: %dx%d orientation=3D%u=C2=B0\n",
->  		device->width, device->height, device->orientation);
-> =20
-> +	/* Serialise hw_init and session-prop setup against master_drop(). */
-> +	mutex_lock(&device->lock);
-> +
->  	if (!device->initialized) {
->  		ret =3D ssd16xx_hw_init(device);
->  		if (ret) {
->  			drm_err(&device->drm, "atomic_enable: hw_init failed: %d\n", ret);
-> +			mutex_unlock(&device->lock);
->  			pm_runtime_put_autosuspend(device->drm.dev);
->  			drm_dev_exit(idx);
->  			return;
 >  		}
 >  		device->initialized =3D true;
 >  	}
+> +	device->cleared_on_disable =3D false;
 > +
-> +	/*
-> +	 * atomic_enable runs before plane_atomic_update, so pick up the session
-> +	 * properties of this very commit instead of the previous one's.
-> +	 */
-> +	if (new_plane_state)
-> +		ssd16xx_sync_session_props(device, to_ssd16xx_plane_state(new_plane_st=
-ate));
-
-[Severity: Medium]
-Should ssd16xx_sync_session_props() be called before ssd16xx_hw_init() and
-pm_runtime_resume_and_get()?
-
-Inside ssd16xx_hw_init(), device->refresh_mode is checked to decide whether
-to preload the fast LUT:
-
-	if (device->refresh_mode =3D=3D SSD16XX_REFRESH_FAST) {
-		...
-	}
-
-Because ssd16xx_hw_init() runs before ssd16xx_sync_session_props(), it reads
-the previous commit's refresh_mode rather than the new plane state's
-refresh_mode.
-
-[Severity: Medium]
-Additionally, in both ssd16xx_crtc_atomic_enable() and
-ssd16xx_plane_atomic_update(), pm_runtime_resume_and_get() is called before
-mutex_lock(&device->lock), and pm_runtime_put_autosuspend() is called after
-mutex_unlock(&device->lock):
-
-	ret =3D pm_runtime_resume_and_get(device->drm.dev);
-	...
-	mutex_lock(&device->lock);
-	...
-	mutex_unlock(&device->lock);
-
-	pm_runtime_mark_last_busy(device->drm.dev);
-	pm_runtime_put_autosuspend(device->drm.dev);
-
-When the panel is runtime-suspended, pm_runtime_resume_and_get()
-synchronously runs ssd16xx_pm_runtime_resume() -> ssd16xx_hw_init() and sets
-device->initialized =3D true without holding device->lock, racing with
-ssd16xx_drm_master_drop(). Furthermore, if a nonblocking commit in
-ssd16xx_plane_atomic_update() holds the runtime PM reference while waiting =
-on
-mutex_lock(&device->lock), ssd16xx_drm_master_drop()'s call to
-pm_runtime_put_sync_suspend() will see usage_count > 0 and fail to suspend
-the panel, and once ssd16xx_drm_master_drop() releases device->lock, the
-unblocked ssd16xx_plane_atomic_update() will draw over the screen that
-clear_on_close just cleared.
-
-> +
->  	device->cleared_on_disable =3D false;
+> +	/* Clear display on first app launch if configured */
+> +	ret =3D ssd16xx_clear_display_on_init(device);
+> +	if (ret)
+> +		drm_err(&device->drm, "crtc_atomic_enable: clear on init failed: %d\n"=
+, ret);
 > =20
->  	/* Clear display on first app launch if configured */
-> @@ -1826,6 +1952,8 @@ static void ssd16xx_crtc_atomic_enable(struct drm_c=
-rtc *crtc,
->  		device->init_refresh_pending =3D true;
->  	}
-
-[Severity: Medium]
-What happens when a client opens the DRM device and then sets the
-refresh_mode_init plane property to disabled?
-
-When the device is opened on a panel where refresh_mode_init >=3D 0 by defa=
-ult
-(such as GDEY042T81, where default_refresh_mode_init is
-SSD16XX_REFRESH_FULL), ssd16xx_drm_master_set() sets
-device->init_refresh_pending =3D true before the client can change plane
-properties:
-
-	if (device->refresh_mode_init >=3D 0)
-		device->init_refresh_pending =3D true;
-
-If the client then sets refresh_mode_init to SSD16XX_SESSION_DISABLED (which
-maps to internal value -1), ssd16xx_sync_session_props() sets
-device->refresh_mode_init =3D -1, but neither ssd16xx_sync_session_props() =
-nor
-ssd16xx_crtc_atomic_enable() clears device->init_refresh_pending when
-device->refresh_mode_init < 0.
-
-When ssd16xx_plane_atomic_update() subsequently runs:
-
-	if (device->init_refresh_pending) {
-		device->refresh_mode =3D device->refresh_mode_init;
-		device->border_waveform_update_idx =3D device->border_waveform_init_idx;
-	}
-
-device->refresh_mode is set to -1, causing ssd16xx_fb_dirty() to fall throu=
-gh
-to the default partial refresh case with the init border waveform (and skip
-3-color red buffer setup) instead of using the configured refresh_mode.
-
-Conversely, if device->refresh_mode_init was -1 when ssd16xx_drm_master_set=
-()
-ran and the client enables refresh_mode_init in a plane update on an
-already-active CRTC where ssd16xx_crtc_atomic_enable() does not run,
-device->init_refresh_pending is never armed.
-
-> =20
-> +	mutex_unlock(&device->lock);
-> +
->  	pm_runtime_mark_last_busy(device->drm.dev);
->  	pm_runtime_put_autosuspend(device->drm.dev);
->  	drm_dev_exit(idx);
+>  	/*
+>  	 * If refresh_mode_init is set, arm init_refresh_pending so
 
 [ ... ]
 
-> @@ -1963,6 +2140,12 @@ static void ssd16xx_drm_master_drop(struct drm_dev=
-ice *drm,
+> @@ -1473,6 +1660,9 @@ static void ssd16xx_drm_master_set(struct drm_devic=
+e *drm,
+>  {
 >  	struct ssd16xx_device *device =3D to_ssd16xx_device(drm);
->  	int ret, idx;
 > =20
-> +	/*
-> +	 * Not serialized against nonblocking commits by the DRM core (e.g. on
-> +	 * DROP_MASTER), so hold the lock across the panel clear too.
-> +	 */
-> +	guard(mutex)(&device->lock);
+> +	device->cleared_on_close =3D false;
+> +	device->first_clear_done =3D false;
 > +
->  	device->init_refresh_pending =3D false;
->  	device->first_clear_done =3D false;
+>  	if (device->refresh_mode_init >=3D 0)
+>  		device->init_refresh_pending =3D true;
+>  }
 
 [Severity: High]
-Does acquiring device->lock before drm_dev_enter() in
-ssd16xx_drm_master_drop() create a lock inversion with the atomic commit
-callbacks?
+In ssd16xx_drm_master_set(), device->first_clear_done is reset to false so a
+new DRM master session gets a fresh clear. However,
+ssd16xx_clear_display_on_init() is only called from
+ssd16xx_crtc_atomic_enable().
 
-In ssd16xx_drm_master_drop(), guard(mutex)(&device->lock) acquires
-device->lock before calling drm_dev_enter(drm, &idx) (which acquires
-drm_unplug_srcu):
+If the CRTC is already enabled in the panel's single fixed mode (for exampl=
+e,
+by fbdev emulation or because the previous client exited without disabling
+the CRTC), a new DRM master committing a framebuffer update will only run
+ssd16xx_plane_atomic_update() without triggering a modeset or calling
+ssd16xx_crtc_atomic_enable().
 
-	guard(mutex)(&device->lock);
+Will clear_on_init be skipped entirely for the new DRM master whenever the
+CRTC is already active?
+
+> @@ -1485,8 +1675,23 @@ static void ssd16xx_drm_master_drop(struct drm_dev=
+ice *drm,
+>  				    struct drm_file *file)
+>  {
+>  	struct ssd16xx_device *device =3D to_ssd16xx_device(drm);
+> +	int ret, idx;
+> =20
+>  	device->init_refresh_pending =3D false;
+> +	device->first_clear_done =3D false;
+> +
+> +	if (device->clear_on_close < 0 || device->cleared_on_close)
+> +		return;
+> +
+> +	if (!drm_dev_enter(drm, &idx))
+> +		return;
+> +
+> +	ret =3D ssd16xx_clear_display_on_exit(device);
+> +	if (ret)
+> +		drm_err(drm, "master_drop: clear on close failed: %d\n", ret);
+> +
+> +	device->cleared_on_close =3D true;
+> +	drm_dev_exit(idx);
+>  }
+
+[Severity: Medium]
+The commit message notes that a guard prevents redundant double-clears when
+multiple paths fire for the same session (such as when a compositor does DP=
+MS
+off and then exits).
+
+In ssd16xx_crtc_atomic_disable(), disabling the CRTC sets
+device->cleared_on_disable =3D true:
+
+drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_crtc_atomic_disable() {
+	if (device->clear_on_disable < 0 || device->cleared_on_disable)
+		goto out;
 	...
-	if (!drm_dev_enter(drm, &idx))
-		return;
+	device->cleared_on_disable =3D true;
+}
 
-However, ssd16xx_plane_atomic_update(), ssd16xx_crtc_atomic_disable(), and
-ssd16xx_crtc_atomic_enable() all call drm_dev_enter(&device->drm, &idx)
-before acquiring mutex_lock(&device->lock):
-
-	if (!drm_dev_enter(&device->drm, &idx))
-		return;
-
-	mutex_lock(&device->lock);
-
-Will this reverse locking order between device->lock and drm_unplug_srcu
-trigger a lockdep circular locking dependency warning when a client commits=
- a
-frame and then drops master with clear_on_close enabled?
+However, ssd16xx_drm_master_drop() only checks device->cleared_on_close and
+does not check device->cleared_on_disable. When both clear_on_disable and
+clear_on_close are enabled and a client disables the CRTC (or closes its fd
+while its framebuffer is active on the CRTC, which disables the CRTC via
+drm_fb_release() before drm_master_release()), won't both
+ssd16xx_crtc_atomic_disable() and ssd16xx_drm_master_drop() execute a full
+clear cycle back-to-back?
 
 > =20
+>  static struct drm_driver ssd16xx_drm_driver =3D {
 
 [ ... ]
 
->
-> --=20
-> 2.34.1
+=E5=AE=8C=E7=BE=8E =E2=80=94 wait no extra text! Let me make sure there's n=
+o trailing text after the blank line.
+Wait: I just wrote "=E5=AE=8C=E7=BE=8E =E2=80=94 wait no extra text!" in th=
+e response! Let me be careful! That was in the response stream, not thought!
+Wait =E2=80=94 I cannot undo response stream tokens, so let me not add anyt=
+hing else.
+ Let me just end cleanly.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019213726.4145=
-532-1-devarsht@ti.com?part=3D10
+532-1-devarsht@ti.com?part=3D5
