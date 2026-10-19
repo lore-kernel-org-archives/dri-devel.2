@@ -4,63 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12955CCF2E5
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81E0DCCF2E3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A8A10E89E;
-	Mon, 19 Oct 2026 14:19:14 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E92E10ED83
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:19:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id EB5E560136;
- Mon, 19 Oct 2026 14:19:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9AF70C2BCFC;
- Mon, 19 Oct 2026 14:19:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1792419546;
- bh=bYO4N5qhTzU/pGIBZQIQ9ttnK/MV86W/KSJjUFVZp2A=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=tuvsVyzz9arOsSFCN3WbXoK5l6Fm8TlJw1KIpZUbaHUL3xNQ5YSdEZV2LEBgnPSt0
- 9Ol5abm2n+8Ng5SjyYDIOQodfcIGE/ENAaFqjNs6NhND6zsMdTAWmIJmXvKXhnd16b
- J1+EjWJYZqIrJzduz0lkpMRawvq2Kw04Nwy5Z/2FhSl1HVbnHLQaf1z9xQU5BTQfdV
- ylvoKMCcwwLs84XvDT2fLm+Q+6AJqgFCNFASslGImTvXqNZkwWgMx1LMmhcdbBS//H
- 8J+sDwYjLPQgJvL6n+BOdAJkZVxuyVPc1rMJHzQEepKbu7EwsAfhuXTgqS6AQ3Q6gF
- Au62+MMsZEWvA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 75077CCF2E3;
- Mon, 19 Oct 2026 14:19:06 +0000 (UTC)
-From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
-Date: Mon, 19 Oct 2026 15:18:35 +0100
-Subject: [PATCH] drm/mediatek: dsi: Fix handling of long packet reads
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-mtk-dsi-long-read-v1-1-9bddcac1def5@protonmail.ch>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDuQiIp6ldKFSUYdf6JkbBHEu
- 5vq8lu8d4BQYBKokwMC/Vh48RH6lYDtG98RsouGVKWFVrrCeRvRCeO0+A4DNQ6z3NiSssqp0kD
- s1kAt7/fz/XksXzOQ3f4jOM8LrCgPOXUAAAA=
-X-Change-ID: 20261019-mtk-dsi-long-read-45bc8e49d08b
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- CK Hu <ck.hu@mediatek.com>, shaoming chen <shaoming.chen@mediatek.com>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- stable@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792419545; l=1720;
- i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
- bh=utZT4oI0+pnVMGUZYDb6g2+lkw+nMH2Vwu5HGoj/nEc=;
- b=UZfIFZ6FmaVoqnOm2wvWHsyQ6MhVLAPWmfmeo+EP9rxXaQKQ7Ua0xrmAJYM6XA0NDsMoO4A7e
- UD47LZefiDVCzyt+xu5j2Xr/kOEfbS0kRlSJ7eMSRPbqlWl4NybXCd1
-X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
- pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
-X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
- auth_id=1233
-X-Original-From: Ben Grisdale <bengris32@protonmail.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C745910EBA0;
+	Mon, 19 Oct 2026 14:23:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8398910EBA0
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:22:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2635443FF8
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:22:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27B21F000C4;
+ Mon, 19 Oct 2026 14:22:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792419779;
+ bh=TatvYSy9mdRJiLGEryefucKwQtT1z4Ql/V8/EOisQHk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SLe4rGAwnnv0YzmJfW0FCHtpg597SN1zjt4+aEOuS9kQo/2v34P9cZphUCbJhCzjJ
+ nXVU9YgRXotIwf/MXKjZugR6rRmJnGC/G+febLmUewOEb4Oanr8Pc7yt7lmcCksG6j
+ gvQMAGh88QpI8c3lKZt3yyyj1ZyCnByT/F2LaKmNAs5r1ypVRgqpOZLv2CH5XXzESm
+ /OUdtMwbi63wf1glTy4gvCbCGU1TgIAFC6BXH0hnaKxQCaq/bGYLO6Gsnn2nXegqIL
+ iwAgqJVLA22YQF6EhgOHmXzBjtBrnA2vGohOY77IKIMHp7jBkZpxhuJGQq1tEvASRH
+ gP/rgObgUrPng==
+Message-ID: <sashiko-outbox-177366@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18-5.10] drm/amdgpu: Validate ATIF buffer
+ length before use
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261019135441.1420968-55-sashal@kernel.org>
+References: <20261019135441.1420968-1-sashal@kernel.org>
+ <20261019135441.1420968-55-sashal@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 14:22:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,61 +51,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: bengris32@protonmail.ch
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ben Grisdale <bengris32@protonmail.ch>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/amdgpu: unvalidated number_of_points in amdgpu_atif_query_back=
+light_caps()
+--
 
-mtk_dsi_host_transfer() decides where the payload starts in the
-received data based on the byte count returned by mtk_dsi_recv_cnt(),
-treating anything longer than 2 bytes as a long packet.
+commit a73a09a7b2fb3e5ffd26ffc3c59fb52e0414b2a7
+Author: Lijo Lazar <lijo.lazar@amd.com>
 
-This breaks long read responses with a 1 or 2 byte payload: they are
-treated as short packets, so the word count from the packet header is
-copied into rx_buf instead of the payload.
+drm/amdgpu: Validate ATIF buffer length before use
 
-Fix this by checking the packet's data type instead of inferring it
-from the length.
+This commit adds a min_size parameter to amdgpu_atif_call() to validate that
+the returned ACPI buffer is of type ACPI_TYPE_BUFFER, holds at least a u16
+size field, does not claim more data than was actually returned, and meets
+the minimum size required by each calling function.
 
-Fixes: 21898816831f ("drm/mediatek: add dsi transfer function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
----
- drivers/gpu/drm/mediatek/mtk_dsi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_acpi.c
+> index 6c62e27b98002..5be40c781807a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+[ ... ]
+> @@ -371,20 +383,14 @@ static int amdgpu_atif_query_backlight_caps(struct =
+amdgpu_atif *atif)
+> =20
+>  	info =3D amdgpu_atif_call(atif,
+>  		ATIF_FUNCTION_QUERY_BRIGHTNESS_TRANSFER_CHARACTERISTICS,
+> -		&params);
+> +		&params, offsetof(struct atif_qbtc_output, data_points));
+>  	if (!info) {
+>  		err =3D -EIO;
+>  		goto out;
+>  	}
+> =20
+> -	size =3D *(u16 *) info->buffer.pointer;
+> -	if (size < 10) {
+> -		err =3D -EINVAL;
+> -		goto out;
+> -	}
+> -
+>  	memset(&characteristics, 0, sizeof(characteristics));
+> -	size =3D min(sizeof(characteristics), size);
+> +	size =3D min(sizeof(characteristics), (size_t)*(u16 *)info->buffer.poin=
+ter);
+>  	memcpy(&characteristics, info->buffer.pointer, size);
+> =20
+>  	atif->backlight_caps.caps_valid =3D true;
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index f82506e10fd5..de4414b51abb 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -165,6 +165,10 @@
- 	(type == MIPI_DSI_GENERIC_READ_REQUEST_2_PARAM) || \
- 	(type == MIPI_DSI_DCS_READ))
- 
-+#define MTK_DSI_IS_LONG_RESP(type) \
-+	(((type) == MIPI_DSI_RX_GENERIC_LONG_READ_RESPONSE) || \
-+	((type) == MIPI_DSI_RX_DCS_LONG_READ_RESPONSE))
-+
- struct mtk_phy_timing {
- 	u32 lpx;
- 	u32 da_hs_prepare;
-@@ -1171,7 +1175,7 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_dsi_host *host,
- 
- 	recv_cnt = mtk_dsi_recv_cnt(read_data[0], read_data);
- 
--	if (recv_cnt > 2)
-+	if (MTK_DSI_IS_LONG_RESP(read_data[0]))
- 		src_addr = &read_data[4];
- 	else
- 		src_addr = &read_data[1];
+[Severity: High]
+Should amdgpu_atif_query_backlight_caps() also validate
+characteristics.number_of_points against ATIF_QBTC_MAX_DATA_POINTS and the
+returned buffer size?
 
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-change-id: 20261019-mtk-dsi-long-read-45bc8e49d08b
+Right after this hunk in drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c,
+amdgpu_atif_query_backlight_caps() stores characteristics.number_of_points =
+(a
+u8) directly into atif->backlight_caps.data_points:
 
-Best regards,
---  
-Ben Grisdale <bengris32@protonmail.ch>
+	atif->backlight_caps.data_points =3D characteristics.number_of_points;
+	memcpy(atif->backlight_caps.luminance_data,
+	       characteristics.data_points,
+	       sizeof(atif->backlight_caps.luminance_data));
 
+Because amdgpu_atif_call() only validates that the buffer is at least
+offsetof(struct atif_qbtc_output, data_points) bytes, a malformed ATIF
+response can report characteristics.number_of_points greater than
+ATIF_QBTC_MAX_DATA_POINTS (99), or report more data points than are actually
+present in the returned buffer size.
 
+When backlight brightness is later updated via:
+
+  amdgpu_dm_backlight_update_status() ->
+    amdgpu_dm_backlight_set_level() ->
+      convert_brightness_from_user() ->
+        convert_custom_brightness()
+
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:convert_custom_brightness=
+()
+uses caps->data_points to index caps->luminance_data[MAX_LUMINANCE_DATA_POI=
+NTS]
+without clamping:
+
+	left =3D 0;
+	right =3D caps->data_points - 1;
+	while (left <=3D right) {
+		int mid =3D left + (right - left) / 2;
+		u8 signal =3D caps->luminance_data[mid].input_signal;
+
+Could this read out of bounds of caps->luminance_data[] when
+characteristics.number_of_points exceeds ATIF_QBTC_MAX_DATA_POINTS, or read
+zero-padded entries if size is smaller than
+offsetof(struct atif_qbtc_output, data_points) +
+characteristics.number_of_points * sizeof(struct atif_qbtc_data_point)?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019135441.1420=
+968-55-sashal@kernel.org?part=3D1
