@@ -2,74 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62712606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C14B606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=H2rSN9yR
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EwuDqycs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6D110F321;
-	Tue, 20 Oct 2026 07:36:57 +0000 (UTC)
-Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34CC710E8AA
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 09:02:30 +0000 (UTC)
-Received: by mail-dl2-f9.google.com with SMTP id
- a92af1059eb24-1397ad3d891so436842c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 02:02:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B79C10F320;
+	Tue, 20 Oct 2026 07:37:01 +0000 (UTC)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C13C810E04F
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 17:54:35 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-3645f0f3fcdso2652118eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 10:54:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792400549; x=1793005349; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SS9kJ1jH1xG6CLAUi3XRMYbxFYxyeHVEus5/yx1itww=;
- b=H2rSN9yRZu/G64S2gycwGsjepaqBIu8fEonD4QrNaL85y9KOK0SA4MptxeFl+ONllw
- ZU5QQMNmewuwA8ENWovukKtXQnoW5aJ5NUzlmIxzwR4PtAwKiI/V2MOUDJ5HdTPx/H/D
- XcpvzaXUkcit5F0Z0oaEW8bG8z2qa/HlFt8aYiM/BGSnsL0t78K0rK8rwJ657dVJkzx/
- oTvrFQ7FCkMD9lc7Fw0qmFBuSCNJiNtucvPbuBnz0WpTLJ/uuXsInnl5yyMmqsT7z70L
- fqTUc19mU9OGhaM9JMLQ/Bri27T+rlRN8Yo3xRu4E+lq0EGp9pxVyiJoSXDwe7b0bl2u
- g44A==
+ d=gmail.com; s=20251104; t=1792432475; x=1793037275; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bNlqELENpjqfUnGABPu3IfjplZkGaehiACydkTInEus=;
+ b=EwuDqycsLoFkOXxzsmziuaYEaWWx6aZGNXV/XS4GIbYxKbYIQneJXeRBCmv9x4FM2Y
+ 0cIS5lkSftUtYGhtA7yL6qj3k6HHgbKJqUT8HuEG/h2yQP+YRS1um0+YEBJPrcP2guAf
+ cHbnkLdbu72BIE9TOqWkX+4WhsqyD68bBAr2ZcqzvjQIOt0fsmZ47wMzkkmZdf/6NdXw
+ mWiBwgPfLsWlA7Wp77FwW7D5qx+1Dbl+ZHlI3EDVn8h6P8+1sCVnQyhqk0UJMZlviwEp
+ TMx3PpMz02nDTeo8zXzmbfyZu/x/QYPC91GU39OlyiAyzF+xOja+tznjp+OeFQvsfVFJ
+ bTxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792400549; x=1793005349;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=SS9kJ1jH1xG6CLAUi3XRMYbxFYxyeHVEus5/yx1itww=;
- b=B3QDHgHUN5a6shT6AKgdK+kkKd84c5yDEMdYmkdvTVnfmI06e4YQYLGiIjzznuUwRt
- qHM8GRX5Bsc1lgEH7XE062GJgR+yZcu2Kvya5RSzpMAK8t9LkpEsj/e3U45rWDiEBGH+
- fMCBlwwM0cMTQbH6TkZodoeDksDbAA5+QGLmaeuL7yH3gzmyLcqFbMGTpec5hS4n0sj3
- HtMcdcMfJsy2dUAtD2iwpbNXBIf/U2msVLvZkN3DPWO++rPj5BWO+2L7MmJWXppwiAef
- BEPORaDlyNcd6cvqH3Wz2zxdoEgZMPgC/UUNKoYqIb1yaZVOLqfLxbKl2B+f3rqQkUDm
- /YOA==
-X-Gm-Message-State: AFq9FYLoE9wYL/kVt9TEE0aa9FawSznqKWV8xwTvH18D2m4Wqqxsr80n
- zlQzDT3//jQ4h5C5y7R0LYu3H8LThCFEG8lGaSU9ZKRMoM2CxonzFJBS
-X-Gm-Gg: AYBFou0OvI/9horeLK+U8icT4AKZCxULFpU5wytLSpaBXuDt+typIiP2MlMyc8LqG7A
- 31k52uRyHoAdZhHStcu/IMT6C2/DUayvMz/dQm2WWB5WER8K1189yHZUvWdwy4BhnlSJG18TDjg
- YtLcw1iPsqzDuSRl1gqmZnsfiWU9RkOM1z7CUC5CzPm6kpdWOP1c6eSBFj1RPiTOnkf35MfRxZd
- ti+iqO0b8IjOrffMHhQon1F9oLC8EGFdd6BJnnr5xv8FWInwuwpAnSVjOMGcLv93qpsSH8A9jFU
- OxHjcAWO6rXbUoS7KXt+eSNHW4uPyFqOIk351tkel2cG9RWvMxhbnGSDQj+QmWWVknuYzycCAoi
- 8cQZNFFGpUnuCU6/xYLbp4D+3WXk7imrlH5Erjn5W9hN/mY6tQus/08bGlPqbRoj19KKDolQvRg
- bF/3EtnUTUylerz37XIKPR8p3U5hxPMbZR2UdiZMfMdBS55Dk+yrwMhUY01wK47jMAZOP6NCMWZ
- 1bcrnXacBxnKpuVVnWy/Evs67HW1QTprow=
-X-Received: by 2002:a05:7022:eb44:10b0:14e:d0ba:7569 with SMTP id
- a92af1059eb24-1850c502379mr10698378c88.6.1792400549264; 
- Mon, 19 Oct 2026 02:02:29 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com.
- [104.194.64.109]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1831ba424a6sm27085064c88.17.2026.10.19.02.02.25
+ d=1e100.net; s=20260707; t=1792432475; x=1793037275;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bNlqELENpjqfUnGABPu3IfjplZkGaehiACydkTInEus=;
+ b=yECwrHOtOyIzZKbtrv5MMN0LWu6mQFxFrNLKSR5CNVHr7WSsOWu9g0oaXrrULpAWzw
+ 5PfprYEGzB+juDR1LGhUKqDpVib9we3B1OtDtAeYDsaTxjOhQ5SnCq6k8pfdvJ+Mos85
+ SBO17M1cqS3HOfLWqf6s22HtaT64fwHM6j9whEPv5l3RDndBfK3+brEehrsxOcPOwUU9
+ 81Nth62dS4O3wABsZAhYTTAu+Pax9qLrR19dI397tKtBsw/U/ifBwjFlAyuXnBSpX6dq
+ 3E2njwuZ58cUby4WO+gac7/ZwQNVryJcr+8A00txjYPcZPqXBqtZ9o+Q3IHxPW3lIvB5
+ fOuQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz/v32qagdNHvC2/iDj3E6wP7jXlrWnEsZQc4iFSpSltzRZ3S+vzPHY/leM56DG6j+c+jfd5ZwfUGI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJYDPYAwTGGRlaYP4vdVzV0SxH0i7b5oe7tgk3WGcGygPJfLfCY
+ aHPPg3FxpP9/4gRtMcgixVf1Vz3o47fLEmx1MgmXJPjjidcHvXO3QJyw
+X-Gm-Gg: AYBFou053U3JKBjOVbMgTCzctmPM7mxE6usVArSeQd9Iwv/gLCMLhyKsXDXj7DY+LOK
+ 6GwT6RRlnpAtDYIDL8gvcIcFurCpOpOlTmREEhqWe/vMruLgJRn50sLmMJjAmi/g3wgw+9pjLRi
+ FavgJUfBj/9AQrx0MLbOIceG7e+N412tOk3NlHPzPlcbmgKN9ZZ5z89S4qrudrOZBLDX0QO9X+/
+ pTHpfwTC+265L1pMnUnsVzR8n5IwZrUOw2hFOr9lhBP2Aa//1AzasOHaByXSa8R/cqWaeB0URRo
+ xJbrZsQIoBz6O4v7mqafrjKauEXuB9S6ek2TYIftFst0sk1OXaJU4Y5Z6FeTF9xl12qjGvKhf7T
+ Hvwnr0irIUCIlWEhYNuLqaBXnqRTDpe8xQDR7o98XrUdodQ+ae5ctvDJxx18OibemZMEL9AZwz4
+ yYAZib1c7oSham42Uj17IDjgOOp2/8kFs186A6Oic8e1KslkkNWtt2ADgOs4ebo4wG8u+2c9tD6
+ 7RiEQdnG8gM6XhseNbM9Ca8pIkk25e/zFhvejA=
+X-Received: by 2002:a05:701b:464a:b0:14c:8461:b3ef with SMTP id
+ a92af1059eb24-18513e7c64dmr10593192c88.24.1792432474641; 
+ Mon, 19 Oct 2026 10:54:34 -0700 (PDT)
+Received: from localhost.localdomain ([136.126.251.209])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1831c5cb39esm31837697c88.22.2026.10.19.10.54.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 02:02:28 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com,
- Yao Yiqi <yyaqia@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH v4 3/3] fbcon: Retry rotated font allocation after failure
-Date: Mon, 19 Oct 2026 17:02:06 +0800
-Message-ID: <20261019090206.1094958-4-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019090206.1094958-1-yyaqia@gmail.com>
-References: <20261019090206.1094958-1-yyaqia@gmail.com>
+ Mon, 19 Oct 2026 10:54:32 -0700 (PDT)
+From: Henry Zhang <henryzhang62@gmail.com>
+To: henryzhang62@gmail.com, Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] drm/vc4: dsi: Make failed reads visible and recoverable
+Date: Mon, 19 Oct 2026 10:49:27 -0700
+Message-ID: <20261019174930.7237-1-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -85,49 +87,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+DSI reads on the Raspberry Pi 4 (vc4, DSI1) can fail in two ways that
+the caller cannot handle:
 
-fbcon_rotate_font() records the font, its geometry and the rotation in
-par->rotated before calling font_data_rotate(). If the allocation
-fails, the error path clears par->rotated.buf, but the recorded key
-already looks up to date, so the next call takes the early-out and
-never retries. The rotated putcs/cursor ops keep returning early on
-the NULL buffer, and the console stays blank even after memory is
-available again.
+- A peripheral that detected an error answers a read with an
+  Acknowledge and Error Report. vc4 copies its two bytes into the
+  caller's buffer and returns success, so the error bits look like
+  register contents (patch 1).
 
-Also test par->rotated.buf in the early-out, so a failed allocation
-is retried on the next call: at the next fbcon_switch(),
-fbcon_modechanged() or font change.
+- After a read whose bus turnaround times out, every following DSI
+  transfer times out as well, until the display is switched off and on
+  (patch 2).
 
-Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
- drivers/video/fbdev/core/fbcon_rotate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Patch 3 serializes host transfers, so that the recovery cannot reset
+the block under a concurrent transfer.
 
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 660a3fa81bae..7afd63dcee7b 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -25,7 +25,8 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	    par->rotate == par->rotated.buf_rotate &&
- 	    vc->vc_font.width == par->rotated.buf_width &&
- 	    vc->vc_font.height == par->rotated.buf_height &&
--	    vc->vc_font.charcount == par->rotated.buf_charcount)
-+	    vc->vc_font.charcount == par->rotated.buf_charcount &&
-+	    par->rotated.buf)
- 		return 0;
- 
- 	par->rotated.fontdata = par->p->fontdata;
+These patches do not prevent the timeouts. With video running, vc4
+does not keep commands within vertical blanking, so a read can still
+collide with active video and time out. That is a separate issue; this
+series makes such failures visible to the caller and recoverable
+without a modeset.
+
+Tested on a Raspberry Pi 4 with a 2-lane video mode panel at 120 Hz,
+using a backport of this series to the Raspberry Pi 6.18 kernel and a
+panel driver that retries failed reads up to 8 times: 499 of 500 reads
+with video running and 1000 of 1000 with video stopped returned the
+expected data, with no lock-up. Without the series, the first timeout
+left DSI unusable.
+
+Compile-tested on drm-misc-next (arm64 defconfig, DRM_VC4=m, W=1), each
+patch on its own.
+
+Changes in v2:
+- Patch 2: restore the registers in the same order as pre_enable, and
+  call synchronize_irq() before the reset (Sashiko review)
+- Patch 3: new, serialize host transfers (Sashiko review)
+- Link to v1: https://lore.kernel.org/r/20261012190249.3167-1-henryzhang62@gmail.com
+
+Henry Zhang (3):
+  drm/vc4: dsi: Don't return error reports as read data
+  drm/vc4: dsi: Recover from a timed-out transfer
+  drm/vc4: dsi: Serialize host transfers
+
+ drivers/gpu/drm/vc4/vc4_dsi.c | 145 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 138 insertions(+), 7 deletions(-)
+
+
+base-commit: e6bb593b800813788dc16179d1305747ff974d00
 -- 
-2.56.0
+2.47.3
 
