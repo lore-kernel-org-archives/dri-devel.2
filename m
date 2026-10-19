@@ -2,42 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A304606A31F
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:21:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644CF606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 16:32:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQE/4LvX
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlvH+V41
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C987E10E072;
-	Mon, 19 Oct 2026 16:21:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D24610EF62;
+	Mon, 19 Oct 2026 16:32:20 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED6010E072
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 16:21:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEBD310EF44;
+ Mon, 19 Oct 2026 16:32:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BEF9F60210;
- Mon, 19 Oct 2026 16:21:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B451F000C4;
- Mon, 19 Oct 2026 16:21:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EFE8460D7C;
+ Mon, 19 Oct 2026 16:32:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0661F000C4;
+ Mon, 19 Oct 2026 16:32:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792426903;
- bh=Nle/nsQwTuwofxrriMYNsN/2USkupqa1YrGeYtGA5rs=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=AQE/4LvXOLQA56YU7GL7lH0/i4QNycp360Hqf8o13pKeXL7QK6nW0ChjIxeweZ/ch
- IAaZYq5Ak/b6fR6ijpSdvo63mpKVA7FPcXYMCkyqAbQZ8Yf6zDZS8Rna0dLsAyAhh2
- XjaTZZ9mayke5jF4CN83zNcRzjnngInJk4fMXUptYKKe6Y2MwisQrFrLJAujipcwwb
- 2EsBnB9oDFw4wFLUrVTYrXCWOkhYodu/T+5l2aeUA4v0wGTUYcIOFunc20NEPqM1m0
- 8Cf0xXjAG4ydGHtWtDGfD4X/Qhd6Q3nw5vBumGQpoBL1TErm1Eo/ODg/JDvRVmpwd7
- 9wgYn5NkjphIA==
-Message-ID: <sashiko-outbox-177868@kernel.org>
+ s=k20260515; t=1792427532;
+ bh=i255b40ZMmpIZGqcrOmg8txUse8R1k/KW0oaKIiX3bQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=BlvH+V41S1/czwU7kzrqftcx3A5lvedV/70KmCHcuhRwytx9YxviG+nWM8sr8iVG5
+ LFUP947xQb4BGOkSBqn/GK6zoXJV1RMAHMCLF2lwopCDit09Dz20zmGjAjUKt65jR9
+ gZSCOnzHyou1MVk5ns3z21M0IKW6bkffc+7NnaO5CrTw2WZo3DhLNqoWGg2N9mpcaV
+ D9mXb+9C2DUuwBKKVXsOFrzyHIdSTuyu+JjUifepvU+c0i8m5nH1xCRkj2+nku4CqS
+ V8d89SyFNmRK3w3hejSmS9rIUGn0rs0RybaixqyR1GMqSnDyNw3O1hHYmUl3c/4v/J
+ lU1sBTmo5zVdQ==
+Message-ID: <sashiko-outbox-177908@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/4] drm/ms91xx: Add atomic modesetting and USB
- framebuffer transfers
-To: "Ho Jie Feng" <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019154820.68659-4-hjf3108@gmail.com>
-References: <20261019154820.68659-1-hjf3108@gmail.com>
- <20261019154820.68659-4-hjf3108@gmail.com>
+Subject: Re: [PATCH 4/4] drm/pixel: Link draw helpers into drm_pixel_helper.ko
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, imx@lists.linux.dev,
+ virtualization@lists.linux.dev, Frank.Li@kernel.org,
+ wsa+renesas@sang-engineering.com, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261019154612.777074-5-tzimmermann@suse.de>
+References: <20261019154612.777074-1-tzimmermann@suse.de>
+ <20261019154612.777074-5-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 16:21:42 +0000
+Date: Mon, 19 Oct 2026 16:32:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,218 +58,192 @@ X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,
 	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] drm/ms91xx: lost frame damage in ms91xx_plane_atomic_update()
-- [Medium] drm/ms91xx: uninitialized USB transfer data in ms91xx_fb_send_re=
-ct()
+- [High] drm: missing DRM_PIXEL_HELPER dependency in DRM_KMS_HELPER
+- [Medium] drm/pixel: missing DRM_PIXEL_HELPER select in DRM_ST7920, DRM_XE=
+, and DRM_KMS_HELPER
+- [Low] drm/pixel: stale drm_draw.c reference in MAINTAINERS after rename
+- [Low] drm: drm_panic_helper.o omitted when DRM_KUNIT_TEST=3Dy and DRM_PAN=
+IC=3Dn
 --
 
-commit 0984404c243e6ff2131df1188521aaa6fa5626e8
-Author: Ho Jie Feng <hjf3108@gmail.com>
+commit 8f1149ac31f00f33aec39cba3d1477d5b9456a23
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-drm/ms91xx: Add atomic modesetting and USB framebuffer transfers
+drm/pixel: Link draw helpers into drm_pixel_helper.ko
 
-This commit adds DRM core modesetting support, USB driver probing, and
-double-buffered USB framebuffer transfers with damage tracking for
-MacroSilicon MS91xx display adapters.
+This commit moves drm_draw.c (renamed to drm_draw_helper.c) from the DRM
+core into drm_pixel_helper.ko, removes the DRM_DRAW Kconfig symbol, and
+updates DRM_CLIENT_LIB to select DRM_PIXEL_HELPER when DRM_CLIENT_LOG is
+enabled.
 
-> diff --git a/drivers/gpu/drm/ms91xx/ms91xx_drv.c b/drivers/gpu/drm/ms91xx=
-/ms91xx_drv.c
-> new file mode 100644
-> index 0000000000000..2ca855f2363c8
-> --- /dev/null
-> +++ b/drivers/gpu/drm/ms91xx/ms91xx_drv.c
-> @@ -0,0 +1,518 @@
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index bf7c599443403..1b16e6101a53a 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -52,15 +52,10 @@ config DRM_KMS_HELPER
+>  config DRM_PIXEL_HELPER
+>  	tristate
+>  	depends on DRM
+> -	select DRM_DRAW if DRM_PANIC
+>  	select FONT_SUPPORT if DRM_PANIC
+>  	help
+>  	  Helpers for working with pixel data in DRM.
+> =20
+> -config DRM_DRAW
+> -	bool
+> -	depends on DRM
+> -
+>  config DRM_PANIC
+>  	bool "Display a user-friendly message when a kernel panic occurs"
+>  	depends on DRM && PRINTK
 
-[ ... ]
+[Severity: High]
+With drm_format_helper.o and drm_panic_helper.o moved from drm_kms_helper.ko
+into drm_pixel_helper.ko in this series, does DRM_KMS_HELPER in
+drivers/gpu/drm/Kconfig also need to select DRM_PIXEL_HELPER?
 
-> +static void ms91xx_plane_atomic_update(struct drm_plane *plane,
-> +				       struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *old_plane_state;
-> +	struct drm_plane_state *new_plane_state;
-> +	struct drm_crtc_state *new_crtc_state;
-> +	struct drm_shadow_plane_state *shadow_plane_state;
-> +	struct ms91xx_device *ms91xx =3D to_ms91xx(plane->dev);
-> +	struct ms91xx_usb_request *current_request, *previous_request;
-> +	struct drm_rect current_rect, rect;
-> +
-> +	old_plane_state =3D drm_atomic_get_old_plane_state(state, plane);
-> +	new_plane_state =3D drm_atomic_get_new_plane_state(state, plane);
-> +
-> +	if (!new_plane_state->fb)
-> +		return;
-> +	new_crtc_state =3D drm_atomic_get_new_crtc_state(state,
-> +						       new_plane_state->crtc);
-> +	shadow_plane_state =3D to_drm_shadow_plane_state(new_plane_state);
-> +
-> +	/* Damage from the previous mode may not fit the new framebuffer. */
-> +	if (drm_atomic_crtc_needs_modeset(new_crtc_state))
-> +		ms91xx_clear_rect(&ms91xx->update_rect);
-> +
-> +	if (drm_atomic_helper_damage_merged(old_plane_state, new_plane_state,
-> +					    &current_rect)) {
-> +		current_request =3D &ms91xx->requests[ms91xx->current_request];
-> +		previous_request =3D &ms91xx->requests[!ms91xx->current_request];
-> +
-> +		/* Latency reduction: requeue with the latest frame data. */
-> +		if (cancel_work(&previous_request->work)) {
-> +			complete(&previous_request->done);
-> +			ms91xx_merge_rects(&current_rect, &current_rect,
-> +					   &previous_request->transfer_rect);
-> +			current_request =3D previous_request;
-> +			ms91xx->current_request =3D !ms91xx->current_request;
-> +		}
-> +
-> +		current_request->transfer_rect =3D current_rect;
-> +
-> +		/*
-> +		 * The device double buffers, so we need to send the update
-> +		 * rects of the last two frames.
-> +		 */
-> +		ms91xx_merge_rects(&rect, &current_rect, &ms91xx->update_rect);
-> +		if (ms91xx_fb_send_rect(new_plane_state->fb,
-> +					&shadow_plane_state->data[0],
-> +					&shadow_plane_state->fmtcnv_state,
-> +					&rect)) {
-> +			/* In case of error, merge the rects to update later */
-> +			ms91xx_merge_rects(&ms91xx->update_rect,
-> +					   &ms91xx->update_rect, &rect);
-> +		} else {
-> +			ms91xx->update_rect =3D current_rect;
-> +		}
-> +	}
-> +}
+In drivers/gpu/drm/Makefile, drm_kms_helper.o unconditionally links in
+drm_gem_atomic_helper.o and drm_modeset_helper.o.
+
+In drivers/gpu/drm/drm_gem_atomic_helper.c, the shadow plane helpers call
+format conversion functions that are now in drm_pixel_helper.ko:
+
+drivers/gpu/drm/drm_gem_atomic_helper.c:__drm_gem_shadow_plane_state_init()=
+ {
+	__drm_atomic_helper_plane_state_init(&shadow_plane_state->base, plane);
+	drm_format_conv_state_init(&shadow_plane_state->fmtcnv_state);
+}
+
+Along with drm_format_conv_state_copy() in
+__drm_gem_duplicate_shadow_plane_state() and
+drm_format_conv_state_release() in __drm_gem_destroy_shadow_plane_state().
+
+Similarly, in drivers/gpu/drm/drm_modeset_helper.c, primary_plane_funcs uses
+DRM_PANIC_PLANE_FUNCS:
+
+static const struct drm_plane_funcs primary_plane_funcs =3D {
+	DRM_PLANE_NON_ATOMIC_FUNCS,
+	DRM_PANIC_PLANE_FUNCS,
+};
+
+When CONFIG_DRM_PANIC=3Dy, DRM_PANIC_PLANE_FUNCS references
+drm_plane_helper_display_panic_screen(), which is now defined in
+drm_panic_helper.c inside drm_pixel_helper.ko.
+
+Without DRM_KMS_HELPER selecting DRM_PIXEL_HELPER, won't configurations with
+CONFIG_DRM_KMS_HELPER enabled and CONFIG_DRM_PIXEL_HELPER=3Dn (or
+CONFIG_DRM_KMS_HELPER=3Dy and CONFIG_DRM_PIXEL_HELPER=3Dm) fail to link with
+undefined references to drm_format_conv_state_init(),
+drm_format_conv_state_copy(), drm_format_conv_state_release(), and
+drm_plane_helper_display_panic_screen()?
 
 [Severity: Medium]
-Can ms91xx_plane_atomic_update() drop damage for one of the device's two
-buffers when pending work is canceled or after a failed transfer?
+Are there also a couple of drivers missing a select of DRM_PIXEL_HELPER
+after moving the format and panic helpers into drm_pixel_helper.ko?
 
-Consider three consecutive updates while requests[0].work is still running
-usb_sg_wait() on the ordered workqueue:
+1. In drivers/gpu/drm/sitronix/Kconfig, DRM_ST7571 and DRM_ST7586 were
+updated to select DRM_PIXEL_HELPER, but DRM_ST7920 was not:
 
-1. Frame 1 (damage R1) queues requests[0].work and sets
-   ms91xx->update_rect =3D R1.
-2. Frame 2 (damage R2) sees cancel_work(&requests[0].work) return false,
-   sets requests[1].transfer_rect =3D R2, queues requests[1].work with
-   R1 U R2, and immediately overwrites ms91xx->update_rect =3D R2 before
-   requests[1].work runs.
-3. Frame 3 (damage R3) arrives while requests[0].work is still running and
-   requests[1].work is still pending. cancel_work(&requests[1].work)
-   succeeds, merging R3 with previous_request->transfer_rect (R2) and then
-   with ms91xx->update_rect (also R2).
+config DRM_ST7920
+	tristate "DRM support for Sitronix ST7920 LCD displays"
+	depends on DRM && SPI && MMU
+	select DRM_GEM_SHMEM_HELPER
+	select DRM_KMS_HELPER
+	select REGMAP_SPI
 
-Because Frame 2 already overwrote ms91xx->update_rect with R2 and its
-transfer was canceled, R1 is never sent in Frame 3 and the second hardware
-buffer never receives R1.
+However, drivers/gpu/drm/sitronix/st7920.c calls drm_fb_xrgb8888_to_mono()
+in st7920_fb_blit_rect() and drm_format_conv_state_reserve() in
+st7920_primary_plane_atomic_check(), both of which are in
+drm_format_helper.c.
 
-Similarly, if ms91xx_fb_send_rect() fails on Frame 1 (for example, timing
-out on current_request->done), R1 is merged into ms91xx->update_rect and no
-USB transfer takes place. When Frame 2 (damage R2) succeeds, it sends
-R1 U R2 to only one hardware buffer and then sets
-ms91xx->update_rect =3D R2, so Frame 3 only sends R2 U R3 to the other
-hardware buffer, leaving it without R1.
+2. In drivers/gpu/drm/xe/Kconfig, neither DRM_XE nor DRM_XE_DISPLAY selects
+DRM_PIXEL_HELPER if DRM_PANIC (unlike DRM_I915), even though
+drivers/gpu/drm/xe/Makefile compiles i915-display/skl_universal_plane.o
+into xe.ko when CONFIG_DRM_XE_DISPLAY=3Dy, which uses DRM_PANIC_PLANE_FUNCS
+and references drm_plane_helper_display_panic_screen().
 
-[ ... ]
+Could these cause link failures when building DRM_ST7920 or DRM_XE without
+DRM_PIXEL_HELPER enabled?
 
-> diff --git a/drivers/gpu/drm/ms91xx/ms91xx_transfer.c b/drivers/gpu/drm/m=
-s91xx/ms91xx_transfer.c
-> new file mode 100644
-> index 0000000000000..8b88b2206ce3d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/ms91xx/ms91xx_transfer.c
-> @@ -0,0 +1,218 @@
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index 18a5a5baf0293..ab9eb4c212648 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -91,7 +91,6 @@ drm-$(CONFIG_DRM_PRIVACY_SCREEN) +=3D \
+>  	drm_privacy_screen_x86.o
+>  drm-$(CONFIG_DRM_ACCEL) +=3D ../../accel/drm_accel.o
+>  drm-$(CONFIG_DRM_PANIC) +=3D drm_panic.o
+> -drm-$(CONFIG_DRM_DRAW) +=3D drm_draw.o
+>  drm-$(CONFIG_DRM_RAS) +=3D drm_ras.o drm_ras_nl.o drm_ras_genl_family.o
+>  obj-$(CONFIG_DRM)	+=3D drm.o
+> =20
+> @@ -100,6 +99,7 @@ obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) +=3D drm_pa=
+nel_orientation_quirks.o
+>  obj-$(CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS) +=3D drm_panel_backlight_quirks=
+.o
+> =20
+>  drm_pixel_helper-y :=3D \
+> +	drm_draw_helper.o \
+>  	drm_format_helper.o \
+>  	drm_pixel_helper_common.o
+>  drm_pixel_helper-$(CONFIG_DRM_PANIC) +=3D drm_panic_helper.o
 
-[ ... ]
+[Severity: Low]
+What happens when CONFIG_DRM_KUNIT_TEST is enabled while CONFIG_DRM_PANIC=
+=3Dn
+(such as with the default drivers/gpu/drm/tests/.kunitconfig)?
 
-> +int ms91xx_init_request(struct ms91xx_device *ms91xx,
-> +			struct ms91xx_usb_request *request, size_t len)
-> +{
-> +	int ret;
-> +	unsigned int i, num_pages;
-> +	void *data;
-> +	struct page **pages;
-> +	void *ptr;
-> +
-> +	data =3D vmalloc_32(len);
-> +	if (!data)
-> +		return -ENOMEM;
+In drivers/gpu/drm/tests/Makefile, drm_panic_helper_test.o is built
+unconditionally under CONFIG_DRM_KUNIT_TEST, and
+drivers/gpu/drm/tests/drm_panic_helper_test.c calls
+drm_panic_helper_draw_screen_user(), drm_panic_helper_draw_screen_kmsg(),
+drm_panic_helper_set_description(), and
+drm_panic_helper_clear_description():
 
-[ ... ]
+static int drm_panic_helper_draw_screen_user_default(struct drm_scanout_buf=
+fer *sb)
+{
+	return drm_panic_helper_draw_screen_user(sb, 0x00ffffff, 0x00000000);
+}
 
-> +static void ms91xx_fb_xrgb8888_to_yuv422(void *dst,
-> +					 const struct iosys_map *src,
-> +					 struct drm_framebuffer *fb,
-> +					 const struct drm_rect *rect,
-> +					 struct drm_format_conv_state *fmtcnv_state)
-> +{
-> +	struct ms91xx_frame_update_header *header =3D dst;
-> +	struct iosys_map dst_map;
-> +	u32 position, dimensions;
-> +	int x, y1, width;
-> +
-> +	y1 =3D rect->y1;
-> +	x =3D rect->x1;
-> +	width =3D drm_rect_width(rect);
-> +
-> +	header->marker =3D cpu_to_be16(0xff00);
-> +	position =3D ((x & 0xfff) << 12) | (y1 & 0xfff);
-> +	dimensions =3D ((width & 0xfff) << 12) |
-> +		     (drm_rect_height(rect) & 0xfff);
-> +	put_unaligned_be24(position, header->position);
-> +	put_unaligned_be24(dimensions, header->dimensions);
-> +	dst +=3D sizeof(*header);
-> +
-> +	iosys_map_set_vaddr(&dst_map, dst);
-> +	drm_fb_xrgb8888_to_uyvy(&dst_map, NULL, src, fb, rect, fmtcnv_state);
-> +	dst +=3D width * drm_rect_height(rect) * 2;
-> +
-> +	memcpy(dst, ms91xx_end_of_buffer, sizeof(ms91xx_end_of_buffer));
-> +}
-> +
-> +int ms91xx_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_m=
-ap *map,
-> +			struct drm_format_conv_state *fmtcnv_state,
-> +			struct drm_rect *rect)
-> +{
-> +	int ret =3D 0, idx;
-> +	struct ms91xx_device *ms91xx =3D to_ms91xx(fb->dev);
-> +	struct drm_device *drm =3D &ms91xx->drm;
-> +	struct ms91xx_usb_request *current_request;
-> +	int x, width;
-> +
-> +	/* UYVY stores pixels in pairs. Expand damage to a complete pair. */
-> +	x =3D ALIGN_DOWN(rect->x1, 2);
-> +	width =3D min_t(int, ALIGN(rect->x2, 2), fb->width) - x;
-> +	rect->x1 =3D x;
-> +	rect->x2 =3D x + width;
-> +	rect->y2 =3D min_t(unsigned int, rect->y2, fb->height);
+Previously, DRM_KUNIT_TEST selected DRM_PANIC_HELPER, which built
+drm_panic_helper.o and selected FONT_SUPPORT even when CONFIG_DRM_PANIC=3Dn.
 
-[Severity: Medium]
-What happens in ms91xx_fb_send_rect() when userspace creates a framebuffer
-with an odd fb->width (for example, fb->width =3D 641 scanned out at 640x480
-with a 1-pixel source X offset) and a damage clip reaches the right edge of
-the framebuffer?
-
-Here, min_t(int, ALIGN(rect->x2, 2), fb->width) clamps to the odd fb->width,
-leaving both width and rect->x2 odd.
-
-When ms91xx_fb_xrgb8888_to_yuv422() then calls drm_fb_xrgb8888_to_uyvy(),
-drm_fb_xrgb8888_to_uyvy_line() only converts round_down(pixels, 2) pixels p=
-er
-line while drm_fb_xfrm() advances dst by width * 2 bytes per line. Because
-request->transfer_buffer was allocated with vmalloc_32() in
-ms91xx_init_request() without zeroing, doesn't this leave 2 bytes of
-uninitialized vmalloc memory per scanline that get sent over USB?
+Now that DRM_KUNIT_TEST in drivers/gpu/drm/Kconfig.debug selects
+DRM_PIXEL_HELPER instead of DRM_PANIC_HELPER, and drm_panic_helper.o is only
+compiled into drm_pixel_helper when CONFIG_DRM_PANIC is enabled (and
+DRM_PIXEL_HELPER only selects FONT_SUPPORT if DRM_PANIC), won't building
+DRM_KUNIT_TEST with CONFIG_DRM_PANIC=3Dn fail at link time with undefined
+references to the drm_panic_helper_* functions?
 
 [ ... ]
+
+> diff --git a/drivers/gpu/drm/drm_draw.c b/drivers/gpu/drm/drm_draw_helper=
+.c
+> similarity index 100%
+> rename from drivers/gpu/drm/drm_draw.c
+> rename to drivers/gpu/drm/drm_draw_helper.c
+
+[Severity: Low]
+Should theDRM PANIC entry in MAINTAINERS also be updated to reflect the
+rename from drivers/gpu/drm/drm_draw.c to drivers/gpu/drm/drm_draw_helper.c?
+
+DRM PANIC
+M:	Jocelyn Falempe <jfalempe@redhat.com>
+M:	Javier Martinez Canillas <javierm@redhat.com>
+L:	dri-devel@lists.freedesktop.org
+S:	Supported
+T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+F:	drivers/gpu/drm/drm_draw.c
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019154820.6865=
-9-1-hjf3108@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019154612.7770=
+74-1-tzimmermann@suse.de?part=3D4
