@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD12CCF2E7
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5627CCCF2E6
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 401EB10ED88;
-	Mon, 19 Oct 2026 13:55:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A15DC10ED8D;
+	Mon, 19 Oct 2026 13:55:57 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D62C10ED88;
- Mon, 19 Oct 2026 13:55:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21CA410ED8D;
+ Mon, 19 Oct 2026 13:55:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 971156020A;
- Mon, 19 Oct 2026 13:55:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28A951F000C4;
- Mon, 19 Oct 2026 13:55:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A2AF6020A;
+ Mon, 19 Oct 2026 13:55:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25AE31F000C5;
+ Mon, 19 Oct 2026 13:55:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418138;
- bh=V3PpoMFAw7qVzM1GmPC801AjygH/PqO9elu51OZwm6g=;
+ s=k20260515; t=1792418151;
+ bh=yzhvP2maok5FE2SelQJTFE9TDi5tqPDm3EZJ/Ng2Qgs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=awtmbfM35GvxrICJC9YsYeE6kkmFpQ6LocPglQBwvS1MX7AfO0oznuNFKC4mTfsB2
- eGLoC3ZKmD95HMR0eOY6Wn/gYs/GJQK80GBTvVngrECjkBjdoVnlKY6vYQbcFc7J81
- hXfcKFWE6e8E4jBpktXrafwA0poIN+b3eWG23ob8J4wYVpGP8SS8NbqJzVJvU4YgQc
- CwPOacC3I99mca9gRU3wtPb//154YxlRRtRo4vGhng6GMsDFoMnUT07dIfAK7CuIms
- kNdWiwi9BQZkN5IBxwSWPThI3aa12us+1JYMjI1NeCueS6fZS8bRyFvzBEOGNTOfXk
- 1j5nei/6aOI3g==
+ b=SEo09rZwGwllW/KiCk4NbQhnLxQ7dCIpFdfwRDXLlPzCMUcJ3BWlGjQigzJKcbpzp
+ IkCBg1reh8j9gzQg+tVVGrt6ZZAx1rBjrsiDWi9TMpLiQpL4q7oo7fgvATucOFVhYa
+ Aq6KPDZiIvw79RyaCsVsGkOX1EyPn4tGbY/70Wb21XbnvvpWkPTCzHEG933c0r0aZC
+ 2r/Cri27M3LEpxvSy43Mj2TmvweF54SWvh63vuivj2zn0WKdVUXMowzMAgb+n8mSws
+ VagIlIgUZ+oV9P13IgYd0TCBALxF5VBRiHYeP/TaruwWEb9L6H0WTaU2ZhSn/zOxnm
+ n1xXboEDqCV4w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Kent Russell <kent.russell@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdgpu/gfx11: WARN() rather than BUG()
- for invalid SDMA engine
-Date: Mon, 19 Oct 2026 09:45:30 -0400
-Message-ID: <20261019135441.1420968-39-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: Validate ATPX buffer length before
+ use
+Date: Mon, 19 Oct 2026 09:45:39 -0400
+Message-ID: <20261019135441.1420968-48-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,361 +62,470 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit c24edbd5ae0e4f24e0179e8c9f22a867016177bb ]
+[ Upstream commit 916867cd75dbbc383aa6cb724556de769912157a ]
 
-There's no need to crash the kernel for these cases.
+Add amdgpu_atpx_buffer_validate() to check that the returned ACPI
+buffer is of type ACPI_TYPE_BUFFER, is large enough to hold the u16
+size field, and that the BIOS-reported size does not exceed the actual
+allocation length or fall below the minimum required by the caller.
+Use it in VERIFY_INTERFACE and GET_PX_PARAMETERS callers.
 
-Reviewed-by: Kent Russell <kent.russell@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Assisted-by: Claude Sonnet (Cursor AI)
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough context: this is a three-line `BUG()`-to-`WARN()` change
-on the GFX11 KFD SDMA path, already present in this 7.3-rc4 tree. The
-remaining question is whether it is a real panic-prevention fix worth
-keeping in stable.
+I have enough to decide: the 6.18.y tree still has the unvalidated ATPX
+ACPI path, and the patch is a small, self-contained memory-safety fix.
 
-## Phase 1: Commit message forensics
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.1: Subject line**
-Record: `[drm/amdgpu/gfx11]` `[WARN() rather than BUG()]` `[stop
-panicking on an invalid SDMA engine id in get_sdma_rlc_reg_offset()]`
+**Step 1.1: PARSE THE SUBJECT LINE**
 
-**Step 1.2: Tags**
+Record: [drm/amdgpu] [Validate] [Check ACPI ATPX response buffer type
+and length before reading the BIOS-reported size and memcpy]
+
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+
 Record:
-- `Reviewed-by: Kent Russell <kent.russell@amd.com>` (AMD GPU developer)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
-  maintainer; ignore any Sasha Levin SOB)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable`
-  (absence expected)
+- Signed-off-by: Lijo Lazar <lijo.lazar@amd.com> (author)
+- Assisted-by: Claude Sonnet (Cursor AI)
+- Acked-by: Alex Deucher <alexander.deucher@amd.com> (amdgpu maintainer)
+- Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+- (pipeline) Signed-off-by: Sasha Levin — ignored per instructions
+- (pipeline) `[ Upstream commit 916867cd75dbbc383aa6cb724556de769912157a
+  ]` — ignored per instructions
+- No Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable (absence
+  expected)
 
-**Step 1.3: Body**
-Record: Body is one sentence: “There's no need to crash the kernel for
-these cases.” No stack trace, no reproducer, no version range. Failure
-mode claimed: kernel crash via `BUG()`. Root cause as stated: invalid
-`engine_id` in `get_sdma_rlc_reg_offset()` was treated as fatal.
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 
-**Step 1.4: Hidden bug fix?**
-Record: Not hidden. It is an explicit panic-to-warning conversion. It is
-also patch `15/43` of Alex Deucher’s amdgpu `BUG()`-removal series
-(later resent as `02/30`). Same boilerplate appears on sibling
-gfx12/gfx12.1 patches. That is hardening of a driver `BUG()`, not a
-style-only rename.
-
-## Phase 2: Diff analysis
-
-**Step 2.1: Inventory**
-Record: One file, `drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c`.
-Function: `get_sdma_rlc_reg_offset()`. Scope: +2/−1, single-file
-surgical change.
-
-**Step 2.2: Code flow**
-Record: Before: `switch (engine_id)` handles 0 and 1; `default:` calls
-`BUG()` and never returns. After: `WARN(1, "Invalid SDMA engine id
-%d\n", engine_id); break;` then the function still computes
-`sdma_rlc_reg_offset` from `sdma_engine_reg_base` (initialized to 0) and
-returns. Affected path: invalid engine id on SDMA queue
-load/dump/occupy/destroy.
-
-**Step 2.3: Bug mechanism**
-Record: Category **(g) logic / correctness** plus crash hardening.
-`BUG()` is a kernel panic (unless `CONFIG_BUG` is off). The fix stops
-the panic and logs. It does not add a hard error return; callers still
-`RREG32`/`WREG32` using a 0 base.
-
-**Step 2.4: Fix quality**
-Record: Obviously correct as “don’t panic.” Minimal. Regression risk is
-low: if the default branch is taken, the kernel continues and may
-program SDMA engine 0-ish registers instead of dying. That matches the
-older gfx9/gfx10.3 pattern (`dev_warn` + fallthrough to engine 0),
-though this gfx11 version warns and breaks with `base = 0` rather than
-explicitly using the engine-0 `SOC15_REG_OFFSET`. No public API change.
-
-## Phase 3: Git history
-
-**Step 3.1: Blame**
-Record: Function and original `BUG()` introduced in `cc009e613de65`
-(“drm/amdkfd: Add KFD support for soc21 v3”, Mukul Joshi, 2022-05-04).
-That commit is an ancestor of `v6.1` and `v6.6` in this repo. The
-`WARN()` lines are from `c24edbd5ae0e4` (Alex Deucher, 2026-06-15 /
-committed 2026-07-08).
-
-**Step 3.2: Fixes: tag**
-Record: No `Fixes:` tag. Buggy code is the original gfx11 KFD SDMA
-helper, not a later regression.
-
-**Step 3.3: File history / series**
-Record: Standalone for this file. Related siblings:
-- `28cc342e2455c` gfx12 same change
-- `9f8032604b973` gfx12.1 same change
-Part of the June/July 2026 amdgpu `BUG()` cleanup. No extra gfx11
-refactor is required for this hunk.
-
-**Step 3.4: Author**
-Record: Alex Deucher is the amdgpu maintainer. Around the same dates he
-landed many `BUG()`/`BUG_ON()` → `WARN()`/`-EINVAL` conversions across
-gfx/sdma/psp.
-
-**Step 3.5: Prerequisites**
-Record: None. The function and `BUG()` existed since the file was added.
-Applies standalone.
-
-## Phase 4: Mailing list / external
-
-**Step 4.1: Original discussion**
-Record: `b4 dig -c c24edbd5ae0e4` matched patch-id
-`8e42a5ee823a482676f1d117737bc3f4d06296d3`.
-Lore/msgid: https://patch.msgid.link/20260615235645.737189-15-
-alexander.deucher@amd.com
-Series: v1 `[PATCH 15/43]` 2026-06-15; later v2 `[PATCH 02/30]`
-2026-07-07. Committed version matches the posted diff. No NAKs found. No
-reviewer `Cc: stable` on this patch. Cover-letter fetch from lore
-returned 403; mail-archive and Phoronix describe the series as removing
-amdgpu `BUG()` so the driver does not panic when it can continue.
-
-**Step 4.2: Recipients (`b4 dig -w`)**
-Record: Alex Deucher, `amd-gfx@lists.freedesktop.org`. Kent Russell’s
-`Reviewed-by` is on the git commit, not on the v1 mail-archive copy
-(review landed later / at commit time).
-
-**Step 4.3: Bug report**
-Record: None. No syzbot, bugzilla, or user panic report.
-
-**Step 4.4: Related patches**
-Record: Independent per-IP copies. This gfx11 hunk does not depend on
-the rest of the 43-patch series.
-
-**Step 4.5: Stable list**
-Record: No stable-thread hit found for this subject. UNVERIFIED:
-lore.kernel.org/stable search was blocked (Anubis/403).
-
-## Phase 5: Semantic / call graph
-
-**Step 5.1: Functions**
-Record: `get_sdma_rlc_reg_offset()` only.
-
-**Step 5.2: Callers (this tree)**
 Record:
-- `hqd_sdma_load_v11()` — KFD SDMA queue load
-- `hqd_sdma_dump_v11()` — dump (debug / dqm)
-- `hqd_sdma_is_occupied_v11()`
-- `hqd_sdma_destroy_v11()` — preempt/destroy
+- Bug: ATPX ACPI responses are used without checking object type, that
+  the allocation is large enough to hold the leading `u16` size field,
+  or that the BIOS-reported size is within the real ACPI buffer.
+- Symptom/failure mode: out-of-bounds read and/or NULL dereference when
+  firmware returns a short buffer, a claimed size larger than
+  `buffer.length`, or a non-buffer object.
+- Version information: none in the message. History shows the pattern
+  dates to the original amdgpu ATPX code (2015).
+- Root cause: callers did `size = *(u16 *)info->buffer.pointer` then
+  `memcpy(..., min(sizeof(output), size))` with only a minimum-size
+  check on the BIOS-reported value, never on ACPI type/`buffer.length`.
 
-Those are `gfx_v11_kfd2kgd` ops. Load goes `kfd_load_mqd_sdma()` →
-`hqd_sdma_load()`. Dump is used from `kfd_device_queue_manager.c`.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
 
-**Step 5.3: Callees**
-Record: `SOC15_REG_OFFSET`, register arithmetic, `pr_debug`. Callers
-then `RREG32`/`WREG32` at the returned offset.
+Record: Not hidden. The subject and body describe a memory-safety
+validation fix. It is not cleanup or a feature.
 
-**Step 5.4: Reachability**
-Record: Yes, from `/dev/kfd` queue create/destroy (needs KFD/render
-access, not a raw unprivileged syscall). `engine_id` comes from
-`v11_sdma_mqd.sdma_engine_id`, set in `kfd_mqd_manager_v11.c` from
-`q->sdma_engine_id`.
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-Kernel assignment (`kfd_device_queue_manager.c`):
-- normal SDMA: `sdma_id % kfd_get_num_sdma_engines()`
-- `kfd_get_num_sdma_engines()` is `num_instances/num_nodes`, or
-  `min(..., 2)` if XGMI
+**Step 2.1: INVENTORY THE CHANGES**
 
-Userspace `KFD_QUEUE_TYPE_SDMA_BY_ENG_ID` is range-checked against
-`num_sdma + num_xgmi - 1` in `kfd_ioctl_create_queue()`.
+Record:
+- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c` (+21 / −12)
+- Functions: new `amdgpu_atpx_buffer_validate()`; modified
+  `amdgpu_atpx_validate()`, `amdgpu_atpx_verify_interface()`
+- Scope: single-file surgical fix
 
-Verified: on typical GFX11 (2 SDMA, no XGMI) the id is 0 or 1, so
-`default:` is not the normal path. Unverified: whether any GFX11 SKU
-with XGMI and >2 SDMA instances can produce `engine_id >= 2` and hit
-`BUG()`.
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 
-**Step 5.5: Similar patterns**
-Record: gfx9 and gfx10.3 already `dev_warn` + fallthrough to engine 0.
-gfx11/12/12.1 used `BUG()` until this series. This is aligning gfx11
-with the safer sibling.
+Record:
+- Hunk 1: add helper that requires non-NULL object, `ACPI_TYPE_BUFFER`,
+  `buffer.length >= 2`, `buffer.length >= claimed u16 size`, and
+  `claimed size >= min_size`. `&&` short-circuit makes the `u16` load
+  safe.
+- Hunk 2 (`amdgpu_atpx_validate` / GET_PX_PARAMETERS): old path zeroed
+  `output`, loaded claimed size, rejected only `size < 10`, then
+  `memcpy` of `min(sizeof(output), size)`. New path validates first,
+  then the same bounded copy. `sizeof(struct atpx_px_params)` is 10
+  (`u16+u32+u32`, packed), so the minimum is unchanged for valid
+  firmware.
+- Hunk 3 (`amdgpu_atpx_verify_interface`): same, replacing hardcoded
+  `size < 8` with `sizeof(struct atpx_verify_interface)` which is also
+  8.
 
-## Phase 6: This tree
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
 
-**Step 6.1: Buggy code in this checkout?**
-Record: Local tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). File
-exists. Current `get_sdma_rlc_reg_offset()` already has `WARN(1, ...)`.
-`git merge-base --is-ancestor c24edbd5ae0e4 HEAD` succeeds. The panic
-path is already gone here; the pre-fix `BUG()` is in the parent of that
-commit.
+Record:
+- Category: memory safety — OOB read and possible NULL deref on
+  firmware-controlled ACPI data
+- Mechanism:
+  1. No type check. `union acpi_object` overlays `integer` and `buffer`.
+     An INTEGER 0 makes `buffer.length` 0 and `buffer.pointer` NULL →
+     `*(u16 *)NULL` oops.
+  2. No `buffer.length >= sizeof(u16)` check → OOB 2-byte read on
+     empty/short buffers.
+  3. memcpy used BIOS size capped only by `sizeof(output)`, not by
+     `buffer.length`. Example: length=4, claimed size=10 → copy 10 bytes
+     from a 4-byte buffer.
 
-**Step 6.2: Backport difficulty**
-Record: Clean apply. Hunk matches the original function from 2022; no
-conflicting refactor in that switch.
+**Step 2.4: ASSESS THE FIX QUALITY**
 
-**Step 6.3: Related fixes already here**
-Record: This exact fix is already ancestor of HEAD. Sibling gfx12/12.1
-conversions are also present. No alternate gfx11 SDMA `BUG()` fix.
+Record:
+- Obviously correct; check order is right; min sizes match the old
+  hardcoded 8/10.
+- Minimal; no API change.
+- Regression risk is low: it only rejects responses that were already
+  type-confused or out of bounds. A BIOS that “worked” only because
+  memcpy read extra heap bytes was already relying on undefined
+  behavior.
 
-## Phase 7: Subsystem
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 7.1**
-Record: `drivers/gpu/drm/amd/amdgpu` KFD GFX11. Criticality:
-**IMPORTANT** (RDNA3 / RX 7000 / Phoenix, not core mm/vfs).
+**Step 3.1: BLAME THE CHANGED LINES**
 
-**Step 7.2**
-Record: amdgpu/KFD is actively developed; this helper itself has been
-stable since 2022.
+Record: Buggy loads/memcpy introduced in `d38ceaf99ed015` (“drm/amdgpu:
+add core driver (v4)”, 2015-06-03), first in v4.2-rc1. Present for the
+entire life of amdgpu ATPX. printk→pr_err only in `07867a78f88465`
+(2023).
 
-## Phase 8: Impact and risk
+**Step 3.2: FOLLOW THE FIXES: TAG**
 
-**Step 8.1: Who**
-Record: Users of AMD GFX11 + KFD compute (ROCm / `/dev/kfd`), config
-`CONFIG_HSA_AMD`. Driver-specific, not universal.
+Record: No Fixes: tag (expected). Introducing commit is in this tree
+(`git merge-base --is-ancestor d38ceaf99ed015 HEAD` succeeded).
 
-**Step 8.2: Trigger**
-Record: Invalid `engine_id` not in `{0,1}` on SDMA HQD
-load/dump/destroy. Common path uses kernel-assigned 0/1. Userspace
-engine id is validated for `SDMA_BY_ENG_ID`. Trigger is uncommon; not
-shown as a day-to-day ROCm failure. Not a fully unprivileged DoS on
-typical 2-engine GFX11.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
 
-**Step 8.3: Failure mode**
-Record: Old: `BUG()` → kernel panic. Severity if hit: **CRITICAL**.
-Likelihood: **LOW** on known 2-engine GFX11. After the fix: warning +
-possible wrong MMIO if the branch is taken.
+Record: Sibling series patch 1/2 is `c8373721c3e54` “Validate ATIF
+buffer length before use” on `amdgpu_acpi.c`. Independent file. Other
+recent ATPX commits are unused-function removal and printk conversion,
+not prerequisites. Standalone.
 
-**Step 8.4: Risk-benefit**
-Record: Benefit: avoid an intentional driver panic on a bad engine id.
-Risk: 3 lines, no locking/API change, very low. Ratio: favorable if the
-panic is treated as worth preventing; weaker if judged purely
-theoretical.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
 
-## Phase 9: Synthesis
+Record: Lijo Lazar is a regular AMD contributor (bounds checks, reset,
+ACPI). Maintainer Acked-by/SOB from Alex Deucher.
 
-**Step 9.1: Evidence**
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+
+Record: Submitted as PATCH 2/2 with ATIF 1/2. No shared symbols or
+types. ATPX applies alone. radeon still has the old pattern in
+`radeon_atpx_handler.c`; that is out of scope, not a dependency.
+
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+
+Record:
+- `b4 dig -c 916867cd75db...` and local SHA: lore.kernel.org returned
+  errors; no b4 match.
+- Fallback: https://www.mail-archive.com/amd-
+  gfx@lists.freedesktop.org/msg145005.html (PATCH 2/2, 2026-06-14)
+- Review: https://www.mail-archive.com/amd-
+  gfx@lists.freedesktop.org/msg145042.html — Alex Deucher: “Series is:
+  Acked-by”
+- Series: v1 only; no v2/v3; no NAK; no reviewer Cc: stable
+- Freedesktop June 2026 index lists the submission and Deucher’s ack
+  only
+
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+
+Record: Maintainer Alex Deucher acked the series. Recipients from mail-
+archive: amd-gfx. b4 -w failed (lore error).
+
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+
+Record: No Reported-by, syzbot, bugzilla, or CVE found. Code-review
+hardening against malformed ACPI, not a user reproducer.
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+
+Record: 1/2 ATIF (`amdgpu_acpi.c`) is the same class of fix. ATIF
+already had `obj->type != ACPI_TYPE_BUFFER`; ATPX `amdgpu_atpx_call()`
+never checked type. ATPX does not need 1/2.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+
+Record: lore.kernel.org/stable search returned 403. Web search did not
+show a prior stable discussion of this subject. UNVERIFIED whether
+anyone already requested or rejected it for stable.
+
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
+
+Record: `amdgpu_atpx_buffer_validate` (new), `amdgpu_atpx_validate`,
+`amdgpu_atpx_verify_interface`
+
+**Step 5.2: TRACE CALLERS**
+
+Record:
+- `amdgpu_atpx_verify_interface` / `amdgpu_atpx_validate` ←
+  `amdgpu_atpx_init()` ← `amdgpu_atpx_detect()` when ATPX exists and
+  there are two VGA-class devices ← `amdgpu_register_atpx_handler()` ←
+  `amdgpu_init()` in `amdgpu_drv.c` (module init)
+- Gated by `CONFIG_VGA_SWITCHEROO` (x86 + ACPI + PCI hybrid-laptop GPU
+  switching)
+
+**Step 5.3: TRACE CALLEES**
+
+Record: `amdgpu_atpx_call()` → `acpi_evaluate_object(...,
+ACPI_ALLOCATE_BUFFER)`. On failure other than `AE_NOT_FOUND` it frees
+and returns NULL. Success and `AE_NOT_FOUND` return `buffer.pointer`
+with **no type check**. Callers only test `if (!info)`.
+
+**Step 5.4: FOLLOW THE CALL CHAIN**
+
+Record: Reachable on amdgpu module load on hybrid PX laptops. Not a
+syscall hot path; it is a common boot/probe path for those machines.
+Unprivileged users do not trigger it directly; a crash still takes down
+the GPU/driver init (and can oops the kernel).
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+
+Record: Identical unvalidated pattern remains in
+`drivers/gpu/drm/radeon/radeon_atpx_handler.c`. ATIF now validates type
+and both sizes. Confirms a systematic ACPI-buffer issue; this patch
+covers amdgpu ATPX only.
+
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+
+Record:
+- Local tree: `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`;
+  `Makefile` 6.18.53; branch `autosel`
+- Candidate is **not** in `v6.18.53` (`merge-base --is-ancestor` failed)
+- `v6.18.53:drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c` still has
+  `size = *(u16 *) info->buffer.pointer` / `size < 10` / `size < 8`
+- `git diff v6.18.53 9d367fab451d9^ -- amdgpu_atpx_handler.c` is empty:
+  pre-fix file matches 6.18.53
+- Bug introduced v4.2; present in this series
+
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+
+Record: Clean apply. Same file content as the commit’s parent. No
+refactor since 6.18.53 on these functions.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+
+Record: No earlier ATPX buffer-length fix in this file’s history besides
+the candidate. ATIF sibling is also not in v6.18.53; not required.
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+
+Record: [drm/amdgpu ATPX / vga_switcheroo] [IMPORTANT — common x86
+hybrid AMD laptop path, not core mm/vfs, not staging]
+
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+
+Record: amdgpu is actively developed; this ATPX file is mature (2015)
+with occasional quirks. Long-lived bug, not a recent-feature regression.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+
+Record: Driver-specific + config-specific: `CONFIG_VGA_SWITCHEROO`
+amdgpu users on hybrid PX systems (two GPUs, ATPX ACPI method). Typical
+of 2008–2010s and some later A+A laptops. Distro kernels usually enable
+VGA_SWITCHEROO on x86.
+
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+
+Record: Module init / ATPX detect. Needs ATPX plus a malformed ACPI
+return (wrong type, length < 2, or claimed size > actual). No evidence
+an unprivileged user can inject ACPI here; buggy/malicious firmware can.
+No public reproducer. Severity if it hits is a boot-time oops, not a
+rare runtime race.
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+
+Record: NULL deref or OOB read during GPU/hybrid init → kernel oops.
+Severity HIGH (crash). Not confirmed privilege escalation. Not data
+corruption.
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+
+Record:
+- Benefit: medium-high for hybrid AMD laptops; prevents oops on bad ATPX
+  data; completes validation the driver already attempted.
+- Risk: very low (one helper, two call sites, min sizes unchanged).
+- Ratio: favorable.
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+**Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Replaces `BUG()` (panic) with `WARN()` on a real KFD SDMA path.
-- 3-line, obviously correct, reviewed by Kent Russell, written by the
-  amdgpu maintainer.
-- GFX11 KFD support has been in the kernel since 2022 (`cc009e613de65`,
-  ancestor of v6.1).
-- gfx9/gfx10.3 already refused to panic here; gfx11 was the harsh
-  outlier.
-- No prerequisites; applies cleanly to this file.
-- Prompt’s crash/panic guidance favors inclusion.
+- Real OOB read / possible NULL deref on ACPI ATPX responses
+- Incomplete size check since 2015, present in 6.18.53
+- Small, obviously correct, maintainer-acked
+- Applies cleanly; no new API; no series dependency
+- Boot path on hybrid laptops, not dead code
 
 AGAINST:
-- No user report, syzbot, or demonstrated trigger.
-- Official stable rule: not a “this could be a problem” patch without an
-  exploit/trigger explanation.
-- Identical one-line body across a 43-patch cleanup series, not a
-  targeted production-crash fix.
-- On typical GFX11, engine id is 0 or 1, so `default:` is largely
-  defensive.
-- After `WARN()`, execution continues with `base = 0` rather than
-  failing the ioctl.
+- No user/syzbot report
+- Trigger needs bad firmware
+- ATPX is a shrinking hybrid-laptop population
+- Same bug still in radeon (unrelated)
 
 UNRESOLVED:
-- Whether any GFX11 product can assign `engine_id >= 2` via XGMI extra
-  SDMA engines.
-- Full cover-letter text (lore 403).
-- Stable-list discussion (lore/stable blocked).
+- b4/lore 403; no stable-list discussion confirmed
+- No known machine that actually returns a short/wrong-type ATPX object
 
-**Step 9.2: Stable rules checklist**
-1. Obviously correct and tested? **PASS** — 3-line substitution,
-   reviewed, in mainline.
-2. Fixes a real bug that affects users? **PASS** with caveat — it fixes
-   a real panic *if* the branch runs; no evidence users hit it. Still a
-   driver `BUG()` on a userspace-reachable KFD path.
-3. Important (crash/security/corruption/deadlock)? **PASS** for the
-   failure mode (panic). Likelihood is low.
-4. Small and contained? **PASS** — +2/−1, one function.
-5. No new features/APIs? **PASS**.
-6. Can apply to this tree? **PASS** — file/function exist; hunk is
-   identical. (Already applied on 7.3-rc4.)
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
 
-**Step 9.3: Exception category**
-Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary
-robustness fix.
+1. Obviously correct and tested? **PASS** — helper logic is sound;
+   Acked-by amdgpu maintainer
+2. Fixes a real bug that affects users? **PASS** — missing type/length
+   checks; crash if firmware is wrong
+3. Important issue? **PASS** — oops/OOB, HIGH; not a feature
+4. Small and contained? **PASS** — +21/−12, one file
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — v6.18.53 has the buggy code;
+   diff would apply cleanly
 
-**Step 9.4: Decision**
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
 
-This tree is 7.3-rc4 and already contains the commit; the evaluation is
-whether the change is stable-worthy for this codebase, not whether to
-re-apply it.
+Record: Not a device-ID/quirk/DT/build/docs exception. Standard memory-
+safety bug fix.
 
-It should be. `BUG()` in `get_sdma_rlc_reg_offset()` is an intentional
-kernel panic on the GFX11 KFD SDMA load/destroy path. Replacing it with
-`WARN()` is the same policy older GFX generations already used, it is
-three lines, and it cannot introduce a new API or locking scheme. Lack
-of a public reproducer makes it a cleanup-shaped patch, but the user-
-visible failure if that branch ever runs is still a full panic, which is
-what stable is for.
+**Step 9.4: MAKE YOUR DECISION**
 
-### What it solves for stable users
-Stops the GFX11 KFD SDMA helper from taking down the machine on an out-
-of-range engine id, instead of asserting.
+This belongs on 6.18.y. The tree still trusts BIOS-reported ATPX sizes
+without checking ACPI object type or real buffer length. That can oops
+at amdgpu init on hybrid systems. The fix is tiny, matches existing
+mins, and was acked by the maintainer.
 
-### Rules
-Small, obviously correct, no new API, applies to this file. It addresses
-a panic, not a feature.
+### What the commit solves for this tree
+
+On `v6.18.53`, `amdgpu_atpx_verify_interface()` and GET_PX_PARAMETERS
+still do `*(u16 *)info->buffer.pointer` and memcpy without confirming
+`ACPI_TYPE_BUFFER` or that `buffer.length` covers the claimed size.
+Wrong-type INTEGER 0 is a NULL deref; a short buffer or oversized
+claimed length is an OOB read. Stable 6.18 users of hybrid AMD laptops
+hit this on module load if firmware is buggy.
 
 ### Risk vs benefit
-Benefit is panic avoidance on AMD RDNA3 compute queues. Risk is
-negligible.
+
+Benefit is avoiding a probe-time oops. Risk is a few lines of stricter
+validation that valid ATPX responses already satisfy (`sizeof` 8 and
+10). Sibling ATIF patch is not required.
 
 ### Concerns
-Trigger is uncommon; after `WARN()` the function still returns a 0-based
-offset. That is acceptable versus `BUG()`. No extra commits are
-required.
 
-## Verification
-- [Phase 1] Parsed subject/body/tags: one-sentence panic rationale;
-  `Reviewed-by: Kent Russell`; no `Fixes`/`Reported-by`.
-- [Phase 2] Diff: `BUG()` → `WARN(1, ...)` + `break` in
-  `get_sdma_rlc_reg_offset()`; +2/−1.
-- [Phase 3] `git blame`: `BUG()` from `cc009e613de65` (2022-05-04);
-  ancestor of v6.1 and v6.6.
-- [Phase 3] `git show c24edbd5ae0e4`: matches the candidate diff.
-- [Phase 3] `git merge-base --is-ancestor c24edbd5ae0e4 HEAD`: yes
-  (already in this tree).
-- [Phase 4] `b4 dig -c c24edbd5ae0e4`: msgid
-  `20260615235645.737189-15-alexander.deucher@amd.com` (`15/43`).
-- [Phase 4] `b4 dig -a`: v1 43-patch series 2026-06-15; v2 30-patch
-  2026-07-07.
-- [Phase 4] `b4 dig -w`: To/Cc Alex Deucher + amd-gfx; no stable CC.
-- [Phase 4] mail-archive: posted diff identical; no NAK in the copies
-  read.
-- [Phase 4] UNVERIFIED: lore.kernel.org cover letter and stable@ archive
-  (403/Anubis).
-- [Phase 5] Callers verified: `hqd_sdma_load_v11` / `dump` /
-  `is_occupied` / `destroy`; load via `kfd_load_mqd_sdma`.
-- [Phase 5] `engine_id` from MQD ← `q->sdma_engine_id`; ioctl range
-  check for `SDMA_BY_ENG_ID`; typical GFX11 stays 0/1.
-- [Phase 5] gfx9/gfx10.3 already warn instead of `BUG()`.
-- [Phase 6] `git describe HEAD` / Makefile: 7.3.0-rc4; current file
-  already has `WARN()`.
-- [Phase 8] Failure mode if hit: `BUG()` panic; trigger likelihood low
-  on 2-engine GFX11.
-- UNVERIFIED: GFX11 SKU with `engine_id >= 2` in production.
+No field report. radeon is still unfixed. Neither blocks backporting
+this amdgpu change.
+
+Verification:
+- [Phase 1] Tags: author SOB, Assisted-by Claude, Acked-by/SOB Alex
+  Deucher; no Fixes/Reported-by/Cc stable
+- [Phase 2] Diff: +21/−12 in one file; helper plus two call sites; min
+  8/10 preserved via sizeof
+- [Phase 2] `union acpi_object` in `include/acpi/actypes.h`: INTEGER vs
+  BUFFER overlay confirmed
+- [Phase 3] blame: `d38ceaf99ed015` (v4.2-rc1); in this tree
+- [Phase 3] parent is ATIF 1/2 on a different file; ATPX standalone
+- [Phase 4] b4 dig failed (lore error); mail-archive PATCH 2/2 + Deucher
+  series ack
+- [Phase 4] No stable-list hit (lore 403) — UNVERIFIED
+- [Phase 5] Call chain: amdgpu_init → register_atpx_handler → detect →
+  init → verify/validate; CONFIG_VGA_SWITCHEROO
+- [Phase 5] `amdgpu_atpx_call` has no type check (unlike ATIF)
+- [Phase 5] Same bug still in `radeon_atpx_handler.c`
+- [Phase 6] `git describe HEAD`: v6.18.53-5049; candidate not in
+  v6.18.53; buggy code present; empty diff vs parent file
+- [Phase 8] Failure mode: oops/OOB on ATPX probe, HIGH; trigger = hybrid
+  PX + bad ACPI
+- UNVERIFIED: no concrete BIOS reproducer; no CVE
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c  | 33 ++++++++++++-------
+ 1 file changed, 21 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-index aaccf0b9947d4..d32ea91eeb343 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-@@ -139,7 +139,8 @@ static uint32_t get_sdma_rlc_reg_offset(struct amdgpu_device *adev,
- 				regSDMA1_QUEUE0_RB_CNTL) - regSDMA0_QUEUE0_RB_CNTL;
- 		break;
- 	default:
--		BUG();
-+		WARN(1, "Invalid SDMA engine id %d\n", engine_id);
-+		break;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+index 3893e6fc2f037..e2a4644896ca8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+@@ -89,6 +89,15 @@ bool amdgpu_is_atpx_hybrid(void)
+ 	return amdgpu_atpx_priv.atpx.is_hybrid;
+ }
  
- 	sdma_rlc_reg_offset = sdma_engine_reg_base
++static bool amdgpu_atpx_buffer_validate(const union acpi_object *obj,
++					size_t min_size)
++{
++	return obj && obj->type == ACPI_TYPE_BUFFER &&
++	       obj->buffer.length >= sizeof(u16) &&
++	       obj->buffer.length >= *(u16 *)obj->buffer.pointer &&
++	       *(u16 *)obj->buffer.pointer >= min_size;
++}
++
+ /**
+  * amdgpu_atpx_call - call an ATPX method
+  *
+@@ -179,15 +188,15 @@ static int amdgpu_atpx_validate(struct amdgpu_atpx *atpx)
+ 		if (!info)
+ 			return -EIO;
+ 
+-		memset(&output, 0, sizeof(output));
+-
+-		size = *(u16 *) info->buffer.pointer;
+-		if (size < 10) {
+-			pr_err("ATPX buffer is too small: %zu\n", size);
++		if (!amdgpu_atpx_buffer_validate(info, sizeof(output))) {
++			pr_err("Invalid ATPX GET_PX_PARAMETERS response\n");
+ 			kfree(info);
+ 			return -EINVAL;
+ 		}
+-		size = min(sizeof(output), size);
++
++		memset(&output, 0, sizeof(output));
++
++		size = min(sizeof(output), (size_t)*(u16 *)info->buffer.pointer);
+ 
+ 		memcpy(&output, info->buffer.pointer, size);
+ 
+@@ -258,15 +267,15 @@ static int amdgpu_atpx_verify_interface(struct amdgpu_atpx *atpx)
+ 	if (!info)
+ 		return -EIO;
+ 
+-	memset(&output, 0, sizeof(output));
+-
+-	size = *(u16 *) info->buffer.pointer;
+-	if (size < 8) {
+-		pr_err("ATPX buffer is too small: %zu\n", size);
++	if (!amdgpu_atpx_buffer_validate(info, sizeof(output))) {
++		pr_err("Invalid ATPX VERIFY_INTERFACE response\n");
+ 		err = -EINVAL;
+ 		goto out;
+ 	}
+-	size = min(sizeof(output), size);
++
++	memset(&output, 0, sizeof(output));
++
++	size = min(sizeof(output), (size_t)*(u16 *)info->buffer.pointer);
+ 
+ 	memcpy(&output, info->buffer.pointer, size);
+ 
 -- 
 2.53.0
 
