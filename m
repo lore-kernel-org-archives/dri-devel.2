@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D05ACCF2DE
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:01:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA17CCF2E6
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 869BC10EDDD;
-	Mon, 19 Oct 2026 14:01:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99AB10EDEA;
- Mon, 19 Oct 2026 14:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5823210EDF6;
+	Mon, 19 Oct 2026 14:01:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF4A10EE06;
+ Mon, 19 Oct 2026 14:01:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A895E40817;
- Mon, 19 Oct 2026 14:00:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B9D1F000C9;
- Mon, 19 Oct 2026 14:00:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 759396025A;
+ Mon, 19 Oct 2026 14:01:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0897F1F000C4;
+ Mon, 19 Oct 2026 14:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418458;
- bh=vmih4YEtyPerUsmZiKCYZilMhr6BxnBlF4yNVIMWQmk=;
+ s=k20260515; t=1792418469;
+ bh=1pBPNFEO0meoCcIWDnS/H5lw/oRXuQ7DEnRFhYwttSE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Uj7/+35VfNzAS38g7cNUnf2rixe5xVDaUp3Pd0WJr9Gwz1jtZ62ckQJ6eGqmDXYAA
- Wv/een0uz/B2ROt8qDfT1BLokOGHhaiTAus/JFtEx/jGsXfCswSNcxbJy8iqoV9dyX
- 7JbdDbp9kthtpGj99GKNiPCRyoeGKejT3d6Rsict/SdA6+g29REyWylVoc1S7/X37V
- mLRz3FGsTzsyTUzNJfBmIPr82Vu0adDwIUiBL6V5T3lnDHTTsYkiln1DZWfo/RdGR6
- pvSKfZll2LKqgabUv0mp/NfDVptUlrObTe5JSY74emgwLQB1GWYcYssKJio2Gj+X2P
- SCmXjYxT67IGA==
+ b=LY4J83kLVSektUJpgCzqlxZBeoCbI2DiVZxXWQiINQbEnARTK7dgaGiiDOSXakEUf
+ s+D+kIH834oATgw5Ew6FPV4XL9WfE/z5gubGfC8vjmRSlUMWIBzVITkE76+Gv2x9a6
+ N5UtSCtggMSiRAXprNGbpdOf2w3EtnKO/tDNfDqra93nSXP97Q51o+sHIxMOMWiENN
+ K+EmDrKrwdMS/Bzj9lRMY7NvhZ5QCPAmtqQhhWbbHIcV2SgqJ+CtY/4H3lxmGYVH9A
+ 7ocxS3lQadY1RVqYZe0xzX5JrPMl5ou7EUhWGxJZev5t3XSYMpaL6MPu57kjwnsJAi
+ CSm+ILKKliukA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Gangliang Xie <ganglxie@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+Cc: YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: add check for xcp id
-Date: Mon, 19 Oct 2026 09:49:14 -0400
-Message-ID: <20261019135441.1420968-263-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdgpu: add bounds check to prevent
+ array overflow
+Date: Mon, 19 Oct 2026 09:49:21 -0400
+Message-ID: <20261019135441.1420968-270-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -62,437 +63,364 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Gangliang Xie <ganglxie@amd.com>
+From: YiPeng Chai <YiPeng.Chai@amd.com>
 
-[ Upstream commit fa1531170d2c96060478d697fe93f1cafc0e7ddd ]
+[ Upstream commit db15c49a17b8fab9ada38f3a548e5353d7d6b1a8 ]
 
-check sel_xcp_id before its use
+Add bounds check to prevent array overflow.
 
-Signed-off-by: Gangliang Xie <ganglxie@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+v2:
+  Add warning messages.
+
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Confirmed: `ring->xcp_id` is `u32`, `AMDGPU_XCP_NO_PARTITION` is `~0`,
-and the same OOB pattern is what the XCP maintainer later called out in
-`release_sched`. The 6.18.53 function has no bounds check. Compiling the
-full analysis.
+The local tree is **6.18.53**. The unbounded write into
+`mce_adev_list.devs[]` is present in that base; this is a 7-line
+overflow guard for that array.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
-**Step 1.1: PARSE THE SUBJECT LINE**
+Step 1.1: PARSE THE SUBJECT LINE
+Record: **[drm/amdgpu] [add] bounds check to prevent array overflow**
 
-Record: **[drm/amdgpu]** **[add/check]** Add a bounds check on
-`sel_xcp_id` before using it as an index into `adev->xcp_mgr->xcp[]`.
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- **Fixes:** none (expected for this review pipeline)
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** Lijo Lazar \<lijo.lazar@amd.com\> (AMD
-  XCP/partitioning reviewer; also reviewed the helper that introduced
-  this function)
-- **Acked-by:** none
-- **Link:** none in the commit message
-- **Cc: stable:** none (expected; not a negative signal)
-- **Signed-off-by:** Gangliang Xie \<ganglxie@amd.com\> (author); Alex
-  Deucher \<alexander.deucher@amd.com\> (amdgpu maintainer)
-- Ignored pipeline tags: `[Upstream commit fa1531170d2c…]`, `Signed-off-
-  by: Sasha Levin`
+- Signed-off-by: YiPeng Chai (author)
+- Reviewed-by: Tao Zhou
+- Signed-off-by: Alex Deucher (amdgpu maintainer)
+- No Fixes:, Reported-by, Tested-by, Link:, or Cc: stable (absence is
+  expected)
+- Pipeline-only tags ignored: `[Upstream commit db15c49a17b8…]`, Signed-
+  off-by: Sasha Levin
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- **Bug description:** `sel_xcp_id` is used as an array index without
-  validation.
-- **Symptom/failure mode:** not spelled out in the message (one-line
-  body: “check sel_xcp_id before its use”). From the code, the failure
-  is an out-of-bounds read/write of `xcp[sel_xcp_id]`.
-- **Version information:** none in the message.
-- **Root cause:** `amdgpu_xcp_gpu_sched_update()` indexes
-  `adev->xcp_mgr->xcp[sel_xcp_id]` even when the ID is
-  `AMDGPU_XCP_NO_PARTITION` (`~0`) or `>= MAX_XCP`.
+- Bug: write into `mce_adev_list.devs[]` with no cap vs
+  `MAX_GPU_INSTANCE` (64)
+- Symptom: kernel array overflow / adjacent BSS corruption
+- Version info: none in the message
+- Root cause: registration does `devs[num_gpu++] = adev` with no
+  capacity check (the sibling `amdgpu_register_gpu_instance()` has had
+  that check since 2018)
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-
-Record: Yes — this is a memory-safety fix described as “add check”. Same
-pattern as the author’s nearby “add buf length check” / “add first
-record offset check” patches, and as Lijo Lazar’s explicit “bounds check
-xcp_id in release_sched” (“Avoid out-of-bounds xcp[] access, e.g. when
-xcp_id is AMDGPU_XCP_NO_PARTITION”).
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not disguised. It is an explicit overflow fix. v2 only adds a
+ratelimited warning.
 
 ===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
+PHASE 2: DIFF ANALYSIS
 ===============================================================
 
-**Step 2.1: INVENTORY THE CHANGES**
-
+Step 2.1: INVENTORY THE CHANGES
 Record:
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c` (+3 / −0)
-- **Function:** `amdgpu_xcp_gpu_sched_update()`
-- **Scope:** single-file surgical fix (3 lines)
+- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c` (+7 / −0)
+- Function: `amdgpu_register_bad_pages_mca_notifier()`
+- Scope: single-file surgical fix
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+- Before: always `mce_adev_list.devs[mce_adev_list.num_gpu++] = adev`,
+  then register the MCE decode chain once
+- After: if `num_gpu >= MAX_GPU_INSTANCE`, warn and return; otherwise
+  same as before
+- Path: device init / RAS recovery init, not the MCE hot path
 
-Record: **Before:** the function immediately does
-`num_gpu_sched = &adev->xcp_mgr->xcp[sel_xcp_id].gpu_sched[...]` and
-writes `&ring->sched` into that slot, incrementing `num_scheds`.
-**After:** if `sel_xcp_id >= MAX_XCP` or `sel_xcp_id ==
-AMDGPU_XCP_NO_PARTITION`, it returns without touching the array. Normal
-path unchanged for IDs in `0 .. MAX_XCP-1`.
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record:
+- Category: **buffer overflow / out-of-bounds write**
+- Mechanism: `devs` is `struct amdgpu_device *devs[MAX_GPU_INSTANCE]`
+  (64). Index 64 is past the array and lands on `num_gpu` and the
+  following BSS. A pointer-sized store there corrupts static driver
+  state.
+- Fix: same capacity check already used for `mgpu_info` in
+  `amdgpu_kms.c`
 
-Callers in `amdgpu_xcp_sched_list_update()`:
-1. `amdgpu_xcp_gpu_sched_update(adev, ring, ring->xcp_id)`
-2. For shared VCN: `amdgpu_xcp_gpu_sched_update(adev, ring, ring->xcp_id
-   + 1)`
-
-`amdgpu_set_xcp_id()` sets `ring->xcp_id = AMDGPU_XCP_NO_PARTITION`
-first and can leave it there (CPER/early return, unsupported ring type,
-or no matching `inst_mask`).
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-
-Record: **[Memory safety / out-of-bounds]** `xcp[]` has `MAX_XCP` (8)
-entries. `ring->xcp_id` is `u32`; `AMDGPU_XCP_NO_PARTITION` is `(~0)` →
-`0xffffffff`. Indexing `xcp[0xffffffff]` is a wild OOB read/write (store
-a scheduler pointer, increment `num_scheds`). The VCN `xcp_id + 1` path
-can also produce `8` when `xcp_id == 7`. The `==
-AMDGPU_XCP_NO_PARTITION` clause is redundant for unsigned `sel_xcp_id`
-(already `>= MAX_XCP`) but harmless.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-
-Record: Obviously correct 3-line guard. Skipping a ring with an invalid
-XCP id is the right behavior (that ring should not be on a partition
-sched list). Regression risk is very low: a previously valid `0..7` id
-is unaffected; a previously invalid id was already corrupting memory.
+Step 2.4: ASSESS THE FIX QUALITY
+Record:
+- Obviously correct; no API/lock/data-structure change
+- Early return only skips adding a 65th device; the decode chain is
+  already registered by GPU 0
+- Regression risk: **very low** (warn + return). Skipping page-
+  retirement for a 65th Aldebaran is safer than overflowing
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
 ===============================================================
 
-**Step 3.1: BLAME THE CHANGED LINES**
+Step 3.1: BLAME THE CHANGED LINES
+Record:
+- Unbounded store introduced in `91a1a52d03aa0f` (Mukul Joshi,
+  2021-09-20): “Fix RAS page retirement with mode2 reset on Aldebaran”
+- Present in this 6.18.53 tree (`git merge-base --is-ancestor
+  91a1a52d03aa0f v6.18.53` succeeded)
 
-Record: The unchecked index was introduced in **`4dbc17b455329`**
-(“drm/amdgpu: Convert update_partition_sched_list into a common helper
-v3”, Hawking Zhang, 2025-06-16). That commit is an ancestor of
-**v6.18.53**. XCP itself dates to **`75d1692393cb7`** (2022-09-16).
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. Introducer is `91a1a52d03aa0f`, in this tree.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record:
+- This tree has **no** `amdgpu_unregister_bad_pages_mca_notifier` (that
+  landed later, ~Nov 2025 on amd-gfx)
+- `amdgpu_ras_recovery_fini()` / `amdgpu_driver_unload_kms()` never
+  shrink `mce_adev_list`
+- GPU reset unregisters `mgpu_info` and re-adds it; it does **not** re-
+  run `amdgpu_ras_recovery_init()`, so reset does not grow this list
+- Series mate patch 2/2 (`drm/amd/ras: use IS_ERR() to check thread
+  creation result`) touches `rascore/ras_process.c` and is independent
 
-Record: No `Fixes:` tag. The buggy helper **is** in this tree (`git
-merge-base --is-ancestor 4dbc17b455329 v6.18.53` succeeded).
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: YiPeng Chai is a regular amdgpu RAS contributor. Tao Zhou
+reviewed; Alex Deucher applied. Not a drive-by change.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
-Record: Related nearby work on the same file: `085ef38814f01` “bounds
-check xcp ip block index”; mailing-list sibling “bounds check xcp_id in
-release_sched” (Lijo Lazar) which names the same
-`AMDGPU_XCP_NO_PARTITION` OOB. This patch is standalone; it does not
-depend on those siblings. No follow-ups after it on this function.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record: Gangliang Xie is an AMD contributor sending small validation
-patches (`add buf length check`, `add first record offset check`, RAS
-checksum). Not the subsystem maintainer. Weight comes from **Reviewed-
-by: Lijo Lazar** and **Signed-off-by: Alex Deucher**.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-
-Record: None. It only uses `MAX_XCP` and `AMDGPU_XCP_NO_PARTITION`, both
-present in this tree (`amdgpu_xcp.h`). Can apply standalone; the
-v6.18.53 function body matches the patch parent exactly.
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: None. The register function in v6.18.53 matches the parent hunk.
+Applies standalone.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 ===============================================================
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 Record:
-- `b4 dig -c fa1531170d2c96060478d697fe93f1cafc0e7ddd` →
-  https://patch.msgid.link/20260623024809.121196-1-ganglxie@amd.com
-- `b4 dig -a`: single **v1**, no later revisions
-- Thread: author patch + **Reviewed-by: Lijo Lazar**. No NAK, no stable
-  nomination, no crash log in the thread.
-- lore.kernel.org HTTP fetch returned 403; discussion recovered via `b4
-  dig -m` mbox (2 messages).
+- `b4 dig -c db15c49a17b8…` →
+  https://patch.msgid.link/20260616093753.4142104-1-YiPeng.Chai@amd.com
+- v1 (2026-06-16): check only, silent return
+- v2 (same day): added `dev_warn_ratelimited`
+- Tao Zhou (v1): “do we need to add warning message for it?” — that is
+  the only review request
+- No NAKs, no stable discussion, no user crash report
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (`b4 dig -w`): amd-gfx, Hawking Zhang, Tao Zhou, Candice Li. Tao
+Zhou: Reviewed-by on v2. Alex Deucher signed off.
 
-Record: `b4 dig -w`: To `amd-gfx@lists.freedesktop.org`, Cc
-`tao.zhou1@amd.com`. Reviewed by Lijo Lazar (XCP reviewer). Merged by
-Alex Deucher.
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No syzbot, bugzilla, or user report found. Looks like an
+internal correctness/static-analysis fix, not a field crash.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record:
+- 2-patch series; 2/2 is an unrelated `kthread_run` IS_ERR check
+- Related later work: “Unregister mce notifier” (Nov 2025) — **not in
+  this 6.18.53 tree**, so the list never shrinks here. That makes
+  overflow easier to hit than on later mainline
 
-Record: No syzbot/bugzilla/CVE. Web search did find the maintainer
-stating the **same** `xcp[ring->xcp_id]` pattern is OOB when id is
-`AMDGPU_XCP_NO_PARTITION` (`bounds check xcp_id in release_sched`). That
-is independent confirmation of the bug class, not a user crash report
-for this exact function.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Standalone v1, not a numbered series. Related OOB guards in the
-same file (`release_sched`, ip-block index) are separate and not
-required for this hunk to be correct.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-
-Record: No stable@ discussion found for this subject. linux-next merge
-mail listed this commit among several amdgpu_xcp.c bounds-check fixes
-(conflict was in `release_sched`, not this function).
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: No lore.kernel.org/stable hit for this subject. lore.kernel.org
+fetches returned 403; mail-archive + b4 were used instead.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
-semcode MCP is not available; callers/callees traced with grep and file
-reads.
+Step 5.1: IDENTIFY KEY FUNCTIONS
+Record: `amdgpu_register_bad_pages_mca_notifier()` (modified). Related:
+`find_adev()`, `amdgpu_bad_page_notifier()`,
+`amdgpu_ras_recovery_init()`. semcode MCP not available; used grep/read.
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-
-Record: `amdgpu_xcp_gpu_sched_update` (modified); callers
-`amdgpu_xcp_sched_list_update` →
-`amdgpu_xcp_update_partition_sched_list`.
-
-**Step 5.2: TRACE CALLERS**
-
+Step 5.2: TRACE CALLERS
 Record:
-- `amdgpu_xcp_init()` (partition setup / mode switch)
-- `amdgpu_device.c` after `drm_sched_init` for all rings (`if
-  (adev->xcp_mgr) amdgpu_xcp_update_partition_sched_list(adev)`)
+- Only caller: `amdgpu_ras_recovery_init()` when `CONFIG_X86_MCE_AMD`,
+  `asic_type == CHIP_ALDEBARAN`, and `adev->gmc.xgmi.connected_to_cpu`
+- That is called only from `amdgpu_device_init()` (not from reset
+  reinit)
+- `amdgpu_device_init()` ← `amdgpu_driver_load_kms()` ← PCI probe
+- `amdgpu_pci_remove()` → `amdgpu_driver_unload_kms()` does **not** drop
+  the MCE list entry
 
-Only **aqua_vanjaram** calls `amdgpu_xcp_mgr_init` (MI300-family
-Instinct). Consumer GPUs have `xcp_mgr == NULL` and never enter this
-path.
+Step 5.3: TRACE CALLEES
+Record: `dev_warn_ratelimited()`, `mce_register_decode_chain()`
+(unchanged, still once)
 
-`amdgpu_xcp_sched_list_update` skips `!ring`, `!ring->sched.ready`, and
-`ring->no_scheduler`. CPER/KIQ/MES/UMSCH set `no_scheduler` and are not
-this OOB. Rings that **are** scheduled and still have `xcp_id == ~0`
-(unsupported type in `amdgpu_set_xcp_id`’s `default:`, or no `inst_mask`
-match) **are** the OOB path. Shared VCN uses `xcp_id + 1`.
+Step 5.4: FOLLOW THE CALL CHAIN
+Record:
+- Reachable on MI200/MI250 (Aldebaran) CPU-attached XGMI systems (HPC),
+  with RAS enabled
+- Not a syscall; probe/unbind-bind
+- Unbind/bind without `rmmod` leaves module statics: each successful RAS
+  init increments `num_gpu`. After 64 such inits, the next write is OOB
 
-**Step 5.3: TRACE CALLEES**
-
-Record: Array access and `dev_dbg` only. No locks, no allocation.
-Failure mode is pure memory corruption.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record: Device init / partition switch on Instinct GPUs with XCP enabled
-(`mode != AMDGPU_XCP_MODE_NONE`; `AMDGPU_XCP_MODE_NONE` and
-`AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE` are both `-1`, so the update is
-skipped until a real SPX/DPX/TPX/QPX/CPX mode is set). Not a syscall-hot
-path; it **is** a driver-init/mode-switch path on production HPC/AI
-GPUs. Unprivileged users do not trigger it directly.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: Same unguarded `xcp[ring->xcp_id]` in
-`amdgpu_xcp_release_sched()` in this tree. Maintainer-authored sibling
-patch exists upstream. Pattern is systematic.
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: `amdgpu_register_gpu_instance()` already guards
+`mgpu_info.num_gpu >= MAX_GPU_INSTANCE` (blame: `62d73fbcfb3671`, 2018).
+This list was a copy without that guard.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: Yes. v6.18.53 has:
+`mce_adev_list.devs[mce_adev_list.num_gpu++] = adev;`
+with no check. `MAX_GPU_INSTANCE` is 64 in `amdgpu.h`. Introduced 2021,
+long before 6.18.
 
-Record: **Yes.** Local tree is **6.18.53** (`git describe HEAD` →
-`v6.18.53-5049-g0f0bdc2b0dffb`; Makefile `VERSION=6 PATCHLEVEL=18
-SUBLEVEL=53`). `v6.18.53:drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c` has
-`amdgpu_xcp_gpu_sched_update` **without** the `sel_xcp_id` check
-(verified via `git show v6.18.53:...`). Bug introduced 2025-06
-(`4dbc17b455329`), present since this 6.18 branch.
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: **Clean apply**. v6.18.53 function body matches the parent hunk
+(no unregister helper in this tree; not required).
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: **Clean apply** onto v6.18.53 — parent hunk is identical. No
-refactor of this function between 6.18.53 and the patch.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-
-Record: No other fix of this specific index in
-`amdgpu_xcp_gpu_sched_update` on v6.18.53. The `release_sched` OOB is
-still unfixed here; that does not replace this patch.
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: No other overflow guard or unregister for `mce_adev_list` in
+v6.18.53.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: drm/amdgpu RAS / x86 MCE decode. **IMPORTANT** for
+Aldebaran+XGMI-to-CPU, not core kernel. Still kernel-memory corruption
+if it fires.
 
-Record: **drm/amdgpu XCP (compute partitioning).** Criticality:
-**IMPORTANT** — not core mm/fs, but MI300-class Instinct GPUs in HPC/AI.
-Not staging.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-
-Record: Actively developed (partition sysfs, unique ids, kobject
-cleanup, multiple 2025–2026 XCP commits). The helper this guards has
-been in 6.18 for the whole stable cycle.
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: amdgpu RAS is actively maintained; this particular list has been
+unchanged since 2021 except later unregister (not in 6.18).
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: Driver- and config-specific: `CONFIG_DRM_AMDGPU` +
+`CONFIG_X86_MCE_AMD` + Aldebaran (PCI 1002:7408/740C/740F/7410) with
+host-GPU XGMI. Real HPC/Instinct users exist; not all amdgpu laptops.
 
-Record: **Driver/config-specific:** `CONFIG_DRM_AMDGPU` + aqua_vanjaram
-XCP (Instinct MI300 family) with partitioning actually enabled. Not
-universal; not consumer Radeon.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-
-Record: Partition sched-list rebuild during GPU init or partition-mode
-switch, when a ready scheduled ring still has `xcp_id == ~0` or `xcp_id
-+ 1 >= 8`. Not an unprivileged syscall. Likelihood: uncommon if every
-ring matches a partition, but the sentinel `AMDGPU_XCP_NO_PARTITION` is
-an intentional valid state in `amdgpu_set_xcp_id`, and the VCN `+ 1`
-path is an explicit in-tree caller. Consequences if it hits are severe.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-
-Record: **OOB write of a pointer + increment through that pointer.**
-Kernel oops / memory corruption. **Severity: HIGH** (crash/corruption;
-potentially worse if the write lands on live data).
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
 Record:
-- **Benefit:** High for Instinct XCP users — prevents a wild OOB write.
-  Zero effect on other hardware (`xcp_mgr` is null).
-- **Risk:** Very low (3 lines, early return, no locking/API change).
-- **Ratio:** Strongly favors backport.
+- 65+ registrations into a 64-slot array
+- A node with 65 Aldebaran GPUs is not realistic
+- **In this tree**, no unregister: PCI unbind/bind (or probe after a
+  failed teardown that still completed RAS init) grows the list. 64
+  cycles is uncommon but a real admin/debug path
+- Unprivileged users cannot typically drive 64 GPU rebinds
+
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: OOB write of an `amdgpu_device *` past `devs[]` into `num_gpu`
+and following BSS → memory corruption, then likely oops on later
+MCE/list walk. Severity **HIGH** when hit; likelihood **LOW**.
+
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- Benefit: prevents a real overflow on a path this tree never cleans up;
+  matches an existing sibling check
+- Risk: 7 lines, warn+return, no locking/API change — **very low**
+- Ratio: favorable for stable
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
 ===============================================================
 
-**Step 9.1: COMPILE THE EVIDENCE**
+Step 9.1: COMPILE THE EVIDENCE
 
-**FOR:**
-- Real OOB write: `xcp[sel_xcp_id]` with `sel_xcp_id` possibly
-  `0xffffffff` or `>= 8`.
-- `AMDGPU_XCP_NO_PARTITION` is a first-class sentinel in
-  `amdgpu_set_xcp_id`, then passed straight into this indexer.
-- Same class of bug independently described as OOB by Lijo Lazar for
-  `release_sched`.
-- Buggy helper present in **this** 6.18.53 tree since `4dbc17b455329`.
-- 3-line, obviously correct, reviewed by XCP expert, signed off by
-  amdgpu maintainer.
-- Applies cleanly; no new API/feature; no prerequisites.
+FOR:
+- Real unbounded store into a 64-entry static array (memory safety)
+- Buggy code is in 6.18.53 and dates to 2021
+- This tree never unregisters, so the counter can climb across
+  unbind/bind
+- 7-line, obviously correct, same pattern as
+  `amdgpu_register_gpu_instance()`
+- Reviewed by Tao Zhou; applied by Alex Deucher
+- Applies cleanly; no prerequisites
 
-**AGAINST:**
-- No user/syzbot report; commit message is one line.
-- Affects only partitioned Instinct GPUs, not all amdgpu users.
-- On current MI300 mappings, many rings get a valid id or
-  `no_scheduler`, so the crash may be uncommon.
+AGAINST:
+- Thin commit message; no crash report / syzbot / CVE
+- Needs Aldebaran + XGMI-to-CPU + 65 registrations — rare in production
+- Series 1/2, but 2/2 is unrelated
 
-**UNRESOLVED:** Exact production frequency of a ready ring left at
-`NO_PARTITION` on MI300 was not reproduced on hardware (analysis is from
-code). That does not change the OOB if it happens.
+UNRESOLVED:
+- Could not fetch lore.kernel.org (403); used b4 + mail-archive
+- No public statement of how the overflow was found (Coverity vs
+  internal test)
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — trivial bounds check; v2
+   reviewed
+2. Fixes a real bug that affects users? **PASS** — OOB write; reachable
+   if the list is never drained
+3. Important issue? **PASS** — kernel memory corruption (HIGH, uncommon
+   trigger)
+4. Small and contained? **PASS** — +7 lines, one function
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — clean against v6.18.53
 
-1. Obviously correct and tested? **PASS** — trivial bounds check;
-   Reviewed-by Lijo Lazar; in mainline via Alex Deucher.
-2. Fixes a real bug that affects users? **PASS** — OOB index on XCP
-   sched-list update for Instinct partition setups.
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   OOB write → crash/corruption, HIGH.
-4. Small and contained? **PASS** — +3 lines, one function.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — v6.18.53 has the unchecked
-   function; hunk matches.
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: Not a device-ID/quirk/DT/build/docs exception. It is a normal
+memory-safety fix.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-
-Record: Not a device-ID/quirk/DT/build/docs exception. It qualifies as a
-normal memory-safety bug fix.
-
-**Step 9.4: MAKE YOUR DECISION**
-
-This is a small, correct guard against a real out-of-bounds write in
-amdgpu XCP scheduler-list updates. The buggy code is in this 6.18.53
-tree, the patch applies cleanly, and the risk of regression is
-negligible. It should be backported.
+Step 9.4: MAKE YOUR DECISION
+This is a small, obviously correct overflow guard for code that exists
+in this 6.18.53 tree. Because 6.18 never removes entries from
+`mce_adev_list`, the overflow is more reachable here than on later
+kernels that gained unregister. Benefit outweighs risk.
 
 Verification:
-- [Phase 1] Tags: Reviewed-by Lijo Lazar; SOB Alex Deucher; no
-  Fixes/Reported-by/Cc:stable (expected).
-- [Phase 1] Body is one line; bug inferred from code, not a crash log.
-- [Phase 2] Diff: +3 lines in `amdgpu_xcp_gpu_sched_update()`; early
-  return on `sel_xcp_id >= MAX_XCP || sel_xcp_id ==
-  AMDGPU_XCP_NO_PARTITION`.
-- [Phase 2] `MAX_XCP` is 8; `AMDGPU_XCP_NO_PARTITION` is `(~0)`;
-  `ring->xcp_id` is `u32` (`amdgpu_ring.h:370`).
-- [Phase 3] Blame: unchecked index from `4dbc17b455329` (2025-06-16);
-  `git merge-base --is-ancestor 4dbc17b455329 v6.18.53` succeeded.
-- [Phase 3] No Fixes tag; no follow-up on this function after the
-  candidate.
-- [Phase 4] `b4 dig -c fa1531170d2c…`: lore/msgid
-  `20260623024809.121196-1-ganglxie@amd.com`; v1 only; Lijo Reviewed-by;
-  no NAK.
-- [Phase 4] lore.kernel.org WebFetch: 403; mbox via `b4 dig -m` used
-  instead.
-- [Phase 4] WebSearch: Lijo Lazar “bounds check xcp_id in release_sched”
-  explicitly calls `AMDGPU_XCP_NO_PARTITION` an OOB `xcp[]` access.
-- [Phase 5] Callers: `amdgpu_xcp_sched_list_update` ←
-  `amdgpu_xcp_update_partition_sched_list` ← `amdgpu_xcp_init` and
-  `amdgpu_device.c` post-`drm_sched_init`.
-- [Phase 5] Only `aqua_vanjaram.c` calls `amdgpu_xcp_mgr_init`.
-- [Phase 5] CPER/KIQ/MES/UMSCH use `no_scheduler` (verified); they are
-  not this OOB. Default/unmatched rings and VCN `xcp_id+1` are.
-- [Phase 6] `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`; `make
-  kernelversion` = 6.18.53.
-- [Phase 6] `git show v6.18.53:drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c`
-  shows the function **without** the check.
-- [Phase 6] Upstream `fa1531170d2c` is not an ancestor of HEAD (`merge-
-  base --is-ancestor` exit 1); the 6.18.53 file contents still match the
-  pre-fix hunk.
-- [Phase 7] drm/amdgpu XCP; IMPORTANT for Instinct partition users.
-- [Phase 8] Failure mode: OOB write → oops/corruption; severity HIGH;
-  backport risk very low.
-- UNVERIFIED: Hardware reproduction on MI300 of a ready ring left at
-  `NO_PARTITION`; not used as the sole basis for the decision (the OOB
-  is visible in code and the same pattern is acknowledged by the XCP
-  reviewer).
+- [Phase 1] Tags: author YiPeng Chai, Reviewed-by Tao Zhou, SOB Alex
+  Deucher; no Fixes/Reported-by
+- [Phase 2] Diff: +7 lines in
+  `amdgpu_register_bad_pages_mca_notifier()`; `if (num_gpu >=
+  MAX_GPU_INSTANCE) warn; return;`
+- [Phase 3] `git blame` v6.18.53: unbounded store from `91a1a52d03aa0f`
+  (2021); ancestor of v6.18.53
+- [Phase 3] `git merge-base --is-ancestor 4f933b6727c05 v6.18.53` failed
+  — fix is not in 6.18.53
+- [Phase 3] No unregister in this tree (`git grep unregister_bad_pages`
+  empty; `git log --grep="Unregister mce notifier"` empty)
+- [Phase 3] Only recovery_init caller of register; reset path does not
+  re-call it
+- [Phase 4] `b4 dig -c db15c49a17b8`: v1 + v2; Tao asked for a warning;
+  v2 Reviewed-by
+- [Phase 4] `b4 dig -a`: two revisions, applied is v2
+- [Phase 4] `b4 dig -w`: amd-gfx + Hawking Zhang, Tao Zhou, Candice Li
+- [Phase 4] Patch 2/2 is IS_ERR on rascore kthread — independent
+- [Phase 4] lore.kernel.org WebFetch 403 — UNVERIFIED via lore HTML;
+  mail-archive used instead
+- [Phase 5] Callers: only Aldebaran + `connected_to_cpu` in
+  `amdgpu_ras_recovery_init` ← `amdgpu_device_init` ← PCI probe
+- [Phase 5] Remove path: `amdgpu_pci_remove` →
+  `amdgpu_driver_unload_kms` does not touch `mce_adev_list`
+- [Phase 6] `git describe HEAD`: v6.18.53-5049-g0f0bdc2b0dffb; `make
+  kernelversion`: 6.18.53
+- [Phase 6] v6.18.53 function matches parent; MAX_GPU_INSTANCE=64
+- [Phase 8] Failure mode: OOB write into BSS → corruption/oops; severity
+  HIGH, trigger uncommon
+- UNVERIFIED: exact discovery method (no public reproducer)
 
-The patch is a 3-line, obviously correct bounds check for a real out-of-
-bounds write in amdgpu XCP scheduler-list updates. The unchecked
-function exists in this 6.18.53 tree, the fix applies cleanly, and the
-regression risk is negligible.
+The patch is a 7-line bounds check that stops a real out-of-bounds write
+in RAS MCE GPU tracking. The buggy store is in this 6.18.53 tree, the
+tree never shrinks the list on teardown, and the change is obviously
+correct with negligible regression risk.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index 6059227c53150..88de3ecc7f230 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -572,6 +572,9 @@ static void amdgpu_xcp_gpu_sched_update(struct amdgpu_device *adev,
- {
- 	unsigned int *num_gpu_sched;
- 
-+	if (sel_xcp_id >= MAX_XCP || sel_xcp_id == AMDGPU_XCP_NO_PARTITION)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 16ae44e131ad4..b03d422572589 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -4814,6 +4814,13 @@ static void amdgpu_register_bad_pages_mca_notifier(struct amdgpu_device *adev)
+ 	 * Use this list instead of mgpu_info to find the amdgpu
+ 	 * device on which the UMC error was reported.
+ 	 */
++	if (mce_adev_list.num_gpu >= MAX_GPU_INSTANCE) {
++		dev_warn_ratelimited(adev->dev,
++			"mce_adev_list full, skip notifier registration (max=%d)\n",
++			MAX_GPU_INSTANCE);
 +		return;
++	}
 +
- 	num_gpu_sched = &adev->xcp_mgr->xcp[sel_xcp_id]
- 			.gpu_sched[ring->funcs->type][ring->hw_prio].num_scheds;
- 	adev->xcp_mgr->xcp[sel_xcp_id].gpu_sched[ring->funcs->type][ring->hw_prio]
+ 	mce_adev_list.devs[mce_adev_list.num_gpu++] = adev;
+ 
+ 	/*
 -- 
 2.53.0
 
