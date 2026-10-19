@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BB14CCF2E5
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:33:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9365CCCF2E7
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:39:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C793F10E146;
-	Mon, 19 Oct 2026 14:33:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9752C10E154;
+	Mon, 19 Oct 2026 14:39:38 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E42F710E146
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:32:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2CF710E154
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:39:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A03CB439D2
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:32:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1241F000C6;
- Mon, 19 Oct 2026 14:32:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 86B33437D3
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:39:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BDED1F000C4;
+ Mon, 19 Oct 2026 14:39:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792420377;
- bh=iWYODvfr6mv8WaruTb0w8mCTbxwEz1PkNlRQgrPr9p4=;
+ s=k20260515; t=1792420772;
+ bh=OGUUNRvWEJDIAIrGT4wId5beYzFczrGRc0OrL6Fseto=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nDYtDn7V3M6r2NCUq+/t0c8kCgTw6iQ6xqISNo6Kt6Vnzzp+bVVgerqZc2SmpmoKP
- qQ5jWrAi96x5TNCf5dol5LcUEhDpFSD4rTo07Eh4hQze6AwB9Nsp1w8S5ASQCr34Xj
- WEZVGSyG5+GGVT0fvxuf2nwvZDd+S4HyYXdgagT47C256LAMJWqyERu1nCsBkbioeJ
- ComMdRlwYWkssaqyqGlFjfptY/2u0JrgBZmWIw+8dyN0CuBw61UQ3TOtzjUQKYfwU7
- 2fEXqUrkhAyguG4cJVjcfiM5y5qIaymnbaOH68trGalQDHTdl8b1i9y0sMCy8Wp+ao
- 3TXpFMSD+8dmA==
-Message-ID: <sashiko-outbox-177425@kernel.org>
+ b=bCJw8/Glg6Cvqzx+bo9Ie05292JAu9XNQnMUXEcvdbY0fTfIuu7PodTj1Ug5pJZtz
+ PRH5VviyhW+c8ZfdCrly9KvzDnEptPpD6TNIEbhgNV3FWeUw5jsg3AZiSRnRFg/LF+
+ HAogSxGtOS0wmBuusgcISKphVET3lZ0mFJc8pgAjHSuAy4FPmg5cFoRimKrW/O9E+L
+ 0ZKgMVII/oK6qS7gF3A81vA1DocM5oN6o2nks15VSMssH4bC4F4k4t5dX7RgIPtavS
+ VepN7jY7vn1vD3Ul5IS+gYFDCZSLz5cCPRJi9RuIIQg/A/smc+ZyqU9T2ht0JT19j1
+ tb1/36ButIxlg==
+Message-ID: <sashiko-outbox-177463@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18] drm/amd/pm: derive stable PPT limits from
- PPTable
+Subject: Re: [PATCH AUTOSEL 6.18-5.10] gpu: host1x: Wait for timeout worker
+ completion on channel free
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019135441.1420968-82-sashal@kernel.org>
+In-Reply-To: <20261019135441.1420968-140-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
- <20261019135441.1420968-82-sashal@kernel.org>
+ <20261019135441.1420968-140-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 14:32:56 +0000
+Date: Mon, 19 Oct 2026 14:39:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,91 +57,97 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/amd/pm: aldebaran_get_power_limit() sets non-zero default on=
- secondary die
+- [High] gpu: host1x: self-deadlock in cdma_timeout_destroy() from timeout =
+worker
 --
 
-commit e12c0e27cabe98103b51eb24b3ca4cb7b2a3ede8
-Author: Yang Wang <kevinyang.wang@amd.com>
+commit b332f714cbff777dfee1bb3478ceeef598654573
+Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-drm/amd/pm: derive stable PPT limits from PPTable
+gpu: host1x: Wait for timeout worker completion on channel free
 
-This commit updates the power limit query handlers for Sienna Cichlid,
-Navi10, Arcturus, and Aldebaran to derive platform default, minimum, and
-maximum PPT limits from the driver PPTable rather than mutable PMFW
-runtime state.
+This commit updates cdma_timeout_destroy() to use
+cancel_delayed_work_sync() instead of cancel_delayed_work() so that any
+running timeout handler finishes before CDMA teardown proceeds.
 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> index 18d5d07045098..9e67e57d70b75 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> @@ -1281,8 +1281,12 @@ static int aldebaran_get_power_limit(struct smu_co=
-ntext *smu,
-> =20
->  	if (current_power_limit)
->  		*current_power_limit =3D power_limit;
-> -	if (default_power_limit)
-> -		*default_power_limit =3D power_limit;
-> +	if (default_power_limit) {
-> +		if (pptable)
-> +			*default_power_limit =3D pptable->PptLimit;
-> +		else
-> +			*default_power_limit =3D power_limit;
-> +	}
+Link: https://patch.msgid.link/20260609-b4-host1x-small-fixes-a-v1-1-7c1131=
+c0b3ad@nvidia.com
 
-[Severity: Medium]
-On Aldebaran multi-die GPUs, could this cause the secondary die to report a
-non-zero default power limit in hwmon (power1_cap_default)?
+> diff --git a/drivers/gpu/host1x/hw/cdma_hw.c b/drivers/gpu/host1x/hw/cdma=
+_hw.c
+> index 3f3f0018eee0d..ab714d221120c 100644
+> --- a/drivers/gpu/host1x/hw/cdma_hw.c
+> +++ b/drivers/gpu/host1x/hw/cdma_hw.c
+> @@ -355,7 +355,7 @@ static int cdma_timeout_init(struct host1x_cdma *cdma)
+>  static void cdma_timeout_destroy(struct host1x_cdma *cdma)
+>  {
+>  	if (cdma->timeout.initialized)
+> -		cancel_delayed_work(&cdma->timeout.wq);
+> +		cancel_delayed_work_sync(&cdma->timeout.wq);
 
-Earlier in aldebaran_get_power_limit(), both the SMU_MSG_GetPptLimit query
-and the pptable->PptLimit fallback are guarded by aldebaran_is_primary(smu)
-(from commit 076f55a45e9e ("drm/amd/pm: Only primary die supports power
-data")):
+[Severity: High]
+Can calling cancel_delayed_work_sync(&cdma->timeout.wq) here self-deadlock
+when invoked from within cdma_timeout_handler() itself?
 
-	/* Valid power data is available only from primary die.
-	 * For secondary die show the value as 0.
-	 */
-	if (aldebaran_is_primary(smu)) {
-		ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetPptLimit,
-					   &power_limit);
+Before taking cdma->lock, cdma_timeout_handler() runs without holding a
+reference of its own on struct host1x_channel and calls
+host1x_debug_dump():
 
-		if (ret) {
-			/* the last hope to figure out the ppt limit */
-			if (!pptable) {
-				dev_err(smu->adev->dev,
-					"Cannot get PPT limit due to pptable missing!");
-				return -EINVAL;
-			}
-			power_limit =3D pptable->PptLimit;
+drivers/gpu/host1x/hw/cdma_hw.c:cdma_timeout_handler() {
+	...
+	host1x_debug_dump(cdma_to_host1x(cdma));
+
+	mutex_lock(&cdma->lock);
+	...
+}
+
+host1x_debug_dump() calls show_all(), which iterates over all channels,
+acquires a temporary kref via host1x_channel_get_index(), dumps the
+channel, and drops that reference via host1x_channel_put():
+
+drivers/gpu/host1x/debug.c:show_all() {
+	...
+	for (i =3D 0; i < m->info->nb_channels; ++i) {
+		struct host1x_channel *ch =3D host1x_channel_get_index(m, i);
+
+		if (ch) {
+			show_channel(ch, o, show_fifo);
+			host1x_channel_put(ch);
 		}
 	}
+	...
+}
 
-Similarly, aldebaran_set_power_limit() rejects changes on the secondary
-die:
+If the channel owner closes the channel and calls host1x_channel_put()
+while cdma_timeout_handler() is inside show_channel() holding that
+temporary reference on its own channel, the owner's kref_put() decrements
+ch->refcount from 2 to 1 and returns without releasing the channel.
 
-	/* Power limit can be set only through primary die */
-	if (aldebaran_is_primary(smu))
-		return smu_v13_0_set_power_limit(smu, limit_type, limit);
+When show_channel() finishes, the host1x_channel_put(ch) in show_all()
+drops ch->refcount from 1 to 0 and synchronously calls release_channel()
+from the cdma->timeout.wq worker context:
 
-	return -EINVAL;
+cdma_timeout_handler()
+  -> host1x_debug_dump()
+    -> show_all()
+      -> host1x_channel_put()
+        -> release_channel()
+          -> host1x_hw_cdma_stop()
+          -> host1x_cdma_deinit()
+            -> host1x_hw_cdma_timeout_destroy()
+              -> cdma_timeout_destroy()
+                -> cancel_delayed_work_sync(&cdma->timeout.wq)
 
-Because smu->smu_table.driver_pptable is allocated and populated on all
-dies via aldebaran_init_smc_tables() -> smu_v13_0_init_smc_tables() and
-aldebaran_store_powerplay_table(), pptable is non-NULL on the secondary
-die.
-
-When smu_late_init() -> smu_get_asic_power_limits() calls
-aldebaran_get_power_limit(), *default_power_limit was previously set to
-power_limit (0 on the secondary die), whereas now it will be set to
-pptable->PptLimit without checking aldebaran_is_primary(smu). Should the
-pptable->PptLimit assignment for default_power_limit also be gated on
-aldebaran_is_primary(smu)?
+At that point, if cdma->sync_queue is not yet empty, host1x_hw_cdma_stop()
+blocks indefinitely waiting on CDMA_EVENT_SYNC_QUEUE_EMPTY; otherwise it
+proceeds to cdma_timeout_destroy(), where cancel_delayed_work_sync() waits
+for the currently executing cdma->timeout.wq work item to complete,
+deadlocking the worker thread.
 
 > =20
->  	if (max_power_limit) {
->  		if (pptable)
+>  	cdma->timeout.initialized =3D false;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019135441.1420=
-968-82-sashal@kernel.org?part=3D1
+968-140-sashal@kernel.org?part=3D1
