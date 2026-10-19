@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C19CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:55:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A380BCCF2E3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 13:55:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74E910ED86;
-	Mon, 19 Oct 2026 13:55:27 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3DBF10ED7D
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:55:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 188DD10ED7D;
+	Mon, 19 Oct 2026 13:55:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5747610ED88
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 13:55:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 535F1417F8;
- Mon, 19 Oct 2026 13:55:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F23221F000C6;
- Mon, 19 Oct 2026 13:55:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CEB416021C;
+ Mon, 19 Oct 2026 13:55:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629421F000C4;
+ Mon, 19 Oct 2026 13:55:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418121;
- bh=5/1jcJJIxX8v0UySJxP1SWO0UmoewAoWmMe6s3O/mbE=;
+ s=k20260515; t=1792418130;
+ bh=N1WBpvUT1LBft8j2MisXNoz9KQD7JeZYoan8e1V+zi8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=UdkQ333Evo2RiWHbejzCh7Q1i2pm32dyAwpHgCVY6rldqY7PFj+AHvNdSWQGUNeyQ
- rW1hqWX80gEiFZYrO6yw3cHyJllsn2RubwjyW9+kSjqNvoM/nbOL1MDVyXAGsOGCRL
- pad5mibffMFKBffmF6vceSePsMoI+x0kTB/qVJgY3sYfprbGQfQEO7WeKXTx2rOOys
- by/JSd8uY8nmZ8Mcgg4Cjge6GmUMxBvm0kM53FKKZHiKHG+lqVgLuoplZRhAQjrPtg
- 5LDn58u/5Owqm9QApvOlUV6ljlQncPz0aiGIBJW82PHiSI9MLoZmh8Xza8KrKOtc0M
- uQwLhLofd9xKw==
+ b=WyRNdDr6Uho0TIQDKXuSdZjl++k+99uYnvmNTX0tOxkRctEgQrm/OYCfBtdNRKFch
+ tZglBtSLRoSrysTXZDLPLqdSDQjHPnXEen3GzC8EGjf4AO9ER+hmAojq0Jp0GKqdCe
+ T+wJvykXXJY8mZSfV5KIGurFudNlB0lIwIQotgSh/i6iqc62P/UcVFmE9uUCrwBtxj
+ QZxEoxnMJKhIxITxvNuOszDrGIdeOOKdKGe33gFSDWnSn8ArCS+N2SXzFZiu2VAl7X
+ kKMJfDAAhSpUlw6kxzSzY+gfVh5ULIT8ZIs1RP7xZn4/WEc+GfL9Gzju4bUA8QrqF/
+ PLnRJxrupBq4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Weiji Wang <nebclllo0444@gmail.com>,
- Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+Cc: Heiko Schocher <hs@nabladev.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
  simona@ffwll.ch, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add BOE NE140QDM-NX2
-Date: Mon, 19 Oct 2026 09:45:17 -0400
-Message-ID: <20261019135441.1420968-26-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/panel: simple: Add Kyocera tcg070wvlq
+ panel
+Date: Mon, 19 Oct 2026 09:45:24 -0400
+Message-ID: <20261019135441.1420968-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,385 +64,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Weiji Wang <nebclllo0444@gmail.com>
+From: Heiko Schocher <hs@nabladev.com>
 
-[ Upstream commit 354b9c43d36ce9b41e48b2d67c5d9b953a0e9d64 ]
+[ Upstream commit 900517da69afca6f72dacf14278aee3b65275507 ]
 
-Add timing from datasheet for BOE NE140QDM-NX2.
+Commit 922fb2db0287 ("dt-bindings: display: simple: Add Kyocera
+tcg070wvlq panel") added the compatible string for the Kyocera
+tcg070wvlq panel to the devicetree bindings documentation
+(panel-simple.yaml), but the corresponding entry was not added
+to the panel-simple driver.
 
-edid-decode (hex):
+Add the missing compatible entry to the driver.
 
-00 ff ff ff ff ff ff 00 09 e5 f2 0a 00 00 00 00
-20 1f 01 04 a5 1e 13 78 03 ee 96 a3 54 4c 99 26
-0f 4e 51 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 60 d2 00 a0 a0 40 32 60 30 20
-35 00 2e bd 10 00 00 18 c8 9d 00 a0 a0 40 32 60
-30 20 35 00 2e bd 10 00 00 18 00 00 00 fd 00 30
-78 c6 c6 36 01 0a 20 20 20 20 20 20 00 00 00 fe
-00 4e 45 31 34 30 51 44 4d 2d 4e 58 32 20 01 f8
-
-70 13 79 00 00 03 01 14 30 69 00 05 ff 09 9f 00
-2f 00 1f 00 3f 06 31 00 02 00 04 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 4d 90
-
-Signed-off-by: Weiji Wang <nebclllo0444@gmail.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/82fc6395-3425-4f71-ba58-813856cee61d@gmail.com
+Signed-off-by: Heiko Schocher <hs@nabladev.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20260721041935.757240-1-hs@nabladev.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
+The local tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). This
+commit is a 3-line `of_device_id` addition to the existing `panel-
+simple` driver. Official stable rules allow that class of change.
+
 ## Phase 1: Commit message forensics
 
-**Step 1.1: Subject line**
-Record: `[drm/panel-edp] [Add] [one-line BOE NE140QDM-NX2 panel-id /
-delay table entry]`
+**Step 1.1:** Record: `[drm/panel: simple] [Add] [register OF compatible
+kyo,tcg070wvlq, reusing existing lg_lb070wv8 descriptor]`
 
-**Step 1.2: Tags**
-Record:
-- `Signed-off-by: Weiji Wang <nebclllo0444@gmail.com>` (author)
-- `Reviewed-by: Douglas Anderson <dianders@chromium.org>` (listed `R:`
-  for this driver in MAINTAINERS)
-- `Signed-off-by: Douglas Anderson <dianders@chromium.org>` (applied via
+**Step 1.2:** Record: tags present:
+- Reviewed-by: Neil Armstrong (drm/panel maintainer)
+- Signed-off-by: Heiko Schocher (author); Neil Armstrong (applied to
   drm-misc)
-- `Link: https://patch.msgid.link/82fc6395-3425-4f71-ba58-
-  813856cee61d@gmail.com`
-- No `Fixes:`, no `Cc: stable`, no `Reported-by`, no `Tested-by` tag
-  (author later said they verified on `next-20260726` in the v1 thread)
-- Ignore pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
-  if present
+- Link: https://patch.msgid.link/20260721041935.757240-1-hs@nabladev.com
+- No Fixes:, Reported-by, Tested-by, Cc: stable, or syzbot (absence
+  expected)
 
-**Step 1.3: Body**
-Record:
-- Claimed intent: add datasheet timing for BOE NE140QDM-NX2.
-- Failure mode is not a crash dump; it is missing table data for a real
-  eDP panel identified by EDID.
-- Included raw EDID (base + CTA). Manufacturer `09 e5` is BOE; product
-  `f2 0a` little-endian is `0x0af2`; ASCII descriptor is `NE140QDM-NX2`.
-- Root cause: generic `edp-panel` path looks up power-seq delays by
-  panel ID; this ID was absent.
+Ignored pipeline markers: none in the provided text beyond the usual
+evaluation context.
 
-**Step 1.4: Hidden bug fix?**
-Record: Not a disguised UAF/leak. It is hardware-table enablement.
-Without the row, `generic_edp_panel_probe()` hits
-`WARN_ON(!panel->detected_panel)` and falls back to conservative delays
-(2000 ms unprepare / 200 ms enable). That is a real user-visible issue
-for this panel (warning + slow suspend/resume), not style cleanup.
+**Step 1.3:** Record:
+- Bug: commit `922fb2db0287` (v5.12-rc1) documented `kyo,tcg070wvlq` in
+  `panel-simple.yaml` but never added the matching `of_device_id` entry.
+- Symptom: a DT node whose only compatible is `kyo,tcg070wvlq` does not
+  bind to `panel-simple`.
+- Version info: bindings since v5.12; driver entry added 2026-07-22.
+- Root cause: incomplete match-table vs documented binding, not a crash
+  path.
 
----
+**Step 1.4:** Record: Not a hidden crash/UAF/leak fix. It is hardware-ID
+enablement. The 2021 bindings commit said the panel “seems to be
+compatible with `lg,lb070wv8`” and added the string “only to the dt-
+binding documentation to fix the checkpatch warnings.”
 
 ## Phase 2: Diff analysis
 
-**Step 2.1: Inventory**
-Record:
-- File: `drivers/gpu/drm/panel/panel-edp.c` (+1 / −0)
-- Function/data: `edp_panels[]` only
-- Scope: single-file, one table row
+**Step 2.1:** Record: `drivers/gpu/drm/panel/panel-simple.c` +3/−0.
+Function/table: `platform_of_match[]`. Scope: single-file surgical
+match-table insert.
 
-**Step 2.2: Code flow**
-Record:
-- Before: BOE IDs jump from `0x0ae8` (NV140WUM-N41) to `0x0b09`
-  (NV140FHM-NZ). `0x0af2` is unknown.
-- After: `EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2,
-  &delay_200_500_e50_p2e80, "NE140QDM-NX2")`.
-- Path: probe of compatible `"edp-panel"` → `generic_edp_panel_probe()`
-  → `find_edp_panel()` → copy `*delay` into `desc`. Modes still come
-  from EDID (`override_edid_mode` is not set).
+**Step 2.2:** Record: Before, `kyo,tcg070wvlq` was not in
+`platform_of_match`. After, it matches and uses `&lg_lb070wv8` (same
+timings/size/bus as `lg,lb070wv8`).
 
-**Step 2.3: Bug mechanism**
-Record: **Hardware ID / quirk table** (device-ID exception). Not a
-memory-safety bug. Missing identity causes:
-1. `WARN_ON` splat at probe
-2. `panel_edp_set_conservative_timings()`: `unprepare=2000`,
-   `enable=200`, vs datasheet delays `hpd_absent=200`, `unprepare=500`,
-   `enable=50`, `prepare_to_enable=80`
+**Step 2.3:** Record: category **h) hardware / device ID**. Mechanism:
+documented OF compatible now matches the existing panel descriptor.
 
-**Step 2.4: Fix quality**
-Record: Obviously correct one-liner using an existing delay blob. Sorted
-by product ID. Regression risk is confined to this panel ID; other
-panels are untouched. Commit text says “timing” but the row only sets
-**power sequencing**; that matches the driver’s design comment “Update
-the delay; everything else comes from EDID”.
-
----
+**Step 2.4:** Record: Obviously correct (alias of an existing
+descriptor). Minimal. Regression risk very low: in-tree `imx6dl-
+prtmvt.dts` already has fallback `lg,lb070wv8` pointing at the same
+data, so probe behavior is unchanged there.
 
 ## Phase 3: Git history
 
-**Step 3.1: Blame**
-Record:
-- New line is commit `354b9c43d36ce` (Weiji Wang, 2026-07-28).
-- Neighbors: `0x0ae8` from `993d36ac99efe` (2024), `0x0b09` from
-  `c03dd019f0b56` (2025).
-- `delay_200_500_e50_p2e80` introduced in `f4ccd9fea2270` (2023-12-14),
-  present long before this change.
-- Driver file from `5f04e7ce392db` (2021-09-20).
+**Step 3.1:** Record: Missing driver ID is the gap left by
+`922fb2db0287` (v5.12-rc1). `lg_lb070wv8` itself is `dd0150026901b`
+(v4.2-rc1). In-tree DTS usage is `f3604ba14bd75e` (v5.12-rc1):
+`compatible = "kyo,tcg070wvlq", "lg,lb070wv8"`.
 
-**Step 3.2: Fixes: tag**
-Record: None. Bug is “this panel ID was never listed”, not a regression
-from a specific SHA.
+**Step 3.2:** Record: No Fixes: tag. The referenced bindings commit is
+an ancestor of HEAD.
 
-**Step 3.3: File history**
-Record: Many similar `drm/panel-edp: Add …` one-liners. Standalone; not
-`N/M`. Parent `eb7979f6014a1` already has the delay struct and
-surrounding BOE rows. `git grep 0x0af2` on the parent: not present.
+**Step 3.3:** Record: Standalone; not `patch X/Y`. Nearby `panel-simple`
+commits are other panel IDs, not prerequisites.
 
-**Step 3.4: Author**
-Record: Only this commit by Weiji Wang in `drivers/gpu/drm/`. Douglas
-Anderson is `R: DRM DRIVER FOR GENERIC EDP PANELS` and both reviewed and
-applied it.
+**Step 3.4:** Record: Heiko originally added `lg_lb070wv8` (2015) and
+this ID (2026). Neil Armstrong reviewed and applied it. Maintainer-
+acked.
 
-**Step 3.5: Prerequisites**
-Record: Needs `EDP_PANEL_ENTRY`, `edp_panels[]`, and
-`delay_200_500_e50_p2e80`. All exist in this checkout. Applies
-standalone.
+**Step 3.5:** Record: Depends only on `lg_lb070wv8` and
+`platform_of_match`, both present here. Applies standalone.
 
----
+## Phase 4: Mailing list / external
 
-## Phase 4: Mailing list
+**Step 4.1:** Record: `b4 dig` → v1 only,
+https://patch.msgid.link/20260721041935.757240-1-hs@nabladev.com.
+Thread: Heiko submit → Neil `Reviewed-by` → applied to drm-misc-next as
+`900517da69afc`. No NAK, no stable discussion, no requested revisions.
 
-**Step 4.1: Original discussion**
-Record:
-- `b4 dig -c 354b9c43d36ce` → https://patch.msgid.link/82fc6395-3425-
-  4f71-ba58-813856cee61d@gmail.com
-- v1: 2026-07-24, https://patch.msgid.link/697e79c2-98a9-4bb3-b5fb-
-  db327cbe1bce@gmail.com
-  Used unsorted `0x0af2` with `delay_200_500_e80`.
-- v2: 2026-07-28 (applied). Changelog: sort fix +
-  `delay_200_500_e50_p2e80`.
-- Doug on v2: mailer wrapped/tabs-to-spaces; he fixed and pushed to drm-
-  misc-next as `354b9c43d36ce`. `Reviewed-by` given. No NAK.
-- v1 review: sort bug; asked if datasheet vs guess. Author: Panelook
-  datasheet; T4+T5+T6+T8-min given. Doug recommended
-  `delay_200_500_e50_p2e80`. Author confirmed T7/T8 match and verified
-  on `next-20260726`.
-- No reviewer `Cc: stable`.
+**Step 4.2:** Record: Recipients included Neil Armstrong, Maxime Ripard,
+dri-devel, DRM maintainers, original bindings author Oleksij Rempel.
 
-**Step 4.2: Recipients (`b4 dig -w`)**
-Record: Weiji Wang, Doug Anderson, `dri-devel@lists.freedesktop.org`,
-`linux-kernel@vger.kernel.org`. Right reviewer and list.
+**Step 4.3:** Record: No bugzilla/syzbot. Motivation is binding/driver
+mismatch, not a crash report.
 
-**Step 4.3: Bug report**
-Record: No syzbot/bugzilla. Hardware addition from someone with the
-panel/datasheet. EDID in the message is the identification evidence.
+**Step 4.4:** Record: Single-patch series.
 
-**Step 4.4: Series**
-Record: Single patch, v1→v2 only.
+**Step 4.5:** Record: lore.kernel.org/stable search returned 403; no
+stable-list discussion verified. LKML mirrors confirm review-only
+thread.
 
-**Step 4.5: stable@**
-Record: lore HTTP fetch returned 403. `b4` threads have no stable
-discussion. Not used as a negative signal.
+## Phase 5: Code semantics
 
----
+**Step 5.1:** Record: `platform_of_match[]` only.
 
-## Phase 5: Semantic analysis
+**Step 5.2:** Record: Used as `.of_match_table` of
+`panel_simple_platform_driver` (`panel_simple_platform_probe`). Probe
+path on DT match.
 
-**Step 5.1: Functions**
-Record: No function body change. Data: `edp_panels[]`. Consumers:
-`find_edp_panel()`, `generic_edp_panel_probe()`.
+**Step 5.3:** Record: Match data is existing `lg_lb070wv8` (`panel_desc`
++ LVDS timings). No new alloc/lock/API.
 
-**Step 5.2: Callers**
-Record:
-- `panel_edp_probe()` if DT compatible is `"edp-panel"`
-- `panel_edp_platform_probe()` / AUX-bus probe → `panel_edp_probe()`
-- Context: device probe (boot / connector bring-up), not IRQ/hot path
+**Step 5.4:** Record: Reachable when a DT node uses `kyo,tcg070wvlq`.
+In-tree board `imx6dl-prtmvt` already matches via fallback. Userspace
+does not trigger this except by using that panel.
 
-**Step 5.3: Callees**
-Record: `find_edp_panel()` walks `edp_panels`; on hit, `desc->delay =
-*panel->detected_panel->delay`.
+**Step 5.5:** Record: Same file already has `kyo,tcg121xglp` and
+`lg,lb070wv8`. This is the standard panel-simple ID pattern.
 
-**Step 5.4: Reachability**
-Record: Yes, from normal laptop/embedded eDP probe when the panel EDID
-is BOE `0x0af2`. Unprivileged users do not program the ID; it is
-firmware/EDID. Impact is display power-seq and a kernel warning at
-probe.
+## Phase 6: This checkout
 
-**Step 5.5: Similar patterns**
-Record: The table is full of the same `EDP_PANEL_ENTRY` pattern
-(including other BOE NE140QDM parts, e.g. `0x0b1e` NE140QDM-N6A). This
-is the standard way this driver is extended.
+**Step 6.1:** Record: Tree is 7.3.0-rc4. `panel-simple.c`,
+`lg_lb070wv8`, bindings `kyo,tcg070wvlq`, and DTS fallback all exist.
+Commit `900517da69afc` is already an ancestor of HEAD (merged via drm-
+misc-next → drm-next before v7.3-rc1). The **match table and descriptor
+this patch needs are in this tree**.
 
----
+**Step 6.2:** Record: Clean apply (already applied here). Insertion sits
+alphabetically between `koe,tx31d200vm0baa` and `kyo,tcg121xglp`.
 
-## Phase 6: Local tree (this checkout)
-
-**Step 6.1: Does the code exist here?**
-Record:
-- Tree: `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
-  kernelversion` = `7.3.0-rc4`
-- `drivers/gpu/drm/panel/panel-edp.c` present; `CONFIG_DRM_PANEL_EDP` in
-  Kconfig
-- `delay_200_500_e50_p2e80` at lines 1768–1773
-- `edp_panels[]` and `WARN_ON` unknown-panel path at 829–833
-- Line 2060 already has this entry because `354b9c43d36ce` **is an
-  ancestor of HEAD**. That is mainline history, not a reason to treat
-  the change as “already selected for stable”.
-
-**Step 6.2: Backport difficulty**
-Record: Clean apply: one sorted row, delay symbol already in this tree.
-No API/struct change.
-
-**Step 6.3: Related fixes already here?**
-Record: No other `NE140QDM-NX2` / `0x0af2` commit besides this one. No
-alternate fix.
-
----
+**Step 6.3:** Record: No alternate fix. This *is* the driver-side
+completion of the v5.12 binding.
 
 ## Phase 7: Subsystem context
 
-**Step 7.1:**
-Record: DRM panel (`drivers/gpu/drm/panel/`). Criticality: **IMPORTANT**
-for systems using generic eDP (`edp-panel`), typical
-laptops/Chromebooks/ARM boards. Not mm/net core; not staging.
+**Step 7.1:** Record: `drivers/gpu/drm/panel` — **PERIPHERAL** (one LVDS
+panel / Protonic MVT i.MX6 board).
 
-**Step 7.2:**
-Record: Active table (many recent `Add` commits). Mature lookup/delay
-design since ~2021–2023.
-
----
+**Step 7.2:** Record: `panel-simple` is mature and still gets ID
+additions; this is normal hardware enablement, not a new subsystem.
 
 ## Phase 8: Impact and risk
 
-**Step 8.1: Who is affected**
-Record: Driver/config-specific: `CONFIG_DRM_PANEL_EDP` + DT `"edp-
-panel"` + BOE product ID `0x0af2`. No effect on other panels.
+**Step 8.1:** Record: Driver/board-specific (`CONFIG_DRM_PANEL_SIMPLE`,
+DT with this compatible). Not universal.
 
-**Step 8.2: Trigger**
-Record: Every probe of that panel (boot / display init). Not a race. Not
-a syscall exploit path.
+**Step 8.2:** Record: Trigger is panel probe. Common for that one
+industrial board; otherwise only if DT lists `kyo,tcg070wvlq`. Not a
+syscall/security path.
 
-**Step 8.3: Failure mode**
-Record:
-- `WARN_ON` on unknown panel (MEDIUM as a warning, but intentional
-  “please add this ID” splat)
-- Conservative delays: extra ~1.5 s unprepare vs 500 ms (user-visible
-  resume/power-off lag)
-- Panel is still expected to work; this is enablement + warning/latency,
-  not panic
-- Severity: **MEDIUM** as a bug; **high value** as a device-ID exception
+**Step 8.3:** Record: Without the ID, a **primary-only**
+`kyo,tcg070wvlq` node fails to bind (no display). In-tree DTS still
+works via `lg,lb070wv8`. Severity **LOW** as a crash; **hardware
+enablement** under the device-ID rule.
 
-**Step 8.4: Risk-benefit**
-Record:
-- Benefit: correct power-seq and no warning for this hardware; same
-  class as PCI/USB ID adds
-- Risk: very low (1 line, ID-matched only)
-- Ratio: favorable
-
----
+**Step 8.4:** Record: Benefit = correct match for a documented
+compatible / existing panel. Risk = very low (3 lines, existing
+descriptor). Ratio favors taking it: official rules explicitly allow
+device IDs.
 
 ## Phase 9: Synthesis
 
-**Step 9.1: Evidence**
+**Evidence FOR:**
+- `Documentation/process/stable-kernel-rules.rst` in this tree: “It must
+  either fix a real bug that bothers people **or just add a device
+  ID**.”
+- Device-ID exception in the review criteria: ID-only change in an
+  existing driver.
+- 3 lines, reuses `lg_lb070wv8` since v4.2, reviewed by the panel
+  maintainer.
+- Completes a compatible documented since v5.12.
 
-FOR:
-- Existing driver; only a new panel ID + existing delay pointer
-- Matches the documented **new device ID** / hardware-quirk exception
-- Prevents `WARN_ON` + 2000 ms conservative unprepare for BOE NE140QDM-
-  NX2
-- 1 line, sorted, uses `delay_200_500_e50_p2e80` already in this tree
-- EDID in the message matches vendor/product/name
-- Reviewed and applied by the panel-edp reviewer; v2 delay choice came
-  from datasheet discussion
-- Author verified on `next-20260726`
+**Evidence AGAINST:**
+- Not a crash, UAF, deadlock, or corruption fix.
+- In-tree `imx6dl-prtmvt.dts` already falls back to `lg,lb070wv8`, so
+  this tree’s in-tree board already probes.
+- 2021 bindings commit intentionally omitted the driver entry at first.
+- No user/syzbot report.
 
-AGAINST:
-- Not a UAF/crash/security fix
-- Unknown panel still functions with conservative timings
-- No `Fixes:` / `Cc: stable` (expected for this review path)
-- Commit subject is enablement (“Add …”), not “fix”
+**Unresolved:** Could not fetch lore.kernel.org/stable (403). No
+evidence this was rejected for stable.
 
-UNRESOLVED:
-- lore.kernel.org via WebFetch was 403; thread recovered with `b4`
-- No stable@ thread found
-- Exact laptop SKUs using this panel not identified beyond the EDID
+**Stable checklist:**
+1. Obviously correct and tested — **PASS** (maintainer Reviewed-by,
+   applied to drm-misc-next)
+2. Real bug that affects users — **PASS** as device ID (documented
+   compatible did not match); in-tree fallback means limited user-
+   visible delta
+3. Important issue — **PASS via device-ID exception**, not via
+   crash/security
+4. Small and contained — **PASS** (+3)
+5. No new features/APIs — **PASS** (no new descriptor, timings, or uAPI;
+   match-table ID only)
+6. Can apply to this tree — **PASS** (`lg_lb070wv8` and
+   `platform_of_match` present)
 
-**Step 9.2: Stable rules**
-1. Obviously correct and tested? **PASS** (1-line table add; maintainer
-   review; author verified)
-2. Real bug affecting users? **PASS** (missing ID → warning + wrong
-   delays on real hardware)
-3. Important (crash/security/corruption/deadlock)? **PASS via
-   exception** (device ID / panel quirk; warning + bad power-seq). Not
-   CRITICAL memory safety.
-4. Small and contained? **PASS** (+1 line, one file)
-5. No new features/APIs? **PASS** (no new driver, syscall, or userspace
-   ABI; ID in existing table)
-6. Can apply to this tree? **PASS** (driver, macro, delay struct, and
-   sort neighbors all present)
+**Exception category:** New device ID (OF compatible) on an existing
+driver.
 
-**Step 9.3: Exception**
-Record: **New device ID / hardware quirk** on an existing driver
-(`EDP_PANEL_ENTRY` is this driver’s ID table).
-
-**Step 9.4: Decision**
-This is the eDP equivalent of adding a PCI/USB ID: a one-line table
-entry so existing `panel-edp` uses datasheet power sequencing instead of
-the unknown-panel `WARN_ON` + conservative delays. This tree has every
-prerequisite. Benefit is real for owners of this panel; risk is
-negligible.
-
-### What the commit solves for this tree
-On `v7.3-rc4`, generic `"edp-panel"` devices read EDID and look up
-`edp_panels[]`. BOE `0x0af2` (NE140QDM-NX2) had no row, so probe warned
-and used 2000/200 ms conservative delays. The patch adds that row with
-`delay_200_500_e50_p2e80`. Display modes remain EDID-driven.
-
-### Risk vs benefit
-Very low risk, contained to one product ID. Benefit is working/faster
-power sequencing and no warning for that panel—standard stable device-ID
-material.
-
----
+This is not a stability fix, but it is exactly the “just add a device
+ID” case the stable rules call out. Risk is negligible.
 
 Verification:
-- [Phase 1] Parsed subject/tags/body from `git show 354b9c43d36ce`; EDID
-  `09 e5 f2 0a` + `NE140QDM-NX2` checked against the new `BOE, 0x0af2`
-  row
-- [Phase 2] Diff is +1 line in `edp_panels[]`;
-  `generic_edp_panel_probe()` / `WARN_ON` /
-  `panel_edp_set_conservative_timings()` read in `panel-edp.c`
-- [Phase 3] `git blame -L 2058,2062`; `git log -L
-  :delay_200_500_e50_p2e80:…` → `f4ccd9fea2270`; parent has no `0x0af2`;
-  `git merge-base --is-ancestor 354b9c43d36ce HEAD` → yes
-- [Phase 3] No `Fixes:`; author log only this DRM commit
-- [Phase 4] `b4 dig -c 354b9c43d36ce` / `-a` / `-w` / `-m`; v1 mbox (7
-  messages) with Doug’s sort + delay review; v2 applied despite wrap
-- [Phase 4] WebFetch lore → 403; discussion taken from b4 mboxes instead
-- [Phase 5] Call path: `"edp-panel"` → `panel_edp_probe()` →
-  `generic_edp_panel_probe()` → `find_edp_panel()`
-- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`;
-  `VERSION=7 PATCHLEVEL=3 SUBLEVEL=0 EXTRAVERSION=-rc4`; delay struct
-  and table present
-- [Phase 7] MAINTAINERS: `R: Douglas Anderson` for `panel-edp.c`;
-  Kconfig `DRM_PANEL_EDP`
-- [Phase 8] Failure mode verified: unknown panel → WARN_ON + unprepare
-  2000 / enable 200
-- UNVERIFIED: stable@ archive (lore HTTP 403); specific machine models
-  shipping this panel
+- [Phase 1] Parsed tags: Reviewed-by Neil Armstrong; Link msgid
+  20260721041935.757240-1; no Fixes/syzbot
+- [Phase 2] Diff: +3 in `platform_of_match[]`; `.data = &lg_lb070wv8`
+- [Phase 3] `git name-rev --tags 922fb2db02871` → v5.12-rc1;
+  `dd0150026901b` → v4.2-rc1; `f3604ba14bd75e` DTS fallback
+- [Phase 3] `git merge-base --is-ancestor 922fb2db0287 HEAD` exit 0;
+  `900517da69afc` ancestor of HEAD
+- [Phase 4] `b4 dig -c 900517da69afc` / `-a` / `-w` / `-m`: v1 only;
+  Neil review + apply; dri-devel CCd
+- [Phase 4] lore.kernel.org WebFetch 403; LKML mirrors used instead
+- [Phase 5] `platform_of_match` →
+  `panel_simple_platform_driver.of_match_table`
+- [Phase 6] `git describe HEAD` → v7.3-rc4-27-gf0100363d8c37; `make
+  kernelversion` → 7.3.0-rc4
+- [Phase 6] Grep: `kyo,tcg070wvlq` in driver, yaml, and `imx6dl-
+  prtmvt.dts`
+- [Phase 8] Failure mode: unmatched compatible → no panel probe; in-tree
+  DTS still matches fallback
+- [Phase 9] Read `Documentation/process/stable-kernel-rules.rst` lines
+  15–16: device IDs are allowed
+- UNVERIFIED: stable@vger discussion (HTTP 403)
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/panel/panel-simple.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 614c63e95c357..65e2f68b919ef 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1989,6 +1989,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a6a, &delay_200_500_e80, "NV140WUM-N44"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ac5, &delay_200_500_e50, "NV116WHM-N4C"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ae8, &delay_200_500_e50_p2e80, "NV140WUM-N41"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e50_p2e80, "NE140QDM-NX2"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b09, &delay_200_500_e50_po2e200, "NV140FHM-NZ"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b1e, &delay_200_500_e80, "NE140QDM-N6A"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b34, &delay_200_500_e80_d50, "NV122WUM-N41"),
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index 878a5dc7748fb..c784f67f58fa4 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -5245,6 +5245,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	}, {
+ 		.compatible = "koe,tx31d200vm0baa",
+ 		.data = &koe_tx31d200vm0baa,
++	}, {
++		.compatible = "kyo,tcg070wvlq",
++		.data = &lg_lb070wv8,
+ 	}, {
+ 		.compatible = "kyo,tcg121xglp",
+ 		.data = &kyo_tcg121xglp,
 -- 
 2.53.0
 
