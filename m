@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F359CCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17921CCF2E8
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA9E910EE22;
-	Mon, 19 Oct 2026 14:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6406B10EE24;
+	Mon, 19 Oct 2026 14:05:51 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26E7010EE1F;
- Mon, 19 Oct 2026 14:05:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB96610EE1D;
+ Mon, 19 Oct 2026 14:05:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 159FC4069A;
- Mon, 19 Oct 2026 14:05:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEDAF1F000C8;
- Mon, 19 Oct 2026 14:05:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B14514041B;
+ Mon, 19 Oct 2026 14:05:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B631F000C7;
+ Mon, 19 Oct 2026 14:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418739;
- bh=LCK6HzOGftkUfxabSJI1PrQfGr8GFb458mN9VeUB30k=;
+ s=k20260515; t=1792418743;
+ bh=eqR8+KOPZ8pnk+K+E0eR+FyydimkvuSbCbmBAmeToow=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=JnAFN8CsBjqT1I9q339vBlRTKeNyLHONguQGmeVKtFkrTHqxo3WiJddoHqiBTiXUN
- HkicvSz4oFzsSwRl/K15W104V9L8vnYwnQhXo39ftkfaHh9EHKLyT4oux26ar//mfH
- q9uDwZ8ZvAg0u4w3Yr51xl3Npvh/h0/CCi2iTqjcI/h5Y1+1R47obn2GkN23mwUWv2
- QkOe1/X8n087DL5MzCKLRm8v12VTwz3RiflpQhtT3fEP1UXj6BdV67kB3OF/debpF3
- NupCjOyEDjQlKGHhFIfHFhoad/yibbbSXnrt22lz4B6rzQ1TeJYizRJVF1jHVBvVyH
- o/L1RIM051jJA==
+ b=Zz2k3LNSG+Lv80/ElMbkkFOzBEwLn+W64zWbxH7AIsXE+yPQKH6Eu9CPt3dIgS5gg
+ 1wAwl/qnH44iTvDfJVV2ub1suR8v6cTSpxwOcvidEB74AZdtQnRyQU21sMphXUluyl
+ jaOuBzzvAWRRZhhEp3z2ml0VTzHD+HccxchaovNIMf/T4JblJ1UTb5r/9gFCJ9lf49
+ DuNMcrXwWeSexOj06APVGEghOb8YfgtKreNpsle5dnRwz+3rHRJ8aaQQZ2LLeYiXjb
+ Z02RePIpxhYZuvvqPvd/8cWzaCdGjhQoog7YaQEYnIoeEyiF4cZOCIvp9GJ3jrEAiS
+ /XXhham7UurVg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Kent Russell <kent.russell@amd.com>, Sasha Levin <sashal@kernel.org>,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdgpu/atomfirmware: WARN() rather than
- BUG()
-Date: Mon, 19 Oct 2026 09:52:32 -0400
-Message-ID: <20261019135441.1420968-461-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/gfx12: set KMD_QUEUE for kernel gfx
+ queues
+Date: Mon, 19 Oct 2026 09:52:35 -0400
+Message-ID: <20261019135441.1420968-464-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,379 +63,334 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit d7c595044965c826e6f3ce30590d3ec4399cd633 ]
+[ Upstream commit 9fe5745f9d8eca38d31d9b672a1998edf856f651 ]
 
-There's no need to crash the kernel for this case.  Just
-return an error.
+Set KMD_QUEUE in the GFX MQD and kernel ring control registers so CP
+preserves kernel IB VMIDs instead of replacing them with the queue VMID.
+Use prop->kernel_queue to distinguish kernel and user MQDs.
 
-Reviewed-by: Kent Russell <kent.russell@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 14741c01680a803050e949744089b57fa53e02f7)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
+I have enough tree, diff, and caller evidence to judge this for 6.18.57.
+Lore lookups failed with 403, so mailing-list review is limited to the
+amd-gfx archive title and the commit tags.
+
 ## Phase 1: Commit message forensics
 
-**Step 1.1: Subject line**
-- Record: `[drm/amdgpu/atomfirmware] [WARN rather than BUG / return an
-  error] [stop panicking the kernel on an unexpected VBIOS gfx_info
-  revision]`
+**Step 1.1 — Subject**
+- Record: `[drm/amdgpu/gfx12] [set] [program KMD_QUEUE on kernel GFX
+  queues so CP keeps kernel IB VMIDs]`
 
-**Step 1.2: Tags**
+**Step 1.2 — Tags**
 - Record:
-  - `Reviewed-by: Kent Russell <kent.russell@amd.com>` (added at commit
-    time; not on the mailed v1 patch)
-  - `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (author;
-    amdgpu maintainer)
-  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Acked-by:`, `Link:`, or
-    `Cc: stable` (absence expected)
-  - Pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
-    ignored per instructions
+  - `Reviewed-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+    maintainer)
+  - `Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>` (author)
+  - `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>`
+    (maintainer)
+  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable`
+    (absence expected for this review)
+  - Pipeline-only markers ignored: `[Upstream commit ...]`, `(cherry
+    picked from ...)`, `Signed-off-by: Sasha Levin`
 
-**Step 1.3: Body**
+**Step 1.3 — Body**
 - Record:
-  - Bug: `BUG()` on an unexpected atom `gfx_info` firmware revision in
-    `amdgpu_atomfirmware_get_clock_info()`.
-  - Symptom: whole-machine kernel crash during AMDGPU init.
-  - Author intent: do not crash; “just return an error.”
-  - No stack trace, reproducer, or version range in the message.
-  - Actual diff does **not** add `WARN()` and does **not** set `ret =
-    -EINVAL`; it only deletes the `else { BUG(); }`.
+  - Bug: CP replaces kernel IB VMIDs with the queue VMID unless
+    `KMD_QUEUE` is set
+  - Symptom: kernel IBs run in the wrong VM (queue VMID, typically 0)
+  - Root cause: GFX MQD and `CP_RB0_CNTL` never programmed `KMD_QUEUE`
+  - Fix: set the bit from `prop->kernel_queue` (MQD) and hard-set 1 on
+    the kernel ring
+  - No stack trace, repro, or version range in the message
 
-**Step 1.4: Hidden bug fix?**
-- Record: Not hidden. It is an explicit crash-prevention change.
-  Title/body oversell the implementation (no `WARN()`, no explicit error
-  return).
-
----
+**Step 1.4 — Hidden bug fix?**
+- Record: Not disguised. It is an explicit hardware-programming
+  correctness fix.
 
 ## Phase 2: Diff analysis
 
-**Step 2.1: Inventory**
-- Record: `drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c` — **2 lines
-  deleted, 0 added**. Function: `amdgpu_atomfirmware_get_clock_info()`.
-  Single-file surgical change.
+**Step 2.1 — Inventory**
+- Record: `drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c` only; `+2 / -0`
+- Functions: `gfx_v12_0_cp_gfx_resume()`, `gfx_v12_0_gfx_mqd_init()`
+- Scope: single-file surgical fix
 
-**Step 2.2: Code flow**
-- Record: On Navi+ (`asic_type >= CHIP_NAVI10`), after a successful
-  `gfx_info` header parse:
-  - **Before:** known revisions (`frev==3`, or `frev==2 && crev==6`, or
-    `frev==2 && crev>=2 && crev!=6`) set `spll->reference_freq` and
-    `ret=0`. Any other `(frev,crev)` hit `BUG()` and panics.
-  - **After:** unknown revisions fall through. `ret` stays whatever
-    earlier `firmwareinfo` / `smu_info` / `umc_info` parsing left (`0`
-    if those succeeded, else `-EINVAL`). No panic.
+**Step 2.2 — Control-flow change**
+- Hunk 1 (`gfx_v12_0_cp_gfx_resume`): `CP_RB0_CNTL` was built with
+  `RB_BUFSZ`/`RB_BLKSZ` only (base 0). After: `KMD_QUEUE=1` on kernel
+  gfx ring 0. Init/resume path, used when `amdgpu_async_gfx_ring` is 0.
+- Hunk 2 (`gfx_v12_0_gfx_mqd_init`): `CP_GFX_HQD_CNTL` was built from
+  `regCP_GFX_HQD_CNTL_DEFAULT` (0x00f00000). After:
+  `KMD_QUEUE=prop->kernel_queue`. This is the default MQD path
+  (`amdgpu_async_gfx_ring` defaults to 1).
 
-**Step 2.3: Bug mechanism**
-- Record: **Logic / correctness + crash prevention.** `BUG()` used as an
-  “unknown firmware table” assert in a driver probe path. Firmware is
-  independent of the kernel; an unknown or newer table must not take
-  down the box. Sibling `amdgpu_atomfirmware_get_gfx_info()` already
-  returns `-EINVAL` for unknown revisions; this path was the
-  inconsistent panic.
+**Step 2.3 — Bug mechanism**
+- Record: `[logic / hardware programming] [CP overwrites IB VMID unless
+  KMD_QUEUE; fix sets that bit on kernel queues only]`
+- `KMD_QUEUE` is bit 29 (`0x20000000`). Default `0x00f00000` does not
+  include it. `CP_RB0_CNTL` starts from 0, so it was also clear.
+- Same file already sets `KMD_QUEUE` for compute kernel queues in
+  `gfx_v12_0_compute_mqd_init()`. GFX was the missing counterpart.
 
-**Step 2.4: Fix quality**
-- Record: Minimal and obviously safe (only removes a panic). Regression
-  risk is very low. Residual nit: unknown tables no longer fail the
-  function if earlier tables parsed, so init can continue with the
-  `smu_info` reference clock instead of failing probe. That matches the
-  pre-`BUG()` behavior from 2021 and is still far better than panicking.
-  Message/subject mismatch is cosmetic, not a functional defect.
-
----
+**Step 2.4 — Fix quality**
+- Record: Minimal and obviously correct. User MQDs keep `KMD_QUEUE=0`
+  because `mes_userq_mqd_create()` `kzalloc`s `amdgpu_mqd_prop`. Kernel
+  rings set `prop->kernel_queue = true` in `amdgpu_ring_to_mqd_prop()`.
+  Regression risk is low: it matches the existing compute-queue
+  programming.
 
 ## Phase 3: Git history
 
-**Step 3.1: Blame**
-- Record: `BUG()` added in `a8d59943b8846` (“drm/amdgpu: update query
-  ref clk from bios”, Hawking Zhang, 2022-04-28) when adding
-  `atom_gfx_info_v3_0`. `git describe` =
-  `v5.17-rc6-1819-ga8d59943b8846`. `git merge-base --is-ancestor` vs
-  tags: **not in v5.18, is in v5.19**. Navi+ clock override itself came
-  from `9a530062d57fe` (Aaron Liu, 2021; `v5.12-rc7-1827`), which did
-  **not** `BUG()` — unknown versions just skipped the override.
+**Step 3.1 — Blame**
+- Record: Surrounding GFX resume/MQD setup comes from `52cb80c12e8a64`
+  (`drm/amdgpu: Add gfx v12_0 ip block support (v6)`, 2023-07-04). The
+  missing bit has been absent since GFX12 was added.
 
-**Step 3.2: Fixes: tag**
-- Record: None. Introducer is `a8d59943b8846` as above. That commit is
-  an ancestor of this HEAD.
+**Step 3.2 — Fixes: tag**
+- Record: No `Fixes:` tag. Bug is the original GFX12 bring-up omitting
+  `KMD_QUEUE`. That bring-up commit is an ancestor of this tree.
 
-**Step 3.3: File history**
-- Record: Latest change on this file in HEAD is this commit. No follow-
-  up on the same function. Standalone; not a functional 2/3 dependency.
+**Step 3.3 — File history**
+- Record: Prerequisite already here: `7b9110f289795` (`drm/amdgpu/gfx12:
+  set MQD as appriopriate for queue types`) added `prop->kernel_queue` /
+  `RB_NON_PRIV` and compute `KMD_QUEUE`. Present in v6.18.57. This
+  commit is standalone, not patch 2/3 of that older series.
 
-**Step 3.4: Author**
-- Record: Alex Deucher is the amdgpu maintainer. Same-day series
-  converted many amdgpu `BUG()`/`BUG_ON()` sites. Related file commits
-  are unrelated vram/firmware table work.
+**Step 3.4 — Author**
+- Record: Jesse Zhang is a regular amdgpu contributor. Same-day sibling:
+  `drm/amdgpu/gfx11: set KMD_QUEUE for kernel gfx queues`. Maintainer
+  reviewed both.
 
-**Step 3.5: Prerequisites**
-- Record: None. Only deletes two lines of existing `BUG()`. Applies
-  standalone wherever that `else { BUG(); }` exists.
-
----
+**Step 3.5 — Dependencies**
+- Record: Needs `bool kernel_queue` in `amdgpu_mqd_prop`
+  (`284d4dfe850e6`, in v6.18.57) and `CP_*_KMD_QUEUE` masks in
+  `gc_12_0_0_sh_mask.h` (present). Can apply standalone. No new helpers.
 
 ## Phase 4: Mailing list / external
 
-**Step 4.1: Original discussion**
-- Record: `b4 dig -c d7c595044965c` → `[PATCH 18/43]
-  drm/amdgpu/atomfirmware: WARN() rather than BUG()`
-  https://patch.msgid.link/20260615235645.737189-18-
-  alexander.deucher@amd.com
-  - `b4 dig -a`: **v1 only** of a 43-patch June 15 2026 series. Resent
-    as `[PATCH 05/30]` on 2026-07-07 (same diff).
-  - Thread has no technical NAK. Only a ping from Alex on 01/43.
-  - No reviewer-requested `Cc: stable` found in the mbox.
-  - Committed version matches mailed diff (2-line deletion).
+**Step 4.1 — Original discussion**
+- Record: `b4 dig -c 14741c01680a` / `9fe5745f9d8e` / `53db34aed371`
+  failed (lore returned an error). Fallback: amd-gfx September 2026
+  archive lists `[PATCH 09/21] drm/amdgpu/gfx12: set KMD_QUEUE for
+  kernel gfx queues` next to hung-queue / pipe-reset patches. No NAK
+  found. No later conflicting revision found.
 
-**Step 4.2: Recipients**
-- Record: `b4 dig -w`: `Alex Deucher`, `amd-gfx@lists.freedesktop.org`
-  only. Kent Russell’s `Reviewed-by` was added at commit, not on the
-  mailed patch.
+**Step 4.2 — Reviewers**
+- Record: `b4 dig -w` failed (same lore error). Commit has `Reviewed-by`
+  / `Signed-off-by` from Alex Deucher.
 
-**Step 4.3: Bug report**
-- Record: No `Reported-by`, syzbot, or bugzilla. No evidence of a user
-  hitting this `BUG()` in the last four years.
+**Step 4.3 — Bug report**
+- Record: No `Reported-by` / syzbot / bugzilla link. Mechanism is stated
+  by the AMD author.
 
-**Step 4.4: Series context**
-- Record: Independent one-file `BUG()` removals. Pull text for drm-
-  next-7.3 lists this under “Old BUG() and BUG_ON() removal.” drm-
-  fixes-7.2 took an earlier batch described as “Drop unnecessary BUG()
-  and BUG_ON() from error paths.” This commit landed in **drm-next for
-  7.3** (`git describe d7c595044965c` = `v7.2-rc2-1048-gd7c595044965c`).
+**Step 4.4 — Series**
+- Record: Submitted as 09/21 in a hung-queue/reset series. This hunk
+  does not call any of those new helpers; it is self-contained register
+  programming.
 
-**Step 4.5: Stable list**
-- Record: lore.kernel.org/stable fetch returned 403. **UNVERIFIED**
-  whether stable@ discussed this specific patch. No `Cc: stable` on the
-  submission.
+**Step 4.5 — Stable list**
+- Record: No useful stable-list hit for this subject. UNVERIFIED whether
+  anyone already requested or rejected it for stable.
 
----
+## Phase 5: Semantic / call-chain
 
-## Phase 5: Semantic / call graph
+**Step 5.1 — Functions**
+- Record: `gfx_v12_0_cp_gfx_resume`, `gfx_v12_0_gfx_mqd_init`
 
-**Step 5.1: Functions**
-- Record: `amdgpu_atomfirmware_get_clock_info()` only. semcode MCP not
-  available; used grep / read.
+**Step 5.2 — Callers**
+- Record:
+  - `gfx_v12_0_cp_gfx_resume` ← GFX hw init when
+    `!amdgpu_async_gfx_ring` (module param default is 1, so this is the
+    fallback)
+  - `gfx_v12_0_gfx_mqd_init` ← `adev->mqds[AMDGPU_HW_IP_GFX].init_mqd` ←
+    `amdgpu_ring_init_mqd()` ← `gfx_v12_0_kgq_init_queue()` (default
+    async KGQ path) and `mes_userq_mqd_create()` (user queues,
+    `kernel_queue==false`)
 
-**Step 5.2: Callers**
-- Record: Sole caller `amdgpu_device.c` (~4085), during device init when
-  `adev->bios && adev->is_atom_fw`. `is_atom_fw` is set for `asic_type
-  >= CHIP_VEGA10`. Failure currently logs and `goto failed` (probe
-  abort). Not IRQ, not a syscall hot path. Runs once per GPU at
-  boot/module load.
+**Step 5.3 — Callees**
+- Record: `REG_SET_FIELD`, `WREG32_SOC15`. No alloc/lock/API change.
 
-**Step 5.3: Callees**
-- Record: `get_index_into_master_table`,
-  `amdgpu_atom_parse_data_header`, `le32_to_cpu` on VBIOS tables. No
-  alloc/lock in the changed hunk.
+**Step 5.4 — Reachability**
+- Record: Yes. Default GFX12 init uses KGQ MQD init.
+  `gfx_v12_0_ring_emit_ib_gfx()` writes `control |= ib->length_dw |
+  (vmid << 24)` with `AMDGPU_JOB_GET_VMID(job)`. Userspace CS on a
+  kernel gfx ring therefore depends on CP honoring that IB VMID.
 
-**Step 5.4: Reachability**
-- Record: Yes, from normal boot on Vega10+ with atom firmware. The
-  `BUG()` itself only ran for Navi+ (`CHIP_NAVI10` and later — RX 5700
-  and essentially all later AMD GPUs) **and** an unrecognized `gfx_info`
-  `(frev,crev)`. Current headers only define v2.2 / v2.3 / v2.4 / v2.7 /
-  v3.0, all of which the `if`/`else if` already accept (`frev==2 &&
-  crev>=2` or `frev==3`). So the panic path is **firmware-mismatch /
-  corruption / future table**, not day-1 shipping VBIOS.
+**Step 5.5 — Similar patterns**
+- Record: Compute MQD in the same file already sets `KMD_QUEUE` for
+  kernel queues. GFX11 sibling does the same two-line change. KFD MQD
+  managers also set `KMD_QUEUE` for kernel queues.
 
-**Step 5.5: Similar patterns**
-- Record: Same author, same series: imu11/12, ucode, cgs, gfx11/12 SDMA,
-  etc. `get_gfx_info()` in this file already used `-EINVAL` instead of
-  `BUG()`.
+## Phase 6: This tree (6.18.57)
 
----
+**Step 6.1 — Does the bug exist here?**
+- Record: Local tree is **v6.18.57** (`git describe HEAD` =
+  `v6.18.57-155-gcdf239ca885b2`, Makefile 6.18.57).
+- `git merge-base --is-ancestor 14741c01680a HEAD` → not an ancestor.
+- `v6.18.57:drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c` does **not** set
+  `KMD_QUEUE` in `gfx_v12_0_cp_gfx_resume` / `gfx_v12_0_gfx_mqd_init`.
+  The compute path already does. GFX12 IP has been in this line since
+  `52cb80c12e8a64`.
 
-## Phase 6: This checkout
+**Step 6.2 — Backport difficulty**
+- Record: Clean apply. v6.18.57 context matches the hunks exactly.
 
-**Step 6.1: Does the buggy code exist here?**
-- Record: Local tree is **v7.3-rc4** (`VERSION=7 PATCHLEVEL=3 SUBLEVEL=0
-  EXTRAVERSION=-rc4`, HEAD `f0100363d8c37`). `git merge-base --is-
-  ancestor d7c595044965c HEAD` → yes. Current source already has the
-  `BUG()` removed (lines 911–920). The panic existed in this lineage
-  from **v5.19** until this commit (**v7.2-rc2+**).
-
-**Step 6.2: Backport difficulty**
-- Record: Clean 2-line deletion against the pre-image. No structural
-  prerequisites.
-
-**Step 6.3: Related fixes already here**
-- Record: This **is** the fix; no alternate fix. No later revert or
-  follow-up on this function.
-
----
+**Step 6.3 — Related fixes already here?**
+- Record: `7b9110f289795` is in v6.18.57 and handles compute `KMD_QUEUE`
+  / GFX `RB_NON_PRIV`. It does not set GFX `KMD_QUEUE`. No equivalent
+  GFX12 fix is in v6.18.57.
 
 ## Phase 7: Subsystem context
 
-**Step 7.1:** Record: `drm/amdgpu` atom firmware parser. **IMPORTANT**
-(very common GPUs), not core mm/VFS.
+**Step 7.1**
+- Record: `[drm/amdgpu GFX12] [IMPORTANT — common AMD GPU driver, RDNA4
+  / RX 9000 class]`
 
-**Step 7.2:** Record: High activity; this particular function has been
-stable since the 2022 v3.0 clock change aside from this `BUG()` removal.
-
----
+**Step 7.2**
+- Record: Active but mature GFX12 support in 6.18. This is a leftover
+  bring-up omission, not a brand-new subsystem.
 
 ## Phase 8: Impact and risk
 
-**Step 8.1: Who is affected**
-- Record: Users of amdgpu on Navi+ (RDNA and later), i.e. a large
-  fraction of AMD GPU systems, **if** VBIOS `gfx_info` revision is not
-  one of the known cases.
+**Step 8.1 — Who is affected**
+- Record: GFX12 amdgpu users (config/driver-specific). Not universal.
 
-**Step 8.2: Trigger**
-- Record: GPU probe. Not unprivileged syscall. Needs Navi+ **and**
-  unknown `gfx_info` frev/crev (corrupt VBIOS, unexpected vendor
-  firmware, or a newer table the driver was never taught). Common-path
-  shipping firmware does not hit it; firmware is still out of the
-  kernel’s control.
+**Step 8.2 — Trigger**
+- Record: Device init (MQD/`CP_RB0_CNTL` programming), then any kernel
+  gfx IB whose VMID ≠ queue VMID. Unprivileged users trigger this via
+  normal command submission. Default path is async KGQ
+  (`amdgpu_async_gfx_ring=1`).
 
-**Step 8.3: Failure mode**
-- Record: `BUG()` → kernel panic during device init. **Severity:
-  CRITICAL if triggered, LOW likelihood on known VBIOS.** After the fix,
-  unknown tables skip the gfx_info clock override and typically still
-  return success from earlier tables.
+**Step 8.3 — Failure mode**
+- Record: Wrong GPU VMID → GFXHUB page fault, ring timeout, GPU reset,
+  or access in the wrong address space. Severity: **HIGH** (GPU hang /
+  fault; possible wrong-VM access).
 
-**Step 8.4: Risk-benefit**
-- Record: Benefit medium-high (prevents a machine-killing assert in
-  firmware parse). Risk very low (2-line deletion, no locking/API/data-
-  structure change). Ratio favors applying it.
-
----
+**Step 8.4 — Risk vs benefit**
+- Record: Benefit high for GFX12 boxes. Risk very low (2 lines, kernel
+  queues only, same pattern as compute). Ratio favors backport.
 
 ## Phase 9: Synthesis
 
-**Step 9.1: Evidence**
+**Evidence for**
+- Real CP programming bug: kernel IB VMIDs can be replaced with queue
+  VMID 0
+- `gfx_v12_0_ring_emit_ib_gfx()` puts the job VMID in the IB; that path
+  is live
+- Compute KGQ already sets `KMD_QUEUE`; GFX did not
+- 2-line, obviously correct, maintainer-reviewed
+- Bug and prerequisites exist in v6.18.57; applies cleanly
+- No new API/feature
 
-**For backporting**
-- `BUG()` in driver init panics the whole system; kernel policy
-  (`Documentation/process/coding-style.rst`, `deprecated.rst`) says not
-  to do this.
-- Path is real GPU probe for all modern AMD GPUs; firmware tables can
-  change independently of the kernel.
-- 2-line deletion, obviously correct, no new API.
-- Sibling function already errors instead of panicking.
-- Restores the pre-v5.19 “don’t panic” behavior.
-- Maintainer-authored, Reviewed-by Kent Russell.
-- Zero practical regression surface.
-
-**Against**
-- No user report in ~4 years; known table versions are all handled, so
-  the `else` is effectively a developer assert.
-- Part of a 43-patch “drop old BUG()s” sweep; pull described it as
-  cleanup, and it went to drm-next-7.3, not drm-fixes.
-- Subject/body promise `WARN()` + error return; the patch does neither.
-- After the change, unknown tables can return 0 with the smu_info clock
-  rather than failing probe.
+**Evidence against**
+- No public repro, syzbot, or `Fixes:` tag
+- Everyday GFX12 has worked since bring-up, so firmware or privilege
+  bits may mask this in some cases
+- Submitted as 09/21 in a larger reset series (but this hunk is
+  independent)
+- Lore/b4 review thread could not be fetched (server 403)
 
 **Unresolved**
-- Stable@ discussion unverified (lore 403).
-- No public confirmation this `BUG()` ever fired on shipping hardware.
+- Full reviewer discussion beyond `Reviewed-by: Alex Deucher`
+- Whether a specific firmware version started enforcing VMID replacement
+- Stable-list history for this exact subject
 
-**Step 9.2: Stable rules**
-1. Obviously correct and tested? **PASS** — 2-line deletion; maintainer
-   + reviewer.
-2. Real bug affecting users? **PASS** — panicking on unknown firmware is
-   a real driver bug; firmware is untrusted/variable even if reports are
-   absent.
-3. Important (crash/security/corruption/deadlock)? **PASS** — failure
-   mode is a kernel panic. Likelihood is low, severity is high.
-4. Small and contained? **PASS** — 2 lines, one function.
-5. No new features/APIs? **PASS**.
-6. Can apply to this tree? **PASS** — the hunk exists in this lineage;
-   the tree already contains the commit (`d7c595044965c`).
+**Stable rules**
+1. Obviously correct and tested? **PASS** — two `REG_SET_FIELD`s;
+   maintainer reviewed
+2. Real user-facing bug? **PASS** — wrong IB VMID on kernel GFX queues
+3. Important (fault/hang/wrong VM)? **PASS** — HIGH, not cosmetic
+4. Small and contained? **PASS** — +2 lines, one file
+5. No new features/APIs? **PASS**
+6. Applies to this tree? **PASS** — v6.18.57 has the buggy code and
+   prerequisites
 
-**Step 9.3: Exceptions**
-- Record: None (not a device ID, quirk, DT, build, or doc fix).
-  Qualifies on the crash-prevention rule, not an exception category.
+**Exception category:** hardware programming / quirk-like register bit
+on an existing driver. Not a new driver or API.
 
-**Step 9.4: Decision**
+This belongs on 6.18.57. The tree has GFX12, still omits GFX
+`KMD_QUEUE`, and the fix is a two-line register correction with the same
+`kernel_queue` distinction already used for compute MQDs.
 
-This tree is **v7.3-rc4**. The change is a two-line removal of a `BUG()`
-in Navi+ VBIOS clock parsing. That assert can panic the machine during
-amdgpu init if `gfx_info` is an unknown revision. That is the wrong
-failure mode for firmware the kernel does not control. The patch is
-trivial, standalone, and does not add features. Lack of a crash report
-and the series being a BUG() cleanup do not outweigh a panic in GPU
-probe.
+### What the commit solves for this tree
+On GFX12, kernel gfx rings submit `PACKET3_INDIRECT_BUFFER` with a job
+VMID. Without `KMD_QUEUE`, CP is specified to replace that VMID with the
+queue VMID (0). That is a GPU address-space bug: faults, hangs, or
+wrong-VM access. v6.18.57 already has the `kernel_queue` flag and
+compute `KMD_QUEUE`; this only fills the GFX gap.
 
-It meets the stable criteria for this tree: real crash fix, small,
-obviously correct, no dependencies.
+### Risk vs benefit
+Benefit is correct VMID handling on RDNA4 kernel gfx queues. Risk is a
+two-line bit set on kernel queues only; user queues stay unset.
 
----
-
-## What the commit solves for stable users
-
-On Navi and later, `amdgpu_atomfirmware_get_clock_info()` used `BUG()`
-when the VBIOS `gfx_info` table had a revision the driver did not list.
-That is a full kernel panic during device init. Stable systems keep a
-GPU for years while VBIOS/firmware can still change; panicking instead
-of skipping the override (or failing probe) is the bug. The fix only
-deletes that `BUG()`.
-
-Risk vs benefit: benefit is avoiding a boot-time panic; risk is
-essentially none. The leftover behavior (continue with the smu_info
-clock, no `WARN()`) is slightly sloppy versus the commit text, but it is
-the old safe path from before v5.19 and is acceptable for stable.
-
----
-
-## Verification
-- [Phase 1] Parsed tags: Reviewed-by Kent Russell, SOB Alex Deucher; no
-  Fixes/Reported-by/Cc:stable
-- [Phase 1] Body claims WARN + return error; `git show d7c595044965c` is
-  only `- } else {` / `- BUG();`
-- [Phase 2] Diff: 2 deletions in `amdgpu_atomfirmware_get_clock_info()`
-- [Phase 2] Read current function: `ret` starts `-EINVAL`; earlier
-  tables set `ret=0`; unknown gfx_info no longer panics
-- [Phase 3] `git blame` on parent: `BUG()` from `a8d59943b8846`
-  (2022-04-28)
-- [Phase 3] `git merge-base --is-ancestor a8d59943b8846 v5.18` → 1
-  (absent); vs v5.19 → 0 (present)
-- [Phase 3] Pre-BUG code in `9a530062d57fe` did not panic on unknown
-  revisions
-- [Phase 3] `git merge-base --is-ancestor d7c595044965c HEAD` → 0
-  (commit is in this tree)
-- [Phase 4] `b4 dig -c d7c595044965c` → lore/msgid
-  20260615235645.737189-18; 18/43 series
-- [Phase 4] `b4 dig -a`: v1 only; later resent as 05/30 with identical
-  diff
-- [Phase 4] `b4 mbox`: 44 messages, no NAK, no stable nomination; Kent
-  review not on the mailed patch
-- [Phase 4] `b4 dig -w`: To/Cc Alex Deucher + amd-gfx only
-- [Phase 4] lore.kernel.org and lore stable search: HTTP 403 —
-  UNVERIFIED
-- [Phase 5] grep: only caller is `amdgpu_device.c` init when
-  `is_atom_fw`; `is_atom_fw` set for Vega10+
-- [Phase 5] `atomfirmware.h`: gfx_info structs v2.2, v2.3, v2.4, v2.7,
-  v3.0 only — no v4
-- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
-  kernelversion` = 7.3.0-rc4
-- [Phase 6] `git describe d7c595044965c` =
-  `v7.2-rc2-1048-gd7c595044965c`
-- [Phase 6] Current file lines 911–920: no `BUG()`
-- [Phase 8] Failure mode: `BUG()` panic on GPU init — CRITICAL if hit
-- UNVERIFIED: whether this `BUG()` has ever fired on shipping VBIOS;
-  whether stable@ already considered it
+Verification:
+- [Phase 1] Parsed tags: Reviewed-by/SOB Alex Deucher; no
+  Fixes/Reported-by/Link
+- [Phase 2] Diff: +2 lines in `gfx_v12_0_cp_gfx_resume` and
+  `gfx_v12_0_gfx_mqd_init`
+- [Phase 2] `regCP_GFX_HQD_CNTL_DEFAULT` is `0x00f00000`; `KMD_QUEUE`
+  mask is `0x20000000` — default does not set the bit
+- [Phase 2] Userq path: `mes_userqueue.c` kzallocs props, so
+  `kernel_queue` stays false
+- [Phase 2] Kernel rings: `amdgpu_ring.c` sets `prop->kernel_queue =
+  true`
+- [Phase 3] Blame: GFX12 setup from `52cb80c12e8a64` (2023); `KMD_QUEUE`
+  never set on GFX
+- [Phase 3] Prerequisite `7b9110f289795` / `284d4dfe850e6` are ancestors
+  of v6.18.57
+- [Phase 3] `git merge-base --is-ancestor 14741c01680a HEAD` → not
+  present as that SHA
+- [Phase 4] `b4 dig` failed (lore server error) — UNVERIFIED full thread
+  text
+- [Phase 4] amd-gfx Sept 2026 archive: `[PATCH 09/21] drm/amdgpu/gfx12:
+  set KMD_QUEUE for kernel gfx queues`
+- [Phase 4] lore.kernel.org WebFetch 403; no stable-list discussion
+  found
+- [Phase 5] Default init: `amdgpu_async_gfx_ring=1` →
+  `gfx_v12_0_kgq_init_queue` → `gfx_v12_0_gfx_mqd_init`
+- [Phase 5] `gfx_v12_0_ring_emit_ib_gfx` encodes VMID at bit 24
+- [Phase 6] `git describe HEAD`: v6.18.57-155-gcdf239ca885b2; Makefile
+  6.18.57
+- [Phase 6] `git show v6.18.57:drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c`:
+  GFX `KMD_QUEUE` missing; compute path present
+- [Phase 8] Failure mode: GPU VM fault / hang / wrong address space —
+  HIGH
+- UNVERIFIED: exact firmware interaction that kept some GFX12 systems
+  working without this bit
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index c7d32fb216e4e..ce2a4a15d5ecb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -806,8 +806,6 @@ int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev)
- 				   (crev != 6)) {
- 				spll->reference_freq = le32_to_cpu(gfx_info->v22.rlc_gpu_timer_refclk);
- 				ret = 0;
--			} else {
--				BUG();
- 			}
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 433381f806b2b..06fde713b9229 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -2733,6 +2733,7 @@ static int gfx_v12_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	rb_bufsz = order_base_2(ring->ring_size / 8);
+ 	tmp = REG_SET_FIELD(0, CP_RB0_CNTL, RB_BUFSZ, rb_bufsz);
+ 	tmp = REG_SET_FIELD(tmp, CP_RB0_CNTL, RB_BLKSZ, rb_bufsz - 2);
++	tmp = REG_SET_FIELD(tmp, CP_RB0_CNTL, KMD_QUEUE, 1);
+ 	WREG32_SOC15(GC, 0, regCP_RB0_CNTL, tmp);
+ 
+ 	/* Initialize the ring buffer's write pointers */
+@@ -3025,6 +3026,7 @@ static int gfx_v12_0_gfx_mqd_init(struct amdgpu_device *adev, void *m,
+ 	tmp = regCP_GFX_HQD_CNTL_DEFAULT;
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BUFSZ, rb_bufsz);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BLKSZ, rb_bufsz - 2);
++	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, KMD_QUEUE, prop->kernel_queue);
+ #ifdef __BIG_ENDIAN
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, BUF_SWAP, 1);
+ #endif
 -- 
 2.53.0
 
