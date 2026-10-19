@@ -4,82 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 576D0CCF2DA
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 07:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6FB1CCF2D3
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 07:36:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78D7810E148;
-	Mon, 19 Oct 2026 07:29:59 +0000 (UTC)
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B226110E7E8
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 07:29:53 +0000 (UTC)
-Received: by mail-lr2-f7.google.com with SMTP id
- 38308e7fff4ca-3a5d1645d85so17149001fa.0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 00:29:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792394992; x=1792999792; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=NmCIEe5EaGzU2U41ZTSvmQME4aOaTYAEh4vnVX7+bKI=;
- b=gVZcpqh4IwkUKYI776K0H0XCWHe4Ayd51jXg5XqoCDd833GAArQC6XqdsfQyffBLx1
- L3OlpAB5IAPeOCniRftYkthR1eWCFJXuWkMIofwgHtjDSLWgMMw/dEIWN0uhoDSnVgS1
- u0fD3yg0WARwsnHVE81niPDSXww+tR4Rz7SWcAfOgEgc78xOfD9yu3nY99prawfDw8B1
- iIuDF5CVjDVsBvV8G1Kw7JoUsUpqwXwLETWd73d61UH7Dty6LD9Aod2+jm8c3RzRgXY9
- LYRIIHSgqxfNNPn0yCaVbylDk2+UACvxLrjBkZqUPe7NQBlM5JKWQixakcqbxl04Ax9r
- FABg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792394992; x=1792999792;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=NmCIEe5EaGzU2U41ZTSvmQME4aOaTYAEh4vnVX7+bKI=;
- b=IgC2H9vAQYCgKN7JEtuQrK8sl6R6fieDbCSnSld1Njpzvxo+5UtKhhKkWtocE4BNuh
- J5buaICyp4uD9iogWLDOf9V2hkOhoxieTmy37mzq798aSZTeD8CMFyDJtTZHsEAb4jGO
- hdTmDTVawp/7cT53VY5V6RjX1y705XzZx2fPx9HAWMd2iJkPcLjdn8FQKyP/Xwan4ccS
- vfp13aJV6JkrTPDRBF0Q3Y0FvKlAEW0sbmlZUr5wqvV3odHcfHlMBnlCS7+rnqDocJam
- zmtp7TJVB2OLZxi698PMU+74+63kRSf1B6rTrNt8A4kTffVRaAqTjzL8ZLJH1osaJKMJ
- By+g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwe+EGS3AVcAWPu/G3GOIInaAOsfTdReKJrBAPPHNjQ03a3SH9n5b2JVAzBsLpji78efR0d6o+FWNU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI2w1M7P1L8nvFwQF3ttDXGBRz8/WZDO3eumixj75DDt0k4K6py
- BVMJFx5nOb1fnaJ4CQz5XEvrXZP25m7ECNGdI9rmK/m7j7LEVHuyChKQ
-X-Gm-Gg: AYBFou08PsQXnDLpYiwU0EUd9PBT/wsIcq7cl3Avn97ZMAZQDfuZNcUQvOOj7XZLXU4
- //ekEeVvuGtFSAJ5hgN8u9mZxf3OltXiTy5M7IhDLcrLPd2wnVDuBA2TQhzKgDmD3AtAOnw1Ql5
- hP1gfvJE5+LRk+sHDZH8BBqsike6HeyIqUd7crLRAihufr9v61oXfCdgdtlISIxEDXcgtC7/MzW
- Emhraug8JdzZU4nLQJMmuUQQ53BZlbsd4XCYQkoMWAbMYXpaweIpHTnVOgjXBHdCbhvhFrtpSAU
- yJDUdw7naEfxt8xTlJENuImcA6YY2jt21v3kTcC3f5UVqFVMrZP007fox8qHo5LChbpW7K53i7u
- pDd1H6w3pjFejfEYLxZMyvQwaJAKipPSS8CVEi9bs3R38vimKByFns9iuPV7+4Pbnarg69ZofjT
- Z/VnE1xbSoe4ALdTcBGa1mLN57ylZJwxRue+W0pJz5l9H1Xbrp3g8XTfrMKkkirZGnyFv4IiJGq
- Q0oQj7jACEMew0O
-X-Received: by 2002:a05:651c:324b:b0:3a3:3170:5420 with SMTP id
- 38308e7fff4ca-3ab28f5a366mr14469931fa.3.1792394991368; 
- Mon, 19 Oct 2026 00:29:51 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ab3afed52fsm8290511fa.8.2026.10.19.00.29.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 00:29:51 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dillon Varone <dillon.varone@amd.com>,
- Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
- James Lin <pinglei.lin@amd.com>, Austin Zheng <austin.zheng@amd.com>,
- Bhuvanachandra Pinninti <BhuvanaChandra.Pinninti@amd.com>,
- Kees Cook <kees@kernel.org>, Wenjing Liu <wenjing.liu@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-Subject: [PATCH] drm/amd/display: Fix NULL deref in
- dcn401_update_clocks_update_dtb_dto
-Date: Mon, 19 Oct 2026 10:29:37 +0300
-Message-ID: <20261019072938.10074-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8EEC10E4BC;
+	Mon, 19 Oct 2026 07:36:25 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B955A10E4BC
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 07:36:14 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 11EC821E2D;
+ Mon, 19 Oct 2026 07:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792395373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
+ b=k9jY//tnFJOaiF1B2azDwhv244Q9WuB1EseGtNaBO0wKHsjrzHi0ehT6l9Co/c+x6oO2TG
+ 1VNPAEq/p8ioYWkfJGEjOCa2BaY8teplu6qLAtfgmsryCbMihFMON7EHxFwdAJ562sg3EF
+ otm1I6F/7X7KaGi76tNVErv0ZTnCidU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792395373;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
+ b=rkQsG9ms9IacDQzBS4ihfUIE5DXdZQE6DKwjAEgyq6W+R8lEJsXsp9jashArTNqqHA70bZ
+ OJoXluJ18bQCTHBg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="k9jY//tn";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=rkQsG9ms
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792395373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
+ b=k9jY//tnFJOaiF1B2azDwhv244Q9WuB1EseGtNaBO0wKHsjrzHi0ehT6l9Co/c+x6oO2TG
+ 1VNPAEq/p8ioYWkfJGEjOCa2BaY8teplu6qLAtfgmsryCbMihFMON7EHxFwdAJ562sg3EF
+ otm1I6F/7X7KaGi76tNVErv0ZTnCidU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792395373;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
+ b=rkQsG9ms9IacDQzBS4ihfUIE5DXdZQE6DKwjAEgyq6W+R8lEJsXsp9jashArTNqqHA70bZ
+ OJoXluJ18bQCTHBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8CEBB134B3;
+ Mon, 19 Oct 2026 07:36:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 4tfuGGzI1Wo7KwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Oct 2026 07:36:12 +0000
+Message-ID: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
+Date: Mon, 19 Oct 2026 09:36:11 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
+To: Lanfeng Wei <xlfylawarthur@gmail.com>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-hyperv@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, stable@vger.kernel.org
+References: <20261017153524.8870-1-xlfylawarthur@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261017153524.8870-1-xlfylawarthur@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
+ FREEMAIL_TO(0.00)[gmail.com,microsoft.com,linux.microsoft.com];
+ MIME_TRACE(0.00)[0:+];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,lists.linux.dev];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.com:url, suse.de:dkim]
+X-Rspamd-Queue-Id: 11EC821E2D
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,38 +150,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-[Why]
-resource_get_otg_master_for_stream() can return NULL if no OTG master pipe
-is found for a given stream. The current code dereferences this pointer
-without a NULL check. This may lead to a possible NULL pointer
-dereference.
+Hi
 
-[How]
-Add an explicit NULL check and skip the stream if the OTG master is not
-found. This is similar to dcn60_update_clocks_update_dtb_dto().
+Am 17.10.26 um 17:34 schrieb Lanfeng Wei:
+> A performance regression has been observed on Hyper-V causing serious
+> frame rate drops since commit 52e6b1988334 ("drm/hypervdrm: Use vblank
+> timer").
+>
+> The regression occurs when using Xorg with a software rendered cursor.
+> The offending commit uses the DRM vblank hrtimer to pace atomic update
+> completion events, making each event wait for the next simulated vblank.
+> However, cursor damage invoked by mouse movement is unconstrained by
+> screen refresh rate, and therefore consumes most of Xorg's update
+> opportunities, starving normal graphical updates, resulting in
+> plummeting frame rate.
+>
+> Hyper-V virtual display framebuffer is able to accept multiple writes in
+> one update window, so the commit broke this expected behavior.
+>
+> The regression is also reported by other users:
+>
+> Link: https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg6302857.html
+>
+> Add a read-only module parameter hyperv_drm.vblank_timer, which is
+> enabled by default. Disabling it prevents the timer's enable callback
+> from starting the timer. The vblank framework and the existing atomic
+> callbacks remain registered. When disabled, the first
+> drm_crtc_vblank_get() fails through the callback, so the existing helper
+> sends the atomic event immediately and skips the vblank wait, matching
+> the behavior before the timer was introduced.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Yeah, what's the cause of it? Switching off features does not fix any 
+bugs or improve the status quo.
 
-Fixes: b6d508533fa1 ("drm/amd/display: fix a crash when clock source is reference for non otg master pipe")
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
-index 6ee3da89d058..135eeef68ac4 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
-@@ -538,6 +538,9 @@ static void dcn401_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr
- 		otg_master = resource_get_otg_master_for_stream(
- 				&context->res_ctx, context->streams[i]);
- 		ASSERT(otg_master);
-+		if (!otg_master)
-+			continue;
-+
- 		ASSERT(otg_master->clock_source);
- 		ASSERT(otg_master->clock_source->funcs->program_pix_clk);
- 		ASSERT(otg_master->stream_res.pix_clk_params.controller_id >= CONTROLLER_ID_D0);
+We had another fix for a problem with vblank timers:
+
+https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
+
+Did you validate that this fix is unrelated?
+
+Best regards
+Thomas
+
+
+>
+> This provides an opt-out for affected virtual display users.
+>
+> Benchmark results:
+>
+> Workload: Inject mouse movement at 125 Hz against a flashing
+> animation running at 60 Hz, matching the screen refresh rate, for 4
+> seconds.
+>
+> Tested versions: 6.18 (the last major version before the offending
+> commit), version 6.19 (the first major version containing that commit),
+> version 7.1.8 (on which the patch is based), and its patched version.
+>
+> Version  Anim. Hz            Mouse Hz         Max client-request gap
+> ====================================================================
+> 6.18     59.66-60.00        122.00-123.33     17.0 ms
+> 6.19     0-0.162            59.73-59.86       7.53 s
+> 7.1.8    0.133-0.162        59.83-59.86       6.16 s
+> Patched  59.75-60.00        122.75-124.50     14.0 ms
+>
+> The patch restores both animation and mouse update rates, and reduces
+> the maximum client-request gap from seconds to milliseconds.
+>
+> Fixes: 52e6b1988334 ("drm/hypervdrm: Use vblank timer")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lanfeng Wei <xlfylawarthur@gmail.com>
+> ---
+> The parameter defaults to enabled to preserve the current kernel
+> behavior. I do not know the full set of users who rely on the vblank
+> timer, so changing the default could introduce a different regression.
+> Affected users can set hyperv_drm.vblank_timer=0.
+>
+> If the maintainers prefer the parameter to default to disabled, or if
+> there is a better way to detect the affected configuration
+> automatically, I'm happy to send a v2.
+>   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 23 ++++++++++++++++++++-
+>   1 file changed, 22 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> index d48ca6c23..527385748 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> @@ -4,6 +4,7 @@
+>    */
+>   
+>   #include <linux/hyperv.h>
+> +#include <linux/moduleparam.h>
+>   
+>   #include <drm/drm_atomic.h>
+>   #include <drm/drm_crtc_helper.h>
+> @@ -25,6 +26,19 @@
+>   
+>   #include "hyperv_drm.h"
+>   
+> +static bool vblank_timer = true;
+> +module_param(vblank_timer, bool, 0444);
+> +MODULE_PARM_DESC(vblank_timer,
+> +		 "Enable the Hyper-V DRM vblank timer (default: true)");
+> +
+> +static int hyperv_crtc_enable_vblank(struct drm_crtc *crtc)
+> +{
+> +	if (!vblank_timer)
+> +		return -EOPNOTSUPP;
+> +
+> +	return drm_crtc_vblank_helper_enable_vblank_timer(crtc);
+> +}
+> +
+>   static int hyperv_blit_to_vram_rect(struct drm_framebuffer *fb,
+>   				    const struct iosys_map *vmap,
+>   				    struct drm_rect *rect)
+> @@ -132,7 +146,14 @@ static const struct drm_crtc_funcs hyperv_crtc_funcs = {
+>   	.page_flip = drm_atomic_helper_page_flip,
+>   	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
+> -	DRM_CRTC_VBLANK_TIMER_FUNCS,
+> +	/*
+> +	 * expanded DRM_CRTC_VBLANK_TIMER_FUNCS to override
+> +	 * enable_vblank with hyperv_crtc_enable_vblank
+> +	 */
+> +	.enable_vblank = hyperv_crtc_enable_vblank,
+> +	.disable_vblank = drm_crtc_vblank_helper_disable_vblank_timer,
+> +	.get_vblank_timestamp =
+> +		drm_crtc_vblank_helper_get_vblank_timestamp_from_timer,
+>   };
+>   
+>   static int hyperv_plane_atomic_check(struct drm_plane *plane,
+
 -- 
-2.53.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
