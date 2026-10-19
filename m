@@ -4,138 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7E81CCF2D6
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 11:48:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B08ECCF2E4
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 11:56:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AAAE10EC82;
-	Mon, 19 Oct 2026 11:48:22 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B73B10EC83
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:48:10 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69J8PDZJ2193411
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:48:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 1IVpmXKjPqO0ciTUQvydqlwZmfEo3zdqJh9QY38OJqM=; b=BVLQgX2G4+5ibb5z
- naNpvmFbebPYybUNIVsEbdMOcPaQtWO0TZQgPPkuEM5Oe2Flb0vJqGsT3qQPjNev
- fIFxxMJtYJ0YTRcICEBq1Um5HlLABsEAT88Rk5c/h7PMzBvVnaJvhmK4acvnE+Rb
- hDz5F04hTez5KuKKe0jQMfpG0+uprWJnuyKyxxql+riWqDem/iIv1lMAYCCezd8f
- rCyxZOcQzaXomi0jNI+/Bi1HnHRUQqZMshj29rnCENYK+o5lQfQmqaU3T9CTrDcn
- xC3LRGegAvzRjHTZeRvYPxJYn3UGQFVvn9N6R/vWBv5Q9YYMWdGzx9BwNPGmArHA
- i9FN/g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5w1ahuk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 11:48:09 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93ea6b66e53so35297585a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 04:48:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792410489; x=1793015289;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=1IVpmXKjPqO0ciTUQvydqlwZmfEo3zdqJh9QY38OJqM=;
- b=TWfEJpfF1BHPkNOwCrJMQny+YgH5IlOs26b+Fh4RODfHH4g9tuQ/RxbW/OnjM8QGQV
- W10Md2bZAH8PjR1d+v/wSvmgZiXpfOsEqO0sgJ3fnH6HtMweVUK8gjzNWDFjpgeumi/N
- IMm9UQMhZYKNokrB6iLY8o92ebp2DvRyM+K7sv2+5VEeCP501d8UwSxtJrpa5CU2cyaX
- qUeVsOzyJ6MIsgBWHOrCCAp3rgb+qMkNEwDQ6Fs73q+ZSLZ/FxXsqGCpa+ZpqX9RAK9r
- R6yNWk8OVKrXmFVThWvLW22jho9eZ9VmZAx2s6zz2AgNad+uZs2xejwCzPy2iqa9qnSD
- C5Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792410489; x=1793015289;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=1IVpmXKjPqO0ciTUQvydqlwZmfEo3zdqJh9QY38OJqM=;
- b=LW/CJ6swP05K3N+DqMGBppYNkvkFIHfr4LIl9rh27A4zUZEpWKLVrNkUQzKkvJkOd/
- 4q4E7iWPDs+PDzN9NrTOjoh12MJifRZHRXFtSfx3dodHl9peahd57MAtGlw9TAGfhBon
- xHYODhS4D+9dyyiORA/4S4CTnaH68bzGpfU4LOft5G6U3yFUDTuTeyNXVY5JmfUt/2xO
- vu52ieiG/Nk2kCBrWbXcqPpOr9+F2fWRh4A287EylGRnvj9p8G1gTECR/5Qx7uu8mQij
- eFL+uqDjqUQoFW1a9bYM35lNyd4IVaNL40tpYTibl5dquT9VaAXcoKTTxy5ejXq3de1k
- jXkg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxpzdaMsPrC8Z5tEwe7F6Cd/qBeAT8FQXut0XMkHzNMXNiGlgrHnYmTeTEF4EsEItIxCXNUpD0B408=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJjY5u+4OVMtEhBfcQi82YNEf5JyQ0wCIdooCgrMl8TNG+iA5tM
- Elf5eIK/Qpw2gZ9Vu+ywO1ayLa5nHDdU4MI2eNrt4vw3vjMdy0W4RnD11gHVkob2V9uf9I3fbo3
- 29ZvbwPz4pgSxmcq64Kld4IPePGFtw1y2GNOEDgtxOihPhYB7qQRCyb3qZsBKifwSjY2EDTo=
-X-Gm-Gg: AYBFou0z/C82QgtA8YwXd9d3hGsXU2IHP5VIx/Qtsl3fi1BedPra39RCHTZjTOtGfof
- oXU9XhPOv2WrnpxyNqrHrgeEbgedYybkIqlq8eTCysuZqg48IcoN8EEhTx0Pc3UzvrtVdC4e0O7
- R9eKeHT05fo7sBViTD7/61sEUW7QCBW+zo7wY5j4qau/uz/69gdr/aPoienmxfJJHMRShL3mm9U
- g4sG1Db3dZ+om/dK34VqNGkDmjhIRo38umJNAI/gfXaTMzFyPM6aX0LVdz41q2R4WQ94VA5HPE1
- O+u3ByaWYbOuvSfIR65OTMPyqc5DK3PqQ+HQRQPWXHxsnNU5pFyv7OyKdIQfqVrBfzlklm0CrTe
- F4P+EYvxJ0F0iveW826VM0Q==
-X-Received: by 2002:a05:620a:6192:b0:939:9ef4:79eb with SMTP id
- af79cd13be357-93f29e50356mr1367152585a.6.1792410488816; 
- Mon, 19 Oct 2026 04:48:08 -0700 (PDT)
-X-Received: by 2002:a05:620a:6192:b0:939:9ef4:79eb with SMTP id
- af79cd13be357-93f29e50356mr1367147685a.6.1792410488269; 
- Mon, 19 Oct 2026 04:48:08 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4090dceb9dsm347362766b.24.2026.10.19.04.48.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Oct 2026 04:48:07 -0700 (PDT)
-Message-ID: <2f63cf93-acae-471c-990a-c844185a9db4@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 13:48:03 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9896E10EC51;
+	Mon, 19 Oct 2026 11:56:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815E010EC51;
+ Mon, 19 Oct 2026 11:56:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792410989; x=1823946989;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=x2wk57Rz55gXkL4F8R5LMsAT/xDDEQS2GB+NEeB2Tug=;
+ b=BQPN33yoy30a7NgYjF3gxWtHC1LadfDDOiDvOXgeyHmjq7pSaZApIG3Z
+ lVynjE6HHcjI9IPNx8GjMp4XZhOgu/wEpTtVv381VNCVxZEREuwDj2l2t
+ MvwOV4ZUodEdejR1dvzL5KU40I/dJF1XPkMNLqqpgrvg+l8S7LmrCX+nd
+ B/euLi4j8Mn0fyLDdnr6fX6n7E/DWa9mOMDpPvs+clLXn8irCF55A6nno
+ 2klYv3lBZCKBzgcUHAQ+Iy6HS8+VQGbl8AXBlfQIhoeBazTU2vEgxBZUx
+ JS0w9lCoKcRmtRIG6jL/ZoZSTmNOk22wLyfkfu+cdhf0wFopYnvK+XwvB Q==;
+X-CSE-ConnectionGUID: 2ga0NhGdQBKN5IsX9JKA9g==
+X-CSE-MsgGUID: RApv4ZxcSSG5ndYnMxKQrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="993867"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="993867"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 04:56:29 -0700
+X-CSE-ConnectionGUID: BCb1LphuT+Ca7fXDIHtz2A==
+X-CSE-MsgGUID: YkM8dlQIQOOv8+/hZFKicw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2579361"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 04:56:27 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 04:56:27 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 04:56:27 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.59) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 04:56:26 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uBJkTuZgN/ZQH49K05e/6RkOyvlLlxcFfvtOQQJh0iSeecKu3HeRPLQ4jME+GxWQJXMo/MfhtxFsZ6K4clY+1cqYzRl32ZbkZK2oaph4LBRP+nW686/rpe1V1e1FgtDNTAY/oKyCnpmD82E73+fw+rcQy+63iBnb3xRTAAp68fXaMwMbSslRr4fVIyvWC6newTCj5xoMVUqzsDHec5b4jYF3Q0KAwkiLBSX3ZGhPDpIb/0xZaSxiWnZ+yuKm5PdVrOo5ppGlJn7BomiCcn8OH/o7wx09rOPEBTQ/YfPgXSrYyJdk36YLqajM3fsueMDUbUcN6cfYrL81FAriH0W6rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZV9dv7UmsFfpaw4VeAw5W7+5geJrEbHKzidQ4bmxf14=;
+ b=cXkePglqXIIpLY0RUVEMrGsJskBWfNJAezCXSQRMLNCX/1XzLndE+jIAJfBIbAl2kYh5G7pHezU4katTT7l9PfQN8u0SFlILHqykovslmQ+F6b/ynfLBAbqa60ZD4L2IYqut4tUvY8YkTX2Kz8zG7rlibD2BC5slKLcG4QkDDd0xA4Bx2mIvqoh6qnTFcvPctitjBurnmzxyCzXW6toAwC7tuaGQhEFJ6NlLmlqL1IXL4LpoJGIhy9NTiAGd14AKoAvsNlEF+zMXhdpDINK5uPMl4UeXzUS1ZzsAL8AHyxgm/U3Harpc9kewaEZ/tMyuI//ME9PYR5mCOtYBlPKVdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
+ by IA3PR11MB8894.namprd11.prod.outlook.com (2603:10b6:208:574::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 11:56:23 +0000
+Received: from CH3PR11MB7180.namprd11.prod.outlook.com
+ ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
+ ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 11:56:23 +0000
+Date: Mon, 19 Oct 2026 07:56:17 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <netdev@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <tejas.upadhyay@intel.com>,
+ <himal.prasad.ghimiray@intel.com>, <riana.tauro@intel.com>,
+ <raag.jadav@intel.com>, <joshua.santosh.ranjan@intel.com>,
+ <ashwin.kumar.kulkarni@intel.com>, <pratik.bari@intel.com>,
+ <Hawking.Zhang@amd.com>, <tao.zhou1@amd.com>, <YiPeng.Chai@amd.com>,
+ <jinzhou.su@amd.com>, <cesun102@amd.com>, <lijo.lazar@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>
+Subject: Re: [PATCH v2 1/2] drm/xe: Expose retired VRAM pages via drm-ras
+Message-ID: <atYFYbLXfSIPLTzA@intel.com>
+References: <20261007080354.3072751-1-aravind.iddamsetty@linux.intel.com>
+ <20261007080354.3072751-2-aravind.iddamsetty@linux.intel.com>
+ <20261016154913.1af64e88@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261016154913.1af64e88@kernel.org>
+X-ClientProxiedBy: SJ0PR13CA0130.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::15) To CH3PR11MB7180.namprd11.prod.outlook.com
+ (2603:10b6:610:148::5)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: pm8150l: add LCDB regulators
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- Kiran Gunda <quic_kgunda@quicinc.com>,
- Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev
-References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
- <20261019-sm8150-display-card-v2-5-86c05068efc5@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261019-sm8150-display-card-v2-5-86c05068efc5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NiBTYWx0ZWRfX9qkL3/VwBDMq
- gzc3Jz0wCOtayVIDdMoMveJRqTaSMln9qI2vLDXVQ00taTG8nUtbEkzct+Rtt87hxTK/KifqcEj
- raMq81jGLJ9yXrz/qzvIe1ic6CUalEA=
-X-Authority-Analysis: v=2.4 cv=KuPYSmWN c=1 sm=1 tr=0 ts=6ad60379 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=R7n-rOns-cfn4W1FH0QA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NiBTYWx0ZWRfXyeMj6lCUGaiX
- 0mV3M5GHNGU5dsfLVL1J8a3lja/8sLn6/V8E5ZEdWfuUt2OfRWYP2k8rWAYsvQ5BOhs79/xlsME
- 9qd+4eNbn7+xum18d6UYTALxrgxnOjOqc5dXlUo336RbupSjXGrd2P0Vi6/lrhwbfkKSicNqorv
- FevbG56TUJPw27y+YbCAFNOqfzC+zdpXwxEv+74KcQI4G55bJTqIUox0ebrTlEx8Pc0jaXMnsls
- 3SzpE1V+0dJH6poKyPeda20irS36IAGGtJmZzcHrwKVpe3kAMKKTYCpT5i5KXqynv+7bVejQ2fA
- jdWUCTfr26u+3d5NBFHQHpYxHzNIQymam+5p5Yt9aMVWGAuOPoF0fdNlDTzv+lXOSZPO8yVcbi2
- wdDEYwxBf20VLdZlg0GSCNp+ePisTjTKcQeRCjwCXb86A/0FkPx1MCsOjqjvUtyhiuNb5iX+802
- vSVmnSi7zbu0yLv8ATw==
-X-Proofpoint-ORIG-GUID: TqvdzaKcCSFDkX1YGZrw8K6GBQkuXsjm
-X-Proofpoint-GUID: TqvdzaKcCSFDkX1YGZrw8K6GBQkuXsjm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- spamscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190046
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|IA3PR11MB8894:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd265e95-8e6b-46ff-7d05-08df2dd7ff22
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|7416014|1800799024|6133799003|18002099003|22082099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: Hqc9frZCfGzlvwh0G3cYFHzulm6uv5aLzTqzrZx435ivwXBW0ZV22mUKa3P9Aas3hgwARiedd9gg8dDQy12UBsy2doMEmzEjo0eoCiPVkobEd12cWfYgPCoop6WuNx2U+oo75GdsfUkdvcFhIH/iE2lPhgYJHPQo+DLYeqLkEUWQhTG+IxbgH9CxmlE6A+ZvXAW4kTTs3nLss2NZKXsBbjzNp4oEZpM7wfEAjf2LptOs0LYF2K2vcBMccrXbN4l3QJeRmxcc+blooUzsdr9wyrOnOmcPG+prxAIz5wLqX4BOeRdEEM8j5ShAjUwP9UH+0lE26u3sG3QImyqH7ksyk8yyAKz7HGPoWfdm1dqkzUUUAPA/WTXsCdQCHAcagOMln4HAvG7I3pH2mXzPOQjzmaN7d8d3y6OYZ7PQ/yPskc76N7K1W2lV6hrc3XEBB44JFQOC05B9bcVYedqbDB1DQcs2FNZIq+6lmuuUxSuJ+eMULGPh63kINv2cYBDgrfOvtmE+Bwwl+G2JbGLD9wKRX0n0epPZzpdZp6/qT37nuFSwId6BLpFj6e8IQ2Hzv2uYh66yTHOPTkoAhejSJrAtbc4vbiZdmAXjew88r5FZmfVepkTCV/A5KXht5yTkoqZqOEANBWSWo26bcUZ1k3007+dfC90RY1aTxyMy/IXjFso=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR11MB7180.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(7416014)(1800799024)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?i8/ZQQuY312UgbiVUVKILMVqe+tDU3VntaokbnID+aEY/I8XhvfO8LHV9hml?=
+ =?us-ascii?Q?xuEJmHB9uWmqkIT77FrM5s/s7fAAb5y6ejEh7m3VwXB8H8RYYqG7/kO0MOGv?=
+ =?us-ascii?Q?F+C2Awsgx/YpFMbpoUHfu9wAqjgaR8k7R0dzIx/FBisfl0l6jDTyfGZ16a+E?=
+ =?us-ascii?Q?dk2S10rwdW3jU2fz4OzLZ8/fXzuUQHubImPAIJFYfjpveQ7WMGpp6bFjN8h1?=
+ =?us-ascii?Q?SyiUgxpVpKMMu0L5vqWh6t7eaSAtEwKr+gSBOuXZfUzm5BWEmuhwxszhNJ50?=
+ =?us-ascii?Q?JMszGiiTHEYnJXlOosPt+PqsTxSfQeCX+yFBcVaeMs9aaTHxa+83+28cFeYo?=
+ =?us-ascii?Q?TFejhcIp2J3mXKz2ppSPyu2WLeHefq2CK5seCzXlv8ESnFOf9PRzze/1HL34?=
+ =?us-ascii?Q?s7NNuF9F0/FUdPubLKO7np3VDAE6Fd5kolI97zLptOAscZoSI1zQnCdMJt5T?=
+ =?us-ascii?Q?8VBqdnflALPK9jx5XeFIAhBqEZuBkGBVcyFHVMkWqIDzQ9glzcFfE0+H41oa?=
+ =?us-ascii?Q?jdBXNIfHB4x941kh+ABsZXk5TprdeiPLrsqrwh3NFAmGUrCy1iij8aHgNaO2?=
+ =?us-ascii?Q?7qJcy8uVVG4hk6hhG+DS2jczi86uDPAhwygJ9PZVg7/9cmjknaXNiFUbvWig?=
+ =?us-ascii?Q?dMsrTKWQqa227HIKioeRj3N0jrP2j1UNGeJPyJ3y3z4o0pD00ZsFPjzKdu8a?=
+ =?us-ascii?Q?KAMW5k12qLFSvPyQh47cLeZJmKASpW+taNpJTgOIK2Uij2ml17K5C41dzJp1?=
+ =?us-ascii?Q?TD0XqrYoF0HxgPbeEt9y7lgb9quZbUeFRcqr+748vtBeUv+bJHPjywBnegSx?=
+ =?us-ascii?Q?j9LV+uX2XxnRBo66dvwjfY9VW9uxQtv4fMp9EeEafKg/uUfUjbmYOOYIMQfW?=
+ =?us-ascii?Q?wlzhW3uNntGfbn+oZmnwIm1AgDurzSIdHke1eXCXWMGlqGh28rGxn4cJD/sB?=
+ =?us-ascii?Q?b3LAAbmkakZbZfoWTN3v237unyFDdwGWAnHLsEX8lSwclEzmVpu6qh3ZjiXV?=
+ =?us-ascii?Q?C+GSy5clvjZ8+IhwewPKZ0hkSVnEuvg4bFtKS3DntQcGnwxRxCZPkK8udNl6?=
+ =?us-ascii?Q?Mxual31GKeAx0WnqlGcFybUonr1bkAIIx9HpeB/Wpnri+vNUOTwvqLNAWaAf?=
+ =?us-ascii?Q?v2pUlyP/ECf91Xfowvx9RkSXcLkI/XaW5kv0BqXBOQtjlgYdSm0vBN9j3tZL?=
+ =?us-ascii?Q?5xz75V+tqpO3TLq1/1Dh8Z59xJgQFGtm2Z83Jwx/VPYNLytrI+bM4tHVRZ49?=
+ =?us-ascii?Q?uaRSwGuqJwJe0iiRNN/63Ue7m84hZWz+hiiur6ayY7COQ3Gm0dn2qNolSFdB?=
+ =?us-ascii?Q?K3my6Ic5WwTbeiXc9h15wXbsgOgAugogUrbkjeoOqZzdmmpulMVokGekjgx3?=
+ =?us-ascii?Q?43eDvvu6J/UHo48DipBCpawOgQpgIOXcYfQfln8kYzCiheLy/TIvYAZ5+qkY?=
+ =?us-ascii?Q?/+Ej/ODkgIK5bPY6Vfc/RrnNm/PWKDVFtQ/XGVqIC48Rpry+LuP5t6YxLVt1?=
+ =?us-ascii?Q?LGsGISUEJQnKNssRYP97nJUVNbOTi5nBykcKxvZQGDvjJxq8foZkeqa34B9y?=
+ =?us-ascii?Q?hgbvHvSU1C/YT/EohrF1T9d7vAL5Z8IBVNu0hcM6EgFx3CtUn+lIBhdHzwGG?=
+ =?us-ascii?Q?udRxlynfc0IN+g0wE/TslbsSgQ1oP1Pu16i1SbhaLeWDYW/tXyGVbHTXDsGa?=
+ =?us-ascii?Q?tSnHSfFA4mhx0rGk5MISxWzrw6jcRPddFi55DpPPjgGmpibWZ6rWf5DD9qwS?=
+ =?us-ascii?Q?VnrT4H9q3Q=3D=3D?=
+X-Exchange-RoutingPolicyChecked: NRqvDctNWTbC0mAEtl6rggPZ2/Wsh4IAznA8laSRivTnzUWyy2LpC3LGOG1P8jVK/gwyrybneZR0GA9agFBchE3gTk2i2wyLmBMSk3+H5y4gRh71WAJ5C7D/RtnxPBqFeQx8xfj1BIBqnspn/R+7vYP0b47mvHXdmPFVVGACNT6t0nrToVkj+QhI0wgNtTvO8dngmemAgaD9K62H8NrDJpnuea6HnvzjoKOPScLorByb04V/s28bsTPO7WdpV2DM6yCzzgh+kv7R+GACse60AKoTqhbOgN2PKJnpus/hi5r1f7e6kMiFtNe7X1LQST7tyOgKXvYNTBEUZOOgC13QGg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd265e95-8e6b-46ff-7d05-08df2dd7ff22
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 11:56:23.4835 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eGg1g93JHSD2tLcZis34x+TZT60Qj7Gdg0qmqmEbA0XAQxojLDl+iR/EihpQGB4xwDrIxhLpgSW6tAxHV7eUDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB8894
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,14 +167,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/19/26 1:25 PM, Dmitry Baryshkov wrote:
-> Describe the LCDB block providing the LCD bias rails. Leave empty
-> regulator nodes, forcing board files to provide correct voltage.
+On Fri, Oct 16, 2026 at 03:49:13PM -0700, Jakub Kicinski wrote:
+> On Wed,  7 Oct 2026 13:33:53 +0530 Aravind Iddamsetty wrote:
+> > +  -
+> > +    name: retired-resource-attrs
+> > +    attributes:
+> > +      -
+> > +        name: node-id
+> > +        type: u32
+> > +        doc: Node ID targeted by this retired resource operation.
+> > +      -
+> > +        name: vram-page
+> > +        type: nest
+> > +        nested-attributes: vram-page-attrs
 > 
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+> why wrap attrs in a nest? Are you planning to add other resource types
+> (than a page)? It's a common anti-pattern in Netlink to over-wrap stuff.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+we should indeed remove the wrap and have only the page info.
 
-Konrad
+> 
+> > +        doc: >-
+> > +             Type-specific payload. The resource type is identified by the
+> > +             node (its node-name); each node reports a single resource type.
+> > +  -
+> > +    name: vram-page-attrs
+> > +    attributes:
+> > +      -
+> > +        name: address
+> > +        type: u64
+> > +        doc: Device address of the retired VRAM page (e.g. DPA).
+> > +      -
+> > +        name: size
+> > +        type: u64
+> 
+> prefer uint
+> 
+> > +        doc: Size of the retired VRAM page in bytes.
+> > +      -
+> > +        name: max-pages
+> > +        type: u32
+> > +        doc: >-
+> > +             Maximum VRAM pages that can be retired. Present only in the
+> > +             leading summary entry of the dump (no address/size/status).
+> > +      -
+> > +        name: status
+> > +        type: u32
+> > +        doc: Retirement status of the retired VRAM page.
+> > +        enum: retired-resource-status
+> > +      -
+> > +        name: pad
+> > +        type: pad
+> 
+> And then you won't need pad
+
+I noticed this in the review prompts, but I have some reservations here.
+We know for sure our value is always u64 because it is our hw definition.
+I don't see a good reason why not use the exact size that matches our hw.
