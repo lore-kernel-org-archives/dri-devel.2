@@ -4,41 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4145BCCF2E3
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:28:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74307CCF2E5
+	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 14:29:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1AC210ED9E;
-	Mon, 19 Oct 2026 14:28:15 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE1EF10ED96
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:28:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E9FF060136
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:28:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4B61F000C4;
- Mon, 19 Oct 2026 14:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792420087;
- bh=RJmNDmsr4YwHE+ATKjotigOt9g+eBnaGQi8idXNBBD4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RYy+sEBoa0pw1WWrC/NUJXNUR9lV/Bo5hjcKh77wpAmbcHa4s8wvxtbAQRZ72KKWK
- KerfeOfalBKxq/1ucdmFVoxg1mT4ObQ7/sRmXTvIC5OIFxYY93VBMmwqrMsALGJCBq
- GmEkaEDDxQA9VPn2wC9jA7SaTJzEWO9Ml3UvDa6oLPwOjMsjRaXUDGM9dqJytJDsFt
- hlwqgjTVwFDiZ553JT8fqSB8pMKiQHszFkt7pL0fczbeQ6Re7DFdMUjBDMll1AyDdO
- iJFf9JXs9v8Z6mM/ABMlZNFCZ2KLok96AyLtaXYjwRYOP+QHQyZck7h8SnA6fOF6sF
- KSRbfKEyQ5ZpQ==
-Message-ID: <sashiko-outbox-177391@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-5.10] drm/amd/pm: Validate legacy hwmgr PP
- table offsets
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019135441.1420968-51-sashal@kernel.org>
-References: <20261019135441.1420968-1-sashal@kernel.org>
- <20261019135441.1420968-51-sashal@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 14:28:06 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A89510EDFA;
+	Mon, 19 Oct 2026 14:29:48 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012068.outbound.protection.outlook.com
+ [40.93.195.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C741110EE3E
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 14:29:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CF7+9WqIDWbnzg4+taWxeMJI7mqoDFRN1RrKl1oCVy1EA6jZJpKICbenDBORCq88Aa7E69gGCQd4U4wwICTH1ZaSNs3oY8Q9T4b6YaxOZzrevg06pe68h8zotyz24eDCyS19VxPBgtMcDwv6KE+hsVydK7gwona7KIH4YG6cU1Jzaa59PGrN0FP/aNLoee6QfWpj78aZ2DSVdPHL9zSXy/ag3iOFdX/lAVXOhlB3xvb6aiMWm8fXeBEN9TsAbpIpwOsEs4MCl4RQ2ogEEzjC+QMUMXHt3s+XebcZAB1SpTDI0BL5U8CGw+PUxSJcRzQD+bxArt5dYfZo0Bi5xUjPLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aumD0BoZdVLl0GaSpbHjAyXDhIoUoKofDCxJZkx+g4g=;
+ b=sETVopaYvFN+sbr6vTHFL4cRGOGWEFe0fi0pv4cXzI3NPP0l7LgLkeX3kM4vjczRYhIYycPfesrRNMnaRTmi5o7Y2UJSYM8A7IEUPL3CnMGmjzGwjVKcCAhf9ohNLG+FgCfypRXEWSuY5X7+ItiE06PQDwSRTnuYYLRJ7j0K8jBXAEuUanuigvgUt4eurwGcx9s2rOebCDX0Q9nolwVpoUiO98iPDbRy86N+0BvbjVa/ZQfibO2VlNbRgarq9Kyf6LPxMlcFdFE42uWohkELG9ZkeKgj/godzKkTbQbO3JjG50A010tQaXRf1gyxyME/1oHoPMuEmjzGMzumIkUREA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aumD0BoZdVLl0GaSpbHjAyXDhIoUoKofDCxJZkx+g4g=;
+ b=O7WyprEpdMQkojn32MW1jepSN+7KIkhK7gaPqIfx0x8HcPjQEfKJe2axBST0hW4SfNQA4WawGXOFf5kjZWoHP4elj90YVy6PkOq9rXym0evpe6TnGZNOT8DDIW/GXPT1lKE99RQiZTs4MJ8EbY6onfahFU9LrOIB9iHONb29nNc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB8141.namprd12.prod.outlook.com (2603:10b6:806:339::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 14:29:38 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 14:29:38 +0000
+Message-ID: <8d50e095-0aa1-482c-b638-679232c8eb17@amd.com>
+Date: Mon, 19 Oct 2026 16:29:35 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm: Log recovery method with wedged event
+To: Raag Jadav <raag.jadav@intel.com>, dri-devel@lists.freedesktop.org
+Cc: riana.tauro@intel.com, mallesh.koujalagi@intel.com,
+ matthew.brost@intel.com, rodrigo.vivi@intel.com, andrealmeid@igalia.com
+References: <20261019025853.140747-1-raag.jadav@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261019025853.140747-1-raag.jadav@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0409.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d0::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8141:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e682384-fe0b-432e-52a1-08df2ded67ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: tIV8vw8r+13eNGP9A5vyXUDkNXEK3h0oEfJvSjazDBd0EFDOACZhktIhamyc90PuTwjh+Rjr/W6GusbKYWri3w/p2eH0zX5VI6qwso7Gcp2wCed/QiF9Wj9/OyS+wBLL9fY5DDM9gZ5r/1C87U7PfkY3XCuVBqvR6Oa+B384fI/E3aAAtNrCJGJyP3amcRCyHgNasg0VY4QlJWkmoHwBuf6ZLnmojKqVWhhrZvzDTmgSwNP9y6KqySv8zKgphsJidS6kW1nQtt5CgbwaqYLmb59NTAuV/b2UaSe9YOYTpa0iQyEbj6fG6n3NmsZ0hatBngKp8VFbF+lQJg6QNQv+wFHhT41/IbA3Aseu7Gs83mJMmbJMJ9bJEYbljF1zn5VjwA4lLi728C3fn5tiD2u6TXcFR5dA4DV6ioAFUp1P5FRr60MNaZvJhaW1p6UumP8VahmtRVmXR6iWHa5V9XNbgW4a4JUTbckiuwzpg47Q9xUy8QEteElfXLftufL7rwxv/e+KK8BDASAohUCcLt281iUIp8YtW43/1zcqbVHPWj43Ua15d/ykUXMO9999whPrVHa2rcPgqbKHn5PWDBF5ls0sk6yEkTZjolf74xVMkXyaX4uNZLWpd/8kAzKxklp0tBcqokSMYxAiEPUrLz5pAUqxMt+P9VJ1Ih82rbcz+20=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aG43amo2YTZuNHFaYjZwU0xvRmQ1Ri9oUUFlODJhcmFvYTJyc2pHVnpySW9Y?=
+ =?utf-8?B?d3NsOTdxaXJRbUkwUEJNeEY2Q0VQZVVUandCRit2c3pkbm1CeDVONk5GblB3?=
+ =?utf-8?B?YnR5Z2xlNVNvZXQ4UHh4OHdHZ2s0YUFxQnNGbHpOQUxPUkVGbGw2ZEcrMkJ5?=
+ =?utf-8?B?ZmlmUnYzUklkTjlicUVEUVBLd0hHL0J5cTF3bEJ2NktGbHRGRHJGeTdYaFZ5?=
+ =?utf-8?B?dDNwRko4WnpQK2pYbjNLTkJ4TDRqaDhDa2t0Z0twK1VuUFliT1YyWGFEaGti?=
+ =?utf-8?B?ZXYrdFJ5eHRSbHlOWlBxbXNDYzVnTVAwai8zY0NNeFJuWXJMWUd3RVdmSmZY?=
+ =?utf-8?B?RWN5MVlHaE8wVVg4R281TGRvWm5XVVowZGdiaUZ2cUw4aDh1Wm4zQjFDaWpo?=
+ =?utf-8?B?cHhQQS9ZTnduYzZvZnVBdUVDTFptc2Y2RWZjUXdZRThEN1hhaFZWQ3VDb1Zy?=
+ =?utf-8?B?MXdtVVJZT3JZdjhxcTY1VE1oc2Y1Z3VzdEhPUUZFRVFLMS9uVjN6SVN4Wi9q?=
+ =?utf-8?B?NXFzem91RXZwandBdDdlZGJWc2ZwSXp4YzNNN0ZWbzIrZ1NmMHlIVDVqa0gr?=
+ =?utf-8?B?WmVpaFRDVWxoVytEVnBpcFFoRHAwNk4xamVLdE8yS0FUZitGUjFraVpkNnlT?=
+ =?utf-8?B?SjVtWnlIV0NCMjJpUkdjWTFySTc1dW4ybm5RbHZtZUp5YjFiK3BHWk1wZlBT?=
+ =?utf-8?B?Rm1NTENyeFFQRWltbE85bysrTkhmYzBTdkI4R01DOXU2MStMR0dCY1J3M2I1?=
+ =?utf-8?B?cTlwSUpMcGREOHM3MFlVNWR6Q0c4cFEvRDk5SnE0bG9hYWl1aW54UEtkN1pU?=
+ =?utf-8?B?Yk56TFIwQ3NQUHJFWHUzWlRHVmlldTIrdEJKaEg3M3dRRU13T0NybHdxZTFo?=
+ =?utf-8?B?bTIvVXNMRmk0SHU5S1ZUZmlyaDhNOENMazFiemVuN0pBczc5MUFjTmE5bUxi?=
+ =?utf-8?B?NjA1WGFxZFg1WGNTREZkWnpMdjUxUEdjdmc5ald5WnRCQW9PQXNJa1E2Nlpv?=
+ =?utf-8?B?eVVDYWlyR29YeGEySUNrT1ZOQWlhYkNYVlFqSVJVTUFxc3pybnlnOWdDaTlq?=
+ =?utf-8?B?VXh4NkUyb215VnBWbmZvbFcvNS9DU2lMMmp0VS9mWHlqSWcyV09OR0RCRzdZ?=
+ =?utf-8?B?cGhpY3BNQTNjVTZsenVpQVRUR3BnMUNWSkVzeFlvRTBSa1VLSXJaSW9CZmxx?=
+ =?utf-8?B?Z2srZnBROWI5ZGk4Mk95M1Q1NzRRQTAxUWdXVmN1S0sxSmhleWl5ZFNvSTJx?=
+ =?utf-8?B?dlNiSC9aSWxQV2lyY1pPc3VSWVR3d0NTS2tqZWM2QVM5S3FTeWJhUGJRQ0J1?=
+ =?utf-8?B?dkVaU28yT0RQbm55RjgrR2xDbHcyellpV3JhT2RUdHlmRzRTUjlZMkk0RVhI?=
+ =?utf-8?B?clVkVHpsS0l4Wm1ZbjlteXR6OElBejVTaTIzMVFWNlV4ekNUaWc5KzB4eFNX?=
+ =?utf-8?B?THhIM24vN1VnNXhBcU5WY1ROR0JRVE00aGRCRGdvalJzbWdVUWkwN05HWnI4?=
+ =?utf-8?B?MVh5NmVaalNCWnU5WnhtZWVySFFHRVRrQ3o3eGFDNStLVkNWWmZ6eHBxcHZL?=
+ =?utf-8?B?cG9JNklwR3NqN3NxQ2ZIbFV6R3NkdjZ3QksxOUNiWlp3T1ZjUkZPRXl0aTZi?=
+ =?utf-8?B?eVZDLzJSUEpLSCt0SkFUUmdKNU1EVlgwck1HNkZCa3Nqd0Y3d2lTZnk0cFl2?=
+ =?utf-8?B?NVNCUnFsTS9NcjBXdFE1eXRpUUYwTHFYTjVkaFdjUjBDQnc5ck43TE5yODFJ?=
+ =?utf-8?B?MXhuWEhFT2E5RTVlZnFKT0xHZHk4Sk9YcWNYMTZ6UlV0cHpncGZrOEdEVVlv?=
+ =?utf-8?B?aDY3dVZtSHFaaUVwVHNYU2ZuK0daQWIwNkdxS2h1aEZCSk1UMzhEcDVXdE5O?=
+ =?utf-8?B?TGFtKzBmUGRTQzN3TVNQUzZmY0gxbC81d05MZHJGLzVWMGxtUngyTlNIdXRU?=
+ =?utf-8?B?cFRIY0NBajBGTmdEdFNoYkNmNEVmcG5ncDhwTWQxbVA1WkVOWXhNVUx3SGlT?=
+ =?utf-8?B?OFJUNkZnU3doQkF0cWV1ZTc1WUtKWllHRElWSkprbzhnVzVkR25JYy9KWFdJ?=
+ =?utf-8?B?UW1KTmlIWWFjZGY0MVR6c3BXUVVhaTQzVmg1RTRza21KMHI1TDBvUTJ6dUFR?=
+ =?utf-8?B?emxRdWtmK1BsdlR1SklHOU1tbUJKWTRzM1pqR2dXUk81SHprZEc0RXlUMjEz?=
+ =?utf-8?B?dERTaTFLcTAvVmpwZHRrUTlncFJMRStpNTkvTXNUcjhqK2Z1NU0vNUVTSmMx?=
+ =?utf-8?B?Ymh5dVV5UGxPaC9WelBZTnVtSWdRYjZuUlpZeDBvVm5qZzFTUndkT25yRHdZ?=
+ =?utf-8?Q?hTIvEM0T26ccSRueXx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e682384-fe0b-432e-52a1-08df2ded67ee
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 14:29:38.5386 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dAWl41Y1Yocbc46fmjmmHbR9e5hU5yVastn9D+5DtJPTiOMCysAaOwu77NX3Yvub
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8141
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,525 +130,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/amd/pm: unvalidated subtable offsets in init_clock_voltage_dep=
-endency()
-- [High] drm/amd/pm: missing subtable bounds checks in pp_tables_initialize=
-()
-- [High] drm/amd/pm: weak clock info size and level checks in pp_tables_get=
-_entry()
---
+On 10/19/26 04:58, Raag Jadav wrote:
+> Currently, drm_dev_wedged_event() logs a basic message of device being
+> wedged, but doesn't print the recovery method used by the caller. Log it
+> for easier bug report analysis.
 
-commit c5c1e3659fd69a3025883887b44b7fe3a2082d39
-Author: Yang Wang <kevinyang.wang@amd.com>
+That sounds like a good idea to me.
 
-drm/amd/pm: Validate legacy hwmgr PP table offsets
+> While at it, as the device wedging is a catastrophic event, raise its log
+> level to drm_warn().
 
-This commit adds bounds helpers to drivers/gpu/drm/amd/pm/powerplay/hwmgr/p=
-rocesspptables.c
-to validate offsets and entry sizes against hwmgr->soft_pp_table_size before
-dereferencing variable-length PowerPlay subtables during hwmgr initializati=
-on
-and table entry lookup.
+Device wedging is rarely something catastrophic but rather normal part of execution handling.
 
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c b/d=
-rivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-> index f06b29e33ba45..f1009b2973574 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+So I would rather object to that.
 
-[ ... ]
+Regards,
+Christian.
 
-> @@ -104,10 +138,13 @@ static uint16_t get_vce_clock_voltage_limit_table_o=
-ffset(struct pp_hwmgr *hwmgr,
->  {
->  	uint16_t table_offset =3D get_vce_clock_info_array_offset(hwmgr,
->  							powerplay_table);
-> +	u16 table_size;
-> =20
-> -	if (table_offset > 0)
-> -		return table_offset + get_vce_clock_info_array_size(hwmgr,
-> -							powerplay_table);
-> +	if (table_offset > 0) {
-> +		table_size =3D get_vce_clock_info_array_size(hwmgr, powerplay_table);
-> +		if (table_size)
-> +			return table_offset + table_size;
-> +	}
-> =20
->  	return 0;
->  }
+> 
+> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+> ---
+>  drivers/gpu/drm/drm_drv.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index cb53baa70995..1a1213f4235c 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -598,8 +598,8 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+>  		/* Caller is unsure about recovery, do the best we can at this point. */
+>  		snprintf(event_string, sizeof(event_string), "%s", "WEDGED=unknown");
+>  
+> -	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+> -		 "but no recovery needed" : "needs recovery");
+> +	drm_warn(dev, "device wedged with method %#lx, %s\n", method,
+> +		 method == DRM_WEDGE_RECOVERY_NONE ? "no recovery needed" : "needs recovery");
+>  
+>  	if (info && (info->comm[0] != '\0') && (info->pid >= 0)) {
+>  		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
 
-[ ... ]
-
-> @@ -206,10 +256,13 @@ static uint16_t get_uvd_clock_voltage_limit_table_o=
-ffset(
->  {
->  	uint16_t table_offset =3D get_uvd_clock_info_array_offset(hwmgr,
->  						     powerplay_table);
-> +	u16 table_size;
-> =20
-> -	if (table_offset > 0)
-> -		return table_offset +
-> -			get_uvd_clock_info_array_size(hwmgr, powerplay_table);
-> +	if (table_offset > 0) {
-> +		table_size =3D get_uvd_clock_info_array_size(hwmgr, powerplay_table);
-> +		if (table_size)
-> +			return table_offset + table_size;
-> +	}
-> =20
->  	return 0;
->  }
-> @@ -218,21 +271,12 @@ static uint16_t get_samu_table_offset(struct pp_hwm=
-gr *hwmgr,
->  			const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table)
->  {
->  	uint16_t samu_table_offset =3D 0;
-> +	const ATOM_PPLIB_EXTENDEDHEADER *extended_header;
-> =20
-> -	if (le16_to_cpu(powerplay_table->usTableSize) >=3D
-> -	    sizeof(ATOM_PPLIB_POWERPLAYTABLE3)) {
-> -		const ATOM_PPLIB_POWERPLAYTABLE3 *powerplay_table3 =3D
-> -			(const ATOM_PPLIB_POWERPLAYTABLE3 *)powerplay_table;
-> -		if (powerplay_table3->usExtendendedHeaderOffset > 0) {
-> -			const ATOM_PPLIB_EXTENDEDHEADER  *extended_header =3D
-> -				(const ATOM_PPLIB_EXTENDEDHEADER *)
-> -				(((unsigned long)powerplay_table3) +
-> -				le16_to_cpu(powerplay_table3->usExtendendedHeaderOffset));
-> -			if (le16_to_cpu(extended_header->usSize) >=3D
-> -			    SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V4)
-> -				samu_table_offset =3D le16_to_cpu(extended_header->usSAMUTableOffset=
-);
-> -		}
-> -	}
-> +	extended_header =3D get_extended_header(hwmgr, powerplay_table,
-> +					      SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V4);
-> +	if (extended_header)
-> +		samu_table_offset =3D le16_to_cpu(extended_header->usSAMUTableOffset);
-> =20
->  	return samu_table_offset;
->  }
-> @@ -254,21 +298,12 @@ static uint16_t get_acp_table_offset(struct pp_hwmg=
-r *hwmgr,
->  				const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table)
->  {
->  	uint16_t acp_table_offset =3D 0;
-> +	const ATOM_PPLIB_EXTENDEDHEADER *extended_header;
-> =20
-> -	if (le16_to_cpu(powerplay_table->usTableSize) >=3D
-> -	    sizeof(ATOM_PPLIB_POWERPLAYTABLE3)) {
-> -		const ATOM_PPLIB_POWERPLAYTABLE3 *powerplay_table3 =3D
-> -			(const ATOM_PPLIB_POWERPLAYTABLE3 *)powerplay_table;
-> -		if (powerplay_table3->usExtendendedHeaderOffset > 0) {
-> -			const ATOM_PPLIB_EXTENDEDHEADER  *pExtendedHeader =3D
-> -				(const ATOM_PPLIB_EXTENDEDHEADER *)
-> -				(((unsigned long)powerplay_table3) +
-> -				le16_to_cpu(powerplay_table3->usExtendendedHeaderOffset));
-> -			if (le16_to_cpu(pExtendedHeader->usSize) >=3D
-> -			    SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V6)
-> -				acp_table_offset =3D le16_to_cpu(pExtendedHeader->usACPTableOffset);
-> -		}
-> -	}
-> +	extended_header =3D get_extended_header(hwmgr, powerplay_table,
-> +					      SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V6);
-> +	if (extended_header)
-> +		acp_table_offset =3D le16_to_cpu(extended_header->usACPTableOffset);
-> =20
->  	return acp_table_offset;
->  }
-> @@ -290,21 +325,12 @@ static uint16_t get_cacp_tdp_table_offset(
->  				const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table)
->  {
->  	uint16_t cacTdpTableOffset =3D 0;
-> +	const ATOM_PPLIB_EXTENDEDHEADER *extended_header;
-> =20
-> -	if (le16_to_cpu(powerplay_table->usTableSize) >=3D
-> -	    sizeof(ATOM_PPLIB_POWERPLAYTABLE3)) {
-> -		const ATOM_PPLIB_POWERPLAYTABLE3 *powerplay_table3 =3D
-> -				(const ATOM_PPLIB_POWERPLAYTABLE3 *)powerplay_table;
-> -		if (powerplay_table3->usExtendendedHeaderOffset > 0) {
-> -			const ATOM_PPLIB_EXTENDEDHEADER  *pExtendedHeader =3D
-> -					(const ATOM_PPLIB_EXTENDEDHEADER *)
-> -					(((unsigned long)powerplay_table3) +
-> -				le16_to_cpu(powerplay_table3->usExtendendedHeaderOffset));
-> -			if (le16_to_cpu(pExtendedHeader->usSize) >=3D
-> -			    SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V7)
-> -				cacTdpTableOffset =3D le16_to_cpu(pExtendedHeader->usPowerTuneTableO=
-ffset);
-> -		}
-> -	}
-> +	extended_header =3D get_extended_header(hwmgr, powerplay_table,
-> +					      SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V7);
-> +	if (extended_header)
-> +		cacTdpTableOffset =3D le16_to_cpu(extended_header->usPowerTuneTableOff=
-set);
-> =20
->  	return cacTdpTableOffset;
->  }
-> @@ -341,22 +367,13 @@ static uint16_t get_sclk_vdd_gfx_table_offset(struc=
-t pp_hwmgr *hwmgr,
->  			const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table)
->  {
->  	uint16_t sclk_vdd_gfx_table_offset =3D 0;
-> +	const ATOM_PPLIB_EXTENDEDHEADER *extended_header;
-> =20
-> -	if (le16_to_cpu(powerplay_table->usTableSize) >=3D
-> -	    sizeof(ATOM_PPLIB_POWERPLAYTABLE3)) {
-> -		const ATOM_PPLIB_POWERPLAYTABLE3 *powerplay_table3 =3D
-> -				(const ATOM_PPLIB_POWERPLAYTABLE3 *)powerplay_table;
-> -		if (powerplay_table3->usExtendendedHeaderOffset > 0) {
-> -			const ATOM_PPLIB_EXTENDEDHEADER  *pExtendedHeader =3D
-> -				(const ATOM_PPLIB_EXTENDEDHEADER *)
-> -				(((unsigned long)powerplay_table3) +
-> -				le16_to_cpu(powerplay_table3->usExtendendedHeaderOffset));
-> -			if (le16_to_cpu(pExtendedHeader->usSize) >=3D
-> -			    SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V8)
-> -				sclk_vdd_gfx_table_offset =3D
-> -					le16_to_cpu(pExtendedHeader->usSclkVddgfxTableOffset);
-> -		}
-> -	}
-> +	extended_header =3D get_extended_header(hwmgr, powerplay_table,
-> +					      SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V8);
-> +	if (extended_header)
-> +		sclk_vdd_gfx_table_offset =3D
-> +			le16_to_cpu(extended_header->usSclkVddgfxTableOffset);
-> =20
->  	return sclk_vdd_gfx_table_offset;
->  }
-
-[Severity: High]
-Can init_clock_voltage_dependency() still read past hwmgr->soft_pp_table
-when using the offsets returned by these helpers?
-
-In get_vce_clock_voltage_limit_table_offset() and
-get_uvd_clock_voltage_limit_table_offset(), the new check verifies that the
-preceding VCEClockInfoArray or UVDClockInfoArray fits within
-hwmgr->soft_pp_table_size, and then returns table_offset + table_size. If
-that clock info array ends at hwmgr->soft_pp_table_size (or leaves fewer
-bytes than the voltage limit table requires), the returned offset is
-non-zero and points at or near the end of soft_pp_table.
-
-When pp_tables_initialize() -> init_clock_voltage_dependency() uses those
-offsets, it does not call get_vce_clock_voltage_limit_table_size() or
-pp_table_has_space():
-
-drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c:init_clock_voltage=
-_dependency() {
-	vce_clock_info_array_offset =3D get_vce_clock_info_array_offset(
-						hwmgr, powerplay_table);
-	table_offset =3D get_vce_clock_voltage_limit_table_offset(hwmgr,
-						powerplay_table);
-	if (vce_clock_info_array_offset > 0 && table_offset > 0) {
-		const VCEClockInfoArray *array =3D (const VCEClockInfoArray *)
-				(((unsigned long) powerplay_table) +
-				vce_clock_info_array_offset);
-		const ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table *table =3D
-				(const ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table *)
-				(((unsigned long) powerplay_table) + table_offset);
-		result =3D get_vce_clock_voltage_limit_table(hwmgr,
-				&hwmgr->dyn_state.vce_clock_voltage_dependency_table,
-				table, array);
-	}
-}
-
-Then get_vce_clock_voltage_limit_table() and
-get_uvd_clock_voltage_limit_table() dereference table->numEntries and
-table->entries[i] without bounds checks, and also index
-array->entries[table->entries[i].ucVCEClockInfoIndex] and
-array->entries[table->entries[i].ucUVDClockInfoIndex] without verifying
-that the index is less than array->ucNumEntries.
-
-Similarly, get_samu_table_offset(), get_acp_table_offset(),
-get_cacp_tdp_table_offset(), and get_sclk_vdd_gfx_table_offset() now
-validate the extended header via get_extended_header(), but neither those
-helpers nor their sole caller init_clock_voltage_dependency() verify that
-the returned subtable offsets and their entry arrays fit within
-hwmgr->soft_pp_table_size before dereferencing them.
-
-[ ... ]
-
-> @@ -896,49 +940,128 @@ int pp_tables_get_entry(struct pp_hwmgr *hwmgr,
->  	const NonClockInfoArray *pnon_clock_arrays;
-> =20
->  	const ATOM_PPLIB_STATE *pstate_entry;
-> +	u16 state_array_offset;
-> +	u16 clock_info_array_offset;
-> +	u16 non_clock_info_array_offset;
-> +	size_t clock_info_offset;
-> +	size_t non_clock_info_offset;
-> +	size_t state_entry_offset;
-> =20
->  	if (powerplay_table =3D=3D NULL)
->  		return -1;
-> +	if (!pp_table_has_space(hwmgr, 0, sizeof(*powerplay_table)))
-> +		return -1;
-> =20
->  	ps->classification.bios_index =3D entry_index;
-> =20
->  	if (powerplay_table->sHeader.ucTableFormatRevision >=3D 6) {
-> +		state_array_offset =3D le16_to_cpu(powerplay_table->usStateArrayOffset=
-);
-> +		if (!pp_table_has_space(hwmgr, state_array_offset,
-> +					sizeof(pstate_arrays->ucNumEntries)))
-> +			return -1;
-> +
->  		pstate_arrays =3D (StateArray *)(((unsigned long)powerplay_table) +
-> -					le16_to_cpu(powerplay_table->usStateArrayOffset));
-> +					state_array_offset);
-> +
-> +		if (entry_index >=3D pstate_arrays->ucNumEntries)
-> +			return -1;
-> =20
-> -		if (entry_index > pstate_arrays->ucNumEntries)
-> +		pstate_entry_v2 =3D get_state_entry_v2(hwmgr, pstate_arrays,
-> +						     state_array_offset,
-> +						     entry_index);
-> +		if (!pstate_entry_v2)
-> +			return -1;
-> +
-> +		clock_info_array_offset =3D
-> +			le16_to_cpu(powerplay_table->usClockInfoArrayOffset);
-> +		if (!pp_table_has_space(hwmgr, clock_info_array_offset,
-> +					sizeof(*pclock_arrays)))
->  			return -1;
-> =20
-> -		pstate_entry_v2 =3D get_state_entry_v2(pstate_arrays, entry_index);
->  		pclock_arrays =3D (ClockInfoArray *)(((unsigned long)powerplay_table) +
-> -					le16_to_cpu(powerplay_table->usClockInfoArrayOffset));
-> +					clock_info_array_offset);
-> +		if (!pclock_arrays->ucEntrySize)
-> +			return -1;
-> +
-> +		non_clock_info_array_offset =3D
-> +			le16_to_cpu(powerplay_table->usNonClockInfoArrayOffset);
-> +		if (!pp_table_has_space(hwmgr, non_clock_info_array_offset,
-> +					sizeof(*pnon_clock_arrays)))
-> +			return -1;
-> =20
->  		pnon_clock_arrays =3D (NonClockInfoArray *)(((unsigned long)powerplay_=
-table) +
-> -						le16_to_cpu(powerplay_table->usNonClockInfoArrayOffset));
-> +						non_clock_info_array_offset);
-> +		if (!pnon_clock_arrays->ucEntrySize ||
-> +		    pnon_clock_arrays->ucEntrySize < ATOM_PPLIB_NONCLOCKINFO_VER1 ||
-> +		    (pnon_clock_arrays->ucEntrySize > ATOM_PPLIB_NONCLOCKINFO_VER1 &&
-> +		     pnon_clock_arrays->ucEntrySize < ATOM_PPLIB_NONCLOCKINFO_VER2) ||
-> +		    pstate_entry_v2->nonClockInfoIndex >=3D pnon_clock_arrays->ucNumEn=
-tries)
-> +			return -1;
-> =20
-> +		non_clock_info_offset =3D non_clock_info_array_offset +
-> +			offsetof(NonClockInfoArray, nonClockInfo) +
-> +			pstate_entry_v2->nonClockInfoIndex * pnon_clock_arrays->ucEntrySize;
-> +		if (!pp_table_has_space(hwmgr, non_clock_info_offset,
-> +					pnon_clock_arrays->ucEntrySize))
-> +			return -1;
->  		pnon_clock_info =3D (ATOM_PPLIB_NONCLOCK_INFO *)((unsigned long)(pnon_=
-clock_arrays->nonClockInfo) +
->  					(pstate_entry_v2->nonClockInfoIndex * pnon_clock_arrays->ucEntrySiz=
-e));
-> =20
->  		result =3D init_non_clock_fields(hwmgr, ps, pnon_clock_arrays->ucEntry=
-Size, pnon_clock_info);
-> =20
->  		for (i =3D 0; i < pstate_entry_v2->ucNumDPMLevels; i++) {
-> -			const void *pclock_info =3D (const void *)(
-> -							(unsigned long)(pclock_arrays->clockInfo) +
-> -							(pstate_entry_v2->clockInfoIndex[i] * pclock_arrays->ucEntrySize)=
-);
-> +			const void *pclock_info;
-> +
-> +			if (pstate_entry_v2->clockInfoIndex[i] >=3D
-> +			    pclock_arrays->ucNumEntries)
-> +				return -1;
-> +
-> +			clock_info_offset =3D clock_info_array_offset +
-> +				offsetof(ClockInfoArray, clockInfo) +
-> +				pstate_entry_v2->clockInfoIndex[i] * pclock_arrays->ucEntrySize;
-> +			if (!pp_table_has_space(hwmgr, clock_info_offset,
-> +						pclock_arrays->ucEntrySize))
-> +				return -1;
-> +
-> +			pclock_info =3D (const void *)
-> +					((unsigned long)(pclock_arrays->clockInfo) +
-> +					(pstate_entry_v2->clockInfoIndex[i] *
-> +					 pclock_arrays->ucEntrySize));
->  			res =3D func(hwmgr, &ps->hardware, i, pclock_info);
->  			if ((0 =3D=3D result) && (0 !=3D res))
->  				result =3D res;
->  		}
->  	} else {
-> -		if (entry_index > powerplay_table->ucNumStates)
-> +		if (entry_index >=3D powerplay_table->ucNumStates ||
-> +		    !powerplay_table->ucStateEntrySize ||
-> +		    !powerplay_table->ucNonClockSize ||
-> +		    powerplay_table->ucNonClockSize < ATOM_PPLIB_NONCLOCKINFO_VER1 ||
-> +		    (powerplay_table->ucNonClockSize > ATOM_PPLIB_NONCLOCKINFO_VER1 &&
-> +		     powerplay_table->ucNonClockSize < ATOM_PPLIB_NONCLOCKINFO_VER2) ||
-> +		    !powerplay_table->ucClockInfoSize)
-> +			return -1;
-> +
-> +		state_array_offset =3D le16_to_cpu(powerplay_table->usStateArrayOffset=
-);
-> +		state_entry_offset =3D state_array_offset +
-> +			entry_index * powerplay_table->ucStateEntrySize;
-> +		if (!pp_table_has_space(hwmgr, state_entry_offset,
-> +					powerplay_table->ucStateEntrySize))
->  			return -1;
-> =20
->  		pstate_entry =3D (ATOM_PPLIB_STATE *)((unsigned long)powerplay_table +
-> -						    le16_to_cpu(powerplay_table->usStateArrayOffset) +
-> +						    state_array_offset +
->  						    entry_index * powerplay_table->ucStateEntrySize);
-> =20
-> +		non_clock_info_array_offset =3D
-> +			le16_to_cpu(powerplay_table->usNonClockInfoArrayOffset);
-> +		non_clock_info_offset =3D non_clock_info_array_offset +
-> +			pstate_entry->ucNonClockStateIndex * powerplay_table->ucNonClockSize;
-> +		if (!pp_table_has_space(hwmgr, non_clock_info_offset,
-> +					powerplay_table->ucNonClockSize))
-> +			return -1;
-> +
->  		pnon_clock_info =3D (ATOM_PPLIB_NONCLOCK_INFO *)((unsigned long)powerp=
-lay_table +
-> -						le16_to_cpu(powerplay_table->usNonClockInfoArrayOffset) +
-> +						non_clock_info_array_offset +
->  						pstate_entry->ucNonClockStateIndex *
->  						powerplay_table->ucNonClockSize);
-> =20
-> @@ -947,12 +1070,23 @@ int pp_tables_get_entry(struct pp_hwmgr *hwmgr,
->  							pnon_clock_info);
-> =20
->  		for (i =3D 0; i < powerplay_table->ucStateEntrySize-1; i++) {
-> -			const void *pclock_info =3D (const void *)((unsigned long)powerplay_t=
-able +
-> -						le16_to_cpu(powerplay_table->usClockInfoArrayOffset) +
-> +			const void *pclock_info;
-> +
-> +			clock_info_array_offset =3D
-> +				le16_to_cpu(powerplay_table->usClockInfoArrayOffset);
-> +			clock_info_offset =3D clock_info_array_offset +
-> +				pstate_entry->ucClockStateIndices[i] *
-> +				powerplay_table->ucClockInfoSize;
-> +			if (!pp_table_has_space(hwmgr, clock_info_offset,
-> +						powerplay_table->ucClockInfoSize))
-> +				return -1;
-> +
-> +			pclock_info =3D (const void *)((unsigned long)powerplay_table +
-> +						clock_info_array_offset +
->  						pstate_entry->ucClockStateIndices[i] *
->  						powerplay_table->ucClockInfoSize);
-> =20
-> -			int res =3D func(hwmgr, &ps->hardware, i, pclock_info);
-> +			res =3D func(hwmgr, &ps->hardware, i, pclock_info);
-> =20
->  			if ((0 =3D=3D result) && (0 !=3D res))
->  					result =3D res;
-
-[Severity: High]
-Are the checks on pclock_arrays->ucEntrySize, powerplay_table->ucClockInfoS=
-ize,
-and the DPM level loop counts in pp_tables_get_entry() sufficient to prevent
-out-of-bounds accesses in the clock info callbacks?
-
-Unlike pnon_clock_arrays->ucEntrySize and powerplay_table->ucNonClockSize
-(which are checked against ATOM_PPLIB_NONCLOCKINFO_VER1 and
-ATOM_PPLIB_NONCLOCKINFO_VER2), pclock_arrays->ucEntrySize and
-powerplay_table->ucClockInfoSize are only checked to be non-zero. If either
-field is between 1 and 8 bytes at the end of hwmgr->soft_pp_table,
-pp_table_has_space() succeeds, and when func is
-smu7_get_pp_table_entry_callback_func_v0() in
-drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c:
-
-	const ATOM_PPLIB_CI_CLOCK_INFO *visland_clk_info =3D clock_info;
-	...
-	engine_clock =3D visland_clk_info->ucEngineClockHigh << 16 | visland_clk_i=
-nfo->usEngineClockLow;
-	memory_clock =3D visland_clk_info->ucMemoryClockHigh << 16 | visland_clk_i=
-nfo->usMemoryClockLow;
-
-it casts clock_info to const ATOM_PPLIB_CI_CLOCK_INFO * (9 bytes) and reads
-up to 8 bytes past hwmgr->soft_pp_table.
-
-In addition, the DPM level loops in pp_tables_get_entry() iterate i up to
-pstate_entry_v2->ucNumDPMLevels or powerplay_table->ucStateEntrySize - 1
-without bounding i against
-hwmgr->platform_descriptor.hardwareActivityPerformanceLevels. When func is
-smu8_dpm_get_pp_table_entry_callback() in
-drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c:
-
-	smu8_ps->levels[index].engineClock =3D table->entries[clock_info_index].cl=
-k;
-	smu8_ps->levels[index].vddcIndex =3D (uint8_t)table->entries[clock_info_in=
-dex].v;
-
-or smu10_dpm_get_pp_table_entry_callback() in
-drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c:
-
-	smu10_ps->levels[index].engine_clock =3D 0;
-
-	smu10_ps->levels[index].vddc_index =3D 0;
-	smu10_ps->level =3D index + 1;
-
-can an uncapped index overflow smu8_ps->levels[SMU8_MAX_HARDWARE_POWERLEVEL=
-S]
-or smu10_ps->levels[SMU10_MAX_HARDWARE_POWERLEVELS] (both 8 entries)?
-
-[ ... ]
-
-> @@ -1705,6 +1888,10 @@ static int pp_tables_initialize(struct pp_hwmgr *h=
-wmgr)
->  	hwmgr->need_pp_table_upload =3D true;
-> =20
->  	powerplay_table =3D get_powerplay_table(hwmgr);
-> +	PP_ASSERT_WITH_CODE((powerplay_table),
-> +			    "Missing PowerPlay Table!", return -1);
-> +	PP_ASSERT_WITH_CODE(pp_table_has_space(hwmgr, 0, sizeof(*powerplay_tabl=
-e)),
-> +			    "Invalid PowerPlay Table!", return -1);
-> =20
->  	result =3D init_powerplay_tables(hwmgr, powerplay_table);
-> =20
-
-[Severity: High]
-Does checking only sizeof(*powerplay_table) in pp_tables_initialize() leave
-the remaining initialization helpers vulnerable to out-of-bounds reads when
-powerplay_table->usTableSize or subtable offsets exceed
-hwmgr->soft_pp_table_size?
-
-After verifying pp_table_has_space(hwmgr, 0, sizeof(*powerplay_table)),
-pp_tables_initialize() calls init_thermal_controller(),
-init_overdrive_limits(), init_clock_voltage_dependency(),
-init_dpm2_parameters(), and init_phase_shedding_table(). Those helpers check
-powerplay_table->usTableSize against sizeof(ATOM_PPLIB_POWERPLAYTABLE3),
-sizeof(ATOM_PPLIB_POWERPLAYTABLE4), or sizeof(ATOM_PPLIB_POWERPLAYTABLE5)
-without verifying that hwmgr->soft_pp_table_size is large enough for those
-structures or their subtables:
-
-1. init_thermal_controller() checks powerplay_table->usTableSize >=3D
-sizeof(ATOM_PPLIB_POWERPLAYTABLE3) and dereferences
-powerplay_table3->usFanTableOffset up to ATOM_PPLIB_FANTABLE5 without
-calling pp_table_has_space().
-
-2. init_overdrive_limits() -> init_overdrive_limits_V2_1() and
-init_dpm2_parameters() bypass get_extended_header() and directly dereference
-usExtendendedHeaderOffset (and usPPMTableOffset in init_dpm2_parameters())
-without bounds checks.
-
-3. init_clock_voltage_dependency(), init_dpm2_parameters(), and
-init_phase_shedding_table() dereference usVddcDependencyOnSCLKOffset,
-usVddciDependencyOnMCLKOffset, usVddcDependencyOnMCLKOffset,
-usMaxClockVoltageOnDCOffset, usMvddDependencyOnMCLKOffset,
-usCACLeakageTableOffset, and usVddcPhaseShedLimitsTableOffset, along with
-their variable-length entries[] arrays, without checking
-pp_table_has_space().
-
-!
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019135441.1420=
-968-51-sashal@kernel.org?part=3D1
