@@ -2,119 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464CD606A31B
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A4F606A31D
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:52:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=LIVE.CN header.i=@LIVE.CN header.a=rsa-sha256 header.s=selector1 header.b=YIzT/kl7
+	dkim=pass (1024-bit key, unprotected) header.d=kcore.it header.i=@kcore.it header.a=rsa-sha256 header.s=spark header.b=RRQpsBLq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4518610FBD9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB8D10FC19;
 	Wed, 21 Oct 2026 08:51:52 +0000 (UTC)
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazolkn19010023.outbound.protection.outlook.com [52.103.66.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16DFB10E181
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 16:47:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FImaG9va8nnW1GKLil3+2AO+7DkIx6njfFtmlv0royQbuorG/ZxFG1QHFIthn14wX4FvVEnyxtCyZ/3HRsnhoDd6IclztESdMsOlsNE8j14scyG9NhZ3p1WHEw7OUsrUTlGcF/GNiLmFjD9NJlwu5Hx5bxQgkhFZVz/sokQUlwH1UXhnoDxWJKBnDp1MYBWKjD0ITEARsD2OWVBi4LpLzYXKXxDh1kCawaf2VtJyUWqESV3sRw8PgSzSaGs6AB6dIZ9HzVUV8ghmhI5mekqyp1UFU8n8vsp5+n2a5RaNbvYrfzTOUiradc2nUQEycpY769OXBdPKfZ7X5idsD7jZmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1ZKCyNTxKtzIbxShDmufUnR5P3ZxmM6IbEJScKuCcUk=;
- b=JJXAfJYRsvzY9NT0cTbVI/5KvHH7GakgRkwzX50uPh0oewbRL86/N66nkvjb5M1NN4Cti0i1Kl9yZa/dhtv0gT9bLXRTUEU5K8P75eM3ZQFzDczhwn3kjgisw2ov0gtNxYdNX28YKOX1nwS4950qUzmUAR0VqmIotuKv53gr2cji6A+cRNzV6EOe7HWKUMXzmwWbWMfYsUscqvhUASUvrd3oy/+XBoWHqhXsxJfYwPNwKKz4SVwyCCOdE2GCC+oPvXSBn9FBqFa4IWL5Ubv4X19/WGqlhGcTV5dot30HbT38vJSidsudVdHjZS2EHI7GKfWfeAzAYVMFK11R67bdaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=LIVE.CN; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ZKCyNTxKtzIbxShDmufUnR5P3ZxmM6IbEJScKuCcUk=;
- b=YIzT/kl7RC4293ycS43JYJZ8dTv4OQTsPdeLl8TKLvbtTdl3uI85yx09t0PszS/WTRqojEkUu8ZnvlGu4VvDjVNYGferWThI9eX+P1kEt+UGdn/EiRWJ4MbYRjLZ15wSmF2QeyklWjfL6pXdZQOFnhYw1t2W16e+ZCChOkF60islpCObpDVo29n9nXO7aF1gV8lBprWQfdNgXhfGdbCFFbpnO7GLChFB4diDywSj/xZ4rQSH1rRJjFnfCiVs+/8lAs0FijhYIkWyquTpVEhBsIJktxa+PqbsGvgwBlt66tzy4dv2DLsSt35Y4RxpwqBbPL9UL6xcl2wiY5bOwazTIg==
-Received: from TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:30e::5)
- by OS9P301MB1294.JPNP301.PROD.OUTLOOK.COM (2603:1096:604:401::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
- 2026 16:47:43 +0000
-Received: from TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM
- ([fe80::2834:779c:2a80:9f60]) by TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM
- ([fe80::2834:779c:2a80:9f60%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 16:47:43 +0000
-From: Tingjie Zhong <catme0w@live.cn>
-To: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>,
- Albin Babu Varghese <albinbabuvarghese20@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tingjie Zhong <catme0w@live.cn>,
- stable@vger.kernel.org
-Subject: [PATCH v2] fbdev: bitblit: Fix glyph clipping when fbcon pans
-Date: Tue, 20 Oct 2026 10:46:57 -0600
-Message-ID: <TYYP301MB1525C5CFBFCE755C7F31426FF6672@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.56.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MW4P220CA0029.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:303:115::34) To TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:30e::5)
-X-Microsoft-Original-Message-ID: <20261020164657.89229-1-catme0w@live.cn>
+Received: from spark.kcore.it (spark.kcore.it [49.13.27.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B949A10E7F9;
+ Tue, 20 Oct 2026 15:30:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kcore.it;
+ s=spark; h=References:In-Reply-To:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date;
+ bh=shIwbpRYBRVZ5arD1o5RN0HiHTcxgmGfKoAfYRtBsek=; b=RRQpsBLqehNBGjJmb+7qq/OvHm
+ jw+06eGSDna85v9XK0tY00sbdWuHCq9LyHTltSSB4j6Usc1pXOaltLL0Mi4raRa8gRPIZlY6xlEuW
+ VlqTMCPs8JxEkEQpfGN2nXrY6OESkCN4iA0qIAIMfAoZ9Xa4h5J8oIiUZcrstdXPT07Y=;
+Received: from mnencia by spark.kcore.it with local (Exim 4.100.1)
+ (envelope-from <mnencia@kcore.it>) id 1xJBnL-00000000apB-1qvn;
+ Tue, 20 Oct 2026 17:30:31 +0200
+Date: Tue, 20 Oct 2026 17:30:31 +0200
+From: Marco Nenciarini <mnencia@kcore.it>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
+ imre.deak@intel.com, xiaolu.xie@intel.com
+Subject: Re: [PATCH v3] drm/i915/dp: clear and restore MSTM_CTRL around MST
+ DPMS off/on
+Message-ID: <ateJFyHPSYMYdj7A@spark.kcore.it>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYYP301MB1525:EE_|OS9P301MB1294:EE_
-X-MS-Office365-Filtering-Correlation-Id: c4273bce-2ac0-44ce-dd05-08df2ec9dc06
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|5072599009|23021999003|25031999004|8022599003|37011999003|5062599005|15080799012|8060799015|19110799012|24021099003|25010399006|41001999006|260925184616899003|4302099013|440099028|3412199025|1602099012|10035399007|3071699003|1710799026;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?UKFmt23wNb4uv83rGrZKV/9Ugt4U39BfO+xO8o6s2Gj98AaQ30wS9s1BLFA/?=
- =?us-ascii?Q?+VZN+qfLaENR+arr1AB3305I8gUtXWR9dM3yTcMX7Bf1v86xdy8SJ0MxLcnS?=
- =?us-ascii?Q?k/7i41H7UIrRatJ2tQfVSFmb5II4aTmKEIGpRfmfd76c5sSgS2Z6DNNdlqvZ?=
- =?us-ascii?Q?UsWY33aQ9rEYmr9vbNKwO4DVjJCtJiQ1dgRiK0kW2pWfRegpP97tTMeC3RCP?=
- =?us-ascii?Q?RjjZ+/Nt4mNOeloPh5E5M44KpR3xLS+YHNAXaVB8OM/tOFE9NdrYsV3in4UV?=
- =?us-ascii?Q?M9mwjKwi+PlOAmcCKYiiNdmfzDuAlBHPedoZADo1lOSHz3qcJQOL90Lt1uW4?=
- =?us-ascii?Q?COAkmTcO97wrLeTOgAVm7sy49x+c2Dy/rlG3uNTtOZ9qbiCIzDK6uduKMGlg?=
- =?us-ascii?Q?kMlYcMjrwBzKa0b2a1QwGkcDW2RyZHgWcnCK69fFU2/AqaVxMF6wVVIiu5Oe?=
- =?us-ascii?Q?M2rb6LtoFcY/KBWye/vF6jzbMW5r9iGxXeP4pQTIDTQqr4EsQ7EZwAdp6huH?=
- =?us-ascii?Q?fasO6SNDkJLz7O+duGReOiHt/iFDp6yu2CNErm64XQbVD+3qEI290H2OM4hu?=
- =?us-ascii?Q?g0UF+dPtlNxeDc09ZkaTXYCmgFyk3zlEJ/QcSxx9v0M/Hf0/hrwH3Y7dtWbS?=
- =?us-ascii?Q?t0fXeDrZYr8sCKfCN46ln7JHoHy7KlaNsc4zHGVEpgwU8wUowzFjXK5ziCqC?=
- =?us-ascii?Q?LO7VIMNsi3sKj0GTvT1jHws30pv1dDCZm6xu10FhZd+TADVjDqIgbYEyMPYT?=
- =?us-ascii?Q?wBnNddDrZj4EXFZnCzNmUxnjA7l7UXiqGL8BBiK0zi3BfzZr2GFoIzpZO9bw?=
- =?us-ascii?Q?t5TOs/SrZBUmuInJTvLMZGH8BUkg4Dz/CsGutmGe6DMmdmTHChZuW0crTyqD?=
- =?us-ascii?Q?ge0oYZ3YPlWb9DDc3vbp5F63CCyua7vwaXoNJk57NWSLIiFwuERMVA/Cpt96?=
- =?us-ascii?Q?xQOLt4jIn7qLkJUt2Cl45tItrCPhfOjgnsXPvo67sVVnv9PK5Fr/4S+2iLET?=
- =?us-ascii?Q?yub0rQM8j4CLBlTdG+aZadQZCNR1c7ekhumduUab9MLsMZ/A9M4C4okORQ52?=
- =?us-ascii?Q?nFRn5NpJ7SKEp18SvlgOFFlDC5hEAfEKG9U09Z1bxDSh9dywRqqNf35/pI8X?=
- =?us-ascii?Q?ydnnbkKZydRX?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/AgiNxMi84KlsZzKTMR4HggySC+xQZra5ohZGDUSj2LOt+reflO7kHc7q5Y9?=
- =?us-ascii?Q?5zKL2lGBJoDMlQ2qmyHph9ZjtOuJLjKRbfvkztJxp+C3fawTFNEzed/u5DCH?=
- =?us-ascii?Q?rnoNj9mAONETsbgEfgsMOoUUJr4H5PCyOoOhNFPDsVKqfQli2iAww8rMHFLB?=
- =?us-ascii?Q?7X6dGwaY41IlfskmH0aplU2GXdmr9aeqv9Im/Dj4owHAgUTb18G9wLIBvJlm?=
- =?us-ascii?Q?FJZx1P+EtLEjay+Cj2b7iPGeuKa5EOgSyo36N3Anjn85kvQOg/f+mgy+M2hD?=
- =?us-ascii?Q?zL/IxMzVB6oNSH6RXw9NKJHGC5APJJAdLxJ5ad3xC4ToP6GSilnMxhOnZkt5?=
- =?us-ascii?Q?VUWiprxTsSm1eQ/NBeV4zrbxERMIznBW1Moen3ZisbOXzbqPL9qfeMbJj16+?=
- =?us-ascii?Q?6sINfI/gPtOIas2wUP2YF2tI3E7IwQmmKPnsXHEd9DTOQk8Rc0DQ7WUIjxnl?=
- =?us-ascii?Q?TnDlXLeD4vDKSBNkd1oLU5ygFHdpgGqhWJkYRByIwuG+VFaEteIm+jpYQU4Z?=
- =?us-ascii?Q?F2ZWhUy0BugJ9sKg1UKes8RR2VuAxPTZUvPu36nIpSoFTFOa2w52UKcUNeFu?=
- =?us-ascii?Q?ZyQmXr6YEZyc2nnNzGGDOMOBjh1WusY1FX9umy+kbz+g/b60nCVl4GJF63TP?=
- =?us-ascii?Q?+4gAEtS4DS+0YNpAeHEZS3mB07SdvxX7bU0N4zhnbFubh/Jqx/KeM6pPacyO?=
- =?us-ascii?Q?KlatpTapTRDcZTJw44EJRY/z/j77WqjNGagcbX7VBOKoRTRXeGC+2ZJh6tEh?=
- =?us-ascii?Q?N9hpwNEppR4VBq3Ak2EZY8+7wyXf5kr4cBWnlUl+Ii/hKZHZODwOh+FiCraI?=
- =?us-ascii?Q?MQM8N+QftLV5XnUFVP0rmusk1k2Q7oq2BJFklaLUEEWx1X4gW4IlHLDboLaq?=
- =?us-ascii?Q?BatqiBS+LikRoKGtTVy8qZf+Q6XXfaUzTL8n1vVZPAhmgYgHs7mwRFApospG?=
- =?us-ascii?Q?ad9Sie/GWhBvH3i+lWiUPEW7UBN//bvRmhV1+/aKGrc2EOvQRFD3p1OKnsUf?=
- =?us-ascii?Q?2jd1YwE1ln2Wj4n9UCVHDIkAEEyrWj3uhHRpaAG5MTsGuz7xq+QdbB+hUh/y?=
- =?us-ascii?Q?RWK7FQKo/vvPLwB2rJnICC7Kkr9HO7atSH/0TFfjKApmmfLDLMJwLzvEIYDM?=
- =?us-ascii?Q?cGCWS08LyqqlCP6uo2YKYHPSXKnMp6LF7v+PbBAj2abWhimwrVikts/qNrqL?=
- =?us-ascii?Q?/x9TCnDofZAYI1avaxIh+VUyEXAwzkFSwBR/xinPa1r0Ko0HcmPmZhqG/yhQ?=
- =?us-ascii?Q?Cxs4ZaUGtUgf/pFtquoWdA+2MVed00rWD1aJ2ISFsWOz7YaEYuwzGumZcW7F?=
- =?us-ascii?Q?nMyegZwHwjkEVoVKnlimiYA3lp1gHYXKq+N1rPDBEnlCTI3/KLoNuM9RTetq?=
- =?us-ascii?Q?buFsyZDkVG3kySu3KAjYRjh/Pz2J6Pnq0M6w0xQjYNs9frriQgXHZBCMjq94?=
- =?us-ascii?Q?OJAL+Jb+wBk=3D?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-a91ca.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4273bce-2ac0-44ce-dd05-08df2ec9dc06
-X-MS-Exchange-CrossTenant-AuthSource: TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:47:43.0901 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P301MB1294
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020110418.1272170-1-xiaolu.xie@intel.com>
+References: <20261020021714.62573-1-xiaolu.xie@intel.com>
+ <20261020110418.1272170-1-xiaolu.xie@intel.com>
 X-Mailman-Approved-At: Wed, 21 Oct 2026 08:51:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,80 +50,65 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Commit 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix
-vmalloc-out-of-bounds") made bit_putcs() clip glyphs to var.yres. When
-fbcon scrolls by panning, it draws text rows up to var.yres_virtual,
-so after the first pan most new text is not drawn until the next full
-redraw. This affects fbdev drivers that set FBINFO_HWACCEL_YPAN or
-FBINFO_HWACCEL_YWRAP, such as vesafb with the ypan option, when
-CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION=y.
+Tested-by: Marco Nenciarini <mnencia@kcore.it>
 
-Clip to GETVYRES() instead, which fbcon_ud.c and fbcon_ccw.c already
-use as the drawing area height. When fbcon does not pan, GETVYRES()
-returns var.yres, keeping the existing bound. When fbcon pans, it
-returns var.yres_virtual, which the framebuffer memory must cover
-anyway for panning to work.
+Tested v3 on a Dell Pro Max 16 (Arrow Lake-P) with a Dell WD19DC dock
+(Synaptics VMM5331 MST hub), one monitor on DP and one on HDMI behind
+it, i915 driving the dock over TBT-alt, drm.debug=0x10e. Kernel is
+Debian 7.2.9 with v3 applied on top.
 
-Fixes: 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix vmalloc-out-of-bounds")
-Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
-Closes: https://lore.kernel.org/linux-fbdev/b8b52ffd-ecec-4fba-b432-ba32135c2f99@suse.de/
-Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: stable@vger.kernel.org
-Signed-off-by: Tingjie Zhong <catme0w@live.cn>
----
-v2:
-- Sign off with my legal name
-- Add Reported-by, Closes and Tested-by from Thomas
-v1: https://lore.kernel.org/linux-fbdev/TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM/
+The only change needed for 7.2.9 was the context of the last hunk in
+intel_dp_mst.c, which still uses drm_dp_dpcd_readb(). The new helpers
+use drm_dp_dpcd_read_byte(), which exists in 7.2.9, so verify_ctrl()
+needed no change.
 
- drivers/video/fbdev/core/bitblit.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Results for the points you asked about, 120 s DPMS off with a connector
+probe forced on the trunk 30 s into the off period:
 
-diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
-index 39f44258d793..323a9e79a684 100644
---- a/drivers/video/fbdev/core/bitblit.c
-+++ b/drivers/video/fbdev/core/bitblit.c
-@@ -18,6 +18,7 @@
- #include <linux/console.h>
- #include <asm/types.h>
- #include "fbcon.h"
-+#include "fbcon_rotate.h"
- 
- /*
-  * Accelerated handlers.
-@@ -150,7 +151,9 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
- 		      const unsigned short *s, int count, int yy, int xx,
- 		      int fg, int bg)
- {
-+	struct fbcon_par *par = info->fbcon_par;
- 	struct fb_image image;
-+	u32 vyres = GETVYRES(par->p, info);
- 	u32 width = DIV_ROUND_UP(vc->vc_font.width, 8);
- 	u32 cellsize = width * vc->vc_font.height;
- 	u32 maxcnt = info->pixmap.size/cellsize;
-@@ -167,10 +170,10 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
- 	image.height = vc->vc_font.height;
- 	image.depth = 1;
- 
--	if (image.dy >= info->var.yres)
-+	if (image.dy >= vyres)
- 		return;
- 
--	image.height = min(image.height, info->var.yres - image.dy);
-+	image.height = min(image.height, vyres - image.dy);
- 
- 	if (attribute) {
- 		buf = kmalloc(cellsize, GFP_ATOMIC);
+1. No "MST mode got reset" message, no MSTM_CTRL mismatch message and
+   no connector was unregistered. DPMS off wrote MSTM_CTRL as 0x04
+   and the probe read it back as 04.
+2. After the wake, one LINK_ADDRESS was sent and the connectors kept
+   their names and ids.
+3. The wake was normal: link training passed at 810000 x4 on the sink
+   and both LTTPRs, payloads were allocated and both monitors came
+   back.
 
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
--- 
-2.56.0
+I also probed the two MST connectors while paused (90 s off, probes
+at 30 s). Modes and EDID were identical before, during and after
+(28 and 32 modes, 256 byte EDID). The first probe (DP-6) took about
+5 s: its REMOTE_I2C_READ got a NAK (LINK_FAILURE) after 4 s and the
+retry worked. The DP-7 probe took under a second with no NAK. The
+probe of the trunk read MSTM_CTRL as 04 again.
 
+Unplug and replug during DPMS off: four runs, one cable at a time
+(HDMI and DP, 90 s off, cable moved 4 to 7 s into the off period). In
+all four the dock raised a long HPD on the trunk and AUX failed for
+about a second, so i915 took the normal disconnect path ("MST device
+may have disappeared"): the MSTM_CTRL write failed with -6 and the
+three MST connectors were unregistered. One second later MST was
+enabled again (0x111 <- 07), LINK_ADDRESS was sent and the topology
+was rebuilt with new connectors (DP-5, DP-10, DP-11), so the names
+were not kept in these runs. There was no "MST mode got reset"
+message. The wake that followed was normal, with link training at
+810000 x4 and payloads only for the monitors that were connected.
+
+There was no LINK_ADDRESS after the wake. As I read the code,
+set_mst() clears the paused state and nothing paused it again after
+the rebuild, so unpause() returned false and no re-probe followed.
+The only noise was the usual REMOTE_DPCD_READ NAKs, 4 to 10 per run,
+the same as the 4 at boot when the topology is first probed.
+
+So on this dock a sink change while paused did not reach the re-probe
+at unpause: the dock raised a long HPD and the disconnect path rebuilt
+the topology first. The unpause re-probe was only exercised by the
+normal wakes above (one LINK_ADDRESS, no topology change).
+
+The logs are available if you want them.
