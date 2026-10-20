@@ -2,60 +2,131 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E727606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:29:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553AB606A322
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:41:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ldbNPAVz
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69B2E10ED2D;
-	Tue, 20 Oct 2026 11:29:15 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B507910ED2D
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:29:09 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 04FE21596;
- Tue, 20 Oct 2026 04:29:06 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 55BE03F7B4;
- Tue, 20 Oct 2026 04:29:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792495749; bh=lPExewzubDO61zAC5f5szD4RLVzqEIiHTrrWFFbXWiU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ldbNPAVz3IGbNhuOHCkg9AxOAasSipoy6B5lGBDzvn/l+iQ+xrMGjWe9+CJcsFl11
- 6SP4SsUPLz31dVdUWoNT+EX1DN80XrhHO69Qp0pChRZFwxSOXLiZHUB06wU7fItPn9
- 6t/Ojv9c6iy2iP/FPyS1UkbN/qZvM71rUcPMepAk=
-Message-ID: <be6cd787-8502-4499-ad62-597c1b9b7702@arm.com>
-Date: Tue, 20 Oct 2026 12:28:54 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B03E10F3D8;
+	Tue, 20 Oct 2026 11:40:58 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7DFD10F3D8
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:40:46 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 666751F79E;
+ Tue, 20 Oct 2026 11:40:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792496445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+ b=oMZTZiUtqRTMwP2ImRD1ja7hn9PaLPxQjg4GEwt1yhwYDQkzbptvhdnPF7dTYJBP1k1aop
+ 8b+oCo9TISXscQrEs5BV0m6NZnm8diYAG3gG7J4Y6G30VBspfOR4QECD+aM9lKVABvGbm/
+ YkOO64+OL7aqsajkJcjTE3r5+pJqj9s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792496445;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+ b=nEJTvPJ04pvnLGmDZZqAKfTyJNUYY2/k179V5yUUJ05c1UbFLEfqM3vlyvFs1D5+oZ5jvP
+ s75ww03ph1292VBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792496445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+ b=oMZTZiUtqRTMwP2ImRD1ja7hn9PaLPxQjg4GEwt1yhwYDQkzbptvhdnPF7dTYJBP1k1aop
+ 8b+oCo9TISXscQrEs5BV0m6NZnm8diYAG3gG7J4Y6G30VBspfOR4QECD+aM9lKVABvGbm/
+ YkOO64+OL7aqsajkJcjTE3r5+pJqj9s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792496445;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+ b=nEJTvPJ04pvnLGmDZZqAKfTyJNUYY2/k179V5yUUJ05c1UbFLEfqM3vlyvFs1D5+oZ5jvP
+ s75ww03ph1292VBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E863136C6;
+ Tue, 20 Oct 2026 11:40:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id X/A/KjxT12oSDQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:40:44 +0000
+Message-ID: <d2490a35-df4e-450f-955a-0491529a3772@suse.de>
+Date: Tue, 20 Oct 2026 13:40:44 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/11] iommu: Let 32-bit ARM drivers opt into a DMA API
- default domain
-To: Mikko Perttunen <mperttunen@nvidia.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
- Thierry Reding <thierry.reding@kernel.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-References: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
- <20261016-b4-arm32-iommu-dma-cookie-v2-7-b06842a01938@nvidia.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261016-b4-arm32-iommu-dma-cookie-v2-7-b06842a01938@nvidia.com>
+Subject: Re: [PATCH] fbdev: bitblit: Fix glyph clipping when fbcon pans
+To: CatMe0w <CatMe0w@live.cn>, Helge Deller <deller@gmx.de>,
+ Simona Vetter <simona@ffwll.ch>,
+ Albin Babu Varghese <albinbabuvarghese20@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.29
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.29 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[live.cn,gmx.de,ffwll.ch,gmail.com];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de,live.cn];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[8];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,140 +138,94 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 16/10/2026 7:46 am, Mikko Perttunen wrote:
-> iommu_get_default_domain_type() unconditionally forces IDENTITY on
-> 32-bit ARM as ARM_DMA_USE_IOMMU installs its own UNMANAGED domain on top
-> of whatever the group already had. Now that the ARM DMA API state is an
-> ordinary domain cookie, IOMMU drivers can ask for a real
-> IOMMU_DOMAIN_DMA default domain instead. Drop the override so that
-> ->def_domain_type is honoured, and let a driver-requested DMA domain
-> through the !CONFIG_IOMMU_DMA guard when ARM_DMA_USE_IOMMU can back it.
-> 
-> IOMMU_DOMAIN_DMA stays strictly opt-in on 32-bit ARM and is never the
-> fallback to avoid unexpected changes, as drivers today return 0 from
-> ->def_domain_type while expecting the legacy behaviour.
-> 
-> Behaviour is therefore unchanged for every existing 32-bit ARM IOMMU
-> driver:
-> 
-> - exynos-iommu, omap-iommu, rockchip-iommu, msm_iommu, ipmmu-vmsa,
->    mtk_iommu*, sun50i-iommu and qcom_iommu have no ->def_domain_type,
->    so iommu_get_def_domain_type() returns the unchanged cur_type of 0,
->    which is forced to IDENTITY as before.
-> - arm-smmu returns IDENTITY for legacy bindings and 0 otherwise, which
->    ends up in the same place.
-> - tegra-smmu returns IDENTITY explicitly, and keeps doing so until a
->    later patch.
-> 
-> Also move the static_assert on the two DMA API implementations being
-> mutually exclusive to drivers/iommu/dma-iommu.h, next to the
-> declarations that depend on it.
-> 
-> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+Hi
+
+Am 17.10.26 um 10:53 schrieb CatMe0w:
+> Commit 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix
+> vmalloc-out-of-bounds") made bit_putcs() clip glyphs to var.yres. When
+> fbcon scrolls by panning, it draws text rows up to var.yres_virtual,
+> so after the first pan most new text is not drawn until the next full
+> redraw. This affects fbdev drivers that set FBINFO_HWACCEL_YPAN or
+> FBINFO_HWACCEL_YWRAP, such as vesafb with the ypan option, when
+> CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION=y.
+>
+> Clip to GETVYRES() instead, which fbcon_ud.c and fbcon_ccw.c already
+> use as the drawing area height. When fbcon does not pan, GETVYRES()
+> returns var.yres, keeping the existing bound. When fbcon pans, it
+> returns var.yres_virtual, which the framebuffer memory must cover
+> anyway for panning to work.
+>
+> Fixes: 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix vmalloc-out-of-bounds")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: CatMe0w <CatMe0w@live.cn>
+
+This patch restores fbcon on my test system with sisfb.
+
+Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+Closes: 
+https://lore.kernel.org/linux-fbdev/b8b52ffd-ecec-4fba-b432-ba32135c2f99@suse.de/
+
+Best regards
+Thomas
+
+
 > ---
->   drivers/iommu/dma-iommu.h |  3 +++
->   drivers/iommu/iommu.c     | 20 +++++---------------
->   2 files changed, 8 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/iommu/dma-iommu.h b/drivers/iommu/dma-iommu.h
-> index 71b23cb698c0..24fa4165450f 100644
-> --- a/drivers/iommu/dma-iommu.h
-> +++ b/drivers/iommu/dma-iommu.h
-> @@ -12,6 +12,9 @@
->    * IOMMU_DOMAIN_DMA default domains. Only one provider can be compiled in at a
->    * time.
->    */
-> +static_assert(!(IS_ENABLED(CONFIG_IOMMU_DMA) &&
-> +		IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)));
-> +
-
-Don't the first couple of patches already make this redundant, since 
-such a build would now fail anyway due to multiple definitions of 
-iommu_setup_dma_ops() etc.?
-
->   #if defined(CONFIG_ARM_DMA_USE_IOMMU)
+>   drivers/video/fbdev/core/bitblit.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
+> index 39f44258d793..323a9e79a684 100644
+> --- a/drivers/video/fbdev/core/bitblit.c
+> +++ b/drivers/video/fbdev/core/bitblit.c
+> @@ -18,6 +18,7 @@
+>   #include <linux/console.h>
+>   #include <asm/types.h>
+>   #include "fbcon.h"
+> +#include "fbcon_rotate.h"
 >   
->   #include <asm/dma-iommu.h>
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index 5fbb76d44a1e..0d812c4b9f08 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -1884,18 +1884,6 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
+>   /*
+>    * Accelerated handlers.
+> @@ -150,7 +151,9 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
+>   		      const unsigned short *s, int count, int yy, int xx,
+>   		      int fg, int bg)
+>   {
+> +	struct fbcon_par *par = info->fbcon_par;
+>   	struct fb_image image;
+> +	u32 vyres = GETVYRES(par->p, info);
+>   	u32 width = DIV_ROUND_UP(vc->vc_font.width, 8);
+>   	u32 cellsize = width * vc->vc_font.height;
+>   	u32 maxcnt = info->pixmap.size/cellsize;
+> @@ -167,10 +170,10 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
+>   	image.height = vc->vc_font.height;
+>   	image.depth = 1;
 >   
->   	lockdep_assert_held(&group->mutex);
+> -	if (image.dy >= info->var.yres)
+> +	if (image.dy >= vyres)
+>   		return;
 >   
-> -	/*
-> -	 * ARM32 drivers supporting CONFIG_ARM_DMA_USE_IOMMU can declare an
-> -	 * identity_domain and it will automatically become their default
-> -	 * domain. Later on ARM_DMA_USE_IOMMU will install its UNMANAGED domain.
-> -	 * Override the selection to IDENTITY.
-> -	 */
-> -	if (IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)) {
-> -		static_assert(!(IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU) &&
-> -				IS_ENABLED(CONFIG_IOMMU_DMA)));
-> -		driver_type = IOMMU_DOMAIN_IDENTITY;
-> -	}
-> -
->   	for_each_group_device(group, gdev) {
->   		driver_type = iommu_get_def_domain_type(group, gdev->dev,
->   							driver_type);
-> @@ -1913,11 +1901,13 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
+> -	image.height = min(image.height, info->var.yres - image.dy);
+> +	image.height = min(image.height, vyres - image.dy);
 >   
->   	/*
->   	 * If the common dma ops are not selected in kconfig then we cannot use
-> -	 * IOMMU_DOMAIN_DMA at all. Force IDENTITY if nothing else has been
-> -	 * selected.
-> +	 * IOMMU_DOMAIN_DMA at all, unless this is ARM32 and the driver asked
-> +	 * for it explicitly, where CONFIG_ARM_DMA_USE_IOMMU provides the
-> +	 * implementation. Force IDENTITY if nothing else has been selected.
->   	 */
->   	if (!IS_ENABLED(CONFIG_IOMMU_DMA)) {
-> -		if (WARN_ON(driver_type == IOMMU_DOMAIN_DMA))
-> +		if (WARN_ON(driver_type == IOMMU_DOMAIN_DMA &&
-> +			    !IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)))
+>   	if (attribute) {
+>   		buf = kmalloc(cellsize, GFP_ATOMIC);
+>
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
 
-This ends up looking a bit odd, and not clear that it's still more or 
-less the same special-case workaround seemingly being removed in the 
-hunk above.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-At this point I'd rather push any remaining identity special cases into 
-the relevant drivers, however I'm somewhat more confident that there may 
-not actually need to be any:
-
-- exynos-iommu, omap-iommu, rockchip-iommu, msm_iommu: AFAICS these all 
-only ever have a single client device, so the per-group implicit domain 
-should be equivalent to the per-device explicit one, so they should not 
-be impacted by switching (provided the "throw away the ARM domain" idiom 
-in some of their client drivers becomes non-destructive as mentioned)
-
-- mtk_iommu, sun50i-iommu, qcom_iommu, arm_smmu: While Kconfig might 
-allow building them, I'm not sure we really support the first 3 on 
-32-bit at all, but again since these all have no special CONFIG_ARM 
-group handling anyway then either they must work out as above or they're 
-already broken, and thus at most the change might un-break them.
-
-- mtk_iommu_v1 and ipmmu-vmsa probably wouldn't care given that they end 
-up attaching to their own shared domain anyway - they just can't wait to 
-be able to use a proper singleton group to rip all that out :D
-
-The main reason for forcing identity was to meet the expectations of the 
-existing ARM DMA ops setup, but if we're now touching the ARM code to 
-properly tie that in to the IOMMU flow, then I think we can just do the 
-right thing.
-
-Thanks,
-Robin.
-
->   			return -1;
->   		if (!driver_type)
->   			driver_type = IOMMU_DOMAIN_IDENTITY;
-> 
 
